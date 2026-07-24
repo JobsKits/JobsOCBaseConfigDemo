@@ -16,6 +16,8 @@
 @interface JobsOCRefreshComponent ()
 
 Prop_assign(readwrite) JobsOCRefreshState state;
+Prop_strong(readwrite,nullable) id<JobsRefreshAnimatorProtocol> animator;
+Prop_strong(nullable) UIView *animatorView;
 Prop_strong() UIActivityIndicatorView *indicatorView;
 Prop_strong() UIImageView *imageView;
 Prop_strong() UILabel *statusLabel;
@@ -24,6 +26,7 @@ Prop_strong() UILabel *timeLabel;
 Prop_strong(nullable) NSDate *lastRefreshedAt;
 Prop_strong(nullable) NSArray<UIImage *> *frameImages;
 Prop_assign() NSUInteger frameImageIndex;
+Prop_assign() CGFloat lastProgress;
 #if defined(Lottie_h)
 Prop_strong(nullable) LOTAnimationView *lottieView;
 Prop_copy(nullable) NSString *currentLottieName;
@@ -36,6 +39,7 @@ Prop_strong(nullable) JobsTimer *frameTimer;
 
 @implementation JobsOCRefreshComponent
 - (void)dealloc {
+    [self.animator refreshAnimatorApplyPhase:JobsRefreshAnimatorPhaseInactive progress:0];
     [self stopFrameTimer];
     [self stopLottie];
 }
@@ -55,7 +59,11 @@ Prop_strong(nullable) JobsTimer *frameTimer;
         self.statusLabel.addOn(self);
         self.timePrefixLabel.addOn(self);
         self.timeLabel.addOn(self);
-        [self applyState:JobsOCRefreshStateIdle progress:0];
+        if (config.animator) {
+            [self replaceAnimator:config.animator];
+        } else {
+            [self applyState:JobsOCRefreshStateIdle progress:0];
+        }
     };return self;
 }
 
@@ -67,46 +75,71 @@ Prop_strong(nullable) JobsTimer *frameTimer;
     self.lastRefreshedAt = date;
 }
 
+- (void)replaceAnimator:(id<JobsRefreshAnimatorProtocol>)animator {
+    if (self.animator == animator) return;
+    [self.animator refreshAnimatorApplyPhase:JobsRefreshAnimatorPhaseInactive progress:0];
+    [self.animatorView removeFromSuperview];
+    self.animator = animator;
+    self.config.animator = animator;
+    self.animatorView = animator.refreshAnimatorView;
+    if (self.animatorView) {
+        self.animatorView.addOn(self);
+    }
+    [self stopVisualAnimating];
+    [self applyState:self.state progress:self.lastProgress];
+    [self setNeedsLayout];
+}
+
 - (void)applyState:(JobsOCRefreshState)state progress:(CGFloat)progress {
     self.state = state;
+    self.lastProgress = progress;
     self.timePrefixLabel.byHidden(YES);
     self.timeLabel.byHidden(YES);
     switch (state) {
+        /// 处理 JobsOCRefreshStateIdle 分支
         case JobsOCRefreshStateIdle:
             [self stopVisualAnimating];
             self.statusLabel.byText([self displayText:self.config.idleText]);
             break;
+        /// 处理 JobsOCRefreshStatePulling 分支
         case JobsOCRefreshStatePulling:
             [self stopVisualAnimating];
             self.statusLabel.byText([self displayText:[NSString stringWithFormat:@"%@ %.0f%%",
                                                        self.config.pullingText,
                                                        MIN(1, MAX(0, progress)) * 100]]);
             break;
+        /// 处理 JobsOCRefreshStateReady 分支
         case JobsOCRefreshStateReady:
             [self stopVisualAnimating];
             self.statusLabel.byText([self displayText:[self.config readyTextForRole:self.role]]);
             break;
+        /// 处理 JobsOCRefreshStateRefreshing 分支
         case JobsOCRefreshStateRefreshing:
             [self startVisualAnimating];
             self.statusLabel.byText([self displayText:[self.config refreshingTextForRole:self.role]]);
             [self updateTimeIfNeeded];
             break;
+        /// 处理 JobsOCRefreshStateEnding 分支
         case JobsOCRefreshStateEnding:
             [self stopVisualAnimating];
             self.statusLabel.byText([self displayText:[self.config refreshingTextForRole:self.role]]);
             break;
+        /// 处理 JobsOCRefreshStateFailed 分支
         case JobsOCRefreshStateFailed:
             [self stopVisualAnimating];
             self.statusLabel.byText([self displayText:self.config.failedText]);
             break;
+        /// 处理 JobsOCRefreshStateDisabled 分支
         case JobsOCRefreshStateDisabled:
             [self stopVisualAnimating];
             self.statusLabel.byText([self displayText:self.config.disabledText]);
             break;
+        /// 处理 JobsOCRefreshStateNoMoreData 分支
         case JobsOCRefreshStateNoMoreData:
             [self stopVisualAnimating];
             self.statusLabel.byText([self displayText:self.config.noMoreDataText]);
             break;
+        /// 处理 JobsOCRefreshStateRemoved 分支
         case JobsOCRefreshStateRemoved:
             [self stopVisualAnimating];
             self.statusLabel.byText(nil);
@@ -114,18 +147,35 @@ Prop_strong(nullable) JobsTimer *frameTimer;
             self.timeLabel.byText(nil);
             break;
     }
+    self.statusLabel.byHidden(!self.config.showsText);
+    [self applyAnimatorForState:state progress:progress];
     [self setNeedsLayout];
 }
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    CGFloat iconSide = 20;
+    CGSize animatorSize = self.animator ? self.animator.refreshAnimatorPreferredSize : CGSizeMake(20, 20);
+    animatorSize.width = MAX(1, animatorSize.width);
+    animatorSize.height = MAX(1, animatorSize.height);
+    CGFloat iconSide = self.animator ? MAX(animatorSize.width, animatorSize.height) : 20;
     CGFloat spacing = 8;
     BOOL horizontal = JobsOCRefreshPositionIsHorizontal(self.position);
     CGFloat boundsW = CGRectGetWidth(self.bounds);
     CGFloat boundsH = CGRectGetHeight(self.bounds);
+    if (self.animatorView && !self.config.showsText) {
+        self.animatorView.byFrame(CGRectMake((boundsW - animatorSize.width) * 0.5,
+                                             (boundsH - animatorSize.height) * 0.5,
+                                             animatorSize.width,
+                                             animatorSize.height));
+        self.statusLabel.byFrame(CGRectZero);
+        self.timePrefixLabel.byFrame(CGRectZero);
+        self.timeLabel.byFrame(CGRectZero);
+        return;
+    }
     if (horizontal) {
-        BOOL visualVisible = self.indicatorView.isAnimating || !self.imageView.hidden;
+        BOOL visualVisible = self.indicatorView.isAnimating ||
+            !self.imageView.hidden ||
+            (self.animatorView && !self.animatorView.hidden);
 #if defined(Lottie_h)
         visualVisible = visualVisible || (self.lottieView && !self.lottieView.hidden);
 #endif
@@ -156,6 +206,10 @@ Prop_strong(nullable) JobsTimer *frameTimer;
                                       iconSide);
         self.imageView.byFrame(iconFrame);
         self.indicatorView.byFrame(iconFrame);
+        self.animatorView.byFrame(CGRectMake(CGRectGetMidX(iconFrame) - animatorSize.width * 0.5,
+                                             CGRectGetMidY(iconFrame) - animatorSize.height * 0.5,
+                                             animatorSize.width,
+                                             animatorSize.height));
 #if defined(Lottie_h)
         if (self.lottieView) self.lottieView.byFrame(iconFrame);
 #endif
@@ -187,6 +241,10 @@ Prop_strong(nullable) JobsTimer *frameTimer;
         CGFloat textY = centerY - textH * 0.5;
         self.imageView.byFrame(CGRectMake(startX, centerY - iconSide * 0.5, iconSide, iconSide));
         self.indicatorView.byFrame(self.imageView.frame);
+        self.animatorView.byFrame(CGRectMake(CGRectGetMidX(self.imageView.frame) - animatorSize.width * 0.5,
+                                             CGRectGetMidY(self.imageView.frame) - animatorSize.height * 0.5,
+                                             animatorSize.width,
+                                             animatorSize.height));
 #if defined(Lottie_h)
         if (self.lottieView) self.lottieView.byFrame(self.imageView.frame);
 #endif
@@ -205,10 +263,17 @@ Prop_strong(nullable) JobsTimer *frameTimer;
     [self stopFrameTimer];
     self.imageView.byHidden(YES);
     [self.imageView stopAnimating];
+    if (self.animator) {
+        self.indicatorView.byStopAnimating();
+        [self stopLottie];
+        return;
+    }
     switch (self.config.animationType) {
+        /// 处理 JobsOCRefreshAnimationTypeSystem 分支
         case JobsOCRefreshAnimationTypeSystem:
             self.indicatorView.byStartAnimating();
             break;
+        /// 处理 JobsOCRefreshAnimationTypeLottie 分支
         case JobsOCRefreshAnimationTypeLottie:
             if ([self applyLottie]) {
                 self.indicatorView.byStopAnimating();
@@ -216,6 +281,7 @@ Prop_strong(nullable) JobsTimer *frameTimer;
                 self.indicatorView.byStartAnimating();
             }
             break;
+        /// 处理 JobsOCRefreshAnimationTypeGIF 分支
         case JobsOCRefreshAnimationTypeGIF:
             if ([self applyGIF]) {
                 self.indicatorView.byStopAnimating();
@@ -223,6 +289,7 @@ Prop_strong(nullable) JobsTimer *frameTimer;
                 self.indicatorView.byStartAnimating();
             }
             break;
+        /// 处理 JobsOCRefreshAnimationTypeFrameImages 分支
         case JobsOCRefreshAnimationTypeFrameImages:
             if ([self applyFrameImages]) {
                 self.indicatorView.byStopAnimating();
@@ -230,6 +297,7 @@ Prop_strong(nullable) JobsTimer *frameTimer;
                 self.indicatorView.byStartAnimating();
             }
             break;
+        /// 处理 JobsOCRefreshAnimationTypeNetworkImage 分支
         case JobsOCRefreshAnimationTypeNetworkImage:
             if ([self applyNetworkImage]) {
                 self.indicatorView.byStopAnimating();
@@ -246,6 +314,44 @@ Prop_strong(nullable) JobsTimer *frameTimer;
     self.imageView.byHidden(YES);
     [self stopFrameTimer];
     [self stopLottie];
+}
+
+- (void)applyAnimatorForState:(JobsOCRefreshState)state progress:(CGFloat)progress {
+    if (!self.animator) return;
+    JobsRefreshAnimatorPhase phase = JobsRefreshAnimatorPhaseInactive;
+    switch (state) {
+        /// 处理 JobsOCRefreshStateIdle 分支
+        case JobsOCRefreshStateIdle:
+            phase = JobsRefreshAnimatorPhaseIdle;
+            break;
+        /// 处理 JobsOCRefreshStatePulling 分支
+        case JobsOCRefreshStatePulling:
+            phase = JobsRefreshAnimatorPhasePulling;
+            break;
+        /// 处理 JobsOCRefreshStateReady 分支
+        case JobsOCRefreshStateReady:
+            phase = JobsRefreshAnimatorPhaseReady;
+            break;
+        /// 处理 JobsOCRefreshStateRefreshing 分支
+        case JobsOCRefreshStateRefreshing:
+            phase = JobsRefreshAnimatorPhaseRefreshing;
+            break;
+        /// 处理 JobsOCRefreshStateEnding 分支
+        case JobsOCRefreshStateEnding:
+            phase = JobsRefreshAnimatorPhaseEnding;
+            break;
+        /// 处理 JobsOCRefreshStateFailed 分支
+        case JobsOCRefreshStateFailed:
+        /// 处理 JobsOCRefreshStateDisabled 分支
+        case JobsOCRefreshStateDisabled:
+        /// 处理 JobsOCRefreshStateNoMoreData 分支
+        case JobsOCRefreshStateNoMoreData:
+        /// 处理 JobsOCRefreshStateRemoved 分支
+        case JobsOCRefreshStateRemoved:
+            phase = JobsRefreshAnimatorPhaseInactive;
+            break;
+    }
+    [self.animator refreshAnimatorApplyPhase:phase progress:progress];
 }
 
 - (BOOL)applyFrameImages {

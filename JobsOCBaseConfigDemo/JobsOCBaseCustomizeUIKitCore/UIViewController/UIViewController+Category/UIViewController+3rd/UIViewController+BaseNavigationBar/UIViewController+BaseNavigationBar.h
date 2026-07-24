@@ -53,6 +53,8 @@ Prop_strong()UIColor *foregroundColorAttributeNameCor;
 Prop_strong()UIFont *fontAttributeName;
 
 -(JobsRetVCByIDBlock _Nonnull)goBack;
+/// 为 Demo 导航子页面注入全局主题切换按钮，并保留已有右侧业务按钮。
+-(void)jobs_ensureDemoThemeButton;
 
 @end
 

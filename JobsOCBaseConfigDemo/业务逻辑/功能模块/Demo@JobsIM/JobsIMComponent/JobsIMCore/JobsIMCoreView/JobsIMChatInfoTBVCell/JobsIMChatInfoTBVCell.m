@@ -220,12 +220,15 @@ UITextFieldProtocol_synthesize_part2
                                                      JobsIMChatInfoTBVDefaultCellHeight() - 5));
                     make.top.equalTo(self.contentView).offset(5);
                     switch (self.infoLocation) {
+                        /// 处理 InfoLocation_Left 分支
                         case InfoLocation_Left:{
                             make.left.equalTo(self.contentView).offset(10);
                         }break;
+                        /// 处理 InfoLocation_Right 分支
                         case InfoLocation_Right:{
                             make.right.equalTo(self.contentView).offset(-10);
                         }break;
+                        /// 未匹配已知分支时执行兜底处理
                         default:
                             break;
                     }
@@ -247,12 +250,15 @@ UITextFieldProtocol_synthesize_part2
                     make.bottom.equalTo(self.contentView).offset(-5);
                     make.width.mas_equalTo(self.contentWidth);
                     switch (self.infoLocation) {
+                        /// 处理 InfoLocation_Left 分支
                         case InfoLocation_Left:{
                             make.left.equalTo(self.iconIMGV.mas_right).offset(5);
                         }break;
+                        /// 处理 InfoLocation_Right 分支
                         case InfoLocation_Right:{
                             make.right.equalTo(self.iconIMGV.mas_left).offset(-5);
                         }break;
+                        /// 未匹配已知分支时执行兜底处理
                         default:
                             break;
                     }
@@ -278,12 +284,15 @@ UITextFieldProtocol_synthesize_part2
                 make.top.equalTo(self.iconIMGV);
                 make.bottom.equalTo(self.iconIMGV.mas_centerY).offset(-3);
                 switch (self.infoLocation) {
+                    /// 处理 InfoLocation_Left 分支
                     case InfoLocation_Left:{
                         make.left.equalTo(self.iconIMGV.mas_right).offset(5);
                     }break;
+                    /// 处理 InfoLocation_Right 分支
                     case InfoLocation_Right:{
                         make.right.equalTo(self.iconIMGV.mas_left).offset(-5);
                     }break;
+                    /// 未匹配已知分支时执行兜底处理
                     default:
                         break;
                 }
@@ -330,12 +339,15 @@ UITextFieldProtocol_synthesize_part2
                     make.bottom.equalTo(self.chatBubbleIMGV);
                     make.size.mas_equalTo(CGSizeMake(JobsIMChatInfoTimeLabWidth(), 20));
                     switch (self.infoLocation) {
+                        /// 处理 InfoLocation_Left 分支
                         case InfoLocation_Left:{
                             make.left.equalTo(self.chatBubbleIMGV.mas_right).offset(5);
                         }break;
+                        /// 处理 InfoLocation_Right 分支
                         case InfoLocation_Right:{
                             make.right.equalTo(self.chatBubbleIMGV.mas_left).offset(-5);
                         }break;
+                        /// 未匹配已知分支时执行兜底处理
                         default:
                         break;
                     }

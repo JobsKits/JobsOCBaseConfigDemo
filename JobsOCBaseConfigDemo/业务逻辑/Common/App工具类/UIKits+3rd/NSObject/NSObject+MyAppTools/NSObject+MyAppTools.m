@@ -6,6 +6,7 @@
 //
 
 #import "NSObject+MyAppTools.h"
+#import "NSObject+Model.h"
 
 @implementation NSObject (MyAppTools)
 #pragma mark —— 一些私有化方法
@@ -90,12 +91,14 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
                                         direction:(UICollectionViewScrollDirection)direction{
     if (itemCount == 0 || itemsPerLine == 0) return CGSizeZero;
     switch (direction) {
+        /// 处理 UICollectionViewScrollDirectionVertical 分支
         case UICollectionViewScrollDirectionVertical: {
             NSUInteger rows = (itemCount + itemsPerLine - 1) / itemsPerLine;
             CGFloat height = cellSize.height * rows + lineSpacing * (rows - 1);
             CGFloat width = cellSize.width * itemsPerLine + interItemSpacing * (itemsPerLine - 1);
             return CGSizeMake(width, height);
         }
+        /// 处理 UICollectionViewScrollDirectionHorizontal 分支
         case UICollectionViewScrollDirectionHorizontal: {
             NSUInteger columns = (itemCount + itemsPerLine - 1) / itemsPerLine;
             CGFloat width = cellSize.width * columns + interItemSpacing * (columns - 1);
@@ -279,57 +282,75 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
 -(NSString * _Nullable)imageNameOrURLString{
     NSString *imgNameOrUrlStr = @"";
     switch (iPhScrPx()) {
-        case iPhScrPxType_4_4S:{// 屏幕分辨率(px) = 640 * 960
+        /// 屏幕分辨率(px) = 640 * 960
+        case iPhScrPxType_4_4S:{
             imgNameOrUrlStr = @"640x960.png";
         }break;
-        case iPhScrPxType_5_5C_5S_SE:{// 屏幕分辨率(px) = 640 * 1136
+        /// 屏幕分辨率(px) = 640 * 1136
+        case iPhScrPxType_5_5C_5S_SE:{
             imgNameOrUrlStr = @"640x1136.png";
         }break;
-        case iPhScrPxType_6_6S_7_8_SE2_SE3:{// 屏幕分辨率(px) = 750 * 1334
+        /// 屏幕分辨率(px) = 750 * 1334
+        case iPhScrPxType_6_6S_7_8_SE2_SE3:{
             imgNameOrUrlStr = @"750x1334.png";
         }break;
-        case iPhScrPxType_6_6S_7_8Plus:{// 屏幕分辨率(px) = 1242 * 2208
+        /// 屏幕分辨率(px) = 1242 * 2208
+        case iPhScrPxType_6_6S_7_8Plus:{
             imgNameOrUrlStr = @"1242x2208.png";
         }break;
-        case iPhScrPxType_X_XS_11Pro:{// 屏幕分辨率(px) = 1125 * 2436
+        /// 屏幕分辨率(px) = 1125 * 2436
+        case iPhScrPxType_X_XS_11Pro:{
             imgNameOrUrlStr = @"1125x2436.png";
         }break;
-        case iPhScrPxType_XR_11:{// 屏幕分辨率(px) = 828 * 1792
+        /// 屏幕分辨率(px) = 828 * 1792
+        case iPhScrPxType_XR_11:{
             imgNameOrUrlStr = @"828x1792.png";
         }break;
-        case iPhScrPxType_XSMax_11ProMax:{// 屏幕分辨率(px) = 1242 * 2688
+        /// 屏幕分辨率(px) = 1242 * 2688
+        case iPhScrPxType_XSMax_11ProMax:{
             imgNameOrUrlStr = @"1242x2688.png";
         }break;
-        case iPhScrPxType_12mini:{// 屏幕分辨率(px) = 1125 * 2436
+        /// 屏幕分辨率(px) = 1125 * 2436
+        case iPhScrPxType_12mini:{
             imgNameOrUrlStr = @"1125x2436.png";
         }break;
-        case iPhScrPxType_12_12Pro:{// 屏幕分辨率(px) = 1170 * 2532
+        /// 屏幕分辨率(px) = 1170 * 2532
+        case iPhScrPxType_12_12Pro:{
             imgNameOrUrlStr = @"1170x2532.png";
         }break;
-        case iPhScrPxType_12ProMax:{// 屏幕分辨率(px) = 1284 * 2778
+        /// 屏幕分辨率(px) = 1284 * 2778
+        case iPhScrPxType_12ProMax:{
             imgNameOrUrlStr = @"1284x2778.png";
         }break;
-        case iPhScrPxType_13mini:{// 屏幕分辨率(px) = 1125 * 2436
+        /// 屏幕分辨率(px) = 1125 * 2436
+        case iPhScrPxType_13mini:{
             imgNameOrUrlStr = @"1125x2436.png";
         }break;
-        case iPhScrPxType_13_13Pro:{// 屏幕分辨率(px) = 1170 * 2532
+        /// 屏幕分辨率(px) = 1170 * 2532
+        case iPhScrPxType_13_13Pro:{
             imgNameOrUrlStr = @"1170x2532.png";
         }break;
-        case iPhScrPxType_13ProMax:{// 屏幕分辨率(px) = 1284 * 2778
+        /// 屏幕分辨率(px) = 1284 * 2778
+        case iPhScrPxType_13ProMax:{
             imgNameOrUrlStr = @"1284x2778.png";
         }break;
-        case iPhScrPxType_14:{// 屏幕分辨率(px) = 1125 * 2436
+        /// 屏幕分辨率(px) = 1125 * 2436
+        case iPhScrPxType_14:{
             imgNameOrUrlStr = @"1125x2436.png";
         }break;
-        case iPhScrPxType_14Plus:{// 屏幕分辨率(px) = 1284 * 2778
+        /// 屏幕分辨率(px) = 1284 * 2778
+        case iPhScrPxType_14Plus:{
             imgNameOrUrlStr = @"1284x2778.png";
         }break;
-        case iPhScrPxType_14Pro:{// 屏幕分辨率(px) = 1179 * 2556
+        /// 屏幕分辨率(px) = 1179 * 2556
+        case iPhScrPxType_14Pro:{
             imgNameOrUrlStr = @"1179x2556.png";
         }break;
-        case iPhScrPxType_14ProMax:{// 屏幕分辨率(px) = 1290 * 2796
+        /// 屏幕分辨率(px) = 1290 * 2796
+        case iPhScrPxType_14ProMax:{
             imgNameOrUrlStr = @"1290x2796.png";
         }break;
+        /// 未匹配已知分支时执行兜底处理
         default:{
             imgNameOrUrlStr = @"启动页SLOGAN.png";
         }break;
@@ -339,57 +360,75 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
 -(NSString * _Nullable)videoNameOrURLString{
     NSString *imgNameOrUrlStr = @"";
     switch (iPhScrPx()) {
-        case iPhScrPxType_4_4S:{// 屏幕分辨率(px) = 640 * 960
+        /// 屏幕分辨率(px) = 640 * 960
+        case iPhScrPxType_4_4S:{
             imgNameOrUrlStr = @"非iph_X.mp4";
         }break;
-        case iPhScrPxType_5_5C_5S_SE:{// 屏幕分辨率(px) = 640 * 1136
+        /// 屏幕分辨率(px) = 640 * 1136
+        case iPhScrPxType_5_5C_5S_SE:{
             imgNameOrUrlStr = @"非iph_X.mp4";
         }break;
-        case iPhScrPxType_6_6S_7_8_SE2_SE3:{// 屏幕分辨率(px) = 750 * 1334
+        /// 屏幕分辨率(px) = 750 * 1334
+        case iPhScrPxType_6_6S_7_8_SE2_SE3:{
             imgNameOrUrlStr = @"非iph_X.mp4";
         }break;
-        case iPhScrPxType_6_6S_7_8Plus:{// 屏幕分辨率(px) = 1242 * 2208
+        /// 屏幕分辨率(px) = 1242 * 2208
+        case iPhScrPxType_6_6S_7_8Plus:{
             imgNameOrUrlStr = @"非iph_X.mp4";
         }break;
-        case iPhScrPxType_X_XS_11Pro:{// 屏幕分辨率(px) = 1125 * 2436
+        /// 屏幕分辨率(px) = 1125 * 2436
+        case iPhScrPxType_X_XS_11Pro:{
             imgNameOrUrlStr = @"iph_X.mp4";
         }break;
-        case iPhScrPxType_XR_11:{// 屏幕分辨率(px) = 828 * 1792
+        /// 屏幕分辨率(px) = 828 * 1792
+        case iPhScrPxType_XR_11:{
             imgNameOrUrlStr = @"iph_X.mp4";
         }break;
-        case iPhScrPxType_XSMax_11ProMax:{// 屏幕分辨率(px) = 1242 * 2688
+        /// 屏幕分辨率(px) = 1242 * 2688
+        case iPhScrPxType_XSMax_11ProMax:{
             imgNameOrUrlStr = @"iph_X.mp4";
         }break;
-        case iPhScrPxType_12mini:{// 屏幕分辨率(px) = 1125 * 2436
+        /// 屏幕分辨率(px) = 1125 * 2436
+        case iPhScrPxType_12mini:{
             imgNameOrUrlStr = @"iph_X.mp4";
         }break;
-        case iPhScrPxType_12_12Pro:{// 屏幕分辨率(px) = 1170 * 2532
+        /// 屏幕分辨率(px) = 1170 * 2532
+        case iPhScrPxType_12_12Pro:{
             imgNameOrUrlStr = @"iph_X.mp4";
         }break;
-        case iPhScrPxType_12ProMax:{// 屏幕分辨率(px) = 1284 * 2778
+        /// 屏幕分辨率(px) = 1284 * 2778
+        case iPhScrPxType_12ProMax:{
             imgNameOrUrlStr = @"iph_X.mp4";
         }break;
-        case iPhScrPxType_13mini:{// 屏幕分辨率(px) = 1125 * 2436
+        /// 屏幕分辨率(px) = 1125 * 2436
+        case iPhScrPxType_13mini:{
             imgNameOrUrlStr = @"iph_X.mp4";
         }break;
-        case iPhScrPxType_13_13Pro:{// 屏幕分辨率(px) = 1170 * 2532
+        /// 屏幕分辨率(px) = 1170 * 2532
+        case iPhScrPxType_13_13Pro:{
             imgNameOrUrlStr = @"iph_X.mp4";
         }break;
-        case iPhScrPxType_13ProMax:{// 屏幕分辨率(px) = 1284 * 2778
+        /// 屏幕分辨率(px) = 1284 * 2778
+        case iPhScrPxType_13ProMax:{
             imgNameOrUrlStr = @"iph_X.mp4";
         }break;
-        case iPhScrPxType_14:{// 屏幕分辨率(px) = 1125 * 2436
+        /// 屏幕分辨率(px) = 1125 * 2436
+        case iPhScrPxType_14:{
             imgNameOrUrlStr = @"iph_X.mp4";
         }break;
-        case iPhScrPxType_14Plus:{// 屏幕分辨率(px) = 1284 * 2778
+        /// 屏幕分辨率(px) = 1284 * 2778
+        case iPhScrPxType_14Plus:{
             imgNameOrUrlStr = @"iph_X.mp4";
         }break;
-        case iPhScrPxType_14Pro:{// 屏幕分辨率(px) = 1179 * 2556
+        /// 屏幕分辨率(px) = 1179 * 2556
+        case iPhScrPxType_14Pro:{
             imgNameOrUrlStr = @"iph_X.mp4";
         }break;
-        case iPhScrPxType_14ProMax:{// 屏幕分辨率(px) = 1290 * 2796
+        /// 屏幕分辨率(px) = 1290 * 2796
+        case iPhScrPxType_14ProMax:{
             imgNameOrUrlStr = @"iph_X.mp4";
         }break;
+        /// 未匹配已知分支时执行兜底处理
         default:{
             imgNameOrUrlStr = @"iph_X.mp4";
         }break;

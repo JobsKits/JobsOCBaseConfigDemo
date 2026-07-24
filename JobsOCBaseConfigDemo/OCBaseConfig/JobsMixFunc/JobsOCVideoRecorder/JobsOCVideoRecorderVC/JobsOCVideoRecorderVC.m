@@ -36,6 +36,7 @@ Prop_assign() BOOL permissionReady;
 Prop_assign() BOOL recording;
 Prop_assign() BOOL writerStarted;
 Prop_assign() BOOL finishingRecord;
+Prop_assign() BOOL captureSuspended;
 Prop_assign() BOOL navigationStateCaptured;
 Prop_assign() BOOL originNavigationBarHidden;
 Prop_assign() BOOL originHidesBackButton;
@@ -60,6 +61,7 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
 }
 
 -(void)dealloc{
+    JobsRemoveNotification(self);
     [self.recordTimer invalidate];
     [UIDevice.currentDevice endGeneratingDeviceOrientationNotifications];
     [self.captureManager stopRunning];
@@ -70,6 +72,7 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    [self jobs_installApplicationStateObservers];
     [UIDevice.currentDevice beginGeneratingDeviceOrientationNotifications];
     self.view.byBgColor(UIColor.blackColor);
     [self.view.layer insertSublayer:self.captureManager.previewLayer atIndex:0];
@@ -103,12 +106,21 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.captureSuspended = NO;
+    if (self.permissionReady) [self.captureManager startRunning];
     [self hideHostNavigationBarIfNeeded:animated];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self restoreHostNavigationBarIfNeeded:animated];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    self.captureSuspended = YES;
+    [self.captureManager stopRunning];
+    [self jobs_discardActiveRecording];
 }
 
 -(BOOL)canBecomeFirstResponder{
@@ -272,6 +284,10 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
             @jobs_strongify(self)
             self.finishingRecord = NO;
             [self.recordBtn resetProgress];
+            if (self.captureSuspended) {
+                if (fileURL) [NSFileManager.defaultManager removeItemAtURL:fileURL error:nil];
+                return;
+            }
             if (error || !fileURL) {
                 (error.localizedDescription ?: @"录制失败，请重试".tr).toast();
                 [self removeCurrentOutputFile];
@@ -281,6 +297,55 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
             [self showPreviewWithURL:fileURL];
         });
     }];
+}
+
+-(void)jobs_installApplicationStateObservers{
+    JobsAddNotification(self,
+                        @selector(jobs_applicationDidEnterBackground:),
+                        UIApplicationDidEnterBackgroundNotification,
+                        nil);
+    JobsAddNotification(self,
+                        @selector(jobs_applicationDidBecomeActive:),
+                        UIApplicationDidBecomeActiveNotification,
+                        nil);
+}
+
+-(void)jobs_applicationDidEnterBackground:(NSNotification *)notification{
+    (void)notification;
+    self.captureSuspended = YES;
+    [self.captureManager stopRunning];
+    [self.previewView stop];
+    [self jobs_discardActiveRecording];
+}
+
+-(void)jobs_applicationDidBecomeActive:(NSNotification *)notification{
+    (void)notification;
+    if (!self.permissionReady || !self.viewIfLoaded.window) return;
+    self.captureSuspended = NO;
+    [self.captureManager startRunning];
+}
+
+-(void)jobs_discardActiveRecording{
+    if (!self.recording && !self.finishingRecord) return;
+    self.recording = NO;
+    self.finishingRecord = NO;
+    self.writerStarted = NO;
+    [self.recordTimer invalidate];
+    self.recordTimer = nil;
+    [self.recordBtn stopProgress];
+    [self.recordBtn resetProgress];
+    [self hideRecordDurationLabel];
+    self.backBtn.enabled = YES;
+    self.backBtn.alpha = 1;
+    self.filterBtn.enabled = YES;
+    self.filterBtn.alpha = 1;
+    if (self.canSwitchCamera) {
+        self.switchCameraBtn.enabled = YES;
+        self.switchCameraBtn.alpha = 1;
+    }
+    [self.assetWriter cancelWriting];
+    [self removeCurrentOutputFile];
+    [self clearFormatDescriptions];
 }
 
 -(void)startRecordTimer{
@@ -302,25 +367,24 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
     self.previewView = nil;
     CGFloat width = JobsWidth(150);
     CGFloat height = JobsWidth(230);
-    JobsOCVideoRecorderPreviewView *previewView = [JobsOCVideoRecorderPreviewView.alloc initWithFrame:CGRectZero];
+    self.previewView = [JobsOCVideoRecorderPreviewView.alloc initWithFrame:CGRectZero];
     @jobs_weakify(self)
-    previewView.cancelBlock = ^(JobsOCVideoRecorderPreviewView *data) {
+    self.previewView.cancelBlock = ^(JobsOCVideoRecorderPreviewView *data) {
         @jobs_strongify(self)
         [self promptCancelCurrentVideoAndClosePage:NO];
     };
-    previewView.saveBlock = ^(JobsOCVideoRecorderPreviewView *data) {
+    self.previewView.saveBlock = ^(JobsOCVideoRecorderPreviewView *data) {
         @jobs_strongify(self)
         [self saveCurrentVideo];
     };
-    [self.view addSubview:previewView];
-    [previewView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.view addSubview:self.previewView];
+    [self.previewView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view).offset(-JobsWidth(16));
         make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(JobsWidth(72));
         make.size.mas_equalTo(CGSizeMake(width, height));
     }];
     [self.view layoutIfNeeded];
-    [previewView playWithURL:URL];
-    self.previewView = previewView;
+    [self.previewView playWithURL:URL];
     [self.view bringSubviewToFront:self.backBtn];
     [self.view bringSubviewToFront:self.titleLabel];
     if (self.canSwitchCamera) [self.view bringSubviewToFront:self.switchCameraBtn];

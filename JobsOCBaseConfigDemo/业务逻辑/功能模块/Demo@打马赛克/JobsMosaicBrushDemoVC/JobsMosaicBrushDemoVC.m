@@ -12,6 +12,7 @@
 Prop_strong()UIView *controlView;
 Prop_strong()UIImage *mosaicImage;
 Prop_strong()NSMutableArray <NSValue *>*brushPointValueMutArr;
+Prop_strong()UILabel *controlTitleLabel;
 Prop_strong()UISwitch *brushSwitch;
 Prop_strong()UIButton *clearButton;
 Prop_assign()CGFloat brushDiameter;
@@ -99,12 +100,8 @@ Prop_assign()NSUInteger renderVersion;
             make.height.mas_equalTo(JobsWidth(54));
             make.bottom.equalTo(self.statusLabel.mas_top).offset(-JobsWidth(12));
         }];
-        UILabel *titleLabel = UILabel.new;
-        titleLabel.text = @"涂抹".tr;
-        titleLabel.textColor = HEXCOLOR(0x3D4A58);
-        titleLabel.font = UIFontWeightMediumSize(15);
-        [_controlView addSubview:titleLabel];
-        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        [_controlView addSubview:self.controlTitleLabel];
+        [self.controlTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(_controlView).offset(JobsWidth(14));
             make.centerY.equalTo(_controlView);
         }];
@@ -116,6 +113,15 @@ Prop_assign()NSUInteger renderVersion;
             make.bottom.equalTo(self.controlView.mas_top).offset(-JobsWidth(12));
         }];
     };return _controlView;
+}
+
+-(UILabel *)controlTitleLabel{
+    if (!_controlTitleLabel) {
+        _controlTitleLabel = UILabel.new;
+        _controlTitleLabel.text = @"涂抹".tr;
+        _controlTitleLabel.textColor = HEXCOLOR(0x3D4A58);
+        _controlTitleLabel.font = UIFontWeightMediumSize(15);
+    };return _controlTitleLabel;
 }
 
 -(UISwitch *)brushSwitch{

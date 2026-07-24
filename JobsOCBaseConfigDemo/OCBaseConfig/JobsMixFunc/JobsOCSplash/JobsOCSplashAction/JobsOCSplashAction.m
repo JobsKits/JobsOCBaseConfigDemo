@@ -55,6 +55,7 @@ Prop_copy(nullable) JobsOCSplashActionBlock customBlock;
 
 -(void)performWithSplashVC:(__kindof JobsOCSplashVC *)splashVC {
     switch (self.type) {
+        /// 处理 JobsOCSplashActionTypeOpenURL 分支
         case JobsOCSplashActionTypeOpenURL: {
             if (!self.URL) return;
             UIApplication *application = UIApplication.sharedApplication;
@@ -67,9 +68,11 @@ Prop_copy(nullable) JobsOCSplashActionBlock customBlock;
 #pragma clang diagnostic pop
             }
         } break;
+        /// 处理 JobsOCSplashActionTypeCustom 分支
         case JobsOCSplashActionTypeCustom:
             if (self.customBlock) self.customBlock(splashVC);
             break;
+        /// 处理 JobsOCSplashActionTypeNone 分支
         case JobsOCSplashActionTypeNone:
             break;
     }

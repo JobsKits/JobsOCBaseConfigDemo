@@ -76,6 +76,19 @@ typedef enum : NSUInteger {
     UILabelShowingType_05,
 } UILabelShowingType;// UILabel的显示样式
 #endif /* JobsLabelDef_h */
+#ifndef JobsLabelTextDisplayMode_h
+#define JobsLabelTextDisplayMode_h
+typedef NS_ENUM(NSUInteger, JobsLabelTextDisplayMode) {
+    /// 固定单行，必要时缩小字号。
+    JobsLabelTextDisplayModeScaleToFit = 0,
+    /// 固定单行，尾部省略。
+    JobsLabelTextDisplayModeSingleLineTailTruncation,
+    /// 固定多行，最后一行尾部省略。
+    JobsLabelTextDisplayModeMultiLineTailTruncation,
+    /// 固定单行，溢出内容滚动展示。
+    JobsLabelTextDisplayModeScrolling
+};
+#endif /* JobsLabelTextDisplayMode_h */
 /// 系统相关@终端类型
 #ifndef JOBS_OPERATION_TYPE_ENUM_DEFINED
 #define JOBS_OPERATION_TYPE_ENUM_DEFINED

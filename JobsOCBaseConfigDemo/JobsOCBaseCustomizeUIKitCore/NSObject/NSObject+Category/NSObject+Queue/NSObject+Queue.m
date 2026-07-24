@@ -15,7 +15,7 @@
     dispatch_after(delayTime, dispatch_get_main_queue(), ^{
         if(block) block();
         if (JobsDebug) {
-            [NSString stringWithFormat:@"%lld", time].add(@"秒到了，我被打印出来了！").toast();
+            // [NSString stringWithFormat:@"%lld", time].add(@"秒到了，我被打印出来了！").toast();
             JobsLog(@"%@",JobsLocalFunc);
             PrintRetainCount(self)
         }

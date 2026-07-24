@@ -9,7 +9,11 @@
 #define _3rd_h
 
 #import "RACModel.h"
+#if __has_include(<BRPickerView/BRTextModel.h>)
+#import <BRPickerView/BRTextModel.h>
+#else
 #import "BRTextModel.h"
+#endif
 #import "MasonryModel.h"
 #import "SDWebImageModel.h"
 #import "GTCaptcha4Model.h"

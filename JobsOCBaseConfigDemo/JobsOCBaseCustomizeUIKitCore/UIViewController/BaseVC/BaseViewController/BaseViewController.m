@@ -113,6 +113,7 @@ BaseViewControllerProtocol_synthesize
     if (JobsIsSystemNavigationBarDemo(self)) {
         [self.navigationController setNavigationBarHidden:NO animated:NO];
         self.navigationController.navigationBar.byHidden(NO);
+        [self jobs_ensureDemoThemeButton];
         return;
     }
     NSString *navigationTitle = [self jobs_defaultNavigationTitle];
@@ -133,6 +134,7 @@ BaseViewControllerProtocol_synthesize
             self.gk_navRightBarButtonItem = self.navigationItem.rightBarButtonItem;
         }
     }
+    [self jobs_ensureDemoThemeButton];
     if (!self.gk_navLeftBarButtonItem && !self.gk_navLeftBarButtonItems.count) {
         self.setGKNavBackBtnBy(nil);
     }

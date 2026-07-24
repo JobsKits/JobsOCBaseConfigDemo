@@ -61,4 +61,15 @@
     XCTAssertTrue([manager stopAndRemove:identifier]);
 }
 
+-(void)testSettingGestureDemoLoadsWithJobsBaseControllerContract {
+    Class controllerClass = NSClassFromString(@"JobsSettingGestureVC");
+    Class baseControllerClass = NSClassFromString(@"BaseViewController");
+    XCTAssertNotNil(controllerClass);
+    XCTAssertNotNil(baseControllerClass);
+    UIViewController *controller = [controllerClass new];
+    XCTAssertTrue([controller isKindOfClass:baseControllerClass]);
+    XCTAssertNoThrow([controller loadViewIfNeeded]);
+    XCTAssertNotNil(controller.view);
+}
+
 @end

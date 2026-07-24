@@ -16,6 +16,7 @@
 #import "NSString+Toast.h"
 #import "NSMutableArray+Extra.h"
 #import "NSObject+Notification.h"
+#import "NSObject+AttributedString.h"
 #import "UITextView+Extra.h"
 #import "JobsOCRuntimeKits.h"
 #import "JobsRichTextUtils.h"

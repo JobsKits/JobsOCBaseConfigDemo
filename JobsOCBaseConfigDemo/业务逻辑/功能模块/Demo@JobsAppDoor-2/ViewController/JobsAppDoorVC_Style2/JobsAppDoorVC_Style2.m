@@ -36,6 +36,9 @@ Prop_assign()BOOL loginDoorInputEditing;/// 只要有一个TF还在编辑那么�
 Prop_assign()NSInteger lastTimeActivateTFIndex;/// 上一时刻被激活的输入框的序列号
 Prop_assign()NSInteger currentActivateTFIndex;/// 当前被激活的输入框的序列号
 Prop_assign()BOOL volumePanelShowing;
+Prop_assign()BOOL videoPausedByApplicationState;
+
+-(void)jobs_installDoorVideoApplicationStateObservers;
 
 @end
 
@@ -55,6 +58,12 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
     dispatch_once(&static_jobsAppDoor_Style2OnceToken, ^{
         appDoorVC_Style2 = JobsAppDoorVC_Style2.new;
     });return appDoorVC_Style2;
+}
+
+-(instancetype)init{
+    if (self = [super init]) {
+        [self jobs_installDoorVideoApplicationStateObservers];
+    };return self;
 }
 
 -(void)loadView{
@@ -159,6 +168,33 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
     if (!self.player.currentPlayerManager.isPlaying) {
         [self.player.currentPlayerManager play];
     }
+}
+
+-(void)jobs_installDoorVideoApplicationStateObservers{
+    JobsAddNotification(self,
+                        @selector(jobs_applicationDidEnterBackground:),
+                        UIApplicationDidEnterBackgroundNotification,
+                        nil);
+    JobsAddNotification(self,
+                        @selector(jobs_applicationDidBecomeActive:),
+                        UIApplicationDidBecomeActiveNotification,
+                        nil);
+}
+
+-(void)jobs_applicationDidEnterBackground:(NSNotification *)notification{
+    (void)notification;
+    if (![self jobs_isVideoDoorMode] || !_player) return;
+    id<ZFPlayerMediaPlayback> currentPlayerManager = _player.currentPlayerManager;
+    self.videoPausedByApplicationState = currentPlayerManager.isPlaying;
+    if (self.videoPausedByApplicationState) [currentPlayerManager pause];
+}
+
+-(void)jobs_applicationDidBecomeActive:(NSNotification *)notification{
+    (void)notification;
+    BOOL shouldResumeVideo = self.videoPausedByApplicationState;
+    self.videoPausedByApplicationState = NO;
+    if (!shouldResumeVideo || !self.viewIfLoaded.window) return;
+    [self jobs_resumeDoorVideoIfNeeded];
 }
 
 -(void)jobs_installVolumeDismissGestureIfNeeded{

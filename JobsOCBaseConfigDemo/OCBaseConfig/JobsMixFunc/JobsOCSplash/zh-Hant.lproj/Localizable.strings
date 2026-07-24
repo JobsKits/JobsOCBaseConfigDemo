@@ -1,2 +1,3 @@
 "jobs_splash_skip" = "跳過";
 "jobs_splash_countdown_format" = "%@ %ld";
+"jobs_splash_remote_video_wifi_notice" = "僅在 Wi-Fi 環境下載影片";

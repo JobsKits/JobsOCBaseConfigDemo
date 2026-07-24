@@ -25,7 +25,7 @@
 
 ## 🔥 <font id=前言>前言</font>
 
-> 当前总行数：9066 行
+> 当前总行数：12111 行
 
 * 🔧**工欲善其事必先利其器**
 
@@ -62,76 +62,153 @@
 
 ## 二、🌈特色一览 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-* <font color=red>**自主研发**</font>
-  * [x] 公共的协议簇 **`BaseProtocol`**<br>
-  * [x] 统一的**Block**管理：[**<font color=red>`JobsBlock`</font>**](https://github.com/JobsKits/JobsBlock/blob/main/README.md)<br>
-  * [x] 统一数据源的封装：[**<font color=red>`UIViewModel`</font>**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/UIViewModelFamily/UIViewModel)<br>
-  * [x] `UIButton`兼容最新Api：**`UIButtonConfiguration`**<br>
-  * [x] 统一的UI组件库**`JobsOCBaseCustomizeUIKitCore`**<br>
-  * [x] 统一注册全局的 **`UICollectionViewCell`**、**`CollectionReusableView-Header`**、**`CollectionReusableView—Footer`**<br>
-  * [x] [<font color=red>不注册也可以使用**UICollectionViewCell**、**CollectionReusableView-Header**、**CollectionReusableView—Footer**</font>](#关于UICollectionView的注册机制)<br>
-  * [x] 对**`UITabBarController`**和**`UITabBar`**的封装<br>
-  * [x] **`UserDefaults`**数据存储封装<br>
-  * [x] 对打开**URL**的兼容性封装<br>
-  * [x] 对**KVC**的封装<br>
-  * [x] 富文本的封装<br>
-  * [x] 对倒计时按钮的封装<br>
-  * [x] 统一的输入框封装<br>
-  * [x] [**高仿蜜柚App的登录模块动态UI：`JobsAppDoor`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsAppDoor-2)<br>
-  * [x] [**聊天功能：`JobsIM`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsIM)<br>
-  * [x] [**发帖功能：`JobsPostVC`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@发帖功能) （相册获取资源+存/取未完成字符串）<br>
-  * [x] [**评论功能：`JobsComment`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsComment)<br>
-  * [x] [**搜索功能：`JobsSearch`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsSearchCore)<br>
-  * [x] [**时间管理：`JobsTimerVC`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsTimer)<br>
-  * [x] [**悬浮模块：`JobsSuspend`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsSuspend)<br>
-  * [x] [**下载流量监控：`JobsBitsMonitor`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsBitsMonitor)<br>
-  * [x] [让 **`UIView`**像 **`UINavigationController`**一样支持 push 和 pop](#UIView支持push和pop)
-  * [x] [**下拉列表：`JobsDropDownListVC`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsDropDownList)<br>
-* UI层封装
-  * [x] 对悬浮层的封装<br>
-  * [x] 对视频播放器的二次封装<br>
-  * [x] 统一的**Toast**封装<br>
-  * [x] 设备屏幕横竖屏适配<br>
-  * [x] 对调用系统相机、系统相册的功能性封装<br>
-  * [x] [**高仿抖音：Douyin_ZFPlayer**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@Douyin_ZFPlayer)<br>
-  * [x] [**3D Touch：长按Cell出菜单**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91/%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97/Demo%40PeekAndPop)<br>
-  * [x] [**卡片式滑动效果**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/卡片式滑动效果)<br>
-  * [x] [**图形验证码**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/图形验证码)<br>
-  * [x] [**App图标切换**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@App图标切换)<br>
-  * [x] [**镂空特效**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@TransparentRegion/TransparentRegionVC)<br>
-  * [x] [**不规则的按钮**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@TestIrregularView)<br>
-  * [x] [**转场动画研究：`JobsPresentingVC`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@UIPresentationController的使用/JobsPresentingVC)<br>
-  * [x] 特色UI：**`UITableViewCell`**
-    * [**UITableViewCell的折叠效果**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@UITableViewCell的折叠效果)
-    * [**自定义UITableViewCell内置控件距离并添加复制按钮**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@自定义UITableViewCell内置控件距离并添加复制按钮E)
-    * [**替换系统UITableViewCell编辑状态下前面的按钮UI样式，及其一部分逻辑**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@UITableViewCellEditorVC)
-    * [**自定义UITableViewCell内置控件距离并添加复制按钮**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@自定义UITableViewCell内置控件距离并添加复制按钮)
-  * [x] 特色UI：**`UICollectionViewCell`**
-    * [**UICollectionView实现重叠的卡包效果**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@UICollectionView实现重叠的卡包效果)
-  * [x] 特色UI：**JX**系列Demo
-    * [**JXCategoryView垂直表达**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JXCategoryView垂直表达)
-    * [**JXCategoryView下拉headerView变大**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JXCategoryView下拉headerView变大)
-    * [**JXCategory弹出框**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JXCategoryPopup)
-  * [ ] 统一的**`WebView`**封装<br>
-* 数据层封装
-  * [x] 网络模块Api<br>
-  * [x] **Block** 替换 **@selector** <br>
-  * [x] 统一的对手势的封装<br>
-  * [x] 多语言支持<br>
-  * [x] 防止多次推出同一控制器页面<br>
-  * [x] [**OC动态添加类、方法列表、属性列表**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@OC动态添加类、方法列表、属性列表)<br>
-  * [x] 加密相关<br>
-    * [**指纹识别**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/TouchID)<br>
-    * [**手势解锁**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/🔨Manual_Add_ThirdParty（按需引入）/AESCrypt-ObjC)<br>
-    * [**设置手势密码**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@设置手势密码)<br>
-    * [**图片字符串化（加盐）存取**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@图片字符串化（加盐）存取)<br>
-    * [**字符串解压缩**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@字符串解压缩)<br>
-* 其他
-  * [x] **GitHub.workflow**<br>
-  * [x] iOS手动打包/脚本打包成`*.ipa`<br>
-  * [x] iOS代码块<br>
-  * [x] 实用性脚本`*.command`<br>
-  * [x] 对`info.plist`的备份<br>
+> **工程形态**：本工程将 Jobs 自维护能力直接集成于主工程目录管理，由既有源码、资源、聚合头、Build Phases 与 target 引用共同承载；功能按稳定职责分区，不额外拆成本地 Pod。
+
+本节只回答“项目最值得复用什么”。具体原理、完整参数和边界说明继续以对应源码、模块 `README.md` 与可运行 Demo 为准。
+
+### 2.1、统一工程基座
+
+| 特色 | 精炼说明 |
+| --- | --- |
+| `JobsMakes` | 用 `jobsMakeXxx` 统一创建系统对象、集合、菜单、图片与常用配置对象。 |
+| `JobsOCDSL` / `JobsModelDSL` | 系统 API 与 Jobs Model 都收口为 `byXxx(...)` 点语法；按“当前类型 → 父类 → 装配 → 布局”一链到底。 |
+| `JobsBlock` | Block typedef 按返回值和参数签名集中管理；事件默认使用 `onClickBy`、`onClickAppendBy` 等 Block DSL。 |
+| `JobsOCDefs` / `JobsOCProtocols` | 统一属性宏、字体、颜色、枚举、通知、单例、国际化和公共协议簇。 |
+| `JobsModel` | `UIViewModel`、`UITextModel`、`UIButtonModel` 等模型统一承载数据、外观、事件和页面传参。 |
+| `JobsByOCPods` / `JobsBaseUI` | 聚合 UIKit 基座、公共分类、复用 Cell、按钮兼容管线和通用 UI 组件。 |
+| [**Masonry**](https://github.com/SnapKit/Masonry) | Jobs 自维护 UI 统一使用 Masonry；首次约束、常量更新、结构重建分别使用 make / update / remake。 |
+| 新旧系统兼容 | `UIButtonConfiguration`、导航栏外观、媒体、权限与 deprecated API 的版本差异在 Jobs 封装内部消化。 |
+
+### 2.2、最小 UI Demo
+
+下面一个懒加载 getter 同时展示创建、按钮专用兼容配置、Block 事件、加入父视图和 Masonry 布局：
+
+```objc
+-(UIButton *)submitBtn{
+    if (!_submitBtn) {
+        _submitBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+            button
+                .jobsResetBtnTitle(@"确认")
+                .jobsResetBtnTitleCor(JobsWhiteColor)
+                .jobsResetBtnTitleFont(UIFontWeightBoldSize(16))
+                .jobsResetBtnBgCor(JobsSystemBlueColor)
+                .jobsResetBtnCornerRadiusValue(JobsWidth(10))
+                .onClickBy(^(__kindof UIButton * _Nullable sender) {
+                    sender.byToggleSelected();
+                })
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.center.equalTo(self.view);
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(160), JobsWidth(44)));
+                });
+        });
+    };return _submitBtn;
+}
+```
+
+### 2.3、重点特色矩阵
+
+| 能力域 | 代表模块 | 特色摘要 |
+| --- | --- | --- |
+| 登录注册 | `JobsAppDoor` | Style1 侧栏变形与 Style2 全屏横滑两套认证 UI；统一登录、注册、忘记密码、短信 / 图形验证码和资源包。 |
+| 开屏 | `JobsOCSplash` | 本地图片、本地 GIF、远程图片、本地视频、远程视频五种内容；远程视频仅播放完整缓存，未命中时立即回退本地视频并持续预加载。 |
+| 刷新与动画 | `JobsOCRefresher` + `JobsFuseAnimation` | 上下左右四向刷新、统一状态机、触感 / 声音；系统、图片、GIF、Lottie、今日头条、抖音动画可在挂载后原位热替换。 |
+| 表格与长文字 | `JobsOCExcel` + `JobsOCUILabelScrolling` | Office 式冻结 `0...N` 列；单元格支持缩放、单行省略、多行省略和 CoreText 完整滚动。 |
+| 截屏 | `JobsScreenCapture` | 主动渲染并保存相册、系统截屏观察、敏感区域截图保护三条能力独立组合。 |
+| 音视频与硬件 | `JobsOCAudioRecorder`、`JobsOCVideoRecorder`、`JobsBluetooth`、`JobsBioKit` | 录音与本地音频管理、视频录制、多设备 BLE 扫描 / 连接 / 读写 / Mock、生物识别；录音与视频录制快门统一使用白色内圆、留白间隔和白色外圈，红色仅承担录制进度提示；视频写入采用单帧背压并丢弃迟到帧，录制页和直播采集进入后台时立即停止采集，回前台只恢复预览。 |
+| UI 状态与交互 | `JobsOCSkeletonView`、`JobsOCGraphicCaptcha`、`JobsOCNumberStepper`、`JobsOCKeyboardMgr`、`JobsSuspend` | 骨架屏、图形验证码、边界数字步进输入、键盘避让、悬浮控件均提供可复用组件和独立 Demo。 |
+| 抽奖轮盘 | `LuckyWheelView`、`LuckyWheelDemoVC` | 中心按钮在旋转中保持可点；每次点按都按当前配置重置初始角速度并视为新一轮抽奖，复用同一个 `CADisplayLink`，只在最终自然停止时结算。 |
+| 二维码与条形码 | `NSString+CIFilter`、`JobsQRCodeDemoVC` | 支持普通二维码、带中心 Logo 二维码和 Code128 条形码；点击生成图像会通过 Jobs 手势 DSL 将来源字符串复制到系统剪切板。 |
+| 导航与转场 | `JobsNavBar`、`JobsTabBarCtrl`、`JobsViewNavigator`、`JobsViewPush`、`JobsSideDrawer` | 导航栏 / TabBar、UIView 栈式 push / pop、方向性交互转场、侧滑抽屉和防重复跳转。 |
+| 数据与网络 | `JobsAPIs`、`JobsNetWorkTools`、`JobsMonitorNetwoking`、`JobsBitsMonitor`、`JobsOCWebSocket`、`SRWebSocketExtra` | API 请求层、网络状态 / 速率 / 流量监控；实例化 WebSocket 客户端统一连接生命周期、30 秒心跳与退避重连。 |
+| Runtime 与安全 | `JobsOCRuntimeKits`、`JobsOCPatch`、`JobsCryptography`、`JobsOCOpen` | Runtime 查询 / 动态注册、受控 payload 补丁、摘要 / 编解码 / 加密、URL 打开兼容封装。 |
+| 业务组件 | `JobsOCSearcher`、`JobsOCComment`、`JobsOCCalendar`、`JobsWallet`、`JobsLuckyEnvelopeRain` | 搜索、评论、日历、卡包、红包雨等能力均可单独复用。 |
+| 工程化 | 本地能力模块、`Extra` 适配层、依赖报告、Xcode CodeSnippets、`.command` | 不改上游源码地扩展第三方能力；公开头、资源、依赖、Demo、README 与代码块一起维护。 |
+
+### 2.4、代表性能力 Demo
+
+开屏配置只描述内容和行为，展示层会自动处理缓存、本地兜底与倒计时：
+
+```objc
+JobsOCSplashConfiguration *configuration =
+    [JobsOCSplashConfiguration remoteVideo:[NSURL URLWithString:@"https://example.com/splash.mp4"]
+                        fallbackLocalVideo:@"welcome_video"
+                              fileExtension:@"mp4"
+                                     bundle:nil];
+configuration
+    .byCountdownSeconds(@8)
+    .bySkipButtonVisible(YES)
+    .byTapAction(JobsOCSplashAction.none);
+[JobsOCSplashPresenter showOver:self configuration:configuration];
+```
+
+刷新状态机与动画表现层解耦，已挂载 Header 可直接换皮：
+
+```objc
+JobsOCRefreshConfig *config = JobsOCRefreshConfig.defaultHeaderConfig;
+config.showsText = NO;
+config.animator = [[JobsTodayNewsRefreshView alloc]
+                   initWithConfig:JobsTodayNewsRefreshConfig.config];
+[self.scrollView jobs_byRefreshHeaderWithConfig:config action:^{
+    [self.scrollView jobs_switchRefreshAt:JobsOCRefreshPositionHeader
+                                  toState:JobsOCRefreshStateIdle];
+}];
+[self.scrollView jobs_replaceRefreshAnimator:
+    [[JobsDouyinRefreshView alloc] initWithConfig:JobsDouyinRefreshConfig.config]
+                                      atPosition:JobsOCRefreshPositionHeader];
+```
+
+Excel 用列模型、行模型和一个冻结下标完成固定列语义：
+
+```objc
+NSArray<JobsOCExcelColumn *> *columns = @[
+    [JobsOCExcelColumn columnWithTitle:@"城市" width:104],
+    [JobsOCExcelColumn columnWithTitle:@"一月" width:112],
+    [JobsOCExcelColumn columnWithTitle:@"二月" width:112]
+];
+NSArray<JobsOCExcelRow *> *rows = @[
+    [JobsOCExcelRow rowWithValues:@[@"深圳", @"128", @"146"]],
+    [JobsOCExcelRow rowWithValues:@[@"上海", @"116", @"134"]]
+];
+[self.excelView configureWithColumns:columns
+                                rows:rows
+                 freezeThroughColumn:0
+                               style:nil];
+```
+
+截屏观察、主动保存和敏感内容保护可以按页面需要独立启用：
+
+```objc
+[self.screenshotObserver startWithHandler:^{
+    JobsLog(@"检测到系统截屏");
+}];
+[self.screenshotCapturer captureAndSaveView:self.view.window ?: self.view
+                         afterScreenUpdates:YES
+                                  completion:nil];
+self.protectionView.protectionEnabled = YES;
+```
+
+### 2.5、完整能力模块清单
+
+<details>
+<summary><b>展开查看 105 个本地能力模块</b></summary>
+
+> 清单覆盖 Jobs 核心能力与 `Extra` 适配层；手工托管的上游第三方源码不计入自主能力清单。
+
+| 分类 | 模块 |
+| --- | --- |
+| 基础 / DSL / Model | `This`、`JobsClass`、`JobsOCDefs`、`JobsBlock`、`JobsOCProtocols`、`JobsModel`、`JobsMakes`、`JobsOCDSL`、`JobsModelDSL`、`JobsCallBackBlockDSL`、`UIBaseTextFieldDSL`、`JobsByOCPods`、`JobsBaseUI`、`JobsGetWindow`、`JobsLocker` |
+| UI / 导航 / 交互 | `JobsNavBar`、`JobsTabBarCtrl`、`JobsViewNavigator`、`JobsViewPush`、`FDFullscreenPopGesture`、`JobsNavigationTransitionMgr`、`JobsPresentTransitionMgr`、`JobsSuspend`、`JobsBasePopupView`、`JobsCustomView`、`JobsMenuView`、`JobsDropDownListView`、`JobsFiltrationView`、`JobsLinkageMenuView`、`JobsWallet`、`JobsHotLabel`、`JobsImageNumberView`、`JobsOCNumberStepper`、`JobsClockView`、`JobsImageRotation`、`JobsMarqueeView`、`JobsProgressBar`、`JobsUploadingProgressView`、`JobsLoadingImage`、`JobsLuckyEnvelopeRain`、`JobsGestureLock`、`JobsCountdownBtn` |
+| 业务 / 媒体 / 系统能力 | `JobsAppDoor`、`JobsOCSplash`、`JobsOCRefresher`、`JobsFuseAnimation`、`JobsOCExcel`、`JobsOCUILabelScrolling`、`JobsScreenCapture`、`JobsOCAudioRecorder`、`JobsOCVideoRecorder`、`JobsBluetooth`、`JobsOCGraphicCaptcha`、`JobsOCSkeletonView`、`JobsOCKeyboardMgr`、`JobsOCCalendar`、`JobsOCCountryCodeCtrl`、`JobsOCSearcher`、`JobsOCComment`、`JobsBioKit` |
+| 数据 / 服务 / 工程工具 | `JobsAPIs`、`JobsNetWorkTools`、`JobsMonitorNetwoking`、`JobsBitsMonitor`、`JobsOCWebSocket`、`JobsCryptography`、`JobsOCRuntimeKits`、`JobsOCPatch`、`JobsOCOpen`、`JobsOCSnowflake`、`JobsOCTimer`、`JobsOCTimerMgr`、`JobsTimeUtils`、`JobsRandomUtils`、`JobsStringUtils`、`JobsRichTextUtils`、`FileFolderHandleTool`、`JobsDeviceInfo`、`JobsLanMgr`、`JobsAppTools`、`JobsOCTools`、`JobsDebug`、`JobsAppIconRibbon` |
+| 第三方增量适配层 | `AFSecurityPolicyExtra`、`BRPickerViewExtra`、`FMDatabaseExtra`、`FSCalendarExtra`、`GKCustomNavigationBarExtra`、`HTMLDocumentExtra`、`HXPhotoManagerExtra`、`HXPhotoViewExtra`、`IQKeyboardManagerExtra`、`JXCategoryViewExtra`、`LMJDropdownMenuExtra`、`MGSwipeTableCellExtra`、`MJRefreshExtra`、`RACExtra`、`ReachabilityExtra`、`SRWebSocketExtra`、`SYSAlertControllerExtra`、`SZTextViewExtra`、`TFPopupExtra`、`WHToastExtra`、`YTKNetworkExtra`、`ZFPlayerExtra`、`ZMJCellExtra` |
+
+- `JobsGestureLock` 集成于主工程管理；现成控制器以 `BaseViewController` 为页面基座，`JobsSettingGestureVC` 直接复用统一的 `viewModel`、导航与主题契约。
+- `JobsImageRotation` 集成于主工程管理；旋转方向默认顺时针，Timer 间隔默认 `1/60` 秒，也可切换为逆时针并自定义速度。
+- `JobsOCNumberStepper` 集成于主工程管理；统一封装减号、整数输入框与加号，上下限可独立省略，到达已设置边界后自动禁用并置灰对应按钮。
+- `JobsOCWebSocket` 集成于主工程管理；它只承接连接、心跳、重连和主线程回调，业务协议与鉴权继续留在业务层。
+
+</details>
 
 ## 三、🧨开发支持 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -1244,7 +1321,7 @@ classDiagram
 #### 6.3、<font color=red>**字符串拼接**</font>  <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * ```objective-c
-  -(JobsReturnStringByStringBlock _Nonnull)add{
+  -(JobsRetStringByStringBlock _Nonnull)add{
       @jobs_weakify(self)
       return ^NSMutableString *_Nullable(NSString *_Nonnull str) {
           @jobs_strongify(self)
@@ -1264,7 +1341,7 @@ classDiagram
 * **字符串相等**
 
   ```objective-c
-  -(JobsReturnBOOLByIDBlock _Nullable)isEqualToString{
+  -(JobsRetBOOLByIDBlock _Nullable)isEqualToString{
       @jobs_weakify(self)
       return ^(NSString *data){
           @jobs_strongify(self)
@@ -1278,7 +1355,7 @@ classDiagram
 * **字符串包含**
 
   ```objective-c
-  -(JobsReturnBOOLByIDBlock _Nullable)containsString{
+  -(JobsRetBOOLByIDBlock _Nullable)containsString{
       @jobs_weakify(self)
       return ^(NSString *data){
           @jobs_strongify(self)
@@ -1839,12 +1916,15 @@ classDiagram
                       imageView.byImage(@"放大镜".img);
                   }))
                   .byTextCor(JobsPurpleColor)
-                  .byInputAccessoryView(JobsAdNoticeView
-                                        .BySize(JobsAdNoticeView.viewSizeByModel(nil))
-                                        .JobsRichViewByModel2(nil)
-                                        .JobsBlock1(^(id _Nullable data) {
-  
-                                        }))
+                  .byInputAccessoryView(jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+                      label
+                          .byText(@"Jobs安全聊天，为您的聊天加密护航".tr)
+                          .byTextCor(JobsRedColor)
+                          .byTextAlignment(NSTextAlignmentCenter)
+                          .byFont(UIFontWeightRegularSize(JobsWidth(12)))
+                          .byBgColor(JobsCyanColor)
+                          .bySize(CGSizeMake(JobsMainScreen_WIDTH(), 30));
+                  }))
                   .byLeftViewMode(UITextFieldViewModeAlways)
                   .byKeyboardAppearance(UIKeyboardAppearanceAlert)
                   .byReturnKeyType(UIReturnKeySearch)
@@ -1894,7 +1974,7 @@ classDiagram
   * 对[**ReactiveCocoa**](https://github.com/ReactiveCocoa/ReactiveObjC)框架的二次封装，方便对[**ReactiveCocoa**](https://github.com/ReactiveCocoa/ReactiveObjC)框架不熟悉的使用者
 
     ```objective-c
-    -(RACDisposable *)jobsTextFieldEventFilterBlock:(JobsReturnBOOLByIDBlock)filterBlock
+    -(RACDisposable *)jobsTextFieldEventFilterBlock:(JobsRetBOOLByIDBlock)filterBlock
                                  subscribeNextBlock:(jobsByIDBlock)subscribeNextBlock{
         return [[self.rac_textSignal filter:^BOOL(NSString * _Nullable value) {
             return filterBlock ? filterBlock(value) : YES;
@@ -2065,7 +2145,7 @@ classDiagram
     `@implementation NSObject (Extras)`
 
     ```objective-c
-    +(JobsReturnWindowByVoidBlock _Nonnull)mainWindow{
+    +(JobsRetWindowByVoidBlock _Nonnull)mainWindow{
         return ^__kindof UIWindow *_Nullable(){
             UIWindow *mainWindowBefore13 = jobsGetMainWindowBefore13().landscape;
             UIWindow *mainWindowAfter13 = jobsGetMainWindowAfter13().landscape;
@@ -2547,7 +2627,7 @@ classDiagram
   @implementation NSObject (Data)
   #pragma mark —— 关于数据（MJExtension）解析
   /// 对待输入参数是含字典的数组
-  +(JobsReturnArrByArrBlock _Nullable)byDataArr{
+  +(JobsRetArrByArrBlock _Nullable)byDataArr{
       @jobs_weakify(self)
       return ^__kindof NSArray *_Nullable(__kindof NSArray <NSDictionary *>*_Nullable data){
           @jobs_strongify(self)
@@ -2555,7 +2635,7 @@ classDiagram
       };
   }
   /// 对待输入参数是字典
-  +(JobsReturnIDByDicBlock _Nullable)byDataDic{
+  +(JobsRetIDByDicBlock _Nullable)byDataDic{
       @jobs_weakify(self)
       return ^id _Nullable(__kindof NSDictionary *_Nullable data){
           @jobs_strongify(self)
@@ -2563,7 +2643,7 @@ classDiagram
       };
   }
   /// 万能解析
-  +(JobsReturnIDByIDBlock _Nullable)byData{
+  +(JobsRetIDByIDBlock _Nullable)byData{
       @jobs_weakify(self)
       return ^id _Nullable(id _Nullable data){
           @jobs_strongify(self)
@@ -4064,7 +4144,7 @@ static const uint32_t kSequenceBits = 12;
   如果没有加入需要进行<u>归档/解档</u>的类，那么需要进行<u>归档/解档</u>的目标类只会执行`-(void)encodeWithCoder:(NSCoder *)encoder`而不会执行`- (nullable instancetype)initWithCoder:(NSCoder *)decoder`
 
   ```objective-c
-  -(JobsReturnIDByClsAndSaltStrBlock _Nonnull)readUserInfoByUserName{
+  -(JobsRetIDByClsAndSaltStrBlock _Nonnull)readUserInfoByUserName{
       return ^id _Nullable(Class _Nonnull cls,NSString *_Nullable userName){
           NSData *archivedData = NSUserDefaults.readWithKey(userName);
           if(archivedData){
@@ -4117,7 +4197,7 @@ static const uint32_t kSequenceBits = 12;
       };
   }
   /// 元素包含
-  -(JobsReturnBOOLByIDBlock _Nonnull)containsObject{
+  -(JobsRetBOOLByIDBlock _Nonnull)containsObject{
     @jobs_weakify(self)
       return ^BOOL((id _Nullable data)){
       @jobs_strongify(self)
@@ -4125,7 +4205,7 @@ static const uint32_t kSequenceBits = 12;
       };
   }
   /// 数组取值（无法关联数组的泛型）
-  -(JobsReturnIDByUIntegerBlock _Nonnull)objectAt{
+  -(JobsRetIDByUIntegerBlock _Nonnull)objectAt{
       @jobs_weakify(self)
       return ^id _Nullable(NSUInteger data){
           @jobs_strongify(self)
@@ -4133,7 +4213,7 @@ static const uint32_t kSequenceBits = 12;
       };
   }
   /// 数组取下标
-  -(JobsReturnNSUIntegerByIDBlock _Nonnull)indexBy{
+  -(JobsRetNSUIntegerByIDBlock _Nonnull)indexBy{
       @jobs_weakify(self)
       return ^NSUInteger(id _Nullable data){
           @jobs_strongify(self)
@@ -4141,7 +4221,7 @@ static const uint32_t kSequenceBits = 12;
       };
   }
   /// 阻止向可变数组添加空元素
-  -(JobsReturnIDByIDBlock _Nonnull)add{
+  -(JobsRetIDByIDBlock _Nonnull)add{
       @jobs_weakify(self)
       return ^id (id _Nullable data) {
           @jobs_strongify(self)
@@ -4153,7 +4233,7 @@ static const uint32_t kSequenceBits = 12;
       };
   }
   /// 向数组加入一个从来没有没有过的元素，以保证数组元素的单一性
-  -(JobsReturnIDByIDBlock _Nonnull)jobsAddSoleObject{
+  -(JobsRetIDByIDBlock _Nonnull)jobsAddSoleObject{
       @jobs_weakify(self)
       return ^id (id _Nullable data) {
           @jobs_strongify(self)
@@ -4183,7 +4263,7 @@ static const uint32_t kSequenceBits = 12;
 
   ```objective-c
   /// 阻止向可变集合添加空元素
-  -(JobsReturnIDByIDBlock _Nonnull)add{
+  -(JobsRetIDByIDBlock _Nonnull)add{
       @jobs_weakify(self)
       return ^id (id _Nullable data) {
           @jobs_strongify(self)
@@ -4987,8 +5067,8 @@ self.countDownBtn.timerContinue();
  <summary><strong>点我了解详情</strong></summary>
 
    ```objective-c
- typedef id _Nullable(^JobsReturnIDBySelectorBlock)(id _Nullable weakSelf, id _Nullable arg);
--(SEL _Nullable)jobsSelectorBlock:(JobsReturnIDBySelectorBlock)selectorBlock{
+ typedef id _Nullable(^JobsRetIDBySelectorBlock)(id _Nullable weakSelf, id _Nullable arg);
+-(SEL _Nullable)jobsSelectorBlock:(JobsRetIDBySelectorBlock)selectorBlock{
     return selectorBlocks(selectorBlock, MethodName(self), self);
 }
    ```
@@ -5000,7 +5080,7 @@ self.countDownBtn.timerContinue();
    ///   - block: 最终的执行体
    ///   - selectorName: 实际调用的方法名（可不填），用于对外输出和定位调用实际使用的方法
    ///   - target: 执行目标
-   SEL _Nullable selectorBlocks(JobsReturnIDBySelectorBlock _Nullable block,
+   SEL _Nullable selectorBlocks(JobsRetIDBySelectorBlock _Nullable block,
                                 NSString *_Nullable selectorName,// MethodName(self)
                                 NSObject *_Nonnull target) {
        if (!block) {
@@ -5466,7 +5546,27 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 #### 37.2、关于导航栏  <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 非根控制器由 `UINavigationController+SafeTransition` 统一补齐 Jobs/GK 导航栏、标题和 `backBtnCategory` Jobs 返回按钮；已有系统富文本标题和右侧业务按钮迁移到 GK 导航栏，不显示系统导航容器。仅 `JobsNavigationDemoVC` 作为系统导航栏专项 Demo 保持原样。
+- 从 `ViewController_1` Demo 根列表进入的每个导航 / 模态子页面，以及类名包含 `Demo` 的独立演示页，都会在导航栏最右侧自动获得全局主题切换按钮；页面已有右侧业务按钮会保留，系统导航栏专项 Demo 则写入 `navigationItem`。主题状态持久化后会同步到所有已连接 Scene 的 Window。
+- 全局主题按钮负责切换系统明暗 Trait；Demo 页面背景、导航栏、标题、说明文字、卡片和状态区必须使用 `systemBackgroundColor`、`systemGroupedBackgroundColor`、`labelColor`、`secondaryLabelColor` 等语义色，固定 RGB 只用于不随主题变化的品牌色或强调色。
 - 默认返回图标使用 template 渲染和 `JobsLabelColor`，随明暗主题自动变色；自定义 `backBtnTitleModel.textCor` 时仍保留业务着色。
+- `GKNavigationBar` 本身提供通用 `gk_navTitleView`，但没有主标题 / 副标题组件；主工程集成版由 `JobsOCBaseCustomize3rdCore/GKCustomNavigationBar` 提供 `gk_navTitleViewBy(UIViewModel *)`，其中 `textModel` 对应主标题、`subTextModel` 对应副标题。
+- Demo 统一跳转链路会测量导航标题宽度：短标题保持单行，长标题优先按 `｜`、`：`、`@`、括号、有效空格等语义边界拆成上下结构，其次选择靠近中点的语言词边界，最后才按完整字符居中拆分；页面已有自定义 `titleView` 时不会覆盖。
+
+```objective-c
+self.gk_navTitleViewBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
+    data
+        .byTextModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
+            textModel
+                .byText(@"JobsOCExcel")
+                .byFont(UIFontWeightSemiboldSize(15));
+        }))
+        .bySubTextModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
+            textModel
+                .byText(@"任意冻结列与四种文字策略")
+                .byFont(UIFontWeightRegularSize(11));
+        }));
+}));
+```
 
 ```objective-c
  self.makeNavByConfig(jobsMakeNavBarConfig(^(__kindof JobsNavBarConfig * _Nullable config) {
@@ -5632,7 +5732,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
         }return _backBtnModel;
     }
     JobsNavBarConfig *static_navBarConfig = nil;
-    -(JobsReturnNavBarConfigByButtonModelBlock _Nonnull)makeNavBarConfig{
+    -(JobsRetNavBarConfigByButtonModelBlock _Nonnull)makeNavBarConfig{
         return ^JobsNavBarConfig *_Nullable(UIButtonModel *_Nullable backBtnModel,
                                             UIButtonModel *_Nullable closeBtnModel) {
             @jobs_weakify(self)
@@ -5810,13 +5910,13 @@ vc.navCtrl
 
   ```objective-c
   /// 从一个视图（UIView）出发，获取它所在的视图控制器（UIViewController）
-  -(JobsReturnVCByView _Nonnull)getViewControllerByView;
+  -(JobsRetVCByView _Nonnull)getViewControllerByView;
   /// 获得当前的控制器。对getCurrentViewController的再次封装
   -(UIViewController *_Nullable)jobsGetCurrentViewController;
   /// 获得当前的控制器
   -(UIViewController *_Nullable)getCurrentViewController;
   /// 获得当前控制器的根控制器
-  -(JobsReturnVCByVC _Nullable )getCurrentViewControllerByRootVC;
+  -(JobsRetVCByVC _Nullable )getCurrentViewControllerByRootVC;
   ```
 
 * 关注实现类：[**@interface UIView (ViewController)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIView/UIView%2BCategory/UIView%2BViewController)
@@ -5838,7 +5938,7 @@ vc.navCtrl
   * 取值
 
     ```objective-c
-    -(JobsReturnIDByIDBlock _Nonnull)valueForKeyBlock;
+    -(JobsRetIDByIDBlock _Nonnull)valueForKeyBlock;
     ```
 
 * 使用方法
@@ -6095,7 +6195,7 @@ vc.navCtrl
 * 读取数据
 
   ```objective-c
-  +(JobsReturnIDByStringBlock _Nonnull)readWithKey;
+  +(JobsRetIDByStringBlock _Nonnull)readWithKey;
   ```
 
 * 删除数据
@@ -6299,12 +6399,12 @@ vc.navCtrl
   /// 默认文本段落样式
   -(NSMutableParagraphStyle *)defaultParagraphStyle{
       return jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
-          data.alignment = NSTextAlignmentJustified;
-          data.paragraphSpacing = 0;/// 段距，取值 float
-          data.paragraphSpacingBefore = 0;/// 段首空间，取值 float
-          data.firstLineHeadIndent = 0.0;/// 首行缩进，取值 float
-          data.headIndent = 0.0;/// 整体缩进(首行除外)，取值 float
-          data.lineSpacing = 0;/// 行距，取值 float
+          data.byAlignment(NSTextAlignmentJustified)
+              .byParagraphSpacing(0) // 段距，取值 float
+              .byParagraphSpacingBefore(0) // 段首空间，取值 float
+              .byFirstLineHeadIndent(0.0) // 首行缩进，取值 float
+              .byHeadIndent(0.0) // 整体缩进(首行除外)，取值 float
+              .byLineSpacing(0); // 行距，取值 float
       });
   }
   ```
@@ -6363,8 +6463,8 @@ vc.navCtrl
                 /// 设置段落
                 data.addAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
                     data.value = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data1) {
-                        data1.headIndent = 10; // 设置文本的缩进，使其与圆点对齐
-                        data1.firstLineHeadIndent = 0; // 第一行不缩进
+                        data1.byHeadIndent(10) // 设置文本的缩进，使其与圆点对齐
+                            .byFirstLineHeadIndent(0); // 第一行不缩进
                     });
                     data.range = NSMakeRange(0, self.attributedString.length);
                 }))
@@ -6439,8 +6539,8 @@ vc.navCtrl
             _attributedString2.addAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data1) {
                 @jobs_strongify(self)
                 data1.value = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
-                    data.headIndent = 10; // 设置文本的缩进，使其与圆点对齐
-                    data.firstLineHeadIndent = 0; // 第一行不缩进
+                    data.byHeadIndent(10) // 设置文本的缩进，使其与圆点对齐
+                        .byFirstLineHeadIndent(0); // 第一行不缩进
                 });data1.range = NSMakeRange(0, self->_attributedString2.length);
             }));
         }return _attributedString2;
@@ -7808,6 +7908,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
 * **`BaseCollectionViewCell`**
 * **`JobsBaseCollectionViewCell`**
 * **`JobsBtnStyleCVCell`**：只在**`BaseCollectionViewCell`**完整的盖一个**`Button`**，其目的是利用**`Button`**丰富的图文展示效果
+* **演武堂 Demo 入口**：`JobsButtonCoverCellDemoListVC` 统一承接按钮完整覆盖 Cell 的演示，二级列表分别进入 `UITableViewCell` 和 `UICollectionViewCell` 两种表现形式
 * **`JobsBtnsStyleCVCell`**：左右两边各有一个**`Button`**
 * **`JobsImageViewStyleCVCell`**：只在**`BaseCollectionViewCell`**完整的盖一个**`ImageView`**
 * **`JobsTextFieldStyleCVCell`**：只在**`BaseCollectionViewCell`**完整的盖一个**`TextField`**
@@ -9291,7 +9392,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
   * <font color=blue>**UITableViewCellStyleDefault**</font>
 
     ```objective-c
-    +(JobsReturnTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
+    +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
         @jobs_weakify(self)
         return ^(UITableView * _Nonnull tableView) {
             @jobs_strongify(self)
@@ -9310,7 +9411,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
   * <font color=blue>**UITableViewCellStyleSubtitle**</font>
 
     ```objective-c
-    +(JobsReturnTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleWithTableView{
+    +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleWithTableView{
         @jobs_weakify(self)
         return ^(UITableView * _Nonnull tableView) {
             @jobs_strongify(self)
@@ -9329,7 +9430,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
   * <font color=blue>**UITableViewCellStyleValue1**</font>
 
     ```objective-c
-    +(JobsReturnTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
+    +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
         @jobs_weakify(self)
         return ^(UITableView * _Nonnull tableView) {
             @jobs_strongify(self)
@@ -9348,7 +9449,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
   * <font color=blue>**UITableViewCellStyleValue2**</font>
 
     ```objective-c
-    +(JobsReturnTableViewCellByTableViewBlock _Nonnull)cellStyleValue2WithTableView{
+    +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue2WithTableView{
         @jobs_weakify(self)
         return ^(UITableView * _Nonnull tableView) {
             @jobs_strongify(self)
@@ -9510,7 +9611,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
 
 ```objective-c
 #pragma mark —— 一些公有方法
-+(JobsReturnButtonModelByStringAndImagesBlock _Nonnull)makeButtonModelBy{
++(JobsRetButtonModelByStringAndImagesBlock _Nonnull)makeButtonModelBy{
     return ^__kindof UIButtonModel *_Nullable(__kindof NSString *_Nullable title,
                                               UIImage *_Nullable image,
                                               UIImage *_Nullable highlightImage){
@@ -9560,7 +9661,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
 * 切整个**View**的4个角为统一的切角参数
 
   ```objective-c
-  -(JobsReturnViewByFloatBlock _Nonnull)cornerCutToCircleWithCornerRadius{
+  -(JobsRetViewByFloatBlock _Nonnull)cornerCutToCircleWithCornerRadius{
       @jobs_weakify(self)
       return ^(CGFloat cornerRadiusValue) {
           @jobs_strongify(self)
@@ -10210,7 +10311,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
     
     @interface UploadImageApi : JobsBaseApi
     
-    +(JobsReturnIDByImageBlock _Nonnull)initByImage;
+    +(JobsRetIDByImageBlock _Nonnull)initByImage;
     -(instancetype)initWithImage:(UIImage *)image;
     -(NSString *)responseImageId;
     
@@ -10228,7 +10329,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
     
     @implementation UploadImageApi
     
-    +(JobsReturnIDByImageBlock _Nonnull)initByImage{
+    +(JobsRetIDByImageBlock _Nonnull)initByImage{
         @jobs_weakify(self)
         return ^id(UIImage *_Nullable data){
             @jobs_strongify(self)
@@ -10746,7 +10847,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
 
     ```objective-c
     /// 阻止向可变数组添加空元素
-    -(JobsReturnMutableArrayByIDBlock _Nonnull)add{
+    -(JobsRetMutableArrayByIDBlock _Nonnull)add{
         @jobs_weakify(self)
         return ^NSMutableArray *_Nullable(id _Nullable data) {
             @jobs_strongify(self)
@@ -10757,7 +10858,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
         };
     }
     /// 向数组加入一个从来没有没有过的元素，以保证数组元素的单一性
-    -(JobsReturnIDByIDBlock _Nonnull)jobsAddSoleObject{
+    -(JobsRetIDByIDBlock _Nonnull)jobsAddSoleObject{
         @jobs_weakify(self)
         return ^id (id _Nullable data) {
             @jobs_strongify(self)
@@ -11062,7 +11163,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
       self.refreshAdBy(_dataMutArr);
   }
   /// 首页轮播图的数据源
-  -(JobsReturnWMZBannerParamByArrBlock _Nonnull)makeHomeGameBannerParamBy{
+  -(JobsRetWMZBannerParamByArrBlock _Nonnull)makeHomeGameBannerParamBy{
       @jobs_weakify(self)
       return ^WMZBannerParam *_Nonnull(NSMutableArray <FMBannerAdsModel *>* data){
           @jobs_strongify(self)
@@ -11240,7 +11341,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
 
 ### 70、数据模型的封装调用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-#### 70.1、封装系统Api（关注[**`JobsMakes.h`**](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/JobsMakes.h)） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+#### 70.1、封装系统Api（关注 **`JobsMakes.h`**） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 #### 70.2、封装自建Api（持续更新中...） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -11313,9 +11414,9 @@ FMHomeMenuVC *vc = [self viewController:FMHomeMenuVC.new transitionDirection:Job
 
 ### 73、Layer <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-* `-(JobsReturnViewByCorBlock _Nonnull)layerByBorderCor;`
-* `-(JobsReturnViewByFloatBlock _Nonnull)layerByBorderWidth;`
-* `-(JobsReturnViewByFloatBlock _Nonnull)cornerCutToCircleWithCornerRadius;`
+* `-(JobsRetViewByCorBlock _Nonnull)layerByBorderCor;`
+* `-(JobsRetViewByFloatBlock _Nonnull)layerByBorderWidth;`
+* `-(JobsRetViewByFloatBlock _Nonnull)cornerCutToCircleWithCornerRadius;`
 
 ```objective-c
 -(FMAnnouncementView *)announcementView{
@@ -11338,7 +11439,7 @@ FMHomeMenuVC *vc = [self viewController:FMHomeMenuVC.new transitionDirection:Job
 }
 ```
 
-* `-(JobsReturnViewByLocationModelBlock _Nonnull)setLayerBy;`
+* `-(JobsRetViewByLocationModelBlock _Nonnull)setLayerBy;`
 
 ```objective-c
  -(JobsTextField *)textField_birthDay{
@@ -11400,7 +11501,7 @@ FMHomeMenuVC *vc = [self viewController:FMHomeMenuVC.new transitionDirection:Job
  }
 ```
 
-* `-(JobsReturnViewByLocationModelBlock _Nonnull)layerBy;`
+* `-(JobsRetViewByLocationModelBlock _Nonnull)layerBy;`
 
 ```objective-c
 cell.contentView.layerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {

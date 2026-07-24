@@ -28,19 +28,27 @@ Prop_strong() CIContext *context;
 
 +(NSString *)titleForFilterType:(JobsOCVideoRecorderCIFilterType)filterType{
     switch (filterType) {
+        /// 处理 JobsOCVideoRecorderCIFilterTypeMono 分支
         case JobsOCVideoRecorderCIFilterTypeMono:
             return @"黑白";
+        /// 处理 JobsOCVideoRecorderCIFilterTypeNoir 分支
         case JobsOCVideoRecorderCIFilterTypeNoir:
             return @"高反差";
+        /// 处理 JobsOCVideoRecorderCIFilterTypeSepia 分支
         case JobsOCVideoRecorderCIFilterTypeSepia:
             return @"怀旧";
+        /// 处理 JobsOCVideoRecorderCIFilterTypeChrome 分支
         case JobsOCVideoRecorderCIFilterTypeChrome:
             return @"鲜明";
+        /// 处理 JobsOCVideoRecorderCIFilterTypeInstant 分支
         case JobsOCVideoRecorderCIFilterTypeInstant:
             return @"胶片";
+        /// 处理 JobsOCVideoRecorderCIFilterTypeFade 分支
         case JobsOCVideoRecorderCIFilterTypeFade:
             return @"褪色";
+        /// 处理 JobsOCVideoRecorderCIFilterTypeNormal 分支
         case JobsOCVideoRecorderCIFilterTypeNormal:
+        /// 未匹配已知分支时执行兜底处理
         default:
             return @"原片";
     }
@@ -53,7 +61,9 @@ Prop_strong() CIContext *context;
 -(instancetype)initWithFilterType:(JobsOCVideoRecorderCIFilterType)filterType{
     if (self = [super init]) {
         _filterType = filterType;
-        _context = [CIContext contextWithOptions:nil];
+        _context = [CIContext contextWithOptions:@{
+            kCIContextCacheIntermediates: @(NO)
+        }];
     };return self;
 }
 
@@ -88,19 +98,27 @@ Prop_strong() CIContext *context;
 
 -(NSString *)filterNameByType:(JobsOCVideoRecorderCIFilterType)filterType{
     switch (filterType) {
+        /// 处理 JobsOCVideoRecorderCIFilterTypeMono 分支
         case JobsOCVideoRecorderCIFilterTypeMono:
             return @"CIPhotoEffectMono";
+        /// 处理 JobsOCVideoRecorderCIFilterTypeNoir 分支
         case JobsOCVideoRecorderCIFilterTypeNoir:
             return @"CIPhotoEffectNoir";
+        /// 处理 JobsOCVideoRecorderCIFilterTypeSepia 分支
         case JobsOCVideoRecorderCIFilterTypeSepia:
             return @"CISepiaTone";
+        /// 处理 JobsOCVideoRecorderCIFilterTypeChrome 分支
         case JobsOCVideoRecorderCIFilterTypeChrome:
             return @"CIPhotoEffectChrome";
+        /// 处理 JobsOCVideoRecorderCIFilterTypeInstant 分支
         case JobsOCVideoRecorderCIFilterTypeInstant:
             return @"CIPhotoEffectInstant";
+        /// 处理 JobsOCVideoRecorderCIFilterTypeFade 分支
         case JobsOCVideoRecorderCIFilterTypeFade:
             return @"CIPhotoEffectFade";
+        /// 处理 JobsOCVideoRecorderCIFilterTypeNormal 分支
         case JobsOCVideoRecorderCIFilterTypeNormal:
+        /// 未匹配已知分支时执行兜底处理
         default:
             return nil;
     }

@@ -247,18 +247,23 @@ Prop_strong()UIView *presentationWrappingView;
 -(void)jobs_handlePanGesture:(UIPanGestureRecognizer *)panGestureRecognizer{
     if (!self.presentationWrappingView || !self.containerView) return;
     switch (panGestureRecognizer.state) {
+        /// 处理 UIGestureRecognizerStateBegan 分支
         case UIGestureRecognizerStateBegan:
             self.panStartFrame = self.presentationWrappingView.frame;
             self.interactiveFrame = self.panStartFrame;
             self.hasInteractiveFrame = YES;
             break;
+        /// 处理 UIGestureRecognizerStateChanged 分支
         case UIGestureRecognizerStateChanged: {
             CGFloat top = self.panStartFrame.origin.y + [panGestureRecognizer translationInView:self.containerView].y;
             self.interactiveFrame = [self jobs_frameByTop:top];
             self.presentationWrappingView.byFrame(self.interactiveFrame);
         } break;
+        /// 处理 UIGestureRecognizerStateEnded 分支
         case UIGestureRecognizerStateEnded:
+        /// 处理 UIGestureRecognizerStateCancelled 分支
         case UIGestureRecognizerStateCancelled:
+        /// 处理 UIGestureRecognizerStateFailed 分支
         case UIGestureRecognizerStateFailed: {
             CGFloat velocityY = [panGestureRecognizer velocityInView:self.containerView].y;
             if (CGRectGetMinY(self.presentationWrappingView.frame) > self.jobs_defaultPresentedMinY) {
@@ -276,6 +281,7 @@ Prop_strong()UIView *presentationWrappingView;
                 } completion:NULL];
             }
         } break;
+        /// 未匹配已知分支时执行兜底处理
         default:
             break;
     }

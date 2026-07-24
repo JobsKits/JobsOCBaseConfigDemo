@@ -8,6 +8,12 @@
 #import "JobsOCCommentView.h"
 #import "JobsOCCommentCell.h"
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 @interface JobsOCCommentView ()
 
 Prop_strong(readwrite)UITableView *tableView;
@@ -85,12 +91,9 @@ Prop_strong()NSMutableSet <NSString *>*expandedRootIDMutSet;
     self.comments = @[];
     self.backgroundColor = [UIColor colorWithRed:0.96 green:0.97 blue:0.99 alpha:1];
     [self addSubview:self.tableView];
-    [NSLayoutConstraint activateConstraints:@[
-        [self.tableView.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [self.tableView.leftAnchor constraintEqualToAnchor:self.leftAnchor],
-        [self.tableView.rightAnchor constraintEqualToAnchor:self.rightAnchor],
-        [self.tableView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
-    ]];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
+    }];
     [self jobs_updateRefresher];
 }
 
@@ -306,7 +309,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_tableView) {
         _tableView = [UITableView.alloc initWithFrame:CGRectZero
                                                 style:UITableViewStylePlain];
-        _tableView.translatesAutoresizingMaskIntoConstraints = NO;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

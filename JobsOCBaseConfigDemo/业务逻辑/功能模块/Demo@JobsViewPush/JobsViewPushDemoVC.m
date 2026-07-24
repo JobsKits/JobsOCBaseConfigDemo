@@ -53,9 +53,13 @@ Prop_strong()BaseButton *pushButton;
 
 -(JobsViewPushDirection)selectedDirection{
     switch (self.directionControl.selectedSegmentIndex) {
+        /// 处理 数值 0 分支
         case 0: return JobsViewPushDirectionTop;
+        /// 处理 数值 1 分支
         case 1: return JobsViewPushDirectionBottom;
+        /// 处理 数值 2 分支
         case 2: return JobsViewPushDirectionLeft;
+        /// 未匹配已知分支时执行兜底处理
         default: return JobsViewPushDirectionRight;
     }
 }

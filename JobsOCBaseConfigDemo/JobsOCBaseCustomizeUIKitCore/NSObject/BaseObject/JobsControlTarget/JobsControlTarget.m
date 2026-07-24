@@ -26,9 +26,11 @@ static inline NSTimeInterval _jobs_now(void) {
         });return;
     }
     switch (self.policy) {
+        /// 处理 JobsInvokePolicyNone 分支
         case JobsInvokePolicyNone: {
             if (self.block) self.block(sender);
         } break;
+        /// 处理 JobsInvokePolicyOnce 分支
         case JobsInvokePolicyOnce: {
             if (!self.block) return;
             jobsByCtrlBlock blk = [self.block copy];
@@ -37,6 +39,7 @@ static inline NSTimeInterval _jobs_now(void) {
             self.block = nil;
             if (blk) blk(sender);
         } break;
+        /// 处理 JobsInvokePolicyThrottle 分支
         case JobsInvokePolicyThrottle: {
             NSTimeInterval now = _jobs_now();
             if (now - self.lastFire >= MAX(self.interval, 0)) {
@@ -44,6 +47,7 @@ static inline NSTimeInterval _jobs_now(void) {
                 if (self.block) self.block(sender);
             }
         } break;
+        /// 处理 JobsInvokePolicyDebounce 分支
         case JobsInvokePolicyDebounce: {
             self.debounceGen += 1;
             uint64_t currentGen = self.debounceGen;

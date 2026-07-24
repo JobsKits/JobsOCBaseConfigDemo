@@ -220,16 +220,20 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
 -(CGRect)visibleFrameForBounds:(CGRect)bounds{
     CGFloat ratio = self.configuration.presentedRatio;
     switch (self.configuration.direction) {
+        /// 处理 JobsViewPushDirectionTop 分支
         case JobsViewPushDirectionTop: {
             CGFloat height = CGRectGetHeight(bounds) * ratio;
             return CGRectMake(0, 0, CGRectGetWidth(bounds), height);
         }
+        /// 处理 JobsViewPushDirectionBottom 分支
         case JobsViewPushDirectionBottom: {
             CGFloat height = CGRectGetHeight(bounds) * ratio;
             return CGRectMake(0, CGRectGetHeight(bounds) - height, CGRectGetWidth(bounds), height);
         }
+        /// 处理 JobsViewPushDirectionLeft 分支
         case JobsViewPushDirectionLeft:
             return CGRectMake(0, 0, CGRectGetWidth(bounds) * ratio, CGRectGetHeight(bounds));
+        /// 处理 JobsViewPushDirectionRight 分支
         case JobsViewPushDirectionRight: {
             CGFloat width = CGRectGetWidth(bounds) * ratio;
             return CGRectMake(CGRectGetWidth(bounds) - width, 0, width, CGRectGetHeight(bounds));
@@ -240,15 +244,19 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
 -(CGRect)hiddenFrameForVisibleFrame:(CGRect)visibleFrame{
     CGRect hiddenFrame = visibleFrame;
     switch (self.configuration.direction) {
+        /// 处理 JobsViewPushDirectionTop 分支
         case JobsViewPushDirectionTop:
             hiddenFrame.origin.y = -CGRectGetHeight(visibleFrame);
             break;
+        /// 处理 JobsViewPushDirectionBottom 分支
         case JobsViewPushDirectionBottom:
             hiddenFrame.origin.y = CGRectGetMaxY(self.transitionView.bounds);
             break;
+        /// 处理 JobsViewPushDirectionLeft 分支
         case JobsViewPushDirectionLeft:
             hiddenFrame.origin.x = -CGRectGetWidth(visibleFrame);
             break;
+        /// 处理 JobsViewPushDirectionRight 分支
         case JobsViewPushDirectionRight:
             hiddenFrame.origin.x = CGRectGetMaxX(self.transitionView.bounds);
             break;
@@ -257,12 +265,16 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
 
 -(CGFloat)interactiveOffsetForTranslation:(CGPoint)translation{
     switch (self.configuration.direction) {
+        /// 处理 JobsViewPushDirectionTop 分支
         case JobsViewPushDirectionTop:
             return MIN(translation.y, 0);
+        /// 处理 JobsViewPushDirectionBottom 分支
         case JobsViewPushDirectionBottom:
             return MAX(translation.y, 0);
+        /// 处理 JobsViewPushDirectionLeft 分支
         case JobsViewPushDirectionLeft:
             return MIN(translation.x, 0);
+        /// 处理 JobsViewPushDirectionRight 分支
         case JobsViewPushDirectionRight:
             return MAX(translation.x, 0);
     };return 0;
@@ -270,12 +282,16 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
 
 -(CGFloat)interactiveVelocityForVelocity:(CGPoint)velocity{
     switch (self.configuration.direction) {
+        /// 处理 JobsViewPushDirectionTop 分支
         case JobsViewPushDirectionTop:
             return -velocity.y;
+        /// 处理 JobsViewPushDirectionBottom 分支
         case JobsViewPushDirectionBottom:
             return velocity.y;
+        /// 处理 JobsViewPushDirectionLeft 分支
         case JobsViewPushDirectionLeft:
             return -velocity.x;
+        /// 处理 JobsViewPushDirectionRight 分支
         case JobsViewPushDirectionRight:
             return velocity.x;
     };return 0;
@@ -283,10 +299,14 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
 
 -(CGFloat)interactiveDistance{
     switch (self.configuration.direction) {
+        /// 处理 JobsViewPushDirectionTop 分支
         case JobsViewPushDirectionTop:
+        /// 处理 JobsViewPushDirectionBottom 分支
         case JobsViewPushDirectionBottom:
             return MAX(self.presentedView.bounds.size.height, 1);
+        /// 处理 JobsViewPushDirectionLeft 分支
         case JobsViewPushDirectionLeft:
+        /// 处理 JobsViewPushDirectionRight 分支
         case JobsViewPushDirectionRight:
             return MAX(self.presentedView.bounds.size.width, 1);
     };return 1;
@@ -298,15 +318,19 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
     CGFloat progress = MIN(fabs(offset) / self.interactiveDistance, 1);
     CGFloat limitedOffset = self.interactiveDistance * progress;
     switch (self.configuration.direction) {
+        /// 处理 JobsViewPushDirectionTop 分支
         case JobsViewPushDirectionTop:
             presentedView.frame = CGRectOffset([self visibleFrameForBounds:self.transitionView.bounds], 0, -limitedOffset);
             break;
+        /// 处理 JobsViewPushDirectionBottom 分支
         case JobsViewPushDirectionBottom:
             presentedView.frame = CGRectOffset([self visibleFrameForBounds:self.transitionView.bounds], 0, limitedOffset);
             break;
+        /// 处理 JobsViewPushDirectionLeft 分支
         case JobsViewPushDirectionLeft:
             presentedView.frame = CGRectOffset([self visibleFrameForBounds:self.transitionView.bounds], -limitedOffset, 0);
             break;
+        /// 处理 JobsViewPushDirectionRight 分支
         case JobsViewPushDirectionRight:
             presentedView.frame = CGRectOffset([self visibleFrameForBounds:self.transitionView.bounds], limitedOffset, 0);
             break;
@@ -337,12 +361,17 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
 -(void)panned:(UIPanGestureRecognizer *)gesture{
     CGFloat offset = [self interactiveOffsetForTranslation:[gesture translationInView:self.transitionView]];
     switch (gesture.state) {
+        /// 处理 UIGestureRecognizerStateBegan 分支
         case UIGestureRecognizerStateBegan:
+        /// 处理 UIGestureRecognizerStateChanged 分支
         case UIGestureRecognizerStateChanged:
             [self applyInteractiveOffset:offset];
             break;
+        /// 处理 UIGestureRecognizerStateEnded 分支
         case UIGestureRecognizerStateEnded:
+        /// 处理 UIGestureRecognizerStateCancelled 分支
         case UIGestureRecognizerStateCancelled:
+        /// 处理 UIGestureRecognizerStateFailed 分支
         case UIGestureRecognizerStateFailed: {
             CGFloat progress = MIN(fabs(offset) / self.interactiveDistance, 1);
             CGFloat velocity = [self interactiveVelocityForVelocity:[gesture velocityInView:self.transitionView]];
@@ -351,6 +380,7 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
             shouldDismiss ? [self dismissAnimated:YES completion:nil] : [self restoreAfterInteractiveDismiss];
             break;
         }
+        /// 未匹配已知分支时执行兜底处理
         default:
             break;
     }

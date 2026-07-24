@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(NSString *)skipTitleWithLanguageCode:(NSString *_Nullable)languageCode
                       remainingSeconds:(NSNumber *_Nullable)remainingSeconds;
++(NSString *)remoteVideoWiFiDownloadNoticeWithLanguageCode:(NSString *_Nullable)languageCode;
 
 @end
 

@@ -19,6 +19,8 @@
 #import "JobsBaseUI.h"
 #endif
 
+#import "JobsWalletCardModel.h"
+
 #if __has_include(<JobsWallet/JobsWalletHeader.h>)
 #import "JobsWalletHeader.h"
 #else

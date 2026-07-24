@@ -32,6 +32,13 @@ Prop_strong() UIView *lotteryResultBgView;
            //< 弹窗背景遮罩（懒加载）
 Prop_strong() UILabel *resultLabel;
                   //< 弹窗中奖结果文案（懒加载）
+Prop_strong() UIScrollView *contentScrollView;
+Prop_strong() UIImageView *backgroundImageView;
+Prop_strong() UIView *itemContainerView;
+Prop_strong() NSMutableArray <UIImageView *>*prizeImageViewMutArr;
+Prop_strong() NSMutableArray <UILabel *>*prizeTitleLabelMutArr;
+Prop_strong() UIButton *resultCloseButton;
+Prop_strong() UIImageView *resultBackgroundImageView;
 
 @end
 
@@ -39,25 +46,17 @@ Prop_strong() UILabel *resultLabel;
 - (void)viewDidLoad {
     [super viewDidLoad];
     /// 容器 ScrollView
-    UIScrollView *scrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
-        scrollView
-            .byBounces(NO)
-            .byShowsVerticalScrollIndicator(NO)
-            .byShowsHorizontalScrollIndicator(NO)
-            .byContentSize(CGSizeMake(JobsMainScreen_WIDTH(), ScaleW(810)))
-            .byFrame(CGRectMake(0,
-                                JobsMainScreen_HEIGHT() > 800 ? -44 : -20,
-                                JobsMainScreen_WIDTH(),
-                                JobsMainScreen_HEIGHT() + (JobsMainScreen_HEIGHT() > 800 ? 44 : 20)))
-            .addOn(self.view);
-    });
+    self.contentScrollView
+        .byFrame(CGRectMake(0,
+                            JobsMainScreen_HEIGHT() > 800 ? -44 : -20,
+                            JobsMainScreen_WIDTH(),
+                            JobsMainScreen_HEIGHT() + (JobsMainScreen_HEIGHT() > 800 ? 44 : 20)))
+        .addOn(self.view);
     /// 背景图
-    UIImageView *bgImageView =
-    [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT() )];
-    bgImageView.image = @"LuckDraw_bg".img;
-    [scrollView addSubview:bgImageView];
+    self.backgroundImageView.frame = CGRectMake(0, 0, JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT());
+    [self.contentScrollView addSubview:self.backgroundImageView];
     /// 顶部灯光转盘背景（懒加载 + alpha 唤起）
-    [scrollView addSubview:self.rotaryTable];
+    [self.contentScrollView addSubview:self.rotaryTable];
     self.rotaryTable.frame = CGRectMake((JobsMainScreen_WIDTH() - ScaleW(366)) / 2.0,
                                         ScaleW(218),
                                         ScaleW(366),
@@ -73,12 +72,11 @@ Prop_strong() UILabel *resultLabel;
     [[NSRunLoop currentRunLoop] addTimer:self.itemBorderTimer
                                  forMode:NSRunLoopCommonModes];
     /// 奖品网格区域
-    UIView *itemView =
-    [[UIView alloc] initWithFrame:CGRectMake(ScaleW(25),
-                                             ScaleW(225),
-                                             JobsMainScreen_WIDTH() - ScaleW(50),
-                                             ScaleW(248))];
-    [scrollView addSubview:itemView];
+    self.itemContainerView.frame = CGRectMake(ScaleW(25),
+                                              ScaleW(225),
+                                              JobsMainScreen_WIDTH() - ScaleW(50),
+                                              ScaleW(248));
+    [self.contentScrollView addSubview:self.itemContainerView];
     NSArray *itemImgArray =
     @[@"LuckDraw_1",@"LuckDraw_2",@"LuckDraw_3",@"LuckDraw_4",
       @"LuckDraw_10",@"LuckDraw_5",@"LuckDraw_9",@"LuckDraw_8",
@@ -91,7 +89,8 @@ Prop_strong() UILabel *resultLabel;
                                                       ScaleW(78),
                                                       ScaleW(80))];
         img.image = ((NSString *)itemImgArray[i]).img;
-        [itemView addSubview:img];
+        [self.itemContainerView addSubview:img];
+        [self.prizeImageViewMutArr addObject:img];
         UILabel *label =
         [[UILabel alloc] initWithFrame:CGRectMake(0,
                                                   ScaleW(63),
@@ -102,6 +101,7 @@ Prop_strong() UILabel *resultLabel;
         label.byFont([UIFont systemFontOfSize:ScaleW(13)]);
         label.byText(self.itemTitleArray[i]);
         [img addSubview:label];
+        [self.prizeTitleLabelMutArr addObject:label];
     }
     // 中间 2 个
     for (int i = 0; i < 2; i++) {
@@ -111,7 +111,8 @@ Prop_strong() UILabel *resultLabel;
                                                       ScaleW(78),
                                                       ScaleW(80))];
         img.image = ((NSString *)itemImgArray[i + 4]).img;
-        [itemView addSubview:img];
+        [self.itemContainerView addSubview:img];
+        [self.prizeImageViewMutArr addObject:img];
         UILabel *label =
         [[UILabel alloc] initWithFrame:CGRectMake(0,
                                                   ScaleW(63),
@@ -122,6 +123,7 @@ Prop_strong() UILabel *resultLabel;
         label.byFont([UIFont systemFontOfSize:ScaleW(13)]);
         label.byText(self.itemTitleArray[i + 4]);
         [img addSubview:label];
+        [self.prizeTitleLabelMutArr addObject:label];
     }
     // 下排 4 个
     for (int i = 0; i < 4; i++) {
@@ -131,7 +133,8 @@ Prop_strong() UILabel *resultLabel;
                                                       ScaleW(78),
                                                       ScaleW(80))];
         img.image = ((NSString *)itemImgArray[i + 6]).img;
-        [itemView addSubview:img];
+        [self.itemContainerView addSubview:img];
+        [self.prizeImageViewMutArr addObject:img];
         UILabel *label =
         [[UILabel alloc] initWithFrame:CGRectMake(0,
                                                   ScaleW(63),
@@ -142,15 +145,16 @@ Prop_strong() UILabel *resultLabel;
         label.byFont([UIFont systemFontOfSize:ScaleW(13)]);
         label.byText(self.itemTitleArray[i + 6]);
         [img addSubview:label];
+        [self.prizeTitleLabelMutArr addObject:label];
     }
     // 高亮边框（懒加载：初始 alpha = 0）
-    [itemView addSubview:self.itemBorderView];
+    [self.itemContainerView addSubview:self.itemBorderView];
     self.itemBorderView.frame = CGRectMake(ScaleW(-1),
                                            ScaleW(-1),
                                            ScaleW(80),
                                            ScaleW(82));
     // 开始抽奖按钮（懒加载）
-    [itemView addSubview:self.startButton];
+    [self.itemContainerView addSubview:self.startButton];
     self.startButton.frame = CGRectMake(ScaleW(82.5),
                                         ScaleW(93.5),
                                         ScaleW(160),
@@ -345,6 +349,43 @@ Prop_strong() UILabel *resultLabel;
     };return _itemTitleArray;
 }
 
+- (UIScrollView *)contentScrollView {
+    if (!_contentScrollView) {
+        _contentScrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
+            scrollView
+                .byBounces(NO)
+                .byShowsVerticalScrollIndicator(NO)
+                .byShowsHorizontalScrollIndicator(NO)
+                .byContentSize(CGSizeMake(JobsMainScreen_WIDTH(), ScaleW(810)));
+        });
+    };return _contentScrollView;
+}
+
+- (UIImageView *)backgroundImageView {
+    if (!_backgroundImageView) {
+        _backgroundImageView = UIImageView.new;
+        _backgroundImageView.image = @"LuckDraw_bg".img;
+    };return _backgroundImageView;
+}
+
+- (UIView *)itemContainerView {
+    if (!_itemContainerView) {
+        _itemContainerView = UIView.new;
+    };return _itemContainerView;
+}
+
+- (NSMutableArray<UIImageView *> *)prizeImageViewMutArr {
+    if (!_prizeImageViewMutArr) {
+        _prizeImageViewMutArr = NSMutableArray.array;
+    };return _prizeImageViewMutArr;
+}
+
+- (NSMutableArray<UILabel *> *)prizeTitleLabelMutArr {
+    if (!_prizeTitleLabelMutArr) {
+        _prizeTitleLabelMutArr = NSMutableArray.array;
+    };return _prizeTitleLabelMutArr;
+}
+
 - (UIImageView *)rotaryTable {
     if (!_rotaryTable) {
         _rotaryTable = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
@@ -409,39 +450,43 @@ Prop_strong() UILabel *resultLabel;
                 .addOn(self.view);
         });
         // 关闭按钮
-        UIButton *close =
-        [[UIButton alloc] initWithFrame:CGRectMake(ScaleW(145),
-                                                   0,
-                                                   ScaleW(35),
-                                                   ScaleW(35))];
-        [close setImage:@"pop_video_close".img
-                forState:UIControlStateNormal];
-        [close addTarget:self
-                 action:@selector(closeButtonEvent:)
-       forControlEvents:UIControlEventTouchUpInside];
-        [_lotteryResultView addSubview:close];
+        self.resultCloseButton.frame = CGRectMake(ScaleW(145), 0, ScaleW(35), ScaleW(35));
+        [_lotteryResultView addSubview:self.resultCloseButton];
         // 弹窗背景图
-        UIImageView *imageView =
-        [[UIImageView alloc] initWithFrame:CGRectMake(0,
-                                                      ScaleW(45),
-                                                      ScaleW(325),
-                                                      ScaleW(341))];
-        imageView.image = @"bg_video".img;
-        [_lotteryResultView addSubview:imageView];
+        self.resultBackgroundImageView.frame = CGRectMake(0, ScaleW(45), ScaleW(325), ScaleW(341));
+        [_lotteryResultView addSubview:self.resultBackgroundImageView];
         // 中奖结果文案（懒加载）
-        if (!self.resultLabel) {
-            self.resultLabel =
-            [[UILabel alloc] initWithFrame:CGRectMake(0,
-                                                      ScaleW(200),
-                                                      ScaleW(325),
-                                                      ScaleW(18))];
-            self.resultLabel.font =
-            [UIFont systemFontOfSize:ScaleW(18) weight:ScaleW(1.5)];
-            self.resultLabel.byTextAlignment(NSTextAlignmentCenter);
-            self.resultLabel.byTextCor(RGB_COLOR(243, 246, 25));
-            [_lotteryResultView addSubview:self.resultLabel];
-        }
+        [_lotteryResultView addSubview:self.resultLabel];
     };return _lotteryResultView;
+}
+
+- (UIButton *)resultCloseButton {
+    if (!_resultCloseButton) {
+        _resultCloseButton = UIButton.jobsInit();
+        [_resultCloseButton setImage:@"pop_video_close".img forState:UIControlStateNormal];
+        [_resultCloseButton addTarget:self
+                               action:@selector(closeButtonEvent:)
+                     forControlEvents:UIControlEventTouchUpInside];
+    };return _resultCloseButton;
+}
+
+- (UIImageView *)resultBackgroundImageView {
+    if (!_resultBackgroundImageView) {
+        _resultBackgroundImageView = UIImageView.new;
+        _resultBackgroundImageView.image = @"bg_video".img;
+    };return _resultBackgroundImageView;
+}
+
+- (UILabel *)resultLabel {
+    if (!_resultLabel) {
+        _resultLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                                 ScaleW(200),
+                                                                 ScaleW(325),
+                                                                 ScaleW(18))];
+        _resultLabel.font = [UIFont systemFontOfSize:ScaleW(18) weight:ScaleW(1.5)];
+        _resultLabel.byTextAlignment(NSTextAlignmentCenter);
+        _resultLabel.byTextCor(RGB_COLOR(243, 246, 25));
+    };return _resultLabel;
 }
 
 @end

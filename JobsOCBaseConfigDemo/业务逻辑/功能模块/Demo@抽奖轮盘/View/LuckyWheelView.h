@@ -70,9 +70,9 @@ Prop_copy(nullable)jobsByBOOLBlock spinningStateChangedHandler;
 Prop_copy(nullable)jobsByLuckyWheelSegmentBlock segmentTapHandler;
 /// 长按事件
 Prop_copy(nullable)jobsByLuckyWheelSegmentAndLPGesturerBlock segmentLongPressHandler;
-/// 启动减速旋转（使用内部的配置）
+/// 启动减速旋转；旋转中重复调用会按内部配置重置初始角速度
 - (void)startSpinWithScrollLikeDeceleration;
-/// 指定初始角速度启动减速旋转
+/// 指定初始角速度启动减速旋转；旋转中重复调用会重置为该速度
 - (void)startSpinWithScrollLikeDecelerationWithInitialVelocity:(CGFloat)initialVelocity;
 /// 开始 / 停止切换
 - (void)toggleSpin;

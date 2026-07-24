@@ -158,23 +158,29 @@
         return nil;
     }else{
         switch (fileType){
+            /// 处理 FileType_TXT 分支
             case FileType_TXT:{
                 return NSString.initByContentsOfFile(filePath);;
             }break;
+            /// 处理 FileType_IMAGE 分支
             case FileType_IMAGE:{
                 return UIImage.imageWithContentsOfFile(filePath);
             }break;
+            /// 处理 FileType_VIDEO 分支
             case FileType_VIDEO:{
                 return NSData.dataByContentsOfFile(filePath);;
             }break;
+            /// 处理 FileType_SOUND 分支
             case FileType_SOUND:{
                 AVURLAsset *mp3Asset = [AVURLAsset URLAssetWithURL:filePath.jobsFileUrl options:nil];
                 return NSData.initByURL(mp3Asset.URL);
             }break;
+            /// 处理 FileType_PLIST 分支
             case FileType_PLIST:{
                 NSDictionary *dic = NSDictionary.initByContentsOfFile(filePath);
                 return dic;
             }break;
+            /// 未匹配已知分支时执行兜底处理
             default:
                 return nil;
                 break;

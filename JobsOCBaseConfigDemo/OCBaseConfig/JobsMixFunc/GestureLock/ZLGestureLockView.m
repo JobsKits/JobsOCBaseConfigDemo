@@ -12,6 +12,8 @@
 
 Prop_strong()NSMutableArray *selectBtns;
 Prop_strong()NSMutableArray *errorBtns;//错误的按钮数组
+Prop_strong()NSMutableArray <UIButton *>*nodeBtns;
+Prop_strong()UIPanGestureRecognizer *panGesture;
 Prop_assign()BOOL finished;//是否完成
 Prop_assign()CGPoint currentPoint;//当前触摸点
 Prop_assign()ResultKindType resultType;//学生端结果
@@ -27,8 +29,8 @@ Prop_assign()ResultKindType resultType;//学生端结果
 // 子视图初始化
 - (void)initSubviews {
     self.backgroundColor = JobsClearColor;
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
-    [self addGestureRecognizer:pan];
+    self.panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
+    [self addGestureRecognizer:self.panGesture];
     // 创建九宫格 9个按钮
     for (NSInteger i = 0; i < 9; i++) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -36,13 +38,14 @@ Prop_assign()ResultKindType resultType;//学生端结果
         btn.jobsResetBtnImage(@"灰色椭圆".img);
         btn.selectedStateImageBy(@"橙色椭圆".img);
         [self addSubview:btn];
+        [self.nodeBtns addObject:btn];
         btn.tag = i + 1;
     }
 }
 // 为什么要在这个方法中布局子控件，因为只调用这个方法，就表示父控件的尺寸确定
 - (void)layoutSubviews {
     [super layoutSubviews];
-    NSUInteger count = self.subviews.count;
+    NSUInteger count = self.nodeBtns.count;
     int cols = 3;//总列数
     CGFloat x = 0,y = 0,w = 0,h = 0;
     if (Screen_Width == 320) {
@@ -65,7 +68,7 @@ Prop_assign()ResultKindType resultType;//学生端结果
         }else {
             y = margin +(w + margin) * row;
         }
-        UIButton *btn = self.subviews[i];
+        UIButton *btn = self.nodeBtns[i];
         btn.frame = CGRectMake(x, y, w, h);
     }
 }
@@ -132,7 +135,7 @@ Prop_assign()ResultKindType resultType;//学生端结果
         [self.errorBtns removeAllObjects];
     }
     _currentPoint = [pan locationInView:self];
-    for (UIButton *button in self.subviews) {
+    for (UIButton *button in self.nodeBtns) {
         if (CGRectContainsPoint(button.frame, _currentPoint)) {
             if (button.selected == NO) {
                 //点在按钮上
@@ -218,6 +221,12 @@ Prop_assign()ResultKindType resultType;//学生端结果
     if (!_selectBtns) {
         _selectBtns = NSMutableArray.array;
     };return _selectBtns;
+}
+
+-(NSMutableArray<UIButton *> *)nodeBtns{
+    if (!_nodeBtns) {
+        _nodeBtns = NSMutableArray.array;
+    };return _nodeBtns;
 }
 
 @end

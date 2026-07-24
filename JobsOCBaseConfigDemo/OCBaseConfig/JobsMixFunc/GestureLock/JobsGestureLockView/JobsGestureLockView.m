@@ -83,14 +83,19 @@ Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
         [self.configuration.selectedLineColor setStroke];
     } else {
         switch (self.validationResult) {
+            /// 处理 JobsGestureLockValidationResultFailure 分支
             case JobsGestureLockValidationResultFailure:
+            /// 处理 JobsGestureLockValidationResultTooShort 分支
             case JobsGestureLockValidationResultTooShort:
                 [self.configuration.errorLineColor setStroke];
                 break;
+            /// 处理 JobsGestureLockValidationResultSuccess 分支
             case JobsGestureLockValidationResultSuccess:
                 [self.configuration.selectedLineColor setStroke];
                 break;
+            /// 处理 JobsGestureLockValidationResultNone 分支
             case JobsGestureLockValidationResultNone:
+            /// 未匹配已知分支时执行兜底处理
             default:
                 [self.configuration.normalLineColor setStroke];
                 break;

@@ -110,9 +110,13 @@ Prop_assign(readwrite,getter=isOpen)BOOL open;
     if (progress <= 0 || self.configuration.contentMode == JobsSideDrawerContentModeFixed) return CGAffineTransformIdentity;
     distance *= progress;
     switch (self.configuration.direction) {
+        /// 处理 JobsSideDrawerDirectionTop 分支
         case JobsSideDrawerDirectionTop: return CGAffineTransformMakeTranslation(0, distance);
+        /// 处理 JobsSideDrawerDirectionBottom 分支
         case JobsSideDrawerDirectionBottom: return CGAffineTransformMakeTranslation(0, -distance);
+        /// 处理 JobsSideDrawerDirectionRight 分支
         case JobsSideDrawerDirectionRight: return CGAffineTransformMakeTranslation(-distance, 0);
+        /// 处理 JobsSideDrawerDirectionLeft 分支
         case JobsSideDrawerDirectionLeft: return CGAffineTransformMakeTranslation(distance, 0);
     }
 }
@@ -170,9 +174,13 @@ Prop_assign(readwrite,getter=isOpen)BOOL open;
 
 -(void)updateGestureConfiguration{
     switch (self.configuration.direction) {
+        /// 处理 JobsSideDrawerDirectionLeft 分支
         case JobsSideDrawerDirectionLeft: self.openGesture.edges = UIRectEdgeLeft; break;
+        /// 处理 JobsSideDrawerDirectionRight 分支
         case JobsSideDrawerDirectionRight: self.openGesture.edges = UIRectEdgeRight; break;
+        /// 处理 JobsSideDrawerDirectionTop 分支
         case JobsSideDrawerDirectionTop: self.openGesture.edges = UIRectEdgeTop; break;
+        /// 处理 JobsSideDrawerDirectionBottom 分支
         case JobsSideDrawerDirectionBottom: self.openGesture.edges = UIRectEdgeBottom; break;
     }
     [self updateGestureAvailability];
@@ -192,9 +200,13 @@ Prop_assign(readwrite,getter=isOpen)BOOL open;
 
 -(CGFloat)openingComponentForPoint:(CGPoint)point{
     switch (self.configuration.direction) {
+        /// 处理 JobsSideDrawerDirectionLeft 分支
         case JobsSideDrawerDirectionLeft: return point.x;
+        /// 处理 JobsSideDrawerDirectionRight 分支
         case JobsSideDrawerDirectionRight: return -point.x;
+        /// 处理 JobsSideDrawerDirectionTop 分支
         case JobsSideDrawerDirectionTop: return point.y;
+        /// 处理 JobsSideDrawerDirectionBottom 分支
         case JobsSideDrawerDirectionBottom: return -point.y;
     };return 0;
 }
@@ -206,17 +218,22 @@ Prop_assign(readwrite,getter=isOpen)BOOL open;
     CGFloat progress = MIN(directionalOffset / self.interactiveDistance, 1);
     CGFloat targetProgress = opening ? progress : 1 - progress;
     switch (gesture.state) {
+        /// 处理 UIGestureRecognizerStateBegan 分支
         case UIGestureRecognizerStateBegan:
             self.dimControl.hidden = NO;
             self.interactiveProgress = @(opening ? 0 : 1);
             [self updateLayoutWithProgress:self.interactiveProgress.doubleValue];
             break;
+        /// 处理 UIGestureRecognizerStateChanged 分支
         case UIGestureRecognizerStateChanged:
             self.interactiveProgress = @(targetProgress);
             [self updateLayoutWithProgress:targetProgress];
             break;
+        /// 处理 UIGestureRecognizerStateEnded 分支
         case UIGestureRecognizerStateEnded:
+        /// 处理 UIGestureRecognizerStateCancelled 分支
         case UIGestureRecognizerStateCancelled:
+        /// 处理 UIGestureRecognizerStateFailed 分支
         case UIGestureRecognizerStateFailed: {
             CGFloat openingVelocity = [self openingComponentForPoint:[gesture velocityInView:self.hostView]];
             CGFloat directionalVelocity = opening ? openingVelocity : -openingVelocity;
@@ -224,6 +241,7 @@ Prop_assign(readwrite,getter=isOpen)BOOL open;
             [self setOpen:opening ? completed : !completed animated:YES];
             break;
         }
+        /// 未匹配已知分支时执行兜底处理
         default:
             break;
     }

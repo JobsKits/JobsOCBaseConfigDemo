@@ -26,7 +26,9 @@ typedef NS_ENUM(NSInteger, JobsOCDemoListSettingItem) {
 
 typedef NS_ENUM(NSInteger, JobsOCDemoListSettingSection) {
     JobsOCDemoListSettingSectionGeneral = 0,
-    JobsOCDemoListSettingSectionLanguage
+    JobsOCDemoListSettingSectionSplashContent,
+    JobsOCDemoListSettingSectionLanguage,
+    JobsOCDemoListSettingSectionCount
 };
 
 @interface JobsOCDemoListSettingsVC ()
@@ -56,7 +58,9 @@ Prop_assign()BOOL shouldApplyAppEntryAfterReturning;
 -(NSString *)themeSwitchTitle;
 -(NSString *)deallocTipsSwitchTitle;
 -(NSArray <NSString *>*)generalSettingTitleArr;
+-(NSArray <NSString *>*)splashContentTitleArr;
 -(NSArray <NSString *>*)languageTitleArr;
+-(JobsOCSplashContentType)splashContentTypeByRow:(NSInteger)row;
 -(AppLanguage)appLanguageByRow:(NSInteger)row;
 -(NSString *)titleByIndexPath:(NSIndexPath *)indexPath;
 -(UITableViewCellAccessoryType)accessoryTypeByIndexPath:(NSIndexPath *)indexPath;
@@ -96,12 +100,13 @@ Prop_assign()BOOL shouldApplyAppEntryAfterReturning;
 
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return JobsOCDemoListSettingSectionCount;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section{
     if (section == JobsOCDemoListSettingSectionGeneral) return self.generalSettingTitleArr.count;
+    if (section == JobsOCDemoListSettingSectionSplashContent) return self.splashContentTitleArr.count;
     return self.languageTitleArr.count;
 }
 
@@ -122,6 +127,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(NSString *)tableView:(UITableView *)tableView
 titleForHeaderInSection:(NSInteger)section{
+    if (section == JobsOCDemoListSettingSectionSplashContent) return @"开屏内容".tr;
     return section == JobsOCDemoListSettingSectionLanguage ? @"应用语言".tr : nil;
 }
 
@@ -145,6 +151,14 @@ titleForHeaderInSection:(NSInteger)section{
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == JobsOCDemoListSettingSectionSplashContent) {
+        JobsOCSplashContentType contentType = [self splashContentTypeByRow:indexPath.row];
+        [JobsOCSplashPreferences setContentTypeForNextLaunch:contentType];
+        ([NSString stringWithFormat:@"下次开屏内容已设为：%@".tr,
+                                    self.splashContentTitleArr[indexPath.row]]).toast();
+        [self.tableView reloadData];
+        return;
+    }
     if (indexPath.section == JobsOCDemoListSettingSectionLanguage) {
         self.appLanguageAtAppLanguageBy([self appLanguageByRow:indexPath.row]);
         self.changeTabBarItemTitleBy(indexPath);
@@ -412,12 +426,31 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     ];
 }
 
+-(NSArray<NSString *> *)splashContentTitleArr{
+    return @[
+        @"本地图片".tr,
+        @"本地 GIF".tr,
+        @"远程图片".tr,
+        @"本地视频".tr,
+        @"远程视频".tr
+    ];
+}
+
+-(JobsOCSplashContentType)splashContentTypeByRow:(NSInteger)row{
+    if (row < JobsOCSplashContentTypeLocalImage || row > JobsOCSplashContentTypeRemoteVideo) {
+        return JobsOCSplashContentTypeLocalImage;
+    };return (JobsOCSplashContentType)row;
+}
+
 -(AppLanguage)appLanguageByRow:(NSInteger)row{
     switch (row) {
+        /// 处理 数值 0 分支
         case 0:
             return AppLanguageChineseSimplified;
+        /// 处理 数值 1 分支
         case 1:
             return AppLanguageEnglish;
+        /// 未匹配已知分支时执行兜底处理
         default:
             return AppLanguageTagalog;
     }
@@ -425,12 +458,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(NSString *)titleByIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == JobsOCDemoListSettingSectionGeneral) return self.generalSettingTitleArr[indexPath.row];
+    if (indexPath.section == JobsOCDemoListSettingSectionSplashContent) return self.splashContentTitleArr[indexPath.row];
     return self.languageTitleArr[indexPath.row];
 }
 
 -(UITableViewCellAccessoryType)accessoryTypeByIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == JobsOCDemoListSettingSectionGeneral) {
         return UITableViewCellAccessoryDisclosureIndicator;
+    }
+    if (indexPath.section == JobsOCDemoListSettingSectionSplashContent) {
+        return [self splashContentTypeByRow:indexPath.row] == JobsOCSplashPreferences.contentTypeForNextLaunch ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
     };return [self appLanguageByRow:indexPath.row] == LanMgr.language ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
 }
 

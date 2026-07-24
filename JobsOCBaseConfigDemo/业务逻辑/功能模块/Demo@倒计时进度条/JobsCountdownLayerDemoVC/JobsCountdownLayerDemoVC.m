@@ -61,9 +61,10 @@ Prop_assign()CGFloat totalSeconds;
                                                 top,
                                                 JobsWidth(188),
                                                 JobsWidth(188));
-    self.demoButton.frame = self.demoButtonContainer.bounds;
-    self.demoButton.layer.cornerRadius = CGRectGetWidth(self.demoButton.bounds) / 2.0;
-    self.demoButton.layer.masksToBounds = YES;
+    self.demoButton.byFrame(self.demoButtonContainer.bounds);
+    self.demoButton
+        .jobsResetBtnCornerRadiusValue(CGRectGetWidth(self.demoButton.bounds) / 2.0)
+        .byClipsToBounds(YES);
     self.demoButtonContainer.layer.shadowPath = [UIBezierPath bezierPathWithOvalInRect:self.demoButtonContainer.bounds].CGPath;
     self.stateLab.frame = CGRectMake(JobsWidth(24),
                                      CGRectGetMaxY(self.demoButtonContainer.frame) + JobsWidth(28),
@@ -146,7 +147,7 @@ Prop_assign()CGFloat totalSeconds;
     }
     [self.demoButtonContainer byFuseOuterRingStop:animated];
     [self.demoButtonContainer byFusePressScaleStop:animated duration:0.18 damping:0.72 velocity:0.4];
-    [self.demoButton setTitle:@"点我开始".tr forState:UIControlStateNormal];
+    self.demoButton.jobsResetBtnTitle(@"点我开始".tr);
     self.stateLab.byText(@"点击按钮，任意 UIView.layer 都可以挂一圈导火索倒计时。".tr);
 }
 
@@ -156,13 +157,13 @@ Prop_assign()CGFloat totalSeconds;
     [self.demoButtonContainer byFuseOuterRingStop:YES];
     [self.demoButtonContainer byFusePressScaleStop:YES duration:0.18 damping:0.72 velocity:0.4];
     [self.demoButtonContainer byFuseTapScale];
-    [self.demoButton setTitle:@"完成".tr forState:UIControlStateNormal];
+    self.demoButton.jobsResetBtnTitle(@"完成".tr);
     self.stateLab.byText(@"倒计时完成，外圈导火索自动收口。".tr);
 }
 
 - (void)updateCountdownWithRemaining:(CGFloat)remaining {
     CGFloat safeRemaining = MAX(remaining, 0);
-    [self.demoButton setTitle:[NSString stringWithFormat:@"%.1fs",safeRemaining] forState:UIControlStateNormal];
+    self.demoButton.jobsResetBtnTitle([NSString stringWithFormat:@"%.1fs",safeRemaining]);
     self.stateLab.byText([NSString stringWithFormat:@"剩余 %.1f 秒，Layer 外圈按 DisplayLink 进度增长。".tr,safeRemaining]);
 }
 
@@ -182,13 +183,17 @@ Prop_assign()CGFloat totalSeconds;
 
 - (UIButton *)demoButton {
     if (!_demoButton) {
-        _demoButton = UIButton.jobsInit();
-        _demoButton.backgroundColor = HEXCOLOR(0x111827);
-        _demoButton.titleLabel.font = UIFontWeightBoldSize(26);
-        [_demoButton setTitleColor:JobsWhiteColor forState:UIControlStateNormal];
-        [_demoButton setTitle:@"点我开始".tr forState:UIControlStateNormal];
-        [_demoButton addTarget:self action:@selector(startOrStopCountdown) forControlEvents:UIControlEventTouchUpInside];
-        _demoButton.layer.masksToBounds = YES;
+        @jobs_weakify(self)
+        _demoButton = UIButton.jobsInit()
+            .jobsResetBtnTitle(@"点我开始".tr)
+            .jobsResetBtnTitleCor(JobsWhiteColor)
+            .jobsResetBtnTitleFont(UIFontWeightBoldSize(26))
+            .jobsResetBtnBgCor(HEXCOLOR(0x111827))
+            .jobsResetBtnCornerRadiusValue(JobsWidth(94))
+            .onClickBy(^(__unused UIButton *button) {
+                [weak_self startOrStopCountdown];
+            })
+            .byClipsToBounds(YES);
     };return _demoButton;
 }
 

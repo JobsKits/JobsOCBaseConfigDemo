@@ -249,6 +249,7 @@
             JobsLog(@"手机号码不存在");
             toastBy(@"手机号码不存在".tr);
         }break;
+        /// 处理 HTTPResponseCodeAccountLocked 分支
         case HTTPResponseCodeAccountLocked:{
             JobsLog(@"账户被锁");
             toastBy(@"账户被锁，请联系系统管理员".tr);
@@ -257,6 +258,7 @@
         case HTTPResponseCodeNoOK:{
             if(actionBlock) actionBlock(responseCode);
         }break;
+        /// 未匹配已知分支时执行兜底处理
         default:
             break;
     }

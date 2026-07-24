@@ -16,6 +16,8 @@ Prop_strong()UITextField *accountTF;
 Prop_strong()UITextField *passwordTF;
 Prop_strong()UITextField *accessoryTF;
 Prop_strong()UIView *accessoryBar;
+Prop_strong()UILabel *accessoryTitleLab;
+Prop_strong()UIButton *accessoryDoneBtn;
 
 @end
 
@@ -186,30 +188,39 @@ Prop_strong()UIView *accessoryBar;
 
 -(UIView *)accessoryBar{
     if (!_accessoryBar) {
-        UIView *bar = [UIView.alloc initWithFrame:CGRectMake(0, 0, JobsMainScreen_WIDTH(), JobsWidth(56))];
-        bar.backgroundColor = HEXCOLOR(0x263342);
-        UILabel *label = UILabel.new;
-        label.text = @"Input Accessory".tr;
-        label.textColor = UIColor.whiteColor;
-        label.font = UIFontWeightMediumSize(15);
-        [bar addSubview:label];
-        [label mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(bar).offset(JobsWidth(18));
-            make.centerY.equalTo(bar);
+        _accessoryBar = [UIView.alloc initWithFrame:CGRectMake(0, 0, JobsMainScreen_WIDTH(), JobsWidth(56))];
+        _accessoryBar.backgroundColor = HEXCOLOR(0x263342);
+        [_accessoryBar addSubview:self.accessoryTitleLab];
+        [self.accessoryTitleLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_accessoryBar).offset(JobsWidth(18));
+            make.centerY.equalTo(_accessoryBar);
         }];
-        UIButton *doneBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        [doneBtn setTitle:@"Done".tr forState:UIControlStateNormal];
-        doneBtn.titleLabel.font = UIFontWeightMediumSize(15);
-        [doneBtn addTarget:self
-                    action:@selector(jobs_endEditing)
-          forControlEvents:UIControlEventTouchUpInside];
-        [bar addSubview:doneBtn];
-        [doneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.right.equalTo(bar).offset(-JobsWidth(18));
-            make.centerY.equalTo(bar);
+        [_accessoryBar addSubview:self.accessoryDoneBtn];
+        [self.accessoryDoneBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(_accessoryBar).offset(-JobsWidth(18));
+            make.centerY.equalTo(_accessoryBar);
         }];
-        _accessoryBar = bar;
     };return _accessoryBar;
+}
+
+-(UILabel *)accessoryTitleLab{
+    if (!_accessoryTitleLab) {
+        _accessoryTitleLab = UILabel.new;
+        _accessoryTitleLab.text = @"Input Accessory".tr;
+        _accessoryTitleLab.textColor = UIColor.whiteColor;
+        _accessoryTitleLab.font = UIFontWeightMediumSize(15);
+    };return _accessoryTitleLab;
+}
+
+-(UIButton *)accessoryDoneBtn{
+    if (!_accessoryDoneBtn) {
+        _accessoryDoneBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+        [_accessoryDoneBtn setTitle:@"Done".tr forState:UIControlStateNormal];
+        _accessoryDoneBtn.titleLabel.font = UIFontWeightMediumSize(15);
+        [_accessoryDoneBtn addTarget:self
+                              action:@selector(jobs_endEditing)
+                    forControlEvents:UIControlEventTouchUpInside];
+    };return _accessoryDoneBtn;
 }
 
 -(void)jobs_endEditing{

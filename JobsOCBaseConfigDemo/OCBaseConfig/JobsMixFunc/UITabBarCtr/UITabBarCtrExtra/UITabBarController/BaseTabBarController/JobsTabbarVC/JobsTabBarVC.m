@@ -379,9 +379,11 @@ static dispatch_once_t onceToken;
                                                                                     UILongPressGestureRecognizer *_Nullable longPressGR) {
             if(self.gestureRecognizerBlock) self.gestureRecognizerBlock(longPressGR);
             switch (longPressGR.state) {
+                /// 处理 UIGestureRecognizerStatePossible 分支
                 case UIGestureRecognizerStatePossible:{
                     JobsLog(@"没有触摸事件发生，所有手势识别的默认状态");
                 }break;
+                /// 处理 UIGestureRecognizerStateBegan 分支
                 case UIGestureRecognizerStateBegan:{
                     if (self.isFeedbackGenerator) {
                         NSObject.feedbackGenerator(nil);/// 震动反馈
@@ -391,18 +393,23 @@ static dispatch_once_t onceToken;
                                                       dataMutArr:self.pullListAutoSizeViewMutArr];
                     JobsLog(@"一个手势已经开始  但尚未改变或者完成时");
                 }break;
+                /// 处理 UIGestureRecognizerStateChanged 分支
                 case UIGestureRecognizerStateChanged:{
                     JobsLog(@"手势状态改变");
                 }break;
-                case UIGestureRecognizerStateEnded:{// = UIGestureRecognizerStateRecognized
+                /// = UIGestureRecognizerStateRecognized
+                case UIGestureRecognizerStateEnded:{
                     JobsLog(@"手势完成");
                 }break;
+                /// 处理 UIGestureRecognizerStateCancelled 分支
                 case UIGestureRecognizerStateCancelled:{
                     JobsLog(@"手势取消，恢复至Possible状态");
                 }break;
+                /// 处理 UIGestureRecognizerStateFailed 分支
                 case UIGestureRecognizerStateFailed:{
                     JobsLog(@"手势失败，恢复至Possible状态");
                 }break;
+                /// 未匹配已知分支时执行兜底处理
                 default:
                     break;
             };return nil;

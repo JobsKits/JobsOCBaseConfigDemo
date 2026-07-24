@@ -7,6 +7,12 @@
 
 #import "JobsOCSearcherRecordCell.h"
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 @interface JobsOCSearcherRecordCell ()
 
 Prop_strong()UILabel *historyLabel;
@@ -28,15 +34,16 @@ Prop_copy()NSString *historyText;
         self.contentView.backgroundColor = UIColor.whiteColor;
         [self.contentView addSubview:self.historyLabel];
         [self.contentView addSubview:self.deleteButton];
-        [NSLayoutConstraint activateConstraints:@[
-            [self.historyLabel.leftAnchor constraintEqualToAnchor:self.contentView.leftAnchor constant:16],
-            [self.historyLabel.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
-            [self.historyLabel.rightAnchor constraintEqualToAnchor:self.deleteButton.leftAnchor constant:-12],
-            [self.deleteButton.rightAnchor constraintEqualToAnchor:self.contentView.rightAnchor constant:-10],
-            [self.deleteButton.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
-            [self.deleteButton.widthAnchor constraintEqualToConstant:40],
-            [self.deleteButton.heightAnchor constraintEqualToConstant:40]
-        ]];
+        [self.historyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.contentView).offset(16);
+            make.centerY.equalTo(self.contentView);
+            make.right.equalTo(self.deleteButton.mas_left).offset(-12);
+        }];
+        [self.deleteButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.contentView).offset(-10);
+            make.centerY.equalTo(self.contentView);
+            make.size.mas_equalTo(CGSizeMake(40, 40));
+        }];
     };return self;
 }
 
@@ -64,7 +71,6 @@ Prop_copy()NSString *historyText;
 -(UILabel *)historyLabel{
     if (!_historyLabel) {
         _historyLabel = UILabel.new;
-        _historyLabel.translatesAutoresizingMaskIntoConstraints = NO;
         _historyLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightRegular];
         _historyLabel.textColor = [UIColor colorWithRed:0.24 green:0.29 blue:0.35 alpha:1];
         _historyLabel.numberOfLines = 1;
@@ -75,7 +81,6 @@ Prop_copy()NSString *historyText;
 -(UIButton *)deleteButton{
     if (!_deleteButton) {
         _deleteButton = UIButton.new;
-        _deleteButton.translatesAutoresizingMaskIntoConstraints = NO;
         _deleteButton.titleLabel.font = [UIFont systemFontOfSize:13 weight:UIFontWeightRegular];
         [_deleteButton setTitle:@"删除"
                        forState:UIControlStateNormal];

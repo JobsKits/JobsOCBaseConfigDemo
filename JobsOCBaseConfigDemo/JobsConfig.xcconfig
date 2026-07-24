@@ -16,7 +16,7 @@
 // 🔨 解决方案 ➤ 拖到别处、删除Xcode对于此`*.xcconfig`的引用、再拖回来
 
 PRODUCT_NAME = SwiftDemo
-APP_DISPLAY_NAME = SwiftDemo
+APP_DISPLAY_NAME = OCDemo
 JOBS_PROJECT_FOLDER_NAME = $(PROJECT_DIR:base)
 INFOPLIST_KEY_CFBundleDisplayName = $(APP_DISPLAY_NAME)
 INFOPLIST_KEY_CFBundleName = $(PRODUCT_NAME)

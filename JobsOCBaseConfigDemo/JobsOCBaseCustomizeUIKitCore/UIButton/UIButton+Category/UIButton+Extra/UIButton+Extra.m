@@ -15,21 +15,26 @@
         [self.superview layoutIfNeeded];
         self.titleLabel.labelShowingType = labelShowingType;
         switch (labelShowingType) {
-            case UILabelShowingType_01:{/// 一行显示。定宽、定高、定字体。多余部分用…表示（省略号的位置由NSLineBreakMode控制）
+            /// 一行显示。定宽、定高、定字体。多余部分用…表示（省略号的位置由NSLineBreakMode控制）
+            case UILabelShowingType_01:{
                 self.titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;// NSLineBreakByTruncatingHead、NSLineBreakByTruncatingMiddle、NSLineBreakByTruncatingTail
             }break;
-            case UILabelShowingType_02:{/// 一行显示。定宽、定高、定字体。多余部分scrollerView
+            /// 一行显示。定宽、定高、定字体。多余部分scrollerView
+            case UILabelShowingType_02:{
                 /// 在不全局集成@implementation UILabel (AutoScroll)的前提下
                 /// 要求本类是 BaseButton
             }break;
-            case UILabelShowingType_03:{/// 一行显示。不定宽、定高、定字体。宽度自适应
+            /// 一行显示。不定宽、定高、定字体。宽度自适应
+            case UILabelShowingType_03:{
                 [self buttonAutoWidthByFont];
                 self.uninstall(NSLayoutAttributeWidth);
             }break;
-            case UILabelShowingType_04:{/// 一行显示。定宽、定高。缩小字体方式全展示
+            /// 一行显示。定宽、定高。缩小字体方式全展示
+            case UILabelShowingType_04:{
                 self.buttonAutoFontByWidth();
             }break;
-            case UILabelShowingType_05:{/// 多行显示。定宽、不定高、定字体
+            /// 多行显示。定宽、不定高、定字体
+            case UILabelShowingType_05:{
                 self.titleLabel.byNumberOfLines(0);
                 self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;/// 自动折行设置【默认】需要提前设置imageTitleSpace
                 self.uninstall(NSLayoutAttributeHeight);
@@ -43,6 +48,7 @@
                 }];
                 if (self.objBlock) self.objBlock(@(size.height));
             }break;
+            /// 未匹配已知分支时执行兜底处理
             default:break;
         };return self;
     };
@@ -55,21 +61,26 @@
         [self.superview layoutIfNeeded];
         self.subtitleLabel.labelShowingType = labelShowingType;
         switch (labelShowingType) {
-            case UILabelShowingType_01:{/// 一行显示。定宽、定高、定字体。多余部分用…表示（省略号的位置由NSLineBreakMode控制）
+            /// 一行显示。定宽、定高、定字体。多余部分用…表示（省略号的位置由NSLineBreakMode控制）
+            case UILabelShowingType_01:{
                 self.subtitleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;// NSLineBreakByTruncatingHead、NSLineBreakByTruncatingMiddle、NSLineBreakByTruncatingTail
             }break;
-            case UILabelShowingType_02:{/// 一行显示。定宽、定高、定字体。多余部分scrollerView
+            /// 一行显示。定宽、定高、定字体。多余部分scrollerView
+            case UILabelShowingType_02:{
                 /// 在不全局集成@implementation UILabel (AutoScroll)的前提下
                 /// 要求本类是 BaseButton
             }break;
-            case UILabelShowingType_03:{/// 一行显示。不定宽、定高、定字体。宽度自适应
+            /// 一行显示。不定宽、定高、定字体。宽度自适应
+            case UILabelShowingType_03:{
                 self.buttonAutoWidthByFont();
                 self.uninstall(NSLayoutAttributeWidth);
             }break;
-            case UILabelShowingType_04:{/// 一行显示。定宽、定高。缩小字体方式全展示
+            /// 一行显示。定宽、定高。缩小字体方式全展示
+            case UILabelShowingType_04:{
                 self.buttonAutoFontByWidth();
             }break;
-            case UILabelShowingType_05:{/// 多行显示。定宽、不定高、定字体
+            /// 多行显示。定宽、不定高、定字体
+            case UILabelShowingType_05:{
                 self.subtitleLabel.byNumberOfLines(0);
                 self.subtitleLabel.lineBreakMode = NSLineBreakByWordWrapping;/// 自动折行设置【默认】需要提前设置imageTitleSpace
                 self.uninstall(NSLayoutAttributeHeight);
@@ -83,6 +94,7 @@
                 }];
                 if (self.objBlock) self.objBlock(@(size.height));
             }break;
+            /// 未匹配已知分支时执行兜底处理
             default:break;
         };return self;
     };

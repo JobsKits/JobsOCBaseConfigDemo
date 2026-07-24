@@ -35,6 +35,7 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
 
 @implementation JobsLiveStreamDemoVC
 -(void)dealloc{
+    JobsRemoveNotification(self);
     [self stopCaptureSessionIfNeeded];
 }
 
@@ -60,6 +61,14 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    JobsAddNotification(self,
+                        @selector(jobs_applicationDidEnterBackground:),
+                        UIApplicationDidEnterBackgroundNotification,
+                        nil);
+    JobsAddNotification(self,
+                        @selector(jobs_applicationDidBecomeActive:),
+                        UIApplicationDidBecomeActiveNotification,
+                        nil);
     self.makeNavByAlpha(1);
     self.view.backgroundColor = UIColor.blackColor;
     self.currentPosition = AVCaptureDevicePositionBack;
@@ -78,7 +87,23 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.streaming = NO;
+    self.streamButton.selected = NO;
     [self stopCaptureSessionIfNeeded];
+}
+
+-(void)jobs_applicationDidEnterBackground:(NSNotification *)notification{
+    (void)notification;
+    self.streaming = NO;
+    self.streamButton.selected = NO;
+    [self stopCaptureSessionIfNeeded];
+    [self updateStatusText:@"已进入后台，采集已停止。".tr];
+}
+
+-(void)jobs_applicationDidBecomeActive:(NSNotification *)notification{
+    (void)notification;
+    if (!self.viewIfLoaded.window || !self.captureSession.inputs.count) return;
+    [self startCaptureSessionIfNeeded];
+    [self updateStatusText:@"采集已恢复，点击开始推流。".tr];
 }
 #pragma mark —— Capture
 -(void)requestMediaAuthorization{

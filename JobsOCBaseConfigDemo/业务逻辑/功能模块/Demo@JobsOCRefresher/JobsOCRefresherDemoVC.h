@@ -6,6 +6,8 @@
 //
 
 #import "BaseViewController.h"
+#import "JobsOCRefresher.h"
+#import "JobsFuseAnimation.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

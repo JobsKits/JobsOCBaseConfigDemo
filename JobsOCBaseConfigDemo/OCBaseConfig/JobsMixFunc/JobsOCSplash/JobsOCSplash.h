@@ -10,6 +10,7 @@
 
 #import "JobsOCSplashAction.h"
 #import "JobsOCSplashConfiguration.h"
+#import "JobsOCSplashMediaCache.h"
 #import "JobsOCSplashPreferences.h"
 #import "JobsOCSplashPresenter.h"
 #import "JobsOCSplashVC.h"

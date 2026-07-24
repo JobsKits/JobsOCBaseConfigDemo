@@ -157,18 +157,16 @@
         _duration = 60;
         _minimumValidDuration = 3;
         self.backgroundColor = UIColor.clearColor;
-        self.tintColor = UIColor.whiteColor;
-        [self setImage:[UIImage systemImageNamed:@"mic.fill"] forState:UIControlStateNormal];
         self.accessibilityLabel = @"按住录音";
         _trackLayer = CAShapeLayer.layer;
         _progressLayer = CAShapeLayer.layer;
         _innerLayer = CAShapeLayer.layer;
         _trackLayer.fillColor = _progressLayer.fillColor = UIColor.clearColor.CGColor;
-        _trackLayer.strokeColor = UIColor.systemGray4Color.CGColor;
+        _trackLayer.strokeColor = UIColor.whiteColor.CGColor;
         _progressLayer.strokeColor = UIColor.systemRedColor.CGColor;
-        _trackLayer.lineWidth = _progressLayer.lineWidth = 6;
+        _trackLayer.lineWidth = _progressLayer.lineWidth = 4;
         _progressLayer.lineCap = kCALineCapRound;
-        _innerLayer.fillColor = UIColor.systemBlueColor.CGColor;
+        _innerLayer.fillColor = UIColor.whiteColor.CGColor;
         [self.layer insertSublayer:_innerLayer atIndex:0];
         [self.layer addSublayer:_trackLayer];[self.layer addSublayer:_progressLayer];
         [self addTarget:self action:@selector(touchDown) forControlEvents:UIControlEventTouchDown];
@@ -180,14 +178,13 @@
     [super layoutSubviews];
     CGPathRef path = [UIBezierPath bezierPathWithOvalInRect:CGRectInset(self.bounds,4,4)].CGPath;
     self.trackLayer.path = self.progressLayer.path = path;
-    self.innerLayer.path = [UIBezierPath bezierPathWithOvalInRect:CGRectInset(self.bounds,13,13)].CGPath;
+    self.innerLayer.path = [UIBezierPath bezierPathWithOvalInRect:CGRectInset(self.bounds,14,14)].CGPath;
 }
 -(void)touchDown{
     if (self.onBegin && !self.onBegin()) return;
     self.active = YES;
     self.recordingStartedAt = CACurrentMediaTime();
     self.accessibilityLabel = @"松开保存";
-    self.innerLayer.fillColor = UIColor.systemRedColor.CGColor;
     [UIView animateWithDuration:0.15 animations:^{self.transform = CGAffineTransformMakeScale(1.08,1.08);}];
     __weak typeof(self) weakSelf = self;
     self.timer = jobsMakeTimer(^(__kindof JobsTimer *timer) {
@@ -210,5 +207,5 @@
         if (self.onTooShort) self.onTooShort();
     } else if (self.onFinish) self.onFinish();
 }
--(void)resetVisuals{[self.timer stop];self.timer = nil;self.recordingStartedAt = 0;self.progressLayer.strokeEnd = 0;self.accessibilityLabel = @"按住录音";self.innerLayer.fillColor = UIColor.systemBlueColor.CGColor;[UIView animateWithDuration:0.24 animations:^{self.transform = CGAffineTransformIdentity;}];}
+-(void)resetVisuals{[self.timer stop];self.timer = nil;self.recordingStartedAt = 0;self.progressLayer.strokeEnd = 0;self.accessibilityLabel = @"按住录音";[UIView animateWithDuration:0.24 animations:^{self.transform = CGAffineTransformIdentity;}];}
 @end

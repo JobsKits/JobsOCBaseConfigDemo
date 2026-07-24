@@ -7,7 +7,20 @@
 
 #import "ProtocolKitVC.h"
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 @interface ProtocolKitVC ()
+
+Prop_strong()UIScrollView *protocolScrollView;
+Prop_strong()UIView *protocolContentView;
+Prop_strong()UIStackView *protocolStackView;
+Prop_strong()NSMutableArray <UIView *>*protocolCardViewMutArr;
+Prop_strong()NSMutableArray <UIStackView *>*protocolCardStackViewMutArr;
+Prop_strong()NSMutableArray <UILabel *>*protocolLabelMutArr;
 
 @end
 
@@ -28,46 +41,24 @@
 }
 
 - (void)jobs_setupProtocolKitContentView {
-    UIScrollView *scrollView = UIScrollView.new;
-    scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-    scrollView.alwaysBounceVertical = YES;
-    scrollView.showsVerticalScrollIndicator = NO;
-    [self.view addSubview:scrollView];
-    UIView *contentView = UIView.new;
-    contentView.translatesAutoresizingMaskIntoConstraints = NO;
-    [scrollView addSubview:contentView];
-    UIStackView *stackView = UIStackView.new;
-    stackView.translatesAutoresizingMaskIntoConstraints = NO;
-    stackView.axis = UILayoutConstraintAxisVertical;
-    stackView.spacing = 14.0;
-    [contentView addSubview:stackView];
-    NSLayoutConstraint *scrollTopConstraint = nil;
-    NSLayoutConstraint *scrollBottomConstraint = nil;
-    if (@available(iOS 11.0, *)) {
-        scrollTopConstraint = [scrollView.topAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.topAnchor];
-        scrollBottomConstraint = [scrollView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor];
-    } else {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        scrollTopConstraint = [scrollView.topAnchor constraintEqualToAnchor:self.topLayoutGuide.bottomAnchor];
-        scrollBottomConstraint = [scrollView.bottomAnchor constraintEqualToAnchor:self.bottomLayoutGuide.topAnchor];
-#pragma clang diagnostic pop
-    }
-    [NSLayoutConstraint activateConstraints:@[
-        scrollTopConstraint,
-        [scrollView.leftAnchor constraintEqualToAnchor:self.view.leftAnchor],
-        [scrollView.rightAnchor constraintEqualToAnchor:self.view.rightAnchor],
-        scrollBottomConstraint,
-        [contentView.topAnchor constraintEqualToAnchor:scrollView.topAnchor],
-        [contentView.leftAnchor constraintEqualToAnchor:scrollView.leftAnchor],
-        [contentView.rightAnchor constraintEqualToAnchor:scrollView.rightAnchor],
-        [contentView.bottomAnchor constraintEqualToAnchor:scrollView.bottomAnchor],
-        [contentView.widthAnchor constraintEqualToAnchor:self.view.widthAnchor],
-        [stackView.topAnchor constraintEqualToAnchor:contentView.topAnchor constant:24.0],
-        [stackView.leftAnchor constraintEqualToAnchor:contentView.leftAnchor constant:20.0],
-        [stackView.rightAnchor constraintEqualToAnchor:contentView.rightAnchor constant:-20.0],
-        [stackView.bottomAnchor constraintEqualToAnchor:contentView.bottomAnchor constant:-28.0]
-    ]];
+    [self.view addSubview:self.protocolScrollView];
+    [self.protocolScrollView addSubview:self.protocolContentView];
+    [self.protocolContentView addSubview:self.protocolStackView];
+    [self.protocolScrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop);
+        make.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom);
+    }];
+    [self.protocolContentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.protocolScrollView);
+        make.width.equalTo(self.view);
+    }];
+    [self.protocolStackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.protocolContentView).offset(24.0);
+        make.left.equalTo(self.protocolContentView).offset(20.0);
+        make.right.equalTo(self.protocolContentView).offset(-20.0);
+        make.bottom.equalTo(self.protocolContentView).offset(-28.0);
+    }];
     UILabel *titleLabel = [self jobs_protocolKitLabelWithText:@"Objective-C 协议扩展"
                                                          font:[UIFont boldSystemFontOfSize:26.0]
                                                         color:[UIColor colorWithRed:27.0 / 255.0
@@ -75,7 +66,7 @@
                                                                                blue:51.0 / 255.0
                                                                               alpha:1.0]
                                                 numberOfLines:0];
-    [stackView addArrangedSubview:titleLabel];
+    [self.protocolStackView addArrangedSubview:titleLabel];
     UILabel *summaryLabel = [self jobs_protocolKitLabelWithText:@"这个页面承载 ProtocolKit Demo：用 runtime 给遵守协议的类注入默认方法，让 OC 也能获得类似 Swift protocol extension 的体验。"
                                                            font:[UIFont systemFontOfSize:15.0 weight:UIFontWeightRegular]
                                                           color:[UIColor colorWithRed:88.0 / 255.0
@@ -83,17 +74,17 @@
                                                                                  blue:115.0 / 255.0
                                                                                 alpha:1.0]
                                                   numberOfLines:0];
-    [stackView addArrangedSubview:summaryLabel];
-    [stackView addArrangedSubview:[self jobs_protocolKitCardWithTitle:@"页面状态"
+    [self.protocolStackView addArrangedSubview:summaryLabel];
+    [self.protocolStackView addArrangedSubview:[self jobs_protocolKitCardWithTitle:@"页面状态"
                                                                detail:@"已补齐可见 UI。后续如果把 ProtocolKit 源码正式接入编译，这里可以继续加按钮触发真实注入验证。"
                                                             highlight:@"当前目标：点进来不再黑屏，并能看懂这个 Demo 对应的能力。"]];
-    [stackView addArrangedSubview:[self jobs_protocolKitCardWithTitle:@"实现思路"
+    [self.protocolStackView addArrangedSubview:[self jobs_protocolKitCardWithTitle:@"实现思路"
                                                                detail:@"@defs(Protocol) 会生成一个容器类，容器类在 +load 中登记协议默认实现；改良版再通过 resolveInstanceMethod: / resolveClassMethod: 按需注入，减少启动期遍历所有 Class 的成本。"
                                                             highlight:@"关键路径：登记默认实现 -> 命中协议类 -> 动态补 Method。"]];
-    [stackView addArrangedSubview:[self jobs_protocolKitCardWithTitle:@"工程目录"
+    [self.protocolStackView addArrangedSubview:[self jobs_protocolKitCardWithTitle:@"工程目录"
                                                                detail:@"当前目录保留了作者原版、改良版本和说明文档。VC 层先做展示入口，不主动改动底层 runtime 方案。"
                                                             highlight:@"PKProtocolExtension / 作者原版 / 改良版本 / ProtocolKit.md"]];
-    [stackView addArrangedSubview:[self jobs_protocolKitCodeCard]];
+    [self.protocolStackView addArrangedSubview:[self jobs_protocolKitCodeCard]];
 }
 
 - (UIView *)jobs_protocolKitCardWithTitle:(NSString *)title
@@ -101,16 +92,13 @@
                                 highlight:(NSString *)highlight {
     UIView *cardView = [self jobs_protocolKitBaseCardView];
     UIStackView *stackView = UIStackView.new;
-    stackView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.protocolCardStackViewMutArr.add(stackView);
     stackView.axis = UILayoutConstraintAxisVertical;
     stackView.spacing = 8.0;
     [cardView addSubview:stackView];
-    [NSLayoutConstraint activateConstraints:@[
-        [stackView.topAnchor constraintEqualToAnchor:cardView.topAnchor constant:16.0],
-        [stackView.leftAnchor constraintEqualToAnchor:cardView.leftAnchor constant:16.0],
-        [stackView.rightAnchor constraintEqualToAnchor:cardView.rightAnchor constant:-16.0],
-        [stackView.bottomAnchor constraintEqualToAnchor:cardView.bottomAnchor constant:-16.0]
-    ]];
+    [stackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(cardView).insets(UIEdgeInsetsMake(16.0, 16.0, 16.0, 16.0));
+    }];
     [stackView addArrangedSubview:[self jobs_protocolKitLabelWithText:title
                                                                  font:[UIFont boldSystemFontOfSize:17.0]
                                                                 color:[UIColor colorWithRed:32.0 / 255.0
@@ -134,16 +122,13 @@
 - (UIView *)jobs_protocolKitCodeCard {
     UIView *cardView = [self jobs_protocolKitBaseCardView];
     UIStackView *stackView = UIStackView.new;
-    stackView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.protocolCardStackViewMutArr.add(stackView);
     stackView.axis = UILayoutConstraintAxisVertical;
     stackView.spacing = 10.0;
     [cardView addSubview:stackView];
-    [NSLayoutConstraint activateConstraints:@[
-        [stackView.topAnchor constraintEqualToAnchor:cardView.topAnchor constant:16.0],
-        [stackView.leftAnchor constraintEqualToAnchor:cardView.leftAnchor constant:16.0],
-        [stackView.rightAnchor constraintEqualToAnchor:cardView.rightAnchor constant:-16.0],
-        [stackView.bottomAnchor constraintEqualToAnchor:cardView.bottomAnchor constant:-16.0]
-    ]];
+    [stackView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(cardView).insets(UIEdgeInsetsMake(16.0, 16.0, 16.0, 16.0));
+    }];
     [stackView addArrangedSubview:[self jobs_protocolKitLabelWithText:@"典型写法"
                                                                  font:[UIFont boldSystemFontOfSize:17.0]
                                                                 color:[UIColor colorWithRed:32.0 / 255.0
@@ -183,7 +168,7 @@
 
 - (UIView *)jobs_protocolKitBaseCardView {
     UIView *cardView = UIView.new;
-    cardView.translatesAutoresizingMaskIntoConstraints = NO;
+    self.protocolCardViewMutArr.add(cardView);
     cardView.backgroundColor = UIColor.whiteColor;
     cardView.layer.cornerRadius = 8.0;
     cardView.layer.shadowColor = [UIColor colorWithWhite:0.0 alpha:0.08].CGColor;
@@ -198,7 +183,7 @@
                                      color:(UIColor *)color
                              numberOfLines:(NSInteger)numberOfLines {
     UILabel *label = UILabel.new;
-    label.translatesAutoresizingMaskIntoConstraints = NO;
+    self.protocolLabelMutArr.add(label);
     label.text = text;
     label.font = font;
     label.textColor = color;
@@ -222,6 +207,47 @@
     label.layer.cornerRadius = 8.0;
     label.layer.masksToBounds = YES;
     return label;
+}
+
+#pragma mark —— LazyLoad
+-(UIScrollView *)protocolScrollView{
+    if (!_protocolScrollView) {
+        _protocolScrollView = UIScrollView.new;
+        _protocolScrollView.alwaysBounceVertical = YES;
+        _protocolScrollView.showsVerticalScrollIndicator = NO;
+    };return _protocolScrollView;
+}
+
+-(UIView *)protocolContentView{
+    if (!_protocolContentView) {
+        _protocolContentView = UIView.new;
+    };return _protocolContentView;
+}
+
+-(UIStackView *)protocolStackView{
+    if (!_protocolStackView) {
+        _protocolStackView = UIStackView.new;
+        _protocolStackView.axis = UILayoutConstraintAxisVertical;
+        _protocolStackView.spacing = 14.0;
+    };return _protocolStackView;
+}
+
+-(NSMutableArray<UIView *> *)protocolCardViewMutArr{
+    if (!_protocolCardViewMutArr) {
+        _protocolCardViewMutArr = NSMutableArray.array;
+    };return _protocolCardViewMutArr;
+}
+
+-(NSMutableArray<UIStackView *> *)protocolCardStackViewMutArr{
+    if (!_protocolCardStackViewMutArr) {
+        _protocolCardStackViewMutArr = NSMutableArray.array;
+    };return _protocolCardStackViewMutArr;
+}
+
+-(NSMutableArray<UILabel *> *)protocolLabelMutArr{
+    if (!_protocolLabelMutArr) {
+        _protocolLabelMutArr = NSMutableArray.array;
+    };return _protocolLabelMutArr;
 }
 
 @end

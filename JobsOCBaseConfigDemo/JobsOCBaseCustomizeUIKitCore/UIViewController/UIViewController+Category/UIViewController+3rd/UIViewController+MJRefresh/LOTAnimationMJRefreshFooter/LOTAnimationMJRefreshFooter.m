@@ -60,19 +60,25 @@ Prop_strong()LOTAnimationView *animationView;
 - (void)setState:(MJRefreshState)state{
     MJRefreshCheckState;
     switch (state) {
-        case MJRefreshStateIdle: // 刷新完毕
+        /// 刷新完毕
+        case MJRefreshStateIdle:
             [self.animationView stop];
             break;
-        case MJRefreshStatePulling: // 下拉达到可触发刷新
+        /// 下拉达到可触发刷新
+        case MJRefreshStatePulling:
             [self.animationView play];
             break;
-        case MJRefreshStateRefreshing: // 松手可以刷新
+        /// 松手可以刷新
+        case MJRefreshStateRefreshing:
             [self.animationView play];
             break;
+        /// 处理 MJRefreshStateWillRefresh 分支
         case MJRefreshStateWillRefresh:
             break;
+        /// 处理 MJRefreshStateNoMoreData 分支
         case MJRefreshStateNoMoreData:
             break;
+        /// 未匹配已知分支时执行兜底处理
         default:
             break;
     }

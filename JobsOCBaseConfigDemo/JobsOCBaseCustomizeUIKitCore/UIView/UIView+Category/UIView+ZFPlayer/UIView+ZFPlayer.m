@@ -20,7 +20,7 @@
         if (Jobs_getAssociatedObject(_avPlayerManager)) {
             [self.avPlayerManager stop];
         }
-#if !TARGET_OS_SIMULATOR
+#if !TARGET_OS_SIMULATOR && __has_include(<IJKMediaFramework/IJKMediaFramework.h>) && (__has_include(<ZFPlayer/ZFIJKPlayerManager.h>) || __has_include("ZFIJKPlayerManager.h"))
         if (Jobs_getAssociatedObject(_ijkPlayerManager)) {
             [self.ijkPlayerManager stop];
         }
@@ -45,7 +45,7 @@ JobsKey(_playerCtr)
                 [self.avPlayerManager replay];//设置循环播放
             }];
         }
-#if !TARGET_OS_SIMULATOR
+#if !TARGET_OS_SIMULATOR && __has_include(<IJKMediaFramework/IJKMediaFramework.h>) && (__has_include(<ZFPlayer/ZFIJKPlayerManager.h>) || __has_include("ZFIJKPlayerManager.h"))
         if (Jobs_getAssociatedObject(_ijkPlayerManager)) {
             @jobs_weakify(self)
             PlayerCtr = [ZFPlayerController.alloc initWithPlayerManager:self.ijkPlayerManager
@@ -87,7 +87,7 @@ JobsKey(_avPlayerManager)
     Jobs_setAssociatedRETAIN_NONATOMIC(_avPlayerManager, avPlayerManager)
 }
 #pragma mark —— @property(nonatomic,strong,nullable)ZFIJKPlayerManager *ijkPlayerManager;//ZFPlayer的作者告诉我：如果要兼容FLV流视频格式请用这个
-#if !TARGET_OS_SIMULATOR
+#if !TARGET_OS_SIMULATOR && __has_include(<IJKMediaFramework/IJKMediaFramework.h>) && (__has_include(<ZFPlayer/ZFIJKPlayerManager.h>) || __has_include("ZFIJKPlayerManager.h"))
 JobsKey(_ijkPlayerManager)
 @dynamic ijkPlayerManager;
 -(ZFIJKPlayerManager *)ijkPlayerManager{

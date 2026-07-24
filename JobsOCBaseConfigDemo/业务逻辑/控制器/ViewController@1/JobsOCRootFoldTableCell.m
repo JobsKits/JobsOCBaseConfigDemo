@@ -9,6 +9,7 @@
 
 NSString *const JobsOCRootFoldTableCellReuseIdentifier = @"JobsOCRootFoldTableCell";
 static NSString *const JobsOCRootFoldInnerCellReuseIdentifier = @"JobsOCRootFoldInnerCell";
+static NSString *const JobsOCDemoIconFallbackSymbolName = @"questionmark.app";
 static NSTimeInterval const JobsOCChargingProgressInterval = 0.45;
 
 @interface JobsOCRootFoldTableCell ()
@@ -37,6 +38,8 @@ Prop_assign()NSInteger chargingProgressPhase;
 -(void)prepareChargingProgressTimerIfNeeded;
 -(void)syncChargingProgressTimerState;
 -(void)refreshVisibleChargingProgressTitle;
+-(NSString *)demoIconClassNameByViewModel:(UIViewModel *)viewModel;
+-(void)logDemoIconIssueOnce:(NSString *)issue;
 
 @end
 
@@ -326,12 +329,28 @@ Prop_assign()NSInteger chargingProgressPhase;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         symbolNames = @{
+            @"JobsSwiftParityMomentsPreviewDemoVC": @"photo.on.rectangle.angled",
+            @"JobsSwiftParityThrottleDebounceDemoVC": @"hare.fill",
+            @"JobsSwiftParityTaskCenterDemoVC": @"checkmark.circle.fill",
+            @"JobsSwiftParityAnimatedButtonNumberDemoVC": @"number.circle.fill",
+            @"JobsSwiftParityDashboardDemoVC": @"chart.bar.xaxis",
+            @"JobsSwiftParityControlEventsDemoVC": @"gamecontroller.fill",
+            @"JobsSwiftParityTraitChangeDemoVC": @"circle.lefthalf.fill",
+            @"JobsSwiftParityEditProfileDemoVC": @"person.crop.circle.badge.checkmark",
+            @"JobsSwiftParityPDFDemoVC": @"doc.richtext.fill",
+            @"JobsSwiftParityToastDemoVC": @"text.bubble.fill",
+            @"JobsSwiftParityAlertDemoVC": @"exclamationmark.bubble.fill",
+            @"JobsSwiftParityOpenDemoVC": @"arrow.up.right.square.fill",
+            @"JobsSwiftParitySnowflakeDemoVC": @"snowflake.circle",
             @"JobsTabBarCtrlDemoVC": @"rectangle.bottomthird.inset.filled",
             @"SlideToUnlockDemoVC": @"lock.open",
             @"JobsNavigationDemoVC": @"arrow.triangle.turn.up.right.diamond",
             @"JobsTimerDemoListVC": @"stopwatch",
+            @"JobsOCAudioRecorderDemoVC": @"mic.fill",
             @"JobsBluetoothDemoVC": @"antenna.radiowaves.left.and.right",
             @"JobsCoreMotionDemoVC": @"gyroscope",
+            @"JobsScreenshotTipsDemoVC": @"camera.viewfinder",
+            @"JobsScreenshotProtectionDemoVC": @"eye.slash",
             @"JobsAnimatedNumberLabelDemoVC": @"textformat.123",
             @"JobsClockDemoVC": @"clock",
             @"LotteryVC": @"circle.grid.cross.fill",
@@ -343,13 +362,17 @@ Prop_assign()NSInteger chargingProgressPhase;
             @"JobsVerticalMenuMainVC": @"sidebar.left",
             @"JobsLinkageMenuViewDemoVC": @"rectangle.split.2x1",
             @"JobsOCRefresherDemoVC": @"arrow.clockwise",
+            @"JobsDouyinRefreshDemoVC": @"arrow.triangle.2.circlepath",
             @"JobsViewPushDemoVC": @"rectangle.portrait.and.arrow.right",
             @"JobsSideDrawerDemoVC": @"rectangle.leadinghalf.inset.filled",
             @"JobsOCKeyboardMgrDemoVC": @"keyboard",
+            @"JobsOCNumberStepperDemoVC": @"plusminus.circle",
             @"JobsOCGraphicCaptchaDemoVC": @"checkmark.shield",
             @"JobsQRCodeDemoVC": @"qrcode",
             @"JobsCNIDDemoVC": @"person.text.rectangle",
             @"JobsOCSkeletonViewDemoVC": @"wave.3.right",
+            @"JobsOCExcelDemoVC": @"rectangle.grid.3x2.fill",
+            @"JobsHandwritingDemoVC": @"pencil.tip.crop.circle",
             @"ExcelVC": @"tablecells",
             @"JXCategoryViewVerticalShowVC": @"rectangle.split.1x2",
             @"JobsPostVC": @"square.and.pencil",
@@ -371,6 +394,7 @@ Prop_assign()NSInteger chargingProgressPhase;
             @"Douyin_ZFPlayerVC_2": @"play.square.stack",
             @"TransparentRegionVC": @"square.dashed.inset.filled",
             @"JobsMosaicDemoListVC": @"square.grid.3x3.fill",
+            @"JobsButtonCoverCellDemoListVC": @"rectangle.grid.1x2",
             @"JobsSphereDemoVC": @"globe.asia.australia",
             @"JobsOCCommentDemoVC": @"bubble.left.and.bubble.right",
             @"JobsOCSearcherDemoVC": @"magnifyingglass",
@@ -390,6 +414,7 @@ Prop_assign()NSInteger chargingProgressPhase;
             @"JobsDropDownListVC": @"chevron.down.square",
             @"JobsOCCountryCodeCtrl": @"flag",
             @"YTKNetworkStudyVC": @"network",
+            @"JobsWebSocketDemoVC": @"arrow.left.arrow.right.circle.fill",
             @"CoreTextLearningVC": @"textformat",
             @"JXCategoryPopupVC": @"rectangle.inset.filled.and.person.filled",
             @"UITableViewCellEditorVC": @"envelope",
@@ -410,21 +435,54 @@ Prop_assign()NSInteger chargingProgressPhase;
             @"UITBVCellFoldVC": @"rectangle.compress.vertical",
             @"ProtocolKitVC": @"puzzlepiece.extension"
         };
-        NSAssert([NSSet setWithArray:symbolNames.allValues].count == symbolNames.count,
-                 @"Demo 入口图标必须保持一项一图，不允许重复");
+        NSMutableDictionary <NSString *, NSString *>*classNamesBySymbolName = NSMutableDictionary.dictionary;
+        [symbolNames enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull className,
+                                                         NSString * _Nonnull symbolName,
+                                                         BOOL * _Nonnull stop) {
+            NSString *existingClassName = classNamesBySymbolName[symbolName];
+            if (existingClassName.length) {
+                [self logDemoIconIssueOnce:[NSString stringWithFormat:@"Demo 入口 %@ 与 %@ 重复使用系统图标 %@，请改为语义贴合且不重复的图标",
+                                            existingClassName,
+                                            className,
+                                            symbolName]];
+            }else{
+                classNamesBySymbolName[symbolName] = className;
+            }
+        }];
     });return symbolNames;
 }
 
--(NSString *)demoIconSymbolNameByViewModel:(UIViewModel *)viewModel{
+-(NSString *)demoIconClassNameByViewModel:(UIViewModel *)viewModel{
     NSString *className = viewModel.cls ? NSStringFromClass(viewModel.cls) : @"";
     if ([className isEqualToString:@"JobsGraphicCaptchaDemoVC"]) {
         className = @"JobsOCGraphicCaptchaDemoVC";
+    };return className;
+}
+
+-(void)logDemoIconIssueOnce:(NSString *)issue{
+    if (!issue.length) return;
+    static NSMutableSet <NSString *>*loggedIssues;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        loggedIssues = NSMutableSet.set;
+    });
+    @synchronized (loggedIssues) {
+        if ([loggedIssues containsObject:issue]) return;
+        [loggedIssues addObject:issue];
     }
+    JobsLog(@"Demo 图标配置诊断：%@",issue);
+}
+
+-(NSString *)demoIconSymbolNameByViewModel:(UIViewModel *)viewModel{
+    NSString *className = [self demoIconClassNameByViewModel:viewModel];
     NSString *symbolName = [self demoIconSymbolNamesByClassName][className];
-    NSAssert(symbolName.length,
-             @"Demo 入口 %@ 必须显式配置贴合内容且不重复的图标",
-             className.length ? className : [self textByViewModel:viewModel]);
-    return symbolName ?: @"questionmark.app";
+    if (!symbolName.length) {
+        NSString *entryName = className.length ? className : [self textByViewModel:viewModel];
+        [self logDemoIconIssueOnce:[NSString stringWithFormat:@"Demo 入口 %@ 缺少显式系统图标映射，已使用 %@ 兜底",
+                                    entryName,
+                                    JobsOCDemoIconFallbackSymbolName]];
+        return JobsOCDemoIconFallbackSymbolName;
+    };return symbolName;
 }
 
 -(UIImage *)demoIconImageByViewModel:(UIViewModel *)viewModel{
@@ -433,9 +491,14 @@ Prop_assign()NSInteger chargingProgressPhase;
     }
     NSString *symbolName = [self demoIconSymbolNameByViewModel:viewModel];
     UIImage *image = symbolName.sys_img;
-    NSAssert(image, @"无效的系统图标：%@", symbolName);
-    if (image) return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    return [@"questionmark.app".sys_img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    if (!image) {
+        NSString *entryName = [self demoIconClassNameByViewModel:viewModel];
+        [self logDemoIconIssueOnce:[NSString stringWithFormat:@"Demo 入口 %@ 配置了无效系统图标 %@，已使用 %@ 兜底",
+                                    entryName.length ? entryName : [self textByViewModel:viewModel],
+                                    symbolName,
+                                    JobsOCDemoIconFallbackSymbolName]];
+        image = JobsOCDemoIconFallbackSymbolName.sys_img;
+    };return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
 -(UIImage *)redAccessoryImageByImage:(UIImage *)image

@@ -9,14 +9,16 @@
 #define JOBS_HEADER_GUARD_JOBSGESTURELOCKVC_16F19CFDB1
 
 #import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 #import "JobsGestureLockConfiguration.h"
 #import "JobsGestureLockView.h"
 #import "JobsDefines.h"
 #import "JobsOCDSL.h"
+#import "UIButton+SimplyMake.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface JobsGestureLockVC : UIViewController <JobsGestureLockViewDelegate>
+@interface JobsGestureLockVC : BaseViewController <JobsGestureLockViewDelegate>
 
 Prop_strong(readonly)JobsGestureLockConfiguration *configuration;
 Prop_copy(readonly)NSString *storageKey;

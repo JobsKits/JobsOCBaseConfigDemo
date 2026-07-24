@@ -42,18 +42,23 @@ NS_INLINE JobsNetworkingEnvir NetworkingEnvir(void) {
 NS_INLINE JobsNetworkingEnvir networkingEnvir(NSInteger data) {
     static JobsNetworkingEnvir _networkingEnvir = JobsNetworkingEnvir_Undefined; // 静态变量仅初始化一次
     switch (data) {
+        /// 处理 JobsNetworkingEnvir_Dev 分支
         case JobsNetworkingEnvir_Dev:
             _networkingEnvir = JobsNetworkingEnvir_Dev; // 开发环境
             break;
+        /// 处理 JobsNetworkingEnvir_Test 分支
         case JobsNetworkingEnvir_Test:
             _networkingEnvir = JobsNetworkingEnvir_UAT; // 测试环境
             break;
+        /// 处理 JobsNetworkingEnvir_UAT 分支
         case JobsNetworkingEnvir_UAT:
             _networkingEnvir = JobsNetworkingEnvir_UAT; // UAT环境
             break;
+        /// 处理 JobsNetworkingEnvir_Product 分支
         case JobsNetworkingEnvir_Product:
             _networkingEnvir = JobsNetworkingEnvir_Product; // 生产环境
             break;
+        /// 未匹配已知分支时执行兜底处理
         default:
             _networkingEnvir = JobsNetworkingEnvir_Undefined; // 未定义的网络环境
             break;

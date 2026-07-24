@@ -2,16 +2,16 @@
 //  JobsSettingGestureVC.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/5/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsMembersSubsBaseVC.h"
-#import "ZLGestureLockViewController.h"
+#import "JobsGestureLock.h"
 #import "JobsDefineProperty.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface JobsSettingGestureVC : ZLGestureLockViewController
+@interface JobsSettingGestureVC : JobsGestureLockVC
 
 @end
 

@@ -6,6 +6,7 @@
 //
 
 #import "JobsOCRefreshDefines.h"
+#import "JobsFuseAnimation.h"
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import "JobsLanMgr.h"
@@ -32,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_assign() CGFloat triggerDistance;
 Prop_assign() CGFloat viewLength;
 Prop_assign() BOOL showsInfo;
+Prop_assign() BOOL showsText;
 Prop_assign() BOOL enablesHaptics;
 Prop_assign() JobsOCRefreshHorizontalMode horizontalMode;
 Prop_assign() JobsOCRefreshAnimationType animationType;
@@ -51,6 +53,7 @@ Prop_copy(nullable) NSString *gifName;
 Prop_copy(nullable) NSString *networkImageURLString;
 Prop_copy(nullable) NSString *soundName;
 Prop_copy(nullable) NSArray<NSString *> *frameImageNames;
+Prop_strong(nullable) id<JobsRefreshAnimatorProtocol> animator;
 
 + (instancetype)defaultHeaderConfig;
 + (instancetype)defaultFooterConfig;

@@ -126,6 +126,7 @@ JobsKey(_suspendGestureDelegate)
             if (!container) return nil;
             CGRect availableBounds = JobsSuspendAvailableBounds(container);
             switch (recognizer.state) {
+                /// 处理 UIGestureRecognizerStateChanged 分支
                 case UIGestureRecognizerStateChanged:{
                     CGPoint translation = [recognizer translationInView:container];
                     CGPoint origin = CGPointMake(CGRectGetMinX(recognizer.view.frame) + translation.x,
@@ -139,8 +140,11 @@ JobsKey(_suspendGestureDelegate)
                                                        CGRectGetHeight(recognizer.view.bounds)));
                 }
                     break;
+                /// 处理 UIGestureRecognizerStateEnded 分支
                 case UIGestureRecognizerStateEnded:
+                /// 处理 UIGestureRecognizerStateCancelled 分支
                 case UIGestureRecognizerStateCancelled:
+                /// 处理 UIGestureRecognizerStateFailed 分支
                 case UIGestureRecognizerStateFailed:{
                     CGRect frame = recognizer.view.frame;
                     CGPoint center = CGPointMake(CGRectGetMidX(frame), CGRectGetMidY(frame));
@@ -176,6 +180,7 @@ JobsKey(_suspendGestureDelegate)
                     }];
                 }
                     break;
+                /// 未匹配已知分支时执行兜底处理
                 default:
                     break;
             }

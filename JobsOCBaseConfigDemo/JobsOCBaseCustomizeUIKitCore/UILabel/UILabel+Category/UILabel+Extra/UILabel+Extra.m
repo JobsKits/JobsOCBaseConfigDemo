@@ -61,33 +61,39 @@
         [self.superview layoutIfNeeded];
         self.labelShowingType = labelShowingType;
         switch (labelShowingType) {
-            case UILabelShowingType_01:{///  一行显示。定宽、定高、定字体。多余部分用…表示（省略号的位置由NSLineBreakMode控制）
+            /// 一行显示。定宽、定高、定字体。多余部分用…表示（省略号的位置由NSLineBreakMode控制）
+            case UILabelShowingType_01:{
                 if (self.width && self.height) {
                     self.lineBreakMode = NSLineBreakByTruncatingMiddle;// NSLineBreakByTruncatingHead、NSLineBreakByTruncatingMiddle、NSLineBreakByTruncatingTail
                 }
             }break;
-            case UILabelShowingType_02:{/// 一行显示。定宽、定高、定字体。多余部分scrollerView
+            /// 一行显示。定宽、定高、定字体。多余部分scrollerView
+            case UILabelShowingType_02:{
                 /// 在不全局集成@implementation UILabel (AutoScroll)的前提下
                 /// 要求本类是 BaseLabel
             }break;
-            case UILabelShowingType_03:{/// 一行显示。不定宽、定高、定字体。宽度自适应 【单行：ByFont】
+            /// 一行显示。不定宽、定高、定字体。宽度自适应 【单行：ByFont】
+            case UILabelShowingType_03:{
                 if (self.height) {
                     self.labelAutoWidthByFont();
                     if (self.width) self.uninstall(NSLayoutAttributeWidth);// 强制
                 }
             }break;
-            case UILabelShowingType_04:{/// 一行显示。定宽、定高。缩小字体方式全展示 【单行：ByWidth】
+            /// 一行显示。定宽、定高。缩小字体方式全展示 【单行：ByWidth】
+            case UILabelShowingType_04:{
                 if (self.width && self.height) {
                     self.labelAutoFontByWidth();
                 }
             }break;
-            case UILabelShowingType_05:{/// 多行显示。定宽、不定高、定字体 【多行：ByFont】
+            /// 多行显示。定宽、不定高、定字体 【多行：ByFont】
+            case UILabelShowingType_05:{
                 if (self.width) {
                     self.numberOfLines = 0;
                     self.lineBreakMode = NSLineBreakByWordWrapping;/// 自动折行设置【默认】
                     if (self.height) self.uninstall(NSLayoutAttributeHeight);
                 }
             }break;
+            /// 未匹配已知分支时执行兜底处理
             default:break;
         };return self;
     };

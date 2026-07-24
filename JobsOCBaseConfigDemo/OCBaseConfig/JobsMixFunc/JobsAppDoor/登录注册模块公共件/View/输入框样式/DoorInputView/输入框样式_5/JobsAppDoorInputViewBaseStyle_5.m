@@ -119,6 +119,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
                     self.chooseBtn.byAlpha(1);
                     self.zyTextField.byAlpha(1);
                 }break;
+                /// 未匹配已知分支时执行兜底处理
                 default:
                     break;
             }

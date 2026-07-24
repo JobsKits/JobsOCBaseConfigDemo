@@ -123,6 +123,57 @@ Prop_assign()CGRect lastAnimationBounds;
     return self;
 }
 
+#pragma mark —— JobsRefreshAnimatorProtocol
+-(UIView *)refreshAnimatorView {
+    return self;
+}
+
+-(CGSize)refreshAnimatorPreferredSize {
+    return self.config.indicatorSize;
+}
+
+-(void)refreshAnimatorApplyPhase:(JobsRefreshAnimatorPhase)phase
+                        progress:(CGFloat)progress {
+    CGFloat normalizedProgress = MIN(1, MAX(0, progress));
+    switch (phase) {
+        /// 处理 JobsRefreshAnimatorPhasePulling 分支
+        case JobsRefreshAnimatorPhasePulling:
+            self.hidden = NO;
+            [self byStop];
+            self.alpha = 0.35 + normalizedProgress * 0.65;
+            self.transform = CGAffineTransformMakeScale(0.72 + normalizedProgress * 0.28,
+                                                        0.72 + normalizedProgress * 0.28);
+            break;
+        /// 处理 JobsRefreshAnimatorPhaseReady 分支
+        case JobsRefreshAnimatorPhaseReady:
+            self.hidden = NO;
+            [self byStop];
+            self.alpha = 1;
+            self.transform = CGAffineTransformIdentity;
+            break;
+        /// 处理 JobsRefreshAnimatorPhaseRefreshing 分支
+        case JobsRefreshAnimatorPhaseRefreshing:
+            self.hidden = NO;
+            self.alpha = 1;
+            self.transform = CGAffineTransformIdentity;
+            [self byStart];
+            break;
+        /// 处理 JobsRefreshAnimatorPhaseEnding 分支
+        case JobsRefreshAnimatorPhaseEnding:
+            self.hidden = NO;
+            [self byStop];
+            break;
+        /// 处理 JobsRefreshAnimatorPhaseIdle 分支
+        case JobsRefreshAnimatorPhaseIdle:
+        /// 处理 JobsRefreshAnimatorPhaseInactive 分支
+        case JobsRefreshAnimatorPhaseInactive:
+            [self byStop];
+            self.alpha = 0;
+            self.hidden = YES;
+            break;
+    }
+}
+
 -(void)jobs_setupDouyinRefreshView {
     self.userInteractionEnabled = NO;
     self.isAccessibilityElement = YES;

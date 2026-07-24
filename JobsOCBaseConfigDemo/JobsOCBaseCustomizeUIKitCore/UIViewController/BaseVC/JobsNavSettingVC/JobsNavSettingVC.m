@@ -123,6 +123,7 @@
         appToolsSelf.setGKNavBackBtn(nil);
         if(self.leftBarButtonItems.count) self.byGKNavLeftBarButtonItems(self.leftBarButtonItems);
         if(self.rightBarButtonItems.count) self.byGKNavRightBarButtonItems(self.rightBarButtonItems);
+        [self jobs_ensureDemoThemeButton];
         self.byGKNavigationBarBlock(^(__kindof GKCustomNavigationBar * _Nullable navigationBar) {
             navigationBar
                 .byHidden(!data)
@@ -169,6 +170,7 @@
         }));
         if(self.leftBarButtonItems.count) self.byGKNavLeftBarButtonItems(self.leftBarButtonItems);
         if(self.rightBarButtonItems.count) self.byGKNavRightBarButtonItems(self.rightBarButtonItems);
+        [self jobs_ensureDemoThemeButton];
         self.byGKNavigationBarBlock(^(__kindof GKCustomNavigationBar * _Nullable navigationBar) {
             navigationBar.byVisible(config.viewModel.Alpha);
         });

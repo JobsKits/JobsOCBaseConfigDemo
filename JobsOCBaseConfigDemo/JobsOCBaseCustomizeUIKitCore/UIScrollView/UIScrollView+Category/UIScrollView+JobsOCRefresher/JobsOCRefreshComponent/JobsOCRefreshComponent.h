@@ -49,6 +49,7 @@ Prop_assign() JobsOCRefreshPosition position;
 Prop_assign() JobsOCRefreshRole role;
 Prop_strong() JobsOCRefreshConfig *config;
 Prop_assign(readonly) JobsOCRefreshState state;
+Prop_strong(readonly,nullable) id<JobsRefreshAnimatorProtocol> animator;
 
 - (instancetype)initWithPosition:(JobsOCRefreshPosition)position
                             role:(JobsOCRefreshRole)role
@@ -56,6 +57,7 @@ Prop_assign(readonly) JobsOCRefreshState state;
 - (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
 - (instancetype)initWithCoder:(NSCoder *)coder NS_UNAVAILABLE;
 - (void)applyState:(JobsOCRefreshState)state progress:(CGFloat)progress;
+- (void)replaceAnimator:(nullable id<JobsRefreshAnimatorProtocol>)animator;
 - (void)markRefreshedAt:(NSDate *)date;
 - (CGFloat)refreshLength;
 

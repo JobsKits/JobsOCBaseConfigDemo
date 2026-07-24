@@ -18,6 +18,9 @@
     NSString *_sectionTitle;
     NSString *_menuTitle;
     NSMutableArray<UIView *> *_cards;
+    NSMutableArray<UILabel *> *_iconLabels;
+    NSMutableArray<UILabel *> *_titleLabels;
+    NSMutableArray<UILabel *> *_subtitleLabels;
 }
 
 -(instancetype)initWithSectionTitle:(NSString *)sectionTitle
@@ -26,6 +29,9 @@
         _sectionTitle = sectionTitle;
         _menuTitle = menuTitle;
         _cards = NSMutableArray.array;
+        _iconLabels = NSMutableArray.array;
+        _titleLabels = NSMutableArray.array;
+        _subtitleLabels = NSMutableArray.array;
         self.backgroundColor = UIColor.whiteColor;
         for (NSInteger i = 0; i < 5; i++) {
             UIView *card = [self cardAtIndex:i];
@@ -55,6 +61,7 @@
     card.layer.shadowOffset = CGSizeMake(0, 3);
     card.layer.shadowRadius = 6;
     UILabel *iconLabel = UILabel.new;
+    [_iconLabels addObject:iconLabel];
     iconLabel.text = @"✉";
     iconLabel.textAlignment = NSTextAlignmentCenter;
     iconLabel.textColor = UIColor.whiteColor;
@@ -64,12 +71,14 @@
     iconLabel.layer.masksToBounds = YES;
     [card addSubview:iconLabel];
     UILabel *titleLabel = UILabel.new;
+    [_titleLabels addObject:titleLabel];
     titleLabel.text = [NSString stringWithFormat:@"%@ - %@ 活动 %ld", _sectionTitle, _menuTitle, (long)index + 1];
     titleLabel.textColor = UIColor.labelColor;
     titleLabel.font = [UIFont boldSystemFontOfSize:18];
     titleLabel.numberOfLines = 2;
     [card addSubview:titleLabel];
     UILabel *subtitleLabel = UILabel.new;
+    [_subtitleLabels addObject:subtitleLabel];
     subtitleLabel.text = @"神秘彩金等你来拿".tr;
     subtitleLabel.textColor = UIColor.darkGrayColor;
     subtitleLabel.font = [UIFont systemFontOfSize:15];

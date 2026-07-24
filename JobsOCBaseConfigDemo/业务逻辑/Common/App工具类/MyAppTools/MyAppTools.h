@@ -31,6 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MyAppTools : NSObject
 
 Prop_assign()FMLoginWork loginWork;
++(instancetype)sharedManager;
++(void)destroySingleton;
 /// 仅仅为了iOS 13 版本向下兼容而存在
 -(UIWindow *)makeAppDelegateWindow;
 -(UIWindow *)makeSceneDelegateWindow;

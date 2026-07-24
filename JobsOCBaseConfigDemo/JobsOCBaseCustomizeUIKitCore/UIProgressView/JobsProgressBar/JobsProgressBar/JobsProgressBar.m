@@ -170,16 +170,20 @@ Prop_assign()BOOL userDragging;
     CGFloat displayProgress = [self jobs_displayProgress];
     CGRect fillFrame = trackFrame;
     switch (self.direction) {
+        /// 处理 JobsProgressBarDirectionLeftToRight 分支
         case JobsProgressBarDirectionLeftToRight:
             fillFrame.size.width = CGRectGetWidth(trackFrame) * displayProgress;
             break;
+        /// 处理 JobsProgressBarDirectionRightToLeft 分支
         case JobsProgressBarDirectionRightToLeft:
             fillFrame.size.width = CGRectGetWidth(trackFrame) * displayProgress;
             fillFrame.origin.x = CGRectGetMaxX(trackFrame) - CGRectGetWidth(fillFrame);
             break;
+        /// 处理 JobsProgressBarDirectionTopToBottom 分支
         case JobsProgressBarDirectionTopToBottom:
             fillFrame.size.height = CGRectGetHeight(trackFrame) * displayProgress;
             break;
+        /// 处理 JobsProgressBarDirectionBottomToTop 分支
         case JobsProgressBarDirectionBottomToTop:
             fillFrame.size.height = CGRectGetHeight(trackFrame) * displayProgress;
             fillFrame.origin.y = CGRectGetMaxY(trackFrame) - CGRectGetHeight(fillFrame);
@@ -190,15 +194,19 @@ Prop_assign()BOOL userDragging;
 - (CGPoint)jobs_thumbCenterWithTrackFrame:(CGRect)trackFrame fillFrame:(CGRect)fillFrame {
     CGPoint center = CGPointZero;
     switch (self.direction) {
+        /// 处理 JobsProgressBarDirectionLeftToRight 分支
         case JobsProgressBarDirectionLeftToRight:
             center = CGPointMake(CGRectGetMaxX(fillFrame), CGRectGetMidY(trackFrame));
             break;
+        /// 处理 JobsProgressBarDirectionRightToLeft 分支
         case JobsProgressBarDirectionRightToLeft:
             center = CGPointMake(CGRectGetMinX(fillFrame), CGRectGetMidY(trackFrame));
             break;
+        /// 处理 JobsProgressBarDirectionTopToBottom 分支
         case JobsProgressBarDirectionTopToBottom:
             center = CGPointMake(CGRectGetMidX(trackFrame), CGRectGetMaxY(fillFrame));
             break;
+        /// 处理 JobsProgressBarDirectionBottomToTop 分支
         case JobsProgressBarDirectionBottomToTop:
             center = CGPointMake(CGRectGetMidX(trackFrame), CGRectGetMinY(fillFrame));
             break;
@@ -286,15 +294,19 @@ Prop_assign()BOOL userDragging;
     if (CGRectGetWidth(trackFrame) <= 0 || CGRectGetHeight(trackFrame) <= 0) return self.progress;
     CGFloat displayProgress = 0;
     switch (self.direction) {
+        /// 处理 JobsProgressBarDirectionLeftToRight 分支
         case JobsProgressBarDirectionLeftToRight:
             displayProgress = (point.x - CGRectGetMinX(trackFrame)) / CGRectGetWidth(trackFrame);
             break;
+        /// 处理 JobsProgressBarDirectionRightToLeft 分支
         case JobsProgressBarDirectionRightToLeft:
             displayProgress = (CGRectGetMaxX(trackFrame) - point.x) / CGRectGetWidth(trackFrame);
             break;
+        /// 处理 JobsProgressBarDirectionTopToBottom 分支
         case JobsProgressBarDirectionTopToBottom:
             displayProgress = (point.y - CGRectGetMinY(trackFrame)) / CGRectGetHeight(trackFrame);
             break;
+        /// 处理 JobsProgressBarDirectionBottomToTop 分支
         case JobsProgressBarDirectionBottomToTop:
             displayProgress = (CGRectGetMaxY(trackFrame) - point.y) / CGRectGetHeight(trackFrame);
             break;

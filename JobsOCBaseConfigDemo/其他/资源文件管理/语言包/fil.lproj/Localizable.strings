@@ -878,6 +878,13 @@
 "返回：回顶部并刷新" = "Bumalik: itaas at i-refresh";
 "下次开屏：关" = "Susunod na splash: Sarado";
 "下次开屏：开" = "Susunod na splash: Bukas";
+"开屏内容" = "Nilalaman ng Splash";
+"本地图片" = "Lokal na Larawan";
+"本地 GIF" = "Lokal na GIF";
+"远程图片" = "Remote na Larawan";
+"本地视频" = "Lokal na Video";
+"远程视频" = "Remote na Video";
+"下次开屏内容已设为：%@" = "Susunod na nilalaman ng splash: %@";
 "主题切换：白天" = "Tema: Maliwanag";
 "主题切换：黑夜" = "Tema: Madilim";
 "主题已切换：白天" = "Napalitan ang tema: Maliwanag";

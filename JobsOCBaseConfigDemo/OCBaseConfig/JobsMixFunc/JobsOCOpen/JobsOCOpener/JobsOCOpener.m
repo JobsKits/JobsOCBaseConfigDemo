@@ -29,9 +29,11 @@
         return;
     }
     switch (config.mode) {
+        /// 处理 JobsOCOpenModeInApp 分支
         case JobsOCOpenModeInApp:
             [self openInsideApp:config from:sourceViewController];
             break;
+        /// 处理 JobsOCOpenModeExternalBrowser 分支
         case JobsOCOpenModeExternalBrowser:
             [self openInExternalBrowser:config];
             break;

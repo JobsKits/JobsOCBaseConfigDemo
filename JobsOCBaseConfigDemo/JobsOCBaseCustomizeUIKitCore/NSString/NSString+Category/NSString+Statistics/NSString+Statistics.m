@@ -23,12 +23,15 @@
             }
         }JobsLog(@"字符串:%@包含——> 汉字字数：%ld;字母字数%ld",self,(long)chineseCount,(long)EnglishCount);
         switch (type) {
+            /// 处理 StatisticsAlphabetNumberType_Chinese 分支
             case StatisticsAlphabetNumberType_Chinese:{
                 return chineseCount;
             }break;
+            /// 处理 StatisticsAlphabetNumberType_English 分支
             case StatisticsAlphabetNumberType_English:{
                 return EnglishCount;
             }break;
+            /// 未匹配已知分支时执行兜底处理
             default:
                 break;
         }

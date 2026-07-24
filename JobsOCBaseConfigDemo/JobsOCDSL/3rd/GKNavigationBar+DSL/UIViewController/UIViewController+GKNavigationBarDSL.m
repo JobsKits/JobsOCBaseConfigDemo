@@ -45,6 +45,7 @@ JobsGKNavDSLMethod(byGKDisableFixNavItemSpace, JobsRetGKNavVCByBOOLBlock, BOOL, 
 JobsGKNavDSLMethod(byGKOpenFixNavItemSpace, JobsRetGKNavVCByBOOLBlock, BOOL, gk_openFixNavItemSpace)
 JobsGKNavDSLMethod(byGKNavItemLeftSpace, JobsRetGKNavVCByCGFloatBlock, CGFloat, gk_navItemLeftSpace)
 JobsGKNavDSLMethod(byGKNavItemRightSpace, JobsRetGKNavVCByCGFloatBlock, CGFloat, gk_navItemRightSpace)
+JobsGKNavDSLMethod(byGKMaxPopDistance, JobsRetGKNavVCByCGFloatBlock, CGFloat, gk_maxPopDistance)
 
 #undef JobsGKNavDSLMethod
 

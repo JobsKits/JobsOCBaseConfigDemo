@@ -50,6 +50,10 @@ Prop_copy(nullable) JobsOCSplashSkipBlock onSkip;
 +(__kindof JobsOCSplashConfiguration *)remoteImage:(NSURL *)URL;
 +(__kindof JobsOCSplashConfiguration *)localVideo:(NSString *)name fileExtension:(NSString *_Nullable)fileExtension bundle:(NSBundle *_Nullable)bundle;
 +(__kindof JobsOCSplashConfiguration *)remoteVideo:(NSURL *)URL;
++(__kindof JobsOCSplashConfiguration *)remoteVideo:(NSURL *)URL
+                               fallbackLocalVideo:(NSString *_Nullable)name
+                                     fileExtension:(NSString *_Nullable)fileExtension
+                                            bundle:(NSBundle *_Nullable)bundle;
 -(JobsOCSplashConfiguration *(^)(NSNumber *_Nullable data))byCountdownSeconds;
 -(JobsOCSplashConfiguration *(^)(NSString *_Nullable data))byLanguageCode;
 -(JobsOCSplashConfiguration *(^)(BOOL data))bySkipButtonVisible;

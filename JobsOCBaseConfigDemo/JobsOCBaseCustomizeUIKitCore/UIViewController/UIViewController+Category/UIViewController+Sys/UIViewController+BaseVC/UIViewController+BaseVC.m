@@ -14,6 +14,106 @@ static NSString *JobsNavigationTitleFromRequestParams(id _Nullable requestParams
     return navigationTitle.length ? navigationTitle : viewModel.textModel.text;
 }
 
+static NSString *JobsTrimmedNavigationTitlePart(NSString *title) {
+    return [title stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+}
+
+static NSArray<NSString *> *JobsNavigationTitleParts(NSString *title) {
+    NSArray<NSString *> *separators = @[@"｜",
+                                        @"|",
+                                        @"：",
+                                        @":",
+                                        @"@",
+                                        @" / ",
+                                        @"（",
+                                        @"("];
+    for (NSString *separator in separators) {
+        NSRange separatorRange = [title rangeOfString:separator];
+        if (separatorRange.location == NSNotFound ||
+            !separatorRange.location ||
+            NSMaxRange(separatorRange) >= title.length) continue;
+        NSString *mainTitle = JobsTrimmedNavigationTitlePart([title substringToIndex:separatorRange.location]);
+        NSString *subTitle = JobsTrimmedNavigationTitlePart([title substringFromIndex:NSMaxRange(separatorRange)]);
+        if ([separator isEqualToString:@"（"] || [separator isEqualToString:@"("]) {
+            subTitle = [separator stringByAppendingString:subTitle];
+        }
+        if (mainTitle.length && subTitle.length) return @[mainTitle, subTitle];
+    }
+    __block NSUInteger linguisticSplitIndex = NSNotFound;
+    __block NSUInteger linguisticSplitDistance = NSUIntegerMax;
+    NSUInteger titleMidpoint = title.length / 2;
+    [title enumerateSubstringsInRange:NSMakeRange(0, title.length)
+                              options:NSStringEnumerationByWords | NSStringEnumerationLocalized
+                           usingBlock:^(__unused NSString *_Nullable substring,
+                                        NSRange substringRange,
+                                        __unused NSRange enclosingRange,
+                                        __unused BOOL *stop) {
+        NSUInteger candidateIndex = NSMaxRange(substringRange);
+        CGFloat candidateRatio = (CGFloat)candidateIndex / title.length;
+        if (!candidateIndex ||
+            candidateIndex >= title.length ||
+            candidateRatio < 0.25f ||
+            candidateRatio > 0.75f) return;
+        NSUInteger candidateDistance = candidateIndex > titleMidpoint ?
+            candidateIndex - titleMidpoint :
+            titleMidpoint - candidateIndex;
+        if (candidateDistance < linguisticSplitDistance) {
+            linguisticSplitDistance = candidateDistance;
+            linguisticSplitIndex = candidateIndex;
+        }
+    }];
+    if (linguisticSplitIndex != NSNotFound) {
+        NSString *mainTitle = JobsTrimmedNavigationTitlePart([title substringToIndex:linguisticSplitIndex]);
+        NSString *subTitle = JobsTrimmedNavigationTitlePart([title substringFromIndex:linguisticSplitIndex]);
+        if (mainTitle.length && subTitle.length) return @[mainTitle, subTitle];
+    }
+    NSMutableArray<NSString *> *characters = NSMutableArray.array;
+    [title enumerateSubstringsInRange:NSMakeRange(0, title.length)
+                              options:NSStringEnumerationByComposedCharacterSequences
+                           usingBlock:^(NSString *_Nullable substring,
+                                        __unused NSRange substringRange,
+                                        __unused NSRange enclosingRange,
+                                        __unused BOOL *stop) {
+        if (substring.length) [characters addObject:substring];
+    }];
+    if (characters.count < 2) return nil;
+    NSUInteger splitIndex = characters.count / 2;
+    NSString *mainTitle = JobsTrimmedNavigationTitlePart([[characters subarrayWithRange:NSMakeRange(0, splitIndex)]
+                                                          componentsJoinedByString:@""]);
+    NSString *subTitle = JobsTrimmedNavigationTitlePart([[characters subarrayWithRange:NSMakeRange(splitIndex,
+                                                                                                    characters.count - splitIndex)]
+                                                         componentsJoinedByString:@""]);
+    return mainTitle.length && subTitle.length ? @[mainTitle, subTitle] : nil;
+}
+
+static UIViewModel *JobsAdaptiveNavigationTitleModel(id _Nullable requestParams) {
+    NSString *navigationTitle = JobsNavigationTitleFromRequestParams(requestParams);
+    if (!navigationTitle.length) return nil;
+    UIFont *titleFont = UIFontWeightSemiboldSize(16);
+    CGFloat availableWidth = MIN(JobsWidth(220),
+                                 MAX(JobsWidth(150),
+                                     JobsMainScreen_WIDTH() - JobsWidth(150)));
+    if (navigationTitle.widthBy(titleFont) <= availableWidth) return nil;
+    NSArray<NSString *> *titleParts = JobsNavigationTitleParts(navigationTitle);
+    if (titleParts.count != 2) return nil;
+    UIViewModel *sourceViewModel = (UIViewModel *)requestParams;
+    return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
+        data
+            .byTextModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
+                textModel
+                    .byText(titleParts.firstObject)
+                    .byTextCor(sourceViewModel.textModel.textCor ? : JobsLabelColor)
+                    .byFont(UIFontWeightSemiboldSize(15));
+            }))
+            .bySubTextModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
+                textModel
+                    .byText(titleParts.lastObject)
+                    .byTextCor(JobsSecondaryLabelColor)
+                    .byFont(UIFontWeightRegularSize(11));
+            }));
+    });
+}
+
 @implementation UIViewController (BaseVC)
 #pragma mark —— 一些功能性
 -(jobsByView2Block _Nonnull)configViewNavigatorBySuperviewAndView{
@@ -136,10 +236,6 @@ static NSString *JobsNavigationTitleFromRequestParams(id _Nullable requestParams
         if ([toVC isKindOfClass:UINavigationController.class]) {
             navigationTargetVC = ((UINavigationController *)toVC).viewControllers.firstObject;
         }
-        NSString *navigationTitle = JobsNavigationTitleFromRequestParams(requestParams);
-        if (!navigationTargetVC.title.length && navigationTitle.length) {
-            navigationTargetVC.title = navigationTitle;
-        }
         if([toVC isKindOfClass:UINavigationController.class]){
             UINavigationController *navVC = (UINavigationController *)toVC;
             navVC.rootViewController.requestParams = requestParams;
@@ -148,6 +244,18 @@ static NSString *JobsNavigationTitleFromRequestParams(id _Nullable requestParams
             toVC.requestParams = requestParams;
             JobsLog(@"%@",toVC.requestParams);
             toVC.fromVC = fromVC;// 【承上启下】下一个页面记录是从哪里来的
+        }
+        NSString *navigationTitle = JobsNavigationTitleFromRequestParams(requestParams);
+        if (!navigationTargetVC.title.length && navigationTitle.length) {
+            navigationTargetVC.title = navigationTitle;
+        }
+        BOOL shouldKeepCustomTitleView = navigationTargetVC.navigationItem.titleView ||
+                                         navigationTargetVC.gk_navTitleView;
+        BOOL shouldKeepSystemNavigationDemo = [NSStringFromClass(navigationTargetVC.class)
+                                               isEqualToString:@"JobsNavigationDemoVC"];
+        if (!shouldKeepCustomTitleView && !shouldKeepSystemNavigationDemo) {
+            UIViewModel *adaptiveTitleModel = JobsAdaptiveNavigationTitleModel(requestParams);
+            if (adaptiveTitleModel) navigationTargetVC.gk_navTitleViewBy(adaptiveTitleModel);
         }
         @jobs_weakify(fromVC)
         jobsByVoidBlock presentViewControllerBlock = ^(){
@@ -164,6 +272,7 @@ static NSString *JobsNavigationTitleFromRequestParams(id _Nullable requestParams
             }
         };
         switch (comingStyle) {
+            /// 处理 ComingStyle_PUSH 分支
             case ComingStyle_PUSH:{
                 if (fromVC.navigationController) {
                     toVC.pushOrPresent = ComingStyle_PUSH;
@@ -172,9 +281,11 @@ static NSString *JobsNavigationTitleFromRequestParams(id _Nullable requestParams
                     if (successBlock) successBlock(toVC);
                 }else if(presentViewControllerBlock) presentViewControllerBlock();
             }break;
+            /// 处理 ComingStyle_PRESENT 分支
             case ComingStyle_PRESENT:{
                 if(presentViewControllerBlock) presentViewControllerBlock();
             }break;
+            /// 未匹配已知分支时执行兜底处理
             default:
                 JobsLog(@"错误的推进方式");
                 break;

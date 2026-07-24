@@ -64,6 +64,7 @@ Prop_strong()UILabel *runtimeLogLabel;
 Prop_strong()UIButton *runDemoBtn;
 Prop_strong()UIButton *messageForwardBtn;
 Prop_strong()NSMutableArray <UIView *>*stepCardMutArr;
+Prop_strong()NSMutableArray <UIView *>*stepAccentViewMutArr;
 Prop_strong()NSMutableArray <UILabel *>*stepTitleLabMutArr;
 Prop_strong()NSMutableArray <UILabel *>*stepDetailLabMutArr;
 Prop_strong()NSMutableArray <NSString *>*runtimeLogMutArr;
@@ -186,6 +187,7 @@ Prop_strong()id runtimeObject;
     accentView.backgroundColor = tintColor;
     accentView.layer.cornerRadius = 3;
     [card addSubview:accentView];
+    [self.stepAccentViewMutArr addObject:accentView];
     UILabel *titleLabel = [self demoLabelByFont:[UIFont systemFontOfSize:15 weight:UIFontWeightSemibold]
                                           color:HEXCOLOR(0x2B3340)
                                   numberOfLines:1];
@@ -240,10 +242,11 @@ Prop_strong()id runtimeObject;
     self.runDemoBtn.frame = CGRectMake(left, top, buttonWidth, 44);
     self.messageForwardBtn.frame = CGRectMake(CGRectGetMaxX(self.runDemoBtn.frame) + buttonGap, top, buttonWidth, 44);
     top = CGRectGetMaxY(self.runDemoBtn.frame) + 14;
-    for (UIView *card in self.stepCardMutArr) {
-        UIView *accentView = [card viewWithTag:100];
-        UILabel *titleLabel = [card viewWithTag:101];
-        UILabel *detailLabel = [card viewWithTag:102];
+    for (NSUInteger idx = 0; idx < self.stepCardMutArr.count; idx++) {
+        UIView *card = self.stepCardMutArr[idx];
+        UIView *accentView = self.stepAccentViewMutArr[idx];
+        UILabel *titleLabel = self.stepTitleLabMutArr[idx];
+        UILabel *detailLabel = self.stepDetailLabMutArr[idx];
         CGFloat detailWidth = contentWidth - 46;
         CGSize detailSize = [detailLabel sizeThatFits:CGSizeMake(detailWidth, CGFLOAT_MAX)];
         CGFloat cardHeight = MAX(94, detailSize.height + 54);
@@ -671,6 +674,12 @@ Prop_strong()id runtimeObject;
     if (!_stepCardMutArr) {
         _stepCardMutArr = NSMutableArray.array;
     };return _stepCardMutArr;
+}
+
+-(NSMutableArray<UIView *> *)stepAccentViewMutArr{
+    if (!_stepAccentViewMutArr) {
+        _stepAccentViewMutArr = NSMutableArray.array;
+    };return _stepAccentViewMutArr;
 }
 
 -(NSMutableArray<UILabel *> *)stepTitleLabMutArr{

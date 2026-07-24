@@ -125,19 +125,23 @@ UITextFieldProtocol_synthesize
         [data setValue:self.placeholderFont forKey:NSFontAttributeName];
     })];
     switch (self.placeHolderAlignment) {
+        /// 处理 NSTextAlignmentLeft 分支
         case NSTextAlignmentLeft:{
             newbounds.origin.x += self.placeHolderOffset + self.leftViewOffsetX;
         }break;
+        /// 处理 NSTextAlignmentCenter 分支
         case NSTextAlignmentCenter:{
             CGFloat width = bounds.size.width - size.width;
             newbounds.origin.x = width / 2 + self.placeHolderOffset + self.leftViewOffsetX;
             newbounds.size.width = size.width;
         }break;
+        /// 处理 NSTextAlignmentRight 分支
         case NSTextAlignmentRight:{
             CGFloat width = bounds.size.width - size.width;
             newbounds.origin.x = width - (self.placeHolderOffset + self.leftViewOffsetX);
             newbounds.size.width = size.width;
         }break;
+        /// 未匹配已知分支时执行兜底处理
         default:
             break;
     };return jobsEqualToZeroRect(self.placeholderRectForBounds) ? newbounds : self.placeholderRectForBounds;

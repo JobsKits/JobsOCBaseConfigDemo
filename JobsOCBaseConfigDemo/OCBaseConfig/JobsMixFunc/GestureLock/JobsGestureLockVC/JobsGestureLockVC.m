@@ -91,6 +91,7 @@ Prop_assign()NSInteger remainingRetryCount;
 }
 
 - (void)setupSubviews {
+    @jobs_weakify(self)
     _avatarView = [[UIImageView alloc] initWithImage:[JobsGestureLockResource imageNamed:@"gesture_headIcon"]];
     _avatarView.contentMode = UIViewContentModeScaleAspectFit;
     [self.view addSubview:_avatarView];
@@ -110,28 +111,36 @@ Prop_assign()NSInteger remainingRetryCount;
     _lockView = [[JobsGestureLockView alloc] initWithConfiguration:self.configuration];
     _lockView.delegate = self;
     [self.view addSubview:_lockView];
-    _otherAccountButton = [self actionButtonWithTitle:@"其他账户" selector:@selector(didTapOtherAccount:)];
-    _resetButton = [self actionButtonWithTitle:@"重新绘制" selector:@selector(didTapReset:)];
-    _forgotButton = [self actionButtonWithTitle:@"忘记密码" selector:@selector(didTapForgot:)];
+    _otherAccountButton = [self actionButtonWithTitle:@"其他账户" action:^(__kindof UIButton * _Nullable button) {
+        [weak_self didTapOtherAccount:button];
+    }];
+    _resetButton = [self actionButtonWithTitle:@"重新绘制" action:^(__kindof UIButton * _Nullable button) {
+        [weak_self didTapReset:button];
+    }];
+    _forgotButton = [self actionButtonWithTitle:@"忘记密码" action:^(__kindof UIButton * _Nullable button) {
+        [weak_self didTapForgot:button];
+    }];
 }
 
--(UIButton *)actionButtonWithTitle:(NSString *)title selector:(SEL)selector {
-    return (UIButton *)UIButton.alloc.init
-        .byAddTarget(self, selector, UIControlEventTouchUpInside)
-        .byViewBlock(^(__kindof UIView *view) {
-            [(UIButton *)view setTitle:title forState:UIControlStateNormal];
-        })
-        .addOn(self.view);
+-(UIButton *)actionButtonWithTitle:(NSString *)title action:(jobsByBtnBlock)action {
+    return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+        button
+            .jobsResetBtnTitle(title)
+            .onClickBy(action)
+            .addOn(self.view);
+    });
 }
 
 -(void)applyMode {
     switch (self.mode) {
+        /// 处理 JobsGestureLockModeCreate 分支
         case JobsGestureLockModeCreate:
             self.statusLabel.text = self.configuration.createStatusText;
             self.indicatorView.hidden = NO;
             self.resetButton.hidden = YES;
             self.forgotButton.hidden = YES;
             break;
+        /// 处理 JobsGestureLockModeValidate 分支
         case JobsGestureLockModeValidate:
             self.statusLabel.text = self.configuration.validateStatusText;
             self.indicatorView.hidden = YES;
@@ -143,9 +152,11 @@ Prop_assign()NSInteger remainingRetryCount;
 
 -(void)gestureLockView:(JobsGestureLockView *)lockView didCompletePattern:(NSString *)pattern {
     switch (self.mode) {
+        /// 处理 JobsGestureLockModeCreate 分支
         case JobsGestureLockModeCreate:
             [self handleCreatePattern:pattern];
             break;
+        /// 处理 JobsGestureLockModeValidate 分支
         case JobsGestureLockModeValidate:
             [self handleValidatePattern:pattern];
             break;

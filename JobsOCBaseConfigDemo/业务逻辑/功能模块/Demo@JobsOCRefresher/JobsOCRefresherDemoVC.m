@@ -6,14 +6,14 @@
 //
 
 #import "JobsOCRefresherDemoVC.h"
-#import "JobsOCRefresher.h"
 
 static const NSInteger JobsOCRefresherDemoInitialVerticalRows = 8;
 static const NSInteger JobsOCRefresherDemoInitialHorizontalColumns = 7;
 
 @interface JobsOCRefresherDemoVC ()
 
-Prop_strong()UILabel *statusLabel;
+Prop_strong()UITextView *instructionTextView;
+Prop_strong()UISegmentedControl *animatorSegmentedControl;
 Prop_strong()UILabel *horizontalTitleLabel;
 Prop_strong()UILabel *verticalTitleLabel;
 Prop_strong()UIScrollView *horizontalScrollView;
@@ -22,6 +22,10 @@ Prop_strong()UIView *horizontalContentView;
 Prop_strong()UIView *verticalContentView;
 Prop_strong()NSMutableArray<UIView *> *horizontalTileMutArr;
 Prop_strong()NSMutableArray<UIView *> *verticalTileMutArr;
+Prop_strong()NSMapTable<UIView *, UILabel *> *tileTitleLabelMap;
+Prop_strong()NSMapTable<UIView *, UILabel *> *tileSubTitleLabelMap;
+Prop_copy()NSArray<id<JobsRefreshAnimatorProtocol>> *refreshAnimators;
+Prop_copy()NSArray<NSString *> *refreshAnimatorTitles;
 Prop_assign()NSInteger horizontalColumnCount;
 Prop_assign()NSInteger verticalRowCount;
 Prop_assign()NSInteger verticalRefreshCount;
@@ -29,8 +33,11 @@ Prop_assign()NSInteger verticalLoadCount;
 Prop_assign()NSInteger horizontalRefreshCount;
 Prop_assign()NSInteger horizontalLoadCount;
 Prop_assign()BOOL didBindRefresher;
+Prop_assign()BOOL didAutoStart;
 
 -(void)bindRefresherIfNeeded;
+-(void)animatorSelectionDidChange:(UISegmentedControl *)sender;
+-(void)startHeaderRefresh;
 -(void)rebuildHorizontalTiles;
 -(void)rebuildVerticalTiles;
 -(void)layoutDemoContent;
@@ -84,7 +91,8 @@ Prop_assign()BOOL didBindRefresher;
     [super viewDidLoad];
     self.makeNavByAlpha(1);
     self.view.byBgColor(HEXCOLOR(0xF7F8FC));
-    self.statusLabel.byAlpha(1);
+    self.instructionTextView.byAlpha(1);
+    self.animatorSegmentedControl.byAlpha(1);
     self.horizontalTitleLabel.byAlpha(1);
     self.horizontalScrollView.byAlpha(1);
     self.verticalTitleLabel.byAlpha(1);
@@ -93,6 +101,13 @@ Prop_assign()BOOL didBindRefresher;
     [self rebuildHorizontalTiles];
     [self rebuildVerticalTiles];
     [self updateStatusByTitle:@"等待触发".tr];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    if (self.didAutoStart) return;
+    self.didAutoStart = YES;
+    [self startHeaderRefresh];
 }
 
 -(void)viewDidLayoutSubviews{
@@ -141,10 +156,13 @@ Prop_assign()BOOL didBindRefresher;
         }];
     }];
     [self.verticalScrollView jobs_enableRefreshHaptics:YES];
-    [self.verticalScrollView jobs_byRefreshHeaderWithConfig:[self refreshConfigWithIdle:@"下拉刷新"
-                                                                            pulling:@"继续下拉"
-                                                                              ready:@"松开刷新"
-                                                                            running:@"垂直刷新中"]
+    JobsOCRefreshConfig *headerConfig = [self refreshConfigWithIdle:@"下拉刷新"
+                                                            pulling:@"继续下拉"
+                                                              ready:@"松开刷新"
+                                                            running:@"垂直刷新中"];
+    headerConfig.showsText = NO;
+    headerConfig.animator = self.refreshAnimators.firstObject;
+    [self.verticalScrollView jobs_byRefreshHeaderWithConfig:headerConfig
                                                  action:^{
         @jobs_strongify(self)
         [self runRefreshAtPosition:JobsOCRefreshPositionHeader
@@ -157,10 +175,12 @@ Prop_assign()BOOL didBindRefresher;
             [self rebuildVerticalTiles];
         }];
     }];
-    [self.verticalScrollView jobs_byRefreshFooterWithConfig:[self refreshConfigWithIdle:@"上拉加载"
-                                                                            pulling:@"继续上拉"
-                                                                              ready:@"松开加载"
-                                                                            running:@"垂直加载中"]
+    JobsOCRefreshConfig *footerConfig = [self refreshConfigWithIdle:@"上拉加载"
+                                                            pulling:@"继续上拉"
+                                                              ready:@"松开加载"
+                                                            running:@"垂直加载中"];
+    footerConfig.animator = [[JobsDouyinRefreshView alloc] initWithConfig:JobsDouyinRefreshConfig.config];
+    [self.verticalScrollView jobs_byRefreshFooterWithConfig:footerConfig
                                                  action:^{
         @jobs_strongify(self)
         [self runRefreshAtPosition:JobsOCRefreshPositionFooter
@@ -173,6 +193,20 @@ Prop_assign()BOOL didBindRefresher;
             [self rebuildVerticalTiles];
         }];
     }];
+}
+
+-(void)animatorSelectionDidChange:(UISegmentedControl *)sender{
+    NSInteger index = sender.selectedSegmentIndex;
+    if (index < 0 || index >= self.refreshAnimators.count) return;
+    [self.verticalScrollView jobs_replaceRefreshAnimator:self.refreshAnimators[index]
+                                              atPosition:JobsOCRefreshPositionHeader];
+    [self updateStatusByTitle:[NSString stringWithFormat:@"已切换：%@", self.refreshAnimatorTitles[index]]];
+    [self startHeaderRefresh];
+}
+
+-(void)startHeaderRefresh{
+    [self.verticalScrollView jobs_switchRefreshAt:JobsOCRefreshPositionHeader
+                                          toState:JobsOCRefreshStateRefreshing];
 }
 
 -(void)runRefreshAtPosition:(JobsOCRefreshPosition)position
@@ -192,12 +226,15 @@ Prop_assign()BOOL didBindRefresher;
 }
 
 -(void)updateStatusByTitle:(NSString *)title{
-    self.statusLabel.byText([NSString stringWithFormat:@"%@\n水平：右拉刷新 %ld  左拉加载 %ld\n垂直：下拉刷新 %ld  上拉加载 %ld",
-                             title,
-                             (long)self.horizontalRefreshCount,
-                             (long)self.horizontalLoadCount,
-                             (long)self.verticalRefreshCount,
-                             (long)self.verticalLoadCount]);
+    self.instructionTextView.byText([NSString stringWithFormat:
+        @"JobsOCRefresher 管四向状态机；JobsFuseAnimation 提供可热插拔的 Header 动画。\n"
+         "点选动画即原位替换并自动下拉；页面首次进入也会自动演示一次。\n"
+         "%@｜水平：刷新 %ld / 加载 %ld｜垂直：刷新 %ld / 加载 %ld",
+        title,
+        (long)self.horizontalRefreshCount,
+        (long)self.horizontalLoadCount,
+        (long)self.verticalRefreshCount,
+        (long)self.verticalLoadCount]);
 }
 
 -(JobsOCRefreshConfig *)refreshConfigWithIdle:(NSString *)idleText
@@ -218,6 +255,10 @@ Prop_assign()BOOL didBindRefresher;
 }
 
 -(void)rebuildHorizontalTiles{
+    for (UIView *tile in self.horizontalTileMutArr) {
+        [self.tileTitleLabelMap removeObjectForKey:tile];
+        [self.tileSubTitleLabelMap removeObjectForKey:tile];
+    }
     [self.horizontalTileMutArr makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self.horizontalTileMutArr removeAllObjects];
     for (NSInteger i = 0; i < self.horizontalColumnCount; i++) {
@@ -231,6 +272,10 @@ Prop_assign()BOOL didBindRefresher;
 }
 
 -(void)rebuildVerticalTiles{
+    for (UIView *tile in self.verticalTileMutArr) {
+        [self.tileTitleLabelMap removeObjectForKey:tile];
+        [self.tileSubTitleLabelMap removeObjectForKey:tile];
+    }
     [self.verticalTileMutArr makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self.verticalTileMutArr removeAllObjects];
     for (NSInteger i = 0; i < self.verticalRowCount; i++) {
@@ -264,8 +309,8 @@ Prop_assign()BOOL didBindRefresher;
         CGFloat x = inset + idx * (tileW + gap);
         CGFloat y = MAX(JobsWidth(10), (boundsH - tileH) / 2);
         tile.byFrame(CGRectMake(x, y, tileW, tileH));
-        UILabel *titleLabel = (UILabel *)[tile viewWithTag:1001];
-        UILabel *subTitleLabel = (UILabel *)[tile viewWithTag:1002];
+        UILabel *titleLabel = [self.tileTitleLabelMap objectForKey:tile];
+        UILabel *subTitleLabel = [self.tileSubTitleLabelMap objectForKey:tile];
         titleLabel.byFrame(CGRectMake(JobsWidth(12), JobsWidth(12), tileW - JobsWidth(24), JobsWidth(24)));
         subTitleLabel.byFrame(CGRectMake(JobsWidth(12), JobsWidth(42), tileW - JobsWidth(24), JobsWidth(22)));
     }];
@@ -286,8 +331,8 @@ Prop_assign()BOOL didBindRefresher;
     [self.verticalTileMutArr enumerateObjectsUsingBlock:^(UIView *tile, NSUInteger idx, BOOL *stop) {
         CGFloat y = inset + idx * (tileH + gap);
         tile.byFrame(CGRectMake(inset, y, tileW, tileH));
-        UILabel *titleLabel = (UILabel *)[tile viewWithTag:1001];
-        UILabel *subTitleLabel = (UILabel *)[tile viewWithTag:1002];
+        UILabel *titleLabel = [self.tileTitleLabelMap objectForKey:tile];
+        UILabel *subTitleLabel = [self.tileSubTitleLabelMap objectForKey:tile];
         titleLabel.byFrame(CGRectMake(JobsWidth(12), JobsWidth(10), tileW - JobsWidth(24), JobsWidth(24)));
         subTitleLabel.byFrame(CGRectMake(JobsWidth(12), JobsWidth(40), tileW - JobsWidth(24), JobsWidth(22)));
     }];
@@ -318,6 +363,8 @@ Prop_assign()BOOL didBindRefresher;
     subTitleLabel.tag = 1002;
     [tile addSubview:titleLabel];
     [tile addSubview:subTitleLabel];
+    [self.tileTitleLabelMap setObject:titleLabel forKey:tile];
+    [self.tileSubTitleLabelMap setObject:subTitleLabel forKey:tile];
     return tile;
 }
 
@@ -333,24 +380,47 @@ Prop_assign()BOOL didBindRefresher;
     return colors[index % colors.count];
 }
 #pragma mark —— LazyLoad
--(UILabel *)statusLabel{
-    if (!_statusLabel) {
-        _statusLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.byTextAlignment(NSTextAlignmentCenter)
-                .byNumberOfLines(0)
-                .byFont(UIFontWeightRegularSize(13))
+-(UITextView *)instructionTextView{
+    if (!_instructionTextView) {
+        _instructionTextView = jobsMakeTextView(^(__kindof UITextView * _Nullable textView) {
+            textView.byFont(UIFontWeightRegularSize(13))
                 .byTextCor(HEXCOLOR(0x3D4A58))
+                .byEditable(NO)
+                .bySelectable(NO)
+                .byTextContainerInset(UIEdgeInsetsMake(JobsWidth(10),
+                                                       JobsWidth(12),
+                                                       JobsWidth(10),
+                                                       JobsWidth(12)))
+                .byLineFragmentPadding(0)
                 .byBgColor(UIColor.whiteColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(12));
                     make.left.right.equalTo(self.view).inset(JobsWidth(16));
-                    make.height.mas_equalTo(JobsWidth(74));
+                    make.height.mas_equalTo(JobsWidth(104));
                 });
-            label.layer.cornerRadius = JobsWidth(10);
-            label.layer.masksToBounds = YES;
+            textView.scrollEnabled = YES;
+            textView.layer.cornerRadius = JobsWidth(10);
+            textView.layer.masksToBounds = YES;
         });
-    };return _statusLabel;
+    };return _instructionTextView;
+}
+
+-(UISegmentedControl *)animatorSegmentedControl{
+    if (!_animatorSegmentedControl) {
+        _animatorSegmentedControl = [[UISegmentedControl alloc] initWithItems:self.refreshAnimatorTitles];
+        _animatorSegmentedControl.selectedSegmentIndex = 0;
+        [_animatorSegmentedControl addTarget:self
+                                      action:@selector(animatorSelectionDidChange:)
+                            forControlEvents:UIControlEventValueChanged];
+        _animatorSegmentedControl
+            .addOn(self.view)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.top.equalTo(self.instructionTextView.mas_bottom).offset(JobsWidth(8));
+                make.left.right.equalTo(self.view).inset(JobsWidth(16));
+                make.height.mas_equalTo(JobsWidth(34));
+            });
+    };return _animatorSegmentedControl;
 }
 
 -(UILabel *)horizontalTitleLabel{
@@ -361,7 +431,7 @@ Prop_assign()BOOL didBindRefresher;
                 .byTextCor(HEXCOLOR(0x26384C))
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
-                    make.top.equalTo(self.statusLabel.mas_bottom).offset(JobsWidth(10));
+                    make.top.equalTo(self.animatorSegmentedControl.mas_bottom).offset(JobsWidth(10));
                     make.left.right.equalTo(self.view).inset(JobsWidth(16));
                     make.height.mas_equalTo(JobsWidth(24));
                 });
@@ -385,7 +455,7 @@ Prop_assign()BOOL didBindRefresher;
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.horizontalTitleLabel.mas_bottom).offset(JobsWidth(6));
                     make.left.right.equalTo(self.view).inset(JobsWidth(16));
-                    make.height.mas_equalTo(JobsWidth(146));
+                    make.height.mas_equalTo(JobsWidth(112));
                 });
         });
         _horizontalScrollView.layer.cornerRadius = JobsWidth(10);
@@ -451,6 +521,35 @@ Prop_assign()BOOL didBindRefresher;
     };return _verticalContentView;
 }
 
+-(NSArray<id<JobsRefreshAnimatorProtocol>> *)refreshAnimators{
+    if (!_refreshAnimators) {
+        UIImage *singleImage = @"arrow.triangle.2.circlepath".sys_img ?: UIImage.new;
+        NSArray<UIImage *> *frames = @[
+            @"arrow.up".sys_img ?: singleImage,
+            @"arrow.right".sys_img ?: singleImage,
+            @"arrow.down".sys_img ?: singleImage,
+            @"arrow.left".sys_img ?: singleImage
+        ];
+        JobsGIFRefreshView *gifAnimator = [[JobsGIFRefreshView alloc] initWithGIFNamed:@"跳动的竖线.gif"];
+        gifAnimator.indicatorSize = CGSizeMake(JobsWidth(34), JobsWidth(34));
+        _refreshAnimators = @[
+            [[JobsTodayNewsRefreshView alloc] initWithConfig:JobsTodayNewsRefreshConfig.config],
+            [[JobsDouyinRefreshView alloc] initWithConfig:JobsDouyinRefreshConfig.config],
+            [[JobsImageRefreshView alloc] initWithImage:singleImage],
+            [[JobsImageRefreshView alloc] initWithImages:frames frameInterval:0.18],
+            gifAnimator,
+            [[JobsLottieRefreshView alloc] initWithAnimationNamed:@"JobsSignatureSlogan"],
+            JobsSystemRefreshView.refreshView
+        ];
+    };return _refreshAnimators;
+}
+
+-(NSArray<NSString *> *)refreshAnimatorTitles{
+    if (!_refreshAnimatorTitles) {
+        _refreshAnimatorTitles = @[@"头条", @"抖音", @"单图", @"多图", @"GIF", @"Lottie", @"菊花"];
+    };return _refreshAnimatorTitles;
+}
+
 -(NSMutableArray<UIView *> *)horizontalTileMutArr{
     if (!_horizontalTileMutArr) {
         _horizontalTileMutArr = NSMutableArray.array;
@@ -461,6 +560,18 @@ Prop_assign()BOOL didBindRefresher;
     if (!_verticalTileMutArr) {
         _verticalTileMutArr = NSMutableArray.array;
     };return _verticalTileMutArr;
+}
+
+-(NSMapTable<UIView *,UILabel *> *)tileTitleLabelMap{
+    if (!_tileTitleLabelMap) {
+        _tileTitleLabelMap = [NSMapTable strongToStrongObjectsMapTable];
+    };return _tileTitleLabelMap;
+}
+
+-(NSMapTable<UIView *,UILabel *> *)tileSubTitleLabelMap{
+    if (!_tileSubTitleLabelMap) {
+        _tileSubTitleLabelMap = [NSMapTable strongToStrongObjectsMapTable];
+    };return _tileSubTitleLabelMap;
 }
 
 @end

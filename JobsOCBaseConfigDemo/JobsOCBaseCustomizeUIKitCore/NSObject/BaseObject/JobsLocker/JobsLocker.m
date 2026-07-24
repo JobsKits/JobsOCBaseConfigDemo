@@ -27,19 +27,24 @@ Prop_assign(readwrite)JobsLockerType type;
     if (self) {
         _type = type;
         switch (type) {
+            /// 处理 JobsLockerTypeNSLock 分支
             case JobsLockerTypeNSLock: {
                 _normalLock = [[NSLock alloc] init];
             } break;
+            /// 处理 JobsLockerTypeRecursiveLock 分支
             case JobsLockerTypeRecursiveLock: {
                 _recursiveLockInternal = [[NSRecursiveLock alloc] init];
             } break;
+            /// 处理 JobsLockerTypePThreadMutex 分支
             case JobsLockerTypePThreadMutex: {
                 int result = pthread_mutex_init(&_pthreadMutex, NULL);
                 NSAssert(result == 0, @"pthread_mutex_init failed: %d", result);
             } break;
+            /// 处理 JobsLockerTypeUnfairLock 分支
             case JobsLockerTypeUnfairLock: {
                 _unfairLock = OS_UNFAIR_LOCK_INIT;
             } break;
+            /// 处理 JobsLockerTypeSemaphore 分支
             case JobsLockerTypeSemaphore: {
                 _semaphore = dispatch_semaphore_create(1);
             } break;
@@ -89,14 +94,19 @@ Prop_assign(readwrite)JobsLockerType type;
 
 - (BOOL)tryLock {
     switch (self.type) {
+        /// 处理 JobsLockerTypeNSLock 分支
         case JobsLockerTypeNSLock:
             return [self.normalLock tryLock];
+        /// 处理 JobsLockerTypeRecursiveLock 分支
         case JobsLockerTypeRecursiveLock:
             return [self.recursiveLockInternal tryLock];
+        /// 处理 JobsLockerTypePThreadMutex 分支
         case JobsLockerTypePThreadMutex:
             return pthread_mutex_trylock(&_pthreadMutex) == 0;
+        /// 处理 JobsLockerTypeUnfairLock 分支
         case JobsLockerTypeUnfairLock:
             return os_unfair_lock_trylock(&_unfairLock);
+        /// 处理 JobsLockerTypeSemaphore 分支
         case JobsLockerTypeSemaphore:
             return dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_NOW) == 0;
     }
@@ -104,18 +114,23 @@ Prop_assign(readwrite)JobsLockerType type;
 
 - (void)lock {
     switch (self.type) {
+        /// 处理 JobsLockerTypeNSLock 分支
         case JobsLockerTypeNSLock:
             [self.normalLock lock];
             break;
+        /// 处理 JobsLockerTypeRecursiveLock 分支
         case JobsLockerTypeRecursiveLock:
             [self.recursiveLockInternal lock];
             break;
+        /// 处理 JobsLockerTypePThreadMutex 分支
         case JobsLockerTypePThreadMutex:
             pthread_mutex_lock(&_pthreadMutex);
             break;
+        /// 处理 JobsLockerTypeUnfairLock 分支
         case JobsLockerTypeUnfairLock:
             os_unfair_lock_lock(&_unfairLock);
             break;
+        /// 处理 JobsLockerTypeSemaphore 分支
         case JobsLockerTypeSemaphore:
             dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_FOREVER);
             break;
@@ -124,18 +139,23 @@ Prop_assign(readwrite)JobsLockerType type;
 
 - (void)unlock {
     switch (self.type) {
+        /// 处理 JobsLockerTypeNSLock 分支
         case JobsLockerTypeNSLock:
             [self.normalLock unlock];
             break;
+        /// 处理 JobsLockerTypeRecursiveLock 分支
         case JobsLockerTypeRecursiveLock:
             [self.recursiveLockInternal unlock];
             break;
+        /// 处理 JobsLockerTypePThreadMutex 分支
         case JobsLockerTypePThreadMutex:
             pthread_mutex_unlock(&_pthreadMutex);
             break;
+        /// 处理 JobsLockerTypeUnfairLock 分支
         case JobsLockerTypeUnfairLock:
             os_unfair_lock_unlock(&_unfairLock);
             break;
+        /// 处理 JobsLockerTypeSemaphore 分支
         case JobsLockerTypeSemaphore:
             dispatch_semaphore_signal(_semaphore);
             break;

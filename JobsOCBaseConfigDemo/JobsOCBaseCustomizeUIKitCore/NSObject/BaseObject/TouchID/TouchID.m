@@ -28,6 +28,7 @@
             }else{
                 JobsLog(@"%@",error.localizedDescription);
                 switch (error.code) {
+                    /// 处理 LAErrorSystemCancel 分支
                     case LAErrorSystemCancel:{
                         //系统取消授权，如其他APP切入
                         JobsLog(@"系统取消授权，如其他APP切入");
@@ -79,6 +80,7 @@
         JobsLog(@"不支持指纹识别");
         touchID.MyBlock_TouchID_Success_Or_Error(TouchID_Error);
         switch (error.code) {
+            /// 处理 LAErrorTouchIDNotEnrolled 分支
             case LAErrorTouchIDNotEnrolled:{
                 JobsLog(@"TouchID is not enrolled");
                 touchID.MyBlock_TouchID_Style_Details(TouchIDStyle_9);//10

@@ -12,6 +12,7 @@
 Prop_strong()XLSphereView *sphereView;
 Prop_strong()UILabel *statusLabel;
 Prop_strong()NSArray <NSString *>*tagTitleArr;
+Prop_strong()NSMutableArray <UIButton *>*tagButtonMutArr;
 Prop_assign()BOOL sphereItemsPrepared;
 
 -(void)prepareSphereItemsIfNeeded;
@@ -57,7 +58,7 @@ Prop_assign()BOOL sphereItemsPrepared;
 -(void)prepareSphereItemsIfNeeded{
     if (self.sphereItemsPrepared || CGRectGetWidth(self.sphereView.bounds) <= 0) return;
     self.sphereItemsPrepared = YES;
-    NSMutableArray <UIButton *>*buttonMutArr = NSMutableArray.array;
+    [self.tagButtonMutArr removeAllObjects];
     for (NSInteger index = 0; index < self.tagTitleArr.count; index++) {
         NSString *title = self.tagTitleArr[index];
         UIButton *button = UIButton.new;
@@ -86,9 +87,9 @@ Prop_assign()BOOL sphereItemsPrepared;
                    action:@selector(tagButtonClickEvent:)
          forControlEvents:UIControlEventTouchUpInside];
         [self.sphereView addSubview:button];
-        [buttonMutArr addObject:button];
+        [self.tagButtonMutArr addObject:button];
     }
-    [self.sphereView setItems:buttonMutArr];
+    [self.sphereView setItems:self.tagButtonMutArr];
 }
 
 -(void)tagButtonClickEvent:(UIButton *)sender{
@@ -146,6 +147,12 @@ Prop_assign()BOOL sphereItemsPrepared;
             @"本地Pod"
         ];
     };return _tagTitleArr;
+}
+
+-(NSMutableArray<UIButton *> *)tagButtonMutArr{
+    if (!_tagButtonMutArr) {
+        _tagButtonMutArr = NSMutableArray.array;
+    };return _tagButtonMutArr;
 }
 
 @end

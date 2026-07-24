@@ -101,14 +101,19 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
 #pragma mark —— 一些私有方法
 -(NSString *)msgTypeTextByModel:(JobsMsgDataModel *)model{
     switch (model.msgStyle) {
+        /// 处理 JobsMsgType_Notify 分支
         case JobsMsgType_Notify:
             return @"通知".tr;
+        /// 处理 JobsMsgType_Activity 分支
         case JobsMsgType_Activity:
             return @"活动".tr;
+        /// 处理 JobsMsgType_Notice 分支
         case JobsMsgType_Notice:
             return @"公告".tr;
+        /// 处理 JobsMsgType_Bonus 分支
         case JobsMsgType_Bonus:
             return @"红利".tr;
+        /// 未匹配已知分支时执行兜底处理
         default:
             return @"消息".tr;
     }
@@ -116,14 +121,19 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
 
 -(UIColor *)msgAccentCorByModel:(JobsMsgDataModel *)model{
     switch (model.msgStyle) {
+        /// 处理 JobsMsgType_Notify 分支
         case JobsMsgType_Notify:
             return HEXCOLOR(0x3B7CFF);
+        /// 处理 JobsMsgType_Activity 分支
         case JobsMsgType_Activity:
             return HEXCOLOR(0xAE8330);
+        /// 处理 JobsMsgType_Notice 分支
         case JobsMsgType_Notice:
             return HEXCOLOR(0x24A66A);
+        /// 处理 JobsMsgType_Bonus 分支
         case JobsMsgType_Bonus:
             return HEXCOLOR(0xEB677F);
+        /// 未匹配已知分支时执行兜底处理
         default:
             return HEXCOLOR(0x667085);
     }
@@ -131,14 +141,19 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
 
 -(UIColor *)msgAccentBgCorByModel:(JobsMsgDataModel *)model{
     switch (model.msgStyle) {
+        /// 处理 JobsMsgType_Notify 分支
         case JobsMsgType_Notify:
             return HEXCOLOR(0xEAF1FF);
+        /// 处理 JobsMsgType_Activity 分支
         case JobsMsgType_Activity:
             return HEXCOLOR(0xFFF4DD);
+        /// 处理 JobsMsgType_Notice 分支
         case JobsMsgType_Notice:
             return HEXCOLOR(0xE8F7EF);
+        /// 处理 JobsMsgType_Bonus 分支
         case JobsMsgType_Bonus:
             return HEXCOLOR(0xFFF0F3);
+        /// 未匹配已知分支时执行兜底处理
         default:
             return HEXCOLOR(0xF1F4F8);
     }

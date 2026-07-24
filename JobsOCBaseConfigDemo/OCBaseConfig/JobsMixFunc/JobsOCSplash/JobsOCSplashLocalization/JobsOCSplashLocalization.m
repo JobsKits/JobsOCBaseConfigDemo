@@ -25,6 +25,13 @@
     return [NSString stringWithFormat:format, skip, remainingSeconds.integerValue];
 }
 
++(NSString *)remoteVideoWiFiDownloadNoticeWithLanguageCode:(NSString *)languageCode {
+    NSBundle *bundle = [self localizedBundleWithLanguageCode:languageCode];
+    return [bundle localizedStringForKey:@"jobs_splash_remote_video_wifi_notice"
+                                   value:@"Video downloads on Wi-Fi only"
+                                   table:nil];
+}
+
 +(NSBundle *)localizedBundleWithLanguageCode:(NSString *)languageCode {
     NSBundle *resourceBundle = [self resourceBundle];
     NSString *rawCode = languageCode.length ? languageCode : NSLocale.preferredLanguages.firstObject ?: @"en";

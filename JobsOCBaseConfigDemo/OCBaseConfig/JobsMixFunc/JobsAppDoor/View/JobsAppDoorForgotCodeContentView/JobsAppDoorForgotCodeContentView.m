@@ -155,12 +155,13 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
             .byViewBlock(^(__kindof UIView *view) {
                 @jobs_strongify(self)
                 JobsAppDoorInputViewBaseStyle_3 *inputView = (JobsAppDoorInputViewBaseStyle_3 *)view;
+                /// 初始渲染可能同步触发文本信号，必须先于外部回调绑定完成
+                inputView.jobsRichViewByModel([self jobs_passwordInputModelWithPlaceholder:@"密码".tr]);
                 @jobs_weakify(self)
                 [inputView actionObjBlock:^(id data) {
                     @jobs_strongify(self)
                     [self jobs_updateConfirmBtnState];
                 }];
-                inputView.jobsRichViewByModel([self jobs_passwordInputModelWithPlaceholder:@"密码".tr]);
             })
             .addOn(self)
             .byAdd(^(MASConstraintMaker *make) {
@@ -184,12 +185,13 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
             .byViewBlock(^(__kindof UIView *view) {
                 @jobs_strongify(self)
                 JobsAppDoorInputViewBaseStyle_3 *inputView = (JobsAppDoorInputViewBaseStyle_3 *)view;
+                /// 初始渲染可能同步触发文本信号，必须先于外部回调绑定完成
+                inputView.jobsRichViewByModel([self jobs_passwordInputModelWithPlaceholder:@"确认密码".tr]);
                 @jobs_weakify(self)
                 [inputView actionObjBlock:^(id data) {
                     @jobs_strongify(self)
                     [self jobs_updateConfirmBtnState];
                 }];
-                inputView.jobsRichViewByModel([self jobs_passwordInputModelWithPlaceholder:@"确认密码".tr]);
             })
             .addOn(self)
             .byAdd(^(MASConstraintMaker *make) {

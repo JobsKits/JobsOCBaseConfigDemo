@@ -26,15 +26,19 @@ JobsKey(JobsCollectionViewEmptyDataReloadingKey)
     [self jobsReloadData];
     Jobs_setAssociatedRETAIN_NONATOMIC(JobsCollectionViewEmptyDataReloadingKey, @NO)
     switch (self.jobsEmptyViewType) {
+        /// 处理 JobsEmptyViewTypeLabel 分支
         case JobsEmptyViewTypeLabel:{
             self.showEmptyLabelBy(self.textModelEmptyData);
         }break;
+        /// 处理 JobsEmptyViewTypeButton 分支
         case JobsEmptyViewTypeButton:{
             self.showEmptyButtonBy(self.buttonModelEmptyData);
         }break;
+        /// 处理 JobsEmptyViewTypeCustomView 分支
         case JobsEmptyViewTypeCustomView:{
             self.showEmptyViewBy(self.emptyDataView);
         }break;
+        /// 未匹配已知分支时执行兜底处理
         default:break;
     }
 }

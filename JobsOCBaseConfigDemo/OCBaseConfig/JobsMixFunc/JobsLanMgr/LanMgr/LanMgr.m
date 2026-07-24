@@ -55,18 +55,23 @@ static AppLanguage _language = AppLanguageBySys;
 +(JobsRetStrByIntegerBlock _Nonnull)languageCodeByAppLanguage{
     return ^__kindof NSString *_Nullable(AppLanguage language){
         switch (language) {
+            /// 处理 AppLanguageChineseSimplified 分支
             case AppLanguageChineseSimplified:
                 return 简体中文;
+            /// 处理 AppLanguageChineseTraditional 分支
             case AppLanguageChineseTraditional:
                 return 繁体中文;
+            /// 处理 AppLanguageEnglish 分支
             case AppLanguageEnglish:
                 return 英文_不带区域组合;
+            /// 处理 AppLanguageTagalog 分支
             case AppLanguageTagalog:
                 /// fil（菲律宾语）：这是菲律宾的国家语言，基于他加禄语（Tagalog），但融合了来自菲律宾其他语言和外来语言的词汇和语法。ISO 639-1代码为"fil"
                 /// tl（他加禄语）：这是菲律宾的主要语言之一，也是菲律宾语的基础语言。ISO 639-1代码为"tl"
                 /// fil-PH：表示菲律宾的菲律宾语
                 /// tl-PH：表示菲律宾的他加禄语
                 return isValue(@"fil.lproj".pathForResourceWithFullName) ? 菲律宾语_不带区域组合: 菲律宾语_菲律宾;
+            /// 未匹配已知分支时执行兜底处理
             default:return NSLocale.preferredLanguages.firstObject;
         }
     };

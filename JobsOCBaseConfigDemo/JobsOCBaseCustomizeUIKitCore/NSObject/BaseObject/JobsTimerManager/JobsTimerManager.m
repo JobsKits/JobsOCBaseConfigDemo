@@ -444,13 +444,16 @@ Prop_strong(nullable)id didBecomeActiveToken;
             _JobsTimerManagerEntry *entry = self.entries[identifier];
             if (entry != expectedEntry) return;
             switch (entry.policy) {
+                /// 处理 JobsTimerBackgroundPolicyIgnore 分支
                 case JobsTimerBackgroundPolicyIgnore:
                     break;
+                /// 处理 JobsTimerBackgroundPolicyPauseAndResume 分支
                 case JobsTimerBackgroundPolicyPauseAndResume:
                     if (!entry.timer.isRunning || entry.pauseState != _JobsTimerPauseStateRunning) break;
                     entry.pauseState = _JobsTimerPauseStateAutoPaused;
                     toPause = entry.timer;
                     break;
+                /// 处理 JobsTimerBackgroundPolicyCancel 分支
                 case JobsTimerBackgroundPolicyCancel:
                     if (state != UIApplicationStateBackground) break;
                     toStop = entry.timer;
@@ -472,14 +475,17 @@ Prop_strong(nullable)id didBecomeActiveToken;
             _JobsTimerManagerEntry *entry = self.entries[tid];
             if (!entry) continue;
             switch (entry.policy) {
+                /// 处理 JobsTimerBackgroundPolicyIgnore 分支
                 case JobsTimerBackgroundPolicyIgnore:
                     break;
+                /// 处理 JobsTimerBackgroundPolicyCancel 分支
                 case JobsTimerBackgroundPolicyCancel:
                     if (isBackground) {
                         if (entry.timer) [toStop addObject:entry.timer];
                         [self.entries removeObjectForKey:tid];
                     }
                     break;
+                /// 处理 JobsTimerBackgroundPolicyPauseAndResume 分支
                 case JobsTimerBackgroundPolicyPauseAndResume: {
                     if (!entry.timer.isRunning) break;
                     if (entry.pauseState != _JobsTimerPauseStateRunning) break;

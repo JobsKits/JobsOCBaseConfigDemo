@@ -120,15 +120,19 @@ Prop_assign()BOOL autoRunning;
 
 - (void)directionChanged {
     switch (self.directionSegment.selectedSegmentIndex) {
+        /// 处理 数值 1 分支
         case 1:
             self.progressBar.byDirection(JobsProgressBarDirectionRightToLeft);
             break;
+        /// 处理 数值 2 分支
         case 2:
             self.progressBar.byDirection(JobsProgressBarDirectionTopToBottom);
             break;
+        /// 处理 数值 3 分支
         case 3:
             self.progressBar.byDirection(JobsProgressBarDirectionBottomToTop);
             break;
+        /// 未匹配已知分支时执行兜底处理
         default:
             self.progressBar.byDirection(JobsProgressBarDirectionLeftToRight);
             break;

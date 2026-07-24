@@ -22,72 +22,106 @@
 /// 优先使用 IANA 时区名称，避免 PST、CST、BST 这类缩写带来的歧义
 NS_INLINE NSTimeZone *_Nullable timeZone(TimeZoneType timeZoneType) {
     switch (timeZoneType) {
+        /// 处理 TimeZoneTypeUTC 分支
         case TimeZoneTypeUTC:
             return [NSTimeZone timeZoneWithName:@"UTC"]; // 协调世界时
+        /// 处理 TimeZoneTypeGMT 分支
         case TimeZoneTypeGMT:
             return [NSTimeZone timeZoneWithName:@"GMT"]; // 格林尼治标准时间
+        /// 处理 TimeZoneTypePST 分支
         case TimeZoneTypePST:
             return [NSTimeZone timeZoneWithName:@"America/Los_Angeles"]; // 太平洋时间
+        /// 处理 TimeZoneTypeEST 分支
         case TimeZoneTypeEST:
             return [NSTimeZone timeZoneWithName:@"America/New_York"]; // 美国东部时间
+        /// 处理 TimeZoneTypeCST 分支
         case TimeZoneTypeCST:
             return [NSTimeZone timeZoneWithName:@"America/Chicago"]; // 美国中部时间
+        /// 处理 TimeZoneTypeMST 分支
         case TimeZoneTypeMST:
             return [NSTimeZone timeZoneWithName:@"America/Denver"]; // 美国山地时间
+        /// 处理 TimeZoneTypeCSTChina 分支
         case TimeZoneTypeCSTChina:
             return [NSTimeZone timeZoneWithName:@"Asia/Shanghai"]; // 中国标准时间
+        /// 处理 TimeZoneTypeJST 分支
         case TimeZoneTypeJST:
             return [NSTimeZone timeZoneWithName:@"Asia/Tokyo"]; // 日本标准时间
+        /// 处理 TimeZoneTypeBST 分支
         case TimeZoneTypeBST:
             return [NSTimeZone timeZoneWithName:@"Europe/London"]; // 英国时间
+        /// 处理 TimeZoneTypeAEST 分支
         case TimeZoneTypeAEST:
             return [NSTimeZone timeZoneWithName:@"Australia/Sydney"]; // 澳大利亚东部时间
+        /// 处理 TimeZoneTypeAWST 分支
         case TimeZoneTypeAWST:
             return [NSTimeZone timeZoneWithName:@"Australia/Perth"]; // 澳大利亚西部时间
+        /// 处理 TimeZoneTypeCET 分支
         case TimeZoneTypeCET:
             return [NSTimeZone timeZoneWithName:@"Europe/Berlin"]; // 欧洲中部时间
+        /// 处理 TimeZoneTypeMSK 分支
         case TimeZoneTypeMSK:
             return [NSTimeZone timeZoneWithName:@"Europe/Moscow"]; // 莫斯科时间
+        /// 处理 TimeZoneTypeIST 分支
         case TimeZoneTypeIST:
             return [NSTimeZone timeZoneWithName:@"Asia/Kolkata"]; // 印度标准时间
+        /// 处理 TimeZoneTypeBRT 分支
         case TimeZoneTypeBRT:
             return [NSTimeZone timeZoneWithName:@"America/Sao_Paulo"]; // 巴西利亚时间
+        /// 处理 TimeZoneTypeCSTMexico 分支
         case TimeZoneTypeCSTMexico:
             return [NSTimeZone timeZoneWithName:@"America/Mexico_City"]; // 墨西哥城时间
+        /// 处理 TimeZoneTypeART 分支
         case TimeZoneTypeART:
             return [NSTimeZone timeZoneWithName:@"America/Argentina/Buenos_Aires"]; // 阿根廷时间
+        /// 处理 TimeZoneTypeHST 分支
         case TimeZoneTypeHST:
             return [NSTimeZone timeZoneWithName:@"Pacific/Honolulu"]; // 夏威夷时间
+        /// 处理 TimeZoneTypeAKST 分支
         case TimeZoneTypeAKST:
             return [NSTimeZone timeZoneWithName:@"America/Anchorage"]; // 阿拉斯加时间
+        /// 处理 TimeZoneTypeCEST 分支
         case TimeZoneTypeCEST:
             return [NSTimeZone timeZoneWithName:@"Europe/Berlin"]; // 中欧时间
+        /// 处理 TimeZoneTypeEET 分支
         case TimeZoneTypeEET:
             return [NSTimeZone timeZoneWithName:@"Europe/Helsinki"]; // 欧洲东部时间
+        /// 处理 TimeZoneTypeWET 分支
         case TimeZoneTypeWET:
             return [NSTimeZone timeZoneWithName:@"Europe/Lisbon"]; // 欧洲西部时间
+        /// 处理 TimeZoneTypeNST 分支
         case TimeZoneTypeNST:
             return [NSTimeZone timeZoneWithName:@"America/St_Johns"]; // 纽芬兰时间
+        /// 处理 TimeZoneTypeAST 分支
         case TimeZoneTypeAST:
             return [NSTimeZone timeZoneWithName:@"America/Halifax"]; // 大西洋时间
+        /// 处理 TimeZoneTypePDT 分支
         case TimeZoneTypePDT:
             return [NSTimeZone timeZoneWithName:@"America/Los_Angeles"]; // 太平洋时间
+        /// 处理 TimeZoneTypeMDT 分支
         case TimeZoneTypeMDT:
             return [NSTimeZone timeZoneWithName:@"America/Denver"]; // 山地时间
+        /// 处理 TimeZoneTypeCDT 分支
         case TimeZoneTypeCDT:
             return [NSTimeZone timeZoneWithName:@"America/Chicago"]; // 中部时间
+        /// 处理 TimeZoneTypeEDT 分支
         case TimeZoneTypeEDT:
             return [NSTimeZone timeZoneWithName:@"America/New_York"]; // 东部时间
+        /// 处理 TimeZoneTypeNZST 分支
         case TimeZoneTypeNZST:
             return [NSTimeZone timeZoneWithName:@"Pacific/Auckland"]; // 新西兰时间
+        /// 处理 TimeZoneTypeHKT 分支
         case TimeZoneTypeHKT:
             return [NSTimeZone timeZoneWithName:@"Asia/Hong_Kong"]; // 香港时间
+        /// 处理 TimeZoneTypeSGT 分支
         case TimeZoneTypeSGT:
             return [NSTimeZone timeZoneWithName:@"Asia/Singapore"]; // 新加坡时间
+        /// 处理 TimeZoneTypeMYT 分支
         case TimeZoneTypeMYT:
             return [NSTimeZone timeZoneWithName:@"Asia/Kuala_Lumpur"]; // 马来西亚时间
+        /// 处理 TimeZoneTypeKST 分支
         case TimeZoneTypeKST:
             return [NSTimeZone timeZoneWithName:@"Asia/Seoul"]; // 韩国标准时间
+        /// 未匹配已知分支时执行兜底处理
         default:
             return [NSTimeZone defaultTimeZone]; // 默认返回系统时区
     }
@@ -95,12 +129,19 @@ NS_INLINE NSTimeZone *_Nullable timeZone(TimeZoneType timeZoneType) {
 
 NS_INLINE NSString * _Nullable httpMethod(YTKRequestMethod method){
     switch (method) {
+        /// 处理 YTKRequestMethodGET 分支
         case YTKRequestMethodGET:return GET;break;
+        /// 处理 YTKRequestMethodPOST 分支
         case YTKRequestMethodPOST:return POST;break;
+        /// 处理 YTKRequestMethodPUT 分支
         case YTKRequestMethodPUT:return PUT;break;
+        /// 处理 YTKRequestMethodDELETE 分支
         case YTKRequestMethodDELETE:return DELETE;break;
+        /// 处理 YTKRequestMethodPATCH 分支
         case YTKRequestMethodPATCH: return PATCH;break;
+        /// 处理 YTKRequestMethodHEAD 分支
         case YTKRequestMethodHEAD:return HEAD;break;
+        /// 未匹配已知分支时执行兜底处理
         default:
             return @"";
             break;

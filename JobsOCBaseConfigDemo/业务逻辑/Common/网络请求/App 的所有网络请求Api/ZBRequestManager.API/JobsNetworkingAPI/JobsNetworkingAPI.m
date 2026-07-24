@@ -91,34 +91,44 @@ uploadVideosParamArr:(NSArray *_Nullable)uploadVideosParamArr
             JobsResponseModel *responseModel = (JobsResponseModel *)error;
             JobsLog(@"code = %lu",(unsigned long)responseModel.code);
             switch (responseModel.code) {
-                case HTTPResponseCodeServeError:{// 服务器异常
+                /// 服务器异常
+                case HTTPResponseCodeServeError:{
                     self.jobsToastErrMsg(@"服务器异常".tr);
                 }break;
-                case HTTPResponseCodeNoToken:{// 令牌不能为空
+                /// 令牌不能为空
+                case HTTPResponseCodeNoToken:{
                     self.jobsToastErrMsg(@"令牌不能为空".tr);
                 }break;
-                case HTTPResponseCodeLoginFailed:{// 登录失败：账密错误
+                /// 登录失败：账密错误
+                case HTTPResponseCodeLoginFailed:{
                     self.jobsToastErrMsg(@"登录失败：账密错误".tr);
                 }break;
-                case HTTPResponseCodeTokenExpire:{// 登录已过期，请重新登录
+                /// 登录已过期，请重新登录
+                case HTTPResponseCodeTokenExpire:{
                     JobsPostNotification(退出登录成功,@(NO));
                     self.jobsToastErrMsg(@"登录已过期，请重新登录".tr);
                 }break;
-                case HTTPResponseCodeAuthorizationFailure:{// 授权失败
+                /// 授权失败
+                case HTTPResponseCodeAuthorizationFailure:{
                     self.jobsToastErrMsg(@"授权失败".tr);
                 }break;
-                case HTTPResponseCodeLeakTime:{// 限定时间内超过请求次数
+                /// 限定时间内超过请求次数
+                case HTTPResponseCodeLeakTime:{
                     self.jobsToastErrMsg(@"限定时间内超过请求次数".tr);
                 }break;
-                case HTTPResponseCodeRiskOperation:{// 风险操作
+                /// 风险操作
+                case HTTPResponseCodeRiskOperation:{
                     self.jobsToastErrMsg(@"风险操作".tr);
                 }break;
-                case HTTPResponseCodeNoSettingTransactionPassword:{// 未设置交易密码
+                /// 未设置交易密码
+                case HTTPResponseCodeNoSettingTransactionPassword:{
                     self.jobsToastErrMsg(@"未设置交易密码".tr);
                 }break;
-                case HTTPResponseCodeOffline:{// 账号已在其他设备登录
+                /// 账号已在其他设备登录
+                case HTTPResponseCodeOffline:{
                     self.jobsToastErrMsg(@"账号已在其他设备登录t".tr);
                 }break;
+                /// 未匹配已知分支时执行兜底处理
                 default:{
                     if ([error isKindOfClass:JobsResponseModel.class]) {
                         JobsResponseModel *model = (JobsResponseModel *)error;

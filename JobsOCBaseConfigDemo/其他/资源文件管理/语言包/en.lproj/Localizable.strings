@@ -878,6 +878,13 @@
 "返回：回顶部并刷新" = "Return: Top & Refresh";
 "下次开屏：关" = "Next splash: Off";
 "下次开屏：开" = "Next splash: On";
+"开屏内容" = "Splash Content";
+"本地图片" = "Local Image";
+"本地 GIF" = "Local GIF";
+"远程图片" = "Remote Image";
+"本地视频" = "Local Video";
+"远程视频" = "Remote Video";
+"下次开屏内容已设为：%@" = "Next splash content: %@";
 "主题切换：白天" = "Theme: Light";
 "主题切换：黑夜" = "Theme: Dark";
 "主题已切换：白天" = "Theme switched: Light";

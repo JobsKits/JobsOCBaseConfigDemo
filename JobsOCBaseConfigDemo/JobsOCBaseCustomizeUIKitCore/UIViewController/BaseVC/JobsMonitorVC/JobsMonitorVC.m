@@ -108,20 +108,25 @@
                 JobsLog(@"SSS = %d",b.boolValue);
             }JobsLog(@"通知传递过来的 = %@",notification.object);
             switch (UIDevice.currentDevice.orientation) {
-                    // 处理竖屏方向的逻辑
-                case UIDeviceOrientationPortrait:/// 设备竖直向上，Home 按钮在下方
+                /// 处理竖屏方向的逻辑
+                /// 设备竖直向上，Home 按钮在下方
+                case UIDeviceOrientationPortrait:
                     JobsLog(@"系统通知：↓");
                     break;
-                case UIDeviceOrientationPortraitUpsideDown:/// 设备竖直向下，Home 按钮在上方
+                /// 设备竖直向下，Home 按钮在上方
+                case UIDeviceOrientationPortraitUpsideDown:
                     JobsLog(@"系统通知：↑");
                     break;
-                    // 处理横屏方向的逻辑
-                case UIDeviceOrientationLandscapeLeft:/// 设备水平，Home 按钮在右侧
+                /// 处理横屏方向的逻辑
+                /// 设备水平，Home 按钮在右侧
+                case UIDeviceOrientationLandscapeLeft:
                     JobsLog(@"系统通知：→");
                     break;
-                case UIDeviceOrientationLandscapeRight:/// 设备水平，Home 按钮在左侧
+                /// 设备水平，Home 按钮在左侧
+                case UIDeviceOrientationLandscapeRight:
                     JobsLog(@"系统通知：←");
                     break;
+                /// 未匹配已知分支时执行兜底处理
                 default:
                     break;
             }

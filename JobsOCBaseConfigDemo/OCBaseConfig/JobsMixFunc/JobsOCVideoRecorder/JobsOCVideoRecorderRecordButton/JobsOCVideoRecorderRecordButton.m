@@ -11,7 +11,7 @@
 
 Prop_strong() CAShapeLayer *trackLayer;
 Prop_strong() CAShapeLayer *progressLayer;
-Prop_strong() UIView *redCircleView;
+Prop_strong() UIView *innerCircleView;
 Prop_strong() UILongPressGestureRecognizer *longPressGesture;
 
 @end
@@ -22,14 +22,14 @@ Prop_strong() UILongPressGestureRecognizer *longPressGesture;
         self.backgroundColor = UIColor.clearColor;
         [self.layer addSublayer:self.trackLayer];
         [self.layer addSublayer:self.progressLayer];
-        [self addSubview:self.redCircleView];
+        [self addSubview:self.innerCircleView];
         [self addGestureRecognizer:self.longPressGesture];
     };return self;
 }
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-    CGFloat lineWidth = JobsWidth(5);
+    CGFloat lineWidth = JobsWidth(4);
     CGFloat diameter = MIN(CGRectGetWidth(self.bounds), CGRectGetHeight(self.bounds));
     CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
     CGFloat radius = MAX(0, (diameter - lineWidth) * 0.5);
@@ -44,9 +44,9 @@ Prop_strong() UILongPressGestureRecognizer *longPressGesture;
     self.progressLayer.frame = self.bounds;
     self.progressLayer.path = path.CGPath;
     self.progressLayer.lineWidth = lineWidth;
-    CGRect redFrame = CGRectInset(self.bounds, JobsWidth(14), JobsWidth(14));
-    self.redCircleView.frame = redFrame;
-    self.redCircleView.layer.cornerRadius = CGRectGetWidth(redFrame) * 0.5;
+    CGRect innerFrame = CGRectInset(self.bounds, JobsWidth(14), JobsWidth(14));
+    self.innerCircleView.frame = innerFrame;
+    self.innerCircleView.layer.cornerRadius = CGRectGetWidth(innerFrame) * 0.5;
 }
 
 -(void)startProgressWithDuration:(NSTimeInterval)duration{
@@ -109,13 +109,13 @@ Prop_strong() UILongPressGestureRecognizer *longPressGesture;
     };return _progressLayer;
 }
 
--(UIView *)redCircleView{
-    if (!_redCircleView) {
-        _redCircleView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.backgroundColor = UIColor.redColor;
+-(UIView *)innerCircleView{
+    if (!_innerCircleView) {
+        _innerCircleView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byBgColor(UIColor.whiteColor);
             view.userInteractionEnabled = NO;
         });
-    };return _redCircleView;
+    };return _innerCircleView;
 }
 
 -(UILongPressGestureRecognizer *)longPressGesture{

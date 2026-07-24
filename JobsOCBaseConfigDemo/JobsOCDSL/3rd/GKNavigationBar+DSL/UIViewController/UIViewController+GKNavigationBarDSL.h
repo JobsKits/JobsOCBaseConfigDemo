@@ -59,6 +59,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetGKNavVCByBOOLBlock _Nonnull)byGKOpenFixNavItemSpace;
 -(JobsRetGKNavVCByCGFloatBlock _Nonnull)byGKNavItemLeftSpace;
 -(JobsRetGKNavVCByCGFloatBlock _Nonnull)byGKNavItemRightSpace;
+/// 将全屏返回限制在左边缘，避免抢占页面内横向滚动视图的右滑手势。
+-(JobsRetGKNavVCByCGFloatBlock _Nonnull)byGKMaxPopDistance;
 -(JobsRetGKNavVCByNavigationBarBlock _Nonnull)byGKNavigationBarBlock;
 -(JobsRetVCByVoidBlock _Nonnull)byGKShowNavLine;
 -(JobsRetVCByVoidBlock _Nonnull)byGKHideNavLine;

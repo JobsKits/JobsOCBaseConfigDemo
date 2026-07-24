@@ -19,6 +19,7 @@
 
 #import "YTKNetworkProtocols.h"
 #import "WHToastExtra.h"
+#import "JobsResponseModel.h"
 #import "JobsModelDSL.h"
 #import "JobsDefines.h"
 

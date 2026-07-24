@@ -26,21 +26,24 @@ JobsKey(_configure)
     if (!Configure) {
         @jobs_weakify(self)
         switch (self.configureType) {
-            case JPImageresizerConfigureType_1:{//默认配置裁剪图片/GIF（UIImage）
+            /// 默认配置裁剪图片/GIF（UIImage）
+            case JPImageresizerConfigureType_1:{
                 Configure = [JPImageresizerConfigure defaultConfigureWithImage:self.JPImageresizerView_img
                                                                           make:^(JPImageresizerConfigure *configure) {
                     @jobs_strongify(self)
                     if (self.makeBlock) self.makeBlock(@1);
                 }];
             } break;
-            case JPImageresizerConfigureType_2:{//默认配置裁剪图片/GIF（NSData）
+            /// 默认配置裁剪图片/GIF（NSData）
+            case JPImageresizerConfigureType_2:{
                 Configure = [JPImageresizerConfigure defaultConfigureWithImageData:self.JPImageresizerView_data
                                                                               make:^(JPImageresizerConfigure *configure) {
                     @jobs_strongify(self)
                     if (self.makeBlock) self.makeBlock(@1);
                 }];
             } break;
-            case JPImageresizerConfigureType_3:{//默认配置裁剪视频（NSURL）
+            /// 默认配置裁剪视频（NSURL）
+            case JPImageresizerConfigureType_3:{
                 Configure = [JPImageresizerConfigure defaultConfigureWithVideoURL:self.JPImageresizerView_url
                                                                              make:^(JPImageresizerConfigure *configure) {
                     @jobs_strongify(self)
@@ -64,7 +67,8 @@ JobsKey(_configure)
                     if (self.fixCompleteBlock) self.fixCompleteBlock(@1);
                 }];
             } break;
-            case JPImageresizerConfigureType_4:{//默认配置裁剪视频（AVURLAsset）
+            /// 默认配置裁剪视频（AVURLAsset）
+            case JPImageresizerConfigureType_4:{
                 Configure = [JPImageresizerConfigure defaultConfigureWithVideoAsset:self.JPImageresizerView_avURLAsset
                                                                                make:^(JPImageresizerConfigure *configure) {
                     @jobs_strongify(self)
@@ -88,7 +92,8 @@ JobsKey(_configure)
                     if (self.fixCompleteBlock) self.fixCompleteBlock(@1);
                 }];
             } break;
-            case JPImageresizerConfigureType_5:{/// 浅色毛玻璃配置裁剪图片/GIF（UIImage）
+            /// 浅色毛玻璃配置裁剪图片/GIF（UIImage）
+            case JPImageresizerConfigureType_5:{
                 Configure = [JPImageresizerConfigure defaultConfigureWithImage:self.JPImageresizerView_img
                                                                           make:^(JPImageresizerConfigure *configure) {
                     JobsApplyJPImageresizerBlurAppearance(configure, UIBlurEffectStyleLight);
@@ -96,7 +101,8 @@ JobsKey(_configure)
                     if (self.makeBlock) self.makeBlock(@1);
                 }];
             } break;
-            case JPImageresizerConfigureType_6:{/// 浅色毛玻璃配置裁剪图片/GIF（NSData）
+            /// 浅色毛玻璃配置裁剪图片/GIF（NSData）
+            case JPImageresizerConfigureType_6:{
                 Configure = [JPImageresizerConfigure defaultConfigureWithImageData:self.JPImageresizerView_data
                                                                               make:^(JPImageresizerConfigure *configure) {
                     JobsApplyJPImageresizerBlurAppearance(configure, UIBlurEffectStyleLight);
@@ -104,7 +110,8 @@ JobsKey(_configure)
                     if (self.makeBlock) self.makeBlock(@1);
                 }];
             } break;
-            case JPImageresizerConfigureType_7:{/// 浅色毛玻璃配置裁剪视频（NSURL）
+            /// 浅色毛玻璃配置裁剪视频（NSURL）
+            case JPImageresizerConfigureType_7:{
                 Configure = [JPImageresizerConfigure defaultConfigureWithVideoURL:self.JPImageresizerView_url
                                                                              make:^(JPImageresizerConfigure *configure) {
                     JobsApplyJPImageresizerBlurAppearance(configure, UIBlurEffectStyleLight);
@@ -129,7 +136,8 @@ JobsKey(_configure)
                     if (self.fixCompleteBlock) self.fixCompleteBlock(@1);
                 }];
             } break;
-            case JPImageresizerConfigureType_8:{//浅色毛玻璃配置裁剪视频（AVURLAsset）
+            /// 浅色毛玻璃配置裁剪视频（AVURLAsset）
+            case JPImageresizerConfigureType_8:{
                 Configure = [JPImageresizerConfigure defaultConfigureWithVideoAsset:self.JPImageresizerView_avURLAsset
                                                                                make:^(JPImageresizerConfigure *configure) {
                     JobsApplyJPImageresizerBlurAppearance(configure, UIBlurEffectStyleLight);
@@ -154,7 +162,8 @@ JobsKey(_configure)
                     if (self.fixCompleteBlock) self.fixCompleteBlock(@1);
                 }];
             } break;
-            case JPImageresizerConfigureType_9:{//深色毛玻璃配置裁剪图片/GIF（UIImage）
+            /// 深色毛玻璃配置裁剪图片/GIF（UIImage）
+            case JPImageresizerConfigureType_9:{
                 Configure = [JPImageresizerConfigure defaultConfigureWithImage:self.JPImageresizerView_img
                                                                           make:^(JPImageresizerConfigure *configure) {
                     JobsApplyJPImageresizerBlurAppearance(configure, UIBlurEffectStyleDark);
@@ -162,7 +171,8 @@ JobsKey(_configure)
                     if (self.makeBlock) self.makeBlock(@1);
                 }];
             } break;
-            case JPImageresizerConfigureType_10:{//深色毛玻璃配置裁剪图片/GIF（NSData）
+            /// 深色毛玻璃配置裁剪图片/GIF（NSData）
+            case JPImageresizerConfigureType_10:{
                 Configure = [JPImageresizerConfigure defaultConfigureWithImageData:self.JPImageresizerView_data
                                                                               make:^(JPImageresizerConfigure *configure) {
                     JobsApplyJPImageresizerBlurAppearance(configure, UIBlurEffectStyleDark);
@@ -170,7 +180,8 @@ JobsKey(_configure)
                     if (self.makeBlock) self.makeBlock(@1);
                 }];
             } break;
-            case JPImageresizerConfigureType_11:{//深色毛玻璃配置裁剪视频（NSURL）
+            /// 深色毛玻璃配置裁剪视频（NSURL）
+            case JPImageresizerConfigureType_11:{
                 Configure = [JPImageresizerConfigure defaultConfigureWithVideoURL:self.JPImageresizerView_url
                                                                              make:^(JPImageresizerConfigure *configure) {
                     JobsApplyJPImageresizerBlurAppearance(configure, UIBlurEffectStyleDark);
@@ -195,7 +206,8 @@ JobsKey(_configure)
                     if (self.fixCompleteBlock) self.fixCompleteBlock(@1);
                 }];
             } break;
-            case JPImageresizerConfigureType_12:{//深色毛玻璃配置裁剪视频（AVURLAsset）
+            /// 深色毛玻璃配置裁剪视频（AVURLAsset）
+            case JPImageresizerConfigureType_12:{
                 Configure = [JPImageresizerConfigure defaultConfigureWithVideoAsset:self.JPImageresizerView_avURLAsset
                                                                                make:^(JPImageresizerConfigure *configure) {
                     JobsApplyJPImageresizerBlurAppearance(configure, UIBlurEffectStyleDark);
@@ -220,6 +232,7 @@ JobsKey(_configure)
                     if (self.fixCompleteBlock) self.fixCompleteBlock(@1);
                 }];
             } break;
+            /// 未匹配已知分支时执行兜底处理
             default:
                 NSAssert(Configure,@"alertController 创建出现错误");
                 break;

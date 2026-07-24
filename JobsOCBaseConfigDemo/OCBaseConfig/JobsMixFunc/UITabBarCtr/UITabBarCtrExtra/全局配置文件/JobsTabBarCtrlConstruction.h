@@ -50,7 +50,7 @@ NS_INLINE NSArray *imgs(void){//静态轮播图
     NSMutableArray *temp = NSMutableArray.array;
     for (NSInteger i = 28 ; i <= 65; i++) {
         NSString *imgName = [NSString stringWithFormat:@"Tools_000%zi", i];
-        CGImageRef img = imgName.img.CGImage;
+        CGImageRef img = [UIImage imageNamed:imgName].CGImage;
         [temp addObject:(__bridge id _Nonnull)(img)];
     };return temp;
 }

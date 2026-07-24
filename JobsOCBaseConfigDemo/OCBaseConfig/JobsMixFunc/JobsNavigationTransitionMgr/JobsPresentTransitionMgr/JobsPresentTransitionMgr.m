@@ -310,18 +310,23 @@ Prop_assign()BOOL hasCustomPresentedRatio;
 -(void)jobs_handlePanGesture:(UIPanGestureRecognizer *)panGestureRecognizer{
     if (!self.presentationWrappingView || !self.containerView) return;
     switch (panGestureRecognizer.state) {
+        /// 处理 UIGestureRecognizerStateBegan 分支
         case UIGestureRecognizerStateBegan:
             self.panStartFrame = self.presentationWrappingView.frame;
             self.interactiveFrame = self.panStartFrame;
             self.hasInteractiveFrame = YES;
             break;
+        /// 处理 UIGestureRecognizerStateChanged 分支
         case UIGestureRecognizerStateChanged: {
             CGFloat movement = [self jobs_dismissMovementByTranslation:[panGestureRecognizer translationInView:self.containerView]];
             self.interactiveFrame = [self jobs_interactiveFrameByMovement:movement];
             self.presentationWrappingView.byFrame(self.interactiveFrame);
         } break;
+        /// 处理 UIGestureRecognizerStateEnded 分支
         case UIGestureRecognizerStateEnded:
+        /// 处理 UIGestureRecognizerStateCancelled 分支
         case UIGestureRecognizerStateCancelled:
+        /// 处理 UIGestureRecognizerStateFailed 分支
         case UIGestureRecognizerStateFailed: {
             CGFloat movement = [self jobs_dismissMovementByTranslation:[panGestureRecognizer translationInView:self.containerView]];
             CGFloat velocity = [self jobs_dismissMovementByVelocity:[panGestureRecognizer velocityInView:self.containerView]];
@@ -342,6 +347,7 @@ Prop_assign()BOOL hasCustomPresentedRatio;
                 }];
             }
         } break;
+        /// 未匹配已知分支时执行兜底处理
         default:
             break;
     }
@@ -352,18 +358,22 @@ Prop_assign()BOOL hasCustomPresentedRatio;
     CGRect frame = containerViewBounds;
     CGFloat ratio = [self jobs_effectivePresentedRatioInContainerBounds:containerViewBounds];
     switch (self.direction) {
+        /// 处理 JobsTransitionDirectionTop 分支
         case JobsTransitionDirectionTop:
             frame.size.height = CGRectGetHeight(containerViewBounds) * ratio;
             frame.origin.y = CGRectGetMinY(containerViewBounds);
             break;
+        /// 处理 JobsTransitionDirectionBottom 分支
         case JobsTransitionDirectionBottom:
             frame.size.height = CGRectGetHeight(containerViewBounds) * ratio;
             frame.origin.y = CGRectGetMaxY(containerViewBounds) - CGRectGetHeight(frame);
             break;
+        /// 处理 JobsTransitionDirectionLeft 分支
         case JobsTransitionDirectionLeft:
             frame.size.width = CGRectGetWidth(containerViewBounds) * ratio;
             frame.origin.x = CGRectGetMinX(containerViewBounds);
             break;
+        /// 处理 JobsTransitionDirectionRight 分支
         case JobsTransitionDirectionRight:
             frame.size.width = CGRectGetWidth(containerViewBounds) * ratio;
             frame.origin.x = CGRectGetMaxX(containerViewBounds) - CGRectGetWidth(frame);
@@ -375,15 +385,19 @@ Prop_assign()BOOL hasCustomPresentedRatio;
                       inContainerView:(UIView *)containerView{
     CGRect containerBounds = containerView.bounds;
     switch (self.direction) {
+        /// 处理 JobsTransitionDirectionTop 分支
         case JobsTransitionDirectionTop:
             frame.origin.y = CGRectGetMinY(containerBounds) - CGRectGetHeight(frame);
             break;
+        /// 处理 JobsTransitionDirectionBottom 分支
         case JobsTransitionDirectionBottom:
             frame.origin.y = CGRectGetMaxY(containerBounds);
             break;
+        /// 处理 JobsTransitionDirectionLeft 分支
         case JobsTransitionDirectionLeft:
             frame.origin.x = CGRectGetMinX(containerBounds) - CGRectGetWidth(frame);
             break;
+        /// 处理 JobsTransitionDirectionRight 分支
         case JobsTransitionDirectionRight:
             frame.origin.x = CGRectGetMaxX(containerBounds);
             break;
@@ -394,15 +408,19 @@ Prop_assign()BOOL hasCustomPresentedRatio;
     CGFloat offset = MAX(0, movement);
     CGRect frame = self.panStartFrame;
     switch (self.direction) {
+        /// 处理 JobsTransitionDirectionTop 分支
         case JobsTransitionDirectionTop:
             frame.origin.y -= offset;
             break;
+        /// 处理 JobsTransitionDirectionBottom 分支
         case JobsTransitionDirectionBottom:
             frame.origin.y += offset;
             break;
+        /// 处理 JobsTransitionDirectionLeft 分支
         case JobsTransitionDirectionLeft:
             frame.origin.x -= offset;
             break;
+        /// 处理 JobsTransitionDirectionRight 分支
         case JobsTransitionDirectionRight:
             frame.origin.x += offset;
             break;
@@ -447,12 +465,16 @@ Prop_assign()BOOL hasCustomPresentedRatio;
 
 -(CGFloat)jobs_dismissMovementByTranslation:(CGPoint)translation{
     switch (self.direction) {
+        /// 处理 JobsTransitionDirectionTop 分支
         case JobsTransitionDirectionTop:
             return MAX(0, -translation.y);
+        /// 处理 JobsTransitionDirectionBottom 分支
         case JobsTransitionDirectionBottom:
             return MAX(0, translation.y);
+        /// 处理 JobsTransitionDirectionLeft 分支
         case JobsTransitionDirectionLeft:
             return MAX(0, -translation.x);
+        /// 处理 JobsTransitionDirectionRight 分支
         case JobsTransitionDirectionRight:
             return MAX(0, translation.x);
     };return 0;
@@ -460,12 +482,16 @@ Prop_assign()BOOL hasCustomPresentedRatio;
 
 -(CGFloat)jobs_dismissMovementByVelocity:(CGPoint)velocity{
     switch (self.direction) {
+        /// 处理 JobsTransitionDirectionTop 分支
         case JobsTransitionDirectionTop:
             return -velocity.y;
+        /// 处理 JobsTransitionDirectionBottom 分支
         case JobsTransitionDirectionBottom:
             return velocity.y;
+        /// 处理 JobsTransitionDirectionLeft 分支
         case JobsTransitionDirectionLeft:
             return -velocity.x;
+        /// 处理 JobsTransitionDirectionRight 分支
         case JobsTransitionDirectionRight:
             return velocity.x;
     };return 0;
@@ -490,12 +516,16 @@ Prop_assign()BOOL hasCustomPresentedRatio;
 
 -(CACornerMask)jobs_maskedCorners{
     switch (self.direction) {
+        /// 处理 JobsTransitionDirectionTop 分支
         case JobsTransitionDirectionTop:
             return kCALayerMinXMaxYCorner | kCALayerMaxXMaxYCorner;
+        /// 处理 JobsTransitionDirectionBottom 分支
         case JobsTransitionDirectionBottom:
             return kCALayerMinXMinYCorner | kCALayerMaxXMinYCorner;
+        /// 处理 JobsTransitionDirectionLeft 分支
         case JobsTransitionDirectionLeft:
             return kCALayerMaxXMinYCorner | kCALayerMaxXMaxYCorner;
+        /// 处理 JobsTransitionDirectionRight 分支
         case JobsTransitionDirectionRight:
             return kCALayerMinXMinYCorner | kCALayerMinXMaxYCorner;
     };return kCALayerMinXMinYCorner | kCALayerMaxXMinYCorner;
@@ -503,12 +533,16 @@ Prop_assign()BOOL hasCustomPresentedRatio;
 
 -(CGSize)jobs_shadowOffset{
     switch (self.direction) {
+        /// 处理 JobsTransitionDirectionTop 分支
         case JobsTransitionDirectionTop:
             return CGSizeMake(0, 6.f);
+        /// 处理 JobsTransitionDirectionBottom 分支
         case JobsTransitionDirectionBottom:
             return CGSizeMake(0, -6.f);
+        /// 处理 JobsTransitionDirectionLeft 分支
         case JobsTransitionDirectionLeft:
             return CGSizeMake(6.f, 0);
+        /// 处理 JobsTransitionDirectionRight 分支
         case JobsTransitionDirectionRight:
             return CGSizeMake(-6.f, 0);
     };return CGSizeZero;

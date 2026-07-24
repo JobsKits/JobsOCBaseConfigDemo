@@ -116,10 +116,13 @@ Prop_assign()JobsSysProgressDemoMode progressMode;
 
 - (CGFloat)selectedDuration {
     switch (self.durationSegment.selectedSegmentIndex) {
+        /// 处理 数值 1 分支
         case 1:
             return 6;
+        /// 处理 数值 2 分支
         case 2:
             return 10;
+        /// 未匹配已知分支时执行兜底处理
         default:
             return 3;
     }

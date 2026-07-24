@@ -15,6 +15,7 @@ static NSInteger const JobsOCSplashDefaultCountdownTime = 15 * 60;
 
 Prop_strong()JobsOCSplashConfiguration *configuration;
 Prop_strong()UIImageView *imageView;
+Prop_strong()UILabel *remoteVideoDownloadNoticeLabel;
 Prop_strong()UIButton *countdownBtn;
 Prop_strong(nullable)NSURLSessionTask *mediaTask;
 Prop_strong(nullable)AVPlayer *player;
@@ -42,6 +43,7 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
     [super viewDidLoad];
     self.view.byBgColor(UIColor.blackColor);
     self.imageView.addOn(self.view);
+    self.remoteVideoDownloadNoticeLabel.addOn(self.view);
     self.countdownBtn.addOn(self.view);
     [self remakeSkipButtonConstraints];
     [self renderContent];
@@ -89,6 +91,20 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
     };return _imageView;
 }
 
+-(UILabel *)remoteVideoDownloadNoticeLabel {
+    if (!_remoteVideoDownloadNoticeLabel) {
+        _remoteVideoDownloadNoticeLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText([JobsOCSplashLocalization remoteVideoWiFiDownloadNoticeWithLanguageCode:self.configuration.languageCode])
+                .byTextCor(JobsWhiteColor)
+                .byFont(UIFontWeightMediumSize(12))
+                .byTextAlignment(NSTextAlignmentRight)
+                .byNumberOfLines(1)
+                .byHidden(YES);
+        });
+    };return _remoteVideoDownloadNoticeLabel;
+}
+
 -(UIButton *)countdownBtn {
     if (!_countdownBtn) {
         @jobs_weakify(self)
@@ -131,8 +147,8 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
                     @jobs_strongify(self)
                     [self finish];
                 })
-                .byBgColor(HEXCOLOR(0xAE8330))
-                .byCornerRadius(18)
+                .jobsResetBtnBgCor(HEXCOLOR(0xAE8330))
+                .jobsResetBtnCornerRadiusValue(18)
                 .byClipsToBounds(YES)
                 .byHidden(!self.configuration.skipButtonVisible);
             btn.adjustsImageWhenHighlighted = NO;
@@ -168,6 +184,12 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
                 make.size.mas_equalTo(CGSizeMake(width, 36));
             });
         }
+        self.remoteVideoDownloadNoticeLabel.byRemake(^(MASConstraintMaker *make) {
+            make.right.equalTo(self.countdownBtn.mas_left).offset(-8);
+            make.centerY.equalTo(self.countdownBtn);
+            make.left.greaterThanOrEqualTo(self.view).offset(16);
+            make.height.mas_equalTo(36);
+        });
         [self.view layoutIfNeeded];
         [self refreshSkipButtonCornerRadius];
     }];
@@ -177,7 +199,7 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
     CGFloat height = CGRectGetHeight(self.countdownBtn.bounds);
     if (height <= 0) return;
     self.countdownBtn
-        .byCornerRadius(height / 2)
+        .jobsResetBtnCornerRadiusValue(height / 2)
         .byClipsToBounds(YES);
 }
 
@@ -207,21 +229,26 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
 
 -(void)renderContent {
     switch (self.configuration.contentType) {
+        /// 处理 JobsOCSplashContentTypeLocalImage 分支
         case JobsOCSplashContentTypeLocalImage:
             self.imageView.image = [UIImage imageNamed:self.configuration.resourceName inBundle:self.configuration.bundle compatibleWithTraitCollection:nil];
             break;
+        /// 处理 JobsOCSplashContentTypeLocalGIF 分支
         case JobsOCSplashContentTypeLocalGIF: {
             NSURL *url = [self resourceURLWithName:self.configuration.resourceName defaultExtension:@"gif" bundle:self.configuration.bundle];
             NSData *data = url ? [NSData dataWithContentsOfURL:url] : nil;
             self.imageView.image = data ? [JobsOCSplashGIFDecoder imageWithData:data] : nil;
         } break;
+        /// 处理 JobsOCSplashContentTypeRemoteImage 分支
         case JobsOCSplashContentTypeRemoteImage:
             [self loadRemoteImage:self.configuration.remoteURL];
             break;
+        /// 处理 JobsOCSplashContentTypeLocalVideo 分支
         case JobsOCSplashContentTypeLocalVideo: {
             NSURL *url = [self resourceURLWithName:self.configuration.resourceName defaultExtension:self.configuration.fileExtension bundle:self.configuration.bundle];
             if (url) [self playVideo:url];
         } break;
+        /// 处理 JobsOCSplashContentTypeRemoteVideo 分支
         case JobsOCSplashContentTypeRemoteVideo:
             [self loadRemoteVideo:self.configuration.remoteURL];
             break;
@@ -249,14 +276,20 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
     if (!url) return;
     NSURL *cachedURL = [JobsOCSplashMediaCache.shared cachedFileURLForRemoteURL:url];
     if (cachedURL) {
+        self.remoteVideoDownloadNoticeLabel.byHidden(YES);
         [self playVideo:cachedURL];
         return;
     }
+    NSURL *fallbackURL = [self resourceURLWithName:self.configuration.resourceName
+                                  defaultExtension:self.configuration.fileExtension
+                                            bundle:self.configuration.bundle];
+    if (fallbackURL) [self playVideo:fallbackURL];
+    self.remoteVideoDownloadNoticeLabel.byHidden(NO);
     __weak typeof(self) weakSelf = self;
-    self.mediaTask = [JobsOCSplashMediaCache.shared download:url completion:^(NSURL *fileURL, NSError *error) {
+    [JobsOCSplashMediaCache.shared preloadVideo:url completion:^(NSURL *fileURL) {
         __strong typeof(weakSelf) self = weakSelf;
-        if (!self || !fileURL || error) return;
-        [self playVideo:fileURL];
+        if (!self || self.hasFinished) return;
+        self.remoteVideoDownloadNoticeLabel.byHidden(YES);
     }];
 }
 
@@ -278,6 +311,7 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
 }
 
 -(NSURL *)resourceURLWithName:(NSString *)name defaultExtension:(NSString *)defaultExtension bundle:(NSBundle *)bundle {
+    if (!name.length) return nil;
     NSString *pathExtension = name.pathExtension;
     if (pathExtension.length) {
         return [bundle URLForResource:name.stringByDeletingPathExtension withExtension:pathExtension];

@@ -11,13 +11,18 @@ NSString * const JobsCNIDErrorDomain = @"com.jobs.cnid.validation";
 
 static NSString *JobsCNIDErrorMessage(JobsCNIDErrorCode code) {
     switch (code) {
+        /// 处理 JobsCNIDErrorCodeBirthDate 分支
         case JobsCNIDErrorCodeBirthDate:
             return @"出生日期无效或超出合理范围";
+        /// 处理 JobsCNIDErrorCodeSequence 分支
         case JobsCNIDErrorCodeSequence:
             return @"顺序码无效（不能为000）";
+        /// 处理 JobsCNIDErrorCodeChecksum 分支
         case JobsCNIDErrorCodeChecksum:
             return @"校验位不匹配";
+        /// 处理 JobsCNIDErrorCodeFormat 分支
         case JobsCNIDErrorCodeFormat:
+        /// 未匹配已知分支时执行兜底处理
         default:
             return @"格式错误：18位(前17位数字+最后一位数字或X) 或 15位纯数字";
     }

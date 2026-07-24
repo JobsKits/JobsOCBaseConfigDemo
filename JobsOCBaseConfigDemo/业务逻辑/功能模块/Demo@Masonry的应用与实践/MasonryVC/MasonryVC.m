@@ -10,6 +10,9 @@
 @interface MasonryVC ()
 /// UI
 Prop_strong()MSMineView2 *view2;
+Prop_strong()UIView *demo2ContainerView;
+Prop_strong()NSMutableArray <UILabel *>*demo1LabelMutArr;
+Prop_strong()NSMutableArray <UIView *>*demo2ItemViewMutArr;
 
 @end
 
@@ -102,20 +105,23 @@ Prop_strong()MSMineView2 *view2;
         .add(@"标签9".tr)
         .add(@"标签10".tr);
     })) {
-        self.view.addSubview(jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+        UILabel *label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label.text = tagName;
             label.backgroundColor = JobsLightGrayColor;
             label.textAlignment = NSTextAlignmentCenter;
             label.layer.cornerRadius = 5.0;
             label.clipsToBounds = YES;
             // 根据标签文本计算标签宽度
-            CGSize tagSize = [label sizeThatFits:CGSizeMake(containerWidth, tagHeight)];
+            tagSize = [label sizeThatFits:CGSizeMake(containerWidth, tagHeight)];
             // 如果当前行放不下该标签，则换行
             if (currentX + tagSize.width > containerWidth) {
                 currentX = containerX;
                 currentY += tagHeight + tagSpacing;
             }label.frame = CGRectMake(currentX, currentY, tagSize.width, tagHeight);
-        }));currentX += tagSize.width + tagSpacing;/// 更新当前行的x坐标
+        });
+        [self.view addSubview:label];
+        [self.demo1LabelMutArr addObject:label];
+        currentX += tagSize.width + tagSpacing;/// 更新当前行的x坐标
     }
 }
 /**
@@ -130,18 +136,14 @@ Prop_strong()MSMineView2 *view2;
  */
 -(void)demo2{
     // 创建父视图容器
-    UIView *containerView = [UIView new];
-    [self.view addSubview:containerView];
-    // 设置父视图容器的背景色为红色
-    containerView.backgroundColor = [UIColor redColor];
+    [self.view addSubview:self.demo2ContainerView];
     // 设置父视图容器的约束
-    [containerView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.demo2ContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(100, 20, 100, 20)); // 设置四个边界紧贴父视图
     }];
     [self.view layoutIfNeeded];
-    JobsLog(@"ddd = %f",CGRectGetWidth(containerView.frame));
-    // 创建子元素数组
-    NSMutableArray<UIView *> *itemViews = [NSMutableArray array];
+    JobsLog(@"ddd = %f",CGRectGetWidth(self.demo2ContainerView.frame));
+    [self.demo2ItemViewMutArr removeAllObjects];
     // 自定义子元素的宽高
     CGFloat itemWidth = 50.0; // 自行设定子元素的宽度
     CGFloat itemHeight = 60.0; // 自行设定子元素的高度
@@ -151,26 +153,26 @@ Prop_strong()MSMineView2 *view2;
     // 自定义子元素的数量
     NSInteger itemCount = 19;
     // 计算每行每列的数量
-    NSInteger columns = floor((CGRectGetWidth(containerView.frame) - horizontalSpacing) / (itemWidth + horizontalSpacing));
+    NSInteger columns = floor((CGRectGetWidth(self.demo2ContainerView.frame) - horizontalSpacing) / (itemWidth + horizontalSpacing));
     NSInteger rows = ceil((CGFloat)itemCount / columns); // 确保行数能容纳所有子元素
     // 重新计算横向和纵向间距
-    horizontalSpacing = (CGRectGetWidth(containerView.frame) - columns * itemWidth) / (columns - 1);
-    verticalSpacing = (CGRectGetHeight(containerView.frame) - rows * itemHeight) / (rows - 1);
+    horizontalSpacing = (CGRectGetWidth(self.demo2ContainerView.frame) - columns * itemWidth) / (columns - 1);
+    verticalSpacing = (CGRectGetHeight(self.demo2ContainerView.frame) - rows * itemHeight) / (rows - 1);
     for (NSInteger row = 0; row < rows; row++) {
         for (NSInteger column = 0; column < columns; column++) {
             NSInteger index = row * columns + column;
             if (index < itemCount) {
                 UIView *itemView = [UIView new];
                 itemView.backgroundColor = [UIColor blueColor]; // 子元素背景色为蓝色
-                [containerView addSubview:itemView];
-                [itemViews addObject:itemView];
+                [self.demo2ContainerView addSubview:itemView];
+                [self.demo2ItemViewMutArr addObject:itemView];
                 // 设置子元素的约束
                 [itemView mas_makeConstraints:^(MASConstraintMaker *make) {
                     make.width.equalTo(@(itemWidth)); // 设置子元素宽度
                     make.height.equalTo(@(itemHeight)); // 设置子元素高度
                     // 计算子元素的位置
-                    make.left.equalTo(containerView.mas_left).offset(column * (itemWidth + horizontalSpacing));
-                    make.top.equalTo(containerView.mas_top).offset(row * (itemHeight + verticalSpacing));
+                    make.left.equalTo(self.demo2ContainerView.mas_left).offset(column * (itemWidth + horizontalSpacing));
+                    make.top.equalTo(self.demo2ContainerView.mas_top).offset(row * (itemHeight + verticalSpacing));
                 }];
             }
         }
@@ -194,6 +196,25 @@ Prop_strong()MSMineView2 *view2;
     self.view2.byAlpha(1);
 }
 #pragma mark —— lazyLoad
+-(UIView *)demo2ContainerView{
+    if (!_demo2ContainerView) {
+        _demo2ContainerView = UIView.new;
+        _demo2ContainerView.backgroundColor = UIColor.redColor;
+    };return _demo2ContainerView;
+}
+
+-(NSMutableArray<UILabel *> *)demo1LabelMutArr{
+    if (!_demo1LabelMutArr) {
+        _demo1LabelMutArr = NSMutableArray.array;
+    };return _demo1LabelMutArr;
+}
+
+-(NSMutableArray<UIView *> *)demo2ItemViewMutArr{
+    if (!_demo2ItemViewMutArr) {
+        _demo2ItemViewMutArr = NSMutableArray.array;
+    };return _demo2ItemViewMutArr;
+}
+
 -(MSMineView2 *)view2{
     if(!_view2){
         @jobs_weakify(self)

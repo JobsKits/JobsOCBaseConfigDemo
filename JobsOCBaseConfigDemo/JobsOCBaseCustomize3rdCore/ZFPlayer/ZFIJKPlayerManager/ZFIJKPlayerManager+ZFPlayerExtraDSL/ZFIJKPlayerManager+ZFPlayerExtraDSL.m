@@ -7,7 +7,7 @@
 
 #import "ZFIJKPlayerManager+ZFPlayerExtraDSL.h"
 
-#if !TARGET_OS_SIMULATOR
+#if !TARGET_OS_SIMULATOR && __has_include(<IJKMediaFramework/IJKMediaFramework.h>) && (__has_include(<ZFPlayer/ZFIJKPlayerManager.h>) || __has_include("ZFIJKPlayerManager.h"))
 @implementation ZFIJKPlayerManager (ZFPlayerExtraDSL)
 -(JobsRetZFIJKPlayerManagerByURLBlock _Nonnull)byAssetURL{
     @jobs_weakify(self)

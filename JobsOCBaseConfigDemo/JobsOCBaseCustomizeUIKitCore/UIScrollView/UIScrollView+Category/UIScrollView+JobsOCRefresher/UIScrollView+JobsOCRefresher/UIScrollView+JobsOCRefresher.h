@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
                                          action:(JobsOCRefreshActionBlock)action;
 - (__kindof UIScrollView *)jobs_switchRefreshAt:(JobsOCRefreshPosition)position
                                         toState:(JobsOCRefreshState)state;
+- (__kindof UIScrollView *)jobs_replaceRefreshAnimator:(nullable id<JobsRefreshAnimatorProtocol>)animator
+                                            atPosition:(JobsOCRefreshPosition)position;
 - (__kindof UIScrollView *)jobs_removeRefreshAt:(JobsOCRefreshPosition)position;
 
 @end

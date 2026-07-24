@@ -6,6 +6,7 @@
 //
 
 #import "CompressStrVC.h"
+#import "../../../../JobsOCDSL/UIKit/UIView+DSLs/UIView+Gesture/UIView+Gesture/UIView+Gesture.h"
 
 @interface CompressStrVC ()
 

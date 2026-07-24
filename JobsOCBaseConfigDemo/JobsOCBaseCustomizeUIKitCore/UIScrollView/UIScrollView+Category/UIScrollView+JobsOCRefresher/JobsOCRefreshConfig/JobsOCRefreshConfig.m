@@ -13,6 +13,7 @@
         config.triggerDistance = 60;
         config.viewLength = 60;
         config.showsInfo = YES;
+        config.showsText = YES;
         config.enablesHaptics = YES;
         config.horizontalMode = JobsOCRefreshHorizontalModeRefreshRightLoadLeft;
         config.animationType = JobsOCRefreshAnimationTypeSystem;
