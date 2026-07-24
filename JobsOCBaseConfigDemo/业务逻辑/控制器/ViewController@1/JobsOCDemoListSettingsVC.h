@@ -31,6 +31,12 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<JobsOCSplash/JobsOCSplash.h>)
+#import <JobsOCSplash/JobsOCSplash.h>
+#else
+#import "JobsOCSplash.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else

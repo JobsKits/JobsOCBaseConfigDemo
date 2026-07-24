@@ -233,6 +233,7 @@ Prop_assign()CGFloat defaultEnd;
 
 -(UITextField *)startTF{
     if (!_startTF) {
+        @jobs_weakify(self)
         _startTF = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
             textField.byPlaceholder(@"起点（默认 60）".tr)
                 .byFont(UIFontWeightRegularSize(15))
@@ -242,7 +243,9 @@ Prop_assign()CGFloat defaultEnd;
                 .byReturnKeyType(UIReturnKeyDone)
                 .byClearButtonMode(UITextFieldViewModeWhileEditing)
                 .byBorderStyle(UITextBorderStyleRoundedRect)
-                .byAddTarget(self, @selector(jobs_startTextChanged), UIControlEventEditingChanged)
+                .onJobsEvent(UIControlEventEditingChanged, ^(__kindof UIControl * _Nullable control) {
+                    [weak_self jobs_startTextChanged];
+                })
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.equalTo(self.contentView);
@@ -255,6 +258,7 @@ Prop_assign()CGFloat defaultEnd;
 
 -(UITextField *)endTF{
     if (!_endTF) {
+        @jobs_weakify(self)
         _endTF = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
             textField.byPlaceholder(@"终点（默认 0）".tr)
                 .byFont(UIFontWeightRegularSize(15))
@@ -264,7 +268,9 @@ Prop_assign()CGFloat defaultEnd;
                 .byReturnKeyType(UIReturnKeyDone)
                 .byClearButtonMode(UITextFieldViewModeWhileEditing)
                 .byBorderStyle(UITextBorderStyleRoundedRect)
-                .byAddTarget(self, @selector(jobs_endTextChanged), UIControlEventEditingChanged)
+                .onJobsEvent(UIControlEventEditingChanged, ^(__kindof UIControl * _Nullable control) {
+                    [weak_self jobs_endTextChanged];
+                })
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.equalTo(self.startTF.mas_right).offset(JobsWidth(12));
@@ -278,13 +284,16 @@ Prop_assign()CGFloat defaultEnd;
 
 -(UIButton *)startBtn{
     if (!_startBtn) {
+        @jobs_weakify(self)
         _startBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
                 .jobsResetBtnTitle(@"启动".tr)
                 .jobsResetBtnTitleCor(HEXCOLOR(0xFF375F))
                 .jobsResetBtnTitleFont(UIFontWeightRegularSize(18))
                 .jobsResetBtnBgCor(HEXCOLOR(0x34C759))
-                .byAddTarget(self, @selector(jobs_startAnimatedNumber), UIControlEventTouchUpInside)
+                .onClickBy(^(__kindof UIButton * _Nullable button) {
+                    [weak_self jobs_startAnimatedNumber];
+                })
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer
                         .byCornerRadius(JobsWidth(8))
@@ -302,13 +311,16 @@ Prop_assign()CGFloat defaultEnd;
 
 -(UIButton *)stopBtn{
     if (!_stopBtn) {
+        @jobs_weakify(self)
         _stopBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
                 .jobsResetBtnTitle(@"停止".tr)
                 .jobsResetBtnTitleCor(HEXCOLOR(0x007AFF))
                 .jobsResetBtnTitleFont(UIFontWeightRegularSize(18))
                 .jobsResetBtnBgCor(HEXCOLOR(0xFF8A1F))
-                .byAddTarget(self, @selector(jobs_stopAnimatedNumber), UIControlEventTouchUpInside)
+                .onClickBy(^(__kindof UIButton * _Nullable button) {
+                    [weak_self jobs_stopAnimatedNumber];
+                })
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer
                         .byCornerRadius(JobsWidth(8))

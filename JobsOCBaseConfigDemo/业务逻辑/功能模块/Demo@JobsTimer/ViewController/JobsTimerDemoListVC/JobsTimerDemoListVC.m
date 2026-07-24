@@ -170,7 +170,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                          cls:JobsCountdownButtonDemoVC.class],
                 [self demoViewModelWithTitle:@"CoreText UILabel 文字滚动"
                                     subTitle:@"连续跑马灯、左右往返、富文本与动态切换文案"
-                                         cls:JobsScrollingLabelDemoVC.class]
+                                         cls:UILabelScrollingDemoVC.class]
             ]
         ];
     };return _demoGroupArr;

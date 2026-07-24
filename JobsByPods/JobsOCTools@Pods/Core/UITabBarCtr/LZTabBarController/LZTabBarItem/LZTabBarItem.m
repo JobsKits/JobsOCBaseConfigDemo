@@ -35,6 +35,7 @@ Prop_strong()UILabel *titleLabel;
     [super layoutSubviews];
     CGFloat space = 6.0;
     switch (self.type) {
+        /// 处理 LZTabBarItemTypeDefault 分支
         case LZTabBarItemTypeDefault: {
             CGFloat iconHeight = (CGRectGetHeight(self.frame) - space * 3) * 2 / 3.0 ;
             self.iconImageView.frame = CGRectMake(space,
@@ -46,18 +47,21 @@ Prop_strong()UILabel *titleLabel;
                                                CGRectGetWidth(self.frame) - 2 * space,
                                                iconHeight / 2.0);
         }break;
+        /// 处理 LZTabBarItemTypeImage 分支
         case LZTabBarItemTypeImage: {
             self.iconImageView.frame = CGRectMake(space,
                                                   space,
                                                   CGRectGetWidth(self.frame) - 2 * space,
                                                   CGRectGetHeight(self.frame) - 2 * space);
         }break;
+        /// 处理 LZTabBarItemTypeText 分支
         case LZTabBarItemTypeText: {
             self.titleLabel.frame = CGRectMake(space,
                                                space,
                                                CGRectGetWidth(self.frame) - 2 * space,
                                                CGRectGetHeight(self.frame) - 2 * space);
         }break;
+        /// 未匹配已知分支时执行兜底处理
         default:
             break;
     }

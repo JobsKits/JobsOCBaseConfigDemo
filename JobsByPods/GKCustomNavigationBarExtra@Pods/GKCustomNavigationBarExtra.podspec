@@ -11,7 +11,7 @@ Pod::Spec.new do |spec|
   spec.name                  = 'GKCustomNavigationBarExtra'
   spec.version               = '1.0.0'
   spec.summary               = 'GKNavigationBar custom title helpers for Jobs.'
-  spec.description           = 'Local Objective-C helper pod for GKNavigationBar custom title button convenience APIs.'
+  spec.description           = 'Local Objective-C helper pod for GKNavigationBar custom title button and main/subtitle APIs.'
   spec.homepage              = 'https://example.local/GKCustomNavigationBarExtra'
   spec.license               = { :type => 'MIT', :file => 'LICENSE' }
   spec.author                = { 'Jobs' => 'lg295060456@gmail.com' }

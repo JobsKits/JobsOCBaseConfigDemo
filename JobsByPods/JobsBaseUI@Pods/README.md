@@ -65,6 +65,7 @@ JobsBaseUI@Pods/
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
 - `Support/UIKit/UIButton/UIButton+SDWebImage` 只保留历史兼容入口，真实链式实现已下沉到 `JobsOCDSL/3rd/SDWebImage+DSL`。
 - `BaseViewController` 会在 Demo 子页面进入前及转场完成后兜底 Jobs/GK 导航栏、Jobs 返回按钮和标题；已有系统富文本标题及右侧业务按钮会迁移到 GK 导航栏，不再沿用系统导航容器。根页面不处理，专门演示系统导航栏的 `JobsNavigationDemoVC` 保持原样；全屏业务页可覆写 `jobs_requiresDefaultNavigationBar` 并返回 `NO`，明确关闭整套默认导航 UI。
+- `UIViewController+BaseNavigationBar` 会识别 `ViewController_1` Demo 根列表的导航 / 模态子页面及类名包含 `Demo` 的独立演示页，在导航栏最右侧注入全局主题切换按钮，并保留原有右侧业务按钮；切换结果会持久化并同步到所有已连接 Scene 的 Window。
 - `JobsDebugVC` 通过 `JobsControllerDeallocTipsEnabled()` / `JobsSetControllerDeallocTipsEnabled(...)` 持久化控制销毁 Toast，默认开启；关闭只隐藏提示，不影响通知清理与调试日志。
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

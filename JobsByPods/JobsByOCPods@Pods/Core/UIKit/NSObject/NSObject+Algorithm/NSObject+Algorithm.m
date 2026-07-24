@@ -88,18 +88,21 @@
                 NSMutableArray <NSString *>*propertyList = customObj.propertyList;
                 for (NSString *str in propertyList) {
                     switch (searchStrategy) {
+                        /// 处理 JobsSearchStrategy_Accurate 分支
                         case JobsSearchStrategy_Accurate:{
                             /// 精确查询
                             if ([customObj.valueForKey(str) stringValue].lowercaseString.containsString(keywords.lowercaseString)) {
                                 resMutSet.add(customObj);
                             }
                         }break;
+                        /// 处理 JobsSearchStrategy_Fuzzy 分支
                         case JobsSearchStrategy_Fuzzy:{
                             /// 模糊查询
                             if ([customObj.valueForKey(str) stringValue].containsString(keywords)) {
                                 resMutSet.add(customObj);
                             }
                         }break;
+                        /// 未匹配已知分支时执行兜底处理
                         default:
                             break;
                     }
@@ -144,27 +147,35 @@
             resResWeekDay = currentWeekday;
         }
         switch (resResWeekDay) {
+            /// 处理 数值 0 分支
             case 0:{
                 return @"星期六".tr;
             }break;
+            /// 处理 数值 1 分支
             case 1:{
                 return @"星期日".tr;
             }break;
+            /// 处理 数值 2 分支
             case 2:{
                 return @"星期一".tr;
             }break;
+            /// 处理 数值 3 分支
             case 3:{
                 return @"星期二".tr;
             }break;
+            /// 处理 数值 4 分支
             case 4:{
                 return @"星期三".tr;
             }break;
+            /// 处理 数值 5 分支
             case 5:{
                 return @"星期四".tr;
             }break;
+            /// 处理 数值 6 分支
             case 6:{
                 return @"星期五".tr;
             }break;
+            /// 未匹配已知分支时执行兜底处理
             default:
                 return @"异常数据".tr;
                 break;

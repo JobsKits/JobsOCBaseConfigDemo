@@ -48,13 +48,17 @@
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
-/// 针对 GKNavigationBar的标题只能是文字的一种拓展性操作，使之兼容图片
+/// 在 GKNavigationBar 的通用 titleView 能力之上，补齐 Jobs 标题按钮与主/副标题组件。
 @interface UIViewController (GKCustomNavigationBar)
 
 Prop_strong(nullable)__kindof UIButtonModel *gk_navTitleBtnModel;
 Prop_strong(nullable)__kindof UIButton *gk_navTitleBtn;
+Prop_strong(nullable)__kindof UILabel *gk_navMainTitleLab;
+Prop_strong(nullable)__kindof UILabel *gk_navSubTitleLab;
 
 -(JobsRetGKNavBarByButtonModelBlock _Nonnull)gk_navTitleBtnBy;
+/// data.textModel 为主标题，data.subTextModel 为副标题；创建后同步写入 gk_navTitleView。
+-(JobsRetViewByViewModelBlock _Nonnull)gk_navTitleViewBy;
 
 @end
 

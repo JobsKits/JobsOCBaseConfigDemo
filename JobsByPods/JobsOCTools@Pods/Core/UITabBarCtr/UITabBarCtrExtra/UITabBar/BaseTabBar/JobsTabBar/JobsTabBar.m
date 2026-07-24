@@ -93,16 +93,21 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
 - (CGSize)sizeThatFits:(CGSize)size {
     return [self checkScreenOrientation_UIInterfaceOrientation:^CGSize(UIInterfaceOrientation data) {
         switch (data) {
-            case UIInterfaceOrientationPortraitUpsideDown:/// 倒竖屏方向
-            case UIInterfaceOrientationPortrait:{ /// 竖屏方向
+            /// 倒竖屏方向
+            case UIInterfaceOrientationPortraitUpsideDown:
+            /// 竖屏方向
+            case UIInterfaceOrientationPortrait:{
                 return [super sizeThatFits:size];
             }break;
-            case UIInterfaceOrientationLandscapeLeft:/// 左横屏方向
-            case UIInterfaceOrientationLandscapeRight:{ /// 右横屏方向
+            /// 左横屏方向
+            case UIInterfaceOrientationLandscapeLeft:
+            /// 右横屏方向
+            case UIInterfaceOrientationLandscapeRight:{
                 CGSize newSize = [super sizeThatFits:size];
                 newSize.height = JobsWidth(80); /// 设定你想要的高度
                 return newSize;
             }
+            /// 未匹配已知分支时执行兜底处理
             default:
                 return [super sizeThatFits:size];
                 break;
@@ -146,6 +151,7 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
     CGFloat imageWidth = imageView.bounds.size.width;
     CGFloat imageHeight = imageView.bounds.size.height;
     switch (self.alignmentType) {
+        /// 处理 ImageLeftTitleRight 分支
         case ImageLeftTitleRight: {
             CGFloat totalContentWidth = imageWidth + spacing + labelWidth;
             CGFloat startingX = (totalWidth - totalContentWidth) / 2.0;
@@ -161,6 +167,7 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
             label.byTextAlignment(NSTextAlignmentLeft);
             break;
         }
+        /// 处理 ImageRightTitleLeft 分支
         case ImageRightTitleLeft: {
             CGFloat totalContentWidth = labelWidth + spacing + imageWidth;
             CGFloat startingX = (totalWidth - totalContentWidth) / 2.0;
@@ -175,6 +182,7 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
             label.byTextAlignment(NSTextAlignmentRight);
             break;
         }
+        /// 处理 ImageTopTitleBottom 分支
         case ImageTopTitleBottom: {
             CGFloat totalContentHeight = imageHeight + spacing + labelHeight;
             CGFloat startingY = (totalHeight - totalContentHeight) / 2.0;
@@ -196,6 +204,7 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
             label.byTextAlignment(NSTextAlignmentCenter);
             break;
         }
+        /// 处理 ImageBottomTitleTop 分支
         case ImageBottomTitleTop: {
             CGFloat totalContentHeight = labelHeight + spacing + imageHeight;
             CGFloat startingY = (totalHeight - totalContentHeight) / 2.0;

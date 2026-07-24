@@ -15,8 +15,8 @@
 - 默认标题为 `获取验证码`。
 - `verificationCodeButton` 在组件内订阅 `UIControlEventTouchUpInside` 的 RAC 信号；重复配置前会先释放旧订阅，不会叠加响应。
 - 点击后先回调 `jobsCountdownClickBlock`，再启动倒计时。
-- 倒计时期间显示 `N 秒`，结束后恢复默认标题。
-- 默认标题使用紧凑 `10pt` 单行布局，在固定宽度内自动缩放，不换行放大。
+- 倒计时期间居中显示本地化的剩余时间，例如中文 `还剩 49 秒`、英文 `49 sec left`，结束后恢复默认标题。
+- 默认标题使用紧凑 `10pt` 单行布局，在固定宽度内自动缩放；旧标题层与 iOS 16+ `UIButtonConfiguration` 标题管线都禁止换行。
 - 内部复用 `UIButton+Timer` 和 `JobsTimer`，不重复造定时器。
 - 默认标题色通过 `JobsOCDefs` 的 `RGBA_COLOR` 工厂表达，输入继续使用 0～255 分量语义。
 

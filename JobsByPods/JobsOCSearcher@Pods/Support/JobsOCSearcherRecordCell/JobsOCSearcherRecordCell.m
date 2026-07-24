@@ -7,6 +7,12 @@
 
 #import "JobsOCSearcherRecordCell.h"
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 @interface JobsOCSearcherRecordCell ()
 
 Prop_strong()UILabel *historyLabel;
@@ -28,15 +34,16 @@ Prop_copy()NSString *historyText;
         self.contentView.byBgColor(UIColor.whiteColor);
         self.historyLabel.addOn(self.contentView);
         self.deleteButton.addOn(self.contentView);
-        [NSLayoutConstraint activateConstraints:@[
-            [self.historyLabel.leftAnchor constraintEqualToAnchor:self.contentView.leftAnchor constant:16],
-            [self.historyLabel.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
-            [self.historyLabel.rightAnchor constraintEqualToAnchor:self.deleteButton.leftAnchor constant:-12],
-            [self.deleteButton.rightAnchor constraintEqualToAnchor:self.contentView.rightAnchor constant:-10],
-            [self.deleteButton.centerYAnchor constraintEqualToAnchor:self.contentView.centerYAnchor],
-            [self.deleteButton.widthAnchor constraintEqualToConstant:40],
-            [self.deleteButton.heightAnchor constraintEqualToConstant:40]
-        ]];
+        [self.historyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(self.contentView).offset(16);
+            make.centerY.equalTo(self.contentView);
+            make.right.equalTo(self.deleteButton.mas_left).offset(-12);
+        }];
+        [self.deleteButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(self.contentView).offset(-10);
+            make.centerY.equalTo(self.contentView);
+            make.size.mas_equalTo(CGSizeMake(40, 40));
+        }];
     };return self;
 }
 
@@ -64,7 +71,6 @@ Prop_copy()NSString *historyText;
 -(UILabel *)historyLabel{
     if (!_historyLabel) {
         _historyLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.translatesAutoresizingMaskIntoConstraints = NO;
             label
                 .byFont(UIFontWeightRegularSize(15))
                 .byTextCor(RGBA_COLOR(0.24 * 255.0, 0.29 * 255.0, 0.35 * 255.0, 1))
@@ -76,13 +82,15 @@ Prop_copy()NSString *historyText;
 
 -(UIButton *)deleteButton{
     if (!_deleteButton) {
+        @jobs_weakify(self)
         _deleteButton = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
-            button.translatesAutoresizingMaskIntoConstraints = NO;
             button
                 .jobsResetBtnTitle(@"删除".tr)
                 .jobsResetBtnTitleCor(RGBA_COLOR(0.63 * 255.0, 0.67 * 255.0, 0.73 * 255.0, 1))
                 .jobsResetBtnTitleFont(UIFontWeightRegularSize(13))
-                .byAddTarget(self, @selector(deleteButtonEvent), UIControlEventTouchUpInside);
+                .onClickBy(^(__kindof UIButton * _Nullable button) {
+                    [weak_self deleteButtonEvent];
+                });
         });
     };return _deleteButton;
 }

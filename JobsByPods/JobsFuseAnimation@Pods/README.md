@@ -8,7 +8,7 @@
 
 ## 🔥 <font id=前言>前言</font>
 
-> `JobsFuseAnimation` 是 OC 版本地 Pod，对齐 Swift 项目里的 `JobsFuseAnimation`：提供长按导火索外圈、按压放大、持续冒泡、系统音反馈，以及可插拔刷新动画族。
+> `JobsFuseAnimation` 是 OC 版本地 Pod，对齐 Swift 项目里的 `JobsFuseAnimation`：提供长按导火索外圈、按压放大、持续冒泡、资源音效反馈，以及可插拔刷新动画族。
 
 ## 一、功能说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -18,6 +18,8 @@
 - `byFuseTapScale` 提供点击后先放大再回弹的按钮反馈动画。
 - `JobsFuseBubbleConfig` 管理冒泡发射间隔、上浮距离、漂移、缩放和并发上限。
 - `byFuseBubbleStartInView:config:bubbleProvider:onEmit:` 只负责动画，冒泡内容、手势状态和震动由业务层负责。
+- `byFusePlaySound:` 从 App 或内嵌资源 Bundle 查找音频，并缓存 `SystemSoundID` 供连续反馈复用。
+- `byFusePlaySystemSound:` 仅播放调用方已创建并负责管理的有效 `SystemSoundID`。
 - 开启“减少动态效果”时，冒泡自动降级为短距离淡出。
 - `JobsDouyinRefreshView` 使用红、绿双球交叉换位、上下错峰跳跃和尺度切换表达刷新状态。
 - `JobsDouyinRefreshConfig` 可配置颜色、球径、水平行程、跳跃高度和单轮时长。
@@ -45,7 +47,7 @@ JobsFuseOuterRingConfig *config = JobsFuseOuterRingConfig.config
 
 [button byFusePressStart:config scale:1.18];
 [button byFusePressStop:YES];
-[button byFusePlaySystemSound:1104];
+[button byFusePlaySound:@"Sound.wav"];
 ```
 
 ```objc

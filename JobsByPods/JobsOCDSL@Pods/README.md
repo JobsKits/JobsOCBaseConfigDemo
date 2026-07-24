@@ -251,6 +251,7 @@ JobsOCDSL@Pods/
 
 ## 十二、风险说明
 
+- `UIControl` 事件优先使用 `onJobsTap` / `onJobsChange` / `onJobsEvent`；需要解绑时使用 `offJobsEvent`。`byAddTarget` 仅作 Target-Action 兼容入口保留，不作为调用方新增写法。
 - 不把非 DSL 辅助文件迁入本 Pod；如果某个旧 `+DSL` 文件混入了业务辅助能力，需要先拆干净再迁入。
 - 修改 `Core`、podspec 或依赖后，需要重新执行 `pod install --no-repo-update` 并检查依赖报告。
 

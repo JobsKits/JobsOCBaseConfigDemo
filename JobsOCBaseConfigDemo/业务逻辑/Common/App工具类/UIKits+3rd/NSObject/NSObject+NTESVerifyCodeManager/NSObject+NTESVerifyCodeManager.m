@@ -67,18 +67,23 @@ JobsKey(_verifyCodeManager)
          */
         // 设置语言
         switch (LanMgr.language) {
+            /// 处理 AppLanguageChineseSimplified 分支
             case AppLanguageChineseSimplified:{
                 VerifyCodeManager.lang = NTESVerifyCodeLangCN;
             } break;
+            /// 处理 AppLanguageChineseTraditional 分支
             case AppLanguageChineseTraditional:{
                 VerifyCodeManager.lang = NTESVerifyCodeLangTW;
             } break;
+            /// 处理 AppLanguageEnglish 分支
             case AppLanguageEnglish:{
                 VerifyCodeManager.lang = NTESVerifyCodeLangENUS;
             } break;
+            /// 处理 AppLanguageTagalog 分支
             case AppLanguageTagalog:{
                 VerifyCodeManager.lang = NTESVerifyCodeLangFIL;
             } break;
+        /// 未匹配已知分支时执行兜底处理
         default:
                 break;
         }

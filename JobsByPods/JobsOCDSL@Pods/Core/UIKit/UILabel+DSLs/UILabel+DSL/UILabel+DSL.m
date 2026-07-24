@@ -207,24 +207,30 @@ static NSString *JobsOCDSLAnimatedNumberText(double value, NSInteger decimals){
         CGFloat width = CGRectGetWidth(self.bounds);
         CGFloat height = CGRectGetHeight(self.bounds);
         switch (labelShowingType){
+            /// 处理 UILabelShowingType_01 分支
             case UILabelShowingType_01:{
                 if (width && height) self.lineBreakMode = NSLineBreakByTruncatingMiddle;
             } break;
+            /// 处理 UILabelShowingType_02 分支
             case UILabelShowingType_02:{
                 if (width && height) self.lineBreakMode = NSLineBreakByTruncatingTail;
             } break;
+            /// 处理 UILabelShowingType_03 分支
             case UILabelShowingType_03:{
                 if (height) [self sizeToFit];
             } break;
+            /// 处理 UILabelShowingType_04 分支
             case UILabelShowingType_04:{
                 if (width && height) self.labelAutoFontByWidth();
             } break;
+            /// 处理 UILabelShowingType_05 分支
             case UILabelShowingType_05:{
                 if (width){
                     self.numberOfLines = 0;
                     self.lineBreakMode = NSLineBreakByWordWrapping;
                 }
             } break;
+            /// 未匹配已知分支时执行兜底处理
             default:
                 break;
         };return self;

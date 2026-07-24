@@ -239,6 +239,7 @@ Prop_assign()BOOL jobsPendingBoundsReload;
 }
 
 -(void)jobsInstallSubviews{
+    @jobs_weakify(self)
     self.headerLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
             .byTextAlignment(NSTextAlignmentCenter)
@@ -255,7 +256,9 @@ Prop_assign()BOOL jobsPendingBoundsReload;
     for (NSInteger index = 0; index < 42; index++) {
         JobsOCCalendarDayCell *cell = [JobsOCCalendarDayCell.alloc initWithFrame:CGRectZero];
         cell
-            .byAddTarget(self, @selector(jobsCellClickEvent:), UIControlEventTouchUpInside)
+            .onJobsTap(^(__kindof UIControl * _Nullable control) {
+                [weak_self jobsCellClickEvent:(JobsOCCalendarDayCell *)control];
+            })
             .addOn(self);
         [self.dayCells addObject:cell];
     }

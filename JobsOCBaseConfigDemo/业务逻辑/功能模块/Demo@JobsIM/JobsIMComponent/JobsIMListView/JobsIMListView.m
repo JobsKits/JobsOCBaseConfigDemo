@@ -54,7 +54,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     JobsIMListTBVCell *cell = JobsIMListTBVCell.cellStyleValue1ByTableView(tableView)
-        .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
+        .byAccessoryType(UITableViewCellAccessoryNone)
         .byIndexPath(indexPath)
         .byDelegate(self)
         .jobsRichElementsTableViewCellBy(self.jobsIMListMutArr[indexPath.row])

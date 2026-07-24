@@ -5,31 +5,9 @@
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#ifndef JOBS_HEADER_GUARD_NSLAYOUTCONSTRAINT_EXTRA_C0030FC103
-#define JOBS_HEADER_GUARD_NSLAYOUTCONSTRAINT_EXTRA_C0030FC103
+#ifndef JOBS_HEADER_GUARD_LEGACY_CONSTRAINT_EXTRA_TOMBSTONE
+#define JOBS_HEADER_GUARD_LEGACY_CONSTRAINT_EXTRA_TOMBSTONE
 
-#import <UIKit/UIKit.h>
+/// 历史文件名兼容占位；系统约束分类 API 已移除，OC 布局统一使用 Masonry。
 
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
-#import "JobsBlock.h"
-#endif
-
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
-NS_ASSUME_NONNULL_BEGIN
-
-@interface NSLayoutConstraint (Extra)
-
-+(jobsByArrBlock _Nonnull)initBy;
-+(jobsByArrBlock _Nonnull)deactivateBy;
-
-@end
-
-NS_ASSUME_NONNULL_END
-#endif /* JOBS_HEADER_GUARD_NSLAYOUTCONSTRAINT_EXTRA_C0030FC103 */
+#endif /* JOBS_HEADER_GUARD_LEGACY_CONSTRAINT_EXTRA_TOMBSTONE */

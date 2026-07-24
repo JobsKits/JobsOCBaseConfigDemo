@@ -56,9 +56,9 @@ UITableViewDelegate
 
 +(CGFloat)collapsedHeight;
 +(CGFloat)innerRowHeight;
-+(CGFloat)expandedHeightByItemCount:(NSUInteger)itemCount;
-+(CGFloat)expandedHeightByItemCount:(NSUInteger)itemCount
-                  sectionDescription:(NSString *_Nullable)sectionDescription;
++(CGFloat)expandedHeightByItems:(NSArray <UIViewModel *>*)items
+              sectionDescription:(NSString *_Nullable)sectionDescription
+                 innerTableWidth:(CGFloat)innerTableWidth;
 -(void)configureWithSectionModel:(JobsOCDemoSectionModel *)sectionModel
                         expanded:(BOOL)expanded
                      selectBlock:(jobsByNSIntegerBlock _Nullable)selectBlock

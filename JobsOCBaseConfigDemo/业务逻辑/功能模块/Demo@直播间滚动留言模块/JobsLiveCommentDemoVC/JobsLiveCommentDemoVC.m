@@ -14,12 +14,17 @@ Prop_strong()JobsLiveInputBar *inputBar;
 Prop_strong()NSMutableArray <NSString *>*messageMutArr;
 
 -(void)appendMessage:(NSString *)text;
+-(void)configKeyboardManager;
 -(void)sendCurrentText;
 -(void)scrollToBottomAnimated:(BOOL)animated;
 
 @end
 
 @implementation JobsLiveCommentDemoVC
+-(void)dealloc{
+    [JobsOCKeyboardMgr.shared clearConfigByOwner:self];
+}
+
 -(void)loadView{
     [super loadView];
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
@@ -47,6 +52,37 @@ Prop_strong()NSMutableArray <NSString *>*messageMutArr;
     self.inputBar.byAlpha(1);
     self.liveTableView.byAlpha(1);
     [self scrollToBottomAnimated:NO];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self configKeyboardManager];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [JobsOCKeyboardMgr.shared clearConfigByOwner:self];
+}
+#pragma mark —— Config
+-(void)configKeyboardManager{
+    @jobs_weakify(self)
+    JobsOCKeyboardMgr.shared.byConfig(jobsMakeOCKeyboardConfig(^(__kindof JobsOCKeyboardConfig * _Nullable config) {
+        @jobs_strongify(self)
+        config
+            .byOwner(self)
+            .byTargetView(self.inputBar)
+            .byTriggerScopeView(self.inputBar)
+            .byContainerView(self.view)
+            .byFollowViews(@[self.liveTableView])
+            .byInputFields(@[self.inputBar.textField])
+            .byExtraSpacing(JobsWidth(8))
+            .byTopSpacing(JobsWidth(12))
+            .byShouldResignOnTouchOutside(NO)
+            .byAccessoryPolicy(JobsOCKeyboardAccessoryPolicyIgnore)
+            .byResultBlock(^(__kindof JobsOCKeyboardResult * _Nullable result) {
+                if (result.keyboardVisible) [weak_self scrollToBottomAnimated:NO];
+            });
+    }));
 }
 #pragma mark —— Action
 -(void)sendCurrentText{
@@ -124,15 +160,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 #pragma mark —— LazyLoad
 -(JobsLiveInputBar *)inputBar{
     if (!_inputBar) {
+        @jobs_weakify(self)
         _inputBar = JobsLiveInputBar.new;
         _inputBar.textField.byDelegate(self);
-        _inputBar.sendButton.byAddTarget(self, @selector(sendCurrentText), UIControlEventTouchUpInside);
+        _inputBar.sendButton.onClickBy(^(__kindof UIButton * _Nullable button) {
+            [weak_self sendCurrentText];
+        });
         _inputBar
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {
                 make.left.right.equalTo(self.view);
-                make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom).offset(-JobsWidth(8));
-                make.height.mas_equalTo(JobsWidth(56));
+                make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom).offset(-JobsWidth(6));
+                make.height.mas_equalTo(JobsWidth(64));
             });
     };return _inputBar;
 }

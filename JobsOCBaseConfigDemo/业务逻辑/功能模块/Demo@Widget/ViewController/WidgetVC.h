@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JobsWidgetCenterBridge.h"
 
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>

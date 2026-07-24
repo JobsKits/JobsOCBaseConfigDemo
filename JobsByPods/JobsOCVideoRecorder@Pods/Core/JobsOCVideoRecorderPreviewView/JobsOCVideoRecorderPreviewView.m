@@ -104,12 +104,15 @@ Prop_strong() UIPanGestureRecognizer *panGesture;
 
 -(UIButton *)cancelBtn{
     if (!_cancelBtn) {
+        @jobs_weakify(self)
         _cancelBtn = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
             btn.jobsResetBtnTitle(@"❌")
                .jobsResetBtnTitleFont(UIFontWeightRegularSize(24))
                .jobsResetBtnTitleCor(UIColor.whiteColor)
                .byBgColor(UIColor.blackColor.colorWithAlphaComponentBy(0.35));
-            btn.byAddTarget(self, @selector(cancelAction:), UIControlEventTouchUpInside);
+            btn.onClickBy(^(__kindof UIButton * _Nullable button) {
+                [weak_self cancelAction:button];
+            });
         });
         _cancelBtn.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.left.bottom.equalTo(self).inset(JobsWidth(6));
@@ -120,12 +123,15 @@ Prop_strong() UIPanGestureRecognizer *panGesture;
 
 -(UIButton *)saveBtn{
     if (!_saveBtn) {
+        @jobs_weakify(self)
         _saveBtn = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
             btn.jobsResetBtnTitle(@"✅")
                .jobsResetBtnTitleFont(UIFontWeightRegularSize(24))
                .jobsResetBtnTitleCor(UIColor.whiteColor)
                .byBgColor(UIColor.blackColor.colorWithAlphaComponentBy(0.35));
-            btn.byAddTarget(self, @selector(saveAction:), UIControlEventTouchUpInside);
+            btn.onClickBy(^(__kindof UIButton * _Nullable button) {
+                [weak_self saveAction:button];
+            });
         });
         _saveBtn.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.right.bottom.equalTo(self).inset(JobsWidth(6));

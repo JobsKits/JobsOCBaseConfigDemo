@@ -52,12 +52,15 @@ typedef NS_ENUM(NSInteger, ZMJSorting) {
 
 static NSString * getSymbol(ZMJSorting sorting) {
     switch (sorting) {
+        /// 处理 ZMJAscending 分支
         case ZMJAscending:
             return @"\u25B2";/// 黑色上三角形（▲）
             break;
+        /// 处理 ZMJDsescending 分支
         case ZMJDsescending:
             return @"\u25BC";/// 黑色下三角形（▼）
             break;
+        /// 未匹配已知分支时执行兜底处理
         default:
             break;
     }

@@ -76,6 +76,7 @@ Prop_strong()UILabel *detailLab;
             gradientRect = CGRectMake(0, 0, JobsMainScreen_WIDTH() - JobsWidth(30), JobsWidth(96));
         }
         switch (self.viewModel.item % 4) {
+            /// 处理 数值 0 分支
             case 0:
                 self.contentView.byBgColor([UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
                     data.add(HEXCOLOR(0xD9EEFF))
@@ -86,6 +87,7 @@ Prop_strong()UILabel *detailLab;
                                                 opaque:NO
                                         targetViewRect:gradientRect]);
                 break;
+            /// 处理 数值 1 分支
             case 1:
                 self.contentView.byBgColor([UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
                     data.add(HEXCOLOR(0xE8F7EF))
@@ -96,6 +98,7 @@ Prop_strong()UILabel *detailLab;
                                                 opaque:NO
                                         targetViewRect:gradientRect]);
                 break;
+            /// 处理 数值 2 分支
             case 2:
                 self.contentView.byBgColor([UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
                     data.add(HEXCOLOR(0xFFF2D0))
@@ -106,6 +109,7 @@ Prop_strong()UILabel *detailLab;
                                                 opaque:NO
                                         targetViewRect:gradientRect]);
                 break;
+            /// 未匹配已知分支时执行兜底处理
             default:
                 self.contentView.byBgColor([UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
                     data.add(HEXCOLOR(0xF0ECFF))

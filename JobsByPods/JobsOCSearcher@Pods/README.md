@@ -77,6 +77,7 @@ JobsOCSearcher@Pods/
 
 ### 5.4、Pod 依赖
 
+- `Masonry`（组件布局和动态约束更新）
 - `JobsBlock`
 - `JobsBaseUI`（`jobsMakeButton`、`jobsResetBtn*` 与 `jobsMakeTableViewBy*`）
 - `JobsMakes`
@@ -135,6 +136,8 @@ pod install --no-repo-update
 
 - 历史记录默认写入 `NSUserDefaults`，如果多个业务场景共用组件，应配置不同 `historyStorageKey`，避免历史数据串场。
 - `Support` 头文件只服务当前 Pod 内部实现，不应在 App 层或其它 Pod 中直接引用。
+- 按钮点按使用 `onClickBy`，输入框编辑事件使用 `onJobsEvent`；调用方不新增 `byAddTarget`。`UIButton` 专用的 `onClickBy` 必须排在 `UIControl` / `UIView` 父类 DSL 之前，避免链条返回类型降级后丢失按钮专用 API。
+- 组件的搜索框、推荐区、历史标题和 Cell 约束统一使用 `Masonry`，不直接创建系统 `NSLayoutConstraint`。
 - 组件内部只负责展示和记录搜索词，真正搜索结果、网络请求、页面跳转由业务侧通过回调自行处理。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

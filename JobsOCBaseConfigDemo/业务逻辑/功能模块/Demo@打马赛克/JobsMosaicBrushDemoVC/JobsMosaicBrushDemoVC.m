@@ -12,6 +12,7 @@
 Prop_strong()UIView *controlView;
 Prop_strong()UIImage *mosaicImage;
 Prop_strong()NSMutableArray <NSValue *>*brushPointValueMutArr;
+Prop_strong()UILabel *controlTitleLabel;
 Prop_strong()UISwitch *brushSwitch;
 Prop_strong()UIButton *clearButton;
 Prop_assign()CGFloat brushDiameter;
@@ -104,16 +105,9 @@ Prop_assign()NSUInteger renderVersion;
                     make.bottom.equalTo(self.statusLabel.mas_top).offset(-JobsWidth(12));
                 });
         });
-        jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label
-                .byText(@"涂抹".tr)
-                .byTextCor(HEXCOLOR(0x3D4A58))
-                .byFont(UIFontWeightMediumSize(15))
-                .addOn(_controlView)
-                .byAdd(^(MASConstraintMaker *make) {
-                    make.left.equalTo(_controlView).offset(JobsWidth(14));
-                    make.centerY.equalTo(_controlView);
-                });
+        self.controlTitleLabel.addOn(_controlView).byAdd(^(MASConstraintMaker *make) {
+            make.left.equalTo(_controlView).offset(JobsWidth(14));
+            make.centerY.equalTo(_controlView);
         });
         self.brushSwitch.byAlpha(1);
         self.clearButton.byAlpha(1);
@@ -125,12 +119,26 @@ Prop_assign()NSUInteger renderVersion;
     };return _controlView;
 }
 
+-(UILabel *)controlTitleLabel{
+    if (!_controlTitleLabel) {
+        _controlTitleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"涂抹".tr)
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byFont(UIFontWeightMediumSize(15));
+        });
+    };return _controlTitleLabel;
+}
+
 -(UISwitch *)brushSwitch{
     if (!_brushSwitch) {
+        @jobs_weakify(self)
         _brushSwitch = jobsMakeSwitch(^(__kindof UISwitch * _Nullable Switch) {
             Switch
                 .byOn(YES)
-                .byAddTarget(self, @selector(switchValueChanged:), UIControlEventValueChanged)
+                .onJobsChange(^(__kindof UIControl * _Nullable control) {
+                    [weak_self switchValueChanged:(UISwitch *)control];
+                })
                 .addOn(_controlView)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.equalTo(_controlView).offset(JobsWidth(74));
@@ -142,13 +150,16 @@ Prop_assign()NSUInteger renderVersion;
 
 -(UIButton *)clearButton{
     if (!_clearButton) {
+        @jobs_weakify(self)
         _clearButton = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
                 .jobsResetBtnTitle(@"清除".tr)
                 .jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58))
                 .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
                 .jobsResetBtnBgCor(HEXCOLOR(0xEEF2F7))
-                .byAddTarget(self, @selector(clearBrush), UIControlEventTouchUpInside)
+                .onClickBy(^(__kindof UIButton * _Nullable button) {
+                    [weak_self clearBrush];
+                })
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer
                         .byCornerRadius(JobsWidth(7))

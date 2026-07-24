@@ -639,12 +639,15 @@ UITextFieldProtocol_dynamic
     return ^(__kindof UIViewController *_Nullable vc){
         @jobs_strongify(self)
         switch (self.pushOrPresent) {
+            /// 处理 ComingStyle_PRESENT 分支
             case ComingStyle_PRESENT:{
                 [vc dismissViewControllerAnimated:YES completion:nil];
             }break;
+            /// 处理 ComingStyle_PUSH 分支
             case ComingStyle_PUSH:{
                 vc.navigationController ? [vc.navigationController popViewControllerAnimated:YES] : [vc dismissViewControllerAnimated:YES completion:nil];
             }break;
+            /// 未匹配已知分支时执行兜底处理
             default:
                 break;
         }
@@ -1382,39 +1385,47 @@ UITextFieldProtocol_dynamic
                         block:^(id _Nullable weakSelf,
                                 id _Nullable arg) {
         switch (UIDevice.currentDevice.orientation) {
+            /// 处理 UIDeviceOrientationFaceUp 分支
             case UIDeviceOrientationFaceUp:
                 JobsLog(@"屏幕朝上平躺");
                 break;
+            /// 处理 UIDeviceOrientationFaceDown 分支
             case UIDeviceOrientationFaceDown:
                 JobsLog(@"屏幕朝下平躺");
                 break;
+            /// 处理 UIDeviceOrientationUnknown 分支
             case UIDeviceOrientationUnknown:
                 JobsLog(@"屏幕未知方向");
                 break;
+            /// 处理 UIDeviceOrientationLandscapeLeft 分支
             case UIDeviceOrientationLandscapeLeft:
                 JobsLog(@"屏幕向左横置");
                  JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationLandscapeRight;
                  JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskLandscapeRight;
                  JobsAppTool.jobsDeviceOrientation = DeviceOrientationLandscape;
                 break;
+            /// 处理 UIDeviceOrientationLandscapeRight 分支
             case UIDeviceOrientationLandscapeRight:
                 JobsLog(@"屏幕向右橫置");
                  JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationLandscapeLeft;
                  JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskLandscapeLeft;
                  JobsAppTool.jobsDeviceOrientation = DeviceOrientationLandscape;
                 break;
+            /// 处理 UIDeviceOrientationPortrait 分支
             case UIDeviceOrientationPortrait:
                 JobsLog(@"屏幕直立");
                  JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationPortrait;
                  JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskPortrait;
                  JobsAppTool.jobsDeviceOrientation = DeviceOrientationPortrait;
                 break;
+            /// 处理 UIDeviceOrientationPortraitUpsideDown 分支
             case UIDeviceOrientationPortraitUpsideDown:
                 JobsLog(@"屏幕直立，上下顛倒");
                  JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationPortraitUpsideDown;
                  JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskPortraitUpsideDown;
                  JobsAppTool.jobsDeviceOrientation = DeviceOrientationPortrait;
                 break;
+            /// 未匹配已知分支时执行兜底处理
             default:
                 JobsLog(@"屏幕方向无法辨识");
                 break;

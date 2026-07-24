@@ -54,21 +54,27 @@
     return ^__kindof NSParagraphStyle *_Nullable(NSTextAlignment textAlignment) {
         @jobs_strongify(self)
         switch (textAlignment) {
+            /// 处理 NSTextAlignmentLeft 分支
             case NSTextAlignmentLeft:{
                 return (NSParagraphStyle *)self.jobsParagraphStyleLeft;
             }break;
+            /// 处理 NSTextAlignmentCenter 分支
             case NSTextAlignmentCenter:{
                 return (NSParagraphStyle *)self.jobsParagraphStyleCenter;
             }break;
+            /// 处理 NSTextAlignmentRight 分支
             case NSTextAlignmentRight:{
                 return (NSParagraphStyle *)self.jobsParagraphStyleRight;
             }break;
+            /// 处理 NSTextAlignmentJustified 分支
             case NSTextAlignmentJustified:{
                 return (NSParagraphStyle *)self.jobsParagraphStyleJustified;
             }break;
+            /// 处理 NSTextAlignmentNatural 分支
             case NSTextAlignmentNatural:{
                 return (NSParagraphStyle *)self.jobsParagraphStyleNatural;
             }break;
+            /// 未匹配已知分支时执行兜底处理
             default:
                 break;
         }

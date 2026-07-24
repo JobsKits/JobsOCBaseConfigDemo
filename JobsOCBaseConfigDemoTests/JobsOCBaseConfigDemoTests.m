@@ -7,8 +7,13 @@
 
 #import <XCTest/XCTest.h>
 #import <objc/message.h>
+#if __has_include(<JobsOCTimer/JobsOCTimer.h>) && __has_include(<JobsOCTimerMgr/JobsOCTimerMgr.h>)
 #import <JobsOCTimer/JobsOCTimer.h>
 #import <JobsOCTimerMgr/JobsOCTimerMgr.h>
+#define JOBS_TIMER_TESTS_AVAILABLE 1
+#else
+#define JOBS_TIMER_TESTS_AVAILABLE 0
+#endif
 
 @interface JobsOCBaseConfigDemoTests : XCTestCase
 
@@ -33,6 +38,7 @@
     XCTAssertTrue(bundleIdentifier.length > 0, @"Info.plist 里必须能读到 Bundle Identifier。");
 }
 
+#if JOBS_TIMER_TESTS_AVAILABLE
 -(void)testTimerResumesOnlyAfterAutomaticPause {
     JobsTimer *timer = jobsMakeTimer(^(JobsTimer * _Nullable timer) {
         timer.byTimerType(JobsTimerTypeGCD)
@@ -79,6 +85,7 @@
     XCTAssertFalse([manager isRunning:identifier]);
     XCTAssertTrue([manager stopAndRemove:identifier]);
 }
+#endif
 
 -(void)testSplashOverlayDoesNotInstallNavigationUIAndCanSkipWhileRunning {
     UIViewController *rootViewController = UIViewController.new;
@@ -97,6 +104,12 @@
                                                         NSSelectorFromString(@"showOver:configuration:"),
                                                         navigationController,
                                                         configuration);
+    UIButton *skipButton = [splashViewController valueForKey:@"countdownBtn"];
+    if (@available(iOS 16.0, *)) {
+        XCTAssertEqualWithAccuracy(skipButton.configuration.background.cornerRadius, 18, 0.001);
+    } else {
+        XCTAssertEqualWithAccuracy(skipButton.layer.cornerRadius, 18, 0.001);
+    }
     [splashViewController beginAppearanceTransition:YES animated:NO];
     [splashViewController endAppearanceTransition];
     [splashViewController.view layoutIfNeeded];
@@ -106,13 +119,23 @@
     for (UIView *subview in splashViewController.view.subviews) {
         XCTAssertFalse([NSStringFromClass(subview.class) isEqualToString:@"GKCustomNavigationBar"]);
     }
-    UIButton *skipButton = [splashViewController valueForKey:@"countdownBtn"];
     XCTAssertTrue(skipButton.enabled);
     XCTAssertEqual([splashViewController.view hitTest:skipButton.center withEvent:nil], skipButton);
 
     [skipButton sendActionsForControlEvents:UIControlEventTouchUpInside];
     XCTAssertNil(splashViewController.parentViewController);
     XCTAssertNil(splashViewController.view.superview);
+}
+
+-(void)testSettingGestureDemoLoadsWithJobsBaseControllerContract {
+    Class controllerClass = NSClassFromString(@"JobsSettingGestureVC");
+    Class baseControllerClass = NSClassFromString(@"BaseViewController");
+    XCTAssertNotNil(controllerClass);
+    XCTAssertNotNil(baseControllerClass);
+    UIViewController *controller = [controllerClass new];
+    XCTAssertTrue([controller isKindOfClass:baseControllerClass]);
+    XCTAssertNoThrow([controller loadViewIfNeeded]);
+    XCTAssertNotNil(controller.view);
 }
 
 -(void)testPerformanceExample {

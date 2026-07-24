@@ -159,16 +159,21 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
                                             - self.thumbSize.width,
                                             1.f);
                     switch (pan.state) {
+                        /// 处理 UIGestureRecognizerStateBegan 分支
                         case UIGestureRecognizerStateBegan: {
                             self.panStartProgress = self.progress;
                         } break;
+                        /// 处理 UIGestureRecognizerStateChanged 分支
                         case UIGestureRecognizerStateChanged: {
                             CGFloat delta = translation.x / dragWidth;
                             self.progress = self.panStartProgress + delta;
                             self.byLayoutIfNeeded();
                         } break;
+                        /// 处理 UIGestureRecognizerStateEnded 分支
                         case UIGestureRecognizerStateEnded:
+                        /// 处理 UIGestureRecognizerStateCancelled 分支
                         case UIGestureRecognizerStateCancelled:
+                        /// 处理 UIGestureRecognizerStateFailed 分支
                         case UIGestureRecognizerStateFailed: {
                             if (self.progress > 0.85f) {
                                 self.progress = 1.f;
@@ -184,6 +189,7 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
                                 self.byResetAnimated(YES);
                             }
                         } break;
+                        /// 未匹配已知分支时执行兜底处理
                         default:
                             break;
                     }

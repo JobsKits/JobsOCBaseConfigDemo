@@ -44,6 +44,7 @@ digraph PodspecDependencies {
   "JobsGetWindow";
   "JobsHotLabel";
   "JobsImageNumberView";
+  "JobsImageRotation";
   "JobsLanMgr";
   "JobsLinkageMenuView";
   "JobsLoadingImage";
@@ -64,8 +65,10 @@ digraph PodspecDependencies {
   "JobsOCCountryCodeCtrl";
   "JobsOCDSL";
   "JobsOCDefs";
+  "JobsOCExcel";
   "JobsOCGraphicCaptcha";
   "JobsOCKeyboardMgr";
+  "JobsOCNumberStepper";
   "JobsOCOpen";
   "JobsOCPatch";
   "JobsOCProtocols";
@@ -78,12 +81,14 @@ digraph PodspecDependencies {
   "JobsOCTimer";
   "JobsOCTimerMgr";
   "JobsOCTools";
+  "JobsOCUILabelScrolling";
   "JobsOCVideoRecorder";
+  "JobsOCWebSocket";
   "JobsPresentTransitionMgr";
   "JobsProgressBar";
   "JobsRandomUtils";
   "JobsRichTextUtils";
-  "JobsScrollingLabel";
+  "JobsScreenCapture";
   "JobsStringUtils";
   "JobsSuspend";
   "JobsTabBarCtrl";
@@ -390,6 +395,8 @@ digraph PodspecDependencies {
   "JobsImageNumberView" -> "JobsOCDSL";
   "JobsImageNumberView" -> "JobsOCDefs";
   "JobsImageNumberView" -> "JobsOCProtocols";
+  "JobsImageRotation" -> "JobsOCDefs";
+  "JobsImageRotation" -> "JobsOCTimer";
   "JobsLanMgr" -> "JobsBlock";
   "JobsLanMgr" -> "JobsOCDefs";
   "JobsLanMgr" -> "JobsStringUtils";
@@ -522,6 +529,10 @@ digraph PodspecDependencies {
   "JobsOCDefs" -> "JobsGetWindow";
   "JobsOCDefs" -> "JobsStringUtils";
   "JobsOCDefs" -> "XYColorOC";
+  "JobsOCExcel" -> "JobsMakes";
+  "JobsOCExcel" -> "JobsOCDSL";
+  "JobsOCExcel" -> "JobsOCDefs";
+  "JobsOCExcel" -> "JobsOCUILabelScrolling";
   "JobsOCGraphicCaptcha" -> "JobsBlock";
   "JobsOCGraphicCaptcha" -> "JobsModel";
   "JobsOCGraphicCaptcha" -> "JobsModelDSL";
@@ -529,6 +540,10 @@ digraph PodspecDependencies {
   "JobsOCKeyboardMgr" -> "JobsBlock";
   "JobsOCKeyboardMgr" -> "JobsOCDSL";
   "JobsOCKeyboardMgr" -> "JobsOCDefs";
+  "JobsOCNumberStepper" -> "JobsBaseUI";
+  "JobsOCNumberStepper" -> "JobsMakes";
+  "JobsOCNumberStepper" -> "JobsOCDSL";
+  "JobsOCNumberStepper" -> "JobsOCDefs";
   "JobsOCOpen" -> "JobsBaseUI";
   "JobsOCOpen" -> "JobsBlock";
   "JobsOCOpen" -> "JobsGetWindow";
@@ -627,6 +642,9 @@ digraph PodspecDependencies {
   "JobsOCTools" -> "XYColorOC";
   "JobsOCTools" -> "ZFPlayerExtra";
   "JobsOCTools" -> "ZMJCellExtra";
+  "JobsOCUILabelScrolling" -> "JobsOCDSL";
+  "JobsOCUILabelScrolling" -> "JobsOCDefs";
+  "JobsOCUILabelScrolling" -> "JobsOCTimer";
   "JobsOCVideoRecorder" -> "JobsBlock";
   "JobsOCVideoRecorder" -> "JobsByOCPods";
   "JobsOCVideoRecorder" -> "JobsMakes";
@@ -651,8 +669,10 @@ digraph PodspecDependencies {
   "JobsRichTextUtils" -> "JobsOCProtocols";
   "JobsRichTextUtils" -> "JobsStringUtils";
   "JobsRichTextUtils" -> "XYColorOC";
-  "JobsScrollingLabel" -> "JobsOCDefs";
-  "JobsScrollingLabel" -> "JobsOCTimer";
+  "JobsScreenCapture" -> "JobsBlock";
+  "JobsScreenCapture" -> "JobsMakes";
+  "JobsScreenCapture" -> "JobsOCDSL";
+  "JobsScreenCapture" -> "JobsOCDefs";
   "JobsSuspend" -> "JobsBaseUI";
   "JobsSuspend" -> "JobsBlock";
   "JobsSuspend" -> "JobsDeviceInfo";

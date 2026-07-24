@@ -9,6 +9,8 @@
 
 @interface PreviewVC ()
 
+Prop_strong()UILabel *previewLabel;
+
 @end
 
 @implementation PreviewVC
@@ -16,20 +18,24 @@
     [super viewDidLoad];
     self.view.byBgColor([UIColor whiteColor]);
     self.preferredContentSize = CGSizeMake(JobsWidth(220), JobsWidth(160));
-    jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-        label
-            .byText(self.previewText)
-            .byTextCor(HEXCOLOR(0x3D4A58))
-            .byTextAlignment(NSTextAlignmentCenter)
-            .byNumberOfLines(0)
-            .addOn(self.view)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(JobsWidth(16),
-                                                                     JobsWidth(16),
-                                                                     JobsWidth(16),
-                                                                     JobsWidth(16)));
-            });
+    self.previewLabel.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(JobsWidth(16),
+                                                             JobsWidth(16),
+                                                             JobsWidth(16),
+                                                             JobsWidth(16)));
     });
+}
+
+-(UILabel *)previewLabel{
+    if (!_previewLabel) {
+        _previewLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(self.previewText)
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byNumberOfLines(0);
+        });
+    };return _previewLabel;
 }
 
 @end

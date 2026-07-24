@@ -293,10 +293,13 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
 
 - (NSInteger)chartFallbackOffset {
     switch (self.displayMode) {
+        /// 处理 ZMJDisplayMode_daily 分支
         case ZMJDisplayMode_daily:
             return 0;
+        /// 处理 ZMJDisplayMode_weekly 分支
         case ZMJDisplayMode_weekly:
             return 2;
+        /// 处理 ZMJDisplayMode_monthly 分支
         case ZMJDisplayMode_monthly:
             return 5;
     };return 0;
@@ -448,12 +451,15 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
 
 - (CGFloat)spreadsheetView:(SpreadsheetView *)spreadsheetView widthForColumn:(NSInteger)column {
     switch (self.displayMode) {
+        /// 处理 ZMJDisplayMode_daily 分支
         case ZMJDisplayMode_daily:
             return 50.f;
             break;
+        /// 处理 ZMJDisplayMode_weekly 分支
         case ZMJDisplayMode_weekly:
             return 50.f/3;
             break;
+        /// 处理 ZMJDisplayMode_monthly 分支
         case ZMJDisplayMode_monthly:
             return 50.f/6;
             break;
@@ -479,12 +485,14 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
 - (NSArray<ZMJCellRange *> *)mergedCells:(SpreadsheetView *)spreadsheetView {
     NSMutableArray<ZMJCellRange *> *result = NSMutableArray.array;
     switch (self.displayMode) {
+        /// 处理 ZMJDisplayMode_daily 分支
         case ZMJDisplayMode_daily:{
             NSArray<ZMJCellRange *> *titleHeader = [self monthCellRangesWithRow:0];
             NSArray<ZMJCellRange *> *charts = [self chartCellRangesWithFallbackOffset:self.chartFallbackOffset];
             [result addObjectsFromArray:titleHeader];
             [result addObjectsFromArray:charts];
         }break;
+        /// 处理 ZMJDisplayMode_weekly 分支
         case ZMJDisplayMode_weekly:{
             NSArray<ZMJCellRange *> *titleHeader     = [self monthCellRangesWithRow:0];
             NSArray<ZMJCellRange *> *weekTitleHeader = [self weekCellRangesWithRow:1];
@@ -493,6 +501,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
             [result addObjectsFromArray:weekTitleHeader];
             [result addObjectsFromArray:charts];
         }break;
+        /// 处理 ZMJDisplayMode_monthly 分支
         case ZMJDisplayMode_monthly:{
             NSArray<ZMJCellRange *> *titleHeader      = [self yearCellRangesWithRow:0];
             NSArray<ZMJCellRange *> *monthTitleHeader = [self monthCellRangesWithRow:1];
@@ -513,7 +522,9 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
         @jobs_weakify(self)
         if (row == 0) {
             switch (self.displayMode) {
+                /// 处理 ZMJDisplayMode_daily 分支
                 case ZMJDisplayMode_daily:
+                /// 处理 ZMJDisplayMode_weekly 分支
                 case ZMJDisplayMode_weekly:{
                     NSDate *(^getVilabelDateBlock)(NSInteger r, NSInteger c) = ^NSDate *(NSInteger r, NSInteger c) {
                         @jobs_strongify(self)
@@ -525,6 +536,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                     };
                     cell.label.byText([self formateMonthLimmited:getVilabelDateBlock(row, column)]);
                 }break;
+                /// 处理 ZMJDisplayMode_monthly 分支
                 case ZMJDisplayMode_monthly:{
                     NSDate *(^getVilabelDateBlock)(NSInteger r, NSInteger c) = ^NSDate *(NSInteger r, NSInteger c) {
                         @jobs_strongify(self)
@@ -539,9 +551,11 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
             }
         } else {
             switch (self.displayMode) {
+                /// 处理 ZMJDisplayMode_daily 分支
                 case ZMJDisplayMode_daily:
                     cell.label.byText([self dailyAppendWeaklyForDate:self.days[column]]);
                     break;
+                /// 处理 ZMJDisplayMode_weekly 分支
                 case ZMJDisplayMode_weekly:{
                     NSInteger(^getVilabelIdxBlock)(NSInteger r, NSInteger c) = ^NSInteger(NSInteger r, NSInteger c) {
                         @jobs_strongify(self)
@@ -555,6 +569,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                     cell.label.text = [NSString stringWithFormat:@"第%ld周".tr,
                                        (long)[self getweekdayOrdinalWithDate:self.weeks[getVilabelIdxBlock(row, column)]]];
                 }break;
+                /// 处理 ZMJDisplayMode_monthly 分支
                 case ZMJDisplayMode_monthly:{
                     NSInteger(^getVilabelIdxBlock)(NSInteger r, NSInteger c) = ^NSInteger(NSInteger r, NSInteger c) {
                         @jobs_strongify(self)
@@ -600,8 +615,10 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
         cell.gridlines.top     = GridStyle.borderStyleNone;
         @jobs_weakify(self)
         switch (self.displayMode) {
+            /// 处理 ZMJDisplayMode_daily 分支
             case ZMJDisplayMode_daily:
                 break;
+            /// 处理 ZMJDisplayMode_weekly 分支
             case ZMJDisplayMode_weekly:{
                 BOOL(^enableLeftGridlineBlock)(NSInteger r, NSInteger c) = ^BOOL(NSInteger r, NSInteger c) {
                     @jobs_strongify(self)
@@ -613,6 +630,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                 };
                 cell.gridlines.left = enableLeftGridlineBlock(row, column) ? [GridStyle style:GridStyle_default width:0 color:nil] : GridStyle.borderStyleNone;
             }break;
+            /// 处理 ZMJDisplayMode_monthly 分支
             case ZMJDisplayMode_monthly:{
                 BOOL(^enableLeftGridlineBlock)(NSInteger r, NSInteger c) = ^BOOL(NSInteger r, NSInteger c) {
                     @jobs_strongify(self)
@@ -765,12 +783,15 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                                                           fromDate:date];
         long long dateComponentTimeUnitValue = NSIntegerMin;
         switch (timeUnit) {
+            /// 处理 ZMJTimeUnit_week 分支
             case ZMJTimeUnit_week:
                 dateComponentTimeUnitValue = dateComponents.weekdayOrdinal;
                 break;
+            /// 处理 ZMJTimeUnit_month 分支
             case ZMJTimeUnit_month:
                 dateComponentTimeUnitValue = dateComponents.month;
                 break;
+            /// 处理 ZMJTimeUnit_year 分支
             case ZMJTimeUnit_year:
                 dateComponentTimeUnitValue = dateComponents.year;
                 break;

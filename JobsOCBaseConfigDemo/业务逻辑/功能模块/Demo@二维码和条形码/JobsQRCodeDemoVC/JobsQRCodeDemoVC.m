@@ -13,10 +13,14 @@ Prop_strong()UIView *contentView;
 Prop_strong()UIImageView *qrImageView;
 Prop_strong()UIImageView *logoQRImageView;
 Prop_strong()UIImageView *barcodeImageView;
+Prop_strong()UITapGestureRecognizer *qrCopyGesture;
+Prop_strong()UITapGestureRecognizer *logoQRCopyGesture;
+Prop_strong()UITapGestureRecognizer *barcodeCopyGesture;
 Prop_strong()UILabel *qrLab;
 Prop_strong()UILabel *logoQRLab;
 Prop_strong()UILabel *barcodeLab;
 Prop_copy()NSString *qrContent;
+Prop_copy()NSString *logoQRContent;
 Prop_copy()NSString *barcodeContent;
 
 @end
@@ -53,6 +57,7 @@ Prop_copy()NSString *barcodeContent;
     self.makeNavByAlpha(1);
     self.view.byBgColor(HEXCOLOR(0xF5F7FA));
     self.qrContent = @"https://jobs.dev/hello";
+    self.logoQRContent = @"https://www.google.com";
     self.barcodeContent = @"JOBS-2025-10-18";
     self.contentView.byHidden(NO);
 }
@@ -119,6 +124,48 @@ Prop_copy()NSString *barcodeContent;
     };return _contentView;
 }
 
+-(UITapGestureRecognizer *)qrCopyGesture{
+    if (!_qrCopyGesture) {
+        @jobs_weakify(self)
+        _qrCopyGesture = [jobsMakeTapGesture(^(__kindof UITapGestureRecognizer * _Nullable gesture) {
+            gesture
+                .byNumberOfTouchesRequired(1)
+                .byNumberOfTapsRequired(1);
+        }) gestureActionBy:^{
+            @jobs_strongify(self)
+            self.qrContent.pasteboard();
+        }];
+    };return _qrCopyGesture;
+}
+
+-(UITapGestureRecognizer *)logoQRCopyGesture{
+    if (!_logoQRCopyGesture) {
+        @jobs_weakify(self)
+        _logoQRCopyGesture = [jobsMakeTapGesture(^(__kindof UITapGestureRecognizer * _Nullable gesture) {
+            gesture
+                .byNumberOfTouchesRequired(1)
+                .byNumberOfTapsRequired(1);
+        }) gestureActionBy:^{
+            @jobs_strongify(self)
+            self.logoQRContent.pasteboard();
+        }];
+    };return _logoQRCopyGesture;
+}
+
+-(UITapGestureRecognizer *)barcodeCopyGesture{
+    if (!_barcodeCopyGesture) {
+        @jobs_weakify(self)
+        _barcodeCopyGesture = [jobsMakeTapGesture(^(__kindof UITapGestureRecognizer * _Nullable gesture) {
+            gesture
+                .byNumberOfTouchesRequired(1)
+                .byNumberOfTapsRequired(1);
+        }) gestureActionBy:^{
+            @jobs_strongify(self)
+            self.barcodeContent.pasteboard();
+        }];
+    };return _barcodeCopyGesture;
+}
+
 -(UIImageView *)qrImageView{
     if (!_qrImageView) {
         @jobs_weakify(self)
@@ -126,6 +173,8 @@ Prop_copy()NSString *barcodeContent;
             imageView
                 .byImage([self.qrContent jobsQRCodeImageByWidth:JobsWidth(180) correctionLevel:@"M"])
                 .byContentMode(UIViewContentModeScaleAspectFit)
+                .byUserInteractionEnabled(YES)
+                .addGesture(self.qrCopyGesture)
                 .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
@@ -155,14 +204,16 @@ Prop_copy()NSString *barcodeContent;
         @jobs_weakify(self)
         _logoQRImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             imageView
-                .byImage([@"https://www.google.com" jobsQRCodeImageByWidth:JobsWidth(180)
-                                                              correctionLevel:@"H"
-                                                                   centerLogo:self.jobsLogoImage
-                                                                    logoRatio:0.22
-                                                             logoCornerRadius:JobsWidth(10)
-                                                                  borderWidth:JobsWidth(6)
-                                                                  borderColor:UIColor.whiteColor])
+                .byImage([self.logoQRContent jobsQRCodeImageByWidth:JobsWidth(180)
+                                                   correctionLevel:@"H"
+                                                        centerLogo:self.jobsLogoImage
+                                                         logoRatio:0.22
+                                                  logoCornerRadius:JobsWidth(10)
+                                                       borderWidth:JobsWidth(6)
+                                                       borderColor:UIColor.whiteColor])
                 .byContentMode(UIViewContentModeScaleAspectFit)
+                .byUserInteractionEnabled(YES)
+                .addGesture(self.logoQRCopyGesture)
                 .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
@@ -200,6 +251,8 @@ Prop_copy()NSString *barcodeContent;
                                                                    textColor:UIColor.blackColor
                                                              backgroundColor:UIColor.whiteColor])
                 .byContentMode(UIViewContentModeScaleAspectFit)
+                .byUserInteractionEnabled(YES)
+                .addGesture(self.barcodeCopyGesture)
                 .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)

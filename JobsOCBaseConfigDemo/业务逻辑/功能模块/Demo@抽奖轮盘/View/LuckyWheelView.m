@@ -14,6 +14,8 @@ Prop_strong()UIButton *centerButton;
 Prop_strong()CAShapeLayer *pointerLayer;
 /// 真正画扇形的图层
 Prop_strong()NSMutableArray<CAShapeLayer *> *sliceLayers;
+Prop_strong()NSMutableArray<UILabel *> *segmentLabelMutArr;
+Prop_strong()NSMutableArray<UIImageView *> *segmentImageViewMutArr;
 /// 当前盘面角度（rad）
 Prop_assign()CGFloat currentAngle;
 /// 减速器
@@ -186,10 +188,10 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     }
     [self.sliceLayers removeAllObjects];
     /// 清理旧 label / imageView
-    NSArray<UIView *> *subviewsCopy = [self.plateView.subviews copy];
-    for (UIView *v in subviewsCopy) {
-        [v removeFromSuperview];
-    }
+    [self.segmentLabelMutArr makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self.segmentLabelMutArr removeAllObjects];
+    [self.segmentImageViewMutArr makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self.segmentImageViewMutArr removeAllObjects];
     if (self.segments.count == 0 ||
         self.plateView.bounds.size.width <= 0 ||
         self.plateView.bounds.size.height <= 0) {
@@ -247,6 +249,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                 .byCenterPoint(textCenter)
                 .byTransform(CGAffineTransformMakeRotation(rotation))
                 .addOn(self.plateView);
+            [self.segmentLabelMutArr addObject:label];
         }
         // ===== 图片：文字外侧的圆形 ImageView ============
         if (segment.placeholderImage) {
@@ -254,7 +257,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
             CGPoint imageCenter = CGPointMake(center.x + cos(midAngle) * imageRadius,
                                               center.y + sin(midAngle) * imageRadius);
             CGFloat imageSize = radius * 0.22;
-            jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            UIImageView *imageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
                 imageView
                     .byImage([segment.placeholderImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate])
                     .byTintColor(HEXCOLOR(0x9A6A2E))
@@ -273,6 +276,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                 // 如果希望支持网络图，可以在这里用你项目里的图片加载库：
                 // [imageView <xxx_setImageWithURL:[NSURL URLWithString:segment.imageURLString] placeholderImage:segment.placeholderImage>];
             });
+            [self.segmentImageViewMutArr addObject:imageView];
         }
     }
     for (NSInteger index = 0; index < count; index++) {
@@ -329,7 +333,6 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
 }
 
 - (void)startSpinWithScrollLikeDecelerationWithInitialVelocity:(CGFloat)initialVelocity {
-    if (self.isSpinning || self.displayLink) return; // 已经在自动旋转中
     CGFloat v0 = 0;
     if (!isnan(initialVelocity)) {
         v0 = initialVelocity;
@@ -338,14 +341,16 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     } else {
         v0 = self.velocityForTargetDuration(self.spinDuration);
     }
-    [self updateCenterButtonBySpinning:YES];
     self.decelerator = [ScrollDecelerator.alloc initWithVelocity:v0 decelerationRate:self.decelerationRate];
-    self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(handleDisplayLink:)];
-    if (@available(iOS 10.0, *)) {
-        self.displayLink.preferredFramesPerSecond = 60;
+    /// 旋转中重复启动只重置减速器，继续复用已有 CADisplayLink
+    if (!self.displayLink) {
+        self.displayLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(handleDisplayLink:)];
+        if (@available(iOS 10.0, *)) {
+            self.displayLink.preferredFramesPerSecond = 60;
+        }
+        [self.displayLink addToRunLoop:NSRunLoop.mainRunLoop
+                               forMode:NSRunLoopCommonModes];
     }
-    [self.displayLink addToRunLoop:NSRunLoop.mainRunLoop
-                           forMode:NSRunLoopCommonModes];
     [self updateSpinningState:YES];
 }
 
@@ -400,8 +405,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
 
 - (void)updateCenterButtonBySpinning:(BOOL)spinning {
     self.centerButton.bySelected(spinning);
-    self.centerButton.userInteractionEnabled = YES;
-    self.centerButton.jobsResetBtnTitle(spinning ? @"停止\n抽奖".tr : @"开始\n抽奖".tr);
+    self.centerButton.jobsResetBtnTitle(@"开始\n抽奖".tr);
     self.centerButton.jobsResetBtnBgCor(spinning ? HEXCOLOR(0xC97812) : HEXCOLOR(0xFF9F1C));
 }
 
@@ -477,15 +481,19 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
         CGFloat inset = 1.0;
         CGPoint p;
         switch (direction) {
+            /// 处理 JobsDirectionUp 分支
             case JobsDirectionUp:
                 p = CGPointMake(center.x, center.y - radius + inset);
                 break;
+            /// 处理 JobsDirectionDown 分支
             case JobsDirectionDown:
                 p = CGPointMake(center.x, center.y + radius - inset);
                 break;
+            /// 处理 JobsDirectionLeft 分支
             case JobsDirectionLeft:
                 p = CGPointMake(center.x - radius + inset, center.y);
                 break;
+            /// 处理 JobsDirectionRight 分支
             case JobsDirectionRight:
                 p = CGPointMake(center.x + radius - inset, center.y);
                 break;
@@ -593,6 +601,18 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     };return _sliceLayers;
 }
 
+-(NSMutableArray<UILabel *> *)segmentLabelMutArr{
+    if (!_segmentLabelMutArr) {
+        _segmentLabelMutArr = NSMutableArray.array;
+    };return _segmentLabelMutArr;
+}
+
+-(NSMutableArray<UIImageView *> *)segmentImageViewMutArr{
+    if (!_segmentImageViewMutArr) {
+        _segmentImageViewMutArr = NSMutableArray.array;
+    };return _segmentImageViewMutArr;
+}
+
 -(UIView *)plateView{
     if(!_plateView){
         @jobs_weakify(self)
@@ -612,7 +632,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
     if(!_centerButton){
         @jobs_weakify(self)
         _centerButton = UIButton.jobsInit()
-            .bgColorBy(HEXCOLOR(0xFF9F1C))
+            .jobsResetBtnBgCor(HEXCOLOR(0xFF9F1C))
             .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
             .jobsResetBtnCornerRadiusValue(JobsWidth(36))
             .makeNewLineShows(2)
@@ -621,10 +641,10 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
             .selectedStateTitleColorBy(JobsWhiteColor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(16)))
             .jobsResetBtnTitle(@"开始\n抽奖".tr)
-            .selectedStateTitleBy(@"停止\n抽奖".tr)
+            .selectedStateTitleBy(@"开始\n抽奖".tr)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                [self toggleSpin];
+                [self startSpinWithScrollLikeDeceleration];
                 // 如果你有通用弹跳 & 震动封装，可以在这里调用
                 // [sender jobs_playTapBounceWithHaptic:JobsHapticLight];
             })
@@ -683,11 +703,13 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
             CGFloat angle = atan2(dy, dx);
             CFTimeInterval now = CACurrentMediaTime();
             switch (gesture.state) {
+                /// 处理 UIGestureRecognizerStateBegan 分支
                 case UIGestureRecognizerStateBegan: {
                     self.lastTouchAngle = angle;
                     self.lastTouchTimestamp = now;
                     self.angularVelocityFromPan = 0;
                 } break;
+                /// 处理 UIGestureRecognizerStateChanged 分支
                 case UIGestureRecognizerStateChanged: {
                     CGFloat step = angle - self.lastTouchAngle;
                     CGFloat pi = (CGFloat)M_PI;
@@ -705,8 +727,11 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                     self.lastTouchAngle = angle;
                     self.lastTouchTimestamp = now;
                 } break;
+                /// 处理 UIGestureRecognizerStateEnded 分支
                 case UIGestureRecognizerStateEnded:
+                /// 处理 UIGestureRecognizerStateCancelled 分支
                 case UIGestureRecognizerStateCancelled:
+                /// 处理 UIGestureRecognizerStateFailed 分支
                 case UIGestureRecognizerStateFailed: {
                     CGFloat v = self.angularVelocityFromPan;
                     self.angularVelocityFromPan = 0;
@@ -714,6 +739,7 @@ Prop_copy(nullable)void (^segmentLongPressHandlerInternal)(LuckyWheelSegment *se
                         [self startSpinWithScrollLikeDecelerationWithInitialVelocity:v];
                     }
                 } break;
+                /// 未匹配已知分支时执行兜底处理
                 default:
                     break;
             }

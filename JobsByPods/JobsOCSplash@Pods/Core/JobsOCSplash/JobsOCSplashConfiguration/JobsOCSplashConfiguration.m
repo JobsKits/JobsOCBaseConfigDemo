@@ -43,7 +43,18 @@ Prop_strong() NSBundle *bundle;
 }
 
 +(__kindof JobsOCSplashConfiguration *)remoteVideo:(NSURL *)URL {
-    return [self configWithType:JobsOCSplashContentTypeRemoteVideo resourceName:nil fileExtension:nil remoteURL:URL bundle:NSBundle.mainBundle];
+    return [self remoteVideo:URL fallbackLocalVideo:nil fileExtension:nil bundle:nil];
+}
+
++(__kindof JobsOCSplashConfiguration *)remoteVideo:(NSURL *)URL
+                               fallbackLocalVideo:(NSString *)name
+                                     fileExtension:(NSString *)fileExtension
+                                            bundle:(NSBundle *)bundle {
+    return [self configWithType:JobsOCSplashContentTypeRemoteVideo
+                  resourceName:name
+                 fileExtension:fileExtension
+                     remoteURL:URL
+                        bundle:bundle ?: NSBundle.mainBundle];
 }
 
 +(__kindof JobsOCSplashConfiguration *)configWithType:(JobsOCSplashContentType)type

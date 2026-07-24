@@ -23,6 +23,7 @@ timer lifecycle management through JobsOCTimerMgr.
     'QuartzCore'
   ]
 
+  spec.dependency 'Masonry'
   spec.dependency 'JobsByOCPods'
   spec.dependency 'JobsOCTimerMgr'
   spec.dependency 'JobsOCDefs'

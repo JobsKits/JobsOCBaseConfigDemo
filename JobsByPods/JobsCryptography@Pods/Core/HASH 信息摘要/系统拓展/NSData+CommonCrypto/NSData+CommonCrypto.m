@@ -51,33 +51,41 @@ NSString * const kCommonCryptoErrorDomain = @"CommonCryptoErrorDomain";
 + (NSError *)errorWithCCCryptorStatus:(CCCryptorStatus) status{
 	NSString * description = nil, * reason = nil;
 	switch (status){
+		/// 处理 kCCSuccess 分支
 		case kCCSuccess:
 			description = NSLocalizedString(@"Success", @"Error description");
 			break;
+		/// 处理 kCCParamError 分支
 		case kCCParamError:
 			description = NSLocalizedString(@"Parameter Error", @"Error description");
 			reason = NSLocalizedString(@"Illegal parameter supplied to encryption/decryption algorithm", @"Error reason");
 			break;
+		/// 处理 kCCBufferTooSmall 分支
 		case kCCBufferTooSmall:
 			description = NSLocalizedString(@"Buffer Too Small", @"Error description");
 			reason = NSLocalizedString(@"Insufficient buffer provided for specified operation", @"Error reason");
 			break;
+		/// 处理 kCCMemoryFailure 分支
 		case kCCMemoryFailure:
 			description = NSLocalizedString(@"Memory Failure", @"Error description");
 			reason = NSLocalizedString(@"Failed to allocate memory", @"Error reason");
 			break;
+		/// 处理 kCCAlignmentError 分支
 		case kCCAlignmentError:
 			description = NSLocalizedString(@"Alignment Error", @"Error description");
 			reason = NSLocalizedString(@"Input size to encryption algorithm was not aligned correctly", @"Error reason");
 			break;
+		/// 处理 kCCDecodeError 分支
 		case kCCDecodeError:
 			description = NSLocalizedString(@"Decode Error", @"Error description");
 			reason = NSLocalizedString(@"Input data did not decode or decrypt correctly", @"Error reason");
 			break;
+		/// 处理 kCCUnimplemented 分支
 		case kCCUnimplemented:
 			description = NSLocalizedString(@"Unimplemented Function", @"Error description");
 			reason = NSLocalizedString(@"Function not implemented for the current algorithm", @"Error reason");
 			break;
+		/// 未匹配已知分支时执行兜底处理
 		default:
 			description = NSLocalizedString(@"Unknown Error", @"Error description");
 			break;
@@ -265,6 +273,7 @@ static void FixKeyLengths(CCAlgorithm algorithm,
                           NSMutableData *ivData){
 	NSUInteger keyLength = [keyData length];
 	switch (algorithm){
+		/// 处理 kCCAlgorithmAES128 分支
 		case kCCAlgorithmAES128:{
 			if (keyLength < 16){
 				[keyData setLength: 16];

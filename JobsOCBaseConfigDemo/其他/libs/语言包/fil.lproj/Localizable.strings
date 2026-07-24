@@ -788,6 +788,7 @@
 "苹果滑动开锁" = "Apple slide para i-unlock";
 "莲子羹" = "Lotus seed na sopas";
 "获取验证码" = "Kumuha ng verification code";
+"还剩 %ld 秒" = "%ld segundo pa";
 "蒸肉" = "steamed meat";
 "蓝色" = "asul";
 "虛擬幣充值" = "Virtual currency recharge";
@@ -875,6 +876,13 @@
 "返回：回顶部并刷新" = "Bumalik: itaas at i-refresh";
 "下次开屏：关" = "Susunod na splash: Sarado";
 "下次开屏：开" = "Susunod na splash: Bukas";
+"开屏内容" = "Nilalaman ng Splash";
+"本地图片" = "Lokal na Larawan";
+"本地 GIF" = "Lokal na GIF";
+"远程图片" = "Remote na Larawan";
+"本地视频" = "Lokal na Video";
+"远程视频" = "Remote na Video";
+"下次开屏内容已设为：%@" = "Susunod na nilalaman ng splash: %@";
 "主题切换：白天" = "Tema: Maliwanag";
 "主题切换：黑夜" = "Tema: Madilim";
 "主题已切换：白天" = "Napalitan ang tema: Maliwanag";
@@ -1158,7 +1166,8 @@
 "右" = "Kanan";
 "跟随" = "Sumunod";
 "固定" = "Nakapirmi";
-"立即预览（支持 UIViewController / UIView）" = "I-preview Ngayon (UIViewController / UIView)";
+"立即预览" = "I-preview Ngayon";
+"支持 UIViewController / UIView" = "Sinusuportahan ang UIViewController / UIView";
 "演示“只允许在指定 y 区间内上下滑动”的吸附效果：拖拽绿色区域，上滑释放会吸附到最高点，下滑释放会回到底部初始位置。" = "Ipinapakita nito ang patayong pag-drag sa loob ng itinakdang y-range. I-drag ang berdeng bahagi: bitawan pataas para dumikit sa itaas, o pababa para bumalik sa panimulang posisyon.";
 "最高点：上滑后吸附到这里" = "Itaas: dito didikit pagkatapos i-drag pataas";
 "最低点：下滑释放回到初始位置" = "Ibaba: dito babalik pagkatapos i-drag pababa";

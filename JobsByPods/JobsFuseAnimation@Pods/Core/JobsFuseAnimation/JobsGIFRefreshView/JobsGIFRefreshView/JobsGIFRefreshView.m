@@ -89,6 +89,7 @@ Prop_assign()BOOL wantsAnimating;
                         progress:(CGFloat)progress {
     CGFloat normalized = MIN(1, MAX(0, progress));
     switch (phase) {
+        /// 处理 JobsRefreshAnimatorPhasePulling 分支
         case JobsRefreshAnimatorPhasePulling:
             [self byStop];
             self.byHidden(NO)
@@ -96,24 +97,29 @@ Prop_assign()BOOL wantsAnimating;
                 .byTransform(CGAffineTransformMakeScale(0.8 + normalized * 0.2,
                                                         0.8 + normalized * 0.2));
             break;
+        /// 处理 JobsRefreshAnimatorPhaseReady 分支
         case JobsRefreshAnimatorPhaseReady:
             [self byStop];
             self.byHidden(NO)
                 .byAlpha(1)
                 .byTransform(CGAffineTransformIdentity);
             break;
+        /// 处理 JobsRefreshAnimatorPhaseRefreshing 分支
         case JobsRefreshAnimatorPhaseRefreshing:
             self.byAlpha(1)
                 .byTransform(CGAffineTransformIdentity);
             [self byStart];
             break;
+        /// 处理 JobsRefreshAnimatorPhaseEnding 分支
         case JobsRefreshAnimatorPhaseEnding:
             [self byStop];
             self.byHidden(NO)
                 .byAlpha(1)
                 .byTransform(CGAffineTransformIdentity);
             break;
+        /// 处理 JobsRefreshAnimatorPhaseIdle 分支
         case JobsRefreshAnimatorPhaseIdle:
+        /// 处理 JobsRefreshAnimatorPhaseInactive 分支
         case JobsRefreshAnimatorPhaseInactive:
             [self byStop];
             self.byHidden(YES)

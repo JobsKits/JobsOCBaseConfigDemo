@@ -28,11 +28,13 @@ composition, password recovery, image backgrounds, and video backgrounds.
     'Core/**/*.h'
   ]
   spec.header_dir = 'JobsAppDoor'
-  spec.resource_bundles = {
-    'JobsAppDoorCore' => [
-      'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}'
-    ]
-  }
+  spec.subspec 'Resource' do |ss|
+    ss.resource_bundles = {
+      'JobsAppDoorResources' => [
+        'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}'
+      ]
+    }
+  end
 
   JobsPodspecKitForJobsAppDoor.apply_standard_exclude_files(spec)
 

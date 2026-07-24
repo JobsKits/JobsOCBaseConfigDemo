@@ -27,9 +27,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIControl (DSL)
 
+/// Block 事件入口（推荐）：同一事件可多次追加。
 Prop_copy(readonly)JobsRetControlByHandlerBlock onJobsTap;
 Prop_copy(readonly)JobsRetControlByHandlerBlock onJobsChange;
 Prop_copy(readonly)JobsRetControlByEventsHandlerBlock onJobsEvent;
+/// 移除指定事件下由 onJobsTap / onJobsChange / onJobsEvent 注册的全部 Block。
+Prop_copy(readonly)JobsRetControlByEventsBlock offJobsEvent;
 Prop_copy(readonly)JobsRetControlByBOOLBlock byEnabled;
 Prop_copy(readonly)JobsRetControlByBOOLBlock bySelected;
 Prop_copy(readonly)JobsRetControlByBOOLBlock byHighlighted;
@@ -41,6 +44,7 @@ Prop_assign(readonly)UIControlState jobs_effectiveState;
 Prop_copy(readonly)JobsRetControlByAlignBlock byContentAlignment;
 Prop_copy(readonly)JobsRetControlByHorizontalAlignBlock byContentHorizontalAlignment;
 Prop_copy(readonly)JobsRetControlByVerticalAlignBlock byContentVerticalAlignment;
+/// Target-Action 兼容入口；调用方不推荐使用，优先使用上述 Block 事件 API。
 Prop_copy(readonly)JobsRetControlByTargetActionEventsBlock byAddTarget;
 Prop_copy(readonly)JobsRetControlByTargetActionEventsBlock byRemoveTarget;
 Prop_copy(readonly)JobsRetControlByEventsBlock bySendActions;

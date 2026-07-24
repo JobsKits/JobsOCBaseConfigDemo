@@ -165,24 +165,31 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
         @jobs_strongify(self )
         NSString *resultStr = @"";
         switch ([self.viewModel.requestParams intValue]) {
+            /// 处理 PicToStrStyle_Hexadecimal 分支
             case PicToStrStyle_Hexadecimal:{
                 resultStr = self.dataForTextView(self.encodePicStr(data.hexStr));
             }break;
+            /// 处理 PicToStrStyle_Base16 分支
             case PicToStrStyle_Base16:{
                 resultStr = self.dataForTextView(self.encodePicStr(data.base16Str));
             }break;
+            /// 处理 PicToStrStyle_Base32 分支
             case PicToStrStyle_Base32:{
                 resultStr = self.dataForTextView(self.encodePicStr(data.base32Str));
             }break;
+            /// 处理 PicToStrStyle_Base64 分支
             case PicToStrStyle_Base64:{
                 resultStr = self.dataForTextView(self.encodePicStr(data.base64Str));
             }break;
+            /// 处理 PicToStrStyle_Base85 分支
             case PicToStrStyle_Base85:{
                 resultStr = self.dataForTextView(self.encodePicStr(data.base85Str));
             }break;
+            /// 处理 PicToStrStyle_MIME 分支
             case PicToStrStyle_MIME:{
                 resultStr = self.dataForTextView(self.encodePicStr(data.MIMEStr));
             }break;
+            /// 未匹配已知分支时执行兜底处理
             default:
                 break;
         };return resultStr;
@@ -196,24 +203,31 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
         self->_picAfter = nil;
         if(isNull(data)) return nil;
         switch ([self.viewModel.requestParams intValue]) {
+            /// 处理 PicToStrStyle_Hexadecimal 分支
             case PicToStrStyle_Hexadecimal:{
                 return self.dataForBtn2ImageView(self.decodePicStr(data).imageByHexString);
             }break;
+            /// 处理 PicToStrStyle_Base16 分支
             case PicToStrStyle_Base16:{
                 return self.dataForBtn2ImageView(self.decodePicStr(data).imageByBase16String);
             }break;
+            /// 处理 PicToStrStyle_Base32 分支
             case PicToStrStyle_Base32:{
                 return self.dataForBtn2ImageView(self.decodePicStr(data).imageByBase32String);
             }break;
+            /// 处理 PicToStrStyle_Base64 分支
             case PicToStrStyle_Base64:{
                 return self.dataForBtn2ImageView(self.decodePicStr(data).imageByBase64String);
             }break;
+            /// 处理 PicToStrStyle_Base85 分支
             case PicToStrStyle_Base85:{
                 return self.dataForBtn2ImageView(self.decodePicStr(data).imageByBase85String);
             }break;
+            /// 处理 PicToStrStyle_MIME 分支
             case PicToStrStyle_MIME:{
                 return self.dataForBtn2ImageView(self.decodePicStr(data).imageByMIMEString);
             }break;
+            /// 未匹配已知分支时执行兜底处理
             default:
                 break;
         };return self->_picAfter;

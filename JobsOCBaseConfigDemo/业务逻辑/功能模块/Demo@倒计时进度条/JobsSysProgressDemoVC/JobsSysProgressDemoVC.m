@@ -116,10 +116,13 @@ Prop_assign()JobsSysProgressDemoMode progressMode;
 
 - (CGFloat)selectedDuration {
     switch (self.durationSegment.jobs_selectedSegmentIndex) {
+        /// 处理 数值 1 分支
         case 1:
             return 6;
+        /// 处理 数值 2 分支
         case 2:
             return 10;
+        /// 未匹配已知分支时执行兜底处理
         default:
             return 3;
     }
@@ -196,7 +199,7 @@ Prop_assign()JobsSysProgressDemoMode progressMode;
     self.timeLab.byText([NSString stringWithFormat:@"剩余 %.1f 秒 / 进度 %.0f%%".tr,safeRemaining,displayProgress * 100.0]);
 }
 
-- (UIButton *)buttonWithTitle:(NSString *)title action:(SEL)action {
+- (UIButton *)buttonWithTitle:(NSString *)title action:(jobsByBtnBlock)action {
     return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
         button
             .jobsResetBtnTitle(title)
@@ -204,7 +207,7 @@ Prop_assign()JobsSysProgressDemoMode progressMode;
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .disabledStateTitleColorBy([JobsWhiteColor colorWithAlphaComponent:0.45])
             .jobsResetBtnBgCor(HEXCOLOR(0x111827))
-            .byAddTarget(self, action, UIControlEventTouchUpInside)
+            .onClickBy(action)
             .byLayer(^(__kindof CALayer * _Nullable layer) {
                 layer.byCornerRadius(JobsWidth(10));
             });
@@ -249,21 +252,30 @@ Prop_assign()JobsSysProgressDemoMode progressMode;
 
 - (UIButton *)modeButton {
     if (!_modeButton) {
-        _modeButton = [self buttonWithTitle:[self modeButtonTitle] action:@selector(toggleProgressMode)];
+        @jobs_weakify(self)
+        _modeButton = [self buttonWithTitle:[self modeButtonTitle] action:^(__kindof UIButton * _Nullable button) {
+            [weak_self toggleProgressMode];
+        }];
         _modeButton.jobsResetBtnBgCor(HEXCOLOR(0x465A69));
     };return _modeButton;
 }
 
 - (UIButton *)startButton {
     if (!_startButton) {
-        _startButton = [self buttonWithTitle:@"开始".tr action:@selector(startCountdown)];
+        @jobs_weakify(self)
+        _startButton = [self buttonWithTitle:@"开始".tr action:^(__kindof UIButton * _Nullable button) {
+            [weak_self startCountdown];
+        }];
         _startButton.jobsResetBtnBgCor(HEXCOLOR(0x00A651));
     };return _startButton;
 }
 
 - (UIButton *)cancelButton {
     if (!_cancelButton) {
-        _cancelButton = [self buttonWithTitle:@"重置".tr action:@selector(cancelCountdown)];
+        @jobs_weakify(self)
+        _cancelButton = [self buttonWithTitle:@"重置".tr action:^(__kindof UIButton * _Nullable button) {
+            [weak_self cancelCountdown];
+        }];
         _cancelButton.jobsResetBtnBgCor(HEXCOLOR(0xFF8F1F));
     };return _cancelButton;
 }

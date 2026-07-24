@@ -8,6 +8,12 @@
 #import "JobsOCSearcherView.h"
 #import "JobsOCSearcherRecordCell.h"
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 typedef NS_ENUM(NSUInteger, JobsOCSearcherSection) {
     JobsOCSearcherSectionHistory = 0,
     JobsOCSearcherSectionCount
@@ -21,12 +27,12 @@ UIGestureRecognizerDelegate
 Prop_strong()UIView *searchContainerView;
 Prop_strong(readwrite)UITextField *textField;
 Prop_strong()UIButton *searchButton;
-Prop_strong()NSLayoutConstraint *searchButtonLeftConstraint;
-Prop_strong()NSLayoutConstraint *searchButtonWidthConstraint;
+Prop_strong()MASConstraint *searchButtonLeftConstraint;
+Prop_strong()MASConstraint *searchButtonWidthConstraint;
 Prop_strong()UIView *recommendSectionView;
 Prop_strong()UILabel *recommendTitleLabel;
 Prop_strong()UIView *recommendTagContainerView;
-Prop_strong()NSLayoutConstraint *recommendSectionHeightConstraint;
+Prop_strong()MASConstraint *recommendSectionHeightConstraint;
 Prop_copy()NSArray <UIButton *>*recommendButtonArr;
 Prop_strong()UITableView *tableView;
 Prop_strong()UITapGestureRecognizer *blankTapGestureRecognizer;
@@ -84,31 +90,30 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
 }
 
 -(void)setupConstraints{
-    self.recommendSectionHeightConstraint = [self.recommendSectionView.heightAnchor constraintEqualToConstant:0];
-    self.searchButtonLeftConstraint = [self.searchButton.leftAnchor constraintEqualToAnchor:self.searchContainerView.rightAnchor constant:0];
-    self.searchButtonWidthConstraint = [self.searchButton.widthAnchor constraintEqualToConstant:0];
-    [NSLayoutConstraint activateConstraints:@[
-        [self.searchContainerView.topAnchor constraintEqualToAnchor:self.topAnchor constant:12],
-        [self.searchContainerView.leftAnchor constraintEqualToAnchor:self.leftAnchor constant:16],
-        [self.searchContainerView.heightAnchor constraintEqualToConstant:42],
-        self.searchButtonLeftConstraint,
-        [self.searchButton.rightAnchor constraintEqualToAnchor:self.rightAnchor constant:-16],
-        [self.searchButton.centerYAnchor constraintEqualToAnchor:self.searchContainerView.centerYAnchor],
-        [self.searchButton.heightAnchor constraintEqualToConstant:42],
-        self.searchButtonWidthConstraint,
-        [self.textField.topAnchor constraintEqualToAnchor:self.searchContainerView.topAnchor],
-        [self.textField.leftAnchor constraintEqualToAnchor:self.searchContainerView.leftAnchor constant:12],
-        [self.textField.rightAnchor constraintEqualToAnchor:self.searchContainerView.rightAnchor constant:-12],
-        [self.textField.bottomAnchor constraintEqualToAnchor:self.searchContainerView.bottomAnchor],
-        [self.recommendSectionView.topAnchor constraintEqualToAnchor:self.searchContainerView.bottomAnchor constant:12],
-        [self.recommendSectionView.leftAnchor constraintEqualToAnchor:self.leftAnchor],
-        [self.recommendSectionView.rightAnchor constraintEqualToAnchor:self.rightAnchor],
-        self.recommendSectionHeightConstraint,
-        [self.tableView.topAnchor constraintEqualToAnchor:self.recommendSectionView.bottomAnchor],
-        [self.tableView.leftAnchor constraintEqualToAnchor:self.leftAnchor],
-        [self.tableView.rightAnchor constraintEqualToAnchor:self.rightAnchor],
-        [self.tableView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
-    ]];
+    [self.searchContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self).offset(12);
+        make.left.equalTo(self).offset(16);
+        make.height.mas_equalTo(42);
+    }];
+    [self.searchButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        self.searchButtonLeftConstraint = make.left.equalTo(self.searchContainerView.mas_right);
+        make.right.equalTo(self).offset(-16);
+        make.centerY.equalTo(self.searchContainerView);
+        make.height.mas_equalTo(42);
+        self.searchButtonWidthConstraint = make.width.mas_equalTo(0);
+    }];
+    [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.searchContainerView).insets(UIEdgeInsetsMake(0, 12, 0, 12));
+    }];
+    [self.recommendSectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.searchContainerView.mas_bottom).offset(12);
+        make.left.right.equalTo(self);
+        self.recommendSectionHeightConstraint = make.height.mas_equalTo(0);
+    }];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.recommendSectionView.mas_bottom);
+        make.left.right.bottom.equalTo(self);
+    }];
 }
 
 -(void)layoutSubviews{
@@ -221,6 +226,7 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
 }
 
 -(void)rebuildRecommendTagButtons{
+    @jobs_weakify(self)
     for (UIButton *button in self.recommendButtonArr) {
         button.byRemove();
     }
@@ -241,7 +247,9 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
                 })
                 .jobsResetBtnBgCor([self recommendTagColorAtIndex:idx])
                 .jobsResetBtnCornerRadiusValue(6)
-                .byAddTarget(self, @selector(recommendTagButtonEvent:), UIControlEventTouchUpInside)
+                .onClickBy(^(__kindof UIButton * _Nullable button) {
+                    [weak_self recommendTagButtonEvent:button];
+                })
                 .byTag(idx)
                 .byClipsToBounds(YES)
                 .addOn(self.recommendTagContainerView);
@@ -257,7 +265,7 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
     self.recommendTitleLabel.byHidden(!hasRecommend);
     self.recommendTagContainerView.byHidden(!hasRecommend);
     if (!hasRecommend) {
-        self.recommendSectionHeightConstraint.constant = 0;
+        [self.recommendSectionHeightConstraint setOffset:0];
         return;
     }
     CGFloat sectionWidth = CGRectGetWidth(self.bounds);
@@ -286,9 +294,7 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
     CGFloat tagsHeight = self.recommendButtonArr.count ? y + tagHeight : 0;
     self.recommendTagContainerView.frame = CGRectMake(0, tagTop, sectionWidth, tagsHeight);
     CGFloat targetHeight = tagTop + tagsHeight + 10;
-    if (fabs(self.recommendSectionHeightConstraint.constant - targetHeight) > 0.5) {
-        self.recommendSectionHeightConstraint.constant = targetHeight;
-    }
+    [self.recommendSectionHeightConstraint setOffset:targetHeight];
 }
 
 -(UIColor *)recommendTagColorAtIndex:(NSUInteger)index{
@@ -340,8 +346,8 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
 
 -(void)updateSearchButtonVisible:(BOOL)visible{
     self.searchButton.byHidden(!visible);
-    self.searchButtonLeftConstraint.constant = visible ? 8 : 0;
-    self.searchButtonWidthConstraint.constant = visible ? 64 : 0;
+    [self.searchButtonLeftConstraint setOffset:visible ? 8 : 0];
+    [self.searchButtonWidthConstraint setOffset:visible ? 64 : 0];
     self.searchButton.byUserInteractionEnabled(visible && self.searchButton.jobs_isEnabled);
     [self setNeedsLayout];
 }
@@ -424,27 +430,26 @@ heightForHeaderInSection:(NSInteger)section{
 
 -(UIView *)tableView:(UITableView *)tableView
 viewForHeaderInSection:(NSInteger)section{
+    @jobs_weakify(self)
     if (![self tableView:tableView numberOfRowsInSection:section]) return nil;
     UIView *header = jobsMakeView(^(__kindof UIView * _Nullable view) {
         view.byBgColor(self.backgroundColor);
     });
     UILabel *label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-        label.translatesAutoresizingMaskIntoConstraints = NO;
         label
             .byText(self.config.historyTitle.length ? self.config.historyTitle : @"⏰搜索历史")
             .byFont(UIFontWeightSemiboldSize(16))
             .byTextCor(RGBA_COLOR(0.12 * 255.0, 0.16 * 255.0, 0.21 * 255.0, 1))
             .addOn(header);
     });
-    [NSLayoutConstraint activateConstraints:@[
-        [label.leftAnchor constraintEqualToAnchor:header.leftAnchor constant:16],
-        [label.rightAnchor constraintEqualToAnchor:header.rightAnchor constant:-16],
-        [label.bottomAnchor constraintEqualToAnchor:header.bottomAnchor constant:-8]
-    ]];
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(header).offset(16);
+        make.right.equalTo(header).offset(-16);
+        make.bottom.equalTo(header).offset(-8);
+    }];
     if (section == JobsOCSearcherSectionHistory) {
         UIColor *buttonColor = RGBA_COLOR(0.63 * 255.0, 0.67 * 255.0, 0.73 * 255.0, 1);
         UIButton *clearButton = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
-            button.translatesAutoresizingMaskIntoConstraints = NO;
             button
                 .jobsResetBtnTitle(@"清空".tr)
                 .jobsResetBtnTitleCor(buttonColor)
@@ -452,16 +457,17 @@ viewForHeaderInSection:(NSInteger)section{
                 .jobsResetBtnImage([self trashIconImageWithColor:buttonColor])
                 .byImageEdgeInsets(UIEdgeInsetsMake(0, 0, 0, 4))
                 .byTitleEdgeInsets(UIEdgeInsetsMake(0, 4, 0, 0))
+                .onClickBy(^(__kindof UIButton * _Nullable button) {
+                    [weak_self clearHistory];
+                })
                 .byContentHorizontalAlignment(UIControlContentHorizontalAlignmentRight)
-                .byAddTarget(self, @selector(clearHistory), UIControlEventTouchUpInside)
                 .addOn(header);
         });
-        [NSLayoutConstraint activateConstraints:@[
-            [clearButton.rightAnchor constraintEqualToAnchor:header.rightAnchor constant:-16],
-            [clearButton.centerYAnchor constraintEqualToAnchor:label.centerYAnchor],
-            [clearButton.widthAnchor constraintEqualToConstant:72],
-            [clearButton.heightAnchor constraintEqualToConstant:32]
-        ]];
+        [clearButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(header).offset(-16);
+            make.centerY.equalTo(label);
+            make.size.mas_equalTo(CGSizeMake(72, 32));
+        }];
     };return header;
 }
 
@@ -528,7 +534,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIView *)searchContainerView{
     if (!_searchContainerView) {
         _searchContainerView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.translatesAutoresizingMaskIntoConstraints = NO;
             view
                 .byBgColor(UIColor.whiteColor)
                 .byCornerRadius(12)
@@ -543,8 +548,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(UITextField *)textField{
     if (!_textField) {
+        @jobs_weakify(self)
         _textField = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
-            textField.translatesAutoresizingMaskIntoConstraints = NO;
             textField
                 .byFont(UIFontWeightRegularSize(15))
                 .byTextCor(RGBA_COLOR(0.18 * 255.0, 0.24 * 255.0, 0.31 * 255.0, 1))
@@ -553,15 +558,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byLeftViewMode(UITextFieldViewModeAlways)
                 .byReturnKeyType(UIReturnKeySearch)
                 .byDelegate(self)
-                .byAddTarget(self, @selector(textFieldEditingChanged:), UIControlEventEditingChanged);
+                .onJobsEvent(UIControlEventEditingChanged, ^(__kindof UIControl * _Nullable control) {
+                    [weak_self textFieldEditingChanged:(UITextField *)control];
+                });
         });
     };return _textField;
 }
 
 -(UIButton *)searchButton{
     if (!_searchButton) {
+        @jobs_weakify(self)
         _searchButton = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
-            button.translatesAutoresizingMaskIntoConstraints = NO;
             button
                 .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(14))
                 .jobsResetBtnTitleCor(UIColor.whiteColor)
@@ -572,7 +579,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 .highlightedStateBackgroundImageBy([self searchButtonBackgroundImageWithColor:RGBA_COLOR(0.15 * 255.0, 0.36 * 255.0, 0.70 * 255.0, 1)])
                 .disabledStateBackgroundImageBy([self searchButtonBackgroundImageWithColor:RGBA_COLOR(0.91 * 255.0, 0.94 * 255.0, 0.98 * 255.0, 1)])
                 .byContentEdgeInsets(UIEdgeInsetsMake(0, 12, 0, 12))
-                .byAddTarget(self, @selector(searchButtonEvent), UIControlEventTouchUpInside)
+                .onClickBy(^(__kindof UIButton * _Nullable button) {
+                    [weak_self searchButtonEvent];
+                })
                 .byHidden(YES)
                 .byClipsToBounds(YES);
         });
@@ -625,7 +634,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIView *)recommendSectionView{
     if (!_recommendSectionView) {
         _recommendSectionView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.translatesAutoresizingMaskIntoConstraints = NO;
             view.byBgColor(UIColor.clearColor);
         });
     };return _recommendSectionView;
@@ -661,7 +669,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UITableView *)tableView{
     if (!_tableView) {
         _tableView = jobsMakeTableViewByGrouped(^(__kindof UITableView * _Nullable tableView) {
-            tableView.translatesAutoresizingMaskIntoConstraints = NO;
             tableView
                 .byDelegate(self)
                 .byDataSource(self)

@@ -27,10 +27,13 @@ NS_INLINE __attribute__((unused)) CGFloat JobsOCCommentLeadingByModeAndDepth(Job
                                                                              NSInteger depth) {
     if (depth <= 0) return JobsOCCommentRootLeading;
     switch (mode) {
+        /// 处理 JobsOCCommentModeNetEase 分支
         case JobsOCCommentModeNetEase:
             return JobsOCCommentNetEaseChildLeading;
+        /// 处理 JobsOCCommentModeToutiao 分支
         case JobsOCCommentModeToutiao:
             return JobsOCCommentToutiaoChildLeading;
+        /// 处理 JobsOCCommentModeCustom 分支
         case JobsOCCommentModeCustom:
             return JobsOCCommentCustomChildLeading;
     };return JobsOCCommentRootLeading;

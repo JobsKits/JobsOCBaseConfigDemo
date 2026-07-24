@@ -169,6 +169,7 @@ Prop_strong()UILabel *tipLab;
                         subTitle:(NSString *)subTitle
                            color:(UIColor *)color
                              tag:(NSInteger)tag{
+    @jobs_weakify(self)
     return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
         button
             .jobsResetBtnTitle(subTitle.length ? [NSString stringWithFormat:@"%@\n%@", title.tr, subTitle.tr] : title.tr)
@@ -181,7 +182,9 @@ Prop_strong()UILabel *tipLab;
                     .byNumberOfLines(subTitle.length ? 2 : 1)
                     .byTextAlignment(NSTextAlignmentCenter);
             })
-            .byAddTarget(self, @selector(demoButtonTapped:), UIControlEventTouchUpInside)
+            .onClickBy(^(__kindof UIButton * _Nullable button) {
+                [weak_self demoButtonTapped:button];
+            })
             .byTag(tag);
     });
 }

@@ -17,6 +17,7 @@
                                   completionBlock:(jobsByVoidBlock _Nullable)completionBlock{
     SPAlertController *vc = nil;
     switch (config.SPAlertControllerInitType) {
+        /// 处理 NSObject_SPAlertControllerInitType_1 分支
         case NSObject_SPAlertControllerInitType_1:{
             // 示例1:actionSheet的默认动画样式(从底部弹出，有取消按钮)
             // 示例2:actionSheet的默认动画(从底部弹出,无取消按钮)
@@ -26,6 +27,7 @@
                                                      message:config.message
                                               preferredStyle:config.preferredStyle];
         }break;
+        /// 处理 NSObject_SPAlertControllerInitType_2 分支
         case NSObject_SPAlertControllerInitType_2:{
             // 示例3:actionSheet从顶部弹出(无标题)
             // 示例4:actionSheet从顶部弹出(有标题)
@@ -47,6 +49,7 @@
                                               preferredStyle:config.preferredStyle
                                                animationType:config.animationType];
         }break;
+        /// 处理 NSObject_SPAlertControllerInitType_3 分支
         case NSObject_SPAlertControllerInitType_3:{
             // 示例20:自定义整个对话框(actionSheet样式从底部弹出)
             // 示例21:自定义整个对话框(actionSheet样式从右边弹出)
@@ -58,6 +61,7 @@
                                                         preferredStyle:config.preferredStyle
                                                          animationType:config.animationType];
         }break;
+        /// 处理 NSObject_SPAlertControllerInitType_4 分支
         case NSObject_SPAlertControllerInitType_4:{
             // 示例18:自定义头部(xib)
             // 示例19:自定义整个对话框(alert样式)
@@ -65,6 +69,7 @@
                                                          preferredStyle:config.preferredStyle
                                                           animationType:config.animationType];
         }break;
+        /// 处理 NSObject_SPAlertControllerInitType_5 分支
         case NSObject_SPAlertControllerInitType_5:{
             // 示例25:自定义action部分
             vc = [SPAlertController alertControllerWithCustomActionSequenceView:config.customActionSequenceView
@@ -73,6 +78,7 @@
                                                                  preferredStyle:config.preferredStyle
                                                                   animationType:config.animationType];
         }break;
+        /// 未匹配已知分支时执行兜底处理
         default:
             self.jobsToastErrMsg(@"参数配置错误，请检查".tr);
             return nil;

@@ -17,7 +17,6 @@ static NSString *const JobsMarqueeTimerIdentifierPrefix = @"com.jobs.marqueeView
 
 Prop_strong()UIScrollView *scrollView;
 Prop_strong()NSMutableArray<UIButton *> *internalButtons;
-Prop_strong()NSArray<NSLayoutConstraint *> *pageControlDefaultConstraints;
 Prop_strong()UIPageControl *pageControl;
 Prop_assign()BOOL needsRebuildContent;
 Prop_assign()CGSize lastBoundsSize;
@@ -88,7 +87,6 @@ Prop_copy()NSString *timerIdentifier;
         _pageControl = UIPageControl.alloc.init;
         _pageControl.byHidden(YES);
         _pageControl.userInteractionEnabled = NO;
-        _pageControl.translatesAutoresizingMaskIntoConstraints = NO;
         _pageControl.addOn(self);
     };return _pageControl;
 }
@@ -272,9 +270,11 @@ Prop_copy()NSString *timerIdentifier;
     NSUInteger sourceCount = self.dataSourceButtons.count;
     NSUInteger targetCount = sourceCount;
     switch (self.itemSizeMode) {
+        /// 处理 JobsMarqueeItemSizeModeFillBounds 分支
         case JobsMarqueeItemSizeModeFillBounds:
             targetCount = MAX((NSUInteger)3, sourceCount + 1);
             break;
+        /// 处理 JobsMarqueeItemSizeModeFitContent 分支
         case JobsMarqueeItemSizeModeFitContent: {
             CGFloat unit = isHorizontal ? MAX(self.minButtonSize.width, 1.0) : MAX(self.minButtonSize.height, 1.0);
             CGFloat viewport = isHorizontal ? CGRectGetWidth(self.bounds) : CGRectGetHeight(self.bounds);
@@ -434,6 +434,7 @@ Prop_copy()NSString *timerIdentifier;
     BOOL needResetAfterAnimation = NO;
     CGPoint resetOffset = current;
     switch (self.direction) {
+        /// 处理 JobsMarqueeDirectionLeft 分支
         case JobsMarqueeDirectionLeft: {
             if (maxOffsetX <= 0) return;
             CGFloat next = current.x + self.stepLength;
@@ -449,6 +450,7 @@ Prop_copy()NSString *timerIdentifier;
                 target.x = next > maxOffsetX ? 0 : next;
             }
         } break;
+        /// 处理 JobsMarqueeDirectionRight 分支
         case JobsMarqueeDirectionRight: {
             if (maxOffsetX <= 0) return;
             CGFloat next = current.x - self.stepLength;
@@ -464,6 +466,7 @@ Prop_copy()NSString *timerIdentifier;
                 target.x = next < 0 ? maxOffsetX : next;
             }
         } break;
+        /// 处理 JobsMarqueeDirectionTop 分支
         case JobsMarqueeDirectionTop: {
             if (maxOffsetY <= 0) return;
             CGFloat next = current.y + self.stepLength;
@@ -479,6 +482,7 @@ Prop_copy()NSString *timerIdentifier;
                 target.y = next > maxOffsetY ? 0 : next;
             }
         } break;
+        /// 处理 JobsMarqueeDirectionBottom 分支
         case JobsMarqueeDirectionBottom: {
             if (maxOffsetY <= 0) return;
             CGFloat next = current.y - self.stepLength;
@@ -514,21 +518,25 @@ Prop_copy()NSString *timerIdentifier;
     CGFloat maxOffsetX = MAX(0, self.scrollView.contentSize.width - self.scrollView.bounds.size.width);
     CGFloat maxOffsetY = MAX(0, self.scrollView.contentSize.height - self.scrollView.bounds.size.height);
     switch (self.direction) {
+        /// 处理 JobsMarqueeDirectionLeft 分支
         case JobsMarqueeDirectionLeft:
             if (maxOffsetX <= 0) return;
             offset.x += distance;
             if (offset.x > maxOffsetX) offset.x -= maxOffsetX;
             break;
+        /// 处理 JobsMarqueeDirectionRight 分支
         case JobsMarqueeDirectionRight:
             if (maxOffsetX <= 0) return;
             offset.x -= distance;
             if (offset.x < 0) offset.x += maxOffsetX;
             break;
+        /// 处理 JobsMarqueeDirectionTop 分支
         case JobsMarqueeDirectionTop:
             if (maxOffsetY <= 0) return;
             offset.y += distance;
             if (offset.y > maxOffsetY) offset.y -= maxOffsetY;
             break;
+        /// 处理 JobsMarqueeDirectionBottom 分支
         case JobsMarqueeDirectionBottom:
             if (maxOffsetY <= 0) return;
             offset.y -= distance;
@@ -630,7 +638,15 @@ Prop_copy()NSString *timerIdentifier;
             UIControlEvents event = eventNumber.unsignedIntegerValue;
             NSArray<NSString *> *actions = [source actionsForTarget:target forControlEvent:event];
             for (NSString *actionName in actions) {
-                button.byAddTarget(target, NSSelectorFromString(actionName), event);
+                __weak id weakTarget = target;
+                SEL action = NSSelectorFromString(actionName);
+                button.onJobsEvent(event, ^(__kindof UIControl * _Nullable control) {
+                    id strongTarget = weakTarget;
+                    if (!strongTarget) return;
+                    [control sendAction:action
+                                     to:strongTarget
+                               forEvent:nil];
+                });
                 if (event == UIControlEventTouchUpInside) hasTapTarget = YES;
             }
         }
@@ -673,36 +689,34 @@ Prop_copy()NSString *timerIdentifier;
 
 -(void)updatePageControlConstraintsIfNeeded{
     if (!self.pageControlEnabled) return;
-    if (self.pageControlDefaultConstraints.count) {
-        [NSLayoutConstraint deactivateConstraints:self.pageControlDefaultConstraints];
-        self.pageControlDefaultConstraints = @[];
-    }
-    if (self.pageControlConstraintsBlock) {
-        self.pageControlConstraintsBlock(self.pageControl, self);
-        return;
-    }
     CGFloat dotDiameter = 10;
     CGFloat dotSpacing = 6;
     NSInteger pages = MAX(1, self.pageControl.numberOfPages);
     CGFloat minWidth = pages * dotDiameter + MAX(0, pages - 1) * dotSpacing;
-    NSMutableArray<NSLayoutConstraint *> *constraints = NSMutableArray.array;
-    [constraints addObject:[self.pageControl.heightAnchor constraintGreaterThanOrEqualToConstant:10]];
-    [constraints addObject:[self.pageControl.widthAnchor constraintGreaterThanOrEqualToConstant:minWidth]];
-    [constraints addObject:[self.pageControl.widthAnchor constraintLessThanOrEqualToAnchor:self.widthAnchor]];
-    [constraints addObject:[self.pageControl.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]];
-    switch (self.pageControlPosition) {
-        case JobsMarqueePageControlPositionLeftBottom:
-            [constraints addObject:[self.pageControl.leadingAnchor constraintEqualToAnchor:self.leadingAnchor]];
-            break;
-        case JobsMarqueePageControlPositionBottomCenter:
-            [constraints addObject:[self.pageControl.centerXAnchor constraintEqualToAnchor:self.centerXAnchor]];
-            break;
-        case JobsMarqueePageControlPositionRightBottom:
-            [constraints addObject:[self.pageControl.trailingAnchor constraintEqualToAnchor:self.trailingAnchor]];
-            break;
-    }
-    self.pageControlDefaultConstraints = constraints.copy;
-    [NSLayoutConstraint activateConstraints:self.pageControlDefaultConstraints];
+    [self.pageControl mas_remakeConstraints:^(MASConstraintMaker *make) {
+        if (self.pageControlConstraintsBlock) {
+            self.pageControlConstraintsBlock(make);
+            return;
+        }
+        make.height.greaterThanOrEqualTo(@10);
+        make.width.greaterThanOrEqualTo(@(minWidth));
+        make.width.lessThanOrEqualTo(self);
+        make.bottom.equalTo(self);
+        switch (self.pageControlPosition) {
+            /// 处理 JobsMarqueePageControlPositionLeftBottom 分支
+            case JobsMarqueePageControlPositionLeftBottom:
+                make.left.equalTo(self);
+                break;
+            /// 处理 JobsMarqueePageControlPositionBottomCenter 分支
+            case JobsMarqueePageControlPositionBottomCenter:
+                make.centerX.equalTo(self);
+                break;
+            /// 处理 JobsMarqueePageControlPositionRightBottom 分支
+            case JobsMarqueePageControlPositionRightBottom:
+                make.right.equalTo(self);
+                break;
+        }
+    }];
 }
 
 -(void)updatePageControlPages{

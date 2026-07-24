@@ -10,6 +10,12 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_include(<JobsOCSplash/JobsOCSplashConfiguration.h>)
+#import <JobsOCSplash/JobsOCSplashConfiguration.h>
+#else
+#import "JobsOCSplashConfiguration.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsOCSplashPreferences : NSObject
@@ -17,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 +(BOOL)isEnabledForNextLaunch;
 +(void)setEnabledForNextLaunch:(BOOL)enabled;
 +(BOOL)toggleForNextLaunch;
++(JobsOCSplashContentType)contentTypeForNextLaunch;
++(void)setContentTypeForNextLaunch:(JobsOCSplashContentType)contentType;
 
 @end
 

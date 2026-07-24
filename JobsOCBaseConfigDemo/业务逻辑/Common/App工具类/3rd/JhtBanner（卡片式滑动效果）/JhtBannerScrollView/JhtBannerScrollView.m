@@ -161,7 +161,7 @@ Prop_strong()UIScrollView *insideScrollView;
 - (void)bsvUpdateVisibleCardViewAppearance {
     if (_minCoverViewAlpha == 1.0 && self.leftRightMargin == 0 && self.topBottomMargin == 0)  return;
     switch (self.orientation) {
-        // 横向
+        /// 横向
         case BV_Orientation_Horizontal: {
             CGFloat offsetX = self.insideScrollView.contentOffset.x;
             for (NSInteger i = _visibleRange.location; i < (_visibleRange.location + _visibleRange.length); i ++) {
@@ -203,7 +203,7 @@ Prop_strong()UIScrollView *insideScrollView;
                 }
             }break;
         }
-        // 纵向
+        /// 纵向
         case BV_Orientation_Vertical:{
             CGFloat offset = self.insideScrollView.contentOffset.y;
             for (NSInteger i = _visibleRange.location; i < (_visibleRange.location + _visibleRange.length); i ++) {
@@ -412,6 +412,7 @@ Prop_strong()UIScrollView *insideScrollView;
                 _timerPageIndex = 2 * _orginPageCount;
             }break;
         }
+        /// 未匹配已知分支时执行兜底处理
         default:
             break;
     }
@@ -599,6 +600,7 @@ Prop_strong()UIScrollView *insideScrollView;
             pageIndex = (NSInteger)round(self.insideScrollView.contentOffset.y / _pageSize.height) % _orginPageCount;
             break;
         }
+        /// 未匹配已知分支时执行兜底处理
         default:
             break;
     }
@@ -650,7 +652,7 @@ Prop_strong()UIScrollView *insideScrollView;
                                                                                                    userInfo:nil
                                                                                                     repeats:YES]);
         switch (self.orientation) {
-            // 横向
+            /// 横向
             case BV_Orientation_Horizontal: {
                 if (velocity.x > 0) {
                     _timerPageIndex = self.pageControl.currentPage + _orginPageCount + 1;// 右 --> 左
@@ -658,7 +660,7 @@ Prop_strong()UIScrollView *insideScrollView;
                     _timerPageIndex = self.pageControl.currentPage + _orginPageCount - 1;// 左 --> 右
                 }break;
             }
-            // 纵向
+            /// 纵向
             case BV_Orientation_Vertical: {
                 if (velocity.y > 0) {
                     _timerPageIndex = self.pageControl.currentPage + _orginPageCount + 1;// 下 --> 上
@@ -666,6 +668,7 @@ Prop_strong()UIScrollView *insideScrollView;
                     _timerPageIndex = self.pageControl.currentPage + _orginPageCount - 1;// 上 --> 下
                 }break;
             }
+            /// 未匹配已知分支时执行兜底处理
             default:
                 break;
         }

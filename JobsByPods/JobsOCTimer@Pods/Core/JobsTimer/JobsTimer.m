@@ -443,15 +443,19 @@ JobsKey(_stop)
             });return;
         }
         switch (self.timerType) {
+            /// 处理 JobsTimerTypeNSTimer 分支
             case JobsTimerTypeNSTimer:
                 [self startNSTimerWithToken:token];
                 break;
+            /// 处理 JobsTimerTypeGCD 分支
             case JobsTimerTypeGCD:
                 [self startGCDTimerWithToken:token];
                 break;
+            /// 处理 JobsTimerTypeDisplayLink 分支
             case JobsTimerTypeDisplayLink:
                 [self startDisplayLinkWithToken:token];
                 break;
+            /// 处理 JobsTimerTypeRunLoop 分支
             case JobsTimerTypeRunLoop:
                 [self startRunLoopTimerWithToken:token];
                 break;
@@ -484,18 +488,22 @@ JobsKey(_stop)
     self.autoPausedByAppState = markedAsAutoPause;
     [self.stateLock unlock];
     switch (self.timerType) {
+        /// 处理 JobsTimerTypeNSTimer 分支
         case JobsTimerTypeNSTimer:
             [(NSTimer *)Jobs_getAssociatedObject(_nsTimer) setFireDate:NSDate.distantFuture];
             break;
+        /// 处理 JobsTimerTypeGCD 分支
         case JobsTimerTypeGCD:
             if (self.gcdTimer && !self.gcdTimerSuspended) {
                 dispatch_suspend(self.gcdTimer);
                 self.gcdTimerSuspended = YES;
             }
             break;
+        /// 处理 JobsTimerTypeDisplayLink 分支
         case JobsTimerTypeDisplayLink:
             [(CADisplayLink *)Jobs_getAssociatedObject(_displayLink) setPaused:YES];
             break;
+        /// 处理 JobsTimerTypeRunLoop 分支
         case JobsTimerTypeRunLoop:
             if (self.rlTimer) {
                 CFRunLoopTimerInvalidate(self.rlTimer);
@@ -526,6 +534,7 @@ JobsKey(_stop)
     uint64_t token = self.generation;
     [self.stateLock unlock];
     switch (self.timerType) {
+        /// 处理 JobsTimerTypeNSTimer 分支
         case JobsTimerTypeNSTimer:
             if (Jobs_getAssociatedObject(_nsTimer)) {
                 self.nsTimerProxy.token = token;
@@ -534,6 +543,7 @@ JobsKey(_stop)
                 [self startNSTimerWithToken:token];
             }
             break;
+        /// 处理 JobsTimerTypeGCD 分支
         case JobsTimerTypeGCD:
             if (self.gcdTimer && self.gcdTimerSuspended) {
                 dispatch_source_t timer = self.gcdTimer;
@@ -549,6 +559,7 @@ JobsKey(_stop)
                 [self startGCDTimerWithToken:token];
             }
             break;
+        /// 处理 JobsTimerTypeDisplayLink 分支
         case JobsTimerTypeDisplayLink:
             if (Jobs_getAssociatedObject(_displayLink)) {
                 self.displayLinkProxy.token = token;
@@ -558,6 +569,7 @@ JobsKey(_stop)
                 [self startDisplayLinkWithToken:token];
             }
             break;
+        /// 处理 JobsTimerTypeRunLoop 分支
         case JobsTimerTypeRunLoop:
             [self startRunLoopTimerWithToken:token];
             break;

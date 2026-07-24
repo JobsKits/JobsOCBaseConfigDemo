@@ -64,12 +64,13 @@ Prop_strong()UIImageView *coverImageView;
 }
 
 - (void)makeSubViewsAction {
-    self.playOrPauseBtn.byAddTarget(self,
-                                    @selector(playPauseButtonClickAction:),
-                                    UIControlEventTouchUpInside);
-    self.fullScreenBtn.byAddTarget(self,
-                                   @selector(fullScreenButtonClickAction:),
-                                   UIControlEventTouchUpInside);
+    @jobs_weakify(self)
+    self.playOrPauseBtn.onClickBy(^(__kindof UIButton * _Nullable button) {
+        [weak_self playPauseButtonClickAction:button];
+    });
+    self.fullScreenBtn.onClickBy(^(__kindof UIButton * _Nullable button) {
+        [weak_self fullScreenButtonClickAction:button];
+    });
 }
 #pragma mark —— ZFSliderViewDelegate
 - (void)sliderTouchBegan:(float)value {

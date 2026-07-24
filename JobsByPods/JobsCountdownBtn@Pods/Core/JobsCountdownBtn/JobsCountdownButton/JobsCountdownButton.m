@@ -75,8 +75,11 @@ Prop_strong(nullable)RACDisposable *jobsCountdownClickDisposable;
                 .byLineBreakMode(NSLineBreakByClipping)
                 .byMinimumScaleFactor(0.75f);
         })
-        .byContentHorizontalAlignment(UIControlContentHorizontalAlignmentRight);
-    return self;
+        .byContentHorizontalAlignment(UIControlContentHorizontalAlignmentCenter);
+    if (@available(iOS 16.0, *)) {
+        self.jobsResetTitleAlignment(UIButtonConfigurationTitleAlignmentCenter);
+        self.jobsResetTitleLineBreakMode(NSLineBreakByClipping);
+    };return self;
 }
 
 -(instancetype)byJobsCountdownDuration:(NSTimeInterval)duration {
@@ -117,7 +120,7 @@ Prop_strong(nullable)RACDisposable *jobsCountdownClickDisposable;
 }
 
 -(NSString *)jobs_countdownTitleWithSeconds:(NSInteger)seconds {
-    return [NSString stringWithFormat:@"%ld %@",(long)MAX(0, seconds),@"秒".tr];
+    return [NSString stringWithFormat:@"还剩 %ld 秒".tr,(long)MAX(0, seconds)];
 }
 
 @end

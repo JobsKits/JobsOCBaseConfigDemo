@@ -115,9 +115,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(NSString *)titleByWalletStyle:(JobsWalletCardExpandStyle)style{
     switch (style) {
+        /// 处理 JobsWalletCardExpandStyleKeepOpened 分支
         case JobsWalletCardExpandStyleKeepOpened:
             return @"独立展开".tr;
+        /// 处理 JobsWalletCardExpandStyleOnlySelected 分支
         case JobsWalletCardExpandStyleOnlySelected:
+        /// 未匹配已知分支时执行兜底处理
         default:
             return @"单选展开".tr;
     }

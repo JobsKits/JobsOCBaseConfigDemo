@@ -136,6 +136,7 @@ Prop_assign()CGRect lastAnimationBounds;
                         progress:(CGFloat)progress {
     CGFloat normalizedProgress = MIN(1, MAX(0, progress));
     switch (phase) {
+        /// 处理 JobsRefreshAnimatorPhasePulling 分支
         case JobsRefreshAnimatorPhasePulling:
             self.hidden = NO;
             [self byStop];
@@ -143,23 +144,28 @@ Prop_assign()CGRect lastAnimationBounds;
             self.transform = CGAffineTransformMakeScale(0.72 + normalizedProgress * 0.28,
                                                         0.72 + normalizedProgress * 0.28);
             break;
+        /// 处理 JobsRefreshAnimatorPhaseReady 分支
         case JobsRefreshAnimatorPhaseReady:
             self.hidden = NO;
             [self byStop];
             self.alpha = 1;
             self.transform = CGAffineTransformIdentity;
             break;
+        /// 处理 JobsRefreshAnimatorPhaseRefreshing 分支
         case JobsRefreshAnimatorPhaseRefreshing:
             self.hidden = NO;
             self.alpha = 1;
             self.transform = CGAffineTransformIdentity;
             [self byStart];
             break;
+        /// 处理 JobsRefreshAnimatorPhaseEnding 分支
         case JobsRefreshAnimatorPhaseEnding:
             self.hidden = NO;
             [self byStop];
             break;
+        /// 处理 JobsRefreshAnimatorPhaseIdle 分支
         case JobsRefreshAnimatorPhaseIdle:
+        /// 处理 JobsRefreshAnimatorPhaseInactive 分支
         case JobsRefreshAnimatorPhaseInactive:
             [self byStop];
             self.alpha = 0;

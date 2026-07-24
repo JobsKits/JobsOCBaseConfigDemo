@@ -37,6 +37,7 @@ deletion, and clear-history support for Jobs projects.
   ]
   spec.header_dir = 'JobsOCSearcher'
 
+  spec.dependency 'Masonry'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsBaseUI'
   spec.dependency 'JobsMakes'

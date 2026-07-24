@@ -7,6 +7,12 @@
 
 #import "JobsOCCommentCell.h"
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 @interface JobsOCCommentCell ()
 
 Prop_strong()UIView *containerView;
@@ -22,7 +28,6 @@ Prop_strong()UILabel *replyHintLabel;
 Prop_strong()UILabel *contentLabel;
 Prop_strong()UILabel *metaLabel;
 Prop_strong()UILabel *replySummaryLabel;
-Prop_strong()NSLayoutConstraint *containerLeadingConstraint;
 
 -(NSString *)jobs_initialTextByName:(NSString *)name;
 -(UIColor *)jobs_avatarColorByText:(NSString *)text;
@@ -50,25 +55,24 @@ Prop_strong()NSLayoutConstraint *containerLeadingConstraint;
         self.avatarImageView.addOn(self.containerView);
         self.avatarLabel.addOn(self.avatarImageView);
         self.textStackView.addOn(self.containerView);
-        [NSLayoutConstraint activateConstraints:@[
-            [self.containerView.topAnchor constraintEqualToAnchor:self.contentView.topAnchor constant:6],
-            [self.containerView.rightAnchor constraintEqualToAnchor:self.contentView.rightAnchor constant:-12],
-            [self.containerView.bottomAnchor constraintEqualToAnchor:self.contentView.bottomAnchor constant:-6],
-            [self.avatarImageView.topAnchor constraintEqualToAnchor:self.containerView.topAnchor constant:12],
-            [self.avatarImageView.leftAnchor constraintEqualToAnchor:self.containerView.leftAnchor constant:12],
-            [self.avatarImageView.widthAnchor constraintEqualToConstant:36],
-            [self.avatarImageView.heightAnchor constraintEqualToConstant:36],
-            [self.avatarLabel.topAnchor constraintEqualToAnchor:self.avatarImageView.topAnchor],
-            [self.avatarLabel.leftAnchor constraintEqualToAnchor:self.avatarImageView.leftAnchor],
-            [self.avatarLabel.rightAnchor constraintEqualToAnchor:self.avatarImageView.rightAnchor],
-            [self.avatarLabel.bottomAnchor constraintEqualToAnchor:self.avatarImageView.bottomAnchor],
-            [self.textStackView.topAnchor constraintEqualToAnchor:self.containerView.topAnchor constant:12],
-            [self.textStackView.leftAnchor constraintEqualToAnchor:self.avatarImageView.rightAnchor constant:10],
-            [self.textStackView.rightAnchor constraintEqualToAnchor:self.containerView.rightAnchor constant:-12],
-            [self.textStackView.bottomAnchor constraintEqualToAnchor:self.containerView.bottomAnchor constant:-12]
-        ]];
-        self.containerLeadingConstraint = [self.containerView.leftAnchor constraintEqualToAnchor:self.contentView.leftAnchor constant:12];
-        self.containerLeadingConstraint.active = YES;
+        [self.containerView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.contentView).offset(6);
+            make.left.equalTo(self.contentView).offset(12);
+            make.right.equalTo(self.contentView).offset(-12);
+            make.bottom.equalTo(self.contentView).offset(-6);
+        }];
+        [self.avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.equalTo(self.containerView).offset(12);
+            make.size.mas_equalTo(CGSizeMake(36, 36));
+        }];
+        [self.avatarLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.avatarImageView);
+        }];
+        [self.textStackView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.containerView).offset(12);
+            make.left.equalTo(self.avatarImageView.mas_right).offset(10);
+            make.right.bottom.equalTo(self.containerView).offset(-12);
+        }];
     };return self;
 }
 
@@ -101,7 +105,9 @@ Prop_strong()NSLayoutConstraint *containerLeadingConstraint;
                    depth:(NSInteger)depth
            parentComment:(JobsOCCommentModel *)parentComment{
     JobsOCCommentMode mode = config.mode;
-    self.containerLeadingConstraint.constant = JobsOCCommentLeadingByModeAndDepth(mode, depth);
+    [self.containerView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView).offset(JobsOCCommentLeadingByModeAndDepth(mode, depth));
+    }];
     BOOL isChild = depth > 0;
     self.containerView.byBgColor((isChild && mode == JobsOCCommentModeNetEase) ? RGBA_COLOR(0.96 * 255.0, 0.97 * 255.0, 0.99 * 255.0, 1) : UIColor.whiteColor);
     self.nameLabel.byText(comment.nickname.length ? comment.nickname : @"匿名用户");
@@ -130,7 +136,9 @@ Prop_strong()NSLayoutConstraint *containerLeadingConstraint;
 -(void)updateWithMoreText:(NSString *)moreText
                    config:(JobsOCCommentConfig *)config
                     depth:(NSInteger)depth{
-    self.containerLeadingConstraint.constant = JobsOCCommentLeadingByModeAndDepth(config.mode, depth);
+    [self.containerView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView).offset(JobsOCCommentLeadingByModeAndDepth(config.mode, depth));
+    }];
     self.containerView.byBgColor(UIColor.whiteColor);
     self.avatarImageView.byHidden(YES);
     self.avatarLabel.byHidden(YES);
@@ -297,7 +305,6 @@ Prop_strong()NSLayoutConstraint *containerLeadingConstraint;
 -(UIImageView *)replyHintAvatarImageView{
     if (!_replyHintAvatarImageView) {
         _replyHintAvatarImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
-            imageView.translatesAutoresizingMaskIntoConstraints = NO;
             imageView
                 .byContentMode(UIViewContentModeScaleAspectFill)
                 .byUserInteractionEnabled(NO)
@@ -305,21 +312,18 @@ Prop_strong()NSLayoutConstraint *containerLeadingConstraint;
                 .byClipsToBounds(YES)
                 .addBy(self.replyHintAvatarLabel);
         });
-        [NSLayoutConstraint activateConstraints:@[
-            [_replyHintAvatarImageView.widthAnchor constraintEqualToConstant:16],
-            [_replyHintAvatarImageView.heightAnchor constraintEqualToConstant:16],
-            [self.replyHintAvatarLabel.topAnchor constraintEqualToAnchor:_replyHintAvatarImageView.topAnchor],
-            [self.replyHintAvatarLabel.leftAnchor constraintEqualToAnchor:_replyHintAvatarImageView.leftAnchor],
-            [self.replyHintAvatarLabel.rightAnchor constraintEqualToAnchor:_replyHintAvatarImageView.rightAnchor],
-            [self.replyHintAvatarLabel.bottomAnchor constraintEqualToAnchor:_replyHintAvatarImageView.bottomAnchor]
-        ]];
+        [_replyHintAvatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(16, 16));
+        }];
+        [self.replyHintAvatarLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(_replyHintAvatarImageView);
+        }];
     };return _replyHintAvatarImageView;
 }
 
 -(UILabel *)replyHintAvatarLabel{
     if (!_replyHintAvatarLabel) {
         _replyHintAvatarLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.translatesAutoresizingMaskIntoConstraints = NO;
             label
                 .byFont(UIFontWeightSemiboldSize(8))
                 .byTextAlignment(NSTextAlignmentCenter)

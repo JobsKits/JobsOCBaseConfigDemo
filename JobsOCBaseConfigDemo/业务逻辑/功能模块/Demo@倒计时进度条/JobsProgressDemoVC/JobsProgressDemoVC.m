@@ -120,15 +120,19 @@ Prop_assign()BOOL autoRunning;
 
 - (void)directionChanged {
     switch (self.directionSegment.jobs_selectedSegmentIndex) {
+        /// 处理 数值 1 分支
         case 1:
             self.progressBar.byDirection(JobsProgressBarDirectionRightToLeft);
             break;
+        /// 处理 数值 2 分支
         case 2:
             self.progressBar.byDirection(JobsProgressBarDirectionTopToBottom);
             break;
+        /// 处理 数值 3 分支
         case 3:
             self.progressBar.byDirection(JobsProgressBarDirectionBottomToTop);
             break;
+        /// 未匹配已知分支时执行兜底处理
         default:
             self.progressBar.byDirection(JobsProgressBarDirectionLeftToRight);
             break;
@@ -209,14 +213,14 @@ Prop_assign()BOOL autoRunning;
     }
 }
 
-- (UIButton *)buttonWithTitle:(NSString *)title action:(SEL)action {
+- (UIButton *)buttonWithTitle:(NSString *)title action:(jobsByBtnBlock)action {
     return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
         button
             .jobsResetBtnTitle(title)
             .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(15))
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .jobsResetBtnBgCor(HEXCOLOR(0x111827))
-            .byAddTarget(self, action, UIControlEventTouchUpInside)
+            .onClickBy(action)
             .byLayer(^(__kindof CALayer * _Nullable layer) {
                 layer.byCornerRadius(JobsWidth(10));
             });
@@ -281,6 +285,7 @@ Prop_assign()BOOL autoRunning;
 
 - (UISlider *)slider {
     if (!_slider) {
+        @jobs_weakify(self)
         _slider = jobsMakeSlider(^(__kindof UISlider * _Nullable slider) {
             slider
                 .byMinimumValue(0)
@@ -288,13 +293,16 @@ Prop_assign()BOOL autoRunning;
                 .byValue(35)
                 .byMinimumTrackTintColor(HEXCOLOR(0x00C853))
                 .byMaximumTrackTintColor(HEXCOLOR(0xD9DDE5))
-                .byAddTarget(self, @selector(sliderChanged), UIControlEventValueChanged);
+                .onJobsChange(^(__kindof UIControl * _Nullable control) {
+                    [weak_self sliderChanged];
+                });
         });
     };return _slider;
 }
 
 - (UITextField *)percentTextField {
     if (!_percentTextField) {
+        @jobs_weakify(self)
         _percentTextField = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
             textField
                 .byText(@"35")
@@ -305,7 +313,9 @@ Prop_assign()BOOL autoRunning;
                 .byDelegate(self)
                 .byKeyboardType(UIKeyboardTypeDecimalPad)
                 .byReturnKeyType(UIReturnKeyDone)
-                .byAddTarget(self, @selector(percentTextEditingDidEnd), UIControlEventEditingDidEnd)
+                .onJobsEvent(UIControlEventEditingDidEnd, ^(__kindof UIControl * _Nullable control) {
+                    [weak_self percentTextEditingDidEnd];
+                })
                 .byBgColor(JobsWhiteColor)
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer
@@ -319,34 +329,46 @@ Prop_assign()BOOL autoRunning;
 
 - (UISegmentedControl *)directionSegment {
     if (!_directionSegment) {
+        @jobs_weakify(self)
         _directionSegment = jobsMakeSegmentedControl(@[@"左->右",@"右->左",@"上->下",@"下->上"], ^(__kindof UISegmentedControl * _Nullable segmentedControl) {
             segmentedControl
                 .bySelectedSegmentIndex(0)
-                .byAddTarget(self, @selector(directionChanged), UIControlEventValueChanged);
+                .onJobsChange(^(__kindof UIControl * _Nullable control) {
+                    [weak_self directionChanged];
+                });
         });
     };return _directionSegment;
 }
 
 - (UISegmentedControl *)modeSegment {
     if (!_modeSegment) {
+        @jobs_weakify(self)
         _modeSegment = jobsMakeSegmentedControl(@[@"正向值",@"倒向值"], ^(__kindof UISegmentedControl * _Nullable segmentedControl) {
             segmentedControl
                 .bySelectedSegmentIndex(0)
-                .byAddTarget(self, @selector(modeChanged), UIControlEventValueChanged);
+                .onJobsChange(^(__kindof UIControl * _Nullable control) {
+                    [weak_self modeChanged];
+                });
         });
     };return _modeSegment;
 }
 
 - (UIButton *)autoButton {
     if (!_autoButton) {
-        _autoButton = [self buttonWithTitle:@"自动进度".tr action:@selector(toggleAutoProgress)];
+        @jobs_weakify(self)
+        _autoButton = [self buttonWithTitle:@"自动进度".tr action:^(__kindof UIButton * _Nullable button) {
+            [weak_self toggleAutoProgress];
+        }];
         _autoButton.jobsResetBtnBgCor(HEXCOLOR(0x00A651));
     };return _autoButton;
 }
 
 - (UIButton *)resetButton {
     if (!_resetButton) {
-        _resetButton = [self buttonWithTitle:@"重置".tr action:@selector(resetProgress)];
+        @jobs_weakify(self)
+        _resetButton = [self buttonWithTitle:@"重置".tr action:^(__kindof UIButton * _Nullable button) {
+            [weak_self resetProgress];
+        }];
         _resetButton.jobsResetBtnBgCor(HEXCOLOR(0xFF8F1F));
     };return _resetButton;
 }

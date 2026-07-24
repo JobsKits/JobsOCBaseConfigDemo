@@ -115,6 +115,7 @@ pod install --no-repo-update
 ## 七、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsOCCalendar` 目前主打月历稳定渲染、翻页、选择、范围限制和基础外观；复杂农历、跨时区业务规则、深度自定义 cell 需要在 Jobs API 上继续扩展。
+- `JobsOCCalendarDayCell` 是 `UIControl` 子类，点按通过 `onJobsTap` Block 链式入口绑定，不使用按钮专属 `onClickBy`。
 - 如果业务页仍然给日历设置大于屏幕的固定宽度，JobsOCCalendar 会尽量稳定内部布局，但正确做法仍然是让外层约束限制在 safe area / 父视图宽度内。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

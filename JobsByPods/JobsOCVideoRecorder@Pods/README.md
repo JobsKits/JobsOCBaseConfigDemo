@@ -47,7 +47,7 @@ JobsOCVideoRecorder@Pods
 | `JobsOCVideoRecorderCaptureManager` | iPhone 摄像头和麦克风采集、前后摄切换、全屏预览 |
 | `JobsOCVideoRecorderAssetWriter` | `AVAssetWriter` 写入音视频，并在写入前调用滤镜处理口 |
 | `JobsOCVideoRecorderCIFilterProcessor` | 内置 CoreImage 滤镜处理器，用于录制产物滤镜 |
-| `JobsOCVideoRecorderRecordButton` | 长按录制按钮、白色外圈、红色内圆、进度动画和上方录制秒数显示 |
+| `JobsOCVideoRecorderRecordButton` | 微信风格长按录制按钮、白色内圆、留白间隔、白色外圈、红色进度动画和上方录制秒数显示 |
 | `JobsOCVideoRecorderPreviewView` | 可拖动画中画回放、❌ 取消、✅ 保存 |
 | `JobsOCVideoRecorderAlbumSaver` | 创建或查找相册，并保存视频 |
 
@@ -102,6 +102,7 @@ JobsOCVideoRecorderVC *vc = [JobsOCVideoRecorderVC.alloc initWithConfig:config];
 - 自定义相册需要相册读写权限，不能只依赖 add-only 权限。
 - 视频方向按开始录制时的设备方向固化到当前文件，中途旋转不做 track 重建。
 - 少于 `minDuration` 的录制不会预览，也不会保存，只提示用户。
+- 录制页和预览页按钮事件使用 `onClickBy` Block 链式入口，不在调用方新增 `byAddTarget`。
 - `pod install --no-repo-update` 后需要确认 `Development Pods > JobsOCVideoRecorder` 能展开真实 `Core` 目录。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

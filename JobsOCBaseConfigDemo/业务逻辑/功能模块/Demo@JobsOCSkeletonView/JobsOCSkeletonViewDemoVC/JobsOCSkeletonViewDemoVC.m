@@ -104,13 +104,13 @@ Prop_strong()UIButton *modeBtn;
 }
 
 -(UIButton *)navButtonByTitle:(NSString *)title
-                       action:(SEL)action{
+                       action:(jobsByBtnBlock)action{
     return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
         button
             .jobsResetBtnTitle(title.tr)
             .jobsResetBtnTitleFont(UIFontWeightMediumSize(14))
             .jobsResetBtnTitleCor(HEXCOLOR(0x0A84FF))
-            .byAddTarget(self, action, UIControlEventTouchUpInside)
+            .onClickBy(action)
             .byFrame(CGRectMake(0, 0, JobsWidth(48), JobsWidth(32)));
     });
 }
@@ -172,15 +172,21 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(UIButton *)reloadBtn{
     if (!_reloadBtn) {
+        @jobs_weakify(self)
         _reloadBtn = [self navButtonByTitle:@"重载"
-                                     action:@selector(reloadDataAction)];
+                                     action:^(__kindof UIButton * _Nullable button) {
+            [weak_self reloadDataAction];
+        }];
     };return _reloadBtn;
 }
 
 -(UIButton *)modeBtn{
     if (!_modeBtn) {
+        @jobs_weakify(self)
         _modeBtn = [self navButtonByTitle:@"扫光"
-                                   action:@selector(switchSkeletonMode)];
+                                   action:^(__kindof UIButton * _Nullable button) {
+            [weak_self switchSkeletonMode];
+        }];
     };return _modeBtn;
 }
 

@@ -37,6 +37,7 @@ entry point that lets the host app open replies in a separate page.
   ]
   spec.header_dir = 'JobsOCComment'
 
+  spec.dependency 'Masonry'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsBaseUI'
   spec.dependency 'JobsMakes'

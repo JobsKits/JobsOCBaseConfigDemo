@@ -45,24 +45,29 @@ Prop_strong(readwrite)UIButton *sendButton;
                 .byBorderStyle(UITextBorderStyleNone)
                 .byReturnKeyType(UIReturnKeySend)
                 .byPlaceholder(@"说点什么...".tr)
+                .byPlaceholderColor(UIColor.placeholderTextColor)
+                .byPlaceholderFont(UIFontWeightRegularSize(15))
                 .byFont(UIFontWeightRegularSize(15))
                 .byTextCor(UIColor.labelColor)
+                .byAdjustsFontSizeToFitWidth(YES)
+                .byMinimumFontSize(12)
+                .byClearButtonMode(UITextFieldViewModeWhileEditing)
                 .byLeftView(jobsMakeView(^(__kindof UIView * _Nullable view) {
-                    view.byFrame(CGRectMake(0, 0, JobsWidth(12), JobsWidth(36)));
+                    view.byFrame(CGRectMake(0, 0, JobsWidth(14), JobsWidth(44)));
                 }))
                 .byLeftViewMode(UITextFieldViewModeAlways)
+                .byTintColor(UIColor.systemBlueColor)
                 .byBgColor(UIColor.secondarySystemBackgroundColor)
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer
-                        .byCornerRadius(JobsWidth(18))
+                        .byCornerRadius(JobsWidth(22))
                         .byMasksToBounds(YES);
                 })
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.equalTo(self).offset(JobsWidth(12));
-                    make.top.equalTo(self).offset(JobsWidth(10));
-                    make.bottom.equalTo(self).offset(-JobsWidth(10));
-                    make.height.mas_equalTo(JobsWidth(36));
+                    make.centerY.equalTo(self);
+                    make.height.mas_equalTo(JobsWidth(44));
                 });
         });
     };return _textField;
@@ -76,17 +81,16 @@ Prop_strong(readwrite)UIButton *sendButton;
                 .jobsResetBtnTitleCor(UIColor.whiteColor)
                 .jobsResetBtnTitleFont(UIFontWeightMediumSize(15))
                 .jobsResetBtnBgCor(UIColor.systemBlueColor)
-                .byLayer(^(__kindof CALayer * _Nullable layer) {
-                    layer
-                        .byCornerRadius(JobsWidth(18))
-                        .byMasksToBounds(YES);
-                })
+                .jobsResetBtnCornerRadiusValue(JobsWidth(22))
+                .byContentEdgeInsets(UIEdgeInsetsMake(0, JobsWidth(14), 0, JobsWidth(14)))
+                .byLineBreakMode(NSLineBreakByClipping)
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.equalTo(self.textField.mas_right).offset(JobsWidth(8));
                     make.right.equalTo(self).offset(-JobsWidth(12));
                     make.centerY.equalTo(self.textField);
-                    make.size.mas_equalTo(CGSizeMake(JobsWidth(64), JobsWidth(36)));
+                    make.width.mas_greaterThanOrEqualTo(JobsWidth(80));
+                    make.height.mas_equalTo(JobsWidth(44));
                 });
         });
     };return _sendButton;

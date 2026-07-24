@@ -108,21 +108,28 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Login".tr
                                                                              message:@"Enter Your Account Info Below".tr
                                                                       preferredStyle:UIAlertControllerStyleAlert];
+    __weak UIViewController *weakTargetVC = targetVC;
     @jobs_weakify(self)
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         @jobs_strongify(self)
         textField.byPlaceholder(@"username".tr);
-        textField.byAddTarget(self,
-                              @selector(alertUserAccountInfoDidChange:targetVC:),
-                              UIControlEventEditingChanged);
+        textField.onJobsEvent(UIControlEventEditingChanged, ^(__kindof UIControl * _Nullable control) {
+            UIViewController *strongTargetVC = weakTargetVC;
+            if (!strongTargetVC) return;
+            [self alertUserAccountInfoDidChange:(UITextField *)control
+                                       targetVC:strongTargetVC];
+        });
     }];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         @jobs_strongify(self)
         textField.byPlaceholder(@"password".tr);
         textField.bySecureTextEntry(YES);
-        textField.byAddTarget(self,
-                              @selector(alertUserAccountInfoDidChange:targetVC:),
-                              UIControlEventEditingChanged);
+        textField.onJobsEvent(UIControlEventEditingChanged, ^(__kindof UIControl * _Nullable control) {
+            UIViewController *strongTargetVC = weakTargetVC;
+            if (!strongTargetVC) return;
+            [self alertUserAccountInfoDidChange:(UITextField *)control
+                                       targetVC:strongTargetVC];
+        });
     }];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel".tr
                                                            style:UIAlertActionStyleCancel

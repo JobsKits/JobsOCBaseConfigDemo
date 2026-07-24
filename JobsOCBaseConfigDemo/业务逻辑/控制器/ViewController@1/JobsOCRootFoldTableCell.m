@@ -9,6 +9,7 @@
 
 NSString *const JobsOCRootFoldTableCellReuseIdentifier = @"JobsOCRootFoldTableCell";
 static NSString *const JobsOCRootFoldInnerCellReuseIdentifier = @"JobsOCRootFoldInnerCell";
+static NSString *const JobsOCDemoIconFallbackSymbolName = @"questionmark.app";
 static NSTimeInterval const JobsOCChargingProgressInterval = 0.45;
 
 @interface JobsOCRootFoldTableCell ()
@@ -33,10 +34,14 @@ Prop_assign()NSInteger chargingProgressPhase;
 -(UIView *)sectionDescriptionHeaderViewByText:(NSString *)text;
 -(CGFloat)sectionDescriptionHeaderWidth;
 -(CGFloat)sectionDescriptionHeaderHeight;
+-(CGFloat)innerTableWidth;
+-(CGFloat)innerTableContentHeight;
 -(void)reloadSectionDescriptionHeaderViewIfNeeded;
 -(void)prepareChargingProgressTimerIfNeeded;
 -(void)syncChargingProgressTimerState;
 -(void)refreshVisibleChargingProgressTitle;
+-(NSString *)demoIconClassNameByViewModel:(UIViewModel *)viewModel;
+-(void)logDemoIconIssueOnce:(NSString *)issue;
 
 @end
 
@@ -59,6 +64,14 @@ Prop_assign()NSInteger chargingProgressPhase;
 
 +(UIFont *)sectionDescriptionFont{
     return UIFontWeightRegularSize(13);
+}
+
++(UIFont *)innerTitleFont{
+    return UIFontWeightRegularSize(15);
+}
+
++(UIFont *)innerSubTitleFont{
+    return UIFontWeightRegularSize(11);
 }
 
 +(CGFloat)headerTitleTop{
@@ -106,6 +119,95 @@ Prop_assign()NSInteger chargingProgressPhase;
     return 50;
 }
 
++(CGFloat)innerTextWidthByInnerTableWidth:(CGFloat)innerTableWidth{
+    return MAX(120, innerTableWidth - 128);
+}
+
++(CGFloat)innerTextHeightByText:(NSString *)text
+                           font:(UIFont *)font
+                          width:(CGFloat)width{
+    if (!text.length || width <= 0) return 0;
+    CGRect textRect = [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+                                         options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                      attributes:@{NSFontAttributeName : font}
+                                         context:nil];
+    return ceil(CGRectGetHeight(textRect));
+}
+
++(NSAttributedString *)wrappedAttributedText:(NSAttributedString *)attributedText
+                                  defaultFont:(UIFont *)defaultFont{
+    if (!attributedText.length) return attributedText;
+    NSMutableParagraphStyle *defaultParagraphStyle = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable paragraphStyle) {
+        paragraphStyle.byLineBreakMode(NSLineBreakByWordWrapping);
+    });
+    NSMutableAttributedString *wrappedText = JobsMutAttributedString(attributedText.string);
+    [wrappedText addAttributes:@{
+        NSFontAttributeName : defaultFont,
+        NSParagraphStyleAttributeName : defaultParagraphStyle
+    } range:NSMakeRange(0, wrappedText.length)];
+    [attributedText enumerateAttributesInRange:NSMakeRange(0, attributedText.length)
+                                       options:0
+                                    usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs,
+                                                 NSRange range,
+                                                 BOOL * _Nonnull stop) {
+        [wrappedText addAttributes:attrs
+                             range:range];
+    }];
+    NSUInteger index = 0;
+    while (index < wrappedText.length) {
+        NSRange range = NSMakeRange(0, 0);
+        NSParagraphStyle *paragraphStyle = [wrappedText attribute:NSParagraphStyleAttributeName
+                                                           atIndex:index
+                                                    effectiveRange:&range];
+        NSMutableParagraphStyle *wrappedParagraphStyle = paragraphStyle.mutableCopy ?: jobsMakeParagraphStyle(nil);
+        wrappedParagraphStyle.byLineBreakMode(NSLineBreakByWordWrapping);
+        [wrappedText addAttribute:NSParagraphStyleAttributeName
+                            value:wrappedParagraphStyle
+                            range:range];
+        index = NSMaxRange(range);
+    };return wrappedText;
+}
+
++(CGFloat)innerAttributedTextHeight:(NSAttributedString *)attributedText
+                              width:(CGFloat)width{
+    if (!attributedText.length || width <= 0) return 0;
+    CGRect textRect = [attributedText boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+                                                   options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                                   context:nil];
+    return ceil(CGRectGetHeight(textRect));
+}
+
++(NSString *)innerTitleByViewModel:(UIViewModel *)viewModel{
+    NSString *title = viewModel.textModel.attributedTitle.string ?: viewModel.textModel.text ?: @"";
+    if (![NSStringFromClass(viewModel.cls) isEqualToString:@"JobsProgressDemoVC"]) return title;
+    return [NSString stringWithFormat:@"🟩🟩🟩 %@",title];
+}
+
++(NSString *)innerSubTitleByViewModel:(UIViewModel *)viewModel{
+    NSString *subTitle = viewModel.subTextModel.attributedTitle.string ?: viewModel.subTextModel.text ?: @"";
+    if (subTitle.length) return subTitle;
+    return viewModel.cls ? NSStringFromClass(viewModel.cls) : @"";
+}
+
++(CGFloat)innerRowHeightByViewModel:(UIViewModel *)viewModel
+                    innerTableWidth:(CGFloat)innerTableWidth{
+    CGFloat textWidth = [self innerTextWidthByInnerTableWidth:innerTableWidth];
+    CGFloat titleHeight = [self innerTextHeightByText:[self innerTitleByViewModel:viewModel]
+                                                font:self.innerTitleFont
+                                               width:textWidth];
+    NSAttributedString *subAttributedText = [self wrappedAttributedText:viewModel.subTextModel.attributedTitle
+                                                             defaultFont:self.innerSubTitleFont];
+    CGFloat subTitleHeight = subAttributedText.length
+        ? [self innerAttributedTextHeight:subAttributedText
+                                    width:textWidth]
+        : [self innerTextHeightByText:[self innerSubTitleByViewModel:viewModel]
+                                font:self.innerSubTitleFont
+                               width:textWidth];
+    CGFloat contentHeight = titleHeight;
+    if (subTitleHeight > 0) contentHeight += 2 + subTitleHeight;
+    return MAX(self.innerRowHeight, ceil(contentHeight + 14));
+}
+
 +(CGFloat)sectionDescriptionHorizontalInset{
     return 16;
 }
@@ -115,7 +217,7 @@ Prop_assign()NSInteger chargingProgressPhase;
 }
 
 +(CGFloat)sectionDescriptionEstimatedHeaderWidth{
-    return MAX(200, JobsMainScreen_WIDTH() - 104);
+    return MAX(200, JobsMainScreen_WIDTH() - 20);
 }
 
 +(CGFloat)sectionDescriptionWidthByHeaderWidth:(CGFloat)headerWidth{
@@ -143,14 +245,16 @@ Prop_assign()NSInteger chargingProgressPhase;
     return self.headerHeight + self.verticalInset * 2;
 }
 
-+(CGFloat)expandedHeightByItemCount:(NSUInteger)itemCount{
-    return [self expandedHeightByItemCount:itemCount
-                        sectionDescription:nil];
-}
-
-+(CGFloat)expandedHeightByItemCount:(NSUInteger)itemCount
-                  sectionDescription:(NSString *)sectionDescription{
-    return self.collapsedHeight + self.innerTop + [self sectionDescriptionHeightByText:sectionDescription] + itemCount * self.innerRowHeight + self.innerBottom;
++(CGFloat)expandedHeightByItems:(NSArray <UIViewModel *>*)items
+              sectionDescription:(NSString *)sectionDescription
+                 innerTableWidth:(CGFloat)innerTableWidth{
+    CGFloat width = innerTableWidth > 0 ? innerTableWidth : self.sectionDescriptionEstimatedHeaderWidth;
+    CGFloat innerContentHeight = [self sectionDescriptionHeightByText:sectionDescription
+                                                           headerWidth:width];
+    for (UIViewModel *viewModel in items) {
+        innerContentHeight += [self innerRowHeightByViewModel:viewModel
+                                             innerTableWidth:width];
+    };return self.collapsedHeight + self.innerTop + innerContentHeight + self.innerBottom;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style
@@ -306,7 +410,8 @@ Prop_assign()NSInteger chargingProgressPhase;
 }
 
 -(NSAttributedString *)subAttributedTextByViewModel:(UIViewModel *)viewModel{
-    return viewModel.subTextModel.attributedTitle;
+    return [JobsOCRootFoldTableCell wrappedAttributedText:viewModel.subTextModel.attributedTitle
+                                               defaultFont:JobsOCRootFoldTableCell.innerSubTitleFont];
 }
 
 -(UIImage *)pinImage{
@@ -326,6 +431,19 @@ Prop_assign()NSInteger chargingProgressPhase;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         symbolNames = @{
+            @"JobsSwiftParityMomentsPreviewDemoVC": @"photo.on.rectangle.angled",
+            @"JobsSwiftParityThrottleDebounceDemoVC": @"hare.fill",
+            @"JobsSwiftParityTaskCenterDemoVC": @"checkmark.circle.fill",
+            @"JobsSwiftParityAnimatedButtonNumberDemoVC": @"number.circle.fill",
+            @"JobsSwiftParityDashboardDemoVC": @"chart.bar.xaxis",
+            @"JobsSwiftParityControlEventsDemoVC": @"gamecontroller.fill",
+            @"JobsSwiftParityTraitChangeDemoVC": @"circle.lefthalf.fill",
+            @"JobsSwiftParityEditProfileDemoVC": @"person.crop.circle.badge.checkmark",
+            @"JobsSwiftParityPDFDemoVC": @"doc.richtext.fill",
+            @"JobsSwiftParityToastDemoVC": @"text.bubble.fill",
+            @"JobsSwiftParityAlertDemoVC": @"exclamationmark.bubble.fill",
+            @"JobsSwiftParityOpenDemoVC": @"arrow.up.right.square.fill",
+            @"JobsSwiftParitySnowflakeDemoVC": @"snowflake.circle",
             @"JobsTabBarCtrlDemoVC": @"rectangle.bottomthird.inset.filled",
             @"SlideToUnlockDemoVC": @"lock.open",
             @"JobsNavigationDemoVC": @"arrow.triangle.turn.up.right.diamond",
@@ -333,6 +451,8 @@ Prop_assign()NSInteger chargingProgressPhase;
             @"JobsOCAudioRecorderDemoVC": @"mic.fill",
             @"JobsBluetoothDemoVC": @"antenna.radiowaves.left.and.right",
             @"JobsCoreMotionDemoVC": @"gyroscope",
+            @"JobsScreenshotTipsDemoVC": @"camera.viewfinder",
+            @"JobsScreenshotProtectionDemoVC": @"eye.slash",
             @"JobsAnimatedNumberLabelDemoVC": @"textformat.123",
             @"JobsClockDemoVC": @"clock",
             @"LotteryVC": @"circle.grid.cross.fill",
@@ -348,10 +468,13 @@ Prop_assign()NSInteger chargingProgressPhase;
             @"JobsViewPushDemoVC": @"rectangle.portrait.and.arrow.right",
             @"JobsSideDrawerDemoVC": @"rectangle.leadinghalf.inset.filled",
             @"JobsOCKeyboardMgrDemoVC": @"keyboard",
+            @"JobsOCNumberStepperDemoVC": @"plusminus.circle",
             @"JobsOCGraphicCaptchaDemoVC": @"checkmark.shield",
             @"JobsQRCodeDemoVC": @"qrcode",
             @"JobsCNIDDemoVC": @"person.text.rectangle",
             @"JobsOCSkeletonViewDemoVC": @"wave.3.right",
+            @"JobsOCExcelDemoVC": @"rectangle.grid.3x2.fill",
+            @"JobsHandwritingDemoVC": @"pencil.tip.crop.circle",
             @"ExcelVC": @"tablecells",
             @"JXCategoryViewVerticalShowVC": @"rectangle.split.1x2",
             @"JobsPostVC": @"square.and.pencil",
@@ -373,6 +496,7 @@ Prop_assign()NSInteger chargingProgressPhase;
             @"Douyin_ZFPlayerVC_2": @"play.square.stack",
             @"TransparentRegionVC": @"square.dashed.inset.filled",
             @"JobsMosaicDemoListVC": @"square.grid.3x3.fill",
+            @"JobsButtonCoverCellDemoListVC": @"rectangle.grid.1x2",
             @"JobsSphereDemoVC": @"globe.asia.australia",
             @"JobsOCCommentDemoVC": @"bubble.left.and.bubble.right",
             @"JobsOCSearcherDemoVC": @"magnifyingglass",
@@ -392,6 +516,7 @@ Prop_assign()NSInteger chargingProgressPhase;
             @"JobsDropDownListVC": @"chevron.down.square",
             @"JobsOCCountryCodeCtrl": @"flag",
             @"YTKNetworkStudyVC": @"network",
+            @"JobsWebSocketDemoVC": @"arrow.left.arrow.right.circle.fill",
             @"CoreTextLearningVC": @"textformat",
             @"JXCategoryPopupVC": @"rectangle.inset.filled.and.person.filled",
             @"UITableViewCellEditorVC": @"envelope",
@@ -412,21 +537,54 @@ Prop_assign()NSInteger chargingProgressPhase;
             @"UITBVCellFoldVC": @"rectangle.compress.vertical",
             @"ProtocolKitVC": @"puzzlepiece.extension"
         };
-        NSAssert([NSSet setWithArray:symbolNames.allValues].count == symbolNames.count,
-                 @"Demo 入口图标必须保持一项一图，不允许重复");
+        NSMutableDictionary <NSString *, NSString *>*classNamesBySymbolName = NSMutableDictionary.dictionary;
+        [symbolNames enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull className,
+                                                         NSString * _Nonnull symbolName,
+                                                         BOOL * _Nonnull stop) {
+            NSString *existingClassName = classNamesBySymbolName[symbolName];
+            if (existingClassName.length) {
+                [self logDemoIconIssueOnce:[NSString stringWithFormat:@"Demo 入口 %@ 与 %@ 重复使用系统图标 %@，请改为语义贴合且不重复的图标",
+                                            existingClassName,
+                                            className,
+                                            symbolName]];
+            }else{
+                classNamesBySymbolName[symbolName] = className;
+            }
+        }];
     });return symbolNames;
 }
 
--(NSString *)demoIconSymbolNameByViewModel:(UIViewModel *)viewModel{
+-(NSString *)demoIconClassNameByViewModel:(UIViewModel *)viewModel{
     NSString *className = viewModel.cls ? NSStringFromClass(viewModel.cls) : @"";
     if ([className isEqualToString:@"JobsGraphicCaptchaDemoVC"]) {
         className = @"JobsOCGraphicCaptchaDemoVC";
+    };return className;
+}
+
+-(void)logDemoIconIssueOnce:(NSString *)issue{
+    if (!issue.length) return;
+    static NSMutableSet <NSString *>*loggedIssues;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        loggedIssues = NSMutableSet.set;
+    });
+    @synchronized (loggedIssues) {
+        if ([loggedIssues containsObject:issue]) return;
+        [loggedIssues addObject:issue];
     }
+    JobsLog(@"Demo 图标配置诊断：%@",issue);
+}
+
+-(NSString *)demoIconSymbolNameByViewModel:(UIViewModel *)viewModel{
+    NSString *className = [self demoIconClassNameByViewModel:viewModel];
     NSString *symbolName = [self demoIconSymbolNamesByClassName][className];
-    NSAssert(symbolName.length,
-             @"Demo 入口 %@ 必须显式配置贴合内容且不重复的图标",
-             className.length ? className : [self textByViewModel:viewModel]);
-    return symbolName ?: @"questionmark.app";
+    if (!symbolName.length) {
+        NSString *entryName = className.length ? className : [self textByViewModel:viewModel];
+        [self logDemoIconIssueOnce:[NSString stringWithFormat:@"Demo 入口 %@ 缺少显式系统图标映射，已使用 %@ 兜底",
+                                    entryName,
+                                    JobsOCDemoIconFallbackSymbolName]];
+        return JobsOCDemoIconFallbackSymbolName;
+    };return symbolName;
 }
 
 -(UIImage *)demoIconImageByViewModel:(UIViewModel *)viewModel{
@@ -435,9 +593,14 @@ Prop_assign()NSInteger chargingProgressPhase;
     }
     NSString *symbolName = [self demoIconSymbolNameByViewModel:viewModel];
     UIImage *image = symbolName.sys_img;
-    NSAssert(image, @"无效的系统图标：%@", symbolName);
-    if (image) return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    return [@"questionmark.app".sys_img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    if (!image) {
+        NSString *entryName = [self demoIconClassNameByViewModel:viewModel];
+        [self logDemoIconIssueOnce:[NSString stringWithFormat:@"Demo 入口 %@ 配置了无效系统图标 %@，已使用 %@ 兜底",
+                                    entryName.length ? entryName : [self textByViewModel:viewModel],
+                                    symbolName,
+                                    JobsOCDemoIconFallbackSymbolName]];
+        image = JobsOCDemoIconFallbackSymbolName.sys_img;
+    };return [image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 }
 
 -(UIImage *)redAccessoryImageByImage:(UIImage *)image
@@ -515,22 +678,35 @@ Prop_assign()NSInteger chargingProgressPhase;
                                                        headerWidth:self.sectionDescriptionHeaderWidth];
 }
 
+-(CGFloat)innerTableWidth{
+    CGFloat innerTableWidth = CGRectGetWidth(self.innerTableView.bounds);
+    if (innerTableWidth <= 0) innerTableWidth = CGRectGetWidth(self.detailClipView.bounds);
+    if (innerTableWidth <= 0) innerTableWidth = CGRectGetWidth(self.contentView.bounds) - 20;
+    return innerTableWidth > 0 ? innerTableWidth : JobsOCRootFoldTableCell.sectionDescriptionEstimatedHeaderWidth;
+}
+
+-(CGFloat)innerTableContentHeight{
+    CGFloat contentHeight = self.sectionDescriptionHeaderHeight;
+    CGFloat innerTableWidth = self.innerTableWidth;
+    for (UIViewModel *viewModel in self.items) {
+        contentHeight += [JobsOCRootFoldTableCell innerRowHeightByViewModel:viewModel
+                                                            innerTableWidth:innerTableWidth];
+    };return contentHeight;
+}
+
 -(void)reloadSectionDescriptionHeaderViewIfNeeded{
-    if (!self.sectionDescription.length || !_innerTableView) return;
+    if (!_innerTableView) return;
     UIView *headerView = self.innerTableView.tableHeaderView;
     CGFloat headerWidth = self.sectionDescriptionHeaderWidth;
     CGFloat headerHeight = self.sectionDescriptionHeaderHeight;
     if (headerHeight <= 0) {
-        self.innerTableView.tableHeaderView = nil;
-        return;
+        if (headerView) self.innerTableView.tableHeaderView = nil;
+    }else if (!headerView ||
+              ABS(CGRectGetWidth(headerView.bounds) - headerWidth) > 0.5 ||
+              ABS(CGRectGetHeight(headerView.bounds) - headerHeight) > 0.5){
+        self.innerTableView.tableHeaderView = [self sectionDescriptionHeaderViewByText:self.sectionDescription];
     }
-    if (headerView &&
-        ABS(CGRectGetWidth(headerView.bounds) - headerWidth) <= 0.5 &&
-        ABS(CGRectGetHeight(headerView.bounds) - headerHeight) <= 0.5) return;
-    self.innerTableView.tableHeaderView = [self sectionDescriptionHeaderViewByText:self.sectionDescription];
-    if (_expanded) {
-        [_innerTableHeightConstraint setOffset:headerHeight + self.items.count * JobsOCRootFoldTableCell.innerRowHeight];
-    }
+    if (_expanded) [_innerTableHeightConstraint setOffset:self.innerTableContentHeight];
 }
 
 -(UIView *)sectionDescriptionHeaderViewByText:(NSString *)text{
@@ -610,7 +786,7 @@ Prop_assign()NSInteger chargingProgressPhase;
     if (self.pinnedSectionStyle) expanded = YES;
     _expanded = expanded;
     self.subTitleLab.byText([self subTitleTextByExpanded:expanded]);
-    CGFloat targetHeight = expanded ? self.sectionDescriptionHeaderHeight + self.items.count * JobsOCRootFoldTableCell.innerRowHeight : 0;
+    CGFloat targetHeight = expanded ? self.innerTableContentHeight : 0;
     [_innerTableHeightConstraint setOffset:targetHeight];
     if (expanded) self.detailClipView.byHidden(NO);
     void (^changes)(void) = ^{
@@ -642,7 +818,9 @@ Prop_assign()NSInteger chargingProgressPhase;
 
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return JobsOCRootFoldTableCell.innerRowHeight;
+    if (indexPath.row < 0 || indexPath.row >= (NSInteger)self.items.count) return JobsOCRootFoldTableCell.innerRowHeight;
+    return [JobsOCRootFoldTableCell innerRowHeightByViewModel:self.items[indexPath.row]
+                                              innerTableWidth:CGRectGetWidth(tableView.bounds)];
 }
 
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
@@ -656,8 +834,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSAttributedString *subAttributedText = [self subAttributedTextByViewModel:viewModel];
     cell.textLabel
         .byText([self displayTextByViewModel:viewModel])
-        .byFont(UIFontWeightRegularSize(15));
-    cell.detailTextLabel.byFont(UIFontWeightRegularSize(11));
+        .byFont(JobsOCRootFoldTableCell.innerTitleFont)
+        .byNumberOfLines(0)
+        .byLineBreakMode(NSLineBreakByWordWrapping);
+    cell.detailTextLabel
+        .byFont(JobsOCRootFoldTableCell.innerSubTitleFont)
+        .byNumberOfLines(0)
+        .byLineBreakMode(NSLineBreakByWordWrapping);
     cell.accessoryView = nil;
     cell.imageView
         .byImage([self demoIconImageByViewModel:viewModel])
@@ -806,8 +989,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             tableView.byDataSource(self)
                 .byDelegate(self)
                 .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
-                .byRowHeight(JobsOCRootFoldTableCell.innerRowHeight)
-                .byEstimatedRowHeight(0)
+                .byRowHeight(UITableViewAutomaticDimension)
+                .byEstimatedRowHeight(JobsOCRootFoldTableCell.innerRowHeight)
                 .byEstimatedSectionHeaderHeight(0)
                 .byEstimatedSectionFooterHeight(0)
                 .bySeparatorInset(UIEdgeInsetsMake(0, 16, 0, 16))

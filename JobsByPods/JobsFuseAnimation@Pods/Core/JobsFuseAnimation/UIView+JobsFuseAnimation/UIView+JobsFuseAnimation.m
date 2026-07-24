@@ -20,6 +20,41 @@ JobsKey(JobsFuseDisplayModeKey)
 JobsKey(JobsFuseScaleOriginalTransformKey)
 JobsKey(JobsFuseScaleActiveKey)
 JobsKey(JobsFuseBubbleRunnerKey)
+
+static NSURL *_Nullable JobsFuseSoundURL(NSString *fileFullName, NSBundle *bundle) {
+    if (!fileFullName.length) return nil;
+    NSString *resourceName = fileFullName.stringByDeletingPathExtension;
+    NSString *resourceExtension = fileFullName.pathExtension;
+    NSURL *soundURL = [bundle URLForResource:resourceName
+                              withExtension:resourceExtension.length ? resourceExtension : nil];
+    if (soundURL) return soundURL;
+    for (NSURL *bundleURL in [bundle URLsForResourcesWithExtension:@"bundle" subdirectory:nil]) {
+        NSBundle *resourceBundle = [NSBundle bundleWithURL:bundleURL];
+        soundURL = [resourceBundle URLForResource:resourceName
+                                    withExtension:resourceExtension.length ? resourceExtension : nil];
+        if (soundURL) return soundURL;
+    };return nil;
+}
+
+static SystemSoundID JobsFuseSoundID(NSString *fileFullName, NSBundle *bundle) {
+    NSURL *soundURL = JobsFuseSoundURL(fileFullName, bundle);
+    if (!soundURL) return 0;
+    static NSMutableDictionary<NSString *, NSNumber *> *soundIDs;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        soundIDs = NSMutableDictionary.dictionary;
+    });
+    @synchronized (soundIDs) {
+        NSNumber *cachedSoundID = soundIDs[soundURL.absoluteString];
+        if (cachedSoundID) return (SystemSoundID)cachedSoundID.unsignedIntValue;
+        SystemSoundID soundID = 0;
+        OSStatus status = AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundURL, &soundID);
+        if (status != kAudioServicesNoError || !soundID) return 0;
+        soundIDs[soundURL.absoluteString] = @(soundID);
+        return soundID;
+    }
+}
+
 typedef NS_ENUM(NSUInteger, JobsFuseDisplayMode) {
     JobsFuseDisplayModeGrow,
     JobsFuseDisplayModeRetreat
@@ -377,8 +412,14 @@ Prop_assign()NSInteger concurrentCount;
     return self;
 }
 
+-(instancetype)byFusePlaySound:(NSString *)fileFullName {
+    SystemSoundID soundID = JobsFuseSoundID(fileFullName, NSBundle.mainBundle);
+    if (soundID) AudioServicesPlaySystemSound(soundID);
+    return self;
+}
+
 -(instancetype)byFusePlaySystemSound:(SystemSoundID)soundID {
-    AudioServicesPlaySystemSound(soundID ?: 1104);
+    if (soundID) AudioServicesPlaySystemSound(soundID);
     return self;
 }
 

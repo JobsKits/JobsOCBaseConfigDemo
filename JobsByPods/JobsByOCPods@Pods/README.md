@@ -60,6 +60,7 @@ JobsByOCPods@Pods/
 - `Core` 当前包含 517 个文件，其中源码 / 头文件 496 个；按 Jobs 规范，它是 `JobsByOCPods` 对外公开 API 和核心实现的边界。
 - `Support` 当前包含 4 个文件，其中源码 / 头文件 4 个；它只服务当前 Pod 内部实现，不建议被 App 层或其它 Pod 直接引用。
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
+- `Core/UIKit/NSObject/NSObject+Queue` 的主队列延时诊断只保留 `JobsLog` 与 `PrintRetainCount` 控制台输出，不通过 Toast 干扰 App 页面。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
 - `Core/UIKit/UIButton/UIButton+SDWebImage` 与 `Core/UIKit/UIImageView/UIImageView+SDWebImage` 只保留历史兼容入口，真实链式实现已下沉到 `JobsOCDSL/3rd/SDWebImage+DSL`。
 - `Core/UIKit/UIButton/UIButton+SimplyMake` / `UIButton+UI` 是 `jobsMakeButton`、`UIButton.jobsInit()` 与 `jobsResetBtn*` 跨新旧管线入口的当前权威实现；`jobsResetImagePlacement_Padding` 和 `jobsResetBtnBgImage` 均包含旧系统 fallback，调用方不额外加 iOS 16 门槛。
@@ -67,7 +68,8 @@ JobsByOCPods@Pods/
 - `Core/UIKit/UIView/UIView+Animation` 提供 `bySpinStart`、`bySpinStartBy`、`bySpinPause`、`bySpinResume`、`bySpinStop` 与旋转状态查询；持续旋转作用于 `sublayerTransform.rotation.z`，避免和拖拽坐标、按钮点击回弹使用的 `UIView.transform` 互相覆盖。
 - `Core/UIKit/UIViewController/.../UIViewController+BaseVC` 的 `navBarConfig` / `navBar` 懒加载会返回本次刚创建并完成关联的对象，首次链式配置不再因返回 `nil` Block 而触发 `EXC_BAD_ACCESS`。
 - `Core/UIKit/UIViewController/.../UIViewController+BaseVC` 在跳转前把 `UIViewModel.textModel` 的 Demo 标题同步到目标控制器，保证普通 `UIViewController` 进入后也具备导航标题。
-- `Core/UIKit/UINavigationController/.../UINavigationController+SafeTransition` 在入栈完成及 `viewDidAppear:` 后，只为真正存在于 `navigationController.viewControllers` 的非根控制器补齐 GK 导航栏、标题与 `backBtnCategory` Jobs 返回按钮；直接挂在导航控制器上的子控制器覆盖层不属于导航栈。已有系统富文本标题及右侧业务按钮会迁移到 GK 导航栏，不再显示系统导航容器。页面覆写 `jobs_requiresDefaultNavigationBar` 并返回 `NO` 时跳过整套默认导航 UI；`JobsNavigationDemoVC` 作为系统导航栏专项 Demo 保持原样。
+- OC 侧布局统一使用 `Masonry`；历史 `NSLayoutConstraint+Extra` 系统约束桥接已移除，不再从 `UIKits.h` 暴露。
+- `Core/UIKit/UINavigationController/.../UINavigationController+SafeTransition` 在入栈完成及 `viewDidAppear:` 后，只为真正存在于 `navigationController.viewControllers` 的非根控制器补齐 GK 导航栏、标题与 `backBtnCategory` Jobs 返回按钮；直接挂在导航控制器上的子控制器覆盖层不属于导航栈。已有系统富文本标题及右侧业务按钮会迁移到 GK 导航栏，不再显示系统导航容器。页面覆写 `jobs_requiresDefaultNavigationBar` 并返回 `NO` 时跳过整套默认导航 UI；`JobsNavigationDemoVC` 作为系统导航栏专项 Demo 保留系统导航容器。Demo 根列表导航流及类名包含 `Demo` 的演示页还会统一保留最右侧全局主题入口。
 - 默认返回图标使用 template 渲染，着色源为 `UIViewModel.backBtnTitleModel.textCor`，其默认值是 `JobsLabelColor`，可随明暗主题自动变色。
 - `Core/UIKit/UIViewController/.../UIViewController+XLBubbleTransition` 通过 `JobsOCDSL` 的 `UINavigationController.byDelegate(...)` 切换导航代理；根 podspec 已持有 `JobsOCDSL` 直接依赖，分类头保留保护性导入。
 
@@ -150,6 +152,7 @@ pod install --no-repo-update
 
 - `Core` 头文件会进入公开 API 边界，新增 import 时要确认不会把内部实现细节暴露给外部。
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
+- `UIButton` 点按、追加点按、长按、追加长按分别使用 `onClickBy` / `onClickAppendBy` / `onLongPressGestureBy` / `onLongPressGestureAppendBy`；`byAddTarget` 仅作底层 Target-Action 兼容入口。
 - `UITableViewCellProtocol` / `UITableViewHeaderFooterView` 的数据驱动入口允许上层传空模型占位，类型判断必须使用 `[model isKindOfClass:...]` 这类系统消息写法；不要写 `model.isKindOfClass(...)`，避免空模型返回 nil block 后被调用导致 `EXC_BAD_ACCESS`。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。

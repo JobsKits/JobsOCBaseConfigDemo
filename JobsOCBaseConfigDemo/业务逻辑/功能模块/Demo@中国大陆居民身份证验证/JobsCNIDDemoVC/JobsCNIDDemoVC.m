@@ -76,7 +76,7 @@ Prop_strong()UILabel *resultLab;
 }
 
 -(UIButton *)buttonByTitle:(NSString *)title
-                    action:(SEL)action
+                    action:(jobsByBtnBlock)action
            backgroundColor:(UIColor *)backgroundColor{
     return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
         button
@@ -84,7 +84,7 @@ Prop_strong()UILabel *resultLab;
             .jobsResetBtnTitleFont(UIFontWeightMediumSize(15))
             .jobsResetBtnTitleCor(UIColor.whiteColor)
             .jobsResetBtnBgCor(backgroundColor)
-            .byAddTarget(self, action, UIControlEventTouchUpInside)
+            .onClickBy(action)
             .byLayer(^(__kindof CALayer * _Nullable layer) {
                 layer
                     .byCornerRadius(JobsWidth(8))
@@ -159,7 +159,9 @@ Prop_strong()UILabel *resultLab;
     if (!_exampleBtn) {
         @jobs_weakify(self)
         _exampleBtn = [self buttonByTitle:@"填入示例"
-                                    action:@selector(fillExample)
+                                    action:^(__kindof UIButton * _Nullable button) {
+            [weak_self fillExample];
+        }
                            backgroundColor:HEXCOLOR(0x263342)];
         _exampleBtn.addOn(self.contentView);
         [_exampleBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -175,7 +177,9 @@ Prop_strong()UILabel *resultLab;
     if (!_validateBtn) {
         @jobs_weakify(self)
         _validateBtn = [self buttonByTitle:@"校验"
-                                     action:@selector(validateIDCard)
+                                     action:^(__kindof UIButton * _Nullable button) {
+            [weak_self validateIDCard];
+        }
                             backgroundColor:HEXCOLOR(0x1D7FF2)];
         _validateBtn.addOn(self.contentView);
         [_validateBtn mas_makeConstraints:^(MASConstraintMaker *make) {

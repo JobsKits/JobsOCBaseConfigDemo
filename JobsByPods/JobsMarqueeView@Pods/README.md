@@ -19,7 +19,7 @@
 | 数据源 | `NSArray<UIButton *>` |
 | 载体 | `UIScrollView` |
 | Timer | `JobsOCTimerMgr` + `JobsOCTimer` |
-| 依赖 | `JobsByOCPods`、`JobsOCTimerMgr`、`JobsOCDefs` |
+| 依赖 | `Masonry`、`JobsByOCPods`、`JobsOCTimerMgr`、`JobsOCDefs` |
 | 资源 | 无 |
 
 ## 二、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -97,7 +97,7 @@ pod install --no-repo-update
 ## 七、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 非 GCD timer 内核依赖主线程和主 RunLoop，组件内部统一让 `JobsOCTimerMgr` 创建并管理。
-- 数据源按钮会被复制为内部按钮；各 `UIControlState` 的 title / attributedTitle / titleColor / titleShadowColor / image / backgroundImage / symbol configuration 统一通过 `JobsByOCPods` 状态型按钮 API 复制，target-action / Jobs 按钮点击 Block 会被同步，复杂自定义子视图按钮建议单独验证。
-- `PageControl` 默认使用组件内置 AutoLayout 约束；需要特殊位置时使用 `byPageControlConstraintsBlock:` 自定义。
+- 数据源按钮会被复制为内部按钮；各 `UIControlState` 资源统一通过 `JobsByOCPods` 状态型 API 复制，历史 target-action 在内部转成 `onJobsEvent` Block，Jobs 按钮点击 Block 继续同步；复杂自定义子视图按钮建议单独验证。
+- `PageControl` 默认和自定义约束统一使用 `Masonry`；`byPageControlConstraintsBlock:` 直接提供 `MASConstraintMaker`，不开放系统 `NSLayoutConstraint` 入口。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -142,6 +142,7 @@ pod install --no-repo-update
 
 - `Core` 头文件会进入公开 API 边界，新增 import 时要确认不会把内部实现细节暴露给外部。
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
+- 登录弹窗输入变化通过 `onJobsEvent(UIControlEventEditingChanged, block)` 传入真实 `targetVC`，避免把 `UIEvent` 误当成业务控制器参数。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
 

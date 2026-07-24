@@ -43,6 +43,12 @@
 #import "JobsOCGraphicCaptchaHeader.h"
 #endif
 
+#if __has_include(<JobsOCNumberStepper/JobsOCNumberStepperHeader.h>)
+#import <JobsOCNumberStepper/JobsOCNumberStepperHeader.h>
+#else
+#import "JobsOCNumberStepperHeader.h"
+#endif
+
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else

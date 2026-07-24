@@ -101,12 +101,15 @@ Prop_assign(class)SourceType sourceType;
         @jobs_strongify(self)
         FMGameCVCell.sourceType = data.integerValue;
         switch (self.sourceType) {
-            case SourceType_Home:/// 来自首页
+            /// 来自首页
+            case SourceType_Home:
                 return CGSizeMake(JobsWidth(88), JobsWidth(123));
                 break;
-            case SourceType_Favorite:/// 来自收藏
+            /// 来自收藏
+            case SourceType_Favorite:
                 return CGSizeMake(JobsWidth(108), JobsWidth(142));
                 break;
+            /// 未匹配已知分支时执行兜底处理
             default:
                 return CGSizeZero;
                 break;
@@ -132,12 +135,15 @@ static SourceType _sourceType;
             imageView.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {
                 make.top.left.right.equalTo(self.contentView);
                 switch (FMGameCVCell.sourceType) {
-                    case SourceType_Home:/// 来自首页
+                    /// 来自首页
+                    case SourceType_Home:
                         make.height.mas_equalTo(JobsWidth(88));
                         break;
-                    case SourceType_Favorite:/// 来自收藏
+                    /// 来自收藏
+                    case SourceType_Favorite:
                         make.height.mas_equalTo(JobsWidth(108));
                         break;
+                    /// 未匹配已知分支时执行兜底处理
                     default:
                         make.height.mas_equalTo(JobsWidth(0));
                         break;

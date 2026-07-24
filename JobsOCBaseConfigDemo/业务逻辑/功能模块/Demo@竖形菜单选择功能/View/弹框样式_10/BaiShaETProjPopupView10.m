@@ -278,20 +278,24 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
                 NSIndexPath *indexPath = [collectionView indexPathForItemAtPoint:point];
                 /// 根据长按手势的状态进行处理
                 switch (gesture.state) {
+                    /// 处理 UIGestureRecognizerStateBegan 分支
                     case UIGestureRecognizerStateBegan:{
                         if (indexPath) {
                             /// 开始移动
                             [collectionView beginInteractiveMovementForItemAtIndexPath:indexPath];
                         }
                     } break;// 当没有点击到 cell 的时候不进行处理
+                    /// 处理 UIGestureRecognizerStateChanged 分支
                     case UIGestureRecognizerStateChanged:
                         /// 移动过程中更新位置坐标
                         [collectionView updateInteractiveMovementTargetPosition:point];
                         break;
+                    /// 处理 UIGestureRecognizerStateEnded 分支
                     case UIGestureRecognizerStateEnded:
                         /// 停止移动调用此方法
                         [collectionView endInteractiveMovement];
                         break;
+                    /// 未匹配已知分支时执行兜底处理
                     default:
                         /// 取消移动
                         [collectionView cancelInteractiveMovement];

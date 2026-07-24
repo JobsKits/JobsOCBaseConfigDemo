@@ -40,7 +40,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface JobsGestureLockVC : UIViewController <JobsGestureLockViewDelegate>
+@interface JobsGestureLockVC : BaseViewController <JobsGestureLockViewDelegate>
 
 Prop_strong(readonly)JobsGestureLockConfiguration *configuration;
 Prop_copy(readonly)NSString *storageKey;

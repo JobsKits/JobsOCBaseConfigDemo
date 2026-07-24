@@ -62,4 +62,6 @@ ruby -c JobsLuckyEnvelopeRain.podspec
 pod install --no-repo-update
 ```
 
+红包点按回调统一通过 `onClickBy` Block 链式入口绑定，不在调用方新增 `byAddTarget`。
+
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

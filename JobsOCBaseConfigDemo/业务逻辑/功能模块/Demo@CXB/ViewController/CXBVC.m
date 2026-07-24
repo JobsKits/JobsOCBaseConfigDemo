@@ -7,32 +7,43 @@
 
 #import "CXBVC.h"
 
+@interface CXBVC ()
+
+Prop_strong()UIView *takeView;
+Prop_strong()UIView *horizontalSubview;
+Prop_strong()UIView *resizedSubview;
+
+@end
+
 @implementation CXBVC
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(JobsWhiteColor);
     CGRect frame = fitTop(100, 80, 200, 200);
-    UIView *take = jobsMakeView(^(__kindof UIView * _Nullable view) {
-        view
-            .byFrame(frame)
-            .byBgColor(JobsRedColor)
-            .addOn(self.view);
-    });
+    self.takeView.byFrame(frame).addOn(self.view);
     frame = fitHor(20, 20, 100, 60);
-    jobsMakeView(^(__kindof UIView * _Nullable view) {
-        view
-            .byFrame(frame)
-            .byBgColor(JobsGreenColor)
-            .addOn(take);
-    });
-    frame = CGRectMake(0, 0, take.w_ - hs(50), hs(120));
-    jobsMakeView(^(__kindof UIView * _Nullable view) {
-        view
-            .byFrame(frame)
-            .byBgColor(JobsYellowColor)
-            .addOn(take);
-    });
-    take.resetSize(CGSizeMake(300, 500));
+    self.horizontalSubview.byFrame(frame).addOn(self.takeView);
+    frame = CGRectMake(0, 0, self.takeView.w_ - hs(50), hs(120));
+    self.resizedSubview.byFrame(frame).addOn(self.takeView);
+    self.takeView.resetSize(CGSizeMake(300, 500));
+}
+
+-(UIView *)takeView{
+    if (!_takeView) {
+        _takeView = UIView.new.byBgColor(JobsRedColor);
+    };return _takeView;
+}
+
+-(UIView *)horizontalSubview{
+    if (!_horizontalSubview) {
+        _horizontalSubview = UIView.new.byBgColor(JobsGreenColor);
+    };return _horizontalSubview;
+}
+
+-(UIView *)resizedSubview{
+    if (!_resizedSubview) {
+        _resizedSubview = UIView.new.byBgColor(JobsYellowColor);
+    };return _resizedSubview;
 }
 
 @end

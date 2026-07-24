@@ -445,9 +445,13 @@ Prop_assign()BOOL hasStartedSession;
 
 -(NSString *)currentAppState{
     switch (UIApplication.sharedApplication.applicationState) {
+        /// 处理 UIApplicationStateActive 分支
         case UIApplicationStateActive:return @"active";
+        /// 处理 UIApplicationStateInactive 分支
         case UIApplicationStateInactive:return @"inactive";
+        /// 处理 UIApplicationStateBackground 分支
         case UIApplicationStateBackground:return @"background";
+        /// 未匹配已知分支时执行兜底处理
         default:return @"unknown";
     }
 }
@@ -467,12 +471,19 @@ static void JobsOCHandleUncaughtException(NSException *exception){
 static void JobsOCHandleCrashSignal(int signo){
     NSString *signalName = nil;
     switch (signo) {
+        /// 处理 SIGABRT 分支
         case SIGABRT:signalName = @"SIGABRT";break;
+        /// 处理 SIGILL 分支
         case SIGILL:signalName = @"SIGILL";break;
+        /// 处理 SIGSEGV 分支
         case SIGSEGV:signalName = @"SIGSEGV";break;
+        /// 处理 SIGFPE 分支
         case SIGFPE:signalName = @"SIGFPE";break;
+        /// 处理 SIGBUS 分支
         case SIGBUS:signalName = @"SIGBUS";break;
+        /// 处理 SIGPIPE 分支
         case SIGPIPE:signalName = @"SIGPIPE";break;
+        /// 未匹配已知分支时执行兜底处理
         default:signalName = [NSString stringWithFormat:@"SIG(%d)",signo];break;
     }
     NSString *message = [NSString stringWithFormat:@"\n==================== ❌ Signal Crash ====================\ntime: %@\nsignal: %d (%@)\n=========================================================",

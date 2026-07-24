@@ -30,16 +30,49 @@ Prop_copy()jobsByCtrlBlock handler;
 
 @end
 /// 辅助函数：注册事件 + Block
+static const void *JobsClosureWrappersKey = &JobsClosureWrappersKey;
+
+static NSMutableDictionary<NSNumber *, NSMutableArray<_JobsClosureWrapper *> *> *JobsClosureWrappers(UIControl *control,
+                                                                                                       BOOL createIfNeeded){
+    NSMutableDictionary *wrappers = objc_getAssociatedObject(control, JobsClosureWrappersKey);
+    if (!wrappers && createIfNeeded) {
+        wrappers = NSMutableDictionary.dictionary;
+        objc_setAssociatedObject(control,
+                                 JobsClosureWrappersKey,
+                                 wrappers,
+                                 OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    };return wrappers;
+}
+
 static void JobsAddClosureAction(UIControl *control,
                                  UIControlEvents events,
                                  jobsByCtrlBlock handler){
     if (!control || !handler) return;
     _JobsClosureWrapper *wrapper = [_JobsClosureWrapper.alloc initWithHandler:handler];
-    NSString *key = [NSString stringWithFormat:@"[[jobs_event_%lu]]",(unsigned long)events];
-    Jobs_setAssociatedRETAIN_NONATOMICByTargetRawKey(control, (__bridge const void *)(key), wrapper)
+    NSMutableDictionary *wrappers = JobsClosureWrappers(control, YES);
+    NSNumber *eventKey = @(events);
+    NSMutableArray *eventWrappers = wrappers[eventKey];
+    if (!eventWrappers) {
+        eventWrappers = NSMutableArray.array;
+        wrappers[eventKey] = eventWrappers;
+    }
+    [eventWrappers addObject:wrapper];
     [control addTarget:wrapper
                 action:@selector(invoke:)
       forControlEvents:events];
+}
+
+static void JobsRemoveClosureActions(UIControl *control,
+                                     UIControlEvents events){
+    NSMutableDictionary *wrappers = JobsClosureWrappers(control, NO);
+    NSNumber *eventKey = @(events);
+    NSArray<_JobsClosureWrapper *> *eventWrappers = [wrappers[eventKey] copy];
+    for (_JobsClosureWrapper *wrapper in eventWrappers) {
+        [control removeTarget:wrapper
+                       action:@selector(invoke:)
+             forControlEvents:events];
+    }
+    [wrappers removeObjectForKey:eventKey];
 }
 
 @implementation UIControl (DSL)
@@ -70,6 +103,15 @@ static void JobsAddClosureAction(UIControl *control,
         @jobs_strongify(self)
         if (!handler) return self;
         JobsAddClosureAction(self, events, handler);
+        return self;
+    };
+}
+
+-(JobsRetControlByEventsBlock)offJobsEvent{
+    @jobs_weakify(self)
+    return ^__kindof UIControl * _Nullable (UIControlEvents events){
+        @jobs_strongify(self)
+        JobsRemoveClosureActions(self, events);
         return self;
     };
 }

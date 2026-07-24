@@ -183,7 +183,7 @@ Prop_assign() BOOL mirrorFrontPreview;
     }
     if (!self.videoOutput) {
         self.videoOutput = AVCaptureVideoDataOutput.new;
-        self.videoOutput.alwaysDiscardsLateVideoFrames = NO;
+        self.videoOutput.alwaysDiscardsLateVideoFrames = YES;
         self.videoOutput.videoSettings = @{
             (NSString *)kCVPixelBufferPixelFormatTypeKey: @(kCVPixelFormatType_32BGRA)
         };
@@ -261,13 +261,18 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 -(AVCaptureVideoOrientation)captureVideoOrientationByDeviceOrientation:(UIDeviceOrientation)deviceOrientation{
     switch (deviceOrientation) {
+        /// 处理 UIDeviceOrientationLandscapeLeft 分支
         case UIDeviceOrientationLandscapeLeft:
             return AVCaptureVideoOrientationLandscapeRight;
+        /// 处理 UIDeviceOrientationLandscapeRight 分支
         case UIDeviceOrientationLandscapeRight:
             return AVCaptureVideoOrientationLandscapeLeft;
+        /// 处理 UIDeviceOrientationPortraitUpsideDown 分支
         case UIDeviceOrientationPortraitUpsideDown:
             return AVCaptureVideoOrientationPortraitUpsideDown;
+        /// 处理 UIDeviceOrientationPortrait 分支
         case UIDeviceOrientationPortrait:
+        /// 未匹配已知分支时执行兜底处理
         default:
             return AVCaptureVideoOrientationPortrait;
     }

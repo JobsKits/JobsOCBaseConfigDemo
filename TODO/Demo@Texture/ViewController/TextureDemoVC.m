@@ -48,26 +48,35 @@ Prop_assign() BOOL hasMore;
     TDDemoRowType type = self.rows[indexPath.row].integerValue;
     return ^ASCellNode * _Nonnull{
         switch (type) {
+            /// 处理 TDDemoRowType_Text 分支
             case TDDemoRowType_Text:
                 return [[TDTextCellNode alloc] initWithTitle:@"ASTextNode：高性能异步文本"
                                                    subtitle:@"支持 Truncation/Highlight/Link/排版，多行异步绘制，避免主线程卡顿。"];
+            /// 处理 TDDemoRowType_LocalImage 分支
             case TDDemoRowType_LocalImage:
                 return [[TDImageCellNode alloc] initWithImage:@"Sample".img
                                                        title:@"Local Image + Ratio(16:9) + Overlay + Corner"];
+            /// 处理 TDDemoRowType_NetImage 分支
             case TDDemoRowType_NetImage:
                 return [[TDNetImageCellNode alloc] initWithURL:@"https://picsum.photos/800/400".jobsUrl
                                                           text:@"ASNetworkImageNode：支持默认图、占位渐隐、渐进式渲染、圆角裁切。"];
+            /// 处理 TDDemoRowType_Button 分支
             case TDDemoRowType_Button:
                 return [[TDButtonCellNode alloc] init];
+            /// 处理 TDDemoRowType_EditableText 分支
             case TDDemoRowType_EditableText:
                 return [[TDEditableTextCellNode alloc] init];
+            /// 处理 TDDemoRowType_HCarousel 分支
             case TDDemoRowType_HCarousel:
                 return [[TDHorizontalCarouselCellNode alloc] initWithCount:18];
+            /// 处理 TDDemoRowType_Video 分支
             case TDDemoRowType_Video:
                 return [[TDVideoCellNode alloc] initWithURL:@"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4".jobsUrl
                                                       title:@"ASVideoNode：离屏解码、可见时准备，避免滚动卡顿。"];
+            /// 处理 TDDemoRowType_Map 分支
             case TDDemoRowType_Map:
                 return [[TDMapCellNode alloc] init];
+            /// 处理 TDDemoRowType_Draw 分支
             case TDDemoRowType_Draw:
                 return [[TDDrawCellNode alloc] init];
         };return [[ASCellNode alloc] init];

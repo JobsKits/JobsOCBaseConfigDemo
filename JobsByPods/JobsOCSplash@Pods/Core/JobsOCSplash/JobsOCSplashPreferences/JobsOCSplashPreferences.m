@@ -8,6 +8,7 @@
 #import "JobsOCSplashPreferences.h"
 
 static NSString * const JobsOCSplashEnabledKey = @"JobsOCSplash.isEnabledForNextLaunch";
+static NSString * const JobsOCSplashContentTypeKey = @"com.jobs.splash.contentTypeForNextLaunch";
 
 @implementation JobsOCSplashPreferences
 +(BOOL)isEnabledForNextLaunch {
@@ -23,6 +24,18 @@ static NSString * const JobsOCSplashEnabledKey = @"JobsOCSplash.isEnabledForNext
     BOOL enabled = !self.isEnabledForNextLaunch;
     [self setEnabledForNextLaunch:enabled];
     return enabled;
+}
+
++(JobsOCSplashContentType)contentTypeForNextLaunch {
+    NSInteger rawValue = [NSUserDefaults.standardUserDefaults integerForKey:JobsOCSplashContentTypeKey];
+    if (rawValue < JobsOCSplashContentTypeLocalImage || rawValue > JobsOCSplashContentTypeRemoteVideo) {
+        return JobsOCSplashContentTypeLocalImage;
+    };return (JobsOCSplashContentType)rawValue;
+}
+
++(void)setContentTypeForNextLaunch:(JobsOCSplashContentType)contentType {
+    [NSUserDefaults.standardUserDefaults setInteger:contentType
+                                             forKey:JobsOCSplashContentTypeKey];
 }
 
 @end

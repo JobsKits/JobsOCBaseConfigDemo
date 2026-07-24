@@ -11,9 +11,17 @@
 		30238BC1D50902CA6D066A27 /* Pods_JobsOCBaseConfigDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BE608D790F4B9DDF11D6090 /* Pods_JobsOCBaseConfigDemo.framework */; };
 		BC1C719151A2A5E6269A5C16 /* JobsOCBaseConfigDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C920BD66667884C72A4E65C3 /* JobsOCBaseConfigDemoTests.m */; };
 		ED67DD17E96F487CDFFD4C46 /* JobsOCBaseConfigDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1367FE9E27F6821172EED101 /* JobsOCBaseConfigDemoUITests.m */; };
+		F20000012F22000100C0DE01 /* JobsOCWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F20000042F22000100C0DE01 /* JobsOCWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		F20000032F22000100C0DE01 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C50913AB2F85D89000F261DA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F200000A2F22000100C0DE01;
+			remoteInfo = JobsOCWidgetExtension;
+		};
 		F3B8ED201A73F88DAE06E719 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C50913AB2F85D89000F261DA /* Project object */;
@@ -30,6 +38,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		F20000062F22000100C0DE01 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				F20000012F22000100C0DE01 /* JobsOCWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		0E7E591D6C4D0C6BBBD252B2 /* JobsOCBaseConfigDemoUITestsLaunchTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemoUITestsLaunchTests.m; sourceTree = "<group>"; };
 		1367FE9E27F6821172EED101 /* JobsOCBaseConfigDemoUITests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemoUITests.m; sourceTree = "<group>"; };
@@ -38,10 +60,9 @@
 		7C0E452ACE57715495DB7004 /* Pods-JobsOCBaseConfigDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.release.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.release.xcconfig"; sourceTree = "<group>"; };
 		8BE608D790F4B9DDF11D6090 /* Pods_JobsOCBaseConfigDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JobsOCBaseConfigDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93E2A01E9486C0D38D8D2CA2 /* JobsOCBaseConfigDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JobsOCBaseConfigDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA46AFD101D1C8A58AEB979F /* JobsLinkageMenuViewDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = JobsLinkageMenuViewDemoVC.m; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsLinkageMenuView/JobsLinkageMenuViewDemoVC.m"; sourceTree = "<group>"; };
-		ACC2478DA763882076BAE990 /* JobsLinkageMenuViewDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = JobsLinkageMenuViewDemoVC.h; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsLinkageMenuView/JobsLinkageMenuViewDemoVC.h"; sourceTree = "<group>"; };
 		C50913B32F85D89000F261DA /* JobsOCBaseConfigDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JobsOCBaseConfigDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C920BD66667884C72A4E65C3 /* JobsOCBaseConfigDemoTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemoTests.m; sourceTree = "<group>"; };
+		F20000042F22000100C0DE01 /* JobsOCWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = JobsOCWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -62,6 +83,13 @@
 			);
 			target = C50913B22F85D89000F261DA /* JobsOCBaseConfigDemo */;
 		};
+		F20000072F22000100C0DE01 /* Exceptions for "JobsOCWidgetExtension" folder in "JobsOCWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = F200000A2F22000100C0DE01 /* JobsOCWidgetExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -71,6 +99,14 @@
 				C50913CA2F85D89100F261DA /* Exceptions for "JobsOCBaseConfigDemo" folder in "JobsOCBaseConfigDemo" target */,
 			);
 			path = JobsOCBaseConfigDemo;
+			sourceTree = "<group>";
+		};
+		F20000082F22000100C0DE01 /* JobsOCWidgetExtension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F20000072F22000100C0DE01 /* Exceptions for "JobsOCWidgetExtension" folder in "JobsOCWidgetExtension" target */,
+			);
+			path = JobsOCWidgetExtension;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -92,6 +128,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C60F4661216B1BA37FE329B7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F200000B2F22000100C0DE01 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -122,13 +165,12 @@
 			isa = PBXGroup;
 			children = (
 				C50913B52F85D89000F261DA /* JobsOCBaseConfigDemo */,
+				F20000082F22000100C0DE01 /* JobsOCWidgetExtension */,
 				C50913B42F85D89000F261DA /* Products */,
 				EA4E9321151D073227FB210E /* Pods */,
 				93091DF3A4BAECE6B7AEAD38 /* Frameworks */,
 				DCF1DEF79146AB572BF5E570 /* JobsOCBaseConfigDemoTests */,
 				BC633F53CA87B082B6A341B7 /* JobsOCBaseConfigDemoUITests */,
-				ACC2478DA763882076BAE990 /* JobsLinkageMenuViewDemoVC.h */,
-				AA46AFD101D1C8A58AEB979F /* JobsLinkageMenuViewDemoVC.m */,
 			);
 			sourceTree = "<group>";
 		};
@@ -136,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				C50913B32F85D89000F261DA /* JobsOCBaseConfigDemo.app */,
+				F20000042F22000100C0DE01 /* JobsOCWidgetExtension.appex */,
 				93E2A01E9486C0D38D8D2CA2 /* JobsOCBaseConfigDemoTests.xctest */,
 				44DC6A848D569C29C2CB5EF0 /* JobsOCBaseConfigDemoUITests.xctest */,
 			);
@@ -208,10 +251,12 @@
 				C50913B12F85D89000F261DA /* Resources */,
 				1D13E0B37573B0F1F7C64814 /* [CP] Embed Pods Frameworks */,
 				C8BFBDB36D8EF341D337054A /* [CP] Copy Pods Resources */,
+				F20000062F22000100C0DE01 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				F200000D2F22000100C0DE01 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				C50913B52F85D89000F261DA /* JobsOCBaseConfigDemo */,
@@ -220,6 +265,26 @@
 			productName = JobsOCBaseConfigDemo;
 			productReference = C50913B32F85D89000F261DA /* JobsOCBaseConfigDemo.app */;
 			productType = "com.apple.product-type.application";
+		};
+		F200000A2F22000100C0DE01 /* JobsOCWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F20000102F22000100C0DE01 /* Build configuration list for PBXNativeTarget "JobsOCWidgetExtension" */;
+			buildPhases = (
+				F200000E2F22000100C0DE01 /* Sources */,
+				F200000B2F22000100C0DE01 /* Frameworks */,
+				F200000C2F22000100C0DE01 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F20000082F22000100C0DE01 /* JobsOCWidgetExtension */,
+			);
+			name = JobsOCWidgetExtension;
+			productName = JobsOCWidgetExtension;
+			productReference = F20000042F22000100C0DE01 /* JobsOCWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -233,6 +298,9 @@
 					C50913B22F85D89000F261DA = {
 						CreatedOnToolsVersion = 26.4;
 						LastSwiftMigration = 2640;
+					};
+					F200000A2F22000100C0DE01 = {
+						CreatedOnToolsVersion = 26.4;
 					};
 				};
 			};
@@ -254,6 +322,7 @@
 			projectRoot = "";
 			targets = (
 				C50913B22F85D89000F261DA /* JobsOCBaseConfigDemo */,
+				F200000A2F22000100C0DE01 /* JobsOCWidgetExtension */,
 				69D04D0E6864327E0DEB658B /* JobsOCBaseConfigDemoTests */,
 				96FDD6C9F32A06334CFDC851 /* JobsOCBaseConfigDemoUITests */,
 			);
@@ -269,6 +338,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		C50913B12F85D89000F261DA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F200000C2F22000100C0DE01 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -292,8 +368,12 @@
 			);
 			inputFileListPaths = (
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -329,8 +409,12 @@
 			);
 			inputFileListPaths = (
 			);
+			inputPaths = (
+			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -364,6 +448,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F200000E2F22000100C0DE01 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -378,6 +469,11 @@
 			name = JobsOCBaseConfigDemo;
 			target = C50913B22F85D89000F261DA /* JobsOCBaseConfigDemo */;
 			targetProxy = F3B8ED201A73F88DAE06E719 /* PBXContainerItemProxy */;
+		};
+		F200000D2F22000100C0DE01 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F200000A2F22000100C0DE01 /* JobsOCWidgetExtension */;
+			targetProxy = F20000032F22000100C0DE01 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -471,6 +567,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = JobsOCBaseConfigDemo/JobsOCBaseConfigDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = K5692KLW75;
@@ -478,6 +575,13 @@
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Headers/$(PROJECT_NAME)PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JobsOCBaseConfigDemo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OCDemo;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "用于扫描、连接并与附近的 BLE 设备交换数据。";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "用于兼容旧系统访问附近的 BLE 设备。";
+				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问相机以录制视频。";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "需要访问麦克风以录制和管理本地音频。";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "需要添加截图、图片或视频到相册。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要访问相册以保存录制视频。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -488,7 +592,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.JobsOCBaseConfigDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JobsOCBaseConfigDemo.byPods;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -508,6 +612,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = JobsOCBaseConfigDemo/JobsOCBaseConfigDemo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = K5692KLW75;
@@ -515,6 +620,13 @@
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/Headers/$(PROJECT_NAME)PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JobsOCBaseConfigDemo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OCDemo;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "用于扫描、连接并与附近的 BLE 设备交换数据。";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "用于兼容旧系统访问附近的 BLE 设备。";
+				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问相机以录制视频。";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "需要访问麦克风以录制和管理本地音频。";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "需要添加截图、图片或视频到相册。";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要访问相册以保存录制视频。";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -525,7 +637,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.JobsOCBaseConfigDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JobsOCBaseConfigDemo.byPods;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -651,6 +763,61 @@
 			};
 			name = Release;
 		};
+		F20000112F22000100C0DE01 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = JobsOCWidgetExtension/JobsOCWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K5692KLW75;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = JobsOCWidgetExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JobsOCBaseConfigDemo.byPods.JobsOCWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F20000122F22000100C0DE01 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = JobsOCWidgetExtension/JobsOCWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = K5692KLW75;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = JobsOCWidgetExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.JobsOCBaseConfigDemo.byPods.JobsOCWidgetExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -686,6 +853,15 @@
 			buildConfigurations = (
 				C2E25CB94CCEF58C361E60F0 /* Release */,
 				28CE8C85E509901AEE11E34D /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F20000102F22000100C0DE01 /* Build configuration list for PBXNativeTarget "JobsOCWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F20000112F22000100C0DE01 /* Debug */,
+				F20000122F22000100C0DE01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

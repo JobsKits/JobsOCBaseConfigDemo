@@ -14,6 +14,34 @@ static BOOL JobsOCSplashEnabled(void) {
     return value ? [value boolValue] : YES;
 }
 
+static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
+    switch (JobsOCSplashPreferences.contentTypeForNextLaunch) {
+        /// 使用本地静态图片开屏
+        case JobsOCSplashContentTypeLocalImage:
+            return [JobsOCSplashConfiguration localImage:@"1242x2688.png"];
+        /// 使用 App Bundle 内的 GIF 开屏
+        case JobsOCSplashContentTypeLocalGIF:
+            return [JobsOCSplashConfiguration localGIF:@"GIF大图.gif"];
+        /// 使用远程图片开屏
+        case JobsOCSplashContentTypeRemoteImage:
+            return [JobsOCSplashConfiguration remoteImage:[NSURL URLWithString:@"https://picsum.photos/1242/2688.jpg"]];
+        /// 使用 App Bundle 内的视频开屏
+        case JobsOCSplashContentTypeLocalVideo:
+            return [JobsOCSplashConfiguration localVideo:@"welcome_video"
+                                           fileExtension:@"mp4"
+                                                  bundle:nil];
+        /// 使用远程视频开屏
+        case JobsOCSplashContentTypeRemoteVideo:
+            return [JobsOCSplashConfiguration remoteVideo:[NSURL URLWithString:@"https://media.w3.org/2010/05/sintel/trailer.mp4"]
+                                        fallbackLocalVideo:@"welcome_video"
+                                              fileExtension:@"mp4"
+                                                     bundle:nil];
+        /// 未知配置回退到本地静态图片
+        default:
+            return [JobsOCSplashConfiguration localImage:@"1242x2688.png"];
+    }
+}
+
 @implementation AppDelegate (Func)
 #pragma mark —— 启动调用功能
 +(jobsByVoidBlock _Nonnull)launchFunc1{
@@ -45,6 +73,7 @@ static BOOL JobsOCSplashEnabled(void) {
         self.makeTABAnimatedConfig();/// 全局配置 TABAnimated
         self.makeJobsOCKeyboardMgrConfig();/// 全局配置键盘
         self.makeGKNavigationBarConfig();/// 自定义导航栏
+        [JobsOCSplashMediaCache.shared resumePendingVideoPreloads];
         if (JobsOCSplashEnabled()) self.makeJobsLaunchAdConfig();/// 开屏广告
         self.makeReachabilityConfig();/// 网络环境监测
         self.YTKNetworkConfig();/// YTK网络框架的配置
@@ -66,7 +95,7 @@ static BOOL JobsOCSplashEnabled(void) {
                                    showSplash);
                 };return;
             }
-            JobsOCSplashConfiguration *configuration = [JobsOCSplashConfiguration localImage:@"1242x2688.png"];
+            JobsOCSplashConfiguration *configuration = JobsOCSplashConfigurationForNextLaunch();
             configuration
                 .byCountdownSeconds(@8)
                 .bySkipButtonVisible(YES)

@@ -137,60 +137,70 @@
     offsetY = offsetY != 0 ? :20;
     targetShadowview.layer.shadowPath = jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable path) {
         switch (ShadowDirection) {
+            /// 处理 ShadowDirection_top 分支
             case ShadowDirection_top:{
                 path.moveTo(CGPointMake(0, -offsetY));/// 左上角为绘制的贝塞尔曲线原点
                 path.add(CGPointMake(0, targetShadowview.height));/// 👇
                 path.add(CGPointMake(targetShadowview.width, targetShadowview.height));/// 👉
                 path.add(CGPointMake(targetShadowview.width, -offsetY));///👆
             }break;
+            /// 处理 ShadowDirection_down 分支
             case ShadowDirection_down:{
                 path.moveTo(CGPointZero);/// 左上角为绘制的贝塞尔曲线原点
                 path.add(CGPointMake(0, targetShadowview.height + offsetY));/// 👇
                 path.add(CGPointMake(targetShadowview.width, targetShadowview.height + offsetY));/// 👉
                 path.add(CGPointMake(targetShadowview.width, 0));///👆
             }break;
+            /// 处理 ShadowDirection_left 分支
             case ShadowDirection_left:{
                 path.moveTo(CGPointMake(offsetX, 0));/// 左上角
                 path.add(CGPointMake(offsetX, targetShadowview.height));///👇
                 path.add(CGPointMake(targetShadowview.width, targetShadowview.height));/// 👉
                 path.add(CGPointMake(targetShadowview.width, 0));/// 👆
             }break;
+            /// 处理 ShadowDirection_right 分支
             case ShadowDirection_right:{
                 path.moveTo(CGPointZero);/// 左上角
                 path.add(CGPointMake(0, targetShadowview.height));/// 👇
                 path.add(CGPointMake(targetShadowview.width + offsetX, targetShadowview.height));/// 👉
                 path.add(CGPointMake(targetShadowview.width + offsetX, 0));/// 👆
             }break;
+            /// 处理 ShadowDirection_leftTop 分支
             case ShadowDirection_leftTop:{
                 path.moveTo(CGPointMake(-offsetX, -offsetY));/// 左上角
                 path.add(CGPointMake(-offsetX, targetShadowview.height - offsetY));/// 👇
                 path.add(CGPointMake(targetShadowview.width - offsetX, targetShadowview.height - offsetY));/// 👉
                 path.add(CGPointMake(targetShadowview.width - offsetX, -offsetY));/// 👆
             }break;
+            /// 处理 ShadowDirection_leftDown 分支
             case ShadowDirection_leftDown:{
                 path.moveTo(CGPointMake(-offsetX, offsetY));/// 左上角
                 path.add(CGPointMake(-offsetX, targetShadowview.height + offsetY));/// 👇
                 path.add(CGPointMake(targetShadowview.width - offsetX, targetShadowview.height + offsetX));/// 👉
                 path.add(CGPointMake(targetShadowview.width - offsetX, offsetY));/// 👆
             }break;
+            /// 处理 ShadowDirection_rightTop 分支
             case ShadowDirection_rightTop:{
                 path.moveTo(CGPointMake(offsetX, -offsetY));/// 左上角
                 path.add(CGPointMake(offsetX, targetShadowview.height - offsetY));/// 👇
                 path.add(CGPointMake(targetShadowview.width + offsetX, targetShadowview.height - offsetY));/// 👉
                 path.add(CGPointMake(targetShadowview.width + offsetX, -offsetY));/// 👆
             }break;
+            /// 处理 ShadowDirection_rightDown 分支
             case ShadowDirection_rightDown:{
                 path.moveTo(CGPointMake(offsetX, offsetY));/// 左上角
                 path.add(CGPointMake(offsetX, targetShadowview.height + offsetY));/// 👇
                 path.add(CGPointMake(targetShadowview.width + offsetX, targetShadowview.height + offsetY));/// 👉
                 path.add(CGPointMake(targetShadowview.width + offsetX, offsetY));/// 👆
             }break;
+            /// 处理 ShadowDirection_All 分支
             case ShadowDirection_All:{
                 path.moveTo(CGPointMake(-offsetX, -offsetY));/// 左上角
                 path.add(CGPointMake(-offsetX, targetShadowview.height + offsetY));/// 👇
                 path.add(CGPointMake(targetShadowview.width + offsetX, targetShadowview.height + offsetY));/// 👉
                 path.add(CGPointMake(targetShadowview.width + offsetX, -offsetY));/// 👆
             }break;
+            /// 未匹配已知分支时执行兜底处理
             default:
                 break;
         }

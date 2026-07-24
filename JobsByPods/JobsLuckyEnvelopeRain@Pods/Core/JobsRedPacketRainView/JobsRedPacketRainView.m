@@ -145,6 +145,7 @@ Prop_assign(readwrite)NSUInteger tappedCount;
 }
 
 -(void)spawnPacketIfNeeded{
+    @jobs_weakify(self)
     if (!self.isRunning || CGRectGetWidth(self.bounds) <= 0 || CGRectGetHeight(self.bounds) <= 0) return;
     if (self.activePackets.count >= self.config.maxConcurrentCount) return;
     CGFloat validWidth = CGRectGetWidth(self.bounds) - self.config.spawnInsets.left - self.config.spawnInsets.right;
@@ -166,7 +167,9 @@ Prop_assign(readwrite)NSUInteger tappedCount;
             .byFrame(startFrame);
     });
     if (self.config.tapEnabled) {
-        packet.byAddTarget(self, @selector(packetTapAction:), UIControlEventTouchUpInside);
+        packet.onClickBy(^(__kindof UIButton * _Nullable button) {
+            [weak_self packetTapAction:button];
+        });
     }
     NSTimeInterval minDuration = MIN(self.config.minFallDuration, self.config.maxFallDuration);
     NSTimeInterval maxDuration = MAX(self.config.minFallDuration, self.config.maxFallDuration);

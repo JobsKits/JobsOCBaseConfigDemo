@@ -35,6 +35,7 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
 
 @implementation JobsLiveStreamDemoVC
 -(void)dealloc{
+    JobsRemoveNotification(self);
     [self stopCaptureSessionIfNeeded];
 }
 
@@ -60,6 +61,14 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    JobsAddNotification(self,
+                        @selector(jobs_applicationDidEnterBackground:),
+                        UIApplicationDidEnterBackgroundNotification,
+                        nil);
+    JobsAddNotification(self,
+                        @selector(jobs_applicationDidBecomeActive:),
+                        UIApplicationDidBecomeActiveNotification,
+                        nil);
     self.makeNavByAlpha(1);
     self.view.byBgColor(UIColor.blackColor);
     self.currentPosition = AVCaptureDevicePositionBack;
@@ -78,7 +87,23 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     self.streaming = NO;
+    self.streamButton.selected = NO;
     [self stopCaptureSessionIfNeeded];
+}
+
+-(void)jobs_applicationDidEnterBackground:(NSNotification *)notification{
+    (void)notification;
+    self.streaming = NO;
+    self.streamButton.selected = NO;
+    [self stopCaptureSessionIfNeeded];
+    [self updateStatusText:@"已进入后台，采集已停止。".tr];
+}
+
+-(void)jobs_applicationDidBecomeActive:(NSNotification *)notification{
+    (void)notification;
+    if (!self.viewIfLoaded.window || !self.captureSession.inputs.count) return;
+    [self startCaptureSessionIfNeeded];
+    [self updateStatusText:@"采集已恢复，点击开始推流。".tr];
 }
 #pragma mark —— Capture
 -(void)requestMediaAuthorization{
@@ -235,6 +260,7 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
 
 -(UIButton *)streamButton{
     if (!_streamButton) {
+        @jobs_weakify(self)
         _streamButton = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
             btn
                 .jobsResetBtnTitle(@"开始推流".tr)
@@ -242,7 +268,9 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
                 .jobsResetBtnTitleCor(UIColor.whiteColor)
                 .jobsResetBtnTitleFont(UIFontWeightMediumSize(16))
                 .jobsResetBtnBgCor(UIColor.systemRedColor)
-                .byAddTarget(self, @selector(toggleStreaming), UIControlEventTouchUpInside)
+                .onClickBy(^(__kindof UIButton * _Nullable button) {
+                    [weak_self toggleStreaming];
+                })
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer
                         .byCornerRadius(JobsWidth(8))
@@ -260,13 +288,16 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
 
 -(UIButton *)switchCameraButton{
     if (!_switchCameraButton) {
+        @jobs_weakify(self)
         _switchCameraButton = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
             btn
                 .jobsResetBtnTitle(@"↻")
                 .jobsResetBtnTitleCor(UIColor.whiteColor)
                 .jobsResetBtnTitleFont(UIFontWeightMediumSize(24))
                 .jobsResetBtnBgCor([UIColor.blackColor colorWithAlphaComponent:0.45])
-                .byAddTarget(self, @selector(switchCamera), UIControlEventTouchUpInside)
+                .onClickBy(^(__kindof UIButton * _Nullable button) {
+                    [weak_self switchCamera];
+                })
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer
                         .byCornerRadius(JobsWidth(20))

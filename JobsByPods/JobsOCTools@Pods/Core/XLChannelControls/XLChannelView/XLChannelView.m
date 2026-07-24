@@ -63,15 +63,19 @@ Prop_strong()NSIndexPath *targetIndexPath;
 -(void)longPressMethod:(UILongPressGestureRecognizer*)gesture{
     CGPoint point = [gesture locationInView:self.collectionView];
     switch (gesture.state) {
+        /// 处理 UIGestureRecognizerStateBegan 分支
         case UIGestureRecognizerStateBegan:
             [self dragBegin:point];
             break;
+        /// 处理 UIGestureRecognizerStateChanged 分支
         case UIGestureRecognizerStateChanged:
             [self dragChanged:point];
             break;
+        /// 处理 UIGestureRecognizerStateEnded 分支
         case UIGestureRecognizerStateEnded:
             [self dragEnd];
             break;
+        /// 未匹配已知分支时执行兜底处理
         default:
             break;
     }

@@ -229,13 +229,16 @@ didFinishSavingWithError:(NSError *)error
 
 -(UIButton *)saveButton{
     if (!_saveButton) {
+        @jobs_weakify(self)
         _saveButton = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
                 .jobsResetBtnTitle(@"保存到相册".tr)
                 .jobsResetBtnTitleCor(UIColor.whiteColor)
                 .jobsResetBtnTitleFont(UIFontWeightMediumSize(16))
                 .jobsResetBtnBgCor(HEXCOLOR(0x1D9BF0))
-                .byAddTarget(self, @selector(saveCurrentImage), UIControlEventTouchUpInside)
+                .onClickBy(^(__kindof UIButton * _Nullable button) {
+                    [weak_self saveCurrentImage];
+                })
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer
                         .byCornerRadius(JobsWidth(8))

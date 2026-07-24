@@ -18,6 +18,9 @@
     NSString *_sectionTitle;
     NSString *_menuTitle;
     NSMutableArray<UIView *> *_cards;
+    NSMutableArray<UILabel *> *_iconLabels;
+    NSMutableArray<UILabel *> *_titleLabels;
+    NSMutableArray<UILabel *> *_subtitleLabels;
 }
 
 -(instancetype)initWithSectionTitle:(NSString *)sectionTitle
@@ -26,6 +29,9 @@
         _sectionTitle = sectionTitle;
         _menuTitle = menuTitle;
         _cards = NSMutableArray.array;
+        _iconLabels = NSMutableArray.array;
+        _titleLabels = NSMutableArray.array;
+        _subtitleLabels = NSMutableArray.array;
         self.byBgColor(UIColor.whiteColor);
         for (NSInteger i = 0; i < 5; i++) {
             UIView *card = [self cardAtIndex:i];
@@ -72,6 +78,7 @@
             })
             .addOn(card);
     });
+    [_iconLabels addObject:iconLabel];
     UILabel *titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
             .byText([NSString stringWithFormat:@"%@ - %@ 活动 %ld", _sectionTitle, _menuTitle, (long)index + 1])
@@ -80,6 +87,7 @@
             .byNumberOfLines(2)
             .addOn(card);
     });
+    [_titleLabels addObject:titleLabel];
     UILabel *subtitleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
             .byText(@"神秘彩金等你来拿".tr)
@@ -87,6 +95,7 @@
             .byFont(UIFontSystemFontOfSize(15))
             .addOn(card);
     });
+    [_subtitleLabels addObject:subtitleLabel];
     [iconLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(card).offset(JobsWidth(16));
         make.centerY.equalTo(card);
@@ -232,10 +241,13 @@ Prop_strong()NSArray<NSString *> *menuTitles;
 #pragma mark —— LazyLoad
 -(UISegmentedControl *)modeControl{
     if (!_modeControl) {
+        @jobs_weakify(self)
         _modeControl = jobsMakeSegmentedControl(@[@"菜单固定", @"内容固定", @"比例"], ^(__kindof UISegmentedControl * _Nullable segmentedControl) {
             segmentedControl
                 .bySelectedSegmentIndex(0)
-                .byAddTarget(self, @selector(modeChanged:), UIControlEventValueChanged)
+                .onJobsChange(^(__kindof UIControl * _Nullable control) {
+                    [weak_self modeChanged:(UISegmentedControl *)control];
+                })
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.right.equalTo(self.view).inset(JobsWidth(16));

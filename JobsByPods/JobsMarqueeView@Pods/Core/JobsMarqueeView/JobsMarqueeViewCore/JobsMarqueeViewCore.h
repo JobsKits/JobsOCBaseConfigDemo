@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 #if __has_include(<JobsOCTimerMgr/JobsOCTimerMgr.h>)
 #import <JobsOCTimerMgr/JobsOCTimerMgr.h>
 #else
@@ -55,8 +61,7 @@ typedef NS_ENUM(NSUInteger, JobsMarqueePageControlPosition) {
     JobsMarqueePageControlPositionRightBottom
 };
 
-typedef void(^JobsMarqueePageControlConstraintsBlock)(UIPageControl *pageControl,
-                                                      JobsMarqueeView *marqueeView);
+typedef void(^JobsMarqueePageControlConstraintsBlock)(MASConstraintMaker *make);
 
 /// 统一「跑马灯」和「轮播图」的 Objective-C 本地 Pod 组件。
 @interface JobsMarqueeView : UIView

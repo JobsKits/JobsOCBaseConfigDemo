@@ -7,6 +7,12 @@
 
 #import "UINavigationController+SafeTransition.h"
 
+#if __has_include(<JobsBaseUI/UIViewController+BaseNavigationBar.h>)
+#import <JobsBaseUI/UIViewController+BaseNavigationBar.h>
+#else
+#import "UIViewController+BaseNavigationBar.h"
+#endif
+
 static BOOL JobsIsSystemNavigationBarDemo(UIViewController *viewController) {
     return [NSStringFromClass(viewController.class) isEqualToString:@"JobsNavigationDemoVC"];
 }
@@ -37,6 +43,7 @@ static void JobsInstallNavigationDefaults(UINavigationController *navigationCont
     if (JobsIsSystemNavigationBarDemo(viewController)) {
         [navigationController setNavigationBarHidden:NO animated:NO];
         navigationController.navigationBar.hidden = NO;
+        [viewController jobs_ensureDemoThemeButton];
         return;
     }
     if (!viewController.title.length) viewController.title = NSStringFromClass(viewController.class);
@@ -52,6 +59,7 @@ static void JobsInstallNavigationDefaults(UINavigationController *navigationCont
             viewController.gk_navRightBarButtonItem = viewController.navigationItem.rightBarButtonItem;
         }
     }
+    [viewController jobs_ensureDemoThemeButton];
     if (!viewController.gk_navLeftBarButtonItem && !viewController.gk_navLeftBarButtonItems.count) {
         viewController.gk_navLeftBarButtonItem = viewController.backBtnCategoryItem;
     }

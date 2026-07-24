@@ -788,6 +788,7 @@
 "苹果滑动开锁" = "Apple slide to unlock";
 "莲子羹" = "Lotus seed soup";
 "获取验证码" = "Get";
+"还剩 %ld 秒" = "%ld sec left";
 "蒸肉" = "steamed meat";
 "蓝色" = "blue";
 "虛擬幣充值" = "Virtual currency recharge";
@@ -875,6 +876,13 @@
 "返回：回顶部并刷新" = "Return: Top & Refresh";
 "下次开屏：关" = "Next splash: Off";
 "下次开屏：开" = "Next splash: On";
+"开屏内容" = "Splash Content";
+"本地图片" = "Local Image";
+"本地 GIF" = "Local GIF";
+"远程图片" = "Remote Image";
+"本地视频" = "Local Video";
+"远程视频" = "Remote Video";
+"下次开屏内容已设为：%@" = "Next splash content: %@";
 "主题切换：白天" = "Theme: Light";
 "主题切换：黑夜" = "Theme: Dark";
 "主题已切换：白天" = "Theme switched: Light";
@@ -1158,7 +1166,8 @@
 "右" = "Right";
 "跟随" = "Follow";
 "固定" = "Fixed";
-"立即预览（支持 UIViewController / UIView）" = "Preview Now (UIViewController / UIView)";
+"立即预览" = "Preview Now";
+"支持 UIViewController / UIView" = "Supports UIViewController / UIView";
 "演示“只允许在指定 y 区间内上下滑动”的吸附效果：拖拽绿色区域，上滑释放会吸附到最高点，下滑释放会回到底部初始位置。" = "This demonstrates vertical dragging within a defined y-range. Drag the green area: release upward to snap to the top, or downward to return to the starting position.";
 "最高点：上滑后吸附到这里" = "Top: snaps here after an upward drag";
 "最低点：下滑释放回到初始位置" = "Bottom: returns here after a downward drag";

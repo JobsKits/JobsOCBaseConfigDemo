@@ -52,8 +52,10 @@ Prop_assign(readwrite)CGPoint initialTranslationInContainerView;
 
 - (void)gestureRecognizeDidUpdate:(UIScreenEdgePanGestureRecognizer *)gestureRecognizer{
     switch (gestureRecognizer.state) {
+        /// 处理 UIGestureRecognizerStateBegan 分支
         case UIGestureRecognizerStateBegan:
             break;
+        /// 处理 UIGestureRecognizerStateChanged 分支
         case UIGestureRecognizerStateChanged:
             if ([self percentForGesture:gestureRecognizer] < 0.f) {
                 [self cancelInteractiveTransition];
@@ -62,6 +64,7 @@ Prop_assign(readwrite)CGPoint initialTranslationInContainerView;
             else {
                 [self updateInteractiveTransition:[self percentForGesture:gestureRecognizer]];
             }break;
+        /// 处理 UIGestureRecognizerStateEnded 分支
         case UIGestureRecognizerStateEnded:
             if ([self percentForGesture:gestureRecognizer] >= 0.4f){
                 [self finishInteractiveTransition];
@@ -69,6 +72,7 @@ Prop_assign(readwrite)CGPoint initialTranslationInContainerView;
             else{
                 [self cancelInteractiveTransition];
             }break;
+        /// 未匹配已知分支时执行兜底处理
         default:
             [self cancelInteractiveTransition];
             break;

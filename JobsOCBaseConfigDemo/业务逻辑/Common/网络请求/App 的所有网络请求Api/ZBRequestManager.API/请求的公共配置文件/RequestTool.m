@@ -27,12 +27,15 @@
         NSMutableDictionary *headers = jobsMakeMutDic(^(__kindof NSMutableDictionary *_Nullable data) {
             data[@"authorization"] = f.token;
             switch (requestTool.languageType) {
-                case HTTPRequestHeaderLanguageEn://英文
+                /// 英文
+                case HTTPRequestHeaderLanguageEn:
                     data[@"language"] = @"en_US";
                     break;
-                case HTTPRequestHeaderLanguageCN://中文
+                /// 中文
+                case HTTPRequestHeaderLanguageCN:
                     data[@"language"] = @"zh_CN";
                     break;
+                /// 未匹配已知分支时执行兜底处理
                 default:
                     break;
             }

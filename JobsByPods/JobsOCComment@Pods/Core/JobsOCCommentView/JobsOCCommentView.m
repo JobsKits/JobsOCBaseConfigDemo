@@ -8,6 +8,12 @@
 #import "JobsOCCommentView.h"
 #import "JobsOCCommentCell.h"
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 @interface JobsOCCommentView ()
 
 Prop_strong(readwrite)UITableView *tableView;
@@ -85,12 +91,9 @@ Prop_strong()NSMutableSet <NSString *>*expandedRootIDMutSet;
     self.comments = @[];
     self.byBgColor(RGBA_COLOR(0.96 * 255.0, 0.97 * 255.0, 0.99 * 255.0, 1));
     self.tableView.addOn(self);
-    [NSLayoutConstraint activateConstraints:@[
-        [self.tableView.topAnchor constraintEqualToAnchor:self.topAnchor],
-        [self.tableView.leftAnchor constraintEqualToAnchor:self.leftAnchor],
-        [self.tableView.rightAnchor constraintEqualToAnchor:self.rightAnchor],
-        [self.tableView.bottomAnchor constraintEqualToAnchor:self.bottomAnchor]
-    ]];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
+    }];
     [self jobs_updateRefresher];
 }
 
@@ -305,7 +308,6 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UITableView *)tableView{
     if (!_tableView) {
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
-            tableView.translatesAutoresizingMaskIntoConstraints = NO;
             tableView
                 .byDelegate(self)
                 .byDataSource(self)

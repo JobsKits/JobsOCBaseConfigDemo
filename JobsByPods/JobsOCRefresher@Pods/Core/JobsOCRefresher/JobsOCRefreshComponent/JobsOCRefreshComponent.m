@@ -85,33 +85,42 @@ Prop_assign()CGFloat lastProgress;
     self.timePrefixLabel.byHidden(YES);
     self.timeLabel.byHidden(YES);
     switch (state) {
+        /// 处理 JobsOCRefreshStateIdle 分支
         case JobsOCRefreshStateIdle:
             self.statusLabel.byText([self displayText:self.config.idleText]);
             break;
+        /// 处理 JobsOCRefreshStatePulling 分支
         case JobsOCRefreshStatePulling:
             self.statusLabel.byText([self displayText:[NSString stringWithFormat:@"%@ %.0f%%",
                                                        self.config.pullingText,
                                                        self.lastProgress * 100]]);
             break;
+        /// 处理 JobsOCRefreshStateReady 分支
         case JobsOCRefreshStateReady:
             self.statusLabel.byText([self displayText:[self.config readyTextForRole:self.role]]);
             break;
+        /// 处理 JobsOCRefreshStateRefreshing 分支
         case JobsOCRefreshStateRefreshing:
             self.statusLabel.byText([self displayText:[self.config refreshingTextForRole:self.role]]);
             [self updateTimeIfNeeded];
             break;
+        /// 处理 JobsOCRefreshStateEnding 分支
         case JobsOCRefreshStateEnding:
             self.statusLabel.byText([self displayText:[self.config refreshingTextForRole:self.role]]);
             break;
+        /// 处理 JobsOCRefreshStateFailed 分支
         case JobsOCRefreshStateFailed:
             self.statusLabel.byText([self displayText:self.config.failedText]);
             break;
+        /// 处理 JobsOCRefreshStateDisabled 分支
         case JobsOCRefreshStateDisabled:
             self.statusLabel.byText([self displayText:self.config.disabledText]);
             break;
+        /// 处理 JobsOCRefreshStateNoMoreData 分支
         case JobsOCRefreshStateNoMoreData:
             self.statusLabel.byText([self displayText:self.config.noMoreDataText]);
             break;
+        /// 处理 JobsOCRefreshStateRemoved 分支
         case JobsOCRefreshStateRemoved:
             self.statusLabel.byText(nil);
             self.timePrefixLabel.byText(nil);
@@ -130,14 +139,23 @@ Prop_assign()CGFloat lastProgress;
 
 -(JobsRefreshAnimatorPhase)jobs_animatorPhaseForState:(JobsOCRefreshState)state {
     switch (state) {
+        /// 处理 JobsOCRefreshStatePulling 分支
         case JobsOCRefreshStatePulling: return JobsRefreshAnimatorPhasePulling;
+        /// 处理 JobsOCRefreshStateReady 分支
         case JobsOCRefreshStateReady: return JobsRefreshAnimatorPhaseReady;
+        /// 处理 JobsOCRefreshStateRefreshing 分支
         case JobsOCRefreshStateRefreshing: return JobsRefreshAnimatorPhaseRefreshing;
+        /// 处理 JobsOCRefreshStateEnding 分支
         case JobsOCRefreshStateEnding: return JobsRefreshAnimatorPhaseEnding;
+        /// 处理 JobsOCRefreshStateRemoved 分支
         case JobsOCRefreshStateRemoved: return JobsRefreshAnimatorPhaseInactive;
+        /// 处理 JobsOCRefreshStateIdle 分支
         case JobsOCRefreshStateIdle:
+        /// 处理 JobsOCRefreshStateFailed 分支
         case JobsOCRefreshStateFailed:
+        /// 处理 JobsOCRefreshStateDisabled 分支
         case JobsOCRefreshStateDisabled:
+        /// 处理 JobsOCRefreshStateNoMoreData 分支
         case JobsOCRefreshStateNoMoreData:
             return JobsRefreshAnimatorPhaseIdle;
     }

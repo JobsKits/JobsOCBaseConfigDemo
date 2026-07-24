@@ -241,12 +241,17 @@
         if (orientation != UIInterfaceOrientationUnknown) break;
     }
     switch (orientation) {
+        /// 处理 UIInterfaceOrientationLandscapeLeft 分支
         case UIInterfaceOrientationLandscapeLeft:
+        /// 处理 UIInterfaceOrientationLandscapeRight 分支
         case UIInterfaceOrientationLandscapeRight:
             return DeviceOrientationLandscape;
+        /// 处理 UIInterfaceOrientationPortrait 分支
         case UIInterfaceOrientationPortrait:
+        /// 处理 UIInterfaceOrientationPortraitUpsideDown 分支
         case UIInterfaceOrientationPortraitUpsideDown:
             return DeviceOrientationPortrait;
+        /// 未匹配已知分支时执行兜底处理
         default:
             return DeviceOrientationUnknown;
     }

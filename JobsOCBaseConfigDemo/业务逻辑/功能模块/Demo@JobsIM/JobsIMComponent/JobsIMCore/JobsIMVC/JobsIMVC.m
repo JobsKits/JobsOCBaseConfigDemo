@@ -10,7 +10,6 @@
 @interface JobsIMVC ()
 /// UI
 Prop_strong()JobsIMInputview *inputview;
-Prop_strong()BaseButton *shareBtn;
 Prop_strong()UIColor *bgColour;
 /// data
 Prop_strong()NSMutableArray <JobsIMChatInfoModel *>*chatInfoModelMutArr;//聊天信息
@@ -36,9 +35,10 @@ Prop_assign()BOOL hasStartedInitialRefresh;
         self.chatInfoModelMutArr.add(self.chatInfoModel);
         self.viewModel
             .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-                data.byText(self.chatInfoModel.userNameStr)
+                data.byAttributedTitle(nil)
+                    .byText(self.chatInfoModel.userNameStr)
                     .byTextCor(JobsLabelColor)
-                    .byFont(UIFontWeightSemiboldSize(JobsWidth(20)));
+                    .byFont(UIFontWeightSemiboldSize(JobsWidth(17)));
             })
             .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
                 data.byText(@"聊天列表".tr)
@@ -52,18 +52,8 @@ Prop_assign()BOOL hasStartedInitialRefresh;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.byBgColor(JobsSystemBackgroundColor);
-    {
-        @jobs_weakify(self)
-        self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
-            @jobs_strongify(self)
-    //        data.add(UIBarButtonItem.initBy(self.shareBtn));
-        });
-        self.rightBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
-            @jobs_strongify(self)
-            data.add(UIBarButtonItem.initBy(self.shareBtn));
-        });
-        self.makeNavByAlpha(1);
-    }
+    self.gk_navTitleViewBy(self.viewModel);
+    self.makeNavByAlpha(1);
     self.inputview.byVisible(YES);
     self.tableView.byShow(self);
 }
@@ -478,27 +468,6 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
             self.view.mjRefreshTargetView = tableView;
         });
     };return _tableView;
-}
-
--(BaseButton *)shareBtn{
-    if (!_shareBtn) {
-        @jobs_weakify(self)
-        _shareBtn = BaseButton.jobsInit()
-            .bgColorBy(JobsSystemBackgroundColor)
-            .jobsResetBtnCornerRadiusValue(JobsWidth(23 / 2))
-            .jobsResetBtnTitle(@"+")
-            .jobsResetBtnTitleCor(JobsLabelColor)
-            .jobsResetBtnTitleFont(UIFontWeightRegularSize(JobsWidth(24)))
-            .onClickBy(^(UIButton *x){
-                @jobs_strongify(self)
-                if (self.objBlock) self.objBlock(x);
-                toastBy(@"正在研发中...敬请期待".tr);
-            })
-            .onLongPressGestureBy(^(id data){
-                JobsLog(@"");
-            })
-            .bySize(CGSizeMake(JobsWidth(23), JobsWidth(23)));
-    };return _shareBtn;
 }
 
 -(UIColor *)bgColour{

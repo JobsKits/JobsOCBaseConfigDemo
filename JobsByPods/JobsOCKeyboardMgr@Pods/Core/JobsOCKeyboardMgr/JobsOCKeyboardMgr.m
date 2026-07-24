@@ -238,23 +238,20 @@ sharesMovingViewsWithConfig:(__kindof JobsOCKeyboardConfig *)right{
 #pragma mark —— InputFlow
 -(void)jobs_setupInputFlowForConfig:(__kindof JobsOCKeyboardConfig *)config{
     if (!config.shouldFlowByReturnKey) return;
+    @jobs_weakify(self)
     NSArray <__kindof UITextField *>*inputFields = config.inputFields;
     for (UITextField *textField in inputFields) {
         textField
-            .byRemoveTarget(self,
-                            @selector(jobs_inputFieldDidEndOnExit:),
-                            UIControlEventEditingDidEndOnExit)
-            .byAddTarget(self,
-                         @selector(jobs_inputFieldDidEndOnExit:),
-                         UIControlEventEditingDidEndOnExit);
+            .offJobsEvent(UIControlEventEditingDidEndOnExit)
+            .onJobsEvent(UIControlEventEditingDidEndOnExit, ^(__kindof UIControl * _Nullable control) {
+                [weak_self jobs_inputFieldDidEndOnExit:(UITextField *)control];
+            });
     }
 }
 
 -(void)jobs_teardownInputFlowForConfig:(__kindof JobsOCKeyboardConfig *)config{
     for (UITextField *textField in config.inputFields) {
-        textField.byRemoveTarget(self,
-                                 @selector(jobs_inputFieldDidEndOnExit:),
-                                 UIControlEventEditingDidEndOnExit);
+        textField.offJobsEvent(UIControlEventEditingDidEndOnExit);
     }
 }
 

@@ -112,6 +112,8 @@ rg -n -U "\\}\\n\\s*return\\b|\\}return\\b" JobsByPods/JobsOCKeyboardMgr@Pods --
 
 ### 5.2、工程验证
 
+输入框回车流转事件使用 `offJobsEvent(...).onJobsEvent(...)` 成对重绑，销毁或切换配置时用 `offJobsEvent(...)` 解绑，避免重复回调。
+
 涉及 Pod 依赖或公开头变更后，再按工程需要执行 `pod install --no-repo-update` 和对应 scheme 编译。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

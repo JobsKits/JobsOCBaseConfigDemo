@@ -21,7 +21,7 @@ Prop_assign()NSUInteger refreshGeneration;
 
 -(UIButton *)makeControlButtonWithTitle:(NSString *)title
                                   color:(UIColor *)color
-                               selector:(SEL)selector;
+                                 action:(jobsByBtnBlock)action;
 -(void)beginSimulatedRefresh;
 
 @end
@@ -204,7 +204,9 @@ Prop_assign()NSUInteger refreshGeneration;
         @jobs_weakify(self)
         _startBtn = [self makeControlButtonWithTitle:@"开始 / 继续"
                                               color:JobsGreenColor
-                                           selector:@selector(startRefreshAnimation)];
+                                             action:^(__kindof UIButton * _Nullable button) {
+            [weak_self startRefreshAnimation];
+        }];
         _startBtn
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {
@@ -221,7 +223,9 @@ Prop_assign()NSUInteger refreshGeneration;
         @jobs_weakify(self)
         _pauseBtn = [self makeControlButtonWithTitle:@"暂停"
                                               color:JobsOrangeColor
-                                           selector:@selector(pauseRefreshAnimation)];
+                                             action:^(__kindof UIButton * _Nullable button) {
+            [weak_self pauseRefreshAnimation];
+        }];
         _pauseBtn
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {
@@ -237,7 +241,9 @@ Prop_assign()NSUInteger refreshGeneration;
         @jobs_weakify(self)
         _stopBtn = [self makeControlButtonWithTitle:@"停止"
                                              color:JobsRedColor
-                                          selector:@selector(stopRefreshAnimation)];
+                                            action:^(__kindof UIButton * _Nullable button) {
+            [weak_self stopRefreshAnimation];
+        }];
         _stopBtn
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {
@@ -255,7 +261,9 @@ Prop_assign()NSUInteger refreshGeneration;
         @jobs_weakify(self)
         _simulateBtn = [self makeControlButtonWithTitle:@"模拟一次 2 秒刷新"
                                                  color:JobsBlueColor
-                                              selector:@selector(beginSimulatedRefresh)];
+                                                action:^(__kindof UIButton * _Nullable button) {
+            [weak_self beginSimulatedRefresh];
+        }];
         _simulateBtn
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {
@@ -269,14 +277,14 @@ Prop_assign()NSUInteger refreshGeneration;
 
 -(UIButton *)makeControlButtonWithTitle:(NSString *)title
                                   color:(UIColor *)color
-                               selector:(SEL)selector {
+                                 action:(jobsByBtnBlock)action {
     return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
         button
             .jobsResetBtnTitle(title.tr)
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(15))
             .jobsResetBtnBgCor(color)
-            .byAddTarget(self, selector, UIControlEventTouchUpInside)
+            .onClickBy(action)
             .byLayer(^(__kindof CALayer * _Nullable layer) {
                 layer
                     .byCornerRadius(JobsWidth(10))

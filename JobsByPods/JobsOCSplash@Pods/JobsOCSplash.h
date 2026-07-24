@@ -10,6 +10,7 @@
 
 #import <JobsOCSplash/JobsOCSplashAction.h>
 #import <JobsOCSplash/JobsOCSplashConfiguration.h>
+#import <JobsOCSplash/JobsOCSplashMediaCache.h>
 #import <JobsOCSplash/JobsOCSplashPreferences.h>
 #import <JobsOCSplash/JobsOCSplashPresenter.h>
 #import <JobsOCSplash/JobsOCSplashVC.h>

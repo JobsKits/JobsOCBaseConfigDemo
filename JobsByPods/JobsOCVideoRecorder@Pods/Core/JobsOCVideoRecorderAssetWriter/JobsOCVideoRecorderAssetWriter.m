@@ -18,6 +18,8 @@ Prop_strong() dispatch_queue_t writerQueue;
 Prop_strong(nullable) NSURL *outputURL;
 Prop_assign(getter=isWriting) BOOL writing;
 Prop_assign() BOOL sessionStarted;
+Prop_assign() BOOL videoSamplePending;
+Prop_assign() BOOL audioSamplePending;
 Prop_assign() CMTime firstPresentationTime;
 Prop_assign() CMTime lastPresentationTime;
 
@@ -94,50 +96,52 @@ Prop_assign() CMTime lastPresentationTime;
 }
 
 -(void)appendVideoSampleBuffer:(CMSampleBufferRef)sampleBuffer{
-    if (!sampleBuffer || !self.isWriting) return;
+    if (!sampleBuffer || ![self reserveVideoSampleBuffer]) return;
     CFRetain(sampleBuffer);
     dispatch_async(self.writerQueue, ^{
-        if (![self canAppendSampleBuffer:sampleBuffer]) {
+        @autoreleasepool {
+            if ([self canAppendSampleBuffer:sampleBuffer]) {
+                CMTime presentationTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
+                [self startSessionIfNeeded:presentationTime];
+                CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+                if (pixelBuffer) {
+                    CVPixelBufferRef outputPixelBuffer = pixelBuffer;
+                    if (self.config.filterProcessor &&
+                        [self.config.filterProcessor respondsToSelector:@selector(processPixelBuffer:presentationTime:)]) {
+                        CVPixelBufferRef filteredPixelBuffer = [self.config.filterProcessor processPixelBuffer:pixelBuffer
+                                                                                               presentationTime:presentationTime];
+                        outputPixelBuffer = filteredPixelBuffer ?: pixelBuffer;
+                    }
+                    if (self.videoInput.readyForMoreMediaData) {
+                        [self.pixelBufferAdaptor appendPixelBuffer:outputPixelBuffer
+                                              withPresentationTime:presentationTime];
+                        self.lastPresentationTime = presentationTime;
+                    }
+                    if (outputPixelBuffer != pixelBuffer) CVPixelBufferRelease(outputPixelBuffer);
+                }
+            }
             CFRelease(sampleBuffer);
-            return;
+            [self releaseVideoSampleBuffer];
         }
-        CMTime presentationTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
-        [self startSessionIfNeeded:presentationTime];
-        CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-        if (pixelBuffer) {
-            CVPixelBufferRef outputPixelBuffer = pixelBuffer;
-            if (self.config.filterProcessor &&
-                [self.config.filterProcessor respondsToSelector:@selector(processPixelBuffer:presentationTime:)]) {
-                CVPixelBufferRef filteredPixelBuffer = [self.config.filterProcessor processPixelBuffer:pixelBuffer
-                                                                                       presentationTime:presentationTime];
-                outputPixelBuffer = filteredPixelBuffer ?: pixelBuffer;
-            }
-            if (self.videoInput.readyForMoreMediaData) {
-                [self.pixelBufferAdaptor appendPixelBuffer:outputPixelBuffer
-                                      withPresentationTime:presentationTime];
-                self.lastPresentationTime = presentationTime;
-            }
-            if (outputPixelBuffer != pixelBuffer) CVPixelBufferRelease(outputPixelBuffer);
-        }
-        CFRelease(sampleBuffer);
     });
 }
 
 -(void)appendAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
-    if (!sampleBuffer || !self.isWriting || !self.audioInput) return;
+    if (!sampleBuffer || !self.audioInput || ![self reserveAudioSampleBuffer]) return;
     CFRetain(sampleBuffer);
     dispatch_async(self.writerQueue, ^{
-        if (![self canAppendSampleBuffer:sampleBuffer]) {
+        @autoreleasepool {
+            if ([self canAppendSampleBuffer:sampleBuffer]) {
+                CMTime presentationTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
+                [self startSessionIfNeeded:presentationTime];
+                if (self.audioInput.readyForMoreMediaData) {
+                    [self.audioInput appendSampleBuffer:sampleBuffer];
+                    self.lastPresentationTime = presentationTime;
+                }
+            }
             CFRelease(sampleBuffer);
-            return;
+            [self releaseAudioSampleBuffer];
         }
-        CMTime presentationTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
-        [self startSessionIfNeeded:presentationTime];
-        if (self.audioInput.readyForMoreMediaData) {
-            [self.audioInput appendSampleBuffer:sampleBuffer];
-            self.lastPresentationTime = presentationTime;
-        }
-        CFRelease(sampleBuffer);
     });
 }
 
@@ -178,6 +182,34 @@ Prop_assign() CMTime lastPresentationTime;
     return YES;
 }
 
+-(BOOL)reserveVideoSampleBuffer{
+    @synchronized (self) {
+        if (!self.isWriting || self.videoSamplePending) return NO;
+        self.videoSamplePending = YES;
+        return YES;
+    }
+}
+
+-(void)releaseVideoSampleBuffer{
+    @synchronized (self) {
+        self.videoSamplePending = NO;
+    }
+}
+
+-(BOOL)reserveAudioSampleBuffer{
+    @synchronized (self) {
+        if (!self.isWriting || self.audioSamplePending) return NO;
+        self.audioSamplePending = YES;
+        return YES;
+    }
+}
+
+-(void)releaseAudioSampleBuffer{
+    @synchronized (self) {
+        self.audioSamplePending = NO;
+    }
+}
+
 -(void)startSessionIfNeeded:(CMTime)presentationTime{
     if (self.sessionStarted) return;
     self.firstPresentationTime = presentationTime;
@@ -190,13 +222,18 @@ Prop_assign() CMTime lastPresentationTime;
                                      frontCamera:(BOOL)frontCamera{
     (void)frontCamera;
     switch (deviceOrientation) {
+        /// 处理 UIDeviceOrientationLandscapeLeft 分支
         case UIDeviceOrientationLandscapeLeft:
             return CGAffineTransformMakeRotation(M_PI);
+        /// 处理 UIDeviceOrientationLandscapeRight 分支
         case UIDeviceOrientationLandscapeRight:
             return CGAffineTransformIdentity;
+        /// 处理 UIDeviceOrientationPortraitUpsideDown 分支
         case UIDeviceOrientationPortraitUpsideDown:
             return CGAffineTransformMakeRotation(-M_PI_2);
+        /// 处理 UIDeviceOrientationPortrait 分支
         case UIDeviceOrientationPortrait:
+        /// 未匹配已知分支时执行兜底处理
         default:
             return CGAffineTransformMakeRotation(M_PI_2);
     }

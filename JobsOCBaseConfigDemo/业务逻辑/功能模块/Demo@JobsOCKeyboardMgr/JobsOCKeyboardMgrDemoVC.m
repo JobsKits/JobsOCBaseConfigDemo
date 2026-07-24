@@ -16,6 +16,8 @@ Prop_strong()UITextField *accountTF;
 Prop_strong()UITextField *passwordTF;
 Prop_strong()UITextField *accessoryTF;
 Prop_strong()UIView *accessoryBar;
+Prop_strong()UILabel *accessoryTitleLab;
+Prop_strong()UIButton *accessoryDoneBtn;
 
 @end
 
@@ -201,35 +203,45 @@ Prop_strong()UIView *accessoryBar;
 
 -(UIView *)accessoryBar{
     if (!_accessoryBar) {
-        UIView *bar = jobsMakeView(^(__kindof UIView * _Nullable view) {
+        _accessoryBar = jobsMakeView(^(__kindof UIView * _Nullable view) {
             view
                 .byFrame(CGRectMake(0, 0, JobsMainScreen_WIDTH(), JobsWidth(56)))
                 .byBgColor(HEXCOLOR(0x263342));
         });
-        jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+        self.accessoryTitleLab.addOn(_accessoryBar).byAdd(^(MASConstraintMaker *make) {
+            make.left.equalTo(_accessoryBar).offset(JobsWidth(18));
+            make.centerY.equalTo(_accessoryBar);
+        });
+        self.accessoryDoneBtn.addOn(_accessoryBar).byAdd(^(MASConstraintMaker *make) {
+            make.right.equalTo(_accessoryBar).offset(-JobsWidth(18));
+            make.centerY.equalTo(_accessoryBar);
+        });
+    };return _accessoryBar;
+}
+
+-(UILabel *)accessoryTitleLab{
+    if (!_accessoryTitleLab) {
+        _accessoryTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"Input Accessory".tr)
                 .byTextCor(UIColor.whiteColor)
-                .byFont(UIFontWeightMediumSize(15))
-                .addOn(bar)
-                .byAdd(^(MASConstraintMaker *make) {
-                    make.left.equalTo(bar).offset(JobsWidth(18));
-                    make.centerY.equalTo(bar);
-                });
+                .byFont(UIFontWeightMediumSize(15));
         });
-        jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+    };return _accessoryTitleLab;
+}
+
+-(UIButton *)accessoryDoneBtn{
+    if (!_accessoryDoneBtn) {
+        @jobs_weakify(self)
+        _accessoryDoneBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
                 .jobsResetBtnTitle(@"Done".tr)
                 .jobsResetBtnTitleFont(UIFontWeightMediumSize(15))
-                .byAddTarget(self, @selector(jobs_endEditing), UIControlEventTouchUpInside)
-                .addOn(bar)
-                .byAdd(^(MASConstraintMaker *make) {
-                    make.right.equalTo(bar).offset(-JobsWidth(18));
-                    make.centerY.equalTo(bar);
+                .onClickBy(^(__kindof UIButton * _Nullable button) {
+                    [weak_self jobs_endEditing];
                 });
         });
-        _accessoryBar = bar;
-    };return _accessoryBar;
+    };return _accessoryDoneBtn;
 }
 
 -(void)jobs_endEditing{

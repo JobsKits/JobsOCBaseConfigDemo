@@ -186,18 +186,21 @@
     CGFloat width = boxBounds.size.width;
     CGFloat height = width / originScale;
     switch (mode) {
+        /// 处理 DWContentModeScaleAspectFit 分支
         case DWContentModeScaleAspectFit:{
             if (height > boxBounds.size.height) {
                 height = boxBounds.size.height;
                 width = height * originScale;
             }
         }break;
+        /// 处理 DWContentModeScaleAspectFill 分支
         case DWContentModeScaleAspectFill:{
             if (height < boxBounds.size.height) {
                 height = boxBounds.size.height;
                 width = height * originScale;
             }
         }break;
+        /// 未匹配已知分支时执行兜底处理
         default:
             if (height != boxBounds.size.height) {
                 height = boxBounds.size.height;

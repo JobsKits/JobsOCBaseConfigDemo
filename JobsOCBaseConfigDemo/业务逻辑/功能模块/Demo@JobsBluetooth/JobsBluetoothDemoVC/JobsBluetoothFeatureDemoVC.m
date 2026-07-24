@@ -121,12 +121,15 @@ Prop_strong()JobsBluetoothManager *bluetoothManager;
 
 -(UIButton *)executeButton{
     if (!_executeButton) {
+        @jobs_weakify(self)
         _executeButton = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button.jobsResetBtnTitle([NSString stringWithFormat:@"执行 %@".tr, self.featureTitle])
                 .jobsResetBtnTitleCor(JobsWhiteColor)
                 .jobsResetBtnTitleFont(UIFontWeightBoldSize(16))
                 .jobsResetBtnBgCor(HEXCOLOR(0x007AFF))
-                .byAddTarget(self, @selector(runFeature), UIControlEventTouchUpInside)
+                .onClickBy(^(__kindof UIButton * _Nullable button) {
+                    [weak_self runFeature];
+                })
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer.byCornerRadius(JobsWidth(10))
                         .byMasksToBounds(YES);

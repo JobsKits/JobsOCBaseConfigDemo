@@ -61,13 +61,10 @@ Prop_assign()CGFloat totalSeconds;
                                                 top,
                                                 JobsWidth(188),
                                                 JobsWidth(188)));
+    self.demoButton.byFrame(self.demoButtonContainer.bounds);
     self.demoButton
-        .byFrame(self.demoButtonContainer.bounds)
-        .byLayer(^(__kindof CALayer * _Nullable layer) {
-            layer
-                .byCornerRadius(CGRectGetWidth(self.demoButton.bounds) / 2.0)
-                .byMasksToBounds(YES);
-        });
+        .jobsResetBtnCornerRadiusValue(CGRectGetWidth(self.demoButton.bounds) / 2.0)
+        .byClipsToBounds(YES);
     self.demoButtonContainer.byLayer(^(__kindof CALayer * _Nullable layer) {
         layer.byShadowPath(UIBezierPath.byBezierPathWithOvalInRect(self.demoButtonContainer.bounds).CGPath);
     });
@@ -193,16 +190,18 @@ Prop_assign()CGFloat totalSeconds;
 
 - (UIButton *)demoButton {
     if (!_demoButton) {
+        @jobs_weakify(self)
         _demoButton = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
                 .jobsResetBtnTitle(@"点我开始".tr)
                 .jobsResetBtnTitleCor(JobsWhiteColor)
                 .jobsResetBtnTitleFont(UIFontWeightBoldSize(26))
                 .jobsResetBtnBgCor(HEXCOLOR(0x111827))
-                .byAddTarget(self, @selector(startOrStopCountdown), UIControlEventTouchUpInside)
-                .byLayer(^(__kindof CALayer * _Nullable layer) {
-                    layer.byMasksToBounds(YES);
-                });
+                .jobsResetBtnCornerRadiusValue(JobsWidth(94))
+                .onClickBy(^(__unused UIButton *button) {
+                    [weak_self startOrStopCountdown];
+                })
+                .byClipsToBounds(YES);
         });
     };return _demoButton;
 }

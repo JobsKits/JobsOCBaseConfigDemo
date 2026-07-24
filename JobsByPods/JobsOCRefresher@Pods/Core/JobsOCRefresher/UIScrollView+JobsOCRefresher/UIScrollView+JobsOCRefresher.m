@@ -93,26 +93,34 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
     if (self.component.state == JobsOCRefreshStateRefreshing ||
         self.component.state == JobsOCRefreshStateEnding) {
         switch (self.position) {
+            /// 处理 JobsOCRefreshPositionHeader 分支
             case JobsOCRefreshPositionHeader: baseInset.top = MAX(0, baseInset.top - length); break;
+            /// 处理 JobsOCRefreshPositionFooter 分支
             case JobsOCRefreshPositionFooter: baseInset.bottom = MAX(0, baseInset.bottom - length); break;
+            /// 处理 JobsOCRefreshPositionLeft 分支
             case JobsOCRefreshPositionLeft: baseInset.left = MAX(0, baseInset.left - length); break;
+            /// 处理 JobsOCRefreshPositionRight 分支
             case JobsOCRefreshPositionRight: baseInset.right = MAX(0, baseInset.right - length); break;
         }
     }
     CGSize boundsSize = scrollView.bounds.size;
     switch (self.position) {
+        /// 处理 JobsOCRefreshPositionHeader 分支
         case JobsOCRefreshPositionHeader:
             self.component.byFrame(CGRectMake(0, -length - baseInset.top, boundsSize.width, length));
             break;
+        /// 处理 JobsOCRefreshPositionFooter 分支
         case JobsOCRefreshPositionFooter: {
             CGFloat contentH = MAX(scrollView.contentSize.height,
                                    boundsSize.height - scrollView.adjustedContentInset.top - scrollView.adjustedContentInset.bottom);
             self.component.byFrame(CGRectMake(0, contentH + baseInset.bottom, boundsSize.width, length));
             break;
         }
+        /// 处理 JobsOCRefreshPositionLeft 分支
         case JobsOCRefreshPositionLeft:
             self.component.byFrame(CGRectMake(-length - baseInset.left, 0, length, boundsSize.height));
             break;
+        /// 处理 JobsOCRefreshPositionRight 分支
         case JobsOCRefreshPositionRight: {
             CGFloat contentW = MAX(scrollView.contentSize.width,
                                    boundsSize.width - scrollView.adjustedContentInset.left - scrollView.adjustedContentInset.right);
@@ -133,18 +141,22 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
     CGPoint offset = scrollView.contentOffset;
     CGFloat distance = 0;
     switch (self.position) {
+        /// 处理 JobsOCRefreshPositionHeader 分支
         case JobsOCRefreshPositionHeader:
             distance = -(offset.y + inset.top);
             break;
+        /// 处理 JobsOCRefreshPositionFooter 分支
         case JobsOCRefreshPositionFooter: {
             CGFloat contentH = MAX(scrollView.contentSize.height,
                                    scrollView.bounds.size.height - inset.top - inset.bottom);
             distance = offset.y + scrollView.bounds.size.height - contentH - inset.bottom;
             break;
         }
+        /// 处理 JobsOCRefreshPositionLeft 分支
         case JobsOCRefreshPositionLeft:
             distance = -(offset.x + inset.left);
             break;
+        /// 处理 JobsOCRefreshPositionRight 分支
         case JobsOCRefreshPositionRight: {
             CGFloat contentW = MAX(scrollView.contentSize.width,
                                    scrollView.bounds.size.width - inset.left - inset.right);
@@ -176,10 +188,12 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
     UIEdgeInsets inset = scrollView.contentInset;
     CGPoint targetOffset = scrollView.contentOffset;
     switch (self.position) {
+        /// 处理 JobsOCRefreshPositionHeader 分支
         case JobsOCRefreshPositionHeader:
             inset.top += length;
             targetOffset.y = -(oldAdjusted.top + length);
             break;
+        /// 处理 JobsOCRefreshPositionFooter 分支
         case JobsOCRefreshPositionFooter: {
             inset.bottom += length;
             CGFloat contentH = MAX(scrollView.contentSize.height,
@@ -187,10 +201,12 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
             targetOffset.y = contentH + oldAdjusted.bottom + length - scrollView.bounds.size.height;
             break;
         }
+        /// 处理 JobsOCRefreshPositionLeft 分支
         case JobsOCRefreshPositionLeft:
             inset.left += length;
             targetOffset.x = -(oldAdjusted.left + length);
             break;
+        /// 处理 JobsOCRefreshPositionRight 分支
         case JobsOCRefreshPositionRight: {
             inset.right += length;
             CGFloat contentW = MAX(scrollView.contentSize.width,
@@ -219,9 +235,13 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
     UIEdgeInsets inset = scrollView.contentInset;
     CGFloat length = self.component.refreshLength;
     switch (self.position) {
+        /// 处理 JobsOCRefreshPositionHeader 分支
         case JobsOCRefreshPositionHeader: inset.top -= length; break;
+        /// 处理 JobsOCRefreshPositionFooter 分支
         case JobsOCRefreshPositionFooter: inset.bottom -= length; break;
+        /// 处理 JobsOCRefreshPositionLeft 分支
         case JobsOCRefreshPositionLeft: inset.left -= length; break;
+        /// 处理 JobsOCRefreshPositionRight 分支
         case JobsOCRefreshPositionRight: inset.right -= length; break;
     }
     self.ending = YES;
@@ -315,18 +335,26 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
 
 - (JobsOCRefreshSlot *)slotForPosition:(JobsOCRefreshPosition)position {
     switch (position) {
+        /// 处理 JobsOCRefreshPositionHeader 分支
         case JobsOCRefreshPositionHeader: return self.header;
+        /// 处理 JobsOCRefreshPositionFooter 分支
         case JobsOCRefreshPositionFooter: return self.footer;
+        /// 处理 JobsOCRefreshPositionLeft 分支
         case JobsOCRefreshPositionLeft: return self.left;
+        /// 处理 JobsOCRefreshPositionRight 分支
         case JobsOCRefreshPositionRight: return self.right;
     }
 }
 
 - (void)setSlot:(JobsOCRefreshSlot *)slot position:(JobsOCRefreshPosition)position {
     switch (position) {
+        /// 处理 JobsOCRefreshPositionHeader 分支
         case JobsOCRefreshPositionHeader: self.header = slot; break;
+        /// 处理 JobsOCRefreshPositionFooter 分支
         case JobsOCRefreshPositionFooter: self.footer = slot; break;
+        /// 处理 JobsOCRefreshPositionLeft 分支
         case JobsOCRefreshPositionLeft: self.left = slot; break;
+        /// 处理 JobsOCRefreshPositionRight 分支
         case JobsOCRefreshPositionRight: self.right = slot; break;
     }
 }
@@ -476,14 +504,23 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
     JobsOCRefreshSlot *slot = [self.jobs_refreshProxy slotForPosition:position];
     if (!slot) return self;
     switch (state) {
+        /// 处理 JobsOCRefreshStateRefreshing 分支
         case JobsOCRefreshStateRefreshing: [slot beginRefreshing]; break;
+        /// 处理 JobsOCRefreshStateIdle 分支
         case JobsOCRefreshStateIdle: [slot reset]; break;
+        /// 处理 JobsOCRefreshStateFailed 分支
         case JobsOCRefreshStateFailed: [slot fail]; break;
+        /// 处理 JobsOCRefreshStateDisabled 分支
         case JobsOCRefreshStateDisabled: [slot disable]; break;
+        /// 处理 JobsOCRefreshStateNoMoreData 分支
         case JobsOCRefreshStateNoMoreData: [slot noticeNoMoreData]; break;
+        /// 处理 JobsOCRefreshStateRemoved 分支
         case JobsOCRefreshStateRemoved: [self jobs_removeRefreshAt:position]; break;
+        /// 处理 JobsOCRefreshStatePulling 分支
         case JobsOCRefreshStatePulling:
+        /// 处理 JobsOCRefreshStateReady 分支
         case JobsOCRefreshStateReady:
+        /// 处理 JobsOCRefreshStateEnding 分支
         case JobsOCRefreshStateEnding:
             [slot.component applyState:state progress:0];
             break;

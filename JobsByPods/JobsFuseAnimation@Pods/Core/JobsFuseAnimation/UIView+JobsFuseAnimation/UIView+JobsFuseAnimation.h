@@ -54,6 +54,7 @@ typedef void (^JobsFuseBubbleEmitBlock)(void);
 -(instancetype)byFuseTapScaleWithScale:(CGFloat)scale duration:(NSTimeInterval)duration damping:(CGFloat)damping velocity:(CGFloat)velocity;
 -(instancetype)byFusePressStart:(JobsFuseOuterRingConfig *_Nullable)ringConfig scale:(CGFloat)scale;
 -(instancetype)byFusePressStop:(BOOL)animated;
+-(instancetype)byFusePlaySound:(NSString *)fileFullName;
 -(instancetype)byFusePlaySystemSound:(SystemSoundID)soundID;
 
 @end

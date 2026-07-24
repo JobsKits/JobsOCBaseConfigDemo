@@ -103,12 +103,15 @@ Prop_assign()NSUInteger renderVersion;
 
 -(UISlider *)blockSizeSlider{
     if (!_blockSizeSlider) {
+        @jobs_weakify(self)
         _blockSizeSlider = jobsMakeSlider(^(__kindof UISlider * _Nullable slider) {
             slider
                 .byMinimumValue(6)
                 .byMaximumValue(46)
                 .byValue(18)
-                .byAddTarget(self, @selector(sliderValueChanged:), UIControlEventValueChanged)
+                .onJobsChange(^(__kindof UIControl * _Nullable control) {
+                    [weak_self sliderValueChanged:(UISlider *)control];
+                })
                 .addOn(_controlView)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.right.equalTo(_controlView).inset(JobsWidth(14));

@@ -25,7 +25,7 @@
 | Pod 类型 | 本地扩展 Pod |
 | 版本 | `1.0.0` |
 | 平台 | `ios 12.0` |
-| 摘要 | GKNavigationBar custom title helpers for Jobs. |
+| 摘要 | 为 GKNavigationBar 补充标题按钮与主标题 / 副标题 titleView。 |
 | 首页 | [https://example.local/GKCustomNavigationBarExtra](https://example.local/GKCustomNavigationBarExtra) |
 | 许可证 | `MIT / LICENSE` |
 | 作者 | `Jobs / lg295060456@gmail.com` |
@@ -34,7 +34,8 @@
 
 ## 二、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 为 `GKCustomNavigationBar` 或同名上游能力提供 Jobs 项目内的分类、桥接、资源或边界适配。
+- `GKNavigationBar` 已提供通用 `gk_navTitleView`，但没有主标题 / 副标题的语义化组件；本 Pod 在不修改第三方源码的前提下补齐该能力。
+- 为导航标题按钮、图片标题和上下两层文字标题提供 Jobs DSL 入口。
 - 当 `GKCustomNavigationBarExtra` 的 `Core`、`Support`、资源、依赖或公开头文件发生变化时，同步更新本 README，避免后续排查只看源码不看边界。
 - 参与本地 Pods 拆分时，先确认能力归属，再决定放入当前 Pod、迁移到 `Support`，还是下沉为更基础的公共 Pod。
 
@@ -69,24 +70,48 @@ GKCustomNavigationBarExtra@Pods/
 - `GKCustomNavigationBarExtra.h`
 - `Core/**/*.h`
 
-### 5.2、源码入口
+### 5.2、公开 API
+
+- `gk_navTitleBtnBy(UIButtonModel *)`：创建并配置导航栏标题按钮。
+- `gk_navTitleViewBy(UIViewModel *)`：以 `textModel` 作为主标题、`subTextModel` 作为副标题，创建上下结构的 `titleView` 并同步写入 `gk_navTitleView`。
+- `gk_navMainTitleLab` / `gk_navSubTitleLab`：允许调用方继续调整两层标签；默认均为单行、居中、可缩放，并使用裁剪而非尾部省略号。
+
+```objc
+self.gk_navTitleViewBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
+    data
+        .byTextModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
+            textModel
+                .byText(@"JobsOCExcel")
+                .byFont(UIFontWeightSemiboldSize(15));
+        }))
+        .bySubTextModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
+            textModel
+                .byText(@"任意冻结列与四种文字策略")
+                .byFont(UIFontWeightRegularSize(11));
+        }));
+}));
+```
+
+`JobsByOCPods` 的统一页面跳转链路会测量来自 `UIViewModel.textModel` 的 Demo 标题：短标题保持 GK 单行标题；长标题优先按 `｜`、`：`、`@`、括号、有效空格等语义边界拆成上下两层，其次选择靠近中点的语言词边界，最后才按完整字符居中拆分。页面已经设置自定义 `titleView` 时不会覆盖。
+
+### 5.3、源码入口
 
 - `GKCustomNavigationBarExtra.h`
 - `Core/**/*.{h,m,mm}`
 
-### 5.3、默认安装边界
+### 5.4、默认安装边界
 
 - `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
 - `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 
-### 5.4、系统框架
+### 5.5、系统框架
 
 - `AudioToolbox`
 - `CoreText`
 - `Foundation`
 - `UIKit`
 
-### 5.5、Pod 依赖
+### 5.6、Pod 依赖
 
 - `Masonry`
 - `GKNavigationBar`
@@ -99,10 +124,11 @@ GKCustomNavigationBarExtra@Pods/
 - `XYColorOC`
 - `JobsBaseUI`
 - `JobsBlock`
+- `JobsOCDSL`
 - `JobsDeviceInfo`
 - `JobsLanMgr`
 - `JobsMakes`
-- `JobsModel`
+- `JobsModelDSL`
 - `JobsOCDefs`
 - `JobsOCProtocols`
 - `JobsOCRuntimeKits`

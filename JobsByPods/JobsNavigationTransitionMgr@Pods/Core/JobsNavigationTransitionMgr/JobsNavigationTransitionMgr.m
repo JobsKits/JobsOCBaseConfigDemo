@@ -68,14 +68,18 @@ forNavigationController:(UINavigationController *)navCtrlVC{
         if (direction == JobsTransitionDirectionLeft && translation.x < 0) progress = -progress; /// 转为正值
         if(self.directionByPoint(translation) == direction){
             switch (gesture.state) {
+                /// 处理 UIGestureRecognizerStateBegan 分支
                 case UIGestureRecognizerStateBegan:
                     manager.interactiveTransition = UIPercentDrivenInteractiveTransition.new;
                     [viewController.navigationController popViewControllerAnimated:YES];
                     break;
+                /// 处理 UIGestureRecognizerStateChanged 分支
                 case UIGestureRecognizerStateChanged:
                     [manager.interactiveTransition updateInteractiveTransition:progress];
                     break;
+                /// 处理 UIGestureRecognizerStateEnded 分支
                 case UIGestureRecognizerStateEnded:
+                /// 处理 UIGestureRecognizerStateCancelled 分支
                 case UIGestureRecognizerStateCancelled: {
                     if (progress >= 0.3) {
                         [manager.interactiveTransition finishInteractiveTransition];
@@ -83,6 +87,7 @@ forNavigationController:(UINavigationController *)navCtrlVC{
                         [manager.interactiveTransition cancelInteractiveTransition];
                     }manager.interactiveTransition = nil;
                 } break;
+                /// 未匹配已知分支时执行兜底处理
                 default:break;
             }
         }
@@ -133,18 +138,22 @@ forNavigationController:(UINavigationController *)navCtrlVC{
     CGFloat w = screenBounds.size.width;
     CGFloat h = screenBounds.size.height;
     switch (self.direction) {
+        /// 处理 JobsTransitionDirectionLeft 分支
         case JobsTransitionDirectionLeft:
             toStartFrame = self.isPush ? CGRectOffset(screenBounds, -w, 0) : screenBounds;
             fromEndFrame = self.isPush ? screenBounds : CGRectOffset(screenBounds, -w, 0);
             break;
+        /// 处理 JobsTransitionDirectionRight 分支
         case JobsTransitionDirectionRight:
             toStartFrame = self.isPush ? CGRectOffset(screenBounds, w, 0) : screenBounds;
             fromEndFrame = self.isPush ? screenBounds : CGRectOffset(screenBounds, w, 0);
             break;
+        /// 处理 JobsTransitionDirectionTop 分支
         case JobsTransitionDirectionTop:
             toStartFrame = self.isPush ? CGRectOffset(screenBounds, 0, -h) : screenBounds;
             fromEndFrame = self.isPush ? screenBounds : CGRectOffset(screenBounds, 0, -h);
             break;
+        /// 处理 JobsTransitionDirectionBottom 分支
         case JobsTransitionDirectionBottom:
             toStartFrame = self.isPush ? CGRectOffset(screenBounds, 0, h) : screenBounds;
             fromEndFrame = self.isPush ? screenBounds : CGRectOffset(screenBounds, 0, h);

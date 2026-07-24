@@ -68,10 +68,11 @@ Prop_strong()UILabel *footnoteLabel;
     [super viewDidLoad];
     self.makeNavByAlpha(1);
     self.view.byBgColor(UIColor.systemGroupedBackgroundColor);
-    self.counter = 8;
+    self.counter = JobsWidgetCenterBridge.counter;
     [self setupDemo];
     [self applyWidgetFamily:JobsWidgetDemoFamilyMedium
                      status:@"时间线：已生成当前快照"];
+    [self syncHomeScreenWidgetWithStatus:@"桌面 Widget：共享状态已就绪"];
 }
 
 -(void)setupDemo{
@@ -126,12 +127,15 @@ Prop_strong()UILabel *footnoteLabel;
 -(void)refreshPreviewWithStatus:(NSString *)status{
     NSString *familyText = nil;
     switch (self.widgetFamily) {
+        /// 处理 JobsWidgetDemoFamilySmall 分支
         case JobsWidgetDemoFamilySmall:
             familyText = @"小号：一眼读取核心状态";
             break;
+        /// 处理 JobsWidgetDemoFamilyMedium 分支
         case JobsWidgetDemoFamilyMedium:
             familyText = @"中号：展示状态与下一步行动";
             break;
+        /// 处理 JobsWidgetDemoFamilyLarge 分支
         case JobsWidgetDemoFamilyLarge:
             familyText = @"大号：承载更完整的信息层级与时间线摘要";
             break;
@@ -148,11 +152,17 @@ Prop_strong()UILabel *footnoteLabel;
 
 -(void)increaseCounter{
     self.counter = self.counter >= 12 ? 1 : self.counter + 1;
-    [self refreshPreviewWithStatus:@"宿主状态：计数已更新"];
+    [self syncHomeScreenWidgetWithStatus:@"桌面 Widget：计数已同步"];
 }
 
 -(void)reloadPreviewTimeline{
-    [self refreshPreviewWithStatus:@"时间线：已手动重载预览"];
+    [JobsWidgetCenterBridge reloadTimelines];
+    [self refreshPreviewWithStatus:@"桌面 Widget：时间线已重载"];
+}
+
+-(void)syncHomeScreenWidgetWithStatus:(NSString *)status{
+    [JobsWidgetCenterBridge saveCounter:self.counter];
+    [self refreshPreviewWithStatus:status];
 }
 
 -(BaseButton *)makeFamilyButtonWithTitle:(NSString *)title
@@ -430,7 +440,7 @@ Prop_strong()UILabel *footnoteLabel;
     if (!_footnoteLabel) {
         _footnoteLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"真正上桌面：在 Xcode 新建 Widget Extension → 宿主与 Extension 配置 App Group → 写入共享数据 → 通过 WidgetCenter 重载时间线 → 长按桌面添加。\n\niOS 不允许 App 直接弹出系统小组件库；本页专注演示 family 自适应、状态更新和时间线节奏。")
+                .byText(@"已接入真实 Widget Extension 与 App Group。真机运行宿主 App 一次后：回到系统桌面 → 长按空白处 → 点击“+”或“添加小组件” → 搜索“JobsOCBaseConfigDemo”（进入后显示“演武堂 OC 小组件”）→ 选择尺寸并添加。\n\n本页“计数 +1”和“刷新时间线”会重载桌面 Widget；iOS 不允许 App 直接弹出系统小组件库。")
                 .byTextCor(UIColor.secondaryLabelColor)
                 .byFont(UIFontSystemFontOfSize(13))
                 .byNumberOfLines(0)

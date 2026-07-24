@@ -98,6 +98,7 @@
                                            UIEdgeInsets labelEdgeInsets = UIEdgeInsetsZero;
                                            // 3.、根据style和space得到imageEdgeInsets和labelEdgeInsets的值
                                            switch (style) {
+                                               /// 处理 NSDirectionalRectEdgeTop 分支
                                                case NSDirectionalRectEdgeTop:{
                                                    imageEdgeInsets = UIEdgeInsetsMake(-labelHeight - imagePadding / 2.0,
                                                                                       0,
@@ -108,6 +109,7 @@
                                                                                       -imageHeight - imagePadding / 2.0,
                                                                                       0);
                                                }break;
+                                               /// 处理 NSDirectionalRectEdgeLeading 分支
                                                case NSDirectionalRectEdgeLeading:{
                                                    imageEdgeInsets = UIEdgeInsetsMake(0,
                                                                                       -imagePadding / 2.0,
@@ -118,6 +120,7 @@
                                                                                       0,
                                                                                       -imagePadding / 2.0);
                                                }break;
+                                               /// 处理 NSDirectionalRectEdgeBottom 分支
                                                case NSDirectionalRectEdgeBottom:{
                                                    imageEdgeInsets = UIEdgeInsetsMake(0,
                                                                                       0,
@@ -128,6 +131,7 @@
                                                                                       0,
                                                                                       0);
                                                }break;
+                                               /// 处理 NSDirectionalRectEdgeTrailing 分支
                                                case NSDirectionalRectEdgeTrailing:{
                                                    imageEdgeInsets = UIEdgeInsetsMake(0,
                                                                                       labelWidth + imagePadding / 2.0,
@@ -138,6 +142,7 @@
                                                                                       0,
                                                                                       imageWith + imagePadding / 2.0);
                                                }break;
+                                               /// 未匹配已知分支时执行兜底处理
                                                default:
                                                    break;
                                            }

@@ -53,6 +53,7 @@ static NSInteger const kXDTextBtnViewBtnTagPlus = 90000000;
 
 - (void)setTextArr:(NSArray<NSString *> *)textArr
 {
+    @jobs_weakify(self)
     _textArr = textArr;
     for (int i = 0; i < textArr.count; i ++) {
         NSString *text = textArr[i];
@@ -69,7 +70,9 @@ static NSInteger const kXDTextBtnViewBtnTagPlus = 90000000;
             .byTitleLabel(^(UILabel *label) {
                 label.byFont(UIFontSystemFontOfSize(self.textFontSize));
             })
-            .byAddTarget(self, @selector(btnAction:), UIControlEventTouchUpInside)
+            .onClickBy(^(__kindof UIButton * _Nullable button) {
+                [weak_self btnAction:button];
+            })
             .byTag(kXDTextBtnViewBtnTagPlus + i)
             .byLayer(^(CALayer *layer) {
                 if (self.borderWidth > 0 && self.borderColor) {

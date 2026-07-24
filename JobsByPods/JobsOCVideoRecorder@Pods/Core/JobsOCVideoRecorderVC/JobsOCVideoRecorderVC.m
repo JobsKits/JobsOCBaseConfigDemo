@@ -36,6 +36,7 @@ Prop_assign() BOOL permissionReady;
 Prop_assign() BOOL recording;
 Prop_assign() BOOL writerStarted;
 Prop_assign() BOOL finishingRecord;
+Prop_assign() BOOL captureSuspended;
 Prop_assign() BOOL navigationStateCaptured;
 Prop_assign() BOOL originNavigationBarHidden;
 Prop_assign() BOOL originHidesBackButton;
@@ -60,6 +61,7 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
 }
 
 -(void)dealloc{
+    JobsRemoveNotification(self);
     [self.recordTimer invalidate];
     [UIDevice.currentDevice endGeneratingDeviceOrientationNotifications];
     [self.captureManager stopRunning];
@@ -70,6 +72,7 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    [self jobs_installApplicationStateObservers];
     [UIDevice.currentDevice beginGeneratingDeviceOrientationNotifications];
     self.view.byBgColor(UIColor.blackColor);
     [self.view.layer insertSublayer:self.captureManager.previewLayer atIndex:0];
@@ -103,12 +106,21 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    self.captureSuspended = NO;
+    if (self.permissionReady) [self.captureManager startRunning];
     [self hideHostNavigationBarIfNeeded:animated];
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self restoreHostNavigationBarIfNeeded:animated];
+}
+
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    self.captureSuspended = YES;
+    [self.captureManager stopRunning];
+    [self jobs_discardActiveRecording];
 }
 
 -(BOOL)canBecomeFirstResponder{
@@ -272,6 +284,10 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
             @jobs_strongify(self)
             self.finishingRecord = NO;
             [self.recordBtn resetProgress];
+            if (self.captureSuspended) {
+                if (fileURL) [NSFileManager.defaultManager removeItemAtURL:fileURL error:nil];
+                return;
+            }
             if (error || !fileURL) {
                 (error.localizedDescription ?: @"录制失败，请重试".tr).toast();
                 [self removeCurrentOutputFile];
@@ -281,6 +297,55 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
             [self showPreviewWithURL:fileURL];
         });
     }];
+}
+
+-(void)jobs_installApplicationStateObservers{
+    JobsAddNotification(self,
+                        @selector(jobs_applicationDidEnterBackground:),
+                        UIApplicationDidEnterBackgroundNotification,
+                        nil);
+    JobsAddNotification(self,
+                        @selector(jobs_applicationDidBecomeActive:),
+                        UIApplicationDidBecomeActiveNotification,
+                        nil);
+}
+
+-(void)jobs_applicationDidEnterBackground:(NSNotification *)notification{
+    (void)notification;
+    self.captureSuspended = YES;
+    [self.captureManager stopRunning];
+    [self.previewView stop];
+    [self jobs_discardActiveRecording];
+}
+
+-(void)jobs_applicationDidBecomeActive:(NSNotification *)notification{
+    (void)notification;
+    if (!self.permissionReady || !self.viewIfLoaded.window) return;
+    self.captureSuspended = NO;
+    [self.captureManager startRunning];
+}
+
+-(void)jobs_discardActiveRecording{
+    if (!self.recording && !self.finishingRecord) return;
+    self.recording = NO;
+    self.finishingRecord = NO;
+    self.writerStarted = NO;
+    [self.recordTimer invalidate];
+    self.recordTimer = nil;
+    [self.recordBtn stopProgress];
+    [self.recordBtn resetProgress];
+    [self hideRecordDurationLabel];
+    self.backBtn.byEnabled(YES);
+    self.backBtn.alpha = 1;
+    self.filterBtn.byEnabled(YES);
+    self.filterBtn.alpha = 1;
+    if (self.canSwitchCamera) {
+        self.switchCameraBtn.byEnabled(YES);
+        self.switchCameraBtn.alpha = 1;
+    }
+    [self.assetWriter cancelWriting];
+    [self removeCurrentOutputFile];
+    [self clearFormatDescriptions];
 }
 
 -(void)startRecordTimer{
@@ -302,25 +367,24 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
     self.previewView = nil;
     CGFloat width = JobsWidth(150);
     CGFloat height = JobsWidth(230);
-    JobsOCVideoRecorderPreviewView *previewView = [JobsOCVideoRecorderPreviewView.alloc initWithFrame:CGRectZero];
+    self.previewView = [JobsOCVideoRecorderPreviewView.alloc initWithFrame:CGRectZero];
     @jobs_weakify(self)
-    previewView.cancelBlock = ^(JobsOCVideoRecorderPreviewView *data) {
+    self.previewView.cancelBlock = ^(JobsOCVideoRecorderPreviewView *data) {
         @jobs_strongify(self)
         [self promptCancelCurrentVideoAndClosePage:NO];
     };
-    previewView.saveBlock = ^(JobsOCVideoRecorderPreviewView *data) {
+    self.previewView.saveBlock = ^(JobsOCVideoRecorderPreviewView *data) {
         @jobs_strongify(self)
         [self saveCurrentVideo];
     };
-    previewView.addOn(self.view);
-    [previewView mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.previewView.addOn(self.view);
+    [self.previewView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view).offset(-JobsWidth(16));
         make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(JobsWidth(72));
         make.size.mas_equalTo(CGSizeMake(width, height));
     }];
     [self.view layoutIfNeeded];
-    [previewView playWithURL:URL];
-    self.previewView = previewView;
+    [self.previewView playWithURL:URL];
     [self.view bringSubviewToFront:self.backBtn];
     [self.view bringSubviewToFront:self.titleLabel];
     if (self.canSwitchCamera) [self.view bringSubviewToFront:self.switchCameraBtn];
@@ -566,13 +630,16 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
 
 -(UIButton *)backBtn{
     if (!_backBtn) {
+        @jobs_weakify(self)
         _backBtn = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
             btn.jobsResetBtnTitle(@"‹")
                .jobsResetBtnTitleFont(UIFontWeightRegularSize(34))
                .jobsResetBtnTitleCor(UIColor.whiteColor)
                .byBgColor(UIColor.blackColor.colorWithAlphaComponentBy(0.25));
             btn.layer.cornerRadius = JobsWidth(18);
-            btn.byAddTarget(self, @selector(backAction:), UIControlEventTouchUpInside);
+            btn.onClickBy(^(__kindof UIButton * _Nullable button) {
+                [weak_self backAction:button];
+            });
         });
         _backBtn.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.left.equalTo(self.view).offset(JobsWidth(16));
@@ -604,13 +671,16 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
 
 -(UIButton *)switchCameraBtn{
     if (!_switchCameraBtn) {
+        @jobs_weakify(self)
         _switchCameraBtn = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
             btn.jobsResetBtnTitle(@"切换".tr)
                .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
                .jobsResetBtnTitleCor(UIColor.whiteColor)
                .byBgColor(UIColor.blackColor.colorWithAlphaComponentBy(0.25));
             btn.layer.cornerRadius = JobsWidth(18);
-            btn.byAddTarget(self, @selector(switchCameraAction:), UIControlEventTouchUpInside);
+            btn.onClickBy(^(__kindof UIButton * _Nullable button) {
+                [weak_self switchCameraAction:button];
+            });
         });
         _switchCameraBtn.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.right.equalTo(self.filterBtn.mas_left).offset(-JobsWidth(8));
@@ -622,13 +692,16 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
 
 -(UIButton *)filterBtn{
     if (!_filterBtn) {
+        @jobs_weakify(self)
         _filterBtn = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
             btn.jobsResetBtnTitle(@"滤镜".tr)
                .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
                .jobsResetBtnTitleCor(UIColor.whiteColor)
                .byBgColor(UIColor.blackColor.colorWithAlphaComponentBy(0.25));
             btn.layer.cornerRadius = JobsWidth(18);
-            btn.byAddTarget(self, @selector(filterAction:), UIControlEventTouchUpInside);
+            btn.onClickBy(^(__kindof UIButton * _Nullable button) {
+                [weak_self filterAction:button];
+            });
         });
         _filterBtn.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.right.equalTo(self.view).offset(-JobsWidth(16));

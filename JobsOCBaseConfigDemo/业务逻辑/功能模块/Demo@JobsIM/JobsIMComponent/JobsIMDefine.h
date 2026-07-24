@@ -115,14 +115,19 @@ typedef NS_ENUM(NSInteger, JobsIMPeerOnlineState) {
 
 NS_INLINE NSString *_Nonnull JobsIMStringFromTransportKind(JobsIMTransportKind kind){
     switch (kind) {
+        /// 处理 JobsIMTransportKindLANBonjourNetwork 分支
         case JobsIMTransportKindLANBonjourNetwork:
             return @"LANBonjourNetwork";
+        /// 处理 JobsIMTransportKindNearbyMultipeer 分支
         case JobsIMTransportKindNearbyMultipeer:
             return @"NearbyMultipeer";
+        /// 处理 JobsIMTransportKindWebSocketReserved 分支
         case JobsIMTransportKindWebSocketReserved:
             return @"WebSocketReserved";
+        /// 处理 JobsIMTransportKindWebRTCReserved 分支
         case JobsIMTransportKindWebRTCReserved:
             return @"WebRTCReserved";
+        /// 未匹配已知分支时执行兜底处理
         default:
             return @"Unknown";
     }
@@ -130,24 +135,34 @@ NS_INLINE NSString *_Nonnull JobsIMStringFromTransportKind(JobsIMTransportKind k
 
 NS_INLINE NSString *_Nonnull JobsIMStringFromPacketType(JobsIMPacketType type){
     switch (type) {
+        /// 处理 JobsIMPacketTypeHello 分支
         case JobsIMPacketTypeHello:
             return @"hello";
+        /// 处理 JobsIMPacketTypePresenceOnline 分支
         case JobsIMPacketTypePresenceOnline:
             return @"presence_online";
+        /// 处理 JobsIMPacketTypePresenceBackground 分支
         case JobsIMPacketTypePresenceBackground:
             return @"presence_background";
+        /// 处理 JobsIMPacketTypePresenceOffline 分支
         case JobsIMPacketTypePresenceOffline:
             return @"presence_offline";
+        /// 处理 JobsIMPacketTypeText 分支
         case JobsIMPacketTypeText:
             return @"text";
+        /// 处理 JobsIMPacketTypeAck 分支
         case JobsIMPacketTypeAck:
             return @"ack";
+        /// 处理 JobsIMPacketTypeHeartbeat 分支
         case JobsIMPacketTypeHeartbeat:
             return @"heartbeat";
+        /// 处理 JobsIMPacketTypeTyping 分支
         case JobsIMPacketTypeTyping:
             return @"typing";
+        /// 处理 JobsIMPacketTypeError 分支
         case JobsIMPacketTypeError:
             return @"error";
+        /// 未匹配已知分支时执行兜底处理
         default:
             return @"unknown";
     }
