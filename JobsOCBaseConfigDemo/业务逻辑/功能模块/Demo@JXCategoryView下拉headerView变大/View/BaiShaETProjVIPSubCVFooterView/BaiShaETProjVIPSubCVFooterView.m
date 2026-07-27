@@ -43,10 +43,11 @@ Prop_strong()BaseLabel *titleLab;
         @jobs_weakify(self)
         _titleLab = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(self.viewModel.textModel.text);
-            label.byFont(self.viewModel.textModel.font ? : UIFontWeightBoldSize(14));
-            label.byTextCor(self.viewModel.textModel.textCor ? : HEXCOLOR(0xAE8330));
-            label.byTextAlignment(NSTextAlignmentCenter);
+            label
+                .byText(self.viewModel.textModel.text)
+                .byFont(self.viewModel.textModel.font ? : UIFontWeightBoldSize(14))
+                .byTextCor(self.viewModel.textModel.textCor ? : HEXCOLOR(0xAE8330))
+                .byTextAlignment(NSTextAlignmentCenter);
             label.addOn(self).byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
             });

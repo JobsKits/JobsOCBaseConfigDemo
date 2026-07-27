@@ -138,8 +138,9 @@ Prop_strong()NSArray<NSString *> *menuTitles;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"首页联动切换子页面".tr);
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byText(@"首页联动切换子页面".tr)
+                .byFont(UIFontWeightRegularSize(18));
         })
         .byBgCor(UIColor.whiteColor)
         .byNavBgCor(UIColor.whiteColor);

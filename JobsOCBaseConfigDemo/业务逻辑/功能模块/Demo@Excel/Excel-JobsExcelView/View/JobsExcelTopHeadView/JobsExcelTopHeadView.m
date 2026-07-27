@@ -82,8 +82,9 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
             data.minimumLineSpacing = 0;
             data.minimumInteritemSpacing = 0;
         })];
-        _collectionView.dataLink(self);
-        _collectionView.byBgColor(JobsClearColor);
+        _collectionView
+            .dataLink(self)
+            .byBgColor(JobsClearColor);
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.addOn(self).byAdd(^(MASConstraintMaker *make) {

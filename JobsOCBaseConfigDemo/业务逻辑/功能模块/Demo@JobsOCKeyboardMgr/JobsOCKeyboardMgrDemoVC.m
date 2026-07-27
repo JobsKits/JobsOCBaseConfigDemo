@@ -34,9 +34,10 @@ Prop_strong()UIButton *accessoryDoneBtn;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x263342));
-            data.byText(@"JobsOCKeyboardMgr");
-            data.byFont(UIFontWeightMediumSize(17));
+            data
+                .byTextCor(HEXCOLOR(0x263342))
+                .byText(@"JobsOCKeyboardMgr")
+                .byFont(UIFontWeightMediumSize(17));
         })
         .byBgCor(HEXCOLOR(0xF5F7FA))
         .byNavBgCor(HEXCOLOR(0xF5F7FA));
@@ -163,9 +164,10 @@ Prop_strong()UIButton *accessoryDoneBtn;
                     make.bottom.equalTo(self.cardView).offset(-JobsWidth(24));
                 });
         });
-        _formStackView.add(self.accountTF);
-        _formStackView.add(self.passwordTF);
-        _formStackView.add(self.accessoryTF);
+        _formStackView
+            .byAddArrangedSubview(self.accountTF)
+            .byAddArrangedSubview(self.passwordTF)
+            .byAddArrangedSubview(self.accessoryTF);
         [self.accountTF mas_makeConstraints:^(MASConstraintMaker *make) {
             make.height.mas_equalTo(JobsWidth(52));
         }];

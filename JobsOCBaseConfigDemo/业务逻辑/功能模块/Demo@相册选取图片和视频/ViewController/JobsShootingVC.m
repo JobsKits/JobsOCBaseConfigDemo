@@ -35,9 +35,10 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x1F2937));
-            data.byText(data.attributedTitle.string);
-            data.byFont(UIFontWeightSemiboldSize(17));
+            data
+                .byTextCor(HEXCOLOR(0x1F2937))
+                .byText(data.attributedTitle.string)
+                .byFont(UIFontWeightSemiboldSize(17));
         })
         .byBgCor(HEXCOLOR(0xF6F8FC))
         .byNavBgCor(JobsWhiteColor);

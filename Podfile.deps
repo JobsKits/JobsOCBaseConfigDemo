@@ -210,6 +210,7 @@ def byJobsDo
   pod 'JobsOCSnowflake',                :path => './JobsByPods/JobsOCSnowflake@Pods'
   pod 'JobsCountdownBtn',               :path => './JobsByPods/JobsCountdownBtn@Pods'
   pod 'JobsLoadingImage',               :path => './JobsByPods/JobsLoadingImage@Pods'
+  pod 'JobsIconfont',                   :path => './JobsByPods/JobsIconfont@Pods'
   pod 'JobsCryptography',               :path => './JobsByPods/JobsCryptography@Pods'
   pod 'JobsOCKeyboardMgr',              :path => './JobsByPods/JobsOCKeyboardMgr@Pods'
   pod 'JobsViewNavigator',              :path => './JobsByPods/JobsViewNavigator@Pods'

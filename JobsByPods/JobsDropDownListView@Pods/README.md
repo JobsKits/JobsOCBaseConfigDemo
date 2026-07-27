@@ -141,6 +141,9 @@ self.dropDownListView = [self jobsMotivateDropDownListFromView:self.btn
 }];
 ```
 
+- 点击列表项后，组件先完成一次收起并清理内部选择回调，再执行 `finishBlock`；业务层只处理选中数据和页面状态。
+- `dropDownListViewDisappear` 允许传入 `nil`；此时跳过触发控件的选中态复位，但仍会安全移除列表。
+
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 当前目录扫描到资源类文件 0 个，`Resource` 目录文件 0 个。

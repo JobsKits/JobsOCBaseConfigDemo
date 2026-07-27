@@ -64,6 +64,7 @@ JobsNavigationTransitionMgr@Pods/
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
 - 导航控制器代理统一通过 `JobsOCDSL` 的 `UINavigationController.byDelegate(...)` 配置；`JobsNavigationTransitionMgr.podspec` 已声明直接依赖，核心头通过聚合头显式导入。
+- `Support/UIKit/UIView/UIView+Extra` 的移出父视图兼容入口使用 `byRemoveFromSuperviewForNavigation()`；通用 `UIView.byRemove()` 继续归 `JobsOCDSL` 管理，避免 Category Selector 重复实现。
 - `Support/UIKit/UIViewController/UIViewController+BaseVC` 与源头实现保持一致：`navBarConfig` / `navBar` 首次懒加载直接返回新建对象，保障导航栏 Jobs DSL 首次调用安全。
 - `Support/UIKit/UIViewController/UIViewController+BaseVC` 在跳转前把 `UIViewModel.textModel` 的 Demo 标题同步到目标控制器；短标题保持 GK 单行标题，超出可用宽度时优先按语义分隔符拆成主标题 / 副标题，其次选择靠近中点的语言词边界，最后才按完整字符居中拆分。
 - `Support/UIKit/UIViewController/UIViewController+GKCustomNavigationBar` 提供 `gk_navTitleViewBy(UIViewModel *)`：`textModel` 对应主标题，`subTextModel` 对应副标题；页面已有自定义 `titleView` 时统一跳转链路不会覆盖。

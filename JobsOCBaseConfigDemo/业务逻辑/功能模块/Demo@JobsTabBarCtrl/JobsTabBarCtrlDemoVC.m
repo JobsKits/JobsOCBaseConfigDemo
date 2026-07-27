@@ -33,9 +33,10 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(@"JobsTabBarCtrl@横滑 Demo（>5 个按钮）".tr);
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(@"JobsTabBarCtrl@横滑 Demo（>5 个按钮）".tr)
+                .byFont(UIFontWeightRegularSize(18));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround

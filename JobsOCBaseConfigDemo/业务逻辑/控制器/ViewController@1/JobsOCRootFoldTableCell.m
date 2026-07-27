@@ -34,7 +34,6 @@ Prop_assign()NSInteger chargingProgressPhase;
 -(UIView *)sectionDescriptionHeaderViewByText:(NSString *)text;
 -(CGFloat)sectionDescriptionHeaderWidth;
 -(CGFloat)sectionDescriptionHeaderHeight;
--(CGFloat)innerTableWidth;
 -(CGFloat)innerTableContentHeight;
 -(void)reloadSectionDescriptionHeaderViewIfNeeded;
 -(void)prepareChargingProgressTimerIfNeeded;
@@ -119,95 +118,6 @@ Prop_assign()NSInteger chargingProgressPhase;
     return 50;
 }
 
-+(CGFloat)innerTextWidthByInnerTableWidth:(CGFloat)innerTableWidth{
-    return MAX(120, innerTableWidth - 128);
-}
-
-+(CGFloat)innerTextHeightByText:(NSString *)text
-                           font:(UIFont *)font
-                          width:(CGFloat)width{
-    if (!text.length || width <= 0) return 0;
-    CGRect textRect = [text boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
-                                         options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                      attributes:@{NSFontAttributeName : font}
-                                         context:nil];
-    return ceil(CGRectGetHeight(textRect));
-}
-
-+(NSAttributedString *)wrappedAttributedText:(NSAttributedString *)attributedText
-                                  defaultFont:(UIFont *)defaultFont{
-    if (!attributedText.length) return attributedText;
-    NSMutableParagraphStyle *defaultParagraphStyle = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable paragraphStyle) {
-        paragraphStyle.byLineBreakMode(NSLineBreakByWordWrapping);
-    });
-    NSMutableAttributedString *wrappedText = JobsMutAttributedString(attributedText.string);
-    [wrappedText addAttributes:@{
-        NSFontAttributeName : defaultFont,
-        NSParagraphStyleAttributeName : defaultParagraphStyle
-    } range:NSMakeRange(0, wrappedText.length)];
-    [attributedText enumerateAttributesInRange:NSMakeRange(0, attributedText.length)
-                                       options:0
-                                    usingBlock:^(NSDictionary<NSAttributedStringKey,id> * _Nonnull attrs,
-                                                 NSRange range,
-                                                 BOOL * _Nonnull stop) {
-        [wrappedText addAttributes:attrs
-                             range:range];
-    }];
-    NSUInteger index = 0;
-    while (index < wrappedText.length) {
-        NSRange range = NSMakeRange(0, 0);
-        NSParagraphStyle *paragraphStyle = [wrappedText attribute:NSParagraphStyleAttributeName
-                                                           atIndex:index
-                                                    effectiveRange:&range];
-        NSMutableParagraphStyle *wrappedParagraphStyle = paragraphStyle.mutableCopy ?: jobsMakeParagraphStyle(nil);
-        wrappedParagraphStyle.byLineBreakMode(NSLineBreakByWordWrapping);
-        [wrappedText addAttribute:NSParagraphStyleAttributeName
-                            value:wrappedParagraphStyle
-                            range:range];
-        index = NSMaxRange(range);
-    };return wrappedText;
-}
-
-+(CGFloat)innerAttributedTextHeight:(NSAttributedString *)attributedText
-                              width:(CGFloat)width{
-    if (!attributedText.length || width <= 0) return 0;
-    CGRect textRect = [attributedText boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
-                                                   options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                                   context:nil];
-    return ceil(CGRectGetHeight(textRect));
-}
-
-+(NSString *)innerTitleByViewModel:(UIViewModel *)viewModel{
-    NSString *title = viewModel.textModel.attributedTitle.string ?: viewModel.textModel.text ?: @"";
-    if (![NSStringFromClass(viewModel.cls) isEqualToString:@"JobsProgressDemoVC"]) return title;
-    return [NSString stringWithFormat:@"🟩🟩🟩 %@",title];
-}
-
-+(NSString *)innerSubTitleByViewModel:(UIViewModel *)viewModel{
-    NSString *subTitle = viewModel.subTextModel.attributedTitle.string ?: viewModel.subTextModel.text ?: @"";
-    if (subTitle.length) return subTitle;
-    return viewModel.cls ? NSStringFromClass(viewModel.cls) : @"";
-}
-
-+(CGFloat)innerRowHeightByViewModel:(UIViewModel *)viewModel
-                    innerTableWidth:(CGFloat)innerTableWidth{
-    CGFloat textWidth = [self innerTextWidthByInnerTableWidth:innerTableWidth];
-    CGFloat titleHeight = [self innerTextHeightByText:[self innerTitleByViewModel:viewModel]
-                                                font:self.innerTitleFont
-                                               width:textWidth];
-    NSAttributedString *subAttributedText = [self wrappedAttributedText:viewModel.subTextModel.attributedTitle
-                                                             defaultFont:self.innerSubTitleFont];
-    CGFloat subTitleHeight = subAttributedText.length
-        ? [self innerAttributedTextHeight:subAttributedText
-                                    width:textWidth]
-        : [self innerTextHeightByText:[self innerSubTitleByViewModel:viewModel]
-                                font:self.innerSubTitleFont
-                               width:textWidth];
-    CGFloat contentHeight = titleHeight;
-    if (subTitleHeight > 0) contentHeight += 2 + subTitleHeight;
-    return MAX(self.innerRowHeight, ceil(contentHeight + 14));
-}
-
 +(CGFloat)sectionDescriptionHorizontalInset{
     return 16;
 }
@@ -245,16 +155,14 @@ Prop_assign()NSInteger chargingProgressPhase;
     return self.headerHeight + self.verticalInset * 2;
 }
 
-+(CGFloat)expandedHeightByItems:(NSArray <UIViewModel *>*)items
-              sectionDescription:(NSString *)sectionDescription
-                 innerTableWidth:(CGFloat)innerTableWidth{
++(CGFloat)expandedHeightByItemCount:(NSUInteger)itemCount
+                 sectionDescription:(NSString *)sectionDescription
+                    innerTableWidth:(CGFloat)innerTableWidth{
     CGFloat width = innerTableWidth > 0 ? innerTableWidth : self.sectionDescriptionEstimatedHeaderWidth;
     CGFloat innerContentHeight = [self sectionDescriptionHeightByText:sectionDescription
                                                            headerWidth:width];
-    for (UIViewModel *viewModel in items) {
-        innerContentHeight += [self innerRowHeightByViewModel:viewModel
-                                             innerTableWidth:width];
-    };return self.collapsedHeight + self.innerTop + innerContentHeight + self.innerBottom;
+    innerContentHeight += itemCount * self.innerRowHeight;
+    return self.collapsedHeight + self.innerTop + innerContentHeight + self.innerBottom;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style
@@ -410,8 +318,7 @@ Prop_assign()NSInteger chargingProgressPhase;
 }
 
 -(NSAttributedString *)subAttributedTextByViewModel:(UIViewModel *)viewModel{
-    return [JobsOCRootFoldTableCell wrappedAttributedText:viewModel.subTextModel.attributedTitle
-                                               defaultFont:JobsOCRootFoldTableCell.innerSubTitleFont];
+    return viewModel.subTextModel.attributedTitle;
 }
 
 -(UIImage *)pinImage{
@@ -454,6 +361,7 @@ Prop_assign()NSInteger chargingProgressPhase;
             @"JobsScreenshotTipsDemoVC": @"camera.viewfinder",
             @"JobsScreenshotProtectionDemoVC": @"eye.slash",
             @"JobsAnimatedNumberLabelDemoVC": @"textformat.123",
+            @"UILabelScrollingDemoVC": @"text.line.last.and.arrowtriangle.forward",
             @"JobsClockDemoVC": @"clock",
             @"LotteryVC": @"circle.grid.cross.fill",
             @"JobsRedPacketRainDemoVC": @"envelope.open.fill",
@@ -490,8 +398,7 @@ Prop_assign()NSInteger chargingProgressPhase;
             @"AppIconSwitchingVC": @"app.badge",
             @"MyTableTableVC": @"hand.tap",
             @"CtrlClipboardCueVC": @"doc.on.clipboard",
-            @"JobsAppDoorVC": @"door.left.hand.closed",
-            @"JobsAppDoorVC_Style2": @"key",
+            @"JobsAppDoorDemoListVC": @"door.left.hand.closed",
             @"Douyin_ZFPlayerVC_1": @"play.rectangle",
             @"Douyin_ZFPlayerVC_2": @"play.square.stack",
             @"TransparentRegionVC": @"square.dashed.inset.filled",
@@ -511,7 +418,7 @@ Prop_assign()NSInteger chargingProgressPhase;
             @"JobsSysProgressDemoVC": @"gauge",
             @"JobsProgressDemoVC": @"chart.line.uptrend.xyaxis",
             @"TestIrregularViewTestVC": @"hexagon",
-            @"JobsIMShowVC": @"message",
+            @"JobsIM": @"message",
             @"TestLabelVC": @"character.textbox",
             @"JobsDropDownListVC": @"chevron.down.square",
             @"JobsOCCountryCodeCtrl": @"flag",
@@ -678,20 +585,9 @@ Prop_assign()NSInteger chargingProgressPhase;
                                                        headerWidth:self.sectionDescriptionHeaderWidth];
 }
 
--(CGFloat)innerTableWidth{
-    CGFloat innerTableWidth = CGRectGetWidth(self.innerTableView.bounds);
-    if (innerTableWidth <= 0) innerTableWidth = CGRectGetWidth(self.detailClipView.bounds);
-    if (innerTableWidth <= 0) innerTableWidth = CGRectGetWidth(self.contentView.bounds) - 20;
-    return innerTableWidth > 0 ? innerTableWidth : JobsOCRootFoldTableCell.sectionDescriptionEstimatedHeaderWidth;
-}
-
 -(CGFloat)innerTableContentHeight{
-    CGFloat contentHeight = self.sectionDescriptionHeaderHeight;
-    CGFloat innerTableWidth = self.innerTableWidth;
-    for (UIViewModel *viewModel in self.items) {
-        contentHeight += [JobsOCRootFoldTableCell innerRowHeightByViewModel:viewModel
-                                                            innerTableWidth:innerTableWidth];
-    };return contentHeight;
+    return self.sectionDescriptionHeaderHeight +
+           self.items.count * JobsOCRootFoldTableCell.innerRowHeight;
 }
 
 -(void)reloadSectionDescriptionHeaderViewIfNeeded{
@@ -818,9 +714,7 @@ Prop_assign()NSInteger chargingProgressPhase;
 
 - (CGFloat)tableView:(UITableView *)tableView
 heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row < 0 || indexPath.row >= (NSInteger)self.items.count) return JobsOCRootFoldTableCell.innerRowHeight;
-    return [JobsOCRootFoldTableCell innerRowHeightByViewModel:self.items[indexPath.row]
-                                              innerTableWidth:CGRectGetWidth(tableView.bounds)];
+    return JobsOCRootFoldTableCell.innerRowHeight;
 }
 
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
@@ -834,13 +728,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSAttributedString *subAttributedText = [self subAttributedTextByViewModel:viewModel];
     cell.textLabel
         .byText([self displayTextByViewModel:viewModel])
-        .byFont(JobsOCRootFoldTableCell.innerTitleFont)
-        .byNumberOfLines(0)
-        .byLineBreakMode(NSLineBreakByWordWrapping);
+        .byFont(JobsOCRootFoldTableCell.innerTitleFont);
     cell.detailTextLabel
-        .byFont(JobsOCRootFoldTableCell.innerSubTitleFont)
-        .byNumberOfLines(0)
-        .byLineBreakMode(NSLineBreakByWordWrapping);
+        .byFont(JobsOCRootFoldTableCell.innerSubTitleFont);
     cell.accessoryView = nil;
     cell.imageView
         .byImage([self demoIconImageByViewModel:viewModel])
@@ -858,6 +748,11 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         cell.detailTextLabel.attributedText = nil;
         cell.detailTextLabel.byText([self subTextByViewModel:viewModel]);
     }
+    [cell.textLabel byTextDisplayMode:JobsLabelTextDisplayModeScaleToFit
+                  minimumScaleFactor:.5f
+                maximumNumberOfLines:1
+                 scrollConfiguration:JobsLabelScrollConfiguration.continuousConfiguration];
+    [cell.detailTextLabel byTextDisplayMode:JobsLabelTextDisplayModeSingleLineTailTruncation];
     if (self.pinAccessoryIndex == indexPath.row) {
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.accessoryView = [self pinAccessoryButtonByIndex:indexPath.row];
@@ -989,8 +884,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             tableView.byDataSource(self)
                 .byDelegate(self)
                 .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
-                .byRowHeight(UITableViewAutomaticDimension)
-                .byEstimatedRowHeight(JobsOCRootFoldTableCell.innerRowHeight)
+                .byRowHeight(JobsOCRootFoldTableCell.innerRowHeight)
+                .byEstimatedRowHeight(0)
                 .byEstimatedSectionHeaderHeight(0)
                 .byEstimatedSectionFooterHeight(0)
                 .bySeparatorInset(UIEdgeInsetsMake(0, 16, 0, 16))

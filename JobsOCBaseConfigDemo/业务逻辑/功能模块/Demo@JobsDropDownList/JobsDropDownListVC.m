@@ -44,9 +44,10 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(data.attributedTitle.string);
-            data.byFont(UIFontWeightRegularSize(16));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(data.attributedTitle.string)
+                .byFont(UIFontWeightRegularSize(16));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -92,9 +93,12 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
 #pragma mark —— 一些私有化方法
 /// 移除掉这个下拉列表
 -(void)endDropDownListView{
-    jobsByCtrlBlock disappearBlock = _dropDownListView.dropDownListViewDisappear;
-    if (disappearBlock) disappearBlock(_btn);
+    JobsDropDownListView *dropDownListView = _dropDownListView;
     _dropDownListView = nil;
+    if (dropDownListView.superview) {
+        jobsByCtrlBlock disappearBlock = dropDownListView.dropDownListViewDisappear;
+        if (disappearBlock) disappearBlock(_btn);
+    }
     _btn.bySelected(NO);
     [self refreshDirectionUIWithOpened:NO];
 }
@@ -312,8 +316,9 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
 -(UIColor *)cor{
     if (!_cor) {
         _cor = [UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            data.add(HEXCOLOR(0xE9C65D));
-            data.add(HEXCOLOR(0xDDAA3A));
+            data
+                .add(HEXCOLOR(0xE9C65D))
+                .add(HEXCOLOR(0xDDAA3A));
         })
                                    startPoint:CGPointZero
                                      endPoint:CGPointZero

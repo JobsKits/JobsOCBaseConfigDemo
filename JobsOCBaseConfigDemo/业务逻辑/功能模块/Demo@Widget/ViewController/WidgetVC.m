@@ -56,9 +56,10 @@ Prop_strong()UILabel *footnoteLabel;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(@"iOS Widget Demo".tr);
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(@"iOS Widget Demo".tr)
+                .byFont(UIFontWeightRegularSize(18));
         })
         .byBgCor(UIColor.systemGroupedBackgroundColor)
         .byNavBgCor(UIColor.systemBackgroundColor);

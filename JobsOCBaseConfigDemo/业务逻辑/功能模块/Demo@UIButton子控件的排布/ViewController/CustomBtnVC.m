@@ -40,18 +40,18 @@ Prop_copy()NSArray <UIViewModel *>*dataArr;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(@"UIButton子控件的排布".tr);
-            data.byFont(UIFontWeightRegularSize(16));
+            data
+                .byTextCor(JobsLabelColor)
+                .byText(@"平替系统按钮".tr)
+                .byFont(UIFontWeightRegularSize(16));
         })
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        .byBgCor(JobsSystemBackgroundColor)
+        .byNavBgCor(JobsSystemBackgroundColor);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(RGBA_COLOR(255, 238, 221, 1));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.tableView.byAlpha(1);
 }
@@ -78,18 +78,18 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
             label.byText([self demoTitleByViewModel:model])
                 .byFont(UIFontWeightMediumSize(JobsWidth(15)))
-                .byTextCor(HEXCOLOR(0x2F3A47))
+                .byTextCor(JobsLabelColor)
                 .byNumberOfLines(1);
         })
         .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
             label.byText([self demoSubTitleByViewModel:model])
                 .byFont(UIFontWeightRegularSize(JobsWidth(12)))
-                .byTextCor(HEXCOLOR(0x6E7783))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byNumberOfLines(2);
         })
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
-        .bySelectionStyle(UITableViewCellSelectionStyleDefault)
-        .byBgColor(JobsWhiteColor);
+        .bySelectionStyle(UITableViewCellSelectionStyleNone)
+        .byBgColor(JobsSecondarySystemBackgroundColor);
 }
 
 - (void)tableView:(UITableView *)tableView

@@ -347,8 +347,9 @@ referenceSizeForFooterInSection:(NSInteger)section{
                 .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
                 .byBounces(NO)
                 .byShowsVerticalScrollIndicator(NO);
-            tableView.byBgColor(JobsClearColor);
-            tableView.byFrame(CGRectMake(0,0,TableViewWidth,JobsWidth(300)));
+            tableView
+                .byBgColor(JobsClearColor)
+                .byFrame(CGRectMake(0,0,TableViewWidth,JobsWidth(300)));
         }));
     };return _tableView;
 }
@@ -365,8 +366,9 @@ referenceSizeForFooterInSection:(NSInteger)section{
             .byAlwaysBounceVertical(YES)
             .byFrame(CGRectMake(self.tableView.right,self.tableView.top,
                                 JobsMainScreen_WIDTH() - self.tableView.width,JobsWidth(300)));
-        _collectionView.byBgColor(ThreeClassCellBgCor);
-        _collectionView.addOn(self);
+        _collectionView
+            .byBgColor(ThreeClassCellBgCor)
+            .addOn(self);
     };return _collectionView;
 }
 

@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_assign()BOOL isHiddenNavigationBar;
 
-/// 为 Demo 导航子页面注入全局主题切换按钮，并保留已有右侧业务按钮。
+/// Demo 子页面右侧只保留主题入口；其它业务动作合并到同入口下拉列表。
 -(void)jobs_ensureDemoThemeButton;
 
 @end

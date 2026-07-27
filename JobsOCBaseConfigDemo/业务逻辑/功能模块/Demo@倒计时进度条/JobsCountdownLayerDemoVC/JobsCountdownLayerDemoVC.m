@@ -19,6 +19,7 @@ Prop_assign()CGFloat totalSeconds;
 @end
 
 @implementation JobsCountdownLayerDemoVC
+
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
     [self stopCountdownAnimated:NO];

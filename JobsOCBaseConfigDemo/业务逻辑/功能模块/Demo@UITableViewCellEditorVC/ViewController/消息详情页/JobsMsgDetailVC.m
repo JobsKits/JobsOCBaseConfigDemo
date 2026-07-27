@@ -38,9 +38,10 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x273244));
-            data.byText(@"消息详情页".tr);
-            data.byFont(UIFontWeightBoldSize(17));
+            data
+                .byTextCor(HEXCOLOR(0x273244))
+                .byText(@"消息详情页".tr)
+                .byFont(UIFontWeightBoldSize(17));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround

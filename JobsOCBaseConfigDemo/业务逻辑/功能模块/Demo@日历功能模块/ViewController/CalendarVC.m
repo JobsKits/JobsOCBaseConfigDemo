@@ -45,9 +45,10 @@ Prop_strong()NSDate *maximumCalendarDate;
                 data.byText(@"返回".tr);
             })
             .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-                data.byTextCor(HEXCOLOR(0x3D4A58));
-                data.byText(@"日历功能".tr);
-                data.byFont(UIFontWeightRegularSize(16));
+                data
+                    .byTextCor(HEXCOLOR(0x3D4A58))
+                    .byText(@"日历功能".tr)
+                    .byFont(UIFontWeightRegularSize(16));
             })
             // 使用原则：底图有 + 底色有 = 优先使用底图数据
             // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround

@@ -43,6 +43,7 @@ digraph PodspecDependencies {
   "JobsGestureLock";
   "JobsGetWindow";
   "JobsHotLabel";
+  "JobsIconfont";
   "JobsImageNumberView";
   "JobsImageRotation";
   "JobsLanMgr";

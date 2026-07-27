@@ -53,8 +53,9 @@ Prop_assign()JobsWalletCardExpandStyle walletStyle;
             data.byTextCor(HEXCOLOR(0x3D4A58));
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(self.showsModeList ? @"卡片展开动效".tr : [self titleByWalletStyle:self.walletStyle]);
-            data.byFont(UIFontWeightSemiboldSize(17));
+            data
+                .byText(self.showsModeList ? @"卡片展开动效".tr : [self titleByWalletStyle:self.walletStyle])
+                .byFont(UIFontWeightSemiboldSize(17));
         })
         .byBgCor(HEXCOLOR(0xF5F7FB))
         .byNavBgCor(HEXCOLOR(0xFFF1E4))

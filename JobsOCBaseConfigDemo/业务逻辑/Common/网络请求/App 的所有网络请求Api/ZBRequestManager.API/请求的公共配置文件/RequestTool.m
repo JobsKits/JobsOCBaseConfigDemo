@@ -67,8 +67,9 @@
             });
             //添加新的响应数据类型
             config.responseContentTypes = jobsMakeMutArr(^(__kindof NSMutableArray *_Nullable data) {
-                data.add(@"text/aaa");
-                data.add(@"text/bbb");
+                data
+                    .add(@"text/aaa")
+                    .add(@"text/bbb");
 //                内部已存在的响应数据类型
 //                text/html
 //                application/json

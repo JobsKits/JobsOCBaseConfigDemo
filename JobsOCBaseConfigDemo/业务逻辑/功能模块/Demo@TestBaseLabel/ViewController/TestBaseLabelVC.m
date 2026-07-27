@@ -33,9 +33,10 @@ Prop_strong()BaseLabel *baseLabel;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(data.attributedTitle.string);
-            data.byFont(UIFontWeightRegularSize(16));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(data.attributedTitle.string)
+                .byFont(UIFontWeightRegularSize(16));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -108,8 +109,9 @@ Prop_strong()BaseLabel *baseLabel;
         _baseLabel = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
             @jobs_strongify(self)
             label.jobsOffsetX = JobsWidth(10);
-            label.byText(@"测试 -BaseLabel-".tr);
-            label.byBgColor(JobsCyanColor);
+            label
+                .byText(@"测试 -BaseLabel-".tr)
+                .byBgColor(JobsCyanColor);
             label.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                 make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(20));
                 make.left.equalTo(self.view).offset(JobsWidth(100));

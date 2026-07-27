@@ -32,13 +32,15 @@ static CGFloat jobsDropDownListViewHeightByModels(NSArray <__kindof UIViewModel 
     NSMutableArray <__kindof UIViewModel *>*dataMutArr = data.mutableCopy;
     JobsDropDownListView *dropDownListView = JobsDropDownListView.new;
     dropDownListView.direction = direction;
+    __weak JobsDropDownListView *weakDropDownListView = dropDownListView;
     [dropDownListView actionObjBlock:^(id selectedData) {
-        if ([motivateFromView isKindOfClass:UIButton.class]) {
-            UIButton *btn = (UIButton *)motivateFromView;
-            btn.bySelected(NO);
-        }
+        JobsDropDownListView *strongDropDownListView = weakDropDownListView;
+        UIControl *motivateControl = [motivateFromView isKindOfClass:UIControl.class]
+            ? (UIControl *)motivateFromView
+            : nil;
+        jobsByCtrlBlock disappearBlock = strongDropDownListView.dropDownListViewDisappear;
+        if (disappearBlock) disappearBlock(motivateControl);
         if (finishBlock) finishBlock(selectedData);
-        dropDownListView.dropDownListViewDisappear(nil);
     }];
     CGRect anchorFrame = jobsDropDownListViewWindowFrameByView(motivateFromView);
     CGFloat listHeight = jobsDropDownListViewHeightByModels(dataMutArr);

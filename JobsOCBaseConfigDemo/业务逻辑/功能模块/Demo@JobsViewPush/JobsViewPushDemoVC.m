@@ -34,8 +34,9 @@ Prop_strong()BaseButton *pushButton;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"JobsViewPush".tr);
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byText(@"JobsViewPush".tr)
+                .byFont(UIFontWeightRegularSize(18));
         })
         .byBgCor(UIColor.systemBackgroundColor)
         .byNavBgCor(UIColor.systemBackgroundColor);

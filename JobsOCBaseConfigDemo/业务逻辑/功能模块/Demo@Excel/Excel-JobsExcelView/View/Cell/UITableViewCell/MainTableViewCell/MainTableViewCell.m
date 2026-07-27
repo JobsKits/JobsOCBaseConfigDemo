@@ -119,8 +119,9 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
             data.minimumLineSpacing = 0;
             data.minimumInteritemSpacing = 0;
         })];
-        _collectionView.dataLink(self);
-        _collectionView.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
+        _collectionView
+            .dataLink(self)
+            .byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {

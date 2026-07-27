@@ -45,9 +45,10 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(@"ZMJGanttList".tr);
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(@"ZMJGanttList".tr)
+                .byFont(UIFontWeightRegularSize(18));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -678,23 +679,25 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
 -(NSMutableArray<ZMJTask *> *)tasks{
     if(!_tasks){
         _tasks = NSMutableArray.array;
-        _tasks.add([ZMJTask taskWithName:@"Office itinerancy" startDate:dateFromString(@"2017-12-7") endDate:dateFromString(@"2017-12-15")]);
-        _tasks.add([ZMJTask taskWithName:@"Office facingy" startDate:dateFromString(@"2017-12-8") endDate:dateFromString(@"2017-12-12")]);
-        _tasks.add([ZMJTask taskWithName:@"Office itinerancy" startDate:dateFromString(@"2017-12-10") endDate:dateFromString(@"2017-12-12")]);
-        _tasks.add([ZMJTask taskWithName:@"Interior office" startDate:dateFromString(@"2018-1-1") endDate:dateFromString(@"2018-1-3")]);
-        _tasks.add([ZMJTask taskWithName:@"Air condition check" startDate:dateFromString(@"2017-12-7") endDate:dateFromString(@"2017-12-19")]);
-        _tasks.add([ZMJTask taskWithName:@"Office itinerancy" startDate:dateFromString(@"2017-12-24") endDate:dateFromString(@"2017-12-30")]);
-        _tasks.add([ZMJTask taskWithName:@"Office facingy" startDate:dateFromString(@"2017-12-18") endDate:dateFromString(@"2018-1-2")]);
-        _tasks.add([ZMJTask taskWithName:@"Office facingy" startDate:nil endDate:dateFromString(@"2017-12-8")]);
+        _tasks
+            .add([ZMJTask taskWithName:@"Office itinerancy" startDate:dateFromString(@"2017-12-7") endDate:dateFromString(@"2017-12-15")])
+            .add([ZMJTask taskWithName:@"Office facingy" startDate:dateFromString(@"2017-12-8") endDate:dateFromString(@"2017-12-12")])
+            .add([ZMJTask taskWithName:@"Office itinerancy" startDate:dateFromString(@"2017-12-10") endDate:dateFromString(@"2017-12-12")])
+            .add([ZMJTask taskWithName:@"Interior office" startDate:dateFromString(@"2018-1-1") endDate:dateFromString(@"2018-1-3")])
+            .add([ZMJTask taskWithName:@"Air condition check" startDate:dateFromString(@"2017-12-7") endDate:dateFromString(@"2017-12-19")])
+            .add([ZMJTask taskWithName:@"Office itinerancy" startDate:dateFromString(@"2017-12-24") endDate:dateFromString(@"2017-12-30")])
+            .add([ZMJTask taskWithName:@"Office facingy" startDate:dateFromString(@"2017-12-18") endDate:dateFromString(@"2018-1-2")])
+            .add([ZMJTask taskWithName:@"Office facingy" startDate:nil endDate:dateFromString(@"2017-12-8")]);
     };return _tasks;
 }
 
 -(NSMutableArray<UIColor *> *)colors{
     if(!_colors){
         _colors = NSMutableArray.array;
-        _colors.add([UIColor colorWithRed:72/255.f green:194/255.f blue:169/255.f alpha:1]);
-        _colors.add([UIColor colorWithRed:255/255.f green:121/255.f blue:121/255.f alpha:1]);
-        _colors.add([UIColor colorWithRed:204/255.f green:204/255.f blue:204/255.f alpha:1]);
+        _colors
+            .add([UIColor colorWithRed:72/255.f green:194/255.f blue:169/255.f alpha:1])
+            .add([UIColor colorWithRed:255/255.f green:121/255.f blue:121/255.f alpha:1])
+            .add([UIColor colorWithRed:204/255.f green:204/255.f blue:204/255.f alpha:1]);
     };return _colors;
 }
 

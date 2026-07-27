@@ -29,12 +29,13 @@ Prop_assign()NSInteger colNumber;// 列数
         @jobs_strongify(self)
         /// 左边的标题
         self.leftTitles = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>*_Nullable data) {
-            data.add(@"1");
-            data.add(@"2");
-            data.add(@"3");
-            data.add(@"4");
-            data.add(@"5");
-            data.add(@"6");
+            data
+                .add(@"1")
+                .add(@"2")
+                .add(@"3")
+                .add(@"4")
+                .add(@"5")
+                .add(@"6");
         });
         self.leftListDatas = jobsMakeMutArr(^(__kindof NSMutableArray <UIButtonModel *>*_Nullable data) {
             @jobs_strongify(self)
@@ -51,16 +52,17 @@ Prop_assign()NSInteger colNumber;// 列数
         });
         /// 头部标题
         self.topHeaderTitles = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>*_Nullable arr) {
-            arr.add(@"数字/标题".tr);
-            arr.add(@"标题一".tr);
-            arr.add(@"标题二".tr);
-            arr.add(@"标题三".tr);
-            arr.add(@"标题四".tr);
-            arr.add(@"标题五".tr);
-            arr.add(@"标题六".tr);
-            arr.add(@"标题七".tr);
-            arr.add(@"标题八".tr);
-            arr.add(@"标题九".tr);
+            arr
+                .add(@"数字/标题".tr)
+                .add(@"标题一".tr)
+                .add(@"标题二".tr)
+                .add(@"标题三".tr)
+                .add(@"标题四".tr)
+                .add(@"标题五".tr)
+                .add(@"标题六".tr)
+                .add(@"标题七".tr)
+                .add(@"标题八".tr)
+                .add(@"标题九".tr);
         });
         /// 第一个元素
         self.data_00 = jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {

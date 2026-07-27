@@ -107,8 +107,9 @@ BaseViewProtocol_synthesize
 -(void)setButtonModel:(UIButtonModel *)buttonModel{
     _buttonModel = buttonModel;
     @jobs_weakify(self)
-    _button.bySelected(buttonModel.jobsSelected);
-    _button.byEnabled(buttonModel.jobsEnabled);
+    _button
+        .bySelected(buttonModel.jobsSelected)
+        .byEnabled(buttonModel.jobsEnabled);
     _button.resetByButtonModel(buttonModel,self.selected)
         .onClickBy(^(UIButton *x){
             @jobs_strongify(self)

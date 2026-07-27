@@ -44,9 +44,10 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x273244));
-            data.byText(@"站内信".tr);
-            data.byFont(UIFontWeightBoldSize(17));
+            data
+                .byTextCor(HEXCOLOR(0x273244))
+                .byText(@"站内信".tr)
+                .byFont(UIFontWeightBoldSize(17));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -430,7 +431,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_editBtn) {
         @jobs_weakify(self)
         _editBtn = BaseButton.jobsInit()
-            .bgColorBy(RGBA_COLOR(255, 255, 255, 0.92))
             .jobsResetBtnTitleCor(HEXCOLOR(0x273244))
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(13))
             .jobsResetBtnTitle(@"編輯".tr)
@@ -438,13 +438,16 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
     //            toastBy(x.titleForNormalState);
-                x.bySelected(!x.selected);
-                x.jobsResetBtnTitle(x.selected ? @"完成".tr : @"編輯".tr);
+                BOOL selected = !x.selected;
+                x
+                    .jobsResetBtnTitle(selected ? @"完成".tr : @"編輯".tr)
+                    .bySelected(selected);
                 [self.tableView setEditing:x.selected animated:YES];
                 x.selected ? [self.getMsgEditBoardView appearByView:self.view] : [self.getMsgEditBoardView disappearByView:self.view];
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
-            });
+            })
+            .bgColorBy(RGBA_COLOR(255, 255, 255, 0.92));
         _editBtn.byFrame(CGRectMake(0, 0, JobsWidth(56), JobsWidth(40)));
         _editBtn.layer
             .byCornerRadius(JobsWidth(20))
@@ -493,8 +496,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 -(MsgEditBoardView *)msgEditBoardView{
     if (!_msgEditBoardView) {
         _msgEditBoardView = MsgEditBoardView.new;
-        _msgEditBoardView.byFrame(MsgEditBoardView.viewFrameByModel(nil));
-        _msgEditBoardView.jobsRichViewByModel(nil);
+        _msgEditBoardView
+            .byFrame(MsgEditBoardView.viewFrameByModel(nil))
+            .jobsRichViewByModel(nil);
         _msgEditBoardView.getDeleteBtn.enabledBlock(self.selectedDataMutArr.count);
         @jobs_weakify(self)
         [_msgEditBoardView actionObjBlock:^(id data) {

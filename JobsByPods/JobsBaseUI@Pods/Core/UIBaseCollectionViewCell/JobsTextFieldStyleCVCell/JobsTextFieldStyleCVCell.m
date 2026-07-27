@@ -87,16 +87,17 @@
         @jobs_weakify(self)
         _textField = self.contentView.addSubview(jobsMakeZYTextField(^(ZYTextField * _Nullable textField) {
             @jobs_strongify(self)
-            textField.byDelegate(self);
-            textField.byTextCor(JobsBlackColor);
-            textField.byBgColor(@"#F9F9F9".cor);
-            textField.byReturnKeyType(UIReturnKeyDefault);
-            textField.byKeyboardAppearance(UIKeyboardAppearanceDefault);
-            textField.byKeyboardType(UIKeyboardTypeNumberPad);
-            textField.byPlaceholder(@"请输入充值金额".tr);
-            textField.byFont(UIFontWeightMediumSize(18));
-            textField.placeholderFont = textField.font;
-            textField.placeholderColor = @"#AAAAAA".cor;
+            textField
+                .byDelegate(self)
+                .byReturnKeyType(UIReturnKeyDefault)
+                .byKeyboardAppearance(UIKeyboardAppearanceDefault)
+                .byKeyboardType(UIKeyboardTypeNumberPad)
+                .byPlaceholder(@"请输入充值金额".tr)
+                .byPlaceholderFont(UIFontWeightMediumSize(18))
+                .byPlaceholderColor(@"#AAAAAA".cor)
+                .byTextCor(JobsBlackColor)
+                .byFont(UIFontWeightMediumSize(18))
+                .byBgColor(@"#F9F9F9".cor);
             [textField jobsTextFieldEventFilterBlock:^BOOL(id data) {
     //            @jobs_strongify(self)
                 return YES;

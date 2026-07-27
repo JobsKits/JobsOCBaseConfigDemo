@@ -42,8 +42,9 @@ Prop_strong()JobsOCSearcherView *searchView;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"JobsOCSearcher".tr);
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byText(@"JobsOCSearcher".tr)
+                .byFont(UIFontWeightRegularSize(18));
         })
         .byBgCor(HEXCOLOR(0xF6F8FC))
         .byNavBgCor(HEXCOLOR(0xF6F8FC));

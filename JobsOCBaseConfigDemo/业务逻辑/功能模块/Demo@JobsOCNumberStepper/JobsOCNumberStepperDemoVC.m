@@ -96,7 +96,10 @@ Prop_strong()NSMutableArray <JobsOCNumberStepper *>*numberStepperMutArr;
             .byText([NSString stringWithFormat:@"当前值：%ld",(long)value])
             .byTextCor(JobsSystemBlueColor)
             .byFont([UIFont monospacedDigitSystemFontOfSize:14
-                                                    weight:UIFontWeightMedium]);
+                                                    weight:UIFontWeightMedium])
+            .byNumberOfLines(1)
+            .byAdjustsFontSizeToFitWidth(YES)
+            .byMinimumScaleFactor(0.8);
     });
     JobsOCNumberStepper *numberStepper = JobsOCNumberStepper.new;
     [numberStepper configureWithValue:value
@@ -131,15 +134,14 @@ Prop_strong()NSMutableArray <JobsOCNumberStepper *>*numberStepperMutArr;
         .byAdd(^(MASConstraintMaker *make) {
             make.top.equalTo(detailLab.mas_bottom).offset(14);
             make.left.equalTo(titleLab);
-            make.width.mas_equalTo(190);
-            make.height.mas_equalTo(44);
+            make.size.mas_equalTo(numberStepper.intrinsicContentSize);
             make.bottom.equalTo(cardView).inset(16);
         });
     valueLab
         .addOn(cardView)
         .byAdd(^(MASConstraintMaker *make) {
             make.left.equalTo(numberStepper.mas_right).offset(12);
-            make.right.lessThanOrEqualTo(titleLab);
+            make.right.equalTo(titleLab);
             make.centerY.equalTo(numberStepper);
         });
 }

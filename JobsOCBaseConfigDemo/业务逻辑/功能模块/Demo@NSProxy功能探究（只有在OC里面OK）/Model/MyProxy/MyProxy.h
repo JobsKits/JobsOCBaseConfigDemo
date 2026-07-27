@@ -22,14 +22,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class MyProxy;
+typedef __kindof MyProxy *_Nullable(^JobsRetMyProxyByIDBlock)(id _Nullable target);
+
 @interface MyProxy : NSProxy
 
 Prop_strong(nullable)NSMutableArray *targets;
 Prop_strong(nullable)NSMutableArray <WeakTarget *>*weakTargets;
 
 +(instancetype)proxy;
--(jobsByIDBlock _Nonnull)addTargetBy;
--(jobsByIDBlock _Nonnull)addWeakTargetBy;
+-(JobsRetMyProxyByIDBlock _Nonnull)addTargetBy;
+-(JobsRetMyProxyByIDBlock _Nonnull)addWeakTargetBy;
 
 @end
 

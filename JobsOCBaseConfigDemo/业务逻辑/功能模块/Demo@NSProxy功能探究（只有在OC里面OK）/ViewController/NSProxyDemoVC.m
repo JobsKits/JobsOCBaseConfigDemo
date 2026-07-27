@@ -38,9 +38,10 @@
                 data.byText(@"返回".tr);
             })
             .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-                data.byTextCor(HEXCOLOR(0x3D4A58));
-                data.byText(@"探究 NSProxy".tr);
-                data.byFont(UIFontWeightRegularSize(16));
+                data
+                    .byTextCor(HEXCOLOR(0x3D4A58))
+                    .byText(@"探究 NSProxy".tr)
+                    .byFont(UIFontWeightRegularSize(16));
             })
             // 使用原则：底图有 + 底色有 = 优先使用底图数据
             // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -73,8 +74,9 @@
         // 创建 Proxy
         MyProxy *proxy = MyProxy.proxy;
         // 添加多个目标对象（支持多播）
-        proxy.addTargetBy(RealServiceA.new);
-        proxy.addTargetBy(RealServiceB.new);
+        proxy
+            .addTargetBy(RealServiceA.new)
+            .addTargetBy(RealServiceB.new);
         // 强转为协议类型（或用 id<MyService>）
         id<MyService> service = (id<MyService>)proxy;
         [service doSomething]; // 发给 A 和 B，同时打印调用日志

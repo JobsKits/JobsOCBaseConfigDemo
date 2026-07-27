@@ -125,8 +125,9 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                 .byPagingEnabled(YES) // 这个属性为YES会使得Tableview一格一格的翻动
                 .byShowsVerticalScrollIndicator(NO)
                 .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
-            tableView.byBgColor(self.bgColour);
-            tableView.addOn(self);
+            tableView
+                .byBgColor(self.bgColour)
+                .addOn(self);
             [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
                 make.edges.equalTo(self);

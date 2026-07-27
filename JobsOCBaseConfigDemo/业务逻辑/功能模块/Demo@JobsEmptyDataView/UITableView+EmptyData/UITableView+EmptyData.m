@@ -64,8 +64,9 @@ JobsKey(JobsTableViewEmptyDataReloadingKey)
         }else{
             jobsMakeBaseView(^(__kindof BaseView *_Nullable view) {
                 @jobs_strongify(self)
-                view.byFrame(self.bounds);
-                view.cleanSubviewBy(BaseView.class);
+                view
+                    .byFrame(self.bounds)
+                    .cleanSubviewBy(BaseView.class);
                 self.addSubview(view)
                     .addSubview(UIButton.initByButtonModel(model ? : jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
                         data.byTitle(@"No Datas".tr)
@@ -95,8 +96,9 @@ JobsKey(JobsTableViewEmptyDataReloadingKey)
         }else{
             jobsMakeBaseView(^(__kindof BaseView *_Nullable view) {
                 @jobs_strongify(self)
-                view.byFrame(self.bounds);
-                view.cleanSubviewBy(BaseView.class);
+                view
+                    .byFrame(self.bounds)
+                    .cleanSubviewBy(BaseView.class);
                 self.addSubview(view);
                 jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
                     label

@@ -39,9 +39,10 @@ Prop_strong()UIColor *oddRowColor;  //奇数
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(@"ZMJSchedule".tr);
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(@"ZMJSchedule".tr)
+                .byFont(UIFontWeightRegularSize(18));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -180,64 +181,68 @@ Prop_strong()UIColor *oddRowColor;  //奇数
 -(NSMutableArray<NSString *> *)dates{
     if(!_dates){
         _dates = NSMutableArray.array;
-        _dates.add(@"7/10/2017");
-        _dates.add(@"7/11/2017");
-        _dates.add(@"7/12/2017");
-        _dates.add(@"7/13/2017");
-        _dates.add(@"7/14/2017");
-        _dates.add(@"7/15/2017");
-        _dates.add(@"7/16/2017");
+        _dates
+            .add(@"7/10/2017")
+            .add(@"7/11/2017")
+            .add(@"7/12/2017")
+            .add(@"7/13/2017")
+            .add(@"7/14/2017")
+            .add(@"7/15/2017")
+            .add(@"7/16/2017");
     };return _dates;
 }
 
 -(NSMutableArray<NSString *> *)days{
     if(!_days){
         _days = NSMutableArray.array;
-        _days.add(@"MONDAY");
-        _days.add(@"TUESDAY");
-        _days.add(@"WEDNSDAY");
-        _days.add(@"THURSDAY");
-        _days.add(@"FRIDAY");
-        _days.add(@"SATURDAY");
-        _days.add(@"SUNDAY");
+        _days
+            .add(@"MONDAY")
+            .add(@"TUESDAY")
+            .add(@"WEDNSDAY")
+            .add(@"THURSDAY")
+            .add(@"FRIDAY")
+            .add(@"SATURDAY")
+            .add(@"SUNDAY");
     };return _days;
 }
 
 -(NSMutableArray<UIColor *> *)dayColors{
     if(!_dayColors){
         _dayColors = NSMutableArray.array;
-        _dayColors.add([UIColor colorWithRed:0.918 green:0.224 blue:0.153 alpha:1]);
-        _dayColors.add([UIColor colorWithRed:0.106 green:0.541 blue:0.827 alpha:1]);
-        _dayColors.add([UIColor colorWithRed:0.200 green:0.620 blue:0.565 alpha:1]);
-        _dayColors.add([UIColor colorWithRed:0.953 green:0.498 blue:0.098 alpha:1]);
-        _dayColors.add([UIColor colorWithRed:0.400 green:0.584 blue:0.141 alpha:1]);
-        _dayColors.add([UIColor colorWithRed:0.835 green:0.655 blue:0.051 alpha:1]);
-        _dayColors.add([UIColor colorWithRed:0.153 green:0.569 blue:0.835 alpha:1]);
+        _dayColors
+            .add([UIColor colorWithRed:0.918 green:0.224 blue:0.153 alpha:1])
+            .add([UIColor colorWithRed:0.106 green:0.541 blue:0.827 alpha:1])
+            .add([UIColor colorWithRed:0.200 green:0.620 blue:0.565 alpha:1])
+            .add([UIColor colorWithRed:0.953 green:0.498 blue:0.098 alpha:1])
+            .add([UIColor colorWithRed:0.400 green:0.584 blue:0.141 alpha:1])
+            .add([UIColor colorWithRed:0.835 green:0.655 blue:0.051 alpha:1])
+            .add([UIColor colorWithRed:0.153 green:0.569 blue:0.835 alpha:1]);
     };return _dayColors;
 }
 
 -(NSMutableArray<NSString *> *)hours{
     if(!_hours){
         _hours = NSMutableArray.array;
-        _hours.add(@"6:00 AM");
-        _hours.add(@"7:00 AM");
-        _hours.add(@"8:00 AM");
-        _hours.add(@"9:00 AM");
-        _hours.add(@"10:00 AM");
-        _hours.add(@"11:00 AM");
-        _hours.add(@"12:00 AM");
-        _hours.add(@"13:00 AM");
-        _hours.add(@"14:00 AM");
-        _hours.add(@"15:00 AM");
-        _hours.add(@"16:00 AM");
-        _hours.add(@"17:00 AM");
-        _hours.add(@"18:00 AM");
-        _hours.add(@"19:00 AM");
-        _hours.add(@"20:00 AM");
-        _hours.add(@"21:00 AM");
-        _hours.add(@"22:00 AM");
-        _hours.add(@"23:00 AM");
-        _hours.add(@"24:00 AM");
+        _hours
+            .add(@"6:00 AM")
+            .add(@"7:00 AM")
+            .add(@"8:00 AM")
+            .add(@"9:00 AM")
+            .add(@"10:00 AM")
+            .add(@"11:00 AM")
+            .add(@"12:00 AM")
+            .add(@"13:00 AM")
+            .add(@"14:00 AM")
+            .add(@"15:00 AM")
+            .add(@"16:00 AM")
+            .add(@"17:00 AM")
+            .add(@"18:00 AM")
+            .add(@"19:00 AM")
+            .add(@"20:00 AM")
+            .add(@"21:00 AM")
+            .add(@"22:00 AM")
+            .add(@"23:00 AM")
+            .add(@"24:00 AM");
     };return _hours;
 }
 
@@ -256,13 +261,14 @@ Prop_strong()UIColor *oddRowColor;  //奇数
 -(NSMutableArray<NSArray<NSString *> *> *)datas{
     if(!_datas){
         _datas = NSMutableArray.array;
-        _datas.add(@[@"", @"", @"Take medicine", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"Movie with family", @"", @"", @"", @"", @"", @""]);
-        _datas.add(@[@"Leave for cabin", @"", @"", @"", @"", @"Lunch with Tim", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @""]);
-        _datas.add(@[@"", @"", @"", @"", @"Downtown parade", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @""]);
-        _datas.add(@[@"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"Fireworks show", @"", @"", @""]);
-        _datas.add(@[@"", @"", @"", @"", @"", @"Family BBQ", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @""]);
-        _datas.add(@[@"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @""]);
-        _datas.add(@[@"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"Return home", @"", @"", @"", @"", @"", @""]);
+        _datas
+            .add(@[@"", @"", @"Take medicine", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"Movie with family", @"", @"", @"", @"", @"", @""])
+            .add(@[@"Leave for cabin", @"", @"", @"", @"", @"Lunch with Tim", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @""])
+            .add(@[@"", @"", @"", @"", @"Downtown parade", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @""])
+            .add(@[@"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"Fireworks show", @"", @"", @""])
+            .add(@[@"", @"", @"", @"", @"", @"Family BBQ", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @""])
+            .add(@[@"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @""])
+            .add(@[@"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"", @"Return home", @"", @"", @"", @"", @"", @""]);
     };return _datas;
 }
 

@@ -136,6 +136,38 @@
     XCTAssertTrue([controller isKindOfClass:baseControllerClass]);
     XCTAssertNoThrow([controller loadViewIfNeeded]);
     XCTAssertNotNil(controller.view);
+    XCTAssertEqualObjects([controller valueForKeyPath:@"viewModel.textModel.text"], @"手势解锁");
+    UISegmentedControl *modeControl = [controller valueForKey:@"modeControl"];
+    XCTAssertEqual(modeControl.numberOfSegments, 2);
+    UIView *lockView = [controller valueForKey:@"demoLockView"];
+    XCTAssertEqual([[lockView valueForKey:@"nodeButtons"] count], 9);
+}
+
+-(void)testDropDownListSelectionClosesWithoutNilBlockCrash {
+    UIViewController *controller = [NSClassFromString(@"JobsDropDownListVC") new];
+    XCTAssertNotNil(controller);
+    XCTAssertNoThrow([controller loadViewIfNeeded]);
+
+    UIButton *button = [controller valueForKey:@"btn"];
+    XCTAssertNotNil(button);
+    [button sendActionsForControlEvents:UIControlEventTouchUpInside];
+
+    UIView *dropDownListView = [controller valueForKey:@"dropDownListView"];
+    XCTAssertNotNil(dropDownListView);
+    UITableView *tableView = [dropDownListView valueForKey:@"tableView"];
+    XCTAssertEqual([tableView numberOfRowsInSection:0], 3);
+
+    typedef void(*JobsDropDownDidSelectIMP)(id, SEL, UITableView *, NSIndexPath *);
+    JobsDropDownDidSelectIMP didSelect = (JobsDropDownDidSelectIMP)objc_msgSend;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0
+                                               inSection:0];
+    XCTAssertNoThrow(didSelect(dropDownListView,
+                               NSSelectorFromString(@"tableView:didSelectRowAtIndexPath:"),
+                               tableView,
+                               indexPath));
+    XCTAssertNil([controller valueForKey:@"dropDownListView"]);
+    XCTAssertFalse(button.selected);
+    XCTAssertEqualObjects([[controller valueForKey:@"selectedTitleLab"] text], @"点选：基础配置");
 }
 
 -(void)testPerformanceExample {

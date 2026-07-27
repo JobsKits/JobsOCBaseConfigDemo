@@ -44,9 +44,10 @@ Prop_assign()BOOL isLeaveAlertShowing;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"手写板".tr);
-            data.byTextCor(HEXCOLOR(0x263342));
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byText(@"手写板".tr)
+                .byTextCor(HEXCOLOR(0x263342))
+                .byFont(UIFontWeightRegularSize(18));
         })
         .byBgCor(HEXCOLOR(0xF4F5F8))
         .byNavBgCor(HEXCOLOR(0xF4F5F8));

@@ -37,9 +37,10 @@ Prop_strong()UIButton *modeBtn;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"JobsOCSkeletonView");
-            data.byTextCor(HEXCOLOR(0x263342));
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byText(@"JobsOCSkeletonView")
+                .byTextCor(HEXCOLOR(0x263342))
+                .byFont(UIFontWeightRegularSize(18));
         })
         .byBgCor(HEXCOLOR(0xF5F7FA))
         .byNavBgCor(HEXCOLOR(0xF5F7FA));
@@ -159,8 +160,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byBgColor(HEXCOLOR(0xF5F7FA));
             [tableView registerClass:JobsOCSkeletonUserCell.class
                forCellReuseIdentifier:JobsOCSkeletonUserCell.reuseIdentifier];
-            tableView.resetContentInset(UIEdgeInsetsMake(JobsWidth(12), 0, JobsWidth(24), 0));
-            tableView.addOn(self.view);
+            tableView
+                .resetContentInset(UIEdgeInsetsMake(JobsWidth(12), 0, JobsWidth(24), 0))
+                .addOn(self.view);
             [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
                 make.top.equalTo(self.gk_navigationBar.mas_bottom);

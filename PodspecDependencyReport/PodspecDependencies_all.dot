@@ -55,6 +55,7 @@ digraph PodspecDependencies {
   "JobsGestureLock";
   "JobsGetWindow";
   "JobsHotLabel";
+  "JobsIconfont";
   "JobsImageNumberView";
   "JobsImageRotation";
   "JobsLanMgr";
@@ -497,6 +498,7 @@ digraph PodspecDependencies {
   "JobsHotLabel" -> "JobsOCDSL";
   "JobsHotLabel" -> "JobsOCDefs";
   "JobsHotLabel" -> "JobsOCProtocols";
+  "JobsIconfont" -> "SDWebImage";
   "JobsImageNumberView" -> "JobsBaseUI";
   "JobsImageNumberView" -> "JobsBlock";
   "JobsImageNumberView" -> "JobsByOCPods";

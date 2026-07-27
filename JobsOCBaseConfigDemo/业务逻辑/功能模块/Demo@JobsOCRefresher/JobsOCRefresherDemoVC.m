@@ -86,9 +86,10 @@ Prop_assign()BOOL didAutoStart;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"JobsOCRefresher".tr);
-            data.byFont(UIFontWeightRegularSize(18));
-            data.byTextCor(JobsLabelColor);
+            data
+                .byText(@"JobsOCRefresher".tr)
+                .byFont(UIFontWeightRegularSize(18))
+                .byTextCor(JobsLabelColor);
         })
         .byBgCor(JobsSystemBackgroundColor)
         .byNavBgCor(JobsSystemBackgroundColor);

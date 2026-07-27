@@ -163,7 +163,7 @@ Prop_assign()CGFloat jobsVisible;
 /// 对 UIKit API sendSubviewToBack 的二次封装
 -(JobsRetViewByViewBlock _Nonnull)bySendSubviewToBack;
 /// 对 UIKit API removeFromSuperview 的二次封装
--(JobsRetViewByVoidBlock _Nonnull)byRemove;
+-(JobsRetViewByVoidBlock _Nonnull)byRemoveFromSuperviewForNavigation;
 /// 针对数据源是UIImage  *的GKPhotoBrowser
 -(void)viewTapGRSavePicsWithImageDataMutArr:(NSMutableArray <UIImage *>*_Nonnull)imageDataMutArr
                                 atIndexPath:(NSIndexPath *_Nonnull)indexPath

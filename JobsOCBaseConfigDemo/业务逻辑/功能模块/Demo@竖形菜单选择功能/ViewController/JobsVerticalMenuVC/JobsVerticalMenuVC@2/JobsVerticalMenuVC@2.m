@@ -48,9 +48,10 @@ Prop_assign()BOOL searchMode;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(data.attributedTitle.string);
-            data.byFont(UIFontWeightRegularSize(16));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(data.attributedTitle.string)
+                .byFont(UIFontWeightRegularSize(16));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -454,8 +455,9 @@ referenceSizeForFooterInSection:(NSInteger)section{
             .byAlwaysBounceVertical(YES);
         _collectionView.byFrame(CGRectMake(self.tableView.right,self.tableView.top,
                                            JobsMainScreen_WIDTH() - self.tableView.width,self.tableView.height + EditBtnHeight));
-        _collectionView.byBgColor(HEXCOLOR(0xF7F8FA));
-        _collectionView.addOn(self.view);
+        _collectionView
+            .byBgColor(HEXCOLOR(0xF7F8FA))
+            .addOn(self.view);
     };return _collectionView;
 }
 
@@ -598,8 +600,9 @@ referenceSizeForFooterInSection:(NSInteger)section{
                 if ([data isKindOfClass:NSMutableArray.class]) {
                     NSMutableArray <UIViewModel *>*dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
                         @jobs_strongify(self)
-                        arr.add(self.titleMutArr[0]);
-                        arr.addBy(data);
+                        arr
+                            .add(self.titleMutArr[0])
+                            .addBy(data);
                     });
 #ifdef DEBUG
                     JobsLog(@"%@",jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>* _Nullable arr) {

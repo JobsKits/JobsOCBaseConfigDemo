@@ -38,6 +38,8 @@
 
 - 作为 Jobs 项目内的独立能力 Pod，向 App 或其它 Pod 提供 `JobsGestureLock` 相关能力。
 - `JobsGestureLockVC` 基于 `BaseViewController` 提供创建 / 验证流程，直接复用 Jobs 页面数据、导航与主题契约；应用层子类可以安全读取 `viewModel`，无需重复补一套控制器状态。
+- 默认九宫格使用 56pt 自适应圆形节点、2pt 语义色描边和蓝 / 红选中状态；节点背景、描边与圆角统一走 `UIButton` 专用 Jobs 配置管线，避免位图倍率导致圆环越界重叠。
+- `JobsSettingGestureVC` 对齐 Swift 手势 Demo，提供“设置/重置 / 验证”切换、状态提示、跨点自动补点和“清除/重来”入口，导航标题统一为“手势解锁”。
 - 当 `JobsGestureLock` 的 `Core`、`Support`、资源、依赖或公开头文件发生变化时，同步更新本 README，避免后续排查只看源码不看边界。
 - 参与本地 Pods 拆分时，先确认能力归属，再决定放入当前 Pod、迁移到 `Support`，还是下沉为更基础的公共 Pod。
 
@@ -136,6 +138,7 @@ pod install --no-repo-update
 
 - `Core` 头文件会进入公开 API 边界，新增 import 时要确认不会把内部实现细节暴露给外部。
 - `JobsGestureLockVC` 的页面基座固定为 `BaseViewController`；不要降级成裸 `UIViewController`，否则应用层 Demo 访问 `viewModel`、导航配置或主题能力时会失去运行时契约。
+- 默认节点不读取 128px 椭圆位图作为点尺寸；只有调用方显式注入 `node*Image` / `indicator*Image` 时才进入自定义图片分支。
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 操作按钮由 `jobsMakeButton` 创建，点按通过 `onClickBy` Block 链式入口绑定，不在调用方新增 `byAddTarget`。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。

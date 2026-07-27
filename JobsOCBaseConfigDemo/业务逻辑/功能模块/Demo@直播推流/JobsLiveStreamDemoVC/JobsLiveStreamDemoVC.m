@@ -52,8 +52,9 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"直播推流".tr);
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byText(@"直播推流".tr)
+                .byFont(UIFontWeightRegularSize(18));
         })
         .byBgCor(UIColor.blackColor)
         .byNavBgCor(UIColor.blackColor);

@@ -783,7 +783,7 @@ JobsKey(_cornerRadii)
     };
 }
 /// 对 UIKit API removeFromSuperview 的二次封装
--(JobsRetViewByVoidBlock _Nonnull)byRemove{
+-(JobsRetViewByVoidBlock _Nonnull)byRemoveFromSuperviewForNavigation{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable() {
         @jobs_strongify(self)

@@ -110,11 +110,11 @@
 "JobsDropDownListVC" = "JobsDropDownListVC";
 "JobsExcel" = "JobsExcel";
 "JobsOCGraphicCaptcha" = "JobsOCGraphicCaptcha";
-"JobsIMShowVC" = "JobsIMShowVC";
+"JobsIM" = "JobsIM";
 "JobsLinkageMenuViewDemoVC" = "JobsLinkageMenuViewDemoVC";
 "JobsNavBar" = "JobsNavBar";
 "JobsNavigationDemoVC" = "JobsNavigationDemoVC";
-"JobsOCComment" = "JobsOCComment";
+"评论功能" = "Pag-andar ng komento";
 "JobsOCCountryCodeCtrl" = "JobsOCCountryCodeCtrl";
 "JobsOCKeyboardMgr" = "JobsOCKeyboardMgr";
 "JobsOCRefresher" = "JobsOCRefresher";
@@ -123,7 +123,7 @@
 "JobsOCTimerMgr" = "JobsOCTimerMgr";
 "JobsOCTimerMgr 收到 finish 回调" = "Tumatanggap ang JobsOCTimerMgr ng finish callback";
 "JobsScrollViewVC" = "JobsScrollViewVC";
-"JobsSettingGestureVC" = "JobsSettingGestureVC";
+"手势解锁" = "Pag-unlock gamit ang galaw";
 "JobsTabBarCtr" = "JobsTabBarCtr";
 "JobsTimer" = "JobsTimer";
 "JobsVerticalMenuMainVC" = "JobsVerticalMenuMainVC";
@@ -205,6 +205,7 @@
 "UIButton 内部 JobsTimer 正在倒计时：%@ 秒" = "Ang panloob na UIButton na JobsTimer ay nagbibilang pababa: %@ segundo";
 "UIButton.titleLabel" = "UIButton.titleLabel";
 "UIButton子控件的排布" = "Pag-aayos ng mga sub-kontrol ng UIButton";
+"平替系统按钮" = "Alternatibo sa system button";
 "UICollectionView 架构" = "arkitektura ng UICollectionView";
 "UICollectionView实现重叠的卡包效果" = "Ang UICollectionView ay nagpapatupad ng overlapping na card package effect";
 "UILabel 分类能力" = "Mga kakayahan sa pag-uuri ng UILlabel";
@@ -710,6 +711,7 @@
 "登录已过期，请重新登录" = "Nag-expire na ang pag-login, mangyaring mag-log in muli";
 "登录注册的第一种表现形式" = "Ang unang paraan ng pagrehistro sa pag-login";
 "登录注册的第二种表现形式" = "Ang pangalawang paraan ng pagrehistro sa pag-login";
+"登录注册的两种表现形式，进入列表后分别查看" = "Dalawang anyo ng pag-login at pagpaparehistro; buksan ang listahan upang tingnan ang bawat isa";
 "的" = "ng";
 "目标图片对应的字符串编码为（只列举一部分）前面几位都是一样的：" = "Ang string encoding na tumutugma sa target na imahe ay (isang bahagi lamang nito ang nakalista) at ang unang ilang mga character ay pareho:";
 "相关信息" = "Kaugnay na impormasyon";

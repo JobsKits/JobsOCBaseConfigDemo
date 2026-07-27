@@ -76,7 +76,7 @@
 | `JobsOCDefs` / `JobsOCProtocols` | 统一属性宏、字体、颜色、枚举、通知、单例、国际化和公共协议簇。 |
 | `JobsModel` | `UIViewModel`、`UITextModel`、`UIButtonModel` 等模型统一承载数据、外观、事件和页面传参。 |
 | `JobsByOCPods` / `JobsBaseUI` | 聚合 UIKit 基座、公共分类、复用 Cell、按钮兼容管线和通用 UI 组件。 |
-| [**Masonry**](https://github.com/SnapKit/Masonry) | Jobs 自维护 UI 统一使用 Masonry；首次约束、常量更新、结构重建分别使用 make / update / remake。 |
+| [**Masonry**](https://github.com/SnapKit/Masonry) | Jobs 自维护 UI 统一使用 Masonry；首次约束、常量更新、结构重建分别使用 make / update / remake；移出父视图使用 `UIView.byRemove()`，清空约束使用 `byClearConstraints()`。 |
 | 新旧系统兼容 | `UIButtonConfiguration`、导航栏外观、媒体、权限与 deprecated API 的版本差异在 Jobs 封装内部消化。 |
 
 ### 2.2、最小 UI Demo
@@ -119,6 +119,7 @@
 | UI 状态与交互 | `JobsOCSkeletonView`、`JobsOCGraphicCaptcha`、`JobsOCNumberStepper`、`JobsOCKeyboardMgr`、`JobsSuspend` | 骨架屏、图形验证码、边界数字步进输入、键盘避让、悬浮控件均提供可复用组件和独立 Demo。 |
 | 抽奖轮盘 | `LuckyWheelView`、`LuckyWheelDemoVC` | 中心按钮在旋转中保持可点；每次点按都按当前配置重置初始角速度并视为新一轮抽奖，复用同一个 `CADisplayLink`，只在最终自然停止时结算。 |
 | 二维码与条形码 | `NSString+CIFilter`、`JobsQRCodeDemoVC` | 支持普通二维码、带中心 Logo 二维码和 Code128 条形码；点击生成图像会通过 Jobs 手势 DSL 将来源字符串复制到系统剪切板。 |
+| iconfont 资源门面 | `JobsIconfont` | 业务只使用语义资源与图标枚举；框架统一隐藏 URL、Unicode、字体名、SDWebImage、动态字体注册、占位兜底、缓存和复用防串图。 |
 | 导航与转场 | `JobsNavBar`、`JobsTabBarCtrl`、`JobsViewNavigator`、`JobsViewPush`、`JobsSideDrawer` | 导航栏 / TabBar、UIView 栈式 push / pop、方向性交互转场、侧滑抽屉和防重复跳转。 |
 | 数据与网络 | `JobsAPIs`、`JobsNetWorkTools`、`JobsMonitorNetwoking`、`JobsBitsMonitor`、`JobsOCWebSocket`、`SRWebSocketExtra` | API 请求层、网络状态 / 速率 / 流量监控；实例化 WebSocket 客户端统一连接生命周期、30 秒心跳与退避重连。 |
 | Runtime 与安全 | `JobsOCRuntimeKits`、`JobsOCPatch`、`JobsCryptography`、`JobsOCOpen` | Runtime 查询 / 动态注册、受控 payload 补丁、摘要 / 编解码 / 加密、URL 打开兼容封装。 |
@@ -188,25 +189,41 @@ NSArray<JobsOCExcelRow *> *rows = @[
 self.protectionView.protectionEnabled = YES;
 ```
 
+JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均由框架内部管理：
+
+```objc
+[self.iconView byJobsIconfontAsset:JobsIconfontRemoteAssetLogo
+                        targetSize:CGSizeMake(96, 96)
+                      forceRefresh:NO
+                        completion:nil];
+[self.glyphLabel byJobsIconfontGlyph:JobsIconfontGlyphVerified
+                                size:28
+                               color:UIColor.systemBlueColor];
+[self.titleLabel byJobsIconfontTextSize:32];
+```
+
+对应 Demo 总入口按列表细分远程成功 / 错误 URL、本地占位、列表复用防串图、缓存清理与重载、Icon Font / Unicode / UIImage，以及阿里妈妈文字字体场景。框架运行时不抓取 iconfont 网页，也不依赖登录态或未公开接口。
+
 ### 2.5、完整能力模块清单
 
 <details>
-<summary><b>展开查看 105 个本地能力模块</b></summary>
+<summary><b>展开查看 106 个本地能力模块</b></summary>
 
 > 清单覆盖 Jobs 核心能力与 `Extra` 适配层；手工托管的上游第三方源码不计入自主能力清单。
 
 | 分类 | 模块 |
 | --- | --- |
 | 基础 / DSL / Model | `This`、`JobsClass`、`JobsOCDefs`、`JobsBlock`、`JobsOCProtocols`、`JobsModel`、`JobsMakes`、`JobsOCDSL`、`JobsModelDSL`、`JobsCallBackBlockDSL`、`UIBaseTextFieldDSL`、`JobsByOCPods`、`JobsBaseUI`、`JobsGetWindow`、`JobsLocker` |
-| UI / 导航 / 交互 | `JobsNavBar`、`JobsTabBarCtrl`、`JobsViewNavigator`、`JobsViewPush`、`FDFullscreenPopGesture`、`JobsNavigationTransitionMgr`、`JobsPresentTransitionMgr`、`JobsSuspend`、`JobsBasePopupView`、`JobsCustomView`、`JobsMenuView`、`JobsDropDownListView`、`JobsFiltrationView`、`JobsLinkageMenuView`、`JobsWallet`、`JobsHotLabel`、`JobsImageNumberView`、`JobsOCNumberStepper`、`JobsClockView`、`JobsImageRotation`、`JobsMarqueeView`、`JobsProgressBar`、`JobsUploadingProgressView`、`JobsLoadingImage`、`JobsLuckyEnvelopeRain`、`JobsGestureLock`、`JobsCountdownBtn` |
+| UI / 导航 / 交互 | `JobsNavBar`、`JobsTabBarCtrl`、`JobsViewNavigator`、`JobsViewPush`、`FDFullscreenPopGesture`、`JobsNavigationTransitionMgr`、`JobsPresentTransitionMgr`、`JobsSuspend`、`JobsBasePopupView`、`JobsCustomView`、`JobsMenuView`、`JobsDropDownListView`、`JobsFiltrationView`、`JobsLinkageMenuView`、`JobsWallet`、`JobsHotLabel`、`JobsImageNumberView`、`JobsOCNumberStepper`、`JobsClockView`、`JobsImageRotation`、`JobsMarqueeView`、`JobsProgressBar`、`JobsUploadingProgressView`、`JobsLoadingImage`、`JobsIconfont`、`JobsLuckyEnvelopeRain`、`JobsGestureLock`、`JobsCountdownBtn` |
 | 业务 / 媒体 / 系统能力 | `JobsAppDoor`、`JobsOCSplash`、`JobsOCRefresher`、`JobsFuseAnimation`、`JobsOCExcel`、`JobsOCUILabelScrolling`、`JobsScreenCapture`、`JobsOCAudioRecorder`、`JobsOCVideoRecorder`、`JobsBluetooth`、`JobsOCGraphicCaptcha`、`JobsOCSkeletonView`、`JobsOCKeyboardMgr`、`JobsOCCalendar`、`JobsOCCountryCodeCtrl`、`JobsOCSearcher`、`JobsOCComment`、`JobsBioKit` |
 | 数据 / 服务 / 工程工具 | `JobsAPIs`、`JobsNetWorkTools`、`JobsMonitorNetwoking`、`JobsBitsMonitor`、`JobsOCWebSocket`、`JobsCryptography`、`JobsOCRuntimeKits`、`JobsOCPatch`、`JobsOCOpen`、`JobsOCSnowflake`、`JobsOCTimer`、`JobsOCTimerMgr`、`JobsTimeUtils`、`JobsRandomUtils`、`JobsStringUtils`、`JobsRichTextUtils`、`FileFolderHandleTool`、`JobsDeviceInfo`、`JobsLanMgr`、`JobsAppTools`、`JobsOCTools`、`JobsDebug`、`JobsAppIconRibbon` |
 | 第三方增量适配层 | `AFSecurityPolicyExtra`、`BRPickerViewExtra`、`FMDatabaseExtra`、`FSCalendarExtra`、`GKCustomNavigationBarExtra`、`HTMLDocumentExtra`、`HXPhotoManagerExtra`、`HXPhotoViewExtra`、`IQKeyboardManagerExtra`、`JXCategoryViewExtra`、`LMJDropdownMenuExtra`、`MGSwipeTableCellExtra`、`MJRefreshExtra`、`RACExtra`、`ReachabilityExtra`、`SRWebSocketExtra`、`SYSAlertControllerExtra`、`SZTextViewExtra`、`TFPopupExtra`、`WHToastExtra`、`YTKNetworkExtra`、`ZFPlayerExtra`、`ZMJCellExtra` |
 
-- `JobsGestureLock` 由本地 Pod 管理；现成控制器以 `BaseViewController` 为页面基座，`JobsSettingGestureVC` 直接复用统一的 `viewModel`、导航与主题契约。
+- `JobsGestureLock` 由本地 Pod 管理；现成控制器以 `BaseViewController` 为页面基座，`JobsSettingGestureVC` 直接复用统一的 `viewModel`、导航与主题契约，并以“手势解锁”为标题提供与 Swift 一致的设置 / 验证切换、56pt 语义色九宫格、跨点补点、状态反馈和清除重来入口。
 - `JobsImageRotation` 由本地 Pod 管理；旋转方向默认顺时针，Timer 间隔默认 `1/60` 秒，也可切换为逆时针并自定义速度。
 - `JobsOCNumberStepper` 由本地 Pod 管理；统一封装减号、整数输入框与加号，上下限可独立省略，到达已设置边界后自动禁用并置灰对应按钮。
 - `JobsOCWebSocket` 由本地 Pod 管理；它只承接连接、心跳、重连和主线程回调，业务协议与鉴权继续留在业务层。
+- `JobsIconfont` 由本地 Pod 管理；新增资源只更新框架内部清单与语义类型，调用方不接触 iconfont URL、字体文件名和 Unicode。
 
 </details>
 
@@ -5546,7 +5563,10 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 #### 37.2、关于导航栏  <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 非根控制器由 `UINavigationController+SafeTransition` 统一补齐 Jobs/GK 导航栏、标题和 `backBtnCategory` Jobs 返回按钮；已有系统富文本标题和右侧业务按钮迁移到 GK 导航栏，不显示系统导航容器。仅 `JobsNavigationDemoVC` 作为系统导航栏专项 Demo 保持原样。
-- 从 `ViewController_1` Demo 根列表进入的每个导航 / 模态子页面，以及类名包含 `Demo` 的独立演示页，都会在导航栏最右侧自动获得全局主题切换按钮；页面已有右侧业务按钮会保留，系统导航栏专项 Demo 则写入 `navigationItem`。主题状态持久化后会同步到所有已连接 Scene 的 Window。
+- 从 `ViewController_1` Demo 根列表进入的每个导航 / 模态子页面，以及类名包含 `Demo` 的独立演示页，右上角最多只显示一个主题入口；没有页面业务动作时直接切换主题，月亮 / 太阳图标与无障碍文案表达下一次点击会切换到的主题；存在业务动作时使用 Demo 总入口同款 `ellipsis.circle` 展开下拉列表，展开后切换为填充图标与“收起”语义，把主题切换与全部页面动作统一收纳。系统导航栏专项 Demo 使用同一规则写入 `navigationItem`；主题状态持久化后会同步到所有已连接 Scene 的 Window。
+- Demo 根列表支持拖拽调整普通分组顺序；“其他”作为兜底分组始终固定在列表末尾，不参与拖拽，也不会因历史持久化顺序恢复到中间。
+- Demo 根列表搜索栏使用独立的蓝色“取消”按钮关闭搜索，不复用 `UISearchBar` 内置取消控件；搜索框与按钮的尺寸、圆角、边框和深浅色状态保持统一。
+- Demo 根列表的二级入口统一使用 `50pt` 固定行高：主标题复用 `JobsOCUILabelScrolling` 的缩放适配策略，副标题使用单行尾部截断，不再按设备宽度动态测量 Cell 高度。Swift / OC 的 Label 分组统一覆盖动效数字、四种定尺寸文字策略、UILabel 与 UIButton.titleLabel 表现列表、可交互自定义 Label、圆点文本和文字旋转。
 - 全局主题按钮负责切换系统明暗 Trait；Demo 页面背景、导航栏、标题、说明文字、卡片和状态区必须使用 `systemBackgroundColor`、`systemGroupedBackgroundColor`、`labelColor`、`secondaryLabelColor` 等语义色，固定 RGB 只用于不随主题变化的品牌色或强调色。
 - 默认返回图标使用 template 渲染和 `JobsLabelColor`，随明暗主题自动变色；自定义 `backBtnTitleModel.textCor` 时仍保留业务着色。
 - `GKNavigationBar` 本身提供通用 `gk_navTitleView`，但没有主标题 / 副标题组件；本地 Pod 工程由 `GKCustomNavigationBarExtra` 提供 `gk_navTitleViewBy(UIViewModel *)`，其中 `textModel` 对应主标题、`subTextModel` 对应副标题。
@@ -5832,6 +5852,8 @@ self.gk_navTitleViewBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data
     ```
 
 #### 37.5、<font color=red>**悬浮视图**</font>  <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+Demo 根列表左下角显示“按”的悬浮按钮，短按会保留原有声音反馈，并使用滚动 DSL 在列表顶部与尾部之间动画切换；首次短按前往尾部，长按手写动画保持不变。
 
 > 关注实现类：[**@interface UIViewController (SuspendBtn)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+Others/UIViewController+SuspendBtn)
 >
@@ -9326,6 +9348,8 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
 
 * 内部用**`UITableView`**创建
 
+* 点击列表项后只收起一次并清理内部选择回调，再执行完成回调；`dropDownListViewDisappear` 允许传入 `nil`，此时只跳过触发控件的选中态复位。
+
 * ```objective-c
   - (void)dealloc{
       NSLog(@"%@",JobsLocalFunc);
@@ -11349,8 +11373,10 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
 
 * `UIAlertController` 的标题和消息属性仅支持简单的字符串 (NSString) 类型，而不直接支持富文本 (NSAttributedString)
 
+* 普通系统 Alert 直接通过 `presentViewController:animated:completion:` 展示，不进入会写入页面导航元数据的通用页面转场链路。
+
   ```objective-c
-  self.getCurrentViewController.comingToPresentVC(self.makeAlertControllerByAlertModel(jobsMakeAlertModel(^(JobsAlertModel * _Nullable data) {
+  UIAlertController *alertController = self.makeAlertControllerByAlertModel(jobsMakeAlertModel(^(JobsAlertModel * _Nullable data) {
        data.alertControllerTitle = @"主标题";
        data.message = @"副标题";
        data.preferredStyle = UIAlertControllerStyleAlert;
@@ -11364,7 +11390,10 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
        data.cancelAlertActionBlock = ^(__kindof UIAlertAction * _Nullable action) {
            NSLog(@"Cancel");
        };
-   })));
+   }));
+  [self presentViewController:alertController
+                     animated:YES
+                   completion:nil];
   ```
 
   <img src="./assets/UIAlertController+UIAlertAction.png" alt="UIAlertController+UIAlertAction" style="zoom:50%;" />

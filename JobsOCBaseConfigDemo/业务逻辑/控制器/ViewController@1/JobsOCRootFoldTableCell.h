@@ -26,6 +26,12 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<JobsOCUILabelScrolling/JobsOCUILabelScrolling.h>)
+#import <JobsOCUILabelScrolling/JobsOCUILabelScrolling.h>
+#else
+#import "JobsOCUILabelScrolling.h"
+#endif
+
 #if __has_include(<JobsOCTimer/JobsOCTimer.h>)
 #import <JobsOCTimer/JobsOCTimer.h>
 #else
@@ -56,9 +62,9 @@ UITableViewDelegate
 
 +(CGFloat)collapsedHeight;
 +(CGFloat)innerRowHeight;
-+(CGFloat)expandedHeightByItems:(NSArray <UIViewModel *>*)items
-              sectionDescription:(NSString *_Nullable)sectionDescription
-                 innerTableWidth:(CGFloat)innerTableWidth;
++(CGFloat)expandedHeightByItemCount:(NSUInteger)itemCount
+                 sectionDescription:(NSString *_Nullable)sectionDescription
+                    innerTableWidth:(CGFloat)innerTableWidth;
 -(void)configureWithSectionModel:(JobsOCDemoSectionModel *)sectionModel
                         expanded:(BOOL)expanded
                      selectBlock:(jobsByNSIntegerBlock _Nullable)selectBlock

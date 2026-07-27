@@ -176,16 +176,10 @@ Prop_assign()BOOL autoRunning;
         [self stopAutoProgressUI];
         self.stateLab.byText(@"自动进度已停止。".tr);
     } else {
-        if (self.modeSegment.jobs_selectedSegmentIndex != 0) {
-            self.modeSegment.bySelectedSegmentIndex(0);
-            self.progressBar.byValueMode(JobsProgressBarValueModeCountUp);
-        }
         self.autoRunning = YES;
         self.autoButton.jobsResetBtnTitle(@"停止自动".tr);
-        self.slider.value = 0;
-        [self.progressBar setDisplayPercent:0 animated:NO duration:0];
-        [self.progressBar startAutoProgressFromZero:YES step:0.01 interval:0.03 animated:YES];
-        self.stateLab.byText(@"自动进度运行中，可随时拖动滑块或进度条接管。".tr);
+        [self.progressBar startAutoProgressFromZero:NO step:0.01 interval:0.03 animated:YES];
+        self.stateLab.byText(@"从当前进度继续自动播放，可随时拖动滑块或进度条接管。".tr);
     }
 }
 
@@ -207,7 +201,7 @@ Prop_assign()BOOL autoRunning;
     CGFloat percent = MIN(MAX(displayProgress * 100.0, 0), 100);
     self.slider.value = percent;
     self.percentTextField.byText([NSString stringWithFormat:@"%.0f",percent]);
-    if (percent >= 100 && self.autoRunning) {
+    if (progress >= 1.0 && self.autoRunning) {
         [self stopAutoProgressUI];
         self.stateLab.byText(@"自动进度完成。".tr);
     }

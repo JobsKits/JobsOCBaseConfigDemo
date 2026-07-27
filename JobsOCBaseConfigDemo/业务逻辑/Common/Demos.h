@@ -15,11 +15,14 @@
 #import "TestIrregularViewTestVC.h"
 #import "Douyin_ZFPlayerVC@1.h"
 #import "Douyin_ZFPlayerVC@2.h"
+
 #if __has_include(<JobsAppDoor/JobsAppDoor.h>)
 #import <JobsAppDoor/JobsAppDoor.h>
 #else
 #import "JobsAppDoor.h"
 #endif
+
+#import "JobsAppDoorDemoListVC.h"
 #import "JobsCommentVC.h"
 #import "JobsOCCommentDemoVC.h"
 #import "JobsIMShowVC.h"
@@ -46,6 +49,7 @@
 #import "JobsLiveCommentDemoVC.h"
 #import "JobsLiveStreamDemoVC.h"
 #import "JobsMosaicDemoListVC.h"
+#import "JobsIconfontDemoVCs.h"
 #import "JobsButtonCoverCellDemoListVC.h"
 #import "JobsSphereDemoVC.h"
 #import "YTKNetworkStudyVC.h"

@@ -16,6 +16,8 @@ Prop_assign()NSInteger stepValue;
 Prop_strong()UIButton *decreaseButton;
 Prop_strong()UITextField *textField;
 Prop_strong()UIButton *increaseButton;
+Prop_strong()UIView *decreaseButtonContainer;
+Prop_strong()UIView *increaseButtonContainer;
 Prop_strong()UIStackView *contentStackView;
 
 @end
@@ -50,6 +52,11 @@ Prop_strong()UIStackView *contentStackView;
     [super setEnabled:enabled];
     self.textField.byEnabled(enabled);
     [self refreshAvailability];
+}
+
+-(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [super traitCollectionDidChange:previousTraitCollection];
+    self.textField.layer.byBorderColorUIColor(JobsSeparatorColor);
 }
 
 -(instancetype)configureWithValue:(NSInteger)value
@@ -93,10 +100,10 @@ Prop_strong()UIStackView *contentStackView;
 #pragma mark —— Subviews
 -(void)setupSubviews{
     self.contentStackView.byHidden(NO);
-    [self.decreaseButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.decreaseButtonContainer mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(44);
     }];
-    [self.increaseButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.increaseButtonContainer mas_makeConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(44);
     }];
     self.textField.accessibilityLabel = @"数值";
@@ -112,12 +119,28 @@ Prop_strong()UIStackView *contentStackView;
             .normalStateTitleColorBy(JobsLabelColor)
             .disabledStateTitleColorBy(JobsTertiaryLabelColor)
             .jobsResetBtnBgCor(JobsSecondarySystemFillColor)
-            .jobsResetBtnCornerRadiusValue(8)
+            .jobsResetBtnCornerRadiusValue(0)
             .onClickBy(action)
             .byClipsToBounds(YES);
     });
     button.accessibilityLabel = accessibilityLabel;
     return button;
+}
+
+-(UIView *)stepButtonContainerByButton:(UIButton *)button
+                         maskedCorners:(CACornerMask)maskedCorners{
+    UIView *container = jobsMakeView(^(__kindof UIView * _Nullable view) {
+        view
+            .byCornerRadius(8)
+            .byClipsToBounds(YES);
+    });
+    container.layer.byMaskedCorners(maskedCorners);
+    button
+        .addOn(container)
+        .byAdd(^(MASConstraintMaker *make) {
+            make.edges.equalTo(container);
+        });
+    return container;
 }
 
 #pragma mark —— Value
@@ -268,8 +291,12 @@ replacementString:(NSString *)string{
                     [self handleTextChanged:textField];
                 })
                 .byBgColor(JobsSecondarySystemBackgroundColor)
-                .byCornerRadius(8);
+                .byCornerRadius(0)
+                .byClipsToBounds(YES);
         });
+        _textField.layer
+            .byBorderWidth(1)
+            .byBorderColorUIColor(JobsSeparatorColor);
     };return _textField;
 }
 
@@ -285,6 +312,22 @@ replacementString:(NSString *)string{
     };return _increaseButton;
 }
 
+-(UIView *)decreaseButtonContainer{
+    if (!_decreaseButtonContainer) {
+        _decreaseButtonContainer = [self stepButtonContainerByButton:self.decreaseButton
+                                                       maskedCorners:(kCALayerMinXMinYCorner |
+                                                                      kCALayerMinXMaxYCorner)];
+    };return _decreaseButtonContainer;
+}
+
+-(UIView *)increaseButtonContainer{
+    if (!_increaseButtonContainer) {
+        _increaseButtonContainer = [self stepButtonContainerByButton:self.increaseButton
+                                                       maskedCorners:(kCALayerMaxXMinYCorner |
+                                                                      kCALayerMaxXMaxYCorner)];
+    };return _increaseButtonContainer;
+}
+
 -(UIStackView *)contentStackView{
     if (!_contentStackView) {
         _contentStackView = jobsMakeStackView(^(__kindof UIStackView * _Nullable stackView) {
@@ -292,10 +335,10 @@ replacementString:(NSString *)string{
                 .byAxis(UILayoutConstraintAxisHorizontal)
                 .byAlignment(UIStackViewAlignmentFill)
                 .byDistribution(UIStackViewDistributionFill)
-                .bySpacing(8)
-                .byAddArrangedSubview(self.decreaseButton)
+                .bySpacing(0)
+                .byAddArrangedSubview(self.decreaseButtonContainer)
                 .byAddArrangedSubview(self.textField)
-                .byAddArrangedSubview(self.increaseButton)
+                .byAddArrangedSubview(self.increaseButtonContainer)
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.edges.equalTo(self);

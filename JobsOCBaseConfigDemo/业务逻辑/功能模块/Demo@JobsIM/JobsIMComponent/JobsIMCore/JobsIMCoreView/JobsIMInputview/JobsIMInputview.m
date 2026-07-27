@@ -68,7 +68,6 @@ Prop_strong()BaseButton *sendBtn;
     if (!_sendBtn) {
         @jobs_weakify(self)
         _sendBtn = BaseButton.jobsInit()
-            .bgColorBy(JobsSystemBackgroundColor)
             .jobsResetBtnBgImage(JobsCyanColor.image)
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
@@ -76,8 +75,10 @@ Prop_strong()BaseButton *sendBtn;
             .jobsResetBtnCornerRadiusValue(JobsWidth(3))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.bySelected(!x.selected);
-                x.jobsResetBtnBgImage(JobsLightGrayColor.image);
+                BOOL selected = !x.selected;
+                x
+                    .jobsResetBtnBgImage(JobsLightGrayColor.image)
+                    .bySelected(selected);
                 if (self.objBlock) self.objBlock(x);
                 [self endEditing:YES];
                 if (isValue(self.inputTextField.text)) {
@@ -91,6 +92,7 @@ Prop_strong()BaseButton *sendBtn;
                 JobsLog(@"");
             })
             .disabledStateTitleColorBy(JobsWhiteColor)
+            .bgColorBy(JobsSystemBackgroundColor)
             .addOn(self)
             .byAdd(^(MASConstraintMaker *make) {
                 make.top.equalTo(self).offset(11);

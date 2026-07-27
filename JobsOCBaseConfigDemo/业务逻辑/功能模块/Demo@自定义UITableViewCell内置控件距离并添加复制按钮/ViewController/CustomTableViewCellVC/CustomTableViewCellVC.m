@@ -36,8 +36,9 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
         })
         //        self.viewModel.textModel.text = @"充值".tr;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(data.attributedTitle.string);
-            data.byFont(UIFontWeightRegularSize(16));
+            data
+                .byText(data.attributedTitle.string)
+                .byFont(UIFontWeightRegularSize(16));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -123,8 +124,9 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             .dataLink(self)
             .registerCollectionViewClass()
             .byShowsVerticalScrollIndicator(NO);
-        _collectionView.byBgColor(HEXCOLOR(0xFCFBFB));
-        _collectionView.addOn(self.view);
+        _collectionView
+            .byBgColor(HEXCOLOR(0xFCFBFB))
+            .addOn(self.view);
         [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             @jobs_strongify(self)
             make.left.right.equalTo(self.view);

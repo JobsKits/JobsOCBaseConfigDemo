@@ -77,7 +77,8 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
     @jobs_weakify(self)
     return ^(UIControl *_Nullable ctrl){
         @jobs_strongify(self)
-        ctrl.bySelected(NO);
+        if (ctrl) ctrl.bySelected(NO);
+        self.objBlock = nil;
         [self removeFromSuperview];
     };
 }
@@ -115,7 +116,14 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.objBlock) self.objBlock(self.dataMutArr[indexPath.row]);
+    if (indexPath.section != 0 ||
+        indexPath.row < 0 ||
+        indexPath.row >= self.dataMutArr.count) return;
+    UIViewModel *selectedModel = self.dataMutArr[indexPath.row];
+    jobsByIDBlock selectionBlock = self.objBlock;
+    [tableView deselectRowAtIndexPath:indexPath
+                             animated:YES];
+    if (selectionBlock) selectionBlock(selectedModel);
 }
 
 - (NSInteger)tableView:(UITableView *)tableView

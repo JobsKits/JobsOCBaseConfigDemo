@@ -110,11 +110,11 @@
 "JobsDropDownListVC" = "JobsDropDownListVC";
 "JobsExcel" = "JobsExcel";
 "JobsOCGraphicCaptcha" = "JobsOCGraphicCaptcha";
-"JobsIMShowVC" = "JobsIMShowVC";
+"JobsIM" = "JobsIM";
 "JobsLinkageMenuViewDemoVC" = "JobsLinkageMenuViewDemoVC";
 "JobsNavBar" = "JobsNavBar";
 "JobsNavigationDemoVC" = "JobsNavigationDemoVC";
-"JobsOCComment" = "JobsOCComment";
+"评论功能" = "评论功能";
 "JobsOCCountryCodeCtrl" = "JobsOCCountryCodeCtrl";
 "JobsOCKeyboardMgr" = "JobsOCKeyboardMgr";
 "JobsOCRefresher" = "JobsOCRefresher";
@@ -123,7 +123,7 @@
 "JobsOCTimerMgr" = "JobsOCTimerMgr";
 "JobsOCTimerMgr 收到 finish 回调" = "JobsOCTimerMgr 收到 finish 回调";
 "JobsScrollViewVC" = "JobsScrollViewVC";
-"JobsSettingGestureVC" = "JobsSettingGestureVC";
+"手势解锁" = "手势解锁";
 "JobsTabBarCtr" = "JobsTabBarCtr";
 "JobsTimer" = "JobsTimer";
 "JobsVerticalMenuMainVC" = "JobsVerticalMenuMainVC";
@@ -205,6 +205,7 @@
 "UIButton 内部 JobsTimer 正在倒计时：%@ 秒" = "UIButton 内部 JobsTimer 正在倒计时：%@ 秒";
 "UIButton.titleLabel" = "UIButton.titleLabel";
 "UIButton子控件的排布" = "UIButton子控件的排布";
+"平替系统按钮" = "平替系统按钮";
 "UICollectionView 架构" = "UICollectionView 架构";
 "UICollectionView实现重叠的卡包效果" = "UICollectionView实现重叠的卡包效果";
 "UILabel 分类能力" = "UILabel 分类能力";
@@ -710,6 +711,7 @@
 "登录已过期，请重新登录" = "登录已过期，请重新登录";
 "登录注册的第一种表现形式" = "登录注册的第一种表现形式";
 "登录注册的第二种表现形式" = "登录注册的第二种表现形式";
+"登录注册的两种表现形式，进入列表后分别查看" = "登录注册的两种表现形式，进入列表后分别查看";
 "的" = "的";
 "目标图片对应的字符串编码为（只列举一部分）前面几位都是一样的：" = "目标图片对应的字符串编码为（只列举一部分）前面几位都是一样的：";
 "相关信息" = "相关信息";

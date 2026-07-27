@@ -44,9 +44,10 @@ static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payloa
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(@"热更新演示".tr);
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(@"热更新演示".tr)
+                .byFont(UIFontWeightRegularSize(18));
         })
         .byBgCor(RGBA_COLOR(246, 248, 251, 1))
         .byNavBgCor(RGBA_COLOR(246, 248, 251, 1))

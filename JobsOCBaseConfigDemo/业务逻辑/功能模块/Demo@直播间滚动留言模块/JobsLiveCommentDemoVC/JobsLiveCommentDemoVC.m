@@ -38,8 +38,9 @@ Prop_strong()NSMutableArray <NSString *>*messageMutArr;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"直播间留言".tr);
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byText(@"直播间留言".tr)
+                .byFont(UIFontWeightRegularSize(18));
         })
         .byBgCor(UIColor.systemBackgroundColor)
         .byNavBgCor(UIColor.systemBackgroundColor);

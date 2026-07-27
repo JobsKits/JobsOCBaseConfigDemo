@@ -65,6 +65,7 @@ Prop_strong()UIView *demoSectionDragSnapshotView;
 Prop_strong()NSIndexPath *demoSectionDragIndexPath;
 Prop_strong()UIView *demoSearchHeaderView;
 Prop_strong()UISearchBar *demoSearchBar;
+Prop_strong()UIButton *demoSearchCancelBtn;
 Prop_strong()UIButton *suspendTimeBtn;
 Prop_strong()UIButton *suspendSpinBtn;
 Prop_strong()UIButton *suspendFuseBtn;
@@ -108,6 +109,7 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
 -(void)applyDemoListNavigationInterfaceStyle;
 -(void)applyDemoListTabBarInterfaceStyle;
 -(void)refreshFunctionMenuButtonTheme;
+-(void)refreshDemoSearchTheme;
 -(NSArray <JobsOCDemoSectionModel *>*)visibleDemoSectionArr;
 -(BOOL)hasPinnedDemoSection;
 -(NSInteger)demoFoldTableSection;
@@ -187,6 +189,7 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
 -(NSArray <NSString *>*)savedDemoSectionOrderArr;
 -(void)applySavedDemoSectionOrderIfNeeded;
 -(void)saveDemoSectionOrder;
+-(void)moveOtherDemoSectionToEndInArr:(NSMutableArray <JobsOCDemoSectionModel *>*)sectionMutArr;
 -(void)moveExpandedDemoSectionStateFromRow:(NSUInteger)sourceRow
                                      toRow:(NSUInteger)destinationRow;
 -(UIViewModel *)jobs_countryCodeDemoViewModel;
@@ -343,16 +346,17 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
             .byAlertActionTitle(@"隐藏".tr)
             .byAlertActionStyle(UIAlertActionStyleDestructive)
             .byCancelAlertActionTitle(@"取消".tr)
-            .byCancelAlertActionStyle(UIAlertActionStyleCancel);
-        data.alertActionBlock = ^(__unused UIAlertAction * _Nullable action) {
-            @jobs_strongify(self)
-            [self setShowsSuspendTimeButton:NO];
-            [self refreshSuspendTimeButtonVisibility];
-        };
+            .byCancelAlertActionStyle(UIAlertActionStyleCancel)
+            .byAlertActionBlock(^(__unused UIAlertAction * _Nullable action) {
+                @jobs_strongify(self)
+                [self setShowsSuspendTimeButton:NO];
+                [self refreshSuspendTimeButtonVisibility];
+            });
     }));
-    [self forceComingToPresentVC:self.suspendTimeVisibilityAlertController
-                   requestParams:nil
-                      completion:^{}];
+    /// 普通系统 Alert 不进入页面转场导航链路
+    [self presentViewController:self.suspendTimeVisibilityAlertController
+                       animated:YES
+                     completion:nil];
 }
 
 -(BOOL)showsSuspendTimeButton{
@@ -466,20 +470,21 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == _demoSideMenuTableView) return JobsWidth(64);
     if (tableView == _functionMenuTableView) return 44;
     if ([self demoSearchLandingActive]) return JobsWidth(54);
-    CGFloat innerTableWidth = CGRectGetWidth(tableView.bounds) - 20;
-    if (innerTableWidth <= 0) innerTableWidth = JobsMainScreen_WIDTH() - 20;
-    if ([self isPinnedDemoIndexPath:indexPath]) {
-        return [JobsOCRootFoldTableCell expandedHeightByItems:self.pinnedDemoMutArr
-                                           sectionDescription:nil
-                                              innerTableWidth:innerTableWidth];
+    BOOL pinnedDemo = [self isPinnedDemoIndexPath:indexPath];
+    BOOL expandedDemo = [self isDemoFoldIndexPath:indexPath] &&
+                        [self.expandedDemoSectionIndexSet containsIndex:indexPath.row];
+    if (pinnedDemo || expandedDemo) {
+        CGFloat innerTableWidth = CGRectGetWidth(tableView.bounds) - 20;
+        if (innerTableWidth <= 0) innerTableWidth = JobsMainScreen_WIDTH() - 20;
+        JobsOCDemoSectionModel *sectionModel = pinnedDemo
+            ? self.pinnedDemoSectionModel
+            : self.visibleDemoSectionArr[indexPath.row];
+        return [JobsOCRootFoldTableCell expandedHeightByItemCount:sectionModel.dataMutArr.count
+                                               sectionDescription:sectionModel.sectionDescription
+                                                  innerTableWidth:innerTableWidth];
     }
     if (![self isDemoFoldIndexPath:indexPath]) return CGFLOAT_MIN;
-    JobsOCDemoSectionModel *sectionModel = self.visibleDemoSectionArr[indexPath.row];
-    return [self.expandedDemoSectionIndexSet containsIndex:indexPath.row]
-        ? [JobsOCRootFoldTableCell expandedHeightByItems:sectionModel.dataMutArr
-                                      sectionDescription:sectionModel.sectionDescription
-                                         innerTableWidth:innerTableWidth]
-        : JobsOCRootFoldTableCell.collapsedHeight;
+    return JobsOCRootFoldTableCell.collapsedHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
@@ -594,31 +599,39 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:JobsOCDemoSideMenuCellReuseIdentifier
                                                                 forIndexPath:indexPath];
         NSString *symbolName = indexPath.row < self.demoSideMenuSymbolNames.count ? self.demoSideMenuSymbolNames[indexPath.row] : @"square.grid.2x2";
-        cell.textLabel
-            .byText(self.demoSideMenuTitles[indexPath.row])
-            .byTextCor([self demoListPrimaryTextColor])
-            .byFont(UIFontWeightRegularSize(15));
-        cell.imageView
-            .byImage([symbolName.sys_img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate])
-            .byTintColor([self demoListSecondaryTextColor]);
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-        cell.byBgColor(JobsClearColor);
-        cell.contentView.byBgColor(JobsClearColor);
-        return cell;
+        return cell
+            .byTextLabel(^(__kindof UILabel * _Nullable label) {
+                label
+                    .byText(self.demoSideMenuTitles[indexPath.row])
+                    .byTextCor([self demoListPrimaryTextColor])
+                    .byFont(UIFontWeightRegularSize(15));
+            })
+            .byCellImageView(^(__kindof UIImageView * _Nullable imageView) {
+                imageView
+                    .byImage([symbolName.sys_img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate])
+                    .byTintColor([self demoListSecondaryTextColor]);
+            })
+            .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
+            .bySelectionStyle(UITableViewCellSelectionStyleDefault)
+            .byContentView(^(__kindof UIView * _Nullable contentView) {
+                contentView.byBgColor(JobsClearColor);
+            })
+            .byBgColor(JobsClearColor);
     }
     if (tableView == _functionMenuTableView) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:JobsOCFunctionMenuCellReuseIdentifier
                                                                 forIndexPath:indexPath];
-        cell.byBgColor([self demoListCellBackgroundColor]);
-        cell.contentView.byBgColor([self demoListCellBackgroundColor]);
         return cell
             .byTextLabel(^(__kindof UILabel * _Nullable label) {
                 label.byText(self.functionMenuTitles[indexPath.row])
                     .byFont(UIFontWeightMediumSize(15))
                     .byTextCor([self demoListPrimaryTextColor]);
             })
-            .bySelectionStyle(UITableViewCellSelectionStyleDefault);
+            .bySelectionStyle(UITableViewCellSelectionStyleDefault)
+            .byContentView(^(__kindof UIView * _Nullable contentView) {
+                contentView.byBgColor([self demoListCellBackgroundColor]);
+            })
+            .byBgColor([self demoListCellBackgroundColor]);
     }
     if ([self demoSearchLandingActive]) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:JobsOCDemoSearchHistoryCellReuseIdentifier
@@ -717,7 +730,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 canEditRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == _functionMenuTableView) return NO;
     if ([self demoSearchLandingActive]) return indexPath.row < self.demoSearchHistoryMutArr.count;
-    return !self.demoSearchEnabled && [self isDemoFoldIndexPath:indexPath];
+    return !self.demoSearchEnabled && [self canDragDemoSectionAtIndexPath:indexPath];
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView
@@ -739,8 +752,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
     return tableView != _functionMenuTableView &&
            !self.demoSearchEnabled &&
-           [self isDemoFoldIndexPath:indexPath] &&
-           self.visibleDemoSectionArr.count > 1;
+           [self canDragDemoSectionAtIndexPath:indexPath];
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView
@@ -748,8 +760,8 @@ targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath
        toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath{
     if (tableView == _functionMenuTableView ||
         self.demoSearchEnabled ||
-        ![self isDemoFoldIndexPath:sourceIndexPath] ||
-        ![self isDemoFoldIndexPath:proposedDestinationIndexPath] ||
+        ![self canDragDemoSectionAtIndexPath:sourceIndexPath] ||
+        ![self canDragDemoSectionAtIndexPath:proposedDestinationIndexPath] ||
         proposedDestinationIndexPath.section != sourceIndexPath.section ||
         proposedDestinationIndexPath.row < 0 ||
         proposedDestinationIndexPath.row >= (NSInteger)self.visibleDemoSectionArr.count) {
@@ -762,8 +774,8 @@ moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath
       toIndexPath:(NSIndexPath *)destinationIndexPath{
     if (tableView == _functionMenuTableView ||
         self.demoSearchEnabled ||
-        ![self isDemoFoldIndexPath:sourceIndexPath] ||
-        ![self isDemoFoldIndexPath:destinationIndexPath]) return;
+        ![self canDragDemoSectionAtIndexPath:sourceIndexPath] ||
+        ![self canDragDemoSectionAtIndexPath:destinationIndexPath]) return;
     NSInteger sourceRow = sourceIndexPath.row;
     NSInteger destinationRow = destinationIndexPath.row;
     if (sourceRow == destinationRow) return;
@@ -802,10 +814,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
     [self saveDemoSearchHistoryByText:searchBar.text];
     [searchBar resignFirstResponder];
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
-    [self setSearchEnabled:NO];
 }
 
 -(NSArray<NSString *> *)demoSideMenuTitles{
@@ -1057,6 +1065,18 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 @jobs_strongify(self)
                 if (self.suspendFuseLongPressConsumed) return;
                 [x byFusePlaySound:@"Sound.wav"];
+                BOOL scrollsToBottom = !x.jobs_isSelected;
+                x.bySelected(scrollsToBottom);
+                UITableView *tableView = self.tableView;
+                CGFloat topOffsetY = -tableView.adjustedContentInset.top;
+                CGFloat bottomOffsetY = MAX(topOffsetY,
+                                            tableView.contentSize.height
+                                                - CGRectGetHeight(tableView.bounds)
+                                                + tableView.adjustedContentInset.bottom);
+                tableView.setContentOffsetByYES(
+                    CGPointMake(tableView.contentOffset.x,
+                                scrollsToBottom ? bottomOffsetY : topOffsetY)
+                );
             })
             .onLongPressGestureBy(^(UIButton *x) {
                 @jobs_strongify(self)
@@ -1253,6 +1273,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .jobsResetBtnImage(normalMenuImage)
                 .selectedStateImageBy(activeMenuImage)
                 .highlightedStateImageBy(normalMenuImage)
+                .imageForStateBy(activeMenuImage, UIControlStateSelected | UIControlStateHighlighted)
                 .onClickBy(^(UIButton *x){
                     @jobs_strongify(self)
                     [self toggleFunctionMenu];
@@ -1262,12 +1283,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byTintColor(normalTintColor)
                 .byBgColor(JobsClearColor)
                 .byClipsToBounds(YES)
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer
+                        .byShadowOpacity(0)
+                        .byShadowRadius(0)
+                        .byShadowOffset(CGSizeZero);
+                })
                 .bySize(CGSizeMake(32, 32));
-            button.imageForStateBy(activeMenuImage, UIControlStateSelected | UIControlStateHighlighted);
-            button.layer
-                .byShadowOpacity(0)
-                .byShadowRadius(0)
-                .byShadowOffset(CGSizeZero);
         });
     };return _functionMenuBtn;
 }
@@ -1305,6 +1327,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     [self applyDemoListNavigationInterfaceStyle];
     [self applyDemoListTabBarInterfaceStyle];
     [self refreshFunctionMenuButtonTheme];
+    [self refreshDemoSearchTheme];
     if (_userHeadBtn) _userHeadBtn.byTintColor([self demoListPrimaryTextColor]);
     if (_demoSideMenuView) {
         if (@available(iOS 13.0, *)) {
@@ -1429,6 +1452,45 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     _functionMenuBtn.imageForStateBy(activeMenuImage, UIControlStateSelected | UIControlStateHighlighted);
 }
 
+-(void)refreshDemoSearchTheme{
+    UIColor *selectedTintColor = HEXCOLOR(0x1D7FF2);
+    if (_demoSearchBar) {
+        _demoSearchBar
+            .byBarTintColor([self demoListPageBackgroundColor])
+            .byTintColor(selectedTintColor)
+            .byBgColor(JobsClearColor);
+        if (@available(iOS 13.0, *)) {
+            UIColor *searchFieldBackgroundColor = [self demoListDarkModeEnabled] ? HEXCOLOR(0x191B20) : UIColor.secondarySystemBackgroundColor;
+            UITextField *searchTextField = _demoSearchBar.searchTextField;
+            searchTextField
+                .byAttributedPlaceholder(JobsAttributedStringByAttributes(@"输入关键词搜索 Demo".tr, @{
+                    NSForegroundColorAttributeName: [self demoListSecondaryTextColor],
+                    NSFontAttributeName: UIFontWeightRegularSize(15)
+                }))
+                .byFont(UIFontWeightRegularSize(15))
+                .byTextCor([self demoListPrimaryTextColor])
+                .byTintColor(selectedTintColor)
+                .byBgColor(searchFieldBackgroundColor)
+                .byCornerRadius(18)
+                .byClipsToBounds(YES)
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer
+                        .byBorderWidth(1)
+                        .byBorderColorUIColor([self demoListSeparatorColor]);
+                });
+            searchTextField.leftView.byTintColor([self demoListSecondaryTextColor]);
+        }
+    }
+    if (_demoSearchCancelBtn) {
+        _demoSearchCancelBtn
+            .jobsResetBtnTitleCor(JobsWhiteColor)
+            .jobsResetBtnBgCor(selectedTintColor)
+            .jobsResetBtnCornerRadiusValue(10)
+            .highlightedStateTitleColorBy([JobsWhiteColor colorWithAlphaComponent:0.78])
+            .highlightedStateBackgroundImageBy(UIColor.imageWithColor([selectedTintColor colorWithAlphaComponent:0.72]));
+    }
+}
+
 -(UITableView *)functionMenuTableView{
     if (!_functionMenuTableView) {
         _functionMenuTableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
@@ -1499,14 +1561,27 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         @jobs_weakify(self)
         _demoSearchHeaderView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
-            view.byFrame(CGRectMake(0, 0, JobsMainScreen_WIDTH(), JobsWidth(56)))
+            CGFloat headerWidth = JobsMainScreen_WIDTH();
+            view.byFrame(CGRectMake(0, 0, headerWidth, 56))
                 .byBgColor(JobsClearColor);
-            self.demoSearchBar.byFrame(CGRectMake(JobsWidth(12),
-                                                  JobsWidth(6),
-                                                  JobsMainScreen_WIDTH() - JobsWidth(24),
-                                                  JobsWidth(44)))
-                .addOn(view);
+            self.demoSearchCancelBtn
+                .addOn(view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(view).offset(10);
+                    make.right.equalTo(view).offset(-12);
+                    make.width.mas_greaterThanOrEqualTo(64);
+                    make.height.mas_equalTo(36);
+                });
+            self.demoSearchBar
+                .addOn(view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(view);
+                    make.left.equalTo(view).offset(8);
+                    make.right.equalTo(self.demoSearchCancelBtn.mas_left).offset(-4);
+                    make.height.mas_equalTo(56);
+                });
         });
+        [self refreshDemoSearchTheme];
     };return _demoSearchHeaderView;
 }
 
@@ -1516,11 +1591,44 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             searchBar
                 .byPlaceholder(@"输入关键词搜索 Demo".tr)
                 .byDelegate(self)
-                .byShowsCancelButton(YES)
+                .byShowsCancelButton(NO)
                 .bySearchBarStyle(UISearchBarStyleMinimal)
-                .byBackgroundImage(jobsMakeImage());
+                .byTranslucent(YES)
+                .byBackgroundImage(jobsMakeImage())
+                .byBarTintColor([self demoListPageBackgroundColor])
+                .byBgColor(JobsClearColor);
         });
     };return _demoSearchBar;
+}
+
+-(UIButton *)demoSearchCancelBtn{
+    if (!_demoSearchCancelBtn) {
+        @jobs_weakify(self)
+        UIColor *selectedTintColor = HEXCOLOR(0x1D7FF2);
+        _demoSearchCancelBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+            button
+                .jobsResetBtnTitle(@"取消".tr)
+                .jobsResetBtnTitleCor(JobsWhiteColor)
+                .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(15))
+                .jobsResetBtnBgCor(selectedTintColor)
+                .jobsResetBtnCornerRadiusValue(10)
+                .highlightedStateTitleColorBy([JobsWhiteColor colorWithAlphaComponent:0.78])
+                .highlightedStateBackgroundImageBy(UIColor.imageWithColor([selectedTintColor colorWithAlphaComponent:0.72]))
+                .byTitleLabel(^(__kindof UILabel * _Nullable label) {
+                    label
+                        .byNumberOfLines(1)
+                        .byLineBreakMode(NSLineBreakByClipping)
+                        .byAdjustsFontSizeToFitWidth(YES)
+                        .byMinimumScaleFactor(0.8);
+                })
+                .byContentEdgeInsets(UIEdgeInsetsMake(0, 12, 0, 12))
+                .onClickBy(^(__kindof UIButton * _Nullable button) {
+                    [weak_self setSearchEnabled:NO];
+                })
+                .byContentHorizontalAlignment(UIControlContentHorizontalAlignmentCenter)
+                .byClipsToBounds(YES);
+        });
+    };return _demoSearchCancelBtn;
 }
 /// self.tableView.dataLink(self);不要写在Block里面，会引起循环调用。用它进行唤起
 /// BaseViewProtocol
@@ -1674,11 +1782,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         if (filteredSectionModel.dataMutArr.count) {
             [result addObject:filteredSectionModel];
         }
-    };return [self demoSectionArrByFilteringPinnedFromSectionArr:result];
+    };return result;
 }
 
 -(BOOL)hasPinnedDemoSection{
-    return self.pinnedDemoMutArr.count > 0 && ![self demoSearchLandingActive];
+    return self.pinnedDemoMutArr.count > 0 &&
+           ![self demoSearchLandingActive] &&
+           ![self demoSearchActive];
 }
 
 -(NSInteger)demoFoldTableSection{
@@ -1882,6 +1992,21 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     NSString *subTitle = viewModel.subTextModel.attributedTitle.string ?: viewModel.subTextModel.text ?: @"";
     NSString *clsName = viewModel.cls ? NSStringFromClass(viewModel.cls) : @"";
     NSString *key = [NSString stringWithFormat:@"%@ %@ %@",title,subTitle,clsName];
+    if (viewModel.cls == CXBVC.class ||
+        viewModel.cls == RandomTestVC.class) {
+        return @"其他".tr;
+    }
+    if (viewModel.cls == JobsLongPressLikeDemoVC.class ||
+        viewModel.cls == JobsOCNumberStepperDemoVC.class) {
+        return @"UI 控件与动效".tr;
+    }
+    if (@"JobsIconfont".inStr(key) ||
+        @"阿里巴巴矢量图标库".inStr(key)) {
+        return @"阿里巴巴矢量图标库".tr;
+    }
+    if (viewModel.cls == PointLabTestVC.class) {
+        return @"Label".tr;
+    }
     if (@"Label".inStr(key)) {
         return @"Label".tr;
     }
@@ -1995,7 +2120,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         @"Post".inStr(key) ||
         @"IM".inStr(key) ||
         @"Protocol".inStr(key) ||
-        @"CXB".inStr(key) ||
         @"用户".inStr(key) ||
         @"朋友圈".inStr(key) ||
         @"EditProfile".inStr(key) ||
@@ -2018,12 +2142,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         @"防抖".inStr(key) ||
         @"TaskCenter".inStr(key)) {
         return @"基础功能与导航容器".tr;
-    };return @"其他".tr;
+    };return @"业务模块与页面".tr;
 }
 
 -(NSString *)sectionDescriptionForTitle:(NSString *)title{
     if ([title isEqualToString:@"Timer".tr]) {
         return @"Timer 相关能力把系统 Timer / GCD / DisplayLink / RunLoop 的杂乱细节收口成少量参数。\n\n正计时和倒计时按钮已收口到“正计时/倒计时”入口：先进入列表，再分别点击正计时 DemoVC 和倒计时按钮 DemoVC。\n\nJobsOCTimerMgr 是多个 Timer 的统一注册表，按 identifier 管理 start / pause / resume / stop。\n\nJobsMarqueeView 用 JobsOCTimerMgr 做统一内核，把跑马灯和轮播图收口成同一个 UIScrollView + UIButton 数据源组件。";
+    }else if ([title isEqualToString:@"阿里巴巴矢量图标库".tr]){
+        return @"JobsIconfont 把远程图片、占位与错误兜底、复用取消、缓存、Icon Font、Unicode 转图和阿里妈妈文字字体统一封装。业务层只面对资源 ID 与语义枚举，不直接维护 iconfont 地址、字体名和 Unicode。";
     }else if ([title isEqualToString:@"直播项目相关".tr]){
         return @"直播间滚动留言保持应用层封装，直播推流用 AVFoundation 完成采集预览并预留 RTMP SDK 接入点。";
     }else if ([title isEqualToString:@"炫技特效".tr]){
@@ -2113,11 +2239,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 -(BOOL)canDragDemoSectionAtIndexPath:(NSIndexPath *)indexPath{
-    return indexPath &&
-           indexPath.section == self.demoFoldTableSection &&
-           indexPath.row >= 0 &&
-           indexPath.row < (NSInteger)self.visibleDemoSectionArr.count &&
-           self.visibleDemoSectionArr.count > 1;
+    NSArray <JobsOCDemoSectionModel *>*visibleSectionArr = self.visibleDemoSectionArr;
+    if (!indexPath ||
+        indexPath.section != self.demoFoldTableSection ||
+        indexPath.row < 0 ||
+        indexPath.row >= (NSInteger)visibleSectionArr.count ||
+        visibleSectionArr.count <= 1) return NO;
+    return ![visibleSectionArr[indexPath.row].title isEqualToString:@"其他".tr];
 }
 
 -(void)moveDemoSectionFromIndexPath:(NSIndexPath *)sourceIndexPath
@@ -2141,6 +2269,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.demoSectionMutArr removeObjectAtIndex:sourceIndex];
     [self.demoSectionMutArr insertObject:sectionModel
                                  atIndex:MIN(destinationIndex, self.demoSectionMutArr.count)];
+    [self moveOtherDemoSectionToEndInArr:self.demoSectionMutArr];
     [self moveExpandedDemoSectionStateFromRow:(NSUInteger)sourceRow
                                         toRow:(NSUInteger)destinationRow];
 }
@@ -2185,27 +2314,30 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(void)applySavedDemoSectionOrderIfNeeded{
     NSArray <NSString *>*orderArr = self.savedDemoSectionOrderArr;
-    if (!orderArr.count || _demoSectionMutArr.count < 2) return;
-    NSMutableArray <JobsOCDemoSectionModel *>*unorderedSectionMutArr = _demoSectionMutArr.mutableCopy;
-    NSMutableArray <JobsOCDemoSectionModel *>*orderedSectionMutArr = NSMutableArray.array;
-    for (NSString *title in orderArr) {
-        NSUInteger idx = [unorderedSectionMutArr indexOfObjectPassingTest:^BOOL(JobsOCDemoSectionModel * _Nonnull sectionModel,
-                                                                                NSUInteger idx,
-                                                                                BOOL * _Nonnull stop) {
-            return [sectionModel.title isEqualToString:title];
-        }];
-        if (idx != NSNotFound) {
-            [orderedSectionMutArr addObject:unorderedSectionMutArr[idx]];
-            [unorderedSectionMutArr removeObjectAtIndex:idx];
+    if (orderArr.count && _demoSectionMutArr.count > 1) {
+        NSMutableArray <JobsOCDemoSectionModel *>*unorderedSectionMutArr = _demoSectionMutArr.mutableCopy;
+        NSMutableArray <JobsOCDemoSectionModel *>*orderedSectionMutArr = NSMutableArray.array;
+        for (NSString *title in orderArr) {
+            NSUInteger idx = [unorderedSectionMutArr indexOfObjectPassingTest:^BOOL(JobsOCDemoSectionModel * _Nonnull sectionModel,
+                                                                                    NSUInteger idx,
+                                                                                    BOOL * _Nonnull stop) {
+                return [sectionModel.title isEqualToString:title];
+            }];
+            if (idx != NSNotFound) {
+                [orderedSectionMutArr addObject:unorderedSectionMutArr[idx]];
+                [unorderedSectionMutArr removeObjectAtIndex:idx];
+            }
+        }
+        [orderedSectionMutArr addObjectsFromArray:unorderedSectionMutArr];
+        if (orderedSectionMutArr.count == _demoSectionMutArr.count) {
+            [_demoSectionMutArr setArray:orderedSectionMutArr];
         }
     }
-    [orderedSectionMutArr addObjectsFromArray:unorderedSectionMutArr];
-    if (orderedSectionMutArr.count == _demoSectionMutArr.count) {
-        [_demoSectionMutArr setArray:orderedSectionMutArr];
-    }
+    [self moveOtherDemoSectionToEndInArr:_demoSectionMutArr];
 }
 
 -(void)saveDemoSectionOrder{
+    [self moveOtherDemoSectionToEndInArr:self.demoSectionMutArr];
     NSMutableArray <NSString *>*orderMutArr = NSMutableArray.array;
     for (JobsOCDemoSectionModel *sectionModel in self.demoSectionMutArr) {
         if (sectionModel.title.length) [orderMutArr addObject:sectionModel.title];
@@ -2213,6 +2345,20 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     [NSUserDefaults.standardUserDefaults setObject:orderMutArr.copy
                                            forKey:JobsOCDemoListSectionOrderUserDefaultsKey];
     [NSUserDefaults.standardUserDefaults synchronize];
+}
+
+-(void)moveOtherDemoSectionToEndInArr:(NSMutableArray <JobsOCDemoSectionModel *>*)sectionMutArr{
+    if (sectionMutArr.count < 2) return;
+    NSString *otherTitle = @"其他".tr;
+    NSUInteger otherIndex = [sectionMutArr indexOfObjectPassingTest:^BOOL(JobsOCDemoSectionModel * _Nonnull sectionModel,
+                                                                          __unused NSUInteger idx,
+                                                                          __unused BOOL * _Nonnull stop) {
+        return [sectionModel.title isEqualToString:otherTitle];
+    }];
+    if (otherIndex == NSNotFound || otherIndex == sectionMutArr.count - 1) return;
+    JobsOCDemoSectionModel *otherSectionModel = sectionMutArr[otherIndex];
+    [sectionMutArr removeObjectAtIndex:otherIndex];
+    [sectionMutArr addObject:otherSectionModel];
 }
 
 -(void)moveExpandedDemoSectionStateFromRow:(NSUInteger)sourceRow
@@ -2470,9 +2616,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byTextCor(titleColor);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(titleColor);
-            data.byText(@"演武堂".tr);
-            data.byFont(UIFontWeightRegularSize(16));
+            data
+                .byTextCor(titleColor)
+                .byText(@"演武堂".tr)
+                .byFont(UIFontWeightRegularSize(16));
         })
         .byBgCor(navBgColor)
         .byNavBgCor(navBgColor)
@@ -2485,6 +2632,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     [self refreshDemoNavigationTitle];
     if (_demoSearchBar) {
         _demoSearchBar.byPlaceholder(@"输入关键词搜索 Demo".tr);
+    }
+    if (_demoSearchCancelBtn) {
+        _demoSearchCancelBtn.jobsResetBtnTitle(@"取消".tr);
     }
     if (_tableView) {
         _tableView
@@ -2591,11 +2741,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 -(void)jobs_applySelectedCountryCodeToViewModel:(UIViewModel *)viewModel{
     if (!viewModel) return;
     if (self.selectedCountryCodePlainText.length) {
-        viewModel.subTextModel.byText(self.selectedCountryCodePlainText);
-        viewModel.subTextModel.byAttributedTitle(self.selectedCountryCodeAttributedText);
+        viewModel.subTextModel
+            .byText(self.selectedCountryCodePlainText)
+            .byAttributedTitle(self.selectedCountryCodeAttributedText);
     }else{
-        viewModel.subTextModel.byText(@"国家 / 地区代码选择".tr);
-        viewModel.subTextModel.byAttributedTitle(nil);
+        viewModel.subTextModel
+            .byText(@"国家 / 地区代码选择".tr)
+            .byAttributedTitle(nil);
     }
 }
 
@@ -2738,6 +2890,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsAnimatedNumberLabelDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                model.byTitle(@"UILabel+Scrolling｜四种定尺寸文字策略".tr)
+                     .bySubTitle(@"缩放适配、单行省略、多行省略与滚动展示".tr)
+                     .byCls(UILabelScrollingDemoVC.class);
+            })))
+            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"模拟时钟".tr)
                      .bySubTitle(@"JobsClockView：基于 Timer 驱动的模拟时钟".tr)
                      .byCls(JobsClockDemoVC.class);
@@ -2813,7 +2970,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsOCKeyboardMgrDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"JobsOCNumberStepper".tr)
+                model.byTitle(@"购物车".tr)
                      .bySubTitle(@"减号 + 数字输入 + 加号；可选上下限自动控制按钮状态".tr)
                      .byCls(JobsOCNumberStepperDemoVC.class);
             })))
@@ -2883,8 +3040,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(Realm_VC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"文本前有小圆点".tr)
-                     .bySubTitle(@"包括对齐".tr)
+                model.byTitle(@"• 带小圆点文本及对齐".tr)
+                     .bySubTitle(@"圆点颜色、图片圆点与多行悬挂缩进对齐".tr)
                      .byCls(PointLabTestVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
@@ -2928,20 +3085,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(CtrlClipboardCueVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                JobsAppDoorConfig *config = JobsAppDoorConfig.fullConfig;
-                config.registerConfig.graphicCaptchaConfig = JobsAppDoorGraphicCaptchaConfig.numberAndEnglishConfig;
-                model.byTitle(@"JobsAppDoor-1".tr)
-                     .bySubTitle(@"登录注册的第一种表现形式".tr)
-                     .byCls(JobsAppDoorVC.class)
-                     .byRequestParams(config);
-            })))
-            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                JobsAppDoorConfig *config = JobsAppDoorConfig.fullConfig;
-                config.registerConfig.graphicCaptchaConfig = JobsAppDoorGraphicCaptchaConfig.allCharactersConfig;
-                model.byTitle(@"JobsAppDoor-2".tr)
-                     .bySubTitle(@"登录注册的第二种表现形式".tr)
-                     .byCls(JobsAppDoorVC_Style2.class)
-                     .byRequestParams(config);
+                model.byTitle(@"JobsAppDoor".tr)
+                     .bySubTitle(@"登录注册的两种表现形式，进入列表后分别查看".tr)
+                     .byCls(JobsAppDoorDemoListVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"Douyin_ZFPlayer_1".tr)
@@ -2958,6 +3104,19 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .bySubTitle(@"镂空特效".tr)
                      .byCls(TransparentRegionVC.class);
             })))
+            .add(
+                self.makeDatas(
+                    jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                        model.byTitle(@"JobsIconfont｜图片、图标字体与文字字体".tr)
+                             .bySubTitle(@"iconfont 全功能封装：业务层不直接接触 URL、Unicode 和字体文件名".tr)
+                             .byCls(JobsIconfontDemoListVC.class);
+                    })
+                ).byImage(
+                    [JobsIconfontManager.shared iconImageForGlyph:JobsIconfontGlyphComponent
+                                                             size:CGSizeMake(JobsWidth(30),JobsWidth(30))
+                                                            color:UIColor.systemBlueColor]
+                )
+            )
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"🧩 打马赛克".tr)
                      .bySubTitle(@"整图粗细 / 手势涂抹两种马赛克效果".tr)
@@ -2974,7 +3133,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsSphereDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"JobsOCComment".tr)
+                model.byTitle(@"评论功能".tr)
                      .bySubTitle(@"评论 Pod：网易 / 今日头条 / 自定义三种回复模式".tr)
                      .byCls(JobsOCCommentDemoVC.class);
             })))
@@ -3039,13 +3198,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(TestIrregularViewTestVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"JobsIMShowVC".tr)
+                model.byTitle(@"JobsIM".tr)
                      .bySubTitle(@"IM模块".tr)
                      .byCls(JobsIMShowVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"TestLabelVC".tr)
-                     .bySubTitle(@"Label的科学管理".tr)
+                model.byTitle(@"UILabel / UIButton.titleLabel 表现列表".tr)
+                     .bySubTitle(@"省略、滚动、自适应、缩放、换行与富文本".tr)
                      .byCls(TestLabelVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
@@ -3080,7 +3239,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(UITableViewCellEditorVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"JobsSettingGestureVC".tr)
+                model.byTitle(@"手势解锁".tr)
                      .bySubTitle(@"设置手势密码".tr)
                      .byCls(JobsSettingGestureVC.class);
             })))
@@ -3100,13 +3259,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JXCategoryViewWithHeaderViewVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"UILabelWordRotatingVC".tr)
+                model.byTitle(@"🔄 UILabel 文字旋转".tr)
                      .bySubTitle(@"UILabel文字旋转".tr)
                      .byCls(UILabelWordRotatingVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"TestBaseLabelVC".tr)
-                     .bySubTitle(@"测试 -BaseLabel-".tr)
+                model.byTitle(@"可交互自定义 Label".tr)
+                     .bySubTitle(@"内边距、异形圆角、背景与轻点/长按手势".tr)
                      .byCls(TestBaseLabelVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {

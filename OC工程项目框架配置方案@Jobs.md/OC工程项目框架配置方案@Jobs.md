@@ -8,18 +8,37 @@
 
 ## 🔥 <font id=前言>前言</font>
 
-这份文档对齐 [**Swift**](https://www.swift.org/) 侧 `Swift工程项目框架配置方案@Jobs.md`，用于沉淀 OC 工程的 UI 创建、属性配置、父视图装配、[**Masonry**](https://github.com/SnapKit/Masonry) 约束和列表免协议 Block 化方向。
+> 本文以 `JobsOCBaseConfigDemo@ByPods` 当前工程为样板，说明 Jobs [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 项目从宿主、启动、本地 Pod、资源、Widget 到验证工具的完整配置方案。凡与本文冲突时，以 Jobs 自建 Pod 当前实现、`*.podspec`、`Podfile.deps`、`Podfile` 和 Xcode target 配置为准。
 
-OC 侧核心思想是：`JobsMake` 创建对象，`JobsOCDSL` / `JobsModelDSL` 配置属性，`UIView+DSL` / `Masonry+DSL` 完成父视图装配和约束，依赖真实 `frame` 的效果放到约束刷新之后。
+- 权威源优先级：
+
+  1. `JobsByPods/` 下 Jobs 自建 Pod 的实现、公开头和 `*.podspec`。
+  2. 宿主源码、`Podfile.deps`、`Podfile`、Xcode target 与 Build Phase。
+  3. Pod README、根 README、本工程文档和 Xcode CodeSnippets。
+
+- 扫描和修改边界：
+
+  - 可以维护：宿主与 `JobsByPods/` 下 Jobs 自建、已经明确接管的源码和文档。
+  - 默认排除：根目录 `Pods/`、`JobsByPods/ManualByOCPods@Pods/`、供应商源码、生成物、构建缓存和所有权不明文件。
+  - 生成物只由对应流程刷新，不手工修改 Pods 工程、`Podfile.lock`、依赖报告或构建产物。
+
+- 当前工程基线：
+
+  - App、Unit Tests、UI Tests、Widget Extension 共同组成工程 target。
+  - App 与 Widget 当前部署目标均为 iOS 16.6；工程使用 CocoaPods 静态 framework 链接。
+  - Jobs 能力以下沉本地 Pod 为主；宿主负责启动编排、业务装配、Demo 入口和宿主资源。
+
+OC 侧核心调用思想是：`JobsMake` 创建对象，`JobsOCDSL` / `JobsModelDSL` 配置属性，`UIView+DSL` / `Masonry+DSL` 完成父视图装配和约束，依赖真实 `frame` 的效果放到约束刷新之后。
 
 ## 一、基础原则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a>
 
-- UI 创建优先使用 `JobsMakes@Pods/JobsMakes.h` 里的 `jobsMakeXXX`。
+- UI 创建优先使用 Jobs 自建 Pod 的公开聚合头和 `jobsMakeXXX`；业务代码不穿透到 Pod 私有目录。
 - `JobsMake` 只负责对象创建和 Block 入口，不负责堆业务配置。
 - Block 内部优先使用 `JobsOCDSL` / `JobsModelDSL` 点语法链式赋值。
 - 链式调用先写当前类本层能力，再写父类公共能力。
 - 加到父视图必须早于 [**Masonry**](https://github.com/SnapKit/Masonry) 约束。
 - frame 依赖效果可以在 `byAddTo` + 约束 + `layoutIfNeeded` 之后执行。
+- `UIView+DSL` 的 `byRemove()` 只负责移出父视图；`UIView+MasonryDSL` 的 `byClearConstraints()` 只负责清空 Masonry 约束；`JobsNavigationTransitionMgr` 的历史兼容入口使用 `byRemoveFromSuperviewForNavigation()`，不同 Category 不得用同一个 Selector 承担不同副作用。
 
 ## 二、UI 创建与装配顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a>
 
@@ -36,12 +55,12 @@ OC 侧核心思想是：`JobsMake` 创建对象，`JobsOCDSL` / `JobsModelDSL` �
 ```objc
 _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
     label
-        .byText(@"标题")
-        .byFont([UIFont boldSystemFontOfSize:16])
-        .byTextCor(UIColor.labelColor)
+        .byText(@"标题".tr)
+        .byFont(UIFontWeightBoldSize(16))
+        .byTextCor(JobsLabelColor)
         .byTextAlignment(NSTextAlignmentCenter)
         .byNumberOfLines(1)
-        .byBgColor(UIColor.clearColor)
+        .byBgColor(JobsClearColor)
         .addOn(self.contentView)
         .byAdd(^(MASConstraintMaker *make) {
             make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(8, 12, 8, 12));
@@ -54,7 +73,7 @@ _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
 ```objc
 _badgeView = jobsMakeView(^(__kindof UIView * _Nullable view) {
     view
-        .byBgColor(UIColor.systemRedColor)
+        .byBgColor(JobsSystemRedColor)
         .addOn(self.contentView)
         .byAdd(^(MASConstraintMaker *make) {
             make.right.top.equalTo(self.contentView);
@@ -74,10 +93,10 @@ _badgeView = jobsMakeView(^(__kindof UIView * _Nullable view) {
 
 ```objc
 label
-    .byText(@"先 UILabel")
-    .byFont([UIFont systemFontOfSize:15])
+    .byText(@"先 UILabel".tr)
+    .byFont(UIFontWeightRegularSize(15))
     .byTextAlignment(NSTextAlignmentCenter)
-    .byBgColor(UIColor.clearColor)
+    .byBgColor(JobsClearColor)
     .addOn(self.view)
     .byAdd(^(MASConstraintMaker *make) {
         make.center.equalTo(self.view);
@@ -106,7 +125,7 @@ _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableVi
             if (!cell) {
                 cell = [UITableViewCell.alloc initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
             }
-            cell.textLabel.text = self.dataMutArr[indexPath.row];
+            cell.textLabel.byText(self.dataMutArr[indexPath.row]);
             return cell;
         })
         .didSelectRowAt(^(id  _Nonnull target, UITableView * _Nonnull tv, NSIndexPath * _Nonnull indexPath) {
@@ -170,13 +189,13 @@ _collectionView = jobsMakeCollectionView(^(__kindof UICollectionView * _Nullable
 ```objc
 _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
     label
-        .byText(@"标题") // 设置文本
-        .byFont([UIFont boldSystemFontOfSize:16]) // 设置字体
-        .byTextCor(UIColor.labelColor) // 设置文字颜色
+        .byText(@"标题".tr) // 设置文本
+        .byFont(UIFontWeightBoldSize(16)) // 设置字体
+        .byTextCor(JobsLabelColor) // 设置文字颜色
         .byTextAlignment(NSTextAlignmentCenter) // 设置对齐方式
         .byNumberOfLines(1) // 设置行数
         .makeLabelByShowingType(UILabelShowingType_02) // 设置展示策略
-        .byBgColor(UIColor.clearColor) // 设置背景色
+        .byBgColor(JobsClearColor) // 设置背景色
         .byCornerRadius(JobsWidth(8)) // 设置圆角
         .byClipsToBounds(YES) // 裁剪圆角
         .addOn(self.contentView) // 加入父视图
@@ -191,25 +210,21 @@ _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
 ```objc
 _submitBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
     button
-        .byTitle(@"确认") // 设置标题
-        .byTitleCor(UIColor.whiteColor) // 设置标题颜色
-        .byTitleFont([UIFont boldSystemFontOfSize:16]) // 设置标题字体
-        .byImage(JobsIMG(@"icon_submit")) // 设置图片
-        .byBgColor(UIColor.systemBlueColor) // 设置背景色
-        .byCornerRadius(JobsWidth(10)) // 设置圆角
-        .byClipsToBounds(YES) // 裁剪圆角
+        .jobsResetBtnTitle(@"确认".tr) // 进入按钮配置管线设置标题
+        .jobsResetBtnTitleCor(JobsWhiteColor) // 设置标题颜色
+        .jobsResetBtnTitleFont(UIFontWeightBoldSize(16)) // 设置标题字体
+        .jobsResetBtnImage(JobsIMG(@"icon_submit")) // 设置图片
+        .jobsResetBtnBgCor(JobsSystemBlueColor) // 设置可见背景色
+        .jobsResetBtnCornerRadiusValue(JobsWidth(10)) // 设置配置背景圆角
+        .onClickBy(^(UIButton *sender) { // 绑定点按事件
+            sender.byToggleSelected();
+        })
         .addOn(self.view) // 加入父视图
         .byAdd(^(MASConstraintMaker *make) { // 部署约束
             make.left.right.equalTo(self.view).inset(JobsWidth(16));
             make.height.mas_equalTo(JobsWidth(48));
             make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom).offset(-JobsWidth(16));
         });
-    /// 点按事件单独绑定：该 API 返回 RACDisposable，不接在主链中间
-    button.jobsBtnClickEventByBlock(^id(id data) {
-        UIButton *sender = (UIButton *)data;
-        sender.selected = !sender.selected;
-        return sender;
-    });
 });
 ```
 
@@ -219,17 +234,17 @@ _submitBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
 _nameTextField = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
     textField
         .byText(@"") // 设置文本
-        .byFont([UIFont systemFontOfSize:15]) // 设置字体
-        .byTextCor(UIColor.labelColor) // 设置文字颜色
+        .byFont(UIFontWeightRegularSize(15)) // 设置字体
+        .byTextCor(JobsLabelColor) // 设置文字颜色
         .byTextAlignment(NSTextAlignmentLeft) // 设置对齐方式
-        .byPlaceholder(@"请输入名称") // 设置占位文字
-        .byPlaceholderColor(UIColor.secondaryLabelColor) // 设置占位颜色
-        .byPlaceholderFont([UIFont systemFontOfSize:15]) // 设置占位字体
+        .byPlaceholder(@"请输入名称".tr) // 设置占位文字
+        .byPlaceholderColor(JobsSecondaryLabelColor) // 设置占位颜色
+        .byPlaceholderFont(UIFontWeightRegularSize(15)) // 设置占位字体
         .byKeyboardType(UIKeyboardTypeDefault) // 设置键盘类型
         .byReturnKeyType(UIReturnKeyDone) // 设置返回键
         .byClearButtonMode(UITextFieldViewModeWhileEditing) // 设置清除按钮
         .byDelegate(self) // 设置代理
-        .byBgColor(UIColor.secondarySystemBackgroundColor) // 设置背景色
+        .byBgColor(JobsSecondarySystemBackgroundColor) // 设置背景色
         .byCornerRadius(JobsWidth(8)) // 设置圆角
         .byClipsToBounds(YES) // 裁剪圆角
         .addOn(self.view) // 加入父视图
@@ -246,16 +261,16 @@ _nameTextField = jobsMakeTextField(^(__kindof UITextField * _Nullable textField)
 ```objc
 _remarkTextView = jobsMakeTextView(^(__kindof UITextView * _Nullable textView) {
     textView
-        .byText(@"备注") // 设置文本
-        .byFont([UIFont systemFontOfSize:15]) // 设置字体
-        .byTextCor(UIColor.labelColor) // 设置文字颜色
+        .byText(@"备注".tr) // 设置文本
+        .byFont(UIFontWeightRegularSize(15)) // 设置字体
+        .byTextCor(JobsLabelColor) // 设置文字颜色
         .byTextAlignment(NSTextAlignmentLeft) // 设置对齐方式
         .byEditable(YES) // 允许编辑
         .bySelectable(YES) // 允许选择
         .byDataDetectorTypes(UIDataDetectorTypeNone) // 设置数据识别
         .byKeyboardType(UIKeyboardTypeDefault) // 设置键盘类型
         .byDelegate(self) // 设置代理
-        .byBgColor(UIColor.secondarySystemBackgroundColor) // 设置背景色
+        .byBgColor(JobsSecondarySystemBackgroundColor) // 设置背景色
         .byCornerRadius(JobsWidth(8)) // 设置圆角
         .byClipsToBounds(YES) // 裁剪圆角
         .addOn(self.view) // 加入父视图
@@ -276,7 +291,7 @@ _avatarImgView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView)
         .byHighlightedImage(JobsIMG(@"avatar_selected")) // 设置高亮图片
         .byContentMode(UIViewContentModeScaleAspectFill) // 设置填充模式
         .byUserInteractionEnabled(YES) // 开启交互
-        .byBgColor(UIColor.tertiarySystemBackgroundColor) // 设置背景色
+        .byBgColor(JobsTertiarySystemBackgroundColor) // 设置背景色
         .byCornerRadius(JobsWidth(32)) // 设置圆角
         .byClipsToBounds(YES) // 裁剪圆角
         .addOn(self.view) // 加入父视图
@@ -306,7 +321,7 @@ _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableVi
         .cellForRowAt(^__kindof UITableViewCell * _Nonnull(id  _Nonnull target, UITableView * _Nonnull tv, NSIndexPath * _Nonnull indexPath) { // 设置 cell
             UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:@"UITableViewCell"];
             if (!cell) cell = [UITableViewCell.alloc initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"UITableViewCell"];
-            cell.textLabel.text = self.dataMutArr[indexPath.row];
+            cell.textLabel.byText(self.dataMutArr[indexPath.row]);
             return cell;
         })
         .didSelectRowAt(^(id  _Nonnull target, UITableView * _Nonnull tv, NSIndexPath * _Nonnull indexPath) { // 设置选中事件
@@ -314,7 +329,7 @@ _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableVi
         })
         .byDelegate(self) // 设置代理
         .byDataSource(self) // 设置数据源
-        .byBgColor(UIColor.systemBackgroundColor) // 设置背景色
+        .byBgColor(JobsSystemBackgroundColor) // 设置背景色
         .addOn(self.view) // 加入父视图
         .byAdd(^(MASConstraintMaker *make) { // 部署约束
             make.edges.equalTo(self.view);
@@ -344,7 +359,7 @@ _collectionView = jobsMakeCollectionView(^(__kindof UICollectionView * _Nullable
         })
         .byDelegate(self) // 设置代理
         .byDataSource(self) // 设置数据源
-        .byBgColor(UIColor.systemBackgroundColor) // 设置背景色
+        .byBgColor(JobsSystemBackgroundColor) // 设置背景色
         .addOn(self.view) // 加入父视图
         .byAdd(^(MASConstraintMaker *make) { // 部署约束
             make.edges.equalTo(self.view);
@@ -352,11 +367,322 @@ _collectionView = jobsMakeCollectionView(^(__kindof UICollectionView * _Nullable
 });
 ```
 
-## 七、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a>
+## 七、成熟工程总览 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 不要把业务 UI、历史网格算法、动画算法直接搬进公共 DSL。
-- 不要在公开头里为了 DSL 便利扩大 import；实现细节放 `.m`。
-- 不要用重复定义父类属性的方式解决链式返回类型问题。
-- 批量替换 `jobsMakeXXX` 内部赋值时，要优先处理同类语法错误，例如 Block 属性少写调用括号。
+### 7.1、工程基线
+
+| 维度 | 当前方案 | 维护边界 |
+| --- | --- | --- |
+| 宿主 | `JobsOCBaseConfigDemo` | 启动编排、业务装配、Demo 入口与宿主资源。 |
+| 工程入口 | `JobsOCBaseConfigDemo.xcworkspace` | 集成 Pods 后从 workspace 打开和构建。 |
+| 工程格式 | Xcode `objectVersion 77` | 不为兼容旧工具随意降级或重写工程结构。 |
+| 部署目标 | App / Widget iOS 16.6 | Pod 的真实最低版本由各自能力和 podspec 决定。 |
+| 链接方式 | CocoaPods 静态 framework | `use_frameworks! :linkage => :static`，由 Podfile 统一管理。 |
+| Targets | App、Unit Tests、UI Tests、Widget Extension | 新 target 必须同步 Info、Entitlements、Bundle ID、资源和依赖。 |
+| 本地组件 | `JobsByPods/*@Pods` | Jobs 自建 Pod；手工第三方和根 `Pods/` 不属于维护源。 |
+| 自动化 | Simulator Build、协议图生成 | 以 workspace、真实 Scheme 和无个人凭据环境为门禁。 |
+
+### 7.2、目录职责
+
+以下路径均以仓库根目录为基准：
+
+```text
+.
+├── JobsOCBaseConfigDemo/             # App 宿主：入口、业务、资源、多语言
+├── JobsByPods/
+│   ├── FeatureName@Pods/             # Jobs 自建本地 Pod
+│   └── ManualByOCPods@Pods/          # 手工第三方隔离区，不按 Jobs 源码维护
+├── JobsOCWidgetExtension/            # WidgetKit Extension 与共享 Store
+├── ScriptsByPods/                    # Podfile 可选调用的工程脚本
+├── Podfile                           # 安装策略、Build Settings 与安装钩子
+├── Podfile.deps                      # 外部依赖和本地 Pod 声明
+├── PodspecDependencyReport/          # 自动生成的 Pod 依赖报告
+├── OC工程项目框架配置方案@Jobs.md/    # 当前工程文档
+└── .github/workflows/                # CI
+```
+
+- 主业务继续按控制器、Common 和独立功能 Demo 组织；稳定、可复用且边界清晰的能力再下沉本地 Pod。
+- 一个类型或一组成套文件用同名目录收口；控制器不夹带独立 Model、Cell、View 和工具类。
+- `ScriptsByPods/` 中脚本是工程辅助，不应成为业务运行时的隐式依赖。
+
+### 7.3、分层关系
+
+```mermaid
+flowchart TD
+    App["宿主 App / Demo"] --> Feature["功能 Pod"]
+    App --> BaseUI["JobsBaseUI"]
+    Feature --> BaseUI
+    BaseUI --> UIKit["JobsByOCPods"]
+    UIKit --> DSL["JobsOCDSL / JobsModelDSL"]
+    UIKit --> Makes["JobsMakes"]
+    DSL --> Defines["JobsOCDefs / JobsBlock"]
+    Makes --> Defines
+    Feature --> Service["网络、计时、媒体、权限等基础 Pod"]
+    Feature --> Resource["Pod Resource Bundle"]
+    Service --> Defines
+    DSL --> Apple["Apple SDK"]
+```
+
+- `JobsOCDefs` / `JobsBlock`：基础宏、类型和 Block 语义。
+- `JobsMakes`：对象工厂，只负责创建对象和暴露配置 Block。
+- `JobsOCDSL` / `JobsModelDSL`：系统对象与 Jobs Model 的链式配置。
+- `JobsByOCPods`：UIKit 工厂、按钮配置管线、事件、装配和通用扩展。
+- `JobsBaseUI`：BaseVC、导航容器、全局导航和主题等页面基座。
+- 功能 Pod 只声明真实直接依赖，不能依靠宿主碰巧已经装入某个模块。
+
+### 7.4、权威源与所有权
+
+- 自建 API 以当前实现和公开头为准；README、本文和 CodeSnippets 是消费说明，不是第二份实现。
+- 文件位于 `JobsByPods/` 不代表一定属于 Jobs；版权、文件头、上游路径或历史显示为第三方时仍然排除。
+- 依赖关系以 `*.podspec` 和 `PodspecDependencyReport` 为证据；本文不复制一份容易漂移的全量 Pod 清单。
+- 没有执行依赖生成流程时，不手工伪造 `Podfile.lock`、Pods 工程或依赖报告的一致性。
+
+## 八、启动、根容器与全局 UI <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+### 8.1、启动链路
+
+```mermaid
+sequenceDiagram
+    participant App as AppDelegate
+    participant Scene as SceneDelegate
+    participant Root as JobsOCMakeAppRootViewController
+    participant Window as UIWindow
+    participant Splash as JobsOCSplash
+
+    App->>App: 进程级配置与三方服务初始化
+    App->>Scene: 返回 UISceneConfiguration
+    Scene->>Root: 创建根控制器
+    Root-->>Scene: Navigation / 可选 TabBar 根容器
+    Scene->>Window: rootViewController + makeKeyAndVisible
+    Scene->>Splash: 恢复远程视频预加载
+    opt 配置允许展示开屏
+        Scene->>Splash: 在根控制器之上展示
+    end
+```
+
+- `AppDelegate` 负责进程级能力：日志、网络、键盘、导航、语言、比例尺、调试工具、播放器缓存和开屏预加载等统一初始化。
+- `SceneDelegate` 负责窗口级能力：创建 `UIWindow`、调用根控制器工厂、恢复 Scene 前后台状态和展示开屏覆盖层。
+- `JobsOCMakeAppRootViewController()` 是根页面权威入口；需要切换根结构时仍经这一入口编排。
+- 新初始化不要继续无边界堆进一个大方法；可复用能力放对应 Pod，入口层只负责时序和开关。
+
+### 8.2、根列表与导航
+
+- 默认业务入口是 `ViewController_1` 及其导航容器；配置允许时可切换为自定义 TabBar 根结构。
+- 根列表统一承接搜索、设置、排序 / 折叠、Demo 路由、图标映射和悬浮入口；新增 Demo 要同步对账这些消费者。
+- 根切换、主题和全局 UI 通过 `connectedScenes` 遍历全部有效 Window，不能只修改 AppDelegate 上的第一个窗口。
+- Jobs 自维护页面优先继承 `BaseViewController` 等当前页面基座；导航统一走基座默认导航流程、`byGKNav*` DSL 与 `jobs_ensureDemoThemeButton` 所在公共层。
+- 页面原有业务右按钮先建立，再由公共导航层补主题入口；不能用主题按钮覆盖业务动作。
+
+### 8.3、全局主题与页面生命周期
+
+- 主题状态持久化后，对所有已连接 Scene 的 Window 写入 `overrideUserInterfaceStyle`，并同步按钮选中态、图片和无障碍说明。
+- 页面使用 `JobsLabelColor`、`JobsSecondaryLabelColor`、`JobsSystemBackgroundColor` 等语义色；硬编码白底黑字会破坏全局切换。
+- 自定义绘制、Popup、键盘、图片模板色、导航背景和第三方容器都要验证明暗主题。
+- UI 验证覆盖初始、布局、点按 / 刷新、结束 / 停止、前后台、明暗主题、键盘、弹层和自定义绘制；“按钮能点”不等于全局主题完成。
+
+### 8.4、页面标准骨架
+
+```objc
+#import <JobsBaseUI/JobsBaseUI.h>
+#import <JobsByOCPods/JobsByOCPods.h>
+#import <JobsOCDSL/JobsOCDSL.h>
+#import <JobsOCDefs/JobsDefines.h>
+#import <Masonry/Masonry.h>
+
+@interface FeatureDemoVC : BaseViewController
+@end
+
+@interface FeatureDemoVC ()
+
+Prop_strong(UIView *, contentView);
+
+@end
+
+@implementation FeatureDemoVC
+
+-(void)viewDidLoad{
+    [super viewDidLoad];
+    self.view.byBgColor(JobsSystemBackgroundColor);
+    self.contentView.byVisible(YES);
+}
+
+-(UIView *)contentView{
+    if(!_contentView){
+        _contentView = jobsMakeView(^(__kindof UIView *view) {
+            view
+                .byBgColor(JobsSecondarySystemBackgroundColor)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.view);
+                });
+        });
+    };return _contentView;
+}
+
+@end
+```
+
+- 进入视图层级、绑定事件 / 约束 / delegate、会刷新或参与换肤的对象，必须是属性并由懒加载 getter 收口。
+- 页面布局统一使用 [**Masonry**](https://github.com/SnapKit/Masonry)；首次 `mas_makeConstraints`，常量变化 `mas_updateConstraints`，结构变化才 `mas_remakeConstraints`。
+- `viewDidLoad` 只编排导航、唤醒 UI、绑定数据和首屏请求，不承载大段对象创建与业务状态机。
+
+## 九、本地 Pod 与依赖治理 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+### 9.1、标准本地 Pod 目录
+
+```text
+JobsByPods/FeatureName@Pods/
+├── Core/                       # 对外核心源码
+├── Support/                    # 私有适配与桥接实现
+├── Resource/                   # 图片、字体、音视频、strings、xcprivacy
+├── FeatureName.h               # 根聚合头
+├── FeatureName.podspec
+├── README.md
+└── LICENSE
+```
+
+- `Core`、`Support`、`Resource` 使用真实目录；不要靠 Xcode 虚拟 Group 掩盖磁盘结构。
+- `Support` 默认不进入公开头；仅由 `Core` 或 Pod 内实现消费。
+- 没有资源时不强制创建 `Resource`；存在资源时与 `Core` 平级，并通过独立 Bundle 交付。
+- 新 Pod 优先使用 `JobsPodspecKit.rb` 统一默认值，但最终必须核对生成后的 podspec 是否符合真实目录和依赖。
+
+### 9.2、Podspec 职责
+
+| 配置 | 规则 |
+| --- | --- |
+| `source_files` | 只覆盖真实源码，排除 README、脚本、Demo 和生成物。 |
+| `public_header_files` | 只公开业务调用所需的最小头文件集合。 |
+| `resource_bundles` | 功能资源使用独立 Bundle，调用方不假设 `NSBundle.mainBundle`。 |
+| `dependency` | 写完整直接依赖，不依赖宿主的传递依赖。 |
+| `platform` | 取该 Pod 真实最低系统版本，不机械复制宿主版本。 |
+| `subspec` | 只为真实可选能力拆分，不用 subspec 隐藏循环依赖。 |
+
+- `Podfile.deps` 中 `appCommon` 管理外部通用依赖，`byJobsDo` 管理 Jobs 本地 Pod；新增依赖先判断归属。
+- `Podfile.deps` 只声明依赖，不放下载、改源码、生成工程或其它副作用逻辑。
+- `Podfile` 统一管理安装策略、Build Settings 和受控的安装钩子；安装期兼容补丁必须可定位、可失败提示、可随上游升级删除。
+
+### 9.3、依赖方向与调用边界
+
+- 基础定义层不能依赖 UI 或业务功能层；功能 Pod 可以组合基础层，基础层不能反向依赖功能 Pod。
+- Jobs DSL 链式方法除终止动作外都要返回可继续链下去的当前对象；子类专属 DSL 先于父类 DSL。
+- 已有 Jobs 系统 API / Model 封装时，业务不再散落一套原生写法；缺失时先补封装，再回到调用方。
+- 公开头只 import 公开契约；实现细节、兼容头和第三方私有类型留在 `.m` 或 `Support`。
+- 修改本地 Pod 后同步扫描宿主 import / 调用、其它 podspec、`Podfile.deps`、Demo、README、本文和 CodeSnippets。
+
+## 十、资源、多语言、隐私与 Widget <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+### 10.1、资源与多语言
+
+- 宿主资源按 Assets、图片、字体、音视频、JSON、Lottie、网页和语言包分类；功能专属资源跟随功能 Pod。
+- App 文案使用 `Localizable.strings` 与 `.tr`；Display Name、权限等系统文案使用各语言 `InfoPlist.strings`。
+- 当前宿主包含 `en`、`zh-Hans`、`fil`、`fil-PH` 语言资源；新增语言时同步 target membership、缺失 key 和系统展示文案。
+- 本地图、网络图、SVG、Icon Font 和 Unicode 图标优先经 Jobs 资源门面；新增入口图标优先从 [**iconfont**](https://www.iconfont.cn/) 选择并落入真实资源目录。
+- Bundle 名是公开契约；资源 Pod 重命名时同步 podspec、访问 Helper、README、Demo 和测试。
+
+### 10.2、权限、Entitlements 与隐私
+
+- 权限 key 只在真实功能需要时启用，文案说明用途和用户收益；不保留空字符串或“以后可能用”的生产权限。
+- `Info.plist`、`InfoPlist.strings`、Capabilities、Entitlements 和实际调用必须成套存在。
+- 相机、麦克风、相册、蓝牙、后台音频和 App Group 等能力分别核对系统版本、拒绝态、后台行为和审核边界。
+- 使用 Required Reason API 的 Jobs 自建 Pod，在自身 `Resource/PrivacyInfo.xcprivacy` 声明并由 podspec 打包；不直接修改第三方清单。
+
+### 10.3、Widget Extension 与 App Group
+
+- `JobsOCWidgetExtension/` 承载 WidgetKit target，`JobsOCWidgetSharedStore.swift` 是共享状态入口。
+- App 与 Widget 的 Entitlements 当前统一使用 `group.com.JobsOCBaseConfigDemo`。
+- 宿主通过 `JobsWidgetCenterBridge` 写入共享状态并刷新 Timeline；Extension 只读取共享模型生成条目和视图。
+- Widget target 保持 `APPLICATION_EXTENSION_API_ONLY = YES`，不能引用仅 App 可用的 API，也不能把宿主全部 Pods 拖进扩展。
+- 完整验证需要在模拟器 / 真机桌面添加 Widget；宿主页中的预览不等于系统扩展已经运行。
+
+## 十一、网络、媒体、工具链与 CI <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+### 11.1、网络、数据、日志与生命周期
+
+- 网络经 `JobsNetWorkTools`、YTKNetwork / AFNetworking 适配层等稳定门面接入；页面至少区分加载、成功、空、可重试失败、不可恢复失败和取消。
+- 数据按业务选择 Realm、FMDB、文件、UserDefaults 或 Keychain；明确线程、迁移、加密、过期和清理策略。
+- CocoaLumberjack 等日志要结构化并脱敏；Debug 打印不能成为 Release 唯一观测手段。
+- 定时器、录音录像、WebSocket、视频帧队列、WebView、通知与观察者必须有停止、清理和前后台策略。
+- 开屏支持本地图 / GIF / 远程图、本地视频和远程视频时，失败路径要可降级，不能阻塞根页面可用性。
+
+### 11.2、依赖图、CodeGraph 与 CI
+
+- `PodspecDependencyReport` 由安装后流程生成 Markdown、图形和循环依赖分析；它是生成物，不手工编辑结论。
+- 仓库存在 `.codegraph/` 时，理解符号、调用路径和改动影响优先使用 CodeGraph；索引不能替代编译器和测试。
+- `ScriptsByPods/` 已提供 CodeGraph 初始化 / 导出、Pod 边界审计、导入修复和 Xcode 依赖查询工具；按各脚本 README 使用。
+- GitHub Actions 通过 workspace + App Scheme 构建 iOS Simulator，并独立生成 OC 协议关系图。
+- CI 与脚本不能写死个人证书、Cookie、Token 或本机缓存；可选增强缺失时要显式降级或给出可诊断错误。
+
+## 十二、新项目落地清单 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+### 12.1、工程与启动
+
+- [ ] 修改 App、Tests、UITests、Widget target、Scheme、Bundle ID、Display Name、Team、版本号和 AppIcon。
+- [ ] 统一部署目标、静态链接、Build Settings 和 User Script Sandboxing。
+- [ ] `AppDelegate` 只保留生产需要的进程级初始化，`SceneDelegate` 只处理 Window 和 Scene 生命周期。
+- [ ] 根控制器统一从 `JobsOCMakeAppRootViewController()` 返回；登录态、深链、推送和开屏通过可测试入口编排。
+- [ ] 多 Scene 场景下，主题、语言、根切换和全局浮层覆盖全部 Window。
+
+### 12.2、Pod、组件与业务
+
+- [ ] 在 `Podfile.deps` 修改 target 名，删除不需要的外部依赖、功能 Pod 和 Demo 能力。
+- [ ] 保留 `JobsOCDefs / JobsBlock → JobsMakes / JobsOCDSL → JobsByOCPods → JobsBaseUI` 的基础依赖方向。
+- [ ] 页面使用属性 + 懒加载 + JobsMake + JobsOCDSL / JobsModelDSL + Masonry。
+- [ ] 按钮可见标题、图片、背景和圆角统一走 `jobsResetBtn*` 管线，事件使用 `onClickBy`。
+- [ ] 网络、缓存、日志、计时器、权限、通知和媒体分别通过稳定门面接入。
+- [ ] 独立功能有独立 Demo 页面、根入口和图标映射；不以空壳或聚合 Workbench 作为完成标准。
+
+### 12.3、资源、测试与交付
+
+- [ ] 删除靶场无关的大资源、权限、语言、后台模式、Widget 和 App Group。
+- [ ] 对账 `Info.plist`、`InfoPlist.strings`、`Localizable.strings`、Entitlements、Capabilities 和实际调用。
+- [ ] 自建 Pod 资源使用独立 Bundle；Privacy Manifest 跟随真实使用 API 的 Pod。
+- [ ] Unit Tests 覆盖纯逻辑、解析、缓存键和状态机；UI Tests 覆盖启动、根入口、主题、语言和关键导航。
+- [ ] README、本文、Pod README、CodeSnippets 与真实 API 对齐；Pod 变化后重新生成依赖图并确认无循环依赖。
+
+## 十三、验证、风险与持续维护 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+### 13.1、低副作用静态检查
+
+```shell
+git diff --check -- \
+  'OC工程项目框架配置方案@Jobs.md/OC工程项目框架配置方案@Jobs.md'
+
+plutil -lint \
+  JobsOCBaseConfigDemo/Info.plist \
+  JobsOCBaseConfigDemo/JobsOCBaseConfigDemo.entitlements \
+  JobsOCWidgetExtension/Info.plist \
+  JobsOCWidgetExtension/JobsOCWidgetExtension.entitlements
+
+ruby -c Podfile
+ruby -c Podfile.deps
+```
+
+- Markdown 同时检查标题层级、代码围栏、相对图片、内部锚点、专有名词链接和列表缩进。
+- 改动 `.m` 时可以先用 Clang 做定向语法检查，但它不能替代完整模块编译。
+- 改动 podspec 时先做 Ruby 语法 / spec 解析和直接依赖扫描，再按需运行安装与依赖报告。
+
+### 13.2、按风险升级验证
+
+| 变更类型 | 最低验证 | 完整验证 |
+| --- | --- | --- |
+| 纯文档 | 标题、围栏、链接、示例 API、`git diff --check` | 对照当前源码与工程配置人工通读。 |
+| OC 源码 | 定向语法和调用扫描 | 对应 Pod / Scheme 编译与相关测试。 |
+| Pod / podspec | Ruby / spec 解析、直接依赖扫描 | `pod install`、workspace `-list`、真实 Scheme 构建。 |
+| 资源 / 权限 | 路径、声明、Info、Entitlements | 最终 Bundle、拒绝态、前后台与审核场景验证。 |
+| UI / 主题 / 生命周期 | 调用链、约束和状态检查 | 模拟器 / 真机覆盖全状态，不能以静态检查冒充视觉证据。 |
+| Widget / App Group | Entitlements、共享 key、Extension API 检查 | 系统桌面添加 Widget、写入共享状态并刷新 Timeline。 |
+
+- `pod install`、`xcodebuild`、清缓存和下载依赖等有副作用命令，只在任务确实需要时执行并明确范围。
+- 静态通过、Pod 编译通过、App 编译通过、模拟器表现和真机表现是不同证据，交付时分别说明。
+
+### 13.3、风险与文档防漂移
+
+- 不把业务 UI、历史网格算法、动画状态机直接搬进公共 DSL。
+- 不在公开头中为方便调用扩大 import；私有实现留在 `.m` 或 `Support`。
+- 不通过重复定义父类属性解决链式返回类型；应修正返回类型和调用顺序。
+- 新增或修改底层自建 API 时，同步 OC 新老工程对应实现、公开头、相关 Pod / 根 README、宿主 Demo、两份《OC工程项目框架配置方案@Jobs.md》以及公共 Xcode 代码块目录 `/Users/jobs/Library/Developer/Xcode/UserData/CodeSnippets`；没有对应项也要完成检索并在交付中说明。
+- Swift 底层自建 API 按相同流程同步 Swift 实现、相关 README / Demo、`SwiftDoc.md/Swift工程项目框架配置方案@Jobs.md` 和同一个公共 Xcode CodeSnippets 目录。
+- 修改启动、根容器、主题、语言或 Widget 时同步生命周期验证项。
+- 文档示例应能直接复制，但调用方仍要显式保留所属模块的最小 import、依赖和系统版本边界。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

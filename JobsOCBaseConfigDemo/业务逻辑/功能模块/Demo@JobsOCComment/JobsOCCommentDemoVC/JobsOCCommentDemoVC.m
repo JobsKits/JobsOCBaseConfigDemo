@@ -39,9 +39,10 @@ Prop_strong()JobsPresentationCtrl *presentationController;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"JobsOCComment".tr);
-            data.byFont(UIFontWeightRegularSize(18));
-            data.byTextCor(HEXCOLOR(0x2D3642));
+            data
+                .byText(@"评论功能".tr)
+                .byFont(UIFontWeightRegularSize(18))
+                .byTextCor(HEXCOLOR(0x2D3642));
         })
         .byBgCor(HEXCOLOR(0xF6F7FB))
         .byNavBgCor(HEXCOLOR(0xF6F7FB));

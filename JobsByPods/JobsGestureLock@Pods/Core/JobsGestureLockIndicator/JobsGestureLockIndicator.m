@@ -35,11 +35,10 @@ Prop_strong()NSMutableArray<UIButton *> *nodeButtons;
     for (NSInteger index = 0; index < 9; index++) {
         UIButton *button = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
-                .jobsResetBtnImage(self.configuration.indicatorNormalImage)
-                .selectedStateImageBy(self.configuration.indicatorSelectedImage)
                 .byUserInteractionEnabled(NO)
                 .addOn(self);
         });
+        [self applySelected:NO toButton:button];
         [self.nodeButtons addObject:button];
     }
 }
@@ -56,20 +55,40 @@ Prop_strong()NSMutableArray<UIButton *> *nodeButtons;
         CGFloat x = margin + (width + margin) * column;
         CGFloat y = margin + (height + margin) * row;
         button.frame = CGRectMake(x, y, width, height);
+        button.jobsResetBtnCornerRadiusValue(width * 0.5);
     }];
 }
 
 - (void)updateWithPattern:(NSString *)pattern {
     [self.nodeButtons enumerateObjectsUsingBlock:^(UIButton * _Nonnull button, NSUInteger idx, BOOL * _Nonnull stop) {
-        button.bySelected(NO);
+        [self applySelected:NO toButton:button];
     }];
     for (NSUInteger index = 0; index < pattern.length; index++) {
         NSString *character = [pattern substringWithRange:NSMakeRange(index, 1)];
         NSInteger buttonIndex = character.integerValue;
         if (buttonIndex >= 0 && buttonIndex < self.nodeButtons.count) {
-            self.nodeButtons[buttonIndex].bySelected(YES);
+            [self applySelected:YES toButton:self.nodeButtons[buttonIndex]];
         }
     }
+}
+
+-(void)applySelected:(BOOL)selected toButton:(UIButton *)button{
+    if (self.configuration.indicatorNormalImage || self.configuration.indicatorSelectedImage) {
+        button
+            .jobsResetBtnImage(self.configuration.indicatorNormalImage)
+            .selectedStateImageBy(self.configuration.indicatorSelectedImage)
+            .jobsResetBtnBgCor(JobsClearColor)
+            .jobsResetBtnLayerBorderWidth(0)
+            .bySelected(selected);
+        return;
+    }
+    button
+        .jobsResetBtnImage(nil)
+        .selectedStateImageBy(nil)
+        .jobsResetBtnBgCor(selected ? self.configuration.selectedLineColor : JobsClearColor)
+        .jobsResetBtnLayerBorderCor(selected ? self.configuration.selectedLineColor : JobsSystemGray3Color)
+        .jobsResetBtnLayerBorderWidth(1)
+        .bySelected(selected);
 }
 
 @end

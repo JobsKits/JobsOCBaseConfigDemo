@@ -134,6 +134,7 @@ JobsOCDSL@Pods/
 ## 五、Masonry 链式约束
 
 - `UIView+MasonryDSL` 只做公共链式入口，不承接旧 Pod 私有的网格算法、约束动画和 `masonryBlock` 存储。
+- `UIView.byRemove()` 只归 `UIView+DSL` 管理并表示移出父视图；Masonry 清空约束使用 `byClearConstraints()`，避免不同 Category 复用同一个 Selector。
 - 推荐写法是先调用本层类型 DSL，再调用 `UIView` / `Masonry` 父层 DSL。比如 `UILabel` 先写 `byText`、`byFont`、`byTextAlignment`，最后再写 `byAddTo` 或 `byMakeConstraints`，避免父类方法返回 `UIView` 后丢失 `UILabel` 本层链式能力。
 
   ```objc

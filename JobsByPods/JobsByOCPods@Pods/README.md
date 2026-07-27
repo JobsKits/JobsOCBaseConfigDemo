@@ -69,7 +69,7 @@ JobsByOCPods@Pods/
 - `Core/UIKit/UIViewController/.../UIViewController+BaseVC` 的 `navBarConfig` / `navBar` 懒加载会返回本次刚创建并完成关联的对象，首次链式配置不再因返回 `nil` Block 而触发 `EXC_BAD_ACCESS`。
 - `Core/UIKit/UIViewController/.../UIViewController+BaseVC` 在跳转前把 `UIViewModel.textModel` 的 Demo 标题同步到目标控制器，保证普通 `UIViewController` 进入后也具备导航标题。
 - OC 侧布局统一使用 `Masonry`；历史 `NSLayoutConstraint+Extra` 系统约束桥接已移除，不再从 `UIKits.h` 暴露。
-- `Core/UIKit/UINavigationController/.../UINavigationController+SafeTransition` 在入栈完成及 `viewDidAppear:` 后，只为真正存在于 `navigationController.viewControllers` 的非根控制器补齐 GK 导航栏、标题与 `backBtnCategory` Jobs 返回按钮；直接挂在导航控制器上的子控制器覆盖层不属于导航栈。已有系统富文本标题及右侧业务按钮会迁移到 GK 导航栏，不再显示系统导航容器。页面覆写 `jobs_requiresDefaultNavigationBar` 并返回 `NO` 时跳过整套默认导航 UI；`JobsNavigationDemoVC` 作为系统导航栏专项 Demo 保留系统导航容器。Demo 根列表导航流及类名包含 `Demo` 的演示页还会统一保留最右侧全局主题入口。
+- `Core/UIKit/UINavigationController/.../UINavigationController+SafeTransition` 在入栈完成及 `viewDidAppear:` 后，只为真正存在于 `navigationController.viewControllers` 的非根控制器补齐 GK 导航栏、标题与 `backBtnCategory` Jobs 返回按钮；直接挂在导航控制器上的子控制器覆盖层不属于导航栈。已有系统富文本标题及右侧业务按钮会迁移到 GK 导航栏，不再显示系统导航容器。页面覆写 `jobs_requiresDefaultNavigationBar` 并返回 `NO` 时跳过整套默认导航 UI；`JobsNavigationDemoVC` 作为系统导航栏专项 Demo 保留系统导航容器。Demo 根列表导航流及类名包含 `Demo` 的演示页右上角最多只保留一个主题入口，页面业务动作统一收进该入口的下拉列表；入口图标和无障碍文案始终描述下一次点击的主题切换、展开或收起动作。
 - 默认返回图标使用 template 渲染，着色源为 `UIViewModel.backBtnTitleModel.textCor`，其默认值是 `JobsLabelColor`，可随明暗主题自动变色。
 - `Core/UIKit/UIViewController/.../UIViewController+XLBubbleTransition` 通过 `JobsOCDSL` 的 `UINavigationController.byDelegate(...)` 切换导航代理；根 podspec 已持有 `JobsOCDSL` 直接依赖，分类头保留保护性导入。
 

@@ -11,6 +11,7 @@
 +(instancetype)proxy {
     MyProxy *proxy = MyProxy.alloc;
     proxy.targets = NSMutableArray.array;
+    proxy.weakTargets = NSMutableArray.array;
     return proxy;
 }
 
@@ -58,19 +59,21 @@
     NSLog(@"✅ 方法 %@ 执行完毕", NSStringFromSelector(sel));
 }
 
--(jobsByIDBlock _Nonnull)addTargetBy{
+-(JobsRetMyProxyByIDBlock _Nonnull)addTargetBy{
     @jobs_weakify(self)
-    return ^(id _Nullable target){
+    return ^__kindof MyProxy *_Nullable(id _Nullable target){
         @jobs_strongify(self)
         self.targets.add(target);
+        return self;
     };
 }
 
--(jobsByIDBlock _Nonnull)addWeakTargetBy{
+-(JobsRetMyProxyByIDBlock _Nonnull)addWeakTargetBy{
     @jobs_weakify(self)
-    return ^(id _Nullable target){
+    return ^__kindof MyProxy *_Nullable(id _Nullable target){
         @jobs_strongify(self)
         self.weakTargets.add([WeakTarget withTarget:target]);
+        return self;
     };
 }
 

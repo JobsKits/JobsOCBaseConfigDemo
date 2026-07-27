@@ -41,9 +41,10 @@ Prop_assign()NSInteger demoLoadMoreCount;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(self.jobs_titleText.tr);
-            data.byFont(UIFontWeightRegularSize(18));
-            data.byTextCor(HEXCOLOR(0x2D3642));
+            data
+                .byText(self.jobs_titleText.tr)
+                .byFont(UIFontWeightRegularSize(18))
+                .byTextCor(HEXCOLOR(0x2D3642));
         })
         .byBgCor(HEXCOLOR(0xF6F7FB))
         .byNavBgCor(HEXCOLOR(0xF6F7FB));

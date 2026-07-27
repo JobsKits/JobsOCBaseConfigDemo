@@ -44,7 +44,7 @@ Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
 /// 对系统API mas_remakeConstraints 的二次封装
 -(JobsRetViewByMasonryConstraintsBlock _Nonnull)byRemake;
 /// 对系统API mas_remakeConstraints 的二次封装：将空约束配置进UI == 清空约束
--(JobsRetIDByVoidBlock _Nonnull)byRemove;
+-(JobsRetIDByVoidBlock _Nonnull)byClearConstraints;
 #pragma mark —— 记录约束，并修改/赋值
 /// 添加约束并刷新UI
 -(JobsRetViewByViewBlock _Nonnull)addSubview;
