@@ -113,11 +113,11 @@
 "JobsDropDownListVC" = "JobsDropDownListVC";
 "JobsExcel" = "JobsExcel";
 "JobsGraphicCaptcha" = "JobsGraphicCaptcha";
-"JobsIMShowVC" = "JobsIMShowVC";
+"JobsIM" = "JobsIM";
 "JobsLinkageMenuViewDemoVC" = "JobsLinkageMenuViewDemoVC";
 "JobsNavBar" = "JobsNavBar";
 "JobsNavigationDemoVC" = "JobsNavigationDemoVC";
-"JobsOCComment" = "JobsOCComment";
+"评论功能" = "Pag-andar ng komento";
 "JobsOCCountryCodeCtrl" = "JobsOCCountryCodeCtrl";
 "JobsOCKeyboardMgr" = "JobsOCKeyboardMgr";
 "JobsOCRefresher" = "JobsOCRefresher";
@@ -126,7 +126,7 @@
 "JobsOCTimerMgr" = "JobsOCTimerMgr";
 "JobsOCTimerMgr 收到 finish 回调" = "Tumatanggap ang JobsOCTimerMgr ng finish callback";
 "JobsScrollViewVC" = "JobsScrollViewVC";
-"JobsSettingGestureVC" = "JobsSettingGestureVC";
+"手势解锁" = "Pag-unlock gamit ang galaw";
 "JobsTabBarCtr" = "JobsTabBarCtr";
 "JobsTimer" = "JobsTimer";
 "JobsVerticalMenuMainVC" = "JobsVerticalMenuMainVC";
@@ -208,6 +208,7 @@
 "UIButton 内部 JobsTimer 正在倒计时：%@ 秒" = "Ang panloob na UIButton na JobsTimer ay nagbibilang pababa: %@ segundo";
 "UIButton.titleLabel" = "UIButton.titleLabel";
 "UIButton子控件的排布" = "Pag-aayos ng mga sub-kontrol ng UIButton";
+"平替系统按钮" = "Alternatibo sa system button";
 "UICollectionView 架构" = "arkitektura ng UICollectionView";
 "UICollectionView实现重叠的卡包效果" = "Ang UICollectionView ay nagpapatupad ng overlapping na card package effect";
 "UILabel 分类能力" = "Mga kakayahan sa pag-uuri ng UILlabel";

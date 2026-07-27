@@ -59,9 +59,10 @@ Prop_copy()NSString *currentTitleWritingLottieName;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(@"".tr);
-            data.byFont(UIFontWeightRegularSize(16));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(@"".tr)
+                .byFont(UIFontWeightRegularSize(16));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -146,32 +147,41 @@ Prop_copy()NSString *currentTitleWritingLottieName;
 
 -(UIImageView *)backgroundImageView{
     if (!_backgroundImageView) {
-        _backgroundImageView = UIImageView.new;
-        _backgroundImageView.image = @"导航栏左侧底图".img;
-        _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _backgroundImageView.userInteractionEnabled = NO;
-        _backgroundImageView.clipsToBounds = YES;
-        _backgroundImageView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.view);
+        _backgroundImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView
+                .byImage(@"导航栏左侧底图".img)
+                .byContentMode(UIViewContentModeScaleAspectFill)
+                .byUserInteractionEnabled(NO)
+                .byClipsToBounds(YES)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.view);
+                });
         });
     };return _backgroundImageView;
 }
 
 -(UIView *)contentGlassView{
     if (!_contentGlassView) {
-        _contentGlassView = UIView.new;
-        _contentGlassView.byBgColor(RGBA_COLOR(255, 255, 255, 0.36));
-        _contentGlassView.layer.cornerRadius = JobsWidth(22);
-        _contentGlassView.layer.borderWidth = 1;
-        _contentGlassView.layer.borderColor = RGBA_COLOR(255, 255, 255, 0.55).CGColor;
-        _contentGlassView.layer.shadowColor = HEXCOLOR(0x7C4F2A).CGColor;
-        _contentGlassView.layer.shadowOpacity = 0.18f;
-        _contentGlassView.layer.shadowOffset = CGSizeMake(0, JobsWidth(10));
-        _contentGlassView.layer.shadowRadius = JobsWidth(18);
-        _contentGlassView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
-            make.top.equalTo(self.view).offset(JobsWidth(40));
-            make.left.right.equalTo(self.view).inset(JobsWidth(24));
-            make.height.mas_equalTo(JobsWidth(178));
+        _contentGlassView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byBgColor(RGBA_COLOR(255, 255, 255, 0.36))
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer
+                        .byCornerRadius(JobsWidth(22))
+                        .byBorderWidth(1)
+                        .byBorderColor(RGBA_COLOR(255, 255, 255, 0.55).CGColor)
+                        .byShadowColor(HEXCOLOR(0x7C4F2A).CGColor)
+                        .byShadowOpacity(0.18f)
+                        .byShadowOffset(CGSizeMake(0, JobsWidth(10)))
+                        .byShadowRadius(JobsWidth(18));
+                })
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.view).offset(JobsWidth(40));
+                    make.left.right.equalTo(self.view).inset(JobsWidth(24));
+                    make.height.mas_equalTo(JobsWidth(178));
+                });
         });
     };return _contentGlassView;
 }

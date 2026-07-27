@@ -2,7 +2,7 @@
 //  WebViewController.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 15/7/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "WebViewController.h"
@@ -28,10 +28,14 @@ Prop_strong()WKWebView *webView;
   [super viewDidLoad];
   self.title = self.titleStr;
   _webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
-  [self.view addSubview:_webView];
+  _webView.addOn(self.view);
   NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
   [_webView loadRequest:request];
-  UIBarButtonItem *closeItem = [[UIBarButtonItem alloc] initWithTitle:@"关闭" style:UIBarButtonItemStylePlain target:self action:@selector(close)];
+  UIBarButtonItem *closeItem = jobsMakeBarButtonItemByTitle(@"关闭",
+                                                            UIBarButtonItemStylePlain,
+                                                            self,
+                                                            @selector(close),
+                                                            nil);
   self.navigationItem.leftBarButtonItem = closeItem;
 }
 

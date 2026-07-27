@@ -18,7 +18,7 @@
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
-
+///【NTESVerifyCodeManager】 二次封装 https://github.com/yidun/NTESVerifyCode
 @interface NSObject (NTESVerifyCodeManager)<NTESVerifyCodeManagerDelegate>
 
 Prop_strong()NTESVerifyCodeManager *verifyCodeManager;

@@ -52,8 +52,9 @@ Prop_assign()NSInteger cellCount;
         })
         //        self.viewModel.textModel.text = @"GXCardViewDemo".tr;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(data.attributedTitle.string);
-            data.byFont(UIFontWeightRegularSize(16));
+            data
+                .byText(data.attributedTitle.string)
+                .byFont(UIFontWeightRegularSize(16));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -105,7 +106,7 @@ Prop_assign()NSInteger cellCount;
     cell.numberLabel.byText([NSString stringWithFormat:@"%ld", (long)index]);
     cell.leftLabel.byHidden(YES);
     cell.rightLabel.byHidden(YES);
-    cell.layer.cornerRadius = 12.0;
+    cell.layer.byCornerRadius(12.0);
     return cell;
 }
 
@@ -168,8 +169,9 @@ didRemoveLastCell:(GXCardViewCell *)cell
         _cardView.maxAngle = 15.0;
         _cardView.maxRemoveDistance = 100.0;
     //    _cardView.isRepeat = YES; // 新加入
-        [_cardView registerNib:[UINib nibWithNibName:NSStringFromClass(GXCardItemDemoCell.class)
-                                             bundle:GXCardViewDemoResourceBundle()]
+        [_cardView registerNib:jobsMakeNib(NSStringFromClass(GXCardItemDemoCell.class),
+                                           GXCardViewDemoResourceBundle(),
+                                           nil)
          forCellReuseIdentifier:@"GXCardViewCell"];
         _cardView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);

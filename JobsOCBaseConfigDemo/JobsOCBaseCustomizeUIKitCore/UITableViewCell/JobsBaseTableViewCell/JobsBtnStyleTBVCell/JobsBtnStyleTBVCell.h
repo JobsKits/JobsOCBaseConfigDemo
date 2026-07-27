@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JobsBtnStyleTBVCell : JobsBaseTableViewCell<BaseButtonProtocol>
 /// 获取绑定的数据源
 -(UIViewModel *)getViewModel;
+-(JobsRetTableViewCellByUIEdgeInsetsBlock _Nonnull)byContentEdgeInsets;
 
 @end
 

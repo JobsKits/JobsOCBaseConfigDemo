@@ -34,6 +34,7 @@ Prop_assign()NSInteger chargingProgressPhase;
 -(UIView *)sectionDescriptionHeaderViewByText:(NSString *)text;
 -(CGFloat)sectionDescriptionHeaderWidth;
 -(CGFloat)sectionDescriptionHeaderHeight;
+-(CGFloat)innerTableContentHeight;
 -(void)reloadSectionDescriptionHeaderViewIfNeeded;
 -(void)prepareChargingProgressTimerIfNeeded;
 -(void)syncChargingProgressTimerState;
@@ -62,6 +63,14 @@ Prop_assign()NSInteger chargingProgressPhase;
 
 +(UIFont *)sectionDescriptionFont{
     return UIFontWeightRegularSize(13);
+}
+
++(UIFont *)innerTitleFont{
+    return UIFontWeightRegularSize(15);
+}
+
++(UIFont *)innerSubTitleFont{
+    return UIFontWeightRegularSize(11);
 }
 
 +(CGFloat)headerTitleTop{
@@ -118,7 +127,7 @@ Prop_assign()NSInteger chargingProgressPhase;
 }
 
 +(CGFloat)sectionDescriptionEstimatedHeaderWidth{
-    return MAX(200, JobsMainScreen_WIDTH() - 104);
+    return MAX(200, JobsMainScreen_WIDTH() - 20);
 }
 
 +(CGFloat)sectionDescriptionWidthByHeaderWidth:(CGFloat)headerWidth{
@@ -146,14 +155,14 @@ Prop_assign()NSInteger chargingProgressPhase;
     return self.headerHeight + self.verticalInset * 2;
 }
 
-+(CGFloat)expandedHeightByItemCount:(NSUInteger)itemCount{
-    return [self expandedHeightByItemCount:itemCount
-                        sectionDescription:nil];
-}
-
 +(CGFloat)expandedHeightByItemCount:(NSUInteger)itemCount
-                  sectionDescription:(NSString *)sectionDescription{
-    return self.collapsedHeight + self.innerTop + [self sectionDescriptionHeightByText:sectionDescription] + itemCount * self.innerRowHeight + self.innerBottom;
+                 sectionDescription:(NSString *)sectionDescription
+                    innerTableWidth:(CGFloat)innerTableWidth{
+    CGFloat width = innerTableWidth > 0 ? innerTableWidth : self.sectionDescriptionEstimatedHeaderWidth;
+    CGFloat innerContentHeight = [self sectionDescriptionHeightByText:sectionDescription
+                                                           headerWidth:width];
+    innerContentHeight += itemCount * self.innerRowHeight;
+    return self.collapsedHeight + self.innerTop + innerContentHeight + self.innerBottom;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style
@@ -163,8 +172,8 @@ Prop_assign()NSInteger chargingProgressPhase;
         self.items = @[];
         self.pinAccessoryIndex = NSNotFound;
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.backgroundColor = JobsClearColor;
-        self.contentView.backgroundColor = JobsClearColor;
+        self.byBgColor(JobsClearColor);
+        self.contentView.byBgColor(JobsClearColor);
         [self setupSubviews];
         [self updateColors];
         [self setExpanded:NO
@@ -220,14 +229,14 @@ Prop_assign()NSInteger chargingProgressPhase;
 
 -(void)updateColors{
     if (@available(iOS 13.0, *)) {
-        self.cardView.backgroundColor = UIColor.secondarySystemBackgroundColor;
-        self.titleLab.textColor = UIColor.labelColor;
-        self.subTitleLab.textColor = UIColor.secondaryLabelColor;
+        self.cardView.byBgColor(UIColor.secondarySystemBackgroundColor);
+        self.titleLab.byTextCor(UIColor.labelColor);
+        self.subTitleLab.byTextCor(UIColor.secondaryLabelColor);
         self.chevronView.byTintColor(UIColor.secondaryLabelColor);
     }else{
-        self.cardView.backgroundColor = RGBA_COLOR(255, 238, 221, 1);
-        self.titleLab.textColor = HEXCOLOR(0x3D4A58);
-        self.subTitleLab.textColor = HEXCOLOR(0x8A93A1);
+        self.cardView.byBgColor(RGBA_COLOR(255, 238, 221, 1));
+        self.titleLab.byTextCor(HEXCOLOR(0x3D4A58));
+        self.subTitleLab.byTextCor(HEXCOLOR(0x8A93A1));
         self.chevronView.byTintColor(HEXCOLOR(0x8A93A1));
     }
 }
@@ -352,6 +361,7 @@ Prop_assign()NSInteger chargingProgressPhase;
             @"JobsScreenshotTipsDemoVC": @"camera.viewfinder",
             @"JobsScreenshotProtectionDemoVC": @"eye.slash",
             @"JobsAnimatedNumberLabelDemoVC": @"textformat.123",
+            @"UILabelScrollingDemoVC": @"text.line.last.and.arrowtriangle.forward",
             @"JobsClockDemoVC": @"clock",
             @"LotteryVC": @"circle.grid.cross.fill",
             @"JobsRedPacketRainDemoVC": @"envelope.open.fill",
@@ -388,8 +398,7 @@ Prop_assign()NSInteger chargingProgressPhase;
             @"AppIconSwitchingVC": @"app.badge",
             @"MyTableTableVC": @"hand.tap",
             @"CtrlClipboardCueVC": @"doc.on.clipboard",
-            @"JobsAppDoorVC": @"door.left.hand.closed",
-            @"JobsAppDoorVC_Style2": @"key",
+            @"JobsAppDoorDemoListVC": @"door.left.hand.closed",
             @"Douyin_ZFPlayerVC_1": @"play.rectangle",
             @"Douyin_ZFPlayerVC_2": @"play.square.stack",
             @"TransparentRegionVC": @"square.dashed.inset.filled",
@@ -409,7 +418,7 @@ Prop_assign()NSInteger chargingProgressPhase;
             @"JobsSysProgressDemoVC": @"gauge",
             @"JobsProgressDemoVC": @"chart.line.uptrend.xyaxis",
             @"TestIrregularViewTestVC": @"hexagon",
-            @"JobsIMShowVC": @"message",
+            @"JobsIM": @"message",
             @"TestLabelVC": @"character.textbox",
             @"JobsDropDownListVC": @"chevron.down.square",
             @"JobsOCCountryCodeCtrl": @"flag",
@@ -521,36 +530,35 @@ Prop_assign()NSInteger chargingProgressPhase;
     UIImage *accessoryImage = [self redAccessoryImageByImage:self.pinnedSectionStyle ? self.unpinImage : self.pinImage
                                                   tintColor:tintColor];
     @jobs_weakify(self)
-    UIButton *button = UIButton.jobsInit()
-        .jobsResetBtnImage(accessoryImage)
+    return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+        button
+            .jobsResetBtnImage(accessoryImage)
+            .highlightedStateImageBy(accessoryImage)
+            .selectedStateImageBy(accessoryImage)
             .byImageEdgeInsets(UIEdgeInsetsMake(8, 8, 8, 8))
-        .onClickBy(^(UIButton *x) {
-            @jobs_strongify(self)
-            self.pinAccessoryIndex = NSNotFound;
-            if (self.pinBlock) self.pinBlock(x.tag);
-        })
-        .byTintColor(tintColor)
-        .byBgColor(JobsClearColor)
+            .byAdjustsImageWhenHighlighted(NO)
+            .byImageView(^(__kindof UIImageView * _Nullable imageView) {
+                imageView
+                    .byTintColor(tintColor)
+                    .byContentMode(UIViewContentModeScaleAspectFit);
+            })
+            .onClickBy(^(UIButton *x) {
+                @jobs_strongify(self)
+                self.pinAccessoryIndex = NSNotFound;
+                if (self.pinBlock) self.pinBlock(x.tag);
+            })
+            .byTag(index)
+            .byTintColor(tintColor)
+            .byBgColor(JobsClearColor)
             .bySize(CGSizeMake(40, 40));
-    [button setImage:accessoryImage
-            forState:UIControlStateNormal];
-    [button setImage:accessoryImage
-            forState:UIControlStateHighlighted];
-    [button setImage:accessoryImage
-            forState:UIControlStateSelected];
-    if (@available(iOS 16.0, *)) {
-        button.jobsResetTitleBaseForegroundColor(tintColor);
-        button.jobsResetImageColorTransformer(^UIColor *_Nullable(UIColor *_Nullable color) {
-            return tintColor;
-        });
-        button.jobsResetImage(accessoryImage);
-    }
-    button.tintColor = tintColor;
-    button.imageView.tintColor = tintColor;
-    button.adjustsImageWhenHighlighted = NO;
-    button.tag = index;
-    button.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    return button;
+        if (@available(iOS 16.0, *)) {
+            button.jobsResetTitleBaseForegroundColor(tintColor);
+            button.jobsResetImageColorTransformer(^UIColor *_Nullable(UIColor *_Nullable color) {
+                return tintColor;
+            });
+            button.jobsResetImage(accessoryImage);
+        }
+    });
 }
 
 -(void)handleInnerCellLongPress:(UILongPressGestureRecognizer *)gesture{
@@ -577,22 +585,24 @@ Prop_assign()NSInteger chargingProgressPhase;
                                                        headerWidth:self.sectionDescriptionHeaderWidth];
 }
 
+-(CGFloat)innerTableContentHeight{
+    return self.sectionDescriptionHeaderHeight +
+           self.items.count * JobsOCRootFoldTableCell.innerRowHeight;
+}
+
 -(void)reloadSectionDescriptionHeaderViewIfNeeded{
-    if (!self.sectionDescription.length || !_innerTableView) return;
+    if (!_innerTableView) return;
     UIView *headerView = self.innerTableView.tableHeaderView;
     CGFloat headerWidth = self.sectionDescriptionHeaderWidth;
     CGFloat headerHeight = self.sectionDescriptionHeaderHeight;
     if (headerHeight <= 0) {
-        self.innerTableView.tableHeaderView = nil;
-        return;
+        if (headerView) self.innerTableView.tableHeaderView = nil;
+    }else if (!headerView ||
+              ABS(CGRectGetWidth(headerView.bounds) - headerWidth) > 0.5 ||
+              ABS(CGRectGetHeight(headerView.bounds) - headerHeight) > 0.5){
+        self.innerTableView.tableHeaderView = [self sectionDescriptionHeaderViewByText:self.sectionDescription];
     }
-    if (headerView &&
-        ABS(CGRectGetWidth(headerView.bounds) - headerWidth) <= 0.5 &&
-        ABS(CGRectGetHeight(headerView.bounds) - headerHeight) <= 0.5) return;
-    self.innerTableView.tableHeaderView = [self sectionDescriptionHeaderViewByText:self.sectionDescription];
-    if (_expanded) {
-        [_innerTableHeightConstraint setOffset:headerHeight + self.items.count * JobsOCRootFoldTableCell.innerRowHeight];
-    }
+    if (_expanded) [_innerTableHeightConstraint setOffset:self.innerTableContentHeight];
 }
 
 -(UIView *)sectionDescriptionHeaderViewByText:(NSString *)text{
@@ -600,23 +610,27 @@ Prop_assign()NSInteger chargingProgressPhase;
     CGFloat headerHeight = [JobsOCRootFoldTableCell sectionDescriptionHeightByText:text
                                                                        headerWidth:headerWidth];
     if (headerHeight <= 0) return nil;
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, headerWidth, headerHeight)];
-    headerView.backgroundColor = JobsClearColor;
+    UIView *headerView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+        view
+            .byFrame(CGRectMake(0, 0, headerWidth, headerHeight))
+            .byBgColor(JobsClearColor);
+    });
     CGFloat labelWidth = [JobsOCRootFoldTableCell sectionDescriptionWidthByHeaderWidth:headerWidth];
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(JobsOCRootFoldTableCell.sectionDescriptionHorizontalInset,
-                                                               JobsOCRootFoldTableCell.sectionDescriptionVerticalInset,
-                                                               labelWidth,
-                                                               headerHeight - JobsOCRootFoldTableCell.sectionDescriptionVerticalInset * 2)];
-    label.text = text.tr;
-    label.font = JobsOCRootFoldTableCell.sectionDescriptionFont;
-    label.numberOfLines = 0;
-    label.lineBreakMode = NSLineBreakByWordWrapping;
-    label.clipsToBounds = YES;
-    label.textColor = HEXCOLOR(0x5F6B7A);
-    if (@available(iOS 13.0, *)) {
-        label.textColor = UIColor.secondaryLabelColor;
-    }
-    [headerView addSubview:label];
+    jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+        label
+            .byText(text.tr)
+            .byTextCor(HEXCOLOR(0x5F6B7A))
+            .byFont(JobsOCRootFoldTableCell.sectionDescriptionFont)
+            .byNumberOfLines(0)
+            .byLineBreakMode(NSLineBreakByWordWrapping)
+            .byFrame(CGRectMake(JobsOCRootFoldTableCell.sectionDescriptionHorizontalInset,
+                                JobsOCRootFoldTableCell.sectionDescriptionVerticalInset,
+                                labelWidth,
+                                headerHeight - JobsOCRootFoldTableCell.sectionDescriptionVerticalInset * 2))
+            .byClipsToBounds(YES)
+            .addOn(headerView);
+        if (@available(iOS 13.0, *)) label.byTextCor(UIColor.secondaryLabelColor);
+    });
     return headerView;
 }
 
@@ -630,10 +644,10 @@ Prop_assign()NSInteger chargingProgressPhase;
     self.selectBlock = selectBlock;
     self.pinBlock = pinBlock;
     self.pinAccessoryIndex = NSNotFound;
-    self.titleLab.text = [NSString stringWithFormat:@"%@  (%lu)",
+    self.titleLab.byText([NSString stringWithFormat:@"%@  (%lu)",
                           sectionModel.title,
-                          (unsigned long)self.items.count];
-    self.chevronView.image = self.chevronImage;
+                          (unsigned long)self.items.count]);
+    self.chevronView.byImage(self.chevronImage);
     self.chevronView.byHidden(NO);
     self.innerTableView.tableHeaderView = [self sectionDescriptionHeaderViewByText:self.sectionDescription];
     [self.innerTableView reloadData];
@@ -651,10 +665,10 @@ Prop_assign()NSInteger chargingProgressPhase;
     self.selectBlock = selectBlock;
     self.pinBlock = unpinBlock;
     self.pinAccessoryIndex = NSNotFound;
-    self.titleLab.text = [NSString stringWithFormat:@"%@  (%lu)",
+    self.titleLab.byText([NSString stringWithFormat:@"%@  (%lu)",
                           sectionModel.title,
-                          (unsigned long)self.items.count];
-    self.chevronView.image = nil;
+                          (unsigned long)self.items.count]);
+    self.chevronView.byImage(nil);
     self.chevronView.byHidden(YES);
     self.innerTableView.tableHeaderView = nil;
     [self.innerTableView reloadData];
@@ -667,24 +681,24 @@ Prop_assign()NSInteger chargingProgressPhase;
           animated:(BOOL)animated{
     if (self.pinnedSectionStyle) expanded = YES;
     _expanded = expanded;
-    self.subTitleLab.text = [self subTitleTextByExpanded:expanded];
-    CGFloat targetHeight = expanded ? self.sectionDescriptionHeaderHeight + self.items.count * JobsOCRootFoldTableCell.innerRowHeight : 0;
+    self.subTitleLab.byText([self subTitleTextByExpanded:expanded]);
+    CGFloat targetHeight = expanded ? self.innerTableContentHeight : 0;
     [_innerTableHeightConstraint setOffset:targetHeight];
-    if (expanded) self.detailClipView.hidden = NO;
+    if (expanded) self.detailClipView.byHidden(NO);
     void (^changes)(void) = ^{
-        self.detailClipView.alpha = expanded ? 1 : 0;
+        self.detailClipView.byAlpha(expanded ? 1 : 0);
         self.chevronView.transform = expanded ? CGAffineTransformMakeRotation(M_PI_2) : CGAffineTransformIdentity;
         if (self.window) [self.contentView layoutIfNeeded];
     };
     void (^completion)(BOOL) = ^(BOOL finished) {
-        if (!expanded) self.detailClipView.hidden = YES;
+        if (!expanded) self.detailClipView.byHidden(YES);
     };
     if (animated) {
-        [UIView animateWithDuration:0.28
-                              delay:0
-                            options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowUserInteraction
-                         animations:changes
-                         completion:completion];
+        UIView.jobsAnimateWithOptions(0.28,
+            0,
+            UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionAllowUserInteraction,
+            changes,
+            completion);
     }else{
         changes();
         completion(YES);
@@ -712,25 +726,33 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }
     UIViewModel *viewModel = self.items[indexPath.row];
     NSAttributedString *subAttributedText = [self subAttributedTextByViewModel:viewModel];
-    cell.textLabel.byText([self displayTextByViewModel:viewModel]);
-    cell.textLabel.font = UIFontWeightRegularSize(15);
-    cell.detailTextLabel.font = UIFontWeightRegularSize(11);
+    cell.textLabel
+        .byText([self displayTextByViewModel:viewModel])
+        .byFont(JobsOCRootFoldTableCell.innerTitleFont);
+    cell.detailTextLabel
+        .byFont(JobsOCRootFoldTableCell.innerSubTitleFont);
     cell.accessoryView = nil;
-    cell.imageView.image = [self demoIconImageByViewModel:viewModel];
-    cell.imageView.highlightedImage = nil;
-    cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    cell.imageView
+        .byImage([self demoIconImageByViewModel:viewModel])
+        .byHighlightedImage(nil)
+        .byContentMode(UIViewContentModeScaleAspectFit);
     if (@available(iOS 13.0, *)) {
-        cell.imageView.tintColor = UIColor.secondaryLabelColor;
+        cell.imageView.byTintColor(UIColor.secondaryLabelColor);
     }else{
-        cell.imageView.tintColor = HEXCOLOR(0x5F6B7A);
+        cell.imageView.byTintColor(HEXCOLOR(0x5F6B7A));
     }
     if (subAttributedText.length) {
-        cell.detailTextLabel.text = nil;
+        cell.detailTextLabel.byText(nil);
         cell.detailTextLabel.attributedText = subAttributedText;
     }else{
         cell.detailTextLabel.attributedText = nil;
-        cell.detailTextLabel.text = [self subTextByViewModel:viewModel];
+        cell.detailTextLabel.byText([self subTextByViewModel:viewModel]);
     }
+    [cell.textLabel byTextDisplayMode:JobsLabelTextDisplayModeScaleToFit
+                  minimumScaleFactor:.5f
+                maximumNumberOfLines:1
+                 scrollConfiguration:JobsLabelScrollConfiguration.continuousConfiguration];
+    [cell.detailTextLabel byTextDisplayMode:JobsLabelTextDisplayModeSingleLineTailTruncation];
     if (self.pinAccessoryIndex == indexPath.row) {
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.accessoryView = [self pinAccessoryButtonByIndex:indexPath.row];
@@ -742,8 +764,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     cell.bySeparatorInset(isLastItem
         ? UIEdgeInsetsMake(0, 16, 0, CGRectGetWidth(tableView.bounds))
         : UIEdgeInsetsMake(0, 16, 0, 16));
-    cell.backgroundColor = JobsClearColor;
-    cell.contentView.backgroundColor = JobsClearColor;
+    cell.byBgColor(JobsClearColor);
+    cell.contentView.byBgColor(JobsClearColor);
     return cell;
 }
 

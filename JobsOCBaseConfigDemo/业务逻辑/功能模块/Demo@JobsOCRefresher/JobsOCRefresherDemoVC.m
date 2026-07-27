@@ -24,6 +24,7 @@ Prop_strong()NSMutableArray<UIView *> *horizontalTileMutArr;
 Prop_strong()NSMutableArray<UIView *> *verticalTileMutArr;
 Prop_strong()NSMapTable<UIView *, UILabel *> *tileTitleLabelMap;
 Prop_strong()NSMapTable<UIView *, UILabel *> *tileSubTitleLabelMap;
+Prop_strong()UIButton *themeSwitchButton;
 Prop_copy()NSArray<id<JobsRefreshAnimatorProtocol>> *refreshAnimators;
 Prop_copy()NSArray<NSString *> *refreshAnimatorTitles;
 Prop_assign()NSInteger horizontalColumnCount;
@@ -36,13 +37,18 @@ Prop_assign()BOOL didBindRefresher;
 Prop_assign()BOOL didAutoStart;
 
 -(void)bindRefresherIfNeeded;
--(void)animatorSelectionDidChange:(UISegmentedControl *)sender;
+-(void)animatorSelectionDidChange;
 -(void)startHeaderRefresh;
 -(void)rebuildHorizontalTiles;
 -(void)rebuildVerticalTiles;
 -(void)layoutDemoContent;
 -(void)layoutHorizontalContent;
 -(void)layoutVerticalContent;
+-(void)toggleTheme;
+-(void)applyTheme;
+-(void)updateThemeSwitchButton;
+-(BOOL)isDarkTheme;
+-(UIStatusBarStyle)themeStatusBarStyle;
 -(void)runRefreshAtPosition:(JobsOCRefreshPosition)position
                  scrollView:(UIScrollView *)scrollView
                       title:(NSString *)title
@@ -80,23 +86,29 @@ Prop_assign()BOOL didAutoStart;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"JobsOCRefresher".tr);
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byText(@"JobsOCRefresher".tr)
+                .byFont(UIFontWeightRegularSize(18))
+                .byTextCor(JobsLabelColor);
         })
-        .byBgCor(HEXCOLOR(0xF7F8FC))
-        .byNavBgCor(HEXCOLOR(0xF7F8FC));
+        .byBgCor(JobsSystemBackgroundColor)
+        .byNavBgCor(JobsSystemBackgroundColor);
 }
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    self.rightBarButtonItems = jobsMakeMutArr(^(__kindof NSMutableArray<UIBarButtonItem *> * _Nullable data) {
+        data.add(self.themeSwitchButton.barBtnItem);
+    });
+    self.byGKNavItemRightSpace(JobsWidth(12));
     self.makeNavByAlpha(1);
-    self.view.byBgColor(HEXCOLOR(0xF7F8FC));
     self.instructionTextView.byAlpha(1);
     self.animatorSegmentedControl.byAlpha(1);
     self.horizontalTitleLabel.byAlpha(1);
     self.horizontalScrollView.byAlpha(1);
     self.verticalTitleLabel.byAlpha(1);
     self.verticalScrollView.byAlpha(1);
+    [self applyTheme];
     [self bindRefresherIfNeeded];
     [self rebuildHorizontalTiles];
     [self rebuildVerticalTiles];
@@ -110,9 +122,71 @@ Prop_assign()BOOL didAutoStart;
     [self startHeaderRefresh];
 }
 
+-(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [super traitCollectionDidChange:previousTraitCollection];
+    if (!self.isViewLoaded) return;
+    if (@available(iOS 13.0, *)) {
+        if ([self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection]) {
+            [self applyTheme];
+        }
+    }
+}
+
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     [self layoutDemoContent];
+}
+
+-(void)toggleTheme{
+    if (@available(iOS 13.0, *)) {
+        UIUserInterfaceStyle targetStyle = self.isDarkTheme ? UIUserInterfaceStyleLight : UIUserInterfaceStyleDark;
+        self.view.byOverrideUserInterfaceStyle(targetStyle);
+        [self applyTheme];
+    }
+}
+
+-(void)applyTheme{
+    self.byGKStatusBarStyle(self.themeStatusBarStyle)
+        .byGKBackStyle(self.isDarkTheme ? GKNavigationBarBackStyleWhite : GKNavigationBarBackStyleBlack)
+        .byGKNavBackgroundColor(JobsSystemBackgroundColor)
+        .byGKNavShadowColor(JobsSeparatorColor)
+        .byGKNavTitleColor(JobsLabelColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
+    self.instructionTextView
+        .byTextCor(JobsSecondaryLabelColor)
+        .byBgColor(JobsSecondarySystemBackgroundColor);
+    self.animatorSegmentedControl
+        .byTintColor(JobsSystemBlueColor)
+        .byBgColor(JobsSecondarySystemBackgroundColor);
+    self.horizontalTitleLabel.byTextCor(JobsLabelColor);
+    self.verticalTitleLabel.byTextCor(JobsLabelColor);
+    self.horizontalScrollView.byBgColor(JobsSecondarySystemBackgroundColor);
+    self.horizontalContentView.byBgColor(JobsSecondarySystemBackgroundColor);
+    self.verticalScrollView.byBgColor(JobsSecondarySystemBackgroundColor);
+    self.verticalContentView.byBgColor(JobsSecondarySystemBackgroundColor);
+    [self updateThemeSwitchButton];
+}
+
+-(void)updateThemeSwitchButton{
+    BOOL darkTheme = self.isDarkTheme;
+    UIImage *image = (darkTheme ? @"sun.max.fill" : @"moon.fill").sys_img;
+    self.themeSwitchButton
+        .jobsResetBtnImage(image)
+        .jobsResetBtnTitle(image ? @"" : (darkTheme ? @"浅色" : @"深色").tr)
+        .jobsResetBtnTitleCor(JobsLabelColor)
+        .byTintColor(JobsLabelColor);
+}
+
+-(BOOL)isDarkTheme{
+    if (@available(iOS 13.0, *)) {
+        return self.view.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
+    };return NO;
+}
+
+-(UIStatusBarStyle)themeStatusBarStyle{
+    if (@available(iOS 13.0, *)) {
+        return self.isDarkTheme ? UIStatusBarStyleLightContent : UIStatusBarStyleDarkContent;
+    };return UIStatusBarStyleDefault;
 }
 
 -(void)bindRefresherIfNeeded{
@@ -156,13 +230,13 @@ Prop_assign()BOOL didAutoStart;
         }];
     }];
     [self.verticalScrollView jobs_enableRefreshHaptics:YES];
-    JobsOCRefreshConfig *headerConfig = [self refreshConfigWithIdle:@"下拉刷新"
-                                                            pulling:@"继续下拉"
-                                                              ready:@"松开刷新"
-                                                            running:@"垂直刷新中"];
-    headerConfig.showsText = NO;
-    headerConfig.animator = self.refreshAnimators.firstObject;
-    [self.verticalScrollView jobs_byRefreshHeaderWithConfig:headerConfig
+    JobsOCRefreshConfig *todayNewsConfig = [self refreshConfigWithIdle:@"下拉刷新"
+                                                               pulling:@"继续下拉"
+                                                                 ready:@"松开刷新"
+                                                               running:@"垂直刷新中"];
+    todayNewsConfig.showsText = NO;
+    todayNewsConfig.animator = self.refreshAnimators.firstObject;
+    [self.verticalScrollView jobs_byRefreshHeaderWithConfig:todayNewsConfig
                                                  action:^{
         @jobs_strongify(self)
         [self runRefreshAtPosition:JobsOCRefreshPositionHeader
@@ -175,12 +249,12 @@ Prop_assign()BOOL didAutoStart;
             [self rebuildVerticalTiles];
         }];
     }];
-    JobsOCRefreshConfig *footerConfig = [self refreshConfigWithIdle:@"上拉加载"
-                                                            pulling:@"继续上拉"
-                                                              ready:@"松开加载"
-                                                            running:@"垂直加载中"];
-    footerConfig.animator = [[JobsDouyinRefreshView alloc] initWithConfig:JobsDouyinRefreshConfig.config];
-    [self.verticalScrollView jobs_byRefreshFooterWithConfig:footerConfig
+    JobsOCRefreshConfig *douyinConfig = [self refreshConfigWithIdle:@"上拉加载"
+                                                           pulling:@"继续上拉"
+                                                             ready:@"松开加载"
+                                                           running:@"垂直加载中"];
+    douyinConfig.animator = [[JobsDouyinRefreshView alloc] initWithConfig:JobsDouyinRefreshConfig.config];
+    [self.verticalScrollView jobs_byRefreshFooterWithConfig:douyinConfig
                                                  action:^{
         @jobs_strongify(self)
         [self runRefreshAtPosition:JobsOCRefreshPositionFooter
@@ -195,8 +269,8 @@ Prop_assign()BOOL didAutoStart;
     }];
 }
 
--(void)animatorSelectionDidChange:(UISegmentedControl *)sender{
-    NSInteger index = sender.selectedSegmentIndex;
+-(void)animatorSelectionDidChange{
+    NSInteger index = self.animatorSegmentedControl.selectedSegmentIndex;
     if (index < 0 || index >= self.refreshAnimators.count) return;
     [self.verticalScrollView jobs_replaceRefreshAnimator:self.refreshAnimators[index]
                                               atPosition:JobsOCRefreshPositionHeader];
@@ -265,7 +339,7 @@ Prop_assign()BOOL didAutoStart;
         UIView *tile = [self tileViewWithTitle:[NSString stringWithFormat:@"H-%ld", (long)i + 1]
                                       subTitle:@"左右拉动"
                                          index:i];
-        [self.horizontalContentView addSubview:tile];
+        tile.addOn(self.horizontalContentView);
         [self.horizontalTileMutArr addObject:tile];
     }
     [self layoutHorizontalContent];
@@ -282,7 +356,7 @@ Prop_assign()BOOL didAutoStart;
         UIView *tile = [self tileViewWithTitle:[NSString stringWithFormat:@"V-%ld", (long)i + 1]
                                       subTitle:@"上下拉动"
                                          index:i];
-        [self.verticalContentView addSubview:tile];
+        tile.addOn(self.verticalContentView);
         [self.verticalTileMutArr addObject:tile];
     }
     [self layoutVerticalContent];
@@ -342,27 +416,31 @@ Prop_assign()BOOL didAutoStart;
                     subTitle:(NSString *)subTitle
                        index:(NSInteger)index{
     UIView *tile = jobsMakeView(^(__kindof UIView * _Nullable view) {
-        view.byBgColor([self tileColorAtIndex:index]);
-        view.layer.cornerRadius = JobsWidth(10);
-        view.layer.shadowColor = UIColor.blackColor.CGColor;
-        view.layer.shadowOpacity = 0.12;
-        view.layer.shadowOffset = CGSizeMake(0, JobsWidth(3));
-        view.layer.shadowRadius = JobsWidth(8);
+        view
+            .byBgColor([self tileColorAtIndex:index])
+            .byLayer(^(__kindof CALayer * _Nullable layer) {
+                layer
+                    .byCornerRadius(JobsWidth(10))
+                    .byShadowColor(UIColor.blackColor.CGColor)
+                    .byShadowOpacity(0.12)
+                    .byShadowOffset(CGSizeMake(0, JobsWidth(3)))
+                    .byShadowRadius(JobsWidth(8));
+            });
     });
     UILabel *titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label.byText(title)
             .byFont(UIFontWeightSemiboldSize(16))
             .byTextCor(UIColor.whiteColor);
     });
-    titleLabel.tag = 1001;
+    titleLabel.byTag(1001);
     UILabel *subTitleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label.byText(subTitle)
             .byFont(UIFontWeightRegularSize(13))
-            .byTextCor([UIColor colorWithWhite:1 alpha:0.78]);
+            .byTextCor(RGBA_SAMECOLOR(255, 0.78));
     });
-    subTitleLabel.tag = 1002;
-    [tile addSubview:titleLabel];
-    [tile addSubview:subTitleLabel];
+    subTitleLabel.byTag(1002);
+    titleLabel.addOn(tile);
+    subTitleLabel.addOn(tile);
     [self.tileTitleLabelMap setObject:titleLabel forKey:tile];
     [self.tileSubTitleLabelMap setObject:subTitleLabel forKey:tile];
     return tile;
@@ -384,7 +462,7 @@ Prop_assign()BOOL didAutoStart;
     if (!_instructionTextView) {
         _instructionTextView = jobsMakeTextView(^(__kindof UITextView * _Nullable textView) {
             textView.byFont(UIFontWeightRegularSize(13))
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byEditable(NO)
                 .bySelectable(NO)
                 .byTextContainerInset(UIEdgeInsetsMake(JobsWidth(10),
@@ -392,7 +470,7 @@ Prop_assign()BOOL didAutoStart;
                                                        JobsWidth(10),
                                                        JobsWidth(12)))
                 .byLineFragmentPadding(0)
-                .byBgColor(UIColor.whiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(12));
@@ -400,26 +478,30 @@ Prop_assign()BOOL didAutoStart;
                     make.height.mas_equalTo(JobsWidth(104));
                 });
             textView.scrollEnabled = YES;
-            textView.layer.cornerRadius = JobsWidth(10);
-            textView.layer.masksToBounds = YES;
+            textView.layer.byCornerRadius(JobsWidth(10));
+            textView.layer.byMasksToBounds(YES);
         });
     };return _instructionTextView;
 }
 
 -(UISegmentedControl *)animatorSegmentedControl{
     if (!_animatorSegmentedControl) {
-        _animatorSegmentedControl = [[UISegmentedControl alloc] initWithItems:self.refreshAnimatorTitles];
-        _animatorSegmentedControl.selectedSegmentIndex = 0;
-        [_animatorSegmentedControl addTarget:self
-                                      action:@selector(animatorSelectionDidChange:)
-                            forControlEvents:UIControlEventValueChanged];
-        _animatorSegmentedControl
-            .addOn(self.view)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.top.equalTo(self.instructionTextView.mas_bottom).offset(JobsWidth(8));
-                make.left.right.equalTo(self.view).inset(JobsWidth(16));
-                make.height.mas_equalTo(JobsWidth(34));
-            });
+        @jobs_weakify(self)
+        _animatorSegmentedControl = jobsMakeSegmentedControl(self.refreshAnimatorTitles,
+                                                             ^(__kindof UISegmentedControl * _Nullable segmentedControl) {
+            segmentedControl
+                .bySelectedSegmentIndex(0)
+                .onJobsChange(^(__unused UIControl *control) {
+                    @jobs_strongify(self)
+                    [self animatorSelectionDidChange];
+                })
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.instructionTextView.mas_bottom).offset(JobsWidth(8));
+                    make.left.right.equalTo(self.view).inset(JobsWidth(16));
+                    make.height.mas_equalTo(JobsWidth(34));
+                });
+        });
     };return _animatorSegmentedControl;
 }
 
@@ -428,7 +510,7 @@ Prop_assign()BOOL didAutoStart;
         _horizontalTitleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label.byText(@"水平拉动：右拉刷新 / 左拉加载更多".tr)
                 .byFont(UIFontWeightSemiboldSize(15))
-                .byTextCor(HEXCOLOR(0x26384C))
+                .byTextCor(JobsLabelColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.animatorSegmentedControl.mas_bottom).offset(JobsWidth(10));
@@ -450,7 +532,7 @@ Prop_assign()BOOL didAutoStart;
                 .byShowsVerticalScrollIndicator(NO)
                 .byDirectionalLockEnabled(YES)
                 .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
-                .byBgColor(HEXCOLOR(0xEEF1F7))
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.horizontalTitleLabel.mas_bottom).offset(JobsWidth(6));
@@ -458,16 +540,19 @@ Prop_assign()BOOL didAutoStart;
                     make.height.mas_equalTo(JobsWidth(112));
                 });
         });
-        _horizontalScrollView.layer.cornerRadius = JobsWidth(10);
-        _horizontalScrollView.layer.masksToBounds = YES;
-        [_horizontalScrollView addSubview:self.horizontalContentView];
+        _horizontalScrollView.byLayer(^(__kindof CALayer * _Nullable layer) {
+            layer
+                .byCornerRadius(JobsWidth(10))
+                .byMasksToBounds(YES);
+        });
+        self.horizontalContentView.addOn(_horizontalScrollView);
     };return _horizontalScrollView;
 }
 
 -(UIView *)horizontalContentView{
     if (!_horizontalContentView) {
         _horizontalContentView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.byBgColor(HEXCOLOR(0xEEF1F7));
+            view.byBgColor(JobsSecondarySystemBackgroundColor);
         });
     };return _horizontalContentView;
 }
@@ -477,7 +562,7 @@ Prop_assign()BOOL didAutoStart;
         _verticalTitleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label.byText(@"垂直拉动：下拉刷新 / 上拉加载更多".tr)
                 .byFont(UIFontWeightSemiboldSize(15))
-                .byTextCor(HEXCOLOR(0x26384C))
+                .byTextCor(JobsLabelColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.horizontalScrollView.mas_bottom).offset(JobsWidth(12));
@@ -499,7 +584,7 @@ Prop_assign()BOOL didAutoStart;
                 .byShowsHorizontalScrollIndicator(NO)
                 .byDirectionalLockEnabled(YES)
                 .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
-                .byBgColor(HEXCOLOR(0xEEF1F7))
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.verticalTitleLabel.mas_bottom).offset(JobsWidth(6));
@@ -507,18 +592,40 @@ Prop_assign()BOOL didAutoStart;
                     make.bottom.equalTo(self.view).offset(-JobsBottomSafeAreaHeight() - JobsWidth(12));
                 });
         });
-        _verticalScrollView.layer.cornerRadius = JobsWidth(10);
-        _verticalScrollView.layer.masksToBounds = YES;
-        [_verticalScrollView addSubview:self.verticalContentView];
+        _verticalScrollView.byLayer(^(__kindof CALayer * _Nullable layer) {
+            layer
+                .byCornerRadius(JobsWidth(10))
+                .byMasksToBounds(YES);
+        });
+        self.verticalContentView.addOn(_verticalScrollView);
     };return _verticalScrollView;
 }
 
 -(UIView *)verticalContentView{
     if (!_verticalContentView) {
         _verticalContentView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.byBgColor(HEXCOLOR(0xEEF1F7));
+            view.byBgColor(JobsSecondarySystemBackgroundColor);
         });
     };return _verticalContentView;
+}
+
+-(UIButton *)themeSwitchButton{
+    if (!_themeSwitchButton) {
+        @jobs_weakify(self)
+        _themeSwitchButton = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+            button
+                .jobsResetBtnTitle(@"主题".tr)
+                .jobsResetBtnTitleCor(JobsLabelColor)
+                .jobsResetBtnTitleFont(UIFontWeightRegularSize(12))
+                .jobsResetBtnBgCor(JobsClearColor)
+                .onClickBy(^(__unused UIButton *x) {
+                    @jobs_strongify(self)
+                    [self toggleTheme];
+                })
+                .byTintColor(JobsLabelColor)
+                .byFrame(CGRectMake(0, 0, JobsWidth(32), JobsWidth(32)));
+        });
+    };return _themeSwitchButton;
 }
 
 -(NSArray<id<JobsRefreshAnimatorProtocol>> *)refreshAnimators{

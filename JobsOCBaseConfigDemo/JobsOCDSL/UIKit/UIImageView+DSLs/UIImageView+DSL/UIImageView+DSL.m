@@ -26,6 +26,15 @@
     };
 }
 
+-(JobsRetImageViewByBOOLBlock _Nonnull)byHighlighted{
+    @jobs_weakify(self)
+    return ^__kindof UIImageView *_Nonnull(BOOL highlighted){
+        @jobs_strongify(self)
+        self.highlighted = highlighted;
+        return self;
+    };
+}
+
 -(JobsRetImageViewByArrBlock _Nonnull)byAnimationImages{
     @jobs_weakify(self)
     return ^__kindof UIImageView *_Nonnull(__kindof NSArray *_Nullable data){

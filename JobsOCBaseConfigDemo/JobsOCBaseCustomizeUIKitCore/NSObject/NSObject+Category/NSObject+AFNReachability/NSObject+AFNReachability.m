@@ -18,14 +18,13 @@
      */
     AFNetworkReachabilityManager *networkReachabilityManager = AFNetworkReachabilityManager.sharedManager;
     /// 如果没有请求完成就检测网络
-    @weakify(networkReachabilityManager)
+    @jobs_weakify(networkReachabilityManager)
     [networkReachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
         if (statusBlock) statusBlock(status);
         JobsPostNotification(网络状态监控, @(status));
-        @strongify(networkReachabilityManager)
+        @jobs_strongify(networkReachabilityManager)
         [networkReachabilityManager startMonitoring];
     }];
 }
 
 @end
-

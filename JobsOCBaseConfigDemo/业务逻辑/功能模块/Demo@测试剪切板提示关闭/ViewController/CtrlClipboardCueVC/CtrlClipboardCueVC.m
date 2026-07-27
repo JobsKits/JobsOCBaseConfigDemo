@@ -2,7 +2,7 @@
 //  CtrlClipboardCueVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2024/4/26.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "CtrlClipboardCueVC.h"
@@ -11,8 +11,8 @@
 /// UI
 Prop_strong()BaseLabel *label;
 /// Data
-Prop_copy()NSString *textData1;/// 页面上显示的数据
-Prop_copy()NSString *textData2;/// 来自于剪切板存储的数据
+Prop_copy()NSString *textData1;// 页面上显示的数据
+Prop_copy()NSString *textData2;// 来自于剪切板存储的数据
 
 @end
 
@@ -30,26 +30,32 @@ Prop_copy()NSString *textData2;/// 来自于剪切板存储的数据
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(18);
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.bgImage = @"新首页的底图".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(data.attributedTitle.string)
+                .byFont(UIFontWeightRegularSize(18));
+        })
+        /// 使用原则：底图有 + 底色有 = 优先使用底图数据
+        /// 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        /// self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byBgImage(@"新首页的底图".img)
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
-    self.label.alpha = 1;
-    self.textView.alpha = 1;
+    self.label.byAlpha(1);
+    self.textView.byAlpha(1);
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -126,28 +132,37 @@ Prop_copy()NSString *textData2;/// 来自于剪切板存储的数据
         @jobs_weakify(self)
         _label = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
             @jobs_strongify(self)
-            label.backgroundColor = JobsLightGrayColor;
-            label.text = @"请点击复制：".tr.add(self.textData1);
-            label.textColor = JobsRedColor;
-            label.font = UIFontSystemFontOfSize(20);
-            label.textAlignment = NSTextAlignmentCenter;
-            label.longPressGR.enabled = YES;
-            label.tapGR.enabled = YES;
-            [label actionRetIDByGestureRecognizerBlock:^id _Nullable(UIGestureRecognizer * _Nullable data) {
-                if(data.state == UIGestureRecognizerStateBegan){
-                    @jobs_strongify(self)
-                    [self becomeFirstResponder];
-                    self->_textData2 = self.textData1;
-                    self->_label.makeMenuCtrl(self->_textData2);
-                };return nil;
-            }];
-            [self.view.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(10));
-                make.centerX.equalTo(self.view);
-                make.height.mas_equalTo(@80);
-            }];
-            label.cornerCutToCircleWithCornerRadius(JobsWidth(8));
-            label.makeLabelByShowingType(UILabelShowingType_03);
+            label
+                .byText(@"请点击复制：".tr.add(self.textData1))
+                .byTextCor(JobsRedColor)
+                .byFont(UIFontSystemFontOfSize(20))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .makeLabelByShowingType(UILabelShowingType_03)
+                .byBgColor(JobsLightGrayColor)
+                .byUserInteractionEnabled(YES)
+                .addLongPressGR(^(__kindof UILongPressGestureRecognizer * _Nullable data) {
+                    if(data.state == UIGestureRecognizerStateBegan){
+                        @jobs_strongify(self)
+                        [self becomeFirstResponder];
+                        self->_textData2 = self.textData1;
+                        self->_label.makeMenuCtrl(self->_textData2);
+                    }
+                })
+                .addTapGR(^(__kindof UITapGestureRecognizer * _Nullable data) {
+                    if(data.state == UIGestureRecognizerStateRecognized){
+                        @jobs_strongify(self)
+                        [self becomeFirstResponder];
+                        self->_textData2 = self.textData1;
+                        self->_label.makeMenuCtrl(self->_textData2);
+                    }
+                })
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(10));
+                    make.centerX.equalTo(self.view);
+                    make.height.mas_equalTo(@80);
+                })
+                .cornerCutToCircleWithCornerRadius(JobsWidth(8));
         });
     };return _label;
 }
@@ -157,21 +172,25 @@ Prop_copy()NSString *textData2;/// 来自于剪切板存储的数据
         @jobs_weakify(self)
         _textView = jobsMakeBaseTextView(^(__kindof BaseTextView * _Nullable textView) {
             @jobs_strongify(self)
-            textView.delegate = self;
-            textView.backgroundColor = JobsLightTextColor;
             textView.placeholder = @"请粘贴！！！".tr;
-            textView.textColor = JobsBlackColor;
-            textView.font = UIFontSystemFontOfSize(14);
-            [self.view.addSubview(textView) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.view).offset(JobsWidth(10));
-                make.right.equalTo(self.view).offset(JobsWidth(-10));
-                make.top.equalTo(self.label.mas_bottom).offset(JobsWidth(10));
-                make.bottom.equalTo(self.view).offset(JobsWidth(-20));
-            }];
-            textView.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-                model.layerCor = JobsLightGrayColor;
-                model.jobsWidth = .5f;
-            }));
+            textView
+                .byDelegate(self)
+                .byTextColor(JobsBlackColor)
+                .byFont(UIFontSystemFontOfSize(14))
+                .setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
+                    model
+                        .byLayerCor(JobsLightGrayColor)
+                        .byJobsWidth(.5f);
+                }))
+                .byBgColor(JobsLightTextColor)
+                .addOn(self.view)
+                .byOn(^(MASConstraintMaker *make) {
+                    @jobs_strongify(self)
+                    make.left.equalTo(self.view).offset(JobsWidth(10));
+                    make.right.equalTo(self.view).offset(JobsWidth(-10));
+                    make.top.equalTo(self.label.mas_bottom).offset(JobsWidth(10));
+                    make.bottom.equalTo(self.view).offset(JobsWidth(-20));
+                });
         });
     };return _textView;
 }

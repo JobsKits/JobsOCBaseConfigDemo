@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorInputViewBaseStyle_4.h
-//  JobsOCTools
+//  JobsAppDoor
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -48,15 +48,18 @@
 #import "JobsModelDSL.h"
 #endif
 
-#if __has_include(<JobsGraphicCaptcha/JobsGraphicCaptchaHeader.h>)
-#import "JobsGraphicCaptchaHeader.h"
+#if __has_include(<JobsOCGraphicCaptcha/JobsOCGraphicCaptchaHeader.h>)
+#import "JobsOCGraphicCaptchaHeader.h"
 #else
-#import "JobsGraphicCaptchaHeader.h"
+#import "JobsOCGraphicCaptchaHeader.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsAppDoorInputViewBaseStyle_4 : JobsAppDoorInputViewBaseStyle
+
+Prop_strong()JobsOCGraphicCaptchaConfig *graphicCaptchaConfig;
+
 /**
  
      * 其实并不建议用init方法,而是期望带参数初始化，比如对应BaseViewProtocol里面的 - (instancetype)initWithSize:(CGSize)thisViewSize

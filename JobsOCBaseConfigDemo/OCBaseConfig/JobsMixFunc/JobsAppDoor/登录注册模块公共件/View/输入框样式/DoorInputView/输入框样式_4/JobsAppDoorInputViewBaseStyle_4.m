@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorInputViewBaseStyle_4.m
-//  JobsOCTools
+//  JobsAppDoor
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -9,7 +9,7 @@
 
 @interface JobsAppDoorInputViewBaseStyle_4 ()
 /// UI
-Prop_strong()JobsGraphicCaptchaView *captchaView;
+Prop_strong()JobsOCGraphicCaptchaView *captchaView;
 Prop_strong()UIImageView *leftIMGV;
 /// Data
 Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
@@ -18,6 +18,8 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 
 @implementation JobsAppDoorInputViewBaseStyle_4
 @synthesize thisViewSize = _thisViewSize;
+@synthesize graphicCaptchaConfig = _graphicCaptchaConfig;
+
 - (instancetype)init{
     if (self = [super init]) {
 //        self.backgroundColor = JobsRedColor;
@@ -44,6 +46,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 }
 #pragma mark —— 一些私有方法
 -(void)configTextField{
+    self.magicTextField.placeholdAnimationable = self.doorInputViewBaseStyleModel.isPlaceholdAnimationable;
     UIImage *leftImage = self.doorInputViewBaseStyleModel.leftViewIMG;
     CGFloat leftOffset = leftImage ? (self.doorInputViewBaseStyleModel.leftViewOffsetX ? : JobsWidth(17)) : 0;
     CGFloat placeholderOffset = leftImage ? (self.doorInputViewBaseStyleModel.placeHolderOffset ? : JobsWidth(35)) : JobsWidth(12);
@@ -128,13 +131,25 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 -(NSString *_Nullable)textFieldValue{
     return self.magicTextField.text;
 }
+
+-(JobsOCGraphicCaptchaConfig *)graphicCaptchaConfig{
+    if (!_graphicCaptchaConfig) {
+        _graphicCaptchaConfig = JobsOCGraphicCaptchaConfig.mixedConfig;
+    };return _graphicCaptchaConfig;
+}
+
+-(void)setGraphicCaptchaConfig:(JobsOCGraphicCaptchaConfig *)graphicCaptchaConfig{
+    _graphicCaptchaConfig = graphicCaptchaConfig.copy ? : JobsOCGraphicCaptchaConfig.mixedConfig;
+    if (_captchaView) _captchaView.config = _graphicCaptchaConfig;
+}
 #pragma mark —— lazyLoad
--(JobsGraphicCaptchaView *)captchaView{
+-(JobsOCGraphicCaptchaView *)captchaView{
     if (!_captchaView) {
-        _captchaView = JobsGraphicCaptchaView.new;
-        _captchaView.config = JobsGraphicCaptchaConfig.mixedConfig;
-        _captchaView.font = UIFontWeightSemiboldSize(16);
-        _captchaView.byAlpha(0.9);
+        _captchaView = JobsOCGraphicCaptchaView.new;
+        _captchaView.config = self.graphicCaptchaConfig;
+        _captchaView
+            .byFont(UIFontWeightSemiboldSize(16))
+            .byAlpha(0.9);
         _captchaView.captchaBackgroundColor = JobsWhiteColor;
         _captchaView.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.top.equalTo(self).offset(JobsWidth(5));

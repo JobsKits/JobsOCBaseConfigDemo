@@ -44,9 +44,10 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(data.attributedTitle.string);
-            data.byFont(UIFontWeightRegularSize(16));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(data.attributedTitle.string)
+                .byFont(UIFontWeightRegularSize(16));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -92,10 +93,13 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
 #pragma mark —— 一些私有化方法
 /// 移除掉这个下拉列表
 -(void)endDropDownListView{
-    jobsByCtrlBlock disappearBlock = _dropDownListView.dropDownListViewDisappear;
-    if (disappearBlock) disappearBlock(_btn);
+    JobsDropDownListView *dropDownListView = _dropDownListView;
     _dropDownListView = nil;
-    _btn.selected = NO;
+    if (dropDownListView.superview) {
+        jobsByCtrlBlock disappearBlock = dropDownListView.dropDownListViewDisappear;
+        if (disappearBlock) disappearBlock(_btn);
+    }
+    _btn.bySelected(NO);
     [self refreshDirectionUIWithOpened:NO];
 }
 
@@ -150,11 +154,12 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
     if (!_panelView) {
         _panelView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             view.byBgColor(RGBA_COLOR(255, 255, 255, 0.94));
-            view.layer.cornerRadius = JobsWidth(22);
-            view.layer.shadowColor = HEXCOLOR(0x8E7B5B).CGColor;
-            view.layer.shadowOpacity = 0.14f;
-            view.layer.shadowRadius = JobsWidth(22);
-            view.layer.shadowOffset = CGSizeMake(0, JobsWidth(12));
+            view.layer
+                .byCornerRadius(JobsWidth(22))
+                .byShadowColor(HEXCOLOR(0x8E7B5B).CGColor)
+                .byShadowOpacity(0.14f)
+                .byShadowRadius(JobsWidth(22))
+                .byShadowOffset(CGSizeMake(0, JobsWidth(12)));
             view.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                 make.center.equalTo(self.view);
                 make.left.equalTo(self.view).offset(JobsWidth(34));
@@ -189,8 +194,9 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
     if (!_selectedInfoView) {
         _selectedInfoView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             view.byBgColor(HEXCOLOR(0xF7F8FA));
-            view.layer.cornerRadius = JobsWidth(16);
-            view.layer.borderWidth = 0;
+            view.layer
+                .byCornerRadius(JobsWidth(16))
+                .byBorderWidth(0);
             view.addOn(self.panelView).byAdd(^(MASConstraintMaker *make) {
                 make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(26));
                 make.left.equalTo(self.panelView).offset(JobsWidth(40));
@@ -256,7 +262,7 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 if (x.selected) {
                     /// ❤️只能让它执行一次❤️
                     self.dropDownListView = [self jobsMotivateDropDownListFromView:x
@@ -310,8 +316,9 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
 -(UIColor *)cor{
     if (!_cor) {
         _cor = [UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            data.add(HEXCOLOR(0xE9C65D));
-            data.add(HEXCOLOR(0xDDAA3A));
+            data
+                .add(HEXCOLOR(0xE9C65D))
+                .add(HEXCOLOR(0xDDAA3A));
         })
                                    startPoint:CGPointZero
                                      endPoint:CGPointZero

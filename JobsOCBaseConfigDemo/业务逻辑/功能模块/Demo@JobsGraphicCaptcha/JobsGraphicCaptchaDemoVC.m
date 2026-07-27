@@ -64,9 +64,10 @@ Prop_strong()UILabel *resultLab;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x263342));
-            data.byText(@"JobsGraphicCaptcha");
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byTextCor(HEXCOLOR(0x263342))
+                .byText(@"JobsGraphicCaptcha")
+                .byFont(UIFontWeightRegularSize(18));
         })
         .byBgCor(HEXCOLOR(0xF5F7FA))
         .byNavBgCor(HEXCOLOR(0xF5F7FA));

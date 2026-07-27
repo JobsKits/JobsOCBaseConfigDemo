@@ -39,10 +39,11 @@
 -(void)sendBatchRequest:(jobsByYTKBatchRequestBlock _Nullable)successBlock{
     @jobs_weakify(self)
     [YTKBatchRequest.initByRequestArray(jobsMakeMutArr(^(__kindof NSMutableArray <__kindof YTKRequest *>*_Nullable data) {
-        data.add(GetImageApi.initByBodyParameters(nil));
-        data.add(GetImageApi.initByBodyParameters(nil));
-        data.add(GetImageApi.initByBodyParameters(nil));
-        data.add(GetUserInfoApi.initByBodyParameters(nil));
+        data
+            .add(GetImageApi.initByBodyParameters(nil))
+            .add(GetImageApi.initByBodyParameters(nil))
+            .add(GetImageApi.initByBodyParameters(nil))
+            .add(GetUserInfoApi.initByBodyParameters(nil));
     })) startWithCompletionBlockWithSuccess:^(YTKBatchRequest *batchRequest) {
         JobsLog(@"succeed");
         if(successBlock) successBlock(batchRequest);
@@ -129,9 +130,10 @@
 -(void)depositDiscountActivityRecordByURLParameters:(NSString *_Nullable)urlParameters
                                        successBlock:(jobsByYTKChainRequestBlock _Nullable)successBlock{
     FM_GetKYCInfo_api *api = FM_GetKYCInfo_api.new;
-    api.byURLParameters(urlParameters);
-    api.byBodyParameters(nil);
-    api.byHeaderParameters(nil);
+    api
+        .byURLParameters(urlParameters)
+        .byBodyParameters(nil)
+        .byHeaderParameters(nil);
     YTKChainRequest *chainReq = YTKChainRequest.new;
     [chainReq addRequest:api
                 callback:^(YTKChainRequest *chainRequest,

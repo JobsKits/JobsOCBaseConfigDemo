@@ -10,20 +10,65 @@
 #import "AppDelegate.h"
 #import "AppDelegate+TabBarCtr.h"
 #import "FMTermsOfUseView.h"
-#import "JobsAppDoorVC.h"
+#import "JobsAppDoor.h"
 #import "JobsNetworkingHeader.h"
 #import "MyCollectionVC.h"
-#import "NSObject+Notification.h"
+#import "NSObject+Model.h"
 #import "NSString+FilteringSpecialCharacters.h"
+
+#if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
+#import <JobsOCProtocols/JobsBaseProtocolHeader.h>
+#else
 #import "JobsBaseProtocolHeader.h"
+#endif
+
+#if __has_include(<JobsOCTools/JobsOCTools.h>)
+#import <JobsOCTools/JobsOCTools.h>
+#else
 #import "JobsOCTools.h"
+#endif
+
+#if __has_include(<JobsHotLabel/JobsHotLabel.h>)
+#import <JobsHotLabel/JobsHotLabel.h>
+#else
 #import "JobsHotLabel.h"
+#endif
+
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import <JobsLanMgr/JobsLanMgr.h>
+#else
 #import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
 #import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
+#else
 #import "JobsModelDSL.h"
+#endif
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
 #import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
 #import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
 #import "JobsDefines.h"
+#endif
 
 #ifndef MakeCustomTabBarBy
 #define MakeCustomTabBarBy(view) NSObject.makeCustomTabBarBy(view)
@@ -33,7 +78,11 @@
 #define CustomTabBar MakeCustomTabBarBy(jobsGetMainWindow())
 #endif /*CustomTabBar*/
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
 #import "JobsOCDSL.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

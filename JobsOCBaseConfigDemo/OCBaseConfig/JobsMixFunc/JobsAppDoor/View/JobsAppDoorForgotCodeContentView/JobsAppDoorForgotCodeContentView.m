@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorForgotCodeContentView.m
-//  JobsOCTools
+//  JobsAppDoor
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -75,7 +75,7 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
 }
 
 -(JobsAppDoorInputViewBaseStyleModel *)jobs_passwordInputModelWithPlaceholder:(NSString *)placeholder{
-    UIImage *lockIcon = @"Lock".img ? : @"codeDecode".img;
+    UIImage *lockIcon = JobsAppDoorImageNamed(@"Lock") ? : JobsAppDoorImageNamed(@"codeDecode");
     return jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable data) {
         data.leftViewIMG = lockIcon;
         data.placeholder = placeholder;
@@ -85,8 +85,8 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
         data.returnKeyType = UIReturnKeyDone;
         data.keyboardAppearance = UIKeyboardAppearanceAlert;
         data.keyboardEnable = YES;
-        data.selectedSecurityBtnIMG = @"codeEncode".img;
-        data.unSelectedSecurityBtnIMG = @"codeDecode".img;
+        data.selectedSecurityBtnIMG = JobsAppDoorImageNamed(@"codeEncode");
+        data.unSelectedSecurityBtnIMG = JobsAppDoorImageNamed(@"codeDecode");
         data.leftViewMode = UITextFieldViewModeAlways;
         data.placeholderColor = JobsWhiteColor;
         data.titleStrCor = JobsWhiteColor;
@@ -103,7 +103,7 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
             .bgColorBy(JobsWhiteColor)
             .jobsResetImagePlacement(NSDirectionalRectEdgeTop)
             .jobsResetImagePadding(JobsWidth(8))
-            .jobsResetBtnImage(@"AppDoorBackLogin".img ? : @"Lock".img)
+            .jobsResetBtnImage(JobsAppDoorImageNamed(@"AppDoorBackLogin") ? : JobsAppDoorImageNamed(@"Lock"))
             .jobsResetBtnTitleCor(Cor1)
             .jobsResetBtnTitleFont(UIFontWeightMediumSize(13))
             .jobsResetBtnTitle(Title1)
@@ -264,15 +264,17 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
 -(BaseButton *)contactCustomerServiceBtn{
     if (!_contactCustomerServiceBtn) {
         @jobs_weakify(self)
-        UIImage *customerImage = @"客服".img ? : @"用户名称".img;
+        CGSize customerIconSize = CGSizeMake(JobsWidth(18), JobsWidth(18));
+        UIImage *customerImage = JobsAppDoorCustomerServiceIconImage();
+        customerImage = customerImage ? customerImage.dw_RescaleImageToSize(customerIconSize) : JobsAppDoorImageNamed(@"用户名称");
         _contactCustomerServiceBtn = BaseButton.jobsInit()
             .bgColorBy(Cor1)
             .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
-            .jobsResetImagePadding(JobsWidth(6))
+            .jobsResetImagePadding(JobsWidth(5))
             .jobsResetBtnImage(customerImage)
             .jobsResetBtnTitle(Title8)
             .jobsResetBtnTitleCor(Cor4)
-            .jobsResetBtnTitleFont(UIFontWeightMediumSize(JobsWidth(12)))
+            .jobsResetBtnTitleFont(UIFontWeightMediumSize(10))
             .jobsResetBtnLayerBorderCor(Cor4)
             .jobsResetBtnLayerBorderWidth(2)
             .jobsResetBtnCornerRadiusValue(JobsWidth(19))
@@ -295,9 +297,10 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
                 button.byClipsToBounds(YES);
                 button.imageView.byContentMode(UIViewContentModeScaleAspectFit);
                 button.titleLabel
-                    .byAdjustsFontSizeToFitWidth(YES)
-                    .byMinimumScaleFactor(0.75f)
-                    .byLineBreakMode(NSLineBreakByTruncatingTail);
+                    .byNumberOfLines(2)
+                    .byTextAlignment(NSTextAlignmentCenter)
+                    .byAdjustsFontSizeToFitWidth(NO)
+                    .byLineBreakMode(NSLineBreakByWordWrapping);
             });
     };return _contactCustomerServiceBtn;
 }

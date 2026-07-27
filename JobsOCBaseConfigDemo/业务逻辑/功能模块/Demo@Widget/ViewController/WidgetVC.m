@@ -2,7 +2,7 @@
 //  WidgetVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2026年7月20日，星期一.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "WidgetVC.h"
@@ -56,9 +56,10 @@ Prop_strong()UILabel *footnoteLabel;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(@"iOS Widget Demo".tr);
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(@"iOS Widget Demo".tr)
+                .byFont(UIFontWeightRegularSize(18));
         })
         .byBgCor(UIColor.systemGroupedBackgroundColor)
         .byNavBgCor(UIColor.systemBackgroundColor);
@@ -440,7 +441,7 @@ Prop_strong()UILabel *footnoteLabel;
     if (!_footnoteLabel) {
         _footnoteLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"已接入真实 Widget Extension 与 App Group。真机运行宿主 App 一次后：回到系统桌面 → 长按空白处 → 点击“+”或“添加小组件” → 搜索“ObjcDemo”（进入后显示“演武堂 OC 小组件”）→ 选择尺寸并添加。\n\n本页“计数 +1”和“刷新时间线”会重载桌面 Widget；iOS 不允许 App 直接弹出系统小组件库。")
+                .byText(@"已接入真实 Widget Extension 与 App Group。真机运行宿主 App 一次后：回到系统桌面 → 长按空白处 → 点击“+”或“添加小组件” → 搜索“JobsOCBaseConfigDemo”（进入后显示“演武堂 OC 小组件”）→ 选择尺寸并添加。\n\n本页“计数 +1”和“刷新时间线”会重载桌面 Widget；iOS 不允许 App 直接弹出系统小组件库。")
                 .byTextCor(UIColor.secondaryLabelColor)
                 .byFont(UIFontSystemFontOfSize(13))
                 .byNumberOfLines(0)

@@ -15,9 +15,10 @@
     anim.duration = 0.2;
     anim.repeatCount = MAXFLOAT;
     anim.values = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
-        data.add(@(-0.03));
-        data.add(@(0.03));
-        data.add(@(-0.03));
+        data
+            .add(@(-0.03))
+            .add(@(0.03))
+            .add(@(-0.03));
     });
     anim.removedOnCompletion = NO;
     anim.fillMode = kCAFillModeForwards;

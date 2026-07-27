@@ -81,10 +81,14 @@ Prop_strong()UIImpactFeedbackGenerator *hapticFeedback;
     }
 }
 
--(void)beginLike {
+-(void)updateLikeState:(BOOL)isLiked {
     self.likeBtn
-        .bySelected(YES)
-        .byTintColor(UIColor.systemRedColor);
+        .bySelected(isLiked)
+        .byTintColor(isLiked ? UIColor.systemRedColor : HEXCOLOR(0x6B7280));
+}
+
+-(void)beginLike {
+    [self updateLikeState:YES];
     [self.likeBtn byFusePressScaleStart:1.08
                                duration:0.12];
     JobsFuseBubbleConfig *config = JobsFuseBubbleConfig.config
@@ -127,7 +131,7 @@ Prop_strong()UIImpactFeedbackGenerator *hapticFeedback;
         @jobs_weakify(self)
         _hintLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"长按下方大拇指：图标立即变红，持续冒泡并伴随震动与声音反馈".tr)
+                .byText(@"轻点下方大拇指切换点赞或取消；长按则持续冒泡，并伴随震动与声音反馈".tr)
                 .byTextCor(HEXCOLOR(0x6B7280))
                 .byFont(UIFontWeightRegularSize(15))
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -157,12 +161,15 @@ Prop_strong()UIImpactFeedbackGenerator *hapticFeedback;
             button
                 .jobsResetBtnImage(@"hand.thumbsup.fill".sys_img)
                 .jobsResetBtnBgCor(HEXCOLOR(0xEEF0F3))
+                .jobsResetBtnCornerRadiusValue(JobsWidth(48))
+                .onClickBy(^(UIButton *button) {
+                    @jobs_strongify(self)
+                    [self updateLikeState:!button.jobs_isSelected];
+                })
                 .byTintColor(HEXCOLOR(0x6B7280))
                 .byAddGestureRecognizer(gesture)
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
-                    layer
-                        .byCornerRadius(JobsWidth(48))
-                        .byMasksToBounds(NO);
+                    layer.byMasksToBounds(NO);
                 })
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {

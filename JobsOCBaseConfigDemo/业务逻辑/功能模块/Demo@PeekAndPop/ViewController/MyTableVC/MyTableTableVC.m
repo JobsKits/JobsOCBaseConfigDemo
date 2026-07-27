@@ -35,9 +35,10 @@ Prop_strong()NSMutableArray <JobsBaseTableViewCell *>*tbvCellMutArr;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(data.attributedTitle.string);
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(data.attributedTitle.string)
+                .byFont(UIFontWeightRegularSize(18));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -118,26 +119,30 @@ Prop_strong()NSMutableArray <JobsBaseTableViewCell *>*tbvCellMutArr;
           contextMenuConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath
                                              point:(CGPoint)point {
     if (indexPath.row >= self.dataMutArr.count) return nil;
-    return [UIContextMenuConfiguration configurationWithIdentifier:indexPath
-                                                   previewProvider:^UIViewController * _Nullable{
+    return jobsMakeContextMenuConfiguration(indexPath,
+                                             ^UIViewController * _Nullable{
         PreviewVC *previewVC = PreviewVC.new;
         previewVC.previewText = [NSString stringWithFormat:@"Preview for row %ld", (long)indexPath.row];
         return previewVC;
-    } actionProvider:^UIMenu * _Nullable(NSArray<UIMenuElement *> *suggestedActions) {
-        UIAction *action1 = [UIAction actionWithTitle:@"Action 1".tr
-                                                image:nil
-                                           identifier:nil
-                                              handler:^(__kindof UIAction * _Nonnull action) {
+    },
+                                             ^UIMenu * _Nullable(NSArray<UIMenuElement *> *suggestedActions) {
+        UIAction *action1 = jobsMakeAction(@"Action 1".tr,
+                                           nil,
+                                           nil,
+                                           ^(__kindof UIAction * _Nonnull action) {
             JobsLog(@"Action 1 selected for row %ld", (long)indexPath.row);
-        }];
-        UIAction *action2 = [UIAction actionWithTitle:@"Action 2".tr
-                                                image:nil
-                                           identifier:nil
-                                              handler:^(__kindof UIAction * _Nonnull action) {
+        },
+                                           nil);
+        UIAction *action2 = jobsMakeAction(@"Action 2".tr,
+                                           nil,
+                                           nil,
+                                           ^(__kindof UIAction * _Nonnull action) {
             JobsLog(@"Action 2 selected for row %ld", (long)indexPath.row);
-        }];
-        return [UIMenu menuWithTitle:@"".tr children:@[action1, action2]];
-    }];
+        },
+                                           nil);
+        return jobsMakeMenu(@"".tr, @[action1, action2], nil);
+    },
+                                             nil);
 }
 
 - (void)tableView:(UITableView *)tableView

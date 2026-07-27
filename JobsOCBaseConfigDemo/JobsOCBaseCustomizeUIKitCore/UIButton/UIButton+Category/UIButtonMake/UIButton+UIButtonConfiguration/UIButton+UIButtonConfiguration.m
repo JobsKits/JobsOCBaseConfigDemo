@@ -70,9 +70,10 @@
             if(config.subtitle){
                 config.attributedSubtitle = JobsAttributedStringByAttributes(config.subtitle,jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable data1) {
                     @jobs_strongify(self)
-                    data1.add(NSForegroundColorAttributeName,self.getTitleColorByTransformer(config.titleTextAttributesTransformer));
-                    data1.add(NSFontAttributeName,self.getTitleFontByTransformer(config.titleTextAttributesTransformer));
-                    data1.add(NSParagraphStyleAttributeName,self.jobsparagraphStyleByTextAlignment(data));
+                    data1
+                        .add(NSForegroundColorAttributeName,self.getTitleColorByTransformer(config.titleTextAttributesTransformer))
+                        .add(NSFontAttributeName,self.getTitleFontByTransformer(config.titleTextAttributesTransformer))
+                        .add(NSParagraphStyleAttributeName,self.jobsparagraphStyleByTextAlignment(data));
                 }));
             }
         }];
@@ -87,9 +88,10 @@
             @jobs_strongify(self)
             config.attributedSubtitle = JobsAttributedStringByAttributes(config.subtitle, jobsMakeMutDic(^(__kindof NSMutableDictionary <NSAttributedStringKey, id>*_Nullable data1) {
                 @jobs_strongify(self)
-                data1.add(NSForegroundColorAttributeName,self.getTitleColorByTransformer(config.subtitleTextAttributesTransformer));
-                data1.add(NSFontAttributeName,self.getTitleFontByTransformer(config.subtitleTextAttributesTransformer));
-                data1.add(NSParagraphStyleAttributeName,self.jobsparagraphStyleByTextAlignment(data));
+                data1
+                    .add(NSForegroundColorAttributeName,self.getTitleColorByTransformer(config.subtitleTextAttributesTransformer))
+                    .add(NSFontAttributeName,self.getTitleFontByTransformer(config.subtitleTextAttributesTransformer))
+                    .add(NSParagraphStyleAttributeName,self.jobsparagraphStyleByTextAlignment(data));
             }));
         }];
     };

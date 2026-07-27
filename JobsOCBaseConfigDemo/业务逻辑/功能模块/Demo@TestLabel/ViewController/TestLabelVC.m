@@ -41,9 +41,10 @@ Prop_copy()NSArray <NSString *>*sectionTitleArr;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(@"Label 表现列表".tr);
-            data.byFont(UIFontWeightRegularSize(16));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(@"Label 表现列表".tr)
+                .byFont(UIFontWeightRegularSize(16));
         })
         .byBgCor(RGBA_COLOR(255, 238, 221, 1))
         .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
@@ -77,7 +78,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!cell) {
         cell = [UITableViewCell.alloc initWithStyle:UITableViewCellStyleSubtitle
                                     reuseIdentifier:TestLabelListCellReuseIdentifier];
-        cell.backgroundColor = JobsWhiteColor;
+        cell.byBgColor(JobsWhiteColor);
     }
     TestLabelDemoModel *model = [self dataArrBySection:indexPath.section][indexPath.row];
     return cell
@@ -168,7 +169,7 @@ heightForFooterInSection:(NSInteger)section{
                 .byRowHeight(JobsWidth(74))
                 .byEstimatedRowHeight(JobsWidth(74))
                 .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
-                .byTableFooterView(UIView.new)
+                .byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {}))
                 .byShowsVerticalScrollIndicator(NO)
                 .byBgColor(JobsClearColor)
                 .addOn(self.view)

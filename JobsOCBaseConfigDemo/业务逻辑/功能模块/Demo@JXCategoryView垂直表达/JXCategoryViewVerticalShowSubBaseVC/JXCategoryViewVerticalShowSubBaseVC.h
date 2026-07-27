@@ -14,19 +14,19 @@
 #endif
 
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
-#import "JobsByOCPods.h"
+#import <JobsByOCPods/JobsByOCPods.h>
 #else
 #import "JobsByOCPods.h"
 #endif
 
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
-#import "JobsBaseUI.h"
+#import <JobsBaseUI/JobsBaseUI.h>
 #else
 #import "JobsBaseUI.h"
 #endif
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import "JobsOCDSL.h"
+#import <JobsOCDSL/JobsOCDSL.h>
 #else
 #import "JobsOCDSL.h"
 #endif

@@ -44,9 +44,10 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x273244));
-            data.byText(@"站内信".tr);
-            data.byFont(UIFontWeightBoldSize(17));
+            data
+                .byTextCor(HEXCOLOR(0x273244))
+                .byText(@"站内信".tr)
+                .byFont(UIFontWeightBoldSize(17));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -278,9 +279,9 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
 -(void)configMsgCell:(UITableViewCell *)cell
                model:(JobsMsgDataModel *)model{
     [self prepareMsgCellSubviewsIfNeeded:cell];
-    cell.textLabel.hidden = YES;
-    cell.detailTextLabel.hidden = YES;
-    cell.imageView.hidden = YES;
+    cell.textLabel.byHidden(YES);
+    cell.detailTextLabel.byHidden(YES);
+    cell.imageView.byHidden(YES);
     cell.byBgColor(JobsClearColor);
     cell.contentView.byBgColor(JobsClearColor);
     UIColor *accentCor = [self msgAccentCorByModel:model];
@@ -313,7 +314,7 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
     [self.selectedDataMutArr removeAllObjects];
     self.msgEditBoardView.getDeleteBtn.enabledBlock(self.selectedDataMutArr.count);
     self.msgEditBoardView.getMarkToReadBtn.enabledBlock(self.selectedDataMutArr.count);
-    self.editBtn.selected = NO;
+    self.editBtn.bySelected(NO);
     self.editBtn.jobsResetBtnTitle(@"編輯".tr);
     [self.msgEditBoardView disappearByView:self.view];
 }
@@ -323,7 +324,7 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
     for (int i = 0; i< self.dataMutArr.count; i++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        cell.selected = YES;
+        cell.bySelected(YES);
         if ([self.tableView.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
             [self.tableView.delegate tableView:self.tableView didSelectRowAtIndexPath:indexPath];
         }
@@ -338,7 +339,7 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
     for (int i = 0; i< self.dataMutArr.count; i++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
         UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        cell.selected = NO;
+        cell.bySelected(NO);
     }
     /// Data层
     [self.selectedDataMutArr removeAllObjects];
@@ -372,7 +373,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     @jobs_weakify(self)
     if (self.tableView.editing) {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        cell.selected = YES;
+        cell.bySelected(YES);
         NSMutableArray<JobsMsgDataModel *> *dataMutArr = [self manuallyDataAtIndexPath:indexPath];
         self.msgEditBoardView.getDeleteBtn.enabledBlock(dataMutArr.count);
         self.msgEditBoardView.getMarkToReadBtn.enabledBlock(dataMutArr.count);
@@ -394,7 +395,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.tableView.editing) {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        cell.selected = NO;
+        cell.bySelected(NO);
         NSMutableArray<JobsMsgDataModel *> *dataMutArr = [self manuallyDataAtIndexPath:indexPath];
         self.msgEditBoardView.getDeleteBtn.enabledBlock(dataMutArr.count);
         self.msgEditBoardView.getMarkToReadBtn.enabledBlock(dataMutArr.count);
@@ -430,7 +431,6 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_editBtn) {
         @jobs_weakify(self)
         _editBtn = BaseButton.jobsInit()
-            .bgColorBy(RGBA_COLOR(255, 255, 255, 0.92))
             .jobsResetBtnTitleCor(HEXCOLOR(0x273244))
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(13))
             .jobsResetBtnTitle(@"編輯".tr)
@@ -438,13 +438,16 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
     //            toastBy(x.titleForNormalState);
-                x.selected = !x.selected;
-                x.jobsResetBtnTitle(x.selected ? @"完成".tr : @"編輯".tr);
+                BOOL selected = !x.selected;
+                x
+                    .jobsResetBtnTitle(selected ? @"完成".tr : @"編輯".tr)
+                    .bySelected(selected);
                 [self.tableView setEditing:x.selected animated:YES];
                 x.selected ? [self.getMsgEditBoardView appearByView:self.view] : [self.getMsgEditBoardView disappearByView:self.view];
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
-            });
+            })
+            .bgColorBy(RGBA_COLOR(255, 255, 255, 0.92));
         _editBtn.byFrame(CGRectMake(0, 0, JobsWidth(56), JobsWidth(40)));
         _editBtn.layer
             .byCornerRadius(JobsWidth(20))
@@ -493,8 +496,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 -(MsgEditBoardView *)msgEditBoardView{
     if (!_msgEditBoardView) {
         _msgEditBoardView = MsgEditBoardView.new;
-        _msgEditBoardView.byFrame(MsgEditBoardView.viewFrameByModel(nil));
-        _msgEditBoardView.jobsRichViewByModel(nil);
+        _msgEditBoardView
+            .byFrame(MsgEditBoardView.viewFrameByModel(nil))
+            .jobsRichViewByModel(nil);
         _msgEditBoardView.getDeleteBtn.enabledBlock(self.selectedDataMutArr.count);
         @jobs_weakify(self)
         [_msgEditBoardView actionObjBlock:^(id data) {

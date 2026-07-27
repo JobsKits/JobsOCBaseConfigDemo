@@ -15,6 +15,10 @@ NS_INLINE UIFont *UIFontSystemFontOfSize(CGFloat fontSize) {
     return [UIFont systemFontOfSize:fontSize];
 }
 
+/// 按任意 UIFontWeight 创建系统字体；标准字重快捷函数继续保留。
+NS_INLINE UIFont *UIFontSystemFontOfSizeAndWeight(CGFloat fontSize, UIFontWeight weight) API_AVAILABLE(ios(8.2), watchos(2.0)) {
+    return [UIFont systemFontOfSize:fontSize weight:weight];
+}
 NS_INLINE UIFont *UIFontWeightUltraLightSize(CGFloat fontSize) {
     return [UIFont systemFontOfSize:fontSize weight:UIFontWeightUltraLight];
 }

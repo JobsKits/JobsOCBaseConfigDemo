@@ -34,8 +34,9 @@ Prop_strong()BaseButton *pushButton;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"JobsViewPush".tr);
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byText(@"JobsViewPush".tr)
+                .byFont(UIFontWeightRegularSize(18));
         })
         .byBgCor(UIColor.systemBackgroundColor)
         .byNavBgCor(UIColor.systemBackgroundColor);
@@ -52,7 +53,7 @@ Prop_strong()BaseButton *pushButton;
 }
 
 -(JobsViewPushDirection)selectedDirection{
-    switch (self.directionControl.selectedSegmentIndex) {
+    switch (self.directionControl.jobs_selectedSegmentIndex) {
         /// 处理 数值 0 分支
         case 0: return JobsViewPushDirectionTop;
         /// 处理 数值 1 分支
@@ -85,12 +86,15 @@ Prop_strong()BaseButton *pushButton;
 #pragma mark —— lazyLoad
 -(UISegmentedControl *)directionControl{
     if (!_directionControl) {
-        _directionControl = [[UISegmentedControl alloc] initWithItems:@[@"上", @"下", @"左", @"右"]];
-        _directionControl.selectedSegmentIndex = 3;
-        _directionControl.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
-            make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(24));
-            make.left.right.equalTo(self.view).inset(JobsWidth(24));
-            make.height.mas_equalTo(JobsWidth(36));
+        _directionControl = jobsMakeSegmentedControl(@[@"上", @"下", @"左", @"右"], ^(__kindof UISegmentedControl * _Nullable segmentedControl) {
+            segmentedControl
+                .bySelectedSegmentIndex(3)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(24));
+                    make.left.right.equalTo(self.view).inset(JobsWidth(24));
+                    make.height.mas_equalTo(JobsWidth(36));
+                });
         });
     };return _directionControl;
 }

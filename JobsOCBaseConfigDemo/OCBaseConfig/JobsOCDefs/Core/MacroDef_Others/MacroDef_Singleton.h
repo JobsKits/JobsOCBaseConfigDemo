@@ -7,6 +7,14 @@
 
 #ifndef SingletonMacro_h
 #define SingletonMacro_h
+
+/// 旧主工程直集成兼容：让使用单例宏实现的 NSObject 子类公开统一的类方法签名。
+@interface NSObject (JobsSingletonDeclaration)
+
++(instancetype)sharedManager;
++(void)destroySingleton;
+
+@end
 /// 基于 dispatch_once 的单例宏
 #define DEFINE_SHARED_INSTANCE_USING_DISPATCH_ONCE \
     + (instancetype)sharedManager { \

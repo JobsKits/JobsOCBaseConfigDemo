@@ -6,7 +6,7 @@
 //
 
 #import "JobsSideDrawerDemoVC.h"
-#import "JobsSideDrawer.h"
+#import "JobsViewPush.h"
 #import "JobsLanMgr.h"
 
 @interface JobsSideDrawerDemoVC ()
@@ -72,9 +72,26 @@ Prop_strong()JobsSideDrawer *drawer;
 
 -(UIButton *)previewBtn{
     if (!_previewBtn) {
-        _previewBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-        [_previewBtn setTitle:@"立即预览（支持 UIViewController / UIView）".tr forState:UIControlStateNormal];
-        [_previewBtn addTarget:self action:@selector(preview) forControlEvents:UIControlEventTouchUpInside];
+        @jobs_weakify(self)
+        _previewBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+            button
+                .jobsResetBtnTitle(@"立即预览".tr)
+                .jobsResetBtnSubTitle(@"支持 UIViewController / UIView".tr)
+                .jobsResetBtnTitleCor(JobsWhiteColor)
+                .jobsResetBtnSubTitleCor(RGBA_COLOR(255, 255, 255, 0.78))
+                .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(JobsWidth(17)))
+                .jobsResetBtnSubTitleFont(UIFontWeightRegularSize(JobsWidth(13)))
+                .jobsResetTitlePadding(JobsWidth(4))
+                .jobsResetBtnBgCor(HEXCOLOR(0x1677FF))
+                .jobsResetBtnCornerRadiusValue(JobsWidth(12))
+                .onClickBy(^(UIButton *x){
+                    @jobs_strongify(self)
+                    [self preview];
+                })
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.height.mas_equalTo(JobsWidth(64));
+                });
+        });
     };return _previewBtn;
 }
 

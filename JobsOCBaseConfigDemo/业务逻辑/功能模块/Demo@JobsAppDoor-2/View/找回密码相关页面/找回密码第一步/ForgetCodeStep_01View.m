@@ -1,9 +1,8 @@
 //
-//  ForgetCodeStep_01.m
+//  ForgetCodeStep_01View.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/9/6.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "ForgetCodeStep_01View.h"

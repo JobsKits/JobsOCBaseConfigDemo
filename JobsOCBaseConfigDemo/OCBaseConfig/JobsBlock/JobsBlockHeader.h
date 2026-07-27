@@ -92,6 +92,10 @@
 @class FMTypeModel;
 @class FMWithDrawModel;
 @class FSCalendar;
+@class JobsOCCalendar;
+@protocol JobsOCCalendarDataSource;
+@protocol JobsOCCalendarDelegate;
+@class JobsOCGraphicCaptchaView;
 @class FSCalendarAppearance;
 @class FSCalendarCell;
 @class FSCalendarEventIndicator;

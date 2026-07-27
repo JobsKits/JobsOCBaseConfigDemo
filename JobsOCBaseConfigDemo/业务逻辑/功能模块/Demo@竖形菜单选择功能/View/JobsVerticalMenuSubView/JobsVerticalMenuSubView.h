@@ -6,10 +6,26 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
 #import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
 #import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 #import "GoodsClassModel.h"
-#import "NSMutableArray+Extra.h"
 #import "ThreeClassCell.h"
 
 NS_ASSUME_NONNULL_BEGIN

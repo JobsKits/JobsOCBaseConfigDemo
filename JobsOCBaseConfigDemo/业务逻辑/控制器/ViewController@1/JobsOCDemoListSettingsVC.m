@@ -62,6 +62,7 @@ Prop_assign()BOOL shouldApplyAppEntryAfterReturning;
 -(NSArray <NSString *>*)languageTitleArr;
 -(JobsOCSplashContentType)splashContentTypeByRow:(NSInteger)row;
 -(AppLanguage)appLanguageByRow:(NSInteger)row;
+-(AppLanguage)currentEffectiveAppLanguage;
 -(NSString *)titleByIndexPath:(NSIndexPath *)indexPath;
 -(UITableViewCellAccessoryType)accessoryTypeByIndexPath:(NSIndexPath *)indexPath;
 -(void)updateLocalizedContent;
@@ -135,9 +136,9 @@ titleForHeaderInSection:(NSInteger)section{
                  cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:JobsOCDemoListSettingsCellReuseIdentifier
                                                             forIndexPath:indexPath];
-    cell.backgroundColor = [self demoListCellBackgroundColor];
-    cell.contentView.backgroundColor = [self demoListCellBackgroundColor];
-    cell.tintColor = HEXCOLOR(0x1D7FF2);
+    cell.byBgColor([self demoListCellBackgroundColor]);
+    cell.contentView.byBgColor([self demoListCellBackgroundColor]);
+    cell.byTintColor(HEXCOLOR(0x1D7FF2));
     return cell
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
             label.byText([self titleByIndexPath:indexPath])
@@ -326,13 +327,15 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     UIColor *titleColor = [self demoListPrimaryTextColor];
     UIColor *selectedColor = HEXCOLOR(0x1D7FF2);
     if (@available(iOS 13.0, *)) {
-        UITabBarAppearance *appearance = UITabBarAppearance.new;
-        [appearance configureWithOpaqueBackground];
-        appearance.backgroundColor = backgroundColor;
-        appearance.shadowColor = [self demoListSeparatorColor];
-        UITabBar.appearance.standardAppearance = appearance;
+        UITabBarAppearance *appearance = jobsMakeTabBarAppearance(^(__kindof UITabBarAppearance * _Nullable appearance) {
+            appearance
+                .byConfigureWithOpaqueBackground()
+                .byBackgroundColor(backgroundColor)
+                .byShadowColor([self demoListSeparatorColor]);
+        });
+        [UITabBar jobsApplyStandardAppearance:appearance];
         if (@available(iOS 15.0, *)) {
-            UITabBar.appearance.scrollEdgeAppearance = appearance;
+            [UITabBar jobsApplyScrollEdgeAppearance:appearance];
         }
     }
     NSMutableArray <UITabBar *>*tabBars = NSMutableArray.array;
@@ -341,31 +344,34 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [tabBars addObject:AppDelegate.tabBarVC.tabBar];
     }
     for (UITabBar *tabBar in tabBars) {
-        tabBar.backgroundColor = backgroundColor;
-        tabBar.barTintColor = backgroundColor;
-        tabBar.tintColor = selectedColor;
+        tabBar
+            .byBarTintColor(backgroundColor)
+            .byTintColor(selectedColor)
+            .byBgColor(backgroundColor);
         if (@available(iOS 10.0, *)) {
-            tabBar.unselectedItemTintColor = titleColor;
+            tabBar.byUnselectedItemTintColor(titleColor);
         }
         if (@available(iOS 13.0, *)) {
-            UITabBarAppearance *appearance = UITabBarAppearance.new;
-            [appearance configureWithOpaqueBackground];
-            appearance.backgroundColor = backgroundColor;
-            appearance.shadowColor = [self demoListSeparatorColor];
-            tabBar.standardAppearance = appearance;
+            UITabBarAppearance *appearance = jobsMakeTabBarAppearance(^(__kindof UITabBarAppearance * _Nullable appearance) {
+                appearance
+                    .byConfigureWithOpaqueBackground()
+                    .byBackgroundColor(backgroundColor)
+                    .byShadowColor([self demoListSeparatorColor]);
+            });
+            tabBar.byStandardAppearance(appearance);
             if (@available(iOS 15.0, *)) {
-                tabBar.scrollEdgeAppearance = appearance;
+                tabBar.byScrollEdgeAppearance(appearance);
             }
         }
     }
     for (UIButton *button in AppDelegate.tabBarItemMutArr) {
-        [button setTitleColor:titleColor forState:UIControlStateNormal];
-        [button setTitleColor:selectedColor forState:UIControlStateSelected];
-        [button setTitleColor:selectedColor forState:UIControlStateHighlighted];
-        [button setTitleColor:selectedColor forState:UIControlStateSelected | UIControlStateHighlighted];
-        button.tintColor = titleColor;
-        button.titleLabel.textColor = titleColor;
-        button.backgroundColor = JobsClearColor;
+        button
+            .jobsResetBtnTitleCor(titleColor)
+            .selectedStateTitleColorBy(selectedColor)
+            .highlightedStateTitleColorBy(selectedColor)
+            .titleColorForStateBy(selectedColor, UIControlStateSelected | UIControlStateHighlighted)
+            .byTintColor(titleColor)
+            .byBgColor(JobsClearColor);
     }
 }
 
@@ -456,6 +462,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }
 }
 
+-(AppLanguage)currentEffectiveAppLanguage{
+    NSString *languageCode = LanMgr.languageCodeByAppLanguage(LanMgr.language).lowercaseString;
+    if ([languageCode hasPrefix:@"zh"]) return AppLanguageChineseSimplified;
+    if ([languageCode hasPrefix:@"fil"] || [languageCode hasPrefix:@"tl"]) return AppLanguageTagalog;
+    return AppLanguageEnglish;
+}
+
 -(NSString *)titleByIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == JobsOCDemoListSettingSectionGeneral) return self.generalSettingTitleArr[indexPath.row];
     if (indexPath.section == JobsOCDemoListSettingSectionSplashContent) return self.splashContentTitleArr[indexPath.row];
@@ -468,7 +481,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }
     if (indexPath.section == JobsOCDemoListSettingSectionSplashContent) {
         return [self splashContentTypeByRow:indexPath.row] == JobsOCSplashPreferences.contentTypeForNextLaunch ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-    };return [self appLanguageByRow:indexPath.row] == LanMgr.language ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    };return [self appLanguageByRow:indexPath.row] == [self currentEffectiveAppLanguage] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
 }
 
 @end

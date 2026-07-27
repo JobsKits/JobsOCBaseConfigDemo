@@ -94,13 +94,16 @@ Prop_strong()UITextView *tipsTextView;
                 NSString *timeText = [NSString stringWithFormat:@"%d",(int)ceil(time)];
                 self.countdownBtn.jobsResetBtnTitle(timeText.add(JobsSpace).add(@"秒"));
                 self.stateLab.byText([NSString stringWithFormat:@"UIButton 内部 JobsTimer 正在倒计时：%@ 秒".tr,timeText]);
-                [NSString stringWithFormat:@"%@%@",timeText, @"秒到了，我被打印出来了！".tr].toast();
+                if (time > 0) {
+                    [NSString stringWithFormat:@"%@%@",timeText, @"秒到了，我被打印出来了！".tr].toast();
+                }
             })
             .byOnFinish(^(JobsTimer *_Nullable timer){
                 @jobs_strongify(self)
                 self.countdownBtn.jobsResetBtnTitle(@"获取验证码".tr);
                 self.stateLab.byText(@"倒计时结束，可以重新获取验证码".tr);
-                @"0秒到了，我被打印出来了！".tr.toast();
+                // @"0秒到了，我被打印出来了！".tr.toast();
+                JobsLog(@"%@", @"0秒到了，我被打印出来了！".tr);
             })
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)

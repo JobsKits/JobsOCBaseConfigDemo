@@ -1,0 +1,29 @@
+//
+//  UISegmentedControl+DSL.h
+//  JobsOCDSL
+//
+//  Created by Jobs on 2026年7月10日，星期五.
+//
+
+#ifndef JOBS_HEADER_GUARD_UISEGMENTEDCONTROL_DSL_97A3C5D821
+#define JOBS_HEADER_GUARD_UISEGMENTEDCONTROL_DSL_97A3C5D821
+
+#import <UIKit/UIKit.h>
+#import "JobsBlock.h"
+#import "JobsDefines.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface UISegmentedControl (DSL)
+
+-(NSInteger)jobs_selectedSegmentIndex;
+-(JobsRetSegmentedControlByNSIntegerBlock _Nonnull)bySelectedSegmentIndex;
+-(JobsRetSegmentedControlByBOOLBlock _Nonnull)byMomentary;
+-(JobsRetSegmentedControlByBOOLBlock _Nonnull)byApportionsSegmentWidthsByContent;
+-(JobsRetSegmentedControlByColorBlock _Nonnull)bySelectedSegmentTintColor API_AVAILABLE(ios(13.0));
+-(JobsRetSegmentedControlByVoidBlock _Nonnull)byRemoveAllSegments;
+
+@end
+
+NS_ASSUME_NONNULL_END
+#endif /* JOBS_HEADER_GUARD_UISEGMENTEDCONTROL_DSL_97A3C5D821 */

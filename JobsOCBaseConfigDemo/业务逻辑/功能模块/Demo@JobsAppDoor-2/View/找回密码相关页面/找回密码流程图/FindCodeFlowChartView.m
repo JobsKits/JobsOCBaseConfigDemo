@@ -2,8 +2,7 @@
 //  FindCodeFlowChartView.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/9/3.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "FindCodeFlowChartView.h"
@@ -15,9 +14,9 @@
 @implementation FlowChartSingleElementView
 -(void)drawRect:(CGRect)rect{
     [super drawRect:rect];
-    self.bacKIMGV.alpha = 1;
-    self.titleLab.alpha = 1;
-    self.subTitleLab.alpha = 1;
+    self.bacKIMGV.byAlpha(1);
+    self.titleLab.byAlpha(1);
+    self.subTitleLab.byAlpha(1);
 }
 #pragma mark —— lazyLoad
 -(UILabel *)titleLab{
@@ -25,13 +24,14 @@
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.font = UIFontWeightHeavySize(JobsWidth(20));
-            [label sizeToFit];
-            self.bacKIMGV.addSubview(label);
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            label
+                .byFont(UIFontWeightHeavySize(JobsWidth(20)))
+            .bySizeToFit()
+            .addOn(self.bacKIMGV)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.centerX.equalTo(self.bacKIMGV);
                 make.bottom.equalTo(self.bacKIMGV.mas_centerY).offset(JobsWidth(7));
-            }];
+            });
         });
     };return _titleLab;
 }
@@ -41,13 +41,14 @@
         @jobs_weakify(self)
         _subTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.font = UIFontWeightRegularSize(JobsWidth(8));
-            [label sizeToFit];
-            self.bacKIMGV.addSubview(label);
-            [label mas_makeConstraints:^(MASConstraintMaker *make) {
+            label
+                .byFont(UIFontWeightRegularSize(JobsWidth(8)))
+            .bySizeToFit()
+            .addOn(self.bacKIMGV)
+            .byAdd(^(MASConstraintMaker *make) {
                 make.centerX.equalTo(self.bacKIMGV);
                 make.top.equalTo(self.bacKIMGV.mas_centerY).offset(JobsWidth(7));
-            }];
+            });
         });
     };return _subTitleLab;
 }
@@ -57,10 +58,9 @@
         @jobs_weakify(self)
         _bacKIMGV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
-            self.addSubview(imageView);
-            [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            imageView.addOn(self).byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
-            }];
+            });
         });
     };return _bacKIMGV;
 }
@@ -96,23 +96,19 @@ static dispatch_once_t dispatchOnce;
         CGFloat singleElementW = JobsMainScreen_WIDTH() / self.flowNum;
         for (int t = 0; t < self.flowNum; t++) {
             FlowChartSingleElementView *singleElement = FlowChartSingleElementView.new;
-            singleElement.titleLab.text = self.titleMutArr[t];
-            singleElement.subTitleLab.text = self.subTitleMutArr[t];
-            [self changeState:singleElement
-                        index:t];
-            self.addSubview(singleElement);
-            [singleElement mas_makeConstraints:^(MASConstraintMaker *make) {
-                [singleElement mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.width.mas_equalTo(singleElementW);
-                    make.top.bottom.equalTo(self);
-                    if (t == 0) {/// 第一个元素，从左边开始布局
-                        make.left.equalTo(self);
-                    }else{
-                        FlowChartSingleElementView *lastSingleElement = self.singleElementMutArr[t - 1];
-                        make.left.equalTo(lastSingleElement.mas_right);
-                    }
-                }];self.singleElementMutArr.add(singleElement);
-            }];
+            singleElement.titleLab.byText(self.titleMutArr[t]);
+            singleElement.subTitleLab.byText(self.subTitleMutArr[t]);
+            [self changeState:singleElement index:t];
+            singleElement.addOn(self).byAdd(^(MASConstraintMaker *make) {
+                make.width.mas_equalTo(singleElementW);
+                make.top.bottom.equalTo(self);
+                if (t == 0) {/// 第一个元素，从左边开始布局
+                    make.left.equalTo(self);
+                }else{
+                    FlowChartSingleElementView *lastSingleElement = self.singleElementMutArr[t - 1];
+                    make.left.equalTo(lastSingleElement.mas_right);
+                }self.singleElementMutArr.add(singleElement);
+            });
         }
     }
 }
@@ -121,20 +117,19 @@ static dispatch_once_t dispatchOnce;
              index:(int)index{
     if (self.backImageMutArr.count - 1 > self.currentFlowSerialNum) {
         if (index > self.currentFlowSerialNum) {
-            singleElement.bacKIMGV.image = self.backImageMutArr[0];
-            singleElement.titleLab.textColor = JobsLightGrayColor;
-            singleElement.subTitleLab.textColor = JobsLightGrayColor;
+            singleElement.bacKIMGV.byImage(self.backImageMutArr[0]);
+            singleElement.titleLab.byTextCor(JobsLightGrayColor);
+            singleElement.subTitleLab.byTextCor(JobsLightGrayColor);
         }else{
-            singleElement.bacKIMGV.image = self.backImageMutArr[index + 1];
-            singleElement.titleLab.textColor = JobsBlackColor;
-            singleElement.subTitleLab.textColor = JobsBlackColor;
+            singleElement.bacKIMGV.byImage(self.backImageMutArr[index + 1]);
+            singleElement.titleLab.byTextCor(JobsBlackColor);
+            singleElement.subTitleLab.byTextCor(JobsBlackColor);
         }
     }else{
         NSAssert(0,@"数组越界");
     }
 }
 
-#pragma mark —— currentFlowSerialNum
 -(void)setCurrentFlowSerialNum:(NSInteger)currentFlowSerialNum{
     _currentFlowSerialNum = currentFlowSerialNum;
     if (self.singleElementMutArr.count) {

@@ -151,8 +151,9 @@
     }
     if (!CorDataMutArr) {
         CorDataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            data.add((id)JobsRedColor.CGColor);
-            data.add((id)JobsGreenColor.CGColor);
+            data
+                .add((id)JobsRedColor.CGColor)
+                .add((id)JobsGreenColor.CGColor);
         });
     }else{
         for (int t = 0; t < CorDataMutArr.count; t++) {

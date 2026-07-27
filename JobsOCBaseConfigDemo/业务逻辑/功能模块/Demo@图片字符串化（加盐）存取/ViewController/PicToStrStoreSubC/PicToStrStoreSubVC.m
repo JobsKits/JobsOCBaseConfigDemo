@@ -2,7 +2,7 @@
 //  PicToStrStoreSubVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2024/4/24.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "PicToStrStoreSubVC.h"
@@ -10,8 +10,8 @@
 @interface PicToStrStoreSubVC (){
     UIImage *_picBefore;
     UIImage *_picAfter;
-    NSString *_resultStr;/// 最原始的图片编码字符串
-    NSString *_showStr;/// 对外显示的字符串
+    NSString *_resultStr;// 最原始的图片编码字符串
+    NSString *_showStr;  // 对外显示的字符串
 }
 /// UI
 Prop_strong()BaseButton *btn_1;
@@ -37,16 +37,22 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(18);
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(data.attributedTitle.string)
+                .byFont(UIFontWeightRegularSize(18));
+        })
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
     _picBefore = nil;
     _picAfter = nil;
     _resultStr = @"".tr;
@@ -55,12 +61,12 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsWhiteColor;
+    self.view.byBgColor(JobsWhiteColor);
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
-    self.btn_1.alpha = 1;
-    self.btn_2.alpha = 1;
-    self.textView.alpha = 1;
+    self.btn_1.byAlpha(1);
+    self.btn_2.byAlpha(1);
+    self.textView.byAlpha(1);
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -98,7 +104,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
  这个方法将UIImage对象转换为PNG格式的NSData对象。
  PNG格式是一种无损压缩格式，因此生成的图像数据保留了原始图像的质量，但文件大小可能会比JPEG格式大。
  PNG格式通常用于需要保留图像透明度、精确颜色和细节的情况，如图标、线条图和图形设计等。
- 
+
  UIImageJPEGRepresentation：
  这个方法将UIImage对象转换为JPEG格式的NSData对象。
  JPEG格式是一种有损压缩格式，通过牺牲一些图像细节来实现更小的文件大小。
@@ -125,7 +131,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             self->_showStr = @"目标图片对应的字符串编码为（只列举一部分）前面几位都是一样的：".tr
                 .add([data substringToIndex:1000])
                 .add(@"...后面还有很多，就不一一列举了（渲染UI会撑爆内存，最终导致程序崩溃）".tr);
-            self.textView.text = self->_showStr;
+            self.textView.byText(self->_showStr);
         }else @"暂无编码数据！！！".tr.toast();
         return data;
     };
@@ -246,7 +252,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             .jobsResetBtnSubTitle(@"选取相册图片".tr)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 if (self.objBlock) self.objBlock(x);
                 /// 调取系统相册
                 @jobs_weakify(self)
@@ -267,14 +273,15 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
                 }];
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .makeBtnTitleByShowingType(UILabelShowingType_03)
+            .addOn(self.view)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(10));
+                make.left.equalTo(self.view).offset(JobsWidth(10));
+                make.right.equalTo(self.view).offset(JobsWidth(-10));
+                make.height.mas_equalTo(@200);
             });
-        [self.view.addSubview(_btn_1) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(10));
-            make.left.equalTo(self.view).offset(JobsWidth(10));
-            make.right.equalTo(self.view).offset(JobsWidth(-10));
-            make.height.mas_equalTo(@200);
-        }];
-        _btn_1.makeBtnTitleByShowingType(UILabelShowingType_03);
     };return _btn_1;
 }
 
@@ -297,7 +304,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             .jobsResetBtnLayerBorderWidth(JobsWidth(.5f))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 if (self.objBlock) self.objBlock(x);
                 if(isNull(self->_resultStr)){
                     /// 存在于内存里面的编码，转变成图像对外进行输出
@@ -305,14 +312,15 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
                 }else @"请先编码图片".tr.toast();
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
+            })
+            .makeBtnTitleByShowingType(UILabelShowingType_03)
+            .addOn(self.view)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.top.equalTo(self.btn_1.mas_bottom).offset(JobsWidth(10));
+                make.left.equalTo(self.view).offset(JobsWidth(10));
+                make.right.equalTo(self.view).offset(JobsWidth(-10));
+                make.height.mas_equalTo(@200);
             });
-        [self.view.addSubview(_btn_2) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.btn_1.mas_bottom).offset(JobsWidth(10));
-            make.left.equalTo(self.view).offset(JobsWidth(10));
-            make.right.equalTo(self.view).offset(JobsWidth(-10));
-            make.height.mas_equalTo(@200);
-        }];
-        _btn_2.makeBtnTitleByShowingType(UILabelShowingType_03);
     };return _btn_2;
 }
 @synthesize textView = _textView;
@@ -321,20 +329,23 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
         @jobs_weakify(self)
         _textView = jobsMakeTextView(^(__kindof UITextView * _Nullable textView) {
             @jobs_strongify(self)
-            textView.backgroundColor = JobsLightTextColor;
-            textView.text = @"暂无编码数据！！！".tr;
-            textView.textColor = HEXCOLOR(0xB0B0B0);
-            textView.font = UIFontSystemFontOfSize(14);
-            [self.view.addSubview(textView) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.equalTo(self.view).offset(JobsWidth(10));
-                make.right.equalTo(self.view).offset(JobsWidth(-10));
-                make.top.equalTo(self.btn_2.mas_bottom).offset(JobsWidth(10));
-                make.bottom.equalTo(self.view).offset(JobsWidth(-20));
-            }];
-            textView.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-                model.layerCor = JobsLightGrayColor;
-                model.jobsWidth = .5f;
-            }));
+            textView
+                .byText(@"暂无编码数据！！！".tr)
+                .byTextColor(HEXCOLOR(0xB0B0B0))
+                .byFont(UIFontSystemFontOfSize(14))
+                .byBgColor(JobsLightTextColor)
+                .setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
+                    model
+                        .byLayerCor(JobsLightGrayColor)
+                        .byJobsWidth(.5f);
+                }))
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.view).offset(JobsWidth(10));
+                    make.right.equalTo(self.view).offset(JobsWidth(-10));
+                    make.top.equalTo(self.btn_2.mas_bottom).offset(JobsWidth(10));
+                    make.bottom.equalTo(self.view).offset(JobsWidth(-20));
+                });
         });
     };return _textView;
 }

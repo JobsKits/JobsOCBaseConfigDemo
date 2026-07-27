@@ -23,7 +23,7 @@ Prop_strong()UILabel *foldIconLab;
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.contentView.byBgColor(HEXCOLOR(0xFFF7ED));
-        self.textLabel.hidden = YES;
+        self.textLabel.byHidden(YES);
         self.accentView.byAlpha(1);
         self.titleLab.byAlpha(1);
         self.subTitleLab.byAlpha(1);
@@ -34,7 +34,7 @@ Prop_strong()UILabel *foldIconLab;
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    self.textLabel.hidden = YES;
+    self.textLabel.byHidden(YES);
     // 解决当UITableViewHeaderFooterView悬浮的时候背景白色的问题（设置成透明色）
     // 遍历子视图，找到UIVisualEffectView
     for (UIView *subview in self.subviews) {

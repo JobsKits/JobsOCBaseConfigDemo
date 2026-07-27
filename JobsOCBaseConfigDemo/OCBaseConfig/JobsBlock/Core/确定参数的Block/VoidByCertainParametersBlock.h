@@ -53,6 +53,12 @@ typedef void(^jobsByWindowBlock)(__kindof UIWindow *_Nullable window);
 typedef void(^jobsByLabelBlock)(__kindof UILabel *_Nullable label);
 typedef void(^jobsByUISearchBarBlock)(__kindof UISearchBar *_Nullable searchBar);
 typedef void(^jobsByNavigationBarAppearanceBlock)(__kindof UINavigationBarAppearance *_Nullable appearance);
+typedef void(^jobsByTabBarAppearanceBlock)(__kindof UITabBarAppearance *_Nullable appearance);
+typedef void(^jobsByUIActionBlock)(__kindof UIAction *_Nullable action) API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(watchos);
+typedef void(^jobsByUIMenuBlock)(__kindof UIMenu *_Nullable menu) API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(watchos);
+typedef void(^jobsByContextMenuConfigurationBlock)(__kindof UIContextMenuConfiguration *_Nullable config) API_AVAILABLE(ios(13.0), tvos(17.0)) API_UNAVAILABLE(watchos);
+typedef void(^jobsByNibBlock)(__kindof UINib *_Nullable nib) API_AVAILABLE(ios(4.0)) API_UNAVAILABLE(watchos);
+typedef void(^jobsByBarButtonItemBlock)(__kindof UIBarButtonItem *_Nullable barButtonItem) API_AVAILABLE(ios(2.0)) API_UNAVAILABLE(watchos);
 typedef void(^jobsByNavigationBarBlock)(__kindof UINavigationBar *_Nullable bar);
 typedef void(^jobsByRefreshCtrlBlock)(__kindof UIRefreshControl *_Nullable refreshCtrl);
 typedef void(^jobsByPDFViewBlock)(__kindof PDFView *_Nullable view);
@@ -63,6 +69,7 @@ typedef void(^jobsByJSContextBlock)(__kindof JSContext *_Nullable context);
 typedef void(^jobsByProgressViewBlock)(__kindof UIProgressView *_Nullable progressView);
 typedef void(^jobsBySliderBlock)(__kindof UISlider *_Nullable slider);
 typedef void(^jobsBySwitchBlock)(__kindof UISwitch *_Nullable Switch);
+typedef void(^jobsBySegmentedControlBlock)(__kindof UISegmentedControl *_Nullable segmentedControl);
 typedef void(^jobsByTableViewBlock)(__kindof UITableView *_Nullable tableView);
 typedef void(^jobsByTableViewCellBlock)(__kindof UITableViewCell *_Nullable tableView);
 typedef void(^jobsByCollectionViewBlock)(__kindof UICollectionView *_Nullable collectionView);
@@ -157,6 +164,34 @@ typedef void(^jobsByNSUIntegerBlock)(NSUInteger data);
 typedef void(^jobsByUInt64_tBlock)(uint64_t data);
 typedef void(^jobsByCGFloatBlock)(CGFloat data);
 typedef void(^jobsByUNNotificationPresentationOptionsBlock)(UNNotificationPresentationOptions options);
+#pragma mark —— 关于 UIView 动画
+typedef void(^jobsByUIViewAnimationBlock)(NSTimeInterval duration,
+                                          jobsByVoidBlock _Nonnull animations);
+typedef void(^jobsByUIViewAnimationCompletionBlock)(NSTimeInterval duration,
+                                                    jobsByVoidBlock _Nonnull animations,
+                                                    jobsByBOOLBlock _Nullable completion);
+typedef void(^jobsByUIViewAnimationOptionsBlock)(NSTimeInterval duration,
+                                                 NSTimeInterval delay,
+                                                 UIViewAnimationOptions options,
+                                                 jobsByVoidBlock _Nonnull animations,
+                                                 jobsByBOOLBlock _Nullable completion);
+typedef void(^jobsByUIViewSpringAnimationBlock)(NSTimeInterval duration,
+                                                NSTimeInterval delay,
+                                                CGFloat dampingRatio,
+                                                CGFloat initialVelocity,
+                                                UIViewAnimationOptions options,
+                                                jobsByVoidBlock _Nonnull animations,
+                                                jobsByBOOLBlock _Nullable completion);
+typedef void(^jobsByUIViewTransitionBlock)(__kindof UIView *_Nonnull view,
+                                           NSTimeInterval duration,
+                                           UIViewAnimationOptions options,
+                                           jobsByVoidBlock _Nullable animations,
+                                           jobsByBOOLBlock _Nullable completion);
+typedef void(^jobsByUIViewFromToTransitionBlock)(__kindof UIView *_Nonnull fromView,
+                                                 __kindof UIView *_Nonnull toView,
+                                                 NSTimeInterval duration,
+                                                 UIViewAnimationOptions options,
+                                                 jobsByBOOLBlock _Nullable completion);
 #pragma mark —— 关于时间
 typedef void(^jobsByTimeIntervalBlock)(NSTimeInterval data);
 typedef void(^jobsByDateBlock)(NSDate *_Nullable date);

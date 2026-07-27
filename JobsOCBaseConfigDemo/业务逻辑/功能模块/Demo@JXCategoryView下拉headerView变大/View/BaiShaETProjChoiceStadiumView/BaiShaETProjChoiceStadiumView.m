@@ -2,7 +2,7 @@
 //  BaiShaETProjChoiceStadiumView.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/6/9.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "BaiShaETProjChoiceStadiumView.h"
@@ -16,13 +16,13 @@ Prop_strong()UIColor *cor;
 @implementation BaiShaETProjChoiceStadiumTBVHeaderView
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = self.cor;
+        self.byBgColor(self.cor);
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = self.cor;
+        self.byBgColor(self.cor);
     };return self;
 }
 
@@ -88,7 +88,7 @@ static dispatch_once_t static_choiceStadiumViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
+        self.byBgColor(JobsWhiteColor);
     };return self;
 }
 
@@ -107,7 +107,7 @@ static dispatch_once_t static_choiceStadiumViewOnceToken;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
+        self.byBgColor(JobsWhiteColor);
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -130,28 +130,28 @@ static dispatch_once_t static_choiceStadiumViewOnceToken;
 +(NSMutableArray<UIViewModel *> *)createDataMutArr{
     NSMutableArray <UIViewModel *>*dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
         data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.text = @"DG體育".tr;
-            viewModel.subTextModel.text = @"".tr;
+            viewModel.textModel.byText(@"DG體育".tr);
+            viewModel.subTextModel.byText(@"".tr);
         }))
         .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.text = @"DG真人".tr;
-            viewModel.subTextModel.text = @"".tr;
+            viewModel.textModel.byText(@"DG真人".tr);
+            viewModel.subTextModel.byText(@"".tr);
         }))
         .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.text = @"DG電子".tr;
-            viewModel.subTextModel.text = @"".tr;
+            viewModel.textModel.byText(@"DG電子".tr);
+            viewModel.subTextModel.byText(@"".tr);
         }))
         .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.text = @"DG彩票".tr;
-            viewModel.subTextModel.text = @"".tr;
+            viewModel.textModel.byText(@"DG彩票".tr);
+            viewModel.subTextModel.byText(@"".tr);
         }))
         .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.text = @"DG棋牌".tr;
-            viewModel.subTextModel.text = @"".tr;
+            viewModel.textModel.byText(@"DG棋牌".tr);
+            viewModel.subTextModel.byText(@"".tr);
         }))
         .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.text = @"DA電子".tr;
-            viewModel.subTextModel.text = @"".tr;
+            viewModel.textModel.byText(@"DA電子".tr);
+            viewModel.subTextModel.byText(@"".tr);
         }));
     });return dataMutArr;
 }
@@ -159,10 +159,14 @@ static dispatch_once_t static_choiceStadiumViewOnceToken;
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     for (JobsBaseTableViewCell *cell in self.tbvCellMutArr) {
-        cell.imageView.jobsVisible = NO;
+        cell.byCellImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView.byJobsVisible(NO);
+        });
     }
     JobsBaseTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    cell.imageView.jobsVisible = !cell.imageView.jobsVisible;
+    cell.byCellImageView(^(__kindof UIImageView * _Nullable imageView) {
+        imageView.byJobsVisible(!imageView.jobsVisible);
+    });
     if (self.objBlock) self.objBlock(self.dataMutArr[indexPath.row]);
     [self tf_hide:nil];
 }
@@ -192,10 +196,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         .byImageViewFrameOffsetX(JobsMainScreen_WIDTH() - JobsWidth(50))
         .byTextLabelFont(UIFontWeightRegularSize(16))
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
+        .byCellImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView
+                .byImage(@"红色的对勾".img)
+                .byJobsVisible(NO);
+        })
         .JobsBlock1(^(id _Nullable data) {
         }).byBgColor(HEXCOLOR(0xFFFCF7));
-    cell.imageView.image = @"红色的对勾".img;
-    cell.imageView.jobsVisible = NO;
     return cell;
 }
 #pragma mark —— lazyLoad
@@ -234,7 +241,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     @jobs_strongify(self)
                     make.edges.equalTo(self);
                 });
-            tableView.mj_footer.hidden = NO;
+            tableView.mj_footer.byHidden(NO);
         });
     };return _tableView;
 }
@@ -262,7 +269,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         _tbvCellMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <JobsBaseTableViewCell *>* _Nullable data) {
             @jobs_strongify(self)
             for (UIViewModel *viewModel in self.dataMutArr) {
-                data.add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView));
+                data.add(JobsBaseTableViewCell.cellStyleValue1ByTableView(self.tableView));
             }
         });
     };return _tbvCellMutArr;

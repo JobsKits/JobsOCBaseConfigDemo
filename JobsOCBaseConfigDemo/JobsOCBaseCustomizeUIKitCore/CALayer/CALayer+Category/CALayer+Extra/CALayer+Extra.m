@@ -110,11 +110,12 @@
         /// 曲线数组
         @jobs_strongify(self)
         return (NSString *)[self objFromArray:jobsMakeMutArr(^(NSMutableArray <CAMediaTimingFunctionName>*_Nullable data) {
-            data.add(kCAMediaTimingFunctionDefault);
-            data.add(kCAMediaTimingFunctionEaseIn);
-            data.add(kCAMediaTimingFunctionEaseInEaseOut);
-            data.add(kCAMediaTimingFunctionEaseOut);
-            data.add(kCAMediaTimingFunctionLinear);
+            data
+                .add(kCAMediaTimingFunctionDefault)
+                .add(kCAMediaTimingFunctionEaseIn)
+                .add(kCAMediaTimingFunctionEaseInEaseOut)
+                .add(kCAMediaTimingFunctionEaseOut)
+                .add(kCAMediaTimingFunctionLinear);
         })index:curve isRamdom:(TransitionCurveRandom == curve)];
     };
 }
@@ -125,10 +126,11 @@
         /// 设置转场动画的方向
         @jobs_strongify(self)
         return (NSString *)[self objFromArray:jobsMakeMutArr(^(NSMutableArray <CATransitionSubtype>*_Nullable data) {
-            data.add(kCATransitionFromTop);
-            data.add(kCATransitionFromLeft);
-            data.add(kCATransitionFromBottom);
-            data.add(kCATransitionFromRight);
+            data
+                .add(kCATransitionFromTop)
+                .add(kCATransitionFromLeft)
+                .add(kCATransitionFromBottom)
+                .add(kCATransitionFromRight);
         }) index:subType isRamdom:((NSInteger)TransitionSubtypesFromRandom == subType)];
     };
 }
@@ -139,13 +141,14 @@
         /// 设置转场动画的类型
         @jobs_strongify(self)
         return [self objFromArray:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            data.add(@"rippleEffect");
-            data.add(@"suckEffect");
-            data.add(@"pageCurl");
-            data.add(@"oglFlip");
-            data.add(@"cube");
-            data.add(@"reveal");
-            data.add(@"pageUnCurl");
+            data
+                .add(@"rippleEffect")
+                .add(@"suckEffect")
+                .add(@"pageCurl")
+                .add(@"oglFlip")
+                .add(@"cube")
+                .add(@"reveal")
+                .add(@"pageUnCurl");
         })index:type isRamdom:((NSInteger)TransitionAnimTypeRandom == type)];
     };
 }

@@ -467,8 +467,9 @@ UITableViewCellProtocol_dynamic
                                                          cornerRadii:layerConfig.roundingCornersRadii];
     self.layer.mask = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
         @jobs_strongify(self)
-        layer.byFrame(self.bounds);
-        layer.byPath(maskPath.CGPath);
+        layer
+            .byPath(maskPath.CGPath)
+            .byFrame(self.bounds);
     });
     // 添加边框 Layer（可选）
     if (layerConfig.layerBorderCor && layerConfig.borderWidth > 0) {
@@ -485,8 +486,9 @@ UITableViewCellProtocol_dynamic
                 .byStrokeColor(layerConfig.layerBorderCor.CGColor)
                 .byFillColor(UIColor.clearColor.CGColor)
                 .byLineWidth(layerConfig.borderWidth);
-            borderLayer.byFrame(self.bounds);
-            borderLayer.byName(RoundedBorderLayer);
+            borderLayer
+                .byFrame(self.bounds)
+                .byName(RoundedBorderLayer);
         }));
     };return self.layer;
 }
@@ -549,8 +551,9 @@ UITableViewCellProtocol_dynamic
                         .byStrokeColor(layerConfig.layerBorderCor.CGColor)
                         .byFillColor(UIColor.clearColor.CGColor)
                         .byLineWidth(layerConfig.borderWidth);
-                    borderLayer.byFrame(self.bounds);
-                    borderLayer.byName(RoundedBorderLayer);
+                    borderLayer
+                        .byFrame(self.bounds)
+                        .byName(RoundedBorderLayer);
                 }));
             });
         }

@@ -35,24 +35,24 @@
     };
 }
 #pragma mark —— 一些私有方法
--(JobsRetAlertCrtlByStringBlock _Nonnull)makeAlertControllerBy{
+-(JobsRetAlertControllerByStringBlock _Nonnull)makeAlertControllerBy{
     @jobs_weakify(self)
     return ^__kindof UIAlertController *_Nullable(NSString *_Nullable string){
         UIAlertController *alertVC = JobsMakeAlertControllerBy(jobsMakeAlertModel(^(JobsAlertModel * _Nullable data) {
-            data.alertControllerTitle = @"Support".tr;
-            data.message = string;
-            data.preferredStyle = UIAlertControllerStyleAlert;
+            data.byAlertControllerTitle(@"Support".tr)
+                .byMessage(string)
+                .byPreferredStyle(UIAlertControllerStyleAlert);
         }));
         alertVC.add(JobsMakeAlertActionBy(jobsMakeAlertModel(^(JobsAlertModel *_Nullable data) {
-            data.alertActionTitle = @"Go to Chat".tr;
-            data.alertActionStyle = UIAlertActionStyleDefault;
+            data.byAlertActionTitle(@"Go to Chat".tr)
+                .byAlertActionStyle(UIAlertActionStyleDefault);
             data.alertActionBlock = ^(__kindof UIAlertAction * _Nullable action) {
                 if (!LiveChat.isChatPresented) [LiveChat presentChatWithAnimated:YES completion:nil];
             };
         })));
         alertVC.add(JobsMakeAlertActionBy(jobsMakeAlertModel(^(JobsAlertModel *_Nullable data) {
-            data.cancelAlertActionTitle = @"Cancel".tr;
-            data.alertActionStyle = UIAlertActionStyleCancel;
+            data.byCancelAlertActionTitle(@"Cancel".tr)
+                .byAlertActionStyle(UIAlertActionStyleCancel);
             data.alertActionBlock = ^(__kindof UIAlertAction *_Nullable action) {
                 @jobs_strongify(self)
                 self.clearSession();

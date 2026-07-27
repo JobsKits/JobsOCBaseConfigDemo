@@ -1,0 +1,18 @@
+{
+  "catalog": "JobsIconfont built-in demo catalog",
+  "source": "https://www.iconfont.cn/",
+  "iconFont": {
+    "fontFile": "JobsIconfontSample.ttf",
+    "postScriptName": "iconfontyyy",
+    "sourceCSS": "https://at.alicdn.com/t/font_1473319176_4914331.css",
+    "sourceFont": "https://at.alicdn.com/t/font_1473319176_192737.ttf"
+  },
+  "textFont": {
+    "fontFile": "AlimamaShuzhiti-Regular.ttf",
+    "postScriptName": "AlimamaShuZhiTiVF-Regular",
+    "sourceCSS": "https://g.alicdn.com/mm/iconfont-plus-bp/2.66.13/app/assets/index.css",
+    "sourceFont": "https://at.alicdn.com/wf/webfont/P1EXxgPTCEW1/0uqa8DQ6SCxm.woff2",
+    "note": "The official WOFF2 subset is converted to TTF for CoreText registration."
+  },
+  "policy": "Application code references typed asset identifiers only. URLs, Unicode values and font filenames stay inside JobsIconfont."
+}

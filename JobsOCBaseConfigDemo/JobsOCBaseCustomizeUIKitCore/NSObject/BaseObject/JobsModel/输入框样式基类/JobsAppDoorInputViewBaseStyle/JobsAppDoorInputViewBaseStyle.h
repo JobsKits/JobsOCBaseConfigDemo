@@ -1,20 +1,56 @@
 //
 //  JobsAppDoorInputViewBaseStyle.h
-//  JobsOCBaseConfigDemo
+//  JobsAppDoor
 //
-//  Created by Jobs on 2020/12/4.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
+
+#ifndef JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_B1C543249F
+#define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_B1C543249F
 
 #import <UIKit/UIKit.h>
-#import "JobsDoorInputViewProtocol.h"
-#import "BaseView.h"
-#import "JobsAppDoorInputViewBaseStyleModel.h"
 
-#ifndef JobsAppDoorInputViewBaseStyle_h
-#define JobsAppDoorInputViewBaseStyle_h
+#if __has_include(<JobsAppDoor/JobsAppDoorResource.h>)
+#import "JobsAppDoorResource.h"
+#else
+#import "JobsAppDoorResource.h"
+#endif
 
-#import "JobsDefineProperty.h"
+#if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
+#import "JobsBaseProtocolHeader.h"
+#else
+#import "JobsBaseProtocolHeader.h"
+#endif
+
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import "JobsLanMgr.h"
+#else
+#import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import "JobsBaseUI.h"
+#else
+#import "JobsBaseUI.h"
+#endif
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import "JobsByOCPods.h"
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import "JobsBlock.h"
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import "JobsDefines.h"
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -48,5 +84,4 @@ Prop_strong()JobsAppDoorInputViewTFModel *textFieldInputModel;
 @end
 
 NS_ASSUME_NONNULL_END
-
-#endif /* JobsAppDoorInputViewBaseStyle_h */
+#endif /* JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_B1C543249F */

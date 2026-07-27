@@ -66,6 +66,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBtnByLineBreakModeBlock _Nonnull)byLineBreakMode;
 /// 设置 titleShadowOffset。
 -(JobsRetBtnByCGSizeBlock _Nonnull)byTitleShadowOffset API_UNAVAILABLE(tvos) API_UNAVAILABLE(visionos, watchos);
+/// 使用 UIButton 返回类型覆盖 UIControl DSL，避免直集成后的链式类型降级。
+-(JobsRetBtnByHorizontalAlignBlock _Nonnull)byContentHorizontalAlignment;
+-(JobsRetBtnByVerticalAlignBlock _Nonnull)byContentVerticalAlignment;
 /// 设置内容边距；iOS 15+ 的 UIButtonConfiguration 兼容由封装内部处理。
 -(JobsRetBtnByUIEdgeInsetsBlock _Nonnull)byContentEdgeInsets API_UNAVAILABLE(watchos);
 /// 设置 titleEdgeInsets。

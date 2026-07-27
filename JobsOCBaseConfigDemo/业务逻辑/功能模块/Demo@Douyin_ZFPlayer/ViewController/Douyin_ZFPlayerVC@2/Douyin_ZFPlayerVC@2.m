@@ -42,9 +42,10 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*dataMutArr;/// 我的数据源
         })
         .byBgCor(JobsClearColor)
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byFont(UIFontWeightRegularSize(18));
-            data.byText(data.attributedTitle.string);
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byFont(UIFontWeightRegularSize(18))
+                .byText(data.attributedTitle.string);
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -241,9 +242,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!_bitsMonitorSuspendLab) {
         @jobs_weakify(self)
         _bitsMonitorSuspendLab = [JobsBitsMonitorSuspendLab.alloc initBy:JobsBitsMonitorDisplayStyleRichText];
-        _bitsMonitorSuspendLab.byFont(UIFontWeightBoldSize(10));
-        _bitsMonitorSuspendLab.byBgColor(JobsLightGrayColor);
-        _bitsMonitorSuspendLab.byTextCor(JobsRedColor);
+        _bitsMonitorSuspendLab
+            .byFont(UIFontWeightBoldSize(10))
+            .byTextCor(JobsRedColor)
+            .byBgColor(JobsLightGrayColor);
         _bitsMonitorSuspendLab.vc = weak_self;
         _bitsMonitorSuspendLab.isAllowDrag = YES;/// 悬浮效果必须要的参数
         _bitsMonitorSuspendLab.byFrame(JobsBitsMonitorSuspendLab.viewFrameByModel(nil));
@@ -289,7 +291,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 //    [self requestData:YES];
                 //    [self playVideo];
                     return nil;
-                }]));tableView.mj_footer.hidden = NO;
+                }]));tableView.mj_footer.byHidden(NO);
             }
     //        {// 设置tabAnimated相关属性
     //            tableView.tabAnimated = [TABTableAnimated animatedWithCellClass:JobsBaseTableViewCell.class
@@ -333,12 +335,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                                           BOOL isFullScreen) {
             AppDelegate.sharedManager.allowOrentitaionRotation = isFullScreen;
             @jobs_strongify(self)
-            self->_player.controlView.hidden = YES;
+            self->_player.controlView.byHidden(YES);
         };
         _player.orientationDidChanged = ^(ZFPlayerController * _Nonnull player,
                                           BOOL isFullScreen) {
             @jobs_strongify(self)
-            self->_player.controlView.hidden = NO;
+            self->_player.controlView.byHidden(NO);
             self->_player.controlView = isFullScreen ? self.fullControlView : self.controlView;
         };
         /// 更新另一个控制层的时间

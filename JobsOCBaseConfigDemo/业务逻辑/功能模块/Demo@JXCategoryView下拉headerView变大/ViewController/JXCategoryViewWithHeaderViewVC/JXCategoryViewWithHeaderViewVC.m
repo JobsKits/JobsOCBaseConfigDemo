@@ -1,8 +1,8 @@
 //
-//  BaiShaETProjVIPVC.m
+//  JXCategoryViewWithHeaderViewVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/6/7.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JXCategoryViewWithHeaderViewVC.h"
@@ -33,18 +33,26 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-//        self.viewModel.textModel.text = @"VIP俱乐部".tr;
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-//    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+        })
+        //        self.viewModel.textModel.text = @"VIP俱乐部".tr;
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data
+                .byText(data.attributedTitle.string)
+                .byFont(UIFontWeightRegularSize(16));
+        })
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
@@ -60,8 +68,8 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
     });
     self.byGKNavItemRightSpace(JobsWidth(16));
     self.makeNavByAlpha(1);
-    self.topLineLab.alpha = 0;
-    self.categoryView.alpha = 1;
+    self.topLineLab.byAlpha(0);
+    self.categoryView.byAlpha(1);
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -89,7 +97,7 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
 }
-#pragma mark - JXPagingViewDelegate
+#pragma mark —— JXPagingViewDelegate
 - (UIView *)tableHeaderViewInPagerView:(JXPagerView *)pagerView {
     return self.collectionHeaderView;
 }
@@ -106,7 +114,7 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
             .byHidden(NO)
             .byAlpha(scrollView.contentOffset.y / 200);
     });
-    self.topLineLab.alpha = scrollView.contentOffset.y / 200;
+    self.topLineLab.byAlpha(scrollView.contentOffset.y / 200);
     [self.collectionHeaderView scrollViewDidScrollWithContentOffsetY:scrollView.contentOffset.y];
 }
 ///
@@ -163,7 +171,7 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
         @jobs_weakify(self)
         _categoryView = jobsMakeCategoryTitleView(^(JXCategoryTitleView * _Nullable view) {
             @jobs_strongify(self)
-            view.backgroundColor = JobsClearColor;
+            view.byBgColor(JobsClearColor);
             view.titleSelectedColor = JobsWhiteColor;
             view.titleColor = JobsWhiteColor;
             view.titleFont = UIFontWeightRegularSize(JobsWidth(18));
@@ -183,12 +191,11 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
             view.defaultSelectedIndex = 1;// 默认从第二个开始显示
             view.cellSpacing = JobsWidth(-20);
             view.listContainer = (id<JXCategoryViewListContainer>)self.pagerView.listContainerView;
-            self.view.addSubview(view);
-            [view mas_makeConstraints:^(MASConstraintMaker *make) {
+            view.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                 make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(0);
                 make.left.right.equalTo(self.view);
                 make.height.mas_equalTo(listContainerViewDefaultOffset);
-            }];[self.view layoutIfNeeded];
+            });[self.view layoutIfNeeded];
         });
     };return _categoryView;
 }

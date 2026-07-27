@@ -70,6 +70,11 @@
     XCTAssertTrue([controller isKindOfClass:baseControllerClass]);
     XCTAssertNoThrow([controller loadViewIfNeeded]);
     XCTAssertNotNil(controller.view);
+    XCTAssertEqualObjects([controller valueForKeyPath:@"viewModel.textModel.text"], @"手势解锁");
+    UISegmentedControl *modeControl = [controller valueForKey:@"modeControl"];
+    XCTAssertEqual(modeControl.numberOfSegments, 2);
+    UIView *lockView = [controller valueForKey:@"demoLockView"];
+    XCTAssertEqual([[lockView valueForKey:@"nodeButtons"] count], 9);
 }
 
 @end

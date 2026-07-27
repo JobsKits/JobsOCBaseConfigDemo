@@ -1,11 +1,12 @@
 //
 //  JobsAppDoorInputViewBaseStyle_6.m
-//  JobsOCTools
+//  JobsAppDoor
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsAppDoorInputViewBaseStyle_6.h"
+#import "AuthCodeLab.h"
 
 @interface JobsAppDoorInputViewBaseStyle_6 ()
 /// UI

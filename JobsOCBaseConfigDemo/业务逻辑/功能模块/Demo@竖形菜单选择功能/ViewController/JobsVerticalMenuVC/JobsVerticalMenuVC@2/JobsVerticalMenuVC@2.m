@@ -48,9 +48,10 @@ Prop_assign()BOOL searchMode;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(data.attributedTitle.string);
-            data.byFont(UIFontWeightRegularSize(16));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(data.attributedTitle.string)
+                .byFont(UIFontWeightRegularSize(16));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -406,21 +407,22 @@ referenceSizeForFooterInSection:(NSInteger)section{
     }
     [self.searchViewWidthConstraint setOffset:active ? self.expandedSearchWidth : 0];
     UIViewAnimationOptions options = active ? UIViewAnimationOptionCurveEaseOut : UIViewAnimationOptionCurveEaseIn;
-    [UIView animateWithDuration:active ? .24f : .18f
-                          delay:0
-                        options:options
-                     animations:^{
+    UIView.jobsAnimateWithOptions(active ? .24f : .18f,
+        0,
+        options,
+        ^{
         self.gk_navTitleBtn.byAlpha(active ? 0 : 1);
         self.searchView.byAlpha(active ? 1 : 0);
         [self.gk_navigationBar layoutIfNeeded];
-    } completion:^(BOOL finished) {
+    },
+        ^(BOOL finished) {
         if (active) {
             [self.searchView.textField becomeFirstResponder];
         } else {
             self.searchView.byHidden(YES);
             [self refreshSearchToggleBtnByActive:NO];
         }
-    }];
+    });
 }
 #pragma mark —— lazyLoad
 /// BaseViewProtocol
@@ -453,8 +455,9 @@ referenceSizeForFooterInSection:(NSInteger)section{
             .byAlwaysBounceVertical(YES);
         _collectionView.byFrame(CGRectMake(self.tableView.right,self.tableView.top,
                                            JobsMainScreen_WIDTH() - self.tableView.width,self.tableView.height + EditBtnHeight));
-        _collectionView.byBgColor(HEXCOLOR(0xF7F8FA));
-        _collectionView.addOn(self.view);
+        _collectionView
+            .byBgColor(HEXCOLOR(0xF7F8FA))
+            .addOn(self.view);
     };return _collectionView;
 }
 
@@ -462,10 +465,10 @@ referenceSizeForFooterInSection:(NSInteger)section{
     if (!_tempCell){
         _tempCell = jobsMakeThreeClassCell(^(__kindof ThreeClassCell * _Nullable cell) {
             cell.byBgColor(HEXCOLOR(0xF7F8FA));
-            cell.frame = CGRectMake(0,
+            cell.byFrame(CGRectMake(0,
                                     0,
                                     ThreeClassCell.cellSizeByModel(nil).width,
-                                    ThreeClassCell.cellSizeByModel(nil).height);
+                                    ThreeClassCell.cellSizeByModel(nil).height));
         });
     };return _tempCell;
 }
@@ -597,8 +600,9 @@ referenceSizeForFooterInSection:(NSInteger)section{
                 if ([data isKindOfClass:NSMutableArray.class]) {
                     NSMutableArray <UIViewModel *>*dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
                         @jobs_strongify(self)
-                        arr.add(self.titleMutArr[0]);
-                        arr.addBy(data);
+                        arr
+                            .add(self.titleMutArr[0])
+                            .addBy(data);
                     });
 #ifdef DEBUG
                     JobsLog(@"%@",jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>* _Nullable arr) {

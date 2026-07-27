@@ -19,7 +19,7 @@ Prop_strong()BaseButton *sendBtn;
 @implementation JobsIMInputview
 -(instancetype)init{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSystemBackgroundColor);
     };return self;
 }
 
@@ -43,12 +43,12 @@ Prop_strong()BaseButton *sendBtn;
         @jobs_strongify(self)
         if (isValue(string)) {
             self.sendBtn.userInteractionEnabled = YES;
-            self.sendBtn.enabled = YES;
-            self.imgView.image = @"输入框有值".img;
+            self.sendBtn.byEnabled(YES);
+            self.imgView.byImage(@"输入框有值".img);
         }else{
             self.sendBtn.userInteractionEnabled = NO;
-            self.sendBtn.enabled = NO;
-            self.imgView.image = @"输入框无值".img;
+            self.sendBtn.byEnabled(NO);
+            self.imgView.byImage(@"输入框无值".img);
         }
     };
 }
@@ -68,7 +68,6 @@ Prop_strong()BaseButton *sendBtn;
     if (!_sendBtn) {
         @jobs_weakify(self)
         _sendBtn = BaseButton.jobsInit()
-            .bgColorBy(JobsWhiteColor)
             .jobsResetBtnBgImage(JobsCyanColor.image)
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
@@ -76,8 +75,10 @@ Prop_strong()BaseButton *sendBtn;
             .jobsResetBtnCornerRadiusValue(JobsWidth(3))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
-                x.jobsResetBtnBgImage(JobsLightGrayColor.image);
+                BOOL selected = !x.selected;
+                x
+                    .jobsResetBtnBgImage(JobsLightGrayColor.image)
+                    .bySelected(selected);
                 if (self.objBlock) self.objBlock(x);
                 [self endEditing:YES];
                 if (isValue(self.inputTextField.text)) {
@@ -85,12 +86,13 @@ Prop_strong()BaseButton *sendBtn;
                     if (self.objBlock) self.objBlock(self.inputTextField);
                 }
                 self.inputTextField.byText(@"".tr);
-                x.enabled = NO;
+                x.byEnabled(NO);
             })
             .onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
             .disabledStateTitleColorBy(JobsWhiteColor)
+            .bgColorBy(JobsSystemBackgroundColor)
             .addOn(self)
             .byAdd(^(MASConstraintMaker *make) {
                 make.top.equalTo(self).offset(11);
@@ -99,7 +101,7 @@ Prop_strong()BaseButton *sendBtn;
                 make.width.mas_equalTo(50);
             });
         _sendBtn.userInteractionEnabled = NO;
-        _sendBtn.enabled = NO;
+        _sendBtn.byEnabled(NO);
     };return _sendBtn;
 }
 
@@ -115,12 +117,13 @@ Prop_strong()BaseButton *sendBtn;
                 .byLeftView(self.imgView)
                 .byLeftViewOffsetX(20)
                 .byFont(UIFontWeightMediumSize(12))
+                .byTextCor(JobsLabelColor)
                 .byLeftViewMode(UITextFieldViewModeAlways)
-                .byKeyboardAppearance(UIKeyboardAppearanceAlert)
+                .byKeyboardAppearance(UIKeyboardAppearanceDefault)
                 .byAutocorrectionType(UITextAutocorrectionTypeNo) // 自动纠错属性默认是 YES，会触发监听
                 .byInputAccessoryView(self.adNoticeLab)
                 .byReturnKeyType(UIReturnKeySend)
-                .byBgColor(HEXCOLOR(0xF4F4F4))
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.bottom.equalTo(self.sendBtn);
@@ -131,7 +134,7 @@ Prop_strong()BaseButton *sendBtn;
             textField.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel *_Nullable model) {
                 model
                     .byJobsWidth(.5f)
-                    .byLayerCor(JobsWhiteColor)
+                    .byLayerCor(JobsSeparatorColor)
                     .byCornerRadiusValue(textField.mj_h / 2);
             }));
         });
@@ -158,10 +161,10 @@ Prop_strong()BaseButton *sendBtn;
         _adNoticeLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"Jobs安全聊天，为您的聊天加密护航".tr)
-                .byTextCor(JobsRedColor)
+                .byTextCor(JobsSecondaryLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byFont(UIFontWeightRegularSize(JobsWidth(12)))
-                .byBgColor(JobsCyanColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .bySize(JobsIMInputviewAccessoryLabelSize());
         });
     };return _adNoticeLab;

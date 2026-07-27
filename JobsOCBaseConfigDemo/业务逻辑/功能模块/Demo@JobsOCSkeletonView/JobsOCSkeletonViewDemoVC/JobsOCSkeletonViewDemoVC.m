@@ -37,9 +37,10 @@ Prop_strong()UIButton *modeBtn;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"JobsOCSkeletonView");
-            data.byTextCor(HEXCOLOR(0x263342));
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byText(@"JobsOCSkeletonView")
+                .byTextCor(HEXCOLOR(0x263342))
+                .byFont(UIFontWeightRegularSize(18));
         })
         .byBgCor(HEXCOLOR(0xF5F7FA))
         .byNavBgCor(HEXCOLOR(0xF5F7FA));
@@ -85,8 +86,7 @@ Prop_strong()UIButton *modeBtn;
 
 -(void)updateModeButtonTitle{
     NSString *title = self.useGradientSkeleton ? @"扫光" : @"脉冲";
-    [self.modeBtn setTitle:title.tr
-                  forState:UIControlStateNormal];
+    self.modeBtn.jobsResetBtnTitle(title.tr);
 }
 
 -(JobsOCSkeletonConfig *)currentSkeletonConfig{
@@ -105,18 +105,15 @@ Prop_strong()UIButton *modeBtn;
 }
 
 -(UIButton *)navButtonByTitle:(NSString *)title
-                       action:(SEL)action{
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-    [button setTitle:title.tr
-            forState:UIControlStateNormal];
-    button.titleLabel.font = UIFontWeightMediumSize(14);
-    [button setTitleColor:HEXCOLOR(0x0A84FF)
-                 forState:UIControlStateNormal];
-    button.frame = CGRectMake(0, 0, JobsWidth(48), JobsWidth(32));
-    [button addTarget:self
-               action:action
-     forControlEvents:UIControlEventTouchUpInside];
-    return button;
+                       action:(jobsByBtnBlock)action{
+    return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+        button
+            .jobsResetBtnTitle(title.tr)
+            .jobsResetBtnTitleFont(UIFontWeightMediumSize(14))
+            .jobsResetBtnTitleCor(HEXCOLOR(0x0A84FF))
+            .onClickBy(action)
+            .byFrame(CGRectMake(0, 0, JobsWidth(48), JobsWidth(32)));
+    });
 }
 #pragma mark —— UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView
@@ -163,8 +160,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byBgColor(HEXCOLOR(0xF5F7FA));
             [tableView registerClass:JobsOCSkeletonUserCell.class
                forCellReuseIdentifier:JobsOCSkeletonUserCell.reuseIdentifier];
-            tableView.resetContentInset(UIEdgeInsetsMake(JobsWidth(12), 0, JobsWidth(24), 0));
-            tableView.addOn(self.view);
+            tableView
+                .resetContentInset(UIEdgeInsetsMake(JobsWidth(12), 0, JobsWidth(24), 0))
+                .addOn(self.view);
             [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
                 make.top.equalTo(self.gk_navigationBar.mas_bottom);
@@ -176,15 +174,21 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(UIButton *)reloadBtn{
     if (!_reloadBtn) {
+        @jobs_weakify(self)
         _reloadBtn = [self navButtonByTitle:@"重载"
-                                     action:@selector(reloadDataAction)];
+                                     action:^(__kindof UIButton * _Nullable button) {
+            [weak_self reloadDataAction];
+        }];
     };return _reloadBtn;
 }
 
 -(UIButton *)modeBtn{
     if (!_modeBtn) {
+        @jobs_weakify(self)
         _modeBtn = [self navButtonByTitle:@"扫光"
-                                   action:@selector(switchSkeletonMode)];
+                                   action:^(__kindof UIButton * _Nullable button) {
+            [weak_self switchSkeletonMode];
+        }];
     };return _modeBtn;
 }
 

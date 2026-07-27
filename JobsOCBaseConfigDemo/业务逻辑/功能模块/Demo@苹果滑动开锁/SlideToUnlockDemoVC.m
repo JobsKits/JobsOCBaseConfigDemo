@@ -2,7 +2,7 @@
 //  SlideToUnlockDemoVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 11/29/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "SlideToUnlockDemoVC.h"
@@ -16,7 +16,7 @@ Prop_strong()SlideToUnlockView *slideView;
 @implementation SlideToUnlockDemoVC
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsBlueColor;
+    self.view.byBgColor(JobsBlueColor);
     self.slideView.byVisible(YES);
 }
 
@@ -24,7 +24,7 @@ Prop_strong()SlideToUnlockView *slideView;
     if (!_slideView) {
         @jobs_weakify(self)
         _slideView = jobsMakeSlideToUnlockView(^(__kindof SlideToUnlockView * _Nullable view) {
-            view.backgroundColor = JobsClearColor;
+            view.byBgColor(JobsClearColor);
             view.byOnUnlock(^{
                 @jobs_strongify(self)
                 NSLog(@"✅ 已滑到最右侧，执行解锁 block");

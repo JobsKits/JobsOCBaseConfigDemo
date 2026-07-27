@@ -18,7 +18,7 @@
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
-
+///【极验验证码】 https://www2.geetest.com/
 @interface NSObject (GTCaptcha4)<GTCaptcha4SessionTaskDelegate>
 /// Data
 Prop_strong()GTCaptcha4Model *captcha4Model;

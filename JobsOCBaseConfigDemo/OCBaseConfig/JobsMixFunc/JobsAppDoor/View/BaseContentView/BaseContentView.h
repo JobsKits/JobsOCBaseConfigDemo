@@ -1,6 +1,6 @@
 //
 //  BaseContentView.h
-//  JobsOCTools
+//  JobsAppDoor
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -9,9 +9,24 @@
 #define JOBS_HEADER_GUARD_BASECONTENTVIEW_CA7C7BDB1E
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import "JobsBaseUI.h"
+#else
+#import "JobsBaseUI.h"
+#endif
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import "JobsByOCPods.h"
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import "JobsDefines.h"
+#else
+#import "JobsDefines.h"
+#endif
 
 static const CGFloat btnWidth = 64;
 

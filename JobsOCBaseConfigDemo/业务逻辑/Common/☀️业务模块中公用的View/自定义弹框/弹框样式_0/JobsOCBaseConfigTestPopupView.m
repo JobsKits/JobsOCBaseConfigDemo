@@ -2,7 +2,7 @@
 //  JobsOCBaseConfigTestPopupView.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/5/12.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsOCBaseConfigTestPopupView.h"
@@ -34,8 +34,8 @@ static dispatch_once_t static_testPopupViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.backgroundColor = JobsWhiteColor;
-        self.backgroundImageView.image = @"测试弹窗的背景图".img;
+        self.byBgColor(JobsWhiteColor);
+        self.backgroundImageView.byImage(@"测试弹窗的背景图".img);
     };return self;
 }
 
@@ -49,8 +49,8 @@ static dispatch_once_t static_testPopupViewOnceToken;
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.viewModel = model;
-        self.containerView.alpha = 1;
-        self.testPopupViewSureBtn.alpha = 1;
+        self.containerView.byAlpha(1);
+        self.testPopupViewSureBtn.byAlpha(1);
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -74,15 +74,15 @@ static dispatch_once_t static_testPopupViewOnceToken;
             .jobsResetBtnSubTitle(isNull(self.viewModel.subTextModel.text) ? @"相关信息".tr: self.viewModel.textModel.text)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-        [self.addSubview(_containerView) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _containerView.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.size.mas_equalTo(_containerView.jobsSize);
             make.center.equalTo(self);
-        }];
+        });
     };return _containerView;
 }
 
@@ -97,15 +97,16 @@ static dispatch_once_t static_testPopupViewOnceToken;
         .jobsResetBtnTitleFont(UIFontWeightRegularSize(18))
         .onClickBy(^(UIButton *x){
             @jobs_strongify(self)
-            x.selected = !x.selected;
+            x.bySelected(!x.selected);
             [self tf_hide:nil];
             if(self.objBlock) self.objBlock(x);
-        });
-        [self.addSubview(_testPopupViewSureBtn) mas_makeConstraints:^(MASConstraintMaker *make) {
+        })
+        .addOn(self)
+        .byAdd(^(MASConstraintMaker *make) {
             make.bottom.equalTo(self.mas_bottom).offset(JobsWidth(-15));
             make.centerX.equalTo(self);
             make.size.mas_equalTo(CGSizeMake(JobsWidth(190), JobsWidth(40)));
-        }];
+        });
     };return _testPopupViewSureBtn;
 }
 

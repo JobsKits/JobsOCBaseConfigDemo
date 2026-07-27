@@ -44,9 +44,10 @@ static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payloa
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(@"热更新演示".tr);
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(@"热更新演示".tr)
+                .byFont(UIFontWeightRegularSize(18));
         })
         .byBgCor(RGBA_COLOR(246, 248, 251, 1))
         .byNavBgCor(RGBA_COLOR(246, 248, 251, 1))
@@ -84,7 +85,7 @@ static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payloa
         .byProgress(0)
         .byHidden(NO);
     @jobs_weakify(self)
-    [JobsTimerManager.shared upsertTimerWithIdentifier:JobsHotRefreshProgressTimerID
+    [JobsTimerMgr.shared upsertTimerWithIdentifier:JobsHotRefreshProgressTimerID
                                          timerType:JobsTimerTypeNSTimer
                                             policy:JobsTimerBackgroundPolicyCancel
                                   startImmediately:YES
@@ -156,7 +157,7 @@ static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payloa
     self.progressView.byProgressTintColor([self colorByHexString:payload[@"progressHex"]
                                                     defaultColor:HEXCOLOR(0x34C759)]);
     self.hotRefreshBtn
-        .jobsResetBtnTitle(payload[@"buttonTitle"] ? : @"")
+        .byTitle(payload[@"buttonTitle"] ? : @"")
         .byEnabled(YES);
 }
 
@@ -177,7 +178,7 @@ static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payloa
         .byProgressTintColor(HEXCOLOR(0x007AFF))
         .byHidden(YES);
     self.hotRefreshBtn
-        .jobsResetBtnTitle(@"开始热更新演示".tr)
+        .byTitle(@"开始热更新演示".tr)
         .byEnabled(YES);
 }
 #pragma mark —— UI
@@ -286,9 +287,9 @@ static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payloa
         @jobs_weakify(self)
         _hotRefreshBtn = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
             btn
-                .jobsResetBtnTitle(@"")
-                .jobsResetBtnTitleFont(UIFontWeightMediumSize(15))
-                .jobsResetBtnTitleCor(JobsWhiteColor)
+                .byTitle(@"")
+                .byTitleFont(UIFontWeightMediumSize(15))
+                .byTitleCor(JobsWhiteColor)
                 .onClickBy(^(UIButton *x) {
                     @jobs_strongify(self)
                     [self startHotRefreshDemo];
@@ -307,7 +308,7 @@ static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payloa
 }
 #pragma mark —— Tools
 -(void)stopProgressTimer{
-    [JobsTimerManager.shared stopAndRemove:JobsHotRefreshProgressTimerID];
+    [JobsTimerMgr.shared stopAndRemove:JobsHotRefreshProgressTimerID];
 }
 
 -(UIColor *)colorByHexString:(NSString *)hexString

@@ -11,10 +11,11 @@ typeset -g LOG_FILE=""
 typeset -g PROJECT_ROOT=""
 typeset -g CONFIG_PATH=""
 typeset -g BUILD_CONFIGURATION=""
+typeset -g GENERATOR_PATH=""
 
 # 初始化脚本路径、日志与 zsh 运行选项。
 initialize_runtime() {
-  setopt NO_NOMATCH
+  setopt NO_NOMATCH ERR_EXIT
   SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]:-${(%):-%x}}")" && pwd)"
   SCRIPT_PATH="${SCRIPT_DIR}/$(basename -- "$0")"
   LOG_FILE="${TMPDIR:-/tmp}/JobsAppIconRibbon.log"
@@ -54,17 +55,18 @@ resolve_build_context() {
   fi
   CONFIG_PATH="${JOBS_APP_ICON_RIBBON_CONFIG_PATH:-${PROJECT_ROOT}/JobsAppIconRibbon.config}"
   BUILD_CONFIGURATION="${CONFIGURATION:-Debug}"
+  GENERATOR_PATH="${JOBS_APP_ICON_RIBBON_GENERATOR_PATH:-${SCRIPT_INPUT_FILE_1:-${SCRIPT_DIR}/JobsAppIconRibbonGenerator.swift}}"
 }
 # 检查 Swift 生成器和项目配置是否可用。
 check_environment() {
   command -v xcrun >/dev/null 2>&1 || { log "✖ 找不到 xcrun，请检查 Xcode Command Line Tools。"; return 1; }
-  [[ -f "$SCRIPT_DIR/JobsAppIconRibbonGenerator.swift" ]] || { log "✖ 找不到 Swift 生成器。"; return 1; }
+  [[ -f "$GENERATOR_PATH" ]] || { log "✖ 找不到 Swift 生成器：$GENERATOR_PATH"; return 1; }
   [[ -f "$CONFIG_PATH" ]] || { log "✖ 找不到配置文件：$CONFIG_PATH"; return 1; }
 }
 # 调用 Swift 生成器创建当前环境的派生 AppIcon。
 generate_app_icon_ribbon() {
   env -u SDKROOT -u SDK_NAME -u PLATFORM_NAME -u EFFECTIVE_PLATFORM_NAME \
-    xcrun --sdk macosx swift "$SCRIPT_DIR/JobsAppIconRibbonGenerator.swift" \
+    xcrun --sdk macosx swift "$GENERATOR_PATH" \
     --project-root "$PROJECT_ROOT" \
     --config "$CONFIG_PATH" \
     --configuration "$BUILD_CONFIGURATION" 2>&1 | tee -a "$LOG_FILE"

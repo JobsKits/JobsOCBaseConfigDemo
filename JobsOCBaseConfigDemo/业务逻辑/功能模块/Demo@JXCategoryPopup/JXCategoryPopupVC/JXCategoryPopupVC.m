@@ -36,9 +36,10 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
         self.viewModel = (UIViewModel *)self.requestParams;
         self.viewModel
             .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-                data.byText(data.attributedTitle.string);
-                data.byTextCor(HEXCOLOR(0x3D4A58));
-                data.byFont(UIFontWeightRegularSize(18));
+                data
+                    .byText(data.attributedTitle.string)
+                    .byTextCor(HEXCOLOR(0x3D4A58))
+                    .byFont(UIFontWeightRegularSize(18));
             });
     }
 //    self.viewModel.textModel.text = @"JXCategoryPopupVC".tr;
@@ -150,7 +151,7 @@ ratio:(CGFloat)ratio {
 /// 在 tf_hide 之后执行
 - (BOOL)tf_popupViewWillHide:(UIView *)popup{
     if (self.filterBtn.selected) {
-        self.filterBtn.selected = NO;
+        self.filterBtn.bySelected(NO);
         [self.filterBtn changeAction:NO];
     };return YES;
 }
@@ -166,8 +167,8 @@ ratio:(CGFloat)ratio {
         _categoryView.byBgColor(RGBA_COLOR(255, 238, 221, 0.98));
         _categoryView.titleSelectedColor = HEXCOLOR(0xAE8330);
         _categoryView.titleColor = HEXCOLOR(0x8D765C);
-        _categoryView.titleFont = [UIFont systemFontOfSize:16 weight:UIFontWeightRegular];
-        _categoryView.titleSelectedFont = [UIFont systemFontOfSize:22 weight:UIFontWeightSemibold];
+        _categoryView.titleFont = UIFontWeightRegularSize(16);
+        _categoryView.titleSelectedFont = UIFontWeightSemiboldSize(22);
         _categoryView.delegate = self;
         _categoryView.titles = self.titleMutArr;
         _categoryView.titleColorGradientEnabled = YES;
@@ -214,12 +215,13 @@ ratio:(CGFloat)ratio {
 -(NSMutableArray<NSString *> *)titleMutArr{
     if (!_titleMutArr) {
         _titleMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>*_Nullable data) {
-            data.add(@"全部游戏".tr);
-            data.add(@"真人".tr);
-            data.add(@"体育".tr);
-            data.add(@"电子".tr);
-            data.add(@"棋牌".tr);
-            data.add(@"彩票".tr);
+            data
+                .add(@"全部游戏".tr)
+                .add(@"真人".tr)
+                .add(@"体育".tr)
+                .add(@"电子".tr)
+                .add(@"棋牌".tr)
+                .add(@"彩票".tr);
         });
     };return _titleMutArr;
 }
@@ -252,19 +254,19 @@ ratio:(CGFloat)ratio {
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 @"篩選".tr.toast();
                 [x changeAction:x.selected];
                 self.vc = [self jobsCurrentPopupSubVC];
                 JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %ld",(long)self.currentIndex);
                 if (!self.vc) {
-                    x.selected = NO;
+                    x.bySelected(NO);
                     [x changeAction:NO];
                     return;
                 }
                 self.vc.hidePopupView(self.popUpCustomView);
                 if (x.selected) {
-                    self.customBtn.selected = NO;
+                    self.customBtn.bySelected(NO);
                     self.customBtn.jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58));
                     self.popUpFiltrationView = self.vc.filtrationView;
                     self.popUpFiltrationView.popupDelegate = self;
@@ -290,27 +292,29 @@ ratio:(CGFloat)ratio {
     if (!_customBtn) {
         @jobs_weakify(self)
         _customBtn = BaseButton.jobsInit()
-            .bgColorBy(RGBA_COLOR(255, 255, 255, 0.92))
             .jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58))
             .jobsResetBtnTitleFont(fontName(@"NotoSans-Bold", 12))
             .jobsResetBtnTitle(@"自定义".tr)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
-                x.selected = !x.selected;
-                x.jobsResetBtnTitleCor(x.selected ? HEXCOLOR(0xAE8330) : HEXCOLOR(0x3D4A58));
+                BOOL selected = !x.selected;
+                x
+                    .jobsResetBtnTitleCor(selected ? HEXCOLOR(0xAE8330) : HEXCOLOR(0x3D4A58))
+                    .bySelected(selected);
                 @"自定义".tr.toast();
                 self.vc = [self jobsCurrentPopupSubVC];
                 JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %ld",(long)self.currentIndex);
                 if (!self.vc) {
-                    x.selected = NO;
-                    x.jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58));
+                    x
+                        .jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58))
+                        .bySelected(NO);
                     return;
                 }
                 self.popUpFiltrationView = self.vc.filtrationView;
                 self.vc.hidePopupView(self.popUpFiltrationView);
                 if (x.selected) {
-                    self.filterBtn.selected = NO;
+                    self.filterBtn.bySelected(NO);
                     [self.filterBtn changeAction:NO];
                     self.popUpCustomView = self.vc.popUpCustomView;
     //                self.popUpCustomView.popupDelegate = self;
@@ -322,6 +326,7 @@ ratio:(CGFloat)ratio {
                 JobsLog(@"");
             })
             .selectedStateTitleColorBy(HEXCOLOR(0xAE8330))
+            .bgColorBy(RGBA_COLOR(255, 255, 255, 0.92))
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {
                 make.right.equalTo(self.filterBtn.mas_left).offset(JobsWidth(-8));

@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorInputViewBaseStyle_2.m
-//  JobsOCTools
+//  JobsAppDoor
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -49,13 +49,19 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 }
 #pragma mark —— 一些私有方法
 -(void)configTextField{
-    _magicTextField.leftView = [UIImageView.alloc initWithImage:self.doorInputViewBaseStyleModel.leftViewIMG];
-    _magicTextField.leftViewMode = self.doorInputViewBaseStyleModel.leftViewMode;
-    _magicTextField.byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType);
-    _magicTextField.byKeyboardAppearance(self.doorInputViewBaseStyleModel.keyboardAppearance);
-    _magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
-    _magicTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
-    _magicTextField.byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
+    _magicTextField
+        .byLeftView(jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView
+                .byImage(self.doorInputViewBaseStyleModel.leftViewIMG)
+                .byUserInteractionEnabled(NO);
+        }))
+        .byLeftViewMode(self.doorInputViewBaseStyleModel.leftViewMode);
+    _magicTextField
+        .byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType)
+        .byKeyboardAppearance(self.doorInputViewBaseStyleModel.keyboardAppearance)
+        .byPlaceholder(self.doorInputViewBaseStyleModel.placeholder)
+        .byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType)
+        .byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
     _magicTextField.useCustomClearButton = self.doorInputViewBaseStyleModel.useCustomClearButton;
     _magicTextField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;
     _magicTextField.rightViewOffsetX = self.doorInputViewBaseStyleModel.rightViewOffsetX ? : JobsWidth(8);// 删除按钮的偏移量

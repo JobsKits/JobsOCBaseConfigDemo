@@ -13,14 +13,53 @@
 #import "Masonry.h"
 #endif
 
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
+#else
 #import "JobsBaseUI.h"
+#endif
+
+#if __has_include(<JobsLinkageMenuView/JobsLinkageMenuViewHeader.h>)
+#import <JobsLinkageMenuView/JobsLinkageMenuViewHeader.h>
+#else
 #import "JobsLinkageMenuViewHeader.h"
+#endif
+
+#if __has_include(<JobsModel/JobsModel.h>)
+#import <JobsModel/JobsModel.h>
+#else
 #import "JobsModel.h"
+#endif
+
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
+#else
 #import "JobsModelDSL.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
 #import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
 #import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
 #import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
 #import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

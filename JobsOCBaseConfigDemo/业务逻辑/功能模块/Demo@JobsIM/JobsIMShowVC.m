@@ -9,7 +9,6 @@
 
 @interface JobsIMShowVC ()
 
-Prop_strong()BaseButton *shareBtn;
 Prop_strong()JobsIMListView *listView;
 
 @end
@@ -33,34 +32,24 @@ Prop_strong()JobsIMListView *listView;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(data.attributedTitle.string);
-            data.byFont(UIFontWeightRegularSize(16));
+            data.byAttributedTitle(nil)
+                .byText(@"JobsIM")
+                .byTextCor(JobsLabelColor)
+                .byFont(UIFontWeightSemiboldSize(JobsWidth(17)));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byBgCor(JobsSystemBackgroundColor)
         //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        .byNavBgCor(JobsSystemBackgroundColor);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsYellowColor);
-    {
-        @jobs_weakify(self)
-        self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
-            @jobs_strongify(self)
-    //        data.add(UIBarButtonItem.initBy(self.aboutBtn));
-        });
-        self.rightBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
-            @jobs_strongify(self)
-            data.add(UIBarButtonItem.initBy(self.shareBtn));
-        });
-        self.makeNavByAlpha(1);
-    }
+    self.view.byBgColor(JobsSystemBackgroundColor);
+    self.gk_navTitleViewBy(self.viewModel);
+    self.makeNavByAlpha(1);
     self.listView.byAlpha(1);
 }
 
@@ -85,10 +74,7 @@ Prop_strong()JobsIMListView *listView;
     chatInfoModel.userID = data.userID;
     chatInfoModel.chatTextStr = data.contentStr;
     chatInfoModel.userNameStr = data.usernameStr;
-    {
-        JobsTimeModel *timeModel = self.makeSpecificTime;
-        chatInfoModel.chatTextTimeStr = [NSString stringWithFormat:@"%ld:%ld:%ld",timeModel.currentHour,timeModel.currentMin,timeModel.currentSec];
-    }
+    chatInfoModel.chatTextTimeStr = data.timeStr;
     chatInfoModel.userIconIMG = data.userHeaderIMG;
     chatInfoModel.userIconURLStr = data.userHeaderURLStr;
     chatInfoModel.identification = JobsIMStringFromTransportKind(data.transportKind);
@@ -106,7 +92,11 @@ Prop_strong()JobsIMListView *listView;
                                                    @"transport": JobsIMStringFromTransportKind(data.transportKind)
                                                });
     return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-        data.byData(chatInfoModel);
+        data.byData(chatInfoModel)
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                textModel.byAttributedTitle(nil)
+                    .byText(chatInfoModel.userNameStr);
+            });
     });
 }
 #pragma mark —— lazyLoad
@@ -128,27 +118,6 @@ Prop_strong()JobsIMListView *listView;
             }
         });
     };return _listView;
-}
-
--(BaseButton *)shareBtn{
-    if (!_shareBtn) {
-        @jobs_weakify(self)
-        _shareBtn = BaseButton.jobsInit()
-            .bgColorBy(JobsWhiteColor)
-            .jobsResetBtnCornerRadiusValue(JobsWidth(23 / 2))
-            .jobsResetBtnTitle(@"+")
-            .jobsResetBtnTitleCor(HEXCOLOR(0xD4B58D))
-            .jobsResetBtnTitleFont(UIFontWeightRegularSize(JobsWidth(24)))
-            .onClickBy(^(UIButton *x){
-                @jobs_strongify(self)
-                if (self.objBlock) self.objBlock(x);
-                toastBy(@"正在研发中...敬请期待".tr);
-            }).onLongPressGestureBy(^(id data){
-                JobsLog(@"");
-            });
-        _shareBtn.width = JobsWidth(23);
-        _shareBtn.height = JobsWidth(23);
-    };return _shareBtn;
 }
 
 @end

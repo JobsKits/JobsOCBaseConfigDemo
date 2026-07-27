@@ -226,7 +226,7 @@ Prop_assign()BOOL usesAlternativeCopy;
             NSFontAttributeName: UIFontWeightSemiboldSize(20),
             NSForegroundColorAttributeName: HEXCOLOR(0xFF922B)
         } range:highlightRange];
-    }return result;
+    };return result;
 }
 #pragma mark —— Actions
 -(void)startLabels{

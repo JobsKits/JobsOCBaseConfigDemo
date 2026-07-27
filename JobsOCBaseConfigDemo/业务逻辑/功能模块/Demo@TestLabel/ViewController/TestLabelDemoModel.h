@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import "JobsDefines.h"
+#import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
 #endif

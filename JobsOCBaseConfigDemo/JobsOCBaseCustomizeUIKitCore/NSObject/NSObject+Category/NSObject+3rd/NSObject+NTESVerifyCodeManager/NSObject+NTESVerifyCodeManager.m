@@ -43,6 +43,7 @@
 }
 
 - (void)verifyCodeCloseWindow:(NTESVerifyCodeClose)close {
+    /// TODO
 }
 #pragma mark —— Prop_strong()NTESVerifyCodeManager *verifyCodeManager;
 JobsKey(_verifyCodeManager)
@@ -65,20 +66,25 @@ JobsKey(_verifyCodeManager)
          NTESVerifyCodeLangFIL,    // 菲律宾语
          */
         // 设置语言
-        switch (JobsLanguageManager.language) {
+        switch (LanMgr.language) {
+            /// 处理 AppLanguageChineseSimplified 分支
             case AppLanguageChineseSimplified:{
                 VerifyCodeManager.lang = NTESVerifyCodeLangCN;
             } break;
+            /// 处理 AppLanguageChineseTraditional 分支
             case AppLanguageChineseTraditional:{
                 VerifyCodeManager.lang = NTESVerifyCodeLangTW;
             } break;
+            /// 处理 AppLanguageEnglish 分支
             case AppLanguageEnglish:{
                 VerifyCodeManager.lang = NTESVerifyCodeLangENUS;
             } break;
+            /// 处理 AppLanguageTagalog 分支
             case AppLanguageTagalog:{
                 VerifyCodeManager.lang = NTESVerifyCodeLangFIL;
             } break;
-            default:
+        /// 未匹配已知分支时执行兜底处理
+        default:
                 break;
         }
         // 设置透明度

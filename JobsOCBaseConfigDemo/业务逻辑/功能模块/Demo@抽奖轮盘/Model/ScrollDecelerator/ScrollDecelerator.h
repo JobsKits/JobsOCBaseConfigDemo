@@ -2,13 +2,23 @@
 //  ScrollDecelerator.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 12/5/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <math.h>
 #import <Foundation/Foundation.h>
-#import "JobsDefineProperty.h"
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
 #import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 /// 模拟 UIScrollView 的减速曲线：

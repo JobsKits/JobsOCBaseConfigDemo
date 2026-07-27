@@ -54,7 +54,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     JobsIMListTBVCell *cell = JobsIMListTBVCell.cellStyleValue1ByTableView(tableView)
-        .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
+        .byAccessoryType(UITableViewCellAccessoryNone)
         .byIndexPath(indexPath)
         .byDelegate(self)
         .jobsRichElementsTableViewCellBy(self.jobsIMListMutArr[indexPath.row])
@@ -87,49 +87,52 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
         @jobs_weakify(self)
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
-            tableView
-                .byMJRefreshHeader(self.lotAnimMJRefreshHeader.byRefreshConfigModel(jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable model) {
-                    model.byStateIdleTitle(@"下拉刷新数据".tr)
-                         .byPullingTitle(@"下拉刷新数据".tr)
-                         .byRefreshingTitle(@"正在刷新数据".tr)
-                         .byWillRefreshTitle(@"刷新数据中".tr)
-                         .byNoMoreDataTitle(@"下拉刷新数据".tr);
-                    model.loadBlock = ^id _Nullable(id  _Nullable data) {
+            MJRefreshConfigModel *headerConfig = jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable model) {
+                model.byStateIdleTitle(@"下拉刷新数据".tr)
+                    .byPullingTitle(@"下拉刷新数据".tr)
+                    .byRefreshingTitle(@"正在刷新数据".tr)
+                    .byWillRefreshTitle(@"刷新数据中".tr)
+                    .byNoMoreDataTitle(@"下拉刷新数据".tr)
+                    .byTextColor(JobsSecondaryLabelColor)
+                    .byLoadBlock(^id _Nullable(id _Nullable data) {
                         @jobs_strongify(self)
                         JobsLog(@"下拉刷新");
-                        self.tableView.endRefreshing(self.jobsIMListMutArr.count);
+                        self.tableView.endRefreshing(NO);
                         return nil;
-                    };
-                })))
-                .byMJRefreshFooter(self.MJRefreshAutoGifFooterBy(jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable data) {
-                    data.byStateIdleTitle(@"".tr)
-                        .byPullingTitle(@"".tr)
-                        .byRefreshingTitle(@"".tr)
-                        .byWillRefreshTitle(@"".tr)
-                        .byNoMoreDataTitle(@"".tr);
-                    data.loadBlock = ^id _Nullable(id  _Nullable data) {
+                    });
+            });
+            MJRefreshConfigModel *footerConfig = jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable model) {
+                model.byStateIdleTitle(@"".tr)
+                    .byPullingTitle(@"".tr)
+                    .byRefreshingTitle(@"".tr)
+                    .byWillRefreshTitle(@"".tr)
+                    .byNoMoreDataTitle(@"".tr)
+                    .byTextColor(JobsSecondaryLabelColor)
+                    .byLoadBlock(^id _Nullable(id _Nullable data) {
                         @jobs_strongify(self)
                         JobsLog(@"上拉加载更多");
-                        // 特别说明：pagingEnabled = YES 在此会影响Cell的偏移量，原作者希望我们在这里临时关闭一下，刷新完成以后再打开
-                        tableView.byPagingEnabled(NO);
-                        tableView.mj_footer.state = MJRefreshStateIdle;
-                        tableView.mj_footer.byHidden(YES);
-                        tableView.byPagingEnabled(YES);
-                        tableView.endRefreshing(self.jobsIMListMutArr.count);
+                        self.tableView.byPagingEnabled(NO);
+                        self.tableView.mj_footer.byHidden(YES);
+                        self.tableView.byPagingEnabled(YES);
+                        self.tableView.endRefreshing(NO);
                         return nil;
-                    };
-                })))
+                    });
+            });
+            tableView
+                .byMJRefreshHeader(tableView.LOTAnimationMJRefreshHeaderBy(headerConfig))
+                .byMJRefreshFooter(tableView.MJRefreshAutoGifFooterBy(footerConfig))
                 .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
                 .byPagingEnabled(YES) // 这个属性为YES会使得Tableview一格一格的翻动
                 .byShowsVerticalScrollIndicator(NO)
                 .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
-            tableView.byBgColor(self.bgColour);
-            tableView.addOn(self);
+            tableView
+                .byBgColor(self.bgColour)
+                .addOn(self);
             [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
                 make.edges.equalTo(self);
             }];
-            tableView.mj_footer.byBgColor(JobsRedColor);
+            tableView.mj_footer.byBgColor(JobsSystemBackgroundColor);
             tableView.mj_footer.byHidden(NO);
         });
     };return _tableView;
@@ -171,7 +174,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                 model.usernameStr = @"蔚来卡地亚花园城营销小王";
                 model.contentStr = @"刘总给你留了一套独栋，什么时候有空过来办手续";
                 model.timeStr = @"20:34";
-                model.userHeaderIMG = UIImage.animatedGIFByName(@"动态头像_1\2 尺寸126");;
+                model.userHeaderIMG = UIImage.animatedGIFByName(@"动态头像_2 尺寸126");
                 model.transportKind = JobsIMTransportKindNearbyMultipeer;
                 model.peerOnlineState = JobsIMPeerOnlineStateOffline;
             }));
@@ -181,7 +184,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
 
 -(UIColor *)bgColour{
     if (!_bgColour) {
-        _bgColour = self.byPatternImage(JobsLoadBundleImage(@"⚽️PicResource", @"Telegram",nil, @"1"));
+        _bgColour = JobsSystemBackgroundColor;
     };return _bgColour;
 }
 

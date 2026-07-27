@@ -7,6 +7,8 @@
 
 #import "NSObject+HXPhotoPicker.h"
 
+static NSString * const JobsSystemCameraSimulatorToast = @"iOS 模拟器不支持调用系统相机，请使用真机";
+
 @implementation NSObject (HXPhotoPicker)
 #pragma mark —— 一些公有方法
 /// HXPhotoPicker 弹出系统相册选择页面
@@ -36,17 +38,17 @@
                                                                              UIViewController *viewController,
                                                                              HXPhotoManager *manager) {
                     if (successBlock) successBlock(jobsMakeHXPhotoPickerModel(^(__kindof HXPhotoPickerModel * _Nullable model) {
-                        model.allList = allList;
-                        model.photoList = photoList;
-                        model.videoList = videoList;
-                        model.isOriginal = isOriginal;
-                        model.vc = viewController;
-                        model.photoManager = manager;
+                        model.byAllList(allList)
+                             .byPhotoList(photoList)
+                             .byVideoList(videoList)
+                             .byIsOriginal(isOriginal)
+                             .byVc(viewController)
+                             .byPhotoManager(manager);
                     }));
                 } cancel:^(UIViewController *viewController, HXPhotoManager *manager) {
                     if (failBlock) failBlock(jobsMakeHXPhotoPickerModel(^(__kindof HXPhotoPickerModel * _Nullable model) {
-                        model.vc = viewController;
-                        model.photoManager = manager;
+                        model.byVc(viewController)
+                             .byPhotoManager(manager);
                     }));
                 }];
             }
@@ -56,6 +58,10 @@
 /// HXPhotoPicker 调取系统相机进行拍摄（没有兼容横屏）
 -(void)hx_invokeSysCameraSuccessBlock:(jobsByIDBlock _Nullable)successBlock
                             failBlock:(jobsByIDBlock _Nullable)failBlock{
+#if TARGET_OS_SIMULATOR
+    JobsSystemCameraSimulatorToast.tr.toast();
+    return;
+#endif
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
         /// 请求相机📷权限
         @jobs_weakify(self)
@@ -76,13 +82,15 @@
                                                                                done:^(HXPhotoModel *photoModel,
                                                                                       HXCustomCameraViewController *viewController) {
                         if (successBlock) successBlock(jobsMakeHXPhotoPickerModel(^(__kindof HXPhotoPickerModel * _Nullable model) {
-                            model.customCameraVC = viewController;
-                            model.photoModel = photoModel;
+                            model.byCustomCameraVC(viewController)
+                                 .byPhotoModel(photoModel);
                         }));
                     } cancel:^(HXCustomCameraViewController *viewController) {
                         NSSLog(@"取消了");
+                        UIViewController *targetVC = viewController.navigationController ? : viewController;
+                        [targetVC dismissViewControllerAnimated:YES completion:nil];
                         if (failBlock) failBlock(jobsMakeHXPhotoPickerModel(^(__kindof HXPhotoPickerModel * _Nullable model) {
-                            model.customCameraVC = viewController;
+                            model.byCustomCameraVC(viewController);
                         }));
                     }];
                 }
@@ -95,6 +103,10 @@
     @jobs_weakify(self)
     return ^() {
         @jobs_strongify(self)
+#if TARGET_OS_SIMULATOR
+        JobsSystemCameraSimulatorToast.tr.toast();
+        return;
+#endif
         // 检查设备是否支持相机功能
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
             /// 显示相机界面

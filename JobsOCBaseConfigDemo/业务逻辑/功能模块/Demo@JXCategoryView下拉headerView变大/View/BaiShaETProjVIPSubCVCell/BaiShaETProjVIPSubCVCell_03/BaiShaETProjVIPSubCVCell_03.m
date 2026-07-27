@@ -2,7 +2,7 @@
 //  BaiShaETProjVIPSubCVCell_03.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/6/10.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "BaiShaETProjVIPSubCVCell_03.h"
@@ -16,7 +16,7 @@
 @synthesize viewModel = _viewModel;
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.contentView.backgroundColor = JobsGreenColor;
+        self.contentView.byBgColor(JobsGreenColor);
     };return self;
 }
 #pragma mark —— BaseViewProtocol

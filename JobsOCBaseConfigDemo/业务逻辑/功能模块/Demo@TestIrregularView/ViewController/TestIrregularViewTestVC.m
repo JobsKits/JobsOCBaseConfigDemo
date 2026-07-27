@@ -30,9 +30,10 @@
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(data.attributedTitle.string);
-            data.byFont(UIFontWeightRegularSize(16));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(data.attributedTitle.string)
+                .byFont(UIFontWeightRegularSize(16));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -75,8 +76,9 @@
 -(void)view1{
     CGFloat contentOffsetY = [self irregularViewContentOffsetY];
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
-    btn.byBgColor([UIColor orangeColor]);
-    [btn setTitle:@"按钮".tr forState:UIControlStateNormal];
+    btn
+        .jobsResetBtnTitle(@"按钮".tr)
+        .byBgColor([UIColor orangeColor]);
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
@@ -98,9 +100,10 @@
 -(void)view2{
     CGFloat contentOffsetY = [self irregularViewContentOffsetY];
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
-    btn.byFrame(CGRectMake(120, 100 + contentOffsetY, 120, 50));
-    btn.byBgColor([UIColor greenColor]);
-    [btn setTitle:@"按钮".tr forState:UIControlStateNormal];
+    btn
+        .jobsResetBtnTitle(@"按钮".tr)
+        .byFrame(CGRectMake(120, 100 + contentOffsetY, 120, 50))
+        .byBgColor([UIColor greenColor]);
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
@@ -112,21 +115,22 @@
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(120 / 4, 0.f)));
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(120, 0)));
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(120 * 3 / 4, 50)));
-    [self.view addSubview:btn];
+    btn.addOn(self.view);
 }
 /// 左斜边梯形
 -(void)view3{
     CGFloat contentOffsetY = [self irregularViewContentOffsetY];
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
-    btn.byFrame(CGRectMake(220, 100 + contentOffsetY, 120, 50));
-    btn.byBgColor([UIColor cyanColor]);
-    [btn setTitle:@"按钮".tr forState:UIControlStateNormal];
+    btn
+        .jobsResetBtnTitle(@"按钮".tr)
+        .byFrame(CGRectMake(220, 100 + contentOffsetY, 120, 50))
+        .byBgColor([UIColor cyanColor]);
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
         int B = (arc4random() % 256) ;
         x.byBgColor(RGB_COLOR(R, G, B));
-    }];[self.view addSubview:btn];
+    }];btn.addOn(self.view);
     /// 添加路径关键点array
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(120 / 4, 50.f)));
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(120, 0.f)));
@@ -137,15 +141,16 @@
 - (void)view4{
     CGFloat contentOffsetY = [self irregularViewContentOffsetY];
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
-    btn.byFrame(CGRectMake(20, 200 + contentOffsetY, 150, 150));
-    btn.byBgColor([UIColor purpleColor]);
-    [btn setTitle:@"按钮".tr forState:UIControlStateNormal];
+    btn
+        .jobsResetBtnTitle(@"按钮".tr)
+        .byFrame(CGRectMake(20, 200 + contentOffsetY, 150, 150))
+        .byBgColor([UIColor purpleColor]);
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
         int B = (arc4random() % 256) ;
         x.byBgColor(RGB_COLOR(R, G, B));
-    }];[self.view addSubview:btn];
+    }];btn.addOn(self.view);
     /// 添加路径关键点array
     float viewWidth = btn.frame.size.width;
     CGPoint point1 = CGPointMake((sin(M_1_PI / 180 * 60)) * (viewWidth / 2), (viewWidth / 4));
@@ -169,15 +174,16 @@
 -(void)view5{
     CGFloat contentOffsetY = [self irregularViewContentOffsetY];
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
-    btn.byFrame(CGRectMake(200, 200 + contentOffsetY, 150, 150));
-    btn.byBgColor([UIColor brownColor]);
-    [btn setTitle:@"按钮".tr forState:UIControlStateNormal];
+    btn
+        .jobsResetBtnTitle(@"按钮".tr)
+        .byFrame(CGRectMake(200, 200 + contentOffsetY, 150, 150))
+        .byBgColor([UIColor brownColor]);
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
         int B = (arc4random() % 256) ;
         x.byBgColor(RGB_COLOR(R, G, B));
-    }];[self.view addSubview:btn];
+    }];btn.addOn(self.view);
     /// 添加路径关键点array
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(0.f, 0.f)));
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(150, 0)));
@@ -188,15 +194,16 @@
 -(void)view6 {
     CGFloat contentOffsetY = [self irregularViewContentOffsetY];
     IrregularBtn * btn = [IrregularBtn buttonWithType:UIButtonTypeCustom];
-    btn.byFrame(CGRectMake(20, 380 + contentOffsetY, 330, 150));
-    btn.byBgColor([UIColor magentaColor]);
-    [btn setTitle:@"按钮".tr forState:UIControlStateNormal];
+    btn
+        .jobsResetBtnTitle(@"按钮".tr)
+        .byFrame(CGRectMake(20, 380 + contentOffsetY, 330, 150))
+        .byBgColor([UIColor magentaColor]);
     [[btn rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIControl * _Nullable x) {
         int R = (arc4random() % 256) ;
         int G = (arc4random() % 256) ;
         int B = (arc4random() % 256) ;
         x.byBgColor(RGB_COLOR(R, G, B));
-    }];[self.view addSubview:btn];
+    }];btn.addOn(self.view);
     /// 添加路径关键点array
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(0, 150)));
     btn.pointMutArr.add(NSValue.byPoint(CGPointMake(330 * 2 / 3, 150 / 3)));

@@ -26,6 +26,9 @@
 		C7D023072026072300000048 /* JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@双端功能对齐/JobsSwiftParityAlertDemoVC/JobsSwiftParityAlertDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D023072026072300000047 /* JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@双端功能对齐/JobsSwiftParityAlertDemoVC/JobsSwiftParityAlertDemoVC.m */; };
 		C7D023072026072300000052 /* JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@双端功能对齐/JobsSwiftParityOpenDemoVC/JobsSwiftParityOpenDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D023072026072300000051 /* JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@双端功能对齐/JobsSwiftParityOpenDemoVC/JobsSwiftParityOpenDemoVC.m */; };
 		C7D023072026072300000056 /* JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@双端功能对齐/JobsSwiftParitySnowflakeDemoVC/JobsSwiftParitySnowflakeDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D023072026072300000055 /* JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@双端功能对齐/JobsSwiftParitySnowflakeDemoVC/JobsSwiftParitySnowflakeDemoVC.m */; };
+		C7D025072026072500000002 /* JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsIconfont/Core/JobsIconfont.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D025072026072500000001 /* JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsIconfont/Core/JobsIconfont.m */; };
+		C7D025072026072500000004 /* JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsIconfont/JobsIconfontDemoVCs.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D025072026072500000003 /* JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsIconfont/JobsIconfontDemoVCs.m */; };
+		C7D025072026072500000006 /* JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsIconfont/Resource/JobsIconfontAssets.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C7D025072026072500000005 /* JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsIconfont/Resource/JobsIconfontAssets.bundle */; };
 		F30000012F22000100C0DE01 /* JobsOCWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F30000212F22000100C0DE01 /* JobsOCWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -92,6 +95,9 @@
 		C7D023072026072300000047 /* JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@双端功能对齐/JobsSwiftParityAlertDemoVC/JobsSwiftParityAlertDemoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@双端功能对齐/JobsSwiftParityAlertDemoVC/JobsSwiftParityAlertDemoVC.m"; sourceTree = SOURCE_ROOT; };
 		C7D023072026072300000051 /* JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@双端功能对齐/JobsSwiftParityOpenDemoVC/JobsSwiftParityOpenDemoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@双端功能对齐/JobsSwiftParityOpenDemoVC/JobsSwiftParityOpenDemoVC.m"; sourceTree = SOURCE_ROOT; };
 		C7D023072026072300000055 /* JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@双端功能对齐/JobsSwiftParitySnowflakeDemoVC/JobsSwiftParitySnowflakeDemoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@双端功能对齐/JobsSwiftParitySnowflakeDemoVC/JobsSwiftParitySnowflakeDemoVC.m"; sourceTree = SOURCE_ROOT; };
+		C7D025072026072500000001 /* JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsIconfont/Core/JobsIconfont.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsIconfont/Core/JobsIconfont.m; sourceTree = SOURCE_ROOT; };
+		C7D025072026072500000003 /* JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsIconfont/JobsIconfontDemoVCs.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsIconfont/JobsIconfontDemoVCs.m"; sourceTree = SOURCE_ROOT; };
+		C7D025072026072500000005 /* JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsIconfont/Resource/JobsIconfontAssets.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsIconfont/Resource/JobsIconfontAssets.bundle; sourceTree = SOURCE_ROOT; };
 		F30000212F22000100C0DE01 /* JobsOCWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = JobsOCWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA847A5EB5BF97692168C819 /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.debug.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -295,6 +301,7 @@
 				"业务逻辑/功能模块/Demo@倒计时进度条/JobsProgressDemoVC/JobsProgressDemoVC.m",
 				"业务逻辑/功能模块/Demo@倒计时进度条/JobsSysProgressDemoVC/JobsSysProgressDemoVC.m",
 				"业务逻辑/功能模块/Demo@抖音双球刷新动画/JobsDouyinRefreshDemoVC/JobsDouyinRefreshDemoVC.m",
+				"业务逻辑/功能模块/Demo@读取真机崩溃日志/JobsOCCrashLogVC/JobsOCCrashLogVC.m",
 				"业务逻辑/功能模块/Demo@多语言切换/ViewController/AppLanguageVC.m",
 				"业务逻辑/功能模块/Demo@二维码和条形码/JobsQRCodeDemoVC/JobsQRCodeDemoVC.m",
 				"业务逻辑/功能模块/Demo@发帖功能/发帖.png",
@@ -432,9 +439,7 @@
 				"业务逻辑/功能模块/Demo@JobsAppDoor-2/View/找回密码相关页面/找回密码第二步/ForgetCodeStep_02View.m",
 				"业务逻辑/功能模块/Demo@JobsAppDoor-2/View/找回密码相关页面/找回密码第一步/ForgetCodeStep_01View.m",
 				"业务逻辑/功能模块/Demo@JobsAppDoor-2/View/找回密码相关页面/找回密码流程图/FindCodeFlowChartView.m",
-				"业务逻辑/功能模块/Demo@JobsAppDoor-2/View/ContentView/JobsAppDoorLoginContentView/JobsAppDoorLoginContentView.m",
-				"业务逻辑/功能模块/Demo@JobsAppDoor-2/View/ContentView/JobsAppDoorRegisterContentView/JobsAppDoorRegisterContentView.m",
-				"业务逻辑/功能模块/Demo@JobsAppDoor-2/ViewController/JobsAppDoorVC_Style2/JobsAppDoorVC_Style2.m",
+				"业务逻辑/功能模块/Demo@JobsAppDoor/JobsAppDoorDemoListVC/JobsAppDoorDemoListVC.m",
 				"业务逻辑/功能模块/Demo@JobsBluetooth/JobsBluetoothDemoVC/JobsBluetoothDemoVC.m",
 				"业务逻辑/功能模块/Demo@JobsBluetooth/JobsBluetoothDemoVC/JobsBluetoothFeatureDemoVC.m",
 				"业务逻辑/功能模块/Demo@JobsComment/JobsCommentCore/Model/JobsCommentConfig/JobsCommentConfig.m",
@@ -505,6 +510,7 @@
 				"业务逻辑/功能模块/Demo@JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlDemoVC/JobsOCCountryCodeCtrlDemoVC.m",
 				"业务逻辑/功能模块/Demo@JobsOCExcel/JobsOCExcelDemoCell/JobsOCExcelDemoCell.m",
 				"业务逻辑/功能模块/Demo@JobsOCExcel/JobsOCExcelDemoVC/JobsOCExcelDemoVC.m",
+				"业务逻辑/功能模块/Demo@JobsOCGraphicCaptcha/JobsOCGraphicCaptchaDemoVC.m",
 				"业务逻辑/功能模块/Demo@JobsOCKeyboardMgr/JobsOCKeyboardMgrDemoVC.m",
 				"业务逻辑/功能模块/Demo@JobsOCNumberStepper/JobsOCNumberStepperDemoVC.m",
 				"业务逻辑/功能模块/Demo@JobsOCRefresher/JobsOCRefresherDemoVC.m",
@@ -679,12 +685,14 @@
 				"业务逻辑/Common/网络请求/App 的所有网络请求Api/ZBRequestManager.API/App接口示例/JobsNetworkingAPI+DemoTestApi.m",
 				"业务逻辑/Common/网络请求/App 的所有网络请求Api/ZBRequestManager.API/JobsNetworkingAPI/JobsNetworkingAPI.m",
 				"业务逻辑/Common/网络请求/NSObject+YTKNetwork/NSObject+YTKNetwork.m",
+				"业务逻辑/Common/网络请求/NSObject+YTKNetworks/NSObject+YTKNetworks.m",
 				"业务逻辑/Common/App工具类/MyAppTools/MyAppTools.m",
 				"业务逻辑/Common/App工具类/UIKits+3rd/NSObject/NSObject+HXPhotoPicker/NSObject+HXPhotoPicker.m",
 				"业务逻辑/Common/App工具类/UIKits+3rd/NSObject/NSObject+MyAppTools/NSObject+MyAppTools.m",
 				"业务逻辑/Common/App工具类/UIKits+3rd/NSObject/NSObject+TimeApp/NSObject+TimeApp.m",
 				"业务逻辑/Common/App工具类/UIKits+3rd/UIView/UIView+AppTool/UIView+AppTool.m",
 				"业务逻辑/Common/App工具类/UIKits+3rd/UIWindow/UIWindow+JobsAppTools/UIWindow+JobsAppTools.m",
+				"业务逻辑/Common/App工具类/UIModel/UIButtonModel/UIButtonModel+UIViewModelProtocol.m",
 				"业务逻辑/Common/App工具类/UIViewModel+App/UIViewModel+App.m",
 				"业务逻辑/Common/JobsModel/3rd/BRStringPickerViewModel/BRStringPickerViewModel.m",
 				"业务逻辑/Common/JobsModel/3rd/GTCaptcha4Model/GTCaptcha4Model.m",
@@ -877,6 +885,7 @@
 				JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsKeychainHelper/JobsKeychainHelper.m,
 				JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsLanguageManager/JobsLanguageManager.m,
 				JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsLocker/JobsLocker.m,
+				"JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsModel/输入框样式基类/JobsAppDoorInputViewBaseStyle/JobsAppDoorInputViewBaseStyle.m",
 				JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsModel/Others/DynamicInvoke/DynamicInvoke.m,
 				JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsMonitorNetwoking/JobsMonitorNetwoking.m,
 				JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsNetWorkTools/JobsNetWorkTools.m,
@@ -1266,25 +1275,35 @@
 				"JobsOCDSL/UIKit/CADisplayLink+DSLs/CADisplayLink+DSL/CADisplayLink+DSL.m",
 				"JobsOCDSL/UIKit/UIActivityIndicatorView+DSLs/UIActivityIndicatorView+DSL/UIActivityIndicatorView+DSL.m",
 				"JobsOCDSL/UIKit/UIBackgroundConfiguration+DSLs/UIBackgroundConfiguration+DSL/UIBackgroundConfiguration+DSL.m",
+				"JobsOCDSL/UIKit/UIBarAppearance+DSLs/UIBarAppearance+DSL/UIBarAppearance+DSL.m",
 				"JobsOCDSL/UIKit/UIBarButtonItem+DSLs/UIBarButtonItem+DSL/UIBarButtonItem+DSL.m",
 				"JobsOCDSL/UIKit/UIBezierPath+DSLs/UIBezierPath+DSL/UIBezierPath+DSL.m",
 				"JobsOCDSL/UIKit/UIButton+DSLs/UIButton+DSL/UIButton+DSL.m",
 				"JobsOCDSL/UIKit/UIButtonConfiguration+DSLs/UIButtonConfiguration+DSL/UIButtonConfiguration+DSL.m",
 				"JobsOCDSL/UIKit/UICollectionViewFlowLayout+DSLs/UICollectionViewFlowLayout+DSL/UICollectionViewFlowLayout+DSL.m",
+				"JobsOCDSL/UIKit/UIContextualAction+DSLs/UIContextualAction+DSL/UIContextualAction+DSL.m",
 				"JobsOCDSL/UIKit/UIGestureRecognizer+DSLs/UIGestureRecognizer+DSL/UIGestureRecognizer+DSL.m",
 				"JobsOCDSL/UIKit/UIImageView+DSLs/UIImageView+DSL/UIImageView+DSL.m",
 				"JobsOCDSL/UIKit/UIImpactFeedbackGenerator+DSLs/UIImpactFeedbackGenerator+DSL/UIImpactFeedbackGenerator+DSL.m",
 				"JobsOCDSL/UIKit/UILongPressGestureRecognizer+DSLs/UILongPressGestureRecognizer+DSL/UILongPressGestureRecognizer+DSL.m",
 				"JobsOCDSL/UIKit/UIMenuController+DSLs/UIMenuController+DSL/UIMenuController+DSL.m",
 				"JobsOCDSL/UIKit/UIMenuItem+DSLs/UIMenuItem+DSL/UIMenuItem+DSL.m",
+				"JobsOCDSL/UIKit/UINavigationBar+DSLs/UINavigationBar+DSL/UINavigationBar+DSL.m",
+				"JobsOCDSL/UIKit/UINavigationBarAppearance+DSLs/UINavigationBarAppearance+DSL/UINavigationBarAppearance+DSL.m",
+				"JobsOCDSL/UIKit/UINavigationController+DSLs/UINavigationController+DSL/UINavigationController+DSL.m",
 				"JobsOCDSL/UIKit/UIPanGestureRecognizer+DSLs/UIPanGestureRecognizer+DSL/UIPanGestureRecognizer+DSL.m",
 				"JobsOCDSL/UIKit/UIPinchGestureRecognizer+DSLs/UIPinchGestureRecognizer+DSL/UIPinchGestureRecognizer+DSL.m",
 				"JobsOCDSL/UIKit/UIRotationGestureRecognizer+DSLs/UIRotationGestureRecognizer+DSL/UIRotationGestureRecognizer+DSL.m",
 				"JobsOCDSL/UIKit/UIScreenEdgePanGestureRecognizer+DSLs/UIScreenEdgePanGestureRecognizer+DSL/UIScreenEdgePanGestureRecognizer+DSL.m",
 				"JobsOCDSL/UIKit/UISearchBar+DSLs/UISearchBar+DSL/UISearchBar+DSL.m",
+				"JobsOCDSL/UIKit/UISegmentedControl+DSLs/UISegmentedControl+DSL/UISegmentedControl+DSL.m",
 				"JobsOCDSL/UIKit/UISlider+DSLs/UISlider+DSL/UISlider+DSL.m",
+				"JobsOCDSL/UIKit/UIStackView+DSLs/UIStackView+DSL/UIStackView+DSL.m",
+				"JobsOCDSL/UIKit/UISwipeActionsConfiguration+DSLs/UISwipeActionsConfiguration+DSL/UISwipeActionsConfiguration+DSL.m",
 				"JobsOCDSL/UIKit/UISwipeGestureRecognizer+DSLs/UISwipeGestureRecognizer+DSL/UISwipeGestureRecognizer+DSL.m",
+				"JobsOCDSL/UIKit/UISwitch+DSLs/UISwitch+DSL/UISwitch+DSL.m",
 				"JobsOCDSL/UIKit/UITableViewCell+DSLs/UITableViewCell+DSL/UITableViewCell+DSL.m",
+				"JobsOCDSL/UIKit/UITabBar+DSLs/UITabBar+DSL/UITabBar+DSL.m",
 				"JobsOCDSL/UIKit/UITapGestureRecognizer+DSLs/UITapGestureRecognizer+DSL/UITapGestureRecognizer+DSL.m",
 				"JobsOCDSL/UIKit/UITextView+DSLs/UITextView+DSL/UITextView+DSL.m",
 				"JobsOCDSL/UIKit/UIView+DSLs/UIView+Gesture/UIView+Gesture/UIView+Gesture.m",
@@ -1337,6 +1356,10 @@
 				"OCBaseConfig/JobsMixFunc/JobsAPIs/URLMgr/URLMgr/URLMgr@5/NSObject+URLMgr_5.m",
 				"OCBaseConfig/JobsMixFunc/JobsAPIs/URLMgr/URLMgr/URLMgr@6/NSObject+URLMgr_6.m",
 				"OCBaseConfig/JobsMixFunc/JobsAPIs/URLMgr/URLMgr/URLMgr@7/NSObject+URLMgr_7.m",
+				"OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/配置文件/JobsAppDoorConfig.m",
+				"OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig.m",
+				"OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/配置文件/JobsAppDoorRegisterConfig.m",
+				"OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/Resource/JobsAppDoorResource/JobsAppDoorResource.m",
 				"OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_1/输入框样式_1.png",
 				"OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_1/JobsAppDoorInputViewBaseStyle_1.m",
 				"OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_2/输入框样式_2.png",
@@ -1359,8 +1382,10 @@
 				"OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9.m",
 				"OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_10/输入框样式_10.png",
 				"OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_10/JobsAppDoorInputViewBaseStyle_10.m",
-				"OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/输入框样式/DoorInputView/JobsAppDoorInputViewBaseStyle.m",
 				"OCBaseConfig/JobsMixFunc/JobsAppDoor/登录注册模块公共件/View/JobsAppDoorLogoContentView/JobsAppDoorLogoContentView.m",
+				OCBaseConfig/JobsMixFunc/JobsAppDoor/JobsAppDoorStyle2/View/ContentView/JobsAppDoorLoginContentView/JobsAppDoorLoginContentView.m,
+				OCBaseConfig/JobsMixFunc/JobsAppDoor/JobsAppDoorStyle2/View/ContentView/JobsAppDoorRegisterContentView/JobsAppDoorRegisterContentView.m,
+				OCBaseConfig/JobsMixFunc/JobsAppDoor/JobsAppDoorStyle2/ViewController/JobsAppDoorVC_Style2/JobsAppDoorVC_Style2.m,
 				OCBaseConfig/JobsMixFunc/JobsAppDoor/View/BaseContentView/BaseContentView.m,
 				OCBaseConfig/JobsMixFunc/JobsAppDoor/View/JobsAppDoorContentView/JobsAppDoorContentView.m,
 				OCBaseConfig/JobsMixFunc/JobsAppDoor/View/JobsAppDoorForgotCodeContentView/JobsAppDoorForgotCodeContentView.m,
@@ -1443,12 +1468,19 @@
 				OCBaseConfig/JobsMixFunc/JobsOCComment/JobsOCCommentConfig/JobsOCCommentConfig.m,
 				OCBaseConfig/JobsMixFunc/JobsOCComment/JobsOCCommentModel/JobsOCCommentModel.m,
 				OCBaseConfig/JobsMixFunc/JobsOCComment/JobsOCCommentView/JobsOCCommentView.m,
+				OCBaseConfig/JobsMixFunc/JobsOCCrashLog/JobsOCCrashLogCenter/JobsOCCrashLogCenter.m,
+				OCBaseConfig/JobsMixFunc/JobsOCCrashLog/JobsOCCrashLogFileInfo/JobsOCCrashLogFileInfo.m,
+				OCBaseConfig/JobsMixFunc/JobsOCCrashLog/JobsOCCrashLogMemorySnapshot/JobsOCCrashLogMemorySnapshot.m,
 				OCBaseConfig/JobsMixFunc/JobsOCExcel/Core/JobsOCExcelCell/JobsOCExcelCell.m,
 				OCBaseConfig/JobsMixFunc/JobsOCExcel/Core/JobsOCExcelCellContext/JobsOCExcelCellContext.m,
 				OCBaseConfig/JobsMixFunc/JobsOCExcel/Core/JobsOCExcelColumn/JobsOCExcelColumn.m,
 				OCBaseConfig/JobsMixFunc/JobsOCExcel/Core/JobsOCExcelRow/JobsOCExcelRow.m,
 				OCBaseConfig/JobsMixFunc/JobsOCExcel/Core/JobsOCExcelStyle/JobsOCExcelStyle.m,
 				OCBaseConfig/JobsMixFunc/JobsOCExcel/Core/JobsOCExcelView/JobsOCExcelView.m,
+				OCBaseConfig/JobsMixFunc/JobsOCGraphicCaptcha/JobsOCGraphicCaptchaConfig/JobsOCGraphicCaptchaConfig.m,
+				OCBaseConfig/JobsMixFunc/JobsOCGraphicCaptcha/JobsOCGraphicCaptchaGenerator/JobsOCGraphicCaptchaGenerator.m,
+				OCBaseConfig/JobsMixFunc/JobsOCGraphicCaptcha/JobsOCGraphicCaptchaView/JobsOCGraphicCaptchaView.m,
+				"OCBaseConfig/JobsMixFunc/JobsOCGraphicCaptcha/JobsOCGraphicCaptchaView+DSL/JobsOCGraphicCaptchaView+DSL.m",
 				OCBaseConfig/JobsMixFunc/JobsOCKeyboardMgr/JobsOCKeyboardCalculator/JobsOCKeyboardCalculator.m,
 				OCBaseConfig/JobsMixFunc/JobsOCKeyboardMgr/JobsOCKeyboardConfig/JobsOCKeyboardConfig.m,
 				OCBaseConfig/JobsMixFunc/JobsOCKeyboardMgr/JobsOCKeyboardMgr.m,
@@ -1790,6 +1822,9 @@
 				C7D023072026072300000047 /* JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@双端功能对齐/JobsSwiftParityAlertDemoVC/JobsSwiftParityAlertDemoVC.m */,
 				C7D023072026072300000051 /* JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@双端功能对齐/JobsSwiftParityOpenDemoVC/JobsSwiftParityOpenDemoVC.m */,
 				C7D023072026072300000055 /* JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@双端功能对齐/JobsSwiftParitySnowflakeDemoVC/JobsSwiftParitySnowflakeDemoVC.m */,
+				C7D025072026072500000001 /* JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsIconfont/Core/JobsIconfont.m */,
+				C7D025072026072500000003 /* JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsIconfont/JobsIconfontDemoVCs.m */,
+				C7D025072026072500000005 /* JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsIconfont/Resource/JobsIconfontAssets.bundle */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1983,6 +2018,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7D025072026072500000006 /* JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsIconfont/Resource/JobsIconfontAssets.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2069,7 +2105,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "JOBS_APP_ICON_RIBBON_NONINTERACTIVE=1 JOBS_APP_ICON_RIBBON_PROJECT_DIR=\"${SRCROOT}\" JOBS_APP_ICON_RIBBON_CONFIG_PATH=\"${SRCROOT}/JobsOCBaseConfigDemo/启动配置/JobsAppIconRibbon/JobsAppIconRibbon.config\" /bin/zsh \"${SRCROOT}/JobsOCBaseConfigDemo/启动配置/JobsAppIconRibbon/Scripts/JobsAppIconRibbon.sh\"\n";
+			shellScript = "JOBS_APP_ICON_RIBBON_NONINTERACTIVE=1 JOBS_APP_ICON_RIBBON_PROJECT_DIR=\"${SRCROOT}\" JOBS_APP_ICON_RIBBON_CONFIG_PATH=\"${SRCROOT}/JobsOCBaseConfigDemo/启动配置/JobsAppIconRibbon/JobsAppIconRibbon.config\" JOBS_APP_ICON_RIBBON_GENERATOR_PATH=\"${SRCROOT}/JobsOCBaseConfigDemo/启动配置/JobsAppIconRibbon/Scripts/JobsAppIconRibbonGenerator.swift\" /bin/zsh \"${SRCROOT}/JobsOCBaseConfigDemo/启动配置/JobsAppIconRibbon/Scripts/JobsAppIconRibbon.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D2BAFBB0599FD955F46FD8C4 /* [CP] Copy Pods Resources */ = {
@@ -2098,6 +2134,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7D025072026072500000002 /* JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsIconfont/Core/JobsIconfont.m in Sources */,
+				C7D025072026072500000004 /* JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsIconfont/JobsIconfontDemoVCs.m in Sources */,
 				C7D023072026072300000004 /* JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@双端功能对齐/JobsSwiftParityDemoBaseVC/JobsSwiftParityDemoBaseVC.m in Sources */,
 				C7D023072026072300000008 /* JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@双端功能对齐/JobsSwiftParityMomentsPreviewDemoVC/JobsSwiftParityMomentsPreviewDemoVC.m in Sources */,
 				C7D023072026072300000012 /* JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@双端功能对齐/JobsSwiftParityThrottleDebounceDemoVC/JobsSwiftParityThrottleDebounceDemoVC.m in Sources */,

@@ -263,6 +263,24 @@
     };
 }
 
+-(JobsRetBtnByHorizontalAlignBlock _Nonnull)byContentHorizontalAlignment{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *_Nullable(UIControlContentHorizontalAlignment data){
+        @jobs_strongify(self)
+        self.contentHorizontalAlignment = data;
+        return self;
+    };
+}
+
+-(JobsRetBtnByVerticalAlignBlock _Nonnull)byContentVerticalAlignment{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *_Nullable(UIControlContentVerticalAlignment data){
+        @jobs_strongify(self)
+        self.contentVerticalAlignment = data;
+        return self;
+    };
+}
+
 -(JobsRetBtnByUIEdgeInsetsBlock _Nonnull)byContentEdgeInsets{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(UIEdgeInsets data){

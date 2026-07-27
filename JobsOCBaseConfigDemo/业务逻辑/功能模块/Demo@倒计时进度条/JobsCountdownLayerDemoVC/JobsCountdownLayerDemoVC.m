@@ -19,6 +19,7 @@ Prop_assign()CGFloat totalSeconds;
 @end
 
 @implementation JobsCountdownLayerDemoVC
+
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
     [self stopCountdownAnimated:NO];
@@ -57,23 +58,25 @@ Prop_assign()CGFloat totalSeconds;
     [super viewDidLayoutSubviews];
     CGFloat width = CGRectGetWidth(self.view.bounds);
     CGFloat top = CGRectGetMaxY(self.gk_navigationBar.frame) + JobsWidth(44);
-    self.demoButtonContainer.frame = CGRectMake((width - JobsWidth(188)) / 2.0,
+    self.demoButtonContainer.byFrame(CGRectMake((width - JobsWidth(188)) / 2.0,
                                                 top,
                                                 JobsWidth(188),
-                                                JobsWidth(188));
+                                                JobsWidth(188)));
     self.demoButton.byFrame(self.demoButtonContainer.bounds);
     self.demoButton
         .jobsResetBtnCornerRadiusValue(CGRectGetWidth(self.demoButton.bounds) / 2.0)
         .byClipsToBounds(YES);
-    self.demoButtonContainer.layer.shadowPath = [UIBezierPath bezierPathWithOvalInRect:self.demoButtonContainer.bounds].CGPath;
-    self.stateLab.frame = CGRectMake(JobsWidth(24),
+    self.demoButtonContainer.byLayer(^(__kindof CALayer * _Nullable layer) {
+        layer.byShadowPath(UIBezierPath.byBezierPathWithOvalInRect(self.demoButtonContainer.bounds).CGPath);
+    });
+    self.stateLab.byFrame(CGRectMake(JobsWidth(24),
                                      CGRectGetMaxY(self.demoButtonContainer.frame) + JobsWidth(28),
                                      width - JobsWidth(48),
-                                     JobsWidth(44));
-    self.detailLab.frame = CGRectMake(JobsWidth(24),
+                                     JobsWidth(44)));
+    self.detailLab.byFrame(CGRectMake(JobsWidth(24),
                                       CGRectGetMaxY(self.stateLab.frame) + JobsWidth(18),
                                       width - JobsWidth(48),
-                                      JobsWidth(112));
+                                      JobsWidth(112)));
     [self.demoButtonContainer byFuseOuterRingLayoutIfNeeded];
 }
 
@@ -85,10 +88,10 @@ Prop_assign()CGFloat totalSeconds;
 #pragma mark —— UI
 
 - (void)setupSubviews {
-    [self.view addSubview:self.demoButtonContainer];
-    [self.demoButtonContainer addSubview:self.demoButton];
-    [self.view addSubview:self.stateLab];
-    [self.view addSubview:self.detailLab];
+    self.demoButtonContainer.addOn(self.view);
+    self.demoButton.addOn(self.demoButtonContainer);
+    self.stateLab.addOn(self.view);
+    self.detailLab.addOn(self.view);
 }
 
 - (void)startOrStopCountdown {
@@ -171,51 +174,62 @@ Prop_assign()CGFloat totalSeconds;
 
 - (UIView *)demoButtonContainer {
     if (!_demoButtonContainer) {
-        _demoButtonContainer = UIView.new;
-        _demoButtonContainer.backgroundColor = UIColor.clearColor;
-        _demoButtonContainer.layer.shadowColor = HEXCOLOR(0x111827).CGColor;
-        _demoButtonContainer.layer.shadowOpacity = 0.18;
-        _demoButtonContainer.layer.shadowRadius = JobsWidth(18);
-        _demoButtonContainer.layer.shadowOffset = CGSizeMake(0, JobsWidth(10));
-        _demoButtonContainer.layer.masksToBounds = NO;
+        _demoButtonContainer = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byBgColor(UIColor.clearColor)
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer
+                        .byShadowColor(HEXCOLOR(0x111827).CGColor)
+                        .byShadowOpacity(0.18)
+                        .byShadowRadius(JobsWidth(18))
+                        .byShadowOffset(CGSizeMake(0, JobsWidth(10)))
+                        .byMasksToBounds(NO);
+                });
+        });
     };return _demoButtonContainer;
 }
 
 - (UIButton *)demoButton {
     if (!_demoButton) {
         @jobs_weakify(self)
-        _demoButton = UIButton.jobsInit()
-            .jobsResetBtnTitle(@"点我开始".tr)
-            .jobsResetBtnTitleCor(JobsWhiteColor)
-            .jobsResetBtnTitleFont(UIFontWeightBoldSize(26))
-            .jobsResetBtnBgCor(HEXCOLOR(0x111827))
-            .jobsResetBtnCornerRadiusValue(JobsWidth(94))
-            .onClickBy(^(__unused UIButton *button) {
-                [weak_self startOrStopCountdown];
-            })
-            .byClipsToBounds(YES);
+        _demoButton = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+            button
+                .jobsResetBtnTitle(@"点我开始".tr)
+                .jobsResetBtnTitleCor(JobsWhiteColor)
+                .jobsResetBtnTitleFont(UIFontWeightBoldSize(26))
+                .jobsResetBtnBgCor(HEXCOLOR(0x111827))
+                .jobsResetBtnCornerRadiusValue(JobsWidth(94))
+                .onClickBy(^(__unused UIButton *button) {
+                    [weak_self startOrStopCountdown];
+                })
+                .byClipsToBounds(YES);
+        });
     };return _demoButton;
 }
 
 - (UILabel *)stateLab {
     if (!_stateLab) {
-        _stateLab = UILabel.new;
-        _stateLab.textAlignment = NSTextAlignmentCenter;
-        _stateLab.numberOfLines = 2;
-        _stateLab.font = UIFontWeightRegularSize(15);
-        _stateLab.textColor = HEXCOLOR(0x3D4A58);
-        _stateLab.text = @"点击按钮，任意 UIView.layer 都可以挂一圈导火索倒计时。".tr;
+        _stateLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"点击按钮，任意 UIView.layer 都可以挂一圈导火索倒计时。".tr)
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byFont(UIFontWeightRegularSize(15))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byNumberOfLines(2);
+        });
     };return _stateLab;
 }
 
 - (UILabel *)detailLab {
     if (!_detailLab) {
-        _detailLab = UILabel.new;
-        _detailLab.numberOfLines = 0;
-        _detailLab.textAlignment = NSTextAlignmentLeft;
-        _detailLab.font = UIFontWeightRegularSize(14);
-        _detailLab.textColor = HEXCOLOR(0x5F6B7A);
-        _detailLab.text = @"这个 Demo 复用 OC Pod JobsFuseAnimation：UIView 分类只负责 Layer 外圈动画，页面里的 JobsTimer 负责倒计时文案和结束态。按钮只是示例，换成任意 UIView 也可以。".tr;
+        _detailLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"这个 Demo 复用 OC Pod JobsFuseAnimation：UIView 分类只负责 Layer 外圈动画，页面里的 JobsTimer 负责倒计时文案和结束态。按钮只是示例，换成任意 UIView 也可以。".tr)
+                .byTextCor(HEXCOLOR(0x5F6B7A))
+                .byFont(UIFontWeightRegularSize(14))
+                .byTextAlignment(NSTextAlignmentLeft)
+                .byNumberOfLines(0);
+        });
     };return _detailLab;
 }
 

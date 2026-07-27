@@ -1,11 +1,15 @@
 //
 //  JobsAppDoorInputViewBaseStyle_1.m
-//  JobsOCTools
+//  JobsAppDoor
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsAppDoorInputViewBaseStyle_1.h"
+
+static CGFloat JobsAppDoorVerificationCodeBtnWidth(void){
+    return JobsWidth(82);
+}
 
 @interface JobsAppDoorInputViewBaseStyle_1 ()
 /// UI
@@ -37,7 +41,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 
 -(void)layoutSubviews{
     [super layoutSubviews];
-    self.countDownBtn.byWidth(self.countDownBtnWidth ? : JobsWidth(104));
+    self.countDownBtn.byWidth(self.countDownBtnWidth ? : JobsAppDoorVerificationCodeBtnWidth());
 }
 #pragma mark —— 一些私有方法
 -(jobsByVoidBlock _Nonnull)setting{
@@ -54,17 +58,19 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 }
 
 -(void)configTextField{
+    self.magicTextField.placeholdAnimationable = self.doorInputViewBaseStyleModel.isPlaceholdAnimationable;
     UIImage *leftImage = self.doorInputViewBaseStyleModel.leftViewIMG;
     CGFloat leftOffset = leftImage ? (self.doorInputViewBaseStyleModel.leftViewOffsetX ? : JobsWidth(14)) : 0;
     CGFloat placeholderOffset = leftImage ? (self.doorInputViewBaseStyleModel.placeHolderOffset ? : JobsWidth(39)) : JobsWidth(12);
     self.leftIMGV.byImage(leftImage).byAlpha(leftImage ? 1 : 0);
     _magicTextField.leftView = nil;
     _magicTextField.leftViewMode = UITextFieldViewModeNever;
-    _magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
-    _magicTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
-    _magicTextField.byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType);
-    _magicTextField.byKeyboardAppearance(self.doorInputViewBaseStyleModel.keyboardAppearance);
-    _magicTextField.byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
+    _magicTextField
+        .byPlaceholder(self.doorInputViewBaseStyleModel.placeholder)
+        .byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType)
+        .byReturnKeyType(self.doorInputViewBaseStyleModel.returnKeyType)
+        .byKeyboardAppearance(self.doorInputViewBaseStyleModel.keyboardAppearance)
+        .byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
     _magicTextField.useCustomClearButton = self.doorInputViewBaseStyleModel.useCustomClearButton;
     _magicTextField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;
     _magicTextField.rightViewOffsetX = self.doorInputViewBaseStyleModel.rightViewOffsetX ? : JobsWidth(8);// 删除按钮的偏移量
@@ -159,7 +165,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
                 make.right.equalTo(self).offset(-JobsWidth(14));
                 make.top.equalTo(self).offset(JobsWidth(8));
                 make.bottom.equalTo(self).offset(-JobsWidth(8));
-                make.width.mas_equalTo(JobsWidth(104));
+                make.width.mas_equalTo(self.countDownBtnWidth ? : JobsAppDoorVerificationCodeBtnWidth());
             })
             .byViewBlock(^(__kindof UIView *view) {
                 UIButton *button = (UIButton *)view;

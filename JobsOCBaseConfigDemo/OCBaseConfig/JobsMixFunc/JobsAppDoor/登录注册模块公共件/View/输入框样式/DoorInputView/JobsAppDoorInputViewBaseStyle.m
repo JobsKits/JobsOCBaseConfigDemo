@@ -1,9 +1,8 @@
 //
 //  JobsAppDoorInputViewBaseStyle.m
-//  JobsOCBaseConfigDemo
+//  JobsAppDoor
 //
-//  Created by Jobs on 2020/12/4.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JobsAppDoorInputViewBaseStyle.h"

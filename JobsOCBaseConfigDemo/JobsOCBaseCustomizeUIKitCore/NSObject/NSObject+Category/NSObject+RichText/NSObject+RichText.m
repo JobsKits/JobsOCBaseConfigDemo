@@ -22,8 +22,9 @@
         data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
             data1.font = UIFontWeightRegularSize(10.6);;
             data1.textCor = [UIColor gradientCorDataMutArr:jobsMakeMutArr(^(NSMutableArray <UIColor *>*_Nullable data) {
-                data.add(RGB_COLOR(247, 131, 97));
-                data.add(RGB_COLOR(245, 75, 100));
+                data
+                    .add(RGB_COLOR(247, 131, 97))
+                    .add(RGB_COLOR(245, 75, 100));
             })
                                                  startPoint:CGPointZero
                                                    endPoint:CGPointZero

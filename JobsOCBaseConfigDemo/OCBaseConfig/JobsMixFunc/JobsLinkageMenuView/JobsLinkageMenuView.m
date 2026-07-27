@@ -198,9 +198,10 @@ Prop_assign()CGFloat ANIMATION_TIME;
 -(void)resetMenuButtons{
     for (NSInteger i = 0; i < self.btnMutArr.count; i++) {
         UIButton *btn = self.btnMutArr[i];
-        btn.jobsResetBtnTitleCor(self.btnConfig.titleCor);
-        btn.jobsResetBtnImage(JobsLinkageSafeObjectAtIndex(self.btnConfig.normal_images, i));
-        btn.jobsResetBtnBgImage(JobsLinkageSafeObjectAtIndex(self.btnConfig.normal_backgroundImages, i));
+        btn
+            .jobsResetBtnTitleCor(self.btnConfig.titleCor)
+            .jobsResetBtnImage(JobsLinkageSafeObjectAtIndex(self.btnConfig.normal_images, i))
+            .jobsResetBtnBgImage(JobsLinkageSafeObjectAtIndex(self.btnConfig.normal_backgroundImages, i));
     }
 }
 

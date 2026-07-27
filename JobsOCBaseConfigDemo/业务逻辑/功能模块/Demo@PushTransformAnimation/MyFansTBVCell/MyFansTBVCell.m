@@ -2,8 +2,7 @@
 //  MyFansTBVCell.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/7/3.
-//  Copyright © 2020 Jobs. All rights reserved.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "MyFansTBVCell.h"
@@ -14,7 +13,7 @@
 
 @implementation MyFansTBVCell
 #pragma mark —— UITableViewCellProtocol
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1WithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         MyFansTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(MyFansTBVCell);
         cell.offsetXForEach = 10;
@@ -38,7 +37,6 @@
     [super drawRect:rect];
 }
 
-#pragma mark —— frame
 -(void)setFrame:(CGRect)frame{
     JobsLog(@"self.offsetXForEach = %f",self.offsetXForEach);
     JobsLog(@"self.offsetYForEach = %f",self.offsetYForEach);
@@ -84,13 +82,15 @@
 -(UIImageView *)imgView{
     if (!_imgView) {
         @jobs_weakify(self)
-        _imgView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+        _imgView = jobsMakeImageView(^(__kindof UIImageView *_Nullable imageView) {
             @jobs_strongify(self)
-            imageView.clipsToBounds = YES;
-            imageView.layer.cornerRadius = 20;
-            [self.contentView.addSubview(imageView) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.contentView);
-            }];
+            imageView
+                .byClipsToBounds(YES)
+                .byCornerRadius(20)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.contentView);
+                });
         });
     };return _imgView;
 }

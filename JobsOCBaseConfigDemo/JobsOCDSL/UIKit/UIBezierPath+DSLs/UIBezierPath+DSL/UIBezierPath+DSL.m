@@ -1,6 +1,6 @@
 //
 //  UIBezierPath+DSL.m
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年6月8日，星期一.
 //
@@ -24,6 +24,34 @@
 +(JobsRetBezierPathByCGPathRefBlock _Nonnull)byBezierPathWithCGPath{
     return ^__kindof UIBezierPath *_Nullable(CGPathRef _Nullable data){
         return data ? [UIBezierPath bezierPathWithCGPath:data] : UIBezierPath.bezierPath;
+    };
+}
+
++(JobsRetBezierPathByRoundedRectBlock _Nonnull)byBezierPathWithRoundedRect{
+    return ^__kindof UIBezierPath *_Nullable(CGRect rect, CGFloat cornerRadius){
+        return [UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:cornerRadius];
+    };
+}
+
++(JobsRetBezierPathByRoundedCornersBlock _Nonnull)byBezierPathWithRoundedCorners{
+    return ^__kindof UIBezierPath *_Nullable(CGRect rect, UIRectCorner corners, CGSize cornerRadii){
+        return [UIBezierPath bezierPathWithRoundedRect:rect
+                                    byRoundingCorners:corners
+                                          cornerRadii:cornerRadii];
+    };
+}
+
++(JobsRetBezierPathByAddArcBlock _Nonnull)byBezierPathWithArcCenter{
+    return ^__kindof UIBezierPath *_Nullable(CGPoint center,
+                                             CGFloat radius,
+                                             CGFloat startAngle,
+                                             CGFloat endAngle,
+                                             BOOL clockwise){
+        return [UIBezierPath bezierPathWithArcCenter:center
+                                             radius:radius
+                                         startAngle:startAngle
+                                           endAngle:endAngle
+                                          clockwise:clockwise];
     };
 }
 

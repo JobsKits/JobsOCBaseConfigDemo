@@ -32,7 +32,8 @@ UILocationProtocol_synthesize
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]){
         self.jobsRect = frame;
-        self.byBgColor(self.contentView.backgroundColor = ThreeClassCellBgCor);
+        self.byBgColor(ThreeClassCellBgCor);
+        self.contentView.byBgColor(ThreeClassCellBgCor);
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -119,7 +120,7 @@ UILocationProtocol_synthesize
             .jobsResetBtnTitleFont(self.dataModel.titleFont)// UIFontWeightRegularSize(12)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 if(x.selected){
                     x.jobsResetBtnImage(self.dataModel.highlightImage);
                     self.dataModel.jobsSelected = x.selected;

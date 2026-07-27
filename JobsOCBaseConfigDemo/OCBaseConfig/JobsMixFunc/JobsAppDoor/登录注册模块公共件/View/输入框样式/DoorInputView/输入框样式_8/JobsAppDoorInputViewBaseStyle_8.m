@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorInputViewBaseStyle_8.m
-//  JobsOCTools
+//  JobsAppDoor
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -44,8 +44,13 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     self.zyTextField.background = self.doorInputViewBaseStyleModel.background;
     self.zyTextField.byBgColor(self.doorInputViewBaseStyleModel.backgroundColor);
     self.zyTextField.disabledBackground = self.doorInputViewBaseStyleModel.disabledBackground;
-    self.zyTextField.leftView = [UIImageView.alloc initWithImage:self.doorInputViewBaseStyleModel.leftViewIMG];
-    self.zyTextField.leftViewMode = self.doorInputViewBaseStyleModel.leftViewMode;
+    self.zyTextField
+        .byLeftView(jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView
+                .byImage(self.doorInputViewBaseStyleModel.leftViewIMG)
+                .byUserInteractionEnabled(NO);
+        }))
+        .byLeftViewMode(self.doorInputViewBaseStyleModel.leftViewMode);
     self.zyTextField.background = self.doorInputViewBaseStyleModel.background;
     self.zyTextField.byTextCor(self.doorInputViewBaseStyleModel.titleStrCor);
     self.zyTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
@@ -110,10 +115,10 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
-                x.selected = !x.selected;
+                x.byToggleSelected();
                 x.jobsResetBtnImage(self.doorInputViewBaseStyleModel.selectedSecurityBtnIMG ? : JobsRedColor.image);
-                self.zyTextField.bySecureTextEntry(x.selected);
-                if (x.selected && !self.zyTextField.isEditing) {
+                self.zyTextField.bySecureTextEntry(x.jobs_isSelected);
+                if (x.jobs_isSelected && !self.zyTextField.isEditing) {
                     self.zyTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
                 }
         }).onLongPressGestureBy(^(id data){

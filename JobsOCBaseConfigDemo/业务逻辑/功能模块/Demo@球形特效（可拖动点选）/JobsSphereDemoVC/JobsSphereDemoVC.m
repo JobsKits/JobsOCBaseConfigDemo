@@ -46,8 +46,8 @@ Prop_assign()BOOL sphereItemsPrepared;
     [super viewDidLoad];
     self.view.byBgColor(HEXCOLOR(0xF4F5F8));
     self.makeNavByAlpha(1);
-    self.sphereView.alpha = 1;
-    self.statusLabel.alpha = 1;
+    self.sphereView.byAlpha(1);
+    self.statusLabel.byAlpha(1);
 }
 
 -(void)viewDidLayoutSubviews{
@@ -56,37 +56,42 @@ Prop_assign()BOOL sphereItemsPrepared;
 }
 #pragma mark —— 一些私有方法
 -(void)prepareSphereItemsIfNeeded{
+    @jobs_weakify(self)
     if (self.sphereItemsPrepared || CGRectGetWidth(self.sphereView.bounds) <= 0) return;
     self.sphereItemsPrepared = YES;
     [self.tagButtonMutArr removeAllObjects];
     for (NSInteger index = 0; index < self.tagTitleArr.count; index++) {
         NSString *title = self.tagTitleArr[index];
-        UIButton *button = UIButton.new;
-        button.tag = index;
-        button.backgroundColor = [UIColor colorWithHue:(CGFloat)index / (CGFloat)self.tagTitleArr.count
-                                            saturation:.62
-                                            brightness:.92
-                                                 alpha:1];
-        button.layer.cornerRadius = JobsWidth(16);
-        button.layer.masksToBounds = YES;
-        [button setTitle:title.tr
-                forState:UIControlStateNormal];
-        [button setTitleColor:UIColor.whiteColor
-                      forState:UIControlStateNormal];
-        button.titleLabel.font = UIFontWeightMediumSize(14);
-        button.contentEdgeInsets = UIEdgeInsetsMake(0,
-                                                   JobsWidth(12),
-                                                   0,
-                                                   JobsWidth(12));
-        [button sizeToFit];
+        UIButton *button = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+            button
+                .jobsResetBtnTitle(title.tr)
+                .jobsResetBtnTitleCor(UIColor.whiteColor)
+                .jobsResetBtnTitleFont(UIFontWeightMediumSize(14))
+                .jobsResetBtnBgCor(jobsMakeCor2(^(__kindof JobsCorModel *_Nullable corModel) {
+                    corModel
+                        .byHue((CGFloat)index / (CGFloat)self.tagTitleArr.count)
+                        .bySaturation(.62)
+                        .byBrightness(.92)
+                        .byAlpha(1);
+                }))
+                .byContentEdgeInsets(UIEdgeInsetsMake(0, JobsWidth(12), 0, JobsWidth(12)))
+                .byTag(index)
+                .bySizeToFit();
+        });
         CGRect frame = button.frame;
         frame.size.width = MAX(frame.size.width + JobsWidth(16), JobsWidth(74));
         frame.size.height = JobsWidth(32);
-        button.frame = frame;
-        [button addTarget:self
-                   action:@selector(tagButtonClickEvent:)
-         forControlEvents:UIControlEventTouchUpInside];
-        [self.sphereView addSubview:button];
+        button
+            .onClickBy(^(__kindof UIButton * _Nullable button) {
+                [weak_self tagButtonClickEvent:button];
+            })
+            .byFrame(frame)
+            .byLayer(^(__kindof CALayer * _Nullable layer) {
+                layer
+                    .byCornerRadius(JobsWidth(16))
+                    .byMasksToBounds(YES);
+            })
+            .addOn(self.sphereView);
         [self.tagButtonMutArr addObject:button];
     }
     [self.sphereView setItems:self.tagButtonMutArr];
@@ -94,16 +99,16 @@ Prop_assign()BOOL sphereItemsPrepared;
 
 -(void)tagButtonClickEvent:(UIButton *)sender{
     if (sender.tag < 0 || sender.tag >= (NSInteger)self.tagTitleArr.count) return;
-    self.statusLabel.text = [NSString stringWithFormat:@"已选中：%@", self.tagTitleArr[sender.tag].tr];
+    self.statusLabel.byText([NSString stringWithFormat:@"已选中：%@", self.tagTitleArr[sender.tag].tr]);
 }
 #pragma mark —— LazyLoad
 -(XLSphereView *)sphereView{
     if (!_sphereView) {
         _sphereView = XLSphereView.new;
-        _sphereView.backgroundColor = UIColor.whiteColor;
-        _sphereView.layer.cornerRadius = JobsWidth(8);
-        _sphereView.layer.masksToBounds = YES;
-        [self.view addSubview:_sphereView];
+        _sphereView.byBgColor(UIColor.whiteColor);
+        _sphereView.layer.byCornerRadius(JobsWidth(8));
+        _sphereView.layer.byMasksToBounds(YES);
+        _sphereView.addOn(self.view);
         [_sphereView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view).inset(JobsWidth(20));
             make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(24));
@@ -114,17 +119,19 @@ Prop_assign()BOOL sphereItemsPrepared;
 
 -(UILabel *)statusLabel{
     if (!_statusLabel) {
-        _statusLabel = UILabel.new;
-        _statusLabel.text = @"拖动球体旋转，点按前景标签".tr;
-        _statusLabel.textColor = HEXCOLOR(0x5A6372);
-        _statusLabel.font = UIFontWeightRegularSize(15);
-        _statusLabel.textAlignment = NSTextAlignmentCenter;
-        _statusLabel.numberOfLines = 0;
-        [self.view addSubview:_statusLabel];
-        [_statusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.view).inset(JobsWidth(24));
-            make.top.equalTo(self.sphereView.mas_bottom).offset(JobsWidth(22));
-        }];
+        _statusLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"拖动球体旋转，点按前景标签".tr)
+                .byTextCor(HEXCOLOR(0x5A6372))
+                .byFont(UIFontWeightRegularSize(15))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byNumberOfLines(0)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.right.equalTo(self.view).inset(JobsWidth(24));
+                    make.top.equalTo(self.sphereView.mas_bottom).offset(JobsWidth(22));
+                });
+        });
     };return _statusLabel;
 }
 

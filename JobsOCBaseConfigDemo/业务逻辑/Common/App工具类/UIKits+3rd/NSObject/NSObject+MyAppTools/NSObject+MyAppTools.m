@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+MyAppTools.h"
-#import "NSObject+Model.h"
 
 @implementation NSObject (MyAppTools)
 #pragma mark —— 一些私有化方法
@@ -181,7 +180,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
         @jobs_strongify(self)
         return self.makeNavByTitleImageAndAction(string,^id(__kindof UIButton *_Nullable x){
             @jobs_strongify(self)
-            x.selected = !x.selected;
+            x.bySelected(!x.selected);
             /// 退回上一个页面
             self.backViewControllerCore((__kindof UIViewController *)self);
             return nil;
@@ -195,7 +194,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
         @jobs_strongify(self)
         return self.makeNavByTitleImageAndAction(string,^id(__kindof UIButton *_Nullable x){
             @jobs_strongify(self)
-            x.selected = !x.selected;
+            x.bySelected(!x.selected);
             /// 退回TabBar0
             self.backTo(0);
             return nil;
@@ -209,7 +208,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
         @jobs_strongify(self)
         return self.makeNavByTitlesAndAction(title,backBtnTitle,^id(__kindof UIButton *_Nullable x){
             @jobs_strongify(self)
-            x.selected = !x.selected;
+            x.bySelected(!x.selected);
             self.backTo(0);
             return nil;
         });
@@ -222,7 +221,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
         @jobs_strongify(self)
         return self.makeNavByTitlesAndAction(title,backBtnTitle,^id(__kindof UIButton *_Nullable x){
             @jobs_strongify(self)
-            x.selected = !x.selected;
+            x.bySelected(!x.selected);
             /// 退回上一个页面
             self.backViewControllerCore((__kindof UIViewController *)self);
             return nil;
@@ -1299,7 +1298,7 @@ JobsKey(_connectionTipsTV)
             textView.editable = NO;// 必须禁止输入，否则点击将会弹出输入键盘
             textView.scrollEnabled = NO;// 可选的，视具体情况而定
             if ([self isKindOfClass:UIViewController.class]) {
-                textView.delegate = self;
+                textView.byDelegate(self);
                 UIViewController *viewController = (UIViewController *)self;
                 textView.addOn(viewController.view).byAdd(^(MASConstraintMaker *make) {
                     make.centerX.equalTo(viewController.view);
@@ -1338,8 +1337,9 @@ JobsKey(_loadingIndicator)
 -(__kindof UIActivityIndicatorView *)loadingIndicator{
     UIActivityIndicatorView *view = Jobs_getAssociatedObject(_loadingIndicator);
     if (!view) {
-        view = [UIActivityIndicatorView.alloc initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleLarge];
-        view.color = JobsGrayColor;
+        view = UIActivityIndicatorView
+            .initBy(UIActivityIndicatorViewStyleLarge)
+            .byColor(JobsGrayColor);
         Jobs_setAssociatedRETAIN_NONATOMIC(_loadingIndicator, view)
     };return view;
 }

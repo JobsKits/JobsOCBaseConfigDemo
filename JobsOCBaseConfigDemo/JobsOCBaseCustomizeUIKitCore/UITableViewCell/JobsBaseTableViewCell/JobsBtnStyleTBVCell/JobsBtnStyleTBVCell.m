@@ -43,7 +43,7 @@ BaseViewProtocol_synthesize
 }
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
-+(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultWithTableView{
++(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsBtnStyleTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsBtnStyleTBVCell);
         return cell;
@@ -67,13 +67,12 @@ BaseViewProtocol_synthesize
     };
 }
 
-#pragma mark —— viewModel
 -(void)setViewModel:(UIViewModel *)viewModel{
     _viewModel = viewModel;
     @jobs_weakify(self)
     /// viewModel + textModel
-    _button.selected = viewModel.jobsSelected;
-    _button.enabled = viewModel.jobsEnabled;/// 这个属性为YES，则优先响应Btn。这个属性为NO，则响应UITableViewCell
+    _button.bySelected(viewModel.jobsSelected);
+    _button.byEnabled(viewModel.jobsEnabled);/// 这个属性为YES，则优先响应Btn。这个属性为NO，则响应UITableViewCell
     _button.resetByViewModel(viewModel,self.selected)
         .onClickBy(^(UIButton *x){
             @jobs_strongify(self)
@@ -105,12 +104,11 @@ BaseViewProtocol_synthesize
     _button.jobsResetBtnCornerRadiusValue(viewModel.layerCornerRadius);
 }
 
-#pragma mark —— buttonModel
 -(void)setButtonModel:(UIButtonModel *)buttonModel{
     _buttonModel = buttonModel;
     @jobs_weakify(self)
-    _button.selected = buttonModel.jobsSelected;
-    _button.enabled = buttonModel.jobsEnabled;
+    _button.bySelected(buttonModel.jobsSelected);
+    _button.byEnabled(buttonModel.jobsEnabled);
     _button.resetByButtonModel(buttonModel,self.selected)
         .onClickBy(^(UIButton *x){
             @jobs_strongify(self)
@@ -154,21 +152,23 @@ BaseViewProtocol_synthesize
 -(BaseButton *)button{
     if(!_button){
         @jobs_weakify(self)
-        _button = BaseButton.jobsInit();
         /// enabled 是 userInteractionEnabled 的子集
         /// enabled = NO ,则不响应：-(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event（此方法不要写在分类里面）
-        _button.enabled = NO; /// 这个属性为YES，则优先响应Btn。这个属性为NO，则响应 UITableViewCell 协议方法
-        _button.userInteractionEnabled = YES;
-        _button.onClickBy(^(UIButton *x){
-            @jobs_strongify(self)
-            if(self.objBlock) self.objBlock(x);
-            x.selected = !x.selected;
-            if(self.viewModel) x.resetByViewModel(self.viewModel,self.selected);
-            if(self.buttonModel) x.resetByButtonModel(self.buttonModel,self.selected);
-        });
-        [self.contentView.addSubview(_button) mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self).insets(self.contentEdgeInsets);/// 如果这里用self.contentView，在某些情况下，约束会失灵。因为self.contentView的生命周期的缘故，还没有完全展开
-        }];
+        /// enabled 这个属性为YES，则优先响应Btn。这个属性为NO，则响应 UITableViewCell 协议方法
+        _button = BaseButton.jobsInit()
+            .onClickBy(^(UIButton *x){
+                @jobs_strongify(self)
+                if(self.objBlock) self.objBlock(x);
+                x.bySelected(!x.selected);
+                if(self.viewModel) x.resetByViewModel(self.viewModel,self.selected);
+                if(self.buttonModel) x.resetByButtonModel(self.buttonModel,self.selected);
+            })
+            .byEnabled(NO)
+            .byUserInteractionEnabled(YES)
+            .addOn(self.contentView)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.edges.equalTo(self).insets(self.contentEdgeInsets);/// 如果这里用self.contentView，在某些情况下，约束会失灵。因为self.contentView的生命周期的缘故，还没有完全展开
+            });
     };return _button;
 }
 

@@ -50,9 +50,9 @@
             data.key = 获取极验验证码成功;
             data.value = jobsMakeGTCaptcha4Model(^(__kindof GTCaptcha4Model *_Nullable data1) {
                 data1.captchaSession = captchaSession;
-                data1.status = status;
-                data1.result = GTCaptcha4ResultModel.byData(result);
-                data1.targetView = (UIView *)(self.data_weak ? : self);
+                data1.byStatus(status)
+                     .byResult(GTCaptcha4ResultModel.byData(result))
+                     .byTargetView((UIView *)(self.data_weak ? : self));
             });
         }));
     }else toastBy(@"未通过图形验证，请重试".tr);
@@ -72,7 +72,7 @@
         data.key = 获取极验验证码失败;
         data.value = jobsMakeGTCaptcha4Model(^(__kindof GTCaptcha4Model * _Nullable data1) {
             data1.captchaSession = captchaSession;
-            data1.error = error;
+            data1.byError(error);
         });
     }));
 }

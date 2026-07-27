@@ -9,20 +9,21 @@
 
 @interface JobsLiveCommentDemoVC ()
 
-Prop_strong()UITableView *tableView;
+Prop_strong()UITableView *liveTableView;
 Prop_strong()JobsLiveInputBar *inputBar;
 Prop_strong()NSMutableArray <NSString *>*messageMutArr;
 
 -(void)appendMessage:(NSString *)text;
+-(void)configKeyboardManager;
 -(void)sendCurrentText;
 -(void)scrollToBottomAnimated:(BOOL)animated;
 
 @end
 
 @implementation JobsLiveCommentDemoVC
-@synthesize tableView = _tableView;
-@synthesize inputBar = _inputBar;
-@synthesize messageMutArr = _messageMutArr;
+-(void)dealloc{
+    [JobsOCKeyboardMgr.shared clearConfigByOwner:self];
+}
 
 -(void)loadView{
     [super loadView];
@@ -37,8 +38,9 @@ Prop_strong()NSMutableArray <NSString *>*messageMutArr;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"直播间留言".tr);
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byText(@"直播间留言".tr)
+                .byFont(UIFontWeightRegularSize(18));
         })
         .byBgCor(UIColor.systemBackgroundColor)
         .byNavBgCor(UIColor.systemBackgroundColor);
@@ -47,10 +49,41 @@ Prop_strong()NSMutableArray <NSString *>*messageMutArr;
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    self.view.backgroundColor = UIColor.systemBackgroundColor;
-    self.inputBar.alpha = 1;
-    self.tableView.alpha = 1;
+    self.view.byBgColor(UIColor.systemBackgroundColor);
+    self.inputBar.byAlpha(1);
+    self.liveTableView.byAlpha(1);
     [self scrollToBottomAnimated:NO];
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self configKeyboardManager];
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [JobsOCKeyboardMgr.shared clearConfigByOwner:self];
+}
+#pragma mark —— Config
+-(void)configKeyboardManager{
+    @jobs_weakify(self)
+    JobsOCKeyboardMgr.shared.byConfig(jobsMakeOCKeyboardConfig(^(__kindof JobsOCKeyboardConfig * _Nullable config) {
+        @jobs_strongify(self)
+        config
+            .byOwner(self)
+            .byTargetView(self.inputBar)
+            .byTriggerScopeView(self.inputBar)
+            .byContainerView(self.view)
+            .byFollowViews(@[self.liveTableView])
+            .byInputFields(@[self.inputBar.textField])
+            .byExtraSpacing(JobsWidth(8))
+            .byTopSpacing(JobsWidth(12))
+            .byShouldResignOnTouchOutside(NO)
+            .byAccessoryPolicy(JobsOCKeyboardAccessoryPolicyIgnore)
+            .byResultBlock(^(__kindof JobsOCKeyboardResult * _Nullable result) {
+                if (result.keyboardVisible) [weak_self scrollToBottomAnimated:NO];
+            });
+    }));
 }
 #pragma mark —— Action
 -(void)sendCurrentText{
@@ -66,18 +99,18 @@ Prop_strong()NSMutableArray <NSString *>*messageMutArr;
     [self.messageMutArr addObject:text];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:newRow
                                                 inSection:0];
-    [self.tableView performBatchUpdates:^{
-        [self.tableView insertRowsAtIndexPaths:@[indexPath]
-                              withRowAnimation:UITableViewRowAnimationNone];
+    [self.liveTableView performBatchUpdates:^{
+        [self.liveTableView insertRowsAtIndexPaths:@[indexPath]
+                                  withRowAnimation:UITableViewRowAnimationNone];
     } completion:^(__unused BOOL finished) {
-        [self.tableView layoutIfNeeded];
+        [self.liveTableView layoutIfNeeded];
         [self scrollToBottomAnimated:NO];
-        JobsLiveMsgCell *cell = (JobsLiveMsgCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+        JobsLiveMsgCell *cell = (JobsLiveMsgCell *)[self.liveTableView cellForRowAtIndexPath:indexPath];
         if ([cell isKindOfClass:JobsLiveMsgCell.class]) {
             [cell playAppearAnimation];
         }else{
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                JobsLiveMsgCell *delayedCell = (JobsLiveMsgCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+                JobsLiveMsgCell *delayedCell = (JobsLiveMsgCell *)[self.liveTableView cellForRowAtIndexPath:indexPath];
                 if ([delayedCell isKindOfClass:JobsLiveMsgCell.class]) [delayedCell playAppearAnimation];
             });
         }
@@ -88,9 +121,9 @@ Prop_strong()NSMutableArray <NSString *>*messageMutArr;
     if (!self.messageMutArr.count) return;
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.messageMutArr.count - 1
                                                 inSection:0];
-    [self.tableView scrollToRowAtIndexPath:indexPath
-                          atScrollPosition:UITableViewScrollPositionBottom
-                                  animated:animated];
+    [self.liveTableView scrollToRowAtIndexPath:indexPath
+                              atScrollPosition:UITableViewScrollPositionBottom
+                                      animated:animated];
 }
 #pragma mark —— UITextFieldDelegate
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -128,38 +161,40 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 #pragma mark —— LazyLoad
 -(JobsLiveInputBar *)inputBar{
     if (!_inputBar) {
+        @jobs_weakify(self)
         _inputBar = JobsLiveInputBar.new;
-        _inputBar.textField.delegate = self;
-        [_inputBar.sendButton addTarget:self
-                                 action:@selector(sendCurrentText)
-                       forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:_inputBar];
-        [_inputBar mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.view);
-            make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom).offset(-JobsWidth(8));
-            make.height.mas_equalTo(JobsWidth(56));
-        }];
+        _inputBar.textField.byDelegate(self);
+        _inputBar.sendButton.onClickBy(^(__kindof UIButton * _Nullable button) {
+            [weak_self sendCurrentText];
+        });
+        _inputBar
+            .addOn(self.view)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.left.right.equalTo(self.view);
+                make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom).offset(-JobsWidth(6));
+                make.height.mas_equalTo(JobsWidth(64));
+            });
     };return _inputBar;
 }
 
--(UITableView *)tableView{
-    if (!_tableView) {
-        _tableView = [UITableView.alloc initWithFrame:CGRectZero
-                                                style:UITableViewStylePlain];
-        _tableView.dataSource = self;
-        _tableView.delegate = self;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeInteractive;
-        _tableView.backgroundColor = UIColor.clearColor;
-        [_tableView registerClass:JobsLiveMsgCell.class
-           forCellReuseIdentifier:JobsLiveMsgCell.reuseIdentifier];
-        [self.view addSubview:_tableView];
-        [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.view);
-            make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(10));
-            make.bottom.equalTo(self.inputBar.mas_top);
-        }];
-    };return _tableView;
+-(UITableView *)liveTableView{
+    if (!_liveTableView) {
+        _liveTableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
+            tableView.registerTableViewCellClass(JobsLiveMsgCell.class, @"");
+            tableView
+                .byDataSource(self)
+                .byDelegate(self)
+                .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
+                .byKeyboardDismissMode(UIScrollViewKeyboardDismissModeInteractive)
+                .byBgColor(UIColor.clearColor)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.right.equalTo(self.view);
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(10));
+                    make.bottom.equalTo(self.inputBar.mas_top);
+                });
+        });
+    };return _liveTableView;
 }
 
 -(NSMutableArray<NSString *> *)messageMutArr{

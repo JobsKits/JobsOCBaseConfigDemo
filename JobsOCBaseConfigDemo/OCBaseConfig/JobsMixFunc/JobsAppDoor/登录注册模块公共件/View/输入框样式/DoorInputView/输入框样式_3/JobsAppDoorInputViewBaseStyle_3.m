@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorInputViewBaseStyle_3.m
-//  JobsOCTools
+//  JobsAppDoor
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -44,6 +44,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 }
 #pragma mark —— 一些私有方法
 -(void)configTextField{
+    self.magicTextField.placeholdAnimationable = self.doorInputViewBaseStyleModel.isPlaceholdAnimationable;
     if (isValue(self.doorInputViewBaseStyleModel.inputStr)) {
         self.magicTextField.byText(self.doorInputViewBaseStyleModel.inputStr);
     }
@@ -151,9 +152,9 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
         .jobsResetBtnImage(self.doorInputViewBaseStyleModel.unSelectedSecurityBtnIMG ? : JobsBlueColor.image)
         .onClickBy(^(UIButton *x){
             @jobs_strongify(self)
-            x.selected = !x.selected;
-            self.magicTextField.bySecureTextEntry(!x.selected);
-            if (x.selected && !self.magicTextField.isEditing) {
+            x.byToggleSelected();
+            self.magicTextField.bySecureTextEntry(!x.jobs_isSelected);
+            if (x.jobs_isSelected && !self.magicTextField.isEditing) {
                 self.magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
             }
         }).onLongPressGestureBy(^(id data){
@@ -169,11 +170,14 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 @synthesize magicTextField = _magicTextField;
 -(JobsMagicTextField *)magicTextField{
     if (!_magicTextField) {
+        /// 先完成按钮懒加载，避免文本信号同步回调重入 getter
+        UIButton *securityModeBtn = self.securityModeBtn;
         @jobs_weakify(self)
         _magicTextField = jobsMakeMagicTextField(^(__kindof JobsMagicTextField * _Nullable textField) {
             @jobs_strongify(self)
-            textField.byDelegate(self);
-            textField.bySecureTextEntry(self.doorInputViewBaseStyleModel.isShowSecurityBtn);
+            textField
+                .byDelegate(self)
+                .bySecureTextEntry(self.doorInputViewBaseStyleModel.isShowSecurityBtn);
             [textField jobsTextFieldEventFilterBlock:^BOOL(id _Nullable data) {
                 JobsLog(@"SSS = %@",self.textFieldInputModel.PlaceHolder);
                 @jobs_strongify(self)
@@ -181,7 +185,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             } subscribeNextBlock:^(NSString *_Nullable x) {
                 @jobs_strongify(self)
                 JobsLog(@"输入的字符为 = %@",x);
-                self.securityModeBtn.jobsVisible = isValue(x) && self.doorInputViewBaseStyleModel.isShowSecurityBtn;/// 👁
+                securityModeBtn.jobsVisible = isValue(x) && self.doorInputViewBaseStyleModel.isShowSecurityBtn;/// 👁
                 if(!x) return;
                 if (x.isContainsSpecialSymbolsString(nil)) {
                     @"Do not enter special characters".tr.toast();
@@ -192,7 +196,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
             textField.addOn(self).byAdd(^(MASConstraintMaker *make) {
                 make.top.left.bottom.equalTo(self);
                 if (self.doorInputViewBaseStyleModel.isShowSecurityBtn) {
-                    make.right.equalTo(self.securityModeBtn.mas_left);
+                    make.right.equalTo(securityModeBtn.mas_left);
                 }else{
                     make.right.equalTo(self);
                 }

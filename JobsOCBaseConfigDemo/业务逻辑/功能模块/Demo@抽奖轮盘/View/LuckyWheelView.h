@@ -16,31 +16,31 @@
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
-#import "JobsLanMgr.h"
+#import <JobsLanMgr/JobsLanMgr.h>
 #else
 #import "JobsLanMgr.h"
 #endif
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import "JobsOCDSL.h"
+#import <JobsOCDSL/JobsOCDSL.h>
 #else
 #import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsMakes/JobsMakes.h>)
-#import "JobsMakes.h"
+#import <JobsMakes/JobsMakes.h>
 #else
 #import "JobsMakes.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
-#import "JobsBlock.h"
+#import <JobsBlock/JobsBlock.h>
 #else
 #import "JobsBlock.h"
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import "JobsDefines.h"
+#import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
 #endif

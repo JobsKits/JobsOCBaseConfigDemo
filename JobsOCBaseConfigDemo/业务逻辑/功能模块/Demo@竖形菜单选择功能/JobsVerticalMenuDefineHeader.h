@@ -2,11 +2,17 @@
 //  JobsVerticalMenuDefineHeader.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/6/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #ifndef JobsVerticalMenuDefineHeader_h
 #define JobsVerticalMenuDefineHeader_h
+
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
 
 #define TreeClassItemCell_Height JobsWidth(110.f)
 #define ThreeTopBannerCell_addHeight JobsWidth(10.f) // 额外增加的高度（图片距离顶部高度）

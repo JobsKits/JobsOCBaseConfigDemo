@@ -30,18 +30,26 @@ Prop_strong()NSMutableArray <UIView *>*demo2ItemViewMutArr;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-//    self.viewModel.textModel.text = @"消息详情页".tr;
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-//    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byTextCor(HEXCOLOR(0x3D4A58));
+        })
+        //    self.viewModel.textModel.text = @"消息详情页".tr;
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data
+                .byText(data.attributedTitle.string)
+                .byFont(UIFontWeightRegularSize(16));
+        })
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
@@ -106,20 +114,24 @@ Prop_strong()NSMutableArray <UIView *>*demo2ItemViewMutArr;
         .add(@"标签10".tr);
     })) {
         UILabel *label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.text = tagName;
-            label.backgroundColor = JobsLightGrayColor;
-            label.textAlignment = NSTextAlignmentCenter;
-            label.layer.cornerRadius = 5.0;
-            label.clipsToBounds = YES;
-            // 根据标签文本计算标签宽度
-            tagSize = [label sizeThatFits:CGSizeMake(containerWidth, tagHeight)];
-            // 如果当前行放不下该标签，则换行
-            if (currentX + tagSize.width > containerWidth) {
-                currentX = containerX;
-                currentY += tagHeight + tagSpacing;
-            }label.frame = CGRectMake(currentX, currentY, tagSize.width, tagHeight);
+            label
+                .byText(tagName)
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byLabelBlock(^(__kindof UILabel * _Nullable data) {
+                    // 根据标签文本计算标签宽度
+                    tagSize = [data sizeThatFits:CGSizeMake(containerWidth, tagHeight)];
+                    // 如果当前行放不下该标签，则换行
+                    if (currentX + tagSize.width > containerWidth) {
+                        currentX = containerX;
+                        currentY += tagHeight + tagSpacing;
+                    }
+                })
+                .byBgColor(JobsLightGrayColor)
+                .byCornerRadius(5.0)
+                .byClipsToBounds(YES)
+                .byFrame(CGRectMake(currentX, currentY, tagSize.width, tagHeight))
+                .addOn(self.view);
         });
-        [self.view addSubview:label];
         [self.demo1LabelMutArr addObject:label];
         currentX += tagSize.width + tagSpacing;/// 更新当前行的x坐标
     }
@@ -136,11 +148,9 @@ Prop_strong()NSMutableArray <UIView *>*demo2ItemViewMutArr;
  */
 -(void)demo2{
     // 创建父视图容器
-    [self.view addSubview:self.demo2ContainerView];
-    // 设置父视图容器的约束
-    [self.demo2ContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.demo2ContainerView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(100, 20, 100, 20)); // 设置四个边界紧贴父视图
-    }];
+    });
     [self.view layoutIfNeeded];
     JobsLog(@"ddd = %f",CGRectGetWidth(self.demo2ContainerView.frame));
     [self.demo2ItemViewMutArr removeAllObjects];
@@ -162,18 +172,19 @@ Prop_strong()NSMutableArray <UIView *>*demo2ItemViewMutArr;
         for (NSInteger column = 0; column < columns; column++) {
             NSInteger index = row * columns + column;
             if (index < itemCount) {
-                UIView *itemView = [UIView new];
-                itemView.backgroundColor = [UIColor blueColor]; // 子元素背景色为蓝色
-                [self.demo2ContainerView addSubview:itemView];
+                UIView *itemView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+                    view
+                        .byBgColor(UIColor.blueColor) // 子元素背景色为蓝色
+                        .addOn(self.demo2ContainerView)
+                        .byAdd(^(MASConstraintMaker *make) {
+                            make.width.equalTo(@(itemWidth)); // 设置子元素宽度
+                            make.height.equalTo(@(itemHeight)); // 设置子元素高度
+                            // 计算子元素的位置
+                            make.left.equalTo(self.demo2ContainerView.mas_left).offset(column * (itemWidth + horizontalSpacing));
+                            make.top.equalTo(self.demo2ContainerView.mas_top).offset(row * (itemHeight + verticalSpacing));
+                        });
+                });
                 [self.demo2ItemViewMutArr addObject:itemView];
-                // 设置子元素的约束
-                [itemView mas_makeConstraints:^(MASConstraintMaker *make) {
-                    make.width.equalTo(@(itemWidth)); // 设置子元素宽度
-                    make.height.equalTo(@(itemHeight)); // 设置子元素高度
-                    // 计算子元素的位置
-                    make.left.equalTo(self.demo2ContainerView.mas_left).offset(column * (itemWidth + horizontalSpacing));
-                    make.top.equalTo(self.demo2ContainerView.mas_top).offset(row * (itemHeight + verticalSpacing));
-                }];
             }
         }
     }
@@ -220,7 +231,7 @@ Prop_strong()NSMutableArray <UIView *>*demo2ItemViewMutArr;
         @jobs_weakify(self)
         _view2 = MSMineView2.alloc.init;
         _view2.jobsRichViewByModel(nil);
-        [self.view addSubview:_view2];
+        _view2.addOn(self.view);
         [_view2 mas_makeConstraints:^(MASConstraintMaker *make) {
             @jobs_strongify(self)
             make.size.mas_equalTo(CGSizeMake(JobsWidth(88), JobsWidth(28)));
@@ -228,10 +239,12 @@ Prop_strong()NSMutableArray <UIView *>*demo2ItemViewMutArr;
             make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(12));
         }];
         [self.view setNeedsUpdateConstraints];
-        [UIView animateWithDuration:0.5 animations:^{
+        UIView.jobsAnimateWithCompletion(0.5,
+            ^{
             @jobs_strongify(self)
             [self.view layoutIfNeeded];
-        } completion:^(BOOL finished) {
+        },
+            ^(BOOL finished) {
             @jobs_strongify(self)
             [self->_view2 mas_remakeConstraints:^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(MSMineView2.viewSizeByModel(nil));
@@ -239,10 +252,11 @@ Prop_strong()NSMutableArray <UIView *>*demo2ItemViewMutArr;
                 make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(12));
             }];
             [self.view setNeedsUpdateConstraints];
-            [UIView animateWithDuration:0.5 animations:^{
+            UIView.jobsAnimate(0.5,
+                ^{
                 [self.view layoutIfNeeded];
-            }];
-        }];
+            });
+        });
         _view2.cornerCutToCircleWithCornerRadius(MSMineView2.viewSizeByModel(nil).height / 2);
     };return _view2;
 }

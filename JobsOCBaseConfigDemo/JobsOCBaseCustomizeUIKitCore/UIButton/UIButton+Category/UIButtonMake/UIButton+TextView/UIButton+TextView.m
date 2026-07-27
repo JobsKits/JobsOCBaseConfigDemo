@@ -13,19 +13,21 @@
     @jobs_weakify(self)
     return ^(__kindof UITextView *_Nullable textView){
         @jobs_strongify(self)
-        textView.byDelegate(self);
-        textView.byEditable(NO);
-        textView.bySelectable(YES);
-        textView.byDataDetectorTypes(UIDataDetectorTypeLink);
-        textView.byTextAlignment(NSTextAlignmentCenter);
+        textView
+            .byDelegate(self)
+            .byEditable(NO)
+            .bySelectable(YES)
+            .byDataDetectorTypes(UIDataDetectorTypeLink)
+            .byTextAlignment(NSTextAlignmentCenter);
         textView.byLinkTextAttributes(@{
             NSForegroundColorAttributeName: UIColor.yellowColor,
             NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
             NSUnderlineColorAttributeName: UIColor.yellowColor
         });
-        textView.byScrollEnabled(NO);
-        textView.byUserInteractionEnabled(YES);
-        textView.byBgColor(JobsClearColor);
+        textView
+            .byScrollEnabled(NO)
+            .byUserInteractionEnabled(YES)
+            .byBgColor(JobsClearColor);
         /// 将 textView 添加到当前视图
         self.addSubview(textView);
     };

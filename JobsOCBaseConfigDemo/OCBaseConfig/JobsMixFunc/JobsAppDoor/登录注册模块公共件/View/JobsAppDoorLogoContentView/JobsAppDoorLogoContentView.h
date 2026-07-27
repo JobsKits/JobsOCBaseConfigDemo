@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorLogoContentView.h
-//  JobsOCTools
+//  JobsAppDoor
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -10,17 +10,47 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsAppDoor/JobsAppDoorResource.h>)
+#import "JobsAppDoorResource.h"
+#else
+#import "JobsAppDoorResource.h"
+#endif
+
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
 
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import "JobsByOCPods.h"
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import "JobsBaseUI.h"
+#else
+#import "JobsBaseUI.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
 #import "JobsMakes.h"
+#else
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import "JobsDefines.h"
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import "JobsOCDSL.h"
+#else
+#import "JobsOCDSL.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

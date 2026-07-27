@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorInputViewBaseStyle_7.m
-//  JobsOCTools
+//  JobsAppDoor
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -45,6 +45,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
 -(void)configTextField{
 //    self.magicTextField.leftView;
 //    self.magicTextField.leftViewMode;
+    self.magicTextField.placeholdAnimationable = self.doorInputViewBaseStyleModel.isPlaceholdAnimationable;
     self.magicTextField.leftViewOffsetX = self.doorInputViewBaseStyleModel.leftViewOffsetX ? : JobsWidth(12);
     self.magicTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
     self.magicTextField.placeholderColor = self.doorInputViewBaseStyleModel.placeholderColor;
@@ -118,7 +119,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.equalTo(self).offset(JobsWidth(14));
                     make.centerY.equalTo(self);
-                    make.size.mas_equalTo(CGSizeMake(JobsWidth(12), JobsWidth(16)));
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(10), JobsWidth(14)));
                 });
         });
     };return _leftIMGV;
@@ -141,16 +142,18 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
             })
             .addOn(self)
             .byAdd(^(MASConstraintMaker *make) {
-                make.left.equalTo(self.leftIMGV.mas_right).offset(JobsWidth(12));
+                make.left.equalTo(self.leftIMGV.mas_right).offset(JobsWidth(8));
                 make.centerY.equalTo(self);
-                make.size.mas_equalTo(CGSizeMake(JobsWidth(62), JobsWidth(20)));
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(56), JobsWidth(18)));
             })
             .byViewBlock(^(__kindof UIView *view) {
                 UIButton *button = (UIButton *)view;
                 button.byContentHorizontalAlignment(UIControlContentHorizontalAlignmentLeft);
                 button.titleLabel
+                    .byNumberOfLines(1)
+                    .byLineBreakMode(NSLineBreakByClipping)
                     .byAdjustsFontSizeToFitWidth(YES)
-                    .byMinimumScaleFactor(0.72f);
+                    .byMinimumScaleFactor(0.8f);
             });
     };return _chooseBtn;
 }
@@ -160,10 +163,10 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
         @jobs_weakify(self)
         _chooseBtnViewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
             @jobs_strongify(self)
-            data.textModel.byText(@"🇨🇳｜+86")
+            data.textModel.byText(@"🇨🇳|+86")
                           .byTextCor(JobsWhiteColor)
                           .byTextLineSpacing(0)
-                          .byFont(UIFontWeightRegularSize(14));
+                          .byFont(UIFontWeightRegularSize(12));
             data.byBgCor(JobsClearColor);
             data.subTextModel.byText(@"".tr);
         });
@@ -181,7 +184,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.bottom.equalTo(self);
                     make.right.equalTo(self).offset(-JobsWidth(12));
-                    make.left.equalTo(self.chooseBtn.mas_right);
+                    make.left.equalTo(self.chooseBtn.mas_right).offset(JobsWidth(4));
                 });
             [textField jobsTextFieldEventFilterBlock:^BOOL(NSString * _Nullable data) {
                 @jobs_strongify(self)

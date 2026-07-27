@@ -7,14 +7,47 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsOCDemoSectionModel.h"
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
 #import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
 #import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsOCUILabelScrolling/JobsOCUILabelScrolling.h>)
+#import <JobsOCUILabelScrolling/JobsOCUILabelScrolling.h>
+#else
+#import "JobsOCUILabelScrolling.h"
+#endif
+
+#if __has_include(<JobsOCTimer/JobsOCTimer.h>)
+#import <JobsOCTimer/JobsOCTimer.h>
+#else
 #import "JobsOCTimer.h"
+#endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
-#import "JobsBlock.h"
+#import <JobsBlock/JobsBlock.h>
 #else
 #import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
@@ -29,9 +62,9 @@ UITableViewDelegate
 
 +(CGFloat)collapsedHeight;
 +(CGFloat)innerRowHeight;
-+(CGFloat)expandedHeightByItemCount:(NSUInteger)itemCount;
 +(CGFloat)expandedHeightByItemCount:(NSUInteger)itemCount
-                  sectionDescription:(NSString *_Nullable)sectionDescription;
+                 sectionDescription:(NSString *_Nullable)sectionDescription
+                    innerTableWidth:(CGFloat)innerTableWidth;
 -(void)configureWithSectionModel:(JobsOCDemoSectionModel *)sectionModel
                         expanded:(BOOL)expanded
                      selectBlock:(jobsByNSIntegerBlock _Nullable)selectBlock

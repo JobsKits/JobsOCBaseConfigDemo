@@ -15,7 +15,10 @@
 #import "TestIrregularViewTestVC.h"
 #import "Douyin_ZFPlayerVC@1.h"
 #import "Douyin_ZFPlayerVC@2.h"
-#import "JobsAppDoorVC_Style2.h"
+
+#import "JobsAppDoor.h"
+
+#import "JobsAppDoorDemoListVC.h"
 #import "JobsCommentVC.h"
 #import "JobsOCCommentDemoVC.h"
 #import "JobsIMShowVC.h"
@@ -42,6 +45,7 @@
 #import "JobsLiveCommentDemoVC.h"
 #import "JobsLiveStreamDemoVC.h"
 #import "JobsMosaicDemoListVC.h"
+#import "JobsIconfontDemoVCs.h"
 #import "JobsButtonCoverCellDemoListVC.h"
 #import "JobsSphereDemoVC.h"
 #import "YTKNetworkStudyVC.h"
@@ -100,11 +104,12 @@
 #import "JobsImageRotationDemoVC.h"
 #import "JobsTabBarCtrlDemoVC.h"
 #import "JobsOCKeyboardMgrDemoVC.h"
-#import "../功能模块/Demo@JobsOCNumberStepper/JobsOCNumberStepperDemoVC.h"
-#import "JobsGraphicCaptchaDemoVC.h"
-#import "JobsOCSkeletonViewDemoVC.h"
+#import "JobsOCNumberStepperDemoVC.h"
+#import "JobsOCGraphicCaptchaDemoVC.h"
 #import "JobsQRCodeDemoVC.h"
 #import "JobsCNIDDemoVC.h"
+#import "JobsOCSkeletonViewDemoVC.h"
+#import "JobsOCCrashLogVC.h"
 #import "JobsSwiftParityMomentsPreviewDemoVC.h"
 #import "JobsSwiftParityThrottleDebounceDemoVC.h"
 #import "JobsSwiftParityTaskCenterDemoVC.h"
@@ -120,13 +125,13 @@
 #import "JobsSwiftParitySnowflakeDemoVC.h"
 
 #if __has_include(<JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>)
-#import "JobsOCCountryCodeCtrlHeader.h"
+#import <JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>
 #else
 #import "JobsOCCountryCodeCtrlHeader.h"
 #endif
 
 #if __has_include(<JobsOCVideoRecorder/JobsOCVideoRecorder.h>)
-#import "JobsOCVideoRecorder.h"
+#import <JobsOCVideoRecorder/JobsOCVideoRecorder.h>
 #else
 #import "JobsOCVideoRecorder.h"
 #endif

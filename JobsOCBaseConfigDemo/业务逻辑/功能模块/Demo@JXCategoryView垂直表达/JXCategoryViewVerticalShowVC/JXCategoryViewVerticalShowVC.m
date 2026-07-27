@@ -39,9 +39,10 @@ Prop_strong()NSMutableArray <NSString *>*titleMutArr;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(data.attributedTitle.string);
-            data.byFont(UIFontWeightRegularSize(16));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(data.attributedTitle.string)
+                .byFont(UIFontWeightRegularSize(16));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -210,12 +211,13 @@ ratio:(CGFloat)ratio {
 -(NSMutableArray<NSString *> *)titleMutArr{
     if (!_titleMutArr) {
         _titleMutArr = NSMutableArray.array;
-        _titleMutArr.add(@"豆花".tr);
-        _titleMutArr.add(@"莲子羹".tr);
-        _titleMutArr.add(@"蒸肉".tr);
-        _titleMutArr.add(@"排骨".tr);
-        _titleMutArr.add(@"美女".tr);
-        _titleMutArr.add(@"豪车".tr);
+        _titleMutArr
+            .add(@"豆花".tr)
+            .add(@"莲子羹".tr)
+            .add(@"蒸肉".tr)
+            .add(@"排骨".tr)
+            .add(@"美女".tr)
+            .add(@"豪车".tr);
     };return _titleMutArr;
 }
 

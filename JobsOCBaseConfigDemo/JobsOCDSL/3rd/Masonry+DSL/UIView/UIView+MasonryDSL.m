@@ -54,7 +54,7 @@
     };
 }
 /// 对系统API mas_remakeConstraints 的二次封装：将空约束配置进UI == 清空约束
--(JobsRetIDByVoidBlock _Nonnull)byRemove{
+-(JobsRetIDByVoidBlock _Nonnull)byClearConstraints{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(void){
         @jobs_strongify(self)

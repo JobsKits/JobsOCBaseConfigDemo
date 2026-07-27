@@ -95,6 +95,11 @@ jobsMakeBezierPath(jobsByBezierPathBlock _Nonnull block){
     if (block) block(data);
     return data;
 }
+#pragma mark —— 关于 UIImage 的创建
+/// 创建用于清空系统图片属性的空 UIImage。
+NS_INLINE UIImage *_Nonnull jobsMakeImage(void){
+    return UIImage.new;
+}
 #pragma mark —— 关于动画
 NS_INLINE __kindof CABasicAnimation *_Nonnull
 jobsMakeCABasicAnimationBy(NSString *_Nonnull data){
@@ -450,6 +455,72 @@ jobsMakeSlider(jobsBySliderBlock _Nonnull block){
     return data;
 }
 
+NS_INLINE __kindof UISegmentedControl *_Nonnull
+jobsMakeSegmentedControl(NSArray *_Nullable items,
+                         jobsBySegmentedControlBlock _Nonnull block){
+    UISegmentedControl *data = [UISegmentedControl.alloc initWithItems:items];
+    if (block) block(data);
+    return data;
+}
+
+NS_INLINE __kindof UIAction *_Nonnull
+jobsMakeAction(NSString *_Nonnull title,
+               UIImage *_Nullable image,
+               UIActionIdentifier _Nullable identifier,
+               UIActionHandler _Nonnull handler,
+               jobsByUIActionBlock _Nullable block) API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(watchos){
+    UIAction *data = [UIAction actionWithTitle:title
+                                        image:image
+                                   identifier:identifier
+                                      handler:handler];
+    if (block) block(data);
+    return data;
+}
+
+NS_INLINE __kindof UIMenu *_Nonnull
+jobsMakeMenu(NSString *_Nonnull title,
+             NSArray<UIMenuElement *> *_Nonnull children,
+             jobsByUIMenuBlock _Nullable block) API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(watchos){
+    UIMenu *data = [UIMenu menuWithTitle:title children:children];
+    if (block) block(data);
+    return data;
+}
+
+NS_INLINE __kindof UIContextMenuConfiguration *_Nonnull
+jobsMakeContextMenuConfiguration(id<NSCopying> _Nullable identifier,
+                                 UIContextMenuContentPreviewProvider _Nullable previewProvider,
+                                 UIContextMenuActionProvider _Nullable actionProvider,
+                                 jobsByContextMenuConfigurationBlock _Nullable block) API_AVAILABLE(ios(13.0), tvos(17.0)) API_UNAVAILABLE(watchos){
+    UIContextMenuConfiguration *data = [UIContextMenuConfiguration configurationWithIdentifier:identifier
+                                                                                previewProvider:previewProvider
+                                                                                 actionProvider:actionProvider];
+    if (block) block(data);
+    return data;
+}
+
+NS_INLINE __kindof UINib *_Nonnull
+jobsMakeNib(NSString *_Nonnull nibName,
+            NSBundle *_Nullable bundle,
+            jobsByNibBlock _Nullable block) API_AVAILABLE(ios(4.0)) API_UNAVAILABLE(watchos){
+    UINib *data = [UINib nibWithNibName:nibName bundle:bundle];
+    if (block) block(data);
+    return data;
+}
+
+NS_INLINE __kindof UIBarButtonItem *_Nonnull
+jobsMakeBarButtonItemByTitle(NSString *_Nullable title,
+                             UIBarButtonItemStyle style,
+                             id _Nullable target,
+                             SEL _Nullable action,
+                             jobsByBarButtonItemBlock _Nullable block) API_AVAILABLE(ios(2.0)) API_UNAVAILABLE(watchos){
+    UIBarButtonItem *data = [UIBarButtonItem.alloc initWithTitle:title
+                                                          style:style
+                                                         target:target
+                                                         action:action];
+    if (block) block(data);
+    return data;
+}
+
 NS_INLINE __kindof UISearchBar *_Nonnull
 jobsMakeUISearchBar(jobsByUISearchBarBlock _Nonnull block){
     UISearchBar *data = UISearchBar.alloc.init;
@@ -460,6 +531,13 @@ jobsMakeUISearchBar(jobsByUISearchBarBlock _Nonnull block){
 NS_INLINE __kindof UINavigationBarAppearance *_Nonnull
 jobsMakeNavigationBarAppearance(jobsByNavigationBarAppearanceBlock _Nonnull block){
     UINavigationBarAppearance *data = UINavigationBarAppearance.alloc.init;
+    if (block) block(data);
+    return data;
+}
+
+NS_INLINE __kindof UITabBarAppearance *_Nonnull
+jobsMakeTabBarAppearance(jobsByTabBarAppearanceBlock _Nonnull block) API_AVAILABLE(ios(13.0)){
+    UITabBarAppearance *data = UITabBarAppearance.alloc.init;
     if (block) block(data);
     return data;
 }

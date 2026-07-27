@@ -2,7 +2,7 @@
 //  ExcelVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2024年4月26日，星期五.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "ExcelVC.h"
@@ -28,22 +28,27 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x1F2937);
-    self.viewModel.textModel.text = @"Excel".tr;
-    self.viewModel.textModel.font = UIFontWeightSemiboldSize(18);
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
-    self.viewModel.bgCor = HEXCOLOR(0xF6F8FB);
-    self.viewModel.bgImage = nil;
-    self.viewModel.navBgCor = HEXCOLOR(0xF6F8FB);/// self.gk_navBackgroundColor 和 self.view.backgroundColor
-//    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data
+                .byTextCor(HEXCOLOR(0x1F2937))
+                .byText(@"Excel".tr)
+                .byFont(UIFontWeightSemiboldSize(18));
+        })
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
+        .byBgCor(HEXCOLOR(0xF6F8FB))
+        .byNavBgCor(HEXCOLOR(0xF6F8FB));/// self.gk_navBackgroundColor 和 self.view.backgroundColor
+        //    self.viewModel.navBgImage = @"导航栏左侧底图".img;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = HEXCOLOR(0xF6F8FB);
+    self.view.byBgColor(HEXCOLOR(0xF6F8FB));
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
     self.tableView.byShow(self);
@@ -134,7 +139,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                  .byTextCor(statusCor)
                  .byFont(UIFontWeightMediumSize(14));
         })
-        .JobsBlock1(^(id _Nullable data) {
+        .JobsBlock1(^(id _Nullable data) {;
         });
 }
 
@@ -160,7 +165,7 @@ viewForHeaderInSection:(NSInteger)section{
             .byStyle(JobsHeaderViewStyle)/// 悬浮开关
             .bySection(section)/// 悬浮配置
             .JobsRichViewByModel2(nil)
-            .JobsBlock1(^(id _Nullable data) {
+            .JobsBlock1(^(id _Nullable data) {;
             });
     };return nil;
 }
@@ -177,7 +182,7 @@ viewForHeaderInSection:(NSInteger)section{
             .byStyle(JobsHeaderViewStyle)/// 悬浮开关
             .bySection(section)/// 悬浮配置
             .JobsRichViewByModel2(nil)
-            .JobsBlock1(^(id _Nullable data) {
+            .JobsBlock1(^(id _Nullable data) {;
             });
         tbvFooterView.byBgColor(HEXCOLOR(0xF6F8FB));
         tbvFooterView.backgroundView.byBgColor(HEXCOLOR(0xF6F8FB));
@@ -206,9 +211,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     [cell roundedCornerFirstAndLastCellByTableView:tableView
                                          indexPath:indexPath
                                        layerConfig:jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
-        model.roundingCornersRadii = CGSizeMake(JobsWidth(14.0), JobsWidth(14.0));
-        model.borderWidth = 0.6;
-        model.layerBorderCor = HEXCOLOR(0xE8EDF3);
+        model.byRoundingCornersRadii(CGSizeMake(JobsWidth(14.0), JobsWidth(14.0)))
+             .byBorderWidth(0.6)
+             .byLayerBorderCor(HEXCOLOR(0xE8EDF3));
     })];
 }
 
@@ -231,12 +236,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byRegisterTableViewClass(@"")
                 .byMJRefreshHeader([MJRefreshNormalHeader headerWithRefreshingBlock:^{
                     @jobs_strongify(self)
-                    NSObject.feedbackGenerator(nil);/// 震动反馈
+                    NSObject.feedbackGenerator(nil);// 震动反馈
                     self->_tableView.endRefreshing(YES);
                 }].byMJRefreshHeaderConfigModel(self.mjHeaderDefaultConfig))
                 .byMJRefreshFooter([MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
                     @jobs_strongify(self)
-                    NSObject.feedbackGenerator(nil);/// 震动反馈
+                    NSObject.feedbackGenerator(nil);// 震动反馈
                     self->_tableView.endRefreshing(YES);
                 }].byMJRefreshFooterConfigModel(self.mjFooterDefaultConfig))
                 .bySectionHeaderTopPadding(0)
@@ -245,7 +250,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byShowsVerticalScrollIndicator(NO)
                 .byContentInset(UIEdgeInsetsMake(JobsWidth(4), 0, JobsBottomSafeAreaHeight(), 0))
                 .byScrollEnabled(YES)
-                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
                 .byBgColor(HEXCOLOR(0xF6F8FB))
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -253,6 +257,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     make.left.right.bottom.equalTo(self.view);
                     [self make:make topOffset:0];
                 });
+            if(@available(iOS 11.0, *)) {
+                tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
+            }else{
+                SuppressWdeprecatedDeclarationsWarning(self.automaticallyAdjustsScrollViewInsets = NO);
+            }
         });
     };return _tableView;
 }
@@ -263,14 +272,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _tbvSectionRowCellMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSMutableArray<__kindof UITableViewCell *> *>* _Nullable data) {
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UITableViewCell *>* _Nullable rowCellMutArr) {
                 @jobs_strongify(self)
-                rowCellMutArr.add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView))
-                .add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView))
-                .add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView))
-                .add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView));
+                rowCellMutArr.add(JobsBaseTableViewCell.cellStyleValue1ByTableView(self.tableView))
+                .add(JobsBaseTableViewCell.cellStyleValue1ByTableView(self.tableView))
+                .add(JobsBaseTableViewCell.cellStyleValue1ByTableView(self.tableView))
+                .add(JobsBaseTableViewCell.cellStyleValue1ByTableView(self.tableView));
             }));
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable rowCellMutArr) {
                 @jobs_strongify(self)
-                rowCellMutArr.add(JobsBaseTableViewCell.cellStyleValue1WithTableView(self.tableView));
+                rowCellMutArr.add(JobsBaseTableViewCell.cellStyleValue1ByTableView(self.tableView));
             }));
         });
     };return _tbvSectionRowCellMutArr;
@@ -284,31 +293,32 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIViewModel *>* _Nullable data1) {
                 @jobs_strongify(self)
                 data1.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.title = @"ZMJClassData".tr;
-                    model.subTitle = @"正常".tr;
-                    model.cls = ZMJClassDataVC.class;
+                    model.byTitle(@"ZMJClassData".tr)
+                         .bySubTitle(@"正常".tr)
+                         .byCls(ZMJClassDataVC.class);
                 })))
                 .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.title = @"ZMJTimeable".tr;
-                    model.subTitle = @"正常".tr;
-                    model.cls = ZMJTimeableVC.class;
+                    model.byTitle(@"ZMJTimeable".tr)
+                         .bySubTitle(@"正常".tr)
+                         .byCls(ZMJTimeableVC.class);
                 })))
                 .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.title = @"ZMJSchedule".tr;
-                    model.subTitle = @"正常".tr;
-                    model.cls = ZMJScheduleVC.class;
+                    model.byTitle(@"ZMJSchedule".tr)
+                         .bySubTitle(@"正常".tr)
+                         .byCls(ZMJScheduleVC.class);
                 })))
                 .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.title = @"ZMJGanttList".tr;
-                    model.subTitle = @"有崩溃，需要修复".tr;
-                    model.cls = ZMJGanttListVC.class;
+                    model.byTitle(@"ZMJGanttList".tr)
+                         .bySubTitle(@"有崩溃，需要修复".tr)
+                         .byCls(ZMJGanttListVC.class);
                 })));
             }));
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIViewModel *>* _Nullable data1) {
+                @jobs_strongify(self)
                 data1.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.title = @"JobsExcel".tr;
-                    model.subTitle = @"JobsExcel".tr;
-                    model.cls = JobsExcelVC.class;
+                    model.byTitle(@"JobsExcel".tr)
+                         .bySubTitle(@"JobsExcel".tr)
+                         .byCls(JobsExcelVC.class);
                 })));
             }));
         });

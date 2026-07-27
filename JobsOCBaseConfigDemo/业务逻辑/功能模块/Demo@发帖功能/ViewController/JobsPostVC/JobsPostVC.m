@@ -53,9 +53,10 @@ Prop_strong()UITextModel *postTextModel;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(data.attributedTitle.string);
-            data.byFont(UIFontWeightRegularSize(16));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(data.attributedTitle.string)
+                .byFont(UIFontWeightRegularSize(16));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -194,16 +195,19 @@ Prop_strong()UITextModel *postTextModel;
               .byPreferredStyle(SPAlertControllerStyleAlert);
         config.animationType = SPAlertAnimationTypeDefault;
         config.alertActionTitleArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>* _Nullable data) {
-            data.add(@"不保存".tr);
-            data.add(@"保存".tr);
+            data
+                .add(@"不保存".tr)
+                .add(@"保存".tr);
         });
         config.alertActionStyleArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>* _Nullable data) {
-            data.add(@(SPAlertActionStyleDestructive));
-            data.add(@(SPAlertActionStyleDefault));
+            data
+                .add(@(SPAlertActionStyleDestructive))
+                .add(@(SPAlertActionStyleDefault));
         });
         config.alertBtnActionArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>* _Nullable data) {
-            data.add(@"不保留文字".tr);
-            data.add(@"保留文字".tr);
+            data
+                .add(@"不保留文字".tr)
+                .add(@"保留文字".tr);
         });
         config.byTargetVC(self)
               .byFuncInWhere(self)
@@ -247,7 +251,7 @@ Prop_strong()UITextModel *postTextModel;
 
 -(void)releaseBtnState:(NSArray *)photoDataArr
        inputDataString:(NSString *)inputDataString{
-    self.releaseBtn.enabled = photoDataArr.count || inputDataString.length;
+    self.releaseBtn.byEnabled(photoDataArr.count || inputDataString.length);
     self.releaseBtn.jobsResetBtnBgImage(self.releaseBtn.enabled ? @"发布".img : @"未发布".img);
 }
 #pragma mark —— HXPhotoViewDelegate
@@ -305,11 +309,11 @@ currentDeleteModel:(HXPhotoModel *)model
 gestureRecognizerBegan:(UILongPressGestureRecognizer *)longPgr
         indexPath:(NSIndexPath *)indexPath{
     @jobs_weakify(self)
-    [UIView animateWithDuration:0.25f
-                     animations:^{
+    UIView.jobsAnimate(0.25f,
+        ^{
         @jobs_strongify(self)
         self.postDelView.y = JobsMainScreen_HEIGHT() - self->JobsPostDelViewHeight;
-    }];
+    });
 }
 
 - (void)photoView:(HXPhotoView *)photoView
@@ -328,14 +332,15 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
         [self.postPhotoView deleteModelWithIndex:indexPath.item];
     }
     @jobs_weakify(self)
-    [UIView animateWithDuration:0.25f
-                     animations:^{
+    UIView.jobsAnimateWithCompletion(0.25f,
+        ^{
         @jobs_strongify(self)
         self.postDelView.y = JobsMainScreen_HEIGHT();
-    } completion:^(BOOL finished) {
+    },
+        ^(BOOL finished) {
         @jobs_strongify(self)
         self.postDelView.jobsRichViewByModel(@(NO));
-    }];
+    });
 }
 #pragma mark —— lazyLoad
 -(BaseButton *)releaseBtn{
@@ -436,8 +441,9 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
     if (!_postDelView) {
         _postDelView = JobsPostDelView.new;
         self.view.addSubview(_postDelView);
-        _postDelView.byFrame(JobsPostDelView.viewFrameByModel(nil));
-        _postDelView.jobsRichViewByModel(nil);
+        _postDelView
+            .byFrame(JobsPostDelView.viewFrameByModel(nil))
+            .jobsRichViewByModel(nil);
     };return _postDelView;
 }
 

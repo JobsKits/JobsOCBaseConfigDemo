@@ -26,7 +26,7 @@ Prop_assign()NSUInteger renderVersion;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.controlView.alpha = 1;
+    self.controlView.byAlpha(1);
     [self applyCurrentMosaic];
 }
 
@@ -43,7 +43,7 @@ Prop_assign()NSUInteger renderVersion;
     UIImage *sourceImage = self.originalImage;
     if (!sourceImage) return;
     CGFloat blockSize = self.blockSizeSlider.value;
-    self.valueLabel.text = [NSString stringWithFormat:@"像素块：%.0f", blockSize];
+    self.valueLabel.byText([NSString stringWithFormat:@"像素块：%.0f", blockSize]);
     NSUInteger currentVersion = ++self.renderVersion;
     [self showStatus:@"正在生成整图马赛克".tr
     hiddenAfterDelay:NO];
@@ -51,7 +51,7 @@ Prop_assign()NSUInteger renderVersion;
         UIImage *resultImage = [sourceImage jobs_mosaicPixelatedImageWithBlockSize:blockSize];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (currentVersion != self.renderVersion) return;
-            self.imageView.image = resultImage;
+            self.imageView.byImage(resultImage);
             self.hasEdited = YES;
             [self showStatus:@"拖动滑块可调节马赛克粗细".tr
             hiddenAfterDelay:YES];
@@ -61,18 +61,23 @@ Prop_assign()NSUInteger renderVersion;
 #pragma mark —— LazyLoad
 -(UIView *)controlView{
     if (!_controlView) {
-        _controlView = UIView.new;
-        _controlView.backgroundColor = UIColor.whiteColor;
-        _controlView.layer.cornerRadius = JobsWidth(8);
-        _controlView.layer.masksToBounds = YES;
-        [self.view addSubview:_controlView];
-        [_controlView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.view).inset(JobsWidth(16));
-            make.height.mas_equalTo(JobsWidth(64));
-            make.bottom.equalTo(self.statusLabel.mas_top).offset(-JobsWidth(12));
-        }];
-        self.valueLabel.alpha = 1;
-        self.blockSizeSlider.alpha = 1;
+        _controlView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byBgColor(UIColor.whiteColor)
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer
+                        .byCornerRadius(JobsWidth(8))
+                        .byMasksToBounds(YES);
+                })
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.right.equalTo(self.view).inset(JobsWidth(16));
+                    make.height.mas_equalTo(JobsWidth(64));
+                    make.bottom.equalTo(self.statusLabel.mas_top).offset(-JobsWidth(12));
+                });
+        });
+        self.valueLabel.byAlpha(1);
+        self.blockSizeSlider.byAlpha(1);
         [self.imageView mas_remakeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(16));
             make.left.right.equalTo(self.view).inset(JobsWidth(16));
@@ -83,31 +88,36 @@ Prop_assign()NSUInteger renderVersion;
 
 -(UILabel *)valueLabel{
     if (!_valueLabel) {
-        _valueLabel = UILabel.new;
-        _valueLabel.textColor = HEXCOLOR(0x3D4A58);
-        _valueLabel.font = UIFontWeightMediumSize(14);
-        [_controlView addSubview:_valueLabel];
-        [_valueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(_controlView).offset(JobsWidth(14));
-            make.top.equalTo(_controlView).offset(JobsWidth(8));
-        }];
+        _valueLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byFont(UIFontWeightMediumSize(14))
+                .addOn(_controlView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(_controlView).offset(JobsWidth(14));
+                    make.top.equalTo(_controlView).offset(JobsWidth(8));
+                });
+        });
     };return _valueLabel;
 }
 
 -(UISlider *)blockSizeSlider{
     if (!_blockSizeSlider) {
-        _blockSizeSlider = UISlider.new;
-        _blockSizeSlider.minimumValue = 6;
-        _blockSizeSlider.maximumValue = 46;
-        _blockSizeSlider.value = 18;
-        [_blockSizeSlider addTarget:self
-                             action:@selector(sliderValueChanged:)
-                   forControlEvents:UIControlEventValueChanged];
-        [_controlView addSubview:_blockSizeSlider];
-        [_blockSizeSlider mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(_controlView).inset(JobsWidth(14));
-            make.bottom.equalTo(_controlView).offset(-JobsWidth(8));
-        }];
+        @jobs_weakify(self)
+        _blockSizeSlider = jobsMakeSlider(^(__kindof UISlider * _Nullable slider) {
+            slider
+                .byMinimumValue(6)
+                .byMaximumValue(46)
+                .byValue(18)
+                .onJobsChange(^(__kindof UIControl * _Nullable control) {
+                    [weak_self sliderValueChanged:(UISlider *)control];
+                })
+                .addOn(_controlView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.right.equalTo(_controlView).inset(JobsWidth(14));
+                    make.bottom.equalTo(_controlView).offset(-JobsWidth(8));
+                });
+        });
     };return _blockSizeSlider;
 }
 

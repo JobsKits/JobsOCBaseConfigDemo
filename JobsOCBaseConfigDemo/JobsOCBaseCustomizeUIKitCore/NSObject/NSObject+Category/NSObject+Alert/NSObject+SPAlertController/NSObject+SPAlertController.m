@@ -89,7 +89,7 @@
     if (config.alertBtnActionArr.count == config.alertActionTitleArr.count &&
         config.alertActionStyleArr.count == config.alertBtnActionArr.count &&
         config.alertActionTitleArr.count == config.alertActionStyleArr.count) {
-//        @weakify(config);
+//        @jobs_weakify(config);
         for (int i = 0; i < config.alertBtnActionArr.count; i++) {
             SPAlertAction *action = [SPAlertAction actionWithTitle:config.alertActionTitleArr[i]
                                                              style:config.alertActionStyleArr[i].integerValue

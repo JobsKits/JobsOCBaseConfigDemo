@@ -103,4 +103,8 @@
 #import "XLSphereView.h"
 #import "XXTools.h"
 
+#import "JobsOCCrashLogCenter.h"
+#import "JobsOCCrashLogFileInfo.h"
+#import "JobsOCCrashLogMemorySnapshot.h"
+
 #endif /* JobsOCTools_h */

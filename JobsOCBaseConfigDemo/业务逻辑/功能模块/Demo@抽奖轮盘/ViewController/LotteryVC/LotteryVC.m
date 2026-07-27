@@ -33,9 +33,10 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(@"幸运轮盘".tr);
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(@"幸运轮盘".tr)
+                .byFont(UIFontWeightRegularSize(18));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -180,14 +181,17 @@ viewForHeaderInSection:(NSInteger)section{
 forRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView hideSeparatorLineAtLast:indexPath cell:cell];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.backgroundColor = JobsClearColor;
+    cell.byBgColor(JobsClearColor);
     cell.contentView.byBgColor(JobsWhiteColor);
-    cell.contentView.layer.cornerRadius = JobsWidth(14);
-    cell.contentView.layer.masksToBounds = YES;
-    cell.contentView.layer.borderWidth = JobsWidth(0.5);
-    cell.contentView.layer.borderColor = HEXCOLOR(0xF0DEC2).CGColor;
-    cell.textLabel.numberOfLines = 1;
-    cell.detailTextLabel.numberOfLines = 1;
+    cell.contentView.byLayer(^(__kindof CALayer * _Nullable layer) {
+        layer
+            .byCornerRadius(JobsWidth(14))
+            .byMasksToBounds(YES)
+            .byBorderWidth(JobsWidth(0.5))
+            .byBorderColor(HEXCOLOR(0xF0DEC2).CGColor);
+    });
+    cell.textLabel.byNumberOfLines(1);
+    cell.detailTextLabel.byNumberOfLines(1);
     cell.img = @"向右的箭头（小）".img;
     cell.arrows_size = CGSizeMake(JobsWidth(8), JobsWidth(18.3));
 //    @jobs_weakify(self)
@@ -233,7 +237,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byShowsVerticalScrollIndicator(NO)
                 .byScrollEnabled(YES)
                 .byBgColor(JobsClearColor);
-            tableView.clipsToBounds = NO;
+            tableView.byClipsToBounds(NO);
             if(@available(iOS 11.0, *)) {
                 tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
             }else{

@@ -52,18 +52,19 @@
 #pragma mark —— 一些私有方法
 -(NSMutableArray <NSString *>*)makeStringArr{
     return jobsMakeMutArr(^(NSMutableArray <NSString *>*_Nullable data) {
-        data.add(皇冠符号);
-        data.add(数学符号);
-        data.add(标点符号);
-        data.add(单位符号);
-        data.add(货币符号);
-        data.add(制表符);
-        data.add(特殊符号);
-        data.add(键盘特殊符号);
-        data.add(编号序号);
-        data.add(爱心符号);
-        data.add(箭头符号);
-        data.add(符号图案);
+        data
+            .add(皇冠符号)
+            .add(数学符号)
+            .add(标点符号)
+            .add(单位符号)
+            .add(货币符号)
+            .add(制表符)
+            .add(特殊符号)
+            .add(键盘特殊符号)
+            .add(编号序号)
+            .add(爱心符号)
+            .add(箭头符号)
+            .add(符号图案);
     });
 }
 

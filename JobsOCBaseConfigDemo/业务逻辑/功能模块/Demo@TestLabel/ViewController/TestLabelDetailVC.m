@@ -50,9 +50,10 @@ Prop_assign()BOOL didApplyShowingType;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(self.demoModel.title ?: @"Label Demo".tr);
-            data.byFont(UIFontWeightRegularSize(16));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(self.demoModel.title ?: @"Label Demo".tr)
+                .byFont(UIFontWeightRegularSize(16));
         })
         .byBgCor(RGBA_COLOR(255, 238, 221, 1))
         .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
@@ -273,8 +274,8 @@ Prop_assign()BOOL didApplyShowingType;
                     make.height.mas_equalTo(JobsWidth(220));
                     make.bottom.equalTo(self.contentView).offset(-JobsWidth(24));
                 });
-            view.layer.cornerRadius = JobsWidth(8);
-            view.layer.masksToBounds = YES;
+            view.layer.byCornerRadius(JobsWidth(8));
+            view.layer.byMasksToBounds(YES);
         });
     };return _previewView;
 }

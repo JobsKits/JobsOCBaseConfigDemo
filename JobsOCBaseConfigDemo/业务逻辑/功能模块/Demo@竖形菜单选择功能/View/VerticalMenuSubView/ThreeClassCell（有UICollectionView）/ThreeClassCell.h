@@ -2,18 +2,39 @@
 //  ThreeClassCell.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/6/15.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import <UIKit/UIKit.h>
-#import "JobsBlock.h"
-#import "UICollectionViewCellProtocol.h"
 #import "JobsVerticalMenuDefineHeader.h"
 #import "TreeClassItemCell.h"
 #import "JobsBaseCollectionViewCell.h"
 #import "FMMaintenanceView.h"
 #import "GoodsClassModel.h"
-#import "JobsDefineProperty.h"
+
+#if __has_include(<JobsOCProtocols/UICollectionViewCellProtocol.h>)
+#import <JobsOCProtocols/UICollectionViewCellProtocol.h>
+#else
+#import "UICollectionViewCellProtocol.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 /// 这个类用于计算，不用于显示
@@ -27,8 +48,8 @@ Prop_assign()CGFloat sectionInsetTop;
 Prop_assign()CGFloat sectionInsetLeft;
 Prop_assign()CGFloat sectionInsetBottom;
 Prop_assign()CGFloat sectionInsetRight;
-Prop_assign()CGFloat minimumLineSpacing;/// 上下行间距
-Prop_assign()CGFloat minimumInteritemSpacing;/// 左右列间距
+Prop_assign()CGFloat minimumLineSpacing;// 上下行间距
+Prop_assign()CGFloat minimumInteritemSpacing;// 左右列间距
 Prop_strong()Class <UICollectionViewCellProtocol>cellCls;
 #pragma mark —— 一些公有方法
 -(JobsRetCGFloatByArrBlock _Nonnull)getCollectionHeight;

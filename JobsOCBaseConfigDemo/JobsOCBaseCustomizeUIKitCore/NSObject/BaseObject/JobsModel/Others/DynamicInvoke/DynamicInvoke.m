@@ -120,16 +120,17 @@
                            targetObj:self
                          paramarrays:@[@"block1",@"block2",@"block3",@"block4"]];
     NSMutableArray *temp = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
-        arr.add(test11);
-        arr.add(test12);
-        arr.add(test13);
-        arr.add(test14);
-        arr.add(test15);
-        arr.add(test16);
-        arr.add(test17);
-        arr.add(test18);
-        arr.add(test19);
-        arr.add(test20);
+        arr
+            .add(test11)
+            .add(test12)
+            .add(test13)
+            .add(test14)
+            .add(test15)
+            .add(test16)
+            .add(test17)
+            .add(test18)
+            .add(test19)
+            .add(test20);
     });JobsLog(@"temp = %@",temp);
 }
 
@@ -165,16 +166,17 @@
                            targetObj:DynamicInvoke.class
                          paramarrays:@[@"block1",@"block2",@"block3",@"block4"]];
     NSMutableArray *temp = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
-        arr.add(Test11);
-        arr.add(Test12);
-        arr.add(Test13);
-        arr.add(Test14);
-        arr.add(Test15);
-        arr.add(Test16);
-        arr.add(Test17);
-        arr.add(Test18);
-        arr.add(Test19);
-        arr.add(Test20);
+        arr
+            .add(Test11)
+            .add(Test12)
+            .add(Test13)
+            .add(Test14)
+            .add(Test15)
+            .add(Test16)
+            .add(Test17)
+            .add(Test18)
+            .add(Test19)
+            .add(Test20);
     });JobsLog(@"temp = %@",temp);
 }
 #pragma mark —— 实例方法（不带返回值）

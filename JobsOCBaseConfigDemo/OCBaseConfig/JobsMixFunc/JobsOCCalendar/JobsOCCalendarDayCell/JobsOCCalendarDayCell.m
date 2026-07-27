@@ -20,27 +20,37 @@ Prop_strong()UIView *selectionView;
 @implementation JobsOCCalendarDayCell
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = UIColor.clearColor;
-        self.selectionView = UIView.new;
-        self.selectionView.userInteractionEnabled = NO;
-        self.selectionView.hidden = YES;
-        [self addSubview:self.selectionView];
-        self.titleLabel = UILabel.new;
-        self.titleLabel.textAlignment = NSTextAlignmentCenter;
-        self.titleLabel.userInteractionEnabled = NO;
-        [self addSubview:self.titleLabel];
-        self.subtitleLabel = UILabel.new;
-        self.subtitleLabel.textAlignment = NSTextAlignmentCenter;
-        self.subtitleLabel.userInteractionEnabled = NO;
-        [self addSubview:self.subtitleLabel];
-        self.imageView = UIImageView.new;
-        self.imageView.contentMode = UIViewContentModeScaleAspectFit;
-        self.imageView.userInteractionEnabled = NO;
-        [self addSubview:self.imageView];
-        self.eventDotView = UIView.new;
-        self.eventDotView.userInteractionEnabled = NO;
-        self.eventDotView.hidden = YES;
-        [self addSubview:self.eventDotView];
+        self.byBgColor(UIColor.clearColor);
+        self.selectionView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byUserInteractionEnabled(NO)
+                .byHidden(YES)
+                .addOn(self);
+        });
+        self.titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byUserInteractionEnabled(NO)
+                .addOn(self);
+        });
+        self.subtitleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byUserInteractionEnabled(NO)
+                .addOn(self);
+        });
+        self.imageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView
+                .byContentMode(UIViewContentModeScaleAspectFit)
+                .byUserInteractionEnabled(NO)
+                .addOn(self);
+        });
+        self.eventDotView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byUserInteractionEnabled(NO)
+                .byHidden(YES)
+                .addOn(self);
+        });
     };return self;
 }
 
@@ -70,20 +80,20 @@ Prop_strong()UIView *selectionView;
                       today:(BOOL)today
                 eventsCount:(NSInteger)eventsCount{
     self.monthPosition = monthPosition;
-    self.enabled = enabled;
-    self.selected = selected;
-    self.titleLabel.text = title;
-    self.subtitleLabel.text = subtitle;
-    self.imageView.image = image;
-    self.titleLabel.font = appearance.titleFont;
-    self.subtitleLabel.font = appearance.subtitleFont;
+    self.byEnabled(enabled)
+        .bySelected(selected);
+    self.titleLabel.byText(title);
+    self.subtitleLabel.byText(subtitle);
+    self.imageView.byImage(image);
+    self.titleLabel.byFont(appearance.titleFont);
+    self.subtitleLabel.byFont(appearance.subtitleFont);
     BOOL placeholder = monthPosition != JobsOCCalendarMonthPositionCurrent;
-    self.selectionView.hidden = !(selected || today);
-    self.selectionView.backgroundColor = selected ? appearance.selectionColor : appearance.todayColor;
-    self.titleLabel.textColor = selected ? appearance.titleSelectionColor : (today ? appearance.titleTodayColor : (placeholder ? appearance.titlePlaceholderColor : appearance.titleDefaultColor));
-    self.subtitleLabel.textColor = selected ? appearance.subtitleSelectionColor : (placeholder ? appearance.subtitlePlaceholderColor : appearance.subtitleDefaultColor);
-    self.eventDotView.hidden = eventsCount <= 0;
-    self.eventDotView.backgroundColor = selected ? appearance.eventSelectionColor : appearance.eventDefaultColor;
+    self.selectionView.byHidden(!(selected || today));
+    self.selectionView.byBgColor(selected ? appearance.selectionColor : appearance.todayColor);
+    self.titleLabel.byTextCor(selected ? appearance.titleSelectionColor : (today ? appearance.titleTodayColor : (placeholder ? appearance.titlePlaceholderColor : appearance.titleDefaultColor)));
+    self.subtitleLabel.byTextCor(selected ? appearance.subtitleSelectionColor : (placeholder ? appearance.subtitlePlaceholderColor : appearance.subtitleDefaultColor));
+    self.eventDotView.byHidden(eventsCount <= 0);
+    self.eventDotView.byBgColor(selected ? appearance.eventSelectionColor : appearance.eventDefaultColor);
     self.alpha = enabled ? 1 : .35f;
     [self setNeedsLayout];
 }

@@ -163,16 +163,16 @@ Prop_assign()CGSize lastLayoutSize;
 }
 #pragma mark —— Private
 -(CAShapeLayer *)makeStrokeLayer{
-    return jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
-        layer
-            .byFillColorUIColor(JobsClearColor)
-            .byStrokeColorUIColor(JobsBlackColor)
-            .byLineWidth(JobsWidth(4))
-            .byLineCap(kCALineCapRound)
-            .byLineJoin(kCALineJoinRound)
-            .byFrame(self.bounds);
-    });
-}
+	    return jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
+	        layer
+	            .byFillColorUIColor(JobsClearColor)
+	            .byStrokeColorUIColor(JobsBlackColor)
+	            .byLineWidth(JobsWidth(4))
+	            .byLineCap(kCALineCapRound)
+	            .byLineJoin(kCALineJoinRound)
+	            .byFrame(self.bounds);
+	    });
+	}
 
 -(void)rebuildStrokeLayers{
     for (CAShapeLayer *strokeLayer in self.strokeLayerMutArr) {

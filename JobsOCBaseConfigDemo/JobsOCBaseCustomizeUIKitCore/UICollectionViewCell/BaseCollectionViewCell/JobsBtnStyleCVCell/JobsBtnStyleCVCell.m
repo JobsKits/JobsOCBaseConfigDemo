@@ -38,7 +38,7 @@ AppToolsProtocol_synthesize
 -(void)setSelected:(BOOL)selected{
     [super setSelected:selected];
     _selected = selected;
-    self.button.selected = selected;
+    self.button.bySelected(selected);
     if(self.buttonModel){
         self.button.jobsResetBtnTitle(selected ? (self.buttonModel.selectedTitle ? : self.buttonModel.title) : self.buttonModel.title);
         self.button.jobsResetBtnTitleCor(selected ? (self.buttonModel.selectedTitleCor ? : self.buttonModel.titleCor) : self.buttonModel.titleCor);
@@ -57,12 +57,30 @@ AppToolsProtocol_synthesize
         self.button.jobsResetBtnBgCor(selected ? (self.buttonModel.selectedBaseBackgroundColor ? : self.buttonModel.baseBackgroundColor) : self.buttonModel.baseBackgroundColor);
     }
     if(self.viewModel){
-        self.button.jobsResetBtnTitle(selected ? (self.viewModel.selectedTitle ? : self.viewModel.title) : self.viewModel.title);
-        self.button.jobsResetBtnTitleCor(selected ? (self.viewModel.selectedTitleCor ? : self.viewModel.titleCor) : self.viewModel.titleCor);
-        self.button.jobsResetBtnTitleFont(selected ? (self.viewModel.selectedTitleFont ? : self.viewModel.titleFont) : self.viewModel.titleFont);
-        self.button.jobsResetBtnSubTitle(selected ? (self.viewModel.selectedSubTitle ? : self.viewModel.subTitle) : self.viewModel.subTitle);
-        self.button.jobsResetBtnSubTitleCor(selected ? (self.viewModel.selectedTitleCor ? : self.viewModel.subTitleCor) : self.viewModel.subTitleCor);
-        self.button.jobsResetBtnSubTitleFont(selected ? (self.viewModel.selectedSubTitleFont ? : self.viewModel.subTitleFont) : self.viewModel.subTitleFont);
+        NSString *normalTitle = isValue(self.viewModel.title) ? self.viewModel.title : self.viewModel.textModel.text;
+        NSString *selectedTitle = isValue(self.viewModel.selectedTitle) ? self.viewModel.selectedTitle : self.viewModel.textModel.selectedText;
+        selectedTitle = isValue(selectedTitle) ? selectedTitle : normalTitle;
+        UIColor *normalTitleCor = self.viewModel.titleCor ? : self.viewModel.textModel.textCor;
+        UIColor *selectedTitleCor = self.viewModel.selectedTitleCor ? : self.viewModel.textModel.selectedTextCor;
+        selectedTitleCor = selectedTitleCor ? : normalTitleCor;
+        UIFont *normalTitleFont = self.viewModel.titleFont ? : self.viewModel.textModel.font;
+        UIFont *selectedTitleFont = self.viewModel.selectedTitleFont ? : self.viewModel.textModel.selectedFont;
+        selectedTitleFont = selectedTitleFont ? : normalTitleFont;
+        self.button.jobsResetBtnTitle(selected ? selectedTitle : normalTitle);
+        self.button.jobsResetBtnTitleCor(selected ? selectedTitleCor : normalTitleCor);
+        self.button.jobsResetBtnTitleFont(selected ? selectedTitleFont : normalTitleFont);
+        NSString *normalSubTitle = isValue(self.viewModel.subTitle) ? self.viewModel.subTitle : self.viewModel.subTextModel.subText;
+        NSString *selectedSubTitle = isValue(self.viewModel.selectedSubTitle) ? self.viewModel.selectedSubTitle : self.viewModel.subTextModel.selectedSubText;
+        selectedSubTitle = isValue(selectedSubTitle) ? selectedSubTitle : normalSubTitle;
+        UIColor *normalSubTitleCor = self.viewModel.subTitleCor ? : self.viewModel.subTextModel.subTextCor;
+        UIColor *selectedSubTitleCor = self.viewModel.selectedSubTitleCor ? : self.viewModel.subTextModel.selectedSubTextCor;
+        selectedSubTitleCor = selectedSubTitleCor ? : normalSubTitleCor;
+        UIFont *normalSubTitleFont = self.viewModel.subTitleFont ? : self.viewModel.subTextModel.subFont;
+        UIFont *selectedSubTitleFont = self.viewModel.selectedSubTitleFont ? : self.viewModel.subTextModel.selectedSubFont;
+        selectedSubTitleFont = selectedSubTitleFont ? : normalSubTitleFont;
+        self.button.jobsResetBtnSubTitle(selected ? selectedSubTitle : normalSubTitle);
+        self.button.jobsResetBtnSubTitleCor(selected ? selectedSubTitleCor : normalSubTitleCor);
+        self.button.jobsResetBtnSubTitleFont(selected ? selectedSubTitleFont : normalSubTitleFont);
         if(self.viewModel.attributedTitle || self.viewModel.selectedAttributedTitle){
             self.button.jobsResetAttributedTitle(selected ? (self.viewModel.selectedAttributedTitle ? : self.viewModel.attributedTitle): self.viewModel.attributedTitle);
         }
@@ -106,8 +124,8 @@ AppToolsProtocol_synthesize
     return ^__kindof UIButton *_Nullable(__kindof UIViewModel *_Nullable viewModel){
         @jobs_strongify(self)
         /// viewModel + textModel
-        self.button.selected = viewModel.jobsSelected;
-        self.button.enabled = viewModel.jobsEnabled;/// 这个属性为YES，则优先响应Btn。这个属性为NO，则响应UITableViewCell
+        self.button.bySelected(viewModel.jobsSelected);
+        self.button.byEnabled(viewModel.jobsEnabled);/// 这个属性为YES，则优先响应Btn。这个属性为NO，则响应UITableViewCell
         self.button.resetByViewModel(viewModel,self.selected)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
@@ -145,8 +163,8 @@ AppToolsProtocol_synthesize
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(__kindof UIButtonModel *_Nullable buttonModel){
         @jobs_strongify(self)
-        self.button.selected = buttonModel.jobsSelected;
-        self.button.enabled = buttonModel.jobsEnabled;
+        self.button.bySelected(buttonModel.jobsSelected);
+        self.button.byEnabled(buttonModel.jobsEnabled);
         self.button.resetByButtonModel(buttonModel,self.selected)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
@@ -232,14 +250,14 @@ AppToolsProtocol_synthesize
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if(self.objBlock) self.objBlock(x);
-            });
+            })
+            .byEnabled(NO)
+            .byUserInteractionEnabled(YES)
+            .addOn(self.contentView)
+            .byAdd(self.masonryBlock);
         /// enabled 是 userInteractionEnabled 的子集
         /// enabled = NO ,则不响应：-(UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event（此方法不要写在分类里面）
-        _button.enabled = NO; /// 这个属性为YES，则优先响应Btn。这个属性为NO，则响应 UITableViewCell 协议方法
-        _button.userInteractionEnabled = YES;
-        self.contentView
-            .addSubview(_button)
-            .byAdd(self.masonryBlock);
+        /// enabled 这个属性为YES，则优先响应Btn。这个属性为NO，则响应 UITableViewCell 协议方法
     };return _button;
 }
 

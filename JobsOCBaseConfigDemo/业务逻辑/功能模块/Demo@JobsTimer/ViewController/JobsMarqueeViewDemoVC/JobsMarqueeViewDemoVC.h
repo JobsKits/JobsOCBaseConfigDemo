@@ -7,18 +7,16 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<JobsMarqueeView/JobsMarqueeView.h>)
-#import <JobsMarqueeView/JobsMarqueeView.h>
-#elif __has_include("../../JobsMarqueeView/JobsMarqueeView.h")
-#import "../../JobsMarqueeView/JobsMarqueeView.h"
-#else
-#import "JobsMarqueeView.h"
-#endif
-
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else
 #import "JobsBaseProtocolHeader.h"
+#endif
+
+#if __has_include(<JobsMarqueeView/JobsMarqueeView.h>)
+#import <JobsMarqueeView/JobsMarqueeView.h>
+#else
+#import "JobsMarqueeView.h"
 #endif
 
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)

@@ -7,7 +7,11 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCUILabelScrolling/JobsOCUILabelScrolling.h>)
+#import <JobsOCUILabelScrolling/JobsOCUILabelScrolling.h>
+#else
 #import "JobsOCUILabelScrolling.h"
+#endif
 
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>

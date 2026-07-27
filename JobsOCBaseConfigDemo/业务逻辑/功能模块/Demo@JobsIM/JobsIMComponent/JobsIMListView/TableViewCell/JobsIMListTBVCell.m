@@ -9,7 +9,11 @@
 
 @interface JobsIMListTBVCell ()
 
+Prop_strong()UIImageView *avatarIMGV;
+Prop_strong()UILabel *titleLab;
+Prop_strong()UILabel *messageLab;
 Prop_strong()UILabel *timeLab;
+Prop_strong()UIView *separatorLine;
 Prop_strong()UILongPressGestureRecognizer *longPG;
 Prop_strong()NSMutableArray <MGSwipeButtonModel *>*leftBtnMutArr;
 Prop_strong()NSMutableArray <MGSwipeButtonModel *>*rightBtnMutArr;
@@ -27,13 +31,13 @@ UITextFieldProtocol_synthesize_part2
     return ^(UITableView * _Nonnull tableView) {
         JobsIMListTBVCell *cell = (JobsIMListTBVCell *)tableView.tableViewCellClass(JobsIMListTBVCell.class,@"");
         if (!cell) {
-            cell = JobsIMListTBVCell.initTableViewCellWithStyle(UITableViewCellStyleSubtitle);
+            cell = JobsIMListTBVCell.initTableViewCellWithStyle(UITableViewCellStyleDefault);
             cell
-                .bySelectionStyle(UITableViewCellSelectionStyleNone)
+                .bySelectionStyle(UITableViewCellSelectionStyleDefault)
                 .byContentView(^(__kindof UIView * _Nullable view) {
-                    view.byBgColor(JobsWhiteColor);
+                    view.byBgColor(JobsSystemBackgroundColor);
                 })
-                .byBgColor(JobsWhiteColor);
+                .byBgColor(JobsSystemBackgroundColor);
         };return cell;
     };
 }
@@ -42,10 +46,10 @@ UITextFieldProtocol_synthesize_part2
              reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]) {
-        self.longPG.enabled = YES;
+        self.longPG.byEnabled(YES);
         self.swipeBackgroundColor = JobsClearColor;
         self.bySelectedBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.byBgColor(JobsYellowColor.colorWithAlphaComponentBy(0.3));
+            view.byBgColor(JobsSystemGray5Color);
         }));
         self.leftSwipeSettings.transition = MGSwipeTransitionBorder;
         self.rightSwipeSettings.transition = MGSwipeTransitionDrag;
@@ -55,12 +59,17 @@ UITextFieldProtocol_synthesize_part2
         self.rightExpansion.fillOnTrigger = YES;
         self.leftButtons = [self createLeftButtons];
         self.rightButtons = [self createRightButtons];
+        self.avatarIMGV.byAlpha(1);
+        self.titleLab.byAlpha(1);
+        self.messageLab.byAlpha(1);
+        self.timeLab.byAlpha(1);
+        self.separatorLine.byAlpha(1);
     };return self;
 }
 
 +(JobsRetCGFloatByIDBlock _Nonnull)cellHeightByModel{
     return ^CGFloat(id _Nullable data){
-        return JobsWidth(50);
+        return JobsWidth(72);
     };
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -82,21 +91,37 @@ UITextFieldProtocol_synthesize_part2
             self.userHeaderURLStr = @"https://picsum.photos/126";
             self.timeStr = @"数据异常".tr;
         }
-        self.textLabel.byText(self.usernameStr);
-        self.detailTextLabel.byText(self.contentStr);
-        self.detailTextLabel.byTextCor(JobsLightGrayColor);
+        self.titleLab
+            .byText(self.usernameStr)
+            .byTextCor(JobsLabelColor)
+            .byAlpha(1);
+        self.messageLab
+            .byText(self.contentStr)
+            .byTextCor(JobsSecondaryLabelColor)
+            .byAlpha(1);
         if (self.userHeaderIMG) {
-            self.imageView.image = self.userHeaderIMG;
+            self.avatarIMGV.byImage(self.userHeaderIMG);
         }else{
-            self.imageView
+            self.avatarIMGV
                 .imageURL(self.userHeaderURLStr.jobsUrl)
-                .placeholderImage(nil)
+                .placeholderImage(UIImage.animatedGIFByName(@"动态头像_1 尺寸126"))
                 .options(self.makeSDWebImageOptions)
                 .load();
         }
-        self.timeLab.byAlpha(1);
+        self.timeLab
+            .byText(self.timeStr)
+            .byTextCor(JobsTertiaryLabelColor)
+            .byAlpha(1);
         return self;
     };
+}
+
+-(void)prepareForReuse{
+    [super prepareForReuse];
+    self.avatarIMGV.byImage(nil);
+    self.titleLab.byText(nil);
+    self.messageLab.byText(nil);
+    self.timeLab.byText(nil);
 }
 
 -(NSArray *)createLeftButtons{
@@ -137,6 +162,67 @@ UITextFieldProtocol_synthesize_part2
     return YES;
 }
 #pragma mark —— lazyLoad
+-(UIImageView *)avatarIMGV{
+    if (!_avatarIMGV) {
+        @jobs_weakify(self)
+        _avatarIMGV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            @jobs_strongify(self)
+            imageView
+                .byContentMode(UIViewContentModeScaleAspectFill)
+                .cornerCutToCircleWithCornerRadius(JobsWidth(6))
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.contentView).offset(JobsWidth(16));
+                    make.centerY.equalTo(self.contentView);
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(48),
+                                                     JobsWidth(48)));
+                });
+        });
+    };return _avatarIMGV;
+}
+
+-(UILabel *)titleLab{
+    if (!_titleLab) {
+        @jobs_weakify(self)
+        _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            @jobs_strongify(self)
+            label
+                .byTextCor(JobsLabelColor)
+                .byFont(UIFontWeightMediumSize(JobsWidth(17)))
+                .byNumberOfLines(1)
+                .byLineBreakMode(NSLineBreakByTruncatingTail)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.contentView).offset(JobsWidth(10));
+                    make.left.equalTo(self.avatarIMGV.mas_right).offset(JobsWidth(12));
+                    make.right.lessThanOrEqualTo(self.timeLab.mas_left).offset(JobsWidth(-8));
+                    make.height.mas_equalTo(JobsWidth(22));
+                });
+        });
+    };return _titleLab;
+}
+
+-(UILabel *)messageLab{
+    if (!_messageLab) {
+        @jobs_weakify(self)
+        _messageLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            @jobs_strongify(self)
+            label
+                .byTextCor(JobsSecondaryLabelColor)
+                .byFont(UIFontWeightRegularSize(JobsWidth(14)))
+                .byNumberOfLines(1)
+                .byLineBreakMode(NSLineBreakByTruncatingTail)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(2));
+                    make.left.equalTo(self.titleLab);
+                    make.right.equalTo(self.contentView).offset(JobsWidth(-16));
+                    make.height.mas_equalTo(JobsWidth(20));
+                });
+        });
+    };return _messageLab;
+}
+
 -(UILabel *)timeLab{
     if (!_timeLab) {
         @jobs_weakify(self)
@@ -144,16 +230,35 @@ UITextFieldProtocol_synthesize_part2
             @jobs_strongify(self)
             label
                 .byText(self.timeStr)
-                .byTextCor(JobsLightGrayColor)
+                .byTextCor(JobsTertiaryLabelColor)
                 .byFont(UIFontWeightRegularSize(JobsWidth(12)))
-            .bySizeToFit()
-            .addOn(self.contentView)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.top.equalTo(self.contentView).offset(5);
-                make.right.equalTo(self.contentView).offset(-5);
-            });
+                .byNumberOfLines(1)
+                .byTextAlignment(NSTextAlignmentRight)
+                .bySizeToFit()
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.contentView).offset(JobsWidth(12));
+                    make.right.equalTo(self.contentView).offset(JobsWidth(-16));
+                });
         });
     };return _timeLab;
+}
+
+-(UIView *)separatorLine{
+    if (!_separatorLine) {
+        @jobs_weakify(self)
+        _separatorLine = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            @jobs_strongify(self)
+            view
+                .byBgColor(JobsSeparatorColor)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.titleLab);
+                    make.right.bottom.equalTo(self.contentView);
+                    make.height.mas_equalTo(1.0f / UIScreen.mainScreen.scale);
+                });
+        });
+    };return _separatorLine;
 }
 
 -(UILongPressGestureRecognizer *)longPG{

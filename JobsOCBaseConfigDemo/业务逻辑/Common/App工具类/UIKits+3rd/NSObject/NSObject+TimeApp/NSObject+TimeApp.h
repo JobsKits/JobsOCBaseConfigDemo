@@ -6,11 +6,30 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
+#else
 #import "JobsModelDSL.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
 #import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
 #import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
 #import "JobsBlock.h"
-#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

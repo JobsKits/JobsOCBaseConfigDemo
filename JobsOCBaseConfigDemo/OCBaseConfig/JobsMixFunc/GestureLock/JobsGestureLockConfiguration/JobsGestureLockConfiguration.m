@@ -6,7 +6,6 @@
 //
 
 #import "JobsGestureLockConfiguration.h"
-#import "JobsGestureLockResource.h"
 
 @implementation JobsGestureLockConfiguration
 + (instancetype)defaultConfiguration {
@@ -14,22 +13,22 @@
     configuration.minimumPatternLength = 4;
     configuration.lineWidth = 6.0;
     configuration.normalLineColor = UIColor.clearColor;
-    configuration.selectedLineColor = [UIColor colorWithRed:0.95 green:0.55 blue:0.15 alpha:1.0];
-    configuration.errorLineColor = UIColor.redColor;
-    configuration.statusTextColor = [UIColor colorWithRed:0.82 green:0.20 blue:0.22 alpha:1.0];
-    configuration.statusFont = [UIFont systemFontOfSize:14.0 weight:UIFontWeightRegular];
-    configuration.createStatusText = @"请绘制手势密码";
-    configuration.confirmStatusText = @"请再次绘制手势密码";
-    configuration.validateStatusText = @"请输入手势密码";
-    configuration.tooShortStatusText = @"至少连接四个点，请重新输入";
-    configuration.mismatchStatusText = @"与上一次绘制不一致，请重新绘制";
-    configuration.errorFormat = @"密码错误，还可以再输入%ld次";
+    configuration.selectedLineColor = JobsSystemBlueColor;
+    configuration.errorLineColor = JobsSystemRedColor;
+    configuration.statusTextColor = JobsLabelColor;
+    configuration.statusFont = UIFontWeightMediumSize(15.0);
+    configuration.createStatusText = @"绘制新手势（至少 4 个点）";
+    configuration.confirmStatusText = @"请再绘制一次进行确认";
+    configuration.validateStatusText = @"请输入手势解锁";
+    configuration.tooShortStatusText = @"至少连接 4 个点";
+    configuration.mismatchStatusText = @"两次不一致，请重新设置";
+    configuration.errorFormat = @"手势错误，还可以再输入 %ld 次";
     configuration.maxRetryCount = 5;
-    configuration.nodeNormalImage = [JobsGestureLockResource imageNamed:@"灰色椭圆"];
-    configuration.nodeSelectedImage = [JobsGestureLockResource imageNamed:@"橙色椭圆"];
-    configuration.nodeErrorImage = [JobsGestureLockResource imageNamed:@"红色椭圆"];
-    configuration.indicatorNormalImage = [JobsGestureLockResource imageNamed:@"灰色椭圆"];
-    configuration.indicatorSelectedImage = [JobsGestureLockResource imageNamed:@"橙色椭圆"];
+    configuration.nodeNormalImage = nil;
+    configuration.nodeSelectedImage = nil;
+    configuration.nodeErrorImage = nil;
+    configuration.indicatorNormalImage = nil;
+    configuration.indicatorSelectedImage = nil;
     return configuration;
 }
 

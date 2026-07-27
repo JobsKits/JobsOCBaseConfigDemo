@@ -2,7 +2,7 @@
 //  YTKNetworkStudyVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/2/19.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "YTKNetworkStudyVC.h"
@@ -25,18 +25,24 @@
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = self.viewModel.textModel.attributedTitle.string;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-//    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
-    /// 下列配置一般体现在 AppDelegate
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(data.attributedTitle.string)
+                .byFont(UIFontWeightRegularSize(16));
+        })
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
+        /// 下列配置一般体现在 AppDelegate
     @jobs_weakify(self)
     jobsMakeYTKNetworkConfig(^(__kindof YTKNetworkConfig * _Nullable data) {
         @jobs_strongify(self)
@@ -51,9 +57,9 @@
     });
 }
 
-- (void)viewDidLoad {///
+- (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsYellowColor;
+    self.view.byBgColor(JobsYellowColor);
     self.makeNavByAlpha(1);
 }
 
@@ -81,7 +87,7 @@
     /// 多请求の链式请求。链式请求的结果集体现在<YTKChainRequestDelegate>
     [self sendChainRequest:^(YTKChainRequest *_Nullable chainReq) {
         @jobs_strongify(self)
-        chainReq.delegate = self;
+        chainReq.byDelegate(self);
     }];
     /// 上传KYC的图片@POST
     [self uploadKYCImage:UIImagePNGRepresentation(@"启动页SLOGAN".img)

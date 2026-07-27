@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorInputViewBaseStyle_3.h
-//  JobsOCTools
+//  JobsAppDoor
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -18,12 +18,41 @@
 #import "Masonry.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import "JobsOCDSL.h"
+#else
+#import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import "JobsBaseProtocolHeader.h"
+#else
+#import "JobsBaseProtocolHeader.h"
+#endif
+
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import "JobsLanMgr.h"
+#else
+#import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import "JobsByOCPods.h"
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import "JobsDefines.h"
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
 #import "JobsModelDSL.h"
+#else
+#import "JobsModelDSL.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -77,7 +106,7 @@ NS_ASSUME_NONNULL_END
              _配置用户名输入框 = JobsAppDoorInputViewBaseStyleModel.new;
              _配置用户名输入框.leftViewIMG = @"用户名".img;
              _配置用户名输入框.placeHolderStr = @"请输入您的用户名".tr;
-             _配置用户名输入框.placeholderFont = [UIFont systemFontOfSize:JobsWidth(16) weight:UIFontWeightRegular];
+             _配置用户名输入框.placeholderFont = UIFontWeightRegularSize(JobsWidth(16));
              _配置用户名输入框.placeholderColor = HEXCOLOR(0xC4C4C4);
              _配置用户名输入框.placeHolderOffset = JobsWidth(35);
              _配置用户名输入框.leftViewOffsetX = JobsWidth(10);

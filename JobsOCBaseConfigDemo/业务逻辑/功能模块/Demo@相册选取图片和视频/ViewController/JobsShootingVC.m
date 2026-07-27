@@ -35,9 +35,10 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x1F2937));
-            data.byText(data.attributedTitle.string);
-            data.byFont(UIFontWeightSemiboldSize(17));
+            data
+                .byTextCor(HEXCOLOR(0x1F2937))
+                .byText(data.attributedTitle.string)
+                .byFont(UIFontWeightSemiboldSize(17));
         })
         .byBgCor(HEXCOLOR(0xF6F8FC))
         .byNavBgCor(JobsWhiteColor);
@@ -73,7 +74,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
                 self.objBlock = ^(id data) {
                     @jobs_strongify(self)
                     if ([data isKindOfClass:UIImage.class]) {
-                        self.imageView.image = (UIImage *)data;
+                        self.imageView.byImage((UIImage *)data);
                     }
                 };
                 self.invokeSysCamera();
@@ -114,7 +115,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
                                                                   NSArray<HXPhotoModel *> * _Nullable errorArray) {
                         @jobs_strongify(self)
                         self.photosImageMutArr = [NSMutableArray arrayWithArray:imageArray];
-                        self.imageView.image = (UIImage *)self.photosImageMutArr.lastObject;/// 永远值显示最后选择的图
+                        self.imageView.byImage((UIImage *)self.photosImageMutArr.lastObject);/// 永远值显示最后选择的图
                     }];
                 } failBlock:^(HXPhotoPickerModel *data) {
     //                @jobs_strongify(self)

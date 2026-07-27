@@ -40,7 +40,7 @@
 //#endif
 
 NS_ASSUME_NONNULL_BEGIN
-
+/// 网络监控
 @interface NSObject (AFNReachability)
 /// 监听网络状态的改变
 +(void)AFNReachability:(jobsByNSIntegerBlock)statusBlock;

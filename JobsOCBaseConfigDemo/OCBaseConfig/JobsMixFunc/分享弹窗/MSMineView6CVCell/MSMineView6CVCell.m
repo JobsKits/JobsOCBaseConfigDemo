@@ -35,7 +35,8 @@
         model.buttonEdgeInsetsStyle = NSDirectionalRectEdgeTop;
         model.bgSelectedCor = model.bgCor = JobsClearColor;
         super.jobsRichElementsCollectionViewCellBy(model);
-        self.contentView.backgroundColor = self.backgroundColor = @"#FFFFFF".cor;
+        self.byBgColor(@"#FFFFFF".cor);
+        self.contentView.byBgColor(@"#FFFFFF".cor);
         return self;
     };
 }

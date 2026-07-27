@@ -35,23 +35,27 @@ Prop_strong()NSArray <NSArray <UIViewModel *>*>*demoGroupArr;
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
+    UIColor *navigationBackgroundColor = [UIColor xy_createWithLightColor:RGBA_COLOR(255, 238, 221, 1)
+                                                                 darkColor:JobsSecondarySystemBackgroundColor];
     self.viewModel
         .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
+            data.byText(@"返回".tr)
+                .byTextCor(JobsLabelColor);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"Timer".tr)
                 .byFont(UIFontWeightRegularSize(16))
-                .byTextCor(HEXCOLOR(0x3D4A58));
+                .byTextCor(JobsLabelColor);
         })
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        .byBgCor(navigationBackgroundColor)
+        .byNavBgCor(navigationBackgroundColor)
+        .byNavBgImage(nil);
 }
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF4F5F8));
+    self.view.byBgColor([UIColor xy_createWithLightColor:HEXCOLOR(0xF4F5F8)
+                                               darkColor:JobsSystemGroupedBackgroundColor]);
     self.makeNavByAlpha(1);
     self.tableView.byVisible(YES);
 }
@@ -97,12 +101,12 @@ titleForHeaderInSection:(NSInteger)section{
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
             label.byText(viewModel.textModel.attributedTitle.string ?: viewModel.textModel.text)
                 .byFont(UIFontWeightMediumSize(16))
-                .byTextCor(HEXCOLOR(0x3D4A58));
+                .byTextCor(JobsLabelColor);
         })
         .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
             label.byText(viewModel.subTextModel.attributedTitle.string ?: viewModel.subTextModel.text)
                 .byFont(UIFontWeightRegularSize(12))
-                .byTextCor(HEXCOLOR(0x8A93A1));
+                .byTextCor(JobsSecondaryLabelColor);
         })
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
         .bySelectionStyle(UITableViewCellSelectionStyleDefault);
@@ -140,6 +144,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             tableView.byDelegate(self)
                 .byDataSource(self)
                 .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
+                .bySeparatorColor(JobsSeparatorColor)
                 .byRowHeight(JobsWidth(64))
                 .byEstimatedRowHeight(0)
                 .byEstimatedSectionHeaderHeight(0)

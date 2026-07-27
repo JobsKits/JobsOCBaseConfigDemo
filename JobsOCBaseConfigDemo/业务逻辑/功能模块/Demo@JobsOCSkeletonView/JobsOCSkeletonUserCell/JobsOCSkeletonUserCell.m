@@ -27,7 +27,7 @@ Prop_strong()UIView *subtitleShortLineView;
                     reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.contentView.byBgColor(UIColor.secondarySystemGroupedBackgroundColor);
-        self.backgroundColor = UIColor.clearColor;
+        self.byBgColor(UIColor.clearColor);
         self.avatarImageView.byAlpha(1);
         self.titleLab.byAlpha(1);
         self.subtitleLab.byAlpha(1);
@@ -40,26 +40,27 @@ Prop_strong()UIView *subtitleShortLineView;
 -(void)prepareForReuse{
     [super prepareForReuse];
     [self hideSkeleton];
-    self.avatarImageView.image = nil;
-    self.avatarImageView.backgroundColor = UIColor.clearColor;
-    self.titleLab.text = nil;
-    self.subtitleLab.text = nil;
-    self.subtitleShortLineView.hidden = YES;
+    self.avatarImageView
+        .byImage(nil)
+        .byBgColor(UIColor.clearColor);
+    self.titleLab.byText(nil);
+    self.subtitleLab.byText(nil);
+    self.subtitleShortLineView.byHidden(YES);
 }
 
 -(void)configureWithUser:(JobsOCSkeletonUser *)user{
     [self hideSkeleton];
-    self.avatarImageView.backgroundColor = user.color;
+    self.avatarImageView.byBgColor(user.color);
     self.titleLab.byText(user.name);
     self.subtitleLab.byText(user.detail);
-    self.subtitleShortLineView.hidden = YES;
+    self.subtitleShortLineView.byHidden(YES);
 }
 
 -(void)showSkeletonWithConfig:(JobsOCSkeletonConfig *)config{
-    self.avatarImageView.backgroundColor = UIColor.clearColor;
-    self.titleLab.text = @"";
-    self.subtitleLab.text = @"";
-    self.subtitleShortLineView.hidden = NO;
+    self.avatarImageView.byBgColor(UIColor.clearColor);
+    self.titleLab.byText(@"");
+    self.subtitleLab.byText(@"");
+    self.subtitleShortLineView.byHidden(NO);
     [self.avatarImageView jobs_startSkeletonWithConfig:config];
     [self.titleLab jobs_startSkeletonWithConfig:config];
     [self.subtitleLab jobs_startSkeletonWithConfig:config];
@@ -92,7 +93,9 @@ Prop_strong()UIView *subtitleShortLineView;
                     make.bottom.lessThanOrEqualTo(self.contentView).offset(-JobsWidth(12));
                 });
         });
-        _avatarImageView.layer.cornerRadius = JobsWidth(24);
+        _avatarImageView.byLayer(^(__kindof CALayer * _Nullable layer) {
+            layer.byCornerRadius(JobsWidth(24));
+        });
     };return _avatarImageView;
 }
 

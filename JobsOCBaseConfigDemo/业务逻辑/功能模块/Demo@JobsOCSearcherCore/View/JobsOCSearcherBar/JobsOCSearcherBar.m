@@ -49,37 +49,40 @@ Prop_strong()BaseButton *cancelBtn;
 -(void)updateCancelBtnVisible:(BOOL)visible{
     visible = visible && !self.cancelBtnHidden;
     self.cancelBtn.byAlpha(visible ? 1 : 0);
-    self.cancelBtn.userInteractionEnabled = visible;
+    self.cancelBtn.byUserInteractionEnabled(visible);
     [self.cancelBtn mas_updateConstraints:^(MASConstraintMaker *make) {
         make.width.mas_equalTo(visible ? JobsWidth(42) : 0);
     }];
     [self.textField mas_updateConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.cancelBtn.mas_left).offset(visible ? -JobsWidth(8) : 0);
     }];
-    [self setNeedsLayout];
-    [self layoutIfNeeded];
+    self.bySetNeedsLayout().byLayoutIfNeeded();
 }
 
 -(UIView *)searchIconLeftView{
-    UIImageView *imageView = [UIImageView.alloc initWithImage:[self searchIconImageWithColor:HEXCOLOR(0x8B6A2F)]];
-    imageView.frame = CGRectMake(0, 0, JobsWidth(24), JobsWidth(24));
-    imageView.contentMode = UIViewContentModeCenter;
-    return imageView;
+    return jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+        imageView
+            .byImage([self searchIconImageWithColor:HEXCOLOR(0x8B6A2F)])
+            .byContentMode(UIViewContentModeCenter)
+            .byFrame(CGRectMake(0, 0, JobsWidth(24), JobsWidth(24)));
+    });
 }
 
 -(UIImage *)searchIconImageWithColor:(UIColor *)color{
     CGSize size = CGSizeMake(16, 16);
     UIGraphicsBeginImageContextWithOptions(size, NO, 0);
     [color setStroke];
-    UIBezierPath *circlePath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(2.2, 2.2, 8.8, 8.8)];
-    circlePath.lineWidth = 1.6;
-    [circlePath stroke];
-    UIBezierPath *handlePath = UIBezierPath.bezierPath;
-    handlePath.lineWidth = 1.8;
-    handlePath.lineCapStyle = kCGLineCapRound;
-    [handlePath moveToPoint:CGPointMake(9.4, 9.4)];
-    [handlePath addLineToPoint:CGPointMake(13.4, 13.4)];
-    [handlePath stroke];
+    UIBezierPath *circlePath = UIBezierPath.byBezierPathWithOvalInRect(CGRectMake(2.2, 2.2, 8.8, 8.8));
+    circlePath
+        .byLineWidth(1.6)
+        .byStroke();
+    UIBezierPath *handlePath = jobsMakeBezierPath(nil);
+    handlePath
+        .byLineWidth(1.8)
+        .byLineCapStyle(kCGLineCapRound)
+        .byMoveToPoint(CGPointMake(9.4, 9.4))
+        .byAddLineToPoint(CGPointMake(13.4, 13.4))
+        .byStroke();
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return image;
@@ -111,10 +114,10 @@ Prop_strong()BaseButton *cancelBtn;
     if (!_cancelBtn) {
         @jobs_weakify(self)
         _cancelBtn = BaseButton.jobsInit()
-            .bgColorBy(JobsClearColor)
             .jobsResetBtnTitleCor(HEXCOLOR(0xAE8330))
             .jobsResetBtnTitleFont(UIFontWeightRegularSize(JobsWidth(13)))
             .jobsResetBtnTitle(@"取消".tr)
+            .jobsResetBtnBgCor(JobsClearColor)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 self.textField.byText(@"");
@@ -132,8 +135,9 @@ Prop_strong()BaseButton *cancelBtn;
                 make.centerY.equalTo(self);
                 make.right.equalTo(self);
             });
-        _cancelBtn.byAlpha(0);
-        _cancelBtn.userInteractionEnabled = NO;
+        _cancelBtn
+            .byAlpha(0)
+            .byUserInteractionEnabled(NO);
     };return _cancelBtn;
 }
 

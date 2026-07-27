@@ -39,9 +39,10 @@ Prop_strong()JobsPresentationCtrl *presentationController;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"JobsOCComment".tr);
-            data.byFont(UIFontWeightRegularSize(18));
-            data.byTextCor(HEXCOLOR(0x2D3642));
+            data
+                .byText(@"评论功能".tr)
+                .byFont(UIFontWeightRegularSize(18))
+                .byTextCor(HEXCOLOR(0x2D3642));
         })
         .byBgCor(HEXCOLOR(0xF6F7FB))
         .byNavBgCor(HEXCOLOR(0xF6F7FB));
@@ -72,15 +73,17 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                                     reuseIdentifier:JobsOCCommentDemoCellReuseIdentifier];
     }
     JobsOCCommentMode mode = self.modeArr[indexPath.row].integerValue;
-    cell.textLabel.text = [JobsOCCommentConfig titleByMode:mode].tr;
-    cell.textLabel.font = UIFontWeightMediumSize(16);
-    cell.textLabel.textColor = HEXCOLOR(0x2D3642);
-    cell.detailTextLabel.text = [JobsOCCommentConfig subtitleByMode:mode].tr;
-    cell.detailTextLabel.font = UIFontWeightRegularSize(13);
-    cell.detailTextLabel.textColor = HEXCOLOR(0x7A8491);
+    cell.textLabel
+        .byText([JobsOCCommentConfig titleByMode:mode].tr)
+        .byTextCor(HEXCOLOR(0x2D3642))
+        .byFont(UIFontWeightMediumSize(16));
+    cell.detailTextLabel
+        .byText([JobsOCCommentConfig subtitleByMode:mode].tr)
+        .byTextCor(HEXCOLOR(0x7A8491))
+        .byFont(UIFontWeightRegularSize(13));
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-    cell.backgroundColor = UIColor.whiteColor;
+    cell.byBgColor(UIColor.whiteColor);
     return cell;
 }
 

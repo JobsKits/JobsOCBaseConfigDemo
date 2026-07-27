@@ -1,8 +1,8 @@
 //
-//  JXCategoryViewWithHeaderViewVC.m
+//  JXCategoryViewWithHeaderViewSubVC.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2022/6/10.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "JXCategoryViewWithHeaderViewVC.h"
@@ -36,22 +36,28 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UICollectionViewCell *>*>*
             self.pushOrPresent = self.viewModel.pushOrPresent;
         }
     }
-    self.viewModel.backBtnTitleModel.text = @"返回".tr;
-    self.viewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
-    self.viewModel.textModel.text = @"".tr;
-    self.viewModel.textModel.font = UIFontWeightRegularSize(16);
-    // 使用原则：底图有 + 底色有 = 优先使用底图数据
-    // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-    // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-    self.viewModel.bgCor = RGBA_COLOR(255, 238, 221, 1);
-//    self.viewModel.bgImage = @"启动页SLOGAN".img;
-    self.viewModel.navBgCor = RGBA_COLOR(255, 238, 221, 1);
-    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+    self.viewModel
+        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"返回".tr);
+        })
+        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(@"".tr)
+                .byFont(UIFontWeightRegularSize(16));
+        })
+        // 使用原则：底图有 + 底色有 = 优先使用底图数据
+        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = JobsRandomColor;
+    self.view.byBgColor(JobsRandomColor);
     self.makeNavByAlpha(0);
     self.collectionView.byShow(self);
 }
@@ -128,7 +134,7 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UICollectionViewCell *>*>*
         if (block5) return block5();
     };return CGSizeZero;
 }
-#pragma mark - UICollectionViewDataSource
+#pragma mark —— UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return self.cvcellMutArr.count;
 }
@@ -177,7 +183,7 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UICollectionViewCell *>*>*
         if (indexPath.section == self.cvcellMutArr.count - 1) {
             return [collectionView UICollectionElementKindSectionFooterClass:BaiShaETProjVIPSubCVFooterView.class
                                                                 forIndexPath:indexPath].JobsRichViewByModel2(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                viewModel.textModel.text = @"查看VIP規則".tr;
+                viewModel.textModel.byText(@"查看VIP規則".tr);
             }));
         }else return nil;
     }else{
@@ -281,7 +287,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
         _choiceStadiumView = BaiShaETProjChoiceStadiumView
             .BySize(BaiShaETProjChoiceStadiumView.viewSizeByModel(nil))
             .JobsRichViewByModel2(nil)
-            .JobsBlock1(^(id  _Nullable data) {
+            .JobsBlock1(^(id  _Nullable data) {;
             });
     };return _choiceStadiumView;
 }
@@ -289,18 +295,20 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
 @synthesize collectionView = _collectionView;
 -(UICollectionView *)collectionView{
     if (!_collectionView) {
-        _collectionView = UICollectionView.initByLayout(self.verticalLayout);
-        _collectionView.dataLink(self);
-        _collectionView.byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight() + JobsTabBarHeight(nil), 0))
+        @jobs_weakify(self)
+        _collectionView = UICollectionView.initByLayout(self.verticalLayout)
+            .registerCollectionViewClass()
+            .dataLink(self)
+            .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight() + JobsTabBarHeight(nil), 0))
             .byShowsVerticalScrollIndicator(NO)
             .byBgColor(RGB_SAMECOLOR(246));
-        _collectionView.registerCollectionViewClass();
-        [self.scrollView.addSubview(_collectionView) mas_makeConstraints:^(MASConstraintMaker *make) {
+        _collectionView.addOn(self.scrollView);
+        [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            @jobs_strongify(self)
             make.edges.equalTo(self.scrollView);
         }];
     };return _collectionView;
 }
-
 -(NSMutableArray <NSMutableArray<__kindof UICollectionViewCell *>*>*)cvcellMutArr{
     if (!_cvcellMutArr) {
         _cvcellMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {

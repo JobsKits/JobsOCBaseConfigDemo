@@ -543,8 +543,9 @@ static NSMutableArray <__kindof UINavigationController *>*_navCtrMutArr = nil;
 /// 切换控制器
 +(void)button:(__kindof UIButton *)button index:(NSUInteger)index{
     AppDelegate.switchByIndex(index);
-    button.jobsResetBtnImage(self.imageSelectedMutArr[index]);
-    button.jobsResetBtnTitleCor(@"#C71B1B".cor);
+    button
+        .jobsResetBtnImage(self.imageSelectedMutArr[index])
+        .jobsResetBtnTitleCor(@"#C71B1B".cor);
 }
 
 +(jobsByNSUIntegerBlock _Nonnull)switchByIndex{
@@ -553,8 +554,9 @@ static NSMutableArray <__kindof UINavigationController *>*_navCtrMutArr = nil;
         @jobs_strongify(self)
         int t = 0;
         for (__kindof UIButton *btn in AppDelegate.tabBarItemMutArr) {
-            btn.jobsResetBtnImage(self.imageUnSelectedMutArr[t]);
-            btn.jobsResetBtnTitleCor(@"#8A93A1".cor);
+            btn
+                .jobsResetBtnImage(self.imageUnSelectedMutArr[t])
+                .jobsResetBtnTitleCor(@"#8A93A1".cor);
             t+=1;
         }self.jobsCustomTabBarVC.customSelectIndex(index);
     };

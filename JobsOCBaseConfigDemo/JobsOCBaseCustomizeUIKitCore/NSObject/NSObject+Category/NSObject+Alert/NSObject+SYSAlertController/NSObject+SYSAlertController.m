@@ -118,8 +118,9 @@
     }];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         @jobs_strongify(self)
-        textField.byPlaceholder(@"password".tr);
-        textField.bySecureTextEntry(YES);
+        textField
+            .byPlaceholder(@"password".tr)
+            .bySecureTextEntry(YES);
         [textField addTarget:self
                       action:@selector(alertUserAccountInfoDidChange:targetVC:)
             forControlEvents:UIControlEventEditingChanged];

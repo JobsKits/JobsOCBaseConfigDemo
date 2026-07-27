@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorLogoContentView.m
-//  JobsOCTools
+//  JobsAppDoor
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -39,7 +39,8 @@ static dispatch_once_t JobsAppDoorLogoContentViewDispatchOnce;
         _mainImgV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
             imageView
-                .byImage(@"AppDoorLogo".img)
+                .byImage(JobsAppDoorImageNamed(@"MainLogo"))
+                .byContentMode(UIViewContentModeScaleAspectFit)
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.edges.equalTo(self);

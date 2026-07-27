@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBtnByImageBlock _Nonnull)focusedStateImageBy API_AVAILABLE(ios(9.0));
 -(JobsRetBtnByImageBlock _Nonnull)applicationStateImageBy;
 -(JobsRetBtnByImageBlock _Nonnull)reservedStateImageBy;
+-(JobsRetBtnByImageAndControlStateBlock _Nonnull)imageForStateBy;
 #pragma mark —— UIButton.backgroundImage
 -(JobsRetImageByNSUIntegerBlock _Nonnull)backgroundImageByState;
 -(UIImage *_Nullable)backgroundImageByNormalState;
@@ -49,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBtnByImageBlock _Nonnull)focusedStateBackgroundImageBy API_AVAILABLE(ios(9.0));
 -(JobsRetBtnByImageBlock _Nonnull)applicationStateBackgroundImageBy;
 -(JobsRetBtnByImageBlock _Nonnull)reservedStateBackgroundImageBy;
+-(JobsRetBtnByImageAndControlStateBlock _Nonnull)backgroundImageForStateBy;
 #pragma mark —— UIButton.titleColor
 -(JobsRetCorByNSUIntegerBlock _Nonnull)titleColorByState;
 -(UIColor *_Nullable)titleColorByNormalState;

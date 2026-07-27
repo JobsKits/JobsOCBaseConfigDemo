@@ -31,10 +31,6 @@ Prop_assign()BOOL isLeaveAlertShowing;
 @end
 
 @implementation JobsHandwritingDemoVC
--(void)dealloc{
-    [self restorePopGesture];
-}
-
 -(void)loadView{
     [super loadView];
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
@@ -48,9 +44,10 @@ Prop_assign()BOOL isLeaveAlertShowing;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"手写板".tr);
-            data.byTextCor(HEXCOLOR(0x263342));
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byText(@"手写板".tr)
+                .byTextCor(HEXCOLOR(0x263342))
+                .byFont(UIFontWeightRegularSize(18));
         })
         .byBgCor(HEXCOLOR(0xF4F5F8))
         .byNavBgCor(HEXCOLOR(0xF4F5F8));
@@ -58,9 +55,9 @@ Prop_assign()BOOL isLeaveAlertShowing;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
+    [self setupRightBarButtonItems];
     self.makeNavByAlpha(1);
     self.view.byBgColor(HEXCOLOR(0xF4F5F8));
-    [self setupRightBarButtonItems];
     self.tipLabel.byAlpha(1);
     self.clearButton.byAlpha(1);
     self.canvasView.byAlpha(1);
@@ -70,6 +67,15 @@ Prop_assign()BOOL isLeaveAlertShowing;
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     self.clzPopGesture();
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    if (self.isMovingFromParentViewController ||
+        self.isBeingDismissed ||
+        self.navigationController.isBeingDismissed) {
+        [self restorePopGesture];
+    }
 }
 
 -(void)viewDidDisappear:(BOOL)animated{

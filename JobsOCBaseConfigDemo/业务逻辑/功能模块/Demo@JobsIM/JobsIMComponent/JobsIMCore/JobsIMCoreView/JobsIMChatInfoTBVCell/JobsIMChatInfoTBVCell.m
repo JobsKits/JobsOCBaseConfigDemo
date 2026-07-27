@@ -7,6 +7,22 @@
 
 #import "JobsIMChatInfoTBVCell.h"
 
+static UIFont *JobsIMChatMessageFont(void) {
+    return UIFontWeightRegularSize(JobsWidth(16));
+}
+
+static CGSize JobsIMChatMessageTextSize(NSString *text) {
+    CGFloat maxTextWidth = JobsIMChatInfoTBVChatContentLabWidth() - JobsWidth(10);
+    return [UILabel sizeWithText:text ?: @""
+                           font:JobsIMChatMessageFont()
+                        maxSize:CGSizeMake(maxTextWidth, CGFLOAT_MAX)];
+}
+
+static CGFloat JobsIMChatBubbleHeight(NSString *text) {
+    CGSize textSize = JobsIMChatMessageTextSize(text);
+    return ceil(MAX(JobsIMChatMessageFont().lineHeight, textSize.height)) + JobsWidth(10);
+}
+
 @interface JobsIMChatInfoTBVCell ()
 /// UI
 Prop_strong()UIImageView *iconIMGV;/// 用户头像
@@ -29,6 +45,8 @@ Prop_assign()InfoLocation infoLocation;
 Prop_strong()NSMutableArray <MGSwipeButtonModel *>*leftBtnMutArr;
 Prop_strong()NSMutableArray <MGSwipeButtonModel *>*rightBtnMutArr;
 
+-(void)jobs_remakeMessageConstraints;
+
 @end
 
 @implementation JobsIMChatInfoTBVCell
@@ -37,10 +55,13 @@ UITextFieldProtocol_synthesize_part2
              reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]) {
-        self.longPG.enabled = YES;
+        self.longPG.byEnabled(YES);
         self.swipeBackgroundColor = JobsClearColor;
+        self.byContentView(^(__kindof UIView * _Nullable view) {
+            view.byBgColor(JobsSystemBackgroundColor);
+        }).byBgColor(JobsSystemBackgroundColor);
         self.bySelectedBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.byBgColor(JobsYellowColor.colorWithAlphaComponentBy(.3f));
+            view.byBgColor(JobsSystemGray5Color);
         }));
         self.leftSwipeSettings.transition = MGSwipeTransitionBorder;
         self.rightSwipeSettings.transition = MGSwipeTransitionDrag;
@@ -63,15 +84,12 @@ UITextFieldProtocol_synthesize_part2
 +(JobsRetCGFloatByIDBlock _Nonnull)cellHeightByModel{
     return ^CGFloat(id _Nullable data){
         if ([data isKindOfClass:JobsIMChatInfoModel.class]){
-//            JobsIMChatInfoModel *chatInfoModel = (JobsIMChatInfoModel *)data;
-    #warning 这里需要被修改
-            CGFloat CellHeight = 0;
-    //        CGFloat CellHeight = [chatInfoModel.chatTextStr getContentHeightOrWidthWithParagraphStyleLineSpacing:0
-    //                                                                                       calcLabelHeight_Width:CalcLabelHeight
-    //                                                                                                        font:NULL
-    //                                                                                boundingRectWithHeight_Width:JobsIMChatInfoTBVChatContentLabWidth()];
-            JobsLog(@"%f",CellHeight);
-            return (CellHeight < JobsIMChatInfoTBVDefaultCellHeight() ? JobsIMChatInfoTBVDefaultCellHeight() : CellHeight) + (JobsIMChatInfoTBVDefaultCellHeight() / 2 - 5);
+            JobsIMChatInfoModel *chatInfoModel = (JobsIMChatInfoModel *)data;
+            CGFloat avatarSize = JobsIMChatInfoTBVDefaultCellHeight() - 5;
+            CGFloat bubbleTop = 5 + avatarSize / 2;
+            CGFloat avatarBottom = 5 + avatarSize + 5;
+            CGFloat bubbleBottom = bubbleTop + JobsIMChatBubbleHeight(chatInfoModel.chatTextStr) + 5;
+            return ceil(MAX(avatarBottom, bubbleBottom));
         }else{
             return 0;
         }
@@ -100,21 +118,11 @@ UITextFieldProtocol_synthesize_part2
             self.senderChatUserIconIMG = chatInfoModel.userIconIMG;
             self.senderUserNameStr = chatInfoModel.userNameStr;
             self.identification = chatInfoModel.identification;
-    #warning 这里需要被修改
-            //先定宽，再定高
-    //        CGFloat contentWidthTemp = [self.senderChatTextStr getContentHeightOrWidthWithParagraphStyleLineSpacing:0
-    //                                                                                          calcLabelHeight_Width:CalcLabelWidth
-    //                                                                                                           font:NULL
-    //                                                                                   boundingRectWithHeight_Width:JobsIMChatInfoTBVDefaultCellHeight()];
-    //        //保证最小宽度 且 小于最大宽度
-    //        self.contentWidth = MIN(JobsIMChatInfoTBVChatContentLabWidth(), MAX(JobsIMChatInfoTBVChatContentLabDefaultWidth(), contentWidthTemp));
-    //
-    //        self.contentHeight = [self.senderChatTextStr getContentHeightOrWidthWithParagraphStyleLineSpacing:0
-    //                                                                                    calcLabelHeight_Width:CalcLabelHeight
-    //                                                                                                     font:NULL
-    //                                                                             boundingRectWithHeight_Width:self.contentWidth];
-            JobsLog(@"contentHeight = %f",self.contentHeight);
-            JobsLog(@"contentWidth = %f",self.contentWidth);
+            CGSize textSize = JobsIMChatMessageTextSize(self.senderChatTextStr);
+            self.contentWidth = MIN(JobsIMChatInfoTBVChatContentLabWidth(),
+                                    MAX(JobsIMChatInfoTBVChatContentLabDefaultWidth(),
+                                        ceil(textSize.width) + JobsWidth(10)));
+            self.contentHeight = JobsIMChatBubbleHeight(self.senderChatTextStr);
             self.iconIMGV
                     .imageURL(chatInfoModel.userIconURLStr.jobsUrl)
                     .placeholderImage(chatInfoModel.userIconIMG)
@@ -129,10 +137,24 @@ UITextFieldProtocol_synthesize_part2
                             JobsLog(@"图片加载成功");
                         }
                     }).load();
-            self.chatUserNameLab.byAlpha(self.isShowChatUserName);
-            self.chatBubbleIMGV.byAlpha(1);
-            self.chatContentLab.byAlpha(1);
-            self.timeLab.byAlpha(1);
+            self.chatUserNameLab
+                .byText(self.senderUserNameStr)
+                .byTextCor(JobsLabelColor)
+                .byTextAlignment(self.infoLocation == InfoLocation_Left ? NSTextAlignmentLeft : NSTextAlignmentRight)
+                .byAlpha(self.isShowChatUserName);
+            self.chatBubbleIMGV
+                .byImage(self.infoLocation == InfoLocation_Left ? self.chatBubbleMutArr[0] : self.chatBubbleMutArr[1])
+                .byAlpha(1);
+            self.chatContentLab
+                .byText(self.senderChatTextStr)
+                .byTextCor(JobsBlackColor)
+                .byAlpha(1);
+            self.timeLab
+                .byText(self.senderChatTextTimeStr)
+                .byTextCor(JobsLabelColor)
+                .byBgColor(JobsSystemGray3Color)
+                .byAlpha(1);
+            [self jobs_remakeMessageConstraints];
         };return self;
     };
 }
@@ -176,9 +198,86 @@ UITextFieldProtocol_synthesize_part2
     @jobs_weakify(self)
     return ^__kindof MGSwipeTableCell *_Nullable(BOOL data){
         @jobs_strongify(self)
-        self.isShowChatUserName = YES;
+        self.isShowChatUserName = data;
+        self.chatUserNameLab.byAlpha(data);
         return self;
     };
+}
+
+-(void)jobs_remakeMessageConstraints{
+    [self.iconIMGV mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(JobsIMChatInfoTBVDefaultCellHeight() - 5,
+                                         JobsIMChatInfoTBVDefaultCellHeight() - 5));
+        make.top.equalTo(self.contentView).offset(5);
+        switch (self.infoLocation) {
+            /// 对方消息头像靠左
+            case InfoLocation_Left:
+                make.left.equalTo(self.contentView).offset(10);
+                break;
+            /// 自己消息头像靠右
+            case InfoLocation_Right:
+                make.right.equalTo(self.contentView).offset(-10);
+                break;
+            /// 未知消息方向按左侧展示
+            default:
+                make.left.equalTo(self.contentView).offset(10);
+                break;
+        }
+    }];
+    [self.chatUserNameLab mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.iconIMGV);
+        make.bottom.equalTo(self.iconIMGV.mas_centerY).offset(-3);
+        switch (self.infoLocation) {
+            /// 对方名称显示在头像右侧
+            case InfoLocation_Left:
+                make.left.equalTo(self.iconIMGV.mas_right).offset(5);
+                break;
+            /// 自己名称显示在头像左侧
+            case InfoLocation_Right:
+                make.right.equalTo(self.iconIMGV.mas_left).offset(-5);
+                break;
+            /// 未知消息方向按左侧展示
+            default:
+                make.left.equalTo(self.iconIMGV.mas_right).offset(5);
+                break;
+        }
+    }];
+    [self.chatBubbleIMGV mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.iconIMGV.mas_centerY);
+        make.size.mas_equalTo(CGSizeMake(self.contentWidth, self.contentHeight));
+        switch (self.infoLocation) {
+            /// 对方气泡显示在头像右侧
+            case InfoLocation_Left:
+                make.left.equalTo(self.iconIMGV.mas_right).offset(5);
+                break;
+            /// 自己气泡显示在头像左侧
+            case InfoLocation_Right:
+                make.right.equalTo(self.iconIMGV.mas_left).offset(-5);
+                break;
+            /// 未知消息方向按左侧展示
+            default:
+                make.left.equalTo(self.iconIMGV.mas_right).offset(5);
+                break;
+        }
+    }];
+    [self.timeLab mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(self.chatBubbleIMGV);
+        make.size.mas_equalTo(CGSizeMake(JobsIMChatInfoTimeLabWidth(), 20));
+        switch (self.infoLocation) {
+            /// 对方消息时间显示在气泡右侧
+            case InfoLocation_Left:
+                make.left.equalTo(self.chatBubbleIMGV.mas_right).offset(5);
+                break;
+            /// 自己消息时间显示在气泡左侧
+            case InfoLocation_Right:
+                make.right.equalTo(self.chatBubbleIMGV.mas_left).offset(-5);
+                break;
+            /// 未知消息方向按左侧展示
+            default:
+                make.left.equalTo(self.chatBubbleIMGV.mas_right).offset(5);
+                break;
+        }
+    }];
 }
 
 -(NSArray *)createRightButtons{
@@ -214,25 +313,10 @@ UITextFieldProtocol_synthesize_part2
         _iconIMGV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             @jobs_strongify(self)
             imageView
+                .byContentMode(UIViewContentModeScaleAspectFill)
+                .cornerCutToCircleWithCornerRadius(JobsWidth(6))
                 .addOn(self.contentView)
-                .byAdd(^(MASConstraintMaker *make) {
-                    make.size.mas_equalTo(CGSizeMake(JobsIMChatInfoTBVDefaultCellHeight() - 5,
-                                                     JobsIMChatInfoTBVDefaultCellHeight() - 5));
-                    make.top.equalTo(self.contentView).offset(5);
-                    switch (self.infoLocation) {
-                        /// 处理 InfoLocation_Left 分支
-                        case InfoLocation_Left:{
-                            make.left.equalTo(self.contentView).offset(10);
-                        }break;
-                        /// 处理 InfoLocation_Right 分支
-                        case InfoLocation_Right:{
-                            make.right.equalTo(self.contentView).offset(-10);
-                        }break;
-                        /// 未匹配已知分支时执行兜底处理
-                        default:
-                            break;
-                    }
-                });
+                .byAlpha(1);
         });
     };return _iconIMGV;
 }
@@ -244,25 +328,7 @@ UITextFieldProtocol_synthesize_part2
             @jobs_strongify(self)
             imageView.byImage(self.infoLocation == InfoLocation_Left ? self.chatBubbleMutArr[0] : self.chatBubbleMutArr[1])
                 .addOn(self.contentView)
-                .byAdd(^(MASConstraintMaker *make) {
-                    @jobs_strongify(self)
-                    make.top.equalTo(self.iconIMGV.mas_centerY);
-                    make.bottom.equalTo(self.contentView).offset(-5);
-                    make.width.mas_equalTo(self.contentWidth);
-                    switch (self.infoLocation) {
-                        /// 处理 InfoLocation_Left 分支
-                        case InfoLocation_Left:{
-                            make.left.equalTo(self.iconIMGV.mas_right).offset(5);
-                        }break;
-                        /// 处理 InfoLocation_Right 分支
-                        case InfoLocation_Right:{
-                            make.right.equalTo(self.iconIMGV.mas_left).offset(-5);
-                        }break;
-                        /// 未匹配已知分支时执行兜底处理
-                        default:
-                            break;
-                    }
-                });
+                .byAlpha(1);
         });
     };return _chatBubbleIMGV;
 }
@@ -273,30 +339,12 @@ UITextFieldProtocol_synthesize_part2
         _chatUserNameLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byTextCor(JobsBlackColor)
-            .byFont(UIFontWeightRegularSize(JobsWidth(10)))
-            .byTextAlignment(NSTextAlignmentCenter)
-            .byText(self.senderUserNameStr)
-            .makeLabelByShowingType(UILabelShowingType_03)
-            .addOn(self.contentView)
-            .byAdd(^(MASConstraintMaker *make) {
-                @jobs_strongify(self)
-                make.top.equalTo(self.iconIMGV);
-                make.bottom.equalTo(self.iconIMGV.mas_centerY).offset(-3);
-                switch (self.infoLocation) {
-                    /// 处理 InfoLocation_Left 分支
-                    case InfoLocation_Left:{
-                        make.left.equalTo(self.iconIMGV.mas_right).offset(5);
-                    }break;
-                    /// 处理 InfoLocation_Right 分支
-                    case InfoLocation_Right:{
-                        make.right.equalTo(self.iconIMGV.mas_left).offset(-5);
-                    }break;
-                    /// 未匹配已知分支时执行兜底处理
-                    default:
-                        break;
-                }
-            });
+                .byTextCor(JobsLabelColor)
+                .byFont(UIFontWeightRegularSize(JobsWidth(11)))
+                .byTextAlignment(NSTextAlignmentLeft)
+                .byText(self.senderUserNameStr)
+                .makeLabelByShowingType(UILabelShowingType_03)
+                .addOn(self.contentView);
         });
     };return _chatUserNameLab;
 }
@@ -310,8 +358,8 @@ UITextFieldProtocol_synthesize_part2
                 .byNumberOfLines(0)
                 .byText(self.senderChatTextStr)
                 .byTextCor(JobsBlackColor)
-                .byTextAlignment(self.infoLocation == InfoLocation_Left ? NSTextAlignmentRight : NSTextAlignmentLeft)
-                .byFont(UIFontWeightRegularSize(JobsWidth(10)))
+                .byTextAlignment(NSTextAlignmentLeft)
+                .byFont(JobsIMChatMessageFont())
                 .addOn(self.chatBubbleIMGV)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
@@ -327,31 +375,13 @@ UITextFieldProtocol_synthesize_part2
         _timeLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byTextCor(JobsWhiteColor)
+                .byTextCor(JobsLabelColor)
                 .byText(self.senderChatTextTimeStr)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byFont(UIFontWeightRegularSize(JobsWidth(10)))
                 .makeLabelByShowingType(UILabelShowingType_03)
-                .byBgColor(JobsLightGrayColor)
+                .byBgColor(JobsSystemGray3Color)
                 .addOn(self.contentView)
-                .byAdd(^(MASConstraintMaker *make) {
-                    @jobs_strongify(self)
-                    make.bottom.equalTo(self.chatBubbleIMGV);
-                    make.size.mas_equalTo(CGSizeMake(JobsIMChatInfoTimeLabWidth(), 20));
-                    switch (self.infoLocation) {
-                        /// 处理 InfoLocation_Left 分支
-                        case InfoLocation_Left:{
-                            make.left.equalTo(self.chatBubbleIMGV.mas_right).offset(5);
-                        }break;
-                        /// 处理 InfoLocation_Right 分支
-                        case InfoLocation_Right:{
-                            make.right.equalTo(self.chatBubbleIMGV.mas_left).offset(-5);
-                        }break;
-                        /// 未匹配已知分支时执行兜底处理
-                        default:
-                        break;
-                    }
-                })
                 .cornerCutToCircleWithCornerRadius(20 / 2);
         });
     };return _timeLab;

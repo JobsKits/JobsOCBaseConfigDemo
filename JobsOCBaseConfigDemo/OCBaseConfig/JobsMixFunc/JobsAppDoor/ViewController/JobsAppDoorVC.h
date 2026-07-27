@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorVC.h
-//  JobsOCTools
+//  JobsAppDoor
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -117,21 +117,86 @@
 #endif
 
 #pragma mark —— By Jobs
+
+#if __has_include(<ZFPlayerExtra/ZFPlayerExtra.h>)
+#import <ZFPlayerExtra/ZFPlayerExtra.h>
+#else
 #import "ZFPlayerExtra.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
 #import "JobsMakes.h"
+#else
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsDeviceInfo/JobsDeviceInfo.h>)
 #import "JobsDeviceInfo.h"
+#else
+#import "JobsDeviceInfo.h"
+#endif
+
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import "JobsLanMgr.h"
+#else
+#import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import "JobsBaseUI.h"
+#else
+#import "JobsBaseUI.h"
+#endif
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import "JobsByOCPods.h"
+#else
+#import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import "JobsDefines.h"
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import "JobsOCDSL.h"
+#else
+#import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsOCKeyboardMgr/JobsOCKeyboardMgr.h>)
+#import "JobsOCKeyboardMgr.h"
+#else
+#import "JobsOCKeyboardMgr.h"
+#endif
+
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
 #import "JobsModelDSL.h"
+#else
+#import "JobsModelDSL.h"
+#endif
+
+#if __has_include(<JobsFuseAnimation/JobsFuseAnimation.h>)
 #import "JobsFuseAnimation.h"
+#else
+#import "JobsFuseAnimation.h"
+#endif
+
+#if __has_include(<JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>)
 #import "JobsOCCountryCodeCtrlHeader.h"
+#else
+#import "JobsOCCountryCodeCtrlHeader.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 #pragma mark —— 高仿蜜柚
 @interface JobsAppDoorVC : BaseViewController
+
+Prop_strong()JobsAppDoorConfig *configuration;
+
+-(instancetype)initWithConfiguration:(JobsAppDoorConfig *)configuration;
 /// 进此页面先自动跳转到注册页面
 -(void)toRegister;
 

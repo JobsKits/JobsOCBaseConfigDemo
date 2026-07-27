@@ -8,7 +8,12 @@
 #import <Foundation/Foundation.h>
 #import "AppDelegate.h"
 #import "AppDelegate+TabBarCtr.h"
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
 #import "JobsDefines.h"
+#endif
 
 /// 根控制器
 #ifndef ROOT_VIEW_CONTROLLER_H
@@ -24,15 +29,17 @@
 //#define RootViewController AppDelegate.lZTabBarCtrl
 #endif // ROOT_VIEW_CONTROLLER_H
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
 #import "JobsOCDSL.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MyAppTools : NSObject
 
 Prop_assign()FMLoginWork loginWork;
-+(instancetype)sharedManager;
-+(void)destroySingleton;
 /// 仅仅为了iOS 13 版本向下兼容而存在
 -(UIWindow *)makeAppDelegateWindow;
 -(UIWindow *)makeSceneDelegateWindow;
@@ -43,12 +50,9 @@ Prop_assign()FMLoginWork loginWork;
 
 NS_ASSUME_NONNULL_END
 
-#ifndef JOBS_MAKE_APPDELEGATEWINDOW
-#define JOBS_MAKE_APPDELEGATEWINDOW
 NS_INLINE __kindof UIWindow *_Nonnull
 jobsMakeAppDelegateWindow(jobsByWindowBlock _Nonnull block){
     UIWindow *data = MyAppTools.sharedManager.makeAppDelegateWindow;
     if (block) block(data);
     return data;
 }
-#endif /* JOBS_MAKE_APPDELEGATEWINDOW */

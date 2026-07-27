@@ -48,9 +48,10 @@ Prop_strong()NSArray <NSDictionary <NSString *, NSString *>*>*iconOptions;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(data.attributedTitle.string);
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(data.attributedTitle.string)
+                .byFont(UIFontWeightRegularSize(18));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -65,7 +66,7 @@ Prop_strong()NSArray <NSDictionary <NSString *, NSString *>*>*iconOptions;
     [super viewDidLoad];
     self.view.byBgColor(JobsRandomColor);
     self.makeNavByAlpha(1);
-    self.iconCollectionView.alpha = 1;
+    self.iconCollectionView.byAlpha(1);
     [self.iconCollectionView reloadData];
 }
 
@@ -185,39 +186,50 @@ Prop_strong()NSArray <NSDictionary <NSString *, NSString *>*>*iconOptions;
     UILabel *titleLab = (UILabel *)[cell.contentView viewWithTag:JobsAppIconTitleLabTag];
     UILabel *checkLab = (UILabel *)[cell.contentView viewWithTag:JobsAppIconCheckLabTag];
     if (!iconView) {
-        iconView = UIImageView.new;
-        iconView.tag = JobsAppIconImageViewTag;
-        iconView.contentMode = UIViewContentModeScaleAspectFill;
-        iconView.clipsToBounds = YES;
-        iconView.layer.cornerRadius = JobsWidth(14);
-        [cell.contentView addSubview:iconView];
+        iconView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView
+                .byTag(JobsAppIconImageViewTag)
+                .byContentMode(UIViewContentModeScaleAspectFill)
+                .byClipsToBounds(YES)
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer.byCornerRadius(JobsWidth(14));
+                })
+                .addOn(cell.contentView);
+        });
     }
     if (!titleLab) {
-        titleLab = UILabel.new;
-        titleLab.tag = JobsAppIconTitleLabTag;
-        titleLab.font = UIFontWeightRegularSize(JobsWidth(12));
-        titleLab.textAlignment = NSTextAlignmentCenter;
-        titleLab.textColor = HEXCOLOR(0x26313D);
-        [cell.contentView addSubview:titleLab];
+        titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byFont(UIFontWeightRegularSize(JobsWidth(12)))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byTextCor(HEXCOLOR(0x26313D))
+                .byTag(JobsAppIconTitleLabTag)
+                .addOn(cell.contentView);
+        });
     }
     if (!checkLab) {
-        checkLab = UILabel.new;
-        checkLab.tag = JobsAppIconCheckLabTag;
-        checkLab.font = UIFontWeightBoldSize(JobsWidth(12));
-        checkLab.text = @"✓";
-        checkLab.textAlignment = NSTextAlignmentCenter;
-        checkLab.textColor = JobsWhiteColor;
-        checkLab.backgroundColor = HEXCOLOR(0x1F9D6A);
-        checkLab.layer.cornerRadius = JobsWidth(10);
-        checkLab.layer.masksToBounds = YES;
-        [cell.contentView addSubview:checkLab];
+        checkLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"✓")
+                .byTextCor(JobsWhiteColor)
+                .byFont(UIFontWeightBoldSize(JobsWidth(12)))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byTag(JobsAppIconCheckLabTag)
+                .byBgColor(HEXCOLOR(0x1F9D6A))
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer
+                        .byCornerRadius(JobsWidth(10))
+                        .byMasksToBounds(YES);
+                })
+                .addOn(cell.contentView);
+        });
     }
     CGFloat contentWidth = CGRectGetWidth(cell.contentView.bounds);
     if (contentWidth <= 0) contentWidth = JobsWidth(108);
     CGFloat iconWidth = MIN(JobsWidth(66), contentWidth - JobsWidth(28));
-    iconView.frame = CGRectMake((contentWidth - iconWidth) / 2, JobsWidth(12), iconWidth, iconWidth);
-    titleLab.frame = CGRectMake(JobsWidth(6), CGRectGetMaxY(iconView.frame) + JobsWidth(8), contentWidth - JobsWidth(12), JobsWidth(20));
-    checkLab.frame = CGRectMake(contentWidth - JobsWidth(28), JobsWidth(8), JobsWidth(20), JobsWidth(20));
+    iconView.byFrame(CGRectMake((contentWidth - iconWidth) / 2, JobsWidth(12), iconWidth, iconWidth));
+    titleLab.byFrame(CGRectMake(JobsWidth(6), CGRectGetMaxY(iconView.frame) + JobsWidth(8), contentWidth - JobsWidth(12), JobsWidth(20)));
+    checkLab.byFrame(CGRectMake(contentWidth - JobsWidth(28), JobsWidth(8), JobsWidth(20), JobsWidth(20)));
     NSString *iconImageName = option[JobsAppIconImageKey];
     UIImage *iconImage = iconImageName.img;
     if (!iconImage) {
@@ -225,16 +237,20 @@ Prop_strong()NSArray <NSDictionary <NSString *, NSString *>*>*iconOptions;
             iconImage = @"app.fill".sys_img;
         }
     }
-    iconView.image = iconImage;
-    titleLab.text = option[JobsAppIconTitleKey].tr;
+    iconView.byImage(iconImage);
+    titleLab.byText(option[JobsAppIconTitleKey].tr);
     NSString *currentIconName = self.currentAppIconName;
     BOOL selected = [currentIconName isEqualToString:option[JobsAppIconNameKey]];
-    cell.contentView.backgroundColor = JobsWhiteColor;
-    cell.contentView.layer.cornerRadius = JobsWidth(10);
-    cell.contentView.layer.borderWidth = selected ? JobsWidth(2) : JobsWidth(1);
-    cell.contentView.layer.borderColor = (selected ? HEXCOLOR(0x1F9D6A) : RGBA_COLOR(255, 255, 255, 0.72)).CGColor;
-    cell.contentView.layer.masksToBounds = YES;
-    checkLab.hidden = !selected;
+    cell.contentView
+        .byBgColor(JobsWhiteColor)
+        .byLayer(^(__kindof CALayer * _Nullable layer) {
+            layer
+                .byCornerRadius(JobsWidth(10))
+                .byBorderWidth(selected ? JobsWidth(2) : JobsWidth(1))
+                .byBorderColor((selected ? HEXCOLOR(0x1F9D6A) : RGBA_COLOR(255, 255, 255, 0.72)).CGColor)
+                .byMasksToBounds(YES);
+        });
+    checkLab.byHidden(!selected);
     return cell;
 }
 
@@ -271,19 +287,21 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
 
 -(UICollectionView *)iconCollectionView{
     if (!_iconCollectionView) {
-        UICollectionViewFlowLayout *layout = UICollectionViewFlowLayout.alloc.init;
-        layout.minimumInteritemSpacing = JobsWidth(12);
-        layout.minimumLineSpacing = JobsWidth(14);
-        layout.sectionInset = UIEdgeInsetsMake(JobsWidth(20), JobsWidth(16), JobsWidth(20), JobsWidth(16));
-        _iconCollectionView = [[UICollectionView alloc] initWithFrame:CGRectZero
-                                                 collectionViewLayout:layout];
+        UICollectionViewFlowLayout *layout = jobsMakeCollectionViewFlowLayout(^(__kindof UICollectionViewFlowLayout * _Nullable layout) {
+            layout
+                .byMinimumInteritemSpacing(JobsWidth(12))
+                .byMinimumLineSpacing(JobsWidth(14))
+                .bySectionInset(UIEdgeInsetsMake(JobsWidth(20), JobsWidth(16), JobsWidth(20), JobsWidth(16)));
+        });
+        _iconCollectionView = UICollectionView.initByLayout(layout);
         [_iconCollectionView registerClass:UICollectionViewCell.class
                 forCellWithReuseIdentifier:JobsAppIconCellID];
-        _iconCollectionView.delegate = self;
-        _iconCollectionView.dataSource = self;
-        _iconCollectionView.backgroundColor = JobsClearColor;
-        _iconCollectionView.showsVerticalScrollIndicator = NO;
-        _iconCollectionView.alwaysBounceVertical = YES;
+        _iconCollectionView
+            .byDelegate(self)
+            .byDataSource(self)
+            .byShowsVerticalScrollIndicator(NO)
+            .byAlwaysBounceVertical(YES)
+            .byBgColor(JobsClearColor);
         if (@available(iOS 11.0, *)) {
             _iconCollectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }

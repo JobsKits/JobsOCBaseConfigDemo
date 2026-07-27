@@ -52,8 +52,9 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"直播推流".tr);
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byText(@"直播推流".tr)
+                .byFont(UIFontWeightRegularSize(18));
         })
         .byBgCor(UIColor.blackColor)
         .byNavBgCor(UIColor.blackColor);
@@ -70,18 +71,18 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
                         UIApplicationDidBecomeActiveNotification,
                         nil);
     self.makeNavByAlpha(1);
-    self.view.backgroundColor = UIColor.blackColor;
+    self.view.byBgColor(UIColor.blackColor);
     self.currentPosition = AVCaptureDevicePositionBack;
-    self.previewContainerView.alpha = 1;
-    self.statusLabel.alpha = 1;
-    self.streamButton.alpha = 1;
-    self.switchCameraButton.alpha = 1;
+    self.previewContainerView.byAlpha(1);
+    self.statusLabel.byAlpha(1);
+    self.streamButton.byAlpha(1);
+    self.switchCameraButton.byAlpha(1);
     [self requestMediaAuthorization];
 }
 
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    self.previewLayer.frame = self.previewContainerView.bounds;
+    self.previewLayer.byFrame(self.previewContainerView.bounds);
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -188,7 +189,7 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
 #pragma mark —— Action
 -(void)toggleStreaming{
     self.streaming = !self.streaming;
-    self.streamButton.selected = self.streaming;
+    self.streamButton.bySelected(self.streaming);
     if (self.streaming) {
         [self startCaptureSessionIfNeeded];
         NSString *url = [NSString stringWithFormat:@"%@/%@", JobsLiveStreamDemoRTMPURI, JobsLiveStreamDemoStreamName];
@@ -224,14 +225,16 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
 }
 
 -(void)updateStatusText:(NSString *)text{
-    self.statusLabel.text = text;
+    self.statusLabel.byText(text);
 }
 #pragma mark —— LazyLoad
 -(UIView *)previewContainerView{
     if (!_previewContainerView) {
-        _previewContainerView = UIView.new;
-        _previewContainerView.backgroundColor = UIColor.blackColor;
-        [self.view addSubview:_previewContainerView];
+        _previewContainerView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byBgColor(UIColor.blackColor)
+                .addOn(self.view);
+        });
         [_previewContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.edges.equalTo(self.view);
         }];
@@ -240,13 +243,15 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
 
 -(UILabel *)statusLabel{
     if (!_statusLabel) {
-        _statusLabel = UILabel.new;
-        _statusLabel.textColor = UIColor.whiteColor;
-        _statusLabel.font = UIFontWeightRegularSize(14);
-        _statusLabel.textAlignment = NSTextAlignmentCenter;
-        _statusLabel.numberOfLines = 0;
-        _statusLabel.text = @"准备就绪".tr;
-        [self.view addSubview:_statusLabel];
+        _statusLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"准备就绪".tr)
+                .byTextCor(UIColor.whiteColor)
+                .byFont(UIFontWeightRegularSize(14))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byNumberOfLines(0)
+                .addOn(self.view);
+        });
         [_statusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view).inset(JobsWidth(16));
             make.bottom.equalTo(self.streamButton.mas_top).offset(-JobsWidth(12));
@@ -256,21 +261,24 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
 
 -(UIButton *)streamButton{
     if (!_streamButton) {
-        _streamButton = UIButton.new;
-        _streamButton.backgroundColor = UIColor.systemRedColor;
-        _streamButton.layer.cornerRadius = JobsWidth(8);
-        _streamButton.layer.masksToBounds = YES;
-        [_streamButton setTitle:@"开始推流".tr
-                       forState:UIControlStateNormal];
-        [_streamButton setTitle:@"停止推流".tr
-                       forState:UIControlStateSelected];
-        [_streamButton setTitleColor:UIColor.whiteColor
-                             forState:UIControlStateNormal];
-        _streamButton.titleLabel.font = UIFontWeightMediumSize(16);
-        [_streamButton addTarget:self
-                          action:@selector(toggleStreaming)
-                forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:_streamButton];
+        @jobs_weakify(self)
+        _streamButton = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
+            btn
+                .jobsResetBtnTitle(@"开始推流".tr)
+                .selectedStateTitleBy(@"停止推流".tr)
+                .jobsResetBtnTitleCor(UIColor.whiteColor)
+                .jobsResetBtnTitleFont(UIFontWeightMediumSize(16))
+                .jobsResetBtnBgCor(UIColor.systemRedColor)
+                .onClickBy(^(__kindof UIButton * _Nullable button) {
+                    [weak_self toggleStreaming];
+                })
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer
+                        .byCornerRadius(JobsWidth(8))
+                        .byMasksToBounds(YES);
+                })
+                .addOn(self.view);
+        });
         [_streamButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.equalTo(self.view).inset(JobsWidth(24));
             make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom).offset(-JobsWidth(32));
@@ -281,19 +289,23 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
 
 -(UIButton *)switchCameraButton{
     if (!_switchCameraButton) {
-        _switchCameraButton = UIButton.new;
-        _switchCameraButton.backgroundColor = [UIColor.blackColor colorWithAlphaComponent:0.45];
-        _switchCameraButton.layer.cornerRadius = JobsWidth(20);
-        _switchCameraButton.layer.masksToBounds = YES;
-        [_switchCameraButton setTitle:@"↻"
-                             forState:UIControlStateNormal];
-        [_switchCameraButton setTitleColor:UIColor.whiteColor
-                                  forState:UIControlStateNormal];
-        _switchCameraButton.titleLabel.font = UIFontWeightMediumSize(24);
-        [_switchCameraButton addTarget:self
-                                action:@selector(switchCamera)
-                      forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:_switchCameraButton];
+        @jobs_weakify(self)
+        _switchCameraButton = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
+            btn
+                .jobsResetBtnTitle(@"↻")
+                .jobsResetBtnTitleCor(UIColor.whiteColor)
+                .jobsResetBtnTitleFont(UIFontWeightMediumSize(24))
+                .jobsResetBtnBgCor([UIColor.blackColor colorWithAlphaComponent:0.45])
+                .onClickBy(^(__kindof UIButton * _Nullable button) {
+                    [weak_self switchCamera];
+                })
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer
+                        .byCornerRadius(JobsWidth(20))
+                        .byMasksToBounds(YES);
+                })
+                .addOn(self.view);
+        });
         [_switchCameraButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(16));
             make.right.equalTo(self.view).offset(-JobsWidth(20));

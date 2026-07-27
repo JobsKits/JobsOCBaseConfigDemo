@@ -223,10 +223,10 @@ referenceSizeForFooterInSection:(NSInteger)section{
     if (!_tempCell){
         _tempCell = jobsMakeThreeClassCell(^(__kindof ThreeClassCell * _Nullable cell) {
             cell.byBgColor(HEXCOLOR(0xF7F8FA));
-            cell.frame = CGRectMake(0,
+            cell.byFrame(CGRectMake(0,
                                     0,
                                     ThreeClassCell.cellSizeByModel(nil).width,
-                                    ThreeClassCell.cellSizeByModel(nil).height);
+                                    ThreeClassCell.cellSizeByModel(nil).height));
         });
     };return _tempCell;
 }

@@ -32,9 +32,10 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(@"App国际化之应用内部切换语言".tr);
-            data.byFont(UIFontWeightRegularSize(16));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(@"App国际化之应用内部切换语言".tr)
+                .byFont(UIFontWeightRegularSize(16));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -98,7 +99,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
         [SDImageCache.sharedImageCache clearMemory];
         [SDImageCache.sharedImageCache clearDiskOnCompletion:nil];
         return jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
-            imageView.image = @"6.59".tr.img;
+            imageView.byImage(@"6.59".tr.img);
             imageView.addOn(headerFooterView).byAdd(^(MASConstraintMaker *make) {
                 make.center.equalTo(headerFooterView);
                 make.size.mas_equalTo(CGSizeMake(BaseTableViewHeaderFooterView.heightForHeaderInSection(nil),
@@ -172,7 +173,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     /// headerView.backgroundColor 和  headerView.contentView.backgroundColor 均是无效操作❌
     /// 只有 headerView.backgroundView.backgroundColor 是有效操作✅
     headerView.backgroundView.byBgColor(JobsCyanColor);
-    self.makeViewOnTableViewHeaderFooterView(headerView).alpha = 1;
+    self.makeViewOnTableViewHeaderFooterView(headerView).byAlpha(1);
     headerView.jobsRichViewByModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {}));
 //        @jobs_weakify(self)
     [headerView actionObjBlock:^(id data) {

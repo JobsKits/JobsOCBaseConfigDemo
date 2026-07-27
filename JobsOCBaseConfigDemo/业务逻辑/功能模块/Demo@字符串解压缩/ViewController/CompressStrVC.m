@@ -6,7 +6,6 @@
 //
 
 #import "CompressStrVC.h"
-#import "../../../../JobsOCDSL/UIKit/UIView+DSLs/UIView+Gesture/UIView+Gesture/UIView+Gesture.h"
 
 @interface CompressStrVC ()
 
@@ -48,9 +47,10 @@ Prop_copy()NSString *compressedBase64Str;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(data.attributedTitle.string);
-            data.byFont(UIFontWeightRegularSize(18));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(data.attributedTitle.string)
+                .byFont(UIFontWeightRegularSize(18));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -252,7 +252,7 @@ Prop_copy()NSString *compressedBase64Str;
                 });
         });
         _sourceTextView.layer.byCornerRadius(JobsWidth(8));
-        _sourceTextView.layer.masksToBounds = YES;
+        _sourceTextView.layer.byMasksToBounds(YES);
     };return _sourceTextView;
 }
 
@@ -373,7 +373,7 @@ Prop_copy()NSString *compressedBase64Str;
                 make.left.right.equalTo(self.titleLab);
             });
         label.layer.byCornerRadius(JobsWidth(8));
-        label.layer.masksToBounds = YES;
+        label.layer.byMasksToBounds(YES);
     });
 }
 

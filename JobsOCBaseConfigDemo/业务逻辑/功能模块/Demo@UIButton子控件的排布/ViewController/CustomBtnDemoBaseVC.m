@@ -39,9 +39,10 @@ Prop_strong()UIButton *demoBtn;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
-            data.byText(self.demoTitle);
-            data.byFont(UIFontWeightRegularSize(16));
+            data
+                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byText(self.demoTitle)
+                .byFont(UIFontWeightRegularSize(16));
         })
         .byBgCor(RGBA_COLOR(255, 238, 221, 1))
         .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
@@ -123,8 +124,8 @@ Prop_strong()UIButton *demoBtn;
                     make.right.equalTo(self.view).offset(-JobsWidth(24));
                     make.height.mas_equalTo(JobsWidth(220));
                 });
-            view.layer.cornerRadius = JobsWidth(8);
-            view.layer.masksToBounds = YES;
+            view.layer.byCornerRadius(JobsWidth(8));
+            view.layer.byMasksToBounds(YES);
         });
     };return _previewView;
 }

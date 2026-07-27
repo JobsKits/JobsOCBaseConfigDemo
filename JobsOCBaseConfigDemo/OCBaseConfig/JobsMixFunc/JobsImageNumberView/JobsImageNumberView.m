@@ -121,11 +121,12 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     if (!_collectionView) {
         @jobs_weakify(self)
         _collectionView = BaseCollectionView.initByLayout(self.verticalLayout);
-        _collectionView.dataLink(self);
-        _collectionView.registerCollectionViewClass();
-        _collectionView.byShowsVerticalScrollIndicator(NO);
-        _collectionView.byBgColor(JobsClearColor);
-        _collectionView.addOn(self);
+        _collectionView
+            .dataLink(self)
+            .registerCollectionViewClass()
+            .byShowsVerticalScrollIndicator(NO)
+            .byBgColor(JobsClearColor)
+            .addOn(self);
         [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             @jobs_strongify(self)
             make.edges.equalTo(self);

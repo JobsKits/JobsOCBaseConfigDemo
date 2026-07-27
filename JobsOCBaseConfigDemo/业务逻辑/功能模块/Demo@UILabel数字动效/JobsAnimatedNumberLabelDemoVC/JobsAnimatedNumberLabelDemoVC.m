@@ -169,61 +169,71 @@ Prop_assign()CGFloat defaultEnd;
                   syncLabel:(BOOL)syncLabel{
     NSString *rawText = textField.text ?: JobsEmpty;
     NSString *filteredText = [self jobs_numericTextByFilteringText:rawText];
-    if (![filteredText isEqualToString:rawText]) textField.text = filteredText;
+    if (![filteredText isEqualToString:rawText]) textField.byText(filteredText);
     if (syncLabel) [self jobs_syncStartTextToLabel:filteredText];
 }
 #pragma mark —— LazyLoad
 -(UIView *)contentView{
     if (!_contentView) {
-        _contentView = UIView.new;
-        _contentView.backgroundColor = HEXCOLOR(0xF3F4F8);
-        _contentView.layer.cornerRadius = JobsWidth(18);
-        _contentView.layer.masksToBounds = YES;
-        [self.view addSubview:_contentView];
-        [_contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(18));
-            make.left.equalTo(self.view).offset(JobsWidth(16));
-            make.right.equalTo(self.view).offset(-JobsWidth(16));
-            make.height.mas_equalTo(JobsWidth(154));
-        }];
+        _contentView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byBgColor(HEXCOLOR(0xF3F4F8))
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer
+                        .byCornerRadius(JobsWidth(18))
+                        .byMasksToBounds(YES);
+                })
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(18));
+                    make.left.equalTo(self.view).offset(JobsWidth(16));
+                    make.right.equalTo(self.view).offset(-JobsWidth(16));
+                    make.height.mas_equalTo(JobsWidth(154));
+                });
+        });
     };return _contentView;
 }
 
 -(UILabel *)valueLabel{
     if (!_valueLabel) {
-        _valueLabel = UILabel.new;
-        _valueLabel.text = @"60";
-        _valueLabel.textColor = JobsBlackColor;
-        _valueLabel.font = UIFontWeightBoldSize(JobsWidth(62));
-        _valueLabel.textAlignment = NSTextAlignmentCenter;
-        [self.contentView addSubview:_valueLabel];
-        [_valueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.right.equalTo(self.contentView);
-            make.top.equalTo(self.contentView).offset(JobsWidth(28));
-            make.height.mas_equalTo(JobsWidth(68));
-        }];
+        _valueLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"60")
+                .byTextCor(JobsBlackColor)
+                .byFont(UIFontWeightBoldSize(JobsWidth(62)))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.right.equalTo(self.contentView);
+                    make.top.equalTo(self.contentView).offset(JobsWidth(28));
+                    make.height.mas_equalTo(JobsWidth(68));
+                });
+        });
     };return _valueLabel;
 }
 
 -(UILabel *)hintLabel{
     if (!_hintLabel) {
-        _hintLabel = UILabel.new;
-        _hintLabel.text = @"起点 -> 终点（只允许数字输入）\n不填默认：起点 60，终点 0".tr;
-        _hintLabel.textColor = HEXCOLOR(0x8E929C);
-        _hintLabel.font = UIFontWeightRegularSize(15);
-        _hintLabel.textAlignment = NSTextAlignmentCenter;
-        _hintLabel.numberOfLines = 2;
-        [self.contentView addSubview:_hintLabel];
-        [_hintLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.contentView).offset(JobsWidth(18));
-            make.right.equalTo(self.contentView).offset(-JobsWidth(18));
-            make.top.equalTo(self.valueLabel.mas_bottom).offset(JobsWidth(10));
-        }];
+        _hintLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"起点 -> 终点（只允许数字输入）\n不填默认：起点 60，终点 0".tr)
+                .byTextCor(HEXCOLOR(0x8E929C))
+                .byFont(UIFontWeightRegularSize(15))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byNumberOfLines(2)
+                .addOn(self.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.contentView).offset(JobsWidth(18));
+                    make.right.equalTo(self.contentView).offset(-JobsWidth(18));
+                    make.top.equalTo(self.valueLabel.mas_bottom).offset(JobsWidth(10));
+                });
+        });
     };return _hintLabel;
 }
 
 -(UITextField *)startTF{
     if (!_startTF) {
+        @jobs_weakify(self)
         _startTF = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
             textField.byPlaceholder(@"起点（默认 60）".tr)
                 .byFont(UIFontWeightRegularSize(15))
@@ -232,22 +242,23 @@ Prop_assign()CGFloat defaultEnd;
                 .byKeyboardType(UIKeyboardTypeNumbersAndPunctuation)
                 .byReturnKeyType(UIReturnKeyDone)
                 .byClearButtonMode(UITextFieldViewModeWhileEditing)
-                .byBorderStyle(UITextBorderStyleRoundedRect);
+                .byBorderStyle(UITextBorderStyleRoundedRect)
+                .onJobsEvent(UIControlEventEditingChanged, ^(__kindof UIControl * _Nullable control) {
+                    [weak_self jobs_startTextChanged];
+                })
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.contentView);
+                    make.top.equalTo(self.contentView.mas_bottom).offset(JobsWidth(20));
+                    make.height.mas_equalTo(JobsWidth(48));
+                });
         });
-        [_startTF addTarget:self
-                     action:@selector(jobs_startTextChanged)
-           forControlEvents:UIControlEventEditingChanged];
-        [self.view addSubview:_startTF];
-        [_startTF mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.contentView);
-            make.top.equalTo(self.contentView.mas_bottom).offset(JobsWidth(20));
-            make.height.mas_equalTo(JobsWidth(48));
-        }];
     };return _startTF;
 }
 
 -(UITextField *)endTF{
     if (!_endTF) {
+        @jobs_weakify(self)
         _endTF = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
             textField.byPlaceholder(@"终点（默认 0）".tr)
                 .byFont(UIFontWeightRegularSize(15))
@@ -256,64 +267,72 @@ Prop_assign()CGFloat defaultEnd;
                 .byKeyboardType(UIKeyboardTypeNumbersAndPunctuation)
                 .byReturnKeyType(UIReturnKeyDone)
                 .byClearButtonMode(UITextFieldViewModeWhileEditing)
-                .byBorderStyle(UITextBorderStyleRoundedRect);
+                .byBorderStyle(UITextBorderStyleRoundedRect)
+                .onJobsEvent(UIControlEventEditingChanged, ^(__kindof UIControl * _Nullable control) {
+                    [weak_self jobs_endTextChanged];
+                })
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.startTF.mas_right).offset(JobsWidth(12));
+                    make.right.equalTo(self.contentView);
+                    make.top.height.equalTo(self.startTF);
+                    make.width.equalTo(self.startTF);
+                });
         });
-        [_endTF addTarget:self
-                   action:@selector(jobs_endTextChanged)
-         forControlEvents:UIControlEventEditingChanged];
-        [self.view addSubview:_endTF];
-        [_endTF mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.startTF.mas_right).offset(JobsWidth(12));
-            make.right.equalTo(self.contentView);
-            make.top.height.equalTo(self.startTF);
-            make.width.equalTo(self.startTF);
-        }];
     };return _endTF;
 }
 
 -(UIButton *)startBtn{
     if (!_startBtn) {
-        _startBtn = UIButton.jobsInit();
-        _startBtn.backgroundColor = HEXCOLOR(0x34C759);
-        _startBtn.titleLabel.font = UIFontWeightRegularSize(18);
-        [_startBtn setTitle:@"启动".tr
-                   forState:UIControlStateNormal];
-        [_startBtn setTitleColor:HEXCOLOR(0xFF375F)
-                         forState:UIControlStateNormal];
-        _startBtn.layer.cornerRadius = JobsWidth(8);
-        _startBtn.layer.masksToBounds = YES;
-        [_startBtn addTarget:self
-                      action:@selector(jobs_startAnimatedNumber)
-            forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:_startBtn];
-        [_startBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.startTF);
-            make.top.equalTo(self.startTF.mas_bottom).offset(JobsWidth(14));
-            make.height.mas_equalTo(JobsWidth(50));
-        }];
+        @jobs_weakify(self)
+        _startBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+            button
+                .jobsResetBtnTitle(@"启动".tr)
+                .jobsResetBtnTitleCor(HEXCOLOR(0xFF375F))
+                .jobsResetBtnTitleFont(UIFontWeightRegularSize(18))
+                .jobsResetBtnBgCor(HEXCOLOR(0x34C759))
+                .onClickBy(^(__kindof UIButton * _Nullable button) {
+                    [weak_self jobs_startAnimatedNumber];
+                })
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer
+                        .byCornerRadius(JobsWidth(8))
+                        .byMasksToBounds(YES);
+                })
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.startTF);
+                    make.top.equalTo(self.startTF.mas_bottom).offset(JobsWidth(14));
+                    make.height.mas_equalTo(JobsWidth(50));
+                });
+        });
     };return _startBtn;
 }
 
 -(UIButton *)stopBtn{
     if (!_stopBtn) {
-        _stopBtn = UIButton.jobsInit();
-        _stopBtn.backgroundColor = HEXCOLOR(0xFF8A1F);
-        _stopBtn.titleLabel.font = UIFontWeightRegularSize(18);
-        [_stopBtn setTitle:@"停止".tr
-                  forState:UIControlStateNormal];
-        [_stopBtn setTitleColor:HEXCOLOR(0x007AFF)
-                        forState:UIControlStateNormal];
-        _stopBtn.layer.cornerRadius = JobsWidth(8);
-        _stopBtn.layer.masksToBounds = YES;
-        [_stopBtn addTarget:self
-                     action:@selector(jobs_stopAnimatedNumber)
-           forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:_stopBtn];
-        [_stopBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.startBtn.mas_right).offset(JobsWidth(12));
-            make.right.equalTo(self.endTF);
-            make.top.height.width.equalTo(self.startBtn);
-        }];
+        @jobs_weakify(self)
+        _stopBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+            button
+                .jobsResetBtnTitle(@"停止".tr)
+                .jobsResetBtnTitleCor(HEXCOLOR(0x007AFF))
+                .jobsResetBtnTitleFont(UIFontWeightRegularSize(18))
+                .jobsResetBtnBgCor(HEXCOLOR(0xFF8A1F))
+                .onClickBy(^(__kindof UIButton * _Nullable button) {
+                    [weak_self jobs_stopAnimatedNumber];
+                })
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer
+                        .byCornerRadius(JobsWidth(8))
+                        .byMasksToBounds(YES);
+                })
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(self.startBtn.mas_right).offset(JobsWidth(12));
+                    make.right.equalTo(self.endTF);
+                    make.top.height.width.equalTo(self.startBtn);
+                });
+        });
     };return _stopBtn;
 }
 

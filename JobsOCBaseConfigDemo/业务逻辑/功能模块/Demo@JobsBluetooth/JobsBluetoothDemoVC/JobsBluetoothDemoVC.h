@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 
 #if __has_include(<JobsBluetooth/JobsBluetooth.h>)
-#import "JobsBluetooth.h"
+#import <JobsBluetooth/JobsBluetooth.h>
 #else
 #import "JobsBluetooth.h"
 #endif

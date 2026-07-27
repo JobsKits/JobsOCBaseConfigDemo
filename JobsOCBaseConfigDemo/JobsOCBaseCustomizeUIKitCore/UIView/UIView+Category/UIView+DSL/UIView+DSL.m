@@ -10,6 +10,83 @@
 JobsKey(JobsUIViewLayoutSubviewsRectCornerKey)
 JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
 @implementation UIView (DSL)
+#pragma mark —— Animation / Transition 终止动作
++(jobsByUIViewAnimationBlock _Nonnull)jobsAnimate{
+    return ^(NSTimeInterval duration, jobsByVoidBlock _Nonnull animations){
+        [UIView animateWithDuration:duration animations:animations];
+    };
+}
+
++(jobsByUIViewAnimationCompletionBlock _Nonnull)jobsAnimateWithCompletion{
+    return ^(NSTimeInterval duration,
+             jobsByVoidBlock _Nonnull animations,
+             jobsByBOOLBlock _Nullable completion){
+        [UIView animateWithDuration:duration
+                         animations:animations
+                         completion:completion];
+    };
+}
+
++(jobsByUIViewAnimationOptionsBlock _Nonnull)jobsAnimateWithOptions{
+    return ^(NSTimeInterval duration,
+             NSTimeInterval delay,
+             UIViewAnimationOptions options,
+             jobsByVoidBlock _Nonnull animations,
+             jobsByBOOLBlock _Nullable completion){
+        [UIView animateWithDuration:duration
+                              delay:delay
+                            options:options
+                         animations:animations
+                         completion:completion];
+    };
+}
+
++(jobsByUIViewSpringAnimationBlock _Nonnull)jobsAnimateWithSpring{
+    return ^(NSTimeInterval duration,
+             NSTimeInterval delay,
+             CGFloat dampingRatio,
+             CGFloat initialVelocity,
+             UIViewAnimationOptions options,
+             jobsByVoidBlock _Nonnull animations,
+             jobsByBOOLBlock _Nullable completion){
+        [UIView animateWithDuration:duration
+                              delay:delay
+             usingSpringWithDamping:dampingRatio
+              initialSpringVelocity:initialVelocity
+                            options:options
+                         animations:animations
+                         completion:completion];
+    };
+}
+
++(jobsByUIViewTransitionBlock _Nonnull)jobsTransition{
+    return ^(__kindof UIView *_Nonnull view,
+             NSTimeInterval duration,
+             UIViewAnimationOptions options,
+             jobsByVoidBlock _Nullable animations,
+             jobsByBOOLBlock _Nullable completion){
+        [UIView transitionWithView:view
+                          duration:duration
+                           options:options
+                        animations:animations
+                        completion:completion];
+    };
+}
+
++(jobsByUIViewFromToTransitionBlock _Nonnull)jobsTransitionFromViewToView{
+    return ^(__kindof UIView *_Nonnull fromView,
+             __kindof UIView *_Nonnull toView,
+             NSTimeInterval duration,
+             UIViewAnimationOptions options,
+             jobsByBOOLBlock _Nullable completion){
+        [UIView transitionFromView:fromView
+                           toView:toView
+                         duration:duration
+                          options:options
+                       completion:completion];
+    };
+}
+
 #pragma mark —— Geometry
 -(JobsRetViewByFrameBlock _Nonnull)byFrame{
     @jobs_weakify(self)
@@ -89,6 +166,15 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
     return ^__kindof UIView * (BOOL enabled){
         @jobs_strongify(self)
         self.userInteractionEnabled = enabled;
+        return self;
+    };
+}
+
+-(JobsRetViewByBOOLBlock _Nonnull)byTranslatesAutoresizingMaskIntoConstraints{
+    @jobs_weakify(self)
+    return ^__kindof UIView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.translatesAutoresizingMaskIntoConstraints = data;
         return self;
     };
 }

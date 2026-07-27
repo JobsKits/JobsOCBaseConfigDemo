@@ -1,6 +1,6 @@
 //
 //  UIBezierPath+DSL.h
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年6月8日，星期一.
 //
@@ -9,8 +9,18 @@
 #define JOBS_HEADER_GUARD_UIBEZIERPATH_DSL_6F9A8B73D2
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
 #import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
 #import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 +(JobsRetBezierPathByFrameBlock _Nonnull)byBezierPathWithRect;
 +(JobsRetBezierPathByFrameBlock _Nonnull)byBezierPathWithOvalInRect;
 +(JobsRetBezierPathByCGPathRefBlock _Nonnull)byBezierPathWithCGPath;
++(JobsRetBezierPathByRoundedRectBlock _Nonnull)byBezierPathWithRoundedRect;
++(JobsRetBezierPathByRoundedCornersBlock _Nonnull)byBezierPathWithRoundedCorners;
++(JobsRetBezierPathByAddArcBlock _Nonnull)byBezierPathWithArcCenter;
 #pragma mark —— Path construction
 -(JobsRetBezierPathByCGPointBlock _Nonnull)byMoveToPoint;
 -(JobsRetBezierPathByCGPointBlock _Nonnull)byAddLineToPoint;

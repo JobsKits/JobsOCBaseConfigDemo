@@ -107,6 +107,16 @@
         return self;
     };
 }
+
+-(JobsRetBtnByImageAndControlStateBlock _Nonnull)imageForStateBy{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *_Nullable(UIImage *_Nullable image, UIControlState state){
+        @jobs_strongify(self)
+        [self setImage:image
+              forState:state];
+        return self;
+    };
+}
 #pragma mark —— UIButton.backgroundImage
 -(JobsRetImageByNSUIntegerBlock _Nonnull)backgroundImageByState{
     @jobs_weakify(self)
@@ -203,6 +213,16 @@
     return ^__kindof UIButton *(UIImage *_Nonnull backgroundImage) {
         @jobs_strongify(self)
         [self setBackgroundImage:backgroundImage forState:UIControlStateReserved];
+        return self;
+    };
+}
+
+-(JobsRetBtnByImageAndControlStateBlock _Nonnull)backgroundImageForStateBy{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *_Nullable(UIImage *_Nullable backgroundImage, UIControlState state) {
+        @jobs_strongify(self)
+        [self setBackgroundImage:backgroundImage
+                       forState:state];
         return self;
     };
 }

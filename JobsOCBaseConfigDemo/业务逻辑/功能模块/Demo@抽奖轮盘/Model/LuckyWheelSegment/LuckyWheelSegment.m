@@ -2,7 +2,7 @@
 //  LuckyWheelSegment.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 12/5/25.
+//  Created by Jobs on 2026年5月13日，星期三.
 //
 
 #import "LuckyWheelSegment.h"
@@ -16,7 +16,7 @@
 @implementation LuckyWheelSegment
 - (instancetype)init {
     return [self initWithText:nil
-                     textFont:[UIFont systemFontOfSize:14]
+                     textFont:UIFontSystemFontOfSize(14)
                     textColor:[UIColor blackColor]
                attributedText:nil
               backgroundColor:[UIColor clearColor]
@@ -37,7 +37,7 @@
         } else {
             _text = nil;
         }
-        _textFont        = textFont ?: [UIFont systemFontOfSize:14];
+        _textFont        = textFont ?: UIFontSystemFontOfSize(14);
         _textColor       = textColor ?: JobsBlackColor;
         _attributedText  = attributedText;
         _backgroundColor = backgroundColor ?: JobsClearColor;

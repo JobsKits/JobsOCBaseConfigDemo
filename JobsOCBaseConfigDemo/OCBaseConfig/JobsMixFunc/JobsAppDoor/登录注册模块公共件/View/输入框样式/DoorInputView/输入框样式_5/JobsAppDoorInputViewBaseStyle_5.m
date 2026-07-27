@@ -1,6 +1,6 @@
 //
 //  JobsAppDoorInputViewBaseStyle_5.m
-//  JobsOCTools
+//  JobsAppDoor
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
@@ -149,12 +149,12 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
-                x.selected = !x.selected;
-                if (x.selected) {
+                x.byToggleSelected();
+                if (x.jobs_isSelected) {
                     x.jobsResetBtnImage(self.doorInputViewBaseStyleModel.selectedSecurityBtnIMG ? : JobsRedColor.image);
                 }
-                self.zyTextField.bySecureTextEntry(x.selected);
-                if (x.selected && !self.zyTextField.isEditing) {
+                self.zyTextField.bySecureTextEntry(x.jobs_isSelected);
+                if (x.jobs_isSelected && !self.zyTextField.isEditing) {
                     self.zyTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
                 }
             }).onLongPressGestureBy(^(id data){
@@ -237,9 +237,9 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
         }))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.byToggleSelected();
                 if (self.objBlock) self.objBlock(x);
-                if (x.selected) {
+                if (x.jobs_isSelected) {
                     self->dropDownListView = [self motivateFromView:x
                                           jobsDropDownListViewDirection:JobsDropDownListViewDirection_UP
                                                                    data:self.jobsPageViewDataMutArr
