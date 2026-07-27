@@ -13,7 +13,9 @@ static BOOL JobsIsSystemNavigationBarDemo(UIViewController *viewController) {
 
 static void JobsInstallNavigationDefaults(UINavigationController *navigationController,
                                           UIViewController *viewController) {
+    if ([viewController isKindOfClass:UIAlertController.class]) return;
     BOOL isNavigationChild = navigationController &&
+        [navigationController.viewControllers containsObject:viewController] &&
         viewController.navigationController == navigationController &&
         navigationController.viewControllers.firstObject != viewController;
     BOOL isPresentedPage = viewController.presentingViewController ||
