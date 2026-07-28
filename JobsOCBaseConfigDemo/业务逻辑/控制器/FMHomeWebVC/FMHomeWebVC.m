@@ -39,7 +39,7 @@ Prop_copy()NSString *urlString;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsWhiteColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.launchImageView.byAlpha(1);
     [self.loadingIndicator startAnimating];
     self.webView.byAlpha(1);

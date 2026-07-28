@@ -57,7 +57,7 @@ Prop_strong()UILabel *tipLab;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"JobsMarqueeView".tr)
                 .byFont(UIFontWeightRegularSize(16))
-                .byTextCor(HEXCOLOR(0x3D4A58));
+                .byTextCor(JobsLabelColor);
         })
         .byBgCor(RGBA_COLOR(255, 238, 221, 1))
         .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
@@ -66,7 +66,7 @@ Prop_strong()UILabel *tipLab;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF4F5F8));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.scrollView.byVisible(YES);
     self.contentView.byVisible(YES);
@@ -118,7 +118,7 @@ Prop_strong()UILabel *tipLab;
         @jobs_strongify(self)
         label.byText(title.tr)
             .byFont(UIFontWeightMediumSize(14))
-            .byTextCor(HEXCOLOR(0x5F6B7A))
+            .byTextCor(JobsSecondaryLabelColor)
             .byNumberOfLines(1)
             .addOn(self.contentView)
             .byAdd(^(MASConstraintMaker *make) {
@@ -230,9 +230,9 @@ Prop_strong()UILabel *tipLab;
             @jobs_strongify(self)
             label.byText(@"跑马灯和轮播图共用 JobsMarqueeView；连续滚动看起来像公告流，fillBounds + interval 就是轮播图。".tr)
                 .byFont(UIFontWeightRegularSize(13))
-                .byTextCor(HEXCOLOR(0x5F6B7A))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byNumberOfLines(0)
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byCornerRadius(JobsWidth(8))
                 .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -256,7 +256,7 @@ Prop_strong()UILabel *tipLab;
                                   byDataSourceButtons:[self noticeButtonsWithPrefix:@"向左连续"
                                                                                color:HEXCOLOR(0xF2994A)
                                                                                count:4]];
-        _leftContinuousMarquee.byBgColor(JobsWhiteColor)
+        _leftContinuousMarquee.byBgColor(JobsSecondarySystemBackgroundColor)
             .byCornerRadius(JobsWidth(8))
             .addOn(self.contentView)
             .byAdd(^(MASConstraintMaker *make) {
@@ -279,7 +279,7 @@ Prop_strong()UILabel *tipLab;
                                 byDataSourceButtons:[self noticeButtonsWithPrefix:@"向上翻页"
                                                                              color:HEXCOLOR(0x56CCF2)
                                                                              count:3]];
-        _topFrequencyMarquee.byBgColor(JobsWhiteColor)
+        _topFrequencyMarquee.byBgColor(JobsSecondarySystemBackgroundColor)
             .byCornerRadius(JobsWidth(8))
             .addOn(self.contentView)
             .byAdd(^(MASConstraintMaker *make) {
@@ -300,7 +300,7 @@ Prop_strong()UILabel *tipLab;
                             byManualScrollEnabled:YES]
                            byPageControlEnabled:YES]
                           byDataSourceButtons:self.bannerButtons];
-        _bannerMarquee.byBgColor(JobsWhiteColor)
+        _bannerMarquee.byBgColor(JobsSecondarySystemBackgroundColor)
             .byCornerRadius(JobsWidth(10))
             .addOn(self.contentView)
             .byAdd(^(MASConstraintMaker *make) {
@@ -322,7 +322,7 @@ Prop_strong()UILabel *tipLab;
                                    byDataSourceButtons:[self noticeButtonsWithPrefix:@"向右连续"
                                                                                 color:HEXCOLOR(0xEB5757)
                                                                                 count:4]];
-        _rightContinuousMarquee.byBgColor(JobsWhiteColor)
+        _rightContinuousMarquee.byBgColor(JobsSecondarySystemBackgroundColor)
             .byCornerRadius(JobsWidth(8))
             .addOn(self.contentView)
             .byAdd(^(MASConstraintMaker *make) {

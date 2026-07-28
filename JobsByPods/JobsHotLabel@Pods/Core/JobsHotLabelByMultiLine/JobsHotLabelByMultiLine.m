@@ -32,13 +32,13 @@ static dispatch_once_t static_hotLabelWithMultiLineOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.byBgColor(HEXCOLOR(0xFFFFFF));
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.byBgColor(HEXCOLOR(0xFFFFFF));
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 /// 必须有frame的前提下才会进行绘制
@@ -154,8 +154,8 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     JobsHotLabelByMultiLineCVCell *_cell = (JobsHotLabelByMultiLineCVCell *)[collectionView cellForItemAtIndexPath:indexPath];
 //    self.jobsToastSuccessMsg(_cell.getViewModel.textModel.text);
     for (JobsHotLabelByMultiLineCVCell *cell in collectionView.visibleCells) {
-        cell.textLab.byBgColor(HEXCOLOR(0xF3F3F3));
-        cell.textLab.byTextCor(HEXCOLOR(0x757575));
+        cell.textLab.byBgColor(JobsSecondarySystemBackgroundColor);
+        cell.textLab.byTextCor(JobsSecondaryLabelColor);
     }
     _cell.textLab.byTextCor(HEXCOLOR(0xAE8330));
     _cell.textLab.byBgColor(HEXCOLOR(0xFFEABA));

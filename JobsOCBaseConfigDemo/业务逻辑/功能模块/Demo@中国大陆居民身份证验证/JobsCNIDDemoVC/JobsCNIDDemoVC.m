@@ -37,7 +37,7 @@ Prop_strong()UILabel *resultLab;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x263342))
+                .byTextCor(JobsLabelColor)
                 .byText(@"身份证校验 Demo".tr)
                 .byFont(UIFontWeightRegularSize(18));
         })
@@ -48,7 +48,7 @@ Prop_strong()UILabel *resultLab;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    self.view.byBgColor(HEXCOLOR(0xF5F7FA));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.contentView.byHidden(NO);
 }
 
@@ -100,7 +100,7 @@ Prop_strong()UILabel *resultLab;
         @jobs_weakify(self)
         _contentView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             view
-                .byBgColor(UIColor.whiteColor)
+            .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer
                         .byCornerRadius(JobsWidth(10))
@@ -130,7 +130,7 @@ Prop_strong()UILabel *resultLab;
         _inputTF = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
             textField
                 .byPlaceholder(@"请输入身份证号码".tr)
-                .byTextCor(HEXCOLOR(0x263342))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightRegularSize(16))
                 .byBorderStyle(UITextBorderStyleNone)
                 .byClearButtonMode(UITextFieldViewModeWhileEditing)
@@ -141,7 +141,7 @@ Prop_strong()UILabel *resultLab;
                 }))
                 .byLeftViewMode(UITextFieldViewModeAlways)
                 .byTintColor(HEXCOLOR(0x1D7FF2))
-                .byBgColor(HEXCOLOR(0xF0F3F7))
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer.byCornerRadius(JobsWidth(8));
                 })
@@ -199,11 +199,11 @@ Prop_strong()UILabel *resultLab;
         _resultLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"等待输入校验".tr)
-                .byTextCor(HEXCOLOR(0x6B7280))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontWeightRegularSize(15))
                 .byNumberOfLines(0)
                 .byTextAlignment(NSTextAlignmentCenter)
-                .byBgColor(HEXCOLOR(0xF0F3F7))
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer
                         .byCornerRadius(JobsWidth(8))

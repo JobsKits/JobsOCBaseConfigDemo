@@ -34,7 +34,7 @@ Prop_strong()BaseButton *btn;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(data.attributedTitle.string)
                 .byFont(UIFontWeightRegularSize(18));
         })
@@ -49,7 +49,7 @@ Prop_strong()BaseButton *btn;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsRandomColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.btn.byAlpha(1);
 //    CGRect rect = CGRectMake(ScaleW(20), ScaleH(10), ScaleW(200), ScaleH(44));

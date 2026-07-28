@@ -32,7 +32,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byTextCor(JobsLabelColor);
         })
         //        self.viewModel.textModel.text = @"充值".tr;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
@@ -125,7 +125,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             .registerCollectionViewClass()
             .byShowsVerticalScrollIndicator(NO);
         _collectionView
-            .byBgColor(HEXCOLOR(0xFCFBFB))
+            .byBgColor(JobsSecondarySystemBackgroundColor)
             .addOn(self.view);
         [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             @jobs_strongify(self)

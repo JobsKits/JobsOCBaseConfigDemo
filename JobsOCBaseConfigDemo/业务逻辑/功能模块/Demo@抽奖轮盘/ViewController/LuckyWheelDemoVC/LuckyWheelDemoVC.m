@@ -43,7 +43,7 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(@"抽奖转盘".tr)
                 .byFont(UIFontWeightRegularSize(18));
         })
@@ -57,7 +57,7 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xFFF7EA));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.backgroundGradientLayer.byHidden(NO);
     self.stageView.byVisible(YES);
     self.stageTitleLab.byVisible(YES);
@@ -221,7 +221,7 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
             label
                 .byText(@"转动今日手气".tr)
                 .byFont(UIFontWeightRegularSize(JobsWidth(13)))
-                .byTextCor(HEXCOLOR(0x6B7280))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .addOn(self.stageView)
                 .byAdd(^(MASConstraintMaker *make) {

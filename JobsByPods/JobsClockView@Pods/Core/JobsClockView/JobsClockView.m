@@ -23,6 +23,8 @@ Prop_strong() CALayer *secondHand;
 /// OC 版 JobsTimer
 Prop_strong() JobsTimer *timer;
 
+-(void)applyTheme;
+
 @end
 
 @implementation JobsClockView
@@ -36,6 +38,7 @@ Prop_strong() JobsTimer *timer;
         [self setupDialLayers];
         [self setupNumberLabels];
         [self setupHandLayers];
+        [self applyTheme];
     };return self;
 }
 
@@ -44,28 +47,16 @@ Prop_strong() JobsTimer *timer;
 - (void)setupDialLayers {
     self.dialLayer = [CAShapeLayer layer];
     self.dialLayer.fillColor = UIColor.clearColor.CGColor;
-    if (@available(iOS 13.0, *)) {
-        self.dialLayer.strokeColor = [UIColor labelColor].CGColor;
-    } else {
-        self.dialLayer.strokeColor = [UIColor lightGrayColor].CGColor;
-    }
+    self.dialLayer.strokeColor = JobsLabelColor.CGColor;
     self.dialLayer.lineWidth = 2.0;
     [self.layer addSublayer:self.dialLayer];
     self.tickLayer = [CAShapeLayer layer];
     self.tickLayer.fillColor = UIColor.clearColor.CGColor;
-    if (@available(iOS 13.0, *)) {
-        self.tickLayer.strokeColor = [UIColor labelColor].CGColor;
-    } else {
-        self.tickLayer.strokeColor = [UIColor blackColor].CGColor;
-    }
+    self.tickLayer.strokeColor = JobsLabelColor.CGColor;
     self.tickLayer.lineWidth = 2.0;
     [self.layer addSublayer:self.tickLayer];
     self.centerDotLayer = [CAShapeLayer layer];
-    if (@available(iOS 13.0, *)) {
-        self.centerDotLayer.fillColor = [UIColor labelColor].CGColor;
-    } else {
-        self.centerDotLayer.fillColor = [UIColor blackColor].CGColor;
-    }
+    self.centerDotLayer.fillColor = JobsLabelColor.CGColor;
     self.centerDotLayer.strokeColor = UIColor.clearColor.CGColor;
     [self.layer addSublayer:self.centerDotLayer];
 }
@@ -74,14 +65,10 @@ Prop_strong() JobsTimer *timer;
     NSMutableArray<UILabel *> *arr = NSMutableArray.array;
     for (NSInteger i = 1; i <= 12; i++) {
         UILabel *label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            UIColor *textCor = UIColor.blackColor;
-            if (@available(iOS 13.0, *)) {
-                textCor = UIColor.labelColor;
-            }
             label
                 .byText([NSString stringWithFormat:@"%ld", (long)i])
                 .byFont(UIFontWeightMediumSize(12))
-                .byTextCor(textCor)
+                .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .addOn(self);
         });
@@ -92,15 +79,11 @@ Prop_strong() JobsTimer *timer;
 
 - (void)setupHandLayers {
     self.hourHand = [CALayer layer];
-    self.hourHand.byBgColor([UIColor blackColor].CGColor);
+    self.hourHand.byBgColor(JobsLabelColor.CGColor);
     self.hourHand.cornerRadius = 3.0;
     [self.layer addSublayer:self.hourHand];
     self.minuteHand = [CALayer layer];
-    if (@available(iOS 13.0, *)) {
-        self.minuteHand.byBgColor([UIColor darkGrayColor].CGColor);
-    } else {
-        self.minuteHand.byBgColor([UIColor darkGrayColor].CGColor);
-    }
+    self.minuteHand.byBgColor(JobsSecondaryLabelColor.CGColor);
     self.minuteHand.cornerRadius = 2.0;
     [self.layer addSublayer:self.minuteHand];
     self.secondHand = [CALayer layer];
@@ -111,9 +94,32 @@ Prop_strong() JobsTimer *timer;
 #pragma mark —— Layout
 - (void)layoutSubviews {
     [super layoutSubviews];
+    [self applyTheme];
     [self layoutDialAndNumbers];
     [self layoutHandLayers];
     [self updateHandsAnimated:NO];
+}
+
+-(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [super traitCollectionDidChange:previousTraitCollection];
+    if (@available(iOS 13.0, *)) {
+        if (![self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection]) return;
+    }
+    [self applyTheme];
+}
+
+-(void)applyTheme{
+    UIColor *labelColor = JobsLabelColor;
+    UIColor *secondaryLabelColor = JobsSecondaryLabelColor;
+    if (@available(iOS 13.0, *)) {
+        labelColor = [labelColor resolvedColorWithTraitCollection:self.traitCollection];
+        secondaryLabelColor = [secondaryLabelColor resolvedColorWithTraitCollection:self.traitCollection];
+    }
+    self.dialLayer.strokeColor = [labelColor colorWithAlphaComponent:0.2].CGColor;
+    self.tickLayer.strokeColor = labelColor.CGColor;
+    self.centerDotLayer.fillColor = labelColor.CGColor;
+    self.hourHand.backgroundColor = labelColor.CGColor;
+    self.minuteHand.backgroundColor = secondaryLabelColor.CGColor;
 }
 /// 布局表盘 + 刻度 + 数字
 - (void)layoutDialAndNumbers {

@@ -8,6 +8,7 @@
 #import "JobsLabelScrollController.h"
 
 static NSAttributedStringKey const JobsLabelScrollConcealedAttribute = @"com.jobs.scrolling-label.concealed";
+static NSNotificationName const JobsLabelScrollGlobalThemeDidChangeNotification = @"JobsOCGlobalThemeDidChangeNotification";
 
 @interface JobsLabelScrollController ()
 
@@ -45,6 +46,9 @@ Prop_assign()NSTimeInterval delayRemaining;
 -(BOOL)captureExternalSourceIfNeeded:(BOOL)force;
 -(void)captureCurrentSource;
 -(nullable NSAttributedString *)renderedAttributedText;
+-(UIColor *)resolvedColor:(UIColor *)color;
+-(void)resolveDynamicForegroundColorsInAttributedText:(NSMutableAttributedString *)attributedText;
+-(void)globalThemeDidChange:(NSNotification *)notification;
 -(void)concealSourceText;
 -(void)revealSourceText;
 -(BOOL)isSystemPlainTextRepresentation:(NSAttributedString *)attributedText
@@ -63,14 +67,19 @@ Prop_assign()NSTimeInterval delayRemaining;
         _textLayer = JobsCoreTextScrollLayer.layer;
         [_viewportLayer addSublayer:_textLayer];
         _configuration = JobsLabelScrollConfiguration.continuousConfiguration;
-        _sourceTextColor = UIColor.blackColor;
+        _sourceTextColor = JobsLabelColor;
         _sourceFont = [UIFont systemFontOfSize:UIFont.labelFontSize];
         _lastBoundsSize = CGSizeZero;
         _travelDirection = 1;
+        [NSNotificationCenter.defaultCenter addObserver:self
+                                               selector:@selector(globalThemeDidChange:)
+                                                   name:JobsLabelScrollGlobalThemeDidChangeNotification
+                                                 object:nil];
     };return self;
 }
 
 -(void)dealloc{
+    [NSNotificationCenter.defaultCenter removeObserver:self];
     [_timer stop];
 }
 
@@ -371,22 +380,66 @@ Prop_assign()NSTimeInterval delayRemaining;
         for (NSValue *value in missingFontRanges) {
             [result addAttribute:NSFontAttributeName value:self.sourceFont range:value.rangeValue];
         }
+        UIColor *resolvedTextColor = [self resolvedColor:self.sourceTextColor];
         for (NSValue *value in missingColorRanges) {
-            [result addAttribute:NSForegroundColorAttributeName value:self.sourceTextColor range:value.rangeValue];
-        };return result;
+            [result addAttribute:NSForegroundColorAttributeName value:resolvedTextColor range:value.rangeValue];
+        }
+        [self resolveDynamicForegroundColorsInAttributedText:result];
+        return result;
     }
     if (self.sourcePlainText.length == 0) return nil;
     NSMutableDictionary<NSAttributedStringKey,id> *attributes = [@{
         NSFontAttributeName: self.sourceFont,
-        NSForegroundColorAttributeName: self.sourceTextColor
+        NSForegroundColorAttributeName: [self resolvedColor:self.sourceTextColor]
     } mutableCopy];
     if (self.sourceShadowColor && self.label) {
         NSShadow *shadow = NSShadow.new;
-        shadow.shadowColor = self.sourceShadowColor;
+        shadow.shadowColor = [self resolvedColor:self.sourceShadowColor];
         shadow.shadowOffset = self.label.shadowOffset;
         attributes[NSShadowAttributeName] = shadow;
     }return [NSAttributedString.alloc initWithString:self.sourcePlainText
                                           attributes:attributes];
+}
+
+-(UIColor *)resolvedColor:(UIColor *)color{
+    if (@available(iOS 13.0, *)) {
+        UITraitCollection *traitCollection = self.label.traitCollection ?: UITraitCollection.currentTraitCollection;
+        return [color resolvedColorWithTraitCollection:traitCollection];
+    };return color;
+}
+
+-(void)resolveDynamicForegroundColorsInAttributedText:(NSMutableAttributedString *)attributedText{
+    NSRange fullRange = NSMakeRange(0, attributedText.length);
+    NSMutableArray<NSValue *> *rangeArr = NSMutableArray.array;
+    NSMutableArray<UIColor *> *colorArr = NSMutableArray.array;
+    [attributedText enumerateAttribute:NSForegroundColorAttributeName
+                              inRange:fullRange
+                              options:0
+                           usingBlock:^(id value, NSRange range, __unused BOOL *stop) {
+        if (![value isKindOfClass:UIColor.class]) return;
+        UIColor *resolvedColor = [self resolvedColor:value];
+        if ([resolvedColor isEqual:value]) return;
+        [rangeArr addObject:[NSValue valueWithRange:range]];
+        [colorArr addObject:resolvedColor];
+    }];
+    [rangeArr enumerateObjectsUsingBlock:^(NSValue *value, NSUInteger index, __unused BOOL *stop) {
+        [attributedText addAttribute:NSForegroundColorAttributeName
+                              value:colorArr[index]
+                              range:value.rangeValue];
+    }];
+}
+
+-(void)globalThemeDidChange:(NSNotification *)notification{
+    if (!self.startRequested) return;
+    if (!NSThread.isMainThread) {
+        @jobs_weakify(self)
+        dispatch_async(dispatch_get_main_queue(), ^{
+            @jobs_strongify(self)
+            [self globalThemeDidChange:notification];
+        });
+        return;
+    }
+    [self rebuild];
 }
 
 -(void)concealSourceText{

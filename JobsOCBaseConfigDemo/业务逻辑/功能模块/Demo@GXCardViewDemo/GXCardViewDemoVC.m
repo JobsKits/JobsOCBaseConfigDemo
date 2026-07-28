@@ -48,7 +48,7 @@ Prop_assign()NSInteger cellCount;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byTextCor(JobsLabelColor);
         })
         //        self.viewModel.textModel.text = @"GXCardViewDemo".tr;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
@@ -68,7 +68,7 @@ Prop_assign()NSInteger cellCount;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    self.view.byBgColor(JobsRedColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.cardView.byAlpha(1);
 }
 

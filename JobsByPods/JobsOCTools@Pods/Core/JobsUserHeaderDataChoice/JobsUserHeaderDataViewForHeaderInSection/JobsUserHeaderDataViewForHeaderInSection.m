@@ -18,7 +18,7 @@ Prop_strong()UILabel *titleLab;
 @synthesize viewModel = _viewModel;
 -(instancetype)init{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 
@@ -62,7 +62,7 @@ Prop_strong()UILabel *titleLab;
             .byTextCor(self.viewModel.textModel.textCor)
             .byFont(UIFontWeightRegularSize(JobsWidth(20)))
             .byTextAlignment(NSTextAlignmentCenter)
-            .byBgColor(HEXCOLOR(0xFFFFFF))
+            .byBgColor(JobsSecondarySystemBackgroundColor)
             .addOn(self.contentView)
             .byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self.contentView);

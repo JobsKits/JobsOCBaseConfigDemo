@@ -57,7 +57,7 @@ Prop_strong()UILabel *footnoteLabel;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(@"iOS Widget Demo".tr)
                 .byFont(UIFontWeightRegularSize(18));
         })

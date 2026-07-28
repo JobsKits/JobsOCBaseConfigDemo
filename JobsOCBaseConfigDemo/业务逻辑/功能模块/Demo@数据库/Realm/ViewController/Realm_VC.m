@@ -55,7 +55,7 @@ Prop_assign()NSInteger selectedUserIndex;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(data.attributedTitle.string)
                 .byFont(UIFontWeightRegularSize(18));
         })
@@ -163,10 +163,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         self.userMutArr.add(user);
         self.dataMutArr.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
             data.textModel.byText(user.name ? : @"-")
-                          .byTextCor(HEXCOLOR(0x3D4A58))
+                          .byTextCor(JobsLabelColor)
                           .byFont(UIFontWeightRegularSize(16));
             data.subTextModel.byText([NSString stringWithFormat:@"%@：%ld".tr,@"年龄".tr,(long)user.age])
-                              .byTextCor(HEXCOLOR(0x757575))
+                              .byTextCor(JobsSecondaryLabelColor)
                               .byFont(UIFontWeightRegularSize(14));
         }));
     }
@@ -295,7 +295,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 }))
                 .byShowsVerticalScrollIndicator(NO)
                 .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0))
-                .byBgColor(JobsWhiteColor);
+                .byBgColor(JobsSecondarySystemBackgroundColor);
             self.view.addSubview(tableView);
             [self fullScreenConstraintTargetView:tableView topViewOffset:0];
         });
@@ -320,7 +320,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         _editorView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
             view.byFrame(CGRectMake(0, 0, JobsRealWidth(), JobsWidth(132)))
-                .byBgColor(JobsWhiteColor);
+                .byBgColor(JobsSecondarySystemBackgroundColor);
             self.nameTextField.addOn(view);
             self.ageTextField.addOn(view);
             self.nameTextField.byAdd(^(MASConstraintMaker *make) {
@@ -367,7 +367,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         _nameTextField = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
             textField
                 .byPlaceholder(@"姓名".tr)
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightRegularSize(14))
                 .byTextAlignment(NSTextAlignmentLeft)
                 .byBorderStyle(UITextBorderStyleRoundedRect)
@@ -382,7 +382,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         _ageTextField = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
             textField
                 .byPlaceholder(@"年龄".tr)
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightRegularSize(14))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byBorderStyle(UITextBorderStyleRoundedRect)

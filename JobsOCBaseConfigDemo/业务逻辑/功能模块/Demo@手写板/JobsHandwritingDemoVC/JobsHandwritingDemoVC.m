@@ -46,7 +46,7 @@ Prop_assign()BOOL isLeaveAlertShowing;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
                 .byText(@"手写板".tr)
-                .byTextCor(HEXCOLOR(0x263342))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightRegularSize(18));
         })
         .byBgCor(HEXCOLOR(0xF4F5F8))
@@ -57,7 +57,7 @@ Prop_assign()BOOL isLeaveAlertShowing;
     [super viewDidLoad];
     [self setupRightBarButtonItems];
     self.makeNavByAlpha(1);
-    self.view.byBgColor(HEXCOLOR(0xF4F5F8));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.tipLabel.byAlpha(1);
     self.clearButton.byAlpha(1);
     self.canvasView.byAlpha(1);
@@ -214,7 +214,7 @@ Prop_assign()BOOL isLeaveAlertShowing;
         _tipLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"可使用手指或 Apple Pencil 书写；右上角保存后，下次进入会恢复笔迹。".tr)
-                .byTextCor(HEXCOLOR(0x667180))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontWeightRegularSize(14))
                 .byNumberOfLines(0)
                 .addOn(self.view)

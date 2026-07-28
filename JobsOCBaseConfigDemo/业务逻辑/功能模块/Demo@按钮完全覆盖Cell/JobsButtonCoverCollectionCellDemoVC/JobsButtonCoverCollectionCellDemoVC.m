@@ -28,7 +28,7 @@ Prop_strong()NSArray<UIViewModel *> *demoArr;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"按钮完全覆盖 UICollectionViewCell".tr)
                 .byFont(UIFontWeightRegularSize(17))
-                .byTextCor(HEXCOLOR(0x3D4A58));
+                .byTextCor(JobsLabelColor);
         })
         .byBgCor(HEXCOLOR(0xF4F5F8))
         .byNavBgCor(HEXCOLOR(0xF4F5F8));
@@ -36,7 +36,7 @@ Prop_strong()NSArray<UIViewModel *> *demoArr;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF4F5F8));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.coverCollectionView.byVisible(YES);
 }

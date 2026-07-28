@@ -31,7 +31,7 @@ Prop_strong()NSMutableArray <__kindof UIButtonModel *>*btnModelMutArr;
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 
@@ -50,7 +50,7 @@ Prop_strong()NSMutableArray <__kindof UIButtonModel *>*btnModelMutArr;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -166,8 +166,8 @@ Prop_strong()NSMutableArray <__kindof UIButtonModel *>*btnModelMutArr;
                                               UIImage *_Nullable highlightImage){
         return jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
             model.byTitle(title)
-                 .byTitleCor(JobsGrayColor)
-                 .bySelectedTitleCor(@"#111111".cor)
+                 .byTitleCor(JobsSecondaryLabelColor)
+                 .bySelectedTitleCor(JobsLabelColor)
                  .byTitleFont(pingFangHKRegular(JobsWidth(14)))
                  .byNormalImage(image)
                  .byHighlightImage(highlightImage)

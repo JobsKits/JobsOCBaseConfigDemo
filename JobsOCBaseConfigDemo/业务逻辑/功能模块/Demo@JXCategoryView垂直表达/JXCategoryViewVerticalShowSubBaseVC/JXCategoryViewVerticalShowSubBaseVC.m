@@ -34,7 +34,7 @@ Prop_copy()NSString *currentTitleWritingLottieName;
 @implementation JXCategoryViewVerticalShowSubBaseVC
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0x8A2E17));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.titleWritingLottieView.alpha = 1;
 }
 

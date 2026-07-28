@@ -40,7 +40,7 @@ Prop_strong()UIButton *demoBtn;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(self.demoTitle)
                 .byFont(UIFontWeightRegularSize(16));
         })
@@ -51,7 +51,7 @@ Prop_strong()UIButton *demoBtn;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(RGBA_COLOR(255, 238, 221, 1));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.titleLab.byAlpha(1);
     self.subTitleLab.byAlpha(1);
@@ -79,7 +79,7 @@ Prop_strong()UIButton *demoBtn;
             label
                 .byText(self.demoTitle)
                 .byFont(UIFontWeightSemiboldSize(JobsWidth(18)))
-                .byTextCor(HEXCOLOR(0x2F3A47))
+                .byTextCor(JobsLabelColor)
                 .byNumberOfLines(0)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -99,7 +99,7 @@ Prop_strong()UIButton *demoBtn;
             label
                 .byText(self.demoSubTitle)
                 .byFont(UIFontWeightRegularSize(JobsWidth(13)))
-                .byTextCor(HEXCOLOR(0x6E7783))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byNumberOfLines(0)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -116,7 +116,7 @@ Prop_strong()UIButton *demoBtn;
         _previewView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
             view
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.subTitleLab.mas_bottom).offset(JobsWidth(28));

@@ -46,7 +46,7 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(@"竖形菜单".tr)
                 .byFont(UIFontWeightSemiboldSize(18));
         })
@@ -60,7 +60,7 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsVerticalMenuMainBgCor());
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
     self.tableView.byShow(self);
@@ -113,7 +113,7 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
             data.byAttributedTitle(nil)
                 .byText(model.title.tr)
                 .byFont(UIFontWeightMediumSize(15))
-                .byTextCor(HEXCOLOR(0x263648));
+                .byTextCor(JobsLabelColor);
         })
         .bySubTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byAttributedTitle(nil)
@@ -208,11 +208,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     cell.offsetYForEach = JobsWidth(0);
     cell
         .byContentView(^(__kindof UIView * _Nullable view) {
-            view.byBgColor(JobsWhiteColor);
+            view.byBgColor(JobsSecondarySystemBackgroundColor);
         })
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byTextCor(HEXCOLOR(0x263648))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightMediumSize(15))
                 .byNumberOfLines(1)
                 .byLineBreakMode(NSLineBreakByTruncatingTail);

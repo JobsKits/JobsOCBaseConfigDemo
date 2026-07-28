@@ -45,7 +45,7 @@ Prop_copy()NSString *content;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(@"相关功能列表".tr)
                 .byFont(UIFontWeightRegularSize(16));
         })
@@ -60,7 +60,7 @@ Prop_copy()NSString *content;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsRandomColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.spreadsheetView.byAlpha(1);
 }

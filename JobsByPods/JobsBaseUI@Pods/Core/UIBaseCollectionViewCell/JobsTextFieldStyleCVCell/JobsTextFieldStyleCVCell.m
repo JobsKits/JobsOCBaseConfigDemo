@@ -94,10 +94,10 @@
                 .byKeyboardType(UIKeyboardTypeNumberPad)
                 .byPlaceholder(@"请输入充值金额".tr)
                 .byPlaceholderFont(UIFontWeightMediumSize(18))
-                .byPlaceholderColor(@"#AAAAAA".cor)
-                .byTextCor(JobsBlackColor)
+                .byPlaceholderColor(JobsPlaceholderTextColor)
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightMediumSize(18))
-                .byBgColor(@"#F9F9F9".cor);
+                .byBgColor(JobsSecondarySystemBackgroundColor);
             [textField jobsTextFieldEventFilterBlock:^BOOL(id data) {
     //            @jobs_strongify(self)
                 return YES;

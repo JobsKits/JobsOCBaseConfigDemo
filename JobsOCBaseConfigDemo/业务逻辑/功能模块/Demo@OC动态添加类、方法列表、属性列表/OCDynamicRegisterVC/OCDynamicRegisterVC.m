@@ -98,7 +98,7 @@ Prop_strong()id runtimeObject;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(data.attributedTitle.string)
                 .byFont(UIFontWeightRegularSize(16));
         })
@@ -113,7 +113,7 @@ Prop_strong()id runtimeObject;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(RGBA_COLOR(246, 248, 252, 1));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.contentScrollView.addOn(self.view);
     [self buildRuntimeDemoView];
@@ -181,7 +181,7 @@ Prop_strong()id runtimeObject;
                  tintColor:(UIColor *)tintColor{
     UIView *card = jobsMakeView(^(__kindof UIView * _Nullable view) {
         view
-            .byBgColor(JobsWhiteColor)
+            .byBgColor(JobsSecondarySystemBackgroundColor)
             .byLayer(^(__kindof CALayer * _Nullable layer) {
                 layer
                     .byCornerRadius(8)
@@ -613,7 +613,7 @@ Prop_strong()id runtimeObject;
     if (!_headerCardView) {
         _headerCardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             view
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer
                         .byCornerRadius(8)

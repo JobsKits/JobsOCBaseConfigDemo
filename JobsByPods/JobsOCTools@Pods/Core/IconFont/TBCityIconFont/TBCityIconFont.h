@@ -39,7 +39,7 @@
 
      - (void)viewDidLoad {
          [super viewDidLoad];
-         self.view.byBgColor([UIColor  whiteColor]);
+         self.view.byBgColor(JobsSystemBackgroundColor);
 
          UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(100, 100, 30, 30)];
          [self.view addSubview:imageView];

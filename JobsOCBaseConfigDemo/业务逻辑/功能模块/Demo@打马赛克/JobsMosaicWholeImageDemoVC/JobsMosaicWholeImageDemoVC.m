@@ -90,7 +90,7 @@ Prop_assign()NSUInteger renderVersion;
     if (!_valueLabel) {
         _valueLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightMediumSize(14))
                 .addOn(_controlView)
                 .byAdd(^(MASConstraintMaker *make) {

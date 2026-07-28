@@ -33,7 +33,7 @@ Prop_strong()NSIndexPath *targetIndexPath;
 }
 
 -(void)buildUI{
-    self.byBgColor([UIColor whiteColor]);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     CGFloat cellWidth = (self.bounds.size.width - (ColumnNumber + 1) * CellMarginX)/ColumnNumber;
     flowLayout.itemSize = CGSizeMake(cellWidth,cellWidth/2.0f);

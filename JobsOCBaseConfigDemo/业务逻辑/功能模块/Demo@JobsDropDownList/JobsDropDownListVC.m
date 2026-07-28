@@ -45,22 +45,22 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(data.attributedTitle.string)
                 .byFont(UIFontWeightRegularSize(16));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byBgCor(JobsSystemBackgroundColor)
         //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byNavBgCor(JobsSystemBackgroundColor)
         .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF6F1E8));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     [self setupRightItems];
     self.makeNavByAlpha(1);
     self.panelView.byAlpha(1);
@@ -105,23 +105,23 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
 
 -(void)refreshDirectionUIWithOpened:(BOOL)opened{
     BOOL up = self.dropDownListViewDirection == JobsDropDownListViewDirection_UP;
-    UIColor *mainCor = up ? self.cor : HEXCOLOR(0x2F3645);
+    UIColor *mainCor = up ? self.cor : JobsLabelColor;
     if (_titleLab) {
         _titleLab
             .byText(up ? @"上拉列表".tr : @"下拉列表".tr)
-            .byTextCor(up ? HEXCOLOR(0xA06A18) : HEXCOLOR(0x2F3645));
+            .byTextCor(up ? HEXCOLOR(0xA06A18) : JobsLabelColor);
     }
     if (_directionBtn) {
         _directionBtn
             .jobsResetBtnTitle(up ? @"下拉".tr : @"上拉".tr)
-            .jobsResetBtnTitleCor(up ? HEXCOLOR(0xA06A18) : HEXCOLOR(0x2F3645))
+            .jobsResetBtnTitleCor(up ? HEXCOLOR(0xA06A18) : JobsLabelColor)
             .jobsResetBtnBgCor(JobsClearColor)
             .jobsResetBtnLayerBorderWidth(0);
     }
     if (_btn) {
         _btn
             .jobsResetBtnTitle(opened ? @"收起列表".tr : (up ? @"展开上拉列表".tr : @"展开下拉列表".tr))
-            .jobsResetBtnTitleCor(JobsWhiteColor)
+            .jobsResetBtnTitleCor(opened ? JobsWhiteColor : JobsSystemBackgroundColor)
             .jobsResetBtnBgCor(opened ? HEXCOLOR(0xC96E42) : mainCor)
             .jobsResetBtnLayerBorderWidth(0);
         [_btn mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -144,16 +144,16 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
     NSString *subTitle = data.subTextModel.text.length ? data.subTextModel.text : @"请选择列表内容".tr;
     _selectedTitleLab
         .byText([NSString stringWithFormat:@"%@%@",@"点选：".tr,title])
-        .byTextCor(HEXCOLOR(0x2F3645));
+        .byTextCor(JobsLabelColor);
     _selectedSubTitleLab
         .byText(subTitle)
-        .byTextCor(HEXCOLOR(0x8993A3));
+        .byTextCor(JobsSecondaryLabelColor);
 }
 #pragma mark —— lazyLoad
 -(UIView *)panelView{
     if (!_panelView) {
         _panelView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.byBgColor(RGBA_COLOR(255, 255, 255, 0.94));
+            view.byBgColor(JobsSecondarySystemBackgroundColor);
             view.layer
                 .byCornerRadius(JobsWidth(22))
                 .byShadowColor(HEXCOLOR(0x8E7B5B).CGColor)
@@ -177,7 +177,7 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
                 .byText(@"下拉列表".tr)
                 .byFont(UIFontWeightSemiboldSize(22))
                 .byTextAlignment(NSTextAlignmentCenter)
-                .byTextCor(HEXCOLOR(0x2F3645))
+                .byTextCor(JobsLabelColor)
                 .byBgColor(JobsClearColor)
                 .addOn(self.panelView)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -193,7 +193,7 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
 -(UIView *)selectedInfoView{
     if (!_selectedInfoView) {
         _selectedInfoView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.byBgColor(HEXCOLOR(0xF7F8FA));
+            view.byBgColor(JobsSecondarySystemBackgroundColor);
             view.layer
                 .byCornerRadius(JobsWidth(16))
                 .byBorderWidth(0);
@@ -215,7 +215,7 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
                 .byFont(UIFontWeightSemiboldSize(14))
                 .byTextAlignment(NSTextAlignmentLeft)
                 .byNumberOfLines(1)
-                .byTextCor(HEXCOLOR(0x2F3645))
+                .byTextCor(JobsLabelColor)
                 .byBgColor(JobsClearColor)
                 .addOn(self.selectedInfoView)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -236,7 +236,7 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
                 .byFont(UIFontWeightRegularSize(12))
                 .byTextAlignment(NSTextAlignmentLeft)
                 .byNumberOfLines(1)
-                .byTextCor(HEXCOLOR(0x8993A3))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byBgColor(JobsClearColor)
                 .addOn(self.selectedInfoView)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -255,11 +255,11 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
         _btn = BaseButton
             .initByStyle1(@"展开下拉列表".tr,
                           UIFontWeightSemiboldSize(15),
-                          JobsWhiteColor)
-            .bgColorBy(HEXCOLOR(0x2F3645))
+                          JobsSystemBackgroundColor)
+            .bgColorBy(JobsLabelColor)
             .cornerRadiusValueBy(JobsWidth(22))
             .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(15))
-            .jobsResetBtnTitleCor(JobsWhiteColor)
+            .jobsResetBtnTitleCor(JobsSystemBackgroundColor)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 x.bySelected(!x.selected);
@@ -298,7 +298,7 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
         _directionBtn = BaseButton
             .initByStyle1(@"上拉".tr,
                           UIFontWeightMediumSize(14),
-                          HEXCOLOR(0x2F3645))
+                          JobsLabelColor)
             .bgColorBy(JobsClearColor)
             .cornerRadiusValueBy(0)
             .jobsResetBtnLayerBorderWidth(0)

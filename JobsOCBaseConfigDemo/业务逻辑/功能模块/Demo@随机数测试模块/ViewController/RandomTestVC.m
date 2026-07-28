@@ -51,7 +51,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byTextCor(JobsLabelColor);
         })
         //        self.viewModel.textModel.text = @"随机数测试模块点击屏幕进行测试".tr;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
@@ -70,7 +70,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(RGBA_COLOR(255, 238, 221, 1));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     [self setupRightItems];
     self.makeNavByAlpha(1);
     [self reloadRandomResultData];
@@ -127,19 +127,19 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             label
                 .byText([self randomTitleByViewModel:model])
                 .byFont(UIFontWeightMediumSize(JobsWidth(15)))
-                .byTextCor(HEXCOLOR(0x2F3A47))
+                .byTextCor(JobsLabelColor)
                 .byNumberOfLines(1);
         })
         .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText([self randomSubTitleByViewModel:model])
                 .byFont(UIFontWeightRegularSize(JobsWidth(12)))
-                .byTextCor(HEXCOLOR(0x6E7783))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byNumberOfLines(2);
         })
         .byAccessoryType(UITableViewCellAccessoryNone)
         .bySelectionStyle(UITableViewCellSelectionStyleDefault)
-        .byBgColor(JobsWhiteColor);
+        .byBgColor(JobsSecondarySystemBackgroundColor);
 }
 
 - (void)tableView:(UITableView *)tableView

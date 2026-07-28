@@ -34,7 +34,7 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(data.attributedTitle.string)
                 .byFont(UIFontWeightRegularSize(18));
         })
@@ -48,7 +48,7 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsRandomColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.tableView.byShow(self);
 //    [self.bgImageView removeFromSuperview];
@@ -145,7 +145,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     label
                         .byText(@"- 没有更多的内容了 -".tr)
                         .byFont(UIFontWeightRegularSize(12))
-                        .byTextCor(HEXCOLOR(0xB0B0B0))
+                        .byTextCor(JobsSecondaryLabelColor)
                         .byTextAlignment(NSTextAlignmentCenter)
     //                    .bySize(CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(48)))
                         .makeLabelByShowingType(UILabelShowingType_03);
@@ -162,7 +162,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 }].byMJRefreshFooterConfigModel(self.mjFooterDefaultConfig))
                 .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
                 .byShowsVerticalScrollIndicator(NO)
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)

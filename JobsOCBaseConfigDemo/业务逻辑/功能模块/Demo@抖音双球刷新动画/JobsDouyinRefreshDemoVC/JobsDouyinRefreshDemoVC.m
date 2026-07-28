@@ -48,7 +48,7 @@ Prop_assign()NSUInteger refreshGeneration;
             data
                 .byText(@"抖音双球刷新动画".tr)
                 .byFont(UIFontWeightRegularSize(18))
-                .byTextCor(HEXCOLOR(0x263342));
+                .byTextCor(JobsLabelColor);
         })
         .byBgCor(HEXCOLOR(0xF5F7FA))
         .byNavBgCor(HEXCOLOR(0xF5F7FA));
@@ -57,7 +57,7 @@ Prop_assign()NSUInteger refreshGeneration;
 -(void)viewDidLoad {
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    self.view.byBgColor(HEXCOLOR(0xF5F7FA));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.hintLab.byHidden(NO);
     self.animationCardView.byHidden(NO);
     self.refreshView.byHidden(NO);
@@ -120,7 +120,7 @@ Prop_assign()NSUInteger refreshGeneration;
         _hintLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"红、绿双球交叉换位并错峰跳跃；组件可独立用于下拉刷新、加载态或空白页。".tr)
-                .byTextCor(HEXCOLOR(0x6B7280))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontWeightRegularSize(15))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(0)
@@ -139,7 +139,7 @@ Prop_assign()NSUInteger refreshGeneration;
         @jobs_weakify(self)
         _animationCardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             view
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer
                         .byCornerRadius(JobsWidth(24))
@@ -185,7 +185,7 @@ Prop_assign()NSUInteger refreshGeneration;
         _statusLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"正在刷新…".tr)
-                .byTextCor(HEXCOLOR(0x263342))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightMediumSize(14))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(1)

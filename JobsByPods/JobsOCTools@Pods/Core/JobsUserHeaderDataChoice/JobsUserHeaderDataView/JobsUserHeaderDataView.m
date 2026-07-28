@@ -69,7 +69,7 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
 //        [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
 //                                            cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
     };return self;
@@ -84,7 +84,7 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
 //        [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
 //                                            cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
     };return self;
@@ -142,7 +142,7 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
         return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
             viewModel.textModel.byText(data)
                                .byFont(UIFontWeightRegularSize(JobsWidth(18)))
-                               .byTextCor(HEXCOLOR(0x3D4A58));
+                               .byTextCor(JobsLabelColor);
         });
     };
 }
@@ -248,7 +248,7 @@ viewForHeaderInSection:(NSInteger)section{
                         .byText(@"- 没有更多的内容了 -".tr)
                         .byFont(UIFontWeightRegularSize(12))
                         .byTextAlignment(NSTextAlignmentCenter)
-                        .byTextCor(HEXCOLOR(0xB0B0B0))
+                        .byTextCor(JobsSecondaryLabelColor)
                         .makeLabelByShowingType(UILabelShowingType_03);
                 })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .emptyDataByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {

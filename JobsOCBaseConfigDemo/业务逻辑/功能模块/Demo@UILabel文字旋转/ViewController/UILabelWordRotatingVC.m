@@ -23,7 +23,7 @@ Prop_strong()UILabel *hintLab;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(@"UILabel文字旋转".tr)
                 .byFont(UIFontWeightRegularSize(18));
         })
@@ -34,7 +34,7 @@ Prop_strong()UILabel *hintLab;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(RGBA_COLOR(255, 238, 221, 1));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.previewView.byAlpha(1);
     self.label.byAlpha(1);
@@ -52,7 +52,7 @@ Prop_strong()UILabel *hintLab;
         _previewView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
             view
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(36));
@@ -103,7 +103,7 @@ Prop_strong()UILabel *hintLab;
             label
                 .byText(@"文字方向：朝左".tr)
                 .byFont(UIFontWeightRegularSize(JobsWidth(13)))
-                .byTextCor(HEXCOLOR(0x6E7783))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {

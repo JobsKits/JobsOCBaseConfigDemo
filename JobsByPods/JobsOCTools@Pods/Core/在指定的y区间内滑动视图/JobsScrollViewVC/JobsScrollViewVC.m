@@ -36,7 +36,7 @@ Prop_strong()UILabel *dragHintLab;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"JobsScrollViewVC")
                 .byFont(UIFontWeightRegularSize(18))
-                .byTextCor(HEXCOLOR(0x3D4A58));
+                .byTextCor(JobsLabelColor);
         })
         .byBgCor(HEXCOLOR(0xF3F6FA))
         .byNavBgCor(HEXCOLOR(0xF3F6FA));
@@ -44,7 +44,7 @@ Prop_strong()UILabel *dragHintLab;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF3F6FA));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.jobsView.byAlpha(1);
     self.usageCardView.byAlpha(1);

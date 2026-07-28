@@ -1,5 +1,7 @@
 # `JobsBaseUI`
 
+Demo 全局主题切换会同步所有已连接 Scene 的 Window，并发布 `JobsOCGlobalThemeDidChangeNotification`；固定色板、列表和自绘页面可监听该通知即时刷新。
+
 <iframe
   src="https://dragonir.github.io/3d/#/earth"
   title="Jobs出品，必属精品"
@@ -179,5 +181,12 @@ pod install --no-repo-update
 - `UITableViewHeaderFooterView` 的数据驱动入口允许上层传空模型占位，类型判断必须使用 `[model isKindOfClass:...]` 这类系统消息写法；不要写 `model.isKindOfClass(...)`，避免空模型返回 nil block 后被调用导致 `EXC_BAD_ACCESS`。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+## 明暗主题契约
+
+- 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
+- BaseVC 的页面根背景不展示固定底色或底图；业务图片必须下沉到内容子视图，避免覆盖全局明暗主题。
+- 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
+- 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

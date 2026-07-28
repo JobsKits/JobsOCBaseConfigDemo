@@ -879,6 +879,15 @@
 "下次开屏：关" = "Next splash: Off";
 "下次开屏：开" = "Next splash: On";
 "开屏内容" = "Splash Content";
+"开屏内容：%@" = "Splash Content: %@";
+"应用语言：%@" = "App Language: %@";
+"列表主/副标题：%@" = "List Title/Subtitle: %@";
+"列表主/副标题已设为：%@" = "List title/subtitle set to: %@";
+"一般模式" = "Standard";
+"省略号模式" = "Ellipsis";
+"缩小字体模式" = "Shrink to Fit";
+"连续跑马灯" = "Continuous Marquee";
+"左右来回滚动" = "Ping-Pong Scrolling";
 "本地图片" = "Local Image";
 "本地 GIF" = "Local GIF";
 "远程图片" = "Remote Image";

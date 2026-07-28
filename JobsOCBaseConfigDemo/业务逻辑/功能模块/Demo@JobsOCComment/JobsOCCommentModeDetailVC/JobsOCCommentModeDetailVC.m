@@ -44,7 +44,7 @@ Prop_assign()NSInteger demoLoadMoreCount;
             data
                 .byText(self.jobs_titleText.tr)
                 .byFont(UIFontWeightRegularSize(18))
-                .byTextCor(HEXCOLOR(0x2D3642));
+                .byTextCor(JobsLabelColor);
         })
         .byBgCor(HEXCOLOR(0xF6F7FB))
         .byNavBgCor(HEXCOLOR(0xF6F7FB));
@@ -57,7 +57,7 @@ Prop_assign()NSInteger demoLoadMoreCount;
     }else{
         self.makeNavByAlpha(1);
     }
-    self.view.byBgColor(HEXCOLOR(0xF6F7FB));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     [self jobs_updatePreferredContentSizeIfNeeded];
     self.commentView.byAlpha(1);
 }

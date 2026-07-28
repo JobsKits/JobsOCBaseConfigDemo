@@ -18,7 +18,7 @@ Prop_strong()UIView *resizedSubview;
 @implementation CXBVC
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsWhiteColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     CGRect frame = fitTop(100, 80, 200, 200);
     self.takeView.byFrame(frame).addOn(self.view);
     frame = fitHor(20, 20, 100, 60);

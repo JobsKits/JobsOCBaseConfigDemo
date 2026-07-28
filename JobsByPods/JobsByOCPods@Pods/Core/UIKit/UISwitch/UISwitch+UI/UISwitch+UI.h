@@ -67,7 +67,7 @@ NS_ASSUME_NONNULL_END
                      .byThumbTintColor(Switch.jobs_isOn ? self.cor : HEXCOLOR(0xB0B0B0))
                      .byOnTintColor(HEXCOLOR(0xFFFCF7))
                      .byTintColor(JobsWhiteColor)
-                     .byBgColor(JobsWhiteColor)
+                     .byBgColor(JobsSecondarySystemBackgroundColor)
                      .addOn(self.view);
                  Switch.cornerCutToCircleWithCornerRadius(31 / 2);
                  Switch.byMakeConstraints(^(MASConstraintMaker *make) {

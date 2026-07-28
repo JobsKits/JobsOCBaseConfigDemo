@@ -31,7 +31,7 @@ Prop_strong()UIButton *jobsCopyBtn;
     return (BaiShaETProjOrderDetailsCVCell *)cell
         .byIndexPath(indexPath)
         .byContentViewBgCor(JobsWhiteColor)
-        .byBgColor(JobsWhiteColor)
+        .byBgColor(JobsSecondarySystemBackgroundColor)
         .setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
             model.byJobsWidth(.5f)
                  .byLayerCor(HEXCOLOR(0xEEE2C8))
@@ -122,11 +122,11 @@ heightForFooterInSectionByModel:(NSInteger)section{
             .JobsRichViewByModel2(nil)
             .JobsBlock1(^(id _Nullable data) {;
             });
-        tbvFooterView.byBgColor(HEXCOLOR(0xEAEBED));
-        tbvFooterView.backgroundView.byBgColor(HEXCOLOR(0xEAEBED));
+        tbvFooterView.byBgColor(JobsSecondarySystemBackgroundColor);
+        tbvFooterView.backgroundView.byBgColor(JobsSecondarySystemBackgroundColor);
         /// tbvFooterView.backgroundColor 和  tbvFooterView.contentView.backgroundColor 均是无效操作❌
         /// 只有 tbvFooterView.backgroundView.backgroundColor 是有效操作✅
-        tbvFooterView.contentView.byBgColor(HEXCOLOR(0xEAEBED));
+        tbvFooterView.contentView.byBgColor(JobsSecondarySystemBackgroundColor);
         return tbvFooterView;
     };return nil;
 }
@@ -136,7 +136,7 @@ heightForFooterInSectionByModel:(NSInteger)section{
         _jobsCopyBtn = UIButton.jobsInit()
             .jobsResetBtnTitle(JobsSpace.add(@"複製".tr).add(JobsSpace))
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(12))
-            .jobsResetBtnTitleCor(HEXCOLOR(0x757575))
+            .jobsResetBtnTitleCor(JobsSecondaryLabelColor)
             .makeBtnTitleByShowingType(UILabelShowingType_03)
             .jobsResetBtnCornerRadiusValue(JobsWidth(18 / 2))
             .bgColorBy(HEXCOLOR(0xEAEBED));
@@ -158,14 +158,14 @@ heightForFooterInSectionByModel:(NSInteger)section{
                         .byText(@"- 没有更多的内容了 -".tr)
                         .byFont(UIFontWeightRegularSize(12))
                         .byTextAlignment(NSTextAlignmentCenter)
-                        .byTextCor(HEXCOLOR(0xB0B0B0))
+                        .byTextCor(JobsSecondaryLabelColor)
                         .makeLabelByShowingType(UILabelShowingType_03);
                 })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .bySeparatorColor(HEXCOLOR(0xEEEEEE))
                 .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
                 .byScrollEnabled(NO)
                 .byShowsVerticalScrollIndicator(NO)
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)

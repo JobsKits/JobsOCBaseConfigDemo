@@ -45,18 +45,18 @@ static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payloa
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(@"热更新演示".tr)
                 .byFont(UIFontWeightRegularSize(18));
         })
-        .byBgCor(RGBA_COLOR(246, 248, 251, 1))
-        .byNavBgCor(RGBA_COLOR(246, 248, 251, 1))
+        .byBgCor(JobsSystemBackgroundColor)
+        .byNavBgCor(JobsSystemBackgroundColor)
         .byNavBgImage(@"导航栏左侧底图".img);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(RGBA_COLOR(246, 248, 251, 1));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     [self buildDemoUI];
     [self resetDemoUI];
@@ -120,7 +120,6 @@ static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payloa
         @"subTitle": @"这份数据原本可以来自服务端；Demo 中改为本地预置，点击后临时替换方法实现并刷新 UI。",
         @"status": @"补丁加载完成：当前页面 UI 已被本地补丁接管",
         @"buttonTitle": @"重新演示热更新",
-        @"backgroundHex": @"#101820",
         @"cardHex": @"#FEE715",
         @"titleHex": @"#101820",
         @"subTitleHex": @"#243447",
@@ -138,22 +137,21 @@ static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payloa
 
 -(void)applyPatchPayload:(NSDictionary *)payload{
     if (![payload isKindOfClass:NSDictionary.class] || !payload.count) return;
-    self.view.byBgColor([self colorByHexString:payload[@"backgroundHex"]
-                                  defaultColor:RGBA_COLOR(246, 248, 251, 1)]);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.patchCardView.byBgColor([self colorByHexString:payload[@"cardHex"]
-                                           defaultColor:JobsWhiteColor]);
+                                           defaultColor:JobsSecondarySystemBackgroundColor]);
     self.titleLab
         .byText(payload[@"title"] ? : @"")
         .byTextCor([self colorByHexString:payload[@"titleHex"]
-                             defaultColor:HEXCOLOR(0x1E2A36)]);
+                             defaultColor:JobsLabelColor]);
     self.subTitleLab
         .byText(payload[@"subTitle"] ? : @"")
         .byTextCor([self colorByHexString:payload[@"subTitleHex"]
-                             defaultColor:HEXCOLOR(0x5F6C7B)]);
+                             defaultColor:JobsSecondaryLabelColor]);
     self.statusLab
         .byText(payload[@"status"] ? : @"")
         .byTextCor([self colorByHexString:payload[@"titleHex"]
-                             defaultColor:HEXCOLOR(0x1E2A36)]);
+                             defaultColor:JobsLabelColor]);
     self.progressView.byProgressTintColor([self colorByHexString:payload[@"progressHex"]
                                                     defaultColor:HEXCOLOR(0x34C759)]);
     self.hotRefreshBtn
@@ -162,17 +160,17 @@ static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payloa
 }
 
 -(void)resetDemoUI{
-    self.view.byBgColor(RGBA_COLOR(246, 248, 251, 1));
-    self.patchCardView.byBgColor(JobsWhiteColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
+    self.patchCardView.byBgColor(JobsSecondarySystemBackgroundColor);
     self.titleLab
         .byText(@"iOS 热更新 Demo".tr)
-        .byTextCor(HEXCOLOR(0x1E2A36));
+        .byTextCor(JobsLabelColor);
     self.subTitleLab
         .byText(@"点击按钮后模拟下载进度；进度结束后读取本地预置补丁数据，通过 Runtime 临时改变当前页面 UI。".tr)
-        .byTextCor(HEXCOLOR(0x5F6C7B));
+        .byTextCor(JobsSecondaryLabelColor);
     self.statusLab
         .byText(@"等待开始".tr)
-        .byTextCor(HEXCOLOR(0x7B8794));
+        .byTextCor(JobsTertiaryLabelColor);
     self.progressView
         .byProgress(0)
         .byProgressTintColor(HEXCOLOR(0x007AFF))
@@ -195,7 +193,7 @@ static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payloa
     if (!_patchCardView) {
         _patchCardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             view
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(24));
@@ -218,7 +216,7 @@ static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payloa
             label
                 .byText(@"")
                 .byFont(UIFontWeightMediumSize(24))
-                .byTextCor(HEXCOLOR(0x1E2A36))
+                .byTextCor(JobsLabelColor)
                 .byNumberOfLines(0)
                 .addOn(self.patchCardView)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -236,7 +234,7 @@ static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payloa
             label
                 .byText(@"")
                 .byFont(UIFontWeightRegularSize(14))
-                .byTextCor(HEXCOLOR(0x5F6C7B))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byNumberOfLines(0)
                 .addOn(self.patchCardView)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -253,7 +251,7 @@ static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payloa
             label
                 .byText(@"")
                 .byFont(UIFontWeightRegularSize(13))
-                .byTextCor(HEXCOLOR(0x7B8794))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byNumberOfLines(0)
                 .addOn(self.patchCardView)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -287,14 +285,15 @@ static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payloa
         @jobs_weakify(self)
         _hotRefreshBtn = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
             btn
-                .byTitle(@"")
-                .byTitleFont(UIFontWeightMediumSize(15))
-                .byTitleCor(JobsWhiteColor)
+                .jobsResetBtnTitle(@"")
+                .jobsResetBtnTitleFont(UIFontWeightMediumSize(15))
+                .jobsResetBtnTitleCor(JobsSystemBackgroundColor)
+                .jobsResetBtnBgCor(JobsLabelColor)
+                .jobsResetBtnCornerRadiusValue(JobsWidth(8))
                 .onClickBy(^(UIButton *x) {
                     @jobs_strongify(self)
                     [self startHotRefreshDemo];
                 })
-                .byBgColor(HEXCOLOR(0x1E2A36))
                 .addOn(self.patchCardView)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.progressView.mas_bottom).offset(JobsWidth(24));
@@ -302,7 +301,6 @@ static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payloa
                     make.height.mas_equalTo(JobsWidth(44));
                     make.bottom.equalTo(self.patchCardView).offset(JobsWidth(-24));
                 });
-            btn.layer.byCornerRadius(JobsWidth(8));
         });
     };return _hotRefreshBtn;
 }

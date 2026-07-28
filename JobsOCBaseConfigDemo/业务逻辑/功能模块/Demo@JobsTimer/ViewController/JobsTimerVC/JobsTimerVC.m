@@ -55,7 +55,7 @@ Prop_assign()BOOL countUpTimerHasStarted;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"正计时".tr)
                 .byFont(UIFontWeightRegularSize(16))
-                .byTextCor(HEXCOLOR(0x3D4A58));
+                .byTextCor(JobsLabelColor);
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
@@ -68,7 +68,7 @@ Prop_assign()BOOL countUpTimerHasStarted;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF3F6FA));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.countUpTitleLab.byVisible(YES);
     self.countdownView.byVisible(YES);
@@ -190,7 +190,7 @@ Prop_assign()BOOL countUpTimerHasStarted;
             @jobs_strongify(self)
             label.byText(@"正计时".tr)
                 .byFont(UIFontWeightSemiboldSize(18))
-                .byTextCor(HEXCOLOR(0x243447))
+                .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentLeft)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -291,7 +291,7 @@ Prop_assign()BOOL countUpTimerHasStarted;
             UIButton *firstBtn = self.btnMutArr.firstObject;
             label.byText(@"请点击“开始”，正计时不会自动启动".tr)
                 .byFont(UIFontWeightRegularSize(13))
-                .byTextCor(HEXCOLOR(0x5F6B7A))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(2)
                 .addOn(self.view)
@@ -319,7 +319,7 @@ Prop_assign()BOOL countUpTimerHasStarted;
                 .bySelectable(NO)
                 .byTextContainerInset(UIEdgeInsetsMake(JobsWidth(12), JobsWidth(12), JobsWidth(12), JobsWidth(12)))
                 .byLineFragmentPadding(0)
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byCornerRadius(JobsWidth(10))
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {

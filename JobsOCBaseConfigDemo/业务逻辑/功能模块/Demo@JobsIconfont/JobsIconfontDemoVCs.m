@@ -22,7 +22,7 @@ static NSString *const JobsIconfontReuseCellID = @"JobsIconfontReuseCell";
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(self.demoTitle.tr)
+            data.byText(self.title.length ? self.title : self.demoTitle.tr)
                 .byFont(UIFontWeightRegularSize(17))
                 .byTextCor(JobsLabelColor);
         })
@@ -94,8 +94,11 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:YES];
-    Class cls = self.rows[indexPath.row][@"class"];
-    self.comingToPushVCByRequestParams(cls.new,nil);
+    NSDictionary *row = self.rows[indexPath.row];
+    Class cls = row[@"class"];
+    JobsIconfontDemoBaseVC *demoVC = cls.new;
+    demoVC.title = row[@"title"];
+    self.comingToPushVCByRequestParams(demoVC,nil);
 }
 #pragma mark —— LazyLoad
 -(UITableView *)listView{

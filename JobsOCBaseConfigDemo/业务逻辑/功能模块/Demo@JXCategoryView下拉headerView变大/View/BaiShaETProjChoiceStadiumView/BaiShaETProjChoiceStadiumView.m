@@ -88,7 +88,7 @@ static dispatch_once_t static_choiceStadiumViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 
@@ -107,7 +107,7 @@ static dispatch_once_t static_choiceStadiumViewOnceToken;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -235,7 +235,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byScrollEnabled(NO)
                 .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
                 .byShowsVerticalScrollIndicator(NO)
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
@@ -250,7 +250,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_tbvHeaderView) {
         _tbvHeaderView = BaiShaETProjChoiceStadiumTBVHeaderView.new
             .byText(@"選擇場館".tr)
-            .byTextCor(HEXCOLOR(0x3D4A58))
+            .byTextCor(JobsLabelColor)
             .byFont(UIFontWeightBoldSize(16))
             .byTextAlignment(NSTextAlignmentCenter)
             .bySize(BaiShaETProjChoiceStadiumTBVHeaderView.viewSizeByModel(nil));

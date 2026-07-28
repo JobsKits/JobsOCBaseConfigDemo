@@ -18,7 +18,7 @@ Prop_strong()UILabel *titleLabel;
 @implementation TMSWalletCollectionViewCell
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self == [super initWithFrame:frame]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
         self.contentView.byBgColor(JobsRandomColor);
         self.layer.cornerRadius = 20;
         self.layer.masksToBounds = YES;

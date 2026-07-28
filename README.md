@@ -202,7 +202,7 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
 [self.titleLabel byJobsIconfontTextSize:32];
 ```
 
-对应 Demo 总入口按列表细分远程成功 / 错误 URL、本地占位、列表复用防串图、缓存清理与重载、Icon Font / Unicode / UIImage，以及阿里妈妈文字字体场景。框架运行时不抓取 iconfont 网页，也不依赖登录态或未公开接口。
+对应 Demo 总入口按列表细分远程成功 / 错误 URL、本地占位、列表复用防串图、缓存清理与重载、Icon Font / Unicode / UIImage，以及阿里妈妈文字字体场景。每个具体 Demo 页的导航栏主标题直接继承所点击入口 Cell 的主标题。框架运行时不抓取 iconfont 网页，也不依赖登录态或未公开接口。
 
 ### 2.5、完整能力模块清单
 
@@ -3626,26 +3626,26 @@ classDiagram
           _titleMutArr = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
               data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
                   viewModel.textModel.text = JobsInternationalization(@"ALL");
-                  viewModel.textModel.textCor = HEXCOLOR(0xB0B0B0);
+                  viewModel.textModel.textCor = JobsSecondaryLabelColor;
                   viewModel.image = @"All_activity_小图标".img;
                   viewModel.bgSelectedImage = @"All_activity".img;
                   viewModel.isMark = YES;
               }));
               data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
                   viewModel.textModel.text = JobsInternationalization(@"Daily");
-                  viewModel.textModel.textCor = HEXCOLOR(0xB0B0B0);
+                  viewModel.textModel.textCor = JobsSecondaryLabelColor;
                   viewModel.image = @"Daily_activity_小图标".img;
                   viewModel.bgSelectedImage = @"Daily_activity".img;
               }));
               data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
                   viewModel.textModel.text = JobsInternationalization(@"New Account");
-                  viewModel.textModel.textCor = HEXCOLOR(0xB0B0B0);
+                  viewModel.textModel.textCor = JobsSecondaryLabelColor;
                   viewModel.image = @"NewAcc_activity_小图标".img;
                   viewModel.bgSelectedImage = @"NewAcc_activity".img;
               }));
               data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
                   viewModel.textModel.text = JobsInternationalization(@"Limited Time");
-                  viewModel.textModel.textCor = HEXCOLOR(0xB0B0B0);
+                  viewModel.textModel.textCor = JobsSecondaryLabelColor;
                   viewModel.image = @"LimitedTimeOffer_activity_小图标".img;
                   viewModel.bgSelectedImage = @"LimitedTimeOffer_activity".img;
               }));
@@ -4338,7 +4338,7 @@ static const uint32_t kSequenceBits = 12;
         UIViewModel *VM = Jobs_getAssociatedObject(_viewModel);
         if(!VM){
             VM = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable vm) {
-                vm.textModel.textCor = HEXCOLOR(0x3D4A58);
+                vm.textModel.textCor = JobsLabelColor;
                 vm.textModel.font = UIFontWeightRegularSize(16);
             });Jobs_setAssociatedRETAIN_NONATOMIC(_viewModel, VM);
         }return VM;
@@ -4388,7 +4388,7 @@ static const uint32_t kSequenceBits = 12;
   -(UIViewModel *)viewModel{
       if (!_viewModel) {
           _viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable vm) {
-              vm.textModel.textCor = HEXCOLOR(0x3D4A58);
+              vm.textModel.textCor = JobsLabelColor;
               vm.textModel.font = UIFontWeightRegularSize(16);
           });
       }return _viewModel;
@@ -5566,8 +5566,8 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 - 从 `ViewController_1` Demo 根列表进入的每个导航 / 模态子页面，以及类名包含 `Demo` 的独立演示页，右上角最多只显示一个主题入口；没有页面业务动作时直接切换主题，月亮 / 太阳图标与无障碍文案表达下一次点击会切换到的主题；存在业务动作时使用 Demo 总入口同款 `ellipsis.circle` 展开下拉列表，展开后切换为填充图标与“收起”语义，把主题切换与全部页面动作统一收纳。系统导航栏专项 Demo 使用同一规则写入 `navigationItem`；主题状态持久化后会同步到所有已连接 Scene 的 Window。
 - Demo 根列表支持拖拽调整普通分组顺序；“其他”作为兜底分组始终固定在列表末尾，不参与拖拽，也不会因历史持久化顺序恢复到中间。
 - Demo 根列表搜索栏使用独立的蓝色“取消”按钮关闭搜索，不复用 `UISearchBar` 内置取消控件；搜索框与按钮的尺寸、圆角、边框和深浅色状态保持统一。
-- Demo 根列表的二级入口统一使用 `50pt` 固定行高：主标题复用 `JobsOCUILabelScrolling` 的缩放适配策略，副标题使用单行尾部截断，不再按设备宽度动态测量 Cell 高度。Swift / OC 的 Label 分组统一覆盖动效数字、四种定尺寸文字策略、UILabel 与 UIButton.titleLabel 表现列表、可交互自定义 Label、圆点文本和文字旋转。
-- 全局主题按钮负责切换系统明暗 Trait；Demo 页面背景、导航栏、标题、说明文字、卡片和状态区必须使用 `systemBackgroundColor`、`systemGroupedBackgroundColor`、`labelColor`、`secondaryLabelColor` 等语义色，固定 RGB 只用于不随主题变化的品牌色或强调色。
+- Demo 根列表的二级入口统一使用 `50pt` 固定行高；主标题和副标题由“设置 → 列表主/副标题”统一选择一般裁切、省略号、缩小字体、连续跑马灯或左右来回滚动，短文仍走 UILabel 原生绘制，深浅色下与同层普通 Label 保持同色。设置中的开屏内容、应用语言和列表文字策略均以一级 Cell 展示当前值，点击展开缩进的二级选项后再点选。Swift / OC 的 Label 分组统一覆盖动效数字、四种定尺寸文字策略、UILabel 与 UIButton.titleLabel 表现列表、可交互自定义 Label、圆点文本和文字旋转。
+- 全局主题按钮负责切换系统明暗 Trait，并同步所有已连接 Scene 的 Window；公共导航链路会递归校正当前控制器树的页面根承载和 GK 导航栏。白天使用浅色系统背景配深色语义文字，黑夜使用深色系统背景配浅色语义文字；卡片、输入区、弹框和列表容器使用次级系统背景，正文、说明与占位文字分别使用 `JobsLabelColor`、`JobsSecondaryLabelColor` 和 `JobsPlaceholderTextColor`。BaseVC 的页面根背景不再展示固定底色或底图，业务图片必须下沉到内容子视图。品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色，不参与无差别反色；缓存到 `CGColor`、`CALayer`、CoreText 或自绘上下文的颜色必须在主题通知或 Trait 变化后重新解析和绘制。
 - 默认返回图标使用 template 渲染和 `JobsLabelColor`，随明暗主题自动变色；自定义 `backBtnTitleModel.textCor` 时仍保留业务着色。
 - `GKNavigationBar` 本身提供通用 `gk_navTitleView`，但没有主标题 / 副标题组件；本地 Pod 工程由 `GKCustomNavigationBarExtra` 提供 `gk_navTitleViewBy(UIViewModel *)`，其中 `textModel` 对应主标题、`subTextModel` 对应副标题。
 - Demo 统一跳转链路会测量导航标题宽度：短标题保持单行，长标题优先按 `｜`、`：`、`@`、括号、有效空格等语义边界拆成上下结构，其次选择靠近中点的语言词边界，最后才按完整字符居中拆分；页面已有自定义 `titleView` 时不会覆盖。
@@ -8657,7 +8657,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {//@@6
                        label.byText(@"- 没有更多的内容了 -".tr)
                            .byFont(UIFontWeightRegularSize(12))
                            .byTextAlignment(NSTextAlignmentCenter)
-                           .byTextCor(HEXCOLOR(0xB0B0B0))
+                           .byTextCor(JobsSecondaryLabelColor)
                            .makeLabelByShowingType(UILabelShowingType_03);
                    })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                    .emptyDataByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {

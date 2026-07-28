@@ -31,7 +31,7 @@
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(@"".tr)
                 .byFont(UIFontWeightRegularSize(16));
         })

@@ -7,6 +7,8 @@
 
 #import "JobsLinkageMenuViewDemoVC.h"
 
+static NSNotificationName const JobsLinkageMenuGlobalThemeDidChangeNotification = @"JobsOCGlobalThemeDidChangeNotification";
+
 @interface JobsLinkageMenuDemoContentView : UIView
 
 -(instancetype)initWithSectionTitle:(NSString *)sectionTitle
@@ -32,7 +34,7 @@
         _iconLabels = NSMutableArray.array;
         _titleLabels = NSMutableArray.array;
         _subtitleLabels = NSMutableArray.array;
-        self.byBgColor(UIColor.whiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
         for (NSInteger i = 0; i < 5; i++) {
             UIView *card = [self cardAtIndex:i];
             [_cards addObject:card];
@@ -54,7 +56,7 @@
 
 -(UIView *)cardAtIndex:(NSInteger)index{
     UIView *card = jobsMakeView(^(__kindof UIView * _Nullable view) {
-        view.byBgColor(RGBA_COLOR(0.86 * 255.0, 0.72 * 255.0, 0.91 * 255.0, 1));
+        view.byBgColor(JobsTertiarySystemBackgroundColor);
     });
     card.byLayer(^(__kindof CALayer * _Nullable layer) {
         layer
@@ -91,7 +93,7 @@
     UILabel *subtitleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
             .byText(@"神秘彩金等你来拿".tr)
-            .byTextCor(UIColor.darkGrayColor)
+            .byTextCor(JobsSecondaryLabelColor)
             .byFont(UIFontSystemFontOfSize(15))
             .addOn(card);
     });
@@ -125,6 +127,10 @@ Prop_strong()NSArray<NSString *> *menuTitles;
 @end
 
 @implementation JobsLinkageMenuViewDemoVC
+-(void)dealloc{
+    JobsRemoveNotification(self);
+}
+
 -(void)loadView{
     [super loadView];
     if ([self.requestParams isKindOfClass:UIViewModel.class]) {
@@ -142,17 +148,24 @@ Prop_strong()NSArray<NSString *> *menuTitles;
                 .byText(@"首页联动切换子页面".tr)
                 .byFont(UIFontWeightRegularSize(18));
         })
-        .byBgCor(UIColor.whiteColor)
-        .byNavBgCor(UIColor.whiteColor);
+        .byBgCor(JobsSystemBackgroundColor)
+        .byNavBgCor(JobsSystemBackgroundColor);
 }
 
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    self.view.byBgColor(UIColor.whiteColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.modeControl.byAlpha(1);
     self.callbackLabel.byAlpha(1);
     [self rebuildLinkageView];
+    @jobs_weakify(self)
+    [self addNotificationName:JobsLinkageMenuGlobalThemeDidChangeNotification
+                        block:^(id _Nullable weakSelf,
+                                id _Nullable arg) {
+        @jobs_strongify(self)
+        [self rebuildLinkageView];
+    }];
 }
 
 -(void)rebuildLinkageView{
@@ -191,7 +204,7 @@ Prop_strong()NSArray<NSString *> *menuTitles;
                                                         btnConfig:self.buttonModel
                                             linkageMenuViewConfig:config];
     self.linkageView
-        .byBgColor(UIColor.whiteColor)
+        .byBgColor(JobsSecondarySystemBackgroundColor)
         .addOn(self.view);
     [self.linkageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.bottom.equalTo(self.view);
@@ -201,8 +214,8 @@ Prop_strong()NSArray<NSString *> *menuTitles;
 }
 
 -(UIButtonModel *)buttonModel{
-    NSArray<UIImage *> *normalImages = [self imageArrayWithColor:UIColor.grayColor];
-    NSArray<UIImage *> *normalBackgrounds = [self imageArrayWithColor:RGBA_SAMECOLOR(0.96 * 255.0, 1)];
+    NSArray<UIImage *> *normalImages = [self imageArrayWithColor:JobsSecondaryLabelColor];
+    NSArray<UIImage *> *normalBackgrounds = [self imageArrayWithColor:JobsTertiarySystemBackgroundColor];
     NSArray<UIImage *> *selectedBackgrounds = [self imageArrayWithColor:RGBA_COLOR(255, 0.94 * 255.0, 0.84 * 255.0, 1)];
     NSMutableArray<UIView *> *contents = NSMutableArray.array;
     for (NSInteger i = 0; i < self.menuTitles.count - 1; i++) {
@@ -214,7 +227,7 @@ Prop_strong()NSArray<NSString *> *menuTitles;
             .byNormal_backgroundImages(normalBackgrounds)
             .bySelected_backgroundImages(selectedBackgrounds)
             .byImagePaddings(@[@4, @4, @4, @4, @4, @4, @4, @4])
-            .byTitleCor(UIColor.grayColor)
+            .byTitleCor(JobsSecondaryLabelColor)
             .bySelectedTitleCor(UIColor.systemOrangeColor)
             .byData(contents)
             .byImagePlacement(NSDirectionalRectEdgeTop);
@@ -264,7 +277,7 @@ Prop_strong()NSArray<NSString *> *menuTitles;
         _callbackLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"当前菜单：日常.1".tr)
-                .byTextCor(UIColor.darkGrayColor)
+                .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontSystemFontOfSize(13))
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {

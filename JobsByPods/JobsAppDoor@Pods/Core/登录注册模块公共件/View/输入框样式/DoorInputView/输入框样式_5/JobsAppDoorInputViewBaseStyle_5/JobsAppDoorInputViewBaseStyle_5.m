@@ -309,7 +309,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
         _chooseBtnViewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
             @jobs_strongify(self)
             data.textModel.byText(@"请选择区号".tr)
-                          .byTextCor(HEXCOLOR(0xC4C4C4))
+                          .byTextCor(JobsSecondaryLabelColor)
                           .byTextLineSpacing(0)
                           .byFont(UIFontWeightRegularSize(14));
             data.byBgCor(JobsClearColor)
@@ -327,7 +327,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
                 @jobs_strongify(self)
                 viewModel.textModel.byText(@"+87".tr)
-                                   .byTextCor(HEXCOLOR(0xC4C4C4))
+                                   .byTextCor(JobsSecondaryLabelColor)
                                    .byTextLineSpacing(0)
                                    .byFont(UIFontWeightRegularSize(14));
                 viewModel.byBgCor(JobsClearColor)
@@ -337,7 +337,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
                 @jobs_strongify(self)
                 viewModel.textModel.byText(@"+88".tr)
-                                   .byTextCor(HEXCOLOR(0xC4C4C4))
+                                   .byTextCor(JobsSecondaryLabelColor)
                                    .byTextLineSpacing(0)
                                    .byFont(UIFontWeightRegularSize(14));
                 viewModel.byBgCor(JobsClearColor)

@@ -41,7 +41,7 @@ Prop_assign()BOOL searchMode;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(@"右边的架构是VC".tr)
                 .byFont(UIFontWeightRegularSize(16));
         })
@@ -253,7 +253,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             tableView
                 .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
                 .byShowsVerticalScrollIndicator(NO);
-            tableView.byBgColor(HEXCOLOR(0xFCFBFB));
+            tableView.byBgColor(JobsSecondarySystemBackgroundColor);
             tableView.byFrame(CGRectMake(0,JobsTopSafeAreaHeight() + JobsStatusBarHeight() + self.gk_navigationBar.mj_h,
                                          TableViewWidth,JobsMainScreen_HEIGHT() - JobsTopSafeAreaHeight() - JobsStatusBarHeight() - JobsTabBarHeight(AppDelegate.tabBarVC) - EditBtnHeight));
         }));
@@ -319,7 +319,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
             .jobsResetImagePadding(JobsWidth(5.75))
             .jobsResetBtnBgImage(@"编辑".img)
-            .jobsResetBtnTitleCor(HEXCOLOR(0xB0B0B0))
+            .jobsResetBtnTitleCor(JobsSecondaryLabelColor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
             .jobsResetBtnTitle(@"编辑".tr)
             .onClickBy(^(UIButton *x){

@@ -38,7 +38,7 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byTextCor(JobsLabelColor);
         })
         //        self.viewModel.textModel.text = @"VIP俱乐部".tr;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
@@ -205,7 +205,7 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
         @jobs_weakify(self)
         _ruleBtn = BaseButton.jobsInit()
             .bgColorBy(JobsWhiteColor)
-            .jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58))
+            .jobsResetBtnTitleCor(JobsLabelColor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
             .jobsResetBtnTitle(@"VIP規則".tr)
             .onClickBy(^(UIButton *x){

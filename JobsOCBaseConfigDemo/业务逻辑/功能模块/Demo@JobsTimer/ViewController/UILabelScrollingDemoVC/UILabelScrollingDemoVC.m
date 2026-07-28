@@ -50,15 +50,15 @@ Prop_assign()BOOL usesAlternativeCopy;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"CoreText UILabel 文字滚动".tr)
                 .byFont(UIFontWeightSemiboldSize(17))
-                .byTextCor(HEXCOLOR(0xFFFFFF));
+                .byTextCor(JobsLabelColor);
         })
-        .byBgCor(JobsBlackColor)
-        .byNavBgCor(JobsBlackColor);
+        .byBgCor(JobsSystemBackgroundColor)
+        .byNavBgCor(JobsSystemBackgroundColor);
 }
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.view.byBgColor(JobsBlackColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     [self buildInterface];
 }
@@ -79,7 +79,7 @@ Prop_assign()BOOL usesAlternativeCopy;
     UILabel *introLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label.byText(@"CoreText 完整排版 + CALayer 绘制 + JobsTimer 驱动。只有文字溢出时才进入滚动管线。".tr)
             .byFont(UIFontWeightRegularSize(14))
-            .byTextCor(HEXCOLOR(0x92929A))
+            .byTextCor(JobsSecondaryLabelColor)
             .byNumberOfLines(0)
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {
@@ -139,7 +139,7 @@ Prop_assign()BOOL usesAlternativeCopy;
     self.shortLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label.byText(@"短文案：保持 UILabel 原生绘制".tr)
             .byFont(UIFontWeightMediumSize(17))
-            .byTextCor(JobsWhiteColor)
+            .byTextCor(JobsLabelColor)
             .byNumberOfLines(1)
             .addOn(shortCard)
             .byAdd(^(MASConstraintMaker *make) {
@@ -185,7 +185,7 @@ Prop_assign()BOOL usesAlternativeCopy;
     return jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label.byText(text.tr)
             .byFont(UIFontWeightSemiboldSize(17))
-            .byTextCor(HEXCOLOR(0x92929A))
+            .byTextCor(JobsSecondaryLabelColor)
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {
                 make.left.equalTo(self.view).offset(JobsWidth(24));
@@ -198,7 +198,7 @@ Prop_assign()BOOL usesAlternativeCopy;
 
 -(UIView *)cardBelowView:(UIView *)topView{
     return jobsMakeView(^(__kindof UIView * _Nullable view) {
-        view.byBgColor(HEXCOLOR(0x1C1C1E))
+        view.byBgColor(JobsSecondarySystemBackgroundColor)
             .byCornerRadius(JobsWidth(14))
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {

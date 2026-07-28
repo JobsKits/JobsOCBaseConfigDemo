@@ -118,7 +118,7 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
             @jobs_strongify(self)
             label
                 .byText(@"滑动以解锁".tr)
-                .byTextCor(UIColor.darkGrayColor)
+                .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontWeightMediumSize(16))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .addOn(self)
@@ -135,7 +135,7 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
         _thumbView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
             view
-                .byBgColor(UIColor.whiteColor)
+            .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byUserInteractionEnabled(YES)
                 .byLayer(^(CALayer *layer) {
                     layer

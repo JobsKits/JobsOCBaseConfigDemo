@@ -535,7 +535,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_searchContainerView) {
         _searchContainerView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             view
-                .byBgColor(UIColor.whiteColor)
+            .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byCornerRadius(12)
                 .byLayer(^(CALayer * _Nullable layer) {
                     layer

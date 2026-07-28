@@ -36,7 +36,7 @@ Prop_assign()BOOL sphereItemsPrepared;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"球形特效".tr)
                 .byFont(UIFontWeightRegularSize(17))
-                .byTextCor(HEXCOLOR(0x3D4A58));
+                .byTextCor(JobsLabelColor);
         })
         .byBgCor(HEXCOLOR(0xF4F5F8))
         .byNavBgCor(HEXCOLOR(0xF4F5F8));
@@ -44,7 +44,7 @@ Prop_assign()BOOL sphereItemsPrepared;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF4F5F8));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.sphereView.byAlpha(1);
     self.statusLabel.byAlpha(1);
@@ -105,7 +105,7 @@ Prop_assign()BOOL sphereItemsPrepared;
 -(XLSphereView *)sphereView{
     if (!_sphereView) {
         _sphereView = XLSphereView.new;
-        _sphereView.byBgColor(UIColor.whiteColor);
+        _sphereView.byBgColor(JobsSecondarySystemBackgroundColor);
         _sphereView.layer.byCornerRadius(JobsWidth(8));
         _sphereView.layer.byMasksToBounds(YES);
         _sphereView.addOn(self.view);
@@ -122,7 +122,7 @@ Prop_assign()BOOL sphereItemsPrepared;
         _statusLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"拖动球体旋转，点按前景标签".tr)
-                .byTextCor(HEXCOLOR(0x5A6372))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontWeightRegularSize(15))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(0)

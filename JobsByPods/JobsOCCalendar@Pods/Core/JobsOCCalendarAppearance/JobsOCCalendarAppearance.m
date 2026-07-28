@@ -12,7 +12,7 @@
     if (self = [super init]) {
         self.headerDateFormat = @"yyyy年MM月";
         self.headerTitleFont = UIFontWeightRegularSize(22);
-        self.headerTitleColor = UIColor.blackColor;
+        self.headerTitleColor = JobsLabelColor;
         self.headerTitleAlignment = NSTextAlignmentCenter;
         self.headerTitleOffset = CGPointZero;
         self.headerHeight = 56;
@@ -23,12 +23,12 @@
         self.weekdayTextColor = UIColor.systemBlueColor;
         self.titleFont = UIFontWeightRegularSize(17);
         self.subtitleFont = UIFontWeightRegularSize(10);
-        self.titleDefaultColor = UIColor.blackColor;
-        self.titlePlaceholderColor = UIColor.lightGrayColor;
+        self.titleDefaultColor = JobsLabelColor;
+        self.titlePlaceholderColor = JobsPlaceholderTextColor;
         self.titleSelectionColor = UIColor.whiteColor;
         self.titleTodayColor = UIColor.whiteColor;
-        self.subtitleDefaultColor = UIColor.darkGrayColor;
-        self.subtitlePlaceholderColor = UIColor.lightGrayColor;
+        self.subtitleDefaultColor = JobsSecondaryLabelColor;
+        self.subtitlePlaceholderColor = JobsPlaceholderTextColor;
         self.subtitleSelectionColor = UIColor.whiteColor;
         self.selectionColor = UIColor.systemRedColor;
         self.todayColor = UIColor.systemBlueColor;

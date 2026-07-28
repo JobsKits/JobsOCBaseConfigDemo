@@ -31,7 +31,7 @@ Prop_strong()UILabel *detailLab;
                     .byShadowRadius(JobsWidth(10));
             });
         self.contentView
-            .byBgColor(JobsWhiteColor)
+            .byBgColor(JobsSecondarySystemBackgroundColor)
             .byCornerRadius(JobsWidth(16))
             .byClipsToBounds(YES)
             .byLayer(^(CALayer *layer) {
@@ -168,7 +168,7 @@ Prop_strong()UILabel *detailLab;
             label
                 .byText(self.viewModel.textModel.text)
                 .byFont(UIFontWeightSemiboldSize(17))
-                .byTextCor(HEXCOLOR(0x2F3A46))
+                .byTextCor(JobsLabelColor)
                 .byNumberOfLines(1)
                 .byLineBreakMode(NSLineBreakByTruncatingTail)
                 .byAdjustsFontSizeToFitWidth(YES)
@@ -192,7 +192,7 @@ Prop_strong()UILabel *detailLab;
             label
                 .byText(self.viewModel.subTextModel.text)
                 .byFont(UIFontWeightBoldSize(20))
-                .byTextCor(HEXCOLOR(0x2F3A46))
+                .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentRight)
                 .byNumberOfLines(1)
                 .byAdjustsFontSizeToFitWidth(YES)

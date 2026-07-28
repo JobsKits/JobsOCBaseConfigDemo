@@ -31,7 +31,7 @@ static dispatch_once_t static_searchViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 

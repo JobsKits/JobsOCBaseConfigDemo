@@ -28,7 +28,7 @@ Prop_copy()NSArray <NSString *>*features;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.view.byBgColor(JobsWhiteColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.tableView.byVisible(YES);
 }
@@ -61,7 +61,7 @@ Prop_copy()NSArray <NSString *>*features;
             tableView.byDataSource(self)
                 .byDelegate(self)
                 .byRowHeight(JobsWidth(64))
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.right.bottom.equalTo(self.view);

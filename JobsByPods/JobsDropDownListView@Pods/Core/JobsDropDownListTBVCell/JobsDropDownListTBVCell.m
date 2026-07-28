@@ -40,7 +40,7 @@ UITableViewCellProtocol_Synthesize
         self
             .bySelectionStyle(UITableViewCellSelectionStyleNone)// 取消点击效果 【不能在cellStyleValue1ByTableView里面写】
             .byContentView(^(__kindof UIView * _Nullable view) {
-                view.byBgColor(HEXCOLOR(0xFBFCFE));
+                view.byBgColor(JobsSecondarySystemBackgroundColor);
                 view.layer.cornerRadius = JobsWidth(12);
                 view.layer.masksToBounds = YES;
             })
@@ -108,11 +108,11 @@ UITableViewCellProtocol_Synthesize
             self.titleLab
                 .byText([NSString stringWithFormat:@"%@",model.textModel.text])
                 .byFont(UIFontWeightMediumSize(14))
-                .byTextCor(HEXCOLOR(0x2F3645));
+                .byTextCor(JobsLabelColor);
             self.subTitleLab
                 .byText([NSString stringWithFormat:@"%@",model.subTextModel.text])
                 .byFont(UIFontWeightRegularSize(12))
-                .byTextCor(HEXCOLOR(0x8A93A1));
+                .byTextCor(JobsSecondaryLabelColor);
             [self setNeedsLayout];
         };return self;
     };
@@ -138,7 +138,7 @@ UITableViewCellProtocol_Synthesize
                 .byFont(UIFontWeightMediumSize(14))
                 .byTextAlignment(NSTextAlignmentLeft)
                 .byNumberOfLines(1)
-                .byTextCor(HEXCOLOR(0x2F3645))
+                .byTextCor(JobsLabelColor)
                 .byBgColor(JobsClearColor)
                 .addOn(self.contentView);
         });
@@ -152,7 +152,7 @@ UITableViewCellProtocol_Synthesize
                 .byFont(UIFontWeightRegularSize(12))
                 .byTextAlignment(NSTextAlignmentLeft)
                 .byNumberOfLines(1)
-                .byTextCor(HEXCOLOR(0x8A93A1))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byBgColor(JobsClearColor)
                 .addOn(self.contentView);
         });

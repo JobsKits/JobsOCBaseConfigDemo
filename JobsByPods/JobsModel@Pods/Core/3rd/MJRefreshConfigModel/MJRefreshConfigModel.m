@@ -29,7 +29,7 @@
 /// TextColor
 -(UIColor *)textColor{
     if (!_textColor) {
-        _textColor = JobsLightGrayColor;
+        _textColor = JobsSecondaryLabelColor;
     };return _textColor;
 }
 /// duration

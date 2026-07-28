@@ -35,7 +35,7 @@ Prop_strong()UIButton *accessoryDoneBtn;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x263342))
+                .byTextCor(JobsLabelColor)
                 .byText(@"JobsOCKeyboardMgr")
                 .byFont(UIFontWeightMediumSize(17));
         })
@@ -46,7 +46,7 @@ Prop_strong()UIButton *accessoryDoneBtn;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    self.view.byBgColor(HEXCOLOR(0xF5F7FA));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.cardView.byHidden(NO);
 }
 
@@ -86,7 +86,7 @@ Prop_strong()UIButton *accessoryDoneBtn;
         textField
             .byPlaceholder(placeholder.tr)
             .bySecureTextEntry(secure)
-            .byTextCor(HEXCOLOR(0x263342))
+            .byTextCor(JobsLabelColor)
             .byFont(UIFontWeightRegularSize(16))
             .byBorderStyle(UITextBorderStyleNone)
             .byClearButtonMode(UITextFieldViewModeWhileEditing)
@@ -95,7 +95,7 @@ Prop_strong()UIButton *accessoryDoneBtn;
             }))
             .byLeftViewMode(UITextFieldViewModeAlways)
             .byTintColor(HEXCOLOR(0x1D7FF2))
-            .byBgColor(HEXCOLOR(0xF0F3F7))
+            .byBgColor(JobsSecondarySystemBackgroundColor)
             .byLayer(^(__kindof CALayer * _Nullable layer) {
                 layer.byCornerRadius(JobsWidth(12));
             });
@@ -107,7 +107,7 @@ Prop_strong()UIButton *accessoryDoneBtn;
         @jobs_weakify(self)
         _cardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             view
-                .byBgColor(UIColor.whiteColor)
+            .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer
                         .byCornerRadius(JobsWidth(18))
@@ -135,7 +135,7 @@ Prop_strong()UIButton *accessoryDoneBtn;
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"Keyboard Form".tr)
-                .byTextCor(HEXCOLOR(0x263342))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightMediumSize(21))
                 .addOn(self.cardView)
                 .byAdd(^(MASConstraintMaker *make) {

@@ -34,7 +34,7 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x1F2937))
+                .byTextCor(JobsLabelColor)
                 .byText(@"Excel".tr)
                 .byFont(UIFontWeightSemiboldSize(18));
         })
@@ -48,7 +48,7 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF6F8FB));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
     self.tableView.byShow(self);
@@ -120,7 +120,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     JobsBaseTableViewCell *cell = (JobsBaseTableViewCell *)self.tbvSectionRowCellMutArr[indexPath.section][indexPath.row];
     UIColor *statusCor = [self jobs_excelStatusColorByIndexPath:indexPath];
-    cell.byBgColor(JobsWhiteColor);
+    cell.byBgColor(JobsSecondarySystemBackgroundColor);
     return cell
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
         .byIndexPath(indexPath)
@@ -130,7 +130,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
             NSString *text = label.attributedText.string.length ? label.attributedText.string : label.text;
             label.byText(text ? : @"")
-                 .byTextCor(HEXCOLOR(0x172033))
+                 .byTextCor(JobsLabelColor)
                  .byFont(UIFontWeightMediumSize(16));
         })
         .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
@@ -184,11 +184,11 @@ viewForHeaderInSection:(NSInteger)section{
             .JobsRichViewByModel2(nil)
             .JobsBlock1(^(id _Nullable data) {;
             });
-        tbvFooterView.byBgColor(HEXCOLOR(0xF6F8FB));
-        tbvFooterView.backgroundView.byBgColor(HEXCOLOR(0xF6F8FB));
+        tbvFooterView.byBgColor(JobsSecondarySystemBackgroundColor);
+        tbvFooterView.backgroundView.byBgColor(JobsSecondarySystemBackgroundColor);
         /// tbvFooterView.backgroundColor 和  tbvFooterView.contentView.backgroundColor 均是无效操作❌
         /// 只有 tbvFooterView.backgroundView.backgroundColor 是有效操作✅
-        tbvFooterView.contentView.byBgColor(HEXCOLOR(0xF6F8FB));
+        tbvFooterView.contentView.byBgColor(JobsSecondarySystemBackgroundColor);
         return tbvFooterView;
     };return nil;
 }
@@ -250,7 +250,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byShowsVerticalScrollIndicator(NO)
                 .byContentInset(UIEdgeInsetsMake(JobsWidth(4), 0, JobsBottomSafeAreaHeight(), 0))
                 .byScrollEnabled(YES)
-                .byBgColor(HEXCOLOR(0xF6F8FB))
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)

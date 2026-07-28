@@ -94,7 +94,7 @@ UILocationProtocol_synthesize
             label
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byFont(UIFontWeightRegularSize(12))
-                .byTextCor(JobsBlackColor)
+                .byTextCor(JobsLabelColor)
                 .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.centerX.equalTo(self.contentView);

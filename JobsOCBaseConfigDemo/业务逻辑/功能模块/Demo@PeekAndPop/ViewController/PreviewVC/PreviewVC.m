@@ -16,7 +16,7 @@ Prop_strong()UILabel *previewLabel;
 @implementation PreviewVC
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor([UIColor whiteColor]);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.preferredContentSize = CGSizeMake(JobsWidth(220), JobsWidth(160));
     self.previewLabel.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
         make.edges.equalTo(self.view).insets(UIEdgeInsetsMake(JobsWidth(16),
@@ -31,7 +31,7 @@ Prop_strong()UILabel *previewLabel;
         _previewLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(self.previewText)
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(0);
         });

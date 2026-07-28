@@ -15,7 +15,7 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v5B-jF-baE">
                     <rect key="frame" x="177.5" y="37" width="70" height="70"/>
-                    <color key="backgroundColor" red="0.88235294119999996" green="0.88235294119999996" blue="0.88235294119999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" xcode11CocoaTouchSystemColor="secondarySystemBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="70" id="5Br-yZ-KsN"/>
                         <constraint firstAttribute="height" constant="70" id="Cyp-FV-qgn"/>
@@ -79,7 +79,7 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="😒讨厌" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="snq-e2-8lO">
                     <rect key="frame" x="325" y="26" width="90" height="40"/>
-                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" xcode11CocoaTouchSystemColor="secondarySystemBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="90" id="XqA-vA-726"/>
                         <constraint firstAttribute="height" constant="40" id="jYh-YE-pbi"/>
@@ -90,7 +90,7 @@
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nbR-Jo-7DX">
                     <rect key="frame" x="50" y="296" width="60" height="34"/>
-                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" xcode11CocoaTouchSystemColor="tertiarySystemBackgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="60" id="19a-dT-yDY"/>
                         <constraint firstAttribute="height" constant="34" id="cah-ke-EG8"/>
@@ -101,7 +101,7 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
                 <constraint firstItem="nkd-p5-QL1" firstAttribute="leading" secondItem="Wf6-Re-hSo" secondAttribute="leading" constant="46" id="3MN-ej-dx7"/>
                 <constraint firstItem="Juh-Pv-54P" firstAttribute="leading" secondItem="Wf6-Re-hSo" secondAttribute="leading" constant="20" id="485-Wh-3i0"/>

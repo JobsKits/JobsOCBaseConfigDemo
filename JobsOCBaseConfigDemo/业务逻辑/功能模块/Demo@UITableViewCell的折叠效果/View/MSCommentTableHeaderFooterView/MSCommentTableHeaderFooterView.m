@@ -103,7 +103,7 @@ Prop_strong()UILabel *foldIconLab;
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byTextCor(HEXCOLOR(0x111827))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightBoldSize(16))
                 .byNumberOfLines(1)
                 .addOn(self.contentView)
@@ -123,7 +123,7 @@ Prop_strong()UILabel *foldIconLab;
         _subTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byTextCor(HEXCOLOR(0x6B7280))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontWeightRegularSize(12))
                 .byNumberOfLines(1)
                 .addOn(self.contentView)

@@ -85,9 +85,9 @@ UITableViewCellProtocol_dynamic
                 label.byTextCor(JobsBrownColor);
             })
             .byTextLabel(^(__kindof UILabel * _Nullable label) {
-                label.byTextCor(JobsBlackColor);
+                label.byTextCor(JobsLabelColor);
             })
-            .byBgColor([UIColor xy_createWithLightColor:JobsWhiteColor darkColor:JobsWhiteColor]);
+            .byBgColor(JobsSecondarySystemBackgroundColor);
     };
 }
 /// 获取这个UITableViewCell所承载的UITableView

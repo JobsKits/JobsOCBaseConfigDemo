@@ -298,7 +298,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
                 label
                     .byFont(JobsFontBold(JobsWidth(12)))
-                    .byTextCor(JobsGrayColor)
+                    .byTextCor(JobsSecondaryLabelColor)
                     .byFrame(CGRectMake(10,
                                          20,
                                          headerView.width - 20.f,

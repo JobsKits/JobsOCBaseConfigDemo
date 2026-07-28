@@ -161,7 +161,7 @@ NS_INLINE __kindof JobsTextField *_Nonnull makeJobsTextField(jobsByJobsTextField
                      .byLeftViewMode(UITextFieldViewModeNever)
                      .byRightViewMode(UITextFieldViewModeNever)
                      .byPlaceholder(@"Pick a Date".tr)
-                     .byPlaceholderColor(@"#BBBBBB".cor)
+                     .byPlaceholderColor(JobsPlaceholderTextColor)
                      .byPlaceholderFont(pingFangTCRegular(15))
                      .byAttributedPlaceholder(nil)
                      .byTextCor(@"#788190".cor)

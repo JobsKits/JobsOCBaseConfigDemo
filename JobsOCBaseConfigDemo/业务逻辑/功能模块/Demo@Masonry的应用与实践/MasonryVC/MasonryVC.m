@@ -35,7 +35,7 @@ Prop_strong()NSMutableArray <UIView *>*demo2ItemViewMutArr;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byTextCor(JobsLabelColor);
         })
         //    self.viewModel.textModel.text = @"消息详情页".tr;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
@@ -54,7 +54,7 @@ Prop_strong()NSMutableArray <UIView *>*demo2ItemViewMutArr;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF7F8FC));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
 //    [self demo1];
 //    [self demo2];
@@ -126,7 +126,7 @@ Prop_strong()NSMutableArray <UIView *>*demo2ItemViewMutArr;
                         currentY += tagHeight + tagSpacing;
                     }
                 })
-                .byBgColor(JobsLightGrayColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byCornerRadius(5.0)
                 .byClipsToBounds(YES)
                 .byFrame(CGRectMake(currentX, currentY, tagSize.width, tagHeight))

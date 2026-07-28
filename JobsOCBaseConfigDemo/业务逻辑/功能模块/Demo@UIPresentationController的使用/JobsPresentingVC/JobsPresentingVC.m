@@ -46,7 +46,7 @@ Prop_strong()UIButton *rightDirectionBtn;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byTextCor(JobsLabelColor);
         })
         //    self.viewModel.textModel.text = @"消息详情页".tr;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
@@ -64,7 +64,7 @@ Prop_strong()UIButton *rightDirectionBtn;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsRandomColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.topDirectionBtn.byAlpha(1);
     self.bottomDirectionBtn.byAlpha(1);
@@ -208,7 +208,7 @@ Prop_strong()UIButton *rightDirectionBtn;
             label
                 .byText(@"进入百分比".tr)
                 .byFont(UIFontWeightRegularSize(14))
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentRight)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -228,7 +228,7 @@ Prop_strong()UIButton *rightDirectionBtn;
             textField
                 .byText(@"50")
                 .byPlaceholder(@"50".tr)
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightRegularSize(14))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byBorderStyle(UITextBorderStyleRoundedRect)

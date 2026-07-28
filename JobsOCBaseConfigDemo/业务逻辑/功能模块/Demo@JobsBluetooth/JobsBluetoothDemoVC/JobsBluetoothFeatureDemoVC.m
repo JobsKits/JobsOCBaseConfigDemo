@@ -42,7 +42,7 @@ Prop_strong()JobsBluetoothManager *bluetoothManager;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.view.byBgColor(JobsWhiteColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.descriptionLabel.byVisible(YES);
     self.executeButton.byVisible(YES);
@@ -109,7 +109,7 @@ Prop_strong()JobsBluetoothManager *bluetoothManager;
             label.byText([NSString stringWithFormat:@"当前演示：%@\n默认启用 Mock Transport，可在模拟器直接验证点击链路和数据回调。".tr, self.featureTitle])
                 .byFont(UIFontWeightRegularSize(15))
                 .byNumberOfLines(0)
-                .byTextCor(JobsBlackColor)
+                .byTextCor(JobsLabelColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(16));
@@ -149,8 +149,8 @@ Prop_strong()JobsBluetoothManager *bluetoothManager;
         _logTextView = jobsMakeTextView(^(__kindof UITextView * _Nullable textView) {
             textView.byEditable(NO)
                 .byFont(UIFontMonospacedSystemWeightRegularSize(13))
-                .byTextCor(JobsBlackColor)
-                .byBgColor(HEXCOLOR(0xF2F2F7))
+                .byTextCor(JobsLabelColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer.byCornerRadius(JobsWidth(10))
                         .byMasksToBounds(YES);

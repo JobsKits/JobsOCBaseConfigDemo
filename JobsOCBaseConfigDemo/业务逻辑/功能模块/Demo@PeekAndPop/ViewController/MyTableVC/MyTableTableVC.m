@@ -36,7 +36,7 @@ Prop_strong()NSMutableArray <JobsBaseTableViewCell *>*tbvCellMutArr;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(data.attributedTitle.string)
                 .byFont(UIFontWeightRegularSize(18));
         })
@@ -51,7 +51,7 @@ Prop_strong()NSMutableArray <JobsBaseTableViewCell *>*tbvCellMutArr;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsRandomColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.tableView.byShow(self);
 }
@@ -213,7 +213,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0))
                 .byShowsVerticalScrollIndicator(NO)
                 .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
-                .byBgColor(JobsWhiteColor);
+                .byBgColor(JobsSecondarySystemBackgroundColor);
             tableView.addOn(self.view);
             [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
@@ -228,7 +228,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_tbvHeaderView) {
         _tbvHeaderView = BaiShaETProjChoiceStadiumTBVHeaderView.new
             .byText(@"選擇場館".tr)
-            .byTextCor(HEXCOLOR(0x3D4A58))
+            .byTextCor(JobsLabelColor)
             .byFont(UIFontWeightBoldSize(16))
             .byTextAlignment(NSTextAlignmentCenter)
             .bySize(BaiShaETProjChoiceStadiumTBVHeaderView.viewSizeByModel(nil));

@@ -42,7 +42,7 @@ Prop_assign()BOOL searchMode;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(data.attributedTitle.string)
                 .byFont(UIFontWeightRegularSize(16));
         })
@@ -101,7 +101,7 @@ Prop_assign()BOOL searchMode;
             @jobs_strongify(self)
             for (int i = 0; i < self.titleMutArr.count; i++) {
                 JobsVerticalMenuSubView *subView = JobsVerticalMenuSubView.new;
-                subView.byBgColor(HEXCOLOR(0xF7F8FA));
+                subView.byBgColor(JobsSecondarySystemBackgroundColor);
                 data.add(subView);
             }
         });
@@ -243,7 +243,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             tableView
                 .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
                 .byShowsVerticalScrollIndicator(NO);
-            tableView.byBgColor(HEXCOLOR(0xFCFBFB));
+            tableView.byBgColor(JobsSecondarySystemBackgroundColor);
             tableView.byFrame(jobsMakeCGRectByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
                 @jobs_strongify(self)
                 data.byJobsX(0)
@@ -332,7 +332,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
             .jobsResetImagePadding(JobsWidth(5.75))
             .jobsResetBtnBgImage(@"编辑".img)
-            .jobsResetBtnTitleCor(HEXCOLOR(0xB0B0B0))
+            .jobsResetBtnTitleCor(JobsSecondaryLabelColor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
             .jobsResetBtnTitle(@"编辑".tr)
             .onClickBy(^(UIButton *x){

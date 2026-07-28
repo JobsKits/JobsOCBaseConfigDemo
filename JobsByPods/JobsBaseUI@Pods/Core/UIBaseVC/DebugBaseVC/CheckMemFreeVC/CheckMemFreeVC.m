@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     @"检查者进栈".tr.toast();
-    self.view.byBgColor(JobsRandomColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     JobsLog(@"%@",JobsLocalFunc);
 }
 

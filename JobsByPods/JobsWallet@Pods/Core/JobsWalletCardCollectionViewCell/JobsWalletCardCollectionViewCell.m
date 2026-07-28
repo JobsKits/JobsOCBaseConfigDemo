@@ -30,7 +30,7 @@ Prop_strong()JobsWalletCardModel *cardModel;
         self.layer.shadowOpacity = 1;
         self.layer.shadowOffset = CGSizeMake(0, JobsWidth(5));
         self.layer.shadowRadius = JobsWidth(10);
-        self.contentView.byBgColor(JobsWhiteColor);
+        self.contentView.byBgColor(JobsSecondarySystemBackgroundColor);
         self.contentView.layer.cornerRadius = JobsWidth(16);
         self.contentView.layer.masksToBounds = YES;
         self.contentView.layer.borderWidth = JobsWidth(1);
@@ -128,7 +128,7 @@ Prop_strong()JobsWalletCardModel *cardModel;
         _bankNameLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byFont(UIFontWeightSemiboldSize(17))
-                .byTextCor(HEXCOLOR(0x2F3A46))
+                .byTextCor(JobsLabelColor)
                 .byNumberOfLines(1)
                 .byAdjustsFontSizeToFitWidth(YES)
                 .byMinimumScaleFactor(0.82)
@@ -148,7 +148,7 @@ Prop_strong()JobsWalletCardModel *cardModel;
         _cardNumberLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byFont(UIFontWeightBoldSize(20))
-                .byTextCor(HEXCOLOR(0x2F3A46))
+                .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentRight)
                 .byNumberOfLines(1)
                 .byAdjustsFontSizeToFitWidth(YES)
@@ -168,7 +168,7 @@ Prop_strong()JobsWalletCardModel *cardModel;
         _expirationLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byFont(UIFontWeightRegularSize(12))
-                .byTextCor(HEXCOLOR(0x5D6875))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byNumberOfLines(1)
                 .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -184,7 +184,7 @@ Prop_strong()JobsWalletCardModel *cardModel;
         _cvcLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byFont(UIFontWeightRegularSize(12))
-                .byTextCor(HEXCOLOR(0x5D6875))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byTextAlignment(NSTextAlignmentRight)
                 .byNumberOfLines(1)
                 .addOn(self.contentView)

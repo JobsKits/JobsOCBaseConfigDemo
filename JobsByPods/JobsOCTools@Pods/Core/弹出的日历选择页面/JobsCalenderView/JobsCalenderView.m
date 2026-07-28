@@ -18,7 +18,7 @@ Prop_strong()FSCalendar *calendar;
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 
@@ -40,7 +40,7 @@ Prop_strong()FSCalendar *calendar;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -183,7 +183,7 @@ atMonthPosition:(FSCalendarMonthPosition)monthPosition{
                     data.byEnabled(YES);
                 })
                 .byCalendarHeaderViewBlock(^(__kindof FSCalendarHeaderView * _Nullable data) {
-                    data.byBgColor(JobsLightGrayColor.colorWithAlphaComponentBy(.1f));
+                    data.byBgColor(JobsSecondarySystemBackgroundColor);
                 })
                 .byAppearanceBlock(^(__kindof FSCalendarAppearance * _Nullable data) {
                     data
@@ -191,7 +191,7 @@ atMonthPosition:(FSCalendarMonthPosition)monthPosition{
                         .byHeaderDateFormat(@"yyyy年MM月")
                         .byCaseOptions(FSCalendarCaseOptionsHeaderUsesUpperCase)
                         .byHeaderTitleFont(pingFangHKBold(JobsWidth(20)))
-                        .byHeaderTitleColor(JobsBlackColor);
+                        .byHeaderTitleColor(JobsLabelColor);
                 })
                 .byFrame(CGRectMake(0, 0, self.width, self.height))
                 .addOn(self)

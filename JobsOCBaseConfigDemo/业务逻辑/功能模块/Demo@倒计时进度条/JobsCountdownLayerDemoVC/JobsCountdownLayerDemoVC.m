@@ -40,7 +40,7 @@ Prop_assign()CGFloat totalSeconds;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"导火索倒计时".tr)
                 .byFont(UIFontWeightRegularSize(16))
-                .byTextCor(HEXCOLOR(0x3D4A58));
+                .byTextCor(JobsLabelColor);
         })
         .byBgCor(HEXCOLOR(0xF4F5F8))
         .byNavBgCor(HEXCOLOR(0xF4F5F8));
@@ -49,7 +49,7 @@ Prop_assign()CGFloat totalSeconds;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.totalSeconds = 6;
-    self.view.byBgColor(HEXCOLOR(0xF4F5F8));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     [self setupSubviews];
 }
@@ -212,7 +212,7 @@ Prop_assign()CGFloat totalSeconds;
         _stateLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"点击按钮，任意 UIView.layer 都可以挂一圈导火索倒计时。".tr)
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightRegularSize(15))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(2);
@@ -225,7 +225,7 @@ Prop_assign()CGFloat totalSeconds;
         _detailLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"这个 Demo 复用 OC Pod JobsFuseAnimation：UIView 分类只负责 Layer 外圈动画，页面里的 JobsTimer 负责倒计时文案和结束态。按钮只是示例，换成任意 UIView 也可以。".tr)
-                .byTextCor(HEXCOLOR(0x5F6B7A))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontWeightRegularSize(14))
                 .byTextAlignment(NSTextAlignmentLeft)
                 .byNumberOfLines(0);

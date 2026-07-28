@@ -51,7 +51,7 @@ Prop_strong()UIView *topLine;
     if (!_topLine) {
         _topLine = jobsMakeView(^(__kindof UIView * _Nullable view) {
             view
-                .byBgColor(JobsGrayColor)
+                .byBgColor(JobsSeparatorColor)
                 .addOn(self);
         });
     };return _topLine;
@@ -59,7 +59,9 @@ Prop_strong()UIView *topLine;
 
 - (UIVisualEffectView *)effectView {
     if (!_effectView) {
-        UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+        UIBlurEffectStyle effectStyle = UIBlurEffectStyleLight;
+        if (@available(iOS 13.0, *)) effectStyle = UIBlurEffectStyleSystemMaterial;
+        UIBlurEffect *effect = [UIBlurEffect effectWithStyle:effectStyle];
         _effectView = [UIVisualEffectView.alloc initWithEffect:effect];
         _effectView.byAlpha(1.0);
         _effectView.addOn(self);

@@ -43,7 +43,7 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*dataMutArr;/// 我的数据源
         .byBgCor(JobsClearColor)
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightRegularSize(18))
                 .byText(data.attributedTitle.string);
         })
@@ -59,7 +59,7 @@ Prop_strong()NSMutableArray <VideoModel_Core *>*dataMutArr;/// 我的数据源
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsBlackColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.tableView.byShow(self);
     self.bitsMonitorSuspendLab.byVisible(YES);

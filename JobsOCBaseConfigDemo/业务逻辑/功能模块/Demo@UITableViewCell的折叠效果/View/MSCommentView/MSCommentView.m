@@ -33,7 +33,7 @@ static dispatch_once_t static_commentViewOnceToken;
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 
@@ -69,12 +69,12 @@ static dispatch_once_t static_commentViewOnceToken;
 #pragma mark —— 一些私有方法
 -(void)cleanTableViewDebugBackground{
     if (!_tableView) return;
-    _tableView.byBgColor(HEXCOLOR(0xF5F7FB));
-    _tableView.backgroundView.byBgColor(HEXCOLOR(0xF5F7FB));
+    _tableView.byBgColor(JobsSecondarySystemBackgroundColor);
+    _tableView.backgroundView.byBgColor(JobsSecondarySystemBackgroundColor);
     for (UIView *subview in _tableView.subviews) {
         if (![subview isKindOfClass:UITableViewCell.class] &&
             ![subview isKindOfClass:UITableViewHeaderFooterView.class]) {
-            subview.byBgColor(HEXCOLOR(0xF5F7FB));
+            subview.byBgColor(JobsSecondarySystemBackgroundColor);
         }
     }
 }
@@ -87,7 +87,7 @@ static dispatch_once_t static_commentViewOnceToken;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -203,7 +203,7 @@ willDisplayHeaderView:(UIView *)view
                     /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 }))
                 .byBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
-                    view.byBgColor(HEXCOLOR(0xF5F7FB));
+                    view.byBgColor(JobsSecondarySystemBackgroundColor);
                 }))
                 .byFoldable(YES)
                 .byShowsVerticalScrollIndicator(NO)
@@ -221,7 +221,7 @@ willDisplayHeaderView:(UIView *)view
                     self.tableView.endRefreshing(YES);
                     return nil;
                 }]))
-                .byBgColor(HEXCOLOR(0xF5F7FB));
+                .byBgColor(JobsSecondarySystemBackgroundColor);
             tableView.opaque = YES;
             tableView.registerHeaderFooterViewClass(MSCommentTableHeaderFooterView.class,@"");
             if(@available(iOS 11.0, *)) {

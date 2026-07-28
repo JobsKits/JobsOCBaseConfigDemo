@@ -76,11 +76,11 @@ UITextFieldProtocol_synthesize_part2
     if (selected){
         self.contentView.byBgColor(HEXCOLOR(0xFFF7EA));
         self.flagView.byBgColor(HEXCOLOR(0xAE8330));
-        self.titleLabel.byTextCor(HEXCOLOR(0x3D4A58)).byFont(UIFontWeightBoldSize(14));
+        self.titleLabel.byTextCor(JobsLabelColor).byFont(UIFontWeightBoldSize(14));
     }else{
-        self.contentView.byBgColor(HEXCOLOR(0xFFFFFF));
-        self.flagView.byBgColor(HEXCOLOR(0xFFFFFF));
-        self.titleLabel.byTextCor(HEXCOLOR(0x8C96A3)).byFont(UIFontWeightRegularSize(14));
+        self.contentView.byBgColor(JobsSecondarySystemBackgroundColor);
+        self.flagView.byBgColor(JobsSecondarySystemBackgroundColor);
+        self.titleLabel.byTextCor(JobsSecondaryLabelColor).byFont(UIFontWeightRegularSize(14));
     }
 }
 
@@ -89,15 +89,15 @@ UITextFieldProtocol_synthesize_part2
     if (highlighted){
         self.contentView.byBgColor(HEXCOLOR(0xFFF7EA));
         self.flagView.byBgColor(HEXCOLOR(0xAE8330));
-        self.titleLabel.byTextCor(HEXCOLOR(0x3D4A58)).byFont(UIFontWeightBoldSize(14));
+        self.titleLabel.byTextCor(JobsLabelColor).byFont(UIFontWeightBoldSize(14));
     }else if (self.selected){
         self.contentView.byBgColor(HEXCOLOR(0xFFF7EA));
         self.flagView.byBgColor(HEXCOLOR(0xAE8330));
-        self.titleLabel.byTextCor(HEXCOLOR(0x3D4A58)).byFont(UIFontWeightBoldSize(14));
+        self.titleLabel.byTextCor(JobsLabelColor).byFont(UIFontWeightBoldSize(14));
     }else{
-        self.contentView.byBgColor(HEXCOLOR(0xFFFFFF));
-        self.flagView.byBgColor(HEXCOLOR(0xFFFFFF));
-        self.titleLabel.byTextCor(HEXCOLOR(0x8C96A3)).byFont(UIFontWeightRegularSize(14));
+        self.contentView.byBgColor(JobsSecondarySystemBackgroundColor);
+        self.flagView.byBgColor(JobsSecondarySystemBackgroundColor);
+        self.titleLabel.byTextCor(JobsSecondaryLabelColor).byFont(UIFontWeightRegularSize(14));
     }
 }
 #pragma mark —— lazyLoad
@@ -107,7 +107,7 @@ UITextFieldProtocol_synthesize_part2
         _titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byTextCor(HEXCOLOR(0x8C96A3))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byFont(bayonRegular(JobsWidth(14)))
                 .byTextAlignment(NSTextAlignmentCenter)
             .addOn(self.contentView)
@@ -132,7 +132,7 @@ UITextFieldProtocol_synthesize_part2
                                     0,
                                     3,
                                     LeftCell_Height))
-                .byBgColor(HEXCOLOR(0xFFFFFF))
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self.contentView);
         });
     };return _flagView;

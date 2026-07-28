@@ -101,7 +101,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byTextCor(JobsBrownColor);
         })
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
-            label.byTextCor(JobsBlackColor);
+            label.byTextCor(JobsLabelColor);
         })
         .JobsBlock1(^(id _Nullable data) {;
         });
@@ -171,7 +171,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     self->_tableView.endRefreshing(self.dataMutArr.count);
                     return nil;
                 }]))
-                .byBgColor(JobsWhiteColor);
+                .byBgColor(JobsSecondarySystemBackgroundColor);
             self.view.addSubview(tableView);
             [self fullScreenConstraintTargetView:tableView topViewOffset:0];
         });

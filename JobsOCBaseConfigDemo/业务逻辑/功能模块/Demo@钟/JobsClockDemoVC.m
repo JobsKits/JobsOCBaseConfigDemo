@@ -33,7 +33,7 @@ Prop_strong()JobsClockView *clockView;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(data.attributedTitle.string)
                 .byFont(UIFontWeightRegularSize(18));
         })
@@ -52,7 +52,7 @@ Prop_strong()JobsClockView *clockView;
     if (@available(iOS 13.0, *)) {
         self.view.byBgColor(UIColor.systemBackgroundColor);
     } else {
-        self.view.byBgColor(UIColor.whiteColor);
+        self.view.byBgColor(JobsSystemBackgroundColor);
     }
     self.clockView.byVisible(YES);
 }

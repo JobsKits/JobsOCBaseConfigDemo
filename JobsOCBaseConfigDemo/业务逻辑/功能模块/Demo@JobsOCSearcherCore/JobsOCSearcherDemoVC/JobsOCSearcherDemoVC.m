@@ -53,7 +53,7 @@ Prop_strong()JobsOCSearcherView *searchView;
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    self.view.byBgColor(HEXCOLOR(0xF6F8FC));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.searchView.byAlpha(1);
 }
 

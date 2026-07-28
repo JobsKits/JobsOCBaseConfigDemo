@@ -196,16 +196,16 @@ AppToolsProtocol_synthesize
         _szTextView = self.contentView.addSubview(jobsMakeSZTextView(^(SZTextView * _Nonnull textView) {
             @jobs_strongify(self)
             textView
-                .byTextCor(JobsBlackColor)
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightMediumSize(18))
-                .byBgColor(@"#F9F9F9".cor);
+                .byBgColor(JobsSecondarySystemBackgroundColor);
             textView.delegate = self;
             textView.returnKeyType = UIReturnKeyDefault;
             textView.keyboardAppearance = UIKeyboardAppearanceDefault;
             textView.keyboardType = UIKeyboardTypeNumberPad;
             textView.placeholder = @"请输入充值金额".tr;
             textView.placeholderFont = textView.font;
-            textView.placeholderColor = @"#AAAAAA".cor;
+            textView.placeholderColor = JobsPlaceholderTextColor;
             [textView jobsTextViewFilterBlock:^BOOL(id  _Nullable data) {
 //                @jobs_strongify(self)
                 return YES;
@@ -221,16 +221,16 @@ AppToolsProtocol_synthesize
         @jobs_weakify(self)
         _jobsTextView = self.contentView.addSubview(makeJobsTextView(^(__kindof JobsTextView * _Nullable textView) {
             @jobs_strongify(self)
-            textView.szTextView.byTextCor(JobsBlackColor);
+            textView.szTextView.byTextCor(JobsLabelColor);
             textView.szTextView.delegate = self;
-            textView.byBgColor(@"#F9F9F9".cor);
+            textView.byBgColor(JobsSecondarySystemBackgroundColor);
             textView.returnKeyType_ = UIReturnKeyDefault;
             textView.keyboardAppearance_ = UIKeyboardAppearanceDefault;
             textView.keyboardType_ = UIKeyboardTypeNumberPad;
             textView.placeholder = @"请输入充值金额".tr;
             textView.font = UIFontWeightMediumSize(18);
             textView.placeholderFont = textView.font;
-            textView.placeholderColor = @"#AAAAAA".cor;
+            textView.placeholderColor = JobsPlaceholderTextColor;
             [textView.szTextView jobsTextViewFilterBlock:^BOOL(id _Nullable data) {
 //                @jobs_strongify(self)
                 return YES;

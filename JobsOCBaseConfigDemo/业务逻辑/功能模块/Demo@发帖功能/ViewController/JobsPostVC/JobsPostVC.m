@@ -54,7 +54,7 @@ Prop_strong()UITextModel *postTextModel;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(data.attributedTitle.string)
                 .byFont(UIFontWeightRegularSize(16));
         })
@@ -77,7 +77,7 @@ Prop_strong()UITextModel *postTextModel;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsWhiteColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     @jobs_weakify(self)
     self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
 //        @jobs_strongify(self)
@@ -215,15 +215,15 @@ Prop_strong()UITextModel *postTextModel;
     })
                            alertVCBlock:^(SPAlertController *data,
                                           NSMutableArray <SPAlertAction *>*data2) {
-        data.titleColor = JobsBlackColor;
-        data.messageColor = JobsBlackColor;
+        data.titleColor = JobsLabelColor;
+        data.messageColor = JobsLabelColor;
         data.titleFont = UIFontWeightSemiboldSize(16);
         data.messageFont = UIFontWeightMediumSize(14);
         SPAlertAction *action1 = (SPAlertAction *)data2[0];
         SPAlertAction *action2 = (SPAlertAction *)data2[1];
-        action1.titleColor = JobsLightGrayColor;
+        action1.titleColor = JobsSecondaryLabelColor;
         action1.titleFont = UIFontWeightSemiboldSize(16);
-        action2.titleColor = JobsBlackColor;
+        action2.titleColor = JobsLabelColor;
         action2.titleFont = UIFontWeightSemiboldSize(16);
     } completionBlock:nil];
 }
@@ -375,7 +375,7 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
         _jobsTextView = makeJobsTextView(^(__kindof JobsTextView * _Nullable textView) {
             @jobs_strongify(self)
             textView
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .JobsRichViewByModel2(self.postTextModel)
                 .JobsBlock1(^(id  _Nullable data) {
                     @jobs_strongify(self)
@@ -475,7 +475,7 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
         _postTextModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data) {
             @jobs_strongify(self)
             data.byText(self.inputDataHistoryString)
-                .byTextCor(JobsBlackColor)
+                .byTextCor(JobsLabelColor)
                 .byPlaceholder(@"撩骚内容，写在这里哦~".tr)
                 .byPlaceholderColor(RGB_SAMECOLOR(173))
                 .byFont(UIFontWeightRegularSize(14))

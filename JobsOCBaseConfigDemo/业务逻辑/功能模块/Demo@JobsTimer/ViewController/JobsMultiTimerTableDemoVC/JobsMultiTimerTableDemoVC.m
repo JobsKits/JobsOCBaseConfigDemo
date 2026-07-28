@@ -49,7 +49,7 @@ Prop_strong()NSMutableArray<NSMutableDictionary<NSString *, id> *>*dataMutArr;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"时时彩".tr)
                 .byFont(UIFontWeightRegularSize(16))
-                .byTextCor(HEXCOLOR(0x3D4A58));
+                .byTextCor(JobsLabelColor);
         })
         .byBgCor(RGBA_COLOR(255, 238, 221, 1))
         .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
@@ -58,7 +58,7 @@ Prop_strong()NSMutableArray<NSMutableDictionary<NSString *, id> *>*dataMutArr;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF4F5F8));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     [self setupRows];
     self.tableView.byVisible(YES);
@@ -187,7 +187,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byRowHeight(JobsWidth(56))
                 .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
                 .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.right.bottom.equalTo(self.view);

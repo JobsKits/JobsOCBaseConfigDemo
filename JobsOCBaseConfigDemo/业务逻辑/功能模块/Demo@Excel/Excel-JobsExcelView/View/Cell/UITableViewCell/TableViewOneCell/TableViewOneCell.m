@@ -28,7 +28,7 @@ Prop_assign()CGSize size;
             cell = [self initTableViewCell:self withStyle:UITableViewCellStyleValue1];
             cell
                 .bySelectionStyle(UITableViewCellSelectionStyleNone)
-                .byBgColor(JobsWhiteColor);
+                .byBgColor(JobsSecondarySystemBackgroundColor);
         };return cell;
     };
 }

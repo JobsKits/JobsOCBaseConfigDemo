@@ -34,7 +34,7 @@ static dispatch_once_t static_testPopupViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
         self.backgroundImageView.byImage(@"测试弹窗的背景图".img);
     };return self;
 }

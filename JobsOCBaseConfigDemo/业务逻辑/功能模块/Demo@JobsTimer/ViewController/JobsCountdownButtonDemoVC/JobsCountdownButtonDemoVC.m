@@ -40,7 +40,7 @@ Prop_strong()UITextView *tipsTextView;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"倒计时按钮".tr)
                 .byFont(UIFontWeightRegularSize(16))
-                .byTextCor(HEXCOLOR(0x3D4A58));
+                .byTextCor(JobsLabelColor);
         })
         .byBgCor(RGBA_COLOR(255, 238, 221, 1))
         .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
@@ -49,7 +49,7 @@ Prop_strong()UITextView *tipsTextView;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF4F5F8));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.countdownBtn.byVisible(YES);
     self.stateLab.byVisible(YES);
@@ -129,7 +129,7 @@ Prop_strong()UITextView *tipsTextView;
             @jobs_strongify(self)
             label.byText(@"点击按钮开始验证码倒计时".tr)
                 .byFont(UIFontWeightRegularSize(14))
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(2)
                 .addOn(self.view)
@@ -157,7 +157,7 @@ Prop_strong()UITextView *tipsTextView;
                 .bySelectable(NO)
                 .byTextContainerInset(UIEdgeInsetsMake(JobsWidth(12), JobsWidth(12), JobsWidth(12), JobsWidth(12)))
                 .byLineFragmentPadding(0)
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byCornerRadius(JobsWidth(8))
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {

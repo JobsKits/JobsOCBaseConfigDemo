@@ -41,7 +41,7 @@ didFinishSavingWithError:(NSError *)error
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(self.pageTitle.tr)
                 .byFont(UIFontWeightRegularSize(17))
-                .byTextCor(HEXCOLOR(0x3D4A58));
+                .byTextCor(JobsLabelColor);
         })
         .byBgCor(HEXCOLOR(0xF4F5F8))
         .byNavBgCor(HEXCOLOR(0xF4F5F8));
@@ -49,7 +49,7 @@ didFinishSavingWithError:(NSError *)error
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF4F5F8));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.imageView.byAlpha(1);
     self.statusLabel.byAlpha(1);
@@ -215,7 +215,7 @@ didFinishSavingWithError:(NSError *)error
         _statusLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byTextAlignment(NSTextAlignmentCenter)
-                .byTextCor(HEXCOLOR(0x5A6372))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontWeightRegularSize(13))
                 .byNumberOfLines(0)
                 .addOn(self.view)

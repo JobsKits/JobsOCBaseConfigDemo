@@ -39,7 +39,7 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x273244))
+                .byTextCor(JobsLabelColor)
                 .byText(@"消息详情页".tr)
                 .byFont(UIFontWeightBoldSize(17));
         })
@@ -105,7 +105,7 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
         _headerCardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
             view
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(12));
@@ -129,7 +129,7 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
         _contentCardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
             view
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.headerCardView.mas_bottom).offset(JobsWidth(12));
@@ -155,7 +155,7 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
             label
                 .byText(self.msgDataModel.textModel.text)
                 .byFont(UIFontWeightBoldSize(18))
-                .byTextCor(HEXCOLOR(0x273244))
+                .byTextCor(JobsLabelColor)
                 .byNumberOfLines(2)
                 .addOn(self.headerCardView)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -176,7 +176,7 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
             label
                 .byFont(UIFontWeightRegularSize(12))
                 .byText(self.msgDataModel.timeText)
-                .byTextCor(HEXCOLOR(0x8F98A6))
+                .byTextCor(JobsSecondaryLabelColor)
                 .addOn(self.headerCardView)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.titleLab.mas_bottom).offset(JobsWidth(10));
@@ -194,7 +194,7 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
             .jobsResetBtnTitle(self.msgDataModel.isDraw ?
                                JobsSpace.add(@"已领取".tr).add(JobsSpace) :
                                JobsSpace.add(@"领取".tr).add(JobsSpace))
-            .jobsResetBtnTitleCor(self.msgDataModel.isDraw ? HEXCOLOR(0x8F98A6) : HEXCOLOR(0xAE8330))
+            .jobsResetBtnTitleCor(self.msgDataModel.isDraw ? JobsSecondaryLabelColor : HEXCOLOR(0xAE8330))
             .selectedStateTitleColorBy(HEXCOLOR(0x8F98A6))
             .bgColorBy(self.msgDataModel.isDraw ? HEXCOLOR(0xF1F4F8) : HEXCOLOR(0xFFF4DD))
             .jobsResetBtnTitleFont(UIFontWeightMediumSize(12))
@@ -215,7 +215,7 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
         _lineLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byBgColor(HEXCOLOR(0xEAEBED))
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self.headerCardView)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.equalTo(self.headerCardView).offset(JobsWidth(16));

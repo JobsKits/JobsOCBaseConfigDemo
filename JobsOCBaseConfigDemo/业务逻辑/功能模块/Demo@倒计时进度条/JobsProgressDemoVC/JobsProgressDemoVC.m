@@ -43,7 +43,7 @@ Prop_assign()BOOL autoRunning;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"自定义进度条".tr)
                 .byFont(UIFontWeightRegularSize(16))
-                .byTextCor(HEXCOLOR(0x3D4A58));
+                .byTextCor(JobsLabelColor);
         })
         .byBgCor(HEXCOLOR(0xF4F5F8))
         .byNavBgCor(HEXCOLOR(0xF4F5F8));
@@ -51,7 +51,7 @@ Prop_assign()BOOL autoRunning;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF4F5F8));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     [self setupSubviews];
     [self.progressBar setDisplayPercent:35 animated:NO duration:0];
@@ -228,7 +228,7 @@ Prop_assign()BOOL autoRunning;
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"进度值 + 前进方向".tr)
-                .byTextCor(HEXCOLOR(0x111827))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightBoldSize(18))
                 .byTextAlignment(NSTextAlignmentCenter);
         });
@@ -300,7 +300,7 @@ Prop_assign()BOOL autoRunning;
         _percentTextField = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
             textField
                 .byText(@"35")
-                .byTextCor(HEXCOLOR(0x111827))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightSemiboldSize(17))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byPlaceholder(@"0 ~ 100".tr)
@@ -310,7 +310,7 @@ Prop_assign()BOOL autoRunning;
                 .onJobsEvent(UIControlEventEditingDidEnd, ^(__kindof UIControl * _Nullable control) {
                     [weak_self percentTextEditingDidEnd];
                 })
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer
                         .byCornerRadius(JobsWidth(10))
@@ -372,7 +372,7 @@ Prop_assign()BOOL autoRunning;
         _stateLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"JobsProgressBar 来自 OC 本地 Pod：支持方向、显示值模式、拖动和自动进度。".tr)
-                .byTextCor(HEXCOLOR(0x5F6B7A))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontWeightRegularSize(14))
                 .byNumberOfLines(0);
         });

@@ -35,7 +35,7 @@ Prop_strong()UILabel *statusLab;
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    self.view.byBgColor(HEXCOLOR(0xF5F7FA));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.statusLab.byHidden(NO);
     [self startGyroscope];
 }
@@ -72,10 +72,10 @@ Prop_strong()UILabel *statusLab;
             label
                 .byText(@"正在等待陀螺仪数据…".tr)
                 .byFont(UIFontMonospacedDigitSystemWeightMediumSize(17))
-                .byTextCor(HEXCOLOR(0x263342))
+                .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(0)
-                .byBgColor(UIColor.whiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.right.equalTo(self.view).inset(JobsWidth(20));

@@ -40,7 +40,7 @@ Prop_strong()UIColor *oddRowColor;  //奇数
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(@"ZMJSchedule".tr)
                 .byFont(UIFontWeightRegularSize(18));
         })
@@ -54,7 +54,7 @@ Prop_strong()UIColor *oddRowColor;  //奇数
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsRandomColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
     self.spreadsheetView.byAlpha(1);

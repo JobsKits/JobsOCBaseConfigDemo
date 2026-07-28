@@ -49,7 +49,7 @@ Prop_strong()NSArray <NSDictionary <NSString *, NSString *>*>*iconOptions;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(data.attributedTitle.string)
                 .byFont(UIFontWeightRegularSize(18));
         })
@@ -64,7 +64,7 @@ Prop_strong()NSArray <NSDictionary <NSString *, NSString *>*>*iconOptions;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsRandomColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.iconCollectionView.byAlpha(1);
     [self.iconCollectionView reloadData];
@@ -202,7 +202,7 @@ Prop_strong()NSArray <NSDictionary <NSString *, NSString *>*>*iconOptions;
             label
                 .byFont(UIFontWeightRegularSize(JobsWidth(12)))
                 .byTextAlignment(NSTextAlignmentCenter)
-                .byTextCor(HEXCOLOR(0x26313D))
+                .byTextCor(JobsLabelColor)
                 .byTag(JobsAppIconTitleLabTag)
                 .addOn(cell.contentView);
         });
@@ -242,7 +242,7 @@ Prop_strong()NSArray <NSDictionary <NSString *, NSString *>*>*iconOptions;
     NSString *currentIconName = self.currentAppIconName;
     BOOL selected = [currentIconName isEqualToString:option[JobsAppIconNameKey]];
     cell.contentView
-        .byBgColor(JobsWhiteColor)
+        .byBgColor(JobsSecondarySystemBackgroundColor)
         .byLayer(^(__kindof CALayer * _Nullable layer) {
             layer
                 .byCornerRadius(JobsWidth(10))

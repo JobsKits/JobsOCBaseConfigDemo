@@ -7,6 +7,7 @@
 
 #import "ViewController@1.h"
 #import "JobsOCDemoListSettingsVC.h"
+#import <JobsBaseUI/UIViewController+BaseNavigationBar.h>
 #import <JobsViewPush/JobsViewPush.h>
 
 BOOL ISLogin;
@@ -87,6 +88,7 @@ Prop_assign()BOOL demoSideMenuOpen;
 Prop_assign()BOOL suspendFuseLongPressConsumed;
 Prop_assign()NSInteger suspendSpinSeconds;
 Prop_assign()AppLanguage demoListRenderedLanguage;
+Prop_assign()JobsOCDemoListCellTextDisplayStrategy appliedCellTextDisplayStrategy;
 
 -(void)setupSuspendButtons;
 -(void)setupSuspendTimers;
@@ -233,6 +235,7 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
     }
     self.setupNavigationBarHidden = YES;
     self.demoListRenderedLanguage = LanMgr.language;
+    self.appliedCellTextDisplayStrategy = JobsOCCurrentDemoListCellTextDisplayStrategy();
     [self updateLocalizedContent];
     @jobs_weakify(self)
     [self addNotificationName:语言切换
@@ -241,6 +244,12 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
         @jobs_strongify(self)
         [self reloadLocalizedDemoListContent];
     }];
+    [self addNotificationName:JobsOCGlobalThemeDidChangeNotification
+                        block:^(id _Nullable weakSelf,
+                                id _Nullable arg) {
+        @jobs_strongify(self)
+        [self applyDemoListInterfaceStyle];
+    }];
     /// 装填用户信息数据
     /// json生成器 ： https://www.site24x7.com/zhcn/tools/json-generator.html
     self.saveUserInfo(JobsUserModel.byData(@"UserData".readLocalFileWithName));// 保存全局唯一的一份用户档案
@@ -248,11 +257,11 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsWhiteColor);
+    self.view.byBgColor(JobsSecondarySystemBackgroundColor);
     if (@available(iOS 11.0, *)) {
         self.view.byBgColor(@"TextColor0".namedCor);
     }else{
-        self.view.byBgColor(JobsWhiteColor);
+        self.view.byBgColor(JobsSecondarySystemBackgroundColor);
     }
     @jobs_weakify(self)
     self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
@@ -296,12 +305,15 @@ Prop_assign()AppLanguage demoListRenderedLanguage;
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    JobsOCDemoListCellTextDisplayStrategy strategy = JobsOCCurrentDemoListCellTextDisplayStrategy();
+    BOOL textDisplayStrategyChanged = strategy != self.appliedCellTextDisplayStrategy;
+    self.appliedCellTextDisplayStrategy = strategy;
     [self reloadLocalizedDemoListContentIfNeeded];
     [self applyDemoListInterfaceStyle];
     [self refreshSuspendTimeButtonVisibility];
     if ([self demoListReturnToTopAndRefreshEnabled]) {
         [self reloadDemoListToTopAndRefresh];
-    }else if (!self.demoListHasAppeared){
+    }else if (!self.demoListHasAppeared || textDisplayStrategyChanged){
         [self.tableView reloadData];
     }
     self.demoListHasAppeared = YES;
@@ -512,7 +524,7 @@ viewForHeaderInSection:(NSInteger)section{
             jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
                 label
                     .byText(@"搜索历史".tr)
-                    .byTextCor(HEXCOLOR(0x202733))
+                    .byTextCor(JobsLabelColor)
                     .byFont(UIFontWeightSemiboldSize(JobsWidth(17)))
                     .addOn(view)
                     .byAdd(^(MASConstraintMaker *make) {
@@ -523,7 +535,7 @@ viewForHeaderInSection:(NSInteger)section{
             jobsMakeButton(^(__kindof UIButton * _Nullable button) {
                 button
                     .jobsResetBtnTitle(@"清空".tr)
-                    .jobsResetBtnTitleCor(HEXCOLOR(0x8A93A1))
+                    .jobsResetBtnTitleCor(JobsSecondaryLabelColor)
                     .jobsResetBtnTitleFont(UIFontWeightRegularSize(JobsWidth(13)))
                     .jobsResetBtnBgCor(JobsClearColor)
                     .onClickBy(^(UIButton *x) {
@@ -1138,7 +1150,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             if (@available(iOS 13.0, *)) {
                 view.byBgColor(UIColor.systemGray6Color);
             }else{
-                view.byBgColor(HEXCOLOR(0xF2F2F7));
+                view.byBgColor(JobsSecondarySystemBackgroundColor);
             }
         });
     };return _demoSideMenuView;
@@ -1316,8 +1328,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 -(void)applyDemoListInterfaceStyle{
     if (@available(iOS 13.0, *)) {
         UIUserInterfaceStyle style = [self demoListDarkModeEnabled] ? UIUserInterfaceStyleDark : UIUserInterfaceStyleLight;
-        for (UIWindow *window in UIApplication.sharedApplication.windows) {
-            window.overrideUserInterfaceStyle = style;
+        for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
+            if (![scene isKindOfClass:UIWindowScene.class]) continue;
+            for (UIWindow *window in ((UIWindowScene *)scene).windows) {
+                window.overrideUserInterfaceStyle = style;
+            }
         }
     }
     self.view.byBgColor([self demoListPageBackgroundColor]);
@@ -1333,7 +1348,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         if (@available(iOS 13.0, *)) {
             _demoSideMenuView.byBgColor(UIColor.systemGray6Color);
         }else{
-            _demoSideMenuView.byBgColor(HEXCOLOR(0xF2F2F7));
+            _demoSideMenuView.byBgColor(JobsSecondarySystemBackgroundColor);
         }
     }
     if (_demoSideMenuTableView) [_demoSideMenuTableView reloadData];
@@ -1342,33 +1357,39 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 -(UIColor *)demoListPageBackgroundColor{
+    if (@available(iOS 13.0, *)) return UIColor.systemBackgroundColor;
     return [self demoListDarkModeEnabled] ? HEXCOLOR(0x0F1115) : JobsWhiteColor;
 }
 
 -(UIColor *)demoListNavigationBackgroundColor{
-    return [self demoListDarkModeEnabled] ? HEXCOLOR(0x15171C) : RGBA_COLOR(255, 238, 221, 1);
+    if (@available(iOS 13.0, *)) return UIColor.systemBackgroundColor;
+    return [self demoListDarkModeEnabled] ? HEXCOLOR(0x15171C) : JobsWhiteColor;
 }
 
 -(UIColor *)demoListPrimaryTextColor{
+    if (@available(iOS 13.0, *)) return UIColor.labelColor;
     return [self demoListDarkModeEnabled] ? HEXCOLOR(0xF4F5F8) : HEXCOLOR(0x3D4A58);
 }
 
 -(UIColor *)demoListSecondaryTextColor{
+    if (@available(iOS 13.0, *)) return UIColor.secondaryLabelColor;
     return [self demoListDarkModeEnabled] ? HEXCOLOR(0xA8AFBC) : HEXCOLOR(0x8A93A1);
 }
 
 -(UIColor *)demoListCellBackgroundColor{
+    if (@available(iOS 13.0, *)) return UIColor.secondarySystemGroupedBackgroundColor;
     return [self demoListDarkModeEnabled] ? HEXCOLOR(0x191B20) : JobsWhiteColor;
 }
 
 -(UIColor *)demoListSeparatorColor{
+    if (@available(iOS 13.0, *)) return UIColor.separatorColor;
     return [self demoListDarkModeEnabled] ? HEXCOLOR(0x30333A) : HEXCOLOR(0xE5E7EB);
 }
 
 -(void)applyDemoListNavigationInterfaceStyle{
     self
         .byGKNavBackgroundColor([self demoListNavigationBackgroundColor])
-        .byGKNavBackgroundImage([self demoListDarkModeEnabled] ? nil : @"导航栏左侧底图".img)
+        .byGKNavBackgroundImage(nil)
         .byGKNavTitleColor([self demoListPrimaryTextColor])
         .byGKNavShadowColor(JobsClearColor)
         .byGKNavLineHidden(YES)
@@ -2669,7 +2690,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             .byText(@"- 没有更多的内容了 -".tr)
             .byFont(UIFontWeightRegularSize(12))
             .byTextAlignment(NSTextAlignmentCenter)
-            .byTextCor(HEXCOLOR(0xB0B0B0))
+            .byTextCor(JobsSecondaryLabelColor)
             .makeLabelByShowingType(UILabelShowingType_03);
     });
 }
@@ -2945,8 +2966,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsLinkageMenuViewDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"JobsOCRefresher".tr)
-                     .bySubTitle(@"横向 / 纵向刷新与加载更多".tr)
+                model.byTitle(@"横向 / 纵向刷新与加载更多".tr)
+                     .bySubTitle(@"重写MJRefresh".tr)
                      .byCls(JobsOCRefresherDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {

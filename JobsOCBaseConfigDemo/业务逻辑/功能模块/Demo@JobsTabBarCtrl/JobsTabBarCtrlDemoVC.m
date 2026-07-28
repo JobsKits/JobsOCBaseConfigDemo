@@ -34,7 +34,7 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(@"JobsTabBarCtrl@横滑 Demo（>5 个按钮）".tr)
                 .byFont(UIFontWeightRegularSize(18));
         })

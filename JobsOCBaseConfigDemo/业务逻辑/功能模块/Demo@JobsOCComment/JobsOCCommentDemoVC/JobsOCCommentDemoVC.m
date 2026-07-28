@@ -42,7 +42,7 @@ Prop_strong()JobsPresentationCtrl *presentationController;
             data
                 .byText(@"评论功能".tr)
                 .byFont(UIFontWeightRegularSize(18))
-                .byTextCor(HEXCOLOR(0x2D3642));
+                .byTextCor(JobsLabelColor);
         })
         .byBgCor(HEXCOLOR(0xF6F7FB))
         .byNavBgCor(HEXCOLOR(0xF6F7FB));
@@ -51,7 +51,7 @@ Prop_strong()JobsPresentationCtrl *presentationController;
 -(void)viewDidLoad{
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    self.view.byBgColor(HEXCOLOR(0xF6F7FB));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.commentListView.byAlpha(1);
 }
 #pragma mark —— UITableViewDelegate, UITableViewDataSource
@@ -75,15 +75,15 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     JobsOCCommentMode mode = self.modeArr[indexPath.row].integerValue;
     cell.textLabel
         .byText([JobsOCCommentConfig titleByMode:mode].tr)
-        .byTextCor(HEXCOLOR(0x2D3642))
+        .byTextCor(JobsLabelColor)
         .byFont(UIFontWeightMediumSize(16));
     cell.detailTextLabel
         .byText([JobsOCCommentConfig subtitleByMode:mode].tr)
-        .byTextCor(HEXCOLOR(0x7A8491))
+        .byTextCor(JobsSecondaryLabelColor)
         .byFont(UIFontWeightRegularSize(13));
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-    cell.byBgColor(UIColor.whiteColor);
+    cell.byBgColor(JobsSecondarySystemBackgroundColor);
     return cell;
 }
 

@@ -48,7 +48,7 @@ Prop_assign()JobsSysProgressDemoMode progressMode;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"系统进度条".tr)
                 .byFont(UIFontWeightRegularSize(16))
-                .byTextCor(HEXCOLOR(0x3D4A58));
+                .byTextCor(JobsLabelColor);
         })
         .byBgCor(HEXCOLOR(0xF4F5F8))
         .byNavBgCor(HEXCOLOR(0xF4F5F8));
@@ -57,7 +57,7 @@ Prop_assign()JobsSysProgressDemoMode progressMode;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.progressMode = JobsSysProgressDemoModeCountUp;
-    self.view.byBgColor(HEXCOLOR(0xF4F5F8));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     [self setupSubviews];
     [self updateIdleProgress];
@@ -220,7 +220,7 @@ Prop_assign()JobsSysProgressDemoMode progressMode;
     if (!_timeLab) {
         _timeLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byTextCor(HEXCOLOR(0x111827))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightBoldSize(22))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(2);
@@ -285,7 +285,7 @@ Prop_assign()JobsSysProgressDemoMode progressMode;
         _tipsLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"这个 Demo 使用系统 UIProgressView 承载进度显示，JobsOCTimer 负责 DisplayLink 级别倒计时。正向模式从 0% 到 100%，倒向模式从 100% 到 0%。".tr)
-                .byTextCor(HEXCOLOR(0x5F6B7A))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontWeightRegularSize(14))
                 .byNumberOfLines(0);
         });

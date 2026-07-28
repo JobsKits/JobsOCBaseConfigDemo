@@ -46,7 +46,7 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(@"ZMJGanttList".tr)
                 .byFont(UIFontWeightRegularSize(18));
         })
@@ -60,7 +60,7 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsRandomColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
     self.spreadsheetView.byAlpha(1);
@@ -829,7 +829,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
         _preferences = ZMJPreferences.new;
         _preferences.drawing.font = [UIFont fontWithName:@"Futura-Medium" size:13];
         _preferences.drawing.foregroundColor = JobsWhiteColor;
-        _preferences.drawing.backgroundColor = JobsWhiteColor;
+        _preferences.drawing.backgroundColor = JobsSecondarySystemBackgroundColor;
     };return _preferences;
 }
 

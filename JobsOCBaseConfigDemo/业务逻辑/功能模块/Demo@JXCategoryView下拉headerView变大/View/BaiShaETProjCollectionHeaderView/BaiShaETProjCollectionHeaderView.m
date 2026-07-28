@@ -44,7 +44,7 @@ static dispatch_once_t static_collectionHeaderViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 
@@ -177,7 +177,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(JobsAnimationLabel *)animationLab{
     if (!_animationLab) {
-        _animationLab = JobsAnimationLabel.new.byTextCor(JobsBlackColor);
+        _animationLab = JobsAnimationLabel.new.byTextCor(JobsLabelColor);
         _animationLab.value = 12;
         _animationLab.lastValue = 19.93;
         @jobs_weakify(self)
@@ -192,19 +192,19 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                     @jobs_strongify(self)
                     data1.byFont(UIFontWeightRegularSize(12))
-                         .byTextCor(HEXCOLOR(0x3D4A58))
+                         .byTextCor(JobsLabelColor)
                          .byTargetString(self.richTextMutArr[0]);
                 }))
                 .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                     @jobs_strongify(self)
                     data1.byFont(UIFontWeightBoldSize(18))
-                         .byTextCor(HEXCOLOR(0x3D4A58))
+                         .byTextCor(JobsLabelColor)
                          .byTargetString(self.richTextMutArr[1]);
                 }))
                 .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                     @jobs_strongify(self)
                     data1.byFont(UIFontWeightRegularSize(12))
-                         .byTextCor(HEXCOLOR(0x3D4A58))
+                         .byTextCor(JobsLabelColor)
                          .byTargetString(self.richTextMutArr[2]);
                 }));
             })paragraphStyle:nil];
@@ -227,7 +227,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             @jobs_strongify(self)
             label
                 .byText(@"Lv".tr.add(@" ").add(@"0"))
-            .byTextCor(HEXCOLOR(0x757575))
+            .byTextCor(JobsSecondaryLabelColor)
             .byFont(UIFontWeightRegularSize(12))
             .byTextAlignment(NSTextAlignmentCenter)
             .makeLabelByShowingType(UILabelShowingType_03)
@@ -249,7 +249,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             @jobs_strongify(self)
             label
                 .byText(@"Lv".tr.add(@" ").add(@"1"))
-                .byTextCor(HEXCOLOR(0x757575))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byFont(UIFontWeightRegularSize(12))
                 .makeLabelByShowingType(UILabelShowingType_03)
@@ -277,7 +277,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byShowsVerticalScrollIndicator(NO)
                 .byScrollEnabled(YES)
                 .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
@@ -339,13 +339,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data2) {
                         @jobs_strongify(self)
                         data2.byFont(UIFontWeightRegularSize(12))
-                             .byTextCor(HEXCOLOR(0x3D4A58))
+                             .byTextCor(JobsLabelColor)
                              .byTargetString(self.richTextMutArr2[0][0]);
                     }))
                     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data2) {
                         @jobs_strongify(self)
                         data2.byFont(UIFontWeightBoldSize(12))
-                             .byTextCor(HEXCOLOR(0x3D4A58))
+                             .byTextCor(JobsLabelColor)
                              .byTargetString(self.richTextMutArr2[0][1]);
                     }));
             }));
@@ -354,13 +354,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data2) {
                         @jobs_strongify(self)
                         data2.byFont(UIFontWeightRegularSize(12))
-                             .byTextCor(HEXCOLOR(0x3D4A58))
+                             .byTextCor(JobsLabelColor)
                              .byTargetString(self.richTextMutArr2[1][0]);
                     }))
                     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data2) {
                         @jobs_strongify(self)
                         data2.byFont(UIFontWeightBoldSize(12))
-                             .byTextCor(HEXCOLOR(0x3D4A58))
+                             .byTextCor(JobsLabelColor)
                              .byTargetString(self.richTextMutArr2[1][1]);
                     }));
             }));

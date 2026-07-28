@@ -44,7 +44,7 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
     @jobs_weakify(self)
     return ^(id _Nullable model) {
         @jobs_strongify(self)
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
         if ([model isKindOfClass:JobsFirstCommentModel.class]) {
             self.firstCommentModel = model;
             self.userInfoBtn.byAlpha(1);

@@ -27,7 +27,7 @@ Prop_strong()UILabel *subtitleLabel;
     CGFloat marginX = 15.0f;
     CGFloat labelWidth = (self.bounds.size.width - 2*marginX)/2.0f;
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(marginX, 0, labelWidth, self.bounds.size.height)];
-    self.titleLabel.byTextCor([UIColor blackColor]);
+    self.titleLabel.byTextCor(JobsLabelColor);
     [self addSubview:self.titleLabel];
     self.subtitleLabel = [[UILabel alloc] initWithFrame:CGRectMake(labelWidth + marginX, 0, labelWidth, self.bounds.size.height)];
     self.subtitleLabel.byTextCor([UIColor lightGrayColor]);

@@ -150,7 +150,7 @@ Prop_strong()BaseButton *cancelBtn;
                 .byPlaceholder(@"请输入搜索内容".tr)
                 .byDelegate(self)
                 .byLeftView([self searchIconLeftView])
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byInputAccessoryView(jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
                     label
                         .byText(@"Jobs安全聊天，为您的聊天加密护航".tr)
@@ -174,7 +174,7 @@ Prop_strong()BaseButton *cancelBtn;
                     make.right.equalTo(self.cancelBtn.mas_left);
                     make.height.mas_equalTo(MIN(JobsWidth(40), MAX(JobsWidth(32), self.mj_h - JobsWidth(10))));
                 });
-            textField.byBgColor(HEXCOLOR(0xFFFFFF));
+            textField.byBgColor(JobsSecondarySystemBackgroundColor);
             textField.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
                 model.byJobsWidth(.5f)
                      .byLayerCor(HEXCOLOR(0xEEE2C8))

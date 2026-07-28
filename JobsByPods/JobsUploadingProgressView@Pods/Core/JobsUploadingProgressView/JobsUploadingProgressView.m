@@ -42,7 +42,7 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
         self.strokeColor = self.byPatternImage(@"gradualColor".img.imageResize(CGSizeMake(50, 25))); //圆环底色
         self.radius = 34;
         self.byHidden(YES);
-        self.byBgColor(JobsWhiteColor.colorWithAlphaComponentBy(.9f));
+        self.byBgColor(JobsSecondarySystemBackgroundColor.colorWithAlphaComponentBy(.9f));
         self.layer.cornerRadius = 10;
         self.clipsToBounds = YES;
     };return self;

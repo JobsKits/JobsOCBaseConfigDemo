@@ -20,6 +20,7 @@ Prop_assign()CGFloat lastProgress;
 
 -(JobsRefreshAnimatorPhase)jobs_animatorPhaseForState:(JobsOCRefreshState)state;
 -(CGSize)jobs_animatorSize;
+-(void)jobs_layoutAnimatorViewWithFrame:(CGRect)frame;
 -(void)jobs_layoutAnimatorOnly;
 -(void)jobs_layoutHorizontal;
 -(void)jobs_layoutVertical;
@@ -181,12 +182,18 @@ Prop_assign()CGFloat lastProgress;
     return preferredSize;
 }
 
+-(void)jobs_layoutAnimatorViewWithFrame:(CGRect)frame {
+    UIView *animatorView = self.animatorView;
+    if (!animatorView) return;
+    animatorView.byFrame(frame);
+}
+
 -(void)jobs_layoutAnimatorOnly {
     CGSize animatorSize = [self jobs_animatorSize];
-    self.animatorView.byFrame(CGRectMake((CGRectGetWidth(self.bounds) - animatorSize.width) / 2,
-                                         (CGRectGetHeight(self.bounds) - animatorSize.height) / 2,
-                                         animatorSize.width,
-                                         animatorSize.height));
+    [self jobs_layoutAnimatorViewWithFrame:CGRectMake((CGRectGetWidth(self.bounds) - animatorSize.width) / 2,
+                                                      (CGRectGetHeight(self.bounds) - animatorSize.height) / 2,
+                                                      animatorSize.width,
+                                                      animatorSize.height)];
     self.statusLabel.byFrame(CGRectZero);
     self.timePrefixLabel.byFrame(CGRectZero);
     self.timeLabel.byFrame(CGRectZero);
@@ -214,10 +221,10 @@ Prop_assign()CGFloat lastProgress;
     CGFloat timeH = showsTime ? MIN(MAX(0, ceil(timeSize.height)), MAX(0, boundsH - visualH - visualGap)) : 0;
     CGFloat textH = MAX(statusH, MAX(prefixH, timeH));
     CGFloat startY = MAX(0, (boundsH - visualH - visualGap - textH) / 2);
-    self.animatorView.byFrame(CGRectMake(startX + (statusColumnW - animatorSize.width) / 2,
-                                         startY,
-                                         animatorSize.width,
-                                         animatorSize.height));
+    [self jobs_layoutAnimatorViewWithFrame:CGRectMake(startX + (statusColumnW - animatorSize.width) / 2,
+                                                      startY,
+                                                      animatorSize.width,
+                                                      animatorSize.height)];
     CGFloat textY = startY + visualH + visualGap;
     self.statusLabel.byFrame(CGRectMake(startX, textY, statusColumnW, statusH));
     self.timePrefixLabel.byFrame(CGRectMake(CGRectGetMaxX(self.statusLabel.frame),
@@ -249,10 +256,10 @@ Prop_assign()CGFloat lastProgress;
     CGFloat totalW = visualW + visualGap + textW;
     CGFloat startX = (boundsW - totalW) / 2;
     CGFloat centerY = boundsH / 2;
-    self.animatorView.byFrame(CGRectMake(startX,
-                                         centerY - animatorSize.height / 2,
-                                         animatorSize.width,
-                                         animatorSize.height));
+    [self jobs_layoutAnimatorViewWithFrame:CGRectMake(startX,
+                                                      centerY - animatorSize.height / 2,
+                                                      animatorSize.width,
+                                                      animatorSize.height)];
     CGFloat textX = startX + visualW + visualGap;
     CGFloat textY = centerY - textH / 2;
     self.statusLabel.byFrame(CGRectMake(textX, textY, textW, statusH));

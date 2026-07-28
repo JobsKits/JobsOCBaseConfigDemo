@@ -33,7 +33,7 @@ Prop_strong()NSTimer *shrinkTimer;
                                     0,
                                     CGRectGetHeight(frame),
                                     CGRectGetHeight(frame)))
-                .byBgColor(UIColor.grayColor)
+                .byBgColor(JobsTertiarySystemBackgroundColor)
                 .byCornerRadius(CGRectGetHeight(frame) / 2)
                 .byHidden(YES)
                 .addOn(self);

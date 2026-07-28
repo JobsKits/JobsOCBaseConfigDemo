@@ -45,7 +45,7 @@ Prop_assign(readwrite)BOOL builtOnce;
     if (@available(iOS 13.0, *)) {
         self.view.byBgColor([UIColor systemBackgroundColor]);
     } else {
-        self.view.byBgColor([UIColor whiteColor]);
+        self.view.byBgColor(JobsSystemBackgroundColor);
     }
     self.contentScrollView.addOn(self.view);
     self.bgImageView.addOn(self.tabBar);

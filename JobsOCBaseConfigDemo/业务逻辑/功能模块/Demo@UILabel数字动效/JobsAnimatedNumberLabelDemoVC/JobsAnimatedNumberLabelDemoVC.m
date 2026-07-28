@@ -43,7 +43,7 @@ Prop_assign()CGFloat defaultEnd;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"UILabel 数字动效".tr)
                 .byFont(UIFontWeightRegularSize(16))
-                .byTextCor(HEXCOLOR(0x111827));
+                .byTextCor(JobsLabelColor);
         })
         .byBgCor(JobsWhiteColor)
         .byNavBgCor(JobsWhiteColor);
@@ -53,7 +53,7 @@ Prop_assign()CGFloat defaultEnd;
     [super viewDidLoad];
     self.defaultStart = 60;
     self.defaultEnd = 0;
-    self.view.byBgColor(JobsWhiteColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.contentView.byVisible(YES);
     self.valueLabel.byVisible(YES);
@@ -177,7 +177,7 @@ Prop_assign()CGFloat defaultEnd;
     if (!_contentView) {
         _contentView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             view
-                .byBgColor(HEXCOLOR(0xF3F4F8))
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer
                         .byCornerRadius(JobsWidth(18))
@@ -199,7 +199,7 @@ Prop_assign()CGFloat defaultEnd;
         _valueLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"60")
-                .byTextCor(JobsBlackColor)
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightBoldSize(JobsWidth(62)))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .addOn(self.contentView)
@@ -217,7 +217,7 @@ Prop_assign()CGFloat defaultEnd;
         _hintLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"起点 -> 终点（只允许数字输入）\n不填默认：起点 60，终点 0".tr)
-                .byTextCor(HEXCOLOR(0x8E929C))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontWeightRegularSize(15))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(2)
@@ -237,7 +237,7 @@ Prop_assign()CGFloat defaultEnd;
         _startTF = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
             textField.byPlaceholder(@"起点（默认 60）".tr)
                 .byFont(UIFontWeightRegularSize(15))
-                .byTextCor(HEXCOLOR(0x111827))
+                .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byKeyboardType(UIKeyboardTypeNumbersAndPunctuation)
                 .byReturnKeyType(UIReturnKeyDone)
@@ -262,7 +262,7 @@ Prop_assign()CGFloat defaultEnd;
         _endTF = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
             textField.byPlaceholder(@"终点（默认 0）".tr)
                 .byFont(UIFontWeightRegularSize(15))
-                .byTextCor(HEXCOLOR(0x111827))
+                .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byKeyboardType(UIKeyboardTypeNumbersAndPunctuation)
                 .byReturnKeyType(UIReturnKeyDone)

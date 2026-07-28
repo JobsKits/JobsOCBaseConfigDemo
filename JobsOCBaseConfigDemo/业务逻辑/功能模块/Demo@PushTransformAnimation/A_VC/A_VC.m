@@ -34,7 +34,7 @@
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(@"".tr)
                 .byFont(UIFontWeightRegularSize(16));
         })
@@ -49,7 +49,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsYellowColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.tableView.byShow(self);
 }
@@ -138,7 +138,7 @@ didHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byPagingEnabled(YES)
                 .byShowsVerticalScrollIndicator(NO)
                 .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)

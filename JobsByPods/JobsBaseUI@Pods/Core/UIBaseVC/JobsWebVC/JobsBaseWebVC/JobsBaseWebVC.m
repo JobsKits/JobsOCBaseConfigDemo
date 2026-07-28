@@ -44,7 +44,7 @@
                 data.byText(@"".tr);
             })
             .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-                data.byTextCor(HEXCOLOR(0x3D4A58));
+                data.byTextCor(JobsLabelColor);
                 data.byText(@"".tr);
                 data.byFont(UIFontWeightRegularSize(JobsWidth(18)));
             })
@@ -60,7 +60,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(@"#FF0000".cor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByConfig(self.makeNav0ByTitle(self.viewModel.textModel.text));
 }
 

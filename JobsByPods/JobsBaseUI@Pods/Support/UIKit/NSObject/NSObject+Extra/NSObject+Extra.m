@@ -140,8 +140,8 @@
             .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
             .byTitle(self.viewModel.backBtnTitleModel.text)
             .byFont(self.viewModel.backBtnTitleModel.font)
-            .byTitleCor(JobsBlackColor)
-            .bySelectedTitleCor(JobsBlackColor)
+            .byTitleCor(JobsLabelColor)
+            .bySelectedTitleCor(JobsLabelColor)
             .byRoundingCorners(UIRectCornerAllCorners)
             .byImagePlacement(NSDirectionalRectEdgeLeading)
             .byImagePadding(JobsWidth(5));

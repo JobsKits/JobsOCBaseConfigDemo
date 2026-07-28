@@ -40,7 +40,7 @@ Prop_strong()JobsExcelView *excelView;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(@"相关功能列表".tr)
                 .byFont(UIFontWeightRegularSize(16));
         })
@@ -54,7 +54,7 @@ Prop_strong()JobsExcelView *excelView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsRandomColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.excelView.byAlpha(1);
 }
