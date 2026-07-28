@@ -49,7 +49,7 @@ Prop_assign()CGFloat jobsDefaultPopUpHeight;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF6F7FB));
+    self.view.byBgColor(JobsSystemBackgroundColor);
 //    @jobs_weakify(self)
 //    self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
 //        @jobs_strongify(self)
@@ -341,7 +341,7 @@ heightForHeaderInSection:(NSInteger)section{///  👌
                 .byShowsVerticalScrollIndicator(NO)
                 .byShowsHorizontalScrollIndicator(NO)
                 .byContentInset(UIEdgeInsetsMake(JobsWidth(8), 0, JobsBottomSafeAreaHeight(), 0))
-                .byBgColor(HEXCOLOR(0xF6F7FB))
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)

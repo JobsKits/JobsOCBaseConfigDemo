@@ -162,7 +162,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     view.byBgColor(JobsClearColor);
                 })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .byShowsVerticalScrollIndicator(NO)
-                .byBgColor(HEXCOLOR(0xFBFCFE))
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)

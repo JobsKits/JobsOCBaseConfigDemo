@@ -21,8 +21,8 @@
             .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
             .byTitle(backBtnTitleModel.text)
             .byFont(backBtnTitleModel.font)
-            .byTitleCor(JobsBlackColor)
-            .bySelectedTitleCor(JobsBlackColor)
+            .byTitleCor(JobsLabelColor)
+            .bySelectedTitleCor(JobsLabelColor)
             .byRoundingCorners(UIRectCornerAllCorners)
             .byImagePlacement(NSDirectionalRectEdgeLeading)
             .byImagePadding(JobsWidth(5));

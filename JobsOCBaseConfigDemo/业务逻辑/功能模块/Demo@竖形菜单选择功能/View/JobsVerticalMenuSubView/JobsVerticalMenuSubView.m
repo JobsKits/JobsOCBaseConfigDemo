@@ -27,7 +27,7 @@ Prop_assign()NSUInteger thisIndex;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.byBgColor(HEXCOLOR(0xF7F8FA));
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 #pragma mark —— BaseViewProtocol
@@ -166,7 +166,7 @@ Prop_assign()NSUInteger thisIndex;
         if (!label){
             label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
                 label
-                    .byTextCor(JobsGrayColor)
+                    .byTextCor(JobsSecondaryLabelColor)
                     .byFont(JobsFontBold(JobsWidth(12)))
                     .byFrame(CGRectMake(10, 20, headerView.width - 20.f, 17.f))
                     .byTag(666)
@@ -209,7 +209,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
             .registerCollectionViewClass()
             .registerCollectionViewCellClass(ThreeClassCell.class,@"")
             .byAlwaysBounceVertical(YES);
-        _collectionView.byBgColor(HEXCOLOR(0xF7F8FA));
+        _collectionView.byBgColor(JobsSecondarySystemBackgroundColor);
         _collectionView.addOn(self)
             .byAdd(^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
@@ -222,7 +222,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
 -(ThreeClassCell *)tempCell{
     if (!_tempCell){
         _tempCell = jobsMakeThreeClassCell(^(__kindof ThreeClassCell * _Nullable cell) {
-            cell.byBgColor(HEXCOLOR(0xF7F8FA));
+            cell.byBgColor(JobsSecondarySystemBackgroundColor);
             cell.byFrame(CGRectMake(0,
                                     0,
                                     ThreeClassCell.cellSizeByModel(nil).width,

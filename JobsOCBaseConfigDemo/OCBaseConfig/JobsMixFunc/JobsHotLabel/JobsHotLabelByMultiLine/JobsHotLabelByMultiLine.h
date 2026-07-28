@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_END
              _headerViewModel = JobsHeaderFooterViewModel.new;
              _headerViewModel.useHeaderView = YES;
              _headerViewModel.textModel.text = @"交易类型".tr;
-             _headerViewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
+             _headerViewModel.textModel.textCor = JobsLabelColor;
              _headerViewModel.textModel.font = UIFontWeightBoldSize(14);
              _headerViewModel.textModel.textAlignment = NSTextAlignmentLeft;
              _headerViewModel.bgCor = HEXCOLOR(0xFDFCF9);
@@ -85,7 +85,7 @@ NS_ASSUME_NONNULL_END
              _footerViewModel.useFooterView = NO;
              _footerViewModel.textModel.text = @"查看详情".tr;
              _footerViewModel.textModel.textAlignment = NSTextAlignmentLeft;
-             _footerViewModel.textModel.textCor = HEXCOLOR(0x3D4A58);
+             _footerViewModel.textModel.textCor = JobsLabelColor;
              _footerViewModel.textModel.font = UIFontWeightBoldSize(14);
              _footerViewModel.bgCor = HEXCOLOR(0xFDFCF9);
      //        _footerViewModel.jobsSize = CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(20));
@@ -99,7 +99,7 @@ NS_ASSUME_NONNULL_END
                  UIViewModel *viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
                  viewModel.textModel.byText(str)
                                     .byFont(UIFontWeightRegularSize(12))
-                                    .byTextCor(HEXCOLOR(0x757575));
+                                    .byTextCor(JobsSecondaryLabelColor);
                  viewModel.byBgCor(HEXCOLOR(0xF3F3F3))
                           .byJobsSize(CGSizeMake(JobsWidth(80), JobsWidth(30)));
                  [_dataMutArr addObject:viewModel];

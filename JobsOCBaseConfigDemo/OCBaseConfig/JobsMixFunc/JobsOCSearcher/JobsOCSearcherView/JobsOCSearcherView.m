@@ -529,7 +529,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_searchContainerView) {
         _searchContainerView = UIView.new;
         _searchContainerView.translatesAutoresizingMaskIntoConstraints = NO;
-        _searchContainerView.backgroundColor = UIColor.whiteColor;
+        _searchContainerView.byBgColor(JobsSecondarySystemBackgroundColor);
         _searchContainerView.layer.cornerRadius = 12;
         _searchContainerView.layer.borderWidth = 0.5;
         _searchContainerView.layer.borderColor = [UIColor colorWithRed:0.86 green:0.89 blue:0.93 alpha:1].CGColor;

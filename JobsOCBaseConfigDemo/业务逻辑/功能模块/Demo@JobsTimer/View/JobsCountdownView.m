@@ -48,7 +48,7 @@ static dispatch_once_t static_countdownViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 
@@ -67,7 +67,7 @@ static dispatch_once_t static_countdownViewOnceToken;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -161,7 +161,7 @@ static dispatch_once_t static_countdownViewOnceToken;
             label
                 .byText(@"正计时已用时".tr)
                 .byFont(UIFontWeightMediumSize(15))
-                .byTextCor(HEXCOLOR(0x5F6B7A))
+                .byTextCor(JobsSecondaryLabelColor)
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.centerX.equalTo(self);
@@ -204,7 +204,7 @@ static dispatch_once_t static_countdownViewOnceToken;
     }))
     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data) {
         data.byFont(UIFontWeightRegularSize(12))
-            .byTextCor(HEXCOLOR(0x5F6B7A))
+            .byTextCor(JobsSecondaryLabelColor)
             .byTargetString(@"分".tr);
     }))
     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data) {
@@ -214,7 +214,7 @@ static dispatch_once_t static_countdownViewOnceToken;
     }))
     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data) {
         data.byFont(UIFontWeightRegularSize(12))
-            .byTextCor(HEXCOLOR(0x5F6B7A))
+            .byTextCor(JobsSecondaryLabelColor)
             .byTargetString(@"秒".tr);
     }));return _richTextConfigMutArr;
 }

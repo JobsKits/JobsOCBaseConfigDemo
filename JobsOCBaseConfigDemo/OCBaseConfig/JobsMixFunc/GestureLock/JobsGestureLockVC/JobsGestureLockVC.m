@@ -64,7 +64,7 @@ Prop_assign()NSInteger remainingRetryCount;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = UIColor.whiteColor;
+    self.view.byBgColor(JobsSystemBackgroundColor);
     [self setupSubviews];
     [self applyMode];
 }

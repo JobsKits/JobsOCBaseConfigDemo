@@ -33,7 +33,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(@"App国际化之应用内部切换语言".tr)
                 .byFont(UIFontWeightRegularSize(16));
         })

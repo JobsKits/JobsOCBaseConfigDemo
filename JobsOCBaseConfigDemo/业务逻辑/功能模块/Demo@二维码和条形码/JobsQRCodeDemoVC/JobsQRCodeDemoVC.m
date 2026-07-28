@@ -45,7 +45,7 @@ Prop_copy()NSString *barcodeContent;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x263342))
+                .byTextCor(JobsLabelColor)
                 .byText(@"二维码 + 条形码".tr)
                 .byFont(UIFontWeightRegularSize(18));
         })
@@ -56,7 +56,7 @@ Prop_copy()NSString *barcodeContent;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    self.view.byBgColor(HEXCOLOR(0xF5F7FA));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.qrContent = @"https://jobs.dev/hello";
     self.logoQRContent = @"https://www.google.com";
     self.barcodeContent = @"JOBS-2025-10-18";
@@ -86,7 +86,7 @@ Prop_copy()NSString *barcodeContent;
     return jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
             .byText(text.tr)
-            .byTextCor(HEXCOLOR(0x263342))
+            .byTextCor(JobsLabelColor)
             .byFont(UIFontWeightRegularSize(15))
             .byTextAlignment(NSTextAlignmentCenter)
             .byNumberOfLines(0);

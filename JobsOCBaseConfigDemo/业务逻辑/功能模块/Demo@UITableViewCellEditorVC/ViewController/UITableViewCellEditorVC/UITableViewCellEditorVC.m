@@ -45,7 +45,7 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x273244))
+                .byTextCor(JobsLabelColor)
                 .byText(@"站内信".tr)
                 .byFont(UIFontWeightBoldSize(17));
         })
@@ -173,7 +173,7 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
     cell.multipleSelectionBackgroundView = cell.selectedBackgroundView;
     UIView *cardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
         view
-            .byBgColor(JobsWhiteColor)
+            .byBgColor(JobsSecondarySystemBackgroundColor)
             .addOn(cell.contentView)
             .byAdd(^(MASConstraintMaker *make) {
                 make.top.equalTo(cell.contentView).offset(JobsWidth(6));
@@ -201,7 +201,7 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
     UILabel *timeLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
             .byFont(UIFontWeightRegularSize(11))
-            .byTextCor(HEXCOLOR(0x9AA2AE))
+            .byTextCor(JobsSecondaryLabelColor)
             .byTextAlignment(NSTextAlignmentRight)
             .byNumberOfLines(1)
             .addOn(cardView);
@@ -209,7 +209,7 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
     timeLabel.tag = JobsMsgCellTimeLabelTag;
     UILabel *titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
-            .byTextCor(HEXCOLOR(0x273244))
+            .byTextCor(JobsLabelColor)
             .byFont(UIFontWeightBoldSize(15))
             .byNumberOfLines(1)
             .addOn(cardView);
@@ -217,7 +217,7 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
     titleLabel.tag = JobsMsgCellTitleLabelTag;
     UILabel *contentLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
-            .byTextCor(HEXCOLOR(0x7A8491))
+            .byTextCor(JobsSecondaryLabelColor)
             .byFont(UIFontWeightRegularSize(12))
             .byNumberOfLines(1)
             .addOn(cardView);
@@ -236,7 +236,7 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
         label
             .byText(@"›")
             .byFont(UIFontWeightRegularSize(24))
-            .byTextCor(HEXCOLOR(0xC4CAD3))
+            .byTextCor(JobsSecondaryLabelColor)
             .byTextAlignment(NSTextAlignmentCenter)
             .addOn(cardView);
     });
@@ -296,7 +296,7 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
         .byBgColor([self msgAccentBgCorByModel:model]);
     titleLabel
         .byText(model.textModel.text)
-        .byTextCor(model.isRead ? HEXCOLOR(0x5C6675) : HEXCOLOR(0x273244))
+        .byTextCor(model.isRead ? HEXCOLOR(0x5C6675) : JobsLabelColor)
         .byFont(model.isRead ? UIFontWeightMediumSize(15) : UIFontWeightBoldSize(15));
     contentLabel
         .byText(model.subTextModel.text)
@@ -304,7 +304,7 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
     timeLabel.byText(model.timeText);
     readLabel
         .byText(model.isRead ? @"已读".tr : @"未读".tr)
-        .byTextCor(model.isRead ? HEXCOLOR(0x8F98A6) : HEXCOLOR(0xEB677F))
+        .byTextCor(model.isRead ? JobsSecondaryLabelColor : HEXCOLOR(0xEB677F))
         .byBgColor(model.isRead ? HEXCOLOR(0xF1F4F8) : HEXCOLOR(0xFFF0F3));
 }
 
@@ -431,7 +431,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_editBtn) {
         @jobs_weakify(self)
         _editBtn = BaseButton.jobsInit()
-            .jobsResetBtnTitleCor(HEXCOLOR(0x273244))
+            .jobsResetBtnTitleCor(JobsLabelColor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(13))
             .jobsResetBtnTitle(@"編輯".tr)
             .onClickBy(^(UIButton *x){
@@ -480,7 +480,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     self->_tableView.endRefreshing(YES);
                 }].byMJRefreshFooterConfigModel(self.mjFooterDefaultConfig))
                 .byShowsVerticalScrollIndicator(NO)
-                .byBgColor(HEXCOLOR(0xF6F7FB));
+                .byBgColor(JobsSecondarySystemBackgroundColor);
             tableView.resetContentInset(UIEdgeInsetsMake(JobsWidth(10), 0, JobsWidth(92), 0));
             tableView.scrollIndicatorInsets = tableView.contentInset;
             tableView.addOn(self.view);

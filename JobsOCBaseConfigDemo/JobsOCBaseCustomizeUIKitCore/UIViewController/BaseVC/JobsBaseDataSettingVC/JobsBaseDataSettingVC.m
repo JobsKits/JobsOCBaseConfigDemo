@@ -135,7 +135,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 -(UIViewModel *)viewModel{
     if (!_viewModel) {
         _viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.textModel.byTextCor(HEXCOLOR(0x3D4A58))
+            data.textModel.byTextCor(JobsLabelColor)
                           .byFont(UIFontWeightRegularSize(16));
         });
     };return _viewModel;

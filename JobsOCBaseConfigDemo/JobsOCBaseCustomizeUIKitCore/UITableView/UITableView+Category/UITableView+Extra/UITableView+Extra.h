@@ -118,7 +118,7 @@ NS_INLINE __kindof UITableView *_Nonnull jobsMakeTableViewByInsetGrouped(jobsByT
                          label.byText(@"- 没有更多的内容了 -".tr)
                              .byFont(UIFontWeightRegularSize(12))
                              .byTextAlignment(NSTextAlignmentCenter)
-                             .byTextCor(HEXCOLOR(0xB0B0B0))
+                             .byTextCor(JobsSecondaryLabelColor)
                              .makeLabelByShowingType(UILabelShowingType_03);
                      }))/// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                      .emptyDataByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {

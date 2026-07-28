@@ -35,7 +35,7 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(@"".tr)
                 .byFont(UIFontWeightRegularSize(16));
         })
@@ -50,7 +50,7 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsYellowColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.scrollView.jobsVisible = YES;
     self.pageControl.jobsVisible = YES;
     [self loadPhoto];

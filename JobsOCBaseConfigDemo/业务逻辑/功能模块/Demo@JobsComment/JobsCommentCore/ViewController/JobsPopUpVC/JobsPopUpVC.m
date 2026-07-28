@@ -31,7 +31,7 @@
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.view.byBgColor(JobsRedColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.isHiddenNavigationBar = YES;//禁用系统的导航栏
     [self jobs_updatePreferredContentSize];
 }

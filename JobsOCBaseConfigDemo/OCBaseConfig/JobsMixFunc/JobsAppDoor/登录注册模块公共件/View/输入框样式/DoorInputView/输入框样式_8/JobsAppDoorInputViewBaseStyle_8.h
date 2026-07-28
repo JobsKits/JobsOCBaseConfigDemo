@@ -113,7 +113,7 @@ NS_ASSUME_NONNULL_END
              _inputViewDataModel.returnKeyType = UIReturnKeyDone;
              _inputViewDataModel.keyboardAppearance = UIKeyboardAppearanceAlert;
              _inputViewDataModel.leftViewMode = UITextFieldViewModeAlways;
-             _inputViewDataModel.placeholderColor = HEXCOLOR(0x6D655D);
+             _inputViewDataModel.placeholderColor = JobsPlaceholderTextColor;
              _inputViewDataModel.titleStrCor = HEXCOLOR(0x6D655D);
              _inputViewDataModel.placeHolderOffset = JobsWidth(35);
              _inputViewDataModel.textModel.textCor = HEXCOLOR(0xFFE8D1);

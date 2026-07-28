@@ -53,7 +53,7 @@ Prop_assign()JobsSettingGestureFlowState flowState;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
                 .byText(@"手势解锁".tr)
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightRegularSize(16));
         })
         .byBgCor(RGBA_COLOR(255, 238, 221, 1))

@@ -31,7 +31,7 @@ BaseLayerProtocol_synthesize_part3
         cell.offsetXForEach = JobsWidth(7);
         cell.offsetYForEach = JobsWidth(3);
         cell.byBgColor(JobsClearColor);
-        cell.contentView.byBgColor(HEXCOLOR(0xFFFFFF));
+        cell.contentView.byBgColor(JobsSecondarySystemBackgroundColor);
         cell.cornerCutToCircleWithCornerRadius(JobsWidth(8));
         return cell;
     };
@@ -76,10 +76,10 @@ BaseLayerProtocol_synthesize_part3
         _titleLab = jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
             @jobs_strongify(self)
             label
-                .byTextCor(HEXCOLOR(0x374151))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightRegularSize(14))
                 .byNumberOfLines(0)
-                .byBgColor(HEXCOLOR(0xFFFFFF))
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byCornerRadius(JobsWidth(8))
                 .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {

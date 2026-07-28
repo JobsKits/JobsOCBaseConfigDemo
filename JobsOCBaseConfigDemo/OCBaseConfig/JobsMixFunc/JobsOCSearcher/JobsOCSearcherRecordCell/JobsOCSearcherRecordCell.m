@@ -31,7 +31,7 @@ Prop_copy()NSString *historyText;
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = UIColor.clearColor;
-        self.contentView.backgroundColor = UIColor.whiteColor;
+    self.contentView.byBgColor(JobsSecondarySystemBackgroundColor);
         [self.contentView addSubview:self.historyLabel];
         [self.contentView addSubview:self.deleteButton];
         [self.historyLabel mas_makeConstraints:^(MASConstraintMaker *make) {

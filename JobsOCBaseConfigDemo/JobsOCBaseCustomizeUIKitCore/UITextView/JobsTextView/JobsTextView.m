@@ -43,7 +43,7 @@ static dispatch_once_t static_textViewOnceToken;
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 
@@ -148,7 +148,7 @@ static dispatch_once_t static_textViewOnceToken;
         _countLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byTextCor(JobsWhiteColor)
+                .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontWeightBoldSize(12))
                 .byTextAlignment(NSTextAlignmentCenter)
             .addOn(self)

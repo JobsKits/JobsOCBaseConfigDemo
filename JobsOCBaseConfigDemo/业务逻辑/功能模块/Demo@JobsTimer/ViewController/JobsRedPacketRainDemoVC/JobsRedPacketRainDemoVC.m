@@ -37,7 +37,7 @@ Prop_strong()UIButton *toggleBtn;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"红包雨".tr)
                 .byFont(UIFontWeightRegularSize(16))
-                .byTextCor(HEXCOLOR(0x3D4A58));
+                .byTextCor(JobsLabelColor);
         })
         .byBgCor(RGBA_COLOR(255, 238, 221, 1))
         .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
@@ -46,7 +46,7 @@ Prop_strong()UIButton *toggleBtn;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF4F5F8));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.rainView.byVisible(YES);
     self.countLab.byVisible(YES);

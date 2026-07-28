@@ -34,7 +34,7 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(@"幸运轮盘".tr)
                 .byFont(UIFontWeightRegularSize(18));
         })
@@ -48,7 +48,7 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xFFF7EA));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
     self.tableView.byShow(self);
@@ -167,11 +167,11 @@ viewForHeaderInSection:(NSInteger)section{
             .JobsRichViewByModel2(nil)
             .JobsBlock1(^(id _Nullable data) {;
             });
-        tbvFooterView.byBgColor(HEXCOLOR(0xEAEBED));
-        tbvFooterView.backgroundView.byBgColor(HEXCOLOR(0xEAEBED));
+        tbvFooterView.byBgColor(JobsSecondarySystemBackgroundColor);
+        tbvFooterView.backgroundView.byBgColor(JobsSecondarySystemBackgroundColor);
         /// tbvFooterView.backgroundColor 和  tbvFooterView.contentView.backgroundColor 均是无效操作❌
         /// 只有 tbvFooterView.backgroundView.backgroundColor 是有效操作✅
-        tbvFooterView.contentView.byBgColor(HEXCOLOR(0xEAEBED));
+        tbvFooterView.contentView.byBgColor(JobsSecondarySystemBackgroundColor);
         return tbvFooterView;
     };return nil;
 }
@@ -182,7 +182,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView hideSeparatorLineAtLast:indexPath cell:cell];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.byBgColor(JobsClearColor);
-    cell.contentView.byBgColor(JobsWhiteColor);
+    cell.contentView.byBgColor(JobsSecondarySystemBackgroundColor);
     cell.contentView.byLayer(^(__kindof CALayer * _Nullable layer) {
         layer
             .byCornerRadius(JobsWidth(14))

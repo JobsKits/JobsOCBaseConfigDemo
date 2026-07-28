@@ -118,7 +118,7 @@ Prop_strong()UILabel *titleLabel;
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byFont([UIFont systemFontOfSize:10])
                 .byNumberOfLines(0)
-                .byTextCor(JobsGrayColor)
+                .byTextCor(JobsSecondaryLabelColor)
             .addOn(self);
         });
     };return _titleLabel;

@@ -33,7 +33,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(data.attributedTitle.string)
                 .byFont(UIFontWeightRegularSize(18));
         })
@@ -49,7 +49,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 - (void)viewDidLoad {
     [super viewDidLoad];
     @jobs_weakify(self)
-    self.view.byBgColor(HEXCOLOR(0xFCFBFB));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.collectionView.byShow(self);
     self.jobsBackBlock = ^id _Nullable(id _Nullable data) {
@@ -297,7 +297,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
         _collectionView
             .byLayoutSubviewsRectCorner(UIRectCornerTopLeft | UIRectCornerTopRight)
             .byLayoutSubviewsRectCornerSize(CGSizeMake(JobsWidth(20), JobsWidth(20)));
-        _collectionView.byBgColor(HEXCOLOR(0xFCFBFB));// RGB_SAMECOLOR(246)
+        _collectionView.byBgColor(JobsSecondarySystemBackgroundColor);// RGB_SAMECOLOR(246)
         _collectionView.addOn(self.view);
         [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             @jobs_strongify(self)

@@ -74,7 +74,7 @@ Prop_strong()JobsImageRotator *counterclockwiseHourHandRotator;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"JobsImageRotation".tr)
                 .byFont(UIFontWeightRegularSize(16))
-                .byTextCor(HEXCOLOR(0x3D4A58));
+                .byTextCor(JobsLabelColor);
         })
         .byBgCor(RGBA_COLOR(255, 238, 221, 1))
         .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
@@ -83,7 +83,7 @@ Prop_strong()JobsImageRotator *counterclockwiseHourHandRotator;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF4F5F8));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.descriptionLab.byVisible(YES);
     self.clockwiseBtn.byVisible(YES);
@@ -194,7 +194,7 @@ Prop_strong()JobsImageRotator *counterclockwiseHourHandRotator;
             @jobs_strongify(self)
             label.byText(@"表盘固定不动，只演示时针与分针按顺时针 / 逆时针走字；不显示阿拉伯数字与秒针。".tr)
                 .byFont(UIFontWeightRegularSize(15))
-                .byTextCor(HEXCOLOR(0x5F6B7A))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(0)
                 .addOn(self.view)
@@ -372,7 +372,7 @@ Prop_strong()JobsImageRotator *counterclockwiseHourHandRotator;
 -(UIView *)clockwiseMinuteHandView{
     if (!_clockwiseMinuteHandView) {
         _clockwiseMinuteHandView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.byBgColor(JobsWhiteColor)
+            view.byBgColor(JobsSecondarySystemBackgroundColor)
                 .byCornerRadius(JobsWidth(2))
                 .byUserInteractionEnabled(NO)
                 .addOn(self.clockwiseMinuteHandContainerView)
@@ -404,7 +404,7 @@ Prop_strong()JobsImageRotator *counterclockwiseHourHandRotator;
 -(UIView *)counterclockwiseMinuteHandView{
     if (!_counterclockwiseMinuteHandView) {
         _counterclockwiseMinuteHandView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.byBgColor(JobsWhiteColor)
+            view.byBgColor(JobsSecondarySystemBackgroundColor)
                 .byCornerRadius(JobsWidth(2))
                 .byUserInteractionEnabled(NO)
                 .addOn(self.counterclockwiseMinuteHandContainerView)
@@ -454,7 +454,7 @@ Prop_strong()JobsImageRotator *counterclockwiseHourHandRotator;
             @jobs_strongify(self)
             label.byText(@"顺时针走字\n分针 1/60 秒".tr)
                 .byFont(UIFontWeightMediumSize(14))
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(2)
                 .addOn(self.view)
@@ -473,7 +473,7 @@ Prop_strong()JobsImageRotator *counterclockwiseHourHandRotator;
             @jobs_strongify(self)
             label.byText(@"逆时针走字\n分针 1/30 秒".tr)
                 .byFont(UIFontWeightMediumSize(14))
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(2)
                 .addOn(self.view)
@@ -551,7 +551,7 @@ Prop_strong()JobsImageRotator *counterclockwiseHourHandRotator;
             @jobs_strongify(self)
             label.byText(@"等待开始".tr)
                 .byFont(UIFontWeightMediumSize(14))
-                .byTextCor(HEXCOLOR(0x5F6B7A))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(2)
                 .addOn(self.view)

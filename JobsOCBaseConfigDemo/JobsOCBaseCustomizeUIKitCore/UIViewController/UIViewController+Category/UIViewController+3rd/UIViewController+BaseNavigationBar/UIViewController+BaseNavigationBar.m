@@ -7,6 +7,7 @@
 
 #import "UIViewController+BaseNavigationBar.h"
 
+NSNotificationName const JobsOCGlobalThemeDidChangeNotification = @"JobsOCGlobalThemeDidChangeNotification";
 static NSString *const JobsOCGlobalDarkModeDefaultsKey = @"com.BSports.JobsOCDemoListDarkModeUserDefaultsKey";
 static NSString *const JobsOCDemoThemeDirectActionIdentifier = @"JobsOCDemoThemeDirectAction";
 static NSInteger const JobsOCDemoThemeButtonTag = 0x4A54484D;
@@ -35,6 +36,22 @@ static void JobsOCSyncGlobalThemeButtons(UIView *view,
     }
 }
 
+static void JobsOCNormalizeViewControllerRoots(UIViewController *viewController) {
+    if (!viewController) return;
+    if (![viewController isKindOfClass:UIAlertController.class]) {
+        UIView *loadedView = viewController.viewIfLoaded;
+        if (loadedView) loadedView.byBgColor(JobsSystemBackgroundColor);
+        viewController
+            .byGKNavBackgroundColor(JobsSystemBackgroundColor)
+            .byGKNavBackgroundImage(nil)
+            .byGKNavTitleColor(JobsLabelColor);
+    }
+    for (UIViewController *childViewController in viewController.childViewControllers) {
+        JobsOCNormalizeViewControllerRoots(childViewController);
+    }
+    JobsOCNormalizeViewControllerRoots(viewController.presentedViewController);
+}
+
 static void JobsOCApplyGlobalTheme(void) {
     if (@available(iOS 13.0, *)) {
         BOOL darkModeEnabled = JobsOCGlobalDarkModeEnabled();
@@ -43,6 +60,7 @@ static void JobsOCApplyGlobalTheme(void) {
             if (![scene isKindOfClass:UIWindowScene.class]) continue;
             for (UIWindow *window in ((UIWindowScene *)scene).windows) {
                 window.overrideUserInterfaceStyle = style;
+                JobsOCNormalizeViewControllerRoots(window.rootViewController);
                 JobsOCSyncGlobalThemeButtons(window, darkModeEnabled);
             }
         }
@@ -55,6 +73,9 @@ static BOOL JobsOCToggleGlobalTheme(void) {
                                           forKey:JobsOCGlobalDarkModeDefaultsKey];
     [NSUserDefaults.standardUserDefaults synchronize];
     JobsOCApplyGlobalTheme();
+    [NSNotificationCenter.defaultCenter postNotificationName:JobsOCGlobalThemeDidChangeNotification
+                                                      object:nil
+                                                    userInfo:@{@"darkModeEnabled": @(darkModeEnabled)}];
     return darkModeEnabled;
 }
 
@@ -155,6 +176,7 @@ static __kindof UIButton *JobsOCMakeDemoActionButton(jobsByBtnBlock configure) {
 -(void)jobs_ensureDemoThemeButton{
     if (@available(iOS 13.0, *)) {
         if (!JobsOCIsDemoNavigationChild(self)) return;
+        self.view.byBgColor(JobsSystemBackgroundColor);
         UIButton *themeButton = self.jobs_demoThemeButton.bySelected(JobsOCGlobalDarkModeEnabled());
         UIBarButtonItem *themeItem = self.jobs_demoThemeBarButtonItem;
         if (JobsOCIsSystemNavigationBarDemo(self)) {
@@ -166,6 +188,10 @@ static __kindof UIButton *JobsOCMakeDemoActionButton(jobsByBtnBlock configure) {
             self.navigationItem.rightBarButtonItems = @[themeItem];
             return;
         }
+        self
+            .byGKNavBackgroundColor(JobsSystemBackgroundColor)
+            .byGKNavBackgroundImage(nil)
+            .byGKNavTitleColor(JobsLabelColor);
         NSArray<UIBarButtonItem *> *items = self.gk_navRightBarButtonItems ?:
             (self.gk_navRightBarButtonItem ? @[self.gk_navRightBarButtonItem] : @[]);
         [self jobs_updateDemoBusinessButtonsFromItems:items

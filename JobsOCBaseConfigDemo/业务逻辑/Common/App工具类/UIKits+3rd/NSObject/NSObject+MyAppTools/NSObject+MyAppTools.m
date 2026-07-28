@@ -559,8 +559,8 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
             .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
             .byTitle(self.viewModel.backBtnTitleModel.text)
             .byFont(self.viewModel.backBtnTitleModel.font)
-            .byTitleCor(JobsBlackColor)
-            .bySelectedTitleCor(JobsBlackColor)
+            .byTitleCor(JobsLabelColor)
+            .bySelectedTitleCor(JobsLabelColor)
             .byRoundingCorners(UIRectCornerAllCorners)
             .byImagePlacement(NSDirectionalRectEdgeLeading)
             .byImagePadding(JobsWidth(5));
@@ -1258,7 +1258,7 @@ JobsKey(_richTextConfigMutArr)
                 @jobs_strongify(self)
                 data1
                     .byFont(UIFontWeightRegularSize(12))
-                    .byTextCor(HEXCOLOR(0x757575))
+                    .byTextCor(JobsSecondaryLabelColor)
                     .byTargetString(self.richTextMutArr[0]);
             }))
             .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {

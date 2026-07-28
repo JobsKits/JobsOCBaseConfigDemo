@@ -46,7 +46,7 @@ Prop_strong()NSDate *maximumCalendarDate;
             })
             .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
                 data
-                    .byTextCor(HEXCOLOR(0x3D4A58))
+                    .byTextCor(JobsLabelColor)
                     .byText(@"日历功能".tr)
                     .byFont(UIFontWeightRegularSize(16));
             })
@@ -158,7 +158,7 @@ atMonthPosition:(JobsOCCalendarMonthPosition)monthPosition{
                 .add(@"月".tr);
             calendar.appearance.caseOptions = JobsOCCalendarCaseOptionsHeaderUsesUpperCase;
             calendar.appearance.headerTitleFont = UIFontSystemFontOfSize(JobsWidth(20));
-            calendar.appearance.headerTitleColor = JobsBlackColor;
+            calendar.appearance.headerTitleColor = JobsLabelColor;
             calendar
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -169,7 +169,7 @@ atMonthPosition:(JobsOCCalendarMonthPosition)monthPosition{
                 })
                 .bySetNeedsLayout()
                 .byLayoutIfNeeded()
-                .byBgColor(JobsLightGrayColor.colorWithAlphaComponentBy(.1f));
+                .byBgColor(JobsSecondarySystemBackgroundColor);
         });
     };return _calendar;
 }

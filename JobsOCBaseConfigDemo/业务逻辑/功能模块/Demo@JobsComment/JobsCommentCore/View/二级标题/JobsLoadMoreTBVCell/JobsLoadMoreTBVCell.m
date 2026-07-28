@@ -21,7 +21,7 @@ Prop_strong()UILabel *titleLab;
         cell
             .bySelectionStyle(UITableViewCellSelectionStyleNone)
             .byContentView(^(__kindof UIView * _Nullable view) {
-                view.byBgColor(JobsWhiteColor);
+                view.byBgColor(JobsSecondarySystemBackgroundColor);
             });
         cell.byBgColor(JobsClearColor);
         return cell;
@@ -51,9 +51,9 @@ Prop_strong()UILabel *titleLab;
             label
                 .byText(@"点击加载更多".tr.add(@"..."))
                 .byTextAlignment(NSTextAlignmentCenter)
-                .byTextCor(HEXCOLOR(0x64748B))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontWeightRegularSize(13))
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
             .addOn(self.contentView)
             .byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self.contentView);

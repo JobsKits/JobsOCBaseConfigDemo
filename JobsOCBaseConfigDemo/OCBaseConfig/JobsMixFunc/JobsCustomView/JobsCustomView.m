@@ -49,7 +49,7 @@ static dispatch_once_t static_customViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 
@@ -61,7 +61,7 @@ static dispatch_once_t static_customViewOnceToken;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 
@@ -120,7 +120,7 @@ static dispatch_once_t static_customViewOnceToken;
         _segmentationLine = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byBgColor(HEXCOLOR(0xEAEBED))
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.centerY.equalTo(self.indicatorIMGV);
@@ -185,7 +185,7 @@ static dispatch_once_t static_customViewOnceToken;
             label
                 .byText(@"當前支持查詢最近30天的投注記錄".tr)
                 .byFont(UIFontWeightRegularSize(12))
-                .byTextCor(HEXCOLOR(0x757575))
+                .byTextCor(JobsSecondaryLabelColor)
                 .makeLabelByShowingType(UILabelShowingType_03)
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -213,7 +213,7 @@ static dispatch_once_t static_customViewOnceToken;
                                                                  self.btnSize.width,
                                                                  self.btnSize.height)])
             .jobsResetBtnTitle(@"取消".tr)
-            .jobsResetBtnTitleCor(HEXCOLOR(0xB0B0B0))
+            .jobsResetBtnTitleCor(JobsSecondaryLabelColor)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 x.selected = !x.selected;
@@ -250,7 +250,7 @@ static dispatch_once_t static_customViewOnceToken;
                                                                  self.btnSize.width,
                                                                  self.btnSize.height)])
             .jobsResetBtnTitle(@"确定".tr)
-            .jobsResetBtnTitleCor(HEXCOLOR(0xB0B0B0))
+            .jobsResetBtnTitleCor(JobsSecondaryLabelColor)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 x.selected = !x.selected;

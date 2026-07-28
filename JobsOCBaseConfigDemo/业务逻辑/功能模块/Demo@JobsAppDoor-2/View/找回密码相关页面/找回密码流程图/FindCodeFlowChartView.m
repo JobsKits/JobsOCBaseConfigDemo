@@ -118,12 +118,12 @@ static dispatch_once_t dispatchOnce;
     if (self.backImageMutArr.count - 1 > self.currentFlowSerialNum) {
         if (index > self.currentFlowSerialNum) {
             singleElement.bacKIMGV.byImage(self.backImageMutArr[0]);
-            singleElement.titleLab.byTextCor(JobsLightGrayColor);
-            singleElement.subTitleLab.byTextCor(JobsLightGrayColor);
+            singleElement.titleLab.byTextCor(JobsSecondaryLabelColor);
+            singleElement.subTitleLab.byTextCor(JobsSecondaryLabelColor);
         }else{
             singleElement.bacKIMGV.byImage(self.backImageMutArr[index + 1]);
-            singleElement.titleLab.byTextCor(JobsBlackColor);
-            singleElement.subTitleLab.byTextCor(JobsBlackColor);
+            singleElement.titleLab.byTextCor(JobsLabelColor);
+            singleElement.subTitleLab.byTextCor(JobsLabelColor);
         }
     }else{
         NSAssert(0,@"数组越界");

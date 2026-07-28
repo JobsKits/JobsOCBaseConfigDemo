@@ -152,6 +152,12 @@ Prop_strong(nullable) JobsTimer *frameTimer;
     [self setNeedsLayout];
 }
 
+- (void)jobs_layoutAnimatorViewWithFrame:(CGRect)frame {
+    UIView *animatorView = self.animatorView;
+    if (!animatorView) return;
+    animatorView.byFrame(frame);
+}
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     CGSize animatorSize = self.animator ? self.animator.refreshAnimatorPreferredSize : CGSizeMake(20, 20);
@@ -163,10 +169,10 @@ Prop_strong(nullable) JobsTimer *frameTimer;
     CGFloat boundsW = CGRectGetWidth(self.bounds);
     CGFloat boundsH = CGRectGetHeight(self.bounds);
     if (self.animatorView && !self.config.showsText) {
-        self.animatorView.byFrame(CGRectMake((boundsW - animatorSize.width) * 0.5,
-                                             (boundsH - animatorSize.height) * 0.5,
-                                             animatorSize.width,
-                                             animatorSize.height));
+        [self jobs_layoutAnimatorViewWithFrame:CGRectMake((boundsW - animatorSize.width) * 0.5,
+                                                          (boundsH - animatorSize.height) * 0.5,
+                                                          animatorSize.width,
+                                                          animatorSize.height)];
         self.statusLabel.byFrame(CGRectZero);
         self.timePrefixLabel.byFrame(CGRectZero);
         self.timeLabel.byFrame(CGRectZero);
@@ -206,10 +212,10 @@ Prop_strong(nullable) JobsTimer *frameTimer;
                                       iconSide);
         self.imageView.byFrame(iconFrame);
         self.indicatorView.byFrame(iconFrame);
-        self.animatorView.byFrame(CGRectMake(CGRectGetMidX(iconFrame) - animatorSize.width * 0.5,
-                                             CGRectGetMidY(iconFrame) - animatorSize.height * 0.5,
-                                             animatorSize.width,
-                                             animatorSize.height));
+        [self jobs_layoutAnimatorViewWithFrame:CGRectMake(CGRectGetMidX(iconFrame) - animatorSize.width * 0.5,
+                                                          CGRectGetMidY(iconFrame) - animatorSize.height * 0.5,
+                                                          animatorSize.width,
+                                                          animatorSize.height)];
 #if defined(Lottie_h)
         if (self.lottieView) self.lottieView.byFrame(iconFrame);
 #endif
@@ -241,10 +247,10 @@ Prop_strong(nullable) JobsTimer *frameTimer;
         CGFloat textY = centerY - textH * 0.5;
         self.imageView.byFrame(CGRectMake(startX, centerY - iconSide * 0.5, iconSide, iconSide));
         self.indicatorView.byFrame(self.imageView.frame);
-        self.animatorView.byFrame(CGRectMake(CGRectGetMidX(self.imageView.frame) - animatorSize.width * 0.5,
-                                             CGRectGetMidY(self.imageView.frame) - animatorSize.height * 0.5,
-                                             animatorSize.width,
-                                             animatorSize.height));
+        [self jobs_layoutAnimatorViewWithFrame:CGRectMake(CGRectGetMidX(self.imageView.frame) - animatorSize.width * 0.5,
+                                                          CGRectGetMidY(self.imageView.frame) - animatorSize.height * 0.5,
+                                                          animatorSize.width,
+                                                          animatorSize.height)];
 #if defined(Lottie_h)
         if (self.lottieView) self.lottieView.byFrame(self.imageView.frame);
 #endif

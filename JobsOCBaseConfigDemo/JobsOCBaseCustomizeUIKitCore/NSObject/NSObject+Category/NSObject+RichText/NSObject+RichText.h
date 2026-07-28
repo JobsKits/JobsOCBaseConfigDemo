@@ -123,7 +123,7 @@ NS_ASSUME_NONNULL_END
                     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                          @jobs_strongify(self)
                          data1.byFont(UIFontWeightRegularSize(14))
-                              .byTextCor(HEXCOLOR(0x757575))
+                              .byTextCor(JobsSecondaryLabelColor)
                               .byTargetString(self.richTextMutArr[0]);
                      }))
                     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {

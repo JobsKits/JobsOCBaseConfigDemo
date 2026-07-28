@@ -200,15 +200,15 @@ AppToolsProtocol_synthesize
         _szTextView = jobsMakeSZTextView(^(SZTextView * _Nonnull textView) {
             @jobs_strongify(self)
             textView.delegate = self;
-            textView.textColor = JobsBlackColor;
-            textView.byBgColor(@"#F9F9F9".cor);
+            textView.textColor = JobsLabelColor;
+            textView.byBgColor(JobsSecondarySystemBackgroundColor);
             textView.returnKeyType = UIReturnKeyDefault;
             textView.keyboardAppearance = UIKeyboardAppearanceDefault;
             textView.keyboardType = UIKeyboardTypeNumberPad;
             textView.placeholder = @"请输入充值金额".tr;
             textView.font = UIFontWeightMediumSize(18);
             textView.placeholderFont = textView.font;
-            textView.placeholderColor = @"#AAAAAA".cor;
+            textView.placeholderColor = JobsPlaceholderTextColor;
             [textView jobsTextViewFilterBlock:^BOOL(id  _Nullable data) {
 //                @jobs_strongify(self)
                 return YES;
@@ -225,7 +225,7 @@ AppToolsProtocol_synthesize
         _jobsTextView = makeJobsTextView(^(__kindof JobsTextView * _Nullable textView) {
             @jobs_strongify(self)
             textView.szTextView.delegate = self;
-            textView.szTextView.textColor = JobsBlackColor;
+            textView.szTextView.textColor = JobsLabelColor;
             textView.szTextView.byBgColor(JobsClearColor);
             textView.byBgColor(JobsClearColor);
             textView.returnKeyType_ = UIReturnKeyDefault;
@@ -234,7 +234,7 @@ AppToolsProtocol_synthesize
             textView.placeholder = @"请输入充值金额".tr;
             textView.font = UIFontWeightMediumSize(18);
             textView.placeholderFont = textView.font;
-            textView.placeholderColor = @"#AAAAAA".cor;
+            textView.placeholderColor = JobsPlaceholderTextColor;
             [textView.szTextView jobsTextViewFilterBlock:^BOOL(id _Nullable data) {
 //                @jobs_strongify(self)
                 return YES;

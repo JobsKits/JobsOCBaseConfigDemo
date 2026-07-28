@@ -34,7 +34,7 @@ Prop_strong()UIButton *cancelBtn;
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         super.jobsRichViewByModel(model);
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
         self.indicatorView.byAlpha(1);
         self.titleLab.byAlpha(1);
         self.cancelBtn.byAlpha(1);
@@ -62,7 +62,7 @@ Prop_strong()UIButton *cancelBtn;
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"评论".tr)
-                .byTextCor(HEXCOLOR(0x111827))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightMediumSize(18))
             .bySizeToFit()
             .addOn(self)

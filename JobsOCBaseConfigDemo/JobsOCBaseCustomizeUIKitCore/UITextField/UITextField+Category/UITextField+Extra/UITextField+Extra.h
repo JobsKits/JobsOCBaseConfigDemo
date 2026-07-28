@@ -55,9 +55,9 @@ NS_ASSUME_NONNULL_END
                      .byRightViewMode(UITextFieldViewModeNever)
                      .byText(@"")
                      .byFont(pingFangHKRegular(JobsWidth(14)))
-                     .byTextCor(JobsBlackColor)
+                     .byTextCor(JobsLabelColor)
                      .byPlaceholder(@"ID Type".tr)
-                     .byPlaceholderColor(JobsGrayColor)
+                     .byPlaceholderColor(JobsPlaceholderTextColor)
                      .byPlaceholderFont(pingFangHKRegular(JobsWidth(14)));
              })).setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
                  data.byLayerCor(@"#DEDEDE".cor)

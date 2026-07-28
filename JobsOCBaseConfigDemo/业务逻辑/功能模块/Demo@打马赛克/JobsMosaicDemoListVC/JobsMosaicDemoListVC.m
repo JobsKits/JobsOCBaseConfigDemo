@@ -38,7 +38,7 @@ Prop_strong()NSArray <UIViewModel *>*demoArr;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"打马赛克".tr)
                 .byFont(UIFontWeightRegularSize(17))
-                .byTextCor(HEXCOLOR(0x3D4A58));
+                .byTextCor(JobsLabelColor);
         })
         .byBgCor(HEXCOLOR(0xF4F5F8))
         .byNavBgCor(HEXCOLOR(0xF4F5F8));
@@ -46,7 +46,7 @@ Prop_strong()NSArray <UIViewModel *>*demoArr;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF4F5F8));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.tableView.byVisible(YES);
 }
@@ -73,12 +73,12 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
             label.byText(viewModel.textModel.attributedTitle.string ?: viewModel.textModel.text)
                 .byFont(UIFontWeightMediumSize(16))
-                .byTextCor(HEXCOLOR(0x3D4A58));
+                .byTextCor(JobsLabelColor);
         })
         .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
             label.byText(viewModel.subTextModel.attributedTitle.string ?: viewModel.subTextModel.text)
                 .byFont(UIFontWeightRegularSize(12))
-                .byTextCor(HEXCOLOR(0x8A93A1));
+                .byTextCor(JobsSecondaryLabelColor);
         })
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
         .bySelectionStyle(UITableViewCellSelectionStyleDefault);

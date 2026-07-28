@@ -39,7 +39,7 @@ Prop_copy()NSString *dot;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(@"文字前面小圆点".tr)
                 .byFont(UIFontWeightRegularSize(18));
         })

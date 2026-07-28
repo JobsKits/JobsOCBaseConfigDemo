@@ -64,7 +64,7 @@ Prop_copy()NSString *URL;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsWhiteColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeGKNavByConfig(self.makeNav0ByTitle(self.viewModel.textModel.text));
 }
 

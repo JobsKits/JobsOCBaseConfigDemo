@@ -37,7 +37,7 @@ Prop_strong()UIButton *refreshButton;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             NSString *title = data.attributedTitle.string;
             data.byText(isValue(title) ? title : @"崩溃日志".tr)
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightRegularSize(16));
         })
         .byBgCor(JobsSystemBackgroundColor)

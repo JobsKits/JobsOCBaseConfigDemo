@@ -39,7 +39,7 @@ Prop_strong()UIButton *modeBtn;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
                 .byText(@"JobsOCSkeletonView")
-                .byTextCor(HEXCOLOR(0x263342))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightRegularSize(18));
         })
         .byBgCor(HEXCOLOR(0xF5F7FA))
@@ -52,7 +52,7 @@ Prop_strong()UIButton *modeBtn;
     self.skeletonRowCount = 8;
     self.userDataArr = @[];
     self.makeNavByAlpha(1);
-    self.view.byBgColor(HEXCOLOR(0xF5F7FA));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.rightBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
         data.add(UIBarButtonItem.initBy(self.reloadBtn))
             .add(UIBarButtonItem.initBy(self.modeBtn));
@@ -157,7 +157,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byDelegate(self)
                 .byDataSource(self)
                 .byShowsVerticalScrollIndicator(NO)
-                .byBgColor(HEXCOLOR(0xF5F7FA));
+                .byBgColor(JobsSecondarySystemBackgroundColor);
             [tableView registerClass:JobsOCSkeletonUserCell.class
                forCellReuseIdentifier:JobsOCSkeletonUserCell.reuseIdentifier];
             tableView

@@ -140,7 +140,7 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self jobs_hideDoorNavigationChrome];
-    self.view.byBgColor(JobsBlueColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     //标的值初始化
     self.logoContentViewY = 0;
     self.loginContentViewY = 0;

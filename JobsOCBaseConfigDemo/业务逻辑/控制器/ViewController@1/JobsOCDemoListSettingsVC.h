@@ -45,6 +45,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSInteger, JobsOCDemoListCellTextDisplayStrategy) {
+    JobsOCDemoListCellTextDisplayStrategyNormal = 0,
+    JobsOCDemoListCellTextDisplayStrategyTailTruncation,
+    JobsOCDemoListCellTextDisplayStrategyScaleToFit,
+    JobsOCDemoListCellTextDisplayStrategyContinuous,
+    JobsOCDemoListCellTextDisplayStrategyPingPong
+};
+
+FOUNDATION_EXPORT JobsOCDemoListCellTextDisplayStrategy JobsOCCurrentDemoListCellTextDisplayStrategy(void);
+FOUNDATION_EXPORT void JobsOCSetDemoListCellTextDisplayStrategy(JobsOCDemoListCellTextDisplayStrategy strategy);
+
 @interface JobsOCDemoListSettingsVC : BaseViewController <UITableViewDelegate, UITableViewDataSource>
 
 @end

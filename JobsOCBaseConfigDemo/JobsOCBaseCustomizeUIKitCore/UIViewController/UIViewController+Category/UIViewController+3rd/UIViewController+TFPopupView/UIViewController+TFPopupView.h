@@ -71,7 +71,7 @@ NS_ASSUME_NONNULL_END
                  .jobsResetBtnTitle(@"篩選".tr)
                  .jobsResetBtnImage(@"向下的箭头".img)
                  .jobsResetBtnTitleFont(fontName(@"NotoSans-Bold", 12))
-                 .jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58))
+                 .jobsResetBtnTitleCor(JobsLabelColor)
                  .makeBtnTitleByShowingType(UILabelShowingType_03)
                  .jobsResetImagePlacement_Padding(NSDirectionalRectEdgeTrailing, JobsWidth(6))
                  .addOn(self.view)
@@ -105,7 +105,7 @@ NS_ASSUME_NONNULL_END
              _customBtn = UIButton.jobsInit()
                  .jobsResetBtnTitle(@"自定义".tr)
                  .jobsResetBtnTitleFont(fontName(@"NotoSans-Bold", 12))
-                 .jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58))
+                 .jobsResetBtnTitleCor(JobsLabelColor)
                  .selectedStateTitleColorBy(HEXCOLOR(0xAE8330))
                  .addOn(self.view)
                  .byAdd(^(MASConstraintMaker *make) {

@@ -115,7 +115,7 @@ BaseButtonProtocol_synthesize
         self.incLabel.byHidden(YES);
         self.incLabel.byAlpha(0);
         [self.incLabel.layer removeAllAnimations];
-        self.countLabel.byTextCor(HEXCOLOR(0xCFD2D6));
+        self.countLabel.byTextCor(JobsSecondaryLabelColor);
     }
 }
 /// 当点赞数改变时,就改变
@@ -306,7 +306,7 @@ BaseButtonProtocol_synthesize
             }
             label
                 .byFont(UIFontWeightRegularSize(12))
-                .byTextCor(HEXCOLOR(0xCFD2D6))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byText(@"0")
                 .byNumberOfLines(1)
                 .byTextAlignment(textAlignment)

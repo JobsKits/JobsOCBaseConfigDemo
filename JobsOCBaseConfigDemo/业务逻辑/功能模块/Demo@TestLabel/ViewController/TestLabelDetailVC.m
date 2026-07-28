@@ -51,7 +51,7 @@ Prop_assign()BOOL didApplyShowingType;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(self.demoModel.title ?: @"Label Demo".tr)
                 .byFont(UIFontWeightRegularSize(16));
         })
@@ -62,7 +62,7 @@ Prop_assign()BOOL didApplyShowingType;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(RGBA_COLOR(255, 238, 221, 1));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.scrollView.byAlpha(1);
     self.contentView.byAlpha(1);
@@ -228,7 +228,7 @@ Prop_assign()BOOL didApplyShowingType;
             label
                 .byText(self.detailTitleText)
                 .byFont(UIFontWeightSemiboldSize(JobsWidth(18)))
-                .byTextCor(HEXCOLOR(0x2F3A47))
+                .byTextCor(JobsLabelColor)
                 .byNumberOfLines(0)
                 .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -248,7 +248,7 @@ Prop_assign()BOOL didApplyShowingType;
             label
                 .byText(self.detailSubTitleText)
                 .byFont(UIFontWeightRegularSize(JobsWidth(13)))
-                .byTextCor(HEXCOLOR(0x6E7783))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byNumberOfLines(0)
                 .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -265,7 +265,7 @@ Prop_assign()BOOL didApplyShowingType;
         _previewView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
             view
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.subTitleLab.mas_bottom).offset(JobsWidth(28));

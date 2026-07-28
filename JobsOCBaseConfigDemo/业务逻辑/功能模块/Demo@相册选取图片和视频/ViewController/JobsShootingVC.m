@@ -36,7 +36,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x1F2937))
+                .byTextCor(JobsLabelColor)
                 .byText(data.attributedTitle.string)
                 .byFont(UIFontWeightSemiboldSize(17));
         })
@@ -46,7 +46,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF6F8FC));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.cameraBtn.byAlpha(1);
     self.photoAlbumBtn.byAlpha(1);

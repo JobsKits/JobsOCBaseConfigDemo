@@ -139,7 +139,7 @@ Prop_strong()UILabel *replySummaryLabel;
     [self.containerView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView).offset(JobsOCCommentLeadingByModeAndDepth(config.mode, depth));
     }];
-    self.containerView.backgroundColor = UIColor.whiteColor;
+    self.containerView.byBgColor(JobsSecondarySystemBackgroundColor);
     self.avatarImageView.hidden = YES;
     self.avatarLabel.hidden = YES;
     self.nameLabel.hidden = YES;

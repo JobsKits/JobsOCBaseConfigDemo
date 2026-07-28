@@ -50,7 +50,7 @@ Prop_assign()JobsWalletCardExpandStyle walletStyle;
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byTextCor(JobsLabelColor);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
@@ -65,7 +65,7 @@ Prop_assign()JobsWalletCardExpandStyle walletStyle;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    self.view.byBgColor(HEXCOLOR(0xF5F7FB));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     if (self.showsModeList) {
         self.modeTableView.byAlpha(1);
     } else {
@@ -176,7 +176,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         });
     UIView *cardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
         view.byTag(JobsWalletModeCardViewTag)
-            .byBgColor(JobsWhiteColor)
+            .byBgColor(JobsSecondarySystemBackgroundColor)
             .byCornerRadius(JobsWidth(18))
             .byClipsToBounds(NO)
             .addOn(cell.contentView)
@@ -207,7 +207,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label.tag = JobsWalletModeTitleLabelTag;
         label.byFont(UIFontWeightSemiboldSize(16))
-            .byTextCor(HEXCOLOR(0x2F3A46))
+            .byTextCor(JobsLabelColor)
             .byNumberOfLines(1)
             .byLineBreakMode(NSLineBreakByTruncatingTail)
             .addOn(cardView)
@@ -220,7 +220,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label.tag = JobsWalletModeSubTitleLabelTag;
         label.byFont(UIFontWeightRegularSize(12))
-            .byTextCor(HEXCOLOR(0x8A96A3))
+            .byTextCor(JobsSecondaryLabelColor)
             .byNumberOfLines(2)
             .byLineBreakMode(NSLineBreakByTruncatingTail)
             .addOn(cardView)

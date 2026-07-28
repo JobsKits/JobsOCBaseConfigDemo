@@ -43,7 +43,7 @@ Prop_strong()LOTAnimationView *signatureSloganLottieView;
             })
             .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
                 data
-                    .byTextCor(HEXCOLOR(0x3D4A58))
+                    .byTextCor(JobsLabelColor)
                     .byText(@"相关功能列表".tr)
                     .byFont(UIFontWeightRegularSize(16));
             })
@@ -58,7 +58,7 @@ Prop_strong()LOTAnimationView *signatureSloganLottieView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsBlueColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.signatureSloganLottieView.animationProgress = 0;
     [self.signatureSloganLottieView play];

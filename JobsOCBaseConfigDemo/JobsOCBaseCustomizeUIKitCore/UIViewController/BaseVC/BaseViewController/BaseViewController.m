@@ -49,7 +49,7 @@ BaseViewControllerProtocol_synthesize
     if (@available(iOS 13.0, *)) {
         self.view.byBgColor(JobsSystemBackgroundColor);
     } else {
-        self.view.byBgColor(JobsWhiteColor);
+        self.view.byBgColor(JobsSystemBackgroundColor);
     }
     self.ViewDidLoad = YES;
     /// 在loadView或者之前的生命周期中定义背景图片或者底色
@@ -152,26 +152,9 @@ BaseViewControllerProtocol_synthesize
     @jobs_weakify(self)
     return ^() {
         @jobs_strongify(self)
-        /// 底图没有 + 底色没有
-        if(!self.viewModel.bgImage && !self.viewModel.bgCor){
-            self.view.byBgColor(HEXCOLOR(0xFCFBFB));
-            return;
-        }
-        /// 底图有 + 底色没有
-        if(self.viewModel.bgImage && !self.viewModel.bgCor){
-            self.bgImageView.byAlpha(1);
-            return;
-        }
-        /// 底图没有 + 底色有
-        if(!self.viewModel.bgImage && self.viewModel.bgCor){
-            self.view.byBgColor(self.viewModel.bgCor);
-            return;
-        }
-        /// 底图有 + 底色有 = 优先使用底图数据
-        if(self.viewModel.bgImage && self.viewModel.bgCor){
-            self.bgImageView.byAlpha(1);
-            return;
-        }
+        /// 页面根承载面统一跟随系统主题；业务图片与固定色请放到内容子视图。
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        if (_bgImageView) _bgImageView.byAlpha(0);
     };
 }
 #pragma mark —— lazyLoad
@@ -184,6 +167,7 @@ BaseViewControllerProtocol_synthesize
             @jobs_strongify(self)
             imageView
                 .byImage(self.viewModel.bgImage)
+                .byAlpha(0)
                 .byUserInteractionEnabled(YES);
             imageView.resetOrigin(CGPointMake(self.view.x, self.view.y));
             imageView.resetSize(CGSizeMake(JobsRealWidth(), JobsRealHeight()));

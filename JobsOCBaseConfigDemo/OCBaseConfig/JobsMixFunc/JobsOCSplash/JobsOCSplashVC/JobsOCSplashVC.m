@@ -41,7 +41,7 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
 
 -(void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(UIColor.blackColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.imageView.addOn(self.view);
     self.remoteVideoDownloadNoticeLabel.addOn(self.view);
     self.countdownBtn.addOn(self.view);

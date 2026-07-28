@@ -74,7 +74,7 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
     [super viewDidLoad];
     [self jobs_installApplicationStateObservers];
     [UIDevice.currentDevice beginGeneratingDeviceOrientationNotifications];
-    self.view.byBgColor(UIColor.blackColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     [self.view.layer insertSublayer:self.captureManager.previewLayer atIndex:0];
     self.backBtn.alpha = 1;
     self.titleLabel.alpha = 1;

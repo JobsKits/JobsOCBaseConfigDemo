@@ -65,7 +65,7 @@ Prop_strong()UILabel *resultLab;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x263342))
+                .byTextCor(JobsLabelColor)
                 .byText(@"JobsOCGraphicCaptcha")
                 .byFont(UIFontWeightRegularSize(18));
         })
@@ -76,7 +76,7 @@ Prop_strong()UILabel *resultLab;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    self.view.byBgColor(HEXCOLOR(0xF5F7FA));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.contentView.byHidden(NO);
     [self applyCurrentConfig];
 }
@@ -164,7 +164,7 @@ Prop_strong()UILabel *resultLab;
     self.inputTF.byText(@"");
     self.resultLab
         .byText(@"等待输入校验".tr)
-        .byTextCor(HEXCOLOR(0x6B7280));
+        .byTextCor(JobsSecondaryLabelColor);
 }
 
 -(void)selectOptionButton:(UIButton *)button{
@@ -172,7 +172,7 @@ Prop_strong()UILabel *resultLab;
     for (UIButton *optionButton in self.optionButtonMutArr) {
         BOOL selected = optionButton == button;
         optionButton
-            .jobsResetBtnTitleCor(selected ? UIColor.whiteColor : HEXCOLOR(0x4B5563))
+            .jobsResetBtnTitleCor(selected ? UIColor.whiteColor : JobsLabelColor)
             .jobsResetBtnBgCor(selected ? HEXCOLOR(0x1D7FF2) : HEXCOLOR(0xEEF1F5))
             .bySelected(selected);
     }
@@ -335,7 +335,7 @@ Prop_strong()UILabel *resultLab;
         UILabel *titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(title.tr)
-                .byTextCor(HEXCOLOR(0x4B5563))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightMediumSize(13))
                 .byTextAlignment(NSTextAlignmentLeft);
         });
@@ -474,7 +474,7 @@ Prop_strong()UILabel *resultLab;
         _lengthLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"长度：".tr)
-                .byTextCor(HEXCOLOR(0x263342))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightRegularSize(15))
                 .addOn(self.contentView)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -515,7 +515,7 @@ Prop_strong()UILabel *resultLab;
         _inputTF = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
             textField
                 .byPlaceholder(@"输入图形验证码".tr)
-                .byTextCor(HEXCOLOR(0x263342))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightRegularSize(16))
                 .byBorderStyle(UITextBorderStyleNone)
                 .byClearButtonMode(UITextFieldViewModeWhileEditing)

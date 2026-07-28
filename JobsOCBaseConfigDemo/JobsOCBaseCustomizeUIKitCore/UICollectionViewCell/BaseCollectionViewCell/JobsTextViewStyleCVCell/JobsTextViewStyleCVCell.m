@@ -112,15 +112,15 @@ BaseViewProtocol_synthesize
         _szTextView = self.contentView.addSubview(jobsMakeSZTextView(^(SZTextView * _Nonnull textView) {
             @jobs_strongify(self)
             textView.delegate = self;
-            textView.textColor = JobsBlackColor;
-            textView.byBgColor(@"#F9F9F9".cor);
+            textView.textColor = JobsLabelColor;
+            textView.byBgColor(JobsSecondarySystemBackgroundColor);
             textView.returnKeyType = UIReturnKeyDefault;
             textView.keyboardAppearance = UIKeyboardAppearanceDefault;
             textView.keyboardType = UIKeyboardTypeNumberPad;
             textView.placeholder = @"请输入充值金额".tr;
             textView.font = UIFontWeightMediumSize(18);
             textView.placeholderFont = textView.font;
-            textView.placeholderColor = @"#AAAAAA".cor;
+            textView.placeholderColor = JobsPlaceholderTextColor;
             textView.linkTextAttributes = self.makeLinkTextAttributes; /// Style for links
             [textView jobsTextViewFilterBlock:^BOOL(id  _Nullable data) {
 //                @jobs_strongify(self)
@@ -138,15 +138,15 @@ BaseViewProtocol_synthesize
         _jobsTextView = self.contentView.addSubview(makeJobsTextView(^(__kindof JobsTextView * _Nullable textView) {
             @jobs_strongify(self)
             textView.szTextView.delegate = self;
-            textView.szTextView.textColor = JobsBlackColor;
-            textView.byBgColor(@"#F9F9F9".cor);
+            textView.szTextView.textColor = JobsLabelColor;
+            textView.byBgColor(JobsSecondarySystemBackgroundColor);
             textView.returnKeyType_ = UIReturnKeyDefault;
             textView.keyboardAppearance_ = UIKeyboardAppearanceDefault;
             textView.keyboardType_ = UIKeyboardTypeNumberPad;
             textView.placeholder = @"请输入充值金额".tr;
             textView.font = UIFontWeightMediumSize(18);
             textView.placeholderFont = textView.font;
-            textView.placeholderColor = @"#AAAAAA".cor;
+            textView.placeholderColor = JobsPlaceholderTextColor;
             textView.szTextView.linkTextAttributes = self.makeLinkTextAttributes; /// Style for links
             [textView.szTextView jobsTextViewFilterBlock:^BOOL(id _Nullable data) {
 //                @jobs_strongify(self)

@@ -147,7 +147,7 @@ UITextFieldProtocol_synthesize_part2
                 .byAlpha(1);
             self.chatContentLab
                 .byText(self.senderChatTextStr)
-                .byTextCor(JobsBlackColor)
+                .byTextCor(JobsLabelColor)
                 .byAlpha(1);
             self.timeLab
                 .byText(self.senderChatTextTimeStr)
@@ -357,7 +357,7 @@ UITextFieldProtocol_synthesize_part2
             label
                 .byNumberOfLines(0)
                 .byText(self.senderChatTextStr)
-                .byTextCor(JobsBlackColor)
+                .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentLeft)
                 .byFont(JobsIMChatMessageFont())
                 .addOn(self.chatBubbleIMGV)

@@ -880,6 +880,15 @@
 "下次开屏：关" = "Susunod na splash: Sarado";
 "下次开屏：开" = "Susunod na splash: Bukas";
 "开屏内容" = "Nilalaman ng Splash";
+"开屏内容：%@" = "Nilalaman ng Splash: %@";
+"应用语言：%@" = "Wika ng App: %@";
+"列表主/副标题：%@" = "Pamagat/Subtitulo ng Listahan: %@";
+"列表主/副标题已设为：%@" = "Itinakda ang pamagat/subtitulo ng listahan sa: %@";
+"一般模式" = "Karaniwang Mode";
+"省略号模式" = "Ellipsis Mode";
+"缩小字体模式" = "Paliitin ang Font";
+"连续跑马灯" = "Tuloy-tuloy na Marquee";
+"左右来回滚动" = "Pabalik-balik na Pag-scroll";
 "本地图片" = "Lokal na Larawan";
 "本地 GIF" = "Lokal na GIF";
 "远程图片" = "Remote na Larawan";

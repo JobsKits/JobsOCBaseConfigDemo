@@ -93,8 +93,8 @@ static dispatch_once_t static_popupView10OnceToken;
         cell.button.byBgColor(HEXCOLOR(0xFFEABA));
         cell.button.jobsResetBtnTitleCor(HEXCOLOR(0xAE8330));
     }else{
-        cell.button.byBgColor(HEXCOLOR(0xF3F3F3));
-        cell.button.jobsResetBtnTitleCor(HEXCOLOR(0x757575));
+        cell.button.byBgColor(JobsSecondarySystemBackgroundColor);
+        cell.button.jobsResetBtnTitleCor(JobsSecondaryLabelColor);
     }
     cell.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel *_Nullable data) {
         data.byLayerCor(@"#6E5600".cor)
@@ -254,7 +254,7 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
             .byScrollEnabled(NO)
             .byUserInteractionEnabled(YES);
         _collectionView
-            .byBgColor(JobsWhiteColor)
+            .byBgColor(JobsSecondarySystemBackgroundColor)
             .addOn(self.bgView)
             .byAdd(^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
@@ -415,7 +415,7 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
         _bgView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
             view
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.size.mas_equalTo(CGSizeMake(BaiShaETProjPopupView10.viewSizeByModel(nil).width, BaiShaETProjPopupView10.viewSizeByModel(nil).height - JobsWidth(44)));

@@ -36,7 +36,7 @@ Prop_copy()NSString *textData2;// 来自于剪切板存储的数据
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(data.attributedTitle.string)
                 .byFont(UIFontWeightRegularSize(18));
         })
@@ -51,7 +51,7 @@ Prop_copy()NSString *textData2;// 来自于剪切板存储的数据
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsRandomColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
 //    [self.bgImageView removeFromSuperview];
     self.label.byAlpha(1);
@@ -138,7 +138,7 @@ Prop_copy()NSString *textData2;// 来自于剪切板存储的数据
                 .byFont(UIFontSystemFontOfSize(20))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .makeLabelByShowingType(UILabelShowingType_03)
-                .byBgColor(JobsLightGrayColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byUserInteractionEnabled(YES)
                 .addLongPressGR(^(__kindof UILongPressGestureRecognizer * _Nullable data) {
                     if(data.state == UIGestureRecognizerStateBegan){

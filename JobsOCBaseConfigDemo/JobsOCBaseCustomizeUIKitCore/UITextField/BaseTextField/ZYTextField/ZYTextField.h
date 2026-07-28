@@ -59,15 +59,15 @@ NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBl
          if (!_textField) {
              _textField = ZYTextField.new;
              _textField.byDelegate(self);
-             _textField.byTextCor(JobsBlackColor);
-             _textField.byBgColor(RGBA_COLOR(245, 245, 245, 1));
+             _textField.byTextCor(JobsLabelColor);
+             _textField.byBgColor(JobsSecondarySystemBackgroundColor);
              _textField.byReturnKeyType(UIReturnKeyDefault);
              _textField.byKeyboardAppearance(UIKeyboardAppearanceDefault);
              _textField.byKeyboardType(UIKeyboardTypeDefault);
              _textField.rightView = self.titleLab;
              _textField.rightViewMode = UITextFieldViewModeAlways;
              _textField.byPlaceholder(@"打赏的Mata值".tr);
-             _textField.placeholderColor = @"#333333".cor;
+             _textField.placeholderColor = JobsPlaceholderTextColor;
              _textField.placeholderFont = UIFontWeightRegularSize(12);
              _textField.drawPlaceholderInRect = CGRectMake(0, 0, JobsWidth(255 - 20 - 40 - 5), JobsWidth(32));
              _textField.rightViewRectForBounds = CGRectMake(JobsWidth(255 - 20 - 40), JobsWidth(10), JobsWidth(40), JobsWidth(12));
@@ -105,8 +105,8 @@ NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBl
          if (!_textField) {
              _textField = ZYTextField.new;
              _textField.byDelegate(self);
-             _textField.byTextCor(JobsBlackColor);
-             _textField.byBgColor(@"#F9F9F9".cor);
+             _textField.byTextCor(JobsLabelColor);
+             _textField.byBgColor(JobsSecondarySystemBackgroundColor);
              _textField.byReturnKeyType(UIReturnKeyDefault);
              _textField.byKeyboardAppearance(UIKeyboardAppearanceDefault);
              _textField.byKeyboardType(UIKeyboardTypeDefault);
@@ -115,7 +115,7 @@ NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBl
              _textField.byPlaceholder(self.viewModel.textModel.text);
              _textField.byFont(UIFontWeightRegularSize(14));
              _textField.placeholderFont = _textField.font;
-             _textField.placeholderColor = JobsGrayColor;
+             _textField.placeholderColor = JobsPlaceholderTextColor;
              CGFloat placeholderHeight = [self jobsGetLabelWidthWithTitle:_textField.placeholder font:_textField.placeholderFont].height;
              CGFloat placeholderY = (JobsWidth(28) - placeholderHeight) / 2;
              _textField.drawPlaceholderInRect = CGRectMake(JobsWidth(52), placeholderY, MSInputStyle1View.viewSizeByModel(nil).width - JobsWidth(32), JobsWidth(28));// OK
@@ -142,8 +142,8 @@ NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBl
          if (!_textField) {
              _textField = ZYTextField.new;
              _textField.byDelegate(self);
-             _textField.byTextCor(JobsBlackColor);
-             _textField.byBgColor(@"#F9F9F9".cor);
+             _textField.byTextCor(JobsLabelColor);
+             _textField.byBgColor(JobsSecondarySystemBackgroundColor);
              _textField.byReturnKeyType(UIReturnKeyDefault);
              _textField.byKeyboardAppearance(UIKeyboardAppearanceDefault);
              _textField.byKeyboardType(UIKeyboardTypeDefault);
@@ -152,7 +152,7 @@ NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBl
              _textField.byPlaceholder(self.viewModel.textModel.text);
              _textField.byFont(UIFontWeightRegularSize(14));
              _textField.placeholderFont = _textField.font;
-             _textField.placeholderColor = JobsGrayColor;
+             _textField.placeholderColor = JobsPlaceholderTextColor;
              CGFloat placeholderHeight = [self jobsGetLabelWidthWithTitle:_textField.placeholder font:_textField.placeholderFont].height;
              CGFloat placeholderY = (JobsWidth(28) - placeholderHeight) / 2;
              _textField.drawPlaceholderInRect = CGRectMake(JobsWidth(52), placeholderY, MSInputStyle3ViewviewSizeByModel(nil).width - JobsWidth(32 + 100), JobsWidth(28));// OK
@@ -183,7 +183,7 @@ NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBl
          if (!_textField) {
              _textField = ZYTextField.new;
              _textField.byDelegate(self);
-             _textField.byBgColor(RGBA_COLOR(245, 245, 245, 1));
+             _textField.byBgColor(JobsSecondarySystemBackgroundColor);
              _textField.byReturnKeyType(UIReturnKeyDefault);
              _textField.byKeyboardAppearance(UIKeyboardAppearanceDefault);
              _textField.byKeyboardType(UIKeyboardTypeDefault);
@@ -194,7 +194,7 @@ NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBl
              _textField.byPlaceholder(@"搜索关键词".tr);
 
              _textField.placeholderFont = UIFontWeightRegularSize(14);
-             _textField.placeholderColor = JobsGrayColor;
+             _textField.placeholderColor = JobsPlaceholderTextColor;
              _textField.size = CGSizeMake(JobsWidth(220 - 80 - 12), JobsWidth(28));
 
              CGFloat placeholderHeight = [self jobsGetLabelWidthWithTitle:_textField.placeholder font:_textField.placeholderFont].height;

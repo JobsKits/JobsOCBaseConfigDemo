@@ -49,7 +49,7 @@ Prop_assign()BOOL searchMode;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(data.attributedTitle.string)
                 .byFont(UIFontWeightRegularSize(16));
         })
@@ -350,7 +350,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
                 @jobs_strongify(self)
                 label
-                    .byTextCor(JobsGrayColor)
+                    .byTextCor(JobsSecondaryLabelColor)
                     .byFont(JobsFontBold(JobsWidth(12)))
                 .byFrame(CGRectMake(10,20,headerView.width - 20.f,17.f))
                 .byTag(666)
@@ -456,7 +456,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
         _collectionView.byFrame(CGRectMake(self.tableView.right,self.tableView.top,
                                            JobsMainScreen_WIDTH() - self.tableView.width,self.tableView.height + EditBtnHeight));
         _collectionView
-            .byBgColor(HEXCOLOR(0xF7F8FA))
+            .byBgColor(JobsSecondarySystemBackgroundColor)
             .addOn(self.view);
     };return _collectionView;
 }
@@ -464,7 +464,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
 -(ThreeClassCell *)tempCell{
     if (!_tempCell){
         _tempCell = jobsMakeThreeClassCell(^(__kindof ThreeClassCell * _Nullable cell) {
-            cell.byBgColor(HEXCOLOR(0xF7F8FA));
+            cell.byBgColor(JobsSecondarySystemBackgroundColor);
             cell.byFrame(CGRectMake(0,
                                     0,
                                     ThreeClassCell.cellSizeByModel(nil).width,
@@ -553,7 +553,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
             .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
             .jobsResetImagePadding(JobsWidth(5.75))
             .jobsResetBtnBgImage(@"编辑".img)
-            .jobsResetBtnTitleCor(HEXCOLOR(0xB0B0B0))
+            .jobsResetBtnTitleCor(JobsSecondaryLabelColor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
             .jobsResetBtnTitle(@"编辑".tr)
             .onClickBy(^(UIButton *x){

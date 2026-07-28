@@ -21,7 +21,7 @@ Prop_strong()UILabel *titleLab;
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsUserHeaderDataViewTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsUserHeaderDataViewTBVCell);
-        cell.byBgColor(HEXCOLOR(0xFFFFFF));
+        cell.byBgColor(JobsSecondarySystemBackgroundColor);
         return cell;
     };
 }

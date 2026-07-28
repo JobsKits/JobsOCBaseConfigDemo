@@ -22,13 +22,13 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
 @implementation JobsHotLabelBySingleLine
 -(instancetype)init{
     if (self = [super init]) {
-        self.byBgColor(HEXCOLOR(0xFFFFFF));
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.byBgColor(HEXCOLOR(0xFFFFFF));
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 /// 必须有frame的前提下才会进行绘制

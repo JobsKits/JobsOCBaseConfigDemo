@@ -42,7 +42,7 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UICollectionViewCell *>*>*
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(@"".tr)
                 .byFont(UIFontWeightRegularSize(16));
         })
@@ -57,7 +57,7 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UICollectionViewCell *>*>*
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsRandomColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(0);
     self.collectionView.byShow(self);
 }

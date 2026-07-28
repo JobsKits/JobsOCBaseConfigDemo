@@ -38,7 +38,7 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
             .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
                 data
                     .byText(data.attributedTitle.string)
-                    .byTextCor(HEXCOLOR(0x3D4A58))
+                    .byTextCor(JobsLabelColor)
                     .byFont(UIFontWeightRegularSize(18));
             });
     }
@@ -48,7 +48,7 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF7E7D2));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.categoryView.byAlpha(1);
     self.filterBtn.byAlpha(1);
@@ -248,7 +248,7 @@ ratio:(CGFloat)ratio {
             .jobsResetImagePlacement(NSDirectionalRectEdgeTrailing)
             .jobsResetImagePadding(JobsWidth(6))
             .jobsResetBtnImage(@"筛选箭头（向下）".img)
-            .jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58))
+            .jobsResetBtnTitleCor(JobsLabelColor)
             .jobsResetBtnTitleFont(fontName(@"NotoSans-Bold", 12))
             .jobsResetBtnTitle(@"篩選".tr)
             .onClickBy(^(UIButton *x){
@@ -267,7 +267,7 @@ ratio:(CGFloat)ratio {
                 self.vc.hidePopupView(self.popUpCustomView);
                 if (x.selected) {
                     self.customBtn.bySelected(NO);
-                    self.customBtn.jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58));
+                    self.customBtn.jobsResetBtnTitleCor(JobsLabelColor);
                     self.popUpFiltrationView = self.vc.filtrationView;
                     self.popUpFiltrationView.popupDelegate = self;
                     [self.vc popUpFiltrationView];
@@ -292,7 +292,7 @@ ratio:(CGFloat)ratio {
     if (!_customBtn) {
         @jobs_weakify(self)
         _customBtn = BaseButton.jobsInit()
-            .jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58))
+            .jobsResetBtnTitleCor(JobsLabelColor)
             .jobsResetBtnTitleFont(fontName(@"NotoSans-Bold", 12))
             .jobsResetBtnTitle(@"自定义".tr)
             .onClickBy(^(UIButton *x){
@@ -300,14 +300,14 @@ ratio:(CGFloat)ratio {
                 if (self.objBlock) self.objBlock(x);
                 BOOL selected = !x.selected;
                 x
-                    .jobsResetBtnTitleCor(selected ? HEXCOLOR(0xAE8330) : HEXCOLOR(0x3D4A58))
+                    .jobsResetBtnTitleCor(selected ? HEXCOLOR(0xAE8330) : JobsLabelColor)
                     .bySelected(selected);
                 @"自定义".tr.toast();
                 self.vc = [self jobsCurrentPopupSubVC];
                 JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %ld",(long)self.currentIndex);
                 if (!self.vc) {
                     x
-                        .jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58))
+                        .jobsResetBtnTitleCor(JobsLabelColor)
                         .bySelected(NO);
                     return;
                 }

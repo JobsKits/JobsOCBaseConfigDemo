@@ -88,9 +88,9 @@ AppToolsProtocol_synthesize
                 label.byTextCor(JobsBrownColor);
             })
             .byTextLabel(^(__kindof UILabel * _Nullable label) {
-                label.byTextCor(JobsBlackColor);
+                label.byTextCor(JobsLabelColor);
             })
-            .byBgColor(JobsWhiteColor);
+            .byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 /// UITableViewCell 的横向和纵向的缩进

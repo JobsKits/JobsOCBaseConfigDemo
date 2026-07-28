@@ -124,7 +124,7 @@ Prop_assign()NSUInteger renderVersion;
         _controlTitleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"涂抹".tr)
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightMediumSize(15));
         });
     };return _controlTitleLabel;
@@ -154,7 +154,7 @@ Prop_assign()NSUInteger renderVersion;
         _clearButton = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
                 .jobsResetBtnTitle(@"清除".tr)
-                .jobsResetBtnTitleCor(HEXCOLOR(0x3D4A58))
+                .jobsResetBtnTitleCor(JobsLabelColor)
                 .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
                 .jobsResetBtnBgCor(HEXCOLOR(0xEEF2F7))
                 .onClickBy(^(__kindof UIButton * _Nullable button) {

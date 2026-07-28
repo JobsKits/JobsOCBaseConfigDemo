@@ -60,7 +60,7 @@ Prop_copy()NSString *currentTitleWritingLottieName;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(@"".tr)
                 .byFont(UIFontWeightRegularSize(16));
         })
@@ -75,7 +75,7 @@ Prop_copy()NSString *currentTitleWritingLottieName;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF7E7D2));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.backgroundImageView.alpha = 1;
     self.contentGlassView.alpha = 1;
     self.titleWritingLottieView.alpha = 1;

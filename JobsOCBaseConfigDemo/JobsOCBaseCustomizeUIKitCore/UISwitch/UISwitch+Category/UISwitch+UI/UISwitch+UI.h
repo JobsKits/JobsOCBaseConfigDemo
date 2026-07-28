@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_END
                  Switch.thumbTintColor = _switcher.selected ? self.cor : HEXCOLOR(0xB0B0B0);
                  Switch.byTintColor(JobsWhiteColor);
                  Switch.onTintColor = HEXCOLOR(0xFFFCF7);
-                 Switch.byBgColor(JobsWhiteColor);
+                 Switch.byBgColor(JobsSecondarySystemBackgroundColor);
                  Switch.cornerCutToCircleWithCornerRadius(31 / 2);
                  Switch.byMakeConstraints(^(MASConstraintMaker *make) {
          //            make.top.equalTo(self.titleLab);

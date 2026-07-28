@@ -39,7 +39,7 @@
             })
             .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
                 data
-                    .byTextCor(HEXCOLOR(0x3D4A58))
+                    .byTextCor(JobsLabelColor)
                     .byText(@"探究 NSProxy".tr)
                     .byFont(UIFontWeightRegularSize(16));
             })

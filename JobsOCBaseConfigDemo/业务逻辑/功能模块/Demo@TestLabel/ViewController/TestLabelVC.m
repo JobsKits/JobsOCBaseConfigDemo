@@ -42,7 +42,7 @@ Prop_copy()NSArray <NSString *>*sectionTitleArr;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(@"Label 表现列表".tr)
                 .byFont(UIFontWeightRegularSize(16));
         })
@@ -53,7 +53,7 @@ Prop_copy()NSArray <NSString *>*sectionTitleArr;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(RGBA_COLOR(255, 238, 221, 1));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.tableView.byAlpha(1);
 }
@@ -78,20 +78,20 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!cell) {
         cell = [UITableViewCell.alloc initWithStyle:UITableViewCellStyleSubtitle
                                     reuseIdentifier:TestLabelListCellReuseIdentifier];
-        cell.byBgColor(JobsWhiteColor);
+        cell.byBgColor(JobsSecondarySystemBackgroundColor);
     }
     TestLabelDemoModel *model = [self dataArrBySection:indexPath.section][indexPath.row];
     return cell
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
             label.byText(model.title)
                 .byFont(UIFontWeightMediumSize(JobsWidth(15)))
-                .byTextCor(HEXCOLOR(0x2F3A47))
+                .byTextCor(JobsLabelColor)
                 .byNumberOfLines(1);
         })
         .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
             label.byText(model.subTitle)
                 .byFont(UIFontWeightRegularSize(JobsWidth(12)))
-                .byTextCor(HEXCOLOR(0x6E7783))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byNumberOfLines(2);
         })
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)

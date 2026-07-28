@@ -100,7 +100,7 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
     @jobs_weakify(self)
     return ^{
         @jobs_strongify(self)
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
         self.layer
             .byShadowColor(RGBA_COLOR(39, 50, 68, 0.12).CGColor)
             .byShadowOpacity(1)
@@ -154,7 +154,7 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
         .bgColorBy(HEXCOLOR(0xF6F7FB))
         .jobsResetBtnImage(@"按钮未选中".img)
         .selectedStateImageBy(@"按钮已选中".img)
-        .jobsResetBtnTitleCor(HEXCOLOR(0x273244))
+        .jobsResetBtnTitleCor(JobsLabelColor)
         .jobsResetBtnTitleFont(UIFontWeightMediumSize(13))
         .jobsResetBtnTitle(@"全選".tr)
         .selectedStateTitleBy(@"取消".tr)

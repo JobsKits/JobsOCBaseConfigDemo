@@ -33,7 +33,7 @@ Prop_strong()CasinoUpgradeContentView *upgradeContentView;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
         self.imageView.byAlpha(1);
         self.upgradeContentView.jobsRichViewByModel(model);
     };

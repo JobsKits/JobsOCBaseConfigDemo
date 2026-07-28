@@ -51,8 +51,8 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 }
 
 -(void)makeUI{
-    self.byBgColor(JobsGrayColor);
-    self.byAlpha(0.7);
+    self.byBgColor(JobsBlackColor);
+    self.byAlpha(0.32);
     [jobsGetMainWindow() addSubview:self];
     self.byFrame(jobsGetMainWindow().frame);
     [jobsGetMainWindow() bringSubviewToFront:self];

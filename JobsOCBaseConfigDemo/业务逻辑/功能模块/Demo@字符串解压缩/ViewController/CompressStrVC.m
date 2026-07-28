@@ -48,7 +48,7 @@ Prop_copy()NSString *compressedBase64Str;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(data.attributedTitle.string)
                 .byFont(UIFontWeightRegularSize(18));
         })
@@ -63,7 +63,7 @@ Prop_copy()NSString *compressedBase64Str;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF6F8FC));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     [self buildDemoUI];
     [self refreshCompressResult];
@@ -174,7 +174,7 @@ Prop_copy()NSString *compressedBase64Str;
     if (!_contentCardView) {
         _contentCardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             view
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self.contentScrollView)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.contentScrollView).offset(JobsWidth(24));
@@ -198,7 +198,7 @@ Prop_copy()NSString *compressedBase64Str;
             label
                 .byText(@"字符串压缩 / 解压结果".tr)
                 .byFont(UIFontWeightSemiboldSize(19))
-                .byTextCor(HEXCOLOR(0x1E2A36))
+                .byTextCor(JobsLabelColor)
                 .byNumberOfLines(0)
                 .addOn(self.contentCardView)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -239,11 +239,11 @@ Prop_copy()NSString *compressedBase64Str;
         _sourceTextView = jobsMakeTextView(^(__kindof UITextView * _Nullable textView) {
             textView
                 .byText(self.demoText)
-                .byTextCor(HEXCOLOR(0x1E2A36))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightRegularSize(13))
                 .byTextContainerInset(UIEdgeInsetsMake(JobsWidth(8), JobsWidth(10), JobsWidth(8), JobsWidth(10)))
                 .byLineFragmentPadding(0)
-                .byBgColor(HEXCOLOR(0xF3F6FA))
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self.contentCardView)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.top.equalTo(self.sourceTitleLab.mas_bottom).offset(JobsWidth(8));
@@ -347,7 +347,7 @@ Prop_copy()NSString *compressedBase64Str;
         label
             .byText(text)
             .byFont(UIFontWeightMediumSize(14))
-            .byTextCor(HEXCOLOR(0x5F6C7B))
+            .byTextCor(JobsSecondaryLabelColor)
             .byNumberOfLines(1)
             .addOn(self.contentCardView)
             .byAdd(^(MASConstraintMaker *make) {
@@ -363,10 +363,10 @@ Prop_copy()NSString *compressedBase64Str;
         label
             .byText(@"")
             .byFont(UIFontWeightRegularSize(13))
-            .byTextCor(HEXCOLOR(0x1E2A36))
+            .byTextCor(JobsLabelColor)
             .byNumberOfLines(0)
             .byLineBreakMode(NSLineBreakByCharWrapping)
-            .byBgColor(HEXCOLOR(0xF3F6FA))
+            .byBgColor(JobsSecondarySystemBackgroundColor)
             .addOn(self.contentCardView)
             .byAdd(^(MASConstraintMaker *make) {
                 make.top.equalTo(top).offset(offset);

@@ -33,7 +33,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(data.attributedTitle.string)
                 .byFont(UIFontWeightRegularSize(18));
         })
@@ -162,10 +162,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
                     detail:(NSString *)detail{
     self.dataMutArr.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
         data.textModel.byText(title)
-                      .byTextCor(HEXCOLOR(0x3D4A58))
+                      .byTextCor(JobsLabelColor)
                       .byFont(UIFontWeightMediumSize(16));
         data.subTextModel.byText(detail)
-                         .byTextCor(HEXCOLOR(0x757575))
+                         .byTextCor(JobsSecondaryLabelColor)
                          .byFont(UIFontWeightRegularSize(13));
     }));
 }
@@ -193,7 +193,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
                     /// 占位，去掉空行分割线
                 }))
                 .byShowsVerticalScrollIndicator(NO)
-                .byBgColor(JobsWhiteColor);
+                .byBgColor(JobsSecondarySystemBackgroundColor);
             self.view.addSubview(tableView);
             [self fullScreenConstraintTargetView:tableView topViewOffset:0];
         });

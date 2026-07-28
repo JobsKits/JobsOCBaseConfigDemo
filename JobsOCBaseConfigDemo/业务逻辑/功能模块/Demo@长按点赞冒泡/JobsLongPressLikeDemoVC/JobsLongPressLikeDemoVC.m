@@ -37,7 +37,7 @@ Prop_strong()UIImpactFeedbackGenerator *hapticFeedback;
             data
                 .byText(@"长按点赞冒泡".tr)
                 .byFont(UIFontWeightRegularSize(18))
-                .byTextCor(HEXCOLOR(0x263342));
+                .byTextCor(JobsLabelColor);
         })
         .byBgCor(HEXCOLOR(0xF5F7FA))
         .byNavBgCor(HEXCOLOR(0xF5F7FA));
@@ -46,7 +46,7 @@ Prop_strong()UIImpactFeedbackGenerator *hapticFeedback;
 -(void)viewDidLoad {
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    self.view.byBgColor(HEXCOLOR(0xF5F7FA));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.hintLab.byHidden(NO);
     self.likeBtn.byHidden(NO);
 }
@@ -132,7 +132,7 @@ Prop_strong()UIImpactFeedbackGenerator *hapticFeedback;
         _hintLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
                 .byText(@"轻点下方大拇指切换点赞或取消；长按则持续冒泡，并伴随震动与声音反馈".tr)
-                .byTextCor(HEXCOLOR(0x6B7280))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontWeightRegularSize(15))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(0)

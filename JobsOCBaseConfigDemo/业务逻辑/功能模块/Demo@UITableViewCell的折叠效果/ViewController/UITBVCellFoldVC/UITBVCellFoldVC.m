@@ -34,7 +34,7 @@ static NSString *const JobsUITBVCellFoldTitle = @"UITableViewCell 折叠效果";
             data.byText(@"返回".tr);
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(HEXCOLOR(0x3D4A58));
+            data.byTextCor(JobsLabelColor);
         })
         // self.viewModel.textModel.text = @"消息详情页".tr;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
@@ -53,7 +53,7 @@ static NSString *const JobsUITBVCellFoldTitle = @"UITableViewCell 折叠效果";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF5F7FB));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.commentView.byAlpha(1);
 }

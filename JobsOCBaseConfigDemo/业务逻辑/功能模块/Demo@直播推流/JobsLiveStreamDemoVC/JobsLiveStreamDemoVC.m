@@ -71,7 +71,7 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
                         UIApplicationDidBecomeActiveNotification,
                         nil);
     self.makeNavByAlpha(1);
-    self.view.byBgColor(UIColor.blackColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.currentPosition = AVCaptureDevicePositionBack;
     self.previewContainerView.byAlpha(1);
     self.statusLabel.byAlpha(1);

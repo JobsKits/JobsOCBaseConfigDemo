@@ -35,19 +35,19 @@ static dispatch_once_t static_filtrationViewOnceToken;
 
 -(instancetype)init{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 
@@ -84,7 +84,7 @@ static dispatch_once_t static_filtrationViewOnceToken;
             data.byUseFooterView(NO);
             data.textModel.byText(@"查看详情".tr)
                           .byTextAlignment(NSTextAlignmentLeft)
-                          .byTextCor(HEXCOLOR(0x3D4A58))
+                          .byTextCor(JobsLabelColor)
                           .byFont(UIFontWeightBoldSize(14));
             data.byBgCor(HEXCOLOR(0xFDFCF9))
                 .byJobsSize(CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(20)));
@@ -103,7 +103,7 @@ static dispatch_once_t static_filtrationViewOnceToken;
                 data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable vm) {
                     vm.textModel.byText(str)
                                 .byFont(UIFontWeightRegularSize(12))
-                                .byTextCor(HEXCOLOR(0x757575));
+                                .byTextCor(JobsSecondaryLabelColor);
                     vm.byBgCor(HEXCOLOR(0xF3F3F3))
                       .byJobsSize(CGSizeMake(JobsWidth(80), JobsWidth(30)));
                 }));
@@ -112,7 +112,7 @@ static dispatch_once_t static_filtrationViewOnceToken;
         model.headerViewModel = jobsMakeHeaderFooterViewModel(^(JobsHeaderFooterViewModel * _Nullable data) {
             data.byUseHeaderView(YES);
             data.textModel.byText(@"交易类型".tr)
-                          .byTextCor(HEXCOLOR(0x3D4A58))
+                          .byTextCor(JobsLabelColor)
                           .byFont(UIFontWeightBoldSize(14))
                           .byTextAlignment(NSTextAlignmentLeft);
             data.byBgCor(HEXCOLOR(0xFDFCF9))

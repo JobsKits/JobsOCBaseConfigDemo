@@ -6,6 +6,7 @@
 //
 
 #import "JobsOCRootFoldTableCell.h"
+#import "JobsOCDemoListSettingsVC.h"
 
 NSString *const JobsOCRootFoldTableCellReuseIdentifier = @"JobsOCRootFoldTableCell";
 static NSString *const JobsOCRootFoldInnerCellReuseIdentifier = @"JobsOCRootFoldInnerCell";
@@ -39,6 +40,10 @@ Prop_assign()NSInteger chargingProgressPhase;
 -(void)prepareChargingProgressTimerIfNeeded;
 -(void)syncChargingProgressTimerState;
 -(void)refreshVisibleChargingProgressTitle;
+-(void)syncVisibleInnerTextScrollingState;
+-(void)applyTextDisplayStrategyToLabel:(UILabel *)label;
+-(void)syncTextScrollingStateForCell:(UITableViewCell *)cell;
+-(void)stopVisibleInnerTextScrolling;
 -(NSString *)demoIconClassNameByViewModel:(UIViewModel *)viewModel;
 -(void)logDemoIconIssueOnce:(NSString *)issue;
 
@@ -183,10 +188,12 @@ Prop_assign()NSInteger chargingProgressPhase;
 
 -(void)prepareForReuse{
     [super prepareForReuse];
+    [self stopVisibleInnerTextScrolling];
     [self.chargingProgressTimer stop];
     self.chargingProgressTimer = nil;
     self.chargingProgressPhase = 0;
     self.items = @[];
+    [self.innerTableView reloadData];
     self.sectionDescription = nil;
     self.selectBlock = nil;
     self.pinBlock = nil;
@@ -200,6 +207,7 @@ Prop_assign()NSInteger chargingProgressPhase;
 
 -(void)didMoveToWindow{
     [super didMoveToWindow];
+    [self syncVisibleInnerTextScrollingState];
     [self syncChargingProgressTimerState];
 }
 
@@ -210,6 +218,7 @@ Prop_assign()NSInteger chargingProgressPhase;
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
     [super traitCollectionDidChange:previousTraitCollection];
     [self updateColors];
+    [_innerTableView reloadData];
 }
 
 -(void)layoutSubviews{
@@ -235,8 +244,8 @@ Prop_assign()NSInteger chargingProgressPhase;
         self.chevronView.byTintColor(UIColor.secondaryLabelColor);
     }else{
         self.cardView.byBgColor(RGBA_COLOR(255, 238, 221, 1));
-        self.titleLab.byTextCor(HEXCOLOR(0x3D4A58));
-        self.subTitleLab.byTextCor(HEXCOLOR(0x8A93A1));
+        self.titleLab.byTextCor(JobsLabelColor);
+        self.subTitleLab.byTextCor(JobsSecondaryLabelColor);
         self.chevronView.byTintColor(HEXCOLOR(0x8A93A1));
     }
 }
@@ -307,7 +316,70 @@ Prop_assign()NSInteger chargingProgressPhase;
         if (indexPath.row >= self.items.count) continue;
         UIViewModel *viewModel = self.items[indexPath.row];
         if (![NSStringFromClass(viewModel.cls) isEqualToString:@"JobsProgressDemoVC"]) continue;
-        [self.innerTableView cellForRowAtIndexPath:indexPath].textLabel.byText([self displayTextByViewModel:viewModel]);
+        [[self.innerTableView cellForRowAtIndexPath:indexPath].textLabel
+            .byText([self displayTextByViewModel:viewModel]) byReloadTextScroll];
+    }
+}
+
+-(void)syncVisibleInnerTextScrollingState{
+    for (UITableViewCell *cell in self.innerTableView.visibleCells) {
+        [self syncTextScrollingStateForCell:cell];
+    }
+}
+
+-(void)applyTextDisplayStrategyToLabel:(UILabel *)label{
+    switch (JobsOCCurrentDemoListCellTextDisplayStrategy()) {
+        /// 处理 JobsOCDemoListCellTextDisplayStrategyNormal 分支
+        case JobsOCDemoListCellTextDisplayStrategyNormal:
+            [label byStopTextScroll]
+                .byNumberOfLines(1)
+                .byAdjustsFontSizeToFitWidth(NO)
+                .byMinimumScaleFactor(1)
+                .byLineBreakMode(NSLineBreakByClipping);
+            break;
+        /// 处理 JobsOCDemoListCellTextDisplayStrategyTailTruncation 分支
+        case JobsOCDemoListCellTextDisplayStrategyTailTruncation:
+            [label byTextDisplayMode:JobsLabelTextDisplayModeSingleLineTailTruncation];
+            break;
+        /// 处理 JobsOCDemoListCellTextDisplayStrategyScaleToFit 分支
+        case JobsOCDemoListCellTextDisplayStrategyScaleToFit:
+            [label byTextDisplayMode:JobsLabelTextDisplayModeScaleToFit
+                  minimumScaleFactor:.5f
+                maximumNumberOfLines:1
+                 scrollConfiguration:JobsLabelScrollConfiguration.continuousConfiguration];
+            break;
+        /// 处理 JobsOCDemoListCellTextDisplayStrategyContinuous 分支
+        case JobsOCDemoListCellTextDisplayStrategyContinuous:
+            [label byTextDisplayMode:JobsLabelTextDisplayModeScrolling
+                  minimumScaleFactor:1
+                maximumNumberOfLines:1
+                 scrollConfiguration:JobsLabelScrollConfiguration.continuousConfiguration];
+            break;
+        /// 处理 JobsOCDemoListCellTextDisplayStrategyPingPong 分支
+        case JobsOCDemoListCellTextDisplayStrategyPingPong:
+            [label byTextDisplayMode:JobsLabelTextDisplayModeScrolling
+                  minimumScaleFactor:1
+                maximumNumberOfLines:1
+                 scrollConfiguration:JobsLabelScrollConfiguration.pingPongConfiguration];
+            break;
+    }
+}
+
+-(void)syncTextScrollingStateForCell:(UITableViewCell *)cell{
+    BOOL shouldScroll = self.window && _expanded;
+    if (shouldScroll) {
+        [cell.textLabel byResumeTextScroll];
+        [cell.detailTextLabel byResumeTextScroll];
+    }else{
+        [cell.textLabel byPauseTextScroll];
+        [cell.detailTextLabel byPauseTextScroll];
+    }
+}
+
+-(void)stopVisibleInnerTextScrolling{
+    for (UITableViewCell *cell in self.innerTableView.visibleCells) {
+        [cell.textLabel byStopTextScroll];
+        [cell.detailTextLabel byStopTextScroll];
     }
 }
 
@@ -619,7 +691,7 @@ Prop_assign()NSInteger chargingProgressPhase;
     jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
             .byText(text.tr)
-            .byTextCor(HEXCOLOR(0x5F6B7A))
+            .byTextCor(JobsSecondaryLabelColor)
             .byFont(JobsOCRootFoldTableCell.sectionDescriptionFont)
             .byNumberOfLines(0)
             .byLineBreakMode(NSLineBreakByWordWrapping)
@@ -703,6 +775,7 @@ Prop_assign()NSInteger chargingProgressPhase;
         changes();
         completion(YES);
     }
+    [self syncVisibleInnerTextScrollingState];
     [self syncChargingProgressTimerState];
 }
 
@@ -723,6 +796,16 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle
                                       reuseIdentifier:JobsOCRootFoldInnerCellReuseIdentifier];
+    }
+    if (indexPath.row < 0 || indexPath.row >= (NSInteger)self.items.count) {
+        cell.textLabel.byText(nil);
+        cell.detailTextLabel
+            .byText(nil)
+            .byAttributedText(nil);
+        cell.imageView.byImage(nil);
+        cell.accessoryView = nil;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        return cell;
     }
     UIViewModel *viewModel = self.items[indexPath.row];
     NSAttributedString *subAttributedText = [self subAttributedTextByViewModel:viewModel];
@@ -748,11 +831,15 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         cell.detailTextLabel.attributedText = nil;
         cell.detailTextLabel.byText([self subTextByViewModel:viewModel]);
     }
-    [cell.textLabel byTextDisplayMode:JobsLabelTextDisplayModeScaleToFit
-                  minimumScaleFactor:.5f
-                maximumNumberOfLines:1
-                 scrollConfiguration:JobsLabelScrollConfiguration.continuousConfiguration];
-    [cell.detailTextLabel byTextDisplayMode:JobsLabelTextDisplayModeSingleLineTailTruncation];
+    if (@available(iOS 13.0, *)) {
+        cell.textLabel.byTextCor(UIColor.labelColor);
+        cell.detailTextLabel.byTextCor(UIColor.secondaryLabelColor);
+    }else{
+        cell.textLabel.byTextCor(JobsLabelColor);
+        cell.detailTextLabel.byTextCor(JobsSecondaryLabelColor);
+    }
+    [self applyTextDisplayStrategyToLabel:cell.textLabel];
+    [self applyTextDisplayStrategyToLabel:cell.detailTextLabel];
     if (self.pinAccessoryIndex == indexPath.row) {
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.accessoryView = [self pinAccessoryButtonByIndex:indexPath.row];
@@ -766,13 +853,28 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         : UIEdgeInsetsMake(0, 16, 0, 16));
     cell.byBgColor(JobsClearColor);
     cell.contentView.byBgColor(JobsClearColor);
+    [self syncTextScrollingStateForCell:cell];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView
+   willDisplayCell:(UITableViewCell *)cell
+ forRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self syncTextScrollingStateForCell:cell];
+}
+
+- (void)tableView:(UITableView *)tableView
+didEndDisplayingCell:(UITableViewCell *)cell
+ forRowAtIndexPath:(NSIndexPath *)indexPath{
+    [cell.textLabel byPauseTextScroll];
+    [cell.detailTextLabel byPauseTextScroll];
 }
 
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:YES];
+    if (indexPath.row < 0 || indexPath.row >= (NSInteger)self.items.count) return;
     if (self.selectBlock) self.selectBlock(indexPath.row);
 }
 #pragma mark —— lazyLoad

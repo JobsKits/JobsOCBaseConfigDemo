@@ -7,9 +7,23 @@
 
 #import "JobsClockDemoVC.h"
 
+/// 老工程的时钟实现位于手工第三方目录；Demo 层只读取其既有属性完成主题刷新。
+@interface JobsClockView (JobsClockDemoTheme)
+
+@property(nonatomic,strong,readonly) CAShapeLayer *dialLayer;
+@property(nonatomic,strong,readonly) CAShapeLayer *tickLayer;
+@property(nonatomic,strong,readonly) CAShapeLayer *centerDotLayer;
+@property(nonatomic,strong,readonly) NSArray<UILabel *> *numberLabels;
+@property(nonatomic,strong,readonly) CALayer *hourHand;
+@property(nonatomic,strong,readonly) CALayer *minuteHand;
+
+@end
+
 @interface JobsClockDemoVC ()
 
 Prop_strong()JobsClockView *clockView;
+
+-(void)applyClockTheme;
 
 @end
 
@@ -33,7 +47,7 @@ Prop_strong()JobsClockView *clockView;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(data.attributedTitle.string)
                 .byFont(UIFontWeightRegularSize(18));
         })
@@ -52,9 +66,17 @@ Prop_strong()JobsClockView *clockView;
     if (@available(iOS 13.0, *)) {
         self.view.byBgColor(UIColor.systemBackgroundColor);
     } else {
-        self.view.byBgColor(UIColor.whiteColor);
+        self.view.byBgColor(JobsSystemBackgroundColor);
     }
     self.clockView.byVisible(YES);
+    [self applyClockTheme];
+    @jobs_weakify(self)
+    [self addNotificationName:JobsOCGlobalThemeDidChangeNotification
+                        block:^(id _Nullable weakSelf,
+                                id _Nullable arg) {
+        @jobs_strongify(self)
+        [self applyClockTheme];
+    }];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -67,6 +89,34 @@ Prop_strong()JobsClockView *clockView;
     [super viewWillDisappear:animated];
     /// 离开页面就停表，避免后台白跑
     [self.clockView stop];
+}
+
+-(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection{
+    [super traitCollectionDidChange:previousTraitCollection];
+    if (@available(iOS 13.0, *)) {
+        if ([self.traitCollection hasDifferentColorAppearanceComparedToTraitCollection:previousTraitCollection]) {
+            [self applyClockTheme];
+        }
+    }
+}
+
+-(void)applyClockTheme{
+    UIColor *labelColor = JobsLabelColor;
+    UIColor *secondaryLabelColor = JobsSecondaryLabelColor;
+    if (@available(iOS 13.0, *)) {
+        labelColor = [labelColor resolvedColorWithTraitCollection:self.traitCollection];
+        secondaryLabelColor = [secondaryLabelColor resolvedColorWithTraitCollection:self.traitCollection];
+    }
+    self.clockView.dialLayer.strokeColor = labelColor.CGColor;
+    self.clockView.tickLayer.strokeColor = labelColor.CGColor;
+    self.clockView.centerDotLayer.fillColor = labelColor.CGColor;
+    self.clockView.hourHand.backgroundColor = labelColor.CGColor;
+    self.clockView.minuteHand.backgroundColor = secondaryLabelColor.CGColor;
+    [self.clockView.numberLabels enumerateObjectsUsingBlock:^(UILabel * _Nonnull label,
+                                                              NSUInteger idx,
+                                                              BOOL * _Nonnull stop) {
+        label.byTextCor(JobsLabelColor);
+    }];
 }
 #pragma mark —— LazyLoad
 - (JobsClockView *)clockView {

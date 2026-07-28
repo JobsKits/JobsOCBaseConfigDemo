@@ -47,7 +47,7 @@ Prop_strong()NSArray <NSString *>*btnTitleArr;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byText(@"JobsOCTimerMgr".tr)
                 .byFont(UIFontWeightRegularSize(16))
-                .byTextCor(HEXCOLOR(0x3D4A58));
+                .byTextCor(JobsLabelColor);
         })
         .byBgCor(RGBA_COLOR(255, 238, 221, 1))
         .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
@@ -56,7 +56,7 @@ Prop_strong()NSArray <NSString *>*btnTitleArr;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF4F5F8));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.pollingLab.byVisible(YES);
     self.verifyLab.byVisible(YES);
@@ -142,10 +142,10 @@ Prop_strong()NSArray <NSString *>*btnTitleArr;
             @jobs_strongify(self)
             label.byText(@"轮询 Timer：未启动".tr)
                 .byFont(UIFontWeightMediumSize(18))
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(1)
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byCornerRadius(JobsWidth(8))
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -165,10 +165,10 @@ Prop_strong()NSArray <NSString *>*btnTitleArr;
             @jobs_strongify(self)
             label.byText(@"验证码 Timer：未启动".tr)
                 .byFont(UIFontWeightMediumSize(18))
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(1)
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byCornerRadius(JobsWidth(8))
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -186,7 +186,7 @@ Prop_strong()NSArray <NSString *>*btnTitleArr;
             @jobs_strongify(self)
             label.byText(@"已按 identifier 注册 2 个 Timer，等待启动".tr)
                 .byFont(UIFontWeightRegularSize(13))
-                .byTextCor(HEXCOLOR(0x5F6B7A))
+                .byTextCor(JobsSecondaryLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byNumberOfLines(2)
                 .addOn(self.view)
@@ -210,7 +210,7 @@ Prop_strong()NSArray <NSString *>*btnTitleArr;
                 .byEditable(NO)
                 .bySelectable(NO)
                 .byTextContainerInset(UIEdgeInsetsMake(JobsWidth(12), JobsWidth(12), JobsWidth(12), JobsWidth(12)))
-                .byBgColor(JobsWhiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byCornerRadius(JobsWidth(8))
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {

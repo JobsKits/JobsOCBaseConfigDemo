@@ -32,7 +32,7 @@ Prop_strong()NSMutableArray *results;
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"国家 / 地区代码".tr;
-    self.view.byBgColor(JobsWhiteColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.tableView.byAlpha(1);
 }
 #pragma mark —— public
@@ -328,7 +328,7 @@ numberOfRowsInSection:(NSInteger)section {
             })
             .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
                 label.byFont([UIFont systemFontOfSize:12.0 weight:UIFontWeightRegular])
-                    .byTextCor(HEXCOLOR(0x8A8A8A));
+                    .byTextCor(JobsSecondaryLabelColor);
             })
             .bySelectionStyle(UITableViewCellSelectionStyleNone);
     };return cell

@@ -32,7 +32,7 @@ static dispatch_once_t static_mineView2OnceToken;
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {
-        self.byBgColor(JobsWhiteColor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 
@@ -69,7 +69,7 @@ static dispatch_once_t static_mineView2OnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.byBgColor(@"#F0F0EF".cor);
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
         self.btn1.byAlpha(1);
         self.btn2.byAlpha(1);
     };

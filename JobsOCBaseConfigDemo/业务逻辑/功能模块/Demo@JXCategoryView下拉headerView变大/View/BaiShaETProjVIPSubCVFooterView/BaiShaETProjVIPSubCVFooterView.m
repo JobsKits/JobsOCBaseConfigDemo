@@ -26,7 +26,7 @@ Prop_strong()BaseLabel *titleLab;
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.viewModel = model;
-        self.byBgColor(HEXCOLOR(0xFCFBFB));
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
         self.titleLab.byAlpha(1);
     };
 }

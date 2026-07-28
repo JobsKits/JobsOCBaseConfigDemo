@@ -29,7 +29,7 @@ Prop_strong()BaseButton *selectBtn;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byText(@"JobsOCCountryCodeCtrl".tr)
                 .byFont(UIFontWeightRegularSize(16));
         })
@@ -40,7 +40,7 @@ Prop_strong()BaseButton *selectBtn;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(JobsWhiteColor);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.makeNavByAlpha(1);
     self.countryCodeTextField.byAlpha(1);
     self.selectBtn.byAlpha(1);
@@ -51,7 +51,7 @@ Prop_strong()BaseButton *selectBtn;
         _countryCodeTextField = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
             textField.byText(@"".tr)
                 .byPlaceholder(@"请选择国家 / 地区代码".tr)
-                .byTextCor(HEXCOLOR(0x3D4A58))
+                .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightRegularSize(14))
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byBorderStyle(UITextBorderStyleRoundedRect)

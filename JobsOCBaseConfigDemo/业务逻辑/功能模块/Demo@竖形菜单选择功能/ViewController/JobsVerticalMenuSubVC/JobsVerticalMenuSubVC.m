@@ -26,7 +26,7 @@ Prop_assign()BOOL didReloadContentAfterLayout;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.byBgColor(HEXCOLOR(0xF7F8FA));
+    self.view.byBgColor(JobsSystemBackgroundColor);
     self.contentView.byAlpha(1);
     self.contentView.reloadContentByIndex(self.contentIndex);
 }
