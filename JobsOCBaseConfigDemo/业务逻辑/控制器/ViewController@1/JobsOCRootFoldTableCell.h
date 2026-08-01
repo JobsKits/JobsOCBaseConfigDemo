@@ -38,6 +38,12 @@
 #import "JobsOCTimer.h"
 #endif
 
+#if __has_include(<JobsImageRotation/JobsImageRotation.h>)
+#import <JobsImageRotation/JobsImageRotation.h>
+#else
+#import "JobsImageRotation.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else

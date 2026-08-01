@@ -17,6 +17,7 @@
 #import "JobsDefinesNetworkingConstant.h"
 #import "JobsDefineURLs.h"
 #import "JobsDefineOCProtocol.h"
+#import "JobsTheme.h"
 /// JobsOCDefs@MacroDef_App
 #import "MacroDef_App.h"
 /// JobsOCDefs@MacroDef_Others

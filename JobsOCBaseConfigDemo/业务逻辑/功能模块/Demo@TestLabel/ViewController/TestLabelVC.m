@@ -117,6 +117,14 @@ titleForHeaderInSection:(NSInteger)section{
     return self.sectionTitleArr[section];
 }
 
+- (void)tableView:(UITableView *)tableView
+willDisplayHeaderView:(UIView *)view
+       forSection:(NSInteger)section{
+    if (![view isKindOfClass:UITableViewHeaderFooterView.class]) return;
+    UILabel *titleLab = ((UITableViewHeaderFooterView *)view).textLabel;
+    titleLab.byTextCor(JobsLabelColor);
+}
+
 - (CGFloat)tableView:(UITableView *)tableView
 heightForFooterInSection:(NSInteger)section{
     return CGFLOAT_MIN;

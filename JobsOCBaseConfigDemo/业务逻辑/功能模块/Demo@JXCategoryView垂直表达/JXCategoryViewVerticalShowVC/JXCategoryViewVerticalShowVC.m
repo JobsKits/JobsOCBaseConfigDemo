@@ -41,16 +41,16 @@ Prop_strong()NSMutableArray <NSString *>*titleMutArr;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
                 .byTextCor(JobsLabelColor)
-                .byText(data.attributedTitle.string)
+                .byText(@"JXCategoryView演示".tr)
                 .byFont(UIFontWeightRegularSize(16));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+        .byBgCor(JobsSystemBackgroundColor)
         //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        .byNavBgCor(JobsSystemBackgroundColor)
+        .byNavBgImage(nil);
 }
 
 - (void)viewDidLoad {

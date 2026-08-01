@@ -30,7 +30,7 @@ Prop_strong()UIButton *jobsCopyBtn;
     BaiShaETProjOrderDetailsCVCell *cell = JobsRegisterDequeueCollectionViewCell(BaiShaETProjOrderDetailsCVCell);
     return (BaiShaETProjOrderDetailsCVCell *)cell
         .byIndexPath(indexPath)
-        .byContentViewBgCor(JobsWhiteColor)
+        .byContentViewBgCor(JobsSystemBackgroundColor)
         .byBgColor(JobsSecondarySystemBackgroundColor)
         .setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable model) {
             model.byJobsWidth(.5f)

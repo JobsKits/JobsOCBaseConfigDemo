@@ -23,7 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 typedef NS_ENUM(NSUInteger, _JobsTimerPauseState) {
     _JobsTimerPauseStateRunning = 0,
     _JobsTimerPauseStateManualPaused,
-    _JobsTimerPauseStateAutoPaused
+    _JobsTimerPauseStateAutoPaused,
+    _JobsTimerPauseStateScopePaused
 };
 #endif /* JOBS_TIMER_PAUSE_STATE_DEFINED */
 /// Swift 侧：JobsTimerIdentifiable.timerIdentifier
@@ -61,6 +62,14 @@ typedef NS_ENUM(NSUInteger, JobsTimerBackgroundPolicy) {
                             build:(JobsTimerMgrBuildBlock _Nullable)build
                           handler:(jobsByVoidBlock _Nullable)handler;
 
+- (BOOL)upsertTimerWithIdentifier:(NSString *)identifier
+                  scopeIdentifier:(NSString * _Nullable)scopeIdentifier
+                        timerType:(JobsTimerType)timerType
+                           policy:(JobsTimerBackgroundPolicy)policy
+                 startImmediately:(BOOL)startImmediately
+                            build:(JobsTimerMgrBuildBlock _Nullable)build
+                          handler:(jobsByVoidBlock _Nullable)handler;
+
 - (BOOL)upsertTimerWithIdentifiable:(id<JobsTimerIdentifiable>)identifier
                           timerType:(JobsTimerType)timerType
                              policy:(JobsTimerBackgroundPolicy)policy
@@ -82,6 +91,13 @@ typedef NS_ENUM(NSUInteger, JobsTimerBackgroundPolicy) {
 
 - (BOOL)fireOnceAndRemove:(NSString *)identifier;
 - (BOOL)stopAndRemove:(NSString *)identifier;
+/// 仅在 identifier 仍指向 expectedTimer 时移除，避免复用对象的延迟清理误杀新 Timer
+- (BOOL)stopAndRemove:(NSString *)identifier
+        expectedTimer:(JobsTimer *)expectedTimer;
+/// 页面 / 业务域生命周期；只恢复由 Scope 暂停的 Timer
+- (NSUInteger)pauseScope:(NSString *)scopeIdentifier;
+- (NSUInteger)resumeScope:(NSString *)scopeIdentifier;
+- (NSUInteger)stopAndRemoveScope:(NSString *)scopeIdentifier;
 - (void)stopAndRemoveAll;
 
 /// Query

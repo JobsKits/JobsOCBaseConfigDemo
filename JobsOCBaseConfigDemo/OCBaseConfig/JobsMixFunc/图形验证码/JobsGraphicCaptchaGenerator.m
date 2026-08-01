@@ -7,6 +7,12 @@
 
 #import "JobsGraphicCaptchaGenerator.h"
 
+@interface JobsGraphicCaptchaGenerator ()
+
++(NSArray<NSString *> *)characterArrayByString:(NSString *)string;
+
+@end
+
 @implementation JobsGraphicCaptchaGenerator
 +(NSArray<NSString *> *)numberCharacters{
     static NSArray<NSString *> *characters = nil;
@@ -34,16 +40,36 @@
     });return characters;
 }
 
-+(NSArray<NSString *> *)chineseCharacters{
++(NSArray<NSString *> *)simplifiedChineseCharacters{
     static NSArray<NSString *> *characters = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSMutableArray<NSString *> *arr = NSMutableArray.array;
-        for (UniChar c = 0x4E00; c <= 0x9FA5; c++) {
-            [arr addObject:[NSString stringWithCharacters:&c length:1]];
-        }
-        characters = arr.copy;
+        characters = [self characterArrayByString:@"汉语龙国风云书画网车门东乐气万与专业长时见学习爱宝贝发后会里这来"];
     });return characters;
+}
+
++(NSArray<NSString *> *)traditionalChineseCharacters{
+    static NSArray<NSString *> *characters = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        characters = [self characterArrayByString:@"漢語龍國風雲書畫網車門東樂氣萬與專業長時見學習愛寶貝發後會裡這來"];
+    });return characters;
+}
+
++(NSArray<NSString *> *)chineseCharacters{
+    return [self.simplifiedChineseCharacters arrayByAddingObjectsFromArray:self.traditionalChineseCharacters];
+}
+
++(NSArray<NSString *> *)characterArrayByString:(NSString *)string{
+    NSMutableArray<NSString *> *characters = NSMutableArray.array;
+    [string enumerateSubstringsInRange:NSMakeRange(0, string.length)
+                               options:NSStringEnumerationByComposedCharacterSequences
+                            usingBlock:^(NSString *substring,
+                                         NSRange substringRange,
+                                         NSRange enclosingRange,
+                                         BOOL *stop) {
+        if (substring.length) [characters addObject:substring];
+    }];return characters.copy;
 }
 
 +(NSArray<NSString *> *)charactersForUnits:(JobsGraphicCaptchaCharacterUnit)units{
@@ -57,8 +83,11 @@
     if (units & JobsGraphicCaptchaCharacterUnitUppercaseLetter) {
         [characters addObjectsFromArray:self.uppercaseLetterCharacters];
     }
-    if (units & JobsGraphicCaptchaCharacterUnitChinese) {
-        [characters addObjectsFromArray:self.chineseCharacters];
+    if (units & JobsGraphicCaptchaCharacterUnitSimplifiedChinese) {
+        [characters addObjectsFromArray:self.simplifiedChineseCharacters];
+    }
+    if (units & JobsGraphicCaptchaCharacterUnitTraditionalChinese) {
+        [characters addObjectsFromArray:self.traditionalChineseCharacters];
     };return characters.copy;
 }
 
@@ -73,17 +102,12 @@
     if (units & JobsGraphicCaptchaCharacterUnitUppercaseLetter) {
         [groups addObject:self.uppercaseLetterCharacters];
     }
-    if (units & JobsGraphicCaptchaCharacterUnitChinese) {
-        [groups addObject:self.chineseCharacters];
+    if (units & JobsGraphicCaptchaCharacterUnitSimplifiedChinese) {
+        [groups addObject:self.simplifiedChineseCharacters];
+    }
+    if (units & JobsGraphicCaptchaCharacterUnitTraditionalChinese) {
+        [groups addObject:self.traditionalChineseCharacters];
     };return groups.copy;
-}
-
-+(BOOL)shouldUseMixedGroupsForUnits:(JobsGraphicCaptchaCharacterUnit)units{
-    JobsGraphicCaptchaCharacterUnit mixedUnits = JobsGraphicCaptchaCharacterUnitNumber |
-                                                JobsGraphicCaptchaCharacterUnitLowercaseLetter |
-                                                JobsGraphicCaptchaCharacterUnitUppercaseLetter |
-                                                JobsGraphicCaptchaCharacterUnitChinese;
-    return (units & mixedUnits) == mixedUnits;
 }
 
 +(NSArray<NSString *> *)validCharactersFromCharacters:(NSArray<NSString *> *)characters{
@@ -168,7 +192,9 @@
     }
     NSArray<NSArray<NSString *> *> *groups = [self characterGroupsForUnits:captchaConfig.characterUnits];
     if (!groups.count) groups = [self characterGroupsForUnits:JobsGraphicCaptchaCharacterUnitDefault];
-    if ([self shouldUseMixedGroupsForUnits:captchaConfig.characterUnits] && length > 1) {
+    if (captchaConfig.mixedGroupCount > 1 && groups.count > 1) {
+        NSUInteger requiredLength = MIN(captchaConfig.mixedGroupCount, groups.count);
+        if (length < requiredLength) length = requiredLength;
         NSString *mixedText = [self randomMixedTextByGroups:groups
                                                      length:length
                                                  groupCount:captchaConfig.mixedGroupCount];

@@ -7,77 +7,8 @@
 
 #import "UIViewController+BaseNavigationBar.h"
 
-NSNotificationName const JobsOCGlobalThemeDidChangeNotification = @"JobsOCGlobalThemeDidChangeNotification";
-static NSString *const JobsOCGlobalDarkModeDefaultsKey = @"com.BSports.JobsOCDemoListDarkModeUserDefaultsKey";
 static NSString *const JobsOCDemoThemeDirectActionIdentifier = @"JobsOCDemoThemeDirectAction";
 static NSInteger const JobsOCDemoThemeButtonTag = 0x4A54484D;
-
-static BOOL JobsOCGlobalDarkModeEnabled(void) {
-    id value = [NSUserDefaults.standardUserDefaults objectForKey:JobsOCGlobalDarkModeDefaultsKey];
-    if (value) return [value boolValue];
-    if (@available(iOS 13.0, *)) {
-        return UITraitCollection.currentTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
-    };return NO;
-}
-
-static void JobsOCSyncGlobalThemeButtons(UIView *view,
-                                         BOOL darkModeEnabled) {
-    if ([view isKindOfClass:UIButton.class] && view.tag == JobsOCDemoThemeButtonTag) {
-        UIButton *button = (UIButton *)view;
-        button.bySelected(darkModeEnabled);
-        if ([button.accessibilityIdentifier isEqualToString:JobsOCDemoThemeDirectActionIdentifier]) {
-            button.accessibilityLabel = darkModeEnabled
-                ? @"切换为白天".tr
-                : @"切换为黑夜".tr;
-        }
-    }
-    for (UIView *subview in view.subviews) {
-        JobsOCSyncGlobalThemeButtons(subview, darkModeEnabled);
-    }
-}
-
-static void JobsOCNormalizeViewControllerRoots(UIViewController *viewController) {
-    if (!viewController) return;
-    if (![viewController isKindOfClass:UIAlertController.class]) {
-        UIView *loadedView = viewController.viewIfLoaded;
-        if (loadedView) loadedView.byBgColor(JobsSystemBackgroundColor);
-        viewController
-            .byGKNavBackgroundColor(JobsSystemBackgroundColor)
-            .byGKNavBackgroundImage(nil)
-            .byGKNavTitleColor(JobsLabelColor);
-    }
-    for (UIViewController *childViewController in viewController.childViewControllers) {
-        JobsOCNormalizeViewControllerRoots(childViewController);
-    }
-    JobsOCNormalizeViewControllerRoots(viewController.presentedViewController);
-}
-
-static void JobsOCApplyGlobalTheme(void) {
-    if (@available(iOS 13.0, *)) {
-        BOOL darkModeEnabled = JobsOCGlobalDarkModeEnabled();
-        UIUserInterfaceStyle style = darkModeEnabled ? UIUserInterfaceStyleDark : UIUserInterfaceStyleLight;
-        for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
-            if (![scene isKindOfClass:UIWindowScene.class]) continue;
-            for (UIWindow *window in ((UIWindowScene *)scene).windows) {
-                window.overrideUserInterfaceStyle = style;
-                JobsOCNormalizeViewControllerRoots(window.rootViewController);
-                JobsOCSyncGlobalThemeButtons(window, darkModeEnabled);
-            }
-        }
-    }
-}
-
-static BOOL JobsOCToggleGlobalTheme(void) {
-    BOOL darkModeEnabled = !JobsOCGlobalDarkModeEnabled();
-    [NSUserDefaults.standardUserDefaults setBool:darkModeEnabled
-                                          forKey:JobsOCGlobalDarkModeDefaultsKey];
-    [NSUserDefaults.standardUserDefaults synchronize];
-    JobsOCApplyGlobalTheme();
-    [NSNotificationCenter.defaultCenter postNotificationName:JobsOCGlobalThemeDidChangeNotification
-                                                      object:nil
-                                                    userInfo:@{@"darkModeEnabled": @(darkModeEnabled)}];
-    return darkModeEnabled;
-}
 
 static BOOL JobsOCIsDemoRootViewController(UIViewController *viewController) {
     return [NSStringFromClass(viewController.class) isEqualToString:@"ViewController_1"];
@@ -90,9 +21,19 @@ static UINavigationController *JobsOCNavigationControllerIfStackMember(UIViewCon
 }
 
 static BOOL JobsOCIsDemoNavigationChild(UIViewController *viewController) {
+    if ([viewController isKindOfClass:UIAlertController.class] ||
+        [viewController isKindOfClass:UINavigationController.class] ||
+        [viewController isKindOfClass:UITabBarController.class] ||
+        [viewController isKindOfClass:UISplitViewController.class]) {
+        return NO;
+    }
+    UINavigationController *navigationController = JobsOCNavigationControllerIfStackMember(viewController);
+    BOOL isPresentedPage = viewController.presentingViewController ||
+        (navigationController.viewControllers.firstObject == viewController &&
+         navigationController.presentingViewController);
+    if (!navigationController && !isPresentedPage) return NO;
     NSString *className = NSStringFromClass(viewController.class);
     if ([className containsString:@"Demo"]) return YES;
-    UINavigationController *navigationController = JobsOCNavigationControllerIfStackMember(viewController);
     UIViewController *rootViewController = navigationController.viewControllers.firstObject;
     if (rootViewController != viewController && JobsOCIsDemoRootViewController(rootViewController)) return YES;
     UIViewController *presenter = viewController.presentingViewController ?: navigationController.presentingViewController;
@@ -177,7 +118,7 @@ static __kindof UIButton *JobsOCMakeDemoActionButton(jobsByBtnBlock configure) {
     if (@available(iOS 13.0, *)) {
         if (!JobsOCIsDemoNavigationChild(self)) return;
         self.view.byBgColor(JobsSystemBackgroundColor);
-        UIButton *themeButton = self.jobs_demoThemeButton.bySelected(JobsOCGlobalDarkModeEnabled());
+        UIButton *themeButton = self.jobs_demoThemeButton.bySelected(JobsThemeCenter.shared.isDarkMode);
         UIBarButtonItem *themeItem = self.jobs_demoThemeBarButtonItem;
         if (JobsOCIsSystemNavigationBarDemo(self)) {
             NSArray<UIBarButtonItem *> *items = self.navigationItem.rightBarButtonItems ?:
@@ -188,17 +129,22 @@ static __kindof UIButton *JobsOCMakeDemoActionButton(jobsByBtnBlock configure) {
             self.navigationItem.rightBarButtonItems = @[themeItem];
             return;
         }
-        self
-            .byGKNavBackgroundColor(JobsSystemBackgroundColor)
-            .byGKNavBackgroundImage(nil)
-            .byGKNavTitleColor(JobsLabelColor);
+        [JobsThemeCenter.shared bindObject:self
+                                      slot:@"JobsBaseUI.GKNavigationBar.colors"
+                                     apply:^(__kindof UIViewController *object,
+                                             JobsThemeCenter *center) {
+            object
+                .byGKNavBackgroundColor([center resolvedColorForKey:JobsThemeColorKeyBackgroundPrimary])
+                .byGKNavTitleColor([center resolvedColorForKey:JobsThemeColorKeyTextPrimary]);
+        }];
+        self.byGKNavBackgroundImage(nil);
         NSArray<UIBarButtonItem *> *items = self.gk_navRightBarButtonItems ?:
             (self.gk_navRightBarButtonItem ? @[self.gk_navRightBarButtonItem] : @[]);
         [self jobs_updateDemoBusinessButtonsFromItems:items
                                             themeItem:themeItem];
         self.gk_navRightBarButtonItem = nil;
         self.gk_navRightBarButtonItems = @[themeItem];
-        themeButton.bySelected(JobsOCGlobalDarkModeEnabled());
+        themeButton.bySelected(JobsThemeCenter.shared.isDarkMode);
     }
 }
 #pragma mark —— 全局主题切换按钮
@@ -206,26 +152,23 @@ JobsKey(_jobs_demoThemeButton)
 -(UIButton *)jobs_demoThemeButton{
     UIButton *button = Jobs_getAssociatedObject(_jobs_demoThemeButton);
     if (!button) {
-        UIImage *normalImage = UIImage.new;
-        UIImage *selectedImage = UIImage.new;
+        UIImage *normalImage = JobsThemeImage(JobsThemeImageKeyThemeToggle);
+        UIImage *selectedImage = JobsThemeImage(JobsThemeImageKeyThemeToggle);
         UIColor *tintColor = JobsLabelColor;
-        if (@available(iOS 13.0, *)) {
-            normalImage = [UIImage systemImageNamed:@"moon.circle.fill"];
-            selectedImage = [UIImage systemImageNamed:@"sun.max.circle.fill"];
-        }
         @jobs_weakify(self)
         button = JobsOCMakeDemoActionButton(^(__kindof UIButton * _Nullable button) {
             button
                 .normalStateImageBy(normalImage)
                 .selectedStateImageBy(selectedImage)
+                .jobsResetBtnBgCor(JobsClearColor)
                 .onClickBy(^(UIButton *sender) {
                     @jobs_strongify(self)
                     if (!self.jobs_demoBusinessButtons.count) {
-                        JobsOCToggleGlobalTheme();
+                        [JobsThemeCenter.shared toggle];
                         [self jobs_updateDemoTriggerPresentation];
                     }else [self jobs_showDemoActionMenu:self.jobs_demoActionMenuOverlay == nil];
                 })
-                .bySelected(JobsOCGlobalDarkModeEnabled())
+                .bySelected(JobsThemeCenter.shared.isDarkMode)
                 .byTag(JobsOCDemoThemeButtonTag)
                 .byTintColor(tintColor)
                 .bySize(CGSizeMake(44, 44));
@@ -271,6 +214,8 @@ JobsKey(_jobs_demoActionMenuOverlay)
     if (!button) return;
     BOOL opensMenu = self.jobs_demoBusinessButtons.count > 0;
     if (opensMenu) {
+        [JobsThemeCenter.shared unbindObject:button
+                                       slot:@"JobsBaseUI.themeButton.presentation"];
         BOOL expanded = self.jobs_demoActionMenuOverlay != nil;
         UIImage *image = [UIImage systemImageNamed:expanded
             ? @"ellipsis.circle.fill"
@@ -285,15 +230,19 @@ JobsKey(_jobs_demoActionMenuOverlay)
             : @"展开主题与页面操作".tr;
         return;
     }
-    BOOL darkModeEnabled = JobsOCGlobalDarkModeEnabled();
     button
-        .normalStateImageBy([UIImage systemImageNamed:@"moon.circle.fill"])
-        .selectedStateImageBy([UIImage systemImageNamed:@"sun.max.circle.fill"])
-        .bySelected(darkModeEnabled);
-    button.accessibilityIdentifier = JobsOCDemoThemeDirectActionIdentifier;
-    button.accessibilityLabel = darkModeEnabled
-        ? @"切换为白天".tr
-        : @"切换为黑夜".tr;
+        .normalStateImageBy(JobsThemeImage(JobsThemeImageKeyThemeToggle))
+        .selectedStateImageBy(JobsThemeImage(JobsThemeImageKeyThemeToggle));
+    [JobsThemeCenter.shared bindObject:button
+                                 slot:@"JobsBaseUI.themeButton.presentation"
+                                apply:^(__kindof UIButton *object,
+                                        JobsThemeCenter *center) {
+        object.bySelected(center.isDarkMode);
+        object.accessibilityIdentifier = JobsOCDemoThemeDirectActionIdentifier;
+        object.accessibilityLabel = center.isDarkMode
+            ? @"切换为白天".tr
+            : @"切换为黑夜".tr;
+    }];
 }
 
 -(void)jobs_updateDemoBusinessButtonsFromItems:(NSArray<UIBarButtonItem *> *)items
@@ -352,7 +301,12 @@ JobsKey(_jobs_demoActionMenuOverlay)
             .byBgColor(JobsClearColor)
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {
-                make.edges.equalTo(self.view);
+                if (JobsOCIsSystemNavigationBarDemo(self)) {
+                    make.edges.equalTo(self.view);
+                }else{
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom);
+                    make.left.right.bottom.equalTo(self.view);
+                }
             });
     });
     NSInteger rowCount = self.jobs_demoBusinessButtons.count + 1;
@@ -363,11 +317,7 @@ JobsKey(_jobs_demoActionMenuOverlay)
             .byClipsToBounds(YES)
             .addOn(overlay)
             .byAdd(^(MASConstraintMaker *make) {
-                if (JobsOCIsSystemNavigationBarDemo(self)) {
-                    make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(6);
-                }else{
-                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(6);
-                }
+                make.top.equalTo(overlay).offset(6);
                 make.right.equalTo(overlay).offset(-12);
                 make.width.mas_equalTo(210);
                 make.height.mas_equalTo(rowCount * 44);
@@ -391,18 +341,17 @@ JobsKey(_jobs_demoActionMenuOverlay)
         .byCancelsTouchesInView(NO)
         .byEnabled(YES);
     [self jobs_setDemoActionMenuOverlay:overlay];
-    BOOL darkModeEnabled = JobsOCGlobalDarkModeEnabled();
+    BOOL darkModeEnabled = JobsThemeCenter.shared.isDarkMode;
     [self jobs_addDemoActionMenuRowToView:menuView
                                     title:darkModeEnabled ? @"切换为白天".tr : @"切换为黑夜".tr
-                                    image:[UIImage systemImageNamed:darkModeEnabled
-                                        ? @"sun.max.circle.fill"
-                                        : @"moon.circle.fill"]
+                                    image:[JobsThemeCenter.shared resolvedImageForKey:
+                                        JobsThemeImageKeyThemeToggle]
                                     index:0
                                  rowCount:rowCount
                                    action:^{
         @jobs_strongify(self)
-        JobsOCToggleGlobalTheme();
         [self jobs_showDemoActionMenu:NO];
+        [JobsThemeCenter.shared toggle];
     }];
     [self.jobs_demoBusinessButtons enumerateObjectsUsingBlock:^(UIButton *sourceButton,
                                                                 NSUInteger index,

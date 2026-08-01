@@ -2,10 +2,12 @@
 //  AppDelegate+UISceneSessionLifeCycle.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by User on 7/15/24.
+//  Created by Jobs on 2026年7月30日，星期四.
 //
 
 #import "AppDelegate.h"
+#import "SceneDelegate.h"
+#import "JobsOCSceneCoordinator.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

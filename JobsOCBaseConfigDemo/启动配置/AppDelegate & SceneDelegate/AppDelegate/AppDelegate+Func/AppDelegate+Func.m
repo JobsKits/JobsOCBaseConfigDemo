@@ -55,6 +55,12 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
+        NSError *themeError;
+        [JobsThemeCenter.shared configureWithResource:@"JobsThemeResources"
+                                        fileExtension:@"json"
+                                               bundle:NSBundle.mainBundle
+                                                error:&themeError];
+        if (themeError) NSLog(@"JobsTheme 数据包加载失败：%@", themeError.localizedDescription);
         UIApplication.sharedApplication.idleTimerDisabled = NO;/// 保持屏幕常亮
         /*
          * 禁止App系统文件夹document同步
@@ -97,6 +103,7 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
             }
             JobsOCSplashConfiguration *configuration = JobsOCSplashConfigurationForNextLaunch();
             configuration
+                .byLanguageCode(LanMgr.languageCodeByAppLanguage(LanMgr.language))
                 .byCountdownSeconds(@8)
                 .bySkipButtonVisible(YES)
                 .byTapAction(JobsOCSplashAction.none)

@@ -51,6 +51,7 @@
 #endif
 
 #import "JobsByOCPods.h"
+#import "JobsLanMgr.h"
 #import "JobsMakes.h"
 #import "JobsOCKeyboardMgr.h"
 #import "JobsBlock.h"

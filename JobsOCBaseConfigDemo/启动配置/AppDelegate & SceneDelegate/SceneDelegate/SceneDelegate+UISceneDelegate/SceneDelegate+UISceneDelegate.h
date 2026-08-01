@@ -2,7 +2,7 @@
 //  SceneDelegate+UISceneDelegate.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2026年5月13日，星期三.
+//  Created by Jobs on 2026年7月30日，星期四.
 //
 
 #import "SceneDelegate.h"
@@ -10,6 +10,8 @@
 #import "AppDelegate+Func.h"
 #import "AppDelegate+TabBarCtr.h"
 #import "MyAppTools.h"
+#import "JobsOCSceneCoordinator.h"
+#import "JobsOCSceneDelegateDemoVC.h"
 #import "JobsOCDSL.h"
 #import "JobsAppToolsHeader.h"
 #import "JobsDefines.h"

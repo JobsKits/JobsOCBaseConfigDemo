@@ -12,6 +12,7 @@ NSString *const JobsOCRootFoldTableCellReuseIdentifier = @"JobsOCRootFoldTableCe
 static NSString *const JobsOCRootFoldInnerCellReuseIdentifier = @"JobsOCRootFoldInnerCell";
 static NSString *const JobsOCDemoIconFallbackSymbolName = @"questionmark.app";
 static NSTimeInterval const JobsOCChargingProgressInterval = 0.45;
+static CGFloat const JobsOCAnimatedTitleIconSize = 22;
 
 @interface JobsOCRootFoldTableCell ()
 
@@ -37,6 +38,8 @@ Prop_assign()NSInteger chargingProgressPhase;
 -(CGFloat)sectionDescriptionHeaderHeight;
 -(CGFloat)innerTableContentHeight;
 -(void)reloadSectionDescriptionHeaderViewIfNeeded;
+-(BOOL)isChargingProgressViewModel:(UIViewModel *)viewModel;
+-(BOOL)isClockViewModel:(UIViewModel *)viewModel;
 -(void)prepareChargingProgressTimerIfNeeded;
 -(void)syncChargingProgressTimerState;
 -(void)refreshVisibleChargingProgressTitle;
@@ -44,6 +47,11 @@ Prop_assign()NSInteger chargingProgressPhase;
 -(void)applyTextDisplayStrategyToLabel:(UILabel *)label;
 -(void)syncTextScrollingStateForCell:(UITableViewCell *)cell;
 -(void)stopVisibleInnerTextScrolling;
+-(void)installAnimatedTitleIconByViewModel:(UIViewModel *)viewModel
+                                    inCell:(UITableViewCell *)cell;
+-(void)removeAnimatedTitleIconsFromCell:(UITableViewCell *)cell;
+-(JobsClockIconView *_Nullable)clockIconInCell:(UITableViewCell *)cell;
+-(void)syncAnimatedTitleIconStateForCell:(UITableViewCell *)cell;
 -(NSString *)demoIconClassNameByViewModel:(UIViewModel *)viewModel;
 -(void)logDemoIconIssueOnce:(NSString *)issue;
 
@@ -180,7 +188,15 @@ Prop_assign()NSInteger chargingProgressPhase;
         self.byBgColor(JobsClearColor);
         self.contentView.byBgColor(JobsClearColor);
         [self setupSubviews];
-        [self updateColors];
+        [JobsThemeCenter.shared
+            bindObject:self
+                  slot:@"JobsOCRootFoldTableCell.colors"
+                 apply:^(__kindof NSObject *object, JobsThemeCenter *center) {
+            (void)center;
+            JobsOCRootFoldTableCell *cell = (JobsOCRootFoldTableCell *)object;
+            [cell updateColors];
+            [cell.innerTableView reloadData];
+        }];
         [self setExpanded:NO
                  animated:NO];
     };return self;
@@ -212,6 +228,7 @@ Prop_assign()NSInteger chargingProgressPhase;
 }
 
 -(void)dealloc{
+    [self stopVisibleInnerTextScrolling];
     [self.chargingProgressTimer stop];
 }
 
@@ -237,17 +254,11 @@ Prop_assign()NSInteger chargingProgressPhase;
 }
 
 -(void)updateColors{
-    if (@available(iOS 13.0, *)) {
-        self.cardView.byBgColor(UIColor.secondarySystemBackgroundColor);
-        self.titleLab.byTextCor(UIColor.labelColor);
-        self.subTitleLab.byTextCor(UIColor.secondaryLabelColor);
-        self.chevronView.byTintColor(UIColor.secondaryLabelColor);
-    }else{
-        self.cardView.byBgColor(RGBA_COLOR(255, 238, 221, 1));
-        self.titleLab.byTextCor(JobsLabelColor);
-        self.subTitleLab.byTextCor(JobsSecondaryLabelColor);
-        self.chevronView.byTintColor(HEXCOLOR(0x8A93A1));
-    }
+    self.cardView.byBgColor(JobsSecondarySystemBackgroundColor);
+    self.titleLab.byTextCor(JobsLabelColor);
+    self.subTitleLab.byTextCor(JobsSecondaryLabelColor);
+    self.chevronView.byTintColor(JobsSecondaryLabelColor);
+    self.innerTableView.separatorColor = JobsTertiaryLabelColor;
 }
 
 -(UIImage *)chevronImage{
@@ -260,17 +271,31 @@ Prop_assign()NSInteger chargingProgressPhase;
     return viewModel.textModel.attributedTitle.string ?: viewModel.textModel.text ?: @"";
 }
 
+-(BOOL)isChargingProgressViewModel:(UIViewModel *)viewModel{
+    NSString *className = viewModel.cls ? NSStringFromClass(viewModel.cls) : @"";
+    return [className isEqualToString:@"JobsProgressDemoVC"] ||
+           [className isEqualToString:@"JobsSysProgressDemoVC"] ||
+           [className isEqualToString:@"JobsProgressVC"];
+}
+
+-(BOOL)isClockViewModel:(UIViewModel *)viewModel{
+    NSString *className = viewModel.cls ? NSStringFromClass(viewModel.cls) : @"";
+    return [className isEqualToString:@"JobsClockDemoVC"];
+}
+
 -(NSString *)displayTextByViewModel:(UIViewModel *)viewModel{
     NSString *text = [self textByViewModel:viewModel];
-    NSString *className = viewModel.cls ? NSStringFromClass(viewModel.cls) : @"";
-    if (![className isEqualToString:@"JobsProgressDemoVC"]) return text;
+    if ([self isClockViewModel:viewModel]) {
+        return [NSString stringWithFormat:@"　 %@",text];
+    }
+    if (![self isChargingProgressViewModel:viewModel]) return text;
     NSArray <NSString *>*states = @[@"🟩⬜⬜", @"🟩🟩⬜", @"🟩🟩🟩"];
     return [NSString stringWithFormat:@"%@ %@", states[self.chargingProgressPhase], text];
 }
 
 -(BOOL)containsChargingProgressItem{
     for (UIViewModel *viewModel in self.items) {
-        if ([NSStringFromClass(viewModel.cls) isEqualToString:@"JobsProgressDemoVC"]) return YES;
+        if ([self isChargingProgressViewModel:viewModel]) return YES;
     };return NO;
 }
 
@@ -315,7 +340,7 @@ Prop_assign()NSInteger chargingProgressPhase;
     for (NSIndexPath *indexPath in self.innerTableView.indexPathsForVisibleRows) {
         if (indexPath.row >= self.items.count) continue;
         UIViewModel *viewModel = self.items[indexPath.row];
-        if (![NSStringFromClass(viewModel.cls) isEqualToString:@"JobsProgressDemoVC"]) continue;
+        if (![self isChargingProgressViewModel:viewModel]) continue;
         [[self.innerTableView cellForRowAtIndexPath:indexPath].textLabel
             .byText([self displayTextByViewModel:viewModel]) byReloadTextScroll];
     }
@@ -374,12 +399,60 @@ Prop_assign()NSInteger chargingProgressPhase;
         [cell.textLabel byPauseTextScroll];
         [cell.detailTextLabel byPauseTextScroll];
     }
+    [self syncAnimatedTitleIconStateForCell:cell];
 }
 
 -(void)stopVisibleInnerTextScrolling{
     for (UITableViewCell *cell in self.innerTableView.visibleCells) {
         [cell.textLabel byStopTextScroll];
         [cell.detailTextLabel byStopTextScroll];
+        [[self clockIconInCell:cell] stopAndReset:NO];
+    }
+}
+
+-(void)installAnimatedTitleIconByViewModel:(UIViewModel *)viewModel
+                                    inCell:(UITableViewCell *)cell{
+    [self removeAnimatedTitleIconsFromCell:cell];
+    if (![self isClockViewModel:viewModel]) return;
+    JobsClockIconView *clockIcon =
+        [[JobsClockIconView alloc] initWithDirection:JobsImageRotationDirectionClockwise
+                                            interval:JobsClockIconViewDefaultInterval];
+    clockIcon
+        .byTintColor(JobsSecondaryLabelColor)
+        .addOn(cell.contentView)
+        .byAdd(^(MASConstraintMaker *make) {
+            make.left.centerY.equalTo(cell.textLabel);
+            make.size.mas_equalTo(CGSizeMake(JobsOCAnimatedTitleIconSize,
+                                             JobsOCAnimatedTitleIconSize));
+        });
+    [self syncAnimatedTitleIconStateForCell:cell];
+}
+
+-(void)removeAnimatedTitleIconsFromCell:(UITableViewCell *)cell{
+    for (UIView *subview in cell.contentView.subviews.copy) {
+        if (![subview isKindOfClass:JobsClockIconView.class]) continue;
+        [(JobsClockIconView *)subview stop];
+        [subview removeFromSuperview];
+    }
+}
+
+-(JobsClockIconView *)clockIconInCell:(UITableViewCell *)cell{
+    for (UIView *subview in cell.contentView.subviews) {
+        if ([subview isKindOfClass:JobsClockIconView.class]) {
+            return (JobsClockIconView *)subview;
+        }
+    };return nil;
+}
+
+-(void)syncAnimatedTitleIconStateForCell:(UITableViewCell *)cell{
+    JobsClockIconView *clockIcon = [self clockIconInCell:cell];
+    if (!clockIcon) return;
+    if (self.window &&
+        _expanded &&
+        !UIAccessibilityIsReduceMotionEnabled()) {
+        if (!clockIcon.isRunning) [clockIcon start];
+    }else{
+        [clockIcon stopAndReset:NO];
     }
 }
 
@@ -430,10 +503,12 @@ Prop_assign()NSInteger chargingProgressPhase;
             @"JobsOCAudioRecorderDemoVC": @"mic.fill",
             @"JobsBluetoothDemoVC": @"antenna.radiowaves.left.and.right",
             @"JobsCoreMotionDemoVC": @"gyroscope",
+            @"JobsOCSceneDelegateDemoVC": @"macwindow.on.rectangle",
             @"JobsScreenshotTipsDemoVC": @"camera.viewfinder",
             @"JobsScreenshotProtectionDemoVC": @"eye.slash",
             @"JobsAnimatedNumberLabelDemoVC": @"textformat.123",
             @"UILabelScrollingDemoVC": @"text.line.last.and.arrowtriangle.forward",
+            @"JobsImageRotationDemoVC": @"clock.arrow.circlepath",
             @"JobsClockDemoVC": @"clock",
             @"LotteryVC": @"circle.grid.cross.fill",
             @"JobsRedPacketRainDemoVC": @"envelope.open.fill",
@@ -454,6 +529,7 @@ Prop_assign()NSInteger chargingProgressPhase;
             @"JobsCNIDDemoVC": @"person.text.rectangle",
             @"JobsOCSkeletonViewDemoVC": @"wave.3.right",
             @"JobsOCExcelDemoVC": @"rectangle.grid.3x2.fill",
+            @"JobsOCMarkdownDocumentsDemoVC": @"book.closed.fill",
             @"JobsHandwritingDemoVC": @"pencil.tip.crop.circle",
             @"ExcelVC": @"tablecells",
             @"JXCategoryViewVerticalShowVC": @"rectangle.split.1x2",
@@ -471,8 +547,7 @@ Prop_assign()NSInteger chargingProgressPhase;
             @"MyTableTableVC": @"hand.tap",
             @"CtrlClipboardCueVC": @"doc.on.clipboard",
             @"JobsAppDoorDemoListVC": @"door.left.hand.closed",
-            @"Douyin_ZFPlayerVC_1": @"play.rectangle",
-            @"Douyin_ZFPlayerVC_2": @"play.square.stack",
+            @"JobsZFPlayerDemoListVC": @"play.rectangle",
             @"TransparentRegionVC": @"square.dashed.inset.filled",
             @"JobsMosaicDemoListVC": @"square.grid.3x3.fill",
             @"JobsButtonCoverCellDemoListVC": @"rectangle.grid.1x2",
@@ -701,7 +776,6 @@ Prop_assign()NSInteger chargingProgressPhase;
                                 headerHeight - JobsOCRootFoldTableCell.sectionDescriptionVerticalInset * 2))
             .byClipsToBounds(YES)
             .addOn(headerView);
-        if (@available(iOS 13.0, *)) label.byTextCor(UIColor.secondaryLabelColor);
     });
     return headerView;
 }
@@ -798,6 +872,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                                       reuseIdentifier:JobsOCRootFoldInnerCellReuseIdentifier];
     }
     if (indexPath.row < 0 || indexPath.row >= (NSInteger)self.items.count) {
+        [self removeAnimatedTitleIconsFromCell:cell];
         cell.textLabel.byText(nil);
         cell.detailTextLabel
             .byText(nil)
@@ -818,26 +893,22 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     cell.imageView
         .byImage([self demoIconImageByViewModel:viewModel])
         .byHighlightedImage(nil)
-        .byContentMode(UIViewContentModeScaleAspectFit);
-    if (@available(iOS 13.0, *)) {
-        cell.imageView.byTintColor(UIColor.secondaryLabelColor);
-    }else{
-        cell.imageView.byTintColor(HEXCOLOR(0x5F6B7A));
-    }
+        .byContentMode(UIViewContentModeScaleAspectFit)
+        .byTintColor(JobsSecondaryLabelColor);
     if (subAttributedText.length) {
+        NSMutableAttributedString *themedSubAttributedText = subAttributedText.mutableCopy;
+        [themedSubAttributedText addAttribute:NSForegroundColorAttributeName
+                                       value:JobsSecondaryLabelColor
+                                       range:NSMakeRange(0, themedSubAttributedText.length)];
         cell.detailTextLabel.byText(nil);
-        cell.detailTextLabel.attributedText = subAttributedText;
+        cell.detailTextLabel.byAttributedText(themedSubAttributedText);
     }else{
         cell.detailTextLabel.attributedText = nil;
         cell.detailTextLabel.byText([self subTextByViewModel:viewModel]);
     }
-    if (@available(iOS 13.0, *)) {
-        cell.textLabel.byTextCor(UIColor.labelColor);
-        cell.detailTextLabel.byTextCor(UIColor.secondaryLabelColor);
-    }else{
-        cell.textLabel.byTextCor(JobsLabelColor);
-        cell.detailTextLabel.byTextCor(JobsSecondaryLabelColor);
-    }
+    cell.textLabel.byTextCor(JobsLabelColor);
+    cell.detailTextLabel.byTextCor(JobsSecondaryLabelColor);
+    cell.byTintColor(JobsSecondaryLabelColor);
     [self applyTextDisplayStrategyToLabel:cell.textLabel];
     [self applyTextDisplayStrategyToLabel:cell.detailTextLabel];
     if (self.pinAccessoryIndex == indexPath.row) {
@@ -846,13 +917,21 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     }else{
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     BOOL isLastItem = indexPath.row == self.items.count - 1;
-    cell.bySeparatorInset(isLastItem
-        ? UIEdgeInsetsMake(0, 16, 0, CGRectGetWidth(tableView.bounds))
-        : UIEdgeInsetsMake(0, 16, 0, 16));
-    cell.byBgColor(JobsClearColor);
-    cell.contentView.byBgColor(JobsClearColor);
+    cell
+        .bySelectionStyle(UITableViewCellSelectionStyleDefault)
+        .bySelectedBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byBgColor(JobsTertiarySystemBackgroundColor);
+        }))
+        .bySeparatorInset(isLastItem
+            ? UIEdgeInsetsMake(0, 16, 0, CGRectGetWidth(tableView.bounds))
+            : UIEdgeInsetsMake(0, 16, 0, 16))
+        .byContentView(^(__kindof UIView * _Nullable contentView) {
+            contentView.byBgColor(JobsClearColor);
+        })
+        .byBgColor(JobsClearColor);
+    [self installAnimatedTitleIconByViewModel:viewModel
+                                      inCell:cell];
     [self syncTextScrollingStateForCell:cell];
     return cell;
 }
@@ -868,6 +947,7 @@ didEndDisplayingCell:(UITableViewCell *)cell
  forRowAtIndexPath:(NSIndexPath *)indexPath{
     [cell.textLabel byPauseTextScroll];
     [cell.detailTextLabel byPauseTextScroll];
+    [[self clockIconInCell:cell] stopAndReset:NO];
 }
 
 - (void)tableView:(UITableView *)tableView

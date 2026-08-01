@@ -12,7 +12,6 @@ API_AVAILABLE(ios(13.0))
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability-new"
 
-SceneDelegate *sceneDelegate;
 @interface SceneDelegate ()
 
 @end
@@ -20,7 +19,6 @@ SceneDelegate *sceneDelegate;
 @implementation SceneDelegate
 -(instancetype)init{
     if (self = [super init]) {
-        sceneDelegate = self;
         @jobs_weakify(self)
         [self addNotificationName:UISceneWillConnectNotification
                             block:^(id _Nullable weakSelf,

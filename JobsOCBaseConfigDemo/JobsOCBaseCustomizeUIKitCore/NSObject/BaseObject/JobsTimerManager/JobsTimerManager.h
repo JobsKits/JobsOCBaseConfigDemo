@@ -25,7 +25,8 @@ typedef JobsTimerMgrBuildBlock JobsTimerManagerBuildBlock;
 typedef NS_ENUM(NSUInteger, _JobsTimerPauseState) {
     _JobsTimerPauseStateRunning = 0,
     _JobsTimerPauseStateManualPaused,
-    _JobsTimerPauseStateAutoPaused
+    _JobsTimerPauseStateAutoPaused,
+    _JobsTimerPauseStateScopePaused
 };
 #endif /* JOBS_TIMER_PAUSE_STATE_DEFINED */
 
@@ -65,6 +66,14 @@ typedef NS_ENUM(NSUInteger, JobsTimerBackgroundPolicy) {
                             build:(JobsTimerManagerBuildBlock _Nullable)build
                           handler:(jobsByVoidBlock _Nullable)handler;
 
+- (BOOL)upsertTimerWithIdentifier:(NSString *)identifier
+                  scopeIdentifier:(NSString * _Nullable)scopeIdentifier
+                        timerType:(JobsTimerType)timerType
+                           policy:(JobsTimerBackgroundPolicy)policy
+                 startImmediately:(BOOL)startImmediately
+                            build:(JobsTimerManagerBuildBlock _Nullable)build
+                          handler:(jobsByVoidBlock _Nullable)handler;
+
 - (BOOL)upsertTimerWithIdentifiable:(id<JobsTimerIdentifiable>)identifier
                           timerType:(JobsTimerType)timerType
                              policy:(JobsTimerBackgroundPolicy)policy
@@ -86,6 +95,11 @@ typedef NS_ENUM(NSUInteger, JobsTimerBackgroundPolicy) {
 
 - (BOOL)fireOnceAndRemove:(NSString *)identifier;
 - (BOOL)stopAndRemove:(NSString *)identifier;
+- (BOOL)stopAndRemove:(NSString *)identifier
+        expectedTimer:(JobsTimer *)expectedTimer;
+- (NSUInteger)pauseScope:(NSString *)scopeIdentifier;
+- (NSUInteger)resumeScope:(NSString *)scopeIdentifier;
+- (NSUInteger)stopAndRemoveScope:(NSString *)scopeIdentifier;
 - (void)stopAndRemoveAll;
 
 /// Query

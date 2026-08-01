@@ -7,6 +7,12 @@
 
 #import "JobsOCGraphicCaptchaGenerator.h"
 
+@interface JobsOCGraphicCaptchaGenerator ()
+
++(NSArray<NSString *> *)characterArrayByString:(NSString *)string;
+
+@end
+
 @implementation JobsOCGraphicCaptchaGenerator
 +(NSArray<NSString *> *)numberCharacters{
     static NSArray<NSString *> *characters = nil;
@@ -34,16 +40,36 @@
     });return characters;
 }
 
-+(NSArray<NSString *> *)chineseCharacters{
++(NSArray<NSString *> *)simplifiedChineseCharacters{
     static NSArray<NSString *> *characters = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        NSMutableArray<NSString *> *arr = NSMutableArray.array;
-        for (UniChar c = 0x4E00; c <= 0x9FA5; c++) {
-            [arr addObject:[NSString stringWithCharacters:&c length:1]];
-        }
-        characters = arr.copy;
+        characters = [self characterArrayByString:@"汉语龙国风云书画网车门东乐气万与专业长时见学习爱宝贝发后会里这来"];
     });return characters;
+}
+
++(NSArray<NSString *> *)traditionalChineseCharacters{
+    static NSArray<NSString *> *characters = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        characters = [self characterArrayByString:@"漢語龍國風雲書畫網車門東樂氣萬與專業長時見學習愛寶貝發後會裡這來"];
+    });return characters;
+}
+
++(NSArray<NSString *> *)chineseCharacters{
+    return [self.simplifiedChineseCharacters arrayByAddingObjectsFromArray:self.traditionalChineseCharacters];
+}
+
++(NSArray<NSString *> *)characterArrayByString:(NSString *)string{
+    NSMutableArray<NSString *> *characters = NSMutableArray.array;
+    [string enumerateSubstringsInRange:NSMakeRange(0, string.length)
+                               options:NSStringEnumerationByComposedCharacterSequences
+                            usingBlock:^(NSString *substring,
+                                         NSRange substringRange,
+                                         NSRange enclosingRange,
+                                         BOOL *stop) {
+        if (substring.length) [characters addObject:substring];
+    }];return characters.copy;
 }
 
 +(NSArray<NSString *> *)charactersForUnits:(JobsOCGraphicCaptchaCharacterUnit)units{
@@ -57,8 +83,11 @@
     if (units & JobsOCGraphicCaptchaCharacterUnitUppercaseLetter) {
         [characters addObjectsFromArray:self.uppercaseLetterCharacters];
     }
-    if (units & JobsOCGraphicCaptchaCharacterUnitChinese) {
-        [characters addObjectsFromArray:self.chineseCharacters];
+    if (units & JobsOCGraphicCaptchaCharacterUnitSimplifiedChinese) {
+        [characters addObjectsFromArray:self.simplifiedChineseCharacters];
+    }
+    if (units & JobsOCGraphicCaptchaCharacterUnitTraditionalChinese) {
+        [characters addObjectsFromArray:self.traditionalChineseCharacters];
     };return characters.copy;
 }
 
@@ -73,8 +102,11 @@
     if (units & JobsOCGraphicCaptchaCharacterUnitUppercaseLetter) {
         [groups addObject:self.uppercaseLetterCharacters];
     }
-    if (units & JobsOCGraphicCaptchaCharacterUnitChinese) {
-        [groups addObject:self.chineseCharacters];
+    if (units & JobsOCGraphicCaptchaCharacterUnitSimplifiedChinese) {
+        [groups addObject:self.simplifiedChineseCharacters];
+    }
+    if (units & JobsOCGraphicCaptchaCharacterUnitTraditionalChinese) {
+        [groups addObject:self.traditionalChineseCharacters];
     };return groups.copy;
 }
 
@@ -112,6 +144,19 @@
     }
 }
 
++(NSArray<NSArray<NSString *> *> *)randomGroupCombinationFromGroups:(NSArray<NSArray<NSString *> *> *)groups
+                                                             length:(NSUInteger)length
+                                                         groupCount:(NSUInteger)groupCount{
+    if (groups.count < 2 || length < 2) return @[];
+    NSMutableArray<NSArray<NSString *> *> *shuffledGroups = groups.mutableCopy;
+    [self shuffleMutableCharacters:shuffledGroups];
+    NSUInteger maxGroupCount = MIN(length, shuffledGroups.count);
+    NSUInteger targetGroupCount = groupCount ? groupCount : maxGroupCount;
+    NSUInteger finalGroupCount = MIN(targetGroupCount, maxGroupCount);
+    if (finalGroupCount < 2) return @[];
+    return [shuffledGroups subarrayWithRange:NSMakeRange(0, finalGroupCount)];
+}
+
 +(NSString *)randomTextByCharacters:(NSArray<NSString *> *)characters
                               length:(NSUInteger)length{
     NSMutableString *text = NSMutableString.string;
@@ -123,11 +168,15 @@
 }
 
 +(NSString *)randomMixedTextByGroups:(NSArray<NSArray<NSString *> *> *)groups
-                              length:(NSUInteger)length{
-    if (groups.count < 2 || length < groups.count) return @"";
+                              length:(NSUInteger)length
+                          groupCount:(NSUInteger)groupCount{
+    NSArray<NSArray<NSString *> *> *selectedGroups = [self randomGroupCombinationFromGroups:groups
+                                                                                     length:length
+                                                                                 groupCount:groupCount];
+    if (!selectedGroups.count) return @"";
     NSMutableArray<NSString *> *characters = NSMutableArray.array;
     NSMutableArray<NSString *> *sourceCharacters = NSMutableArray.array;
-    for (NSArray<NSString *> *group in groups) {
+    for (NSArray<NSString *> *group in selectedGroups) {
         NSString *character = [self randomCharacterFromCharacters:group];
         if (character.length) [characters addObject:character];
         [sourceCharacters addObjectsFromArray:group];
@@ -147,9 +196,10 @@
     if (captchaConfig.customCharacterGroups.count) {
         NSArray<NSArray<NSString *> *> *groups = [self validCharacterGroupsFromGroups:captchaConfig.customCharacterGroups];
         if (groups.count > 1 && captchaConfig.mixedGroupCount > 1) {
-            length = MAX(length, groups.count);
+            length = MAX(length, MIN(captchaConfig.mixedGroupCount, groups.count));
             NSString *mixedText = [self randomMixedTextByGroups:groups
-                                                         length:length];
+                                                         length:length
+                                                     groupCount:captchaConfig.mixedGroupCount];
             if (mixedText.length) return mixedText;
         }
         NSMutableArray<NSString *> *sourceCharacters = NSMutableArray.array;
@@ -173,7 +223,8 @@
         NSUInteger requiredLength = MIN(captchaConfig.mixedGroupCount, groups.count);
         if (length < requiredLength) length = requiredLength;
         NSString *mixedText = [self randomMixedTextByGroups:groups
-                                                     length:length];
+                                                     length:length
+                                                 groupCount:captchaConfig.mixedGroupCount];
         if (mixedText.length) return mixedText;
     }
     NSArray<NSString *> *sourceCharacters = [self charactersForUnits:captchaConfig.characterUnits];

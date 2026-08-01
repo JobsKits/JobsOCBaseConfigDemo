@@ -21,6 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JobsCoreTextScrollLayer : CALayer
 
 Prop_assign(readonly)CGFloat textWidth;
+/// CoreText 排版推进宽度；只用于判断 UILabel 是否真的容纳不下当前文案。
+Prop_assign(readonly)CGFloat textLayoutWidth;
 
 -(void)updateWithAttributedText:(NSAttributedString *)attributedText
                          height:(CGFloat)height

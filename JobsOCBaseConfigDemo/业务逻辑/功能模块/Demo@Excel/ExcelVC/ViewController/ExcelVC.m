@@ -124,7 +124,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return cell
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
         .byIndexPath(indexPath)
-        .byContentViewBgCor(JobsWhiteColor)
+        .byContentViewBgCor(JobsSystemBackgroundColor)
         .bySeparatorInset(UIEdgeInsetsMake(0, JobsWidth(16), 0, JobsWidth(16)))
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.section][indexPath.row])
         .byTextLabel(^(__kindof UILabel * _Nullable label) {

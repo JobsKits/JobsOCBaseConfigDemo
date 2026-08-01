@@ -7,8 +7,6 @@
 
 #import "JobsLinkageMenuViewDemoVC.h"
 
-static NSNotificationName const JobsLinkageMenuGlobalThemeDidChangeNotification = @"JobsOCGlobalThemeDidChangeNotification";
-
 @interface JobsLinkageMenuDemoContentView : UIView
 
 -(instancetype)initWithSectionTitle:(NSString *)sectionTitle
@@ -160,7 +158,7 @@ Prop_strong()NSArray<NSString *> *menuTitles;
     self.callbackLabel.byAlpha(1);
     [self rebuildLinkageView];
     @jobs_weakify(self)
-    [self addNotificationName:JobsLinkageMenuGlobalThemeDidChangeNotification
+    [self addNotificationName:JobsThemeDidChangeNotification
                         block:^(id _Nullable weakSelf,
                                 id _Nullable arg) {
         @jobs_strongify(self)

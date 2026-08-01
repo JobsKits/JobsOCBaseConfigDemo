@@ -12,11 +12,11 @@ static CGFloat JobsVerticalMenuMainCellOffsetX(void) {
 }
 
 static UIColor *JobsVerticalMenuMainBgCor(void) {
-    return HEXCOLOR(0xF7F3EA);
+    return JobsSystemBackgroundColor;
 }
 
 static UIColor *JobsVerticalMenuMainCardBorderCor(void) {
-    return HEXCOLOR(0xE8DDCC);
+    return JobsSeparatorColor;
 }
 
 @interface JobsVerticalMenuMainVC ()
@@ -47,14 +47,14 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
                 .byTextCor(JobsLabelColor)
-                .byText(@"竖形菜单".tr)
+                .byText(@"竖形菜单选择功能".tr)
                 .byFont(UIFontWeightSemiboldSize(18));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
         // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
         // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
         .byBgCor(JobsVerticalMenuMainBgCor())
-        .byNavBgCor(HEXCOLOR(0xFFF0DF));/// self.gk_navBackgroundColor 和 self.view.backgroundColor
+        .byNavBgCor(JobsSystemBackgroundColor);/// self.gk_navBackgroundColor 和 self.view.backgroundColor
         //    self.viewModel.navBgImage = @"导航栏左侧底图".img;
 }
 
@@ -108,7 +108,7 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
     UIViewModel *viewModel = self.makeDatas(model);
     NSString *subTitle = isNull(model.subTitle) ? @"点击查看".tr : model.subTitle.tr;
     viewModel
-        .byBgCor(JobsWhiteColor)
+        .byBgCor(JobsSecondarySystemBackgroundColor)
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byAttributedTitle(nil)
                 .byText(model.title.tr)
@@ -119,7 +119,7 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
             data.byAttributedTitle(nil)
                 .byText(subTitle)
                 .byFont(UIFontWeightMediumSize(13))
-                .byTextCor(HEXCOLOR(0xB0782B));
+                .byTextCor(JobsSecondaryLabelColor);
         });
     return viewModel;
 }

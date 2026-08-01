@@ -13,8 +13,7 @@
 #import "TransparentRegionVC.h"
 #import "DynamicViewTestVC.h"
 #import "TestIrregularViewTestVC.h"
-#import "Douyin_ZFPlayerVC@1.h"
-#import "Douyin_ZFPlayerVC@2.h"
+#import "JobsZFPlayerDemoListVC.h"
 
 #import "JobsAppDoor.h"
 
@@ -23,11 +22,13 @@
 #import "JobsOCCommentDemoVC.h"
 #import "JobsIMShowVC.h"
 #import "JobsOCSearcherDemoVC.h"
+#import "JobsOCMarkdownDocumentsDemoVC.h"
 #import "TestLabelVC.h"
 #import "JobsAnimatedNumberLabelDemoVC.h"
 #import "JobsTimerDemoListVC.h"
 #import "JobsBluetoothDemoVC.h"
 #import "JobsCoreMotionDemoVC.h"
+#import "JobsOCSceneDelegateDemoVC.h"
 #import "JobsScreenshotTipsDemoVC.h"
 #import "JobsScreenshotProtectionDemoVC.h"
 #import "JobsOCAudioRecorderDemoVC.h"

@@ -71,7 +71,7 @@ Prop_strong()JobsClockView *clockView;
     self.clockView.byVisible(YES);
     [self applyClockTheme];
     @jobs_weakify(self)
-    [self addNotificationName:JobsOCGlobalThemeDidChangeNotification
+    [self addNotificationName:JobsThemeDidChangeNotification
                         block:^(id _Nullable weakSelf,
                                 id _Nullable arg) {
         @jobs_strongify(self)

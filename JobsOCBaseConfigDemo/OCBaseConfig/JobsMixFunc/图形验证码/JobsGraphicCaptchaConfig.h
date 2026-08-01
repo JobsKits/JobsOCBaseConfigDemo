@@ -22,7 +22,9 @@ typedef NS_OPTIONS(NSUInteger, JobsGraphicCaptchaCharacterUnit) {
     JobsGraphicCaptchaCharacterUnitNumber = 1 << 0,
     JobsGraphicCaptchaCharacterUnitLowercaseLetter = 1 << 1,
     JobsGraphicCaptchaCharacterUnitUppercaseLetter = 1 << 2,
-    JobsGraphicCaptchaCharacterUnitChinese = 1 << 3,
+    JobsGraphicCaptchaCharacterUnitSimplifiedChinese = 1 << 3,
+    JobsGraphicCaptchaCharacterUnitTraditionalChinese = 1 << 4,
+    JobsGraphicCaptchaCharacterUnitChinese = JobsGraphicCaptchaCharacterUnitSimplifiedChinese | JobsGraphicCaptchaCharacterUnitTraditionalChinese,
     JobsGraphicCaptchaCharacterUnitLetter = JobsGraphicCaptchaCharacterUnitLowercaseLetter | JobsGraphicCaptchaCharacterUnitUppercaseLetter,
     JobsGraphicCaptchaCharacterUnitDefault = JobsGraphicCaptchaCharacterUnitNumber | JobsGraphicCaptchaCharacterUnitLetter
 };
@@ -41,11 +43,14 @@ Prop_copy(nullable)NSArray<NSString *> *customCharacters;
 +(instancetype)defaultConfig;
 +(instancetype)numberConfig;
 +(instancetype)chineseConfig;
++(instancetype)simplifiedChineseConfig;
++(instancetype)traditionalChineseConfig;
 +(instancetype)letterCaseSensitiveConfig;
 +(instancetype)letterCaseInsensitiveConfig;
 +(instancetype)mixedConfig;
 +(instancetype)twoMixedConfig;
 +(instancetype)threeMixedConfig;
++(instancetype)fourMixedConfig;
 +(instancetype)fullMixedConfig;
 
 @end

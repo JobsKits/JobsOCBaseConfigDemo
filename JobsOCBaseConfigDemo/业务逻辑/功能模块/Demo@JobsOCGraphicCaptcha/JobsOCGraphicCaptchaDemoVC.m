@@ -7,24 +7,6 @@
 
 #import "JobsOCGraphicCaptchaDemoVC.h"
 
-typedef NS_ENUM(NSInteger, JobsOCGraphicCaptchaOption) {
-    JobsOCGraphicCaptchaOptionUppercaseLetter,
-    JobsOCGraphicCaptchaOptionLowercaseLetter,
-    JobsOCGraphicCaptchaOptionNumber,
-    JobsOCGraphicCaptchaOptionChinese,
-    JobsOCGraphicCaptchaOptionUppercaseLowercase,
-    JobsOCGraphicCaptchaOptionUppercaseNumber,
-    JobsOCGraphicCaptchaOptionUppercaseChinese,
-    JobsOCGraphicCaptchaOptionLowercaseNumber,
-    JobsOCGraphicCaptchaOptionLowercaseChinese,
-    JobsOCGraphicCaptchaOptionNumberChinese,
-    JobsOCGraphicCaptchaOptionUppercaseLowercaseNumber,
-    JobsOCGraphicCaptchaOptionUppercaseLowercaseChinese,
-    JobsOCGraphicCaptchaOptionUppercaseNumberChinese,
-    JobsOCGraphicCaptchaOptionLowercaseNumberChinese,
-    JobsOCGraphicCaptchaOptionAll
-};
-
 @interface JobsOCGraphicCaptchaDemoVC ()
 
 Prop_strong()UIView *contentView;
@@ -42,6 +24,8 @@ Prop_strong()UITextField *inputTF;
 Prop_strong()UIButton *refreshBtn;
 Prop_strong()UIButton *validateBtn;
 Prop_strong()UILabel *resultLab;
+
+-(void)applyTheme;
 
 @end
 
@@ -66,91 +50,71 @@ Prop_strong()UILabel *resultLab;
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
                 .byTextCor(JobsLabelColor)
-                .byText(@"JobsOCGraphicCaptcha")
+                .byText(@"图形验证码".tr)
                 .byFont(UIFontWeightRegularSize(18));
         })
-        .byBgCor(HEXCOLOR(0xF5F7FA))
-        .byNavBgCor(HEXCOLOR(0xF5F7FA));
+        .bySubTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data
+                .byTextCor(JobsSecondaryLabelColor)
+                .byText(@"阿拉伯数字/英文（区分大小写）/汉字（区分简繁）".tr)
+                .byFont(UIFontWeightRegularSize(11));
+        })
+        .byBgCor(JobsSystemBackgroundColor)
+        .byNavBgCor(JobsSystemBackgroundColor);
+    @jobs_weakify(self)
+    [self addNotificationName:JobsThemeDidChangeNotification
+                        block:^(id _Nullable weakSelf,
+                                id _Nullable arg) {
+        @jobs_strongify(self)
+        [self applyTheme];
+    }];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.makeNavByAlpha(1);
-    self.view.byBgColor(JobsSystemBackgroundColor);
+    self.gk_navTitleViewBy(self.viewModel);
+    [self.gk_navSubTitleLab byTextDisplayMode:JobsLabelTextDisplayModeScrolling
+                          minimumScaleFactor:1
+                        maximumNumberOfLines:1
+                         scrollConfiguration:JobsLabelScrollConfiguration.pingPongConfiguration];
+    [self.gk_navSubTitleLab byStartTextScroll];
     self.contentView.byHidden(NO);
+    [self applyTheme];
     [self applyCurrentConfig];
 }
 #pragma mark —— Actions
--(JobsOCGraphicCaptchaCharacterUnit)characterUnitsByOption:(JobsOCGraphicCaptchaOption)option{
-    switch (option) {
-        /// 单项：英文大写
-        case JobsOCGraphicCaptchaOptionUppercaseLetter:
-            return JobsOCGraphicCaptchaCharacterUnitUppercaseLetter;
-        /// 单项：英文小写
-        case JobsOCGraphicCaptchaOptionLowercaseLetter:
-            return JobsOCGraphicCaptchaCharacterUnitLowercaseLetter;
-        /// 单项：阿拉伯数字
-        case JobsOCGraphicCaptchaOptionNumber:
-            return JobsOCGraphicCaptchaCharacterUnitNumber;
-        /// 单项：汉字
-        case JobsOCGraphicCaptchaOptionChinese:
-            return JobsOCGraphicCaptchaCharacterUnitChinese;
-        /// 两两混合：英文大写和英文小写
-        case JobsOCGraphicCaptchaOptionUppercaseLowercase:
-            return JobsOCGraphicCaptchaCharacterUnitUppercaseLetter | JobsOCGraphicCaptchaCharacterUnitLowercaseLetter;
-        /// 两两混合：英文大写和阿拉伯数字
-        case JobsOCGraphicCaptchaOptionUppercaseNumber:
-            return JobsOCGraphicCaptchaCharacterUnitUppercaseLetter | JobsOCGraphicCaptchaCharacterUnitNumber;
-        /// 两两混合：英文大写和汉字
-        case JobsOCGraphicCaptchaOptionUppercaseChinese:
-            return JobsOCGraphicCaptchaCharacterUnitUppercaseLetter | JobsOCGraphicCaptchaCharacterUnitChinese;
-        /// 两两混合：英文小写和阿拉伯数字
-        case JobsOCGraphicCaptchaOptionLowercaseNumber:
-            return JobsOCGraphicCaptchaCharacterUnitLowercaseLetter | JobsOCGraphicCaptchaCharacterUnitNumber;
-        /// 两两混合：英文小写和汉字
-        case JobsOCGraphicCaptchaOptionLowercaseChinese:
-            return JobsOCGraphicCaptchaCharacterUnitLowercaseLetter | JobsOCGraphicCaptchaCharacterUnitChinese;
-        /// 两两混合：阿拉伯数字和汉字
-        case JobsOCGraphicCaptchaOptionNumberChinese:
-            return JobsOCGraphicCaptchaCharacterUnitNumber | JobsOCGraphicCaptchaCharacterUnitChinese;
-        /// 三三混合：英文大写、英文小写和阿拉伯数字
-        case JobsOCGraphicCaptchaOptionUppercaseLowercaseNumber:
-            return JobsOCGraphicCaptchaCharacterUnitUppercaseLetter | JobsOCGraphicCaptchaCharacterUnitLowercaseLetter | JobsOCGraphicCaptchaCharacterUnitNumber;
-        /// 三三混合：英文大写、英文小写和汉字
-        case JobsOCGraphicCaptchaOptionUppercaseLowercaseChinese:
-            return JobsOCGraphicCaptchaCharacterUnitUppercaseLetter | JobsOCGraphicCaptchaCharacterUnitLowercaseLetter | JobsOCGraphicCaptchaCharacterUnitChinese;
-        /// 三三混合：英文大写、阿拉伯数字和汉字
-        case JobsOCGraphicCaptchaOptionUppercaseNumberChinese:
-            return JobsOCGraphicCaptchaCharacterUnitUppercaseLetter | JobsOCGraphicCaptchaCharacterUnitNumber | JobsOCGraphicCaptchaCharacterUnitChinese;
-        /// 三三混合：英文小写、阿拉伯数字和汉字
-        case JobsOCGraphicCaptchaOptionLowercaseNumberChinese:
-            return JobsOCGraphicCaptchaCharacterUnitLowercaseLetter | JobsOCGraphicCaptchaCharacterUnitNumber | JobsOCGraphicCaptchaCharacterUnitChinese;
-        /// 全部混合：四种字符单位
-        case JobsOCGraphicCaptchaOptionAll:
-            return JobsOCGraphicCaptchaCharacterUnitUppercaseLetter |
-                   JobsOCGraphicCaptchaCharacterUnitLowercaseLetter |
-                   JobsOCGraphicCaptchaCharacterUnitNumber |
-                   JobsOCGraphicCaptchaCharacterUnitChinese;
-        /// 未匹配已知选项时返回空字符单位
-        default:
-            break;
-    };return 0;
-}
-
 -(NSUInteger)mixedGroupCountByCharacterUnits:(JobsOCGraphicCaptchaCharacterUnit)characterUnits{
     NSUInteger count = 0;
     if (characterUnits & JobsOCGraphicCaptchaCharacterUnitUppercaseLetter) count++;
     if (characterUnits & JobsOCGraphicCaptchaCharacterUnitLowercaseLetter) count++;
     if (characterUnits & JobsOCGraphicCaptchaCharacterUnitNumber) count++;
-    if (characterUnits & JobsOCGraphicCaptchaCharacterUnitChinese) count++;
+    if (characterUnits & JobsOCGraphicCaptchaCharacterUnitSimplifiedChinese) count++;
+    if (characterUnits & JobsOCGraphicCaptchaCharacterUnitTraditionalChinese) count++;
     return count;
 }
 
+-(void)applyTheme{
+    self.view.byBgColor(JobsSystemBackgroundColor);
+    self.contentView.byBgColor(JobsSecondarySystemBackgroundColor);
+    self.inputTF
+        .byTextCor(JobsLabelColor)
+        .byBgColor(JobsTertiarySystemBackgroundColor);
+    self.captchaView.captchaBackgroundColor = JobsTertiarySystemBackgroundColor;
+    for (UILabel *titleLabel in self.optionTitleLabelMutArr) {
+        titleLabel.byTextCor(JobsLabelColor);
+    }
+    if (self.selectedOptionBtn) [self selectOptionButton:self.selectedOptionBtn];
+}
+
 -(void)applyCurrentConfig{
-    JobsOCGraphicCaptchaOption option = self.selectedOptionBtn
-        ? (JobsOCGraphicCaptchaOption)self.selectedOptionBtn.tag
-        : JobsOCGraphicCaptchaOptionAll;
-    JobsOCGraphicCaptchaCharacterUnit characterUnits = [self characterUnitsByOption:option];
+    JobsOCGraphicCaptchaCharacterUnit characterUnits = self.selectedOptionBtn
+        ? (JobsOCGraphicCaptchaCharacterUnit)self.selectedOptionBtn.tag
+        : JobsOCGraphicCaptchaCharacterUnitUppercaseLetter |
+          JobsOCGraphicCaptchaCharacterUnitLowercaseLetter |
+          JobsOCGraphicCaptchaCharacterUnitNumber |
+          JobsOCGraphicCaptchaCharacterUnitSimplifiedChinese |
+          JobsOCGraphicCaptchaCharacterUnitTraditionalChinese;
     NSUInteger groupCount = [self mixedGroupCountByCharacterUnits:characterUnits];
     JobsOCGraphicCaptchaConfig *config = JobsOCGraphicCaptchaConfig.defaultConfig;
     config.characterUnits = characterUnits;
@@ -173,7 +137,7 @@ Prop_strong()UILabel *resultLab;
         BOOL selected = optionButton == button;
         optionButton
             .jobsResetBtnTitleCor(selected ? UIColor.whiteColor : JobsLabelColor)
-            .jobsResetBtnBgCor(selected ? HEXCOLOR(0x1D7FF2) : HEXCOLOR(0xEEF1F5))
+            .jobsResetBtnBgCor(selected ? JobsSystemBlueColor : JobsTertiarySystemBackgroundColor)
             .bySelected(selected);
     }
     self.selectedOptionBtn = button;
@@ -193,14 +157,14 @@ Prop_strong()UILabel *resultLab;
     self.inputTF.byText(@"");
     self.resultLab
         .byText(@"已刷新".tr)
-        .byTextCor(HEXCOLOR(0x1D7FF2));
+        .byTextCor(JobsSystemBlueColor);
 }
 
 -(void)validateCaptcha{
     BOOL passed = [self.captchaView validateInput:self.inputTF.text];
     self.resultLab
         .byText(passed ? @"校验通过".tr : @"校验失败".tr)
-        .byTextCor(passed ? HEXCOLOR(0x159947) : HEXCOLOR(0xD14343));
+        .byTextCor(passed ? JobsSystemGreenColor : JobsSystemRedColor);
 }
 
 -(UIButton *)buttonByTitle:(NSString *)title
@@ -210,7 +174,7 @@ Prop_strong()UILabel *resultLab;
             .jobsResetBtnTitle(title.tr)
             .jobsResetBtnTitleFont(UIFontWeightMediumSize(15))
             .jobsResetBtnTitleCor(UIColor.whiteColor)
-            .jobsResetBtnBgCor(HEXCOLOR(0x263342))
+            .jobsResetBtnBgCor(JobsSystemBlueColor)
             .jobsResetBtnCornerRadiusValue(JobsWidth(8))
             .onClickBy(action)
             .byClipsToBounds(YES);
@@ -218,30 +182,56 @@ Prop_strong()UILabel *resultLab;
 }
 
 -(UIButton *)optionButtonByTitle:(NSString *)title
-                          option:(JobsOCGraphicCaptchaOption)option{
+                  characterUnits:(JobsOCGraphicCaptchaCharacterUnit)characterUnits{
     @jobs_weakify(self)
     UIButton *button = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
         button
             .jobsResetBtnTitle(title.tr)
             .jobsResetBtnTitleFont(UIFontWeightMediumSize(13))
-            .normalStateTitleColorBy(HEXCOLOR(0x4B5563))
-            .highlightedStateTitleColorBy(HEXCOLOR(0x1D7FF2))
-            .selectedStateTitleColorBy(UIColor.whiteColor)
-            .titleColorForStateBy(UIColor.whiteColor, UIControlStateSelected | UIControlStateHighlighted)
-            .normalStateBackgroundImageBy(HEXCOLOR(0xEEF1F5).image)
-            .highlightedStateBackgroundImageBy(HEXCOLOR(0xDCE9F8).image)
-            .selectedStateBackgroundImageBy(HEXCOLOR(0x1D7FF2).image)
-            .backgroundImageForStateBy(HEXCOLOR(0x166BCC).image, UIControlStateSelected | UIControlStateHighlighted)
+            .jobsResetBtnTitleCor(JobsLabelColor)
+            .jobsResetBtnBgCor(JobsTertiarySystemBackgroundColor)
             .byContentEdgeInsets(UIEdgeInsetsMake(0, JobsWidth(14), 0, JobsWidth(14)))
             .jobsResetBtnCornerRadiusValue(JobsWidth(8))
             .onClickBy(^(__kindof UIButton * _Nullable button) {
                 [weak_self optionButtonClicked:button];
             })
-            .byTag(option)
+            .byTag(characterUnits)
             .byClipsToBounds(YES);
     });
     self.optionButtonMutArr.add(button);
     return button;
+}
+
+-(NSArray<NSArray *> *)captchaUnitOptions{
+    return @[
+        @[@"英文大写",@(JobsOCGraphicCaptchaCharacterUnitUppercaseLetter)],
+        @[@"英文小写",@(JobsOCGraphicCaptchaCharacterUnitLowercaseLetter)],
+        @[@"阿拉伯数字",@(JobsOCGraphicCaptchaCharacterUnitNumber)],
+        @[@"简体汉字",@(JobsOCGraphicCaptchaCharacterUnitSimplifiedChinese)],
+        @[@"繁体汉字",@(JobsOCGraphicCaptchaCharacterUnitTraditionalChinese)]
+    ];
+}
+
+-(NSArray<NSArray *> *)optionsByGroupCount:(NSUInteger)groupCount{
+    NSArray<NSArray *> *unitOptions = self.captchaUnitOptions;
+    NSMutableArray<NSArray *> *options = NSMutableArray.array;
+    NSUInteger combinationCount = 1 << unitOptions.count;
+    for (NSUInteger mask = 1; mask < combinationCount; mask++) {
+        NSUInteger selectedCount = 0;
+        for (NSUInteger index = 0; index < unitOptions.count; index++) {
+            if (mask & (1 << index)) selectedCount++;
+        }
+        if (selectedCount != groupCount) continue;
+        NSMutableArray<NSString *> *titles = NSMutableArray.array;
+        JobsOCGraphicCaptchaCharacterUnit characterUnits = 0;
+        for (NSUInteger index = 0; index < unitOptions.count; index++) {
+            if (!(mask & (1 << index))) continue;
+            NSArray *unitOption = unitOptions[index];
+            [titles addObject:unitOption.firstObject];
+            characterUnits |= (JobsOCGraphicCaptchaCharacterUnit)[unitOption.lastObject unsignedIntegerValue];
+        }
+        [options addObject:@[[titles componentsJoinedByString:@" + "],@(characterUnits)]];
+    };return options.copy;
 }
 
 -(UIScrollView *)optionScrollViewByOptions:(NSArray<NSArray *> *)options{
@@ -266,7 +256,7 @@ Prop_strong()UILabel *resultLab;
     self.optionStackViewMutArr.add(stackView);
     for (NSArray *optionData in options) {
         stackView.byAddArrangedSubview([self optionButtonByTitle:optionData.firstObject
-                                                         option:(JobsOCGraphicCaptchaOption)[optionData.lastObject integerValue]]);
+                                                 characterUnits:(JobsOCGraphicCaptchaCharacterUnit)[optionData.lastObject unsignedIntegerValue]]);
     }
     stackView
         .addOn(scrollView)
@@ -285,43 +275,13 @@ Prop_strong()UILabel *resultLab;
     [self.optionStackViewMutArr removeAllObjects];
     [self.optionTitleLabelMutArr removeAllObjects];
     [self.optionButtonMutArr removeAllObjects];
-    NSArray<NSArray *> *optionGroups = @[
-        @[
-            @"单个演示",
-            @[
-                @[@"英文大写",@(JobsOCGraphicCaptchaOptionUppercaseLetter)],
-                @[@"英文小写",@(JobsOCGraphicCaptchaOptionLowercaseLetter)],
-                @[@"阿拉伯数字",@(JobsOCGraphicCaptchaOptionNumber)],
-                @[@"汉字",@(JobsOCGraphicCaptchaOptionChinese)]
-            ]
-        ],
-        @[
-            @"两两混合",
-            @[
-                @[@"英文大写 + 英文小写",@(JobsOCGraphicCaptchaOptionUppercaseLowercase)],
-                @[@"英文大写 + 阿拉伯数字",@(JobsOCGraphicCaptchaOptionUppercaseNumber)],
-                @[@"英文大写 + 汉字",@(JobsOCGraphicCaptchaOptionUppercaseChinese)],
-                @[@"英文小写 + 阿拉伯数字",@(JobsOCGraphicCaptchaOptionLowercaseNumber)],
-                @[@"英文小写 + 汉字",@(JobsOCGraphicCaptchaOptionLowercaseChinese)],
-                @[@"阿拉伯数字 + 汉字",@(JobsOCGraphicCaptchaOptionNumberChinese)]
-            ]
-        ],
-        @[
-            @"三三混合",
-            @[
-                @[@"英文大写 + 英文小写 + 阿拉伯数字",@(JobsOCGraphicCaptchaOptionUppercaseLowercaseNumber)],
-                @[@"英文小写 + 阿拉伯数字 + 汉字",@(JobsOCGraphicCaptchaOptionLowercaseNumberChinese)],
-                @[@"英文大写 + 英文小写 + 汉字",@(JobsOCGraphicCaptchaOptionUppercaseLowercaseChinese)],
-                @[@"英文大写 + 阿拉伯数字 + 汉字",@(JobsOCGraphicCaptchaOptionUppercaseNumberChinese)]
-            ]
-        ],
-        @[
-            @"全部混合",
-            @[
-                @[@"英文大写 + 英文小写 + 阿拉伯数字 + 汉字",@(JobsOCGraphicCaptchaOptionAll)]
-            ]
-        ]
-    ];
+    NSArray<NSString *> *groupTitles = @[@"单个演示",@"两两混合",@"三三混合",@"四四混合",@"全部混合"];
+    NSMutableArray<NSArray *> *optionGroups = NSMutableArray.array;
+    [groupTitles enumerateObjectsUsingBlock:^(NSString *title,
+                                               NSUInteger index,
+                                               BOOL *stop) {
+        [optionGroups addObject:@[title,[self optionsByGroupCount:index + 1]]];
+    }];
     __block UIView *previousRow = nil;
     [optionGroups enumerateObjectsUsingBlock:^(NSArray * _Nonnull group,
                                                 NSUInteger idx,
@@ -374,7 +334,7 @@ Prop_strong()UILabel *resultLab;
         @jobs_weakify(self)
         _contentView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             view
-                .byBgColor(UIColor.whiteColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer
                         .byCornerRadius(JobsWidth(10))
@@ -384,7 +344,7 @@ Prop_strong()UILabel *resultLab;
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
                     make.left.right.equalTo(self.view).inset(JobsWidth(20));
-                    make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(JobsWidth(28));
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(28));
                 });
         });
         self.captchaView.byHidden(NO);
@@ -402,7 +362,7 @@ Prop_strong()UILabel *resultLab;
     if (!_captchaView) {
         @jobs_weakify(self)
         _captchaView = JobsOCGraphicCaptchaView.new;
-        _captchaView.captchaBackgroundColor = HEXCOLOR(0xFFF7EA);
+        _captchaView.captchaBackgroundColor = JobsTertiarySystemBackgroundColor;
         _captchaView.byFont(UIFontWeightSemiboldSize(24));
         _captchaView.refreshBlock = ^(NSString *captchaText) {
             JobsLog(@"当前图形验证码 = %@",captchaText);
@@ -430,7 +390,7 @@ Prop_strong()UILabel *resultLab;
                     @jobs_strongify(self)
                     make.top.equalTo(self.captchaView.mas_bottom).offset(JobsWidth(18));
                     make.left.right.equalTo(self.contentView).inset(JobsWidth(22));
-                    make.height.mas_equalTo(JobsWidth(166));
+                    make.height.mas_equalTo(JobsWidth(210));
                 });
         });
         [self buildOptionRowsInView:_optionRowsView];
@@ -525,8 +485,8 @@ Prop_strong()UILabel *resultLab;
                     view.byFrame(CGRectMake(0, 0, JobsWidth(14), 1));
                 }))
                 .byLeftViewMode(UITextFieldViewModeAlways)
-                .byTintColor(HEXCOLOR(0x1D7FF2))
-                .byBgColor(HEXCOLOR(0xF0F3F7))
+                .byTintColor(JobsSystemBlueColor)
+                .byBgColor(JobsTertiarySystemBackgroundColor)
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer.byCornerRadius(JobsWidth(8));
                 })

@@ -117,7 +117,7 @@
 | 表格与长文字 | `JobsOCExcel` + `JobsOCUILabelScrolling` | Office 式冻结 `0...N` 列；单元格支持缩放、单行省略、多行省略和 CoreText 完整滚动。 |
 | 截屏 | `JobsScreenCapture` | 主动渲染并保存相册、系统截屏观察、敏感区域截图保护三条能力独立组合。 |
 | 音视频与硬件 | `JobsOCAudioRecorder`、`JobsOCVideoRecorder`、`JobsBluetooth`、`JobsBioKit` | 录音与本地音频管理、视频录制、多设备 BLE 扫描 / 连接 / 读写 / Mock、生物识别；录音与视频录制快门统一使用白色内圆、留白间隔和白色外圈，红色仅承担录制进度提示；视频写入采用单帧背压并丢弃迟到帧，录制页和直播采集进入后台时立即停止采集，回前台只恢复预览。 |
-| UI 状态与交互 | `JobsOCSkeletonView`、`JobsOCGraphicCaptcha`、`JobsOCNumberStepper`、`JobsOCKeyboardMgr`、`JobsSuspend` | 骨架屏、图形验证码、边界数字步进输入、键盘避让、悬浮控件均提供可复用组件和独立 Demo。 |
+| UI 状态与交互 | `JobsOCSkeletonView`、`JobsOCGraphicCaptcha`、`JobsOCNumberStepper`、`JobsOCKeyboardMgr`、`JobsSuspend` | 骨架屏、按英文大写 / 小写 / 数字 / 简体 / 繁体五类独立生成单个至五类组合的图形验证码、边界数字步进输入、键盘避让、悬浮控件均提供可复用组件和独立 Demo。 |
 | 抽奖轮盘 | `LuckyWheelView`、`LuckyWheelDemoVC` | 中心按钮在旋转中保持可点；每次点按都按当前配置重置初始角速度并视为新一轮抽奖，复用同一个 `CADisplayLink`，只在最终自然停止时结算。 |
 | 二维码与条形码 | `NSString+CIFilter`、`JobsQRCodeDemoVC` | 支持普通二维码、带中心 Logo 二维码和 Code128 条形码；点击生成图像会通过 Jobs 手势 DSL 将来源字符串复制到系统剪切板。 |
 | iconfont 资源门面 | `JobsIconfont` | 业务只使用语义资源与图标枚举；框架统一隐藏 URL、Unicode、字体名、SDWebImage、动态字体注册、占位兜底、缓存和复用防串图。 |
@@ -208,7 +208,7 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
 ### 2.5、完整能力模块清单
 
 <details>
-<summary><b>展开查看 106 个本地能力模块</b></summary>
+<summary><b>展开查看 107 个本地能力模块</b></summary>
 
 > 清单覆盖 Jobs 核心能力与 `Extra` 适配层；手工托管的上游第三方源码不计入自主能力清单。
 
@@ -216,15 +216,17 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
 | --- | --- |
 | 基础 / DSL / Model | `This`、`JobsClass`、`JobsOCDefs`、`JobsBlock`、`JobsOCProtocols`、`JobsModel`、`JobsMakes`、`JobsOCDSL`、`JobsModelDSL`、`JobsCallBackBlockDSL`、`UIBaseTextFieldDSL`、`JobsByOCPods`、`JobsBaseUI`、`JobsGetWindow`、`JobsLocker` |
 | UI / 导航 / 交互 | `JobsNavBar`、`JobsTabBarCtrl`、`JobsViewNavigator`、`JobsViewPush`、`FDFullscreenPopGesture`、`JobsNavigationTransitionMgr`、`JobsPresentTransitionMgr`、`JobsSuspend`、`JobsBasePopupView`、`JobsCustomView`、`JobsMenuView`、`JobsDropDownListView`、`JobsFiltrationView`、`JobsLinkageMenuView`、`JobsWallet`、`JobsHotLabel`、`JobsImageNumberView`、`JobsOCNumberStepper`、`JobsClockView`、`JobsImageRotation`、`JobsMarqueeView`、`JobsProgressBar`、`JobsUploadingProgressView`、`JobsLoadingImage`、`JobsIconfont`、`JobsLuckyEnvelopeRain`、`JobsGestureLock`、`JobsCountdownBtn` |
-| 业务 / 媒体 / 系统能力 | `JobsAppDoor`、`JobsOCSplash`、`JobsOCRefresher`、`JobsFuseAnimation`、`JobsOCExcel`、`JobsOCUILabelScrolling`、`JobsScreenCapture`、`JobsOCAudioRecorder`、`JobsOCVideoRecorder`、`JobsBluetooth`、`JobsOCGraphicCaptcha`、`JobsOCSkeletonView`、`JobsOCKeyboardMgr`、`JobsOCCalendar`、`JobsOCCountryCodeCtrl`、`JobsOCSearcher`、`JobsOCComment`、`JobsBioKit` |
+| 业务 / 媒体 / 系统能力 | `JobsAppDoor`、`JobsOCSplash`、`JobsOCRefresher`、`JobsFuseAnimation`、`JobsOCExcel`、`JobsOCMarkdown`、`JobsOCUILabelScrolling`、`JobsScreenCapture`、`JobsOCAudioRecorder`、`JobsOCVideoRecorder`、`JobsBluetooth`、`JobsOCGraphicCaptcha`、`JobsOCSkeletonView`、`JobsOCKeyboardMgr`、`JobsOCCalendar`、`JobsOCCountryCodeCtrl`、`JobsOCSearcher`、`JobsOCComment`、`JobsBioKit` |
 | 数据 / 服务 / 工程工具 | `JobsAPIs`、`JobsNetWorkTools`、`JobsMonitorNetwoking`、`JobsBitsMonitor`、`JobsOCWebSocket`、`JobsCryptography`、`JobsOCRuntimeKits`、`JobsOCPatch`、`JobsOCOpen`、`JobsOCSnowflake`、`JobsOCTimer`、`JobsOCTimerMgr`、`JobsTimeUtils`、`JobsRandomUtils`、`JobsStringUtils`、`JobsRichTextUtils`、`FileFolderHandleTool`、`JobsDeviceInfo`、`JobsLanMgr`、`JobsAppTools`、`JobsOCTools`、`JobsDebug`、`JobsAppIconRibbon` |
 | 第三方增量适配层 | `AFSecurityPolicyExtra`、`BRPickerViewExtra`、`FMDatabaseExtra`、`FSCalendarExtra`、`GKCustomNavigationBarExtra`、`HTMLDocumentExtra`、`HXPhotoManagerExtra`、`HXPhotoViewExtra`、`IQKeyboardManagerExtra`、`JXCategoryViewExtra`、`LMJDropdownMenuExtra`、`MGSwipeTableCellExtra`、`MJRefreshExtra`、`RACExtra`、`ReachabilityExtra`、`SRWebSocketExtra`、`SYSAlertControllerExtra`、`SZTextViewExtra`、`TFPopupExtra`、`WHToastExtra`、`YTKNetworkExtra`、`ZFPlayerExtra`、`ZMJCellExtra` |
 
 - `JobsGestureLock` 集成于主工程管理；现成控制器以 `BaseViewController` 为页面基座，`JobsSettingGestureVC` 直接复用统一的 `viewModel`、导航与主题契约，并以“手势解锁”为标题提供与 Swift 一致的设置 / 验证切换、56pt 语义色九宫格、跨点补点、状态反馈和清除重来入口。
-- `JobsImageRotation` 集成于主工程管理；旋转方向默认顺时针，Timer 间隔默认 `1/60` 秒，也可切换为逆时针并自定义速度。
+- `JobsImageRotation` 集成于主工程管理；通用旋转器默认顺时针、Timer 间隔默认 `1/60` 秒，也可切换为逆时针并自定义速度；`JobsClockIconView` 额外提供无刻度、固定时针、仅分针旋转的纯图形组件，默认 `0.1` 秒一帧，方向与间隔由外界传入。
+- `JobsOCTimerMgr` 集成于主工程管理；支持 `identifier + expectedTimer` 实例安全取消和页面 Scope 生命周期，时时彩 Demo 用绝对 `endAt` 作为 Model 时间真值，页面隐藏不会延长倒计时。
 - `JobsOCNumberStepper` 集成于主工程管理；统一封装减号、整数输入框与加号，上下限可独立省略，到达已设置边界后自动禁用并置灰对应按钮。
 - `JobsOCWebSocket` 集成于主工程管理；它只承接连接、心跳、重连和主线程回调，业务协议与鉴权继续留在业务层。
 - `JobsIconfont` 集成于主工程管理；新增资源只更新框架内部清单与语义类型，调用方不接触 iconfont URL、字体文件名和 Unicode。
+- `JobsOCMarkdown` 直接集成于老工程 `OCBaseConfig/JobsMixFunc`，不新增 Pod；构建阶段把仓库内 Jobs 自有 `*.md` 及相对资源打入 `JobsMarkdownDocuments.bundle`，Demo 按 YAML `title`、首个一级标题、文件名生成列表标题，列表点按态使用主题语义背景色，详情导航栏显示当前文档标题，并以 UTF-8 安全传输正文后离线渲染 `[toc]`、表格、任务列表、代码高亮、Mermaid、KaTeX、常用 HTML、深浅色和自定义 CSS。
 
 </details>
 
@@ -2540,6 +2542,21 @@ classDiagram
     	sceneDelegate = UIApplication.sharedApplication.connectedScenes.allObjects.firstObject.delegate;
     }
     ```
+
+  * 上述 `firstObject` 只能作为旧单窗口示意，不能用于多场景业务。页面应从自己的 `view.window.windowScene` 获取当前 Scene，再使用该 Scene 的 `session` 和 `delegate`。
+
+#### 15.1、SceneDelegate 多场景与窗口会话 Demo
+
+* 根列表提供独立入口 `JobsOCSceneDelegateDemoVC`，不是静态说明页：
+  * 新建 Scene 窗口，并通过 `NSUserActivity` 直接路由到 Demo
+  * 激活已有 Scene、关闭当前 Scene、请求刷新 `UISceneSession`
+  * 展示 `supportsMultipleScenes`、`connectedScenes`、`openSessions`、会话 ID、角色和激活状态
+  * 用每个 Scene 独立计数验证状态隔离，并由 `stateRestorationActivityForScene:` 恢复
+  * 实时记录连接、前后台、活跃、失活、断开等 Scene 生命周期事件
+* `JobsOCSceneCoordinator` 按 `UISceneSession.persistentIdentifier` 管理 Demo 状态；当前工程直接集成到主工程，不新增 Pod 依赖。
+* 已移除全局 `SceneDelegate *` 缓存。`AppDelegate` 仍只管理进程级能力；每个 `SceneDelegate` 持有自己的 `UIWindow`。
+* `UIApplicationSupportsMultipleScenes` 只是声明；运行时还要以 `UIApplication.sharedApplication.supportsMultipleScenes` 为准。建议在支持多窗口的 iPad 环境验证完整流程。
+* 深入研究入口：[Supporting multiple windows on iPad](https://developer.apple.com/documentation/uikit/supporting-multiple-windows-on-ipad)、[Managing your app's life cycle](https://developer.apple.com/documentation/uikit/managing-your-app-s-life-cycle)、[UISceneSession](https://developer.apple.com/documentation/uikit/uiscenesession)。
 
 ### 16、**`UIScrollView` **的滚动生命周期 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -5563,12 +5580,14 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 
 #### 37.2、关于导航栏  <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 非根控制器由 `UINavigationController+SafeTransition` 统一补齐 Jobs/GK 导航栏、标题和 `backBtnCategory` Jobs 返回按钮；已有系统富文本标题和右侧业务按钮迁移到 GK 导航栏，不显示系统导航容器。仅 `JobsNavigationDemoVC` 作为系统导航栏专项 Demo 保持原样。
-- 从 `ViewController_1` Demo 根列表进入的每个导航 / 模态子页面，以及类名包含 `Demo` 的独立演示页，右上角最多只显示一个主题入口；没有页面业务动作时直接切换主题，月亮 / 太阳图标与无障碍文案表达下一次点击会切换到的主题；存在业务动作时使用 Demo 总入口同款 `ellipsis.circle` 展开下拉列表，展开后切换为填充图标与“收起”语义，把主题切换与全部页面动作统一收纳。系统导航栏专项 Demo 使用同一规则写入 `navigationItem`；主题状态持久化后会同步到所有已连接 Scene 的 Window。
+- Demo 非根控制器由 `UINavigationController+SafeTransition` 统一补齐 Jobs/GK 导航栏、标题和 `backBtnCategory` Jobs 返回按钮；只处理真实导航栈成员或直接模态页面，导航 / Tab / Split 容器、`UIAlertController` 及其私有子控制器不会创建导航栏。已有系统富文本标题和右侧业务按钮迁移到 GK 导航栏，不显示系统导航容器。仅 `JobsNavigationDemoVC` 作为系统导航栏专项 Demo 保持原样。
+- 从 `ViewController_1` Demo 根列表进入的每个导航 / 模态子页面，以及类名包含 `Demo` 的独立演示页，右上角最多只显示一个透明背景的主题入口；没有页面业务动作时直接切换主题，月亮 / 太阳图标与无障碍文案表达下一次点击会切换到的主题；存在业务动作时使用 Demo 总入口同款 `ellipsis.circle` 展开下拉列表，展开后切换为填充图标与“收起”语义，把主题切换与全部页面动作统一收纳。系统导航栏专项 Demo 使用同一规则写入 `navigationItem`；主题状态由 `JobsThemeCenter` 持久化并按资源绑定更新。
 - Demo 根列表支持拖拽调整普通分组顺序；“其他”作为兜底分组始终固定在列表末尾，不参与拖拽，也不会因历史持久化顺序恢复到中间。
-- Demo 根列表搜索栏使用独立的蓝色“取消”按钮关闭搜索，不复用 `UISearchBar` 内置取消控件；搜索框与按钮的尺寸、圆角、边框和深浅色状态保持统一。
+- Demo 根列表搜索栏使用独立的蓝色“取消”按钮关闭搜索，不复用 `UISearchBar` 内置取消控件；输入框背景、文字、占位符、图标和边框统一读取 `JobsThemeCenter` 语义色。历史单条记录通过左滑“删除”，不额外占用透明附件区域；“清空”用于整批删除。
 - Demo 根列表的二级入口统一使用 `50pt` 固定行高；主标题和副标题由“设置 → 列表主/副标题”统一选择一般裁切、省略号、缩小字体、连续跑马灯或左右来回滚动，短文仍走 UILabel 原生绘制，深浅色下与同层普通 Label 保持同色。设置中的开屏内容、应用语言和列表文字策略均以一级 Cell 展示当前值，点击展开缩进的二级选项后再点选。Swift / OC 的 Label 分组统一覆盖动效数字、四种定尺寸文字策略、UILabel 与 UIButton.titleLabel 表现列表、可交互自定义 Label、圆点文本和文字旋转。
-- 全局主题按钮负责切换系统明暗 Trait，并同步所有已连接 Scene 的 Window；公共导航链路会递归校正当前控制器树的页面根承载和 GK 导航栏。白天使用浅色系统背景配深色语义文字，黑夜使用深色系统背景配浅色语义文字；卡片、输入区、弹框和列表容器使用次级系统背景，正文、说明与占位文字分别使用 `JobsLabelColor`、`JobsSecondaryLabelColor` 和 `JobsPlaceholderTextColor`。BaseVC 的页面根背景不再展示固定底色或底图，业务图片必须下沉到内容子视图。品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色，不参与无差别反色；缓存到 `CGColor`、`CALayer`、CoreText 或自绘上下文的颜色必须在主题通知或 Trait 变化后重新解析和绘制。
+- 根列表可点击的二级 Cell 与右上角功能菜单 Cell 使用主题语义选中背景；功能菜单常态使用次级背景，与主页面形成层次，主题切换时同步刷新。
+- 进度条相关二级入口（系统、自定义与兼容入口）的主标题前统一展示三格循环充电动效，只刷新当前可见入口，折叠或离屏时不更新不可见 Cell。
+- 主题公共能力集成于主工程 `OCBaseConfig/JobsOCDefs/Core/JobsTheme`，业务数据包位于 `其他/资源文件管理/Json文件/JobsThemeResources.json`。切换时只重放通过 `JobsLabelColor`、`JobsSecondaryLabelColor`、`JobsSystemBackgroundColor` 等 Key 标记的背景 / 文字资源和显式主题图片，不写系统明暗 Trait，不遍历 Scene、Window 或控制器树。`CGColor`、`CALayer`、CoreText 与自绘内容需要显式绑定或监听 `JobsThemeDidChangeNotification`。
 - 默认返回图标使用 template 渲染和 `JobsLabelColor`，随明暗主题自动变色；自定义 `backBtnTitleModel.textCor` 时仍保留业务着色。
 - `GKNavigationBar` 本身提供通用 `gk_navTitleView`，但没有主标题 / 副标题组件；主工程集成版由 `JobsOCBaseCustomize3rdCore/GKCustomNavigationBar` 提供 `gk_navTitleViewBy(UIViewModel *)`，其中 `textModel` 对应主标题、`subTextModel` 对应副标题。
 - Demo 统一跳转链路会测量导航标题宽度：短标题保持单行，长标题优先按 `｜`、`：`、`@`、括号、有效空格等语义边界拆成上下结构，其次选择靠近中点的语言词边界，最后才按完整字符居中拆分；页面已有自定义 `titleView` 时不会覆盖。
@@ -6247,6 +6266,8 @@ vc.navCtrl
 ### 43、📺 视频播放器 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * 关注实现类：[**@interface UIView (ZFPlayer)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIView/UIView+Category/UIView+ZFPlayer)
+
+* Demo 入口：根列表仅展示 `Douyin_ZFPlayer`；进入 `JobsZFPlayerDemoListVC` 后，通过 Cell 分别打开 `Douyin_ZFPlayer_1` 和 `Douyin_ZFPlayer_2`，避免同一播放器能力散落为多个根入口。
 
 * `Podfile`
 
@@ -12099,18 +12120,18 @@ cell.contentView.layerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _N
 
 ## 五、<font color=red>**F**</font><font color=green>**A**</font><font color=blue>**Q**</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-* 在**Objc**里面，主类有一个**方法A**，分类里面也有一个**方法A**，它们都是同名的，那么在执行的时候，是执行分类的还是主类的**方法A** ❓
+### 1、在[**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html)里面，主类有一个**方法A**，分类里面也有一个**方法A**，它们都是同名的，那么在执行的时候，是执行分类的还是主类的**方法A** ❓ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
   > **运行时调用时，会执行分类的方法，覆盖主类的实现**
 
-* 那么如果在两个分类文件里面都写了同一个名方法，在实际调用的时候，执行谁 ❓
+### 2、如果在两个分类文件里面都写了同一个方法，在实际调用的时候执行谁 ❓ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
   * 最终在运行时注册类方法表时，**后加载的分类会覆盖前面的**；（后编译进二进制的分类实现）
   * 所以在大型项目中，如果多个模块都给同一个类写了相同方法名的分类，会导致：
     - 调用结果 **不确定**；
     - 甚至不同环境下结果会不一样。
   
-* 为什么在[**Masonry**](https://github.com/SnapKit/Masonry)/[**SnapKit**](https://github.com/SnapKit/SnapKit)里面可以不用**weak**化的`self`❓
+### 3、为什么在[**Masonry**](https://github.com/SnapKit/Masonry)/[**SnapKit**](https://github.com/SnapKit/SnapKit)里面可以不用**weak**化的`self`❓ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
   * 因为 [**Masonry**](https://github.com/SnapKit/Masonry)/[**SnapKit**](https://github.com/SnapKit/SnapKit) 的约束闭包是**同步执行、不会被保存（non-escaping）**的
   
@@ -12121,13 +12142,71 @@ cell.contentView.layerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _N
     - 把 **block** 存成 `self.someBlock = ^{ ... self ... };`（典型循环引用）
     - 传给会把 **block** 保存在属性里的对象，而这个对象又被 `self` 强持有
   
-* **只有对不可变对象进⾏copy操作是指针复制（浅复制），其它情况都是内容复制（深复制）！**
+### 4、只有对不可变对象进行`copy`操作是指针复制（浅复制），其它情况都是内容复制（深复制） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
   ![image-20251104111634703](./assets/image-20251104111634703.png)
   
-* 在**Objc**里面**NSMutableArray**做属性用<font color=red>**copy**</font>还是<font color=red>**strong**</font>来修饰❓
+### 5、在[**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html)里面，`NSMutableArray`属性用`copy`还是`strong`修饰❓ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
   * `NSMutableArray` 当属性，正常情况下用 `strong`，不要用 `copy`。因为，如果用<font color=red>**copy**</font>，**setter** 会做的是：对一个 `NSMutableArray` 调用 `copy`，**返回的是不可变的 `NSArray` 对象**（类簇行为）。此时调用`addObject`会崩溃！
+
+### 6、[**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html)为主混编一部分[**Swift**](https://www.swift.org/)，以及[**Swift**](https://www.swift.org/)为主混编一部分[**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html)，包体会变大吗❓ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+  > **只要新增实现实际被链接、资源实际被复制，通常都会产生包体增量；但两种方向的增量往往不对称：[Objective-C](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 主工程首次引入 [Swift](https://www.swift.org/) 通常更明显，[Swift](https://www.swift.org/) 主工程加入少量 [Objective-C](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 通常较小。**
+
+  | 项目结构 | 常见包体变化 |
+  | --- | --- |
+  | [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 为主，首次加入 [**Swift**](https://www.swift.org/) | 通常更明显，可能存在一次性的 [**Swift**](https://www.swift.org/) 基础成本 |
+  | [**Swift**](https://www.swift.org/) 为主，加入部分 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) | 通常较小，主要增加 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 代码、元数据和资源 |
+  | 已经是 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) + [**Swift**](https://www.swift.org/) 混编 | 继续加入任一语言时，主要取决于新增代码、依赖和资源 |
+
+  * **[Objective-C](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 为主，首次加入 [Swift](https://www.swift.org/)**
+
+    * 除 [**Swift**](https://www.swift.org/) 业务代码外，还会增加 [**Swift**](https://www.swift.org/) 类型、协议、泛型、反射，以及与 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 互操作所需的元数据。
+    * [**Swift**](https://www.swift.org/) 5 的 ABI 稳定运行时从 iOS 12.2 开始作为系统组件提供。最低系统版本早于 iOS 12.2 时，面向旧系统的变体可能需要携带 [**Swift**](https://www.swift.org/) 运行库；运行在较新系统的 App Store 变体可通过 App Thinning 获得更小体积。
+    * 即使最低系统版本高于 iOS 12.2，Xcode 仍可能根据使用到的 [**Swift**](https://www.swift.org/) 特性、兼容库和嵌入产物决定需要随 App 携带的内容。`ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES` 用于控制包装类 Target 是否始终嵌入 [**Swift**](https://www.swift.org/) 标准库，不应仅为解决包体问题盲目开启。
+    * 因此，加入第一个 [**Swift**](https://www.swift.org/) 文件可能比继续加入第十个 [**Swift**](https://www.swift.org/) 文件更显著；但当前多数项目的最低系统版本已经高于 iOS 12.2，“首次加入 [**Swift**](https://www.swift.org/) 就固定增加数 MB”不能再作为通用结论。
+    * 参考：[**Swift ABI 稳定性说明**](https://www.swift.org/blog/abi-stability-and-apple/)、[**Swift 5 Release Notes for Xcode 10.2**](https://developer.apple.com/documentation/xcode-release-notes/swift-5-release-notes-for-xcode-10_2)、[**Xcode Build Settings Reference**](https://developer.apple.com/documentation/xcode/build-settings-reference)。
+
+  * **[Swift](https://www.swift.org/) 为主，加入部分 [Objective-C](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html)**
+
+    * [**Swift**](https://www.swift.org/) 相关运行时与元数据成本已经存在，新增内容通常是 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 编译后的机器码、类、方法、Selector、Category 等元数据，以及依赖携带的资源。
+    * [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) Runtime、Foundation 和 UIKit 由系统提供，不会因为加入几个 `.m` 文件再给 App 打包一套 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 运行环境。
+    * 所以在代码规模、依赖和资源相近时，[**Swift**](https://www.swift.org/) 主工程加入少量 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 的额外成本，通常小于纯 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 工程首次加入 [**Swift**](https://www.swift.org/)。
+
+  * **真正决定包体增量的常见因素**
+
+    * [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 静态库为加载 Category 常配置 `-ObjC`，可能让链接器保留更多目标文件；`-all_load`、`-force_load` 的影响通常更明显。
+    * [**Swift**](https://www.swift.org/) 大量使用复杂泛型或跨模块特化时，编译器可能为不同类型生成多份机器码。
+    * 动态 Framework 会附带自身 Mach-O、签名和语言元数据；为了少量能力引入大型 SDK，往往比语言混编本身更占空间。
+    * 图片、Bundle、字体、音视频等资源，以及同一依赖被重复打包，常常比 [**Swift**](https://www.swift.org/) / [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 代码本身更大。
+    * Debug 包含更多符号和未优化代码，不能用来判断正式包体。
+
+  * **正确比较方式**
+
+    ```text
+    相同 Xcode、部署版本、架构和依赖
+    → 分别生成 Release Archive
+    → Distribute App 并生成 App Thinning Size Report
+    → 比较同一设备变体的下载大小与安装大小
+    ```
+
+    `.xcarchive`、导出的 `.ipa`、App Store 下载大小和安装后大小不是同一个指标。Xcode 报告适合本地对比，上传后的 App Store Connect 设备变体数据最接近用户实际结果。参考：[**Reducing your app’s size**](https://developer.apple.com/documentation/xcode/reducing-your-app-s-size)、[**App Store Connect 构建大小说明**](https://developer.apple.com/help/app-store-connect/manage-builds/view-builds-and-metadata/)。
+
+  * **结论速记**
+
+    ```text
+    纯 Objective-C → 首次加入 Swift：
+    可能支付一次 Swift 基础成本，增量相对明显。
+
+    纯 Swift → 加入 Objective-C：
+    通常只增加 Objective-C 代码、元数据和资源，增量相对较小。
+
+    已经混编 → 继续增加任一语言：
+    主要看新增代码、链接方式、第三方依赖和资源，不再有明显的首次混编成本。
+    ```
+
+    不需要仅为了包体刻意拒绝少量 [**Swift**](https://www.swift.org/) / [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 混编；优先检查大型 SDK、重复 Framework、资源文件、链接器加载参数、[**Swift**](https://www.swift.org/) 泛型特化和 Release 优化。
 
 ## 六、TODO <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -12139,10 +12218,6 @@ cell.contentView.layerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _N
 
   * 将[**时间按照【年-月份】分组**](#时间按照【年-月份】分组)集成到靶场项目里
   * 完善 [**iOS功能：跳转其他App,如果本机不存在,则进行下载（需要补充）**](#iOS功能：跳转其他App,如果本机不存在,则进行下载)
-  * iOS.热更新
-* 对多场景**SceneDelegate**的深入研究和支持
-* `JobsPostVC`报错解决
 * DebugLogDescription 会崩溃：`id value = self.valueForKeyBlock(name) ? : @"nil";//默认值为nil字符串`
-* 侧滑菜单：`JXCategoryView`垂直表达
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

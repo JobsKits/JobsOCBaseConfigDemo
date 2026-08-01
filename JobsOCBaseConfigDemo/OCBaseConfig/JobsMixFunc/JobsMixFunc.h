@@ -30,6 +30,7 @@
 #import "JobsOCSkeletonView.h"
 #import "JobsBluetooth.h"
 #import "JobsOCExcel.h"
+#import "JobsOCMarkdown.h"
 #import "JobsScreenCapture.h"
 #import "JobsOCWebSocket.h"
 #import "JobsOCNumberStepper/JobsOCNumberStepper.h"

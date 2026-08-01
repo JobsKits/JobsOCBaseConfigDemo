@@ -53,10 +53,10 @@ Prop_strong()NSDate *maximumCalendarDate;
             // 使用原则：底图有 + 底色有 = 优先使用底图数据
             // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
             // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byBgCor(JobsSystemBackgroundColor)
             //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-            .byNavBgImage(@"导航栏左侧底图".img);
+            .byNavBgCor(JobsSystemBackgroundColor)
+            .byNavBgImage(nil);
     }
     /// 装填用户信息数据
     /// json生成器 ： https://www.site24x7.com/zhcn/tools/json-generator.html
@@ -71,7 +71,7 @@ Prop_strong()NSDate *maximumCalendarDate;
 
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
-    [self.calendar jobsInvalidateCalendarLayout];
+    [self.calendar setNeedsLayout];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -126,8 +126,9 @@ boundingRectWillChange:(CGRect)bounds
        animated:(BOOL)animated{
     [calendar mas_updateConstraints:^(MASConstraintMaker *make) {
         make.height.equalTo(@(bounds.size.height));
-    }];[calendar jobsInvalidateCalendarLayout];
-    [self.view layoutIfNeeded];
+    }];
+    [calendar setNeedsLayout];
+    [self.view setNeedsLayout];
 }
 
 -(void)calendar:(JobsOCCalendar *)calendar
@@ -167,8 +168,6 @@ atMonthPosition:(JobsOCCalendarMonthPosition)monthPosition{
                     make.right.equalTo(self.view).offset(-JobsWidth(12));
                     make.height.mas_equalTo(JobsWidth(340));
                 })
-                .bySetNeedsLayout()
-                .byLayoutIfNeeded()
                 .byBgColor(JobsSecondarySystemBackgroundColor);
         });
     };return _calendar;

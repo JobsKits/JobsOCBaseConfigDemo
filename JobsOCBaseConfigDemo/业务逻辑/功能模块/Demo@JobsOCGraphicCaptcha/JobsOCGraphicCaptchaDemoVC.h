@@ -49,6 +49,12 @@
 #import "JobsOCNumberStepper.h"
 #endif
 
+#if __has_include(<JobsOCUILabelScrolling/JobsOCUILabelScrolling.h>)
+#import <JobsOCUILabelScrolling/JobsOCUILabelScrolling.h>
+#else
+#import "UILabel+Scrolling.h"
+#endif
+
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else

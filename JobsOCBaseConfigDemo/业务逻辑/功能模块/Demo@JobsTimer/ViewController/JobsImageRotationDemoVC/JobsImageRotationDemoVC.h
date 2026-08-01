@@ -5,8 +5,6 @@
 //  Created by Jobs on 2026年7月24日，星期五.
 //
 
-#import <math.h>
-#import <QuartzCore/QuartzCore.h>
 #import <UIKit/UIKit.h>
 
 #if __has_include(<JobsImageRotation/JobsImageRotation.h>)

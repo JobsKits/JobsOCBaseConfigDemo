@@ -33,6 +33,18 @@
     return config;
 }
 
++(instancetype)simplifiedChineseConfig{
+    JobsOCGraphicCaptchaConfig *config = self.defaultConfig;
+    config.characterUnits = JobsOCGraphicCaptchaCharacterUnitSimplifiedChinese;
+    return config;
+}
+
++(instancetype)traditionalChineseConfig{
+    JobsOCGraphicCaptchaConfig *config = self.defaultConfig;
+    config.characterUnits = JobsOCGraphicCaptchaCharacterUnitTraditionalChinese;
+    return config;
+}
+
 +(instancetype)letterCaseSensitiveConfig{
     JobsOCGraphicCaptchaConfig *config = self.defaultConfig;
     config.characterUnits = JobsOCGraphicCaptchaCharacterUnitLetter;
@@ -47,12 +59,34 @@
 }
 
 +(instancetype)mixedConfig{
+    return self.fullMixedConfig;
+}
+
++(instancetype)twoMixedConfig{
     JobsOCGraphicCaptchaConfig *config = self.defaultConfig;
     config.characterUnits = JobsOCGraphicCaptchaCharacterUnitNumber |
                             JobsOCGraphicCaptchaCharacterUnitLetter |
                             JobsOCGraphicCaptchaCharacterUnitChinese;
     config.caseSensitive = YES;
+    config.mixedGroupCount = 2;
+    return config;
+}
+
++(instancetype)threeMixedConfig{
+    JobsOCGraphicCaptchaConfig *config = self.twoMixedConfig;
+    config.mixedGroupCount = 3;
+    return config;
+}
+
++(instancetype)fourMixedConfig{
+    JobsOCGraphicCaptchaConfig *config = self.twoMixedConfig;
     config.mixedGroupCount = 4;
+    return config;
+}
+
++(instancetype)fullMixedConfig{
+    JobsOCGraphicCaptchaConfig *config = self.twoMixedConfig;
+    config.mixedGroupCount = 5;
     return config;
 }
 

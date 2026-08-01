@@ -69,6 +69,7 @@ JobsBlock@Pods/
 - `Core/**/*.h`
 
 - `Core/确定参数的Block/ReturnByCertainParametersBlock.h` 集中维护带返回值的确定参数 Block，`UITextView`、`UIBezierPath / CALayer / UIView` 方法型 DSL 相关返回类型统一从这里暴露。
+- `JobsTimerMgr` 的 Scope upsert、实例安全取消与 Scope 生命周期 DSL 返回型 Block 统一由 `JobsBlock.h` 暴露。
 - `JobsBlockHeader.h` 集中维护向前声明，避免 `@class` / `@protocol` 分散在业务头文件中。
 
 ### 5.2、源码入口

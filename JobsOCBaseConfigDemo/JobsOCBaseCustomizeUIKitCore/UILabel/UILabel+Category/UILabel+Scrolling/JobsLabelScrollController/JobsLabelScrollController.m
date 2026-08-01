@@ -8,7 +8,6 @@
 #import "JobsLabelScrollController.h"
 
 static NSAttributedStringKey const JobsLabelScrollConcealedAttribute = @"com.jobs.scrolling-label.concealed";
-static NSNotificationName const JobsLabelScrollGlobalThemeDidChangeNotification = @"JobsOCGlobalThemeDidChangeNotification";
 
 @interface JobsLabelScrollController ()
 
@@ -73,7 +72,7 @@ Prop_assign()NSTimeInterval delayRemaining;
         _travelDirection = 1;
         [NSNotificationCenter.defaultCenter addObserver:self
                                                selector:@selector(globalThemeDidChange:)
-                                                   name:JobsLabelScrollGlobalThemeDidChangeNotification
+                                                   name:JobsThemeDidChangeNotification
                                                  object:nil];
     };return self;
 }
@@ -169,7 +168,8 @@ Prop_assign()NSTimeInterval delayRemaining;
                                       height:size.height
                             duplicateSpacing:duplicateSpacing];
     BOOL reduceMotion = self.configuration.respectsReduceMotion && UIAccessibilityIsReduceMotionEnabled();
-    if (self.textLayer.textWidth <= size.width + 0.5 || reduceMotion) {
+    /// 光学字形画布会额外扩展以防绘制裁切，不能拿它判断 UILabel 是否容纳得下文案。
+    if (self.textLayer.textLayoutWidth <= size.width + 0.5 || reduceMotion) {
         [self stopForStaticText];
         return;
     }
@@ -397,7 +397,7 @@ Prop_assign()NSTimeInterval delayRemaining;
         shadow.shadowColor = [self resolvedColor:self.sourceShadowColor];
         shadow.shadowOffset = self.label.shadowOffset;
         attributes[NSShadowAttributeName] = shadow;
-    }return [NSAttributedString.alloc initWithString:self.sourcePlainText
+    };return [NSAttributedString.alloc initWithString:self.sourcePlainText
                                           attributes:attributes];
 }
 

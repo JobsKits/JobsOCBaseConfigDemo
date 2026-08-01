@@ -33,6 +33,18 @@
     return config;
 }
 
++(instancetype)simplifiedChineseConfig{
+    JobsGraphicCaptchaConfig *config = self.defaultConfig;
+    config.characterUnits = JobsGraphicCaptchaCharacterUnitSimplifiedChinese;
+    return config;
+}
+
++(instancetype)traditionalChineseConfig{
+    JobsGraphicCaptchaConfig *config = self.defaultConfig;
+    config.characterUnits = JobsGraphicCaptchaCharacterUnitTraditionalChinese;
+    return config;
+}
+
 +(instancetype)letterCaseSensitiveConfig{
     JobsGraphicCaptchaConfig *config = self.defaultConfig;
     config.characterUnits = JobsGraphicCaptchaCharacterUnitLetter;
@@ -66,9 +78,15 @@
     return config;
 }
 
-+(instancetype)fullMixedConfig{
++(instancetype)fourMixedConfig{
     JobsGraphicCaptchaConfig *config = self.twoMixedConfig;
     config.mixedGroupCount = 4;
+    return config;
+}
+
++(instancetype)fullMixedConfig{
+    JobsGraphicCaptchaConfig *config = self.twoMixedConfig;
+    config.mixedGroupCount = 5;
     return config;
 }
 

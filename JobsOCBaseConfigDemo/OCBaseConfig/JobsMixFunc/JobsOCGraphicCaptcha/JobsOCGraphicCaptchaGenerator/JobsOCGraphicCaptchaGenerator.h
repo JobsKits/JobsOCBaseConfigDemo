@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 +(NSArray<NSString *> *)numberCharacters;
 +(NSArray<NSString *> *)lowercaseLetterCharacters;
 +(NSArray<NSString *> *)uppercaseLetterCharacters;
++(NSArray<NSString *> *)simplifiedChineseCharacters;
++(NSArray<NSString *> *)traditionalChineseCharacters;
 +(NSArray<NSString *> *)chineseCharacters;
 +(NSArray<NSString *> *)charactersForUnits:(JobsOCGraphicCaptchaCharacterUnit)units;
 +(NSString *)randomTextByConfig:(JobsOCGraphicCaptchaConfig *_Nullable)config;

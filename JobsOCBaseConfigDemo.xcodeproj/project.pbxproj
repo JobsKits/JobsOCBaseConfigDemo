@@ -29,6 +29,16 @@
 		C7D025072026072500000002 /* JobsIconfont.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D025072026072500000001 /* JobsIconfont.m */; };
 		C7D025072026072500000004 /* JobsIconfontDemoVCs.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D025072026072500000003 /* JobsIconfontDemoVCs.m */; };
 		C7D025072026072500000006 /* JobsIconfontAssets.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C7D025072026072500000005 /* JobsIconfontAssets.bundle */; };
+		C7D028072026072800000002 /* JobsOCSplashResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C7D028072026072800000001 /* JobsOCSplashResources.bundle */; };
+		C7D029072026072900000002 /* JobsTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D029072026072900000001 /* JobsTheme.m */; };
+		C7D029072026072900000004 /* JobsThemeResources.json in Resources */ = {isa = PBXBuildFile; fileRef = C7D029072026072900000003 /* JobsThemeResources.json */; };
+		C7D031072026073000000002 /* JobsOCMarkdownCatalog.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D031072026073000000001 /* JobsOCMarkdownCatalog.m */; };
+		C7D031072026073000000004 /* JobsOCMarkdownConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D031072026073000000003 /* JobsOCMarkdownConfiguration.m */; };
+		C7D031072026073000000006 /* JobsOCMarkdownDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D031072026073000000005 /* JobsOCMarkdownDocument.m */; };
+		C7D031072026073000000008 /* JobsOCMarkdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D031072026073000000007 /* JobsOCMarkdownView.m */; };
+		C7D031072026073000000010 /* JobsOCMarkdownResourceLocator.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D031072026073000000009 /* JobsOCMarkdownResourceLocator.m */; };
+		C7D031072026073000000012 /* JobsOCMarkdownDocumentsDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C7D031072026073000000011 /* JobsOCMarkdownDocumentsDemoVC.m */; };
+		C7D031072026073000000014 /* JobsOCMarkdownResources.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C7D031072026073000000013 /* JobsOCMarkdownResources.bundle */; };
 		F30000012F22000100C0DE01 /* JobsOCWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F30000212F22000100C0DE01 /* JobsOCWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -98,6 +108,16 @@
 		C7D025072026072500000001 /* JobsIconfont.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsIconfont/Core/JobsIconfont.m; sourceTree = SOURCE_ROOT; };
 		C7D025072026072500000003 /* JobsIconfontDemoVCs.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsIconfont/JobsIconfontDemoVCs.m"; sourceTree = SOURCE_ROOT; };
 		C7D025072026072500000005 /* JobsIconfontAssets.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsIconfont/Resource/JobsIconfontAssets.bundle; sourceTree = SOURCE_ROOT; };
+		C7D028072026072800000001 /* JobsOCSplashResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCSplash/Resource/JobsOCSplashResources.bundle; sourceTree = SOURCE_ROOT; };
+		C7D029072026072900000001 /* JobsTheme.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsOCDefs/Core/JobsTheme/JobsTheme.m; sourceTree = SOURCE_ROOT; };
+		C7D029072026072900000003 /* JobsThemeResources.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "JobsOCBaseConfigDemo/其他/资源文件管理/Json文件/JobsThemeResources.json"; sourceTree = SOURCE_ROOT; };
+		C7D031072026073000000001 /* JobsOCMarkdownCatalog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCMarkdown/Core/JobsOCMarkdownCatalog.m; sourceTree = SOURCE_ROOT; };
+		C7D031072026073000000003 /* JobsOCMarkdownConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCMarkdown/Core/JobsOCMarkdownConfiguration.m; sourceTree = SOURCE_ROOT; };
+		C7D031072026073000000005 /* JobsOCMarkdownDocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCMarkdown/Core/JobsOCMarkdownDocument.m; sourceTree = SOURCE_ROOT; };
+		C7D031072026073000000007 /* JobsOCMarkdownView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCMarkdown/Core/JobsOCMarkdownView.m; sourceTree = SOURCE_ROOT; };
+		C7D031072026073000000009 /* JobsOCMarkdownResourceLocator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCMarkdown/Support/Native/JobsOCMarkdownResourceLocator.m; sourceTree = SOURCE_ROOT; };
+		C7D031072026073000000011 /* JobsOCMarkdownDocumentsDemoVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@JobsOCMarkdown/JobsOCMarkdownDocumentsDemoVC.m"; sourceTree = SOURCE_ROOT; };
+		C7D031072026073000000013 /* JobsOCMarkdownResources.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCMarkdown/Resource/JobsOCMarkdownResources.bundle; sourceTree = SOURCE_ROOT; };
 		F30000212F22000100C0DE01 /* JobsOCWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = JobsOCWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA847A5EB5BF97692168C819 /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.debug.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -398,6 +418,7 @@
 				"业务逻辑/功能模块/Demo@Douyin_ZFPlayer/View/ZFDouYinControlView/ZFDouYinControlView.m",
 				"业务逻辑/功能模块/Demo@Douyin_ZFPlayer/ViewController/Douyin_ZFPlayerVC@1/Douyin_ZFPlayerVC@1.m",
 				"业务逻辑/功能模块/Demo@Douyin_ZFPlayer/ViewController/Douyin_ZFPlayerVC@2/Douyin_ZFPlayerVC@2.m",
+				"业务逻辑/功能模块/Demo@Douyin_ZFPlayer/ViewController/JobsZFPlayerDemoListVC/JobsZFPlayerDemoListVC.m",
 				"业务逻辑/功能模块/Demo@DynamicView/ViewController/DynamicViewTestVC.m",
 				"业务逻辑/功能模块/Demo@Excel/Excel-JobsExcelView/Model/JobsExcelConfigureViewModel/JobsExcelConfigureViewModel.m",
 				"业务逻辑/功能模块/Demo@Excel/Excel-JobsExcelView/View/Cell/UICollectionViewCell/JobsTopViewItem/JobsTopViewItem.m",
@@ -590,6 +611,8 @@
 				"业务逻辑/功能模块/Demo@PushTransformAnimation/Resource/1.jpeg",
 				"业务逻辑/功能模块/Demo@PushTransformAnimation/Resource/2.jpeg",
 				"业务逻辑/功能模块/Demo@PushTransformAnimation/Resource/3.jpeg",
+				"业务逻辑/功能模块/Demo@SceneDelegate/JobsOCSceneCoordinator/JobsOCSceneCoordinator.m",
+				"业务逻辑/功能模块/Demo@SceneDelegate/JobsOCSceneDelegateDemoVC/JobsOCSceneDelegateDemoVC.m",
 				"业务逻辑/功能模块/Demo@TestBaseLabel/ViewController/TestBaseLabelVC.m",
 				"业务逻辑/功能模块/Demo@TestIrregularView/ViewController/TestIrregularViewTestVC.m",
 				"业务逻辑/功能模块/Demo@TestLabel/ViewController/TestLabelDemoModel.m",
@@ -1302,8 +1325,8 @@
 				"JobsOCDSL/UIKit/UISwipeActionsConfiguration+DSLs/UISwipeActionsConfiguration+DSL/UISwipeActionsConfiguration+DSL.m",
 				"JobsOCDSL/UIKit/UISwipeGestureRecognizer+DSLs/UISwipeGestureRecognizer+DSL/UISwipeGestureRecognizer+DSL.m",
 				"JobsOCDSL/UIKit/UISwitch+DSLs/UISwitch+DSL/UISwitch+DSL.m",
-				"JobsOCDSL/UIKit/UITableViewCell+DSLs/UITableViewCell+DSL/UITableViewCell+DSL.m",
 				"JobsOCDSL/UIKit/UITabBar+DSLs/UITabBar+DSL/UITabBar+DSL.m",
+				"JobsOCDSL/UIKit/UITableViewCell+DSLs/UITableViewCell+DSL/UITableViewCell+DSL.m",
 				"JobsOCDSL/UIKit/UITapGestureRecognizer+DSLs/UITapGestureRecognizer+DSL/UITapGestureRecognizer+DSL.m",
 				"JobsOCDSL/UIKit/UITextView+DSLs/UITextView+DSL/UITextView+DSL.m",
 				"JobsOCDSL/UIKit/UIView+DSLs/UIView+Gesture/UIView+Gesture/UIView+Gesture.m",
@@ -1447,6 +1470,7 @@
 				"OCBaseConfig/JobsMixFunc/JobsImageNumberView/Resource/阿拉伯数字符号/小数点@2x.png",
 				"OCBaseConfig/JobsMixFunc/JobsImageNumberView/Resource/阿拉伯数字符号/小数点@3x.png",
 				OCBaseConfig/JobsMixFunc/JobsImageNumberView/Uses/JobsImageNumberView.png,
+				OCBaseConfig/JobsMixFunc/JobsImageRotation/JobsClockIconView.m,
 				OCBaseConfig/JobsMixFunc/JobsImageRotation/JobsImageRotator.m,
 				OCBaseConfig/JobsMixFunc/JobsLanMgr/LanMgr/LanMgr.m,
 				"OCBaseConfig/JobsMixFunc/JobsLanMgr/NSString+JobsLanMgr/NSString+JobsLanMgr.m",
@@ -1825,6 +1849,16 @@
 				C7D025072026072500000001 /* JobsIconfont.m */,
 				C7D025072026072500000003 /* JobsIconfontDemoVCs.m */,
 				C7D025072026072500000005 /* JobsIconfontAssets.bundle */,
+				C7D028072026072800000001 /* JobsOCSplashResources.bundle */,
+				C7D031072026073000000001 /* JobsOCMarkdownCatalog.m */,
+				C7D031072026073000000003 /* JobsOCMarkdownConfiguration.m */,
+				C7D031072026073000000005 /* JobsOCMarkdownDocument.m */,
+				C7D031072026073000000007 /* JobsOCMarkdownView.m */,
+				C7D031072026073000000009 /* JobsOCMarkdownResourceLocator.m */,
+				C7D031072026073000000011 /* JobsOCMarkdownDocumentsDemoVC.m */,
+				C7D031072026073000000013 /* JobsOCMarkdownResources.bundle */,
+				C7D029072026072900000001 /* JobsTheme.m */,
+				C7D029072026072900000003 /* JobsThemeResources.json */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
@@ -1894,6 +1928,7 @@
 				C55C795B2E16748E00B56985 /* Resources */,
 				12769A856D3A66C133E13156 /* [CP] Embed Pods Frameworks */,
 				D2BAFBB0599FD955F46FD8C4 /* [CP] Copy Pods Resources */,
+				C7D030072026073000000021 /* Package Markdown Documents */,
 				F30000412F22000100C0DE01 /* Embed App Extensions */,
 			);
 			buildRules = (
@@ -2019,6 +2054,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7D025072026072500000006 /* JobsIconfontAssets.bundle in Resources */,
+				C7D028072026072800000002 /* JobsOCSplashResources.bundle in Resources */,
+				C7D029072026072900000004 /* JobsThemeResources.json in Resources */,
+				C7D031072026073000000014 /* JobsOCMarkdownResources.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2104,6 +2142,27 @@
 			shellScript = "JOBS_APP_ICON_RIBBON_NONINTERACTIVE=1 JOBS_APP_ICON_RIBBON_PROJECT_DIR=\"${SRCROOT}\" JOBS_APP_ICON_RIBBON_CONFIG_PATH=\"${SRCROOT}/JobsOCBaseConfigDemo/启动配置/JobsAppIconRibbon/JobsAppIconRibbon.config\" JOBS_APP_ICON_RIBBON_GENERATOR_PATH=\"${SRCROOT}/JobsOCBaseConfigDemo/启动配置/JobsAppIconRibbon/Scripts/JobsAppIconRibbonGenerator.swift\" /bin/zsh \"${SRCROOT}/JobsOCBaseConfigDemo/启动配置/JobsAppIconRibbon/Scripts/JobsAppIconRibbon.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C7D030072026073000000021 /* Package Markdown Documents */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Package Markdown Documents";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/JobsMarkdownDocuments.bundle/manifest.json",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/bin/ruby \"${SRCROOT}/JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCMarkdown/Support/JobsMarkdownPackager.rb\" \"${SRCROOT}\" \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/JobsMarkdownDocuments.bundle\" \"${PRODUCT_NAME}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		D2BAFBB0599FD955F46FD8C4 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -2126,6 +2185,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C7D029072026072900000002 /* JobsTheme.m in Sources */,
+				C7D031072026073000000002 /* JobsOCMarkdownCatalog.m in Sources */,
+				C7D031072026073000000004 /* JobsOCMarkdownConfiguration.m in Sources */,
+				C7D031072026073000000006 /* JobsOCMarkdownDocument.m in Sources */,
+				C7D031072026073000000008 /* JobsOCMarkdownView.m in Sources */,
+				C7D031072026073000000010 /* JobsOCMarkdownResourceLocator.m in Sources */,
+				C7D031072026073000000012 /* JobsOCMarkdownDocumentsDemoVC.m in Sources */,
 				C7D025072026072500000002 /* JobsIconfont.m in Sources */,
 				C7D025072026072500000004 /* JobsIconfontDemoVCs.m in Sources */,
 				C7D023072026072300000004 /* JobsSwiftParityDemoBaseVC.m in Sources */,

@@ -33,7 +33,6 @@
 #import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
-FOUNDATION_EXPORT NSNotificationName const JobsOCGlobalThemeDidChangeNotification;
 // 自定义 BaseNavigationBar
 @interface UIViewController (BaseNavigationBar)
 

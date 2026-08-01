@@ -24,7 +24,6 @@ Prop_strong()NSMutableArray<UIView *> *horizontalTileMutArr;
 Prop_strong()NSMutableArray<UIView *> *verticalTileMutArr;
 Prop_strong()NSMapTable<UIView *, UILabel *> *tileTitleLabelMap;
 Prop_strong()NSMapTable<UIView *, UILabel *> *tileSubTitleLabelMap;
-Prop_strong()UIButton *themeSwitchButton;
 Prop_copy()NSArray<id<JobsRefreshAnimatorProtocol>> *refreshAnimators;
 Prop_copy()NSArray<NSString *> *refreshAnimatorTitles;
 Prop_assign()NSInteger horizontalColumnCount;
@@ -44,9 +43,7 @@ Prop_assign()BOOL didAutoStart;
 -(void)layoutDemoContent;
 -(void)layoutHorizontalContent;
 -(void)layoutVerticalContent;
--(void)toggleTheme;
 -(void)applyTheme;
--(void)updateThemeSwitchButton;
 -(BOOL)isDarkTheme;
 -(UIStatusBarStyle)themeStatusBarStyle;
 -(void)runRefreshAtPosition:(JobsOCRefreshPosition)position
@@ -87,9 +84,15 @@ Prop_assign()BOOL didAutoStart;
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
-                .byText(@"JobsOCRefresher".tr)
+                .byText(@"重写MJRefresh".tr)
                 .byFont(UIFontWeightRegularSize(18))
                 .byTextCor(JobsLabelColor);
+        })
+        .bySubTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data
+                .byText(@"横向/纵向刷新与加载更多".tr)
+                .byFont(UIFontWeightRegularSize(11))
+                .byTextCor(JobsSecondaryLabelColor);
         })
         .byBgCor(JobsSystemBackgroundColor)
         .byNavBgCor(JobsSystemBackgroundColor);
@@ -97,11 +100,8 @@ Prop_assign()BOOL didAutoStart;
 
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.rightBarButtonItems = jobsMakeMutArr(^(__kindof NSMutableArray<UIBarButtonItem *> * _Nullable data) {
-        data.add(self.themeSwitchButton.barBtnItem);
-    });
-    self.byGKNavItemRightSpace(JobsWidth(12));
     self.makeNavByAlpha(1);
+    self.gk_navTitleViewBy(self.viewModel);
     self.instructionTextView.byAlpha(1);
     self.animatorSegmentedControl.byAlpha(1);
     self.horizontalTitleLabel.byAlpha(1);
@@ -137,14 +137,6 @@ Prop_assign()BOOL didAutoStart;
     [self layoutDemoContent];
 }
 
--(void)toggleTheme{
-    if (@available(iOS 13.0, *)) {
-        UIUserInterfaceStyle targetStyle = self.isDarkTheme ? UIUserInterfaceStyleLight : UIUserInterfaceStyleDark;
-        self.view.byOverrideUserInterfaceStyle(targetStyle);
-        [self applyTheme];
-    }
-}
-
 -(void)applyTheme{
     self.byGKStatusBarStyle(self.themeStatusBarStyle)
         .byGKBackStyle(self.isDarkTheme ? GKNavigationBarBackStyleWhite : GKNavigationBarBackStyleBlack)
@@ -164,17 +156,6 @@ Prop_assign()BOOL didAutoStart;
     self.horizontalContentView.byBgColor(JobsSecondarySystemBackgroundColor);
     self.verticalScrollView.byBgColor(JobsSecondarySystemBackgroundColor);
     self.verticalContentView.byBgColor(JobsSecondarySystemBackgroundColor);
-    [self updateThemeSwitchButton];
-}
-
--(void)updateThemeSwitchButton{
-    BOOL darkTheme = self.isDarkTheme;
-    UIImage *image = (darkTheme ? @"sun.max.fill" : @"moon.fill").sys_img;
-    self.themeSwitchButton
-        .jobsResetBtnImage(image)
-        .jobsResetBtnTitle(image ? @"" : (darkTheme ? @"浅色" : @"深色").tr)
-        .jobsResetBtnTitleCor(JobsLabelColor)
-        .byTintColor(JobsLabelColor);
 }
 
 -(BOOL)isDarkTheme{
@@ -607,25 +588,6 @@ Prop_assign()BOOL didAutoStart;
             view.byBgColor(JobsSecondarySystemBackgroundColor);
         });
     };return _verticalContentView;
-}
-
--(UIButton *)themeSwitchButton{
-    if (!_themeSwitchButton) {
-        @jobs_weakify(self)
-        _themeSwitchButton = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
-            button
-                .jobsResetBtnTitle(@"主题".tr)
-                .jobsResetBtnTitleCor(JobsLabelColor)
-                .jobsResetBtnTitleFont(UIFontWeightRegularSize(12))
-                .jobsResetBtnBgCor(JobsClearColor)
-                .onClickBy(^(__unused UIButton *x) {
-                    @jobs_strongify(self)
-                    [self toggleTheme];
-                })
-                .byTintColor(JobsLabelColor)
-                .byFrame(CGRectMake(0, 0, JobsWidth(32), JobsWidth(32)));
-        });
-    };return _themeSwitchButton;
 }
 
 -(NSArray<id<JobsRefreshAnimatorProtocol>> *)refreshAnimators{

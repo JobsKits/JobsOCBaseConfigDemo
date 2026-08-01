@@ -22,7 +22,9 @@ typedef NS_OPTIONS(NSUInteger, JobsOCGraphicCaptchaCharacterUnit) {
     JobsOCGraphicCaptchaCharacterUnitNumber = 1 << 0,
     JobsOCGraphicCaptchaCharacterUnitLowercaseLetter = 1 << 1,
     JobsOCGraphicCaptchaCharacterUnitUppercaseLetter = 1 << 2,
-    JobsOCGraphicCaptchaCharacterUnitChinese = 1 << 3,
+    JobsOCGraphicCaptchaCharacterUnitSimplifiedChinese = 1 << 3,
+    JobsOCGraphicCaptchaCharacterUnitTraditionalChinese = 1 << 4,
+    JobsOCGraphicCaptchaCharacterUnitChinese = JobsOCGraphicCaptchaCharacterUnitSimplifiedChinese | JobsOCGraphicCaptchaCharacterUnitTraditionalChinese,
     JobsOCGraphicCaptchaCharacterUnitLetter = JobsOCGraphicCaptchaCharacterUnitLowercaseLetter | JobsOCGraphicCaptchaCharacterUnitUppercaseLetter,
     JobsOCGraphicCaptchaCharacterUnitDefault = JobsOCGraphicCaptchaCharacterUnitNumber | JobsOCGraphicCaptchaCharacterUnitLetter
 };
@@ -42,9 +44,15 @@ Prop_copy(nullable)NSArray<NSArray<NSString *> *> *customCharacterGroups;
 +(instancetype)defaultConfig;
 +(instancetype)numberConfig;
 +(instancetype)chineseConfig;
++(instancetype)simplifiedChineseConfig;
++(instancetype)traditionalChineseConfig;
 +(instancetype)letterCaseSensitiveConfig;
 +(instancetype)letterCaseInsensitiveConfig;
 +(instancetype)mixedConfig;
++(instancetype)twoMixedConfig;
++(instancetype)threeMixedConfig;
++(instancetype)fourMixedConfig;
++(instancetype)fullMixedConfig;
 
 @end
 

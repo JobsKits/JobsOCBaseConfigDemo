@@ -1,0 +1,41 @@
+{
+  "defaultTheme": "light",
+  "themes": {
+    "light": {
+      "colors": {
+        "background.primary": "#FFFFFF",
+        "background.secondary": "#F2F2F7",
+        "background.tertiary": "#FFFFFF",
+        "background.grouped": "#F2F2F7",
+        "background.grouped.secondary": "#FFFFFF",
+        "background.grouped.tertiary": "#F2F2F7",
+        "text.primary": "#000000",
+        "text.secondary": "#3C3C4399",
+        "text.tertiary": "#3C3C434D",
+        "text.quaternary": "#3C3C432E",
+        "text.placeholder": "#3C3C434D"
+      },
+      "images": {
+        "theme.toggle": "sf:moon.circle.fill"
+      }
+    },
+    "dark": {
+      "colors": {
+        "background.primary": "#000000",
+        "background.secondary": "#1C1C1E",
+        "background.tertiary": "#2C2C2E",
+        "background.grouped": "#000000",
+        "background.grouped.secondary": "#1C1C1E",
+        "background.grouped.tertiary": "#2C2C2E",
+        "text.primary": "#FFFFFF",
+        "text.secondary": "#EBEBF599",
+        "text.tertiary": "#EBEBF54D",
+        "text.quaternary": "#EBEBF52E",
+        "text.placeholder": "#EBEBF54D"
+      },
+      "images": {
+        "theme.toggle": "sf:sun.max.circle.fill"
+      }
+    }
+  }
+}

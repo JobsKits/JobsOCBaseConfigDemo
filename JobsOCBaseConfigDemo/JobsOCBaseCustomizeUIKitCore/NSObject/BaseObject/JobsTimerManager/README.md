@@ -15,6 +15,7 @@
 - 注册字典通过懒加载 getter 保证首次 upsert、查询和控制均可用。
 - 同 identifier 原子替换 Entry，再在隔离队列外停止旧 Timer。
 - 回调与删除操作核对 Entry / Timer 身份，不会影响并发替换后的新注册项。
+- 兼容层同步提供 `stopAndRemove:expectedTimer:` 与 Scope 暂停、恢复、整组清理 API；新业务仍优先使用 `JobsTimerMgr`。
 
 ## 二、应用状态策略
 
@@ -22,6 +23,7 @@
 - 手动暂停会保留为手动状态，`didBecomeActive` 不会误恢复。
 - `startImmediately`、`start:`、`resume:` 后同步当前应用状态。
 - `Cancel` 只在真实 background 时停止并移除，短暂 inactive 不会误取消。
+- Scope 只恢复 `_JobsTimerPauseStateScopePaused`，不会覆盖 `_JobsTimerPauseStateManualPaused`。
 
 ## 三、迁移与验证
 

@@ -101,7 +101,6 @@ Prop_assign()BOOL jobsPendingBoundsReload;
     }];
     if (self.jobsAutomaticallyInvalidateLayoutOnBoundsChange && sizeChanged) {
         self.jobsLastStableBoundsSize = boundsSize;
-        [self jobsInvalidateCalendarLayout];
         if (self.jobsReloadDataAfterBoundsChange) [self jobsScheduleBoundsReloadIfNeeded];
     }
 }

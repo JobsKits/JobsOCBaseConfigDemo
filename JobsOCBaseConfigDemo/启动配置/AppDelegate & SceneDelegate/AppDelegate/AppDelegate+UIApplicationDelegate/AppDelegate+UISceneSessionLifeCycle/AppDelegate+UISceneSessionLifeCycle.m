@@ -2,7 +2,7 @@
 //  AppDelegate+UISceneSessionLifeCycle.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by User on 7/15/24.
+//  Created by Jobs on 2026年7月30日，星期四.
 //
 
 #import "AppDelegate+UISceneSessionLifeCycle.h"
@@ -12,17 +12,16 @@
 - (UISceneConfiguration *)application:(UIApplication *)application
 configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession
                               options:(UISceneConnectionOptions *)options {
-    // Called when a new scene session is being created.
-    // Use this method to select a configuration to create the new scene with.
-    return [UISceneConfiguration.alloc initWithName:@"Default Configuration"
-                                        sessionRole:connectingSceneSession.role];
+    UISceneConfiguration *configuration =
+        [UISceneConfiguration.alloc initWithName:@"Default Configuration"
+                                     sessionRole:connectingSceneSession.role];
+    configuration.delegateClass = SceneDelegate.class;
+    return configuration;
 }
 
 - (void)application:(UIApplication *)application
 didDiscardSceneSessions:(NSSet<UISceneSession *> *)sceneSessions {
-    // Called when the user discards a scene session.
-    // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-    // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    [JobsOCSceneCoordinator discardSessions:sceneSessions];
 }
 
 @end

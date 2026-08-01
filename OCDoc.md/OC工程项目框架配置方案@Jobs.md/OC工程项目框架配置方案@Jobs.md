@@ -482,15 +482,20 @@ sequenceDiagram
 
 - 默认业务入口是 `ViewController_1` 及其导航容器；配置允许时可切换为自定义 TabBar 根结构。
 - 根列表统一承接搜索、设置、排序 / 折叠、Demo 路由、图标映射和悬浮入口；新增 Demo 要同步对账这些消费者。
-- 根切换、主题和全局 UI 通过 `connectedScenes` 遍历全部有效 Window，不能只修改 AppDelegate 上的第一个窗口。
+- 根切换仍按 Scene 生命周期处理；主题不参与 Window 遍历，只重放已登记的背景、文字与显式图片资源。
 - Jobs 自维护页面优先继承 `BaseViewController` 等当前页面基座；导航统一走基座默认导航流程、`byGKNav*` DSL 与 `jobs_ensureDemoThemeButton` 所在公共层。
+- 公共层注入的主题入口按钮始终使用透明背景，不显示额外色块。
 - 页面原有业务右按钮先建立，再由公共导航层补主题入口；不能用主题按钮覆盖业务动作。
+- `UIAlertController` 是系统弹框，不参与 Demo 导航栏和主题按钮注入；直接 `presentViewController:` 即可。
+- `JobsOCGraphicCaptchaCharacterUnitSimplifiedChinese` 与 `JobsOCGraphicCaptchaCharacterUnitTraditionalChinese` 分别表示简体、繁体汉字，兼容值 `JobsOCGraphicCaptchaCharacterUnitChinese` 表示两者合集。
+- 图形验证码把英文大写、英文小写、阿拉伯数字、简体汉字、繁体汉字作为五类独立字符池；可用 `twoMixedConfig`、`threeMixedConfig`、`fourMixedConfig`、`fullMixedConfig`，对应 Demo 展示两两、三三、四四和全部组合。
 
 ### 8.3、全局主题与页面生命周期
 
-- 主题状态持久化后，对所有已连接 Scene 的 Window 写入 `overrideUserInterfaceStyle`，并同步按钮选中态、图片和无障碍说明。
-- 页面使用 `JobsLabelColor`、`JobsSecondaryLabelColor`、`JobsSystemBackgroundColor` 等语义色；硬编码白底黑字会破坏全局切换。
-- 自定义绘制、Popup、键盘、图片模板色、导航背景和第三方容器都要验证明暗主题。
+- `JobsThemeCenter` 集成于主工程 `JobsOCDefs`，读取 `JobsThemeResources.json`、持久化状态、维护弱引用绑定并发布 `JobsThemeDidChangeNotification`。
+- `JobsLabelColor`、`JobsSecondaryLabelColor`、`JobsSystemBackgroundColor` 等背景 / 文字语义宏携带主题 Key；UIKit setter 自动登记，切换时不写 `overrideUserInterfaceStyle`，不遍历 Scene、Window 或控制器树。
+- 数据包留在 App 资源目录；OC 老工程不新增 Pod。图片只有显式使用 `JobsThemeImage(...)` 时参与主题。
+- 自定义绘制、`CGColor`、`CALayer`、CoreText 和第三方容器使用 `bindObject:slot:apply:` 显式登记背景 / 文字资源。
 - UI 验证覆盖初始、布局、点按 / 刷新、结束 / 停止、前后台、明暗主题、键盘、弹层和自定义绘制；“按钮能点”不等于全局主题完成。
 
 ### 8.4、页面标准骨架
@@ -540,6 +545,19 @@ Prop_strong(UIView *, contentView);
 - 页面布局统一使用 [**Masonry**](https://github.com/SnapKit/Masonry)；首次 `mas_makeConstraints`，常量变化 `mas_updateConstraints`，结构变化才 `mas_remakeConstraints`。
 - `viewDidLoad` 只编排导航、唤醒 UI、绑定数据和首屏请求，不承载大段对象创建与业务状态机。
 
+### 8.5、动态时钟入口图标
+
+`JobsClockIconView` 只输出表盘外圈、固定时针、旋转分针和中心点，不绘制数字或时间刻度，也不附带标题、按钮和状态文案。组件内部复用 `JobsImageRotator` 与 `JobsOCTimer`；默认顺时针，调用方可传入逆时针方向和 Timer 间隔。
+
+```objc
+JobsClockIconView *clockIcon =
+    [[JobsClockIconView alloc] initWithDirection:JobsImageRotationDirectionCounterclockwise
+                                        interval:JobsClockIconViewDefaultInterval];
+[clockIcon start];
+```
+
+页面消失、Cell 离屏或关闭分组时停止 Timer；系统开启“减弱动态效果”时不主动播放入口动画。
+
 ## 九、主工程集成与外部依赖治理 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ### 9.1、直接集成标准
@@ -588,6 +606,7 @@ JobsOCBaseConfigDemo/
 - 当前宿主包含 `en`、`zh-Hans`、`fil`、`fil-PH` 语言资源；新增语言时同步工程引用、target membership、缺失 key 和系统展示文案。
 - 本地图、网络图、SVG、Icon Font 和 Unicode 图标优先经 Jobs 资源门面；新增入口图标优先从 [**iconfont**](https://www.iconfont.cn/) 选择并落入真实资源目录。
 - 资源重命名时同步工程引用、Build Phase、访问 Helper、Demo 和测试；资源缺失必须有可见兜底或明确错误。
+- Markdown 文档浏览能力直接集成在 `OCBaseConfig/JobsMixFunc/JobsOCMarkdown`；宿主 Build Phase 扫描仓库内 Jobs 自有 `*.md`，保留相对目录并复制本地引用资源到 `JobsMarkdownDocuments.bundle`。设备端只读取该构建产物，老工程不新增本地 Pod。
 
 ### 10.2、权限、Entitlements 与隐私
 
@@ -612,6 +631,7 @@ JobsOCBaseConfigDemo/
 - 数据按业务选择 Realm、FMDB、文件、UserDefaults 或 Keychain；明确线程、迁移、加密、过期和清理策略。
 - CocoaLumberjack 等日志要结构化并脱敏；Debug 打印不能成为 Release 唯一观测手段。
 - 定时器、录音录像、WebSocket、视频帧队列、WebView、通知与观察者必须有停止、清理和前后台策略。
+- 列表多 Timer 通过 `JobsTimerMgr` 的 `scopeIdentifier` 归组：Cell / Model 解绑用 `stopAndRemove:expectedTimer:` 防止旧清理误杀新实例，页面消失 / 重现 / 释放分别暂停、恢复、整组移除；倒计时只信任 Model 的绝对 `endAt`。
 - 开屏支持本地图 / GIF / 远程图、本地视频和远程视频时，失败路径要可降级，不能阻塞根页面可用性。
 
 ### 11.2、依赖图、CodeGraph 与 CI

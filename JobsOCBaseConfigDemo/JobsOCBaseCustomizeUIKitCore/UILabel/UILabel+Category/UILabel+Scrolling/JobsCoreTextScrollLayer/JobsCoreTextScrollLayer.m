@@ -14,6 +14,7 @@ Prop_assign()CGFloat lineOriginX;
 Prop_assign()CGFloat baselineY;
 Prop_strong(nullable)NSNumber *duplicateOriginX;
 Prop_assign(readwrite)CGFloat textWidth;
+Prop_assign(readwrite)CGFloat textLayoutWidth;
 
 @end
 
@@ -34,6 +35,7 @@ Prop_assign(readwrite)CGFloat textWidth;
             self.baselineY = sourceLayer.baselineY;
             self.duplicateOriginX = sourceLayer.duplicateOriginX;
             self.textWidth = sourceLayer.textWidth;
+            self.textLayoutWidth = sourceLayer.textLayoutWidth;
         }
     };return self;
 }
@@ -71,6 +73,7 @@ Prop_assign(readwrite)CGFloat textWidth;
     self.textLine = line;
     self.lineOriginX = -minimumX;
     self.baselineY = MAX(0, (normalizedHeight - ascent - descent) * 0.5 + descent);
+    self.textLayoutWidth = MAX(0, typographicWidth);
     self.textWidth = ceil(MAX(0, maximumX - minimumX));
 
     if (duplicateSpacing) {

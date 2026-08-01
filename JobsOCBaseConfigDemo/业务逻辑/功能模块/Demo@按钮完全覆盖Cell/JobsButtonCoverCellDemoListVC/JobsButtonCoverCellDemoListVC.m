@@ -37,8 +37,8 @@ Prop_strong()NSArray<UIViewModel *> *demoArr;
                 .byFont(UIFontWeightRegularSize(17))
                 .byTextCor(JobsLabelColor);
         })
-        .byBgCor(HEXCOLOR(0xF4F5F8))
-        .byNavBgCor(HEXCOLOR(0xF4F5F8));
+        .byBgCor(JobsSystemBackgroundColor)
+        .byNavBgCor(JobsSystemBackgroundColor);
 }
 
 -(void)viewDidLoad{
@@ -74,7 +74,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byTextCor(JobsSecondaryLabelColor);
         })
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
-        .bySelectionStyle(UITableViewCellSelectionStyleDefault);
+        .bySelectionStyle(UITableViewCellSelectionStyleDefault)
+        .byBgColor(JobsSecondarySystemGroupedBackgroundColor);
 }
 
 -(void)tableView:(UITableView *)tableView
