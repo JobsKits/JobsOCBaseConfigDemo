@@ -39,6 +39,8 @@
 - 作为 Jobs 项目内的独立能力 Pod，向 App 或其它 Pod 提供 `JobsOCDefs` 相关能力。
 - 当 `JobsOCDefs` 的 `Core`、`Support`、资源、依赖或公开头文件发生变化时，同步更新本 README，避免后续排查只看源码不看边界。
 - 参与本地 Pods 拆分时，先确认能力归属，再决定放入当前 Pod、迁移到 `Support`，还是下沉为更基础的公共 Pod。
+- `Core/JobsTheme` 提供 JSON 主题数据包、状态持久化、弱引用资源绑定和 `JobsThemeDidChangeNotification`；App 负责在主工程资源目录提供具体色值，Pod 不携带业务数据包。
+- `JobsLabelColor`、`JobsSystemBackgroundColor` 等文字 / 背景语义宏返回带 Key 的颜色；UIKit 写入时自动登记，主题切换只重放已登记资源，不遍历 Scene、Window 或控制器树。
 
 ## 三、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

@@ -159,7 +159,7 @@ Prop_strong()NSMutableArray <JobsOCNumberStepper *>*numberStepperMutArr;
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
                     make.left.right.bottom.equalTo(self.view);
-                    make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop);
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom);
                 });
         });
     };return _demoScrollView;

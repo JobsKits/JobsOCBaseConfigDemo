@@ -61,7 +61,7 @@ UITextFieldProtocol_synthesize_part2
             view.byBgColor(JobsSystemBackgroundColor);
         }).byBgColor(JobsSystemBackgroundColor);
         self.bySelectedBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.byBgColor(JobsSystemGray5Color);
+            view.byBgColor(JobsTertiarySystemBackgroundColor);
         }));
         self.leftSwipeSettings.transition = MGSwipeTransitionBorder;
         self.rightSwipeSettings.transition = MGSwipeTransitionDrag;
@@ -152,7 +152,7 @@ UITextFieldProtocol_synthesize_part2
             self.timeLab
                 .byText(self.senderChatTextTimeStr)
                 .byTextCor(JobsLabelColor)
-                .byBgColor(JobsSystemGray3Color)
+                .byBgColor(JobsTertiarySystemBackgroundColor)
                 .byAlpha(1);
             [self jobs_remakeMessageConstraints];
         };return self;
@@ -380,7 +380,7 @@ UITextFieldProtocol_synthesize_part2
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byFont(UIFontWeightRegularSize(JobsWidth(10)))
                 .makeLabelByShowingType(UILabelShowingType_03)
-                .byBgColor(JobsSystemGray3Color)
+                .byBgColor(JobsTertiarySystemBackgroundColor)
                 .addOn(self.contentView)
                 .cornerCutToCircleWithCornerRadius(20 / 2);
         });

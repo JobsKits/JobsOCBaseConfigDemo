@@ -74,7 +74,7 @@ UITextFieldProtocol_synthesize_part2
     [super setSelected:selected
               animated:animated];
     if (selected){
-        self.contentView.byBgColor(HEXCOLOR(0xFFF7EA));
+        self.contentView.byBgColor(JobsTertiarySystemBackgroundColor);
         self.flagView.byBgColor(HEXCOLOR(0xAE8330));
         self.titleLabel.byTextCor(JobsLabelColor).byFont(UIFontWeightBoldSize(14));
     }else{
@@ -87,11 +87,11 @@ UITextFieldProtocol_synthesize_part2
 - (void)setHighlighted:(BOOL)highlighted
               animated:(BOOL)animated{
     if (highlighted){
-        self.contentView.byBgColor(HEXCOLOR(0xFFF7EA));
+        self.contentView.byBgColor(JobsTertiarySystemBackgroundColor);
         self.flagView.byBgColor(HEXCOLOR(0xAE8330));
         self.titleLabel.byTextCor(JobsLabelColor).byFont(UIFontWeightBoldSize(14));
     }else if (self.selected){
-        self.contentView.byBgColor(HEXCOLOR(0xFFF7EA));
+        self.contentView.byBgColor(JobsTertiarySystemBackgroundColor);
         self.flagView.byBgColor(HEXCOLOR(0xAE8330));
         self.titleLabel.byTextCor(JobsLabelColor).byFont(UIFontWeightBoldSize(14));
     }else{

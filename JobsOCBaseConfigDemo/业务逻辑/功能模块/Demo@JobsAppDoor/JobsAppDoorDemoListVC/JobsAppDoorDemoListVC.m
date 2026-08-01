@@ -76,7 +76,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byTextCor(JobsSecondaryLabelColor);
         })
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
-        .bySelectionStyle(UITableViewCellSelectionStyleDefault);
+        .bySelectionStyle(UITableViewCellSelectionStyleDefault)
+        .byBgColor(JobsSecondarySystemGroupedBackgroundColor);
 }
 
 -(void)tableView:(UITableView *)tableView

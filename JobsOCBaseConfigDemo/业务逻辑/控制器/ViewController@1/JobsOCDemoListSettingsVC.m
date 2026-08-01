@@ -12,7 +12,6 @@
 static NSString *const JobsOCDemoListSettingsCellReuseIdentifier = @"JobsOCDemoListSettingsCell";
 static NSString *const JobsOCSplashEnabledUserDefaultsKey = @"com.BSports.JobsOCSplashEnabledUserDefaultsKey";
 static NSString *const JobsOCDemoListReturnToTopAndRefreshUserDefaultsKey = @"com.BSports.JobsOCDemoListReturnToTopAndRefreshUserDefaultsKey";
-static NSString *const JobsOCDemoListDarkModeUserDefaultsKey = @"com.BSports.JobsOCDemoListDarkModeUserDefaultsKey";
 static NSString *const JobsOCDemoSuspendTimeButtonVisibleUserDefaultsKey = @"com.jobs.demoList.showsSuspendTimeButton";
 static NSString *const JobsOCDemoListCellTextDisplayStrategyUserDefaultsKey = @"com.jobs.demoList.cellTextDisplayStrategy";
 
@@ -111,7 +110,7 @@ Prop_assign()BOOL shouldApplyAppEntryAfterReturning;
         @jobs_strongify(self)
         [self applyDemoListInterfaceStyle];
     }];
-    [self addNotificationName:JobsOCGlobalThemeDidChangeNotification
+    [self addNotificationName:JobsThemeDidChangeNotification
                         block:^(id _Nullable weakSelf,
                                 id _Nullable arg) {
         @jobs_strongify(self)
@@ -330,33 +329,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 -(BOOL)demoListDarkModeEnabled{
-    id value = [NSUserDefaults.standardUserDefaults objectForKey:JobsOCDemoListDarkModeUserDefaultsKey];
-    if (value) return [value boolValue];
-    if (@available(iOS 13.0, *)) {
-        return self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
-    };return NO;
+    return JobsThemeCenter.shared.isDarkMode;
 }
 
 -(void)setDemoListDarkModeEnabled:(BOOL)enabled{
-    [NSUserDefaults.standardUserDefaults setBool:enabled
-                                          forKey:JobsOCDemoListDarkModeUserDefaultsKey];
-    [NSUserDefaults.standardUserDefaults synchronize];
-    [self applyDemoListInterfaceStyle];
-    [NSNotificationCenter.defaultCenter postNotificationName:JobsOCGlobalThemeDidChangeNotification
-                                                      object:self
-                                                    userInfo:@{@"darkModeEnabled": @(enabled)}];
+    [JobsThemeCenter.shared setStyle:enabled ? JobsThemeStyleDark : JobsThemeStyleLight];
 }
 
 -(void)applyDemoListInterfaceStyle{
-    if (@available(iOS 13.0, *)) {
-        UIUserInterfaceStyle style = [self demoListDarkModeEnabled] ? UIUserInterfaceStyleDark : UIUserInterfaceStyleLight;
-        for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
-            if (![scene isKindOfClass:UIWindowScene.class]) continue;
-            for (UIWindow *window in ((UIWindowScene *)scene).windows) {
-                window.overrideUserInterfaceStyle = style;
-            }
-        }
-    }
     self.view.byBgColor([self demoListPageBackgroundColor]);
     [self updateLocalizedContent];
     self.makeNavByAlpha(1);
@@ -370,28 +350,24 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 -(UIColor *)demoListPageBackgroundColor{
-    if (@available(iOS 13.0, *)) return UIColor.systemGroupedBackgroundColor;
-    return [self demoListDarkModeEnabled] ? HEXCOLOR(0x0F1115) : HEXCOLOR(0xF4F5F8);
+    return JobsSystemGroupedBackgroundColor;
 }
 
 -(UIColor *)demoListNavigationBackgroundColor{
-    if (@available(iOS 13.0, *)) return UIColor.systemBackgroundColor;
-    return [self demoListDarkModeEnabled] ? HEXCOLOR(0x15171C) : JobsWhiteColor;
+    return JobsSystemBackgroundColor;
 }
 
 -(UIColor *)demoListPrimaryTextColor{
-    if (@available(iOS 13.0, *)) return UIColor.labelColor;
-    return [self demoListDarkModeEnabled] ? HEXCOLOR(0xF4F5F8) : HEXCOLOR(0x3D4A58);
+    return JobsLabelColor;
 }
 
 -(UIColor *)demoListCellBackgroundColor{
-    if (@available(iOS 13.0, *)) return UIColor.secondarySystemGroupedBackgroundColor;
-    return [self demoListDarkModeEnabled] ? HEXCOLOR(0x191B20) : JobsWhiteColor;
+    return JobsSecondarySystemGroupedBackgroundColor;
 }
 
 -(UIColor *)demoListSeparatorColor{
     if (@available(iOS 13.0, *)) return UIColor.separatorColor;
-    return [self demoListDarkModeEnabled] ? HEXCOLOR(0x30333A) : HEXCOLOR(0xE5E7EB);
+    return HEXCOLOR(0xE5E7EB);
 }
 
 -(void)applyDemoListNavigationInterfaceStyle{

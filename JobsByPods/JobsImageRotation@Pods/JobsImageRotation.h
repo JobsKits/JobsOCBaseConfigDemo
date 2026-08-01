@@ -9,5 +9,6 @@
 #define JobsImageRotation_h
 
 #import <JobsImageRotation/JobsImageRotator.h>
+#import <JobsImageRotation/JobsClockIconView.h>
 
 #endif /* JobsImageRotation_h */

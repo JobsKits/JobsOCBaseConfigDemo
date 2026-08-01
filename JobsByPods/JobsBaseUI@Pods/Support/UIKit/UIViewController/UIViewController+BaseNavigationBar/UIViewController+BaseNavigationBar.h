@@ -27,8 +27,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-FOUNDATION_EXPORT NSNotificationName const JobsOCGlobalThemeDidChangeNotification;
-
 @interface UIViewController (BaseNavigationBar)
 
 Prop_assign()BOOL isHiddenNavigationBar;

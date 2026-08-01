@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <JobsOCDefs/JobsTheme.h>
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
@@ -161,19 +162,19 @@
 #endif
 /// Foreground colors for static text and related elements.
 #ifndef JobsLabelColor
-#define JobsLabelColor [UIColor xy_createWithLightColor:UIColor.labelColor darkColor:UIColor.labelColor]
+#define JobsLabelColor JobsThemeColor(JobsThemeColorKeyTextPrimary)
 #endif
 
 #ifndef JobsSecondaryLabelColor
-#define JobsSecondaryLabelColor [UIColor xy_createWithLightColor:UIColor.secondaryLabelColor darkColor:UIColor.secondaryLabelColor]
+#define JobsSecondaryLabelColor JobsThemeColor(JobsThemeColorKeyTextSecondary)
 #endif
 
 #ifndef JobsTertiaryLabelColor
-#define JobsTertiaryLabelColor [UIColor xy_createWithLightColor:UIColor.tertiaryLabelColor darkColor:UIColor.tertiaryLabelColor]
+#define JobsTertiaryLabelColor JobsThemeColor(JobsThemeColorKeyTextTertiary)
 #endif
 
 #ifndef JobsQuaternaryLabelColor
-#define JobsQuaternaryLabelColor [UIColor xy_createWithLightColor:UIColor.quaternaryLabelColor darkColor:UIColor.quaternaryLabelColor]
+#define JobsQuaternaryLabelColor JobsThemeColor(JobsThemeColorKeyTextQuaternary)
 #endif
 /// Foreground color for standard system links.
 #ifndef JobsLinkColor
@@ -181,7 +182,7 @@
 #endif
 
 #ifndef JobsPlaceholderTextColor
-#define JobsPlaceholderTextColor [UIColor xy_createWithLightColor:UIColor.placeholderTextColor darkColor:UIColor.placeholderTextColor]
+#define JobsPlaceholderTextColor JobsThemeColor(JobsThemeColorKeyTextPlaceholder)
 #endif
 
 #ifndef JobsSeparatorColor
@@ -208,15 +209,15 @@
 *    primary background in light mode.
 */
 #ifndef JobsSystemBackgroundColor
-#define JobsSystemBackgroundColor [UIColor xy_createWithLightColor:UIColor.systemBackgroundColor darkColor:UIColor.systemBackgroundColor]
+#define JobsSystemBackgroundColor JobsThemeColor(JobsThemeColorKeyBackgroundPrimary)
 #endif
 
 #ifndef JobsSecondarySystemBackgroundColor
-#define JobsSecondarySystemBackgroundColor [UIColor xy_createWithLightColor:UIColor.secondarySystemBackgroundColor darkColor:UIColor.secondarySystemBackgroundColor]
+#define JobsSecondarySystemBackgroundColor JobsThemeColor(JobsThemeColorKeyBackgroundSecondary)
 #endif
 
 #ifndef JobsTertiarySystemBackgroundColor
-#define JobsTertiarySystemBackgroundColor [UIColor xy_createWithLightColor:UIColor.tertiarySystemBackgroundColor darkColor:UIColor.tertiarySystemBackgroundColor]
+#define JobsTertiarySystemBackgroundColor JobsThemeColor(JobsThemeColorKeyBackgroundTertiary)
 #endif
 /* 2. systemGroupedBackground
 *    Use this stack for views with grouped content, such as grouped tables and
@@ -224,15 +225,15 @@
 *    colors in places where a table view wouldn't make sense.
 */
 #ifndef JobsSystemGroupedBackgroundColor
-#define JobsSystemGroupedBackgroundColor [UIColor xy_createWithLightColor:UIColor.systemGroupedBackgroundColor darkColor:UIColor.systemGroupedBackgroundColor]
+#define JobsSystemGroupedBackgroundColor JobsThemeColor(JobsThemeColorKeyBackgroundGrouped)
 #endif
 
 #ifndef JobsSecondarySystemGroupedBackgroundColor
-#define JobsSecondarySystemGroupedBackgroundColor [UIColor xy_createWithLightColor:UIColor.secondarySystemGroupedBackgroundColor darkColor:UIColor.secondarySystemGroupedBackgroundColor]
+#define JobsSecondarySystemGroupedBackgroundColor JobsThemeColor(JobsThemeColorKeyBackgroundGroupedSecondary)
 #endif
 
 #ifndef JobsTertiarySystemGroupedBackgroundColor
-#define JobsTertiarySystemGroupedBackgroundColor [UIColor xy_createWithLightColor:UIColor.tertiarySystemGroupedBackgroundColor darkColor:UIColor.tertiarySystemGroupedBackgroundColor]
+#define JobsTertiarySystemGroupedBackgroundColor JobsThemeColor(JobsThemeColorKeyBackgroundGroupedTertiary)
 #endif
 #pragma mark —— XYColorOC.FillColors
 /* Fill colors for UI elements.

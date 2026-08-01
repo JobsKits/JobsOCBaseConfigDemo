@@ -17,6 +17,63 @@ static BOOL JobsIsSystemNavigationBarDemo(UIViewController *viewController) {
     return [NSStringFromClass(viewController.class) isEqualToString:@"JobsNavigationDemoVC"];
 }
 
+static BOOL JobsIsDemoRootViewController(UIViewController *viewController) {
+    return [NSStringFromClass(viewController.class) isEqualToString:@"ViewController_1"];
+}
+
+static BOOL JobsIsDemoFlowController(UIViewController *viewController) {
+    if (!viewController) return NO;
+    if (JobsIsDemoRootViewController(viewController)) return YES;
+    if ([NSStringFromClass(viewController.class) containsString:@"Demo"]) return YES;
+    UINavigationController *navigationController = viewController.navigationController;
+    if (![navigationController.viewControllers containsObject:viewController]) return NO;
+    return JobsIsDemoRootViewController(navigationController.viewControllers.firstObject);
+}
+
+static BOOL JobsHasAlertControllerAncestor(UIViewController *viewController,
+                                           UINavigationController *navigationController) {
+    UIViewController *ancestor = viewController;
+    while (ancestor) {
+        if ([ancestor isKindOfClass:UIAlertController.class]) return YES;
+        ancestor = ancestor.parentViewController;
+    }
+    ancestor = navigationController;
+    while (ancestor) {
+        if ([ancestor isKindOfClass:UIAlertController.class]) return YES;
+        ancestor = ancestor.parentViewController;
+    };return NO;
+}
+
+static BOOL JobsShouldInstallNavigationDefaults(UINavigationController *navigationController,
+                                                UIViewController *viewController) {
+    if (!viewController ||
+        [viewController isKindOfClass:UIAlertController.class] ||
+        [viewController isKindOfClass:UINavigationController.class] ||
+        [viewController isKindOfClass:UITabBarController.class] ||
+        [viewController isKindOfClass:UISplitViewController.class] ||
+        JobsHasAlertControllerAncestor(viewController, navigationController)) {
+        return NO;
+    }
+    BOOL isNavigationMember = navigationController &&
+        [navigationController.viewControllers containsObject:viewController] &&
+        viewController.navigationController == navigationController;
+    BOOL isNavigationChild = isNavigationMember &&
+        navigationController.viewControllers.firstObject != viewController;
+    BOOL isPresentedPage = viewController.presentingViewController ||
+        (isNavigationMember &&
+         navigationController.viewControllers.firstObject == viewController &&
+         navigationController.presentingViewController);
+    if (!isNavigationChild && !isPresentedPage) return NO;
+    if ([NSStringFromClass(viewController.class) containsString:@"Demo"]) return YES;
+    if (isNavigationChild &&
+        JobsIsDemoRootViewController(navigationController.viewControllers.firstObject)) {
+        return YES;
+    }
+    UIViewController *presenter = viewController.presentingViewController ?:
+        navigationController.presentingViewController;
+    return JobsIsDemoFlowController(presenter);
+}
+
 @protocol JobsDefaultNavigationBar <NSObject>
 
 @optional
@@ -27,14 +84,7 @@ static BOOL JobsIsSystemNavigationBarDemo(UIViewController *viewController) {
 
 static void JobsInstallNavigationDefaults(UINavigationController *navigationController,
                                           UIViewController *viewController) {
-    BOOL isNavigationChild = navigationController &&
-        [navigationController.viewControllers containsObject:viewController] &&
-        viewController.navigationController == navigationController &&
-        navigationController.viewControllers.firstObject != viewController;
-    BOOL isPresentedPage = viewController.presentingViewController ||
-        (navigationController.viewControllers.firstObject == viewController &&
-         navigationController.presentingViewController);
-    if (!isNavigationChild && !isPresentedPage) return;
+    if (!JobsShouldInstallNavigationDefaults(navigationController, viewController)) return;
     if ([viewController respondsToSelector:@selector(jobs_requiresDefaultNavigationBar)] &&
         ![(id<JobsDefaultNavigationBar>)viewController jobs_requiresDefaultNavigationBar]) {
         [navigationController setNavigationBarHidden:YES animated:NO];

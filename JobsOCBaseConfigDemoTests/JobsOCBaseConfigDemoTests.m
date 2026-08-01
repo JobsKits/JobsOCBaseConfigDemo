@@ -85,6 +85,62 @@
     XCTAssertFalse([manager isRunning:identifier]);
     XCTAssertTrue([manager stopAndRemove:identifier]);
 }
+
+-(void)testTimerManagerExpectedTimerCannotRemoveReplacement {
+    NSString *identifier = [NSString stringWithFormat:@"tests.timer.expected.%@",NSUUID.UUID.UUIDString];
+    JobsTimerMgr *manager = JobsTimerMgr.new;
+    XCTAssertTrue([manager upsertTimerWithIdentifier:identifier
+                                          timerType:JobsTimerTypeGCD
+                                             policy:JobsTimerBackgroundPolicyIgnore
+                                   startImmediately:NO
+                                              build:nil
+                                            handler:nil]);
+    JobsTimer *oldTimer = [manager timerForIdentifier:identifier];
+    XCTAssertTrue([manager upsertTimerWithIdentifier:identifier
+                                          timerType:JobsTimerTypeGCD
+                                             policy:JobsTimerBackgroundPolicyIgnore
+                                   startImmediately:YES
+                                              build:^(JobsTimer * _Nullable timer) {
+        timer.byTimeInterval(60)
+            .byQueue(dispatch_get_main_queue());
+    } handler:nil]);
+    JobsTimer *currentTimer = [manager timerForIdentifier:identifier];
+
+    XCTAssertFalse([manager stopAndRemove:identifier expectedTimer:oldTimer]);
+    XCTAssertEqual([manager timerForIdentifier:identifier],currentTimer);
+    XCTAssertTrue(currentTimer.isRunning);
+    XCTAssertTrue([manager stopAndRemove:identifier expectedTimer:currentTimer]);
+    XCTAssertFalse([manager exists:identifier]);
+}
+
+-(void)testTimerManagerScopePreservesManualPause {
+    NSString *scopeIdentifier = [NSString stringWithFormat:@"tests.timer.scope.%@",NSUUID.UUID.UUIDString];
+    NSString *scopeTimerIdentifier = [scopeIdentifier stringByAppendingString:@".scope"];
+    NSString *manualTimerIdentifier = [scopeIdentifier stringByAppendingString:@".manual"];
+    JobsTimerMgr *manager = JobsTimerMgr.new;
+    for (NSString *identifier in @[scopeTimerIdentifier,manualTimerIdentifier]) {
+        XCTAssertTrue([manager upsertTimerWithIdentifier:identifier
+                                        scopeIdentifier:scopeIdentifier
+                                              timerType:JobsTimerTypeGCD
+                                                 policy:JobsTimerBackgroundPolicyIgnore
+                                       startImmediately:YES
+                                                  build:^(JobsTimer * _Nullable timer) {
+            timer.byTimeInterval(60)
+                .byQueue(dispatch_get_main_queue());
+        } handler:nil]);
+    }
+    XCTAssertTrue([manager pause:manualTimerIdentifier]);
+
+    XCTAssertEqual([manager pauseScope:scopeIdentifier],2);
+    XCTAssertFalse([manager isRunning:scopeTimerIdentifier]);
+    XCTAssertFalse([manager isRunning:manualTimerIdentifier]);
+    XCTAssertEqual([manager resumeScope:scopeIdentifier],2);
+    XCTAssertTrue([manager isRunning:scopeTimerIdentifier]);
+    XCTAssertFalse([manager isRunning:manualTimerIdentifier]);
+    XCTAssertEqual([manager stopAndRemoveScope:scopeIdentifier],2);
+    XCTAssertFalse([manager exists:scopeTimerIdentifier]);
+    XCTAssertFalse([manager exists:manualTimerIdentifier]);
+}
 #endif
 
 -(void)testSplashOverlayDoesNotInstallNavigationUIAndCanSkipWhileRunning {

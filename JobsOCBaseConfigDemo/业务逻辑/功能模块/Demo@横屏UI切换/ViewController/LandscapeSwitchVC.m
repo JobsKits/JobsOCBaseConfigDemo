@@ -165,7 +165,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
     JobsBtnStyleCVCell *cell = [JobsBtnStyleCVCell cellWithCollectionView:collectionView forIndexPath:indexPath];
     return cell
         .jobsRichElementsCollectionViewCellBy(self.dataMutArr[indexPath.item])
-        .byContentViewBgCor(JobsWhiteColor);
+        .byContentViewBgCor(JobsSecondarySystemBackgroundColor);
 }
 
 - (NSInteger)collectionView:(nonnull UICollectionView *)collectionView

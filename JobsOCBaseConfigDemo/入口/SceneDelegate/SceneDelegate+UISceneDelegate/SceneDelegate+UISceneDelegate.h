@@ -10,6 +10,8 @@
 #import "AppDelegate+Func.h"
 #import "AppDelegate+TabBarCtr.h"
 #import "MyAppTools.h"
+#import "JobsOCSceneCoordinator.h"
+#import "JobsOCSceneDelegateDemoVC.h"
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>

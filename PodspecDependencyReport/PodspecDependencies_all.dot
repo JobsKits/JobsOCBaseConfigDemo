@@ -81,6 +81,7 @@ digraph PodspecDependencies {
   "JobsOCExcel";
   "JobsOCGraphicCaptcha";
   "JobsOCKeyboardMgr";
+  "JobsOCMarkdown";
   "JobsOCNumberStepper";
   "JobsOCOpen";
   "JobsOCPatch";
@@ -693,6 +694,11 @@ digraph PodspecDependencies {
   "JobsOCKeyboardMgr" -> "JobsBlock";
   "JobsOCKeyboardMgr" -> "JobsOCDSL";
   "JobsOCKeyboardMgr" -> "JobsOCDefs";
+  "JobsOCMarkdown" -> "JobsBlock";
+  "JobsOCMarkdown" -> "JobsMakes";
+  "JobsOCMarkdown" -> "JobsOCDSL";
+  "JobsOCMarkdown" -> "JobsOCDefs";
+  "JobsOCMarkdown" -> "Masonry";
   "JobsOCNumberStepper" -> "JobsBaseUI";
   "JobsOCNumberStepper" -> "JobsMakes";
   "JobsOCNumberStepper" -> "JobsOCDSL";

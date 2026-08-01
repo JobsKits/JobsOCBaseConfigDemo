@@ -49,7 +49,7 @@ UITextFieldProtocol_synthesize_part2
         self.longPG.byEnabled(YES);
         self.swipeBackgroundColor = JobsClearColor;
         self.bySelectedBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.byBgColor(JobsSystemGray5Color);
+            view.byBgColor(JobsTertiarySystemBackgroundColor);
         }));
         self.leftSwipeSettings.transition = MGSwipeTransitionBorder;
         self.rightSwipeSettings.transition = MGSwipeTransitionDrag;

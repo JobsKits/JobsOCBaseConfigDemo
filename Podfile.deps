@@ -201,6 +201,7 @@ def byJobsDo
   pod 'JobsGetWindow',                  :path => './JobsByPods/JobsGetWindow@Pods'
   pod 'JobsTabBarCtrl',                 :path => './JobsByPods/JobsTabBarCtrl@Pods'
   pod 'JobsOCSearcher',                 :path => './JobsByPods/JobsOCSearcher@Pods'
+  pod 'JobsOCMarkdown',                 :path => './JobsByPods/JobsOCMarkdown@Pods'
   pod 'JobsDeviceInfo',                 :path => './JobsByPods/JobsDeviceInfo@Pods'
   pod 'JobsOCRefresher',                :path => './JobsByPods/JobsOCRefresher@Pods'
   pod 'JobsGestureLock',                :path => './JobsByPods/JobsGestureLock@Pods'

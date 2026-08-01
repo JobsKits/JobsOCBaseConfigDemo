@@ -113,13 +113,15 @@ JobsOCTimerMgr@Pods/
 
 ```objc
 NSString *identifier = @"home.countdown";
+NSString *scopeIdentifier = @"home.page";
 
 JobsTimerMgr.shared
-.byUpsertTimer(identifier,
-               JobsTimerTypeNSTimer,
-               JobsTimerBackgroundPolicyPauseAndResume,
-               YES,
-               ^(JobsTimer * _Nullable timer) {
+.byUpsertScopedTimer(identifier,
+                     scopeIdentifier,
+                     JobsTimerTypeNSTimer,
+                     JobsTimerBackgroundPolicyPauseAndResume,
+                     YES,
+                     ^(JobsTimer * _Nullable timer) {
     timer.byTimerStyle(TimerStyle_anticlockwise)
     .byTimeInterval(1)
     .byStartTime(10)
@@ -136,6 +138,8 @@ JobsTimerMgr.shared
 同 identifier 的 `upsert` 会先原子替换注册项，再在隔离队列外停止旧 timer。旧 timer 已排队的回调会核对 Entry 身份，不会误投递给替换后的新注册项。
 
 `JobsTimerBackgroundPolicyPauseAndResume` 在应用失去活跃态时暂停，并在重新活跃后只恢复自动暂停项；`JobsTimerBackgroundPolicyCancel` 只在真实进入后台时停止并移除。`startImmediately`、`start:` 和 `resume:` 完成生命周期动作后都会复核当前应用状态，因此在应用已经 inactive / background 时启动也不会绕过策略。
+
+列表复用时先保存 `[manager timerForIdentifier:identifier]` 返回的实例，再调用 `stopAndRemove:expectedTimer:`；只有 identifier 仍指向该实例时才会移除注册项。页面生命周期使用 `pauseScope:`、`resumeScope:`、`stopAndRemoveScope:`，Scope 只恢复自己暂停的 Timer，不会误恢复业务手动暂停项。倒计时 Model 应保存绝对 `endAt`，Timer tick 只负责触发 UI 重算。
 
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -170,9 +174,11 @@ pod install --no-repo-update
 - DSL 相关 Block 统一收口到 `JobsBlock`，不要在 `JobsTimerMgr+DSL.h` 里私自新增 typedef。
 - 注册字典只在串行隔离队列中读写；停止旧 timer、批量停止以及回调执行都放在队列外，避免重入死锁。
 - `fireOnceAndRemove` 删除前必须核对 timer 身份，防止并发 upsert 后误删新注册项。
+- Cell / Model 解绑必须使用 `stopAndRemove:expectedTimer:`；禁止把 identifier-only 清理异步延迟到复用之后。
+- 页面级多 Timer 统一挂到 Scope，并在消失、重现和释放时分别暂停、恢复、整组停止。
 - Manager 的应用通知、当前状态复核和手动暂停状态使用同一个 Entry 状态机；不要绕过 Manager 直接修改 `timerForIdentifier:` 返回对象的生命周期。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
-- `JobsOCBaseConfigDemoTests` 覆盖自动暂停恢复和手动暂停保护。
+- `JobsOCBaseConfigDemoTests` 覆盖自动暂停恢复、手动暂停保护、实例安全取消和 Scope 生命周期。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

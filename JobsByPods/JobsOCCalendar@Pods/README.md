@@ -87,7 +87,7 @@ JobsOCCalendar *calendar = jobsMakeJobsOCCalendar(^(__kindof JobsOCCalendar * _N
 
 | API | 说明 |
 | --- | --- |
-| `jobsAutomaticallyInvalidateLayoutOnBoundsChange` | bounds 变化时自动刷新内部布局 |
+| `jobsAutomaticallyInvalidateLayoutOnBoundsChange` | bounds 变化时在当前 `layoutSubviews` 完成排版，不在布局回调内再次同步 `layoutIfNeeded` |
 | `jobsReloadDataAfterBoundsChange` | bounds 变化后在下一轮主线程防抖 reload |
 | `jobsInvalidateCalendarLayout` | 手动触发内部布局刷新 |
 | `jobsReloadDataSafely` | 主线程安全刷新日历 |

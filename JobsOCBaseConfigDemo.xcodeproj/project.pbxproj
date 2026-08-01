@@ -251,6 +251,7 @@
 				C50913B12F85D89000F261DA /* Resources */,
 				1D13E0B37573B0F1F7C64814 /* [CP] Embed Pods Frameworks */,
 				C8BFBDB36D8EF341D337054A /* [CP] Copy Pods Resources */,
+				C7D030072026073000000011 /* Package Markdown Documents */,
 				F20000062F22000100C0DE01 /* Embed App Extensions */,
 			);
 			buildRules = (
@@ -396,6 +397,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C7D030072026073000000011 /* Package Markdown Documents */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Package Markdown Documents";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/JobsMarkdownDocuments.bundle/manifest.json",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/bin/ruby \"${SRCROOT}/JobsByPods/JobsOCMarkdown@Pods/Support/JobsMarkdownPackager.rb\" \"${SRCROOT}\" \"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/JobsMarkdownDocuments.bundle\" \"${PRODUCT_NAME}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C8BFBDB36D8EF341D337054A /* [CP] Copy Pods Resources */ = {

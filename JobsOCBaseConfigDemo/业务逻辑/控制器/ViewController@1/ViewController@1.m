@@ -12,7 +12,6 @@
 
 BOOL ISLogin;
 static NSString *const JobsOCDemoListReturnToTopAndRefreshUserDefaultsKey = @"com.BSports.JobsOCDemoListReturnToTopAndRefreshUserDefaultsKey";
-static NSString *const JobsOCDemoListDarkModeUserDefaultsKey = @"com.BSports.JobsOCDemoListDarkModeUserDefaultsKey";
 static NSString *const JobsOCDemoListSectionOrderUserDefaultsKey = @"com.BSports.JobsOCDemoListSectionOrderUserDefaultsKey";
 static NSString *const JobsOCDemoSearchHistoryUserDefaultsKey = @"com.BSports.JobsOCDemoSearchHistoryUserDefaultsKey";
 static NSString *const JobsOCDemoPinnedDemoUserDefaultsKey = @"com.BSports.JobsOCDemoPinnedDemoUserDefaultsKey";
@@ -107,6 +106,8 @@ Prop_assign()JobsOCDemoListCellTextDisplayStrategy appliedCellTextDisplayStrateg
 -(UIColor *)demoListPrimaryTextColor;
 -(UIColor *)demoListSecondaryTextColor;
 -(UIColor *)demoListCellBackgroundColor;
+-(UIColor *)demoListFunctionMenuBackgroundColor;
+-(UIColor *)demoListCellSelectedBackgroundColor;
 -(UIColor *)demoListSeparatorColor;
 -(void)applyDemoListNavigationInterfaceStyle;
 -(void)applyDemoListTabBarInterfaceStyle;
@@ -166,7 +167,6 @@ Prop_assign()JobsOCDemoListCellTextDisplayStrategy appliedCellTextDisplayStrateg
 -(void)applyDemoSearchKeyword:(NSString *)keyword
                   saveHistory:(BOOL)saveHistory;
 -(void)saveDemoSearchHistoryByText:(NSString *)text;
--(void)deleteDemoSearchHistoryByButton:(UIButton *)button;
 -(void)deleteDemoSearchHistoryAtIndex:(NSUInteger)index;
 -(void)clearDemoSearchHistory;
 -(BOOL)anyVisibleDemoSectionExpanded;
@@ -244,7 +244,7 @@ Prop_assign()JobsOCDemoListCellTextDisplayStrategy appliedCellTextDisplayStrateg
         @jobs_strongify(self)
         [self reloadLocalizedDemoListContent];
     }];
-    [self addNotificationName:JobsOCGlobalThemeDidChangeNotification
+    [self addNotificationName:JobsThemeDidChangeNotification
                         block:^(id _Nullable weakSelf,
                                 id _Nullable arg) {
         @jobs_strongify(self)
@@ -633,6 +633,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == _functionMenuTableView) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:JobsOCFunctionMenuCellReuseIdentifier
                                                                 forIndexPath:indexPath];
+        UIColor *backgroundColor = [self demoListFunctionMenuBackgroundColor];
         return cell
             .byTextLabel(^(__kindof UILabel * _Nullable label) {
                 label.byText(self.functionMenuTitles[indexPath.row])
@@ -640,48 +641,39 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                     .byTextCor([self demoListPrimaryTextColor]);
             })
             .bySelectionStyle(UITableViewCellSelectionStyleDefault)
+            .bySelectedBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
+                view.byBgColor([self demoListCellSelectedBackgroundColor]);
+            }))
             .byContentView(^(__kindof UIView * _Nullable contentView) {
-                contentView.byBgColor([self demoListCellBackgroundColor]);
+                contentView.byBgColor(backgroundColor);
             })
-            .byBgColor([self demoListCellBackgroundColor]);
+            .byBgColor(backgroundColor);
     }
     if ([self demoSearchLandingActive]) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:JobsOCDemoSearchHistoryCellReuseIdentifier
                                                                 forIndexPath:indexPath];
+        UIColor *cellBackgroundColor = [self demoListCellBackgroundColor];
         NSString *historyText = indexPath.row < self.demoSearchHistoryMutArr.count ? self.demoSearchHistoryMutArr[indexPath.row] : @"";
-        @jobs_weakify(self)
-        UIButton *deleteBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
-            button
-                .jobsResetBtnImage(@"删除".img)
-                .byImageEdgeInsets(UIEdgeInsetsMake(JobsWidth(8), JobsWidth(8), JobsWidth(8), JobsWidth(8)))
-                .onClickBy(^(UIButton *x) {
-                    @jobs_strongify(self)
-                    [self deleteDemoSearchHistoryByButton:x];
-                })
-                .byTag(indexPath.row)
-                .byBgColor(JobsClearColor)
-                .bySize(CGSizeMake(JobsWidth(38), JobsWidth(38)));
-        });
         if (@available(iOS 14.0, *)) {
             UIBackgroundConfiguration *backgroundConfiguration = UIBackgroundConfiguration.clearConfiguration;
             backgroundConfiguration
-                .byBackgroundColor([self demoListCellBackgroundColor])
+                .byBackgroundColor(cellBackgroundColor)
                 .byCornerRadius(0);
             cell.byBackgroundConfiguration(backgroundConfiguration);
         }else{
             cell.byBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
-                view.byBgColor([self demoListCellBackgroundColor]);
+                view.byBgColor(cellBackgroundColor);
             }));
         }
         cell.bySelectedBackgroundView(nil);
         cell.contentView
+            .byBgColor(JobsClearColor)
             .byCornerRadius(0)
             .byClipsToBounds(NO);
         return cell
             .bySelectionStyle(UITableViewCellSelectionStyleNone)
             .byAccessoryType(UITableViewCellAccessoryNone)
-            .byAccessoryView(deleteBtn)
-            .byContentViewBgCor([self demoListCellBackgroundColor])
+            .byAccessoryView(nil)
             .byTextLabel(^(__kindof UILabel * _Nullable label) {
                 label
                     .byText(historyText)
@@ -691,7 +683,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             .byCellImageView(^(__kindof UIImageView * _Nullable imageView) {
                 imageView.byImage(@"时钟".img);
             })
-            .byBgColor(JobsClearColor);
+            .byBgColor(cellBackgroundColor);
     }
     if ([self isPinnedDemoIndexPath:indexPath]) {
         JobsOCRootFoldTableCell *cell = [tableView dequeueReusableCellWithIdentifier:JobsOCDemoPinnedCellReuseIdentifier];
@@ -749,6 +741,12 @@ canEditRowAtIndexPath:(NSIndexPath *)indexPath{
        editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView != _functionMenuTableView && [self demoSearchLandingActive]) return UITableViewCellEditingStyleDelete;
     return UITableViewCellEditingStyleNone;
+}
+
+- (NSString *)tableView:(UITableView *)tableView
+titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (tableView != _functionMenuTableView && [self demoSearchLandingActive]) return @"删除".tr;
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView
@@ -1318,23 +1316,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 -(BOOL)demoListDarkModeEnabled{
-    id value = [NSUserDefaults.standardUserDefaults objectForKey:JobsOCDemoListDarkModeUserDefaultsKey];
-    if (value) return [value boolValue];
-    if (@available(iOS 13.0, *)) {
-        return self.traitCollection.userInterfaceStyle == UIUserInterfaceStyleDark;
-    };return NO;
+    return JobsThemeCenter.shared.isDarkMode;
 }
 
 -(void)applyDemoListInterfaceStyle{
-    if (@available(iOS 13.0, *)) {
-        UIUserInterfaceStyle style = [self demoListDarkModeEnabled] ? UIUserInterfaceStyleDark : UIUserInterfaceStyleLight;
-        for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
-            if (![scene isKindOfClass:UIWindowScene.class]) continue;
-            for (UIWindow *window in ((UIWindowScene *)scene).windows) {
-                window.overrideUserInterfaceStyle = style;
-            }
-        }
-    }
     self.view.byBgColor([self demoListPageBackgroundColor]);
     [self updateLocalizedContent];
     self.makeNavByAlpha(1);
@@ -1343,6 +1328,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     [self applyDemoListTabBarInterfaceStyle];
     [self refreshFunctionMenuButtonTheme];
     [self refreshDemoSearchTheme];
+    if (_functionMenuTableView) {
+        _functionMenuTableView
+            .bySeparatorColor([self demoListSeparatorColor])
+            .byBgColor([self demoListFunctionMenuBackgroundColor]);
+        if (_functionMenuTableView.window && !_functionMenuTableView.hidden) {
+            [_functionMenuTableView reloadData];
+        }
+    }
     if (_userHeadBtn) _userHeadBtn.byTintColor([self demoListPrimaryTextColor]);
     if (_demoSideMenuView) {
         if (@available(iOS 13.0, *)) {
@@ -1351,39 +1344,39 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             _demoSideMenuView.byBgColor(JobsSecondarySystemBackgroundColor);
         }
     }
-    if (_demoSideMenuTableView) [_demoSideMenuTableView reloadData];
-    if (_functionMenuTableView) [_functionMenuTableView reloadData];
-    if (_tableView) [_tableView reloadData];
 }
 
 -(UIColor *)demoListPageBackgroundColor{
-    if (@available(iOS 13.0, *)) return UIColor.systemBackgroundColor;
-    return [self demoListDarkModeEnabled] ? HEXCOLOR(0x0F1115) : JobsWhiteColor;
+    return JobsSystemBackgroundColor;
 }
 
 -(UIColor *)demoListNavigationBackgroundColor{
-    if (@available(iOS 13.0, *)) return UIColor.systemBackgroundColor;
-    return [self demoListDarkModeEnabled] ? HEXCOLOR(0x15171C) : JobsWhiteColor;
+    return JobsSystemBackgroundColor;
 }
 
 -(UIColor *)demoListPrimaryTextColor{
-    if (@available(iOS 13.0, *)) return UIColor.labelColor;
-    return [self demoListDarkModeEnabled] ? HEXCOLOR(0xF4F5F8) : HEXCOLOR(0x3D4A58);
+    return JobsLabelColor;
 }
 
 -(UIColor *)demoListSecondaryTextColor{
-    if (@available(iOS 13.0, *)) return UIColor.secondaryLabelColor;
-    return [self demoListDarkModeEnabled] ? HEXCOLOR(0xA8AFBC) : HEXCOLOR(0x8A93A1);
+    return JobsSecondaryLabelColor;
 }
 
 -(UIColor *)demoListCellBackgroundColor{
-    if (@available(iOS 13.0, *)) return UIColor.secondarySystemGroupedBackgroundColor;
-    return [self demoListDarkModeEnabled] ? HEXCOLOR(0x191B20) : JobsWhiteColor;
+    return JobsSecondarySystemGroupedBackgroundColor;
+}
+
+-(UIColor *)demoListFunctionMenuBackgroundColor{
+    return JobsSecondarySystemBackgroundColor;
+}
+
+-(UIColor *)demoListCellSelectedBackgroundColor{
+    return JobsTertiarySystemBackgroundColor;
 }
 
 -(UIColor *)demoListSeparatorColor{
     if (@available(iOS 13.0, *)) return UIColor.separatorColor;
-    return [self demoListDarkModeEnabled] ? HEXCOLOR(0x30333A) : HEXCOLOR(0xE5E7EB);
+    return HEXCOLOR(0xE5E7EB);
 }
 
 -(void)applyDemoListNavigationInterfaceStyle{
@@ -1481,7 +1474,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             .byTintColor(selectedTintColor)
             .byBgColor(JobsClearColor);
         if (@available(iOS 13.0, *)) {
-            UIColor *searchFieldBackgroundColor = [self demoListDarkModeEnabled] ? HEXCOLOR(0x191B20) : UIColor.secondarySystemBackgroundColor;
             UITextField *searchTextField = _demoSearchBar.searchTextField;
             searchTextField
                 .byAttributedPlaceholder(JobsAttributedStringByAttributes(@"输入关键词搜索 Demo".tr, @{
@@ -1491,7 +1483,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byFont(UIFontWeightRegularSize(15))
                 .byTextCor([self demoListPrimaryTextColor])
                 .byTintColor(selectedTintColor)
-                .byBgColor(searchFieldBackgroundColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
                 .byCornerRadius(18)
                 .byClipsToBounds(YES)
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
@@ -1536,6 +1528,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byContentInset(UIEdgeInsetsZero)
                 .byScrollIndicatorInsets(UIEdgeInsetsZero)
                 .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
+                .byBgColor([self demoListFunctionMenuBackgroundColor])
                 .byCornerRadius(8)
                 .byClipsToBounds(YES)
                 .addOn(self.view)
@@ -2513,10 +2506,6 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.tableView reloadData];
 }
 
--(void)deleteDemoSearchHistoryByButton:(UIButton *)button{
-    [self deleteDemoSearchHistoryAtIndex:button.tag];
-}
-
 -(void)deleteDemoSearchHistoryAtIndex:(NSUInteger)index{
     if (index >= self.demoSearchHistoryMutArr.count) return;
     [self.demoSearchHistoryMutArr removeObjectAtIndex:index];
@@ -2722,8 +2711,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(UIViewModel *)jobs_countryCodeDemoViewModel{
     UIViewModel *viewModel = self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-        model.byTitle(@"JobsOCCountryCodeCtrl".tr)
-             .bySubTitle(@"国家 / 地区代码选择".tr)
+        model.byTitle(@"国家 / 地区代码选择".tr)
+             .bySubTitle(@"JobsOCCountryCodeCtrl".tr)
              .byCls(JobsOCCountryCodeCtrl.class);
     }));
     [self jobs_applySelectedCountryCodeToViewModel:viewModel];
@@ -2762,14 +2751,17 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 -(void)jobs_applySelectedCountryCodeToViewModel:(UIViewModel *)viewModel{
     if (!viewModel) return;
     if (self.selectedCountryCodePlainText.length) {
-        viewModel.subTextModel
+        viewModel.textModel
             .byText(self.selectedCountryCodePlainText)
             .byAttributedTitle(self.selectedCountryCodeAttributedText);
     }else{
-        viewModel.subTextModel
+        viewModel.textModel
             .byText(@"国家 / 地区代码选择".tr)
             .byAttributedTitle(nil);
     }
+    viewModel.subTextModel
+        .byText(@"JobsOCCountryCodeCtrl".tr)
+        .byAttributedTitle(nil);
 }
 
 -(UIColor *)jobs_countryCodeDemoSubTextColor{
@@ -2806,8 +2798,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsSwiftParityThrottleDebounceDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"TaskCenter 依赖任务编排".tr)
-                     .bySubTitle(@"多任务依赖、顺序与状态编排".tr)
+                model.byTitle(@"多任务依赖、顺序与状态编排".tr)
+                     .bySubTitle(@"TaskCenter依赖任务编排".tr)
                      .byCls(JobsSwiftParityTaskCenterDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
@@ -2826,8 +2818,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsSwiftParityControlEventsDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"TraitChange".tr)
-                     .bySubTitle(@"主题与界面环境变化监听".tr)
+                model.byTitle(@"主题与界面环境变化监听".tr)
+                     .bySubTitle(@"TraitChange".tr)
                      .byCls(JobsSwiftParityTraitChangeDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
@@ -2841,18 +2833,18 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsSwiftParityPDFDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"Toast".tr)
-                     .bySubTitle(@"轻量提示反馈".tr)
+                model.byTitle(@"轻量提示反馈".tr)
+                     .bySubTitle(@"Toast".tr)
                      .byCls(JobsSwiftParityToastDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"UIAlert".tr)
-                     .bySubTitle(@"确认与取消系统弹框".tr)
+                model.byTitle(@"确认与取消系统弹框".tr)
+                     .bySubTitle(@"UIAlert".tr)
                      .byCls(JobsSwiftParityAlertDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"JobsOpen".tr)
-                     .bySubTitle(@"统一打开外部 URL".tr)
+                model.byTitle(@"统一打开外部 URL".tr)
+                     .bySubTitle(@"JobsOpen".tr)
                      .byCls(JobsSwiftParityOpenDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
@@ -2871,8 +2863,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(SlideToUnlockDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"JobsNavigationDemoVC".tr)
-                     .bySubTitle(@"系统导航栏".tr)
+                model.byTitle(@"系统导航栏".tr)
+                     .bySubTitle(@"JobsNavigationDemoVC".tr)
                      .byCls(JobsNavigationDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
@@ -2891,10 +2883,23 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsBluetoothDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"CoreMotion DSL".tr)
-                     .bySubTitle(@"陀螺仪、加速度计、磁力计与设备姿态的一链式配置".tr)
+                model.byTitle(@"陀螺仪、加速度计、磁力计与设备".tr)
+                     .bySubTitle(@"CoreMotion DSL".tr)
                      .byCls(JobsCoreMotionDemoVC.class);
             })))
+            .add(
+                self.makeDatas(
+                    jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                        model.byTitle(@"SceneDelegate 多场景与窗口会话".tr)
+                             .bySubTitle(@"新建、激活、关闭 Scene，验证独立状态、生命周期与恢复".tr)
+                             .byCls(JobsOCSceneDelegateDemoVC.class);
+                    })
+                ).byImage(
+                    [JobsIconfontManager.shared iconImageForGlyph:JobsIconfontGlyphSwitcher
+                                                             size:CGSizeMake(JobsWidth(30),JobsWidth(30))
+                                                            color:UIColor.systemBlueColor]
+                )
+            )
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"截屏后 Tips 提示".tr)
                      .bySubTitle(@"截屏完成后更新页面状态并弹出提示".tr)
@@ -2916,13 +2921,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(UILabelScrollingDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"模拟时钟".tr)
+                model.byTitle(@"时钟".tr)
                      .bySubTitle(@"JobsClockView：基于 Timer 驱动的模拟时钟".tr)
                      .byCls(JobsClockDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"🔄 JobsImageRotation｜图片定时旋转".tr)
-                     .bySubTitle(@"同一张时钟图演示默认顺时针、逆时针与可配置 Timer 间隔".tr)
+                model.byTitle(@"动态时钟图标｜顺/逆时针".tr)
+                     .bySubTitle(@"无刻度、固定时针，仅分针旋转；方向与 Timer 间隔由外界传入".tr)
                      .byCls(JobsImageRotationDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
@@ -2951,13 +2956,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsMarqueeViewDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"CalendarVC".tr)
-                     .bySubTitle(@"日历功能".tr)
+                model.byTitle(@"日历功能".tr)
+                     .bySubTitle(@"CalendarVC".tr)
                      .byCls(CalendarVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"JobsVerticalMenuMainVC".tr)
-                     .bySubTitle(@"竖形菜单选择功能".tr)
+                model.byTitle(@"竖形菜单选择功能".tr)
+                     .bySubTitle(@"JobsVerticalMenuMainVC".tr)
                      .byCls(JobsVerticalMenuMainVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
@@ -2976,18 +2981,18 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsDouyinRefreshDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"JobsViewPushDemoVC".tr)
+                model.byTitle(@"ViewPushView".tr)
                      .bySubTitle(@"让 UIView 像 UINavigationController 支持上下左右 Push/Pop、比例覆盖和原路交互退出".tr)
                      .byCls(JobsViewPushDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"JobsSideDrawerDemoVC".tr)
-                     .bySubTitle(@"侧滑方向、比例、跟随模式与载体".tr)
+                model.byTitle(@"侧滑方向/比例/跟随模式".tr)
+                     .bySubTitle(@"JobsSideDrawerDemoVC".tr)
                      .byCls(JobsSideDrawerDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"JobsOCKeyboardMgr".tr)
-                     .bySubTitle(@"键盘遮挡处理".tr)
+                model.byTitle(@"键盘遮挡处理".tr)
+                     .bySubTitle(@"JobsOCKeyboardMgr".tr)
                      .byCls(JobsOCKeyboardMgrDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
@@ -2996,8 +3001,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsOCNumberStepperDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"JobsOCGraphicCaptcha".tr)
-                     .bySubTitle(@"图形验证码：数字 / 英文 / 汉字 / 混合随机".tr)
+                model.byTitle(@"图形验证码".tr)
+                     .bySubTitle(@"阿拉伯数字/英文（区分大小写）/汉字（区分简繁）".tr)
                      .byCls(JobsOCGraphicCaptchaDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
@@ -3021,6 +3026,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsOCExcelDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                model.byTitle(@"📚 Markdown 文档浏览器".tr)
+                     .bySubTitle(@"按工程相对路径浏览并渲染全部 Jobs 自有 Markdown 文档".tr)
+                     .byCls(JobsOCMarkdownDocumentsDemoVC.class);
+            })))
+            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"✍️ 手写板｜本地保存与离开确认".tr)
                      .bySubTitle(@"手指或 Apple Pencil 书写；保存后恢复，未保存离开时确认".tr)
                      .byCls(JobsHandwritingDemoVC.class);
@@ -3031,8 +3041,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(ExcelVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"JXCategoryViewVerticalShowVC".tr)
-                     .bySubTitle(@"JXCategoryView垂直表达".tr)
+                model.byTitle(@"JXCategoryView演示".tr)
+                     .bySubTitle(@"JXCategoryViewVerticalShowVC".tr)
                      .byCls(JXCategoryViewVerticalShowVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
@@ -3106,23 +3116,18 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(CtrlClipboardCueVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"JobsAppDoor".tr)
-                     .bySubTitle(@"登录注册的两种表现形式，进入列表后分别查看".tr)
+                model.byTitle(@"注册/登陆/忘记密码".tr)
+                     .bySubTitle(@"JobsAppDoor（2种表现形式）".tr)
                      .byCls(JobsAppDoorDemoListVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"Douyin_ZFPlayer_1".tr)
-                     .bySubTitle(@"播放效果 1".tr)
-                     .byCls(Douyin_ZFPlayerVC_1.class);
+                model.byTitle(@"Douyin_ZFPlayer".tr)
+                     .bySubTitle(@"2 种播放效果，进入列表后分别查看".tr)
+                     .byCls(JobsZFPlayerDemoListVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"Douyin_ZFPlayer_2".tr)
-                     .bySubTitle(@"播放效果 2".tr)
-                     .byCls(Douyin_ZFPlayerVC_2.class);
-            })))
-            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"TransparentRegion".tr)
-                     .bySubTitle(@"镂空特效".tr)
+                model.byTitle(@"镂空特效".tr)
+                     .bySubTitle(@"TransparentRegion".tr)
                      .byCls(TransparentRegionVC.class);
             })))
             .add(
@@ -3159,8 +3164,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsOCCommentDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"JobsOCSearcher".tr)
-                     .bySubTitle(@"搜索功能".tr)
+                model.byTitle(@"搜索功能".tr)
+                     .bySubTitle(@"JobsOCSearcher".tr)
                      .byCls(JobsOCSearcherDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
@@ -3184,8 +3189,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsLiveStreamDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"DynamicView".tr)
-                     .bySubTitle(@"Gif图片读取".tr)
+                model.byTitle(@"Gif图片读取".tr)
+                     .bySubTitle(@"DynamicView".tr)
                      .byCls(DynamicViewTestVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
@@ -3204,7 +3209,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsLongPressLikeDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"🟩⬜⬜ 系统进度条".tr)
+                model.byTitle(@"系统进度条".tr)
                      .bySubTitle(@"UIProgressView + JobsOCTimer 倒计时".tr)
                      .byCls(JobsSysProgressDemoVC.class);
             })))
@@ -3214,13 +3219,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsProgressDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"IrregularView".tr)
-                     .bySubTitle(@"不规则的按钮".tr)
+                model.byTitle(@"不规则的按钮".tr)
+                     .bySubTitle(@"IrregularView".tr)
                      .byCls(TestIrregularViewTestVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"JobsIM".tr)
-                     .bySubTitle(@"IM模块".tr)
+                model.byTitle(@"IM模块".tr)
+                     .bySubTitle(@"JobsIM".tr)
                      .byCls(JobsIMShowVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
@@ -3229,14 +3234,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(TestLabelVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"JobsDropDownListVC".tr)
-                     .bySubTitle(@"👇🏻下拉列表".tr)
+                model.byTitle(@"👇🏻下拉列表".tr)
+                     .bySubTitle(@"JobsDropDownListVC".tr)
                      .byCls(JobsDropDownListVC.class);
             })))
             .add(self.jobs_countryCodeDemoViewModel)
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"YTKNetworkStudyVC".tr)
-                     .bySubTitle(@"探究猿题库网络框架（YTKNetwork）".tr)
+                model.byTitle(@"探究猿题库网络框架（YTKNetwork）".tr)
+                     .bySubTitle(@"YTKNetworkStudyVC".tr)
                      .byCls(YTKNetworkStudyVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
@@ -3245,8 +3250,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsWebSocketDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"CoreTextLearningVC".tr)
-                     .bySubTitle(@"探究CoreText".tr)
+                model.byTitle(@"探究CoreText".tr)
+                     .bySubTitle(@"CoreTextLearningVC".tr)
                      .byCls(CoreTextLearningVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
@@ -3265,13 +3270,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsSettingGestureVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"CXBVC".tr)
-                     .bySubTitle(@"CXB自研科技".tr)
+                model.byTitle(@"CXB自研科技".tr)
+                     .bySubTitle(@"CXBVC".tr)
                      .byCls(CXBVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"OCDynamicRegisterVC".tr)
-                     .bySubTitle(@"OC动态添加类、方法列表、属性列表".tr)
+                model.byTitle(@"OC动态添加类、方法列表、属性列表".tr)
+                     .bySubTitle(@"OCDynamicRegisterVC".tr)
                      .byCls(OCDynamicRegisterVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
@@ -3290,8 +3295,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(TestBaseLabelVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"RandomTestVC".tr)
-                     .bySubTitle(@"随机数测试模块".tr)
+                model.byTitle(@"随机数测试模块".tr)
+                     .bySubTitle(@"RandomTestVC".tr)
                      .byCls(RandomTestVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
@@ -3300,8 +3305,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(CustomTableViewCellVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"CustomBtnVC".tr)
-                     .bySubTitle(@"自定义UIButton子控件的排布".tr)
+                model.byTitle(@"自定义UIButton子控件的排布".tr)
+                     .bySubTitle(@"CustomBtnVC".tr)
                      .byCls(CustomBtnVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
@@ -3310,13 +3315,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(GXCardViewDemoVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"JobsWalletVC".tr)
-                     .bySubTitle(@"UICollectionView实现重叠的卡包效果".tr)
+                model.byTitle(@"UICollectionView实现重叠的卡包效果".tr)
+                     .bySubTitle(@"JobsWalletVC".tr)
                      .byCls(JobsWalletVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"JobsScrollViewVC".tr)
-                     .bySubTitle(@"在指定的y区间内滑动视图(带吸边效果)".tr)
+                model.byTitle(@"在指定的y区间内滑动视图(带吸边效果)".tr)
+                     .bySubTitle(@"JobsScrollViewVC".tr)
                      .byCls(JobsScrollViewVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
@@ -3335,8 +3340,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(UITBVCellFoldVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"ProtocolKitVC")
-                     .bySubTitle(@"Objective-C中实现协议扩展".tr)
+                model.byTitle(@"Objc中实现协议扩展".tr)
+                     .bySubTitle(@"ProtocolKitVC".tr)
                      .byCls(ProtocolKitVC.class);
             })));
         });

@@ -6,6 +6,8 @@
 //
 
 #import "AppDelegate.h"
+#import "SceneDelegate.h"
+#import "JobsOCSceneCoordinator.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

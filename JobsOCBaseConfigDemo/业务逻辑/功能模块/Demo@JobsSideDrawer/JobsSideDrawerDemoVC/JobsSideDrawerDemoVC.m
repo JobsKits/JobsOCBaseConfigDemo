@@ -27,8 +27,10 @@ Prop_strong()JobsSideDrawer *drawer;
 @implementation JobsSideDrawerDemoVC
 -(void)viewDidLoad{
     [super viewDidLoad];
-    self.title = @"侧滑抽屉".tr;
-    self.view.backgroundColor = UIColor.systemBackgroundColor;
+    self.title = @"侧滑方向/比例/跟随模式".tr;
+    self.gk_navTitle = @"侧滑方向/比例/跟随模式".tr;
+    self.makeNavByAlpha(1);
+    self.view.byBgColor(JobsSystemBackgroundColor);
     [self.view addSubview:self.optionStackView];
 }
 -(void)preview{

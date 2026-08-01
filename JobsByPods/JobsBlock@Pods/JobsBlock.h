@@ -512,6 +512,7 @@ typedef __kindof JobsTimer *_Nullable(^JobsRetTimerByCGFloatBlocks)(jobsByCGFloa
 typedef __kindof JobsTimer *_Nullable(^JobsRetTimerByJTimerBlocks)(JobsTimerBlock _Nullable block);
 /// _JobsTimerMgrEntry
 typedef __kindof _JobsTimerMgrEntry *_Nullable(^JobsRetJobsTimerMgrEntryByJobsTimerBlock)(JobsTimer<TimerProtocol> *_Nullable timer);
+typedef __kindof _JobsTimerMgrEntry *_Nullable(^JobsRetJobsTimerMgrEntryByStringBlock)(NSString *_Nullable data);
 typedef __kindof _JobsTimerMgrEntry *_Nullable(^JobsRetJobsTimerMgrEntryByNSUIntegerBlock)(NSUInteger data);
 typedef __kindof _JobsTimerMgrEntry *_Nullable(^JobsRetJobsTimerMgrEntryByJobsByCGFloatBlockBlock)(jobsByCGFloatBlock _Nullable block);
 typedef __kindof _JobsTimerMgrEntry *_Nullable(^JobsRetJobsTimerMgrEntryByJobsTimerBlockBlock)(JobsTimerBlock _Nullable block);
@@ -521,12 +522,21 @@ typedef __kindof JobsTimerMgr *_Nullable(^JobsRetJobsTimerMgrByVoidBlock)(void);
 typedef __kindof JobsTimerMgr *_Nullable(^JobsRetJobsTimerMgrByStringAndJobsByCGFloatBlockBlock)(NSString *_Nullable identifier, jobsByCGFloatBlock _Nullable block);
 typedef __kindof JobsTimerMgr *_Nullable(^JobsRetJobsTimerMgrByStringAndJobsTimerBlockBlock)(NSString *_Nullable identifier, JobsTimerBlock _Nullable block);
 typedef __kindof JobsTimerMgr *_Nullable(^JobsRetJobsTimerMgrByStringAndJobsByVoidBlockBlock)(NSString *_Nullable identifier, jobsByVoidBlock _Nullable block);
+typedef __kindof JobsTimerMgr *_Nullable(^JobsRetJobsTimerMgrByStringAndJobsTimerBlock)(NSString *_Nullable identifier,
+                                                                                       JobsTimer *_Nullable expectedTimer);
 typedef __kindof JobsTimerMgr *_Nullable(^JobsRetJobsTimerMgrByUpsertTimerBlock)(NSString *_Nullable identifier,
                                                                                  JobsTimerType timerType,
                                                                                  NSUInteger policy,
                                                                                  BOOL startImmediately,
                                                                                  JobsTimerMgrBuildBlock _Nullable build,
                                                                                  jobsByVoidBlock _Nullable handler);
+typedef __kindof JobsTimerMgr *_Nullable(^JobsRetJobsTimerMgrByScopedUpsertTimerBlock)(NSString *_Nullable identifier,
+                                                                                       NSString *_Nullable scopeIdentifier,
+                                                                                       JobsTimerType timerType,
+                                                                                       NSUInteger policy,
+                                                                                       BOOL startImmediately,
+                                                                                       JobsTimerMgrBuildBlock _Nullable build,
+                                                                                       jobsByVoidBlock _Nullable handler);
 /// JobsNetworkTrafficMonitor
 typedef __kindof JobsNetworkTrafficMonitor *_Nullable(^JobsRetTNetworkTrafficMonitorByUpdateBlock)(JobsNetworkUpdateBlock _Nullable block);
 /// JobsTransitionAnimator

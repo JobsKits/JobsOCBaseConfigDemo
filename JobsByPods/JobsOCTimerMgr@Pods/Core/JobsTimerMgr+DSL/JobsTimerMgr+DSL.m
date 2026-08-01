@@ -27,6 +27,27 @@
     };
 }
 
+-(JobsRetJobsTimerMgrByScopedUpsertTimerBlock _Nonnull)byUpsertScopedTimer{
+    @jobs_weakify(self)
+    return ^__kindof JobsTimerMgr *_Nullable(NSString *_Nullable identifier,
+                                             NSString *_Nullable scopeIdentifier,
+                                             JobsTimerType timerType,
+                                             NSUInteger policy,
+                                             BOOL startImmediately,
+                                             JobsTimerMgrBuildBlock _Nullable build,
+                                             jobsByVoidBlock _Nullable handler) {
+        @jobs_strongify(self)
+        [self upsertTimerWithIdentifier:identifier
+                       scopeIdentifier:scopeIdentifier
+                             timerType:timerType
+                                policy:policy
+                      startImmediately:startImmediately
+                                 build:build
+                               handler:handler];
+        return self;
+    };
+}
+
 -(JobsRetJobsTimerMgrByStringAndJobsByCGFloatBlockBlock _Nonnull)byOnTick{
     @jobs_weakify(self)
     return ^__kindof JobsTimerMgr *_Nullable(NSString *_Nullable identifier, jobsByCGFloatBlock _Nullable block) {
@@ -90,6 +111,24 @@
     };
 }
 
+-(JobsRetJobsTimerMgrByStringBlock _Nonnull)byPauseScope{
+    @jobs_weakify(self)
+    return ^__kindof JobsTimerMgr *_Nullable(NSString *_Nullable data) {
+        @jobs_strongify(self)
+        [self pauseScope:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsTimerMgrByStringBlock _Nonnull)byResumeScope{
+    @jobs_weakify(self)
+    return ^__kindof JobsTimerMgr *_Nullable(NSString *_Nullable data) {
+        @jobs_strongify(self)
+        [self resumeScope:data];
+        return self;
+    };
+}
+
 -(JobsRetJobsTimerMgrByStringBlock _Nonnull)byFireOnceAndRemove{
     @jobs_weakify(self)
     return ^__kindof JobsTimerMgr *_Nullable(NSString *_Nullable data) {
@@ -104,6 +143,25 @@
     return ^__kindof JobsTimerMgr *_Nullable(NSString *_Nullable data) {
         @jobs_strongify(self)
         [self stopAndRemove:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsTimerMgrByStringAndJobsTimerBlock _Nonnull)byStopAndRemoveExpectedTimer{
+    @jobs_weakify(self)
+    return ^__kindof JobsTimerMgr *_Nullable(NSString *_Nullable identifier,
+                                             JobsTimer *_Nullable expectedTimer) {
+        @jobs_strongify(self)
+        [self stopAndRemove:identifier expectedTimer:expectedTimer];
+        return self;
+    };
+}
+
+-(JobsRetJobsTimerMgrByStringBlock _Nonnull)byStopAndRemoveScope{
+    @jobs_weakify(self)
+    return ^__kindof JobsTimerMgr *_Nullable(NSString *_Nullable data) {
+        @jobs_strongify(self)
+        [self stopAndRemoveScope:data];
         return self;
     };
 }

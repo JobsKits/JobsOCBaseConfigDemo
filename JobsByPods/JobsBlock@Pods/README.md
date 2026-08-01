@@ -85,7 +85,7 @@ JobsBlock@Pods/
 - `JobsBlock.h` 集中提供 `CMMotionManager` 的频率、启停、队列回调和参考坐标系链式返回 Block；回调参数类型来自 `CoreMotion`，DSL 头不再重复声明 typedef。
 - `JobsBlock.h` 提供 `jobsByGKCustomNavigationBarBlock` 与 `JobsRetGKNavVCByNavigationBarBlock`，让控制器通过 `byGKNavigationBarBlock(...)` 配置 GK 导航栏子对象后仍返回原控制器继续主链。
 - `HXPhotoPickerObjC` 相关 DSL 需要的 `HXPhotoView`、`HXPhotoManager`、`HXPhotoConfiguration` Block 别名统一在 `JobsBlock.h` 暴露，协议 / 类向前声明集中放在 `JobsBlockHeader.h`。
-- `JobsOCTimerMgr` 相关 DSL 的 `JobsTimerMgr` 与内部 `_JobsTimerMgrEntry` 返回型 Block 统一由 `JobsBlock.h` 管理，相关类向前声明集中放在 `JobsBlockHeader.h`。
+- `JobsOCTimerMgr` 相关 DSL 的 `JobsTimerMgr` 与内部 `_JobsTimerMgrEntry` 返回型 Block 统一由 `JobsBlock.h` 管理；其中包含 Scope upsert、实例安全取消和 Scope 生命周期链式签名，相关类向前声明集中放在 `JobsBlockHeader.h`。
 - `JobsPresentTransitionMgr` 的配置回调使用 `jobsByPresentTransitionManagerBlock`，由 `JobsBlock.h` 统一暴露，类向前声明集中放在 `JobsBlockHeader.h`。
 - `VoidByCertainParametersBlock.h` 暴露常用数据容器配置 Block，包括 `jobsByMutableIndexSetBlock`，供 `JobsMakes` 创建可变索引集合时复用。
 - `VoidByCertainParametersBlock.h` 统一承接 `JobsOCRefresher` 的 `JobsOCRefreshActionBlock` 别名和 `jobsByOCRefreshConfigBlock` 配置回调，避免业务 Pod 内散落同签名 Block。

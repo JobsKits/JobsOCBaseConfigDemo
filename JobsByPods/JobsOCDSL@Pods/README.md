@@ -16,6 +16,7 @@
 - `CMMotionManager+DSL` 覆盖加速度计、陀螺仪、磁力计与设备姿态的更新频率、启动、停止、队列回调及参考坐标系配置；调用方可从 `CMMotionManager.byMotionManager()` 开始一链完成配置和监听。
 - 系统类 DSL 以“当前类本层级”为边界，只封装当前类自己声明的属性、无参数方法和单参数方法；父类能力留在父类 DSL，子类特有能力留在子类 DSL。
 - OC 侧 DSL 统一依赖 `JobsBlock` 提供 Block typedef，避免每个 Pod 自己散落定义。
+- `JobsOCDefs` 的主题语义颜色可继续通过 `byBgColor(...)`、`byTextCor(...)`、`byTitleCor(...)` 等既有 DSL 使用；底层 setter 自动登记主题 Key，调用方无需追加页面级刷新逻辑。
 - 原本散在其它本地 Pod 里的纯 DSL 分类逐步迁移到这里，调用方通过 `JobsOCDSL` 暴露。
 - 对照 Swift 侧 `JobsSwiftDSL` 的 [**SnapKit**](https://github.com/SnapKit/SnapKit) 链式封装，OC 侧通过 [**Masonry**](https://github.com/SnapKit/Masonry) 补齐 `byAddTo`、`byMakeConstraints`、`byUpdateConstraints`、`byRemake`。
 - 对照 Swift 侧 `BMPlayer+DSL`、`GKNavigationBarSwift+DSL`、`YTKNetwork+DSL`，OC 侧分别补齐当前工程实际使用的 `ZFPlayer`、`GKNavigationBar`、`YTKNetwork` 链式入口；其中 `GKNavigationBar` 的手势配置在 OC 版里属于 `GKGestureHandleConfigure`。

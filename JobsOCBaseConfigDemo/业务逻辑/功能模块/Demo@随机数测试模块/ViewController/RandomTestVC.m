@@ -150,6 +150,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
+heightForHeaderInSection:(NSInteger)section{
+    return JobsWidth(8);
+}
+
+- (CGFloat)tableView:(UITableView *)tableView
 heightForFooterInSection:(NSInteger)section{
     return CGFLOAT_MIN;
 }
@@ -233,6 +238,7 @@ heightForFooterInSection:(NSInteger)section{
                 .byRowHeight(JobsWidth(78))
                 .byEstimatedRowHeight(JobsWidth(78))
                 .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
+                .bySectionHeaderTopPadding(0)
                 .byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {}))
                 .byShowsVerticalScrollIndicator(NO)
                 .byBgColor(JobsClearColor)

@@ -1,6 +1,6 @@
 # `JobsBaseUI`
 
-Demo 全局主题切换会同步所有已连接 Scene 的 Window，并发布 `JobsOCGlobalThemeDidChangeNotification`；固定色板、列表和自绘页面可监听该通知即时刷新。
+Demo 主题入口调用 `JobsThemeCenter.toggle`；`JobsOCDefs` 根据主工程 JSON 数据包重放已登记的背景色、文字色和显式主题图片，并发布 `JobsThemeDidChangeNotification`，不遍历 Scene、Window 或控制器树。
 
 <iframe
   src="https://dragonir.github.io/3d/#/earth"
@@ -66,8 +66,8 @@ JobsBaseUI@Pods/
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
 - `Support/UIKit/UIButton/UIButton+SDWebImage` 只保留历史兼容入口，真实链式实现已下沉到 `JobsOCDSL/3rd/SDWebImage+DSL`。
-- `BaseViewController` 会在 Demo 子页面进入前及转场完成后兜底 Jobs/GK 导航栏、Jobs 返回按钮和标题；已有系统富文本标题及右侧业务按钮会迁移到 GK 导航栏，不再沿用系统导航容器。根页面不处理，专门演示系统导航栏的 `JobsNavigationDemoVC` 保持原样；全屏业务页可覆写 `jobs_requiresDefaultNavigationBar` 并返回 `NO`，明确关闭整套默认导航 UI。
-- `UIViewController+BaseNavigationBar` 会识别 `ViewController_1` Demo 根列表的导航 / 模态子页面及类名包含 `Demo` 的独立演示页，右上角最多只保留一个主题入口；没有业务动作时直接切换主题，月亮 / 太阳图标与无障碍文案表达下一次点击会切换到的主题；存在业务动作时用 Demo 总入口同款 `ellipsis.circle` 展开下拉列表，展开后切换为填充图标与“收起”语义，统一承载主题与页面动作。切换结果会持久化并同步到所有已连接 Scene 的 Window。
+- `BaseViewController` 会在 Demo 子页面进入前及转场完成后兜底 Jobs/GK 导航栏、Jobs 返回按钮和标题；只处理真实导航栈成员或直接模态页面，导航 / Tab / Split 容器、`UIAlertController` 及其私有子控制器不会创建导航栏。已有系统富文本标题及右侧业务按钮会迁移到 GK 导航栏，不再沿用系统导航容器。根页面不处理，专门演示系统导航栏的 `JobsNavigationDemoVC` 保持原样；全屏业务页可覆写 `jobs_requiresDefaultNavigationBar` 并返回 `NO`，明确关闭整套默认导航 UI。
+- `UIViewController+BaseNavigationBar` 会识别 `ViewController_1` Demo 根列表的导航 / 模态子页面及类名包含 `Demo` 的独立演示页，右上角最多只保留一个透明背景的主题入口；没有业务动作时直接切换主题，月亮 / 太阳图标与无障碍文案表达下一次点击会切换到的主题；存在业务动作时用 Demo 总入口同款 `ellipsis.circle` 展开下拉列表，展开后切换为填充图标与“收起”语义，统一承载主题与页面动作。切换结果由 `JobsThemeCenter` 持久化并按资源绑定更新。
 - `JobsDebugVC` 通过 `JobsControllerDeallocTipsEnabled()` / `JobsSetControllerDeallocTipsEnabled(...)` 持久化控制销毁 Toast，默认开启；关闭只隐藏提示，不影响通知清理与调试日志。
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -186,7 +186,7 @@ pod install --no-repo-update
 
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - BaseVC 的页面根背景不展示固定底色或底图；业务图片必须下沉到内容子视图，避免覆盖全局明暗主题。
-- 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
+- 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要显式绑定主题 Key，或监听 `JobsThemeDidChangeNotification` 后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>
