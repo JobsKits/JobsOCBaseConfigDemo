@@ -15,7 +15,7 @@ static JobsCustomTabBarConfig *JobsCustomTabBarAppConfig(void) {
             if ([value isKindOfClass:JobsCustomTabBarConfig.class]) return value;
         } @catch (__unused NSException *exception) {
         }
-    };return JobsCustomTabBarConfig.sharedManager;
+    };return JobsCustomTabBarConfig.jobsSharedManager();
 }
 
 @interface JobsCustomTabBar ()
@@ -35,9 +35,19 @@ static JobsCustomTabBarConfig *JobsCustomTabBarAppConfig(void) {
     };return self;
 }
 
-- (void)setFrame:(CGRect)frame {
-    [super setFrame:frame];
-    self.setup();
+-(void)setFrame:(CGRect)frame{
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCustomTabBar.class, @selector(jobsSetFrame)))(self, @selector(jobsSetFrame));
+    if (action) action(frame);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsSetFrame{
+    @jobs_weakify(self)
+    return ^(CGRect frame){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super setFrame:frame];
+        self.setup();
+    };
 }
 
 -(jobsByVoidBlock _Nonnull)setup{
@@ -62,16 +72,16 @@ static JobsCustomTabBarConfig *JobsCustomTabBarAppConfig(void) {
                                     config.tabBarHeight + offset);
             if(item.isKindOfClass(UIButton.class)){
                 UIButton *btn = (UIButton *)item;
-                btn.imageViewFrameOffsetY = config.imageViewFrameOffsetY;
-                btn.textLabelFrameOffsetY = config.textLabelFrameOffsetY;
+                btn.byImageViewFrameOffsetY(config.imageViewFrameOffsetY);
+                btn.byTextLabelFrameOffsetY(config.textLabelFrameOffsetY);
             }self.addSubview(item);
         }
     };
 }
 
--(jobsByViewBlock _Nonnull)configMasonryBy{
+-(JobsRetCustomTabBarByViewBlock _Nonnull)configMasonryBy{
     @jobs_weakify(self)
-    return ^(__kindof UIView *_Nullable view){
+    return ^JobsCustomTabBar *_Nullable(__kindof UIView *_Nullable view){
         @jobs_strongify(self)
         JobsCustomTabBarConfig *config = JobsCustomTabBarAppConfig();
         view.addSubview(self);
@@ -105,7 +115,7 @@ static JobsCustomTabBarConfig *JobsCustomTabBarAppConfig(void) {
                     make.width.mas_equalTo(config.tabBarWidth);
                 }
             }];view.refresh();
-        }
+        };return self;
     };
 }
 

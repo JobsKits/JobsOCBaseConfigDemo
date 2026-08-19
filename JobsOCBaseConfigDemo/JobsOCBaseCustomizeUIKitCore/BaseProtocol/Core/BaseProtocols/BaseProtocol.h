@@ -54,6 +54,7 @@ Prop_copy(nullable)NSMutableArray <NSURL *>*urls;
 Prop_strong(nullable)NSURL *url;
 Prop_strong(nullable)NSURL *imageUrl;
 Prop_copy(nullable)NSString *internationalizationKEY;  // 国际化的key
+-(JobsRetIDByIDBlock _Nonnull)byInternationalizationKEY;
 Prop_strong(nullable)NSMutableSet *jobsDataMutSet;       // 绑定的数据源，数据类型NSMutableSet
 Prop_strong(nullable)NSMutableArray *jobsDataMutArr;     // 绑定的数据源，数据类型NSMutableArray
 Prop_strong(nullable)NSMutableDictionary *jobsDataMutDic;// 绑定的数据源，数据类型NSMutableDictionary
@@ -70,6 +71,7 @@ Prop_assign(nullable)SEL selector;
 Prop_assign(nullable)IMP implementation;
 Prop_strong(nullable)id target;
 Prop_weak(nullable)id weak_target;
+-(JobsRetIDByIDBlock _Nonnull)byWeak_target;
 /// 强引用数据源
 Prop_strong(nullable)id data;
                         //【强引用】绑定的数据源，数据类型id
@@ -100,14 +102,16 @@ Prop_weak(nullable)id requestParams_weak;
 /// @param aSelector 相关逻辑
 +(void)target:(id)target languageSwitchNotificationWithSelector:(SEL)aSelector;// NSObject (AppTools)
 ///【监听通知】设置App语言环境
--(void)monitorAppLanguage;// NSObject (Notification)
+-(jobsByVoidBlock _Nonnull)monitorAppLanguage;// NSObject (Notification)
 ///【发通知】设置App语言环境
 -(jobsByNSIntegerBlock _Nonnull)appLanguageAtAppLanguageBy;
 /// 接收通知并相应的方法【在分类或者基类中实现会屏蔽具体子类的相关实现】
 -(jobsByNotificationBlock _Nonnull)jobsLanguageSwitchNotification;// 在具体子类进行实现
 #pragma mark —— 单例化和销毁
 +(void)destroySingleton;
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton;
 +(instancetype)sharedManager;
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager;
 +(JobsRetIDByVoidBlock _Nonnull)SharedInstance;
 +(jobsByVoidBlock _Nonnull)DestroySingleton;
 

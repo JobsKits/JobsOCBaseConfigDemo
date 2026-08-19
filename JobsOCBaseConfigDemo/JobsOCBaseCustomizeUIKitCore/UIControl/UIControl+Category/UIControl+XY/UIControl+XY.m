@@ -6,6 +6,7 @@
 //
 
 #import "UIControl+XY.h"
+#import "UIControl+DSL.h"
 
 @implementation UIControl (XY)
 JobsKey(_uxy_acceptEventInterval)
@@ -20,12 +21,27 @@ JobsKey(_uxy_acceptEventInterval)
 }
 /// 是否响应事件的标志位
 JobsKey(_uxy_ignoreEvent)
--(BOOL)uxy_ignoreEvent{
-    return [Jobs_getAssociatedObject(_uxy_ignoreEvent) boolValue];
+-(JobsRetBOOLByVoidBlock _Nonnull)uxy_ignoreEvent{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return [Jobs_getAssociatedObject(_uxy_ignoreEvent) boolValue];
+    };
 }
 
 -(void)setUxy_ignoreEvent:(BOOL)uxy_ignoreEvent{
-    Jobs_setAssociatedRETAIN_NONATOMIC(_uxy_ignoreEvent, @(uxy_ignoreEvent))
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIControl.class, @selector(jobsSetUxy_ignoreEvent)))(self, @selector(jobsSetUxy_ignoreEvent));
+    if (action) action(uxy_ignoreEvent);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsSetUxy_ignoreEvent{
+    @jobs_weakify(self)
+    return ^(BOOL uxy_ignoreEvent){
+        @jobs_strongify(self)
+        if (!self) return;
+        Jobs_setAssociatedRETAIN_NONATOMIC(_uxy_ignoreEvent, @(uxy_ignoreEvent))
+    };
 }
 
 +(void)load{
@@ -38,9 +54,9 @@ JobsKey(_uxy_ignoreEvent)
 - (void)__uxy_sendAction:(SEL)action
                       to:(id)target
                 forEvent:(UIEvent *)event{
-    if (self.uxy_ignoreEvent) return;//根据状态判断是否继续执行
+    if (self.uxy_ignoreEvent()) return;//根据状态判断是否继续执行
     if (self.uxy_acceptEventInterval > 0){
-        self.uxy_ignoreEvent = YES;
+        self.byUxy_ignoreEvent(YES);
         //周期性清空标志位
         [self performSelector:@selector(setUxy_ignoreEvent:)
                    withObject:@(NO)

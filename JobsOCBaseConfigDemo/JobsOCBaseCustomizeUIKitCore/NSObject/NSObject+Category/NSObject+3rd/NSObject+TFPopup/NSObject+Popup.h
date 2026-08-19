@@ -6,6 +6,12 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "AppDelegate+TabBarCtr.h"
 #import "LoginView.h"
 #import "SignUpView.h"
@@ -27,26 +33,30 @@ Prop_strong()TFPopupParam *popupParameter;
 #pragma mark —— 创建缩放模式的View
 /// 没有自定义 popupParam（缩放模式）
 -(void)popupShowScaleWithView:(UIView *_Nonnull)view;
+-(jobsByViewBlock _Nonnull)popupShowScaleWithView;
 /// 有自定义popupParam（缩放模式）
 -(void)popupShowScaleWithView:(UIView *_Nonnull)view
                popupParameter:(TFPopupParam *_Nullable)popupParam;
 #pragma mark —— 创建滑动模式的View
 /// 没有自定义 popupParam（滑动模式）
 -(void)popupshowSlideWithView:(UIView *_Nonnull)view;
+-(jobsByViewBlock _Nonnull)popupshowSlideWithView;
 /// 有自定义popupParam（滑动模式）
 -(void)popupshowSlideWithView:(UIView *_Nonnull)view
                popupParameter:(TFPopupParam *_Nullable)popupParam;
 #pragma mark —— 创建数据源
 /// 一般的数据源
--(TFPopupParam *)makeNormalPopupParameter;
+-(JobsRetTFPopupParamByVoidBlock _Nonnull)makeNormalPopupParameter;
 -(TFPopupParam *)makeSlidePopupParameterByViewHeight:(CGFloat)viewHeight;
+-(JobsRetTFPopupParamByCGFloatBlock _Nonnull)makeSlidePopupParameterByViewHeight;
 -(TFPopupParam *)makeSlidePopupParameterByViewSize:(CGSize)viewSize;
+-(JobsRetTFPopupParamByCGSizeBlock _Nonnull)makeSlidePopupParameterByViewSize;
 #pragma mark —— PopView
-+(JobsNoticePopupView *)makeNoticePopupView;
-+(LoginView *)makePopLoginView;
-+(SignUpView *)makePopSignUpView;
-+(PwdSettingView *)makePopPwdSettingView;
-+(PwdSettingByCodeView *)makePwdSettingByCodeView;
++(JobsRetJobsNoticePopupViewByVoidBlock _Nonnull)makeNoticePopupView;
++(JobsRetLoginViewByVoidBlock _Nonnull)makePopLoginView;
++(JobsRetSignUpViewByVoidBlock _Nonnull)makePopSignUpView;
++(JobsRetPwdSettingViewByVoidBlock _Nonnull)makePopPwdSettingView;
++(JobsRetPwdSettingByCodeViewByVoidBlock _Nonnull)makePwdSettingByCodeView;
 
 @end
 

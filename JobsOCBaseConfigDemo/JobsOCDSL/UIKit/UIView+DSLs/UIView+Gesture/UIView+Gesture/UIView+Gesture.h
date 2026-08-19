@@ -2,7 +2,7 @@
 //  UIView+Gesture.h
 //  JobsOCDSL
 //
-//  Migrated from JobsByOCPods on 2026年6月10日，星期三.
+//  Created by Jobs on 2026年6月10日，星期三.
 //
 
 #ifndef JOBS_HEADER_GUARD_UIVIEW_GESTURE_94FB6687CC
@@ -10,6 +10,12 @@
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsOCDSL/UIView+DSL.h>)
+#import <JobsOCDSL/UIView+DSL.h>
+#else
+#import "UIView+DSL.h"
+#endif
 #import "JobsOCRuntimeKits.h"
 #import "JobsBaseProtocolHeader.h"
 #import "JobsMakes.h"

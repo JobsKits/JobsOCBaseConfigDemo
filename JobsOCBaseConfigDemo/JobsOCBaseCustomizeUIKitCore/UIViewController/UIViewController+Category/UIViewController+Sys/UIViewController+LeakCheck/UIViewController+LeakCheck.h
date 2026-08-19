@@ -14,6 +14,12 @@
 #import "NSMutableSet+Extra.h"
 #import "JobsTimeUtils.h"
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 /// 参考资料来源：https://github.com/fengzhiyinxiang/UIViewControllerLeakCheck
 NS_ASSUME_NONNULL_BEGIN
 

@@ -6,17 +6,18 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UITABLEVIEWCELL_WHITEARROWS_D0C3DB44B3
-#define JOBS_HEADER_GUARD_UITABLEVIEWCELL_WHITEARROWS_D0C3DB44B3
-
-#import <objc/runtime.h>
-#import <UIKit/UIKit.h>
-#import "NSObject+image.h"
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
 #import "ReactiveObjC.h"
 #endif
+
+#define JOBS_HEADER_GUARD_UITABLEVIEWCELL_WHITEARROWS_D0C3DB44B3
+
+#import <objc/runtime.h>
+#import <UIKit/UIKit.h>
+#import "NSObject+image.h"
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import "JobsBlock.h"
@@ -37,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_strong()UIImage *img;
 Prop_assign()CGSize arrows_size;
 /// 必须 self.accessoryType = UITableViewCellAccessoryDisclosureIndicator; 打开后才可以启用
--(void)customAccessoryView:(jobsByIDBlock _Nullable)customAccessoryViewBlock;
+-(jobsByjobsByIDBlockBlock _Nonnull)customAccessoryView;
 
 @end
 

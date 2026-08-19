@@ -7,6 +7,7 @@
 
 #import <UIKit/UIKit.h>
 #import <EventKit/EventKit.h> // 用来读取，修改和创建日历上的事件
+#import "JobsAppToolsHeader.h"
 
 #if __has_include(<JobsOCCalendar/JobsOCCalendarHeader.h>)
 #import <JobsOCCalendar/JobsOCCalendarHeader.h>

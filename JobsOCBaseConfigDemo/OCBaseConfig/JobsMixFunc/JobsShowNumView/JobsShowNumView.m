@@ -21,16 +21,30 @@ Prop_strong()NSMutableArray <__kindof UIButton *>*btnMutArr;
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_showNumViewOnceToken = 0;
-    static_showNumView = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsShowNumView.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_showNumViewOnceToken = 0;
+        static_showNumView = nil;
+    };
 }
 
 static JobsShowNumView *static_showNumView = nil;
 static dispatch_once_t static_showNumViewOnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_showNumViewOnceToken, ^{
-        static_showNumView = JobsShowNumView.new;
-    });return static_showNumView;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsShowNumView.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_showNumViewOnceToken, ^{
+            static_showNumView = JobsShowNumView.new;
+        });return static_showNumView;
+    };
 }
 
 -(instancetype)init{
@@ -42,12 +56,22 @@ static dispatch_once_t static_showNumViewOnceToken;
 /// 初始化的时候最好传入一个size值将其子视图的大小固定死。因为只有当父视图有Size的情况下子视图才会展开，从而避免刷新约束时候的一系列麻烦事。
 -(instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
-        self.thisViewSize = thisViewSize;
+        self.byThisViewSize(thisViewSize);
     };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsShowNumView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 #pragma mark —— BaseViewProtocol
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -71,13 +95,13 @@ static dispatch_once_t static_showNumViewOnceToken;
         for (NSString *string in temp) {
             UIButton *btn = UIButton.jobsInit()
             .jobsResetBtnBgImage(@"JobsShowNum".img)
-            .jobsResetBtnTitle(string.tr)
+            .jobsResetBtnTitle(string.jobsTr())
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(40))
             .jobsResetBtnTitleCor(HEXCOLOR(0xAE8330))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
-                JobsLog(@"%@",x.titleForNormalState)
+                x.bySelected(!x.selected);
+                JobsLog(@"%@",x.jobsTitleForNormalState())
                 if (self.objBlock) self.objBlock(x);
             });
             btn.addOn(self).byAdd(^(MASConstraintMaker *make) {

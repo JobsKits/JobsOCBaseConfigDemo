@@ -52,14 +52,14 @@ static NSString * const JobsSystemCameraSimulatorToast = @"iOS 模拟器不支�
                     }));
                 }];
             }
-        }else @"保存图片需要获取您的相册权限，请前往设置开启".tr.toast();
+        }else @"保存图片需要获取您的相册权限，请前往设置开启".jobsTr().toast();
     }];
 }
 /// HXPhotoPicker 调取系统相机进行拍摄（没有兼容横屏）
 -(void)hx_invokeSysCameraSuccessBlock:(jobsByIDBlock _Nullable)successBlock
                             failBlock:(jobsByIDBlock _Nullable)failBlock{
 #if TARGET_OS_SIMULATOR
-    JobsSystemCameraSimulatorToast.tr.toast();
+    JobsSystemCameraSimulatorToast.jobsTr().toast();
     return;
 #endif
     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -94,31 +94,11 @@ static NSString * const JobsSystemCameraSimulatorToast = @"iOS 模拟器不支�
                         }));
                     }];
                 }
-            }else @"授权失败,无法使用相机.请在设置-隐私-相机中允许访问相机".tr.toast();
+            }else @"授权失败,无法使用相机.请在设置-隐私-相机中允许访问相机".jobsTr().toast();
         }];
-    }else @"此设备不支持相机!".tr.toast();
+    }else @"此设备不支持相机!".jobsTr().toast();
 }
 /// 完全意义上的调用系统的相机拍照功能
--(jobsByVoidBlock _Nonnull)invokeSysCamera{
-    @jobs_weakify(self)
-    return ^() {
-        @jobs_strongify(self)
-#if TARGET_OS_SIMULATOR
-        JobsSystemCameraSimulatorToast.tr.toast();
-        return;
-#endif
-        // 检查设备是否支持相机功能
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-            /// 显示相机界面
-            self.comingToPresentVC(jobsMakeImagePickerController(^(__kindof UIImagePickerController * _Nullable imagePickerController) {
-                @jobs_strongify(self)
-                imagePickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
-                imagePickerController.delegate = self;
-                imagePickerController.allowsEditing = YES; /// 如果需要用户可以编辑照片，设为YES
-            }));
-        } else @"此设备不支持相机!".tr.toast();
-    };
-}
 #pragma mark —— UIImagePickerControllerDelegate
 /// 当用户拍照完成后，这个方法会被调用
 - (void)imagePickerController:(UIImagePickerController *)picker
@@ -132,7 +112,15 @@ didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
 }
 /// 用户取消拍照时调用这个方法
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
-    [picker dismissViewControllerAnimated:YES completion:nil];
+    ((((jobsByImagePickerCtrlBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(imagePickerControllerDidCancel)))(self, @selector(imagePickerControllerDidCancel))))(picker);
+}
+-(jobsByImagePickerCtrlBlock _Nonnull)imagePickerControllerDidCancel{
+    @jobs_weakify(self)
+    return ^(UIImagePickerController * picker){
+        @jobs_strongify(self)
+        if (!self) return;
+        [picker dismissViewControllerAnimated:YES completion:nil];
+    };
 }
 #pragma mark —— Prop_strong()HXPhotoManager *photoManager;//选取图片的数据管理类
 JobsKey(_photoManager)
@@ -144,19 +132,20 @@ JobsKey(_photoManager)
         @jobs_weakify(self)
         PhotoManager.configuration = jobsMakeHXPhotoConfiguration(^(__kindof HXPhotoConfiguration * _Nullable config) {
             @jobs_strongify(self)
-            config.localFileName = self.appDisplayName.add(@"Models"); /// 模型数组保存草稿时存在本地的文件名称
-            config.type = HXConfigurationTypeWXChat; /// 配置类型
-            config.showOriginalBytes = YES; /// 原图按钮显示已选照片的大小
-            config.showOriginalBytesLoading = YES; /// 原图按钮显示已选照片大小时是否显示加载菊花
-            config.videoMaximumSelectDuration = -1; /// 视频能选择的最大秒数  -  默认 3分钟/180秒
-            config.limitVideoSize = 100 * 1024 * 1024; /// 限制视频的大小 单位：b 字节
-            config.selectVideoLimitSize = YES; /// 选择视频时是否限制照片大小
-            config.selectVideoBeyondTheLimitTimeAutoEdit = NO; /// 选择视频时超出限制时长是否自动跳转编辑界面
-            config.specialModeNeedHideVideoSelectBtn = NO; /// 只针对 照片、视频不能同时选并且视频只能选择1个的时候隐藏掉视频cell右上角的选择按钮
-            config.videoMaxNum = 1; /// 视频最大选择数
-            config.maxNum = 9; /// 最大选择数
-            config.photoMaxNum = 9; /// 照片最大选择数
-            config.selectTogether = NO; /// 图片和视频是否能够同时选择 默认 NO
+            config
+                .byLocalFileName(self.appDisplayName.add(@"Models"))
+                .byType(HXConfigurationTypeWXChat)
+                .byShowOriginalBytes(YES)
+                .byShowOriginalBytesLoading(YES)
+                .byVideoMaximumSelectDuration(-1)
+                .byLimitVideoSize(100 * 1024 * 1024)
+                .bySelectVideoLimitSize(YES)
+                .bySelectVideoBeyondTheLimitTimeAutoEdit(NO)
+                .bySpecialModeNeedHideVideoSelectBtn(NO)
+                .byVideoMaxNum(1)
+                .byMaxNum(9)
+                .byPhotoMaxNum(9)
+                .bySelectTogether(NO);
         });
         /// ❤️导航栏用系统自带的，防止外界关闭了导航栏的bug❤️
         PhotoManager.viewWillAppear = ^(UIViewController *viewController) {

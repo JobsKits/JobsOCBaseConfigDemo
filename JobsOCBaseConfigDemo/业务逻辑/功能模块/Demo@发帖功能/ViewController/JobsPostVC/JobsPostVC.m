@@ -34,6 +34,19 @@ Prop_strong()UITextModel *postTextModel;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsPostVC
+@interface JobsPostVC (JobsPropertyDSLSetterAutogen_e78d1e9e6a)
+-(void)setFd_interactivePopDisabled:(BOOL)data;
+-(void)setHistoryPhotoDataArr:(NSArray <HXPhotoModel *>* _Nullable)data;
+-(void)setInputDataString:(NSString * _Nullable)data;
+-(void)setNeedDeleteItem:(BOOL)data;
+-(void)setPhotosDataArr:(NSArray <HXPhotoModel *>* _Nullable)data;
+-(void)setPhotosImageMutArr:(NSMutableArray <UIImage *>* _Nullable)data;
+-(void)setVideosData:(NSData * _Nullable)data;
+-(void)setVideosDataArr:(NSArray <HXPhotoModel *>* _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsPostVC
+
 @implementation JobsPostVC
 - (void)dealloc{
     JobsRemoveNotification(self);
@@ -41,92 +54,172 @@ Prop_strong()UITextModel *postTextModel;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPostVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(data.attributedTitle.string)
-                .byFont(UIFontWeightRegularSize(16));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        //        self.viewModel.bgImage = @"启动页SLOGAN".img;
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
-    {
-        JobsPostDelViewHeight = JobsPostDelView.viewSizeByModel(nil).height;
-        self.historyPhotoDataArr = [self.photoManager getLocalModelsInFileWithAddData:YES];
-        if (isValue(JobsUserModel.sharedManager.postDraftURLStr)) {
-            self.inputDataHistoryString = [FileFolderHandleTool filePath:JobsUserModel.sharedManager.postDraftURLStr
-                                                                fileType:FileType_TXT];
-        }JobsLog(@"%@",self.inputDataHistoryString);
-    }
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(data.attributedTitle.string)
+                    .byFont(UIFontWeightRegularSize(16));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            //        self.viewModel.bgImage = @"启动页SLOGAN".img;
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+        {
+            JobsPostDelViewHeight = JobsPostDelView.viewSizeByModel(nil).height;
+            self.byHistoryPhotoDataArr([self.photoManager getLocalModelsInFileWithAddData:YES]);
+            if (isValue(((JobsUserModel *)JobsUserModel.jobsSharedManager()).postDraftURLStr)) {
+                self.inputDataHistoryString = [FileFolderHandleTool filePath:((JobsUserModel *)JobsUserModel.jobsSharedManager()).postDraftURLStr
+                                                                    fileType:FileType_TXT];
+            }JobsLog(@"%@",self.inputDataHistoryString);
+        }
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPostVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
     @jobs_weakify(self)
-    self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
-//        @jobs_strongify(self)
-//        data.add(UIBarButtonItem.initBy(self.aboutBtn));
-    });
-    self.rightBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
+    return ^{
         @jobs_strongify(self)
-        data.add(UIBarButtonItem.initBy(self.releaseBtn));
-    });
-    self.makeNavByAlpha(1);
-    self.jobsTextView.byAlpha(1);
-    self.tipsLab.byAlpha(1);
-    self.postPhotoView.byAlpha(1);
-    self.postDelView.byAlpha(1);
-    [self releaseBtnState:self.historyPhotoDataArr inputDataString:self.inputDataHistoryString];
-    self.fd_interactivePopDisabled = YES;
+        if (!self) return;
+            [super viewDidLoad];
+            self.view.byBgColor(JobsSystemBackgroundColor);
+            @jobs_weakify(self)
+            self.byLeftBarButtonItems(jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
+        //        @jobs_strongify(self)
+        //        data.add(UIBarButtonItem.initBy(self.aboutBtn));
+            }))
+            .byRightBarButtonItems(jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
+                @jobs_strongify(self)
+                data.add(UIBarButtonItem.initBy(self.releaseBtn));
+            }));
+            self.makeNavByAlpha(1);
+            self.jobsTextView.byAlpha(1);
+            self.tipsLab.byAlpha(1);
+            self.postPhotoView.byAlpha(1);
+            self.postDelView.byAlpha(1);
+            [self releaseBtnState:self.historyPhotoDataArr inputDataString:self.inputDataHistoryString];
+            self.byFd_interactivePopDisabled(YES);
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.jobsTextView.updateWordCount(self.inputDataHistoryString.length);
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPostVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillAppear:animated];
+        self.jobsTextView.updateWordCount(self.inputDataHistoryString.length);
+    };
 }
 
 -(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-//    if (!self.historyPhotoDataArr.count) {
-//        HXPhotoSubViewCell *cell = (HXPhotoSubViewCell *)[self.postPhotoView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-//        if (cell) {
-//            cell.imageView.image = KIMG(@"选择资源➕");
-//            [UIView cornerCutToCircleWithView:cell
-//                              andCornerRadius:6];
-//        }
-//    }
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPostVC.class, @selector(jobsViewWillLayoutSubviews)))(self, @selector(jobsViewWillLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewWillLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+            [super viewWillLayoutSubviews];
+        //    if (!self.historyPhotoDataArr.count) {
+        //        HXPhotoSubViewCell *cell = (HXPhotoSubViewCell *)[self.postPhotoView.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+        //        if (cell) {
+        //            cell.imageView.image = KIMG(@"选择资源➕");
+        //            [UIView cornerCutToCircleWithView:cell
+        //                              andCornerRadius:6];
+        //        }
+        //    }
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPostVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPostVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPostVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPostVC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+    };
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches
@@ -159,13 +252,13 @@ Prop_strong()UITextModel *postTextModel;
     @jobs_weakify(self)
     if (isValue(self.inputDataString)) {
         NSError *err;
-        JobsUserModel.sharedManager.postDraftURLStr = [NSObject saveData:self.inputDataString
-                                                    withDocumentsChildDir:@"发帖草稿数据临时文件夹".tr
+        ((JobsUserModel *)JobsUserModel.jobsSharedManager()).postDraftURLStr = [NSObject saveData:self.inputDataString
+                                                    withDocumentsChildDir:@"发帖草稿数据临时文件夹".jobsTr()
                                                              fileFullname:@"发帖草稿数据.txt"
                                                                     error:&err];
         if(err) JobsLog(@"%@",err.description);
-    }else FileFolderHandleTool.cleanFilesWithPath(JobsUserModel.sharedManager.postDraftURLStr);
-    JobsLog(@"%@",JobsUserModel.sharedManager.postDraftURLStr);
+    }else FileFolderHandleTool.cleanFilesWithPath(((JobsUserModel *)JobsUserModel.jobsSharedManager()).postDraftURLStr);
+    JobsLog(@"%@",((JobsUserModel *)JobsUserModel.jobsSharedManager()).postDraftURLStr);
     [self.view hx_showLoadingHUDText:nil];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         BOOL success = [self.photoManager saveLocalModelsToFile];/// 保存图片
@@ -174,58 +267,66 @@ Prop_strong()UITextModel *postTextModel;
             [self.view hx_handleLoading];
             if (success) {
                 self.back(nil);
-            }else [self.view hx_showImageHUDText:@"保存失败".tr];
+            }else [self.view hx_showImageHUDText:@"保存失败".jobsTr()];
         });
     });
 }
 
 -(void)不保留文字{
-    FileFolderHandleTool.cleanFilesWithPath(JobsUserModel.sharedManager.postDraftURLStr);
+    FileFolderHandleTool.cleanFilesWithPath(((JobsUserModel *)JobsUserModel.jobsSharedManager()).postDraftURLStr);
     [self.photoManager deleteLocalModelsInFile];
     self.back(nil);
 }
 
--(void)saveDoc{
+-(jobsByVoidBlock _Nonnull)saveDoc{
     @jobs_weakify(self)
-    [NSObject showSPAlertControllerConfig:jobsMakeSPAlertControllerConfig(^(__kindof SPAlertControllerConfig * _Nullable config) {
+    return ^{
         @jobs_strongify(self)
-        config.SPAlertControllerInitType = NSObject_SPAlertControllerInitType_2;
-        config.byTitle(@"提示".tr)
-              .byMessage(@"是否将当前内容保存为草稿？".tr)
-              .byPreferredStyle(SPAlertControllerStyleAlert);
-        config.animationType = SPAlertAnimationTypeDefault;
-        config.alertActionTitleArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>* _Nullable data) {
+        if (!self) return;
+        @jobs_weakify(self)
+        [NSObject showSPAlertControllerConfig:jobsMakeSPAlertControllerConfig(^(__kindof SPAlertControllerConfig * _Nullable config) {
+            @jobs_strongify(self)
+            config.bySPAlertControllerInitType(NSObject_SPAlertControllerInitType_2)
+            .byTitle(@"提示".jobsTr())
+                  .byMessage(@"是否将当前内容保存为草稿？".jobsTr())
+                  .byPreferredStyle(SPAlertControllerStyleAlert)
+            .byAnimationType(SPAlertAnimationTypeDefault);
+            config.alertActionTitleArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>* _Nullable data) {
+                data
+                    .add(@"不保存".jobsTr())
+                    .add(@"保存".jobsTr());
+            });
+            config.alertActionStyleArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>* _Nullable data) {
+                data
+                    .add(@(SPAlertActionStyleDestructive))
+                    .add(@(SPAlertActionStyleDefault));
+            });
+            config.alertBtnActionArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>* _Nullable data) {
+                data
+                    .add(@"不保留文字".jobsTr())
+                    .add(@"保留文字".jobsTr());
+            });
+            config.byTargetVC(self)
+                  .byFuncInWhere(self)
+                  .byAnimated(YES);
+        })
+                               alertVCBlock:^(SPAlertController *data,
+                                              NSMutableArray <SPAlertAction *>*data2) {
             data
-                .add(@"不保存".tr)
-                .add(@"保存".tr);
-        });
-        config.alertActionStyleArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>* _Nullable data) {
-            data
-                .add(@(SPAlertActionStyleDestructive))
-                .add(@(SPAlertActionStyleDefault));
-        });
-        config.alertBtnActionArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>* _Nullable data) {
-            data
-                .add(@"不保留文字".tr)
-                .add(@"保留文字".tr);
-        });
-        config.byTargetVC(self)
-              .byFuncInWhere(self)
-              .byAnimated(YES);
-    })
-                           alertVCBlock:^(SPAlertController *data,
-                                          NSMutableArray <SPAlertAction *>*data2) {
-        data.titleColor = JobsLabelColor;
-        data.messageColor = JobsLabelColor;
-        data.titleFont = UIFontWeightSemiboldSize(16);
-        data.messageFont = UIFontWeightMediumSize(14);
-        SPAlertAction *action1 = (SPAlertAction *)data2[0];
-        SPAlertAction *action2 = (SPAlertAction *)data2[1];
-        action1.titleColor = JobsSecondaryLabelColor;
-        action1.titleFont = UIFontWeightSemiboldSize(16);
-        action2.titleColor = JobsLabelColor;
-        action2.titleFont = UIFontWeightSemiboldSize(16);
-    } completionBlock:nil];
+                .byTitleColor(JobsLabelColor)
+                .byMessageColor(JobsLabelColor)
+                .byTitleFont(UIFontWeightSemiboldSize(16))
+                .byMessageFont(UIFontWeightMediumSize(14));
+            SPAlertAction *action1 = (SPAlertAction *)data2[0];
+            SPAlertAction *action2 = (SPAlertAction *)data2[1];
+            action1
+                .byTitleColor(JobsSecondaryLabelColor)
+                .byTitleFont(UIFontWeightSemiboldSize(16));
+            action2
+                .byTitleColor(JobsLabelColor)
+                .byTitleFont(UIFontWeightSemiboldSize(16));
+        } completionBlock:nil];
+    };
 }
 /// 返回按钮点击方法 【覆写父类方法】 // 清空草稿   [self.photoManager deleteLocalModelsInFile];
 -(jobsByBtnBlock _Nonnull)backBtnClickEvent{
@@ -235,7 +336,7 @@ Prop_strong()UITextModel *postTextModel;
         if (self.isUpload) return;
         if (!self.photoManager.afterSelectedArray.compareEqualArrElement(self.historyPhotoDataArr) ||//!d
             ![NSString isEqualStrA:self.inputDataHistoryString strB:self.inputDataString]) {
-            [self saveDoc];
+            self.saveDoc();
         }else self.back(sender);
     };
 }
@@ -251,7 +352,7 @@ Prop_strong()UITextModel *postTextModel;
 
 -(void)releaseBtnState:(NSArray *)photoDataArr
        inputDataString:(NSString *)inputDataString{
-    self.releaseBtn.byEnabled(photoDataArr.count || inputDataString.length);
+    if (self.releaseBtn) self.releaseBtn.byEnabled(photoDataArr.count || inputDataString.length);
     self.releaseBtn.jobsResetBtnBgImage(self.releaseBtn.enabled ? @"发布".img : @"未发布".img);
 }
 #pragma mark —— HXPhotoViewDelegate
@@ -261,14 +362,14 @@ Prop_strong()UITextModel *postTextModel;
            photos:(NSArray<HXPhotoModel *> *)photos
            videos:(NSArray<HXPhotoModel *> *)videos
          original:(BOOL)isOriginal{
-    self.photosDataArr = photos;
-    self.videosDataArr = videos;
+    self.byPhotosDataArr(photos);
+    self.byVideosDataArr(videos);
     @jobs_weakify(self)
     if (self.videosDataArr.count) {
         [FileFolderHandleTool getVideoFromPHAsset:self.videosDataArr.lastObject.asset
                                          complete:^(FileFolderHandleModel *data) {
             @jobs_strongify(self)
-            self.videosData = data.data;
+            self.byVideosData(data.data);
         }];
     }else if(self.photosDataArr.count){
         if (self.photosImageMutArr.count) [self.photosImageMutArr removeAllObjects];
@@ -276,7 +377,7 @@ Prop_strong()UITextModel *postTextModel;
                                              completion:^(NSArray<UIImage *> * _Nullable imageArray,
                                                           NSArray<HXPhotoModel *> * _Nullable errorArray) {
             @jobs_strongify(self)
-            self.photosImageMutArr = NSMutableArray.initBy(imageArray);
+            self.byPhotosImageMutArr(NSMutableArray.initBy(imageArray));
         }];
     }else{}
     [self releaseBtnState:allList
@@ -312,7 +413,7 @@ gestureRecognizerBegan:(UILongPressGestureRecognizer *)longPgr
     UIView.jobsAnimate(0.25f,
         ^{
         @jobs_strongify(self)
-        self.postDelView.y = JobsMainScreen_HEIGHT() - self->JobsPostDelViewHeight;
+        self.postDelView.byY(JobsMainScreen_HEIGHT() - self->JobsPostDelViewHeight);
     });
 }
 
@@ -327,7 +428,7 @@ gestureRecognizerChange:(UILongPressGestureRecognizer *)longPgr
 gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
         indexPath:(NSIndexPath *)indexPath {
     CGPoint point = [longPgr locationInView:self.view];
-    self.needDeleteItem = point.y >= self.postDelView.y;
+    self.byNeedDeleteItem(point.y >= self.postDelView.y);
     if (point.y >= self.postDelView.y) {
         [self.postPhotoView deleteModelWithIndex:indexPath.item];
     }
@@ -335,7 +436,7 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
     UIView.jobsAnimateWithCompletion(0.25f,
         ^{
         @jobs_strongify(self)
-        self.postDelView.y = JobsMainScreen_HEIGHT();
+        self.postDelView.byY(JobsMainScreen_HEIGHT());
     },
         ^(BOOL finished) {
         @jobs_strongify(self)
@@ -351,13 +452,13 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
             .jobsResetBtnBgImage(@"未发布".img)
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-            .jobsResetBtnTitle(@"发布".tr)
+            .jobsResetBtnTitle(@"发布".jobsTr())
             .jobsResetBtnCornerRadiusValue(JobsWidth(23 / 2))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
                 [self.view endEditing:YES];
-                [self networking_checkHadRoleGET];
+                [self networking_checkHadRoleGET]();
             })
             .onLongPressGestureBy(^(id data){
                 JobsLog(@"");
@@ -380,7 +481,7 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
                 .JobsBlock1(^(id  _Nullable data) {
                     @jobs_strongify(self)
                     NSString *x = (NSString *)data;
-                    self.inputDataString = x;
+                    self.byInputDataString(x);
                     [self releaseBtnState:self.photoManager.afterSelectedArray
                           inputDataString:self.inputDataString];
                 })
@@ -456,9 +557,9 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
                 .byTextCor(RGB_SAMECOLOR(173))
                 .byFont(UIFontWeightBoldSize(1))
                 .byNumberOfLines(0)
-                .byText(@"1、内容不允许出现纯数字，英文字母；".tr
+                .byText(@"1、内容不允许出现纯数字，英文字母；".jobsTr()
                         .add(JobsNewline)
-                        .add(@"2、图片/视频(图片最多9张/仅上传一段视频，大小不超100M)。".tr))
+                        .add(@"2、图片/视频(图片最多9张/仅上传一段视频，大小不超100M)。".jobsTr()))
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.equalTo(self.view).offset(JobsWidth(14));
@@ -476,7 +577,7 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
             @jobs_strongify(self)
             data.byText(self.inputDataHistoryString)
                 .byTextCor(JobsLabelColor)
-                .byPlaceholder(@"撩骚内容，写在这里哦~".tr)
+                .byPlaceholder(@"撩骚内容，写在这里哦~".jobsTr())
                 .byPlaceholderColor(RGB_SAMECOLOR(173))
                 .byFont(UIFontWeightRegularSize(14))
                 .byMaxWordCount(10);
@@ -497,4 +598,77 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
     };return _photosImageMutArr;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsPostVC
+-(JobsRetJobsPostVCByBOOLBlock _Nonnull)byFd_interactivePopDisabled{
+    @jobs_weakify(self)
+    return ^__kindof JobsPostVC * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setFd_interactivePopDisabled:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsPostVCByBOOLBlock _Nonnull)byNeedDeleteItem{
+    @jobs_weakify(self)
+    return ^__kindof JobsPostVC * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setNeedDeleteItem:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsPostVCByNSArrayHXPhotoModelBlock _Nonnull)byHistoryPhotoDataArr{
+    @jobs_weakify(self)
+    return ^__kindof JobsPostVC * _Nullable(NSArray <HXPhotoModel *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setHistoryPhotoDataArr:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsPostVCByNSArrayHXPhotoModelBlock _Nonnull)byPhotosDataArr{
+    @jobs_weakify(self)
+    return ^__kindof JobsPostVC * _Nullable(NSArray <HXPhotoModel *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setPhotosDataArr:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsPostVCByNSArrayHXPhotoModelBlock _Nonnull)byVideosDataArr{
+    @jobs_weakify(self)
+    return ^__kindof JobsPostVC * _Nullable(NSArray <HXPhotoModel *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setVideosDataArr:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsPostVCByNSDataBlock _Nonnull)byVideosData{
+    @jobs_weakify(self)
+    return ^__kindof JobsPostVC * _Nullable(NSData * _Nullable data){
+        @jobs_strongify(self)
+        [self setVideosData:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsPostVCByNSMutableArrayUIImageBlock _Nonnull)byPhotosImageMutArr{
+    @jobs_weakify(self)
+    return ^__kindof JobsPostVC * _Nullable(NSMutableArray <UIImage *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setPhotosImageMutArr:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsPostVCByNSStringBlock _Nonnull)byInputDataString{
+    @jobs_weakify(self)
+    return ^__kindof JobsPostVC * _Nullable(NSString * _Nullable data){
+        @jobs_strongify(self)
+        [self setInputDataString:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsPostVC
 @end

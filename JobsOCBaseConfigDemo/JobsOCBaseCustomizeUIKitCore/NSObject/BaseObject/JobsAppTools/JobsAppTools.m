@@ -15,23 +15,45 @@ Prop_strong()UIWindow *sceneDelegateWindow;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsAppTools
+@interface JobsAppTools (JobsPropertyDSLSetterAutogen_9b6b6bfb3a)
+-(void)setCurrentInterfaceOrientation:(UIInterfaceOrientation)data;
+-(void)setCurrentInterfaceOrientationMask:(UIInterfaceOrientationMask)data;
+-(void)setJobsDeviceOrientation:(DeviceOrientation)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppTools
+
 @implementation JobsAppTools
 #pragma mark —— 初始化方法
 static JobsAppTools *JobsAppToolsInstance = nil;
 static dispatch_once_t JobsAppToolsOnceToken;
-+(instancetype)sharedManager {
-    dispatch_once(&JobsAppToolsOnceToken, ^{
-        JobsAppToolsInstance = [super allocWithZone:NULL].init;
-    });return JobsAppToolsInstance;
++(instancetype)sharedManager{
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsAppTools.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&JobsAppToolsOnceToken, ^{
+            JobsAppToolsInstance = [super allocWithZone:NULL].init;
+        });return JobsAppToolsInstance;
+    };
 }
 /// 单例的销毁
-+(void)destroySingleton {
-    JobsAppToolsOnceToken = 0;
-    JobsAppToolsInstance = nil;
++(void)destroySingleton{
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsAppTools.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        JobsAppToolsOnceToken = 0;
+        JobsAppToolsInstance = nil;
+    };
 }
 /// 防止外部使用 alloc/init 等创建新实例
 +(instancetype)allocWithZone:(struct _NSZone *)zone{
-    return [self sharedManager];
+    return (((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsAppTools.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager)))();
 }
 /// 防止外部调用copy
 -(instancetype)copyWithZone:(NSZone *)zone{
@@ -62,4 +84,32 @@ static dispatch_once_t JobsAppToolsOnceToken;
     };
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsAppTools
+-(JobsRetJobsAppToolsByDeviceOrientationBlock _Nonnull)byJobsDeviceOrientation{
+    @jobs_weakify(self)
+    return ^__kindof JobsAppTools * _Nullable(DeviceOrientation data){
+        @jobs_strongify(self)
+        [self setJobsDeviceOrientation:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsAppToolsByUIInterfaceOrientationBlock _Nonnull)byCurrentInterfaceOrientation{
+    @jobs_weakify(self)
+    return ^__kindof JobsAppTools * _Nullable(UIInterfaceOrientation data){
+        @jobs_strongify(self)
+        [self setCurrentInterfaceOrientation:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsAppToolsByUIInterfaceOrientationMaskBlock _Nonnull)byCurrentInterfaceOrientationMask{
+    @jobs_weakify(self)
+    return ^__kindof JobsAppTools * _Nullable(UIInterfaceOrientationMask data){
+        @jobs_strongify(self)
+        [self setCurrentInterfaceOrientationMask:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAppTools
 @end

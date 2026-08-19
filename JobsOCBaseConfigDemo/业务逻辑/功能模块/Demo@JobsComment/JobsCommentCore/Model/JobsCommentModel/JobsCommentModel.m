@@ -9,41 +9,77 @@
 
 @implementation JobsChildCommentModel
 #pragma mark —— YYModel
-+ (NSDictionary *)modelCustomPropertyMapper{
-    return [super modelCustomPropertyMapper].mutableCopy;
++(NSDictionary *)modelCustomPropertyMapper{
+    return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsChildCommentModel.class, @selector(jobsModelCustomPropertyMapper)))(self, @selector(jobsModelCustomPropertyMapper)))();
+}
+
++ (JobsRetDicByVoidBlock _Nonnull)jobsModelCustomPropertyMapper{
+    return ^NSDictionary *{
+        return [super modelCustomPropertyMapper].mutableCopy;
+    };
 }
 #pragma mark —— MJExtention
-+(NSDictionary *)mj_replacedKeyFromPropertyName {
-    /* 返回的字典，key为模型属性名，value为转化的字典的多级key */
-    return [super mj_replacedKeyFromPropertyName].mutableCopy;
++(NSDictionary *)mj_replacedKeyFromPropertyName{
+    return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsChildCommentModel.class, @selector(jobsMJReplacedKeyFromPropertyName)))(self, @selector(jobsMJReplacedKeyFromPropertyName)))();
+}
+
++(JobsRetDicByVoidBlock _Nonnull)jobsMJReplacedKeyFromPropertyName {
+    return ^NSDictionary *{
+        /* 返回的字典，key为模型属性名，value为转化的字典的多级key */
+        return [super mj_replacedKeyFromPropertyName].mutableCopy;
+    };
 }
 
 @end
 
 @implementation JobsFirstCommentModel
 #pragma mark —— YYModel
-+ (NSDictionary *)modelCustomPropertyMapper{
-    NSMutableDictionary *dict = [super modelCustomPropertyMapper].mutableCopy;
-    dict[@"childDataArr"] = @"child";
-    return dict;
++(NSDictionary *)modelCustomPropertyMapper{
+    return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsFirstCommentModel.class, @selector(jobsModelCustomPropertyMapper)))(self, @selector(jobsModelCustomPropertyMapper)))();
 }
 
-+ (NSDictionary *)modelContainerPropertyGenericClass {
-    return @{
-        @"childDataArr" : JobsChildCommentModel.class
++ (JobsRetDicByVoidBlock _Nonnull)jobsModelCustomPropertyMapper{
+    return ^NSDictionary *{
+        NSMutableDictionary *dict = [super modelCustomPropertyMapper].mutableCopy;
+        dict[@"childDataArr"] = @"child";
+        return dict;
+    };
+}
+
++(NSDictionary *)modelContainerPropertyGenericClass{
+    return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsFirstCommentModel.class, @selector(jobsModelContainerPropertyGenericClass)))(self, @selector(jobsModelContainerPropertyGenericClass)))();
+}
+
++ (JobsRetDicByVoidBlock _Nonnull)jobsModelContainerPropertyGenericClass {
+    return ^NSDictionary *{
+        return @{
+            @"childDataArr" : JobsChildCommentModel.class
+        };
     };
 }
 #pragma mark —— MJExtention
 /* 返回的字典，key为模型属性名，value为转化的字典的多级key */
 +(NSDictionary *)mj_replacedKeyFromPropertyName{
-    NSMutableDictionary *dict = [super mj_replacedKeyFromPropertyName].mutableCopy;
-    dict[@"childDataArr"] = @"child";
-    return dict;
+    return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsFirstCommentModel.class, @selector(jobsMJReplacedKeyFromPropertyName)))(self, @selector(jobsMJReplacedKeyFromPropertyName)))();
+}
+
++(JobsRetDicByVoidBlock _Nonnull)jobsMJReplacedKeyFromPropertyName{
+    return ^NSDictionary *{
+        NSMutableDictionary *dict = [super mj_replacedKeyFromPropertyName].mutableCopy;
+        dict[@"childDataArr"] = @"child";
+        return dict;
+    };
 }
 
 +(NSDictionary *)mj_objectClassInArray{
-    return @{
-        @"childDataArr" : JobsChildCommentModel.class
+    return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsFirstCommentModel.class, @selector(jobsMJObjectClassInArray)))(self, @selector(jobsMJObjectClassInArray)))();
+}
+
++(JobsRetDicByVoidBlock _Nonnull)jobsMJObjectClassInArray{
+    return ^NSDictionary *{
+        return @{
+            @"childDataArr" : JobsChildCommentModel.class
+        };
     };
 }
 
@@ -51,32 +87,62 @@
 
 @implementation JobsCommentModel
 #pragma mark —— YYModel
-+ (NSDictionary *)modelCustomPropertyMapper{
-    return @{
-        @"listDataArr": @"list"
++(NSDictionary *)modelCustomPropertyMapper{
+    return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsCommentModel.class, @selector(jobsModelCustomPropertyMapper)))(self, @selector(jobsModelCustomPropertyMapper)))();
+}
+
++ (JobsRetDicByVoidBlock _Nonnull)jobsModelCustomPropertyMapper{
+    return ^NSDictionary *{
+        return @{
+            @"listDataArr": @"list"
+        };
     };
 }
 
-+ (NSDictionary *)modelContainerPropertyGenericClass {
-    return @{
-        @"list" : JobsFirstCommentModel.class
++(NSDictionary *)modelContainerPropertyGenericClass{
+    return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsCommentModel.class, @selector(jobsModelContainerPropertyGenericClass)))(self, @selector(jobsModelContainerPropertyGenericClass)))();
+}
+
++ (JobsRetDicByVoidBlock _Nonnull)jobsModelContainerPropertyGenericClass {
+    return ^NSDictionary *{
+        return @{
+            @"list" : JobsFirstCommentModel.class
+        };
     };
 }
 #pragma mark —— MJExtention
 /* 返回的字典，key为模型属性名，value为转化的字典的多级key */
 +(NSDictionary *)mj_replacedKeyFromPropertyName{
-    NSMutableDictionary *dict = [super mj_replacedKeyFromPropertyName].mutableCopy;
-    dict[@"listDataArr"] = @"list";
-    return dict;
+    return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsCommentModel.class, @selector(jobsMJReplacedKeyFromPropertyName)))(self, @selector(jobsMJReplacedKeyFromPropertyName)))();
+}
+
++(JobsRetDicByVoidBlock _Nonnull)jobsMJReplacedKeyFromPropertyName{
+    return ^NSDictionary *{
+        NSMutableDictionary *dict = [super mj_replacedKeyFromPropertyName].mutableCopy;
+        dict[@"listDataArr"] = @"list";
+        return dict;
+    };
 }
 
 +(NSDictionary *)mj_objectClassInArray{
-    return @{
-        @"listDataArr" : JobsFirstCommentModel.class,
+    return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsCommentModel.class, @selector(jobsMJObjectClassInArray)))(self, @selector(jobsMJObjectClassInArray)))();
+}
+
++(JobsRetDicByVoidBlock _Nonnull)jobsMJObjectClassInArray{
+    return ^NSDictionary *{
+        return @{
+            @"listDataArr" : JobsFirstCommentModel.class,
+        };
     };
 }
 
 @end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsFirstCommentCustomCofigModel
+@interface JobsFirstCommentCustomCofigModel (JobsPropertyDSLSetterAutogen_f34cb8b9a1)
+-(void)setChildDataArr:(NSArray <JobsChildCommentModel *>* _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsFirstCommentCustomCofigModel
 
 @implementation JobsFirstCommentCustomCofigModel
 #pragma mark —— 自定义属性
@@ -106,4 +172,14 @@
     return NO;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsFirstCommentCustomCofigModel
+-(JobsRetJobsFirstCommentCustomCofigModelByNSArrayJobsChildCommentModelBlock _Nonnull)byChildDataArr{
+    @jobs_weakify(self)
+    return ^__kindof JobsFirstCommentCustomCofigModel * _Nullable(NSArray <JobsChildCommentModel *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setChildDataArr:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsFirstCommentCustomCofigModel
 @end

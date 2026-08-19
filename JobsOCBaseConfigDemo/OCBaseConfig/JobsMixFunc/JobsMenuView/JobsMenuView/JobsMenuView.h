@@ -72,12 +72,12 @@ NS_INLINE __kindof UILabel *_Nonnull jobsMakeMenuView(jobsByMenuViewBlock _Nonnu
      -(NSMutableArray<NSString *> *)titleMutArr{
          if(!_titleMutArr){
              _titleMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>* _Nullable arr) {
-                 arr.add(@"TOP GAMES".tr.add(@"       "))
-                 .add(@"SLOT GAMES".tr.add(@"      "))
-                 .add(@"LIVE CASINO".add(@"       ".tr))
-                 .add(@"TABLE GAMES".tr.add(@"     "))
-                 .add(@"SPORTS".tr.add(@"                   "))
-                 .add(@"FISHING".tr.add(@"                  "));
+                 arr.add(@"TOP GAMES".jobsTr().add(@"       "))
+                 .add(@"SLOT GAMES".jobsTr().add(@"      "))
+                 .add(@"LIVE CASINO".add(@"       ".jobsTr()))
+                 .add(@"TABLE GAMES".jobsTr().add(@"     "))
+                 .add(@"SPORTS".jobsTr().add(@"                   "))
+                 .add(@"FISHING".jobsTr().add(@"                  "));
              });
          };return _titleMutArr;
      }

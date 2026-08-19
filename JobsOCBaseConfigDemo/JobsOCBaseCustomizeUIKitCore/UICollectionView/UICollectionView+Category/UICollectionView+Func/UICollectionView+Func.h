@@ -6,16 +6,17 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UICOLLECTIONVIEW_FUNC_0F30EF789B
-#define JOBS_HEADER_GUARD_UICOLLECTIONVIEW_FUNC_0F30EF789B
-
-#import <UIKit/UIKit.h>
-#import "UICollectionViewCell+BaseViewProtocol.h"
 
 #if __has_include(<MJRefresh/MJRefresh.h>)
 #import <MJRefresh/MJRefresh.h>
 #else
 #import "MJRefresh.h"
 #endif
+
+#define JOBS_HEADER_GUARD_UICOLLECTIONVIEW_FUNC_0F30EF789B
+
+#import <UIKit/UIKit.h>
+#import "UICollectionViewCell+BaseViewProtocol.h"
 
 #import "JobsBaseProtocolHeader.h"
 #import "JobsDefines.h"

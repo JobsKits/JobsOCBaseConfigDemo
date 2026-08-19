@@ -6,6 +6,7 @@
 //
 
 #import "JobsTextView.h"
+
 #import "NSObject+Notification.h"
 #import "NSString+Sys.h"
 #import "NSString+Toast.h"
@@ -21,6 +22,85 @@ Prop_strong()UITextModel *textModel;
 
 @implementation JobsTextView
 @synthesize textModel = _textModel;
+-(JobsRetJobsTextViewByTextModelBlock _Nonnull)byTextModel{
+    @jobs_weakify(self)
+    return ^__kindof JobsTextView *_Nullable(UITextModel *_Nullable textModel){
+        @jobs_strongify(self)
+        [self setTextModel:textModel];
+        return self;
+    };
+}
+
+-(JobsRetJobsTextViewByUIReturnKeyTypeBlock _Nonnull)byReturnKeyType_{
+    @jobs_weakify(self)
+    return ^__kindof JobsTextView *_Nullable(UIReturnKeyType data){
+        @jobs_strongify(self)
+        self.returnKeyType_ = data;
+        self.szTextView.returnKeyType = data;
+        return self;
+    };
+}
+
+-(JobsRetJobsTextViewByUIKeyboardAppearanceBlock _Nonnull)byKeyboardAppearance_{
+    @jobs_weakify(self)
+    return ^__kindof JobsTextView *_Nullable(UIKeyboardAppearance data){
+        @jobs_strongify(self)
+        self.keyboardAppearance_ = data;
+        self.szTextView.keyboardAppearance = data;
+        return self;
+    };
+}
+
+-(JobsRetJobsTextViewByUIKeyboardTypeBlock _Nonnull)byKeyboardType_{
+    @jobs_weakify(self)
+    return ^__kindof JobsTextView *_Nullable(UIKeyboardType data){
+        @jobs_strongify(self)
+        self.keyboardType_ = data;
+        self.szTextView.keyboardType = data;
+        return self;
+    };
+}
+
+-(JobsRetJobsTextViewByStrBlock _Nonnull)byPlaceholder{
+    @jobs_weakify(self)
+    return ^__kindof JobsTextView *_Nullable(NSString *_Nullable data){
+        @jobs_strongify(self)
+        self.textFieldPlaceholder = data;
+        self.szTextView.placeholder = data;
+        return self;
+    };
+}
+
+-(JobsRetJobsTextViewByFontBlock _Nonnull)byFont{
+    @jobs_weakify(self)
+    return ^__kindof JobsTextView *_Nullable(UIFont *_Nullable data){
+        @jobs_strongify(self)
+        self.textFont = data;
+        self.szTextView.byFont(data);
+        return self;
+    };
+}
+
+-(JobsRetJobsTextViewByFontBlock _Nonnull)byPlaceholderFont{
+    @jobs_weakify(self)
+    return ^__kindof JobsTextView *_Nullable(UIFont *_Nullable data){
+        @jobs_strongify(self)
+        self.placeholderFont = data;
+        self.szTextView.byPlaceholderFont(data);
+        return self;
+    };
+}
+
+-(JobsRetJobsTextViewByCorBlock _Nonnull)byPlaceholderColor{
+    @jobs_weakify(self)
+    return ^__kindof JobsTextView *_Nullable(UIColor *_Nullable data){
+        @jobs_strongify(self)
+        self.placeholderColor = data;
+        self.szTextView.byPlaceholderColor(data);
+        return self;
+    };
+}
+
 -(UITextModel *)textModel{
     if (!_textModel) {
         _textModel = UITextModel.new;
@@ -29,16 +109,30 @@ Prop_strong()UITextModel *textModel;
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_textViewOnceToken = 0;
-    static_textView = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsTextView.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_textViewOnceToken = 0;
+        static_textView = nil;
+    };
 }
 
 static JobsTextView *static_textView = nil;
 static dispatch_once_t static_textViewOnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_textViewOnceToken, ^{
-        static_textView = JobsTextView.new;
-    });return static_textView;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsTextView.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_textViewOnceToken, ^{
+            static_textView = JobsTextView.new;
+        });return static_textView;
+    };
 }
 #pragma mark —— SysMethod
 -(instancetype)init{
@@ -64,14 +158,34 @@ static dispatch_once_t static_textViewOnceToken;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTextView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-//    /// 内部指定圆切角
-//    [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
-//                                    cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTextView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+            [super layoutSubviews];
+        //    /// 内部指定圆切角
+        //    [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
+        //                                    cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+    };
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -79,7 +193,7 @@ static dispatch_once_t static_textViewOnceToken;
     return ^(UITextModel *_Nullable model) {
         @jobs_strongify(self)
         if([model isKindOfClass:UITextModel.class]){
-            self.textModel = (UITextModel *)model;
+            self.byTextModel((UITextModel *)model);
             self.updateWordCount(0);
             self.countLabel.byAlpha(1);
             self.szTextView.byAlpha(1);
@@ -87,8 +201,13 @@ static dispatch_once_t static_textViewOnceToken;
     };
 }
 #pragma mark —— 一些公有方法
--(SZTextView *)getTextView{
-    return self.szTextView;
+-(JobsRetSZTextViewByVoidBlock _Nonnull)getTextView{
+    @jobs_weakify(self)
+    return ^SZTextView *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.szTextView;
+    };
 }
 
 -(jobsByNSIntegerBlock _Nonnull)updateWordCount{
@@ -110,35 +229,38 @@ static dispatch_once_t static_textViewOnceToken;
         @jobs_weakify(self)
         _szTextView = jobsMakeSZTextView(^(SZTextView * _Nonnull textView) {
             @jobs_strongify(self)
-            textView.byBgColor(JobsClearColor);
-            textView.editable = YES;
-            textView.addOn(self).byAdd(^(MASConstraintMaker *make) {
-                make.top.equalTo(self).offset(JobsWidth(5));
-                make.left.equalTo(self).offset(JobsWidth(10));
-                make.right.equalTo(self).offset(JobsWidth(-10));
-                make.bottom.equalTo(self.countLabel.mas_top);
-            });
+            textView
+                .byEditable(YES)
+                .byBgColor(JobsClearColor)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self).offset(JobsWidth(5));
+                    make.left.equalTo(self).offset(JobsWidth(10));
+                    make.right.equalTo(self).offset(JobsWidth(-10));
+                    make.bottom.equalTo(self.countLabel.mas_top);
+                });
         });
         /// 这里的x是整个textView目前的所有字符串的值
-        [_szTextView jobsTextViewSubscribeNextBlock:^(NSString * _Nullable x) {
+        _szTextView.jobsTextViewSubscribeNextBlock(^(NSString * _Nullable x) {
             @jobs_strongify(self)
             /// 超过直接截取
             if(x.length > self.textModel.maxWordCount) {
                 x = x.substringToIndex(self.textModel.maxWordCount);
-                @"最多只能输入".tr.add(toStringByLong(self.textModel.maxWordCount).add(@"个字".tr)).toast();
+                @"最多只能输入".jobsTr().add(toStringByLong(self.textModel.maxWordCount).add(@"个字".jobsTr())).toast();
             }
-            self.szTextView.text = x;
-            self.textModel.curWordCount = x.length;
+            self.szTextView.byText(x);
+            self.textModel.byCurWordCount(x.length);
             self.updateWordCount(0);
             /// 向外回调目前的textView的字符串
             if (self.objBlock) self.objBlock(x);
-        }];
+        });
     }
     UITextModel *textModel = self.textModel;
-    _szTextView.text = textModel.text ?: @"";
-    _szTextView.textColor = textModel.textCor;
-    if (textModel.placeholderColor) _szTextView.placeholderTextColor = textModel.placeholderColor;
-    _szTextView.placeholder = textModel.placeholder ?: @"";
+    _szTextView
+        .byText(textModel.text ?: @"")
+        .byTextColor(textModel.textCor)
+        .byPlaceholderColor(textModel.placeholderColor ?: _szTextView.placeholderTextColor)
+        .byPlaceholder(textModel.placeholder ?: @"");
     return _szTextView;
 }
 

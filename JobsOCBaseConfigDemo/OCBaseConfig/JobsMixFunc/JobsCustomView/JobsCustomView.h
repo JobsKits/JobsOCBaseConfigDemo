@@ -6,10 +6,12 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSCUSTOMVIEW_91D25AC310
-#define JOBS_HEADER_GUARD_JOBSCUSTOMVIEW_91D25AC310
 
-#import <UIKit/UIKit.h>
-#import "JobsOCDSL.h"
+#if __has_include(<BRPickerView/BRPickerView.h>)
+#import <BRPickerView/BRPickerView.h>
+#else
+#import "BRPickerView.h"
+#endif
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
@@ -23,11 +25,16 @@
 #import "XYColorOC.h"
 #endif
 
-#if __has_include(<BRPickerView/BRPickerView.h>)
-#import <BRPickerView/BRPickerView.h>
+#define JOBS_HEADER_GUARD_JOBSCUSTOMVIEW_91D25AC310
+
+#import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
 #else
-#import "BRPickerView.h"
+#import "JobsBlock.h"
 #endif
+#import "JobsOCDSL.h"
 
 #import "JobsBaseUI.h"
 #import "JobsModelDSL.h"
@@ -40,6 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsCustomView : BaseView
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsCustomView
+-(JobsRetJobsCustomViewByCGSizeBlock _Nonnull)byBtnSize;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsCustomView
 @end
 
 NS_ASSUME_NONNULL_END

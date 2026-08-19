@@ -54,6 +54,10 @@ Prop_copy(readonly)JobsRetControlByBOOLBlock bySymbolAnimationEnabled API_AVAILA
 Prop_copy(readonly)JobsRetControlByVoidBlock byPerformPrimaryAction API_AVAILABLE(ios(17.4));
 #endif
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN UIControl
+-(JobsRetControlByBOOLBlock _Nonnull)byUxy_ignoreEvent;
+-(void)setUxy_ignoreEvent:(BOOL)data;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UIControl
 @end
 
 NS_ASSUME_NONNULL_END

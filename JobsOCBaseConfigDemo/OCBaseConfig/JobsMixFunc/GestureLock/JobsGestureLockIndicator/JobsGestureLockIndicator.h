@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_JOBSGESTURELOCKINDICATOR_60CF741297
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "JobsDefines.h"
 
 @class JobsGestureLockConfiguration;
@@ -22,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_strong()JobsGestureLockConfiguration *configuration;
 
 -(instancetype)initWithConfiguration:(nullable JobsGestureLockConfiguration *)configuration;
--(void)updateWithPattern:(nullable NSString *)pattern;
+-(jobsByStrBlock _Nonnull)updateWithPattern;
 
 @end
 

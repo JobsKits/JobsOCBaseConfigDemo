@@ -93,40 +93,40 @@ uploadVideosParamArr:(NSArray *_Nullable)uploadVideosParamArr
             switch (responseModel.code) {
                 /// 服务器异常
                 case HTTPResponseCodeServeError:{
-                    self.jobsToastErrMsg(@"服务器异常".tr);
+                    self.jobsToastErrMsg(@"服务器异常".jobsTr());
                 }break;
                 /// 令牌不能为空
                 case HTTPResponseCodeNoToken:{
-                    self.jobsToastErrMsg(@"令牌不能为空".tr);
+                    self.jobsToastErrMsg(@"令牌不能为空".jobsTr());
                 }break;
                 /// 登录失败：账密错误
                 case HTTPResponseCodeLoginFailed:{
-                    self.jobsToastErrMsg(@"登录失败：账密错误".tr);
+                    self.jobsToastErrMsg(@"登录失败：账密错误".jobsTr());
                 }break;
                 /// 登录已过期，请重新登录
                 case HTTPResponseCodeTokenExpire:{
                     JobsPostNotification(退出登录成功,@(NO));
-                    self.jobsToastErrMsg(@"登录已过期，请重新登录".tr);
+                    self.jobsToastErrMsg(@"登录已过期，请重新登录".jobsTr());
                 }break;
                 /// 授权失败
                 case HTTPResponseCodeAuthorizationFailure:{
-                    self.jobsToastErrMsg(@"授权失败".tr);
+                    self.jobsToastErrMsg(@"授权失败".jobsTr());
                 }break;
                 /// 限定时间内超过请求次数
                 case HTTPResponseCodeLeakTime:{
-                    self.jobsToastErrMsg(@"限定时间内超过请求次数".tr);
+                    self.jobsToastErrMsg(@"限定时间内超过请求次数".jobsTr());
                 }break;
                 /// 风险操作
                 case HTTPResponseCodeRiskOperation:{
-                    self.jobsToastErrMsg(@"风险操作".tr);
+                    self.jobsToastErrMsg(@"风险操作".jobsTr());
                 }break;
                 /// 未设置交易密码
                 case HTTPResponseCodeNoSettingTransactionPassword:{
-                    self.jobsToastErrMsg(@"未设置交易密码".tr);
+                    self.jobsToastErrMsg(@"未设置交易密码".jobsTr());
                 }break;
                 /// 账号已在其他设备登录
                 case HTTPResponseCodeOffline:{
-                    self.jobsToastErrMsg(@"账号已在其他设备登录t".tr);
+                    self.jobsToastErrMsg(@"账号已在其他设备登录t".jobsTr());
                 }break;
                 /// 未匹配已知分支时执行兜底处理
                 default:{

@@ -211,13 +211,13 @@
         /// 获取蓝色值
         int b = [[RGBArr objectAtIndex:3] floatValue] * 255;
         NSString *blueStr = toStringByInt(b);
-        return @"红色".tr
+        return @"红色".jobsTr()
             .add(@":")
             .add(redStr)
-            .add(@"绿色".tr)
+            .add(@"绿色".jobsTr())
             .add(@":")
             .add(greenStr)
-            .add(@"蓝色".tr)
+            .add(@"蓝色".jobsTr())
             .add(@":")
             .add(blueStr);
     };
@@ -264,10 +264,18 @@
 }
 /// 根据颜色生成图片
 -(UIImage *)image{
-    return self.imageByRect(CGRectMake(0.0f,
-                                       0.0f,
-                                       1.0f,
-                                       1.0f));
+    return (((JobsRetImageByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIColor.class, @selector(jobsImage)))(self, @selector(jobsImage)))();
+}
+-(JobsRetImageByVoidBlock _Nonnull)jobsImage{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.imageByRect(CGRectMake(0.0f,
+                                           0.0f,
+                                           1.0f,
+                                           1.0f));
+    };
 }
 /// 根据颜色生成图片
 -(JobsRetImageByFrameBlock _Nonnull)imageByRect{

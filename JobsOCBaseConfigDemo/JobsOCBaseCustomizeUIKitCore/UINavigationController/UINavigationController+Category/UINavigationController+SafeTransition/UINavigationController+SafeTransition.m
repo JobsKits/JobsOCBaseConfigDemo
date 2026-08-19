@@ -73,31 +73,31 @@ static void JobsInstallNavigationDefaults(UINavigationController *navigationCont
     if (!JobsShouldInstallNavigationDefaults(navigationController, viewController)) return;
     if (JobsIsSystemNavigationBarDemo(viewController)) {
         [navigationController setNavigationBarHidden:NO animated:NO];
-        navigationController.navigationBar.hidden = NO;
-        [viewController jobs_ensureDemoThemeButton];
+        navigationController.navigationBar.byHidden(NO);
+        viewController.jobs_ensureDemoThemeButton();
         return;
     }
     if (!viewController.title.length) viewController.title = NSStringFromClass(viewController.class);
     if (!viewController.gk_navTitle.length && !viewController.gk_navTitleView) {
         if (viewController.navigationItem.titleView) {
-            viewController.gk_navTitleView = viewController.navigationItem.titleView;
+            viewController.byGk_navTitleView(viewController.navigationItem.titleView);
         }else viewController.gk_navTitle = viewController.title;
     }
     if (!viewController.gk_navRightBarButtonItem && !viewController.gk_navRightBarButtonItems.count) {
         if (viewController.navigationItem.rightBarButtonItems.count) {
-            viewController.gk_navRightBarButtonItems = viewController.navigationItem.rightBarButtonItems;
+            viewController.byGk_navRightBarButtonItems(viewController.navigationItem.rightBarButtonItems);
         }else if (viewController.navigationItem.rightBarButtonItem) {
-            viewController.gk_navRightBarButtonItem = viewController.navigationItem.rightBarButtonItem;
+            viewController.byGk_navRightBarButtonItem(viewController.navigationItem.rightBarButtonItem);
         }
     }
-    [viewController jobs_ensureDemoThemeButton];
     if (!viewController.gk_navLeftBarButtonItem && !viewController.gk_navLeftBarButtonItems.count) {
-        viewController.gk_navLeftBarButtonItem = viewController.backBtnCategoryItem;
+        viewController.byGk_navLeftBarButtonItem(viewController.backBtnCategoryItem);
     }
+    viewController.jobs_ensureDemoThemeButton();
     UIView *navigationBar = viewController.gk_navigationBar;
-    navigationBar.hidden = NO;
-    navigationBar.alpha = 1;
-    viewController.gk_navBarAlpha = 1;
+    navigationBar.byHidden(NO);
+    navigationBar.byAlpha(1);
+    viewController.byGk_navBarAlpha(1);
     [navigationController setNavigationBarHidden:YES animated:NO];
     [viewController.view bringSubviewToFront:navigationBar];
 }
@@ -143,12 +143,22 @@ JobsKey(_viewTransitionInProgress)
 }
 #pragma mark —— Intercept Pop, Push, PopToRootVC
 - (NSArray *)safePopToRootViewControllerAnimated:(BOOL)animated {
-    if (self.viewTransitionInProgress) return nil;
-    if (animated) self.viewTransitionInProgress = YES;
-    NSArray *viewControllers = [self safePopToRootViewControllerAnimated:animated];
-    if (viewControllers.count == 0) {
-        self.viewTransitionInProgress = NO;
-    };return viewControllers;
+    JobsRetNSArrayByBOOLBlock action = ((JobsRetNSArrayByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UINavigationController.class, @selector(jobsSafePopToRootViewControllerAnimated)))(self, @selector(jobsSafePopToRootViewControllerAnimated));
+    return action ? action(animated) : nil;
+}
+
+-(JobsRetNSArrayByBOOLBlock _Nonnull)jobsSafePopToRootViewControllerAnimated{
+    @jobs_weakify(self)
+    return ^NSArray *(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (self.viewTransitionInProgress) return nil;
+        if (animated) self.viewTransitionInProgress = YES;
+        NSArray *viewControllers = [self safePopToRootViewControllerAnimated:animated];
+        if (viewControllers.count == 0) {
+            self.byViewTransitionInProgress(NO);
+        };return viewControllers;
+    };
 }
 
 - (NSArray *)safePopToViewController:(UIViewController *)viewController
@@ -157,16 +167,26 @@ JobsKey(_viewTransitionInProgress)
     if (animated) self.viewTransitionInProgress = YES;
     NSArray *viewControllers = [self safePopToViewController:viewController animated:animated];
     if (viewControllers.count == 0) {
-        self.viewTransitionInProgress = NO;
+        self.byViewTransitionInProgress(NO);
     };return viewControllers;
 }
 
 - (UIViewController *)safePopViewControllerAnimated:(BOOL)animated {
-    if (self.viewTransitionInProgress) return nil;
-    if (animated) self.viewTransitionInProgress = YES;
-    UIViewController *viewController = [self safePopViewControllerAnimated:animated];
-    if (!viewController) self.viewTransitionInProgress = NO;
-    return viewController;
+    JobsRetGKNavVCByBOOLBlock action = ((JobsRetGKNavVCByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UINavigationController.class, @selector(jobsSafePopViewControllerAnimated)))(self, @selector(jobsSafePopViewControllerAnimated));
+    return action ? action(animated) : nil;
+}
+
+-(JobsRetGKNavVCByBOOLBlock _Nonnull)jobsSafePopViewControllerAnimated{
+    @jobs_weakify(self)
+    return ^UIViewController *(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (self.viewTransitionInProgress) return nil;
+        if (animated) self.viewTransitionInProgress = YES;
+        UIViewController *viewController = [self safePopViewControllerAnimated:animated];
+        if (!viewController) self.viewTransitionInProgress = NO;
+        return viewController;
+    };
 }
 
 - (void)safePushViewController:(UIViewController *)viewController
@@ -190,11 +210,16 @@ JobsKey(_viewTransitionInProgress)
     }];
 }
 
-- (void)ty_popToRootViewControllerBySetControllersAnimated:(BOOL)animated {
-    if (!animated) {
-        NSArray *list = @[self.childViewControllers.firstObject];
-        [self setViewControllers:list animated:animated];
-    }else [self ty_popToRootViewControllerBySetControllersAnimated:animated];
+-(jobsByBOOLBlock _Nonnull)ty_popToRootViewControllerBySetControllersAnimated{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (!animated) {
+            NSArray *list = @[self.childViewControllers.firstObject];
+            [self setViewControllers:list animated:animated];
+        }else self.ty_popToRootViewControllerBySetControllersAnimated(animated);
+    };
 }
 
 @end
@@ -208,9 +233,20 @@ JobsKey(_viewTransitionInProgress)
 }
 
 - (void)safeViewDidAppear:(BOOL)animated {
-    self.navigationController.viewTransitionInProgress = NO;
-    [self safeViewDidAppear:animated];
-    JobsInstallNavigationDefaults(self.navigationController, self);
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIViewController.class, @selector(jobsSafeViewDidAppear)))(self, @selector(jobsSafeViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsSafeViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        UINavigationController *navigationController = self.navigationController;
+        if (navigationController) navigationController.byViewTransitionInProgress(NO);
+        [self safeViewDidAppear:animated];
+        JobsInstallNavigationDefaults(navigationController, self);
+    };
 }
 
 @end

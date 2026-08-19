@@ -6,15 +6,16 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSHOTLABELBYMULTILINECVCELL_F45C663B90
-#define JOBS_HEADER_GUARD_JOBSHOTLABELBYMULTILINECVCELL_F45C663B90
-
-#import <UIKit/UIKit.h>
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSHOTLABELBYMULTILINECVCELL_F45C663B90
+
+#import <UIKit/UIKit.h>
 
 #import "JobsBaseProtocolHeader.h"
 #import "JobsByOCPods.h"

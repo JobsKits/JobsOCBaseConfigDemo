@@ -10,6 +10,18 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (IDFV)
@@ -23,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
      注意：如果用户将属于此Vender的所有App卸载，则idfv的值会被重置，即再重装此Vender的App，idfv的值和之前不同。
  */
--(NSString *)IDFV;
+-(JobsRetStrByVoidBlock _Nonnull)IDFV;
 
 @end
 

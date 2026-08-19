@@ -7,6 +7,19 @@
 
 #import "NSObject+NTESVerifyCodeManager.h"
 
+@implementation NTESVerifyCodeManager (JobsVerifyCodeDSL)
+-(JobsRetNTESVerifyCodeManagerByIDBlock _Nonnull)byDelegate{
+    @jobs_weakify(self)
+    return ^__kindof NTESVerifyCodeManager *_Nullable(id _Nullable data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.delegate = data;
+        return self;
+    };
+}
+
+@end
+
 @implementation NSObject (NTESVerifyCodeManager)
 #pragma mark —— BaseProtocol
 // 显示验证码
@@ -53,7 +66,7 @@ JobsKey(_verifyCodeManager)
     if(!VerifyCodeManager){
         /// 获取验证码管理对象
         VerifyCodeManager = NTESVerifyCodeManager.getInstance;
-        VerifyCodeManager.delegate = self;
+        VerifyCodeManager.byDelegate(self);
         [VerifyCodeManager configureVerifyCode:网易易盾KEY 
                                        timeout:7.0
                                    styleConfig:self.verifyCodeStyleConfig];

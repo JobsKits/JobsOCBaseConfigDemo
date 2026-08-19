@@ -40,9 +40,22 @@ Prop_strong() NSMutableArray <UILabel *>*prizeTitleLabelMutArr;
 Prop_strong() UIButton *resultCloseButton;
 Prop_strong() UIImageView *resultBackgroundImageView;
 
+-(JobsRetLuckyDiskDemoVCByStrBlock _Nonnull)byResult;
+
 @end
 
 @implementation LuckyDiskDemoVC
+
+-(JobsRetLuckyDiskDemoVCByStrBlock _Nonnull)byResult{
+    @jobs_weakify(self)
+    return ^__kindof LuckyDiskDemoVC *_Nullable(NSString *_Nullable string){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setResult:string];
+        return self;
+    };
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     @jobs_weakify(self)
@@ -163,7 +176,7 @@ Prop_strong() UIImageView *resultBackgroundImageView;
         .addOn(self.itemContainerView);
     // 按钮内标题（懒加载）
     self.startLabel
-        .byText(@"开始抽奖".tr)
+        .byText(@"开始抽奖".jobsTr())
         .byTextCor(RGB_COLOR(65, 155, 9))
         .byFont(UIFontSystemFontOfSize(ScaleW(15)))
         .byFrame(CGRectMake(ScaleW(56), ScaleW(22), ScaleW(82), ScaleW(15)))
@@ -178,19 +191,19 @@ Prop_strong() UIImageView *resultBackgroundImageView;
     self.slowIndex = -1;
     self.selectedIndex = arc4random() % 10;
     if (self.selectedIndex < 4) {
-        self.result = self.itemTitleArray[self.selectedIndex];
+        self.byResult(self.itemTitleArray[self.selectedIndex]);
     } else if (self.selectedIndex == 4) {
-        self.result = @"2018跳币";
+        self.byResult(@"2018跳币");
     } else if (self.selectedIndex == 5) {
-        self.result = @"88跳币";
+        self.byResult(@"88跳币");
     } else if (self.selectedIndex == 6) {
-        self.result = @"28朵花";
+        self.byResult(@"28朵花");
     } else if (self.selectedIndex == 7) {
-        self.result = @"128跳币";
+        self.byResult(@"128跳币");
     } else if (self.selectedIndex == 8) {
-        self.result = @"528跳币";
+        self.byResult(@"528跳币");
     } else if (self.selectedIndex == 9) {
-        self.result = @"128朵花";
+        self.byResult(@"128朵花");
     }
     // 显示高亮边框（alpha 唤起）
     self.itemBorderView.byAlpha(1.0f);

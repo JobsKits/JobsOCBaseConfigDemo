@@ -57,7 +57,7 @@
     @jobs_weakify(self)
     return ^__kindof CATextLayer *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
-        self.foregroundColor = data.CGColor;
+        self.byForegroundColor(data.CGColor);
         return self;
     };
 }

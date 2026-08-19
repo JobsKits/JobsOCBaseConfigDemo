@@ -6,6 +6,7 @@
 //
 
 #import "BaseTableViewHeaderFooterView.h"
+
 #import "UITableView+Extra.h"
 #import "UITableViewHeaderFooterView+BaseTableViewHeaderFooterViewProtocol.h"
 #import "UIView+Extra.h"
@@ -15,6 +16,15 @@
 @end
 
 @implementation BaseTableViewHeaderFooterView
+-(JobsRetBaseTableViewHeaderFooterViewByViewBlock _Nonnull)byBackgroundView{
+    @jobs_weakify(self)
+    return ^__kindof BaseTableViewHeaderFooterView *_Nullable(__kindof UIView *_Nullable backgroundView){
+        @jobs_strongify(self)
+        [self setBackgroundView:backgroundView];
+        return self;
+    };
+}
+
 #pragma mark —— BaseViewProtocol
 BaseViewProtocol_synthesize
 -(instancetype)initWithReuseIdentifier:(nullable NSString *)reuseIdentifier{
@@ -22,7 +32,7 @@ BaseViewProtocol_synthesize
         /// self.backgroundColor 和  self.contentView.backgroundColor 均是无效操作❌
         /// 只有 self.backgroundView.backgroundColor 是有效操作✅
         /// 默认情况下，backgroundView 是 nil
-        self.backgroundView = UIView.initByFrame(self.bounds);
+        self.byBackgroundView(UIView.initByFrame(self.bounds));
     };return self;
 }
 /**
@@ -31,26 +41,46 @@ BaseViewProtocol_synthesize
  资料来源：https://github.com/Zydhjx/HeaderDemo
  UITableView类型：UITableViewStylePlain
  */
-- (void)setFrame:(CGRect)frame {
-    if(self.tbv){
-        if (self.headerFooterViewStyle == JobsHeaderViewStyle) {
-            [super setFrame:self.tbv.rectForHeaderInSection(self.section)];
-        }else if (self.headerFooterViewStyle == JobsFooterViewStyle){
-            [super setFrame:self.tbv.rectForFooterInSection(self.section)];
+-(void)setFrame:(CGRect)frame{
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseTableViewHeaderFooterView.class, @selector(jobsSetFrame)))(self, @selector(jobsSetFrame));
+    if (action) action(frame);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsSetFrame{
+    @jobs_weakify(self)
+    return ^(CGRect frame){
+        @jobs_strongify(self)
+        if (!self) return;
+        if(self.tbv){
+            if (self.headerFooterViewStyle == JobsHeaderViewStyle) {
+                [super setFrame:self.tbv.rectForHeaderInSection(self.section)];
+            }else if (self.headerFooterViewStyle == JobsFooterViewStyle){
+                [super setFrame:self.tbv.rectForFooterInSection(self.section)];
+            }else [super setFrame:frame];/// 不悬浮
         }else [super setFrame:frame];/// 不悬浮
-    }else [super setFrame:frame];/// 不悬浮
+    };
 }
 
 - (void)layoutSubviews{
-    [super layoutSubviews];
-    // 解决当UITableViewHeaderFooterView悬浮的时候背景白色的问题（设置成透明色）
-    // 遍历子视图，找到UIVisualEffectView
-    for (UIView *subview in self.subviews) {
-        if([subview isKindOfClass:NSClassFromString(UISystemBackgroundView)]){
-            // subview.backgroundColor = JobsClearColor; 设置成透明色，无效
-            subview.jobsVisible = NO;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseTableViewHeaderFooterView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        // 解决当UITableViewHeaderFooterView悬浮的时候背景白色的问题（设置成透明色）
+        // 遍历子视图，找到UIVisualEffectView
+        for (UIView *subview in self.subviews) {
+            if([subview isKindOfClass:NSClassFromString(UISystemBackgroundView)]){
+                // subview.backgroundColor = JobsClearColor; 设置成透明色，无效
+                subview.byJobsVisible(NO);
+            }
         }
-    }
+    };
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches

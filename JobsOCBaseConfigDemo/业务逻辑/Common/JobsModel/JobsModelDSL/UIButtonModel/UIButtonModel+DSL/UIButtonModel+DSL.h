@@ -11,6 +11,12 @@
 #import "JobsModel.h"
 #import "JobsBlock.h"
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIButtonModel (DSL)
@@ -163,8 +169,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetUIButtonModelByBOOLBlock _Nonnull)byJobsEnabled;
 -(JobsRetUIButtonModelByUIViewPointerBlock _Nonnull)byVIEW;
 -(JobsRetUIButtonModelByUIViewControllerPointerBlock _Nonnull)byVC;
--(__kindof UIButtonModel *_Nonnull (^ _Nonnull)(UIButtonConfiguration * _Nullable data))byButtonConfiguration;
--(__kindof UIButtonModel *_Nonnull (^ _Nonnull)(UIBackgroundConfiguration * _Nullable data))byBackgroundConfiguration;
+-(JobsRetUIButtonModelByUIButtonConfigurationBlock _Nonnull)byButtonConfiguration;
+-(JobsRetUIButtonModelByUIBackgroundConfigurationPointerBlock _Nonnull)byBackgroundConfiguration;
 -(JobsRetUIButtonModelByUIControlContentHorizontalAlignmentBlock _Nonnull)byContentHorizontalAlignment;
 -(JobsRetUIButtonModelByUIControlContentVerticalAlignmentBlock _Nonnull)byContentVerticalAlignment;
 -(JobsRetUIButtonModelByNSDirectionalEdgeInsetsBlock _Nonnull)byContentInsets;

@@ -88,7 +88,7 @@
     @jobs_weakify(self)
     return ^__kindof JobsTimerMgr *_Nullable(NSString *_Nullable data) {
         @jobs_strongify(self)
-        [self start:data];
+        self.start(data);
         return self;
     };
 }
@@ -97,7 +97,7 @@
     @jobs_weakify(self)
     return ^__kindof JobsTimerMgr *_Nullable(NSString *_Nullable data) {
         @jobs_strongify(self)
-        [self pause:data];
+        self.pause(data);
         return self;
     };
 }
@@ -106,7 +106,7 @@
     @jobs_weakify(self)
     return ^__kindof JobsTimerMgr *_Nullable(NSString *_Nullable data) {
         @jobs_strongify(self)
-        [self resume:data];
+        self.resume(data);
         return self;
     };
 }
@@ -115,7 +115,7 @@
     @jobs_weakify(self)
     return ^__kindof JobsTimerMgr *_Nullable(NSString *_Nullable data) {
         @jobs_strongify(self)
-        [self pauseScope:data];
+        self.pauseScope(data);
         return self;
     };
 }
@@ -124,7 +124,7 @@
     @jobs_weakify(self)
     return ^__kindof JobsTimerMgr *_Nullable(NSString *_Nullable data) {
         @jobs_strongify(self)
-        [self resumeScope:data];
+        self.resumeScope(data);
         return self;
     };
 }
@@ -133,7 +133,7 @@
     @jobs_weakify(self)
     return ^__kindof JobsTimerMgr *_Nullable(NSString *_Nullable data) {
         @jobs_strongify(self)
-        [self fireOnceAndRemove:data];
+        self.fireOnceAndRemove(data);
         return self;
     };
 }
@@ -142,7 +142,7 @@
     @jobs_weakify(self)
     return ^__kindof JobsTimerMgr *_Nullable(NSString *_Nullable data) {
         @jobs_strongify(self)
-        [self stopAndRemove:data];
+        self.stopAndRemove(data);
         return self;
     };
 }
@@ -161,7 +161,7 @@
     @jobs_weakify(self)
     return ^__kindof JobsTimerMgr *_Nullable(NSString *_Nullable data) {
         @jobs_strongify(self)
-        [self stopAndRemoveScope:data];
+        self.stopAndRemoveScope(data);
         return self;
     };
 }
@@ -170,7 +170,7 @@
     @jobs_weakify(self)
     return ^__kindof JobsTimerMgr *_Nullable(void) {
         @jobs_strongify(self)
-        [self stopAndRemoveAll];
+        self.stopAndRemoveAll();
         return self;
     };
 }

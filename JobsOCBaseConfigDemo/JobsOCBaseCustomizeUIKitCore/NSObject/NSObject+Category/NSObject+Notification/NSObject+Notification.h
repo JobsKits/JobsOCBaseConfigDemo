@@ -6,6 +6,13 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_NSOBJECT_NOTIFICATION_AC2430FD42
+
+#if __has_include(<ReactiveObjC/ReactiveObjC.h>)
+#import <ReactiveObjC/ReactiveObjC.h>
+#else
+#import "ReactiveObjC.h"
+#endif
+
 #define JOBS_HEADER_GUARD_NSOBJECT_NOTIFICATION_AC2430FD42
 
 #pragma once
@@ -18,12 +25,6 @@
 #import "JobsOCRuntimeKits.h"
 #import "JobsBlock.h"
 #import "JobsDefines.h"
-
-#if __has_include(<ReactiveObjC/ReactiveObjC.h>)
-#import <ReactiveObjC/ReactiveObjC.h>
-#else
-#import "ReactiveObjC.h"
-#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -47,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)monitorNotification:(NSString *_Nonnull)notificationName
                  withBlock:(JobsRetIDByTwoIDBlock _Nonnull)actionBlock;
 ///【监听通知】设置App语言环境
--(void)monitorAppLanguage;
+-(jobsByVoidBlock _Nonnull)monitorAppLanguage;
 ///【发通知】设置App语言环境
 -(jobsByNSIntegerBlock _Nonnull)appLanguageAtAppLanguageBy;
 

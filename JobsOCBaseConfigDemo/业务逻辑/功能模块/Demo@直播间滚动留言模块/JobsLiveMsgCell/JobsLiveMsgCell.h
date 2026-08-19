@@ -7,10 +7,10 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
 #else
-#import "Masonry.h"
+#import "JobsBlock.h"
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
@@ -31,13 +31,19 @@
 #import "JobsMakes.h"
 #endif
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsLiveMsgCell : UITableViewCell
 
-+(NSString *)reuseIdentifier;
--(void)configureWithText:(NSString *)text;
--(void)playAppearAnimation;
++(JobsRetStrByVoidBlock _Nonnull)reuseIdentifier;
+-(jobsByStrBlock _Nonnull)configureWithText;
+-(jobsByVoidBlock _Nonnull)playAppearAnimation;
 
 @end
 

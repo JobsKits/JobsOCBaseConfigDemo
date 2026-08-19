@@ -18,9 +18,22 @@ typedef NS_ENUM(NSUInteger, _JobsOnceStatus) {
 Prop_strong()NSCondition *condition;
 Prop_assign()_JobsOnceStatus status;
 
+-(JobsRetIDByUIntegerBlock _Nonnull)byStatus;
+
 @end
 
 @implementation _JobsOnceState
+
+-(JobsRetIDByUIntegerBlock _Nonnull)byStatus{
+    @jobs_weakify(self)
+    return ^id _Nullable(NSUInteger data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.status = data;
+        return self;
+    };
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {
@@ -33,57 +46,72 @@ Prop_assign()_JobsOnceStatus status;
 
 @implementation JobsLocker (Once)
 JobsKey(JobsLockerOnceStateKey)
-- (_JobsOnceState *)jobs_onceState {
-    _JobsOnceState *state = Jobs_getAssociatedObject(JobsLockerOnceStateKey);
-    if (state) return state;
-    @synchronized (self) {
-        state = Jobs_getAssociatedObject(JobsLockerOnceStateKey);
-        if (!state) {
-            state = [[_JobsOnceState alloc] init];
-            Jobs_setAssociatedRETAIN_NONATOMIC(JobsLockerOnceStateKey, state)
-        }
-    };return state;
+- (JobsRetJobsOnceStateByVoidBlock _Nonnull)jobs_onceState {
+    @jobs_weakify(self)
+    return ^_JobsOnceState *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        _JobsOnceState *state = Jobs_getAssociatedObject(JobsLockerOnceStateKey);
+        if (state) return state;
+        @synchronized (self) {
+            state = Jobs_getAssociatedObject(JobsLockerOnceStateKey);
+            if (!state) {
+                state = [[_JobsOnceState alloc] init];
+                Jobs_setAssociatedRETAIN_NONATOMIC(JobsLockerOnceStateKey, state)
+            }
+        };return state;
+    };
 }
 
-- (void)executeOnce:(NS_NOESCAPE dispatch_block_t)block {
-    if (!block) return;
-    _JobsOnceState *state = [self jobs_onceState];
-    [state.condition lock];
-    while (state.status == _JobsOnceStatusExecuting) {
-        [state.condition wait];
-    }
-    if (state.status == _JobsOnceStatusDone) {
-        [state.condition unlock];
-        return;
-    }
-    state.status = _JobsOnceStatusExecuting;
-    [state.condition unlock];
-    @try {
-        block();
-    } @finally {
+-(jobsBydispatch_block_tBlock _Nonnull)executeOnce{
+    @jobs_weakify(self)
+    return ^(NS_NOESCAPE dispatch_block_t block){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (!block) return;
+        _JobsOnceState *state = self.jobs_onceState();
         [state.condition lock];
-        state.status = _JobsOnceStatusDone;
-        [state.condition broadcast];
+        while (state.status == _JobsOnceStatusExecuting) {
+            [state.condition wait];
+        }
+        if (state.status == _JobsOnceStatusDone) {
+            [state.condition unlock];
+            return;
+        }
+        state.byStatus(_JobsOnceStatusExecuting);
         [state.condition unlock];
-    }
+        @try {
+            block();
+        } @finally {
+            [state.condition lock];
+            state.byStatus(_JobsOnceStatusDone);
+            [state.condition broadcast];
+            [state.condition unlock];
+        }
+    };
 }
 
 - (BOOL)didExecuteOnce {
-    _JobsOnceState *state = [self jobs_onceState];
+    _JobsOnceState *state = self.jobs_onceState();
     [state.condition lock];
     BOOL executed = state.status == _JobsOnceStatusDone;
     [state.condition unlock];
     return executed;
 }
 
-- (void)resetOnceState {
-    _JobsOnceState *state = [self jobs_onceState];
-    [state.condition lock];
-    while (state.status == _JobsOnceStatusExecuting) {
-        [state.condition wait];
-    }
-    state.status = _JobsOnceStatusIdle;
-    [state.condition unlock];
+- (jobsByVoidBlock _Nonnull)resetOnceState {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        _JobsOnceState *state = self.jobs_onceState();
+        [state.condition lock];
+        while (state.status == _JobsOnceStatusExecuting) {
+            [state.condition wait];
+        }
+        state.byStatus(_JobsOnceStatusIdle);
+        [state.condition unlock];
+    };
 }
 
 @end

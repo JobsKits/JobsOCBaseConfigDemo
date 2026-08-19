@@ -14,147 +14,193 @@ static NSString *const JobsOCSceneCoordinatorActivityType = @"com.jobs.scene-del
 static NSString *const JobsOCSceneCoordinatorCounterUserInfoKey = @"counter";
 static NSString *const JobsOCSceneCoordinatorSourceSessionUserInfoKey = @"sourceSessionIdentifier";
 
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN UISceneSessionActivationRequest
+@interface UISceneSessionActivationRequest (JobsLocalPropertyDSLAutogen_732544b7d9)
+-(JobsRetUISceneSessionActivationRequestByNSUserActivityBlock _Nonnull)byUserActivity;
+-(void)setUserActivity:(NSUserActivity * _Nullable)data;
+@end
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END UISceneSessionActivationRequest
+
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN UIWindowScene
+@interface UIWindowScene (JobsLocalPropertyDSLAutogen_732544b7d9)
+-(JobsRetUIWindowSceneByNSUserActivityBlock _Nonnull)byUserActivity;
+-(void)setUserActivity:(NSUserActivity * _Nullable)data;
+@end
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END UIWindowScene
+
 @implementation JobsOCSceneCoordinator
 
 +(NSString *)activityType{
-    return JobsOCSceneCoordinatorActivityType;
+    return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsOCSceneCoordinator.class, @selector(jobsActivityType)))(self, @selector(jobsActivityType)))();
 }
 
-+(NSMutableDictionary <NSString *, NSNumber *>*)countersBySessionIdentifier{
-    static NSMutableDictionary <NSString *, NSNumber *>*counters;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        counters = NSMutableDictionary.dictionary;
-    });return counters;
++(JobsRetStrByVoidBlock _Nonnull)jobsActivityType{
+    return ^NSString *{
+        return JobsOCSceneCoordinatorActivityType;
+    };
 }
 
-+(NSMutableDictionary <NSString *, NSMutableArray <NSString *>*>*)eventsBySessionIdentifier{
-    static NSMutableDictionary <NSString *, NSMutableArray <NSString *>*>*events;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        events = NSMutableDictionary.dictionary;
-    });return events;
++(JobsRetNSMutableDictionaryNSStringNSNumberByVoidBlock _Nonnull)countersBySessionIdentifier{
+    return ^NSMutableDictionary <NSString *, NSNumber *>*{
+        static NSMutableDictionary <NSString *, NSNumber *>*counters;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            counters = NSMutableDictionary.dictionary;
+        });return counters;
+    };
+}
+
++(JobsRetNSMutableDictionaryNSStringNSMutableArrayNSStringByVoidBlock _Nonnull)eventsBySessionIdentifier{
+    return ^NSMutableDictionary <NSString *, NSMutableArray <NSString *>*>*{
+        static NSMutableDictionary <NSString *, NSMutableArray <NSString *>*>*events;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            events = NSMutableDictionary.dictionary;
+        });return events;
+    };
 }
 
 +(NSDateFormatter *)timeFormatter{
-    static NSDateFormatter *formatter;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        formatter = NSDateFormatter.new;
-        formatter.locale = [NSLocale localeWithLocaleIdentifier:@"zh_Hans_CN"];
-        formatter.dateFormat = @"HH:mm:ss.SSS";
-    });return formatter;
+    return (((JobsRetDateFormatterByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsOCSceneCoordinator.class, @selector(jobsTimeFormatter)))(self, @selector(jobsTimeFormatter)))();
+}
+
++(JobsRetDateFormatterByVoidBlock _Nonnull)jobsTimeFormatter{
+    return ^NSDateFormatter *{
+        static NSDateFormatter *formatter;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            formatter = jobsMakeDateFormatter(^(__kindof NSDateFormatter *_Nullable dateFormatter) {
+                dateFormatter
+                    .byLocale([NSLocale localeWithLocaleIdentifier:@"zh_Hans_CN"])
+                    .byDateFormat(@"HH:mm:ss.SSS");
+            });
+        });return formatter;
+    };
 }
 
 +(NSUserActivity *)demoActivityWithCounter:(NSInteger)counter
                              sourceSession:(UISceneSession *)sourceSession{
-    NSUserActivity *activity = [NSUserActivity.alloc initWithActivityType:self.activityType];
-    activity.title = @"SceneDelegate 多场景 Demo";
-    activity.targetContentIdentifier = self.activityType;
-    activity.userInfo = @{
-        JobsOCSceneCoordinatorCounterUserInfoKey: @(counter),
-        JobsOCSceneCoordinatorSourceSessionUserInfoKey: sourceSession.persistentIdentifier ?: @""
-    };
-    activity.eligibleForHandoff = NO;
-    activity.eligibleForPrediction = NO;
-    return activity;
+    return NSUserActivity
+        .initByActivityType(self.jobsActivityType())
+        .byTitle(@"SceneDelegate 多场景 Demo")
+        .byTargetContentIdentifier(self.jobsActivityType())
+        .byUserInfo(@{
+            JobsOCSceneCoordinatorCounterUserInfoKey: @(counter),
+            JobsOCSceneCoordinatorSourceSessionUserInfoKey: sourceSession.persistentIdentifier ?: @""
+        })
+        .byEligibleForHandoff(NO)
+        .byEligibleForPrediction(NO);
 }
 
 +(NSUserActivity *)demoActivityFromConnectionOptions:(UISceneConnectionOptions *)connectionOptions
-                                               session:(UISceneSession *)session{
+                                             session:(UISceneSession *)session{
     for (NSUserActivity *activity in connectionOptions.userActivities) {
-        if ([self isDemoActivity:activity]) return activity;
+        if (self.isDemoActivity(activity)) return activity;
     }
-    if ([self isDemoActivity:session.stateRestorationActivity]) {
+    if (self.isDemoActivity(session.stateRestorationActivity)) {
         return session.stateRestorationActivity;
     };return nil;
 }
 
-+(BOOL)isDemoActivity:(NSUserActivity *)activity{
-    return [activity.activityType isEqualToString:self.activityType];
++(JobsRetBOOLByNSUserActivityBlock _Nonnull)isDemoActivity{
+    return ^BOOL(NSUserActivity * activity){
+        return [activity.activityType isEqualToString:self.jobsActivityType()];
+    };
 }
 
-+(NSInteger)restoredCounterFromActivity:(NSUserActivity *)activity{
-    if (![self isDemoActivity:activity]) return 0;
-    return [activity.userInfo[JobsOCSceneCoordinatorCounterUserInfoKey] integerValue];
++(JobsRetNSIntegerByNSUserActivityBlock _Nonnull)restoredCounterFromActivity{
+    return ^NSInteger(NSUserActivity * activity){
+        if (!self.isDemoActivity(activity)) return 0;
+        return [activity.userInfo[JobsOCSceneCoordinatorCounterUserInfoKey] integerValue];
+    };
 }
 
 +(NSInteger)counterForSession:(UISceneSession *)session
                      fallback:(NSInteger)fallback{
-    NSNumber *counter = [self countersBySessionIdentifier][session.persistentIdentifier];
+    NSNumber *counter = self.countersBySessionIdentifier()[session.persistentIdentifier];
     return counter ? counter.integerValue : fallback;
 }
 
 +(NSUserActivity *)updateCounter:(NSInteger)counter
                         forScene:(UIWindowScene *)scene{
-    [self countersBySessionIdentifier][scene.session.persistentIdentifier] = @(counter);
+    self.countersBySessionIdentifier()[scene.session.persistentIdentifier] = @(counter);
     NSUserActivity *activity = [self demoActivityWithCounter:counter
                                               sourceSession:scene.session];
-    scene.userActivity = activity;
-    [self postChangeForSession:scene.session];
+    scene.byUserActivity(activity);
+    self.postChangeForSession(scene.session);
     return activity;
 }
 
-+(NSArray<NSString *> *)eventsForSession:(UISceneSession *)session{
-    return [[self eventsBySessionIdentifier][session.persistentIdentifier] copy] ?: @[];
++(JobsRetNSArrayNSStringByUISceneSessionBlock _Nonnull)eventsForSession{
+    return ^NSArray<NSString *> *(UISceneSession * session){
+        return [self.eventsBySessionIdentifier()[session.persistentIdentifier] copy] ?: @[];
+    };
 }
 
 +(void)recordEvent:(NSString *)event
         forSession:(UISceneSession *)session{
     NSString *identifier = session.persistentIdentifier;
-    NSMutableArray <NSString *>*events = [self eventsBySessionIdentifier][identifier];
+    NSMutableArray <NSString *>*events = self.eventsBySessionIdentifier()[identifier];
     if (!events) {
         events = NSMutableArray.array;
-        [self eventsBySessionIdentifier][identifier] = events;
+        self.eventsBySessionIdentifier()[identifier] = events;
     }
-    NSString *time = [self.timeFormatter stringFromDate:NSDate.date];
+    NSString *time = [self.jobsTimeFormatter() stringFromDate:NSDate.date];
     [events addObject:[NSString stringWithFormat:@"[%@] %@",time,event]];
     if (events.count > 30) {
         [events removeObjectsInRange:NSMakeRange(0, events.count - 30)];
     }
-    [self postChangeForSession:session];
+    self.postChangeForSession(session);
 }
 
-+(void)discardSessions:(NSSet<UISceneSession *> *)sessions{
-    for (UISceneSession *session in sessions) {
-        [[self countersBySessionIdentifier] removeObjectForKey:session.persistentIdentifier];
-        [[self eventsBySessionIdentifier] removeObjectForKey:session.persistentIdentifier];
-    }
-}
-
-+(NSString *)shortIdentifierForSession:(UISceneSession *)session{
-    NSString *identifier = session.persistentIdentifier;
-    return identifier.length > 8 ? [identifier substringToIndex:8] : identifier;
-}
-
-+(NSString *)activationStateText:(UISceneActivationState)state{
-    switch (state) {
-        /// Scene 位于前台并接收事件
-        case UISceneActivationStateForegroundActive:
-            return @"前台活跃";
-        /// Scene 位于前台但暂不接收事件
-        case UISceneActivationStateForegroundInactive:
-            return @"前台非活跃";
-        /// Scene 已进入后台
-        case UISceneActivationStateBackground:
-            return @"后台";
-        /// Scene 尚未连接或已断开
-        case UISceneActivationStateUnattached:
-            return @"未连接";
-    }
-}
-
-+(UISceneSession *)otherOpenSessionExcludingSession:(UISceneSession *)session{
-    NSArray <UISceneSession *>*sessions = [UIApplication.sharedApplication.openSessions.allObjects
-        sortedArrayUsingComparator:^NSComparisonResult(UISceneSession *obj1, UISceneSession *obj2) {
-            return [obj1.persistentIdentifier compare:obj2.persistentIdentifier];
-        }];
-    for (UISceneSession *candidate in sessions) {
-        if ([candidate.role isEqualToString:session.role] &&
-            ![candidate.persistentIdentifier isEqualToString:session.persistentIdentifier]) {
-            return candidate;
++(jobsByNSSetUISceneSessionBlock _Nonnull)discardSessions{
+    return ^(NSSet<UISceneSession *> * sessions){
+        for (UISceneSession *session in sessions) {
+            [self.countersBySessionIdentifier() removeObjectForKey:session.persistentIdentifier];
+            [self.eventsBySessionIdentifier() removeObjectForKey:session.persistentIdentifier];
         }
-    };return nil;
+    };
+}
+
++(JobsRetNSStringByUISceneSessionBlock _Nonnull)shortIdentifierForSession{
+    return ^NSString *(UISceneSession * session){
+        NSString *identifier = session.persistentIdentifier;
+        return identifier.length > 8 ? [identifier substringToIndex:8] : identifier;
+    };
+}
+
++(JobsRetNSStringByUISceneActivationStateBlock _Nonnull)activationStateText{
+    return ^NSString *(UISceneActivationState state){
+        switch (state) {
+            /// Scene 位于前台并接收事件
+            case UISceneActivationStateForegroundActive:
+                return @"前台活跃";
+            /// Scene 位于前台但暂不接收事件
+            case UISceneActivationStateForegroundInactive:
+                return @"前台非活跃";
+            /// Scene 已进入后台
+            case UISceneActivationStateBackground:
+                return @"后台";
+            /// Scene 尚未连接或已断开
+            case UISceneActivationStateUnattached:
+                return @"未连接";
+        }
+    };
+}
+
++(JobsRetUISceneSessionByUISceneSessionBlock _Nonnull)otherOpenSessionExcludingSession{
+    return ^UISceneSession *(UISceneSession * session){
+        NSArray <UISceneSession *>*sessions = [UIApplication.sharedApplication.openSessions.allObjects
+            sortedArrayUsingComparator:^NSComparisonResult(UISceneSession *obj1, UISceneSession *obj2) {
+                return [obj1.persistentIdentifier compare:obj2.persistentIdentifier];
+            }];
+        for (UISceneSession *candidate in sessions) {
+            if ([candidate.role isEqualToString:session.role] &&
+                ![candidate.persistentIdentifier isEqualToString:session.persistentIdentifier]) {
+                return candidate;
+            }
+        };return nil;
+    };
 }
 
 +(void)requestNewDemoSceneFromSession:(UISceneSession *)sourceSession
@@ -164,7 +210,7 @@ static NSString *const JobsOCSceneCoordinatorSourceSessionUserInfoKey = @"source
     if (@available(iOS 17.0, *)) {
         UISceneSessionActivationRequest *request =
             [UISceneSessionActivationRequest requestWithRole:UIWindowSceneSessionRoleApplication];
-        request.userActivity = activity;
+        request.byUserActivity(activity);
         [UIApplication.sharedApplication activateSceneSessionForRequest:request
                                                            errorHandler:completion];
     } else {
@@ -197,14 +243,42 @@ static NSString *const JobsOCSceneCoordinatorSourceSessionUserInfoKey = @"source
                                                        errorHandler:completion];
 }
 
-+(void)postChangeForSession:(UISceneSession *)session{
-    [NSNotificationCenter.defaultCenter
-        postNotificationName:JobsOCSceneCoordinatorDidChangeNotification
-                      object:nil
-                    userInfo:@{
-                        JobsOCSceneCoordinatorSessionIdentifierUserInfoKey:
-                            session.persistentIdentifier
-                    }];
++(jobsByUISceneSessionBlock _Nonnull)postChangeForSession{
+    return ^(UISceneSession * session){
+        [NSNotificationCenter.defaultCenter
+            postNotificationName:JobsOCSceneCoordinatorDidChangeNotification
+                          object:nil
+                        userInfo:@{
+                            JobsOCSceneCoordinatorSessionIdentifierUserInfoKey:
+                                session.persistentIdentifier
+                        }];
+    };
 }
 
 @end
+
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN UISceneSessionActivationRequest
+@implementation UISceneSessionActivationRequest (JobsLocalPropertyDSLAutogen_732544b7d9)
+-(JobsRetUISceneSessionActivationRequestByNSUserActivityBlock _Nonnull)byUserActivity{
+    @jobs_weakify(self)
+    return ^__kindof UISceneSessionActivationRequest * _Nullable(NSUserActivity * _Nullable data){
+        @jobs_strongify(self)
+        [self setUserActivity:data];
+        return self;
+    };
+}
+@end
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UISceneSessionActivationRequest
+
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN UIWindowScene
+@implementation UIWindowScene (JobsLocalPropertyDSLAutogen_732544b7d9)
+-(JobsRetUIWindowSceneByNSUserActivityBlock _Nonnull)byUserActivity{
+    @jobs_weakify(self)
+    return ^__kindof UIWindowScene * _Nullable(NSUserActivity * _Nullable data){
+        @jobs_strongify(self)
+        [self setUserActivity:data];
+        return self;
+    };
+}
+@end
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UIWindowScene

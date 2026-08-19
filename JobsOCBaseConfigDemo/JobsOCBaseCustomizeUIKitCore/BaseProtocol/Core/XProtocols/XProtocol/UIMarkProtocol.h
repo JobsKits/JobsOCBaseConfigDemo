@@ -20,12 +20,14 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark —— 标记📌
 Prop_strong(nullable)NSIndexPath *indexPath;
 Prop_strong(nullable)NSNumber *currentPage; // 网路请求分页数据的时候的当前页码
+-(JobsRetIDByIDBlock _Nonnull)byCurrentPage;
 Prop_strong(nullable)NSNumber *pageSize;
 Prop_strong(nullable)NSNumber *pageNum;
 Prop_assign()NSInteger section;
 Prop_assign()NSInteger row;
 Prop_assign()NSInteger item;
 Prop_assign()CGPoint lastPoint;
+-(JobsRetIDByCGPointBlock _Nonnull)byLastPoint;
 Prop_assign()NSInteger index;
 Prop_assign()BOOL isMark; // 是否被标记。标记的意思可以是是否维护中等等......
 Prop_assign()CGFloat presentUpHeight; // 当一个VC被以present的形式推出的时候，距离手机屏幕下边距的距离

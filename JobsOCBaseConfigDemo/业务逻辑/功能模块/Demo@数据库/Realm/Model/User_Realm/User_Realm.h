@@ -10,6 +10,8 @@
 #else
 #import "Realm.h"
 #endif
+#import "JobsBlock.h"
+#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -17,6 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property NSString *name;
 @property NSInteger age;
+
+-(JobsRetUser_RealmByStrBlock _Nonnull)byName;
+-(JobsRetUser_RealmByNSIntegerBlock _Nonnull)byAge;
 
 @end
 // 需要为 Realm 模型类定义一个 RLMArray 类型的属性时，使用宏定义来简化声明

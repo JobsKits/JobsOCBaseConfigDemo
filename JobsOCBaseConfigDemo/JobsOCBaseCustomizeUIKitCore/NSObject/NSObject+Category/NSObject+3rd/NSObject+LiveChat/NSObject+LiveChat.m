@@ -45,18 +45,18 @@
         }));
         alertVC.add(JobsMakeAlertActionBy(jobsMakeAlertModel(^(JobsAlertModel *_Nullable data) {
             data.byAlertActionTitle(@"Go to Chat".tr)
-                .byAlertActionStyle(UIAlertActionStyleDefault);
-            data.alertActionBlock = ^(__kindof UIAlertAction * _Nullable action) {
+                .byAlertActionStyle(UIAlertActionStyleDefault)
+                .byAlertActionBlock(^(__kindof UIAlertAction * _Nullable action) {
                 if (!LiveChat.isChatPresented) [LiveChat presentChatWithAnimated:YES completion:nil];
-            };
+            });
         })));
         alertVC.add(JobsMakeAlertActionBy(jobsMakeAlertModel(^(JobsAlertModel *_Nullable data) {
             data.byCancelAlertActionTitle(@"Cancel".tr)
-                .byAlertActionStyle(UIAlertActionStyleCancel);
-            data.alertActionBlock = ^(__kindof UIAlertAction *_Nullable action) {
+                .byAlertActionStyle(UIAlertActionStyleCancel)
+                .byAlertActionBlock(^(__kindof UIAlertAction *_Nullable action) {
                 @jobs_strongify(self)
                 self.clearSession();
-            };
+            });
         })));return alertVC;
     };
 }

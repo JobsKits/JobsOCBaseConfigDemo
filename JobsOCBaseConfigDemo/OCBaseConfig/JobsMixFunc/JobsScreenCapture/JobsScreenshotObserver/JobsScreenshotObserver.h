@@ -23,9 +23,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsScreenshotObserver : NSObject
 
--(instancetype)startWithHandler:(jobsByVoidBlock)handler;
--(instancetype)stop;
+-(JobsRetIDByVoidBlocks _Nonnull)startWithHandler;
+-(JobsRetIDByVoidBlock _Nonnull)jobsStop;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsScreenshotObserver
+-(JobsRetJobsScreenshotObserverByIDNSObjectBlock _Nonnull)byScreenshotToken;
+-(JobsRetJobsScreenshotObserverByjobsByVoidBlockBlock _Nonnull)byScreenshotHandler;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsScreenshotObserver
 @end
 
 NS_ASSUME_NONNULL_END

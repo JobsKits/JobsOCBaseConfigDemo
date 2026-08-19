@@ -91,42 +91,50 @@ Prop_copy(nullable)jobsByCGFloatBlock onDragEnded;
                                 interval:(NSTimeInterval)interval
                                 animated:(BOOL)animated;
 
--(instancetype)stopAutoProgress;
+-(JobsRetIDByVoidBlock _Nonnull)stopAutoProgress;
 
--(JobsProgressBar *_Nonnull(^)(JobsProgressBarDirection data))byDirection;
--(JobsProgressBar *_Nonnull(^)(JobsProgressBarValueMode data))byValueMode;
--(JobsProgressBar *_Nonnull(^)(BOOL data))byAutoStopOnExternalChange;
--(JobsProgressBar *_Nonnull(^)(CGFloat data))byProgress;
--(JobsProgressBar *_Nonnull(^)(UIColor *data))byTrackTintColor;
--(JobsProgressBar *_Nonnull(^)(UIColor *data))byProgressTintColor;
--(JobsProgressBar *_Nonnull(^)(CGFloat data))byTrackThickness;
--(JobsProgressBar *_Nonnull(^)(CGFloat data))byTrackHorizontalInset;
--(JobsProgressBar *_Nonnull(^)(CGFloat data))byTrackVerticalInset;
--(JobsProgressBar *_Nonnull(^)(JobsProgressBarLabelPlacement data))byProgressLabelPlacement;
--(JobsProgressBar *_Nonnull(^)(CGFloat data))byProgressLabelSpacing;
--(JobsProgressBar *_Nonnull(^)(BOOL data))byAutoHideLabel;
--(JobsProgressBar *_Nonnull(^)(CGFloat data))byLabelMinVisibleHeight;
--(JobsProgressBar *_Nonnull(^)(UIImage *_Nullable data))byThumbImage;
--(JobsProgressBar *_Nonnull(^)(CGSize data))byThumbSize;
--(JobsProgressBar *_Nonnull(^)(UIOffset data))byThumbOffset;
--(JobsProgressBar *_Nonnull(^)(UIViewContentMode data))byThumbContentMode;
--(JobsProgressBar *_Nonnull(^)(CGFloat data))byThumbCornerRadius;
--(JobsProgressBar *_Nonnull(^)(BOOL data))byThumbFollowsFillStyle;
--(JobsProgressBar *_Nonnull(^)(UIColor *_Nullable data))byThumbBackgroundColor;
--(JobsProgressBar *_Nonnull(^)(UIColor *_Nullable data))byThumbBorderColor;
--(JobsProgressBar *_Nonnull(^)(CGFloat data))byThumbBorderWidth;
--(JobsProgressBar *_Nonnull(^)(float data))byThumbShadowOpacity;
--(JobsProgressBar *_Nonnull(^)(CGFloat data))byThumbShadowRadius;
--(JobsProgressBar *_Nonnull(^)(CGSize data))byThumbShadowOffset;
--(JobsProgressBar *_Nonnull(^)(UIColor *_Nullable data))byThumbShadowColor;
--(JobsProgressBar *_Nonnull(^)(BOOL data))byDraggable;
--(JobsProgressBar *_Nonnull(^)(BOOL data))byDragThumbScales;
--(JobsProgressBar *_Nonnull(^)(CGFloat data))byDragThumbScale;
--(JobsProgressBar *_Nonnull(^)(jobsByCGFloatBlock _Nullable block))byOnProgressChanged;
--(JobsProgressBar *_Nonnull(^)(jobsByCGFloatBlock _Nullable block))byOnDragBegan;
--(JobsProgressBar *_Nonnull(^)(jobsByCGFloatBlock _Nullable block))byOnDragChanged;
--(JobsProgressBar *_Nonnull(^)(jobsByCGFloatBlock _Nullable block))byOnDragEnded;
+-(JobsRetJobsProgressBarByJobsProgressBarDirectionBlock _Nonnull)byDirection;
+-(JobsRetJobsProgressBarByJobsProgressBarValueModeBlock _Nonnull)byValueMode;
+-(JobsRetJobsProgressBarByBOOLBlock _Nonnull)byAutoStopOnExternalChange;
+-(JobsRetJobsProgressBarByCGFloatBlock _Nonnull)byProgress;
+-(JobsRetJobsProgressBarByUIColorBlock _Nonnull)byTrackTintColor;
+-(JobsRetJobsProgressBarByUIColorBlock _Nonnull)byProgressTintColor;
+-(JobsRetJobsProgressBarByCGFloatBlock _Nonnull)byTrackThickness;
+-(JobsRetJobsProgressBarByCGFloatBlock _Nonnull)byTrackHorizontalInset;
+-(JobsRetJobsProgressBarByCGFloatBlock _Nonnull)byTrackVerticalInset;
+-(JobsRetJobsProgressBarByJobsProgressBarLabelPlacementBlock _Nonnull)byProgressLabelPlacement;
+-(JobsRetJobsProgressBarByCGFloatBlock _Nonnull)byProgressLabelSpacing;
+-(JobsRetJobsProgressBarByBOOLBlock _Nonnull)byAutoHideLabel;
+-(JobsRetJobsProgressBarByCGFloatBlock _Nonnull)byLabelMinVisibleHeight;
+-(JobsRetJobsProgressBarByUIImageBlock _Nonnull)byThumbImage;
+-(JobsRetJobsProgressBarByCGSizeBlock _Nonnull)byThumbSize;
+-(JobsRetJobsProgressBarByUIOffsetBlock _Nonnull)byThumbOffset;
+-(JobsRetJobsProgressBarByUIViewContentModeBlock _Nonnull)byThumbContentMode;
+-(JobsRetJobsProgressBarByCGFloatBlock _Nonnull)byThumbCornerRadius;
+-(JobsRetJobsProgressBarByBOOLBlock _Nonnull)byThumbFollowsFillStyle;
+-(JobsRetJobsProgressBarByUIColorBlock _Nonnull)byThumbBackgroundColor;
+-(JobsRetJobsProgressBarByUIColorBlock _Nonnull)byThumbBorderColor;
+-(JobsRetJobsProgressBarByCGFloatBlock _Nonnull)byThumbBorderWidth;
+-(JobsRetJobsProgressBarByfloatBlock _Nonnull)byThumbShadowOpacity;
+-(JobsRetJobsProgressBarByCGFloatBlock _Nonnull)byThumbShadowRadius;
+-(JobsRetJobsProgressBarByCGSizeBlock _Nonnull)byThumbShadowOffset;
+-(JobsRetJobsProgressBarByUIColorBlock _Nonnull)byThumbShadowColor;
+-(JobsRetJobsProgressBarByBOOLBlock _Nonnull)byDraggable;
+-(JobsRetJobsProgressBarByBOOLBlock _Nonnull)byDragThumbScales;
+-(JobsRetJobsProgressBarByCGFloatBlock _Nonnull)byDragThumbScale;
+-(JobsRetJobsProgressBarByjobsByCGFloatBlockBlock _Nonnull)byOnProgressChanged;
+-(JobsRetJobsProgressBarByjobsByCGFloatBlockBlock _Nonnull)byOnDragBegan;
+-(JobsRetJobsProgressBarByjobsByCGFloatBlockBlock _Nonnull)byOnDragChanged;
+-(JobsRetJobsProgressBarByjobsByCGFloatBlockBlock _Nonnull)byOnDragEnded;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsProgressBar
+-(JobsRetJobsProgressBarByBOOLBlock _Nonnull)byAutoAnimated;
+-(JobsRetJobsProgressBarByBOOLBlock _Nonnull)byUserDragging;
+-(JobsRetJobsProgressBarByCADisplayLinkBlock _Nonnull)byAutoDisplayLink;
+-(JobsRetJobsProgressBarByCGFloatBlock _Nonnull)byAutoStep;
+-(JobsRetJobsProgressBarByNSTimeIntervalBlock _Nonnull)byAutoInterval;
+-(JobsRetJobsProgressBarByNSTimeIntervalBlock _Nonnull)byAutoLastTick;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsProgressBar
 @end
 
 NS_ASSUME_NONNULL_END

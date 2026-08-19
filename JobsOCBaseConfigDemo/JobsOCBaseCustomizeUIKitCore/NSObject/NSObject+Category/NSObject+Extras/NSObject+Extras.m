@@ -30,11 +30,11 @@ UITextFieldProtocol_dynamic
     return NSLocale.currentLocale;
 }
 
-+(NSLocale *_Nullable)systemLocale{
++(NSLocale *_Nonnull)systemLocale{
     return NSLocale.systemLocale;
 }
 
--(NSLocale *_Nullable)systemLocale{
+-(NSLocale *_Nonnull)systemLocale{
     return NSLocale.systemLocale;
 }
 
@@ -522,8 +522,8 @@ UITextFieldProtocol_dynamic
  */
 +(JobsRetWindowByVoidBlock _Nonnull)mainWindow{
     return ^__kindof UIWindow *_Nullable(){
-        UIWindow *mainWindowBefore13 = jobsGetMainWindowBefore13().landscape;
-        UIWindow *mainWindowAfter13 = jobsGetMainWindowAfter13().landscape;
+        UIWindow *mainWindowBefore13 = jobsGetMainWindowBefore13().landscape();
+        UIWindow *mainWindowAfter13 = jobsGetMainWindowAfter13().landscape();
         UIWindow *resultWindow = UIDevice.currentDevice.systemVersion.floatValue >= 13.0 ? mainWindowAfter13 : mainWindowBefore13;
         if(resultWindow) return resultWindow;
         if(mainWindowBefore13) return mainWindowBefore13;
@@ -1590,21 +1590,38 @@ JobsKey(_weak_target)
 }
 /// Prop_assign()CGPoint lastPoint;
 PROP_CGPOINT(lastPoint, LastPoint)
+-(JobsRetIDByCGPointBlock _Nonnull)byLastPoint{
+    @jobs_weakify(self)
+    return ^id(CGPoint lastPoint){
+        @jobs_strongify(self)
+        [self setLastPoint:lastPoint];
+        return self;
+    };
+}
 #pragma mark —— Prop_strong()NSIndexPath *indexPath;
 PROP_STRONG_OBJECT_TYPE(NSIndexPath, indexPath, IndexPath)
 /// Prop_assign()NSInteger currentPage;
 JobsKey(_currentPage)
 @dynamic currentPage;
--(NSInteger)currentPage{
-    NSInteger CurrentPage = [Jobs_getAssociatedObject(_currentPage) integerValue];
-    if (CurrentPage == 0) {
-        CurrentPage = 1;
-        Jobs_setAssociatedRETAIN_NONATOMIC(_currentPage, @(CurrentPage))
-    };return CurrentPage;
+-(NSNumber *)currentPage{
+    NSNumber *currentPage = Jobs_getAssociatedObject(_currentPage);
+    if (!currentPage) {
+        currentPage = @(1);
+        Jobs_setAssociatedRETAIN_NONATOMIC(_currentPage, currentPage)
+    };return currentPage;
 }
 
--(void)setCurrentPage:(NSInteger)currentPage{
-    Jobs_setAssociatedRETAIN_NONATOMIC(_currentPage, @(currentPage))
+-(void)setCurrentPage:(NSNumber *)currentPage{
+    Jobs_setAssociatedRETAIN_NONATOMIC(_currentPage, currentPage)
+}
+
+-(JobsRetIDByIDBlock _Nonnull)byCurrentPage{
+    @jobs_weakify(self)
+    return ^id(NSNumber *_Nullable currentPage){
+        @jobs_strongify(self)
+        [self setCurrentPage:currentPage];
+        return self;
+    };
 }
 #pragma mark —— Prop_assign()NSInteger pageSize;
 JobsKey(_pageSize)
@@ -1624,6 +1641,13 @@ JobsKey(_pageSize)
 PROP_NSInteger(index, Index)
 /// Prop_strong()UIViewModel *viewModel;
 PROP_STRONG_OBJECT_Default_TYPE(UIViewModel, viewModel, ViewModel)
+
+-(JobsRetIDByIDBlock _Nonnull)byViewModel{
+    return ^id(UIViewModel *_Nullable viewModel){
+        [self setViewModel:viewModel];
+        return self;
+    };
+}
 /// Prop_copy()NSString *internationalizationKEY;/// 国际化的key
 PROP_COPY_OBJECT_TYPE(NSString, internationalizationKEY, InternationalizationKEY)
 

@@ -23,68 +23,118 @@ Prop_strong()UIButton *accessoryDoneBtn;
 
 @implementation JobsOCKeyboardMgrDemoVC
 - (void)dealloc{
-    [JobsOCKeyboardMgr.shared clearConfigByOwner:self];
+    ((JobsOCKeyboardMgr *)JobsOCKeyboardMgr.shared()).clearConfigByOwner(self);
     JobsLog(@"%@",JobsLocalFunc);
 }
 
 -(void)loadView{
-    [super loadView];
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(@"JobsOCKeyboardMgr")
-                .byFont(UIFontWeightMediumSize(17));
-        })
-        .byBgCor(HEXCOLOR(0xF5F7FA))
-        .byNavBgCor(HEXCOLOR(0xF5F7FA));
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCKeyboardMgrDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(@"JobsOCKeyboardMgr")
+                    .byFont(UIFontWeightMediumSize(17));
+            })
+            .byBgCor(HEXCOLOR(0xF5F7FA))
+            .byNavBgCor(HEXCOLOR(0xF5F7FA));
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.makeNavByAlpha(1);
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.cardView.byHidden(NO);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCKeyboardMgrDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.makeNavByAlpha(1);
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.cardView.byHidden(NO);
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    [self jobs_configKeyboardMgr];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCKeyboardMgrDemoVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+        self.jobs_configKeyboardMgr();
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    [JobsOCKeyboardMgr.shared clearConfigByOwner:self];
-}
-#pragma mark —— Config
--(void)jobs_configKeyboardMgr{
-    @jobs_weakify(self)
-    JobsOCKeyboardMgr.shared.byConfig(jobsMakeOCKeyboardConfig(^(__kindof JobsOCKeyboardConfig * _Nullable data) {
-        @jobs_strongify(self)
-        data.byOwner(self)
-            .byTargetView(self.cardView)
-            .byContainerView(self.view)
-            .byInputFields(self.jobs_inputFields)
-            .byExtraSpacing(JobsWidth(18))
-            .byTopSpacing(JobsWidth(16))
-            .byShouldFlowByReturnKey(YES)
-            .byShouldResignOnTouchOutside(YES)
-            .byAccessoryPolicy(JobsOCKeyboardAccessoryPolicyAuto);
-    }));
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCKeyboardMgrDemoVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
 }
 
--(NSArray <UITextField *>*)jobs_inputFields{
-    return @[self.accountTF,self.passwordTF,self.accessoryTF];
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+        ((JobsOCKeyboardMgr *)JobsOCKeyboardMgr.shared()).clearConfigByOwner(self);
+    };
+}
+#pragma mark —— Config
+-(jobsByVoidBlock _Nonnull)jobs_configKeyboardMgr{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        @jobs_weakify(self)
+        ((JobsOCKeyboardMgr *)JobsOCKeyboardMgr.shared()).byConfig(jobsMakeOCKeyboardConfig(^(__kindof JobsOCKeyboardConfig * _Nullable data) {
+            @jobs_strongify(self)
+            data.byOwner(self)
+                .byTargetView(self.cardView)
+                .byContainerView(self.view)
+                .byInputFields(self.jobs_inputFields())
+                .byExtraSpacing(JobsWidth(18))
+                .byTopSpacing(JobsWidth(16))
+                .byShouldFlowByReturnKey(YES)
+                .byShouldResignOnTouchOutside(YES)
+                .byAccessoryPolicy(JobsOCKeyboardAccessoryPolicyAuto);
+        }));
+    };
+}
+
+-(JobsRetNSArrayUITextFieldByVoidBlock _Nonnull)jobs_inputFields{
+    @jobs_weakify(self)
+    return ^NSArray <UITextField *>*{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @[self.accountTF,self.passwordTF,self.accessoryTF];
+    };
 }
 
 -(UITextField *)jobs_textFieldByPlaceholder:(NSString *)placeholder
                                      secure:(BOOL)secure{
     return jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
         textField
-            .byPlaceholder(placeholder.tr)
+            .byPlaceholder(placeholder.jobsTr())
             .bySecureTextEntry(secure)
             .byTextCor(JobsLabelColor)
             .byFont(UIFontWeightRegularSize(16))
@@ -134,7 +184,7 @@ Prop_strong()UIButton *accessoryDoneBtn;
         @jobs_weakify(self)
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"Keyboard Form".tr)
+                .byText(@"Keyboard Form".jobsTr())
                 .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightMediumSize(21))
                 .addOn(self.cardView)
@@ -225,7 +275,7 @@ Prop_strong()UIButton *accessoryDoneBtn;
     if (!_accessoryTitleLab) {
         _accessoryTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"Input Accessory".tr)
+                .byText(@"Input Accessory".jobsTr())
                 .byTextCor(UIColor.whiteColor)
                 .byFont(UIFontWeightMediumSize(15));
         });
@@ -237,17 +287,22 @@ Prop_strong()UIButton *accessoryDoneBtn;
         @jobs_weakify(self)
         _accessoryDoneBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
-                .jobsResetBtnTitle(@"Done".tr)
+                .jobsResetBtnTitle(@"Done".jobsTr())
                 .jobsResetBtnTitleFont(UIFontWeightMediumSize(15))
                 .onClickBy(^(__kindof UIButton * _Nullable button) {
-                    [weak_self jobs_endEditing];
+                    weak_self.jobs_endEditing();
                 });
         });
     };return _accessoryDoneBtn;
 }
 
--(void)jobs_endEditing{
-    self.view.byEndEditing(YES);
+-(jobsByVoidBlock _Nonnull)jobs_endEditing{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.view.byEndEditing(YES);
+    };
 }
 
 @end

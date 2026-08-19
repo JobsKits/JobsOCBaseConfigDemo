@@ -35,7 +35,7 @@ UITextFieldProtocol_synthesize_part2
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
+        self.byViewModel(model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {}));
         self.titleLabel.byAlpha(1);
         self.flagView.byAlpha(1);
         return self;
@@ -52,21 +52,31 @@ UITextFieldProtocol_synthesize_part2
               reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]){
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.bySelectionStyle(UITableViewCellSelectionStyleNone);
     };return self;
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    self.printValue();
-    /// 取内部类UITableViewCellEditControl,对编辑状态的Cell的点击按钮进行替换成自定义的
-    self.customCellEditStateImage();
-    self.modifySysChildViewFrame1();
-    // 或者
-    self.modifySysChildViewFrame2();
-    if(self.accessoryView){
-        self.accessoryView.resetOriginXByOffset(20);
-    }
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(LeftCell.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        self.printValue();
+        /// 取内部类UITableViewCellEditControl,对编辑状态的Cell的点击按钮进行替换成自定义的
+        self.customCellEditStateImage();
+        self.modifySysChildViewFrame1();
+        // 或者
+        self.modifySysChildViewFrame2();
+        if(self.accessoryView){
+            self.accessoryView.resetOriginXByOffset(20);
+        }
+    };
 }
 
 - (void)setSelected:(BOOL)selected

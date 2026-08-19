@@ -66,7 +66,7 @@
     @jobs_weakify(self)
     return ^__kindof CAReplicatorLayer *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
-        self.instanceColor = data.CGColor;
+        self.byInstanceColor(data.CGColor);
         return self;
     };
 }

@@ -6,6 +6,19 @@
 //
 
 #ifndef JXCategoryViewExtra_h
+
+#if __has_include(<JXCategoryView/JXCategoryView.h>)
+#import <JXCategoryView/JXCategoryView.h>
+#else
+#import "JXCategoryView.h"
+#endif
+
+#if __has_include(<JXPagingView/JXPagerView.h>)
+#import <JXPagingView/JXPagerView.h>
+#else
+#import "JXPagerView.h"
+#endif
+
 #define JXCategoryViewExtra_h
 
 #import "JXCategoryBaseView+Extra.h"
@@ -21,18 +34,6 @@
 #import "JXCategoryTimelineCellModel.h"
 #import "JXCategoryTimelineCell.h"
 #import "JXCategoryTimelineView.h"
-
-#if __has_include(<JXCategoryView/JXCategoryView.h>)
-#import <JXCategoryView/JXCategoryView.h>
-#else
-#import "JXCategoryView.h"
-#endif
-
-#if __has_include(<JXPagingView/JXPagerView.h>)
-#import <JXPagingView/JXPagerView.h>
-#else
-#import "JXPagerView.h"
-#endif
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"

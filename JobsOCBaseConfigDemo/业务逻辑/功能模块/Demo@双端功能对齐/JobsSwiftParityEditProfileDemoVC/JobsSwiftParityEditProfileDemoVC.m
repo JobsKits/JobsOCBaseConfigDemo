@@ -21,48 +21,63 @@ Prop_copy()NSArray<NSArray<NSString *> *> *profileSectionArr;
 
 -(void)presentChoices:(NSArray<NSString *> *)choices
                forKey:(NSString *)key;
--(void)presentTextEditorForKey:(NSString *)key;
--(void)saveProfileValues;
+-(jobsByStrBlock _Nonnull)presentTextEditorForKey;
+-(jobsByVoidBlock _Nonnull)saveProfileValues;
 
 @end
 
 @implementation JobsSwiftParityEditProfileDemoVC
 
--(NSString *)demoNavigationTitle{
-    return @"Edit profile";
+-(JobsRetStrByVoidBlock _Nonnull)demoNavigationTitle{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"Edit profile";
+    };
 }
 
--(void)configureDemo{
-    self.parityScrollView.byRemove();
-    NSDictionary *savedValues = [NSUserDefaults.standardUserDefaults dictionaryForKey:JobsOCEditProfileDefaultsKey];
-    if (savedValues.count) [self.profileValueMutDic addEntriesFromDictionary:savedValues];
-    self.profileTableView.byHidden(NO);
-    [self.profileTableView reloadData];
+-(jobsByVoidBlock _Nonnull)configureDemo{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.parityScrollView.byRemove();
+        NSDictionary *savedValues = [NSUserDefaults.standardUserDefaults dictionaryForKey:JobsOCEditProfileDefaultsKey];
+        if (savedValues.count) [self.profileValueMutDic addEntriesFromDictionary:savedValues];
+        self.profileTableView.byHidden(NO);
+        [self.profileTableView reloadData];
+    };
 }
 
--(void)saveProfileValues{
-    [NSUserDefaults.standardUserDefaults setObject:self.profileValueMutDic.copy
-                                           forKey:JobsOCEditProfileDefaultsKey];
-    [NSUserDefaults.standardUserDefaults synchronize];
+-(jobsByVoidBlock _Nonnull)saveProfileValues{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [NSUserDefaults.standardUserDefaults setObject:self.profileValueMutDic.copy
+                                               forKey:JobsOCEditProfileDefaultsKey];
+        [NSUserDefaults.standardUserDefaults synchronize];
+    };
 }
 
 -(void)presentChoices:(NSArray<NSString *> *)choices
                forKey:(NSString *)key{
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:key.tr
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:key.jobsTr()
                                                                               message:nil
                                                                        preferredStyle:UIAlertControllerStyleActionSheet];
     for (NSString *choice in choices) {
         @jobs_weakify(self)
-        [alertController addAction:[UIAlertAction actionWithTitle:choice.tr
+        [alertController addAction:[UIAlertAction actionWithTitle:choice.jobsTr()
                                                            style:UIAlertActionStyleDefault
                                                          handler:^(__unused UIAlertAction *action) {
             @jobs_strongify(self)
             self.profileValueMutDic[key] = choice;
-            [self saveProfileValues];
+            self.saveProfileValues();
             [self.profileTableView reloadData];
         }]];
     }
-    [alertController addAction:[UIAlertAction actionWithTitle:@"取消".tr
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消".jobsTr()
                                                         style:UIAlertActionStyleCancel
                                                       handler:nil]];
     [self presentViewController:alertController
@@ -70,46 +85,61 @@ Prop_copy()NSArray<NSArray<NSString *> *> *profileSectionArr;
                      completion:nil];
 }
 
--(void)presentTextEditorForKey:(NSString *)key{
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:key.tr
-                                                                              message:nil
-                                                                       preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField
-            .byText(self.profileValueMutDic[key])
-            .byTextCor(JobsLabelColor)
-            .byPlaceholder([NSString stringWithFormat:@"请输入%@",key].tr);
-        if ([key isEqualToString:@"昵称"]) {
-            textField.byAutocorrectionType(UITextAutocorrectionTypeNo)
-                .byAutocapitalizationType(UITextAutocapitalizationTypeNone);
-        }
-    }];
+-(jobsByStrBlock _Nonnull)presentTextEditorForKey{
     @jobs_weakify(self)
-    [alertController addAction:[UIAlertAction actionWithTitle:@"取消".tr
-                                                        style:UIAlertActionStyleCancel
-                                                      handler:nil]];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"完成".tr
-                                                        style:UIAlertActionStyleDefault
-                                                      handler:^(__unused UIAlertAction *action) {
+    return ^(NSString * key){
         @jobs_strongify(self)
-        NSString *text = alertController.textFields.firstObject.text;
-        text = [text stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
-        if (!text.length) return;
-        if ([key isEqualToString:@"昵称"] && text.length > 12) {
-            text = [text substringToIndex:12];
-        }
-        self.profileValueMutDic[key] = text;
-        [self saveProfileValues];
-        [self.profileTableView reloadData];
-    }]];
-    [self presentViewController:alertController
-                       animated:YES
-                     completion:nil];
+        if (!self) return;
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:key.jobsTr()
+                                                                                  message:nil
+                                                                           preferredStyle:UIAlertControllerStyleAlert];
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+            textField
+                .byText(self.profileValueMutDic[key])
+                .byTextCor(JobsLabelColor)
+                .byPlaceholder([NSString stringWithFormat:@"请输入%@",key].jobsTr());
+            if ([key isEqualToString:@"昵称"]) {
+                textField.byAutocorrectionType(UITextAutocorrectionTypeNo)
+                    .byAutocapitalizationType(UITextAutocapitalizationTypeNone);
+            }
+        }];
+        @jobs_weakify(self)
+        [alertController addAction:[UIAlertAction actionWithTitle:@"取消".jobsTr()
+                                                            style:UIAlertActionStyleCancel
+                                                          handler:nil]];
+        [alertController addAction:[UIAlertAction actionWithTitle:@"完成".jobsTr()
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(__unused UIAlertAction *action) {
+            @jobs_strongify(self)
+            NSString *text = alertController.textFields.firstObject.text;
+            text = [text stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+            if (!text.length) return;
+            if ([key isEqualToString:@"昵称"] && text.length > 12) {
+                text = [text substringToIndex:12];
+            }
+            self.profileValueMutDic[key] = text;
+            self.saveProfileValues();
+            [self.profileTableView reloadData];
+        }]];
+        [self presentViewController:alertController
+                           animated:YES
+                         completion:nil];
+    };
 }
 
 #pragma mark —— UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return self.profileSectionArr.count;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsSwiftParityEditProfileDemoVC.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return self.profileSectionArr.count;
+    };
 }
 
 -(NSInteger)tableView:(UITableView *)tableView
@@ -131,7 +161,7 @@ Prop_copy()NSArray<NSArray<NSString *> *> *profileSectionArr;
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
         .byBgColor(JobsSecondarySystemGroupedBackgroundColor);
     cell.textLabel
-        .byText(key.tr)
+        .byText(key.jobsTr())
         .byTextCor(JobsLabelColor)
         .byFont(UIFontWeightRegularSize(16));
     cell.detailTextLabel
@@ -206,7 +236,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         [self presentChoices:@[@"2025-09-22",@"2000-01-01",@"1995-09-22"]
                       forKey:key];
     }else{
-        [self presentTextEditorForKey:key];
+        self.presentTextEditorForKey(key);
     }
 }
 
@@ -221,7 +251,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byDelegate(self)
                 .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
                 .bySeparatorColor(JobsSeparatorColor)
-                .byTableFooterView(UIView.new)
+                .byTableFooterView(jobsMakeView(^(UIView *object){}))
                 .byScrollEnabled(NO)
                 .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
                 .byBgColor(JobsSystemGroupedBackgroundColor)

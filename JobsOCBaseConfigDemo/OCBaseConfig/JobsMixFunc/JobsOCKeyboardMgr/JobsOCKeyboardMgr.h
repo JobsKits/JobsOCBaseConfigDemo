@@ -34,15 +34,25 @@ Prop_strong(nullable, readonly) __kindof JobsOCKeyboardConfig *currentConfig;
 Prop_strong(nullable, readonly) __kindof JobsOCKeyboardResult *latestResult;
 Prop_assign(readonly, getter=isStarted) BOOL started;
 
-+(instancetype)shared;
++(JobsRetIDByVoidBlock _Nonnull)shared;
 +(instancetype)sharedManager;
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager;
 
 -(JobsRetJobsOCKeyboardMgrByVoidBlock _Nonnull)start;
 -(JobsRetJobsOCKeyboardMgrByVoidBlock _Nonnull)stop;
 -(JobsRetJobsOCKeyboardMgrByVoidBlock _Nonnull)restore;
 -(JobsRetJobsOCKeyboardMgrByConfigBlock _Nonnull)byConfig;
--(void)clearConfigByOwner:(id _Nullable)owner;
+-(jobsByIDBlock _Nonnull)clearConfigByOwner;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCKeyboardMgr
+-(JobsRetJobsOCKeyboardMgrByBOOLBlock _Nonnull)byStarted;
+-(JobsRetJobsOCKeyboardMgrByCGRectBlock _Nonnull)byLatestKeyboardFrameInScreen;
+-(JobsRetJobsOCKeyboardMgrByConfigBlock _Nonnull)byCurrentConfig;
+-(JobsRetJobsOCKeyboardMgrByJobsOCKeyboardResultBlock _Nonnull)byLatestResult;
+-(JobsRetJobsOCKeyboardMgrByNSDictionaryBlock _Nonnull)byLatestKeyboardUserInfo;
+-(JobsRetJobsOCKeyboardMgrByUITapGestureRecognizerBlock _Nonnull)byEndEditingTapGR;
+-(JobsRetJobsOCKeyboardMgrByUIViewBlock _Nonnull)byEndEditingTapHostView;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCKeyboardMgr
 @end
 
 NS_ASSUME_NONNULL_END

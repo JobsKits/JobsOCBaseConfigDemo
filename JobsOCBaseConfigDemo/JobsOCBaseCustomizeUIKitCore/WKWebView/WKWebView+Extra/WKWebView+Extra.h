@@ -11,6 +11,7 @@
 #import "JobsBaseProtocolHeader.h"
 #import "JobsBlock.h"
 #import "JobsDefines.h"
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,8 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 +(JobsRetWKWebViewByConfigurationBlock _Nonnull)initBy;
 -(JobsRetWKWebViewByURLRequestBlock _Nonnull)loadRequest;
 -(JobsRetWKWebViewByURLBlock _Nonnull)loadFileURL;
+-(JobsRetWKWebViewByURLBlock _Nonnull)byUrl;
 -(JobsRetCollectionViewByNavDelegateBlock _Nonnull)byNavDelegate;
--(JobsRetCollectionViewByUIDelegateBlock _Nonnull)byUIDelegate;
 
 @end
 

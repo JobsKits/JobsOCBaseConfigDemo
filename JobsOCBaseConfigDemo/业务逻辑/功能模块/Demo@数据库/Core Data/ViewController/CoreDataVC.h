@@ -49,6 +49,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CoreDataVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN CoreDataVC
+-(JobsRetCoreDataVCByNSManagedObjectContextBlock _Nonnull)byContext;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END CoreDataVC
 @end
 
 NS_ASSUME_NONNULL_END

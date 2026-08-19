@@ -6,14 +6,14 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "JobsAppDoorConfig.h"
 #import "JobsAppDoorInputViewBaseStyle.h"
-
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
-#else
-#import "Masonry.h"
-#endif
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import "JobsOCDSL.h"
@@ -51,6 +51,12 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 #ifndef InputViewStyle_5_h
@@ -75,6 +81,9 @@ Prop_assign()InputViewStyle_5 style_5;
  - (instancetype)init NS_UNAVAILABLE;
  - (instancetype)new NS_UNAVAILABLE;
  */
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorInputViewBaseStyle_5
+-(JobsRetJobsAppDoorInputViewBaseStyle_5ByJobsAppDoorInputViewBaseStyleModelBlock _Nonnull)byDoorInputViewBaseStyleModel;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_5
 @end
 
 NS_ASSUME_NONNULL_END

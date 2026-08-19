@@ -802,13 +802,13 @@ JobsKey(_cornerRadii)
                                    byTarget:(id _Nonnull)target{
     self.viewTapGRSavePicsBaseConfigByTarget(target);
     @jobs_weakify(self)
-    self.tapGR_SelImp.selector = [target jobsSelectorBlock:^id _Nullable(id _Nullable target,
+    self.tapGR_SelImp.selector = ((NSObject *)target).jobsSelectorBlock(^id _Nullable(id _Nullable target,
                                                                          UITapGestureRecognizer *_Nullable arg) {
         @jobs_strongify(self)
         GKPhotoBrowser *browser = [target tapImageWithIndexPath:indexPath imageDataMutArr:imageDataMutArr];
         [browser showFromVC:self.currentController];
         return nil;
-    }];self.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
+    });self.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
 }
 /// 针对数据源是NSURL  *的GKPhotoBrowser
 -(void)viewTapGRSavePicsWithImageUrlMutArr:(NSMutableArray <NSURL *>*_Nonnull)imageUrlMutArr
@@ -816,13 +816,13 @@ JobsKey(_cornerRadii)
                                   byTarget:(id _Nonnull)target{
     self.viewTapGRSavePicsBaseConfigByTarget(target);
     @jobs_weakify(self)
-    self.tapGR_SelImp.selector = [target jobsSelectorBlock:^id _Nullable(id _Nullable target,
+    self.tapGR_SelImp.selector = ((NSObject *)target).jobsSelectorBlock(^id _Nullable(id _Nullable target,
                                                                          UITapGestureRecognizer *_Nullable arg) {
         @jobs_strongify(self)
         GKPhotoBrowser *browser = [target tapImageWithIndexPath:indexPath imageUrlMutArr:imageUrlMutArr];
         [browser showFromVC:self.currentController];
         return nil;
-    }];self.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
+    });self.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
 }
 /// 针对数据源是NSString  *的GKPhotoBrowser
 -(void)viewTapGRSavePicsWithImageUrlStrMutArr:(NSMutableArray <NSString *>*_Nonnull)imageUrlStrMutArr
@@ -830,13 +830,13 @@ JobsKey(_cornerRadii)
                                      byTarget:(id _Nonnull)target{
     self.viewTapGRSavePicsBaseConfigByTarget(target);
     @jobs_weakify(self)
-    self.tapGR_SelImp.selector = [target jobsSelectorBlock:^id _Nullable(id _Nullable target,
+    self.tapGR_SelImp.selector = ((NSObject *)target).jobsSelectorBlock(^id _Nullable(id _Nullable target,
                                                                          UITapGestureRecognizer *_Nullable arg) {
         @jobs_strongify(self)
         GKPhotoBrowser *browser = [target tapImageWithIndexPath:indexPath imageUrlStrMutArr:imageUrlStrMutArr];
         [browser showFromVC:self.currentController];
         return nil;
-    }];self.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
+    });self.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
 }
 /// 对GKPhotoBrowser保存图片的基础设置
 -(jobsByIDBlock _Nonnull)viewTapGRSavePicsBaseConfigByTarget{

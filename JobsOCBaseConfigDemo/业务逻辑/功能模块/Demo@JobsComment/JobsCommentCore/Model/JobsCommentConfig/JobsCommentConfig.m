@@ -24,15 +24,29 @@ Prop_assign()CGFloat secondLevelCommentOffset;/// 二级标题相对于一级标
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_jobsCommentConfigOnceToken = 0;
-    static_jobsCommentConfig = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsCommentConfig.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_jobsCommentConfigOnceToken = 0;
+        static_jobsCommentConfig = nil;
+    };
 }
 static JobsCommentConfig *static_jobsCommentConfig = nil;
 static dispatch_once_t static_jobsCommentConfigOnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_jobsCommentConfigOnceToken, ^{
-        static_jobsCommentConfig = JobsCommentConfig.new;
-    });return static_jobsCommentConfig;
+    JobsRetJobsCommentConfigByVoidBlock action = ((JobsRetJobsCommentConfigByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsCommentConfig.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetJobsCommentConfigByVoidBlock _Nonnull)jobsSharedManager{
+    return ^JobsCommentConfig *{
+        dispatch_once(&static_jobsCommentConfigOnceToken, ^{
+            static_jobsCommentConfig = JobsCommentConfig.new;
+        });return static_jobsCommentConfig;
+    };
 }
 #pragma mark —— Lazyload
 -(CGSize)headerImageViewSize{

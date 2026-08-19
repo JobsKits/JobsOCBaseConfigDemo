@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_UICOLLECTIONVIEWCELL_UICOLLECTIONVIEWCELLPROTOCOL_AADB681CDC
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "UIBezierPath+Extra.h"
 #import "CALayer+Extra.h"
 #import "JobsBaseProtocolHeader.h"

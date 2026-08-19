@@ -22,16 +22,30 @@ Prop_strong()UILabel *titleLab;
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_titleView01OnceToken = 0;
-    static_titleView01 = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsTitleView01.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_titleView01OnceToken = 0;
+        static_titleView01 = nil;
+    };
 }
 
 static JobsTitleView01 *static_titleView01 = nil;
 static dispatch_once_t static_titleView01OnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_titleView01OnceToken, ^{
-        static_titleView01 = JobsTitleView01.new;
-    });return static_titleView01;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsTitleView01.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_titleView01OnceToken, ^{
+            static_titleView01 = JobsTitleView01.new;
+        });return static_titleView01;
+    };
 }
 
 -(instancetype)init{
@@ -52,11 +66,31 @@ static dispatch_once_t static_titleView01OnceToken;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTitleView01.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTitleView01.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 #pragma mark —— BaseViewProtocol
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -64,7 +98,7 @@ static dispatch_once_t static_titleView01OnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
+        self.byViewModel(model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {}));
         MakeDataNull
         self.titleLab.byAlpha(1);
         self.leftLab.byAlpha(1);
@@ -84,7 +118,7 @@ static dispatch_once_t static_titleView01OnceToken;
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(isNull(self.viewModel.textModel.text) ? @"我是标题".tr : self.viewModel.textModel.text)
+                .byText(isNull(self.viewModel.textModel.text) ? @"我是标题".jobsTr() : self.viewModel.textModel.text)
                 .byFont([UIFont systemFontOfSize:JobsWidth(12) weight:UIFontWeightRegular])
                 .byTextCor(HEXCOLOR(0xAE8330))
                 .byTextAlignment(NSTextAlignmentCenter)

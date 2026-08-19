@@ -25,7 +25,7 @@
         NSString *raw = SELF.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
         if (!isValue(raw)) { return nil; }
         /// 拒绝网络：同步接口不触网
-        if (SELF.isContainsUrl) { return nil; }
+        if (SELF.isContainsUrl()) { return nil; }
         UIImage *named = [UIImage systemImageNamed:raw];
         if (named) { return named; }
         if (!named && isValue(self)) {
@@ -40,7 +40,7 @@
         NSString *raw = SELF.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
         if (!isValue(raw)) { return nil; }
         // 1) 拒绝网络：同步接口不触网
-        if (SELF.isContainsUrl) { return nil; }
+        if (SELF.isContainsUrl()) { return nil; }
         // 2) dataURL: data:image/png;base64,xxxx
         if ([raw hasPrefix:@"data:image/"]) {
             UIImage *img = self.imageByDataURL(raw);
@@ -73,11 +73,11 @@
     if([self isKindOfClass:NSString.class]){
         NSString *SELF = (NSString *)self;
         // 本地 / 同步路径
-        if (!SELF.isContainsUrl) {
+        if (!SELF.isContainsUrl()) {
             completion(self.img ?: placeholder);
             return;
         }
-        NSURL *url = SELF.jobsUrl;
+        NSURL *url = SELF.jobsURL();
         if (!url) { completion(placeholder); return; }
         // 先查缓存
         UIImage *cached = [SDImageCache.sharedImageCache imageFromCacheForKey:url.absoluteString];
@@ -103,21 +103,6 @@
             }
         }];
     }else return;
-}
-
--(JobsRetImageByStrBlock _Nonnull)imageByDataURL{
-    @jobs_weakify(self)
-    return ^UIImage *_Nullable(__kindof NSString *_Nullable dataURL){
-        @jobs_strongify(self)
-        if([self isKindOfClass:NSString.class]){
-            // 形如：data:image/png;base64,iVBORw0KGgo...
-            NSRange comma = [dataURL rangeOfString:@","];
-            if (comma.location == NSNotFound) { return nil; }
-            NSString *b64 = [dataURL substringFromIndex:comma.location + 1];
-            NSData *data = [NSData.alloc initWithBase64EncodedString:b64 options:NSDataBase64DecodingIgnoreUnknownCharacters];
-            if (!data) { return nil; };return [UIImage imageWithData:data scale:UIScreen.mainScreen.scale];
-        }else return nil;
-    };
 }
 
 @end

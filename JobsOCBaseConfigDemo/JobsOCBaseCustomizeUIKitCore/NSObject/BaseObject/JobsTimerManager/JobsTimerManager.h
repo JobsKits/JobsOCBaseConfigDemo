@@ -13,6 +13,12 @@
 #import "JobsTimer.h"
 #import "JobsBlock.h"
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 #ifndef JOBS_TIMER_MANAGER_BUILD_BLOCK_DEFINED
@@ -50,7 +56,7 @@ typedef NS_ENUM(NSUInteger, JobsTimerBackgroundPolicy) {
 
 @interface JobsTimerManager : NSObject
 
-+ (instancetype)shared;
++ (JobsRetIDByVoidBlock _Nonnull)shared;
 
 /// 创建/覆盖一个 timer（同 id：先原子替换注册项，再在锁外停止旧 timer；start/resume 后同步当前应用状态）
 /// - identifier: 唯一 id
@@ -89,26 +95,27 @@ typedef NS_ENUM(NSUInteger, JobsTimerBackgroundPolicy) {
 - (BOOL)onFinishVoid:(NSString *)identifier block:(jobsByVoidBlock)block;
 
 /// Controls
-- (BOOL)start:(NSString *)identifier;
+-(JobsRetBOOLByStrBlock _Nonnull)start;
 - (BOOL)pause:(NSString *)identifier;
-- (BOOL)resume:(NSString *)identifier;
+-(JobsRetBOOLByStrBlock _Nonnull)pause;
+-(JobsRetBOOLByStrBlock _Nonnull)resume;
 
-- (BOOL)fireOnceAndRemove:(NSString *)identifier;
-- (BOOL)stopAndRemove:(NSString *)identifier;
+-(JobsRetBOOLByStrBlock _Nonnull)fireOnceAndRemove;
+-(JobsRetBOOLByStrBlock _Nonnull)stopAndRemove;
 - (BOOL)stopAndRemove:(NSString *)identifier
         expectedTimer:(JobsTimer *)expectedTimer;
-- (NSUInteger)pauseScope:(NSString *)scopeIdentifier;
-- (NSUInteger)resumeScope:(NSString *)scopeIdentifier;
-- (NSUInteger)stopAndRemoveScope:(NSString *)scopeIdentifier;
-- (void)stopAndRemoveAll;
+-(JobsRetNSUIntegerByNSStringBlock _Nonnull)pauseScope;
+-(JobsRetNSUIntegerByNSStringBlock _Nonnull)resumeScope;
+-(JobsRetNSUIntegerByNSStringBlock _Nonnull)stopAndRemoveScope;
+- (jobsByVoidBlock _Nonnull)stopAndRemoveAll;
 
 /// Query
-- (BOOL)exists:(NSString *)identifier;
-- (BOOL)isRunning:(NSString *)identifier;
-- (NSArray<NSString *> *)allIdentifiers;
+-(JobsRetBOOLByStrBlock _Nonnull)exists;
+-(JobsRetBOOLByStrBlock _Nonnull)isRunning;
+- (JobsRetNSArrayNSStringByVoidBlock _Nonnull)allIdentifiers;
 
 /// 可选：拿到 timer 引用（只读，不建议外部直接改回调）
-- (JobsTimer * _Nullable)timerForIdentifier:(NSString *)identifier;
+-(JobsRetTimerByStringBlock _Nonnull)timerForIdentifier;
 
 @end
 

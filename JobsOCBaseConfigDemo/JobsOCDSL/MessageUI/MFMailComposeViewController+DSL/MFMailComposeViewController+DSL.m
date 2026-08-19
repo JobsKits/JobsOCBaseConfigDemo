@@ -2,16 +2,19 @@
 //  MFMailComposeViewController+DSL.m
 //  JobsOCBaseConfigDemo
 //
+//  Created by Jobs on 2026年8月3日，星期一.
+//
+
 #import "MFMailComposeViewController+DSL.h"
 
 @implementation MFMailComposeViewController (JobsChain)
-+(JobsRetBOOLByVoidBlock)byCanSendMail{
++(JobsRetBOOLByVoidBlock _Nonnull)byCanSendMail{
     return ^BOOL(void){
         return [self canSendMail];
     };
 }
 
-+(JobsRetMailComposeVCByStrBlock)byMailComposeViewControllerWithSubject{
++(JobsRetMailComposeVCByStrBlock _Nonnull)byMailComposeViewControllerWithSubject{
     return ^__kindof MFMailComposeViewController *_Nullable(NSString *_Nullable data){
         MFMailComposeViewController *vc = [[self alloc] init];
         [vc setSubject:data ?: @""];
@@ -19,7 +22,7 @@
     };
 }
 
--(JobsRetMailComposeVCByDelegateBlock)byMailComposeDelegate{
+-(JobsRetMailComposeVCByDelegateBlock _Nonnull)byMailComposeDelegate{
     @jobs_weakify(self)
     return ^__kindof MFMailComposeViewController *_Nullable(id<MFMailComposeViewControllerDelegate> _Nullable data){
         @jobs_strongify(self)
@@ -28,7 +31,7 @@
     };
 }
 
--(JobsRetMailComposeVCByStrBlock)bySetSubject{
+-(JobsRetMailComposeVCByStrBlock _Nonnull)bySetSubject{
     @jobs_weakify(self)
     return ^__kindof MFMailComposeViewController *_Nullable(NSString *_Nullable data){
         @jobs_strongify(self)
@@ -37,7 +40,7 @@
     };
 }
 
--(JobsRetMailComposeVCByArrBlock)bySetToRecipients{
+-(JobsRetMailComposeVCByArrBlock _Nonnull)bySetToRecipients{
     @jobs_weakify(self)
     return ^__kindof MFMailComposeViewController *_Nullable(__kindof NSArray *_Nullable data){
         @jobs_strongify(self)
@@ -46,7 +49,7 @@
     };
 }
 
--(JobsRetMailComposeVCByArrBlock)bySetCcRecipients{
+-(JobsRetMailComposeVCByArrBlock _Nonnull)bySetCcRecipients{
     @jobs_weakify(self)
     return ^__kindof MFMailComposeViewController *_Nullable(__kindof NSArray *_Nullable data){
         @jobs_strongify(self)
@@ -55,7 +58,7 @@
     };
 }
 
--(JobsRetMailComposeVCByArrBlock)bySetBccRecipients{
+-(JobsRetMailComposeVCByArrBlock _Nonnull)bySetBccRecipients{
     @jobs_weakify(self)
     return ^__kindof MFMailComposeViewController *_Nullable(__kindof NSArray *_Nullable data){
         @jobs_strongify(self)

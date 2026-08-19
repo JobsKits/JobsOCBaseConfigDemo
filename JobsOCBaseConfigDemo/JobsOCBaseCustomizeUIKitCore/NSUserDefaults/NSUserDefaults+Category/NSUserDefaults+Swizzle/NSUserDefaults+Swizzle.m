@@ -61,8 +61,18 @@
 }
 
 -(nullable id)swizzleObjectForKey:(NSString *_Nonnull)key{
-    // TODO 可以接入加解密的模块
-    return [self swizzleObjectForKey:key];
+    JobsRetIDByStrBlock action = ((JobsRetIDByStrBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSUserDefaults.class, @selector(jobsSwizzleObjectForKey)))(self, @selector(jobsSwizzleObjectForKey));
+    return action ? action(key) : nil;
+}
+
+-(JobsRetIDByStrBlock _Nonnull)jobsSwizzleObjectForKey{
+    @jobs_weakify(self)
+    return ^id(NSString *_Nonnull key){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        // TODO 可以接入加解密的模块
+        return [self swizzleObjectForKey:key];
+    };
 }
 #pragma mark —— Value
 -(void)swizzleSetValue:(id _Nonnull)value
@@ -74,8 +84,18 @@
 }
 
 -(nullable id)swizzleValueForKey:(NSString *_Nonnull)key{
-    // TODO 可以接入加解密的模块
-    return [self swizzleValueForKey:key];
+    JobsRetIDByStrBlock action = ((JobsRetIDByStrBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSUserDefaults.class, @selector(jobsSwizzleValueForKey)))(self, @selector(jobsSwizzleValueForKey));
+    return action ? action(key) : nil;
+}
+
+-(JobsRetIDByStrBlock _Nonnull)jobsSwizzleValueForKey{
+    @jobs_weakify(self)
+    return ^id(NSString *_Nonnull key){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        // TODO 可以接入加解密的模块
+        return [self swizzleValueForKey:key];
+    };
 }
 #pragma mark —— Bool
 -(void)swizzleSetBool:(BOOL)boolValue
@@ -87,13 +107,33 @@
 }
 
 -(BOOL)swizzleBoolForKey:(NSString *_Nonnull)key{
-    // TODO 可以接入加解密的模块
-    return [self swizzleBoolForKey:key];
+    JobsRetBOOLByStrBlock action = ((JobsRetBOOLByStrBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSUserDefaults.class, @selector(jobsSwizzleBoolForKey)))(self, @selector(jobsSwizzleBoolForKey));
+    return action ? action(key) : NO;
+}
+
+-(JobsRetBOOLByStrBlock _Nonnull)jobsSwizzleBoolForKey{
+    @jobs_weakify(self)
+    return ^BOOL(NSString *_Nonnull key){
+        @jobs_strongify(self)
+        if (!self) return NO;
+        // TODO 可以接入加解密的模块
+        return [self swizzleBoolForKey:key];
+    };
 }
 #pragma mark —— removeObject
 -(void)swizzleRemoveObjectForKey:(NSString *_Nonnull)key{
-    [self swizzleRemoveObjectForKey:key];
-    JobsUserDefaultSynchronize;// 强制让它存了立即写磁盘
+    jobsByStrBlock action = ((jobsByStrBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSUserDefaults.class, @selector(jobsSwizzleRemoveObjectForKey)))(self, @selector(jobsSwizzleRemoveObjectForKey));
+    if (action) action(key);
+}
+
+-(jobsByStrBlock _Nonnull)jobsSwizzleRemoveObjectForKey{
+    @jobs_weakify(self)
+    return ^(NSString *_Nonnull key){
+        @jobs_strongify(self)
+        if (!self) return;
+        [self swizzleRemoveObjectForKey:key];
+        JobsUserDefaultSynchronize;// 强制让它存了立即写磁盘
+    };
 }
 
 @end

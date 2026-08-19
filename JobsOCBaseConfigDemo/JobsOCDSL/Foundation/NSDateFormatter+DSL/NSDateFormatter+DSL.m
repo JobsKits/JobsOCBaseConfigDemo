@@ -2,16 +2,19 @@
 //  NSDateFormatter+DSL.m
 //  JobsOCDSL
 //
+//  Created by Jobs on 2026年8月3日，星期一.
+//
+
 #import "NSDateFormatter+DSL.h"
 
 @implementation NSDateFormatter (JobsChain)
-+(JobsRetDateFormatterByVoidBlock)byDateFormatter{
++(JobsRetDateFormatterByVoidBlock _Nonnull)byDateFormatter{
     return ^__kindof NSDateFormatter *_Nullable(void){
         return [[self alloc] init];
     };
 }
 
-+(JobsRetDateFormatterByStrBlock)byDateFormatterWithDateFormat{
++(JobsRetDateFormatterByStrBlock _Nonnull)byDateFormatterWithDateFormat{
     return ^__kindof NSDateFormatter *_Nullable(NSString *_Nullable data){
         NSDateFormatter *formatter = [[self alloc] init];
         formatter.dateFormat = data;
@@ -19,7 +22,7 @@
     };
 }
 
--(JobsRetDateFormatterByStrBlock)byDateFormat{
+-(JobsRetDateFormatterByStrBlock _Nonnull)byDateFormat{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSString *_Nullable data){
         @jobs_strongify(self)
@@ -28,7 +31,7 @@
     };
 }
 
--(JobsRetDateFormatterByLocaleBlock)byLocale{
+-(JobsRetDateFormatterByLocaleBlock _Nonnull)byLocale{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSLocale *_Nullable data){
         @jobs_strongify(self)
@@ -37,16 +40,7 @@
     };
 }
 
--(JobsRetDateFormatterByTimeZoneBlock)byTimeZone{
-    @jobs_weakify(self)
-    return ^__kindof NSDateFormatter *_Nullable(NSTimeZone *_Nullable data){
-        @jobs_strongify(self)
-        self.timeZone = data;
-        return self;
-    };
-}
-
--(JobsRetDateFormatterByCalendarBlock)byCalendar{
+-(JobsRetDateFormatterByCalendarBlock _Nonnull)byCalendar{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSCalendar *_Nullable data){
         @jobs_strongify(self)
@@ -55,7 +49,7 @@
     };
 }
 
--(JobsRetDateFormatterByDateFormatterStyleBlock)byDateStyle{
+-(JobsRetDateFormatterByDateFormatterStyleBlock _Nonnull)byDateStyle{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSDateFormatterStyle data){
         @jobs_strongify(self)
@@ -64,7 +58,7 @@
     };
 }
 
--(JobsRetDateFormatterByDateFormatterStyleBlock)byTimeStyle{
+-(JobsRetDateFormatterByDateFormatterStyleBlock _Nonnull)byTimeStyle{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSDateFormatterStyle data){
         @jobs_strongify(self)
@@ -73,7 +67,7 @@
     };
 }
 
--(JobsRetDateFormatterByDateFormatterBehaviorBlock)byFormatterBehavior{
+-(JobsRetDateFormatterByDateFormatterBehaviorBlock _Nonnull)byFormatterBehavior{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSDateFormatterBehavior data){
         @jobs_strongify(self)
@@ -82,7 +76,7 @@
     };
 }
 
--(JobsRetDateFormatterByBOOLBlock)byLenient{
+-(JobsRetDateFormatterByBOOLBlock _Nonnull)byLenient{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -91,7 +85,7 @@
     };
 }
 
--(JobsRetDateFormatterByStrBlock)bySetLocalizedDateFormatFromTemplate{
+-(JobsRetDateFormatterByStrBlock _Nonnull)bySetLocalizedDateFormatFromTemplate{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSString *_Nullable data){
         @jobs_strongify(self)
@@ -101,7 +95,7 @@
     };
 }
 
--(JobsRetStrByDateBlock)byStringFromDate{
+-(JobsRetStrByDateBlock _Nonnull)byStringFromDate{
     @jobs_weakify(self)
     return ^__kindof NSString *_Nullable(NSDate *_Nullable date){
         @jobs_strongify(self)
@@ -109,7 +103,7 @@
     };
 }
 
--(JobsRetDateByStrBlock)byDateFromString{
+-(JobsRetDateByStrBlock _Nonnull)byDateFromString{
     @jobs_weakify(self)
     return ^__kindof NSDate *_Nullable(NSString *_Nullable data){
         @jobs_strongify(self)

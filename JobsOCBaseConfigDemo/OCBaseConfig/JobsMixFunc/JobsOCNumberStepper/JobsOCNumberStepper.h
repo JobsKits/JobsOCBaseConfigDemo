@@ -6,10 +6,23 @@
 //
 
 #ifndef JobsOCNumberStepper_h
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 #define JobsOCNumberStepper_h
 
 #import <UIKit/UIKit.h>
-#import <Masonry/Masonry.h>
+#import "JobsBlock.h"
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "JobsBaseUI.h"
 #import "JobsMakes.h"
 #import "JobsOCDSL.h"
@@ -27,6 +40,10 @@ Prop_strong(readonly)UIButton *decreaseButton;
 Prop_strong(readonly)UITextField *textField;
 Prop_strong(readonly)UIButton *increaseButton;
 
+-(JobsRetJobsOCNumberStepperByNSIntegerBlock _Nonnull)byValue;
+-(JobsRetJobsOCNumberStepperByNumberBlock _Nonnull)byMinimumValue;
+-(JobsRetJobsOCNumberStepperByNumberBlock _Nonnull)byMaximumValue;
+-(JobsRetJobsOCNumberStepperByNSIntegerBlock _Nonnull)byStepValue;
 -(instancetype)configureWithValue:(NSInteger)value
                      minimumValue:(nullable NSNumber *)minimumValue
                      maximumValue:(nullable NSNumber *)maximumValue
@@ -34,6 +51,8 @@ Prop_strong(readonly)UIButton *increaseButton;
 -(void)setBoundsWithMinimumValue:(nullable NSNumber *)minimumValue
                    maximumValue:(nullable NSNumber *)maximumValue;
 -(void)setValue:(NSInteger)value sendActions:(BOOL)sendActions;
+
+-(JobsRetCGSizeByVoidBlock _Nonnull)jobsIntrinsicContentSize;
 
 @end
 

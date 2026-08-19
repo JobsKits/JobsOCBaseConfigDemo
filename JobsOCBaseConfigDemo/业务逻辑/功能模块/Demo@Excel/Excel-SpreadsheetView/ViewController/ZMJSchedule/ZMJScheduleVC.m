@@ -265,7 +265,7 @@ Prop_strong()UIColor *oddRowColor;  //奇数
 -(SpreadsheetView *)spreadsheetView{
     if(!_spreadsheetView){
         _spreadsheetView = SpreadsheetView.new;
-        _spreadsheetView.delegate   = self;
+        _spreadsheetView.delegate = self;
         _spreadsheetView.dataSource = self;
         _spreadsheetView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _spreadsheetView.contentInset = UIEdgeInsetsMake(4, 0, 4, 0);

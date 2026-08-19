@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_EMPTYDATA_311C53F695
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "UIView+EmptyData.h"
 #import "JobsDefines.h"
 #import "JobsOCDSL.h"
@@ -17,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 当ViewController的view上啥也没有的时候，出现提示，方便调试
 @interface UIViewController (EmptyData)
 
--(void)ifEmptyData;
+-(jobsByVoidBlock _Nonnull)ifEmptyData;
 
 @end
 

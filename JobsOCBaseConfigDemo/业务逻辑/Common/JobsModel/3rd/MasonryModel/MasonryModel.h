@@ -6,15 +6,16 @@
 //
 
 #ifndef MasonryModel_h
-#define MasonryModel_h
-
-#import <Foundation/Foundation.h>
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#define MasonryModel_h
+
+#import <Foundation/Foundation.h>
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"
@@ -39,6 +40,9 @@ Prop_assign()CGFloat centerY;
 Prop_assign()BOOL is_mas_makeConstraints;
 Prop_strong()__kindof UIView *view;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN MasonryModel
+-(JobsRetMasonryModelByMASAxisTypeBlock _Nonnull)byAxisType;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END MasonryModel
 @end
 
 NS_ASSUME_NONNULL_END

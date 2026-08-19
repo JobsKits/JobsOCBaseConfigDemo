@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_9_39DC96EEC4
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "JobsOCTools.h"
 
 #if __has_include(<JobsAppDoor/JobsAppDoorInputViewBaseStyle.h>)
@@ -54,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_assign()CGFloat countDownBtnWidth;
 Prop_assign()CGFloat textFieldWidth;
 /// 倒计时按钮（需要销毁定时器）
--(UIButton *)getCountDownBtn;
+-(JobsRetBtnByVoidBlock _Nonnull)getCountDownBtn;
 /**
  
  * 其实并不建议用init方法,而是期望带参数初始化，比如对应BaseViewProtocol里面的 - (instancetype)initWithSize:(CGSize)thisViewSize
@@ -65,6 +71,9 @@ Prop_assign()CGFloat textFieldWidth;
  - (instancetype)init NS_UNAVAILABLE;
  - (instancetype)new NS_UNAVAILABLE;
  */
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorInputViewBaseStyle_9
+-(JobsRetJobsAppDoorInputViewBaseStyle_9ByJobsAppDoorInputViewBaseStyleModelBlock _Nonnull)byDoorInputViewBaseStyleModel;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_9
 @end
 
 NS_ASSUME_NONNULL_END
@@ -102,7 +111,7 @@ NS_ASSUME_NONNULL_END
          if (!_配置验证码输入) {
              _配置验证码输入 = JobsAppDoorInputViewBaseStyleModel.new;
              _配置验证码输入.leftViewIMG = @"安全".img;
-             _配置验证码输入.placeHolderStr = @"請輸入驗證碼".tr;
+             _配置验证码输入.placeHolderStr = @"請輸入驗證碼".jobsTr();
              _配置验证码输入.placeholderFont = UIFontWeightRegularSize(JobsWidth(16));
              _配置验证码输入.isShowDelBtn = YES;
              _配置验证码输入.isShowSecurityBtn = NO;

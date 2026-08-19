@@ -8,10 +8,12 @@
 #import "GKGestureHandleConfigure+DSL.h"
 
 @implementation GKGestureHandleConfigure (DSL)
-+(__kindof GKGestureHandleConfigure *_Nonnull)bySetupDefault{
-    GKGestureHandleConfigure *configure = GKGestureHandleConfigure.sharedInstance;
-    [configure setupDefaultConfigure];
-    return configure;
++(JobsRetGKGestureHandleConfigureByVoidBlock _Nonnull)bySetupDefault{
+    return ^__kindof GKGestureHandleConfigure *_Nonnull{
+        GKGestureHandleConfigure *configure = GKGestureHandleConfigure.sharedInstance;
+        [configure setupDefaultConfigure];
+        return configure;
+    };
 }
 
 +(JobsRetGKGestureConfigureByConfigureBlock _Nonnull)bySetup{

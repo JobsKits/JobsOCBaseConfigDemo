@@ -31,11 +31,17 @@
 #import "JobsBlock.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (TimeApp)
 /// 判断是否当日第一次启动App
--(BOOL)isFirstLaunchApp;
+-(JobsRetBOOLByVoidBlock _Nonnull)isFirstLaunchApp;
 
 @end
 

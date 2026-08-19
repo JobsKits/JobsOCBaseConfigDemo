@@ -17,10 +17,10 @@ typedef NS_ENUM(NSInteger, JhtBannerViewOrientation) {
 };
 #endif /* JHT_BANNER_VIEW_ORIENTATION_ENUM_DEFINED */
 /// JobsDropDownListView的方向
-typedef enum : NSInteger {
+typedef NS_ENUM(NSInteger, JobsDropDownListViewDirection) {
     JobsDropDownListViewDirection_Down = 0,
     JobsDropDownListViewDirection_UP
-} JobsDropDownListViewDirection;
+};
 /// 抖音模式
 #ifndef MK_RIGHT_BTN_VIEW_BTN_TYPE_ENUM_DEFINED
 #define MK_RIGHT_BTN_VIEW_BTN_TYPE_ENUM_DEFINED

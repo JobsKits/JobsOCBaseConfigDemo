@@ -13,11 +13,12 @@
     if (!_paragraphStyle) {
         _paragraphStyle = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
             /// JobsModel 是底层模型 Pod，不能反向依赖 JobsOCDSL。
-            data.lineSpacing = JobsWidth(10);/// 行间距
-            data.paragraphSpacing = JobsWidth(20);/// 段落间距
-            data.alignment = NSTextAlignmentLeft;/// 对齐方式
-            data.firstLineHeadIndent = JobsWidth(30);/// 指定段落开始的缩进像素
-            data.headIndent = JobsWidth(10);/// 调整全部文字的缩进像素
+            data
+                .byLineSpacing(JobsWidth(10))
+                .byParagraphSpacing(JobsWidth(20))
+                .byAlignment(NSTextAlignmentLeft)
+                .byFirstLineHeadIndent(JobsWidth(30))
+                .byHeadIndent(JobsWidth(10));
         });
     };return _paragraphStyle;
 }

@@ -607,12 +607,12 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                 cell.direction = ZMJDashlineDirectionNone;
             }
             if (self.displayMode != ZMJDisplayMode_daily) {
-                cell.gridlines.right   = GridStyle.borderStyleNone;
+                cell.gridlines.right = GridStyle.borderStyleNone;
             }
         } else {
             cell.label.text = @"";
             cell.color = JobsClearColor;
-            cell.gridlines.right   = [GridStyle style:GridStyle_default width:0 color:nil];
+            cell.gridlines.right = [GridStyle style:GridStyle_default width:0 color:nil];
         }
         cell.gridlines.bottom  = GridStyle.borderStyleNone;
         cell.gridlines.top     = GridStyle.borderStyleNone;

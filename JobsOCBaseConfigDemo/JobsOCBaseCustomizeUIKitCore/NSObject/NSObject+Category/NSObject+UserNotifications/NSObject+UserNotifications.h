@@ -20,15 +20,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (UserNotifications)
 /// 用户通知中心
--(UNUserNotificationCenter *)notificationCenter;
+-(JobsRetUNUserNotificationCenterByVoidBlock _Nonnull)notificationCenter;
 /// 获取通知授权和设置
 -(void)userNotificationCenter:(UNUserNotificationCenter *_Nonnull)userNotificationCenter
      authorizationStatusBlock:(jobsByIDBlock _Nullable)authorizationStatusBlock;
 /// 初始化一个本地通知
--(UNMutableNotificationContent *)userNotificationInit;
+-(JobsRetUNMutableNotificationContentByVoidBlock _Nonnull)userNotificationInit;
 /// 设置通知附件内容
 /// 注意：URL必须是一个有效的文件路径，不然会报错
--(UNNotificationAttachment *)notificationAttachmentInitByPath:(NSString *)path;
+-(JobsRetUNNotificationAttachmentByNSStringBlock _Nonnull)notificationAttachmentInitByPath;
 /// 触发模式
 -(UNTimeIntervalNotificationTrigger *)notificationTriggerWithTimeInterval:(NSTimeInterval)timeInterval
                                                                   repeats:(BOOL)repeats;
@@ -41,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
    addNotificationRequest:(UNNotificationRequest *_Nullable)notificationRequest
            withIdentifier:(NSString *_Nullable)identifier;
 /// 本地通知的相关管理
--(void)userNotificationManager:(UNUserNotificationCenter *_Nullable)userNotificationCenter;
+-(jobsByUNUserNotificationCenterBlock _Nonnull)userNotificationManager;
 
 @end
 

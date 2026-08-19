@@ -12,6 +12,14 @@
 #import <UIKit/UIKit.h>
 #import "JobsOCRuntimeKits.h"
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#import "JobsOCDSL.h"
+
 NS_ASSUME_NONNULL_BEGIN
 /// 文本选择器的自定义颜色，因为是内部类，所以需要用runtime来修改
 @interface UIView (AOP)

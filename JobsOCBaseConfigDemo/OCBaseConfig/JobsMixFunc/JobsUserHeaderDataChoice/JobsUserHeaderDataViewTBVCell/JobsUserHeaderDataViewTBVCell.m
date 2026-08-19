@@ -57,7 +57,7 @@ Prop_strong()UILabel *titleLab;
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model;
+        self.byViewModel(model);
         self.titleLab.byAlpha(1);
         return self;
     };
@@ -69,8 +69,13 @@ Prop_strong()UILabel *titleLab;
     };
 }
 
--(NSString *)getTitleValue{
-    return self.titleLab.text;
+-(JobsRetStrByVoidBlock _Nonnull)getTitleValue{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.titleLab.text;
+    };
 }
 #pragma mark —— lazyLoad
 -(UILabel *)titleLab{
@@ -79,7 +84,7 @@ Prop_strong()UILabel *titleLab;
         _titleLab = self.contentView.addSubview(jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(isNull(self.viewModel.textModel.text) ? @"请设置标题".tr : self.viewModel.textModel.text)
+                .byText(isNull(self.viewModel.textModel.text) ? @"请设置标题".jobsTr() : self.viewModel.textModel.text)
                 .byTextCor(self.viewModel.textModel.textCor)
                 .byFont(self.viewModel.textModel.font)
                 .byTextAlignment(NSTextAlignmentCenter);

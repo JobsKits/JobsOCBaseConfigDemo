@@ -10,6 +10,7 @@
 @interface JobsOCVideoRecorderPreviewView ()
 
 Prop_strong(nullable) AVPlayer *player;
+-(JobsRetJobsOCVideoRecorderPreviewViewByAVPlayerBlock _Nonnull)byPlayer;
 Prop_strong() AVPlayerLayer *playerLayer;
 Prop_strong() UIButton *cancelBtn;
 Prop_strong() UIButton *saveBtn;
@@ -18,16 +19,26 @@ Prop_strong() UIPanGestureRecognizer *panGesture;
 @end
 
 @implementation JobsOCVideoRecorderPreviewView
+-(JobsRetJobsOCVideoRecorderPreviewViewByAVPlayerBlock _Nonnull)byPlayer{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCVideoRecorderPreviewView *_Nullable(AVPlayer *_Nullable player){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setPlayer:player];
+        return self;
+    };
+}
+
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.byBgColor(UIColor.blackColor);
-        self.layer.cornerRadius = JobsWidth(12);
-        self.layer.masksToBounds = YES;
-        self.layer.borderColor = UIColor.whiteColor.CGColor;
-        self.layer.borderWidth = JobsWidth(1);
+        self.layer.byCornerRadius(JobsWidth(12));
+        self.layer.byMasksToBounds(YES);
+        self.layer.byBorderColor(UIColor.whiteColor.CGColor);
+        self.layer.byBorderWidth(JobsWidth(1));
         [self.layer addSublayer:self.playerLayer];
-        self.cancelBtn.alpha = 1;
-        self.saveBtn.alpha = 1;
+        self.cancelBtn.byAlpha(1);
+        self.saveBtn.byAlpha(1);
         [self addGestureRecognizer:self.panGesture];
     };return self;
 }
@@ -37,68 +48,128 @@ Prop_strong() UIPanGestureRecognizer *panGesture;
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    self.playerLayer.frame = self.bounds;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCVideoRecorderPreviewView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
 }
 
--(void)playWithURL:(NSURL *)URL{
-    [self stop];
-    AVPlayerItem *item = [AVPlayerItem playerItemWithURL:URL];
-    self.player = [AVPlayer playerWithPlayerItem:item];
-    self.playerLayer.player = self.player;
-    [NSNotificationCenter.defaultCenter addObserver:self
-                                           selector:@selector(playerDidPlayToEnd:)
-                                               name:AVPlayerItemDidPlayToEndTimeNotification
-                                             object:item];
-    [self.player play];
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        self.playerLayer.byFrame(self.bounds);
+    };
 }
 
--(void)stop{
-    [NSNotificationCenter.defaultCenter removeObserver:self
-                                                  name:AVPlayerItemDidPlayToEndTimeNotification
-                                                object:nil];
-    [self.player pause];
-    self.playerLayer.player = nil;
-    self.player = nil;
+-(jobsByURLBlock _Nonnull)playWithURL{
+    @jobs_weakify(self)
+    return ^(NSURL * URL){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.jobsStop();
+        AVPlayerItem *item = [AVPlayerItem playerItemWithURL:URL];
+        self.byPlayer([AVPlayer playerWithPlayerItem:item]);
+        self.playerLayer.byPlayer(self.player);
+        [NSNotificationCenter.defaultCenter addObserver:self
+                                               selector:@selector(playerDidPlayToEnd:)
+                                                   name:AVPlayerItemDidPlayToEndTimeNotification
+                                                 object:item];
+        [self.player play];
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)jobsStop{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [NSNotificationCenter.defaultCenter removeObserver:self
+                                                      name:AVPlayerItemDidPlayToEndTimeNotification
+                                                    object:nil];
+        self.player.pause;
+        self.playerLayer.byPlayer(nil);
+        self.byPlayer(nil);
+    };
 }
 
 -(void)playerDidPlayToEnd:(NSNotification *)notification{
-    [self.player seekToTime:kCMTimeZero];
-    [self.player play];
+    jobsByNotificationBlock action = ((jobsByNotificationBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCVideoRecorderPreviewView.class, @selector(jobsPlayerDidPlayToEnd)))(self, @selector(jobsPlayerDidPlayToEnd));
+    if (action) action(notification);
+}
+
+-(jobsByNotificationBlock _Nonnull)jobsPlayerDidPlayToEnd{
+    @jobs_weakify(self)
+    return ^(NSNotification * notification){
+        @jobs_strongify(self)
+        if (!self) return;
+        [self.player seekToTime:kCMTimeZero];
+        [self.player play];
+    };
 }
 
 -(void)cancelAction:(UIButton *)sender{
-    if (self.cancelBlock) self.cancelBlock(self);
+    jobsByBtnBlock action = ((jobsByBtnBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCVideoRecorderPreviewView.class, @selector(jobsCancelAction)))(self, @selector(jobsCancelAction));
+    if (action) action(sender);
+}
+
+-(jobsByBtnBlock _Nonnull)jobsCancelAction{
+    @jobs_weakify(self)
+    return ^(UIButton * sender){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (self.cancelBlock) self.cancelBlock(self);
+    };
 }
 
 -(void)saveAction:(UIButton *)sender{
-    if (self.saveBlock) self.saveBlock(self);
+    jobsByBtnBlock action = ((jobsByBtnBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCVideoRecorderPreviewView.class, @selector(jobsSaveAction)))(self, @selector(jobsSaveAction));
+    if (action) action(sender);
+}
+
+-(jobsByBtnBlock _Nonnull)jobsSaveAction{
+    @jobs_weakify(self)
+    return ^(UIButton * sender){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (self.saveBlock) self.saveBlock(self);
+    };
 }
 
 -(void)panAction:(UIPanGestureRecognizer *)gesture{
-    UIView *superview = self.superview;
-    if (!superview) return;
-    CGPoint translation = [gesture translationInView:superview];
-    CGRect targetFrame = CGRectOffset(self.frame, translation.x, translation.y);
-    UIEdgeInsets inset = superview.safeAreaInsets;
-    CGFloat minX = inset.left + JobsWidth(8);
-    CGFloat maxX = CGRectGetWidth(superview.bounds) - inset.right - CGRectGetWidth(targetFrame) - JobsWidth(8);
-    CGFloat minY = inset.top + JobsWidth(8);
-    CGFloat maxY = CGRectGetHeight(superview.bounds) - inset.bottom - CGRectGetHeight(targetFrame) - JobsWidth(8);
-    CGFloat offsetX = translation.x;
-    CGFloat offsetY = translation.y;
-    if (CGRectGetMinX(targetFrame) < minX) offsetX += minX - CGRectGetMinX(targetFrame);
-    if (CGRectGetMinX(targetFrame) > maxX) offsetX -= CGRectGetMinX(targetFrame) - maxX;
-    if (CGRectGetMinY(targetFrame) < minY) offsetY += minY - CGRectGetMinY(targetFrame);
-    if (CGRectGetMinY(targetFrame) > maxY) offsetY -= CGRectGetMinY(targetFrame) - maxY;
-    self.transform = CGAffineTransformTranslate(self.transform, offsetX, offsetY);
-    [gesture setTranslation:CGPointZero inView:superview];
+    jobsByPanGestureRecognizerBlock action = ((jobsByPanGestureRecognizerBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCVideoRecorderPreviewView.class, @selector(jobsPanAction)))(self, @selector(jobsPanAction));
+    if (action) action(gesture);
+}
+
+-(jobsByPanGestureRecognizerBlock _Nonnull)jobsPanAction{
+    @jobs_weakify(self)
+    return ^(UIPanGestureRecognizer * gesture){
+        @jobs_strongify(self)
+        if (!self) return;
+        UIView *superview = self.superview;
+        if (!superview) return;
+        CGPoint translation = [gesture translationInView:superview];
+        CGRect targetFrame = CGRectOffset(self.frame, translation.x, translation.y);
+        UIEdgeInsets inset = superview.safeAreaInsets;
+        CGFloat minX = inset.left + JobsWidth(8);
+        CGFloat maxX = CGRectGetWidth(superview.bounds) - inset.right - CGRectGetWidth(targetFrame) - JobsWidth(8);
+        CGFloat minY = inset.top + JobsWidth(8);
+        CGFloat maxY = CGRectGetHeight(superview.bounds) - inset.bottom - CGRectGetHeight(targetFrame) - JobsWidth(8);
+        CGFloat offsetX = translation.x;
+        CGFloat offsetY = translation.y;
+        if (CGRectGetMinX(targetFrame) < minX) offsetX += minX - CGRectGetMinX(targetFrame);
+        if (CGRectGetMinX(targetFrame) > maxX) offsetX -= CGRectGetMinX(targetFrame) - maxX;
+        if (CGRectGetMinY(targetFrame) < minY) offsetY += minY - CGRectGetMinY(targetFrame);
+        if (CGRectGetMinY(targetFrame) > maxY) offsetY -= CGRectGetMinY(targetFrame) - maxY;
+        self.byTransform(CGAffineTransformTranslate(self.transform, offsetX, offsetY));
+        [gesture setTranslation:CGPointZero inView:superview];
+    };
 }
 
 -(AVPlayerLayer *)playerLayer{
     if (!_playerLayer) {
         _playerLayer = AVPlayerLayer.layer;
-        _playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+        _playerLayer.byVideoGravity(AVLayerVideoGravityResizeAspectFill);
     };return _playerLayer;
 }
 

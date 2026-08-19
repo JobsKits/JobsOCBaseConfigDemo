@@ -97,8 +97,10 @@ jobsMakeBezierPath(jobsByBezierPathBlock _Nonnull block){
 }
 #pragma mark —— 关于 UIImage 的创建
 /// 创建用于清空系统图片属性的空 UIImage。
-NS_INLINE UIImage *_Nonnull jobsMakeImage(void){
-    return UIImage.new;
+NS_INLINE UIImage *_Nonnull jobsMakeImage(jobsByImageBlock _Nullable block){
+    UIImage *image = UIImage.new;
+    if (block) block(image);
+    return image;
 }
 #pragma mark —— 关于动画
 NS_INLINE __kindof CABasicAnimation *_Nonnull

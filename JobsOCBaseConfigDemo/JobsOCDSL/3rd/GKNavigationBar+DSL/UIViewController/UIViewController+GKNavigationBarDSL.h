@@ -6,15 +6,16 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_GKNAVIGATIONBAR_DSL_0712
-#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_GKNAVIGATIONBAR_DSL_0712
-
-#import <UIKit/UIKit.h>
 
 #if __has_include(<GKNavigationBar/GKNavigationBar.h>)
 #import <GKNavigationBar/GKNavigationBar.h>
 #else
 #import "GKNavigationBar.h"
 #endif
+
+#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_GKNAVIGATIONBAR_DSL_0712
+
+#import <UIKit/UIKit.h>
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>

@@ -24,6 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 对系统方法 initWithCalendarIdentifier 的二次封装
 +(JobsRetCalendarByCalendarIdentifierBlock _Nonnull)initByCalendarIdentifier;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN NSCalendar
+-(JobsRetNSCalendarByNSLocaleBlock _Nonnull)byLocale;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END NSCalendar
 @end
 
 NS_ASSUME_NONNULL_END

@@ -7,13 +7,14 @@
 
 #import <UIKit/UIKit.h>
 
+#ifndef JobsBaseCustomizeUIKitCoreHeader_h
+
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
 #else
 #import "XYColorOC.h"
 #endif
 
-#ifndef JobsBaseCustomizeUIKitCoreHeader_h
 #define JobsBaseCustomizeUIKitCoreHeader_h
 #pragma mark —— BaseProtocol
 #import "JobsBaseProtocolHeader.h"

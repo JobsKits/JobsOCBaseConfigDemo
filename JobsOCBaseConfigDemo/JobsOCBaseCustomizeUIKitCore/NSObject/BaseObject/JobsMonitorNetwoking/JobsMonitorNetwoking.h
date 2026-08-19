@@ -28,11 +28,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_strong()JobsSuspendLab *rateLabel;
 
-+(JobsMonitorNetwoking *)sharedManager;
--(long long)getInterfaceBytes;
--(void)getInternetface;
--(NSString *)formatNetWork:(long long int)rate;
++(instancetype)sharedManager;
++(JobsRetJobsMonitorNetwokingByVoidBlock _Nonnull)jobsSharedManager;
+-(JobsRetlonglongByVoidBlock _Nonnull)getInterfaceBytes;
+-(jobsByVoidBlock _Nonnull)getInternetface;
+-(JobsRetNSStringBylonglongintBlock _Nonnull)formatNetWork;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsMonitorNetwoking
+-(JobsRetJobsMonitorNetwokingByBOOLBlock _Nonnull)byFirstRate;
+-(JobsRetJobsMonitorNetwokingBylonglongintBlock _Nonnull)byLastBytes;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsMonitorNetwoking
 @end
 
 NS_ASSUME_NONNULL_END

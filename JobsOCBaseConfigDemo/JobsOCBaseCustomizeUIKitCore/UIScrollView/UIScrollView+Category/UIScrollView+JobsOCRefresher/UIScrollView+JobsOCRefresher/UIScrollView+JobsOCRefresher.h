@@ -6,6 +6,12 @@
 //
 
 #import <objc/runtime.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <AudioToolbox/AudioToolbox.h>
 #import "JobsOCRefreshComponent.h"
 #import "JobsDefines.h"
@@ -14,11 +20,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIScrollView (JobsOCRefresher)
 
-- (__kindof UIScrollView *)jobs_setHorizontalRefreshMode:(JobsOCRefreshHorizontalMode)mode;
-- (__kindof UIScrollView *)jobs_enableRefreshHaptics:(BOOL)enable;
-- (__kindof UIScrollView *)jobs_setRefreshSound:(nullable NSString *)soundName;
-- (__kindof UIScrollView *)jobs_byRefreshHeaderWithAction:(JobsOCRefreshActionBlock)action;
-- (__kindof UIScrollView *)jobs_byRefreshFooterWithAction:(JobsOCRefreshActionBlock)action;
+-(JobsRetUIScrollViewByJobsOCRefreshHorizontalModeBlock _Nonnull)jobs_setHorizontalRefreshMode;
+-(JobsRetScrollViewByBOOLBlock _Nonnull)jobs_enableRefreshHaptics;
+-(JobsRetUIScrollViewByNSStringBlock _Nonnull)jobs_setRefreshSound;
+-(JobsRetUIScrollViewByJobsOCRefreshActionBlockBlock _Nonnull)jobs_byRefreshHeaderWithAction;
+-(JobsRetUIScrollViewByJobsOCRefreshActionBlockBlock _Nonnull)jobs_byRefreshFooterWithAction;
 - (__kindof UIScrollView *)jobs_byRefreshHeaderWithConfig:(nullable JobsOCRefreshConfig *)config
                                                    action:(JobsOCRefreshActionBlock)action;
 - (__kindof UIScrollView *)jobs_byRefreshFooterWithConfig:(nullable JobsOCRefreshConfig *)config
@@ -30,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
                                         toState:(JobsOCRefreshState)state;
 - (__kindof UIScrollView *)jobs_replaceRefreshAnimator:(nullable id<JobsRefreshAnimatorProtocol>)animator
                                             atPosition:(JobsOCRefreshPosition)position;
-- (__kindof UIScrollView *)jobs_removeRefreshAt:(JobsOCRefreshPosition)position;
+-(JobsRetUIScrollViewByJobsOCRefreshPositionBlock _Nonnull)jobs_removeRefreshAt;
 
 @end
 

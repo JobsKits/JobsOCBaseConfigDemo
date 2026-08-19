@@ -6,9 +6,12 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_NSOBJECT_WHTOAST_A8B4616A59
-#define JOBS_HEADER_GUARD_NSOBJECT_WHTOAST_A8B4616A59
 
-#import <Foundation/Foundation.h>
+#if __has_include(<SDWebImage/SDWebImage.h>)
+#import <SDWebImage/SDWebImage.h>
+#else
+#import "SDWebImage.h"
+#endif
 
 #if __has_include(<WHToast/WHToast.h>)
 #import <WHToast/WHToast.h>
@@ -16,11 +19,9 @@
 #import "WHToast.h"
 #endif
 
-#if __has_include(<SDWebImage/SDWebImage.h>)
-#import <SDWebImage/SDWebImage.h>
-#else
-#import "SDWebImage.h"
-#endif
+#define JOBS_HEADER_GUARD_NSOBJECT_WHTOAST_A8B4616A59
+
+#import <Foundation/Foundation.h>
 
 #import "JobsLanMgr.h"
 #import "JobsBlock.h"
@@ -51,13 +52,13 @@ NS_ASSUME_NONNULL_END
 #pragma mark —— 弹出提示
 NS_INLINE void toastBy(NSString *_Nullable msg){
     if(!msg || ![msg isKindOfClass:NSString.class]){
-        msg = @"数据错误".tr;
+        msg = @"数据错误".jobsTr();
     }NSObject.jobsToastMsg(msg);
 }
 
 NS_INLINE void toastErr(NSString *_Nullable msg){
     if(!msg || ![msg isKindOfClass:NSString.class]){
-        msg = @"数据错误".tr;
+        msg = @"数据错误".jobsTr();
     }NSObject.jobsToastErrMsg(msg);
 }
 #endif /* JOBS_HEADER_GUARD_NSOBJECT_WHTOAST_A8B4616A59 */

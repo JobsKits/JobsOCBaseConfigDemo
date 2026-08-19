@@ -44,6 +44,24 @@ Prop_assign()JobsIMDeliveryState deliveryState;
 Prop_assign()JobsIMTransportKind transportKind;
 Prop_strong(nullable)NSDictionary *rawPacket;
 
+-(JobsRetJobsIMChatInfoModelByStrBlock _Nonnull)byMessageID;
+-(JobsRetJobsIMChatInfoModelByStrBlock _Nonnull)byConversationID;
+-(JobsRetJobsIMChatInfoModelByStrBlock _Nonnull)byFromUserID;
+-(JobsRetJobsIMChatInfoModelByStrBlock _Nonnull)byToUserID;
+-(JobsRetJobsIMChatInfoModelByStrBlock _Nonnull)byUserID;
+-(JobsRetJobsIMChatInfoModelByStrBlock _Nonnull)byUserNameStr;
+-(JobsRetJobsIMChatInfoModelByImageBlock _Nonnull)byUserIconIMG;
+-(JobsRetJobsIMChatInfoModelByStrBlock _Nonnull)byUserIconURLStr;
+-(JobsRetJobsIMChatInfoModelByStrBlock _Nonnull)byChatTextTimeStr;
+-(JobsRetJobsIMChatInfoModelByStrBlock _Nonnull)byChatTextStr;
+-(JobsRetJobsIMChatInfoModelByStrBlock _Nonnull)byIdentification;
+-(JobsRetJobsIMChatInfoModelByNSIntegerBlock _Nonnull)byMessageType;
+-(JobsRetJobsIMChatInfoModelByNSIntegerBlock _Nonnull)byChatInfoDirection;
+-(JobsRetJobsIMChatInfoModelByNSIntegerBlock _Nonnull)byPacketType;
+-(JobsRetJobsIMChatInfoModelByNSIntegerBlock _Nonnull)byDeliveryState;
+-(JobsRetJobsIMChatInfoModelByNSIntegerBlock _Nonnull)byTransportKind;
+-(JobsRetJobsIMChatInfoModelByDicBlock _Nonnull)byRawPacket;
+
 @end
 
 NS_ASSUME_NONNULL_END

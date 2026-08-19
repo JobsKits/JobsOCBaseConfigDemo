@@ -6,6 +6,7 @@
 //
 
 #import "JobsTimeModel.h"
+
 #import "NSDate+Extra.h"
 #import "NSString+Extra.h"
 #import "NSObject+Extra.h"
@@ -27,7 +28,7 @@
 /// 获取当前iOS时间戳（字符串格式）
 -(NSString *)currentTimestampStr{
     /// 因为当前时间是不断变化，当前时间戳也在不断地变化，所以不能用懒加载
-    return toStringByID(self.currentDate);
+    return toStringByID(self.jobsCurrentDate());
 }
 /// 获取当前时间sec秒后的时间戳秒数
 -(NSTimeInterval)currentTimestampOffsetSec{
@@ -39,7 +40,7 @@
 }
 /// 获取当前时间的时间戳秒数
 -(NSTimeInterval)currentTimestampSec{
-    return self.currentDate.timeIntervalSince1970;
+    return self.jobsCurrentDate().timeIntervalSince1970;
 }
 /// 获取当前时间的时间戳毫秒数
 -(NSTimeInterval)currentTimestampMilliSec{
@@ -124,19 +125,20 @@
         @jobs_weakify(self)
         _dateFormatter = jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable data) {
             @jobs_strongify(self)
-            data.timeZone = NSTimeZone.initByAbbreviation(@"UTC");/// 设置为 UTC 时区
-            data.dateFormat = self.dateFormatterStr;/// 格式化为日期字符串
+            data
+                .byTimeZone(NSTimeZone.initByAbbreviation(@"UTC"))
+                .byDateFormat(self.dateFormatterStr);
         });
     };return _dateFormatter;
 }
 #pragma mark —— 结论部分
 /// 当前时区与格林威治时间的时间差
 -(NSInteger)timeOffset{
-    return self.localTimeZone.GMTDateSecs(self.currentDate);
+    return self.localTimeZone.GMTDateSecs(self.jobsCurrentDate());
 }
 /// 自定义时区与格林威治时间的时间差
 -(NSInteger)customTimeOffset{
-    return self.customTimeZone.GMTDateSecs(self.currentDate);
+    return self.customTimeZone.GMTDateSecs(self.jobsCurrentDate());
 }
 #pragma mark —— 时间之间的分隔形式。可以是中文、也可以多语言化
 -(NSString *_Nonnull)formatTimeWithYear:(NSString *_Nullable)year
@@ -167,37 +169,37 @@
 #pragma mark —— lazyLoad
 -(NSString *)year{
     if (!_year) {
-        _year = @"year".tr;
+        _year = @"year".jobsTr();
     };return _year;
 }
 
 -(NSString *)month{
     if (!_month) {
-        _month = @"month".tr;
+        _month = @"month".jobsTr();
     };return _month;
 }
 
 -(NSString *)day{
     if (!_day) {
-        _day = @"day".tr;
+        _day = @"day".jobsTr();
     };return _day;
 }
 
 -(NSString *)hour{
     if (!_hour) {
-        _hour = @"hour".tr;
+        _hour = @"hour".jobsTr();
     };return _hour;
 }
 
 -(NSString *)minute{
     if (!_minute) {
-        _minute = @"minute".tr;
+        _minute = @"minute".jobsTr();
     };return _minute;
 }
 
 -(NSString *)second{
     if (!_second) {
-        _second = @"second".tr;
+        _second = @"second".jobsTr();
     };return _second;
 }
 

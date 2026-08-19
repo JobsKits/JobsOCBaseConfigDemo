@@ -31,13 +31,25 @@
 //    }
     else return YES;/// 过期时间都没有，肯定也是没有登录的
 }
+-(JobsRetBOOLByVoidBlock _Nonnull)jobsIsLogin{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        return self ? self.isLogin : NO;
+    };
+}
 /// 判定是否登录的标准1：是否本地存在用户数据模型 + 是否存在Token
--(BOOL)isLoginByToken{
-    /// 模型都没有建立肯定是没有登录的
-    if(self.doorModel) return YES;
-    /// Token 都没有肯定也是没有登录的
-    if(isValue(self.doorModel.token)) return YES;
-    return NO;
+-(JobsRetBOOLByVoidBlock _Nonnull)isLoginByToken{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        /// 模型都没有建立肯定是没有登录的
+        if(self.doorModel) return YES;
+        /// Token 都没有肯定也是没有登录的
+        if(isValue(self.doorModel.token)) return YES;
+        return NO;
+    };
 }
 /// 判定是否登录的标准2
 /// 登录是否过期：没有过期时间 ===  已经过期
@@ -50,9 +62,17 @@
 }
 /// 检查是否登录并执行传入的代码块
 -(void)isLogin:(jobsByVoidBlock _Nullable)loginedinBlock{
-    if (self.isLogin) {
-        if (loginedinBlock) loginedinBlock();
-    } else self.toLogin();
+    (((jobsByRACSchedulerRecursiveBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobsCheckLogin)))(self, @selector(jobsCheckLogin)))(loginedinBlock);
+}
+-(jobsByRACSchedulerRecursiveBlock _Nonnull)jobsCheckLogin{
+    @jobs_weakify(self)
+    return ^(jobsByVoidBlock _Nullable loginedinBlock){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (self.isLogin) {
+            if (loginedinBlock) loginedinBlock();
+        } else self.toLogin();
+    };
 }
 /// 刷新用户Token
 -(jobsByVoidBlock _Nonnull)refreshUserToken{
@@ -70,7 +90,7 @@
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
-        if(!(self.isLoginByToken &&
+        if(!(self.isLoginByToken() &&
              self.isLoginByExpiredTime((self.doorModel.expireTime)))){
             self.deleteUserInfoByUserName(用户信息);/// 清理本地用户数据
         }

@@ -5,14 +5,21 @@
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 #ifndef BaseModel_h
-#define BaseModel_h
-
-#import <Foundation/Foundation.h>
 
 #if __has_include(<MJExtension/MJExtension.h>)
 #import <MJExtension/MJExtension.h>
 #else
 #import "MJExtension.h"
+#endif
+
+#define BaseModel_h
+
+#import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
 #endif
 
 #import "JobsClass.h"
@@ -26,9 +33,13 @@ NSCoding,// 编码
 NSSecureCoding// 解码
 >
 #pragma mark —— MJExtension
-+(__kindof NSDictionary *)mj_replacedKeyFromPropertyName;
++(NSDictionary *)mj_replacedKeyFromPropertyName;
++(JobsRetDicByVoidBlock _Nonnull)jobsMJReplacedKeyFromPropertyName;
 #pragma mark —— YYModel
-+(__kindof NSDictionary *)modelCustomPropertyMapper;
++(NSDictionary *)modelCustomPropertyMapper;
++(JobsRetDicByVoidBlock _Nonnull)jobsModelCustomPropertyMapper;
+
++(JobsRetBOOLByVoidBlock _Nonnull)jobsSupportsSecureCoding;
 
 @end
 

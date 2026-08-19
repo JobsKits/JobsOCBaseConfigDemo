@@ -72,6 +72,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PicToStrStoreSubVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN PicToStrStoreSubVC
+-(JobsRetPicToStrStoreSubVCByNSMutableArrayUIImageBlock _Nonnull)byPhotosImageMutArr;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END PicToStrStoreSubVC
 @end
 
 NS_ASSUME_NONNULL_END

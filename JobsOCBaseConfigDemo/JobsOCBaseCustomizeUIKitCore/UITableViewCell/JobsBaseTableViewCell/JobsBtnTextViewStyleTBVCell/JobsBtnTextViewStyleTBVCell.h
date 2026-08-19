@@ -6,6 +6,19 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSBTNTEXTVIEWSTYLETBVCELL_4E2492D2A7
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
+#if __has_include(<SZTextView/SZTextView.h>)
+#import <SZTextView/SZTextView.h>
+#else
+#import "SZTextView.h"
+#endif
+
 #define JOBS_HEADER_GUARD_JOBSBTNTEXTVIEWSTYLETBVCELL_4E2492D2A7
 
 #import <UIKit/UIKit.h>
@@ -14,19 +27,7 @@
 #import "BaseTextView.h"
 #import "JobsTextView.h"
 
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
-#else
-#import "Masonry.h"
-#endif
-
 #import "JobsOCDSL.h"
-
-#if __has_include(<SZTextView/SZTextView.h>)
-#import <SZTextView/SZTextView.h>
-#else
-#import "SZTextView.h"
-#endif
 
 #import "JobsRichTextUtils.h"
 #import "JobsLanMgr.h"

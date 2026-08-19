@@ -15,9 +15,9 @@ JobsKey(_normalImageURLString)
 }
 
 -(void)setNormalImageURLString:(NSString *)normalImageURLString {
-    NSString *urlString = normalImageURLString.imageURLPlus;
+    NSString *urlString = normalImageURLString.jobsImageURLPlus();
     Jobs_setAssociatedCOPY_NONATOMIC(_normalImageURLString, urlString);
-    self.normalImageURL = JobsUrl(urlString);
+    self.byNormalImageURL(JobsUrl(urlString));
 }
 #pragma mark —— Prop_strong(nullable)NSURL *normalImageURL;
 JobsKey(_normalImageURL)
@@ -35,9 +35,9 @@ JobsKey(_normalBgImageURLString)
 }
 
 -(void)setNormalBgImageURLString:(NSString *)normalBgImageURLString {
-    NSString *urlString = normalBgImageURLString.imageURLPlus;
+    NSString *urlString = normalBgImageURLString.jobsImageURLPlus();
     Jobs_setAssociatedCOPY_NONATOMIC(_normalBgImageURLString, urlString);
-    self.normalBgImageURL = JobsUrl(urlString);
+    self.byNormalBgImageURL(JobsUrl(urlString));
 }
 #pragma mark —— Prop_strong(nullable)NSURL *normalBgImageURL;
 JobsKey(_normalBgImageURL)

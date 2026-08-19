@@ -20,80 +20,135 @@ Prop_strong()UILabel *statusDetailLab;
 Prop_strong()UILabel *guideLab;
 Prop_strong()UIButton *activeCaptureBtn;
 
--(void)handleScreenshot;
--(void)captureCurrentScreen;
--(void)refreshScreenshotCount;
+-(jobsByVoidBlock _Nonnull)handleScreenshot;
+-(jobsByVoidBlock _Nonnull)captureCurrentScreen;
+-(jobsByVoidBlock _Nonnull)refreshScreenshotCount;
 
 @end
 
 @implementation JobsScreenshotTipsDemoVC
 
 -(void)loadView{
-    [super loadView];
-    self.viewModel
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"截屏 Tips".tr)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        .byBgCor(JobsSystemBackgroundColor)
-        .byNavBgCor(JobsSystemBackgroundColor);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsScreenshotTipsDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        self.viewModel
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"截屏 Tips".jobsTr())
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            .byBgCor(JobsSystemBackgroundColor)
+            .byNavBgCor(JobsSystemBackgroundColor);
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.makeNavByAlpha(1);
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.statusCardView.byHidden(NO);
-    self.statusIconLab.byHidden(NO);
-    self.statusTitleLab.byHidden(NO);
-    self.statusDetailLab.byHidden(NO);
-    self.guideLab.byHidden(NO);
-    self.activeCaptureBtn.byHidden(NO);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsScreenshotTipsDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.makeNavByAlpha(1);
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.statusCardView.byHidden(NO);
+        self.statusIconLab.byHidden(NO);
+        self.statusTitleLab.byHidden(NO);
+        self.statusDetailLab.byHidden(NO);
+        self.guideLab.byHidden(NO);
+        self.activeCaptureBtn.byHidden(NO);
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsScreenshotTipsDemoVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
     @jobs_weakify(self)
-    [self.screenshotObserver startWithHandler:^{
+    return ^(BOOL animated){
         @jobs_strongify(self)
-        [self handleScreenshot];
-    }];
+        if (!self) return;
+        [super viewWillAppear:animated];
+        @jobs_weakify(self)
+        self.screenshotObserver.startWithHandler(^{
+            @jobs_strongify(self)
+            self.handleScreenshot();
+        });
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    [self.screenshotObserver stop];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsScreenshotTipsDemoVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
 }
 
--(void)handleScreenshot{
-    self.systemScreenshotCount += 1;
-    self.statusTitleLab.byText(@"已检测到截屏".tr);
-    [self refreshScreenshotCount];
-    toastBy(@"截屏完成：Tips 已触发".tr);
-}
-
--(void)captureCurrentScreen{
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
     @jobs_weakify(self)
-    [self.screenshotCapturer captureAndSaveView:self.view.window ?: self.view
-                             afterScreenUpdates:YES
-                                      completion:^(NSError *error) {
+    return ^(BOOL animated){
         @jobs_strongify(self)
-        if (error) {
-            self.statusTitleLab.byText(@"主动截屏失败".tr);
-            toastBy(error.localizedDescription);
-        }else{
-            self.activeScreenshotCount += 1;
-            self.statusTitleLab.byText(@"已主动截屏并保存".tr);
-            [self refreshScreenshotCount];
-            toastBy(@"主动截屏已保存到系统相册".tr);
-        }
-    }];
+        if (!self) return;
+        [super viewWillDisappear:animated];
+        if (self.screenshotObserver) self.screenshotObserver.jobsStop();
+    };
 }
 
--(void)refreshScreenshotCount{
-    self.statusDetailLab.byText(([NSString stringWithFormat:@"系统截屏 %lu 次 · 按钮截屏 %lu 次",
-                                 (unsigned long)self.systemScreenshotCount,
-                                 (unsigned long)self.activeScreenshotCount]).tr);
+-(jobsByVoidBlock _Nonnull)handleScreenshot{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.systemScreenshotCount += 1;
+        self.statusTitleLab.byText(@"已检测到截屏".jobsTr());
+        self.refreshScreenshotCount();
+        toastBy(@"截屏完成：Tips 已触发".jobsTr());
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)captureCurrentScreen{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        @jobs_weakify(self)
+        [self.screenshotCapturer captureAndSaveView:self.view.window ?: self.view
+                                 afterScreenUpdates:YES
+                                          completion:^(NSError *error) {
+            @jobs_strongify(self)
+            if (error) {
+                self.statusTitleLab.byText(@"主动截屏失败".jobsTr());
+                toastBy(error.localizedDescription);
+            }else{
+                self.activeScreenshotCount += 1;
+                self.statusTitleLab.byText(@"已主动截屏并保存".jobsTr());
+                self.refreshScreenshotCount();
+                toastBy(@"主动截屏已保存到系统相册".jobsTr());
+            }
+        }];
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)refreshScreenshotCount{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.statusDetailLab.byText(([NSString stringWithFormat:@"系统截屏 %lu 次 · 按钮截屏 %lu 次",
+                                     (unsigned long)self.systemScreenshotCount,
+                                     (unsigned long)self.activeScreenshotCount]).jobsTr());
+    };
 }
 #pragma mark —— lazyLoad
 -(JobsScreenshotObserver *)screenshotObserver{
@@ -140,7 +195,7 @@ Prop_strong()UIButton *activeCaptureBtn;
 -(UILabel *)statusTitleLab{
     if (!_statusTitleLab) {
         _statusTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.byText(@"等待截屏操作".tr)
+            label.byText(@"等待截屏操作".jobsTr())
                 .byFont(UIFontWeightSemiboldSize(21))
                 .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -156,7 +211,7 @@ Prop_strong()UIButton *activeCaptureBtn;
 -(UILabel *)statusDetailLab{
     if (!_statusDetailLab) {
         _statusDetailLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.byText(@"系统截屏 0 次 · 按钮截屏 0 次".tr)
+            label.byText(@"系统截屏 0 次 · 按钮截屏 0 次".jobsTr())
                 .byFont(UIFontWeightRegularSize(15))
                 .byTextCor(JobsSecondaryLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -174,7 +229,7 @@ Prop_strong()UIButton *activeCaptureBtn;
 -(UILabel *)guideLab{
     if (!_guideLab) {
         _guideLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.byText(@"真机可同时按下侧边键与音量加键；也可以点击下方按钮主动截取当前页面并保存到相册。程序主动截屏不会触发系统截屏通知，因此这里分开计数。".tr)
+            label.byText(@"真机可同时按下侧边键与音量加键；也可以点击下方按钮主动截取当前页面并保存到相册。程序主动截屏不会触发系统截屏通知，因此这里分开计数。".jobsTr())
                 .byFont(UIFontWeightRegularSize(14))
                 .byTextCor(JobsSecondaryLabelColor)
                 .byNumberOfLines(0)
@@ -192,14 +247,14 @@ Prop_strong()UIButton *activeCaptureBtn;
         @jobs_weakify(self)
         _activeCaptureBtn = UIButton.jobsInit();
         _activeCaptureBtn
-            .jobsResetBtnTitle(@"点击截屏并保存到相册".tr)
+            .jobsResetBtnTitle(@"点击截屏并保存到相册".jobsTr())
             .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(16))
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .jobsResetBtnBgCor(JobsSystemBlueColor)
             .jobsResetBtnCornerRadiusValue(JobsWidth(10))
             .onClickBy(^(__unused UIButton *button) {
                 @jobs_strongify(self)
-                [self captureCurrentScreen];
+                self.captureCurrentScreen();
             })
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {

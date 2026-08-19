@@ -6,16 +6,17 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_YTKBASEREQUEST_EXTRA_9885F1E727
-#define JOBS_HEADER_GUARD_YTKBASEREQUEST_EXTRA_9885F1E727
-
-#import <objc/runtime.h>
-#import <Foundation/Foundation.h>
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
 #else
 #import "YTKNetwork.h"
 #endif
+
+#define JOBS_HEADER_GUARD_YTKBASEREQUEST_EXTRA_9885F1E727
+
+#import <objc/runtime.h>
+#import <Foundation/Foundation.h>
 
 #import "JobsBaseProtocolHeader.h"
 #import "JobsModelDSL.h"
@@ -28,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_strong()JobsResponseModel *responseModel;
 
--(NSMutableURLRequest *)jobsMakeRequestByBlock:(jobsByMutableURLRequestBlock _Nullable)block;
+-(JobsRetNSMutableURLRequestByjobsByMutableURLRequestBlockBlock _Nonnull)jobsMakeRequestByBlock;
 +(JobsRetYTKBaseRequestByIDBlock _Nonnull)ByURLParameters;
 -(JobsRetYTKBaseRequestByIDBlock _Nonnull)byURLParameters;
 +(JobsRetYTKBaseRequestByIDBlock _Nonnull)ByBodyParameters;

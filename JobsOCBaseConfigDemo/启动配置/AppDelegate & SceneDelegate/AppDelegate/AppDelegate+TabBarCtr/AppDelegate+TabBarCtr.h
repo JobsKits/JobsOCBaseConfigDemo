@@ -63,7 +63,7 @@ Prop_strong(class)NSMutableArray <__kindof UINavigationController *>*navCtrMutAr
 +(void)button:(__kindof UIButton *)button index:(NSUInteger)index;
 +(jobsByNSUIntegerBlock _Nonnull)switchByIndex;
 /// 刷新 TabBarTitle
--(void)refreshTabBarTitle;
+-(jobsByVoidBlock _Nonnull)refreshTabBarTitle;
 
 @end
 

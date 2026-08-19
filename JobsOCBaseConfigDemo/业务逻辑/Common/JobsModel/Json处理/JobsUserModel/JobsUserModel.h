@@ -44,6 +44,8 @@ Prop_strong()NSNumber *userId;
 Prop_copy()NSString *webChat;
 Prop_copy()NSString *tokenExpireTime;// 手动添加的
 
++(JobsRetBOOLByVoidBlock _Nonnull)jobsSupportsSecureCoding;
+
 @end
 
 NS_ASSUME_NONNULL_END

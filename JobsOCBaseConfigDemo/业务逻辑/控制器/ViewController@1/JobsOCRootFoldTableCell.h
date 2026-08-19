@@ -66,8 +66,9 @@ UITableViewDataSource,
 UITableViewDelegate
 >
 
-+(CGFloat)collapsedHeight;
-+(CGFloat)innerRowHeight;
++(JobsRetCGFloatByVoidBlock _Nonnull)collapsedHeight;
++(JobsRetCGFloatByVoidBlock _Nonnull)innerRowHeight;
+-(JobsRetJobsOCRootFoldTableCellByStrBlock _Nonnull)bySectionDescription;
 +(CGFloat)expandedHeightByItemCount:(NSUInteger)itemCount
                  sectionDescription:(NSString *_Nullable)sectionDescription
                     innerTableWidth:(CGFloat)innerTableWidth;
@@ -81,6 +82,15 @@ UITableViewDelegate
 -(void)setExpanded:(BOOL)expanded
           animated:(BOOL)animated;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCRootFoldTableCell
+-(JobsRetJobsOCRootFoldTableCellByBOOLBlock _Nonnull)byPinnedSectionStyle;
+-(JobsRetJobsOCRootFoldTableCellByJobsTimerBlock _Nonnull)byChargingProgressTimer;
+-(JobsRetJobsOCRootFoldTableCellByNSArrayUIViewModelBlock _Nonnull)byItems;
+-(JobsRetJobsOCRootFoldTableCellByNSIntegerBlock _Nonnull)byChargingProgressPhase;
+-(JobsRetJobsOCRootFoldTableCellByNSIntegerBlock _Nonnull)byPinAccessoryIndex;
+-(JobsRetJobsOCRootFoldTableCellByjobsByNSIntegerBlockBlock _Nonnull)byPinBlock;
+-(JobsRetJobsOCRootFoldTableCellByjobsByNSIntegerBlockBlock _Nonnull)bySelectBlock;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCRootFoldTableCell
 @end
 
 NS_ASSUME_NONNULL_END

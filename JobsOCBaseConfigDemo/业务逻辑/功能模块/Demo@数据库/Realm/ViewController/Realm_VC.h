@@ -6,6 +6,12 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "User_Realm.h"
 
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
@@ -42,6 +48,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Realm_VC : BaseViewController<UITableViewDelegate,UITableViewDataSource>
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN Realm_VC
+-(JobsRetRealm_VCByNSIntegerBlock _Nonnull)bySelectedUserIndex;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END Realm_VC
 @end
 
 NS_ASSUME_NONNULL_END

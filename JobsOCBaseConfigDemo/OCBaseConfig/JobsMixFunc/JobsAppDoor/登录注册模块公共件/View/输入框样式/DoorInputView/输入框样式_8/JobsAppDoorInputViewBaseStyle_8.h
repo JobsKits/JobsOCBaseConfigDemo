@@ -6,17 +6,24 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_8_FA17C60162
-#define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_8_FA17C60162
-
-#import <UIKit/UIKit.h>
-#import "JobsAppDoorConfig.h"
-#import "JobsAppDoorInputViewBaseStyle.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_8_FA17C60162
+
+#import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+#import "JobsAppDoorConfig.h"
+#import "JobsAppDoorInputViewBaseStyle.h"
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import "JobsOCDSL.h"
@@ -73,6 +80,9 @@ NS_ASSUME_NONNULL_BEGIN
  - (instancetype)init NS_UNAVAILABLE;
  - (instancetype)new NS_UNAVAILABLE;
  */
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorInputViewBaseStyle_8
+-(JobsRetJobsAppDoorInputViewBaseStyle_8ByJobsAppDoorInputViewBaseStyleModelBlock _Nonnull)byDoorInputViewBaseStyleModel;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_8
 @end
 
 NS_ASSUME_NONNULL_END
@@ -106,8 +116,8 @@ NS_ASSUME_NONNULL_END
          if (!_inputViewDataModel) {
              _inputViewDataModel = JobsAppDoorInputViewBaseStyleModel.new;
              _inputViewDataModel.leftViewIMG = @"搜索".img;
-             _inputViewDataModel.textModel.text = @"".tr;
-             _inputViewDataModel.placeHolderStr = @"搜索".tr;
+             _inputViewDataModel.textModel.text = @"".jobsTr();
+             _inputViewDataModel.placeHolderStr = @"搜索".jobsTr();
              _inputViewDataModel.isShowDelBtn = YES;
              _inputViewDataModel.isShowSecurityBtn = NO;
              _inputViewDataModel.returnKeyType = UIReturnKeyDone;

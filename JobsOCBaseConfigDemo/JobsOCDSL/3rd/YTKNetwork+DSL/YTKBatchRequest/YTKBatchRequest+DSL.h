@@ -6,15 +6,16 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_YTKBATCHREQUEST_DSL_E21A9C3484
-#define JOBS_HEADER_GUARD_YTKBATCHREQUEST_DSL_E21A9C3484
-
-#import <Foundation/Foundation.h>
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
 #else
 #import "YTKNetwork.h"
 #endif
+
+#define JOBS_HEADER_GUARD_YTKBATCHREQUEST_DSL_E21A9C3484
+
+#import <Foundation/Foundation.h>
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"
@@ -34,9 +35,9 @@ Prop_assign(readonly)BOOL jobs_isFromCache;
 -(JobsRetYTKBatchRequestBySuccessBlock _Nonnull)bySuccess;
 -(JobsRetYTKBatchRequestBySuccessBlock _Nonnull)byFailure;
 -(JobsRetYTKBatchRequestByCompletionBlocks _Nonnull)byCompletion;
--(__kindof YTKBatchRequest *_Nonnull)byStart;
--(__kindof YTKBatchRequest *_Nonnull)byStop;
--(__kindof YTKBatchRequest *_Nonnull)byClearCompletion;
+-(JobsRetYTKBatchRequestByVoidBlock _Nonnull)byStart;
+-(JobsRetYTKBatchRequestByVoidBlock _Nonnull)byStop;
+-(JobsRetYTKBatchRequestByVoidBlock _Nonnull)byClearCompletion;
 
 @end
 

@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_UINAVIGATIONCONTROLLER_SAFETRANSITION_8072586AFE
 
 #import <objc/runtime.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <UIKit/UIKit.h>
 #import "NSArray+Extra.h"
 #import "UIViewController+BaseNavigationBar.h"
@@ -21,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_assign()BOOL viewTransitionInProgress;
 
-- (void)ty_popToRootViewControllerBySetControllersAnimated:(BOOL)animated;
+-(jobsByBOOLBlock _Nonnull)ty_popToRootViewControllerBySetControllersAnimated;
 
 @end
 

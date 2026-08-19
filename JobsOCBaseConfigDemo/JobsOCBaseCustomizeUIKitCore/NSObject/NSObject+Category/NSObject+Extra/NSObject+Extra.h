@@ -6,6 +6,49 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_NSOBJECT_EXTRA_9D07F63D88
+
+#if __has_include(<GKPhotoBrowser/GKPhotoBrowser.h>)
+#import <GKPhotoBrowser/GKPhotoBrowser.h>
+#else
+#import "GKPhotoBrowser.h"
+#endif
+
+#if __has_include(<MJRefresh/MJRefresh.h>)
+#import <MJRefresh/MJRefresh.h>
+#else
+#import "MJRefresh.h"
+#endif
+
+#if __has_include(<ReactiveObjC/ReactiveObjC.h>)
+#import <ReactiveObjC/ReactiveObjC.h>
+#else
+#import "ReactiveObjC.h"
+#endif
+
+#if __has_include(<SDWebImage/SDWebImage.h>)
+#import <SDWebImage/SDWebImage.h>
+#else
+#import "SDWebImage.h"
+#endif
+
+#if __has_include(<TABAnimated/TABAnimated.h>)
+#import <TABAnimated/TABAnimated.h>
+#else
+#import "TABAnimated.h"
+#endif
+
+#if __has_include(<WHToast/WHToast.h>)
+#import <WHToast/WHToast.h>
+#else
+#import "WHToast.h"
+#endif
+
+#if __has_include(<YYImage/YYImage.h>)
+#import <YYImage/YYImage.h>
+#else
+#import "YYImage.h"
+#endif
+
 #define JOBS_HEADER_GUARD_NSOBJECT_EXTRA_9D07F63D88
 
 #pragma once
@@ -38,48 +81,6 @@
 #import "UIAlertAction+Extra.h"
 #import "UIAlertController+Extra.h"
 
-#if __has_include(<WHToast/WHToast.h>)
-#import <WHToast/WHToast.h>
-#else
-#import "WHToast.h"
-#endif
-
-#if __has_include(<GKPhotoBrowser/GKPhotoBrowser.h>)
-#import <GKPhotoBrowser/GKPhotoBrowser.h>
-#else
-#import "GKPhotoBrowser.h"
-#endif
-
-#if __has_include(<TABAnimated/TABAnimated.h>)
-#import <TABAnimated/TABAnimated.h>
-#else
-#import "TABAnimated.h"
-#endif
-
-#if __has_include(<SDWebImage/SDWebImage.h>)
-#import <SDWebImage/SDWebImage.h>
-#else
-#import "SDWebImage.h"
-#endif
-
-#if __has_include(<MJRefresh/MJRefresh.h>)
-#import <MJRefresh/MJRefresh.h>
-#else
-#import "MJRefresh.h"
-#endif
-
-#if __has_include(<YYImage/YYImage.h>)
-#import <YYImage/YYImage.h>
-#else
-#import "YYImage.h"
-#endif
-
-#if __has_include(<ReactiveObjC/ReactiveObjC.h>)
-#import <ReactiveObjC/ReactiveObjC.h>
-#else
-#import "ReactiveObjC.h"
-#endif
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsTimeUtils.h"
 #import "WHToastExtra.h"
@@ -102,6 +103,7 @@ NS_INLINE NSObject *_Nullable JobsByOCPodsIDToObject(id _Nullable data){
 }
 
 #import "JobsOCDSL.h"
+#import "JobsModelDSL.h"
 
 @interface NSObject (JobsByOCPodsExtra)
 <
@@ -109,24 +111,37 @@ AppToolsProtocol
 ,BaseProtocol
 ,BaseViewControllerProtocol
 >
+
+-(JobsRetIDByIDBlock _Nonnull)byWeak_target;
+-(JobsRetIDByIDBlock _Nonnull)byInternationalizationKEY;
+-(JobsRetIDByIDBlock _Nonnull)byViewModel;
+-(JobsRetIDByIDBlock _Nonnull)byButtonModel;
 #pragma mark —— 系统类单例的二次封装
 /// NSBundle
-+(NSBundle *_Nullable)mainBundle;
--(NSBundle *_Nullable)mainBundle;
++(NSBundle *)mainBundle;
++(JobsRetNSBundleByVoidBlock _Nonnull)jobsMainBundle;
+-(NSBundle *)mainBundle;
+-(JobsRetNSBundleByVoidBlock _Nonnull)jobsMainBundle;
 /// NSLocale
-+(NSLocale *_Nullable)currentLocale;
--(NSLocale *_Nullable)currentLocale;
-+(NSLocale *_Nullable)systemLocale;
--(NSLocale *_Nullable)systemLocale;
++(NSLocale *)currentLocale;
++(JobsRetNSLocaleByVoidBlock _Nonnull)jobsCurrentLocale;
+-(NSLocale *)currentLocale;
+-(JobsRetNSLocaleByVoidBlock _Nonnull)jobsCurrentLocale;
++(JobsRetNSLocaleByVoidBlock _Nonnull)systemLocale;
+-(JobsRetNSLocaleByVoidBlock _Nonnull)systemLocale;
 +(NSLocale *_Nullable)autoupdatingCurrentLocale API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0));
++(JobsRetNSLocaleByVoidBlock _Nonnull)jobsAutoupdatingCurrentLocale API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0));
 -(NSLocale *_Nullable)autoupdatingCurrentLocale API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0));
+-(JobsRetNSLocaleByVoidBlock _Nonnull)jobsAutoupdatingCurrentLocale API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0));
 /// UIDevice
-+(UIDevice *_Nullable)currentDevice;
--(UIDevice *_Nullable)currentDevice;
++(UIDevice *)currentDevice;
++(JobsRetUIDeviceByVoidBlock _Nonnull)jobsCurrentDevice;
+-(UIDevice *)currentDevice;
+-(JobsRetUIDeviceByVoidBlock _Nonnull)jobsCurrentDevice;
 
 #pragma mark —— 宏
 /// App 国际化相关系统宏二次封装 + 设置缺省值
-+(NSString *_Nullable)localStringWithKey:(nonnull NSString *)key;
++(JobsRetStrByStrBlock _Nonnull)localStringWithKey;
 +(NSString *_Nullable)localizedString:(nonnull NSString *)key
                             fromTable:(nullable NSString *)tableName;
 +(NSString *_Nullable)localizedString:(nonnull NSString *)key
@@ -141,8 +156,10 @@ AppToolsProtocol
 -(JobsRetVCByViewBlock _Nonnull)getViewControllerByView;
 /// 获得当前的控制器。对getCurrentViewController的再次封装
 -(__kindof UIViewController *_Nullable)jobsGetCurrentViewControllerWithNavCtrl;
+-(JobsRetVCByVoidBlock _Nonnull)jobsGetCurrentViewControllerWithNavCtrlBlock;
 /// 获得当前的控制器。对getCurrentViewController的再次封装
 -(__kindof UIViewController *_Nullable)jobsGetCurrentViewController;
+-(JobsRetVCByVoidBlock _Nonnull)jobsGetCurrentViewControllerBlock;
 /// 获得当前的控制器
 -(__kindof UIViewController *_Nullable)getCurrentViewController;
 /// 获得当前控制器的根控制器
@@ -155,7 +172,7 @@ AppToolsProtocol
 /// 强制以Push的方式展现页面
 /// @param toPushVC 需要进行展现的页面
 /// @param requestParams 正向推页面传递的参数
-/// 如果想用AppDelegate的自定义TabbarVC：(UIViewController *)AppDelegate.sharedManager.tabBarVC;
+/// 如果想用AppDelegate的自定义TabbarVC：(UIViewController *)((AppDelegate *)AppDelegate.jobsSharedManager()).tabBarVC;
 -(void)forceComingToPushVC:(UIViewController *_Nonnull)toPushVC
              requestParams:(id _Nullable)requestParams;
 /// 强制以Present的方式展现页面
@@ -187,13 +204,18 @@ AppToolsProtocol
      }
  */
 /// 添加监听【针对UIScrollView 的 ContentOffset 属性】
--(void)monitorContentOffsetScrollView:(UIScrollView *_Nonnull)scrollView;
+-(jobsByScrollViewBlock _Nonnull)monitorContentOffsetScrollView;
 #pragma mark —— 功能性的
 /// 刷新控件的头部数据
 -(MJRefreshConfigModel *_Nullable)mjHeaderDefaultConfig;
+-(JobsRetMJRefreshConfigModelByVoidBlock _Nonnull)jobsMjHeaderDefaultConfig;
+-(JobsRetMJRefreshConfigModelByRetIDByIDBlocks _Nonnull)refreshHeaderDataBy;
+/// 仅供未纳入 Jobs 维护的历史源码保持二进制/源码兼容；Jobs 新代码统一调用 Block getter。
 -(MJRefreshConfigModel *_Nonnull)refreshHeaderDataBy:(JobsRetIDByIDBlock _Nonnull)loadBlock;
 /// 刷新控件的尾部数据
 -(MJRefreshConfigModel *_Nullable)mjFooterDefaultConfig;
+-(JobsRetMJRefreshConfigModelByVoidBlock _Nonnull)jobsMjFooterDefaultConfig;
+-(JobsRetMJRefreshConfigModelByRetIDByIDBlocks _Nonnull)refreshFooterDataBy;
 -(MJRefreshConfigModel *_Nonnull)refreshFooterDataBy:(JobsRetIDByIDBlock _Nonnull)loadBlock;
 /// 切换到主VC
 -(jobsByVCBlock _Nonnull)switchToMainVC;
@@ -222,7 +244,7 @@ AppToolsProtocol
 /// 在导航栏堆栈里面，是否存在同样类型的控制器
 -(JobsRetBOOLByVCBlock _Nonnull)isSameVCBy;
 /// 可以组合使用
--(SDWebImageOptions)makeSDWebImageOptions;
+-(JobsRetSDWebImageOptionsByVoidBlock _Nonnull)jobsMakeSDWebImageOptions;
 -(URLManagerModel *_Nonnull)url:(NSString *_Nonnull)url funcName:(NSString *_Nonnull)funcName;
 /// 获取m文件的属性
 -(JobsRetIDByStrBlock _Nonnull)getObjByName;
@@ -278,7 +300,7 @@ AppToolsProtocol
 -(jobsByYTKBaseRequestBlock _Nonnull)checkRequest;
 /// 此功能的必要性：如果外界传入的数组是空，那么拿到的count是0，做-1操作就是-1，直接用for循环就会进入死循环
 -(void)jobsSafetyCycleFunc:(int)ceiling cycleBlock:(jobsByIntBlock _Nullable)cycleBlock;
--(NSMutableArray <JobsImageModel *>*_Nonnull)changeGifToImage:(NSData *_Nonnull)gifData;
+-(JobsRetNSMutableArrayJobsImageModelByNSDataBlock _Nonnull)changeGifToImage;
 /**
  
      NSMutableArray <UIViewModel *>*dataMutArr = popupView.valueForKey(@"dataMutArr");
@@ -328,7 +350,7 @@ AppToolsProtocol
 -(JobsRetNSIntegerByPointBlock _Nonnull)judgementScrollDirectionByPoint;
 /// 创建IndexPath坐标
 -(JobsRetIndexPathByXYBlock _Nonnull)indexPathBy;
--(NSIndexPath *_Nonnull)myIndexPath:(JobsIndexPath)indexPath;
+-(JobsRetNSIndexPathByJobsIndexPathBlock _Nonnull)myIndexPath;
 /// 点击任意一个view，下拉弹出与此View等宽，且与下底有一个motivateViewOffset距离的列表【如果应用于可滑动模块，当触发控件滑动的时候，建议对此进行关闭处理】
 /// @param motivateFromView 点击的锚点View
 /// @param jobsDropDownListViewDirection JobsDropDownListView的方向
@@ -343,11 +365,11 @@ AppToolsProtocol
 /// iOS 获取任意控件在屏幕中的坐标
 -(JobsRetFrameByViewBlock _Nonnull)getWindowFrameByView;
 /// 依据View上铆定的internationalizationKEY来全局更改文字以适配国际化
--(void)languageSwitch;
+-(jobsByVoidBlock _Nonnull)languageSwitch;
 /// 判断是否是此版本App的首次启动
--(BOOL)isAppFirstLaunch;
+-(JobsRetBOOLByVoidBlock _Nonnull)isAppFirstLaunch;
 /// 判断是否是App今日的首次启动
--(BOOL)isTodayAppFirstLaunch;
+-(JobsRetBOOLByVoidBlock _Nonnull)isTodayAppFirstLaunch;
 /// 震动特效反馈
 +(jobsByViewBlock _Nonnull)feedbackGenerator;
 /// 检测用户是否锁屏：根据屏幕光线来进行判定，而不是系统通知
@@ -366,13 +388,13 @@ AppToolsProtocol
 /// 读取本地的plist文件到内存  【 plist ——> NSDictionary * 】
 -(JobsRetDicByStringBlock _Nonnull)readLocalPlistWithFileName;
 /// 监听程序被杀死前的时刻，进行一些需要异步的操作：磁盘读写、网络请求...
--(void)terminalCheck:(jobsByIDBlock _Nullable)checkBlock;
+-(jobsByjobsByIDBlockBlock _Nonnull)terminalCheck;
 /// Object转换为NSData
--(NSData *_Nullable)transformToData:(id _Nullable)object;
+-(JobsRetDataByIDBlock _Nonnull)transformToData;
 /// 获取当前设备可用内存
--(double)availableMemory;
+-(JobsRetDoubleByVoidBlock _Nonnull)availableMemory;
 /// 获取当前任务所占用内存
--(double)usedMemory;
+-(JobsRetDoubleByVoidBlock _Nonnull)usedMemory;
 #pragma mark —— 尺寸
 /*
     参考资料：https://blog.csdn.net/www9500net_/article/details/52437987
@@ -420,59 +442,61 @@ AppToolsProtocol
 -(NSMutableArray <NSValue *>*_Nullable)jobsMutArr:(NSMutableArray <NSValue *>*_Nullable)mutArr
                                        addCGPoint:(CGPoint)point;
 
--(CGPoint)jobsGetPoint:(NSValue *_Nullable)value;
+-(JobsRetCGPointByNSValueBlock _Nonnull)jobsGetPoint;
 /// CGVector
 -(NSMutableArray <NSValue *>*_Nullable)jobsMutArr:(NSMutableArray <NSValue *>*_Nullable)mutArr
                                       addCGVector:(CGVector)vector;
 
--(CGVector)jobsGetVector:(NSValue *_Nullable)value;
+-(JobsRetCGVectorByNSValueBlock _Nonnull)jobsGetVector;
 /// CGSize
 -(NSMutableArray <NSValue *>*_Nullable)jobsMutArr:(NSMutableArray <NSValue *>*_Nullable)mutArr
                                         addCGSize:(CGSize)size;
 
--(CGSize)jobsGetSize:(NSValue *_Nullable)value;
+-(JobsRetCGSizeByNSValueBlock _Nonnull)jobsGetSize;
 /// CGRect
 -(NSMutableArray <NSValue *>*_Nullable)jobsMutArr:(NSMutableArray <NSValue *>*_Nullable)mutArr
                                         addCGRect:(CGRect)frame;
 
--(CGRect)jobsGetFrame:(NSValue *_Nullable)value;
+-(JobsRetCGRectByNSValueBlock _Nonnull)jobsGetFrame;
 /// CGAffineTransform
 -(NSMutableArray <NSValue *>*_Nullable)jobsMutArr:(NSMutableArray <NSValue *>*_Nullable)mutArr
                              addCGAffineTransform:(CGAffineTransform)affineTransform;
 
--(CGAffineTransform)jobsGetCGAffineTransform:(NSValue *_Nullable)value;
+-(JobsRetCGAffineTransformByNSValueBlock _Nonnull)jobsGetCGAffineTransform;
 /// UIEdgeInsets
 -(NSMutableArray <NSValue *>*_Nullable)jobsMutArr:(NSMutableArray <NSValue *>*_Nullable)mutArr
                                   addUIEdgeInsets:(UIEdgeInsets)edgeInsets;
 
--(UIEdgeInsets)jobsGetUIEdgeInsets:(NSValue *_Nullable)value;
+-(JobsRetUIEdgeInsetsByNSValueBlock _Nonnull)jobsGetUIEdgeInsets;
 /// NSDirectionalEdgeInsets
 -(NSMutableArray <NSValue *>*_Nullable)jobsMutArr:(NSMutableArray <NSValue *>*_Nullable)mutArr
                        addNSDirectionalEdgeInsets:(NSDirectionalEdgeInsets)directionalEdgeInsets;
 
--(NSDirectionalEdgeInsets)jobsGetNSDirectionalEdgeInsets:(NSValue *_Nullable)value;
+-(JobsRetNSDirectionalEdgeInsetsByNSValueBlock _Nonnull)jobsGetNSDirectionalEdgeInsets;
 /// UIOffset
 -(NSMutableArray <NSValue *>*_Nullable)jobsMutArr:(NSMutableArray <NSValue *>*_Nullable)mutArr
                                       addUIOffset:(UIOffset)offset;
 
--(UIOffset)jobsGetValueWithUIOffset:(NSValue *_Nullable)value;
+-(JobsRetUIOffsetByNSValueBlock _Nonnull)jobsGetValueWithUIOffset;
 #pragma mark —— 数字
 /// 获取任意数字最高位数字
 -(JobsRetByNSIntegerBlock _Nonnull)topDigit;
 #pragma mark —— 检测当前设备屏幕方向
 /// https://github.com/295060456/JobsOCBaseConfig/blob/main/%E6%96%87%E6%A1%A3%E5%92%8C%E8%B5%84%E6%96%99/%E6%A8%AA%E5%B1%8FUI%E5%88%87%E6%8D%A2.md/%E6%A8%AA%E5%B1%8FUI%E5%88%87%E6%8D%A2.md
--(CGFloat)jobsMainScreen_HEIGHT;
--(CGFloat)jobsMainScreen_WIDTH;
+-(JobsRetCGFloatByVoidBlock _Nonnull)jobsMainScreen_HEIGHT;
+-(JobsRetCGFloatByVoidBlock _Nonnull)jobsMainScreen_WIDTH;
 -(__kindof UIView *_Nullable)getView;
--(id _Nullable)getViewByBlock:(JobsRetIDByComponentTypeAndUIViewBlock _Nullable)block;
+-(JobsRetViewByVoidBlock _Nonnull)jobsGetView;
+-(JobsRetIDByJobsRetIDByComponentTypeAndUIViewBlockBlock _Nonnull)getViewByBlock;
 /// UIInterfaceOrientationMask 检测屏幕方向
--(CGSize)checkScreenOrientation_UIInterfaceOrientationMask:(JobsRetSizeByUIntegerBlock _Nullable)interfaceOrientationMaskBlock;
+-(JobsRetCGSizeByJobsRetSizeByUIntegerBlockBlock _Nonnull)checkScreenOrientation_UIInterfaceOrientationMask;
 /// UIInterfaceOrientation 检测屏幕方向
 -(UIInterfaceOrientation)getInterfaceOrientation;
+-(JobsRetUIInterfaceOrientationByVoidBlock _Nonnull)jobsGetInterfaceOrientation;
 /// UIInterfaceOrientation 检测屏幕方向
--(CGSize)checkScreenOrientation_UIInterfaceOrientation:(JobsRetSizeByNSIntegerBlock _Nullable)interfaceOrientationBlock;
+-(JobsRetCGSizeByJobsRetSizeByNSIntegerBlockBlock _Nonnull)checkScreenOrientation_UIInterfaceOrientation;
 /// DeviceOrientation 检测屏幕方向
--(DeviceOrientation)getDeviceOrientation;
+-(JobsRetDeviceOrientationByVoidBlock _Nonnull)jobsGetDeviceOrientation;
 /// 横屏通知的监听
 -(void)横屏通知的监听:(JobsSelectorBlock1 _Nullable)block;
 #pragma mark —— 键盘⌨️
@@ -543,7 +567,6 @@ AppToolsProtocol
                        target:self
                   paramarrays:paramarrays];
      }
-
 
      - (NSString *)test:(NSString *)arg1
                withArg2:(NSString *)arg2

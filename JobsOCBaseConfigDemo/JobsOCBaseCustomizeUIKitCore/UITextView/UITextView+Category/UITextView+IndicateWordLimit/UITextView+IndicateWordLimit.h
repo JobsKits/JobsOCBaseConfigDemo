@@ -6,18 +6,19 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UITEXTVIEW_INDICATEWORDLIMIT_22DE56C870
-#define JOBS_HEADER_GUARD_UITEXTVIEW_INDICATEWORDLIMIT_22DE56C870
-
-#import <objc/runtime.h>
-#import <UIKit/UIKit.h>
-#import "UIView+Extra.h"
-#import "UIView+Measure.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#define JOBS_HEADER_GUARD_UITEXTVIEW_INDICATEWORDLIMIT_22DE56C870
+
+#import <objc/runtime.h>
+#import <UIKit/UIKit.h>
+#import "UIView+Extra.h"
+#import "UIView+Measure.h"
 
 #import "JobsOCDSL.h"
 #import "JobsMakes.h"
@@ -49,7 +50,7 @@ NS_ASSUME_NONNULL_END
          if (!_textView) {
              _textView = SZTextView.new;
              _textView.delegate = self;
-             _textView.placeholder = @"在这里畅所欲言，留下您的宝贵意见吧！".tr;
+             _textView.placeholder = @"在这里畅所欲言，留下您的宝贵意见吧！".jobsTr();
 
              _textView.placeholderTextColor = RGB_COLOR(132, 134, 140);
              _textView.font = [UIFont systemFontOfSize:12 weight:UIFontWeightMedium];
@@ -80,7 +81,7 @@ NS_ASSUME_NONNULL_END
          //textField.text 有值 && string无值 ————> 删除操作
          if (isValue(textView.text) && isNull(text)) {
              if (textView.text.length == 1) {
-                 resString = @"".tr;
+                 resString = @"".jobsTr();
              }else{
                  resString = [textView.text substringToIndex:(textView.text.length - 1)];//去掉最后一个
              }

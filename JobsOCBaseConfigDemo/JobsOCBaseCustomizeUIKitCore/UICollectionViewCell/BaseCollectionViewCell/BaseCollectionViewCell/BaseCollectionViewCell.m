@@ -6,6 +6,7 @@
 //
 
 #import "BaseCollectionViewCell.h"
+
 #import "CALayer+Extra.h"
 #import "UICollectionView+JobsRegisterClass.h"
 
@@ -23,11 +24,31 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseCollectionViewCell.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)setSelected:(BOOL)selected{
-    [super setSelected:selected];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseCollectionViewCell.class, @selector(jobsSetSelected)))(self, @selector(jobsSetSelected));
+    if (action) action(selected);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsSetSelected{
+    @jobs_weakify(self)
+    return ^(BOOL selected){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super setSelected:selected];
+    };
 }
 #pragma mark —— UICollectionViewCellProtocol
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
@@ -64,7 +85,7 @@
     @jobs_weakify(self)
     return ^__kindof UICollectionViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model;
+        self.byViewModel(model);
         return self;
     };
 }

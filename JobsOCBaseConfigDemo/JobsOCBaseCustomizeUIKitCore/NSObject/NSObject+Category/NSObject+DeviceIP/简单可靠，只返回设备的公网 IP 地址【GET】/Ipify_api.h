@@ -6,15 +6,16 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_IPIFY_API_D7385C9EA3
-#define JOBS_HEADER_GUARD_IPIFY_API_D7385C9EA3
-
-#import <Foundation/Foundation.h>
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
 #else
 #import "YTKNetwork.h"
 #endif
+
+#define JOBS_HEADER_GUARD_IPIFY_API_D7385C9EA3
+
+#import <Foundation/Foundation.h>
 
 #import "YTKNetworkExtra.h"
 #import "JobsBlock.h"

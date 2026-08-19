@@ -67,6 +67,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsRedPacketRainDemoVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsRedPacketRainDemoVC
+-(JobsRetJobsRedPacketRainDemoVCByBOOLBlock _Nonnull)byRaining;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsRedPacketRainDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

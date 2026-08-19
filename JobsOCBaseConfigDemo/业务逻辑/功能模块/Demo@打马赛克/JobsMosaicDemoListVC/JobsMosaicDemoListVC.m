@@ -18,37 +18,57 @@ Prop_strong()NSArray <UIViewModel *>*demoArr;
 -(UIViewModel *)demoViewModelWithTitle:(NSString *)title
                               subTitle:(NSString *)subTitle
                                    cls:(Class)cls;
--(void)pushDemoViewModel:(UIViewModel *)viewModel;
+-(jobsByViewModelBlock _Nonnull)pushDemoViewModel;
 
 @end
 
 @implementation JobsMosaicDemoListVC
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMosaicDemoListVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"打马赛克".tr)
-                .byFont(UIFontWeightRegularSize(17))
-                .byTextCor(JobsLabelColor);
-        })
-        .byBgCor(HEXCOLOR(0xF4F5F8))
-        .byNavBgCor(HEXCOLOR(0xF4F5F8));
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"打马赛克".jobsTr())
+                    .byFont(UIFontWeightRegularSize(17))
+                    .byTextCor(JobsLabelColor);
+            })
+            .byBgCor(HEXCOLOR(0xF4F5F8))
+            .byNavBgCor(HEXCOLOR(0xF4F5F8));
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.tableView.byVisible(YES);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMosaicDemoListVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.tableView.byVisible(YES);
+    };
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView
@@ -88,24 +108,29 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:YES];
-    [self pushDemoViewModel:self.demoArr[indexPath.row]];
+    self.pushDemoViewModel(self.demoArr[indexPath.row]);
 }
 #pragma mark —— 一些私有方法
 -(UIViewModel *)demoViewModelWithTitle:(NSString *)title
                               subTitle:(NSString *)subTitle
                                    cls:(Class)cls{
     return self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-        model.byTitle(title.tr)
-            .bySubTitle(subTitle.tr)
+        model.byTitle(title.jobsTr())
+            .bySubTitle(subTitle.jobsTr())
             .byCls(cls);
     }));
 }
 
--(void)pushDemoViewModel:(UIViewModel *)viewModel{
-    if (viewModel.cls) {
-        self.comingToPushVCByRequestParams(viewModel.cls.new,
-                                           viewModel);
-    }else @"尚未接入此功能".tr.toast();
+-(jobsByViewModelBlock _Nonnull)pushDemoViewModel{
+    @jobs_weakify(self)
+    return ^(UIViewModel * viewModel){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (viewModel.cls) {
+            self.comingToPushVCByRequestParams(viewModel.cls.new,
+                                               viewModel);
+        }else @"尚未接入此功能".jobsTr().toast();
+    };
 }
 #pragma mark —— LazyLoad
 -(UITableView *)tableView{

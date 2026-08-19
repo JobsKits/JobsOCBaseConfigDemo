@@ -16,6 +16,12 @@
 #import "NSObject+Extras.h"
 #import "NSString+Others.h"
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UILabel (Extra)
@@ -28,7 +34,7 @@ Prop_strong()CAShapeLayer *shapeLayer;
 Prop_assign()JobsDirection transformLayerDirectionType;
 #pragma mark —— 一些公共方法
 /// 将label.text + label.textColor + label.font;包装成富文本
--(__kindof NSMutableAttributedString *)makeAttributedStringBySelfText;
+-(JobsRetNSMutableAttributedStringByVoidBlock _Nonnull)makeAttributedStringBySelfText;
 /// UILabel文字旋转
 -(JobsRetLabelByNSIntegerBlock _Nonnull)transformLayer;
 /// 通过传入的(UIImage *)bgImage 来设置背景颜色

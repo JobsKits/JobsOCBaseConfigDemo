@@ -7,10 +7,10 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
 #else
-#import "Masonry.h"
+#import "JobsBlock.h"
 #endif
 
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
@@ -45,14 +45,20 @@
 
 #import "JobsOCSkeletonUser.h"
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsOCSkeletonUserCell : UITableViewCell
 
-+(NSString *)reuseIdentifier;
--(void)configureWithUser:(JobsOCSkeletonUser *)user;
--(void)showSkeletonWithConfig:(JobsOCSkeletonConfig *)config;
--(void)hideSkeleton;
++(JobsRetStrByVoidBlock _Nonnull)reuseIdentifier;
+-(jobsByJobsOCSkeletonUserBlock _Nonnull)configureWithUser;
+-(jobsByJobsOCSkeletonConfigBlock _Nonnull)showSkeletonWithConfig;
+-(jobsByVoidBlock _Nonnull)hideSkeleton;
 
 @end
 

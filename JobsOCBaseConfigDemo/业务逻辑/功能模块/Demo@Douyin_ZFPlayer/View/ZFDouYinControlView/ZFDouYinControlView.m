@@ -7,6 +7,26 @@
 
 #import "ZFDouYinControlView.h"
 
+@implementation ZFSliderView (JobsDSL)
+
+#define JobsZFSliderViewColorDSL(_name_, _property_) \
+-(JobsRetZFSliderViewByCorBlock _Nonnull)by##_name_{ \
+    @jobs_weakify(self) \
+    return ^__kindof ZFSliderView *_Nullable(UIColor *_Nullable data){ \
+        @jobs_strongify(self) \
+        self._property_ = data; \
+        return self; \
+    }; \
+}
+
+JobsZFSliderViewColorDSL(MaximumTrackTintColor, maximumTrackTintColor)
+JobsZFSliderViewColorDSL(MinimumTrackTintColor, minimumTrackTintColor)
+JobsZFSliderViewColorDSL(BufferTrackTintColor, bufferTrackTintColor)
+
+#undef JobsZFSliderViewColorDSL
+
+@end
+
 @interface ZFDouYinControlView ()
 
 Prop_strong()UIButton *playBtn;
@@ -20,33 +40,49 @@ Prop_strong()ZFSliderView *sliderView;
     if (self = [super init]) {
         [self addSubview:self.playBtn];
         [self addSubview:self.sliderView];
-        [self resetControlView];
+        self.resetControlView();
     };return self;
 }
 
 - (void)layoutSubviews {
-    [super layoutSubviews];
-    CGFloat min_x = 0;
-    CGFloat min_y = 0;
-    CGFloat min_w = 0;
-    CGFloat min_h = 0;
-    CGFloat min_view_w = self.zf_width;
-    CGFloat min_view_h = self.zf_height;
-    min_w = 100;
-    min_h = 100;
-    self.playBtn.frame = CGRectMake(min_x, min_y, min_w, min_h);
-    self.playBtn.center = self.center;
-    min_x = 0;
-    min_y = min_view_h - 80;
-    min_w = min_view_w;
-    min_h = 1;
-    self.sliderView.frame = CGRectMake(min_x, min_y, min_w, min_h);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZFDouYinControlView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
 }
 
-- (void)resetControlView {
-    self.playBtn.hidden = YES;
-    self.sliderView.value = 0;
-    self.sliderView.bufferValue = 0;
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        CGFloat min_x = 0;
+        CGFloat min_y = 0;
+        CGFloat min_w = 0;
+        CGFloat min_h = 0;
+        CGFloat min_view_w = self.zf_width;
+        CGFloat min_view_h = self.zf_height;
+        min_w = 100;
+        min_h = 100;
+        self.playBtn.byFrame(CGRectMake(min_x, min_y, min_w, min_h));
+        self.playBtn.byCenter(self.center.x, self.center.y);
+        min_x = 0;
+        min_y = min_view_h - 80;
+        min_w = min_view_w;
+        min_h = 1;
+        self.sliderView.byFrame(CGRectMake(min_x, min_y, min_w, min_h));
+    };
+}
+
+- (jobsByVoidBlock _Nonnull)resetControlView {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.playBtn.byHidden(YES);
+        self.sliderView
+            .byValue(0)
+            .byBufferValue(0);
+    };
 }
 /// 加载状态改变
 - (void)videoPlayer:(ZFPlayerController *)videoPlayer
@@ -63,35 +99,45 @@ Prop_strong()ZFSliderView *sliderView;
 - (void)videoPlayer:(ZFPlayerController *)videoPlayer
         currentTime:(NSTimeInterval)currentTime
           totalTime:(NSTimeInterval)totalTime {
-    self.sliderView.value = videoPlayer.progress;
+    self.sliderView.byValue(videoPlayer.progress);
 }
 
-- (void)gestureSingleTapped:(ZFPlayerGestureControl *)gestureControl{
-    if (self.player.currentPlayerManager.isPlaying) {
-        [self.player.currentPlayerManager pause];
-        self.playBtn.hidden = NO;
-        self.playBtn.transform = CGAffineTransformMakeScale(1.5f, 1.5f);
-        __weak typeof(self) weakSelf = self;
-        [UIView animateWithDuration:0.2f
-                              delay:0
-                            options:UIViewAnimationOptionCurveEaseIn
-                         animations:^{
-            __strong typeof(weakSelf) strongSelf = weakSelf;
-            strongSelf.playBtn.transform = CGAffineTransformIdentity;
-        } completion:nil];
-    } else {
-        [self.player.currentPlayerManager play];
-        self.playBtn.hidden = YES;
-    }
+-(jobsByZFPlayerGestureControlBlock _Nonnull)gestureSingleTapped{
+    @jobs_weakify(self)
+    return ^(ZFPlayerGestureControl * gestureControl){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (self.player.currentPlayerManager.isPlaying) {
+            self.player.currentPlayerManager.pause;
+            self.playBtn.byHidden(NO);
+            self.playBtn.byTransform(CGAffineTransformMakeScale(1.5f, 1.5f));
+            @jobs_weakify(self)
+            [UIView animateWithDuration:0.2f
+                                  delay:0
+                                options:UIViewAnimationOptionCurveEaseIn
+                             animations:^{
+                @jobs_strongify(self)
+                self.playBtn.byTransform(CGAffineTransformIdentity);
+            } completion:nil];
+        } else {
+            [self.player.currentPlayerManager play];
+            self.playBtn.byHidden(YES);
+        }
+    };
 }
 
 - (void)setPlayer:(ZFPlayerController *)player {
     _player = player;
 }
 
--(void)showCoverViewWithUrl:(NSString *)coverUrl{
-    [self.player.currentPlayerManager.view.coverImageView setImageWithURLString:coverUrl
-                                                                    placeholder:@"img_video_loading".img];
+-(jobsByStrBlock _Nonnull)showCoverViewWithUrl{
+    @jobs_weakify(self)
+    return ^(NSString * coverUrl){
+        @jobs_strongify(self)
+        if (!self) return;
+        [self.player.currentPlayerManager.view.coverImageView setImageWithURLString:coverUrl
+                                                                        placeholder:@"img_video_loading".img];
+    };
 }
 #pragma mark —— lazyLoad
 - (UIButton *)playBtn {
@@ -107,12 +153,12 @@ Prop_strong()ZFSliderView *sliderView;
 
 - (ZFSliderView *)sliderView {
     if (!_sliderView) {
-        _sliderView = ZFSliderView.new;
-        _sliderView.maximumTrackTintColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.2];
-        _sliderView.minimumTrackTintColor = [UIColor whiteColor];
-        _sliderView.bufferTrackTintColor  = [UIColor clearColor];
-        _sliderView.sliderHeight = 1;
-        _sliderView.isHideSliderBlock = NO;
+        _sliderView = ZFSliderView.new
+            .byMaximumTrackTintColor([UIColor colorWithRed:1 green:1 blue:1 alpha:0.2])
+            .byMinimumTrackTintColor(UIColor.whiteColor)
+            .byBufferTrackTintColor(UIColor.clearColor)
+            .bySliderHeight(1)
+            .byIsHideSliderBlock(NO);
     };return _sliderView;
 }
 

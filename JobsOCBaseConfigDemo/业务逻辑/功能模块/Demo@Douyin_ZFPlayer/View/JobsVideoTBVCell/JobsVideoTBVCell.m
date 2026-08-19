@@ -14,10 +14,22 @@ Prop_strong()JobsRightBtnsView *rbView;
 Prop_strong()UIButton *rotation;
 /// Data
 Prop_strong()VideoModel_Core *core_data;
+-(JobsRetJobsVideoTBVCellByVideoModelCoreBlock _Nonnull)byData;
 
 @end
 
 @implementation JobsVideoTBVCell
+
+-(JobsRetJobsVideoTBVCellByVideoModelCoreBlock _Nonnull)byData{
+    @jobs_weakify(self)
+    return ^__kindof JobsVideoTBVCell *_Nullable(VideoModel_Core *_Nullable model){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setData:model];
+        return self;
+    };
+}
+
 @synthesize index = _index;
 @synthesize label = _label;
 #pragma mark —— UITableViewCellProtocol
@@ -41,7 +53,7 @@ Prop_strong()VideoModel_Core *core_data;
     @jobs_weakify(self)
     return ^JobsVideoTBVCell *_Nonnull(id<UIViewModelOthersProtocol> delegate){
         @jobs_strongify(self)
-        self.delegate = delegate;
+        [self setDelegate:delegate];
         return self;
     };
 }
@@ -60,13 +72,13 @@ Prop_strong()VideoModel_Core *core_data;
     return ^__kindof UITableViewCell *_Nullable(VideoModel_Core *_Nullable model) {
         @jobs_strongify(self)
         if ([model isKindOfClass:VideoModel_Core.class]) {
-            self.data = (VideoModel_Core *)model;
+            self.byData((VideoModel_Core *)model);
             self.label.byText([NSString stringWithFormat:@"%ld",(long)self.index]);
             self.rotation.byAlpha(1);
             self.coverImageView
-                    .imageURL(self.core_data.videoImg.jobsUrl)
+                    .imageURL(self.core_data.videoImg.jobsURL())
                     .placeholderImage(@"视频封面".img)
-                    .options(self.makeSDWebImageOptions)
+                    .options(self.jobsMakeSDWebImageOptions())
                     .completed(^(UIImage * _Nullable image,
                                  NSError * _Nullable error,
                                  SDImageCacheType cacheType,
@@ -121,8 +133,8 @@ Prop_strong()VideoModel_Core *core_data;
         _rbView = jobsMakeRightBtnsView(^(__kindof JobsRightBtnsView * _Nullable view) {
             @jobs_strongify(self)
             view.jobsRichViewByModel(nil);
-            [view actionObjBlock:^(id data) {
-            }];
+            view.actionObjBlock(^(id data) {
+            });
             view.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {
                 make.right.equalTo(self.contentView);
                 make.bottom.equalTo(self.contentView).offset(JobsWidth(-150));
@@ -139,7 +151,7 @@ Prop_strong()VideoModel_Core *core_data;
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 JobsLog(@"");
-                if ([self.delegate respondsToSelector:@selector(zf_douyinRotation)]) [self.delegate zf_douyinRotation];
+                if ([self.delegate respondsToSelector:@selector(jobsZf_douyinRotation)]) self.delegate.jobsZf_douyinRotation();
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })

@@ -27,6 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCALayerByCATransform3DBlock _Nonnull)byTransform;
 -(JobsRetCALayerByCGAffineTransformBlock _Nonnull)bySetAffineTransform;
 -(JobsRetCALayerByCATransform3DBlock _Nonnull)bySublayerTransform;
+-(JobsRetCALayerByCFTimeIntervalBlock _Nonnull)byBeginTime;
+-(JobsRetCALayerByFloatBlock _Nonnull)bySpeed;
+-(JobsRetCALayerByCFTimeIntervalBlock _Nonnull)byTimeOffset;
 
 #pragma mark —— Hierarchy
 /// 对 QuartzCore API addSublayer 的二次封装：附着在父图层上

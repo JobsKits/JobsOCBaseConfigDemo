@@ -11,13 +11,17 @@
 #import <UIKit/UIKit.h>
 #import "JobsBlock.h"
 #import "JobsDefines.h"
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BaseNavigationBar : UINavigationBar
 
--(void)actionBlockBaseNavigationBar:(jobsByIDBlock _Nonnull)baseNavigationBarBlock;
+-(jobsByjobsByIDBlockBlock _Nonnull)actionBlockBaseNavigationBar;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN BaseNavigationBar
+-(JobsRetBaseNavigationBarByjobsByIDBlockBlock _Nonnull)byBaseNavigationBarBlock;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END BaseNavigationBar
 @end
 
 NS_ASSUME_NONNULL_END

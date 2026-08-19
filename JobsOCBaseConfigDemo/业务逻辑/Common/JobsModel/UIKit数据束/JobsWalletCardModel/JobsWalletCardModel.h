@@ -11,6 +11,12 @@
 #import <UIKit/UIKit.h>
 #import "BaseModel.h"
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import "JobsDefines.h"
 #else
@@ -29,6 +35,14 @@ Prop_copy()NSString *bankName;
 Prop_copy()NSString *cardNumber;
 Prop_copy(nullable)NSString *cvc;
 Prop_copy(nullable)NSString *expirationDate;
+
+-(JobsRetJobsWalletCardModelByImageBlock _Nonnull)byBackgroundImage;
+-(JobsRetJobsWalletCardModelByCorBlock _Nonnull)byBackgroundColor;
+-(JobsRetJobsWalletCardModelByImageBlock _Nonnull)byBankIcon;
+-(JobsRetJobsWalletCardModelByStrBlock _Nonnull)byBankName;
+-(JobsRetJobsWalletCardModelByStrBlock _Nonnull)byCardNumber;
+-(JobsRetJobsWalletCardModelByStrBlock _Nonnull)byCvc;
+-(JobsRetJobsWalletCardModelByStrBlock _Nonnull)byExpirationDate;
 
 @end
 

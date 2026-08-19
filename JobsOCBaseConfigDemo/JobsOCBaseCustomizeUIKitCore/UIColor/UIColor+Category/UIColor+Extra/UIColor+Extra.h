@@ -6,6 +6,13 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UICOLOR_EXTRA_28D1D45CA9
+
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
 #define JOBS_HEADER_GUARD_UICOLOR_EXTRA_28D1D45CA9
 
 #pragma once
@@ -14,12 +21,6 @@
 #import "NSMutableArray+Extra.h"
 #import "NSString+Extra.h"
 #import "NSString+Sys.h"
-
-#if __has_include(<XYColorOC/XYColorOC.h>)
-#import <XYColorOC/XYColorOC.h>
-#else
-#import "XYColorOC.h"
-#endif
 
 #import "JobsMakes.h"
 #import "JobsModelDSL.h"
@@ -67,6 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCorByCGFloatBlock _Nonnull)colorWithAlphaComponentBy;
 /// 根据颜色生成图片
 -(UIImage *)image;
+-(JobsRetImageByVoidBlock _Nonnull)jobsImage;
 
 @end
 

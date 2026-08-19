@@ -17,16 +17,21 @@
     };
 }
 
--(__kindof ZFDouYinControlView *_Nonnull)byResetControlView{
-    [self resetControlView];
-    return self;
+-(JobsRetZFDouYinControlViewByVoidBlock _Nonnull)byResetControlView{
+    @jobs_weakify(self)
+    return ^__kindof ZFDouYinControlView *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.resetControlView();
+        return self;
+    };
 }
 
 -(JobsRetZFDouYinControlViewByStringBlock _Nonnull)byShowCoverViewWithUrl{
     @jobs_weakify(self)
     return ^__kindof ZFDouYinControlView *_Nullable(NSString *_Nullable data){
         @jobs_strongify(self)
-        [self showCoverViewWithUrl:data];
+        self.showCoverViewWithUrl(data);
         return self;
     };
 }

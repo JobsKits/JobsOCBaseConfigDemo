@@ -56,6 +56,20 @@ Prop_assign()BOOL isNotNeedCheckLogin;
 Prop_assign()BOOL isNeedjump;
                            // 跳开处理，即不切控制器，而是做其他操作，比如弹一个提示框
 
+-(JobsRetJobsTabBarItemConfigByUIViewControllerBlock _Nonnull)byVc;
+-(JobsRetJobsTabBarItemConfigByStrBlock _Nonnull)byTitle;
+-(JobsRetJobsTabBarItemConfigByStrBlock _Nonnull)byLottieName;
+-(JobsRetJobsTabBarItemConfigByImageBlock _Nonnull)byImageSelected;
+-(JobsRetJobsTabBarItemConfigByImageBlock _Nonnull)byImageUnselected;
+-(JobsRetJobsTabBarItemConfigByCGFloatBlock _Nonnull)byHumpOffsetY;
+-(JobsRetJobsTabBarItemConfigByNSUIntegerBlock _Nonnull)byTag;
+-(JobsRetJobsTabBarItemConfigByCGFloatBlock _Nonnull)byTabBarItemWidth;
+-(JobsRetJobsTabBarItemConfigByCGFloatBlock _Nonnull)byXOffset;
+-(JobsRetJobsTabBarItemConfigByCGFloatBlock _Nonnull)bySpacing;
+-(JobsRetJobsTabBarItemConfigByBOOLBlock _Nonnull)byNeedCheckLogin;
+-(JobsRetJobsTabBarItemConfigByBOOLBlock _Nonnull)byNotNeedCheckLogin;
+-(JobsRetJobsTabBarItemConfigByBOOLBlock _Nonnull)byNeedJump;
+
 @end
 
 NS_ASSUME_NONNULL_END

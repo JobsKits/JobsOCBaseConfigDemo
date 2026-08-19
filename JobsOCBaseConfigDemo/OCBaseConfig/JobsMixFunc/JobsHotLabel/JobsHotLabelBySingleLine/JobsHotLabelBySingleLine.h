@@ -15,6 +15,7 @@
 #import "JobsMakes.h"
 #import "JobsModelDSL.h"
 #import "JobsByOCPods.h"
+#import "JobsBlock.h"
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -28,7 +29,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JobsHotLabelBySingleLine : BaseView
 
 Prop_assign()CGSize elementDefaultSize; // 内置元素Size的预设值
+-(JobsRetJobsHotLabelBySingleLineByUILabelShowingTypeBlock _Nonnull)byLabelShowingType;
+-(JobsRetJobsHotLabelBySingleLineByCGSizeBlock _Nonnull)byElementDefaultSize;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsHotLabelBySingleLine
+-(JobsRetJobsHotLabelBySingleLineByNSArrayUIViewModelBlock _Nonnull)byViewModelDataArr;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsHotLabelBySingleLine
 @end
 
 NS_ASSUME_NONNULL_END
@@ -51,13 +57,13 @@ NS_ASSUME_NONNULL_END
              @jobs_weakify(self)
              [_hl actionObjBlock:^(UIButton *btn) {
                  @jobs_strongify(self)
-                 if ([btn.titleForNormalState isEqualToString:@"Top-up check in progress".tr]) {
+                 if ([btn.jobsTitleForNormalState() isEqualToString:@"Top-up check in progress".jobsTr()]) {
                      self.chargeOrderType = ChargeOrderType_processing;
-                 }else if ([btn.titleForNormalState isEqualToString:@"Top-up success".tr]){
+                 }else if ([btn.jobsTitleForNormalState() isEqualToString:@"Top-up success".jobsTr()]){
                      self.chargeOrderType = ChargeOrderType_success;
-                 }else if ([btn.titleForNormalState isEqualToString:@"Top-up cancel".tr]){
+                 }else if ([btn.jobsTitleForNormalState() isEqualToString:@"Top-up cancel".jobsTr()]){
                      self.chargeOrderType = ChargeOrderType_cancel;
-                 }else if ([btn.titleForNormalState isEqualToString:@"All".tr]){
+                 }else if ([btn.jobsTitleForNormalState() isEqualToString:@"All".jobsTr()]){
                      self.chargeOrderType = ChargeOrderType_all;//ChargeOrderType_all;
                  }else{}
 
@@ -93,7 +99,7 @@ NS_ASSUME_NONNULL_END
              {
                  UIViewModel *vm = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
                  vm.byBgImage(@"service_skype".img)
-                   .byText(@"".tr);
+                   .byText(@"".jobsTr());
                  vm.size = CGSizeMake(JobsWidth(46), JobsWidth(46));
                  vm.byOffsetXForEach(JobsWidth(46))
                    .byOffsetYForEach(JobsWidth(46));
@@ -103,7 +109,7 @@ NS_ASSUME_NONNULL_END
              {
                  UIViewModel *vm = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
                  vm.byBgImage(@"service_qq".img)
-                   .byText(@"".tr);
+                   .byText(@"".jobsTr());
                  vm.size = CGSizeMake(JobsWidth(46), JobsWidth(46));
                  vm.byOffsetXForEach(JobsWidth(46))
                    .byOffsetYForEach(JobsWidth(46));
@@ -113,7 +119,7 @@ NS_ASSUME_NONNULL_END
              {
                  UIViewModel *vm = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
                  vm.byBgImage(@"service_telegram".img)
-                   .byText(@"".tr);
+                   .byText(@"".jobsTr());
                  vm.size = CGSizeMake(JobsWidth(46), JobsWidth(46));
                  vm.byOffsetXForEach(JobsWidth(46))
                    .byOffsetYForEach(JobsWidth(46));
@@ -123,7 +129,7 @@ NS_ASSUME_NONNULL_END
              {
                  UIViewModel *vm = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
                  vm.byBgImage(@"service_wechat".img)
-                   .byText(@"".tr);
+                   .byText(@"".jobsTr());
                  vm.size = CGSizeMake(JobsWidth(46), JobsWidth(46));
                  vm.byOffsetXForEach(JobsWidth(46))
                    .byOffsetYForEach(JobsWidth(46));
@@ -133,7 +139,7 @@ NS_ASSUME_NONNULL_END
              {
                  UIViewModel *vm = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
                  vm.byBgImage(@"login_skype".img)
-                   .byText(@"".tr);
+                   .byText(@"".jobsTr());
                  vm.size = CGSizeMake(JobsWidth(46), JobsWidth(46));
                  vm.byOffsetXForEach(JobsWidth(46))
                    .byOffsetYForEach(JobsWidth(46));
@@ -143,7 +149,7 @@ NS_ASSUME_NONNULL_END
              {
                  UIViewModel *vm = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
                  vm.byBgImage(@"service_meiqia".img)
-                   .byText(@"".tr);
+                   .byText(@"".jobsTr());
                  vm.size = CGSizeMake(JobsWidth(46), JobsWidth(46));
                  vm.byOffsetXForEach(JobsWidth(46))
                    .byOffsetYForEach(JobsWidth(46));

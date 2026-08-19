@@ -15,18 +15,6 @@
 #import "TKPermissionKit.h"
 #endif
 
-#if __has_include(<HXPhotoPickerObjC/HXPhotoPicker.h>)
-#import <HXPhotoPickerObjC/HXPhotoPicker.h>
-#else
-#import "HXPhotoPicker.h"
-#endif
-
-#if __has_include(<WHToast/WHToast.h>)
-#import <WHToast/WHToast.h>
-#else
-#import "WHToast.h"
-#endif
-
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import "JobsLanMgr.h"
 #else
@@ -58,9 +46,21 @@
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import "JobsDefines.h"
+#import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
+#endif
+
+#if __has_include(<HXPhotoPickerObjC/HXPhotoPicker.h>)
+#import <HXPhotoPickerObjC/HXPhotoPicker.h>
+#else
+#import "HXPhotoPicker.h"
+#endif
+
+#if __has_include(<WHToast/WHToast.h>)
+#import <WHToast/WHToast.h>
+#else
+#import "WHToast.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
@@ -73,6 +73,7 @@ HXCustomNavigationControllerDelegate
 >
 
 Prop_strong()HXPhotoManager *photoManager; /// 选取图片的数据管理类
+-(JobsRetIDByHXPhotoManagerBlock _Nonnull)byPhotoManager;
 Prop_strong()NSMutableArray <HXPhotoModel *>*historyPhotoDataMutArr; /// 与之相对应的是self.photoManager.afterSelectedArray
 Prop_strong()NSMutableArray <HXPhotoModel *>*photosDataMutArr;
 Prop_strong()NSMutableArray <HXPhotoModel *>*videosDataMutArr;

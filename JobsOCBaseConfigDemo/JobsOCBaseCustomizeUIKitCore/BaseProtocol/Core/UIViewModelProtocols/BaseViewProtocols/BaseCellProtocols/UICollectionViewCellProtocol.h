@@ -35,19 +35,19 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCollectionViewCellByDelegateBlock _Nonnull)byDelegate;
 #pragma mark —— 获取
 /// 获取这个UICollectionViewCell所承载的UICollectionView
--(__kindof UICollectionView *_Nullable)jobsGetCurrentCollectionView;
+-(JobsRetCollectionViewByVoidBlock _Nonnull)jobsGetCurrentCollectionView;
 /// 获取当前的UICollectionViewCell对应的indexPath
--(NSIndexPath *_Nonnull)jobsGetCurrentIndexPath;
+-(JobsRetNSIndexPathByVoidBlock _Nonnull)jobsGetCurrentIndexPath;
 /// 获取当前的UICollectionViewCell对应的section个数
--(NSInteger)jobsGetCurrentNumberOfSections;
+-(JobsRetNSIntegerByVoidBlock _Nonnull)jobsGetCurrentNumberOfSections;
 /// 获取当前的UICollectionViewCell对应的section的的item个数
--(NSInteger)jobsGetCurrentNumberOfItemsInSection;
+-(JobsRetNSIntegerByVoidBlock _Nonnull)jobsGetCurrentNumberOfItemsInSection;
 /// 获取 UITextView
--(__kindof UITextView *_Nullable)getTextView;
+-(JobsRetUITextViewByVoidBlock _Nonnull)getTextView;
 /// 获取 UILabel
--(__kindof UILabel *_Nullable)getLabel;
+-(JobsRetLabelByVoidBlock _Nonnull)getLabel;
 /// 获取 UIButton
--(__kindof UIButton *_Nullable)getBgBtn;
+-(JobsRetBtnByVoidBlock _Nonnull)getBgBtn;
 /// 对UICollectionView上的每一组的第一个和最后一个UICollectionViewCell进行圆切角
 /// 要求切第一个UICollectionViewCell的左上+右上，最后一个UICollectionViewCell的左下和右下
 /// 作用域 ：UICollectionViewCell子类的 - (void)drawRect:(CGRect)rect

@@ -53,6 +53,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TestLabelDetailVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN TestLabelDetailVC
+-(JobsRetTestLabelDetailVCByBOOLBlock _Nonnull)byDidApplyShowingType;
+-(JobsRetTestLabelDetailVCByRACDisposableBlock _Nonnull)byScrollDisposable;
+-(JobsRetTestLabelDetailVCByTestLabelDemoModelBlock _Nonnull)byDemoModel;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END TestLabelDetailVC
 @end
 
 NS_ASSUME_NONNULL_END

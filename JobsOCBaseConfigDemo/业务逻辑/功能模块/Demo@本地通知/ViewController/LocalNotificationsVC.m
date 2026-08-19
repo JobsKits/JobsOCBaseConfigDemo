@@ -30,7 +30,7 @@ Prop_strong()BaseButton *btn;
     }
     self.viewModel
         .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
+            data.byText(@"返回".jobsTr());
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
@@ -88,8 +88,8 @@ Prop_strong()BaseButton *btn;
             .bgColorBy(JobsWhiteColor)
             .jobsResetBtnTitleCor(@"#333333".cor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(18)))
-            .jobsResetBtnTitle(@"点我".tr)
-            .jobsResetBtnSubTitle(@"出推送通知".tr)
+            .jobsResetBtnTitle(@"点我".jobsTr())
+            .jobsResetBtnSubTitle(@"出推送通知".jobsTr())
             .jobsResetTitlePadding(JobsWidth(10))
             .jobsResetBtnCornerRadiusValue(JobsWidth(8))
             .onClickBy(^(UIButton *x){

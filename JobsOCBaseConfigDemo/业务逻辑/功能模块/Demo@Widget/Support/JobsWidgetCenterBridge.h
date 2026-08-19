@@ -7,13 +7,18 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsWidgetCenterBridge : NSObject
 
-+(NSInteger)counter;
-+(void)saveCounter:(NSInteger)counter;
-+(void)reloadTimelines;
++(JobsRetNSIntegerByVoidBlock _Nonnull)jobsCounter;
++(jobsByNSIntegerBlock _Nonnull)jobsSaveCounter;
++(jobsByVoidBlock _Nonnull)jobsReloadTimelines;
 
 @end
 

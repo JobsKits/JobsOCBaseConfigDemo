@@ -6,13 +6,9 @@
 //
 
 #import "JobsOCCommentView.h"
+
 #import "JobsOCCommentCell.h"
 
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
-#else
-#import "Masonry.h"
-#endif
 
 @interface JobsOCCommentView ()
 
@@ -25,8 +21,8 @@ Prop_strong()NSMutableArray <id>*renderParentMutArr;
 Prop_strong()NSMutableArray <NSNumber *>*renderMoreMutArr;
 Prop_strong()NSMutableSet <NSString *>*expandedRootIDMutSet;
 
--(void)setupWithConfig:(JobsOCCommentConfig *_Nullable)config;
--(void)rebuildRenderData;
+-(jobsByJobsOCCommentConfigBlock _Nonnull)setupWithConfig;
+-(jobsByVoidBlock _Nonnull)rebuildRenderData;
 -(void)appendRenderComment:(JobsOCCommentModel *)comment
                      depth:(NSInteger)depth
              parentComment:(JobsOCCommentModel *_Nullable)parentComment
@@ -39,121 +35,150 @@ Prop_strong()NSMutableSet <NSString *>*expandedRootIDMutSet;
                            depth:(NSInteger)depth
                    parentComment:(JobsOCCommentModel *_Nullable)parentComment
                   remainingCount:(NSUInteger *)remainingCount;
--(NSUInteger)jobs_descendantCountByComment:(JobsOCCommentModel *)comment;
--(NSUInteger)jobs_effectiveMaxVisibleChildReplyCount;
--(BOOL)jobs_shouldEnableRefreshByMode;
--(void)jobs_updateRefresher;
+-(JobsRetNSUIntegerByJobsOCCommentModelBlock _Nonnull)jobs_descendantCountByComment;
+-(JobsRetNSUIntegerByVoidBlock _Nonnull)jobs_effectiveMaxVisibleChildReplyCount;
+-(JobsRetBOOLByVoidBlock _Nonnull)jobs_shouldEnableRefreshByMode;
+-(jobsByVoidBlock _Nonnull)jobs_updateRefresher;
 
 @end
 
 @implementation JobsOCCommentView
+-(JobsRetJobsOCCommentViewByConfigBlock _Nonnull)byConfig{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCCommentView *_Nullable(JobsOCCommentConfig *_Nullable config){
+        @jobs_strongify(self)
+        [self setConfig:config];
+        return self;
+    };
+}
+
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        [self setupWithConfig:nil];
+        self.setupWithConfig(nil);
     };return self;
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
-        [self setupWithConfig:nil];
+        self.setupWithConfig(nil);
     };return self;
 }
 
 -(instancetype)initWithConfig:(JobsOCCommentConfig *)config{
     if (self = [super initWithFrame:CGRectZero]) {
-        [self setupWithConfig:config];
+        self.setupWithConfig(config);
     };return self;
 }
 
--(__kindof JobsOCCommentView *_Nullable(^)(NSArray<JobsOCCommentModel *> * _Nullable))byComments{
+-(JobsRetJobsOCCommentViewByNSArrayJobsOCCommentModelBlock _Nonnull)byComments{
     @jobs_weakify(self)
     return ^__kindof JobsOCCommentView *_Nullable(NSArray <JobsOCCommentModel *>*_Nullable comments) {
         @jobs_strongify(self)
-        [self reloadWithComments:comments];
+        [self setComments:comments];
         return self;
     };
 }
 
--(__kindof JobsOCCommentView *_Nullable(^)(JobsOCCommentMode))byMode{
+-(JobsRetJobsOCCommentViewByJobsOCCommentModeBlock _Nonnull)byMode{
     @jobs_weakify(self)
     return ^__kindof JobsOCCommentView *_Nullable(JobsOCCommentMode mode) {
         @jobs_strongify(self)
         self.config.mode = mode;
-        [self jobs_updateRefresher];
-        [self rebuildRenderData];
+        self.jobs_updateRefresher();
+        self.rebuildRenderData();
         [self.tableView reloadData];
         return self;
     };
 }
 
--(void)setupWithConfig:(JobsOCCommentConfig *)config{
-    self.config = config ? : JobsOCCommentConfig.defaultConfig;
-    self.comments = @[];
-    self.backgroundColor = [UIColor colorWithRed:0.96 green:0.97 blue:0.99 alpha:1];
-    [self addSubview:self.tableView];
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self);
-    }];
-    [self jobs_updateRefresher];
+-(jobsByJobsOCCommentConfigBlock _Nonnull)setupWithConfig{
+    @jobs_weakify(self)
+    return ^(JobsOCCommentConfig * config){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byConfig(config ? : JobsOCCommentConfig.defaultConfig());
+        self.byComments(@[]);
+        self.byBgColor([UIColor colorWithRed:0.96 green:0.97 blue:0.99 alpha:1]);
+        [self addSubview:self.tableView];
+        [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self);
+        }];
+        self.jobs_updateRefresher();
+    };
 }
 
--(void)reloadWithConfig:(JobsOCCommentConfig *)config{
-    self.config = config ? : JobsOCCommentConfig.defaultConfig;
-    [self jobs_updateRefresher];
-    [self rebuildRenderData];
-    [self.tableView reloadData];
+-(jobsByJobsOCCommentConfigBlock _Nonnull)reloadWithConfig{
+    @jobs_weakify(self)
+    return ^(JobsOCCommentConfig * config){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byConfig(config ? : JobsOCCommentConfig.defaultConfig());
+        self.jobs_updateRefresher();
+        self.rebuildRenderData();
+        [self.tableView reloadData];
+    };
 }
 
--(void)reloadWithComments:(NSArray<JobsOCCommentModel *> *)comments{
-    NSMutableArray <JobsOCCommentModel *>*result = NSMutableArray.array;
-    if ([comments isKindOfClass:NSArray.class]) {
-        for (id comment in comments) {
-            if (![comment isKindOfClass:JobsOCCommentModel.class]) continue;
-            [result addObject:comment];
-        }
-    }
-    self.comments = result.copy;
-    [self rebuildRenderData];
-    [self.tableView reloadData];
-}
-
--(void)rebuildRenderData{
-    [self.renderCommentMutArr removeAllObjects];
-    [self.renderDepthMutArr removeAllObjects];
-    [self.renderParentMutArr removeAllObjects];
-    [self.renderMoreMutArr removeAllObjects];
-    BOOL shouldShowChilds = self.config.mode != JobsOCCommentModeToutiao || self.comments.count == 1;
-    for (JobsOCCommentModel *comment in self.comments) {
-        [self appendRenderComment:comment
-                            depth:0
-                    parentComment:nil
-                        isMoreRow:NO];
-        if (!shouldShowChilds) continue;
-        NSUInteger childReplyCount = [self jobs_descendantCountByComment:comment];
-        NSUInteger maxVisibleCount = self.jobs_effectiveMaxVisibleChildReplyCount;
-        BOOL shouldLimit = childReplyCount > maxVisibleCount && ![self.expandedRootIDMutSet containsObject:comment.messageID ?: @""];
-        if (shouldLimit) {
-            NSUInteger remainingCount = maxVisibleCount;
-            for (JobsOCCommentModel *child in comment.children) {
-                [self appendLimitedChildComment:child
-                                          depth:1
-                                  parentComment:comment
-                                 remainingCount:&remainingCount];
-                if (!remainingCount) break;
+-(jobsByNSArrayJobsOCCommentModelBlock _Nonnull)reloadWithComments{
+    @jobs_weakify(self)
+    return ^(NSArray<JobsOCCommentModel *> * comments){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSMutableArray <JobsOCCommentModel *>*result = NSMutableArray.array;
+        if ([comments isKindOfClass:NSArray.class]) {
+            for (id comment in comments) {
+                if (![comment isKindOfClass:JobsOCCommentModel.class]) continue;
+                [result addObject:comment];
             }
+        }
+        self.byComments(result.copy);
+        self.rebuildRenderData();
+        [self.tableView reloadData];
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)rebuildRenderData{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self.renderCommentMutArr removeAllObjects];
+        [self.renderDepthMutArr removeAllObjects];
+        [self.renderParentMutArr removeAllObjects];
+        [self.renderMoreMutArr removeAllObjects];
+        BOOL shouldShowChilds = self.config.mode != JobsOCCommentModeToutiao || self.comments.count == 1;
+        for (JobsOCCommentModel *comment in self.comments) {
             [self appendRenderComment:comment
-                                depth:1
+                                depth:0
                         parentComment:nil
-                            isMoreRow:YES];
-        }else{
-            for (JobsOCCommentModel *child in comment.children) {
-                [self appendComment:child
-                              depth:1
-                      parentComment:comment
-                   shouldShowChilds:YES];
+                            isMoreRow:NO];
+            if (!shouldShowChilds) continue;
+            NSUInteger childReplyCount = self.jobs_descendantCountByComment(comment);
+            NSUInteger maxVisibleCount = self.jobs_effectiveMaxVisibleChildReplyCount();
+            BOOL shouldLimit = childReplyCount > maxVisibleCount && ![self.expandedRootIDMutSet containsObject:comment.messageID ?: @""];
+            if (shouldLimit) {
+                NSUInteger remainingCount = maxVisibleCount;
+                for (JobsOCCommentModel *child in comment.children) {
+                    [self appendLimitedChildComment:child
+                                              depth:1
+                                      parentComment:comment
+                                     remainingCount:&remainingCount];
+                    if (!remainingCount) break;
+                }
+                [self appendRenderComment:comment
+                                    depth:1
+                            parentComment:nil
+                                isMoreRow:YES];
+            }else{
+                for (JobsOCCommentModel *child in comment.children) {
+                    [self appendComment:child
+                                  depth:1
+                          parentComment:comment
+                       shouldShowChilds:YES];
+                }
             }
         }
-    }
+    };
 }
 
 -(void)appendRenderComment:(JobsOCCommentModel *)comment
@@ -203,62 +228,97 @@ Prop_strong()NSMutableSet <NSString *>*expandedRootIDMutSet;
     }
 }
 
--(NSUInteger)jobs_descendantCountByComment:(JobsOCCommentModel *)comment{
-    NSUInteger count = 0;
-    for (JobsOCCommentModel *child in comment.children) {
-        count += 1 + [self jobs_descendantCountByComment:child];
-    };return count;
-}
-
--(NSUInteger)jobs_effectiveMaxVisibleChildReplyCount{
-    return self.config.maxVisibleChildReplyCount ? : JobsOCCommentDefaultMaxVisibleChildReplyCount;
-}
-
--(BOOL)jobs_shouldEnableRefreshByMode{
-    return self.config.mode == JobsOCCommentModeNetEase || self.config.mode == JobsOCCommentModeCustom;
-}
-
--(void)jobs_updateRefresher{
-    [self.tableView jobs_removeRefreshAt:JobsOCRefreshPositionHeader];
-    [self.tableView jobs_removeRefreshAt:JobsOCRefreshPositionFooter];
-    if (!self.jobs_shouldEnableRefreshByMode) return;
+-(JobsRetNSUIntegerByJobsOCCommentModelBlock _Nonnull)jobs_descendantCountByComment{
     @jobs_weakify(self)
-    if (self.config.enablesPullRefresh) {
-        [self.tableView jobs_byRefreshHeaderWithConfig:self.config.pullRefreshConfig
-                                               action:^{
-            @jobs_strongify(self)
-            if (self.config.pullRefreshBlock) {
-                self.config.pullRefreshBlock(self);
-            }else{
-                [self endPullRefresh];
-            }
-        }];
-    }
-    if (self.config.enablesLoadMore) {
-        [self.tableView jobs_byRefreshFooterWithConfig:self.config.loadMoreConfig
-                                               action:^{
-            @jobs_strongify(self)
-            if (self.config.loadMoreBlock) {
-                self.config.loadMoreBlock(self);
-            }else{
-                [self endLoadMore];
-            }
-        }];
-    }
+    return ^NSUInteger(JobsOCCommentModel * comment){
+        @jobs_strongify(self)
+        if (!self) return (NSUInteger){0};
+        NSUInteger count = 0;
+        for (JobsOCCommentModel *child in comment.children) {
+            count += 1 + self.jobs_descendantCountByComment(child);
+        };return count;
+    };
 }
 
--(void)endPullRefresh{
-    [self endRefreshingAtPosition:JobsOCRefreshPositionHeader
-                          toState:JobsOCRefreshStateIdle];
+-(JobsRetNSUIntegerByVoidBlock _Nonnull)jobs_effectiveMaxVisibleChildReplyCount{
+    @jobs_weakify(self)
+    return ^NSUInteger{
+        @jobs_strongify(self)
+        if (!self) return (NSUInteger){0};
+        return self.config.maxVisibleChildReplyCount ? : JobsOCCommentDefaultMaxVisibleChildReplyCount;
+    };
 }
 
--(void)endLoadMore{
-    [self endLoadMoreWithNoMoreData:NO];
+-(JobsRetBOOLByVoidBlock _Nonnull)jobs_shouldEnableRefreshByMode{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return self.config.mode == JobsOCCommentModeNetEase || self.config.mode == JobsOCCommentModeCustom;
+    };
 }
 
--(void)endLoadMoreWithNoMoreData:(BOOL)noMoreData{
-    [self endRefreshingAtPosition:JobsOCRefreshPositionFooter
-                          toState:noMoreData ? JobsOCRefreshStateNoMoreData : JobsOCRefreshStateIdle];
+-(jobsByVoidBlock _Nonnull)jobs_updateRefresher{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.tableView.jobs_removeRefreshAt(JobsOCRefreshPositionHeader);
+        self.tableView.jobs_removeRefreshAt(JobsOCRefreshPositionFooter);
+        if (!self.jobs_shouldEnableRefreshByMode()) return;
+        @jobs_weakify(self)
+        if (self.config.enablesPullRefresh) {
+            [self.tableView jobs_byRefreshHeaderWithConfig:self.config.pullRefreshConfig
+                                                   action:^{
+                @jobs_strongify(self)
+                if (self.config.pullRefreshBlock) {
+                    self.config.pullRefreshBlock(self);
+                }else{
+                    self.endPullRefresh();
+                }
+            }];
+        }
+        if (self.config.enablesLoadMore) {
+            [self.tableView jobs_byRefreshFooterWithConfig:self.config.loadMoreConfig
+                                                   action:^{
+                @jobs_strongify(self)
+                if (self.config.loadMoreBlock) {
+                    self.config.loadMoreBlock(self);
+                }else{
+                    self.endLoadMore();
+                }
+            }];
+        }
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)endPullRefresh{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self endRefreshingAtPosition:JobsOCRefreshPositionHeader
+                              toState:JobsOCRefreshStateIdle];
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)endLoadMore{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.endLoadMoreWithNoMoreData(NO);
+    };
+}
+
+-(jobsByBOOLBlock _Nonnull)endLoadMoreWithNoMoreData{
+    @jobs_weakify(self)
+    return ^(BOOL noMoreData){
+        @jobs_strongify(self)
+        if (!self) return;
+        [self endRefreshingAtPosition:JobsOCRefreshPositionFooter
+                              toState:noMoreData ? JobsOCRefreshStateNoMoreData : JobsOCRefreshStateIdle];
+    };
 }
 
 -(void)endRefreshingAtPosition:(JobsOCRefreshPosition)position
@@ -274,7 +334,7 @@ numberOfRowsInSection:(NSInteger)section{
 
 -(__kindof UITableViewCell *)tableView:(UITableView *)tableView
                  cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    JobsOCCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:JobsOCCommentCell.reuseIdentifier
+    JobsOCCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:(JobsOCCommentCell.reuseIdentifier)()
                                                                forIndexPath:indexPath];
     JobsOCCommentModel *comment = self.renderCommentMutArr[indexPath.row];
     NSInteger depth = self.renderDepthMutArr[indexPath.row].integerValue;
@@ -298,7 +358,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     JobsOCCommentModel *comment = self.renderCommentMutArr[indexPath.row];
     if (self.renderMoreMutArr[indexPath.row].boolValue) {
         if (comment.messageID.length) [self.expandedRootIDMutSet addObject:comment.messageID];
-        [self rebuildRenderData];
+        self.rebuildRenderData();
         [self.tableView reloadData];
         return;
     }
@@ -309,18 +369,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_tableView) {
         _tableView = [UITableView.alloc initWithFrame:CGRectZero
                                                 style:UITableViewStylePlain];
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.backgroundColor = UIColor.clearColor;
-        _tableView.estimatedRowHeight = 96;
-        _tableView.rowHeight = UITableViewAutomaticDimension;
-        _tableView.contentInset = UIEdgeInsetsMake(6, 0, 10, 0);
-        _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+        _tableView.byDelegate(self);
+        _tableView.byDataSource(self);
+        _tableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone);
+        _tableView.byBgColor(UIColor.clearColor);
+        _tableView.byEstimatedRowHeight(96);
+        _tableView.byRowHeight(UITableViewAutomaticDimension);
+        _tableView.byContentInset(UIEdgeInsetsMake(6, 0, 10, 0));
+        _tableView.byKeyboardDismissMode(UIScrollViewKeyboardDismissModeOnDrag);
         [_tableView registerClass:JobsOCCommentCell.class
-           forCellReuseIdentifier:JobsOCCommentCell.reuseIdentifier];
+           forCellReuseIdentifier:(JobsOCCommentCell.reuseIdentifier)()];
         if (@available(iOS 15.0, *)) {
-            _tableView.sectionHeaderTopPadding = 0;
+            _tableView.bySectionHeaderTopPadding(0);
         }
     };return _tableView;
 }

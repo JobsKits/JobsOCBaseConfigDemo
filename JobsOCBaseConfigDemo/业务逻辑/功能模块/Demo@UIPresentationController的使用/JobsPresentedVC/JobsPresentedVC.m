@@ -17,7 +17,7 @@
     [self.view endEditing:YES];
     if (JobsDebug) {
         if (JobsControllerDeallocTipsEnabled()) {
-            toastBy([NSString stringWithFormat:@"%@%@",@"成功销毁了控制器".tr,NSStringFromClass(self.class)]);
+            toastBy([NSString stringWithFormat:@"%@%@",@"成功销毁了控制器".jobsTr(),NSStringFromClass(self.class)]);
         }
         JobsLog(@"%@",JobsLocalFunc);
         PrintRetainCount(self)
@@ -25,8 +25,18 @@
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    JobsLog(@"%f",self.presentUpHeight);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPresentedVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        JobsLog(@"%f",self.presentUpHeight);
+    };
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches

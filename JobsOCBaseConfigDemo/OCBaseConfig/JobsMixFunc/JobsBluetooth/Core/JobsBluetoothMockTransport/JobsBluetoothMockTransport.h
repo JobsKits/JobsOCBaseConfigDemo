@@ -7,6 +7,12 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -23,7 +29,7 @@ Prop_assign()BOOL enabled;
 Prop_copy(readonly)JobsBluetoothMockTransport *(^byLatency)(NSTimeInterval latency);
 Prop_copy(readonly)JobsBluetoothMockTransport *(^byEnabled)(BOOL enabled);
 
--(NSArray <NSDictionary <NSString *, id>*>*)mockAdvertisements;
+-(JobsRetNSArrayNSDictionaryNSStringIDByVoidBlock _Nonnull)mockAdvertisements;
 -(void)echoData:(NSData *)data completion:(void (^)(NSData *response))completion;
 
 @end

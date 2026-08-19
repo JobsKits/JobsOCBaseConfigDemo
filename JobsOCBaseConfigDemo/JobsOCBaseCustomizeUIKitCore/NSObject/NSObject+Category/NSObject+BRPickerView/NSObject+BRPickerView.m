@@ -7,18 +7,25 @@
 //
 
 #import "NSObject+BRPickerView.h"
+
 #import "NSMutableArray+Extra.h"
 
 @implementation NSObject (BRPickerView)
 #pragma mark —— 一些公有方法
-- (BRPickerStyle *)makeCustomStyle {
-    return jobsMakeBRPickerStyle(^(__kindof BRPickerStyle * _Nullable pickerStyle) {
-        pickerStyle.pickerColor = JobsWhiteColor;
-        pickerStyle.pickerTextColor = HEXCOLOR(0x3D4A58);
-        pickerStyle.separatorColor = HEXCOLOR(0xEAEBED);
-        pickerStyle.cancelBtnTitle = @"取消".tr;
-        pickerStyle.doneBtnTitle = @"确定".tr;
-    });
+- (JobsRetBRPickerStyleByVoidBlock _Nonnull)makeCustomStyle {
+    @jobs_weakify(self)
+    return ^__kindof BRPickerStyle *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return jobsMakeBRPickerStyle(^(__kindof BRPickerStyle * _Nullable pickerStyle) {
+            pickerStyle
+                .byPickerColor(JobsWhiteColor)
+                .byPickerTextColor(HEXCOLOR(0x3D4A58))
+                .bySeparatorColor(HEXCOLOR(0xEAEBED))
+                .byCancelBtnTitle(@"取消".jobsTr())
+                .byDoneBtnTitle(@"确定".jobsTr());
+        });
+    };
 }
 
 - (BRPickerViewExtraRetTextPickerViewByPickerModeBlock)makeTextPickerView {
@@ -35,7 +42,7 @@
     @jobs_weakify(self)
     return ^BRTextPickerView *_Nonnull(BRPickerStyle *_Nullable style) {
         @jobs_strongify(self)
-        if (!style) style = self.makeCustomStyle;
+        if (!style) style = self.makeCustomStyle();
         return jobsMakeBRTextPickerView(^(__kindof BRTextPickerView * _Nullable textPickerView) {
             /**
              新版 BRPickerView 已没有 BRAddressPickerView。
@@ -43,10 +50,11 @@
              textPickerView.dataSourceArr = [NSArray br_modelArrayWithJson:dataArr mapper:nil];
              或 textPickerView.fileName = @"region_tree_data.json";
              */
-            textPickerView.pickerMode = BRTextPickerComponentCascade;
-            textPickerView.title = @"请选择地区".tr;
-            textPickerView.showColumnNum = 3;
-            textPickerView.pickerStyle = style;
+            textPickerView
+                .byPickerMode(BRTextPickerComponentCascade)
+                .byTitle(@"请选择地区".jobsTr())
+                .byShowColumnNum(3)
+                .byPickerStyle(style);
         });
     };
 }
@@ -55,10 +63,11 @@
     @jobs_weakify(self)
     return ^BRDatePickerView *_Nonnull(BRPickerStyle *_Nullable customStyle) {
         @jobs_strongify(self)
-        if (!customStyle) customStyle = self.makeCustomStyle;
+        if (!customStyle) customStyle = self.makeCustomStyle();
         return jobsMakeBRDatePickerView(^(__kindof BRDatePickerView * _Nullable datePickerView) {
-            datePickerView.pickerMode = BRDatePickerModeYMD;
-            datePickerView.title = @"选择年月日".tr;
+            datePickerView
+                .byPickerMode(BRDatePickerModeYMD)
+                .byTitle(@"选择年月日".jobsTr());
             // datePickerView.selectValue = @"2019-10-30";
             datePickerView.selectDate = [NSDate br_setYear:2019
                                                       month:10
@@ -66,9 +75,10 @@
             datePickerView.minDate = [NSDate br_setYear:1949
                                                    month:3
                                                      day:12];
-            datePickerView.maxDate = NSDate.date;
-            datePickerView.isAutoSelect = YES;
-            datePickerView.pickerStyle = customStyle;
+            datePickerView
+                .byMaxDate(NSDate.date)
+                .byAutoSelect(YES)
+                .byPickerStyle(customStyle);
         });
     };
 }
@@ -81,8 +91,8 @@
         if (model.dataSourceArr.count > 2) {
             NSMutableArray *temp = model.dataSourceArr.mutableCopy;
             [temp removeObjectAtIndex:0];
-            self.textPickerView.dataSourceArr = temp;
-            self.textPickerView.title = model.dataSourceArr[0];
+            self.textPickerView.byDataSourceArr(temp);
+            self.textPickerView.byTitle(model.dataSourceArr[0]);
         }
     };
 }
@@ -148,7 +158,7 @@ JobsKey(_customStyle)
 - (BRPickerStyle *)customStyle {
     BRPickerStyle *pickerStyle = Jobs_getAssociatedObject(_customStyle);
     if (!pickerStyle) {
-        pickerStyle = self.makeCustomStyle;
+        pickerStyle = self.makeCustomStyle();
         Jobs_setAssociatedRETAIN_NONATOMIC(_customStyle, pickerStyle)
     } return pickerStyle;
 }

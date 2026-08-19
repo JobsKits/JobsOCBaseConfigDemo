@@ -1274,6 +1274,7 @@
 				JobsOCDSL/AutoSupplement/JobsSystemAPIDSLSupplement/JobsSystemAPIDSLSupplement.m,
 				"JobsOCDSL/CoreMotion/CMMotionManager+DSL/CMMotionManager+DSL.m",
 				"JobsOCDSL/Foundation/NSDateFormatter+DSL/NSDateFormatter+DSL.m",
+				"JobsOCDSL/Foundation/NSUserActivity+DSL/NSUserActivity+DSL.m",
 				"JobsOCDSL/Foundation/NSTimeZone+DSL/NSTimeZone+DSL.m",
 				"JobsOCDSL/MessageUI/MFMailComposeViewController+DSL/MFMailComposeViewController+DSL.m",
 				"JobsOCDSL/MessageUI/MFMessageComposeViewController+DSL/MFMessageComposeViewController+DSL.m",

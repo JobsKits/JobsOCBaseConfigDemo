@@ -33,9 +33,22 @@
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #else
 #import "JobsBaseUI.h"
 #endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 #else
 #import "JobsBaseUI.h"
 #endif
@@ -225,4 +238,8 @@
 #endif
 
 @interface JobsOCAudioRecorderDemoVC : BaseViewController <UITableViewDataSource,UITableViewDelegate,JobsOCAudioRecorderEngineDelegate>
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCAudioRecorderDemoVC
+-(JobsRetJobsOCAudioRecorderDemoVCByBOOLBlock _Nonnull)byPermissionGranted;
+-(JobsRetJobsOCAudioRecorderDemoVCByNSArrayJobsOCAudioRecordingBlock _Nonnull)byRecordings;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCAudioRecorderDemoVC
 @end

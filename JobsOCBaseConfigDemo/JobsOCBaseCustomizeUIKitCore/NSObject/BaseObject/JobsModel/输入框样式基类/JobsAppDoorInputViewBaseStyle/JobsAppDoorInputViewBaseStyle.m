@@ -8,15 +8,33 @@
 #import "JobsAppDoorInputViewBaseStyle.h"
 
 @implementation JobsAppDoorInputViewTFModel
+-(JobsRetJobsAppDoorInputViewTFModelByNSStringBlock _Nonnull)byPlaceHolder{
+    @jobs_weakify(self)
+    return ^__kindof JobsAppDoorInputViewTFModel *_Nullable(NSString *_Nullable data){
+        @jobs_strongify(self)
+        self.PlaceHolder = data;
+        return self;
+    };
+}
+
+-(JobsRetJobsAppDoorInputViewTFModelByNSStringBlock _Nonnull)byResString{
+    @jobs_weakify(self)
+    return ^__kindof JobsAppDoorInputViewTFModel *_Nullable(NSString *_Nullable data){
+        @jobs_strongify(self)
+        self.resString = data;
+        return self;
+    };
+}
+
 -(NSString *)PlaceHolder{
     if (!_PlaceHolder) {
-        _PlaceHolder = @"".tr;
+        _PlaceHolder = @"".jobsTr();
     };return _PlaceHolder;
 }
 
 -(NSString *)resString{
     if (!_resString) {
-        _resString = @"".tr;
+        _resString = @"".jobsTr();
     };return _resString;
 }
 
@@ -29,9 +47,9 @@
 @implementation JobsAppDoorInputViewBaseStyle
 -(JobsAppDoorInputViewTFModel *)textFieldInputModel{
     if (!_textFieldInputModel) {
-        _textFieldInputModel = JobsAppDoorInputViewTFModel.new;
-        _textFieldInputModel.resString = @"".tr;
-        _textFieldInputModel.PlaceHolder = self.textField.placeholder;
+        _textFieldInputModel = JobsAppDoorInputViewTFModel.new
+            .byResString(@"".jobsTr())
+            .byPlaceHolder(self.textField.placeholder);
     };return _textFieldInputModel;
 }
 

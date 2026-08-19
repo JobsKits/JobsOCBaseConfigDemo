@@ -35,12 +35,12 @@ Prop_copy()NSString *dot;
     }
     self.viewModel
         .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
+            data.byText(@"返回".jobsTr());
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
                 .byTextCor(JobsLabelColor)
-                .byText(@"文字前面小圆点".tr)
+                .byText(@"文字前面小圆点".jobsTr())
                 .byFont(UIFontWeightRegularSize(18));
         })
         .byNavBgCor(RGBA_COLOR(255, 238, 221, 1));

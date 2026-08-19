@@ -6,11 +6,6 @@
 //
 
 #ifndef JobsDefineFuncs_h
-#define JobsDefineFuncs_h
-
-#import <UIKit/UIKit.h>
-#import "JobsDefineTimeEnums.h"
-#import "JobsDefineConstString.h"
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
@@ -18,8 +13,15 @@
 #import "YTKNetwork.h"
 #endif
 
+#define JobsDefineFuncs_h
+
+#import <UIKit/UIKit.h>
+#import "JobsDefineTimeEnums.h"
+#import "JobsDefineConstString.h"
+
 /// 根据 TimeZoneType 获取系统时区对象
 /// 优先使用 IANA 时区名称，避免 PST、CST、BST 这类缩写带来的歧义
+
 NS_INLINE NSTimeZone *_Nullable timeZone(TimeZoneType timeZoneType) {
     switch (timeZoneType) {
         /// 处理 TimeZoneTypeUTC 分支

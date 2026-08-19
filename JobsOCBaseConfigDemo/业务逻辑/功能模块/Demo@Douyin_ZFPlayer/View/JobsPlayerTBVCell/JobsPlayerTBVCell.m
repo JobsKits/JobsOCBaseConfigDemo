@@ -18,10 +18,16 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsPlayerTBVCell
+@interface JobsPlayerTBVCell (JobsPropertyDSLSetterAutogen_9cbbff4e13)
+-(void)setVideoModel_Core:(VideoModel_Core * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsPlayerTBVCell
+
 @implementation JobsPlayerTBVCell
 @synthesize index = _index;
 -(void)dealloc {
-    [self stopPlayer];
+    self.stopPlayer();
     JobsLog(@"%@",JobsLocalFunc);
 }
 
@@ -32,15 +38,25 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
                  selectorBlock:^(id data,
                                  id data2) {
             @jobs_strongify(self)
-            [self stopPlayer];
+            self.stopPlayer();
         }];
     };return self;
 }
 
 -(void)prepareForReuse{
-    [super prepareForReuse];
-    [self stopPlayer];
-    self.videoModel_Core = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPlayerTBVCell.class, @selector(jobsPrepareForReuse)))(self, @selector(jobsPrepareForReuse));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsPrepareForReuse{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super prepareForReuse];
+        self.stopPlayer();
+        self.byVideoModel_Core(nil);
+    };
 }
 
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
@@ -68,25 +84,35 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
     return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         if ([model isKindOfClass:UIViewModel.class]) {
-            self.viewModel = model;
+            self.byViewModel(model);
             self.label.byText([NSString stringWithFormat:@"%ld",(long)self.viewModel.row]);
             self.videoModel_Core = (VideoModel_Core *)self.viewModel.data;
         };return self;
     };
 }
 #pragma mark —— Get方法
--(ZFPlayerController *)getPlayer{
-    return self.player;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)getPlayer{
+    @jobs_weakify(self)
+    return ^ZFPlayerController *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.player;
+    };
 }
 
--(void)stopPlayer{
-    [_player.currentPlayerManager stop];
-    _player.playerDidToEnd = nil;
-    _player.controlView = nil;
-    _player = nil;
-    _playerManager = nil;
-    [_customPlayerControlView removeFromSuperview];
-    _customPlayerControlView = nil;
+-(jobsByVoidBlock _Nonnull)stopPlayer{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        _player.currentPlayerManager.stop;
+        _player.byPlayerDidToEnd(nil);
+        _player.byControlView(nil);
+        _player = nil;
+        _playerManager = nil;
+        [_customPlayerControlView removeFromSuperview];
+        _customPlayerControlView = nil;
+    };
 }
 #pragma mark —— lazyLoad
 @synthesize label = _label;
@@ -115,7 +141,7 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
             JobsLog(@"videoIdcUrl = %@",self.videoModel_Core.videoIdcUrl);
             data
                 .byShouldAutoPlay(YES)
-                .byAssetURL(self.videoModel_Core.videoIdcUrl.jobsUrl);
+                .byAssetURL(self.videoModel_Core.videoIdcUrl.jobsURL());
         });
     };return _playerManager;
 }
@@ -124,7 +150,7 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
     if (!_customPlayerControlView) {
         @jobs_weakify(self)
         _customPlayerControlView = jobsMakeCustomZFPlayerControlView(^(__kindof CustomZFPlayerControlView * _Nullable controlView) {
-            [controlView actionCustomZFPlayerControlViewBlock:^(NSString *data, NSNumber *data2) {
+            controlView.actionCustomZFPlayerControlViewBlock(^(NSString *data, NSNumber *data2) {
                 @jobs_strongify(self)
                 if ([data isEqualToString:@"gestureEndedPan:panDirection:panLocation:"]) {
                     if (data2.intValue == ZFPanMovingDirectionTop) {
@@ -133,7 +159,7 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
                         if(self.objBlock)self.objBlock([JobsTuple.alloc initWithValues:@1,@(self.index), nil]);
                     }else{}
                 }
-            }];
+            });
         });
     };return _customPlayerControlView;
 }
@@ -143,12 +169,12 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
         @jobs_weakify(self)
         _player = [ZFPlayerController.alloc initWithPlayerManager:self.playerManager
                                                     containerView:self.contentView];
-        _player.controlView = self.customPlayerControlView;
+        _player.byControlView(self.customPlayerControlView);
 //        _player.assetURLs = self.assetURLs;
 //        ZFPlayer_DoorVC = _player;
         [_player setPlayerDidToEnd:^(id<ZFPlayerMediaPlayback> _Nonnull asset) {
             @jobs_strongify(self)
-            self.playerManager.byReplay;// 设置循环播放
+            self.playerManager.byReplay();// 设置循环播放
         }];
     };return _player;
 }
@@ -157,18 +183,28 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
     if (!_assetURLs) {
         _assetURLs = jobsMakeMutArr(^(__kindof NSMutableArray <NSURL *>*_Nullable data) {
             data
-                .add(@"https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/films/feature/iphone-x-feature-tpl-cc-us-20170912_1280x720h.mp4".jobsUrl)
-                .add(@"https://www.apple.com/105/media/cn/mac/family/2018/46c4b917_abfd_45a3_9b51_4e3054191797/films/bruce/mac-bruce-tpl-cn-2018_1280x720h.mp4".jobsUrl)
-                .add(@"https://www.apple.com/105/media/us/mac/family/2018/46c4b917_abfd_45a3_9b51_4e3054191797/films/peter/mac-peter-tpl-cc-us-2018_1280x720h.mp4".jobsUrl)
-                .add(@"https://www.apple.com/105/media/us/mac/family/2018/46c4b917_abfd_45a3_9b51_4e3054191797/films/grimes/mac-grimes-tpl-cc-us-2018_1280x720h.mp4".jobsUrl)
-                .add(@"https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/7194236f31b2e1e3da0fe06cfed4ba2b.mp4".jobsUrl)
-                .add(@"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4".jobsUrl)
-                .add(@"http://vjs.zencdn.net/v/oceans.mp4".jobsUrl)
-                .add(@"https://media.w3.org/2010/05/sintel/trailer.mp4".jobsUrl)
-                .add(@"http://mirror.aarnet.edu.au/pub/TED-talks/911Mothers_2010W-480p.mp4".jobsUrl)
-                .add(@"https://sample-videos.com/video123/mp4/480/big_buck_bunny_480p_2mb.mp4".jobsUrl);
+                .add(@"https://www.apple.com/105/media/us/iphone-x/2017/01df5b43-28e4-4848-bf20-490c34a926a7/films/feature/iphone-x-feature-tpl-cc-us-20170912_1280x720h.mp4".jobsURL())
+                .add(@"https://www.apple.com/105/media/cn/mac/family/2018/46c4b917_abfd_45a3_9b51_4e3054191797/films/bruce/mac-bruce-tpl-cn-2018_1280x720h.mp4".jobsURL())
+                .add(@"https://www.apple.com/105/media/us/mac/family/2018/46c4b917_abfd_45a3_9b51_4e3054191797/films/peter/mac-peter-tpl-cc-us-2018_1280x720h.mp4".jobsURL())
+                .add(@"https://www.apple.com/105/media/us/mac/family/2018/46c4b917_abfd_45a3_9b51_4e3054191797/films/grimes/mac-grimes-tpl-cc-us-2018_1280x720h.mp4".jobsURL())
+                .add(@"https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/7194236f31b2e1e3da0fe06cfed4ba2b.mp4".jobsURL())
+                .add(@"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4".jobsURL())
+                .add(@"http://vjs.zencdn.net/v/oceans.mp4".jobsURL())
+                .add(@"https://media.w3.org/2010/05/sintel/trailer.mp4".jobsURL())
+                .add(@"http://mirror.aarnet.edu.au/pub/TED-talks/911Mothers_2010W-480p.mp4".jobsURL())
+                .add(@"https://sample-videos.com/video123/mp4/480/big_buck_bunny_480p_2mb.mp4".jobsURL());
         });
     };return _assetURLs;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsPlayerTBVCell
+-(JobsRetJobsPlayerTBVCellByVideoModel_CoreBlock _Nonnull)byVideoModel_Core{
+    @jobs_weakify(self)
+    return ^__kindof JobsPlayerTBVCell * _Nullable(VideoModel_Core * _Nullable data){
+        @jobs_strongify(self)
+        [self setVideoModel_Core:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsPlayerTBVCell
 @end

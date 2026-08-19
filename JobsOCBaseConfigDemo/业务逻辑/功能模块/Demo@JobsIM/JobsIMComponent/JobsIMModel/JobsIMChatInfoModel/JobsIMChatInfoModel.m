@@ -8,6 +8,67 @@
 #import "JobsIMChatInfoModel.h"
 
 @implementation JobsIMChatInfoModel
+#define JobsIMChatStrDSL(method, setter) \
+-(JobsRetJobsIMChatInfoModelByStrBlock _Nonnull)method{ \
+    @jobs_weakify(self) \
+    return ^__kindof JobsIMChatInfoModel *_Nullable(NSString *_Nullable string){ \
+        @jobs_strongify(self) \
+        if (!self) return nil; \
+        [self setter:string]; \
+        return self; \
+    }; \
+}
+
+#define JobsIMChatIntegerDSL(method, setter) \
+-(JobsRetJobsIMChatInfoModelByNSIntegerBlock _Nonnull)method{ \
+    @jobs_weakify(self) \
+    return ^__kindof JobsIMChatInfoModel *_Nullable(NSInteger value){ \
+        @jobs_strongify(self) \
+        if (!self) return nil; \
+        [self setter:value]; \
+        return self; \
+    }; \
+}
+
+JobsIMChatStrDSL(byMessageID, setMessageID)
+JobsIMChatStrDSL(byConversationID, setConversationID)
+JobsIMChatStrDSL(byFromUserID, setFromUserID)
+JobsIMChatStrDSL(byToUserID, setToUserID)
+JobsIMChatStrDSL(byUserID, setUserID)
+JobsIMChatStrDSL(byUserNameStr, setUserNameStr)
+JobsIMChatStrDSL(byUserIconURLStr, setUserIconURLStr)
+JobsIMChatStrDSL(byChatTextTimeStr, setChatTextTimeStr)
+JobsIMChatStrDSL(byChatTextStr, setChatTextStr)
+JobsIMChatStrDSL(byIdentification, setIdentification)
+JobsIMChatIntegerDSL(byMessageType, setMessageType)
+JobsIMChatIntegerDSL(byChatInfoDirection, setChatInfoDirection)
+JobsIMChatIntegerDSL(byPacketType, setPacketType)
+JobsIMChatIntegerDSL(byDeliveryState, setDeliveryState)
+JobsIMChatIntegerDSL(byTransportKind, setTransportKind)
+
+-(JobsRetJobsIMChatInfoModelByImageBlock _Nonnull)byUserIconIMG{
+    @jobs_weakify(self)
+    return ^__kindof JobsIMChatInfoModel *_Nullable(UIImage *_Nullable image){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setUserIconIMG:image];
+        return self;
+    };
+}
+
+-(JobsRetJobsIMChatInfoModelByDicBlock _Nonnull)byRawPacket{
+    @jobs_weakify(self)
+    return ^__kindof JobsIMChatInfoModel *_Nullable(NSDictionary *_Nullable dictionary){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setRawPacket:dictionary];
+        return self;
+    };
+}
+
+#undef JobsIMChatIntegerDSL
+#undef JobsIMChatStrDSL
+
 -(NSString *)messageID{
     if (!_messageID) {
         _messageID = NSUUID.UUID.UUIDString;

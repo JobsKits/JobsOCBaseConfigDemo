@@ -6,15 +6,16 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_AFSECURITYPOLICY_EXTRA_7EC76A31CF
-#define JOBS_HEADER_GUARD_AFSECURITYPOLICY_EXTRA_7EC76A31CF
-
-#import <Foundation/Foundation.h>
 
 #if __has_include(<AFNetworking/AFNetworking.h>)
 #import <AFNetworking/AFNetworking.h>
 #else
 #import "AFNetworking.h"
 #endif
+
+#define JOBS_HEADER_GUARD_AFSECURITYPOLICY_EXTRA_7EC76A31CF
+
+#import <Foundation/Foundation.h>
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"

@@ -6,6 +6,7 @@
 //
 
 #import "AppDelegate+Func.h"
+#import "Reachability+Extra.h"
 
 static NSString *const JobsOCSplashEnabledUserDefaultsKey = @"com.BSports.JobsOCSplashEnabledUserDefaultsKey";
 
@@ -15,16 +16,16 @@ static BOOL JobsOCSplashEnabled(void) {
 }
 
 static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
-    switch (JobsOCSplashPreferences.contentTypeForNextLaunch) {
+    switch (JobsOCSplashPreferences.contentTypeForNextLaunch()) {
         /// 使用本地静态图片开屏
         case JobsOCSplashContentTypeLocalImage:
-            return [JobsOCSplashConfiguration localImage:@"1242x2688.png"];
+            return JobsOCSplashConfiguration.localImage(@"1242x2688.png");
         /// 使用 App Bundle 内的 GIF 开屏
         case JobsOCSplashContentTypeLocalGIF:
-            return [JobsOCSplashConfiguration localGIF:@"GIF大图.gif"];
+            return JobsOCSplashConfiguration.localGIF(@"GIF大图.gif");
         /// 使用远程图片开屏
         case JobsOCSplashContentTypeRemoteImage:
-            return [JobsOCSplashConfiguration remoteImage:[NSURL URLWithString:@"https://picsum.photos/1242/2688.jpg"]];
+            return JobsOCSplashConfiguration.remoteImage([NSURL URLWithString:@"https://picsum.photos/1242/2688.jpg"]);
         /// 使用 App Bundle 内的视频开屏
         case JobsOCSplashContentTypeLocalVideo:
             return [JobsOCSplashConfiguration localVideo:@"welcome_video"
@@ -38,9 +39,33 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
                                                      bundle:nil];
         /// 未知配置回退到本地静态图片
         default:
-            return [JobsOCSplashConfiguration localImage:@"1242x2688.png"];
+            return JobsOCSplashConfiguration.localImage(@"1242x2688.png");
     }
 }
+
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN TABAnimated
+@interface TABAnimated (JobsLocalPropertyDSLAutogen_3048ed2d28)
+-(JobsRetTABAnimatedByBOOLBlock _Nonnull)byOpenLog;
+-(JobsRetTABAnimatedByUIColorBlock _Nonnull)byAnimatedBackgroundColor;
+-(void)setAnimatedBackgroundColor:(UIColor * _Nullable)data;
+-(void)setOpenLog:(BOOL)data;
+@end
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END TABAnimated
+
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN YTKNetworkConfig
+@interface YTKNetworkConfig (JobsLocalPropertyDSLAutogen_3048ed2d28)
+-(JobsRetYTKNetworkConfigByAFSecurityPolicyBlock _Nonnull)bySecurityPolicy;
+-(JobsRetYTKNetworkConfigByBOOLBlock _Nonnull)byDebugLogEnabled;
+-(JobsRetYTKNetworkConfigByNSStringBlock _Nonnull)byBaseUrl;
+-(JobsRetYTKNetworkConfigByNSStringBlock _Nonnull)byCdnUrl;
+-(JobsRetYTKNetworkConfigByNSURLSessionConfigurationBlock _Nonnull)bySessionConfiguration;
+-(void)setBaseUrl:(NSString * _Nullable)data;
+-(void)setCdnUrl:(NSString * _Nullable)data;
+-(void)setDebugLogEnabled:(BOOL)data;
+-(void)setSecurityPolicy:(AFSecurityPolicy * _Nullable)data;
+-(void)setSessionConfiguration:(NSURLSessionConfiguration* _Nullable)data;
+@end
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END YTKNetworkConfig
 
 @implementation AppDelegate (Func)
 #pragma mark —— 启动调用功能
@@ -61,7 +86,7 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
                                                bundle:NSBundle.mainBundle
                                                 error:&themeError];
         if (themeError) NSLog(@"JobsTheme 数据包加载失败：%@", themeError.localizedDescription);
-        UIApplication.sharedApplication.idleTimerDisabled = NO;/// 保持屏幕常亮
+        UIApplication.sharedApplication.byIdleTimerDisabled(NO);
         /*
          * 禁止App系统文件夹document同步
          * 苹果要求：可重复产生的数据不得进行同步,什么叫做可重复数据？这里最好禁止，否则会影响上架，被拒！
@@ -79,7 +104,7 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
         self.makeTABAnimatedConfig();/// 全局配置 TABAnimated
         self.makeJobsOCKeyboardMgrConfig();/// 全局配置键盘
         self.makeGKNavigationBarConfig();/// 自定义导航栏
-        [JobsOCSplashMediaCache.shared resumePendingVideoPreloads];
+        ((JobsOCSplashMediaCache *)JobsOCSplashMediaCache.shared()).resumePendingVideoPreloads();
         if (JobsOCSplashEnabled()) self.makeJobsLaunchAdConfig();/// 开屏广告
         self.makeReachabilityConfig();/// 网络环境监测
         self.YTKNetworkConfig();/// YTK网络框架的配置
@@ -106,8 +131,8 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
                 .byLanguageCode(LanMgr.languageCodeByAppLanguage(LanMgr.language))
                 .byCountdownSeconds(@8)
                 .bySkipButtonVisible(YES)
-                .byTapAction(JobsOCSplashAction.none)
-                .byShakeAction(JobsOCSplashAction.none);
+                .byTapAction(JobsOCSplashAction.none())
+                .byShakeAction(JobsOCSplashAction.none());
             [JobsOCSplashPresenter showOver:hostViewController
                               configuration:configuration];
             showSplash = nil;
@@ -121,17 +146,19 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
         @jobs_weakify(self)
         jobsMakeYTKNetworkConfig(^(__kindof YTKNetworkConfig *_Nullable data) {
             @jobs_strongify(self)
-            data.baseUrl = This.BaseUrl;
-            data.cdnUrl = @"";
+            data
+                .byBaseUrl(This.jobsBaseUrl())
+                .byCdnUrl(@"");
             //data.urlFilters = nil;
             //data.cacheDirPathFilters = nil;
-            data.securityPolicy = AFSecurityPolicy.initByModeNone;
-            data.debugLogEnabled = YES;
-            data.sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration;
-            [data addUrlFilter:[YTKUrlArgumentsFilter filterWithArguments:jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable data) {
+            data
+                .bySecurityPolicy(AFSecurityPolicy.initByModeNone)
+                .byDebugLogEnabled(YES)
+                .bySessionConfiguration(NSURLSessionConfiguration.defaultSessionConfiguration);
+            [data addUrlFilter:YTKUrlArgumentsFilter.filterWithArguments(jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable data) {
                 @jobs_strongify(self)
-                if(self.appVersion) [data setValue:self.appVersion forKey:@"version"];
-            })]];
+                if(self.appVersion()) [data setValue:self.appVersion() forKey:@"version"];
+            }))];
         });
     };
 }
@@ -149,7 +176,7 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
-        self.window.rootViewController = self.isAppFirstLaunch ? JobsWelcomeVC.new : AppDelegate.tabBarVC;
+        self.window.byRootViewController(self.isAppFirstLaunch() ? JobsWelcomeVC.new : AppDelegate.tabBarVC);
     };
 }
 #pragma mark —— 存取用户信息Demo
@@ -182,13 +209,13 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
     return ^(){
         [TABAnimated.sharedAnimated initWithOnlySkeleton];
         /// 是否开启控制台Log提醒，默认不开启
-        TABAnimated.sharedAnimated.openLog = YES;
+        TABAnimated.sharedAnimated.byOpenLog(YES);
         ///开启后，会在每一个动画元素上增加一个红色的数字，该数字表示该动画元素所在的下标，方便快速定位某个动画元素。
 //        TABAnimated.sharedAnimated.openAnimationTag = YES;
 //        TABAnimated.sharedAnimated.animationType;/// 全局动画类型
 //        TABAnimated.sharedAnimated.animatedHeightCoefficient;/// 动画高度与视图原有高度的比例系数，该属性仅仅对`UILabel`生效。
 //        TABAnimated.sharedAnimated.animatedColor;/// 全局动画内容颜色，默认值为0xEEEEEE
-        TABAnimated.sharedAnimated.animatedBackgroundColor = JobsLightGrayColor;/// 全局动画背景颜色，默认值为UIColor.whiteColor
+        TABAnimated.sharedAnimated.byAnimatedBackgroundColor(JobsLightGrayColor);
 //        TABAnimated.sharedAnimated.useGlobalCornerRadius;/// 是否开启全局圆角。开启后，全局圆角默认值为: 动画高度/2.0
 //        TABAnimated.sharedAnimated.animatedCornerRadius;/// 全局圆角的值。优先级：此属性 < view自身的圆角
 //        TABAnimated.sharedAnimated.useGlobalAnimatedHeight;/// 是否需要全局动画高度
@@ -207,21 +234,22 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
 #pragma mark —— 全局配置键盘
 -(jobsByVoidBlock _Nonnull)makeJobsOCKeyboardMgrConfig{
     return ^(){
-        JobsOCKeyboardMgr.shared.start();
+        ((JobsOCKeyboardMgr *)JobsOCKeyboardMgr.shared()).start();
     };
 }
 
 -(jobsByVoidBlock _Nonnull)makeIQKeyboardManagerConfig{
     return ^(){
         jobsMakeIQKeyboardManager(^(__kindof IQKeyboardManager * _Nullable manager) {
-            manager.enable = YES; /// 控制整个功能是否启用
-            manager.shouldResignOnTouchOutside = YES; /// 启用手势触摸:控制点击背景是否收起键盘
-            manager.shouldToolbarUsesTextFieldTintColor = YES; /// 控制键盘上的工具条文字颜色是否用户自定义,(使用TextField的tintColor属性IQToolbar，否则色调的颜色是黑色 )
-            manager.toolbarManageBehavior = IQAutoToolbarBySubviews; // 有多个输入框时，可以通过点击Toolbar 上的“前一个”“后一个”按钮来实现移动到不同的输入框
-            manager.enableAutoToolbar = NO; /// 控制是否显示键盘上的工具条,当需要支持内联编辑(Inline Editing), 这就需要隐藏键盘上的工具条(默认打开)
-            manager.shouldShowToolbarPlaceholder = YES; // 是否显示占位文字
-            manager.placeholderFont = UIFontWeightBoldSize(JobsWidth(17)); // 设置占位文字的字体
-            manager.keyboardDistanceFromTextField = 10.0f; // 输入框距离键盘的距离
+            manager
+                .byEnable(YES) /// 控制整个功能是否启用
+                .byShouldResignOnTouchOutside(YES)
+                .byShouldToolbarUsesTextFieldTintColor(YES) /// 使用 TextField 的 tintColor
+                .byToolbarManageBehavior(IQAutoToolbarBySubviews)
+                .byEnableAutoToolbar(NO)
+                .byShouldShowToolbarPlaceholder(YES)
+                .byPlaceholderFont(UIFontWeightBoldSize(JobsWidth(17)))
+                .byKeyboardDistanceFromTextField(10.0f);
         });
     };
 }
@@ -232,11 +260,11 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
             // 导航栏背景色
             configure.byBackgroundColor(JobsClearColor);
             // 导航栏标题颜色
-            configure.titleColor = HEXCOLOR(0x3D4A58);
+            configure.byTitleColor(HEXCOLOR(0x3D4A58));
             // 导航栏标题字体
-            configure.titleFont = UIFontWeightBoldSize(16);
+            configure.byTitleFont(UIFontWeightBoldSize(16));
             // 导航栏返回按钮样式
-            configure.backStyle = GKNavigationBarBackStyleBlack;
+            configure.byBackStyle(GKNavigationBarBackStyleBlack);
             // 导航栏左右item间距
             configure.byNavItemSpacing(@(JobsWidth(12.0f)), @(JobsWidth(12.0f)));
     #warning 这里的Api有变化 先注释，否则无法编译通过
@@ -258,7 +286,7 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
         @jobs_strongify(self)
         jobsMakeUNUserNotificationCenter(^(__kindof UNUserNotificationCenter * _Nullable center) {
             @jobs_strongify(self)
-            center.delegate = self;
+            center.byDelegate(self);
             [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert +
                                                      UNAuthorizationOptionSound +
                                                      UNAuthorizationOptionBadge)
@@ -281,7 +309,7 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
         // Allocate a reachability object
         Reachability *reach = @"www.google.com".makeReachability;
         // Tell the reachability that we DON'T want to be reachable on 3G/EDGE/CDMA
-        reach.reachableOnWWAN = NO;
+        reach.byReachableOnWWAN(NO);
         // Here we set up a NSNotification observer. The Reachability that caused the notification
         // is passed in the object parameter
         [reach startNotifier];
@@ -301,3 +329,25 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
 }
 
 @end
+
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN TABAnimated
+@implementation TABAnimated (JobsLocalPropertyDSLAutogen_3048ed2d28)
+-(JobsRetTABAnimatedByBOOLBlock _Nonnull)byOpenLog{
+    @jobs_weakify(self)
+    return ^__kindof TABAnimated * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setOpenLog:data];
+        return self;
+    };
+}
+
+-(JobsRetTABAnimatedByUIColorBlock _Nonnull)byAnimatedBackgroundColor{
+    @jobs_weakify(self)
+    return ^__kindof TABAnimated * _Nullable(UIColor * _Nullable data){
+        @jobs_strongify(self)
+        [self setAnimatedBackgroundColor:data];
+        return self;
+    };
+}
+@end
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END TABAnimated

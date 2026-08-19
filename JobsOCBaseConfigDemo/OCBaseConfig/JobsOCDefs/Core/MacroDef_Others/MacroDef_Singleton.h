@@ -8,11 +8,19 @@
 #ifndef SingletonMacro_h
 #define SingletonMacro_h
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 /// 旧主工程直集成兼容：让使用单例宏实现的 NSObject 子类公开统一的类方法签名。
 @interface NSObject (JobsSingletonDeclaration)
 
 +(instancetype)sharedManager;
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager;
 +(void)destroySingleton;
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton;
 
 @end
 /// 基于 dispatch_once 的单例宏
@@ -24,6 +32,11 @@
             sharedManager = [[self alloc] init]; \
         }); \
         return sharedManager; \
+    } \
+    + (JobsRetIDByVoidBlock _Nonnull)jobsSharedManager { \
+        return ^id{ \
+            return [self sharedManager]; \
+        }; \
     } \
     + (void)destroyInstance { \
         sharedManager = nil; \
@@ -41,6 +54,7 @@
 
 #define DECLARE_SHARED_INSTANCE \
     + (instancetype)sharedManager; \
+    + (JobsRetIDByVoidBlock _Nonnull)jobsSharedManager; \
     + (void)destroyInstance;
 
 #define IMPLEMENT_SHARED_INSTANCE_USING_DISPATCH_ONCE(CLASSNAME) \
@@ -56,6 +70,11 @@
             } \
         } \
         return sharedManager; \
+    } \
+    + (JobsRetIDByVoidBlock _Nonnull)jobsSharedManager { \
+        return ^id{ \
+            return [self sharedManager]; \
+        }; \
     } \
     + (void)destroyInstance { \
         @synchronized (self) { \

@@ -6,15 +6,16 @@
 //
 
 #ifndef MJRefreshConfigModel_h
-#define MJRefreshConfigModel_h
-
-#import <Foundation/Foundation.h>
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
 #else
 #import "XYColorOC.h"
 #endif
+
+#define MJRefreshConfigModel_h
+
+#import <Foundation/Foundation.h>
 
 #import "JobsLoadingImageHeader.h"
 #import "JobsMakes.h"

@@ -10,12 +10,6 @@
 #import "JobsIMDefine.h"
 #import "JobsIMChatInfoModel.h"
 
-#if __has_include(<MGSwipeTableCell/MGSwipeTableCell.h>)
-#import <MGSwipeTableCell/MGSwipeTableCell.h>
-#else
-#import "MGSwipeTableCell.h"
-#endif
-
 #if __has_include(<MGSwipeTableCellExtra/MGSwipeTableCellExtra.h>)
 #import <MGSwipeTableCellExtra/MGSwipeTableCellExtra.h>
 #else
@@ -58,6 +52,12 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<MGSwipeTableCell/MGSwipeTableCell.h>)
+#import <MGSwipeTableCell/MGSwipeTableCell.h>
+#else
+#import "MGSwipeTableCell.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsIMChatInfoTBVCell : MGSwipeTableCell
@@ -68,8 +68,10 @@ MGSwipeTableCellProtocol
 
 Prop_assign()BOOL isShowChatUserName;///是否显示每一个聊天的用户的用户名？默认不显示
 
--(NSArray *)createLeftButtons;
--(NSArray *)createRightButtons;
+-(JobsRetArrByVoidBlock _Nonnull)createLeftButtons;
+-(JobsRetArrByVoidBlock _Nonnull)createRightButtons;
+
+-(JobsRetBOOLByVoidBlock _Nonnull)jobsCanBecomeFirstResponder;
 
 @end
 

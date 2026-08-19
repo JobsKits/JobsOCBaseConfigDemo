@@ -32,10 +32,24 @@ Prop_copy(nullable)jobsByIDBlock noContentClickBlock;
 -(instancetype)initWithFrame:(CGRect)frame
                    btnConfig:(UIButtonModel *)btnConfig
        linkageMenuViewConfig:(nullable JobsLinkageMenuViewConfig *)linkageMenuViewConfig;
--(instancetype)byMenuClickBlock:(nullable jobsByIDBlock)block;
--(instancetype)byNoContentClickBlock:(nullable jobsByIDBlock)block;
+-(JobsRetIDByVoidIDBlocks _Nonnull)byMenuClickBlock;
+-(JobsRetIDByVoidIDBlocks _Nonnull)byNoContentClickBlock;
+-(JobsRetJobsLinkageMenuViewByCorBlock _Nonnull)byTextColor;
 -(void)reloadData;
+-(jobsByVoidBlock _Nonnull)jobsReloadData;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsLinkageMenuView
+-(JobsRetJobsLinkageMenuViewByCGFloatBlock _Nonnull)byBlankHeight;
+-(JobsRetJobsLinkageMenuViewByCGFloatBlock _Nonnull)byBtnHeight;
+-(JobsRetJobsLinkageMenuViewByCGFloatBlock _Nonnull)byHalf_blankHeight;
+-(JobsRetJobsLinkageMenuViewByCGFloatBlock _Nonnull)byMENU_WIDTH;
+-(JobsRetJobsLinkageMenuViewByCGFloatBlock _Nonnull)byTextSize;
+-(JobsRetJobsLinkageMenuViewByCorBlock _Nonnull)bySelectTextColor;
+-(JobsRetJobsLinkageMenuViewByCorBlock _Nonnull)bySelectViewColor;
+-(JobsRetJobsLinkageMenuViewByNSIntegerBlock _Nonnull)byChoseTag;
+-(JobsRetJobsLinkageMenuViewByNSIntegerBlock _Nonnull)byDTScrollTag;
+-(JobsRetJobsLinkageMenuViewByNSIntegerBlock _Nonnull)byNewChoseTag;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsLinkageMenuView
 @end
 
 NS_ASSUME_NONNULL_END

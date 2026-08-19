@@ -8,12 +8,6 @@
 #import <UIKit/UIKit.h>
 #import "UIBarButtonItem+Extra.h"
 
-#if __has_include(<ReactiveObjC/ReactiveObjC.h>)
-#import <ReactiveObjC/ReactiveObjC.h>
-#else
-#import "ReactiveObjC.h"
-#endif
-
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
@@ -50,10 +44,19 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<ReactiveObjC/ReactiveObjC.h>)
+#import <ReactiveObjC/ReactiveObjC.h>
+#else
+#import "ReactiveObjC.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsNavigationDemoVC : UIViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsNavigationDemoVC
+-(JobsRetJobsNavigationDemoVCByBOOLBlock _Nonnull)byHiddenNavigationBar;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsNavigationDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

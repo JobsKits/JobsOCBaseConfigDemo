@@ -13,8 +13,14 @@ UIViewModelProtocol_synthesize_part1
 UIViewModelProtocol_synthesize_part2
 /// BaseLayerProtocol
 BaseLayerProtocol_synthesize_part3
-+(NSDictionary *)mj_replacedKeyFromPropertyName {
-    return [super mj_replacedKeyFromPropertyName].mutableCopy;
++(NSDictionary *)mj_replacedKeyFromPropertyName{
+    return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(FMBannerAdsModel.class, @selector(jobsMJReplacedKeyFromPropertyName)))(self, @selector(jobsMJReplacedKeyFromPropertyName)))();
+}
+
++(JobsRetDicByVoidBlock _Nonnull)jobsMJReplacedKeyFromPropertyName {
+    return ^NSDictionary *{
+        return [super mj_replacedKeyFromPropertyName].mutableCopy;
+    };
 }
 
 -(NSString *)title{

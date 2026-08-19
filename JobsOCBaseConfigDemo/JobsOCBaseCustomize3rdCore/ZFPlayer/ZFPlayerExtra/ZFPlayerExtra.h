@@ -6,6 +6,13 @@
 //
 
 #ifndef ZFPlayerExtra_h
+
+#if __has_include(<ZFPlayer/ZFPlayer.h>)
+#import <ZFPlayer/ZFPlayer.h>
+#else
+#import "ZFPlayer.h"
+#endif
+
 #define ZFPlayerExtra_h
 
 #import <Foundation/Foundation.h>
@@ -14,12 +21,6 @@
 #import "ZFDouYinControlView+DSL.h"
 #import "ZFAVPlayerManager+ZFPlayerExtraDSL.h"
 #import "ZFIJKPlayerManager+ZFPlayerExtraDSL.h"
-
-#if __has_include(<ZFPlayer/ZFPlayer.h>)
-#import <ZFPlayer/ZFPlayer.h>
-#else
-#import "ZFPlayer.h"
-#endif
 
 #if __has_include(<ZFPlayer/ZFAVPlayerManager.h>)
 #import <ZFPlayer/ZFAVPlayerManager.h>

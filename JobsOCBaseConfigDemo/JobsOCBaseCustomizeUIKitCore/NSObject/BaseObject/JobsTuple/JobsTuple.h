@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_JOBSTUPLE_C2BFCFE0A9
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -20,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 强制用户使用-(instancetype)initWithValues:(id)firstValue, ... 来进行创建对象
 -(instancetype)initWithValues:(id)firstValue, ... NS_REQUIRES_NIL_TERMINATION;
 
--(NSArray *)jobsTupleValueArr;
+-(JobsRetArrByVoidBlock _Nonnull)jobsTupleValueArr;
 
 @end
 

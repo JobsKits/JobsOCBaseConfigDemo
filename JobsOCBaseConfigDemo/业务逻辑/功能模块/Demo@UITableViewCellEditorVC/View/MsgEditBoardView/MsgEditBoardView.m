@@ -24,16 +24,30 @@ Prop_strong()UIButton *deleteBtn;
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_msgEditBoardViewOnceToken = 0;
-    static_msgEditBoardView = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(MsgEditBoardView.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_msgEditBoardViewOnceToken = 0;
+        static_msgEditBoardView = nil;
+    };
 }
 
 static MsgEditBoardView *static_msgEditBoardView = nil;
 static dispatch_once_t static_msgEditBoardViewOnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_msgEditBoardViewOnceToken, ^{
-        static_msgEditBoardView = MsgEditBoardView.new;
-    });return static_msgEditBoardView;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(MsgEditBoardView.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_msgEditBoardViewOnceToken, ^{
+            static_msgEditBoardView = MsgEditBoardView.new;
+        });return static_msgEditBoardView;
+    };
 }
 
 -(instancetype)init{
@@ -49,11 +63,31 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MsgEditBoardView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MsgEditBoardView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -66,7 +100,7 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model;
+        self.byViewModel(model);
         MakeDataNull
         self.allChooseBtn.byAlpha(1);
         self.deleteBtn.byAlpha(1);
@@ -109,42 +143,67 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
     };
 }
 
--(void)appearByView:(UIView * _Nonnull)view{
+-(jobsByViewBlock _Nonnull)appearByView{
     @jobs_weakify(self)
-    UIView.jobsAnimateWithCompletion(.5f,
-        ^{
+    return ^(UIView * _Nonnull view){
         @jobs_strongify(self)
-        CGRect rect = MsgEditBoardView.viewFrameByModel(nil);
-        rect.origin.y -= MsgEditBoardView.viewChangeYByModel(nil);
-        self.byFrame(rect);
-        view.addSubview(self);
-    },
-        nil);
+        if (!self) return;
+        @jobs_weakify(self)
+        UIView.jobsAnimateWithCompletion(.5f,
+            ^{
+            @jobs_strongify(self)
+            CGRect rect = MsgEditBoardView.viewFrameByModel(nil);
+            rect.origin.y -= MsgEditBoardView.viewChangeYByModel(nil);
+            self.byFrame(rect);
+            view.addSubview(self);
+        },
+            nil);
+    };
 }
 
--(void)disappearByView:(UIView * _Nullable)view{
+-(jobsByViewBlock _Nonnull)disappearByView{
     @jobs_weakify(self)
-    UIView.jobsAnimateWithCompletion(.5f,
-        ^{
+    return ^(UIView * _Nullable view){
         @jobs_strongify(self)
-        self.byFrame(MsgEditBoardView.viewFrameByModel(nil));
-    },
-        ^(BOOL finished) {
+        if (!self) return;
+        @jobs_weakify(self)
+        UIView.jobsAnimateWithCompletion(.5f,
+            ^{
+            @jobs_strongify(self)
+            self.byFrame(MsgEditBoardView.viewFrameByModel(nil));
+        },
+            ^(BOOL finished) {
+            @jobs_strongify(self)
+            [self removeFromSuperview];
+        });
+    };
+}
+
+-(JobsRetBtnByVoidBlock _Nonnull)getAllChooseBtn{
+    @jobs_weakify(self)
+    return ^UIButton *{
         @jobs_strongify(self)
-        [self removeFromSuperview];
-    });
+        if (!self) return nil;
+        return _allChooseBtn;
+    };
 }
 
--(UIButton *)getAllChooseBtn{
-    return _allChooseBtn;
+-(JobsRetBtnByVoidBlock _Nonnull)getMarkToReadBtn{
+    @jobs_weakify(self)
+    return ^UIButton *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return _markToReadBtn;
+    };
 }
 
--(UIButton *)getMarkToReadBtn{
-    return _markToReadBtn;
-}
-
--(UIButton *)getDeleteBtn{
-    return _deleteBtn;
+-(JobsRetBtnByVoidBlock _Nonnull)getDeleteBtn{
+    @jobs_weakify(self)
+    return ^UIButton *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return _deleteBtn;
+    };
 }
 #pragma mark —— lazyLoad
 -(UIButton *)allChooseBtn{
@@ -156,8 +215,8 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
         .selectedStateImageBy(@"按钮已选中".img)
         .jobsResetBtnTitleCor(JobsLabelColor)
         .jobsResetBtnTitleFont(UIFontWeightMediumSize(13))
-        .jobsResetBtnTitle(@"全選".tr)
-        .selectedStateTitleBy(@"取消".tr)
+        .jobsResetBtnTitle(@"全選".jobsTr())
+        .selectedStateTitleBy(@"取消".jobsTr())
         .jobsResetImagePlacement_Padding(NSDirectionalRectEdgeLeading,JobsWidth(8))
         .onClickBy(^(UIButton *x){
             @jobs_strongify(self)
@@ -181,7 +240,7 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
         .bgColorBy(HEXCOLOR(0xFFF4DD))
         .jobsResetBtnTitleCor(HEXCOLOR(0xAE8330))
         .jobsResetBtnTitleFont(UIFontWeightMediumSize(13))
-        .jobsResetBtnTitle(@"標記為已讀".tr)
+        .jobsResetBtnTitle(@"標記為已讀".jobsTr())
         .onClickBy(^(UIButton *x){
             @jobs_strongify(self)
             x.bySelected(!x.selected);
@@ -203,7 +262,7 @@ static dispatch_once_t static_msgEditBoardViewOnceToken;
         @jobs_weakify(self)
         _deleteBtn = UIButton.jobsInit()
         .bgColorBy(HEXCOLOR(0xFFF0F3))
-        .jobsResetBtnTitle(@"删除".tr)
+        .jobsResetBtnTitle(@"删除".jobsTr())
         .jobsResetBtnTitleCor(HEXCOLOR(0xEB677F))
         .jobsResetBtnTitleFont(UIFontWeightMediumSize(13))
         .onClickBy(^(UIButton *x){

@@ -156,6 +156,15 @@
     };
 }
 
+-(JobsRetTableViewCellByBOOLBlock _Nonnull)byJobsSelected{
+    @jobs_weakify(self)
+    return ^__kindof UITableViewCell *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setValue:@(data) forKey:@"jobsSelected"];
+        return self;
+    };
+}
+
 -(JobsRetTableViewCellByBOOLBlock _Nonnull)byHighlighted{
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(BOOL data){

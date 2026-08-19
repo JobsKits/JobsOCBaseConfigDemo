@@ -24,132 +24,197 @@ Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsGestureLockView
+@interface JobsGestureLockView (JobsPropertyDSLSetterAutogen_f3e7300507)
+-(void)setCurrentPoint:(CGPoint)data;
+-(void)setFinished:(BOOL)data;
+-(void)setPanGesture:(UIPanGestureRecognizer * _Nullable)data;
+-(void)setValidationResult:(JobsGestureLockValidationResult)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsGestureLockView
+
 @implementation JobsGestureLockView
+
+-(JobsRetJobsGestureLockViewByIDBlock _Nonnull)byDelegate{
+    @jobs_weakify(self)
+    return ^__kindof JobsGestureLockView *_Nullable(id _Nullable data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.delegate = data;
+        return self;
+    };
+}
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [self initWithConfiguration:nil];
     if (self) {
-        self.frame = frame;
+        self.byFrame(frame);
     };return self;
 }
 
 - (instancetype)initWithConfiguration:(JobsGestureLockConfiguration *)configuration {
     self = [super initWithFrame:CGRectZero];
     if (self) {
-        _configuration = configuration ?: [JobsGestureLockConfiguration defaultConfiguration];
+        _configuration = configuration ?: JobsGestureLockConfiguration.defaultConfiguration();
         _selectedButtons = NSMutableArray.array;
         _nodeButtons = NSMutableArray.array;
         self.byBgColor(JobsClearColor);
-        [self buildSubviews];
+        self.buildSubviews();
     };return self;
 }
 
-- (void)buildSubviews {
-    self.panGesture = [UIPanGestureRecognizer.alloc initWithTarget:self action:@selector(handlePan:)];
-    [self addGestureRecognizer:self.panGesture];
-    for (NSInteger index = 0; index < 9; index++) {
-        UIButton *button = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
-            button
-                .byTag(index)
-                .byUserInteractionEnabled(NO)
-                .addOn(self);
-        });
-        [self applyVisualState:JobsGestureLockNodeVisualStateNormal toButton:button];
-        [self.nodeButtons addObject:button];
-    }
+- (jobsByVoidBlock _Nonnull)buildSubviews {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byPanGesture([UIPanGestureRecognizer.alloc initWithTarget:self action:@selector(handlePan:)]);
+        [self addGestureRecognizer:self.panGesture];
+        for (NSInteger index = 0; index < 9; index++) {
+            UIButton *button = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+                button
+                    .byTag(index)
+                    .byUserInteractionEnabled(NO)
+                    .addOn(self);
+            });
+            [self applyVisualState:JobsGestureLockNodeVisualStateNormal toButton:button];
+            [self.nodeButtons addObject:button];
+        }
+    };
 }
 
 - (void)layoutSubviews {
-    [super layoutSubviews];
-    NSInteger columns = 3;
-    CGFloat spacingX = CGRectGetWidth(self.bounds) / (columns + 1.0);
-    CGFloat spacingY = CGRectGetHeight(self.bounds) / (columns + 1.0);
-    CGFloat side = MIN(56.0, MIN(spacingX, spacingY) * 0.65);
-    [self.nodeButtons enumerateObjectsUsingBlock:^(UIButton * _Nonnull button, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSUInteger row = idx / columns;
-        NSUInteger column = idx % columns;
-        CGPoint center = CGPointMake(spacingX * (column + 1.0), spacingY * (row + 1.0));
-        button.frame = CGRectMake(center.x - side * 0.5, center.y - side * 0.5, side, side);
-        button.jobsResetBtnCornerRadiusValue(side * 0.5);
-    }];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsGestureLockView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        NSInteger columns = 3;
+        CGFloat spacingX = CGRectGetWidth(self.bounds) / (columns + 1.0);
+        CGFloat spacingY = CGRectGetHeight(self.bounds) / (columns + 1.0);
+        CGFloat side = MIN(56.0, MIN(spacingX, spacingY) * 0.65);
+        [self.nodeButtons enumerateObjectsUsingBlock:^(UIButton * _Nonnull button, NSUInteger idx, BOOL * _Nonnull stop) {
+            NSUInteger row = idx / columns;
+            NSUInteger column = idx % columns;
+            CGPoint center = CGPointMake(spacingX * (column + 1.0), spacingY * (row + 1.0));
+            button
+                .jobsResetBtnCornerRadiusValue(side * 0.5)
+                .byFrame(CGRectMake(center.x - side * 0.5, center.y - side * 0.5, side, side));
+        }];
+    };
 }
 
 - (void)drawRect:(CGRect)rect {
-    if (self.selectedButtons.count == 0) return;
-    UIBezierPath *path = jobsMakeBezierPath(nil);
-    [self.selectedButtons enumerateObjectsUsingBlock:^(UIButton * _Nonnull button, NSUInteger idx, BOOL * _Nonnull stop) {
-        if (idx == 0) {
-            [path moveToPoint:button.center];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsGestureLockView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (self.selectedButtons.count == 0) return;
+        UIBezierPath *path = jobsMakeBezierPath(nil);
+        [self.selectedButtons enumerateObjectsUsingBlock:^(UIButton * _Nonnull button, NSUInteger idx, BOOL * _Nonnull stop) {
+            if (idx == 0) {
+                [path moveToPoint:button.center];
+            } else {
+                [path addLineToPoint:button.center];
+            }
+        }];
+        if (!self.finished) {
+            [path addLineToPoint:self.currentPoint];
+            [self.configuration.selectedLineColor setStroke];
         } else {
-            [path addLineToPoint:button.center];
+            switch (self.validationResult) {
+                /// 处理 JobsGestureLockValidationResultFailure 分支
+                case JobsGestureLockValidationResultFailure:
+                /// 处理 JobsGestureLockValidationResultTooShort 分支
+                case JobsGestureLockValidationResultTooShort:
+                    [self.configuration.errorLineColor setStroke];
+                    break;
+                /// 处理 JobsGestureLockValidationResultSuccess 分支
+                case JobsGestureLockValidationResultSuccess:
+                    [self.configuration.selectedLineColor setStroke];
+                    break;
+                /// 处理 JobsGestureLockValidationResultNone 分支
+                case JobsGestureLockValidationResultNone:
+                /// 未匹配已知分支时执行兜底处理
+                default:
+                    [self.configuration.normalLineColor setStroke];
+                    break;
+            }
         }
-    }];
-    if (!self.finished) {
-        [path addLineToPoint:self.currentPoint];
-        [self.configuration.selectedLineColor setStroke];
-    } else {
-        switch (self.validationResult) {
-            /// 处理 JobsGestureLockValidationResultFailure 分支
-            case JobsGestureLockValidationResultFailure:
-            /// 处理 JobsGestureLockValidationResultTooShort 分支
-            case JobsGestureLockValidationResultTooShort:
-                [self.configuration.errorLineColor setStroke];
-                break;
-            /// 处理 JobsGestureLockValidationResultSuccess 分支
-            case JobsGestureLockValidationResultSuccess:
-                [self.configuration.selectedLineColor setStroke];
-                break;
-            /// 处理 JobsGestureLockValidationResultNone 分支
-            case JobsGestureLockValidationResultNone:
-            /// 未匹配已知分支时执行兜底处理
-            default:
-                [self.configuration.normalLineColor setStroke];
-                break;
-        }
-    }
-    path.lineWidth = self.configuration.lineWidth;
-    path.lineJoinStyle = kCGLineJoinRound;
-    path.lineCapStyle = kCGLineCapRound;
-    [path stroke];
+        path.byLineWidth(self.configuration.lineWidth);
+        path.byLineJoinStyle(kCGLineJoinRound);
+        path.byLineCapStyle(kCGLineCapRound);
+        [path stroke];
+    };
 }
 
 - (void)handlePan:(UIPanGestureRecognizer *)pan {
-    if (pan.state == UIGestureRecognizerStateBegan) {
-        [self reset];
-    }
-    self.currentPoint = [pan locationInView:self];
-    UIButton *hitButton = [self hitButtonAtPoint:self.currentPoint];
-    if (hitButton) [self appendButtonWithInterpolation:hitButton];
-    if (pan.state == UIGestureRecognizerStateEnded ||
-        pan.state == UIGestureRecognizerStateCancelled ||
-        pan.state == UIGestureRecognizerStateFailed) {
-        self.finished = YES;
-        NSString *pattern = [self currentPattern];
-        if ([self.delegate respondsToSelector:@selector(gestureLockView:didCompletePattern:)]) {
-            [self.delegate gestureLockView:self didCompletePattern:pattern];
+    jobsByPanGestureRecognizerBlock action = ((jobsByPanGestureRecognizerBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsGestureLockView.class, @selector(jobsHandlePan)))(self, @selector(jobsHandlePan));
+    if (action) action(pan);
+}
+
+-(jobsByPanGestureRecognizerBlock _Nonnull)jobsHandlePan{
+    @jobs_weakify(self)
+    return ^(UIPanGestureRecognizer * pan){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (pan.state == UIGestureRecognizerStateBegan) {
+            self.reset();
         }
-    }
-    [self setNeedsDisplay];
-}
-
--(UIButton *)hitButtonAtPoint:(CGPoint)point{
-    for (UIButton *button in self.nodeButtons) {
-        if (CGRectContainsPoint(CGRectInset(button.frame, -10.0, -10.0), point)) return button;
-    };return nil;
-}
-
--(void)appendButtonWithInterpolation:(UIButton *)button{
-    if ([self.selectedButtons containsObject:button]) return;
-    UIButton *lastButton = self.selectedButtons.lastObject;
-    if (lastButton) {
-        NSArray<NSNumber *> *intermediateIndexes = [self intermediateIndexesFrom:lastButton.tag to:button.tag];
-        for (NSNumber *index in intermediateIndexes) {
-            UIButton *intermediateButton = self.nodeButtons[index.integerValue];
-            if (![self.selectedButtons containsObject:intermediateButton]) {
-                [self selectButton:intermediateButton];
+        self.byCurrentPoint([pan locationInView:self]);
+        UIButton *hitButton = self.hitButtonAtPoint(self.currentPoint);
+        if (hitButton) self.appendButtonWithInterpolation(hitButton);
+        if (pan.state == UIGestureRecognizerStateEnded ||
+            pan.state == UIGestureRecognizerStateCancelled ||
+            pan.state == UIGestureRecognizerStateFailed) {
+            self.byFinished(YES);
+            NSString *pattern = self.currentPattern();
+            if ([self.delegate respondsToSelector:@selector(gestureLockView:didCompletePattern:)]) {
+                [self.delegate gestureLockView:self didCompletePattern:pattern];
             }
         }
-    }
-    [self selectButton:button];
+        [self setNeedsDisplay];
+    };
+}
+
+-(JobsRetUIButtonByCGPointBlock _Nonnull)hitButtonAtPoint{
+    @jobs_weakify(self)
+    return ^UIButton *(CGPoint point){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        for (UIButton *button in self.nodeButtons) {
+            if (CGRectContainsPoint(CGRectInset(button.frame, -10.0, -10.0), point)) return button;
+        };return nil;
+    };
+}
+
+-(jobsByBtnBlock _Nonnull)appendButtonWithInterpolation{
+    @jobs_weakify(self)
+    return ^(UIButton * button){
+        @jobs_strongify(self)
+        if (!self) return;
+        if ([self.selectedButtons containsObject:button]) return;
+        UIButton *lastButton = self.selectedButtons.lastObject;
+        if (lastButton) {
+            NSArray<NSNumber *> *intermediateIndexes = [self intermediateIndexesFrom:lastButton.tag to:button.tag];
+            for (NSNumber *index in intermediateIndexes) {
+                UIButton *intermediateButton = self.nodeButtons[index.integerValue];
+                if (![self.selectedButtons containsObject:intermediateButton]) {
+                    self.selectButton(intermediateButton);
+                }
+            }
+        }
+        self.selectButton(button);
+    };
 }
 
 -(NSArray<NSNumber *> *)intermediateIndexesFrom:(NSInteger)fromIndex to:(NSInteger)toIndex{
@@ -184,39 +249,59 @@ Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
     };return MAX(1, x);
 }
 
--(void)selectButton:(UIButton *)button{
-    [self.selectedButtons addObject:button];
-    [self applyVisualState:JobsGestureLockNodeVisualStateSelected toButton:button];
+-(jobsByBtnBlock _Nonnull)selectButton{
+    @jobs_weakify(self)
+    return ^(UIButton * button){
+        @jobs_strongify(self)
+        if (!self) return;
+        [self.selectedButtons addObject:button];
+        [self applyVisualState:JobsGestureLockNodeVisualStateSelected toButton:button];
+    };
 }
 
-- (NSString *)currentPattern {
-    NSMutableString *pattern = NSMutableString.string;
-    for (UIButton *button in self.selectedButtons) {
-        [pattern appendFormat:@"%ld", (long)button.tag];
-    };return pattern.copy;
+- (JobsRetStrByVoidBlock _Nonnull)currentPattern {
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSMutableString *pattern = NSMutableString.string;
+        for (UIButton *button in self.selectedButtons) {
+            [pattern appendFormat:@"%ld", (long)button.tag];
+        };return pattern.copy;
+    };
 }
 
-- (void)reset {
-    self.finished = NO;
-    self.validationResult = JobsGestureLockValidationResultNone;
-    for (UIButton *button in self.nodeButtons) {
-        [self applyVisualState:JobsGestureLockNodeVisualStateNormal toButton:button];
-    }
-    [self.selectedButtons removeAllObjects];
-    [self setNeedsDisplay];
+- (jobsByVoidBlock _Nonnull)reset {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byFinished(NO);
+        self.byValidationResult(JobsGestureLockValidationResultNone);
+        for (UIButton *button in self.nodeButtons) {
+            [self applyVisualState:JobsGestureLockNodeVisualStateNormal toButton:button];
+        }
+        [self.selectedButtons removeAllObjects];
+        [self setNeedsDisplay];
+    };
 }
 
-- (void)showValidationResult:(JobsGestureLockValidationResult)result {
-    self.validationResult = result;
-    JobsGestureLockNodeVisualState state = JobsGestureLockNodeVisualStateSelected;
-    if (result == JobsGestureLockValidationResultFailure ||
-        result == JobsGestureLockValidationResultTooShort) {
-        state = JobsGestureLockNodeVisualStateError;
-    }
-    for (UIButton *button in self.selectedButtons) {
-        [self applyVisualState:state toButton:button];
-    }
-    [self setNeedsDisplay];
+-(jobsByJobsGestureLockValidationResultBlock _Nonnull)showValidationResult{
+    @jobs_weakify(self)
+    return ^(JobsGestureLockValidationResult result){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byValidationResult(result);
+        JobsGestureLockNodeVisualState state = JobsGestureLockNodeVisualStateSelected;
+        if (result == JobsGestureLockValidationResultFailure ||
+            result == JobsGestureLockValidationResultTooShort) {
+            state = JobsGestureLockNodeVisualStateError;
+        }
+        for (UIButton *button in self.selectedButtons) {
+            [self applyVisualState:state toButton:button];
+        }
+        [self setNeedsDisplay];
+    };
 }
 
 -(void)applyVisualState:(JobsGestureLockNodeVisualState)state toButton:(UIButton *)button{
@@ -266,4 +351,41 @@ Prop_assign(readwrite)JobsGestureLockValidationResult validationResult;
         .bySelected(state != JobsGestureLockNodeVisualStateNormal);
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsGestureLockView
+-(JobsRetJobsGestureLockViewByBOOLBlock _Nonnull)byFinished{
+    @jobs_weakify(self)
+    return ^__kindof JobsGestureLockView * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setFinished:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsGestureLockViewByCGPointBlock _Nonnull)byCurrentPoint{
+    @jobs_weakify(self)
+    return ^__kindof JobsGestureLockView * _Nullable(CGPoint data){
+        @jobs_strongify(self)
+        [self setCurrentPoint:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsGestureLockViewByJobsGestureLockValidationResultBlock _Nonnull)byValidationResult{
+    @jobs_weakify(self)
+    return ^__kindof JobsGestureLockView * _Nullable(JobsGestureLockValidationResult data){
+        @jobs_strongify(self)
+        [self setValidationResult:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsGestureLockViewByUIPanGestureRecognizerBlock _Nonnull)byPanGesture{
+    @jobs_weakify(self)
+    return ^__kindof JobsGestureLockView * _Nullable(UIPanGestureRecognizer * _Nullable data){
+        @jobs_strongify(self)
+        [self setPanGesture:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsGestureLockView
 @end

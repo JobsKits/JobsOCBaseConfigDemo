@@ -7,6 +7,18 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<MJExtension/MJExtension.h>)
+#import <MJExtension/MJExtension.h>
+#else
+#import "MJExtension.h"
+#endif
+
+#if __has_include(<MJRefresh/MJRefresh.h>)
+#import <MJRefresh/MJRefresh.h>
+#else
+#import "MJRefresh.h"
+#endif
+
 #pragma mark —— View
 #import "JobsCommentPopUpView_viewForHeaderInSection.h"
 #import "JobsCommentTitleHeaderView.h"
@@ -24,22 +36,10 @@
 //#import "YYModel.h"
 //#endif
 
-#if __has_include(<MJExtension/MJExtension.h>)
-#import <MJExtension/MJExtension.h>
-#else
-#import "MJExtension.h"
-#endif
-
 #if __has_include(<MJRefreshExtra/MJRefreshExtra.h>)
 #import <MJRefreshExtra/MJRefreshExtra.h>
 #else
 #import "MJRefreshExtra.h"
-#endif
-
-#if __has_include(<MJRefresh/MJRefresh.h>)
-#import <MJRefresh/MJRefresh.h>
-#else
-#import "MJRefresh.h"
 #endif
 
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
@@ -87,10 +87,21 @@ UITableViewDelegate
 >
 
 -(void)setMJModel:(JobsCommentModel *)mjModel;
+-(jobsByCommentModelBlock _Nonnull)jobsSetMJModel;
 -(void)setYYModel:(JobsCommentModel *)yyModel;
--(JobsCommentTitleHeaderView *)getJobsCommentTitleHeaderView;
--(UITableView *)getTableView;
+-(jobsByCommentModelBlock _Nonnull)jobsSetYYModel;
+-(JobsRetJobsCommentTitleHeaderViewByVoidBlock _Nonnull)getJobsCommentTitleHeaderView;
+-(JobsRetTableViewByVoidBlock _Nonnull)getTableView;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsCommentCoreVC
+-(JobsRetJobsCommentCoreVCByBOOLBlock _Nonnull)byHiddenNavigationBar;
+-(JobsRetJobsCommentCoreVCByCGFloatBlock _Nonnull)byJobsDefaultPopUpHeight;
+-(JobsRetJobsCommentCoreVCByCGFloatBlock _Nonnull)byJobsPanBeginPopUpHeight;
+-(JobsRetJobsCommentCoreVCByCGFloatBlock _Nonnull)byPopUpHeight;
+-(JobsRetJobsCommentCoreVCByJobsCommentModelBlock _Nonnull)byMjModel;
+-(JobsRetJobsCommentCoreVCByCGSizeBlock _Nonnull)byPreferredContentSize;
+-(JobsRetJobsCommentCoreVCByIDUIViewControllerTransitioningDelegateBlock _Nonnull)byTransitioningDelegate;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsCommentCoreVC
 @end
 
 NS_ASSUME_NONNULL_END

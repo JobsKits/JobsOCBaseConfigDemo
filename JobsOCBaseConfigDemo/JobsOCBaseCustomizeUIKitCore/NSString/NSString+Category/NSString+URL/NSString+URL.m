@@ -9,58 +9,125 @@
 
 @implementation NSString (URL)
 /// 返回网址相关的NSURL *
--(NSURL *_Nonnull)jobsUrl{
-    NSString *s = self.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
-    if (!isValue(s)) { return nil; }
-    if ([s hasPrefix:@"//"]) { s = @"https:".add(s); }
-    // 允许中文与特殊字符
-    NSString *encoded = [s stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet];
-    return [NSURL URLWithString:encoded ?: s];
+-(NSURL *)jobsUrl{
+    return (((JobsRetURLByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsURL)))(self, @selector(jobsURL)))();
+}
+-(JobsRetURLByVoidBlock _Nonnull)jobsURL{
+    @jobs_weakify(self)
+    return ^NSURL *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSString *s = self.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
+        if (!isValue(s)) { return nil; }
+        if ([s hasPrefix:@"//"]) { s = @"https:".add(s); }
+        // 允许中文与特殊字符
+        NSString *encoded = [s stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet];
+        return [NSURL URLWithString:encoded ?: s];
+    };
 }
 /// NSString => NSURLRequest
--(NSMutableURLRequest *_Nonnull)URLRequest{
-    return NSURLRequest.initBy(self.jobsUrl).mutableCopy;
+-(NSMutableURLRequest *)URLRequest{
+    return (((JobsRetMutableURLRequestByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsURLRequest)))(self, @selector(jobsURLRequest)))();
+}
+
+-(JobsRetMutableURLRequestByVoidBlock _Nonnull)jobsURLRequest{
+    @jobs_weakify(self)
+    return ^NSMutableURLRequest *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSURLRequest.initBy(self.jobsURL()).mutableCopy;
+    };
 }
 /// 返回文件路径相关的NSURL *
 /// 增加file://
--(NSURL *_Nonnull)jobsFileUrl{
-    return [NSURL fileURLWithPath:self];
+-(JobsRetURLByVoidBlock _Nonnull)jobsFileUrl{
+    @jobs_weakify(self)
+    return ^NSURL *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [NSURL fileURLWithPath:self];
+    };
 }
 ///  能否正常打开Url
--(BOOL)jobsCanOpenUrl{
-    return [UIApplication.sharedApplication canOpenURL:self.jobsUrl];
+-(JobsRetBOOLByVoidBlock _Nonnull)jobsCanOpenUrl{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return [UIApplication.sharedApplication canOpenURL:self.jobsURL()];
+    };
 }
 /**
 
      问题：直接其他地方复制过来的中文字进行网页搜索、或者中文字识别排序等情况的，会出现搜索不到的情况。
      解决方法：可能存在复制源里面的文字带了空白url编码%E2%80%8B，空白编码没有宽度，虽然看不到但是会影响结果无法正确匹配对应的中文字。可以把文字重新url编码即可。
  */
--(NSString *_Nonnull)urlProtect{
-    if ([self containsString:零宽转义字符]) {
-        return self.remove200BMark;
-    }else return self;
+-(NSString *)urlProtect{
+    return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsURLProtect)))(self, @selector(jobsURLProtect)))();
 }
 
--(NSString *_Nonnull)byHttp{
-    return HTTPHeader.add(self).urlProtect;
+-(JobsRetStrByVoidBlock _Nonnull)jobsURLProtect{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if ([self containsString:零宽转义字符]) {
+            return self.remove200BMark();
+        }else return self;
+    };
 }
 
--(NSString *_Nonnull)byHttps{
-    return HTTPSHeader.add(self).urlProtect;
+-(NSString *)byHttp{
+    return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsByHttp)))(self, @selector(jobsByHttp)))();
+}
+
+-(JobsRetStrByVoidBlock _Nonnull)jobsByHttp{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return HTTPHeader.add(self).jobsURLProtect();
+    };
+}
+
+-(NSString *)byHttps{
+    return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsByHttps)))(self, @selector(jobsByHttps)))();
+}
+
+-(JobsRetStrByVoidBlock _Nonnull)jobsByHttps{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return HTTPSHeader.add(self).jobsURLProtect();
+    };
 }
 /// 图片URL路径补齐
--(NSString *_Nullable)imageURLPlus{
-    if(!This.BaseUrl_Image || !This.BaseUrl) return self;
-    if(!self.containsString(HTTP) && isValue(self)){
-        return (isValue(This.BaseUrl_Image) ? This.BaseUrl_Image : This.BaseUrl).add(self);
-    }else return self;
+-(NSString *)imageURLPlus{
+    return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsImageURLPlus)))(self, @selector(jobsImageURLPlus)))();
+}
+-(JobsRetStrByVoidBlock _Nonnull)jobsImageURLPlus{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if(!This.BaseUrl_Image() || !This.jobsBaseUrl()) return self;
+        if(!self.containsString(HTTP) && isValue(self)){
+            return (isValue(This.BaseUrl_Image()) ? This.BaseUrl_Image() : This.jobsBaseUrl()).add(self);
+        }else return self;
+    };
 }
 /// 一般的URL路径补齐
--(NSString *_Nullable)normalURLPlus{
-    if(!This.BaseUrl_Image) return self;
-    if(!self.containsString(HTTP) && isValue(self)){
-        return This.BaseUrl_Image.add(self);
-    }else return self;
+-(JobsRetStrByVoidBlock _Nonnull)normalURLPlus{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if(!This.BaseUrl_Image()) return self;
+        if(!self.containsString(HTTP) && isValue(self)){
+            return This.BaseUrl_Image().add(self);
+        }else return self;
+    };
 }
 
 @end

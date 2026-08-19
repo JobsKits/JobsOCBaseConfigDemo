@@ -19,7 +19,10 @@
 #import "VoidByCertainParametersBlock.h"
 #import "ReturnByUnCertainParameters.h"
 #import "VoidByUnCertainParameters.h"
-#import "JobsDefines.h"
+
+#ifndef Prop_copy
+#define Prop_copy(...) @property(nonatomic, copy, ##__VA_ARGS__)
+#endif
 /**
  
     【命名规则】：
@@ -36,15 +39,21 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark —— 单入参Block
 Prop_copy(nullable)jobsByVoidBlock voidBlock;/// 无入参，无返回值的回调
 -(void)actionVoidBlock:(jobsByVoidBlock _Nullable)voidBlock;
+-(jobsByRACSchedulerRecursiveBlock _Nonnull)actionVoidBlock;
 
 Prop_copy(nullable)jobsByIDBlock objBlock;/// 入参为ID类型，无返回值的回调
+-(JobsRetIDByVoidIDBlocks _Nonnull)byObjBlock;
 Prop_copy(nullable)jobsByGestureRecognizerBlock gestureRecognizerBlock;/// 入参为UIGestureRecognizer，无返回值的回调
 Prop_copy(nullable)jobsBySELBlock selBlock;/// 入参为SEL，无返回值的回调
 Prop_copy(nullable)jobsByStrBlock stringBlock;/// 入参为NSString，无返回值的回调
 -(void)actionObjBlock:(jobsByIDBlock _Nullable)objBlock;
+-(jobsByjobsByIDBlockBlock _Nonnull)actionObjBlock;
 -(void)actionGestureRecognizerBlock:(jobsByGestureRecognizerBlock _Nullable)gestureRecognizerBlock;
+-(jobsByjobsByGestureRecognizerBlockBlock _Nonnull)actionGestureRecognizerBlock;
 -(void)actionSelBlock:(jobsBySELBlock _Nullable)selBlock;
+-(jobsByjobsBySELBlockBlock _Nonnull)actionSelBlock;
 -(void)actionStringBlock:(jobsByStrBlock _Nullable)stringBlock;
+-(jobsByjobsByStrBlockBlock _Nonnull)actionStringBlock;
 
 Prop_copy(nullable)jobsByNSIntegerBlock integerBlock;/// 入参为NSInteger，无返回值的回调
 Prop_copy(nullable)jobsByNSUIntegerBlock uIntegerBlock;/// 入参为NSUInteger，无返回值的回调
@@ -62,26 +71,43 @@ Prop_copy(nullable)jobsByLongBlock longBlock;/// 入参为Long，无返回值的
 Prop_copy(nullable)jobsByUnsignedLongBlock unsignedLongBlock;/// 入参为UnsignedLong，无返回值的回调
 Prop_copy(nullable)jobsByUnsignedLongLongBlock unsignedLongLongBlock;/// 入参为IUnsignedLongLong，无返回值的回调
 -(void)actionIntegerBlock:(jobsByNSIntegerBlock _Nullable)integerBlock;
+-(jobsByjobsByNSIntegerBlockBlock _Nonnull)actionIntegerBlock;
 -(void)actionUIntegerBlock:(jobsByNSUIntegerBlock _Nullable)uIntegerBlock;
+-(jobsByjobsByNSUIntegerBlockBlock _Nonnull)actionUIntegerBlock;
 -(void)actionCGFloatBlock:(jobsByCGFloatBlock _Nullable)CGFloatBlock;
+-(jobsByCGFloatBlocks _Nonnull)actionCGFloatBlock;
 -(void)actionBOOLBlock:(jobsByBOOLBlock _Nullable)bOOLBlock;
+-(jobsByjobsByBOOLBlockBlock _Nonnull)actionBOOLBlock;
 -(void)actionIntBlock:(jobsByIntBlock _Nullable)IntBlock;
+-(jobsByjobsByIntBlockBlock _Nonnull)actionIntBlock;
 -(void)actionUnsignedIntBlock:(jobsByUnsignedIntBlock _Nullable)UnsignedIntBlock;
+-(jobsByjobsByUnsignedIntBlockBlock _Nonnull)actionUnsignedIntBlock;
 -(void)actionFloatBlock:(jobsByFloatBlock _Nullable)FloatBlock;
+-(jobsByjobsByFloatBlockBlock _Nonnull)actionFloatBlock;
 -(void)actionDoubleBlock:(jobsByDoubleBlock _Nullable)DoubleBlock;
+-(jobsByjobsByDoubleBlockBlock _Nonnull)actionDoubleBlock;
 -(void)actionCharBlock:(jobsByCharBlock _Nullable)CharBlock;
+-(jobsByjobsByCharBlockBlock _Nonnull)actionCharBlock;
 -(void)actionUnsignedCharBlock:(jobsByUnsignedCharBlock _Nullable)UnsignedCharBlock;
+-(jobsByjobsByUnsignedCharBlockBlock _Nonnull)actionUnsignedCharBlock;
 -(void)actionShortBlock:(jobsByShortBlock _Nullable)ShortBlock;
+-(jobsByjobsByShortBlockBlock _Nonnull)actionShortBlock;
 -(void)actionUnsignedShortBlock:(jobsByUnsignedShortBlock _Nullable)UnsignedShortBlock;
+-(jobsByjobsByUnsignedShortBlockBlock _Nonnull)actionUnsignedShortBlock;
 -(void)actionLongBlock:(jobsByLongBlock _Nullable)LongBlock;
+-(jobsByjobsByLongBlockBlock _Nonnull)actionLongBlock;
 -(void)actionUnsignedLongBlock:(jobsByUnsignedLongBlock _Nullable)UnsignedLongBlock;
+-(jobsByjobsByUnsignedLongBlockBlock _Nonnull)actionUnsignedLongBlock;
 -(void)actionUnsignedLongLongBlock:(jobsByUnsignedLongLongBlock _Nullable)UnsignedLongLongBlock;
+-(jobsByjobsByUnsignedLongLongBlockBlock _Nonnull)actionUnsignedLongLongBlock;
 
 Prop_copy(nullable)jobsByTwoIDBlock selectorBlock;
 -(void)actionSelectorBlock:(jobsByTwoIDBlock _Nullable)SelectorBlock;
+-(jobsByjobsByTwoIDBlockBlock _Nonnull)actionSelectorBlock;
 
 Prop_copy(nullable)JobsRetIDByVoidBlock retIDByVoidBlock;/// 无入参，返回值为ID的回调
 -(void)actionRetIDByVoidBlock:(JobsRetIDByVoidBlock _Nullable)retIDByVoidBlock;
+-(jobsByJobsRetIDByVoidBlockBlock _Nonnull)actionRetIDByVoidBlock;
 
 Prop_copy(nullable)JobsRetIDByGestureBlock retIDByGestureRecognizerBlock;/// 入参为UIGestureRecognizer，返回值为ID的回调
 Prop_copy(nullable)JobsRetIDBySELBlock retIDBySELBlock;/// 入参为SEL，返回值为ID的回调
@@ -102,23 +128,41 @@ Prop_copy(nullable)JobsRetLongByIDBlock retLongByIDBlock;
 Prop_copy(nullable)JobsRetUnsignedLongByIDBlock retUnsignedLongByIDBlock;
 Prop_copy(nullable)JobsRetUnsignedLongLongByIDBlock retUnsignedLongLongByIDBlock;
 -(void)actionRetIDByGestureRecognizerBlock:(JobsRetIDByGestureBlock _Nullable)retIDByGestureRecognizerBlock;
+-(jobsByJobsRetIDByGestureBlockBlock _Nonnull)actionRetIDByGestureRecognizerBlock;
 -(void)actionRetIDBySELBlock:(JobsRetIDBySELBlock _Nullable)retIDBySELBlock;
+-(jobsByJobsRetIDBySELBlockBlock _Nonnull)actionRetIDBySELBlock;
 -(void)actionRetIDByStringBlock:(JobsRetIDByStrBlock _Nullable)retIDByStringBlock;
+-(jobsByJobsRetIDByStrBlockBlock _Nonnull)actionRetIDByStringBlock;
 -(void)actionRetIntegerByIDBlock:(JobsRetNSIntegerByIDBlock _Nullable)retIntegerByIDBlock;
+-(jobsByJobsRetNSIntegerByIDBlockBlock _Nonnull)actionRetIntegerByIDBlock;
 -(void)actionRetUIntegerByIDBlock:(JobsRetNSUIntegerByIDBlock _Nullable)retUIntegerByIDBlock;
+-(jobsByJobsRetNSUIntegerByIDBlockBlock _Nonnull)actionRetUIntegerByIDBlock;
 -(void)actionRetCGFloatByIDBlock:(JobsRetCGFloatByIDBlock _Nullable)retCGFloatByIDBlock;
+-(jobsByJobsRetCGFloatByIDBlockBlock _Nonnull)actionRetCGFloatByIDBlock;
 -(void)actionRetBoolByIDBlock:(JobsRetBOOLByIDBlock _Nullable)retBoolByIDBlock;
+-(jobsByJobsRetBOOLByIDBlockBlock _Nonnull)actionRetBoolByIDBlock;
 -(void)actionRetIntByIDBlock:(JobsRetIntByIDBlock _Nullable)retIntByIDBlock;
+-(jobsByJobsRetIntByIDBlockBlock _Nonnull)actionRetIntByIDBlock;
 -(void)actionRetUnsignedIntByIDBlock:(JobsRetUnsignedIntByIDBlock _Nullable)retUnsignedIntByIDBlock;
+-(jobsByJobsRetUnsignedIntByIDBlockBlock _Nonnull)actionRetUnsignedIntByIDBlock;
 -(void)actionRetFloatByIDBlock:(JobsRetFloatByIDBlock _Nullable)retFloatByIDBlock;
+-(jobsByJobsRetFloatByIDBlockBlock _Nonnull)actionRetFloatByIDBlock;
 -(void)actionRetDoubleByIDBlock:(JobsRetDoubleByIDBlock _Nullable)retDoubleByIDBlock;
+-(jobsByJobsRetDoubleByIDBlockBlock _Nonnull)actionRetDoubleByIDBlock;
 -(void)actionRetCharByIDBlock:(JobsRetCharByIDBlock _Nullable)retCharByIDBlock;
+-(jobsByJobsRetCharByIDBlockBlock _Nonnull)actionRetCharByIDBlock;
 -(void)actionRetUnsignedCharByIDBlock:(JobsRetUnsignedCharByIDBlock _Nullable)retUnsignedCharByIDBlock;
+-(jobsByJobsRetUnsignedCharByIDBlockBlock _Nonnull)actionRetUnsignedCharByIDBlock;
 -(void)actionRetShortByIDBlock:(JobsRetShortByIDBlock _Nullable)retShortByIDBlock;
+-(jobsByJobsRetShortByIDBlockBlock _Nonnull)actionRetShortByIDBlock;
 -(void)actionRetUnsignedShortByIDBlock:(JobsRetUnsignedShortByIDBlock _Nullable)retUnsignedShortByIDBlock;
+-(jobsByJobsRetUnsignedShortByIDBlockBlock _Nonnull)actionRetUnsignedShortByIDBlock;
 -(void)actionRetLongByIDBlock:(JobsRetLongByIDBlock _Nullable)retLongByIDBlock;
+-(jobsByJobsRetLongByIDBlockBlock _Nonnull)actionRetLongByIDBlock;
 -(void)actionRetUnsignedLongByIDBlock:(JobsRetUnsignedLongByIDBlock _Nullable)retUnsignedLongByIDBlock;
+-(jobsByJobsRetUnsignedLongByIDBlockBlock _Nonnull)actionRetUnsignedLongByIDBlock;
 -(void)actionRetUnsignedLongLongByIDBlock:(JobsRetUnsignedLongLongByIDBlock _Nullable)retUnsignedLongLongByIDBlock;
+-(jobsByJobsRetUnsignedLongLongByIDBlockBlock _Nonnull)actionRetUnsignedLongLongByIDBlock;
 
 Prop_copy(nullable)JobsRetIDByIDBlock retObjBlock;/// 返回值为ID的回调
 Prop_copy(nullable)JobsRetByNSIntegerBlock retIntegerBlock;/// 返回值为NSInteger的回调
@@ -138,33 +182,51 @@ Prop_copy(nullable)JobsRetByLongBlock retLongBlock;/// 返回值为Long的回调
 Prop_copy(nullable)JobsRetByUnsignedLongBlock retUnsignedLongBlock;/// 返回值为UnsignedLong的回调
 Prop_copy(nullable)JobsRetByUnsignedLongLongBlock retUnsignedLongLongBlock;/// 返回值为UnsignedLongLong的回调
 -(void)actionRetObjBlock:(JobsRetIDByIDBlock _Nullable)retObjBlock;
+-(jobsByRetIDByIDBlocks _Nonnull)actionRetObjBlock;
 -(void)actionRetIntegerBlock:(JobsRetByNSIntegerBlock _Nullable)retIntegerBlock;
+-(jobsByJobsRetByNSIntegerBlockBlock _Nonnull)actionRetIntegerBlock;
 -(void)actionRetUIntegerBlock:(JobsRetByNSUIntegerBlock _Nullable)retUIntegerBlock;
+-(jobsByJobsRetByNSUIntegerBlockBlock _Nonnull)actionRetUIntegerBlock;
 -(void)actionRetCGFloatBlock:(JobsRetCGFloatByCGFloatBlock _Nullable)retCGFloatBlock;
+-(jobsByJobsRetCGFloatByCGFloatBlockBlock _Nonnull)actionRetCGFloatBlock;
 -(void)actionRetBoolBlock:(JobsRetBOOLByBOOLBlock _Nullable)retBoolBlock;
+-(jobsByJobsRetBOOLByBOOLBlockBlock _Nonnull)actionRetBoolBlock;
 -(void)actionRetBoolByUIntegerBlock:(JobsRetBOOLByNSUIntegerBlock _Nullable)retBoolByUIntegerBlock;
+-(jobsByJobsRetBOOLByNSUIntegerBlockBlock _Nonnull)actionRetBoolByUIntegerBlock;
 -(void)actionRetIntBlock:(JobsRetIntByIntBlock _Nullable)retIntBlock;
+-(jobsByJobsRetIntByIntBlockBlock _Nonnull)actionRetIntBlock;
 -(void)actionRetUnsignedIntBlock:(JobsRetByUnsignedIntBlock _Nullable)retUnsignedIntBlock;
+-(jobsByJobsRetByUnsignedIntBlockBlock _Nonnull)actionRetUnsignedIntBlock;
 -(void)actionRetFloatBlock:(JobsRetByFloatBlock _Nullable)retFloatBlock;
+-(jobsByJobsRetByFloatBlockBlock _Nonnull)actionRetFloatBlock;
 -(void)actionRetDoubleBlock:(JobsRetByDoubleBlock _Nullable)retDoubleBlock;
+-(jobsByJobsRetByDoubleBlockBlock _Nonnull)actionRetDoubleBlock;
 -(void)actionRetCharBlock:(JobsRetByCharBlock _Nullable)retCharBlock;
+-(jobsByJobsRetByCharBlockBlock _Nonnull)actionRetCharBlock;
 -(void)actionRetUnsignedCharBlock:(JobsRetByUnsignedCharBlock _Nullable)retUnsignedCharBlock;
+-(jobsByJobsRetByUnsignedCharBlockBlock _Nonnull)actionRetUnsignedCharBlock;
 -(void)actionRetShortBlock:(JobsRetByShortBlock _Nullable)retShortBlock;
+-(jobsByJobsRetByShortBlockBlock _Nonnull)actionRetShortBlock;
 -(void)actionRetUnsignedShortBlock:(JobsRetByUnsignedShortBlock _Nullable)retUnsignedShortBlock;
+-(jobsByJobsRetByUnsignedShortBlockBlock _Nonnull)actionRetUnsignedShortBlock;
 -(void)actionRetLongBlock:(JobsRetByLongBlock _Nullable)retLongBlock;
+-(jobsByJobsRetByLongBlockBlock _Nonnull)actionRetLongBlock;
 -(void)actionRetUnsignedLongBlock:(JobsRetByUnsignedLongBlock _Nullable)retUnsignedLongBlock;
+-(jobsByJobsRetByUnsignedLongBlockBlock _Nonnull)actionRetUnsignedLongBlock;
 -(void)actionRetUnsignedLongLongBlock:(JobsRetByUnsignedLongLongBlock _Nullable)retUnsignedLongLongBlock;
+-(jobsByJobsRetByUnsignedLongLongBlockBlock _Nonnull)actionRetUnsignedLongLongBlock;
 
 Prop_copy(nullable)JobsRetIDByTwoIDBlock retIDBySelectorBlock;
 -(void)actionRetIDBySelectorBlock:(JobsRetIDByTwoIDBlock _Nullable)retIDBySelectorBlock;
+-(jobsByJobsRetIDByTwoIDBlockBlock _Nonnull)actionRetIDBySelectorBlock;
 /// UIView
--(JobsRetViewByIDBlocks _Nullable)JobsBlock1;
--(JobsRetIDByRetIDVoidBlocks _Nullable)JobsBlock2;
--(JobsRetIDByRetIDByIDBlocks _Nullable)JobsBlock3;
+-(JobsRetViewByIDBlocks _Nonnull)JobsBlock1;
+-(JobsRetIDByRetIDVoidBlocks _Nonnull)JobsBlock2;
+-(JobsRetIDByRetIDByIDBlocks _Nonnull)JobsBlock3;
 /// UIViewController
--(JobsRetVCByIDBlocks _Nullable)JobsBlock4;
--(JobsRetVCByRetIDByVoidBlocks _Nullable)JobsBlock5;
--(JobsRetVCByRetIDByIDBlocks _Nullable)JobsBlock6;
+-(JobsRetVCByIDBlocks _Nonnull)JobsBlock4;
+-(JobsRetVCByRetIDByVoidBlocks _Nonnull)JobsBlock5;
+-(JobsRetVCByRetIDByIDBlocks _Nonnull)JobsBlock6;
 #pragma mark —— 多入参Block
 //Prop_copy(nullable)jobsDynArgsBlock dynArgsBlock;
 //Prop_copy(nullable)JobsRetIDByDynArgsBlock retIDByDynArgsBlock;

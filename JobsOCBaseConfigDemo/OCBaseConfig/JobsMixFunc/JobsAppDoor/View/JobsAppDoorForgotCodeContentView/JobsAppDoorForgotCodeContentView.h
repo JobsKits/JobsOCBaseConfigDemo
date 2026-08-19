@@ -6,18 +6,19 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSAPPDOORFORGOTCODECONTENTVIEW_ABB1B0B936
-#define JOBS_HEADER_GUARD_JOBSAPPDOORFORGOTCODECONTENTVIEW_ABB1B0B936
-
-#import <UIKit/UIKit.h>
-#import "BaseContentView.h"
-#import "JobsAppDoorConfig.h"
-#import "JobsAppDoorInputViewHeader.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSAPPDOORFORGOTCODECONTENTVIEW_ABB1B0B936
+
+#import <UIKit/UIKit.h>
+#import "BaseContentView.h"
+#import "JobsAppDoorConfig.h"
+#import "JobsAppDoorInputViewHeader.h"
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import "JobsBaseProtocolHeader.h"

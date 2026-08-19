@@ -13,6 +13,12 @@ Prop_strong()NSArray <UIImage *>*dataMutArr;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsImageNumberView
+@interface JobsImageNumberView (JobsPropertyDSLSetterAutogen_b4ba93cf98)
+-(void)setDataMutArr:(NSArray <UIImage *>* _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsImageNumberView
+
 @implementation JobsImageNumberView
 -(instancetype)init{
     if (self = [super init]) {
@@ -21,20 +27,40 @@ Prop_strong()NSArray <UIImage *>*dataMutArr;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsImageNumberView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 //具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
     @jobs_weakify(self)
     return ^(NSArray <UIImage *>*_Nullable model) {
         @jobs_strongify(self)
-        self.dataMutArr = model;
+        self.byDataMutArr(model);
         self.collectionView.byShow(self);
     };
 }
 #pragma mark —— UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
+    JobsRetNSIntegerByUICollectionViewBlock action = ((JobsRetNSIntegerByUICollectionViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsImageNumberView.class, @selector(jobsNumberOfSectionsInCollectionView)))(self, @selector(jobsNumberOfSectionsInCollectionView));
+    return action ? action(collectionView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUICollectionViewBlock _Nonnull)jobsNumberOfSectionsInCollectionView{
+    @jobs_weakify(self)
+    return ^NSInteger(UICollectionView * collectionView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 1;
+    };
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView
@@ -134,4 +160,14 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     };return _collectionView;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsImageNumberView
+-(JobsRetJobsImageNumberViewByNSArrayUIImageBlock _Nonnull)byDataMutArr{
+    @jobs_weakify(self)
+    return ^__kindof JobsImageNumberView * _Nullable(NSArray <UIImage *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setDataMutArr:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsImageNumberView
 @end

@@ -31,6 +31,18 @@ Prop_assign()BOOL CLEAR_CONTENT_WHEN_MISSING;       // 菜单无内容时是否�
 Prop_copy(nullable)jobsByIDBlock menuClickBlock;    // 任意菜单点击回调，payload 为 NSDictionary
 Prop_copy(nullable)jobsByIDBlock noContentClickBlock; // 菜单无内容时回调，payload 为 NSDictionary
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsLinkageMenuViewConfig
+-(JobsRetJobsLinkageMenuViewConfigByCGFloatBlock _Nonnull)byANIMATION_TIME;
+-(JobsRetJobsLinkageMenuViewConfigByCGFloatBlock _Nonnull)byBOTTOMVIEW_HEIGHT;
+-(JobsRetJobsLinkageMenuViewConfigByCGFloatBlock _Nonnull)byBOTTOMVIEW_WIDTH;
+-(JobsRetJobsLinkageMenuViewConfigByCGFloatBlock _Nonnull)byCONTENT_WIDTH;
+-(JobsRetJobsLinkageMenuViewConfigByCGFloatBlock _Nonnull)byDEFAULT_MENU_ITEM_HEIGHT;
+-(JobsRetJobsLinkageMenuViewConfigByCGFloatBlock _Nonnull)byLINEVIEW_WIDTH;
+-(JobsRetJobsLinkageMenuViewConfigByCGFloatBlock _Nonnull)byMENU_ITEM_CORNER_RADIUS;
+-(JobsRetJobsLinkageMenuViewConfigByCGFloatBlock _Nonnull)byMENU_RATIO;
+-(JobsRetJobsLinkageMenuViewConfigByCGFloatBlock _Nonnull)byMENU_WIDTH;
+-(JobsRetJobsLinkageMenuViewConfigByNSDictionaryNSNumberNSNumberBlock _Nonnull)byMENU_ITEM_HEIGHT_MAP;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsLinkageMenuViewConfig
 @end
 
 NS_ASSUME_NONNULL_END

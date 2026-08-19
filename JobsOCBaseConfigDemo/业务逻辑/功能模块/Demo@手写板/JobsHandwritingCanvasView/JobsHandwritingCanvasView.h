@@ -37,11 +37,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_assign(readonly)BOOL hasStrokes;
 
--(instancetype)byContentDidChange:(nullable jobsByVoidBlock)contentDidChange;
--(void)replaceNormalizedStrokes:(NSArray <NSArray <NSDictionary <NSString *, NSNumber *>*>*>*)strokes;
--(NSArray <NSArray <NSDictionary <NSString *, NSNumber *>*>*>*)normalizedStrokes;
--(void)clearCanvas;
+-(JobsRetIDByVoidBlocks _Nonnull)byContentDidChange;
+-(jobsByNSArrayNSArrayNSDictionaryNSStringNSNumberBlock _Nonnull)replaceNormalizedStrokes;
+-(JobsRetNSArrayNSArrayNSDictionaryNSStringNSNumberByVoidBlock _Nonnull)normalizedStrokes;
+-(jobsByVoidBlock _Nonnull)clearCanvas;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsHandwritingCanvasView
+-(JobsRetJobsHandwritingCanvasViewByCGSizeBlock _Nonnull)byLastLayoutSize;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsHandwritingCanvasView
 @end
 
 NS_ASSUME_NONNULL_END

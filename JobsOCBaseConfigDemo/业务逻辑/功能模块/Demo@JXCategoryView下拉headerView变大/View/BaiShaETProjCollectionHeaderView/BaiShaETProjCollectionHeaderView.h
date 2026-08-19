@@ -54,6 +54,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BaiShaETProjCollectionHeaderView : UICollectionHeaderFooterView
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN BaiShaETProjCollectionHeaderView
+-(JobsRetBaiShaETProjCollectionHeaderViewByBOOLBlock _Nonnull)byZoom;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END BaiShaETProjCollectionHeaderView
 @end
 
 NS_ASSUME_NONNULL_END

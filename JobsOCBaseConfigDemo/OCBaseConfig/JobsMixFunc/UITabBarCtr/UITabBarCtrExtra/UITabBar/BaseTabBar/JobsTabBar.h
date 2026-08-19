@@ -27,8 +27,13 @@ typedef NS_ENUM(NSInteger, AlignmentType) {
 
 Prop_assign()AlignmentType alignmentType;
 
--(CGFloat)customTabBarOffsetHeight;
+-(JobsRetJobsTabBarByBarStyleBlock _Nonnull)byBarStyle;
+-(JobsRetJobsTabBarByBOOLBlock _Nonnull)byTranslucent;
+-(JobsRetCGFloatByVoidBlock _Nonnull)customTabBarOffsetHeight;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsTabBar
+-(JobsRetJobsTabBarByAlignmentTypeBlock _Nonnull)byAlignmentType;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsTabBar
 @end
 
 NS_INLINE __kindof JobsTabBar *_Nonnull jobsMakeTabBar(jobsByTabBarBlock _Nullable block){

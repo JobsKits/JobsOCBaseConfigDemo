@@ -15,21 +15,41 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsShareView
+@interface JobsShareView (JobsPropertyDSLSetterAutogen_0258a9a836)
+-(void)setSizer:(CGSize)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsShareView
+
 @implementation JobsShareView
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_shareViewOnceToken = 0;
-    static_shareView = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsShareView.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_shareViewOnceToken = 0;
+        static_shareView = nil;
+    };
 }
 static JobsShareView *static_shareView = nil;
 static dispatch_once_t static_shareViewOnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_shareViewOnceToken, ^{
-        static_shareView = JobsShareView.new;
-    });return static_shareView;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsShareView.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_shareViewOnceToken, ^{
+            static_shareView = JobsShareView.new;
+        });return static_shareView;
+    };
 }
 #pragma mark —— SysMethod
 -(instancetype)init{
@@ -56,15 +76,35 @@ static dispatch_once_t static_shareViewOnceToken;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsShareView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    JobsLock(self.sizer = JobsShareView.viewSizeByModel(nil);)
-    /// 内部指定圆切角
-    [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
-                                        cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsShareView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        JobsLock(self.sizer = JobsShareView.viewSizeByModel(nil);)
+        /// 内部指定圆切角
+        [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
+                                            cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+    };
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -77,8 +117,8 @@ static dispatch_once_t static_shareViewOnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model;
-        self.sizer = JobsShareView.viewSizeByModel(nil);
+        self.byViewModel(model);
+        self.bySizer(JobsShareView.viewSizeByModel(nil));
         self.collectionView.byShow(self);
         self.cancelBtn.byAlpha(1);
     };
@@ -95,7 +135,17 @@ static dispatch_once_t static_shareViewOnceToken;
 //见 @interface NSObject (JobsDeployCellConfig)
 #pragma mark —— UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return self.dataMutArr.count;
+    JobsRetNSIntegerByUICollectionViewBlock action = ((JobsRetNSIntegerByUICollectionViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsShareView.class, @selector(jobsNumberOfSectionsInCollectionView)))(self, @selector(jobsNumberOfSectionsInCollectionView));
+    return action ? action(collectionView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUICollectionViewBlock _Nonnull)jobsNumberOfSectionsInCollectionView{
+    @jobs_weakify(self)
+    return ^NSInteger(UICollectionView * collectionView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return self.dataMutArr.count;
+    };
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView
@@ -144,19 +194,19 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     UIViewModel *viewModel = self.dataMutArr[indexPath.item];
     viewModel.textModel.text.toast();
     {
-        if(viewModel.textModel.text.isEqualToString(@"个人资料".tr)){
+        if(viewModel.textModel.text.isEqualToString(@"个人资料".jobsTr())){
         }
-        if(viewModel.textModel.text.isEqualToString(@"意见反馈".tr)){
+        if(viewModel.textModel.text.isEqualToString(@"意见反馈".jobsTr())){
         }
-        if(viewModel.textModel.text.isEqualToString(@"消息通知".tr)){
+        if(viewModel.textModel.text.isEqualToString(@"消息通知".jobsTr())){
         }
-        if(viewModel.textModel.text.isEqualToString(@"收货地址".tr)){
+        if(viewModel.textModel.text.isEqualToString(@"收货地址".jobsTr())){
         }
-        if(viewModel.textModel.text.isEqualToString(@"修改密码".tr)){
+        if(viewModel.textModel.text.isEqualToString(@"修改密码".jobsTr())){
         }
-        if(viewModel.textModel.text.isEqualToString(@"设置".tr)){
+        if(viewModel.textModel.text.isEqualToString(@"设置".jobsTr())){
         }
-        if(viewModel.textModel.text.isEqualToString(@"购物车".tr)){
+        if(viewModel.textModel.text.isEqualToString(@"购物车".jobsTr())){
         }
     }
 }
@@ -205,9 +255,9 @@ insetForSectionAtIndex:(NSInteger)section {
     if(!_cancelBtn){
         @jobs_weakify(self)
         _cancelBtn = BaseButton
-            .initByStyle1(@"取消".tr,
+            .initByStyle1(@"取消".jobsTr(),
                                        UIFontWeightMediumSize(16),
-                                       @"#333333".cor)
+                                       @"#333333".jobsCor())
             .bgColorBy(JobsWhiteColor)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
@@ -235,17 +285,17 @@ insetForSectionAtIndex:(NSInteger)section {
             .byShowsVerticalScrollIndicator(NO)
             .byShowsHorizontalScrollIndicator(NO)
             .byBounces(NO)
-            .byMJ_header(self.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id _Nullable data) {
+            .byMJ_header(self.MJRefreshNormalHeaderBy(self.refreshHeaderDataBy(^id _Nullable(id _Nullable data) {
                 @jobs_strongify(self)
                 NSObject.feedbackGenerator(nil);// 震动反馈
                 self->_collectionView.endRefreshing(YES);
                 return nil;
-            }]))
-            .byMJ_footer(self.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id _Nullable data) {
+            })))
+            .byMJ_footer(self.MJRefreshFooterBy(self.refreshFooterDataBy(^id _Nullable(id _Nullable data) {
                 @jobs_strongify(self)
                 self->_collectionView.endRefreshing(YES);
                 return nil;
-            }]));
+            })));
         _collectionView
             .byBgColor(JobsSecondarySystemBackgroundColor)
             .addOn(self);
@@ -261,23 +311,37 @@ insetForSectionAtIndex:(NSInteger)section {
     if (!_dataMutArr) {
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.byText(@"钱包".tr);
-                data1.byImage(@"钱包".img);
+                data1.byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                    textModel.byText(@"钱包".jobsTr());
+                }).byImage(@"钱包".img);
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.byText(@"我的店铺".tr);
-                data1.byImage(@"我的店铺".img);
+                data1.byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                    textModel.byText(@"我的店铺".jobsTr());
+                }).byImage(@"我的店铺".img);
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.byText(@"我的团队".tr);
-                data1.byImage(@"我的团队".img);
+                data1.byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                    textModel.byText(@"我的团队".jobsTr());
+                }).byImage(@"我的团队".img);
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.byText(@"信用分数".tr);
-                data1.byImage(@"信用分数".img);
+                data1.byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                    textModel.byText(@"信用分数".jobsTr());
+                }).byImage(@"信用分数".img);
             }));
         });
     };return _dataMutArr;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsShareView
+-(JobsRetJobsShareViewByCGSizeBlock _Nonnull)bySizer{
+    @jobs_weakify(self)
+    return ^__kindof JobsShareView * _Nullable(CGSize data){
+        @jobs_strongify(self)
+        [self setSizer:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsShareView
 @end

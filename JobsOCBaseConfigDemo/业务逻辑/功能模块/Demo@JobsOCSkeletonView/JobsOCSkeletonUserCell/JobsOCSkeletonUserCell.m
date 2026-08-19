@@ -17,15 +17,17 @@ Prop_strong()UIView *subtitleShortLineView;
 @end
 
 @implementation JobsOCSkeletonUserCell
-+(NSString *)reuseIdentifier{
-    return NSStringFromClass(self);
++(JobsRetStrByVoidBlock _Nonnull)reuseIdentifier{
+    return ^NSString *_Nullable{
+        return NSStringFromClass(self);
+    };
 }
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style
              reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]) {
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.bySelectionStyle(UITableViewCellSelectionStyleNone);
         self.contentView.byBgColor(UIColor.secondarySystemGroupedBackgroundColor);
         self.byBgColor(UIColor.clearColor);
         self.avatarImageView.byAlpha(1);
@@ -38,40 +40,65 @@ Prop_strong()UIView *subtitleShortLineView;
 }
 
 -(void)prepareForReuse{
-    [super prepareForReuse];
-    [self hideSkeleton];
-    self.avatarImageView
-        .byImage(nil)
-        .byBgColor(UIColor.clearColor);
-    self.titleLab.byText(nil);
-    self.subtitleLab.byText(nil);
-    self.subtitleShortLineView.byHidden(YES);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCSkeletonUserCell.class, @selector(jobsPrepareForReuse)))(self, @selector(jobsPrepareForReuse));
+    if (action) action();
 }
 
--(void)configureWithUser:(JobsOCSkeletonUser *)user{
-    [self hideSkeleton];
-    self.avatarImageView.byBgColor(user.color);
-    self.titleLab.byText(user.name);
-    self.subtitleLab.byText(user.detail);
-    self.subtitleShortLineView.byHidden(YES);
+-(jobsByVoidBlock _Nonnull)jobsPrepareForReuse{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super prepareForReuse];
+        self.hideSkeleton();
+        self.avatarImageView
+            .byImage(nil)
+            .byBgColor(UIColor.clearColor);
+        self.titleLab.byText(nil);
+        self.subtitleLab.byText(nil);
+        self.subtitleShortLineView.byHidden(YES);
+    };
 }
 
--(void)showSkeletonWithConfig:(JobsOCSkeletonConfig *)config{
-    self.avatarImageView.byBgColor(UIColor.clearColor);
-    self.titleLab.byText(@"");
-    self.subtitleLab.byText(@"");
-    self.subtitleShortLineView.byHidden(NO);
-    [self.avatarImageView jobs_startSkeletonWithConfig:config];
-    [self.titleLab jobs_startSkeletonWithConfig:config];
-    [self.subtitleLab jobs_startSkeletonWithConfig:config];
-    [self.subtitleShortLineView jobs_startSkeletonWithConfig:config];
+-(jobsByJobsOCSkeletonUserBlock _Nonnull)configureWithUser{
+    @jobs_weakify(self)
+    return ^(JobsOCSkeletonUser * user){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.hideSkeleton();
+        self.avatarImageView.byBgColor(user.color);
+        self.titleLab.byText(user.name);
+        self.subtitleLab.byText(user.detail);
+        self.subtitleShortLineView.byHidden(YES);
+    };
 }
 
--(void)hideSkeleton{
-    [self.avatarImageView jobs_stopSkeleton];
-    [self.titleLab jobs_stopSkeleton];
-    [self.subtitleLab jobs_stopSkeleton];
-    [self.subtitleShortLineView jobs_stopSkeleton];
+-(jobsByJobsOCSkeletonConfigBlock _Nonnull)showSkeletonWithConfig{
+    @jobs_weakify(self)
+    return ^(JobsOCSkeletonConfig * config){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.avatarImageView.byBgColor(UIColor.clearColor);
+        self.titleLab.byText(@"");
+        self.subtitleLab.byText(@"");
+        self.subtitleShortLineView.byHidden(NO);
+        self.avatarImageView.jobs_startSkeletonWithConfig(config);
+        self.titleLab.jobs_startSkeletonWithConfig(config);
+        self.subtitleLab.jobs_startSkeletonWithConfig(config);
+        self.subtitleShortLineView.jobs_startSkeletonWithConfig(config);
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)hideSkeleton{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.avatarImageView.jobs_stopSkeleton();
+        self.titleLab.jobs_stopSkeleton();
+        self.subtitleLab.jobs_stopSkeleton();
+        self.subtitleShortLineView.jobs_stopSkeleton();
+    };
 }
 #pragma mark —— LazyLoad
 -(UIImageView *)avatarImageView{

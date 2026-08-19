@@ -6,6 +6,7 @@
 //
 
 #import "JobsTextFieldStyleCVCell.h"
+
 #import "CALayer+Extra.h"
 #import "NSString+Sys.h"
 #import "NSObject+Extra.h"
@@ -25,7 +26,17 @@
 }
 #pragma mark —— BaseViewProtocol
 -(UIViewModel *_Nullable)getViewModel{
-    return self.viewModel;
+    JobsRetViewModelByVoidBlock action = ((JobsRetViewModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTextFieldStyleCVCell.class, @selector(jobsGetViewModel)))(self, @selector(jobsGetViewModel));
+    return action ? action() : nil;
+}
+
+-(JobsRetViewModelByVoidBlock _Nonnull)jobsGetViewModel{
+    @jobs_weakify(self)
+    return ^UIViewModel *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.viewModel;
+    };
 }
 #pragma mark —— BaseCellProtocol
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
@@ -55,7 +66,7 @@
     @jobs_weakify(self)
     return ^__kindof UICollectionViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model;
+        self.byViewModel(model);
         self.textField.byAlpha(1);
         return self;
     };
@@ -68,7 +79,17 @@
 }
 #pragma mark —— 一些公有方法
 -(ZYTextField *)getTextField{
-    return self.textField;
+    JobsRetZYTextFieldByVoidBlock action = ((JobsRetZYTextFieldByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTextFieldStyleCVCell.class, @selector(jobsGetTextField)))(self, @selector(jobsGetTextField));
+    return action ? action() : nil;
+}
+
+-(JobsRetZYTextFieldByVoidBlock _Nonnull)jobsGetTextField{
+    @jobs_weakify(self)
+    return ^ZYTextField *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.textField;
+    };
 }
 #pragma mark —— 一些私有方法
 -(void)textFieldBlock:(ZYTextField *)textField
@@ -92,7 +113,7 @@
                 .byReturnKeyType(UIReturnKeyDefault)
                 .byKeyboardAppearance(UIKeyboardAppearanceDefault)
                 .byKeyboardType(UIKeyboardTypeNumberPad)
-                .byPlaceholder(@"请输入充值金额".tr)
+                .byPlaceholder(@"请输入充值金额".jobsTr())
                 .byPlaceholderFont(UIFontWeightMediumSize(18))
                 .byPlaceholderColor(JobsPlaceholderTextColor)
                 .byTextCor(JobsLabelColor)

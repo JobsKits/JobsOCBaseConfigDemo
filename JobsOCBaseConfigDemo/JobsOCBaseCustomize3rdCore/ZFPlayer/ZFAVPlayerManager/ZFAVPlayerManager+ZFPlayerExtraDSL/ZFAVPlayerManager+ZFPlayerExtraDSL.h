@@ -10,6 +10,11 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #if __has_include(<ZFPlayer/ZFAVPlayerManager.h>)
 #import <ZFPlayer/ZFAVPlayerManager.h>
 #else
@@ -49,12 +54,12 @@ typedef __kindof ZFAVPlayerManager *_Nullable(^JobsRetZFAVPlayerManagerByImageBl
 -(JobsRetZFAVPlayerManagerByBOOLBlock _Nonnull)byShouldAutoPlay;
 -(JobsRetZFAVPlayerManagerByCGSizeBlock _Nonnull)byPresentationSize;
 
--(__kindof ZFAVPlayerManager *_Nonnull)byPrepareToPlay;
--(__kindof ZFAVPlayerManager *_Nonnull)byReloadPlayer;
--(__kindof ZFAVPlayerManager *_Nonnull)byPlay;
--(__kindof ZFAVPlayerManager *_Nonnull)byPause;
--(__kindof ZFAVPlayerManager *_Nonnull)byReplay;
--(__kindof ZFAVPlayerManager *_Nonnull)byStop;
+-(JobsRetZFAVPlayerManagerByVoidBlock _Nonnull)byPrepareToPlay;
+-(JobsRetZFAVPlayerManagerByVoidBlock _Nonnull)byReloadPlayer;
+-(JobsRetZFAVPlayerManagerByVoidBlock _Nonnull)byPlay;
+-(JobsRetZFAVPlayerManagerByVoidBlock _Nonnull)byPause;
+-(JobsRetZFAVPlayerManagerByVoidBlock _Nonnull)byReplay;
+-(JobsRetZFAVPlayerManagerByVoidBlock _Nonnull)byStop;
 -(JobsRetZFAVPlayerManagerByImageBlock _Nonnull)byThumbnailImageAtCurrentTime;
 
 -(JobsRetZFAVPlayerManagerByMediaURLBlock _Nonnull)onPrepareToPlay;

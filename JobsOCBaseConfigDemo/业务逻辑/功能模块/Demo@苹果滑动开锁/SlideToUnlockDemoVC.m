@@ -15,21 +15,31 @@ Prop_strong()SlideToUnlockView *slideView;
 
 @implementation SlideToUnlockDemoVC
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.slideView.byVisible(YES);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(SlideToUnlockDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.slideView.byVisible(YES);
+    };
 }
 
 -(SlideToUnlockView *)slideView{
     if (!_slideView) {
         @jobs_weakify(self)
         _slideView = jobsMakeSlideToUnlockView(^(__kindof SlideToUnlockView * _Nullable view) {
-            view.byBgColor(JobsClearColor);
             view.byOnUnlock(^{
                 @jobs_strongify(self)
                 NSLog(@"✅ 已滑到最右侧，执行解锁 block");
                 self.goBack(nil);
             })
+            .byBgColor(JobsClearColor)
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {
                 @jobs_strongify(self)

@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_DEBUGLOGDESCRIPTION_4812D86079
 
 #import <objc/runtime.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <Foundation/Foundation.h>
 #import "JobsStringUtilsHeader.h"
 #import "NSObject+Extra.h"
@@ -16,6 +22,7 @@
 #import "NSData+Extra.h"
 #import "JobsMakes.h"
 #import "JobsDefines.h"
+#import "JobsOCDSL.h"
 
 #ifdef DEBUG
 
@@ -26,7 +33,7 @@ void JobsDebugMethodSwizzle(Class _Nonnull c,
 
 @interface NSObject (DebugDescription)
 
-+(void)redirectNSlogToDocumentFolder;
++(jobsByVoidBlock _Nonnull)redirectNSlogToDocumentFolder;
 
 @end
 

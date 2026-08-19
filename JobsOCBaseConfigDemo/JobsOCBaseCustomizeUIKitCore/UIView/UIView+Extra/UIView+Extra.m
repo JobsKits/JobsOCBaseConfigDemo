@@ -8,33 +8,21 @@
 #import "UIView+Extra.h"
 
 @implementation UIView (Extra)
--(JobsRetViewByViewBlock _Nonnull)addSubview{
-    @jobs_weakify(self)
-    return ^__kindof UIView *_Nullable(__kindof UIView *_Nullable subView) {
-        @jobs_strongify(self)
-        if(!subView) return nil;
-        [self addSubview:subView];
-        if(subView.masonryBlock){
-            [subView mas_makeConstraints:subView.masonryBlock];
-            self.refresh();
-        };return subView;
-    };
-}
-/// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
+/// 调用方式：view.layerByBorderCor(@"#FFD8D8".jobsCor()).layerByBorderWidth(1);
 -(JobsRetViewByCorBlock _Nonnull)layerByBorderCor{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(UIColor *_Nullable layerBorderCor) {
         @jobs_strongify(self)
-        self.layer.borderColor = layerBorderCor.CGColor;
+        self.layer.byBorderColor(layerBorderCor.CGColor);
         return self;
     };
 }
-/// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
+/// 调用方式：view.layerByBorderCor(@"#FFD8D8".jobsCor()).layerByBorderWidth(1);
 -(JobsRetViewByFloatBlock _Nonnull)layerByBorderWidth{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(float borderWidth) {
         @jobs_strongify(self)
-        self.layer.borderWidth = borderWidth;
+        self.layer.byBorderWidth(borderWidth);
         return self;
     };
 }
@@ -43,8 +31,8 @@
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(float cornerRadiusValue) {
         @jobs_strongify(self)
-        self.layer.cornerRadius = cornerRadiusValue;
-        self.layer.masksToBounds = YES;
+        self.layer.byCornerRadius(cornerRadiusValue);
+        self.layer.byMasksToBounds(YES);
         return self;
     };
 }
@@ -89,21 +77,9 @@
     };
 }
 #pragma mark —— UI刷新（调用系统底层方法）
--(jobsByVoidBlock _Nonnull)refresh{
-    @jobs_weakify(self)
-    return ^(){
-        @jobs_strongify(self)
-        [self setNeedsLayout];
-        [self layoutIfNeeded];
-    };
-}
 #pragma mark —— Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
 JobsKey(_masonryBlock)
 @dynamic masonryBlock;
--(jobsByMASConstraintMakerBlock)masonryBlock{
-    return Jobs_getAssociatedObject(_masonryBlock);
-}
-
 -(void)setMasonryBlock:(jobsByMASConstraintMakerBlock)masonryBlock{
     Jobs_setAssociatedCOPY_NONATOMIC(_masonryBlock, masonryBlock)
 }

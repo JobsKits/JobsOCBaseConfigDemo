@@ -6,16 +6,17 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSBASEPOPUPVIEW_619E4F85BE
-#define JOBS_HEADER_GUARD_JOBSBASEPOPUPVIEW_619E4F85BE
-
-#import <UIKit/UIKit.h>
-#import "BaseView.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSBASEPOPUPVIEW_619E4F85BE
+
+#import <UIKit/UIKit.h>
+#import "BaseView.h"
 
 #import "JobsLanMgr.h"
 #import "JobsModelDSL.h"

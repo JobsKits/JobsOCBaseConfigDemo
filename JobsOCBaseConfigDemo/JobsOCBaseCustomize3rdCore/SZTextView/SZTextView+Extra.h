@@ -6,9 +6,6 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_SZTEXTVIEW_EXTRA_FE8B875617
-#define JOBS_HEADER_GUARD_SZTEXTVIEW_EXTRA_FE8B875617
-
-#import <UIKit/UIKit.h>
 
 #if __has_include(<SZTextView/SZTextView.h>)
 #import <SZTextView/SZTextView.h>
@@ -16,12 +13,23 @@
 #import "SZTextView.h"
 #endif
 
+#define JOBS_HEADER_GUARD_SZTEXTVIEW_EXTRA_FE8B875617
+
+#import <UIKit/UIKit.h>
+
 #import "JobsBlock.h"
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SZTextView (Extra)
+
+-(JobsRetSZTextViewByStrBlock _Nonnull)byText;
+-(JobsRetSZTextViewByCorBlock _Nonnull)byTextColor;
+-(JobsRetSZTextViewByFontBlock _Nonnull)byFont;
+-(JobsRetSZTextViewByStrBlock _Nonnull)byPlaceholder;
+-(JobsRetSZTextViewByFontBlock _Nonnull)byPlaceholderFont;
+-(JobsRetSZTextViewByCorBlock _Nonnull)byPlaceholderColor;
 
 @end
 

@@ -7,10 +7,10 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
 #else
-#import "Masonry.h"
+#import "JobsBlock.h"
 #endif
 
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
@@ -37,6 +37,12 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsOCCommentModeDetailVC : BaseViewController
@@ -47,6 +53,17 @@ Prop_assign()BOOL replyDetailStyle;
 Prop_assign()CGFloat popUpHeight;
 Prop_copy()NSArray <JobsOCCommentModel *>*commentArr;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCCommentModeDetailVC
+-(JobsRetJobsOCCommentModeDetailVCByBOOLBlock _Nonnull)byHiddenNavigationBar;
+-(JobsRetJobsOCCommentModeDetailVCByBOOLBlock _Nonnull)byPopupStyle;
+-(JobsRetJobsOCCommentModeDetailVCByBOOLBlock _Nonnull)byReplyDetailStyle;
+-(JobsRetJobsOCCommentModeDetailVCByCGFloatBlock _Nonnull)byPopUpHeight;
+-(JobsRetJobsOCCommentModeDetailVCByJobsOCCommentModeBlock _Nonnull)byMode;
+-(JobsRetJobsOCCommentModeDetailVCByNSArrayJobsOCCommentModelBlock _Nonnull)byCommentArr;
+-(JobsRetJobsOCCommentModeDetailVCByCGSizeBlock _Nonnull)byPreferredContentSize;
+-(JobsRetJobsOCCommentModeDetailVCByIDUIViewControllerTransitioningDelegateBlock _Nonnull)byTransitioningDelegate;
+-(JobsRetJobsOCCommentModeDetailVCByUIModalPresentationStyleBlock _Nonnull)byModalPresentationStyle;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCCommentModeDetailVC
 @end
 
 NS_ASSUME_NONNULL_END

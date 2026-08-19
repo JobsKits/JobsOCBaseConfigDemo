@@ -11,19 +11,32 @@
 
 Prop_strong()UIView *bgView;
 
+-(JobsRetTextCellByViewBlock _Nonnull)bySelectedBackgroundView;
+
 @end
 
 @implementation TextCell
+
+-(JobsRetTextCellByViewBlock _Nonnull)bySelectedBackgroundView{
+    @jobs_weakify(self)
+    return ^__kindof TextCell *_Nullable(UIView *_Nullable view){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setSelectedBackgroundView:view];
+        return self;
+    };
+}
+
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.selectedBackgroundView = self.bgView;
+        self.bySelectedBackgroundView(self.bgView);
         self.label.alpha = 1;
     };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
-        self.selectedBackgroundView = self.bgView;
+        self.bySelectedBackgroundView(self.bgView);
         self.label.alpha = 1;
     };return self;
 }

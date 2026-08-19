@@ -29,6 +29,9 @@ UIEditMenuInteractionDelegate
 >
 
 Prop_assign()UIEdgeInsets edgeInsets;
+-(JobsRetBaseLabelByCGFloatBlock _Nonnull)byJobsOffsetX;
+-(JobsRetBaseLabelByCGFloatBlock _Nonnull)byJobsOffsetY;
+-(JobsRetBaseLabelByUIEdgeInsetsBlock _Nonnull)byEdgeInsets;
 
 #pragma mark —— 一些公有方法
 /// UILabel文字的复制

@@ -45,45 +45,52 @@
 #define ShowTipsByModel(View,Data) if(self) self.showTipsByModel(View,Data);
 #endif /* ShowTipsByModel */
 
+@interface TFPopupParam (JobsDSL)
+-(JobsRetTFPopupParamByCGFloatBlock _Nonnull)byDuration;
+-(JobsRetTFPopupParamByCGFloatBlock _Nonnull)byShowAnimationDelay;
+-(JobsRetTFPopupParamByCGFloatBlock _Nonnull)byHideAnimationDelay;
+-(JobsRetTFPopupParamByDirectionBlock _Nonnull)byBubbleDirection;
+-(JobsRetTFPopupParamByCGSizeBlock _Nonnull)byPopupSize;
+-(JobsRetTFPopupParamByBOOLBlock _Nonnull)byDragEnable;
+-(JobsRetTFPopupParamByCGFloatBlock _Nonnull)byAutoDissmissDuration;
+-(JobsRetTFPopupParamByBOOLBlock _Nonnull)byDisuseBackgroundTouchHide;
+-(JobsRetTFPopupParamByCorBlock _Nonnull)byBackgroundColor;
+@end
+
 #pragma mark —— 创建数据源
 NS_INLINE TFPopupParam * _Nonnull TFPopupBaseParam(void){
-    TFPopupParam *popupParameter = TFPopupParam.alloc.init;
-    popupParameter.duration = 0.3;
-    popupParameter.showAnimationDelay = 0;
-    popupParameter.hideAnimationDelay = 0;
-    return popupParameter;
+    return TFPopupParam.alloc.init
+        .byDuration(0.3)
+        .byShowAnimationDelay(0)
+        .byHideAnimationDelay(0);
 }
 
 NS_INLINE TFPopupParam * _Nonnull makeSlidePopupParameterByViewHeight(CGFloat viewHeight){
-    TFPopupParam *popupParameter = TFPopupParam.alloc.init;
-    popupParameter.bubbleDirection = PopupDirectionBottom;
-    popupParameter.popupSize = CGSizeMake(JobsMainScreen_WIDTH(), jobs3TO(viewHeight, JobsWidth(300)));
-    popupParameter.dragEnable = YES;
-    return popupParameter;
+    return TFPopupParam.alloc.init
+        .byBubbleDirection(PopupDirectionBottom)
+        .byPopupSize(CGSizeMake(JobsMainScreen_WIDTH(), jobs3TO(viewHeight, JobsWidth(300))))
+        .byDragEnable(YES);
 }
 
 NS_INLINE TFPopupParam *_Nonnull makeNormalPopupParameter(void){
-    TFPopupParam *popupParameter = TFPopupBaseParam();
-    popupParameter.autoDissmissDuration = 0;
-    popupParameter.dragEnable = NO;
-    popupParameter.disuseBackgroundTouchHide = YES;
-    return popupParameter;
+    return TFPopupBaseParam()
+        .byAutoDissmissDuration(0)
+        .byDragEnable(NO)
+        .byDisuseBackgroundTouchHide(YES);
 }
 
 NS_INLINE TFPopupParam *_Nonnull makeNormalTipsParameter(void){
-    TFPopupParam *popupParameter = TFPopupBaseParam();
-    popupParameter.autoDissmissDuration = 1;
-    popupParameter.dragEnable = NO;
-    popupParameter.disuseBackgroundTouchHide = YES;
-    return popupParameter;
+    return TFPopupBaseParam()
+        .byAutoDissmissDuration(1)
+        .byDragEnable(NO)
+        .byDisuseBackgroundTouchHide(YES);
 }
 
 NS_INLINE TFPopupParam *_Nonnull makeSlidePopupParameterByViewSize(CGSize viewSize){
-    TFPopupParam *popupParameter = TFPopupParam.alloc.init;
-    popupParameter.bubbleDirection = PopupDirectionBottom;
-    popupParameter.popupSize = jobs3TOSize(viewSize,CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(300)));
-    popupParameter.dragEnable = YES;
-    return popupParameter;
+    return TFPopupParam.alloc.init
+        .byBubbleDirection(PopupDirectionBottom)
+        .byPopupSize(jobs3TOSize(viewSize,CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(300))))
+        .byDragEnable(YES);
 }
 NS_ASSUME_NONNULL_BEGIN
 /// 弹出一个弹窗

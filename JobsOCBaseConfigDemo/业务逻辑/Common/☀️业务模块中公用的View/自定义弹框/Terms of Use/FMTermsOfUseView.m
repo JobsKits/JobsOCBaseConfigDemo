@@ -16,16 +16,25 @@
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_termsOfUseViewOnceToken = 0;
-    static_termsOfUseView = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(FMTermsOfUseView.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_termsOfUseViewOnceToken = 0;
+        static_termsOfUseView = nil;
+    };
 }
 
 static FMTermsOfUseView *static_termsOfUseView = nil;
 static dispatch_once_t static_termsOfUseViewOnceToken;
-+(instancetype)sharedInstance{
-    dispatch_once(&static_termsOfUseViewOnceToken, ^{
-        static_termsOfUseView = FMTermsOfUseView.new;
-    });return static_termsOfUseView;
++(JobsRetIDByVoidBlock _Nonnull)sharedInstance{
+    return ^id{
+        dispatch_once(&static_termsOfUseViewOnceToken, ^{
+            static_termsOfUseView = FMTermsOfUseView.new;
+        });return static_termsOfUseView;
+    };
 }
 #pragma mark —— SysMethod
 -(instancetype)init{
@@ -40,14 +49,34 @@ static dispatch_once_t static_termsOfUseViewOnceToken;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMTermsOfUseView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    /// 内部指定圆切角
-    [self appointCornerCutToCircleByRoundingCorners:UIRectCornerAllCorners
-                                        cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMTermsOfUseView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        /// 内部指定圆切角
+        [self appointCornerCutToCircleByRoundingCorners:UIRectCornerAllCorners
+                                            cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+    };
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -61,7 +90,7 @@ static dispatch_once_t static_termsOfUseViewOnceToken;
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.byBgColor(JobsSecondarySystemBackgroundColor);
-        self.viewModel = model;
+        self.byViewModel(model);
         self.label.byAlpha(1);
 //        self.webView.alpha = 1;
         self.pdfView.byAlpha(1);
@@ -88,9 +117,9 @@ static dispatch_once_t static_termsOfUseViewOnceToken;
         _label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(@"Terms Of USE".tr)
+                .byText(@"Terms Of USE".jobsTr())
                 .byFont(bayonRegular(JobsWidth(20)))
-                .byTextCor(@"#8A93A1E5".cor)
+                .byTextCor(@"#8A93A1E5".jobsCor())
                 .byTextAlignment(NSTextAlignmentCenter)
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -131,7 +160,7 @@ static dispatch_once_t static_termsOfUseViewOnceToken;
             .jobsResetBtnBgImage(@"小弹窗确认按钮背景图".img)
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .jobsResetBtnTitleFont(bayonRegular(JobsWidth(18)))
-            .jobsResetBtnTitle(@"Agree".tr)
+            .jobsResetBtnTitle(@"Agree".jobsTr())
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if(self.objBlock) self.objBlock(@"");

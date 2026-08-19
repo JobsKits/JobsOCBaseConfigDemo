@@ -6,16 +6,17 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_BASECOLLECTIONREUSABLEVIEW_F067AB0C92
-#define JOBS_HEADER_GUARD_BASECOLLECTIONREUSABLEVIEW_F067AB0C92
-
-#import <UIKit/UIKit.h>
-#import "UIView+Extra.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#define JOBS_HEADER_GUARD_BASECOLLECTIONREUSABLEVIEW_F067AB0C92
+
+#import <UIKit/UIKit.h>
+#import "UIView+Extra.h"
 
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>

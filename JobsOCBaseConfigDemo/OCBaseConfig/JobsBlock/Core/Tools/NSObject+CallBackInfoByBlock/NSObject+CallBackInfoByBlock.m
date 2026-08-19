@@ -6,12 +6,52 @@
 //
 
 #import "NSObject+CallBackInfoByBlock.h"
+
+typedef jobsByRACSchedulerRecursiveBlock jobsByjobsByVoidBlockBlock;
+typedef jobsByCGFloatBlocks jobsByjobsByCGFloatBlockBlock;
+typedef jobsByRetIDByIDBlocks jobsByJobsRetIDByIDBlockBlock;
+
+#ifdef JobsDynamicPropSetAndGet
+#undef JobsDynamicPropSetAndGet
+#endif
+#define JobsDynamicPropSetAndGet(type, varName, VarName) \
+static void * _##varName = &_##varName; \
+@dynamic varName; \
+-(type)varName{ \
+    return objc_getAssociatedObject(self, &_##varName); \
+} \
+-(void)set##VarName:(type)varName{ \
+    objc_setAssociatedObject(self, \
+                             &_##varName, \
+                             varName, \
+                             OBJC_ASSOCIATION_COPY_NONATOMIC); \
+} \
+-(void)action##VarName:(type _Nullable)varName{ \
+    self.varName = varName; \
+} \
+-(jobsBy##type##Block)action##VarName{ \
+    @jobs_weakify(self) \
+    return ^(type _Nullable varName) { \
+        @jobs_strongify(self) \
+        self.varName = varName; \
+    }; \
+}
 /// 在 Objective-C 中，向 nil 对象发送消息不会崩溃
 /// 但是如果你尝试对 nil 对象调用分类中的方法，可能会导致问题。
 /// 这是因为 nil 对象并不会执行任何方法实现，分类中的方法也不会被调用。
 @implementation NSObject (CallBackInfoByBlock)
 #pragma mark —— UIView
--(JobsRetViewByIDBlocks _Nullable)JobsBlock1{
+-(JobsRetIDByVoidIDBlocks _Nonnull)byObjBlock{
+    @jobs_weakify(self)
+    return ^id _Nullable(jobsByIDBlock _Nullable block){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setObjBlock:block];
+        return self;
+    };
+}
+
+-(JobsRetViewByIDBlocks _Nonnull)JobsBlock1{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(jobsByIDBlock _Nullable data){
         @jobs_strongify(self)
@@ -20,7 +60,7 @@
     };
 }
 
--(JobsRetIDByRetIDVoidBlocks _Nullable)JobsBlock2{
+-(JobsRetIDByRetIDVoidBlocks _Nonnull)JobsBlock2{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(JobsRetIDByVoidBlock _Nullable data){
         @jobs_strongify(self)
@@ -29,7 +69,7 @@
     };
 }
 
--(JobsRetIDByRetIDByIDBlocks _Nullable)JobsBlock3{
+-(JobsRetIDByRetIDByIDBlocks _Nonnull)JobsBlock3{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(JobsRetIDByIDBlock _Nullable data){
         @jobs_strongify(self)
@@ -38,7 +78,7 @@
     };
 }
 #pragma mark —— UIViewController
--(JobsRetVCByIDBlocks _Nullable)JobsBlock4{
+-(JobsRetVCByIDBlocks _Nonnull)JobsBlock4{
     @jobs_weakify(self)
     return ^__kindof UIViewController *_Nullable(jobsByIDBlock _Nullable data){
         @jobs_strongify(self)
@@ -47,7 +87,7 @@
     };
 }
 
--(JobsRetVCByRetIDByVoidBlocks _Nullable)JobsBlock5{
+-(JobsRetVCByRetIDByVoidBlocks _Nonnull)JobsBlock5{
     @jobs_weakify(self)
     return ^__kindof UIViewController *_Nullable(JobsRetIDByVoidBlock _Nullable data){
         @jobs_strongify(self)
@@ -56,7 +96,7 @@
     };
 }
 
--(JobsRetVCByRetIDByIDBlocks _Nullable)JobsBlock6{
+-(JobsRetVCByRetIDByIDBlocks _Nonnull)JobsBlock6{
     @jobs_weakify(self)
     return ^__kindof UIViewController *_Nullable(JobsRetIDByIDBlock _Nullable data){
         @jobs_strongify(self)

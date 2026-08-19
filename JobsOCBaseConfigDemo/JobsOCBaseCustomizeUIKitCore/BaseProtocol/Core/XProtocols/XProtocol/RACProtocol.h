@@ -6,15 +6,16 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_RACPROTOCOL_040C436337
-#define JOBS_HEADER_GUARD_RACPROTOCOL_040C436337
-
-#import <Foundation/Foundation.h>
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
 #import "ReactiveObjC.h"
 #endif
+
+#define JOBS_HEADER_GUARD_RACPROTOCOL_040C436337
+
+#import <Foundation/Foundation.h>
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"

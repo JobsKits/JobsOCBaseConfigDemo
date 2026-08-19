@@ -16,12 +16,48 @@ Prop_strong()NSMutableArray <GoodsClassModel *>*dataArray; // 总共有多少个
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN ThreeClassCell
+@interface ThreeClassCell (JobsPropertyDSLSetterAutogen_a52009f78b)
+-(void)setDataArray:(NSMutableArray <GoodsClassModel *>* _Nullable)data;
+-(void)setRowCount:(NSInteger)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END ThreeClassCell
+
 @implementation ThreeClassCell
+
+#define JOBS_THREE_CLASS_CELL_CGFLOAT_DSL(_selector_, _property_) \
+-(JobsRetThreeClassCellByCGFloatBlock _Nonnull)_selector_{ \
+    @jobs_weakify(self) \
+    return ^__kindof ThreeClassCell *_Nullable(CGFloat data){ \
+        @jobs_strongify(self) \
+        self._property_ = data; \
+        return self; \
+    }; \
+}
+
+JOBS_THREE_CLASS_CELL_CGFLOAT_DSL(bySectionInsetTop, sectionInsetTop)
+JOBS_THREE_CLASS_CELL_CGFLOAT_DSL(bySectionInsetLeft, sectionInsetLeft)
+JOBS_THREE_CLASS_CELL_CGFLOAT_DSL(bySectionInsetBottom, sectionInsetBottom)
+JOBS_THREE_CLASS_CELL_CGFLOAT_DSL(bySectionInsetRight, sectionInsetRight)
+JOBS_THREE_CLASS_CELL_CGFLOAT_DSL(byMinimumLineSpacing, minimumLineSpacing)
+JOBS_THREE_CLASS_CELL_CGFLOAT_DSL(byMinimumInteritemSpacing, minimumInteritemSpacing)
+
+#undef JOBS_THREE_CLASS_CELL_CGFLOAT_DSL
+
+-(JobsRetThreeClassCellByClassBlock _Nonnull)byCellCls{
+    @jobs_weakify(self)
+    return ^__kindof ThreeClassCell *_Nullable(Class _Nullable data){
+        @jobs_strongify(self)
+        self.cellCls = data;
+        return self;
+    };
+}
+
 #pragma mark —— BaseCellProtocol
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     ThreeClassCell *cell = JobsRegisterDequeueCollectionViewCell(ThreeClassCell);
-    cell.indexPath = indexPath;
+    cell.byIndexPath(indexPath);
     return cell;
 }
 
@@ -53,11 +89,11 @@ Prop_strong()NSMutableArray <GoodsClassModel *>*dataArray; // 总共有多少个
     @jobs_weakify(self)
     return ^CGFloat(NSMutableArray <GoodsClassModel *>*_Nullable data){
         @jobs_strongify(self)
-        self.dataArray = data;
+        self.byDataArray(data);
         NSInteger a = self.dataArray.count % self.columns;
-        self.rowCount = a ? (self.dataArray.count / self.columns) + 1 : self.dataArray.count / self.columns;
+        self.byRowCount(a ? (self.dataArray.count / self.columns) + 1 : self.dataArray.count / self.columns);
         CGFloat collectionHeight = (self.rowCount * self.itemHeight) + ((self.rowCount - 1) * self.minimumLineSpacing) + self.sectionInsetTop + self.sectionInsetBottom;
-        self.collectionView.height = collectionHeight;
+        self.collectionView.byHeight(collectionHeight);
         return collectionHeight;
     };
 }
@@ -182,4 +218,23 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     };return _itemHeight;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN ThreeClassCell
+-(JobsRetThreeClassCellByNSIntegerBlock _Nonnull)byRowCount{
+    @jobs_weakify(self)
+    return ^__kindof ThreeClassCell * _Nullable(NSInteger data){
+        @jobs_strongify(self)
+        [self setRowCount:data];
+        return self;
+    };
+}
+
+-(JobsRetThreeClassCellByNSMutableArrayGoodsClassModelBlock _Nonnull)byDataArray{
+    @jobs_weakify(self)
+    return ^__kindof ThreeClassCell * _Nullable(NSMutableArray <GoodsClassModel *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setDataArray:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END ThreeClassCell
 @end

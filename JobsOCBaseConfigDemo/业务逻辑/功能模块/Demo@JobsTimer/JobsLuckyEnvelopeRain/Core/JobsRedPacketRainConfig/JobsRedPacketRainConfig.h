@@ -7,6 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -34,15 +40,25 @@ Prop_assign()BOOL tapEnabled;
 /// 自定义红包图片；不传则使用内置绘制红包。
 Prop_strong(nullable)UIImage *packetImage;
 
-+(instancetype)defaultConfig;
++(JobsRetIDByVoidBlock _Nonnull)defaultConfig;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsRedPacketRainConfig
+-(JobsRetJobsRedPacketRainConfigByBOOLBlock _Nonnull)byTapEnabled;
+-(JobsRetJobsRedPacketRainConfigByCGSizeBlock _Nonnull)byPacketSize;
+-(JobsRetJobsRedPacketRainConfigByNSTimeIntervalBlock _Nonnull)byMaxFallDuration;
+-(JobsRetJobsRedPacketRainConfigByNSTimeIntervalBlock _Nonnull)byMinFallDuration;
+-(JobsRetJobsRedPacketRainConfigByNSTimeIntervalBlock _Nonnull)bySpawnInterval;
+-(JobsRetJobsRedPacketRainConfigByNSUIntegerBlock _Nonnull)byMaxConcurrentCount;
+-(JobsRetJobsRedPacketRainConfigByUIEdgeInsetsBlock _Nonnull)bySpawnInsets;
+-(JobsRetJobsRedPacketRainConfigByUIImageBlock _Nonnull)byPacketImage;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsRedPacketRainConfig
 @end
 
 NS_ASSUME_NONNULL_END
 
 NS_INLINE __kindof JobsRedPacketRainConfig *_Nonnull
 jobsMakeRedPacketRainConfig(void(^_Nullable block)(__kindof JobsRedPacketRainConfig *_Nullable config)){
-    JobsRedPacketRainConfig *data = JobsRedPacketRainConfig.defaultConfig;
+    JobsRedPacketRainConfig *data = JobsRedPacketRainConfig.defaultConfig();
     if (block) block(data);
     return data;
 }

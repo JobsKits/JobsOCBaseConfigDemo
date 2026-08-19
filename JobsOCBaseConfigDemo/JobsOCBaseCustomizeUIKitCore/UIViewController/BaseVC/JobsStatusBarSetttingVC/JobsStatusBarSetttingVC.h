@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_JOBSSTATUSBARSETTTINGVC_09C08F4021
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "JobsMonitorVC.h"
 #import "JobsBaseProtocolHeader.h"
 #import "JobsDefines.h"
@@ -17,6 +23,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsStatusBarSetttingVC : JobsMonitorVC<BaseViewControllerProtocol>
+
+-(jobsByVoidBlock _Nonnull)jobsDidReceiveMemoryWarning;
 
 @end
 

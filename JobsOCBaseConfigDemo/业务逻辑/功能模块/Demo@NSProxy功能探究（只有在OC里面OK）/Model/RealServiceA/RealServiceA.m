@@ -8,8 +8,13 @@
 #import "RealServiceA.h"
 
 @implementation RealServiceA
-- (void)doSomething {
-    NSLog(@"🔧 RealServiceA 正在做事");
+- (jobsByVoidBlock _Nonnull)doSomething {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        NSLog(@"🔧 RealServiceA 正在做事");
+    };
 }
 
 @end

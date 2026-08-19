@@ -22,59 +22,89 @@ Prop_strong()UILabel *dragHintLab;
 
 @implementation JobsScrollViewVC
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsScrollViewVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"JobsScrollViewVC")
-                .byFont(UIFontWeightRegularSize(18))
-                .byTextCor(JobsLabelColor);
-        })
-        .byBgCor(HEXCOLOR(0xF3F6FA))
-        .byNavBgCor(HEXCOLOR(0xF3F6FA));
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"JobsScrollViewVC")
+                    .byFont(UIFontWeightRegularSize(18))
+                    .byTextCor(JobsLabelColor);
+            })
+            .byBgCor(HEXCOLOR(0xF3F6FA))
+            .byNavBgCor(HEXCOLOR(0xF3F6FA));
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.jobsView.byAlpha(1);
-    self.usageCardView.byAlpha(1);
-    self.usageTitleLab.byAlpha(1);
-    self.usageDescLab.byAlpha(1);
-    self.topAnchorLab.byAlpha(1);
-    self.bottomAnchorLab.byAlpha(1);
-    self.scrollYView.byAlpha(1);
-    self.dragHintLab.byAlpha(1);
-}
-#pragma mark —— 一些私有方法
--(CGFloat)jobs_scrollTopAnchorY{
-    [self.view layoutIfNeeded];
-    CGRect topAnchorFrame = [self.topAnchorLab.superview convertRect:self.topAnchorLab.frame
-                                                              toView:self.view];
-    return CGRectGetMaxY(topAnchorFrame);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsScrollViewVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
 }
 
--(CGFloat)jobs_scrollBottomAnchorY{
-    [self.view layoutIfNeeded];
-    CGRect bottomAnchorFrame = [self.jobsView.superview convertRect:self.jobsView.frame
-                                                             toView:self.view];
-    return CGRectGetMaxY(bottomAnchorFrame);
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.jobsView.byAlpha(1);
+        self.usageCardView.byAlpha(1);
+        self.usageTitleLab.byAlpha(1);
+        self.usageDescLab.byAlpha(1);
+        self.topAnchorLab.byAlpha(1);
+        self.bottomAnchorLab.byAlpha(1);
+        self.scrollYView.byAlpha(1);
+        self.dragHintLab.byAlpha(1);
+    };
+}
+#pragma mark —— 一些私有方法
+-(JobsRetCGFloatByVoidBlock _Nonnull)jobs_scrollTopAnchorY{
+    @jobs_weakify(self)
+    return ^CGFloat{
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+        [self.view layoutIfNeeded];
+        CGRect topAnchorFrame = [self.topAnchorLab.superview convertRect:self.topAnchorLab.frame
+                                                                  toView:self.view];
+        return CGRectGetMaxY(topAnchorFrame);
+    };
+}
+
+-(JobsRetCGFloatByVoidBlock _Nonnull)jobs_scrollBottomAnchorY{
+    @jobs_weakify(self)
+    return ^CGFloat{
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+        [self.view layoutIfNeeded];
+        CGRect bottomAnchorFrame = [self.jobsView.superview convertRect:self.jobsView.frame
+                                                                 toView:self.view];
+        return CGRectGetMaxY(bottomAnchorFrame);
+    };
 }
 
 -(void)jobs_resetScrollYViewY:(CGFloat)y
                      animated:(BOOL)animated{
     if(!_scrollYView) return;
-    CGFloat topY = [self jobs_scrollTopAnchorY];
-    CGFloat bottomY = [self jobs_scrollBottomAnchorY];
+    CGFloat topY = self.jobs_scrollTopAnchorY();
+    CGFloat bottomY = self.jobs_scrollBottomAnchorY();
     CGFloat targetY = MIN(MAX(y, topY), bottomY);
     if(animated){
         [UIView animateWithDuration:0.3
@@ -82,7 +112,7 @@ Prop_strong()UILabel *dragHintLab;
             self->_scrollYView.y = targetY;
         }];
     }else{
-        _scrollYView.y = targetY;
+        _scrollYView.byY(targetY);
     }
 }
 
@@ -144,7 +174,7 @@ Prop_strong()UILabel *dragHintLab;
     if(!_usageDescLab){
         _usageDescLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"演示“只允许在指定 y 区间内上下滑动”的吸附效果：拖拽绿色区域，上滑释放会吸附到最高点，下滑释放会回到底部初始位置。".tr)
+                .byText(@"演示“只允许在指定 y 区间内上下滑动”的吸附效果：拖拽绿色区域，上滑释放会吸附到最高点，下滑释放会回到底部初始位置。".jobsTr())
                 .byFont(UIFontWeightRegularSize(JobsWidth(13)))
                 .byTextCor([JobsWhiteColor colorWithAlphaComponent:.82f])
                 .byTextAlignment(NSTextAlignmentLeft)
@@ -164,7 +194,7 @@ Prop_strong()UILabel *dragHintLab;
     if(!_topAnchorLab){
         _topAnchorLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"最高点：上滑后吸附到这里".tr)
+                .byText(@"最高点：上滑后吸附到这里".jobsTr())
                 .byFont(UIFontWeightMediumSize(JobsWidth(12)))
                 .byTextCor(JobsWhiteColor)
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -187,7 +217,7 @@ Prop_strong()UILabel *dragHintLab;
     if(!_bottomAnchorLab){
         _bottomAnchorLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"最低点：下滑释放回到初始位置".tr)
+                .byText(@"最低点：下滑释放回到初始位置".jobsTr())
                 .byFont(UIFontWeightMediumSize(JobsWidth(12)))
                 .byTextCor(JobsWhiteColor)
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -210,15 +240,15 @@ Prop_strong()UILabel *dragHintLab;
         _scrollYView.byBgColor(JobsGreenColor);
         [self.view addSubview:_scrollYView];
         [self.view layoutIfNeeded];
-        _scrollYView.x = 0;
-        _scrollYView.y = [self jobs_scrollBottomAnchorY];// 锚点1（最低点）
-        _scrollYView.sizer = _scrollYView.viewSizeByModel(nil);
+        _scrollYView.byX(0);
+        _scrollYView.byY(self.jobs_scrollBottomAnchorY());
+        _scrollYView.bySizer(_scrollYView.viewSizeByModel(nil));
         _scrollYView.jobsRichViewByModel(nil);
         @jobs_weakify(self)
-        [_scrollYView actionObjBlock:^(JobsScrollYView *data) {
+        _scrollYView.actionObjBlock(^(JobsScrollYView *data) {
             @jobs_strongify(self)
-            CGFloat topY = [self jobs_scrollTopAnchorY];
-            CGFloat bottomY = [self jobs_scrollBottomAnchorY];
+            CGFloat topY = self.jobs_scrollTopAnchorY();
+            CGFloat bottomY = self.jobs_scrollBottomAnchorY();
             /// 向下滑动为正
             if(data.jobsPoint.y > 0){
                 [self jobs_resetScrollYViewY:bottomY
@@ -234,7 +264,7 @@ Prop_strong()UILabel *dragHintLab;
             CGFloat middleY = (topY + bottomY) / 2.0;
             [self jobs_resetScrollYViewY:self->_scrollYView.y <= middleY ? topY : bottomY
                                 animated:YES];
-        }];
+        });
     };return _scrollYView;
 }
 
@@ -242,7 +272,7 @@ Prop_strong()UILabel *dragHintLab;
     if(!_dragHintLab){
         _dragHintLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"按住绿色区域上下拖动\n上滑吸顶，下滑回到底部".tr)
+                .byText(@"按住绿色区域上下拖动\n上滑吸顶，下滑回到底部".jobsTr())
                 .byFont(UIFontWeightMediumSize(JobsWidth(15)))
                 .byTextCor(JobsWhiteColor)
                 .byTextAlignment(NSTextAlignmentCenter)

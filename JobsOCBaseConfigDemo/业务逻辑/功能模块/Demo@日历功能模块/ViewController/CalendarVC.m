@@ -31,59 +31,119 @@ Prop_strong()NSDate *maximumCalendarDate;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CalendarVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.setupNavigationBarHidden = YES;
-    {
-        self.viewModel
-            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-                data.byText(@"返回".tr);
-            })
-            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-                data
-                    .byTextCor(JobsLabelColor)
-                    .byText(@"日历功能".tr)
-                    .byFont(UIFontWeightRegularSize(16));
-            })
-            // 使用原则：底图有 + 底色有 = 优先使用底图数据
-            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-            .byBgCor(JobsSystemBackgroundColor)
-            //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-            .byNavBgCor(JobsSystemBackgroundColor)
-            .byNavBgImage(nil);
-    }
-    /// 装填用户信息数据
-    /// json生成器 ： https://www.site24x7.com/zhcn/tools/json-generator.html
-    self.saveUserInfo(JobsUserModel.byData(@"UserData".readLocalFileWithName));// 保存全局唯一的一份用户档案
+        self.bySetupNavigationBarHidden(YES);
+        {
+            self.viewModel
+                .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                    data.byText(@"返回".jobsTr());
+                })
+                .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                    data
+                        .byTextCor(JobsLabelColor)
+                        .byText(@"日历功能".jobsTr())
+                        .byFont(UIFontWeightRegularSize(16));
+                })
+                // 使用原则：底图有 + 底色有 = 优先使用底图数据
+                // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+                // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+                .byBgCor(JobsSystemBackgroundColor)
+                //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+                .byNavBgCor(JobsSystemBackgroundColor)
+                .byNavBgImage(nil);
+        }
+        /// 装填用户信息数据
+        /// json生成器 ： https://www.site24x7.com/zhcn/tools/json-generator.html
+        self.saveUserInfo(JobsUserModel.byData(@"UserData".readLocalFileWithName()));// 保存全局唯一的一份用户档案
+    };
 }
 
 -(void)viewDidLoad {
-    [super viewDidLoad];
-    self.makeNavByAlpha(1);
-    [self.calendar jobsReloadDataSafely];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CalendarVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.makeNavByAlpha(1);
+        self.calendar.jobsReloadDataSafely();
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    [self.calendar setNeedsLayout];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CalendarVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        [self.calendar setNeedsLayout];
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CalendarVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillAppear:animated];
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CalendarVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CalendarVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+    };
 }
 #pragma mark —— JobsOCCalendarDataSource
 -(nullable NSString *)calendar:(JobsOCCalendar *)calendar
@@ -99,12 +159,32 @@ Prop_strong()NSDate *maximumCalendarDate;
 }
 
 -(NSDate *)minimumDateForCalendar:(JobsOCCalendar *)calendar{
-    return self.minimumCalendarDate; // 一年前
+    JobsRetNSDateByJobsOCCalendarBlock action = ((JobsRetNSDateByJobsOCCalendarBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CalendarVC.class, @selector(jobsMinimumDateForCalendar)))(self, @selector(jobsMinimumDateForCalendar));
+    return action ? action(calendar) : nil;
+}
+
+-(JobsRetNSDateByJobsOCCalendarBlock _Nonnull)jobsMinimumDateForCalendar{
+    @jobs_weakify(self)
+    return ^NSDate *(JobsOCCalendar * calendar){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.minimumCalendarDate; // 一年前
+    };
 }
 
 -(NSDate *)maximumDateForCalendar:(JobsOCCalendar *)calendar{
-//    return NSDate.date;
-    return self.maximumCalendarDate; // 一年后
+    JobsRetNSDateByJobsOCCalendarBlock action = ((JobsRetNSDateByJobsOCCalendarBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CalendarVC.class, @selector(jobsMaximumDateForCalendar)))(self, @selector(jobsMaximumDateForCalendar));
+    return action ? action(calendar) : nil;
+}
+
+-(JobsRetNSDateByJobsOCCalendarBlock _Nonnull)jobsMaximumDateForCalendar{
+    @jobs_weakify(self)
+    return ^NSDate *(JobsOCCalendar * calendar){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        //    return NSDate.date;
+            return self.maximumCalendarDate; // 一年后
+    };
 }
 
 #pragma mark —— JobsOCCalendarDelegate
@@ -138,6 +218,16 @@ atMonthPosition:(JobsOCCalendarMonthPosition)monthPosition{
 }
 
 -(void)calendarCurrentPageDidChange:(JobsOCCalendar *)calendar{
+    jobsByJobsOCCalendarBlock action = ((jobsByJobsOCCalendarBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CalendarVC.class, @selector(jobsCalendarCurrentPageDidChange)))(self, @selector(jobsCalendarCurrentPageDidChange));
+    if (action) action(calendar);
+}
+
+-(jobsByJobsOCCalendarBlock _Nonnull)jobsCalendarCurrentPageDidChange{
+    @jobs_weakify(self)
+    return ^(JobsOCCalendar * calendar){
+        @jobs_strongify(self)
+        if (!self) return;
+    };
 }
 #pragma mark —— lazyLoad
 -(JobsOCCalendar *)calendar{
@@ -147,20 +237,22 @@ atMonthPosition:(JobsOCCalendarMonthPosition)monthPosition{
             @jobs_strongify(self)
             calendar
                 .byDataSource(self)
-                .byDelegate(self);
-            calendar.allowsMultipleSelection = YES;
-            calendar.swipeToChooseEnabled = YES;
-            calendar.jobsAutomaticallyInvalidateLayoutOnBoundsChange = YES;
-            calendar.jobsReloadDataAfterBoundsChange = YES;
-            calendar.appearance.headerMinimumDissolvedAlpha = 0;
-            calendar.appearance.headerDateFormat = @"yyyy"
-                .add(@"年".tr)
-                .add(@"MM")
-                .add(@"月".tr);
-            calendar.appearance.caseOptions = JobsOCCalendarCaseOptionsHeaderUsesUpperCase;
-            calendar.appearance.headerTitleFont = UIFontSystemFontOfSize(JobsWidth(20));
-            calendar.appearance.headerTitleColor = JobsLabelColor;
-            calendar
+                .byDelegate(self)
+                .byAllowsMultipleSelection(YES)
+                .bySwipeToChooseEnabled(YES)
+                .byJobsAutomaticallyInvalidateLayoutOnBoundsChange(YES)
+                .byJobsReloadDataAfterBoundsChange(YES)
+                .byAppearanceBlock(^(__kindof JobsOCCalendarAppearance * _Nullable appearance) {
+                    appearance
+                        .byHeaderMinimumDissolvedAlpha(0)
+                        .byHeaderDateFormat(@"yyyy"
+                            .add(@"年".jobsTr())
+                            .add(@"MM")
+                            .add(@"月".jobsTr()))
+                        .byCaseOptions(JobsOCCalendarCaseOptionsHeaderUsesUpperCase)
+                        .byHeaderTitleFont(UIFontSystemFontOfSize(JobsWidth(20)))
+                        .byHeaderTitleColor(JobsLabelColor);
+                })
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     [self make:make topOffset:10];
@@ -176,7 +268,7 @@ atMonthPosition:(JobsOCCalendarMonthPosition)monthPosition{
 -(NSDateFormatter *)calendarDayFormatter{
     if(!_calendarDayFormatter){
         _calendarDayFormatter = jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter){
-            dateFormatter.dateFormat = @"dd";
+            dateFormatter.byDateFormat(@"dd");
         });
     };return _calendarDayFormatter;
 }
@@ -184,7 +276,7 @@ atMonthPosition:(JobsOCCalendarMonthPosition)monthPosition{
 -(NSDateFormatter *)calendarHolidayFormatter{
     if(!_calendarHolidayFormatter){
         _calendarHolidayFormatter = jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter) {
-            dateFormatter.dateFormat = @"dd/MM";
+            dateFormatter.byDateFormat(@"dd/MM");
         });
     };return _calendarHolidayFormatter;
 }
@@ -193,20 +285,20 @@ atMonthPosition:(JobsOCCalendarMonthPosition)monthPosition{
     if(!_calendarHolidayDic){
         _calendarHolidayDic = @{
             // 中国节假日
-            @"01/01": @"新年".tr,     // 元旦
-            @"22/01": @"春节".tr,     // 春节 (农历日期需特殊处理)
-            @"05/04": @"清明节".tr,   // 清明节
-            @"01/05": @"劳动节".tr,   // 劳动节
-            @"04/06": @"端午节".tr,   // 端午节 (农历日期需特殊处理)
-            @"01/10": @"国庆节".tr,   // 国庆节
-            @"13/09": @"中秋节".tr,   // 中秋节 (农历日期需特殊处理)
+            @"01/01": @"新年".jobsTr(),     // 元旦
+            @"22/01": @"春节".jobsTr(),     // 春节 (农历日期需特殊处理)
+            @"05/04": @"清明节".jobsTr(),   // 清明节
+            @"01/05": @"劳动节".jobsTr(),   // 劳动节
+            @"04/06": @"端午节".jobsTr(),   // 端午节 (农历日期需特殊处理)
+            @"01/10": @"国庆节".jobsTr(),   // 国庆节
+            @"13/09": @"中秋节".jobsTr(),   // 中秋节 (农历日期需特殊处理)
             // 菲律宾节假日
-            @"25/12": @"圣诞节".tr,   // 圣诞节
-            @"30/11": @"博尼法西奥日".tr, // 博尼法西奥日
-            @"12/06": @"独立日".tr,   // 独立日
-            @"09/04": @"勇士日".tr,   // 勇士日
-            @"01/11": @"万灵节".tr,   // 万灵节
-            @"30/12": @"黎刹日".tr    // 黎刹日
+            @"25/12": @"圣诞节".jobsTr(),   // 圣诞节
+            @"30/11": @"博尼法西奥日".jobsTr(), // 博尼法西奥日
+            @"12/06": @"独立日".jobsTr(),   // 独立日
+            @"09/04": @"勇士日".jobsTr(),   // 勇士日
+            @"01/11": @"万灵节".jobsTr(),   // 万灵节
+            @"30/12": @"黎刹日".jobsTr()    // 黎刹日
         };
     };return _calendarHolidayDic;
 }
@@ -226,7 +318,7 @@ atMonthPosition:(JobsOCCalendarMonthPosition)monthPosition{
 -(UIButtonModel *)backBtnModel{
     if(!_backBtnModel){
         @jobs_weakify(self)
-        _backBtnModel = self.makeBackBtnModel
+        _backBtnModel = self.jobsMakeBackBtnModel()
             .byTitleFont(bayonRegular(JobsWidth(18)))
             .byTitleCor(JobsRedColor)
             .bySelectedTitleCor(JobsWhiteColor)

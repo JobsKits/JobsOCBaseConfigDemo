@@ -21,10 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface This (URLMgr)
 #pragma mark —— BaseURL
 +(NSString *)BaseUrl;
-+(NSString *)BaseUrl_H5;
-+(NSString *)BaseUrl_Image;
++(JobsRetStrByVoidBlock _Nonnull)jobsBaseUrl;
++(JobsRetStrByVoidBlock _Nonnull)BaseUrl_H5;
++(JobsRetStrByVoidBlock _Nonnull)BaseUrl_Image;
 #pragma mark —— App接口示例
-+(URLManagerModel *)appInterfaceTesting;
++(JobsRetURLManagerModelByVoidBlock _Nonnull)jobs_appInterfaceTesting;
 
 @end
 

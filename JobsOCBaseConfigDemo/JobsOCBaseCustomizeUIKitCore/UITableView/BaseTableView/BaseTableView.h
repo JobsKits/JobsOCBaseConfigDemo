@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 +(instancetype)initWithStyleGrouped;
 +(instancetype)initWithStyleInsetGrouped API_AVAILABLE(ios(13.0)) API_UNAVAILABLE(tvos);
 
+-(jobsByVoidBlock _Nonnull)jobsLayoutIfNeeded;
+
 @end
 
 NS_ASSUME_NONNULL_END

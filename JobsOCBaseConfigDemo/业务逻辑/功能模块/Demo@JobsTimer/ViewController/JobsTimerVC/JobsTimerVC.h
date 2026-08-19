@@ -60,6 +60,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsTimerVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsTimerVC
+-(JobsRetJobsTimerVCByBOOLBlock _Nonnull)byCountUpTimerHasStarted;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsTimerVC
 @end
 
 NS_ASSUME_NONNULL_END

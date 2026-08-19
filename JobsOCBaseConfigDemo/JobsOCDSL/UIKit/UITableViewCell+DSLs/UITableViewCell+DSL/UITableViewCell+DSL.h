@@ -36,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetTableViewCellByVoidBlock _Nonnull)byPrepareForReuse;
 -(JobsRetTableViewCellBySelectionStyleBlock _Nonnull)bySelectionStyle;
 -(JobsRetTableViewCellByBOOLBlock _Nonnull)bySelected;
+-(JobsRetTableViewCellByBOOLBlock _Nonnull)byJobsSelected;
 -(JobsRetTableViewCellByBOOLBlock _Nonnull)byHighlighted;
 -(JobsRetTableViewCellByBOOLBlock _Nonnull)byShowsReorderControl;
 -(JobsRetTableViewCellByBOOLBlock _Nonnull)byShouldIndentWhileEditing;

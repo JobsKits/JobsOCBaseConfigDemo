@@ -7,6 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -29,15 +35,15 @@ Prop_assign()CGFloat highlightWidthRatio;
 Prop_assign()CGFloat cornerRadius;
 Prop_assign()JobsOCSkeletonAnimationStyle animationStyle;
 
-+(instancetype)defaultConfig;
-+(instancetype)shimmerConfig;
-+(instancetype)pulseConfig;
--(instancetype)byBaseColor:(UIColor *)baseColor;
--(instancetype)byHighlightColor:(UIColor *)highlightColor;
--(instancetype)byAnimationDuration:(NSTimeInterval)animationDuration;
--(instancetype)byHighlightWidthRatio:(CGFloat)highlightWidthRatio;
--(instancetype)byCornerRadius:(CGFloat)cornerRadius;
--(instancetype)byAnimationStyle:(JobsOCSkeletonAnimationStyle)animationStyle;
++(JobsRetJobsOCSkeletonConfigByVoidBlock _Nonnull)defaultConfig;
++(JobsRetJobsOCSkeletonConfigByVoidBlock _Nonnull)shimmerConfig;
++(JobsRetJobsOCSkeletonConfigByVoidBlock _Nonnull)pulseConfig;
+-(JobsRetIDByUIColorBlock _Nonnull)byBaseColor;
+-(JobsRetIDByUIColorBlock _Nonnull)byHighlightColor;
+-(JobsRetIDByNSTimeIntervalBlock _Nonnull)byAnimationDuration;
+-(JobsRetIDByCGFloatBlock _Nonnull)byHighlightWidthRatio;
+-(JobsRetIDByCGFloatBlock _Nonnull)byCornerRadius;
+-(JobsRetIDByJobsOCSkeletonAnimationStyleBlock _Nonnull)byAnimationStyle;
 
 @end
 

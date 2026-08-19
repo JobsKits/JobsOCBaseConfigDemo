@@ -55,6 +55,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsIMListTBVCell : MGSwipeTableCell<BaseCellProtocol>
 
+-(JobsRetBOOLByVoidBlock _Nonnull)jobsCanBecomeFirstResponder;
+
 @end
 
 NS_ASSUME_NONNULL_END

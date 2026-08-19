@@ -42,12 +42,12 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
     }
     self.viewModel
         .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
+            data.byText(@"返回".jobsTr());
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
                 .byTextCor(JobsLabelColor)
-                .byText(@"竖形菜单选择功能".tr)
+                .byText(@"竖形菜单选择功能".jobsTr())
                 .byFont(UIFontWeightSemiboldSize(18));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
@@ -106,12 +106,12 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
 
 -(UIViewModel *)jobs_menuModelByDecorationModel:(JobsDecorationModel *)model{
     UIViewModel *viewModel = self.makeDatas(model);
-    NSString *subTitle = isNull(model.subTitle) ? @"点击查看".tr : model.subTitle.tr;
+    NSString *subTitle = isNull(model.subTitle) ? @"点击查看".jobsTr() : model.subTitle.jobsTr();
     viewModel
         .byBgCor(JobsSecondarySystemBackgroundColor)
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data.byAttributedTitle(nil)
-                .byText(model.title.tr)
+                .byText(model.title.jobsTr())
                 .byFont(UIFontWeightMediumSize(15))
                 .byTextCor(JobsLabelColor);
         })
@@ -135,7 +135,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.dataMutArr[indexPath.section][indexPath.row].cls) {
         self.comingToPushVCByRequestParams(self.dataMutArr[indexPath.section][indexPath.row].cls.new,
                                            self.dataMutArr[indexPath.section][indexPath.row]);
-    }else @"尚未接入此功能".tr.toast();
+    }else @"尚未接入此功能".jobsTr().toast();
 }
 /// 编辑模式下，点击取消左边已选中的cell的按钮
 - (void)tableView:(UITableView *)tableView
@@ -174,7 +174,7 @@ heightForFooterInSection:(NSInteger)section{
 
 - (UIView *)tableView:(UITableView *)tableView
 viewForHeaderInSection:(NSInteger)section{
-    NSString *title = section == 0 ? @"推荐架构".tr : @"兼容架构".tr;
+    NSString *title = section == 0 ? @"推荐架构".jobsTr() : @"兼容架构".jobsTr();
     return jobsMakeView(^(__kindof UIView * _Nullable view) {
         view.byBgColor(JobsVerticalMenuMainBgCor());
         jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
@@ -232,11 +232,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         .byBgColor(UIColor.clearColor);
     cell.img = @"向右的箭头（大）".img;
 //    @jobs_weakify(self)
-    [cell customAccessoryView:^(id data) {
+    cell.customAccessoryView(^(id data) {
 //        @jobs_strongify(self)
         JobsBaseTableViewCell *cell = (JobsBaseTableViewCell *)data;
         JobsLog(@"MMM - %ld",cell.index);
-    }];
+    });
     cell.accessoryView.resetWidth(10);
     [cell roundedCornerFirstAndLastCellByTableView:tableView
                                          indexPath:indexPath
@@ -315,21 +315,21 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data1) {
                 @jobs_strongify(self)
                 data1.add([self jobs_menuModelByDecorationModel:jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.byTitle(@"UIViewController 架构".tr)
-                         .bySubTitle(@"推荐".tr)
+                    model.byTitle(@"UIViewController 架构".jobsTr())
+                         .bySubTitle(@"推荐".jobsTr())
                          .byCls(JobsVerticalMenuVC_1.class);
                 })])
                 .add([self jobs_menuModelByDecorationModel:jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.byTitle(@"UICollectionView 架构".tr)
-                         .bySubTitle(@"灵活".tr)
+                    model.byTitle(@"UICollectionView 架构".jobsTr())
+                         .bySubTitle(@"灵活".jobsTr())
                          .byCls(JobsVerticalMenuVC_2.class);
                 })]);
             }));
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data1) {
                 @jobs_strongify(self)
                 data1.add([self jobs_menuModelByDecorationModel:jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.byTitle(@"JobsVerticalMenuVC_0".tr)
-                         .bySubTitle(@"兼容".tr)
+                    model.byTitle(@"JobsVerticalMenuVC_0".jobsTr())
+                         .bySubTitle(@"兼容".jobsTr())
                          .byCls(JobsVerticalMenuVC_0.class);
                 })]);
             }));

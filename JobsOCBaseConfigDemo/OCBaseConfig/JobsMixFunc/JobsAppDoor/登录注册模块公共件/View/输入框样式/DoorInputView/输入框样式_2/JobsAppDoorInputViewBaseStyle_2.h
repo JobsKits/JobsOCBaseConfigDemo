@@ -6,18 +6,25 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_2_2AB28898C2
-#define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_2_2AB28898C2
-
-#import <UIKit/UIKit.h>
-#import "JobsAppDoorConfig.h"
-#import "JobsAppDoorInputViewBaseStyle.h"
-#import "ImageCodeView.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_2_2AB28898C2
+
+#import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+#import "JobsAppDoorConfig.h"
+#import "JobsAppDoorInputViewBaseStyle.h"
+#import "ImageCodeView.h"
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import "JobsBaseProtocolHeader.h"
@@ -60,6 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JobsAppDoorInputViewBaseStyle_2 : JobsAppDoorInputViewBaseStyle
 
 -(void)changeTextFieldAnimationColor:(BOOL)toRegisterBtnSelected;
+-(jobsByBOOLBlock _Nonnull)jobsChangeTextFieldAnimationColor;
 /**
  
  * 其实并不建议用init方法,而是期望带参数初始化，比如对应BaseViewProtocol里面的 - (instancetype)initWithSize:(CGSize)thisViewSize
@@ -72,6 +80,9 @@ NS_ASSUME_NONNULL_BEGIN
  
  */
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorInputViewBaseStyle_2
+-(JobsRetJobsAppDoorInputViewBaseStyle_2ByJobsAppDoorInputViewBaseStyleModelBlock _Nonnull)byDoorInputViewBaseStyleModel;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_2
 @end
 
 NS_ASSUME_NONNULL_END

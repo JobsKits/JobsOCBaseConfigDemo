@@ -6,6 +6,7 @@
 //
 
 #import "JobsKeychainHelper.h"
+
 #import "NSKeyedArchiver+Extra.h"
 #import "NSMutableDictionary+Extra.h"
 
@@ -83,7 +84,7 @@
     /// 创建字典来保存 Keychain 数据,并添加到 Keychain
     OSStatus status = SecItemAdd((__bridge CFDictionaryRef)jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable data) {
         data.addByDic(JobsKeychainHelper.getKeychainBaseQuery(service));
-        [data setObject:password.UTF8Encoding forKey:(__bridge id)kSecValueData];
+        [data setObject:password.jobsUTF8Encoding() forKey:(__bridge id)kSecValueData];
     }), NULL);return (status == errSecSuccess);
 }
 /// service + account ==> password

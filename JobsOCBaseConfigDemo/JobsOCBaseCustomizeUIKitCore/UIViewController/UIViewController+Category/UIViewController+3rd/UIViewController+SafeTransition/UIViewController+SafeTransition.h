@@ -6,6 +6,13 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_SAFETRANSITION_32FA445F7D
+
+#if __has_include(<WHToast/WHToast.h>)
+#import <WHToast/WHToast.h>
+#else
+#import "WHToast.h"
+#endif
+
 #define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_SAFETRANSITION_32FA445F7D
 
 #import <objc/runtime.h>
@@ -13,12 +20,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import "JobsRecordPresentedViewController.h"
 #import "NSString+Toast.h"
-
-#if __has_include(<WHToast/WHToast.h>)
-#import <WHToast/WHToast.h>
-#else
-#import "WHToast.h"
-#endif
 
 #import "JobsBaseProtocolHeader.h"
 #import "JobsLanMgr.h"

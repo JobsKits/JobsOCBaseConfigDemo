@@ -6,17 +6,18 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_BASEVIEWCONTROLLERPROTOCOL_C02492A06E
-#define JOBS_HEADER_GUARD_BASEVIEWCONTROLLERPROTOCOL_C02492A06E
-
-#import <UIKit/UIKit.h>
-#import <WebKit/WebKit.h>                         // 用于嵌入和管理网页内容，例如加载和显示网页。
-#import "BaseViewProtocol.h"
 
 #if __has_include(<SPAlertController/SPAlertController.h>)
 #import <SPAlertController/SPAlertController.h>
 #else
 #import "SPAlertController.h"
 #endif
+
+#define JOBS_HEADER_GUARD_BASEVIEWCONTROLLERPROTOCOL_C02492A06E
+
+#import <UIKit/UIKit.h>
+#import <WebKit/WebKit.h>                         // 用于嵌入和管理网页内容，例如加载和显示网页。
+#import "BaseViewProtocol.h"
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"
@@ -37,14 +38,24 @@ Prop_assign()BOOL ViewWillDisappear;
 Prop_assign()BOOL ViewDidDisappear;
 /// UI
 Prop_weak()UIViewController *fromVC;
+-(JobsRetVCByStrBlock _Nonnull)byTitle;
+-(JobsRetVCByViewBlock _Nonnull)byView;
+-(JobsRetVCByWebViewBlock _Nonnull)byWebView;
+-(JobsRetVCByBOOLBlock _Nonnull)byHidesBottomBarWhenPushed;
+-(JobsRetVCByIDBlock _Nonnull)byRequestParams;
+-(JobsRetVCByVCBlock _Nonnull)byFromVC;
 Prop_strong(nullable)SPAlertController *alertController;
 Prop_assign()ComingStyle pushOrPresent;
+-(JobsRetVCByComingStyleBlock _Nonnull)byPushOrPresent;
 Prop_assign()BOOL setupNavigationBarHidden;
+-(JobsRetVCByBOOLBlock _Nonnull)bySetupNavigationBarHidden;
 Prop_strong(nullable)__kindof UIView *statusBar;
 Prop_strong(nullable)JobsNavBarConfig *navBarConfig;
 Prop_strong(nullable)JobsNavBar *navBar;
 Prop_copy(nullable)__kindof NSMutableArray <__kindof UIBarButtonItem *>*leftBarButtonItems;// 左边UIBarButtonItem 数组
+-(JobsRetVCByBarButtonItemsBlock _Nonnull)byLeftBarButtonItems;
 Prop_copy(nullable)__kindof NSMutableArray <__kindof UIBarButtonItem *>*rightBarButtonItems;// 右边UIBarButtonItem 数组
+-(JobsRetVCByBarButtonItemsBlock _Nonnull)byRightBarButtonItems;
 Prop_copy(nullable)__kindof NSMutableArray <__kindof UIViewController *>*vcs;// 子视图控制器 数组
 Prop_strong(nullable)UIBarButtonItem *barButtonItem;
 /// 更新状态栏颜色为自定义的颜色
@@ -54,7 +65,7 @@ Prop_strong(nullable)UIBarButtonItem *barButtonItem;
 /// 让 UIView 像 UINavigationController 一样支持 push 和 pop
 -(jobsByView2Block _Nonnull)configViewNavigatorBySuperviewAndView;
 /// 查看用户数据
--(void)showUserInfo;
+-(jobsByVoidBlock _Nonnull)showUserInfo;
 /// 铺满全屏展示的策略
 -(void)fullScreenConstraintTargetView:(__kindof UIView *_Nonnull)view
                         topViewOffset:(CGFloat)topViewOffset;

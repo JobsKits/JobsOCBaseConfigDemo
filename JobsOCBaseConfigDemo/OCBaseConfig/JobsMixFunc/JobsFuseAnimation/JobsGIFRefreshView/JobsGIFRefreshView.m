@@ -16,7 +16,23 @@ Prop_assign()BOOL wantsAnimating;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsGIFRefreshView
+@interface JobsGIFRefreshView (JobsPropertyDSLSetterAutogen_e2cb8c76ad)
+-(void)setFirstFrame:(UIImage * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsGIFRefreshView
+
 @implementation JobsGIFRefreshView
+
+-(JobsRetJobsGIFRefreshViewByCGSizeBlock _Nonnull)byIndicatorSize{
+    @jobs_weakify(self)
+    return ^__kindof JobsGIFRefreshView *_Nullable(CGSize data){
+        @jobs_strongify(self)
+        self.indicatorSize = data;
+        return self;
+    };
+}
+
 -(instancetype)initWithGIFNamed:(NSString *)name {
     NSString *resourceName = name.stringByDeletingPathExtension;
     NSString *extension = name.pathExtension.length ? name.pathExtension : @"gif";
@@ -34,55 +50,115 @@ Prop_assign()BOOL wantsAnimating;
         _indicatorSize = CGSizeMake(20, 20);
         self.byUserInteractionEnabled(NO);
         self.imageView.addOn(self);
-        [self jobs_decodeGIFData:data];
+        self.jobs_decodeGIFData(data);
     };return self;
 }
 
--(CGSize)intrinsicContentSize {
-    return self.indicatorSize;
+-(CGSize)intrinsicContentSize{
+    JobsRetCGSizeByVoidBlock action = ((JobsRetCGSizeByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsGIFRefreshView.class, @selector(jobsIntrinsicContentSize)))(self, @selector(jobsIntrinsicContentSize));
+    return action ? action() : (CGSize){0};
+}
+
+-(JobsRetCGSizeByVoidBlock _Nonnull)jobsIntrinsicContentSize {
+    @jobs_weakify(self)
+    return ^CGSize{
+        @jobs_strongify(self)
+        if (!self) return (CGSize){0};
+        return self.indicatorSize;
+    };
 }
 
 -(void)layoutSubviews {
-    [super layoutSubviews];
-    self.imageView.byFrame(self.bounds);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsGIFRefreshView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
 }
 
--(void)didMoveToWindow {
-    [super didMoveToWindow];
-    if (self.wantsAnimating && self.window) [self byResume];
-    if (!self.window) self.imageView.byImage(self.firstFrame);
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        self.imageView.byFrame(self.bounds);
+    };
 }
 
--(instancetype)byStart {
-    self.wantsAnimating = YES;
-    self.imageView.byImage(UIAccessibilityIsReduceMotionEnabled() ? self.firstFrame : self.animatedImage);
-    self.byHidden(NO);
-    return self;
+-(jobsByVoidBlock _Nonnull)jobsDidMoveToWindow {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super didMoveToWindow];
+        if (self.wantsAnimating && self.window) self.byResume();
+        if (!self.window) self.imageView.byImage(self.firstFrame);
+    };
 }
 
--(instancetype)byPause {
-    self.wantsAnimating = NO;
-    self.imageView.byImage(self.firstFrame);
-    return self;
+-(void)didMoveToWindow{
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsGIFRefreshView.class, @selector(jobsDidMoveToWindow)))(self, @selector(jobsDidMoveToWindow));
+    if (action) action();
 }
 
--(instancetype)byResume {
-    return [self byStart];
+-(JobsRetIDByVoidBlock _Nonnull)byStart {
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.wantsAnimating = YES;
+        self.imageView.byImage(UIAccessibilityIsReduceMotionEnabled() ? self.firstFrame : self.animatedImage);
+        self.byHidden(NO);
+        return self;
+    };
 }
 
--(instancetype)byStop {
-    self.wantsAnimating = NO;
-    self.imageView.byImage(self.firstFrame);
-    return self;
+-(JobsRetIDByVoidBlock _Nonnull)byPause {
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.wantsAnimating = NO;
+        self.imageView.byImage(self.firstFrame);
+        return self;
+    };
+}
+
+-(JobsRetIDByVoidBlock _Nonnull)byResume {
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.byStart();
+    };
+}
+
+-(JobsRetIDByVoidBlock _Nonnull)byStop {
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.wantsAnimating = NO;
+        self.imageView.byImage(self.firstFrame);
+        return self;
+    };
 }
 
 #pragma mark —— JobsRefreshAnimatorProtocol
--(UIView *)refreshAnimatorView {
-    return self;
+-(JobsRetViewByVoidBlock _Nonnull)refreshAnimatorView {
+    @jobs_weakify(self)
+    return ^UIView *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self;
+    };
 }
 
--(CGSize)refreshAnimatorPreferredSize {
-    return self.indicatorSize;
+-(JobsRetCGSizeByVoidBlock _Nonnull)refreshAnimatorPreferredSize {
+    @jobs_weakify(self)
+    return ^CGSize{
+        @jobs_strongify(self)
+        if (!self) return (CGSize){0};
+        return self.indicatorSize;
+    };
 }
 
 -(void)refreshAnimatorApplyPhase:(JobsRefreshAnimatorPhase)phase
@@ -91,7 +167,7 @@ Prop_assign()BOOL wantsAnimating;
     switch (phase) {
         /// 处理 JobsRefreshAnimatorPhasePulling 分支
         case JobsRefreshAnimatorPhasePulling:
-            [self byStop];
+            self.byStop();
             self.byHidden(NO)
                 .byAlpha(0.35 + normalized * 0.65)
                 .byTransform(CGAffineTransformMakeScale(0.8 + normalized * 0.2,
@@ -99,7 +175,7 @@ Prop_assign()BOOL wantsAnimating;
             break;
         /// 处理 JobsRefreshAnimatorPhaseReady 分支
         case JobsRefreshAnimatorPhaseReady:
-            [self byStop];
+            self.byStop();
             self.byHidden(NO)
                 .byAlpha(1)
                 .byTransform(CGAffineTransformIdentity);
@@ -108,11 +184,11 @@ Prop_assign()BOOL wantsAnimating;
         case JobsRefreshAnimatorPhaseRefreshing:
             self.byAlpha(1)
                 .byTransform(CGAffineTransformIdentity);
-            [self byStart];
+            self.byStart();
             break;
         /// 处理 JobsRefreshAnimatorPhaseEnding 分支
         case JobsRefreshAnimatorPhaseEnding:
-            [self byStop];
+            self.byStop();
             self.byHidden(NO)
                 .byAlpha(1)
                 .byTransform(CGAffineTransformIdentity);
@@ -121,7 +197,7 @@ Prop_assign()BOOL wantsAnimating;
         case JobsRefreshAnimatorPhaseIdle:
         /// 处理 JobsRefreshAnimatorPhaseInactive 分支
         case JobsRefreshAnimatorPhaseInactive:
-            [self byStop];
+            self.byStop();
             self.byHidden(YES)
                 .byAlpha(0)
                 .byTransform(CGAffineTransformIdentity);
@@ -130,32 +206,37 @@ Prop_assign()BOOL wantsAnimating;
 }
 
 #pragma mark —— Private
--(void)jobs_decodeGIFData:(NSData *)data {
-    if (!data.length) return;
-    CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)data, nil);
-    if (!source) return;
-    size_t count = CGImageSourceGetCount(source);
-    NSMutableArray<UIImage *> *frames = NSMutableArray.array;
-    NSTimeInterval duration = 0;
-    for (size_t index = 0; index < count; index++) {
-        CGImageRef imageRef = CGImageSourceCreateImageAtIndex(source, index, nil);
-        if (!imageRef) continue;
-        UIImage *image = [UIImage imageWithCGImage:imageRef
-                                            scale:UIScreen.mainScreen.scale
-                                      orientation:UIImageOrientationUp];
-        [frames addObject:image];
-        duration += [self jobs_delayAtIndex:index source:source];
-        CGImageRelease(imageRef);
-    }
-    CFRelease(source);
-    if (!frames.count) return;
-    self.firstFrame = frames.firstObject;
-    self.animatedImage = [UIImage animatedImageWithImages:frames
-                                                 duration:MAX(duration, frames.count * 0.08)];
-    self.indicatorSize = CGSizeMake(MAX(1, self.firstFrame.size.width),
-                                    MAX(1, self.firstFrame.size.height));
-    self.imageView.byImage(self.firstFrame);
-    [self invalidateIntrinsicContentSize];
+-(jobsByDataBlock _Nonnull)jobs_decodeGIFData{
+    @jobs_weakify(self)
+    return ^(NSData * data){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (!data.length) return;
+        CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)data, nil);
+        if (!source) return;
+        size_t count = CGImageSourceGetCount(source);
+        NSMutableArray<UIImage *> *frames = NSMutableArray.array;
+        NSTimeInterval duration = 0;
+        for (size_t index = 0; index < count; index++) {
+            CGImageRef imageRef = CGImageSourceCreateImageAtIndex(source, index, nil);
+            if (!imageRef) continue;
+            UIImage *image = [UIImage imageWithCGImage:imageRef
+                                                scale:UIScreen.mainScreen.scale
+                                          orientation:UIImageOrientationUp];
+            [frames addObject:image];
+            duration += [self jobs_delayAtIndex:index source:source];
+            CGImageRelease(imageRef);
+        }
+        CFRelease(source);
+        if (!frames.count) return;
+        self.byFirstFrame(frames.firstObject);
+        self.animatedImage = [UIImage animatedImageWithImages:frames
+                                                     duration:MAX(duration, frames.count * 0.08)];
+        self.indicatorSize = CGSizeMake(MAX(1, self.firstFrame.size.width),
+                                        MAX(1, self.firstFrame.size.height));
+        self.imageView.byImage(self.firstFrame);
+        [self invalidateIntrinsicContentSize];
+    };
 }
 
 -(NSTimeInterval)jobs_delayAtIndex:(size_t)index
@@ -178,4 +259,14 @@ Prop_assign()BOOL wantsAnimating;
     };return _imageView;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsGIFRefreshView
+-(JobsRetJobsGIFRefreshViewByUIImageBlock _Nonnull)byFirstFrame{
+    @jobs_weakify(self)
+    return ^__kindof JobsGIFRefreshView * _Nullable(UIImage * _Nullable data){
+        @jobs_strongify(self)
+        [self setFirstFrame:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsGIFRefreshView
 @end

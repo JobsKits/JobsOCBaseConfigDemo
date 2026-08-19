@@ -33,9 +33,14 @@ Prop_strong(readwrite)UIButton *sendButton;
     };return self;
 }
 
--(void)clearTextIfNeeded{
-    if (self.autoClearAfterSend) self.textField.byText(nil);
-    if (self.autoResignAfterSend) [self.textField resignFirstResponder];
+-(jobsByVoidBlock _Nonnull)clearTextIfNeeded{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (self.autoClearAfterSend) self.textField.byText(nil);
+        if (self.autoResignAfterSend) [self.textField resignFirstResponder];
+    };
 }
 #pragma mark —— LazyLoad
 -(UITextField *)textField{
@@ -44,7 +49,7 @@ Prop_strong(readwrite)UIButton *sendButton;
             textField
                 .byBorderStyle(UITextBorderStyleNone)
                 .byReturnKeyType(UIReturnKeySend)
-                .byPlaceholder(@"说点什么...".tr)
+                .byPlaceholder(@"说点什么...".jobsTr())
                 .byPlaceholderColor(UIColor.placeholderTextColor)
                 .byPlaceholderFont(UIFontWeightRegularSize(15))
                 .byFont(UIFontWeightRegularSize(15))
@@ -77,7 +82,7 @@ Prop_strong(readwrite)UIButton *sendButton;
     if (!_sendButton) {
         _sendButton = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
-                .jobsResetBtnTitle(@"发送".tr)
+                .jobsResetBtnTitle(@"发送".jobsTr())
                 .jobsResetBtnTitleCor(UIColor.whiteColor)
                 .jobsResetBtnTitleFont(UIFontWeightMediumSize(15))
                 .jobsResetBtnBgCor(UIColor.systemBlueColor)

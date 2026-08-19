@@ -49,10 +49,33 @@
         @jobs_strongify(self)
         if(!data){
             data = jobsMakeDateFormatter(^(__kindof NSDateFormatter *_Nullable data) {
-                data.dateFormat = @"yyyy-MM-dd";
+                data.byDateFormat(@"yyyy-MM-dd");
             });
         };return data.stringByDate(self);
     };
 }
+
+@end
+
+@implementation NSDateComponents (JobsTimeUtilsExtra)
+
+#define JOBS_DATE_COMPONENT_INTEGER_DSL(_selector_, _property_) \
+-(JobsRetDateComponentsByIntegerBlock _Nonnull)_selector_{ \
+    @jobs_weakify(self) \
+    return ^__kindof NSDateComponents *_Nullable(NSInteger data){ \
+        @jobs_strongify(self) \
+        self._property_ = data; \
+        return self; \
+    }; \
+}
+
+JOBS_DATE_COMPONENT_INTEGER_DSL(byYear, year)
+JOBS_DATE_COMPONENT_INTEGER_DSL(byMonth, month)
+JOBS_DATE_COMPONENT_INTEGER_DSL(byDay, day)
+JOBS_DATE_COMPONENT_INTEGER_DSL(byHour, hour)
+JOBS_DATE_COMPONENT_INTEGER_DSL(byMinute, minute)
+JOBS_DATE_COMPONENT_INTEGER_DSL(bySecond, second)
+
+#undef JOBS_DATE_COMPONENT_INTEGER_DSL
 
 @end

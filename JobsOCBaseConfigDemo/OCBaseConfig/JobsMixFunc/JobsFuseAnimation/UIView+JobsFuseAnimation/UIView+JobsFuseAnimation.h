@@ -9,7 +9,19 @@
 #define UIView_JobsFuseAnimation_h
 
 #import <AudioToolbox/AudioToolbox.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsOCDSL/UIView+DSL.h>)
+#import <JobsOCDSL/UIView+DSL.h>
+#else
+#import "UIView+DSL.h"
+#endif
 #import "JobsFuseBubbleConfig.h"
 #import "JobsFuseOuterRingConfig.h"
 #import "JobsDefines.h"
@@ -25,18 +37,18 @@ typedef void (^JobsFuseBubbleEmitBlock)(void);
                                 config:(JobsFuseBubbleConfig *_Nullable)config
                         bubbleProvider:(JobsFuseBubbleProvider)bubbleProvider
                                 onEmit:(JobsFuseBubbleEmitBlock _Nullable)onEmit;
--(instancetype)byFuseBubbleStop;
--(instancetype)byFuseOuterRingStart:(JobsFuseOuterRingConfig *_Nullable)config;
--(instancetype)byFuseOuterRingStop:(BOOL)animated;
--(instancetype)byFuseOuterRingLayoutIfNeeded;
+-(JobsRetIDByVoidBlock _Nonnull)byFuseBubbleStop;
+-(JobsRetIDByJobsFuseOuterRingConfigBlock _Nonnull)byFuseOuterRingStart;
+-(JobsRetIDByBOOLBlock _Nonnull)byFuseOuterRingStop;
+-(JobsRetIDByVoidBlock _Nonnull)byFuseOuterRingLayoutIfNeeded;
 -(instancetype)byFusePressScaleStart:(CGFloat)scale duration:(NSTimeInterval)duration;
 -(instancetype)byFusePressScaleStop:(BOOL)animated duration:(NSTimeInterval)duration damping:(CGFloat)damping velocity:(CGFloat)velocity;
--(instancetype)byFuseTapScale;
+-(JobsRetIDByVoidBlock _Nonnull)byFuseTapScale;
 -(instancetype)byFuseTapScaleWithScale:(CGFloat)scale duration:(NSTimeInterval)duration damping:(CGFloat)damping velocity:(CGFloat)velocity;
 -(instancetype)byFusePressStart:(JobsFuseOuterRingConfig *_Nullable)ringConfig scale:(CGFloat)scale;
--(instancetype)byFusePressStop:(BOOL)animated;
--(instancetype)byFusePlaySound:(NSString *)fileFullName;
--(instancetype)byFusePlaySystemSound:(SystemSoundID)soundID;
+-(JobsRetIDByBOOLBlock _Nonnull)byFusePressStop;
+-(JobsRetIDByStrBlock _Nonnull)byFusePlaySound;
+-(JobsRetIDBySystemSoundIDBlock _Nonnull)byFusePlaySystemSound;
 
 @end
 

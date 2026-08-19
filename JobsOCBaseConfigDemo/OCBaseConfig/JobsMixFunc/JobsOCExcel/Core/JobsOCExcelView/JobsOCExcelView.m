@@ -6,6 +6,7 @@
 //
 
 #import "JobsOCExcelView.h"
+
 #import "../../../../../JobsOCDSL/UIKit/UIView+DSLs/UIView+Gesture/UIView+Gesture/UIView+Gesture.h"
 
 @interface JobsOCExcelView ()<UIScrollViewDelegate>
@@ -19,13 +20,13 @@ Prop_strong()UIScrollView *horizontalScrollView;
 Prop_strong()UIView *scrollContentView;
 Prop_strong()NSMutableArray<UILabel *> *generatedLabels;
 
--(void)jobsCommonInit;
--(UILabel *)jobsMakeGridLabel;
--(NSArray<NSNumber *> *)jobsResolvedColumnWidths;
--(NSInteger)jobsFrozenColumnCount;
--(void)jobsRemoveGeneratedViews;
--(void)jobsApplyStyle;
--(void)jobsBuildGrid;
+-(jobsByVoidBlock _Nonnull)jobsCommonInit;
+-(JobsRetLabelByVoidBlock _Nonnull)jobsMakeGridLabel;
+-(JobsRetNSArrayNSNumberByVoidBlock _Nonnull)jobsResolvedColumnWidths;
+-(JobsRetNSIntegerByVoidBlock _Nonnull)jobsFrozenColumnCount;
+-(jobsByVoidBlock _Nonnull)jobsRemoveGeneratedViews;
+-(jobsByVoidBlock _Nonnull)jobsApplyStyle;
+-(jobsByVoidBlock _Nonnull)jobsBuildGrid;
 -(void)jobsAddLabelWithCell:(JobsOCExcelCell *)cell
                        font:(UIFont *)font
                   textColor:(UIColor *)textColor
@@ -38,27 +39,66 @@ Prop_strong()NSMutableArray<UILabel *> *generatedLabels;
                       width:(CGFloat)width
                      height:(CGFloat)height
                  selectable:(BOOL)selectable;
--(void)jobsUpdateConstraints;
--(void)jobsHandleCellTap:(UILabel *)label;
+-(jobsByVoidBlock _Nonnull)jobsUpdateConstraints;
+-(jobsByLabelBlock _Nonnull)jobsHandleCellTap;
+-(JobsRetIDByIDBlock _Nonnull)byStyle;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCExcelView
+@interface JobsOCExcelView (JobsPropertyDSLSetterAutogen_10d1a2757c)
+-(void)setColumns:(NSArray<JobsOCExcelColumn *> * _Nullable)data;
+-(void)setFreezeThroughColumn:(NSInteger)data;
+-(void)setGeneratedLabels:(NSMutableArray<UILabel *> * _Nullable)data;
+-(void)setRows:(NSArray<JobsOCExcelRow *> * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCExcelView
+
 @implementation JobsOCExcelView
+
+-(JobsRetJobsOCExcelViewByIDBlock _Nonnull)byDelegate{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCExcelView *_Nullable(id _Nullable data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.delegate = data;
+        return self;
+    };
+}
+
+-(JobsRetIDByIDBlock _Nonnull)byStyle{
+    @jobs_weakify(self)
+    return ^id(JobsOCExcelStyle *style){
+        @jobs_strongify(self)
+        self.style = style;
+        return self;
+    };
+}
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        [self jobsCommonInit];
+        self.jobsCommonInit();
     };return self;
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
-        [self jobsCommonInit];
+        self.jobsCommonInit();
     };return self;
 }
 
 -(CGSize)intrinsicContentSize{
-    return CGSizeMake(UIViewNoIntrinsicMetric, self.requiredHeight);
+    JobsRetCGSizeByVoidBlock action = ((JobsRetCGSizeByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCExcelView.class, @selector(jobsIntrinsicContentSize)))(self, @selector(jobsIntrinsicContentSize));
+    return action ? action() : (CGSize){0};
+}
+
+-(JobsRetCGSizeByVoidBlock _Nonnull)jobsIntrinsicContentSize{
+    @jobs_weakify(self)
+    return ^CGSize{
+        @jobs_strongify(self)
+        if (!self) return (CGSize){0};
+        return CGSizeMake(UIViewNoIntrinsicMetric, self.requiredHeight);
+    };
 }
 
 -(CGFloat)requiredHeight{
@@ -73,25 +113,35 @@ Prop_strong()NSMutableArray<UILabel *> *generatedLabels;
                        rows:(NSArray<JobsOCExcelRow *> *)rows
         freezeThroughColumn:(NSInteger)freezeThroughColumn
                       style:(JobsOCExcelStyle *)style{
-    self.columns = columns ?: NSArray.array;
-    self.rows = rows ?: NSArray.array;
-    self.freezeThroughColumn = freezeThroughColumn;
-    self.style = style.copy ?: JobsOCExcelStyle.new;
+    self.byColumns(columns ?: NSArray.array);
+    self.byRows(rows ?: NSArray.array);
+    self.byFreezeThroughColumn(freezeThroughColumn);
+    self.byStyle(style.copy ?: JobsOCExcelStyle.new);
     [self reloadData];
 }
 
 -(void)reloadData{
-    if (!NSThread.isMainThread) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self reloadData];
-        });return;
-    }
-    [self jobsRemoveGeneratedViews];
-    [self jobsApplyStyle];
-    [self jobsBuildGrid];
-    [self jobsUpdateConstraints];
-    [self invalidateIntrinsicContentSize];
-    [self setNeedsLayout];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCExcelView.class, @selector(jobsReloadData)))(self, @selector(jobsReloadData));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsReloadData{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (!NSThread.isMainThread) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self reloadData];
+            });return;
+        }
+        self.jobsRemoveGeneratedViews();
+        self.jobsApplyStyle();
+        self.jobsBuildGrid();
+        self.jobsUpdateConstraints();
+        [self invalidateIntrinsicContentSize];
+        [self setNeedsLayout];
+    };
 }
 
 -(void)setHorizontalContentOffset:(CGFloat)offset
@@ -103,111 +153,156 @@ Prop_strong()NSMutableArray<UILabel *> *generatedLabels;
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (scrollView != self.horizontalScrollView) return;
-    if ([self.delegate respondsToSelector:@selector(excelView:didScrollHorizontallyToOffset:)]) {
-        [self.delegate excelView:self
-didScrollHorizontallyToOffset:scrollView.contentOffset.x];
-    }
+    jobsByScrollViewBlock action = ((jobsByScrollViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCExcelView.class, @selector(jobsScrollViewDidScroll)))(self, @selector(jobsScrollViewDidScroll));
+    if (action) action(scrollView);
+}
+
+-(jobsByScrollViewBlock _Nonnull)jobsScrollViewDidScroll{
+    @jobs_weakify(self)
+    return ^(UIScrollView * scrollView){
+        @jobs_strongify(self)
+        if (!self) return;
+            if (scrollView != self.horizontalScrollView) return;
+            if ([self.delegate respondsToSelector:@selector(excelView:didScrollHorizontallyToOffset:)]) {
+                [self.delegate excelView:self
+        didScrollHorizontallyToOffset:scrollView.contentOffset.x];
+            }
+    };
 }
 
 #pragma mark —— Private
--(void)jobsCommonInit{
-    self.clipsToBounds = YES;
-    self.columns = NSArray.array;
-    self.rows = NSArray.array;
-    self.freezeThroughColumn = NSNotFound;
-    self.style = JobsOCExcelStyle.new;
-    self.generatedLabels = NSMutableArray.array;
-    self.frozenPaneView.byAlpha(1);
-    self.horizontalScrollView.byAlpha(1);
-    self.scrollContentView.byAlpha(1);
-    [self reloadData];
+-(jobsByVoidBlock _Nonnull)jobsCommonInit{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byClipsToBounds(YES);
+        self.byColumns(NSArray.array);
+        self.byRows(NSArray.array);
+        self.byFreezeThroughColumn(NSNotFound);
+        self.byStyle(JobsOCExcelStyle.new);
+        self.byGeneratedLabels(NSMutableArray.array);
+        self.frozenPaneView.byAlpha(1);
+        self.horizontalScrollView.byAlpha(1);
+        self.scrollContentView.byAlpha(1);
+        [self reloadData];
+    };
 }
 
--(UILabel *)jobsMakeGridLabel{
-    UILabel *label = jobsMakeLabel(^(__kindof UILabel * _Nullable data) {
-        data.byTextAlignment(NSTextAlignmentCenter);
-    });
-    label.layer
-        .byBorderWidth(self.style.gridLineWidth)
-        .byBorderColor(self.style.gridLineColor.CGColor);
-    return label;
+-(JobsRetLabelByVoidBlock _Nonnull)jobsMakeGridLabel{
+    @jobs_weakify(self)
+    return ^UILabel *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        UILabel *label = jobsMakeLabel(^(__kindof UILabel * _Nullable data) {
+            data.byTextAlignment(NSTextAlignmentCenter);
+        });
+        label.layer
+            .byBorderWidth(self.style.gridLineWidth)
+            .byBorderColor(self.style.gridLineColor.CGColor);
+        return label;
+    };
 }
 
--(NSArray<NSNumber *> *)jobsResolvedColumnWidths{
-    NSMutableArray<NSNumber *> *widths = NSMutableArray.array;
-    for (JobsOCExcelColumn *column in self.columns) {
-        [widths addObject:@(column.width > 0 ? column.width : self.style.defaultColumnWidth)];
-    }return widths.copy;
+-(JobsRetNSArrayNSNumberByVoidBlock _Nonnull)jobsResolvedColumnWidths{
+    @jobs_weakify(self)
+    return ^NSArray<NSNumber *> *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSMutableArray<NSNumber *> *widths = NSMutableArray.array;
+        for (JobsOCExcelColumn *column in self.columns) {
+            [widths addObject:@(column.width > 0 ? column.width : self.style.defaultColumnWidth)];
+        }return widths.copy;
+    };
 }
 
--(NSInteger)jobsFrozenColumnCount{
-    if (self.freezeThroughColumn == NSNotFound || !self.columns.count) return 0;
-    return MIN(MAX(0, self.freezeThroughColumn + 1), self.columns.count);
+-(JobsRetNSIntegerByVoidBlock _Nonnull)jobsFrozenColumnCount{
+    @jobs_weakify(self)
+    return ^NSInteger{
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        if (self.freezeThroughColumn == NSNotFound || !self.columns.count) return 0;
+        return MIN(MAX(0, self.freezeThroughColumn + 1), self.columns.count);
+    };
 }
 
--(void)jobsRemoveGeneratedViews{
-    for (UILabel *label in self.generatedLabels) {
-        [label byStopTextScroll];
-        [label removeFromSuperview];
-    }
-    [self.generatedLabels removeAllObjects];
+-(jobsByVoidBlock _Nonnull)jobsRemoveGeneratedViews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        for (UILabel *label in self.generatedLabels) {
+            label.byStopTextScroll();
+            [label removeFromSuperview];
+        }
+        [self.generatedLabels removeAllObjects];
+    };
 }
 
--(void)jobsApplyStyle{
-    self.horizontalScrollView
-        .byShowsHorizontalScrollIndicator(self.style.showsHorizontalScrollIndicator)
-        .byBounces(self.style.bouncesHorizontally)
-        .byAlwaysBounceHorizontal(self.style.bouncesHorizontally && self.columns.count > self.jobsFrozenColumnCount);
-    self.scrollContentView.byBgColor(self.style.bodyBackgroundColor);
+-(jobsByVoidBlock _Nonnull)jobsApplyStyle{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.horizontalScrollView
+            .byShowsHorizontalScrollIndicator(self.style.showsHorizontalScrollIndicator)
+            .byBounces(self.style.bouncesHorizontally)
+            .byAlwaysBounceHorizontal(self.style.bouncesHorizontally && self.columns.count > self.jobsFrozenColumnCount());
+        self.scrollContentView.byBgColor(self.style.bodyBackgroundColor);
+    };
 }
 
--(void)jobsBuildGrid{
-    NSArray<NSNumber *> *widths = self.jobsResolvedColumnWidths;
-    CGFloat frozenOffset = 0;
-    CGFloat scrollOffset = 0;
-    for (NSInteger columnIndex = 0; columnIndex < self.columns.count; columnIndex++) {
-        BOOL isFrozen = columnIndex < self.jobsFrozenColumnCount;
-        UIView *parentView = isFrozen ? self.frozenPaneView : self.scrollContentView;
-        CGFloat offset = isFrozen ? frozenOffset : scrollOffset;
-        CGFloat width = widths[columnIndex].doubleValue;
-        JobsOCExcelColumn *column = self.columns[columnIndex];
-        [self jobsAddLabelWithCell:column.header
-                             font:self.style.headerFont
-                        textColor:isFrozen ? self.style.frozenHeaderTextColor : self.style.headerTextColor
-                  backgroundColor:isFrozen ? self.style.frozenHeaderBackgroundColor : self.style.headerBackgroundColor
-                       parentView:parentView
-                              row:-1
-                           column:columnIndex
-                              top:0
-                             left:offset
-                            width:width
-                           height:self.style.headerHeight
-                       selectable:NO];
-        for (NSInteger rowIndex = 0; rowIndex < self.rows.count; rowIndex++) {
-            JobsOCExcelRow *row = self.rows[rowIndex];
-            JobsOCExcelCell *cell = columnIndex < row.cells.count
-                ? row.cells[columnIndex]
-                : [JobsOCExcelCell cellWithText:@""];
-            [self jobsAddLabelWithCell:cell
-                                 font:self.style.bodyFont
-                            textColor:isFrozen ? self.style.primaryTextColor : self.style.secondaryTextColor
-                      backgroundColor:isFrozen ? self.style.frozenColumnBackgroundColor : self.style.bodyBackgroundColor
+-(jobsByVoidBlock _Nonnull)jobsBuildGrid{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        NSArray<NSNumber *> *widths = self.jobsResolvedColumnWidths();
+        CGFloat frozenOffset = 0;
+        CGFloat scrollOffset = 0;
+        for (NSInteger columnIndex = 0; columnIndex < self.columns.count; columnIndex++) {
+            BOOL isFrozen = columnIndex < self.jobsFrozenColumnCount();
+            UIView *parentView = isFrozen ? self.frozenPaneView : self.scrollContentView;
+            CGFloat offset = isFrozen ? frozenOffset : scrollOffset;
+            CGFloat width = widths[columnIndex].doubleValue;
+            JobsOCExcelColumn *column = self.columns[columnIndex];
+            [self jobsAddLabelWithCell:column.header
+                                 font:self.style.headerFont
+                            textColor:isFrozen ? self.style.frozenHeaderTextColor : self.style.headerTextColor
+                      backgroundColor:isFrozen ? self.style.frozenHeaderBackgroundColor : self.style.headerBackgroundColor
                            parentView:parentView
-                                  row:rowIndex
+                                  row:-1
                                column:columnIndex
-                                  top:self.style.headerHeight + rowIndex * self.style.rowHeight
+                                  top:0
                                  left:offset
                                 width:width
-                               height:self.style.rowHeight
-                           selectable:YES];
+                               height:self.style.headerHeight
+                           selectable:NO];
+            for (NSInteger rowIndex = 0; rowIndex < self.rows.count; rowIndex++) {
+                JobsOCExcelRow *row = self.rows[rowIndex];
+                JobsOCExcelCell *cell = columnIndex < row.cells.count
+                    ? row.cells[columnIndex]
+                    : JobsOCExcelCell.cellWithText(@"");
+                [self jobsAddLabelWithCell:cell
+                                     font:self.style.bodyFont
+                                textColor:isFrozen ? self.style.primaryTextColor : self.style.secondaryTextColor
+                          backgroundColor:isFrozen ? self.style.frozenColumnBackgroundColor : self.style.bodyBackgroundColor
+                               parentView:parentView
+                                      row:rowIndex
+                                   column:columnIndex
+                                      top:self.style.headerHeight + rowIndex * self.style.rowHeight
+                                     left:offset
+                                    width:width
+                                   height:self.style.rowHeight
+                               selectable:YES];
+            }
+            if (isFrozen) {
+                frozenOffset += width;
+            }else{
+                scrollOffset += width;
+            }
         }
-        if (isFrozen) {
-            frozenOffset += width;
-        }else{
-            scrollOffset += width;
-        }
-    }
+    };
 }
 
 -(void)jobsAddLabelWithCell:(JobsOCExcelCell *)cell
@@ -222,8 +317,8 @@ didScrollHorizontallyToOffset:scrollView.contentOffset.x];
                       width:(CGFloat)width
                      height:(CGFloat)height
                  selectable:(BOOL)selectable{
-    UILabel *label = [self jobsMakeGridLabel];
-    label.tag = selectable ? row * MAX(1, self.columns.count) + column : -1;
+    UILabel *label = self.jobsMakeGridLabel();
+    label.byTag(selectable ? row * MAX(1, self.columns.count) + column : -1);
     label.byText(cell.text)
         .byTextCor(textColor)
         .byFont(font)
@@ -236,7 +331,7 @@ didScrollHorizontallyToOffset:scrollView.contentOffset.x];
         @jobs_weakify(self)
         label.addTapGR(^(__kindof UITapGestureRecognizer * _Nullable gesture) {
             @jobs_strongify(self)
-            [self jobsHandleCellTap:(UILabel *)gesture.view];
+            self.jobsHandleCellTap((UILabel *)gesture.view);
         });
     }
     label.addOn(parentView)
@@ -249,47 +344,57 @@ didScrollHorizontallyToOffset:scrollView.contentOffset.x];
     [self.generatedLabels addObject:label];
 }
 
--(void)jobsUpdateConstraints{
-    NSArray<NSNumber *> *widths = self.jobsResolvedColumnWidths;
-    NSInteger frozenColumnCount = self.jobsFrozenColumnCount;
-    CGFloat frozenWidth = 0;
-    CGFloat scrollWidth = 0;
-    for (NSInteger index = 0; index < widths.count; index++) {
-        if (index < frozenColumnCount) {
-            frozenWidth += widths[index].doubleValue;
-        }else{
-            scrollWidth += widths[index].doubleValue;
+-(jobsByVoidBlock _Nonnull)jobsUpdateConstraints{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        NSArray<NSNumber *> *widths = self.jobsResolvedColumnWidths();
+        NSInteger frozenColumnCount = self.jobsFrozenColumnCount();
+        CGFloat frozenWidth = 0;
+        CGFloat scrollWidth = 0;
+        for (NSInteger index = 0; index < widths.count; index++) {
+            if (index < frozenColumnCount) {
+                frozenWidth += widths[index].doubleValue;
+            }else{
+                scrollWidth += widths[index].doubleValue;
+            }
         }
-    }
-    [self.frozenPaneView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.left.bottom.equalTo(self);
-        make.width.mas_equalTo(frozenWidth).priorityHigh();
-        make.width.lessThanOrEqualTo(self);
-    }];
-    [self.horizontalScrollView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.right.bottom.equalTo(self);
-        make.left.equalTo(self.frozenPaneView.mas_right);
-    }];
-    [self.scrollContentView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.horizontalScrollView);
-        make.width.mas_equalTo(MAX(1, scrollWidth));
-        make.height.mas_equalTo(MAX(1, self.requiredHeight));
-    }];
+        [self.frozenPaneView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.left.bottom.equalTo(self);
+            make.width.mas_equalTo(frozenWidth).priorityHigh();
+            make.width.lessThanOrEqualTo(self);
+        }];
+        [self.horizontalScrollView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.right.bottom.equalTo(self);
+            make.left.equalTo(self.frozenPaneView.mas_right);
+        }];
+        [self.scrollContentView mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.horizontalScrollView);
+            make.width.mas_equalTo(MAX(1, scrollWidth));
+            make.height.mas_equalTo(MAX(1, self.requiredHeight));
+        }];
+    };
 }
 
--(void)jobsHandleCellTap:(UILabel *)label{
-    NSInteger columnCount = MAX(1, self.columns.count);
-    NSInteger rowIndex = label.tag / columnCount;
-    NSInteger column = label.tag % columnCount;
-    if (rowIndex < 0 || rowIndex >= self.rows.count || column < 0 || column >= self.columns.count) return;
-    JobsOCExcelRow *row = self.rows[rowIndex];
-    NSString *value = column < row.cells.count ? row.cells[column].text : @"";
-    if ([self.delegate respondsToSelector:@selector(excelView:didSelectCell:)]) {
-        [self.delegate excelView:self
-                   didSelectCell:[JobsOCExcelCellContext contextWithRow:rowIndex
-                                                                column:column
-                                                                 value:value]];
-    }
+-(jobsByLabelBlock _Nonnull)jobsHandleCellTap{
+    @jobs_weakify(self)
+    return ^(UILabel * label){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSInteger columnCount = MAX(1, self.columns.count);
+        NSInteger rowIndex = label.tag / columnCount;
+        NSInteger column = label.tag % columnCount;
+        if (rowIndex < 0 || rowIndex >= self.rows.count || column < 0 || column >= self.columns.count) return;
+        JobsOCExcelRow *row = self.rows[rowIndex];
+        NSString *value = column < row.cells.count ? row.cells[column].text : @"";
+        if ([self.delegate respondsToSelector:@selector(excelView:didSelectCell:)]) {
+            [self.delegate excelView:self
+                       didSelectCell:[JobsOCExcelCellContext contextWithRow:rowIndex
+                                                                    column:column
+                                                                     value:value]];
+        }
+    };
 }
 
 #pragma mark —— lazyLoad
@@ -322,4 +427,41 @@ didScrollHorizontallyToOffset:scrollView.contentOffset.x];
     };return _scrollContentView;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsOCExcelView
+-(JobsRetJobsOCExcelViewByNSArrayJobsOCExcelColumnBlock _Nonnull)byColumns{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCExcelView * _Nullable(NSArray<JobsOCExcelColumn *> * _Nullable data){
+        @jobs_strongify(self)
+        [self setColumns:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsOCExcelViewByNSArrayJobsOCExcelRowBlock _Nonnull)byRows{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCExcelView * _Nullable(NSArray<JobsOCExcelRow *> * _Nullable data){
+        @jobs_strongify(self)
+        [self setRows:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsOCExcelViewByNSIntegerBlock _Nonnull)byFreezeThroughColumn{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCExcelView * _Nullable(NSInteger data){
+        @jobs_strongify(self)
+        [self setFreezeThroughColumn:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsOCExcelViewByNSMutableArrayUILabelBlock _Nonnull)byGeneratedLabels{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCExcelView * _Nullable(NSMutableArray<UILabel *> * _Nullable data){
+        @jobs_strongify(self)
+        [self setGeneratedLabels:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCExcelView
 @end

@@ -61,8 +61,8 @@ BaseViewProtocol
 ,UITableViewDataSource
 >
 
--(MsgEditBoardView *)getMsgEditBoardView;
--(UITableView *)getTableView;
+-(JobsRetMsgEditBoardViewByVoidBlock _Nonnull)getMsgEditBoardView;
+-(JobsRetTableViewByVoidBlock _Nonnull)getTableView;
 
 @end
 

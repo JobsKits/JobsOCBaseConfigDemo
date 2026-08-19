@@ -8,10 +8,12 @@
 #import "GKNavigationBarConfigure+DSL.h"
 
 @implementation GKNavigationBarConfigure (DSL)
-+(__kindof GKNavigationBarConfigure *_Nonnull)bySetupDefault{
-    GKNavigationBarConfigure *configure = GKNavigationBarConfigure.sharedInstance;
-    [configure setupDefaultConfigure];
-    return configure;
++(JobsRetGKNavigationBarConfigureByVoidBlock _Nonnull)bySetupDefault{
+    return ^__kindof GKNavigationBarConfigure *_Nonnull{
+        GKNavigationBarConfigure *configure = GKNavigationBarConfigure.sharedInstance;
+        [configure setupDefaultConfigure];
+        return configure;
+    };
 }
 
 +(JobsRetGKNavConfigureByConfigureBlock _Nonnull)bySetup{
@@ -34,9 +36,14 @@
     };
 }
 
--(__kindof GKNavigationBarConfigure *_Nonnull)byCommit{
-    [self updateConfigure:^(__kindof GKNavigationBarConfigure * _Nonnull data){}];
-    return self;
+-(JobsRetGKNavigationBarConfigureByVoidBlock _Nonnull)byCommit{
+    @jobs_weakify(self)
+    return ^__kindof GKNavigationBarConfigure *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self updateConfigure:^(__kindof GKNavigationBarConfigure * _Nonnull data){}];
+        return self;
+    };
 }
 
 -(JobsRetGKNavConfigureByConfigureBlock _Nonnull)dsl{
@@ -96,8 +103,8 @@
     @jobs_weakify(self)
     return ^__kindof GKNavigationBarConfigure *_Nullable(UIImage *_Nullable image, UIImage *_Nullable darkImage, UIColor *_Nullable color, NSNumber *_Nullable hidden){
         @jobs_strongify(self)
-        self.lineImage = image;
-        self.darkLineImage = darkImage;
+        self.byLineImage(image);
+        self.byDarkLineImage(darkImage);
         if (color) self.lineColor = color;
         if (hidden) self.lineHidden = hidden.boolValue;
         return self;
@@ -157,8 +164,8 @@
     @jobs_weakify(self)
     return ^__kindof GKNavigationBarConfigure *_Nullable(UIColor *_Nullable color, UIFont *_Nullable font){
         @jobs_strongify(self)
-        self.titleColor = color;
-        self.titleFont = font;
+        self.byTitleColor(color);
+        self.byTitleFont(font);
         return self;
     };
 }
@@ -193,8 +200,8 @@
     @jobs_weakify(self)
     return ^__kindof GKNavigationBarConfigure *_Nullable(UIImage *_Nullable blackImage, UIImage *_Nullable whiteImage){
         @jobs_strongify(self)
-        self.blackBackImage = blackImage;
-        self.whiteBackImage = whiteImage;
+        self.byBlackBackImage(blackImage);
+        self.byWhiteBackImage(whiteImage);
         return self;
     };
 }

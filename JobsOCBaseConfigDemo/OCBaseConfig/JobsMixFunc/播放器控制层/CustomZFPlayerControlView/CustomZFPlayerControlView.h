@@ -6,6 +6,13 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_CUSTOMZFPLAYERCONTROLVIEW_CE4AC669E2
+
+#if __has_include(<ZFPlayer/ZFPlayer.h>)
+#import <ZFPlayer/ZFPlayer.h>
+#else
+#import "ZFPlayer.h"
+#endif
+
 #define JOBS_HEADER_GUARD_CUSTOMZFPLAYERCONTROLVIEW_CE4AC669E2
 
 #pragma once
@@ -15,11 +22,6 @@
 #pragma mark —— ZFPlayer 播放器相关
 //Core
 
-#if __has_include(<ZFPlayer/ZFPlayer.h>)
-#import <ZFPlayer/ZFPlayer.h>
-#else
-#import "ZFPlayer.h"
-#endif
 //AVPlayer
 
 #if __has_include(<ZFPlayer/ZFAVPlayerManager.h>)
@@ -115,8 +117,11 @@ NS_ASSUME_NONNULL_BEGIN
 ///播放器的控制层
 @interface CustomZFPlayerControlView : ZFPlayerControlView <ZFPlayerMediaControl>
 
--(void)actionCustomZFPlayerControlViewBlock:(jobsByTwoIDBlock _Nullable)CustomZFPlayerControlViewBlock;
+-(jobsByjobsByTwoIDBlockBlock _Nonnull)actionCustomZFPlayerControlViewBlock;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN CustomZFPlayerControlView
+-(JobsRetCustomZFPlayerControlViewByjobsByTwoIDBlockBlock _Nonnull)byCustomZFPlayerControlViewBlock;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END CustomZFPlayerControlView
 @end
 
 NS_ASSUME_NONNULL_END

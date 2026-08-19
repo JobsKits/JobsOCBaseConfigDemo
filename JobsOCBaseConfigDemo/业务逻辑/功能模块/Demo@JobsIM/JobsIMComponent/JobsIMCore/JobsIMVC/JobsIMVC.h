@@ -12,18 +12,6 @@
 #import "JobsIMChatInfoModel.h"
 #import "JobsTimeModel.h"
 
-#if __has_include(<IQKeyboardManager/IQKeyboardManager.h>)
-#import <IQKeyboardManager/IQKeyboardManager.h>
-#else
-#import "IQKeyboardManager.h"
-#endif
-
-#if __has_include(<MGSwipeTableCell/MGSwipeTableCell.h>)
-#import <MGSwipeTableCell/MGSwipeTableCell.h>
-#else
-#import "MGSwipeTableCell.h"
-#endif
-
 #if __has_include(<JobsLoadingImage/JobsLoadingImageHeader.h>)
 #import <JobsLoadingImage/JobsLoadingImageHeader.h>
 #else
@@ -78,6 +66,18 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<IQKeyboardManager/IQKeyboardManager.h>)
+#import <IQKeyboardManager/IQKeyboardManager.h>
+#else
+#import "IQKeyboardManager.h"
+#endif
+
+#if __has_include(<MGSwipeTableCell/MGSwipeTableCell.h>)
+#import <MGSwipeTableCell/MGSwipeTableCell.h>
+#else
+#import "MGSwipeTableCell.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 /// JobsIM 聊天页。
@@ -90,6 +90,11 @@ UITableViewDelegate
 ,MGSwipeTableCellDelegate
 >
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsIMVC
+-(JobsRetJobsIMVCByBOOLBlock _Nonnull)byHasStartedInitialRefresh;
+-(JobsRetJobsIMVCByBOOLBlock _Nonnull)byHiddenNavigationBar;
+-(JobsRetJobsIMVCByJobsIMChatInfoModelBlock _Nonnull)byChatInfoModel;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsIMVC
 @end
 
 NS_ASSUME_NONNULL_END

@@ -36,12 +36,12 @@ NS_ASSUME_NONNULL_END
     {
 
      SYSAlertControllerConfig *config = SYSAlertControllerConfig.new;
-     config.title = @"是否取消对其关注？".tr;
+     config.title = @"是否取消对其关注？".jobsTr();
      config.isSeparateStyle = NO;
      config.btnTitleArr = @[@"确定",@"取消"];
-     config.alertBtnActionArr = @[@"unfollow:",@"".tr];
+     config.alertBtnActionArr = @[@"unfollow:",@"".jobsTr()];
      config.parametersArr = @[@{@"btn":btn,
-                                @"plazaCommunityListModel":plazaCommunityListModel},@"".tr];
+                                @"plazaCommunityListModel":plazaCommunityListModel},@"".jobsTr()];
      config.targetVC = NSObject.getCurrentViewController;
      config.funcInWhere = self;
      config.animated = YES;
@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_END
      SYSAlertControllerConfig *config = SYSAlertControllerConfig.new;
      config.isSeparateStyle = YES;
      config.btnTitleArr = @[@"保存图片",@"取消"];
-     config.alertBtnActionArr = @[@"savePic",@"".tr];
+     config.alertBtnActionArr = @[@"savePic",@"".jobsTr()];
      config.targetVC = self.saveImageModel.photoBrowser;
      config.funcInWhere = self;
      config.animated = YES;

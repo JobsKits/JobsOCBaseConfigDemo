@@ -20,63 +20,143 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MyCollectionVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(data.attributedTitle.string)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byBgImage(@"新首页的底图".img)
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(data.attributedTitle.string)
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byBgImage(@"新首页的底图".img)
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.collectionView.byShow(self);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MyCollectionVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.collectionView.byShow(self);
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MyCollectionVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillAppear:animated];
+    };
 }
 
 -(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MyCollectionVC.class, @selector(jobsViewWillLayoutSubviews)))(self, @selector(jobsViewWillLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewWillLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MyCollectionVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MyCollectionVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MyCollectionVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MyCollectionVC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+    };
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches
@@ -91,31 +171,41 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
     return jobsMakeContextMenuConfiguration(indexPath,
                                              ^UIViewController * _Nullable{
         PreviewVC *previewVC = PreviewVC.new;
-        previewVC.previewText = [NSString stringWithFormat:@"Preview for item %ld", (long)indexPath.item];
+        previewVC.byPreviewText([NSString stringWithFormat:@"Preview for item %ld", (long)indexPath.item]);
         return previewVC;
     },
                                              ^UIMenu * _Nullable(NSArray<UIMenuElement *> *suggestedActions) {
-        UIAction *action1 = jobsMakeAction(@"Action 1".tr,
+        UIAction *action1 = jobsMakeAction(@"Action 1".jobsTr(),
                                            nil,
                                            nil,
                                            ^(__kindof UIAction *_Nonnull action) {
             JobsLog(@"Action 1 selected for item %ld", (long)indexPath.item);
         },
                                            nil);
-        UIAction *action2 = jobsMakeAction(@"Action 2".tr,
+        UIAction *action2 = jobsMakeAction(@"Action 2".jobsTr(),
                                            nil,
                                            nil,
                                            ^(__kindof UIAction *_Nonnull action) {
             JobsLog(@"Action 2 selected for item %ld", (long)indexPath.item);
         },
                                            nil);
-        return jobsMakeMenu(@"".tr, @[action1, action2], nil);
+        return jobsMakeMenu(@"".jobsTr(), @[action1, action2], nil);
     },
                                              nil);
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return self.dataMutArr.count;
+    JobsRetNSIntegerByUICollectionViewBlock action = ((JobsRetNSIntegerByUICollectionViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MyCollectionVC.class, @selector(jobsNumberOfSectionsInCollectionView)))(self, @selector(jobsNumberOfSectionsInCollectionView));
+    return action ? action(collectionView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUICollectionViewBlock _Nonnull)jobsNumberOfSectionsInCollectionView{
+    @jobs_weakify(self)
+    return ^NSInteger(UICollectionView * collectionView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return self.dataMutArr.count;
+    };
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull __kindof UICollectionView *)collectionView
@@ -199,32 +289,62 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     if (!_dataMutArr) {
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIViewModel *>* _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                viewModel.jobsDataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable mutArr) {
+                viewModel.byJobsDataMutArr(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable mutArr) {
                     mutArr.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                        viewModel.textModel.byText(@"存款金额".tr);
-                        viewModel.subTextModel.byText(@"10,000.00".tr);
+                        viewModel
+                            .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                                textModel.byText(@"存款金额".jobsTr());
+                            })
+                            .bySubTextModelBlock(^(__kindof UITextModel * _Nullable subTextModel) {
+                                subTextModel.byText(@"10,000.00".jobsTr());
+                            });
                     }))
                     .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                        viewModel.textModel.byText(@"存款方式".tr);
-                        viewModel.subTextModel.byText(@"虛擬幣充值".tr);
+                        viewModel
+                            .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                                textModel.byText(@"存款方式".jobsTr());
+                            })
+                            .bySubTextModelBlock(^(__kindof UITextModel * _Nullable subTextModel) {
+                                subTextModel.byText(@"虛擬幣充值".jobsTr());
+                            });
                     }))
                     .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                        viewModel.textModel.byText(@"訂單編號".tr);
-                        viewModel.subTextModel.byText(@"YSF2025022302644565964");
+                        viewModel
+                            .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                                textModel.byText(@"訂單編號".jobsTr());
+                            })
+                            .bySubTextModelBlock(^(__kindof UITextModel * _Nullable subTextModel) {
+                                subTextModel.byText(@"YSF2025022302644565964");
+                            });
                     }))
                     .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                        viewModel.textModel.byText(@"轉賬姓名".tr);
-                        viewModel.subTextModel.byText(@"張三 ".tr);
+                        viewModel
+                            .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                                textModel.byText(@"轉賬姓名".jobsTr());
+                            })
+                            .bySubTextModelBlock(^(__kindof UITextModel * _Nullable subTextModel) {
+                                subTextModel.byText(@"張三 ".jobsTr());
+                            });
                     }))
                     .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                        viewModel.textModel.byText(@"銀行賬號".tr);
-                        viewModel.subTextModel.byText(@"6230 5822 0031 5762 430".tr);
+                        viewModel
+                            .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                                textModel.byText(@"銀行賬號".jobsTr());
+                            })
+                            .bySubTextModelBlock(^(__kindof UITextModel * _Nullable subTextModel) {
+                                subTextModel.byText(@"6230 5822 0031 5762 430".jobsTr());
+                            });
                     }))
                     .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                        viewModel.textModel.byText(@"轉賬地址".tr);
-                        viewModel.subTextModel.byText(@"中國平安銀行".tr);
+                        viewModel
+                            .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                                textModel.byText(@"轉賬地址".jobsTr());
+                            })
+                            .bySubTextModelBlock(^(__kindof UITextModel * _Nullable subTextModel) {
+                                subTextModel.byText(@"中國平安銀行".jobsTr());
+                            });
                     }));
-                });
+                }));
             }));
         });
     };return _dataMutArr;

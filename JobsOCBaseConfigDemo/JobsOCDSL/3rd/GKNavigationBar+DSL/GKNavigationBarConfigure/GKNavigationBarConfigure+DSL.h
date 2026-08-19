@@ -6,15 +6,16 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_GKNAVIGATIONBARCONFIGURE_DSL_A7D2E03F19
-#define JOBS_HEADER_GUARD_GKNAVIGATIONBARCONFIGURE_DSL_A7D2E03F19
-
-#import <UIKit/UIKit.h>
 
 #if __has_include(<GKNavigationBar/GKNavigationBar.h>)
 #import <GKNavigationBar/GKNavigationBar.h>
 #else
 #import "GKNavigationBar.h"
 #endif
+
+#define JOBS_HEADER_GUARD_GKNAVIGATIONBARCONFIGURE_DSL_A7D2E03F19
+
+#import <UIKit/UIKit.h>
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"
@@ -23,12 +24,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKNavigationBarConfigure (DSL)
 
-+(__kindof GKNavigationBarConfigure *_Nonnull)bySetupDefault;
++(JobsRetGKNavigationBarConfigureByVoidBlock _Nonnull)bySetupDefault;
 +(JobsRetGKNavConfigureByConfigureBlock _Nonnull)bySetup;
 +(JobsRetGKNavConfigureByConfigureBlock _Nonnull)byUpdate;
 
 -(JobsRetGKNavConfigureByConfigureBlock _Nonnull)dsl;
--(__kindof GKNavigationBarConfigure *_Nonnull)byCommit;
+-(JobsRetGKNavigationBarConfigureByVoidBlock _Nonnull)byCommit;
 -(JobsRetGKNavConfigureByColorBlock _Nonnull)byBackground;
 -(JobsRetGKNavConfigureByColorBlock _Nonnull)byBackgroundColor;
 -(JobsRetGKNavConfigureByImageBlock _Nonnull)byBackgroundImage;

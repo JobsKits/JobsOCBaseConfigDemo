@@ -6,13 +6,6 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSAPPDOORVC_EB363B5645
-#define JOBS_HEADER_GUARD_JOBSAPPDOORVC_EB363B5645
-
-#import <UIKit/UIKit.h>
-#import "JobsAppDoorForgotCodeContentView.h"// 忘记密码
-#import "JobsAppDoorLogoContentView.h"
-#import "JobsAppDoorContentView.h"
-#import "JobsAppDoorConfig.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
@@ -20,14 +13,29 @@
 #import "Masonry.h"
 #endif
 
-#pragma mark —— ZFPlayer 播放器相关
-//Core
-
 #if __has_include(<ZFPlayer/ZFPlayer.h>)
 #import <ZFPlayer/ZFPlayer.h>
 #else
 #import "ZFPlayer.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSAPPDOORVC_EB363B5645
+
+#import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+#import "JobsAppDoorForgotCodeContentView.h"// 忘记密码
+#import "JobsAppDoorLogoContentView.h"
+#import "JobsAppDoorContentView.h"
+#import "JobsAppDoorConfig.h"
+
+#pragma mark —— ZFPlayer 播放器相关
+//Core
+
 //AVPlayer
 
 #if __has_include(<ZFPlayer/ZFAVPlayerManager.h>)
@@ -195,11 +203,23 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JobsAppDoorVC : BaseViewController
 
 Prop_strong()JobsAppDoorConfig *configuration;
+-(JobsRetJobsAppDoorVCByConfigBlock _Nonnull)byConfiguration;
 
 -(instancetype)initWithConfiguration:(JobsAppDoorConfig *)configuration;
 /// 进此页面先自动跳转到注册页面
--(void)toRegister;
+-(jobsByVoidBlock _Nonnull)toRegister;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorVC
+-(JobsRetJobsAppDoorVCByBOOLBlock _Nonnull)byHiddenNavigationBar;
+-(JobsRetJobsAppDoorVCByBOOLBlock _Nonnull)byVideoPausedByApplicationState;
+-(JobsRetJobsAppDoorVCByCGFloatBlock _Nonnull)byCustomerServiceBtnY;
+-(JobsRetJobsAppDoorVCByCGFloatBlock _Nonnull)byForgotCodeContentViewY;
+-(JobsRetJobsAppDoorVCByCGFloatBlock _Nonnull)byJobsAppDoorContentViewY;
+-(JobsRetJobsAppDoorVCByCGFloatBlock _Nonnull)byLogoContentViewY;
+-(JobsRetJobsAppDoorVCByJobsAppDoorModelBlock _Nonnull)byAppDoorModel;
+-(JobsRetJobsAppDoorVCByNSIntegerBlock _Nonnull)byCurrentActivateTFIndex;
+-(JobsRetJobsAppDoorVCByNSIntegerBlock _Nonnull)byLastTimeActivateTFIndex;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorVC
 @end
 
 NS_ASSUME_NONNULL_END

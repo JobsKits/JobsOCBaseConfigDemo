@@ -11,6 +11,12 @@
 #import "MacroDef_Cor.h"
 #import "JobsBaseCustomizeUIKitCoreHeader.h"
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIColor (Other)
@@ -26,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 十六进制字符串 （默认透明度为1） => UIColor *
 +(JobsRetCorByStrBlock _Nonnull)colorWithHexString;
 /// UIColor * => UIImage *
-+(JobsRetImageByCorBlock)imageWithColor;
++(JobsRetImageByCorBlock _Nonnull)imageWithColor;
 /// 生成的渐变图像
 /// - Parameters:
 ///   - CorDataMutArr: 一个可选的NSMutableArray，其中包含用于渐变的颜色数组。如果未提供或为nil，方法将默认使用红色和绿色作为渐变颜色。
@@ -42,14 +48,15 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark —— 实例方法
 /// 将一个确定的UIColor子类，翻译成RGB格式的字符串值并对外输出【可能因为四舍五入的问题影响末位精度，误差在±1】
 /// 资料来源  https://blog.csdn.net/thanklife/article/details/25784879
--(JobsRetStrByCorBlock)rgbCorStrBy;
+-(JobsRetStrByCorBlock _Nonnull)rgbCorStrBy;
 /// 将一个确定的UIColor子类，翻译成十六进制格式的字符串值并对外输出
--(JobsRetCorModelByVoidBlock)hexadecimalCorStrBy;
+-(JobsRetCorModelByVoidBlock _Nonnull)hexadecimalCorStrBy;
 /// iOS 父视图透明度影响到子视图
 /// https://blog.csdn.net/ios_xumin/article/details/114263960
--(JobsRetCorByCGFloatBlock)colorWithAlphaComponentBy;
+-(JobsRetCorByCGFloatBlock _Nonnull)colorWithAlphaComponentBy;
 /// 根据颜色生成图片
 -(UIImage *)image;
+-(JobsRetImageByVoidBlock _Nonnull)jobsImage;
 
 @end
 

@@ -72,13 +72,15 @@
 | --- | --- |
 | `JobsMakes` | 用 `jobsMakeXxx` 统一创建系统对象、集合、菜单、图片与常用配置对象。 |
 | `JobsOCDSL` / `JobsModelDSL` | 系统 API 与 Jobs Model 都收口为 `byXxx(...)` 点语法；按“当前类型 → 父类 → 装配 → 布局”一链到底。 |
-| `JobsBlock` | Block typedef 按返回值和参数签名集中管理；事件默认使用 `onClickBy`、`onClickAppendBy` 等 Block DSL。 |
+| `JobsBlock` | Block typedef 按返回值和参数签名集中管理；Jobs 功能方法的 0 / 1 入参 API 统一以 Block 表达，属性 / 协议等固定 selector 保留原 ABI 与 `jobsXxx` 门面，trampoline 非虚调用地绑定当前类 IMP；析构与 nullable 接收者按运行时安全边界守卫。 |
 | `JobsOCDefs` / `JobsOCProtocols` | 统一属性宏、字体、颜色、枚举、通知、单例、国际化和公共协议簇。 |
 | `JobsModel` | `UIViewModel`、`UITextModel`、`UIButtonModel` 等模型统一承载数据、外观、事件和页面传参。 |
 | `JobsByOCPods` / `JobsBaseUI` | 聚合 UIKit 基座、公共分类、复用 Cell、按钮兼容管线和通用 UI 组件。 |
 | `UIButton+UIControlState` | 直接集成于主工程；除常用单状态入口外，`imageForStateBy`、`backgroundImageForStateBy` 与 `titleColorForStateBy` 接受任意 `UIControlState` 及组合态。 |
 | [**Masonry**](https://github.com/SnapKit/Masonry) | Jobs 自维护 UI 统一使用 Masonry；首次约束、常量更新、结构重建分别使用 make / update / remake；移出父视图使用 `UIView.byRemove()`，清空约束使用 `byClearConstraints()`。 |
 | 新旧系统兼容 | `UIButtonConfiguration`、导航栏外观、媒体、权限与 deprecated API 的版本差异在 Jobs 封装内部消化。 |
+
+Jobs 自维护的应用、Demo 与主工程集成功能统一执行同一套 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 表达：0 / 1 入参功能方法返回显式 `_Nonnull` Block，typedef 集中在 `JobsBlock`；对象属性写入先补到真实宿主 DSL，再从创建到子模型、装配和终止动作保持一条点语法链。`JobsDefines.h` 双通道只进入头文件，固定 ABI 才保留传统 selector trampoline；验收同时要求模拟器编译和冷启动通过。
 
 ### 2.2、最小 UI Demo
 
@@ -2554,8 +2556,10 @@ classDiagram
   * 用每个 Scene 独立计数验证状态隔离，并由 `stateRestorationActivityForScene:` 恢复
   * 实时记录连接、前后台、活跃、失活、断开等 Scene 生命周期事件
 * `JobsOCSceneCoordinator` 按 `UISceneSession.persistentIdentifier` 管理 Demo 状态；当前工程直接集成到主工程，不新增 Pod 依赖。
+* `NSUserActivity` 的带参构造统一由 `NSUserActivity.initByActivityType(activityType)` 唤起，标题、`userInfo`、handoff / prediction 开关和生命周期动作继续走实例 `byXxx(...)`；时间格式器由 `jobsMakeDateFormatter(config Block)` 创建并在 Block 内配置，调用方不再直接 `new` / `alloc-init`。
 * 已移除全局 `SceneDelegate *` 缓存。`AppDelegate` 仍只管理进程级能力；每个 `SceneDelegate` 持有自己的 `UIWindow`。
 * `UIApplicationSupportsMultipleScenes` 只是声明；运行时还要以 `UIApplication.sharedApplication.supportsMultipleScenes` 为准。建议在支持多窗口的 iPad 环境验证完整流程。
+* 场景操作按钮始终保留点击能力；当前设备不支持多窗口、没有可激活的其它 Scene、只剩最后一个 Scene，或页面尚未绑定当前 Scene 时，会立即通过 Toast 说明原因，不再静默禁用。
 * 深入研究入口：[Supporting multiple windows on iPad](https://developer.apple.com/documentation/uikit/supporting-multiple-windows-on-ipad)、[Managing your app's life cycle](https://developer.apple.com/documentation/uikit/managing-your-app-s-life-cycle)、[UISceneSession](https://developer.apple.com/documentation/uikit/uiscenesession)。
 
 ### 16、**`UIScrollView` **的滚动生命周期 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -5580,16 +5584,16 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 
 #### 37.2、关于导航栏  <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- Demo 非根控制器由 `UINavigationController+SafeTransition` 统一补齐 Jobs/GK 导航栏、标题和 `backBtnCategory` Jobs 返回按钮；只处理真实导航栈成员或直接模态页面，导航 / Tab / Split 容器、`UIAlertController` 及其私有子控制器不会创建导航栏。已有系统富文本标题和右侧业务按钮迁移到 GK 导航栏，不显示系统导航容器。仅 `JobsNavigationDemoVC` 作为系统导航栏专项 Demo 保持原样。
+- Demo 非根控制器由 `UINavigationController+SafeTransition` 统一补齐 Jobs/GK 导航栏、标题和 `backBtnCategory` Jobs 返回按钮；只处理真实导航栈成员或直接模态页面，导航 / Tab / Split 容器、`UIAlertController` 及其私有子控制器不会创建导航栏。已有系统富文本标题和右侧业务按钮迁移到 GK 导航栏，不显示系统导航容器。`JobsNavigationDemoVC` 继续使用系统导航栏，但同样接入公共导航主题绑定。
 - 从 `ViewController_1` Demo 根列表进入的每个导航 / 模态子页面，以及类名包含 `Demo` 的独立演示页，右上角最多只显示一个透明背景的主题入口；没有页面业务动作时直接切换主题，月亮 / 太阳图标与无障碍文案表达下一次点击会切换到的主题；存在业务动作时使用 Demo 总入口同款 `ellipsis.circle` 展开下拉列表，展开后切换为填充图标与“收起”语义，把主题切换与全部页面动作统一收纳。系统导航栏专项 Demo 使用同一规则写入 `navigationItem`；主题状态由 `JobsThemeCenter` 持久化并按资源绑定更新。
 - Demo 根列表支持拖拽调整普通分组顺序；“其他”作为兜底分组始终固定在列表末尾，不参与拖拽，也不会因历史持久化顺序恢复到中间。
 - Demo 根列表搜索栏使用独立的蓝色“取消”按钮关闭搜索，不复用 `UISearchBar` 内置取消控件；输入框背景、文字、占位符、图标和边框统一读取 `JobsThemeCenter` 语义色。历史单条记录通过左滑“删除”，不额外占用透明附件区域；“清空”用于整批删除。
 - Demo 根列表的二级入口统一使用 `50pt` 固定行高；主标题和副标题由“设置 → 列表主/副标题”统一选择一般裁切、省略号、缩小字体、连续跑马灯或左右来回滚动，短文仍走 UILabel 原生绘制，深浅色下与同层普通 Label 保持同色。设置中的开屏内容、应用语言和列表文字策略均以一级 Cell 展示当前值，点击展开缩进的二级选项后再点选。Swift / OC 的 Label 分组统一覆盖动效数字、四种定尺寸文字策略、UILabel 与 UIButton.titleLabel 表现列表、可交互自定义 Label、圆点文本和文字旋转。
-- 根列表可点击的二级 Cell 与右上角功能菜单 Cell 使用主题语义选中背景；功能菜单常态使用次级背景，与主页面形成层次，主题切换时同步刷新。
+- 根列表左侧抽屉的容器背景、文字、图标、右箭头和选中背景，以及左上角侧滑菜单图标与右上角功能菜单图标，均使用当前主题语义色；可点击的二级 Cell 与功能菜单 Cell 使用主题语义选中背景，功能菜单常态使用次级背景，主题切换时同步刷新。
 - 进度条相关二级入口（系统、自定义与兼容入口）的主标题前统一展示三格循环充电动效，只刷新当前可见入口，折叠或离屏时不更新不可见 Cell。
-- 主题公共能力集成于主工程 `OCBaseConfig/JobsOCDefs/Core/JobsTheme`，业务数据包位于 `其他/资源文件管理/Json文件/JobsThemeResources.json`。切换时只重放通过 `JobsLabelColor`、`JobsSecondaryLabelColor`、`JobsSystemBackgroundColor` 等 Key 标记的背景 / 文字资源和显式主题图片，不写系统明暗 Trait，不遍历 Scene、Window 或控制器树。`CGColor`、`CALayer`、CoreText 与自绘内容需要显式绑定或监听 `JobsThemeDidChangeNotification`。
-- 默认返回图标使用 template 渲染和 `JobsLabelColor`，随明暗主题自动变色；自定义 `backBtnTitleModel.textCor` 时仍保留业务着色。
-- `GKNavigationBar` 本身提供通用 `gk_navTitleView`，但没有主标题 / 副标题组件；主工程集成版由 `JobsOCBaseCustomize3rdCore/GKCustomNavigationBar` 提供 `gk_navTitleViewBy(UIViewModel *)`，其中 `textModel` 对应主标题、`subTextModel` 对应副标题。
+- 主题公共能力集成于主工程 `OCBaseConfig/JobsOCDefs/Core/JobsTheme`，业务数据包位于 `其他/资源文件管理/Json文件/JobsThemeResources.json`。切换时先快照当前弱引用绑定对象，再重放通过 `JobsLabelColor`、`JobsSecondaryLabelColor`、`JobsSystemBackgroundColor` 等 Key 标记的背景 / 文字资源和显式主题图片，允许回调同步解绑而不修改正在遍历的集合；不写系统明暗 Trait，不遍历 Scene、Window 或控制器树。`CGColor`、`CALayer`、CoreText 与自绘内容需要显式绑定或监听 `JobsThemeDidChangeNotification`。
+- Demo 子页返回按钮统一使用 template 图标、主题主文字色和主题次级背景，主标题 / 副标题分别使用主题主 / 次文字色；公共导航绑定同时覆盖 GK 与系统导航、普通标题与富文本 titleView，切换主题时重新解析颜色。
+- `GKNavigationBar` 本身提供通用 `gk_navTitleView`，但没有主标题 / 副标题组件；主工程集成版由 `JobsOCBaseCustomize3rdCore/GKCustomNavigationBar` 提供 `gk_navTitleViewBy(UIViewModel *)`，其中 `textModel` 对应主标题、`subTextModel` 对应副标题，Demo 公共导航层负责最终主题色收口。
 - Demo 统一跳转链路会测量导航标题宽度：短标题保持单行，长标题优先按 `｜`、`：`、`@`、括号、有效空格等语义边界拆成上下结构，其次选择靠近中点的语言词边界，最后才按完整字符居中拆分；页面已有自定义 `titleView` 时不会覆盖。
 
 ```objective-c

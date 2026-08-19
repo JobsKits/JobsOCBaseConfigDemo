@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_UIBUTTON_DSL_37F5B7F4E2
 
 #import <UIKit/UIKit.h>
+#import "UILabel+DSL.h"
 #import "JobsBlock.h"
 #import "JobsDefines.h"
 
@@ -54,6 +55,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBtnByAttributedStringBlock _Nonnull)byAttributedTitle API_AVAILABLE(ios(6.0));
 /// 设置标题字体。
 -(JobsRetBtnByFontBlock _Nonnull)byTitleFont;
+/// 回调当前 UIButton，用于在一条链中收口复合配置。
+-(JobsRetBtnByBtnBlock _Nonnull)byButtonBlock;
 /// 回调 UIButton 原生 titleLabel，便于继续使用 UILabel+DSL。
 -(JobsRetBtnByLabelBlock _Nonnull)byTitleLabel;
 /// 回调 BaseButton 等子类可能持有的 subtitleLabel。不存在时回调 nil，不中断链式调用。
@@ -84,6 +87,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 设置 showsTouchWhenHighlighted。
 -(JobsRetBtnByBOOLBlock _Nonnull)byShowsTouchWhenHighlighted API_UNAVAILABLE(tvos) API_UNAVAILABLE(watchos);
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN UIButton
+-(JobsRetBtnByCGFloatBlock _Nonnull)byZf_centerY;
+-(JobsRetBtnByCGSizeBlock _Nonnull)bySizer;
+-(JobsRetBtnByStringBlock _Nonnull)byAccessibilityLabel;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UIButton
 @end
 
 NS_ASSUME_NONNULL_END

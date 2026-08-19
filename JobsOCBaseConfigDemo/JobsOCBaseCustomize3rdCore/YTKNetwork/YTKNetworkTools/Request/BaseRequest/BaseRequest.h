@@ -6,10 +6,6 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_BASEREQUEST_494610730B
-#define JOBS_HEADER_GUARD_BASEREQUEST_494610730B
-
-#import <Foundation/Foundation.h>
-#import "YTKBaseRequest+Extra.h"
 
 #if __has_include(<AFNetworking/AFNetworking.h>)
 #import <AFNetworking/AFNetworking.h>
@@ -22,6 +18,11 @@
 #else
 #import "YTKNetwork.h"
 #endif
+
+#define JOBS_HEADER_GUARD_BASEREQUEST_494610730B
+
+#import <Foundation/Foundation.h>
+#import "YTKBaseRequest+Extra.h"
 
 #import "JobsBaseProtocolHeader.h"
 #import "JobsMakes.h"
@@ -40,6 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetYTKRequestByDictionaryBlock _Nonnull)byBodyParameters;
 -(JobsRetYTKBaseRequestByIDBlock _Nonnull)byURLParameters;
 -(JobsRetYTKBaseRequestByVoidBlock _Nonnull)handleErr;
+
+-(JobsRetMutableDicByVoidBlock _Nonnull)jobsRequestHeaderFieldValueDictionary;
 
 @end
 

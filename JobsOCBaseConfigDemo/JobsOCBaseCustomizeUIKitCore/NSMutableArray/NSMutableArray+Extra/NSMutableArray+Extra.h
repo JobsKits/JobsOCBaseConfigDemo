@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 删除元素
 -(JobsRetIDByIDBlock _Nonnull)remove;
 /// 批量追加数组元素
--(JobsRetIDByIDBlock _Nonnull)addBy;
+-(JobsRetMutableArrayByArrBlock _Nonnull)addBy;
 
 @end
 

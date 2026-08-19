@@ -6,14 +6,27 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_JXCATEGORYLISTCONTENTVIEWDELEGATE_C81A8E79DF
-#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_JXCATEGORYLISTCONTENTVIEWDELEGATE_C81A8E79DF
-
-#import <UIKit/UIKit.h>
 
 #if __has_include(<JXCategoryView/JXCategoryView.h>)
 #import <JXCategoryView/JXCategoryView.h>
 #else
 #import "JXCategoryView.h"
+#endif
+
+#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_JXCATEGORYLISTCONTENTVIEWDELEGATE_C81A8E79DF
+
+#import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
@@ -28,7 +41,8 @@ JXCategoryListContentViewDelegate
 
  @return 返回列表视图
  */
-- (UIView *)listView;
+-(UIView *)listView;
+-(JobsRetViewByVoidBlock _Nonnull)jobsListView;
 
 @end
 

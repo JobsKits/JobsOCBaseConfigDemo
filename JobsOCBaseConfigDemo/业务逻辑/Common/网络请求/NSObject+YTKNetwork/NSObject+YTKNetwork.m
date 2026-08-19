@@ -6,6 +6,7 @@
 //
 
 #import "NSObject+YTKNetwork.h"
+
 #import "GetImageApi.h"
 #import "GetUserInfoApi.h"
 #import "GetCustomerContactApi.h"
@@ -15,79 +16,108 @@
 #import "JobsMakes.h"
 #import "JobsFileModel.h"
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN NSObject
+@interface NSObject (JobsPropertyDSLSetterAutogen_22d599a0ee)
+-(void)setDoorModel:(JobsUserModel * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END NSObject
+
 @implementation NSObject (YTKNetwork)
 #pragma mark —— 示例代码
 /// 普通的单个请求
--(void)loadCacheData:(jobsByResponseModelBlock _Nullable)successBlock{
+-(jobsByjobsByResponseModelBlockBlock _Nonnull)loadCacheData{
     @jobs_weakify(self)
-    [GetCustomerContactApi.new
-        .byURLParameters(nil)
-        .byBodyParameters(nil)
-        .byHeaderParameters(nil)
-        .handleErr()
-     startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
-        JobsResponseModel *responseModel = JobsResponseModel.byData(request.responseObject);
-        if(responseModel.code == HTTPResponseCodeSuccess){
-            if(successBlock) successBlock(responseModel);
-        }
-    } failure:^(YTKBaseRequest *request) {
+    return ^(jobsByResponseModelBlock _Nullable successBlock){
         @jobs_strongify(self)
-        if(self) self.jobsHandelFailure(request);
-    }];
-}
-/// 多请求の同步请求
--(void)sendBatchRequest:(jobsByYTKBatchRequestBlock _Nullable)successBlock{
-    @jobs_weakify(self)
-    [YTKBatchRequest.initByRequestArray(jobsMakeMutArr(^(__kindof NSMutableArray <__kindof YTKRequest *>*_Nullable data) {
-        data
-            .add(GetImageApi.initByBodyParameters(nil))
-            .add(GetImageApi.initByBodyParameters(nil))
-            .add(GetImageApi.initByBodyParameters(nil))
-            .add(GetUserInfoApi.initByBodyParameters(nil));
-    })) startWithCompletionBlockWithSuccess:^(YTKBatchRequest *batchRequest) {
-        JobsLog(@"succeed");
-        if(successBlock) successBlock(batchRequest);
-        NSArray <__kindof YTKRequest *>*requests = batchRequest.requestArray;
-        GetImageApi *a = (GetImageApi *)requests[0];
-        GetImageApi *b = (GetImageApi *)requests[1];
-        GetImageApi *c = (GetImageApi *)requests[2];
-        GetUserInfoApi *user = (GetUserInfoApi *)requests[3];
-        JobsLog(@"%@, %@, %@, %@", a, b, c, user);
-    } failure:^(YTKBatchRequest *batchRequest) {
-        @jobs_strongify(self)
-        self.jobsHandelFailure(batchRequest.failedRequest);
-    }];
-}
-/// 多请求の链式请求。链式请求的结果集体现在<YTKChainRequestDelegate>
--(void)sendChainRequest:(jobsByYTKChainRequestBlock _Nullable)successBlock{
-    @jobs_weakify(self)
-    jobsMakeYTKChainRequest(^(YTKChainRequest * _Nullable chainReq) {
-        @jobs_strongify(self)
-        [chainReq addRequest:RegisterApi.new
+        if (!self) return;
+        @jobs_weakify(self)
+        [GetCustomerContactApi.new
             .byURLParameters(nil)
             .byBodyParameters(nil)
             .byHeaderParameters(nil)
-                    callback:^(YTKChainRequest *chainRequest,
-                               YTKBaseRequest *baseRequest) {
-            RegisterApi *result = (RegisterApi *)baseRequest;
-            [chainRequest addRequest:GetUserInfoApi.new
-             .byURLParameters(nil)
-             .byBodyParameters(jobsMakeMutDic(^(__kindof NSMutableDictionary *_Nullable data) {
-                 if(result.userId) [data setValue:result.userId forKey:@"KKK"];
-             })) callback:nil];
+            .handleErr()
+         startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+            JobsResponseModel *responseModel = JobsResponseModel.byData(request.responseObject);
+            if(responseModel.code == HTTPResponseCodeSuccess){
+                if(successBlock) successBlock(responseModel);
+            }
+        } failure:^(YTKBaseRequest *request) {
+            @jobs_strongify(self)
+            if(self) self.jobsHandelFailure(request);
         }];
-        chainReq.delegate = self;
-        if(successBlock) successBlock(chainReq);
-        [chainReq start];
-    });
+    };
+}
+/// 多请求の同步请求
+-(jobsByjobsByYTKBatchRequestBlockBlock _Nonnull)sendBatchRequest{
+    @jobs_weakify(self)
+    return ^(jobsByYTKBatchRequestBlock _Nullable successBlock){
+        @jobs_strongify(self)
+        if (!self) return;
+        @jobs_weakify(self)
+        [YTKBatchRequest.initByRequestArray(jobsMakeMutArr(^(__kindof NSMutableArray <__kindof YTKRequest *>*_Nullable data) {
+            data
+                .add(GetImageApi.initByBodyParameters(nil))
+                .add(GetImageApi.initByBodyParameters(nil))
+                .add(GetImageApi.initByBodyParameters(nil))
+                .add(GetUserInfoApi.initByBodyParameters(nil));
+        })) startWithCompletionBlockWithSuccess:^(YTKBatchRequest *batchRequest) {
+            JobsLog(@"succeed");
+            if(successBlock) successBlock(batchRequest);
+            NSArray <__kindof YTKRequest *>*requests = batchRequest.requestArray;
+            GetImageApi *a = (GetImageApi *)requests[0];
+            GetImageApi *b = (GetImageApi *)requests[1];
+            GetImageApi *c = (GetImageApi *)requests[2];
+            GetUserInfoApi *user = (GetUserInfoApi *)requests[3];
+            JobsLog(@"%@, %@, %@, %@", a, b, c, user);
+        } failure:^(YTKBatchRequest *batchRequest) {
+            @jobs_strongify(self)
+            self.jobsHandelFailure(batchRequest.failedRequest);
+        }];
+    };
+}
+/// 多请求の链式请求。链式请求的结果集体现在<YTKChainRequestDelegate>
+-(jobsByjobsByYTKChainRequestBlockBlock _Nonnull)sendChainRequest{
+    @jobs_weakify(self)
+    return ^(jobsByYTKChainRequestBlock _Nullable successBlock){
+        @jobs_strongify(self)
+        if (!self) return;
+        @jobs_weakify(self)
+        jobsMakeYTKChainRequest(^(YTKChainRequest * _Nullable chainReq) {
+            @jobs_strongify(self)
+            [chainReq addRequest:RegisterApi.new
+                .byURLParameters(nil)
+                .byBodyParameters(nil)
+                .byHeaderParameters(nil)
+                        callback:^(YTKChainRequest *chainRequest,
+                                   YTKBaseRequest *baseRequest) {
+                RegisterApi *result = (RegisterApi *)baseRequest;
+                [chainRequest addRequest:GetUserInfoApi.new
+                 .byURLParameters(nil)
+                 .byBodyParameters(jobsMakeMutDic(^(__kindof NSMutableDictionary *_Nullable data) {
+                     if(result.userId()) [data setValue:result.userId() forKey:@"KKK"];
+                 })) callback:nil];
+            }];
+            chainReq.byDelegate(self);
+            if(successBlock) successBlock(chainReq);
+            chainReq.start;
+        });
+    };
 }
 #pragma mark —— YTKChainRequestDelegate
 -(void)chainRequestFinished:(YTKChainRequest *)chainRequest{
-    JobsLog(@"all requests are done");
-    [self request:chainRequest.requestArray.lastObject
-     successBlock:^(JobsResponseModel *_Nullable responseModel){
-        JobsLog(@"");
-    }];
+    ((((JobsYTKChainSuccessBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(chainRequestFinished)))(self, @selector(chainRequestFinished))))(chainRequest);
+}
+-(JobsYTKChainSuccessBlock _Nonnull)chainRequestFinished{
+    @jobs_weakify(self)
+    return ^(YTKChainRequest * chainRequest){
+        @jobs_strongify(self)
+        if (!self) return;
+        JobsLog(@"all requests are done");
+        [self request:chainRequest.requestArray.lastObject
+         successBlock:^(JobsResponseModel *_Nullable responseModel){
+            JobsLog(@"");
+        }];
+    };
 }
 
 -(void)chainRequestFailed:(YTKChainRequest *)chainRequest
@@ -97,34 +127,44 @@
     JobsLog(@"请求失败:%@",responseModel);
 }
 #pragma mark —— 查询广告列表-支持游客：APP首页右下3Banner【GET】
--(void)getAds:(jobsByResponseModelBlock _Nullable)successBlock{
+-(jobsByjobsByResponseModelBlockBlock _Nonnull)getAds{
     @jobs_weakify(self)
-    [FM_promotion_advertise_api.new
-        .byURLParameters(nil)
-        .byBodyParameters(nil)
-        .byHeaderParameters(nil)
-        .handleErr() startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+    return ^(jobsByResponseModelBlock _Nullable successBlock){
         @jobs_strongify(self)
-        [self request:request successBlock:successBlock];
-    } failure:^(YTKBaseRequest *request) {
-        @jobs_strongify(self)
-        if(self) self.jobsHandelFailure(request);
-    }];
+        if (!self) return;
+        @jobs_weakify(self)
+        [FM_promotion_advertise_api.new
+            .byURLParameters(nil)
+            .byBodyParameters(nil)
+            .byHeaderParameters(nil)
+            .handleErr() startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
+            @jobs_strongify(self)
+            [self request:request successBlock:successBlock];
+        } failure:^(YTKBaseRequest *request) {
+            @jobs_strongify(self)
+            if(self) self.jobsHandelFailure(request);
+        }];
+    };
 }
 #pragma mark —— 用户登出【POST】
--(void)fm_logout:(jobsByResponseModelBlock _Nullable)successBlock{
+-(jobsByjobsByResponseModelBlockBlock _Nonnull)fm_logout{
     @jobs_weakify(self)
-    [FM_user_logout_api.new
-        .byURLParameters(nil)
-        .byBodyParameters(nil)
-        .byHeaderParameters(nil)
-        .handleErr() startWithCompletionBlockWithSuccess:^(YTKBaseRequest <YTKCustomBaseRequestProtocol>*request) {
+    return ^(jobsByResponseModelBlock _Nullable successBlock){
         @jobs_strongify(self)
-        [self request:request successBlock:successBlock];
-    } failure:^(YTKBaseRequest *request) {
-        @jobs_strongify(self)
-        if(self) self.jobsHandelFailure(request);
-    }];
+        if (!self) return;
+        @jobs_weakify(self)
+        [FM_user_logout_api.new
+            .byURLParameters(nil)
+            .byBodyParameters(nil)
+            .byHeaderParameters(nil)
+            .handleErr() startWithCompletionBlockWithSuccess:^(YTKBaseRequest <YTKCustomBaseRequestProtocol>*request) {
+            @jobs_strongify(self)
+            [self request:request successBlock:successBlock];
+        } failure:^(YTKBaseRequest *request) {
+            @jobs_strongify(self)
+            if(self) self.jobsHandelFailure(request);
+        }];
+    };
 }
 #pragma mark —— 存款优惠活动信息【POST】
 -(void)depositDiscountActivityRecordByURLParameters:(NSString *_Nullable)urlParameters
@@ -142,9 +182,9 @@
         [chainRequest addRequest:FM_getDepositDiscountActivityRecord_api.new.byURLParameters(@"?kyc=".add(result.kyc)).byBodyParameters(nil)
                         callback:nil];
     }];
-    chainReq.delegate = self;
+    chainReq.byDelegate(self);
     if(successBlock) successBlock(chainReq);
-    [chainReq start];
+    chainReq.start;
 }
 /// 上传KYC的图片@POST
 -(void)uploadKYCImage:(NSData *)image
@@ -175,7 +215,7 @@
     /// 解析+处理HTTPResponseCode
     JobsResponseModel *responseModel = JobsMapResponseModelBy(request);
     /// 打印Body参数
-    JobsLog(@"%@",request.parameters.jsonString);
+    JobsLog(@"%@",request.parameters.jsonString());
     if(responseModel.code == HTTPResponseCodeSuccess){
         if(successBlock) successBlock(successData ? : responseModel);
         if(actionBlock) actionBlock(responseModel);
@@ -201,60 +241,60 @@
         /// 服务器异常
         case HTTPResponseCodeServeError:{
             JobsLog(@"服务器异常");
-            toastBy(@"服务器异常".tr);
+            toastBy(@"服务器异常".jobsTr());
         }break;
         /// 令牌不能为空
         case HTTPResponseCodeNoToken:{
 //            self.toLogin();
             JobsLog(@"令牌不能为空");
-            toastBy(@"令牌不能为空".tr);
+            toastBy(@"令牌不能为空".jobsTr());
         }break;
         /// 登录失败：账密错误
         case HTTPResponseCodeLoginFailed:{
             JobsLog(@"登录失败：账密错误");
-            toastBy(@"登录失败：账密错误".tr);
+            toastBy(@"登录失败：账密错误".jobsTr());
         }break;
         /// 授权失败
         case HTTPResponseCodeAuthorizationFailure:{
             JobsLog(@"授权失败");
-            toastBy(@"授权失败".tr);
+            toastBy(@"授权失败".jobsTr());
         }break;
         /// 限定时间内超过请求次数
         case HTTPResponseCodeLeakTime:{
             JobsLog(@"限定时间内超过请求次数");
-            toastBy(@"限定时间内超过请求次数".tr);
+            toastBy(@"限定时间内超过请求次数".jobsTr());
         }break;
         /// 风险操作
         case HTTPResponseCodeRiskOperation:{
             JobsLog(@"风险操作");
-            toastBy(@"风险操作".tr);
+            toastBy(@"风险操作".jobsTr());
         }break;
         /// 未设置交易密码
         case HTTPResponseCodeNoSettingTransactionPassword:{
             JobsLog(@"未设置交易密码");
-            toastBy(@"未设置交易密码".tr);
+            toastBy(@"未设置交易密码".jobsTr());
         }break;
         /// 账号已在其他设备登录
         case HTTPResponseCodeOffline:{
             JobsLog(@"账号已在其他设备登录");
-            toastBy(@"账号已在其他设备登录".tr);
+            toastBy(@"账号已在其他设备登录".jobsTr());
         }break;
         /// Token 过期：登录已过期，请重新登录
         case HTTPResponseCodeTokenExpire:{
             JobsLog(@"Token 过期");
 //            self.tokenExpire();
             JobsLog(@"Token 过期");
-            toastBy(@"Token 过期".tr);
+            toastBy(@"Token 过期".jobsTr());
         }break;
         /// 手机号码不存在
         case HTTPResponseCodePhoneNumberNotExist:{
             JobsLog(@"手机号码不存在");
-            toastBy(@"手机号码不存在".tr);
+            toastBy(@"手机号码不存在".jobsTr());
         }break;
         /// 处理 HTTPResponseCodeAccountLocked 分支
         case HTTPResponseCodeAccountLocked:{
             JobsLog(@"账户被锁");
-            toastBy(@"账户被锁，请联系系统管理员".tr);
+            toastBy(@"账户被锁，请联系系统管理员".jobsTr());
         }break;
         /// 服务器返500可能会有很多其他的业务场景定义
         case HTTPResponseCodeNoOK:{
@@ -290,4 +330,14 @@
     };
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN NSObject
+-(JobsRetNSObjectByJobsUserModelBlock _Nonnull)byDoorModel{
+    @jobs_weakify(self)
+    return ^__kindof NSObject * _Nullable(JobsUserModel * _Nullable data){
+        @jobs_strongify(self)
+        [self setDoorModel:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END NSObject
 @end

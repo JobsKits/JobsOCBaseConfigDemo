@@ -65,6 +65,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsSettingGestureVC : JobsGestureLockVC
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsSettingGestureVC
+-(JobsRetJobsSettingGestureVCByJobsSettingGestureFlowStateBlock _Nonnull)byFlowState;
+-(JobsRetJobsSettingGestureVCByNSStringBlock _Nonnull)byDemoFirstPattern;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsSettingGestureVC
 @end
 
 NS_ASSUME_NONNULL_END

@@ -6,14 +6,26 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <CoreImage/CoreImage.h>
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImage (JobsMosaicDemo)
 
--(UIImage *)jobs_mosaicNormalizedImage;
--(UIImage *)jobs_mosaicPixelatedImageWithBlockSize:(CGFloat)blockSize;
+-(JobsRetImageByVoidBlock _Nonnull)jobs_mosaicNormalizedImage;
+-(JobsRetImageByAlphaBlock _Nonnull)jobs_mosaicPixelatedImageWithBlockSize;
 -(UIImage *)jobs_mosaicPaintedImageWithMosaicImage:(UIImage *)mosaicImage
                                            centers:(NSArray <NSValue *>*)centers
                                      brushDiameter:(CGFloat)brushDiameter;
@@ -22,7 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImageView (JobsMosaicDemo)
 
--(CGRect)jobs_mosaicImageFrameForImageSize:(CGSize)imageSize;
+-(JobsRetFrameByCGSizeBlock _Nonnull)jobs_mosaicImageFrameForImageSize;
 -(CGPoint)jobs_mosaicImagePointFromViewPoint:(CGPoint)viewPoint
                                    imageSize:(CGSize)imageSize
                                        valid:(BOOL *_Nullable)valid;

@@ -10,8 +10,14 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import "JobsDefines.h"
+#import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
 #endif
@@ -40,19 +46,26 @@ Prop_assign()JobsGraphicCaptchaCharacterUnit characterUnits;
 Prop_assign()NSUInteger mixedGroupCount;
 Prop_copy(nullable)NSArray<NSString *> *customCharacters;
 
-+(instancetype)defaultConfig;
-+(instancetype)numberConfig;
-+(instancetype)chineseConfig;
-+(instancetype)simplifiedChineseConfig;
-+(instancetype)traditionalChineseConfig;
-+(instancetype)letterCaseSensitiveConfig;
-+(instancetype)letterCaseInsensitiveConfig;
-+(instancetype)mixedConfig;
-+(instancetype)twoMixedConfig;
-+(instancetype)threeMixedConfig;
-+(instancetype)fourMixedConfig;
-+(instancetype)fullMixedConfig;
++(JobsRetJobsGraphicCaptchaConfigByVoidBlock _Nonnull)defaultConfig;
++(JobsRetJobsGraphicCaptchaConfigByVoidBlock _Nonnull)numberConfig;
++(JobsRetJobsGraphicCaptchaConfigByVoidBlock _Nonnull)chineseConfig;
++(JobsRetJobsGraphicCaptchaConfigByVoidBlock _Nonnull)simplifiedChineseConfig;
++(JobsRetJobsGraphicCaptchaConfigByVoidBlock _Nonnull)traditionalChineseConfig;
++(JobsRetJobsGraphicCaptchaConfigByVoidBlock _Nonnull)letterCaseSensitiveConfig;
++(JobsRetJobsGraphicCaptchaConfigByVoidBlock _Nonnull)letterCaseInsensitiveConfig;
++(JobsRetJobsGraphicCaptchaConfigByVoidBlock _Nonnull)mixedConfig;
++(JobsRetJobsGraphicCaptchaConfigByVoidBlock _Nonnull)twoMixedConfig;
++(JobsRetJobsGraphicCaptchaConfigByVoidBlock _Nonnull)threeMixedConfig;
++(JobsRetJobsGraphicCaptchaConfigByVoidBlock _Nonnull)fourMixedConfig;
++(JobsRetJobsGraphicCaptchaConfigByVoidBlock _Nonnull)fullMixedConfig;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsGraphicCaptchaConfig
+-(JobsRetJobsGraphicCaptchaConfigByNSUIntegerBlock _Nonnull)byLength;
+-(JobsRetJobsGraphicCaptchaConfigByBOOLBlock _Nonnull)byCaseSensitive;
+-(JobsRetJobsGraphicCaptchaConfigByJobsGraphicCaptchaCharacterUnitBlock _Nonnull)byCharacterUnits;
+-(JobsRetJobsGraphicCaptchaConfigByNSArrayNSStringBlock _Nonnull)byCustomCharacters;
+-(JobsRetJobsGraphicCaptchaConfigByNSUIntegerBlock _Nonnull)byMixedGroupCount;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsGraphicCaptchaConfig
 @end
 
 NS_ASSUME_NONNULL_END

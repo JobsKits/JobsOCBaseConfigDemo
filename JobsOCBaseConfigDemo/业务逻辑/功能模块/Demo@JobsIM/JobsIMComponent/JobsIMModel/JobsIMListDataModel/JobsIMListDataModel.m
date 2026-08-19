@@ -8,6 +8,52 @@
 #import "JobsIMListDataModel.h"
 
 @implementation JobsIMListDataModel
+#define JobsIMListStrDSL(method, setter) \
+-(JobsRetJobsIMListDataModelByStrBlock _Nonnull)method{ \
+    @jobs_weakify(self) \
+    return ^__kindof JobsIMListDataModel *_Nullable(NSString *_Nullable string){ \
+        @jobs_strongify(self) \
+        if (!self) return nil; \
+        [self setter:string]; \
+        return self; \
+    }; \
+}
+
+#define JobsIMListIntegerDSL(method, setter) \
+-(JobsRetJobsIMListDataModelByNSIntegerBlock _Nonnull)method{ \
+    @jobs_weakify(self) \
+    return ^__kindof JobsIMListDataModel *_Nullable(NSInteger value){ \
+        @jobs_strongify(self) \
+        if (!self) return nil; \
+        [self setter:value]; \
+        return self; \
+    }; \
+}
+
+JobsIMListStrDSL(byUserID, setUserID)
+JobsIMListStrDSL(byPeerID, setPeerID)
+JobsIMListStrDSL(byUsernameStr, setUsernameStr)
+JobsIMListStrDSL(byContentStr, setContentStr)
+JobsIMListStrDSL(byTimeStr, setTimeStr)
+JobsIMListStrDSL(byUserHeaderURLStr, setUserHeaderURLStr)
+JobsIMListStrDSL(byLastMessageID, setLastMessageID)
+JobsIMListIntegerDSL(byTransportKind, setTransportKind)
+JobsIMListIntegerDSL(byPeerOnlineState, setPeerOnlineState)
+JobsIMListIntegerDSL(byUnreadCount, setUnreadCount)
+
+-(JobsRetJobsIMListDataModelByImageBlock _Nonnull)byUserHeaderIMG{
+    @jobs_weakify(self)
+    return ^__kindof JobsIMListDataModel *_Nullable(UIImage *_Nullable image){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setUserHeaderIMG:image];
+        return self;
+    };
+}
+
+#undef JobsIMListIntegerDSL
+#undef JobsIMListStrDSL
+
 -(NSString *)userID{
     if (!_userID) {
         _userID = @"jobsim_peer_unknown";

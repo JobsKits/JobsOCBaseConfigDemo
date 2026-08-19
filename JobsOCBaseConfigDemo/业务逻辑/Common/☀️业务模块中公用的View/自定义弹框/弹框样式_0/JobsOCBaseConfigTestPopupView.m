@@ -20,16 +20,30 @@ Prop_strong()UIButton *testPopupViewSureBtn;
 @synthesize viewModel = _viewModel;
 #pragma mark —— 单例化和销毁
 +(void)destroySingleton{
-    static_testPopupViewOnceToken = 0;
-    static_popupView01 = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsOCBaseConfigTestPopupView.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_testPopupViewOnceToken = 0;
+        static_popupView01 = nil;
+    };
 }
 
 static JobsOCBaseConfigTestPopupView *static_popupView01 = nil;
 static dispatch_once_t static_testPopupViewOnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_testPopupViewOnceToken, ^{
-        static_popupView01 = JobsOCBaseConfigTestPopupView.new;
-    });return static_popupView01;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsOCBaseConfigTestPopupView.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_testPopupViewOnceToken, ^{
+            static_popupView01 = JobsOCBaseConfigTestPopupView.new;
+        });return static_popupView01;
+    };
 }
 
 -(instancetype)init{
@@ -40,7 +54,17 @@ static dispatch_once_t static_testPopupViewOnceToken;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigTestPopupView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 #pragma mark —— BaseViewProtocol
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -48,7 +72,7 @@ static dispatch_once_t static_testPopupViewOnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model;
+        self.byViewModel(model);
         self.containerView.byAlpha(1);
         self.testPopupViewSureBtn.byAlpha(1);
     };
@@ -70,8 +94,8 @@ static dispatch_once_t static_testPopupViewOnceToken;
             .jobsResetTitlePadding(JobsWidth(8))
             .jobsResetBtnTitleCor(JobsRedColor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(20))
-            .jobsResetBtnTitle(isNull(self.viewModel.textModel.text) ? @"测试弹窗".tr: self.viewModel.textModel.text)
-            .jobsResetBtnSubTitle(isNull(self.viewModel.subTextModel.text) ? @"相关信息".tr: self.viewModel.textModel.text)
+            .jobsResetBtnTitle(isNull(self.viewModel.textModel.text) ? @"测试弹窗".jobsTr(): self.viewModel.textModel.text)
+            .jobsResetBtnSubTitle(isNull(self.viewModel.subTextModel.text) ? @"相关信息".jobsTr(): self.viewModel.textModel.text)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 x.bySelected(!x.selected);
@@ -92,7 +116,7 @@ static dispatch_once_t static_testPopupViewOnceToken;
         _testPopupViewSureBtn = UIButton.jobsInit()
         .jobsResetBtnBgImage(@"测试弹窗的确定按钮".img)
         .selectedStateBackgroundImageBy(@"测试弹窗的确定按钮".img)
-        .jobsResetBtnTitle(@"确定".tr)
+        .jobsResetBtnTitle(@"确定".jobsTr())
         .jobsResetBtnTitleCor(JobsBlackColor)
         .jobsResetBtnTitleFont(UIFontWeightRegularSize(18))
         .onClickBy(^(UIButton *x){

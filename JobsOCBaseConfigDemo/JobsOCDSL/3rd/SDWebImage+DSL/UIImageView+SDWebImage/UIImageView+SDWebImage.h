@@ -8,14 +8,14 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 
+#import "JobsBlock.h"
+#import "JobsDefines.h"
+
 #if __has_include(<SDWebImage/SDWebImage.h>)
 #import <SDWebImage/SDWebImage.h>
 #else
 #import "SDWebImage.h"
 #endif
-
-#import "JobsBlock.h"
-#import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

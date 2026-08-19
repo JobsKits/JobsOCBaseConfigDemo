@@ -24,6 +24,12 @@ Prop_strong()NSMutableArray <__kindof UIButtonModel *>*btnModelMutArr;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsStepView
+@interface JobsStepView (JobsPropertyDSLSetterAutogen_6ecda88f49)
+-(void)setBtnModelMutArr:(NSMutableArray <__kindof UIButtonModel *>* _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsStepView
+
 @implementation JobsStepView
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
@@ -41,11 +47,31 @@ Prop_strong()NSMutableArray <__kindof UIButtonModel *>*btnModelMutArr;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsStepView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsStepView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -58,7 +84,7 @@ Prop_strong()NSMutableArray <__kindof UIButtonModel *>*btnModelMutArr;
     @jobs_weakify(self)
     return ^(NSMutableArray <__kindof UIButtonModel *>*_Nullable model) {
         @jobs_strongify(self)
-        self.btnModelMutArr = model;
+        self.byBtnModelMutArr(model);
         self.makeBtn(self.status);
     };
 }
@@ -179,7 +205,7 @@ Prop_strong()NSMutableArray <__kindof UIButtonModel *>*btnModelMutArr;
     };
 }
 #pragma mark —— 一些私有方法
--(jobsByNSIntegerBlock)makeBtn{
+-(jobsByNSIntegerBlock _Nonnull)makeBtn{
     @jobs_weakify(self)
     return ^(VerificationStatus status){
         @jobs_strongify(self)
@@ -316,4 +342,14 @@ Prop_strong()NSMutableArray <__kindof UIButtonModel *>*btnModelMutArr;
     };return _rightLabNormalBgCor;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsStepView
+-(JobsRetJobsStepViewByNSMutableArrayUIButtonModelBlock _Nonnull)byBtnModelMutArr{
+    @jobs_weakify(self)
+    return ^__kindof JobsStepView * _Nullable(NSMutableArray <__kindof UIButtonModel *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setBtnModelMutArr:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsStepView
 @end

@@ -29,6 +29,9 @@ UICollectionViewDataSource
 ,UICollectionViewDelegateFlowLayout
 >
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsHotLabelByMultiLine
+-(JobsRetJobsHotLabelByMultiLineByJobsHotLabelWithMultiLineModelBlock _Nonnull)byDataModel;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsHotLabelByMultiLine
 @end
 
 NS_ASSUME_NONNULL_END
@@ -70,7 +73,7 @@ NS_ASSUME_NONNULL_END
          if (!_headerViewModel) {
              _headerViewModel = JobsHeaderFooterViewModel.new;
              _headerViewModel.useHeaderView = YES;
-             _headerViewModel.textModel.text = @"交易类型".tr;
+             _headerViewModel.textModel.text = @"交易类型".jobsTr();
              _headerViewModel.textModel.textCor = JobsLabelColor;
              _headerViewModel.textModel.font = UIFontWeightBoldSize(14);
              _headerViewModel.textModel.textAlignment = NSTextAlignmentLeft;
@@ -83,7 +86,7 @@ NS_ASSUME_NONNULL_END
          if (!_footerViewModel) {
              _footerViewModel = JobsHeaderFooterViewModel.new;
              _footerViewModel.useFooterView = NO;
-             _footerViewModel.textModel.text = @"查看详情".tr;
+             _footerViewModel.textModel.text = @"查看详情".jobsTr();
              _footerViewModel.textModel.textAlignment = NSTextAlignmentLeft;
              _footerViewModel.textModel.textCor = JobsLabelColor;
              _footerViewModel.textModel.font = UIFontWeightBoldSize(14);
@@ -110,14 +113,14 @@ NS_ASSUME_NONNULL_END
      -(NSMutableArray<NSString *> *)btnTitleMutArr{
          if (!_btnTitleMutArr) {
              _btnTitleMutArr = NSMutableArray.array;
-             [_btnTitleMutArr addObject:@"全部".tr];
-             [_btnTitleMutArr addObject:@"充值".tr];
-             [_btnTitleMutArr addObject:@"取款".tr];
-             [_btnTitleMutArr addObject:@"转账".tr];
-             [_btnTitleMutArr addObject:@"返水".tr];
-             [_btnTitleMutArr addObject:@"会员活动".tr];
-             [_btnTitleMutArr addObject:@"VIP福利".tr];
-             [_btnTitleMutArr addObject:@"其他".tr];
+             [_btnTitleMutArr addObject:@"全部".jobsTr()];
+             [_btnTitleMutArr addObject:@"充值".jobsTr()];
+             [_btnTitleMutArr addObject:@"取款".jobsTr()];
+             [_btnTitleMutArr addObject:@"转账".jobsTr()];
+             [_btnTitleMutArr addObject:@"返水".jobsTr()];
+             [_btnTitleMutArr addObject:@"会员活动".jobsTr()];
+             [_btnTitleMutArr addObject:@"VIP福利".jobsTr()];
+             [_btnTitleMutArr addObject:@"其他".jobsTr()];
          };return _btnTitleMutArr;
      }
 

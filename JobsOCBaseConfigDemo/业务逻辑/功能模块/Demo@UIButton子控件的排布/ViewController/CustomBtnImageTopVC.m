@@ -8,12 +8,22 @@
 #import "CustomBtnImageTopVC.h"
 
 @implementation CustomBtnImageTopVC
--(NSString *)demoTitle{
-    return @"image上，label下".tr;
+-(JobsRetStrByVoidBlock _Nonnull)demoTitle{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"image上，label下".jobsTr();
+    };
 }
 
--(NSString *)demoSubTitle{
-    return @"图标在 top，标题在 bottom，适合垂直按钮入口。".tr;
+-(JobsRetStrByVoidBlock _Nonnull)demoSubTitle{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"图标在 top，标题在 bottom，适合垂直按钮入口。".jobsTr();
+    };
 }
 
 -(NSDirectionalRectEdge)imagePlacement{

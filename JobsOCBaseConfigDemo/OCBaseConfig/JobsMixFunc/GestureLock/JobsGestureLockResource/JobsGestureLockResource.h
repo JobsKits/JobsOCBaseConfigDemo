@@ -10,12 +10,19 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsGestureLockResource : NSObject
 
 + (nullable UIImage *)imageNamed:(NSString *)name;
-+ (NSBundle *)resourceBundle;
++(JobsRetImageByStrBlock _Nonnull)imageNamed;
++ (JobsRetNSBundleByVoidBlock _Nonnull)resourceBundle;
 
 @end
 

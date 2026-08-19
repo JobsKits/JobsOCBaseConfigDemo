@@ -51,3 +51,5 @@ xcodebuild -workspace JobsOCBaseConfigDemo.xcworkspace -scheme JobsOCBaseConfigD
 ```
 
 `JobsOCBaseConfigDemoTests` 覆盖自动暂停恢复与手动暂停保护。
+
+四种系统计时机制的完整差异、选型顺序与 Jobs 映射，统一查看 `../../../../OCBaseConfig/JobsMixFunc/JobsOCTimer/README.md`。

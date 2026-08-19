@@ -6,6 +6,13 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_NSARRAY_EXTRA_FE9418D876
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 #define JOBS_HEADER_GUARD_NSARRAY_EXTRA_FE9418D876
 
 #pragma once
@@ -14,12 +21,6 @@
 #import "NSSet+Extra.h"
 #import "NSMutableArray+Extra.h"
 #import "UIView+Extra.h"
-
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
-#else
-#import "Masonry.h"
-#endif
 
 #import "JobsClass.h"
 #import "JobsMakes.h"
@@ -34,7 +35,7 @@
 /// 数组里面是否包含某个元素
 -(JobsRetBOOLByIDBlock _Nonnull)containsObject;
 /// 数组转字符串
--(NSString *_Nonnull)string;
+-(JobsRetStrByVoidBlock _Nonnull)string;
 /// 数组比较
 -(JobsRetBOOLByArrBlock _Nonnull)compareEqualArrElement;
 /// 数组计算交集
@@ -67,7 +68,7 @@
                           .bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0))
                           .jobsResetBtnBgImage(@"纸飞机账户绑定".img)
                           .onClickBy(^(UIButton *x){
-                              toastBy(@"纸飞机".tr);
+                              toastBy(@"纸飞机".jobsTr());
                           }).onLongPressGestureBy(^(id data){
                               JobsLog(@"");
                           }));
@@ -75,7 +76,7 @@
                           .bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0))
                           .jobsResetBtnBgImage(@"脸书账户绑定".img)
                           .onClickBy(^(UIButton *x){
-                              toastBy(@"脸书".tr);
+                              toastBy(@"脸书".jobsTr());
                           }).onLongPressGestureBy(^(id data){
                               JobsLog(@"");
                           }));

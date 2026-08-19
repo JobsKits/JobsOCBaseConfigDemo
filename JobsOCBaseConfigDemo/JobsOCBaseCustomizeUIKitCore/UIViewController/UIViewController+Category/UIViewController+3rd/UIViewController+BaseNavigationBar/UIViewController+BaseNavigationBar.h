@@ -6,12 +6,12 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_BASENAVIGATIONBAR_36F70D6040
-#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_BASENAVIGATIONBAR_36F70D6040
 
-#import <objc/runtime.h>
-#import <UIKit/UIKit.h>
-#import "UIViewController+BaseVC.h"
-#import "NSMutableArray+Extra.h"
+#if __has_include(<GKNavigationBar/GKNavigationBar.h>)
+#import <GKNavigationBar/GKNavigationBar.h>
+#else
+#import "GKNavigationBar.h"
+#endif
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
@@ -19,11 +19,12 @@
 #import "Masonry.h"
 #endif
 
-#if __has_include(<GKNavigationBar/GKNavigationBar.h>)
-#import <GKNavigationBar/GKNavigationBar.h>
-#else
-#import "GKNavigationBar.h"
-#endif
+#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_BASENAVIGATIONBAR_36F70D6040
+
+#import <objc/runtime.h>
+#import <UIKit/UIKit.h>
+#import "UIViewController+BaseVC.h"
+#import "NSMutableArray+Extra.h"
 
 #import "JobsMakes.h"
 #import "JobsBaseUI.h"
@@ -54,7 +55,7 @@ Prop_strong()UIFont *fontAttributeName;
 
 -(JobsRetVCByIDBlock _Nonnull)goBack;
 /// Demo 子页面右侧只保留主题入口；其它业务动作合并到同入口下拉列表。
--(void)jobs_ensureDemoThemeButton;
+-(jobsByVoidBlock _Nonnull)jobs_ensureDemoThemeButton;
 
 @end
 

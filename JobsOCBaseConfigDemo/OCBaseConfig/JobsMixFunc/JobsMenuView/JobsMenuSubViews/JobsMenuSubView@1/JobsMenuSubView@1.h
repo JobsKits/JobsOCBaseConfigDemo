@@ -6,16 +6,17 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSMENUSUBVIEW_1_1BDF737C0D
-#define JOBS_HEADER_GUARD_JOBSMENUSUBVIEW_1_1BDF737C0D
-
-#import <UIKit/UIKit.h>
-#import "UIView+Extra.h"
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
 #else
 #import "XYColorOC.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSMENUSUBVIEW_1_1BDF737C0D
+
+#import <UIKit/UIKit.h>
+#import "UIView+Extra.h"
 
 #import "JobsBaseUI.h"
 #import "JobsDefines.h"

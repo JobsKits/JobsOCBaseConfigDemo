@@ -6,6 +6,7 @@
 //
 
 #import "JobsBaseLabel.h"
+
 #import "NSObject+Extra.h"
 #import "UIView+Extra.h"
 
@@ -22,16 +23,30 @@ Prop_assign()CGRect thisFrame;
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_baseLabelOnceToken = 0;
-    static_baseLabel = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsBaseLabel.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_baseLabelOnceToken = 0;
+        static_baseLabel = nil;
+    };
 }
 
 static JobsBaseLabel *static_baseLabel = nil;
 static dispatch_once_t static_baseLabelOnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_baseLabelOnceToken, ^{
-        static_baseLabel = JobsBaseLabel.new;
-    });return static_baseLabel;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsBaseLabel.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_baseLabelOnceToken, ^{
+            static_baseLabel = JobsBaseLabel.new;
+        });return static_baseLabel;
+    };
 }
 
 -(instancetype)init{
@@ -47,19 +62,49 @@ static dispatch_once_t static_baseLabelOnceToken;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBaseLabel.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-}
-#pragma mark —— 一些公有方法
--(UIImageView *)getBgImageView{
-    return _bgImageView;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBaseLabel.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
 }
 
--(BaseLabel *)getLabel{
-    return _label;
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
+}
+#pragma mark —— 一些公有方法
+-(JobsRetImageViewByVoidBlock _Nonnull)getBgImageView{
+    @jobs_weakify(self)
+    return ^UIImageView *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return _bgImageView;
+    };
+}
+
+-(JobsRetLabelByVoidBlock _Nonnull)getLabel{
+    @jobs_weakify(self)
+    return ^BaseLabel *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return _label;
+    };
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -72,7 +117,7 @@ static dispatch_once_t static_baseLabelOnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
+        self.byViewModel(model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {}));
         MakeDataNull
         self.bgImageView.byAlpha(1);
         self.label.byAlpha(1);
@@ -96,17 +141,17 @@ static dispatch_once_t static_baseLabelOnceToken;
         @jobs_weakify(self)
         _label = jobsMakeBaseLabel(^(__kindof BaseLabel * _Nullable label) {
             @jobs_strongify(self)
+            label.actionRetIDByGestureRecognizerBlock(^id(UIGestureRecognizer *data) {
+                JobsLog(@"JobsBaseLabel的Tap手势");
+                return @1;
+            });
+            label.actionRetIDByGestureRecognizerBlock(^id(UIGestureRecognizer *data) {
+                JobsLog(@"JobsBaseLabel的LongPress手势");
+                return @1;
+            });
             label.addOn(self.bgImageView).byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
             });
-            [label actionRetIDByGestureRecognizerBlock:^id(UIGestureRecognizer *data) {
-                JobsLog(@"JobsBaseLabel的Tap手势");
-                return @1;
-            }];
-            [label actionRetIDByGestureRecognizerBlock:^id(UIGestureRecognizer *data) {
-                JobsLog(@"JobsBaseLabel的LongPress手势");
-                return @1;
-            }];
         });
     };return _label;
 }

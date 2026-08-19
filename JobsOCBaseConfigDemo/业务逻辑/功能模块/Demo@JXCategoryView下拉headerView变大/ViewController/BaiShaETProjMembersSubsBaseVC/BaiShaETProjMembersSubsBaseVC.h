@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_strong()UILabel *topLineLab;
 
 #pragma mark —— 一些公有方法
--(CGSize)getTopLineLabSize;
+-(JobsRetCGSizeByVoidBlock _Nonnull)getTopLineLabSize;
 
 @end
 

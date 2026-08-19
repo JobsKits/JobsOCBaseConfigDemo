@@ -6,6 +6,13 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIBUTTON_SIMPLYMAKE_59620CFD26
+
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
 #define JOBS_HEADER_GUARD_UIBUTTON_SIMPLYMAKE_59620CFD26
 
 #pragma once
@@ -14,12 +21,6 @@
 #import <UIKit/UIKit.h>
 #import "UIButton+UI.h"
 #import "UIColor+Extra.h"
-
-#if __has_include(<XYColorOC/XYColorOC.h>)
-#import <XYColorOC/XYColorOC.h>
-#else
-#import "XYColorOC.h"
-#endif
 
 #import "JobsBaseProtocolHeader.h"
 #import "JobsMakes.h"
@@ -119,7 +120,7 @@ NS_INLINE __kindof UIButton *_Nonnull jobsMakeButton(jobsByBtnBlock _Nonnull blo
          if(!_mailBtn){
              @jobs_weakify(self)
              _mailBtn = BaseButton.jobsInit()
-                 .imageURL(@"".jobsUrl)
+                 .imageURL(@"".jobsURL())
                  .placeholderImage(@"用户默认头像".img)
                  .options(SDWebImageRefreshCached)/// 强制刷新缓存
                  .completed(^(UIImage * _Nullable image,
@@ -151,7 +152,7 @@ NS_INLINE __kindof UIButton *_Nonnull jobsMakeButton(jobsByBtnBlock _Nonnull blo
                               .jobsResetBtnBgImage(@"APPLY NOW".img)
                               .jobsResetBtnTitleCor(JobsWhiteColor)
                               .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-                              .jobsResetBtnTitle(@"APPLY NOW".tr)
+                              .jobsResetBtnTitle(@"APPLY NOW".jobsTr())
                               .onClickBy(^(UIButton *x){
                                   JobsLog(@"");
                               }).onLongPressGestureBy(^(id data){
@@ -171,7 +172,7 @@ NS_INLINE __kindof UIButton *_Nonnull jobsMakeButton(jobsByBtnBlock _Nonnull blo
                  .jobsResetBtnBgImage(@"APPLY NOW".img)
                  .jobsResetBtnTitleCor(JobsWhiteColor)
                  .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-                 .jobsResetBtnTitle(@"APPLY NOW".tr)
+                 .jobsResetBtnTitle(@"APPLY NOW".jobsTr())
                  .onClickBy(^(UIButton *x){
                      JobsLog(@"");
                  }).onLongPressGestureBy(^(id data){
@@ -195,21 +196,21 @@ NS_INLINE __kindof UIButton *_Nonnull jobsMakeButton(jobsByBtnBlock _Nonnull blo
                  data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                      @jobs_strongify(self)
                      data1.byFont(UIFontWeightRegularSize(14))
-                          .byTextCor(@"#666666".cor)
+                          .byTextCor(@"#666666".jobsCor())
                           .byTargetString(self.richTextMutArr[0])
                           .byParagraphStyle(self.jobsParagraphStyleCenter);
                  }))
                  .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                      @jobs_strongify(self)
                      data1.byFont(UIFontWeightRegularSize(14))
-                          .byTextCor(@"#BA9B77".cor)
+                          .byTextCor(@"#BA9B77".jobsCor())
                           .byTargetString(self.richTextMutArr[1])
                           .byParagraphStyle(self.jobsParagraphStyleCenter);
                  }))
                  .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                      @jobs_strongify(self)
                      data1.byFont(UIFontWeightRegularSize(14))
-                          .byTextCor(@"#666666".cor)
+                          .byTextCor(@"#666666".jobsCor())
                           .byTargetString(self.richTextMutArr[2])
                           .byParagraphStyle(self.jobsParagraphStyleCenter);
                  }));
@@ -220,7 +221,7 @@ NS_INLINE __kindof UIButton *_Nonnull jobsMakeButton(jobsByBtnBlock _Nonnull blo
                  .jobsResetBtnBgImage(@"APPLY NOW".img))
                  .jobsResetBtnTitleCor(JobsWhiteColor)
                  .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-                 .jobsResetBtnTitle(@"APPLY NOW".tr)
+                 .jobsResetBtnTitle(@"APPLY NOW".jobsTr())
                  .onClickBy(^(UIButton *x){
                      @jobs_strongify(self)
                      x.selected = !x.selected;
@@ -234,8 +235,8 @@ NS_INLINE __kindof UIButton *_Nonnull jobsMakeButton(jobsByBtnBlock _Nonnull blo
      -(BaseButton *)registerBtn{
          if(!_registerBtn){
              _registerBtn = BaseButton.initByTextModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable data) {
-                 data.byText(@"REGISTER".tr)
-                     .byTextCor(@"#C90000".cor)
+                 data.byText(@"REGISTER".jobsTr())
+                     .byTextCor(@"#C90000".jobsCor())
                      .byFont(bayonRegular(JobsWidth(15)));
              }))
              .bgColorBy(JobsWhiteColor)
@@ -244,7 +245,7 @@ NS_INLINE __kindof UIButton *_Nonnull jobsMakeButton(jobsByBtnBlock _Nonnull blo
              }).onLongPressGestureBy(^(id data){
                  JobsLog(@"");
              }).setLayerBy((jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-                 data.byLayerCor(@"#C90000".cor)
+                 data.byLayerCor(@"#C90000".jobsCor())
                      .byJobsWidth(1)
                      .byCornerRadiusValue(JobsWidth(8));
              })));

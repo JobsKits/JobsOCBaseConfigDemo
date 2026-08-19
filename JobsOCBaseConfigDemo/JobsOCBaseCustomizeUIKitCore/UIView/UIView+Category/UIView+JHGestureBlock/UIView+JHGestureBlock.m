@@ -31,9 +31,19 @@ JobsKey(JHGestureBlockKey)
 }
 
 - (void)gestureAction:(UIGestureRecognizer *)gesture{
-    NSMutableDictionary *blockDic = Jobs_getAssociatedObjectByTarget(gesture.view, JHGestureBlockKey);
-    JHGestureBlock block = blockDic[NSStringFromClass(gesture.class)];
-    if (block) block(gesture.view, gesture);
+    jobsByGestureRecognizerBlock action = ((jobsByGestureRecognizerBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIView.class, @selector(jobsGestureAction)))(self, @selector(jobsGestureAction));
+    if (action) action(gesture);
+}
+
+-(jobsByGestureRecognizerBlock _Nonnull)jobsGestureAction{
+    @jobs_weakify(self)
+    return ^(UIGestureRecognizer * gesture){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSMutableDictionary *blockDic = Jobs_getAssociatedObjectByTarget(gesture.view, JHGestureBlockKey);
+        JHGestureBlock block = blockDic[NSStringFromClass(gesture.class)];
+        if (block) block(gesture.view, gesture);
+    };
 }
 
 @end

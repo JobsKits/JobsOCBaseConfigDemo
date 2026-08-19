@@ -53,6 +53,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface GXCardView (JobsDemoDSL)
+-(JobsRetGXCardViewByIDBlock _Nonnull)byDataSource;
+-(JobsRetGXCardViewByIDBlock _Nonnull)byDelegate;
+-(JobsRetGXCardViewByNSIntegerBlock _Nonnull)byVisibleCount;
+-(JobsRetGXCardViewByCGFloatBlock _Nonnull)byLineSpacing;
+-(JobsRetGXCardViewByCGFloatBlock _Nonnull)byInteritemSpacing;
+-(JobsRetGXCardViewByCGFloatBlock _Nonnull)byMaxAngle;
+-(JobsRetGXCardViewByCGFloatBlock _Nonnull)byMaxRemoveDistance;
+-(JobsRetGXCardViewByBOOLBlock _Nonnull)byRepeat;
+-(JobsRetGXCardViewByIDBlocks _Nonnull)byRegisterCell;
+-(JobsRetGXCardViewByBOOLBlock _Nonnull)reloadDataAnimated;
+-(JobsRetGXCardViewByBOOLBlock _Nonnull)reloadMoreDataAnimated;
+-(JobsRetGXCardViewByNSIntegerBlock _Nonnull)removeTopCardViewFromSwipe;
+@end
+
 @interface GXCardViewDemoVC : BaseViewController
 <
 GXCardViewDataSource
@@ -60,6 +75,9 @@ GXCardViewDataSource
 ,UITableViewDelegate
 >
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN GXCardViewDemoVC
+-(JobsRetGXCardViewDemoVCByNSIntegerBlock _Nonnull)byCellCount;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END GXCardViewDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

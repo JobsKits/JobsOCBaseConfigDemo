@@ -7,12 +7,6 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
-#else
-#import "Masonry.h"
-#endif
-
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
 #else
@@ -43,12 +37,6 @@
 #import "JobsOCDSL.h"
 #endif
 
-#if __has_include(<XYColorOC/XYColorOC.h>)
-#import <XYColorOC/XYColorOC.h>
-#else
-#import "XYColorOC.h"
-#endif
-
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -59,6 +47,18 @@
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
+#endif
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
@@ -74,13 +74,13 @@ Prop_strong()UILabel *previewTitleLab;
 Prop_strong()UIButton *primaryActionBtn;
 Prop_strong()UILabel *statusLab;
 
--(NSString *)demoNavigationTitle;
--(NSString *)demoDescription;
--(NSString *)demoIconName;
--(NSString *)primaryActionTitle;
--(void)configureDemo;
--(void)performPrimaryAction;
--(void)updateStatus:(NSString *)text;
+-(JobsRetStrByVoidBlock _Nonnull)demoNavigationTitle;
+-(JobsRetStrByVoidBlock _Nonnull)demoDescription;
+-(JobsRetStrByVoidBlock _Nonnull)demoIconName;
+-(JobsRetStrByVoidBlock _Nonnull)primaryActionTitle;
+-(jobsByVoidBlock _Nonnull)configureDemo;
+-(jobsByVoidBlock _Nonnull)performPrimaryAction;
+-(jobsByStrBlock _Nonnull)updateStatus;
 
 @end
 

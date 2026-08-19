@@ -55,21 +55,7 @@
     return path;
 }
 /// addLineToPoint
--(jobsByPointBlock _Nonnull)add{
-    @jobs_weakify(self)
-    return ^(CGPoint data){
-        @jobs_strongify(self)
-        [self addLineToPoint:data];
-    };
-}
 /// moveToPoint
--(jobsByPointBlock _Nonnull)moveTo{
-    @jobs_weakify(self)
-    return ^(CGPoint data){
-        @jobs_strongify(self)
-        [self moveToPoint:data];
-    };
-}
 /// 对系统方法 bezierPathWithRect
 +(JobsRetBezierPathByFrameBlock _Nonnull)initByRect{
     return ^ UIBezierPath *_Nullable(CGRect bounds){

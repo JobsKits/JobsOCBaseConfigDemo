@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_END
                  .byText(@"")
                  .byFont(pingFangHKRegular(JobsWidth(14)))
                  .byTextCor(JobsLabelColor)
-                 .byPlaceholder(@"ID Type".tr)
+                 .byPlaceholder(@"ID Type".jobsTr())
                  .byPlaceholderColor(JobsPlaceholderTextColor)
                  .byPlaceholderFont(pingFangHKRegular(JobsWidth(14)));
          })).setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {

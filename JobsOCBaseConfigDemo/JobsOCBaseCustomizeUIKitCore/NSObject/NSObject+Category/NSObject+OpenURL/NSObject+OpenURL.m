@@ -13,10 +13,10 @@
 -(void)jobsSendMailWithComposeVC:(MFMailComposeViewController *_Nullable)mailComposeVC
           completionHandlerBlock:(jobsByVoidBlock _Nullable)completionHandlerBlock{
     if (MFMailComposeViewController.canSendMail) {
-        [self.jobsGetCurrentViewController forceComingToPresentVC:mailComposeVC
+        [self.jobsGetCurrentViewControllerBlock() forceComingToPresentVC:mailComposeVC
                                                     requestParams:nil
                                                        completion:completionHandlerBlock];
-    }else @"打开邮件失败,请确保设备上至少启用了一个电子邮件帐户！".tr.toast();
+    }else @"打开邮件失败,请确保设备上至少启用了一个电子邮件帐户！".jobsTr().toast();
 }
 #pragma mark —— MFMessageComposeViewControllerDelegate
 /// 推出页面的方式用presentViewController，pushViewController可能会崩溃
@@ -55,8 +55,13 @@ failCompletionHandlerBlock:^{
 #pragma mark —— 跳转系统设置
 /// 在iOS10更新后，跳转到系统设置的具体的子页面被禁用，只能跳转到系统设置根目录
 /// 但是苹果又更新了URLscheme，亲测不可用
--(void)jobsPushToSysConfig{
-    self.jobsOpenURL(UIApplicationOpenSettingsURLString);
+-(jobsByVoidBlock _Nonnull)jobsPushToSysConfig{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.jobsOpenURL(UIApplicationOpenSettingsURLString);
+    };
 }
 #pragma mark —— 安全打开URL
 /// 软性打开URL：【不会处理打开成功和打开失败两种情况】如果URL有误则无法打开
@@ -112,22 +117,22 @@ failCompletionHandlerBlock:(jobsByVoidBlock _Nullable)failCompletionHandlerBlock
     if ([URL isKindOfClass:NSString.class]) {
         NSString *url = (NSString *)URL;
         if (isNull(url)) {
-            @"URL为空，请检查！".tr.toast();
+            @"URL为空，请检查！".jobsTr().toast();
             return NO;
         }else{
-            if (!url.jobsCanOpenUrl) {
-                @"打开".tr.add(url).add(@"失败，请检查").toast();
-                return url.jobsCanOpenUrl;
+            if (!url.jobsCanOpenUrl()) {
+                @"打开".jobsTr().add(url).add(@"失败，请检查").toast();
+                return url.jobsCanOpenUrl();
             }
         }
     }else if ([URL isKindOfClass:NSURL.class]){
         NSURL *url = (NSURL *)URL;
-        if (!url.jobsCanOpenUrl) {
+        if (!url.jobsCanOpenUrl()) {
             @"打开".add(url.absoluteString).add(@"失败，请检查").toast();
-            return url.jobsCanOpenUrl;
+            return url.jobsCanOpenUrl();
         }
     }else{
-        @"URL类型不匹配，请检查".tr.toast();
+        @"URL类型不匹配，请检查".jobsTr().toast();
         return NO;
     }
     NSURL *openURL = nil;
@@ -135,13 +140,13 @@ failCompletionHandlerBlock:(jobsByVoidBlock _Nullable)failCompletionHandlerBlock
         openURL = URL;
     }else if ([URL isKindOfClass:NSString.class]){
         NSString *url = (NSString *)URL;
-        openURL = url.jobsUrl;
+        openURL = url.jobsURL();
     }else{}
     options = options ? options : @{};
     /// 打开的动作
     if (@available(iOS 10.0, *)) {
         if ([UIApplication.sharedApplication respondsToSelector:@selector(openURL:options:completionHandler:)]) {
-            if (openURL.jobsCanOpenUrl) {
+            if (openURL.jobsCanOpenUrl()) {
                 [UIApplication.sharedApplication openURL:openURL
                                                  options:options
                                        completionHandler:^(BOOL success) {
@@ -157,10 +162,10 @@ failCompletionHandlerBlock:(jobsByVoidBlock _Nullable)failCompletionHandlerBlock
             return NO;
         }
     }else {
-        if (openURL.jobsCanOpenUrl) {
+        if (openURL.jobsCanOpenUrl()) {
             SuppressWdeprecatedDeclarationsWarning([UIApplication.sharedApplication openURL:openURL]);
         }else if (failCompletionHandlerBlock) failCompletionHandlerBlock();
-        return openURL.jobsCanOpenUrl;
+        return openURL.jobsCanOpenUrl();
     }
 }
 #pragma mark —— Prop_strong()MFMessageComposeViewController *messageComposeVC;
@@ -173,14 +178,14 @@ JobsKey(_messageComposeVC)
         Jobs_setAssociatedRETAIN_NONATOMIC(_messageComposeVC, jobsMakeMFMessageComposeVC(^(__kindof MFMessageComposeViewController * _Nullable vc) {
             @jobs_strongify(self)
             /// 设置短信内容
-            vc.body = @"吃饭了没".tr;
+            vc.byBody(@"吃饭了没".jobsTr());
             /// 设置收件人列表
             vc.recipients = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
                 data.add(@"10010")
                 .add(@"10086");
             });
             /// 设置代理
-            vc.messageComposeDelegate = self;
+            vc.byMessageComposeDelegate(self);
         }))
     };return MessageComposeVC;
 }
@@ -198,19 +203,17 @@ JobsKey(_mailComposeVC)
         Jobs_setAssociatedRETAIN_NONATOMIC(_mailComposeVC, jobsMakeMFMailComposeVC(^(__kindof MFMailComposeViewController * _Nullable vc) {
             @jobs_strongify(self)
             /// 设置邮件主题
-            vc.subject = @"测试邮件".tr;
+            vc.bySetSubject(@"测试邮件".jobsTr())
+                .bySetToRecipients(jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
+                    data.add(@"test@qq.com");
+                }))
+                .bySetCcRecipients(jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
+                    data.add(@"test1@qq.com");
+                }))
+                .byMailComposeDelegate(self);
             /// 设置邮件内容
-            [vc setMessageBody:@"测试内容".tr isHTML:NO];
+            [vc setMessageBody:@"测试内容".jobsTr() isHTML:NO];
             /// 设置收件人列表
-            vc.toRecipients = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
-                data.add(@"test@qq.com");
-            });
-            /// 设置抄送人列表
-            vc.ccRecipients = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
-                data.add(@"test1@qq.com");
-            });
-            /// 设置代理
-            vc.mailComposeDelegate = self;
         }))
     };return MailComposeVC;
 }

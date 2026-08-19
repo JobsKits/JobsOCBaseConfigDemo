@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIAlertController (Extra)
 
 -(JobsRetAlertCtrlByActionBlock _Nonnull)add;
+-(JobsRetAlertCrtlByStringBlock _Nonnull)byMessage;
 
 @end
 

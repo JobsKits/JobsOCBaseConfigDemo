@@ -8,7 +8,6 @@
 #import <UIKit/UIKit.h>
 
 #ifndef JobsBlock_SDWebImage_h
-#define JobsBlock_SDWebImage_h
 
 #if __has_include(<SDWebImage/SDWebImage.h>)
 #import <SDWebImage/SDWebImage.h>
@@ -16,8 +15,11 @@
 #import "SDWebImage.h"
 #endif
 
+#define JobsBlock_SDWebImage_h
+
 #ifndef JobsSDWebImageButtonBlock
 #define JobsSDWebImageButtonBlock
+
 typedef __kindof UIButton * _Nullable (^JobsRetButBySDWebImageOptionsBlocks)(SDWebImageOptions options);
 typedef __kindof UIButton * _Nullable (^JobsRetButBySDExternalCompletionBlocks)(SDExternalCompletionBlock _Nullable completionBlock);
 typedef __kindof UIButton * _Nullable (^JobsRetButBySDImageLoaderProgressBlocks)(SDImageLoaderProgressBlock _Nullable progressBlock);

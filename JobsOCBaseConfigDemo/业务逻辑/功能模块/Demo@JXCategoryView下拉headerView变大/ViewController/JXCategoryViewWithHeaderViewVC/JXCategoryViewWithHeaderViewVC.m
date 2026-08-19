@@ -19,6 +19,26 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
 
 @end
 
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JXCategoryIndicatorLineView
+@interface JXCategoryIndicatorLineView (JobsLocalPropertyDSLAutogen_3c987acc13)
+-(JobsRetJXCategoryIndicatorLineViewByCGFloatBlock _Nonnull)byIndicatorHeight;
+-(JobsRetJXCategoryIndicatorLineViewByCGFloatBlock _Nonnull)byIndicatorWidthIncrement;
+-(JobsRetJXCategoryIndicatorLineViewByCGFloatBlock _Nonnull)byVerticalMargin;
+-(JobsRetJXCategoryIndicatorLineViewByUIColorBlock _Nonnull)byIndicatorColor;
+-(void)setIndicatorColor:(UIColor * _Nullable)data;
+-(void)setIndicatorHeight:(CGFloat)data;
+-(void)setIndicatorWidthIncrement:(CGFloat)data;
+-(void)setVerticalMargin:(CGFloat)data;
+@end
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END JXCategoryIndicatorLineView
+
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JXPagerView
+@interface JXPagerView (JobsLocalPropertyDSLAutogen_3c987acc13)
+-(JobsRetJXPagerViewByNSIntegerBlock _Nonnull)byPinSectionHeaderVerticalOffset;
+-(void)setPinSectionHeaderVerticalOffset:(NSInteger)data;
+@end
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END JXPagerView
+
 @implementation JXCategoryViewWithHeaderViewVC
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
@@ -26,80 +46,165 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JXCategoryViewWithHeaderViewVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(JobsLabelColor);
-        })
-        //        self.viewModel.textModel.text = @"VIP俱乐部".tr;
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byText(data.attributedTitle.string)
-                .byFont(UIFontWeightRegularSize(16));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byTextCor(JobsLabelColor);
+            })
+            //        self.viewModel.textModel.text = @"VIP俱乐部".jobsTr();
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byText(data.attributedTitle.string)
+                    .byFont(UIFontWeightRegularSize(16));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JXCategoryViewWithHeaderViewVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
     @jobs_weakify(self)
-    self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
+    return ^{
         @jobs_strongify(self)
-//        data.add(UIBarButtonItem.initBy(self.aboutBtn));
-    });
-    self.rightBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
-        @jobs_strongify(self)
-        data.add(UIBarButtonItem.initBy(self.ruleBtn));
-    });
-    self.byGKNavItemRightSpace(JobsWidth(16));
-    self.makeNavByAlpha(1);
-    self.topLineLab.byAlpha(0);
-    self.categoryView.byAlpha(1);
+        if (!self) return;
+            [super viewDidLoad];
+            @jobs_weakify(self)
+            self.byLeftBarButtonItems(jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
+                @jobs_strongify(self)
+        //        data.add(UIBarButtonItem.initBy(self.aboutBtn));
+            }))
+            .byRightBarButtonItems(jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
+                @jobs_strongify(self)
+                data.add(UIBarButtonItem.initBy(self.ruleBtn));
+            }));
+            self.byGKNavItemRightSpace(JobsWidth(16));
+            self.makeNavByAlpha(1);
+            self.topLineLab.byAlpha(0);
+            self.categoryView.byAlpha(1);
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JXCategoryViewWithHeaderViewVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillAppear:animated];
+    };
 }
 
 -(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JXCategoryViewWithHeaderViewVC.class, @selector(jobsViewWillLayoutSubviews)))(self, @selector(jobsViewWillLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewWillLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JXCategoryViewWithHeaderViewVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JXCategoryViewWithHeaderViewVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JXCategoryViewWithHeaderViewVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JXCategoryViewWithHeaderViewVC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+    };
 }
 #pragma mark —— JXPagingViewDelegate
-- (UIView *)tableHeaderViewInPagerView:(JXPagerView *)pagerView {
-    return self.collectionHeaderView;
+-(JobsRetUIViewByJXPagerViewBlock _Nonnull)tableHeaderViewInPagerView{
+    @jobs_weakify(self)
+    return ^UIView *(JXPagerView * pagerView){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.collectionHeaderView;
+    };
 }
 /**
     页面朝上走 crollView.contentOffset.y 为正值
@@ -118,23 +223,43 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
     [self.collectionHeaderView scrollViewDidScrollWithContentOffsetY:scrollView.contentOffset.y];
 }
 ///
-- (NSUInteger)tableHeaderViewHeightInPagerView:(JXPagerView *)pagerView {
-    return JobsStatusBarHeight()
-//    + self.gk_navigationBar.height
-    + JobsNavigationBarAndStatusBarHeight(nil)
-    + BaiShaETProjCollectionHeaderView.viewSizeByModel(nil).height;
+-(JobsRetNSUIntegerByJXPagerViewBlock _Nonnull)tableHeaderViewHeightInPagerView{
+    @jobs_weakify(self)
+    return ^NSUInteger(JXPagerView * pagerView){
+        @jobs_strongify(self)
+        if (!self) return (NSUInteger){0};
+        return JobsStatusBarHeight()
+    //    + self.gk_navigationBar.height
+        + JobsNavigationBarAndStatusBarHeight(nil)
+        + BaiShaETProjCollectionHeaderView.viewSizeByModel(nil).height;
+    };
 }
 /// JXCategoryTitleView *categoryView 的高度
-- (NSUInteger)heightForPinSectionHeaderInPagerView:(JXPagerView *)pagerView {
-    return listContainerViewDefaultOffset;
+-(JobsRetNSUIntegerByJXPagerViewBlock _Nonnull)heightForPinSectionHeaderInPagerView{
+    @jobs_weakify(self)
+    return ^NSUInteger(JXPagerView * pagerView){
+        @jobs_strongify(self)
+        if (!self) return (NSUInteger){0};
+        return listContainerViewDefaultOffset;
+    };
 }
 
-- (UIView *)viewForPinSectionHeaderInPagerView:(JXPagerView *)pagerView {
-    return self.categoryView;
+-(JobsRetUIViewByJXPagerViewBlock _Nonnull)viewForPinSectionHeaderInPagerView{
+    @jobs_weakify(self)
+    return ^UIView *(JXPagerView * pagerView){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.categoryView;
+    };
 }
 
-- (NSInteger)numberOfListsInPagerView:(JXPagerView *)pagerView {
-    return self.titleMutArr.count;
+-(JobsRetNSIntegerByJXPagerViewBlock _Nonnull)numberOfListsInPagerView{
+    @jobs_weakify(self)
+    return ^NSInteger(JXPagerView * pagerView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return self.titleMutArr.count;
+    };
 }
 
 - (id<JXPagerViewListViewDelegate>)pagerView:(JXPagerView *)pagerView
@@ -147,10 +272,10 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
         _pagerView = jobsMakeCategoryPagerView(self);
         self.view.addSubview(_pagerView);
         _pagerView.frame = CGRectMake(0,
-                                      JobsNavigationBarAndStatusBarHeight(nil) + self.getTopLineLabSize.height,
+                                      JobsNavigationBarAndStatusBarHeight(nil) + self.getTopLineLabSize().height,
                                       JobsMainScreen_WIDTH(),
                                       JobsMainScreen_HEIGHT());
-        _pagerView.pinSectionHeaderVerticalOffset = JobsWidth(0);/// 额外的偏移量
+        _pagerView.byPinSectionHeaderVerticalOffset(JobsWidth(0));
     };return _pagerView;
 }
 
@@ -161,7 +286,7 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
                                                  JobsNavigationBarAndStatusBarHeight(nil),
                                                  BaiShaETProjCollectionHeaderView.viewSizeByModel(nil).width,
                                                  BaiShaETProjCollectionHeaderView.viewSizeByModel(nil).height);
-        _collectionHeaderView.isZoom = YES;
+        _collectionHeaderView.byZoom(YES);
         _collectionHeaderView.jobsRichViewByModel(nil);
     };return _collectionHeaderView;
 }
@@ -171,31 +296,33 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
         @jobs_weakify(self)
         _categoryView = jobsMakeCategoryTitleView(^(JXCategoryTitleView * _Nullable view) {
             @jobs_strongify(self)
-            view.byBgColor(JobsClearColor);
-            view.titleSelectedColor = JobsWhiteColor;
-            view.titleColor = JobsWhiteColor;
-            view.titleFont = UIFontWeightRegularSize(JobsWidth(18));
-            view.titleSelectedFont = UIFontWeightRegularSize(JobsWidth(28));
-            view.delegate = self;
-            view.titles = self.titleMutArr;
-            view.titleColorGradientEnabled = YES;
-            /// 跟随的指示器
-            view.indicators = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
-                arr.add(jobsMakeCategoryIndicatorLineView(^(JXCategoryIndicatorLineView * _Nullable view) {
-                    view.indicatorColor = HEXCOLOR(0xFFEABA);
-                    view.indicatorHeight = JobsWidth(4);
-                    view.indicatorWidthIncrement = JobsWidth(10);
-                    view.verticalMargin = 0;
-                }));
-            });
-            view.defaultSelectedIndex = 1;// 默认从第二个开始显示
-            view.cellSpacing = JobsWidth(-20);
-            view.listContainer = (id<JXCategoryViewListContainer>)self.pagerView.listContainerView;
-            view.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
-                make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(0);
-                make.left.right.equalTo(self.view);
-                make.height.mas_equalTo(listContainerViewDefaultOffset);
-            });[self.view layoutIfNeeded];
+            view
+                .byTitleSelectedColor(JobsWhiteColor)
+                .byTitleColor(JobsWhiteColor)
+                .byTitleFont(UIFontWeightRegularSize(JobsWidth(18)))
+                .byTitleSelectedFont(UIFontWeightRegularSize(JobsWidth(28)))
+                .byTitles(self.titleMutArr)
+                .byTitleColorGradientEnabled(YES)
+                .byIndicators(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
+                    arr.add(jobsMakeCategoryIndicatorLineView(^(JXCategoryIndicatorLineView * _Nullable view) {
+                        view
+                            .byIndicatorColor(HEXCOLOR(0xFFEABA))
+                            .byIndicatorHeight(JobsWidth(4))
+                            .byIndicatorWidthIncrement(JobsWidth(10))
+                            .byVerticalMargin(0);
+                    }));
+                }))
+                .byDefaultSelectedIndex(1)
+                .byCellSpacing(JobsWidth(-20))
+                .byListContainer((id<JXCategoryViewListContainer>)self.pagerView.listContainerView)
+                .byDelegate(self)
+                .byBgColor(JobsClearColor)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(0);
+                    make.left.right.equalTo(self.view);
+                    make.height.mas_equalTo(listContainerViewDefaultOffset);
+                });[self.view layoutIfNeeded];
         });
     };return _categoryView;
 }
@@ -207,11 +334,11 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
             .bgColorBy(JobsWhiteColor)
             .jobsResetBtnTitleCor(JobsLabelColor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-            .jobsResetBtnTitle(@"VIP規則".tr)
+            .jobsResetBtnTitle(@"VIP規則".jobsTr())
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
-                toastBy(@"VIP規則".tr);
+                toastBy(@"VIP規則".jobsTr());
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
@@ -222,7 +349,7 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
     if (!_titleMutArr) {
         _titleMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>*_Nullable data) {
             for (int i = 0; i <= 5; i++) {
-                data.add(@"Lv".add(toStringByInt(i)).tr);
+                data.add(@"Lv".add(toStringByInt(i)).jobsTr());
             }
         });
     };return _titleMutArr;
@@ -234,12 +361,24 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
         _childVCMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIViewController *>*_Nullable data) {
             @jobs_strongify(self)
             for (NSString *str in self.titleMutArr) {
-                JXCategoryViewWithHeaderViewSubVC *vipSubVC = JXCategoryViewWithHeaderViewSubVC.new;
-                vipSubVC.jobsTag = [self.titleMutArr indexOfObject:str];
-                data.add(vipSubVC);
+                data.add(JXCategoryViewWithHeaderViewSubVC.new
+                    .byJobsTag([self.titleMutArr indexOfObject:str]));
             }
         });
     };return _childVCMutArr;
 }
 
 @end
+
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JXPagerView
+@implementation JXPagerView (JobsLocalPropertyDSLAutogen_3c987acc13)
+-(JobsRetJXPagerViewByNSIntegerBlock _Nonnull)byPinSectionHeaderVerticalOffset{
+    @jobs_weakify(self)
+    return ^__kindof JXPagerView * _Nullable(NSInteger data){
+        @jobs_strongify(self)
+        [self setPinSectionHeaderVerticalOffset:data];
+        return self;
+    };
+}
+@end
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JXPagerView

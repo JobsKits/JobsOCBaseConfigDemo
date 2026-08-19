@@ -6,6 +6,7 @@
 //
 
 #import "JobsBaseWebVC.h"
+
 #import "WKWebView+Extra.h"
 #import "NSString+Sys.h"
 #import "NSObject+Extra.h"
@@ -29,56 +30,116 @@
 }
 
 -(void)loadView{
-    [super loadView];
-    id<BaseProtocol> baseProtocolSelf = (id<BaseProtocol>)self;
-    if ([baseProtocolSelf.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)baseProtocolSelf.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBaseWebVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        id<BaseProtocol> baseProtocolSelf = (id<BaseProtocol>)self;
+        if ([baseProtocolSelf.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)baseProtocolSelf.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.setupNavigationBarHidden = YES;
-    {
-        self.viewModel
-            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-                data.byText(@"".tr);
-            })
-            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-                data
-                    .byTextCor(JobsLabelColor)
-                    .byText(@"".tr)
-                    .byFont(UIFontWeightRegularSize(JobsWidth(18)));
-            })
-            // 使用原则：底图有 + 底色有 = 优先使用底图数据
-            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-                //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1));
-            //        self.viewModel.navBgImage = @"导航栏左侧底图".img;
-    }
+        self.bySetupNavigationBarHidden(YES);
+        {
+            self.viewModel
+                .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                    data.byText(@"".jobsTr());
+                })
+                .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                    data
+                        .byTextCor(JobsLabelColor)
+                        .byText(@"".jobsTr())
+                        .byFont(UIFontWeightRegularSize(JobsWidth(18)));
+                })
+                // 使用原则：底图有 + 底色有 = 优先使用底图数据
+                // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+                // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+                .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+                    //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+                .byNavBgCor(RGBA_COLOR(255, 238, 221, 1));
+                //        self.viewModel.navBgImage = @"导航栏左侧底图".img;
+        }
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByConfig(self.makeNav0ByTitle(self.viewModel.textModel.text));
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBaseWebVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByConfig(self.makeNav0ByTitle(self.viewModel.textModel.text));
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBaseWebVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillAppear:animated];
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBaseWebVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBaseWebVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBaseWebVC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+    };
 }
 #pragma mark —— 一些公共方法
 /// TODO
@@ -91,13 +152,13 @@
         @jobs_strongify(self)
         UIViewController <BaseViewControllerProtocol>*vc = (UIViewController *)self.class.new;
         @jobs_weakify(vc)
-        vc.webView = webView;
+        vc.byWebView(webView);
         vc.view.addSubview(webView)
             .setMasonryBy(^(MASConstraintMaker *_Nonnull make){
                 @jobs_strongify(vc)
                 make.edges.equalTo(vc.view);
         }).on();
-        webView.loadRequest(webView.url.URLRequest);/// 创建即加载
+        webView.loadRequest(webView.url.jobsURLRequest());/// 创建即加载
         return vc;
     };
 }
@@ -140,7 +201,7 @@ didFailProvisionalNavigation:(WKNavigation *)navigation
 -(UIActivityIndicatorView *)activityIndicatorView{
     if(!_activityIndicatorView){
         _activityIndicatorView = self.view.addSubview(UIActivityIndicatorView.initBy(UIActivityIndicatorViewStyleLarge));
-        _activityIndicatorView.center = self.view.center;
+        _activityIndicatorView.byCenter(self.view.center.x, self.view.center.y);
     };return _activityIndicatorView;
 }
 

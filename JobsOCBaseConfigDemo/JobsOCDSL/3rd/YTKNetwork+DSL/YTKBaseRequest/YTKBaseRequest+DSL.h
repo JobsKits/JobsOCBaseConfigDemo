@@ -6,15 +6,16 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_YTKBASEREQUEST_DSL_B8E53EF6AA
-#define JOBS_HEADER_GUARD_YTKBASEREQUEST_DSL_B8E53EF6AA
-
-#import <Foundation/Foundation.h>
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
 #else
 #import "YTKNetwork.h"
 #endif
+
+#define JOBS_HEADER_GUARD_YTKBASEREQUEST_DSL_B8E53EF6AA
+
+#import <Foundation/Foundation.h>
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"
@@ -35,9 +36,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetYTKBaseRequestByCompletionBlock _Nonnull)byFailure;
 -(JobsRetYTKBaseRequestByCompletionBlocks _Nonnull)byCompletion;
 -(JobsRetYTKBaseRequestByAccessoryBlock _Nonnull)byAddAccessory;
--(__kindof YTKBaseRequest *_Nonnull)byStart;
--(__kindof YTKBaseRequest *_Nonnull)byStop;
--(__kindof YTKBaseRequest *_Nonnull)byClearCompletion;
+-(JobsRetYTKBaseRequestByVoidBlock _Nonnull)byStart;
+-(JobsRetYTKBaseRequestByVoidBlock _Nonnull)byStop;
+-(JobsRetYTKBaseRequestByVoidBlock _Nonnull)byClearCompletion;
 
 @end
 

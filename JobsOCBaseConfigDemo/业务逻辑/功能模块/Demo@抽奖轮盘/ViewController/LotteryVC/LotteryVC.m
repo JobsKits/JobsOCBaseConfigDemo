@@ -30,12 +30,12 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
     }
     self.viewModel
         .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
+            data.byText(@"返回".jobsTr());
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
                 .byTextCor(JobsLabelColor)
-                .byText(@"幸运轮盘".tr)
+                .byText(@"幸运轮盘".jobsTr())
                 .byFont(UIFontWeightRegularSize(18));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
@@ -95,7 +95,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.dataMutArr[indexPath.section].cls) {
         self.comingToPushVCByRequestParams(self.dataMutArr[indexPath.section].cls.new,
                                            self.dataMutArr[indexPath.section]);
-    }else @"尚未接入此功能".tr.toast();
+    }else @"尚未接入此功能".jobsTr().toast();
 }
 /// 编辑模式下，点击取消左边已选中的cell的按钮
 - (void)tableView:(UITableView *)tableView
@@ -195,11 +195,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     cell.img = @"向右的箭头（小）".img;
     cell.arrows_size = CGSizeMake(JobsWidth(8), JobsWidth(18.3));
 //    @jobs_weakify(self)
-    [cell customAccessoryView:^(id data) {
+    cell.customAccessoryView(^(id data) {
 //        @jobs_strongify(self)
         JobsBaseTableViewCell *cell = (JobsBaseTableViewCell *)data;
         JobsLog(@"MMM - %ld",cell.index);
-    }];
+    });
     /// 以 section 为单位，仅对每个 section 的最后一行 cell 做圆角处理（cell 之间没有分割线）
 //    [cell roundedCornerLastCellByTableView:tableView
 //                                 indexPath:indexPath
@@ -229,7 +229,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 }))
                 .emptyDataByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                    data.byTitle(@"NO MESSAGES FOUND".tr)
+                    data.byTitle(@"NO MESSAGES FOUND".jobsTr())
                         .byTitleCor(JobsWhiteColor)
                         .byTitleFont(bayonRegular(JobsWidth(30)))
                         .byNormalImage(@"小狮子".img);
@@ -270,32 +270,32 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_dataMutArr) {
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             UIViewModel *squareModel = self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"方形转盘抽奖".tr)
-                     .bySubTitle(@"九宫格灯光高亮抽奖".tr)
+                model.byTitle(@"方形转盘抽奖".jobsTr())
+                     .bySubTitle(@"九宫格灯光高亮抽奖".jobsTr())
                      .byCls(LuckyDiskDemoVC.class);
             }));
             squareModel
                 .byImage(@"square.grid.3x3.fill".sys_img)
                 .byBgCor(JobsWhiteColor);
-            squareModel.textModel.byAttributedTitle([self lotteryAttributedString:@"方形转盘抽奖".tr
+            squareModel.textModel.byAttributedTitle([self lotteryAttributedString:@"方形转盘抽奖".jobsTr()
                                                                               font:UIFontWeightMediumSize(JobsWidth(16))
                                                                              color:HEXCOLOR(0x2F3A47)]);
-            squareModel.subTextModel.byAttributedTitle([self lotteryAttributedString:@"九宫格灯光高亮抽奖".tr
+            squareModel.subTextModel.byAttributedTitle([self lotteryAttributedString:@"九宫格灯光高亮抽奖".jobsTr()
                                                                                  font:UIFontWeightRegularSize(JobsWidth(13))
                                                                                 color:HEXCOLOR(0x9A6A2E)]);
             data.add(squareModel);
             UIViewModel *wheelModel = self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"圆形抽奖轮盘".tr)
-                     .bySubTitle(@"惯性旋转和指针命中".tr)
+                model.byTitle(@"圆形抽奖轮盘".jobsTr())
+                     .bySubTitle(@"惯性旋转和指针命中".jobsTr())
                      .byCls(LuckyWheelDemoVC.class);
             }));
             wheelModel
                 .byImage(@"circle.grid.2x2.fill".sys_img)
                 .byBgCor(JobsWhiteColor);
-            wheelModel.textModel.byAttributedTitle([self lotteryAttributedString:@"圆形抽奖轮盘".tr
+            wheelModel.textModel.byAttributedTitle([self lotteryAttributedString:@"圆形抽奖轮盘".jobsTr()
                                                                              font:UIFontWeightMediumSize(JobsWidth(16))
                                                                             color:HEXCOLOR(0x2F3A47)]);
-            wheelModel.subTextModel.byAttributedTitle([self lotteryAttributedString:@"惯性旋转和指针命中".tr
+            wheelModel.subTextModel.byAttributedTitle([self lotteryAttributedString:@"惯性旋转和指针命中".jobsTr()
                                                                                 font:UIFontWeightRegularSize(JobsWidth(13))
                                                                                color:HEXCOLOR(0x9A6A2E)]);
             data.add(wheelModel);

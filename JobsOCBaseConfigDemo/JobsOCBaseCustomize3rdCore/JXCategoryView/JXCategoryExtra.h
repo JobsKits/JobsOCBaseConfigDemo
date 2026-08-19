@@ -6,6 +6,13 @@
 //
 
 #ifndef JXCategoryExtra_h
+
+#if __has_include(<JXCategoryView/JXCategoryView.h>)
+#import <JXCategoryView/JXCategoryView.h>
+#else
+#import "JXCategoryView.h"
+#endif
+
 #define JXCategoryExtra_h
 
 #import "JXCategoryBaseView+Extra.h"
@@ -15,12 +22,6 @@
 #import "JXCategoryDotView+Extra.h"
 #import "JXCategoryListContainerView+Extra.h"
 #import "JXCategoryIndicatorView+Extra.h"
-
-#if __has_include(<JXCategoryView/JXCategoryView.h>)
-#import <JXCategoryView/JXCategoryView.h>
-#else
-#import "JXCategoryView.h"
-#endif
 
 NS_INLINE __kindof JXPagerView *_Nonnull jobsMakeCategoryPagerView(id<JXPagerViewDelegate> _Nonnull delegate){
     JXPagerView *data = [JXPagerView.alloc initWithDelegate:delegate];

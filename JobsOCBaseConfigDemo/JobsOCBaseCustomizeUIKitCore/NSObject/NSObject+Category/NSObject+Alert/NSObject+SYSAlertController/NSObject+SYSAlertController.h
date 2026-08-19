@@ -6,16 +6,17 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_NSOBJECT_SYSALERTCONTROLLER_03BAD88877
-#define JOBS_HEADER_GUARD_NSOBJECT_SYSALERTCONTROLLER_03BAD88877
-
-#import <UIKit/UIKit.h>
-#import "NSMutableArray+Extra.h"
 
 #if __has_include(<WHToast/WHToast.h>)
 #import <WHToast/WHToast.h>
 #else
 #import "WHToast.h"
 #endif
+
+#define JOBS_HEADER_GUARD_NSOBJECT_SYSALERTCONTROLLER_03BAD88877
+
+#import <UIKit/UIKit.h>
+#import "NSMutableArray+Extra.h"
 
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>
@@ -56,7 +57,7 @@
  在sheet模式：是否分组显示（标题 + 副标题）（取消）
  
  *  targetVC，你不能要求每一个触发的点都是VC，也可以是View，所以将上个版本的集成在VC里面的弹框摘出来，但是推弹框出现需要调用系统方法presentViewController，所以这里必须手动传一个标的VC
- *  message、title 你不想要就传nil，传@"".tr 系统会为你留位置,从而造成界面问题（空一坨出来）
+ *  message、title 你不想要就传nil，传@"".jobsTr() 系统会为你留位置,从而造成界面问题（空一坨出来）
  *  showLoginAlertViewWithTargetVC 是一种登录样式
  */
 #import "JobsOCDSL.h"
@@ -79,7 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
                    alertVCBlock:(nullable jobsByIDBlock)alertVCBlock
                 completionBlock:(nullable jobsByVoidBlock)completionBlock;
 
-+(void)showLoginAlertViewWithTargetVC:(UIViewController *)targetVC;
++(jobsByVCBlock _Nonnull)showLoginAlertViewWithTargetVC;
 
 @end
 

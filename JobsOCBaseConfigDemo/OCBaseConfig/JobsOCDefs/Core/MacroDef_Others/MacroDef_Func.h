@@ -6,15 +6,16 @@
 //
 
 #ifndef MacroDef_Func_h
-#define MacroDef_Func_h
-
-#import <UIKit/UIKit.h>
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
 #else
 #import "XYColorOC.h"
 #endif
+
+#define MacroDef_Func_h
+
+#import <UIKit/UIKit.h>
 
 #import "MacroDef_Notification.h"
 #import "MacroDef_SysWarning.h"
@@ -25,7 +26,8 @@
 #import "JobsDefineUserDefault.h"
 
 #pragma mark —— 获取 AppDelegate 和 SceneDelegate
-/// AppDelegate.sharedManager
+/// ((AppDelegate *)AppDelegate.jobsSharedManager())
+
 NS_INLINE id<UIApplicationDelegate> _Nullable getSysAppDelegate(void){
     return UIApplication.sharedApplication.delegate;
 }

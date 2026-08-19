@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_NSMUTABLEDICTIONARY_ORDERED_D69F3AE72C
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "JobsOCRuntimeKits.h"
 #import "JobsDefines.h"
 
@@ -23,14 +29,16 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_copy(readonly, nullable)NSMutableArray *keys;
 //获取给定index的对象
 -(id)objectAtIndex:(NSUInteger)index;
+-(JobsRetIDByUIntegerBlock _Nonnull)objectAtIndex;
 //插入键值对至给定index
 -(void)insertObject:(id)anObject
              forKey:(id<NSCopying>)aKey
             atIndex:(NSUInteger)index;
 //插入键值对至给定index
--(void)removeLastObject;
+-(jobsByVoidBlock _Nonnull)removeLastObject;
 //移除最后一个键值对
 -(void)removeObjectAtIndex:(NSUInteger)index;
+-(jobsByNSUIntegerBlock _Nonnull)removeObjectAtIndex;
 //移除给定index的键值对
 -(void)replaceObjectAtIndex:(NSUInteger)index
                  withObject:(id)anObject;
@@ -40,6 +48,7 @@ Prop_copy(readonly, nullable)NSMutableArray *keys;
            atIndexes:(NSIndexSet *)indexes;
 //移除给定indexes的键值对
 -(void)removeObjectsAtIndexes:(NSIndexSet *)indexes;
+-(jobsByNSIndexSetBlock _Nonnull)removeObjectsAtIndexes;
 //替换给定indexes的值
 -(void)replaceObjectsAtIndexes:(NSIndexSet *)indexes
                    withObjects:(NSArray<id> *)objects;

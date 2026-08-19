@@ -11,26 +11,15 @@
 /// 从 iOS 16 起，UITextView 使用新的文本渲染系统，会使用 UITextLayoutFragmentView。
 /// 它默认在某些情况下会将内容垂直居中，比如文本少、没有足够内容填满 UITextView 的高度时。
 /// 所以一下操作就是在关闭这个新特性
--(void)switchs{
-    self.byTextAlignment(NSTextAlignmentLeft);
-    self.byTextContainerInset(UIEdgeInsetsMake(0, 0, 0, 0));
-    self.byContentInset(UIEdgeInsetsZero);
-    self.textContainer.lineFragmentPadding = 0;
-    /// 强制滚动到顶部（必要）
-    [self setContentOffset:CGPointZero animated:NO];
-    /// 解决初始渲染偏移（适配 iOS 16+）
+-(JobsRetRACDisposableByRACNextBlock _Nonnull)jobsTextViewSubscribeNextBlock{
     @jobs_weakify(self)
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW,(int64_t)(0.01 * NSEC_PER_SEC)),
-                   dispatch_get_main_queue(), ^{
+    return ^RACDisposable *(jobsByIDBlock _Nullable subscribeNextBlock){
         @jobs_strongify(self)
-        self.byContentOffset(CGPointZero);
-    });
-}
-
--(RACDisposable *)jobsTextViewSubscribeNextBlock:(jobsByIDBlock _Nullable)subscribeNextBlock{
-    return [self.rac_textSignal subscribeNext:^(NSString * _Nullable x) {
-        if (subscribeNextBlock) subscribeNextBlock(x);
-    }];
+        if (!self) return nil;
+        return [self.rac_textSignal subscribeNext:^(NSString * _Nullable x) {
+            if (subscribeNextBlock) subscribeNextBlock(x);
+        }];
+    };
 }
 
 -(RACDisposable *)jobsTextViewFilterBlock:(JobsRetBOOLByIDBlock _Nullable)filterBlock
@@ -42,60 +31,6 @@
     }];
 }
 
--(JobsRetTextViewByBOOLBlock _Nonnull)bySelectable{
-    @jobs_weakify(self)
-    return ^__kindof UITextView *_Nullable(BOOL selectable){
-        @jobs_strongify(self)
-        self.selectable = selectable;
-        return self;
-    };
-}
-
--(JobsRetTextViewByNSUIntegerBlock _Nonnull)byDataDetectorTypes{
-    @jobs_weakify(self)
-    return ^__kindof UITextView *_Nullable(UIDataDetectorTypes type){
-        @jobs_strongify(self)
-        self.dataDetectorTypes = type;
-        return self;
-    };
-}
-
--(JobsRetTextViewByDelegateBlock _Nonnull)byDelegate{
-    @jobs_weakify(self)
-    return ^__kindof UITextView *_Nullable(id <UITextViewDelegate>_Nullable delegate){
-        @jobs_strongify(self)
-        self.delegate = delegate;
-        return self;
-    };
-}
-
--(JobsRetTextViewByStringBlock _Nonnull)byText{
-    @jobs_weakify(self)
-    return ^__kindof UITextView *_Nullable(NSString *_Nullable data){
-        @jobs_strongify(self)
-        self.text = data;
-        return self;
-    };
-}
-
--(JobsRetTextViewByCorBlock _Nonnull)byTextCor{
-    @jobs_weakify(self)
-    return ^__kindof UITextView *_Nullable(__kindof UIColor *_Nullable cor){
-        @jobs_strongify(self)
-        self.textColor = cor;
-        return self;
-    };
-}
-
--(JobsRetTextViewByFontBlock _Nonnull)byFont{
-    @jobs_weakify(self)
-    return ^__kindof UITextView *_Nullable(__kindof UIFont *_Nullable font){
-        @jobs_strongify(self)
-        self.font = font;
-        return self;
-    };
-}
-
 -(JobsRetTextViewByBOOLBlock _Nonnull)byUserInteractionEnabled{
     @jobs_weakify(self)
     return ^__kindof UITextView *_Nullable(BOOL data){
@@ -105,77 +40,6 @@
     };
 }
 
--(JobsRetTextViewByBOOLBlock _Nonnull)byEditable{
-    @jobs_weakify(self)
-    return ^__kindof UITextView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.editable = data;
-        return self;
-    };
-}
-
--(JobsRetTextViewByDicBlock _Nonnull)byLinkTextAttributes{
-    @jobs_weakify(self)
-    return ^__kindof UITextView *_Nullable(__kindof NSDictionary <NSAttributedStringKey,id>*dic){
-        @jobs_strongify(self)
-        self.linkTextAttributes = dic;
-        return self;
-    };
-}
-
--(JobsRetTextViewByAttributedTextBlock _Nonnull)byAttributedText{
-    @jobs_weakify(self)
-    return ^__kindof UITextView *_Nullable(__kindof NSAttributedString *attributedText){
-        @jobs_strongify(self)
-        self.attributedText = attributedText;
-        return self;
-    };
-}
-
--(JobsRetTextViewByNSIntegerBlock _Nonnull)byTextAlignment{
-    @jobs_weakify(self)
-    return ^__kindof UITextView *_Nullable(NSTextAlignment data){
-        @jobs_strongify(self)
-        self.textAlignment = data;
-        return self;
-    };
-}
-
--(JobsRetTextViewByEdgeInsetsBlock _Nonnull)byTextContainerInset{
-    @jobs_weakify(self)
-    return ^__kindof UITextView *_Nullable(UIEdgeInsets insets){
-        @jobs_strongify(self)
-        self.textContainerInset = insets;
-        return self;
-    };
-}
-
--(JobsRetTextViewByEdgeInsetsBlock _Nonnull)byContentInset{
-    @jobs_weakify(self)
-    return ^__kindof UITextView *_Nullable(UIEdgeInsets insets){
-        @jobs_strongify(self)
-        self.contentInset = insets;
-        return self;
-    };
-}
-
--(JobsRetTextViewByPointBlock _Nonnull)byContentOffset{
-    @jobs_weakify(self)
-    return ^__kindof UITextView *_Nullable(CGPoint point){
-        @jobs_strongify(self)
-        [self setContentOffset:point animated:NO];
-        return self;
-    };
-}
-
--(JobsRetTextViewByPointBlock _Nonnull)byContentOffsetWithAnimated{
-    @jobs_weakify(self)
-    return ^__kindof UITextView *_Nullable(CGPoint point){
-        @jobs_strongify(self)
-        [self setContentOffset:point animated:YES];
-        return self;
-    };
-}
 /**
  IOS UITextView内容垂直居中方法 https://www.jianshu.com/p/5e4cf8488bfd
  原理：由于textView是继承自UIScrollview，所以会有ContentSize属性。
@@ -252,7 +116,7 @@
      beginNewLineBlock:(jobsByIDBlock _Nullable)beginNewLineBlock
               delBlock:(jobsByIDBlock _Nullable)delBlock
       normalInputBlock:(jobsByIDBlock _Nullable)normalInputBlock{
-    self.replacementText = replacementText;
+    self.byReplacementText(replacementText);
     if ([replacementText isEqualToString:@"\n"]) {//提行
         if (beginNewLineBlock) beginNewLineBlock(self.text);
         return NO;
@@ -262,7 +126,7 @@
          获取需要操作的字符，最后2位，如果是emoji则删除2个字符，否则删除一个字符
          截取 textView.text 最后2位
          */
-        NSString *res = JobsEmpty.tr;
+        NSString *res = JobsEmpty.jobsTr();
         JobsLog(@"MMM = %@",self.text);
         if (self.text.length >= 2) {
             // 这里的emoji判断有点问题，不识别新版本系统的emoji，以前的旧的emoji是可以识别的，我已经给apple提了单让他们给我们写一个api
@@ -277,10 +141,10 @@
             res = [self.text substringWithRange:NSMakeRange(0, self.text.length - 1)];
             JobsLog(@"res = %@",res);
         }else{
-            res = JobsEmpty.tr;
+            res = JobsEmpty.jobsTr();
             JobsLog(@"res = %@",res);
         }
-        self.currentWordNum = res.length;
+        self.byCurrentWordNum(res.length);
         JobsLog(@"SSS = %ld",self.currentWordNum);
         if (delBlock) delBlock(res);
         return YES;
@@ -295,22 +159,22 @@
                 }else{//按下确定键
                     res = replacementText;
                 }
-                self.currentWordNum = res.length;
+                self.byCurrentWordNum(res.length);
                 if (normalInputBlock) normalInputBlock(res);
                 if (self.currentWordNum - 2 >= self.wordLimitNum) {
-                    self.currentWordNum = self.wordLimitNum;
+                    self.byCurrentWordNum(self.wordLimitNum);
                 }
             }
         }else{//最终确定的中文
             NSString *res = [self.text stringByReplacingOccurrencesOfString:[self textInRange:self.markedTextRange]
                                                                  withString:JobsEmpty].add(replacementText);
-            self.currentWordNum = res.length;
+            self.byCurrentWordNum(res.length);
             /// 截断，最新输入的截取字符来满足textView到顶抵满
             if (self.currentWordNum + 1 > self.wordLimitNum) {
-                self.text = [res substringWithRange:NSMakeRange(0, self.wordLimitNum)];
-                self.currentWordNum = self.text.length;
+                self.byText([res substringWithRange:NSMakeRange(0, self.wordLimitNum)]);
+                self.byCurrentWordNum(self.text.length);
             }
-            self.resStr = res;
+            self.byResStr(res);
             if (normalInputBlock) normalInputBlock(res);
         };return self.currentWordNum < self.wordLimitNum;
     }

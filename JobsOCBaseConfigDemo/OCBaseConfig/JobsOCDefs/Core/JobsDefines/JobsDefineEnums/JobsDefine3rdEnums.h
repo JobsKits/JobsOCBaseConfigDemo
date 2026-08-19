@@ -11,15 +11,15 @@
 /// WGradientProgress
 #ifndef WGradientProgressType_h
 #define WGradientProgressType_h
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, WGradientProgressType) {
     WGradientProgressType_colorNormal = 0, // WGradientProgress@单一色
     WGradientProgressType_colorRoll        // WGradientProgress@色彩在不断的翻滚
-} WGradientProgressType;
+};
 #endif /* WGradientProgressType_h */
 /// SPAlertController
 #ifndef SPAlertControllerInitType_h
 #define SPAlertControllerInitType_h
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, NSObject_SPAlertControllerInitType) {
     /// alertControllerWithTitle/message/preferredStyle
     NSObject_SPAlertControllerInitType_1 = 0,
     /// alertControllerWithTitle/message/preferredStyle/animationType
@@ -30,7 +30,7 @@ typedef enum : NSUInteger {
     NSObject_SPAlertControllerInitType_4,
     /// alertControllerWithCustomActionSequenceView/title/message/preferredStyle/animationType
     NSObject_SPAlertControllerInitType_5,
-} NSObject_SPAlertControllerInitType;
+};
 #endif /* SPAlertControllerInitType_h */
 /// JPImageresizerView
 #ifndef JPIMAGERESIZER_CONFIGURE_TYPE_ENUM

@@ -106,7 +106,7 @@ Prop_strong()NSMutableArray <NSString *>*richTextMutArr;
 Prop_strong()NSMutableArray <JobsRichTextConfig *>*richTextConfigMutArr;
 #pragma mark —— 测试调试专用
 /// 查询当下的本地登录数据
--(jobsByVoidBlock _Nullable)checkLoginData;
+-(jobsByVoidBlock _Nonnull)checkLoginData;
 /// 调试 scrollView
 -(jobsByScrollViewBlock _Nonnull)checkScrollView;
 #pragma mark —— 计算UICollectionView.ContentSize
@@ -126,47 +126,47 @@ Prop_strong()NSMutableArray <JobsRichTextConfig *>*richTextConfigMutArr;
                                         direction:(UICollectionViewScrollDirection)direction;
 #pragma mark —— 一些公共设置
 /// 设置返回按钮的文字、返回按钮的行为（默认导航栏标题（图片）为 BLuckyRedLogo）
--(JobsRetNavBarConfigByStringAndActionBlock _Nullable)makeNavByTitleImageAndAction;
+-(JobsRetNavBarConfigByStringAndActionBlock _Nonnull)makeNavByTitleImageAndAction;
 /// 设置导航栏标题（文字）、返回按钮的文字、返回按钮的行为
--(JobsRetNavBarConfigByStringsAndActionBlock _Nullable)makeNavByTitlesAndAction;
+-(JobsRetNavBarConfigByStringsAndActionBlock _Nonnull)makeNavByTitlesAndAction;
 /// 设置返回按钮的文字（默认退回上一个页面）
--(JobsRetNavBarConfigByStringBlock _Nullable)makeNav0ByTitle;
+-(JobsRetNavBarConfigByStringBlock _Nonnull)makeNav0ByTitle;
 /// 设置返回按钮的文字（默认退回TabBar0）
--(JobsRetNavBarConfigByStringBlock _Nullable)makeNav1ByTitle;
+-(JobsRetNavBarConfigByStringBlock _Nonnull)makeNav1ByTitle;
 /// 设置导航栏标题、返回按钮文字、返回按钮的行为
--(JobsRetNavBarConfigByStringsBlock _Nullable)makeNav2ByTitle;
--(JobsRetNavBarConfigByStringsBlock _Nullable)makeNav3ByTitle;
+-(JobsRetNavBarConfigByStringsBlock _Nonnull)makeNav2ByTitle;
+-(JobsRetNavBarConfigByStringsBlock _Nonnull)makeNav3ByTitle;
 -(jobsByVoidBlock _Nonnull)唤起人工客服;
 -(jobsByVoidBlock _Nonnull)唤起Telegram;
 -(jobsByVoidBlock _Nonnull)唤起FaceBook;
 /// 选择电话号码区位
--(__kindof UIButton *)zoneCodeBtnByBlock:(jobsByIDBlock _Nonnull)block;
+-(JobsRetButtonByIDBlocks _Nonnull)zoneCodeBtnByBlock;
 /// 配置弹窗数据
 -(JobsRetViewModelByStringBlock _Nonnull)configPopUpDataBy;
 /// 适配各种机型的开屏图片
--(NSString * _Nullable)imageNameOrURLString;
+-(JobsRetStrByVoidBlock _Nonnull)imageNameOrURLString;
 /// 适配各种机型的开屏视频
--(NSString * _Nullable)videoNameOrURLString;
+-(JobsRetStrByVoidBlock _Nonnull)videoNameOrURLString;
 /// 检查当前IP是否为菲律宾IP
--(void)checkIfIPInPhilippinesByBlock:(jobsByBOOLBlock _Nonnull)block;
+-(jobsByjobsByBOOLBlockBlock _Nonnull)checkIfIPInPhilippinesByBlock;
 /// 数据组装
 -(JobsRetViewModelByDecorationModelBlock _Nonnull)makeDatas;
 /// 默认文本段落样式（两端对齐）
--(NSMutableParagraphStyle *)defaultParagraphStyle;
+-(JobsRetNSMutableParagraphStyleByVoidBlock _Nonnull)defaultParagraphStyle;
 /// 默认文本段落样式（左端对齐）
--(NSMutableParagraphStyle *)defaultParagraphStyle2;
+-(JobsRetNSMutableParagraphStyleByVoidBlock _Nonnull)defaultParagraphStyle2;
 /// Terms Of Use
--(void)makeTermsOfUseByBlock:(jobsByIDBlock _Nonnull)block;
+-(jobsByjobsByIDBlockBlock _Nonnull)makeTermsOfUseByBlock;
 /// 联系我们.按钮
--(__kindof UIButton *_Nullable)makeContactBtn;
+-(JobsRetBtnByVoidBlock _Nonnull)makeContactBtn;
 /// 关闭.按钮
--(__kindof UIButton *_Nullable)makeCloseBtnByActionBlock:(jobsByVoidBlock _Nullable)actionBlock;
+-(JobsRetUIButtonByjobsByVoidBlockBlock _Nonnull)makeCloseBtnByActionBlock;
 /// 控制CustomTabBar的显隐
 -(jobsByBOOLBlock _Nonnull)showCustomTabBar;
 /// 创建JobsCustomTabBar（单例模式）
 +(JobsRetCustomTabBarByViewBlock _Nonnull)makeCustomTabBarBy;
 /// 导航返回键的配置
--(UIButtonModel *)makeBackBtnModel;
+-(JobsRetUIButtonModelByVoidBlock _Nonnull)makeBackBtnModel;
 /// 发通知：登录成功
 -(jobsByVoidBlock _Nonnull)loginOK;
 /// 发通知：退出登录成功
@@ -189,6 +189,7 @@ Prop_strong()NSMutableArray <JobsRichTextConfig *>*richTextConfigMutArr;
                     appDoorContentType:(CurrentPage)appDoorContentType;
 /// 触发退出登录模块之前，弹窗提示二次确认，确认以后再删除本地用户数据
 -(void)popUpViewToLogout;
+-(jobsByVoidBlock _Nonnull)jobsPopUpViewToLogout;
 #pragma mark —— <AppToolsProtocol> 关于 TabBar
 /// 切换Tab
 -(jobsByNSIntegerBlock _Nonnull)backTo;
@@ -196,16 +197,20 @@ Prop_strong()NSMutableArray <JobsRichTextConfig *>*richTextConfigMutArr;
 -(jobsByBOOLBlock _Nonnull)showTabBar;
 /// TabBar
 -(UITabBar *)getTabBar;
+-(JobsRetUITabBarByVoidBlock _Nonnull)jobsGetTabBar;
 /// 跳到首页
 -(void)jumpToHome;
+-(jobsByVoidBlock _Nonnull)jobsJumpToHome;
 /// JobsTabbarVC 关闭手势
 -(jobsByVoidBlock _Nonnull)tabBarClosePan;
 /// JobsTabbarVC 打开手势
 -(jobsByVoidBlock _Nonnull)tabBarOpenPan;
 /// 获取Tabbar管理的，不含导航的根控制器
 -(NSMutableArray <__kindof UIViewController *>*)appRootVC;
+-(JobsRetNSMutableArrayUIViewControllerByVoidBlock _Nonnull)jobsAppRootVC;
 /// 当前对象是否是 Tabbar管理的，不含导航的根控制器
 -(BOOL)isRootVC;
+-(JobsRetBOOLByVoidBlock _Nonnull)jobsIsRootVC;
 #pragma mark —— 关于图片编解码
 /// 图片base64编码，再固定50字符的位置加入固定盐。盐码（盐需大写、长度 16位）：RRU4JZTV5WZXPCVZ
 /// 编码
@@ -221,12 +226,15 @@ Prop_strong()NSMutableArray <JobsRichTextConfig *>*richTextConfigMutArr;
                                 attributeSubTitle:(NSString *_Nullable)subTitle;
 /// （在登陆与否的情况下）默认的用户头像
 -(UIImage *)defaultHeaderImage;
+-(JobsRetImageByVoidBlock _Nonnull)jobsDefaultHeaderImage;
+-(JobsRetStrByVoidBlock _Nonnull)jobsCurrentLanguage;
+-(JobsRetHTTPRequestHeaderLanguageTypeByVoidBlock _Nonnull)jobsCurrentLanguageType;
 /// 字符串当前语言环境
 -(NSString *)currentLanguage;
 /// 首页的假数据
--(NSMutableArray <__kindof UIButtonModel *>*)gameDataMutArr;
+-(JobsRetNSMutableArrayUIButtonModelByVoidBlock _Nonnull)gameDataMutArr;
 /// 收藏的假数据 @"PG".img;@"点赞".img;
--(NSMutableArray <__kindof UIViewModel *>*)favDataMutArr;
+-(JobsRetNSMutableArrayUIViewModelByVoidBlock _Nonnull)favDataMutArr;
 -(HTTPRequestHeaderLanguageType)currentLanguageType;
 #pragma mark —— Loading动画
 -(jobsByViewBlock _Nonnull)showLoadingIndicatorBy;
@@ -244,8 +252,8 @@ Prop_strong()NSMutableArray <JobsRichTextConfig *>*richTextConfigMutArr;
 /// 在外层进行调用，[ 需要被展现的视图 popupShowScaleWithView:popupView];
 //-(JobsOCBaseConfigTestPopupView *)jobsTestPopView:(UIViewModel *_Nullable)viewModel;
 #pragma mark —— 设备横屏的方向判定
--(BOOL)isLandscapeRight;
--(BOOL)isLandscapeLeft;
+-(JobsRetBOOLByVoidBlock _Nonnull)isLandscapeRight;
+-(JobsRetBOOLByVoidBlock _Nonnull)isLandscapeLeft;
 #pragma mark —— 通过验证返回YES
 -(JobsRetBOOLByStrBlock _Nonnull)userAndPasswordNotUpTo;
 
@@ -280,10 +288,10 @@ NS_ASSUME_NONNULL_END
              self.jobsOpenURL(@"https://wa.me/".add(customerContactElementModel.customerAccount));
          }break;
          case CustomerContactStyle_手机号码:{
-         @"打开手机号码未配置".tr.toast();
+         @"打开手机号码未配置".jobsTr().toast();
          }break;
          case CustomerContactStyle_onlineURL:{
-         @"打开onlineURL未配置".tr.toast();
+         @"打开onlineURL未配置".jobsTr().toast();
          }break;
 
          default:

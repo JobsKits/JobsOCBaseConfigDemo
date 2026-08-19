@@ -51,8 +51,8 @@ static JobsNetworkBytes JobsCurrentNetworkBytes(void) {
 
 @interface JobsNetworkTrafficMonitor : NSObject <BaseProtocol,TimerProtocol>
 /// 可销毁单例
-+(instancetype _Nonnull)shared;
-+(void)destroyShared;
++(JobsRetIDByVoidBlock _Nonnull)shared;
++(jobsByVoidBlock _Nonnull)destroyShared;
 /// 链式设置回调
 -(JobsRetTNetworkTrafficMonitorByUpdateBlock _Nonnull)onUpdateBy;
 /// 启动监控（内部用 JobsTimer 按 interval 采样）

@@ -14,20 +14,40 @@ Prop_strong()UILabel *titleLab;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsPostDelView
+@interface JobsPostDelView (JobsPropertyDSLSetterAutogen_5555fdfc52)
+-(void)setY:(CGFloat)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsPostDelView
+
 @implementation JobsPostDelView
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_postDelViewOnceToken = 0;
-    static_postDelView = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsPostDelView.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_postDelViewOnceToken = 0;
+        static_postDelView = nil;
+    };
 }
 
 static JobsPostDelView *static_postDelView = nil;
 static dispatch_once_t static_postDelViewOnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_postDelViewOnceToken, ^{
-        static_postDelView = JobsPostDelView.new;
-    });return static_postDelView;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsPostDelView.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_postDelViewOnceToken, ^{
+            static_postDelView = JobsPostDelView.new;
+        });return static_postDelView;
+    };
 }
 #pragma mark —— SysMethod
 -(instancetype)init{
@@ -53,14 +73,34 @@ static dispatch_once_t static_postDelViewOnceToken;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPostDelView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    /// 内部指定圆切角
-//    [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
-//                                    cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPostDelView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+            [super layoutSubviews];
+            /// 内部指定圆切角
+        //    [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
+        //                                    cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+    };
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -77,7 +117,7 @@ static dispatch_once_t static_postDelViewOnceToken;
         self.imageView
             .byHighlighted(model.boolValue)
             .byImage(model.boolValue ? @"hx_photo_edit_trash_open".img : @"hx_photo_edit_trash_close".img);
-        self.titleLab.byText(model.boolValue ? @"松手即可删除".tr : @"拖动到此处删除".tr);
+        self.titleLab.byText(model.boolValue ? @"松手即可删除".jobsTr() : @"拖动到此处删除".jobsTr());
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -121,7 +161,7 @@ static dispatch_once_t static_postDelViewOnceToken;
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(@"拖动到此处删除".tr)
+                .byText(@"拖动到此处删除".jobsTr())
                 .byTextCor(JobsWhiteColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byBgColor(JobsRedColor)
@@ -135,4 +175,14 @@ static dispatch_once_t static_postDelViewOnceToken;
     };return _titleLab;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsPostDelView
+-(JobsRetJobsPostDelViewByCGFloatBlock _Nonnull)byY{
+    @jobs_weakify(self)
+    return ^__kindof JobsPostDelView * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setY:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsPostDelView
 @end

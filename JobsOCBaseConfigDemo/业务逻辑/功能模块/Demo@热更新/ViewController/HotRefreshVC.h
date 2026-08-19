@@ -6,6 +6,12 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <objc/runtime.h>
 
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
@@ -60,6 +66,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface HotRefreshVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN HotRefreshVC
+-(JobsRetHotRefreshVCByCGFloatBlock _Nonnull)bySimulatedProgress;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END HotRefreshVC
 @end
 
 NS_ASSUME_NONNULL_END

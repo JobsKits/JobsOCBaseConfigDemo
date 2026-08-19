@@ -9,13 +9,18 @@
 
 @implementation UIButton (Animation)
 /// 点击按钮，按钮的imageView旋转360°
--(__kindof CABasicAnimation *)revolution{
-    return self.imageView.layer.addAnimation(CABasicAnimation.animationByKeyPath(@"transform.rotation.z")
-                                             .repeatCountBy(MAXFLOAT)
-                                             .toValueBy(@(-M_PI * 2.0))
-                                             .durationBy(0.4)
-                                             .cumulativeBy(YES)
-                                             .removedOnCompletionBy(NO));;
+-(JobsRetCABasicAnimationByVoidBlock _Nonnull)revolution{
+    @jobs_weakify(self)
+    return ^__kindof CABasicAnimation *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.imageView.layer.addAnimation(CABasicAnimation.animationByKeyPath(@"transform.rotation.z")
+                                                 .repeatCountBy(MAXFLOAT)
+                                                 .toValueBy(@(-M_PI * 2.0))
+                                                 .durationBy(0.4)
+                                                 .cumulativeBy(YES)
+                                                 .removedOnCompletionBy(NO));;
+    };
 }
 /// 停止旋转360s
 -(JobsByCAPropertyAnimationBlock _Nonnull)stopRevolutionBy{
@@ -30,7 +35,7 @@
     @jobs_weakify(self)
     return ^(CGFloat data){
         @jobs_strongify(self)
-        CABasicAnimation *rotationAnim = self.revolution;
+        CABasicAnimation *rotationAnim = self.revolution();
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                                      (int64_t)(data * NSEC_PER_SEC)),
                        dispatch_get_main_queue(), ^{
@@ -39,27 +44,32 @@
     };
 }
 /// 点击时旋转180°，再点击时再转回来
--(void)rotateHalfCycle{
-    if(self.deviceSystemVersion.floatValue >= 13.0f){
-        [UIView animateWithDuration:0.25 animations:^{
-            if (CGAffineTransformEqualToTransform(self.imageView.transform, CGAffineTransformIdentity)) {
-                self.imageView.transform = CGAffineTransformMakeRotation(M_PI);
-            } else {
-                self.imageView.transform = CGAffineTransformIdentity;
-            }
-        }];
-    }else{
-        SuppressWdeprecatedDeclarationsWarning(
-                                               [UIView beginAnimations:@"rotate" context:nil];
-                                               [UIView setAnimationDuration:.25f];
-                                               if(CGAffineTransformEqualToTransform(self.imageView.transform,
-                                                                                    CGAffineTransformIdentity)){
-                                                   self.imageView.transform = CGAffineTransformMakeRotation(M_PI);
-                                               }else {
-                                                   self.imageView.transform = CGAffineTransformIdentity;
-                                               }
-                                               [UIView commitAnimations];);
-    }
+-(jobsByVoidBlock _Nonnull)rotateHalfCycle{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if(self.deviceSystemVersion().floatValue >= 13.0f){
+            [UIView animateWithDuration:0.25 animations:^{
+                if (CGAffineTransformEqualToTransform(self.imageView.transform, CGAffineTransformIdentity)) {
+                    self.imageView.byTransform(CGAffineTransformMakeRotation(M_PI));
+                } else {
+                    self.imageView.byTransform(CGAffineTransformIdentity);
+                }
+            }];
+        }else{
+            SuppressWdeprecatedDeclarationsWarning(
+                                                   [UIView beginAnimations:@"rotate" context:nil];
+                                                   [UIView setAnimationDuration:.25f];
+                                                   if(CGAffineTransformEqualToTransform(self.imageView.transform,
+                                                                                        CGAffineTransformIdentity)){
+                                                       self.imageView.byTransform(CGAffineTransformMakeRotation(M_PI));
+                                                   }else {
+                                                       self.imageView.byTransform(CGAffineTransformIdentity);
+                                                   }
+                                                   [UIView commitAnimations];);
+        }
+    };
 }
 
 @end

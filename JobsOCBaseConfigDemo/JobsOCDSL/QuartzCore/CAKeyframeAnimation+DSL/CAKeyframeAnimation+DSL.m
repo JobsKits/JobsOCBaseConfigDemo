@@ -2,10 +2,13 @@
 //  CAKeyframeAnimation+DSL.m
 //  JobsOCBaseConfigDemo
 //
+//  Created by Jobs on 2026年8月3日，星期一.
+//
+
 #import "CAKeyframeAnimation+DSL.h"
 
 @implementation CAKeyframeAnimation (JobsChain)
--(JobsRetCAKeyframeAnimationByArrBlock)byValues{
+-(JobsRetCAKeyframeAnimationByArrBlock _Nonnull)byValues{
     @jobs_weakify(self)
     return ^__kindof CAKeyframeAnimation *_Nullable(__kindof NSArray *_Nullable data){
         @jobs_strongify(self)
@@ -14,7 +17,7 @@
     };
 }
 
--(JobsRetCAKeyframeAnimationByCGPathRefBlock)byPath{
+-(JobsRetCAKeyframeAnimationByCGPathRefBlock _Nonnull)byPath{
     @jobs_weakify(self)
     return ^__kindof CAKeyframeAnimation *_Nullable(CGPathRef _Nullable data){
         @jobs_strongify(self)
@@ -23,7 +26,7 @@
     };
 }
 
--(JobsRetCAKeyframeAnimationByArrBlock)byKeyTimes{
+-(JobsRetCAKeyframeAnimationByArrBlock _Nonnull)byKeyTimes{
     @jobs_weakify(self)
     return ^__kindof CAKeyframeAnimation *_Nullable(__kindof NSArray *_Nullable data){
         @jobs_strongify(self)
@@ -32,7 +35,7 @@
     };
 }
 
--(JobsRetCAKeyframeAnimationByArrBlock)byTimingFunctions{
+-(JobsRetCAKeyframeAnimationByArrBlock _Nonnull)byTimingFunctions{
     @jobs_weakify(self)
     return ^__kindof CAKeyframeAnimation *_Nullable(__kindof NSArray *_Nullable data){
         @jobs_strongify(self)
@@ -41,7 +44,7 @@
     };
 }
 
--(JobsRetCAKeyframeAnimationByCAAnimationCalculationModeBlock)byCalculationMode{
+-(JobsRetCAKeyframeAnimationByCAAnimationCalculationModeBlock _Nonnull)byCalculationMode{
     @jobs_weakify(self)
     return ^__kindof CAKeyframeAnimation *_Nullable(CAAnimationCalculationMode _Nullable data){
         @jobs_strongify(self)
@@ -50,7 +53,7 @@
     };
 }
 
--(JobsRetCAKeyframeAnimationByArrBlock)byTensionValues{
+-(JobsRetCAKeyframeAnimationByArrBlock _Nonnull)byTensionValues{
     @jobs_weakify(self)
     return ^__kindof CAKeyframeAnimation *_Nullable(__kindof NSArray *_Nullable data){
         @jobs_strongify(self)
@@ -59,7 +62,7 @@
     };
 }
 
--(JobsRetCAKeyframeAnimationByArrBlock)byContinuityValues{
+-(JobsRetCAKeyframeAnimationByArrBlock _Nonnull)byContinuityValues{
     @jobs_weakify(self)
     return ^__kindof CAKeyframeAnimation *_Nullable(__kindof NSArray *_Nullable data){
         @jobs_strongify(self)
@@ -68,7 +71,7 @@
     };
 }
 
--(JobsRetCAKeyframeAnimationByArrBlock)byBiasValues{
+-(JobsRetCAKeyframeAnimationByArrBlock _Nonnull)byBiasValues{
     @jobs_weakify(self)
     return ^__kindof CAKeyframeAnimation *_Nullable(__kindof NSArray *_Nullable data){
         @jobs_strongify(self)
@@ -77,7 +80,7 @@
     };
 }
 
--(JobsRetCAKeyframeAnimationByCAAnimationRotationModeBlock)byRotationMode{
+-(JobsRetCAKeyframeAnimationByCAAnimationRotationModeBlock _Nonnull)byRotationMode{
     @jobs_weakify(self)
     return ^__kindof CAKeyframeAnimation *_Nullable(CAAnimationRotationMode _Nullable data){
         @jobs_strongify(self)

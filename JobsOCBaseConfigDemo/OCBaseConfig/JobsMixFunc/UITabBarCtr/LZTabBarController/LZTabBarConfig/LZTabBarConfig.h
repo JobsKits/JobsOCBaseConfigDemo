@@ -17,18 +17,25 @@ NS_ASSUME_NONNULL_BEGIN
 @interface LZTabBarConfig : NSObject
 /// 控制器数组, 必须设置
 Prop_copy()NSArray *viewControllers;
+-(JobsRetLZTabBarConfigByArrBlock _Nonnull)byViewControllers;
 /// item标题数组, 选择设置
 Prop_copy()NSArray *titles;
+-(JobsRetLZTabBarConfigByArrBlock _Nonnull)byTitles;
 /// 是否是导航, 默认 YES
 Prop_assign()BOOL isNavigation;
+-(JobsRetLZTabBarConfigByBOOLBlock _Nonnull)byIsNavigation;
 /// 选中状态下的图片数组
 Prop_copy()NSArray *selectedImages;
+-(JobsRetLZTabBarConfigByArrBlock _Nonnull)bySelectedImages;
 /// 正常状态下的图片数组
 Prop_copy()NSArray *normalImages;
+-(JobsRetLZTabBarConfigByArrBlock _Nonnull)byNormalImages;
 /// 选中状态下的标题颜色 默认: red
 Prop_strong()UIColor *selectedColor;
+-(JobsRetLZTabBarConfigByCorBlock _Nonnull)bySelectedColor;
 /// 正常状态下的标题颜色 默认: gray
 Prop_strong()UIColor *normalColor;
+-(JobsRetLZTabBarConfigByCorBlock _Nonnull)byNormalColor;
 
 @end
 

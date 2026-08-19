@@ -16,41 +16,61 @@ Prop_strong()BaseButton *selectBtn;
 
 @implementation JobsOCCountryCodeCtrlDemoVC
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCCountryCodeCtrlDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(@"JobsOCCountryCodeCtrl".tr)
-                .byFont(UIFontWeightRegularSize(16));
-        })
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(@"JobsOCCountryCodeCtrl".jobsTr())
+                    .byFont(UIFontWeightRegularSize(16));
+            })
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.countryCodeTextField.byAlpha(1);
-    self.selectBtn.byAlpha(1);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCCountryCodeCtrlDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.countryCodeTextField.byAlpha(1);
+        self.selectBtn.byAlpha(1);
+    };
 }
 #pragma mark —— lazyLoad
 -(UITextField *)countryCodeTextField{
     if (!_countryCodeTextField) {
         _countryCodeTextField = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
-            textField.byText(@"".tr)
-                .byPlaceholder(@"请选择国家 / 地区代码".tr)
+            textField.byText(@"".jobsTr())
+                .byPlaceholder(@"请选择国家 / 地区代码".jobsTr())
                 .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightRegularSize(14))
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -70,7 +90,7 @@ Prop_strong()BaseButton *selectBtn;
     if (!_selectBtn) {
         @jobs_weakify(self)
         _selectBtn = BaseButton
-            .initByStyle1(@"选择".tr,
+            .initByStyle1(@"选择".jobsTr(),
                           UIFontWeightRegularSize(14),
                           JobsWhiteColor)
             .bgColorBy(HEXCOLOR(0x3D4A58))

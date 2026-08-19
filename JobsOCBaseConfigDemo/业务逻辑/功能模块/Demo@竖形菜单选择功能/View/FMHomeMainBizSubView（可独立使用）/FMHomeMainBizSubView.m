@@ -188,10 +188,10 @@ Prop_assign()NSUInteger thisIndex;
     return ^__kindof GoodsClassModel *_Nullable(int iflag){
         return jobsMakeGoodsClassModel(^(GoodsClassModel * _Nullable model) {
 //            @jobs_strongify(self)
-            model.idField = toStringByInt(iflag);
-            model.pid = @"0";
-            model.name = @"一级目录".tr.add(toStringByInt(iflag));
-            model.textModel.text = @"";
+            model.byIdField(toStringByInt(iflag))
+                .byPid(@"0")
+                .byName(@"一级目录".tr.add(toStringByInt(iflag)));
+            model.textModel.byText(@"");
         });
     };
 }
@@ -201,25 +201,24 @@ Prop_assign()NSUInteger thisIndex;
     return ^__kindof GoodsClassModel *_Nullable(NSUInteger data1,int iFlag){
         return jobsMakeGoodsClassModel(^(GoodsClassModel * _Nullable model) {
             @jobs_strongify(self)
-            model.idField = toStringByInt(iFlag);
-            model.pid = toStringByInt(iFlag);
-            model.name = @"随机".tr.add(JobsDash).add(toStringByInt(iFlag));
-            model.textModel.text = @"1234";
-            model.subTextModel.text = toStringByInt(iFlag).add(@"球桌球".tr);
-            model.bgImage = self.cellDataMutArr[iFlag].backgroundImage;
-            model.title = self.cellTitleMutArr[data1];
-            /// ViewModel
-            model.imageUrl = @"https://zh.wikipedia.org/wiki/File:Jiang_Zemin_2002.jpg".jobsUrl;
-            model.text = @"FlementalLinkFire".tr;
-            model.image = @"点赞".img;
+            model.byIdField(toStringByInt(iFlag))
+                .byPid(toStringByInt(iFlag))
+                .byName(@"随机".tr.add(JobsDash).add(toStringByInt(iFlag)))
+                .byBgImage(self.cellDataMutArr[iFlag].backgroundImage)
+                .byTitle(self.cellTitleMutArr[data1])
+                .byImageUrl(@"https://zh.wikipedia.org/wiki/File:Jiang_Zemin_2002.jpg".jobsUrl)
+                .byText(@"FlementalLinkFire".tr)
+                .byImage(@"点赞".img);
+            model.textModel.byText(@"1234");
+            model.subTextModel.byText(toStringByInt(iFlag).add(@"球桌球".tr));
             JobsLog(@"%@",model.bgImage);
-            model.childrenList = jobsMakeMutArr(^(__kindof NSMutableArray <GoodsClassModel *>*_Nullable arr) {
+            model.byChildrenList(jobsMakeMutArr(^(__kindof NSMutableArray <GoodsClassModel *>*_Nullable arr) {
                 @jobs_strongify(self)
                 /// 每个section里面的item数量
                 for (int i = 0; i < 9; i++){
                     arr.add(self.createThreeModel(i,model.title));
                 }
-            });JobsLog(@"LKL = %ld",model.childrenList.count);
+            }));JobsLog(@"LKL = %ld",model.childrenList.count);
         });
     };
 }
@@ -227,11 +226,11 @@ Prop_assign()NSUInteger thisIndex;
 -(JobsRetGoodsClassModelByIntStringBlock _Nonnull)createThreeModel{
     return ^__kindof GoodsClassModel *_Nullable(int iflag,NSString *_Nullable string){
         return jobsMakeGoodsClassModel(^(GoodsClassModel * _Nullable model) {
-            model.idField = toStringByInt(iflag);
-            model.pid = toStringByInt(iflag);
-            model.name = string.add(JobsDot)
-                .add(@"三级目录".tr).add(JobsDot)
-                .add(toStringByInt(iflag));
+            model.byIdField(toStringByInt(iflag))
+                .byPid(toStringByInt(iflag))
+                .byName(string.add(JobsDot)
+                    .add(@"三级目录".tr).add(JobsDot)
+                    .add(toStringByInt(iflag)));
         });
     };
 }
@@ -244,7 +243,7 @@ numberOfRowsInSection:(NSInteger)section{
 -(__kindof UITableViewCell *)tableView:(__kindof UITableView *)tableView
                  cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     JobsBtnStyleTBVCell *cell = JobsBtnStyleTBVCell.cellStyleDefaultWithTableView(tableView);
-    cell.contentEdgeInsets = jobsMakeSameEdgeInset(JobsWidth(3));
+    cell.byContentEdgeInsets(jobsMakeSameEdgeInset(JobsWidth(3)));
     cell.JobsRichViewByModel2(self.leftCellDataMutArr[indexPath.row]);
     return cell;
 }
@@ -263,9 +262,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(__kindof UICollectionViewCell *)collectionView:(__kindof UICollectionView *)collectionView
                           cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ThreeClassCell *cell = [ThreeClassCell cellWithCollectionView:collectionView forIndexPath:indexPath];
-    cell.minimumInteritemSpacing = JobsWidth(3);
-    cell.cellCls = FMGameCVCell.class;
-    cell.data = @(SourceType_Home);
+    cell.byMinimumInteritemSpacing(JobsWidth(3))
+        .byCellCls(FMGameCVCell.class)
+        .byData(@(SourceType_Home));
     self.rightViewCurrentSelectModel = self.rightDataArray.objectAt(indexPath.section);
     cell.getCollectionHeight((NSMutableArray <NSObject *>*)self.rightViewCurrentSelectModel.childrenList);
     cell.JobsRichViewByModel2(self.rightDataArray);/// GoodsClassModel
@@ -373,11 +372,11 @@ referenceSizeForFooterInSection:(NSInteger)section{
 -(ThreeClassCell *)tempCell{
     if (!_tempCell){
         _tempCell = jobsMakeThreeClassCell(^(__kindof ThreeClassCell * _Nullable cell) {
-            cell.cellCls = FMGameCVCell.class;
-            cell.data = @(SourceType_Home);
-            cell.minimumInteritemSpacing = JobsWidth(3);
-            cell.frame = CGRectMake(0,0,
-                                    ThreeClassCell.cellSizeByModel(nil).width,ThreeClassCell.cellSizeByModel(nil).height);
+            cell.byCellCls(FMGameCVCell.class)
+                .byData(@(SourceType_Home));
+            cell.byMinimumInteritemSpacing(JobsWidth(3))
+                .byFrame(CGRectMake(0,0,
+                    ThreeClassCell.cellSizeByModel(nil).width,ThreeClassCell.cellSizeByModel(nil).height));
         });
     };return _tempCell;
 }

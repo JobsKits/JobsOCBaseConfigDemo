@@ -6,17 +6,18 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_ZFCUSTOMCONTROLVIEW_F8017ADDA5
-#define JOBS_HEADER_GUARD_ZFCUSTOMCONTROLVIEW_F8017ADDA5
-
-#pragma once
-
-#import <UIKit/UIKit.h>
 
 #if __has_include(<ZFPlayer/ZFPlayer.h>)
 #import <ZFPlayer/ZFPlayer.h>
 #else
 #import "ZFPlayer.h"
 #endif
+
+#define JOBS_HEADER_GUARD_ZFCUSTOMCONTROLVIEW_F8017ADDA5
+
+#pragma once
+
+#import <UIKit/UIKit.h>
 
 #if __has_include(<ZFPlayer/UIImageView+ZFCache.h>)
 #import <ZFPlayer/UIImageView+ZFCache.h>
@@ -50,8 +51,36 @@
 
 #import "JobsLanMgr.h"
 #import "JobsDefines.h"
+#import "JobsBlock.h"
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+@interface ZFSliderView (JobsCustomControlDSL)
+-(JobsRetZFSliderViewByFloatBlock _Nonnull)byValue;
+-(JobsRetZFSliderViewByFloatBlock _Nonnull)byBufferValue;
+-(JobsRetZFSliderViewByCorBlock _Nonnull)byMaximumTrackTintColor;
+-(JobsRetZFSliderViewByCorBlock _Nonnull)byMinimumTrackTintColor;
+-(JobsRetZFSliderViewByCorBlock _Nonnull)byBufferTrackTintColor;
+-(JobsRetZFSliderViewByCGFloatBlock _Nonnull)bySliderHeight;
+-(JobsRetZFSliderViewByBOOLBlock _Nonnull)byIsHideSliderBlock;
+-(JobsRetZFSliderViewByDelegateBlock _Nonnull)byDelegate;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN ZFSliderView
+-(JobsRetZFSliderViewByBOOLBlock _Nonnull)byHideSliderBlock;
+-(JobsRetZFSliderViewByBOOLBlock _Nonnull)byIsdragging;
+-(JobsRetZFSliderViewByCGFloatBlock _Nonnull)byZf_centerY;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END ZFSliderView
+@end
+
+@interface ZFPlayerController (JobsCustomControlDSL)
+-(JobsRetZFPlayerControllerByBOOLBlock _Nonnull)byStatusBarHidden;
+@end
+
+@interface NSObject (JobsZFPlayerMediaPlaybackDSL)
+-(JobsRetZFPlayerMediaPlaybackByScalingModeBlock _Nonnull)byScalingMode;
+-(JobsRetZFPlayerMediaPlaybackByBOOLBlock _Nonnull)byMuted;
+-(JobsRetZFPlayerMediaPlaybackByFloatBlock _Nonnull)byVolume;
+@end
 
 @interface ZFCustomControlView : UIView <ZFPlayerMediaControl,ZFSliderViewDelegate>
 /// 控制层自动隐藏的时间，默认2.5秒
@@ -69,6 +98,10 @@ Prop_assign()NSTimeInterval autoFadeTimeInterval;
    coverURLString:(NSString *)coverUrl
    fullScreenMode:(ZFFullScreenMode)fullScreenMode;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN ZFCustomControlView
+-(JobsRetZFCustomControlViewByBOOLBlock _Nonnull)byControlViewAppeared;
+-(JobsRetZFCustomControlViewBydispatch_block_tBlock _Nonnull)byAfterBlock;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END ZFCustomControlView
 @end
 
 NS_ASSUME_NONNULL_END

@@ -6,16 +6,17 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_YTKCHAINREQUEST_DSL_7FBF7B04B2
-#define JOBS_HEADER_GUARD_YTKCHAINREQUEST_DSL_7FBF7B04B2
-
-#import <Foundation/Foundation.h>
-#import <objc/runtime.h>
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
 #else
 #import "YTKNetwork.h"
 #endif
+
+#define JOBS_HEADER_GUARD_YTKCHAINREQUEST_DSL_7FBF7B04B2
+
+#import <Foundation/Foundation.h>
+#import <objc/runtime.h>
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"
@@ -35,8 +36,8 @@ Prop_strong(readonly)NSArray<YTKBaseRequest *> *jobs_requests;
 -(JobsRetYTKChainRequestByFailureBlock _Nonnull)byFailure;
 -(JobsRetYTKChainRequestByCompletionBlocks _Nonnull)byCompletion;
 -(JobsRetYTKChainRequestByCompletionBlocks _Nonnull)byJobsVoidBlock;
--(__kindof YTKChainRequest *_Nonnull)byStart;
--(__kindof YTKChainRequest *_Nonnull)byStop;
+-(JobsRetYTKChainRequestByVoidBlock _Nonnull)byStart;
+-(JobsRetYTKChainRequestByVoidBlock _Nonnull)byStop;
 
 @end
 

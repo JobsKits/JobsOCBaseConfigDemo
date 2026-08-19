@@ -6,9 +6,6 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSFILTRATIONVIEW_8B148716AB
-#define JOBS_HEADER_GUARD_JOBSFILTRATIONVIEW_8B148716AB
-
-#import <UIKit/UIKit.h>
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
@@ -21,6 +18,10 @@
 #else
 #import "XYColorOC.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSFILTRATIONVIEW_8B148716AB
+
+#import <UIKit/UIKit.h>
 
 #import "JobsLanMgr.h"
 #import "JobsHotLabel.h"

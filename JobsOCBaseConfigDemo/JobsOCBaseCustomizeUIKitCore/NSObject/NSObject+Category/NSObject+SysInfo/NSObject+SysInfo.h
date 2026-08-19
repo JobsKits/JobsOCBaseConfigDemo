@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_NSOBJECT_SYSINFO_974E9D7AB9
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -16,49 +22,50 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSObject (SysInfo)
 /// 应用程序的发布版本号
 +(NSString *_Nullable)version;
--(NSString *_Nullable)version;
++(JobsRetStrByVoidBlock _Nonnull)jobsVersion;
+-(JobsRetStrByVoidBlock _Nonnull)version;
 /// 应用程序编译构建的版本号
-+(NSString *_Nullable)build;
--(NSString *_Nullable)build;
++(JobsRetStrByVoidBlock _Nonnull)build;
+-(JobsRetStrByVoidBlock _Nonnull)build;
 /// 应用程序的名字
-+(NSString *_Nullable)appName;
--(NSString *_Nullable)appName;
++(JobsRetStrByVoidBlock _Nonnull)appName;
+-(JobsRetStrByVoidBlock _Nonnull)appName;
 /// 返回当前本地化环境（即当前设备的区域设置）中所使用的语言代码
-+(NSString *_Nullable)appCurrentLanguageCode;
--(NSString *_Nullable)appCurrentLanguageCode;
++(JobsRetStrByVoidBlock _Nonnull)appCurrentLanguageCode;
+-(JobsRetStrByVoidBlock _Nonnull)appCurrentLanguageCode;
 /// 通常返回用户偏好的语言，可能包括用户自定义的语言排序
-+(NSString *_Nullable)userPreferredLanguages;
--(NSString *_Nullable)userPreferredLanguages;
++(JobsRetStrByVoidBlock _Nonnull)userPreferredLanguages;
+-(JobsRetStrByVoidBlock _Nonnull)userPreferredLanguages;
 /// 设备名称
-+(NSString *_Nullable)currentDeviceName;
--(NSString *_Nullable)currentDeviceName;
++(JobsRetStrByVoidBlock _Nonnull)currentDeviceName;
+-(JobsRetStrByVoidBlock _Nonnull)currentDeviceName;
 /// 设备类型
-+(NSString *_Nullable)currentDeviceType;
--(NSString *_Nullable)currentDeviceType;
++(JobsRetStrByVoidBlock _Nonnull)currentDeviceType;
+-(JobsRetStrByVoidBlock _Nonnull)currentDeviceType;
 /// 本地化模式
-+(NSString *_Nullable)currentDeviceLocalizedModel;
--(NSString *_Nullable)currentDeviceLocalizedModel;
++(JobsRetStrByVoidBlock _Nonnull)currentDeviceLocalizedModel;
+-(JobsRetStrByVoidBlock _Nonnull)currentDeviceLocalizedModel;
 /// 系统名字
-+(NSString *_Nullable)systemName;
--(NSString *_Nullable)systemName;
++(JobsRetStrByVoidBlock _Nonnull)systemName;
+-(JobsRetStrByVoidBlock _Nonnull)systemName;
 /// 系统版本
-+(NSString *_Nullable)systemVersion;
--(NSString *_Nullable)systemVersion;
++(JobsRetStrByVoidBlock _Nonnull)systemVersion;
+-(JobsRetStrByVoidBlock _Nonnull)systemVersion;
 /// 设备朝向
-+(UIDeviceOrientation)orientation;
--(UIDeviceOrientation)orientation;
++(JobsRetUIDeviceOrientationByVoidBlock _Nonnull)orientation;
+-(JobsRetUIDeviceOrientationByVoidBlock _Nonnull)orientation;
 /// 是否是iPhone
-+(BOOL)iPhone;
--(BOOL)iPhone;
++(JobsRetBOOLByVoidBlock _Nonnull)iPhone;
+-(JobsRetBOOLByVoidBlock _Nonnull)iPhone;
 /// 是否是iPod
-+(BOOL)iPod;
--(BOOL)iPod;
++(JobsRetBOOLByVoidBlock _Nonnull)iPod;
+-(JobsRetBOOLByVoidBlock _Nonnull)iPod;
 /// 是否是iPad
-+(BOOL)iPad;
--(BOOL)iPad;
++(JobsRetBOOLByVoidBlock _Nonnull)iPad;
+-(JobsRetBOOLByVoidBlock _Nonnull)iPad;
 /// 是否是 Retain 屏幕：通过判断屏幕的像素密度来确认
-+(BOOL)isRetain;
--(BOOL)isRetain;
++(JobsRetBOOLByVoidBlock _Nonnull)isRetain;
+-(JobsRetBOOLByVoidBlock _Nonnull)isRetain;
 
 @end
 

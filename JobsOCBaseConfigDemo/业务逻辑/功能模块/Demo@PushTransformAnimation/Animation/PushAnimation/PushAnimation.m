@@ -28,7 +28,7 @@
     UIView *containerView = [transitionContext containerView];  // 此处容器大小即为屏幕大小 self.view
     // 2.创建一个 Cell 中 imageView 的截图，并把 imageView 隐藏，造成使用户以为移动的就是 imageView 的假象
     MyFansTBVCell *cell = [firstVC.tableView cellForRowAtIndexPath:[firstVC.tableView indexPathForSelectedRow]];
-    firstVC.indexPath = [firstVC.tableView indexPathForSelectedRow];
+    firstVC.byIndexPath([firstVC.tableView indexPathForSelectedRow]);
     /** 截图 */
     UIView *snapShotView = [cell.imgView snapshotViewAfterScreenUpdates:NO];
     CGRect firstFrame  = [containerView convertRect:cell.imgView.frame fromView:cell];

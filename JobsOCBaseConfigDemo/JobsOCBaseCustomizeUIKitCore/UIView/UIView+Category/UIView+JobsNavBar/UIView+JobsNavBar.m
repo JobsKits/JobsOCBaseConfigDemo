@@ -21,7 +21,7 @@ JobsKey(_jobs_navBar)
 -(JobsNavBar *)jobs_navBar{
     JobsNavBar *navBar = Jobs_getAssociatedObject(_jobs_navBar);
     if (!navBar) {
-        navBar = [self jobs_addNavBarWithConfig:self.jobs_navBarConfig ?: self.makeNavBarConfig(nil, nil)];
+        navBar = self.jobs_addNavBarWithConfig(self.jobs_navBarConfig ?: self.makeNavBarConfig(nil, nil));
     };return navBar;
 }
 
@@ -29,67 +29,78 @@ JobsKey(_jobs_navBar)
     Jobs_setAssociatedRETAIN_NONATOMIC(_jobs_navBar, jobs_navBar)
 }
 
--(JobsRetNavBarConfigByButtonModelBlock)makeNavBarConfig{
+-(JobsRetNavBarConfigByButtonModelBlock _Nonnull)makeNavBarConfig{
     return ^(UIButtonModel *_Nullable backBtnModel,
              UIButtonModel *_Nullable closeBtnModel) {
         @jobs_weakify(self)
         return jobsMakeNavBarConfig(^(__kindof JobsNavBarConfig * _Nullable data) {
             @jobs_strongify(self)
-            data.bgCor = self.viewModel.navBgCor;
-            data.bgImage = self.viewModel.navBgImage;
-            data.attributedTitle = self.viewModel.backBtnTitleModel.attributedTitle;
-            data.title = self.viewModel.textModel.text;
-            data.font = self.viewModel.textModel.font;
-            data.titleCor = self.viewModel.textModel.textCor;
-            data.backBtnModel = backBtnModel ? : self.backBtnModel;
-            data.closeBtnModel = closeBtnModel ? : self.closeBtnModel;
-            self.jobs_navBarConfig = data;
+            data
+                .byBgCor(self.viewModel.navBgCor)
+                .byBgImage(self.viewModel.navBgImage)
+                .byAttributedTitle(self.viewModel.backBtnTitleModel.attributedTitle)
+                .byTitle(self.viewModel.textModel.text)
+                .byFont(self.viewModel.textModel.font)
+                .byTitleCor(self.viewModel.textModel.textCor)
+                .byBackBtnModel(backBtnModel ? : self.backBtnModel)
+                .byCloseBtnModel(closeBtnModel ? : self.closeBtnModel);
+            self.byJobs_navBarConfig(data);
         });
     };
 }
 
--(JobsNavBar *)jobs_addNavBarWithConfig:(JobsNavBarConfig *)config{
-    if (config) self.jobs_navBarConfig = config;
-    JobsNavBar *oldNavBar = Jobs_getAssociatedObject(_jobs_navBar);
-    if (oldNavBar.superview == self) return oldNavBar;
+-(JobsRetJobsNavBarByJobsNavBarConfigBlock _Nonnull)jobs_addNavBarWithConfig{
     @jobs_weakify(self)
-    JobsNavBar *navBar = jobsMakeNavBar(^(__kindof JobsNavBar *_Nullable data) {
+    return ^JobsNavBar *(JobsNavBarConfig * config){
         @jobs_strongify(self)
-        if(JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape){
-            self.jobs_navBarConfig.backBtnModel.jobsOffsetX = self.jobs_navBarConfig.backBtnModel.jobsOffsetX ? : JobsWidth(40);
-            self.jobs_navBarConfig.closeBtnModel.jobsOffsetX = self.jobs_navBarConfig.closeBtnModel.jobsOffsetX ? : JobsWidth(40);
-        }
-        JobsLog(@"%f",self.jobs_navBarConfig.backBtnModel.jobsOffsetX);
-        JobsLog(@"%f",self.jobs_navBarConfig.closeBtnModel.jobsOffsetX);
-        data.navBarConfig = self.jobs_navBarConfig;
-        data.addOn(self).byAdd(^(MASConstraintMaker *make) {
-            if(JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape){
-                make.top.equalTo(self);
-            }else{
-                make.top.equalTo(self).offset(JobsStatusBarHeight());
-            }
-            make.left.right.equalTo(self);
-            make.height.mas_equalTo(JobsWidth(40));
-        });
-self.refresh();
+        if (!self) return nil;
+        if (config) self.jobs_navBarConfig = config;
+        JobsNavBar *oldNavBar = Jobs_getAssociatedObject(_jobs_navBar);
+        if (oldNavBar.superview == self) return oldNavBar;
         @jobs_weakify(self)
-        data.JobsRichViewByModel2(nil)
-            .JobsNavBarBackBtnClickBlock(^(__kindof UIButton *_Nullable x){
-                @jobs_strongify(self)
-                self.jobsBackBtnClickEvent(x);
-                if(self.backBtnClickAction) self.backBtnClickAction(x);
-            }).JobsNavBarCloseBtnClickBlock(^(__kindof UIButton *_Nullable x){
-                @jobs_strongify(self)
-                if(self.closeBtnClickAction)self.closeBtnClickAction(x);
+        JobsNavBar *navBar = jobsMakeNavBar(^(__kindof JobsNavBar *_Nullable data) {
+            @jobs_strongify(self)
+            if(JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape){
+                self.jobs_navBarConfig.backBtnModel.byJobsOffsetX(self.jobs_navBarConfig.backBtnModel.jobsOffsetX ? : JobsWidth(40));
+                self.jobs_navBarConfig.closeBtnModel.byJobsOffsetX(self.jobs_navBarConfig.closeBtnModel.jobsOffsetX ? : JobsWidth(40));
+            }
+            JobsLog(@"%f",self.jobs_navBarConfig.backBtnModel.jobsOffsetX);
+            JobsLog(@"%f",self.jobs_navBarConfig.closeBtnModel.jobsOffsetX);
+            data.byNavBarConfig(self.jobs_navBarConfig)
+            .addOn(self).byAdd(^(MASConstraintMaker *make) {
+                if(JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape){
+                    make.top.equalTo(self);
+                }else{
+                    make.top.equalTo(self).offset(JobsStatusBarHeight());
+                }
+                make.left.right.equalTo(self);
+                make.height.mas_equalTo(JobsWidth(40));
             });
-    });
-    self.jobs_navBar = navBar;
-    return navBar;
+    self.refresh();
+            @jobs_weakify(self)
+            data.JobsRichViewByModel2(nil)
+                .JobsNavBarBackBtnClickBlock(^(__kindof UIButton *_Nullable x){
+                    @jobs_strongify(self)
+                    self.jobsBackBtnClickEvent(x);
+                    if(self.backBtnClickAction) self.backBtnClickAction(x);
+                }).JobsNavBarCloseBtnClickBlock(^(__kindof UIButton *_Nullable x){
+                    @jobs_strongify(self)
+                    if(self.closeBtnClickAction)self.closeBtnClickAction(x);
+                });
+        });
+        self.byJobs_navBar(navBar);
+        return navBar;
+    };
 }
 
--(void)jobs_removeNavBar{
-    [self.jobs_navBar removeFromSuperview];
-    self.jobs_navBar = nil;
+-(jobsByVoidBlock _Nonnull)jobs_removeNavBar{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self.jobs_navBar removeFromSuperview];
+        self.byJobs_navBar(nil);
+    };
 }
 
 @end

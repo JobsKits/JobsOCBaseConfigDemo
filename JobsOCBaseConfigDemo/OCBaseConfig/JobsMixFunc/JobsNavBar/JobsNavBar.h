@@ -6,10 +6,6 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSNAVBAR_F4E4DD0B91
-#define JOBS_HEADER_GUARD_JOBSNAVBAR_F4E4DD0B91
-
-#import <UIKit/UIKit.h>
-#import "JobsNavBarConfig.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
@@ -22,6 +18,11 @@
 #else
 #import "XYColorOC.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSNAVBAR_F4E4DD0B91
+
+#import <UIKit/UIKit.h>
+#import "JobsNavBarConfig.h"
 
 #import "JobsBaseProtocolHeader.h"
 #import "JobsBlock.h"
@@ -43,6 +44,12 @@ Prop_strong(readonly)BaseButton *backBtn;
 Prop_strong(readonly)UILabel *titleLab;
 Prop_strong(readonly)BaseButton *closeBtn;
 
+-(JobsRetNavBarByVoidBtnBlocks _Nonnull)byBackBtnClickAction;
+-(JobsRetNavBarByVoidBtnBlocks _Nonnull)byCloseBtnClickAction;
+
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsNavBar
+-(JobsRetJobsNavBarByJobsNavBarConfigBlock _Nonnull)byNavBarConfig;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsNavBar
 @end
 
 NS_ASSUME_NONNULL_END

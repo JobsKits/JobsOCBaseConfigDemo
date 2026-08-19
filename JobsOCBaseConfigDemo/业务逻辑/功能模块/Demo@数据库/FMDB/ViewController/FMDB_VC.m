@@ -20,67 +20,157 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMDB_VC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(data.attributedTitle.string)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byBgImage(@"新首页的底图".img)
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(data.attributedTitle.string)
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byBgImage(@"新首页的底图".img)
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.makeNavByAlpha(1);
-    self.tableView.byShow(self);
-    [self reloadFMDBDemoData];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMDB_VC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.makeNavByAlpha(1);
+        self.tableView.byShow(self);
+        self.reloadFMDBDemoData();
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMDB_VC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillAppear:animated];
+    };
 }
 
 -(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMDB_VC.class, @selector(jobsViewWillLayoutSubviews)))(self, @selector(jobsViewWillLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewWillLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMDB_VC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMDB_VC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMDB_VC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMDB_VC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+    };
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMDB_VC.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 1;
+    };
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
@@ -108,54 +198,64 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return cell;
 }
 #pragma mark —— Demo 数据刷新
--(void)reloadFMDBDemoData{
-    JobsFMDBMgr *dbManager = JobsFMDBMgr.sharedManager;
-    NSArray <NSDictionary *>*users = [dbManager fetchAllUsers];
-    for (NSDictionary *user in users) {
-        [dbManager deleteUserWithID:[user[@"id"] integerValue]];
-    }
-    [self.dataMutArr removeAllObjects];
-    /// 增
-    [dbManager insertUserWithName:@"Alice" age:25];
-    [dbManager insertUserWithName:@"Bob" age:30];
-    users = [dbManager fetchAllUsers];
-    [self appendDemoStepTitle:@"增：INSERT"
-                       detail:@"插入 Alice(25)、Bob(30) 两条用户数据"];
-    /// 查
-    [self appendDemoStepTitle:@"查：SELECT"
-                       detail:[NSString stringWithFormat:@"当前表数据：%@",[self userListTextByUsers:users]]];
-    /// 改
-    if (users.count > 0) {
-        NSDictionary *user = users.firstObject;
-        NSInteger userID = [user[@"id"] integerValue];
-        [dbManager updateUserWithID:userID newName:@"Alice Smith" newAge:26];
-        [self appendDemoStepTitle:@"改：UPDATE"
-                           detail:[NSString stringWithFormat:@"#%ld Alice(25) -> Alice Smith(26)",(long)userID]];
-    }
-    /// 删
-    if (users.count > 1) {
-        NSDictionary *user = users[1];
-        NSInteger userID = [user[@"id"] integerValue];
-        NSString *name = user[@"name"] ? : @"-";
-        NSNumber *age = user[@"age"] ? : @0;
-        [dbManager deleteUserWithID:userID];
-        [self appendDemoStepTitle:@"删：DELETE"
-                           detail:[NSString stringWithFormat:@"删除 #%ld %@(%@)",(long)userID,name,age]];
-    }
-    /// 再查
-    users = [dbManager fetchAllUsers];
-    [self appendDemoStepTitle:@"查：最终结果"
-                       detail:[NSString stringWithFormat:@"剩余数据：%@",[self userListTextByUsers:users]]];
-    [self appendUserRowsByUsers:users];
-    [self.tableView reloadData];
-    JobsLog(@"FMDB Demo Users: %@",users);
+-(jobsByVoidBlock _Nonnull)reloadFMDBDemoData{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        JobsFMDBMgr *dbManager = JobsFMDBMgr.jobsSharedManager();
+        NSArray <NSDictionary *>*users = dbManager.fetchAllUsers();
+        for (NSDictionary *user in users) {
+            dbManager.deleteUserWithID([user[@"id"] integerValue]);
+        }
+        [self.dataMutArr removeAllObjects];
+        /// 增
+        [dbManager insertUserWithName:@"Alice" age:25];
+        [dbManager insertUserWithName:@"Bob" age:30];
+        users = dbManager.fetchAllUsers();
+        [self appendDemoStepTitle:@"增：INSERT"
+                           detail:@"插入 Alice(25)、Bob(30) 两条用户数据"];
+        /// 查
+        [self appendDemoStepTitle:@"查：SELECT"
+                           detail:[NSString stringWithFormat:@"当前表数据：%@",self.userListTextByUsers(users)]];
+        /// 改
+        if (users.count > 0) {
+            NSDictionary *user = users.firstObject;
+            NSInteger userID = [user[@"id"] integerValue];
+            [dbManager updateUserWithID:userID newName:@"Alice Smith" newAge:26];
+            [self appendDemoStepTitle:@"改：UPDATE"
+                               detail:[NSString stringWithFormat:@"#%ld Alice(25) -> Alice Smith(26)",(long)userID]];
+        }
+        /// 删
+        if (users.count > 1) {
+            NSDictionary *user = users[1];
+            NSInteger userID = [user[@"id"] integerValue];
+            NSString *name = user[@"name"] ? : @"-";
+            NSNumber *age = user[@"age"] ? : @0;
+            dbManager.deleteUserWithID(userID);
+            [self appendDemoStepTitle:@"删：DELETE"
+                               detail:[NSString stringWithFormat:@"删除 #%ld %@(%@)",(long)userID,name,age]];
+        }
+        /// 再查
+        users = dbManager.fetchAllUsers();
+        [self appendDemoStepTitle:@"查：最终结果"
+                           detail:[NSString stringWithFormat:@"剩余数据：%@",self.userListTextByUsers(users)]];
+        self.appendUserRowsByUsers(users);
+        [self.tableView reloadData];
+        JobsLog(@"FMDB Demo Users: %@",users);
+    };
 }
 
--(void)appendUserRowsByUsers:(NSArray <NSDictionary *>*_Nullable)users{
-    for (NSDictionary *user in users) {
-        [self appendDemoStepTitle:[NSString stringWithFormat:@"当前记录 #%@",user[@"id"] ? : @0]
-                           detail:[NSString stringWithFormat:@"name = %@，age = %@",user[@"name"] ? : @"-",user[@"age"] ? : @0]];
-    }
+-(jobsByNSArrayNSDictionaryBlock _Nonnull)appendUserRowsByUsers{
+    @jobs_weakify(self)
+    return ^(NSArray <NSDictionary *>*_Nullable users){
+        @jobs_strongify(self)
+        if (!self) return;
+        for (NSDictionary *user in users) {
+            [self appendDemoStepTitle:[NSString stringWithFormat:@"当前记录 #%@",user[@"id"] ? : @0]
+                               detail:[NSString stringWithFormat:@"name = %@，age = %@",user[@"name"] ? : @"-",user[@"age"] ? : @0]];
+        }
+    };
 }
 
 -(void)appendDemoStepTitle:(NSString *)title
@@ -170,12 +270,17 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     }));
 }
 
--(NSString *)userListTextByUsers:(NSArray <NSDictionary *>*_Nullable)users{
-    if (users.count == 0) return @"空表";
-    NSMutableArray <NSString *>*items = NSMutableArray.array;
-    for (NSDictionary *user in users) {
-        [items addObject:[NSString stringWithFormat:@"#%@ %@(%@)",user[@"id"] ? : @0,user[@"name"] ? : @"-",user[@"age"] ? : @0]];
-    };return [items componentsJoinedByString:@"，"];
+-(JobsRetNSStringByNSArrayNSDictionaryBlock _Nonnull)userListTextByUsers{
+    @jobs_weakify(self)
+    return ^NSString *(NSArray <NSDictionary *>*_Nullable users){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (users.count == 0) return @"空表";
+        NSMutableArray <NSString *>*items = NSMutableArray.array;
+        for (NSDictionary *user in users) {
+            [items addObject:[NSString stringWithFormat:@"#%@ %@(%@)",user[@"id"] ? : @0,user[@"name"] ? : @"-",user[@"age"] ? : @0]];
+        };return [items componentsJoinedByString:@"，"];
+    };
 }
 #pragma mark —— lazyLoad
 /// BaseViewProtocol

@@ -6,16 +6,17 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_NSATTRIBUTEDSTRING_EXTRA_638AC33625
-#define JOBS_HEADER_GUARD_NSATTRIBUTEDSTRING_EXTRA_638AC33625
-
-#import <Foundation/Foundation.h>
-#import "NSMutableAttributedString+Extra.h"
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
 #else
 #import "XYColorOC.h"
 #endif
+
+#define JOBS_HEADER_GUARD_NSATTRIBUTEDSTRING_EXTRA_638AC33625
+
+#import <Foundation/Foundation.h>
+#import "NSMutableAttributedString+Extra.h"
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"
@@ -34,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 将富文本的颜色统一进行设置
 -(JobsRetAttributedStringByCorBlock _Nonnull)changeTextColorBy;
 /// 移除超链接属性
--(NSAttributedString *_Nonnull)removeHyperlinks;
+-(JobsRetAttributedStringByVoidBlock _Nonnull)removeHyperlinks;
 
 @end
 

@@ -43,21 +43,31 @@ Prop_strong()UILabel *detailLab;
 }
 #pragma mark —— 复写父类相关方法和属性
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    CGFloat cornerRadius = JobsWidth(16);
-    self.contentView.byFrame(UIEdgeInsetsInsetRect(self.bounds, UIEdgeInsetsMake(JobsWidth(2), JobsWidth(4), JobsWidth(2), JobsWidth(4))));
-    self.contentView.layer
-        .byCornerRadius(cornerRadius)
-        .byBorderWidth(JobsWidth(1))
-        .byBorderColor(RGBA_COLOR(255, 255, 255, 0.86).CGColor);
-    self.layer
-        .byShadowPath(UIBezierPath.byBezierPathWithRoundedRect(self.contentView.frame, cornerRadius).CGPath);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjBankAccMgmtCVCell.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        CGFloat cornerRadius = JobsWidth(16);
+        self.contentView.byFrame(UIEdgeInsetsInsetRect(self.bounds, UIEdgeInsetsMake(JobsWidth(2), JobsWidth(4), JobsWidth(2), JobsWidth(4))));
+        self.contentView.layer
+            .byCornerRadius(cornerRadius)
+            .byBorderWidth(JobsWidth(1))
+            .byBorderColor(RGBA_COLOR(255, 255, 255, 0.86).CGColor);
+        self.layer
+            .byShadowPath(UIBezierPath.byBezierPathWithRoundedRect(self.contentView.frame, cornerRadius).CGPath);
+    };
 }
 #pragma mark —— BaseCellProtocol
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     BaiShaETProjBankAccMgmtCVCell *cell = JobsRegisterDequeueCollectionViewCell(BaiShaETProjBankAccMgmtCVCell);
-    cell.indexPath = indexPath;
+    cell.byIndexPath(indexPath);
     return cell;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -65,7 +75,7 @@ Prop_strong()UILabel *detailLab;
     @jobs_weakify(self)
     return ^__kindof UICollectionViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
+        self.byViewModel(model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {}));
         self.logoContainerView.byAlpha(1);
         self.logoView.byImage(self.viewModel.image);
         self.titleLab.byText(self.viewModel.textModel.text);

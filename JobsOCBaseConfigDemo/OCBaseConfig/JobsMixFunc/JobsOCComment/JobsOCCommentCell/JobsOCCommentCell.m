@@ -7,12 +7,6 @@
 
 #import "JobsOCCommentCell.h"
 
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
-#else
-#import "Masonry.h"
-#endif
-
 @interface JobsOCCommentCell ()
 
 Prop_strong()UIView *containerView;
@@ -29,10 +23,10 @@ Prop_strong()UILabel *contentLabel;
 Prop_strong()UILabel *metaLabel;
 Prop_strong()UILabel *replySummaryLabel;
 
--(NSString *)jobs_initialTextByName:(NSString *)name;
--(UIColor *)jobs_avatarColorByText:(NSString *)text;
--(NSString *)jobs_metaTextByComment:(JobsOCCommentModel *)comment;
--(void)jobs_updateReplyHintByParentComment:(JobsOCCommentModel *)parentComment;
+-(JobsRetStrByStrBlock _Nonnull)jobs_initialTextByName;
+-(JobsRetCorByStrBlock _Nonnull)jobs_avatarColorByText;
+-(JobsRetNSStringByJobsOCCommentModelBlock _Nonnull)jobs_metaTextByComment;
+-(jobsByJobsOCCommentModelBlock _Nonnull)jobs_updateReplyHintByParentComment;
 -(void)jobs_updateAvatarImageView:(UIImageView *)imageView
                       avatarLabel:(UILabel *)avatarLabel
                           byName:(NSString *)name
@@ -41,16 +35,18 @@ Prop_strong()UILabel *replySummaryLabel;
 @end
 
 @implementation JobsOCCommentCell
-+(NSString *)reuseIdentifier{
-    return NSStringFromClass(self);
++(JobsRetStrByVoidBlock _Nonnull)reuseIdentifier{
+    return ^NSString *_Nullable{
+        return NSStringFromClass(self);
+    };
 }
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style
              reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.backgroundColor = UIColor.clearColor;
-        self.contentView.backgroundColor = UIColor.clearColor;
+        self.bySelectionStyle(UITableViewCellSelectionStyleNone);
+        self.byBgColor(UIColor.clearColor);
+        self.contentView.byBgColor(UIColor.clearColor);
         [self.contentView addSubview:self.containerView];
         [self.containerView addSubview:self.avatarImageView];
         [self.avatarImageView addSubview:self.avatarLabel];
@@ -77,27 +73,37 @@ Prop_strong()UILabel *replySummaryLabel;
 }
 
 -(void)prepareForReuse{
-    [super prepareForReuse];
-    self.avatarImageView.image = nil;
-    self.avatarImageView.hidden = NO;
-    self.avatarLabel.text = nil;
-    self.avatarLabel.hidden = NO;
-    self.nameLabel.text = nil;
-    self.nameLabel.hidden = NO;
-    self.timeLabel.text = nil;
-    self.timeLabel.hidden = NO;
-    self.replyHintStackView.hidden = YES;
-    self.replyHintAvatarImageView.image = nil;
-    self.replyHintAvatarLabel.text = nil;
-    self.replyHintLabel.text = nil;
-    self.replyHintLabel.hidden = NO;
-    self.contentLabel.text = nil;
-    self.contentLabel.hidden = NO;
-    self.metaLabel.text = nil;
-    self.metaLabel.hidden = NO;
-    self.replySummaryLabel.text = nil;
-    self.replySummaryLabel.hidden = YES;
-    self.replySummaryLabel.textAlignment = NSTextAlignmentLeft;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCCommentCell.class, @selector(jobsPrepareForReuse)))(self, @selector(jobsPrepareForReuse));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsPrepareForReuse{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super prepareForReuse];
+        self.avatarImageView.byImage(nil);
+        self.avatarImageView.byHidden(NO);
+        self.avatarLabel.byText(nil);
+        self.avatarLabel.byHidden(NO);
+        self.nameLabel.byText(nil);
+        self.nameLabel.byHidden(NO);
+        self.timeLabel.byText(nil);
+        self.timeLabel.byHidden(NO);
+        self.replyHintStackView.byHidden(YES);
+        self.replyHintAvatarImageView.byImage(nil);
+        self.replyHintAvatarLabel.byText(nil);
+        self.replyHintLabel.byText(nil);
+        self.replyHintLabel.byHidden(NO);
+        self.contentLabel.byText(nil);
+        self.contentLabel.byHidden(NO);
+        self.metaLabel.byText(nil);
+        self.metaLabel.byHidden(NO);
+        self.replySummaryLabel.byText(nil);
+        self.replySummaryLabel.byHidden(YES);
+        self.replySummaryLabel.byTextAlignment(NSTextAlignmentLeft);
+    };
 }
 
 -(void)updateWithComment:(JobsOCCommentModel *)comment
@@ -109,23 +115,23 @@ Prop_strong()UILabel *replySummaryLabel;
         make.left.equalTo(self.contentView).offset(JobsOCCommentLeadingByModeAndDepth(mode, depth));
     }];
     BOOL isChild = depth > 0;
-    self.containerView.backgroundColor = (isChild && mode == JobsOCCommentModeNetEase) ? [UIColor colorWithRed:0.96 green:0.97 blue:0.99 alpha:1] : UIColor.whiteColor;
-    self.nameLabel.text = comment.nickname.length ? comment.nickname : @"匿名用户";
-    self.timeLabel.text = comment.publishTime;
-    self.contentLabel.text = comment.content;
-    self.metaLabel.text = [self jobs_metaTextByComment:comment];
-    self.metaLabel.hidden = self.metaLabel.text.length == 0;
-    self.replyHintStackView.hidden = YES;
-    self.replySummaryLabel.hidden = YES;
+    self.containerView.byBgColor((isChild && mode == JobsOCCommentModeNetEase) ? [UIColor colorWithRed:0.96 green:0.97 blue:0.99 alpha:1] : UIColor.whiteColor);
+    self.nameLabel.byText(comment.nickname.length ? comment.nickname : @"");
+    self.timeLabel.byText(comment.publishTime);
+    self.contentLabel.byText(comment.content);
+    self.metaLabel.byText(self.jobs_metaTextByComment(comment));
+    self.metaLabel.byHidden(self.metaLabel.text.length == 0);
+    self.replyHintStackView.byHidden(YES);
+    self.replySummaryLabel.byHidden(YES);
     if (mode == JobsOCCommentModeCustom && depth >= 2 && parentComment.nickname.length) {
-        [self jobs_updateReplyHintByParentComment:parentComment];
+        self.jobs_updateReplyHintByParentComment(parentComment);
     }
     if (config.showsReplyEntrance &&
         mode == JobsOCCommentModeToutiao &&
         depth == 0 &&
         comment.children.count) {
-        self.replySummaryLabel.text = [NSString stringWithFormat:@"查看 %lu 条回复", (unsigned long)comment.children.count];
-        self.replySummaryLabel.hidden = NO;
+        self.replySummaryLabel.byText([NSString stringWithFormat:@"查看 %lu 条回复", (unsigned long)comment.children.count]);
+        self.replySummaryLabel.byHidden(NO);
     }
     [self jobs_updateAvatarImageView:self.avatarImageView
                           avatarLabel:self.avatarLabel
@@ -140,25 +146,30 @@ Prop_strong()UILabel *replySummaryLabel;
         make.left.equalTo(self.contentView).offset(JobsOCCommentLeadingByModeAndDepth(config.mode, depth));
     }];
     self.containerView.byBgColor(JobsSecondarySystemBackgroundColor);
-    self.avatarImageView.hidden = YES;
-    self.avatarLabel.hidden = YES;
-    self.nameLabel.hidden = YES;
-    self.timeLabel.hidden = YES;
-    self.replyHintStackView.hidden = YES;
-    self.contentLabel.hidden = YES;
-    self.metaLabel.hidden = YES;
-    self.replySummaryLabel.text = moreText.length ? moreText : JobsOCCommentMoreRepliesText;
-    self.replySummaryLabel.textAlignment = NSTextAlignmentCenter;
-    self.replySummaryLabel.hidden = NO;
+    self.avatarImageView.byHidden(YES);
+    self.avatarLabel.byHidden(YES);
+    self.nameLabel.byHidden(YES);
+    self.timeLabel.byHidden(YES);
+    self.replyHintStackView.byHidden(YES);
+    self.contentLabel.byHidden(YES);
+    self.metaLabel.byHidden(YES);
+    self.replySummaryLabel.byText(moreText.length ? moreText : JobsOCCommentMoreRepliesText);
+    self.replySummaryLabel.byTextAlignment(NSTextAlignmentCenter);
+    self.replySummaryLabel.byHidden(NO);
 }
 
--(void)jobs_updateReplyHintByParentComment:(JobsOCCommentModel *)parentComment{
-    [self jobs_updateAvatarImageView:self.replyHintAvatarImageView
-                          avatarLabel:self.replyHintAvatarLabel
-                              byName:parentComment.nickname
-                           userAvatar:parentComment.userAvatar];
-    self.replyHintLabel.text = [NSString stringWithFormat:@"回复：“%@”", parentComment.nickname];
-    self.replyHintStackView.hidden = NO;
+-(jobsByJobsOCCommentModelBlock _Nonnull)jobs_updateReplyHintByParentComment{
+    @jobs_weakify(self)
+    return ^(JobsOCCommentModel * parentComment){
+        @jobs_strongify(self)
+        if (!self) return;
+        [self jobs_updateAvatarImageView:self.replyHintAvatarImageView
+                              avatarLabel:self.replyHintAvatarLabel
+                                  byName:parentComment.nickname
+                               userAvatar:parentComment.userAvatar];
+        self.replyHintLabel.byText([NSString stringWithFormat:@"回复：“%@”", parentComment.nickname]);
+        self.replyHintStackView.byHidden(NO);
+    };
 }
 
 -(void)jobs_updateAvatarImageView:(UIImageView *)imageView
@@ -166,78 +177,93 @@ Prop_strong()UILabel *replySummaryLabel;
                           byName:(NSString *)name
                        userAvatar:(NSString *)userAvatar{
     UIImage *avatarImage = userAvatar.length ? [UIImage imageNamed:userAvatar] : nil;
-    imageView.image = avatarImage;
-    avatarLabel.hidden = avatarImage != nil;
+    imageView.byImage(avatarImage);
+    avatarLabel.byHidden(avatarImage != nil);
     if (!avatarImage) {
-        NSString *initialText = [self jobs_initialTextByName:name];
-        avatarLabel.text = initialText;
-        imageView.backgroundColor = [self jobs_avatarColorByText:initialText];
+        NSString *initialText = self.jobs_initialTextByName(name);
+        avatarLabel.byText(initialText);
+        imageView.byBgColor(self.jobs_avatarColorByText(initialText));
     }else{
-        imageView.backgroundColor = UIColor.clearColor;
+        imageView.byBgColor(UIColor.clearColor);
     }
 }
 
--(NSString *)jobs_initialTextByName:(NSString *)name{
-    NSString *text = name.length ? name : @"匿";
-    NSRange range = [text rangeOfComposedCharacterSequenceAtIndex:0];
-    return [text substringWithRange:range];
+-(JobsRetStrByStrBlock _Nonnull)jobs_initialTextByName{
+    @jobs_weakify(self)
+    return ^NSString *(NSString * name){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSString *text = name.length ? name : @"匿";
+        NSRange range = [text rangeOfComposedCharacterSequenceAtIndex:0];
+        return [text substringWithRange:range];
+    };
 }
 
--(UIColor *)jobs_avatarColorByText:(NSString *)text{
-    NSUInteger hash = text.hash;
-    NSArray <UIColor *>*colors = @[
-        [UIColor colorWithRed:0.22 green:0.45 blue:0.78 alpha:1],
-        [UIColor colorWithRed:0.13 green:0.60 blue:0.42 alpha:1],
-        [UIColor colorWithRed:0.82 green:0.31 blue:0.33 alpha:1],
-        [UIColor colorWithRed:0.52 green:0.36 blue:0.76 alpha:1],
-        [UIColor colorWithRed:0.90 green:0.55 blue:0.18 alpha:1]
-    ];
-    return colors[hash % colors.count];
+-(JobsRetCorByStrBlock _Nonnull)jobs_avatarColorByText{
+    @jobs_weakify(self)
+    return ^UIColor *(NSString * text){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSUInteger hash = text.hash;
+        NSArray <UIColor *>*colors = @[
+            [UIColor colorWithRed:0.22 green:0.45 blue:0.78 alpha:1],
+            [UIColor colorWithRed:0.13 green:0.60 blue:0.42 alpha:1],
+            [UIColor colorWithRed:0.82 green:0.31 blue:0.33 alpha:1],
+            [UIColor colorWithRed:0.52 green:0.36 blue:0.76 alpha:1],
+            [UIColor colorWithRed:0.90 green:0.55 blue:0.18 alpha:1]
+        ];
+        return colors[hash % colors.count];
+    };
 }
 
--(NSString *)jobs_metaTextByComment:(JobsOCCommentModel *)comment{
-    NSMutableArray <NSString *>*meta = NSMutableArray.array;
-    if (comment.device.length) [meta addObject:comment.device];
-    if (comment.location.length) [meta addObject:comment.location];
-    return [meta componentsJoinedByString:@" · "];
+-(JobsRetNSStringByJobsOCCommentModelBlock _Nonnull)jobs_metaTextByComment{
+    @jobs_weakify(self)
+    return ^NSString *(JobsOCCommentModel * comment){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSMutableArray <NSString *>*meta = NSMutableArray.array;
+        if (comment.device.length) [meta addObject:comment.device];
+        if (comment.location.length) [meta addObject:comment.location];
+        return [meta componentsJoinedByString:@" · "];
+    };
 }
 #pragma mark —— LazyLoad
 -(UIView *)containerView{
     if (!_containerView) {
-        _containerView = UIView.new;
-        _containerView.translatesAutoresizingMaskIntoConstraints = NO;
-        _containerView.layer.cornerRadius = 8;
-        _containerView.layer.masksToBounds = YES;
+        _containerView = jobsMakeView(^(UIView *object){});
+        _containerView.byTranslatesAutoresizingMaskIntoConstraints(NO);
+        _containerView.layer.byCornerRadius(8);
+        _containerView.layer.byMasksToBounds(YES);
     };return _containerView;
 }
 
 -(UIImageView *)avatarImageView{
     if (!_avatarImageView) {
-        _avatarImageView = UIImageView.new;
-        _avatarImageView.translatesAutoresizingMaskIntoConstraints = NO;
-        _avatarImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _avatarImageView.layer.cornerRadius = 18;
-        _avatarImageView.layer.masksToBounds = YES;
+        _avatarImageView = jobsMakeImageView(^(UIImageView *object){});
+        _avatarImageView.byTranslatesAutoresizingMaskIntoConstraints(NO);
+        _avatarImageView.byContentMode(UIViewContentModeScaleAspectFill);
+        _avatarImageView.layer.byCornerRadius(18);
+        _avatarImageView.layer.byMasksToBounds(YES);
     };return _avatarImageView;
 }
 
 -(UILabel *)avatarLabel{
     if (!_avatarLabel) {
-        _avatarLabel = UILabel.new;
-        _avatarLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        _avatarLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightSemibold];
-        _avatarLabel.textAlignment = NSTextAlignmentCenter;
-        _avatarLabel.textColor = UIColor.whiteColor;
+        _avatarLabel = jobsMakeLabel(^(UILabel *object){});
+        _avatarLabel.byTranslatesAutoresizingMaskIntoConstraints(NO);
+        _avatarLabel.byFont([UIFont systemFontOfSize:15 weight:UIFontWeightSemibold]);
+        _avatarLabel.byTextAlignment(NSTextAlignmentCenter);
+        _avatarLabel.byTextColor(UIColor.whiteColor);
     };return _avatarLabel;
 }
 
 -(UIStackView *)textStackView{
     if (!_textStackView) {
-        _textStackView = UIStackView.new;
-        _textStackView.translatesAutoresizingMaskIntoConstraints = NO;
-        _textStackView.axis = UILayoutConstraintAxisVertical;
-        _textStackView.alignment = UIStackViewAlignmentFill;
-        _textStackView.spacing = 4;
+        _textStackView = jobsMakeStackView(^(UIStackView *object){});
+        _textStackView.byTranslatesAutoresizingMaskIntoConstraints(NO);
+        _textStackView.byAxis(UILayoutConstraintAxisVertical);
+        _textStackView.byAlignment(UIStackViewAlignmentFill);
+        _textStackView.bySpacing(4);
         [_textStackView addArrangedSubview:self.nameLabel];
         [_textStackView addArrangedSubview:self.timeLabel];
         [_textStackView addArrangedSubview:self.replyHintStackView];
@@ -249,35 +275,35 @@ Prop_strong()UILabel *replySummaryLabel;
 
 -(UILabel *)nameLabel{
     if (!_nameLabel) {
-        _nameLabel = UILabel.new;
-        _nameLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightSemibold];
-        _nameLabel.textColor = [UIColor colorWithRed:0.11 green:0.16 blue:0.23 alpha:1];
+        _nameLabel = jobsMakeLabel(^(UILabel *object){});
+        _nameLabel.byFont([UIFont systemFontOfSize:15 weight:UIFontWeightSemibold]);
+        _nameLabel.byTextColor([UIColor colorWithRed:0.11 green:0.16 blue:0.23 alpha:1]);
     };return _nameLabel;
 }
 
 -(UILabel *)timeLabel{
     if (!_timeLabel) {
-        _timeLabel = UILabel.new;
-        _timeLabel.font = [UIFont systemFontOfSize:12 weight:UIFontWeightRegular];
-        _timeLabel.textColor = [UIColor colorWithRed:0.54 green:0.60 blue:0.68 alpha:1];
+        _timeLabel = jobsMakeLabel(^(UILabel *object){});
+        _timeLabel.byFont([UIFont systemFontOfSize:12 weight:UIFontWeightRegular]);
+        _timeLabel.byTextColor([UIColor colorWithRed:0.54 green:0.60 blue:0.68 alpha:1]);
     };return _timeLabel;
 }
 
 -(UILabel *)replyHintLabel{
     if (!_replyHintLabel) {
-        _replyHintLabel = UILabel.new;
-        _replyHintLabel.font = [UIFont systemFontOfSize:12 weight:UIFontWeightMedium];
-        _replyHintLabel.textColor = [UIColor colorWithRed:0.23 green:0.42 blue:0.74 alpha:1];
+        _replyHintLabel = jobsMakeLabel(^(UILabel *object){});
+        _replyHintLabel.byFont([UIFont systemFontOfSize:12 weight:UIFontWeightMedium]);
+        _replyHintLabel.byTextColor([UIColor colorWithRed:0.23 green:0.42 blue:0.74 alpha:1]);
     };return _replyHintLabel;
 }
 
 -(UIStackView *)replyHintStackView{
     if (!_replyHintStackView) {
-        _replyHintStackView = UIStackView.new;
-        _replyHintStackView.axis = UILayoutConstraintAxisHorizontal;
-        _replyHintStackView.alignment = UIStackViewAlignmentCenter;
-        _replyHintStackView.spacing = 5;
-        _replyHintStackView.hidden = YES;
+        _replyHintStackView = jobsMakeStackView(^(UIStackView *object){});
+        _replyHintStackView.byAxis(UILayoutConstraintAxisHorizontal);
+        _replyHintStackView.byAlignment(UIStackViewAlignmentCenter);
+        _replyHintStackView.bySpacing(5);
+        _replyHintStackView.byHidden(YES);
         [_replyHintStackView addArrangedSubview:self.replyHintAvatarImageView];
         [_replyHintStackView addArrangedSubview:self.replyHintLabel];
     };return _replyHintStackView;
@@ -285,10 +311,10 @@ Prop_strong()UILabel *replySummaryLabel;
 
 -(UIImageView *)replyHintAvatarImageView{
     if (!_replyHintAvatarImageView) {
-        _replyHintAvatarImageView = UIImageView.new;
-        _replyHintAvatarImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _replyHintAvatarImageView.layer.cornerRadius = 8;
-        _replyHintAvatarImageView.layer.masksToBounds = YES;
+        _replyHintAvatarImageView = jobsMakeImageView(^(UIImageView *object){});
+        _replyHintAvatarImageView.byContentMode(UIViewContentModeScaleAspectFill);
+        _replyHintAvatarImageView.layer.byCornerRadius(8);
+        _replyHintAvatarImageView.layer.byMasksToBounds(YES);
         [_replyHintAvatarImageView addSubview:self.replyHintAvatarLabel];
         [_replyHintAvatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CGSizeMake(16, 16));
@@ -301,36 +327,36 @@ Prop_strong()UILabel *replySummaryLabel;
 
 -(UILabel *)replyHintAvatarLabel{
     if (!_replyHintAvatarLabel) {
-        _replyHintAvatarLabel = UILabel.new;
-        _replyHintAvatarLabel.font = [UIFont systemFontOfSize:8 weight:UIFontWeightSemibold];
-        _replyHintAvatarLabel.textAlignment = NSTextAlignmentCenter;
-        _replyHintAvatarLabel.textColor = UIColor.whiteColor;
+        _replyHintAvatarLabel = jobsMakeLabel(^(UILabel *object){});
+        _replyHintAvatarLabel.byFont([UIFont systemFontOfSize:8 weight:UIFontWeightSemibold]);
+        _replyHintAvatarLabel.byTextAlignment(NSTextAlignmentCenter);
+        _replyHintAvatarLabel.byTextColor(UIColor.whiteColor);
     };return _replyHintAvatarLabel;
 }
 
 -(UILabel *)contentLabel{
     if (!_contentLabel) {
-        _contentLabel = UILabel.new;
-        _contentLabel.font = [UIFont systemFontOfSize:15 weight:UIFontWeightRegular];
-        _contentLabel.textColor = [UIColor colorWithRed:0.22 green:0.26 blue:0.32 alpha:1];
-        _contentLabel.numberOfLines = 0;
+        _contentLabel = jobsMakeLabel(^(UILabel *object){});
+        _contentLabel.byFont([UIFont systemFontOfSize:15 weight:UIFontWeightRegular]);
+        _contentLabel.byTextColor([UIColor colorWithRed:0.22 green:0.26 blue:0.32 alpha:1]);
+        _contentLabel.byNumberOfLines(0);
     };return _contentLabel;
 }
 
 -(UILabel *)metaLabel{
     if (!_metaLabel) {
-        _metaLabel = UILabel.new;
-        _metaLabel.font = [UIFont systemFontOfSize:12 weight:UIFontWeightRegular];
-        _metaLabel.textColor = [UIColor colorWithRed:0.55 green:0.60 blue:0.66 alpha:1];
+        _metaLabel = jobsMakeLabel(^(UILabel *object){});
+        _metaLabel.byFont([UIFont systemFontOfSize:12 weight:UIFontWeightRegular]);
+        _metaLabel.byTextColor([UIColor colorWithRed:0.55 green:0.60 blue:0.66 alpha:1]);
     };return _metaLabel;
 }
 
 -(UILabel *)replySummaryLabel{
     if (!_replySummaryLabel) {
-        _replySummaryLabel = UILabel.new;
-        _replySummaryLabel.font = [UIFont systemFontOfSize:13 weight:UIFontWeightMedium];
-        _replySummaryLabel.textColor = [UIColor colorWithRed:0.19 green:0.39 blue:0.72 alpha:1];
-        _replySummaryLabel.hidden = YES;
+        _replySummaryLabel = jobsMakeLabel(^(UILabel *object){});
+        _replySummaryLabel.byFont([UIFont systemFontOfSize:13 weight:UIFontWeightMedium]);
+        _replySummaryLabel.byTextColor([UIColor colorWithRed:0.19 green:0.39 blue:0.72 alpha:1]);
+        _replySummaryLabel.byHidden(YES);
     };return _replySummaryLabel;
 }
 

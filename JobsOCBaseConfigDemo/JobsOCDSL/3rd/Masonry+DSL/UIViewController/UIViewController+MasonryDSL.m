@@ -28,6 +28,19 @@ static inline void UninstallAllConstraints(__kindof UIView *_Nullable view){
     }
 }
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN UIViewController
+@interface UIViewController (JobsPropertyDSLSetterAutogen_fe22590d65)
+-(void)setFd_willAppearInjectBlock:(void (^ _Nullable)(UIViewController *viewController, BOOL animated))data;
+-(void)setGk_navBarAlpha:(CGFloat)data;
+-(void)setGk_navLeftBarButtonItem:(UIBarButtonItem * _Nullable)data;
+-(void)setGk_navRightBarButtonItem:(UIBarButtonItem * _Nullable)data;
+-(void)setGk_navRightBarButtonItems:(NSArray<UIBarButtonItem *> * _Nullable)data;
+-(void)setGk_navTitleView:(UIView * _Nullable)data;
+-(void)setScrollCallback:(void (^ _Nullable)(UIScrollView *scrollView))data;
+-(void)setTabBarItem:(UITabBarItem * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UIViewController
+
 @implementation UIViewController (MasonryDSL)
 #pragma mark —— 不记录约束，直接修改/赋值
 /// 判断当前控制器 view 是否已经包含目标子视图
@@ -215,7 +228,7 @@ static inline void UninstallAllConstraints(__kindof UIView *_Nullable view){
 ///   - masonryAfterBlock: 希望变到的最后的约束
 -(void)jobsMasonryBeforeBlock:(jobsByMASConstraintMakerBlock _Nonnull)masonryBeforeBlock
             masonryAfterBlock:(jobsByMASConstraintMakerBlock _Nonnull)masonryAfterBlock{
-    [self uninstallAllLayoutAttribute];
+    [self uninstallAllLayoutAttribute]();
     if(masonryBeforeBlock) [self.view mas_remakeConstraints:masonryBeforeBlock];
     /// 告诉视图需要更新布局
     [self.view setNeedsUpdateConstraints];
@@ -245,7 +258,7 @@ static inline void UninstallAllConstraints(__kindof UIView *_Nullable view){
 #pragma mark —— Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
 JobsKey(_masonryBlock)
 @dynamic masonryBlock;
--(jobsByMASConstraintMakerBlock)masonryBlock{
+-(jobsByMASConstraintMakerBlock _Nullable)masonryBlock{
     return Jobs_getAssociatedObject(_masonryBlock);
 }
 
@@ -253,4 +266,68 @@ JobsKey(_masonryBlock)
     Jobs_setAssociatedCOPY_NONATOMIC(_masonryBlock, masonryBlock)
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN UIViewController
+-(JobsRetUIViewControllerByFDViewControllerWillAppearInjectBlockBlock _Nonnull)byFd_willAppearInjectBlock{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController * _Nullable(void (^ _Nullable data)(UIViewController *viewController, BOOL animated)){
+        @jobs_strongify(self)
+        [self setFd_willAppearInjectBlock:data];
+        return self;
+    };
+}
+
+-(JobsRetUIViewControllerByvoidUIScrollViewscrollViewBlock _Nonnull)byScrollCallback{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController * _Nullable(void (^ _Nullable data)(UIScrollView *scrollView)){
+        @jobs_strongify(self)
+        [self setScrollCallback:data];
+        return self;
+    };
+}
+-(JobsRetGKNavVCByBarButtonItemBlock _Nonnull)byGk_navLeftBarButtonItem{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController * _Nullable(UIBarButtonItem * _Nullable data){
+        @jobs_strongify(self)
+        [self setGk_navLeftBarButtonItem:data];
+        return self;
+    };
+}
+
+-(JobsRetGKNavVCByBarButtonItemBlock _Nonnull)byGk_navRightBarButtonItem{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController * _Nullable(UIBarButtonItem * _Nullable data){
+        @jobs_strongify(self)
+        [self setGk_navRightBarButtonItem:data];
+        return self;
+    };
+}
+
+-(JobsRetGKNavVCByBarButtonItemsBlock _Nonnull)byGk_navRightBarButtonItems{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController * _Nullable(NSArray<UIBarButtonItem *> * _Nullable data){
+        @jobs_strongify(self)
+        [self setGk_navRightBarButtonItems:data];
+        return self;
+    };
+}
+
+-(JobsRetGKNavVCByCGFloatBlock _Nonnull)byGk_navBarAlpha{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setGk_navBarAlpha:data];
+        return self;
+    };
+}
+
+-(JobsRetGKNavVCByViewBlock _Nonnull)byGk_navTitleView{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController * _Nullable(UIView * _Nullable data){
+        @jobs_strongify(self)
+        [self setGk_navTitleView:data];
+        return self;
+    };
+}
+
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UIViewController
 @end

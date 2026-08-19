@@ -14,34 +14,14 @@
 -(void)gesture:(UIGestureRecognizer *_Nullable)gesture
         action:(SEL _Nullable)action{
     if (gesture) {
-        gesture.target = self.weak_target;
+        gesture.byTarget(self.weak_target);
         gesture.removeAction(action);
     }
 }
 
--(JobsRetGestureByVoidStarBlock _Nonnull)deallocBy{
-    @jobs_weakify(self)
-    return ^__kindof UIGestureRecognizer *_Nullable(void *_Nullable key){
-        @jobs_strongify(self)
-        return Jobs_getAssociatedObjectByTargetRawKey(self, key);
-    };
-}
 #pragma mark —— 一些公有方法
--(void)defaultFunc{
-    JobsLog(@"defaultFunc");
-}
 #pragma mark —— GestureProtocol
 /// 取消注册各种手势对应的方法
--(void)Dealloc{
-    [self gesture:self.deallocBy(_longPressGR) action:self.longPressGR_SelImp.selector];/// UILongPressGestureRecognizer
-    [self gesture:self.deallocBy(_tapGR) action:self.tapGR_SelImp.selector]; /// UITapGestureRecognizer
-    [self gesture:self.deallocBy(_doubleTapGR) action:self.doubleTapGR_SelImp.selector]; /// UITapGestureRecognizer
-    [self gesture:self.deallocBy(_swipeGR) action:self.swipeGR_SelImp.selector]; /// UISwipeGestureRecognizer
-    [self gesture:self.deallocBy(_panGR) action:self.panGR_SelImp.selector]; /// UIPanGestureRecognizer
-    [self gesture:self.deallocBy(_pinchGR) action:self.pinchGR_SelImp.selector]; /// UIPinchGestureRecognizer
-    [self gesture:self.deallocBy(_rotationGR) action:self.rotationGR_SelImp.selector]; /// UIRotationGestureRecognizer
-    [self gesture:self.deallocBy(_screenEdgePanGR)  action:self.screenEdgePanGR_SelImp.selector]; /// UIScreenEdgePanGestureRecognizer
-}
 /// Prop_assign()NSUInteger minimumNumberOfTouches API_UNAVAILABLE(tvos);
 PROP_NSUInteger(minimumNumberOfTouches, MinimumNumberOfTouches)
 /// Prop_assign()NSUInteger maximumNumberOfTouches API_UNAVAILABLE(tvos);
@@ -72,8 +52,9 @@ JobsKey(_longPressGR)
         @jobs_weakify(self)
         LongPressGR = jobsMakeLongPressGesture(^(__kindof UILongPressGestureRecognizer * _Nullable gesture) {
             @jobs_strongify(self)
-            gesture.delegate = self.weak_target;
-            gesture.target = self.weak_target;
+            gesture
+                .byDelegate(self.weak_target)
+                .byTarget(self.weak_target);
             if (self.minimumPressDuration)  gesture.minimumPressDuration = self.minimumPressDuration;// longPressGR最小长按时间,默认0.5
             if (self.numberOfTouchesRequired) gesture.numberOfTouchesRequired = self.numberOfTouchesRequired;// 设置手指字数,默认1
             if (self.allowableMovement) gesture.allowableMovement = self.allowableMovement;// 手势失败前允许的最大像素移动,默认10
@@ -98,8 +79,9 @@ JobsKey(_tapGR)
         @jobs_weakify(self)
         TapGR = jobsMakeTapGesture(^(__kindof UITapGestureRecognizer * _Nullable gesture) {
             @jobs_strongify(self)
-            gesture.delegate = self.weak_target;
-            gesture.target = self.weak_target;
+            gesture
+                .byDelegate(self.weak_target)
+                .byTarget(self.weak_target);
             if (self.numberOfTapsRequired) gesture.numberOfTapsRequired = self.numberOfTapsRequired;// 设置轻拍次数,默认0
             if (self.numberOfTouchesRequired) gesture.numberOfTouchesRequired = self.numberOfTouchesRequired;// 设置手指字数,默认1
             if (self.tapGR_SelImp.selector) gesture.addAction(self.tapGR_SelImp.selector);
@@ -122,10 +104,11 @@ JobsKey(_doubleTapGR)
         @jobs_weakify(self)
         DoubleTapGR = jobsMakeTapGesture(^(__kindof UITapGestureRecognizer * _Nullable gesture) {
             @jobs_strongify(self)
-            gesture.delegate = self.weak_target;
-            gesture.target = self.weak_target;
-            gesture.numberOfTapsRequired = 2; // 设置为双击
-            gesture.numberOfTouchesRequired = self.numberOfTouchesRequired ? self.numberOfTouchesRequired : 1; // 设置手指字数, 默认1
+            gesture
+                .byNumberOfTapsRequired(2)
+                .byNumberOfTouchesRequired(self.numberOfTouchesRequired ? self.numberOfTouchesRequired : 1)
+                .byDelegate(self.weak_target)
+                .byTarget(self.weak_target);
             if (self.doubleTapGR_SelImp.selector) gesture.addAction(self.doubleTapGR_SelImp.selector);
             self.addGesture(gesture);
             [self setDoubleTapGR:gesture];
@@ -146,10 +129,11 @@ JobsKey(_swipeGR)
         @jobs_weakify(self)
         SwipeGR = jobsMakeSwipeGesture(^(__kindof UISwipeGestureRecognizer * _Nullable gesture) {
             @jobs_strongify(self)
-            gesture.delegate = self.weak_target;
-            gesture.target = self.weak_target;
-            gesture.direction = self.swipeGRDirection;// 清扫方向。如果多组可以用|来进行,默认UISwipeGestureRecognizerDirectionRight
-            gesture.numberOfTouchesRequired = self.numberOfTouchesRequired;// 设置手指字数,默认1
+            gesture
+                .byDirection(self.swipeGRDirection)
+                .byNumberOfTouchesRequired(self.numberOfTouchesRequired)
+                .byDelegate(self.weak_target)
+                .byTarget(self.weak_target);
             if (self.swipeGR_SelImp.selector) gesture.addAction(self.swipeGR_SelImp.selector);
             self.addGesture(gesture);
             [self setSwipeGR:gesture];
@@ -170,9 +154,10 @@ JobsKey(_panGR)
         @jobs_weakify(self)
         PanGR = jobsMakePanGesture(^(__kindof UIPanGestureRecognizer * _Nullable gesture) {
             @jobs_strongify(self)
-            gesture.delegate = self.weak_target;
-            gesture.target = self.weak_target;
-            gesture.minimumNumberOfTouches = self.minimumNumberOfTouches;
+            gesture
+                .byMinimumNumberOfTouches(self.minimumNumberOfTouches)
+                .byDelegate(self.weak_target)
+                .byTarget(self.weak_target);
             if (@available(iOS 13.4, *)) gesture.allowedScrollTypesMask = self.allowedScrollTypesMask;
             if (self.panGR_SelImp.selector) gesture.addAction(self.panGR_SelImp.selector);
             self.addGesture(gesture);
@@ -194,9 +179,10 @@ JobsKey(_pinchGR)
         @jobs_weakify(self)
         PinchGR = jobsMakePinchGesture(^(__kindof UIPinchGestureRecognizer * _Nullable gesture) {
             @jobs_strongify(self)
-            gesture.delegate = self.weak_target;
-            gesture.target = self.weak_target;
-            gesture.scale = self.scale;
+            gesture
+                .byScale(self.scale)
+                .byDelegate(self.weak_target)
+                .byTarget(self.weak_target);
             if (self.pinchGR_SelImp.selector) gesture.addAction(self.pinchGR_SelImp.selector);
             self.addGesture(gesture);
             [self setPinchGR:gesture];
@@ -217,9 +203,10 @@ JobsKey(_rotationGR)
         @jobs_weakify(self)
         RotationGR = jobsMakeRotationGesture(^(__kindof UIRotationGestureRecognizer * _Nullable gesture) {
             @jobs_strongify(self)
-            gesture.delegate = self.weak_target;
-            gesture.target = self.weak_target;
-            gesture.rotation = self.rotate;
+            gesture
+                .byRotation(self.rotate)
+                .byDelegate(self.weak_target)
+                .byTarget(self.weak_target);
             if (self.rotationGR_SelImp.selector) gesture.addAction(self.rotationGR_SelImp.selector);
             self.addGesture(gesture);
             [self setRotationGR:gesture];
@@ -240,8 +227,9 @@ JobsKey(_screenEdgePanGR)
         @jobs_weakify(self)
         ScreenEdgePanGR = jobsMakeScreenEdgePanGestureRecognizer(^(__kindof UIScreenEdgePanGestureRecognizer * _Nullable gesture) {
             @jobs_strongify(self)
-            gesture.delegate = self.weak_target;
-            gesture.target = self.weak_target;
+            gesture
+                .byDelegate(self.weak_target)
+                .byTarget(self.weak_target);
             if (self.screenEdgePanGR_SelImp.selector) gesture.addAction(self.screenEdgePanGR_SelImp.selector);
             self.addGesture(gesture);
             [self setScreenEdgePanGR:gesture];

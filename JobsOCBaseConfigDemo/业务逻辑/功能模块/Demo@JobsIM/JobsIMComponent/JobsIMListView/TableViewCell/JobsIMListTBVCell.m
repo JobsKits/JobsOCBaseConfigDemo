@@ -23,9 +23,42 @@ Prop_copy()NSString *timeStr;
 Prop_strong()UIImage *userHeaderIMG;
 Prop_copy()NSString *userHeaderURLStr;
 
+-(JobsRetJobsIMListTBVCellByStrBlock _Nonnull)byUsernameStr;
+-(JobsRetJobsIMListTBVCellByStrBlock _Nonnull)byContentStr;
+-(JobsRetJobsIMListTBVCellByStrBlock _Nonnull)byTimeStr;
+-(JobsRetJobsIMListTBVCellByImageBlock _Nonnull)byUserHeaderIMG;
+-(JobsRetJobsIMListTBVCellByStrBlock _Nonnull)byUserHeaderURLStr;
+
 @end
 
 @implementation JobsIMListTBVCell
+
+#define JobsIMListTBVCellStrSetter(_method_, _setter_) \
+-(JobsRetJobsIMListTBVCellByStrBlock _Nonnull)_method_{ \
+    @jobs_weakify(self) \
+    return ^__kindof JobsIMListTBVCell *_Nullable(NSString *_Nullable string){ \
+        @jobs_strongify(self) \
+        if (!self) return nil; \
+        [self _setter_:string]; \
+        return self; \
+    }; \
+}
+
+JobsIMListTBVCellStrSetter(byUsernameStr, setUsernameStr)
+JobsIMListTBVCellStrSetter(byContentStr, setContentStr)
+JobsIMListTBVCellStrSetter(byTimeStr, setTimeStr)
+JobsIMListTBVCellStrSetter(byUserHeaderURLStr, setUserHeaderURLStr)
+
+-(JobsRetJobsIMListTBVCellByImageBlock _Nonnull)byUserHeaderIMG{
+    @jobs_weakify(self)
+    return ^__kindof JobsIMListTBVCell *_Nullable(UIImage *_Nullable image){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setUserHeaderIMG:image];
+        return self;
+    };
+}
+
 UITextFieldProtocol_synthesize_part2
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
@@ -46,7 +79,7 @@ UITextFieldProtocol_synthesize_part2
              reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]) {
-        self.longPG.byEnabled(YES);
+        if (self.longPG) self.longPG.byEnabled(YES);
         self.swipeBackgroundColor = JobsClearColor;
         self.bySelectedBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
             view.byBgColor(JobsTertiarySystemBackgroundColor);
@@ -57,8 +90,8 @@ UITextFieldProtocol_synthesize_part2
         self.leftExpansion.fillOnTrigger = NO;
         self.rightExpansion.buttonIndex = 0;
         self.rightExpansion.fillOnTrigger = YES;
-        self.leftButtons = [self createLeftButtons];
-        self.rightButtons = [self createRightButtons];
+        self.leftButtons = self.createLeftButtons();
+        self.rightButtons = self.createRightButtons();
         self.avatarIMGV.byAlpha(1);
         self.titleLab.byAlpha(1);
         self.messageLab.byAlpha(1);
@@ -79,17 +112,17 @@ UITextFieldProtocol_synthesize_part2
         @jobs_strongify(self)
         if ([model isKindOfClass:JobsIMListDataModel.class]) {
             JobsIMListDataModel *listDataModel = (JobsIMListDataModel *)model;
-            self.usernameStr = listDataModel.usernameStr;
-            self.contentStr = listDataModel.contentStr;
-            self.userHeaderIMG = listDataModel.userHeaderIMG;
-            self.userHeaderURLStr = listDataModel.userHeaderURLStr;
-            self.timeStr = listDataModel.timeStr;
+            self.byUsernameStr(listDataModel.usernameStr)
+                .byContentStr(listDataModel.contentStr)
+                .byUserHeaderIMG(listDataModel.userHeaderIMG)
+                .byUserHeaderURLStr(listDataModel.userHeaderURLStr)
+                .byTimeStr(listDataModel.timeStr);
         }else{
-            self.usernameStr = @"数据异常".tr;
-            self.contentStr = @"数据异常".tr;
-            self.userHeaderIMG = nil;
-            self.userHeaderURLStr = @"https://picsum.photos/126";
-            self.timeStr = @"数据异常".tr;
+            self.byUsernameStr(@"数据异常".jobsTr())
+                .byContentStr(@"数据异常".jobsTr())
+                .byUserHeaderIMG(nil)
+                .byUserHeaderURLStr(@"https://picsum.photos/126")
+                .byTimeStr(@"数据异常".jobsTr());
         }
         self.titleLab
             .byText(self.usernameStr)
@@ -103,9 +136,9 @@ UITextFieldProtocol_synthesize_part2
             self.avatarIMGV.byImage(self.userHeaderIMG);
         }else{
             self.avatarIMGV
-                .imageURL(self.userHeaderURLStr.jobsUrl)
+                .imageURL(self.userHeaderURLStr.jobsURL())
                 .placeholderImage(UIImage.animatedGIFByName(@"动态头像_1 尺寸126"))
-                .options(self.makeSDWebImageOptions)
+                .options(self.jobsMakeSDWebImageOptions())
                 .load();
         }
         self.timeLab
@@ -117,49 +150,79 @@ UITextFieldProtocol_synthesize_part2
 }
 
 -(void)prepareForReuse{
-    [super prepareForReuse];
-    self.avatarIMGV.byImage(nil);
-    self.titleLab.byText(nil);
-    self.messageLab.byText(nil);
-    self.timeLab.byText(nil);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsIMListTBVCell.class, @selector(jobsPrepareForReuse)))(self, @selector(jobsPrepareForReuse));
+    if (action) action();
 }
 
--(NSArray *)createLeftButtons{
+-(jobsByVoidBlock _Nonnull)jobsPrepareForReuse{
     @jobs_weakify(self)
-    return jobsMakeMutArr(^(__kindof NSMutableArray <MGSwipeButton *>*_Nullable arr) {
+    return ^{
         @jobs_strongify(self)
-        for (MGSwipeButtonModel *model in self.leftBtnMutArr) {
-            arr.add([MGSwipeButton buttonWithTitle:model.titleStr
-                                              icon:model.IconIMG
-                                   backgroundColor:model.bgCor
-                                           padding:15
-                                          callback:^BOOL(MGSwipeTableCell * sender){
-                JobsLog(@"Convenience callback received (left).");
-                return YES;
-            }]);
-        }
-    });
+        if (!self) return;
+        [super prepareForReuse];
+        self.avatarIMGV.byImage(nil);
+        self.titleLab.byText(nil);
+        self.messageLab.byText(nil);
+        self.timeLab.byText(nil);
+    };
 }
 
--(NSArray *)createRightButtons{
+-(JobsRetArrByVoidBlock _Nonnull)createLeftButtons{
     @jobs_weakify(self)
-    return jobsMakeMutArr(^(__kindof NSMutableArray <MGSwipeButton *>*_Nullable arr) {
+    return ^NSArray *{
         @jobs_strongify(self)
-        for (MGSwipeButtonModel *model in self.rightBtnMutArr) {
-            arr.add([MGSwipeButton buttonWithTitle:model.titleStr
-                                              icon:model.IconIMG
-                                   backgroundColor:model.bgCor
-                                           padding:15
-                                          callback:^BOOL(MGSwipeTableCell * sender){
-                JobsLog(@"Convenience callback received (left).");
-                return YES;
-            }]);
-        }
-    });
+        if (!self) return nil;
+        @jobs_weakify(self)
+        return jobsMakeMutArr(^(__kindof NSMutableArray <MGSwipeButton *>*_Nullable arr) {
+            @jobs_strongify(self)
+            for (MGSwipeButtonModel *model in self.leftBtnMutArr) {
+                arr.add([MGSwipeButton buttonWithTitle:model.titleStr
+                                                  icon:model.IconIMG
+                                       backgroundColor:model.bgCor
+                                               padding:15
+                                              callback:^BOOL(MGSwipeTableCell * sender){
+                    JobsLog(@"Convenience callback received (left).");
+                    return YES;
+                }]);
+            }
+        });
+    };
+}
+
+-(JobsRetArrByVoidBlock _Nonnull)createRightButtons{
+    @jobs_weakify(self)
+    return ^NSArray *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        @jobs_weakify(self)
+        return jobsMakeMutArr(^(__kindof NSMutableArray <MGSwipeButton *>*_Nullable arr) {
+            @jobs_strongify(self)
+            for (MGSwipeButtonModel *model in self.rightBtnMutArr) {
+                arr.add([MGSwipeButton buttonWithTitle:model.titleStr
+                                                  icon:model.IconIMG
+                                       backgroundColor:model.bgCor
+                                               padding:15
+                                              callback:^BOOL(MGSwipeTableCell * sender){
+                    JobsLog(@"Convenience callback received (left).");
+                    return YES;
+                }]);
+            }
+        });
+    };
 }
 
 -(BOOL)canBecomeFirstResponder{
-    return YES;
+    JobsRetBOOLByVoidBlock action = ((JobsRetBOOLByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsIMListTBVCell.class, @selector(jobsCanBecomeFirstResponder)))(self, @selector(jobsCanBecomeFirstResponder));
+    return action ? action() : (BOOL){0};
+}
+
+-(JobsRetBOOLByVoidBlock _Nonnull)jobsCanBecomeFirstResponder{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return YES;
+    };
 }
 #pragma mark —— lazyLoad
 -(UIImageView *)avatarIMGV{
@@ -263,14 +326,14 @@ UITextFieldProtocol_synthesize_part2
 
 -(UILongPressGestureRecognizer *)longPG{
     if (!_longPG) {
-        _longPG = [jobsMakeLongPressGesture(^(UILongPressGestureRecognizer * _Nullable gesture) {
+        _longPG = (jobsMakeLongPressGesture(^(UILongPressGestureRecognizer * _Nullable gesture) {
             /// 这里写手势的配置
-        }) GestureActionBy:^(__kindof UIGestureRecognizer * _Nullable gesture) {
+        })).GestureActionBy(^(__kindof UIGestureRecognizer * _Nullable gesture) {
             /// 这里写手势的触发
             if (gesture.state == UIGestureRecognizerStateBegan) {
                 JobsLog(@"长按手势做什么");
             }
-        }];self.addGesture(_longPG);
+        });self.addGesture(_longPG);
     };return _longPG;
 }
 
@@ -278,19 +341,19 @@ UITextFieldProtocol_synthesize_part2
     if (!_leftBtnMutArr) {
         _leftBtnMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
             arr.add(jobsMakeMGSwipeButtonModel(^(__kindof MGSwipeButtonModel * _Nullable model) {
-                model.titleStr = @"L1";
-                model.IconIMG = @"Check".img;
-                model.bgCor = JobsGreenColor;
-            }));
-            arr.add(jobsMakeMGSwipeButtonModel(^(__kindof MGSwipeButtonModel * _Nullable model) {
-                model.titleStr = @"L2";
-                model.IconIMG = @"Fav".img;
-                model.bgCor = RGBA_COLOR(0, 0x99, 0xcc, 1);
-            }));
-            arr.add(jobsMakeMGSwipeButtonModel(^(__kindof MGSwipeButtonModel * _Nullable model) {
-                model.titleStr = @"L3";
-                model.IconIMG = @"Menu".img;
-                model.bgCor = RGBA_COLOR(0.59, 0.29, 0.08, 1);
+                model.byTitleStr(@"L1")
+                    .byIconIMG(@"Check".img)
+                    .byBgCor(JobsGreenColor);
+            }))
+            .add(jobsMakeMGSwipeButtonModel(^(__kindof MGSwipeButtonModel * _Nullable model) {
+                model.byTitleStr(@"L2")
+                    .byIconIMG(@"Fav".img)
+                    .byBgCor(RGBA_COLOR(0, 0x99, 0xcc, 1));
+            }))
+            .add(jobsMakeMGSwipeButtonModel(^(__kindof MGSwipeButtonModel * _Nullable model) {
+                model.byTitleStr(@"L3")
+                    .byIconIMG(@"Menu".img)
+                    .byBgCor(RGBA_COLOR(0.59, 0.29, 0.08, 1));
             }));
         });
     };return _leftBtnMutArr;
@@ -300,19 +363,19 @@ UITextFieldProtocol_synthesize_part2
     if (!_rightBtnMutArr) {
         _rightBtnMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
             arr.add(jobsMakeMGSwipeButtonModel(^(__kindof MGSwipeButtonModel * _Nullable model) {
-                model.titleStr = @"Class";
-                model.IconIMG = @"Check".img;
-                model.bgCor = JobsPurpleColor;
-            }));
-            arr.add(jobsMakeMGSwipeButtonModel(^(__kindof MGSwipeButtonModel * _Nullable model) {
-                model.titleStr = @"R2";
-                model.IconIMG = @"Drop".img;
-                model.bgCor = JobsDarkTextColor;
-            }));
-            arr.add(jobsMakeMGSwipeButtonModel(^(__kindof MGSwipeButtonModel * _Nullable model) {
-                model.titleStr = @"R3";
-                model.IconIMG = @"Header".img;
-                model.bgCor = JobsCyanColor;
+                model.byTitleStr(@"Class")
+                    .byIconIMG(@"Check".img)
+                    .byBgCor(JobsPurpleColor);
+            }))
+            .add(jobsMakeMGSwipeButtonModel(^(__kindof MGSwipeButtonModel * _Nullable model) {
+                model.byTitleStr(@"R2")
+                    .byIconIMG(@"Drop".img)
+                    .byBgCor(JobsDarkTextColor);
+            }))
+            .add(jobsMakeMGSwipeButtonModel(^(__kindof MGSwipeButtonModel * _Nullable model) {
+                model.byTitleStr(@"R3")
+                    .byIconIMG(@"Header".img)
+                    .byBgCor(JobsCyanColor);
             }));
         });
     };return _rightBtnMutArr;

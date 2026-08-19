@@ -22,6 +22,7 @@
 #import "JobsLanMgr.h"
 #import "WHToastExtra.h"
 #import "JobsBlock.h"
+#import "JobsOCDSL.h"
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -50,7 +51,7 @@ Prop_strong()MFMailComposeViewController *mailComposeVC;
 #pragma mark —— 跳转系统设置
 /// 在iOS10更新后，跳转到系统设置的具体的子页面被禁用，只能跳转到系统设置根目录
 /// 但是苹果又更新了URLscheme，亲测不可用
--(void)jobsPushToSysConfig;
+-(jobsByVoidBlock _Nonnull)jobsPushToSysConfig;
 #pragma mark —— 安全打开URL
 /// 软性打开URL：【不会处理打开成功和打开失败两种情况】如果URL有误则无法打开
 /// 可以接受NSString * 和 URL *

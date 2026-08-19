@@ -6,6 +6,7 @@
 //
 
 #import "UIViewController+SuspendBtn.h"
+
 #import "UIButton+UI.h"
 #import "UIButton+SimplyMake.h"
 #import "NSObject+image.h"
@@ -21,8 +22,8 @@ JobsKey(_suspendBtn)
         SuspendBtn = self.view.addSubview(JobsSuspendBtn.initByNormalImage(@"旋转".img)
                                           .onClickBy(^(UIButton *x){
                                               @jobs_strongify(self)
-                                              x.selected = !x.selected;
-                                              JobsLog(@"%@",x.selected ? @"开始旋转".tr : @"停止旋转".tr);
+                                              x.bySelected(!x.selected);
+                                              JobsLog(@"%@",x.selected ? @"开始旋转".jobsTr() : @"停止旋转".jobsTr());
                                               x.旋转动画(x.selected);
                                               if (self.objBlock) self.objBlock(x);
                                           }).onLongPressGestureBy(^(id data){
@@ -33,8 +34,8 @@ JobsKey(_suspendBtn)
                                                               JobsMainScreen_HEIGHT() - JobsTabBarHeightByBottomSafeArea(nil) - JobsWidth(100),
                                                               JobsWidth(50),
                                                               JobsWidth(50))));
-        SuspendBtn.isAllowDrag = YES;/// 悬浮效果必须要的参数
-        self.view.vc = weak_self;
+        SuspendBtn.byAllowDrag(YES);
+        self.view.byVc(weak_self);
         Jobs_setAssociatedRETAIN_NONATOMIC(_suspendBtn, SuspendBtn)
     };return SuspendBtn;
 }

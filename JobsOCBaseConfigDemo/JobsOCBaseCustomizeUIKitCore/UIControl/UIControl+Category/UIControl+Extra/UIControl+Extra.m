@@ -41,13 +41,14 @@ static inline JobsControlTarget *_jobs_bind(UIControl *ctl,
         [map removeObjectForKey:@(singleEvent)];
     }
     JobsControlTarget *t = jobsMakeControlTarget(^(JobsControlTarget * _Nullable target) {
-        target.block = [block copy];
-        target.policy = policy;
-        target.interval = interval;
-        target.lastFire = 0;
-        target.debounceGen = 0;
-        target.boundControl = ctl;
-        target.event = singleEvent;
+        target
+            .byBlock([block copy])
+            .byPolicy(policy)
+            .byInterval(interval)
+            .byLastFire(0)
+            .byDebounceGen(0)
+            .byBoundControl(ctl)
+            .byEvent(singleEvent);
     });
     [ctl addTarget:t action:@selector(invoke:) forControlEvents:singleEvent];
     map[@(singleEvent)] = t;
@@ -86,53 +87,69 @@ static inline JobsControlTarget *_jobs_bind(UIControl *ctl,
     };return self;
 }
 /// 便捷：点击（.touchUpInside）
--(instancetype)jobs_onTap:(jobsByCtrlBlock _Nonnull)block{
-    return [self jobs_on:UIControlEventTouchUpInside block:block];
+-(JobsRetIDByjobsByCtrlBlockBlock _Nonnull)jobs_onTap{
+    @jobs_weakify(self)
+    return ^id(jobsByCtrlBlock _Nonnull block){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self jobs_on:UIControlEventTouchUpInside block:block];
+    };
 }
 /// 便捷：值变化（.valueChanged）
--(instancetype)jobs_onChange:(jobsByCtrlBlock _Nonnull)block{
-    return [self jobs_on:UIControlEventValueChanged block:block];
+-(JobsRetIDByjobsByCtrlBlockBlock _Nonnull)jobs_onChange{
+    @jobs_weakify(self)
+    return ^id(jobsByCtrlBlock _Nonnull block){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self jobs_on:UIControlEventValueChanged block:block];
+    };
 }
 /// 触发事件（等价于 sendActionsForControlEvents:）
--(void)jobs_fire:(UIControlEvents)events{
-    [self sendActionsForControlEvents:events];
+-(jobsByUIControlEventsBlock _Nonnull)jobs_fire{
+    @jobs_weakify(self)
+    return ^(UIControlEvents events){
+        @jobs_strongify(self)
+        if (!self) return;
+        [self sendActionsForControlEvents:events];
+    };
 }
 /// 移除指定事件的回调（支持复合事件位掩码）
--(void)jobs_removeHandlersFor:(UIControlEvents)events{
-    NSMutableDictionary *map = jobs_targetsMap(self, NO);
-    if (!map) return;
-    // AllEvents：直接针对该键移除
-    if (events == UIControlEventAllEvents) {
-        JobsControlTarget *t = map[@(UIControlEventAllEvents)];
-        if (t) {
-            [self removeTarget:t action:@selector(invoke:) forControlEvents:UIControlEventAllEvents];
-            [map removeObjectForKey:@(UIControlEventAllEvents)];
-        };return;
-    }
-    for (NSNumber *n in jobs_splitEvents(events)) {
-        UIControlEvents ev = n.unsignedIntegerValue;
-        JobsControlTarget *t = map[n];
-        if (t) {
-            [self removeTarget:t action:@selector(invoke:) forControlEvents:ev];
-            [map removeObjectForKey:n];
+-(jobsByUIControlEventsBlock _Nonnull)jobs_removeHandlersFor{
+    @jobs_weakify(self)
+    return ^(UIControlEvents events){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSMutableDictionary *map = jobs_targetsMap(self, NO);
+        if (!map) return;
+        // AllEvents：直接针对该键移除
+        if (events == UIControlEventAllEvents) {
+            JobsControlTarget *t = map[@(UIControlEventAllEvents)];
+            if (t) {
+                [self removeTarget:t action:@selector(invoke:) forControlEvents:UIControlEventAllEvents];
+                [map removeObjectForKey:@(UIControlEventAllEvents)];
+            };return;
         }
-    }
+        for (NSNumber *n in jobs_splitEvents(events)) {
+            UIControlEvents ev = n.unsignedIntegerValue;
+            JobsControlTarget *t = map[n];
+            if (t) {
+                [self removeTarget:t action:@selector(invoke:) forControlEvents:ev];
+                [map removeObjectForKey:n];
+            }
+        }
+    };
 }
 /// 移除全部回调
--(void)jobs_removeAllHandlers{
-    NSMutableDictionary *map = jobs_targetsMap(self, NO);
-    if (!map) return;
-    [map enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, JobsControlTarget *obj, BOOL *stop) {
-        [self removeTarget:obj action:@selector(invoke:) forControlEvents:key.unsignedIntegerValue];
-    }];[map removeAllObjects];
-}
-
--(JobsRetControlByBOOLBlock _Nonnull)byEnabled{
+-(jobsByVoidBlock _Nonnull)jobs_removeAllHandlers{
     @jobs_weakify(self)
-    return ^__kindof UIControl *_Nullable(BOOL data){
+    return ^{
         @jobs_strongify(self)
-        self.enabled = data;
-        return self;
+        if (!self) return;
+        NSMutableDictionary *map = jobs_targetsMap(self, NO);
+        if (!map) return;
+        [map enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, JobsControlTarget *obj, BOOL *stop) {
+            [self removeTarget:obj action:@selector(invoke:) forControlEvents:key.unsignedIntegerValue];
+        }];[map removeAllObjects];
     };
 }
 

@@ -9,6 +9,12 @@
 #define JobsOCVideoRecorderConfig_h
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <AVFoundation/AVFoundation.h>
 #import "JobsOCVideoRecorderFilterProtocol.h"
 #import "JobsDefines.h"
@@ -35,9 +41,12 @@ Prop_copy() AVFileType outputFileType;
 Prop_strong(nullable) id<JobsOCVideoRecorderFilterProtocol> filterProcessor;
 Prop_copy(nullable) JobsOCVideoRecorderCompletionBlock completionBlock;
 
-+(instancetype)defaultConfig;
--(NSString *)effectiveAlbumName;
++(JobsRetIDByVoidBlock _Nonnull)defaultConfig;
+-(JobsRetStrByVoidBlock _Nonnull)effectiveAlbumName;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCVideoRecorderConfig
+-(JobsRetJobsOCVideoRecorderConfigByIDJobsOCVideoRecorderFilterProtocolBlock _Nonnull)byFilterProcessor;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCVideoRecorderConfig
 @end
 
 NS_ASSUME_NONNULL_END

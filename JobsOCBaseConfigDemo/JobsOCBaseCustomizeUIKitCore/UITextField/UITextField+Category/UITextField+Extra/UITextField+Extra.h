@@ -6,6 +6,13 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UITEXTFIELD_EXTRA_C6F6D7346F
+
+#if __has_include(<ReactiveObjC/ReactiveObjC.h>)
+#import <ReactiveObjC/ReactiveObjC.h>
+#else
+#import "ReactiveObjC.h"
+#endif
+
 #define JOBS_HEADER_GUARD_UITEXTFIELD_EXTRA_C6F6D7346F
 
 #import <objc/runtime.h>
@@ -15,12 +22,6 @@
 #import "JobsString.h"
 #import "NSString+Check.h"
 #import "JobsOCDSL.h"
-
-#if __has_include(<ReactiveObjC/ReactiveObjC.h>)
-#import <ReactiveObjC/ReactiveObjC.h>
-#else
-#import "ReactiveObjC.h"
-#endif
 
 #import "JobsLanMgr.h"
 #import "JobsBlock.h"
@@ -56,11 +57,11 @@ NS_ASSUME_NONNULL_END
                      .byText(@"")
                      .byFont(pingFangHKRegular(JobsWidth(14)))
                      .byTextCor(JobsLabelColor)
-                     .byPlaceholder(@"ID Type".tr)
+                     .byPlaceholder(@"ID Type".jobsTr())
                      .byPlaceholderColor(JobsPlaceholderTextColor)
                      .byPlaceholderFont(pingFangHKRegular(JobsWidth(14)));
              })).setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-                 data.byLayerCor(@"#DEDEDE".cor)
+                 data.byLayerCor(@"#DEDEDE".jobsCor())
                      .byJobsWidth(1)
                      .byCornerRadiusValue(JobsWidth(32 / 2));
              })).setMasonryBy(^(MASConstraintMaker *_Nonnull make){

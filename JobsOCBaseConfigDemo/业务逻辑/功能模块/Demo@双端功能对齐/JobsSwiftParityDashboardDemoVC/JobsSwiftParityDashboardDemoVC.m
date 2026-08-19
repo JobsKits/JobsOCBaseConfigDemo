@@ -15,32 +15,62 @@ Prop_strong()UIProgressView *dashboardProgressView;
 
 @implementation JobsSwiftParityDashboardDemoVC
 
--(NSString *)demoNavigationTitle{
-    return @"仪表盘";
+-(JobsRetStrByVoidBlock _Nonnull)demoNavigationTitle{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"仪表盘";
+    };
 }
 
--(NSString *)demoDescription{
-    return @"随机生成仪表盘进度并同步更新数值与动画。";
+-(JobsRetStrByVoidBlock _Nonnull)demoDescription{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"随机生成仪表盘进度并同步更新数值与动画。";
+    };
 }
 
--(NSString *)demoIconName{
-    return @"speedometer";
+-(JobsRetStrByVoidBlock _Nonnull)demoIconName{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"speedometer";
+    };
 }
 
--(NSString *)primaryActionTitle{
-    return @"刷新仪表盘数据";
+-(JobsRetStrByVoidBlock _Nonnull)primaryActionTitle{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"刷新仪表盘数据";
+    };
 }
 
--(void)configureDemo{
-    self.dashboardProgressView.byHidden(NO);
+-(jobsByVoidBlock _Nonnull)configureDemo{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.dashboardProgressView.byHidden(NO);
+    };
 }
 
--(void)performPrimaryAction{
-    CGFloat progress = (CGFloat)arc4random_uniform(81) / 100.0 + 0.2;
-    self.previewImageView.byImage(@"speedometer".sys_img);
-    self.previewTitleLab.byText([NSString stringWithFormat:@"仪表盘：%.0f%%",progress * 100]);
-    self.dashboardProgressView.byProgressAnimated(progress,YES);
-    [self updateStatus:@"仪表盘数据已刷新"];
+-(jobsByVoidBlock _Nonnull)performPrimaryAction{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        CGFloat progress = (CGFloat)arc4random_uniform(81) / 100.0 + 0.2;
+        self.previewImageView.byImage(@"speedometer".sys_img);
+        self.previewTitleLab.byText([NSString stringWithFormat:@"仪表盘：%.0f%%",progress * 100]);
+        self.dashboardProgressView.byProgressAnimated(progress,YES);
+        self.updateStatus(@"仪表盘数据已刷新");
+    };
 }
 #pragma mark —— LazyLoad
 -(UIProgressView *)dashboardProgressView{

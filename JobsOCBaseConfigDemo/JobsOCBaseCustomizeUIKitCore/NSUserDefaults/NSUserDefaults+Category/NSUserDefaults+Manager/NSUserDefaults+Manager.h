@@ -6,17 +6,18 @@
 //
 
 #ifndef NSUserDefaults_Manager_h
-#define NSUserDefaults_Manager_h
-
-#import <Foundation/Foundation.h>
-#import "NSObject+Path.h"
-#import "NSString+Path.h"
 
 #if __has_include(<MJExtension/MJExtension.h>)
 #import <MJExtension/MJExtension.h>
 #else
 #import "MJExtension.h"
 #endif
+
+#define NSUserDefaults_Manager_h
+
+#import <Foundation/Foundation.h>
+#import "NSObject+Path.h"
+#import "NSString+Path.h"
 
 @class UserDefaultModel;
 

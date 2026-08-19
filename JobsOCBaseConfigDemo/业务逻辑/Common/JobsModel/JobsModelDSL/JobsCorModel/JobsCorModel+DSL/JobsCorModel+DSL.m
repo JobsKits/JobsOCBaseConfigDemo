@@ -39,7 +39,7 @@
     @jobs_weakify(self)
     return ^__kindof JobsCorModel *_Nullable(CGFloat data) {
         @jobs_strongify(self)
-        self.byAlpha(data);
+        self.alpha = data;
         return self;
     };
 }

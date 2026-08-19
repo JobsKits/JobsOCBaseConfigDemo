@@ -7,6 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCUILabelScrolling/JobsOCUILabelScrolling.h>)
 #import <JobsOCUILabelScrolling/JobsOCUILabelScrolling.h>
 #else
@@ -53,6 +59,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UILabelScrollingDemoVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN UILabelScrollingDemoVC
+-(JobsRetUILabelScrollingDemoVCByBOOLBlock _Nonnull)byUsesAlternativeCopy;
+-(JobsRetUILabelScrollingDemoVCByNSArrayUIButtonBlock _Nonnull)byControlButtons;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UILabelScrollingDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

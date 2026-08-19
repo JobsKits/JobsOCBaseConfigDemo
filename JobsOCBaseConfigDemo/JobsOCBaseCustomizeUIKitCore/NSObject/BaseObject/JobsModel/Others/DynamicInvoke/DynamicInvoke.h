@@ -25,46 +25,46 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface DynamicInvoke : NSObject
 #pragma mark —— 实例方法（不带返回值）
--(void)test1;
--(void)test2;
--(void)test3:(NSString *)str1;
+-(jobsByVoidBlock _Nonnull)test1;
+-(jobsByVoidBlock _Nonnull)test2;
+-(jobsByStrBlock _Nonnull)test3;
 -(void)test4:(NSString *)str1 str2:(NSString *)str2;
 -(void)test5:(NSString *)str1 str2:(NSString *)str2 str3:(NSString *)str3;
 -(void)test6:(NSString *)str1 str2:(NSString *)str2 str3:(NSString *)str3 str4:(NSString *)str4;
--(void)test7:(jobsByIDBlock)block1;
+-(jobsByjobsByIDBlockBlock _Nonnull)test7;
 -(void)test8:(jobsByIDBlock)block1 block2:(jobsByIDBlock)block2;
 -(void)test9:(jobsByIDBlock)block1 block2:(jobsByIDBlock)block2 block3:(jobsByIDBlock)block3;
 -(void)test10:(jobsByIDBlock)block1 block2:(jobsByIDBlock)block2 block3:(jobsByIDBlock)block3 block4:(jobsByIDBlock)block4;
 #pragma mark —— 实例方法（带返回值）
--(NSString *)test11;
--(NSString *)test12;
--(NSString *)test13:(NSString *)str1;
+-(JobsRetStrByVoidBlock _Nonnull)test11;
+-(JobsRetStrByVoidBlock _Nonnull)test12;
+-(JobsRetStrByStrBlock _Nonnull)test13;
 -(NSString *)test14:(NSString *)str1 str2:(NSString *)str2;
 -(NSString *)test15:(NSString *)str1 str2:(NSString *)str2 str3:(NSString *)str3;
 -(NSString *)test16:(NSString *)str1 str2:(NSString *)str2 str3:(NSString *)str3 str4:(NSString *)str4;
--(NSString *)test17:(jobsByIDBlock)block1;
+-(JobsRetNSStringByjobsByIDBlockBlock _Nonnull)test17;
 -(NSString *)test18:(jobsByIDBlock)block1 block2:(jobsByIDBlock)block2;
 -(NSString *)test19:(jobsByIDBlock)block1 block2:(jobsByIDBlock)block2 block3:(jobsByIDBlock)block3;
 -(NSString *)test20:(jobsByIDBlock)block1 block2:(jobsByIDBlock)block2 block3:(jobsByIDBlock)block3 block4:(jobsByIDBlock)block4;
 #pragma mark —— 类方法（不带返回值）
-+(void)Test1;
-+(void)Test2;
-+(void)Test3:(NSString *)str1;
++(jobsByVoidBlock _Nonnull)Test1;
++(jobsByVoidBlock _Nonnull)Test2;
++(jobsByStrBlock _Nonnull)Test3;
 +(void)Test4:(NSString *)str1 str2:(NSString *)str2;
 +(void)Test5:(NSString *)str1 str2:(NSString *)str2 str3:(NSString *)str3;
 +(void)Test6:(NSString *)str1 str2:(NSString *)str2 str3:(NSString *)str3 str4:(NSString *)str4;
-+(void)Test7:(jobsByIDBlock)block1;
++(jobsByjobsByIDBlockBlock _Nonnull)Test7;
 +(void)Test8:(jobsByIDBlock)block1 block2:(jobsByIDBlock)block2;
 +(void)Test9:(jobsByIDBlock)block1 block2:(jobsByIDBlock)block2 block3:(jobsByIDBlock)block3;
 +(void)Test10:(jobsByIDBlock)block1 block2:(jobsByIDBlock)block2 block3:(jobsByIDBlock)block3 block4:(jobsByIDBlock)block4;
 #pragma mark —— 类方法（带返回值）
-+(NSString *)Test11;
-+(NSString *)Test12;
-+(NSString *)Test13:(NSString *)str1;
++(JobsRetStrByVoidBlock _Nonnull)Test11;
++(JobsRetStrByVoidBlock _Nonnull)Test12;
++(JobsRetStrByStrBlock _Nonnull)Test13;
 +(NSString *)Test14:(NSString *)str1 str2:(NSString *)str2;
 +(NSString *)Test15:(NSString *)str1 str2:(NSString *)str2 str3:(NSString *)str3;
 +(NSString *)Test16:(NSString *)str1 str2:(NSString *)str2 str3:(NSString *)str3 str4:(NSString *)str4;
-+(NSString *)Test17:(jobsByIDBlock)block1;
++(JobsRetNSStringByjobsByIDBlockBlock _Nonnull)Test17;
 +(NSString *)Test18:(jobsByIDBlock)block1 block2:(jobsByIDBlock)block2;
 +(NSString *)Test19:(jobsByIDBlock)block1 block2:(jobsByIDBlock)block2 block3:(jobsByIDBlock)block3;
 +(NSString *)Test20:(jobsByIDBlock)block1 block2:(jobsByIDBlock)block2 block3:(jobsByIDBlock)block3 block4:(jobsByIDBlock)block4;

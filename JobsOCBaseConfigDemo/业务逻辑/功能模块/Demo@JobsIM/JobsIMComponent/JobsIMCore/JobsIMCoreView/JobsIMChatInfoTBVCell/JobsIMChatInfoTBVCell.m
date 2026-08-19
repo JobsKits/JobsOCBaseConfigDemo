@@ -39,23 +39,46 @@ Prop_copy()NSString *senderChatTextTimeStr;/// 该聊天的时间戳
 Prop_copy()NSString *senderUserNameStr;/// 用户名
 Prop_strong()UIImage *senderChatUserIconIMG;/// 该聊天的用户头像
 Prop_copy()NSString *identification;/// 该聊天对应的数据库坐标ID
+-(JobsRetJobsIMChatInfoTBVCellByStrBlock _Nonnull)byIdentification;
 Prop_assign()CGFloat contentHeight;/// 内容高
+-(JobsRetJobsIMChatInfoTBVCellByCGFloatBlock _Nonnull)byContentHeight;
 Prop_assign()CGFloat contentWidth;/// 内容宽
 Prop_assign()InfoLocation infoLocation;
 Prop_strong()NSMutableArray <MGSwipeButtonModel *>*leftBtnMutArr;
 Prop_strong()NSMutableArray <MGSwipeButtonModel *>*rightBtnMutArr;
 
--(void)jobs_remakeMessageConstraints;
+-(jobsByVoidBlock _Nonnull)jobs_remakeMessageConstraints;
 
 @end
 
 @implementation JobsIMChatInfoTBVCell
+
+-(JobsRetJobsIMChatInfoTBVCellByStrBlock _Nonnull)byIdentification{
+    @jobs_weakify(self)
+    return ^__kindof JobsIMChatInfoTBVCell *_Nullable(NSString *_Nullable data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.identification = data;
+        return self;
+    };
+}
+
+-(JobsRetJobsIMChatInfoTBVCellByCGFloatBlock _Nonnull)byContentHeight{
+    @jobs_weakify(self)
+    return ^__kindof JobsIMChatInfoTBVCell *_Nullable(CGFloat value){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setContentHeight:value];
+        return self;
+    };
+}
+
 UITextFieldProtocol_synthesize_part2
 -(instancetype)initWithStyle:(UITableViewCellStyle)style
              reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]) {
-        self.longPG.byEnabled(YES);
+        if (self.longPG) self.longPG.byEnabled(YES);
         self.swipeBackgroundColor = JobsClearColor;
         self.byContentView(^(__kindof UIView * _Nullable view) {
             view.byBgColor(JobsSystemBackgroundColor);
@@ -69,8 +92,8 @@ UITextFieldProtocol_synthesize_part2
         self.leftExpansion.fillOnTrigger = NO;
         self.rightExpansion.buttonIndex = 0;
         self.rightExpansion.fillOnTrigger = YES;
-        self.leftButtons = self.createLeftButtons;
-        self.rightButtons = self.createRightButtons;
+        self.leftButtons = self.createLeftButtons();
+        self.rightButtons = self.createRightButtons();
     };return self;
 }
 #pragma mark —— BaseCellProtocol
@@ -106,9 +129,9 @@ UITextFieldProtocol_synthesize_part2
                 self.infoLocation = InfoLocation_Left;
             }else if (chatInfoModel.chatInfoDirection == JobsIMChatInfoDirection_Receive){/// 自己发的消息
                 self.infoLocation = InfoLocation_Right;
-            }else if (chatInfoModel.identification.isEqualToString(@"我是服务器".tr)) {/// 兼容历史静态数据
+            }else if (chatInfoModel.identification.isEqualToString(@"我是服务器".jobsTr())) {/// 兼容历史静态数据
                 self.infoLocation = InfoLocation_Left;
-            }else if (chatInfoModel.identification.isEqualToString(@"我是我自己".tr)){/// 兼容历史静态数据
+            }else if (chatInfoModel.identification.isEqualToString(@"我是我自己".jobsTr())){/// 兼容历史静态数据
                 self.infoLocation = InfoLocation_Right;
             }else{
                 self.infoLocation = InfoLocation_Unknown;
@@ -117,16 +140,16 @@ UITextFieldProtocol_synthesize_part2
             self.senderChatTextTimeStr = chatInfoModel.chatTextTimeStr;
             self.senderChatUserIconIMG = chatInfoModel.userIconIMG;
             self.senderUserNameStr = chatInfoModel.userNameStr;
-            self.identification = chatInfoModel.identification;
+            self.byIdentification(chatInfoModel.identification);
             CGSize textSize = JobsIMChatMessageTextSize(self.senderChatTextStr);
             self.contentWidth = MIN(JobsIMChatInfoTBVChatContentLabWidth(),
                                     MAX(JobsIMChatInfoTBVChatContentLabDefaultWidth(),
                                         ceil(textSize.width) + JobsWidth(10)));
-            self.contentHeight = JobsIMChatBubbleHeight(self.senderChatTextStr);
+            self.byContentHeight(JobsIMChatBubbleHeight(self.senderChatTextStr));
             self.iconIMGV
-                    .imageURL(chatInfoModel.userIconURLStr.jobsUrl)
+                    .imageURL(chatInfoModel.userIconURLStr.jobsURL())
                     .placeholderImage(chatInfoModel.userIconIMG)
-                    .options(self.makeSDWebImageOptions)
+                    .options(self.jobsMakeSDWebImageOptions())
                     .completed(^(UIImage * _Nullable image,
                                  NSError * _Nullable error,
                                  SDImageCacheType cacheType,
@@ -154,7 +177,7 @@ UITextFieldProtocol_synthesize_part2
                 .byTextCor(JobsLabelColor)
                 .byBgColor(JobsTertiarySystemBackgroundColor)
                 .byAlpha(1);
-            [self jobs_remakeMessageConstraints];
+            self.jobs_remakeMessageConstraints();
         };return self;
     };
 }
@@ -168,21 +191,26 @@ UITextFieldProtocol_synthesize_part2
     };
 }
 #pragma mark —— 一些私有化方法
--(NSArray *)createLeftButtons{
+-(JobsRetArrByVoidBlock _Nonnull)createLeftButtons{
     @jobs_weakify(self)
-    return jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
+    return ^NSArray *{
         @jobs_strongify(self)
-        for (MGSwipeButtonModel *model in self.leftBtnMutArr) {
-            arr.add([MGSwipeButton buttonWithTitle:model.titleStr
-                                              icon:model.IconIMG
-                                   backgroundColor:model.bgCor
-                                           padding:15
-                                          callback:^BOOL(MGSwipeTableCell * sender){
-                JobsLog(@"Convenience callback received (left).");
-                return YES;
-            }]);
-        }
-    });;
+        if (!self) return nil;
+        @jobs_weakify(self)
+        return jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
+            @jobs_strongify(self)
+            for (MGSwipeButtonModel *model in self.leftBtnMutArr) {
+                arr.add([MGSwipeButton buttonWithTitle:model.titleStr
+                                                  icon:model.IconIMG
+                                       backgroundColor:model.bgCor
+                                               padding:15
+                                              callback:^BOOL(MGSwipeTableCell * sender){
+                    JobsLog(@"Convenience callback received (left).");
+                    return YES;
+                }]);
+            }
+        });;
+    };
 }
 
 -(JobsRetMGSwipeTableCellByBOOLBlock _Nonnull)byAllowsMultipleSwipe{
@@ -204,97 +232,107 @@ UITextFieldProtocol_synthesize_part2
     };
 }
 
--(void)jobs_remakeMessageConstraints{
-    [self.iconIMGV mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(JobsIMChatInfoTBVDefaultCellHeight() - 5,
-                                         JobsIMChatInfoTBVDefaultCellHeight() - 5));
-        make.top.equalTo(self.contentView).offset(5);
-        switch (self.infoLocation) {
-            /// 对方消息头像靠左
-            case InfoLocation_Left:
-                make.left.equalTo(self.contentView).offset(10);
-                break;
-            /// 自己消息头像靠右
-            case InfoLocation_Right:
-                make.right.equalTo(self.contentView).offset(-10);
-                break;
-            /// 未知消息方向按左侧展示
-            default:
-                make.left.equalTo(self.contentView).offset(10);
-                break;
-        }
-    }];
-    [self.chatUserNameLab mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.iconIMGV);
-        make.bottom.equalTo(self.iconIMGV.mas_centerY).offset(-3);
-        switch (self.infoLocation) {
-            /// 对方名称显示在头像右侧
-            case InfoLocation_Left:
-                make.left.equalTo(self.iconIMGV.mas_right).offset(5);
-                break;
-            /// 自己名称显示在头像左侧
-            case InfoLocation_Right:
-                make.right.equalTo(self.iconIMGV.mas_left).offset(-5);
-                break;
-            /// 未知消息方向按左侧展示
-            default:
-                make.left.equalTo(self.iconIMGV.mas_right).offset(5);
-                break;
-        }
-    }];
-    [self.chatBubbleIMGV mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.iconIMGV.mas_centerY);
-        make.size.mas_equalTo(CGSizeMake(self.contentWidth, self.contentHeight));
-        switch (self.infoLocation) {
-            /// 对方气泡显示在头像右侧
-            case InfoLocation_Left:
-                make.left.equalTo(self.iconIMGV.mas_right).offset(5);
-                break;
-            /// 自己气泡显示在头像左侧
-            case InfoLocation_Right:
-                make.right.equalTo(self.iconIMGV.mas_left).offset(-5);
-                break;
-            /// 未知消息方向按左侧展示
-            default:
-                make.left.equalTo(self.iconIMGV.mas_right).offset(5);
-                break;
-        }
-    }];
-    [self.timeLab mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.chatBubbleIMGV);
-        make.size.mas_equalTo(CGSizeMake(JobsIMChatInfoTimeLabWidth(), 20));
-        switch (self.infoLocation) {
-            /// 对方消息时间显示在气泡右侧
-            case InfoLocation_Left:
-                make.left.equalTo(self.chatBubbleIMGV.mas_right).offset(5);
-                break;
-            /// 自己消息时间显示在气泡左侧
-            case InfoLocation_Right:
-                make.right.equalTo(self.chatBubbleIMGV.mas_left).offset(-5);
-                break;
-            /// 未知消息方向按左侧展示
-            default:
-                make.left.equalTo(self.chatBubbleIMGV.mas_right).offset(5);
-                break;
-        }
-    }];
+-(jobsByVoidBlock _Nonnull)jobs_remakeMessageConstraints{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self.iconIMGV mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(JobsIMChatInfoTBVDefaultCellHeight() - 5,
+                                             JobsIMChatInfoTBVDefaultCellHeight() - 5));
+            make.top.equalTo(self.contentView).offset(5);
+            switch (self.infoLocation) {
+                /// 对方消息头像靠左
+                case InfoLocation_Left:
+                    make.left.equalTo(self.contentView).offset(10);
+                    break;
+                /// 自己消息头像靠右
+                case InfoLocation_Right:
+                    make.right.equalTo(self.contentView).offset(-10);
+                    break;
+                /// 未知消息方向按左侧展示
+                default:
+                    make.left.equalTo(self.contentView).offset(10);
+                    break;
+            }
+        }];
+        [self.chatUserNameLab mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.iconIMGV);
+            make.bottom.equalTo(self.iconIMGV.mas_centerY).offset(-3);
+            switch (self.infoLocation) {
+                /// 对方名称显示在头像右侧
+                case InfoLocation_Left:
+                    make.left.equalTo(self.iconIMGV.mas_right).offset(5);
+                    break;
+                /// 自己名称显示在头像左侧
+                case InfoLocation_Right:
+                    make.right.equalTo(self.iconIMGV.mas_left).offset(-5);
+                    break;
+                /// 未知消息方向按左侧展示
+                default:
+                    make.left.equalTo(self.iconIMGV.mas_right).offset(5);
+                    break;
+            }
+        }];
+        [self.chatBubbleIMGV mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.iconIMGV.mas_centerY);
+            make.size.mas_equalTo(CGSizeMake(self.contentWidth, self.contentHeight));
+            switch (self.infoLocation) {
+                /// 对方气泡显示在头像右侧
+                case InfoLocation_Left:
+                    make.left.equalTo(self.iconIMGV.mas_right).offset(5);
+                    break;
+                /// 自己气泡显示在头像左侧
+                case InfoLocation_Right:
+                    make.right.equalTo(self.iconIMGV.mas_left).offset(-5);
+                    break;
+                /// 未知消息方向按左侧展示
+                default:
+                    make.left.equalTo(self.iconIMGV.mas_right).offset(5);
+                    break;
+            }
+        }];
+        [self.timeLab mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.chatBubbleIMGV);
+            make.size.mas_equalTo(CGSizeMake(JobsIMChatInfoTimeLabWidth(), 20));
+            switch (self.infoLocation) {
+                /// 对方消息时间显示在气泡右侧
+                case InfoLocation_Left:
+                    make.left.equalTo(self.chatBubbleIMGV.mas_right).offset(5);
+                    break;
+                /// 自己消息时间显示在气泡左侧
+                case InfoLocation_Right:
+                    make.right.equalTo(self.chatBubbleIMGV.mas_left).offset(-5);
+                    break;
+                /// 未知消息方向按左侧展示
+                default:
+                    make.left.equalTo(self.chatBubbleIMGV.mas_right).offset(5);
+                    break;
+            }
+        }];
+    };
 }
 
--(NSArray *)createRightButtons{
+-(JobsRetArrByVoidBlock _Nonnull)createRightButtons{
     @jobs_weakify(self)
-    return jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
+    return ^NSArray *{
         @jobs_strongify(self)
-        for (MGSwipeButtonModel *model in self.rightBtnMutArr) {
-            arr.add([MGSwipeButton buttonWithTitle:model.titleStr
-                                              icon:model.IconIMG
-                                   backgroundColor:model.bgCor
-                                           padding:15
-                                          callback:^BOOL(MGSwipeTableCell * sender){
-                JobsLog(@"Convenience callback received (left).");
-                return YES;
-            }]);
-        }
-    });;
+        if (!self) return nil;
+        @jobs_weakify(self)
+        return jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
+            @jobs_strongify(self)
+            for (MGSwipeButtonModel *model in self.rightBtnMutArr) {
+                arr.add([MGSwipeButton buttonWithTitle:model.titleStr
+                                                  icon:model.IconIMG
+                                       backgroundColor:model.bgCor
+                                               padding:15
+                                              callback:^BOOL(MGSwipeTableCell * sender){
+                    JobsLog(@"Convenience callback received (left).");
+                    return YES;
+                }]);
+            }
+        });;
+    };
 }
 /// 我只支持“删除”和“置顶”这两个菜单事件。
 /// 其他菜单，比如 copy、paste、select，全都不要显示。
@@ -304,7 +342,17 @@ UITextFieldProtocol_synthesize_part2
 }
 
 -(BOOL)canBecomeFirstResponder{
-    return YES;
+    JobsRetBOOLByVoidBlock action = ((JobsRetBOOLByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsIMChatInfoTBVCell.class, @selector(jobsCanBecomeFirstResponder)))(self, @selector(jobsCanBecomeFirstResponder));
+    return action ? action() : (BOOL){0};
+}
+
+-(JobsRetBOOLByVoidBlock _Nonnull)jobsCanBecomeFirstResponder{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return YES;
+    };
 }
 #pragma mark —— lazyLoad
 -(UIImageView *)iconIMGV{
@@ -400,9 +448,9 @@ UITextFieldProtocol_synthesize_part2
 -(UILongPressGestureRecognizer *)longPG{
     if (!_longPG) {
         @jobs_weakify(self)
-        _longPG = [jobsMakeLongPressGesture(^(UILongPressGestureRecognizer * _Nullable gesture) {
+        _longPG = (jobsMakeLongPressGesture(^(UILongPressGestureRecognizer * _Nullable gesture) {
             /// 这里写手势的配置
-        }) GestureActionBy:^(__kindof UIGestureRecognizer * _Nullable gesture) {
+        })).GestureActionBy(^(__kindof UIGestureRecognizer * _Nullable gesture) {
             @jobs_strongify(self)
             if (gesture.state == UIGestureRecognizerStateBegan) {
                 JobsIMChatInfoTBVCell *cell = (JobsIMChatInfoTBVCell *)gesture.view;
@@ -426,7 +474,7 @@ UITextFieldProtocol_synthesize_part2
                 });
 #pragma clang diagnostic pop
             }
-        }];
+        });
         self.addGesture(_longPG);
     };return _longPG;
 }
@@ -436,12 +484,12 @@ UITextFieldProtocol_synthesize_part2
         @jobs_weakify(self)
         _menuItemMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <UIMenuItem *>* _Nullable arr) {
             arr
-                .add(UIMenuItem.byTitle(@"置顶".tr)
+                .add(UIMenuItem.byTitle(@"置顶".jobsTr())
                      .byActionBlock(^(__kindof UIMenuItem * _Nullable menuItem) {
                          @jobs_strongify(self)
                          JobsLog(@"置顶");
                      }))
-                .add(UIMenuItem.byTitle(@"删除".tr)
+                .add(UIMenuItem.byTitle(@"删除".jobsTr())
                      .byActionBlock(^(__kindof UIMenuItem * _Nullable menuItem) {
                          @jobs_strongify(self)
                          JobsLog(@"删除");
@@ -454,19 +502,19 @@ UITextFieldProtocol_synthesize_part2
     if (!_leftBtnMutArr) {
         _leftBtnMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
             arr.add(jobsMakeMGSwipeButtonModel(^(__kindof MGSwipeButtonModel * _Nullable model) {
-                model.titleStr = @"L1".tr;
-                model.IconIMG = @"Check".img;
-                model.bgCor = JobsGreenColor;
+                model.byTitleStr(@"L1".jobsTr())
+                    .byIconIMG(@"Check".img)
+                    .byBgCor(JobsGreenColor);
             }))
             .add(jobsMakeMGSwipeButtonModel(^(__kindof MGSwipeButtonModel * _Nullable model) {
-                model.titleStr = @"L2".tr;
-                model.IconIMG = @"Fav".img;
-                model.bgCor = RGBA_COLOR(0, 0x99, 0xcc, 1);
+                model.byTitleStr(@"L2".jobsTr())
+                    .byIconIMG(@"Fav".img)
+                    .byBgCor(RGBA_COLOR(0, 0x99, 0xcc, 1));
             }))
             .add(jobsMakeMGSwipeButtonModel(^(__kindof MGSwipeButtonModel * _Nullable model) {
-                model.titleStr = @"L3".tr;
-                model.IconIMG = @"Menu".img;
-                model.bgCor = RGBA_COLOR(0.59, 0.29, 0.08, 1);
+                model.byTitleStr(@"L3".jobsTr())
+                    .byIconIMG(@"Menu".img)
+                    .byBgCor(RGBA_COLOR(0.59, 0.29, 0.08, 1));
             }));
         });
     };return _leftBtnMutArr;
@@ -476,19 +524,19 @@ UITextFieldProtocol_synthesize_part2
     if (!_rightBtnMutArr) {
         _rightBtnMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable arr) {
             arr.add(jobsMakeMGSwipeButtonModel(^(__kindof MGSwipeButtonModel * _Nullable model) {
-                model.titleStr = @"R1";
-                model.IconIMG = @"Class".img;
-                model.bgCor = JobsPurpleColor;
+                model.byTitleStr(@"R1")
+                    .byIconIMG(@"Class".img)
+                    .byBgCor(JobsPurpleColor);
             }))
             .add(jobsMakeMGSwipeButtonModel(^(__kindof MGSwipeButtonModel * _Nullable model) {
-                model.titleStr = @"R2";
-                model.IconIMG = @"Drop".img;
-                model.bgCor = JobsDarkTextColor;
+                model.byTitleStr(@"R2")
+                    .byIconIMG(@"Drop".img)
+                    .byBgCor(JobsDarkTextColor);
             }))
             .add(jobsMakeMGSwipeButtonModel(^(__kindof MGSwipeButtonModel * _Nullable model) {
-                model.titleStr = @"R3";
-                model.IconIMG = @"Header".img;
-                model.bgCor = JobsCyanColor;
+                model.byTitleStr(@"R3")
+                    .byIconIMG(@"Header".img)
+                    .byBgCor(JobsCyanColor);
             }));
         });
     };return _rightBtnMutArr;

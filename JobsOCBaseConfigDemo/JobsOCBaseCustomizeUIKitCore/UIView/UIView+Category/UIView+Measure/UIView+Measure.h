@@ -13,6 +13,12 @@
 #import "JobsOCDSL.h"
 #import "JobsBlock.h"
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 /// JobsByOCPods 侧保留 UIView+Measure 作为历史兼容入口。
 ///

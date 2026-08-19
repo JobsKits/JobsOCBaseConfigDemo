@@ -6,6 +6,7 @@
 //
 
 #import "AppDelegate+UIApplicationDelegate.h"
+
 //#import "AppDelegate+UISceneSessionLifeCycle.h"
 
 @implementation AppDelegate (UIApplicationDelegate)
@@ -25,10 +26,11 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
         return YES;
     }
     // 👉 iOS 12 及以下，沿用原有逻辑创建 window
-    self.window = jobsMakeAppDelegateWindow(^(__kindof UIWindow * _Nullable window) {
-        window.rootViewController = RootViewController;
-        [window makeKeyAndVisible];
-    }); return YES;
+    self.jobsSetWindow(jobsMakeAppDelegateWindow(^(__kindof UIWindow * _Nullable window) {
+        window
+            .byRootViewController(RootViewController)
+            .byMakeKeyAndVisible();
+    })); return YES;
 }
 /// 一进入App就横屏 【此方法会执行多次】
 - (UIInterfaceOrientationMask)application:(UIApplication *)application
@@ -36,13 +38,23 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     return JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape ? JobsAppTool.currentInterfaceOrientationMask : UIInterfaceOrientationMaskPortrait;
 }
 /// 系统版本低于iOS13.0的设备
--(void)applicationDidEnterBackground:(UIApplication *)application{
-    JobsLog(@"---applicationDidEnterBackground----");// 进入后台
-    JobsPostNotification(退到后台停止播放ZFPlayer, nil);
+-(jobsByUIApplicationBlock _Nonnull)applicationDidEnterBackground{
+    @jobs_weakify(self)
+    return ^(UIApplication * application){
+        @jobs_strongify(self)
+        if (!self) return;
+        JobsLog(@"---applicationDidEnterBackground----");// 进入后台
+        JobsPostNotification(退到后台停止播放ZFPlayer, nil);
+    };
 }
 /// 系统版本低于iOS13.0的设备
--(void)applicationDidBecomeActive:(UIApplication *)application{
-    JobsLog(@"---applicationDidBecomeActive----");// 进入前台
+-(jobsByUIApplicationBlock _Nonnull)applicationDidBecomeActive{
+    @jobs_weakify(self)
+    return ^(UIApplication * application){
+        @jobs_strongify(self)
+        if (!self) return;
+        JobsLog(@"---applicationDidBecomeActive----");// 进入前台
+    };
 }
 
 - (void)application:(UIApplication *)application

@@ -6,7 +6,6 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JXCATEGORYBASEVIEW_EXTRA_8CBB208D74
-#define JOBS_HEADER_GUARD_JXCATEGORYBASEVIEW_EXTRA_8CBB208D74
 
 #if __has_include(<JXCategoryView/JXCategoryView.h>)
 #import <JXCategoryView/JXCategoryView.h>
@@ -14,7 +13,15 @@
 #import "JXCategoryView.h"
 #endif
 
+#define JOBS_HEADER_GUARD_JXCATEGORYBASEVIEW_EXTRA_8CBB208D74
+
 #import "JobsBlock.h"
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

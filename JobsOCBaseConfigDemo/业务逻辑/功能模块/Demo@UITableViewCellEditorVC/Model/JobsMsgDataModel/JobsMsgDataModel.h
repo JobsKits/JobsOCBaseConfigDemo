@@ -35,6 +35,13 @@ Prop_copy()NSString *timeText;
 Prop_assign()BOOL isDraw;// 是否已经被领取？
 Prop_assign()BOOL isRead;// 已读
 
+-(JobsRetJobsMsgDataModelByNSIntegerBlock _Nonnull)byMsgStyle;
+-(JobsRetJobsMsgDataModelByStrBlock _Nonnull)byTimeText;
+-(JobsRetJobsMsgDataModelByBOOLBlock _Nonnull)byIsDraw;
+
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsMsgDataModel
+-(JobsRetJobsMsgDataModelByBOOLBlock _Nonnull)byRead;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsMsgDataModel
 @end
 
 NS_ASSUME_NONNULL_END

@@ -7,13 +7,38 @@
 
 #import "FileFolderHandleTool.h"
 
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN PHFetchOptions
+@interface PHFetchOptions (JobsLocalPropertyDSLAutogen_dc4aef27d8)
+-(JobsRetPHFetchOptionsByNSArrayNSSortDescriptorBlock _Nonnull)bySortDescriptors;
+-(void)setSortDescriptors:(NSArray<NSSortDescriptor *> * _Nullable)data;
+@end
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END PHFetchOptions
+
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN PHImageRequestOptions
+@interface PHImageRequestOptions (JobsLocalPropertyDSLAutogen_dc4aef27d8)
+-(JobsRetPHImageRequestOptionsByBOOLBlock _Nonnull)bySynchronous;
+-(JobsRetPHImageRequestOptionsByPHImageRequestOptionsDeliveryModeBlock _Nonnull)byDeliveryMode;
+-(void)setDeliveryMode:(PHImageRequestOptionsDeliveryMode)data;
+-(void)setSynchronous:(BOOL)data;
+@end
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END PHImageRequestOptions
+
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN PHVideoRequestOptions
+@interface PHVideoRequestOptions (JobsLocalPropertyDSLAutogen_dc4aef27d8)
+-(JobsRetPHVideoRequestOptionsByPHVideoRequestOptionsDeliveryModeBlock _Nonnull)byDeliveryMode;
+-(JobsRetPHVideoRequestOptionsByPHVideoRequestOptionsVersionBlock _Nonnull)byVersion;
+-(void)setDeliveryMode:(PHVideoRequestOptionsDeliveryMode)data;
+-(void)setVersion:(PHVideoRequestOptionsVersion)data;
+@end
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END PHVideoRequestOptions
+
 @implementation FileFolderHandleTool
 #pragma mark —— 禁止App系统文件夹document同步
 /// 因为它会同步。苹果要求：可重复产生的数据不得进行同步,什么叫做可重复数据？这里最好禁止，否则会影响上架，被拒！
 +(jobsByVoidBlock _Nonnull)banSysDocSynchronization{
     return ^(){
         NSError *error = nil;
-        [NSString.documentsDir.jobsFileUrl setResourceValue:@(YES)
+        [NSString.documentsDir().jobsFileUrl() setResourceValue:@(YES)
                                                      forKey:NSURLIsExcludedFromBackupKey
                                                       error:&error];
         if(error) JobsLog(@"error = %@",error);
@@ -29,15 +54,15 @@
     NSString *cachePath;
     if (isNull(folderNameEx)){
         // Library/Caches/时间戳
-        cachePath = NSString.cachesDir.addPathComponent(folderName);
+        cachePath = NSString.cachesDir().addPathComponent(folderName);
     }else{
         if (isNull(fileNameEx)){
             // Library/Caches/folderNameEx/时间戳
-            cachePath = NSString.cachesDir.addPathComponent(folderNameEx).addPathComponent(folderName);
+            cachePath = NSString.cachesDir().addPathComponent(folderNameEx).addPathComponent(folderName);
         }else{
             // Library/Caches/folderNameEx/时间戳.fileNameEx
             NSString *FolderName = folderName.add(fileNameEx);
-            cachePath = NSString.cachesDir.addPathComponent(folderNameEx).addPathComponent(FolderName);
+            cachePath = NSString.cachesDir().addPathComponent(folderNameEx).addPathComponent(FolderName);
         }
     };return cachePath;
 }
@@ -141,7 +166,7 @@
 +(_Nullable id)bundleFile:(NSString *__nullable)bundleFileName
          bundleFileSuffix:(NSString *__nonnull)bundleFileSuffix
                  fileType:(FileType)fileType{
-    NSString *bundlePath = NSString.bundlePath;/// 获取bundle路径
+    NSString *bundlePath = NSString.jobsBundlePath();/// 获取bundle路径
     if (isValue(bundleFileName)){
         bundlePath = bundlePath.add(JobsSeparation).add(bundleFileName).add(@".bundle");
     }
@@ -172,7 +197,7 @@
             }break;
             /// 处理 FileType_SOUND 分支
             case FileType_SOUND:{
-                AVURLAsset *mp3Asset = [AVURLAsset URLAssetWithURL:filePath.jobsFileUrl options:nil];
+                AVURLAsset *mp3Asset = [AVURLAsset URLAssetWithURL:filePath.jobsFileUrl() options:nil];
                 return NSData.initByURL(mp3Asset.URL);
             }break;
             /// 处理 FileType_PLIST 分支
@@ -251,9 +276,9 @@
         }else if ([content isKindOfClass:NSJSONSerialization.class]){//文件内容为JSON类型
             return [(NSDictionary *)content writeToFile:path atomically:YES];
         }else if ([content isKindOfClass:NSMutableString.class]){//文件内容为可变字符串
-            return [((NSString *)content).UTF8Encoding writeToFile:path atomically:YES];
+            return [((NSString *)content).jobsUTF8Encoding() writeToFile:path atomically:YES];
         }else if ([content isKindOfClass:NSString.class]){//文件内容为不可变字符串
-            return [((NSString *)content).UTF8Encoding writeToFile:path atomically:YES];
+            return [((NSString *)content).jobsUTF8Encoding() writeToFile:path atomically:YES];
         }else if ([content isKindOfClass:UIImage.class]){//文件内容为图片 保存为PNG
             return [UIImagePNGRepresentation((UIImage *)content) writeToFile:path atomically:YES];
         }else if ([content conformsToProtocol:@protocol(NSCoding)]){//文件归档
@@ -298,7 +323,7 @@
                                                     error:error];
 }
 /// 给定一个路径，删除旗下所有东西
-+(jobsByStrBlock)cleanFilesWithPath{
++(jobsByStrBlock _Nonnull)cleanFilesWithPath{
     return ^(NSString *_Nullable PathStr){
         /**
          函数说明：unlink()会删除参数pathname 指定的文件. 如果该文件名为最后连接点, 但有其他进程打开了此文件, 则在所有关于此文件的文件描述词皆关闭后才会删除. 如果参数pathname 为一符号连接, 则此连接会被删除。
@@ -316,22 +341,26 @@
     };
 }
 /// 清空Cashes文件夹
-+(BOOL)clearCachesDirectory{
-    NSArray *subFiles = [TXFileOperation listFilesInCachesDirectoryByDeep:NO];
-    BOOL isSuccess = YES;
-    for (NSString *file in subFiles){
-        NSString *absolutePath = NSString.cachesDir.addPathComponent(file);
-        isSuccess &= [TXFileOperation removeItemAtPath:absolutePath];
-    };return isSuccess;
++(JobsRetBOOLByVoidBlock _Nonnull)clearCachesDirectory{
+    return ^BOOL{
+        NSArray *subFiles = [TXFileOperation listFilesInCachesDirectoryByDeep:NO];
+        BOOL isSuccess = YES;
+        for (NSString *file in subFiles){
+            NSString *absolutePath = NSString.cachesDir().addPathComponent(file);
+            isSuccess &= [TXFileOperation removeItemAtPath:absolutePath];
+        };return isSuccess;
+    };
 }
 /// 清空temp文件夹
-+(BOOL)clearTmpDirectory{
-    NSArray *subFiles = [TXFileOperation listFilesInTmpDirectoryByDeep:NO];
-    BOOL isSuccess = YES;
-    for (NSString *file in subFiles){
-        NSString *absolutePath = NSString.tmpDir.addPathComponent(file);
-        isSuccess &= [TXFileOperation removeItemAtPath:absolutePath];
-    };return isSuccess;
++(JobsRetBOOLByVoidBlock _Nonnull)clearTmpDirectory{
+    return ^BOOL{
+        NSArray *subFiles = [TXFileOperation listFilesInTmpDirectoryByDeep:NO];
+        BOOL isSuccess = YES;
+        for (NSString *file in subFiles){
+            NSString *absolutePath = NSString.tmpDir().addPathComponent(file);
+            isSuccess &= [TXFileOperation removeItemAtPath:absolutePath];
+        };return isSuccess;
+    };
 }
 #pragma mark —— 复制文件（夹）
 /// 复制文件 依据源文件的路径复制一份到目标路径：
@@ -558,7 +587,7 @@
         /// 这里取得的结果 assetsFetchResults 其实可以当做一个数组。
         /// 获取最新一张照片
         return PHAsset.initByOptions(jobsMakePHFetchOptions(^(PHFetchOptions * _Nullable options) {
-            options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:Key ascending:NO]];
+            options.bySortDescriptors(@[[NSSortDescriptor sortDescriptorWithKey:Key ascending:NO]]);
         })).firstObject;
     };
 }
@@ -582,12 +611,12 @@
         } completionHandler:^(BOOL success,NSError * _Nullable error){
             if (success){
                 JobsLog(@"创建相册文件夹成功!");
-                FileFolderHandleTool.saveRes(pathStr.jobsUrl);
+                FileFolderHandleTool.saveRes(pathStr.jobsURL());
             } else{
                 JobsLog(@"创建相册文件夹失败:%@", error);
             }
         }];
-    }else FileFolderHandleTool.saveRes(pathStr.jobsUrl);
+    }else FileFolderHandleTool.saveRes(pathStr.jobsURL());
 }
 /// 保存视频资源文件到指定的相册路径，这里是整个App名字的相册
 +(jobsByURLBlock _Nonnull)saveRes{
@@ -600,7 +629,7 @@
             @jobs_strongify(self)
             PHAssetCollection *assetCollection = obj;
             JobsLog(@"LLL %@",assetCollection.localizedTitle);
-            if (assetCollection.localizedTitle.isEqualToString(self.appName)){
+            if (assetCollection.localizedTitle.isEqualToString(self.appName())){
                 [PHPhotoLibrary.sharedPhotoLibrary performChanges:^{
                     /// 为Asset创建一个占位符，放到相册编辑请求中
                     PHObjectPlaceholder *placeHolder = PHAssetChangeRequest.initByURL(movieURL).placeholderForCreatedAsset;
@@ -659,16 +688,18 @@ didFinishSavingWithError:(NSError *)error
     }
 }
 /// 保存文件到系统默认的相册，videoPath为视频下载到本地之后的本地路径
-+(void)saveVideo:(NSString *)videoPath{
-    if (videoPath){
-        if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(videoPath)){
-            //保存相册核心代码
-            UISaveVideoAtPathToSavedPhotosAlbum(videoPath,
-                                                self,
-                                                @selector(video:didFinishSavingWithError:contextInfo:),
-                                                nil);
++(jobsByStrBlock _Nonnull)saveVideo{
+    return ^(NSString * videoPath){
+        if (videoPath){
+            if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum(videoPath)){
+                //保存相册核心代码
+                UISaveVideoAtPathToSavedPhotosAlbum(videoPath,
+                                                    self,
+                                                    @selector(video:didFinishSavingWithError:contextInfo:),
+                                                    nil);
+            }
         }
-    }
+    };
 }
 /// 保存视频完成之后的回调
 +(void)video:(NSString *)videoPath
@@ -685,8 +716,9 @@ didFinishSavingWithError:(NSError *)error
                   complete:(jobsByIDBlock _Nonnull)completeBlock{
     if (phAsset.mediaType == PHAssetMediaTypeVideo){
         [PHImageManager.defaultManager requestAVAssetForVideo:phAsset options:jobsMakePHVideoRequestOptions(^(PHVideoRequestOptions * _Nullable options) {
-            options.version = PHVideoRequestOptionsVersionCurrent;
-            options.deliveryMode = PHVideoRequestOptionsDeliveryModeAutomatic;
+            options
+                .byVersion(PHVideoRequestOptionsVersionCurrent)
+                .byDeliveryMode(PHVideoRequestOptionsDeliveryModeAutomatic);
         })resultHandler:^(AVAsset * _Nullable asset,
                           AVAudioMix * _Nullable audioMix,
                           NSDictionary * _Nullable info){
@@ -710,8 +742,9 @@ didFinishSavingWithError:(NSError *)error
                                      targetSize:PHImageManagerMaximumSize
                                     contentMode:PHImageContentModeAspectFit
                                         options:jobsMakePHImageRequestOptions(^(PHImageRequestOptions * _Nullable options) {
-                options.synchronous = NO; /// 异步获取图片
-                options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
+                options
+                    .bySynchronous(NO)
+                    .byDeliveryMode(PHImageRequestOptionsDeliveryModeHighQualityFormat);
             })
                                   resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
                 if (result) completeBlock(result); /// 返回图片
@@ -804,3 +837,60 @@ didFinishSavingWithError:(NSError *)error
 }
 
 @end
+
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN PHFetchOptions
+@implementation PHFetchOptions (JobsLocalPropertyDSLAutogen_dc4aef27d8)
+-(JobsRetPHFetchOptionsByNSArrayNSSortDescriptorBlock _Nonnull)bySortDescriptors{
+    @jobs_weakify(self)
+    return ^__kindof PHFetchOptions * _Nullable(NSArray<NSSortDescriptor *> * _Nullable data){
+        @jobs_strongify(self)
+        [self setSortDescriptors:data];
+        return self;
+    };
+}
+@end
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END PHFetchOptions
+
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN PHImageRequestOptions
+@implementation PHImageRequestOptions (JobsLocalPropertyDSLAutogen_dc4aef27d8)
+-(JobsRetPHImageRequestOptionsByBOOLBlock _Nonnull)bySynchronous{
+    @jobs_weakify(self)
+    return ^__kindof PHImageRequestOptions * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setSynchronous:data];
+        return self;
+    };
+}
+
+-(JobsRetPHImageRequestOptionsByPHImageRequestOptionsDeliveryModeBlock _Nonnull)byDeliveryMode{
+    @jobs_weakify(self)
+    return ^__kindof PHImageRequestOptions * _Nullable(PHImageRequestOptionsDeliveryMode data){
+        @jobs_strongify(self)
+        [self setDeliveryMode:data];
+        return self;
+    };
+}
+@end
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END PHImageRequestOptions
+
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN PHVideoRequestOptions
+@implementation PHVideoRequestOptions (JobsLocalPropertyDSLAutogen_dc4aef27d8)
+-(JobsRetPHVideoRequestOptionsByPHVideoRequestOptionsDeliveryModeBlock _Nonnull)byDeliveryMode{
+    @jobs_weakify(self)
+    return ^__kindof PHVideoRequestOptions * _Nullable(PHVideoRequestOptionsDeliveryMode data){
+        @jobs_strongify(self)
+        [self setDeliveryMode:data];
+        return self;
+    };
+}
+
+-(JobsRetPHVideoRequestOptionsByPHVideoRequestOptionsVersionBlock _Nonnull)byVersion{
+    @jobs_weakify(self)
+    return ^__kindof PHVideoRequestOptions * _Nullable(PHVideoRequestOptionsVersion data){
+        @jobs_strongify(self)
+        [self setVersion:data];
+        return self;
+    };
+}
+@end
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END PHVideoRequestOptions

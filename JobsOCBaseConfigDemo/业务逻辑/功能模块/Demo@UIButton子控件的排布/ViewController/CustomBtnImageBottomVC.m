@@ -8,12 +8,22 @@
 #import "CustomBtnImageBottomVC.h"
 
 @implementation CustomBtnImageBottomVC
--(NSString *)demoTitle{
-    return @"image下，label上".tr;
+-(JobsRetStrByVoidBlock _Nonnull)demoTitle{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"image下，label上".jobsTr();
+    };
 }
 
--(NSString *)demoSubTitle{
-    return @"图标在 bottom，标题在 top，用来验证上下反向排布。".tr;
+-(JobsRetStrByVoidBlock _Nonnull)demoSubTitle{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"图标在 bottom，标题在 top，用来验证上下反向排布。".jobsTr();
+    };
 }
 
 -(NSDirectionalRectEdge)imagePlacement{

@@ -6,6 +6,12 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "AppDelegate.h"
 #import "AppDelegate+TabBarCtr.h"
 
@@ -41,8 +47,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_assign()FMLoginWork loginWork;
 /// 仅仅为了iOS 13 版本向下兼容而存在
--(UIWindow *)makeAppDelegateWindow;
--(UIWindow *)makeSceneDelegateWindow;
+-(JobsRetWindowByVoidBlock _Nonnull)makeAppDelegateWindow;
+-(JobsRetWindowByVoidBlock _Nonnull)makeSceneDelegateWindow;
 -(void)appDelegateWindowBlock:(jobsByWindowBlock _Nullable)appDelegateWindowBlock
      sceneDelegateWindowBlock:(jobsByWindowBlock _Nullable)sceneDelegateWindowBlock;
 
@@ -52,7 +58,7 @@ NS_ASSUME_NONNULL_END
 
 NS_INLINE __kindof UIWindow *_Nonnull
 jobsMakeAppDelegateWindow(jobsByWindowBlock _Nonnull block){
-    UIWindow *data = MyAppTools.sharedManager.makeAppDelegateWindow;
+    UIWindow *data = ((MyAppTools *)MyAppTools.jobsSharedManager()).makeAppDelegateWindow();
     if (block) block(data);
     return data;
 }

@@ -6,6 +6,13 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIVIEW_ZFPLAYER_FF3C3818B8
+
+#if __has_include(<ZFPlayer/ZFPlayer.h>)
+#import <ZFPlayer/ZFPlayer.h>
+#else
+#import "ZFPlayer.h"
+#endif
+
 #define JOBS_HEADER_GUARD_UIVIEW_ZFPLAYER_FF3C3818B8
 
 #import <objc/runtime.h>
@@ -18,11 +25,6 @@
 #pragma mark —— ZFPlayer 播放器相关
 /// Core
 
-#if __has_include(<ZFPlayer/ZFPlayer.h>)
-#import <ZFPlayer/ZFPlayer.h>
-#else
-#import "ZFPlayer.h"
-#endif
 /// AVPlayer
 
 #if __has_include(<ZFPlayer/ZFAVPlayerManager.h>)
@@ -36,6 +38,12 @@
 #import <ZFPlayer/ZFIJKPlayerManager.h>
 #else
 #import "ZFIJKPlayerManager.h"
+#endif
+
+#if !TARGET_OS_SIMULATOR && __has_include(<IJKMediaFramework/IJKMediaFramework.h>) && (__has_include(<ZFPlayer/ZFIJKPlayerManager.h>) || __has_include("ZFIJKPlayerManager.h"))
+#define JOBS_ZFPLAYER_HAS_IJK_MANAGER 1
+#else
+#define JOBS_ZFPLAYER_HAS_IJK_MANAGER 0
 #endif
 
 /// ControlView
@@ -123,11 +131,11 @@ Prop_strong(nullable)ZFPlayerController *playerCtr;
 Prop_strong(nullable)ZFAVPlayerManager *avPlayerManager;/// 默认不支持FLV流视频格式的
 Prop_strong(nullable)CustomZFPlayerControlView *customPlayerControlView;
 
-#if !TARGET_OS_SIMULATOR && __has_include(<IJKMediaFramework/IJKMediaFramework.h>) && (__has_include(<ZFPlayer/ZFIJKPlayerManager.h>) || __has_include("ZFIJKPlayerManager.h"))
+#if JOBS_ZFPLAYER_HAS_IJK_MANAGER
 Prop_strong(nullable)ZFIJKPlayerManager *ijkPlayerManager;/// ZFPlayer的作者告诉我：如果要兼容FLV流视频格式请用这个
 #endif
 
--(void)enterBackgroundStopPlayer;
+-(jobsByVoidBlock _Nonnull)enterBackgroundStopPlayer;
 
 @end
 

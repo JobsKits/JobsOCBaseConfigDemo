@@ -30,10 +30,14 @@ typedef __kindof MyProxy *_Nullable(^JobsRetMyProxyByIDBlock)(id _Nullable targe
 Prop_strong(nullable)NSMutableArray *targets;
 Prop_strong(nullable)NSMutableArray <WeakTarget *>*weakTargets;
 
-+(instancetype)proxy;
++(JobsRetIDByVoidBlock _Nonnull)proxy;
 -(JobsRetMyProxyByIDBlock _Nonnull)addTargetBy;
 -(JobsRetMyProxyByIDBlock _Nonnull)addWeakTargetBy;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN MyProxy
+-(JobsRetMyProxyByNSMutableArrayBlock _Nonnull)byTargets;
+-(JobsRetMyProxyByNSMutableArrayWeakTargetBlock _Nonnull)byWeakTargets;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END MyProxy
 @end
 
 NS_ASSUME_NONNULL_END

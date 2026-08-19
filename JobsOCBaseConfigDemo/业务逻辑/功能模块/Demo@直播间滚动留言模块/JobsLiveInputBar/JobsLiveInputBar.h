@@ -7,10 +7,10 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
 #else
-#import "Masonry.h"
+#import "JobsBlock.h"
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
@@ -37,6 +37,12 @@
 #import "JobsMakes.h"
 #endif
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsLiveInputBar : UIView
@@ -46,7 +52,7 @@ Prop_strong(readonly)UIButton *sendButton;
 Prop_assign()BOOL autoClearAfterSend;
 Prop_assign()BOOL autoResignAfterSend;
 
--(void)clearTextIfNeeded;
+-(jobsByVoidBlock _Nonnull)clearTextIfNeeded;
 
 @end
 

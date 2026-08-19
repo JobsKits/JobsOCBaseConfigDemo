@@ -22,8 +22,10 @@
     };return self;
 }
 
-+(id)accessoryWithAnimatingView:(UIView *)animatingView {
-    return [self.alloc initWithAnimatingView:animatingView];
++(JobsRetIDByUIViewBlock _Nonnull)accessoryWithAnimatingView{
+    return ^id(UIView * animatingView){
+        return [self.alloc initWithAnimatingView:animatingView];
+    };
 }
 
 +(id)accessoryWithAnimatingView:(UIView *)animatingView
@@ -31,24 +33,34 @@
     return [self.alloc initWithAnimatingView:animatingView animatingText:animatingText];
 }
 
--(void)requestWillStart:(id)request {
-    if (_animatingView) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // TODO: show loading
-            // [YTKAlertUtils showLoadingAlertView:_animatingText inView:_animatingView];
-            JobsLog(@" loading start");
-        });
-    }
+-(jobsByIDBlock _Nonnull)requestWillStart{
+    @jobs_weakify(self)
+    return ^(id request){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (_animatingView) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // TODO: show loading
+                // [YTKAlertUtils showLoadingAlertView:_animatingText inView:_animatingView];
+                JobsLog(@" loading start");
+            });
+        }
+    };
 }
 
-- (void)requestWillStop:(id)request {
-    if (_animatingView) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // TODO: hide loading
-            //[YTKAlertUtils hideLoadingAlertView:_animatingView];
-            JobsLog(@" loading finished");
-        });
-    }
+-(jobsByIDBlock _Nonnull)requestWillStop{
+    @jobs_weakify(self)
+    return ^(id request){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (_animatingView) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // TODO: hide loading
+                //[YTKAlertUtils hideLoadingAlertView:_animatingView];
+                JobsLog(@" loading finished");
+            });
+        }
+    };
 }
 
 @end

@@ -6,16 +6,17 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIGESTURERECOGNIZER_REACTIVECOCOAPROTECTED_B02119B4EA
-#define JOBS_HEADER_GUARD_UIGESTURERECOGNIZER_REACTIVECOCOAPROTECTED_B02119B4EA
-
-#import <objc/runtime.h>
-#import <UIKit/UIKit.h>
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
 #import "ReactiveObjC.h"
 #endif
+
+#define JOBS_HEADER_GUARD_UIGESTURERECOGNIZER_REACTIVECOCOAPROTECTED_B02119B4EA
+
+#import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"

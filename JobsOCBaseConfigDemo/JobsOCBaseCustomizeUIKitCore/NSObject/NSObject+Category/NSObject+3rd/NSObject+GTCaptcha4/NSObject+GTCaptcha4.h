@@ -28,4 +28,12 @@ Prop_strong()GTCaptcha4Session *captchaSession;
 
 @end
 
+@interface GTCaptcha4Model (GTCaptcha4SessionDSL)
+-(JobsRetGTCaptcha4ModelByGTCaptcha4SessionPointerBlock _Nonnull)byCaptchaSession;
+@end
+
+@interface GTCaptcha4Session (GTCaptcha4SessionDSL)
+-(JobsRetGTCaptcha4SessionByIDBlock _Nonnull)byDelegate;
+@end
+
 NS_ASSUME_NONNULL_END

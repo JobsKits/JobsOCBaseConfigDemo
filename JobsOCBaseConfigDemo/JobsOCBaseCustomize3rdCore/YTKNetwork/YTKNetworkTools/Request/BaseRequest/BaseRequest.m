@@ -6,6 +6,7 @@
 //
 
 #import "BaseRequest.h"
+
 #import "NSMutableDictionary+Extra.h"
 
 @interface BaseRequest ()
@@ -142,12 +143,22 @@ YTKCustomBaseRequestProtocol_synthesize
 }
 #pragma mark —— 在链式请求中，下一个请求的参数来源于上一个请求的结果
 //-(NSString *_Nonnull)userId{
-//    return [[self.responseJSONObject objectForKey:@"userId"] stringValue] ? : @"".tr;
+//    return [[self.responseJSONObject objectForKey:@"userId"] stringValue] ? : @"".jobsTr();
 //}
 #pragma mark —— 复写 YTKBaseRequest 方法
 /// 设置自定义的 HTTP Header
 -(NSMutableDictionary *)requestHeaderFieldValueDictionary{
-    return self.customHTTPHeader;
+    JobsRetMutableDicByVoidBlock action = ((JobsRetMutableDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseRequest.class, @selector(jobsRequestHeaderFieldValueDictionary)))(self, @selector(jobsRequestHeaderFieldValueDictionary));
+    return action ? action() : nil;
+}
+
+-(JobsRetMutableDicByVoidBlock _Nonnull)jobsRequestHeaderFieldValueDictionary{
+    @jobs_weakify(self)
+    return ^NSMutableDictionary *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.customHTTPHeader;
+    };
 }
 /// 具体子类实现请求Api
 //-(NSString *)requestUrl{
@@ -174,7 +185,7 @@ YTKCustomBaseRequestProtocol_synthesize
 //    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.parameters
 //                                                       options:NSJSONWritingPrettyPrinted
 //                                                         error:&parseError];
-//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.requestUrl.jobsUrl
+//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.requestUrl.jobsURL()
 //                                                           cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
 //                                                       timeoutInterval:30];
 //    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];

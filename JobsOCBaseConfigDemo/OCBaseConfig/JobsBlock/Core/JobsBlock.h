@@ -20,19 +20,146 @@
 #import "VoidByUnCertainParameters.h"
 
 typedef id _Nullable(^JobsRetIDByRetIDVoidBlocks)(JobsRetIDByVoidBlock _Nullable block);
+typedef __kindof MJRefreshComponent *_Nullable(^JobsRetMJRefreshComponentByBOOLBlock)(BOOL data);
+typedef __kindof NSTextContainer *_Nullable(^JobsRetTextContainerByCGFloatBlock)(CGFloat data);
+typedef __kindof NSTextContainer *_Nullable(^JobsRetTextContainerByUIntegerBlock)(NSUInteger data);
+typedef __kindof NSTextContainer *_Nullable(^JobsRetTextContainerByLineBreakModeBlock)(NSLineBreakMode data);
+typedef __kindof NSTextContainer *_Nullable(^JobsRetTextContainerByBOOLBlock)(BOOL data);
+typedef __kindof JobsOCAudioRecording *_Nullable(^JobsRetJobsOCAudioRecordingByURLBlock)(NSURL *_Nullable data);
+typedef __kindof JobsOCAudioRecording *_Nullable(^JobsRetJobsOCAudioRecordingByModeBlock)(JobsOCAudioRecordingMode data);
+typedef __kindof JobsOCAudioRecording *_Nullable(^JobsRetJobsOCAudioRecordingByDateBlock)(NSDate *_Nullable data);
+typedef __kindof JobsOCAudioRecording *_Nullable(^JobsRetJobsOCAudioRecordingByTimeIntervalBlock)(NSTimeInterval data);
+typedef __kindof JobsOCAudioRecording *_Nullable(^JobsRetJobsOCAudioRecordingByLongLongBlock)(long long data);
+typedef __kindof AVAudioRecorder *_Nullable(^JobsRetAVAudioRecorderByIDBlock)(id _Nullable data);
+typedef __kindof AVAudioPlayer *_Nullable(^JobsRetAVAudioPlayerByIDBlock)(id _Nullable data);
+typedef __kindof JobsImageRotator *_Nullable(^JobsRetJobsImageRotatorByDirectionBlock)(JobsImageRotationDirection data);
+typedef __kindof JobsIconfontLoadResult *_Nullable(^JobsRetJobsIconfontLoadResultByNSIntegerBlock)(NSInteger data);
+typedef __kindof JobsIconfontLoadResult *_Nullable(^JobsRetJobsIconfontLoadResultByStrBlock)(NSString *_Nullable data);
+typedef __kindof JobsIconfontLoadResult *_Nullable(^JobsRetJobsIconfontLoadResultByBOOLBlock)(BOOL data);
+typedef __kindof JobsIconfontLoadResult *_Nullable(^JobsRetJobsIconfontLoadResultByIDBlock)(id _Nullable data);
+typedef __kindof JobsOCGraphicCaptchaConfig *_Nullable(^JobsRetJobsOCGraphicCaptchaConfigByUIntegerBlock)(NSUInteger data);
+typedef __kindof JobsOCGraphicCaptchaConfig *_Nullable(^JobsRetJobsOCGraphicCaptchaConfigByBOOLBlock)(BOOL data);
+typedef __kindof JobsOCGraphicCaptchaConfig *_Nullable(^JobsRetJobsOCGraphicCaptchaConfigByArrBlock)(NSArray *_Nullable data);
+typedef __kindof JobsOCRefreshConfig *_Nullable(^JobsRetJobsOCRefreshConfigByCGFloatBlock)(CGFloat data);
+typedef __kindof JobsOCRefreshConfig *_Nullable(^JobsRetJobsOCRefreshConfigByBOOLBlock)(BOOL data);
+typedef __kindof JobsOCRefreshConfig *_Nullable(^JobsRetJobsOCRefreshConfigByHorizontalModeBlock)(JobsOCRefreshHorizontalMode data);
+typedef __kindof JobsOCRefreshConfig *_Nullable(^JobsRetJobsOCRefreshConfigByAnimationTypeBlock)(JobsOCRefreshAnimationType data);
+typedef __kindof JobsOCRefreshConfig *_Nullable(^JobsRetJobsOCRefreshConfigByTimeIntervalBlock)(NSTimeInterval data);
+typedef __kindof JobsOCRefreshConfig *_Nullable(^JobsRetJobsOCRefreshConfigByIDBlock)(id _Nullable data);
+typedef __kindof JobsOCRefreshConfig *_Nullable(^JobsRetJobsOCRefreshConfigByStrBlock)(NSString *_Nullable data);
+typedef __kindof JobsOCRefreshConfig *_Nullable(^JobsRetJobsOCRefreshConfigByArrBlock)(NSArray *_Nullable data);
+typedef __kindof JobsOCPatchModel *_Nullable(^JobsRetJobsOCPatchModelByStrBlock)(NSString *_Nullable data);
+typedef __kindof JobsOCPatchModel *_Nullable(^JobsRetJobsOCPatchModelByIDBlock)(id _Nullable data);
+typedef __kindof JobsOCPatchModel *_Nullable(^JobsRetJobsOCPatchModelBySELBlock)(SEL _Nullable data);
+typedef __kindof JobsOCPatchModel *_Nullable(^JobsRetJobsOCPatchModelByDicBlock)(NSDictionary *_Nullable data);
+typedef __kindof JobsOCPatchRecord *_Nullable(^JobsRetJobsOCPatchRecordByStrBlock)(NSString *_Nullable data);
+typedef __kindof JobsOCPatchRecord *_Nullable(^JobsRetJobsOCPatchRecordByIDBlock)(id _Nullable data);
+typedef __kindof JobsOCPatchRecord *_Nullable(^JobsRetJobsOCPatchRecordBySELBlock)(SEL _Nullable data);
+typedef __kindof JobsOCPatchRecord *_Nullable(^JobsRetJobsOCPatchRecordByIMPBlock)(IMP _Nullable data);
+typedef __kindof JobsTabBarItemConfig *_Nullable(^JobsRetJobsTabBarItemConfigByUIViewControllerBlock)(UIViewController *_Nullable data);
+typedef __kindof JobsTabBarItemConfig *_Nullable(^JobsRetJobsTabBarItemConfigByStrBlock)(NSString *_Nullable data);
+typedef __kindof JobsTabBarItemConfig *_Nullable(^JobsRetJobsTabBarItemConfigByImageBlock)(UIImage *_Nullable data);
+typedef __kindof JobsTabBarItemConfig *_Nullable(^JobsRetJobsTabBarItemConfigByCGFloatBlock)(CGFloat data);
+typedef __kindof JobsTabBarItemConfig *_Nullable(^JobsRetJobsTabBarItemConfigByNSUIntegerBlock)(NSUInteger data);
+typedef __kindof JobsTabBarItemConfig *_Nullable(^JobsRetJobsTabBarItemConfigByBOOLBlock)(BOOL data);
+typedef __kindof GXCardView *_Nullable(^JobsRetGXCardViewByIDBlock)(id _Nullable data);
+typedef __kindof GXCardView *_Nullable(^JobsRetGXCardViewByNSIntegerBlock)(NSInteger data);
+typedef __kindof GXCardView *_Nullable(^JobsRetGXCardViewByCGFloatBlock)(CGFloat data);
+typedef __kindof GXCardView *_Nullable(^JobsRetGXCardViewByBOOLBlock)(BOOL data);
+typedef __kindof GXCardView *_Nullable(^JobsRetGXCardViewByIDBlocks)(jobsByIDBlock _Nullable block);
 typedef id _Nullable(^JobsRetIDByRetIDByIDBlocks)(JobsRetIDByIDBlock _Nullable block);
 typedef __kindof UIView *_Nullable(^JobsRetViewByIDBlocks)(jobsByIDBlock _Nullable block);
 typedef __kindof UIViewController *_Nullable(^JobsRetVCByIDBlocks)(jobsByIDBlock _Nullable data);
 typedef __kindof UIViewController *_Nullable(^JobsRetVCByRetIDByVoidBlocks)(JobsRetIDByVoidBlock _Nullable block);
 typedef __kindof UIViewController *_Nullable(^JobsRetVCByRetIDByIDBlocks)(JobsRetIDByIDBlock _Nullable block);
+typedef __kindof UIViewController *_Nullable(^JobsRetVCByComingStyleBlock)(ComingStyle data);
+typedef __kindof UIViewController *_Nullable(^JobsRetVCByStrBlock)(__kindof NSString *_Nullable string);
+typedef __kindof UIWindow *_Nullable(^JobsRetUIWindowByViewControllerBlock)(__kindof UIViewController *_Nullable data);
+typedef __kindof UIWindow *_Nullable(^JobsRetUIWindowByWindowSceneBlock)(UIWindowScene *_Nullable data);
+typedef __kindof UIWindow *_Nullable(^JobsRetUIWindowByFrameBlock)(CGRect data);
+typedef __kindof UIWindow *_Nullable(^JobsRetUIWindowByVoidBlock)(void);
+typedef __kindof UIImagePickerController *_Nullable(^JobsRetImagePickerControllerBySourceTypeBlock)(UIImagePickerControllerSourceType data);
+typedef __kindof UIImagePickerController *_Nullable(^JobsRetImagePickerControllerByIDBlock)(id _Nullable data);
+typedef __kindof UIImagePickerController *_Nullable(^JobsRetImagePickerControllerByBOOLBlock)(BOOL data);
+typedef AppDelegate *_Nullable(^JobsRetAppDelegateByVoidBlock)(void);
+typedef AppDelegate *_Nullable(^JobsRetAppDelegateByWindowBlock)(UIWindow *_Nullable data);
+typedef SceneDelegate *_Nullable(^JobsRetSceneDelegateByWindowBlock)(UIWindow *_Nullable data);
+typedef SceneDelegate *_Nullable(^JobsRetSceneDelegateByWindowSceneBlock)(UIWindowScene *_Nullable data);
+typedef __kindof SPAlertAction *_Nullable(^JobsRetSPAlertActionByNSIntegerBlock)(NSInteger data);
+typedef __kindof SPAlertAction *_Nullable(^JobsRetSPAlertActionByCorBlock)(UIColor *_Nullable data);
+typedef __kindof SPAlertAction *_Nullable(^JobsRetSPAlertActionByFontBlock)(UIFont *_Nullable data);
+typedef __kindof SPAlertController *_Nullable(^JobsRetSPAlertControllerByCorBlock)(UIColor *_Nullable data);
+typedef __kindof SPAlertController *_Nullable(^JobsRetSPAlertControllerByFontBlock)(UIFont *_Nullable data);
+typedef __kindof NTESVerifyCodeManager *_Nullable(^JobsRetNTESVerifyCodeManagerByIDBlock)(id _Nullable data);
+typedef __kindof JobsOCWebSocketClient *_Nullable(^JobsRetJobsOCWebSocketClientByIDBlock)(id _Nullable data);
+typedef __kindof JobsGestureLockView *_Nullable(^JobsRetJobsGestureLockViewByIDBlock)(id _Nullable data);
+typedef __kindof JobsOCRootFoldTableCell *_Nullable(^JobsRetJobsOCRootFoldTableCellByStrBlock)(NSString *_Nullable data);
+typedef __kindof JobsOCExcelView *_Nullable(^JobsRetJobsOCExcelViewByIDBlock)(id _Nullable data);
+typedef __kindof JobsNavBarWebVC *_Nullable(^JobsRetJobsNavBarWebVCByStrBlock)(__kindof NSString *_Nullable string);
+typedef __kindof JobsOCOpenWebViewController *_Nullable(^JobsRetJobsOCOpenWebVCByURLBlock)(NSURL *_Nullable URL);
+typedef __kindof JobsOCOpenWebViewController *_Nullable(^JobsRetJobsOCOpenWebVCByStrBlock)(NSString *_Nullable string);
+typedef __kindof JobsOCNumberStepper *_Nullable(^JobsRetJobsOCNumberStepperByNSIntegerBlock)(NSInteger value);
+typedef __kindof JobsOCNumberStepper *_Nullable(^JobsRetJobsOCNumberStepperByNumberBlock)(NSNumber *_Nullable number);
+typedef __kindof JobsOCSearcherView *_Nullable(^JobsRetJobsOCSearcherViewByConfigBlock)(JobsOCSearcherConfig *_Nullable config);
+typedef __kindof JobsOCCommentView *_Nullable(^JobsRetJobsOCCommentViewByConfigBlock)(JobsOCCommentConfig *_Nullable config);
+typedef __kindof JobsOCCountryCodeCtrl *_Nullable(^JobsRetJobsOCCountryCodeCtrlByCountryCodeBlock)(jobsByOCCountryCodeBlock _Nullable block);
+typedef __kindof JobsRedPacketRainView *_Nullable(^JobsRetJobsRedPacketRainViewByBOOLBlock)(BOOL running);
+typedef __kindof JobsLinkageMenuView *_Nullable(^JobsRetJobsLinkageMenuViewByCorBlock)(UIColor *_Nullable color);
+typedef __kindof JobsCustomTabBarVC *_Nullable(^JobsRetJobsCustomTabBarVCByDelegateBlock)(id<UITabBarControllerDelegate> _Nullable delegate);
+typedef __kindof JobsAppDoorVC *_Nullable(^JobsRetJobsAppDoorVCByConfigBlock)(JobsAppDoorConfig *_Nullable config);
+typedef __kindof JobsAppDoorVC_Style2 *_Nullable(^JobsRetJobsAppDoorVCStyle2ByConfigBlock)(JobsAppDoorConfig *_Nullable config);
+typedef __kindof JobsTabBarVC *_Nullable(^JobsRetJobsTabBarVCByDelegateBlock)(id<UITabBarControllerDelegate> _Nullable delegate);
+typedef __kindof JobsPageView *_Nullable(^JobsRetJobsPageViewByCGFloatBlock)(CGFloat height);
+typedef __kindof JobsPageView *_Nullable(^JobsRetJobsPageViewByViewModelsBlock)(NSArray<__kindof UIViewModel *> *_Nullable models);
+typedef __kindof JobsTabBarItem *_Nullable(^JobsRetJobsTabBarItemByImageBlock)(UIImage *_Nullable image);
+typedef __kindof JobsTabBar *_Nullable(^JobsRetJobsTabBarByBarStyleBlock)(UIBarStyle style);
+typedef __kindof JobsTabBar *_Nullable(^JobsRetJobsTabBarByBOOLBlock)(BOOL value);
+typedef __kindof JobsPullListAutoSizeView *_Nullable(^JobsRetJobsPullListAutoSizeViewByViewBlock)(UIView *_Nullable view);
+typedef __kindof JobsPullListAutoSizeView *_Nullable(^JobsRetJobsPullListAutoSizeViewByViewModelsBlock)(NSMutableArray<__kindof UIViewModel *> *_Nullable models);
+typedef __kindof JobsToggleNavView *_Nullable(^JobsRetJobsToggleNavViewByButtonModelsBlock)(NSMutableArray<__kindof UIButtonModel *> *_Nullable models);
+typedef __kindof JobsMarqueeView *_Nullable(^JobsRetJobsMarqueeViewByScrollModeBlock)(JobsMarqueeScrollMode mode);
+typedef __kindof JobsOCSplashVC *_Nullable(^JobsRetJobsOCSplashVCByAVPlayerBlock)(AVPlayer *_Nullable player);
+typedef __kindof UILabelScrollingDemoVC *_Nullable(^JobsRetUILabelScrollingDemoVCByBOOLBlock)(BOOL value);
+typedef __kindof TextCell *_Nullable(^JobsRetTextCellByViewBlock)(UIView *_Nullable view);
+typedef __kindof ScrollDecelerator *_Nullable(^JobsRetScrollDeceleratorByCGFloatBlock)(CGFloat value);
+typedef __kindof LuckyDiskDemoVC *_Nullable(^JobsRetLuckyDiskDemoVCByStrBlock)(NSString *_Nullable string);
+typedef __kindof JobsVideoTBVCell *_Nullable(^JobsRetJobsVideoTBVCellByVideoModelCoreBlock)(VideoModel_Core *_Nullable model);
+typedef __kindof VideoModel_Core *_Nullable(^JobsRetVideoModelCoreByStrBlock)(NSString *_Nullable string);
+typedef __kindof JobsOCMarkdownDocumentDemoVC *_Nullable(^JobsRetJobsOCMarkdownDocumentDemoVCByDocumentBlock)(JobsOCMarkdownDocument *_Nullable document);
+typedef __kindof JobsOCMarkdownDocumentDemoVC *_Nullable(^JobsRetJobsOCMarkdownDocumentDemoVCByCatalogBlock)(JobsOCMarkdownCatalog *_Nullable catalog);
+typedef __kindof JobsOCMarkdownDocumentsDemoVC *_Nullable(^JobsRetJobsOCMarkdownDocumentsDemoVCByCatalogBlock)(JobsOCMarkdownCatalog *_Nullable catalog);
+typedef __kindof JobsOCMarkdownView *_Nullable(^JobsRetJobsOCMarkdownViewByIDBlock)(id _Nullable data);
+typedef __kindof JobsOCMarkdownDocumentDemoVC *_Nullable(^JobsRetJobsOCMarkdownDocumentDemoVCByStrBlock)(NSString *_Nullable string);
+typedef __kindof JobsIMListTBVCell *_Nullable(^JobsRetJobsIMListTBVCellByStrBlock)(NSString *_Nullable string);
+typedef __kindof JobsIMListTBVCell *_Nullable(^JobsRetJobsIMListTBVCellByImageBlock)(UIImage *_Nullable image);
+typedef __kindof JobsIMChatInfoTBVCell *_Nullable(^JobsRetJobsIMChatInfoTBVCellByCGFloatBlock)(CGFloat value);
+typedef __kindof JobsIMChatInfoTBVCell *_Nullable(^JobsRetJobsIMChatInfoTBVCellByStrBlock)(NSString *_Nullable data);
+typedef __kindof JobsIMListDataModel *_Nullable(^JobsRetJobsIMListDataModelByStrBlock)(NSString *_Nullable string);
+typedef __kindof JobsIMListDataModel *_Nullable(^JobsRetJobsIMListDataModelByImageBlock)(UIImage *_Nullable image);
+typedef __kindof JobsIMListDataModel *_Nullable(^JobsRetJobsIMListDataModelByNSIntegerBlock)(NSInteger value);
+typedef __kindof JobsIMChatInfoModel *_Nullable(^JobsRetJobsIMChatInfoModelByStrBlock)(NSString *_Nullable string);
+typedef __kindof JobsIMChatInfoModel *_Nullable(^JobsRetJobsIMChatInfoModelByImageBlock)(UIImage *_Nullable image);
+typedef __kindof JobsIMChatInfoModel *_Nullable(^JobsRetJobsIMChatInfoModelByNSIntegerBlock)(NSInteger value);
+typedef __kindof JobsIMChatInfoModel *_Nullable(^JobsRetJobsIMChatInfoModelByDicBlock)(NSDictionary *_Nullable dictionary);
+typedef __kindof JobsMsgDataModel *_Nullable(^JobsRetJobsMsgDataModelByNSIntegerBlock)(NSInteger value);
+typedef __kindof JobsMsgDataModel *_Nullable(^JobsRetJobsMsgDataModelByStrBlock)(NSString *_Nullable string);
+typedef __kindof JobsMsgDataModel *_Nullable(^JobsRetJobsMsgDataModelByBOOLBlock)(BOOL value);
+typedef __kindof JXCategoryPopupVC *_Nullable(^JobsRetJXCategoryPopupVCBySubVCBlock)(JXCategoryPopupSubVC *_Nullable viewController);
+typedef __kindof Douyin_ZFPlayerVC_1 *_Nullable(^JobsRetDouyinZFPlayerVC1ByNSIntegerBlock)(NSInteger value);
+typedef __kindof Douyin_ZFPlayerVC_2 *_Nullable(^JobsRetDouyinZFPlayerVC2ByIndexPathBlock)(NSIndexPath *_Nullable indexPath);
+typedef __kindof B_VC *_Nullable(^JobsRetBVCByIndexPathBlock)(NSIndexPath *_Nullable indexPath);
+typedef __kindof A_VC *_Nullable(^JobsRetAVCByIndexPathBlock)(NSIndexPath *_Nullable indexPath);
+typedef __kindof ZFCustomControlView *_Nullable(^JobsRetZFCustomControlViewByBOOLBlock)(BOOL value);
+typedef __kindof JobsOCVideoRecorderRecordButton *_Nullable(^JobsRetJobsOCVideoRecorderRecordButtonByCGFloatBlock)(CGFloat progress);
+typedef __kindof JobsOCVideoRecorderPreviewView *_Nullable(^JobsRetJobsOCVideoRecorderPreviewViewByAVPlayerBlock)(AVPlayer *_Nullable player);
+typedef void(^jobsByCGFloatBlocks)(jobsByCGFloatBlock _Nullable timer);
+typedef void(^jobsByJobsOCOpenResultBlock)(JobsOCOpenResult result);
+typedef id _Nullable(^JobsRetIDByJobsOCOpenResultBlockBlock)(jobsByJobsOCOpenResultBlock _Nullable block);
+typedef void(^jobsByRetIDByIDBlocks)(JobsRetIDByIDBlock _Nullable block);
+typedef id _Nullable(^JobsRetIDByVoidIDBlocks)(jobsByIDBlock _Nullable block);
+typedef id _Nullable(^JobsRetIDByHXPhotoManagerBlock)(HXPhotoManager *_Nullable manager);
 
 #import "NSObject+CallBackInfoByBlock.h"
-
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import "JobsDefines.h"
-#else
-#import "JobsDefines.h"
-#endif
 /**
      Block 的三种类型
      在 Objective-C 中，block 有三种存储类型：
@@ -68,6 +195,8 @@ typedef AppLanguage(^JobsRetAppLanguageByVoidBlock)(void);
 typedef DeviceOrientation(^JobsRetDeviceOrientationByViewBlock)(__kindof UIView *_Nullable data);
 
 typedef void(^jobsByJobsTextViewBlock)(__kindof JobsTextView *_Nullable textView);
+typedef __kindof JobsTextView *_Nullable(^JobsRetJobsTextViewByTextModelBlock)(__kindof UITextModel *_Nullable textModel);
+typedef __kindof JobsHeaderFooterView *_Nullable(^JobsRetJobsHeaderFooterViewByViewModelBlock)(__kindof UIViewModel *_Nullable viewModel);
 typedef void(^jobsByZFAVPlayerManagerBlock)(__kindof ZFAVPlayerManager *_Nullable manager);
 typedef void(^jobsByZFIJKPlayerManagerBlock)(__kindof ZFIJKPlayerManager *_Nullable manager);
 typedef void(^jobsByZFDouYinControlViewBlock)(__kindof ZFDouYinControlView *_Nullable controlView);
@@ -134,6 +263,9 @@ typedef void(^jobsByUserModelBlock)(__kindof JobsUserModel <NSCoding>*_Nullable 
 typedef void(^jobsByUserDefaultModelBlock)(UserDefaultModel *_Nonnull data);
 typedef void(^jobsByTabBarItemConfigBlock)(__kindof JobsTabBarItemConfig *_Nullable config);
 typedef void(^jobsByLZTabBarConfigBlock)(__kindof LZTabBarConfig *_Nullable config);
+typedef __kindof LZTabBarConfig *_Nullable(^JobsRetLZTabBarConfigByArrBlock)(NSArray *_Nullable data);
+typedef __kindof LZTabBarConfig *_Nullable(^JobsRetLZTabBarConfigByBOOLBlock)(BOOL data);
+typedef __kindof LZTabBarConfig *_Nullable(^JobsRetLZTabBarConfigByCorBlock)(UIColor *_Nullable data);
 typedef void(^jobsByHXPhotoPickerModelBlock)(__kindof HXPhotoPickerModel *_Nullable model);
 typedef void(^jobsByParagraphStyleModelBlock)(__kindof JobsParagraphStyleModel *_Nullable model);
 typedef void(^jobsByLocationModelBlock)(__kindof JobsLocationModel *_Nullable model);
@@ -153,16 +285,20 @@ typedef void(^jobsByExcelTopHeadViewBlock)(__kindof JobsExcelTopHeadView *_Nulla
 typedef void(^jobsByExcelLeftListViewBlock)(__kindof JobsExcelLeftListView *_Nullable leftListView);
 typedef void(^jobsByUserHeaderDataViewTBVCellBlock)(JobsUserHeaderDataViewTBVCell *_Nullable cell);
 typedef void(^jobsByKeyValueModelBlock)(JobsKeyValueModel *_Nullable data);
+typedef __kindof JobsKeyValueModel *_Nullable(^JobsRetJobsKeyValueModelByIDBlock)(id _Nullable data);
 typedef void(^jobsBySPAlertControllerConfigBlock)(__kindof SPAlertControllerConfig *_Nullable config);
 typedef void(^jobsByToggleNavViewBlock)(__kindof JobsToggleNavView *_Nullable taggedNavView);
 typedef void(^jobsByCustomTabBarBlock)(__kindof JobsCustomTabBar *_Nullable customTabBar);
 typedef void(^jobsByIQKeyboardManagerBlock)(__kindof IQKeyboardManager *_Nullable manager);
+typedef __kindof IQKeyboardManager *_Nullable(^JobsRetIQKeyboardManagerByBOOLBlock)(BOOL data);
+typedef __kindof IQKeyboardManager *_Nullable(^JobsRetIQKeyboardManagerByFontBlock)(UIFont *_Nullable data);
+typedef __kindof IQKeyboardManager *_Nullable(^JobsRetIQKeyboardManagerByCGFloatBlock)(CGFloat data);
+typedef __kindof IQKeyboardManager *_Nullable(^JobsRetIQKeyboardManagerByManageBehaviorBlock)(IQAutoToolbarManageBehavior data);
 typedef void(^JobsByCJTextFieldBlock)(CJTextField *_Nullable data);
 typedef void(^jobsByNavigationTransitionManagerBlock)(__kindof JobsNavigationTransitionMgr *_Nullable manager);
 typedef void(^jobsByPresentTransitionManagerBlock)(__kindof JobsPresentTransitionMgr *_Nullable manager);
 typedef void(^JobsTimerBlock)(JobsTimer<TimerProtocol> *_Nullable timer);
 typedef void(^JobsTimerMgrBuildBlock)(JobsTimer *_Nullable timer);
-typedef void(^jobsByCGFloatBlocks)(jobsByCGFloatBlock _Nullable timer);
 typedef void(^jobsByBRPickerStyleBlock)(__kindof BRPickerStyle *_Nullable pickerStyle);
 typedef void(^jobsByBRDatePickerViewBlock)(__kindof BRDatePickerView *_Nullable datePickerView);
 typedef void (^BRDateResultBlock)(BRDateResult_Arguments);
@@ -232,7 +368,6 @@ typedef void(^jobsByRACDisposableBlock)(RACDisposable *_Nullable disposable);
 typedef void(^jobsByGKPhotoBrowserBlock)(GKPhotoBrowser *_Nonnull browser);
 typedef void(^jobsByRefreshConfigModelBlock)(__kindof MJRefreshConfigModel *_Nullable model);
 typedef void(^jobsByErrBlocks)(jobsByErrBlock _Nullable block);
-typedef void(^jobsByRetIDByIDBlocks)(JobsRetIDByIDBlock _Nullable block);
 typedef void(^jobsByTransformLayerDirectionTypeBlock)(JobsDirectionType data);
 typedef void(^jobsByJobsBasePopupTextViewBlock)(__kindof JobsBasePopupTextView *_Nullable textView);
 typedef void(^JobsEKEventStoreRequestAccessCompletionHandler)(Jobs_EKEventStoreRequestAccessCompletionHandler_Arguments);
@@ -347,6 +482,8 @@ typedef __kindof LuckyWheelView *_Nullable (^JobsRetLuckyWheelViewByColorsBlock)
 typedef __kindof LuckyWheelView *_Nullable (^JobsRetLuckyWheelViewByTimeIntervalBlock)(NSTimeInterval duration);
 typedef __kindof LuckyWheelView *_Nullable (^JobsRetLuckyWheelViewByNumberBlock)(NSNumber *_Nullable value);
 typedef __kindof LuckyWheelView *_Nullable (^JobsRetLuckyWheelViewByBOOLBlock)(BOOL flag);
+typedef __kindof LuckyWheelView *_Nullable(^JobsRetLuckyWheelViewByScrollDeceleratorBlock)(ScrollDecelerator *_Nullable decelerator);
+typedef __kindof LuckyWheelView *_Nullable(^JobsRetLuckyWheelViewByDisplayLinkBlock)(CADisplayLink *_Nullable displayLink);
 typedef __kindof LuckyWheelView *_Nullable(^JobsRetLuckyWheelViewBySegmentTapDSLBlock)(jobsByLuckyWheelSegmentBlock _Nullable handler);
 typedef __kindof LuckyWheelView *_Nullable(^JobsRetLuckyWheelViewBySegmentLongPressDSLBlock)(jobsByLuckyWheelSegmentAndLPGesturerBlock _Nullable handler);
 /// JobsNavBarConfig
@@ -377,6 +514,15 @@ typedef __kindof JobsTextField *_Nonnull(^JobsRetJobsTextFieldByViewBlock)(__kin
 typedef __kindof JobsTextField *_Nullable(^JobsRetJobsTextFieldByModeBlock)(UITextFieldViewMode mode);
 typedef __kindof JobsTextField *_Nonnull(^JobsRetJobsTextFieldByUITextFieldBlock)(__kindof UITextField *_Nullable textField);
 typedef __kindof JobsTextField *_Nonnull(^JobsRetJobsTextFieldByTextFieldConfigBlock)(jobsByTextFieldBlock _Nullable config);
+/// JobsAnimationLabel
+typedef __kindof JobsAnimationLabel *_Nullable(^JobsRetJobsAnimationLabelByNSTimeIntervalBlock)(NSTimeInterval data);
+typedef __kindof JobsAnimationLabel *_Nullable(^JobsRetJobsAnimationLabelByCGFloatBlock)(CGFloat data);
+typedef __kindof JobsAnimationLabel *_Nullable(^JobsRetJobsAnimationLabelByCorBlock)(UIColor *_Nullable data);
+/// LMHWaterFallLayout
+typedef __kindof LMHWaterFallLayout *_Nullable(^JobsRetLMHWaterFallLayoutByCGFloatBlock)(CGFloat data);
+/// UICollectionHeaderFooterView
+typedef __kindof UICollectionHeaderFooterView *_Nullable(^JobsRetUICollectionHeaderFooterViewByFrameBlock)(CGRect data);
+typedef __kindof BaseTableViewHeaderFooterView *_Nullable(^JobsRetBaseTableViewHeaderFooterViewByViewBlock)(__kindof UIView *_Nullable view);
 /// CJTextField
 typedef __kindof CJTextField *_Nullable(^JobsRetCJTextFieldByDeleteDelegateBlock)(id<CJTextFieldDeleteDelegate> _Nullable delegate);
 /// HQTextField
@@ -490,8 +636,15 @@ typedef __kindof HXPhotoConfiguration *_Nullable(^JobsRetHXPhotoConfigurationByN
 typedef __kindof HXPhotoConfiguration *_Nullable(^JobsRetHXPhotoConfigurationByNSIntegerBlock)(NSInteger data);
 /// https://github.com/91renb/BRPickerView
 typedef BRDatePickerView *_Nonnull(^JobsRetBRDatePickerViewByPickerStyleBlock)(__kindof BRPickerStyle *_Nullable style);
+typedef BRDatePickerView *_Nullable(^JobsRetBRDatePickerViewByNSIntegerBlock)(NSInteger data);
+typedef BRDatePickerView *_Nullable(^JobsRetBRDatePickerViewByStrBlock)(NSString *_Nullable data);
 typedef BRDatePickerView *_Nonnull (^BRPickerViewExtraRetDatePickerViewByPickerStyleBlock)(BRPickerStyle *_Nullable pickerStyle);
 typedef BRTextPickerView *_Nonnull(^JobsRetBRTextPickerViewByPickerModeBlock)(NSInteger mode);
+typedef BRTextPickerView *_Nullable(^JobsRetBRTextPickerViewByStrBlock)(NSString *_Nullable data);
+typedef BRTextPickerView *_Nullable(^JobsRetBRTextPickerViewByUIntegerBlock)(NSUInteger data);
+typedef BRTextPickerView *_Nullable(^JobsRetBRTextPickerViewByPickerStyleBlock)(BRPickerStyle *_Nullable data);
+typedef BRTextPickerView *_Nullable(^JobsRetBRTextPickerViewByArrBlock)(NSArray *_Nullable data);
+typedef BRPickerStyle *_Nullable(^JobsRetBRPickerStyleByCorBlock)(UIColor *_Nullable data);
 typedef BRTextPickerView *_Nonnull (^BRPickerViewExtraRetTextPickerViewByPickerModeBlock)(BRTextPickerMode mode);
 typedef BRTextPickerView *_Nonnull (^BRPickerViewExtraRetTextPickerViewByPickerStyleBlock)(BRPickerStyle *_Nullable pickerStyle);
 typedef BRAddressPickerView *_Nonnull(^JobsRetBRAddressPickerViewByPickerStyleBlock)(__kindof BRPickerStyle *_Nullable style);
@@ -504,10 +657,17 @@ typedef __kindof JobsTimer *_Nullable(^JobsRetTimerByCGFloatBlock)(CGFloat time)
 typedef __kindof JobsTimer *_Nullable(^JobsRetTimerByDoubleBlock)(double time);
 typedef __kindof JobsTimer *_Nullable(^JobsRetTimerByStringBlock)(NSString *_Nullable mode);
 typedef __kindof JobsTimer *_Nullable(^JobsRetTimerByUserInfo)(id _Nullable userInfo);
+typedef __kindof JobsTimer *_Nullable(^JobsRetTimerByDateBlock)(NSDate *_Nullable data);
 typedef __kindof JobsTimer *_Nullable(^JobsRetTimerByQueue)(dispatch_queue_t _Nullable queue);
 typedef __kindof JobsTimer *_Nullable(^JobsRetTimerByNSUInteger)(NSUInteger state);
 typedef __kindof JobsTimer *_Nullable(^JobsRetTimerByCGFloatBlocks)(jobsByCGFloatBlock _Nullable block);
 typedef __kindof JobsTimer *_Nullable(^JobsRetTimerByJTimerBlocks)(JobsTimerBlock _Nullable block);
+/// _JobsTimerManagerEntry
+typedef __kindof _JobsTimerManagerEntry *_Nullable(^JobsRetJobsTimerManagerEntryByJobsTimerBlock)(JobsTimer<TimerProtocol> *_Nullable timer);
+typedef __kindof _JobsTimerManagerEntry *_Nullable(^JobsRetJobsTimerManagerEntryByStringBlock)(NSString *_Nullable data);
+typedef __kindof _JobsTimerManagerEntry *_Nullable(^JobsRetJobsTimerManagerEntryByNSUIntegerBlock)(NSUInteger data);
+typedef __kindof _JobsTimerManagerEntry *_Nullable(^JobsRetJobsTimerManagerEntryByJobsByCGFloatBlockBlock)(jobsByCGFloatBlock _Nullable block);
+typedef __kindof _JobsTimerManagerEntry *_Nullable(^JobsRetJobsTimerManagerEntryByJobsTimerBlockBlock)(JobsTimerBlock _Nullable block);
 /// _JobsTimerMgrEntry
 typedef __kindof _JobsTimerMgrEntry *_Nullable(^JobsRetJobsTimerMgrEntryByJobsTimerBlock)(JobsTimer<TimerProtocol> *_Nullable timer);
 typedef __kindof _JobsTimerMgrEntry *_Nullable(^JobsRetJobsTimerMgrEntryByStringBlock)(NSString *_Nullable data);
@@ -560,6 +720,7 @@ typedef __kindof UIScrollView *_Nullable(^JobsRetScrollViewByMJRefreshFooterBloc
 typedef __kindof UITableView *_Nullable(^JobsRetTableViewByMJRefreshFooterBlock)(__kindof MJRefreshFooter *_Nullable footer);
 typedef __kindof UICollectionView *_Nullable(^JobsRetCollectionViewByMJRefreshFooterBlock)(__kindof MJRefreshFooter *_Nullable footer);
 typedef __kindof MJRefreshFooter *_Nonnull(^JobsRetMJRefreshFooterByRefreshConfigModelBlock)(MJRefreshConfigModel *_Nonnull model);
+typedef __kindof MJRefreshFooter *_Nullable(^JobsRetMJRefreshFooterByStateBlock)(MJRefreshState data);
 typedef __kindof MJRefreshAutoGifFooter *_Nonnull(^JobsRetMJRefreshAutoGifFooterByRefreshConfigModelBlock)(MJRefreshConfigModel *_Nonnull model);
 typedef __kindof MJRefreshBackNormalFooter *_Nonnull(^JobsRetMJRefreshBackNormalFooterByRefreshConfigModelBlock)(MJRefreshConfigModel *_Nonnull model);
 typedef __kindof MJRefreshAutoNormalFooter *_Nonnull(^JobsRetMJRefreshAutoNormalFooterByRefreshConfigModelBlock)(MJRefreshConfigModel *_Nonnull model);
@@ -683,7 +844,6 @@ typedef __kindof JXCategoryListContainerView *_Nullable(^JobsRetCategoryListCont
 typedef __kindof JXCategoryIndicatorView *_Nullable(^JobsRetCategoryIndicatorViewByViewsBlock)(__kindof NSArray <__kindof UIView <JXCategoryIndicatorProtocol>*>*_Nullable views);
 #pragma mark —— 复合型Block
 typedef id _Nullable(^JobsRetIDByVoidBlocks)(jobsByVoidBlock _Nullable block);
-typedef id _Nullable(^JobsRetIDByVoidIDBlocks)(jobsByIDBlock _Nullable block);
 
 typedef __kindof UIView *_Nullable(^JobsRetViewByVoidBlocks)(jobsByVoidBlock _Nullable block);
 typedef __kindof UIView *_Nullable(^JobsRetViewByRetIDBlocks)(JobsRetIDByVoidBlock _Nullable block);
@@ -834,6 +994,7 @@ typedef __kindof FileFolderHandleModel *_Nullable(^JobsRetFileFolderHandleModelB
 typedef __kindof GTCaptcha4Model *_Nullable(^JobsRetGTCaptcha4ModelByGTC4ErrorPointerBlock)(GTC4Error *_Nullable data);
 typedef __kindof GTCaptcha4Model *_Nullable(^JobsRetGTCaptcha4ModelByGTCaptcha4ResultModelPointerBlock)(GTCaptcha4ResultModel *_Nullable data);
 typedef __kindof GTCaptcha4Model *_Nullable(^JobsRetGTCaptcha4ModelByGTCaptcha4SessionPointerBlock)(GTCaptcha4Session *_Nullable data);
+typedef __kindof GTCaptcha4Session *_Nullable(^JobsRetGTCaptcha4SessionByIDBlock)(id _Nullable data);
 typedef __kindof GTCaptcha4Model *_Nullable(^JobsRetGTCaptcha4ModelByStrBlock)(NSString *_Nullable data);
 typedef __kindof GTCaptcha4Model *_Nullable(^JobsRetGTCaptcha4ModelByUIViewPointerBlock)(__kindof UIView *_Nullable data);
 /// GTCaptcha4ResultModel
@@ -1514,6 +1675,9 @@ typedef __kindof RACModel *_Nullable(^JobsRetRACModelByRACTuplePointerBlock)(RAC
 /// SDWebImageModel
 typedef __kindof SDWebImageModel *_Nullable(^JobsRetSDWebImageModelByImageBlock)(UIImage *_Nullable data);
 typedef __kindof SDWebImageModel *_Nullable(^JobsRetSDWebImageModelByURLBlock)(NSURL *_Nullable data);
+typedef __kindof SDWebImageModel *_Nullable(^JobsRetSDWebImageModelByUIntegerBlock)(NSUInteger data);
+typedef __kindof SDWebImageModel *_Nullable(^JobsRetSDWebImageModelByCompletionBlock)(SDExternalCompletionBlock _Nullable data);
+typedef __kindof SDWebImageModel *_Nullable(^JobsRetSDWebImageModelByProgressBlock)(SDImageLoaderProgressBlock _Nullable data);
 /// SPAlertControllerConfig
 typedef __kindof SPAlertControllerConfig *_Nullable(^JobsRetSPAlertControllerConfigByBOOLBlock)(BOOL data);
 typedef __kindof SPAlertControllerConfig *_Nullable(^JobsRetSPAlertControllerConfigByIDBlock)(id _Nullable data);

@@ -6,9 +6,6 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_IQKEYBOARDMANAGER_EXTRA_1802BF839B
-#define JOBS_HEADER_GUARD_IQKEYBOARDMANAGER_EXTRA_1802BF839B
-
-#import <Foundation/Foundation.h>
 
 #if __has_include(<IQKeyboardManager/IQKeyboardManager.h>)
 #import <IQKeyboardManager/IQKeyboardManager.h>
@@ -16,12 +13,25 @@
 #import "IQKeyboardManager.h"
 #endif
 
+#define JOBS_HEADER_GUARD_IQKEYBOARDMANAGER_EXTRA_1802BF839B
+
+#import <Foundation/Foundation.h>
+
 #import "JobsBlock.h"
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IQKeyboardManager (Extra)
+
+-(JobsRetIQKeyboardManagerByBOOLBlock _Nonnull)byEnable;
+-(JobsRetIQKeyboardManagerByBOOLBlock _Nonnull)byShouldResignOnTouchOutside;
+-(JobsRetIQKeyboardManagerByBOOLBlock _Nonnull)byShouldToolbarUsesTextFieldTintColor;
+-(JobsRetIQKeyboardManagerByManageBehaviorBlock _Nonnull)byToolbarManageBehavior;
+-(JobsRetIQKeyboardManagerByBOOLBlock _Nonnull)byEnableAutoToolbar;
+-(JobsRetIQKeyboardManagerByBOOLBlock _Nonnull)byShouldShowToolbarPlaceholder;
+-(JobsRetIQKeyboardManagerByFontBlock _Nonnull)byPlaceholderFont;
+-(JobsRetIQKeyboardManagerByCGFloatBlock _Nonnull)byKeyboardDistanceFromTextField;
 
 @end
 

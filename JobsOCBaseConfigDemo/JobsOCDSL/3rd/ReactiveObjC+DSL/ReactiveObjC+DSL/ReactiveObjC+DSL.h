@@ -6,15 +6,16 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_REACTIVEOBJC_DSL_6D7A2B07E9
-#define JOBS_HEADER_GUARD_REACTIVEOBJC_DSL_6D7A2B07E9
-
-#import <objc/message.h>
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
-#elif __has_include("ReactiveObjC.h")
+#else
 #import "ReactiveObjC.h"
 #endif
+
+#define JOBS_HEADER_GUARD_REACTIVEOBJC_DSL_6D7A2B07E9
+
+#import <objc/message.h>
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"

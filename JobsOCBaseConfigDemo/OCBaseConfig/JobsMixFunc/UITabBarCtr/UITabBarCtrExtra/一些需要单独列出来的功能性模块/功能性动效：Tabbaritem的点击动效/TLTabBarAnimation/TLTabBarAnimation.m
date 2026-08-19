@@ -20,9 +20,9 @@ CAKeyframeAnimation * createAnimation(NSString *keyPath,
                                       NSArray *values,
                                       CGFloat duration) {
     CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:keyPath];
-    animation.values = values;
-    animation.duration = kDuration;
-    animation.calculationMode = @"cubic";
+    animation.byValues(values);
+    animation.byDuration(kDuration);
+    animation.byCalculationMode(@"cubic");
     return animation;
 }
 /// 播放贞动画
@@ -31,10 +31,10 @@ void playFrameAnimation(UIImageView *icon,
     CAKeyframeAnimation *animation = createAnimation(kAnimationKeyPathKeyFrame,
                                                      images,
                                                      kDuration);
-    animation.calculationMode = @"discrete";
-    animation.repeatCount = 1;
-    animation.removedOnCompletion = NO;
-    animation.fillMode = kCAFillModeForwards;
+    animation.byCalculationMode(@"discrete");
+    animation.byRepeatCount(1);
+    animation.byRemovedOnCompletion(NO);
+    animation.byFillMode(kCAFillModeForwards);
     [icon.layer addAnimation:animation forKey:nil];
 }
 /// 植入烟花动画，并播放
@@ -43,68 +43,68 @@ void playFireworksAnimation(UIView *view,
                             CGFloat scale,
                             CGFloat scaleRange) {
     BOOL __block clipsToBounds = view.clipsToBounds;
-    view.clipsToBounds = NO;
+    view.byClipsToBounds(NO);
     CGPoint center = CGPointMake(CGRectGetMidX(view.bounds),
                                  CGRectGetMidY(view.bounds));
     CAEmitterCell *explosionCell = [CAEmitterCell emitterCell];
-    explosionCell.name = @"explosion";
-    explosionCell.alphaRange = 0.20;
-    explosionCell.alphaSpeed = -1.0;
-    explosionCell.lifetime = 0.7;
-    explosionCell.lifetimeRange = 0.3;
-    explosionCell.birthRate = 0;
-    explosionCell.velocity = 40.00;
-    explosionCell.velocityRange = 10.00;
-    explosionCell.contents = (id)[img CGImage];
-    explosionCell.scale = scale;
-    explosionCell.scaleRange = scaleRange;
+    explosionCell.byName(@"explosion");
+    explosionCell.byAlphaRange(0.20);
+    explosionCell.byAlphaSpeed(-1.0);
+    explosionCell.byLifetime(0.7);
+    explosionCell.byLifetimeRange(0.3);
+    explosionCell.byBirthRate(0);
+    explosionCell.byVelocity(40.00);
+    explosionCell.byVelocityRange(10.00);
+    explosionCell.byContents((id)[img CGImage]);
+    explosionCell.byScale(scale);
+    explosionCell.byScaleRange(scaleRange);
     CAEmitterLayer __block *explosionLayer = [CAEmitterLayer layer];
-    explosionLayer.name = @"emitterLayer";
-    explosionLayer.emitterShape = kCAEmitterLayerCircle;
-    explosionLayer.emitterMode = kCAEmitterLayerOutline;
-    explosionLayer.emitterSize = CGSizeMake(JobsWidth(25), 0);
-    explosionLayer.emitterCells = @[explosionCell];
-    explosionLayer.renderMode = kCAEmitterLayerOldestFirst;
-    explosionLayer.masksToBounds = NO;
-    explosionLayer.seed = 1366128504;
-    explosionLayer.emitterPosition = center;
+    explosionLayer.byName(@"emitterLayer");
+    explosionLayer.byEmitterShape(kCAEmitterLayerCircle);
+    explosionLayer.byEmitterMode(kCAEmitterLayerOutline);
+    explosionLayer.byEmitterSize(CGSizeMake(JobsWidth(25), 0));
+    explosionLayer.byEmitterCells(@[explosionCell]);
+    explosionLayer.byRenderMode(kCAEmitterLayerOldestFirst);
+    explosionLayer.byMasksToBounds(NO);
+    explosionLayer.bySeed(1366128504);
+    explosionLayer.byEmitterPosition(center);
     [view.layer addSublayer:explosionLayer];
     CAEmitterCell *chargeCell = [CAEmitterCell emitterCell];
-    chargeCell.name = @"charge";
-    chargeCell.alphaRange = 0.20;
-    chargeCell.alphaSpeed = -1.0;
-    chargeCell.lifetime = 0.3;
-    chargeCell.lifetimeRange = 0.1;
-    chargeCell.birthRate = 0;
-    chargeCell.velocity = -40.0;
-    chargeCell.velocityRange = 0.00;
-    chargeCell.contents = (id)[img CGImage];
-    chargeCell.scale = scale;
-    chargeCell.scaleRange = scaleRange;
+    chargeCell.byName(@"charge");
+    chargeCell.byAlphaRange(0.20);
+    chargeCell.byAlphaSpeed(-1.0);
+    chargeCell.byLifetime(0.3);
+    chargeCell.byLifetimeRange(0.1);
+    chargeCell.byBirthRate(0);
+    chargeCell.byVelocity(-40.0);
+    chargeCell.byVelocityRange(0.00);
+    chargeCell.byContents((id)[img CGImage]);
+    chargeCell.byScale(scale);
+    chargeCell.byScaleRange(scaleRange);
     CAEmitterLayer __block *chargeLayer = [CAEmitterLayer layer];
-    chargeLayer.name = @"emitterLayer";
-    chargeLayer.emitterShape = kCAEmitterLayerCircle;
-    chargeLayer.emitterMode = kCAEmitterLayerOutline;
-    chargeLayer.emitterSize = CGSizeMake(JobsWidth(25), 0);
-    chargeLayer.emitterCells = @[chargeCell];
-    chargeLayer.renderMode = kCAEmitterLayerOldestFirst;
-    chargeLayer.masksToBounds = NO;
-    chargeLayer.seed = 1366128504;
-    chargeLayer.emitterPosition = center;
+    chargeLayer.byName(@"emitterLayer");
+    chargeLayer.byEmitterShape(kCAEmitterLayerCircle);
+    chargeLayer.byEmitterMode(kCAEmitterLayerOutline);
+    chargeLayer.byEmitterSize(CGSizeMake(JobsWidth(25), 0));
+    chargeLayer.byEmitterCells(@[chargeCell]);
+    chargeLayer.byRenderMode(kCAEmitterLayerOldestFirst);
+    chargeLayer.byMasksToBounds(NO);
+    chargeLayer.bySeed(1366128504);
+    chargeLayer.byEmitterPosition(center);
     [view.layer addSublayer:chargeLayer];
-    chargeLayer.beginTime = CACurrentMediaTime();
+    chargeLayer.byBeginTime(CACurrentMediaTime());
     [chargeLayer setValue:@100 forKeyPath:@"emitterCells.charge.birthRate"];
     NSTimeInterval time = kDuration * NSEC_PER_SEC;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, time), dispatch_get_main_queue(), ^{
         [chargeLayer setValue:@0 forKeyPath:@"emitterCells.charge.birthRate"];
         [chargeLayer removeFromSuperlayer];
-        explosionLayer.beginTime = CACurrentMediaTime();
+        explosionLayer.byBeginTime(CACurrentMediaTime());
         [explosionLayer setValue:@300 forKeyPath:@"emitterCells.explosion.birthRate"];
         NSTimeInterval time = 0.3 * NSEC_PER_SEC;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, time), dispatch_get_main_queue(), ^{
             [explosionLayer setValue:@0 forKeyPath:@"emitterCells.explosion.birthRate"];
             [explosionLayer removeFromSuperlayer];
-            view.clipsToBounds = clipsToBounds;
+            view.byClipsToBounds(clipsToBounds);
         });
     });
 }
@@ -156,8 +156,8 @@ void playMoveIconAnimation(UIImageView *icon,
     CAKeyframeAnimation *animation = createAnimation(kAnimationKeyPathPositionY,
                                                      values,
                                                      kDuration / 2);
-    animation.fillMode = kCAFillModeForwards;
-    animation.removedOnCompletion = NO;
+    animation.byFillMode(kCAFillModeForwards);
+    animation.byRemovedOnCompletion(NO);
     [icon.layer addAnimation:animation forKey:nil];
 }
 
@@ -165,12 +165,12 @@ void playSelectLabelAnimation(UILabel *textLabel) {
     CAKeyframeAnimation *animation = createAnimation(kAnimationKeyPathPositionY,
                                                      @[@(textLabel.center.y),@(textLabel.center.y - 60.0)],
                                                      kDuration);
-    animation.fillMode = kCAFillModeRemoved;
+    animation.byFillMode(kCAFillModeRemoved);
     [textLabel.layer addAnimation:animation forKey:nil];
     CAKeyframeAnimation *scaleAnimation = createAnimation(kAnimationKeyPathScale,
                                                           @[@1.0,@2.0],
                                                           kDuration);
-    scaleAnimation.fillMode = kCAFillModeRemoved;
+    scaleAnimation.byFillMode(kCAFillModeRemoved);
     [textLabel.layer addAnimation:scaleAnimation forKey:nil];
     CAKeyframeAnimation * opacityAnimation = createAnimation(kAnimationKeyPathOpacity,
                                                              @[@1.0,@0.0],
@@ -198,9 +198,9 @@ void playDeselectLabelAnimation(UILabel *textLabel) {
                             buttonImageView:(UIImageView *)imageView
                             buttonTextLabel:(UILabel *)textLabel{
     CABasicAnimation *rotateAnimation = [CABasicAnimation animationWithKeyPath:kAnimationKeyPathRotation];
-    rotateAnimation.fromValue = @0.0;
-    rotateAnimation.toValue = @(-M_PI * 2);
-    rotateAnimation.duration = kDuration;
+    rotateAnimation.byFromValue(@0.0);
+    rotateAnimation.byToValue(@(-M_PI * 2));
+    rotateAnimation.byDuration(kDuration);
     [imageView.layer addAnimation:rotateAnimation forKey:nil];
 }
 

@@ -6,16 +6,23 @@
 //
 
 #ifndef JobsOCVideoRecorderPreviewView_h
-#define JobsOCVideoRecorderPreviewView_h
-
-#import <UIKit/UIKit.h>
-#import <AVFoundation/AVFoundation.h>
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#define JobsOCVideoRecorderPreviewView_h
+
+#import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+#import <AVFoundation/AVFoundation.h>
 
 #import "JobsByOCPods.h"
 #import "JobsOCDSL.h"
@@ -33,8 +40,8 @@ typedef void(^JobsOCVideoRecorderPreviewActionBlock)(JobsOCVideoRecorderPreviewV
 Prop_copy(nullable) JobsOCVideoRecorderPreviewActionBlock cancelBlock;
 Prop_copy(nullable) JobsOCVideoRecorderPreviewActionBlock saveBlock;
 
--(void)playWithURL:(NSURL *)URL;
--(void)stop;
+-(jobsByURLBlock _Nonnull)playWithURL;
+-(jobsByVoidBlock _Nonnull)jobsStop;
 
 @end
 

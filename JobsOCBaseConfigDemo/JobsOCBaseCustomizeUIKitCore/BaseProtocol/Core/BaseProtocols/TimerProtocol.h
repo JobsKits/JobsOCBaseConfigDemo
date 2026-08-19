@@ -63,23 +63,23 @@ Prop_assign(getter=isPaused)BOOL paused;
 Prop_assign(getter=isStop)BOOL stop;
 #pragma mark —— 定时器方法
 /// 启动计时器（自动启动无非是找准一个时机进行启动）
--(void)start;
+-(jobsByVoidBlock _Nonnull)start;
 /// 暂停计时器
--(void)pause;
+-(jobsByVoidBlock _Nonnull)pause;
 /// 恢复计时器
--(void)resume;
+-(jobsByVoidBlock _Nonnull)resume;
 /// 停止计时器（销毁@有回调）
--(void)fireOnce;
+-(jobsByVoidBlock _Nonnull)fireOnce;
 /// 停止计时器（销毁@无回调）
--(void)stop;
+-(jobsByVoidBlock _Nonnull)jobsStop;
 #pragma mark —— 定时器回调
 /// 注册回调（每 tick 执行一次）
 Prop_copy(nullable)jobsByCGFloatBlock onTick;
 /// 注册完成回调（用于一次性定时器或倒计时）
 Prop_copy(nullable)JobsTimerBlock onFinish;
 
--(JobsRetBtnByCGFloatBlocks)byOnTick;
--(JobsRetBtnByJTimerBlocks)byOnFinish;
+-(JobsRetBtnByCGFloatBlocks _Nonnull)byOnTick;
+-(JobsRetBtnByJTimerBlocks _Nonnull)byOnFinish;
 
 @end
 

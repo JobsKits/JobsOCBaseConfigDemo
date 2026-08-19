@@ -20,8 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// 最左边一个主标题（UIButton） + 最右边有一个副标题（UIButton）
 @interface JobsHeaderFooterView : BaseCollectionReusableView<AppToolsProtocol>
 
--(BaseButton *)getTitleBtn;
--(BaseButton *)getSubTitleBtn;
+-(JobsRetJobsHeaderFooterViewByViewModelBlock _Nonnull)byTitleModel;
+-(JobsRetJobsHeaderFooterViewByViewModelBlock _Nonnull)bySubTitleModel;
+-(JobsRetBaseButtonByVoidBlock _Nonnull)getTitleBtn;
+-(JobsRetBaseButtonByVoidBlock _Nonnull)getSubTitleBtn;
 
 @end
 

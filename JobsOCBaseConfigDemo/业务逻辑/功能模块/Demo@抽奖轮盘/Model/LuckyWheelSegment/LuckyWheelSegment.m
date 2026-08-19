@@ -9,7 +9,7 @@
 
 @interface LuckyWheelSegment ()
 
-+ (NSString *)verticalStringFrom:(NSString *)text;
++(JobsRetStrByStrBlock _Nonnull)verticalStringFrom;
 
 @end
 
@@ -33,7 +33,7 @@
               imageURLString:(NSString *)imageURLString {
     if (self = [super init]) {
         if (text.length > 0) {
-            _text = [[self class] verticalStringFrom:text];
+            _text = ([self class]).verticalStringFrom(text);
         } else {
             _text = nil;
         }
@@ -46,23 +46,25 @@
     };return self;
 }
 /// 把字符串转成竖排（逐个“字”之间插入 \n），兼容 emoji 等复合字符
-+ (NSString *)verticalStringFrom:(NSString *)text {
-    if (!text.length) return text;
-    return jobsMakeMutString(^(__kindof NSMutableString * _Nullable result) {
-        [text enumerateSubstringsInRange:NSMakeRange(0, text.length)
-                                 options:NSStringEnumerationByComposedCharacterSequences
-                              usingBlock:^(NSString * _Nullable substring,
-                                           NSRange substringRange,
-                                           NSRange enclosingRange,
-                                           BOOL * _Nonnull stop) {
-            if (substring) {
-                [result appendString:substring];
-                if (NSMaxRange(substringRange) < text.length) {
-                    [result appendString:@"\n"];
++(JobsRetStrByStrBlock _Nonnull)verticalStringFrom{
+    return ^NSString *(NSString * text){
+        if (!text.length) return text;
+        return jobsMakeMutString(^(__kindof NSMutableString * _Nullable result) {
+            [text enumerateSubstringsInRange:NSMakeRange(0, text.length)
+                                     options:NSStringEnumerationByComposedCharacterSequences
+                                  usingBlock:^(NSString * _Nullable substring,
+                                               NSRange substringRange,
+                                               NSRange enclosingRange,
+                                               BOOL * _Nonnull stop) {
+                if (substring) {
+                    [result appendString:substring];
+                    if (NSMaxRange(substringRange) < text.length) {
+                        [result appendString:@"\n"];
+                    }
                 }
-            }
-        }];
-    });
+            }];
+        });
+    };
 }
 
 @end

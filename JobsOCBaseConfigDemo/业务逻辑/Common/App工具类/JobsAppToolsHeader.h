@@ -9,5 +9,6 @@
 #define JobsAppToolsHeader_h
 
 #import "JobsAppTools.h"
+#import "NSObject+AppTools.h"
 
 #endif /* JobsAppToolsHeader_h */

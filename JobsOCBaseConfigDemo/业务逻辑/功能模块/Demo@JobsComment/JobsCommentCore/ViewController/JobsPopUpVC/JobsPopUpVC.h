@@ -52,6 +52,10 @@ UIGestureRecognizerDelegate
 
 Prop_assign()CGFloat popUpHeight;//默认弹出高度300
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsPopUpVC
+-(JobsRetJobsPopUpVCByBOOLBlock _Nonnull)byHiddenNavigationBar;
+-(JobsRetJobsPopUpVCByCGSizeBlock _Nonnull)byPreferredContentSize;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsPopUpVC
 @end
 
 NS_ASSUME_NONNULL_END
@@ -68,7 +72,7 @@ NS_ASSUME_NONNULL_END
                               toVC:popUpVC
                        comingStyle:ComingStyle_PUSH
                  presentationStyle:UIModalPresentationAutomatic
-                     requestParams:@"".tr
+                     requestParams:@"".jobsTr()
                            success:^(id data) {}
                           animated:YES];
 

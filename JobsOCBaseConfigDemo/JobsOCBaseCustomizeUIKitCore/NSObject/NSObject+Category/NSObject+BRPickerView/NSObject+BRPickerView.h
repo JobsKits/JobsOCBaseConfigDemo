@@ -7,12 +7,12 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_NSOBJECT_BRPICKERVIEW_99BF2FC412
-#define JOBS_HEADER_GUARD_NSOBJECT_BRPICKERVIEW_99BF2FC412
 
-#import <objc/runtime.h>
-#import <UIKit/UIKit.h>
-#import "BRPickerStyle+DSL.h"
-#import "BRTextPickerView+Extra.h"
+#if __has_include(<BRPickerView/BRPickerView.h>)
+#import <BRPickerView/BRPickerView.h>
+#else
+#import "BRPickerView.h"
+#endif
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
@@ -20,11 +20,12 @@
 #import "XYColorOC.h"
 #endif
 
-#if __has_include(<BRPickerView/BRPickerView.h>)
-#import <BRPickerView/BRPickerView.h>
-#else
-#import "BRPickerView.h"
-#endif
+#define JOBS_HEADER_GUARD_NSOBJECT_BRPICKERVIEW_99BF2FC412
+
+#import <objc/runtime.h>
+#import <UIKit/UIKit.h>
+#import "BRPickerStyle+DSL.h"
+#import "BRTextPickerView+Extra.h"
 
 #import "JobsLanMgr.h"
 #import "JobsModelDSL.h"
@@ -53,7 +54,7 @@ Prop_strong()BRPickerStyle *customStyle;
 
 /// 以应对一个视图上面多个 BRPickerView 的情况。
 /// 关键代码：[self.pickerView1 addPickerToView:承接的视图1]; 只能一对一承接。
-- (BRPickerStyle *)makeCustomStyle;
+- (JobsRetBRPickerStyleByVoidBlock _Nonnull)makeCustomStyle;
 - (BRPickerViewExtraRetTextPickerViewByPickerModeBlock)makeTextPickerView;
 - (BRPickerViewExtraRetTextPickerViewByPickerModeBlock)makeStringPickerView;       // 旧命名兼容
 - (BRPickerViewExtraRetTextPickerViewByPickerStyleBlock)makeAddressPickerView;     // 旧命名兼容：返回 BRTextPickerView 级联选择器

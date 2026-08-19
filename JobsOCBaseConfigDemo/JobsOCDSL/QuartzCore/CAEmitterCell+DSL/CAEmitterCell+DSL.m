@@ -9,19 +9,19 @@
 
 @implementation CAEmitterCell (JobsChain)
 #pragma mark —— Factory / KVC
-+(JobsRetCAEmitterCellByVoidBlock)byEmitterCell{
++(JobsRetCAEmitterCellByVoidBlock _Nonnull)byEmitterCell{
     return ^__kindof CAEmitterCell *_Nullable(void){
         return [self emitterCell];
     };
 }
 
-+(JobsRetIDByStrBlock)byDefaultValueForKey{
++(JobsRetIDByStrBlock _Nonnull)byDefaultValueForKey{
     return ^id _Nullable(__kindof NSString *_Nullable data){
         return data ? [self defaultValueForKey:data] : nil;
     };
 }
 
--(JobsRetBOOLByStrBlock)byShouldArchiveValueForKey{
+-(JobsRetBOOLByStrBlock _Nonnull)byShouldArchiveValueForKey{
     @jobs_weakify(self)
     return ^BOOL(__kindof NSString *_Nullable data){
         @jobs_strongify(self)
@@ -30,7 +30,7 @@
 }
 
 #pragma mark —— CAMediaTiming
--(JobsRetCAEmitterCellByCFTimeIntervalBlock)byBeginTime{
+-(JobsRetCAEmitterCellByCFTimeIntervalBlock _Nonnull)byBeginTime{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CFTimeInterval data){
         @jobs_strongify(self)
@@ -39,7 +39,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCFTimeIntervalBlock)byDuration{
+-(JobsRetCAEmitterCellByCFTimeIntervalBlock _Nonnull)byDuration{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CFTimeInterval data){
         @jobs_strongify(self)
@@ -48,7 +48,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByFloatBlock)bySpeed{
+-(JobsRetCAEmitterCellByFloatBlock _Nonnull)bySpeed{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(float data){
         @jobs_strongify(self)
@@ -57,7 +57,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCFTimeIntervalBlock)byTimeOffset{
+-(JobsRetCAEmitterCellByCFTimeIntervalBlock _Nonnull)byTimeOffset{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CFTimeInterval data){
         @jobs_strongify(self)
@@ -66,7 +66,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByFloatBlock)byRepeatCount{
+-(JobsRetCAEmitterCellByFloatBlock _Nonnull)byRepeatCount{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(float data){
         @jobs_strongify(self)
@@ -75,7 +75,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCFTimeIntervalBlock)byRepeatDuration{
+-(JobsRetCAEmitterCellByCFTimeIntervalBlock _Nonnull)byRepeatDuration{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CFTimeInterval data){
         @jobs_strongify(self)
@@ -84,7 +84,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByBOOLBlock)byAutoreverses{
+-(JobsRetCAEmitterCellByBOOLBlock _Nonnull)byAutoreverses{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -93,7 +93,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCAMediaTimingFillModeBlock)byFillMode{
+-(JobsRetCAEmitterCellByCAMediaTimingFillModeBlock _Nonnull)byFillMode{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CAMediaTimingFillMode _Nullable data){
         @jobs_strongify(self)
@@ -103,7 +103,7 @@
 }
 
 #pragma mark —— CAEmitterCell
--(JobsRetCAEmitterCellByStringBlock)byName{
+-(JobsRetCAEmitterCellByStringBlock _Nonnull)byName{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(NSString *_Nullable data){
         @jobs_strongify(self)
@@ -112,7 +112,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByBOOLBlock)byEnabled{
+-(JobsRetCAEmitterCellByBOOLBlock _Nonnull)byEnabled{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -121,7 +121,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByFloatBlock)byBirthRate{
+-(JobsRetCAEmitterCellByFloatBlock _Nonnull)byBirthRate{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(float data){
         @jobs_strongify(self)
@@ -130,7 +130,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByFloatBlock)byLifetime{
+-(JobsRetCAEmitterCellByFloatBlock _Nonnull)byLifetime{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(float data){
         @jobs_strongify(self)
@@ -139,7 +139,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByFloatBlock)byLifetimeRange{
+-(JobsRetCAEmitterCellByFloatBlock _Nonnull)byLifetimeRange{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(float data){
         @jobs_strongify(self)
@@ -148,7 +148,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCGFloatBlock)byEmissionLatitude{
+-(JobsRetCAEmitterCellByCGFloatBlock _Nonnull)byEmissionLatitude{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -157,7 +157,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCGFloatBlock)byEmissionLongitude{
+-(JobsRetCAEmitterCellByCGFloatBlock _Nonnull)byEmissionLongitude{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -166,7 +166,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCGFloatBlock)byEmissionRange{
+-(JobsRetCAEmitterCellByCGFloatBlock _Nonnull)byEmissionRange{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -175,7 +175,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCGFloatBlock)byVelocity{
+-(JobsRetCAEmitterCellByCGFloatBlock _Nonnull)byVelocity{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -184,7 +184,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCGFloatBlock)byVelocityRange{
+-(JobsRetCAEmitterCellByCGFloatBlock _Nonnull)byVelocityRange{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -193,7 +193,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCGFloatBlock)byXAcceleration{
+-(JobsRetCAEmitterCellByCGFloatBlock _Nonnull)byXAcceleration{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -202,7 +202,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCGFloatBlock)byYAcceleration{
+-(JobsRetCAEmitterCellByCGFloatBlock _Nonnull)byYAcceleration{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -211,7 +211,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCGFloatBlock)byZAcceleration{
+-(JobsRetCAEmitterCellByCGFloatBlock _Nonnull)byZAcceleration{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -220,7 +220,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCGFloatBlock)byScale{
+-(JobsRetCAEmitterCellByCGFloatBlock _Nonnull)byScale{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -229,7 +229,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCGFloatBlock)byScaleRange{
+-(JobsRetCAEmitterCellByCGFloatBlock _Nonnull)byScaleRange{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -238,7 +238,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCGFloatBlock)byScaleSpeed{
+-(JobsRetCAEmitterCellByCGFloatBlock _Nonnull)byScaleSpeed{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -247,7 +247,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCGFloatBlock)bySpin{
+-(JobsRetCAEmitterCellByCGFloatBlock _Nonnull)bySpin{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -256,7 +256,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCGFloatBlock)bySpinRange{
+-(JobsRetCAEmitterCellByCGFloatBlock _Nonnull)bySpinRange{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -265,7 +265,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCGColorRefBlock)byColor{
+-(JobsRetCAEmitterCellByCGColorRefBlock _Nonnull)byColor{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CGColorRef _Nullable data){
         @jobs_strongify(self)
@@ -274,16 +274,16 @@
     };
 }
 
--(JobsRetCAEmitterCellByUIColorBlock)byColorUIColor{
+-(JobsRetCAEmitterCellByUIColorBlock _Nonnull)byColorUIColor{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
-        self.color = data.CGColor;
+        self.byColor(data.CGColor);
         return self;
     };
 }
 
--(JobsRetCAEmitterCellByFloatBlock)byRedRange{
+-(JobsRetCAEmitterCellByFloatBlock _Nonnull)byRedRange{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(float data){
         @jobs_strongify(self)
@@ -292,7 +292,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByFloatBlock)byGreenRange{
+-(JobsRetCAEmitterCellByFloatBlock _Nonnull)byGreenRange{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(float data){
         @jobs_strongify(self)
@@ -301,7 +301,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByFloatBlock)byBlueRange{
+-(JobsRetCAEmitterCellByFloatBlock _Nonnull)byBlueRange{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(float data){
         @jobs_strongify(self)
@@ -310,7 +310,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByFloatBlock)byAlphaRange{
+-(JobsRetCAEmitterCellByFloatBlock _Nonnull)byAlphaRange{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(float data){
         @jobs_strongify(self)
@@ -319,7 +319,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByFloatBlock)byRedSpeed{
+-(JobsRetCAEmitterCellByFloatBlock _Nonnull)byRedSpeed{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(float data){
         @jobs_strongify(self)
@@ -328,7 +328,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByFloatBlock)byGreenSpeed{
+-(JobsRetCAEmitterCellByFloatBlock _Nonnull)byGreenSpeed{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(float data){
         @jobs_strongify(self)
@@ -337,7 +337,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByFloatBlock)byBlueSpeed{
+-(JobsRetCAEmitterCellByFloatBlock _Nonnull)byBlueSpeed{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(float data){
         @jobs_strongify(self)
@@ -346,7 +346,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByFloatBlock)byAlphaSpeed{
+-(JobsRetCAEmitterCellByFloatBlock _Nonnull)byAlphaSpeed{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(float data){
         @jobs_strongify(self)
@@ -355,7 +355,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByIDBlock)byContents{
+-(JobsRetCAEmitterCellByIDBlock _Nonnull)byContents{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(id _Nullable data){
         @jobs_strongify(self)
@@ -364,7 +364,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCGRectBlock)byContentsRect{
+-(JobsRetCAEmitterCellByCGRectBlock _Nonnull)byContentsRect{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CGRect data){
         @jobs_strongify(self)
@@ -373,7 +373,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCGFloatBlock)byContentsScale{
+-(JobsRetCAEmitterCellByCGFloatBlock _Nonnull)byContentsScale{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -382,7 +382,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCALayerContentsFilterBlock)byMinificationFilter{
+-(JobsRetCAEmitterCellByCALayerContentsFilterBlock _Nonnull)byMinificationFilter{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CALayerContentsFilter data){
         @jobs_strongify(self)
@@ -391,7 +391,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByCALayerContentsFilterBlock)byMagnificationFilter{
+-(JobsRetCAEmitterCellByCALayerContentsFilterBlock _Nonnull)byMagnificationFilter{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(CALayerContentsFilter data){
         @jobs_strongify(self)
@@ -400,7 +400,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByFloatBlock)byMinificationFilterBias{
+-(JobsRetCAEmitterCellByFloatBlock _Nonnull)byMinificationFilterBias{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(float data){
         @jobs_strongify(self)
@@ -409,7 +409,7 @@
     };
 }
 
--(JobsRetCAEmitterCellByArrBlock)byEmitterCells{
+-(JobsRetCAEmitterCellByArrBlock _Nonnull)byEmitterCells{
     @jobs_weakify(self)
     return ^__kindof CAEmitterCell *_Nullable(__kindof NSArray *_Nullable data){
         @jobs_strongify(self)

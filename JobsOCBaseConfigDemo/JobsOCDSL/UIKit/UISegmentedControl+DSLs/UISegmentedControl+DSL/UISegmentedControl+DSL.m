@@ -8,8 +8,13 @@
 #import "UISegmentedControl+DSL.h"
 
 @implementation UISegmentedControl (DSL)
--(NSInteger)jobs_selectedSegmentIndex{
-    return self.selectedSegmentIndex;
+-(JobsRetNSIntegerByVoidBlock _Nonnull)jobs_selectedSegmentIndex{
+    @jobs_weakify(self)
+    return ^NSInteger{
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return self.selectedSegmentIndex;
+    };
 }
 
 -(JobsRetSegmentedControlByNSIntegerBlock _Nonnull)bySelectedSegmentIndex{

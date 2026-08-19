@@ -46,6 +46,9 @@ Prop_copy()NSString *videoTime;/// 视频持续时间
 Prop_copy()NSString *videoTitle;/// 视频标题
 Prop_copy()NSString *videoImg;/// 图
 Prop_copy()NSString *videoIdcUrl;/// 视频地址
+-(JobsRetVideoModelCoreByStrBlock _Nonnull)byVideoTitle;
+-(JobsRetVideoModelCoreByStrBlock _Nonnull)byVideoImg;
+-(JobsRetVideoModelCoreByStrBlock _Nonnull)byVideoIdcUrl;
 #pragma mark —— ZFPlayer作者的数据源
 Prop_copy()NSString *nick_name;
 Prop_copy()NSString *head;

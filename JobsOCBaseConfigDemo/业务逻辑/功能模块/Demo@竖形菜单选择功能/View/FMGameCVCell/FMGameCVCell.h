@@ -42,6 +42,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FMGameCVCell : JobsBaseCollectionViewCell
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN FMGameCVCell
++(JobsRetFMGameCVCellBySourceTypeBlock _Nonnull)bySourceType;
++(void)setSourceType:(SourceType)data;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END FMGameCVCell
 @end
 
 NS_ASSUME_NONNULL_END

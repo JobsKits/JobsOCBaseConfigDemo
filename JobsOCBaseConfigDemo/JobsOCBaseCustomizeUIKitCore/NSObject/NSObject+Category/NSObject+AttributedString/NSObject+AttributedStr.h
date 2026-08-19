@@ -7,12 +7,24 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (AttributedStr)
 /// 超链接的文字以及下划线的颜色设置
-+(__kindof NSDictionary <NSAttributedStringKey,id>*)linkTextAttributes;
--(__kindof NSDictionary <NSAttributedStringKey,id>*)makeLinkTextAttributes;
++(JobsRetNSDictionaryNSAttributedStringKeyIDByVoidBlock _Nonnull)linkTextAttributes;
+-(JobsRetNSDictionaryNSAttributedStringKeyIDByVoidBlock _Nonnull)makeLinkTextAttributes;
 
 @end
 

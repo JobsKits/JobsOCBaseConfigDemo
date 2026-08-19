@@ -6,56 +6,133 @@
 //
 
 #import "NSObject+Extra.h"
+
 #import "FileFolderHandleTool.h"
+
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN PHAssetCreationRequest
+@interface PHAssetCreationRequest (JobsLocalPropertyDSLAutogen_33ddb2dc36)
+-(JobsRetPHAssetCreationRequestByNSDateBlock _Nonnull)byCreationDate;
+-(void)setCreationDate:(NSDate * _Nullable)data;
+@end
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END PHAssetCreationRequest
 
 @implementation NSObject (JobsByOCPodsExtra)
 /// UITextFieldProtocol
 UITextFieldProtocol_dynamic
 #pragma mark —— 系统类单例的二次封装
 /// NSBundle
-+(NSBundle *_Nullable)mainBundle{
-    return NSBundle.mainBundle;
++(NSBundle *)mainBundle{
+    return (((JobsRetNSBundleByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(NSObject.class, @selector(jobsMainBundle)))(self, @selector(jobsMainBundle)))();
 }
 
--(NSBundle *_Nullable)mainBundle{
-    return NSBundle.mainBundle;
++(JobsRetNSBundleByVoidBlock _Nonnull)jobsMainBundle{
+    return ^NSBundle *_Nullable{
+        return NSBundle.mainBundle;
+    };
+}
+
+-(NSBundle *)mainBundle{
+    return (((JobsRetNSBundleByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobsMainBundle)))(self, @selector(jobsMainBundle)))();
+}
+
+-(JobsRetNSBundleByVoidBlock _Nonnull)jobsMainBundle{
+    @jobs_weakify(self)
+    return ^NSBundle *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSBundle.mainBundle;
+    };
 }
 /// NSLocale
-+(NSLocale *_Nullable)currentLocale{
-    return NSLocale.currentLocale;
++(NSLocale *)currentLocale{
+    return (((JobsRetNSLocaleByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(NSObject.class, @selector(jobsCurrentLocale)))(self, @selector(jobsCurrentLocale)))();
 }
 
--(NSLocale *_Nullable)currentLocale{
-    return NSLocale.currentLocale;
++(JobsRetNSLocaleByVoidBlock _Nonnull)jobsCurrentLocale{
+    return ^NSLocale *_Nullable{
+        return NSLocale.currentLocale;
+    };
 }
 
-+(NSLocale *_Nullable)systemLocale{
-    return NSLocale.systemLocale;
+-(NSLocale *)currentLocale{
+    return (((JobsRetNSLocaleByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobsCurrentLocale)))(self, @selector(jobsCurrentLocale)))();
 }
 
--(NSLocale *_Nullable)systemLocale{
-    return NSLocale.systemLocale;
+-(JobsRetNSLocaleByVoidBlock _Nonnull)jobsCurrentLocale{
+    @jobs_weakify(self)
+    return ^NSLocale *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSLocale.currentLocale;
+    };
+}
+
++(JobsRetNSLocaleByVoidBlock _Nonnull)systemLocale{
+    return ^NSLocale *_Nullable{
+        return NSLocale.systemLocale;
+    };
+}
+
+-(JobsRetNSLocaleByVoidBlock _Nonnull)systemLocale{
+    @jobs_weakify(self)
+    return ^NSLocale *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSLocale.systemLocale;
+    };
 }
 
 +(NSLocale *_Nullable)autoupdatingCurrentLocale API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0)) {
-    return NSLocale.autoupdatingCurrentLocale;
+    return (((JobsRetNSLocaleByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(NSObject.class, @selector(jobsAutoupdatingCurrentLocale)))(self, @selector(jobsAutoupdatingCurrentLocale)))();
+}
+
++(JobsRetNSLocaleByVoidBlock _Nonnull)jobsAutoupdatingCurrentLocale API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0)) {
+    return ^NSLocale *_Nullable{
+        return NSLocale.autoupdatingCurrentLocale;
+    };
 }
 
 -(NSLocale *_Nullable)autoupdatingCurrentLocale API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0)) {
-    return NSLocale.autoupdatingCurrentLocale;
-}
-/// UIDevice
-+(UIDevice *_Nullable)currentDevice{
-    return UIDevice.currentDevice;
+    return (((JobsRetNSLocaleByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobsAutoupdatingCurrentLocale)))(self, @selector(jobsAutoupdatingCurrentLocale)))();
 }
 
--(UIDevice *_Nullable)currentDevice{
-    return UIDevice.currentDevice;
+-(JobsRetNSLocaleByVoidBlock _Nonnull)jobsAutoupdatingCurrentLocale API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0)) {
+    @jobs_weakify(self)
+    return ^NSLocale *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSLocale.autoupdatingCurrentLocale;
+    };
+}
+/// UIDevice
++(UIDevice *)currentDevice{
+    return (((JobsRetUIDeviceByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(NSObject.class, @selector(jobsCurrentDevice)))(self, @selector(jobsCurrentDevice)))();
+}
+
++(JobsRetUIDeviceByVoidBlock _Nonnull)jobsCurrentDevice{
+    return ^UIDevice *_Nullable{
+        return UIDevice.currentDevice;
+    };
+}
+
+-(UIDevice *)currentDevice{
+    return (((JobsRetUIDeviceByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobsCurrentDevice)))(self, @selector(jobsCurrentDevice)))();
+}
+
+-(JobsRetUIDeviceByVoidBlock _Nonnull)jobsCurrentDevice{
+    @jobs_weakify(self)
+    return ^UIDevice *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return UIDevice.currentDevice;
+    };
 }
 #pragma mark —— 宏
 /// App 国际化相关系统宏二次封装 + 设置缺省值
-+(NSString *_Nullable)localStringWithKey:(nonnull NSString *)key{
-    return NSLocalizedString(key, nil);
++(JobsRetStrByStrBlock _Nonnull)localStringWithKey{
+    return ^NSString *_Nullable(NSString * key){
+        return NSLocalizedString(key, nil);
+    };
 }
 
 +(NSString *_Nullable)localizedString:(nonnull NSString *)key
@@ -98,15 +175,35 @@ UITextFieldProtocol_dynamic
 }
 /// 获得当前的控制器。对getCurrentViewController的再次封装
 -(__kindof UIViewController *_Nullable)jobsGetCurrentViewControllerWithNavCtrl{
-    return JobsByOCPodsNavCtrl(self.jobsGetCurrentViewController);
+    JobsRetVCByVoidBlock action = ((JobsRetVCByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobsGetCurrentViewControllerWithNavCtrlBlock)))(self, @selector(jobsGetCurrentViewControllerWithNavCtrlBlock));
+    return action ? action() : nil;
+}
+
+-(JobsRetVCByVoidBlock _Nonnull)jobsGetCurrentViewControllerWithNavCtrlBlock{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return JobsByOCPodsNavCtrl(self.jobsGetCurrentViewControllerBlock());
+    };
 }
 /// 获得当前的控制器。对getCurrentViewController的再次封装
 -(__kindof UIViewController *_Nullable)jobsGetCurrentViewController{
-    return KindOfVCCls(self) ? (UIViewController *)self : self.getCurrentViewController;
+    JobsRetVCByVoidBlock action = ((JobsRetVCByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobsGetCurrentViewControllerBlock)))(self, @selector(jobsGetCurrentViewControllerBlock));
+    return action ? action() : nil;
+}
+
+-(JobsRetVCByVoidBlock _Nonnull)jobsGetCurrentViewControllerBlock{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return KindOfVCCls(self) ? (UIViewController *)self : self.getCurrentViewController;
+    };
 }
 /// 获得当前的控制器
 -(__kindof UIViewController *_Nullable)getCurrentViewController{
-    return self.getCurrentViewControllerByRootVC(jobsGetMainWindow().rootViewController);
+    return (((JobsRetVCByVCBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(getCurrentViewControllerByRootVC)))(self, @selector(getCurrentViewControllerByRootVC)))(jobsGetMainWindow().rootViewController);
 }
 /// 获得当前控制器的根控制器
 -(JobsRetVCByVCBlock _Nonnull)getCurrentViewControllerByRootVC{
@@ -135,7 +232,7 @@ UITextFieldProtocol_dynamic
     @jobs_weakify(self)
     return ^(JobsDirectionType data){
         @jobs_strongify(self)
-        if(self.jobsGetCurrentViewController.navigationController) self.jobsGetCurrentViewController.navigationController.navDirectionBy(data);
+        if(self.jobsGetCurrentViewControllerBlock().navigationController) self.jobsGetCurrentViewControllerBlock().navigationController.navDirectionBy(data);
     };
 }
 /// 设置控制器的转场方向（及对应手势）
@@ -151,15 +248,15 @@ UITextFieldProtocol_dynamic
 /// 强制以Push的方式展现页面
 /// @param toPushVC 需要进行展现的页面
 /// @param requestParams 正向推页面传递的参数
-/// 如果想用AppDelegate的自定义TabbarVC：(UIViewController *)AppDelegate.sharedManager.tabBarVC;
+/// 如果想用AppDelegate的自定义TabbarVC：(UIViewController *)((AppDelegate *)AppDelegate.jobsSharedManager()).tabBarVC;
 -(void)forceComingToPushVC:(UIViewController *_Nonnull)toPushVC
              requestParams:(id _Nullable)requestParams{
-    UIViewController *viewController = self.jobsGetCurrentViewController;
+    UIViewController *viewController = self.jobsGetCurrentViewControllerBlock();
     if (viewController) {
         viewController.comingToPushVCByRequestParams(toPushVC,requestParams);
     }else{
         JobsLog(@"%@强制展现页面%@失败,携带的参数%@",viewController,toPushVC,requestParams);
-        self.jobsToastErrMsg(@"强制展现页面失败,请检查控制台".tr);
+        self.jobsToastErrMsg(@"强制展现页面失败,请检查控制台".jobsTr());
     }
 }
 /// 强制以Present的方式展现页面
@@ -169,7 +266,7 @@ UITextFieldProtocol_dynamic
 -(void)forceComingToPresentVC:(UIViewController *_Nonnull)toPresentVC
                 requestParams:(id _Nullable)requestParams
                    completion:(jobsByVoidBlock _Nonnull)completion{
-    UIViewController *viewController = KindOfVCCls(self) ? (UIViewController *)self : self.jobsGetCurrentViewController;
+    UIViewController *viewController = KindOfVCCls(self) ? (UIViewController *)self : self.jobsGetCurrentViewControllerBlock();
     [viewController presentViewController:toPresentVC
                                  animated:YES
                                completion:completion];
@@ -201,18 +298,23 @@ UITextFieldProtocol_dynamic
      }
  */
 /// 添加监听【针对UIScrollView 的 ContentOffset 属性】
--(void)monitorContentOffsetScrollView:(UIScrollView *_Nonnull)scrollView{
-    [scrollView addObserver:self
-                 forKeyPath:@"contentOffset"
-                    options:NSKeyValueObservingOptionNew
-                    context:nil];
+-(jobsByScrollViewBlock _Nonnull)monitorContentOffsetScrollView{
+    @jobs_weakify(self)
+    return ^(UIScrollView *_Nonnull scrollView){
+        @jobs_strongify(self)
+        if (!self) return;
+        [scrollView addObserver:self
+                     forKeyPath:@"contentOffset"
+                        options:NSKeyValueObservingOptionNew
+                        context:nil];
+    };
 }
 #pragma mark —— 单例相关
 +(JobsRetIDByVoidBlock _Nonnull)SharedInstance{
     @jobs_weakify(self)
     return ^JobsNavBarConfig *(){
         @jobs_strongify(self)
-        return self.class.sharedManager;
+        return [self.class sharedManager];
     };
 }
 
@@ -226,33 +328,71 @@ UITextFieldProtocol_dynamic
 #pragma mark —— 功能性的
 /// 刷新控件的头部数据
 -(MJRefreshConfigModel *_Nullable)mjHeaderDefaultConfig{
-    return jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable data) {
-        data.byStateIdleTitle(@"下拉可以刷新".tr)
-            .byPullingTitle(@"下拉可以刷新".tr)
-            .byRefreshingTitle(@"松开立即刷新".tr)
-            .byWillRefreshTitle(@"刷新数据中".tr)
-            .byNoMoreDataTitle(@"下拉可以刷新".tr)
-            .byAutomaticallyChangeAlpha(YES);/// 根据拖拽比例自动切换透明度
-    });
+    JobsRetMJRefreshConfigModelByVoidBlock action = ((JobsRetMJRefreshConfigModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobsMjHeaderDefaultConfig)))(self, @selector(jobsMjHeaderDefaultConfig));
+    return action ? action() : nil;
+}
+
+-(JobsRetMJRefreshConfigModelByVoidBlock _Nonnull)jobsMjHeaderDefaultConfig{
+    @jobs_weakify(self)
+    return ^MJRefreshConfigModel *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable data) {
+            data.byStateIdleTitle(@"下拉可以刷新".jobsTr())
+                .byPullingTitle(@"下拉可以刷新".jobsTr())
+                .byRefreshingTitle(@"松开立即刷新".jobsTr())
+                .byWillRefreshTitle(@"刷新数据中".jobsTr())
+                .byNoMoreDataTitle(@"下拉可以刷新".jobsTr())
+                .byAutomaticallyChangeAlpha(YES);/// 根据拖拽比例自动切换透明度
+        });
+    };
+}
+
+-(JobsRetMJRefreshConfigModelByRetIDByIDBlocks _Nonnull)refreshHeaderDataBy{
+    @jobs_weakify(self)
+    return ^MJRefreshConfigModel *_Nonnull(JobsRetIDByIDBlock _Nonnull loadBlock){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.jobsMjHeaderDefaultConfig().byLoadBlock(loadBlock);
+    };
 }
 
 -(MJRefreshConfigModel *_Nonnull)refreshHeaderDataBy:(JobsRetIDByIDBlock _Nonnull)loadBlock{
-    return self.mjHeaderDefaultConfig.byLoadBlock(loadBlock);
+    return (((JobsRetMJRefreshConfigModelByRetIDByIDBlocks (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(refreshHeaderDataBy)))(self, @selector(refreshHeaderDataBy)))(loadBlock);
 }
 /// 刷新控件的尾部数据
 -(MJRefreshConfigModel *_Nullable)mjFooterDefaultConfig{
-    return jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable data) {
-        data.byStateIdleTitle(@"".tr)
-            .byPullingTitle(@"".tr)
-            .byRefreshingTitle(@"".tr)
-            .byWillRefreshTitle(@"".tr)
-            .byNoMoreDataTitle(@"".tr)
-            .byAutomaticallyChangeAlpha(YES);/// 根据拖拽比例自动切换透明度
-    });
+    JobsRetMJRefreshConfigModelByVoidBlock action = ((JobsRetMJRefreshConfigModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobsMjFooterDefaultConfig)))(self, @selector(jobsMjFooterDefaultConfig));
+    return action ? action() : nil;
+}
+
+-(JobsRetMJRefreshConfigModelByVoidBlock _Nonnull)jobsMjFooterDefaultConfig{
+    @jobs_weakify(self)
+    return ^MJRefreshConfigModel *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable data) {
+            data.byStateIdleTitle(@"".jobsTr())
+                .byPullingTitle(@"".jobsTr())
+                .byRefreshingTitle(@"".jobsTr())
+                .byWillRefreshTitle(@"".jobsTr())
+                .byNoMoreDataTitle(@"".jobsTr())
+                .byAutomaticallyChangeAlpha(YES);/// 根据拖拽比例自动切换透明度
+        });
+    };
+}
+
+-(JobsRetMJRefreshConfigModelByRetIDByIDBlocks _Nonnull)refreshFooterDataBy{
+    @jobs_weakify(self)
+    return ^MJRefreshConfigModel *_Nonnull(JobsRetIDByIDBlock _Nonnull loadBlock){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.jobsMjFooterDefaultConfig().byLoadBlock(loadBlock);
+    };
 }
 
 -(MJRefreshConfigModel *_Nonnull)refreshFooterDataBy:(JobsRetIDByIDBlock _Nonnull)loadBlock{
-    return self.mjFooterDefaultConfig.byLoadBlock(loadBlock);
+    return (((JobsRetMJRefreshConfigModelByRetIDByIDBlocks (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(refreshFooterDataBy)))(self, @selector(refreshFooterDataBy)))(loadBlock);
 }
 /// 切换到主VC
 -(jobsByVCBlock _Nonnull)switchToMainVC{
@@ -262,7 +402,7 @@ UITextFieldProtocol_dynamic
                           duration:0.5
                            options:UIViewAnimationOptionTransitionCrossDissolve
                         animations:^{
-                            window.rootViewController = mainVC;
+                            window.byRootViewController(mainVC);
                         }
                         completion:nil];
     };
@@ -332,8 +472,9 @@ UITextFieldProtocol_dynamic
 -(JobsRetStrByDateBlock _Nonnull)toReadableDayTimeByDate{
     return ^__kindof NSString *_Nullable(NSDate *_Nullable date){
         return jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter) {
-            dateFormatter.timeZone = timeZone(TimeZoneTypeCSTChina);
-            dateFormatter.dateFormat = @"yyyy-MM-dd"; /// 格式化为日期字符串
+            dateFormatter
+                .byTimeZone(timeZone(TimeZoneTypeCSTChina))
+                .byDateFormat(@"yyyy-MM-dd");
         }).stringByDate(date);
     };
 }
@@ -341,22 +482,13 @@ UITextFieldProtocol_dynamic
 -(JobsRetStrByDateBlock _Nonnull)toReadableTimeByDate{
     return ^__kindof NSString *_Nullable(NSDate *_Nullable date){
         return jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter) {
-            dateFormatter.timeZone = timeZone(TimeZoneTypeCSTChina);
-            dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss"; /// 格式化为日期字符串
+            dateFormatter
+                .byTimeZone(timeZone(TimeZoneTypeCSTChina))
+                .byDateFormat(@"yyyy-MM-dd HH:mm:ss");
         }).stringByDate(date);
     };
 }
 /// 将 NSTimeInterval 按照 NSDateFormatter 转换输出成人类可读的时间
--(JobsRetStringByTimeModelBlock _Nonnull)toReadableTimeBy{
-    return ^__kindof NSString *_Nullable(JobsTimeModel *_Nullable dateModel){
-        if(dateModel.date){
-            return jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter) {
-                dateFormatter.timeZone = timeZone(TimeZoneTypeCSTChina);
-                dateFormatter.dateFormat = @"yyyy-MM-dd"; /// 格式化为日期字符串
-            }).stringByDate(dateModel.date);
-        }else return dateModel.dateFormatter.stringByDate(NSDate.initDateBy(dateModel.timeInterval));
-    };
-}
 /// baseURL：指定 HTML 内容的基本 URL，可以用于解析相对路径
 /// data：包含 HTML 内容的字符串
 -(JobsRetWKWebViewByStrBlock _Nonnull)makeWebViewByString{
@@ -370,7 +502,7 @@ UITextFieldProtocol_dynamic
 -(JobsRetWKWebViewByURLBlock _Nonnull)makeWebViewByURL{
     return ^__kindof WKWebView *_Nullable(NSURL *_Nullable URL){
         return jobsMakeWKWebView(^(__kindof WKWebView * _Nullable webView) {
-            [webView loadRequest:URL.URLRequest];
+            [webView loadRequest:URL.jobsURLRequest()];
         });
     };
 }
@@ -380,31 +512,36 @@ UITextFieldProtocol_dynamic
     return ^BOOL(UIViewController *_Nullable viewController){
         @jobs_strongify(self)
         BOOL OK = NO;
-        for (__kindof UIViewController *vc in self.jobsGetCurrentViewController.navigationController.viewControllers) {
+        for (__kindof UIViewController *vc in self.jobsGetCurrentViewControllerBlock().navigationController.viewControllers) {
             OK = vc.class == viewController.class;
         };return OK;
     };
 }
 /// 可以组合使用
--(SDWebImageOptions)makeSDWebImageOptions{
-    return
-    /// 这个选项通常用于网络请求失败时重试加载图片。如果希望在网络不稳定或其他情况下自动重试图片加载，这是一个常用的选项。
-    SDWebImageRetryFailed |
-    /// 如果希望在图片还没有完全下载完成时逐步显示，类似于浏览器加载图片的效果，这个选项会很有帮助。适用于大图片或需要快速反馈的场景。
-    SDWebImageProgressiveLoad |
-    /// 当同一个 URL 的图片内容会发生变化时（例如用户的头像 URL），可以使用这个选项来强制刷新缓存，重新加载最新的图片。
-    SDWebImageRefreshCached |
-    /// 用于优先加载重要的图片，常用于需要立即显示的关键图片，如封面图或焦点图。
-    SDWebImageHighPriority |
-    /// 如果处理的图片可能非常大，而设备内存有限，使用这个选项可以缩小图片尺寸以节省内存。
-    SDWebImageScaleDownLargeImages |
-    ///在应用进入后台时继续下载图片，尤其是在需要确保图片下载任务不会被中断的情况下使用。
-    SDWebImageContinueInBackground
-    /// 当想手动控制图片的显示（例如先对图片进行某些处理后再显示）时，这个选项允许你在下载完成后手动设置图片。
-    // SDWebImageAvoidAutoSetImage |
-    /// 在滚动视图（如 UITableView 或 UICollectionView）中延迟加载图片，确保滑动流畅。这个选项比较常见于列表视图中的图片加载场景。
-    //SDWebImageLowPriority |
-    ;
+-(JobsRetSDWebImageOptionsByVoidBlock _Nonnull)jobsMakeSDWebImageOptions{
+    @jobs_weakify(self)
+    return ^SDWebImageOptions{
+        @jobs_strongify(self)
+        if (!self) return (SDWebImageOptions){0};
+        return
+        /// 这个选项通常用于网络请求失败时重试加载图片。如果希望在网络不稳定或其他情况下自动重试图片加载，这是一个常用的选项。
+        SDWebImageRetryFailed |
+        /// 如果希望在图片还没有完全下载完成时逐步显示，类似于浏览器加载图片的效果，这个选项会很有帮助。适用于大图片或需要快速反馈的场景。
+        SDWebImageProgressiveLoad |
+        /// 当同一个 URL 的图片内容会发生变化时（例如用户的头像 URL），可以使用这个选项来强制刷新缓存，重新加载最新的图片。
+        SDWebImageRefreshCached |
+        /// 用于优先加载重要的图片，常用于需要立即显示的关键图片，如封面图或焦点图。
+        SDWebImageHighPriority |
+        /// 如果处理的图片可能非常大，而设备内存有限，使用这个选项可以缩小图片尺寸以节省内存。
+        SDWebImageScaleDownLargeImages |
+        ///在应用进入后台时继续下载图片，尤其是在需要确保图片下载任务不会被中断的情况下使用。
+        SDWebImageContinueInBackground
+        /// 当想手动控制图片的显示（例如先对图片进行某些处理后再显示）时，这个选项允许你在下载完成后手动设置图片。
+        // SDWebImageAvoidAutoSetImage |
+        /// 在滚动视图（如 UITableView 或 UICollectionView）中延迟加载图片，确保滑动流畅。这个选项比较常见于列表视图中的图片加载场景。
+        //SDWebImageLowPriority |
+        ;
+    };
 }
 
 -(URLManagerModel *_Nonnull)url:(NSString *_Nonnull)url funcName:(NSString *_Nonnull)funcName{
@@ -483,8 +620,9 @@ UITextFieldProtocol_dynamic
         @jobs_weakify(self)
         return jobsMakeKeyValueModel(^(JobsKeyValueModel * _Nullable model) {
             @jobs_strongify(self)
-            model.data = self;
-            model.key = key;
+            model
+                .byValue(self)
+                .byKey(key);
         });
     };
 }
@@ -525,7 +663,7 @@ UITextFieldProtocol_dynamic
     @jobs_weakify(self)
     return ^(__kindof UIViewController *_Nonnull viewController) {
         @jobs_strongify(self)
-        [UIViewController comingFromVC:self.jobsGetCurrentViewController
+        [UIViewController comingFromVC:self.jobsGetCurrentViewControllerBlock()
                                   toVC:viewController
                            comingStyle:ComingStyle_PRESENT
                      presentationStyle:JobsPresentationStyle
@@ -540,7 +678,7 @@ UITextFieldProtocol_dynamic
     @jobs_weakify(self)
     return ^(__kindof UIViewController * _Nullable viewController,id _Nullable requestParams) {
         @jobs_strongify(self)
-        [UIViewController comingFromVC:self.jobsGetCurrentViewController
+        [UIViewController comingFromVC:self.jobsGetCurrentViewControllerBlock()
                                   toVC:viewController
                            comingStyle:ComingStyle_PRESENT
                      presentationStyle:JobsPresentationStyle
@@ -556,7 +694,7 @@ UITextFieldProtocol_dynamic
     @jobs_weakify(self)
     return ^(BOOL data){
         @jobs_strongify(self)
-        [self.jobsGetCurrentViewController.navigationController popToRootViewControllerAnimated:data];
+        [self.jobsGetCurrentViewControllerBlock().navigationController popToRootViewControllerAnimated:data];
     };
 }
 /// pop到上一个控制器
@@ -564,7 +702,7 @@ UITextFieldProtocol_dynamic
     @jobs_weakify(self)
     return ^(BOOL data){
         @jobs_strongify(self)
-        [self.jobsGetCurrentViewController.navigationController popViewControllerAnimated:data];
+        [self.jobsGetCurrentViewControllerBlock().navigationController popViewControllerAnimated:data];
     };
 }
 #pragma mark —— push
@@ -577,7 +715,7 @@ UITextFieldProtocol_dynamic
         /// 防止多次推同一个控制器
         if(self.isSameVCBy(viewController)) return;
         /// 正式推控制器
-        [UIViewController comingFromVC:self.jobsGetCurrentViewController
+        [UIViewController comingFromVC:self.jobsGetCurrentViewControllerBlock()
                                   toVC:viewController
                            comingStyle:ComingStyle_PUSH
                      presentationStyle:JobsPresentationStyle
@@ -596,7 +734,7 @@ UITextFieldProtocol_dynamic
         /// 防止多次推同一个控制器
         if(self.isSameVCBy(viewController)) return;
         /// 正式推控制器
-        [UIViewController comingFromVC:self.jobsGetCurrentViewController
+        [UIViewController comingFromVC:self.jobsGetCurrentViewControllerBlock()
                                   toVC:viewController
                            comingStyle:ComingStyle_PUSH
                      presentationStyle:JobsPresentationStyle
@@ -673,24 +811,29 @@ UITextFieldProtocol_dynamic
     }
 }
 
--(NSMutableArray <JobsImageModel *>*_Nonnull)changeGifToImage:(NSData *_Nonnull)gifData{
-    /// 通过文件的url来将gif文件读取为图片数据引用
-    CFDataRef my_cfdata = CFBridgingRetain(gifData);
-    CGImageSourceRef source = CGImageSourceCreateWithData(my_cfdata, NULL);
-    /// 获取gif文件里图片的个数
-    size_t count = CGImageSourceGetCount(source);
-    return jobsMakeMutArr(^(__kindof NSMutableArray <JobsImageModel *>*_Nullable data) {
-        for (size_t i = 0; i < count; i++) {
-            data.add(jobsMakeImageModel(^(__kindof JobsImageModel * _Nullable imageModel) {
-                CGImageRef image = CGImageSourceCreateImageAtIndex(source, i, NULL);
-                imageModel.byImage(UIImage.imageWithCGImage(image));
-                CGImageRelease(image);
-                //获取图片信息
-                imageModel.byInfo((__bridge NSDictionary*)CGImageSourceCopyPropertiesAtIndex(source, i, NULL))
-                          .byTimeDic([imageModel.info objectForKey:(__bridge NSString *)kCGImagePropertyGIFDictionary]);
-            }));
-        }
-    });
+-(JobsRetNSMutableArrayJobsImageModelByNSDataBlock _Nonnull)changeGifToImage{
+    @jobs_weakify(self)
+    return ^NSMutableArray <JobsImageModel *>*_Nonnull(NSData *_Nonnull gifData){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        /// 通过文件的url来将gif文件读取为图片数据引用
+        CFDataRef my_cfdata = CFBridgingRetain(gifData);
+        CGImageSourceRef source = CGImageSourceCreateWithData(my_cfdata, NULL);
+        /// 获取gif文件里图片的个数
+        size_t count = CGImageSourceGetCount(source);
+        return jobsMakeMutArr(^(__kindof NSMutableArray <JobsImageModel *>*_Nullable data) {
+            for (size_t i = 0; i < count; i++) {
+                data.add(jobsMakeImageModel(^(__kindof JobsImageModel * _Nullable imageModel) {
+                    CGImageRef image = CGImageSourceCreateImageAtIndex(source, i, NULL);
+                    imageModel.byImage(UIImage.imageWithCGImage(image));
+                    CGImageRelease(image);
+                    //获取图片信息
+                    imageModel.byInfo((__bridge NSDictionary*)CGImageSourceCopyPropertiesAtIndex(source, i, NULL))
+                              .byTimeDic([imageModel.info objectForKey:(__bridge NSString *)kCGImagePropertyGIFDictionary]);
+                }));
+            }
+        });
+    };
 }
 /**
  
@@ -774,7 +917,7 @@ UITextFieldProtocol_dynamic
 /// @param propertyName 需要查找的属性值
 -(id _Nullable)checkTargetObj:(NSObject *_Nullable)obj
                  propertyName:(NSString *_Nullable)propertyName{
-    if ([obj.propertyList containsObject:propertyName]) {
+    if ([obj.propertyList() containsObject:propertyName]) {
         return obj.valueForKey(propertyName);
     };return nil;
 }
@@ -783,9 +926,9 @@ UITextFieldProtocol_dynamic
 /// @param versionNumber2 版本号2
 -(CompareRes)versionNumber1:(NSString *_Nonnull)versionNumber1
              versionNumber2:(NSString *_Nonnull)versionNumber2{
-    NSString *v1 = versionNumber1.removeDecimalPoint;
-    NSString *v2 = versionNumber2.removeDecimalPoint;
-    if (v1.isPureInt && v2.isPureInt) {
+    NSString *v1 = versionNumber1.jobsRemoveDecimalPoint();
+    NSString *v2 = versionNumber2.jobsRemoveDecimalPoint();
+    if (v1.isPureInt() && v2.isPureInt()) {
         if (v1.integerValue > v2.integerValue) {
             return CompareRes_MoreThan;
         }else if (v1.integerValue < v2.integerValue){
@@ -828,7 +971,7 @@ UITextFieldProtocol_dynamic
     return ^CGFloat(CGPoint point){
         @jobs_strongify(self)
         CGFloat f = self.lastPoint.x - point.x;
-        self.lastPoint = point;
+        self.byLastPoint(point);
         return f;
     };
 }
@@ -838,7 +981,7 @@ UITextFieldProtocol_dynamic
     return ^CGFloat(CGPoint point){
         @jobs_strongify(self)
         CGFloat f = self.lastPoint.y - point.y;
-        self.lastPoint = point;
+        self.byLastPoint(point);
         return f;
     };
 }
@@ -882,7 +1025,7 @@ UITextFieldProtocol_dynamic
             JobsLog(@"👈🏻👇🏻");
             direction = ScrollDirectionLeft_Down;
         }
-        self.lastPoint = point;
+        self.byLastPoint(point);
         return direction;
     };
 }
@@ -895,8 +1038,13 @@ UITextFieldProtocol_dynamic
     };
 }
 
--(NSIndexPath *_Nonnull)myIndexPath:(JobsIndexPath)indexPath{
-    return self.indexPathBy(indexPath.section,indexPath.rowOrItem);
+-(JobsRetNSIndexPathByJobsIndexPathBlock _Nonnull)myIndexPath{
+    @jobs_weakify(self)
+    return ^NSIndexPath *_Nonnull(JobsIndexPath indexPath){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.indexPathBy(indexPath.section,indexPath.rowOrItem);
+    };
 }
 /// 点击任意一个view，下拉弹出与此View等宽，且与下底有一个motivateViewOffset距离的列表【如果应用于可滑动模块，当触发控件滑动的时候，建议对此进行关闭处理】
 /// @param motivateFromView 点击的锚点View
@@ -934,48 +1082,63 @@ UITextFieldProtocol_dynamic
     };
 }
 /// 依据View上铆定的internationalizationKEY来全局更改文字以适配国际化
--(void)languageSwitch{
-    UIView *v = self.getView;
-    if (v) {
-        for (UIView *view in v.subviews) {
-            if (isValue(view.internationalizationKEY)) {
-                if ([view isKindOfClass:UILabel.class]) {
-                    UILabel *lab = (UILabel *)view;
-                    lab.byText(view.internationalizationKEY.tr);
-                }else if ([view isKindOfClass:UIButton.class]){
-                    UIButton *btn = (UIButton *)view;
-                    btn.jobsResetBtnTitle(view.internationalizationKEY.tr);
-                }else{}
+-(jobsByVoidBlock _Nonnull)languageSwitch{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        UIView *v = self.jobsGetView();
+        if (v) {
+            for (UIView *view in v.subviews) {
+                if (isValue(view.internationalizationKEY)) {
+                    if ([view isKindOfClass:UILabel.class]) {
+                        UILabel *lab = (UILabel *)view;
+                        lab.byText(view.internationalizationKEY.jobsTr());
+                    }else if ([view isKindOfClass:UIButton.class]){
+                        UIButton *btn = (UIButton *)view;
+                        btn.jobsResetBtnTitle(view.internationalizationKEY.jobsTr());
+                    }else{}
+                }
             }
         }
-    }
+    };
 }
 /// 判断是否是此版本App的首次启动
--(BOOL)isAppFirstLaunch{
-    BOOL isFirstLaunch = JobsGetUserDefaultBoolForKey(APP安装以后首次启动);
-    if (!isFirstLaunch) {
-        JobsSetUserBoolKeyWithBool(APP安装以后首次启动, YES);
-        JobsUserDefaultSynchronize;
-    };return !isFirstLaunch;
+-(JobsRetBOOLByVoidBlock _Nonnull)isAppFirstLaunch{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        BOOL isFirstLaunch = JobsGetUserDefaultBoolForKey(APP安装以后首次启动);
+        if (!isFirstLaunch) {
+            JobsSetUserBoolKeyWithBool(APP安装以后首次启动, YES);
+            JobsUserDefaultSynchronize;
+        };return !isFirstLaunch;
+    };
 }
 /// 判断是否是App今日的首次启动
--(BOOL)isTodayAppFirstLaunch{
-    NSString *recordToday = JobsUserDefaults.valueForKey(@"APP今日首次启动");
-    JobsTimeModel *timeModel = JobsTimeModel.new;
-    NSString *today = toStringByLong(timeModel.currentEra).add(@"-")
-                                                          .add(toStringByLong(timeModel.currentYear))
-                                                          .add(@"-")
-                                                          .add(toStringByLong(timeModel.currentMonth))
-                                                          .add(@"-")
-                                                          .add(toStringByLong(timeModel.currentDay))
-                                                          .add(@"-");
-    if (recordToday.isEqualToString(today)) {
-        JobsLog(@"今天已经启动过");
-    }else{
-        JobsLog(@"今天第一次启动");
-        JobsSetUserDefaultKeyWithValue(@"APP今日首次启动", today);
-        JobsUserDefaultSynchronize;//
-    };return !recordToday.isEqualToString(today);
+-(JobsRetBOOLByVoidBlock _Nonnull)isTodayAppFirstLaunch{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        NSString *recordToday = JobsUserDefaults.valueForKey(@"APP今日首次启动");
+        JobsTimeModel *timeModel = JobsTimeModel.new;
+        NSString *today = toStringByLong(timeModel.currentEra).add(@"-")
+                                                              .add(toStringByLong(timeModel.currentYear))
+                                                              .add(@"-")
+                                                              .add(toStringByLong(timeModel.currentMonth))
+                                                              .add(@"-")
+                                                              .add(toStringByLong(timeModel.currentDay))
+                                                              .add(@"-");
+        if (recordToday.isEqualToString(today)) {
+            JobsLog(@"今天已经启动过");
+        }else{
+            JobsLog(@"今天第一次启动");
+            JobsSetUserDefaultKeyWithValue(@"APP今日首次启动", today);
+            JobsUserDefaultSynchronize;//
+        };return !recordToday.isEqualToString(today);
+    };
 }
 /// 震动特效反馈
 +(jobsByViewBlock _Nonnull)feedbackGenerator{
@@ -1008,10 +1171,10 @@ UITextFieldProtocol_dynamic
         /// 获取屏幕亮度
         CGFloat oldBrightness = UIScreen.mainScreen.brightness;
         /// 以较小的数量改变屏幕亮度
-        UIScreen.mainScreen.brightness = oldBrightness + (oldBrightness <= 0.01 ? (0.01) : (-0.01));
+        UIScreen.mainScreen.byBrightness(oldBrightness + (oldBrightness <= 0.01 ? (0.01) : (-0.01)));
         CGFloat newBrightness = UIScreen.mainScreen.brightness;
         /// 恢复屏幕亮度
-        UIScreen.mainScreen.brightness = oldBrightness;
+        UIScreen.mainScreen.byBrightness(oldBrightness);
         /// 判断屏幕亮度是否能够被改变
         return oldBrightness != newBrightness;
     };
@@ -1019,7 +1182,7 @@ UITextFieldProtocol_dynamic
 /// iOS 限制自动锁屏 lockSwitch:YES(关闭自动锁屏)
 -(jobsByBOOLBlock _Nonnull)autoLockedScreen{
     return ^(BOOL lockSwitch) {
-        UIApplication.sharedApplication.idleTimerDisabled = lockSwitch;
+        UIApplication.sharedApplication.byIdleTimerDisabled(lockSwitch);
     };
 }
 
@@ -1056,16 +1219,16 @@ UITextFieldProtocol_dynamic
                     [request addResourceWithType:PHAssetResourceTypePhoto
                                             data:imageData
                                          options:nil];
-                    request.creationDate = NSDate.date;
+                    request.byCreationDate(NSDate.date);
                 }
             } completionHandler:^(BOOL success,NSError *error) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     if (success) {
                         JobsLog(@"保存照片成功");
-                        toastBy(@"图片保存成功".tr);
+                        toastBy(@"图片保存成功".jobsTr());
                     } else if (error) {
                         JobsLog(@"保存照片出错:%@",error.localizedDescription);
-                        toastErr(@"保存保存失败".tr);
+                        toastErr(@"保存保存失败".jobsTr());
                     }
                 });
             }];
@@ -1106,64 +1269,84 @@ UITextFieldProtocol_dynamic
     };
 }
 /// 监听程序被杀死前的时刻，进行一些需要异步的操作：磁盘读写、网络请求...
--(void)terminalCheck:(jobsByIDBlock _Nullable)checkBlock{
-    [self addNotificationName:@"UIApplicationWillTerminateNotification"
-                        block:^(id _Nullable weakSelf,
-                                id _Nullable arg) {
-        static dispatch_once_t onceToken;
-        dispatch_once(&onceToken, ^{
-            JobsLog(@"我只执行一次");
-            /// 在这里写遗言：最后希望去完成的事情
-            if (checkBlock) checkBlock(@1);
-            [NSThread sleepForTimeInterval:60];
-            JobsLog(@"程序被杀死");
-        });
-    }];
+-(jobsByjobsByIDBlockBlock _Nonnull)terminalCheck{
+    @jobs_weakify(self)
+    return ^(jobsByIDBlock _Nullable checkBlock){
+        @jobs_strongify(self)
+        if (!self) return;
+        [self addNotificationName:@"UIApplicationWillTerminateNotification"
+                            block:^(id _Nullable weakSelf,
+                                    id _Nullable arg) {
+            static dispatch_once_t onceToken;
+            dispatch_once(&onceToken, ^{
+                JobsLog(@"我只执行一次");
+                /// 在这里写遗言：最后希望去完成的事情
+                if (checkBlock) checkBlock(@1);
+                [NSThread sleepForTimeInterval:60];
+                JobsLog(@"程序被杀死");
+            });
+        }];
+    };
 }
 /// Object转换为NSData
--(NSData *_Nullable)transformToData:(id _Nullable)object{
-    if ([object isKindOfClass:NSString.class]) {
-        NSString *string = (NSString *)object;
-        return string.UTF8Encoding;
-    }else if ([object isKindOfClass:NSArray.class]){
-        NSArray *array = (NSArray *)object;
-        /*
-         *  object 要归档的对象图的根
-         *  requiresSecureCoding 一个布尔值，指示是否所有编码对象都必须符合 NSSecureCoding
-         *  error 返回时，是编码时发生的错误，或者nil没有发生错误
-         */
-        if (@available(iOS 11.0, *)) {
-            return NSKeyedArchiver.archivedDataByRootObject_YES(array);
-        }else{
-            SuppressWdeprecatedDeclarationsWarning(return NSKeyedArchiver.initByObject(array));
-        }
-    }else if ([object isKindOfClass:NSDictionary.class]){
-        return self.dataByJSONObject(object);
-    }else return nil;
+-(JobsRetDataByIDBlock _Nonnull)transformToData{
+    @jobs_weakify(self)
+    return ^NSData *_Nullable(id _Nullable object){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if ([object isKindOfClass:NSString.class]) {
+            NSString *string = (NSString *)object;
+            return string.jobsUTF8Encoding();
+        }else if ([object isKindOfClass:NSArray.class]){
+            NSArray *array = (NSArray *)object;
+            /*
+             *  object 要归档的对象图的根
+             *  requiresSecureCoding 一个布尔值，指示是否所有编码对象都必须符合 NSSecureCoding
+             *  error 返回时，是编码时发生的错误，或者nil没有发生错误
+             */
+            if (@available(iOS 11.0, *)) {
+                return NSKeyedArchiver.archivedDataByRootObject_YES(array);
+            }else{
+                SuppressWdeprecatedDeclarationsWarning(return NSKeyedArchiver.initByObject(array));
+            }
+        }else if ([object isKindOfClass:NSDictionary.class]){
+            return self.dataByJSONObject(object);
+        }else return nil;
+    };
 }
 /// 获取当前设备可用内存
--(double)availableMemory{
-    vm_statistics_data_t vmStats;
-    mach_msg_type_number_t infoCount = HOST_VM_INFO_COUNT;
-    kern_return_t kernReturn = host_statistics(mach_host_self(),
-                                               HOST_VM_INFO,
-                                               (host_info_t)&vmStats,
-                                               &infoCount);
-    if (kernReturn != KERN_SUCCESS) {
-        return NSNotFound;
-    };return ((vm_page_size * vmStats.free_count)/1024.0)/1024.0;
+-(JobsRetDoubleByVoidBlock _Nonnull)availableMemory{
+    @jobs_weakify(self)
+    return ^double{
+        @jobs_strongify(self)
+        if (!self) return (double){0};
+        vm_statistics_data_t vmStats;
+        mach_msg_type_number_t infoCount = HOST_VM_INFO_COUNT;
+        kern_return_t kernReturn = host_statistics(mach_host_self(),
+                                                   HOST_VM_INFO,
+                                                   (host_info_t)&vmStats,
+                                                   &infoCount);
+        if (kernReturn != KERN_SUCCESS) {
+            return NSNotFound;
+        };return ((vm_page_size * vmStats.free_count)/1024.0)/1024.0;
+    };
 }
 /// 获取当前任务所占用内存
--(double)usedMemory{
-    task_basic_info_data_t taskInfo;
-    mach_msg_type_number_t infoCount = TASK_BASIC_INFO_COUNT;
-    kern_return_t kernReturn = task_info(mach_task_self(),
-                                         TASK_BASIC_INFO,
-                                         (task_info_t)&taskInfo,
-                                         &infoCount);
-    if (kernReturn != KERN_SUCCESS) {
-        return NSNotFound;
-    };return taskInfo.resident_size/1024.0/1024.0;
+-(JobsRetDoubleByVoidBlock _Nonnull)usedMemory{
+    @jobs_weakify(self)
+    return ^double{
+        @jobs_strongify(self)
+        if (!self) return (double){0};
+        task_basic_info_data_t taskInfo;
+        mach_msg_type_number_t infoCount = TASK_BASIC_INFO_COUNT;
+        kern_return_t kernReturn = task_info(mach_task_self(),
+                                             TASK_BASIC_INFO,
+                                             (task_info_t)&taskInfo,
+                                             &infoCount);
+        if (kernReturn != KERN_SUCCESS) {
+            return NSNotFound;
+        };return taskInfo.resident_size/1024.0/1024.0;
+    };
 }
 #pragma mark —— 尺寸
 /*
@@ -1237,8 +1420,13 @@ UITextFieldProtocol_dynamic
     return (NSMutableArray <NSValue *>*)mutArr.add(NSValue.byPoint(point));
 }
 
--(CGPoint)jobsGetPoint:(NSValue *_Nullable)value{
-    return value.CGPointValue;
+-(JobsRetCGPointByNSValueBlock _Nonnull)jobsGetPoint{
+    @jobs_weakify(self)
+    return ^CGPoint(NSValue *_Nullable value){
+        @jobs_strongify(self)
+        if (!self) return (CGPoint){0};
+        return value.CGPointValue;
+    };
 }
 /// CGVector
 -(NSMutableArray <NSValue *>*_Nullable)jobsMutArr:(NSMutableArray <NSValue *>*_Nullable)mutArr
@@ -1246,8 +1434,13 @@ UITextFieldProtocol_dynamic
     return (NSMutableArray <NSValue *>*)mutArr.add(NSValue.byVector(vector));
 }
 
--(CGVector)jobsGetVector:(NSValue *_Nullable)value{
-    return value.CGVectorValue;
+-(JobsRetCGVectorByNSValueBlock _Nonnull)jobsGetVector{
+    @jobs_weakify(self)
+    return ^CGVector(NSValue *_Nullable value){
+        @jobs_strongify(self)
+        if (!self) return (CGVector){0};
+        return value.CGVectorValue;
+    };
 }
 /// CGSize
 -(NSMutableArray <NSValue *>*_Nullable)jobsMutArr:(NSMutableArray <NSValue *>*_Nullable)mutArr
@@ -1255,8 +1448,13 @@ UITextFieldProtocol_dynamic
     return (NSMutableArray <NSValue *>*)mutArr.add(NSValue.bySize(size));
 }
 
--(CGSize)jobsGetSize:(NSValue *_Nullable)value{
-    return value.CGSizeValue;
+-(JobsRetCGSizeByNSValueBlock _Nonnull)jobsGetSize{
+    @jobs_weakify(self)
+    return ^CGSize(NSValue *_Nullable value){
+        @jobs_strongify(self)
+        if (!self) return (CGSize){0};
+        return value.CGSizeValue;
+    };
 }
 /// CGRect
 -(NSMutableArray <NSValue *>*_Nullable)jobsMutArr:(NSMutableArray <NSValue *>*_Nullable)mutArr
@@ -1264,8 +1462,13 @@ UITextFieldProtocol_dynamic
     return (NSMutableArray <NSValue *>*)mutArr.add(NSValue.byRect(frame));
 }
 
--(CGRect)jobsGetFrame:(NSValue *_Nullable)value{
-    return value.CGRectValue;
+-(JobsRetCGRectByNSValueBlock _Nonnull)jobsGetFrame{
+    @jobs_weakify(self)
+    return ^CGRect(NSValue *_Nullable value){
+        @jobs_strongify(self)
+        if (!self) return (CGRect){0};
+        return value.CGRectValue;
+    };
 }
 /// CGAffineTransform
 -(NSMutableArray <NSValue *>*_Nullable)jobsMutArr:(NSMutableArray <NSValue *>*_Nullable)mutArr
@@ -1273,8 +1476,13 @@ UITextFieldProtocol_dynamic
     return (NSMutableArray <NSValue *>*)mutArr.add(NSValue.byAffineTransform(affineTransform));
 }
 
--(CGAffineTransform)jobsGetCGAffineTransform:(NSValue *_Nullable)value{
-    return value.CGAffineTransformValue;
+-(JobsRetCGAffineTransformByNSValueBlock _Nonnull)jobsGetCGAffineTransform{
+    @jobs_weakify(self)
+    return ^CGAffineTransform(NSValue *_Nullable value){
+        @jobs_strongify(self)
+        if (!self) return (CGAffineTransform){0};
+        return value.CGAffineTransformValue;
+    };
 }
 /// UIEdgeInsets
 -(NSMutableArray <NSValue *>*_Nullable)jobsMutArr:(NSMutableArray <NSValue *>*_Nullable)mutArr
@@ -1282,8 +1490,13 @@ UITextFieldProtocol_dynamic
     return (NSMutableArray <NSValue *>*)mutArr.add(NSValue.byEdgeInsets(edgeInsets));
 }
 
--(UIEdgeInsets)jobsGetUIEdgeInsets:(NSValue *_Nullable)value{
-    return value.UIEdgeInsetsValue;
+-(JobsRetUIEdgeInsetsByNSValueBlock _Nonnull)jobsGetUIEdgeInsets{
+    @jobs_weakify(self)
+    return ^UIEdgeInsets(NSValue *_Nullable value){
+        @jobs_strongify(self)
+        if (!self) return (UIEdgeInsets){0};
+        return value.UIEdgeInsetsValue;
+    };
 }
 /// NSDirectionalEdgeInsets
 -(NSMutableArray <NSValue *>*)jobsMutArr:(NSMutableArray <NSValue *>*)mutArr
@@ -1291,8 +1504,13 @@ UITextFieldProtocol_dynamic
     return (NSMutableArray <NSValue *>*)mutArr.add(NSValue.byDirectionalEdgeInsets(directionalEdgeInsets));
 }
 
--(NSDirectionalEdgeInsets)jobsGetNSDirectionalEdgeInsets:(NSValue *_Nullable)value{
-    return value.directionalEdgeInsetsValue;
+-(JobsRetNSDirectionalEdgeInsetsByNSValueBlock _Nonnull)jobsGetNSDirectionalEdgeInsets{
+    @jobs_weakify(self)
+    return ^NSDirectionalEdgeInsets(NSValue *_Nullable value){
+        @jobs_strongify(self)
+        if (!self) return (NSDirectionalEdgeInsets){0};
+        return value.directionalEdgeInsetsValue;
+    };
 }
 /// UIOffset
 -(NSMutableArray <NSValue *>*_Nullable)jobsMutArr:(NSMutableArray <NSValue *>*_Nullable)mutArr
@@ -1300,8 +1518,13 @@ UITextFieldProtocol_dynamic
     return (NSMutableArray <NSValue *>*)mutArr.add(NSValue.byOffset(offset));
 }
 
--(UIOffset)jobsGetValueWithUIOffset:(NSValue *_Nullable)value{
-    return value.UIOffsetValue;
+-(JobsRetUIOffsetByNSValueBlock _Nonnull)jobsGetValueWithUIOffset{
+    @jobs_weakify(self)
+    return ^UIOffset(NSValue *_Nullable value){
+        @jobs_strongify(self)
+        if (!self) return (UIOffset){0};
+        return value.UIOffsetValue;
+    };
 }
 #pragma mark —— 数字
 /// 获取任意数字最高位数字
@@ -1317,67 +1540,117 @@ UITextFieldProtocol_dynamic
 }
 #pragma mark —— 检测当前设备屏幕方向
 //https://github.com/295060456/JobsOCBaseConfig/blob/main/%E6%96%87%E6%A1%A3%E5%92%8C%E8%B5%84%E6%96%99/%E6%A8%AA%E5%B1%8FUI%E5%88%87%E6%8D%A2.md/%E6%A8%AA%E5%B1%8FUI%E5%88%87%E6%8D%A2.md
--(CGFloat)jobsMainScreen_HEIGHT{
-    return JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape ? JobsMainScreen_WIDTH() : JobsMainScreen_HEIGHT();
+-(JobsRetCGFloatByVoidBlock _Nonnull)jobsMainScreen_HEIGHT{
+    @jobs_weakify(self)
+    return ^CGFloat{
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+        return JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape ? JobsMainScreen_WIDTH() : JobsMainScreen_HEIGHT();
+    };
 }
 
--(CGFloat)jobsMainScreen_WIDTH{
-    return JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape ? JobsMainScreen_HEIGHT() : JobsMainScreen_WIDTH();
+-(JobsRetCGFloatByVoidBlock _Nonnull)jobsMainScreen_WIDTH{
+    @jobs_weakify(self)
+    return ^CGFloat{
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+        return JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape ? JobsMainScreen_HEIGHT() : JobsMainScreen_WIDTH();
+    };
 }
 
 -(__kindof UIView *_Nullable)getView{
-    UIView *view = nil;
-    if ([self isKindOfClass:UIView.class]) {
-        view = (UIView *)self;
-    }else if ([self isKindOfClass:UIViewController.class]){
-        UIViewController *vc = (UIViewController *)self;
-        view = vc.view;
-    };return view;
+    JobsRetViewByVoidBlock action = ((JobsRetViewByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobsGetView)))(self, @selector(jobsGetView));
+    return action ? action() : nil;
 }
 
--(id _Nullable)getViewByBlock:(JobsRetIDByComponentTypeAndUIViewBlock _Nullable)block{
-    UIView *view = nil;
-    if ([self isKindOfClass:UIView.class]) {
-        view = (UIView *)self;
-        if(block) return block(ComponentTypeView,view);
-    }else if ([self isKindOfClass:UIViewController.class]){
-        UIViewController *vc = (UIViewController *)self;
-        view = vc.view;
-        if(block) return block(ComponentTypeViewController,view);
-    }else if(block) return block(ComponentTypeUnknown,nil);
-    return nil;
+-(JobsRetViewByVoidBlock _Nonnull)jobsGetView{
+    @jobs_weakify(self)
+    return ^__kindof UIView *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        UIView *view = nil;
+        if ([self isKindOfClass:UIView.class]) {
+            view = (UIView *)self;
+        }else if ([self isKindOfClass:UIViewController.class]){
+            UIViewController *vc = (UIViewController *)self;
+            view = vc.view;
+        };return view;
+    };
+}
+
+-(JobsRetIDByJobsRetIDByComponentTypeAndUIViewBlockBlock _Nonnull)getViewByBlock{
+    @jobs_weakify(self)
+    return ^id _Nullable(JobsRetIDByComponentTypeAndUIViewBlock _Nullable block){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        UIView *view = nil;
+        if ([self isKindOfClass:UIView.class]) {
+            view = (UIView *)self;
+            if(block) return block(ComponentTypeView,view);
+        }else if ([self isKindOfClass:UIViewController.class]){
+            UIViewController *vc = (UIViewController *)self;
+            view = vc.view;
+            if(block) return block(ComponentTypeViewController,view);
+        }else if(block) return block(ComponentTypeUnknown,nil);
+        return nil;
+    };
 }
 /// UIInterfaceOrientationMask 检测屏幕方向
--(CGSize)checkScreenOrientation_UIInterfaceOrientationMask:(JobsRetSizeByUIntegerBlock _Nullable)interfaceOrientationMaskBlock{
-    if (interfaceOrientationMaskBlock){
-        return interfaceOrientationMaskBlock( JobsAppTool.currentInterfaceOrientationMask);
-    }else return CGSizeZero;
+-(JobsRetCGSizeByJobsRetSizeByUIntegerBlockBlock _Nonnull)checkScreenOrientation_UIInterfaceOrientationMask{
+    @jobs_weakify(self)
+    return ^CGSize(JobsRetSizeByUIntegerBlock _Nullable interfaceOrientationMaskBlock){
+        @jobs_strongify(self)
+        if (!self) return (CGSize){0};
+        if (interfaceOrientationMaskBlock){
+            return interfaceOrientationMaskBlock( JobsAppTool.currentInterfaceOrientationMask);
+        }else return CGSizeZero;
+    };
 }
 /// UIInterfaceOrientation 检测屏幕方向
 -(UIInterfaceOrientation)getInterfaceOrientation{
-    UIInterfaceOrientation __block currentOrientation = UIInterfaceOrientationUnknown;
-    if (@available(iOS 13.0, *)) {
-        [self getViewByBlock:^id _Nullable(ComponentType componentType,
-                                           UIView * _Nullable data) {
-            /// 获取当前窗口场景的界面方向
-            currentOrientation = data.window.windowScene.interfaceOrientation;
-            return nil;
-        }];
-    } else {
-        SuppressWdeprecatedDeclarationsWarning(currentOrientation = UIApplication.sharedApplication.statusBarOrientation;);
-    };return currentOrientation;
+    JobsRetUIInterfaceOrientationByVoidBlock action = ((JobsRetUIInterfaceOrientationByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobsGetInterfaceOrientation)))(self, @selector(jobsGetInterfaceOrientation));
+    return action ? action() : (UIInterfaceOrientation){0};
+}
+
+-(JobsRetUIInterfaceOrientationByVoidBlock _Nonnull)jobsGetInterfaceOrientation{
+    @jobs_weakify(self)
+    return ^UIInterfaceOrientation{
+        @jobs_strongify(self)
+        if (!self) return (UIInterfaceOrientation){0};
+        UIInterfaceOrientation __block currentOrientation = UIInterfaceOrientationUnknown;
+        if (@available(iOS 13.0, *)) {
+            self.getViewByBlock(^id _Nullable(ComponentType componentType,
+                                               UIView * _Nullable data) {
+                /// 获取当前窗口场景的界面方向
+                currentOrientation = data.window.windowScene.interfaceOrientation;
+                return nil;
+            });
+        } else {
+            SuppressWdeprecatedDeclarationsWarning(currentOrientation = UIApplication.sharedApplication.statusBarOrientation;);
+        };return currentOrientation;
+    };
 }
 /// UIInterfaceOrientation 检测屏幕方向
--(CGSize)checkScreenOrientation_UIInterfaceOrientation:(JobsRetSizeByNSIntegerBlock _Nullable)interfaceOrientationBlock{
-    if(self.getInterfaceOrientation == UIInterfaceOrientationUnknown) return CGSizeZero;
-    if (interfaceOrientationBlock) return interfaceOrientationBlock(self.getInterfaceOrientation);
-    return CGSizeZero;
+-(JobsRetCGSizeByJobsRetSizeByNSIntegerBlockBlock _Nonnull)checkScreenOrientation_UIInterfaceOrientation{
+    @jobs_weakify(self)
+    return ^CGSize(JobsRetSizeByNSIntegerBlock _Nullable interfaceOrientationBlock){
+        @jobs_strongify(self)
+        if (!self) return (CGSize){0};
+        if(self.getInterfaceOrientation == UIInterfaceOrientationUnknown) return CGSizeZero;
+        if (interfaceOrientationBlock) return interfaceOrientationBlock(self.jobsGetInterfaceOrientation());
+        return CGSizeZero;
+    };
 }
 /// DeviceOrientation 检测屏幕方向
--(DeviceOrientation)getDeviceOrientation{
-    UIView *view = self.getView;
-    return view ? (view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? DeviceOrientationLandscape : DeviceOrientationPortrait)
-    :DeviceOrientationUnknown;
+-(JobsRetDeviceOrientationByVoidBlock _Nonnull)jobsGetDeviceOrientation{
+    @jobs_weakify(self)
+    return ^DeviceOrientation{
+        @jobs_strongify(self)
+        if (!self) return (DeviceOrientation){0};
+        UIView *view = self.jobsGetView();
+        return view ? (view.traitCollection.verticalSizeClass == UIUserInterfaceSizeClassCompact ? DeviceOrientationLandscape : DeviceOrientationPortrait)
+        :DeviceOrientationUnknown;
+    };
 }
 /// 横屏通知的监听
 -(void)横屏通知的监听:(JobsSelectorBlock1 _Nullable)block{
@@ -1400,30 +1673,30 @@ UITextFieldProtocol_dynamic
             /// 处理 UIDeviceOrientationLandscapeLeft 分支
             case UIDeviceOrientationLandscapeLeft:
                 JobsLog(@"屏幕向左横置");
-                 JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationLandscapeRight;
-                 JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskLandscapeRight;
-                 JobsAppTool.jobsDeviceOrientation = DeviceOrientationLandscape;
+                 JobsAppTool.byCurrentInterfaceOrientation(UIInterfaceOrientationLandscapeRight);
+                 JobsAppTool.byCurrentInterfaceOrientationMask(UIInterfaceOrientationMaskLandscapeRight);
+                 JobsAppTool.byJobsDeviceOrientation(DeviceOrientationLandscape);
                 break;
             /// 处理 UIDeviceOrientationLandscapeRight 分支
             case UIDeviceOrientationLandscapeRight:
                 JobsLog(@"屏幕向右橫置");
-                 JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationLandscapeLeft;
-                 JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskLandscapeLeft;
-                 JobsAppTool.jobsDeviceOrientation = DeviceOrientationLandscape;
+                 JobsAppTool.byCurrentInterfaceOrientation(UIInterfaceOrientationLandscapeLeft);
+                 JobsAppTool.byCurrentInterfaceOrientationMask(UIInterfaceOrientationMaskLandscapeLeft);
+                 JobsAppTool.byJobsDeviceOrientation(DeviceOrientationLandscape);
                 break;
             /// 处理 UIDeviceOrientationPortrait 分支
             case UIDeviceOrientationPortrait:
                 JobsLog(@"屏幕直立");
-                 JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationPortrait;
-                 JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskPortrait;
-                 JobsAppTool.jobsDeviceOrientation = DeviceOrientationPortrait;
+                 JobsAppTool.byCurrentInterfaceOrientation(UIInterfaceOrientationPortrait);
+                 JobsAppTool.byCurrentInterfaceOrientationMask(UIInterfaceOrientationMaskPortrait);
+                 JobsAppTool.byJobsDeviceOrientation(DeviceOrientationPortrait);
                 break;
             /// 处理 UIDeviceOrientationPortraitUpsideDown 分支
             case UIDeviceOrientationPortraitUpsideDown:
                 JobsLog(@"屏幕直立，上下顛倒");
-                 JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationPortraitUpsideDown;
-                 JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskPortraitUpsideDown;
-                 JobsAppTool.jobsDeviceOrientation = DeviceOrientationPortrait;
+                 JobsAppTool.byCurrentInterfaceOrientation(UIInterfaceOrientationPortraitUpsideDown);
+                 JobsAppTool.byCurrentInterfaceOrientationMask(UIInterfaceOrientationMaskPortraitUpsideDown);
+                 JobsAppTool.byJobsDeviceOrientation(DeviceOrientationPortrait);
                 break;
             /// 未匹配已知分支时执行兜底处理
             default:
@@ -1505,23 +1778,98 @@ JobsKey(_weak_target)
 -(void)setWeak_target:(id)weak_target{
     Jobs_setAssociatedRETAIN_NONATOMIC(_weak_target, weak_target)
 }
+
+-(JobsRetIDByIDBlock _Nonnull)byWeak_target{
+    @jobs_weakify(self)
+    return ^id(id _Nullable target){
+        @jobs_strongify(self)
+        [self setWeak_target:target];
+        return self;
+    };
+}
+
+-(JobsRetIDByIDBlock _Nonnull)byInternationalizationKEY{
+    @jobs_weakify(self)
+    return ^id(id _Nullable internationalizationKEY){
+        @jobs_strongify(self)
+        [(id<BaseProtocol>)self setInternationalizationKEY:internationalizationKEY];
+        return self;
+    };
+}
 /// Prop_assign()CGPoint lastPoint;
 PROP_CGPOINT(lastPoint, LastPoint)
+-(JobsRetIDByCGPointBlock _Nonnull)byLastPoint{
+    @jobs_weakify(self)
+    return ^id(CGPoint lastPoint){
+        @jobs_strongify(self)
+        [self setLastPoint:lastPoint];
+        return self;
+    };
+}
+
+-(JobsRetIDByCGPointBlock _Nonnull)byJobsPoint{
+    @jobs_weakify(self)
+    return ^id _Nullable(CGPoint point){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setJobsPoint:point];
+        return self;
+    };
+}
+
+-(JobsRetIDByFrameBlock _Nonnull)byJobsRect{
+    @jobs_weakify(self)
+    return ^id _Nullable(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setJobsRect:rect];
+        return self;
+    };
+}
+
+-(JobsRetIDByCGSizeBlock _Nonnull)byThisViewSize{
+    @jobs_weakify(self)
+    return ^id _Nullable(CGSize size){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setThisViewSize:size];
+        return self;
+    };
+}
+
+-(JobsRetIDByImageBlock _Nonnull)byBgImage{
+    @jobs_weakify(self)
+    return ^id _Nullable(UIImage *_Nullable image){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setBgImage:image];
+        return self;
+    };
+}
 #pragma mark —— Prop_strong()NSIndexPath *indexPath;
 PROP_STRONG_OBJECT_TYPE(NSIndexPath, indexPath, IndexPath)
 /// Prop_assign()NSInteger currentPage;
 JobsKey(_currentPage)
 @dynamic currentPage;
--(NSInteger)currentPage{
-    NSInteger CurrentPage = [Jobs_getAssociatedObject(_currentPage) integerValue];
-    if (CurrentPage == 0) {
-        CurrentPage = 1;
-        Jobs_setAssociatedRETAIN_NONATOMIC(_currentPage, @(CurrentPage))
-    };return CurrentPage;
+-(NSNumber *)currentPage{
+    NSNumber *currentPage = Jobs_getAssociatedObject(_currentPage);
+    if (!currentPage) {
+        currentPage = @(1);
+        Jobs_setAssociatedRETAIN_NONATOMIC(_currentPage, currentPage)
+    };return currentPage;
 }
 
--(void)setCurrentPage:(NSInteger)currentPage{
-    Jobs_setAssociatedRETAIN_NONATOMIC(_currentPage, @(currentPage))
+-(void)setCurrentPage:(NSNumber *)currentPage{
+    Jobs_setAssociatedRETAIN_NONATOMIC(_currentPage, currentPage)
+}
+
+-(JobsRetIDByIDBlock _Nonnull)byCurrentPage{
+    @jobs_weakify(self)
+    return ^id(NSNumber *_Nullable currentPage){
+        @jobs_strongify(self)
+        [self setCurrentPage:currentPage];
+        return self;
+    };
 }
 #pragma mark —— Prop_assign()NSInteger pageSize;
 JobsKey(_pageSize)
@@ -1541,7 +1889,36 @@ JobsKey(_pageSize)
 PROP_NSInteger(index, Index)
 /// Prop_strong()UIViewModel *viewModel;
 PROP_STRONG_OBJECT_Default_TYPE(UIViewModel, viewModel, ViewModel)
+
+-(JobsRetIDByIDBlock _Nonnull)byViewModel{
+    return ^id(UIViewModel *_Nullable viewModel){
+        [self setViewModel:viewModel];
+        return self;
+    };
+}
+
+-(JobsRetIDByIDBlock _Nonnull)byButtonModel{
+    @jobs_weakify(self)
+    return ^id(id _Nullable buttonModel){
+        @jobs_strongify(self)
+        [(id<AppToolsProtocol>)self setButtonModel:buttonModel];
+        return self;
+    };
+}
 /// Prop_copy()NSString *internationalizationKEY;/// 国际化的key
 PROP_COPY_OBJECT_TYPE(NSString, internationalizationKEY, InternationalizationKEY)
 
 @end
+
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN PHAssetCreationRequest
+@implementation PHAssetCreationRequest (JobsLocalPropertyDSLAutogen_33ddb2dc36)
+-(JobsRetPHAssetCreationRequestByNSDateBlock _Nonnull)byCreationDate{
+    @jobs_weakify(self)
+    return ^__kindof PHAssetCreationRequest * _Nullable(NSDate * _Nullable data){
+        @jobs_strongify(self)
+        [self setCreationDate:data];
+        return self;
+    };
+}
+@end
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END PHAssetCreationRequest

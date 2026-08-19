@@ -6,17 +6,18 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_YTKANIMATINGREQUESTACCESSORY_2008E8B2F2
-#define JOBS_HEADER_GUARD_YTKANIMATINGREQUESTACCESSORY_2008E8B2F2
-
-#import <UIKit/UIKit.h>
-
-//#import "YTKAlertUtils.h"
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
 #else
 #import "YTKNetwork.h"
 #endif
+
+#define JOBS_HEADER_GUARD_YTKANIMATINGREQUESTACCESSORY_2008E8B2F2
+
+#import <UIKit/UIKit.h>
+
+//#import "YTKAlertUtils.h"
 
 #import "JobsDefines.h"
 #import "JobsBlock.h"
@@ -29,7 +30,7 @@ Prop_copy()NSString *animatingText;
 -(id)initWithAnimatingView:(UIView *)animatingView;
 -(id)initWithAnimatingView:(UIView *)animatingView animatingText:(NSString *)animatingText;
 
-+(id)accessoryWithAnimatingView:(UIView *)animatingView;
++(JobsRetIDByUIViewBlock _Nonnull)accessoryWithAnimatingView;
 +(id)accessoryWithAnimatingView:(UIView *)animatingView animatingText:(NSString *)animatingText;
 
 @end

@@ -6,6 +6,7 @@
 //
 
 #import "UploadImageApi.h"
+
 #import "NSString+Extra.h"
 #import "NSMutableDictionary+Extra.h"
 
@@ -16,26 +17,50 @@ Prop_strong()UIImage *image;
 @end
 
 @implementation UploadImageApi
-+(JobsRetIDByImageBlock)initByImage{
++(JobsRetIDByImageBlock _Nonnull)initByImage{
     @jobs_weakify(self)
     return ^id(UIImage *_Nullable data){
         @jobs_strongify(self)
-        return [self.class.alloc initWithImage:data];
+        UploadImageApi *api = [self.class new];
+        return api.byImage(data);
     };
 }
 
--(instancetype)initWithImage:(UIImage *)image {
-    if (self = [super init]) {
+-(JobsRetIDByImageBlock _Nonnull)byImage{
+    @jobs_weakify(self)
+    return ^id(UIImage *image){
+        @jobs_strongify(self)
         self.image = image;
-    };return self;
+        return self;
+    };
 }
 /// 请求的完整URL：
 -(NSString *)requestUrl {
-    return This.BaseUrl.add(@"/iphone/image/upload");
+    JobsRetStrByVoidBlock action = ((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UploadImageApi.class, @selector(jobsRequestUrl)))(self, @selector(jobsRequestUrl));
+    return action ? action() : nil;
+}
+
+-(JobsRetStrByVoidBlock _Nonnull)jobsRequestUrl{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return This.jobsBaseUrl().add(@"/iphone/image/upload");
+    };
 }
 /// 请求方式
 -(YTKRequestMethod)requestMethod {
-    return YTKRequestMethodPOST;
+    JobsRetYTKRequestMethodByVoidBlock action = ((JobsRetYTKRequestMethodByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UploadImageApi.class, @selector(jobsRequestMethod)))(self, @selector(jobsRequestMethod));
+    return action ? action() : (YTKRequestMethod){0};
+}
+
+-(JobsRetYTKRequestMethodByVoidBlock _Nonnull)jobsRequestMethod{
+    @jobs_weakify(self)
+    return ^YTKRequestMethod{
+        @jobs_strongify(self)
+        if (!self) return (YTKRequestMethod){0};
+        return YTKRequestMethodPOST;
+    };
 }
 
 -(AFConstructingBlock)constructingBodyBlock{
@@ -54,12 +79,27 @@ Prop_strong()UIImage *image;
 }
 
 -(id)jsonValidator {
-    return @{@"imageId": NSString.class};
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UploadImageApi.class, @selector(jobsJsonValidator)))(self, @selector(jobsJsonValidator));
+    return action ? action() : nil;
 }
 
--(NSString *)responseImageId {
-    NSDictionary *dict = self.responseJSONObject;
-    return dict[@"imageId"];
+-(JobsRetIDByVoidBlock _Nonnull)jobsJsonValidator{
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @{@"imageId": NSString.class};
+    };
+}
+
+-(JobsRetStrByVoidBlock _Nonnull)responseImageId {
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSDictionary *dict = self.responseJSONObject;
+        return dict[@"imageId"];
+    };
 }
 
 @end

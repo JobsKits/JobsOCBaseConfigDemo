@@ -14,34 +14,36 @@
 #import "JobsModelDSL.h"
 #import "JobsBlock.h"
 #import "JobsDefines.h"
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (Time)
 /// 获取当前时间
 -(NSDate *)currentDate;
+-(JobsRetDateByVoidBlock _Nonnull)jobsCurrentDate;
 /// 获取当前手机时区的当前时间，返回 NSString 格式
 -(JobsRetStrByStrBlock _Nonnull)currentTimeStringBy;
 /// 获取当前手机时区的当前时间，返回 NSString 格式。时间格式 年-月-日 时:分:秒
--(NSString *)currentTimeStringByStyle1;
+-(JobsRetStrByVoidBlock _Nonnull)currentTimeStringByStyle1;
 /// 获取当前手机时区的当前时间，返回 NSString 格式。时间格式 年-月-日 时:分
--(NSString *)currentTimeStringByStyle2;
+-(JobsRetStrByVoidBlock _Nonnull)currentTimeStringByStyle2;
 /// 获取当前手机时区的当前时间，返回 NSString 格式。时间格式 年-月-日 时
--(NSString *)currentTimeStringByStyle3;
+-(JobsRetStrByVoidBlock _Nonnull)currentTimeStringByStyle3;
 /// 获取当前手机时区的当前时间，返回 NSString 格式。时间格式 年-月-日
--(NSString *)currentTimeStringByStyle4;
+-(JobsRetStrByVoidBlock _Nonnull)currentTimeStringByStyle4;
 /// 获取当前手机时区的当前时间，返回 NSString 格式。时间格式 年-月
--(NSString *)currentTimeStringByStyle5;
+-(JobsRetStrByVoidBlock _Nonnull)currentTimeStringByStyle5;
 /// 获取当前手机时区的当前时间，返回 NSString 格式。时间格式 年
--(NSString *)currentTimeStringByStyle6;
+-(JobsRetStrByVoidBlock _Nonnull)currentTimeStringByStyle6;
 /// 获取当日零点的时间戳（秒级）
--(NSTimeInterval)todayZeroTime;
+-(JobsRetNSTimeIntervalByVoidBlock _Nonnull)todayZeroTime;
 /// 获取某天前零点的时间戳（秒级）
 -(JobsRetDoubleByNSIntegerBlock _Nonnull)zeroTimeByDaysBefore;
 /// 返回的是（Double）时间戳
--(NSTimeInterval)currentUnixTimeStamp;
+-(JobsRetNSTimeIntervalByVoidBlock _Nonnull)currentUnixTimeStamp;
 /// 返回的是（uint64_t）时间戳
--(uint64_t)currentUnixTimeStampInMilliseconds;
+-(JobsRetuint64_tByVoidBlock _Nonnull)currentUnixTimeStampInMilliseconds;
 /// 返回带时间格式的当前时间字符串
 -(JobsRetStrByStrBlock _Nonnull)currentTimestampString;
 /// 获取某天前的时间。默认时间格式 yyyy-MM-dd HH:mm:ss
@@ -125,9 +127,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 获得今天的时间：年/月/日
 -(JobsRetTimeModelByStringBlock _Nonnull)getToday;
 /// 各个具体时间的拆解
--(JobsTimeModel *)makeSpecificTime;
+-(JobsRetJobsTimeModelByVoidBlock _Nonnull)makeSpecificTime;
 /// 获得当前时间
--(JobsTimeModel *)currentTime;
+-(JobsRetJobsTimeModelByVoidBlock _Nonnull)currentTime;
 /// 将某个（NSDate *）时间 转换格式
 /// @param date 一个指定的时间，若未指定则为当前时间
 /// @param timeFormatStr 时间格式 缺省值 @"MMM dd,yyyy HH:mm tt"

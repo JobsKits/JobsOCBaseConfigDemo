@@ -29,7 +29,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
     }
     self.viewModel
         .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
+            data.byText(@"返回".jobsTr());
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
@@ -312,7 +312,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     if (!_dataMutArr) {
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIViewModel *>* _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                NSString *title = @"检测当前屏幕方向".tr;
+                NSString *title = @"检测当前屏幕方向".jobsTr();
                 NSString *subTitle = @"";
                 data1
                     .byTitle(title)
@@ -341,8 +341,8 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
                 };
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                NSString *title = @"锁定横屏:".tr;
-                NSString *subTitle = @"设备可以处于任意横屏（Landscape）模式，包括左横屏和右横屏".tr;
+                NSString *title = @"锁定横屏:".jobsTr();
+                NSString *subTitle = @"设备可以处于任意横屏（Landscape）模式，包括左横屏和右横屏".jobsTr();
                 data1
                     .byTitle(title)
                     .bySubTitle(subTitle)
@@ -369,8 +369,8 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
                 };
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-                NSString *title = @"解除锁定:".tr;
-                NSString *subTitle = @"设备可以处于所有方向，包括竖屏、左横屏、右横屏和倒竖屏".tr;
+                NSString *title = @"解除锁定:".jobsTr();
+                NSString *subTitle = @"设备可以处于所有方向，包括竖屏、左横屏、右横屏和倒竖屏".jobsTr();
                 data
                     .byTitle(title)
                     .bySubTitle(subTitle)
@@ -395,7 +395,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
                 };
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                NSString *title = @"设备左横屏".tr;
+                NSString *title = @"设备左横屏".jobsTr();
                 NSString *subTitle = @"";
                 data1
                     .byTitle(title)
@@ -423,7 +423,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
                 };
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                NSString *title = @"设备右横屏".tr;
+                NSString *title = @"设备右横屏".jobsTr();
                 NSString *subTitle = @"";
                 data1
                     .byTitle(title)
@@ -451,8 +451,8 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
                 };
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                NSString *title = @"设备竖直向上".tr;
-                NSString *subTitle = @"Home 按钮在下方".tr;
+                NSString *title = @"设备竖直向上".jobsTr();
+                NSString *subTitle = @"Home 按钮在下方".jobsTr();
                 data1
                     .byTitle(title)
                     .bySubTitle(subTitle)
@@ -480,7 +480,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             }));
 //            .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
 //                data1.textModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data2) {
-//                    data2.text = @"设备竖直向下\n Home 按钮在上方".tr;
+//                    data2.text = @"设备竖直向下\n Home 按钮在上方".jobsTr();
 //                    data2.textCor = JobsRedColor;
 //                    data2.textAlignment = NSTextAlignmentCenter;
 //                });

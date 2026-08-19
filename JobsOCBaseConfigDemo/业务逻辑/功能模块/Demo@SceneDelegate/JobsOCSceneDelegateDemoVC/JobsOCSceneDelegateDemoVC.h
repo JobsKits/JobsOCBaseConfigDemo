@@ -6,13 +6,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "JobsOCSceneCoordinator.h"
 
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
 #else
-#import "Masonry.h"
+#import "JobsBlock.h"
 #endif
+#import "JobsOCSceneCoordinator.h"
 
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
@@ -44,14 +44,24 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsOCSceneDelegateDemoVC : BaseViewController
 
 -(instancetype)initWithRestorationActivity:(nullable NSUserActivity *)restorationActivity;
--(nullable NSUserActivity *)sceneRestorationActivity;
--(void)restoreSceneInteractionStateWithActivity:(NSUserActivity *)activity;
+-(JobsRetNSUserActivityByVoidBlock _Nonnull)sceneRestorationActivity;
+-(jobsByNSUserActivityBlock _Nonnull)restoreSceneInteractionStateWithActivity;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCSceneDelegateDemoVC
+-(JobsRetJobsOCSceneDelegateDemoVCByNSIntegerBlock _Nonnull)byCounter;
+-(JobsRetJobsOCSceneDelegateDemoVCByUIWindowSceneBlock _Nonnull)byCurrentScene;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCSceneDelegateDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

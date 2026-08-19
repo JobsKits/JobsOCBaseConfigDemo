@@ -6,6 +6,7 @@
 //
 
 #import "FMDoorModel.h"
+
 #import "NSCoder+Extra.h"
 #import "NSObject+Extra.h"
 
@@ -111,60 +112,70 @@
 //}
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
-    [super encodeWithCoder:encoder];
-#pragma mark —— 共用参数
-    [encoder encodeObject:self.accessToken forKey:@"accessToken"];
-    [encoder encodeObject:self.mobile forKey:@"mobile"];
-    [encoder encodeObject:self.userName forKey:@"userName"];
-#pragma mark —— 请求参数
-    [encoder encodeObject:self.captcha_id forKey:@"captcha_id"];
-    [encoder encodeObject:self.captcha_key forKey:@"captcha_key"];
-    [encoder encodeObject:self.captcha_output forKey:@"captcha_output"];
-    [encoder encodeObject:self.countryCode forKey:@"countryCode"];
-    [encoder encodeObject:self.domain forKey:@"domain"];
-    [encoder encodeObject:self.domainName forKey:@"domainName"];
-    [encoder encodeObject:self.gen_time forKey:@"gen_time"];
-    [encoder encodeObject:self.inviteCode forKey:@"inviteCode"];
-    [encoder encodeObject:self.inviteName forKey:@"inviteName"];
-    [encoder encodeObject:self.lot_number forKey:@"lot_number"];
-    [encoder encodeObject:self.pass_token forKey:@"pass_token"];
-    [encoder encodeObject:self.password forKey:@"password"];
-    [encoder encodeObject:self.referCode forKey:@"referCode"];
-    [encoder encodeObject:self.smsCode forKey:@"smsCode"];
-    [encoder encodeObject:self.actionType forKey:@"actionType"];
-    [encoder encodeObject:self.businessSource forKey:@"businessSource"];
-    [encoder encodeObject:self.callFlag forKey:@"callFlag"];
-    [encoder encodeObject:self.mobileArea forKey:@"mobileArea"];
-#pragma mark —— 响应参数
-    [encoder encodeObject:self.expireTime forKey:@"expireTime"];
-    [encoder encodeObject:self.regTime forKey:@"regTime"];
-    [encoder encodeObject:self.birthday forKey:@"birthday"];
-    [encoder encodeObject:self.nickName forKey:@"nickName"];
-    [encoder encodeObject:self.status forKey:@"status"];
-    [encoder encodeInteger:self.financeTier forKey:@"financeTier"];
-    [encoder encodeInteger:self.cryptoCount forKey:@"cryptoCount"];
-    [encoder encodeObject:self.sex forKey:@"sex"];
-    [encoder encodeObject:self.realName forKey:@"realName"];
-    [encoder encodeBool:self.passwordFlag forKey:@"passwordFlag"];
-    [encoder encodeObject:self.regCurrency forKey:@"regCurrency"];
-    [encoder encodeObject:self.identityCode forKey:@"identityCode"];
-    [encoder encodeInteger:self.ID forKey:@"ID"];
-    [encoder encodeInteger:self.tenantId forKey:@"tenantId"];
-    [encoder encodeObject:self.email forKey:@"email"];
-    [encoder encodeBool:self.nickNameStatus forKey:@"nickNameStatus"];
-    [encoder encodeObject:self.regNationCode forKey:@"regNationCode"];
-    [encoder encodeObject:self.regNation forKey:@"regNation"];
-    [encoder encodeObject:self.avatar forKey:@"avatar"];
-    [encoder encodeInteger:self.role forKey:@"role"];
-    [encoder encodeInteger:self.bankCardCount forKey:@"bankCardCount"];
-    [encoder encodeInteger:self.regDay forKey:@"regDay"];
-    [encoder encodeInteger:self.vipLevel forKey:@"vipLevel"];
-    [encoder encodeObject:self.regLang forKey:@"regLang"];
-#pragma mark —— 自建字段
-    [encoder encodeInteger:self.loginType forKey:@"loginType"];
-    [encoder encodeObject:self.tokenExpireTime forKey:@"tokenExpireTime"];
-    [encoder encodeObject:self.userDefaultHeadImage forKey:@"userDefaultHeadImage"];
-    // 编码更多属性（如有）
+    jobsByNSCoderBlock action = ((jobsByNSCoderBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMDoorModel.class, @selector(jobsEncodeWithCoder)))(self, @selector(jobsEncodeWithCoder));
+    if (action) action(encoder);
+}
+
+-(jobsByNSCoderBlock _Nonnull)jobsEncodeWithCoder{
+    @jobs_weakify(self)
+    return ^(NSCoder * encoder){
+        @jobs_strongify(self)
+        if (!self) return;
+            [super encodeWithCoder:encoder];
+        #pragma mark —— 共用参数
+            [encoder encodeObject:self.accessToken forKey:@"accessToken"];
+            [encoder encodeObject:self.mobile forKey:@"mobile"];
+            [encoder encodeObject:self.userName forKey:@"userName"];
+        #pragma mark —— 请求参数
+            [encoder encodeObject:self.captcha_id forKey:@"captcha_id"];
+            [encoder encodeObject:self.captcha_key forKey:@"captcha_key"];
+            [encoder encodeObject:self.captcha_output forKey:@"captcha_output"];
+            [encoder encodeObject:self.countryCode forKey:@"countryCode"];
+            [encoder encodeObject:self.domain forKey:@"domain"];
+            [encoder encodeObject:self.domainName forKey:@"domainName"];
+            [encoder encodeObject:self.gen_time forKey:@"gen_time"];
+            [encoder encodeObject:self.inviteCode forKey:@"inviteCode"];
+            [encoder encodeObject:self.inviteName forKey:@"inviteName"];
+            [encoder encodeObject:self.lot_number forKey:@"lot_number"];
+            [encoder encodeObject:self.pass_token forKey:@"pass_token"];
+            [encoder encodeObject:self.password forKey:@"password"];
+            [encoder encodeObject:self.referCode forKey:@"referCode"];
+            [encoder encodeObject:self.smsCode forKey:@"smsCode"];
+            [encoder encodeObject:self.actionType forKey:@"actionType"];
+            [encoder encodeObject:self.businessSource forKey:@"businessSource"];
+            [encoder encodeObject:self.callFlag forKey:@"callFlag"];
+            [encoder encodeObject:self.mobileArea forKey:@"mobileArea"];
+        #pragma mark —— 响应参数
+            [encoder encodeObject:self.expireTime forKey:@"expireTime"];
+            [encoder encodeObject:self.regTime forKey:@"regTime"];
+            [encoder encodeObject:self.birthday forKey:@"birthday"];
+            [encoder encodeObject:self.nickName forKey:@"nickName"];
+            [encoder encodeObject:self.status forKey:@"status"];
+            [encoder encodeInteger:self.financeTier forKey:@"financeTier"];
+            [encoder encodeInteger:self.cryptoCount forKey:@"cryptoCount"];
+            [encoder encodeObject:self.sex forKey:@"sex"];
+            [encoder encodeObject:self.realName forKey:@"realName"];
+            [encoder encodeBool:self.passwordFlag forKey:@"passwordFlag"];
+            [encoder encodeObject:self.regCurrency forKey:@"regCurrency"];
+            [encoder encodeObject:self.identityCode forKey:@"identityCode"];
+            [encoder encodeInteger:self.ID forKey:@"ID"];
+            [encoder encodeInteger:self.tenantId forKey:@"tenantId"];
+            [encoder encodeObject:self.email forKey:@"email"];
+            [encoder encodeBool:self.nickNameStatus forKey:@"nickNameStatus"];
+            [encoder encodeObject:self.regNationCode forKey:@"regNationCode"];
+            [encoder encodeObject:self.regNation forKey:@"regNation"];
+            [encoder encodeObject:self.avatar forKey:@"avatar"];
+            [encoder encodeInteger:self.role forKey:@"role"];
+            [encoder encodeInteger:self.bankCardCount forKey:@"bankCardCount"];
+            [encoder encodeInteger:self.regDay forKey:@"regDay"];
+            [encoder encodeInteger:self.vipLevel forKey:@"vipLevel"];
+            [encoder encodeObject:self.regLang forKey:@"regLang"];
+        #pragma mark —— 自建字段
+            [encoder encodeInteger:self.loginType forKey:@"loginType"];
+            [encoder encodeObject:self.tokenExpireTime forKey:@"tokenExpireTime"];
+            [encoder encodeObject:self.userDefaultHeadImage forKey:@"userDefaultHeadImage"];
+            // 编码更多属性（如有）
+    };
 }
 #pragma mark —— NSSecureCoding
 /**
@@ -172,16 +183,35 @@
  通常情况下，为了确保数据的安全性，特别是在跨应用程序或跨设备之间传输数据时，您应该将其设置为 YES。这样可以确保在归档和解档过程中，只有指定的类可以被解档，从而防止潜在的安全风险。
  */
 +(BOOL)supportsSecureCoding{
-    return YES;
+    JobsRetBOOLByVoidBlock action = ((JobsRetBOOLByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(FMDoorModel.class, @selector(jobsSupportsSecureCoding)))(self, @selector(jobsSupportsSecureCoding));
+    return action ? action() : (BOOL){0};
+}
+
++(JobsRetBOOLByVoidBlock _Nonnull)jobsSupportsSecureCoding{
+    return ^BOOL{
+        return YES;
+    };
 }
 /// MJExtension 默认支持基本数据类型和 NSString 等常见对象，但对于 UIImage 这样的非 JSON 序列化类型，不直接支持。
 /// 因此，当 MJExtension 尝试将 UIImage 对象转换为 NSDictionary 时会出现崩溃
 +(NSArray *)mj_ignoredPropertyNames{
-    return @[@"userDefaultHeadImage"];
+    return (((JobsRetArrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(FMDoorModel.class, @selector(jobsMJIgnoredPropertyNames)))(self, @selector(jobsMJIgnoredPropertyNames)))();
 }
 
-+(NSDictionary *)mj_replacedKeyFromPropertyName {
-    return [super mj_replacedKeyFromPropertyName].mutableCopy;
++(JobsRetArrByVoidBlock _Nonnull)jobsMJIgnoredPropertyNames{
+    return ^NSArray *{
+        return @[@"userDefaultHeadImage"];
+    };
+}
+
++(NSDictionary *)mj_replacedKeyFromPropertyName{
+    return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(FMDoorModel.class, @selector(jobsMJReplacedKeyFromPropertyName)))(self, @selector(jobsMJReplacedKeyFromPropertyName)))();
+}
+
++(JobsRetDicByVoidBlock _Nonnull)jobsMJReplacedKeyFromPropertyName {
+    return ^NSDictionary *{
+        return [super mj_replacedKeyFromPropertyName].mutableCopy;
+    };
 }
 
 -(void)setExpireTime:(NSString *)expireTime{

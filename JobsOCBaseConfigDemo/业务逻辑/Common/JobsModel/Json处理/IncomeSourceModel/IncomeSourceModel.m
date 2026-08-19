@@ -8,8 +8,14 @@
 #import "IncomeSourceModel.h"
 
 @implementation IncomeSourceModel
-+(NSDictionary *)mj_replacedKeyFromPropertyName {
-    return [super mj_replacedKeyFromPropertyName].mutableCopy;
++(NSDictionary *)mj_replacedKeyFromPropertyName{
+    return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(IncomeSourceModel.class, @selector(jobsMJReplacedKeyFromPropertyName)))(self, @selector(jobsMJReplacedKeyFromPropertyName)))();
+}
+
++(JobsRetDicByVoidBlock _Nonnull)jobsMJReplacedKeyFromPropertyName {
+    return ^NSDictionary *{
+        return [super mj_replacedKeyFromPropertyName].mutableCopy;
+    };
 }
 
 @end

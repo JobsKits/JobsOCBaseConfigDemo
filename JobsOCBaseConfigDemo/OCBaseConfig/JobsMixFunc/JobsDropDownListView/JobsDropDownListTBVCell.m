@@ -6,6 +6,7 @@
 //
 
 #import "JobsDropDownListTBVCell.h"
+
 #import "NSObject+image.h"
 #import "UIView+Extra.h"
 #import "UITableView+RegisterClass.h"
@@ -41,8 +42,8 @@ UITableViewCellProtocol_Synthesize
             .bySelectionStyle(UITableViewCellSelectionStyleNone)// 取消点击效果 【不能在cellStyleValue1ByTableView里面写】
             .byContentView(^(__kindof UIView * _Nullable view) {
                 view.byBgColor(JobsSecondarySystemBackgroundColor);
-                view.layer.cornerRadius = JobsWidth(12);
-                view.layer.masksToBounds = YES;
+                view.layer.byCornerRadius(JobsWidth(12));
+                view.layer.byMasksToBounds(YES);
             })
             .bySelectedBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
                 view
@@ -50,12 +51,12 @@ UITableViewCellProtocol_Synthesize
                     .byBgColor(HEXCOLOR(0xFFF5D8));
             }))
             .byBgColor(JobsClearColor);
-        self.textLabel.hidden = YES;
-        self.detailTextLabel.hidden = YES;
-        self.accessoryType = UITableViewCellAccessoryNone;
-        self.accessoryView = self.arrowImgV;
-        self.layoutMargins = UIEdgeInsetsMake(0, JobsWidth(16), 0, JobsWidth(12));
-        self.separatorInset = UIEdgeInsetsMake(0, JobsWidth(16), 0, JobsWidth(16));
+        self.textLabel.byHidden(YES);
+        self.detailTextLabel.byHidden(YES);
+        self.byAccessoryType(UITableViewCellAccessoryNone);
+        self.byAccessoryView(self.arrowImgV);
+        self.byLayoutMargins(UIEdgeInsetsMake(0, JobsWidth(16), 0, JobsWidth(12)));
+        self.bySeparatorInset(UIEdgeInsetsMake(0, JobsWidth(16), 0, JobsWidth(16)));
         self.iconImgV.byAlpha(1);
         self.titleLab.byAlpha(1);
         self.subTitleLab.byAlpha(1);
@@ -63,36 +64,46 @@ UITableViewCellProtocol_Synthesize
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    self.contentView.frame = CGRectInset(self.bounds, JobsWidth(6), JobsWidth(3));
-    CGFloat centerY = CGRectGetMidY(self.contentView.bounds);
-    CGFloat left = JobsWidth(16);
-    CGFloat iconSide = self.iconImgV.hidden ? 0 : JobsWidth(28);
-    if (self.iconImgV.hidden) {
-        self.iconImgV.frame = CGRectZero;
-    }else{
-        self.iconImgV.frame = CGRectIntegral(CGRectMake(left,
-                                                        centerY - iconSide / 2,
-                                                        iconSide,
-                                                        iconSide));
-    }
-    CGFloat textX = left + (self.iconImgV.hidden ? 0 : iconSide + JobsWidth(10));
-    CGFloat textW = MAX(0, CGRectGetWidth(self.contentView.bounds) - textX - JobsWidth(34));
-    BOOL hasSubTitle = self.subTitleLab.text.length > 0;
-    CGFloat titleH = JobsWidth(hasSubTitle ? 20 : 24);
-    CGFloat subTitleH = JobsWidth(18);
-    CGFloat spacing = hasSubTitle ? JobsWidth(2) : 0;
-    CGFloat groupH = titleH + spacing + (hasSubTitle ? subTitleH : 0);
-    CGFloat groupY = centerY - groupH / 2;
-    self.titleLab.frame = CGRectIntegral(CGRectMake(textX, groupY, textW, titleH));
-    self.subTitleLab.hidden = !hasSubTitle;
-    self.subTitleLab.frame = hasSubTitle ? CGRectIntegral(CGRectMake(textX,
-                                                                     CGRectGetMaxY(self.titleLab.frame) + spacing,
-                                                                     textW,
-                                                                     subTitleH)) : CGRectZero;
-    CGRect arrowFrame = self.arrowImgV.frame;
-    arrowFrame.origin.y = CGRectGetMidY(self.bounds) - CGRectGetHeight(arrowFrame) / 2;
-    self.arrowImgV.frame = CGRectIntegral(arrowFrame);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsDropDownListTBVCell.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        self.contentView.byFrame(CGRectInset(self.bounds, JobsWidth(6), JobsWidth(3)));
+        CGFloat centerY = CGRectGetMidY(self.contentView.bounds);
+        CGFloat left = JobsWidth(16);
+        CGFloat iconSide = self.iconImgV.hidden ? 0 : JobsWidth(28);
+        if (self.iconImgV.hidden) {
+            self.iconImgV.byFrame(CGRectZero);
+        }else{
+            self.iconImgV.frame = CGRectIntegral(CGRectMake(left,
+                                                            centerY - iconSide / 2,
+                                                            iconSide,
+                                                            iconSide));
+        }
+        CGFloat textX = left + (self.iconImgV.hidden ? 0 : iconSide + JobsWidth(10));
+        CGFloat textW = MAX(0, CGRectGetWidth(self.contentView.bounds) - textX - JobsWidth(34));
+        BOOL hasSubTitle = self.subTitleLab.text.length > 0;
+        CGFloat titleH = JobsWidth(hasSubTitle ? 20 : 24);
+        CGFloat subTitleH = JobsWidth(18);
+        CGFloat spacing = hasSubTitle ? JobsWidth(2) : 0;
+        CGFloat groupH = titleH + spacing + (hasSubTitle ? subTitleH : 0);
+        CGFloat groupY = centerY - groupH / 2;
+        self.titleLab.byFrame(CGRectIntegral(CGRectMake(textX, groupY, textW, titleH)));
+        self.subTitleLab.byHidden(!hasSubTitle);
+        self.subTitleLab.frame = hasSubTitle ? CGRectIntegral(CGRectMake(textX,
+                                                                         CGRectGetMaxY(self.titleLab.frame) + spacing,
+                                                                         textW,
+                                                                         subTitleH)) : CGRectZero;
+        CGRect arrowFrame = self.arrowImgV.frame;
+        arrowFrame.origin.y = CGRectGetMidY(self.bounds) - CGRectGetHeight(arrowFrame) / 2;
+        self.arrowImgV.byFrame(CGRectIntegral(arrowFrame));
+    };
 }
 
 -(JobsRetTableViewCellByIDBlock _Nonnull)jobsRichElementsTableViewCellBy{
@@ -100,11 +111,11 @@ UITableViewCellProtocol_Synthesize
     return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         if (model) {
-            self.viewModel = model;
+            self.byViewModel(model);
             self.iconImgV
                 .byImage(model.image)
                 .byTintColor(HEXCOLOR(0xC96E42));
-            self.iconImgV.hidden = !model.image;
+            self.iconImgV.byHidden(!model.image);
             self.titleLab
                 .byText([NSString stringWithFormat:@"%@",model.textModel.text])
                 .byFont(UIFontWeightMediumSize(14))
@@ -125,8 +136,8 @@ UITableViewCellProtocol_Synthesize
                 .byContentMode(UIViewContentModeScaleAspectFit)
                 .byTintColor(HEXCOLOR(0xC96E42))
                 .addOn(self.contentView);
-            imageView.layer.cornerRadius = JobsWidth(7);
-            imageView.layer.masksToBounds = YES;
+            imageView.layer.byCornerRadius(JobsWidth(7));
+            imageView.layer.byMasksToBounds(YES);
         });
     };return _iconImgV;
 }
@@ -170,8 +181,8 @@ UITableViewCellProtocol_Synthesize
             imageView
                 .byImage(image)
                 .byFrame(CGRectMake(0, 0, JobsWidth(8), JobsWidth(13)))
-                .byTintColor(HEXCOLOR(0xB6BEC9));
-            imageView.contentMode = UIViewContentModeScaleAspectFit;
+                .byTintColor(HEXCOLOR(0xB6BEC9))
+            .byContentMode(UIViewContentModeScaleAspectFit);
         });
     };return _arrowImgV;
 }

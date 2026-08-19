@@ -6,15 +6,16 @@
 //
 
 #ifndef SPAlertControllerConfig_h
-#define SPAlertControllerConfig_h
-
-#import <Foundation/Foundation.h>
 
 #if __has_include(<SPAlertController/SPAlertController.h>)
 #import <SPAlertController/SPAlertController.h>
 #else
 #import "SPAlertController.h"
 #endif
+
+#define SPAlertControllerConfig_h
+
+#import <Foundation/Foundation.h>
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"

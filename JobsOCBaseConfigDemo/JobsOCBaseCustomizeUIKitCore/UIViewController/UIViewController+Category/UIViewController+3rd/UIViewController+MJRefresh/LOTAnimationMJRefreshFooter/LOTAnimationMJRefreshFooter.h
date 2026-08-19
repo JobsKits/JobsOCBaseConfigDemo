@@ -6,6 +6,13 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_LOTANIMATIONMJREFRESHFOOTER_52FC0D0F1D
+
+#if __has_include(<MJRefresh/MJRefresh.h>)
+#import <MJRefresh/MJRefresh.h>
+#else
+#import "MJRefresh.h"
+#endif
+
 #define JOBS_HEADER_GUARD_LOTANIMATIONMJREFRESHFOOTER_52FC0D0F1D
 
 #pragma once
@@ -28,12 +35,6 @@
 #import <ReactiveObjC/RACEXTKeyPathCoding.h>
 #else
 #import "RACEXTKeyPathCoding.h"
-#endif
-
-#if __has_include(<MJRefresh/MJRefresh.h>)
-#import <MJRefresh/MJRefresh.h>
-#else
-#import "MJRefresh.h"
 #endif
 
 #if __has_include(<lottie-ios/Lottie.h>)

@@ -6,6 +6,13 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSTABBARCTRLCONSTRUCTION_14B0D364D8
+
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
 #define JOBS_HEADER_GUARD_JOBSTABBARCTRLCONSTRUCTION_14B0D364D8
 
 #import <UIKit/UIKit.h>
@@ -14,15 +21,10 @@
 #import "JobsOCDSL.h"
 #import "JobsByOCPods.h"
 
-#if __has_include(<XYColorOC/XYColorOC.h>)
-#import <XYColorOC/XYColorOC.h>
-#else
-#import "XYColorOC.h"
-#endif
-
 #import "JobsDefines.h"
 
 #pragma mark —— 创建动画函数
+
 NS_INLINE TLBounceAnimation *bounceAnimation(void){
     TLBounceAnimation *anm = TLBounceAnimation.alloc.init;
     anm.isPlayFireworksAnimation = YES;

@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JobsCustomTabBar : BaseView
 
 -(jobsByVoidBlock _Nonnull)setup;
--(jobsByViewBlock _Nonnull)configMasonryBy;
+-(JobsRetCustomTabBarByViewBlock _Nonnull)configMasonryBy;
 
 @end
 

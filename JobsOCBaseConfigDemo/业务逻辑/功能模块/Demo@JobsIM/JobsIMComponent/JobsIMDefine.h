@@ -9,6 +9,12 @@
 #define JobsIMDefine_h
 
 #import <CoreGraphics/CoreGraphics.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <Foundation/Foundation.h>
 
 #define isAllowSysEdit NO// 编译期就要优先进去，所以不能用属性
@@ -197,7 +203,7 @@ NS_INLINE NSDictionary *_Nonnull JobsIMPacketMake(JobsIMPacketType type,
                 displayName:(NSString *_Nonnull)displayName;
 
 /// 停止发现、断开连接，并广播离线状态。
--(void)stop;
+-(jobsByVoidBlock _Nonnull)stop;
 
 /// 发送 JobsIM 协议包。packet 建议由 `JobsIMPacketMake(...)` 生成，真实传输层再做 JSON 编码。
 -(void)sendPacket:(NSDictionary *_Nonnull)packet

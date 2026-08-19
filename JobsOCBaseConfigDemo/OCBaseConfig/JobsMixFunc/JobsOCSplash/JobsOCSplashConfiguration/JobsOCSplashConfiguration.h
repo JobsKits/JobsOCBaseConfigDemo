@@ -43,28 +43,37 @@ Prop_strong() JobsOCSplashAction *tapAction;
 Prop_strong() JobsOCSplashAction *shakeAction;
 Prop_copy(nullable) JobsOCSplashSkipBlock onSkip;
 
-+(__kindof JobsOCSplashConfiguration *)localImage:(NSString *)name;
++(JobsRetJobsOCSplashConfigurationByNSStringBlock _Nonnull)localImage;
 +(__kindof JobsOCSplashConfiguration *)localImage:(NSString *)name bundle:(NSBundle *)bundle;
-+(__kindof JobsOCSplashConfiguration *)localGIF:(NSString *)name;
++(JobsRetJobsOCSplashConfigurationByNSStringBlock _Nonnull)localGIF;
 +(__kindof JobsOCSplashConfiguration *)localGIF:(NSString *)name bundle:(NSBundle *)bundle;
-+(__kindof JobsOCSplashConfiguration *)remoteImage:(NSURL *)URL;
++(JobsRetJobsOCSplashConfigurationByNSURLBlock _Nonnull)remoteImage;
 +(__kindof JobsOCSplashConfiguration *)localVideo:(NSString *)name fileExtension:(NSString *_Nullable)fileExtension bundle:(NSBundle *_Nullable)bundle;
-+(__kindof JobsOCSplashConfiguration *)remoteVideo:(NSURL *)URL;
++(JobsRetJobsOCSplashConfigurationByNSURLBlock _Nonnull)remoteVideo;
 +(__kindof JobsOCSplashConfiguration *)remoteVideo:(NSURL *)URL
                                fallbackLocalVideo:(NSString *_Nullable)name
                                      fileExtension:(NSString *_Nullable)fileExtension
                                             bundle:(NSBundle *_Nullable)bundle;
--(JobsOCSplashConfiguration *(^)(NSNumber *_Nullable data))byCountdownSeconds;
--(JobsOCSplashConfiguration *(^)(NSString *_Nullable data))byLanguageCode;
--(JobsOCSplashConfiguration *(^)(BOOL data))bySkipButtonVisible;
--(JobsOCSplashConfiguration *(^)(CGRect data))bySkipButtonFrame;
--(JobsOCSplashConfiguration *(^)(UIEdgeInsets data))bySkipButtonInsets;
--(JobsOCSplashConfiguration *(^)(UIViewContentMode data))byContentMode;
--(JobsOCSplashConfiguration *(^)(AVLayerVideoGravity data))byVideoGravity;
--(JobsOCSplashConfiguration *(^)(JobsOCSplashAction *data))byTapAction;
--(JobsOCSplashConfiguration *(^)(JobsOCSplashAction *data))byShakeAction;
--(JobsOCSplashConfiguration *(^)(JobsOCSplashSkipBlock _Nullable data))bySkip;
+-(JobsRetJobsOCSplashConfigurationByNSNumberBlock _Nonnull)byCountdownSeconds;
+-(JobsRetJobsOCSplashConfigurationByNSStringBlock _Nonnull)byLanguageCode;
+-(JobsRetJobsOCSplashConfigurationByBOOLBlock _Nonnull)bySkipButtonVisible;
+-(JobsRetJobsOCSplashConfigurationByCGRectBlock _Nonnull)bySkipButtonFrame;
+-(JobsRetJobsOCSplashConfigurationByUIEdgeInsetsBlock _Nonnull)bySkipButtonInsets;
+-(JobsRetJobsOCSplashConfigurationByUIViewContentModeBlock _Nonnull)byContentMode;
+-(JobsRetJobsOCSplashConfigurationByAVLayerVideoGravityBlock _Nonnull)byVideoGravity;
+-(JobsRetJobsOCSplashConfigurationByJobsOCSplashActionBlock _Nonnull)byTapAction;
+-(JobsRetJobsOCSplashConfigurationByJobsOCSplashActionBlock _Nonnull)byShakeAction;
+-(JobsRetJobsOCSplashConfigurationByJobsOCSplashSkipBlockBlock _Nonnull)bySkip;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCSplashConfiguration
+-(JobsRetJobsOCSplashConfigurationByBOOLBlock _Nonnull)byUsesCustomSkipButtonFrame;
+-(JobsRetJobsOCSplashConfigurationByJobsOCSplashContentTypeBlock _Nonnull)byContentType;
+-(JobsRetJobsOCSplashConfigurationByJobsOCSplashSkipBlockBlock _Nonnull)byOnSkip;
+-(JobsRetJobsOCSplashConfigurationByNSBundleBlock _Nonnull)byBundle;
+-(JobsRetJobsOCSplashConfigurationByNSStringBlock _Nonnull)byFileExtension;
+-(JobsRetJobsOCSplashConfigurationByNSStringBlock _Nonnull)byResourceName;
+-(JobsRetJobsOCSplashConfigurationByNSURLBlock _Nonnull)byRemoteURL;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCSplashConfiguration
 @end
 
 NS_ASSUME_NONNULL_END

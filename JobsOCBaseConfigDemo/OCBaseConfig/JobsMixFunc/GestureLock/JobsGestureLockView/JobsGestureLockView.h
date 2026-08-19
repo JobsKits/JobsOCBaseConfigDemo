@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_JOBSGESTURELOCKVIEW_5F898D6865
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "JobsGestureLockConfiguration.h"
 #import "JobsDefines.h"
 #import "JobsOCDSL.h"
@@ -29,10 +35,17 @@ Prop_weak(nullable)id<JobsGestureLockViewDelegate> delegate;
 Prop_strong()JobsGestureLockConfiguration *configuration;
 Prop_assign(readonly)JobsGestureLockValidationResult validationResult;
 
+-(JobsRetJobsGestureLockViewByIDBlock _Nonnull)byDelegate;
 -(instancetype)initWithConfiguration:(nullable JobsGestureLockConfiguration *)configuration;
--(void)showValidationResult:(JobsGestureLockValidationResult)result;
--(void)reset;
+-(jobsByJobsGestureLockValidationResultBlock _Nonnull)showValidationResult;
+-(jobsByVoidBlock _Nonnull)reset;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsGestureLockView
+-(JobsRetJobsGestureLockViewByBOOLBlock _Nonnull)byFinished;
+-(JobsRetJobsGestureLockViewByCGPointBlock _Nonnull)byCurrentPoint;
+-(JobsRetJobsGestureLockViewByJobsGestureLockValidationResultBlock _Nonnull)byValidationResult;
+-(JobsRetJobsGestureLockViewByUIPanGestureRecognizerBlock _Nonnull)byPanGesture;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsGestureLockView
 @end
 
 NS_ASSUME_NONNULL_END

@@ -6,16 +6,17 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UISWITCH_UI_5B6491D372
-#define JOBS_HEADER_GUARD_UISWITCH_UI_5B6491D372
-
-#import <UIKit/UIKit.h>
-#import "JobsOCDSL.h"
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
 #import "ReactiveObjC.h"
 #endif
+
+#define JOBS_HEADER_GUARD_UISWITCH_UI_5B6491D372
+
+#import <UIKit/UIKit.h>
+#import "JobsOCDSL.h"
 
 #import "JobsMakes.h"
 #import "JobsBlock.h"
@@ -25,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// iOS系统内置了UISwithch控件的size，所以通过代码调整UISwithch的大小无效。默认大小：宽51.0f 、高31.0f
 @interface UISwitch (UI)
 
--(RACDisposable *)jobsSwitchClickEventBlock:(jobsByIDBlock)subscribeNextBlock;
+-(JobsRetRACDisposableByRACNextBlock _Nonnull)jobsSwitchClickEventBlock;
 
 @end
 
@@ -60,7 +61,7 @@ NS_ASSUME_NONNULL_END
                  }));
                  [Switch jobsSwitchClickEventBlock:^(UISwitch *x) {
                      x.selected = !x.selected;
-                     (x.selected ? @"打开解锁".tr:@"关闭解锁".tr).toast();
+                     (x.selected ? @"打开解锁".jobsTr():@"关闭解锁".jobsTr()).toast();
                      x.thumbTintColor = x.selected ? self.cor : HEXCOLOR(0xB0B0B0);
                      x.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
                          data.layerCor = Switch.selected ? self.cor : HEXCOLOR(0xB0B0B0)

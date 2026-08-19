@@ -22,6 +22,13 @@ Prop_assign()BOOL searchMode;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsVerticalMenuVC_0
+@interface JobsVerticalMenuVC_0 (JobsPropertyDSLSetterAutogen_10ad1c9568)
+-(void)setSearchMode:(BOOL)data;
+-(void)setSearchViewWidthConstraint:(MASConstraint * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsVerticalMenuVC_0
+
 @implementation JobsVerticalMenuVC_0
 - (void)dealloc {
     JobsLog(@"%@", JobsLocalFunc);
@@ -29,67 +36,137 @@ Prop_assign()BOOL searchMode;
 }
 
 - (void)loadView {
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsVerticalMenuVC_0.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(data.attributedTitle.string)
-                .byFont(UIFontWeightRegularSize(16));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
-    self.makeSubViews();
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(data.attributedTitle.string)
+                    .byFont(UIFontWeightRegularSize(16));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+        self.makeSubViews();
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
-//        @jobs_strongify(self)
-//        data.add(UIBarButtonItem.initBy(self.aboutBtn));
-    });
-    self.rightBarButtonItems = NSMutableArray.array;
-    self.makeNavByAlpha(1);
-    self.searchToggleBtn.byAlpha(1);
-    self.searchView.byAlpha(0);
-    self.tableView.byShow(self);
-    self.editBtn.byAlpha(1);
-    self.refreshLeftView();
-    self.displayView(self.rightViewArray[0]);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsVerticalMenuVC_0.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+            [super viewDidLoad];
+            self.byLeftBarButtonItems(jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
+        //        @jobs_strongify(self)
+        //        data.add(UIBarButtonItem.initBy(self.aboutBtn));
+            }))
+            .byRightBarButtonItems(NSMutableArray.array);
+            self.makeNavByAlpha(1);
+            self.searchToggleBtn.byAlpha(1);
+            self.searchView.byAlpha(0);
+            self.tableView.byShow(self);
+            self.editBtn.byAlpha(1);
+            self.refreshLeftView();
+            self.displayView(self.rightViewArray[0]);
+    };
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsVerticalMenuVC_0.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillAppear:animated];
+    };
 }
 
 - (void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsVerticalMenuVC_0.class, @selector(jobsViewWillLayoutSubviews)))(self, @selector(jobsViewWillLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewWillLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillLayoutSubviews];
+    };
 }
 
 - (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsVerticalMenuVC_0.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+    };
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsVerticalMenuVC_0.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsVerticalMenuVC_0.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+    };
 }
 #pragma mark —— 一些私有方法
 /// 创建右侧视图
@@ -134,8 +211,8 @@ Prop_assign()BOOL searchMode;
         subview.byFrame(CGRectMake(self.tableView.frame.size.width,
                                    self.tableView.top,
                                    self.view.frame.size.width - self.tableView.frame.size.width,
-                                   self.view.frame.size.height - self.tableView.top));
-        subview.addOn(self.view);
+                                   self.view.frame.size.height - self.tableView.top))
+        .addOn(self.view);
         if ([subview isKindOfClass:JobsVerticalMenuSubView.class]) {
             NSUInteger index = [self.rightViewArray indexOfObject:subview];
             if (index != NSNotFound) {
@@ -190,47 +267,62 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 
 - (void)tableView:(__kindof UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    self.displayView(self.rightViewArray[indexPath.row]);
+    (((jobsByViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsVerticalMenuVC_0.class, @selector(displayView)))(self, @selector(displayView)))(self.rightViewArray[indexPath.row]);
 }
 
--(CGFloat)expandedSearchWidth{
-    return JobsMainScreen_WIDTH() - JobsWidth(96) - JobsWidth(36) - JobsWidth(12) - JobsWidth(8);
+-(JobsRetCGFloatByVoidBlock _Nonnull)expandedSearchWidth{
+    @jobs_weakify(self)
+    return ^CGFloat{
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+        return JobsMainScreen_WIDTH() - JobsWidth(96) - JobsWidth(36) - JobsWidth(12) - JobsWidth(8);
+    };
 }
 
--(void)refreshSearchToggleBtnByActive:(BOOL)active{
-    self.searchToggleBtn
-        .jobsResetBtnTitle(active ? @"×" : @"")
-        .jobsResetBtnImage(active ? nil : @"放大镜".img);
+-(jobsByBOOLBlock _Nonnull)refreshSearchToggleBtnByActive{
+    @jobs_weakify(self)
+    return ^(BOOL active){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.searchToggleBtn
+            .jobsResetBtnTitle(active ? @"×" : @"")
+            .jobsResetBtnImage(active ? nil : @"放大镜".img);
+    };
 }
 
--(void)switchSearchModeByActive:(BOOL)active{
-    if (self.searchMode == active) return;
-    self.searchMode = active;
-    if (active) {
-        self.searchView.byHidden(NO);
-        [self refreshSearchToggleBtnByActive:YES];
-    } else {
-        [self.searchView.textField resignFirstResponder];
-        self.searchView.textField.byText(@"");
-    }
-    [self.searchViewWidthConstraint setOffset:active ? self.expandedSearchWidth : 0];
-    UIViewAnimationOptions options = active ? UIViewAnimationOptionCurveEaseOut : UIViewAnimationOptionCurveEaseIn;
-    UIView.jobsAnimateWithOptions(active ? .24f : .18f,
-        0,
-        options,
-        ^{
-        self.gk_navTitleBtn.byAlpha(active ? 0 : 1);
-        self.searchView.byAlpha(active ? 1 : 0);
-        [self.gk_navigationBar layoutIfNeeded];
-    },
-        ^(BOOL finished) {
+-(jobsByBOOLBlock _Nonnull)switchSearchModeByActive{
+    @jobs_weakify(self)
+    return ^(BOOL active){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (self.searchMode == active) return;
+        self.bySearchMode(active);
         if (active) {
-            [self.searchView.textField becomeFirstResponder];
+            self.searchView.byHidden(NO);
+            self.refreshSearchToggleBtnByActive(YES);
         } else {
-            self.searchView.byHidden(YES);
-            [self refreshSearchToggleBtnByActive:NO];
+            [self.searchView.textField resignFirstResponder];
+            self.searchView.textField.byText(@"");
         }
-    });
+        [self.searchViewWidthConstraint setOffset:active ? self.expandedSearchWidth() : 0];
+        UIViewAnimationOptions options = active ? UIViewAnimationOptionCurveEaseOut : UIViewAnimationOptionCurveEaseIn;
+        UIView.jobsAnimateWithOptions(active ? .24f : .18f,
+            0,
+            options,
+            ^{
+            self.gk_navTitleBtn.byAlpha(active ? 0 : 1);
+            self.searchView.byAlpha(active ? 1 : 0);
+            [self.gk_navigationBar layoutIfNeeded];
+        },
+            ^(BOOL finished) {
+            if (active) {
+                [self.searchView.textField becomeFirstResponder];
+            } else {
+                self.searchView.byHidden(YES);
+                self.refreshSearchToggleBtnByActive(NO);
+            }
+        });
+    };
 }
 #pragma mark —— lazyLoad
 /// BaseViewProtocol
@@ -242,9 +334,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             @jobs_strongify(self)
             tableView
                 .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
-                .byShowsVerticalScrollIndicator(NO);
-            tableView.byBgColor(JobsSecondarySystemBackgroundColor);
-            tableView.byFrame(jobsMakeCGRectByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
+                .byShowsVerticalScrollIndicator(NO)
+            .byBgColor(JobsSecondarySystemBackgroundColor)
+            .byFrame(jobsMakeCGRectByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
                 @jobs_strongify(self)
                 data.byJobsX(0)
                     .byJobsY(JobsTopSafeAreaHeight() + JobsStatusBarHeight() + self.gk_navigationBar.mj_h)
@@ -263,12 +355,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             .JobsRichViewByModel2(nil)
             .JobsBlock1(^(id  _Nullable data) {;
             });
-        _searchView.cancelBtnHidden = YES;
-        _searchView.textField.byPlaceholder(@"请输入搜索内容".tr);
+        _searchView.byCancelBtnHidden(YES);
+        _searchView.textField.byPlaceholder(@"请输入搜索内容".jobsTr());
         _searchView.addOn(self.gk_navigationBar)
             .byAdd(^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
-                self.searchViewWidthConstraint = make.width.mas_equalTo(0);
+                self.bySearchViewWidthConstraint(make.width.mas_equalTo(0));
                 make.height.mas_equalTo(JobsWidth(38));
                 make.right.equalTo(self.searchToggleBtn.mas_left).offset(JobsWidth(-8));
                 make.centerY.equalTo(self.gk_navigationBar);
@@ -308,7 +400,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             .jobsResetBtnImage(@"放大镜".img)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                [self switchSearchModeByActive:!self.searchMode];
+                self.switchSearchModeByActive(!self.searchMode);
             })
             .onLongPressGestureBy(^(id data){
                 JobsLog(@"");
@@ -334,11 +426,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             .jobsResetBtnBgImage(@"编辑".img)
             .jobsResetBtnTitleCor(JobsSecondaryLabelColor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-            .jobsResetBtnTitle(@"编辑".tr)
+            .jobsResetBtnTitle(@"编辑".jobsTr())
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
-                toastBy(@"编辑".tr);
+                toastBy(@"编辑".jobsTr());
             })
             .onLongPressGestureBy(^(id data){
                 JobsLog(@"");
@@ -358,22 +450,22 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
         /// 最初默认的数据
         _titleMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.byText(@"收藏".tr);
+                data1.textModel.byText(@"收藏".jobsTr());
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.byText(@"真人".tr);
+                data1.textModel.byText(@"真人".jobsTr());
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.byText(@"体育".tr);
+                data1.textModel.byText(@"体育".jobsTr());
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.byText(@"电子".tr);
+                data1.textModel.byText(@"电子".jobsTr());
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.byText(@"棋牌".tr);
+                data1.textModel.byText(@"棋牌".jobsTr());
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
-                data1.textModel.byText(@"彩票".tr);
+                data1.textModel.byText(@"彩票".jobsTr());
             }));
         });
     };return _titleMutArr;
@@ -397,4 +489,23 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     };return _rightViewArray;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsVerticalMenuVC_0
+-(JobsRetJobsVerticalMenuVC_0ByBOOLBlock _Nonnull)bySearchMode{
+    @jobs_weakify(self)
+    return ^__kindof JobsVerticalMenuVC_0 * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setSearchMode:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsVerticalMenuVC_0ByMASConstraintBlock _Nonnull)bySearchViewWidthConstraint{
+    @jobs_weakify(self)
+    return ^__kindof JobsVerticalMenuVC_0 * _Nullable(MASConstraint * _Nullable data){
+        @jobs_strongify(self)
+        [self setSearchViewWidthConstraint:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsVerticalMenuVC_0
 @end

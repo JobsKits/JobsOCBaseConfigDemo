@@ -11,6 +11,13 @@
 #import "NSDateFormatter+Extra.h"
 #import "JobsMakes.h"
 #import "JobsBlock.h"
+#import "JobsOCDSL.h"
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -30,6 +37,17 @@ NS_ASSUME_NONNULL_BEGIN
 /// 将NSDate *转化为可视化的时间字符串
 /// 入参：日期格式化标准（NSDateFormatter *）缺省标准：年/月/日
 -(JobsRetStrByDateFormatterBlock _Nonnull)toReadableTime;
+
+@end
+
+@interface NSDateComponents (JobsTimeUtilsExtra)
+
+-(JobsRetDateComponentsByIntegerBlock _Nonnull)byYear;
+-(JobsRetDateComponentsByIntegerBlock _Nonnull)byMonth;
+-(JobsRetDateComponentsByIntegerBlock _Nonnull)byDay;
+-(JobsRetDateComponentsByIntegerBlock _Nonnull)byHour;
+-(JobsRetDateComponentsByIntegerBlock _Nonnull)byMinute;
+-(JobsRetDateComponentsByIntegerBlock _Nonnull)bySecond;
 
 @end
 

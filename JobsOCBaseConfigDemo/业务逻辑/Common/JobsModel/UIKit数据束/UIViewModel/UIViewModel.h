@@ -6,16 +6,17 @@
 //
 
 #ifndef UIViewModel_h
-#define UIViewModel_h
-
-#import <Foundation/Foundation.h>
-#import "BaseModel.h"
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
 #else
 #import "XYColorOC.h"
 #endif
+
+#define UIViewModel_h
+
+#import <Foundation/Foundation.h>
+#import "BaseModel.h"
 
 #import "JobsBaseProtocolHeader.h"
 #import "JobsLanMgr.h"
@@ -30,6 +31,8 @@ UIViewModelProtocol
 ,AppToolsProtocol
 ,BaseViewProtocol
 >
+
+-(JobsRetAttributedStringByVoidBlock _Nonnull)jobsSelectedAttributedText;
 
 @end
 

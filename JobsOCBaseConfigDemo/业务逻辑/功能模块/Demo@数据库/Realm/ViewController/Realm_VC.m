@@ -20,20 +20,26 @@ Prop_strong()BaseButton *deleteBtn;
 Prop_strong()BaseButton *queryBtn;
 Prop_assign()NSInteger selectedUserIndex;
 
--(void)seedRealmDemoDataIfNeeded;
--(void)reloadRealmDemoData;
--(void)reloadDataMutArrByUsers:(NSArray <User_Realm *>*_Nullable)users;
--(NSString *)realmDemoNameInput;
--(NSInteger)realmDemoAgeInput;
--(User_Realm *_Nullable)selectedRealmDemoUser;
--(void)insertRealmDemoUser;
--(void)updateRealmDemoUser;
--(void)deleteRealmDemoUser;
+-(jobsByVoidBlock _Nonnull)seedRealmDemoDataIfNeeded;
+-(jobsByVoidBlock _Nonnull)reloadRealmDemoData;
+-(jobsByNSArrayUser_RealmBlock _Nonnull)reloadDataMutArrByUsers;
+-(JobsRetStrByVoidBlock _Nonnull)realmDemoNameInput;
+-(JobsRetNSIntegerByVoidBlock _Nonnull)realmDemoAgeInput;
+-(JobsRetUser_RealmByVoidBlock _Nonnull)selectedRealmDemoUser;
+-(jobsByVoidBlock _Nonnull)insertRealmDemoUser;
+-(jobsByVoidBlock _Nonnull)updateRealmDemoUser;
+-(jobsByVoidBlock _Nonnull)deleteRealmDemoUser;
 -(BaseButton *)realmDemoButtonByTitle:(NSString *)title
                               bgColor:(UIColor *)bgColor
                                action:(void(^)(void))action;
 
 @end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN Realm_VC
+@interface Realm_VC (JobsPropertyDSLSetterAutogen_d7089acd0a)
+-(void)setSelectedUserIndex:(NSInteger)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END Realm_VC
 
 @implementation Realm_VC
 - (void)dealloc{
@@ -42,70 +48,160 @@ Prop_assign()NSInteger selectedUserIndex;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(Realm_VC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(data.attributedTitle.string)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byBgImage(@"新首页的底图".img)
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(data.attributedTitle.string)
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byBgImage(@"新首页的底图".img)
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.makeNavByAlpha(1);
-    self.selectedUserIndex = -1;
-    self.tableView.byShow(self);
-    self.tableView.byTableHeaderView(self.editorView);
-    [self seedRealmDemoDataIfNeeded];
-    [self reloadRealmDemoData];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(Realm_VC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.makeNavByAlpha(1);
+        self.bySelectedUserIndex(-1);
+        self.tableView.byShow(self);
+        self.tableView.byTableHeaderView(self.editorView);
+        self.seedRealmDemoDataIfNeeded();
+        self.reloadRealmDemoData();
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(Realm_VC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillAppear:animated];
+    };
 }
 
 -(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(Realm_VC.class, @selector(jobsViewWillLayoutSubviews)))(self, @selector(jobsViewWillLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewWillLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(Realm_VC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(Realm_VC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(Realm_VC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(Realm_VC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+    };
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(Realm_VC.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 1;
+    };
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
@@ -136,43 +232,58 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    self.selectedUserIndex = indexPath.row;
+    self.bySelectedUserIndex(indexPath.row);
     User_Realm *user = self.userMutArr[indexPath.row];
     self.nameTextField.byText(user.name ? : @"");
     self.ageTextField.byText([NSString stringWithFormat:@"%ld",(long)user.age]);
     [tableView reloadData];
 }
 #pragma mark —— Demo 数据刷新
--(void)seedRealmDemoDataIfNeeded{
-    if (self.fetchAllUsers.count == 0) {
-        [self insertUserWithName:@"Alice Smith" age:26];
-    }
+-(jobsByVoidBlock _Nonnull)seedRealmDemoDataIfNeeded{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (self.fetchAllUsers().count == 0) {
+            [self insertUserWithName:@"Alice Smith" age:26];
+        }
+    };
 }
 
--(void)reloadRealmDemoData{
-    NSArray <User_Realm *>*users = self.fetchAllUsers;
-    [self reloadDataMutArrByUsers:users];
-    [self.tableView reloadData];
-    JobsLog(@"Realm Users: %@", users);
+-(jobsByVoidBlock _Nonnull)reloadRealmDemoData{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        NSArray <User_Realm *>*users = self.fetchAllUsers();
+        self.reloadDataMutArrByUsers(users);
+        [self.tableView reloadData];
+        JobsLog(@"Realm Users: %@", users);
+    };
 }
 
--(void)reloadDataMutArrByUsers:(NSArray <User_Realm *>*_Nullable)users{
-    [self.dataMutArr removeAllObjects];
-    [self.userMutArr removeAllObjects];
-    for (User_Realm *user in users) {
-        self.userMutArr.add(user);
-        self.dataMutArr.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.textModel.byText(user.name ? : @"-")
-                          .byTextCor(JobsLabelColor)
-                          .byFont(UIFontWeightRegularSize(16));
-            data.subTextModel.byText([NSString stringWithFormat:@"%@：%ld".tr,@"年龄".tr,(long)user.age])
-                              .byTextCor(JobsSecondaryLabelColor)
-                              .byFont(UIFontWeightRegularSize(14));
-        }));
-    }
-    if (self.selectedUserIndex >= (NSInteger)self.userMutArr.count) {
-        self.selectedUserIndex = -1;
-    }
+-(jobsByNSArrayUser_RealmBlock _Nonnull)reloadDataMutArrByUsers{
+    @jobs_weakify(self)
+    return ^(NSArray <User_Realm *>*_Nullable users){
+        @jobs_strongify(self)
+        if (!self) return;
+        [self.dataMutArr removeAllObjects];
+        [self.userMutArr removeAllObjects];
+        for (User_Realm *user in users) {
+            self.userMutArr.add(user);
+            self.dataMutArr.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
+                data.textModel.byText(user.name ? : @"-")
+                              .byTextCor(JobsLabelColor)
+                              .byFont(UIFontWeightRegularSize(16));
+                data.subTextModel.byText([NSString stringWithFormat:@"%@：%ld".jobsTr(),@"年龄".jobsTr(),(long)user.age])
+                                  .byTextCor(JobsSecondaryLabelColor)
+                                  .byFont(UIFontWeightRegularSize(14));
+            }));
+        }
+        if (self.selectedUserIndex >= (NSInteger)self.userMutArr.count) {
+            self.bySelectedUserIndex(-1);
+        }
+    };
 }
 #pragma mark —— Realm 的增删查改
 /// 插入数据
@@ -180,18 +291,23 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     RLMRealm *realm = RLMRealm.defaultRealm;
     [realm transactionWithBlock:^{
         User_Realm *newUser = User_Realm.new;
-        newUser.name = name;
-        newUser.age = age;
+        newUser.byName(name);
+        newUser.byAge(age);
         [realm addObject:newUser];
     }];
 }
 /// 查询数据
-- (NSArray *)fetchAllUsers {
-    RLMResults<User_Realm *> *results = User_Realm.allObjects;
-    NSMutableArray *users = NSMutableArray.array;
-    for (User_Realm *user in results) {
-        [users addObject:user];
-    };return users;
+- (JobsRetArrByVoidBlock _Nonnull)fetchAllUsers {
+    @jobs_weakify(self)
+    return ^NSArray *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        RLMResults<User_Realm *> *results = User_Realm.allObjects;
+        NSMutableArray *users = NSMutableArray.array;
+        for (User_Realm *user in results) {
+            [users addObject:user];
+        };return users;
+    };
 }
 /// 更新/改正 数据
 - (void)updateUser:(User_Realm *)user
@@ -199,67 +315,102 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
             newAge:(NSInteger)newAge {
     RLMRealm *realm = RLMRealm.defaultRealm;
     [realm transactionWithBlock:^{
-        user.name = newName;
-        user.age = newAge;
+        user.byName(newName);
+        user.byAge(newAge);
     }];
 }
 /// 删除数据
-- (void)deleteUser:(User_Realm *)user {
-    RLMRealm *realm = RLMRealm.defaultRealm;
-    [realm transactionWithBlock:^{
-        [realm deleteObject:user];
-    }];
+-(jobsByUser_RealmBlock _Nonnull)deleteUser{
+    @jobs_weakify(self)
+    return ^(User_Realm * user){
+        @jobs_strongify(self)
+        if (!self) return;
+        RLMRealm *realm = RLMRealm.defaultRealm;
+        [realm transactionWithBlock:^{
+            [realm deleteObject:user];
+        }];
+    };
 }
 
--(NSString *)realmDemoNameInput{
-    NSString *name = [self.nameTextField.text stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
-    if (name.length == 0) {
-        name = [NSString stringWithFormat:@"Jobs User %ld",(long)(self.fetchAllUsers.count + 1)];
-    };return name;
+-(JobsRetStrByVoidBlock _Nonnull)realmDemoNameInput{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSString *name = [self.nameTextField.text stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+        if (name.length == 0) {
+            name = [NSString stringWithFormat:@"Jobs User %ld",(long)(self.fetchAllUsers().count + 1)];
+        };return name;
+    };
 }
 
--(NSInteger)realmDemoAgeInput{
-    NSInteger age = self.ageTextField.text.integerValue;
-    return age > 0 ? age : 18;
+-(JobsRetNSIntegerByVoidBlock _Nonnull)realmDemoAgeInput{
+    @jobs_weakify(self)
+    return ^NSInteger{
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        NSInteger age = self.ageTextField.text.integerValue;
+        return age > 0 ? age : 18;
+    };
 }
 
--(User_Realm *)selectedRealmDemoUser{
-    if (self.selectedUserIndex >= 0 && self.selectedUserIndex < (NSInteger)self.userMutArr.count) {
-        return self.userMutArr[self.selectedUserIndex];
-    };return self.userMutArr.firstObject;
+-(JobsRetUser_RealmByVoidBlock _Nonnull)selectedRealmDemoUser{
+    @jobs_weakify(self)
+    return ^User_Realm *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (self.selectedUserIndex >= 0 && self.selectedUserIndex < (NSInteger)self.userMutArr.count) {
+            return self.userMutArr[self.selectedUserIndex];
+        };return self.userMutArr.firstObject;
+    };
 }
 
--(void)insertRealmDemoUser{
-    NSString *name = self.realmDemoNameInput;
-    NSInteger age = self.realmDemoAgeInput;
-    [self insertUserWithName:name age:age];
-    [self reloadRealmDemoData];
-    self.selectedUserIndex = self.userMutArr.count > 0 ? (NSInteger)self.userMutArr.count - 1 : -1;
-    self.nameTextField.byText(name);
-    self.ageTextField.byText([NSString stringWithFormat:@"%ld",(long)age]);
-    [self.tableView reloadData];
+-(jobsByVoidBlock _Nonnull)insertRealmDemoUser{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        NSString *name = self.realmDemoNameInput();
+        NSInteger age = self.realmDemoAgeInput();
+        [self insertUserWithName:name age:age];
+        self.reloadRealmDemoData();
+        self.bySelectedUserIndex(self.userMutArr.count > 0 ? (NSInteger)self.userMutArr.count - 1 : -1);
+        self.nameTextField.byText(name);
+        self.ageTextField.byText([NSString stringWithFormat:@"%ld",(long)age]);
+        [self.tableView reloadData];
+    };
 }
 
--(void)updateRealmDemoUser{
-    User_Realm *user = self.selectedRealmDemoUser;
-    if (!user) {
-        [self insertRealmDemoUser];
-        return;
-    }
-    [self updateUser:user
-             newName:self.realmDemoNameInput
-              newAge:self.realmDemoAgeInput];
-    [self reloadRealmDemoData];
+-(jobsByVoidBlock _Nonnull)updateRealmDemoUser{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        User_Realm *user = self.selectedRealmDemoUser();
+        if (!user) {
+            self.insertRealmDemoUser();
+            return;
+        }
+        [self updateUser:user
+                 newName:self.realmDemoNameInput()
+                  newAge:self.realmDemoAgeInput()];
+        self.reloadRealmDemoData();
+    };
 }
 
--(void)deleteRealmDemoUser{
-    User_Realm *user = self.selectedRealmDemoUser;
-    if (!user) return;
-    [self deleteUser:user];
-    self.selectedUserIndex = -1;
-    self.nameTextField.byText(@"");
-    self.ageTextField.byText(@"");
-    [self reloadRealmDemoData];
+-(jobsByVoidBlock _Nonnull)deleteRealmDemoUser{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        User_Realm *user = self.selectedRealmDemoUser();
+        if (!user) return;
+        self.deleteUser(user);
+        self.bySelectedUserIndex(-1);
+        self.nameTextField.byText(@"");
+        self.ageTextField.byText(@"");
+        self.reloadRealmDemoData();
+    };
 }
 
 -(BaseButton *)realmDemoButtonByTitle:(NSString *)title
@@ -267,7 +418,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                                action:(void(^)(void))action{
     @jobs_weakify(self)
     return BaseButton
-        .initByStyle1(title.tr,
+        .initByStyle1(title.jobsTr(),
                       UIFontWeightRegularSize(14),
                       JobsWhiteColor)
         .bgColorBy(bgColor)
@@ -366,7 +517,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!_nameTextField) {
         _nameTextField = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
             textField
-                .byPlaceholder(@"姓名".tr)
+                .byPlaceholder(@"姓名".jobsTr())
                 .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightRegularSize(14))
                 .byTextAlignment(NSTextAlignmentLeft)
@@ -381,7 +532,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!_ageTextField) {
         _ageTextField = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
             textField
-                .byPlaceholder(@"年龄".tr)
+                .byPlaceholder(@"年龄".jobsTr())
                 .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightRegularSize(14))
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -400,7 +551,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                                           bgColor:HEXCOLOR(0x3D4A58)
                                            action:^{
             @jobs_strongify(self)
-            [self insertRealmDemoUser];
+            self.insertRealmDemoUser();
         }];
     };return _insertBtn;
 }
@@ -412,7 +563,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                                           bgColor:HEXCOLOR(0x497D74)
                                            action:^{
             @jobs_strongify(self)
-            [self updateRealmDemoUser];
+            self.updateRealmDemoUser();
         }];
     };return _updateBtn;
 }
@@ -424,7 +575,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                                           bgColor:HEXCOLOR(0xC35A4A)
                                            action:^{
             @jobs_strongify(self)
-            [self deleteRealmDemoUser];
+            self.deleteRealmDemoUser();
         }];
     };return _deleteBtn;
 }
@@ -436,9 +587,19 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                                          bgColor:HEXCOLOR(0x8A6A42)
                                           action:^{
             @jobs_strongify(self)
-            [self reloadRealmDemoData];
+            self.reloadRealmDemoData();
         }];
     };return _queryBtn;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN Realm_VC
+-(JobsRetRealm_VCByNSIntegerBlock _Nonnull)bySelectedUserIndex{
+    @jobs_weakify(self)
+    return ^__kindof Realm_VC * _Nullable(NSInteger data){
+        @jobs_strongify(self)
+        [self setSelectedUserIndex:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END Realm_VC
 @end

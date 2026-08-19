@@ -7,10 +7,10 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
 #else
-#import "Masonry.h"
+#import "JobsBlock.h"
 #endif
 
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
@@ -63,6 +63,12 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsWalletVC : BaseViewController
@@ -71,6 +77,11 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsWalletVC
+-(JobsRetJobsWalletVCByBOOLBlock _Nonnull)byShowsModeList;
+-(JobsRetJobsWalletVCByBOOLBlock _Nonnull)byWalletCardsExpanded;
+-(JobsRetJobsWalletVCByJobsWalletCardExpandStyleBlock _Nonnull)byWalletStyle;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsWalletVC
 @end
 
 NS_ASSUME_NONNULL_END

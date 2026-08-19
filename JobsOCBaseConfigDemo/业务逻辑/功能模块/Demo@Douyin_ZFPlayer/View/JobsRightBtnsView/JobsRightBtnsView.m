@@ -25,16 +25,30 @@ Prop_assign()BOOL isSelected;
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_rightBtnsViewOnceToken = 0;
-    static_rightBtnsView = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsRightBtnsView.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_rightBtnsViewOnceToken = 0;
+        static_rightBtnsView = nil;
+    };
 }
 
 static JobsRightBtnsView *static_rightBtnsView = nil;
 static dispatch_once_t static_rightBtnsViewOnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_rightBtnsViewOnceToken, ^{
-        static_rightBtnsView = JobsRightBtnsView.new;
-    });return static_rightBtnsView;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsRightBtnsView.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_rightBtnsViewOnceToken, ^{
+            static_rightBtnsView = JobsRightBtnsView.new;
+        });return static_rightBtnsView;
+    };
 }
 #pragma mark —— SysMethod
 -(instancetype)init{
@@ -59,11 +73,31 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsRightBtnsView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsRightBtnsView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -82,7 +116,7 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model;
+        self.byViewModel(model);
         self.loveBtn.byAlpha(1);
         self.commentBtn.byAlpha(1);
         self.shareBtn.byAlpha(1);
@@ -90,16 +124,21 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
     };
 }
 #pragma mark —— 一些公有方法
--(NSMutableArray <__kindof UIButton *>*)getButtonArr{
-    return self.masonryViewArr;
+-(JobsRetNSMutableArrayUIButtonByVoidBlock _Nonnull)getButtonArr{
+    @jobs_weakify(self)
+    return ^NSMutableArray <__kindof UIButton *>*{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.masonryViewArr;
+    };
 }
 #pragma mark —— 一些私有方法
 /// 垂直方向排列、固定控件高度、控件间隔不定
 -(void)子视图垂直等间距排列{
     /// 实现masonry垂直方向固定控件高度方法
     self.masonryViewArr.installByMasonryModel2(jobsMakeMasonryModel(^(__kindof MasonryModel * _Nullable data) {
-        data.axisType = MASAxisTypeVertical;
-        data.byFixedItemLength(JobsRightBtnsView.viewSizeByModel(nil).width)
+        data.byAxisType(MASAxisTypeVertical)
+        .byFixedItemLength(JobsRightBtnsView.viewSizeByModel(nil).width)
             .byLeadSpacing(JobsWidth(0))
             .byTailSpacing(JobsWidth(0));
     })).installByMasonryBlock(^(MASConstraintMaker *_Nonnull make){/// 设置array的水平方向的约束
@@ -129,12 +168,12 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
                 JobsLog(@"我是点赞");
                 x.bySelected(!x.selected);
                 @jobs_weakify(x)
-                [x.imageView addViewAnimationWithCompletionBlock:^(id data) {
+                x.imageView.addViewAnimationWithCompletionBlock(^(id data) {
                     @jobs_strongify(self)
                     @jobs_strongify(x)
                     x.byTag(MKRightBtnViewBtnType_loveBtn);//写在block外部，此值异常
                     if (self.objBlock) self.objBlock(x);
-                }];
+                });
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
@@ -157,28 +196,28 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
             .onClickBy(^(UIButton *x){
                 JobsLog(@"我是评论");
                 @jobs_weakify(x)
-                [x.imageView addViewAnimationWithCompletionBlock:^(id data) {
+                x.imageView.addViewAnimationWithCompletionBlock(^(id data) {
                     @jobs_strongify(x)
                     @jobs_strongify(self)
-                    x.tag = MKRightBtnViewBtnType_commentBtn;//写在block外部，此值异常
+                    x.byTag(MKRightBtnViewBtnType_commentBtn);
                     if (self.objBlock) self.objBlock(x);
-                    UIViewController *presentingVC = self.jobsGetCurrentViewController;
+                    UIViewController *presentingVC = self.jobsGetCurrentViewControllerBlock();
                     if (!presentingVC || presentingVC.presentedViewController) return;
                     JobsCommentCoreVC *jobsCommentCoreVC = JobsCommentCoreVC.new;
                     CGFloat popUpHeight = JobsMainScreen_HEIGHT() / 2;
-                    jobsCommentCoreVC.popUpHeight = popUpHeight;
-                    jobsCommentCoreVC.preferredContentSize = CGSizeMake(JobsRealWidth(), popUpHeight);
-                    jobsCommentCoreVC.pushOrPresent = ComingStyle_PRESENT;
+                    jobsCommentCoreVC.byPopUpHeight(popUpHeight);
+                    jobsCommentCoreVC.byPreferredContentSize(CGSizeMake(JobsRealWidth(), popUpHeight));
+                    jobsCommentCoreVC.byPushOrPresent(ComingStyle_PRESENT);
                     self.commentPresentationController = [JobsPresentationCtrl.alloc initWithPresentedViewController:jobsCommentCoreVC
                                                                                              presentingViewController:presentingVC];
-                    jobsCommentCoreVC.transitioningDelegate = self.commentPresentationController;
+                    jobsCommentCoreVC.byTransitioningDelegate(self.commentPresentationController);
                     [presentingVC presentViewController:jobsCommentCoreVC
                                                animated:YES
                                              completion:NULL];
-                    [jobsCommentCoreVC actionObjBlock:^(id data) {
+                    jobsCommentCoreVC.actionObjBlock(^(id data) {
                         JobsLog(@"您点击了评论");
-                    }];
-                }];
+                    });
+                });
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
@@ -199,15 +238,15 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
             .onClickBy(^(UIButton *x){
                 JobsLog(@"我是分享");
                 @jobs_weakify(x)
-                [x.imageView addViewAnimationWithCompletionBlock:^(id data) {
+                x.imageView.addViewAnimationWithCompletionBlock(^(id data) {
                     @jobs_strongify(x)
                     @jobs_strongify(self)
-                    x.tag = MKRightBtnViewBtnType_shareBtn;//写在block外部，此值异常
+                    x.byTag(MKRightBtnViewBtnType_shareBtn);
                     JobsShareView *shareView = JobsShareView.new;
                     shareView.jobsRichViewByModel(nil);
                     self.popupShowSlideWithView(shareView);
                     if (self.objBlock) self.objBlock(x);
-                }];
+                });
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })

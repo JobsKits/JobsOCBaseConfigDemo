@@ -30,20 +30,25 @@
     };
 }
 
--(void)ifEmptyData{
-#ifdef DEBUG
-    /// 光板返回YES，有其他控件返回NO
+-(jobsByVoidBlock _Nonnull)ifEmptyData{
     @jobs_weakify(self)
-    BOOL (^checkSubviews)(void) = ^(){
+    return ^{
         @jobs_strongify(self)
-        if (self.subviews.count) {// 有控件
-            /// return YES; 除了self.tipsLab就没有了，光板
-            /// ;return NO; 有其他控件
-            return [self.subviews[0] isEqual:self.tipsLab];
-        };return YES;//光板
+        if (!self) return;
+    #ifdef DEBUG
+        /// 光板返回YES，有其他控件返回NO
+        @jobs_weakify(self)
+        BOOL (^checkSubviews)(void) = ^(){
+            @jobs_strongify(self)
+            if (self.subviews.count) {// 有控件
+                /// return YES; 除了self.tipsLab就没有了，光板
+                /// ;return NO; 有其他控件
+                return [self.subviews[0] isEqual:self.tipsLab];
+            };return YES;//光板
+        };
+        self.tipsLab.byAlpha(checkSubviews());
+    #endif
     };
-    self.tipsLab.byAlpha(checkSubviews());
-#endif
 }
 #pragma mark —— Prop_strong()UILabel *tipsLab;
 JobsKey(_tipsLab)
@@ -78,7 +83,7 @@ JobsKey(_tipsTitle)
 -(NSString *)tipsTitle{
     NSString *TipsTitle = Jobs_getAssociatedObject(_tipsTitle);
     if (isNull(TipsTitle)) {
-        TipsTitle = @"快来将我填满吧".tr;
+        TipsTitle = @"快来将我填满吧".jobsTr();
         Jobs_setAssociatedCOPY_NONATOMIC(_tipsTitle, TipsTitle)
     };return TipsTitle;
 }

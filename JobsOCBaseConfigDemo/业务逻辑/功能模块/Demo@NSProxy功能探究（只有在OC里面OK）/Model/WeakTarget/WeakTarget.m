@@ -8,10 +8,20 @@
 #import "WeakTarget.h"
 
 @implementation WeakTarget
-+(instancetype)withTarget:(id)target {
-    WeakTarget *w = WeakTarget.new;
-    w.target = target;
-    return w;
++(JobsRetWeakTargetByIDBlock _Nonnull)byTarget{
+    @jobs_weakify(self)
+    return ^__kindof WeakTarget *_Nullable(id _Nullable data){
+        @jobs_strongify(self)
+        self.target = data;
+        return self;
+    };
+}
+
++(JobsRetWeakTargetByIDBlock _Nonnull)withTarget{
+    return ^__kindof WeakTarget *_Nullable(id _Nullable target){
+        WeakTarget *w = WeakTarget.new;
+        return w.byTarget(target);
+    };
 }
 
 @end

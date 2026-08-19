@@ -11,6 +11,12 @@
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsAppDoorInputViewBaseStyleModel
+@interface JobsAppDoorInputViewBaseStyleModel (JobsPropertyDSLSetterAutogen_1b2f4e9e5c)
+-(void)setIsShowSecurityBtn:(BOOL)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyleModel
+
 @implementation JobsAppDoorInputViewBaseStyleModel
 UIViewModelProtocol_synthesize
 - (instancetype)init{
@@ -43,4 +49,14 @@ UIViewModelProtocol_synthesize
     };return _placeholderColor;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsAppDoorInputViewBaseStyleModel
+-(JobsRetJobsAppDoorInputViewBaseStyleModelByBOOLBlock _Nonnull)byShowSecurityBtn{
+    @jobs_weakify(self)
+    return ^__kindof JobsAppDoorInputViewBaseStyleModel * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setIsShowSecurityBtn:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAppDoorInputViewBaseStyleModel
 @end

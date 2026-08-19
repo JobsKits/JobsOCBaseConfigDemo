@@ -6,15 +6,16 @@
 //
 
 #ifndef HXPhotoPickerModel_h
-#define HXPhotoPickerModel_h
-
-#import <Foundation/Foundation.h>
 
 #if __has_include(<HXPhotoPickerObjC/HXPhotoPicker.h>)
 #import <HXPhotoPickerObjC/HXPhotoPicker.h>
 #else
 #import "HXPhotoPicker.h"
 #endif
+
+#define HXPhotoPickerModel_h
+
+#import <Foundation/Foundation.h>
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"

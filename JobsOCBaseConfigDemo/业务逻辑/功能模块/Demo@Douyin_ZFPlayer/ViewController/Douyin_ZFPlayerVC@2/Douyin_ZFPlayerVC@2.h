@@ -10,12 +10,6 @@
 #import "JobsVideoTBVCell.h"
 #import "VideoModel.h"
 
-#if __has_include(<ZFPlayer/ZFPlayer.h>)
-#import <ZFPlayer/ZFPlayer.h>
-#else
-#import "ZFPlayer.h"
-#endif
-
 #if __has_include(<KTVHTTPCache/KTVHTTPCache.h>)
 #import <KTVHTTPCache/KTVHTTPCache.h>
 #else
@@ -88,6 +82,12 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<ZFPlayer/ZFPlayer.h>)
+#import <ZFPlayer/ZFPlayer.h>
+#else
+#import "ZFPlayer.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Douyin_ZFPlayerVC_2 : BaseViewController
@@ -96,7 +96,9 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 /// 指定到某一行播放
--(void)playTheIndex:(NSInteger)index;
+-(jobsByNSIntegerBlock _Nonnull)playTheIndex;
+
+-(JobsRetBOOLByVoidBlock _Nonnull)jobsPrefersStatusBarHidden;
 
 @end
 

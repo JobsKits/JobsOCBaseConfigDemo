@@ -6,13 +6,14 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JXCATEGORYINDICATORVIEW_EXTRA_45157AE632
-#define JOBS_HEADER_GUARD_JXCATEGORYINDICATORVIEW_EXTRA_45157AE632
 
 #if __has_include(<JXCategoryView/JXCategoryView.h>)
 #import <JXCategoryView/JXCategoryView.h>
 #else
 #import "JXCategoryView.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JXCATEGORYINDICATORVIEW_EXTRA_45157AE632
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"

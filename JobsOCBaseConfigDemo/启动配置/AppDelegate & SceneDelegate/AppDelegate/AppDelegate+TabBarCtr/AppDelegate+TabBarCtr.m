@@ -25,7 +25,7 @@ __kindof UIViewController *JobsOCMakeAppRootViewController(void) {
         AppDelegate.jobsCustomTabBarVC.customSelectIndex(0);
         rootViewController = AppDelegate.jobsCustomTabBarNavCtrl;
     }else{
-        rootViewController = ViewController_1.new.navCtrl;
+        rootViewController = ViewController_1.new.navCtrl();
     }
     rootViewController.view.byFrame(UIScreen.mainScreen.bounds);
     return rootViewController;
@@ -34,8 +34,9 @@ __kindof UIViewController *JobsOCMakeAppRootViewController(void) {
 void JobsOCApplyAppRootViewController(void) {
     for (UIWindow *window in UIApplication.sharedApplication.windows) {
         if (!window.windowScene || window.windowScene.activationState == UISceneActivationStateUnattached) continue;
-        window.rootViewController = JobsOCMakeAppRootViewController();
-        [window makeKeyAndVisible];
+        window
+            .byRootViewController(JobsOCMakeAppRootViewController())
+            .byMakeKeyAndVisible();
     }
 }
 NSUInteger DefaultIndex = 2; // 默认从第3个开始初始显示
@@ -49,20 +50,21 @@ static JobsTabBarVC *_tabBarVC = nil;
     if(!_tabBarVC){
         @jobs_weakify(self)
         _tabBarVC = jobsMakeSharedManagerTabBarVC(^(__kindof JobsTabBarVC * _Nullable tabBarVC) {
-            tabBarVC.isAnimationAlert = YES;//OK
-            tabBarVC.isPlaySound = YES;
-            tabBarVC.isFeedbackGenerator = YES;
-            tabBarVC.isOpenScrollTabbar = NO;
+            tabBarVC
+                .byAnimationAlert(YES)
+                .byPlaySound(YES)
+                .byFeedbackGenerator(YES)
+                .byOpenScrollTabbar(NO)
         //    tabBarVC.isShakerAnimation = YES;
-            [tabBarVC actionRetBoolByUIntegerBlock:^BOOL(NSUInteger data) {
+            .actionRetBoolByUIntegerBlock(^BOOL(NSUInteger data) {
                 @jobs_strongify(self)
                 for (JobsTabBarItemConfig *tabBarItemConfig in self.tabBarItemConfigMutArr) {
                     if(tabBarItemConfig.isNeedjump){
-                        toastBy(@"这个跳开".tr);
+                        toastBy(@"这个跳开".jobsTr());
                         return NO;
                     }
                 };return YES;
-            }];
+            });
         });
     };return _tabBarVC;
 }
@@ -75,7 +77,7 @@ static JobsCustomTabBarVC *_jobsCustomTabBarVC = nil;
 +(JobsCustomTabBarVC *)jobsCustomTabBarVC{
     if(!_jobsCustomTabBarVC){
         _jobsCustomTabBarVC = jobsMakeSharedManagerCustomTabBarVC(^(__kindof JobsCustomTabBarVC * _Nullable tabBarVC) {
-            tabBarVC.viewControllers = AppDelegate.viewCtrlByTabBarCtrlConfigMutArr;
+            tabBarVC.byViewControllers(AppDelegate.viewCtrlByTabBarCtrlConfigMutArr);
             NSLog(@"");
         });
     };return _jobsCustomTabBarVC;
@@ -89,10 +91,10 @@ static LZTabBarController *_lZTabBarCtrl = nil;
 +(LZTabBarController *)lZTabBarCtrl{
     if(!_lZTabBarCtrl){
         @jobs_weakify(self)
-        _lZTabBarCtrl = [LZTabBarController createTabBarController:^LZTabBarConfig *(LZTabBarConfig *config) {
+        _lZTabBarCtrl = LZTabBarController.createTabBarController(^LZTabBarConfig *(LZTabBarConfig *config) {
             @jobs_strongify(self)
             return self.lZTabBarConfig;
-        }];
+        });
     };return _lZTabBarCtrl;
 }
 
@@ -104,8 +106,8 @@ static LZTabBarController *_lZTabBarCtrl = nil;
 static UINavigationController *_tabBarNavCtrl = nil;
 +(UINavigationController *)tabBarNavCtrl{
     if(!_tabBarNavCtrl){
-        _tabBarNavCtrl = self.tabBarVC.navCtrl;
-        _tabBarNavCtrl.hidesBottomBarWhenPushed = YES;
+        _tabBarNavCtrl = self.tabBarVC.navCtrl();
+        _tabBarNavCtrl.byHidesBottomBarWhenPushed(YES);
     };return _tabBarNavCtrl;
 }
 
@@ -116,20 +118,22 @@ static UINavigationController *_tabBarNavCtrl = nil;
 static UINavigationController *_jobsCustomTabBarNavCtrl = nil;
 +(UINavigationController *)jobsCustomTabBarNavCtrl{
     if(!_jobsCustomTabBarNavCtrl){
-        _jobsCustomTabBarNavCtrl = self.jobsCustomTabBarVC.navCtrl;
-        _jobsCustomTabBarNavCtrl.hidesBottomBarWhenPushed = YES;
+        _jobsCustomTabBarNavCtrl = self.jobsCustomTabBarVC.navCtrl();
+        _jobsCustomTabBarNavCtrl.byHidesBottomBarWhenPushed(YES);
     };return _jobsCustomTabBarNavCtrl;
 }
 
-+(void)setJobsTabBarNavCtrl:(UINavigationController *)jobsCustomTabBarNavCtrl{
-    _jobsCustomTabBarNavCtrl = jobsCustomTabBarNavCtrl;
++(jobsByUINavigationControllerBlock _Nonnull)setJobsTabBarNavCtrl{
+    return ^(UINavigationController * jobsCustomTabBarNavCtrl){
+        _jobsCustomTabBarNavCtrl = jobsCustomTabBarNavCtrl;
+    };
 }
 @dynamic lZTabBarNavCtrl;
 static UINavigationController *_lZTabBarNavCtrl = nil;
 +(UINavigationController *)lZTabBarNavCtrl{
     if(!_lZTabBarNavCtrl){
-        _lZTabBarNavCtrl = self.lZTabBarCtrl.navCtrl;
-        _lZTabBarNavCtrl.hidesBottomBarWhenPushed = YES;
+        _lZTabBarNavCtrl = self.lZTabBarCtrl.navCtrl();
+        _lZTabBarNavCtrl.byHidesBottomBarWhenPushed(YES);
     };return _lZTabBarNavCtrl;
 }
 
@@ -144,11 +148,12 @@ static LZTabBarConfig *_lZTabBarConfig = nil;
         @jobs_weakify(self)
         _lZTabBarConfig = jobsMakeLZTabBarConfig(^(__kindof LZTabBarConfig * _Nullable data) {
             @jobs_strongify(self)
-            data.viewControllers = self.viewCtrlByTabBarCtrlConfigMutArr;
-            data.normalImages = self.imageUnselectedNameMutArr;
-            data.selectedImages = self.imageSelectedNameMutArr;
-            data.titles = self.tabBarItemTitleMutArr;
-            data.isNavigation = NO;
+            data
+                .byViewControllers(self.viewCtrlByTabBarCtrlConfigMutArr)
+                .byNormalImages(self.imageUnselectedNameMutArr)
+                .bySelectedImages(self.imageSelectedNameMutArr)
+                .byTitles(self.tabBarItemTitleMutArr)
+                .byIsNavigation(NO);
         });
     };return _lZTabBarConfig;
 }
@@ -160,18 +165,20 @@ static LZTabBarConfig *_lZTabBarConfig = nil;
 static JobsCustomTabBarConfig *_jobsCustomTabBarConfig = nil;
 +(JobsCustomTabBarConfig *)jobsCustomTabBarConfig{
     _jobsCustomTabBarConfig = jobsMakeSharedManagerCustomTabBarConfig(^(__kindof JobsCustomTabBarConfig * _Nullable tabBarConfig) {
-        tabBarConfig.tabBarHeight = JobsWidth(60);
-        tabBarConfig.tabBarWidth = JobsWidth(389);
+        tabBarConfig
+            .byTabBarHeight(JobsWidth(60))
+            .byTabBarWidth(JobsWidth(389))
     //    tabBarConfig.tabBarX = JobsWidth(0);
     //    tabBarConfig.tabBarY = JobsWidth(0);
     //    tabBarConfig.tabBarSize = CGSizeMake(JobsWidth(0), JobsWidth(0));
     //    tabBarConfig.tabBarOrigin = CGPointMake(JobsWidth(0), JobsWidth(0));
     //    tabBarConfig.tabBarFrame = CGRectMake(JobsWidth(0), JobsWidth(0), JobsWidth(0), JobsWidth(0));
-        tabBarConfig.tabBarBackgroundColor = JobsCyanColor;
-        tabBarConfig.tabBarBackgroundImage = nil;//@"".img;
-        tabBarConfig.tabBarItems = self.tabBarItemMutArr;
-        tabBarConfig.viewControllers = self.viewCtrlByTabBarCtrlConfigMutArr;
-        tabBarConfig.tabBarItemYOffsets = nil;
+
+            .byTabBarBackgroundColor(JobsCyanColor)
+            .byTabBarBackgroundImage(nil)
+            .byTabBarItems(self.tabBarItemMutArr)
+            .byViewControllers(self.viewCtrlByTabBarCtrlConfigMutArr)
+            .byTabBarItemYOffsets(nil);
     });return _jobsCustomTabBarConfig;
 }
 
@@ -186,83 +193,88 @@ static NSMutableArray <__kindof JobsTabBarItemConfig *>*_tabBarItemConfigMutArr 
         _tabBarItemConfigMutArr = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
             data.add(jobsMakeTabBarItemConfig(^(__kindof JobsTabBarItemConfig * _Nullable config) {
                 @jobs_strongify(self)
-                config.vc = self.viewCtrlMutArr[0];
-                config.title = self.tabBarItemTitleMutArr[0];
-                config.imageSelected = self.imageSelectedMutArr[0];
-                config.imageUnselected = self.imageUnSelectedMutArr[0];
-                config.humpOffsetY = 0;
-                config.lottieName = nil;
-                config.xOffset = landscapeValue(JobsWidth(200));
-                config.tabBarItemWidth = landscapeValue(JobsWidth(100));
-                config.spacing = JobsWidth(3);
-                config.tag = 1;
-                config.isNeedCheckLogin = NO;
-                config.isNotNeedCheckLogin = YES;
-                config.isNeedjump = NO;
-            }));
-            data.add(jobsMakeTabBarItemConfig(^(__kindof JobsTabBarItemConfig * _Nullable config) {
+                config
+                    .byVc(self.viewCtrlMutArr[0])
+                    .byTitle(self.tabBarItemTitleMutArr[0])
+                    .byImageSelected(self.imageSelectedMutArr[0])
+                    .byImageUnselected(self.imageUnSelectedMutArr[0])
+                    .byHumpOffsetY(0)
+                    .byLottieName(nil)
+                    .byXOffset(landscapeValue(JobsWidth(200)))
+                    .byTabBarItemWidth(landscapeValue(JobsWidth(100)))
+                    .bySpacing(JobsWidth(3))
+                    .byTag(1)
+                    .byNeedCheckLogin(NO)
+                    .byNotNeedCheckLogin(YES)
+                    .byNeedJump(NO);
+            }))
+            .add(jobsMakeTabBarItemConfig(^(__kindof JobsTabBarItemConfig * _Nullable config) {
                 @jobs_strongify(self)
-                config.vc = self.viewCtrlMutArr[1];
-                config.title = self.tabBarItemTitleMutArr[1];
-                config.imageSelected = self.imageSelectedMutArr[1];
-                config.imageUnselected = self.imageUnSelectedMutArr[1];
-                config.humpOffsetY = 0;
-                config.lottieName = nil;
-                config.xOffset = landscapeValue(JobsWidth(5));
-                config.tabBarItemWidth = landscapeValue(JobsWidth(100));
-                config.spacing = JobsWidth(3);
-                config.tag = 2;
-                config.isNeedCheckLogin = NO;
-                config.isNotNeedCheckLogin = YES;
-                config.isNeedjump = NO;
-            }));
-            data.add(jobsMakeTabBarItemConfig(^(__kindof JobsTabBarItemConfig * _Nullable config) {
+                config
+                    .byVc(self.viewCtrlMutArr[1])
+                    .byTitle(self.tabBarItemTitleMutArr[1])
+                    .byImageSelected(self.imageSelectedMutArr[1])
+                    .byImageUnselected(self.imageUnSelectedMutArr[1])
+                    .byHumpOffsetY(0)
+                    .byLottieName(nil)
+                    .byXOffset(landscapeValue(JobsWidth(5)))
+                    .byTabBarItemWidth(landscapeValue(JobsWidth(100)))
+                    .bySpacing(JobsWidth(3))
+                    .byTag(2)
+                    .byNeedCheckLogin(NO)
+                    .byNotNeedCheckLogin(YES)
+                    .byNeedJump(NO);
+            }))
+            .add(jobsMakeTabBarItemConfig(^(__kindof JobsTabBarItemConfig * _Nullable config) {
                 @jobs_strongify(self)
-                config.vc = self.viewCtrlMutArr[2];
-                config.title = self.tabBarItemTitleMutArr[2];
-                config.imageSelected = self.imageSelectedMutArr[2];
-                config.imageUnselected = self.imageUnSelectedMutArr[2];
-                config.humpOffsetY = 0;
-                config.lottieName = nil;
-                config.xOffset = landscapeValue(JobsWidth(5));
-                config.tabBarItemWidth = landscapeValue(JobsWidth(50));
-                config.spacing = JobsWidth(3);
-                config.tag = 3;
-                config.isNeedCheckLogin = NO;
-                config.isNotNeedCheckLogin = YES;
-                config.isNeedjump = NO;
-            }));
-            data.add(jobsMakeTabBarItemConfig(^(__kindof JobsTabBarItemConfig * _Nullable config) {
+                config
+                    .byVc(self.viewCtrlMutArr[2])
+                    .byTitle(self.tabBarItemTitleMutArr[2])
+                    .byImageSelected(self.imageSelectedMutArr[2])
+                    .byImageUnselected(self.imageUnSelectedMutArr[2])
+                    .byHumpOffsetY(0)
+                    .byLottieName(nil)
+                    .byXOffset(landscapeValue(JobsWidth(5)))
+                    .byTabBarItemWidth(landscapeValue(JobsWidth(50)))
+                    .bySpacing(JobsWidth(3))
+                    .byTag(3)
+                    .byNeedCheckLogin(NO)
+                    .byNotNeedCheckLogin(YES)
+                    .byNeedJump(NO);
+            }))
+            .add(jobsMakeTabBarItemConfig(^(__kindof JobsTabBarItemConfig * _Nullable config) {
                 @jobs_strongify(self)
-                config.vc = self.viewCtrlMutArr[3];
-                config.title = self.tabBarItemTitleMutArr[3];
-                config.imageSelected = self.imageSelectedMutArr[3];
-                config.imageUnselected = self.imageUnSelectedMutArr[3];
-                config.humpOffsetY = 0;
-                config.lottieName = nil;
-                config.xOffset = landscapeValue(JobsWidth(5));
-                config.tabBarItemWidth = landscapeValue(JobsWidth(50));
-                config.spacing = JobsWidth(3);
-                config.tag = 4;
-                config.isNeedCheckLogin = NO;
-                config.isNotNeedCheckLogin = YES;
-                config.isNeedjump = NO;
-            }));
-            data.add(jobsMakeTabBarItemConfig(^(__kindof JobsTabBarItemConfig * _Nullable config) {
+                config
+                    .byVc(self.viewCtrlMutArr[3])
+                    .byTitle(self.tabBarItemTitleMutArr[3])
+                    .byImageSelected(self.imageSelectedMutArr[3])
+                    .byImageUnselected(self.imageUnSelectedMutArr[3])
+                    .byHumpOffsetY(0)
+                    .byLottieName(nil)
+                    .byXOffset(landscapeValue(JobsWidth(5)))
+                    .byTabBarItemWidth(landscapeValue(JobsWidth(50)))
+                    .bySpacing(JobsWidth(3))
+                    .byTag(4)
+                    .byNeedCheckLogin(NO)
+                    .byNotNeedCheckLogin(YES)
+                    .byNeedJump(NO);
+            }))
+            .add(jobsMakeTabBarItemConfig(^(__kindof JobsTabBarItemConfig * _Nullable config) {
                 @jobs_strongify(self)
-                config.vc = self.viewCtrlMutArr[4];
-                config.title = self.tabBarItemTitleMutArr[4];
-                config.imageSelected = self.imageSelectedMutArr[4];
-                config.imageUnselected = self.imageUnSelectedMutArr[4];
-                config.humpOffsetY = 0;
-                config.lottieName = nil;
-                config.xOffset = landscapeValue(JobsWidth(5));
-                config.tabBarItemWidth = landscapeValue(JobsWidth(100));
-                config.spacing = JobsWidth(3);
-                config.tag = 5;
-                config.isNeedCheckLogin = NO;
-                config.isNotNeedCheckLogin = YES;
-                config.isNeedjump = NO;
+                config
+                    .byVc(self.viewCtrlMutArr[4])
+                    .byTitle(self.tabBarItemTitleMutArr[4])
+                    .byImageSelected(self.imageSelectedMutArr[4])
+                    .byImageUnselected(self.imageUnSelectedMutArr[4])
+                    .byHumpOffsetY(0)
+                    .byLottieName(nil)
+                    .byXOffset(landscapeValue(JobsWidth(5)))
+                    .byTabBarItemWidth(landscapeValue(JobsWidth(100)))
+                    .bySpacing(JobsWidth(3))
+                    .byTag(5)
+                    .byNeedCheckLogin(NO)
+                    .byNotNeedCheckLogin(YES)
+                    .byNeedJump(NO);
             }));
         });
     };return _tabBarItemConfigMutArr;
@@ -283,7 +295,7 @@ static NSMutableArray <__kindof UIButton *>*_tabBarItemMutArr = nil;
                            .byHighlightImage(self.imageSelectedMutArr[0])
                            .byTitle(AppDelegate.tabBarItemTitleMutArr[0])
                            .byTitleFont(bayonRegular(14))
-                           .byTitleCor(@"#FFFFFF".cor)
+                           .byTitleCor(@"#FFFFFF".jobsCor())
                            .byImagePlacement(NSDirectionalRectEdgeTop)
                            .byTextAlignment(NSTextAlignmentCenter)
                            .bySubTextAlignment(NSTextAlignmentCenter)
@@ -291,8 +303,8 @@ static NSMutableArray <__kindof UIButton *>*_tabBarItemMutArr = nil;
                            .byBaseBackgroundColor(JobsClearColor)
                            .byBackgroundImage(DefaultIndex == 0 ? @"TabBarItem选中的背景色".img :@"TabBarItem选中的背景色（透明）".img);
             })).onClickBy(^(__kindof UIButton *x){
-                x.selected = !x.selected;
-                MyAppTools.sharedManager.loginWork = FMLoginWork_MyFav;
+                x.bySelected(!x.selected);
+                ((MyAppTools *)MyAppTools.jobsSharedManager()).loginWork = FMLoginWork_MyFav;
                 @jobs_strongify(self)
 //                 [self isLogin:^{
 //                     @jobs_strongify(self)
@@ -302,14 +314,14 @@ static NSMutableArray <__kindof UIButton *>*_tabBarItemMutArr = nil;
                 [AppDelegate button:x index:0];
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
-            }));
-            data.add(BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {
+            }))
+            .add(BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {
                 @jobs_strongify(self)
                 buttonModel.byNormalImage(self.imageUnSelectedMutArr[1])
                            .byHighlightImage(self.imageSelectedMutArr[1])
                            .byTitle(AppDelegate.tabBarItemTitleMutArr[1])
                            .byTitleFont(bayonRegular(14))
-                           .byTitleCor(@"#FFFFFF".cor)
+                           .byTitleCor(@"#FFFFFF".jobsCor())
                            .byImagePlacement(NSDirectionalRectEdgeTop)
                            .byTextAlignment(NSTextAlignmentCenter)
                            .bySubTextAlignment(NSTextAlignmentCenter)
@@ -317,8 +329,8 @@ static NSMutableArray <__kindof UIButton *>*_tabBarItemMutArr = nil;
                            .byBaseBackgroundColor(JobsClearColor)
                            .byBackgroundImage(DefaultIndex == 1 ? @"TabBarItem选中的背景色".img  :@"TabBarItem选中的背景色（透明）".img);
             })).onClickBy(^(__kindof UIButton *x){
-                x.selected = !x.selected;
-                MyAppTools.sharedManager.loginWork = FMLoginWork_MyBank;
+                x.bySelected(!x.selected);
+                ((MyAppTools *)MyAppTools.jobsSharedManager()).loginWork = FMLoginWork_MyBank;
                 @jobs_weakify(self)
 //                 [self isLogin:^{
 //                     @jobs_strongify(self)
@@ -328,14 +340,14 @@ static NSMutableArray <__kindof UIButton *>*_tabBarItemMutArr = nil;
                 [AppDelegate button:x index:1];
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
-            }));
-            data.add(BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {
+            }))
+            .add(BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {
                 @jobs_strongify(self)
                 buttonModel.byNormalImage(self.imageUnSelectedMutArr[2])
                            .byHighlightImage(self.imageSelectedMutArr[2])
                            .byTitle(AppDelegate.tabBarItemTitleMutArr[2])
                            .byTitleFont(bayonRegular(14))
-                           .byTitleCor(@"#FFFFFF".cor)
+                           .byTitleCor(@"#FFFFFF".jobsCor())
                            .byImagePlacement(NSDirectionalRectEdgeTop)
                            .byTextAlignment(NSTextAlignmentCenter)
                            .bySubTextAlignment(NSTextAlignmentCenter)
@@ -345,19 +357,19 @@ static NSMutableArray <__kindof UIButton *>*_tabBarItemMutArr = nil;
 //                DefaultIndex == 2 ? @"TabBarItem选中的背景色".img :@"TabBarItem选中的背景色（透明）".img;
             })).onClickBy(^(__kindof UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 [AppDelegate button:x index:2];
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
-            }));
-            data.add(BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {
+            }))
+            .add(BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {
                 @jobs_strongify(self)
                 buttonModel.byNormalImage(self.imageUnSelectedMutArr[3])
                            .byHighlightImage(self.imageSelectedMutArr[3])
                            .byTitle(AppDelegate.tabBarItemTitleMutArr[3])
                            .byTitleFont(bayonRegular(14))
-                           .byTitleCor(@"#FFFFFF".cor)
+                           .byTitleCor(@"#FFFFFF".jobsCor())
                            .byImagePlacement(NSDirectionalRectEdgeTop)
                            .byTextAlignment(NSTextAlignmentCenter)
                            .bySubTextAlignment(NSTextAlignmentCenter)
@@ -366,20 +378,20 @@ static NSMutableArray <__kindof UIButton *>*_tabBarItemMutArr = nil;
                            .byBackgroundImage(DefaultIndex == 3 ? @"TabBarItem选中的背景色".img :@"TabBarItem选中的背景色（透明）".img);
             })).onClickBy(^(__kindof UIButton *x){
                 @jobs_strongify(self)
-                MyAppTools.sharedManager.loginWork = FMLoginWork_Default;
-                x.selected = !x.selected;
+                ((MyAppTools *)MyAppTools.jobsSharedManager()).loginWork = FMLoginWork_Default;
+                x.bySelected(!x.selected);
                 [AppDelegate button:x index:3];
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
-            }));
-            data.add(BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {
+            }))
+            .add(BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {
                 @jobs_strongify(self)
                 buttonModel.byNormalImage(self.imageUnSelectedMutArr[4])
                            .byHighlightImage(self.imageSelectedMutArr[4])
                            .byTitle(AppDelegate.tabBarItemTitleMutArr[4])
                            .byTitleFont(bayonRegular(14))
-                           .byTitleCor(@"#FFFFFF".cor)
+                           .byTitleCor(@"#FFFFFF".jobsCor())
                            .byImagePlacement(NSDirectionalRectEdgeTop)
                            .byTextAlignment(NSTextAlignmentCenter)
                            .bySubTextAlignment(NSTextAlignmentCenter)
@@ -388,7 +400,7 @@ static NSMutableArray <__kindof UIButton *>*_tabBarItemMutArr = nil;
                            .byBackgroundImage(DefaultIndex == 4 ? @"TabBarItem选中的背景色".img :@"TabBarItem选中的背景色（透明）".img);
             })).onClickBy(^(__kindof UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 [AppDelegate button:x index:4];
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
@@ -407,11 +419,11 @@ static NSMutableArray <__kindof NSString *>*_tabBarItemTitleMutArr = nil;
     if(!_tabBarItemTitleMutArr){
         _tabBarItemTitleMutArr = jobsMakeMutArr(^(NSMutableArray <__kindof NSString *>*_Nullable data) {
             data
-                .add(@"MY FAV".tr)
-                .add(@"BANK".tr)
-                .add(@"INCENTIVE".tr)
-                .add(@"INVITE".tr)
-                .add(@"CONTACT US".tr);
+                .add(@"MY FAV".jobsTr())
+                .add(@"BANK".jobsTr())
+                .add(@"INCENTIVE".jobsTr())
+                .add(@"INVITE".jobsTr())
+                .add(@"CONTACT US".jobsTr());
         });
     };return _tabBarItemTitleMutArr;
 }
@@ -530,7 +542,7 @@ static NSMutableArray <__kindof UINavigationController *>*_navCtrMutArr = nil;
         _navCtrMutArr = jobsMakeMutArr(^(NSMutableArray <__kindof UINavigationController *>*_Nullable data) {
             @jobs_strongify(self)
             for (UIViewController *vc in self.viewCtrlMutArr) {
-                data.add(vc.navCtrl);
+                data.add(vc.navCtrl());
             }
         });
     };return _navCtrMutArr;
@@ -545,7 +557,7 @@ static NSMutableArray <__kindof UINavigationController *>*_navCtrMutArr = nil;
     AppDelegate.switchByIndex(index);
     button
         .jobsResetBtnImage(self.imageSelectedMutArr[index])
-        .jobsResetBtnTitleCor(@"#C71B1B".cor);
+        .jobsResetBtnTitleCor(@"#C71B1B".jobsCor());
 }
 
 +(jobsByNSUIntegerBlock _Nonnull)switchByIndex{
@@ -556,24 +568,29 @@ static NSMutableArray <__kindof UINavigationController *>*_navCtrMutArr = nil;
         for (__kindof UIButton *btn in AppDelegate.tabBarItemMutArr) {
             btn
                 .jobsResetBtnImage(self.imageUnSelectedMutArr[t])
-                .jobsResetBtnTitleCor(@"#8A93A1".cor);
+                .jobsResetBtnTitleCor(@"#8A93A1".jobsCor());
             t+=1;
         }self.jobsCustomTabBarVC.customSelectIndex(index);
     };
 }
 /// 刷新 TabBarTitle
--(void)refreshTabBarTitle{
-    AppDelegate.tabBarItemTitleMutArr = nil;
-    NSArray <NSString *>*titleArr = AppDelegate.tabBarItemTitleMutArr;
-    for (NSUInteger index = 0; index < AppDelegate.tabBarItemConfigMutArr.count; index++) {
-        if (index >= titleArr.count) break;
-        NSString *title = titleArr[index];
-        JobsTabBarItemConfig *config = AppDelegate.tabBarItemConfigMutArr[index];
-        config.vc.tabBarItem.title = title;
-        if (index < AppDelegate.tabBarItemMutArr.count) {
-            AppDelegate.tabBarItemMutArr[index].jobsResetBtnTitle(title);
+-(jobsByVoidBlock _Nonnull)refreshTabBarTitle{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        AppDelegate.byTabBarItemTitleMutArr(nil);
+        NSArray <NSString *>*titleArr = AppDelegate.tabBarItemTitleMutArr;
+        for (NSUInteger index = 0; index < AppDelegate.tabBarItemConfigMutArr.count; index++) {
+            if (index >= titleArr.count) break;
+            NSString *title = titleArr[index];
+            JobsTabBarItemConfig *config = AppDelegate.tabBarItemConfigMutArr[index];
+            config.vc.tabBarItem.byTitle(title);
+            if (index < AppDelegate.tabBarItemMutArr.count) {
+                AppDelegate.tabBarItemMutArr[index].jobsResetBtnTitle(title);
+            }
         }
-    }
+    };
 }
 
 @end

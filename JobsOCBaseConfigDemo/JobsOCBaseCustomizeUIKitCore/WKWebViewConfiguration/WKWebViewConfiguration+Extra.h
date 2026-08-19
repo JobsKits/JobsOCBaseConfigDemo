@@ -8,13 +8,10 @@
 #import <WebKit/WebKit.h>
 #import "JobsMakes.h"
 #import "JobsBlock.h"
+#import "JobsOCDSL.h"
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
-
-@interface WKWebViewConfiguration (Extra)
-
-@end
 
 NS_ASSUME_NONNULL_END
 
@@ -22,7 +19,7 @@ NS_ASSUME_NONNULL_END
 #define JOBS_MAKE_WK_WEB_VIEW_CONFIGURATION
 
 NS_INLINE __kindof WKWebViewConfiguration *_Nonnull jobsMakeWKWebViewConfiguration(jobsByWKWebViewConfigBlock _Nonnull block){
-    WKWebViewConfiguration *data = WKWebViewConfiguration.alloc.init;
+    WKWebViewConfiguration *data = jobsMakeWebViewConfiguration(^(WKWebViewConfiguration *object){});
     if (block) block(data);
     return data;
 }

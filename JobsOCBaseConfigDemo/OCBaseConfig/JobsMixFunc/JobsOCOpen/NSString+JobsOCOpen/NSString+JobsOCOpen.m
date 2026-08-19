@@ -6,21 +6,34 @@
 //
 
 #import "NSString+JobsOCOpen.h"
+
 #import "NSString+Sys.h"
 
 @interface _JobsOCOpenMailProxy : NSObject <MFMailComposeViewControllerDelegate>
 
 Prop_copy(nullable) void (^completion)(JobsOCOpenResult result);
+-(JobsRetIDByJobsOCOpenResultBlockBlock _Nonnull)byCompletion;
 
 @end
 
 @implementation _JobsOCOpenMailProxy
-+(instancetype)shared{
-    static _JobsOCOpenMailProxy *proxy = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        proxy = self.class.new;
-    });return proxy;
+-(JobsRetIDByJobsOCOpenResultBlockBlock _Nonnull)byCompletion{
+    @jobs_weakify(self)
+    return ^id(jobsByJobsOCOpenResultBlock _Nullable completion){
+        @jobs_strongify(self)
+        [self setCompletion:completion];
+        return self;
+    };
+}
+
++(JobsRetIDByVoidBlock _Nonnull)shared{
+    return ^id{
+        static _JobsOCOpenMailProxy *proxy = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            proxy = self.class.new;
+        });return proxy;
+    };
 }
 
 -(void)mailComposeController:(MFMailComposeViewController *)controller
@@ -30,19 +43,24 @@ Prop_copy(nullable) void (^completion)(JobsOCOpenResult result);
     [controller dismissViewControllerAnimated:YES completion:^{
         if (completion) completion(JobsOCOpenResultOpened);
     }];
-    self.completion = nil;
+    self.byCompletion(nil);
 }
 
 @end
 
 @implementation NSString (JobsOCOpen)
--(JobsOCOpenResult)jobs_open{
-    return [self jobs_openWithOptions:nil completion:nil];
+-(JobsRetJobsOCOpenResultByVoidBlock _Nonnull)jobs_open{
+    @jobs_weakify(self)
+    return ^JobsOCOpenResult{
+        @jobs_strongify(self)
+        if (!self) return (JobsOCOpenResult){0};
+        return [self jobs_openWithOptions:nil completion:nil];
+    };
 }
 
 -(JobsOCOpenResult)jobs_openWithOptions:(NSDictionary<UIApplicationOpenExternalURLOptionsKey,id> *_Nullable)options
                              completion:(void (^_Nullable)(JobsOCOpenResult))completion{
-    NSURL *url = [JobsOCOpenConfiguration jobsURLWithString:self];
+    NSURL *url = JobsOCOpenConfiguration.jobsURLWithString(self);
     if (!url) {
         if (completion) completion(JobsOCOpenResultInvalidInput);
         return JobsOCOpenResultInvalidInput;
@@ -58,8 +76,13 @@ Prop_copy(nullable) void (^completion)(JobsOCOpenResult result);
     }];return JobsOCOpenResultOpened;
 }
 
--(JobsOCOpenResult)jobs_call{
-    return [self jobs_callUsePrompt:NO completion:nil];
+-(JobsRetJobsOCOpenResultByVoidBlock _Nonnull)jobs_call{
+    @jobs_weakify(self)
+    return ^JobsOCOpenResult{
+        @jobs_strongify(self)
+        if (!self) return (JobsOCOpenResult){0};
+        return [self jobs_callUsePrompt:NO completion:nil];
+    };
 }
 
 -(JobsOCOpenResult)jobs_callUsePrompt:(BOOL)usePrompt
@@ -68,7 +91,7 @@ Prop_copy(nullable) void (^completion)(JobsOCOpenResult result);
     if (completion) completion(JobsOCOpenResultCannotOpen);
     return JobsOCOpenResultCannotOpen;
 #else
-    NSString *phone = [self jobs_sanitizedPhoneNumber];
+    NSString *phone = self.jobs_sanitizedPhoneNumber();
     if (!phone.length) {
         if (completion) completion(JobsOCOpenResultInvalidInput);
         return JobsOCOpenResultInvalidInput;
@@ -87,14 +110,19 @@ Prop_copy(nullable) void (^completion)(JobsOCOpenResult result);
 #endif
 }
 
--(JobsOCOpenResult)jobs_mail{
-    return [self jobs_mailWithSubject:nil
-                                 body:nil
-                               isHTML:NO
-                                   cc:nil
-                                  bcc:nil
-                          presentFrom:nil
-                           completion:nil];
+-(JobsRetJobsOCOpenResultByVoidBlock _Nonnull)jobs_mail{
+    @jobs_weakify(self)
+    return ^JobsOCOpenResult{
+        @jobs_strongify(self)
+        if (!self) return (JobsOCOpenResult){0};
+        return [self jobs_mailWithSubject:nil
+                                     body:nil
+                                   isHTML:NO
+                                       cc:nil
+                                      bcc:nil
+                              presentFrom:nil
+                               completion:nil];
+    };
 }
 
 -(JobsOCOpenResult)jobs_mailWithSubject:(NSString *_Nullable)subject
@@ -104,21 +132,21 @@ Prop_copy(nullable) void (^completion)(JobsOCOpenResult result);
                                     bcc:(NSArray<NSString *> *_Nullable)bcc
                             presentFrom:(UIViewController *_Nullable)presentFrom
                              completion:(void (^_Nullable)(JobsOCOpenResult))completion{
-    NSArray<NSString *> *tos = [self jobs_parseEmails:self];
+    NSArray<NSString *> *tos = self.jobs_parseEmails(self);
     if (!tos.count) {
         if (completion) completion(JobsOCOpenResultInvalidInput);
         return JobsOCOpenResultInvalidInput;
     }
     if (MFMailComposeViewController.canSendMail) {
-        MFMailComposeViewController *mailVC = MFMailComposeViewController.new;
+        MFMailComposeViewController *mailVC = jobsMakeMFMailComposeVC(^(MFMailComposeViewController *object){});
         [mailVC setToRecipients:tos];
         if (subject.length) [mailVC setSubject:subject];
         if (body.length) [mailVC setMessageBody:body isHTML:isHTML];
-        if (cc.count) [mailVC setCcRecipients:[self jobs_parseEmails:[cc componentsJoinedByString:@","]]];
-        if (bcc.count) [mailVC setBccRecipients:[self jobs_parseEmails:[bcc componentsJoinedByString:@","]]];
-        _JobsOCOpenMailProxy.shared.completion = completion;
-        mailVC.mailComposeDelegate = _JobsOCOpenMailProxy.shared;
-        UIViewController *host = presentFrom ?: [self jobs_topViewController];
+        if (cc.count) [mailVC setCcRecipients:self.jobs_parseEmails([cc componentsJoinedByString:@","])];
+        if (bcc.count) [mailVC setBccRecipients:self.jobs_parseEmails([bcc componentsJoinedByString:@","])];
+        ((_JobsOCOpenMailProxy *)_JobsOCOpenMailProxy.shared()).byCompletion(completion);
+        mailVC.byMailComposeDelegate(((_JobsOCOpenMailProxy *)_JobsOCOpenMailProxy.shared()));
+        UIViewController *host = presentFrom ?: self.jobs_topViewController();
         if (!host) {
             if (completion) completion(JobsOCOpenResultCannotOpen);
             return JobsOCOpenResultCannotOpen;
@@ -138,25 +166,35 @@ Prop_copy(nullable) void (^completion)(JobsOCOpenResult result);
     }];return JobsOCOpenResultOpened;
 }
 
--(NSArray<NSString *> *)jobs_parseEmails:(NSString *)string{
-    NSMutableArray<NSString *> *emails = NSMutableArray.array;
-    NSCharacterSet *separators = [NSCharacterSet characterSetWithCharactersInString:@",; \n\t"];
-    for (NSString *item in [string componentsSeparatedByCharactersInSet:separators]) {
-        NSString *email = item.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
-        if (email.length) [emails addObject:email];
-    };return emails.copy;
+-(JobsRetNSArrayNSStringByNSStringBlock _Nonnull)jobs_parseEmails{
+    @jobs_weakify(self)
+    return ^NSArray<NSString *> *(NSString * string){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSMutableArray<NSString *> *emails = NSMutableArray.array;
+        NSCharacterSet *separators = [NSCharacterSet characterSetWithCharactersInString:@",; \n\t"];
+        for (NSString *item in [string componentsSeparatedByCharactersInSet:separators]) {
+            NSString *email = item.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
+            if (email.length) [emails addObject:email];
+        };return emails.copy;
+    };
 }
 
--(NSString *)jobs_sanitizedPhoneNumber{
-    NSMutableString *phone = NSMutableString.string;
-    for (NSUInteger idx = 0; idx < self.length; idx++) {
-        unichar character = [self characterAtIndex:idx];
-        if ([[NSCharacterSet decimalDigitCharacterSet] characterIsMember:character]) {
-            [phone appendFormat:@"%C", character];
-        }else if (character == '+' && !phone.length){
-            [phone appendString:@"+"];
-        }
-    };return phone.copy;
+-(JobsRetStrByVoidBlock _Nonnull)jobs_sanitizedPhoneNumber{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSMutableString *phone = NSMutableString.string;
+        for (NSUInteger idx = 0; idx < self.length; idx++) {
+            unichar character = [self characterAtIndex:idx];
+            if ([[NSCharacterSet decimalDigitCharacterSet] characterIsMember:character]) {
+                [phone appendFormat:@"%C", character];
+            }else if (character == '+' && !phone.length){
+                [phone appendString:@"+"];
+            }
+        };return phone.copy;
+    };
 }
 
 -(NSURL *_Nullable)jobs_mailtoURLWithTo:(NSArray<NSString *> *)to
@@ -169,29 +207,39 @@ Prop_copy(nullable) void (^completion)(JobsOCOpenResult result);
     if (body.length) [items addObject:[NSURLQueryItem queryItemWithName:@"body" value:body]];
     if (cc.count) [items addObject:[NSURLQueryItem queryItemWithName:@"cc" value:[cc componentsJoinedByString:@","]]];
     if (bcc.count) [items addObject:[NSURLQueryItem queryItemWithName:@"bcc" value:[bcc componentsJoinedByString:@","]]];
-    NSURLComponents *components = NSURLComponents.new;
-    components.scheme = @"mailto";
-    components.path = [to componentsJoinedByString:@","];
-    components.queryItems = items.count ? items : nil;
+    NSURLComponents *components = NSURLComponents.new
+        .byScheme(@"mailto")
+        .byPath([to componentsJoinedByString:@","])
+        .byQueryItems(items.count ? items : nil);
     return components.URL;
 }
 
--(UIViewController *_Nullable)jobs_topViewController{
-    UIViewController *rootViewController = jobsGetMainWindow().rootViewController;
-    return [self jobs_topViewControllerFrom:rootViewController];
+-(JobsRetVCByVoidBlock _Nonnull)jobs_topViewController{
+    @jobs_weakify(self)
+    return ^UIViewController *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        UIViewController *rootViewController = jobsGetMainWindow().rootViewController;
+        return self.jobs_topViewControllerFrom(rootViewController);
+    };
 }
 
--(UIViewController *_Nullable)jobs_topViewControllerFrom:(UIViewController *_Nullable)viewController{
-    if (!viewController) return nil;
-    if (viewController.presentedViewController) return [self jobs_topViewControllerFrom:viewController.presentedViewController];
-    if ([viewController isKindOfClass:UINavigationController.class]) {
-        UINavigationController *navigationController = (UINavigationController *)viewController;
-        return [self jobs_topViewControllerFrom:navigationController.visibleViewController];
-    }
-    if ([viewController isKindOfClass:UITabBarController.class]) {
-        UITabBarController *tabBarController = (UITabBarController *)viewController;
-        return [self jobs_topViewControllerFrom:tabBarController.selectedViewController];
-    };return viewController;
+-(JobsRetVCByVCBlock _Nonnull)jobs_topViewControllerFrom{
+    @jobs_weakify(self)
+    return ^UIViewController *_Nullable(UIViewController *_Nullable viewController){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (!viewController) return nil;
+        if (viewController.presentedViewController) return self.jobs_topViewControllerFrom(viewController.presentedViewController);
+        if ([viewController isKindOfClass:UINavigationController.class]) {
+            UINavigationController *navigationController = (UINavigationController *)viewController;
+            return self.jobs_topViewControllerFrom(navigationController.visibleViewController);
+        }
+        if ([viewController isKindOfClass:UITabBarController.class]) {
+            UITabBarController *tabBarController = (UITabBarController *)viewController;
+            return self.jobs_topViewControllerFrom(tabBarController.selectedViewController);
+        };return viewController;
+    };
 }
 
 @end

@@ -14,12 +14,12 @@ Prop_strong()NSDictionary *sortedNameDict;
 Prop_strong()NSArray *indexArray;
 Prop_strong()NSMutableArray *results;
 
-+(NSString *)jobs_cleanCountryName:(NSString *)countryName;
-+(NSString *)jobs_cleanCountryCode:(NSString *)code;
-+(NSString *)jobs_flagEmojiByISOCode:(NSString *)ISOCode;
-+(BOOL)jobs_isTaiwanCountryName:(NSString *)countryName;
-+(UIImage *)jobs_countryFlagImageByCountryName:(NSString *)countryName;
-+(UIImage *)jobs_taiwanFlagImage;
++(JobsRetStrByStrBlock _Nonnull)jobs_cleanCountryName;
++(JobsRetStrByStrBlock _Nonnull)jobs_cleanCountryCode;
++(JobsRetStrByStrBlock _Nonnull)jobs_flagEmojiByISOCode;
++(JobsRetBOOLByStrBlock _Nonnull)jobs_isTaiwanCountryName;
++(JobsRetImageByStrBlock _Nonnull)jobs_countryFlagImageByCountryName;
++(JobsRetImageByVoidBlock _Nonnull)jobs_taiwanFlagImage;
 +(NSAttributedString *)jobs_countryAttributedTextByCountryName:(NSString *)countryName
                                                           text:(NSString *)text
                                                           font:(UIFont *)font
@@ -28,69 +28,93 @@ Prop_strong()NSMutableArray *results;
 @end
 
 @implementation JobsOCCountryCodeCtrl
-#pragma mark —— system
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.title = @"国家 / 地区代码".tr;
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.tableView.byAlpha(1);
-}
-#pragma mark —— public
-+(NSString *)jobs_countryFlagByCountryName:(NSString *)countryName{
-    NSString *cleanCountryName = [self jobs_cleanCountryName:countryName];
-    if ([self jobs_isTaiwanCountryName:cleanCountryName]) return @"";
-    NSDictionary <NSString *,NSString *>*specialISOCodeByCountryName = @{
-        @"中国":@"CN",
-        @"中國":@"CN",
-        @"China":@"CN",
-        @"中国香港":@"HK",
-        @"中國香港":@"HK",
-        @"香港":@"HK",
-        @"Hong Kong":@"HK",
-        @"Hong Kong SAR China":@"HK",
-        @"中国澳门":@"MO",
-        @"中國澳門":@"MO",
-        @"澳门":@"MO",
-        @"澳門":@"MO",
-        @"Macao":@"MO",
-        @"Macau":@"MO",
-        @"Macao SAR China":@"MO",
-        @"中国台湾":@"TW",
-        @"中國台灣":@"TW",
-        @"中國臺灣":@"TW",
-        @"台湾":@"TW",
-        @"台灣":@"TW",
-        @"臺灣":@"TW",
-        @"Taiwan":@"TW",
-        @"Taiwan, China":@"TW",
-        @"China Taiwan":@"TW"
+-(JobsRetJobsOCCountryCodeCtrlByCountryCodeBlock _Nonnull)byCountryCodeBlock{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCCountryCodeCtrl *_Nullable(jobsByOCCountryCodeBlock _Nullable block){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setCountryCodeBlock:block];
+        return self;
     };
-    NSString *ISOCode = specialISOCodeByCountryName[cleanCountryName];
-    if (ISOCode.length) return [self jobs_flagEmojiByISOCode:ISOCode];
-    NSArray <NSLocale *>*locales = @[
-        NSLocale.currentLocale,
-        [NSLocale localeWithLocaleIdentifier:@"zh_Hans_CN"],
-        [NSLocale localeWithLocaleIdentifier:@"en_US"]
-    ];
-    for (NSString *countryCode in NSLocale.ISOCountryCodes) {
-        for (NSLocale *locale in locales) {
-            NSString *displayName = [locale displayNameForKey:NSLocaleCountryCode value:countryCode];
-            if ([cleanCountryName isEqualToString:displayName]) return [self jobs_flagEmojiByISOCode:countryCode];
-        }
-    };return @"🌐";
 }
 
-+(NSString *)jobs_countryNameTextByCountryName:(NSString *)countryName{
-    NSString *cleanCountryName = [self jobs_cleanCountryName:countryName];
-    NSString *countryFlag = [self jobs_countryFlagByCountryName:cleanCountryName];
-    return countryFlag.length ? [NSString stringWithFormat:@"%@ %@",countryFlag,cleanCountryName] : cleanCountryName;
+#pragma mark —— system
+- (void)viewDidLoad {
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCCountryCodeCtrl.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.byTitle(@"国家 / 地区代码".jobsTr());
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.tableView.byAlpha(1);
+    };
+}
+#pragma mark —— public
++(JobsRetStrByStrBlock _Nonnull)jobs_countryFlagByCountryName{
+    return ^NSString *(NSString * countryName){
+        NSString *cleanCountryName = self.jobs_cleanCountryName(countryName);
+        if (self.jobs_isTaiwanCountryName(cleanCountryName)) return @"";
+        NSDictionary <NSString *,NSString *>*specialISOCodeByCountryName = @{
+            @"中国":@"CN",
+            @"中國":@"CN",
+            @"China":@"CN",
+            @"中国香港":@"HK",
+            @"中國香港":@"HK",
+            @"香港":@"HK",
+            @"Hong Kong":@"HK",
+            @"Hong Kong SAR China":@"HK",
+            @"中国澳门":@"MO",
+            @"中國澳門":@"MO",
+            @"澳门":@"MO",
+            @"澳門":@"MO",
+            @"Macao":@"MO",
+            @"Macau":@"MO",
+            @"Macao SAR China":@"MO",
+            @"中国台湾":@"TW",
+            @"中國台灣":@"TW",
+            @"中國臺灣":@"TW",
+            @"台湾":@"TW",
+            @"台灣":@"TW",
+            @"臺灣":@"TW",
+            @"Taiwan":@"TW",
+            @"Taiwan, China":@"TW",
+            @"China Taiwan":@"TW"
+        };
+        NSString *ISOCode = specialISOCodeByCountryName[cleanCountryName];
+        if (ISOCode.length) return self.jobs_flagEmojiByISOCode(ISOCode);
+        NSArray <NSLocale *>*locales = @[
+            NSLocale.currentLocale,
+            [NSLocale localeWithLocaleIdentifier:@"zh_Hans_CN"],
+            [NSLocale localeWithLocaleIdentifier:@"en_US"]
+        ];
+        for (NSString *countryCode in NSLocale.ISOCountryCodes) {
+            for (NSLocale *locale in locales) {
+                NSString *displayName = [locale displayNameForKey:NSLocaleCountryCode value:countryCode];
+                if ([cleanCountryName isEqualToString:displayName]) return self.jobs_flagEmojiByISOCode(countryCode);
+            }
+        };return @"🌐";
+    };
+}
+
++(JobsRetStrByStrBlock _Nonnull)jobs_countryNameTextByCountryName{
+    return ^NSString *(NSString * countryName){
+        NSString *cleanCountryName = self.jobs_cleanCountryName(countryName);
+        NSString *countryFlag = self.jobs_countryFlagByCountryName(cleanCountryName);
+        return countryFlag.length ? [NSString stringWithFormat:@"%@ %@",countryFlag,cleanCountryName] : cleanCountryName;
+    };
 }
 
 +(NSString *)jobs_countryCodeTextByCountryName:(NSString *)countryName code:(NSString *)code{
-    NSString *cleanCountryName = [self jobs_cleanCountryName:countryName];
-    NSString *cleanCode = [self jobs_cleanCountryCode:code];
+    NSString *cleanCountryName = self.jobs_cleanCountryName(countryName);
+    NSString *cleanCode = self.jobs_cleanCountryCode(code);
     NSString *codeText = [cleanCode hasPrefix:@"+"] ? cleanCode : [NSString stringWithFormat:@"+%@",cleanCode];
-    NSString *countryFlag = [self jobs_countryFlagByCountryName:cleanCountryName];
+    NSString *countryFlag = self.jobs_countryFlagByCountryName(cleanCountryName);
     if (countryFlag.length) {
         return [NSString stringWithFormat:@"%@ %@ %@",countryFlag,cleanCountryName,codeText];
     };return [NSString stringWithFormat:@"%@ %@",cleanCountryName,codeText];
@@ -99,7 +123,7 @@ Prop_strong()NSMutableArray *results;
 +(NSAttributedString *)jobs_countryNameAttributedTextByCountryName:(NSString *)countryName
                                                               font:(UIFont *)font
                                                          textColor:(UIColor *)textColor{
-    NSString *cleanCountryName = [self jobs_cleanCountryName:countryName];
+    NSString *cleanCountryName = self.jobs_cleanCountryName(countryName);
     return [self jobs_countryAttributedTextByCountryName:cleanCountryName
                                                    text:cleanCountryName
                                                    font:font
@@ -110,8 +134,8 @@ Prop_strong()NSMutableArray *results;
                                                               code:(NSString *)code
                                                               font:(UIFont *)font
                                                          textColor:(UIColor *)textColor{
-    NSString *cleanCountryName = [self jobs_cleanCountryName:countryName];
-    NSString *cleanCode = [self jobs_cleanCountryCode:code];
+    NSString *cleanCountryName = self.jobs_cleanCountryName(countryName);
+    NSString *cleanCode = self.jobs_cleanCountryCode(code);
     NSString *codeText = [cleanCode hasPrefix:@"+"] ? cleanCode : [NSString stringWithFormat:@"+%@",cleanCode];
     return [self jobs_countryAttributedTextByCountryName:cleanCountryName
                                                    text:[NSString stringWithFormat:@"%@ %@",cleanCountryName,codeText]
@@ -119,88 +143,100 @@ Prop_strong()NSMutableArray *results;
                                               textColor:textColor];
 }
 #pragma mark —— private
-+(NSString *)jobs_cleanCountryName:(NSString *)countryName{
-    NSString *cleanCountryName = [countryName stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
-    return cleanCountryName.length ? cleanCountryName : @"中国";
-}
-
-+(NSString *)jobs_cleanCountryCode:(NSString *)code{
-    NSString *cleanCode = [code stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
-    return cleanCode.length ? cleanCode : @"86";
-}
-
-+(NSString *)jobs_flagEmojiByISOCode:(NSString *)ISOCode{
-    NSString *uppercaseISOCode = ISOCode.uppercaseString;
-    if (uppercaseISOCode.length != 2) return @"🌐";
-    uint32_t base = 0x1F1E6;
-    uint32_t scalars[2] = {
-        base + [uppercaseISOCode characterAtIndex:0] - 'A',
-        base + [uppercaseISOCode characterAtIndex:1] - 'A'
++(JobsRetStrByStrBlock _Nonnull)jobs_cleanCountryName{
+    return ^NSString *(NSString * countryName){
+        NSString *cleanCountryName = [countryName stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+        return cleanCountryName.length ? cleanCountryName : @"中国";
     };
-    NSData *data = [NSData dataWithBytes:scalars length:sizeof(scalars)];
-    NSString *flag = [NSString.alloc initWithData:data encoding:NSUTF32LittleEndianStringEncoding];
-    return flag.length ? flag : @"🌐";
 }
 
-+(BOOL)jobs_isTaiwanCountryName:(NSString *)countryName{
-    NSString *cleanCountryName = [self jobs_cleanCountryName:countryName];
-    NSSet <NSString *>*taiwanNames = [NSSet setWithArray:@[
-        @"中国台湾",
-        @"中國台灣",
-        @"中國臺灣",
-        @"台湾",
-        @"台灣",
-        @"臺灣",
-        @"Taiwan",
-        @"Taiwan, China",
-        @"China Taiwan"
-    ]];
-    return [taiwanNames containsObject:cleanCountryName];
++(JobsRetStrByStrBlock _Nonnull)jobs_cleanCountryCode{
+    return ^NSString *(NSString * code){
+        NSString *cleanCode = [code stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+        return cleanCode.length ? cleanCode : @"86";
+    };
 }
 
-+(UIImage *)jobs_countryFlagImageByCountryName:(NSString *)countryName{
-    return [self jobs_isTaiwanCountryName:countryName] ? [self jobs_taiwanFlagImage] : nil;
++(JobsRetStrByStrBlock _Nonnull)jobs_flagEmojiByISOCode{
+    return ^NSString *(NSString * ISOCode){
+        NSString *uppercaseISOCode = ISOCode.uppercaseString;
+        if (uppercaseISOCode.length != 2) return @"🌐";
+        uint32_t base = 0x1F1E6;
+        uint32_t scalars[2] = {
+            base + [uppercaseISOCode characterAtIndex:0] - 'A',
+            base + [uppercaseISOCode characterAtIndex:1] - 'A'
+        };
+        NSData *data = [NSData dataWithBytes:scalars length:sizeof(scalars)];
+        NSString *flag = [NSString.alloc initWithData:data encoding:NSUTF32LittleEndianStringEncoding];
+        return flag.length ? flag : @"🌐";
+    };
 }
 
-+(UIImage *)jobs_taiwanFlagImage{
-    static UIImage *taiwanFlagImage = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSArray <NSString *>*imageNames = @[
-            @"JobsOCCountryCodeCtrlTaiwanBlueSkyWhiteSun",
-            @"AppDoorTaiwanBlueSkyWhiteSun"
-        ];
-        NSArray <NSBundle *>*bundles = @[
-            [NSBundle bundleForClass:self.class],
-            NSBundle.mainBundle
-        ];
-        for (NSString *imageName in imageNames) {
-            for (NSBundle *bundle in bundles) {
-                taiwanFlagImage = [UIImage imageNamed:imageName
-                                             inBundle:bundle
-                        compatibleWithTraitCollection:nil];
++(JobsRetBOOLByStrBlock _Nonnull)jobs_isTaiwanCountryName{
+    return ^BOOL(NSString * countryName){
+        NSString *cleanCountryName = self.jobs_cleanCountryName(countryName);
+        NSSet <NSString *>*taiwanNames = [NSSet setWithArray:@[
+            @"中国台湾",
+            @"中國台灣",
+            @"中國臺灣",
+            @"台湾",
+            @"台灣",
+            @"臺灣",
+            @"Taiwan",
+            @"Taiwan, China",
+            @"China Taiwan"
+        ]];
+        return [taiwanNames containsObject:cleanCountryName];
+    };
+}
+
++(JobsRetImageByStrBlock _Nonnull)jobs_countryFlagImageByCountryName{
+    return ^UIImage *(NSString * countryName){
+        return self.jobs_isTaiwanCountryName(countryName) ? self.jobs_taiwanFlagImage() : nil;
+    };
+}
+
++(JobsRetImageByVoidBlock _Nonnull)jobs_taiwanFlagImage{
+    return ^UIImage *_Nullable{
+        static UIImage *taiwanFlagImage = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            NSArray <NSString *>*imageNames = @[
+                @"JobsOCCountryCodeCtrlTaiwanBlueSkyWhiteSun",
+                @"AppDoorTaiwanBlueSkyWhiteSun"
+            ];
+            NSArray <NSBundle *>*bundles = @[
+                [NSBundle bundleForClass:self.class],
+                NSBundle.mainBundle
+            ];
+            for (NSString *imageName in imageNames) {
+                for (NSBundle *bundle in bundles) {
+                    taiwanFlagImage = [UIImage imageNamed:imageName
+                                                 inBundle:bundle
+                            compatibleWithTraitCollection:nil];
+                    if (taiwanFlagImage) break;
+                    NSString *imagePath = [bundle pathForResource:imageName ofType:@"png"];
+                    if (!imagePath.length) {
+                        imagePath = [bundle pathForResource:imageName
+                                                     ofType:@"png"
+                                                inDirectory:@"JobsOCCountryCodeCtrl"];
+                    }
+                    if (imagePath.length) {
+                        taiwanFlagImage = [UIImage imageWithContentsOfFile:imagePath];
+                        break;
+                    }
+                }
                 if (taiwanFlagImage) break;
-                NSString *imagePath = [bundle pathForResource:imageName ofType:@"png"];
-                if (!imagePath.length) {
-                    imagePath = [bundle pathForResource:imageName
-                                                 ofType:@"png"
-                                            inDirectory:@"JobsOCCountryCodeCtrl"];
-                }
-                if (imagePath.length) {
-                    taiwanFlagImage = [UIImage imageWithContentsOfFile:imagePath];
-                    break;
-                }
             }
-            if (taiwanFlagImage) break;
-        }
-    });return taiwanFlagImage;
+        });return taiwanFlagImage;
+    };
 }
 
 +(NSAttributedString *)jobs_countryAttributedTextByCountryName:(NSString *)countryName
                                                           text:(NSString *)text
                                                           font:(UIFont *)font
                                                      textColor:(UIColor *)textColor{
-    NSString *cleanCountryName = [self jobs_cleanCountryName:countryName];
+    NSString *cleanCountryName = self.jobs_cleanCountryName(countryName);
     UIFont *textFont = font ?: [UIFont systemFontOfSize:14.0 weight:UIFontWeightRegular];
     UIColor *foregroundColor = textColor ?: UIColor.blackColor;
     NSDictionary <NSAttributedStringKey,id>*attributes = @{
@@ -208,12 +244,12 @@ Prop_strong()NSMutableArray *results;
         NSForegroundColorAttributeName:foregroundColor
     };
     NSMutableAttributedString *attributedText = NSMutableAttributedString.new;
-    UIImage *flagImage = [self jobs_countryFlagImageByCountryName:cleanCountryName];
+    UIImage *flagImage = self.jobs_countryFlagImageByCountryName(cleanCountryName);
     if (flagImage) {
         NSTextAttachment *attachment = NSTextAttachment.new;
         CGFloat flagHeight = ceil(textFont.lineHeight * 0.88);
         CGFloat flagWidth = flagHeight * flagImage.size.width / flagImage.size.height;
-        attachment.image = flagImage;
+        attachment.byImage(flagImage);
         attachment.bounds = CGRectMake(0,
                                        (textFont.capHeight - flagHeight) / 2.0,
                                        flagWidth,
@@ -221,7 +257,7 @@ Prop_strong()NSMutableArray *results;
         [attributedText appendAttributedString:[NSAttributedString attributedStringWithAttachment:attachment]];
         [attributedText appendAttributedString:[NSAttributedString.alloc initWithString:@" " attributes:attributes]];
     }else{
-        NSString *countryFlag = [self jobs_countryFlagByCountryName:cleanCountryName];
+        NSString *countryFlag = self.jobs_countryFlagByCountryName(cleanCountryName);
         if (countryFlag.length) {
             NSAttributedString *flagText = [NSAttributedString.alloc initWithString:countryFlag.add(@" ")
                                                                          attributes:attributes];
@@ -247,66 +283,99 @@ Prop_strong()NSMutableArray *results;
     };return [showCodeSting stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
 }
 
--(NSString *)jobs_countryCodePlistPathByName:(NSString *)plistName{
-    NSArray <NSBundle *>*bundles = @[
-        [NSBundle bundleForClass:self.class],
-        NSBundle.mainBundle
-    ];
-    for (NSBundle *bundle in bundles) {
-        NSString *plistPath = [bundle pathForResource:plistName ofType:@"plist"];
-        if (plistPath.length) return plistPath;
-        plistPath = [bundle pathForResource:plistName
-                                     ofType:@"plist"
-                                inDirectory:@"JobsOCCountryCodeCtrl@plist"];
-        if (plistPath.length) return plistPath;
-    };return nil;
+-(JobsRetStrByStrBlock _Nonnull)jobs_countryCodePlistPathByName{
+    @jobs_weakify(self)
+    return ^NSString *(NSString * plistName){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSArray <NSBundle *>*bundles = @[
+            [NSBundle bundleForClass:self.class],
+            NSBundle.mainBundle
+        ];
+        for (NSBundle *bundle in bundles) {
+            NSString *plistPath = [bundle pathForResource:plistName ofType:@"plist"];
+            if (plistPath.length) return plistPath;
+            plistPath = [bundle pathForResource:plistName
+                                         ofType:@"plist"
+                                    inDirectory:@"JobsOCCountryCodeCtrl@plist"];
+            if (plistPath.length) return plistPath;
+        };return nil;
+    };
 }
 
--(NSString *)jobs_countryCodePlistName{
-    NSString *languageCode = LanMgr.languageCodeByAppLanguage(LanMgr.language);
-    return [languageCode.lowercaseString hasPrefix:@"en"] ? @"sortedNameEN" : @"sortedNameCH";
+-(JobsRetStrByVoidBlock _Nonnull)jobs_countryCodePlistName{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSString *languageCode = LanMgr.languageCodeByAppLanguage(LanMgr.language);
+        return [languageCode.lowercaseString hasPrefix:@"en"] ? @"sortedNameEN" : @"sortedNameCH";
+    };
 }
 
--(void)selectCodeIndex:(NSIndexPath *)indexPath {
-    NSString *countryName = [self showCodeStringIndex:indexPath jieQue:YES];
-    NSString *code = [self showCodeStringIndex:indexPath jieQue:NO];
-    if (self.countryCodeDelegate && [self.countryCodeDelegate respondsToSelector:@selector(returnCountryName:code:)]) {
-        [self.countryCodeDelegate returnCountryName:countryName code:code];
-    }
-    if (self.countryCodeBlock) {
-        self.countryCodeBlock(countryName,code);
-    }
-    if (self.navigationController) {
-        [self.navigationController popViewControllerAnimated:YES];
-    } else {
-        [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-    }
+-(jobsByIndexPathBlock _Nonnull)selectCodeIndex{
+    @jobs_weakify(self)
+    return ^(NSIndexPath * indexPath){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSString *countryName = [self showCodeStringIndex:indexPath jieQue:YES];
+        NSString *code = [self showCodeStringIndex:indexPath jieQue:NO];
+        if (self.countryCodeDelegate && [self.countryCodeDelegate respondsToSelector:@selector(returnCountryName:code:)]) {
+            [self.countryCodeDelegate returnCountryName:countryName code:code];
+        }
+        if (self.countryCodeBlock) {
+            self.countryCodeBlock(countryName,code);
+        }
+        if (self.navigationController) {
+            [self.navigationController popViewControllerAnimated:YES];
+        } else {
+            [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+        }
+    };
 }
 #pragma mark —— UISearchResultsUpdating
 -(void)updateSearchResultsForSearchController:(UISearchController *)searchController {
-    if (self.results.count) {
-        [self.results removeAllObjects];
-    }
-    NSString *inputText = searchController.searchBar.text;
+    ((((jobsByUISearchControllerBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCCountryCodeCtrl.class, @selector(updateSearchResultsForSearchController)))(self, @selector(updateSearchResultsForSearchController))))(searchController);
+}
+-(jobsByUISearchControllerBlock _Nonnull)updateSearchResultsForSearchController{
     @jobs_weakify(self)
-    [self.sortedNameDict.allValues enumerateObjectsUsingBlock:^(NSArray * obj,
-                                                                NSUInteger idx,
-                                                                BOOL * _Nonnull stop) {
+    return ^(UISearchController * searchController){
         @jobs_strongify(self)
-        [obj enumerateObjectsUsingBlock:^(NSString * obj,
-                                          NSUInteger idx,
-                                          BOOL * _Nonnull stop) {
+        if (!self) return;
+        if (self.results.count) {
+            [self.results removeAllObjects];
+        }
+        NSString *inputText = searchController.searchBar.text;
+        @jobs_weakify(self)
+        [self.sortedNameDict.allValues enumerateObjectsUsingBlock:^(NSArray * obj,
+                                                                    NSUInteger idx,
+                                                                    BOOL * _Nonnull stop) {
             @jobs_strongify(self)
-            if ([obj containsString:inputText]) {
-                [self.results addObject:obj];
-            }
+            [obj enumerateObjectsUsingBlock:^(NSString * obj,
+                                              NSUInteger idx,
+                                              BOOL * _Nonnull stop) {
+                @jobs_strongify(self)
+                if ([obj containsString:inputText]) {
+                    [self.results addObject:obj];
+                }
+            }];
         }];
-    }];
-    [self.tableView reloadData];
+        [self.tableView reloadData];
+    };
 }
 #pragma mark —— UITableViewDelegate && UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.sortedNameDict.allKeys.count;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCCountryCodeCtrl.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return self.sortedNameDict.allKeys.count;
+    };
 }
 
 -(NSInteger)tableView:(UITableView *)tableView
@@ -344,7 +413,15 @@ numberOfRowsInSection:(NSInteger)section {
 }
 
 -(NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-    return tableView == _tableView ? self.indexArray : nil;
+    return ((((JobsRetNSArrayNSStringByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCCountryCodeCtrl.class, @selector(sectionIndexTitlesForTableView)))(self, @selector(sectionIndexTitlesForTableView))))(tableView);
+}
+-(JobsRetNSArrayNSStringByUITableViewBlock _Nonnull)sectionIndexTitlesForTableView{
+    @jobs_weakify(self)
+    return ^NSArray<NSString *> *(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return tableView == _tableView ? self.indexArray : nil;
+    };
 }
 
 -(NSInteger)tableView:(UITableView *)tableView
@@ -371,7 +448,7 @@ titleForHeaderInSection:(NSInteger)section {
 
 -(void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self selectCodeIndex:indexPath];
+    (((jobsByIndexPathBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCCountryCodeCtrl.class, @selector(selectCodeIndex)))(self, @selector(selectCodeIndex)))(indexPath);
 }
 #pragma mark —— lazyLoad
 -(UITableView *)tableView{
@@ -398,7 +475,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
 -(NSDictionary *)sortedNameDict{
     if (!_sortedNameDict) {
-        _sortedNameDict = [NSDictionary dictionaryWithContentsOfFile:[self jobs_countryCodePlistPathByName:self.jobs_countryCodePlistName]];
+        _sortedNameDict = [NSDictionary dictionaryWithContentsOfFile:self.jobs_countryCodePlistPathByName(self.jobs_countryCodePlistName())];
     };return _sortedNameDict;
 }
 

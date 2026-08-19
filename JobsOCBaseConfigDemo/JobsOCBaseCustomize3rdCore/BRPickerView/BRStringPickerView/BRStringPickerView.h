@@ -6,13 +6,14 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_BRSTRINGPICKERVIEW_8D7F75F0D2
-#define JOBS_HEADER_GUARD_BRSTRINGPICKERVIEW_8D7F75F0D2
 
 #if __has_include(<BRPickerView/BRPickerView.h>)
 #import <BRPickerView/BRPickerView.h>
 #else
 #import "BRPickerView.h"
 #endif
+
+#define JOBS_HEADER_GUARD_BRSTRINGPICKERVIEW_8D7F75F0D2
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BaseNavigationVC : UINavigationController<UINavigationControllerDelegate>
 
+-(JobsRetVCByVoidBlock _Nonnull)jobsChildViewControllerForStatusBarStyle;
+
 @end
 
 NS_ASSUME_NONNULL_END

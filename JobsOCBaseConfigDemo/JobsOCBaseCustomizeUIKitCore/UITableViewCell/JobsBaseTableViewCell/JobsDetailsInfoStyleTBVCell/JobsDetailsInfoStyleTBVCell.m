@@ -6,6 +6,7 @@
 //
 
 #import "JobsDetailsInfoStyleTBVCell.h"
+
 #import "UITableView+RegisterClass.h"
 #import "UIView+Extra.h"
 
@@ -18,7 +19,17 @@ Prop_strong()UIImageView *detailsInfoImageView;
 @implementation JobsDetailsInfoStyleTBVCell
 @synthesize viewModel = _viewModel;
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsDetailsInfoStyleTBVCell.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
@@ -34,14 +45,14 @@ Prop_strong()UIImageView *detailsInfoImageView;
     return ^__kindof UITableViewCell *_Nullable(__kindof UIViewModel *_Nullable data) {
         @jobs_strongify(self)
         if(data.isKindOfClass(UIViewModel.class)){
-            self.viewModel = data;
-            self.imageView.image = self.viewModel.image;
+            self.byViewModel(data);
+            self.imageView.byImage(self.viewModel.image);
             self.textLabel
                 .byText(self.viewModel.text)
                 .byTextAlignment(self.viewModel.textAlignment)
                 .byFont(self.viewModel.font)
                 .byTextCor(self.viewModel.textCor);
-            self.detailsInfoImageView.image = self.viewModel.titleImage;
+            self.detailsInfoImageView.byImage(self.viewModel.titleImage);
             [self.detailsInfoImageView mas_updateConstraints:^(MASConstraintMaker *make) {
                 make.size.mas_equalTo(self.viewModel.jobsSize);
                 /// 如果有系统向右的箭头，此时这个offset其实是于箭头左边距的距离

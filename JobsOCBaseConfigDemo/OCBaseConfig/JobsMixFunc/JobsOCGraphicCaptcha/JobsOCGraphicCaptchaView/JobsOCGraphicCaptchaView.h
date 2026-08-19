@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_JOBSOCGRAPHICCAPTCHAVIEW_F277935969
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "JobsOCGraphicCaptchaGenerator.h"
 
 #if __has_include(<JobsModel/JobsModel.h>)
@@ -43,8 +49,19 @@ Prop_assign()NSUInteger noisePointCount;
 Prop_assign()BOOL shouldRefreshWhenTapped;
 Prop_copy(nullable)void (^refreshBlock)(NSString *captchaText);
 
--(void)refreshCaptcha;
--(BOOL)validateInput:(NSString *_Nullable)input;
+-(JobsRetJobsOCGraphicCaptchaViewByConfigBlock _Nonnull)byConfig;
+-(JobsRetJobsOCGraphicCaptchaViewByStrBlock _Nonnull)byCaptchaText;
+-(JobsRetJobsOCGraphicCaptchaViewByFontBlock _Nonnull)byFont;
+-(JobsRetJobsOCGraphicCaptchaViewByCorBlock _Nonnull)byTextColor;
+-(JobsRetJobsOCGraphicCaptchaViewByCorBlock _Nonnull)byCaptchaBackgroundColor;
+-(JobsRetJobsOCGraphicCaptchaViewByNSUIntegerBlock _Nonnull)byInterferenceLineCount;
+-(JobsRetJobsOCGraphicCaptchaViewByNSUIntegerBlock _Nonnull)byNoisePointCount;
+-(JobsRetJobsOCGraphicCaptchaViewByBOOLBlock _Nonnull)byShouldRefreshWhenTapped;
+-(JobsRetJobsOCGraphicCaptchaViewByRefreshBlock _Nonnull)byRefreshBlock;
+-(jobsByVoidBlock _Nonnull)refreshCaptcha;
+-(JobsRetBOOLByStrBlock _Nonnull)validateInput;
+
+-(jobsByVoidBlock _Nonnull)jobsAwakeFromNib;
 
 @end
 

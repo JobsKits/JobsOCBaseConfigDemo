@@ -6,6 +6,7 @@
 //
 
 #import "BaseCollectionReusableView.h"
+
 #import "UIView+Extra.h"
 
 @interface BaseCollectionReusableView ()
@@ -35,7 +36,7 @@ UIPictureAndBackGroundCorProtocol_synthesize
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model;
+        self.byViewModel(model);
         self.bgImageView.byVisible(model.bgImage ? YES : NO);
     };
 }

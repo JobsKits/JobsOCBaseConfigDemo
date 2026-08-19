@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_UIBUTTONCONFIGURATION_DSL_2D0E9CC78F
 
 #import <UIKit/UIKit.h>
+#import "UIBackgroundConfiguration+DSL.h"
 #import "JobsBlock.h"
 #import "JobsDefines.h"
 

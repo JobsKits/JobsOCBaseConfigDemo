@@ -6,14 +6,21 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSMARQUEEVIEWCORE_20260707
-#define JOBS_HEADER_GUARD_JOBSMARQUEEVIEWCORE_20260707
-
-#import <UIKit/UIKit.h>
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
+#endif
+
+#define JOBS_HEADER_GUARD_JOBSMARQUEEVIEWCORE_20260707
+
+#import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
 #endif
 
 #if __has_include(<JobsOCTimerMgr/JobsOCTimerMgr.h>)
@@ -63,6 +70,17 @@ typedef NS_ENUM(NSUInteger, JobsMarqueePageControlPosition) {
 
 typedef void(^JobsMarqueePageControlConstraintsBlock)(MASConstraintMaker *make);
 
+@class JobsMarqueeView;
+typedef JobsMarqueeView *_Nullable(^JobsMarqueeByDirectionBlock)(JobsMarqueeDirection direction);
+typedef JobsMarqueeView *_Nullable(^JobsMarqueeByTimeIntervalBlock)(NSTimeInterval interval);
+typedef JobsMarqueeView *_Nullable(^JobsMarqueeBySpeedBlock)(CGFloat speed);
+typedef JobsMarqueeView *_Nullable(^JobsMarqueeByItemSizeModeBlock)(JobsMarqueeItemSizeMode mode);
+typedef JobsMarqueeView *_Nullable(^JobsMarqueeByButtonsBlock)(NSArray<UIButton *> *buttons);
+typedef JobsMarqueeView *_Nullable(^JobsMarqueeByBOOLBlock)(BOOL enabled);
+typedef JobsMarqueeView *_Nullable(^JobsMarqueeByPageControlPositionBlock)(JobsMarqueePageControlPosition position);
+typedef JobsMarqueeView *_Nullable(^JobsMarqueeByPageControlConstraintsBlock)(JobsMarqueePageControlConstraintsBlock _Nullable block);
+typedef JobsMarqueeView *_Nullable(^JobsMarqueeByTimerTypeBlock)(JobsTimerType timerType);
+
 /// 统一「跑马灯」和「轮播图」的 Objective-C 组件。
 @interface JobsMarqueeView : UIView
 
@@ -81,23 +99,32 @@ Prop_copy(nullable)JobsMarqueePageControlConstraintsBlock pageControlConstraints
 Prop_strong(readonly)UIPageControl *pageControl;
 Prop_assign(readonly,getter=isRunning)BOOL running;
 
--(instancetype)byDirection:(JobsMarqueeDirection)direction;
--(instancetype)byFrequencyWithInterval:(NSTimeInterval)interval;
--(instancetype)byContinuousWithSpeed:(CGFloat)speed;
--(instancetype)byItemSizeMode:(JobsMarqueeItemSizeMode)mode;
--(instancetype)byDataSourceButtons:(NSArray<UIButton *> *)buttons;
--(instancetype)byManualScrollEnabled:(BOOL)enabled;
--(instancetype)byPageControlEnabled:(BOOL)enabled;
--(instancetype)byPageControlPosition:(JobsMarqueePageControlPosition)position;
--(instancetype)byPageControlConstraintsBlock:(nullable JobsMarqueePageControlConstraintsBlock)block;
--(instancetype)byTimerTypeForFrequency:(JobsTimerType)timerType;
--(instancetype)byTimerTypeForContinuous:(JobsTimerType)timerType;
+-(JobsMarqueeByDirectionBlock _Nonnull)byDirection;
+-(JobsRetJobsMarqueeViewByScrollModeBlock _Nonnull)byScrollMode;
+-(JobsMarqueeByTimeIntervalBlock _Nonnull)byFrequencyWithInterval;
+-(JobsMarqueeBySpeedBlock _Nonnull)byContinuousWithSpeed;
+-(JobsMarqueeByItemSizeModeBlock _Nonnull)byItemSizeMode;
+-(JobsMarqueeByButtonsBlock _Nonnull)byDataSourceButtons;
+-(JobsMarqueeByBOOLBlock _Nonnull)byManualScrollEnabled;
+-(JobsMarqueeByBOOLBlock _Nonnull)byPageControlEnabled;
+-(JobsMarqueeByPageControlPositionBlock _Nonnull)byPageControlPosition;
+-(JobsMarqueeByPageControlConstraintsBlock _Nonnull)byPageControlConstraintsBlock;
+-(JobsMarqueeByTimerTypeBlock _Nonnull)byTimerTypeForFrequency;
+-(JobsMarqueeByTimerTypeBlock _Nonnull)byTimerTypeForContinuous;
 
--(void)start;
--(void)pause;
--(void)resume;
--(void)stop;
+-(jobsByVoidBlock _Nonnull)start;
+-(jobsByVoidBlock _Nonnull)pause;
+-(jobsByVoidBlock _Nonnull)resume;
+-(jobsByVoidBlock _Nonnull)jobsStop;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsMarqueeView
+-(JobsRetJobsMarqueeViewByBOOLBlock _Nonnull)byNeedsRebuildContent;
+-(JobsRetJobsMarqueeViewByBOOLBlock _Nonnull)byShouldResumeAfterUserInteraction;
+-(JobsRetJobsMarqueeViewByCGFloatBlock _Nonnull)byContinuousSpeed;
+-(JobsRetJobsMarqueeViewByCGSizeBlock _Nonnull)byLastBoundsSize;
+-(JobsRetJobsMarqueeViewByCGSizeBlock _Nonnull)byMinButtonSize;
+-(JobsRetJobsMarqueeViewByNSTimeIntervalBlock _Nonnull)byFrequencyInterval;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsMarqueeView
 @end
 
 NS_ASSUME_NONNULL_END

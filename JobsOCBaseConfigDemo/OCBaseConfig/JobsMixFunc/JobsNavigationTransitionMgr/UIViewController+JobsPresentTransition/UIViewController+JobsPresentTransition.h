@@ -9,13 +9,25 @@
 #define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_JOBSPRESENTTRANSITION_07E35B7B61
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "JobsPresentTransitionMgr.h"
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (JobsPresentTransition)
 
--(nullable JobsPresentTransitionMgr *)jobs_presentViewController:(UIViewController *)presentedViewController;
+-(JobsRetJobsPresentTransitionMgrByUIViewControllerBlock _Nonnull)jobs_presentViewController;
 
 -(nullable JobsPresentTransitionMgr *)jobs_presentViewController:(UIViewController *)presentedViewController
                                                       configure:(jobsByPresentTransitionManagerBlock _Nullable)configure

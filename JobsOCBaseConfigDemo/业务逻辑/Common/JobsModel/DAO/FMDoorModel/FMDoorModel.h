@@ -5,16 +5,17 @@
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 #ifndef FMDoorModel_h
-#define FMDoorModel_h
-
-#import <Foundation/Foundation.h>
-#import "BaseModel.h"
 
 #if __has_include(<MJExtension/MJExtension.h>)
 #import <MJExtension/MJExtension.h>
 #else
 #import "MJExtension.h"
 #endif
+
+#define FMDoorModel_h
+
+#import <Foundation/Foundation.h>
+#import "BaseModel.h"
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"
@@ -84,6 +85,8 @@ Prop_copy()NSString *tokenExpireTime;
 Prop_strong()UIImage *userDefaultHeadImage;
 /// 新值（入参）冲抵老值（调用方）
 -(JobsDoorModelBlock _Nonnull)updateBy;
+
++(JobsRetBOOLByVoidBlock _Nonnull)jobsSupportsSecureCoding;
 
 @end
 

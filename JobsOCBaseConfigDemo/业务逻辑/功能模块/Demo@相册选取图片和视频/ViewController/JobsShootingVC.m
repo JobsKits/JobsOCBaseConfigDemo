@@ -16,6 +16,12 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsShootingVC
+@interface JobsShootingVC (JobsPropertyDSLSetterAutogen_bda0b6f523)
+-(void)setPhotosImageMutArr:(NSMutableArray <UIImage *>* _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsShootingVC
+
 @implementation JobsShootingVC
 - (void)dealloc{
     JobsRemoveNotification(self);
@@ -23,39 +29,64 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsShootingVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(data.attributedTitle.string)
-                .byFont(UIFontWeightSemiboldSize(17));
-        })
-        .byBgCor(HEXCOLOR(0xF6F8FC))
-        .byNavBgCor(JobsWhiteColor);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(data.attributedTitle.string)
+                    .byFont(UIFontWeightSemiboldSize(17));
+            })
+            .byBgCor(HEXCOLOR(0xF6F8FC))
+            .byNavBgCor(JobsWhiteColor);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.cameraBtn.byAlpha(1);
-    self.photoAlbumBtn.byAlpha(1);
-    self.imageView.byAlpha(1);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsShootingVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.cameraBtn.byAlpha(1);
+        self.photoAlbumBtn.byAlpha(1);
+        self.imageView.byAlpha(1);
+    };
 }
 #pragma mark —— 一些私有方法
 /// 选取最后一张你选的图，作为显示
--(void)getImageFromResource:(NSArray <HXPhotoModel *>*)resource{
-//    @jobs_weakify(self)
+-(jobsByNSArrayHXPhotoModelBlock _Nonnull)getImageFromResource{
+    @jobs_weakify(self)
+    return ^(NSArray <HXPhotoModel *>* resource){
+        @jobs_strongify(self)
+        if (!self) return;
+    //    @jobs_weakify(self)
+    };
 }
 #pragma mark —— lazyLoad
 -(UIButton *)cameraBtn{
@@ -66,7 +97,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .jobsResetBtnBgCor(HEXCOLOR(0x2563EB))
             .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(JobsWidth(15)))
-            .jobsResetBtnTitle(@"调取系统相机".tr)
+            .jobsResetBtnTitle(@"调取系统相机".jobsTr())
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 JobsLog(@"");
@@ -102,19 +133,19 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             .jobsResetBtnTitleCor(HEXCOLOR(0x1D4ED8))
             .jobsResetBtnBgCor(JobsWhiteColor)
             .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(JobsWidth(15)))
-            .jobsResetBtnTitle(@"调取系统相册".tr)
+            .jobsResetBtnTitle(@"调取系统相册".jobsTr())
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 JobsLog(@"");
                 /// 调取系统相册
                 @jobs_weakify(self)
                 [self hx_invokeSysPhotoAlbumSuccessBlock:^(HXPhotoPickerModel *data) {
-                    self.photoManager = data.photoManager;
+                    self.byPhotoManager(data.photoManager);
                     [data.photoList hx_requestImageWithOriginal:NO
                                                      completion:^(NSArray<UIImage *> * _Nullable imageArray,
                                                                   NSArray<HXPhotoModel *> * _Nullable errorArray) {
                         @jobs_strongify(self)
-                        self.photosImageMutArr = [NSMutableArray arrayWithArray:imageArray];
+                        self.byPhotosImageMutArr([NSMutableArray arrayWithArray:imageArray]);
                         self.imageView.byImage((UIImage *)self.photosImageMutArr.lastObject);/// 永远值显示最后选择的图
                     }];
                 } failBlock:^(HXPhotoPickerModel *data) {
@@ -160,4 +191,14 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
     };return _imageView;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsShootingVC
+-(JobsRetJobsShootingVCByNSMutableArrayUIImageBlock _Nonnull)byPhotosImageMutArr{
+    @jobs_weakify(self)
+    return ^__kindof JobsShootingVC * _Nullable(NSMutableArray <UIImage *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setPhotosImageMutArr:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsShootingVC
 @end

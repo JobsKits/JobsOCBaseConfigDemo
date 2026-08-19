@@ -16,9 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsOCSplashMediaCache : NSObject
 
-+(instancetype)shared;
--(void)resumePendingVideoPreloads;
--(nullable NSURL *)cachedFileURLForRemoteURL:(NSURL *)remoteURL;
++(JobsRetIDByVoidBlock _Nonnull)shared;
+-(jobsByVoidBlock _Nonnull)resumePendingVideoPreloads;
+-(JobsRetURLByURLBlock _Nonnull)cachedFileURLForRemoteURL;
 -(nullable NSURLSessionDownloadTask *)download:(NSURL *)remoteURL completion:(JobsOCSplashMediaCacheCompletion)completion;
 -(void)preloadVideo:(NSURL *)remoteURL completion:(jobsByURLBlock _Nullable)completion;
 

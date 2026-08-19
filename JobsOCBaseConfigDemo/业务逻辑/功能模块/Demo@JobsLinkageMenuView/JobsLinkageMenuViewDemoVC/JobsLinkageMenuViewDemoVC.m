@@ -34,7 +34,7 @@
         _subtitleLabels = NSMutableArray.array;
         self.byBgColor(JobsSecondarySystemBackgroundColor);
         for (NSInteger i = 0; i < 5; i++) {
-            UIView *card = [self cardAtIndex:i];
+            UIView *card = self.cardAtIndex(i);
             [_cards addObject:card];
             card.addOn(self);
         }
@@ -42,75 +42,90 @@
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    CGFloat cardX = JobsWidth(16);
-    CGFloat cardW = MAX(0, CGRectGetWidth(self.bounds) - cardX * 2);
-    CGFloat y = JobsWidth(16);
-    for (UIView *card in _cards) {
-        card.byFrame(CGRectMake(cardX, y, cardW, JobsWidth(96)));
-        y += JobsWidth(112);
-    }
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsLinkageMenuDemoContentView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
 }
 
--(UIView *)cardAtIndex:(NSInteger)index{
-    UIView *card = jobsMakeView(^(__kindof UIView * _Nullable view) {
-        view.byBgColor(JobsTertiarySystemBackgroundColor);
-    });
-    card.byLayer(^(__kindof CALayer * _Nullable layer) {
-        layer
-            .byCornerRadius(JobsWidth(12))
-            .byShadowColor(UIColor.blackColor.CGColor)
-            .byShadowOpacity(0.15)
-            .byShadowOffset(CGSizeMake(0, 3))
-            .byShadowRadius(6);
-    });
-    UILabel *iconLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-        label
-            .byText(@"✉")
-            .byTextCor(UIColor.whiteColor)
-            .byFont(UIFontBoldSystemFontOfSize(34))
-            .byTextAlignment(NSTextAlignmentCenter)
-            .byBgColor(UIColor.systemOrangeColor)
-            .byLayer(^(__kindof CALayer * _Nullable layer) {
-                layer
-                    .byCornerRadius(JobsWidth(8))
-                    .byMasksToBounds(YES);
-            })
-            .addOn(card);
-    });
-    [_iconLabels addObject:iconLabel];
-    UILabel *titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-        label
-            .byText([NSString stringWithFormat:@"%@ - %@ 活动 %ld", _sectionTitle, _menuTitle, (long)index + 1])
-            .byTextCor(UIColor.labelColor)
-            .byFont(UIFontBoldSystemFontOfSize(18))
-            .byNumberOfLines(2)
-            .addOn(card);
-    });
-    [_titleLabels addObject:titleLabel];
-    UILabel *subtitleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-        label
-            .byText(@"神秘彩金等你来拿".tr)
-            .byTextCor(JobsSecondaryLabelColor)
-            .byFont(UIFontSystemFontOfSize(15))
-            .addOn(card);
-    });
-    [_subtitleLabels addObject:subtitleLabel];
-    [iconLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(card).offset(JobsWidth(16));
-        make.centerY.equalTo(card);
-        make.size.mas_equalTo(CGSizeMake(JobsWidth(58), JobsWidth(58)));
-    }];
-    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(iconLabel.mas_right).offset(JobsWidth(16));
-        make.right.equalTo(card).offset(-JobsWidth(14));
-        make.top.equalTo(card).offset(JobsWidth(20));
-    }];
-    [subtitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(titleLabel);
-        make.top.equalTo(titleLabel.mas_bottom).offset(JobsWidth(6));
-    }];
-    return card;
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        CGFloat cardX = JobsWidth(16);
+        CGFloat cardW = MAX(0, CGRectGetWidth(self.bounds) - cardX * 2);
+        CGFloat y = JobsWidth(16);
+        for (UIView *card in _cards) {
+            card.byFrame(CGRectMake(cardX, y, cardW, JobsWidth(96)));
+            y += JobsWidth(112);
+        }
+    };
+}
+
+-(JobsRetViewByNSIntegerBlock _Nonnull)cardAtIndex{
+    @jobs_weakify(self)
+    return ^UIView *(NSInteger index){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        UIView *card = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byBgColor(JobsTertiarySystemBackgroundColor);
+        });
+        card.byLayer(^(__kindof CALayer * _Nullable layer) {
+            layer
+                .byCornerRadius(JobsWidth(12))
+                .byShadowColor(UIColor.blackColor.CGColor)
+                .byShadowOpacity(0.15)
+                .byShadowOffset(CGSizeMake(0, 3))
+                .byShadowRadius(6);
+        });
+        UILabel *iconLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"✉")
+                .byTextCor(UIColor.whiteColor)
+                .byFont(UIFontBoldSystemFontOfSize(34))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byBgColor(UIColor.systemOrangeColor)
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer
+                        .byCornerRadius(JobsWidth(8))
+                        .byMasksToBounds(YES);
+                })
+                .addOn(card);
+        });
+        [_iconLabels addObject:iconLabel];
+        UILabel *titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText([NSString stringWithFormat:@"%@ - %@ 活动 %ld", _sectionTitle, _menuTitle, (long)index + 1])
+                .byTextCor(UIColor.labelColor)
+                .byFont(UIFontBoldSystemFontOfSize(18))
+                .byNumberOfLines(2)
+                .addOn(card);
+        });
+        [_titleLabels addObject:titleLabel];
+        UILabel *subtitleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"神秘彩金等你来拿".jobsTr())
+                .byTextCor(JobsSecondaryLabelColor)
+                .byFont(UIFontSystemFontOfSize(15))
+                .addOn(card);
+        });
+        [_subtitleLabels addObject:subtitleLabel];
+        [iconLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(card).offset(JobsWidth(16));
+            make.centerY.equalTo(card);
+            make.size.mas_equalTo(CGSizeMake(JobsWidth(58), JobsWidth(58)));
+        }];
+        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(iconLabel.mas_right).offset(JobsWidth(16));
+            make.right.equalTo(card).offset(-JobsWidth(14));
+            make.top.equalTo(card).offset(JobsWidth(20));
+        }];
+        [subtitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.equalTo(titleLabel);
+            make.top.equalTo(titleLabel.mas_bottom).offset(JobsWidth(6));
+        }];
+        return card;
+    };
 }
 
 @end
@@ -124,97 +139,128 @@ Prop_strong()NSArray<NSString *> *menuTitles;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsLinkageMenuViewDemoVC
+@interface JobsLinkageMenuViewDemoVC (JobsPropertyDSLSetterAutogen_4f1218bb7f)
+-(void)setLinkageView:(JobsLinkageMenuView * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsLinkageMenuViewDemoVC
+
 @implementation JobsLinkageMenuViewDemoVC
 -(void)dealloc{
     JobsRemoveNotification(self);
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsLinkageMenuViewDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byText(@"首页联动切换子页面".tr)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        .byBgCor(JobsSystemBackgroundColor)
-        .byNavBgCor(JobsSystemBackgroundColor);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byText(@"首页联动切换子页面".jobsTr())
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            .byBgCor(JobsSystemBackgroundColor)
+            .byNavBgCor(JobsSystemBackgroundColor);
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.makeNavByAlpha(1);
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.modeControl.byAlpha(1);
-    self.callbackLabel.byAlpha(1);
-    [self rebuildLinkageView];
-    @jobs_weakify(self)
-    [self addNotificationName:JobsThemeDidChangeNotification
-                        block:^(id _Nullable weakSelf,
-                                id _Nullable arg) {
-        @jobs_strongify(self)
-        [self rebuildLinkageView];
-    }];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsLinkageMenuViewDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
 }
 
--(void)rebuildLinkageView{
-    self.linkageView.byRemove();
-    self.linkageView = nil;
-    JobsLinkageMenuViewConfig *config = JobsLinkageMenuViewConfig.new;
-    config.DEFAULT_MENU_ITEM_HEIGHT = JobsWidth(78);
-    config.MENU_ITEM_HEIGHT_MAP = @{@4: @(JobsWidth(96))};
-    config.MENU_ITEM_CORNER_RADIUS = 0;
-    config.BOTTOMVIEW_WIDTH = JobsWidth(4);
-    config.BOTTOMVIEW_HEIGHT = JobsWidth(56);
-    config.LINEVIEW_WIDTH = 1;
-    config.ANIMATION_TIME = 0.22;
-    if (self.modeControl.jobs_selectedSegmentIndex == 0) {
-        config.MENU_WIDTH = JobsWidth(96);
-    } else if (self.modeControl.jobs_selectedSegmentIndex == 1) {
-        config.CONTENT_WIDTH = JobsWidth(260);
-    } else {
-        config.MENU_RATIO = 0.26;
-    }
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
     @jobs_weakify(self)
-    config.noContentClickBlock = ^(id payloadObj) {
+    return ^{
         @jobs_strongify(self)
-        NSDictionary *payload = [payloadObj isKindOfClass:NSDictionary.class] ? payloadObj : @{};
-        NSString *title = payload[@"title"] ?: @"未命名菜单";
-        self.callbackLabel.byText([NSString stringWithFormat:@"点击了没有内容区的菜单：%@", title]);
-        toastBy(self.callbackLabel.text);
+        if (!self) return;
+        [super viewDidLoad];
+        self.makeNavByAlpha(1);
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.modeControl.byAlpha(1);
+        self.callbackLabel.byAlpha(1);
+        self.rebuildLinkageView();
+        @jobs_weakify(self)
+        [self addNotificationName:JobsThemeDidChangeNotification
+                            block:^(id _Nullable weakSelf,
+                                    id _Nullable arg) {
+            @jobs_strongify(self)
+            self.rebuildLinkageView();
+        }];
     };
-    config.menuClickBlock = ^(id payloadObj) {
+}
+
+-(jobsByVoidBlock _Nonnull)rebuildLinkageView{
+    @jobs_weakify(self)
+    return ^{
         @jobs_strongify(self)
-        NSDictionary *payload = [payloadObj isKindOfClass:NSDictionary.class] ? payloadObj : @{};
-        NSString *title = payload[@"title"] ?: @"";
-        if (title.length) self.callbackLabel.byText([NSString stringWithFormat:@"当前菜单：%@", title]);
+        if (!self) return;
+        self.linkageView.byRemove();
+        self.byLinkageView(nil);
+        JobsLinkageMenuViewConfig *config = JobsLinkageMenuViewConfig.new;
+        config.byDEFAULT_MENU_ITEM_HEIGHT(JobsWidth(78));
+        config.byMENU_ITEM_HEIGHT_MAP(@{@4: @(JobsWidth(96))});
+        config.byMENU_ITEM_CORNER_RADIUS(0);
+        config.byBOTTOMVIEW_WIDTH(JobsWidth(4));
+        config.byBOTTOMVIEW_HEIGHT(JobsWidth(56));
+        config.byLINEVIEW_WIDTH(1);
+        config.byANIMATION_TIME(0.22);
+        if (self.modeControl.jobs_selectedSegmentIndex() == 0) {
+            config.byMENU_WIDTH(JobsWidth(96));
+        } else if (self.modeControl.jobs_selectedSegmentIndex() == 1) {
+            config.byCONTENT_WIDTH(JobsWidth(260));
+        } else {
+            config.byMENU_RATIO(0.26);
+        }
+        @jobs_weakify(self)
+        config.noContentClickBlock = ^(id payloadObj) {
+            @jobs_strongify(self)
+            NSDictionary *payload = [payloadObj isKindOfClass:NSDictionary.class] ? payloadObj : @{};
+            NSString *title = payload[@"title"] ?: @"未命名菜单";
+            self.callbackLabel.byText([NSString stringWithFormat:@"点击了没有内容区的菜单：%@", title]);
+            toastBy(self.callbackLabel.text);
+        };
+        config.menuClickBlock = ^(id payloadObj) {
+            @jobs_strongify(self)
+            NSDictionary *payload = [payloadObj isKindOfClass:NSDictionary.class] ? payloadObj : @{};
+            NSString *title = payload[@"title"] ?: @"";
+            if (title.length) self.callbackLabel.byText([NSString stringWithFormat:@"当前菜单：%@", title]);
+        };
+        self.linkageView = [[JobsLinkageMenuView alloc] initWithFrame:CGRectZero
+                                                            btnConfig:self.buttonModel
+                                                linkageMenuViewConfig:config];
+        self.linkageView
+            .byBgColor(JobsSecondarySystemBackgroundColor)
+            .addOn(self.view);
+        [self.linkageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.bottom.equalTo(self.view);
+            make.top.equalTo(self.callbackLabel.mas_bottom).offset(JobsWidth(8));
+        }];
+        self.linkageView.jobsRichViewByModel(nil);
     };
-    self.linkageView = [[JobsLinkageMenuView alloc] initWithFrame:CGRectZero
-                                                        btnConfig:self.buttonModel
-                                            linkageMenuViewConfig:config];
-    self.linkageView
-        .byBgColor(JobsSecondarySystemBackgroundColor)
-        .addOn(self.view);
-    [self.linkageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.bottom.equalTo(self.view);
-        make.top.equalTo(self.callbackLabel.mas_bottom).offset(JobsWidth(8));
-    }];
-    self.linkageView.jobsRichViewByModel(nil);
 }
 
 -(UIButtonModel *)buttonModel{
-    NSArray<UIImage *> *normalImages = [self imageArrayWithColor:JobsSecondaryLabelColor];
-    NSArray<UIImage *> *normalBackgrounds = [self imageArrayWithColor:JobsTertiarySystemBackgroundColor];
-    NSArray<UIImage *> *selectedBackgrounds = [self imageArrayWithColor:RGBA_COLOR(255, 0.94 * 255.0, 0.84 * 255.0, 1)];
+    NSArray<UIImage *> *normalImages = self.imageArrayWithColor(JobsSecondaryLabelColor);
+    NSArray<UIImage *> *normalBackgrounds = self.imageArrayWithColor(JobsTertiarySystemBackgroundColor);
+    NSArray<UIImage *> *selectedBackgrounds = self.imageArrayWithColor(RGBA_COLOR(255, 0.94 * 255.0, 0.84 * 255.0, 1));
     NSMutableArray<UIView *> *contents = NSMutableArray.array;
     for (NSInteger i = 0; i < self.menuTitles.count - 1; i++) {
         [contents addObject:[[JobsLinkageMenuDemoContentView alloc] initWithSectionTitle:@"活动"
@@ -232,23 +278,41 @@ Prop_strong()NSArray<NSString *> *menuTitles;
     });
 }
 
--(NSArray<UIImage *> *)imageArrayWithColor:(UIColor *)color{
-    UIImage *image = [self imageWithColor:color];
-    return @[image, image, image, image, image, image, image, image];
+-(JobsRetNSArrayUIImageByUIColorBlock _Nonnull)imageArrayWithColor{
+    @jobs_weakify(self)
+    return ^NSArray<UIImage *> *(UIColor * color){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        UIImage *image = self.imageWithColor(color);
+        return @[image, image, image, image, image, image, image, image];
+    };
 }
 
 -(UIImage *)imageWithColor:(UIColor *)color{
-    CGSize size = CGSizeMake(1, 1);
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
-    [color setFill];
-    UIRectFill(CGRectMake(0, 0, size.width, size.height));
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image ?: jobsMakeImage();
+    return ((((JobsRetImageByCorBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsLinkageMenuViewDemoVC.class, @selector(imageWithColor)))(self, @selector(imageWithColor))))(color);
+}
+-(JobsRetImageByCorBlock _Nonnull)imageWithColor{
+    @jobs_weakify(self)
+    return ^UIImage *(UIColor * color){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        CGSize size = CGSizeMake(1, 1);
+        UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+        [color setFill];
+        UIRectFill(CGRectMake(0, 0, size.width, size.height));
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return image ?: jobsMakeImage(^(UIImage *object){});
+    };
 }
 #pragma mark —— Action
--(void)modeChanged:(UISegmentedControl *)sender{
-    [self rebuildLinkageView];
+-(jobsBySegmentedControlBlock _Nonnull)modeChanged{
+    @jobs_weakify(self)
+    return ^(UISegmentedControl * sender){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.rebuildLinkageView();
+    };
 }
 #pragma mark —— LazyLoad
 -(UISegmentedControl *)modeControl{
@@ -258,7 +322,7 @@ Prop_strong()NSArray<NSString *> *menuTitles;
             segmentedControl
                 .bySelectedSegmentIndex(0)
                 .onJobsChange(^(__kindof UIControl * _Nullable control) {
-                    [weak_self modeChanged:(UISegmentedControl *)control];
+                    weak_self.modeChanged((UISegmentedControl *)control);
                 })
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -274,7 +338,7 @@ Prop_strong()NSArray<NSString *> *menuTitles;
     if (!_callbackLabel) {
         _callbackLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"当前菜单：日常.1".tr)
+                .byText(@"当前菜单：日常.1".jobsTr())
                 .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontSystemFontOfSize(13))
                 .addOn(self.view)
@@ -293,4 +357,14 @@ Prop_strong()NSArray<NSString *> *menuTitles;
     };return _menuTitles;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsLinkageMenuViewDemoVC
+-(JobsRetJobsLinkageMenuViewDemoVCByJobsLinkageMenuViewBlock _Nonnull)byLinkageView{
+    @jobs_weakify(self)
+    return ^__kindof JobsLinkageMenuViewDemoVC * _Nullable(JobsLinkageMenuView * _Nullable data){
+        @jobs_strongify(self)
+        [self setLinkageView:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsLinkageMenuViewDemoVC
 @end

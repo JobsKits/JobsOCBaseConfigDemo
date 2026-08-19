@@ -25,8 +25,8 @@
     return ^UIButtonConfiguration *_Nullable(UIImage *_Nullable data){
         @jobs_strongify(self)
         UIBackgroundConfiguration *background = self.background.copy ?: UIBackgroundConfiguration.clearConfiguration;
-        background.image = data;
-        self.background = background;
+        background.byImage(data);
+        self.byBackground(background);
         return self;
     };
 }
@@ -63,8 +63,8 @@
     return ^UIButtonConfiguration *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
         UIBackgroundConfiguration *background = self.background.copy ?: UIBackgroundConfiguration.clearConfiguration;
-        background.backgroundColor = data;
-        self.background = background;
+        background.byBackgroundColor(data);
+        self.byBackground(background);
         return self;
     };
 }
@@ -154,7 +154,7 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *_Nullable(NSString *_Nullable data){
         @jobs_strongify(self)
-        self.subtitle = data;
+        self.bySubtitle(data);
         return self;
     };
 }
@@ -217,7 +217,7 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *_Nullable(NSLineBreakMode data){
         @jobs_strongify(self)
-        self.subtitleLineBreakMode = data;
+        self.bySubtitleLineBreakMode(data);
         return self;
     };
 }

@@ -110,32 +110,40 @@ Prop_strong()UILabel *viewDetailLabel;
 - (void)layoutSubviews {
     [super layoutSubviews];
     [self.taskTitleLabel sizeToFit];
-    self.taskTitleLabel.x = self.taskTitleLabel.y = 12.f;
-    self.taskTitleLabel.maxXByStretch = self.width - 12.f;
-    [self.startTimeTitleLabel sizeToFit];
-    self.startTimeTitleLabel.x = 12.f;
-    self.startTimeTitleLabel.y = self.taskTitleLabel.maxY + 6.f;
-    self.startTimeTitleLabel.width = DateTitleWidth;
-    [self.startTimeLabel sizeToFit];
-    self.startTimeLabel.x = self.startTimeTitleLabel.maxX + 3;
-    self.startTimeLabel.y = self.startTimeTitleLabel.y;
-    self.startTimeLabel.maxXByStretch = self.width - 12.f;
-    [self.endTimeTitleLabel sizeToFit];
-    self.endTimeTitleLabel.x = 12.f;
-    self.endTimeTitleLabel.y = self.startTimeTitleLabel.maxY + 2.f;
-    self.endTimeTitleLabel.width = DateTitleWidth;
-    [self.endTimeLabel sizeToFit];
-    self.endTimeLabel.x = self.endTimeTitleLabel.maxX + 3;
-    self.endTimeLabel.y = self.endTimeTitleLabel.y;
-    self.endTimeLabel.maxXByStretch = self.width - 12.f;
-    self.separatorLine.x = 0;
-    self.separatorLine.y = self.endTimeTitleLabel.maxY + 10.f;
-    self.separatorLine.maxXByStretch = self.width;
-    self.separatorLine.height = 1 / [UIScreen mainScreen].scale;
-    [self.viewDetailLabel sizeToFit];
-    self.viewDetailLabel.x = 12.f;
-    self.viewDetailLabel.y = self.separatorLine.maxY + 10.f;
-    self.viewDetailLabel.maxXByStretch = self.width - 12.f;
+        self.taskTitleLabel
+            .byX(12.f)
+            .byY(12.f)
+            .byWidth(self.width - 24.f);
+        [self.startTimeTitleLabel sizeToFit];
+        self.startTimeTitleLabel
+            .byX(12.f)
+            .byY(self.taskTitleLabel.maxY + 6.f)
+            .byWidth(DateTitleWidth);
+        [self.startTimeLabel sizeToFit];
+        self.startTimeLabel
+            .byX(self.startTimeTitleLabel.maxX + 3.f)
+            .byY(self.startTimeTitleLabel.y)
+            .byWidth(self.width - 12.f - self.startTimeLabel.x);
+        [self.endTimeTitleLabel sizeToFit];
+        self.endTimeTitleLabel
+            .byX(12.f)
+            .byY(self.startTimeTitleLabel.maxY + 2.f)
+            .byWidth(DateTitleWidth);
+        [self.endTimeLabel sizeToFit];
+        self.endTimeLabel
+            .byX(self.endTimeTitleLabel.maxX + 3.f)
+            .byY(self.endTimeTitleLabel.y)
+            .byWidth(self.width - 12.f - self.endTimeLabel.x);
+        self.separatorLine
+            .byX(0)
+            .byY(self.endTimeTitleLabel.maxY + 10.f)
+            .byWidth(self.width)
+            .byHeight(1.f / UIScreen.mainScreen.scale);
+        [self.viewDetailLabel sizeToFit];
+        self.viewDetailLabel
+            .byX(12.f)
+            .byY(self.separatorLine.maxY + 10.f)
+            .byWidth(self.width - 24.f);
 }
 
 - (CGSize)intrinsicContentSize {

@@ -7,17 +7,18 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSBTNTEXTVIEWSTYLECVCELL_C6469FF0C3
-#define JOBS_HEADER_GUARD_JOBSBTNTEXTVIEWSTYLECVCELL_C6469FF0C3
-
-#import "JobsBaseCollectionViewCell.h"
-#import "BaseTextView.h"
-#import "JobsTextView.h"
 
 #if __has_include(<SZTextView/SZTextView.h>)
 #import <SZTextView/SZTextView.h>
 #else
 #import "SZTextView.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSBTNTEXTVIEWSTYLECVCELL_C6469FF0C3
+
+#import "JobsBaseCollectionViewCell.h"
+#import "BaseTextView.h"
+#import "JobsTextView.h"
 
 #import "JobsBaseProtocolHeader.h"
 #import "JobsRichTextUtils.h"

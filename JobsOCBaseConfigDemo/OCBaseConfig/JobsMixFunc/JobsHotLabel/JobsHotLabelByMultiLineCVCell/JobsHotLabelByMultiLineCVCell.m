@@ -22,7 +22,17 @@ Prop_strong()UILabel *textLab;
 }
 #pragma mark —— BaseViewProtocol
 -(UIViewModel *_Nullable)getViewModel{
-    return self.viewModel;
+    JobsRetViewModelByVoidBlock action = ((JobsRetViewModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsHotLabelByMultiLineCVCell.class, @selector(jobsGetViewModel)))(self, @selector(jobsGetViewModel));
+    return action ? action() : nil;
+}
+
+-(JobsRetViewModelByVoidBlock _Nonnull)jobsGetViewModel{
+    @jobs_weakify(self)
+    return ^UIViewModel *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.viewModel;
+    };
 }
 #pragma mark —— UICollectionViewCellProtocol
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
@@ -55,7 +65,7 @@ Prop_strong()UILabel *textLab;
         @jobs_strongify(self)
         [self.textLab removeFromSuperview];
         self->_textLab = nil;
-        self.viewModel = model;
+        self.byViewModel(model);
         if (self.viewModel) self.textLab.alpha = 1;
         return self;
     };

@@ -9,9 +9,14 @@
 #define JOBS_HEADER_GUARD_ASCOLLECTIONNODE_DSL_859CD03C8D
 
 #import <objc/runtime.h>
-#import <AsyncDisplayKit/AsyncDisplayKit.h>
 #import "JobsBlock.h"
 #import "JobsDefines.h"
+
+#if __has_include(<AsyncDisplayKit/AsyncDisplayKit.h>)
+#import <AsyncDisplayKit/AsyncDisplayKit.h>
+#else
+#import "AsyncDisplayKit.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -24,6 +29,37 @@ static inline void jobs_on_main(jobsByVoidBlock _Nullable work){
 }
 
 @interface ASCollectionNode (DSL)
+
+-(JobsRetCollectionNodeByDelegateBlock _Nonnull)byDelegate;
+-(JobsRetCollectionNodeByDataSourceBlock _Nonnull)byDataSource;
+-(JobsRetCollectionNodeByCGFloatBlock _Nonnull)byLeadingScreensForBatching;
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byInverted;
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byAllowsSelection;
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byAllowsMultipleSelection;
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byAlwaysBounceVertical;
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byAlwaysBounceHorizontal;
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byShowsVerticalScrollIndicator;
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byShowsHorizontalScrollIndicator;
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byPagingEnabled;
+-(JobsRetCollectionNodeByLayoutBlock _Nonnull)byLayout;
+-(JobsRetCollectionNodeByInspectorBlock _Nonnull)byLayoutInspector;
+-(JobsRetCollectionNodeByInsetsBlock _Nonnull)byContentInset;
+-(JobsRetCollectionNodeByPointBlock _Nonnull)byContentOffset;
+-(JobsRetCollectionNodeByPointAnimatedBlock _Nonnull)bySetContentOffsetAnimated;
+-(JobsRetCollectionNodeByStringBlock _Nonnull)byRegisterSupplementaryKind;
+-(JobsRetCollectionNodeByScrollToItemBlock _Nonnull)byScrollToItem;
+-(JobsRetCollectionNodeBySelectBlock _Nonnull)bySelectItem;
+-(JobsRetCollectionNodeByDeselectBlock _Nonnull)byDeselectItem;
+-(JobsRetCollectionNodeByBatchAnimatedBlock _Nonnull)byPerformBatchAnimated;
+-(JobsRetCollectionNodeByBatchBlock _Nonnull)byPerformBatchUpdates;
+-(JobsRetCollectionNodeByReloadWithCompletionBlock _Nonnull)byReloadWithCompletion;
+-(JobsRetCollectionNodeByVoidBlock _Nonnull)byReload;
+-(JobsRetCollectionNodeByVoidBlock _Nonnull)byRelayoutItems;
+-(JobsRetCollectionNodeBySetTuningBlock _Nonnull)bySetTuningForRangeType;
+-(JobsRetCollectionNodeBySetTuningForModeBlock _Nonnull)bySetTuningForModeRangeType;
+-(JobsRetCollectionNodeByVoidBlock _Nonnull)byOnDidFinishProcessingUpdatesOnce;
+-(JobsRetCollectionNodeByDispatchBlock _Nonnull)byOnDidFinishProcessingUpdates;
+-(JobsRetCollectionNodeByVoidBlock _Nonnull)byWaitUntilAllUpdatesProcessed;
 
 @end
 

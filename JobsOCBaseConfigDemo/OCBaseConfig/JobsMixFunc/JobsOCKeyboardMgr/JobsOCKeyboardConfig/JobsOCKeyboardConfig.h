@@ -45,11 +45,11 @@ Prop_assign() JobsOCKeyboardApplyMode applyMode;
 Prop_assign() JobsOCKeyboardAccessoryPolicy accessoryPolicy;
 Prop_copy(nullable) jobsByOCKeyboardResultBlock resultBlock;
 
--(BOOL)isValid;
--(NSArray <__kindof UIView *>*)followViews;
--(NSArray <__kindof UITextField *>*)inputFields;
--(void)resetFollowViews:(NSArray <__kindof UIView *>*_Nullable)data;
--(void)resetInputFields:(NSArray <__kindof UITextField *>*_Nullable)data;
+-(JobsRetBOOLByVoidBlock _Nonnull)isValid;
+-(JobsRetNSArrayUIViewByVoidBlock _Nonnull)followViews;
+-(JobsRetNSArrayUITextFieldByVoidBlock _Nonnull)inputFields;
+-(jobsByNSArrayUIViewBlock _Nonnull)resetFollowViews;
+-(jobsByNSArrayUITextFieldBlock _Nonnull)resetInputFields;
 
 #pragma mark —— DSL
 -(JobsRetJobsOCKeyboardConfigByIDBlock _Nonnull)byOwner;
@@ -71,6 +71,9 @@ Prop_copy(nullable) jobsByOCKeyboardResultBlock resultBlock;
 -(JobsRetJobsOCKeyboardConfigByAccessoryPolicyBlock _Nonnull)byAccessoryPolicy;
 -(JobsRetJobsOCKeyboardConfigByResultBlock _Nonnull)byResultBlock;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCKeyboardConfig
+-(JobsRetJobsOCKeyboardConfigByNSPointerArrayBlock _Nonnull)byInputFieldPointerArray;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCKeyboardConfig
 @end
 
 NS_ASSUME_NONNULL_END

@@ -23,16 +23,41 @@ BaseLayerProtocol_synthesize_part3
 AppToolsProtocol_synthesize
 #pragma mark —— 复写父类相关方法和属性
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBtnStyleCVCell.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBtnStyleCVCell.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 #pragma mark —— 复写系统方法
 @synthesize selected = _selected;
--(BOOL)isSelected{
-    return _selected;
+-(JobsRetBOOLByVoidBlock _Nonnull)isSelected{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return _selected;
+    };
 }
 
 -(void)setSelected:(BOOL)selected{
@@ -98,21 +123,21 @@ AppToolsProtocol_synthesize
     return ^(id _Nullable model){
         @jobs_strongify(self)
         if(KindOfViewModelCls(model)){
-            self.viewModel = model;
+            self.byViewModel(model);
             if(self.viewModel.textModel.text.isHTMLString ||
                self.viewModel.subTextModel.text.isHTMLString){
-                self.webView.jobsVisible = YES;
+                self.webView.byJobsVisible(YES);
             }else{
-                self.button.data = model;
+                self.button.byData(model);
             }
         }
         if(KindOfButtonModelCls(model)){
-            self.buttonModel = model;
+            self.byButtonModel(model);
             if(self.buttonModel.title.isHTMLString ||
                self.buttonModel.subTitle.isHTMLString){
-                self.webView.jobsVisible = YES;
+                self.webView.byJobsVisible(YES);
             }else{
-                self.button.data = model;
+                self.button.byData(model);
             }
         }
     };
@@ -125,7 +150,7 @@ AppToolsProtocol_synthesize
         @jobs_strongify(self)
         /// viewModel + textModel
         self.button.bySelected(viewModel.jobsSelected);
-        self.button.byEnabled(viewModel.jobsEnabled);/// 这个属性为YES，则优先响应Btn。这个属性为NO，则响应UITableViewCell
+        if (self.button) self.button.byEnabled(viewModel.jobsEnabled);/// 这个属性为YES，则优先响应Btn。这个属性为NO，则响应UITableViewCell
         self.button.resetByViewModel(viewModel,self.selected)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
@@ -135,9 +160,9 @@ AppToolsProtocol_synthesize
             });
         /// 背景图
         if(viewModel.normalBgImageURL){
-            self.button.imageURL(viewModel.normalBgImageURLString.imageURLPlus.jobsUrl)
+            self.button.imageURL(viewModel.normalBgImageURLString.jobsImageURLPlus().jobsURL())
                 .placeholderImage(viewModel.backgroundImage)
-                .options(self.makeSDWebImageOptions)
+                .options(self.jobsMakeSDWebImageOptions())
                 .completed(^(UIImage *_Nullable image,
                              NSError *_Nullable error,
                              SDImageCacheType cacheType,
@@ -164,7 +189,7 @@ AppToolsProtocol_synthesize
     return ^__kindof UIButton *_Nullable(__kindof UIButtonModel *_Nullable buttonModel){
         @jobs_strongify(self)
         self.button.bySelected(buttonModel.jobsSelected);
-        self.button.byEnabled(buttonModel.jobsEnabled);
+        if (self.button) self.button.byEnabled(buttonModel.jobsEnabled);
         self.button.resetByButtonModel(buttonModel,self.selected)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
@@ -174,9 +199,9 @@ AppToolsProtocol_synthesize
             });
         /// 背景图
         if(buttonModel.normalBgImageURL){
-            self.button.imageURL(buttonModel.normalBgImageURLString.imageURLPlus.jobsUrl)
+            self.button.imageURL(buttonModel.normalBgImageURLString.jobsImageURLPlus().jobsURL())
                 .placeholderImage(buttonModel.backgroundImage)
-                .options(self.makeSDWebImageOptions)
+                .options(self.jobsMakeSDWebImageOptions())
                 .completed(^(UIImage * _Nullable image,
                              NSError * _Nullable error,
                              SDImageCacheType cacheType,
@@ -211,7 +236,7 @@ AppToolsProtocol_synthesize
 //        .borderWidthBy(JobsWidth(1))
 //        .borderColorBy(RGBA_COLOR(255, 225, 144, 1))
 //        .masksToBoundsBy(YES);
-    cell.indexPath = indexPath;
+    cell.byIndexPath(indexPath);
     return cell;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -240,8 +265,32 @@ AppToolsProtocol_synthesize
     self.setBtnByButtonModel(buttonModel);
 }
 #pragma mark —— BaseViewProtocol
--(UIViewModel *_Nullable)getViewModel{ return self.viewModel; }
--(UIButtonModel *_Nullable)getButtonModel{ return self.buttonModel; }
+-(UIViewModel *_Nullable)getViewModel{
+    JobsRetViewModelByVoidBlock action = ((JobsRetViewModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBtnStyleCVCell.class, @selector(jobsGetViewModel)))(self, @selector(jobsGetViewModel));
+    return action ? action() : nil;
+}
+
+-(JobsRetViewModelByVoidBlock _Nonnull)jobsGetViewModel{
+    @jobs_weakify(self)
+    return ^UIViewModel *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.viewModel;
+    };
+}
+-(__kindof UIButtonModel *_Nullable)getButtonModel{
+    JobsRetUIButtonModelByVoidBlock action = ((JobsRetUIButtonModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBtnStyleCVCell.class, @selector(jobsGetButtonModel)))(self, @selector(jobsGetButtonModel));
+    return action ? action() : nil;
+}
+
+-(JobsRetUIButtonModelByVoidBlock _Nonnull)jobsGetButtonModel{
+    @jobs_weakify(self)
+    return ^UIButtonModel *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.buttonModel;
+    };
+}
 #pragma mark —— lazyLoad
 -(BaseButton *)button{
     if(!_button){
@@ -271,7 +320,7 @@ AppToolsProtocol_synthesize
         _webView = self.makeWebViewByString(isValue(self.buttonModel.title) ? self.buttonModel.title : self.buttonModel.subTitle);
     }
     _webView.byBgColor(JobsClearColor);
-    _webView.opaque = NO; // 设置不透明为 NO，确保背景透明
+    _webView.byOpaque(NO);
     self.contentView
         .addSubview(_webView)
         .byAdd(self.masonryBlock);

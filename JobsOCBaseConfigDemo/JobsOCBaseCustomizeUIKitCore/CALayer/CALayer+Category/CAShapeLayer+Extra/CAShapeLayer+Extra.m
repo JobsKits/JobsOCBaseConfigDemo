@@ -13,7 +13,7 @@
     @jobs_weakify(self)
     return ^__kindof CAShapeLayer *_Nullable(CGFloat data){
         @jobs_strongify(self)
-        self.lineWidth = data;
+        [self setLineWidth:data];
         return self;
     };
 }
@@ -22,7 +22,7 @@
     @jobs_weakify(self)
     return ^__kindof CAShapeLayer *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
-        self.strokeColor = data.CGColor;
+        [self setStrokeColor:data.CGColor];
         return self;
     };
 }
@@ -31,7 +31,7 @@
     @jobs_weakify(self)
     return ^__kindof CAShapeLayer *_Nullable(CGColorRef data){
         @jobs_strongify(self)
-        self.strokeColor = data;
+        [self setStrokeColor:data];
         return self;
     };
 }
@@ -40,7 +40,7 @@
     @jobs_weakify(self)
     return ^__kindof CAShapeLayer *_Nullable(UIBezierPath *_Nullable data){
         @jobs_strongify(self)
-        self.path = data.CGPath;
+        [self setPath:data.CGPath];
         return self;
     };
 }
@@ -49,7 +49,7 @@
     @jobs_weakify(self)
     return ^__kindof CAShapeLayer *_Nullable(CGPathRef data){
         @jobs_strongify(self)
-        self.path = data;
+        [self setPath:data];
         return self;
     };
 }
@@ -58,7 +58,7 @@
     @jobs_weakify(self)
     return ^__kindof CAShapeLayer *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
-        self.fillColor = data.CGColor;
+        [self setFillColor:data.CGColor];
         return self;
     };
 }
@@ -67,7 +67,7 @@
     @jobs_weakify(self)
     return ^__kindof CAShapeLayer *_Nullable(CGColorRef data){
         @jobs_strongify(self)
-        self.fillColor = data;
+        [self setFillColor:data];
         return self;
     };
 }

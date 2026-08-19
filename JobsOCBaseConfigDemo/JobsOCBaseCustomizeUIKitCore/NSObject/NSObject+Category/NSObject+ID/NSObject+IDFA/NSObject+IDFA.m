@@ -17,8 +17,13 @@
 
  注意：由于idfa会出现取不到的情况，故绝不可以作为业务分析的主id，来识别用户。
  */
--(NSString *)IDFA{
-    return ASIdentifierManager.sharedManager.advertisingIdentifier.UUIDString;
+-(JobsRetStrByVoidBlock _Nonnull)IDFA{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return ASIdentifierManager.sharedManager.advertisingIdentifier.UUIDString;
+    };
 }
 
 @end

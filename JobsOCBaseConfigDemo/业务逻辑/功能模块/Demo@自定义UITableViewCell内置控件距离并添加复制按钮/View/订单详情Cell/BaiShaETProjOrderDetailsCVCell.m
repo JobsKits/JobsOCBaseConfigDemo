@@ -22,7 +22,17 @@ Prop_strong()UIButton *jobsCopyBtn;
 }
 #pragma mark —— BaseViewProtocol
 -(UIViewModel *_Nullable)getViewModel{
-    return self.viewModel;
+    JobsRetViewModelByVoidBlock action = ((JobsRetViewModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjOrderDetailsCVCell.class, @selector(jobsGetViewModel)))(self, @selector(jobsGetViewModel));
+    return action ? action() : nil;
+}
+
+-(JobsRetViewModelByVoidBlock _Nonnull)jobsGetViewModel{
+    @jobs_weakify(self)
+    return ^UIViewModel *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.viewModel;
+    };
 }
 #pragma mark —— BaseCellProtocol
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
@@ -43,7 +53,7 @@ Prop_strong()UIButton *jobsCopyBtn;
     @jobs_weakify(self)
     return ^__kindof UICollectionViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
+        self.byViewModel(model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {}));
         self.tableView.byShow(self);
         return self;
     };
@@ -56,7 +66,17 @@ Prop_strong()UIButton *jobsCopyBtn;
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjOrderDetailsCVCell.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 1;
+    };
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
@@ -134,7 +154,7 @@ heightForFooterInSectionByModel:(NSInteger)section{
 -(UIButton *)jobsCopyBtn{
     if (!_jobsCopyBtn) {
         _jobsCopyBtn = UIButton.jobsInit()
-            .jobsResetBtnTitle(JobsSpace.add(@"複製".tr).add(JobsSpace))
+            .jobsResetBtnTitle(JobsSpace.add(@"複製".jobsTr()).add(JobsSpace))
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(12))
             .jobsResetBtnTitleCor(JobsSecondaryLabelColor)
             .makeBtnTitleByShowingType(UILabelShowingType_03)
@@ -155,7 +175,7 @@ heightForFooterInSectionByModel:(NSInteger)section{
                 })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .byTableFooterView(jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
                     label
-                        .byText(@"- 没有更多的内容了 -".tr)
+                        .byText(@"- 没有更多的内容了 -".jobsTr())
                         .byFont(UIFontWeightRegularSize(12))
                         .byTextAlignment(NSTextAlignmentCenter)
                         .byTextCor(JobsSecondaryLabelColor)

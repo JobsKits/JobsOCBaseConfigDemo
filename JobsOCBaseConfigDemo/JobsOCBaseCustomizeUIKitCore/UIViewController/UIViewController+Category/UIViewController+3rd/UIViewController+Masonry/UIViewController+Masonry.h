@@ -9,6 +9,12 @@
 #import "JobsBlock.h"
 #import "JobsDefineProperty.h"
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
@@ -19,7 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (Masonry)
 
-Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
+Prop_copy(nullable)jobsByMASConstraintMakerBlock masonryBlock;
+-(JobsRetVCByMasonryConstraintsBlocks _Nonnull)byMasonryBlock;
 
 -(JobsRetBOOLByViewBlock _Nonnull)containBy;
 /// 实现 masonryBlock 链式方法

@@ -6,6 +6,7 @@
 //
 
 #import "JobsLocalNotificationModel.h"
+
 #import "JobsLanMgr.h"
 
 @implementation JobsLocalNotificationModel
@@ -17,13 +18,13 @@
 
 -(NSString *)title{
     if (!_title) {
-        _title = @"本地通知".tr;
+        _title = @"本地通知".jobsTr();
     };return _title;
 }
 
 -(NSString *)body{
     if (!_body) {
-        _body = @"这是一个示例本地通知".tr;
+        _body = @"这是一个示例本地通知".jobsTr();
     };return _body;
 }
 

@@ -6,15 +6,16 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSSHAKEBTN_FA305CA67E
-#define JOBS_HEADER_GUARD_JOBSSHAKEBTN_FA305CA67E
-
-#import <UIKit/UIKit.h>
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
 #else
 #import "XYColorOC.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSSHAKEBTN_FA305CA67E
+
+#import <UIKit/UIKit.h>
 
 #import "JobsBaseProtocolHeader.h"
 #import "JobsOCRuntimeKits.h"
@@ -30,6 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_assign(getter=isShaking)BOOL shaking;// 是否抖动
 Prop_strong()UIImageView *iconBtn;// 右上角的按钮
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsShakeBtn
+-(JobsRetJobsShakeBtnByBOOLBlock _Nonnull)byShaking;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsShakeBtn
 @end
 
 NS_ASSUME_NONNULL_END

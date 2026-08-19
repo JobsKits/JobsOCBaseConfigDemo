@@ -23,6 +23,12 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN PicToStrStoreSubVC
+@interface PicToStrStoreSubVC (JobsPropertyDSLSetterAutogen_dbddd7dc27)
+-(void)setPhotosImageMutArr:(NSMutableArray <UIImage *>* _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END PicToStrStoreSubVC
+
 @implementation PicToStrStoreSubVC
 - (void)dealloc{
     JobsRemoveNotification(self);
@@ -30,71 +36,151 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(PicToStrStoreSubVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(data.attributedTitle.string)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
-    _picBefore = nil;
-    _picAfter = nil;
-    _resultStr = @"".tr;
-    _showStr = @"".tr;
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(data.attributedTitle.string)
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+        _picBefore = nil;
+        _picAfter = nil;
+        _resultStr = @"".jobsTr();
+        _showStr = @"".jobsTr();
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-//    [self.bgImageView removeFromSuperview];
-    self.btn_1.byAlpha(1);
-    self.btn_2.byAlpha(1);
-    self.textView.byAlpha(1);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(PicToStrStoreSubVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+            [super viewDidLoad];
+            self.view.byBgColor(JobsSystemBackgroundColor);
+            self.makeNavByAlpha(1);
+        //    [self.bgImageView removeFromSuperview];
+            self.btn_1.byAlpha(1);
+            self.btn_2.byAlpha(1);
+            self.textView.byAlpha(1);
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-//    self.updateStatusBarCor(JobsOrangeColor);/// 在具体子类实现，不要写在父类。父类只做提示
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(PicToStrStoreSubVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+            [super viewWillAppear:animated];
+        //    self.updateStatusBarCor(JobsOrangeColor);/// 在具体子类实现，不要写在父类。父类只做提示
+    };
 }
 
 -(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(PicToStrStoreSubVC.class, @selector(jobsViewWillLayoutSubviews)))(self, @selector(jobsViewWillLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewWillLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(PicToStrStoreSubVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(PicToStrStoreSubVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-//    self.restoreStatusBarCor(nil);
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(PicToStrStoreSubVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+            [super viewWillDisappear:animated];
+        //    self.restoreStatusBarCor(nil);
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(PicToStrStoreSubVC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+    };
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -128,11 +214,11 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
         @jobs_strongify(self)
         if(data){
     #warning 不可能全部显示完全这个字符串，太长了。渲染到UI会撑爆内存，最终致程序崩溃
-            self->_showStr = @"目标图片对应的字符串编码为（只列举一部分）前面几位都是一样的：".tr
+            self->_showStr = @"目标图片对应的字符串编码为（只列举一部分）前面几位都是一样的：".jobsTr()
                 .add([data substringToIndex:1000])
-                .add(@"...后面还有很多，就不一一列举了（渲染UI会撑爆内存，最终导致程序崩溃）".tr);
+                .add(@"...后面还有很多，就不一一列举了（渲染UI会撑爆内存，最终导致程序崩溃）".jobsTr());
             self.textView.byText(self->_showStr);
-        }else @"暂无编码数据！！！".tr.toast();
+        }else @"暂无编码数据！！！".jobsTr().toast();
         return data;
     };
 }
@@ -144,7 +230,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
         if(image){
             self->_picBefore = image;
             self.btn_1.jobsResetBtnImage(self->_picBefore);
-        }else @"字符串解码转换失败".tr.toast();
+        }else @"字符串解码转换失败".jobsTr().toast();
     };
 }
 /// 输出图片到Btn_2
@@ -155,7 +241,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
         if(image){
             self->_picAfter = image;
             self.btn_2.jobsResetBtnImage(image);
-        }else @"字符串解码转换失败".tr.toast();
+        }else @"字符串解码转换失败".jobsTr().toast();
         return self->_picAfter;
     };
 }
@@ -245,11 +331,11 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             .jobsResetTitlePadding(JobsWidth(10))
             .jobsResetBtnImage(_picBefore ? : JobsLoadBundleImage(@"bundle",@"Others",nil,@"绿色加号"))
             .jobsResetBtnBgImage(@"APPLY NOW".img)
-            .jobsResetBtnTitleCor(@"#333333".cor)
+            .jobsResetBtnTitleCor(@"#333333".jobsCor())
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(25))
             .jobsResetBtnSubTitleFont(UIFontWeightBoldSize(18))
-            .jobsResetBtnTitle(@"点击按钮".tr)
-            .jobsResetBtnSubTitle(@"选取相册图片".tr)
+            .jobsResetBtnTitle(@"点击按钮".jobsTr())
+            .jobsResetBtnSubTitle(@"选取相册图片".jobsTr())
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 x.bySelected(!x.selected);
@@ -257,12 +343,12 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
                 /// 调取系统相册
                 @jobs_weakify(self)
                 [self hx_invokeSysPhotoAlbumSuccessBlock:^(HXPhotoPickerModel *data) {
-                    self.photoManager = data.photoManager;
+                    self.byPhotoManager(data.photoManager);
                     [data.photoList hx_requestImageWithOriginal:NO
                                                      completion:^(NSArray<UIImage *> * _Nullable imageArray,
                                                                   NSArray<HXPhotoModel *> * _Nullable errorArray) {
                         @jobs_strongify(self)
-                        self.photosImageMutArr = [NSMutableArray arrayWithArray:imageArray];
+                        self.byPhotosImageMutArr([NSMutableArray arrayWithArray:imageArray]);
                         UIImage *image = (UIImage *)self.photosImageMutArr.lastObject;
                         self->_picBefore = image;
                         self.btn_1.jobsResetBtnImage(image);/// 永远值显示最后选择的图
@@ -295,11 +381,11 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
             .jobsResetTitlePadding(JobsWidth(10))
             .jobsResetBtnImage(_picBefore ? : JobsLoadBundleImage(@"bundle",@"Others",nil,@"绿色加号"))
             .jobsResetBtnBgImage(@"APPLY NOW".img)
-            .jobsResetBtnTitleCor(@"#333333".cor)
+            .jobsResetBtnTitleCor(@"#333333".jobsCor())
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(25))
             .jobsResetBtnSubTitleFont(UIFontWeightBoldSize(18))
-            .jobsResetBtnTitle(@"点击按钮".tr)
-            .jobsResetBtnSubTitle(@"编码转译成图片".tr)
+            .jobsResetBtnTitle(@"点击按钮".jobsTr())
+            .jobsResetBtnSubTitle(@"编码转译成图片".jobsTr())
             .jobsResetBtnCornerRadiusValue(JobsWidth(8))
             .jobsResetBtnLayerBorderWidth(JobsWidth(.5f))
             .onClickBy(^(UIButton *x){
@@ -309,7 +395,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
                 if(isNull(self->_resultStr)){
                     /// 存在于内存里面的编码，转变成图像对外进行输出
                     self.picForStr(self->_resultStr);
-                }else @"请先编码图片".tr.toast();
+                }else @"请先编码图片".jobsTr().toast();
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
@@ -330,7 +416,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
         _textView = jobsMakeTextView(^(__kindof UITextView * _Nullable textView) {
             @jobs_strongify(self)
             textView
-                .byText(@"暂无编码数据！！！".tr)
+                .byText(@"暂无编码数据！！！".jobsTr())
                 .byTextColor(HEXCOLOR(0xB0B0B0))
                 .byFont(UIFontSystemFontOfSize(14))
                 .byBgColor(JobsLightTextColor)
@@ -350,4 +436,14 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
     };return _textView;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN PicToStrStoreSubVC
+-(JobsRetPicToStrStoreSubVCByNSMutableArrayUIImageBlock _Nonnull)byPhotosImageMutArr{
+    @jobs_weakify(self)
+    return ^__kindof PicToStrStoreSubVC * _Nullable(NSMutableArray <UIImage *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setPhotosImageMutArr:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END PicToStrStoreSubVC
 @end

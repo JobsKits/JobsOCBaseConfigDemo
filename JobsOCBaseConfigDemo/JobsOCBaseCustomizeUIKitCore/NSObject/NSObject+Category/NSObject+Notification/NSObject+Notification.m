@@ -75,12 +75,17 @@
     }];
 }
 ///【监听通知】设置App语言环境
--(void)monitorAppLanguage{
-    [self monitorNotification:语言切换
-                    withBlock:^id _Nullable(id _Nullable weakSelf,
-                                            id _Nullable arg) {
-        return nil;
-    }];
+-(jobsByVoidBlock _Nonnull)monitorAppLanguage{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self monitorNotification:语言切换
+                        withBlock:^id _Nullable(id _Nullable weakSelf,
+                                                id _Nullable arg) {
+            return nil;
+        }];
+    };
 }
 ///【发通知】设置App语言环境
 -(jobsByNSIntegerBlock _Nonnull)appLanguageAtAppLanguageBy{

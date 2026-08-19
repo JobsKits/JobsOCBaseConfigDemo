@@ -78,6 +78,12 @@ Prop_strong()id runtimeObject;
  https://github.com/zhiyongzou/DynamicOC
 
  */
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN OCDynamicRegisterVC
+@interface OCDynamicRegisterVC (JobsPropertyDSLSetterAutogen_b9c2d2cfaa)
+-(void)setRuntimeObject:(id _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END OCDynamicRegisterVC
+
 @implementation OCDynamicRegisterVC
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
@@ -85,83 +91,118 @@ Prop_strong()id runtimeObject;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(OCDynamicRegisterVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(data.attributedTitle.string)
-                .byFont(UIFontWeightRegularSize(16));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(data.attributedTitle.string)
+                    .byFont(UIFontWeightRegularSize(16));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.contentScrollView.addOn(self.view);
-    [self buildRuntimeDemoView];
-    [self work];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(OCDynamicRegisterVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.contentScrollView.addOn(self.view);
+        self.buildRuntimeDemoView();
+        self.work();
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    [self layoutRuntimeDemoViews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(OCDynamicRegisterVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        self.layoutRuntimeDemoViews();
+    };
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches
           withEvent:(UIEvent *)event{
-    [self triggerMessageForwardDemo];
+    (((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(OCDynamicRegisterVC.class, @selector(triggerMessageForwardDemo)))(self, @selector(triggerMessageForwardDemo)))();
 }
 #pragma mark —— Demo UI
--(void)buildRuntimeDemoView{
-    if (self.headerCardView.superview) return;
-    self.headerCardView.addOn(self.contentScrollView);
-    self.titleLabel.addOn(self.headerCardView);
-    self.subTitleLabel.addOn(self.headerCardView);
-    self.classNameValueLabel.addOn(self.headerCardView);
-    self.runDemoBtn.addOn(self.contentScrollView);
-    self.messageForwardBtn.addOn(self.contentScrollView);
-    NSArray <NSString *>*titles = @[
-        @"1. 动态创建类",
-        @"2. 添加成员变量和属性",
-        @"3. 添加方法和协议",
-        @"4. 注册实例并调用"
-    ];
-    NSArray <UIColor *>*tintColors = @[
-        RGBA_COLOR(0.20 * 255.0, 0.49 * 255.0, 0.95 * 255.0, 1),
-        RGBA_COLOR(0.16 * 255.0, 0.62 * 255.0, 0.45 * 255.0, 1),
-        RGBA_COLOR(0.93 * 255.0, 0.42 * 255.0, 0.21 * 255.0, 1),
-        RGBA_COLOR(0.66 * 255.0, 0.36 * 255.0, 0.86 * 255.0, 1)
-    ];
-    [titles enumerateObjectsUsingBlock:^(NSString * _Nonnull obj,
-                                         NSUInteger idx,
-                                         BOOL * _Nonnull stop) {
-        UIView *card = [self demoCardByTitle:obj
-                                      detail:@"等待执行"
-                                   tintColor:tintColors[idx]];
-        [self.stepCardMutArr addObject:card];
-        card.addOn(self.contentScrollView);
-    }];
-    self.logCardView.addOn(self.contentScrollView);
-    self.logTitleLabel.addOn(self.logCardView);
-    self.runtimeLogLabel.addOn(self.logCardView);
+-(jobsByVoidBlock _Nonnull)buildRuntimeDemoView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (self.headerCardView.superview) return;
+        self.headerCardView.addOn(self.contentScrollView);
+        self.titleLabel.addOn(self.headerCardView);
+        self.subTitleLabel.addOn(self.headerCardView);
+        self.classNameValueLabel.addOn(self.headerCardView);
+        self.runDemoBtn.addOn(self.contentScrollView);
+        self.messageForwardBtn.addOn(self.contentScrollView);
+        NSArray <NSString *>*titles = @[
+            @"1. 动态创建类",
+            @"2. 添加成员变量和属性",
+            @"3. 添加方法和协议",
+            @"4. 注册实例并调用"
+        ];
+        NSArray <UIColor *>*tintColors = @[
+            RGBA_COLOR(0.20 * 255.0, 0.49 * 255.0, 0.95 * 255.0, 1),
+            RGBA_COLOR(0.16 * 255.0, 0.62 * 255.0, 0.45 * 255.0, 1),
+            RGBA_COLOR(0.93 * 255.0, 0.42 * 255.0, 0.21 * 255.0, 1),
+            RGBA_COLOR(0.66 * 255.0, 0.36 * 255.0, 0.86 * 255.0, 1)
+        ];
+        [titles enumerateObjectsUsingBlock:^(NSString * _Nonnull obj,
+                                             NSUInteger idx,
+                                             BOOL * _Nonnull stop) {
+            UIView *card = [self demoCardByTitle:obj
+                                          detail:@"等待执行"
+                                       tintColor:tintColors[idx]];
+            [self.stepCardMutArr addObject:card];
+            card.addOn(self.contentScrollView);
+        }];
+        self.logCardView.addOn(self.contentScrollView);
+        self.logTitleLabel.addOn(self.logCardView);
+        self.runtimeLogLabel.addOn(self.logCardView);
+    };
 }
 
 -(UILabel *)demoLabelByFont:(UIFont *)font
@@ -239,46 +280,51 @@ Prop_strong()id runtimeObject;
     });
 }
 
--(void)layoutRuntimeDemoViews{
-    if (!self.contentScrollView.superview || !self.headerCardView.superview) return;
-    self.contentScrollView.byFrame(self.view.bounds);
-    UIEdgeInsets safeAreaInsets = UIEdgeInsetsZero;
-    if (@available(iOS 11.0, *)) {
-        safeAreaInsets = self.view.safeAreaInsets;
-    }
-    CGFloat contentWidth = CGRectGetWidth(self.contentScrollView.bounds) - 32;
-    CGFloat left = 16;
-    CGFloat top = MAX(16, safeAreaInsets.top + 12);
-    self.headerCardView.byFrame(CGRectMake(left, top, contentWidth, 132));
-    self.titleLabel.byFrame(CGRectMake(16, 18, contentWidth - 32, 26));
-    self.subTitleLabel.byFrame(CGRectMake(16, CGRectGetMaxY(self.titleLabel.frame) + 8, contentWidth - 32, 40));
-    self.classNameValueLabel.byFrame(CGRectMake(16, CGRectGetMaxY(self.subTitleLabel.frame) + 12, contentWidth - 32, 22));
-    top = CGRectGetMaxY(self.headerCardView.frame) + 14;
-    CGFloat buttonGap = 10;
-    CGFloat buttonWidth = (contentWidth - buttonGap) / 2;
-    self.runDemoBtn.byFrame(CGRectMake(left, top, buttonWidth, 44));
-    self.messageForwardBtn.byFrame(CGRectMake(CGRectGetMaxX(self.runDemoBtn.frame) + buttonGap, top, buttonWidth, 44));
-    top = CGRectGetMaxY(self.runDemoBtn.frame) + 14;
-    for (NSUInteger idx = 0; idx < self.stepCardMutArr.count; idx++) {
-        UIView *card = self.stepCardMutArr[idx];
-        UIView *accentView = self.stepAccentViewMutArr[idx];
-        UILabel *titleLabel = self.stepTitleLabMutArr[idx];
-        UILabel *detailLabel = self.stepDetailLabMutArr[idx];
-        CGFloat detailWidth = contentWidth - 46;
-        CGSize detailSize = [detailLabel sizeThatFits:CGSizeMake(detailWidth, CGFLOAT_MAX)];
-        CGFloat cardHeight = MAX(94, detailSize.height + 54);
-        card.byFrame(CGRectMake(left, top, contentWidth, cardHeight));
-        accentView.byFrame(CGRectMake(16, 17, 6, 20));
-        titleLabel.byFrame(CGRectMake(32, 14, detailWidth, 24));
-        detailLabel.byFrame(CGRectMake(32, CGRectGetMaxY(titleLabel.frame) + 4, detailWidth, detailSize.height));
-        top = CGRectGetMaxY(card.frame) + 12;
-    }
-    CGSize logSize = [self.runtimeLogLabel sizeThatFits:CGSizeMake(contentWidth - 32, CGFLOAT_MAX)];
-    self.logCardView.byFrame(CGRectMake(left, top, contentWidth, MAX(120, logSize.height + 58)));
-    self.logTitleLabel.byFrame(CGRectMake(16, 14, contentWidth - 32, 24));
-    self.runtimeLogLabel.byFrame(CGRectMake(16, CGRectGetMaxY(self.logTitleLabel.frame) + 8, contentWidth - 32, logSize.height));
-    top = CGRectGetMaxY(self.logCardView.frame) + MAX(24, safeAreaInsets.bottom + 16);
-    self.contentScrollView.contentSize = CGSizeMake(CGRectGetWidth(self.contentScrollView.bounds), top);
+-(jobsByVoidBlock _Nonnull)layoutRuntimeDemoViews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (!self.contentScrollView.superview || !self.headerCardView.superview) return;
+        self.contentScrollView.byFrame(self.view.bounds);
+        UIEdgeInsets safeAreaInsets = UIEdgeInsetsZero;
+        if (@available(iOS 11.0, *)) {
+            safeAreaInsets = self.view.safeAreaInsets;
+        }
+        CGFloat contentWidth = CGRectGetWidth(self.contentScrollView.bounds) - 32;
+        CGFloat left = 16;
+        CGFloat top = MAX(16, safeAreaInsets.top + 12);
+        self.headerCardView.byFrame(CGRectMake(left, top, contentWidth, 132));
+        self.titleLabel.byFrame(CGRectMake(16, 18, contentWidth - 32, 26));
+        self.subTitleLabel.byFrame(CGRectMake(16, CGRectGetMaxY(self.titleLabel.frame) + 8, contentWidth - 32, 40));
+        self.classNameValueLabel.byFrame(CGRectMake(16, CGRectGetMaxY(self.subTitleLabel.frame) + 12, contentWidth - 32, 22));
+        top = CGRectGetMaxY(self.headerCardView.frame) + 14;
+        CGFloat buttonGap = 10;
+        CGFloat buttonWidth = (contentWidth - buttonGap) / 2;
+        self.runDemoBtn.byFrame(CGRectMake(left, top, buttonWidth, 44));
+        self.messageForwardBtn.byFrame(CGRectMake(CGRectGetMaxX(self.runDemoBtn.frame) + buttonGap, top, buttonWidth, 44));
+        top = CGRectGetMaxY(self.runDemoBtn.frame) + 14;
+        for (NSUInteger idx = 0; idx < self.stepCardMutArr.count; idx++) {
+            UIView *card = self.stepCardMutArr[idx];
+            UIView *accentView = self.stepAccentViewMutArr[idx];
+            UILabel *titleLabel = self.stepTitleLabMutArr[idx];
+            UILabel *detailLabel = self.stepDetailLabMutArr[idx];
+            CGFloat detailWidth = contentWidth - 46;
+            CGSize detailSize = [detailLabel sizeThatFits:CGSizeMake(detailWidth, CGFLOAT_MAX)];
+            CGFloat cardHeight = MAX(94, detailSize.height + 54);
+            card.byFrame(CGRectMake(left, top, contentWidth, cardHeight));
+            accentView.byFrame(CGRectMake(16, 17, 6, 20));
+            titleLabel.byFrame(CGRectMake(32, 14, detailWidth, 24));
+            detailLabel.byFrame(CGRectMake(32, CGRectGetMaxY(titleLabel.frame) + 4, detailWidth, detailSize.height));
+            top = CGRectGetMaxY(card.frame) + 12;
+        }
+        CGSize logSize = [self.runtimeLogLabel sizeThatFits:CGSizeMake(contentWidth - 32, CGFLOAT_MAX)];
+        self.logCardView.byFrame(CGRectMake(left, top, contentWidth, MAX(120, logSize.height + 58)));
+        self.logTitleLabel.byFrame(CGRectMake(16, 14, contentWidth - 32, 24));
+        self.runtimeLogLabel.byFrame(CGRectMake(16, CGRectGetMaxY(self.logTitleLabel.frame) + 8, contentWidth - 32, logSize.height));
+        top = CGRectGetMaxY(self.logCardView.frame) + MAX(24, safeAreaInsets.bottom + 16);
+        self.contentScrollView.byContentSize(CGSizeMake(CGRectGetWidth(self.contentScrollView.bounds), top));
+    };
 }
 
 -(void)refreshRuntimeCardDetailsByClass:(Class)cls
@@ -292,12 +338,12 @@ Prop_strong()id runtimeObject;
         [NSString stringWithFormat:@"Ivar：%@\nProperty：%@\n当前 Ivar 列表：%@\n当前属性列表：%@",
          JobsDynamicRegisterDemoIvarName,
          JobsDynamicRegisterDemoPropertyName,
-         [self runtimeNamesTextByArray:[self ivarNamesByClass:cls]],
-         [self runtimeNamesTextByArray:[self propertyNamesByClass:cls]]],
+         self.runtimeNamesTextByArray(self.ivarNamesByClass(cls)),
+         self.runtimeNamesTextByArray(self.propertyNamesByClass(cls))],
         [NSString stringWithFormat:@"Method：%@\nProtocol：%@\n当前方法列表：%@",
          @"setJobsName: / jobsName / test",
-         [self runtimeNamesTextByArray:[self protocolNamesByClass:cls]],
-         [self runtimeNamesTextByArray:[self methodNamesByClass:cls]]],
+         self.runtimeNamesTextByArray(self.protocolNamesByClass(cls)),
+         self.runtimeNamesTextByArray(self.methodNamesByClass(cls))],
         [NSString stringWithFormat:@"Instance：%@\nKVC 写入 / IMP 读取结果：%@\n控制台 JobsLog 会同步打印动态方法调用",
          instance ? NSStringFromClass([instance class]) : @"创建失败",
          jobsName ?: @"nil"]
@@ -310,36 +356,61 @@ Prop_strong()id runtimeObject;
         }
     }];
     self.classNameValueLabel.byText([NSString stringWithFormat:@"Runtime Class：%@", NSStringFromClass(cls)]);
-    [self layoutRuntimeDemoViews];
+    self.layoutRuntimeDemoViews();
 }
 
--(void)appendRuntimeLog:(NSString *)logText{
-    if (!logText.length) return;
-    [self.runtimeLogMutArr addObject:[NSString stringWithFormat:@"- %@",logText]];
-    self.runtimeLogLabel.byText([self.runtimeLogMutArr componentsJoinedByString:@"\n"]);
-    [self layoutRuntimeDemoViews];
+-(jobsByStrBlock _Nonnull)appendRuntimeLog{
+    @jobs_weakify(self)
+    return ^(NSString * logText){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (!logText.length) return;
+        [self.runtimeLogMutArr addObject:[NSString stringWithFormat:@"- %@",logText]];
+        self.runtimeLogLabel.byText([self.runtimeLogMutArr componentsJoinedByString:@"\n"]);
+        self.layoutRuntimeDemoViews();
+    };
 }
 
--(void)clearRuntimeLog{
-    [self.runtimeLogMutArr removeAllObjects];
-    self.runtimeLogLabel.byText(nil);
+-(jobsByVoidBlock _Nonnull)clearRuntimeLog{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self.runtimeLogMutArr removeAllObjects];
+        self.runtimeLogLabel.byText(nil);
+    };
 }
 #pragma mark —— Actions
--(void)runDemoAction{
-    [self work];
+-(jobsByVoidBlock _Nonnull)runDemoAction{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.work();
+    };
 }
 
--(void)messageForwardAction{
-    [self triggerMessageForwardDemo];
+-(jobsByVoidBlock _Nonnull)messageForwardAction{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.triggerMessageForwardDemo();
+    };
 }
 
--(void)triggerMessageForwardDemo{
-    [self appendRuntimeLog:@"触发 OCDynamic 的动态方法解析和 DynamicInvoke 示例"];
-    [OCDynamic Test];
-    OCDynamic *dynamic = OCDynamic.new;
-    [dynamic test];
-    DynamicInvoke.new;
-    [self appendRuntimeLog:@"OCDynamic Test / test / DynamicInvoke 已触发，详情看控制台 JobsLog"];
+-(jobsByVoidBlock _Nonnull)triggerMessageForwardDemo{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.appendRuntimeLog(@"触发 OCDynamic 的动态方法解析和 DynamicInvoke 示例");
+        [OCDynamic Test];
+        OCDynamic *dynamic = OCDynamic.new;
+        [dynamic test];
+        DynamicInvoke.new;
+        self.appendRuntimeLog(@"OCDynamic Test / test / DynamicInvoke 已触发，详情看控制台 JobsLog");
+    };
 }
 /**
  参考资料：https://www.iloveanan.com/new-prototype-of-objc_msgsend.html
@@ -367,102 +438,127 @@ Prop_strong()id runtimeObject;
  2、对 Mac 平台，使用可变参数形式的 objc_msgSend 时要注意避免 float 参数
 
  */
--(void)msgSend{
-    /// macOS升级到10.15后，宏OBJC_OLD_DISPATCH_PROTOTYPES的值变为0，导致objc_msgSend 定义发生变化
-    /// 使用 objc_msgSend 的时候，要需要将Xcode中build setting中的 Enbale Strict of Checking of objc_msgSend Calls 设置为 NO。这样才不会报警告。（搜索objc_msgSend）
-    /// 无返回值的调用
-    ((void (*)(id, SEL, float)) objc_msgSend)(self, @selector(sendObjMsg:), (float)M_PI);
-    /// 有返回值的调用，需要注明返回类型
-    id f = ((NSString * (*)(id, SEL, float)) objc_msgSend)(self, @selector(sendObjMsg:), (float)M_PI);
-    JobsLog(@"%@",f);
+-(jobsByVoidBlock _Nonnull)msgSend{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        /// macOS升级到10.15后，宏OBJC_OLD_DISPATCH_PROTOTYPES的值变为0，导致objc_msgSend 定义发生变化
+        /// 使用 objc_msgSend 的时候，要需要将Xcode中build setting中的 Enbale Strict of Checking of objc_msgSend Calls 设置为 NO。这样才不会报警告。（搜索objc_msgSend）
+        /// 无返回值的调用
+        ((void (*)(id, SEL, float)) objc_msgSend)(self, @selector(sendObjMsg:), (float)M_PI);
+        /// 有返回值的调用，需要注明返回类型
+        id f = ((NSString * (*)(id, SEL, float)) objc_msgSend)(self, @selector(sendObjMsg:), (float)M_PI);
+        JobsLog(@"%@",f);
+    };
 }
 
 -(NSString *)sendObjMsg: (float)x{
-    JobsLog(@"%f",x);
-    return @"Jobs";
+    JobsRetNSStringByfloatBlock action = ((JobsRetNSStringByfloatBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(OCDynamicRegisterVC.class, @selector(jobsSendObjMsg)))(self, @selector(jobsSendObjMsg));
+    return action ? action(x) : nil;
 }
 
--(void)work{
-    [self clearRuntimeLog];
-    [self appendRuntimeLog:@"开始执行 Runtime 动态注册流程"];
-    BOOL needsCreate = NSClassFromString(JobsDynamicRegisterDemoClassName) == Nil;
-    Class MyClass = [self createClass:JobsDynamicRegisterDemoClassName];
-    if (!MyClass) {
-        [self appendRuntimeLog:@"动态类创建失败，流程终止"];
-        return;
-    }
-    if (needsCreate) {
-        [self appendRuntimeLog:[NSString stringWithFormat:@"创建 Class：%@",JobsDynamicRegisterDemoClassName]];
-        [self appendRuntimeLog:[NSString stringWithFormat:@"添加 Ivar：%@",JobsDynamicRegisterDemoIvarName]];
-        [self addIvarStr:JobsDynamicRegisterDemoIvarName
-                 toClass:MyClass];
-        [self appendRuntimeLog:[NSString stringWithFormat:@"添加 Property：%@",JobsDynamicRegisterDemoPropertyName]];
-        [self addProperty:JobsDynamicRegisterDemoPropertyName
-                  toClass:MyClass
-              backingIvar:JobsDynamicRegisterDemoIvarName];
-        [self appendRuntimeLog:@"添加 setter / getter / test 方法"];
-        [self addMethodToClass:MyClass];
-        [self appendRuntimeLog:@"添加 NSCopying 协议标记"];
-        [self addProtocolToClass:MyClass];
-        [self registerClass:MyClass];
-        [self appendRuntimeLog:@"objc_registerClassPair 完成"];
-    }else{
-        [self appendRuntimeLog:@"动态类已经注册，本次直接复用"];
-    }
-    id myobjc = [self createInstanceByClass:JobsDynamicRegisterDemoClassName];
-    self.runtimeObject = myobjc;
-    NSString *jobsNameValue = @"我是 Jobs 动态对象";
-    SEL setterSEL = NSSelectorFromString(@"setJobsName:");
-    if ([myobjc respondsToSelector:setterSEL]) {
-        [myobjc setValue:jobsNameValue
-                  forKey:JobsDynamicRegisterDemoPropertyName];
-        [self appendRuntimeLog:[NSString stringWithFormat:@"KVC 写入 jobsName：%@",jobsNameValue]];
-    }
-    NSString *currentJobsName = nil;
-    SEL getterSEL = NSSelectorFromString(JobsDynamicRegisterDemoPropertyName);
-    if ([myobjc respondsToSelector:getterSEL]) {
-        IMP getterIMP = [myobjc methodForSelector:getterSEL];
-        NSString *(*getterFunc)(id, SEL) = (void *)getterIMP;
-        currentJobsName = getterFunc(myobjc, getterSEL);
-        [self appendRuntimeLog:[NSString stringWithFormat:@"IMP 读取 jobsName：%@",currentJobsName]];
-    }
-    SEL testSEL = NSSelectorFromString(@"test");
-    if ([myobjc respondsToSelector:testSEL]) {
-        IMP testIMP = [myobjc methodForSelector:testSEL];
-        void (*testFunc)(id, SEL) = (void *)testIMP;
-        testFunc(myobjc, testSEL);
-        [self appendRuntimeLog:@"动态 test 方法调用成功"];
-    }
-    [self refreshRuntimeCardDetailsByClass:MyClass
-                                  instance:myobjc
-                                  jobsName:currentJobsName];
+-(JobsRetNSStringByfloatBlock _Nonnull)jobsSendObjMsg{
+    @jobs_weakify(self)
+    return ^NSString *(float x){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        JobsLog(@"%f",x);
+        return @"Jobs";
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)work{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.clearRuntimeLog();
+        self.appendRuntimeLog(@"开始执行 Runtime 动态注册流程");
+        BOOL needsCreate = NSClassFromString(JobsDynamicRegisterDemoClassName) == Nil;
+        Class MyClass = self.createClass(JobsDynamicRegisterDemoClassName);
+        if (!MyClass) {
+            self.appendRuntimeLog(@"动态类创建失败，流程终止");
+            return;
+        }
+        if (needsCreate) {
+            self.appendRuntimeLog([NSString stringWithFormat:@"创建 Class：%@",JobsDynamicRegisterDemoClassName]);
+            self.appendRuntimeLog([NSString stringWithFormat:@"添加 Ivar：%@",JobsDynamicRegisterDemoIvarName]);
+            [self addIvarStr:JobsDynamicRegisterDemoIvarName
+                     toClass:MyClass];
+            self.appendRuntimeLog([NSString stringWithFormat:@"添加 Property：%@",JobsDynamicRegisterDemoPropertyName]);
+            [self addProperty:JobsDynamicRegisterDemoPropertyName
+                      toClass:MyClass
+                  backingIvar:JobsDynamicRegisterDemoIvarName];
+            self.appendRuntimeLog(@"添加 setter / getter / test 方法");
+            self.addMethodToClass(MyClass);
+            self.appendRuntimeLog(@"添加 NSCopying 协议标记");
+            self.addProtocolToClass(MyClass);
+            self.registerClass(MyClass);
+            self.appendRuntimeLog(@"objc_registerClassPair 完成");
+        }else{
+            self.appendRuntimeLog(@"动态类已经注册，本次直接复用");
+        }
+        id myobjc = self.createInstanceByClass(JobsDynamicRegisterDemoClassName);
+        self.byRuntimeObject(myobjc);
+        NSString *jobsNameValue = @"我是 Jobs 动态对象";
+        SEL setterSEL = NSSelectorFromString(@"setJobsName:");
+        if ([myobjc respondsToSelector:setterSEL]) {
+            [myobjc setValue:jobsNameValue
+                      forKey:JobsDynamicRegisterDemoPropertyName];
+            self.appendRuntimeLog([NSString stringWithFormat:@"KVC 写入 jobsName：%@",jobsNameValue]);
+        }
+        NSString *currentJobsName = nil;
+        SEL getterSEL = NSSelectorFromString(JobsDynamicRegisterDemoPropertyName);
+        if ([myobjc respondsToSelector:getterSEL]) {
+            IMP getterIMP = [myobjc methodForSelector:getterSEL];
+            NSString *(*getterFunc)(id, SEL) = (void *)getterIMP;
+            currentJobsName = getterFunc(myobjc, getterSEL);
+            self.appendRuntimeLog([NSString stringWithFormat:@"IMP 读取 jobsName：%@",currentJobsName]);
+        }
+        SEL testSEL = NSSelectorFromString(@"test");
+        if ([myobjc respondsToSelector:testSEL]) {
+            IMP testIMP = [myobjc methodForSelector:testSEL];
+            void (*testFunc)(id, SEL) = (void *)testIMP;
+            testFunc(myobjc, testSEL);
+            self.appendRuntimeLog(@"动态 test 方法调用成功");
+        }
+        [self refreshRuntimeCardDetailsByClass:MyClass
+                                      instance:myobjc
+                                      jobsName:currentJobsName];
+    };
 }
 #pragma mark —— 一些私有方法
 /// 动态创建类并添加：成员变量、属性、方法、协议
--(Class)createClass:(NSString *)className {
-    Class existClass = NSClassFromString(className);
-    if (existClass) {
-        newClass = existClass;
-        return existClass;
-    }
-    /// ❤️添加一个继承 OCDynamic 的类 类名是 className；注意：调用的 C 语言的方法 所以不要使用 @"".tr 表示字符串 应该使用 ""❤️
-    /// 我们如果使用 objc_allocateClassPair 函数来创建一个类对象失败了，那么 objc_allocateClassPair 就会返回 Nil。如果所要创建的类已经存在了，那么就会返回 Nil.
-    newClass = objc_allocateClassPair(OCDynamic.class,/// 第一个参数是父类对象，如果传nil那么新创建的类就是跟NSObject同等级别的根类对象;
-                                      className.UTF8String,/// 第二个参数是本类类名;
-                                      0);/// 第三个参数是初始的内存空间大小;
-    return newClass;
-/*
- 1、objc_registerClassPair函数是将创建的类对象加载到内存，加载完成之后，本类中的ro就已经确定了;
- 2、我们知道，ro是只读的，它在确定之后就不可以动态增加内容了，如果我们想在运行时增加一些内容，只能是往rw中去增加;
- 3、存储成员变量的数组ivars只在ro中有，rw中是没有ivars的;
- 4、因此，成员变量在ro初始化了之后就不能再继续动态新增了;
- 5、所以，必须在ro初始化之前（即在调用objc_registerClassPair函数之前）完成成员变量的定义;
- 6、rw的结构，可以看到是有methods、properties和protocols三个变量的
+-(JobsRetClassByNSStringBlock _Nonnull)createClass{
+    @jobs_weakify(self)
+    return ^Class(NSString * className){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        Class existClass = NSClassFromString(className);
+        if (existClass) {
+            newClass = existClass;
+            return existClass;
+        }
+        /// ❤️添加一个继承 OCDynamic 的类 类名是 className；注意：调用的 C 语言的方法 所以不要使用 @"".jobsTr() 表示字符串 应该使用 ""❤️
+        /// 我们如果使用 objc_allocateClassPair 函数来创建一个类对象失败了，那么 objc_allocateClassPair 就会返回 Nil。如果所要创建的类已经存在了，那么就会返回 Nil.
+        newClass = objc_allocateClassPair(OCDynamic.class,/// 第一个参数是父类对象，如果传nil那么新创建的类就是跟NSObject同等级别的根类对象;
+                                          className.UTF8String,/// 第二个参数是本类类名;
+                                          0);/// 第三个参数是初始的内存空间大小;
+        return newClass;
+    /*
+     1、objc_registerClassPair函数是将创建的类对象加载到内存，加载完成之后，本类中的ro就已经确定了;
+     2、我们知道，ro是只读的，它在确定之后就不可以动态增加内容了，如果我们想在运行时增加一些内容，只能是往rw中去增加;
+     3、存储成员变量的数组ivars只在ro中有，rw中是没有ivars的;
+     4、因此，成员变量在ro初始化了之后就不能再继续动态新增了;
+     5、所以，必须在ro初始化之前（即在调用objc_registerClassPair函数之前）完成成员变量的定义;
+     6、rw的结构，可以看到是有methods、properties和protocols三个变量的
 
- 结论：
- 1、【在类注册完成之后，不可以继续添加成员变量了】
- 2、【所以，在类注册完成之后，可以继续添加方法、属性和协议】
- */
+     结论：
+     1、【在类注册完成之后，不可以继续添加成员变量了】
+     2、【所以，在类注册完成之后，可以继续添加方法、属性和协议】
+     */
+    };
 }
 /// 【添加属性】
 -(BOOL)addProperty:(NSString *)propertyName
@@ -474,26 +570,36 @@ Prop_strong()id runtimeObject;
                                                 backingIvar.UTF8String);
 }
 /// 【添加方法】
--(BOOL)addMethodToClass:(Class)cls{
-    if (!cls) return NO;
-    BOOL setterAdded = class_addMethod(cls,
-                                       @selector(setJobsName:),
-                                       (IMP)JobsDynamicRegisterDemoSetJobsName,
-                                       "v@:@");
-    BOOL getterAdded = class_addMethod(cls,
-                                       @selector(jobsName),
-                                       (IMP)JobsDynamicRegisterDemoJobsName,
-                                       "@@:");
-    BOOL testAdded = class_addMethod(cls,/// 第一个参数是在哪个类中添加方法
-                                     @selector(test),/// 第二个参数是所添加方法的编号SEL
-                                     (IMP)JobsDynamicRegisterDemoTest,/// 第三个参数是所添加方法的函数实现的指针IMP
-                                     "v@:");/// 第四个参数是所添加方法的签名
-    return setterAdded && getterAdded && testAdded;
+-(JobsRetBOOLByClassBlock _Nonnull)addMethodToClass{
+    @jobs_weakify(self)
+    return ^BOOL(Class cls){
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        if (!cls) return NO;
+        BOOL setterAdded = class_addMethod(cls,
+                                           @selector(setJobsName:),
+                                           (IMP)JobsDynamicRegisterDemoSetJobsName,
+                                           "v@:@");
+        BOOL getterAdded = class_addMethod(cls,
+                                           @selector(jobsName),
+                                           (IMP)JobsDynamicRegisterDemoJobsName,
+                                           "@@:");
+        BOOL testAdded = class_addMethod(cls,/// 第一个参数是在哪个类中添加方法
+                                         @selector(test),/// 第二个参数是所添加方法的编号SEL
+                                         (IMP)JobsDynamicRegisterDemoTest,/// 第三个参数是所添加方法的函数实现的指针IMP
+                                         "v@:");/// 第四个参数是所添加方法的签名
+        return setterAdded && getterAdded && testAdded;
+    };
 }
 /// 【添加协议】❤️
--(BOOL)addProtocolToClass:(Class)cls{
-    if (!cls) return NO;
-    return class_addProtocol(cls, @protocol(NSCopying));
+-(JobsRetBOOLByClassBlock _Nonnull)addProtocolToClass{
+    @jobs_weakify(self)
+    return ^BOOL(Class cls){
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        if (!cls) return NO;
+        return class_addProtocol(cls, @protocol(NSCopying));
+    };
 }
 /// 【添加成员变量NSString *】
 -(BOOL)addIvarStr:(NSString *)ivarName
@@ -508,74 +614,112 @@ Prop_strong()id runtimeObject;
 }
 /// 注册到内存
 -(BOOL)registerClass:(Class)cls{
-    if (!cls) return NO;
-    NSString *className = NSStringFromClass(cls);
-    if (NSClassFromString(className)) return YES;
-    objc_registerClassPair(cls);
-    return NSClassFromString(className) != Nil;
+    return ((((JobsRetBOOLByClassBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(OCDynamicRegisterVC.class, @selector(registerClass)))(self, @selector(registerClass))))(cls);
+}
+-(JobsRetBOOLByClassBlock _Nonnull)registerClass{
+    @jobs_weakify(self)
+    return ^BOOL(Class cls){
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        if (!cls) return NO;
+        NSString *className = NSStringFromClass(cls);
+        if (NSClassFromString(className)) return YES;
+        objc_registerClassPair(cls);
+        return NSClassFromString(className) != Nil;
+    };
 }
 /// 生成类的实例
--(id)createInstanceByClass:(NSString *)className {
-    Class targetClass = NSClassFromString(className);
-    if (!targetClass) return nil;
-    id intanceOfClass = targetClass.new;
-    [self appendRuntimeLog:[NSString stringWithFormat:@"实例创建：%@",NSStringFromClass([intanceOfClass class])]];
-    return intanceOfClass;
+-(JobsRetIDByStrBlock _Nonnull)createInstanceByClass{
+    @jobs_weakify(self)
+    return ^id(NSString * className){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        Class targetClass = NSClassFromString(className);
+        if (!targetClass) return nil;
+        id intanceOfClass = targetClass.new;
+        self.appendRuntimeLog([NSString stringWithFormat:@"实例创建：%@",NSStringFromClass([intanceOfClass class])]);
+        return intanceOfClass;
+    };
 }
--(NSArray <NSString *>*)propertyNamesByClass:(Class)cls{
-    if (!cls) return @[];
-    unsigned int count = 0;
-    objc_property_t *propertyList = class_copyPropertyList(cls, &count);
-    NSMutableArray <NSString *>*names = NSMutableArray.array;
-    for (unsigned int i = 0; i < count; i++) {
-        const char *name = property_getName(propertyList[i]);
-        if (name) [names addObject:[NSString stringWithUTF8String:name]];
-    }
-    free(propertyList);
-    return [names sortedArrayUsingSelector:@selector(compare:)];
-}
-
--(NSArray <NSString *>*)ivarNamesByClass:(Class)cls{
-    if (!cls) return @[];
-    unsigned int count = 0;
-    Ivar *ivarList = class_copyIvarList(cls, &count);
-    NSMutableArray <NSString *>*names = NSMutableArray.array;
-    for (unsigned int i = 0; i < count; i++) {
-        const char *name = ivar_getName(ivarList[i]);
-        if (name) [names addObject:[NSString stringWithUTF8String:name]];
-    }
-    free(ivarList);
-    return [names sortedArrayUsingSelector:@selector(compare:)];
+-(JobsRetNSArrayNSStringByClassBlock _Nonnull)propertyNamesByClass{
+    @jobs_weakify(self)
+    return ^NSArray <NSString *>*(Class cls){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (!cls) return @[];
+        unsigned int count = 0;
+        objc_property_t *propertyList = class_copyPropertyList(cls, &count);
+        NSMutableArray <NSString *>*names = NSMutableArray.array;
+        for (unsigned int i = 0; i < count; i++) {
+            const char *name = property_getName(propertyList[i]);
+            if (name) [names addObject:[NSString stringWithUTF8String:name]];
+        }
+        free(propertyList);
+        return [names sortedArrayUsingSelector:@selector(compare:)];
+    };
 }
 
--(NSArray <NSString *>*)methodNamesByClass:(Class)cls{
-    if (!cls) return @[];
-    unsigned int count = 0;
-    Method *methodList = class_copyMethodList(cls, &count);
-    NSMutableArray <NSString *>*names = NSMutableArray.array;
-    for (unsigned int i = 0; i < count; i++) {
-        SEL sel = method_getName(methodList[i]);
-        if (sel) [names addObject:NSStringFromSelector(sel)];
-    }
-    free(methodList);
-    return [names sortedArrayUsingSelector:@selector(compare:)];
+-(JobsRetNSArrayNSStringByClassBlock _Nonnull)ivarNamesByClass{
+    @jobs_weakify(self)
+    return ^NSArray <NSString *>*(Class cls){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (!cls) return @[];
+        unsigned int count = 0;
+        Ivar *ivarList = class_copyIvarList(cls, &count);
+        NSMutableArray <NSString *>*names = NSMutableArray.array;
+        for (unsigned int i = 0; i < count; i++) {
+            const char *name = ivar_getName(ivarList[i]);
+            if (name) [names addObject:[NSString stringWithUTF8String:name]];
+        }
+        free(ivarList);
+        return [names sortedArrayUsingSelector:@selector(compare:)];
+    };
 }
 
--(NSArray <NSString *>*)protocolNamesByClass:(Class)cls{
-    if (!cls) return @[];
-    unsigned int count = 0;
-    Protocol *__unsafe_unretained *protocolList = class_copyProtocolList(cls, &count);
-    NSMutableArray <NSString *>*names = NSMutableArray.array;
-    for (unsigned int i = 0; i < count; i++) {
-        const char *name = protocol_getName(protocolList[i]);
-        if (name) [names addObject:[NSString stringWithUTF8String:name]];
-    }
-    free(protocolList);
-    return [names sortedArrayUsingSelector:@selector(compare:)];
+-(JobsRetNSArrayNSStringByClassBlock _Nonnull)methodNamesByClass{
+    @jobs_weakify(self)
+    return ^NSArray <NSString *>*(Class cls){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (!cls) return @[];
+        unsigned int count = 0;
+        Method *methodList = class_copyMethodList(cls, &count);
+        NSMutableArray <NSString *>*names = NSMutableArray.array;
+        for (unsigned int i = 0; i < count; i++) {
+            SEL sel = method_getName(methodList[i]);
+            if (sel) [names addObject:NSStringFromSelector(sel)];
+        }
+        free(methodList);
+        return [names sortedArrayUsingSelector:@selector(compare:)];
+    };
 }
 
--(NSString *)runtimeNamesTextByArray:(NSArray <NSString *>*)array{
-    return array.count ? [array componentsJoinedByString:@"、"] : @"无";
+-(JobsRetNSArrayNSStringByClassBlock _Nonnull)protocolNamesByClass{
+    @jobs_weakify(self)
+    return ^NSArray <NSString *>*(Class cls){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (!cls) return @[];
+        unsigned int count = 0;
+        Protocol *__unsafe_unretained *protocolList = class_copyProtocolList(cls, &count);
+        NSMutableArray <NSString *>*names = NSMutableArray.array;
+        for (unsigned int i = 0; i < count; i++) {
+            const char *name = protocol_getName(protocolList[i]);
+            if (name) [names addObject:[NSString stringWithUTF8String:name]];
+        }
+        free(protocolList);
+        return [names sortedArrayUsingSelector:@selector(compare:)];
+    };
+}
+
+-(JobsRetNSStringByNSArrayNSStringBlock _Nonnull)runtimeNamesTextByArray{
+    @jobs_weakify(self)
+    return ^NSString *(NSArray <NSString *>* array){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return array.count ? [array componentsJoinedByString:@"、"] : @"无";
+    };
 }
 
 -(void)知识点{
@@ -629,7 +773,7 @@ Prop_strong()id runtimeObject;
         _titleLabel = [self demoLabelByFont:UIFontWeightBoldSize(20)
                                       color:HEXCOLOR(0x2B3340)
                               numberOfLines:1];
-        _titleLabel.byText(@"OC Runtime 动态注册".tr);
+        _titleLabel.byText(@"OC Runtime 动态注册".jobsTr());
     };return _titleLabel;
 }
 
@@ -638,7 +782,7 @@ Prop_strong()id runtimeObject;
         _subTitleLabel = [self demoLabelByFont:UIFontSystemFontOfSize(13)
                                          color:HEXCOLOR(0x667085)
                                  numberOfLines:2];
-        _subTitleLabel.byText(@"演示 objc_allocateClassPair、class_addIvar、class_addProperty、class_addMethod 和 objc_registerClassPair 的完整流程。".tr);
+        _subTitleLabel.byText(@"演示 objc_allocateClassPair、class_addIvar、class_addProperty、class_addMethod 和 objc_registerClassPair 的完整流程。".jobsTr());
     };return _subTitleLabel;
 }
 
@@ -648,7 +792,7 @@ Prop_strong()id runtimeObject;
                                                color:HEXCOLOR(0x1F7A53)
                                        numberOfLines:1];
         _classNameValueLabel
-            .byText(@"Runtime Class：等待执行".tr)
+            .byText(@"Runtime Class：等待执行".jobsTr())
             .byAdjustsFontSizeToFitWidth(YES)
             .byMinimumScaleFactor(0.72);
     };return _classNameValueLabel;
@@ -671,7 +815,7 @@ Prop_strong()id runtimeObject;
         _logTitleLabel = [self demoLabelByFont:UIFontWeightSemiboldSize(15)
                                          color:JobsWhiteColor
                                  numberOfLines:1];
-        _logTitleLabel.byText(@"执行日志".tr);
+        _logTitleLabel.byText(@"执行日志".jobsTr());
     };return _logTitleLabel;
 }
 
@@ -689,7 +833,7 @@ Prop_strong()id runtimeObject;
         _runDemoBtn = [self demoButtonByTitle:@"重新执行注册流程"
                               backgroundColor:RGBA_COLOR(0.20 * 255.0, 0.49 * 255.0, 0.95 * 255.0, 1)
                                        action:^(__kindof UIButton * _Nullable button) {
-            [weak_self runDemoAction];
+            weak_self.runDemoAction();
         }];
     };return _runDemoBtn;
 }
@@ -700,7 +844,7 @@ Prop_strong()id runtimeObject;
         _messageForwardBtn = [self demoButtonByTitle:@"触发消息转发"
                                      backgroundColor:RGBA_COLOR(0.93 * 255.0, 0.42 * 255.0, 0.21 * 255.0, 1)
                                               action:^(__kindof UIButton * _Nullable button) {
-            [weak_self messageForwardAction];
+            weak_self.messageForwardAction();
         }];
     };return _messageForwardBtn;
 }
@@ -735,4 +879,14 @@ Prop_strong()id runtimeObject;
     };return _runtimeLogMutArr;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN OCDynamicRegisterVC
+-(JobsRetOCDynamicRegisterVCByIDBlock _Nonnull)byRuntimeObject{
+    @jobs_weakify(self)
+    return ^__kindof OCDynamicRegisterVC * _Nullable(id _Nullable data){
+        @jobs_strongify(self)
+        [self setRuntimeObject:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END OCDynamicRegisterVC
 @end

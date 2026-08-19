@@ -27,7 +27,15 @@ Prop_assign()uint64_t debounceGen;      // for debounce
 Prop_weak()UIControl *boundControl;
 Prop_assign()UIControlEvents event;     // 单一事件
 
+-(JobsRetJobsControlTargetByJobsByCtrlBlock _Nonnull)byBlock;
+-(JobsRetJobsControlTargetByPolicyBlock _Nonnull)byPolicy;
+-(JobsRetJobsControlTargetByTimeIntervalBlock _Nonnull)byInterval;
+-(JobsRetJobsControlTargetByTimeIntervalBlock _Nonnull)byLastFire;
+-(JobsRetJobsControlTargetByUInt64Block _Nonnull)byDebounceGen;
+-(JobsRetJobsControlTargetByControlBlock _Nonnull)byBoundControl;
+-(JobsRetJobsControlTargetByControlEventsBlock _Nonnull)byEvent;
 -(void)invoke:(__kindof UIControl *)sender;
+-(jobsByCtrlBlock _Nonnull)jobsInvoke;
 
 @end
 

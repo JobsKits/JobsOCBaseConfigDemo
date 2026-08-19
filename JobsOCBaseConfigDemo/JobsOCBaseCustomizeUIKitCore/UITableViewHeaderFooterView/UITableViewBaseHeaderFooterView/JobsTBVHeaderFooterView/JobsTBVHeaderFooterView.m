@@ -6,6 +6,7 @@
 //
 
 #import "JobsTBVHeaderFooterView.h"
+
 #import "BaseButton.h"
 #import "UIButton+SimplyMake.h"
 #import "UIButton+Extra.h"
@@ -30,7 +31,7 @@ Prop_strong()BaseButton *subTitleBtn;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
+        self.byViewModel(model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {}));
         self.titleLab.byAlpha(1);
         self.subTitleBtn.byAlpha(1);
         self.contentView.byBgColor(self.viewModel.bgCor);
@@ -43,12 +44,22 @@ Prop_strong()BaseButton *subTitleBtn;
     };
 }
 #pragma mark —— 一些公共方法
--(UILabel *)getTitleLab{
-    return self.titleLab;
+-(JobsRetLabelByVoidBlock _Nonnull)getTitleLab{
+    @jobs_weakify(self)
+    return ^UILabel *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.titleLab;
+    };
 }
 
--(BaseButton *)getSubTitleBtn{
-    return self.subTitleBtn;
+-(JobsRetBaseButtonByVoidBlock _Nonnull)getSubTitleBtn{
+    @jobs_weakify(self)
+    return ^BaseButton *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.subTitleBtn;
+    };
 }
 #pragma mark —— lazyLoad
 -(UILabel *)titleLab{

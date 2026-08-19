@@ -8,12 +8,22 @@
 #import "CustomBtnImageTrailingVC.h"
 
 @implementation CustomBtnImageTrailingVC
--(NSString *)demoTitle{
-    return @"image右、label左".tr;
+-(JobsRetStrByVoidBlock _Nonnull)demoTitle{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"image右、label左".jobsTr();
+    };
 }
 
--(NSString *)demoSubTitle{
-    return @"图标放到 trailing，标题自然落在 leading。".tr;
+-(JobsRetStrByVoidBlock _Nonnull)demoSubTitle{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"图标放到 trailing，标题自然落在 leading。".jobsTr();
+    };
 }
 
 -(NSDirectionalRectEdge)imagePlacement{

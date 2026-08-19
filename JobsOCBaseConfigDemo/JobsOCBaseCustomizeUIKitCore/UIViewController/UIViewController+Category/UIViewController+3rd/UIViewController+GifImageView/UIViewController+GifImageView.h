@@ -6,12 +6,6 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_GIFIMAGEVIEW_9842C8EE9C
-#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_GIFIMAGEVIEW_9842C8EE9C
-
-#import <objc/runtime.h>
-#import <UIKit/UIKit.h>
-#import "NSString+Path.h"
-#import "JobsString.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
@@ -24,6 +18,13 @@
 #else
 #import "SDWebImage.h"
 #endif
+
+#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_GIFIMAGEVIEW_9842C8EE9C
+
+#import <objc/runtime.h>
+#import <UIKit/UIKit.h>
+#import "NSString+Path.h"
+#import "JobsString.h"
 
 #import "JobsMakes.h"
 #import "JobsBlock.h"

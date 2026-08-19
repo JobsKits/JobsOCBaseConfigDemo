@@ -172,13 +172,27 @@ static BOOL _pk_swizzleMethod(Class class, SEL origSel_, SEL altSel_) {
 
 @implementation NSObject (PKExtendedProtocol)
 + (BOOL)_pk_resolveInstanceMethod:(SEL)sel {
-    _jobs_pk_extension_try_inject_entry_class(self);
-    return [self _pk_resolveInstanceMethod:sel];
+    JobsRetBOOLBySELBlock action = ((JobsRetBOOLBySELBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(NSObject.class, @selector(jobs_pk_resolveInstanceMethod)))(self, @selector(jobs_pk_resolveInstanceMethod));
+    return action ? action(sel) : NO;
+}
+
++(JobsRetBOOLBySELBlock _Nonnull)jobs_pk_resolveInstanceMethod{
+    return ^BOOL(SEL sel){
+        _jobs_pk_extension_try_inject_entry_class(self);
+        return [self _pk_resolveInstanceMethod:sel];
+    };
 }
 
 + (BOOL)_pk_resolveClassMethod:(SEL)sel {
-    _jobs_pk_extension_try_inject_entry_class(self);
-    return [self _pk_resolveClassMethod:sel];
+    JobsRetBOOLBySELBlock action = ((JobsRetBOOLBySELBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(NSObject.class, @selector(jobs_pk_resolveClassMethod)))(self, @selector(jobs_pk_resolveClassMethod));
+    return action ? action(sel) : NO;
+}
+
++(JobsRetBOOLBySELBlock _Nonnull)jobs_pk_resolveClassMethod{
+    return ^BOOL(SEL sel){
+        _jobs_pk_extension_try_inject_entry_class(self);
+        return [self _pk_resolveClassMethod:sel];
+    };
 }
 
 @end

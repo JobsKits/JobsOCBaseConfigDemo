@@ -10,6 +10,18 @@
 
 #import "JobsOCCalendarAppearance.h"
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsOCCalendarDayCell : UIControl
@@ -21,6 +33,8 @@ Prop_strong(readonly)UILabel *subtitleLabel;
 Prop_strong(readonly)UIImageView *imageView;
 Prop_strong(readonly)UIView *eventDotView;
 
+-(JobsRetJobsOCCalendarDayCellByDateBlock _Nonnull)byDate;
+
 -(void)jobsConfigureByTitle:(nullable NSString *)title
                    subtitle:(nullable NSString *)subtitle
                       image:(nullable UIImage *)image
@@ -31,6 +45,9 @@ Prop_strong(readonly)UIView *eventDotView;
                       today:(BOOL)today
                 eventsCount:(NSInteger)eventsCount;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCCalendarDayCell
+-(JobsRetJobsOCCalendarDayCellByJobsOCCalendarMonthPositionBlock _Nonnull)byMonthPosition;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCCalendarDayCell
 @end
 
 NS_ASSUME_NONNULL_END

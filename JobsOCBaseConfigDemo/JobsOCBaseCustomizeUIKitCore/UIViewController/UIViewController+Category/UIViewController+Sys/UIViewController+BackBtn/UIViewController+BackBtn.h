@@ -6,17 +6,6 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_BACKBTN_D0EE395176
-#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_BACKBTN_D0EE395176
-
-#import <objc/runtime.h>
-#import <UIKit/UIKit.h>
-#import "UIButton+ImageTitleSpacing.h"
-#import "UIButton+SimplyMake.h"
-#import "UIButton+UI.h"
-#import "BaseButton.h"
-#import "NSObject+image.h"
-#import "NSObject+Extra.h"
-#import "UIBarButtonItem+Extra.h"
 
 #if __has_include(<GKNavigationBar/GKNavigationBar.h>)
 #import <GKNavigationBar/GKNavigationBar.h>
@@ -29,6 +18,18 @@
 #else
 #import "ReactiveObjC.h"
 #endif
+
+#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_BACKBTN_D0EE395176
+
+#import <objc/runtime.h>
+#import <UIKit/UIKit.h>
+#import "UIButton+ImageTitleSpacing.h"
+#import "UIButton+SimplyMake.h"
+#import "UIButton+UI.h"
+#import "BaseButton.h"
+#import "NSObject+image.h"
+#import "NSObject+Extra.h"
+#import "UIBarButtonItem+Extra.h"
 
 #import "JobsBaseProtocolHeader.h"
 #import "JobsLoadingImageHeader.h"

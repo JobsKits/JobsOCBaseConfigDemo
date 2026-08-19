@@ -6,11 +6,6 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_JXPAGERVIEWLISTVIEWDELEGATE_75CB49663B
-#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_JXPAGERVIEWLISTVIEWDELEGATE_75CB49663B
-
-#import <objc/runtime.h>
-#import <UIKit/UIKit.h>
-#import "JobsOCDSL.h"
 
 #if __has_include(<JXPagingView/JXPagerView.h>)
 #import <JXPagingView/JXPagerView.h>
@@ -23,6 +18,12 @@
 #else
 #import "Masonry.h"
 #endif
+
+#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_JXPAGERVIEWLISTVIEWDELEGATE_75CB49663B
+
+#import <objc/runtime.h>
+#import <UIKit/UIKit.h>
+#import "JobsOCDSL.h"
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"
@@ -38,6 +39,10 @@ UIScrollViewDelegate
 Prop_strong()UIScrollView *scrollView;//这个属性一旦有值，说明开启UITableViewHeaderFooterView不悬停。系统在UITableViewStylePlain模式下是默认悬停的
 Prop_strong()Class scrollViewClass;
 Prop_copy()void(^scrollCallback)(UIScrollView *scrollView);
+
+-(JobsRetScrollViewByVoidBlock _Nonnull)jobsListScrollView;
+
+-(JobsRetViewByVoidBlock _Nonnull)jobsListView;
 
 @end
 

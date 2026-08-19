@@ -6,6 +6,7 @@
 //
 
 #import "JobsBtnsStyleTBVCell.h"
+
 #import "BaseButton.h"
 #import "UIButton+Extra.h"
 #import "UIButton+UI.h"
@@ -30,7 +31,17 @@ UIViewModelProtocol_synthesize_part2
 /// BaseLayerProtocol
 BaseLayerProtocol_synthesize_part3
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBtnsStyleTBVCell.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
@@ -45,7 +56,7 @@ BaseLayerProtocol_synthesize_part3
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model;
+        self.byViewModel(model);
         self.leftBtnVM = self.viewModel.data;
         self.rightBtnVM = self.viewModel.requestParams;
         self.leftBtn.byAlpha(1);
@@ -61,8 +72,18 @@ BaseLayerProtocol_synthesize_part3
 }
 #pragma mark —— BaseViewProtocol
 /// 获取绑定的数据源
--(UIViewModel *)getViewModel{
-    return self.viewModel;
+-(UIViewModel *_Nullable)getViewModel{
+    JobsRetViewModelByVoidBlock action = ((JobsRetViewModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBtnsStyleTBVCell.class, @selector(jobsGetViewModel)))(self, @selector(jobsGetViewModel));
+    return action ? action() : nil;
+}
+
+-(JobsRetViewModelByVoidBlock _Nonnull)jobsGetViewModel{
+    @jobs_weakify(self)
+    return ^UIViewModel *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.viewModel;
+    };
 }
 #pragma mark —— lazyLoad
 -(BaseButton *)leftBtn{
@@ -86,7 +107,7 @@ BaseLayerProtocol_synthesize_part3
                 make.height.mas_equalTo(self.leftBtnVM.jobsHeight);
             });
     }
-    _leftBtn.data = self.leftBtnVM;
+    _leftBtn.byData(self.leftBtnVM);
     if(self.leftBtnVM.attributedTitle){
         _leftBtn.jobsResetAttributedTitle(self.leftBtnVM.attributedTitle);
     }else{
@@ -137,7 +158,7 @@ BaseLayerProtocol_synthesize_part3
                 make.height.mas_equalTo(self.rightBtnVM.jobsHeight);
             });
     }
-    _rightBtn.data = self.rightBtnVM;
+    _rightBtn.byData(self.rightBtnVM);
     if(self.rightBtnVM.attributedTitle){
         _rightBtn.jobsResetAttributedTitle(self.rightBtnVM.attributedTitle);
     }else{

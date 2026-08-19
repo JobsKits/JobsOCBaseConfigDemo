@@ -7,6 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import "JobsBlock.h"
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<lottie-ios/Lottie.h>)
 #import <lottie-ios/Lottie.h>
 #else
@@ -55,6 +61,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_copy()NSString *pageTitle;
 
+-(JobsRetJXCategoryPopupSubVCByStrBlock _Nonnull)byPageTitle;
+
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JXCategoryPopupSubVC
+-(JobsRetJXCategoryPopupSubVCByStrBlock _Nonnull)byCurrentTitleWritingLottieName;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JXCategoryPopupSubVC
 @end
 
 NS_ASSUME_NONNULL_END

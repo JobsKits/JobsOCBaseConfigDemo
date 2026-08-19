@@ -9,6 +9,12 @@
 
 JobsKey(JobsUIViewLayoutSubviewsRectCornerKey)
 JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN UIView
+@interface UIView (JobsPropertyDSLSetterAutogen_9fb8ce0371)
+-(void)setMjRefreshTargetView:(UIScrollView * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UIView
+
 @implementation UIView (DSL)
 #pragma mark —— Animation / Transition 终止动作
 +(jobsByUIViewAnimationBlock _Nonnull)jobsAnimate{
@@ -255,7 +261,7 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
     @jobs_weakify(self)
     return ^__kindof UIView * (CGFloat radius){
         @jobs_strongify(self)
-        self.layer.cornerRadius = radius;
+        self.layer.byCornerRadius(radius);
         return self;
     };
 }
@@ -322,8 +328,8 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
         if ([self respondsToSelector:selector]) {
             ((void (*)(id, SEL, CGFloat))objc_msgSend)(self, selector, jobsVisible);
         } else {
-            self.hidden = !jobsVisible;
-            self.alpha = jobsVisible;
+            self.byHidden(!jobsVisible);
+            self.byAlpha(jobsVisible);
         };return self;
     };
 }
@@ -364,6 +370,16 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
     };
 }
 #pragma mark —— Semantics / RTL
+-(JobsRetViewByStringBlock _Nonnull)byAccessibilityIdentifier{
+    @jobs_weakify(self)
+    return ^__kindof UIView *(NSString *_Nullable accessibilityIdentifier) {
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.accessibilityIdentifier = accessibilityIdentifier;
+        return self;
+    };
+}
+
 -(JobsRetViewByNSIntegerBlock _Nonnull)bySemanticContentAttribute{
     @jobs_weakify(self)
     return ^__kindof UIView * (NSInteger attr){
@@ -1209,9 +1225,9 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
     return ^__kindof UIView *_Nullable(UIView *view){
         @jobs_strongify(self);
         if (self.superview == view) {
-            self.centerX = view.width / 2.0;
+            self.byCenterX(view.width / 2.0);
         }else{
-            self.centerX = view.centerX;
+            self.byCenterX(view.centerX);
         };return self;
     };
 }
@@ -1221,9 +1237,9 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
     return ^__kindof UIView *_Nullable(UIView *view){
         @jobs_strongify(self);
         if (self.superview == view) {
-            self.centerY = view.height / 2.0;
+            self.byCenterY(view.height / 2.0);
         }else{
-            self.centerY = view.centerY;
+            self.byCenterY(view.centerY);
         };return self;
     };
 }
@@ -1233,9 +1249,9 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
     return ^__kindof UIView *_Nullable(UIView *view){
         @jobs_strongify(self);
         if (self.superview == view) {
-            self.center = CGPointMake(view.width / 2.0, view.height / 2.0);
+            self.byCenterPoint(CGPointMake(view.width / 2.0, view.height / 2.0));
         }else{
-            self.center = view.center;
+            self.byCenterPoint(view.center);
         };return self;
     };
 }
@@ -1245,9 +1261,9 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
     return ^__kindof UIView *_Nullable(UIView *view){
         @jobs_strongify(self);
         if (self.superview == view) {
-            self.left = 0;
+            self.byLeft(0);
         }else{
-            self.left = view.left;
+            self.byLeft(view.left);
         };return self;
     };
 }
@@ -1257,9 +1273,9 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
     return ^__kindof UIView *_Nullable(UIView *view){
         @jobs_strongify(self);
         if (self.superview == view) {
-            self.right = view.width;
+            self.byRight(view.width);
         }else{
-            self.right = view.right;
+            self.byRight(view.right);
         };return self;
     };
 }
@@ -1269,9 +1285,9 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
     return ^__kindof UIView *_Nullable(UIView *view){
         @jobs_strongify(self);
         if (self.superview == view) {
-            self.top = 0;
+            self.byTop(0);
         }else{
-            self.top = view.top;
+            self.byTop(view.top);
         };return self;
     };
 }
@@ -1281,9 +1297,9 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
     return ^__kindof UIView *_Nullable(UIView *view){
         @jobs_strongify(self);
         if (self.superview == view) {
-            self.bottom = view.height;
+            self.byBottom(view.height);
         }else{
-            self.bottom = view.bottom;
+            self.byBottom(view.bottom);
         };return self;
     };
 }
@@ -1298,20 +1314,40 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
     return self.y + self.height;
 }
 
--(void)setMaxXByShift:(CGFloat)maxX{
-    self.x = maxX - self.width;
+-(jobsByCGFloatBlock _Nonnull)setMaxXByShift{
+    @jobs_weakify(self)
+    return ^(CGFloat maxX){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.x = maxX - self.width;
+    };
 }
 
--(void)setMaxYByShift:(CGFloat)maxY{
-    self.y = maxY - self.height;
+-(jobsByCGFloatBlock _Nonnull)setMaxYByShift{
+    @jobs_weakify(self)
+    return ^(CGFloat maxY){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.y = maxY - self.height;
+    };
 }
 
--(void)setMaxXByStretch:(CGFloat)maxX{
-    self.width = maxX - self.x;
+-(jobsByCGFloatBlock _Nonnull)setMaxXByStretch{
+    @jobs_weakify(self)
+    return ^(CGFloat maxX){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byWidth(maxX - self.x);
+    };
 }
 
--(void)setMaxYByStretch:(CGFloat)maxY{
-    self.height = maxY - self.y;
+-(jobsByCGFloatBlock _Nonnull)setMaxYByStretch{
+    @jobs_weakify(self)
+    return ^(CGFloat maxY){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byHeight(maxY - self.y);
+    };
 }
 
 -(CGPoint)boundCenter{
@@ -1328,7 +1364,7 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
 - (void)setX:(CGFloat)x{
     CGRect frame = self.frame;
     frame.origin.x = x;
-    self.frame = frame;
+    self.byFrame(frame);
 }
 #pragma mark —— Prop_assign()CGFloat y
 @dynamic y;
@@ -1339,7 +1375,7 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
 - (void)setY:(CGFloat)y{
     CGRect frame = self.frame;
     frame.origin.y = y;
-    self.frame = frame;
+    self.byFrame(frame);
 }
 #pragma mark —— Prop_assign()CGFloat width
 @dynamic width;
@@ -1350,7 +1386,7 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
 - (void)setWidth:(CGFloat)width{
     CGRect frame = self.frame;
     frame.size.width = width;
-    self.frame = frame;
+    self.byFrame(frame);
 }
 #pragma mark —— Prop_assign()CGFloat height
 @dynamic height;
@@ -1361,7 +1397,7 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
 - (void)setHeight:(CGFloat)height{
     CGRect frame = self.frame;
     frame.size.height = height;
-    self.frame = frame;
+    self.byFrame(frame);
 }
 #pragma mark —— Prop_assign()CGFloat centerX
 @dynamic centerX;
@@ -1430,7 +1466,7 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
 -(void)setSizer:(CGSize)sizer{
     CGRect frame = self.frame;
     frame.size = sizer;
-    self.frame = frame;
+    self.byFrame(frame);
 }
 #pragma mark —— Prop_assign()CGPoint Origin
 @dynamic Origin;
@@ -1441,7 +1477,17 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
 -(void)setOrigin:(CGPoint)Origin{
     CGRect frame = self.frame;
     frame.origin = Origin;
-    self.frame = frame;
+    self.byFrame(frame);
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN UIView
+-(JobsRetUIViewByUIScrollViewBlock _Nonnull)byMjRefreshTargetView{
+    @jobs_weakify(self)
+    return ^__kindof UIView * _Nullable(UIScrollView * _Nullable data){
+        @jobs_strongify(self)
+        [self setMjRefreshTargetView:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UIView
 @end

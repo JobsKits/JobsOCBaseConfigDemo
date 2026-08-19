@@ -50,11 +50,11 @@
 -(CAAnimation *)anim_shake:(NSArray *)rotations
                   duration:(NSTimeInterval)duration
                repeatCount:(NSUInteger)repeatCount{
-    CAKeyframeAnimation *kfa = @"transform.rotation.z".keyframeAnimation;/// 创建关键帧动画
-    kfa.values = rotations;/// 指定值
-    kfa.duration = duration;/// 时长
-    kfa.repeatCount = repeatCount;/// 重复次数
-    kfa.removedOnCompletion = YES;/// 完成删除
+    CAKeyframeAnimation *kfa = @"transform.rotation.z".keyframeAnimation();/// 创建关键帧动画
+    kfa.byValues(rotations);
+    kfa.byDuration(duration);
+    kfa.byRepeatCount(repeatCount);
+    kfa.byRemovedOnCompletion(YES);
     self.addAnimationBy(kfa);/// 添加
     return kfa;
 }
@@ -70,13 +70,13 @@
     if(AnimReverDirectionZ == direction)directionStr = @"z";
     NSString *key = @"transform.rotation.".add(directionStr);
     if([self animationForKey:key]) [self removeAnimationForKey:key];
-    CABasicAnimation *reversAnim = key.basicAnimation;/// 创建普通动画
-    reversAnim.fromValue = @(0);/// 起点值
-    reversAnim.toValue = @(M_PI_2);/// 终点值
-    reversAnim.duration = duration;/// 时长
-    reversAnim.autoreverses = isReverse;/// 自动反转
-    reversAnim.removedOnCompletion = YES;/// 完成删除
-    reversAnim.repeatCount = repeatCount;/// 重复次数
+    CABasicAnimation *reversAnim = key.basicAnimation();/// 创建普通动画
+    reversAnim.byFromValue(@(0));
+    reversAnim.byToValue(@(M_PI_2));
+    reversAnim.byDuration(duration);
+    reversAnim.byAutoreverses(isReverse);
+    reversAnim.byRemovedOnCompletion(YES);
+    reversAnim.byRepeatCount(repeatCount);
     self.addAnimationBy(reversAnim);/// 添加
     return reversAnim;
 }
@@ -95,11 +95,12 @@
     @jobs_weakify(self)
     CATransition *transition = jobsMakeCATransition(^(__kindof CATransition * _Nullable data) {
         @jobs_strongify(self)
-        data.duration = duration;/// 动画时长
-        data.type = self.animaTypeWithTransitionType(animType);/// 动画类型
-        data.subtype = self.animaSubtype(subType);/// 动画方向
-        data.timingFunction = [CAMediaTimingFunction functionWithName:self.curve(curve)];/// 缓动函数
-        data.removedOnCompletion = YES;/// 完成动画删除
+        data
+            .byDuration(duration)
+            .byType(self.animaTypeWithTransitionType(animType))
+            .bySubtype(self.animaSubtype(subType))/// 动画方向
+            .byTimingFunction([CAMediaTimingFunction functionWithName:self.curve(curve)])/// 缓动函数
+            .byRemovedOnCompletion(YES);/// 完成动画删除
     });[self addAnimation:transition forKey:key];
     return transition;
 }
@@ -182,7 +183,7 @@
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(CGFloat data){
         @jobs_strongify(self)
-        self.cornerRadius = data;
+        [self setCornerRadius:data];
         return self;
     };
 }
@@ -191,7 +192,7 @@
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(CGFloat data){
         @jobs_strongify(self)
-        self.borderWidth = data;
+        [self setBorderWidth:data];
         return self;
     };
 }
@@ -200,7 +201,7 @@
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
-        self.borderColor = data.CGColor;
+        [self setBorderColor:data.CGColor];
         return self;
     };
 }
@@ -209,7 +210,7 @@
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(BOOL data){
         @jobs_strongify(self)
-        self.masksToBounds = data;
+        [self setMasksToBounds:data];
         return self;
     };
 }

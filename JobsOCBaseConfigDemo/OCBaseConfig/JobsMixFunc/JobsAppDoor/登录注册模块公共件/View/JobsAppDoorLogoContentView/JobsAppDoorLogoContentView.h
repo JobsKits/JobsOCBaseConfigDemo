@@ -6,6 +6,13 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSAPPDOORLOGOCONTENTVIEW_C20CA847A0
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 #define JOBS_HEADER_GUARD_JOBSAPPDOORLOGOCONTENTVIEW_C20CA847A0
 
 #import <UIKit/UIKit.h>
@@ -14,12 +21,6 @@
 #import "JobsAppDoorResource.h"
 #else
 #import "JobsAppDoorResource.h"
-#endif
-
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
-#else
-#import "Masonry.h"
 #endif
 
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)

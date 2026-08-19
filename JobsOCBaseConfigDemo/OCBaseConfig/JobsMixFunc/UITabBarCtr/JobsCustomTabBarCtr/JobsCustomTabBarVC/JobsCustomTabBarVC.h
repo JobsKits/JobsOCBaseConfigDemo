@@ -29,14 +29,21 @@ UITabBarControllerDelegate
 >
 
 -(jobsByNSUIntegerBlock _Nonnull)customSelectIndex;
+-(JobsRetJobsCustomTabBarVCByDelegateBlock _Nonnull)byDelegate;
 -(JobsCustomTabBar *)customTabBar;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsCustomTabBarVC
+-(JobsRetJobsCustomTabBarVCByNSArrayUIViewControllerBlock _Nonnull)byViewControllers;
+-(JobsRetJobsCustomTabBarVCByNSUIntegerBlock _Nonnull)bySelectedIndex;
+-(void)setSelectedIndex:(NSUInteger)data;
+-(void)setViewControllers:(NSArray<__kindof UIViewController *> * _Nullable)data;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsCustomTabBarVC
 @end
 
 NS_ASSUME_NONNULL_END
 
 NS_INLINE __kindof JobsCustomTabBarVC *_Nonnull jobsMakeSharedManagerCustomTabBarVC(jobsByCustomTabBarVCBlock _Nonnull block){
-    JobsCustomTabBarVC *data = JobsCustomTabBarVC.sharedManager;
+    JobsCustomTabBarVC *data = JobsCustomTabBarVC.jobsSharedManager();
     if (block) block(data);
     return data;
 }

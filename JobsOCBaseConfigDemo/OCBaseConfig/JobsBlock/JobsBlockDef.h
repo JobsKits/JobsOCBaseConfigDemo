@@ -6,9 +6,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <objc/runtime.h>
 
 #ifndef JobsBlockDef_h
 #define JobsBlockDef_h
+
+/// 固定 ABI 兼容入口必须绑定定义类，避免父类跳板被子类动态派发后递归回自身。
+NS_INLINE IMP _Nullable JobsBlockInstanceMethodIMP(Class _Nonnull definingClass,
+                                                   SEL _Nonnull selector) {
+    return class_getMethodImplementation(definingClass, selector);
+}
+
+NS_INLINE IMP _Nullable JobsBlockClassMethodIMP(Class _Nonnull definingClass,
+                                                SEL _Nonnull selector) {
+    return class_getMethodImplementation(object_getClass(definingClass), selector);
+}
+
 /// 主动调用宏，传入2个参数
 #ifndef Jobs_2_Arguments
 #define Jobs_2_Arguments \

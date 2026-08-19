@@ -6,6 +6,7 @@
 //
 
 #import "JobsNavBar.h"
+
 #import "BaseButton.h"
 #import "UIButton+Extra.h"
 #import "UIView+Extra.h"
@@ -30,6 +31,12 @@ Prop_strong()BaseButton *closeBtn;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsNavBar
+@interface JobsNavBar (JobsPropertyDSLSetterAutogen_2e41dce731)
+-(void)setNavBarConfig:(JobsNavBarConfig * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsNavBar
+
 @implementation JobsNavBar
 /// AppToolsProtocol
 #pragma mark —— BaseProtocol
@@ -41,31 +48,51 @@ BaseViewProtocol_synthesize
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {
-        self.userInteractionEnabled = YES;
+        self.byUserInteractionEnabled(YES);
         self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.userInteractionEnabled = YES;
+        self.byUserInteractionEnabled(YES);
         self.byBgColor(JobsSecondarySystemBackgroundColor);
     };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsNavBar.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    /// 内部指定圆切角
-//    [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
-//                                        cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
-    if(!jobsZeroSizeValue(self.layoutSubviewsRectCornerSize)){
-        [self appointCornerCutToCircleByRoundingCorners:self.layoutSubviewsRectCorner
-                                            cornerRadii:self.layoutSubviewsRectCornerSize];
-    }
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsNavBar.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+            [super layoutSubviews];
+            /// 内部指定圆切角
+        //    [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
+        //                                        cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+            if(!jobsZeroSizeValue(self.layoutSubviewsRectCornerSize)){
+                [self appointCornerCutToCircleByRoundingCorners:self.layoutSubviewsRectCorner
+                                                    cornerRadii:self.layoutSubviewsRectCornerSize];
+            }
+    };
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -80,7 +107,7 @@ BaseViewProtocol_synthesize
         @jobs_strongify(self)
         if(navBarConfig) self.navBarConfig = navBarConfig;
         if (NavBarConfig.bgImage) {
-            self.image = NavBarConfig.bgImage;
+            self.byImage(NavBarConfig.bgImage);
         }else self.backgroundColor = NavBarConfig.bgCor;
         self.titleLab.byText(NavBarConfig.title);
         self.backBtn.byAlpha(1);
@@ -95,21 +122,39 @@ BaseViewProtocol_synthesize
     };
 }
 #pragma mark —— BaseViewProtocol
-/// 返回键事件
--(JobsRetNavBarByVoidBtnBlocks _Nullable)JobsNavBarBackBtnClickBlock{
+-(JobsRetNavBarByVoidBtnBlocks _Nonnull)byBackBtnClickAction{
     @jobs_weakify(self)
     return ^__kindof JobsNavBar *_Nullable(jobsByBtnBlock _Nullable block){
         @jobs_strongify(self)
-        self.backBtnClickAction = block;
+        [self setBackBtnClickAction:block];
+        return self;
+    };
+}
+
+-(JobsRetNavBarByVoidBtnBlocks _Nonnull)byCloseBtnClickAction{
+    @jobs_weakify(self)
+    return ^__kindof JobsNavBar *_Nullable(jobsByBtnBlock _Nullable block){
+        @jobs_strongify(self)
+        [self setCloseBtnClickAction:block];
+        return self;
+    };
+}
+
+/// 返回键事件
+-(JobsRetNavBarByVoidBtnBlocks _Nonnull)JobsNavBarBackBtnClickBlock{
+    @jobs_weakify(self)
+    return ^__kindof JobsNavBar *_Nullable(jobsByBtnBlock _Nullable block){
+        @jobs_strongify(self)
+        self.byBackBtnClickAction(block);
         return (JobsNavBar *)self;
     };
 }
 /// 关闭键事件
--(JobsRetNavBarByVoidBtnBlocks _Nullable)JobsNavBarCloseBtnClickBlock{
+-(JobsRetNavBarByVoidBtnBlocks _Nonnull)JobsNavBarCloseBtnClickBlock{
     @jobs_weakify(self)
     return ^__kindof JobsNavBar *_Nullable(jobsByBtnBlock _Nullable block){
         @jobs_strongify(self)
-        self.closeBtnClickAction = block;
+        self.byCloseBtnClickAction(block);
         return (JobsNavBar *)self;
     };
 }
@@ -118,7 +163,7 @@ BaseViewProtocol_synthesize
     if(!_navBarConfig){
         @jobs_weakify(self)
         _navBarConfig = jobsMakeNavBarConfig(^(__kindof JobsNavBarConfig * _Nullable data) {
-            [data actionObjBlock:^(id _Nullable data) {
+            data.actionObjBlock(^(id _Nullable data) {
                 @jobs_strongify(self)
                 if([data isKindOfClass:UIButton.class]){
                     UIButton *btn = (UIButton *)data;
@@ -128,7 +173,7 @@ BaseViewProtocol_synthesize
                         if(self.backBtnClickAction) self.backBtnClickAction(btn);
                     }else{}
                 }
-            }];
+            });
         });
     };return _navBarConfig;
 }
@@ -190,4 +235,14 @@ BaseViewProtocol_synthesize
     };return _closeBtn;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsNavBar
+-(JobsRetJobsNavBarByJobsNavBarConfigBlock _Nonnull)byNavBarConfig{
+    @jobs_weakify(self)
+    return ^__kindof JobsNavBar * _Nullable(JobsNavBarConfig * _Nullable data){
+        @jobs_strongify(self)
+        [self setNavBarConfig:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsNavBar
 @end

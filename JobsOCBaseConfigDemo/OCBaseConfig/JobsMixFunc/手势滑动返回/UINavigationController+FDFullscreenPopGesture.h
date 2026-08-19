@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_UINAVIGATIONCONTROLLER_FDFULLSCREENPOPGESTURE_0E81449114
 
 #import <objc/runtime.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <UIKit/UIKit.h>
 #import "UIScrollView+FDFullscreenPopGesture.h"
 #import "JobsDefines.h"
@@ -30,6 +36,11 @@ Prop_strong(readonly)UIPanGestureRecognizer *fd_fullscreenPopGestureRecognizer;
 /// Default to YES, disable it if you don't want so.
 Prop_assign()BOOL fd_viewControllerBasedNavigationBarAppearanceEnabled;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN UINavigationController
+-(JobsRetUINavigationControllerByBOOLBlock _Nonnull)byFd_viewControllerBasedNavigationBarAppearanceEnabled;
+-(JobsRetUINavigationControllerByBOOLBlock _Nonnull)byViewTransitionInProgress;
+-(JobsRetUINavigationControllerByUIModalPresentationStyleBlock _Nonnull)byModalPresentationStyle;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UINavigationController
 @end
 /// Allows any view controller to disable interactive pop gesture, which might
 /// be necessary when the view controller itself handles pan gesture in some

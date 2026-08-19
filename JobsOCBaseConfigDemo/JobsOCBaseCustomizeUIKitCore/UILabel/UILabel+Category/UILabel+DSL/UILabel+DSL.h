@@ -11,6 +11,8 @@
 #import <CoreText/CoreText.h>
 #import <QuartzCore/QuartzCore.h>
 #import <UIKit/UIKit.h>
+#import "CALayer+DSL.h"
+#import "CAShapeLayer+DSL.h"
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import "JobsBlock.h"
@@ -30,14 +32,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_assign()UILabelShowingType labelShowingType;
 Prop_assign()CGFloat value;
+-(JobsRetUILabelByCGFloatBlock _Nonnull)byValue;
 Prop_assign()CGFloat lastValue;
+-(JobsRetUILabelByCGFloatBlock _Nonnull)byLastValue;
 Prop_strong()CAShapeLayer *shapeLayer;
 Prop_assign()JobsDirectionType transformLayerDirectionType;
 
--(__kindof NSMutableAttributedString *)makeAttributedStringBySelfText;
+-(JobsRetNSMutableAttributedStringByVoidBlock _Nonnull)makeAttributedStringBySelfText;
 -(JobsRetLabelByNSIntegerBlock _Nonnull)transformLayer;
 -(JobsRetLabelByImageBlock _Nonnull)bgImage;
 -(JobsRetLabelByNSIntegerBlock _Nonnull)byNumberOfLines;
+-(JobsRetLabelByNSUIntegerBlock _Nonnull)byLabelShowingType;
 -(JobsRetLabelByNSUIntegerBlock _Nonnull)makeLabelByShowingType;
 
 -(JobsRetLabelByAttributedStringBlock _Nonnull)byAttributedString;
@@ -72,6 +77,10 @@ Prop_assign()JobsDirectionType transformLayerDirectionType;
 -(JobsRetLabelByVoidBlock _Nonnull)byStopAnimatedTextNumber;
 -(JobsRetLabelByVoidBlock _Nonnull)labelAutoFontByWidth;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN UILabel
+-(JobsRetUILabelByCGFloatBlock _Nonnull)byMj_w;
+-(void)setMj_w:(CGFloat)data;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UILabel
 @end
 
 NS_ASSUME_NONNULL_END

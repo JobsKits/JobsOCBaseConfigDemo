@@ -6,16 +6,17 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSRESPONSEMODEL_YTKNETWORK_706122352D
-#define JOBS_HEADER_GUARD_JOBSRESPONSEMODEL_YTKNETWORK_706122352D
-
-#import <objc/runtime.h>
-#import <Foundation/Foundation.h>
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
 #else
 #import "YTKNetwork.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSRESPONSEMODEL_YTKNETWORK_706122352D
+
+#import <objc/runtime.h>
+#import <Foundation/Foundation.h>
 
 #import "YTKNetworkProtocols.h"
 #import "WHToastExtra.h"

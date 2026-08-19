@@ -6,25 +6,17 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIVIEW_REFRESH_4653F1A4EF
-#define JOBS_HEADER_GUARD_UIVIEW_REFRESH_4653F1A4EF
-
-#pragma once
-
-#import <objc/runtime.h>
-#import <UIKit/UIKit.h>
-#import "JobsOCDSL.h"
-#import "NSObject+Extra.h"
-
-#if __has_include(<ReactiveObjC/ReactiveObjC.h>)
-#import <ReactiveObjC/ReactiveObjC.h>
-#else
-#import "ReactiveObjC.h"
-#endif
 
 #if __has_include(<MJRefresh/MJRefresh.h>)
 #import <MJRefresh/MJRefresh.h>
 #else
 #import "MJRefresh.h"
+#endif
+
+#if __has_include(<ReactiveObjC/ReactiveObjC.h>)
+#import <ReactiveObjC/ReactiveObjC.h>
+#else
+#import "ReactiveObjC.h"
 #endif
 
 #if __has_include(<TABAnimated/TABAnimated.h>)
@@ -38,6 +30,15 @@
 #else
 #import "XZMRefresh.h"
 #endif
+
+#define JOBS_HEADER_GUARD_UIVIEW_REFRESH_4653F1A4EF
+
+#pragma once
+
+#import <objc/runtime.h>
+#import <UIKit/UIKit.h>
+#import "JobsOCDSL.h"
+#import "NSObject+Extra.h"
 
 #import "MJRefreshExtra.h"
 #import "JobsOCRuntimeKits.h"

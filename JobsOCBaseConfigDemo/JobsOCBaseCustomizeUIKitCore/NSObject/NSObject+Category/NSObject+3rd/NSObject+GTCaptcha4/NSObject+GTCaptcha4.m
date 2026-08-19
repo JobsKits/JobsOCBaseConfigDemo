@@ -7,6 +7,33 @@
 
 #import "NSObject+GTCaptcha4.h"
 
+@implementation GTCaptcha4Model (GTCaptcha4SessionDSL)
+-(JobsRetGTCaptcha4ModelByGTCaptcha4SessionPointerBlock _Nonnull)byCaptchaSession{
+    @jobs_weakify(self)
+    return ^__kindof GTCaptcha4Model *_Nullable(GTCaptcha4Session *_Nullable data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.captchaSession = data;
+        return self;
+    };
+}
+
+@end
+
+@implementation GTCaptcha4Session (GTCaptcha4SessionDSL)
+
+-(JobsRetGTCaptcha4SessionByIDBlock _Nonnull)byDelegate{
+    @jobs_weakify(self)
+    return ^__kindof GTCaptcha4Session *_Nullable(id _Nullable data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.delegate = data;
+        return self;
+    };
+}
+
+@end
+
 @implementation NSObject (GTCaptcha4)
 #pragma mark —— BaseProtocol
 /// 显示验证码
@@ -47,13 +74,14 @@
        isValue(resultModel.captcha_id) &&
        isValue(resultModel.lot_number)){
         self.JobsPostBy(jobsMakeKeyValueModel(^(JobsKeyValueModel *_Nullable data) {
-            data.key = 获取极验验证码成功;
-            data.value = jobsMakeGTCaptcha4Model(^(__kindof GTCaptcha4Model *_Nullable data1) {
-                data1.captchaSession = captchaSession;
-                data1.byStatus(status)
+            data
+                .byKey(获取极验验证码成功)
+                .byValue(jobsMakeGTCaptcha4Model(^(__kindof GTCaptcha4Model *_Nullable data1) {
+                data1.byCaptchaSession(captchaSession)
+                     .byStatus(status)
                      .byResult(GTCaptcha4ResultModel.byData(result))
                      .byTargetView((UIView *)(self.data_weak ? : self));
-            });
+            }));
         }));
     }else toastBy(@"未通过图形验证，请重试".tr);
 }
@@ -69,11 +97,12 @@
          didReceiveError:(GTC4Error *)error{
     JobsLog(@"error = %@",error);
     self.JobsPostBy(jobsMakeKeyValueModel(^(JobsKeyValueModel * _Nullable data) {
-        data.key = 获取极验验证码失败;
-        data.value = jobsMakeGTCaptcha4Model(^(__kindof GTCaptcha4Model * _Nullable data1) {
-            data1.captchaSession = captchaSession;
-            data1.byError(error);
-        });
+        data
+            .byKey(获取极验验证码失败)
+            .byValue(jobsMakeGTCaptcha4Model(^(__kindof GTCaptcha4Model * _Nullable data1) {
+            data1.byCaptchaSession(captchaSession)
+                 .byError(error);
+        }));
     }));
 }
 #pragma mark —— Prop_strong()GTCaptcha4Session *captchaSession;
@@ -83,7 +112,7 @@ JobsKey(_captchaSession)
     GTCaptcha4Session *gtCaptcha4Session = Jobs_getAssociatedObject(_captchaSession);
     if(!gtCaptcha4Session){
         gtCaptcha4Session = [GTCaptcha4Session sessionWithCaptchaID:极验验证码KEY];
-        gtCaptcha4Session.delegate = self;
+        gtCaptcha4Session.byDelegate(self);
         /// 如需修改默认配置
         /// 可选择下⾯注释的⽅式创建实例
         // GTCaptcha4SessionConfiguration *config = GTCaptcha4SessionConfiguration.defaultConfiguration;

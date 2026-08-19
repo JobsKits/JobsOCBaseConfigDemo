@@ -27,6 +27,8 @@ BaseViewProtocol,
 AppToolsProtocol
 >
 
+-(jobsByVoidBlock _Nonnull)jobsLayoutIfNeeded;
+
 @end
 
 NS_ASSUME_NONNULL_END

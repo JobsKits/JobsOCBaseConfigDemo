@@ -22,6 +22,8 @@ Prop_assign()CGFloat offsetY;
 Prop_assign()CGFloat offsetWidth;
 Prop_assign()CGFloat offsetHeight;
 
+-(jobsByVoidBlock _Nonnull)jobsPrepareLayout;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -6,16 +6,17 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSSUSPENDVIEW_6A20CCA0B2
-#define JOBS_HEADER_GUARD_JOBSSUSPENDVIEW_6A20CCA0B2
-
-#import <UIKit/UIKit.h>
-#import "UIView+SuspendView.h"
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
 #else
 #import "XYColorOC.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSSUSPENDVIEW_6A20CCA0B2
+
+#import <UIKit/UIKit.h>
+#import "UIView+SuspendView.h"
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"
@@ -28,8 +29,11 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_assign()BOOL isAllowDrag; // 是否允许托拽手势
 Prop_copy()jobsByIDBlock suspendViewBlock;
 
--(void)actionSuspendViewBlock:(jobsByIDBlock _Nullable)suspendLabBlock;
+-(jobsByjobsByIDBlockBlock _Nonnull)actionSuspendViewBlock;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsSuspendView
+-(JobsRetJobsSuspendViewByjobsByIDBlockBlock _Nonnull)bySuspendViewBlock;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsSuspendView
 @end
 
 NS_ASSUME_NONNULL_END

@@ -6,15 +6,16 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_HTMLDOCUMENT_EXTRA_4E1EB9308A
-#define JOBS_HEADER_GUARD_HTMLDOCUMENT_EXTRA_4E1EB9308A
-
-#import <UIKit/UIKit.h>
 
 #if __has_include(<HTMLReader/HTMLReader.h>)
 #import <HTMLReader/HTMLReader.h>
 #else
 #import "HTMLReader.h"
 #endif
+
+#define JOBS_HEADER_GUARD_HTMLDOCUMENT_EXTRA_4E1EB9308A
+
+#import <UIKit/UIKit.h>
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"

@@ -8,10 +8,15 @@
 #import "UISwitch+UI.h"
 
 @implementation UISwitch (UI)
--(RACDisposable *)jobsSwitchClickEventBlock:(jobsByIDBlock)subscribeNextBlock{
-    return [[self rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIButton * _Nullable x) {
-        if(subscribeNextBlock) subscribeNextBlock(x);
-    }];
+-(JobsRetRACDisposableByRACNextBlock _Nonnull)jobsSwitchClickEventBlock{
+    @jobs_weakify(self)
+    return ^RACDisposable *(jobsByIDBlock subscribeNextBlock){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [[self rac_signalForControlEvents:UIControlEventTouchUpInside] subscribeNext:^(__kindof UIButton * _Nullable x) {
+            if(subscribeNextBlock) subscribeNextBlock(x);
+        }];
+    };
 }
 
 @end

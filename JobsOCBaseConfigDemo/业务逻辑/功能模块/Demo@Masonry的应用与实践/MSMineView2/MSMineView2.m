@@ -18,16 +18,30 @@ Prop_strong()BaseButton *btn2;
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_mineView2OnceToken = 0;
-    static_mineView2 = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(MSMineView2.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_mineView2OnceToken = 0;
+        static_mineView2 = nil;
+    };
 }
 
 static MSMineView2 *static_mineView2 = nil;
 static dispatch_once_t static_mineView2OnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_mineView2OnceToken, ^{
-        static_mineView2 = MSMineView2.new;
-    });return static_mineView2;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(MSMineView2.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_mineView2OnceToken, ^{
+            static_mineView2 = MSMineView2.new;
+        });return static_mineView2;
+    };
 }
 #pragma mark —— SysMethod
 -(instancetype)init{
@@ -53,11 +67,31 @@ static dispatch_once_t static_mineView2OnceToken;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MSMineView2.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MSMineView2.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -84,7 +118,7 @@ static dispatch_once_t static_mineView2OnceToken;
 -(BaseButton *)btn1{
     @jobs_weakify(self)
     if(!_btn1){
-        _btn1 = BaseButton.initByStyleLeft(@"入职Mata".tr,
+        _btn1 = BaseButton.initByStyleLeft(@"入职Mata".jobsTr(),
                                            UIFontWeightRegularSize(14),
                                            JobsBlackColor,
                                            @"入职Mata".img,
@@ -109,10 +143,10 @@ static dispatch_once_t static_mineView2OnceToken;
 -(UIButton *)btn2{
     if(!_btn2){
         @jobs_weakify(self)
-        _btn2 = BaseButton.initByStyle1(@"立即进入".tr,
+        _btn2 = BaseButton.initByStyle1(@"立即进入".jobsTr(),
                                                      UIFontWeightRegularSize(14),
                                                      JobsWhiteColor)
-            .bgColorBy(@"#EA2918".cor)
+            .bgColorBy(@"#EA2918".jobsCor())
             .cornerRadiusValueBy(JobsWidth(14))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)

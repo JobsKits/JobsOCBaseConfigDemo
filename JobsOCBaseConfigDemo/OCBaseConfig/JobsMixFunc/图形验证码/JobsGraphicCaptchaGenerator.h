@@ -9,20 +9,26 @@
 #define JOBS_HEADER_GUARD_JOBSGRAPHICCAPTCHAGENERATOR_B478DC226F
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "JobsGraphicCaptchaConfig.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsGraphicCaptchaGenerator : NSObject
 
-+(NSArray<NSString *> *)numberCharacters;
-+(NSArray<NSString *> *)lowercaseLetterCharacters;
-+(NSArray<NSString *> *)uppercaseLetterCharacters;
-+(NSArray<NSString *> *)simplifiedChineseCharacters;
-+(NSArray<NSString *> *)traditionalChineseCharacters;
-+(NSArray<NSString *> *)chineseCharacters;
-+(NSArray<NSString *> *)charactersForUnits:(JobsGraphicCaptchaCharacterUnit)units;
-+(NSString *)randomTextByConfig:(JobsGraphicCaptchaConfig *_Nullable)config;
++(JobsRetNSArrayNSStringByVoidBlock _Nonnull)numberCharacters;
++(JobsRetNSArrayNSStringByVoidBlock _Nonnull)lowercaseLetterCharacters;
++(JobsRetNSArrayNSStringByVoidBlock _Nonnull)uppercaseLetterCharacters;
++(JobsRetNSArrayNSStringByVoidBlock _Nonnull)simplifiedChineseCharacters;
++(JobsRetNSArrayNSStringByVoidBlock _Nonnull)traditionalChineseCharacters;
++(JobsRetNSArrayNSStringByVoidBlock _Nonnull)chineseCharacters;
++(JobsRetNSArrayNSStringByJobsGraphicCaptchaCharacterUnitBlock _Nonnull)charactersForUnits;
++(JobsRetNSStringByJobsGraphicCaptchaConfigBlock _Nonnull)randomTextByConfig;
 +(BOOL)validateInput:(NSString *_Nullable)input
              captcha:(NSString *_Nullable)captcha
        caseSensitive:(BOOL)caseSensitive;

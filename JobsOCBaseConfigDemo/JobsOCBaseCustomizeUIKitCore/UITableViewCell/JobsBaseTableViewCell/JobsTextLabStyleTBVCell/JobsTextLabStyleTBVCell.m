@@ -6,6 +6,7 @@
 //
 
 #import "JobsTextLabStyleTBVCell.h"
+
 #import "UITableView+RegisterClass.h"
 #import "UIView+Extra.h"
 
@@ -20,7 +21,17 @@ UIViewModelProtocol_synthesize_part2
 /// BaseLayerProtocol
 BaseLayerProtocol_synthesize_part3
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTextLabStyleTBVCell.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
@@ -35,7 +46,7 @@ BaseLayerProtocol_synthesize_part3
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UIViewModel __kindof *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model;
+        self.byViewModel(model);
         self.label.byAlpha(1);
         return self;
     };
@@ -48,8 +59,18 @@ BaseLayerProtocol_synthesize_part3
 }
 #pragma mark —— BaseViewProtocol
 /// 获取绑定的数据源
--(UIViewModel *)getViewModel{
-    return self.viewModel;
+-(UIViewModel *_Nullable)getViewModel{
+    JobsRetViewModelByVoidBlock action = ((JobsRetViewModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTextLabStyleTBVCell.class, @selector(jobsGetViewModel)))(self, @selector(jobsGetViewModel));
+    return action ? action() : nil;
+}
+
+-(JobsRetViewModelByVoidBlock _Nonnull)jobsGetViewModel{
+    @jobs_weakify(self)
+    return ^UIViewModel *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.viewModel;
+    };
 }
 #pragma mark —— lazyLoad
 @synthesize label = _label;

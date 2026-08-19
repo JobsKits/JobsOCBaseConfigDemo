@@ -15,10 +15,10 @@ JobsKey(_logOutPopupVM)
     UIViewModel *LogOutPopupVM = Jobs_getAssociatedObject(_logOutPopupVM);
     if (!LogOutPopupVM) {
         LogOutPopupVM = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.textModel.byText(@"Confirm to exit ?".tr)
+            data.textModel.byText(@"Confirm to exit ?".jobsTr())
                           .byFont(UIFontWeightRegularSize(14))
                           .byTextAlignment(NSTextAlignmentCenter);
-            data.subTextModel.byText(@"".tr);
+            data.subTextModel.byText(@"".jobsTr());
             data.byBgCor(JobsWhiteColor);
         });Jobs_setAssociatedRETAIN_NONATOMIC(_logOutPopupVM, LogOutPopupVM)
     };return LogOutPopupVM;
@@ -43,7 +43,7 @@ JobsKey(_logOutPopupView)
                                                    JobsLog(@"手滑了");
                                                }else if (data.tag == 999){// 确定退出
                                                    self.logOut();
-                                                   self.jobsToastSuccessMsg(@"Logout succeeded".tr);
+                                                   self.jobsToastSuccessMsg(@"Logout succeeded".jobsTr());
                                                    extern BOOL ISLogin;
                                                    ISLogin = NO;
                                                    JobsPostNotification(退出登录成功, @(NO));

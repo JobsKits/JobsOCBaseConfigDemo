@@ -6,16 +6,17 @@
 //
 
 #ifndef JobsAppDoorInputViewBaseStyleModel_h
-#define JobsAppDoorInputViewBaseStyleModel_h
-
-#import <UIKit/UIKit.h>
-#import "UIViewModel.h"
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
 #else
 #import "XYColorOC.h"
 #endif
+
+#define JobsAppDoorInputViewBaseStyleModel_h
+
+#import <UIKit/UIKit.h>
+#import "UIViewModel.h"
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"
@@ -74,6 +75,9 @@ Prop_strong()UIColor *animationColor;/// 动画最终字颜色
 Prop_strong()UIFont *animationFont;/// 动画最终字体
 Prop_assign()CGFloat moveDistance;///  移动距离,默认为field高度的一半,设置0无效（关闭动画请使用isPlaceholdAnimationable）
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorInputViewBaseStyleModel
+-(JobsRetJobsAppDoorInputViewBaseStyleModelByBOOLBlock _Nonnull)byShowSecurityBtn;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyleModel
 @end
 
 NS_ASSUME_NONNULL_END

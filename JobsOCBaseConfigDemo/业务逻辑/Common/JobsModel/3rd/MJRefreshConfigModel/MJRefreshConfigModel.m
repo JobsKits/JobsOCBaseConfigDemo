@@ -6,19 +6,12 @@
 //
 
 #import "MJRefreshConfigModel.h"
+
 #import "NSString+Extra.h"
 #import "NSMutableArray+Extra.h"
 #import "JobsLanMgr.h"
 
 @implementation MJRefreshConfigModel
--(JobsRetMJRefreshConfigModelByRetIDByIDBlocks _Nonnull)byLoadBlock{
-    @jobs_weakify(self)
-    return ^MJRefreshConfigModel *_Nullable(JobsRetIDByIDBlock block){
-        @jobs_strongify(self)
-        self.loadBlock = block;
-        return self;
-    };
-}
 #pragma mark —— lazyLoad 默认配置
 /// Font
 -(UIFont *)font{
@@ -65,31 +58,31 @@
 /// title
 -(NSString *)stateIdleTitle{
     if (!_stateIdleTitle) {
-        _stateIdleTitle = @"普通闲置状态".tr;
+        _stateIdleTitle = @"普通闲置状态".jobsTr();
     };return _stateIdleTitle;
 }
 
 -(NSString *)pullingTitle{
     if (!_pullingTitle) {
-        _pullingTitle = @"松开就可以进行刷新的状态".tr;
+        _pullingTitle = @"松开就可以进行刷新的状态".jobsTr();
     };return _pullingTitle;
 }
 
 -(NSString *)refreshingTitle{
     if (!_refreshingTitle) {
-        _refreshingTitle = @"正在刷新中的状态".tr;
+        _refreshingTitle = @"正在刷新中的状态".jobsTr();
     };return _refreshingTitle;
 }
 
 -(NSString *)willRefreshTitle{
     if (!_willRefreshTitle) {
-        _willRefreshTitle = @"即将刷新的状态".tr;
+        _willRefreshTitle = @"即将刷新的状态".jobsTr();
     };return _willRefreshTitle;
 }
 
 -(NSString *)noMoreDataTitle{
     if (!_noMoreDataTitle) {
-        _noMoreDataTitle = @"所有数据加载完毕，没有更多的数据了".tr;
+        _noMoreDataTitle = @"所有数据加载完毕，没有更多的数据了".jobsTr();
     };return _noMoreDataTitle;
 }
 /// 静态图内部拼接出的动效，而非Gif

@@ -6,16 +6,6 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_NSOBJECT_DATA_7EC1717EDE
-#define JOBS_HEADER_GUARD_NSOBJECT_DATA_7EC1717EDE
-
-#import <objc/runtime.h>
-#import <UIKit/UIKit.h>
-
-#if __has_include(<TXFileOperation/TXFileOperation.h>)
-#import <TXFileOperation/TXFileOperation.h>
-#else
-#import "TXFileOperation.h"
-#endif
 
 #if __has_include(<MJExtension/MJExtension.h>)
 #import <MJExtension/MJExtension.h>
@@ -23,11 +13,25 @@
 #import "MJExtension.h"
 #endif
 
+#if __has_include(<TXFileOperation/TXFileOperation.h>)
+#import <TXFileOperation/TXFileOperation.h>
+#else
+#import "TXFileOperation.h"
+#endif
+
+#define JOBS_HEADER_GUARD_NSOBJECT_DATA_7EC1717EDE
+
+#import <objc/runtime.h>
+#import <UIKit/UIKit.h>
+
 #import "JobsBaseProtocolHeader.h"
+#include "BaseProtocol.h"
 #import "JobsBlock.h"
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+@protocol BaseProtocol;
 
 @interface NSObject (Data)
 <
@@ -46,6 +50,8 @@ UITableViewDelegate
 +(JobsRetIDByDicBlock _Nonnull)byDataDic;
 /// 万能解析
 +(JobsRetIDByIDBlock _Nonnull)byData;
+/// 为当前对象绑定关联数据，并返回当前对象继续链式调用
+-(JobsRetIDByIDBlock _Nonnull)byData;
 #pragma mark —— 关于数据存储
 ///【对FileFolderHandleTool的二次封装】 存数据，储存成功返回地址
 /// @param data 被储存的数据

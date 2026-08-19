@@ -24,54 +24,84 @@ Prop_strong()UILabel *resultLab;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCNIDDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(@"身份证校验 Demo".tr)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        .byBgCor(HEXCOLOR(0xF5F7FA))
-        .byNavBgCor(HEXCOLOR(0xF5F7FA));
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(@"身份证校验 Demo".jobsTr())
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            .byBgCor(HEXCOLOR(0xF5F7FA))
+            .byNavBgCor(HEXCOLOR(0xF5F7FA));
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.makeNavByAlpha(1);
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.contentView.byHidden(NO);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCNIDDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.makeNavByAlpha(1);
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.contentView.byHidden(NO);
+    };
 }
 
 #pragma mark —— Actions
--(void)fillExample{
-    self.inputTF.byText(@"510105199307315321");
-    [self updateResult:@"已填入示例号码" success:YES];
+-(jobsByVoidBlock _Nonnull)fillExample{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.inputTF.byText(@"510105199307315321");
+        [self updateResult:@"已填入示例号码" success:YES];
+    };
 }
 
--(void)validateIDCard{
-    NSError *error = nil;
-    NSString *normalized = [NSObject jobs_validateCNID:self.inputTF.text error:&error];
-    if (normalized.length) {
-        [self updateResult:[NSString stringWithFormat:@"校验成功\n标准化结果：%@",normalized] success:YES];
-    } else {
-        [self updateResult:error.localizedDescription ?: @"校验失败" success:NO];
-    }
+-(jobsByVoidBlock _Nonnull)validateIDCard{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        NSError *error = nil;
+        NSString *normalized = [NSObject jobs_validateCNID:self.inputTF.text error:&error];
+        if (normalized.length) {
+            [self updateResult:[NSString stringWithFormat:@"校验成功\n标准化结果：%@",normalized] success:YES];
+        } else {
+            [self updateResult:error.localizedDescription ?: @"校验失败" success:NO];
+        }
+    };
 }
 
 -(void)updateResult:(NSString *)text
             success:(BOOL)success{
     self.resultLab
-        .byText(text.tr)
+        .byText(text.jobsTr())
         .byTextCor(success ? HEXCOLOR(0x159947) : HEXCOLOR(0xD14343))
         .byBgColor(success ? HEXCOLOR(0xEAF8EF) : HEXCOLOR(0xFFF0F0));
 }
@@ -81,7 +111,7 @@ Prop_strong()UILabel *resultLab;
            backgroundColor:(UIColor *)backgroundColor{
     return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
         button
-            .jobsResetBtnTitle(title.tr)
+            .jobsResetBtnTitle(title.jobsTr())
             .jobsResetBtnTitleFont(UIFontWeightMediumSize(15))
             .jobsResetBtnTitleCor(UIColor.whiteColor)
             .jobsResetBtnBgCor(backgroundColor)
@@ -129,7 +159,7 @@ Prop_strong()UILabel *resultLab;
         @jobs_weakify(self)
         _inputTF = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
             textField
-                .byPlaceholder(@"请输入身份证号码".tr)
+                .byPlaceholder(@"请输入身份证号码".jobsTr())
                 .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightRegularSize(16))
                 .byBorderStyle(UITextBorderStyleNone)
@@ -161,7 +191,7 @@ Prop_strong()UILabel *resultLab;
         @jobs_weakify(self)
         _exampleBtn = [self buttonByTitle:@"填入示例"
                                     action:^(__kindof UIButton * _Nullable button) {
-            [weak_self fillExample];
+            weak_self.fillExample();
         }
                            backgroundColor:HEXCOLOR(0x263342)];
         _exampleBtn.addOn(self.contentView);
@@ -179,7 +209,7 @@ Prop_strong()UILabel *resultLab;
         @jobs_weakify(self)
         _validateBtn = [self buttonByTitle:@"校验"
                                      action:^(__kindof UIButton * _Nullable button) {
-            [weak_self validateIDCard];
+            weak_self.validateIDCard();
         }
                             backgroundColor:HEXCOLOR(0x1D7FF2)];
         _validateBtn.addOn(self.contentView);
@@ -198,7 +228,7 @@ Prop_strong()UILabel *resultLab;
         @jobs_weakify(self)
         _resultLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"等待输入校验".tr)
+                .byText(@"等待输入校验".jobsTr())
                 .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontWeightRegularSize(15))
                 .byNumberOfLines(0)

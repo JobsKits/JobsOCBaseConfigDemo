@@ -70,25 +70,126 @@ static NSArray<UIButton *> *JobsOCDemoBusinessButtonsInView(UIView *view) {
 
 static __kindof UIButton *JobsOCMakeDemoActionButton(jobsByBtnBlock configure) {
     UIButton *button = jobsMakeBaseButton(configure);
-    [button jobsBtnClickEventBlock:^id(UIButton *sender) {
+    button.jobsBtnClickEventBlock(^id(UIButton *sender) {
         if (sender.clickBlock) sender.clickBlock(sender);
         return nil;
-    }];return button;
+    });return button;
+}
+
+static void JobsOCCollectNavigationTitleLabels(UIView *_Nullable view,
+                                               NSMutableArray<UILabel *> *labels) {
+    if (!view) return;
+    if ([view isKindOfClass:UILabel.class]) [labels addObject:(UILabel *)view];
+    for (UIView *subview in view.subviews) {
+        JobsOCCollectNavigationTitleLabels(subview, labels);
+    }
+}
+
+static void JobsOCApplyNavigationTitleColor(UILabel *label,
+                                            UIColor *color) {
+    if (label.attributedText.length) {
+        NSMutableAttributedString *attributedText = label.attributedText.mutableCopy;
+        [attributedText addAttribute:NSForegroundColorAttributeName
+                               value:color
+                               range:NSMakeRange(0, attributedText.length)];
+        label.byAttributedString(attributedText);
+    }else label.byTextCor(color);
+}
+
+static void JobsOCApplyNavigationTitleViewTheme(UIView *_Nullable titleView,
+                                                UIColor *mainTitleColor,
+                                                UIColor *subTitleColor) {
+    NSMutableArray<UILabel *> *labels = NSMutableArray.array;
+    JobsOCCollectNavigationTitleLabels(titleView, labels);
+    [labels enumerateObjectsUsingBlock:^(UILabel *label,
+                                         NSUInteger index,
+                                         BOOL *stop) {
+        JobsOCApplyNavigationTitleColor(label,
+                                        index ? subTitleColor : mainTitleColor);
+    }];
+}
+
+static void JobsOCApplyNavigationBackButtonTheme(UIButton *button,
+                                                 UIColor *foregroundColor,
+                                                 UIColor *backgroundColor) {
+    UIImage *normalImage = button.imageByState(UIControlStateNormal);
+    if (normalImage) {
+        button.jobsResetBtnImage([normalImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]);
+    }
+    button
+        .jobsResetBtnTitleCor(foregroundColor)
+        .selectedStateTitleColorBy(foregroundColor)
+        .highlightedStateTitleColorBy(foregroundColor)
+        .titleColorForStateBy(foregroundColor, UIControlStateSelected | UIControlStateHighlighted)
+        .jobsResetBtnBgCor(backgroundColor)
+        .jobsResetBtnCornerRadiusValue(JobsWidth(16))
+        .byTintColor(foregroundColor);
+}
+
+static void JobsOCApplyNavigationBackItemsTheme(NSArray<UIBarButtonItem *> *items,
+                                                UIColor *foregroundColor,
+                                                UIColor *backgroundColor) {
+    for (UIBarButtonItem *item in items) {
+        for (UIButton *button in JobsOCDemoBusinessButtonsInView(item.customView)) {
+            JobsOCApplyNavigationBackButtonTheme(button,
+                                                 foregroundColor,
+                                                 backgroundColor);
+        }
+    }
+}
+
+static void JobsOCApplyDemoNavigationTheme(UIViewController *viewController,
+                                           JobsThemeCenter *center) {
+    UIColor *backgroundColor = center.resolvedColorForKey(JobsThemeColorKeyBackgroundPrimary);
+    UIColor *secondaryBackgroundColor = center.resolvedColorForKey(JobsThemeColorKeyBackgroundSecondary);
+    UIColor *mainTitleColor = center.resolvedColorForKey(JobsThemeColorKeyTextPrimary);
+    UIColor *subTitleColor = center.resolvedColorForKey(JobsThemeColorKeyTextSecondary);
+    viewController
+        .byGKNavBackgroundColor(backgroundColor)
+        .byGKNavTitleColor(mainTitleColor)
+        .byGKNavShadowColor(center.resolvedColorForKey(JobsThemeColorKeyTextQuaternary));
+    JobsOCApplyNavigationTitleViewTheme(viewController.gk_navTitleView,
+                                       mainTitleColor,
+                                       subTitleColor);
+    if (viewController.navigationItem.titleView != viewController.gk_navTitleView) {
+        JobsOCApplyNavigationTitleViewTheme(viewController.navigationItem.titleView,
+                                           mainTitleColor,
+                                           subTitleColor);
+    }
+    NSArray<UIBarButtonItem *> *gkLeftItems = viewController.gk_navLeftBarButtonItems ?:
+        (viewController.gk_navLeftBarButtonItem ? @[viewController.gk_navLeftBarButtonItem] : @[]);
+    NSArray<UIBarButtonItem *> *systemLeftItems = viewController.navigationItem.leftBarButtonItems ?:
+        (viewController.navigationItem.leftBarButtonItem ? @[viewController.navigationItem.leftBarButtonItem] : @[]);
+    JobsOCApplyNavigationBackItemsTheme(gkLeftItems,
+                                       mainTitleColor,
+                                       secondaryBackgroundColor);
+    JobsOCApplyNavigationBackItemsTheme(systemLeftItems,
+                                       mainTitleColor,
+                                       secondaryBackgroundColor);
+    UINavigationBar *navigationBar = viewController.navigationController.navigationBar;
+    if (navigationBar) {
+        NSMutableDictionary *titleTextAttributes = navigationBar.titleTextAttributes.mutableCopy ?:
+            NSMutableDictionary.dictionary;
+        titleTextAttributes[NSForegroundColorAttributeName] = mainTitleColor;
+        navigationBar.byTitleTextAttributes(titleTextAttributes.copy);
+        navigationBar.byTintColor(mainTitleColor);
+        navigationBar.byBarTintColor(backgroundColor);
+    }
 }
 
 @interface UIViewController (BaseNavigationBarTheme)
 
--(UIButton *)jobs_demoThemeButton;
--(UIBarButtonItem *)jobs_demoThemeBarButtonItem;
--(NSArray<UIButton *> *)jobs_demoBusinessButtons;
--(void)jobs_setDemoBusinessButtons:(NSArray<UIButton *> *)buttons;
--(UIView *_Nullable)jobs_demoActionMenuOverlay;
--(void)jobs_setDemoActionMenuOverlay:(UIView *_Nullable)overlay;
--(void)jobs_updateDemoTriggerPresentation;
+-(JobsRetBtnByVoidBlock _Nonnull)jobs_demoThemeButton;
+-(JobsRetBarButtonItemByVoidBlock _Nonnull)jobs_demoThemeBarButtonItem;
+-(JobsRetNSArrayUIButtonByVoidBlock _Nonnull)jobs_demoBusinessButtons;
+-(jobsByNSArrayUIButtonBlock _Nonnull)jobs_setDemoBusinessButtons;
+-(JobsRetViewByVoidBlock _Nonnull)jobs_demoActionMenuOverlay;
+-(jobsByViewBlock _Nonnull)jobs_setDemoActionMenuOverlay;
+-(jobsByVoidBlock _Nonnull)jobs_updateDemoTriggerPresentation;
 -(void)jobs_updateDemoBusinessButtonsFromItems:(NSArray<UIBarButtonItem *> *)items
                                      themeItem:(UIBarButtonItem *)themeItem;
--(NSArray<UIButton *> *)jobs_demoBusinessButtonsFromBarButtonItem:(UIBarButtonItem *)item;
--(void)jobs_showDemoActionMenu:(BOOL)show;
+-(JobsRetNSArrayUIButtonByUIBarButtonItemBlock _Nonnull)jobs_demoBusinessButtonsFromBarButtonItem;
+-(jobsByBOOLBlock _Nonnull)jobs_showDemoActionMenu;
 -(NSString *)jobs_demoActionTitleForButton:(UIButton *)button
                                      index:(NSInteger)index;
 -(void)jobs_addDemoActionMenuRowToView:(UIView *)menuView
@@ -114,135 +215,174 @@ static __kindof UIButton *JobsOCMakeDemoActionButton(jobsByBtnBlock configure) {
     };
 }
 
--(void)jobs_ensureDemoThemeButton{
-    if (@available(iOS 13.0, *)) {
-        if (!JobsOCIsDemoNavigationChild(self)) return;
-        self.view.byBgColor(JobsSystemBackgroundColor);
-        UIButton *themeButton = self.jobs_demoThemeButton.bySelected(JobsThemeCenter.shared.isDarkMode);
-        UIBarButtonItem *themeItem = self.jobs_demoThemeBarButtonItem;
-        if (JobsOCIsSystemNavigationBarDemo(self)) {
-            NSArray<UIBarButtonItem *> *items = self.navigationItem.rightBarButtonItems ?:
-                (self.navigationItem.rightBarButtonItem ? @[self.navigationItem.rightBarButtonItem] : @[]);
+-(jobsByVoidBlock _Nonnull)jobs_ensureDemoThemeButton{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (@available(iOS 13.0, *)) {
+            if (!JobsOCIsDemoNavigationChild(self)) return;
+            self.view.byBgColor(JobsSystemBackgroundColor);
+            UIButton *themeButton = self.jobs_demoThemeButton().bySelected(JobsThemeCenter.shared.isDarkMode);
+            UIBarButtonItem *themeItem = self.jobs_demoThemeBarButtonItem();
+            [JobsThemeCenter.shared bindObject:self
+                                          slot:@"JobsBaseUI.navigationTheme"
+                                         apply:^(__kindof UIViewController *object,
+                                                 JobsThemeCenter *center) {
+                JobsOCApplyDemoNavigationTheme(object, center);
+            }];
+            if (JobsOCIsSystemNavigationBarDemo(self)) {
+                NSArray<UIBarButtonItem *> *items = self.navigationItem.rightBarButtonItems ?:
+                    (self.navigationItem.rightBarButtonItem ? @[self.navigationItem.rightBarButtonItem] : @[]);
+                [self jobs_updateDemoBusinessButtonsFromItems:items
+                                                    themeItem:themeItem];
+                self.navigationItem.byRightBarButtonItem(nil);
+                self.navigationItem.byRightBarButtonItems(@[themeItem]);
+                return;
+            }
+            self.byGKNavBackgroundImage(nil);
+            NSArray<UIBarButtonItem *> *items = self.gk_navRightBarButtonItems ?:
+                (self.gk_navRightBarButtonItem ? @[self.gk_navRightBarButtonItem] : @[]);
             [self jobs_updateDemoBusinessButtonsFromItems:items
                                                 themeItem:themeItem];
-            self.navigationItem.rightBarButtonItem = nil;
-            self.navigationItem.rightBarButtonItems = @[themeItem];
-            return;
+            self.byGk_navRightBarButtonItem(nil);
+            self.byGk_navRightBarButtonItems(@[themeItem]);
+            themeButton.bySelected(JobsThemeCenter.shared.isDarkMode);
         }
-        [JobsThemeCenter.shared bindObject:self
-                                      slot:@"JobsBaseUI.GKNavigationBar.colors"
-                                     apply:^(__kindof UIViewController *object,
-                                             JobsThemeCenter *center) {
-            object
-                .byGKNavBackgroundColor([center resolvedColorForKey:JobsThemeColorKeyBackgroundPrimary])
-                .byGKNavTitleColor([center resolvedColorForKey:JobsThemeColorKeyTextPrimary]);
-        }];
-        self.byGKNavBackgroundImage(nil);
-        NSArray<UIBarButtonItem *> *items = self.gk_navRightBarButtonItems ?:
-            (self.gk_navRightBarButtonItem ? @[self.gk_navRightBarButtonItem] : @[]);
-        [self jobs_updateDemoBusinessButtonsFromItems:items
-                                            themeItem:themeItem];
-        self.gk_navRightBarButtonItem = nil;
-        self.gk_navRightBarButtonItems = @[themeItem];
-        themeButton.bySelected(JobsThemeCenter.shared.isDarkMode);
-    }
+    };
 }
 #pragma mark —— 全局主题切换按钮
 JobsKey(_jobs_demoThemeButton)
--(UIButton *)jobs_demoThemeButton{
-    UIButton *button = Jobs_getAssociatedObject(_jobs_demoThemeButton);
-    if (!button) {
-        UIImage *normalImage = JobsThemeImage(JobsThemeImageKeyThemeToggle);
-        UIImage *selectedImage = JobsThemeImage(JobsThemeImageKeyThemeToggle);
-        UIColor *tintColor = JobsLabelColor;
-        @jobs_weakify(self)
-        button = JobsOCMakeDemoActionButton(^(__kindof UIButton * _Nullable button) {
-            button
-                .normalStateImageBy(normalImage)
-                .selectedStateImageBy(selectedImage)
-                .jobsResetBtnBgCor(JobsClearColor)
-                .onClickBy(^(UIButton *sender) {
-                    @jobs_strongify(self)
-                    if (!self.jobs_demoBusinessButtons.count) {
-                        [JobsThemeCenter.shared toggle];
-                        [self jobs_updateDemoTriggerPresentation];
-                    }else [self jobs_showDemoActionMenu:self.jobs_demoActionMenuOverlay == nil];
-                })
-                .bySelected(JobsThemeCenter.shared.isDarkMode)
-                .byTag(JobsOCDemoThemeButtonTag)
-                .byTintColor(tintColor)
-                .bySize(CGSizeMake(44, 44));
-            button.accessibilityLabel = @"切换全局主题";
-        });
-        Jobs_setAssociatedRETAIN_NONATOMIC(_jobs_demoThemeButton, button)
-        [self jobs_updateDemoTriggerPresentation];
-    };return button;
+-(JobsRetBtnByVoidBlock _Nonnull)jobs_demoThemeButton{
+    @jobs_weakify(self)
+    return ^UIButton *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        UIButton *button = Jobs_getAssociatedObject(_jobs_demoThemeButton);
+        if (!button) {
+            UIImage *normalImage = JobsThemeImage(JobsThemeImageKeyThemeToggle);
+            UIImage *selectedImage = JobsThemeImage(JobsThemeImageKeyThemeToggle);
+            UIColor *tintColor = JobsLabelColor;
+            @jobs_weakify(self)
+            button = JobsOCMakeDemoActionButton(^(__kindof UIButton * _Nullable button) {
+                button
+                    .normalStateImageBy(normalImage)
+                    .selectedStateImageBy(selectedImage)
+                    .jobsResetBtnBgCor(JobsClearColor)
+                    .onClickBy(^(UIButton *sender) {
+                        @jobs_strongify(self)
+                        if (!self.jobs_demoBusinessButtons().count) {
+                            JobsThemeCenter.shared.toggle();
+                            self.jobs_updateDemoTriggerPresentation();
+                        }else self.jobs_showDemoActionMenu(self.jobs_demoActionMenuOverlay() == nil);
+                    })
+                    .byAccessibilityLabel(@"切换全局主题")
+                    .bySelected(JobsThemeCenter.shared.isDarkMode)
+                    .byTag(JobsOCDemoThemeButtonTag)
+                    .byTintColor(tintColor)
+                    .bySize(CGSizeMake(44, 44));
+            });
+            Jobs_setAssociatedRETAIN_NONATOMIC(_jobs_demoThemeButton, button)
+            self.jobs_updateDemoTriggerPresentation();
+        };return button;
+    };
 }
 
 JobsKey(_jobs_demoThemeBarButtonItem)
--(UIBarButtonItem *)jobs_demoThemeBarButtonItem{
-    UIBarButtonItem *item = Jobs_getAssociatedObject(_jobs_demoThemeBarButtonItem);
-    if (!item) {
-        item = [UIBarButtonItem.alloc initWithCustomView:self.jobs_demoThemeButton];
-        Jobs_setAssociatedRETAIN_NONATOMIC(_jobs_demoThemeBarButtonItem, item)
-    };return item;
+-(JobsRetBarButtonItemByVoidBlock _Nonnull)jobs_demoThemeBarButtonItem{
+    @jobs_weakify(self)
+    return ^UIBarButtonItem *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        UIBarButtonItem *item = Jobs_getAssociatedObject(_jobs_demoThemeBarButtonItem);
+        if (!item) {
+            item = [UIBarButtonItem.alloc initWithCustomView:self.jobs_demoThemeButton()];
+            Jobs_setAssociatedRETAIN_NONATOMIC(_jobs_demoThemeBarButtonItem, item)
+        };return item;
+    };
 }
 
 JobsKey(_jobs_demoBusinessButtons)
--(NSArray<UIButton *> *)jobs_demoBusinessButtons{
-    NSArray<UIButton *> *buttons = Jobs_getAssociatedObject(_jobs_demoBusinessButtons);
-    return buttons ?: @[];
+-(JobsRetNSArrayUIButtonByVoidBlock _Nonnull)jobs_demoBusinessButtons{
+    @jobs_weakify(self)
+    return ^NSArray<UIButton *> *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSArray<UIButton *> *buttons = Jobs_getAssociatedObject(_jobs_demoBusinessButtons);
+        return buttons ?: @[];
+    };
 }
 
--(void)jobs_setDemoBusinessButtons:(NSArray<UIButton *> *)buttons{
-    Jobs_setAssociatedRETAIN_NONATOMIC(_jobs_demoBusinessButtons, buttons ?: @[])
-    [self jobs_updateDemoTriggerPresentation];
+-(jobsByNSArrayUIButtonBlock _Nonnull)jobs_setDemoBusinessButtons{
+    @jobs_weakify(self)
+    return ^(NSArray<UIButton *> * buttons){
+        @jobs_strongify(self)
+        if (!self) return;
+        Jobs_setAssociatedRETAIN_NONATOMIC(_jobs_demoBusinessButtons, buttons ?: @[])
+        self.jobs_updateDemoTriggerPresentation();
+    };
 }
 
 JobsKey(_jobs_demoActionMenuOverlay)
--(UIView *)jobs_demoActionMenuOverlay{
-    return Jobs_getAssociatedObject(_jobs_demoActionMenuOverlay);
+-(JobsRetViewByVoidBlock _Nonnull)jobs_demoActionMenuOverlay{
+    @jobs_weakify(self)
+    return ^UIView *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return Jobs_getAssociatedObject(_jobs_demoActionMenuOverlay);
+    };
 }
 
--(void)jobs_setDemoActionMenuOverlay:(UIView *)overlay{
-    Jobs_setAssociatedRETAIN_NONATOMIC(_jobs_demoActionMenuOverlay, overlay)
-    [self jobs_updateDemoTriggerPresentation];
+-(jobsByViewBlock _Nonnull)jobs_setDemoActionMenuOverlay{
+    @jobs_weakify(self)
+    return ^(UIView * overlay){
+        @jobs_strongify(self)
+        if (!self) return;
+        Jobs_setAssociatedRETAIN_NONATOMIC(_jobs_demoActionMenuOverlay, overlay)
+        self.jobs_updateDemoTriggerPresentation();
+    };
 }
 
--(void)jobs_updateDemoTriggerPresentation{
-    UIButton *button = Jobs_getAssociatedObject(_jobs_demoThemeButton);
-    if (!button) return;
-    BOOL opensMenu = self.jobs_demoBusinessButtons.count > 0;
-    if (opensMenu) {
-        [JobsThemeCenter.shared unbindObject:button
-                                       slot:@"JobsBaseUI.themeButton.presentation"];
-        BOOL expanded = self.jobs_demoActionMenuOverlay != nil;
-        UIImage *image = [UIImage systemImageNamed:expanded
-            ? @"ellipsis.circle.fill"
-            : @"ellipsis.circle"];
+-(jobsByVoidBlock _Nonnull)jobs_updateDemoTriggerPresentation{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        UIButton *button = Jobs_getAssociatedObject(_jobs_demoThemeButton);
+        if (!button) return;
+        BOOL opensMenu = self.jobs_demoBusinessButtons().count > 0;
+        if (opensMenu) {
+            [JobsThemeCenter.shared unbindObject:button
+                                           slot:@"JobsBaseUI.themeButton.presentation"];
+            BOOL expanded = self.jobs_demoActionMenuOverlay() != nil;
+            UIImage *image = [UIImage systemImageNamed:expanded
+                ? @"ellipsis.circle.fill"
+                : @"ellipsis.circle"];
+            button
+                .normalStateImageBy(image)
+                .selectedStateImageBy(image)
+                .bySelected(NO);
+            button.byAccessibilityIdentifier(@"JobsOCDemoActionMenuTrigger");
+            button.accessibilityLabel = expanded
+                ? @"收起主题与页面操作".jobsTr()
+                : @"展开主题与页面操作".jobsTr();
+            return;
+        }
         button
-            .normalStateImageBy(image)
-            .selectedStateImageBy(image)
-            .bySelected(NO);
-        button.accessibilityIdentifier = @"JobsOCDemoActionMenuTrigger";
-        button.accessibilityLabel = expanded
-            ? @"收起主题与页面操作".tr
-            : @"展开主题与页面操作".tr;
-        return;
-    }
-    button
-        .normalStateImageBy(JobsThemeImage(JobsThemeImageKeyThemeToggle))
-        .selectedStateImageBy(JobsThemeImage(JobsThemeImageKeyThemeToggle));
-    [JobsThemeCenter.shared bindObject:button
-                                 slot:@"JobsBaseUI.themeButton.presentation"
-                                apply:^(__kindof UIButton *object,
-                                        JobsThemeCenter *center) {
-        object.bySelected(center.isDarkMode);
-        object.accessibilityIdentifier = JobsOCDemoThemeDirectActionIdentifier;
-        object.accessibilityLabel = center.isDarkMode
-            ? @"切换为白天".tr
-            : @"切换为黑夜".tr;
-    }];
+            .normalStateImageBy(JobsThemeImage(JobsThemeImageKeyThemeToggle))
+            .selectedStateImageBy(JobsThemeImage(JobsThemeImageKeyThemeToggle));
+        [JobsThemeCenter.shared bindObject:button
+                                     slot:@"JobsBaseUI.themeButton.presentation"
+                                    apply:^(__kindof UIButton *object,
+                                            JobsThemeCenter *center) {
+            object
+                .bySelected(center.isDarkMode)
+                .byAccessibilityIdentifier(JobsOCDemoThemeDirectActionIdentifier);
+            object.accessibilityLabel = center.isDarkMode
+                ? @"切换为白天".jobsTr()
+                : @"切换为黑夜".jobsTr();
+        }];
+    };
 }
 
 -(void)jobs_updateDemoBusinessButtonsFromItems:(NSArray<UIBarButtonItem *> *)items
@@ -255,24 +395,36 @@ JobsKey(_jobs_demoActionMenuOverlay)
     if (containsThemeItem && !businessItems.count) return;
     NSMutableArray<UIButton *> *businessButtons = NSMutableArray.array;
     for (UIBarButtonItem *item in businessItems) {
-        [businessButtons addObjectsFromArray:[self jobs_demoBusinessButtonsFromBarButtonItem:item]];
+        [businessButtons addObjectsFromArray:self.jobs_demoBusinessButtonsFromBarButtonItem(item)];
     }
-    [self jobs_setDemoBusinessButtons:businessButtons.copy];
-    [self jobs_showDemoActionMenu:NO];
+    self.jobs_setDemoBusinessButtons(businessButtons.copy);
+    self.jobs_showDemoActionMenu(NO);
 }
 
--(NSArray<UIButton *> *)jobs_demoBusinessButtonsFromBarButtonItem:(UIBarButtonItem *)item{
-    if (item.customView) return JobsOCDemoBusinessButtonsInView(item.customView);
-    UIButton *sourceButton = JobsOCMakeDemoActionButton(^(__kindof UIButton * _Nullable button) {
-        button
-            .jobsResetBtnTitle(item.title)
-            .jobsResetBtnImage(item.image);
-        button.accessibilityLabel = item.accessibilityLabel;
-    });
-    if (@available(iOS 14.0, *)) {
-        if (item.primaryAction) {
-            [sourceButton addAction:item.primaryAction
-                   forControlEvents:UIControlEventTouchUpInside];
+-(JobsRetNSArrayUIButtonByUIBarButtonItemBlock _Nonnull)jobs_demoBusinessButtonsFromBarButtonItem{
+    @jobs_weakify(self)
+    return ^NSArray<UIButton *> *(UIBarButtonItem * item){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (item.customView) return JobsOCDemoBusinessButtonsInView(item.customView);
+        UIButton *sourceButton = JobsOCMakeDemoActionButton(^(__kindof UIButton * _Nullable button) {
+            button
+                .jobsResetBtnTitle(item.title)
+                .jobsResetBtnImage(item.image)
+            .byAccessibilityLabel(item.accessibilityLabel);
+        });
+        if (@available(iOS 14.0, *)) {
+            if (item.primaryAction) {
+                [sourceButton addAction:item.primaryAction
+                       forControlEvents:UIControlEventTouchUpInside];
+            }else if (item.target && item.action){
+                sourceButton.onClickBy(^(UIButton *sender) {
+                    [UIApplication.sharedApplication sendAction:item.action
+                                                             to:item.target
+                                                           from:item
+                                                       forEvent:nil];
+                });
+            }
         }else if (item.target && item.action){
             sourceButton.onClickBy(^(UIButton *sender) {
                 [UIApplication.sharedApplication sendAction:item.action
@@ -280,96 +432,94 @@ JobsKey(_jobs_demoActionMenuOverlay)
                                                        from:item
                                                    forEvent:nil];
             });
-        }
-    }else if (item.target && item.action){
-        sourceButton.onClickBy(^(UIButton *sender) {
-            [UIApplication.sharedApplication sendAction:item.action
-                                                     to:item.target
-                                                   from:item
-                                               forEvent:nil];
-        });
-    };return @[sourceButton];
+        };return @[sourceButton];
+    };
 }
 
--(void)jobs_showDemoActionMenu:(BOOL)show{
-    UIView *overlay = self.jobs_demoActionMenuOverlay;
-    if (overlay) overlay.byRemove();
-    [self jobs_setDemoActionMenuOverlay:nil];
-    if (!show || !self.jobs_demoBusinessButtons.count) return;
-    overlay = jobsMakeBaseView(^(__kindof BaseView * _Nullable view) {
-        view
-            .byBgColor(JobsClearColor)
-            .addOn(self.view)
-            .byAdd(^(MASConstraintMaker *make) {
-                if (JobsOCIsSystemNavigationBarDemo(self)) {
-                    make.edges.equalTo(self.view);
-                }else{
-                    make.top.equalTo(self.gk_navigationBar.mas_bottom);
-                    make.left.right.bottom.equalTo(self.view);
-                }
-            });
-    });
-    NSInteger rowCount = self.jobs_demoBusinessButtons.count + 1;
-    UIView *menuView = jobsMakeBaseView(^(__kindof BaseView * _Nullable view) {
-        view
-            .byBgColor(JobsSecondarySystemBackgroundColor)
-            .byCornerRadius(8)
-            .byClipsToBounds(YES)
-            .addOn(overlay)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.top.equalTo(overlay).offset(6);
-                make.right.equalTo(overlay).offset(-12);
-                make.width.mas_equalTo(210);
-                make.height.mas_equalTo(rowCount * 44);
-            });
-    });
+-(jobsByBOOLBlock _Nonnull)jobs_showDemoActionMenu{
     @jobs_weakify(self)
-    __weak UIView *weakOverlay = overlay;
-    __weak UIView *weakMenuView = menuView;
-    overlay.tapGR_SelImp.selector = [self jobsSelectorBlock:^id _Nullable(id _Nullable target,
-                                                                         UITapGestureRecognizer *_Nullable gesture) {
+    return ^(BOOL show){
         @jobs_strongify(self)
-        UIView *strongOverlay = weakOverlay;
-        UIView *strongMenuView = weakMenuView;
-        if (!strongOverlay || !strongMenuView) return nil;
-        CGPoint point = [gesture locationInView:strongOverlay];
-        if (CGRectContainsPoint(strongMenuView.frame, point)) return nil;
-        [self jobs_showDemoActionMenu:NO];
-        return nil;
-    }];
-    overlay.tapGR
-        .byCancelsTouchesInView(NO)
-        .byEnabled(YES);
-    [self jobs_setDemoActionMenuOverlay:overlay];
-    BOOL darkModeEnabled = JobsThemeCenter.shared.isDarkMode;
-    [self jobs_addDemoActionMenuRowToView:menuView
-                                    title:darkModeEnabled ? @"切换为白天".tr : @"切换为黑夜".tr
-                                    image:[JobsThemeCenter.shared resolvedImageForKey:
-                                        JobsThemeImageKeyThemeToggle]
-                                    index:0
-                                 rowCount:rowCount
-                                   action:^{
-        @jobs_strongify(self)
-        [self jobs_showDemoActionMenu:NO];
-        [JobsThemeCenter.shared toggle];
-    }];
-    [self.jobs_demoBusinessButtons enumerateObjectsUsingBlock:^(UIButton *sourceButton,
-                                                                NSUInteger index,
-                                                                BOOL *stop) {
-        @jobs_strongify(self)
+        if (!self) return;
+        UIView *overlay = self.jobs_demoActionMenuOverlay();
+        if (overlay) overlay.byRemove();
+        self.jobs_setDemoActionMenuOverlay(nil);
+        if (!show || !self.jobs_demoBusinessButtons().count) return;
+        overlay = jobsMakeBaseView(^(__kindof BaseView * _Nullable view) {
+            view
+                .byBgColor(JobsClearColor)
+                .addOn(self.view)
+                .byAdd(^(MASConstraintMaker *make) {
+                    if (JobsOCIsSystemNavigationBarDemo(self)) {
+                        make.edges.equalTo(self.view);
+                    }else{
+                        make.top.equalTo(self.gk_navigationBar.mas_bottom);
+                        make.left.right.bottom.equalTo(self.view);
+                    }
+                });
+        });
+        NSInteger rowCount = self.jobs_demoBusinessButtons().count + 1;
+        UIView *menuView = jobsMakeBaseView(^(__kindof BaseView * _Nullable view) {
+            view
+                .byBgColor(JobsSecondarySystemBackgroundColor)
+                .byCornerRadius(8)
+                .byClipsToBounds(YES)
+                .addOn(overlay)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(overlay).offset(6);
+                    make.right.equalTo(overlay).offset(-12);
+                    make.width.mas_equalTo(210);
+                    make.height.mas_equalTo(rowCount * 44);
+                });
+        });
+        @jobs_weakify(self)
+        __weak UIView *weakOverlay = overlay;
+        __weak UIView *weakMenuView = menuView;
+        overlay.tapGR_SelImp.selector = self.jobsSelectorBlock(^id _Nullable(id _Nullable target,
+                                                                             UITapGestureRecognizer *_Nullable gesture) {
+            @jobs_strongify(self)
+            UIView *strongOverlay = weakOverlay;
+            UIView *strongMenuView = weakMenuView;
+            if (!strongOverlay || !strongMenuView) return nil;
+            CGPoint point = [gesture locationInView:strongOverlay];
+            if (CGRectContainsPoint(strongMenuView.frame, point)) return nil;
+            self.jobs_showDemoActionMenu(NO);
+            return nil;
+        });
+        overlay.tapGR
+            .byCancelsTouchesInView(NO)
+            .byEnabled(YES);
+        self.jobs_setDemoActionMenuOverlay(overlay);
+        BOOL darkModeEnabled = JobsThemeCenter.shared.isDarkMode;
         [self jobs_addDemoActionMenuRowToView:menuView
-                                        title:[self jobs_demoActionTitleForButton:sourceButton
-                                                                           index:index]
-                                        image:sourceButton.imageByState(sourceButton.state)
-                                        index:index + 1
+                                        title:darkModeEnabled ? @"切换为白天".jobsTr() : @"切换为黑夜".jobsTr()
+                                        image:JobsThemeCenter.shared.resolvedImageForKey(
+                                            JobsThemeImageKeyThemeToggle)
+                                        index:0
                                      rowCount:rowCount
                                        action:^{
             @jobs_strongify(self)
-            [self jobs_showDemoActionMenu:NO];
-            sourceButton.actionByCode();
+            self.jobs_showDemoActionMenu(NO);
+            JobsThemeCenter.shared.toggle();
         }];
-    }];
-    [self.view bringSubviewToFront:overlay];
+        [self.jobs_demoBusinessButtons() enumerateObjectsUsingBlock:^(UIButton *sourceButton,
+                                                                    NSUInteger index,
+                                                                    BOOL *stop) {
+            @jobs_strongify(self)
+            [self jobs_addDemoActionMenuRowToView:menuView
+                                            title:[self jobs_demoActionTitleForButton:sourceButton
+                                                                               index:index]
+                                            image:sourceButton.imageByState(sourceButton.state)
+                                            index:index + 1
+                                         rowCount:rowCount
+                                           action:^{
+                @jobs_strongify(self)
+                self.jobs_showDemoActionMenu(NO);
+                sourceButton.actionByCode();
+            }];
+        }];
+        [self.view bringSubviewToFront:overlay];
+    };
 }
 
 -(NSString *)jobs_demoActionTitleForButton:(UIButton *)button
@@ -382,7 +532,7 @@ JobsKey(_jobs_demoActionMenuOverlay)
     for (NSString *candidate in candidates) {
         NSString *title = [candidate stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
         if (title.length) return title;
-    };return [NSString stringWithFormat:@"%@ %ld", @"页面操作".tr, (long)index + 1];
+    };return [NSString stringWithFormat:@"%@ %ld", @"页面操作".jobsTr(), (long)index + 1];
 }
 
 -(void)jobs_addDemoActionMenuRowToView:(UIView *)menuView
@@ -448,9 +598,10 @@ JobsKey(_navigationBar)
                 @jobs_strongify(self)
                 data.add(self.navItem);
             });
-            navBar.translucent = self.isBarTranslucent;
-            navBar.byHidden(self.isHiddenNavigationBar);
-            navBar.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
+            navBar
+                .byTranslucent(self.isBarTranslucent)
+                .byHidden(self.isHiddenNavigationBar)
+            .addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                 make.left.right.top.equalTo(self.view);
                 make.height.mas_offset(self.jobsNavigationBarHeight);
             });
@@ -535,8 +686,8 @@ JobsKey(_shadow)
         @jobs_weakify(self)
         Shadow = jobsMakeShadow(^(__kindof NSShadow * _Nullable shadow) {
             @jobs_strongify(self)
-            Shadow.shadowColor = self.shadowCor;
-            Shadow.shadowOffset = CGSizeZero;
+            Shadow.byShadowColor(self.shadowCor);
+            Shadow.byShadowOffset(CGSizeZero);
         });Jobs_setAssociatedRETAIN_NONATOMIC(_shadow, Shadow)
     };return Shadow;
 }
@@ -553,8 +704,8 @@ JobsKey(_navItem)
         @jobs_weakify(self)
         NavItem = jobsMakeNavigationItem(^(__kindof UINavigationItem * _Nullable navigationItem) {
             @jobs_strongify(self)
-            NavItem.title = self.title;
-            NavItem.leftBarButtonItem = self.leftBarButtonItem_back;
+            NavItem.byTitle(self.title);
+            NavItem.byLeftBarButtonItem(self.leftBarButtonItem_back);
         });Jobs_setAssociatedRETAIN_NONATOMIC(_navItem, NavItem)
     };return NavItem;
 }

@@ -47,7 +47,7 @@
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import "JobsDefines.h"
+#import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
 #endif
@@ -58,6 +58,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_copy()NSString *resString;
 Prop_copy()NSString *PlaceHolder;
+
+-(JobsRetJobsAppDoorInputViewTFModelByNSStringBlock _Nonnull)byPlaceHolder;
+-(JobsRetJobsAppDoorInputViewTFModelByNSStringBlock _Nonnull)byResString;
 
 @end
 

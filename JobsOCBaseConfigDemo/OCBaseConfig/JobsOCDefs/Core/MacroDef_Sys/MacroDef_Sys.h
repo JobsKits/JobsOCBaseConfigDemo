@@ -12,7 +12,7 @@
 #define MacroDef_Sys_h
 /// BaseURL
 #ifndef server_URL
-#define server_URL NSObject.BaseUrl
+#define server_URL NSObject.jobsBaseUrl()
 #endif /* server_URL */
 /// 服务器相关
 #ifndef HTTPRequestTokenKey

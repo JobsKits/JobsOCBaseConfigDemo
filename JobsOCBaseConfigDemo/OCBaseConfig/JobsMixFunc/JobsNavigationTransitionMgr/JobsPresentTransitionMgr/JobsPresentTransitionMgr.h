@@ -51,6 +51,12 @@ Prop_assign()CGFloat presentedRatio;
 Prop_assign()CGFloat dimmingAlpha;
 Prop_assign()CGFloat cornerRadius;
 
+-(JobsRetJobsPresentTransitionMgrByTimeIntervalBlock _Nonnull)byTime;
+-(JobsRetJobsPresentTransitionMgrByDirectionBlock _Nonnull)byDirection;
+-(JobsRetJobsPresentTransitionMgrByCGFloatBlock _Nonnull)byPresentedRatio;
+-(JobsRetJobsPresentTransitionMgrByCGFloatBlock _Nonnull)byDimmingAlpha;
+-(JobsRetJobsPresentTransitionMgrByCGFloatBlock _Nonnull)byCornerRadius;
+
 +(nullable instancetype)presentViewController:(UIViewController *)presentedViewController
                            fromViewController:(UIViewController *)presentingViewController;
 
@@ -62,6 +68,16 @@ Prop_assign()CGFloat cornerRadius;
 -(void)presentFromViewController:(UIViewController *)presentingViewController
                       completion:(jobsByVoidBlock _Nullable)completion;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsPresentTransitionMgr
+-(JobsRetJobsPresentTransitionMgrByBOOLBlock _Nonnull)byHasInteractiveFrame;
+-(JobsRetJobsPresentTransitionMgrByCGRectBlock _Nonnull)byInteractiveFrame;
+-(JobsRetJobsPresentTransitionMgrByCGRectBlock _Nonnull)byPanStartFrame;
+-(JobsRetJobsPresentTransitionMgrByUIPanGestureRecognizerBlock _Nonnull)byPanGestureRecognizer;
+-(JobsRetJobsPresentTransitionMgrByUIViewBlock _Nonnull)byDimmingView;
+-(JobsRetJobsPresentTransitionMgrByUIViewBlock _Nonnull)byPresentationRoundedCornerView;
+-(JobsRetJobsPresentTransitionMgrByUIViewBlock _Nonnull)byPresentationWrappingView;
+-(JobsRetJobsPresentTransitionMgrByUIViewBlock _Nonnull)byPresentedViewControllerWrapperView;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsPresentTransitionMgr
 @end
 
 NS_ASSUME_NONNULL_END

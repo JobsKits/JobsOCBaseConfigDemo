@@ -59,6 +59,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsAnimatedNumberLabelDemoVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAnimatedNumberLabelDemoVC
+-(JobsRetJobsAnimatedNumberLabelDemoVCByCGFloatBlock _Nonnull)byDefaultEnd;
+-(JobsRetJobsAnimatedNumberLabelDemoVCByCGFloatBlock _Nonnull)byDefaultStart;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAnimatedNumberLabelDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

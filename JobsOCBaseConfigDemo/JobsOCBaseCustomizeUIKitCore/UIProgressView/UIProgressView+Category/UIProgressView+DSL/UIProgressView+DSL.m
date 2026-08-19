@@ -34,7 +34,7 @@
         if (@available(iOS 5.0, *)){
             [self setProgress:progress animated:animated];
         }else{
-            self.progress = progress;
+            self.byProgress(progress);
         };return self;
     };
 }

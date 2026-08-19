@@ -14,8 +14,9 @@
 
  @return 返回列表视图
  */
-- (UIView *)listView{
-    return self.view;
+-(UIView *)listView{
+    JobsRetViewByVoidBlock action = ((JobsRetViewByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIViewController.class, @selector(jobsListView)))(self, @selector(jobsListView));
+    return action ? action() : nil;
 }
 
 @end

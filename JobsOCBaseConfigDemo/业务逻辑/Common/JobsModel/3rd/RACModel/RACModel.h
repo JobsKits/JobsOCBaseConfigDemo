@@ -6,15 +6,16 @@
 //
 
 #ifndef RACModel_h
-#define RACModel_h
-
-#import <Foundation/Foundation.h>
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
 #import "ReactiveObjC.h"
 #endif
+
+#define RACModel_h
+
+#import <Foundation/Foundation.h>
 
 #import "JobsBaseProtocolHeader.h"
 #import "JobsBlock.h"

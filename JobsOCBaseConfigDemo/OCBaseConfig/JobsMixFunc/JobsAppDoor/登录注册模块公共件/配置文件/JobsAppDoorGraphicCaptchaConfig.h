@@ -10,6 +10,12 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCGraphicCaptcha/JobsOCGraphicCaptchaHeader.h>)
 #import "JobsOCGraphicCaptchaHeader.h"
 #else
@@ -41,12 +47,15 @@ Prop_assign()NSUInteger length;
 Prop_assign()BOOL caseSensitive;
 Prop_assign()JobsAppDoorGraphicCaptchaCharacterType characterTypes;
 
-+(instancetype)defaultConfig;
-+(instancetype)numberAndEnglishConfig;
-+(instancetype)numberAndChineseConfig;
-+(instancetype)englishAndChineseConfig;
-+(instancetype)allCharactersConfig;
--(JobsOCGraphicCaptchaConfig *)resolvedCaptchaConfig;
++(JobsRetJobsAppDoorGraphicCaptchaConfigByVoidBlock _Nonnull)defaultConfig;
++(JobsRetJobsAppDoorGraphicCaptchaConfigByVoidBlock _Nonnull)numberAndEnglishConfig;
++(JobsRetJobsAppDoorGraphicCaptchaConfigByVoidBlock _Nonnull)numberAndChineseConfig;
++(JobsRetJobsAppDoorGraphicCaptchaConfigByVoidBlock _Nonnull)englishAndChineseConfig;
++(JobsRetJobsAppDoorGraphicCaptchaConfigByVoidBlock _Nonnull)allCharactersConfig;
+-(JobsRetJobsAppDoorGraphicCaptchaConfigByNSUIntegerBlock _Nonnull)byLength;
+-(JobsRetJobsAppDoorGraphicCaptchaConfigByBOOLBlock _Nonnull)byCaseSensitive;
+-(JobsRetJobsAppDoorGraphicCaptchaConfigByCharacterTypeBlock _Nonnull)byCharacterTypes;
+-(JobsRetJobsOCGraphicCaptchaConfigByVoidBlock _Nonnull)resolvedCaptchaConfig;
 
 @end
 

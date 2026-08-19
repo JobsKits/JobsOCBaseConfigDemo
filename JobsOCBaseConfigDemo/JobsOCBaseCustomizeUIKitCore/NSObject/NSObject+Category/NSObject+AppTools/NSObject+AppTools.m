@@ -6,27 +6,33 @@
 //
 
 #import "NSObject+AppTools.h"
+
 #import "NSObject+Image.h"
 #import "UIColor+Extra.h"
 
 @implementation NSObject (AppTools)
--(UIButtonModel *)makeBackBtnModel{
+-(JobsRetUIButtonModelByVoidBlock _Nonnull)jobsMakeBackBtnModel{
     @jobs_weakify(self)
-    return jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
+    return ^UIButtonModel *{
         @jobs_strongify(self)
-        UITextModel *backBtnTitleModel = self.viewModel.backBtnTitleModel;
-        data.byHighlightBackgroundImage(@"返回".img)
-            .byHighlightImage(@"返回".img)
-            .byNormalImage(@"返回".img)
-            .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
-            .byTitle(backBtnTitleModel.text)
-            .byFont(backBtnTitleModel.font)
-            .byTitleCor(JobsLabelColor)
-            .bySelectedTitleCor(JobsLabelColor)
-            .byRoundingCorners(UIRectCornerAllCorners)
-            .byImagePlacement(NSDirectionalRectEdgeLeading)
-            .byImagePadding(JobsWidth(5));
-    });
+        if (!self) return nil;
+        @jobs_weakify(self)
+        return jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
+            @jobs_strongify(self)
+            UITextModel *backBtnTitleModel = self.viewModel.backBtnTitleModel;
+            data.byHighlightBackgroundImage(@"返回".img)
+                .byHighlightImage(@"返回".img)
+                .byNormalImage(@"返回".img)
+                .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
+                .byTitle(backBtnTitleModel.text)
+                .byFont(backBtnTitleModel.font)
+                .byTitleCor(JobsLabelColor)
+                .bySelectedTitleCor(JobsLabelColor)
+                .byRoundingCorners(UIRectCornerAllCorners)
+                .byImagePlacement(NSDirectionalRectEdgeLeading)
+                .byImagePadding(JobsWidth(5));
+        });
+    };
 }
 
 @end

@@ -34,16 +34,21 @@
     };
 }
 /// 数组转字符串
--(NSString *_Nonnull)string{
-    if(!self ||self.count == 0) return @"";
-    NSMutableString *str = NSMutableString.string;
-    [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx,
-                                       BOOL *stop) {
-        [str appendFormat:@"%@,",obj];
-    }];
-    /// 删除最后一个','
-    NSString *strForRight = [str substringWithRange:NSMakeRange(0, str.length - 1)];
-    return strForRight;
+-(JobsRetStrByVoidBlock _Nonnull)string{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if(!self ||self.count == 0) return @"";
+        NSMutableString *str = NSMutableString.string;
+        [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx,
+                                           BOOL *stop) {
+            [str appendFormat:@"%@,",obj];
+        }];
+        /// 删除最后一个','
+        NSString *strForRight = [str substringWithRange:NSMakeRange(0, str.length - 1)];
+        return strForRight;
+    };
 }
 /// 数组比较
 -(JobsRetBOOLByArrBlock _Nonnull)compareEqualArrElement{

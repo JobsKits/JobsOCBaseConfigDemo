@@ -7,9 +7,17 @@
 
 #import "JobsOCVideoRecorderConfig.h"
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCVideoRecorderConfig
+@interface JobsOCVideoRecorderConfig (JobsPropertyDSLSetterAutogen_a44ce0ef0f)
+-(void)setFilterProcessor:(id<JobsOCVideoRecorderFilterProtocol> _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCVideoRecorderConfig
+
 @implementation JobsOCVideoRecorderConfig
-+(instancetype)defaultConfig{
-    return JobsOCVideoRecorderConfig.new;
++(JobsRetIDByVoidBlock _Nonnull)defaultConfig{
+    return ^id{
+        return JobsOCVideoRecorderConfig.new;
+    };
 }
 
 -(instancetype)init{
@@ -26,11 +34,26 @@
     };return self;
 }
 
--(NSString *)effectiveAlbumName{
-    if (self.albumName.length) return self.albumName;
-    NSString *displayName = NSBundle.mainBundle.infoDictionary[@"CFBundleDisplayName"];
-    NSString *bundleName = NSBundle.mainBundle.infoDictionary[@"CFBundleName"];
-    return displayName.length ? displayName : bundleName ?: @"JobsOCVideoRecorder";
+-(JobsRetStrByVoidBlock _Nonnull)effectiveAlbumName{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (self.albumName.length) return self.albumName;
+        NSString *displayName = NSBundle.mainBundle.infoDictionary[@"CFBundleDisplayName"];
+        NSString *bundleName = NSBundle.mainBundle.infoDictionary[@"CFBundleName"];
+        return displayName.length ? displayName : bundleName ?: @"JobsOCVideoRecorder";
+    };
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsOCVideoRecorderConfig
+-(JobsRetJobsOCVideoRecorderConfigByIDJobsOCVideoRecorderFilterProtocolBlock _Nonnull)byFilterProcessor{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCVideoRecorderConfig * _Nullable(id<JobsOCVideoRecorderFilterProtocol> _Nullable data){
+        @jobs_strongify(self)
+        [self setFilterProcessor:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCVideoRecorderConfig
 @end

@@ -53,8 +53,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CustomBtnDemoBaseVC : BaseViewController
 
--(NSString *)demoTitle;
--(NSString *)demoSubTitle;
+-(JobsRetStrByVoidBlock _Nonnull)demoTitle;
+-(JobsRetStrByVoidBlock _Nonnull)demoSubTitle;
 -(NSDirectionalRectEdge)imagePlacement;
 
 @end

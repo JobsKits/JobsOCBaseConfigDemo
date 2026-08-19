@@ -13,24 +13,44 @@
     if ([scrollView isKindOfClass:self.scrollViewClass]) {
         CGFloat sectionHeaderHeight = 40;
         if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
-            scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+            scrollView.byContentInset(UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0));
         } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
-            scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+            scrollView.byContentInset(UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0));
         }
     }
     if (self.scrollCallback) self.scrollCallback(scrollView);
 }
 #pragma mark —— JXPagerViewListViewDelegate
-- (UIScrollView *)listScrollView {
-    return self.scrollView;
+-(UIScrollView *)listScrollView{
+    JobsRetScrollViewByVoidBlock action = ((JobsRetScrollViewByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIViewController.class, @selector(jobsListScrollView)))(self, @selector(jobsListScrollView));
+    return action ? action() : nil;
+}
+
+- (JobsRetScrollViewByVoidBlock _Nonnull)jobsListScrollView {
+    @jobs_weakify(self)
+    return ^UIScrollView *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.scrollView;
+    };
 }
 
 - (void)listViewDidScrollCallback:(void (^)(UIScrollView *))callback {
-    self.scrollCallback = callback;
+    self.byScrollCallback(callback);
 }
 
-- (UIView *)listView {
-    return self.view;
+-(UIView *)listView{
+    JobsRetViewByVoidBlock action = ((JobsRetViewByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIViewController.class, @selector(jobsListView)))(self, @selector(jobsListView));
+    return action ? action() : nil;
+}
+
+- (JobsRetViewByVoidBlock _Nonnull)jobsListView {
+    @jobs_weakify(self)
+    return ^UIView *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.view;
+    };
 }
 #pragma mark —— Prop_strong()Class scrollViewClass;
 JobsKey(_scrollViewClass)
@@ -81,7 +101,7 @@ JobsKey(_scrollView)
 #pragma mark —— Prop_copy()void(^scrollCallback)(UIScrollView *scrollView);
 JobsKey(_scrollCallback)
 @dynamic scrollCallback;
--(void (^)(UIScrollView * _Nonnull))scrollCallback{
+-(jobsByScrollViewBlock _Nonnull)scrollCallback{
     return Jobs_getAssociatedObject(_scrollCallback);
 }
 

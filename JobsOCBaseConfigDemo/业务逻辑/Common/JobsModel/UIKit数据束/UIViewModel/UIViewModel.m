@@ -6,6 +6,7 @@
 //
 
 #import "UIViewModel.h"
+
 #import "UITextModel.h"
 #import "UIButtonModel.h"
 #import "JobsLocationModel.h"
@@ -56,8 +57,9 @@ AppToolsProtocol_synthesize
 -(UITextModel *)backBtnTitleModel{
     if (!_backBtnTitleModel) {
         _backBtnTitleModel = jobsMakeTextModel(^(__kindof UITextModel * _Nullable data) {
-            data.text = @"Back".tr;
-            data.textCor = JobsLabelColor;
+            data
+                .byText(@"Back".jobsTr())
+                .byTextCor(JobsLabelColor);
         });
     };return _backBtnTitleModel;
 }
@@ -94,15 +96,35 @@ AppToolsProtocol_synthesize
 }
 
 -(CGFloat)width{
-    if (_jobsWidth == 0 && !jobsZeroSizeValue(self.jobsSize)) {
-        _jobsWidth = self.jobsSize.width;
-    };return _jobsWidth;
+    JobsRetCGFloatByVoidBlock action = ((JobsRetCGFloatByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIViewModel.class, @selector(jobsWidthBlock)))(self, @selector(jobsWidthBlock));
+    return action ? action() : (CGFloat){0};
+}
+
+-(JobsRetCGFloatByVoidBlock _Nonnull)jobsWidthBlock{
+    @jobs_weakify(self)
+    return ^CGFloat{
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+        if (_jobsWidth == 0 && !jobsZeroSizeValue(self.jobsSize)) {
+            _jobsWidth = self.jobsSize.width;
+        };return _jobsWidth;
+    };
 }
 
 -(CGFloat)height{
-    if (_jobsHeight == 0 && !jobsZeroSizeValue(self.jobsSize)) {
-        _jobsHeight = self.jobsSize.height;
-    };return _jobsHeight;
+    JobsRetCGFloatByVoidBlock action = ((JobsRetCGFloatByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIViewModel.class, @selector(jobsHeightBlock)))(self, @selector(jobsHeightBlock));
+    return action ? action() : (CGFloat){0};
+}
+
+-(JobsRetCGFloatByVoidBlock _Nonnull)jobsHeightBlock{
+    @jobs_weakify(self)
+    return ^CGFloat{
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+        if (_jobsHeight == 0 && !jobsZeroSizeValue(self.jobsSize)) {
+            _jobsHeight = self.jobsSize.height;
+        };return _jobsHeight;
+    };
 }
 
 -(CGFloat)offsetXForEach{
@@ -122,8 +144,9 @@ AppToolsProtocol_synthesize
         @jobs_weakify(self)
         _indexPath = jobsMakeIndexPathByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
             @jobs_strongify(self)
-            data.row = self.row;
-            data.section = self.section;
+            data
+                .byRow(self.row)
+                .bySection(self.section);
         });
     };return _indexPath;
 }
@@ -234,8 +257,18 @@ AppToolsProtocol_synthesize
 }
 
 -(NSAttributedString *)selectedAttributedText{
-    if(!_selectedAttributedText){
-    };return _selectedAttributedText;
+    JobsRetAttributedStringByVoidBlock action = ((JobsRetAttributedStringByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIViewModel.class, @selector(jobsSelectedAttributedText)))(self, @selector(jobsSelectedAttributedText));
+    return action ? action() : nil;
+}
+
+-(JobsRetAttributedStringByVoidBlock _Nonnull)jobsSelectedAttributedText{
+    @jobs_weakify(self)
+    return ^NSAttributedString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if(!_selectedAttributedText){
+        };return _selectedAttributedText;
+    };
 }
 
 -(NSMutableArray <JobsRichTextConfig *>*)selectedTitleAttributedDataMutArr{
@@ -245,7 +278,7 @@ AppToolsProtocol_synthesize
     };return _selectedTitleAttributedDataMutArr;
 }
 
--(NSMutableArray<JobsRetIDByIDBlock>*)jobsBlockMutArr{
+-(NSMutableArray<JobsRetIDByIDBlock>* _Nullable)jobsBlockMutArr{
     if(!_jobsBlockMutArr){
         _jobsBlockMutArr = jobsMakeMutArr(^(NSMutableArray <JobsRetIDByIDBlock>*_Nullable data) {
         });

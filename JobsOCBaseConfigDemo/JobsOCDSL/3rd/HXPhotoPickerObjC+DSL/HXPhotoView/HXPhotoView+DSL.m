@@ -224,19 +224,34 @@
     };
 }
 
--(__kindof HXPhotoView *_Nonnull)byGoPhotoViewController{
-    [self goPhotoViewController];
-    return self;
+-(JobsRetHXPhotoViewByVoidBlock _Nonnull)byGoPhotoViewController{
+    @jobs_weakify(self)
+    return ^__kindof HXPhotoView *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self goPhotoViewController];
+        return self;
+    };
 }
 
--(__kindof HXPhotoView *_Nonnull)byDirectGoPhotoViewController{
-    [self directGoPhotoViewController];
-    return self;
+-(JobsRetHXPhotoViewByVoidBlock _Nonnull)byDirectGoPhotoViewController{
+    @jobs_weakify(self)
+    return ^__kindof HXPhotoView *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self directGoPhotoViewController];
+        return self;
+    };
 }
 
--(__kindof HXPhotoView *_Nonnull)byGoCameraViewController{
-    [self goCameraViewController];
-    return self;
+-(JobsRetHXPhotoViewByVoidBlock _Nonnull)byGoCameraViewController{
+    @jobs_weakify(self)
+    return ^__kindof HXPhotoView *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self goCameraViewController];
+        return self;
+    };
 }
 
 -(JobsRetHXPhotoViewByNSIntegerBlock _Nonnull)byDeleteModelWithIndex{
@@ -248,9 +263,14 @@
     };
 }
 
--(__kindof HXPhotoView *_Nonnull)byRefreshView{
-    [self refreshView];
-    return self;
+-(JobsRetHXPhotoViewByVoidBlock _Nonnull)byRefreshView{
+    @jobs_weakify(self)
+    return ^__kindof HXPhotoView *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self refreshView];
+        return self;
+    };
 }
 
 -(JobsRetHXPhotoViewByNSIntegerBlock _Nonnull)byJumpPreviewViewControllerWithIndex{

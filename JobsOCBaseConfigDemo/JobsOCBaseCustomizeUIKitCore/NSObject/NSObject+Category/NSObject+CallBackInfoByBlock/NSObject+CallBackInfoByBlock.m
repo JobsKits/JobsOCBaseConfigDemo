@@ -6,64 +6,42 @@
 //
 
 #import "NSObject+CallBackInfoByBlock.h"
+
+typedef jobsByRACSchedulerRecursiveBlock jobsByjobsByVoidBlockBlock;
+typedef jobsByCGFloatBlocks jobsByjobsByCGFloatBlockBlock;
+typedef jobsByRetIDByIDBlocks jobsByJobsRetIDByIDBlockBlock;
+
+#ifdef JobsDynamicPropSetAndGet
+#undef JobsDynamicPropSetAndGet
+#endif
+#define JobsDynamicPropSetAndGet(type, varName, VarName) \
+static void * _##varName = &_##varName; \
+@dynamic varName; \
+-(type)varName{ \
+    return objc_getAssociatedObject(self, &_##varName); \
+} \
+-(void)set##VarName:(type)varName{ \
+    objc_setAssociatedObject(self, \
+                             &_##varName, \
+                             varName, \
+                             OBJC_ASSOCIATION_COPY_NONATOMIC); \
+} \
+-(void)action##VarName:(type _Nullable)varName{ \
+    self.varName = varName; \
+} \
+-(jobsBy##type##Block)action##VarName{ \
+    @jobs_weakify(self) \
+    return ^(type _Nullable varName) { \
+        @jobs_strongify(self) \
+        self.varName = varName; \
+    }; \
+}
 /// 在 Objective-C 中，向 nil 对象发送消息不会崩溃
 /// 但是如果你尝试对 nil 对象调用分类中的方法，可能会导致问题。
 /// 这是因为 nil 对象并不会执行任何方法实现，分类中的方法也不会被调用。
 @implementation NSObject (CallBackInfoByBlock)
 #pragma mark —— UIView
--(JobsRetViewByIDBlocks _Nullable)JobsBlock1{
-    @jobs_weakify(self)
-    return ^__kindof UIView *_Nullable(jobsByIDBlock _Nullable data){
-        @jobs_strongify(self)
-        [self setObjBlock:data];
-        return (UIView *)self;
-    };
-}
-
--(JobsRetIDByRetIDVoidBlocks _Nullable)JobsBlock2{
-    @jobs_weakify(self)
-    return ^__kindof UIView *_Nullable(JobsRetIDByVoidBlock _Nullable data){
-        @jobs_strongify(self)
-        [self setRetIDByVoidBlock:data];
-        return (UIView *)self;
-    };
-}
-
--(JobsRetIDByRetIDByIDBlocks _Nullable)JobsBlock3{
-    @jobs_weakify(self)
-    return ^__kindof UIView *_Nullable(JobsRetIDByIDBlock _Nullable data){
-        @jobs_strongify(self)
-        [self setRetObjBlock:data];
-        return (UIView *)self;
-    };
-}
 #pragma mark —— UIViewController
--(JobsRetVCByIDBlocks _Nullable)JobsBlock4{
-    @jobs_weakify(self)
-    return ^__kindof UIViewController *_Nullable(jobsByIDBlock _Nullable data){
-        @jobs_strongify(self)
-        [self setObjBlock:data];
-        return (UIViewController *)self;
-    };
-}
-
--(JobsRetVCByRetIDByVoidBlocks _Nullable)JobsBlock5{
-    @jobs_weakify(self)
-    return ^__kindof UIViewController *_Nullable(JobsRetIDByVoidBlock _Nullable data){
-        @jobs_strongify(self)
-        [self setRetIDByVoidBlock:data];
-        return (UIViewController *)self;
-    };
-}
-
--(JobsRetVCByRetIDByIDBlocks _Nullable)JobsBlock6{
-    @jobs_weakify(self)
-    return ^__kindof UIViewController *_Nullable(JobsRetIDByIDBlock _Nullable data){
-        @jobs_strongify(self)
-        [self setRetObjBlock:data];
-        return (UIViewController *)self;
-    };
-}
 #pragma mark —— SET/GET
 JobsDynamicPropSetAndGet(jobsByVoidBlock, voidBlock, VoidBlock)
 JobsDynamicPropSetAndGet(jobsByIDBlock, objBlock, ObjBlock)

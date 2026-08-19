@@ -29,7 +29,7 @@
     return ^__kindof UICollectionView *_Nullable(__kindof MJRefreshHeader * _Nullable header){
         @jobs_strongify(self)
         self.mj_header = header;
-        self.mj_header.automaticallyChangeAlpha = YES; /// 根据拖拽比例自动切换透明度
+        self.mj_header.byAutomaticallyChangeAlpha(YES);
         return self;
     };
 }
@@ -39,7 +39,7 @@
     return ^__kindof UICollectionView *_Nullable(__kindof MJRefreshFooter * _Nullable header){
         @jobs_strongify(self)
         self.mj_footer = header;
-        self.mj_footer.automaticallyChangeAlpha = YES; /// 根据拖拽比例自动切换透明度
+        self.mj_footer.byAutomaticallyChangeAlpha(YES);
         return self;
     };
 }
@@ -64,58 +64,13 @@
     };
 }
 
--(JobsRetCollectionViewByDelegateBlock _Nonnull)byDelegate{
-    @jobs_weakify(self)
-    return ^__kindof UICollectionView *_Nullable(id <UICollectionViewDelegate>_Nullable delegate){
-        @jobs_strongify(self)
-        self.delegate = delegate;
-        return self;
-    };
-}
-
--(JobsRetCollectionViewByDataSourceBlock _Nonnull)byDataSource{
-    @jobs_weakify(self)
-    return ^__kindof UICollectionView *_Nullable(id <UICollectionViewDataSource>_Nullable dataSource){
-        @jobs_strongify(self)
-        self.dataSource = dataSource;
-        return self;
-    };
-}
-
--(JobsRetCollectionViewByDragDelegateBlock _Nonnull)byDragDelegate{
-    @jobs_weakify(self)
-    return ^__kindof UICollectionView *_Nullable(id <UICollectionViewDragDelegate>_Nullable delegate){
-        @jobs_strongify(self)
-        self.dragDelegate = delegate;
-        return self;
-    };
-}
-
--(JobsRetCollectionViewByDropDelegateBlock _Nonnull)byDropDelegate{
-    @jobs_weakify(self)
-    return ^__kindof UICollectionView *_Nullable(id <UICollectionViewDropDelegate>_Nullable delegate){
-        @jobs_strongify(self)
-        self.dropDelegate = delegate;
-        return self;
-    };
-}
-
--(JobsRetCollectionViewByDataSourcePrefetchingBlock _Nonnull)byPrefetchDataSource{
-    @jobs_weakify(self)
-    return ^__kindof UICollectionView *_Nullable(id <UICollectionViewDataSourcePrefetching>_Nullable dataSourcePrefetching){
-        @jobs_strongify(self)
-        self.prefetchDataSource = dataSourcePrefetching;
-        return self;
-    };
-}
-
 -(__kindof UICollectionViewCell *)didSelectItemAtIndexPath:(NSIndexPath *)indexPath
                                    collectionViewCellClass:(Class _Nullable)collectionViewCellClass{
     JobsLog(@"%s", __FUNCTION__);
     if (collectionViewCellClass) {
         for (UICollectionViewCell *cell in self.visibleCells) {
             if ([cell isKindOfClass:collectionViewCellClass]) {
-                cell.selected = NO;
+                cell.bySelected(NO);
             }
         }
     };return self.cellBy(indexPath).bySelected(YES);;

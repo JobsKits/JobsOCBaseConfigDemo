@@ -6,17 +6,18 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIVIEW_BACKGROUNDLABEL_717580BB3B
-#define JOBS_HEADER_GUARD_UIVIEW_BACKGROUNDLABEL_717580BB3B
-
-#import <objc/runtime.h>
-#import <UIKit/UIKit.h>
-#import "UIView+Extra.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#define JOBS_HEADER_GUARD_UIVIEW_BACKGROUNDLABEL_717580BB3B
+
+#import <objc/runtime.h>
+#import <UIKit/UIKit.h>
+#import "UIView+Extra.h"
 
 #import "JobsMakes.h"
 #import "JobsBlock.h"

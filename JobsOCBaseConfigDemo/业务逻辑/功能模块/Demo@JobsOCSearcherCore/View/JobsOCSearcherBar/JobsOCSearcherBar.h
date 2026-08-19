@@ -59,6 +59,9 @@ UITextFieldDelegate
 /// 外部已经有取消入口时隐藏内部取消按钮
 Prop_assign()BOOL cancelBtnHidden;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCSearcherBar
+-(JobsRetJobsOCSearcherBarByBOOLBlock _Nonnull)byCancelBtnHidden;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCSearcherBar
 @end
 
 NS_ASSUME_NONNULL_END

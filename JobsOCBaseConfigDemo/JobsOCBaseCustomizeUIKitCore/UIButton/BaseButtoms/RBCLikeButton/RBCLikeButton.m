@@ -6,6 +6,7 @@
 //
 
 #import "RBCLikeButton.h"
+
 #import "UIView+Measure.h"
 #import "NSString+Extra.h"
 #import "UIView+Extra.h"
@@ -28,6 +29,13 @@ Prop_assign()BOOL isNeedAnimation;/// 选中/取消时是否需要动画
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN RBCLikeButton
+@interface RBCLikeButton (JobsPropertyDSLSetterAutogen_a86ac2263b)
+-(void)setIsNeedAnimation:(BOOL)data;
+-(void)setThumpNum:(NSInteger)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END RBCLikeButton
+
 @implementation RBCLikeButton
 BaseButtonProtocol_synthesize
 -(instancetype)initWithFrame:(CGRect)frame {
@@ -45,78 +53,120 @@ BaseButtonProtocol_synthesize
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable data){
         @jobs_strongify(self)
-        self.viewModel = data;
-        self.isNeedAnimation = YES;
-        self.explosionLayer.opacity = 1;// 设置粒子动画
+        self.byViewModel(data);
+        self.byNeedAnimation(YES);
+        self.explosionLayer.byOpacity(1);
         self.setupBy(data.jobsRect);// 初始化其他控件
     };
 }
 /// 屏蔽drawRect
--(void)drawRect:(CGRect)rect {}
+-(void)drawRect:(CGRect)rect {
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(RBCLikeButton.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+    };
+}
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    self.backImageView.byFrame(self.imageView.frame);
-    CGFloat countLabelWidth = 30;
-    if(@available(iOS 16.0, *)){
-        if (self.configuration.imagePlacement == NSDirectionalRectEdgeLeading) {
-            self.countLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame)+5,
-                                               self.imageView.top + (self.imageView.height - 15)/2 + 0.5,
-                                               countLabelWidth,
-                                               15);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(RBCLikeButton.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        self.backImageView.byFrame(self.imageView.frame);
+        CGFloat countLabelWidth = 30;
+        if(@available(iOS 16.0, *)){
+            if (self.configuration.imagePlacement == NSDirectionalRectEdgeLeading) {
+                self.countLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame)+5,
+                                                   self.imageView.top + (self.imageView.height - 15)/2 + 0.5,
+                                                   countLabelWidth,
+                                                   15);
+            }else{
+                self.countLabel.frame = CGRectMake((self.width - countLabelWidth)/2,
+                                                   self.height,
+                                                   countLabelWidth,
+                                                   15);
+            }
         }else{
-            self.countLabel.frame = CGRectMake((self.width - countLabelWidth)/2,
-                                               self.height,
-                                               countLabelWidth,
-                                               15);
+            if(self.buttonEdgeInsetsStyle == NSDirectionalRectEdgeLeading){
+                self.countLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame)+5,
+                                                   self.imageView.top + (self.imageView.height - 15)/2 + 0.5,
+                                                   countLabelWidth,
+                                                   15);
+            }else{
+                self.countLabel.frame = CGRectMake((self.width - countLabelWidth)/2,
+                                                   self.height,
+                                                   countLabelWidth,
+                                                   15);
+            }
         }
-    }else{
-        if(self.buttonEdgeInsetsStyle == NSDirectionalRectEdgeLeading){
-            self.countLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame)+5,
-                                               self.imageView.top + (self.imageView.height - 15)/2 + 0.5,
-                                               countLabelWidth,
-                                               15);
-        }else{
-            self.countLabel.frame = CGRectMake((self.width - countLabelWidth)/2,
-                                               self.height,
-                                               countLabelWidth,
-                                               15);
-        }
-    }
+    };
 }
 /// 没有高亮状态
--(void)setHighlighted:(BOOL)highlighted{}
+-(void)setHighlighted:(BOOL)highlighted{
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(RBCLikeButton.class, @selector(jobsSetHighlighted)))(self, @selector(jobsSetHighlighted));
+    if (action) action(highlighted);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsSetHighlighted{
+    @jobs_weakify(self)
+    return ^(BOOL highlighted){
+        @jobs_strongify(self)
+        if (!self) return;
+    };
+}
 /// 选中状态
 -(void)setSelected:(BOOL)selected{
-    [super setSelected:selected];
-    if (selected) {  // 从取消状态到点击状态
-        /// 1.隐藏点赞label
-        self.countLabel.byAlpha(0);
-        self.countLabel.byTextCor(HEXCOLOR(0xFD5656));
-        /// 不需要动画时,返回,不需要动画说明是获取数据后的赋值操作
-        if (!_isNeedAnimation) {
-            self.countLabel.byAlpha(1);
-            return;
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(RBCLikeButton.class, @selector(jobsSetSelected)))(self, @selector(jobsSetSelected));
+    if (action) action(selected);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsSetSelected{
+    @jobs_weakify(self)
+    return ^(BOOL selected){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super setSelected:selected];
+        if (selected) {  // 从取消状态到点击状态
+            /// 1.隐藏点赞label
+            self.countLabel.byAlpha(0);
+            self.countLabel.byTextCor(HEXCOLOR(0xFD5656));
+            /// 不需要动画时,返回,不需要动画说明是获取数据后的赋值操作
+            if (!_isNeedAnimation) {
+                self.countLabel.byAlpha(1);
+                return;
+            }
+            /// 2.放大拳头动画
+            [self enlargementAnimation]();
+            /// 开始动画时展示"+1"上升label,先隐藏它
+            self.incLabel.byHidden(NO);
+            /// 延迟这里有问题,延迟时间设置为0则没有问题,如果添加了延时时间,那么已经开始的动画无法移除
+            /// 3.执行上升数字动画
+            [self performSelector:@selector(countAnimation) withObject:nil afterDelay:0.0];
+            /// 4.执行粒子动画
+            [self performSelector:@selector(startAnimation) withObject:nil afterDelay:0.2];
+            /// 5.点赞数出现动画
+            [self performSelector:@selector(countLabelAppearAnimation) withObject:nil afterDelay:0.5];
+        }else{
+            /// 从点击状态normal状态 无动画效果 如果点赞之后马上取消 那么也立马停止动画
+            /// 手动取消赞时,隐藏"+1"上升label
+            self.incLabel.byHidden(YES);
+            self.incLabel.byAlpha(0);
+            [self.incLabel.layer removeAllAnimations];
+            self.countLabel.byTextCor(JobsSecondaryLabelColor);
         }
-        /// 2.放大拳头动画
-        [self enlargementAnimation];
-        /// 开始动画时展示"+1"上升label,先隐藏它
-        self.incLabel.byHidden(NO);
-        /// 延迟这里有问题,延迟时间设置为0则没有问题,如果添加了延时时间,那么已经开始的动画无法移除
-        /// 3.执行上升数字动画
-        [self performSelector:@selector(countAnimation) withObject:nil afterDelay:0.0];
-        /// 4.执行粒子动画
-        [self performSelector:@selector(startAnimation) withObject:nil afterDelay:0.2];
-        /// 5.点赞数出现动画
-        [self performSelector:@selector(countLabelAppearAnimation) withObject:nil afterDelay:0.5];
-    }else{
-        /// 从点击状态normal状态 无动画效果 如果点赞之后马上取消 那么也立马停止动画
-        /// 手动取消赞时,隐藏"+1"上升label
-        self.incLabel.byHidden(YES);
-        self.incLabel.byAlpha(0);
-        [self.incLabel.layer removeAllAnimations];
-        self.countLabel.byTextCor(JobsSecondaryLabelColor);
-    }
+    };
 }
 /// 当点赞数改变时,就改变
 -(void)setThumpNum:(NSInteger)thumpNum {
@@ -128,31 +178,61 @@ BaseButtonProtocol_synthesize
                    thumbNum:(NSInteger)thumbNum
                   animation:(BOOL)animation {
     self.isNeedAnimation = animation;
-    self.selected = selected;
+    self.bySelected(selected);
     self.thumpNum = thumbNum;
 }
 
--(void)cancelLike{
-    self.isNeedAnimation = NO;
-    self.selected = NO;
+-(jobsByVoidBlock _Nonnull)cancelLike{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byNeedAnimation(NO);
+        self.bySelected(NO);
+    };
 }
 
--(void)recoverLike{
-    self.isNeedAnimation = NO;
-    self.thumpNum += 1;
-    self.selected = YES;
+-(jobsByVoidBlock _Nonnull)recoverLike{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byNeedAnimation(NO);
+        self.thumpNum += 1;
+        self.bySelected(YES);
+    };
 }
 /// 开始粒子动画
 -(void)startAnimation{
-    self.explosionLayer.birthRate = 1;/// 设置颗粒个数
-    self.explosionLayer.beginTime = CACurrentMediaTime() - 0.2;/// 开始动画
-    [self performSelector:@selector(autoStopAnimation) withObject:nil afterDelay:leftTime];/// 延迟停止动画
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(RBCLikeButton.class, @selector(jobsStartAnimation)))(self, @selector(jobsStartAnimation));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsStartAnimation{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.explosionLayer.byBirthRate(1);
+        self.explosionLayer.byBeginTime(CACurrentMediaTime() - 0.2);
+        [self performSelector:@selector(autoStopAnimation) withObject:nil afterDelay:leftTime];/// 延迟停止动画
+    };
 }
 /// 自动结束粒子动画
 -(void)autoStopAnimation{
-    // 用KVC设置颗粒个数
-    self.explosionLayer.birthRate = 0;
-    [self.explosionLayer removeAllAnimations];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(RBCLikeButton.class, @selector(jobsAutoStopAnimation)))(self, @selector(jobsAutoStopAnimation));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsAutoStopAnimation{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        // 用KVC设置颗粒个数
+        self.explosionLayer.byBirthRate(0);
+        [self.explosionLayer removeAllAnimations];
+    };
 }
 #pragma mark —— 一些私有方法
 -(jobsByFrameBlock _Nonnull)setupBy{
@@ -206,19 +286,21 @@ BaseButtonProtocol_synthesize
         @jobs_strongify(self)
         if (self.selected){ /// 如果此时取消了点赞,则不执行动画
             @jobs_weakify(self)
-            [@"countLabel" makeCAKeyframeAnimationByBlock:^(CAKeyframeAnimation * _Nullable animation) {
+            (@"countLabel").makeCAKeyframeAnimationByBlock(^(CAKeyframeAnimation * _Nullable animation) {
                 @jobs_strongify(self)
-                animation.duration = 0.8;
-                animation.calculationMode = kCAAnimationCubic;
-                animation.keyPath = @"opacity";
-                animation.values = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
-                    data.add(@0.2)
-                    .add(@0.5)
-                    .add(@0.8)
-                    .add(@1);
-                });[self.countLabel.layer addAnimation:animation forKey:nil];
-            }];
-        }self.countLabel.alpha = 1;
+                animation
+                    .byValues(jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
+                        data.add(@0.2)
+                        .add(@0.5)
+                        .add(@0.8)
+                        .add(@1);
+                    }))
+                    .byCalculationMode(kCAAnimationCubic)
+                    .byKeyPath(@"opacity")
+                    .byDuration(0.8);
+                [self.countLabel.layer addAnimation:animation forKey:nil];
+            });
+        }self.countLabel.byAlpha(1);
     };
 }
 /// 拳头放大动画
@@ -229,12 +311,13 @@ BaseButtonProtocol_synthesize
         @jobs_strongify(self)
         jobsMakeCAKeyframeAnimation(^(CAKeyframeAnimation * _Nullable animation) {
             @jobs_strongify(self)
-            animation.keyPath = @"transform.scale";
-            animation.values = @[@1.5,@2.0,@3.5];
-            animation.duration = 0.25;
-            animation.calculationMode = kCAAnimationCubic;
+            animation
+                .byValues(@[@1.5,@2.0,@3.5])
+                .byCalculationMode(kCAAnimationCubic)
+                .byKeyPath(@"transform.scale")
+                .byDuration(0.25);
             [self.backImageView.layer addAnimation:animation forKey:nil];
-        });self.backImageView.alpha = 0.2;
+        });self.backImageView.byAlpha(0.2);
     };
 }
 
@@ -244,29 +327,33 @@ BaseButtonProtocol_synthesize
         @jobs_strongify(self)
         /// 1、添加数字+1透明度动画
         jobsMakeCAKeyframeAnimation(^(CAKeyframeAnimation * _Nullable animation) {
-            animation.duration = 0.5;
-            animation.calculationMode = kCAAnimationCubic;
-            animation.keyPath = @"opacity";
-            animation.values = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
-                data.add(@0.5)
-                .add(@0.8)
-                .add(@1.0);
-            });[self.incLabel.layer addAnimation:animation forKey:nil];
+            animation
+                .byValues(jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
+                    data.add(@0.5)
+                    .add(@0.8)
+                    .add(@1.0);
+                }))
+                .byCalculationMode(kCAAnimationCubic)
+                .byKeyPath(@"opacity")
+                .byDuration(0.5);
+            [self.incLabel.layer addAnimation:animation forKey:nil];
         });
         /// 开始动画时"+1"上升label回到起始位置
-        self.incLabel.top = self->_incOrginY;
+        self.incLabel.byTop(self->_incOrginY);
         /// 防止label闪烁
         self.incLabel.byAlpha(1);
         /// 2、添加"+1"慢慢变大动画
         jobsMakeCAKeyframeAnimation(^(CAKeyframeAnimation * _Nullable animation) {
-            animation.duration = 1.0;
-            animation.calculationMode = kCAAnimationCubic;
-            animation.keyPath = @"transform.scale";
-            animation.values = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
-                data.add(@1.0)
-                .add(@1.1)
-                .add(@1.2);
-            });[self.incLabel.layer addAnimation:animation forKey:nil];
+            animation
+                .byValues(jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
+                    data.add(@1.0)
+                    .add(@1.1)
+                    .add(@1.2);
+                }))
+                .byCalculationMode(kCAAnimationCubic)
+                .byKeyPath(@"transform.scale")
+                .byDuration(1.0);
+            [self.incLabel.layer addAnimation:animation forKey:nil];
         });
         /// 3、添加"+1"s向上位移动画
         [UIView animateWithDuration:0.5
@@ -274,21 +361,23 @@ BaseButtonProtocol_synthesize
                             options:UIViewAnimationOptionCurveEaseInOut
                          animations:^{
             @jobs_strongify(self)
-            self.incLabel.top = self->_incOrginY - 18;
+            self.incLabel.byTop(self->_incOrginY - 18);
         } completion:^(BOOL finished) {
             @jobs_strongify(self)
             /// 4、添加"+1"慢慢消失动画
             jobsMakeCAKeyframeAnimation(^(CAKeyframeAnimation *_Nullable animation) {
                 @jobs_strongify(self)
-                animation.duration = 0.5;
-                animation.calculationMode = kCAAnimationCubic;
-                animation.keyPath = @"opacity";
-                animation.values = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
-                    data.add(@0.8)
-                    .add(@0.5)
-                    .add(@0);
-                });[self.incLabel.layer addAnimation:animation forKey:nil];
-            });self.incLabel.alpha = 0;
+                animation
+                    .byValues(jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
+                        data.add(@0.8)
+                        .add(@0.5)
+                        .add(@0);
+                    }))
+                    .byCalculationMode(kCAAnimationCubic)
+                    .byKeyPath(@"opacity")
+                    .byDuration(0.5);
+                [self.incLabel.layer addAnimation:animation forKey:nil];
+            });self.incLabel.byAlpha(0);
         }];
     };
 }
@@ -388,4 +477,23 @@ BaseButtonProtocol_synthesize
     };return _explosionLayer;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN RBCLikeButton
+-(JobsRetRBCLikeButtonByBOOLBlock _Nonnull)byNeedAnimation{
+    @jobs_weakify(self)
+    return ^__kindof RBCLikeButton * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setIsNeedAnimation:data];
+        return self;
+    };
+}
+
+-(JobsRetRBCLikeButtonByNSIntegerBlock _Nonnull)byThumpNum{
+    @jobs_weakify(self)
+    return ^__kindof RBCLikeButton * _Nullable(NSInteger data){
+        @jobs_strongify(self)
+        [self setThumpNum:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END RBCLikeButton
 @end

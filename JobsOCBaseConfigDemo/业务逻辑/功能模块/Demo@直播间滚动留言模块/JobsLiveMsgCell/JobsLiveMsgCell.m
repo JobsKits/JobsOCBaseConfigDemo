@@ -14,15 +14,17 @@ Prop_strong()UILabel *bubbleLabel;
 @end
 
 @implementation JobsLiveMsgCell
-+(NSString *)reuseIdentifier{
-    return NSStringFromClass(self);
++(JobsRetStrByVoidBlock _Nonnull)reuseIdentifier{
+    return ^NSString *_Nullable{
+        return NSStringFromClass(self);
+    };
 }
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style
              reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style
                     reuseIdentifier:reuseIdentifier]) {
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.bySelectionStyle(UITableViewCellSelectionStyleNone);
         self.byBgColor(UIColor.clearColor);
         self.contentView.byBgColor(UIColor.clearColor);
         self.bubbleLabel.byAlpha(1);
@@ -30,28 +32,48 @@ Prop_strong()UILabel *bubbleLabel;
 }
 
 -(void)prepareForReuse{
-    [super prepareForReuse];
-    self.contentView.transform = CGAffineTransformIdentity;
-    self.contentView.byAlpha(1);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsLiveMsgCell.class, @selector(jobsPrepareForReuse)))(self, @selector(jobsPrepareForReuse));
+    if (action) action();
 }
 
--(void)configureWithText:(NSString *)text{
-    self.bubbleLabel.byText(text.length ? text : @"...");
-}
-
--(void)playAppearAnimation{
-    self.contentView.transform = CGAffineTransformMakeTranslation(0, JobsWidth(14));
-    self.contentView.byAlpha(0);
-    UIView.jobsAnimateWithSpring(0.22,
-        0,
-        0.78,
-        0.4,
-        UIViewAnimationOptionCurveEaseOut,
-        ^{
-        self.contentView.transform = CGAffineTransformIdentity;
+-(jobsByVoidBlock _Nonnull)jobsPrepareForReuse{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super prepareForReuse];
+        self.contentView.byTransform(CGAffineTransformIdentity);
         self.contentView.byAlpha(1);
-    },
-        nil);
+    };
+}
+
+-(jobsByStrBlock _Nonnull)configureWithText{
+    @jobs_weakify(self)
+    return ^(NSString * text){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.bubbleLabel.byText(text.length ? text : @"...");
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)playAppearAnimation{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.contentView.byTransform(CGAffineTransformMakeTranslation(0, JobsWidth(14)));
+        self.contentView.byAlpha(0);
+        UIView.jobsAnimateWithSpring(0.22,
+            0,
+            0.78,
+            0.4,
+            UIViewAnimationOptionCurveEaseOut,
+            ^{
+            self.contentView.byTransform(CGAffineTransformIdentity);
+            self.contentView.byAlpha(1);
+        },
+            nil);
+    };
 }
 #pragma mark —— LazyLoad
 -(UILabel *)bubbleLabel{

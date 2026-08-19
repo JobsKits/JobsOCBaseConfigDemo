@@ -10,6 +10,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsDebugVC.h"
+#import "JobsAppToolsHeader.h"
 #import "JobsOCDSL.h"
 #import "JobsBaseProtocolHeader.h"
 #import "JobsModelDSL.h"
@@ -30,6 +31,12 @@ Prop_strong()UIViewModel *viewModel;
 Prop_strong()UIButtonModel *closeBtnModel;
 Prop_strong()UIButtonModel *backBtnModel;
 
+-(jobsByVoidBlock _Nonnull)jobsDidReceiveMemoryWarning;
+
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsBaseDataSettingVC
+-(JobsRetJobsBaseDataSettingVCByBOOLBlock _Nonnull)byHiddenNavigationBar;
+-(JobsRetJobsBaseDataSettingVCByBOOLBlock _Nonnull)byModalInPresentation;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsBaseDataSettingVC
 @end
 
 NS_ASSUME_NONNULL_END
@@ -56,7 +63,7 @@ NS_ASSUME_NONNULL_END
      jobsCommentCoreVC.transitioningDelegate = presentationController;
 
      [self forceComingToPresentVC:jobsCommentCoreVC
-                    requestParams:@"".tr
+                    requestParams:@"".jobsTr()
                        completion:nil];
  */
 #endif /* JOBS_HEADER_GUARD_JOBSBASEDATASETTINGVC_E92FC69D73 */

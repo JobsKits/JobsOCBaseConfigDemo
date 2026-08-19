@@ -49,6 +49,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_copy()NSString *previewText;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN PreviewVC
+-(JobsRetPreviewVCByNSStringBlock _Nonnull)byPreviewText;
+-(JobsRetPreviewVCByCGSizeBlock _Nonnull)byPreferredContentSize;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END PreviewVC
 @end
 
 NS_ASSUME_NONNULL_END

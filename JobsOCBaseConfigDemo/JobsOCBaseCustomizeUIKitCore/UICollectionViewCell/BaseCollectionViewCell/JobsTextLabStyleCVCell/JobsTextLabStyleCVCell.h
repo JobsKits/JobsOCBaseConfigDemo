@@ -6,17 +6,18 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSTEXTLABSTYLECVCELL_AF5480A90B
-#define JOBS_HEADER_GUARD_JOBSTEXTLABSTYLECVCELL_AF5480A90B
-
-#import <UIKit/UIKit.h>
-#import "UIView+Extra.h"
-#import "JobsBaseCollectionViewCell.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSTEXTLABSTYLECVCELL_AF5480A90B
+
+#import <UIKit/UIKit.h>
+#import "UIView+Extra.h"
+#import "JobsBaseCollectionViewCell.h"
 
 #import "JobsModelDSL.h"
 #import "JobsMakes.h"

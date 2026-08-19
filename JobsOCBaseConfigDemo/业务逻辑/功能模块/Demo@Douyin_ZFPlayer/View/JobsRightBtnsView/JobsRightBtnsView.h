@@ -10,12 +10,6 @@
 #import "JobsPresentationCtrl.h"
 #import "JobsShareView.h"
 
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
-#else
-#import "Masonry.h"
-#endif
-
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
@@ -70,11 +64,17 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsRightBtnsView : BaseView
 
--(NSMutableArray <__kindof UIButton *>*)getButtonArr;
+-(JobsRetNSMutableArrayUIButtonByVoidBlock _Nonnull)getButtonArr;
 
 @end
 

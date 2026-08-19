@@ -7,13 +7,14 @@
 
 #import "JobsOCDSL.h"
 #ifndef JOBS_HEADER_GUARD_JXCATEGORYIMAGEVIEW_EXTRA_73B12DC65C
-#define JOBS_HEADER_GUARD_JXCATEGORYIMAGEVIEW_EXTRA_73B12DC65C
 
 #if __has_include(<JXCategoryView/JXCategoryView.h>)
 #import <JXCategoryView/JXCategoryView.h>
 #else
 #import "JXCategoryView.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JXCATEGORYIMAGEVIEW_EXTRA_73B12DC65C
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"

@@ -44,7 +44,7 @@ Prop_copy()NSString *compressedBase64Str;
     }
     self.viewModel
         .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
+            data.byText(@"返回".jobsTr());
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
@@ -115,9 +115,9 @@ Prop_copy()NSString *compressedBase64Str;
 -(void)refreshCompressResult{
     NSString *sourceText = self.inputTextForCompress;
     NSData *sourceData = sourceText.UTF8Encoding;
-    NSData *data = sourceText.compress;
+    NSData *data = sourceText.compress();
     NSString *base64Str = [data base64EncodedStringWithOptions:0] ? : @"";
-    NSString *decompressStr = data.decompressToStr ? : @"";
+    NSString *decompressStr = data.decompressToStr() ? : @"";
     CGFloat ratio = sourceData.length ? ((CGFloat)data.length / (CGFloat)sourceData.length) * 100.0 : 0;
     self.compressedBase64Str = base64Str;
     self.compressedInfoValueLab.byText([NSString stringWithFormat:@"原始 UTF8 NSData 长度：%lu bytes\n压缩后 NSData 长度：%lu bytes\nBase64 字符数：%lu\n压缩率：%.2f%%",
@@ -196,7 +196,7 @@ Prop_copy()NSString *compressedBase64Str;
     if (!_titleLab) {
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"字符串压缩 / 解压结果".tr)
+                .byText(@"字符串压缩 / 解压结果".jobsTr())
                 .byFont(UIFontWeightSemiboldSize(19))
                 .byTextCor(JobsLabelColor)
                 .byNumberOfLines(0)
@@ -212,7 +212,7 @@ Prop_copy()NSString *compressedBase64Str;
 
 -(UILabel *)algorithmTitleLab{
     if (!_algorithmTitleLab) {
-        _algorithmTitleLab = [self sectionTitleLabByText:@"压缩算法".tr
+        _algorithmTitleLab = [self sectionTitleLabByText:@"压缩算法".jobsTr()
                                                      top:self.titleLab.mas_bottom
                                                   offset:JobsWidth(22)];
     };return _algorithmTitleLab;
@@ -228,7 +228,7 @@ Prop_copy()NSString *compressedBase64Str;
 
 -(UILabel *)sourceTitleLab{
     if (!_sourceTitleLab) {
-        _sourceTitleLab = [self sectionTitleLabByText:@"原始字符串".tr
+        _sourceTitleLab = [self sectionTitleLabByText:@"原始字符串".jobsTr()
                                                  top:self.algorithmValueLab.mas_bottom
                                               offset:JobsWidth(22)];
     };return _sourceTitleLab;
@@ -258,7 +258,7 @@ Prop_copy()NSString *compressedBase64Str;
 
 -(UILabel *)compressedInfoTitleLab{
     if (!_compressedInfoTitleLab) {
-        _compressedInfoTitleLab = [self sectionTitleLabByText:@"压缩信息".tr
+        _compressedInfoTitleLab = [self sectionTitleLabByText:@"压缩信息".jobsTr()
                                                          top:self.sourceTextView.mas_bottom
                                                       offset:JobsWidth(18)];
     };return _compressedInfoTitleLab;
@@ -273,7 +273,7 @@ Prop_copy()NSString *compressedBase64Str;
 
 -(UILabel *)compressedStringTitleLab{
     if (!_compressedStringTitleLab) {
-        _compressedStringTitleLab = [self sectionTitleLabByText:@"压缩字符串（Base64，长按复制）".tr
+        _compressedStringTitleLab = [self sectionTitleLabByText:@"压缩字符串（Base64，长按复制）".jobsTr()
                                                            top:self.compressedInfoValueLab.mas_bottom
                                                         offset:JobsWidth(18)];
     };return _compressedStringTitleLab;
@@ -295,7 +295,7 @@ Prop_copy()NSString *compressedBase64Str;
 
 -(UILabel *)resultTitleLab{
     if (!_resultTitleLab) {
-        _resultTitleLab = [self sectionTitleLabByText:@"解压后".tr
+        _resultTitleLab = [self sectionTitleLabByText:@"解压后".jobsTr()
                                                  top:self.compressedStringValueLab.mas_bottom
                                               offset:JobsWidth(18)];
     };return _resultTitleLab;
@@ -313,7 +313,7 @@ Prop_copy()NSString *compressedBase64Str;
         @jobs_weakify(self)
         _refreshBtn = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
             btn
-                .byTitle(@"重新压缩".tr)
+                .byTitle(@"重新压缩".jobsTr())
                 .byTitleFont(UIFontWeightMediumSize(15))
                 .byTitleCor(JobsWhiteColor)
                 .onClickBy(^(UIButton *x) {

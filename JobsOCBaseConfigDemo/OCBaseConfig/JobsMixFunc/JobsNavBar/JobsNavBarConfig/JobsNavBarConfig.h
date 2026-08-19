@@ -6,9 +6,6 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSNAVBARCONFIG_E8E74A79B4
-#define JOBS_HEADER_GUARD_JOBSNAVBARCONFIG_E8E74A79B4
-
-#import <Foundation/Foundation.h>
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
@@ -16,7 +13,12 @@
 #import "XYColorOC.h"
 #endif
 
+#define JOBS_HEADER_GUARD_JOBSNAVBARCONFIG_E8E74A79B4
+
+#import <Foundation/Foundation.h>
+
 #import "JobsBaseProtocolHeader.h"
+#import "JobsAppToolsHeader.h"
 #import "JobsLanMgr.h"
 #import "JobsModelDSL.h"
 #import "JobsBlock.h"

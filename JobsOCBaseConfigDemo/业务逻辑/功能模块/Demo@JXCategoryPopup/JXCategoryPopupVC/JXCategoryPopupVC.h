@@ -8,12 +8,6 @@
 #import <UIKit/UIKit.h>
 #import "JXCategoryPopupSubVC.h"
 
-#if __has_include(<JXCategoryView/JXCategoryView.h>)
-#import <JXCategoryView/JXCategoryView.h>
-#else
-#import "JXCategoryView.h"
-#endif
-
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
@@ -62,6 +56,12 @@
 #import "TFPopupExtra.h"
 #endif
 
+#if __has_include(<JXCategoryView/JXCategoryView.h>)
+#import <JXCategoryView/JXCategoryView.h>
+#else
+#import "JXCategoryView.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JXCategoryPopupVC : BaseViewController
@@ -72,6 +72,11 @@ JXCategoryTitleViewDataSource
 ,TFPopupDelegate
 >
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JXCategoryPopupVC
+-(JobsRetJXCategoryPopupVCByNSIntegerBlock _Nonnull)byCurrentIndex;
+-(JobsRetJXCategoryPopupVCByUIViewBlock _Nonnull)byPopUpCustomView;
+-(JobsRetJXCategoryPopupVCByUIViewBlock _Nonnull)byPopUpFiltrationView;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JXCategoryPopupVC
 @end
 
 NS_ASSUME_NONNULL_END

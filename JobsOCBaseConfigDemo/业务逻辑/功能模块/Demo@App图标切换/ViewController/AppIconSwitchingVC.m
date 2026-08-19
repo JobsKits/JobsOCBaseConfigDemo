@@ -35,141 +35,256 @@ Prop_strong()NSArray <NSDictionary <NSString *, NSString *>*>*iconOptions;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(AppIconSwitchingVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.setupNavigationBarHidden = YES;
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(data.attributedTitle.string)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byBgImage(@"新首页的底图".img)
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        self.bySetupNavigationBarHidden(YES);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(data.attributedTitle.string)
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byBgImage(@"新首页的底图".img)
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.iconCollectionView.byAlpha(1);
-    [self.iconCollectionView reloadData];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(AppIconSwitchingVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.iconCollectionView.byAlpha(1);
+        [self.iconCollectionView reloadData];
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(AppIconSwitchingVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillAppear:animated];
+    };
 }
 
 -(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(AppIconSwitchingVC.class, @selector(jobsViewWillLayoutSubviews)))(self, @selector(jobsViewWillLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewWillLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(AppIconSwitchingVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(AppIconSwitchingVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(AppIconSwitchingVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(AppIconSwitchingVC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+    };
 }
 
 #pragma mark —— 一些私有方法
--(NSDictionary <NSString *, NSString *>*_Nullable)iconOptionAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.item >= self.iconOptions.count) return nil;
-    return self.iconOptions[indexPath.item];
+-(JobsRetNSDictionaryNSStringNSStringByNSIndexPathBlock _Nonnull)iconOptionAtIndexPath{
+    @jobs_weakify(self)
+    return ^NSDictionary <NSString *, NSString *>*_Nullable(NSIndexPath * indexPath){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (indexPath.item >= self.iconOptions.count) return nil;
+        return self.iconOptions[indexPath.item];
+    };
 }
 
--(NSString *)currentAppIconName{
-    if (@available(iOS 10.3, *)) {
-        NSString *currentIconName = UIApplication.sharedApplication.alternateIconName;
-        return currentIconName.length ? currentIconName : JobsAppIconPrimaryIcon;
-    };return JobsAppIconPrimaryIcon;
+-(JobsRetStrByVoidBlock _Nonnull)currentAppIconName{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (@available(iOS 10.3, *)) {
+            NSString *currentIconName = UIApplication.sharedApplication.alternateIconName;
+            return currentIconName.length ? currentIconName : JobsAppIconPrimaryIcon;
+        };return JobsAppIconPrimaryIcon;
+    };
 }
 
--(NSString *_Nullable)alternateIconNameByOption:(NSDictionary <NSString *, NSString *>*)option{
-    NSString *iconName = option[JobsAppIconNameKey];
-    return iconName.length ? iconName : nil;
+-(JobsRetNSStringByNSDictionaryNSStringNSStringBlock _Nonnull)alternateIconNameByOption{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable(NSDictionary <NSString *, NSString *>* option){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSString *iconName = option[JobsAppIconNameKey];
+        return iconName.length ? iconName : nil;
+    };
 }
 
--(NSString *)displayTitleByIconName:(NSString *_Nullable)iconName{
-    NSString *normalizedIconName = iconName.length ? iconName : JobsAppIconPrimaryIcon;
-    for (NSDictionary <NSString *, NSString *>*option in self.iconOptions) {
-        if ([option[JobsAppIconNameKey] isEqualToString:normalizedIconName]) return option[JobsAppIconTitleKey].tr;
-    };return normalizedIconName.length ? normalizedIconName : @"默认图标".tr;
+-(JobsRetStrByStrBlock _Nonnull)displayTitleByIconName{
+    @jobs_weakify(self)
+    return ^NSString *(NSString *_Nullable iconName){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSString *normalizedIconName = iconName.length ? iconName : JobsAppIconPrimaryIcon;
+        for (NSDictionary <NSString *, NSString *>*option in self.iconOptions) {
+            if ([option[JobsAppIconNameKey] isEqualToString:normalizedIconName]) return option[JobsAppIconTitleKey].jobsTr();
+        };return normalizedIconName.length ? normalizedIconName : @"默认图标".jobsTr();
+    };
 }
 
--(void)reloadIconSelectionState{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.iconCollectionView reloadData];
-    });
+-(jobsByVoidBlock _Nonnull)reloadIconSelectionState{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.iconCollectionView reloadData];
+        });
+    };
 }
 
--(void)showAppIconSwitchToast:(NSString *)msg{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        msg.tr.toast();
-    });
+-(jobsByStrBlock _Nonnull)showAppIconSwitchToast{
+    @jobs_weakify(self)
+    return ^(NSString * msg){
+        @jobs_strongify(self)
+        if (!self) return;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            msg.jobsTr().toast();
+        });
+    };
 }
 
--(void)changeAppIconToName:(NSString *_Nullable)iconName {
-    if (@available(iOS 10.3, *)) {
-        UIApplication *application = UIApplication.sharedApplication;
-        NSString *targetIconName = [self displayTitleByIconName:iconName];
-        NSString *currentIconName = application.alternateIconName;
-        BOOL isSameIcon = (currentIconName.length == 0 && iconName.length == 0) || [currentIconName isEqualToString:iconName];
-        if (!application.supportsAlternateIcons) {
-            NSString *msg = @"当前包未开启备用 App 图标，请检查 target 的 Alternate App Icon Sets 配置".tr;
-            JobsLog(@"%@", msg);
-            [self showAppIconSwitchToast:msg];
-            return;
-        }
-        if (isSameIcon) {
-            NSString *msg = [NSString stringWithFormat:@"当前已经是 %@ 图标".tr, targetIconName];
-            JobsLog(@"%@", msg);
-            [self showAppIconSwitchToast:msg];
-            [self reloadIconSelectionState];
-            return;
-        }
-        [application setAlternateIconName:iconName
-                        completionHandler:^(NSError * _Nullable error) {
-            if (error) {
-                NSString *msg = [NSString stringWithFormat:@"切换 App 图标失败：%@".tr, error.localizedDescription];
+-(jobsByStrBlock _Nonnull)changeAppIconToName{
+    @jobs_weakify(self)
+    return ^(NSString *_Nullable iconName){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (@available(iOS 10.3, *)) {
+            UIApplication *application = UIApplication.sharedApplication;
+            NSString *targetIconName = self.displayTitleByIconName(iconName);
+            NSString *currentIconName = application.alternateIconName;
+            BOOL isSameIcon = (currentIconName.length == 0 && iconName.length == 0) || [currentIconName isEqualToString:iconName];
+            if (!application.supportsAlternateIcons) {
+                NSString *msg = @"当前包未开启备用 App 图标，请检查 target 的 Alternate App Icon Sets 配置".jobsTr();
                 JobsLog(@"%@", msg);
-                [self showAppIconSwitchToast:msg];
-            } else {
-                NSString *msg = [NSString stringWithFormat:@"已切换为 %@ 图标".tr, targetIconName];
-                JobsLog(@"%@", msg);
-                [self showAppIconSwitchToast:msg];
-                [self reloadIconSelectionState];
+                self.showAppIconSwitchToast(msg);
+                return;
             }
-        }];
-    } else {
-        NSString *msg = @"iOS 10.3 以下不支持动态切换 App 图标".tr;
-        JobsLog(@"%@", msg);
-        [self showAppIconSwitchToast:msg];
-    }
+            if (isSameIcon) {
+                NSString *msg = [NSString stringWithFormat:@"当前已经是 %@ 图标".jobsTr(), targetIconName];
+                JobsLog(@"%@", msg);
+                self.showAppIconSwitchToast(msg);
+                self.reloadIconSelectionState();
+                return;
+            }
+            [application setAlternateIconName:iconName
+                            completionHandler:^(NSError * _Nullable error) {
+                if (error) {
+                    NSString *msg = [NSString stringWithFormat:@"切换 App 图标失败：%@".jobsTr(), error.localizedDescription];
+                    JobsLog(@"%@", msg);
+                    self.showAppIconSwitchToast(msg);
+                } else {
+                    NSString *msg = [NSString stringWithFormat:@"已切换为 %@ 图标".jobsTr(), targetIconName];
+                    JobsLog(@"%@", msg);
+                    self.showAppIconSwitchToast(msg);
+                    self.reloadIconSelectionState();
+                }
+            }];
+        } else {
+            NSString *msg = @"iOS 10.3 以下不支持动态切换 App 图标".jobsTr();
+            JobsLog(@"%@", msg);
+            self.showAppIconSwitchToast(msg);
+        }
+    };
 }
 #pragma mark —— UICollectionViewDelegate,UICollectionViewDataSource
 -(NSInteger)collectionView:(UICollectionView *)collectionView
@@ -181,7 +296,7 @@ Prop_strong()NSArray <NSDictionary <NSString *, NSString *>*>*iconOptions;
                  cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:JobsAppIconCellID
                                                                            forIndexPath:indexPath];
-    NSDictionary <NSString *, NSString *>*option = [self iconOptionAtIndexPath:indexPath];
+    NSDictionary <NSString *, NSString *>*option = self.iconOptionAtIndexPath(indexPath);
     UIImageView *iconView = (UIImageView *)[cell.contentView viewWithTag:JobsAppIconImageViewTag];
     UILabel *titleLab = (UILabel *)[cell.contentView viewWithTag:JobsAppIconTitleLabTag];
     UILabel *checkLab = (UILabel *)[cell.contentView viewWithTag:JobsAppIconCheckLabTag];
@@ -238,8 +353,8 @@ Prop_strong()NSArray <NSDictionary <NSString *, NSString *>*>*iconOptions;
         }
     }
     iconView.byImage(iconImage);
-    titleLab.byText(option[JobsAppIconTitleKey].tr);
-    NSString *currentIconName = self.currentAppIconName;
+    titleLab.byText(option[JobsAppIconTitleKey].jobsTr());
+    NSString *currentIconName = self.currentAppIconName();
     BOOL selected = [currentIconName isEqualToString:option[JobsAppIconNameKey]];
     cell.contentView
         .byBgColor(JobsSecondarySystemBackgroundColor)
@@ -256,8 +371,8 @@ Prop_strong()NSArray <NSDictionary <NSString *, NSString *>*>*iconOptions;
 
 -(void)collectionView:(UICollectionView *)collectionView
 didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSDictionary <NSString *, NSString *>*option = [self iconOptionAtIndexPath:indexPath];
-    [self changeAppIconToName:[self alternateIconNameByOption:option]];
+    NSDictionary <NSString *, NSString *>*option = self.iconOptionAtIndexPath(indexPath);
+    self.changeAppIconToName(self.alternateIconNameByOption(option));
 }
 
 -(CGSize)collectionView:(UICollectionView *)collectionView
@@ -303,7 +418,7 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
             .byAlwaysBounceVertical(YES)
             .byBgColor(JobsClearColor);
         if (@available(iOS 11.0, *)) {
-            _iconCollectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+            _iconCollectionView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
         }
         _iconCollectionView
             .addOn(self.view)

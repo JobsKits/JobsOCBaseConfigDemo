@@ -39,6 +39,7 @@
 #import "UIRotationGestureRecognizer+DSL.h"
 #import "UIScreenEdgePanGestureRecognizer+DSL.h"
 #import "NSDateFormatter+DSL.h"
+#import "NSUserActivity+DSL.h"
 #import "NSTimeZone+DSL.h"
 #import "MFMailComposeViewController+DSL.h"
 #import "MFMessageComposeViewController+DSL.h"

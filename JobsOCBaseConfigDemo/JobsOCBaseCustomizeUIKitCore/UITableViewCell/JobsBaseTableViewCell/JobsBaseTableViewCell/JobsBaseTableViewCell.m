@@ -6,6 +6,7 @@
 //
 
 #import "JobsBaseTableViewCell.h"
+
 #import "UIView+Measure.h"
 #import "NSString+Statistics.h"
 #import "UITableViewCell+Margin.h"
@@ -16,6 +17,12 @@
 Prop_assign()BOOL isSetTBVCellOffset;
 
 @end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsBaseTableViewCell
+@interface JobsBaseTableViewCell (JobsPropertyDSLSetterAutogen_b6483b1c8d)
+-(void)setIsSetTBVCellOffset:(BOOL)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsBaseTableViewCell
 
 @implementation JobsBaseTableViewCell
 /// UITableViewCellProtocol
@@ -107,7 +114,7 @@ AppToolsProtocol_synthesize
         frame.origin.y += offsetY;
         frame.size.height -= offsetY * 2;
         frame.size.width -= offsetX * 2;
-        self.isSetTBVCellOffset = !self.isSetTBVCellOffset;
+        self.bySetTBVCellOffset(!self.isSetTBVCellOffset);
     }[super setFrame:frame];
 }
 // 在具体的子类，去覆盖-(void)setFrame:(CGRect)frame方法
@@ -123,8 +130,18 @@ AppToolsProtocol_synthesize
 }
 /// CXB 所言 全局只有在cellForRowAtIndexPath里面才能设置真正的selected值。而didSelectRowAtIndexPath不行
 -(void)setSelected:(BOOL)selected{
-    [super setSelected:selected];
-    JobsLog(@"%d",self.selected);
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBaseTableViewCell.class, @selector(jobsSetSelected)))(self, @selector(jobsSetSelected));
+    if (action) action(selected);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsSetSelected{
+    @jobs_weakify(self)
+    return ^(BOOL selected){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super setSelected:selected];
+        JobsLog(@"%d",self.selected);
+    };
 }
 //@synthesize selected = _selected;
 //-(void)setSelected:(BOOL)selected{
@@ -137,13 +154,23 @@ AppToolsProtocol_synthesize
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    self.printValue();
-    /// 取内部类UITableViewCellEditControl,对编辑状态的Cell的点击按钮进行替换成自定义的
-    self.customCellEditStateImage();
-    self.modifySysChildViewFrame1();
-    // 或者
-    self.modifySysChildViewFrame2();
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBaseTableViewCell.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        self.printValue();
+        /// 取内部类UITableViewCellEditControl,对编辑状态的Cell的点击按钮进行替换成自定义的
+        self.customCellEditStateImage();
+        self.modifySysChildViewFrame1();
+        // 或者
+        self.modifySysChildViewFrame2();
+    };
 }
 /**
  1、-(void)setFrame:(CGRect)frame 此方法仅限于具体的 UITableViewCell子类使用
@@ -151,14 +178,24 @@ AppToolsProtocol_synthesize
  3、禁止分类去调用，否则引起异常
  */
 -(void)setFrame:(CGRect)frame{
-    if (self.class == JobsBaseTableViewCell.class) {
-        JobsLog(@"self.offsetXForEach = %f",self.offsetXForEach);
-        JobsLog(@"self.offsetYForEach = %f",self.offsetYForEach);
-        frame.origin.x += self.offsetXForEach;
-        frame.origin.y += self.offsetYForEach;
-        frame.size.height -= self.offsetYForEach * 2;
-        frame.size.width -= self.offsetXForEach * 2;
-    }[super setFrame:frame];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBaseTableViewCell.class, @selector(jobsSetFrame)))(self, @selector(jobsSetFrame));
+    if (action) action(frame);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsSetFrame{
+    @jobs_weakify(self)
+    return ^(CGRect frame){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (self.class == JobsBaseTableViewCell.class) {
+            JobsLog(@"self.offsetXForEach = %f",self.offsetXForEach);
+            JobsLog(@"self.offsetYForEach = %f",self.offsetYForEach);
+            frame.origin.x += self.offsetXForEach;
+            frame.origin.y += self.offsetYForEach;
+            frame.size.height -= self.offsetYForEach * 2;
+            frame.size.width -= self.offsetXForEach * 2;
+        }[super setFrame:frame];
+    };
 }
 #pragma mark —— BaseViewProtocol
 /// 具体由子类进行复写【数据定高】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -174,8 +211,18 @@ AppToolsProtocol_synthesize
     };
 }
 /// 获取绑定的数据源
--(UIViewModel *)getViewModel{
-    return self.viewModel;
+-(UIViewModel *_Nullable)getViewModel{
+    JobsRetViewModelByVoidBlock action = ((JobsRetViewModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBaseTableViewCell.class, @selector(jobsGetViewModel)))(self, @selector(jobsGetViewModel));
+    return action ? action() : nil;
+}
+
+-(JobsRetViewModelByVoidBlock _Nonnull)jobsGetViewModel{
+    @jobs_weakify(self)
+    return ^UIViewModel *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.viewModel;
+    };
 }
 #pragma mark —— BaseCellProtocol
 -(JobsRetTableViewCellByIDBlock _Nonnull)jobsRichElementsTableViewCellBy{
@@ -192,7 +239,7 @@ AppToolsProtocol_synthesize
          */
         if (model) {
             if([model isKindOfClass:UIViewModel.class]){
-                self.viewModel = model;
+                self.byViewModel(model);
                 if(self.textLabel){
                     if (self.viewModel.textModel.attributedTitle) {
                         self.textLabel.byAttributedString(self.viewModel.textModel.attributedTitle);
@@ -209,13 +256,13 @@ AppToolsProtocol_synthesize
                         self.detailTextLabel.byText(self.viewModel.subTextModel.text);
                         self.detailTextLabel.byTextCor(self.viewModel.subTextModel.textCor);
                         self.detailTextLabel.byFont(self.viewModel.subTextModel.font);
-                        self.detailTextLabel.width = UITableViewCellSubTitleWidth;
+                        self.detailTextLabel.byWidth(UITableViewCellSubTitleWidth);
                         self.detailTextLabel.makeLabelByShowingType(UILabelShowingType_05);
                     }self.detailTextLabel.numberOfLines = 0;
                 }self.imageView.image = self.viewModel.image;
             }
             if([model isKindOfClass:UIButtonModel.class]){
-                self.buttonModel = model;
+                self.byButtonModel(model);
                 if(self.textLabel){
                     if (self.buttonModel.attributedTitle) {
                         self.textLabel.byAttributedString(self.buttonModel.attributedTitle);
@@ -232,7 +279,7 @@ AppToolsProtocol_synthesize
                         self.detailTextLabel.byText(self.buttonModel.subTitle);
                         self.detailTextLabel.byTextCor(self.buttonModel.subTitleCor);
                         self.detailTextLabel.byFont(self.buttonModel.subTitleFont);
-                        self.detailTextLabel.width = UITableViewCellSubTitleWidth;
+                        self.detailTextLabel.byWidth(UITableViewCellSubTitleWidth);
                         self.detailTextLabel.makeLabelByShowingType(UILabelShowingType_05);
                     }self.detailTextLabel.numberOfLines = 0;
                 }self.imageView.image = self.buttonModel.normalImage;
@@ -276,4 +323,14 @@ AppToolsProtocol_synthesize
     };
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsBaseTableViewCell
+-(JobsRetJobsBaseTableViewCellByBOOLBlock _Nonnull)bySetTBVCellOffset{
+    @jobs_weakify(self)
+    return ^__kindof JobsBaseTableViewCell * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setIsSetTBVCellOffset:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsBaseTableViewCell
 @end

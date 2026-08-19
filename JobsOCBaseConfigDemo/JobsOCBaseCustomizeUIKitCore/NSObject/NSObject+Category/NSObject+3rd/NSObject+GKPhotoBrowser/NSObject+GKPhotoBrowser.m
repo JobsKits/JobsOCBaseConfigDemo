@@ -7,6 +7,78 @@
 
 #import "NSObject+GKPhotoBrowser.h"
 
+@implementation GKPhotoBrowserConfigure (JobsDSL)
+#define JobsGKPhotoBrowserConfigureDSL(_type_, _name_, _property_, _dataType_) \
+-(JobsRetGKPhotoBrowserConfigureBy##_type_##Block _Nonnull)by##_name_{ \
+    @jobs_weakify(self) \
+    return ^__kindof GKPhotoBrowserConfigure *_Nullable(_dataType_ data){ \
+        @jobs_strongify(self) \
+        self._property_ = data; \
+        return self; \
+    }; \
+}
+JobsGKPhotoBrowserConfigureDSL(ShowStyle, ShowStyle, showStyle, GKPhotoBrowserShowStyle)
+JobsGKPhotoBrowserConfigureDSL(HideStyle, HideStyle, hideStyle, GKPhotoBrowserHideStyle)
+JobsGKPhotoBrowserConfigureDSL(BOOL, IsSingleTapDisabled, isSingleTapDisabled, BOOL)
+JobsGKPhotoBrowserConfigureDSL(BOOL, IsHideSourceView, isHideSourceView, BOOL)
+JobsGKPhotoBrowserConfigureDSL(BOOL, IsFollowSystemRotation, isFollowSystemRotation, BOOL)
+#undef JobsGKPhotoBrowserConfigureDSL
+@end
+
+@implementation GKPhotoBrowser (JobsDSL)
+-(JobsRetGKPhotoBrowserByConfigureBlock _Nonnull)byConfigure{
+    @jobs_weakify(self)
+    return ^__kindof GKPhotoBrowser *_Nullable(jobsByGKPhotoBrowserConfigureBlock _Nullable data){
+        @jobs_strongify(self)
+        if (data) data(self.configure);
+        return self;
+    };
+}
+-(JobsRetGKPhotoBrowserByBOOLBlock _Nonnull)byStatusBarShow{
+    @jobs_weakify(self)
+    return ^__kindof GKPhotoBrowser *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setStatusBarShow:data];
+        return self;
+    };
+}
+-(JobsRetGKPhotoBrowserByDelegateBlock _Nonnull)byDelegate{
+    @jobs_weakify(self)
+    return ^__kindof GKPhotoBrowser *_Nullable(id<GKPhotoBrowserDelegate> _Nullable data){
+        @jobs_strongify(self)
+        self.delegate = data;
+        return self;
+    };
+}
+@end
+
+@implementation GKPhoto (JobsDSL)
+-(JobsRetGKPhotoByImageBlock _Nonnull)byImage{
+    @jobs_weakify(self)
+    return ^__kindof GKPhoto *_Nullable(UIImage *_Nullable data){
+        @jobs_strongify(self)
+        self.image = data;
+        return self;
+    };
+}
+-(JobsRetGKPhotoByURLBlock _Nonnull)byUrl{
+    @jobs_weakify(self)
+    return ^__kindof GKPhoto *_Nullable(NSURL *_Nullable data){
+        @jobs_strongify(self)
+        self.url = data;
+        return self;
+    };
+}
+-(JobsRetGKPhotoByImageBlock _Nonnull)byPlaceholderImage{
+    @jobs_weakify(self)
+    return ^__kindof GKPhoto *_Nullable(UIImage *_Nullable data){
+        @jobs_strongify(self)
+        self.placeholderImage = data;
+        return self;
+    };
+}
+@end
+
 @implementation NSObject (GKPhotoBrowser)
 #pragma mark —— 一些私有方法
 NS_INLINE __kindof GKPhoto *_Nonnull jobsMakeGKPhoto(jobsByGKPhotoBlock _Nonnull block){
@@ -32,13 +104,17 @@ NS_INLINE __kindof GKPhotoBrowser *_Nonnull jobsMakeGKPhotoBrowserByPhotosArray(
 
 -(jobsByGKPhotoBrowserBlock _Nonnull)configPhotoBrowser{
     return ^(GKPhotoBrowser *_Nonnull browser){
-        browser.configure.showStyle           = GKPhotoBrowserShowStyleNone;
-        browser.configure.hideStyle           = GKPhotoBrowserHideStyleZoomScale;
-        browser.configure.isSingleTapDisabled = YES;  // 不响应默认单击事件
-        [browser setStatusBarShow:YES]; // 显示状态栏
-        browser.configure.isHideSourceView    = NO;
-        browser.delegate            = self;
-        browser.configure.isFollowSystemRotation = !(UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPhone);
+        browser
+            .byConfigure(^(__kindof GKPhotoBrowserConfigure * _Nullable data) {
+                data
+                    .byShowStyle(GKPhotoBrowserShowStyleNone)
+                    .byHideStyle(GKPhotoBrowserHideStyleZoomScale)
+                    .byIsSingleTapDisabled(YES)
+                    .byIsHideSourceView(NO)
+                    .byIsFollowSystemRotation(!(UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPhone));
+            })
+            .byStatusBarShow(YES)
+            .byDelegate(self);
     };
 }
 #pragma mark —— 一些公有方法
@@ -51,8 +127,9 @@ NS_INLINE __kindof GKPhotoBrowser *_Nonnull jobsMakeGKPhotoBrowserByPhotosArray(
                                                       NSUInteger idx,
                                                       BOOL * _Nonnull stop) {
             data.add(jobsMakeGKPhoto(^(GKPhoto * _Nonnull photo) {
-                photo.image = obj;
-                photo.placeholderImage = @"plliza_empy_placehoder".img;
+                photo
+                    .byImage(obj)
+                    .byPlaceholderImage(@"plliza_empy_placehoder".img);
             }));
         }];
     }),indexPath.row,^(GKPhotoBrowser *_Nonnull browser){
@@ -69,8 +146,9 @@ NS_INLINE __kindof GKPhotoBrowser *_Nonnull jobsMakeGKPhotoBrowserByPhotosArray(
                                                      NSUInteger idx,
                                                      BOOL * _Nonnull stop) {
             data.add(jobsMakeGKPhoto(^(GKPhoto * _Nonnull photo) {
-                photo.url = obj;
-                photo.placeholderImage = @"plliza_empy_placehoder".img;
+                photo
+                    .byUrl(obj)
+                    .byPlaceholderImage(@"plliza_empy_placehoder".img);
             }));
         }];
     }),indexPath.row,^(GKPhotoBrowser *_Nonnull browser){
@@ -87,8 +165,9 @@ NS_INLINE __kindof GKPhotoBrowser *_Nonnull jobsMakeGKPhotoBrowserByPhotosArray(
                                                         NSUInteger idx,
                                                         BOOL * _Nonnull stop) {
             data.add(jobsMakeGKPhoto(^(GKPhoto * _Nonnull photo) {
-                photo.url = obj.jobsUrl;
-                photo.placeholderImage = @"plliza_empy_placehoder".img;
+                photo
+                    .byUrl(obj.jobsURL())
+                    .byPlaceholderImage(@"plliza_empy_placehoder".img);
             }));
         }];
     }),indexPath.row,^(GKPhotoBrowser *_Nonnull browser){
@@ -170,12 +249,12 @@ didDisappearAtIndex:(NSInteger)index{
 /// 自定义单个图片的加载失败文字，优先级高于failureText
 -(NSString *)photoBrowser:(GKPhotoBrowser *)browser
         failedTextAtIndex:(NSInteger)index{
-    return @"图片加载失败".tr;
+    return @"图片加载失败".jobsTr();
 }
 /// 自定义单个图片的加载失败图片，优先级高于failureImage
 -(UIImage *)photoBrowser:(GKPhotoBrowser *)browser
       failedImageAtIndex:(NSInteger)index{
-    return @"".tr.img;
+    return @"".jobsTr().img;
 }
 /// 视频播放状态回调
 -(void)photoBrowser:(GKPhotoBrowser *)browser

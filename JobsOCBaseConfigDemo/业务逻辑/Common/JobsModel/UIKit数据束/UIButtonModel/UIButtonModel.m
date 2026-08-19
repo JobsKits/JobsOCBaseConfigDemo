@@ -6,6 +6,7 @@
 //
 
 #import "UIButtonModel.h"
+
 #import "NSString+Extra.h"
 
 @implementation UIButtonModel
@@ -77,9 +78,19 @@ UITextModelProtocol_synthesize_part2
 }
 
 -(CGFloat)subTitleWidth API_AVAILABLE(ios(16.0)){
-    if(!_subTitleWidth){
-        if(isValue(self.subTitle)) _subTitleWidth = self.subTitle.widthBy(self.subTitleFont);
-    };return _subTitleWidth;
+    JobsRetCGFloatByVoidBlock action = ((JobsRetCGFloatByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIButtonModel.class, @selector(jobsSubTitleWidth)))(self, @selector(jobsSubTitleWidth));
+    return action ? action() : (CGFloat){0};
+}
+
+-(JobsRetCGFloatByVoidBlock _Nonnull)jobsSubTitleWidth API_AVAILABLE(ios(16.0)){
+    @jobs_weakify(self)
+    return ^CGFloat{
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+        if(!_subTitleWidth){
+            if(isValue(self.subTitle)) _subTitleWidth = self.subTitle.widthBy(self.subTitleFont);
+        };return _subTitleWidth;
+    };
 }
 
 -(jobsByVoidBlock _Nullable)jobsTestBlock{
@@ -93,19 +104,29 @@ UITextModelProtocol_synthesize_part2
 -(NSString *)title{
     if (!_title) {
 #ifdef DEBUG
-//        _title = TextModelDataString.tr;
+//        _title = TextModelDataString.jobsTr();
         _title = @"";
 #endif
     };return _title;
 }
 
 -(NSString *)subTitle{
-    if(!_subTitle){
-#ifdef DEBUG
-//        _subTitle = TextModelDataString2.tr;
-        _subTitle = @"";
-#endif
-    };return _subTitle;
+    JobsRetStrByVoidBlock action = ((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIButtonModel.class, @selector(jobsSubTitle)))(self, @selector(jobsSubTitle));
+    return action ? action() : nil;
+}
+
+-(JobsRetStrByVoidBlock _Nonnull)jobsSubTitle{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if(!_subTitle){
+    #ifdef DEBUG
+    //        _subTitle = TextModelDataString2.jobsTr();
+            _subTitle = @"";
+    #endif
+        };return _subTitle;
+    };
 }
 
 @end

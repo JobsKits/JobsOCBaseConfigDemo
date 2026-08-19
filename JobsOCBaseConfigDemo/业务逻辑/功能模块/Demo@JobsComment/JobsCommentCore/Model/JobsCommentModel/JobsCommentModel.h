@@ -79,6 +79,9 @@ Prop_assign()NSInteger preMax;//显示控制，二级数据默认最多显示多
 Prop_assign()NSInteger firstShowNum;//在满足限制条件的情况下，第一次显示的数据条数 （数据库有但小于PreMax）
 Prop_assign()NSInteger loadMoreDataNum;//加载更多数据,一次加载的个数，为0全加载
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsFirstCommentCustomCofigModel
+-(JobsRetJobsFirstCommentCustomCofigModelByNSArrayJobsChildCommentModelBlock _Nonnull)byChildDataArr;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsFirstCommentCustomCofigModel
 @end
 
 NS_ASSUME_NONNULL_END

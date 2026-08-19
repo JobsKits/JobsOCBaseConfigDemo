@@ -9,6 +9,12 @@
 #define JobsOCVideoRecorderRecordButton_h
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <QuartzCore/QuartzCore.h>
 #import "JobsMakes.h"
 #import "JobsDefines.h"
@@ -20,7 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol JobsOCVideoRecorderRecordButtonDelegate <NSObject>
 
 -(void)recordButtonDidBeginLongPress:(JobsOCVideoRecorderRecordButton *)recordButton;
+-(jobsByJobsOCVideoRecorderRecordButtonBlock _Nonnull)jobsRecordButtonDidBeginLongPress;
 -(void)recordButtonDidEndLongPress:(JobsOCVideoRecorderRecordButton *)recordButton;
+-(jobsByJobsOCVideoRecorderRecordButtonBlock _Nonnull)jobsRecordButtonDidEndLongPress;
 
 @end
 
@@ -29,9 +37,11 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_weak(nullable) id<JobsOCVideoRecorderRecordButtonDelegate> delegate;
 Prop_assign() CGFloat progress;
 
--(void)startProgressWithDuration:(NSTimeInterval)duration;
--(void)stopProgress;
--(void)resetProgress;
+-(jobsByTimeIntervalBlock _Nonnull)startProgressWithDuration;
+-(jobsByVoidBlock _Nonnull)stopProgress;
+-(jobsByVoidBlock _Nonnull)resetProgress;
+-(JobsRetJobsOCVideoRecorderRecordButtonByCGFloatBlock _Nonnull)byProgress;
+-(JobsRetJobsOCVideoRecorderRecordButtonByDelegateBlock _Nonnull)byDelegate;
 
 @end
 

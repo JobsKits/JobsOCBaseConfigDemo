@@ -13,10 +13,11 @@ Prop_strong()UIActivityIndicatorView *indicatorView;
 
 @end
 
-
 @implementation JobsSystemRefreshView
-+(__kindof JobsSystemRefreshView *)refreshView {
-    return JobsSystemRefreshView.alloc.init;
++(JobsRetJobsSystemRefreshViewByVoidBlock _Nonnull)refreshView {
+    return ^__kindof JobsSystemRefreshView *{
+        return JobsSystemRefreshView.alloc.init;
+    };
 }
 
 -(instancetype)initWithFrame:(CGRect)frame {
@@ -27,30 +28,65 @@ Prop_strong()UIActivityIndicatorView *indicatorView;
     };return self;
 }
 
--(instancetype)byIndicatorSize:(CGSize)indicatorSize {
-    self.indicatorSize = CGSizeMake(MAX(1, indicatorSize.width),
-                                    MAX(1, indicatorSize.height));
-    [self invalidateIntrinsicContentSize];
-    [self setNeedsLayout];
-    return self;
+-(JobsRetIDByCGSizeBlock _Nonnull)byIndicatorSize{
+    @jobs_weakify(self)
+    return ^id(CGSize indicatorSize){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.indicatorSize = CGSizeMake(MAX(1, indicatorSize.width),
+                                        MAX(1, indicatorSize.height));
+        [self invalidateIntrinsicContentSize];
+        [self setNeedsLayout];
+        return self;
+    };
 }
 
--(CGSize)intrinsicContentSize {
-    return self.indicatorSize;
+-(CGSize)intrinsicContentSize{
+    JobsRetCGSizeByVoidBlock action = ((JobsRetCGSizeByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsSystemRefreshView.class, @selector(jobsIntrinsicContentSize)))(self, @selector(jobsIntrinsicContentSize));
+    return action ? action() : (CGSize){0};
+}
+
+-(JobsRetCGSizeByVoidBlock _Nonnull)jobsIntrinsicContentSize {
+    @jobs_weakify(self)
+    return ^CGSize{
+        @jobs_strongify(self)
+        if (!self) return (CGSize){0};
+        return self.indicatorSize;
+    };
 }
 
 -(void)layoutSubviews {
-    [super layoutSubviews];
-    self.indicatorView.byFrame(self.bounds);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsSystemRefreshView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        self.indicatorView.byFrame(self.bounds);
+    };
 }
 
 #pragma mark —— JobsRefreshAnimatorProtocol
--(UIView *)refreshAnimatorView {
-    return self;
+-(JobsRetViewByVoidBlock _Nonnull)refreshAnimatorView {
+    @jobs_weakify(self)
+    return ^UIView *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self;
+    };
 }
 
--(CGSize)refreshAnimatorPreferredSize {
-    return self.indicatorSize;
+-(JobsRetCGSizeByVoidBlock _Nonnull)refreshAnimatorPreferredSize {
+    @jobs_weakify(self)
+    return ^CGSize{
+        @jobs_strongify(self)
+        if (!self) return (CGSize){0};
+        return self.indicatorSize;
+    };
 }
 
 -(void)refreshAnimatorApplyPhase:(JobsRefreshAnimatorPhase)phase

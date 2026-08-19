@@ -162,14 +162,19 @@
  通过计算ASCII码来实现:
  循环遍历字符串长度，按照length来取值。判断这个值在不在ASCII的范围内，在的话就是1个字节，不在就是Unicode编码2个字节。
  */
--(NSUInteger)textLength{
-    NSUInteger asciiLength = 0;
-    for (NSUInteger i = 0; i < self.length; i++) {
-        unichar uc = [self characterAtIndex:i];
-        asciiLength += isascii(uc) ? 1 : 2;
-    }
-    NSUInteger unicodeLength = asciiLength;
-    return unicodeLength;
+-(JobsRetNSUIntegerByVoidBlock _Nonnull)textLength{
+    @jobs_weakify(self)
+    return ^NSUInteger{
+        @jobs_strongify(self)
+        if (!self) return (NSUInteger){0};
+        NSUInteger asciiLength = 0;
+        for (NSUInteger i = 0; i < self.length; i++) {
+            unichar uc = [self characterAtIndex:i];
+            asciiLength += isascii(uc) ? 1 : 2;
+        }
+        NSUInteger unicodeLength = asciiLength;
+        return unicodeLength;
+    };
 }
 
 @end

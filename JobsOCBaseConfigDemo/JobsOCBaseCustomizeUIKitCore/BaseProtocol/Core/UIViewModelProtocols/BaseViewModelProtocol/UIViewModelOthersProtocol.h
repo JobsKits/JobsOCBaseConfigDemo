@@ -47,6 +47,7 @@ Prop_strong(nullable)UIView *VIEW; // 慎用：挂载的对象除非主动置空
 Prop_strong(nullable)UIViewController *VC; // 慎用：挂载的对象除非主动置空，否则生命周期于本对象同步消亡
 #pragma mark —— ZFDouYinCell
 -(void)zf_douyinRotation;
+-(jobsByVoidBlock _Nonnull)jobsZf_douyinRotation;
 
 @end
 

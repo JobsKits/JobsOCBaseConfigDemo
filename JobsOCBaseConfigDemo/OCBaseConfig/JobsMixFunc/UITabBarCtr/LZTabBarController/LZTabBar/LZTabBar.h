@@ -22,6 +22,9 @@
 Prop_strong()NSArray<LZTabBarItem *>* _Nullable items;
 Prop_assign()id <LZTabBarDelegate> _Nullable delegate;
 
+-(JobsRetLZTabBarByItemsBlock _Nonnull)byItems;
+-(JobsRetLZTabBarByDelegateBlock _Nonnull)byDelegate;
+
 @end
 
 @protocol LZTabBarDelegate <NSObject>

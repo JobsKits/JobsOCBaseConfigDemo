@@ -2,16 +2,19 @@
 //  UIGestureRecognizer+DSL.m
 //  JobsOCBaseConfigDemo
 //
+//  Created by Jobs on 2026年8月3日，星期一.
+//
+
 #import "UIGestureRecognizer+DSL.h"
 
 @implementation UIGestureRecognizer (JobsChain)
-+(JobsRetGestureByVoidBlock)byGestureRecognizer{
++(JobsRetGestureByVoidBlock _Nonnull)byGestureRecognizer{
     return ^__kindof UIGestureRecognizer *_Nullable(void){
         return [[self alloc] init];
     };
 }
 
--(JobsRetGestureRecognizerByDelegateBlock)byDelegate{
+-(JobsRetGestureRecognizerByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^__kindof UIGestureRecognizer *_Nullable(id<UIGestureRecognizerDelegate> _Nullable data){
         @jobs_strongify(self)
@@ -29,7 +32,7 @@
     };
 }
 
--(JobsRetGestureRecognizerByBOOLBlock)byCancelsTouchesInView{
+-(JobsRetGestureRecognizerByBOOLBlock _Nonnull)byCancelsTouchesInView{
     @jobs_weakify(self)
     return ^__kindof UIGestureRecognizer *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -38,7 +41,7 @@
     };
 }
 
--(JobsRetGestureRecognizerByBOOLBlock)byDelaysTouchesBegan{
+-(JobsRetGestureRecognizerByBOOLBlock _Nonnull)byDelaysTouchesBegan{
     @jobs_weakify(self)
     return ^__kindof UIGestureRecognizer *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -47,7 +50,7 @@
     };
 }
 
--(JobsRetGestureRecognizerByBOOLBlock)byDelaysTouchesEnded{
+-(JobsRetGestureRecognizerByBOOLBlock _Nonnull)byDelaysTouchesEnded{
     @jobs_weakify(self)
     return ^__kindof UIGestureRecognizer *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -56,7 +59,7 @@
     };
 }
 
--(JobsRetGestureRecognizerByArrBlock)byAllowedTouchTypes{
+-(JobsRetGestureRecognizerByArrBlock _Nonnull)byAllowedTouchTypes{
     @jobs_weakify(self)
     return ^__kindof UIGestureRecognizer *_Nullable(__kindof NSArray *_Nullable data){
         @jobs_strongify(self)
@@ -65,7 +68,7 @@
     };
 }
 
--(JobsRetGestureRecognizerByArrBlock)byAllowedPressTypes{
+-(JobsRetGestureRecognizerByArrBlock _Nonnull)byAllowedPressTypes{
     @jobs_weakify(self)
     return ^__kindof UIGestureRecognizer *_Nullable(__kindof NSArray *_Nullable data){
         @jobs_strongify(self)
@@ -74,7 +77,7 @@
     };
 }
 
--(JobsRetGestureRecognizerByBOOLBlock)byRequiresExclusiveTouchType{
+-(JobsRetGestureRecognizerByBOOLBlock _Nonnull)byRequiresExclusiveTouchType{
     @jobs_weakify(self)
     return ^__kindof UIGestureRecognizer *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -83,7 +86,7 @@
     };
 }
 
--(JobsRetGestureRecognizerByStringBlock)byName API_AVAILABLE(ios(11.0)){
+-(JobsRetGestureRecognizerByStringBlock _Nonnull)byName API_AVAILABLE(ios(11.0)){
     @jobs_weakify(self)
     return ^__kindof UIGestureRecognizer *_Nullable(NSString *_Nullable data){
         @jobs_strongify(self)
@@ -101,7 +104,7 @@
     };
 }
 
--(JobsRetCGPointByViewBlock)byLocationInView{
+-(JobsRetCGPointByViewBlock _Nonnull)byLocationInView{
     @jobs_weakify(self)
     return ^CGPoint(__kindof UIView *_Nullable data){
         @jobs_strongify(self)

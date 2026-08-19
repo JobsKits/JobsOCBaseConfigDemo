@@ -234,7 +234,7 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
     if(!_spreadsheetView){
         _spreadsheetView = SpreadsheetView.new;
         _spreadsheetView.dataSource = self;
-        _spreadsheetView.delegate   = self;
+        _spreadsheetView.delegate = self;
         _spreadsheetView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [_spreadsheetView registerClass:HourCell.class forCellWithReuseIdentifier:NSStringFromClass(HourCell.class)];
         [_spreadsheetView registerClass:ChannelCell.class forCellWithReuseIdentifier:NSStringFromClass(ChannelCell.class)];

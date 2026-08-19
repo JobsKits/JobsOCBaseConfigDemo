@@ -6,6 +6,7 @@
 //
 
 #import "JobsSuspendBtn.h"
+
 #import "UIControl+Extra.h"
 #import "UIView+Extra.h"
 
@@ -18,9 +19,9 @@ BaseViewProtocol_synthesize
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(self.backgroundColor ? :JobsBlackColor);
-        [self jobs_onChange:^(__kindof UIControl * _Nullable ctrl) {
+        self.jobs_onChange(^(__kindof UIControl * _Nullable ctrl) {
             JobsLog(@"Hello Jobs");
-        }];
+        });
         self.cornerCutToCircleWithCornerRadius(JobsWidth(8));
     };return self;
 }
@@ -30,18 +31,38 @@ BaseViewProtocol_synthesize
     return ^__kindof UIButton *_Nullable(BOOL enabled) {
         @jobs_strongify(self)
         self.isAllowDrag = enabled;
-        self.panRcognize.enabled = enabled;
+        if (self.panRcognize) self.panRcognize.byEnabled(enabled);
         return self;
     };
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
-    self.panRcognize.enabled = self.isAllowDrag;// 关键代码
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsSuspendBtn.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+        if (self.panRcognize) self.panRcognize.byEnabled(self.isAllowDrag);
+    };
 }
 #pragma mark —— 复写父类方法
 -(void)setSelected:(BOOL)selected{
-    [super setSelected:selected];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsSuspendBtn.class, @selector(jobsSetSelected)))(self, @selector(jobsSetSelected));
+    if (action) action(selected);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsSetSelected{
+    @jobs_weakify(self)
+    return ^(BOOL selected){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super setSelected:selected];
+    };
 }
 
 @end

@@ -13,18 +13,6 @@
 #import "UIButton+UIButtonConfiguration.h"
 #import "UIView+Extra.h"
 
-#if __has_include(<ReactiveObjC/ReactiveObjC.h>)
-#import <ReactiveObjC/ReactiveObjC.h>
-#else
-#import "ReactiveObjC.h"
-#endif
-
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
-#else
-#import "Masonry.h"
-#endif
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsRichTextUtils.h"
 #import "JobsTimeUtils.h"
@@ -34,6 +22,18 @@
 #import "JobsBlock.h"
 #import "JobsDefines.h"
 #import "JobsOCDSL.h"
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
+#if __has_include(<ReactiveObjC/ReactiveObjC.h>)
+#import <ReactiveObjC/ReactiveObjC.h>
+#else
+#import "ReactiveObjC.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 ///（时间）文本@显示类型

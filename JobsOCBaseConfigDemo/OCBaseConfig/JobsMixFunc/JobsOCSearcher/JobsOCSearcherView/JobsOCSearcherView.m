@@ -6,13 +6,10 @@
 //
 
 #import "JobsOCSearcherView.h"
+#import "UIGestureRecognizer+DSL.h"
+
 #import "JobsOCSearcherRecordCell.h"
 
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
-#else
-#import "Masonry.h"
-#endif
 
 typedef NS_ENUM(NSUInteger, JobsOCSearcherSection) {
     JobsOCSearcherSectionHistory = 0,
@@ -40,377 +37,576 @@ Prop_strong(readwrite)JobsOCSearcherConfig *config;
 Prop_copy(nullable)NSArray <NSString *>*recommendSearches;
 Prop_copy(readwrite)NSArray <NSString *>*historySearches;
 
--(void)reloadRecommendedSearches:(NSArray <NSString *>*_Nullable)recommendSearches;
--(UIImage *)searchButtonBackgroundImageWithColor:(UIColor *)color;
+-(jobsByNSArrayNSStringBlock _Nonnull)reloadRecommendedSearches;
+-(JobsRetImageByCorBlock _Nonnull)searchButtonBackgroundImageWithColor;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCSearcherView
+@interface JobsOCSearcherView (JobsPropertyDSLSetterAutogen_effdfbc765)
+-(void)setHistorySearches:(NSArray <NSString *>* _Nullable)data;
+-(void)setRecommendButtonArr:(NSArray <UIButton *>* _Nullable)data;
+-(void)setRecommendSectionHeightConstraint:(MASConstraint * _Nullable)data;
+-(void)setSearchButtonLeftConstraint:(MASConstraint * _Nullable)data;
+-(void)setSearchButtonWidthConstraint:(MASConstraint * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCSearcherView
+
 @implementation JobsOCSearcherView
+-(JobsRetJobsOCSearcherViewByConfigBlock _Nonnull)byConfig{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCSearcherView *_Nullable(JobsOCSearcherConfig *_Nullable config){
+        @jobs_strongify(self)
+        [self setConfig:config];
+        return self;
+    };
+}
+
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        [self setupWithConfig:nil];
+        self.setupWithConfig(nil);
     };return self;
 }
 
 -(instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
-        [self setupWithConfig:nil];
+        self.setupWithConfig(nil);
     };return self;
 }
 
 -(instancetype)initWithConfig:(JobsOCSearcherConfig *)config{
     if (self = [super initWithFrame:CGRectZero]) {
-        [self setupWithConfig:config];
+        self.setupWithConfig(config);
     };return self;
 }
 
--(__kindof JobsOCSearcherView *_Nullable(^)(NSArray <NSString *>*_Nullable recommendSearches))byRecommendSearches{
+-(JobsRetJobsOCSearcherViewByNSArrayNSStringBlock _Nonnull)byRecommendSearches{
     @jobs_weakify(self)
     return ^__kindof JobsOCSearcherView *_Nullable(NSArray <NSString *>*_Nullable recommendSearches) {
         @jobs_strongify(self)
-        [self reloadRecommendedSearches:recommendSearches];
+        [self setRecommendSearches:recommendSearches];
         return self;
     };
 }
 
--(void)setupWithConfig:(JobsOCSearcherConfig *)config{
-    self.config = config ? : JobsOCSearcherConfig.defaultConfig;
-    self.backgroundColor = [UIColor colorWithRed:0.96 green:0.97 blue:0.99 alpha:1];
-    [self addSubview:self.searchContainerView];
-    [self.searchContainerView addSubview:self.textField];
-    [self addSubview:self.searchButton];
-    [self addSubview:self.recommendSectionView];
-    [self.recommendSectionView addSubview:self.recommendTitleLabel];
-    [self.recommendSectionView addSubview:self.recommendTagContainerView];
-    [self addSubview:self.tableView];
-    [self addGestureRecognizer:self.blankTapGestureRecognizer];
-    [self setupConstraints];
-    [self reloadHistorySearches];
-    [self updateByConfig];
+-(jobsByJobsOCSearcherConfigBlock _Nonnull)setupWithConfig{
+    @jobs_weakify(self)
+    return ^(JobsOCSearcherConfig * config){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byConfig(config ? : JobsOCSearcherConfig.defaultConfig());
+        self.byBgColor([UIColor colorWithRed:0.96 green:0.97 blue:0.99 alpha:1]);
+        [self addSubview:self.searchContainerView];
+        [self.searchContainerView addSubview:self.textField];
+        [self addSubview:self.searchButton];
+        [self addSubview:self.recommendSectionView];
+        [self.recommendSectionView addSubview:self.recommendTitleLabel];
+        [self.recommendSectionView addSubview:self.recommendTagContainerView];
+        [self addSubview:self.tableView];
+        [self addGestureRecognizer:self.blankTapGestureRecognizer];
+        self.setupConstraints();
+        self.reloadHistorySearches();
+        self.updateByConfig();
+    };
 }
 
--(void)setupConstraints{
-    [self.searchContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self).offset(12);
-        make.left.equalTo(self).offset(16);
-        make.height.mas_equalTo(42);
-    }];
-    [self.searchButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        self.searchButtonLeftConstraint = make.left.equalTo(self.searchContainerView.mas_right);
-        make.right.equalTo(self).offset(-16);
-        make.centerY.equalTo(self.searchContainerView);
-        make.height.mas_equalTo(42);
-        self.searchButtonWidthConstraint = make.width.mas_equalTo(0);
-    }];
-    [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.searchContainerView).insets(UIEdgeInsetsMake(0, 12, 0, 12));
-    }];
-    [self.recommendSectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.searchContainerView.mas_bottom).offset(12);
-        make.left.right.equalTo(self);
-        self.recommendSectionHeightConstraint = make.height.mas_equalTo(0);
-    }];
-    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.recommendSectionView.mas_bottom);
-        make.left.right.bottom.equalTo(self);
-    }];
+-(jobsByVoidBlock _Nonnull)setupConstraints{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self.searchContainerView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self).offset(12);
+            make.left.equalTo(self).offset(16);
+            make.height.mas_equalTo(42);
+        }];
+        [self.searchButton mas_makeConstraints:^(MASConstraintMaker *make) {
+            self.bySearchButtonLeftConstraint(make.left.equalTo(self.searchContainerView.mas_right));
+            make.right.equalTo(self).offset(-16);
+            make.centerY.equalTo(self.searchContainerView);
+            make.height.mas_equalTo(42);
+            self.bySearchButtonWidthConstraint(make.width.mas_equalTo(0));
+        }];
+        [self.textField mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.equalTo(self.searchContainerView).insets(UIEdgeInsetsMake(0, 12, 0, 12));
+        }];
+        [self.recommendSectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.searchContainerView.mas_bottom).offset(12);
+            make.left.right.equalTo(self);
+            self.byRecommendSectionHeightConstraint(make.height.mas_equalTo(0));
+        }];
+        [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.recommendSectionView.mas_bottom);
+            make.left.right.bottom.equalTo(self);
+        }];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    [self layoutRecommendSection];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCSearcherView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
 }
 
--(void)reloadWithConfig:(JobsOCSearcherConfig *)config{
-    self.config = config ? : JobsOCSearcherConfig.defaultConfig;
-    [self updateByConfig];
-    [self reloadHistorySearches];
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        self.layoutRecommendSection();
+    };
 }
 
--(void)reloadRecommendedSearches:(NSArray <NSString *>*_Nullable)recommendSearches{
-    self.recommendSearches = [self normalizedTextsByArray:recommendSearches];
-    [self rebuildRecommendTagButtons];
-    [self setNeedsLayout];
+-(jobsByJobsOCSearcherConfigBlock _Nonnull)reloadWithConfig{
+    @jobs_weakify(self)
+    return ^(JobsOCSearcherConfig * config){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byConfig(config ? : JobsOCSearcherConfig.defaultConfig());
+        self.updateByConfig();
+        self.reloadHistorySearches();
+    };
 }
 
--(void)reloadHistorySearches{
-    self.historySearches = [self readHistorySearches];
-    [self.tableView reloadData];
-    if (self.config.historyChangedBlock) self.config.historyChangedBlock(self.historySearches);
+-(jobsByNSArrayNSStringBlock _Nonnull)reloadRecommendedSearches{
+    @jobs_weakify(self)
+    return ^(NSArray <NSString *>*_Nullable recommendSearches){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byRecommendSearches(self.normalizedTextsByArray(recommendSearches));
+        self.rebuildRecommendTagButtons();
+        [self setNeedsLayout];
+    };
 }
 
--(void)saveHistoryByText:(NSString *)text{
-    NSString *historyText = [self normalizedTextBy:text];
-    if (!historyText.length) return;
-    NSMutableArray <NSString *>*history = [self readHistorySearches].mutableCopy;
-    NSIndexSet *sameIndexSet = [history indexesOfObjectsPassingTest:^BOOL(NSString * _Nonnull obj,
-                                                                           NSUInteger idx,
-                                                                           BOOL * _Nonnull stop) {
-        return [obj isEqualToString:historyText];
-    }];
-    if (sameIndexSet.count) [history removeObjectsAtIndexes:sameIndexSet];
-    [history insertObject:historyText
-                  atIndex:0];
-    NSUInteger maxCount = MAX(self.config.maxHistoryCount, 1);
-    while (history.count > maxCount) {
-        [history removeLastObject];
-    }[self writeHistorySearches:history.copy];
-    [self reloadHistorySearches];
+-(jobsByVoidBlock _Nonnull)reloadHistorySearches{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byHistorySearches(self.readHistorySearches());
+        [self.tableView reloadData];
+        if (self.config.historyChangedBlock) self.config.historyChangedBlock(self.historySearches);
+    };
 }
 
--(void)deleteHistoryByText:(NSString *)text{
-    NSString *historyText = [self normalizedTextBy:text];
-    if (!historyText.length) return;
-    NSMutableArray <NSString *>*history = [self readHistorySearches].mutableCopy;
-    NSIndexSet *sameIndexSet = [history indexesOfObjectsPassingTest:^BOOL(NSString * _Nonnull obj,
-                                                                           NSUInteger idx,
-                                                                           BOOL * _Nonnull stop) {
-        return [obj isEqualToString:historyText];
-    }];
-    if (!sameIndexSet.count) return;
-    [history removeObjectsAtIndexes:sameIndexSet];
-    [self writeHistorySearches:history.copy];
-    [self reloadHistorySearches];
-    if (self.config.historyDeleteBlock) self.config.historyDeleteBlock(historyText);
+-(jobsByStrBlock _Nonnull)saveHistoryByText{
+    @jobs_weakify(self)
+    return ^(NSString * text){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSString *historyText = self.normalizedTextBy(text);
+        if (!historyText.length) return;
+        NSMutableArray <NSString *>*history = self.readHistorySearches().mutableCopy;
+        NSIndexSet *sameIndexSet = [history indexesOfObjectsPassingTest:^BOOL(NSString * _Nonnull obj,
+                                                                               NSUInteger idx,
+                                                                               BOOL * _Nonnull stop) {
+            return [obj isEqualToString:historyText];
+        }];
+        if (sameIndexSet.count) [history removeObjectsAtIndexes:sameIndexSet];
+        [history insertObject:historyText
+                      atIndex:0];
+        NSUInteger maxCount = MAX(self.config.maxHistoryCount, 1);
+        while (history.count > maxCount) {
+            [history removeLastObject];
+        }self.writeHistorySearches(history.copy);
+        self.reloadHistorySearches();
+    };
+}
+
+-(jobsByStrBlock _Nonnull)deleteHistoryByText{
+    @jobs_weakify(self)
+    return ^(NSString * text){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSString *historyText = self.normalizedTextBy(text);
+        if (!historyText.length) return;
+        NSMutableArray <NSString *>*history = self.readHistorySearches().mutableCopy;
+        NSIndexSet *sameIndexSet = [history indexesOfObjectsPassingTest:^BOOL(NSString * _Nonnull obj,
+                                                                               NSUInteger idx,
+                                                                               BOOL * _Nonnull stop) {
+            return [obj isEqualToString:historyText];
+        }];
+        if (!sameIndexSet.count) return;
+        [history removeObjectsAtIndexes:sameIndexSet];
+        self.writeHistorySearches(history.copy);
+        self.reloadHistorySearches();
+        if (self.config.historyDeleteBlock) self.config.historyDeleteBlock(historyText);
+    };
 }
 
 -(void)clearHistory{
-    [self writeHistorySearches:nil];
-    [self reloadHistorySearches];
-    if (self.config.clearHistoryBlock) self.config.clearHistoryBlock();
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCSearcherView.class, @selector(jobsClearHistory)))(self, @selector(jobsClearHistory));
+    if (action) action();
 }
 
--(void)updateByConfig{
-    self.textField.placeholder = self.config.placeholder.length ? self.config.placeholder : @"请输入搜索内容";
-    [self.searchButton setTitle:self.config.searchButtonTitle.length ? self.config.searchButtonTitle : @"搜索"
-                       forState:UIControlStateNormal];
-    [self updateSearchButtonVisible:self.textField.isFirstResponder];
-    [self updateSearchButtonEnabledByText:self.textField.text];
-    self.recommendTitleLabel.text = self.config.recommendTitle.length ? self.config.recommendTitle : @"🔍搜索推荐";
-    [self rebuildRecommendTagButtons];
-    [self setNeedsLayout];
-    [self.tableView reloadData];
+-(jobsByVoidBlock _Nonnull)jobsClearHistory{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.writeHistorySearches(nil);
+        self.reloadHistorySearches();
+        if (self.config.clearHistoryBlock) self.config.clearHistoryBlock();
+    };
 }
 
--(NSArray <NSString *>*)readHistorySearches{
-    id data = [NSUserDefaults.standardUserDefaults objectForKey:self.config.historyStorageKey];
-    if (![data isKindOfClass:NSArray.class]) return @[];
-    return [self normalizedTextsByArray:(NSArray *)data];
+-(jobsByVoidBlock _Nonnull)updateByConfig{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.textField.byPlaceholder(self.config.placeholder.length ? self.config.placeholder : @"");
+        [self.searchButton setTitle:self.config.searchButtonTitle.length ? self.config.searchButtonTitle : @"搜索"
+                           forState:UIControlStateNormal];
+        self.updateSearchButtonVisible(self.textField.isFirstResponder);
+        self.updateSearchButtonEnabledByText(self.textField.text);
+        self.recommendTitleLabel.byText(self.config.recommendTitle.length ? self.config.recommendTitle : @"");
+        self.rebuildRecommendTagButtons();
+        [self setNeedsLayout];
+        [self.tableView reloadData];
+    };
 }
 
--(void)writeHistorySearches:(NSArray <NSString *>*)historySearches{
-    if (historySearches.count) {
-        [NSUserDefaults.standardUserDefaults setObject:historySearches
-                                                forKey:self.config.historyStorageKey];
-    } else {
-        [NSUserDefaults.standardUserDefaults removeObjectForKey:self.config.historyStorageKey];
-    }[NSUserDefaults.standardUserDefaults synchronize];
+-(JobsRetNSArrayNSStringByVoidBlock _Nonnull)readHistorySearches{
+    @jobs_weakify(self)
+    return ^NSArray <NSString *>*{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        id data = [NSUserDefaults.standardUserDefaults objectForKey:self.config.historyStorageKey];
+        if (![data isKindOfClass:NSArray.class]) return @[];
+        return self.normalizedTextsByArray((NSArray *)data);
+    };
 }
 
--(NSArray <NSString *>*)normalizedTextsByArray:(NSArray *)array{
-    if (![array isKindOfClass:NSArray.class]) return @[];
-    NSMutableArray <NSString *>*result = NSMutableArray.array;
-    for (id obj in array) {
-        NSString *text = [self normalizedTextBy:obj];
-        if (!text.length || [result containsObject:text]) continue;
-        [result addObject:text];
-    };return result.copy;
+-(jobsByNSArrayNSStringBlock _Nonnull)writeHistorySearches{
+    @jobs_weakify(self)
+    return ^(NSArray <NSString *>* historySearches){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (historySearches.count) {
+            [NSUserDefaults.standardUserDefaults setObject:historySearches
+                                                    forKey:self.config.historyStorageKey];
+        } else {
+            [NSUserDefaults.standardUserDefaults removeObjectForKey:self.config.historyStorageKey];
+        }[NSUserDefaults.standardUserDefaults synchronize];
+    };
 }
 
--(NSString *)normalizedTextBy:(id)data{
-    if ([data isKindOfClass:NSString.class]) {
-        return [(NSString *)data stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet] ? : @"";
-    }
-    if ([data respondsToSelector:@selector(stringValue)]) {
-        return [[data stringValue] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet] ? : @"";
-    };return @"";
+-(JobsRetNSArrayNSStringByNSArrayBlock _Nonnull)normalizedTextsByArray{
+    @jobs_weakify(self)
+    return ^NSArray <NSString *>*(NSArray * array){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (![array isKindOfClass:NSArray.class]) return @[];
+        NSMutableArray <NSString *>*result = NSMutableArray.array;
+        for (id obj in array) {
+            NSString *text = self.normalizedTextBy(obj);
+            if (!text.length || [result containsObject:text]) continue;
+            [result addObject:text];
+        };return result.copy;
+    };
 }
 
--(void)rebuildRecommendTagButtons{
-    for (UIButton *button in self.recommendButtonArr) {
-        [button removeFromSuperview];
-    }
-    NSMutableArray <UIButton *>*buttonMutArr = NSMutableArray.array;
-    [self.recommendSearches enumerateObjectsUsingBlock:^(NSString * _Nonnull obj,
-                                                          NSUInteger idx,
-                                                          BOOL * _Nonnull stop) {
-        UIButton *button = UIButton.new;
-        button.tag = idx;
-        button.backgroundColor = [self recommendTagColorAtIndex:idx];
-        button.layer.cornerRadius = 6;
-        button.layer.masksToBounds = YES;
-        button.titleLabel.font = [UIFont systemFontOfSize:13 weight:UIFontWeightSemibold];
-        button.titleLabel.adjustsFontSizeToFitWidth = YES;
-        button.titleLabel.minimumScaleFactor = 0.72;
-        button.titleLabel.lineBreakMode = NSLineBreakByClipping;
-        [button setTitle:obj
-                forState:UIControlStateNormal];
-        [button setTitleColor:UIColor.whiteColor
-                     forState:UIControlStateNormal];
-        [button addTarget:self
-                   action:@selector(recommendTagButtonEvent:)
-         forControlEvents:UIControlEventTouchUpInside];
-        [self.recommendTagContainerView addSubview:button];
-        [buttonMutArr addObject:button];
-    }];
-    self.recommendButtonArr = buttonMutArr.copy;
-}
-
--(void)layoutRecommendSection{
-    BOOL hasRecommend = self.recommendSearches.count > 0;
-    self.recommendSectionView.hidden = !hasRecommend;
-    self.recommendTitleLabel.hidden = !hasRecommend;
-    self.recommendTagContainerView.hidden = !hasRecommend;
-    if (!hasRecommend) {
-        [self.recommendSectionHeightConstraint setOffset:0];
-        return;
-    }
-    CGFloat sectionWidth = CGRectGetWidth(self.bounds);
-    CGFloat contentWidth = MAX(sectionWidth - 32, 0);
-    if (contentWidth <= 0) return;
-    CGFloat titleHeight = 24;
-    CGFloat tagTop = titleHeight + 8;
-    CGFloat tagHeight = 32;
-    CGFloat horizontalSpace = 8;
-    CGFloat verticalSpace = 8;
-    CGFloat x = 16;
-    CGFloat y = 0;
-    self.recommendTitleLabel.frame = CGRectMake(16, 0, contentWidth, titleHeight);
-    self.recommendTagContainerView.frame = CGRectMake(0, tagTop, sectionWidth, 0);
-    for (UIButton *button in self.recommendButtonArr) {
-        NSString *title = [button titleForState:UIControlStateNormal] ? : @"";
-        CGSize titleSize = [title sizeWithAttributes:@{NSFontAttributeName:button.titleLabel.font}];
-        CGFloat tagWidth = MIN(ceil(titleSize.width) + 26, contentWidth);
-        if (x > 16 && x + tagWidth > sectionWidth - 16) {
-            x = 16;
-            y += tagHeight + verticalSpace;
+-(JobsRetStrByIDBlock _Nonnull)normalizedTextBy{
+    @jobs_weakify(self)
+    return ^NSString *(id data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if ([data isKindOfClass:NSString.class]) {
+            return [(NSString *)data stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet] ? : @"";
         }
-        button.frame = CGRectMake(x, y, tagWidth, tagHeight);
-        x += tagWidth + horizontalSpace;
-    }
-    CGFloat tagsHeight = self.recommendButtonArr.count ? y + tagHeight : 0;
-    self.recommendTagContainerView.frame = CGRectMake(0, tagTop, sectionWidth, tagsHeight);
-    CGFloat targetHeight = tagTop + tagsHeight + 10;
-    [self.recommendSectionHeightConstraint setOffset:targetHeight];
+        if ([data respondsToSelector:@selector(stringValue)]) {
+            return [[data stringValue] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet] ? : @"";
+        };return @"";
+    };
 }
 
--(UIColor *)recommendTagColorAtIndex:(NSUInteger)index{
-    NSArray <UIColor *>*colors = @[
-        [UIColor colorWithRed:0.18 green:0.45 blue:0.82 alpha:1],
-        [UIColor colorWithRed:0.11 green:0.58 blue:0.36 alpha:1],
-        [UIColor colorWithRed:0.84 green:0.25 blue:0.25 alpha:1],
-        [UIColor colorWithRed:0.53 green:0.31 blue:0.78 alpha:1],
-        [UIColor colorWithRed:0.90 green:0.50 blue:0.13 alpha:1],
-        [UIColor colorWithRed:0.00 green:0.52 blue:0.57 alpha:1],
-        [UIColor colorWithRed:0.23 green:0.30 blue:0.38 alpha:1],
-        [UIColor colorWithRed:0.65 green:0.24 blue:0.49 alpha:1]
-    ];
-    return colors[index % colors.count];
+-(jobsByVoidBlock _Nonnull)rebuildRecommendTagButtons{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        for (UIButton *button in self.recommendButtonArr) {
+            [button removeFromSuperview];
+        }
+        NSMutableArray <UIButton *>*buttonMutArr = NSMutableArray.array;
+        [self.recommendSearches enumerateObjectsUsingBlock:^(NSString * _Nonnull obj,
+                                                              NSUInteger idx,
+                                                              BOOL * _Nonnull stop) {
+            UIButton *button = UIButton.new;
+            button.byTag(idx);
+            button.jobsResetBtnBgCor(self.recommendTagColorAtIndex(idx));
+            button.layer.byCornerRadius(6);
+            button.layer.byMasksToBounds(YES);
+            button.titleLabel.byFont([UIFont systemFontOfSize:13 weight:UIFontWeightSemibold]);
+            button.titleLabel.byAdjustsFontSizeToFitWidth(YES);
+            button.titleLabel.byMinimumScaleFactor(0.72);
+            button.titleLabel.byLineBreakMode(NSLineBreakByClipping);
+            [button setTitle:obj
+                    forState:UIControlStateNormal];
+            [button setTitleColor:UIColor.whiteColor
+                         forState:UIControlStateNormal];
+            [button addTarget:self
+                       action:@selector(recommendTagButtonEvent:)
+             forControlEvents:UIControlEventTouchUpInside];
+            [self.recommendTagContainerView addSubview:button];
+            [buttonMutArr addObject:button];
+        }];
+        self.byRecommendButtonArr(buttonMutArr.copy);
+    };
 }
 
--(UIImage *)trashIconImageWithColor:(UIColor *)color{
-    CGSize size = CGSizeMake(16, 16);
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
-    UIBezierPath *lidPath = UIBezierPath.bezierPath;
-    lidPath.lineWidth = 1.4;
-    [color setStroke];
-    [lidPath moveToPoint:CGPointMake(4, 4.8)];
-    [lidPath addLineToPoint:CGPointMake(12, 4.8)];
-    [lidPath moveToPoint:CGPointMake(6.2, 3.2)];
-    [lidPath addLineToPoint:CGPointMake(9.8, 3.2)];
-    [lidPath stroke];
-    UIBezierPath *bodyPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(5, 6, 6, 7.8)
-                                                         cornerRadius:1.1];
-    bodyPath.lineWidth = 1.4;
-    [bodyPath stroke];
-    UIBezierPath *linePath = UIBezierPath.bezierPath;
-    linePath.lineWidth = 1;
-    [linePath moveToPoint:CGPointMake(7, 7.5)];
-    [linePath addLineToPoint:CGPointMake(7, 12)];
-    [linePath moveToPoint:CGPointMake(9, 7.5)];
-    [linePath addLineToPoint:CGPointMake(9, 12)];
-    [linePath stroke];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
+-(jobsByVoidBlock _Nonnull)layoutRecommendSection{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        BOOL hasRecommend = self.recommendSearches.count > 0;
+        self.recommendSectionView.byHidden(!hasRecommend);
+        self.recommendTitleLabel.byHidden(!hasRecommend);
+        self.recommendTagContainerView.byHidden(!hasRecommend);
+        if (!hasRecommend) {
+            [self.recommendSectionHeightConstraint setOffset:0];
+            return;
+        }
+        CGFloat sectionWidth = CGRectGetWidth(self.bounds);
+        CGFloat contentWidth = MAX(sectionWidth - 32, 0);
+        if (contentWidth <= 0) return;
+        CGFloat titleHeight = 24;
+        CGFloat tagTop = titleHeight + 8;
+        CGFloat tagHeight = 32;
+        CGFloat horizontalSpace = 8;
+        CGFloat verticalSpace = 8;
+        CGFloat x = 16;
+        CGFloat y = 0;
+        self.recommendTitleLabel.byFrame(CGRectMake(16, 0, contentWidth, titleHeight));
+        self.recommendTagContainerView.byFrame(CGRectMake(0, tagTop, sectionWidth, 0));
+        for (UIButton *button in self.recommendButtonArr) {
+            NSString *title = [button titleForState:UIControlStateNormal] ? : @"";
+            CGSize titleSize = [title sizeWithAttributes:@{NSFontAttributeName:button.titleLabel.font}];
+            CGFloat tagWidth = MIN(ceil(titleSize.width) + 26, contentWidth);
+            if (x > 16 && x + tagWidth > sectionWidth - 16) {
+                x = 16;
+                y += tagHeight + verticalSpace;
+            }
+            button.byFrame(CGRectMake(x, y, tagWidth, tagHeight));
+            x += tagWidth + horizontalSpace;
+        }
+        CGFloat tagsHeight = self.recommendButtonArr.count ? y + tagHeight : 0;
+        self.recommendTagContainerView.byFrame(CGRectMake(0, tagTop, sectionWidth, tagsHeight));
+        CGFloat targetHeight = tagTop + tagsHeight + 10;
+        [self.recommendSectionHeightConstraint setOffset:targetHeight];
+    };
 }
 
--(NSString *)textByIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == JobsOCSearcherSectionHistory &&
-        indexPath.row < (NSInteger)self.historySearches.count) {
-        return self.historySearches[indexPath.row];
-    };return @"";
+-(JobsRetCorByNSUIntegerBlock _Nonnull)recommendTagColorAtIndex{
+    @jobs_weakify(self)
+    return ^UIColor *(NSUInteger index){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSArray <UIColor *>*colors = @[
+            [UIColor colorWithRed:0.18 green:0.45 blue:0.82 alpha:1],
+            [UIColor colorWithRed:0.11 green:0.58 blue:0.36 alpha:1],
+            [UIColor colorWithRed:0.84 green:0.25 blue:0.25 alpha:1],
+            [UIColor colorWithRed:0.53 green:0.31 blue:0.78 alpha:1],
+            [UIColor colorWithRed:0.90 green:0.50 blue:0.13 alpha:1],
+            [UIColor colorWithRed:0.00 green:0.52 blue:0.57 alpha:1],
+            [UIColor colorWithRed:0.23 green:0.30 blue:0.38 alpha:1],
+            [UIColor colorWithRed:0.65 green:0.24 blue:0.49 alpha:1]
+        ];
+        return colors[index % colors.count];
+    };
 }
 
--(void)updateSearchButtonVisible:(BOOL)visible{
-    self.searchButton.hidden = !visible;
-    [self.searchButtonLeftConstraint setOffset:visible ? 8 : 0];
-    [self.searchButtonWidthConstraint setOffset:visible ? 64 : 0];
-    self.searchButton.userInteractionEnabled = visible && self.searchButton.enabled;
-    [self setNeedsLayout];
+-(JobsRetImageByCorBlock _Nonnull)trashIconImageWithColor{
+    @jobs_weakify(self)
+    return ^UIImage *(UIColor * color){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        CGSize size = CGSizeMake(16, 16);
+        UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+        UIBezierPath *lidPath = UIBezierPath.bezierPath;
+        lidPath.byLineWidth(1.4);
+        [color setStroke];
+        [lidPath moveToPoint:CGPointMake(4, 4.8)];
+        [lidPath addLineToPoint:CGPointMake(12, 4.8)];
+        [lidPath moveToPoint:CGPointMake(6.2, 3.2)];
+        [lidPath addLineToPoint:CGPointMake(9.8, 3.2)];
+        [lidPath stroke];
+        UIBezierPath *bodyPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(5, 6, 6, 7.8)
+                                                             cornerRadius:1.1];
+        bodyPath.byLineWidth(1.4);
+        [bodyPath stroke];
+        UIBezierPath *linePath = UIBezierPath.bezierPath;
+        linePath.byLineWidth(1);
+        [linePath moveToPoint:CGPointMake(7, 7.5)];
+        [linePath addLineToPoint:CGPointMake(7, 12)];
+        [linePath moveToPoint:CGPointMake(9, 7.5)];
+        [linePath addLineToPoint:CGPointMake(9, 12)];
+        [linePath stroke];
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return image;
+    };
 }
 
--(void)updateSearchButtonEnabledByText:(NSString *)text{
-    BOOL enabled = [self normalizedTextBy:text].length > 0;
-    self.searchButton.enabled = enabled;
-    self.searchButton.userInteractionEnabled = enabled && !self.searchButton.hidden;
-    self.searchButton.alpha = 1;
+-(JobsRetNSStringByNSIndexPathBlock _Nonnull)textByIndexPath{
+    @jobs_weakify(self)
+    return ^NSString *(NSIndexPath * indexPath){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (indexPath.section == JobsOCSearcherSectionHistory &&
+            indexPath.row < (NSInteger)self.historySearches.count) {
+            return self.historySearches[indexPath.row];
+        };return @"";
+    };
 }
 
--(void)performSearchByText:(NSString *)text{
-    NSString *searchText = [self normalizedTextBy:text];
-    [self updateSearchButtonEnabledByText:searchText];
-    if (!searchText.length) return;
-    self.textField.text = searchText;
-    [self saveHistoryByText:searchText];
-    if (self.config.searchConfirmBlock) self.config.searchConfirmBlock(searchText);
-    [self.textField resignFirstResponder];
-    [self updateSearchButtonVisible:NO];
+-(jobsByBOOLBlock _Nonnull)updateSearchButtonVisible{
+    @jobs_weakify(self)
+    return ^(BOOL visible){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.searchButton.byHidden(!visible);
+        [self.searchButtonLeftConstraint setOffset:visible ? 8 : 0];
+        [self.searchButtonWidthConstraint setOffset:visible ? 64 : 0];
+        self.searchButton.byUserInteractionEnabled(visible && self.searchButton.enabled);
+        [self setNeedsLayout];
+    };
 }
 
--(void)cancelSearchEditing{
-    self.textField.text = @"";
-    [self updateSearchButtonEnabledByText:@""];
-    if (self.config.dismissKeyboardWhenCancel) [self.textField resignFirstResponder];
-    [self updateSearchButtonVisible:NO];
-    if (self.config.searchTextDidChangeBlock) self.config.searchTextDidChangeBlock(@"");
-    if (self.config.cancelBlock) self.config.cancelBlock();
+-(jobsByStrBlock _Nonnull)updateSearchButtonEnabledByText{
+    @jobs_weakify(self)
+    return ^(NSString * text){
+        @jobs_strongify(self)
+        if (!self) return;
+        BOOL enabled = self.normalizedTextBy(text).length > 0;
+        if (self.searchButton) self.searchButton.byEnabled(enabled);
+        self.searchButton.byUserInteractionEnabled(enabled && !self.searchButton.hidden);
+        self.searchButton.byAlpha(1);
+    };
 }
 
--(void)selectSearchText:(NSString *)text{
-    NSString *searchText = [self normalizedTextBy:text];
-    if (!searchText.length) return;
-    self.textField.text = searchText;
-    [self.textField becomeFirstResponder];
-    [self updateSearchButtonVisible:YES];
-    [self updateSearchButtonEnabledByText:searchText];
-    if (self.config.searchTextDidChangeBlock) self.config.searchTextDidChangeBlock(searchText);
-    if (self.config.itemSelectedBlock) self.config.itemSelectedBlock(searchText);
+-(jobsByStrBlock _Nonnull)performSearchByText{
+    @jobs_weakify(self)
+    return ^(NSString * text){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSString *searchText = self.normalizedTextBy(text);
+        self.updateSearchButtonEnabledByText(searchText);
+        if (!searchText.length) return;
+        self.textField.byText(searchText);
+        self.saveHistoryByText(searchText);
+        if (self.config.searchConfirmBlock) self.config.searchConfirmBlock(searchText);
+        [self.textField resignFirstResponder];
+        self.updateSearchButtonVisible(NO);
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)cancelSearchEditing{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.textField.byText(@"");
+        self.updateSearchButtonEnabledByText(@"");
+        if (self.config.dismissKeyboardWhenCancel) [self.textField resignFirstResponder];
+        self.updateSearchButtonVisible(NO);
+        if (self.config.searchTextDidChangeBlock) self.config.searchTextDidChangeBlock(@"");
+        if (self.config.cancelBlock) self.config.cancelBlock();
+    };
+}
+
+-(jobsByStrBlock _Nonnull)selectSearchText{
+    @jobs_weakify(self)
+    return ^(NSString * text){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSString *searchText = self.normalizedTextBy(text);
+        if (!searchText.length) return;
+        self.textField.byText(searchText);
+        [self.textField becomeFirstResponder];
+        self.updateSearchButtonVisible(YES);
+        self.updateSearchButtonEnabledByText(searchText);
+        if (self.config.searchTextDidChangeBlock) self.config.searchTextDidChangeBlock(searchText);
+        if (self.config.itemSelectedBlock) self.config.itemSelectedBlock(searchText);
+    };
 }
 
 -(void)textFieldEditingChanged:(UITextField *)textField{
-    NSString *text = [self normalizedTextBy:textField.text];
-    [self updateSearchButtonEnabledByText:text];
-    if (self.config.searchTextDidChangeBlock) self.config.searchTextDidChangeBlock(text);
+    jobsByTextFieldBlock action = ((jobsByTextFieldBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCSearcherView.class, @selector(jobsTextFieldEditingChanged)))(self, @selector(jobsTextFieldEditingChanged));
+    if (action) action(textField);
+}
+
+-(jobsByTextFieldBlock _Nonnull)jobsTextFieldEditingChanged{
+    @jobs_weakify(self)
+    return ^(UITextField * textField){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSString *text = self.normalizedTextBy(textField.text);
+        self.updateSearchButtonEnabledByText(text);
+        if (self.config.searchTextDidChangeBlock) self.config.searchTextDidChangeBlock(text);
+    };
 }
 
 -(void)searchButtonEvent{
-    [self performSearchByText:self.textField.text];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCSearcherView.class, @selector(jobsSearchButtonEvent)))(self, @selector(jobsSearchButtonEvent));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsSearchButtonEvent{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.performSearchByText(self.textField.text);
+    };
 }
 
 -(void)blankTapGestureEvent{
-    if (!self.textField.isFirstResponder) return;
-    [self cancelSearchEditing];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCSearcherView.class, @selector(jobsBlankTapGestureEvent)))(self, @selector(jobsBlankTapGestureEvent));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsBlankTapGestureEvent{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (!self.textField.isFirstResponder) return;
+        self.cancelSearchEditing();
+    };
 }
 
 -(void)recommendTagButtonEvent:(UIButton *)sender{
-    NSInteger index = sender.tag;
-    if (index < 0 || (NSUInteger)index >= self.recommendSearches.count) return;
-    [self selectSearchText:self.recommendSearches[index]];
+    jobsByBtnBlock action = ((jobsByBtnBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCSearcherView.class, @selector(jobsRecommendTagButtonEvent)))(self, @selector(jobsRecommendTagButtonEvent));
+    if (action) action(sender);
+}
+
+-(jobsByBtnBlock _Nonnull)jobsRecommendTagButtonEvent{
+    @jobs_weakify(self)
+    return ^(UIButton * sender){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSInteger index = sender.tag;
+        if (index < 0 || (NSUInteger)index >= self.recommendSearches.count) return;
+        self.selectSearchText(self.recommendSearches[index]);
+    };
 }
 #pragma mark —— UITableViewDelegate / UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return JobsOCSearcherSectionCount;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCSearcherView.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return JobsOCSearcherSectionCount;
+    };
 }
 
 -(NSInteger)tableView:(UITableView *)tableView
@@ -428,12 +624,12 @@ heightForHeaderInSection:(NSInteger)section{
 -(UIView *)tableView:(UITableView *)tableView
 viewForHeaderInSection:(NSInteger)section{
     if (![self tableView:tableView numberOfRowsInSection:section]) return nil;
-    UIView *header = UIView.new;
-    header.backgroundColor = self.backgroundColor;
-    UILabel *label = UILabel.new;
-    label.font = [UIFont systemFontOfSize:16 weight:UIFontWeightSemibold];
-    label.textColor = [UIColor colorWithRed:0.12 green:0.16 blue:0.21 alpha:1];
-    label.text = self.config.historyTitle.length ? self.config.historyTitle : @"⏰搜索历史";
+    UIView *header = jobsMakeView(^(UIView *object){});
+    header.byBgColor(self.backgroundColor);
+    UILabel *label = jobsMakeLabel(^(UILabel *object){});
+    label.byFont([UIFont systemFontOfSize:16 weight:UIFontWeightSemibold]);
+    label.byTextColor([UIColor colorWithRed:0.12 green:0.16 blue:0.21 alpha:1]);
+    label.byText(self.config.historyTitle.length ? self.config.historyTitle : @"");
     [header addSubview:label];
     [label mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(header).offset(16);
@@ -443,16 +639,16 @@ viewForHeaderInSection:(NSInteger)section{
     if (section == JobsOCSearcherSectionHistory) {
         UIColor *buttonColor = [UIColor colorWithRed:0.63 green:0.67 blue:0.73 alpha:1];
         UIButton *clearButton = UIButton.new;
-        clearButton.titleLabel.font = [UIFont systemFontOfSize:13 weight:UIFontWeightRegular];
-        clearButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        clearButton.titleLabel.byFont([UIFont systemFontOfSize:13 weight:UIFontWeightRegular]);
+        clearButton.byContentHorizontalAlignment(UIControlContentHorizontalAlignmentRight);
         [clearButton setTitle:@"清空"
                      forState:UIControlStateNormal];
         [clearButton setTitleColor:buttonColor
                           forState:UIControlStateNormal];
-        [clearButton setImage:[self trashIconImageWithColor:buttonColor]
+        [clearButton setImage:self.trashIconImageWithColor(buttonColor)
                      forState:UIControlStateNormal];
-        clearButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 4);
-        clearButton.titleEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0);
+        clearButton.byImageEdgeInsets(UIEdgeInsetsMake(0, 0, 0, 4));
+        clearButton.byTitleEdgeInsets(UIEdgeInsetsMake(0, 4, 0, 0));
         [clearButton addTarget:self
                         action:@selector(clearHistory)
               forControlEvents:UIControlEventTouchUpInside];
@@ -472,14 +668,14 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *text = [self textByIndexPath:indexPath];
-    JobsOCSearcherRecordCell *cell = [tableView dequeueReusableCellWithIdentifier:JobsOCSearcherRecordCell.reuseIdentifier
+    NSString *text = self.textByIndexPath(indexPath);
+    JobsOCSearcherRecordCell *cell = [tableView dequeueReusableCellWithIdentifier:(JobsOCSearcherRecordCell.reuseIdentifier)()
                                                                    forIndexPath:indexPath];
-    [cell updateWithText:text];
+    cell.updateWithText(text);
     @jobs_weakify(self)
     cell.deleteBlock = ^(__kindof NSString * _Nullable string) {
         @jobs_strongify(self)
-        [self deleteHistoryByText:string];
+        self.deleteHistoryByText(string);
     };
     return cell;
 }
@@ -488,7 +684,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:YES];
-    [self selectSearchText:[self textByIndexPath:indexPath]];
+    self.selectSearchText(self.textByIndexPath(indexPath));
 }
 #pragma mark —— UIGestureRecognizerDelegate
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
@@ -506,47 +702,83 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 #pragma mark —— UITextFieldDelegate
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
-    [self updateSearchButtonVisible:YES];
-    [self updateSearchButtonEnabledByText:textField.text];
+    ((((jobsByTextFieldBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCSearcherView.class, @selector(textFieldDidBeginEditing)))(self, @selector(textFieldDidBeginEditing))))(textField);
+}
+-(jobsByTextFieldBlock _Nonnull)textFieldDidBeginEditing{
+    @jobs_weakify(self)
+    return ^(UITextField * textField){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.updateSearchButtonVisible(YES);
+        self.updateSearchButtonEnabledByText(textField.text);
+    };
 }
 
 -(void)textFieldDidEndEditing:(UITextField *)textField{
-    [self updateSearchButtonVisible:NO];
+    ((((jobsByTextFieldBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCSearcherView.class, @selector(textFieldDidEndEditing)))(self, @selector(textFieldDidEndEditing))))(textField);
+}
+-(jobsByTextFieldBlock _Nonnull)textFieldDidEndEditing{
+    @jobs_weakify(self)
+    return ^(UITextField * textField){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.updateSearchButtonVisible(NO);
+    };
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [self performSearchByText:textField.text];
-    return YES;
+    JobsRetBOOLByUITextFieldBlock action = ((JobsRetBOOLByUITextFieldBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCSearcherView.class, @selector(jobsTextFieldShouldReturn)))(self, @selector(jobsTextFieldShouldReturn));
+    return action ? action(textField) : NO;
+}
+
+-(JobsRetBOOLByUITextFieldBlock _Nonnull)jobsTextFieldShouldReturn{
+    @jobs_weakify(self)
+    return ^BOOL(UITextField * textField){
+        @jobs_strongify(self)
+        if (!self) return NO;
+        self.performSearchByText(textField.text);
+        return YES;
+    };
 }
 
 -(BOOL)textFieldShouldClear:(UITextField *)textField{
-    [self updateSearchButtonEnabledByText:@""];
-    if (self.config.searchTextDidChangeBlock) self.config.searchTextDidChangeBlock(@"");
-    return YES;
+    JobsRetBOOLByUITextFieldBlock action = ((JobsRetBOOLByUITextFieldBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCSearcherView.class, @selector(jobsTextFieldShouldClear)))(self, @selector(jobsTextFieldShouldClear));
+    return action ? action(textField) : NO;
+}
+
+-(JobsRetBOOLByUITextFieldBlock _Nonnull)jobsTextFieldShouldClear{
+    @jobs_weakify(self)
+    return ^BOOL(UITextField * textField){
+        @jobs_strongify(self)
+        if (!self) return NO;
+        self.updateSearchButtonEnabledByText(@"");
+        if (self.config.searchTextDidChangeBlock) self.config.searchTextDidChangeBlock(@"");
+        return YES;
+    };
 }
 #pragma mark —— lazyLoad
 -(UIView *)searchContainerView{
     if (!_searchContainerView) {
-        _searchContainerView = UIView.new;
-        _searchContainerView.translatesAutoresizingMaskIntoConstraints = NO;
+        _searchContainerView = jobsMakeView(^(UIView *object){});
+        _searchContainerView.byTranslatesAutoresizingMaskIntoConstraints(NO);
         _searchContainerView.byBgColor(JobsSecondarySystemBackgroundColor);
-        _searchContainerView.layer.cornerRadius = 12;
-        _searchContainerView.layer.borderWidth = 0.5;
-        _searchContainerView.layer.borderColor = [UIColor colorWithRed:0.86 green:0.89 blue:0.93 alpha:1].CGColor;
+        _searchContainerView.layer.byCornerRadius(12);
+        _searchContainerView.layer.byBorderWidth(0.5);
+        _searchContainerView.layer.byBorderColor([UIColor colorWithRed:0.86 green:0.89 blue:0.93 alpha:1].CGColor);
     };return _searchContainerView;
 }
 
 -(UITextField *)textField{
     if (!_textField) {
-        _textField = UITextField.new;
-        _textField.translatesAutoresizingMaskIntoConstraints = NO;
-        _textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-        _textField.leftView = [self searchIconLeftView];
-        _textField.leftViewMode = UITextFieldViewModeAlways;
-        _textField.returnKeyType = UIReturnKeySearch;
-        _textField.delegate = self;
-        _textField.font = [UIFont systemFontOfSize:15 weight:UIFontWeightRegular];
-        _textField.textColor = [UIColor colorWithRed:0.18 green:0.24 blue:0.31 alpha:1];
+        _textField = jobsMakeTextField(^(UITextField *object){});
+        _textField.byTranslatesAutoresizingMaskIntoConstraints(NO);
+        _textField.byClearButtonMode(UITextFieldViewModeWhileEditing);
+        _textField.byLeftView(self.searchIconLeftView());
+        _textField.byLeftViewMode(UITextFieldViewModeAlways);
+        _textField.byReturnKeyType(UIReturnKeySearch);
+        _textField.byDelegate(self);
+        _textField.byFont([UIFont systemFontOfSize:15 weight:UIFontWeightRegular]);
+        _textField.byTextColor([UIColor colorWithRed:0.18 green:0.24 blue:0.31 alpha:1]);
         [_textField addTarget:self
                        action:@selector(textFieldEditingChanged:)
              forControlEvents:UIControlEventEditingChanged];
@@ -556,23 +788,23 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIButton *)searchButton{
     if (!_searchButton) {
         _searchButton = UIButton.new;
-        _searchButton.translatesAutoresizingMaskIntoConstraints = NO;
-        _searchButton.hidden = YES;
-        _searchButton.layer.cornerRadius = 12;
-        _searchButton.layer.masksToBounds = YES;
-        _searchButton.contentEdgeInsets = UIEdgeInsetsMake(0, 12, 0, 12);
-        _searchButton.titleLabel.font = [UIFont systemFontOfSize:14 weight:UIFontWeightSemibold];
+        _searchButton.byTranslatesAutoresizingMaskIntoConstraints(NO);
+        _searchButton.byHidden(YES);
+        _searchButton.layer.byCornerRadius(12);
+        _searchButton.layer.byMasksToBounds(YES);
+        _searchButton.byContentEdgeInsets(UIEdgeInsetsMake(0, 12, 0, 12));
+        _searchButton.titleLabel.byFont([UIFont systemFontOfSize:14 weight:UIFontWeightSemibold]);
         [_searchButton setTitleColor:UIColor.whiteColor
                              forState:UIControlStateNormal];
         [_searchButton setTitleColor:UIColor.whiteColor
                              forState:UIControlStateHighlighted];
         [_searchButton setTitleColor:[UIColor colorWithRed:0.57 green:0.63 blue:0.72 alpha:1]
                              forState:UIControlStateDisabled];
-        [_searchButton setBackgroundImage:[self searchButtonBackgroundImageWithColor:[UIColor colorWithRed:0.19 green:0.45 blue:0.84 alpha:1]]
+        [_searchButton setBackgroundImage:self.searchButtonBackgroundImageWithColor([UIColor colorWithRed:0.19 green:0.45 blue:0.84 alpha:1])
                                   forState:UIControlStateNormal];
-        [_searchButton setBackgroundImage:[self searchButtonBackgroundImageWithColor:[UIColor colorWithRed:0.15 green:0.36 blue:0.70 alpha:1]]
+        [_searchButton setBackgroundImage:self.searchButtonBackgroundImageWithColor([UIColor colorWithRed:0.15 green:0.36 blue:0.70 alpha:1])
                                   forState:UIControlStateHighlighted];
-        [_searchButton setBackgroundImage:[self searchButtonBackgroundImageWithColor:[UIColor colorWithRed:0.91 green:0.94 blue:0.98 alpha:1]]
+        [_searchButton setBackgroundImage:self.searchButtonBackgroundImageWithColor([UIColor colorWithRed:0.91 green:0.94 blue:0.98 alpha:1])
                                   forState:UIControlStateDisabled];
         [_searchButton addTarget:self
                           action:@selector(searchButtonEvent)
@@ -580,63 +812,78 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     };return _searchButton;
 }
 
--(UIImage *)searchButtonBackgroundImageWithColor:(UIColor *)color{
-    CGRect rect = CGRectMake(0, 0, 1, 1);
-    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
-    [color setFill];
-    UIRectFill(rect);
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
+-(JobsRetImageByCorBlock _Nonnull)searchButtonBackgroundImageWithColor{
+    @jobs_weakify(self)
+    return ^UIImage *(UIColor * color){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        CGRect rect = CGRectMake(0, 0, 1, 1);
+        UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
+        [color setFill];
+        UIRectFill(rect);
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return image;
+    };
 }
 
--(UIView *)searchIconLeftView{
-    UIView *containerView = [UIView.alloc initWithFrame:CGRectMake(0, 0, 34, 42)];
-    UIImageView *imageView = [UIImageView.alloc initWithImage:[self searchIconImageWithColor:[UIColor colorWithRed:0.53 green:0.58 blue:0.65 alpha:1]]];
-    imageView.frame = CGRectMake(10, 13, 16, 16);
-    imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [containerView addSubview:imageView];
-    return containerView;
+-(JobsRetViewByVoidBlock _Nonnull)searchIconLeftView{
+    @jobs_weakify(self)
+    return ^UIView *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        UIView *containerView = [UIView.alloc initWithFrame:CGRectMake(0, 0, 34, 42)];
+        UIImageView *imageView = [UIImageView.alloc initWithImage:self.searchIconImageWithColor([UIColor colorWithRed:0.53 green:0.58 blue:0.65 alpha:1])];
+        imageView.byFrame(CGRectMake(10, 13, 16, 16));
+        imageView.byContentMode(UIViewContentModeScaleAspectFit);
+        [containerView addSubview:imageView];
+        return containerView;
+    };
 }
 
--(UIImage *)searchIconImageWithColor:(UIColor *)color{
-    CGSize size = CGSizeMake(16, 16);
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
-    [color setStroke];
-    UIBezierPath *circlePath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(2.2, 2.2, 8.8, 8.8)];
-    circlePath.lineWidth = 1.6;
-    [circlePath stroke];
-    UIBezierPath *handlePath = UIBezierPath.bezierPath;
-    handlePath.lineWidth = 1.8;
-    handlePath.lineCapStyle = kCGLineCapRound;
-    [handlePath moveToPoint:CGPointMake(9.4, 9.4)];
-    [handlePath addLineToPoint:CGPointMake(13.4, 13.4)];
-    [handlePath stroke];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
+-(JobsRetImageByCorBlock _Nonnull)searchIconImageWithColor{
+    @jobs_weakify(self)
+    return ^UIImage *(UIColor * color){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        CGSize size = CGSizeMake(16, 16);
+        UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+        [color setStroke];
+        UIBezierPath *circlePath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(2.2, 2.2, 8.8, 8.8)];
+        circlePath.byLineWidth(1.6);
+        [circlePath stroke];
+        UIBezierPath *handlePath = UIBezierPath.bezierPath;
+        handlePath.byLineWidth(1.8);
+        handlePath.byLineCapStyle(kCGLineCapRound);
+        [handlePath moveToPoint:CGPointMake(9.4, 9.4)];
+        [handlePath addLineToPoint:CGPointMake(13.4, 13.4)];
+        [handlePath stroke];
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return image;
+    };
 }
 
 -(UIView *)recommendSectionView{
     if (!_recommendSectionView) {
-        _recommendSectionView = UIView.new;
-        _recommendSectionView.translatesAutoresizingMaskIntoConstraints = NO;
-        _recommendSectionView.backgroundColor = UIColor.clearColor;
+        _recommendSectionView = jobsMakeView(^(UIView *object){});
+        _recommendSectionView.byTranslatesAutoresizingMaskIntoConstraints(NO);
+        _recommendSectionView.byBgColor(UIColor.clearColor);
     };return _recommendSectionView;
 }
 
 -(UILabel *)recommendTitleLabel{
     if (!_recommendTitleLabel) {
-        _recommendTitleLabel = UILabel.new;
-        _recommendTitleLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightSemibold];
-        _recommendTitleLabel.textColor = [UIColor colorWithRed:0.12 green:0.16 blue:0.21 alpha:1];
+        _recommendTitleLabel = jobsMakeLabel(^(UILabel *object){});
+        _recommendTitleLabel.byFont([UIFont systemFontOfSize:16 weight:UIFontWeightSemibold]);
+        _recommendTitleLabel.byTextColor([UIColor colorWithRed:0.12 green:0.16 blue:0.21 alpha:1]);
     };return _recommendTitleLabel;
 }
 
 -(UIView *)recommendTagContainerView{
     if (!_recommendTagContainerView) {
-        _recommendTagContainerView = UIView.new;
-        _recommendTagContainerView.backgroundColor = UIColor.clearColor;
+        _recommendTagContainerView = jobsMakeView(^(UIView *object){});
+        _recommendTagContainerView.byBgColor(UIColor.clearColor);
     };return _recommendTagContainerView;
 }
 
@@ -644,8 +891,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_blankTapGestureRecognizer) {
         _blankTapGestureRecognizer = [UITapGestureRecognizer.alloc initWithTarget:self
                                                                            action:@selector(blankTapGestureEvent)];
-        _blankTapGestureRecognizer.cancelsTouchesInView = NO;
-        _blankTapGestureRecognizer.delegate = self;
+        _blankTapGestureRecognizer.byCancelsTouchesInView(NO);
+        _blankTapGestureRecognizer.byDelegate(self);
     };return _blankTapGestureRecognizer;
 }
 
@@ -653,18 +900,64 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_tableView) {
         _tableView = [UITableView.alloc initWithFrame:CGRectZero
                                                 style:UITableViewStyleGrouped];
-        _tableView.translatesAutoresizingMaskIntoConstraints = NO;
-        _tableView.backgroundColor = UIColor.clearColor;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
+        _tableView.byTranslatesAutoresizingMaskIntoConstraints(NO);
+        _tableView.byBgColor(UIColor.clearColor);
+        _tableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone);
+        _tableView.byKeyboardDismissMode(UIScrollViewKeyboardDismissModeOnDrag);
+        _tableView.byDelegate(self);
+        _tableView.byDataSource(self);
         [_tableView registerClass:JobsOCSearcherRecordCell.class
-           forCellReuseIdentifier:JobsOCSearcherRecordCell.reuseIdentifier];
+           forCellReuseIdentifier:(JobsOCSearcherRecordCell.reuseIdentifier)()];
         if (@available(iOS 15.0, *)) {
-            _tableView.sectionHeaderTopPadding = 0;
+            _tableView.bySectionHeaderTopPadding(0);
         }
     };return _tableView;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsOCSearcherView
+-(JobsRetJobsOCSearcherViewByMASConstraintBlock _Nonnull)byRecommendSectionHeightConstraint{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCSearcherView * _Nullable(MASConstraint * _Nullable data){
+        @jobs_strongify(self)
+        [self setRecommendSectionHeightConstraint:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsOCSearcherViewByMASConstraintBlock _Nonnull)bySearchButtonLeftConstraint{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCSearcherView * _Nullable(MASConstraint * _Nullable data){
+        @jobs_strongify(self)
+        [self setSearchButtonLeftConstraint:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsOCSearcherViewByMASConstraintBlock _Nonnull)bySearchButtonWidthConstraint{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCSearcherView * _Nullable(MASConstraint * _Nullable data){
+        @jobs_strongify(self)
+        [self setSearchButtonWidthConstraint:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsOCSearcherViewByNSArrayNSStringBlock _Nonnull)byHistorySearches{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCSearcherView * _Nullable(NSArray <NSString *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setHistorySearches:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsOCSearcherViewByNSArrayUIButtonBlock _Nonnull)byRecommendButtonArr{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCSearcherView * _Nullable(NSArray <UIButton *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setRecommendButtonArr:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCSearcherView
 @end

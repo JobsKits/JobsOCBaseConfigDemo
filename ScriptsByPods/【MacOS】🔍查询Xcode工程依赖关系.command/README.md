@@ -47,6 +47,12 @@
   zsh './【MacOS】🔍查询Xcode工程依赖关系.command'
   ```
 
+### 2.3、Podfile 自动钩子
+
+- 自动钩子通过 `JOBS_PROJECT_ROOT` 直接传入工程根目录，不进入拖拽或回车流程。
+- 自动钩子生成报告后不会打开 Finder、浏览器或产物文件。
+- `JOBS_POD_INSTALL_OFFLINE=1` 时只复用本机已有的 `dot`，不会安装或升级 Homebrew / Graphviz。
+
 ## 三、产物说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 脚本会在工程目录下生成固定输出目录：
@@ -117,6 +123,7 @@ flowchart TD
 
 - 脚本不会主动修改你的 `Podfile`、`*.podspec` 或业务源码。
 - [**Homebrew**](https://brew.sh/) / `graphviz` 相关操作会在终端中提示，不会静默执行升级。
+- Podfile 离线钩子不会安装或升级 [**Homebrew**](https://brew.sh/) / `graphviz`，缺少 `dot` 时直接跳过 PNG。
 - 如果 `dot` 不存在，只影响 PNG 生成；`Markdown` 报告和互动 HTML 仍会生成。
 
 ## 八、日志文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

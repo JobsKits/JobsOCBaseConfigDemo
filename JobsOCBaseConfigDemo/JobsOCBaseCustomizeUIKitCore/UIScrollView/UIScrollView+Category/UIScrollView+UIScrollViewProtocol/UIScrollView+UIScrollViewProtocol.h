@@ -6,11 +6,6 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UISCROLLVIEW_UISCROLLVIEWPROTOCOL_E3F441459D
-#define JOBS_HEADER_GUARD_UISCROLLVIEW_UISCROLLVIEWPROTOCOL_E3F441459D
-
-#import <objc/runtime.h>
-#import <UIKit/UIKit.h>
-#import "NSObject+Extra.h"
 
 #if __has_include(<MJRefresh/MJRefresh.h>)
 #import <MJRefresh/MJRefresh.h>
@@ -18,12 +13,26 @@
 #import "MJRefresh.h"
 #endif
 
+#define JOBS_HEADER_GUARD_UISCROLLVIEW_UISCROLLVIEWPROTOCOL_E3F441459D
+
+#import <objc/runtime.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+#import <UIKit/UIKit.h>
+#import "NSObject+Extra.h"
+
 #import "JobsBaseProtocolHeader.h"
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIScrollView (UIScrollViewProtocol)<UIScrollViewProtocol>
+
+-(JobsRetScrollViewByScrollDirectionBlock _Nonnull)byDirection;
 
 @end
 

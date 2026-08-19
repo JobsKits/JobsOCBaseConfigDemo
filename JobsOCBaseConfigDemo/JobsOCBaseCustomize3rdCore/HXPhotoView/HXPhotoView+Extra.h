@@ -6,15 +6,16 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_HXPHOTOVIEW_EXTRA_95624E9240
-#define JOBS_HEADER_GUARD_HXPHOTOVIEW_EXTRA_95624E9240
-
-#import <UIKit/UIKit.h>
 
 #if __has_include(<HXPhotoPickerObjC/HXPhotoPicker.h>)
 #import <HXPhotoPickerObjC/HXPhotoPicker.h>
 #else
 #import "HXPhotoPicker.h"
 #endif
+
+#define JOBS_HEADER_GUARD_HXPHOTOVIEW_EXTRA_95624E9240
+
+#import <UIKit/UIKit.h>
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"

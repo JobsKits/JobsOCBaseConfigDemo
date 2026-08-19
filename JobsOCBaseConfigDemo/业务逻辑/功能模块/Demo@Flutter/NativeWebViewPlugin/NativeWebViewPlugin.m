@@ -8,12 +8,14 @@
 #import "NativeWebViewPlugin.h"
 
 @implementation NativeWebViewPlugin
-+ (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  FlutterMethodChannel *channel = [FlutterMethodChannel
-      methodChannelWithName:@"native_webview"
-            binaryMessenger:[registrar messenger]];
-  NativeWebViewPlugin *instance = [[NativeWebViewPlugin alloc] init];
-  [registrar addMethodCallDelegate:instance channel:channel];
++(jobsByNSObjectFlutterPluginRegistrarBlock _Nonnull)registerWithRegistrar{
+    return ^(NSObject<FlutterPluginRegistrar>* registrar){
+      FlutterMethodChannel *channel = [FlutterMethodChannel
+          methodChannelWithName:@"native_webview"
+                binaryMessenger:[registrar messenger]];
+      NativeWebViewPlugin *instance = [[NativeWebViewPlugin alloc] init];
+      [registrar addMethodCallDelegate:instance channel:channel];
+    };
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {

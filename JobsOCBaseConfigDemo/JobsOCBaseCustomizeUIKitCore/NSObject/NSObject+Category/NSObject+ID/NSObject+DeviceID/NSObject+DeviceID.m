@@ -6,6 +6,7 @@
 //
 
 #import "NSObject+DeviceID.h"
+
 #import "NSObject+Extra.h"
 
 static NSMutableDictionary *JobsDeviceIDKeychainQuery(NSString *service) {
@@ -51,17 +52,27 @@ static void JobsDeviceIDKeychainRemove(NSString *service) {
  这样以后即使APP删了再装回来，也可以从KeyChain中读取回来。使用group还可以可以保证同一个开发商的所有程序针对同一台设备能够获取到相同的不变的UDID。
  但是刷机或重装系统后uuid还是会改变。
  */
--(void)deleteDeviceID{
-    JobsDeviceIDKeychainRemove(设备ID);
+-(jobsByVoidBlock _Nonnull)deleteDeviceID{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        JobsDeviceIDKeychainRemove(设备ID);
+    };
 }
 
--(NSString *)deviceID{
-    /// 读取keychain的缓存
-    NSString *deviceID = JobsDeviceIDKeychainLoad(设备ID);
-    if (deviceID.length == 0) {
-        deviceID = UIDevice.currentDevice.identifierForVendor.UUIDString;
-        JobsDeviceIDKeychainSave(设备ID, deviceID);
-    };return deviceID;
+-(JobsRetStrByVoidBlock _Nonnull)deviceID{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        /// 读取keychain的缓存
+        NSString *deviceID = JobsDeviceIDKeychainLoad(设备ID);
+        if (deviceID.length == 0) {
+            deviceID = UIDevice.currentDevice.identifierForVendor.UUIDString;
+            JobsDeviceIDKeychainSave(设备ID, deviceID);
+        };return deviceID;
+    };
 }
 
 @end

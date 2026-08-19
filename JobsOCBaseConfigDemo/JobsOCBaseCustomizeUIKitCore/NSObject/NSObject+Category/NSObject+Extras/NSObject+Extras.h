@@ -102,6 +102,8 @@ AppToolsProtocol
 ,BaseProtocol
 ,BaseViewControllerProtocol
 >
+
+-(JobsRetIDByIDBlock _Nonnull)byViewModel;
 #pragma mark —— 系统类单例的二次封装
 /// NSBundle
 +(NSBundle *_Nullable)mainBundle;
@@ -109,8 +111,8 @@ AppToolsProtocol
 /// NSLocale
 +(NSLocale *_Nullable)currentLocale;
 -(NSLocale *_Nullable)currentLocale;
-+(NSLocale *_Nullable)systemLocale;
--(NSLocale *_Nullable)systemLocale;
++(NSLocale *_Nonnull)systemLocale;
+-(NSLocale *_Nonnull)systemLocale;
 +(NSLocale *_Nullable)autoupdatingCurrentLocale API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0));
 -(NSLocale *_Nullable)autoupdatingCurrentLocale API_AVAILABLE(macos(10.5), ios(2.0), watchos(2.0), tvos(9.0));
 /// UIDevice

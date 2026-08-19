@@ -6,16 +6,17 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_MASONRY_DSL_8B5C1F2A91
-#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_MASONRY_DSL_8B5C1F2A91
-
-#import <UIKit/UIKit.h>
-#import <objc/runtime.h>
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_MASONRY_DSL_8B5C1F2A91
+
+#import <UIKit/UIKit.h>
+#import <objc/runtime.h>
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"
@@ -24,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (MasonryDSL)
 
-Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
+Prop_copy(nullable)jobsByMASConstraintMakerBlock masonryBlock;
 #pragma mark —— 不记录约束，直接修改/赋值
 /// 判断当前控制器 view 是否已经包含目标子视图
 -(JobsRetBOOLByViewBlock _Nonnull)containBy;
@@ -76,6 +77,16 @@ Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
 -(void)jobsMasonryBeforeBlock:(jobsByMASConstraintMakerBlock _Nonnull)masonryBeforeBlock
             masonryAfterBlock:(jobsByMASConstraintMakerBlock _Nonnull)masonryAfterBlock;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN UIViewController
+-(JobsRetUIViewControllerByFDViewControllerWillAppearInjectBlockBlock _Nonnull)byFd_willAppearInjectBlock;
+-(JobsRetUIViewControllerByvoidUIScrollViewscrollViewBlock _Nonnull)byScrollCallback;
+-(JobsRetGKNavVCByBarButtonItemBlock _Nonnull)byGk_navLeftBarButtonItem;
+-(JobsRetGKNavVCByBarButtonItemBlock _Nonnull)byGk_navRightBarButtonItem;
+-(JobsRetGKNavVCByBarButtonItemsBlock _Nonnull)byGk_navRightBarButtonItems;
+-(JobsRetGKNavVCByCGFloatBlock _Nonnull)byGk_navBarAlpha;
+-(JobsRetGKNavVCByViewBlock _Nonnull)byGk_navTitleView;
+-(JobsRetUIViewControllerByUITabBarItemBlock _Nonnull)byTabBarItem;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UIViewController
 @end
 
 NS_ASSUME_NONNULL_END

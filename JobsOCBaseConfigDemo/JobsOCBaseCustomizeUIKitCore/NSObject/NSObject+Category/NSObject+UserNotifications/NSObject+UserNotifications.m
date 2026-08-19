@@ -6,6 +6,7 @@
 //
 
 #import "NSObject+UserNotifications.h"
+
 /**
  1、无论设备处于锁定状态还是使用中，都可以使用通知提供及时、重要的信息。
     1.1、无论app处于foreground、background或suspended状态，都可以使用通知发送信息
@@ -34,36 +35,41 @@
  */
 @implementation NSObject (UserNotifications)
 /// 用户通知请求授权
--(UNUserNotificationCenter *)notificationCenter{
-    UNUserNotificationCenter *userNotificationCenter = UNUserNotificationCenter.currentNotificationCenter;
-    userNotificationCenter.delegate = self;
-    // 请求授权
-    /*
-    UNAuthorizationOptionBadge   = (1 << 0),
-    UNAuthorizationOptionSound   = (1 << 1),
-    UNAuthorizationOptionAlert   = (1 << 2),
-    UNAuthorizationOptionCarPlay = (1 << 3),
-    */
+-(JobsRetUNUserNotificationCenterByVoidBlock _Nonnull)notificationCenter{
     @jobs_weakify(self)
-    [userNotificationCenter requestAuthorizationWithOptions:(UNAuthorizationOptionAlert +
-                                                            UNAuthorizationOptionSound +
-                                                            UNAuthorizationOptionBadge)
-                                         completionHandler:^(BOOL granted,
-                                                             NSError * _Nullable error) {
+    return ^UNUserNotificationCenter *{
         @jobs_strongify(self)
-        JobsLog(@"granted = %d,error = %@",granted,error);
-        [self registerForRemoteNotifications];
-    }];
-    [self registerNotificationCategory];
-    // 获取通知授权和设置
-    [self userNotificationCenter:userNotificationCenter authorizationStatusBlock:nil];
-    return userNotificationCenter;
+        if (!self) return nil;
+        UNUserNotificationCenter *userNotificationCenter = UNUserNotificationCenter.currentNotificationCenter;
+        userNotificationCenter.byDelegate(self);
+        // 请求授权
+        /*
+        UNAuthorizationOptionBadge   = (1 << 0),
+        UNAuthorizationOptionSound   = (1 << 1),
+        UNAuthorizationOptionAlert   = (1 << 2),
+        UNAuthorizationOptionCarPlay = (1 << 3),
+        */
+        @jobs_weakify(self)
+        [userNotificationCenter requestAuthorizationWithOptions:(UNAuthorizationOptionAlert +
+                                                                UNAuthorizationOptionSound +
+                                                                UNAuthorizationOptionBadge)
+                                             completionHandler:^(BOOL granted,
+                                                                 NSError * _Nullable error) {
+            @jobs_strongify(self)
+            JobsLog(@"granted = %d,error = %@",granted,error);
+            [self registerForRemoteNotifications]();
+        }];
+        self.registerNotificationCategory();
+        // 获取通知授权和设置
+        [self userNotificationCenter:userNotificationCenter authorizationStatusBlock:nil];
+        return userNotificationCenter;
+    };
 }
 /// 获取通知授权和设置
 -(void)userNotificationCenter:(UNUserNotificationCenter *_Nonnull)userNotificationCenter
      authorizationStatusBlock:(jobsByIDBlock _Nullable)authorizationStatusBlock{
     if (!userNotificationCenter) {
-        userNotificationCenter = self.notificationCenter;
+        userNotificationCenter = self.notificationCenter();
     }
     [userNotificationCenter getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings * _Nonnull settings) {
         JobsLog(@"settings = %@",settings);
@@ -87,38 +93,51 @@
     }];
 }
 /// Register for push notification.
--(void)registerForRemoteNotifications{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [UIApplication.sharedApplication registerForRemoteNotifications];
-    });
+-(jobsByVoidBlock _Nonnull)registerForRemoteNotifications{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [UIApplication.sharedApplication registerForRemoteNotifications];
+        });
+    };
 }
 /// 初始化一个本地通知
--(UNMutableNotificationContent *)userNotificationInit{
-    // 创建一个距离现在时间 多久之后的触发的本地通知
-    UNMutableNotificationContent *notificationContent = UNMutableNotificationContent.new;
-    // 主标题
-    notificationContent.title = [NSString localizedUserNotificationStringForKey:@"Jobs" arguments:nil];
-    // 副标题
-    notificationContent.subtitle = [NSString localizedUserNotificationStringForKey:@"很优秀" arguments:nil];
-    notificationContent.badge = [NSNumber numberWithInteger:2];
-    notificationContent.body = [NSString localizedUserNotificationStringForKey:@"那是非常OK" arguments:nil];
-    notificationContent.sound = UNNotificationSound.defaultSound;
-    // 设置通知附件内容
-//    notificationContent.attachments = @[[self notificationAttachmentInitByPath:@"这里写路径地址"]];
-    notificationContent.launchImageName = @"大雨";
-    return notificationContent;
+-(JobsRetUNMutableNotificationContentByVoidBlock _Nonnull)userNotificationInit{
+    @jobs_weakify(self)
+    return ^UNMutableNotificationContent *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        // 创建一个距离现在时间 多久之后的触发的本地通知
+        UNMutableNotificationContent *notificationContent = jobsMakeUNMutableNotificationContent(^(UNMutableNotificationContent *object){})
+            .byTitle([NSString localizedUserNotificationStringForKey:@"Jobs" arguments:nil])
+            .bySubtitle([NSString localizedUserNotificationStringForKey:@"很优秀" arguments:nil])
+            .byBadge([NSNumber numberWithInteger:2])
+            .byBody([NSString localizedUserNotificationStringForKey:@"那是非常OK" arguments:nil])
+            .bySound(UNNotificationSound.defaultSound)
+            .byLaunchImageName(@"大雨");
+        // 设置通知附件内容
+    //    notificationContent.attachments = @[[self notificationAttachmentInitByPath:@"这里写路径地址"]];
+        return notificationContent;
+    };
 }
 /// 设置通知附件内容
 /// 注意：URL必须是一个有效的文件路径，不然会报错
--(UNNotificationAttachment *)notificationAttachmentInitByPath:(NSString *)path{
-    NSError *error = nil;
-    UNNotificationAttachment *notificationAttachment = [UNNotificationAttachment attachmentWithIdentifier:@"att1"
-                                                                                                      URL:path.jobsUrl
-                                                                                                  options:@{@"UNNotificationAttachmentOptionsTypeHintKey":UTTypeImage}
-                                                                                                    error:&error];
-    if (error) {
-        JobsLog(@"attachment error %@", error);
-    };return notificationAttachment;
+-(JobsRetUNNotificationAttachmentByNSStringBlock _Nonnull)notificationAttachmentInitByPath{
+    @jobs_weakify(self)
+    return ^UNNotificationAttachment *(NSString * path){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSError *error = nil;
+        UNNotificationAttachment *notificationAttachment = [UNNotificationAttachment attachmentWithIdentifier:@"att1"
+                                                                                                          URL:path.jobsURL()
+                                                                                                      options:@{@"UNNotificationAttachmentOptionsTypeHintKey":UTTypeImage}
+                                                                                                        error:&error];
+        if (error) {
+            JobsLog(@"attachment error %@", error);
+        };return notificationAttachment;
+    };
 }
 /// 触发模式
 -(UNTimeIntervalNotificationTrigger *)notificationTriggerWithTimeInterval:(NSTimeInterval)timeInterval
@@ -156,7 +175,7 @@
         identifier = @"my_notification";
     }
     if (!notificationContent) {
-        notificationContent = self.userNotificationInit;
+        notificationContent = self.userNotificationInit();
     }
     UNNotificationRequest *notificationRequest = [UNNotificationRequest requestWithIdentifier:identifier
                                                                                       content:notificationContent
@@ -168,14 +187,14 @@
    addNotificationRequest:(UNNotificationRequest *_Nullable)notificationRequest
            withIdentifier:(NSString *_Nullable)identifier{
     if (!notificationCenter) {
-        notificationCenter = self.notificationCenter;
+        notificationCenter = self.notificationCenter();
     }
     if (isNull(identifier)) {
         identifier = @"my_notification";
     }
     if (!notificationRequest) {
         notificationRequest = [self notificationRequestInitWithIdentifier:identifier
-                                                                  content:self.userNotificationInit
+                                                                  content:self.userNotificationInit()
                                                                   trigger:[self notificationTriggerWithTimeInterval:3 repeats:NO]];
     }
     [notificationCenter addNotificationRequest:notificationRequest
@@ -186,54 +205,64 @@
     }];
 }
 
-- (void)registerNotificationCategory {
-    // calendarCategory
-    UNNotificationAction *completeAction = [UNNotificationAction actionWithIdentifier:@"markAsCompleted"
-                                                                                title:@"Mark as Completed".tr
-                                                                              options:UNNotificationActionOptionNone];
-    UNNotificationAction *remindMeIn1MinuteAction = [UNNotificationAction actionWithIdentifier:@"remindMeIn1Minute"
-                                                                                         title:@"Remind me in 1 Minute".tr
-                                                                                       options:UNNotificationActionOptionNone];
-    UNNotificationAction *remindMeIn5MinuteAction = [UNNotificationAction actionWithIdentifier:@"remindMeIn5Minute"
-                                                                                         title:@"Remind me in 5 Minutes".tr
-                                                                                       options:UNNotificationActionOptionNone];
-    UNNotificationCategory *calendarCategory = [UNNotificationCategory categoryWithIdentifier:@"calendarCategory"
-                                                                                      actions:@[completeAction, remindMeIn1MinuteAction, remindMeIn5MinuteAction]
-                                                                            intentIdentifiers:@[]
-                                                                                      options:UNNotificationCategoryOptionCustomDismissAction];
-    // customUICategory
-    UNNotificationAction *nextAction = [UNNotificationAction actionWithIdentifier:@"stop"
-                                                                            title:@"Stop".tr
-                                                                          options:UNNotificationActionOptionForeground];
-    UNNotificationAction *commentAction = [UNTextInputNotificationAction actionWithIdentifier:@"comment"
-                                                                                        title:@"Comment".tr
-                                                                                      options:UNNotificationActionOptionForeground
-                                                                         textInputButtonTitle:@"Send".tr
-                                                                         textInputPlaceholder:@"Say something".tr];
-    UNNotificationCategory *customUICategory = [UNNotificationCategory categoryWithIdentifier:@"customUICategory"
-                                                                                      actions:@[nextAction, commentAction]
-                                                                            intentIdentifiers:@[]
-                                                                                      options:UNNotificationCategoryOptionCustomDismissAction];
-    [UNUserNotificationCenter.currentNotificationCenter setNotificationCategories:[NSSet setWithObjects:calendarCategory, customUICategory, nil]];
+- (jobsByVoidBlock _Nonnull)registerNotificationCategory {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        // calendarCategory
+        UNNotificationAction *completeAction = [UNNotificationAction actionWithIdentifier:@"markAsCompleted"
+                                                                                    title:@"Mark as Completed".jobsTr()
+                                                                                  options:UNNotificationActionOptionNone];
+        UNNotificationAction *remindMeIn1MinuteAction = [UNNotificationAction actionWithIdentifier:@"remindMeIn1Minute"
+                                                                                             title:@"Remind me in 1 Minute".jobsTr()
+                                                                                           options:UNNotificationActionOptionNone];
+        UNNotificationAction *remindMeIn5MinuteAction = [UNNotificationAction actionWithIdentifier:@"remindMeIn5Minute"
+                                                                                             title:@"Remind me in 5 Minutes".jobsTr()
+                                                                                           options:UNNotificationActionOptionNone];
+        UNNotificationCategory *calendarCategory = [UNNotificationCategory categoryWithIdentifier:@"calendarCategory"
+                                                                                          actions:@[completeAction, remindMeIn1MinuteAction, remindMeIn5MinuteAction]
+                                                                                intentIdentifiers:@[]
+                                                                                          options:UNNotificationCategoryOptionCustomDismissAction];
+        // customUICategory
+        UNNotificationAction *nextAction = [UNNotificationAction actionWithIdentifier:@"stop"
+                                                                                title:@"Stop".jobsTr()
+                                                                              options:UNNotificationActionOptionForeground];
+        UNNotificationAction *commentAction = [UNTextInputNotificationAction actionWithIdentifier:@"comment"
+                                                                                            title:@"Comment".jobsTr()
+                                                                                          options:UNNotificationActionOptionForeground
+                                                                             textInputButtonTitle:@"Send".jobsTr()
+                                                                             textInputPlaceholder:@"Say something".jobsTr()];
+        UNNotificationCategory *customUICategory = [UNNotificationCategory categoryWithIdentifier:@"customUICategory"
+                                                                                          actions:@[nextAction, commentAction]
+                                                                                intentIdentifiers:@[]
+                                                                                          options:UNNotificationCategoryOptionCustomDismissAction];
+        [UNUserNotificationCenter.currentNotificationCenter setNotificationCategories:[NSSet setWithObjects:calendarCategory, customUICategory, nil]];
+    };
 }
 /// 本地通知的相关管理
--(void)userNotificationManager:(UNUserNotificationCenter *_Nullable)userNotificationCenter{
-//    - 移除还未展示的通知
-//       [userNotificationCenter removePendingNotificationRequestsWithIdentifiers: @[@“my_notification”
-//   ]];
-//       [userNotificationCenter removeAllPendingNotificationRequests]; //  - (void)cancelAllLocalNotifications；
-//    - 移除已经展示过的通知
-//       [userNotificationCenter removeDeliveredNotificationsWithIdentifiers:@[@“my_notification”
-//   ]];
-//       [userNotificationCenter removeAllDeliveredNotifications];
-//       - 获取未展示的通知
-//   [userNotificationCenter getPendingNotificationRequestsWithCompletionHandler:^(NSArray<UNNotificationRequest *> * _Nonnull requests) {
-//           JobsLog(@"%@",requests);
-//   }];
-//    - 获取展示过的通知
-//   [userNotificationCenter getDeliveredNotificationsWithCompletionHandler:^(NSArray<UNNotification *> * _Nonnull notifications) {
-//          JobsLog(@"%@",notifications);
-//       }];
+-(jobsByUNUserNotificationCenterBlock _Nonnull)userNotificationManager{
+    @jobs_weakify(self)
+    return ^(UNUserNotificationCenter *_Nullable userNotificationCenter){
+        @jobs_strongify(self)
+        if (!self) return;
+    //    - 移除还未展示的通知
+    //       [userNotificationCenter removePendingNotificationRequestsWithIdentifiers: @[@“my_notification”
+    //   ]];
+    //       [userNotificationCenter removeAllPendingNotificationRequests]; //  - (void)cancelAllLocalNotifications；
+    //    - 移除已经展示过的通知
+    //       [userNotificationCenter removeDeliveredNotificationsWithIdentifiers:@[@“my_notification”
+    //   ]];
+    //       [userNotificationCenter removeAllDeliveredNotifications];
+    //       - 获取未展示的通知
+    //   [userNotificationCenter getPendingNotificationRequestsWithCompletionHandler:^(NSArray<UNNotificationRequest *> * _Nonnull requests) {
+    //           JobsLog(@"%@",requests);
+    //   }];
+    //    - 获取展示过的通知
+    //   [userNotificationCenter getDeliveredNotificationsWithCompletionHandler:^(NSArray<UNNotification *> * _Nonnull notifications) {
+    //          JobsLog(@"%@",notifications);
+    //       }];
+    };
 }
 
 @end

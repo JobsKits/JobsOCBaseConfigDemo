@@ -6,15 +6,16 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_HXPHOTOMANAGER_EXTRA_CA7B072693
-#define JOBS_HEADER_GUARD_HXPHOTOMANAGER_EXTRA_CA7B072693
-
-#import <Foundation/Foundation.h>
 
 #if __has_include(<HXPhotoPickerObjC/HXPhotoPicker.h>)
 #import <HXPhotoPickerObjC/HXPhotoPicker.h>
 #else
 #import "HXPhotoPicker.h"
 #endif
+
+#define JOBS_HEADER_GUARD_HXPHOTOMANAGER_EXTRA_CA7B072693
+
+#import <Foundation/Foundation.h>
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"

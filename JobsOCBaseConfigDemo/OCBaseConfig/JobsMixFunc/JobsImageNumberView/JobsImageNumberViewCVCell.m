@@ -18,7 +18,7 @@ Prop_strong()UIImageView *textIMGV;
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     JobsImageNumberViewCVCell *cell = JobsRegisterDequeueCollectionViewCell(JobsImageNumberViewCVCell);
-    cell.indexPath = indexPath;
+    cell.byIndexPath(indexPath);
     return cell;
 }
 #pragma mark —— BaseCellProtocol
@@ -28,7 +28,7 @@ Prop_strong()UIImageView *textIMGV;
     return ^__kindof UICollectionViewCell *_Nullable(id _Nullable model) {
         @jobs_strongify(self)
         self.byBgColor(self.contentView.backgroundColor = JobsClearColor);
-        self.textIMGV.image = model;
+        self.textIMGV.byImage(model);
         return self;
     };
 }

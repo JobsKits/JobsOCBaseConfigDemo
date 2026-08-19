@@ -6,6 +6,13 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_BASEVC_03DF8B67C3
+
+#if __has_include(<ReactiveObjC/ReactiveObjC.h>)
+#import <ReactiveObjC/ReactiveObjC.h>
+#else
+#import "ReactiveObjC.h"
+#endif
+
 #define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_BASEVC_03DF8B67C3
 
 #import <objc/runtime.h>
@@ -18,12 +25,6 @@
 #import "UIView+Extra.h"
 #import "UIView+Navigator.h"
 #import "UIViewController+BackBtn.h"
-
-#if __has_include(<ReactiveObjC/ReactiveObjC.h>)
-#import <ReactiveObjC/ReactiveObjC.h>
-#else
-#import "ReactiveObjC.h"
-#endif
 
 #import "JobsBaseProtocolHeader.h"
 #import "GKCustomNavigationBarExtra.h"
@@ -38,6 +39,7 @@
 #import "JobsDefines.h"
 
 /// 用导航控制器进行包装
+
 NS_INLINE __kindof UINavigationController * _Nullable JobsByOCPodsNavCtrl(UIViewController __kindof * _Nonnull viewController){
     return viewController.navigationController ? viewController : [UINavigationController.alloc initWithRootViewController:viewController];
 }
@@ -56,6 +58,15 @@ BaseViewControllerProtocol
 ,UIViewModelProtocol
 ,AppToolsProtocol
 >
+
+-(JobsRetVCByComingStyleBlock _Nonnull)byPushOrPresent;
+-(JobsRetVCByStrBlock _Nonnull)byTitle;
+-(JobsRetVCByWebViewBlock _Nonnull)byWebView;
+-(JobsRetVCByBOOLBlock _Nonnull)byHidesBottomBarWhenPushed;
+-(JobsRetVCByIDBlock _Nonnull)byRequestParams;
+-(JobsRetVCByVCBlock _Nonnull)byFromVC;
+/// 设置是否隐藏系统导航栏，并保持 UIViewController 链式返回类型。
+-(JobsRetVCByBOOLBlock _Nonnull)bySetupNavigationBarHidden;
 /**
  ❤️【强制推控制器】❤️
  1、自定义是PUSH还是PRESENT展现控制器，如果自定义PUSH但是navigationController不存在，则换用PRESENT展现控制器

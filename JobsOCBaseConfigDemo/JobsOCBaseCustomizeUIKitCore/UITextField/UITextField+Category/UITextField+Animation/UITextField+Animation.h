@@ -9,19 +9,31 @@
 #define JOBS_HEADER_GUARD_UITEXTFIELD_ANIMATION_BA35906C95
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "NSString+Check.h"
 #import "JobsStringUtilsHeader.h"
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UITextField (Animation)
 #pragma mark —— 一些动画
 /// 输入的和某个预设定值不一致的时候，抖动动画
--(void)isValidate:(NSString *)validate;
+-(jobsByStrBlock _Nonnull)isValidate;
 /// 输入的为空，抖动动画
--(void)isEmptyText;
+-(jobsByVoidBlock _Nonnull)isEmptyText;
 
--(void)shakeAnimationForView;
+-(jobsByVoidBlock _Nonnull)shakeAnimationForView;
 
 @end
 

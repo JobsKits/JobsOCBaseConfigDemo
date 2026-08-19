@@ -6,17 +6,18 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSIMAGESTYLETBVCELL_83173262E7
-#define JOBS_HEADER_GUARD_JOBSIMAGESTYLETBVCELL_83173262E7
-
-#import <UIKit/UIKit.h>
-#import "UIView+Extra.h"
-#import "JobsBaseTableViewCell.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSIMAGESTYLETBVCELL_83173262E7
+
+#import <UIKit/UIKit.h>
+#import "UIView+Extra.h"
+#import "JobsBaseTableViewCell.h"
 
 #import "JobsMakes.h"
 #import "JobsBlock.h"
@@ -28,7 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 将一张图整个覆盖到TableViewCell上面
 @interface JobsImageStyleTBVCell : JobsBaseTableViewCell
 /// 获取绑定的数据源
--(UIViewModel *)getViewModel;
+-(UIViewModel *_Nullable)getViewModel;
+-(JobsRetViewModelByVoidBlock _Nonnull)jobsGetViewModel;
 
 @end
 

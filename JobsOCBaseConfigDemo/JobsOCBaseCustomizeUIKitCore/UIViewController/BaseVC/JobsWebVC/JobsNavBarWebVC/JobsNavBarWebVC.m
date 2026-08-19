@@ -6,6 +6,7 @@
 //
 
 #import "JobsNavBarWebVC.h"
+
 #import "WKWebView+Extra.h"
 #import "NSString+Sys.h"
 #import "NSObject+Extra.h"
@@ -18,6 +19,15 @@ Prop_copy()NSString *URL;
 @end
 
 @implementation JobsNavBarWebVC
+-(JobsRetJobsNavBarWebVCByStrBlock _Nonnull)byURL{
+    @jobs_weakify(self)
+    return ^__kindof JobsNavBarWebVC *_Nullable(NSString *_Nullable URL){
+        @jobs_strongify(self)
+        [self setURL:URL];
+        return self;
+    };
+}
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);
@@ -30,54 +40,104 @@ Prop_copy()NSString *URL;
 }
 
 -(void)loadView{
-    [super loadView];
-    id<BaseProtocol> baseProtocolSelf = (id<BaseProtocol>)self;
-    if ([baseProtocolSelf.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)baseProtocolSelf.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsNavBarWebVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        id<BaseProtocol> baseProtocolSelf = (id<BaseProtocol>)self;
+        if ([baseProtocolSelf.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)baseProtocolSelf.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
+        }else if ([baseProtocolSelf.requestParams isKindOfClass:NSString.class]){
+            self.byURL((NSString *)baseProtocolSelf.requestParams);
+        }else{}
+        self.bySetupNavigationBarHidden(YES);
+        {
+            self.viewModel
+                .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                    data.byText(@"     ".jobsTr());
+                })
+                .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                    data
+                        .byTextCor(@"333333".jobsCor())
+                        .byText(@"".jobsTr())
+                        .byFont(UIFontWeightRegularSize(16));
+                })
+                // 使用原则：底图有 + 底色有 = 优先使用底图数据
+                // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+                // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+                .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+                    //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+                .byNavBgCor(JobsWhiteColor);
+                //        self.viewModel.navBgImage = @"导航栏左侧底图".img;
         }
-    }else if ([baseProtocolSelf.requestParams isKindOfClass:NSString.class]){
-        self.URL = (NSString *)baseProtocolSelf.requestParams;
-    }else{}
-    self.setupNavigationBarHidden = YES;
-    {
-        self.viewModel
-            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-                data.byText(@"     ".tr);
-            })
-            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-                data
-                    .byTextCor(@"333333".cor)
-                    .byText(@"".tr)
-                    .byFont(UIFontWeightRegularSize(16));
-            })
-            // 使用原则：底图有 + 底色有 = 优先使用底图数据
-            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-                //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-            .byNavBgCor(JobsWhiteColor);
-            //        self.viewModel.navBgImage = @"导航栏左侧底图".img;
-    }
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeGKNavByConfig(self.makeNav0ByTitle(self.viewModel.textModel.text));
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsNavBarWebVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeGKNavByConfig(self.makeNav0ByTitle(self.viewModel.textModel.text));
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsNavBarWebVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillAppear:animated];
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsNavBarWebVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsNavBarWebVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+    };
 }
 #pragma mark —— 一些公共方法
 /// TODO
@@ -89,13 +149,13 @@ Prop_copy()NSString *URL;
     return ^__kindof UIViewController <BaseViewControllerProtocol>*_Nullable(__kindof WKWebView *_Nonnull webView){
         @jobs_strongify(self)
         UIViewController <BaseViewControllerProtocol>*vc = (UIViewController *)self.class.new;
-        vc.webView = webView;
+        vc.byWebView(webView);
         vc.view.addSubview(webView)
             .byRemake(^(MASConstraintMaker *_Nonnull make){
                 make.top.equalTo(vc.gk_navigationBar.mas_bottom);
                 make.left.right.bottom.equalTo(vc.view);
         });
-        webView.loadRequest(webView.url.URLRequest);/// 创建即加载
+        webView.loadRequest(webView.url.jobsURLRequest());/// 创建即加载
         return vc;
     };
 }
@@ -162,7 +222,12 @@ didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge
 completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition disposition, NSURLCredential * _Nullable credential))completionHandler {
 }
 /// web 内容进程被系统终止（崩溃或内存压力）
--(void)webViewWebContentProcessDidTerminate:(WKWebView *)webView {
+-(jobsByWKWebViewBlock _Nonnull)webViewWebContentProcessDidTerminate{
+    @jobs_weakify(self)
+    return ^(WKWebView * webView){
+        @jobs_strongify(self)
+        if (!self) return;
+    };
 }
 /// 是否允许继续使用过时的 TLS 协议（iOS 14+，安全性相关）
 -(void)webView:(WKWebView *)webView

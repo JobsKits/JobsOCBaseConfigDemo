@@ -6,16 +6,17 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSBTNSSTYLECVCELL_7A5F912884
-#define JOBS_HEADER_GUARD_JOBSBTNSSTYLECVCELL_7A5F912884
-
-#import <UIKit/UIKit.h>
-#import "JobsBaseCollectionViewCell.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSBTNSSTYLECVCELL_7A5F912884
+
+#import <UIKit/UIKit.h>
+#import "JobsBaseCollectionViewCell.h"
 
 #import "JobsModelDSL.h"
 #import "JobsOCDSL.h"
@@ -31,7 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(BaseButton *)leftBtn;
 -(BaseButton *)rightBtn;
 /// 获取绑定的数据源
--(UIViewModel *)getViewModel;
+-(UIViewModel *_Nullable)getViewModel;
+-(JobsRetViewModelByVoidBlock _Nonnull)jobsGetViewModel;
 
 @end
 

@@ -6,16 +6,17 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSSUSPENDBTN_3751419CBC
-#define JOBS_HEADER_GUARD_JOBSSUSPENDBTN_3751419CBC
-
-#import <UIKit/UIKit.h>
-#import "UIView+SuspendView.h"
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
 #else
 #import "XYColorOC.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSSUSPENDBTN_3751419CBC
+
+#import <UIKit/UIKit.h>
+#import "UIView+SuspendView.h"
 
 #import "JobsBaseProtocolHeader.h"
 #import "JobsBlock.h"
@@ -59,7 +60,7 @@ NS_ASSUME_NONNULL_END
              SuspendBtn.onClickBy(^(UIButton *x) {
                  @jobs_strongify(self)
                  x.selected = !x.selected;
-                 JobsLog(@"%@",x.selected ? @"开始旋转".tr : @"停止旋转".tr);
+                 JobsLog(@"%@",x.selected ? @"开始旋转".jobsTr() : @"停止旋转".jobsTr());
                  // x.旋转动画(x.selected);
                  if (self.objBlock) self.objBlock(x);
              });

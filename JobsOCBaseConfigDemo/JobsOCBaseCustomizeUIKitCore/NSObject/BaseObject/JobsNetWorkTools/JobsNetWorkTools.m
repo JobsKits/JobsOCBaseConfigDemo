@@ -10,27 +10,51 @@
 @interface JobsNetworkTrafficMonitor ()
 
 Prop_copy()JobsNetworkUpdateBlock onUpdate;
+-(JobsRetIDByDoubleBlock _Nonnull)byTimeInterval;
+-(JobsRetIDByIDBlock _Nonnull)byTimer;
 
 @end
 
 @implementation JobsNetworkTrafficMonitor
-/// 可销毁单例
-static JobsNetworkTrafficMonitor *_sharedInstance = nil;
-+(instancetype _Nonnull)shared{
-    @synchronized(self) {
-        if (!_sharedInstance) {
-            _sharedInstance = [self.alloc init];
-        };return _sharedInstance;
-    }
+
+-(JobsRetIDByDoubleBlock _Nonnull)byTimeInterval{
+    @jobs_weakify(self)
+    return ^id(NSTimeInterval interval){
+        @jobs_strongify(self)
+        self.timeInterval = interval;
+        return self;
+    };
 }
 
-+(void)destroyShared{
-    @synchronized(self) {
-        if (_sharedInstance) {
-            _sharedInstance.byStop();
-            _sharedInstance = nil;
+-(JobsRetIDByIDBlock _Nonnull)byTimer{
+    @jobs_weakify(self)
+    return ^id(JobsTimer *timer){
+        @jobs_strongify(self)
+        self.timer = timer;
+        return self;
+    };
+}
+/// 可销毁单例
+static JobsNetworkTrafficMonitor *_sharedInstance = nil;
++(JobsRetIDByVoidBlock _Nonnull)shared{
+    return ^id _Nonnull{
+        @synchronized(self) {
+            if (!_sharedInstance) {
+                _sharedInstance = [self.alloc init];
+            };return _sharedInstance;
         }
-    }
+    };
+}
+
++(jobsByVoidBlock _Nonnull)destroyShared{
+    return ^{
+        @synchronized(self) {
+            if (_sharedInstance) {
+                _sharedInstance.byStop();
+                _sharedInstance = nil;
+            }
+        }
+    };
 }
 
 -(JobsRetTNetworkTrafficMonitorByUpdateBlock _Nonnull)onUpdateBy{
@@ -46,8 +70,8 @@ static JobsNetworkTrafficMonitor *_sharedInstance = nil;
     @jobs_weakify(self)
     return ^(NSTimeInterval interval){
         @jobs_strongify(self)
-        self.timeInterval = interval;
-        [self.timer start];
+        self.byTimeInterval(interval);
+        self.timer.start();
     };
 }
 
@@ -55,8 +79,8 @@ static JobsNetworkTrafficMonitor *_sharedInstance = nil;
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
-        [self.timer stop];
-        self.timer = nil;
+        if (self.timer) self.timer.jobsStop();
+        self.byTimer(nil);
     };
 }
 @synthesize timer = _timer;
@@ -116,9 +140,10 @@ static JobsNetworkTrafficMonitor *_sharedInstance = nil;
                 @jobs_strongify(self)
                 JobsLog(@"我死球了");
                 if (self.objBlock) self.objBlock(timer);
-            });
-            timer.accumulatedElapsed       = 0;
-            timer.lastStartDate            = nil;
+            })
+
+                .byAccumulatedElapsed(0)
+                .byLastStartDate(nil);
         });
     };return _timer;
 }

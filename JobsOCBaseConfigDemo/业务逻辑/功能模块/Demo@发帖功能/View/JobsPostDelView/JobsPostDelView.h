@@ -47,6 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsPostDelView : BaseView
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsPostDelView
+-(JobsRetJobsPostDelViewByCGFloatBlock _Nonnull)byY;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsPostDelView
 @end
 
 NS_ASSUME_NONNULL_END

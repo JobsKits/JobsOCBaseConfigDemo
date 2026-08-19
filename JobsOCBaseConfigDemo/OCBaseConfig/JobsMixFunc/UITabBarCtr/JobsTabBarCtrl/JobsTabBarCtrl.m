@@ -18,6 +18,15 @@ Prop_assign(readwrite)BOOL builtOnce;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsTabBarCtrl
+@interface JobsTabBarCtrl (JobsPropertyDSLSetterAutogen_a318aa914a)
+-(void)setBuiltOnce:(BOOL)data;
+-(void)setOnButtonsBuilt:(jobsByArrBlock)data;
+-(void)setOnButtonsLayouted:(jobsByArrBlock)data;
+-(void)setSelectedIndex:(NSInteger)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsTabBarCtrl
+
 @implementation JobsTabBarCtrl
 -(instancetype)init {
     if (self = [super init]) {
@@ -41,59 +50,79 @@ Prop_assign(readwrite)BOOL builtOnce;
 
 #pragma mark —— Lifecycle
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    if (@available(iOS 13.0, *)) {
-        self.view.byBgColor([UIColor systemBackgroundColor]);
-    } else {
-        self.view.byBgColor(JobsSystemBackgroundColor);
-    }
-    [self.view addSubview:self.contentScrollView];
-    [self.tabBar addSubview:self.bgImageView];
-    [self.view addSubview:self.tabBar];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTabBarCtrl.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        if (@available(iOS 13.0, *)) {
+            self.view.byBgColor([UIColor systemBackgroundColor]);
+        } else {
+            self.view.byBgColor(JobsSystemBackgroundColor);
+        }
+        [self.view addSubview:self.contentScrollView];
+        [self.tabBar addSubview:self.bgImageView];
+        [self.view addSubview:self.tabBar];
+    };
 }
 
 - (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    CGFloat safeBottom = self.view.safeAreaInsets.bottom;
-    CGFloat barH = self.customBarHeight ? self.customBarHeight.doubleValue : (49.0 + safeBottom);
-    self.tabBar.frame = CGRectMake(0,CGRectGetHeight(self.view.bounds) - barH - self.barBottomOffset,
-                                   CGRectGetWidth(self.view.bounds),barH);
-    self.bgImageView.byFrame(self.tabBar.bounds);
-    self.contentScrollView.frame = CGRectMake(0,0,
-                                              CGRectGetWidth(self.view.bounds),CGRectGetHeight(self.view.bounds) - barH - self.barBottomOffset);
-    // 布局按钮
-    if (self.autoRelayoutForBoundsChange || !self.builtOnce) {
-        [self layoutButtonsByRule];
-        self.builtOnce = YES;
-        if (self.onButtonsLayouted) {
-            self.onButtonsLayouted(self.buttons);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTabBarCtrl.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        CGFloat safeBottom = self.view.safeAreaInsets.bottom;
+        CGFloat barH = self.customBarHeight ? self.customBarHeight.doubleValue : (49.0 + safeBottom);
+        self.tabBar.frame = CGRectMake(0,CGRectGetHeight(self.view.bounds) - barH - self.barBottomOffset,
+                                       CGRectGetWidth(self.view.bounds),barH);
+        self.bgImageView.byFrame(self.tabBar.bounds);
+        self.contentScrollView.frame = CGRectMake(0,0,
+                                                  CGRectGetWidth(self.view.bounds),CGRectGetHeight(self.view.bounds) - barH - self.barBottomOffset);
+        // 布局按钮
+        if (self.autoRelayoutForBoundsChange || !self.builtOnce) {
+            self.layoutButtonsByRule();
+            self.byBuiltOnce(YES);
+            if (self.onButtonsLayouted) {
+                self.onButtonsLayouted(self.buttons);
+            }
         }
-    }
-    // 布局页面
-    NSInteger pageCount = MIN(self.buttons.count, self.controllers.count);
-    if (pageCount <= 0) {
-        self.contentScrollView.contentSize = CGSizeZero;
-        return;
-    }
-    CGFloat pageW = self.contentScrollView.bounds.size.width;
-    CGFloat pageH = self.contentScrollView.bounds.size.height;
-    for (NSInteger i = 0; i < pageCount; i++) {
-        UIViewController *vc = self.childViewControllers[i];
-        vc.view.byFrame(CGRectMake((CGFloat)i * pageW, 0, pageW, pageH));
-    }
-    self.contentScrollView.contentSize = CGSizeMake(pageW * pageCount, pageH);
-    self.syncContentOffsetAnimated(NO);
+        // 布局页面
+        NSInteger pageCount = MIN(self.buttons.count, self.controllers.count);
+        if (pageCount <= 0) {
+            self.contentScrollView.byContentSize(CGSizeZero);
+            return;
+        }
+        CGFloat pageW = self.contentScrollView.bounds.size.width;
+        CGFloat pageH = self.contentScrollView.bounds.size.height;
+        for (NSInteger i = 0; i < pageCount; i++) {
+            UIViewController *vc = self.childViewControllers[i];
+            vc.view.byFrame(CGRectMake((CGFloat)i * pageW, 0, pageW, pageH));
+        }
+        self.contentScrollView.byContentSize(CGSizeMake(pageW * pageCount, pageH));
+        self.syncContentOffsetAnimated(NO);
+    };
 }
 #pragma mark —— Property override
 - (void)setSwipeEnabled:(BOOL)swipeEnabled {
     _swipeEnabled = swipeEnabled;
-    self.contentScrollView.scrollEnabled = swipeEnabled;
+    self.contentScrollView.byScrollEnabled(swipeEnabled);
 }
 
 - (void)setHorizontalOnly:(BOOL)horizontalOnly {
     _horizontalOnly = horizontalOnly;
-    self.contentScrollView.alwaysBounceVertical = !horizontalOnly;
-    self.contentScrollView.directionalLockEnabled = horizontalOnly;
+    self.contentScrollView.byAlwaysBounceVertical(!horizontalOnly);
+    self.contentScrollView.byDirectionalLockEnabled(horizontalOnly);
 }
 
 - (void)setBarBackgroundColor:(UIColor *)barBackgroundColor {
@@ -103,7 +132,7 @@ Prop_assign(readwrite)BOOL builtOnce;
 
 - (void)setBarBackgroundImage:(UIImage *)barBackgroundImage {
     _barBackgroundImage = barBackgroundImage;
-    self.bgImageView.image = barBackgroundImage;
+    self.bgImageView.byImage(barBackgroundImage);
 }
 
 - (void)setCustomBarHeight:(NSNumber *)customBarHeight {
@@ -117,61 +146,66 @@ Prop_assign(readwrite)BOOL builtOnce;
 }
 #pragma mark —— 一些私有方法
 /// UI
-- (void)layoutButtonsByRule {
-    if (self.buttons.count == 0) {
-        self.tabBar.contentSize = CGSizeZero;
-        return;
-    }
-    NSInteger total = self.buttons.count;
-    CGRect bounds = self.tabBar.bounds;
-    CGFloat availableW = MAX(0, bounds.size.width - self.contentInset.left - self.contentInset.right);
-    CGFloat h = MAX(0, bounds.size.height - self.contentInset.top - self.contentInset.bottom);
-    NSMutableArray<NSValue *> *frames = [NSMutableArray arrayWithCapacity:total];
-    for (NSInteger i = 0; i < total; i++) {
-        [frames addObject:[NSValue valueWithCGRect:CGRectZero]];
-    }
-    static const CGFloat kMinItemWidth = 60.0;
-    if (total == 1) {
-        UIButton *b = self.buttons.firstObject;
-        CGFloat ideal = b.intrinsicContentSize.width;
-        NSInteger n2 = MAX(self.equalVisibleMin, 2);
-        CGFloat refW = (availableW - (CGFloat)(n2 - 1) * self.equalSpacing) / (CGFloat)n2;
-        CGFloat w = MAX(kMinItemWidth, MIN(ideal + 2 * 16.0, refW));
-        CGFloat x = self.contentInset.left + (availableW - w) * 0.5;
-        CGRect f = CGRectMake(x, self.contentInset.top, w, h);
-        frames[0] = [NSValue valueWithCGRect:f];
-    } else if (total >= self.equalVisibleMin && total <= self.equalVisibleMax) {
-        NSInteger n = total;
-        CGFloat w = (availableW - (CGFloat)(n - 1) * self.equalSpacing) / (CGFloat)n;
-        CGFloat curX = self.contentInset.left;
-        for (NSInteger i = 0; i < total; i++) {
-            CGRect f = CGRectMake(curX, self.contentInset.top, w, h);
-            frames[i] = [NSValue valueWithCGRect:f];
-            curX += w + self.equalSpacing;
+- (jobsByVoidBlock _Nonnull)layoutButtonsByRule {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (self.buttons.count == 0) {
+            self.tabBar.byContentSize(CGSizeZero);
+            return;
         }
-    } else {
-        NSInteger nRef = MAX(self.equalVisibleMax, 2);
-        CGFloat unitW = (availableW - (CGFloat)(nRef - 1) * self.equalSpacing) / (CGFloat)nRef;
-        CGFloat curX = self.contentInset.left;
+        NSInteger total = self.buttons.count;
+        CGRect bounds = self.tabBar.bounds;
+        CGFloat availableW = MAX(0, bounds.size.width - self.contentInset.left - self.contentInset.right);
+        CGFloat h = MAX(0, bounds.size.height - self.contentInset.top - self.contentInset.bottom);
+        NSMutableArray<NSValue *> *frames = [NSMutableArray arrayWithCapacity:total];
         for (NSInteger i = 0; i < total; i++) {
-            CGRect f = CGRectMake(curX, self.contentInset.top, unitW, h);
-            frames[i] = [NSValue valueWithCGRect:f];
-            curX += unitW + self.equalSpacing;
+            [frames addObject:[NSValue valueWithCGRect:CGRectZero]];
         }
-    }
-    /// 应用 frame
-    for (NSInteger i = 0; i < total; i++) {
-        UIButton *btn = self.buttons[i];
-        btn.byFrame(frames[i].CGRectValue);
-    }
-    /// contentSize
-    CGFloat widthSum;
-    if (self.buttons.count <= self.equalVisibleMax) {
-        widthSum = bounds.size.width;
-    } else {
-        UIButton *last = self.buttons.lastObject;
-        widthSum = CGRectGetMaxX(last.frame) + self.contentInset.right;
-    }self.tabBar.contentSize = CGSizeMake(widthSum, bounds.size.height);
+        static const CGFloat kMinItemWidth = 60.0;
+        if (total == 1) {
+            UIButton *b = self.buttons.firstObject;
+            CGFloat ideal = b.intrinsicContentSize.width;
+            NSInteger n2 = MAX(self.equalVisibleMin, 2);
+            CGFloat refW = (availableW - (CGFloat)(n2 - 1) * self.equalSpacing) / (CGFloat)n2;
+            CGFloat w = MAX(kMinItemWidth, MIN(ideal + 2 * 16.0, refW));
+            CGFloat x = self.contentInset.left + (availableW - w) * 0.5;
+            CGRect f = CGRectMake(x, self.contentInset.top, w, h);
+            frames[0] = [NSValue valueWithCGRect:f];
+        } else if (total >= self.equalVisibleMin && total <= self.equalVisibleMax) {
+            NSInteger n = total;
+            CGFloat w = (availableW - (CGFloat)(n - 1) * self.equalSpacing) / (CGFloat)n;
+            CGFloat curX = self.contentInset.left;
+            for (NSInteger i = 0; i < total; i++) {
+                CGRect f = CGRectMake(curX, self.contentInset.top, w, h);
+                frames[i] = [NSValue valueWithCGRect:f];
+                curX += w + self.equalSpacing;
+            }
+        } else {
+            NSInteger nRef = MAX(self.equalVisibleMax, 2);
+            CGFloat unitW = (availableW - (CGFloat)(nRef - 1) * self.equalSpacing) / (CGFloat)nRef;
+            CGFloat curX = self.contentInset.left;
+            for (NSInteger i = 0; i < total; i++) {
+                CGRect f = CGRectMake(curX, self.contentInset.top, unitW, h);
+                frames[i] = [NSValue valueWithCGRect:f];
+                curX += unitW + self.equalSpacing;
+            }
+        }
+        /// 应用 frame
+        for (NSInteger i = 0; i < total; i++) {
+            UIButton *btn = self.buttons[i];
+            btn.byFrame(frames[i].CGRectValue);
+        }
+        /// contentSize
+        CGFloat widthSum;
+        if (self.buttons.count <= self.equalVisibleMax) {
+            widthSum = bounds.size.width;
+        } else {
+            UIButton *last = self.buttons.lastObject;
+            widthSum = CGRectGetMaxX(last.frame) + self.contentInset.right;
+        }self.tabBar.contentSize = CGSizeMake(widthSum, bounds.size.height);
+    };
 }
 /// 交互
 -(jobsByBOOLBlock _Nonnull)applySelectionStateAnimated{
@@ -179,7 +213,7 @@ Prop_assign(readwrite)BOOL builtOnce;
     return ^(BOOL animated){
         @jobs_strongify(self)
         [self.buttons enumerateObjectsUsingBlock:^(UIButton *b, NSUInteger idx, BOOL *stop) {
-            b.selected = (idx == self.selectedIndex);
+            b.bySelected((idx == self.selectedIndex));
         }];
         self.syncContentOffsetAnimated(animated);
         [self scrollTabBarToVisibleIndex:self.selectedIndex animated:animated];
@@ -209,25 +243,25 @@ Prop_assign(readwrite)BOOL builtOnce;
         @jobs_strongify(self)
         if ([root isKindOfClass:UITableView.class]) {
             UITableView *tv = (UITableView *)root;
-            tv.scrollEnabled = NO;
-            tv.showsVerticalScrollIndicator = NO;
-            tv.alwaysBounceVertical = NO;
+            tv.byScrollEnabled(NO);
+            tv.byShowsVerticalScrollIndicator(NO);
+            tv.byAlwaysBounceVertical(NO);
         } else if ([root isKindOfClass:UICollectionView.class]) {
             UICollectionView *cv = (UICollectionView *)root;
             UICollectionViewLayout *layout = cv.collectionViewLayout;
             if ([layout isKindOfClass:[UICollectionViewFlowLayout class]] &&
                 ((UICollectionViewFlowLayout *)layout).scrollDirection == UICollectionViewScrollDirectionHorizontal) {
-                cv.showsVerticalScrollIndicator = NO;
-                cv.alwaysBounceVertical = NO;
+                cv.byShowsVerticalScrollIndicator(NO);
+                cv.byAlwaysBounceVertical(NO);
             } else {
-                cv.scrollEnabled = NO;
-                cv.showsVerticalScrollIndicator = NO;
-                cv.alwaysBounceVertical = NO;
+                cv.byScrollEnabled(NO);
+                cv.byShowsVerticalScrollIndicator(NO);
+                cv.byAlwaysBounceVertical(NO);
             }
         } else if ([root isKindOfClass:UIScrollView.class]) {
             UIScrollView *sv = (UIScrollView *)root;
-            sv.showsVerticalScrollIndicator = NO;
-            sv.alwaysBounceVertical = NO;
+            sv.byShowsVerticalScrollIndicator(NO);
+            sv.byAlwaysBounceVertical(NO);
         }
         for (UIView *sub in root.subviews) {
             self.suppressVerticalInView(sub);
@@ -264,17 +298,17 @@ Prop_assign(readwrite)BOOL builtOnce;
         b.onClickAppendBy(^(UIButton *x){
             NSInteger index = x.tag;
             if (index >= MIN(self.buttons.count, self.controllers.count)) {
-                toastBy(@"请配置子控制器".tr);
+                toastBy(@"请配置子控制器".jobsTr());
                 return;
             }[self selectIndex:index animated:YES];
-        });
-        b.tag = idx;
+        })
+        .byTag(idx);
         [self.tabBar addSubview:b];
     }];
     /// 5. 添加子控制器（只取 min(buttons, controllers)）
     NSInteger pageCount = MIN(self.buttons.count, self.controllers.count);
     for (NSInteger i = 0; i < pageCount; i++) {
-        UIViewController *vc = self.controllers[i].navCtrl;
+        UIViewController *vc = self.controllers[i].navCtrl();
         [self addChildViewController:vc];
         [self.contentScrollView addSubview:vc.view];
         [vc didMoveToParentViewController:self];
@@ -293,45 +327,80 @@ Prop_assign(readwrite)BOOL builtOnce;
 - (void)selectIndex:(NSInteger)index animated:(BOOL)animated {
     if (index < 0 || index >= (NSInteger)self.buttons.count) return;
     if (index >= MIN(self.buttons.count, self.controllers.count)) {
-        toastBy(@"请配置子控制器".tr);
+        toastBy(@"请配置子控制器".jobsTr());
         return;
     }
-    self.selectedIndex = index;
+    self.bySelectedIndex(index);
     self.applySelectionStateAnimated(animated);
 }
 
--(void)requestRelayout {
-    [self.view setNeedsLayout];
-    [self.view layoutIfNeeded];
+-(jobsByVoidBlock _Nonnull)requestRelayout {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self.view setNeedsLayout];
+        [self.view layoutIfNeeded];
+    };
 }
 #pragma mark —— UIScrollViewDelegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if (!self.horizontalOnly) return;
-    if (scrollView == self.contentScrollView && scrollView.contentOffset.y != 0) {
-        CGPoint offset = scrollView.contentOffset;
-        offset.y = 0;
-        scrollView.contentOffset = offset;
-    }
+    jobsByScrollViewBlock action = ((jobsByScrollViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTabBarCtrl.class, @selector(jobsScrollViewDidScroll)))(self, @selector(jobsScrollViewDidScroll));
+    if (action) action(scrollView);
+}
+
+-(jobsByScrollViewBlock _Nonnull)jobsScrollViewDidScroll{
+    @jobs_weakify(self)
+    return ^(UIScrollView * scrollView){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (!self.horizontalOnly) return;
+        if (scrollView == self.contentScrollView && scrollView.contentOffset.y != 0) {
+            CGPoint offset = scrollView.contentOffset;
+            offset.y = 0;
+            scrollView.byContentOffset(offset);
+        }
+    };
 }
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    if (scrollView != self.contentScrollView) return;
-    CGFloat pageW = MAX(scrollView.bounds.size.width, 1);
-    NSInteger page = (NSInteger)llround(scrollView.contentOffset.x / pageW);
-    if (page != self.selectedIndex) {
-        self.selectedIndex = page;
-        self.applySelectionStateAnimated(YES);
-    }
+    jobsByScrollViewBlock action = ((jobsByScrollViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTabBarCtrl.class, @selector(jobsScrollViewDidEndDecelerating)))(self, @selector(jobsScrollViewDidEndDecelerating));
+    if (action) action(scrollView);
+}
+
+-(jobsByScrollViewBlock _Nonnull)jobsScrollViewDidEndDecelerating{
+    @jobs_weakify(self)
+    return ^(UIScrollView * scrollView){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (scrollView != self.contentScrollView) return;
+        CGFloat pageW = MAX(scrollView.bounds.size.width, 1);
+        NSInteger page = (NSInteger)llround(scrollView.contentOffset.x / pageW);
+        if (page != self.selectedIndex) {
+            self.bySelectedIndex(page);
+            self.applySelectionStateAnimated(YES);
+        }
+    };
 }
 
 -(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
-    if (scrollView != self.contentScrollView) return;
-    CGFloat pageW = MAX(scrollView.bounds.size.width, 1);
-    NSInteger page = (NSInteger)llround(scrollView.contentOffset.x / pageW);
-    if (page != self.selectedIndex) {
-        self.selectedIndex = page;
-        self.applySelectionStateAnimated(NO);
-    }
+    jobsByScrollViewBlock action = ((jobsByScrollViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTabBarCtrl.class, @selector(jobsScrollViewDidEndScrollingAnimation)))(self, @selector(jobsScrollViewDidEndScrollingAnimation));
+    if (action) action(scrollView);
+}
+
+-(jobsByScrollViewBlock _Nonnull)jobsScrollViewDidEndScrollingAnimation{
+    @jobs_weakify(self)
+    return ^(UIScrollView * scrollView){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (scrollView != self.contentScrollView) return;
+        CGFloat pageW = MAX(scrollView.bounds.size.width, 1);
+        NSInteger page = (NSInteger)llround(scrollView.contentOffset.x / pageW);
+        if (page != self.selectedIndex) {
+            self.bySelectedIndex(page);
+            self.applySelectionStateAnimated(NO);
+        }
+    };
 }
 #pragma mark —— LazyLoad
 -(UIScrollView *)tabBar {
@@ -390,6 +459,43 @@ Prop_assign(readwrite)BOOL builtOnce;
     };return _controllers;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsTabBarCtrl
+-(JobsRetJobsTabBarCtrlByNSIntegerBlock _Nonnull)bySelectedIndex{
+    @jobs_weakify(self)
+    return ^__kindof JobsTabBarCtrl * _Nullable(NSInteger data){
+        @jobs_strongify(self)
+        [self setSelectedIndex:data];
+        return self;
+    };
+}
+
+-(JobsRetTabBarCtrlByArrBlocks _Nonnull)byOnButtonsBuilt{
+    @jobs_weakify(self)
+    return ^__kindof JobsTabBarCtrl * _Nullable(jobsByArrBlock data){
+        @jobs_strongify(self)
+        [self setOnButtonsBuilt:data];
+        return self;
+    };
+}
+
+-(JobsRetTabBarCtrlByArrBlocks _Nonnull)byOnButtonsLayouted{
+    @jobs_weakify(self)
+    return ^__kindof JobsTabBarCtrl * _Nullable(jobsByArrBlock data){
+        @jobs_strongify(self)
+        [self setOnButtonsLayouted:data];
+        return self;
+    };
+}
+
+-(JobsRetTabBarCtrlByBOOLBlock _Nonnull)byBuiltOnce{
+    @jobs_weakify(self)
+    return ^__kindof JobsTabBarCtrl * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setBuiltOnce:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsTabBarCtrl
 @end
 
 #pragma mark —— DSL
@@ -497,7 +603,7 @@ Prop_assign(readwrite)BOOL builtOnce;
     @jobs_weakify(self)
     return ^__kindof JobsTabBarCtrl *_Nullable(jobsByArrBlock _Nullable block){
         @jobs_strongify(self)
-        self.onButtonsBuilt = block;
+        self.byOnButtonsBuilt(block);
         return self;
     };
 }
@@ -506,7 +612,7 @@ Prop_assign(readwrite)BOOL builtOnce;
     @jobs_weakify(self)
     return ^__kindof JobsTabBarCtrl *_Nullable(jobsByArrBlock _Nullable block){
         @jobs_strongify(self)
-        self.onButtonsLayouted = block;
+        self.byOnButtonsLayouted(block);
         return self;
     };
 }
@@ -522,13 +628,18 @@ Prop_assign(readwrite)BOOL builtOnce;
     return self;
 }
 
--(instancetype)onButtonsLayoutedWeakOwner:(void(^)(JobsTabBarCtrl *owner, NSArray<UIButton *> *buttons))block {
+-(JobsRetIDByvoidJobsTabBarCtrlNSArrayUIButtonBlock _Nonnull)onButtonsLayoutedWeakOwner{
     @jobs_weakify(self)
-    self.onButtonsLayouted = ^(NSArray<UIButton *> *btns) {
+    return ^id(void(^block)(JobsTabBarCtrl *owner, NSArray<UIButton *> *buttons)){
         @jobs_strongify(self)
-        if (!self) return;
-        block(self, btns);
-    };return self;
+        if (!self) return nil;
+        @jobs_weakify(self)
+        self.onButtonsLayouted = ^(NSArray<UIButton *> *btns) {
+            @jobs_strongify(self)
+            if (!self) return;
+            block(self, btns);
+        };return self;
+    };
 }
 
 @end

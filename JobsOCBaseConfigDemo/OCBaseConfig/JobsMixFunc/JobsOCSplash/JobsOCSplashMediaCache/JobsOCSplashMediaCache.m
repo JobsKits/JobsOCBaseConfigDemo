@@ -20,30 +20,32 @@ Prop_strong() NSMutableDictionary<NSString *, NSMutableArray *> *videoCompletion
 Prop_strong() NSMutableDictionary<NSString *, NSNumber *> *videoRetryAttempts;
 Prop_strong() NSMutableSet<NSString *> *scheduledVideoRetries;
 
--(void)startVideoDownload:(NSURL *)remoteURL;
+-(jobsByURLBlock _Nonnull)startVideoDownload;
 -(nullable NSURL *)persistDownloadedFile:(NSURL *)temporaryURL
                             forRemoteURL:(NSURL *)remoteURL
                                    error:(NSError **)error;
 -(void)handleVideoDownloadForRemoteURL:(NSURL *)remoteURL
                                fileURL:(nullable NSURL *)fileURL
                                  error:(nullable NSError *)error;
--(NSTimeInterval)retryDelayForAttempt:(NSInteger)attempt;
--(void)addPendingVideoURL:(NSURL *)remoteURL;
--(void)removePendingVideoURL:(NSURL *)remoteURL;
+-(JobsRetNSTimeIntervalByNSIntegerBlock _Nonnull)retryDelayForAttempt;
+-(jobsByURLBlock _Nonnull)addPendingVideoURL;
+-(jobsByURLBlock _Nonnull)removePendingVideoURL;
 -(NSError *)downloadErrorWithCode:(NSInteger)code description:(NSString *)description;
--(NSURL *)localFileURLForRemoteURL:(NSURL *)remoteURL;
--(NSString *)stableHash:(NSString *)value;
+-(JobsRetURLByURLBlock _Nonnull)localFileURLForRemoteURL;
+-(JobsRetStrByStrBlock _Nonnull)stableHash;
 
 @end
 
 @implementation JobsOCSplashMediaCache
-+(instancetype)shared {
-    static JobsOCSplashMediaCache *cache = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        cache = JobsOCSplashMediaCache.alloc.init;
-    });
-    return cache;
++(JobsRetIDByVoidBlock _Nonnull)shared {
+    return ^id{
+        static JobsOCSplashMediaCache *cache = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            cache = JobsOCSplashMediaCache.alloc.init;
+        });
+        return cache;
+    };
 }
 
 -(instancetype)init {
@@ -69,29 +71,40 @@ Prop_strong() NSMutableSet<NSString *> *scheduledVideoRetries;
             for (NSString *URLString in pendingURLs) {
                 NSURL *remoteURL = [NSURL URLWithString:URLString];
                 if (!remoteURL) continue;
-                if ([self cachedFileURLForRemoteURL:remoteURL]) {
-                    [self removePendingVideoURL:remoteURL];
+                if (self.cachedFileURLForRemoteURL(remoteURL)) {
+                    self.removePendingVideoURL(remoteURL);
                 } else {
-                    [self startVideoDownload:remoteURL];
+                    self.startVideoDownload(remoteURL);
                 }
             }
         });
     };return self;
 }
 
--(void)resumePendingVideoPreloads {}
+-(jobsByVoidBlock _Nonnull)resumePendingVideoPreloads {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+    };
+}
 
--(nullable NSURL *)cachedFileURLForRemoteURL:(NSURL *)remoteURL {
-    NSURL *fileURL = [self localFileURLForRemoteURL:remoteURL];
-    NSDictionary<NSFileAttributeKey, id> *attributes = [self.fileManager attributesOfItemAtPath:fileURL.path error:nil];
-    if (!attributes || [attributes[NSFileSize] unsignedLongLongValue] == 0) {
-        [self.fileManager removeItemAtURL:fileURL error:nil];
-        return nil;
-    };return fileURL;
+-(JobsRetURLByURLBlock _Nonnull)cachedFileURLForRemoteURL{
+    @jobs_weakify(self)
+    return ^NSURL *(NSURL *remoteURL){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSURL *fileURL = self.localFileURLForRemoteURL(remoteURL);
+        NSDictionary<NSFileAttributeKey, id> *attributes = [self.fileManager attributesOfItemAtPath:fileURL.path error:nil];
+        if (!attributes || [attributes[NSFileSize] unsignedLongLongValue] == 0) {
+            [self.fileManager removeItemAtURL:fileURL error:nil];
+            return nil;
+        };return fileURL;
+    };
 }
 
 -(nullable NSURLSessionDownloadTask *)download:(NSURL *)remoteURL completion:(JobsOCSplashMediaCacheCompletion)completion {
-    NSURL *cachedURL = [self cachedFileURLForRemoteURL:remoteURL];
+    NSURL *cachedURL = self.cachedFileURLForRemoteURL(remoteURL);
     if (cachedURL) {
         if (completion) completion(cachedURL, nil);
         return nil;
@@ -110,7 +123,7 @@ Prop_strong() NSMutableSet<NSString *> *scheduledVideoRetries;
             });
             return;
         }
-        NSURL *destinationURL = [self localFileURLForRemoteURL:remoteURL];
+        NSURL *destinationURL = self.localFileURLForRemoteURL(remoteURL);
         NSError *moveError = nil;
         if ([self.fileManager fileExistsAtPath:destinationURL.path]) {
             [self.fileManager removeItemAtURL:destinationURL error:nil];
@@ -121,15 +134,15 @@ Prop_strong() NSMutableSet<NSString *> *scheduledVideoRetries;
         });
         (void)response;
     }];
-    [task resume];
+    task.resume;
     return task;
 }
 
 -(void)preloadVideo:(NSURL *)remoteURL completion:(jobsByURLBlock)completion {
-    NSURL *cachedURL = [self cachedFileURLForRemoteURL:remoteURL];
+    NSURL *cachedURL = self.cachedFileURLForRemoteURL(remoteURL);
     if (cachedURL) {
         dispatch_async(self.stateQueue, ^{
-            [self removePendingVideoURL:remoteURL];
+            self.removePendingVideoURL(remoteURL);
         });
         dispatch_async(dispatch_get_main_queue(), ^{
             if (completion) completion(cachedURL);
@@ -137,7 +150,7 @@ Prop_strong() NSMutableSet<NSString *> *scheduledVideoRetries;
         return;
     }
     dispatch_async(self.stateQueue, ^{
-        [self addPendingVideoURL:remoteURL];
+        self.addPendingVideoURL(remoteURL);
         if (completion) {
             NSMutableArray *completions = self.videoCompletions[remoteURL.absoluteString];
             if (!completions) {
@@ -148,40 +161,45 @@ Prop_strong() NSMutableSet<NSString *> *scheduledVideoRetries;
         }
         NSString *key = remoteURL.absoluteString;
         if (self.videoTasks[key] || [self.scheduledVideoRetries containsObject:key]) return;
-        [self startVideoDownload:remoteURL];
+        self.startVideoDownload(remoteURL);
     });
 }
 
--(void)startVideoDownload:(NSURL *)remoteURL {
-    NSString *key = remoteURL.absoluteString;
-    if (self.videoTasks[key]) return;
-    NSURLSessionDownloadTask *task = [self.wiFiVideoSession downloadTaskWithURL:remoteURL
-                                                             completionHandler:^(NSURL *temporaryURL, NSURLResponse *response, NSError *error) {
-        NSError *resultError = error;
-        if (!resultError && [response isKindOfClass:NSHTTPURLResponse.class]) {
-            NSInteger statusCode = ((NSHTTPURLResponse *)response).statusCode;
-            if (statusCode < 200 || statusCode > 299) {
-                resultError = [self downloadErrorWithCode:statusCode
-                                              description:[NSString stringWithFormat:@"Remote video returned HTTP %ld.", (long)statusCode]];
+-(jobsByURLBlock _Nonnull)startVideoDownload{
+    @jobs_weakify(self)
+    return ^(NSURL * remoteURL){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSString *key = remoteURL.absoluteString;
+        if (self.videoTasks[key]) return;
+        NSURLSessionDownloadTask *task = [self.wiFiVideoSession downloadTaskWithURL:remoteURL
+                                                                 completionHandler:^(NSURL *temporaryURL, NSURLResponse *response, NSError *error) {
+            NSError *resultError = error;
+            if (!resultError && [response isKindOfClass:NSHTTPURLResponse.class]) {
+                NSInteger statusCode = ((NSHTTPURLResponse *)response).statusCode;
+                if (statusCode < 200 || statusCode > 299) {
+                    resultError = [self downloadErrorWithCode:statusCode
+                                                  description:[NSString stringWithFormat:@"Remote video returned HTTP %ld.", (long)statusCode]];
+                }
             }
-        }
-        NSURL *fileURL = nil;
-        if (!resultError && temporaryURL) {
-            fileURL = [self persistDownloadedFile:temporaryURL
-                                     forRemoteURL:remoteURL
-                                            error:&resultError];
-        } else if (!resultError) {
-            resultError = [self downloadErrorWithCode:-1
-                                          description:@"Remote video download returned no file."];
-        }
-        dispatch_async(self.stateQueue, ^{
-            [self handleVideoDownloadForRemoteURL:remoteURL
-                                          fileURL:fileURL
-                                            error:resultError];
-        });
-    }];
-    self.videoTasks[key] = task;
-    [task resume];
+            NSURL *fileURL = nil;
+            if (!resultError && temporaryURL) {
+                fileURL = [self persistDownloadedFile:temporaryURL
+                                         forRemoteURL:remoteURL
+                                                error:&resultError];
+            } else if (!resultError) {
+                resultError = [self downloadErrorWithCode:-1
+                                              description:@"Remote video download returned no file."];
+            }
+            dispatch_async(self.stateQueue, ^{
+                [self handleVideoDownloadForRemoteURL:remoteURL
+                                              fileURL:fileURL
+                                                error:resultError];
+            });
+        }];
+        self.videoTasks[key] = task;
+        task.resume;
+    };
 }
 
 -(nullable NSURL *)persistDownloadedFile:(NSURL *)temporaryURL
@@ -194,7 +212,7 @@ Prop_strong() NSMutableSet<NSString *> *scheduledVideoRetries;
                                      description:@"Remote video download returned an empty file."];
         };return nil;
     }
-    NSURL *destinationURL = [self localFileURLForRemoteURL:remoteURL];
+    NSURL *destinationURL = self.localFileURLForRemoteURL(remoteURL);
     if ([self.fileManager fileExistsAtPath:destinationURL.path]) {
         [self.fileManager removeItemAtURL:destinationURL error:nil];
     }
@@ -210,7 +228,7 @@ Prop_strong() NSMutableSet<NSString *> *scheduledVideoRetries;
     if (fileURL && !error) {
         [self.videoRetryAttempts removeObjectForKey:key];
         [self.scheduledVideoRetries removeObject:key];
-        [self removePendingVideoURL:remoteURL];
+        self.removePendingVideoURL(remoteURL);
         NSArray *completions = [self.videoCompletions[key] copy] ?: @[];
         [self.videoCompletions removeObjectForKey:key];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -223,40 +241,55 @@ Prop_strong() NSMutableSet<NSString *> *scheduledVideoRetries;
     NSInteger attempt = self.videoRetryAttempts[key].integerValue + 1;
     self.videoRetryAttempts[key] = @(attempt);
     [self.scheduledVideoRetries addObject:key];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)([self retryDelayForAttempt:attempt] * NSEC_PER_SEC)),
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.retryDelayForAttempt(attempt) * NSEC_PER_SEC)),
                    self.stateQueue, ^{
         [self.scheduledVideoRetries removeObject:key];
-        NSURL *cachedURL = [self cachedFileURLForRemoteURL:remoteURL];
+        NSURL *cachedURL = self.cachedFileURLForRemoteURL(remoteURL);
         if (cachedURL) {
             [self handleVideoDownloadForRemoteURL:remoteURL fileURL:cachedURL error:nil];
         } else {
-            [self startVideoDownload:remoteURL];
+            self.startVideoDownload(remoteURL);
         }
     });
 }
 
--(NSTimeInterval)retryDelayForAttempt:(NSInteger)attempt {
-    NSInteger exponent = MIN(MAX(0, attempt - 1), 6);
-    NSTimeInterval delay = 5;
-    for (NSInteger index = 0; index < exponent; index++) {
-        delay *= 2;
-    };return MIN(300, delay);
+-(JobsRetNSTimeIntervalByNSIntegerBlock _Nonnull)retryDelayForAttempt{
+    @jobs_weakify(self)
+    return ^NSTimeInterval(NSInteger attempt){
+        @jobs_strongify(self)
+        if (!self) return (NSTimeInterval){0};
+        NSInteger exponent = MIN(MAX(0, attempt - 1), 6);
+        NSTimeInterval delay = 5;
+        for (NSInteger index = 0; index < exponent; index++) {
+            delay *= 2;
+        };return MIN(300, delay);
+    };
 }
 
--(void)addPendingVideoURL:(NSURL *)remoteURL {
-    NSMutableOrderedSet<NSString *> *pendingURLs = [NSMutableOrderedSet orderedSetWithArray:
-                                                    [NSUserDefaults.standardUserDefaults stringArrayForKey:JobsOCSplashPendingVideoURLsKey] ?: @[]];
-    [pendingURLs addObject:remoteURL.absoluteString];
-    [NSUserDefaults.standardUserDefaults setObject:[pendingURLs.array sortedArrayUsingSelector:@selector(compare:)]
-                                            forKey:JobsOCSplashPendingVideoURLsKey];
+-(jobsByURLBlock _Nonnull)addPendingVideoURL{
+    @jobs_weakify(self)
+    return ^(NSURL * remoteURL){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSMutableOrderedSet<NSString *> *pendingURLs = [NSMutableOrderedSet orderedSetWithArray:
+                                                        [NSUserDefaults.standardUserDefaults stringArrayForKey:JobsOCSplashPendingVideoURLsKey] ?: @[]];
+        [pendingURLs addObject:remoteURL.absoluteString];
+        [NSUserDefaults.standardUserDefaults setObject:[pendingURLs.array sortedArrayUsingSelector:@selector(compare:)]
+                                                forKey:JobsOCSplashPendingVideoURLsKey];
+    };
 }
 
--(void)removePendingVideoURL:(NSURL *)remoteURL {
-    NSMutableOrderedSet<NSString *> *pendingURLs = [NSMutableOrderedSet orderedSetWithArray:
-                                                    [NSUserDefaults.standardUserDefaults stringArrayForKey:JobsOCSplashPendingVideoURLsKey] ?: @[]];
-    [pendingURLs removeObject:remoteURL.absoluteString];
-    [NSUserDefaults.standardUserDefaults setObject:[pendingURLs.array sortedArrayUsingSelector:@selector(compare:)]
-                                            forKey:JobsOCSplashPendingVideoURLsKey];
+-(jobsByURLBlock _Nonnull)removePendingVideoURL{
+    @jobs_weakify(self)
+    return ^(NSURL * remoteURL){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSMutableOrderedSet<NSString *> *pendingURLs = [NSMutableOrderedSet orderedSetWithArray:
+                                                        [NSUserDefaults.standardUserDefaults stringArrayForKey:JobsOCSplashPendingVideoURLsKey] ?: @[]];
+        [pendingURLs removeObject:remoteURL.absoluteString];
+        [NSUserDefaults.standardUserDefaults setObject:[pendingURLs.array sortedArrayUsingSelector:@selector(compare:)]
+                                                forKey:JobsOCSplashPendingVideoURLsKey];
+    };
 }
 
 -(NSError *)downloadErrorWithCode:(NSInteger)code description:(NSString *)description {
@@ -265,18 +298,28 @@ Prop_strong() NSMutableSet<NSString *> *scheduledVideoRetries;
                            userInfo:@{NSLocalizedDescriptionKey: description}];
 }
 
--(NSURL *)localFileURLForRemoteURL:(NSURL *)remoteURL {
-    NSString *fileExtension = remoteURL.pathExtension.length ? remoteURL.pathExtension : @"data";
-    return [[self.directoryURL URLByAppendingPathComponent:[self stableHash:remoteURL.absoluteString]] URLByAppendingPathExtension:fileExtension];
+-(JobsRetURLByURLBlock _Nonnull)localFileURLForRemoteURL{
+    @jobs_weakify(self)
+    return ^NSURL *(NSURL * remoteURL){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSString *fileExtension = remoteURL.pathExtension.length ? remoteURL.pathExtension : @"data";
+        return [[self.directoryURL URLByAppendingPathComponent:self.stableHash(remoteURL.absoluteString)] URLByAppendingPathExtension:fileExtension];
+    };
 }
 
--(NSString *)stableHash:(NSString *)value {
-    uint64_t hash = 14695981039346656037ULL;
-    const char *string = value.UTF8String;
-    while (*string) {
-        hash ^= (uint64_t)(unsigned char)(*string++);
-        hash *= 1099511628211ULL;
-    };return [NSString stringWithFormat:@"%llx", hash];
+-(JobsRetStrByStrBlock _Nonnull)stableHash{
+    @jobs_weakify(self)
+    return ^NSString *(NSString * value){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        uint64_t hash = 14695981039346656037ULL;
+        const char *string = value.UTF8String;
+        while (*string) {
+            hash ^= (uint64_t)(unsigned char)(*string++);
+            hash *= 1099511628211ULL;
+        };return [NSString stringWithFormat:@"%llx", hash];
+    };
 }
 
 @end

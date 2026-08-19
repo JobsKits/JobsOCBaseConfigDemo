@@ -6,16 +6,17 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_BASEVIEWCONTROLLER_31EF1238C2
-#define JOBS_HEADER_GUARD_BASEVIEWCONTROLLER_31EF1238C2
-
-#import <UIKit/UIKit.h>
-#import "JobsTabBarSettingVC.h"
 
 #if __has_include(<MJRefresh/MJRefresh.h>)
 #import <MJRefresh/MJRefresh.h>
 #else
 #import "MJRefresh.h"
 #endif
+
+#define JOBS_HEADER_GUARD_BASEVIEWCONTROLLER_31EF1238C2
+
+#import <UIKit/UIKit.h>
+#import "JobsTabBarSettingVC.h"
 
 #import "JobsBaseProtocolHeader.h"
 #import "JobsBasePopupViewHeader.h"
@@ -29,6 +30,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BaseViewController : JobsTabBarSettingVC <BaseViewControllerProtocol>
 
+-(JobsRetBaseViewControllerByNSUIntegerBlock _Nonnull)byJobsTag;
+
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN BaseViewController
+-(JobsRetBaseViewControllerByBOOLBlock _Nonnull)byLoadView;
+-(JobsRetBaseViewControllerByBOOLBlock _Nonnull)byViewDidAppear;
+-(JobsRetBaseViewControllerByBOOLBlock _Nonnull)byViewDidDisappear;
+-(JobsRetBaseViewControllerByBOOLBlock _Nonnull)byViewDidLoad;
+-(JobsRetBaseViewControllerByBOOLBlock _Nonnull)byViewWillAppear;
+-(JobsRetBaseViewControllerByBOOLBlock _Nonnull)byViewWillDisappear;
+-(JobsRetBaseViewControllerByCGFloatBlock _Nonnull)byGk_navBarAlpha;
+-(JobsRetBaseViewControllerByNSArrayUIBarButtonItemBlock _Nonnull)byGk_navRightBarButtonItems;
+-(JobsRetBaseViewControllerByUIBarButtonItemBlock _Nonnull)byGk_navRightBarButtonItem;
+-(JobsRetBaseViewControllerByUIViewBlock _Nonnull)byGk_navTitleView;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END BaseViewController
 @end
 
 NS_ASSUME_NONNULL_END
@@ -39,7 +54,7 @@ NS_ASSUME_NONNULL_END
     -(UIButtonModel *)backBtnModel{
         if(!_backBtnModel){
             @jobs_weakify(self)
-            _backBtnModel = self.makeBackBtnModel
+            _backBtnModel = self.jobsMakeBackBtnModel()
                 .byTitleFont(bayonRegular(JobsWidth(18)))
                 .byTitleCor(JobsWhiteColor)
                 .bySelectedTitleCor(JobsWhiteColor)

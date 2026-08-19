@@ -6,6 +6,7 @@
 //
 
 #import "JobsDropDownListView.h"
+
 #import "UIScrollView+AnimationKit.h"
 #import "UIScrollView+UIScrollViewProtocol.h"
 #import "UITableView+Extra.h"
@@ -21,7 +22,23 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsDropDownListView
+@interface JobsDropDownListView (JobsPropertyDSLSetterAutogen_b921385976)
+-(void)setDataMutArr:(NSMutableArray <__kindof UIViewModel *>* _Nullable)data;
+-(void)setTbvCellMutArr:(NSMutableArray <__kindof UITableViewCell *>* _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsDropDownListView
+
 @implementation JobsDropDownListView
+-(JobsRetJobsDropDownListViewByDirectionBlock _Nonnull)byDirection{
+    @jobs_weakify(self)
+    return ^__kindof JobsDropDownListView *_Nullable(JobsDropDownListViewDirection data){
+        @jobs_strongify(self)
+        self.direction = data;
+        return self;
+    };
+}
+
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
 }
@@ -30,10 +47,10 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
     if (self = [super init]) {
         self.tableView.byShow(self);
         self.byBgColor(JobsClearColor);
-        self.layer.shadowColor = HEXCOLOR(0x5B6472).CGColor;
-        self.layer.shadowOpacity = 0.16f;
-        self.layer.shadowRadius = JobsWidth(12);
-        self.layer.shadowOffset = CGSizeMake(0, JobsWidth(8));
+        self.layer.byShadowColor(HEXCOLOR(0x5B6472).CGColor);
+        self.layer.byShadowOpacity(0.16f);
+        self.layer.byShadowRadius(JobsWidth(12));
+        self.layer.byShadowOffset(CGSizeMake(0, JobsWidth(8)));
     };return self;
 }
 
@@ -41,10 +58,10 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
     if (self = [super initWithFrame:frame]) {
         self.tableView.byShow(self);
         self.byBgColor(JobsClearColor);
-        self.layer.shadowColor = HEXCOLOR(0x5B6472).CGColor;
-        self.layer.shadowOpacity = 0.16f;
-        self.layer.shadowRadius = JobsWidth(12);
-        self.layer.shadowOffset = CGSizeMake(0, JobsWidth(8));
+        self.layer.byShadowColor(HEXCOLOR(0x5B6472).CGColor);
+        self.layer.byShadowOpacity(0.16f);
+        self.layer.byShadowRadius(JobsWidth(12));
+        self.layer.byShadowOffset(CGSizeMake(0, JobsWidth(8)));
     };return self;
 }
 
@@ -53,24 +70,34 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
         self.tbvCell_cls = tableViewClass;
         self.tableView.byShow(self);
         self.byBgColor(JobsClearColor);
-        self.layer.shadowColor = HEXCOLOR(0x5B6472).CGColor;
-        self.layer.shadowOpacity = 0.16f;
-        self.layer.shadowRadius = JobsWidth(12);
-        self.layer.shadowOffset = CGSizeMake(0, JobsWidth(8));
+        self.layer.byShadowColor(HEXCOLOR(0x5B6472).CGColor);
+        self.layer.byShadowOpacity(0.16f);
+        self.layer.byShadowRadius(JobsWidth(12));
+        self.layer.byShadowOffset(CGSizeMake(0, JobsWidth(8)));
     };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
-    CGRect currentFrame = [self convertRect:self.bounds toView:jobsGetMainWindow()];
-    self.tableView.contentInset = UIEdgeInsetsMake(0,
-                                                   0,
-                                                   currentFrame.origin.y,
-                                                   0);
-    /// 动画效果
-    [self.tableView alphaAnimWithSortingType:(SortingType)self.direction
-                              animationBlock:nil
-                             completionBlock:nil];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsDropDownListView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+        CGRect currentFrame = [self convertRect:self.bounds toView:jobsGetMainWindow()];
+        self.tableView.contentInset = UIEdgeInsetsMake(0,
+                                                       0,
+                                                       currentFrame.origin.y,
+                                                       0);
+        /// 动画效果
+        [self.tableView alphaAnimWithSortingType:(SortingType)self.direction
+                                  animationBlock:nil
+                                 completionBlock:nil];
+    };
 }
 
 -(jobsByCtrlBlock _Nonnull)dropDownListViewDisappear{
@@ -78,7 +105,7 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
     return ^(UIControl *_Nullable ctrl){
         @jobs_strongify(self)
         if (ctrl) ctrl.selected = NO;
-        self.objBlock = nil;
+        self.byObjBlock(nil);
         [self removeFromSuperview];
     };
 }
@@ -88,21 +115,36 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
     return ^(NSArray <__kindof UIViewModel *>*_Nullable model) {
         @jobs_strongify(self)
         if ([model isKindOfClass:NSArray.class]) {
-            [self jobsReloadDataWithModels:model];
+            self.jobsReloadDataWithModels(model);
         }
     };
 }
 
--(JobsDropDownListView *_Nonnull)jobsReloadDataWithModels:(NSArray <__kindof UIViewModel *>*_Nullable)models{
-    self.dataMutArr = models ? models.mutableCopy : NSMutableArray.array;
-    self.tbvCellMutArr = nil;
-    self.tableView.byShow(self);
-    [self.tableView reloadData];
-    return self;
+-(JobsRetJobsDropDownListViewByNSArrayUIViewModelBlock _Nonnull)jobsReloadDataWithModels{
+    @jobs_weakify(self)
+    return ^JobsDropDownListView *_Nonnull(NSArray <__kindof UIViewModel *>*_Nullable models){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.byDataMutArr(models ? models.mutableCopy : NSMutableArray.array);
+        self.byTbvCellMutArr(nil);
+        self.tableView.byShow(self);
+        [self.tableView reloadData];
+        return self;
+    };
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsDropDownListView.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 1;
+    };
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
@@ -168,10 +210,10 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     @jobs_strongify(self)
                     make.edges.equalTo(self);
                 });
-            tableView.layer.cornerRadius = JobsWidth(16);
-            tableView.layer.borderWidth = JobsWidth(1);
-            tableView.layer.borderColor = HEXCOLOR(0xEDF1F5).CGColor;
-            tableView.layer.masksToBounds = YES;
+            tableView.layer.byCornerRadius(JobsWidth(16));
+            tableView.layer.byBorderWidth(JobsWidth(1));
+            tableView.layer.byBorderColor(HEXCOLOR(0xEDF1F5).CGColor);
+            tableView.layer.byMasksToBounds(YES);
         });
     };return _tableView;
 }
@@ -197,4 +239,23 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     };return _dataMutArr;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsDropDownListView
+-(JobsRetJobsDropDownListViewByNSMutableArrayUITableViewCellBlock _Nonnull)byTbvCellMutArr{
+    @jobs_weakify(self)
+    return ^__kindof JobsDropDownListView * _Nullable(NSMutableArray <__kindof UITableViewCell *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setTbvCellMutArr:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsDropDownListViewByNSMutableArrayUIViewModelBlock _Nonnull)byDataMutArr{
+    @jobs_weakify(self)
+    return ^__kindof JobsDropDownListView * _Nullable(NSMutableArray <__kindof UIViewModel *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setDataMutArr:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsDropDownListView
 @end

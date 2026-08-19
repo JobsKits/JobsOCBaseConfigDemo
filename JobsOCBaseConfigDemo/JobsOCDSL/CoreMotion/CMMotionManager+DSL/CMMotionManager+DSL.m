@@ -9,87 +9,87 @@
 
 @implementation CMMotionManager (DSL)
 
-+(JobsRetCMMotionManagerByVoidBlock)byMotionManager{
++(JobsRetCMMotionManagerByVoidBlock _Nonnull)byMotionManager{
     return ^__kindof CMMotionManager *_Nullable(void){ return CMMotionManager.new; };
 }
 
--(JobsRetCMMotionManagerByTimeIntervalBlock)byAccelerometerUpdateInterval{
+-(JobsRetCMMotionManagerByTimeIntervalBlock _Nonnull)byAccelerometerUpdateInterval{
     return ^__kindof CMMotionManager *_Nullable(NSTimeInterval data){ self.accelerometerUpdateInterval = data; return self; };
 }
 
--(JobsRetCMMotionManagerByTimeIntervalBlock)byGyroUpdateInterval{
+-(JobsRetCMMotionManagerByTimeIntervalBlock _Nonnull)byGyroUpdateInterval{
     return ^__kindof CMMotionManager *_Nullable(NSTimeInterval data){ self.gyroUpdateInterval = data; return self; };
 }
 
--(JobsRetCMMotionManagerByTimeIntervalBlock)byMagnetometerUpdateInterval{
+-(JobsRetCMMotionManagerByTimeIntervalBlock _Nonnull)byMagnetometerUpdateInterval{
     return ^__kindof CMMotionManager *_Nullable(NSTimeInterval data){ self.magnetometerUpdateInterval = data; return self; };
 }
 
--(JobsRetCMMotionManagerByTimeIntervalBlock)byDeviceMotionUpdateInterval{
+-(JobsRetCMMotionManagerByTimeIntervalBlock _Nonnull)byDeviceMotionUpdateInterval{
     return ^__kindof CMMotionManager *_Nullable(NSTimeInterval data){ self.deviceMotionUpdateInterval = data; return self; };
 }
 
--(JobsRetCMMotionManagerByBOOLBlock)byShowsDeviceMovementDisplay{
+-(JobsRetCMMotionManagerByBOOLBlock _Nonnull)byShowsDeviceMovementDisplay{
     return ^__kindof CMMotionManager *_Nullable(BOOL data){ self.showsDeviceMovementDisplay = data; return self; };
 }
 
--(JobsRetCMMotionManagerByVoidBlock)byStartAccelerometerUpdates{
+-(JobsRetCMMotionManagerByVoidBlock _Nonnull)byStartAccelerometerUpdates{
     return ^__kindof CMMotionManager *_Nullable(void){ [self startAccelerometerUpdates]; return self; };
 }
 
--(JobsRetCMMotionManagerByOperationQueueAndAccelerometerHandlerBlock)byStartAccelerometerUpdatesToQueue{
+-(JobsRetCMMotionManagerByOperationQueueAndAccelerometerHandlerBlock _Nonnull)byStartAccelerometerUpdatesToQueue{
     return ^__kindof CMMotionManager *_Nullable(NSOperationQueue *queue, CMAccelerometerHandler handler){ [self startAccelerometerUpdatesToQueue:queue withHandler:handler]; return self; };
 }
 
--(JobsRetCMMotionManagerByVoidBlock)byStopAccelerometerUpdates{
+-(JobsRetCMMotionManagerByVoidBlock _Nonnull)byStopAccelerometerUpdates{
     return ^__kindof CMMotionManager *_Nullable(void){ [self stopAccelerometerUpdates]; return self; };
 }
 
--(JobsRetCMMotionManagerByVoidBlock)byStartGyroUpdates{
+-(JobsRetCMMotionManagerByVoidBlock _Nonnull)byStartGyroUpdates{
     return ^__kindof CMMotionManager *_Nullable(void){ [self startGyroUpdates]; return self; };
 }
 
--(JobsRetCMMotionManagerByOperationQueueAndGyroHandlerBlock)byStartGyroUpdatesToQueue{
+-(JobsRetCMMotionManagerByOperationQueueAndGyroHandlerBlock _Nonnull)byStartGyroUpdatesToQueue{
     return ^__kindof CMMotionManager *_Nullable(NSOperationQueue *queue, CMGyroHandler handler){ [self startGyroUpdatesToQueue:queue withHandler:handler]; return self; };
 }
 
--(JobsRetCMMotionManagerByVoidBlock)byStopGyroUpdates{
+-(JobsRetCMMotionManagerByVoidBlock _Nonnull)byStopGyroUpdates{
     return ^__kindof CMMotionManager *_Nullable(void){ [self stopGyroUpdates]; return self; };
 }
 
--(JobsRetCMMotionManagerByVoidBlock)byStartMagnetometerUpdates{
+-(JobsRetCMMotionManagerByVoidBlock _Nonnull)byStartMagnetometerUpdates{
     return ^__kindof CMMotionManager *_Nullable(void){ [self startMagnetometerUpdates]; return self; };
 }
 
--(JobsRetCMMotionManagerByOperationQueueAndMagnetometerHandlerBlock)byStartMagnetometerUpdatesToQueue{
+-(JobsRetCMMotionManagerByOperationQueueAndMagnetometerHandlerBlock _Nonnull)byStartMagnetometerUpdatesToQueue{
     return ^__kindof CMMotionManager *_Nullable(NSOperationQueue *queue, CMMagnetometerHandler handler){ [self startMagnetometerUpdatesToQueue:queue withHandler:handler]; return self; };
 }
 
--(JobsRetCMMotionManagerByVoidBlock)byStopMagnetometerUpdates{
+-(JobsRetCMMotionManagerByVoidBlock _Nonnull)byStopMagnetometerUpdates{
     return ^__kindof CMMotionManager *_Nullable(void){ [self stopMagnetometerUpdates]; return self; };
 }
 
--(JobsRetCMMotionManagerByVoidBlock)byStartDeviceMotionUpdates{
+-(JobsRetCMMotionManagerByVoidBlock _Nonnull)byStartDeviceMotionUpdates{
     return ^__kindof CMMotionManager *_Nullable(void){ [self startDeviceMotionUpdates]; return self; };
 }
 
--(JobsRetCMMotionManagerByOperationQueueAndDeviceMotionHandlerBlock)byStartDeviceMotionUpdatesToQueue{
+-(JobsRetCMMotionManagerByOperationQueueAndDeviceMotionHandlerBlock _Nonnull)byStartDeviceMotionUpdatesToQueue{
     return ^__kindof CMMotionManager *_Nullable(NSOperationQueue *queue, CMDeviceMotionHandler handler){ [self startDeviceMotionUpdatesToQueue:queue withHandler:handler]; return self; };
 }
 
--(JobsRetCMMotionManagerByAttitudeReferenceFrameBlock)byStartDeviceMotionUpdatesUsingReferenceFrame{
+-(JobsRetCMMotionManagerByAttitudeReferenceFrameBlock _Nonnull)byStartDeviceMotionUpdatesUsingReferenceFrame{
     return ^__kindof CMMotionManager *_Nullable(CMAttitudeReferenceFrame data){ [self startDeviceMotionUpdatesUsingReferenceFrame:data]; return self; };
 }
 
--(JobsRetCMMotionManagerByReferenceFrameOperationQueueAndDeviceMotionHandlerBlock)byStartDeviceMotionUpdatesUsingReferenceFrameToQueue{
+-(JobsRetCMMotionManagerByReferenceFrameOperationQueueAndDeviceMotionHandlerBlock _Nonnull)byStartDeviceMotionUpdatesUsingReferenceFrameToQueue{
     return ^__kindof CMMotionManager *_Nullable(CMAttitudeReferenceFrame referenceFrame, NSOperationQueue *queue, CMDeviceMotionHandler handler){ [self startDeviceMotionUpdatesUsingReferenceFrame:referenceFrame toQueue:queue withHandler:handler]; return self; };
 }
 
--(JobsRetCMMotionManagerByVoidBlock)byStopDeviceMotionUpdates{
+-(JobsRetCMMotionManagerByVoidBlock _Nonnull)byStopDeviceMotionUpdates{
     return ^__kindof CMMotionManager *_Nullable(void){ [self stopDeviceMotionUpdates]; return self; };
 }
 
--(JobsRetCMMotionManagerByVoidBlock)byStopAllUpdates{
+-(JobsRetCMMotionManagerByVoidBlock _Nonnull)byStopAllUpdates{
     return ^__kindof CMMotionManager *_Nullable(void){
         [self stopAccelerometerUpdates];
         [self stopGyroUpdates];

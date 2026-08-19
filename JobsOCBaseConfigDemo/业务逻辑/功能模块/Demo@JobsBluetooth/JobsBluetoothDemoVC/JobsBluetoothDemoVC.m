@@ -6,6 +6,7 @@
 //
 
 #import "JobsBluetoothDemoVC.h"
+
 #import "JobsBluetoothFeatureDemoVC.h"
 
 @interface JobsBluetoothDemoVC ()
@@ -19,18 +20,38 @@ Prop_copy()NSArray <NSString *>*features;
 @synthesize tableView = _tableView;
 
 -(void)loadView{
-    [super loadView];
-    self.viewModel.byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-        data.byText(@"JobsBluetooth 全能力 Demo".tr)
-            .byFont(UIFontWeightRegularSize(16));
-    });
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBluetoothDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        self.viewModel.byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(@"JobsBluetooth 全能力 Demo".jobsTr())
+                .byFont(UIFontWeightRegularSize(16));
+        });
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.tableView.byVisible(YES);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBluetoothDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.tableView.byVisible(YES);
+    };
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{return self.features.count;}
@@ -43,7 +64,7 @@ Prop_copy()NSArray <NSString *>*features;
         label.byText([NSString stringWithFormat:@"%ld. %@", (long)indexPath.row + 1, self.features[indexPath.row]])
             .byFont(UIFontWeightMediumSize(15));
     }).byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
-        label.byText(indexPath.row == 21 ? @"进入详情页，模拟器可直接运行".tr : @"进入独立功能详情页".tr)
+        label.byText(indexPath.row == 21 ? @"进入详情页，模拟器可直接运行".jobsTr() : @"进入独立功能详情页".jobsTr())
             .byFont(UIFontWeightRegularSize(12));
     }).byAccessoryType(UITableViewCellAccessoryDisclosureIndicator);
 }
@@ -73,34 +94,34 @@ Prop_copy()NSArray <NSString *>*features;
 
 -(NSArray<NSString *> *)features{
     if (!_features) _features = @[
-        @"蓝牙状态与权限".tr,
-        @"扫描配置".tr,
-        @"扫描过滤与去重".tr,
-        @"实时 RSSI".tr,
-        @"单设备连接".tr,
-        @"多设备并发连接".tr,
-        @"Service / Characteristic / Descriptor 浏览".tr,
-        @"Read".tr,
-        @"Write With Response".tr,
-        @"Write Without Response".tr,
-        @"Notify 开启与关闭".tr,
-        @"MTU 与自动分包".tr,
-        @"命令队列".tr,
-        @"超时与重试".tr,
-        @"自动重连".tr,
-        @"主动断开与异常断开".tr,
-        @"前后台与状态恢复".tr,
-        @"Device Profile".tr,
-        @"协议 Encoder / Decoder".tr,
-        @"CRC 校验策略".tr,
-        @"初始化握手".tr,
-        @"Mock 蓝牙设备".tr,
-        @"数据录制与回放".tr,
-        @"错误与诊断日志".tr,
-        @"Objective-C DSL".tr,
-        @"Swift API 设计".tr,
-        @"OTA 扩展接口".tr,
-        @"未知协议占位接入".tr
+        @"蓝牙状态与权限".jobsTr(),
+        @"扫描配置".jobsTr(),
+        @"扫描过滤与去重".jobsTr(),
+        @"实时 RSSI".jobsTr(),
+        @"单设备连接".jobsTr(),
+        @"多设备并发连接".jobsTr(),
+        @"Service / Characteristic / Descriptor 浏览".jobsTr(),
+        @"Read".jobsTr(),
+        @"Write With Response".jobsTr(),
+        @"Write Without Response".jobsTr(),
+        @"Notify 开启与关闭".jobsTr(),
+        @"MTU 与自动分包".jobsTr(),
+        @"命令队列".jobsTr(),
+        @"超时与重试".jobsTr(),
+        @"自动重连".jobsTr(),
+        @"主动断开与异常断开".jobsTr(),
+        @"前后台与状态恢复".jobsTr(),
+        @"Device Profile".jobsTr(),
+        @"协议 Encoder / Decoder".jobsTr(),
+        @"CRC 校验策略".jobsTr(),
+        @"初始化握手".jobsTr(),
+        @"Mock 蓝牙设备".jobsTr(),
+        @"数据录制与回放".jobsTr(),
+        @"错误与诊断日志".jobsTr(),
+        @"Objective-C DSL".jobsTr(),
+        @"Swift API 设计".jobsTr(),
+        @"OTA 扩展接口".jobsTr(),
+        @"未知协议占位接入".jobsTr()
     ];
     return _features;
 }

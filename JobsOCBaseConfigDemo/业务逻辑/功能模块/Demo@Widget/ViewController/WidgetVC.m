@@ -37,6 +37,13 @@ Prop_strong()UILabel *footnoteLabel;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN WidgetVC
+@interface WidgetVC (JobsPropertyDSLSetterAutogen_e963e9e556)
+-(void)setCounter:(NSInteger)data;
+-(void)setWidgetFamily:(JobsWidgetDemoFamily)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END WidgetVC
+
 @implementation WidgetVC
 - (void)dealloc{
     JobsRemoveNotification(self);
@@ -44,61 +51,86 @@ Prop_strong()UILabel *footnoteLabel;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if (self.viewModel.pushOrPresent != ComingStyle_Unknown) {
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(WidgetVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if (self.viewModel.pushOrPresent != ComingStyle_Unknown) {
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(@"iOS Widget Demo".tr)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        .byBgCor(UIColor.systemGroupedBackgroundColor)
-        .byNavBgCor(UIColor.systemBackgroundColor);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(@"iOS Widget Demo".jobsTr())
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            .byBgCor(UIColor.systemGroupedBackgroundColor)
+            .byNavBgCor(UIColor.systemBackgroundColor);
+    };
 }
 
 - (void)viewDidLoad{
-    [super viewDidLoad];
-    self.makeNavByAlpha(1);
-    self.view.byBgColor(UIColor.systemGroupedBackgroundColor);
-    self.counter = JobsWidgetCenterBridge.counter;
-    [self setupDemo];
-    [self applyWidgetFamily:JobsWidgetDemoFamilyMedium
-                     status:@"时间线：已生成当前快照"];
-    [self syncHomeScreenWidgetWithStatus:@"桌面 Widget：共享状态已就绪"];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(WidgetVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
 }
 
--(void)setupDemo{
-    self.widgetScrollView.byAlpha(1);
-    self.contentView.byAlpha(1);
-    self.introLabel.byAlpha(1);
-    self.familySelectorView.byAlpha(1);
-    self.smallFamilyButton.byAlpha(1);
-    self.mediumFamilyButton.byAlpha(1);
-    self.largeFamilyButton.byAlpha(1);
-    self.previewCard.byAlpha(1);
-    self.previewEyebrowLabel.byAlpha(1);
-    self.previewTitleLabel.byAlpha(1);
-    self.previewTimeLabel.byAlpha(1);
-    self.previewCounterLabel.byAlpha(1);
-    self.previewDescriptionLabel.byAlpha(1);
-    self.increaseButton.byAlpha(1);
-    self.refreshButton.byAlpha(1);
-    self.timelineLabel.byAlpha(1);
-    self.footnoteLabel.byAlpha(1);
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.makeNavByAlpha(1);
+        self.view.byBgColor(UIColor.systemGroupedBackgroundColor);
+        self.byCounter(JobsWidgetCenterBridge.jobsCounter());
+        self.setupDemo();
+        [self applyWidgetFamily:JobsWidgetDemoFamilyMedium
+                         status:@"时间线：已生成当前快照"];
+        self.syncHomeScreenWidgetWithStatus(@"桌面 Widget：共享状态已就绪");
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)setupDemo{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.widgetScrollView.byAlpha(1);
+        self.contentView.byAlpha(1);
+        self.introLabel.byAlpha(1);
+        self.familySelectorView.byAlpha(1);
+        self.smallFamilyButton.byAlpha(1);
+        self.mediumFamilyButton.byAlpha(1);
+        self.largeFamilyButton.byAlpha(1);
+        self.previewCard.byAlpha(1);
+        self.previewEyebrowLabel.byAlpha(1);
+        self.previewTitleLabel.byAlpha(1);
+        self.previewTimeLabel.byAlpha(1);
+        self.previewCounterLabel.byAlpha(1);
+        self.previewDescriptionLabel.byAlpha(1);
+        self.increaseButton.byAlpha(1);
+        self.refreshButton.byAlpha(1);
+        self.timelineLabel.byAlpha(1);
+        self.footnoteLabel.byAlpha(1);
+    };
 }
 
 -(void)applyWidgetFamily:(JobsWidgetDemoFamily)family
                   status:(NSString *)status{
-    self.widgetFamily = family;
+    self.byWidgetFamily(family);
     self.previewCard.byRemake(^(MASConstraintMaker *make) {
         make.top.equalTo(self.familySelectorView.mas_bottom).offset(JobsWidth(18));
         make.centerX.equalTo(self.contentView);
@@ -109,61 +141,86 @@ Prop_strong()UILabel *footnoteLabel;
             make.height.mas_equalTo(JobsWidth(family == JobsWidgetDemoFamilyMedium ? 174 : 310));
         }
     });
-    [self refreshFamilyButtonStyles];
-    [self refreshPreviewWithStatus:status];
+    self.refreshFamilyButtonStyles();
+    self.refreshPreviewWithStatus(status);
 }
 
--(void)refreshFamilyButtonStyles{
-    NSArray<BaseButton *> *buttons = @[self.smallFamilyButton,
-                                      self.mediumFamilyButton,
-                                      self.largeFamilyButton];
-    [buttons enumerateObjectsUsingBlock:^(BaseButton * _Nonnull button, NSUInteger index, BOOL * _Nonnull stop) {
-        BOOL selected = index == self.widgetFamily;
-        button
-            .jobsResetBtnTitleCor(selected ? UIColor.whiteColor : UIColor.labelColor)
-            .jobsResetBtnBgCor(selected ? UIColor.systemBlueColor : UIColor.clearColor);
-    }];
+-(jobsByVoidBlock _Nonnull)refreshFamilyButtonStyles{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        NSArray<BaseButton *> *buttons = @[self.smallFamilyButton,
+                                          self.mediumFamilyButton,
+                                          self.largeFamilyButton];
+        [buttons enumerateObjectsUsingBlock:^(BaseButton * _Nonnull button, NSUInteger index, BOOL * _Nonnull stop) {
+            BOOL selected = index == self.widgetFamily;
+            button
+                .jobsResetBtnTitleCor(selected ? UIColor.whiteColor : UIColor.labelColor)
+                .jobsResetBtnBgCor(selected ? UIColor.systemBlueColor : UIColor.clearColor);
+        }];
+    };
 }
 
--(void)refreshPreviewWithStatus:(NSString *)status{
-    NSString *familyText = nil;
-    switch (self.widgetFamily) {
-        /// 处理 JobsWidgetDemoFamilySmall 分支
-        case JobsWidgetDemoFamilySmall:
-            familyText = @"小号：一眼读取核心状态";
-            break;
-        /// 处理 JobsWidgetDemoFamilyMedium 分支
-        case JobsWidgetDemoFamilyMedium:
-            familyText = @"中号：展示状态与下一步行动";
-            break;
-        /// 处理 JobsWidgetDemoFamilyLarge 分支
-        case JobsWidgetDemoFamilyLarge:
-            familyText = @"大号：承载更完整的信息层级与时间线摘要";
-            break;
-    }
-    self.previewTimeLabel.byText(NSDateFormatter.byDateFormatterWithDateFormat(@"HH:mm:ss")
-                                 .byStringFromDate(NSDate.date));
-    self.previewCounterLabel.byText([NSString stringWithFormat:@"今日进度 %ld / 12",(long)self.counter]);
-    self.previewDescriptionLabel.byText(familyText);
-    self.timelineLabel.byText([NSString stringWithFormat:@"%@ · %@",
-                               status,
-                               NSDateFormatter.byDateFormatterWithDateFormat(@"HH:mm:ss")
-                                   .byStringFromDate(NSDate.date)]);
+-(jobsByStrBlock _Nonnull)refreshPreviewWithStatus{
+    @jobs_weakify(self)
+    return ^(NSString * status){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSString *familyText = nil;
+        switch (self.widgetFamily) {
+            /// 处理 JobsWidgetDemoFamilySmall 分支
+            case JobsWidgetDemoFamilySmall:
+                familyText = @"小号：一眼读取核心状态";
+                break;
+            /// 处理 JobsWidgetDemoFamilyMedium 分支
+            case JobsWidgetDemoFamilyMedium:
+                familyText = @"中号：展示状态与下一步行动";
+                break;
+            /// 处理 JobsWidgetDemoFamilyLarge 分支
+            case JobsWidgetDemoFamilyLarge:
+                familyText = @"大号：承载更完整的信息层级与时间线摘要";
+                break;
+        }
+        self.previewTimeLabel.byText(NSDateFormatter.byDateFormatterWithDateFormat(@"HH:mm:ss")
+                                     .byStringFromDate(NSDate.date));
+        self.previewCounterLabel.byText([NSString stringWithFormat:@"今日进度 %ld / 12",(long)self.counter]);
+        self.previewDescriptionLabel.byText(familyText);
+        self.timelineLabel.byText([NSString stringWithFormat:@"%@ · %@",
+                                   status,
+                                   NSDateFormatter.byDateFormatterWithDateFormat(@"HH:mm:ss")
+                                       .byStringFromDate(NSDate.date)]);
+    };
 }
 
--(void)increaseCounter{
-    self.counter = self.counter >= 12 ? 1 : self.counter + 1;
-    [self syncHomeScreenWidgetWithStatus:@"桌面 Widget：计数已同步"];
+-(jobsByVoidBlock _Nonnull)increaseCounter{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byCounter(self.counter >= 12 ? 1 : self.counter + 1);
+        self.syncHomeScreenWidgetWithStatus(@"桌面 Widget：计数已同步");
+    };
 }
 
--(void)reloadPreviewTimeline{
-    [JobsWidgetCenterBridge reloadTimelines];
-    [self refreshPreviewWithStatus:@"桌面 Widget：时间线已重载"];
+-(jobsByVoidBlock _Nonnull)reloadPreviewTimeline{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        JobsWidgetCenterBridge.jobsReloadTimelines();
+        self.refreshPreviewWithStatus(@"桌面 Widget：时间线已重载");
+    };
 }
 
--(void)syncHomeScreenWidgetWithStatus:(NSString *)status{
-    [JobsWidgetCenterBridge saveCounter:self.counter];
-    [self refreshPreviewWithStatus:status];
+-(jobsByStrBlock _Nonnull)syncHomeScreenWidgetWithStatus{
+    @jobs_weakify(self)
+    return ^(NSString * status){
+        @jobs_strongify(self)
+        if (!self) return;
+        JobsWidgetCenterBridge.jobsSaveCounter(self.counter);
+        self.refreshPreviewWithStatus(status);
+    };
 }
 
 -(BaseButton *)makeFamilyButtonWithTitle:(NSString *)title
@@ -386,7 +443,7 @@ Prop_strong()UILabel *footnoteLabel;
             .jobsResetBtnCornerRadiusValue(JobsWidth(12))
             .onClickBy(^(__unused UIButton *sender) {
                 @jobs_strongify(self)
-                [self increaseCounter];
+                self.increaseCounter();
             })
             .addOn(self.contentView)
             .byAdd(^(MASConstraintMaker *make) {
@@ -409,7 +466,7 @@ Prop_strong()UILabel *footnoteLabel;
             .jobsResetBtnCornerRadiusValue(JobsWidth(12))
             .onClickBy(^(__unused UIButton *sender) {
                 @jobs_strongify(self)
-                [self reloadPreviewTimeline];
+                self.reloadPreviewTimeline();
             })
             .addOn(self.contentView)
             .byAdd(^(MASConstraintMaker *make) {
@@ -455,4 +512,23 @@ Prop_strong()UILabel *footnoteLabel;
     };return _footnoteLabel;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN WidgetVC
+-(JobsRetWidgetVCByJobsWidgetDemoFamilyBlock _Nonnull)byWidgetFamily{
+    @jobs_weakify(self)
+    return ^__kindof WidgetVC * _Nullable(JobsWidgetDemoFamily data){
+        @jobs_strongify(self)
+        [self setWidgetFamily:data];
+        return self;
+    };
+}
+
+-(JobsRetWidgetVCByNSIntegerBlock _Nonnull)byCounter{
+    @jobs_weakify(self)
+    return ^__kindof WidgetVC * _Nullable(NSInteger data){
+        @jobs_strongify(self)
+        [self setCounter:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END WidgetVC
 @end

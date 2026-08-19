@@ -6,15 +6,16 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_ZFPLAYERCONTROLLER_DSL_44F11BFC9D
-#define JOBS_HEADER_GUARD_ZFPLAYERCONTROLLER_DSL_44F11BFC9D
-
-#import <UIKit/UIKit.h>
 
 #if __has_include(<ZFPlayer/ZFPlayer.h>)
 #import <ZFPlayer/ZFPlayer.h>
 #else
 #import "ZFPlayer.h"
 #endif
+
+#define JOBS_HEADER_GUARD_ZFPLAYERCONTROLLER_DSL_44F11BFC9D
+
+#import <UIKit/UIKit.h>
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"
@@ -40,16 +41,16 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetZFPlayerByDisableGestureBlock _Nonnull)byDisableGestureTypes;
 -(JobsRetZFPlayerByDisablePanBlock _Nonnull)byDisablePanMovingDirection;
 
--(__kindof ZFPlayerController *_Nonnull)byPlay;
--(__kindof ZFPlayerController *_Nonnull)byPause;
--(__kindof ZFPlayerController *_Nonnull)byStop;
--(__kindof ZFPlayerController *_Nonnull)byPlayNext;
--(__kindof ZFPlayerController *_Nonnull)byPlayPrevious;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)byPlay;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)byPause;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)byStop;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)byPlayNext;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)byPlayPrevious;
 -(JobsRetZFPlayerByNSIntegerBlock _Nonnull)byPlayIndex;
 -(JobsRetZFPlayerByTimeCompletionBlock _Nonnull)bySeekToTime;
 -(JobsRetZFPlayerByViewBlock _Nonnull)byAddPlayerViewToContainerView;
--(__kindof ZFPlayerController *_Nonnull)byAddPlayerViewToCell;
--(__kindof ZFPlayerController *_Nonnull)byAddPlayerViewToSmallFloatView;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)byAddPlayerViewToCell;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)byAddPlayerViewToSmallFloatView;
 -(JobsRetZFPlayerByOrientationBlock _Nonnull)byRotateToOrientation;
 -(JobsRetZFPlayerByFullScreenBlock _Nonnull)byEnterFullScreen;
 
@@ -62,6 +63,26 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetZFPlayerByMediaBlock _Nonnull)onPlayDidEnd;
 -(JobsRetZFPlayerByOrientationChangeBlock _Nonnull)onOrientationWillChange;
 -(JobsRetZFPlayerByOrientationChangeBlock _Nonnull)onOrientationDidChanged;
+
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN ZFPlayerController
+-(JobsRetZFPlayerByBOOLBlock _Nonnull)byAllowOrentitaionRotation;
+-(JobsRetZFPlayerByBOOLBlock _Nonnull)byWWANAutoPlay;
+-(JobsRetZFPlayerByCGFloatBlock _Nonnull)byPlayerDisapperaPercent;
+-(JobsRetZFPlayerControllerByvoidIDZFPlayerMediaPlaybackassetBlock _Nonnull)byPlayerDidToEnd;
+-(JobsRetZFPlayerControllerByvoidIDZFPlayerMediaPlaybackassetNSTimeIntervalcurrentTimebff1d962bBlock _Nonnull)byPlayerPlayTimeChanged;
+-(JobsRetZFPlayerControllerByvoidIDZFPlayerMediaPlaybackassetNSURLassetURLBlock _Nonnull)byPlayerPrepareToPlay;
+-(JobsRetZFPlayerControllerByvoidIDZFPlayerMediaPlaybackassetNSURLassetURLBlock _Nonnull)byPlayerReadyToPlay;
+-(JobsRetZFPlayerControllerByvoidIDZFPlayerMediaPlaybackassetZFPlayerLoadStateloadStateBlock _Nonnull)byPlayerLoadStateChanged;
+-(JobsRetZFPlayerControllerByvoidIDZFPlayerMediaPlaybackassetZFPlayerPlaybackStateplayStateBlock _Nonnull)byPlayerPlayStateChanged;
+-(JobsRetZFPlayerControllerByvoidIDZFPlayerMediaPlaybackassetiderrorBlock _Nonnull)byPlayerPlayFailed;
+-(JobsRetZFPlayerControllerByvoidZFPlayerControllerplayerBOOLisFullScreenBlock _Nonnull)byOrientationDidChanged;
+-(JobsRetZFPlayerControllerByvoidZFPlayerControllerplayerBOOLisFullScreenBlock _Nonnull)byOrientationWillChange;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END ZFPlayerController
+@end
+
+@interface ZFOrientationObserver (DSL)
+
+-(JobsRetZFOrientationObserverByZFFullScreenModeBlock _Nonnull)byFullScreenMode;
 
 @end
 

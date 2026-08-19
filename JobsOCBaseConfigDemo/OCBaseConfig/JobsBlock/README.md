@@ -71,6 +71,12 @@ JobsBlock@Pods/
 - `Core/确定参数的Block/ReturnByCertainParametersBlock.h` 集中维护带返回值的确定参数 Block，`UITextView`、`UIBezierPath / CALayer / UIView` 方法型 DSL 相关返回类型统一从这里暴露。
 - `JobsTimerMgr` 的 Scope upsert、实例安全取消与 Scope 生命周期 DSL 返回型 Block 统一由 `JobsBlock.h` 暴露。
 - `JobsBlockHeader.h` 集中维护向前声明，避免 `@class` / `@protocol` 分散在业务头文件中。
+- OC 新工程自建 Pod、应用 / Demo 与 OC 老工程中 Jobs 自维护的 0 / 1 入参功能方法统一使用本模块的 Block typedef；类型只按“返回类型 + 入参类型”去重，不在业务头文件重复声明。
+- 普通 Jobs 功能 API 直接改为无参 getter 返回 Block；系统回调、协议、Target-Action、Runtime 等固定 ABI 保留原 selector trampoline，功能内核收入 `jobsXxx` Block 门面。两种形态都只改 API 表达，不改副作用顺序和业务返回值。
+- 固定 ABI trampoline 必须通过 `JobsBlockInstanceMethodIMP` / `JobsBlockClassMethodIMP` 绑定当前定义类取得 Block 门面，不能使用 `self.jobsXxx` 动态派发；Runtime helper 同时兼容 `NSObject` 与 `NSProxy`，并避免父子类生命周期在 `[super ...]` 链路中回跳递归。
+- Block 捕获实例时统一使用 `@jobs_weakify(self)` / `@jobs_strongify(self)`；`JobsBlock` 自身为避免对 `JobsOCDefs` 形成反向循环，是保留显式 `__weak` / `__strong` 的唯一底层例外。
+- 属性、协议和跨模块公开 getter 保留原 selector 与原返回类型，另设 `jobsXxx` Block 门面；协议声明与实现返回类型必须完全一致。
+- `dealloc` 不调用会创建弱引用的 Block 门面；析构清理保留传统入口。可能为 `nil` 的接收者必须先守卫，不能直接执行其返回的 Block。
 
 ### 5.2、源码入口
 

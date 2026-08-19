@@ -6,16 +6,17 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSSUSPENDLAB_6EF04B3A81
-#define JOBS_HEADER_GUARD_JOBSSUSPENDLAB_6EF04B3A81
-
-#import <UIKit/UIKit.h>
-#import "UIView+SuspendView.h"
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
 #else
 #import "XYColorOC.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSSUSPENDLAB_6EF04B3A81
+
+#import <UIKit/UIKit.h>
+#import "UIView+SuspendView.h"
 
 #import "JobsBaseProtocolHeader.h"
 #import "JobsLanMgr.h"
@@ -28,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JobsSuspendLab : UILabel <BaseProtocol>
 
 Prop_assign()BOOL isAllowDrag;// 是否允许托拽手势
+-(JobsRetUILabelByBOOLBlock _Nonnull)byAllowDrag;
 
 @end
 

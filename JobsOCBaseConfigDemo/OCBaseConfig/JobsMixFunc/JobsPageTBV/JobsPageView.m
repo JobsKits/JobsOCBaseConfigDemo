@@ -10,10 +10,32 @@
 @interface JobsPageView ()
 /// Data
 Prop_strong()NSArray <UIViewModel *>*dataArr;
+-(JobsRetJobsPageViewByCGFloatBlock _Nonnull)byCellHeight;
+-(JobsRetJobsPageViewByViewModelsBlock _Nonnull)byDataArr;
 
 @end
 
 @implementation JobsPageView
+-(JobsRetJobsPageViewByCGFloatBlock _Nonnull)byCellHeight{
+    @jobs_weakify(self)
+    return ^__kindof JobsPageView *_Nullable(CGFloat height){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setCellHeight:height];
+        return self;
+    };
+}
+
+-(JobsRetJobsPageViewByViewModelsBlock _Nonnull)byDataArr{
+    @jobs_weakify(self)
+    return ^__kindof JobsPageView *_Nullable(NSArray<__kindof UIViewModel *> *_Nullable models){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setDataArr:models];
+        return self;
+    };
+}
+
 /// UILocationProtocol
 @synthesize cellHeight = _cellHeight;
 -(instancetype)initWithFrame:(CGRect)frame{
@@ -22,9 +44,19 @@ Prop_strong()NSArray <UIViewModel *>*dataArr;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
-    self.cellHeight = self.height;//16
-    [self.tableView reloadData];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPageView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+        self.byCellHeight(self.height);
+        [self.tableView reloadData];
+    };
 }
 #pragma mark —— BaseViewProtocol
 //具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -32,7 +64,7 @@ Prop_strong()NSArray <UIViewModel *>*dataArr;
     @jobs_weakify(self)
     return ^(NSArray <UIViewModel *>*_Nullable model) {
         @jobs_strongify(self)
-        self.dataArr = model;
+        self.byDataArr(model);
         self.tableView.byShow(self);
     //    self.backgroundImageView.image = @"抖动钱包抖币用途".img;
     //    self.imageView_1.alpha = 1;
@@ -43,7 +75,17 @@ Prop_strong()NSArray <UIViewModel *>*dataArr;
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPageView.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 1;
+    };
 }
 
 - (CGFloat)tableView:(UITableView *)tableView

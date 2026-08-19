@@ -18,6 +18,12 @@
 #import "UIViewModelOthersProtocol.h"
 #import "NSString+WKWebView.h"
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 /// 只在BaseCollectionViewCell完整的盖一个Button
 /// 其目的是利用Button丰富的图文展示效果

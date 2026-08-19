@@ -19,28 +19,54 @@ Prop_copy(nullable)jobsTableViewNumberOfRowsInSectionBlock numberOfRowsInSection
 Prop_copy(nullable)jobsTableViewCellForRowAtBlock cellForRowAtBlock;
 Prop_copy(nullable)jobsTableViewDidSelectRowAtBlock didSelectRowAtBlock;
 
+-(JobsRetIDByIDBlock _Nonnull)byTarget;
+
 @end
 
 @implementation JobsTableViewBlocksProxy
--(id)resolvedTarget{
-    return self.target ?: self;
+-(JobsRetIDByIDBlock _Nonnull)byTarget{
+    @jobs_weakify(self)
+    return ^id _Nullable(id _Nullable data){
+        @jobs_strongify(self)
+        self.target = data;
+        return self;
+    };
+}
+
+-(JobsRetIDByVoidBlock _Nonnull)resolvedTarget{
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.target ?: self;
+    };
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return self.numberOfSectionsBlock ? self.numberOfSectionsBlock(self.resolvedTarget, tableView) : 1;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTableViewBlocksProxy.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return self.numberOfSectionsBlock ? self.numberOfSectionsBlock(self.resolvedTarget(), tableView) : 1;
+    };
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return self.numberOfRowsInSectionBlock ? self.numberOfRowsInSectionBlock(self.resolvedTarget, tableView, section) : 0;
+    return self.numberOfRowsInSectionBlock ? self.numberOfRowsInSectionBlock(self.resolvedTarget(), tableView, section) : 0;
 }
 
 -(__kindof UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return self.cellForRowAtBlock ? self.cellForRowAtBlock(self.resolvedTarget, tableView, indexPath) : UITableViewCell.alloc.init;
+    return self.cellForRowAtBlock ? self.cellForRowAtBlock(self.resolvedTarget(), tableView, indexPath) : UITableViewCell.alloc.init;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.didSelectRowAtBlock){
-        self.didSelectRowAtBlock(self.resolvedTarget, tableView, indexPath);
+        self.didSelectRowAtBlock(self.resolvedTarget(), tableView, indexPath);
     }
 }
 
@@ -51,29 +77,89 @@ Prop_copy(nullable)jobsTableViewDidSelectRowAtBlock didSelectRowAtBlock;
 Prop_weak(nullable)NSObject<UITableViewDataSource> *primary;
 Prop_weak(nullable)NSObject<UITableViewDataSource> *secondary;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsTableViewDataSourceMux
+-(JobsRetJobsTableViewDataSourceMuxByNSObjectUITableViewDataSourceBlock _Nonnull)byPrimary;
+-(JobsRetJobsTableViewDataSourceMuxByNSObjectUITableViewDataSourceBlock _Nonnull)bySecondary;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsTableViewDataSourceMux
 @end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsTableViewDataSourceMux
+@interface JobsTableViewDataSourceMux (JobsPropertyDSLSetterAutogen_567cbbc32e)
+-(void)setPrimary:(NSObject<UITableViewDataSource> * _Nullable)data;
+-(void)setSecondary:(NSObject<UITableViewDataSource> * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsTableViewDataSourceMux
 
 @implementation JobsTableViewDataSourceMux
 -(BOOL)respondsToSelector:(SEL)aSelector{
-    if ([super respondsToSelector:aSelector]) return YES;
-    if ([(id)self.primary respondsToSelector:aSelector]) return YES;
-    if ([(id)self.secondary respondsToSelector:aSelector]) return YES;
-    return NO;
+    JobsRetBOOLBySELBlock action = ((JobsRetBOOLBySELBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTableViewDataSourceMux.class, @selector(jobsRespondsToSelector)))(self, @selector(jobsRespondsToSelector));
+    return action ? action(aSelector) : NO;
+}
+
+-(JobsRetBOOLBySELBlock _Nonnull)jobsRespondsToSelector{
+    @jobs_weakify(self)
+    return ^BOOL(SEL aSelector){
+        @jobs_strongify(self)
+        if (!self) return NO;
+        if ([super respondsToSelector:aSelector]) return YES;
+        if ([(id)self.primary respondsToSelector:aSelector]) return YES;
+        if ([(id)self.secondary respondsToSelector:aSelector]) return YES;
+        return NO;
+    };
 }
 
 -(id)forwardingTargetForSelector:(SEL)aSelector{
-    if ([(id)self.primary respondsToSelector:aSelector]) return self.primary;
-    if ([(id)self.secondary respondsToSelector:aSelector]) return self.secondary;
-    return [super forwardingTargetForSelector:aSelector];
+    JobsRetIDBySELBlock action = ((JobsRetIDBySELBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTableViewDataSourceMux.class, @selector(jobsForwardingTargetForSelector)))(self, @selector(jobsForwardingTargetForSelector));
+    return action ? action(aSelector) : nil;
+}
+
+-(JobsRetIDBySELBlock _Nonnull)jobsForwardingTargetForSelector{
+    @jobs_weakify(self)
+    return ^id(SEL aSelector){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if ([(id)self.primary respondsToSelector:aSelector]) return self.primary;
+        if ([(id)self.secondary respondsToSelector:aSelector]) return self.secondary;
+        return [super forwardingTargetForSelector:aSelector];
+    };
 }
 
 -(BOOL)conformsToProtocol:(Protocol *)aProtocol{
-    if ([super conformsToProtocol:aProtocol]) return YES;
-    if ([(id)self.primary conformsToProtocol:aProtocol]) return YES;
-    if ([(id)self.secondary conformsToProtocol:aProtocol]) return YES;
-    return NO;
+    JobsRetBOOLByProtocolBlock action = ((JobsRetBOOLByProtocolBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTableViewDataSourceMux.class, @selector(jobsConformsToProtocol)))(self, @selector(jobsConformsToProtocol));
+    return action ? action(aProtocol) : NO;
 }
 
+-(JobsRetBOOLByProtocolBlock _Nonnull)jobsConformsToProtocol{
+    @jobs_weakify(self)
+    return ^BOOL(Protocol * aProtocol){
+        @jobs_strongify(self)
+        if (!self) return NO;
+        if ([super conformsToProtocol:aProtocol]) return YES;
+        if ([(id)self.primary conformsToProtocol:aProtocol]) return YES;
+        if ([(id)self.secondary conformsToProtocol:aProtocol]) return YES;
+        return NO;
+    };
+}
+
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsTableViewDataSourceMux
+-(JobsRetJobsTableViewDataSourceMuxByNSObjectUITableViewDataSourceBlock _Nonnull)byPrimary{
+    @jobs_weakify(self)
+    return ^__kindof JobsTableViewDataSourceMux * _Nullable(NSObject<UITableViewDataSource> * _Nullable data){
+        @jobs_strongify(self)
+        [self setPrimary:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsTableViewDataSourceMuxByNSObjectUITableViewDataSourceBlock _Nonnull)bySecondary{
+    @jobs_weakify(self)
+    return ^__kindof JobsTableViewDataSourceMux * _Nullable(NSObject<UITableViewDataSource> * _Nullable data){
+        @jobs_strongify(self)
+        [self setSecondary:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsTableViewDataSourceMux
 @end
 
 @interface JobsTableViewDelegateMux : NSObject <UITableViewDelegate, UIScrollViewDelegate>
@@ -81,29 +167,89 @@ Prop_weak(nullable)NSObject<UITableViewDataSource> *secondary;
 Prop_weak(nullable)NSObject<UITableViewDelegate> *primary;
 Prop_weak(nullable)NSObject<UITableViewDelegate> *secondary;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsTableViewDelegateMux
+-(JobsRetJobsTableViewDelegateMuxByNSObjectUITableViewDelegateBlock _Nonnull)byPrimary;
+-(JobsRetJobsTableViewDelegateMuxByNSObjectUITableViewDelegateBlock _Nonnull)bySecondary;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsTableViewDelegateMux
 @end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsTableViewDelegateMux
+@interface JobsTableViewDelegateMux (JobsPropertyDSLSetterAutogen_567cbbc32e)
+-(void)setPrimary:(NSObject<UITableViewDelegate> * _Nullable)data;
+-(void)setSecondary:(NSObject<UITableViewDelegate> * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsTableViewDelegateMux
 
 @implementation JobsTableViewDelegateMux
 -(BOOL)respondsToSelector:(SEL)aSelector{
-    if ([super respondsToSelector:aSelector]) return YES;
-    if ([(id)self.primary respondsToSelector:aSelector]) return YES;
-    if ([(id)self.secondary respondsToSelector:aSelector]) return YES;
-    return NO;
+    JobsRetBOOLBySELBlock action = ((JobsRetBOOLBySELBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTableViewDelegateMux.class, @selector(jobsRespondsToSelector)))(self, @selector(jobsRespondsToSelector));
+    return action ? action(aSelector) : NO;
+}
+
+-(JobsRetBOOLBySELBlock _Nonnull)jobsRespondsToSelector{
+    @jobs_weakify(self)
+    return ^BOOL(SEL aSelector){
+        @jobs_strongify(self)
+        if (!self) return NO;
+        if ([super respondsToSelector:aSelector]) return YES;
+        if ([(id)self.primary respondsToSelector:aSelector]) return YES;
+        if ([(id)self.secondary respondsToSelector:aSelector]) return YES;
+        return NO;
+    };
 }
 
 -(id)forwardingTargetForSelector:(SEL)aSelector{
-    if ([(id)self.primary respondsToSelector:aSelector]) return self.primary;
-    if ([(id)self.secondary respondsToSelector:aSelector]) return self.secondary;
-    return [super forwardingTargetForSelector:aSelector];
+    JobsRetIDBySELBlock action = ((JobsRetIDBySELBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTableViewDelegateMux.class, @selector(jobsForwardingTargetForSelector)))(self, @selector(jobsForwardingTargetForSelector));
+    return action ? action(aSelector) : nil;
+}
+
+-(JobsRetIDBySELBlock _Nonnull)jobsForwardingTargetForSelector{
+    @jobs_weakify(self)
+    return ^id(SEL aSelector){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if ([(id)self.primary respondsToSelector:aSelector]) return self.primary;
+        if ([(id)self.secondary respondsToSelector:aSelector]) return self.secondary;
+        return [super forwardingTargetForSelector:aSelector];
+    };
 }
 
 -(BOOL)conformsToProtocol:(Protocol *)aProtocol{
-    if ([super conformsToProtocol:aProtocol]) return YES;
-    if ([(id)self.primary conformsToProtocol:aProtocol]) return YES;
-    if ([(id)self.secondary conformsToProtocol:aProtocol]) return YES;
-    return NO;
+    JobsRetBOOLByProtocolBlock action = ((JobsRetBOOLByProtocolBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTableViewDelegateMux.class, @selector(jobsConformsToProtocol)))(self, @selector(jobsConformsToProtocol));
+    return action ? action(aProtocol) : NO;
 }
 
+-(JobsRetBOOLByProtocolBlock _Nonnull)jobsConformsToProtocol{
+    @jobs_weakify(self)
+    return ^BOOL(Protocol * aProtocol){
+        @jobs_strongify(self)
+        if (!self) return NO;
+        if ([super conformsToProtocol:aProtocol]) return YES;
+        if ([(id)self.primary conformsToProtocol:aProtocol]) return YES;
+        if ([(id)self.secondary conformsToProtocol:aProtocol]) return YES;
+        return NO;
+    };
+}
+
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsTableViewDelegateMux
+-(JobsRetJobsTableViewDelegateMuxByNSObjectUITableViewDelegateBlock _Nonnull)byPrimary{
+    @jobs_weakify(self)
+    return ^__kindof JobsTableViewDelegateMux * _Nullable(NSObject<UITableViewDelegate> * _Nullable data){
+        @jobs_strongify(self)
+        [self setPrimary:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsTableViewDelegateMuxByNSObjectUITableViewDelegateBlock _Nonnull)bySecondary{
+    @jobs_weakify(self)
+    return ^__kindof JobsTableViewDelegateMux * _Nullable(NSObject<UITableViewDelegate> * _Nullable data){
+        @jobs_strongify(self)
+        [self setSecondary:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsTableViewDelegateMux
 @end
 
 static inline JobsTableViewBlocksProxy *jobs_tableViewBlocksProxy(UITableView *tableView, BOOL createIfNeeded){
@@ -134,22 +280,22 @@ static inline void jobs_installTableViewDataSourceMux(UITableView *tableView){
     JobsTableViewBlocksProxy *proxy = jobs_tableViewBlocksProxy(tableView, YES);
     JobsTableViewDataSourceMux *mux = jobs_tableViewDataSourceMux(tableView, YES);
     id<UITableViewDataSource> current = tableView.dataSource;
-    mux.primary = proxy;
+    mux.byPrimary(proxy);
     if (current && current != (id<UITableViewDataSource>)mux && current != (id<UITableViewDataSource>)proxy){
-        mux.secondary = (NSObject<UITableViewDataSource> *)current;
+        mux.bySecondary((NSObject<UITableViewDataSource> *)current);
     }
-    tableView.dataSource = (id<UITableViewDataSource>)mux;
+    tableView.byDataSource((id<UITableViewDataSource>)mux);
 }
 
 static inline void jobs_installTableViewDelegateMux(UITableView *tableView){
     JobsTableViewBlocksProxy *proxy = jobs_tableViewBlocksProxy(tableView, YES);
     JobsTableViewDelegateMux *mux = jobs_tableViewDelegateMux(tableView, YES);
     id<UITableViewDelegate> current = tableView.delegate;
-    mux.primary = proxy;
+    mux.byPrimary(proxy);
     if (current && current != (id<UITableViewDelegate>)mux && current != (id<UITableViewDelegate>)proxy){
-        mux.secondary = (NSObject<UITableViewDelegate> *)current;
+        mux.bySecondary((NSObject<UITableViewDelegate> *)current);
     }
-    tableView.delegate = (id<UITableViewDelegate>)mux;
+    tableView.byDelegate((id<UITableViewDelegate>)mux);
 }
 
 @implementation UITableView (DSL)
@@ -186,7 +332,7 @@ static inline void jobs_installTableViewDelegateMux(UITableView *tableView){
     return ^__kindof UITableView * _Nullable(id _Nullable target){
         @jobs_strongify(self)
         JobsTableViewBlocksProxy *proxy = jobs_tableViewBlocksProxy(self, YES);
-        proxy.target = target;
+        proxy.byTarget(target);
         jobs_installTableViewDataSourceMux(self);
         jobs_installTableViewDelegateMux(self);
         return self;

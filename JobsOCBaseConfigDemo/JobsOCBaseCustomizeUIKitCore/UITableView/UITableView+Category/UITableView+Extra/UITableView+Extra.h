@@ -6,17 +6,18 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UITABLEVIEW_EXTRA_A82916970D
-#define JOBS_HEADER_GUARD_UITABLEVIEW_EXTRA_A82916970D
-
-#import <UIKit/UIKit.h>
-#import "UIView+Refresh.h"
-#import "UITableViewCell+UITableViewCellProtocol.h"
 
 #if __has_include(<MJRefresh/MJRefresh.h>)
 #import <MJRefresh/MJRefresh.h>
 #else
 #import "MJRefresh.h"
 #endif
+
+#define JOBS_HEADER_GUARD_UITABLEVIEW_EXTRA_A82916970D
+
+#import <UIKit/UIKit.h>
+#import "UIView+Refresh.h"
+#import "UITableViewCell+UITableViewCellProtocol.h"
 
 #import "JobsBaseProtocolHeader.h"
 #import "JobsOCDSL.h"
@@ -38,7 +39,6 @@
                                         header高度设置有效                                                            |
      ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
      【 footer设置同header设置】
-
 
      ❤️UITableViewStyleGrouped ❤️
      不实现footer、header设置方法，默认无header、footer；
@@ -62,6 +62,7 @@
      来源：简书
      著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
  */
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UITableView (Extra)<BaseTableViewProtocol>
@@ -115,14 +116,14 @@ NS_INLINE __kindof UITableView *_Nonnull jobsMakeTableViewByInsetGrouped(jobsByT
                          /// TODO
                      })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                      .byTableFooterView(jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
-                         label.byText(@"- 没有更多的内容了 -".tr)
+                         label.byText(@"- 没有更多的内容了 -".jobsTr())
                              .byFont(UIFontWeightRegularSize(12))
                              .byTextAlignment(NSTextAlignmentCenter)
                              .byTextCor(JobsSecondaryLabelColor)
                              .makeLabelByShowingType(UILabelShowingType_03);
                      }))/// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                      .emptyDataByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                         data.byTitle(@"NO MESSAGES FOUND".tr)
+                         data.byTitle(@"NO MESSAGES FOUND".jobsTr())
                              .byTitleCor(JobsWhiteColor)
                              .byTitleFont(bayonRegular(JobsWidth(30)))
                              .byNormalImage(@"小狮子".img);

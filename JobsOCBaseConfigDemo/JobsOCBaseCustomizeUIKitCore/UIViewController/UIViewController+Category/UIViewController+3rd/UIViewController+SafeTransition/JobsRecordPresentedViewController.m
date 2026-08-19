@@ -18,6 +18,12 @@ static JobsRecordPresentedViewController *static_JobsRecordPresentedVC = nil;
         }
     };return static_JobsRecordPresentedVC;
 }
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        return [self sharedManager];
+    };
+}
 #pragma mark —— lazyLoad
 -(NSMutableArray<__kindof UIViewController *> *)presentedVCMutArr{
     if (!_presentedVCMutArr) {

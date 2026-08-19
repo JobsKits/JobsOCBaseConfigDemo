@@ -8,18 +8,33 @@
 #import "UIImageView+JobsOCSkeletonView.h"
 
 @implementation UIImageView (JobsOCSkeletonView)
--(void)jobs_beginShimmerLoading{
-    [self jobs_beginShimmerLoadingWithConfig:nil];
+-(jobsByVoidBlock _Nonnull)jobs_beginShimmerLoading{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.jobs_beginShimmerLoadingWithConfig(nil);
+    };
 }
 
--(void)jobs_beginShimmerLoadingWithConfig:(JobsOCSkeletonConfig *)config{
-    self.image = nil;
-    self.bySkeletonable(YES);
-    [self jobs_startSkeletonWithConfig:config ?: JobsOCSkeletonConfig.defaultConfig];
+-(jobsByJobsOCSkeletonConfigBlock _Nonnull)jobs_beginShimmerLoadingWithConfig{
+    @jobs_weakify(self)
+    return ^(JobsOCSkeletonConfig * config){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byImage(nil);
+        self.bySkeletonable(YES);
+        self.jobs_startSkeletonWithConfig(config ?: JobsOCSkeletonConfig.defaultConfig());
+    };
 }
 
--(void)jobs_endShimmerLoading{
-    [self jobs_stopSkeleton];
+-(jobsByVoidBlock _Nonnull)jobs_endShimmerLoading{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.jobs_stopSkeleton();
+    };
 }
 
 -(instancetype)jobs_setImage:(UIImage *)image
@@ -28,19 +43,19 @@
                         fade:(NSTimeInterval)fade{
     UIImage *targetImage = image ?: fallback;
     if (!targetImage) {
-        [self jobs_beginShimmerLoadingWithConfig:shimmerConfig ?: JobsOCSkeletonConfig.defaultConfig];
+        self.jobs_beginShimmerLoadingWithConfig(shimmerConfig ?: JobsOCSkeletonConfig.defaultConfig());
         return self;
     }
-    [self jobs_endShimmerLoading];
+    self.jobs_endShimmerLoading();
     if (fade <= 0) {
-        self.image = targetImage;
+        self.byImage(targetImage);
         return self;
     }
     [UIView transitionWithView:self
                       duration:fade
                        options:UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState
                     animations:^{
-        self.image = targetImage;
+        self.byImage(targetImage);
     } completion:nil];
     return self;
 }

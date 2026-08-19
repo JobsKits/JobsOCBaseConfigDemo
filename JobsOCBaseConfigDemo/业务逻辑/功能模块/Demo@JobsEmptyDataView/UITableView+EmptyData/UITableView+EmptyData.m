@@ -69,7 +69,7 @@ JobsKey(JobsTableViewEmptyDataReloadingKey)
                     .cleanSubviewBy(BaseView.class);
                 self.addSubview(view)
                     .addSubview(UIButton.initByButtonModel(model ? : jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                        data.byTitle(@"No Datas".tr)
+                        data.byTitle(@"No Datas".jobsTr())
                             .byTitleCor(JobsWhiteColor)
                             .byTitleFont(bayonRegular(JobsWidth(30)))
                             .byNormalImage(@"暂无数据".img)
@@ -104,7 +104,7 @@ JobsKey(JobsTableViewEmptyDataReloadingKey)
                     label
                         .byTextAlignment(model.textAlignment ? : NSTextAlignmentCenter)
                         .byTextCor(model.textCor ? : JobsRedColor)
-                        .byText(isValue(model.text) ? model.text : @"No Datas".tr)
+                        .byText(isValue(model.text) ? model.text : @"No Datas".jobsTr())
                         .makeLabelByShowingType(UILabelShowingType_05)
                         .addOn(view)
                         .byAdd(^(MASConstraintMaker *make){

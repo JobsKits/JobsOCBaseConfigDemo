@@ -30,12 +30,12 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
     }
     self.viewModel
         .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
+            data.byText(@"返回".jobsTr());
         })
         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
                 .byTextCor(JobsLabelColor)
-                .byText(@"Excel".tr)
+                .byText(@"Excel".jobsTr())
                 .byFont(UIFontWeightSemiboldSize(18));
         })
         // 使用原则：底图有 + 底色有 = 优先使用底图数据
@@ -95,7 +95,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.dataMutArr[indexPath.section][indexPath.row].cls) {
         self.comingToPushVCByRequestParams(self.dataMutArr[indexPath.section][indexPath.row].cls.new,
                                            self.dataMutArr[indexPath.section][indexPath.row]);
-    }else @"尚未接入此功能".tr.toast();
+    }else @"尚未接入此功能".jobsTr().toast();
 }
 /// 编辑模式下，点击取消左边已选中的cell的按钮
 - (void)tableView:(UITableView *)tableView
@@ -201,11 +201,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     /// 自定义 UITableViewCell 的箭头
     cell.img = @"向右的箭头（小）".img;
 //    @jobs_weakify(self)
-    [cell customAccessoryView:^(id data) {
+    cell.customAccessoryView(^(id data) {
 //        @jobs_strongify(self)
         JobsBaseTableViewCell *cell = (JobsBaseTableViewCell *)data;
         JobsLog(@"MMM - %ld",cell.index);
-    }];
+    });
     cell.accessoryView.resetWidth(8);
     /// 以 section 为单位，对首尾 cell 做圆角处理
     [cell roundedCornerFirstAndLastCellByTableView:tableView
@@ -293,31 +293,31 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIViewModel *>* _Nullable data1) {
                 @jobs_strongify(self)
                 data1.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.byTitle(@"ZMJClassData".tr)
-                         .bySubTitle(@"正常".tr)
+                    model.byTitle(@"ZMJClassData".jobsTr())
+                         .bySubTitle(@"正常".jobsTr())
                          .byCls(ZMJClassDataVC.class);
                 })))
                 .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.byTitle(@"ZMJTimeable".tr)
-                         .bySubTitle(@"正常".tr)
+                    model.byTitle(@"ZMJTimeable".jobsTr())
+                         .bySubTitle(@"正常".jobsTr())
                          .byCls(ZMJTimeableVC.class);
                 })))
                 .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.byTitle(@"ZMJSchedule".tr)
-                         .bySubTitle(@"正常".tr)
+                    model.byTitle(@"ZMJSchedule".jobsTr())
+                         .bySubTitle(@"正常".jobsTr())
                          .byCls(ZMJScheduleVC.class);
                 })))
                 .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.byTitle(@"ZMJGanttList".tr)
-                         .bySubTitle(@"有崩溃，需要修复".tr)
+                    model.byTitle(@"ZMJGanttList".jobsTr())
+                         .bySubTitle(@"有崩溃，需要修复".jobsTr())
                          .byCls(ZMJGanttListVC.class);
                 })));
             }));
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIViewModel *>* _Nullable data1) {
                 @jobs_strongify(self)
                 data1.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.byTitle(@"JobsExcel".tr)
-                         .bySubTitle(@"JobsExcel".tr)
+                    model.byTitle(@"JobsExcel".jobsTr())
+                         .bySubTitle(@"JobsExcel".jobsTr())
                          .byCls(JobsExcelVC.class);
                 })));
             }));

@@ -68,15 +68,15 @@ Prop_strong()CAKeyframeAnimation *shakeAnim;
 /// 停止旋转并恢复初始角度
 -(JobsRetViewByVoidBlock _Nonnull)bySpinStop;
 /// 当前是否正在持续旋转
--(BOOL)jobs_isSpinning;
+-(JobsRetBOOLByVoidBlock _Nonnull)jobs_isSpinning;
 /// 当前是否保存了暂停角度
--(BOOL)jobs_isSpinPaused;
+-(JobsRetBOOLByVoidBlock _Nonnull)jobs_isSpinPaused;
 /// 旋转一定时间之后停止下来
 -(JobsRetViewByFloatBlock _Nonnull)旋转动画By;
 -(JobsRetViewByVoidBlock _Nonnull)图片从小放大;
 -(JobsRetViewByVoidBlock _Nonnull)视图上下一直来回跳动的动画;
 /// 点击放大再缩小
--(void)addViewAnimationWithCompletionBlock:(jobsByIDBlock _Nullable)completionBlock;
+-(jobsByjobsByIDBlockBlock _Nonnull)addViewAnimationWithCompletionBlock;
 /// 逐渐显示
 -(void)graduallyShowWithAnimationBlock:(jobsByIDBlock _Nullable)animationBlock
                        completionBlock:(jobsByIDBlock _Nullable)completionBlock;

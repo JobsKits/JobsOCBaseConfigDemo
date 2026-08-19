@@ -6,9 +6,22 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSAPPDOORCONFIG_BAEB9789D0
+
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
 #define JOBS_HEADER_GUARD_JOBSAPPDOORCONFIG_BAEB9789D0
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 
 #if __has_include(<JobsAppDoor/JobsAppDoorResource.h>)
 #import "JobsAppDoorResource.h"
@@ -34,12 +47,6 @@
 #import "JobsLanMgr.h"
 #endif
 
-#if __has_include(<XYColorOC/XYColorOC.h>)
-#import <XYColorOC/XYColorOC.h>
-#else
-#import "XYColorOC.h"
-#endif
-
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import "JobsDefines.h"
 #else
@@ -59,12 +66,19 @@ Prop_copy()NSString *backgroundImageName;
 Prop_copy()NSString *notchVideoResourceName;
 Prop_copy()NSString *compactVideoResourceName;
 
-+(instancetype)defaultConfig;
-+(instancetype)fullConfig;
--(NSUInteger)registerFieldCount;
--(CGFloat)registerContentHeight;
--(CGFloat)registerContentY;
++(JobsRetIDByVoidBlock _Nonnull)defaultConfig;
++(JobsRetIDByVoidBlock _Nonnull)fullConfig;
+-(JobsRetNSUIntegerByVoidBlock _Nonnull)registerFieldCount;
+-(JobsRetCGFloatByVoidBlock _Nonnull)registerContentHeight;
+-(JobsRetCGFloatByVoidBlock _Nonnull)registerContentY;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorConfig
+-(JobsRetJobsAppDoorConfigByJobsAppDoorBgTypeBlock _Nonnull)byBackgroundType;
+-(JobsRetJobsAppDoorConfigByJobsAppDoorRegisterConfigBlock _Nonnull)byRegisterConfig;
+-(JobsRetJobsAppDoorConfigByNSStringBlock _Nonnull)byBackgroundImageName;
+-(JobsRetJobsAppDoorConfigByNSStringBlock _Nonnull)byCompactVideoResourceName;
+-(JobsRetJobsAppDoorConfigByNSStringBlock _Nonnull)byNotchVideoResourceName;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorConfig
 @end
 
 #define Cor1 JobsBlackColor.colorWithAlphaComponentBy(0.9007f)
@@ -91,18 +105,18 @@ Prop_copy()NSString *compactVideoResourceName;
 #define JobsAppDoorContentViewFindPasswordWidth JobsMainScreen_WIDTH() - JobsAppDoorContentViewFindPasswordX * 2
 #define JobsAppDoorContentViewFindPasswordHeight JobsMainScreen_HEIGHT() / (isiPhoneX_series() ? 1.6 : 1.3)
 
-#define Title1 @"返回登录".tr.addNewlines
-#define Title2 @"新用户注册".tr.addNewlines
-#define Title3 @"忘记密码".tr
-#define Title4 @"返回首页".tr
-#define Title5 @"记住我".tr
-#define Title6 @"注册".tr
-#define Title7 @"登录".tr
-#define Title8 [NSString stringWithFormat:@"%@\n%@",@"在线客服".tr,@"7×24小时".tr]
-#define Title9 @"获取验证码".tr
-#define Title10 @"您也可以通过以下方式联系客服".tr
-#define Title11 @"以后".tr
-#define Title12 @"去注册".tr.addNewlines
+#define Title1 @"返回登录".jobsTr().addNewlines()
+#define Title2 @"新用户注册".jobsTr().addNewlines()
+#define Title3 @"忘记密码".jobsTr()
+#define Title4 @"返回首页".jobsTr()
+#define Title5 @"记住我".jobsTr()
+#define Title6 @"注册".jobsTr()
+#define Title7 @"登录".jobsTr()
+#define Title8 [NSString stringWithFormat:@"%@\n%@",@"在线客服".jobsTr(),@"7×24小时".jobsTr()]
+#define Title9 @"获取验证码".jobsTr()
+#define Title10 @"您也可以通过以下方式联系客服".jobsTr()
+#define Title11 @"以后".jobsTr()
+#define Title12 @"去注册".jobsTr().addNewlines()
 
 NS_ASSUME_NONNULL_END
 

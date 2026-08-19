@@ -11,9 +11,15 @@
 
 Prop_assign()CGRect initialContentViewRect;// 登录框 初始frame值
 
--(void)cacheInitialContentViewRectIfNeeded;
+-(jobsByVoidBlock _Nonnull)cacheInitialContentViewRectIfNeeded;
 
 @end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN BaseContentView
+@interface BaseContentView (JobsPropertyDSLSetterAutogen_38300f5dda)
+-(void)setInitialContentViewRect:(CGRect)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END BaseContentView
 
 @implementation BaseContentView
 -(instancetype)init{
@@ -22,20 +28,45 @@ Prop_assign()CGRect initialContentViewRect;// 登录框 初始frame值
 }
 
 -(void)setFrame:(CGRect)frame{
-    [super setFrame:frame];
-    [self cacheInitialContentViewRectIfNeeded];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseContentView.class, @selector(jobsSetFrame)))(self, @selector(jobsSetFrame));
+    if (action) action(frame);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsSetFrame{
+    @jobs_weakify(self)
+    return ^(CGRect frame){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super setFrame:frame];
+        self.cacheInitialContentViewRectIfNeeded();
+    };
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
-    [self cacheInitialContentViewRectIfNeeded];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseContentView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
 }
 
--(void)cacheInitialContentViewRectIfNeeded{
-    if (CGRectIsEmpty(self.initialContentViewRect) &&
-        !CGRectIsEmpty(self.frame)) {
-        self.initialContentViewRect = self.frame;
-    }
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+        self.cacheInitialContentViewRectIfNeeded();
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)cacheInitialContentViewRectIfNeeded{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (CGRectIsEmpty(self.initialContentViewRect) &&
+            !CGRectIsEmpty(self.frame)) {
+            self.byInitialContentViewRect(self.frame);
+        }
+    };
 }
 /*
  *    使用弹簧的描述时间曲线来执行动画 ,当dampingRatio == 1 时,动画会平稳的减速到最终的模型值,而不会震荡.
@@ -46,39 +77,59 @@ Prop_assign()CGRect initialContentViewRect;// 登录框 初始frame值
  *    dampingRatio 阻尼
  *    velocity 速度
  */
--(void)showContentViewWithOffsetY:(CGFloat)offsetY{
-    [self cacheInitialContentViewRectIfNeeded];
+-(jobsByCGFloatBlock _Nonnull)showContentViewWithOffsetY{
     @jobs_weakify(self)
-    [UIView animateWithDuration:2
-                          delay:0.1
-         usingSpringWithDamping:0.3
-          initialSpringVelocity:10
-                        options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
+    return ^(CGFloat offsetY){
         @jobs_strongify(self)
-        self
-            .byCenterX(JobsMainScreen_WIDTH() / 2)
-            .byCenterY(self.centerY - offsetY);
-    } completion:^(BOOL finished) {
-    }];
+        if (!self) return;
+        self.cacheInitialContentViewRectIfNeeded();
+        @jobs_weakify(self)
+        [UIView animateWithDuration:2
+                              delay:0.1
+             usingSpringWithDamping:0.3
+              initialSpringVelocity:10
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^{
+            @jobs_strongify(self)
+            self
+                .byCenterX(JobsMainScreen_WIDTH() / 2)
+                .byCenterY(self.centerY - offsetY);
+        } completion:^(BOOL finished) {
+        }];
+    };
 }
 
--(void)removeContentViewWithOffsetY:(CGFloat)offsetY{
-    [self cacheInitialContentViewRectIfNeeded];
+-(jobsByCGFloatBlock _Nonnull)removeContentViewWithOffsetY{
     @jobs_weakify(self)
-    [UIView animateWithDuration:2
-                          delay:0.1
-         usingSpringWithDamping:0.3
-          initialSpringVelocity:10
-                        options:UIViewAnimationOptionCurveEaseInOut
-                     animations:^{
+    return ^(CGFloat offsetY){
         @jobs_strongify(self)
-        self
-            .byX(-(self.width + self.x))
-            .byY(self.initialContentViewRect.origin.y);
-    } completion:^(BOOL finished) {
-    }];
+        if (!self) return;
+        self.cacheInitialContentViewRectIfNeeded();
+        @jobs_weakify(self)
+        [UIView animateWithDuration:2
+                              delay:0.1
+             usingSpringWithDamping:0.3
+              initialSpringVelocity:10
+                            options:UIViewAnimationOptionCurveEaseInOut
+                         animations:^{
+            @jobs_strongify(self)
+            self
+                .byX(-(self.width + self.x))
+                .byY(self.initialContentViewRect.origin.y);
+        } completion:^(BOOL finished) {
+        }];
+    };
 }
 #pragma mark —— LazyLoad
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN BaseContentView
+-(JobsRetBaseContentViewByCGRectBlock _Nonnull)byInitialContentViewRect{
+    @jobs_weakify(self)
+    return ^__kindof BaseContentView * _Nullable(CGRect data){
+        @jobs_strongify(self)
+        [self setInitialContentViewRect:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END BaseContentView
 @end

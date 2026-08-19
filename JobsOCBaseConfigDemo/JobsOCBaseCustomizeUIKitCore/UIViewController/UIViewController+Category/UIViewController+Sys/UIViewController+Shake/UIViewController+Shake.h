@@ -57,8 +57,8 @@ typedef NS_ENUM(NSInteger, UIViewControllerShakeType) {
 
 Prop_strong()CMMotionManager *motionManager;
 
--(void)invokeWhenViewDidLoadUsingSysFunc;
--(void)invokeWhenViewDidAppearUsingCMMotionManager;
+-(jobsByVoidBlock _Nonnull)invokeWhenViewDidLoadUsingSysFunc;
+-(jobsByVoidBlock _Nonnull)invokeWhenViewDidAppearUsingCMMotionManager;
 
 @end
 

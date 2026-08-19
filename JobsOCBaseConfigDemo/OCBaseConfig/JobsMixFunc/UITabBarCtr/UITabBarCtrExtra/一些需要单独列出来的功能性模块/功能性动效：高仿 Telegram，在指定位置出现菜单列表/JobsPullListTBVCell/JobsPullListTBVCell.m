@@ -24,7 +24,7 @@
     return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         self.textLabel.byText(model.textModel.text);
-        self.imageView.image = model.image;
+        self.imageView.byImage(model.image);
         return self;
     };
 }

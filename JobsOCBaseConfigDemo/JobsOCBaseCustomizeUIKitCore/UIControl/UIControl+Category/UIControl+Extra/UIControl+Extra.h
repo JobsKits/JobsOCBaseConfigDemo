@@ -34,15 +34,15 @@ NS_ASSUME_NONNULL_BEGIN
 -(instancetype)jobs_once:(UIControlEvents)events
                    block:(jobsByCtrlBlock _Nonnull)block;
 /// 便捷：点击（.touchUpInside）
--(instancetype)jobs_onTap:(jobsByCtrlBlock _Nonnull)block;
+-(JobsRetIDByjobsByCtrlBlockBlock _Nonnull)jobs_onTap;
 /// 便捷：值变化（.valueChanged）
--(instancetype)jobs_onChange:(jobsByCtrlBlock _Nonnull)block;
+-(JobsRetIDByjobsByCtrlBlockBlock _Nonnull)jobs_onChange;
 /// 触发事件（等价于 sendActionsForControlEvents:）
--(void)jobs_fire:(UIControlEvents)events;
+-(jobsByUIControlEventsBlock _Nonnull)jobs_fire;
 /// 移除指定事件的回调（支持复合事件位掩码）
--(void)jobs_removeHandlersFor:(UIControlEvents)events;
+-(jobsByUIControlEventsBlock _Nonnull)jobs_removeHandlersFor;
 /// 移除全部回调
--(void)jobs_removeAllHandlers;
+-(jobsByVoidBlock _Nonnull)jobs_removeAllHandlers;
 
 -(JobsRetControlByBOOLBlock _Nonnull)byEnabled;
 

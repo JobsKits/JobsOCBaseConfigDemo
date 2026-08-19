@@ -26,7 +26,7 @@
     NotifiOperation *op = [[NotifiOperation alloc] init];
     op.data = data;
     op.fatherView = fatherView;
-    op.finishBlock  = finishBlock;
+    op.finishBlock = finishBlock;
     return op;
 }
 

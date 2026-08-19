@@ -6,6 +6,7 @@
 //
 
 #import "JobsTextViewStyleTBVCell.h"
+
 #import "NSString+Sys.h"
 #import "NSObject+Extra.h"
 #import "SZTextView+Extra.h"
@@ -25,7 +26,17 @@ BaseLayerProtocol_synthesize_part3
 /// BaseViewProtocol
 BaseViewProtocol_synthesize
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTextViewStyleTBVCell.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
@@ -40,7 +51,7 @@ BaseViewProtocol_synthesize
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UIViewModel __kindof *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model;
+        self.byViewModel(model);
         self.textView.byAlpha(1);
         return self;
     };
@@ -53,8 +64,18 @@ BaseViewProtocol_synthesize
 }
 #pragma mark —— BaseViewProtocol
 /// 获取绑定的数据源
--(UIViewModel *)getViewModel{
-    return self.viewModel;
+-(UIViewModel *_Nullable)getViewModel{
+    JobsRetViewModelByVoidBlock action = ((JobsRetViewModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTextViewStyleTBVCell.class, @selector(jobsGetViewModel)))(self, @selector(jobsGetViewModel));
+    return action ? action() : nil;
+}
+
+-(JobsRetViewModelByVoidBlock _Nonnull)jobsGetViewModel{
+    @jobs_weakify(self)
+    return ^UIViewModel *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.viewModel;
+    };
 }
 //-(BOOL)textViewShouldBeginEditing:(UITextView *)textView{
 //    [UIMenuController.sharedMenuController update];
@@ -96,18 +117,19 @@ BaseViewProtocol_synthesize
         @jobs_weakify(self)
         _textView = jobsMakeTextView(^(__kindof UITextView * _Nullable textView) {
             @jobs_strongify(self)
-            textView.delegate = self;
-            textView.dataDetectorTypes = UIDataDetectorTypeLink; /// 启用链接检测
-            textView.editable = NO; /// 禁止编辑。必须 editable = NO 才能点击链接跳转
-            textView.selectable = YES; /// 允许选择链接
+            textView
+                .byDelegate(self)
+                .byDataDetectorTypes(UIDataDetectorTypeLink)
+                .byEditable(NO)
+                .bySelectable(YES);
             /// 富文本的优先级大于普通文本
             if(self.viewModel.attributedTitle){
-                textView.attributedText = self.viewModel.attributedTitle;
+                textView.byAttributedText(self.viewModel.attributedTitle);
             }else{
-                textView.text = self.viewModel.text;
-                textView.textAlignment = self.viewModel.textAlignment;
-                textView.textColor = self.viewModel.textCor;
-                textView.font = self.viewModel.font;
+                textView.byText(self.viewModel.text);
+                textView.byTextAlignment(self.viewModel.textAlignment);
+                textView.byTextColor(self.viewModel.textCor);
+                textView.byFont(self.viewModel.font);
             }textView.addOn(self.contentView).byAdd(self.masonryBlock);
         });
     };return _textView;
@@ -118,16 +140,17 @@ BaseViewProtocol_synthesize
         @jobs_weakify(self)
         _szTextView = jobsMakeSZTextView(^(SZTextView * _Nonnull textView) {
             @jobs_strongify(self)
-            textView.delegate = self;
-            textView.textColor = JobsLabelColor;
-            textView.byBgColor(JobsSecondarySystemBackgroundColor);
-            textView.returnKeyType = UIReturnKeyDefault;
-            textView.keyboardAppearance = UIKeyboardAppearanceDefault;
-            textView.keyboardType = UIKeyboardTypeNumberPad;
-            textView.placeholder = @"请输入充值金额".tr;
-            textView.font = UIFontWeightMediumSize(18);
-            textView.placeholderFont = textView.font;
-            textView.placeholderColor = JobsPlaceholderTextColor;
+            textView
+                .byPlaceholder(@"请输入充值金额".jobsTr())
+                .byFont(UIFontWeightMediumSize(18))
+                .byPlaceholderFont(textView.font)
+                .byPlaceholderColor(JobsPlaceholderTextColor)
+                .byTextColor(JobsLabelColor)
+                .byDelegate(self)
+                .byReturnKeyType(UIReturnKeyDefault)
+                .byKeyboardAppearance(UIKeyboardAppearanceDefault)
+                .byKeyboardType(UIKeyboardTypeNumberPad)
+                .byBgColor(JobsSecondarySystemBackgroundColor);
             [textView jobsTextViewFilterBlock:^BOOL(id  _Nullable data) {
 //                @jobs_strongify(self)
                 return YES;
@@ -143,16 +166,18 @@ BaseViewProtocol_synthesize
         @jobs_weakify(self)
         _jobsTextView = makeJobsTextView(^(__kindof JobsTextView * _Nullable textView) {
             @jobs_strongify(self)
-            textView.szTextView.delegate = self;
-            textView.szTextView.textColor = JobsLabelColor;
-            textView.byBgColor(JobsSecondarySystemBackgroundColor);
-            textView.returnKeyType_ = UIReturnKeyDefault;
-            textView.keyboardAppearance_ = UIKeyboardAppearanceDefault;
-            textView.keyboardType_ = UIKeyboardTypeNumberPad;
-            textView.placeholder = @"请输入充值金额".tr;
-            textView.font = UIFontWeightMediumSize(18);
-            textView.placeholderFont = textView.font;
-            textView.placeholderColor = JobsPlaceholderTextColor;
+            textView.szTextView
+                .byTextColor(JobsLabelColor)
+                .byDelegate(self);
+            textView
+                .byReturnKeyType_(UIReturnKeyDefault)
+                .byKeyboardAppearance_(UIKeyboardAppearanceDefault)
+                .byKeyboardType_(UIKeyboardTypeNumberPad)
+                .byPlaceholder(@"请输入充值金额".jobsTr())
+                .byFont(UIFontWeightMediumSize(18))
+                .byPlaceholderFont(textView.font)
+                .byPlaceholderColor(JobsPlaceholderTextColor)
+                .byBgColor(JobsSecondarySystemBackgroundColor);
             [textView.szTextView jobsTextViewFilterBlock:^BOOL(id _Nullable data) {
 //                @jobs_strongify(self)
                 return YES;

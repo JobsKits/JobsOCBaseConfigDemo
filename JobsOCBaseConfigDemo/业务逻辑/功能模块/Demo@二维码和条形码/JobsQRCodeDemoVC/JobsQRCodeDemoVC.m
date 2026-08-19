@@ -25,6 +25,14 @@ Prop_copy()NSString *barcodeContent;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsQRCodeDemoVC
+@interface JobsQRCodeDemoVC (JobsPropertyDSLSetterAutogen_f84cda3807)
+-(void)setBarcodeContent:(NSString * _Nullable)data;
+-(void)setLogoQRContent:(NSString * _Nullable)data;
+-(void)setQrContent:(NSString * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsQRCodeDemoVC
+
 @implementation JobsQRCodeDemoVC
 - (void)dealloc{
     JobsRemoveNotification(self);
@@ -32,65 +40,95 @@ Prop_copy()NSString *barcodeContent;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsQRCodeDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(@"二维码 + 条形码".tr)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        .byBgCor(HEXCOLOR(0xF5F7FA))
-        .byNavBgCor(HEXCOLOR(0xF5F7FA));
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(@"二维码 + 条形码".jobsTr())
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            .byBgCor(HEXCOLOR(0xF5F7FA))
+            .byNavBgCor(HEXCOLOR(0xF5F7FA));
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.makeNavByAlpha(1);
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.qrContent = @"https://jobs.dev/hello";
-    self.logoQRContent = @"https://www.google.com";
-    self.barcodeContent = @"JOBS-2025-10-18";
-    self.contentView.byHidden(NO);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsQRCodeDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.makeNavByAlpha(1);
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.byQrContent(@"https://jobs.dev/hello");
+        self.byLogoQRContent(@"https://www.google.com");
+        self.byBarcodeContent(@"JOBS-2025-10-18");
+        self.contentView.byHidden(NO);
+    };
 }
 
 #pragma mark —— Private
--(UIImage *)jobsLogoImage{
-    CGSize size = CGSizeMake(JobsWidth(72), JobsWidth(72));
-    UIGraphicsBeginImageContextWithOptions(size, NO, 0);
-    CGRect rect = CGRectMake(0, 0, size.width, size.height);
-    UIBezierPath *path = UIBezierPath.byBezierPathWithRoundedRect(rect, JobsWidth(16));
-    [HEXCOLOR(0x1D7FF2) setFill];
-    path.byFill();
-    NSString *text = @"J";
-    NSDictionary<NSAttributedStringKey,id> *attrs = @{NSFontAttributeName:UIFontBoldSystemFontOfSize(JobsWidth(42)),
-                                                      NSForegroundColorAttributeName:UIColor.whiteColor};
-    CGSize textSize = [text sizeWithAttributes:attrs];
-    [text drawAtPoint:CGPointMake((size.width - textSize.width) / 2, (size.height - textSize.height) / 2)
-       withAttributes:attrs];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image ?: jobsMakeImage();
+-(JobsRetImageByVoidBlock _Nonnull)jobsLogoImage{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        CGSize size = CGSizeMake(JobsWidth(72), JobsWidth(72));
+        UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+        CGRect rect = CGRectMake(0, 0, size.width, size.height);
+        UIBezierPath *path = UIBezierPath.byBezierPathWithRoundedRect(rect, JobsWidth(16));
+        [HEXCOLOR(0x1D7FF2) setFill];
+        path.byFill();
+        NSString *text = @"J";
+        NSDictionary<NSAttributedStringKey,id> *attrs = @{NSFontAttributeName:UIFontBoldSystemFontOfSize(JobsWidth(42)),
+                                                          NSForegroundColorAttributeName:UIColor.whiteColor};
+        CGSize textSize = [text sizeWithAttributes:attrs];
+        [text drawAtPoint:CGPointMake((size.width - textSize.width) / 2, (size.height - textSize.height) / 2)
+           withAttributes:attrs];
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return image ?: jobsMakeImage(^(UIImage *object){});
+    };
 }
 
--(UILabel *)labelWithText:(NSString *)text{
-    return jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-        label
-            .byText(text.tr)
-            .byTextCor(JobsLabelColor)
-            .byFont(UIFontWeightRegularSize(15))
-            .byTextAlignment(NSTextAlignmentCenter)
-            .byNumberOfLines(0);
-    });
+-(JobsRetLabelByTextBlock _Nonnull)labelWithText{
+    @jobs_weakify(self)
+    return ^UILabel *(NSString * text){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(text.jobsTr())
+                .byTextCor(JobsLabelColor)
+                .byFont(UIFontWeightRegularSize(15))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byNumberOfLines(0);
+        });
+    };
 }
 
 #pragma mark —— LazyLoad
@@ -128,42 +166,42 @@ Prop_copy()NSString *barcodeContent;
 -(UITapGestureRecognizer *)qrCopyGesture{
     if (!_qrCopyGesture) {
         @jobs_weakify(self)
-        _qrCopyGesture = [jobsMakeTapGesture(^(__kindof UITapGestureRecognizer * _Nullable gesture) {
+        _qrCopyGesture = (jobsMakeTapGesture(^(__kindof UITapGestureRecognizer * _Nullable gesture) {
             gesture
                 .byNumberOfTouchesRequired(1)
                 .byNumberOfTapsRequired(1);
-        }) gestureActionBy:^{
+        })).gestureActionBy(^{
             @jobs_strongify(self)
             self.qrContent.pasteboard();
-        }];
+        });
     };return _qrCopyGesture;
 }
 
 -(UITapGestureRecognizer *)logoQRCopyGesture{
     if (!_logoQRCopyGesture) {
         @jobs_weakify(self)
-        _logoQRCopyGesture = [jobsMakeTapGesture(^(__kindof UITapGestureRecognizer * _Nullable gesture) {
+        _logoQRCopyGesture = (jobsMakeTapGesture(^(__kindof UITapGestureRecognizer * _Nullable gesture) {
             gesture
                 .byNumberOfTouchesRequired(1)
                 .byNumberOfTapsRequired(1);
-        }) gestureActionBy:^{
+        })).gestureActionBy(^{
             @jobs_strongify(self)
             self.logoQRContent.pasteboard();
-        }];
+        });
     };return _logoQRCopyGesture;
 }
 
 -(UITapGestureRecognizer *)barcodeCopyGesture{
     if (!_barcodeCopyGesture) {
         @jobs_weakify(self)
-        _barcodeCopyGesture = [jobsMakeTapGesture(^(__kindof UITapGestureRecognizer * _Nullable gesture) {
+        _barcodeCopyGesture = (jobsMakeTapGesture(^(__kindof UITapGestureRecognizer * _Nullable gesture) {
             gesture
                 .byNumberOfTouchesRequired(1)
                 .byNumberOfTapsRequired(1);
-        }) gestureActionBy:^{
+        })).gestureActionBy(^{
             @jobs_strongify(self)
             self.barcodeContent.pasteboard();
-        }];
+        });
     };return _barcodeCopyGesture;
 }
 
@@ -172,7 +210,8 @@ Prop_copy()NSString *barcodeContent;
         @jobs_weakify(self)
         _qrImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             imageView
-                .byImage([self.qrContent jobsQRCodeImageByWidth:JobsWidth(180) correctionLevel:@"M"])
+                .byImage([self.qrContent jobsQRCodeImageByWidth:JobsWidth(180)
+                                                correctionLevel:@"M"])
                 .byContentMode(UIViewContentModeScaleAspectFit)
                 .byUserInteractionEnabled(YES)
                 .addGesture(self.qrCopyGesture)
@@ -190,7 +229,7 @@ Prop_copy()NSString *barcodeContent;
 -(UILabel *)qrLab{
     if (!_qrLab) {
         @jobs_weakify(self)
-        _qrLab = [self labelWithText:self.qrContent];
+        _qrLab = self.labelWithText(self.qrContent);
         _qrLab.addOn(self.contentView);
         [_qrLab mas_makeConstraints:^(MASConstraintMaker *make) {
             @jobs_strongify(self)
@@ -206,12 +245,12 @@ Prop_copy()NSString *barcodeContent;
         _logoQRImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             imageView
                 .byImage([self.logoQRContent jobsQRCodeImageByWidth:JobsWidth(180)
-                                                   correctionLevel:@"H"
-                                                        centerLogo:self.jobsLogoImage
-                                                         logoRatio:0.22
-                                                  logoCornerRadius:JobsWidth(10)
-                                                       borderWidth:JobsWidth(6)
-                                                       borderColor:UIColor.whiteColor])
+                                                    correctionLevel:@"H"
+                                                         centerLogo:self.jobsLogoImage()
+                                                          logoRatio:0.22
+                                                   logoCornerRadius:JobsWidth(10)
+                                                        borderWidth:JobsWidth(6)
+                                                        borderColor:UIColor.whiteColor])
                 .byContentMode(UIViewContentModeScaleAspectFit)
                 .byUserInteractionEnabled(YES)
                 .addGesture(self.logoQRCopyGesture)
@@ -229,7 +268,7 @@ Prop_copy()NSString *barcodeContent;
 -(UILabel *)logoQRLab{
     if (!_logoQRLab) {
         @jobs_weakify(self)
-        _logoQRLab = [self labelWithText:@"带中心 Logo 的二维码"];
+        _logoQRLab = self.labelWithText(@"带中心 Logo 的二维码");
         _logoQRLab.addOn(self.contentView);
         [_logoQRLab mas_makeConstraints:^(MASConstraintMaker *make) {
             @jobs_strongify(self)
@@ -269,7 +308,7 @@ Prop_copy()NSString *barcodeContent;
 -(UILabel *)barcodeLab{
     if (!_barcodeLab) {
         @jobs_weakify(self)
-        _barcodeLab = [self labelWithText:@"Code128 条形码"];
+        _barcodeLab = self.labelWithText(@"Code128 条形码");
         _barcodeLab.addOn(self.contentView);
         [_barcodeLab mas_makeConstraints:^(MASConstraintMaker *make) {
             @jobs_strongify(self)
@@ -279,4 +318,32 @@ Prop_copy()NSString *barcodeContent;
     };return _barcodeLab;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsQRCodeDemoVC
+-(JobsRetJobsQRCodeDemoVCByNSStringBlock _Nonnull)byBarcodeContent{
+    @jobs_weakify(self)
+    return ^__kindof JobsQRCodeDemoVC * _Nullable(NSString * _Nullable data){
+        @jobs_strongify(self)
+        [self setBarcodeContent:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsQRCodeDemoVCByNSStringBlock _Nonnull)byLogoQRContent{
+    @jobs_weakify(self)
+    return ^__kindof JobsQRCodeDemoVC * _Nullable(NSString * _Nullable data){
+        @jobs_strongify(self)
+        [self setLogoQRContent:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsQRCodeDemoVCByNSStringBlock _Nonnull)byQrContent{
+    @jobs_weakify(self)
+    return ^__kindof JobsQRCodeDemoVC * _Nullable(NSString * _Nullable data){
+        @jobs_strongify(self)
+        [self setQrContent:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsQRCodeDemoVC
 @end

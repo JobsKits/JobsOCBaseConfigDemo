@@ -6,18 +6,19 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIVIEW_EXTRA_4A2DF7447C
-#define JOBS_HEADER_GUARD_UIVIEW_EXTRA_4A2DF7447C
-
-#pragma once
-
-#import <objc/runtime.h>
-#import <UIKit/UIKit.h>
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#define JOBS_HEADER_GUARD_UIVIEW_EXTRA_4A2DF7447C
+
+#pragma once
+
+#import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 
 #import "JobsOCDSL.h"
 #import "JobsMakes.h"
@@ -28,12 +29,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (Extra)
 
-Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
+Prop_copy(nullable)jobsByMASConstraintMakerBlock masonryBlock;
 
 -(JobsRetViewByViewBlock _Nonnull)addSubview;
-/// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
+/// 调用方式：view.layerByBorderCor(@"#FFD8D8".jobsCor()).layerByBorderWidth(1);
 -(JobsRetViewByCorBlock _Nonnull)layerByBorderCor;
-/// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
+/// 调用方式：view.layerByBorderCor(@"#FFD8D8".jobsCor()).layerByBorderWidth(1);
 -(JobsRetViewByFloatBlock _Nonnull)layerByBorderWidth;
 /// 切整个View的4个角为统一的切角参数
 -(JobsRetViewByFloatBlock _Nonnull)cornerCutToCircleWithCornerRadius;

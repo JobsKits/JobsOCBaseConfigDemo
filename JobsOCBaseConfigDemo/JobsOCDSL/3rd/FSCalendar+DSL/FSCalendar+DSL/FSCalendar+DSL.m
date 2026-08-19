@@ -4,12 +4,14 @@
 //
 //  Auto-generated from FSCalendar public headers on 2026年6月10日，星期三。
 //
+//  Created by Jobs on 2026年8月3日，星期一.
+//
 
 #import "FSCalendar+DSL.h"
 
 @implementation FSCalendar (JobsFSCalendarDSL)
 #pragma mark —— Properties
--(JobsRetFSCalendarByFSCalendarAppearanceBlockBlock)byAppearanceBlock{
+-(JobsRetFSCalendarByFSCalendarAppearanceBlockBlock _Nonnull)byAppearanceBlock{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(jobsByFSCalendarAppearanceBlock _Nullable data){
         @jobs_strongify(self)
@@ -18,7 +20,7 @@
     };
 }
 
--(JobsRetFSCalendarByFSCalendarHeaderViewBlockBlock)byCalendarHeaderViewBlock{
+-(JobsRetFSCalendarByFSCalendarHeaderViewBlockBlock _Nonnull)byCalendarHeaderViewBlock{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(jobsByFSCalendarHeaderViewBlock _Nullable data){
         @jobs_strongify(self)
@@ -27,7 +29,7 @@
     };
 }
 
--(JobsRetFSCalendarByFSCalendarSwipeToChooseGestureBlockBlock)bySwipeToChooseGestureBlock{
+-(JobsRetFSCalendarByFSCalendarSwipeToChooseGestureBlockBlock _Nonnull)bySwipeToChooseGestureBlock{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(jobsByFSCalendarSwipeToChooseGestureBlock _Nullable data){
         @jobs_strongify(self)
@@ -36,7 +38,7 @@
     };
 }
 
--(JobsRetFSCalendarByTimeZoneBlock)byTimeZone{
+-(JobsRetFSCalendarByTimeZoneBlock _Nonnull)byTimeZone{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(NSTimeZone * _Nullable data){
         @jobs_strongify(self)
@@ -46,7 +48,7 @@
     };
 }
 
--(JobsRetFSCalendarByDelegateBlock)byDelegate{
+-(JobsRetFSCalendarByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(id<FSCalendarDelegate> _Nullable data){
         @jobs_strongify(self)
@@ -55,7 +57,7 @@
     };
 }
 
--(JobsRetFSCalendarByDataSourceBlock)byDataSource{
+-(JobsRetFSCalendarByDataSourceBlock _Nonnull)byDataSource{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(id<FSCalendarDataSource> _Nullable data){
         @jobs_strongify(self)
@@ -64,7 +66,7 @@
     };
 }
 
--(JobsRetFSCalendarByTodayBlock)byToday{
+-(JobsRetFSCalendarByTodayBlock _Nonnull)byToday{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(NSDate * _Nullable data){
         @jobs_strongify(self)
@@ -73,7 +75,7 @@
     };
 }
 
--(JobsRetFSCalendarByCurrentPageBlock)byCurrentPage{
+-(JobsRetFSCalendarByCurrentPageBlock _Nonnull)byCurrentPage{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(NSDate * _Nullable data){
         @jobs_strongify(self)
@@ -82,7 +84,7 @@
     };
 }
 
--(JobsRetFSCalendarByLocaleBlock)byLocale{
+-(JobsRetFSCalendarByLocaleBlock _Nonnull)byLocale{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(NSLocale * _Nullable data){
         @jobs_strongify(self)
@@ -91,7 +93,7 @@
     };
 }
 
--(JobsRetFSCalendarByScrollDirectionBlock)byScrollDirection{
+-(JobsRetFSCalendarByScrollDirectionBlock _Nonnull)byScrollDirection{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -100,7 +102,7 @@
     };
 }
 
--(JobsRetFSCalendarByScopeBlock)byScope{
+-(JobsRetFSCalendarByScopeBlock _Nonnull)byScope{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -109,7 +111,7 @@
     };
 }
 
--(JobsRetFSCalendarByGetScopeGestureBlock)byGetScopeGesture{
+-(JobsRetFSCalendarByGetScopeGestureBlock _Nonnull)byGetScopeGesture{
     @jobs_weakify(self)
     return ^UIPanGestureRecognizer * _Nullable(void){
         @jobs_strongify(self)
@@ -117,7 +119,7 @@
     };
 }
 
--(JobsRetFSCalendarByGetSwipeToChooseGestureBlock)byGetSwipeToChooseGesture{
+-(JobsRetFSCalendarByGetSwipeToChooseGestureBlock _Nonnull)byGetSwipeToChooseGesture{
     @jobs_weakify(self)
     return ^UILongPressGestureRecognizer * _Nullable(void){
         @jobs_strongify(self)
@@ -125,7 +127,7 @@
     };
 }
 
--(JobsRetFSCalendarByPlaceholderTypeBlock)byPlaceholderType{
+-(JobsRetFSCalendarByPlaceholderTypeBlock _Nonnull)byPlaceholderType{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -134,7 +136,7 @@
     };
 }
 
--(JobsRetFSCalendarByFirstWeekdayBlock)byFirstWeekday{
+-(JobsRetFSCalendarByFirstWeekdayBlock _Nonnull)byFirstWeekday{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(NSUInteger data){
         @jobs_strongify(self)
@@ -143,7 +145,7 @@
     };
 }
 
--(JobsRetFSCalendarByHeaderHeightBlock)byHeaderHeight{
+-(JobsRetFSCalendarByHeaderHeightBlock _Nonnull)byHeaderHeight{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -152,7 +154,7 @@
     };
 }
 
--(JobsRetFSCalendarByWeekdayHeightBlock)byWeekdayHeight{
+-(JobsRetFSCalendarByWeekdayHeightBlock _Nonnull)byWeekdayHeight{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -161,7 +163,7 @@
     };
 }
 
--(JobsRetFSCalendarByCalendarWeekdayViewBlock)byCalendarWeekdayView{
+-(JobsRetFSCalendarByCalendarWeekdayViewBlock _Nonnull)byCalendarWeekdayView{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(FSCalendarWeekdayView * _Nullable data){
         @jobs_strongify(self)
@@ -170,7 +172,7 @@
     };
 }
 
--(JobsRetFSCalendarByCalendarHeaderViewBlock)byCalendarHeaderView{
+-(JobsRetFSCalendarByCalendarHeaderViewBlock _Nonnull)byCalendarHeaderView{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(FSCalendarHeaderView * _Nullable data){
         @jobs_strongify(self)
@@ -179,7 +181,7 @@
     };
 }
 
--(JobsRetFSCalendarByBOOLBlock)byAllowsSelection{
+-(JobsRetFSCalendarByBOOLBlock _Nonnull)byAllowsSelection{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(BOOL data){
         @jobs_strongify(self)
@@ -188,7 +190,7 @@
     };
 }
 
--(JobsRetFSCalendarByBOOLBlock)byAllowsMultipleSelection{
+-(JobsRetFSCalendarByBOOLBlock _Nonnull)byAllowsMultipleSelection{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(BOOL data){
         @jobs_strongify(self)
@@ -197,7 +199,7 @@
     };
 }
 
--(JobsRetFSCalendarByBOOLBlock)byAdjustsBoundingRectWhenChangingMonths{
+-(JobsRetFSCalendarByBOOLBlock _Nonnull)byAdjustsBoundingRectWhenChangingMonths{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(BOOL data){
         @jobs_strongify(self)
@@ -206,7 +208,7 @@
     };
 }
 
--(JobsRetFSCalendarByBOOLBlock)byPagingEnabled{
+-(JobsRetFSCalendarByBOOLBlock _Nonnull)byPagingEnabled{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(BOOL data){
         @jobs_strongify(self)
@@ -215,7 +217,7 @@
     };
 }
 
--(JobsRetFSCalendarByBOOLBlock)byScrollEnabled{
+-(JobsRetFSCalendarByBOOLBlock _Nonnull)byScrollEnabled{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(BOOL data){
         @jobs_strongify(self)
@@ -224,7 +226,7 @@
     };
 }
 
--(JobsRetFSCalendarByRowHeightBlock)byRowHeight{
+-(JobsRetFSCalendarByRowHeightBlock _Nonnull)byRowHeight{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -233,7 +235,7 @@
     };
 }
 
--(JobsRetFSCalendarByGetAppearanceBlock)byGetAppearance{
+-(JobsRetFSCalendarByGetAppearanceBlock _Nonnull)byGetAppearance{
     @jobs_weakify(self)
     return ^FSCalendarAppearance * _Nullable(void){
         @jobs_strongify(self)
@@ -241,7 +243,7 @@
     };
 }
 
--(JobsRetDateByVoidBlock)byGetMinimumDate{
+-(JobsRetDateByVoidBlock _Nonnull)byGetMinimumDate{
     @jobs_weakify(self)
     return ^NSDate * _Nullable(void){
         @jobs_strongify(self)
@@ -249,7 +251,7 @@
     };
 }
 
--(JobsRetDateByVoidBlock)byGetMaximumDate{
+-(JobsRetDateByVoidBlock _Nonnull)byGetMaximumDate{
     @jobs_weakify(self)
     return ^NSDate * _Nullable(void){
         @jobs_strongify(self)
@@ -257,7 +259,7 @@
     };
 }
 
--(JobsRetDateByVoidBlock)byGetSelectedDate{
+-(JobsRetDateByVoidBlock _Nonnull)byGetSelectedDate{
     @jobs_weakify(self)
     return ^NSDate * _Nullable(void){
         @jobs_strongify(self)
@@ -265,7 +267,7 @@
     };
 }
 
--(JobsRetFSCalendarByGetSelectedDatesBlock)byGetSelectedDates{
+-(JobsRetFSCalendarByGetSelectedDatesBlock _Nonnull)byGetSelectedDates{
     @jobs_weakify(self)
     return ^NSArray<NSDate *> * _Nullable(void){
         @jobs_strongify(self)
@@ -273,7 +275,7 @@
     };
 }
 
--(JobsRetFSCalendarCollectionViewByVoidBlock)byGetCollectionView{
+-(JobsRetFSCalendarCollectionViewByVoidBlock _Nonnull)byGetCollectionView{
     @jobs_weakify(self)
     return ^FSCalendarCollectionView * _Nullable(void){
         @jobs_strongify(self)
@@ -281,7 +283,7 @@
     };
 }
 
--(JobsRetFSCalendarLayoutByVoidBlock)byGetCollectionViewLayout{
+-(JobsRetFSCalendarLayoutByVoidBlock _Nonnull)byGetCollectionViewLayout{
     @jobs_weakify(self)
     return ^FSCalendarCollectionViewLayout * _Nullable(void){
         @jobs_strongify(self)
@@ -289,7 +291,7 @@
     };
 }
 
--(JobsRetFSCalendarByGetTransitionCoordinatorBlock)byGetTransitionCoordinator{
+-(JobsRetFSCalendarByGetTransitionCoordinatorBlock _Nonnull)byGetTransitionCoordinator{
     @jobs_weakify(self)
     return ^FSCalendarTransitionCoordinator * _Nullable(void){
         @jobs_strongify(self)
@@ -297,7 +299,7 @@
     };
 }
 
--(JobsRetFSCalendarByGetCalculatorBlock)byGetCalculator{
+-(JobsRetFSCalendarByGetCalculatorBlock _Nonnull)byGetCalculator{
     @jobs_weakify(self)
     return ^FSCalendarCalculator * _Nullable(void){
         @jobs_strongify(self)
@@ -305,7 +307,7 @@
     };
 }
 
--(JobsRetBOOLByVoidBlock)byGetFloatingMode{
+-(JobsRetBOOLByVoidBlock _Nonnull)byGetFloatingMode{
     @jobs_weakify(self)
     return ^BOOL(void){
         @jobs_strongify(self)
@@ -313,7 +315,7 @@
     };
 }
 
--(JobsRetArrByVoidBlock)byGetVisibleStickyHeaders{
+-(JobsRetArrByVoidBlock _Nonnull)byGetVisibleStickyHeaders{
     @jobs_weakify(self)
     return ^NSArray * _Nullable(void){
         @jobs_strongify(self)
@@ -321,7 +323,7 @@
     };
 }
 
--(JobsRetCGFloatByVoidBlock)byGetPreferredHeaderHeight{
+-(JobsRetCGFloatByVoidBlock _Nonnull)byGetPreferredHeaderHeight{
     @jobs_weakify(self)
     return ^CGFloat(void){
         @jobs_strongify(self)
@@ -329,7 +331,7 @@
     };
 }
 
--(JobsRetCGFloatByVoidBlock)byGetPreferredWeekdayHeight{
+-(JobsRetCGFloatByVoidBlock _Nonnull)byGetPreferredWeekdayHeight{
     @jobs_weakify(self)
     return ^CGFloat(void){
         @jobs_strongify(self)
@@ -337,7 +339,7 @@
     };
 }
 
--(JobsRetFSCalendarByGetGregorianBlock)byGetGregorian{
+-(JobsRetFSCalendarByGetGregorianBlock _Nonnull)byGetGregorian{
     @jobs_weakify(self)
     return ^NSCalendar * _Nullable(void){
         @jobs_strongify(self)
@@ -345,7 +347,7 @@
     };
 }
 
--(JobsRetDateFormatterByVoidBlock)byGetFormatter{
+-(JobsRetDateFormatterByVoidBlock _Nonnull)byGetFormatter{
     @jobs_weakify(self)
     return ^NSDateFormatter * _Nullable(void){
         @jobs_strongify(self)
@@ -353,7 +355,7 @@
     };
 }
 
--(JobsRetViewByVoidBlock)byGetContentView{
+-(JobsRetViewByVoidBlock _Nonnull)byGetContentView{
     @jobs_weakify(self)
     return ^UIView * _Nullable(void){
         @jobs_strongify(self)
@@ -361,7 +363,7 @@
     };
 }
 
--(JobsRetViewByVoidBlock)byGetDaysContainer{
+-(JobsRetViewByVoidBlock _Nonnull)byGetDaysContainer{
     @jobs_weakify(self)
     return ^UIView * _Nullable(void){
         @jobs_strongify(self)
@@ -369,7 +371,7 @@
     };
 }
 
--(JobsRetFSCalendarByBOOLBlock)byNeedsAdjustingViewFrame{
+-(JobsRetFSCalendarByBOOLBlock _Nonnull)byNeedsAdjustingViewFrame{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(BOOL data){
         @jobs_strongify(self)
@@ -379,7 +381,7 @@
 }
 
 #pragma mark —— Methods
--(JobsRetFSCalendarByVoidBlock)byReloadData{
+-(JobsRetFSCalendarByVoidBlock _Nonnull)byReloadData{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(void){
         @jobs_strongify(self)
@@ -388,7 +390,7 @@
     };
 }
 
--(JobsRetFSCalendarByDateBlock)bySelectDate{
+-(JobsRetFSCalendarByDateBlock _Nonnull)bySelectDate{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(NSDate * _Nullable data){
         @jobs_strongify(self)
@@ -397,7 +399,7 @@
     };
 }
 
--(JobsRetFSCalendarByDateBlock)byDeselectDate{
+-(JobsRetFSCalendarByDateBlock _Nonnull)byDeselectDate{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(NSDate * _Nullable data){
         @jobs_strongify(self)
@@ -406,7 +408,7 @@
     };
 }
 
--(JobsRetFSCalendarByDateForCellBlock)byDateForCell{
+-(JobsRetFSCalendarByDateForCellBlock _Nonnull)byDateForCell{
     @jobs_weakify(self)
     return ^NSDate * _Nullable(FSCalendarCell * _Nullable data){
         @jobs_strongify(self)
@@ -414,7 +416,7 @@
     };
 }
 
--(JobsRetFSCalendarByMonthPositionForCellBlock)byMonthPositionForCell{
+-(JobsRetFSCalendarByMonthPositionForCellBlock _Nonnull)byMonthPositionForCell{
     @jobs_weakify(self)
     return ^NSInteger(FSCalendarCell * _Nullable data){
         @jobs_strongify(self)
@@ -422,7 +424,7 @@
     };
 }
 
--(JobsRetFSCalendarByVisibleCellsBlock)byVisibleCells{
+-(JobsRetFSCalendarByVisibleCellsBlock _Nonnull)byVisibleCells{
     @jobs_weakify(self)
     return ^NSArray<__kindof FSCalendarCell *> * _Nullable(void){
         @jobs_strongify(self)
@@ -430,7 +432,7 @@
     };
 }
 
--(JobsRetFSCalendarByFrameForDateBlock)byFrameForDate{
+-(JobsRetFSCalendarByFrameForDateBlock _Nonnull)byFrameForDate{
     @jobs_weakify(self)
     return ^CGRect(NSDate * _Nullable data){
         @jobs_strongify(self)
@@ -438,7 +440,7 @@
     };
 }
 
--(JobsRetFSCalendarByPanGestureRecognizerBlock)byHandleScopeGesture{
+-(JobsRetFSCalendarByPanGestureRecognizerBlock _Nonnull)byHandleScopeGesture{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(UIPanGestureRecognizer * _Nullable data){
         @jobs_strongify(self)
@@ -447,7 +449,7 @@
     };
 }
 
--(JobsRetFSCalendarByVoidBlock)byAdjustMonthPosition{
+-(JobsRetFSCalendarByVoidBlock _Nonnull)byAdjustMonthPosition{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(void){
         @jobs_strongify(self)
@@ -456,7 +458,7 @@
     };
 }
 
--(JobsRetFSCalendarByVoidBlock)byConfigureAppearance{
+-(JobsRetFSCalendarByVoidBlock _Nonnull)byConfigureAppearance{
     @jobs_weakify(self)
     return ^__kindof FSCalendar * _Nullable(void){
         @jobs_strongify(self)
@@ -469,7 +471,7 @@
 
 @implementation FSCalendarAppearance (JobsFSCalendarDSL)
 #pragma mark —— Properties
--(JobsRetFSCalendarAppearanceByTitleFontBlock)byTitleFont{
+-(JobsRetFSCalendarAppearanceByTitleFontBlock _Nonnull)byTitleFont{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIFont * _Nullable data){
         @jobs_strongify(self)
@@ -478,7 +480,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceBySubtitleFontBlock)bySubtitleFont{
+-(JobsRetFSCalendarAppearanceBySubtitleFontBlock _Nonnull)bySubtitleFont{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIFont * _Nullable data){
         @jobs_strongify(self)
@@ -487,7 +489,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByWeekdayFontBlock)byWeekdayFont{
+-(JobsRetFSCalendarAppearanceByWeekdayFontBlock _Nonnull)byWeekdayFont{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIFont * _Nullable data){
         @jobs_strongify(self)
@@ -496,7 +498,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByHeaderTitleFontBlock)byHeaderTitleFont{
+-(JobsRetFSCalendarAppearanceByHeaderTitleFontBlock _Nonnull)byHeaderTitleFont{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIFont * _Nullable data){
         @jobs_strongify(self)
@@ -505,7 +507,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByHeaderTitleOffsetBlock)byHeaderTitleOffset{
+-(JobsRetFSCalendarAppearanceByHeaderTitleOffsetBlock _Nonnull)byHeaderTitleOffset{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(CGPoint data){
         @jobs_strongify(self)
@@ -514,7 +516,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByTitleOffsetBlock)byTitleOffset{
+-(JobsRetFSCalendarAppearanceByTitleOffsetBlock _Nonnull)byTitleOffset{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(CGPoint data){
         @jobs_strongify(self)
@@ -523,7 +525,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceBySubtitleOffsetBlock)bySubtitleOffset{
+-(JobsRetFSCalendarAppearanceBySubtitleOffsetBlock _Nonnull)bySubtitleOffset{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(CGPoint data){
         @jobs_strongify(self)
@@ -532,7 +534,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByEventOffsetBlock)byEventOffset{
+-(JobsRetFSCalendarAppearanceByEventOffsetBlock _Nonnull)byEventOffset{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(CGPoint data){
         @jobs_strongify(self)
@@ -541,7 +543,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByImageOffsetBlock)byImageOffset{
+-(JobsRetFSCalendarAppearanceByImageOffsetBlock _Nonnull)byImageOffset{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(CGPoint data){
         @jobs_strongify(self)
@@ -550,7 +552,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByEventDefaultColorBlock)byEventDefaultColor{
+-(JobsRetFSCalendarAppearanceByEventDefaultColorBlock _Nonnull)byEventDefaultColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -559,7 +561,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByEventSelectionColorBlock)byEventSelectionColor{
+-(JobsRetFSCalendarAppearanceByEventSelectionColorBlock _Nonnull)byEventSelectionColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -568,7 +570,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByWeekdayTextColorBlock)byWeekdayTextColor{
+-(JobsRetFSCalendarAppearanceByWeekdayTextColorBlock _Nonnull)byWeekdayTextColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -577,7 +579,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByHeaderTitleColorBlock)byHeaderTitleColor{
+-(JobsRetFSCalendarAppearanceByHeaderTitleColorBlock _Nonnull)byHeaderTitleColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -586,7 +588,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByHeaderSeparatorColorBlock)byHeaderSeparatorColor{
+-(JobsRetFSCalendarAppearanceByHeaderSeparatorColorBlock _Nonnull)byHeaderSeparatorColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -595,7 +597,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByHeaderDateFormatBlock)byHeaderDateFormat{
+-(JobsRetFSCalendarAppearanceByHeaderDateFormatBlock _Nonnull)byHeaderDateFormat{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(NSString * _Nullable data){
         @jobs_strongify(self)
@@ -604,7 +606,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByHeaderTitleAlignmentBlock)byHeaderTitleAlignment{
+-(JobsRetFSCalendarAppearanceByHeaderTitleAlignmentBlock _Nonnull)byHeaderTitleAlignment{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(NSTextAlignment data){
         @jobs_strongify(self)
@@ -613,7 +615,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByHeaderMinimumDissolvedAlphaBlock)byHeaderMinimumDissolvedAlpha{
+-(JobsRetFSCalendarAppearanceByHeaderMinimumDissolvedAlphaBlock _Nonnull)byHeaderMinimumDissolvedAlpha{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -622,7 +624,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByTitleDefaultColorBlock)byTitleDefaultColor{
+-(JobsRetFSCalendarAppearanceByTitleDefaultColorBlock _Nonnull)byTitleDefaultColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -631,7 +633,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByTitleSelectionColorBlock)byTitleSelectionColor{
+-(JobsRetFSCalendarAppearanceByTitleSelectionColorBlock _Nonnull)byTitleSelectionColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -640,7 +642,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByTitleTodayColorBlock)byTitleTodayColor{
+-(JobsRetFSCalendarAppearanceByTitleTodayColorBlock _Nonnull)byTitleTodayColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -649,7 +651,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByTitlePlaceholderColorBlock)byTitlePlaceholderColor{
+-(JobsRetFSCalendarAppearanceByTitlePlaceholderColorBlock _Nonnull)byTitlePlaceholderColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -658,7 +660,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByTitleWeekendColorBlock)byTitleWeekendColor{
+-(JobsRetFSCalendarAppearanceByTitleWeekendColorBlock _Nonnull)byTitleWeekendColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -667,7 +669,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceBySubtitleDefaultColorBlock)bySubtitleDefaultColor{
+-(JobsRetFSCalendarAppearanceBySubtitleDefaultColorBlock _Nonnull)bySubtitleDefaultColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -676,7 +678,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceBySubtitleSelectionColorBlock)bySubtitleSelectionColor{
+-(JobsRetFSCalendarAppearanceBySubtitleSelectionColorBlock _Nonnull)bySubtitleSelectionColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -685,7 +687,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceBySubtitleTodayColorBlock)bySubtitleTodayColor{
+-(JobsRetFSCalendarAppearanceBySubtitleTodayColorBlock _Nonnull)bySubtitleTodayColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -694,7 +696,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceBySubtitlePlaceholderColorBlock)bySubtitlePlaceholderColor{
+-(JobsRetFSCalendarAppearanceBySubtitlePlaceholderColorBlock _Nonnull)bySubtitlePlaceholderColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -703,7 +705,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceBySubtitleWeekendColorBlock)bySubtitleWeekendColor{
+-(JobsRetFSCalendarAppearanceBySubtitleWeekendColorBlock _Nonnull)bySubtitleWeekendColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -712,7 +714,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceBySelectionColorBlock)bySelectionColor{
+-(JobsRetFSCalendarAppearanceBySelectionColorBlock _Nonnull)bySelectionColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -721,7 +723,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByTodayColorBlock)byTodayColor{
+-(JobsRetFSCalendarAppearanceByTodayColorBlock _Nonnull)byTodayColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -730,7 +732,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByTodaySelectionColorBlock)byTodaySelectionColor{
+-(JobsRetFSCalendarAppearanceByTodaySelectionColorBlock _Nonnull)byTodaySelectionColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -739,7 +741,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByBorderDefaultColorBlock)byBorderDefaultColor{
+-(JobsRetFSCalendarAppearanceByBorderDefaultColorBlock _Nonnull)byBorderDefaultColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -748,7 +750,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByBorderSelectionColorBlock)byBorderSelectionColor{
+-(JobsRetFSCalendarAppearanceByBorderSelectionColorBlock _Nonnull)byBorderSelectionColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -757,7 +759,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByBorderRadiusBlock)byBorderRadius{
+-(JobsRetFSCalendarAppearanceByBorderRadiusBlock _Nonnull)byBorderRadius{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -766,7 +768,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByCaseOptionsBlock)byCaseOptions{
+-(JobsRetFSCalendarAppearanceByCaseOptionsBlock _Nonnull)byCaseOptions{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -775,7 +777,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceBySeparatorsBlock)bySeparators{
+-(JobsRetFSCalendarAppearanceBySeparatorsBlock _Nonnull)bySeparators{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -784,7 +786,7 @@
     };
 }
 
--(JobsRetFSCalendarAppearanceByCalendarBlock)byCalendar{
+-(JobsRetFSCalendarAppearanceByCalendarBlock _Nonnull)byCalendar{
     @jobs_weakify(self)
     return ^__kindof FSCalendarAppearance * _Nullable(FSCalendar * _Nullable data){
         @jobs_strongify(self)
@@ -793,7 +795,7 @@
     };
 }
 
--(JobsRetDicByVoidBlock)byGetBackgroundColors{
+-(JobsRetDicByVoidBlock _Nonnull)byGetBackgroundColors{
     @jobs_weakify(self)
     return ^NSDictionary * _Nullable(void){
         @jobs_strongify(self)
@@ -801,7 +803,7 @@
     };
 }
 
--(JobsRetDicByVoidBlock)byGetTitleColors{
+-(JobsRetDicByVoidBlock _Nonnull)byGetTitleColors{
     @jobs_weakify(self)
     return ^NSDictionary * _Nullable(void){
         @jobs_strongify(self)
@@ -809,7 +811,7 @@
     };
 }
 
--(JobsRetDicByVoidBlock)byGetSubtitleColors{
+-(JobsRetDicByVoidBlock _Nonnull)byGetSubtitleColors{
     @jobs_weakify(self)
     return ^NSDictionary * _Nullable(void){
         @jobs_strongify(self)
@@ -817,7 +819,7 @@
     };
 }
 
--(JobsRetDicByVoidBlock)byGetBorderColors{
+-(JobsRetDicByVoidBlock _Nonnull)byGetBorderColors{
     @jobs_weakify(self)
     return ^NSDictionary * _Nullable(void){
         @jobs_strongify(self)
@@ -829,7 +831,7 @@
 
 @implementation FSCalendarCell (JobsFSCalendarDSL)
 #pragma mark —— Properties
--(JobsRetFSCalendarCellByTitleLabelBlock)byTitleLabel{
+-(JobsRetFSCalendarCellByTitleLabelBlock _Nonnull)byTitleLabel{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(UILabel * _Nullable data){
         @jobs_strongify(self)
@@ -838,7 +840,7 @@
     };
 }
 
--(JobsRetFSCalendarCellBySubtitleLabelBlock)bySubtitleLabel{
+-(JobsRetFSCalendarCellBySubtitleLabelBlock _Nonnull)bySubtitleLabel{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(UILabel * _Nullable data){
         @jobs_strongify(self)
@@ -847,7 +849,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByShapeLayerBlock)byShapeLayer{
+-(JobsRetFSCalendarCellByShapeLayerBlock _Nonnull)byShapeLayer{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(CAShapeLayer * _Nullable data){
         @jobs_strongify(self)
@@ -856,7 +858,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByImageViewBlock)byImageView{
+-(JobsRetFSCalendarCellByImageViewBlock _Nonnull)byImageView{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(UIImageView * _Nullable data){
         @jobs_strongify(self)
@@ -865,7 +867,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByEventIndicatorBlock)byEventIndicator{
+-(JobsRetFSCalendarCellByEventIndicatorBlock _Nonnull)byEventIndicator{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(FSCalendarEventIndicator * _Nullable data){
         @jobs_strongify(self)
@@ -874,7 +876,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByPlaceholderBlock)byPlaceholder{
+-(JobsRetFSCalendarCellByPlaceholderBlock _Nonnull)byPlaceholder{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(BOOL data){
         @jobs_strongify(self)
@@ -883,7 +885,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByCalendarBlock)byCalendar{
+-(JobsRetFSCalendarCellByCalendarBlock _Nonnull)byCalendar{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(FSCalendar * _Nullable data){
         @jobs_strongify(self)
@@ -892,7 +894,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByAppearanceBlock)byAppearance{
+-(JobsRetFSCalendarCellByAppearanceBlock _Nonnull)byAppearance{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(FSCalendarAppearance * _Nullable data){
         @jobs_strongify(self)
@@ -901,7 +903,7 @@
     };
 }
 
--(JobsRetFSCalendarCellBySubtitleBlock)bySubtitle{
+-(JobsRetFSCalendarCellBySubtitleBlock _Nonnull)bySubtitle{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(NSString * _Nullable data){
         @jobs_strongify(self)
@@ -919,7 +921,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByMonthPositionBlock)byMonthPosition{
+-(JobsRetFSCalendarCellByMonthPositionBlock _Nonnull)byMonthPosition{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -928,7 +930,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByNumberOfEventsBlock)byNumberOfEvents{
+-(JobsRetFSCalendarCellByNumberOfEventsBlock _Nonnull)byNumberOfEvents{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -937,7 +939,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByDateIsTodayBlock)byDateIsToday{
+-(JobsRetFSCalendarCellByDateIsTodayBlock _Nonnull)byDateIsToday{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(BOOL data){
         @jobs_strongify(self)
@@ -946,7 +948,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByWeekendBlock)byWeekend{
+-(JobsRetFSCalendarCellByWeekendBlock _Nonnull)byWeekend{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(BOOL data){
         @jobs_strongify(self)
@@ -955,7 +957,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByPreferredFillDefaultColorBlock)byPreferredFillDefaultColor{
+-(JobsRetFSCalendarCellByPreferredFillDefaultColorBlock _Nonnull)byPreferredFillDefaultColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -964,7 +966,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByPreferredFillSelectionColorBlock)byPreferredFillSelectionColor{
+-(JobsRetFSCalendarCellByPreferredFillSelectionColorBlock _Nonnull)byPreferredFillSelectionColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -973,7 +975,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByPreferredTitleDefaultColorBlock)byPreferredTitleDefaultColor{
+-(JobsRetFSCalendarCellByPreferredTitleDefaultColorBlock _Nonnull)byPreferredTitleDefaultColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -982,7 +984,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByPreferredTitleSelectionColorBlock)byPreferredTitleSelectionColor{
+-(JobsRetFSCalendarCellByPreferredTitleSelectionColorBlock _Nonnull)byPreferredTitleSelectionColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -991,7 +993,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByPreferredSubtitleDefaultColorBlock)byPreferredSubtitleDefaultColor{
+-(JobsRetFSCalendarCellByPreferredSubtitleDefaultColorBlock _Nonnull)byPreferredSubtitleDefaultColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -1000,7 +1002,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByPreferredSubtitleSelectionColorBlock)byPreferredSubtitleSelectionColor{
+-(JobsRetFSCalendarCellByPreferredSubtitleSelectionColorBlock _Nonnull)byPreferredSubtitleSelectionColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -1009,7 +1011,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByPreferredBorderDefaultColorBlock)byPreferredBorderDefaultColor{
+-(JobsRetFSCalendarCellByPreferredBorderDefaultColorBlock _Nonnull)byPreferredBorderDefaultColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -1018,7 +1020,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByPreferredBorderSelectionColorBlock)byPreferredBorderSelectionColor{
+-(JobsRetFSCalendarCellByPreferredBorderSelectionColorBlock _Nonnull)byPreferredBorderSelectionColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(UIColor * _Nullable data){
         @jobs_strongify(self)
@@ -1027,7 +1029,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByPreferredTitleOffsetBlock)byPreferredTitleOffset{
+-(JobsRetFSCalendarCellByPreferredTitleOffsetBlock _Nonnull)byPreferredTitleOffset{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(CGPoint data){
         @jobs_strongify(self)
@@ -1036,7 +1038,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByPreferredSubtitleOffsetBlock)byPreferredSubtitleOffset{
+-(JobsRetFSCalendarCellByPreferredSubtitleOffsetBlock _Nonnull)byPreferredSubtitleOffset{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(CGPoint data){
         @jobs_strongify(self)
@@ -1045,7 +1047,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByPreferredImageOffsetBlock)byPreferredImageOffset{
+-(JobsRetFSCalendarCellByPreferredImageOffsetBlock _Nonnull)byPreferredImageOffset{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(CGPoint data){
         @jobs_strongify(self)
@@ -1054,7 +1056,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByPreferredEventOffsetBlock)byPreferredEventOffset{
+-(JobsRetFSCalendarCellByPreferredEventOffsetBlock _Nonnull)byPreferredEventOffset{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(CGPoint data){
         @jobs_strongify(self)
@@ -1063,7 +1065,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByPreferredEventDefaultColorsBlock)byPreferredEventDefaultColors{
+-(JobsRetFSCalendarCellByPreferredEventDefaultColorsBlock _Nonnull)byPreferredEventDefaultColors{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(NSArray<UIColor *> * _Nullable data){
         @jobs_strongify(self)
@@ -1072,7 +1074,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByPreferredEventSelectionColorsBlock)byPreferredEventSelectionColors{
+-(JobsRetFSCalendarCellByPreferredEventSelectionColorsBlock _Nonnull)byPreferredEventSelectionColors{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(NSArray<UIColor *> * _Nullable data){
         @jobs_strongify(self)
@@ -1081,7 +1083,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByPreferredBorderRadiusBlock)byPreferredBorderRadius{
+-(JobsRetFSCalendarCellByPreferredBorderRadiusBlock _Nonnull)byPreferredBorderRadius{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -1091,7 +1093,7 @@
 }
 
 #pragma mark —— Methods
--(JobsRetFSCalendarCellByLayoutSubviewsBlock)byLayoutSubviews{
+-(JobsRetFSCalendarCellByLayoutSubviewsBlock _Nonnull)byLayoutSubviews{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(void){
         @jobs_strongify(self)
@@ -1100,7 +1102,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByConfigureAppearanceBlock)byConfigureAppearance{
+-(JobsRetFSCalendarCellByConfigureAppearanceBlock _Nonnull)byConfigureAppearance{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(void){
         @jobs_strongify(self)
@@ -1109,7 +1111,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByColorForCurrentStateInDictionaryBlock)byColorForCurrentStateInDictionary{
+-(JobsRetFSCalendarCellByColorForCurrentStateInDictionaryBlock _Nonnull)byColorForCurrentStateInDictionary{
     @jobs_weakify(self)
     return ^UIColor * _Nullable(NSDictionary * _Nullable data){
         @jobs_strongify(self)
@@ -1117,7 +1119,7 @@
     };
 }
 
--(JobsRetFSCalendarCellByPerformSelectingBlock)byPerformSelecting{
+-(JobsRetFSCalendarCellByPerformSelectingBlock _Nonnull)byPerformSelecting{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCell * _Nullable(void){
         @jobs_strongify(self)
@@ -1130,7 +1132,7 @@
 
 @implementation FSCalendarEventIndicator (JobsFSCalendarDSL)
 #pragma mark —— Properties
--(JobsRetFSCalendarEventIndicatorByNumberOfEventsBlock)byNumberOfEvents{
+-(JobsRetFSCalendarEventIndicatorByNumberOfEventsBlock _Nonnull)byNumberOfEvents{
     @jobs_weakify(self)
     return ^__kindof FSCalendarEventIndicator * _Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -1139,7 +1141,7 @@
     };
 }
 
--(JobsRetFSCalendarEventIndicatorByColorBlock)byColor{
+-(JobsRetFSCalendarEventIndicatorByColorBlock _Nonnull)byColor{
     @jobs_weakify(self)
     return ^__kindof FSCalendarEventIndicator * _Nullable(id _Nullable data){
         @jobs_strongify(self)
@@ -1152,7 +1154,7 @@
 
 @implementation FSCalendarBlankCell (JobsFSCalendarDSL)
 #pragma mark —— Methods
--(JobsRetFSCalendarBlankCellByConfigureAppearanceBlock)byConfigureAppearance{
+-(JobsRetFSCalendarBlankCellByConfigureAppearanceBlock _Nonnull)byConfigureAppearance{
     @jobs_weakify(self)
     return ^__kindof FSCalendarBlankCell * _Nullable(void){
         @jobs_strongify(self)
@@ -1165,7 +1167,7 @@
 
 @implementation FSCalendarCollectionView (JobsFSCalendarDSL)
 #pragma mark —— Properties
--(JobsRetFSCalendarCollectionViewByInternalDelegateBlock)byInternalDelegate{
+-(JobsRetFSCalendarCollectionViewByInternalDelegateBlock _Nonnull)byInternalDelegate{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCollectionView * _Nullable(id<FSCalendarCollectionViewInternalDelegate> _Nullable data){
         @jobs_strongify(self)
@@ -1178,7 +1180,7 @@
 
 @implementation FSCalendarCollectionViewLayout (JobsFSCalendarDSL)
 #pragma mark —— Properties
--(JobsRetFSCalendarCollectionViewLayoutByCalendarBlock)byCalendar{
+-(JobsRetFSCalendarCollectionViewLayoutByCalendarBlock _Nonnull)byCalendar{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCollectionViewLayout * _Nullable(FSCalendar * _Nullable data){
         @jobs_strongify(self)
@@ -1187,7 +1189,7 @@
     };
 }
 
--(JobsRetFSCalendarCollectionViewLayoutBySectionInsetsBlock)bySectionInsets{
+-(JobsRetFSCalendarCollectionViewLayoutBySectionInsetsBlock _Nonnull)bySectionInsets{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCollectionViewLayout * _Nullable(UIEdgeInsets data){
         @jobs_strongify(self)
@@ -1196,7 +1198,7 @@
     };
 }
 
--(JobsRetFSCalendarCollectionViewLayoutByScrollDirectionBlock)byScrollDirection{
+-(JobsRetFSCalendarCollectionViewLayoutByScrollDirectionBlock _Nonnull)byScrollDirection{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCollectionViewLayout * _Nullable(UICollectionViewScrollDirection data){
         @jobs_strongify(self)
@@ -1205,7 +1207,7 @@
     };
 }
 
--(JobsRetFSCalendarCollectionViewLayoutByGetEstimatedItemSizeBlock)byGetEstimatedItemSize{
+-(JobsRetFSCalendarCollectionViewLayoutByGetEstimatedItemSizeBlock _Nonnull)byGetEstimatedItemSize{
     @jobs_weakify(self)
     return ^CGSize(void){
         @jobs_strongify(self)
@@ -1217,7 +1219,7 @@
 
 @implementation FSCalendarCalculator (JobsFSCalendarDSL)
 #pragma mark —— Properties
--(JobsRetFSCalendarCalculatorByCalendarBlock)byCalendar{
+-(JobsRetFSCalendarCalculatorByCalendarBlock _Nonnull)byCalendar{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCalculator * _Nullable(FSCalendar * _Nullable data){
         @jobs_strongify(self)
@@ -1226,7 +1228,7 @@
     };
 }
 
--(JobsRetNSIntegerByVoidBlock)byGetNumberOfSections{
+-(JobsRetNSIntegerByVoidBlock _Nonnull)byGetNumberOfSections{
     @jobs_weakify(self)
     return ^NSInteger(void){
         @jobs_strongify(self)
@@ -1235,7 +1237,7 @@
 }
 
 #pragma mark —— Methods
--(JobsRetDateByDateBlock)bySafeDateForDate{
+-(JobsRetDateByDateBlock _Nonnull)bySafeDateForDate{
     @jobs_weakify(self)
     return ^NSDate * _Nullable(NSDate * _Nullable data){
         @jobs_strongify(self)
@@ -1243,7 +1245,7 @@
     };
 }
 
--(JobsRetDateByIndexPathBlock)byDateForIndexPath{
+-(JobsRetDateByIndexPathBlock _Nonnull)byDateForIndexPath{
     @jobs_weakify(self)
     return ^NSDate * _Nullable(NSIndexPath * _Nullable data){
         @jobs_strongify(self)
@@ -1251,7 +1253,7 @@
     };
 }
 
--(JobsRetFSCalendarCalculatorByIndexPathForDateBlock)byIndexPathForDate{
+-(JobsRetFSCalendarCalculatorByIndexPathForDateBlock _Nonnull)byIndexPathForDate{
     @jobs_weakify(self)
     return ^NSIndexPath * _Nullable(NSDate * _Nullable data){
         @jobs_strongify(self)
@@ -1259,7 +1261,7 @@
     };
 }
 
--(JobsRetDateByNSIntegerBlock)byPageForSection{
+-(JobsRetDateByNSIntegerBlock _Nonnull)byPageForSection{
     @jobs_weakify(self)
     return ^NSDate * _Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -1267,7 +1269,7 @@
     };
 }
 
--(JobsRetDateByNSIntegerBlock)byWeekForSection{
+-(JobsRetDateByNSIntegerBlock _Nonnull)byWeekForSection{
     @jobs_weakify(self)
     return ^NSDate * _Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -1275,7 +1277,7 @@
     };
 }
 
--(JobsRetDateByNSIntegerBlock)byMonthForSection{
+-(JobsRetDateByNSIntegerBlock _Nonnull)byMonthForSection{
     @jobs_weakify(self)
     return ^NSDate * _Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -1283,7 +1285,7 @@
     };
 }
 
--(JobsRetDateByNSIntegerBlock)byMonthHeadForSection{
+-(JobsRetDateByNSIntegerBlock _Nonnull)byMonthHeadForSection{
     @jobs_weakify(self)
     return ^NSDate * _Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -1291,7 +1293,7 @@
     };
 }
 
--(JobsRetIntegerByDateBlock)byNumberOfHeadPlaceholdersForMonth{
+-(JobsRetIntegerByDateBlock _Nonnull)byNumberOfHeadPlaceholdersForMonth{
     @jobs_weakify(self)
     return ^NSInteger(NSDate * _Nullable data){
         @jobs_strongify(self)
@@ -1299,7 +1301,7 @@
     };
 }
 
--(JobsRetIntegerByDateBlock)byNumberOfRowsInMonth{
+-(JobsRetIntegerByDateBlock _Nonnull)byNumberOfRowsInMonth{
     @jobs_weakify(self)
     return ^NSInteger(NSDate * _Nullable data){
         @jobs_strongify(self)
@@ -1307,7 +1309,7 @@
     };
 }
 
--(JobsRetByNSIntegerBlock)byNumberOfRowsInSection{
+-(JobsRetByNSIntegerBlock _Nonnull)byNumberOfRowsInSection{
     @jobs_weakify(self)
     return ^NSInteger(NSInteger data){
         @jobs_strongify(self)
@@ -1315,7 +1317,7 @@
     };
 }
 
--(JobsRetFSCalendarCalculatorByMonthPositionForIndexPathBlock)byMonthPositionForIndexPath{
+-(JobsRetFSCalendarCalculatorByMonthPositionForIndexPathBlock _Nonnull)byMonthPositionForIndexPath{
     @jobs_weakify(self)
     return ^NSInteger(NSIndexPath * _Nullable data){
         @jobs_strongify(self)
@@ -1323,7 +1325,7 @@
     };
 }
 
--(JobsRetFSCalendarCalculatorByCoordinateForIndexPathBlock)byCoordinateForIndexPath{
+-(JobsRetFSCalendarCalculatorByCoordinateForIndexPathBlock _Nonnull)byCoordinateForIndexPath{
     @jobs_weakify(self)
     return ^NSValue * _Nullable(NSIndexPath * _Nullable data){
         @jobs_strongify(self)
@@ -1332,7 +1334,7 @@
     };
 }
 
--(JobsRetFSCalendarCalculatorByReloadSectionsBlock)byReloadSections{
+-(JobsRetFSCalendarCalculatorByReloadSectionsBlock _Nonnull)byReloadSections{
     @jobs_weakify(self)
     return ^__kindof FSCalendarCalculator * _Nullable(void){
         @jobs_strongify(self)
@@ -1345,7 +1347,7 @@
 
 @implementation FSCalendarDelegationProxy (JobsFSCalendarDSL)
 #pragma mark —— Properties
--(JobsRetFSCalendarDelegationProxyByDelegationBlock)byDelegation{
+-(JobsRetFSCalendarDelegationProxyByDelegationBlock _Nonnull)byDelegation{
     @jobs_weakify(self)
     return ^__kindof FSCalendarDelegationProxy * _Nullable(id _Nullable data){
         @jobs_strongify(self)
@@ -1354,7 +1356,7 @@
     };
 }
 
--(JobsRetFSCalendarDelegationProxyByProtocolBlock)byProtocol{
+-(JobsRetFSCalendarDelegationProxyByProtocolBlock _Nonnull)byProtocol{
     @jobs_weakify(self)
     return ^__kindof FSCalendarDelegationProxy * _Nullable(Protocol * _Nullable data){
         @jobs_strongify(self)
@@ -1363,7 +1365,7 @@
     };
 }
 
--(JobsRetFSCalendarDelegationProxyByDeprecationsBlock)byDeprecations{
+-(JobsRetFSCalendarDelegationProxyByDeprecationsBlock _Nonnull)byDeprecations{
     @jobs_weakify(self)
     return ^__kindof FSCalendarDelegationProxy * _Nullable(NSDictionary<NSString *,NSString *> * _Nullable data){
         @jobs_strongify(self)
@@ -1373,7 +1375,7 @@
 }
 
 #pragma mark —— Methods
--(JobsRetFSCalendarDelegationProxyByDeprecatedSelectorOfSelectorBlock)byDeprecatedSelectorOfSelector{
+-(JobsRetFSCalendarDelegationProxyByDeprecatedSelectorOfSelectorBlock _Nonnull)byDeprecatedSelectorOfSelector{
     @jobs_weakify(self)
     return ^SEL _Nullable(SEL _Nullable data){
         @jobs_strongify(self)
@@ -1385,7 +1387,7 @@
 
 @implementation UIView (JobsFSCalendarDSL)
 #pragma mark —— Properties
--(JobsRetViewByCGFloatBlock)byFs_width{
+-(JobsRetViewByCGFloatBlock _Nonnull)byFs_width{
     @jobs_weakify(self)
     return ^__kindof UIView * _Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -1394,7 +1396,7 @@
     };
 }
 
--(JobsRetViewByCGFloatBlock)byFs_height{
+-(JobsRetViewByCGFloatBlock _Nonnull)byFs_height{
     @jobs_weakify(self)
     return ^__kindof UIView * _Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -1403,7 +1405,7 @@
     };
 }
 
--(JobsRetViewByCGFloatBlock)byFs_top{
+-(JobsRetViewByCGFloatBlock _Nonnull)byFs_top{
     @jobs_weakify(self)
     return ^__kindof UIView * _Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -1412,7 +1414,7 @@
     };
 }
 
--(JobsRetViewByCGFloatBlock)byFs_left{
+-(JobsRetViewByCGFloatBlock _Nonnull)byFs_left{
     @jobs_weakify(self)
     return ^__kindof UIView * _Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -1421,7 +1423,7 @@
     };
 }
 
--(JobsRetViewByCGFloatBlock)byFs_bottom{
+-(JobsRetViewByCGFloatBlock _Nonnull)byFs_bottom{
     @jobs_weakify(self)
     return ^__kindof UIView * _Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -1430,7 +1432,7 @@
     };
 }
 
--(JobsRetViewByCGFloatBlock)byFs_right{
+-(JobsRetViewByCGFloatBlock _Nonnull)byFs_right{
     @jobs_weakify(self)
     return ^__kindof UIView * _Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -1443,7 +1445,7 @@
 
 @implementation CALayer (JobsFSCalendarDSL)
 #pragma mark —— Properties
--(JobsRetCALayerByCGFloatBlock)byFs_width{
+-(JobsRetCALayerByCGFloatBlock _Nonnull)byFs_width{
     @jobs_weakify(self)
     return ^__kindof CALayer * _Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -1452,7 +1454,7 @@
     };
 }
 
--(JobsRetCALayerByCGFloatBlock)byFs_height{
+-(JobsRetCALayerByCGFloatBlock _Nonnull)byFs_height{
     @jobs_weakify(self)
     return ^__kindof CALayer * _Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -1461,7 +1463,7 @@
     };
 }
 
--(JobsRetCALayerByCGFloatBlock)byFs_top{
+-(JobsRetCALayerByCGFloatBlock _Nonnull)byFs_top{
     @jobs_weakify(self)
     return ^__kindof CALayer * _Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -1470,7 +1472,7 @@
     };
 }
 
--(JobsRetCALayerByCGFloatBlock)byFs_left{
+-(JobsRetCALayerByCGFloatBlock _Nonnull)byFs_left{
     @jobs_weakify(self)
     return ^__kindof CALayer * _Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -1479,7 +1481,7 @@
     };
 }
 
--(JobsRetCALayerByCGFloatBlock)byFs_bottom{
+-(JobsRetCALayerByCGFloatBlock _Nonnull)byFs_bottom{
     @jobs_weakify(self)
     return ^__kindof CALayer * _Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -1488,7 +1490,7 @@
     };
 }
 
--(JobsRetCALayerByCGFloatBlock)byFs_right{
+-(JobsRetCALayerByCGFloatBlock _Nonnull)byFs_right{
     @jobs_weakify(self)
     return ^__kindof CALayer * _Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -1499,9 +1501,23 @@
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN NSCalendar
+@interface NSCalendar (JobsPropertyDSLSetterAutogen_cc2aebeb90)
+-(void)setLocale:(NSLocale * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END NSCalendar
+
 @implementation NSCalendar (JobsFSCalendarDSL)
+-(JobsRetCalendarByTimeZoneBlock _Nonnull)byTimeZone{
+    @jobs_weakify(self)
+    return ^__kindof NSCalendar *(NSTimeZone *timeZone){
+        @jobs_strongify(self)
+        self.timeZone = timeZone;
+        return self;
+    };
+}
 #pragma mark —— Methods
--(JobsRetCalendarByNSUIntegerBlock)byMinimumDaysInFirstWeek{
+-(JobsRetCalendarByNSUIntegerBlock _Nonnull)byMinimumDaysInFirstWeek{
     @jobs_weakify(self)
     return ^__kindof NSCalendar *_Nullable(NSUInteger data){
         @jobs_strongify(self)
@@ -1510,7 +1526,7 @@
     };
 }
 
--(JobsRetDateByDateBlock)byFs_firstDayOfMonth{
+-(JobsRetDateByDateBlock _Nonnull)byFs_firstDayOfMonth{
     @jobs_weakify(self)
     return ^NSDate * _Nullable(NSDate * _Nullable data){
         @jobs_strongify(self)
@@ -1518,7 +1534,7 @@
     };
 }
 
--(JobsRetDateByDateBlock)byFs_lastDayOfMonth{
+-(JobsRetDateByDateBlock _Nonnull)byFs_lastDayOfMonth{
     @jobs_weakify(self)
     return ^NSDate * _Nullable(NSDate * _Nullable data){
         @jobs_strongify(self)
@@ -1526,7 +1542,7 @@
     };
 }
 
--(JobsRetDateByDateBlock)byFs_firstDayOfWeek{
+-(JobsRetDateByDateBlock _Nonnull)byFs_firstDayOfWeek{
     @jobs_weakify(self)
     return ^NSDate * _Nullable(NSDate * _Nullable data){
         @jobs_strongify(self)
@@ -1534,7 +1550,7 @@
     };
 }
 
--(JobsRetDateByDateBlock)byFs_lastDayOfWeek{
+-(JobsRetDateByDateBlock _Nonnull)byFs_lastDayOfWeek{
     @jobs_weakify(self)
     return ^NSDate * _Nullable(NSDate * _Nullable data){
         @jobs_strongify(self)
@@ -1542,7 +1558,7 @@
     };
 }
 
--(JobsRetDateByDateBlock)byFs_middleDayOfWeek{
+-(JobsRetDateByDateBlock _Nonnull)byFs_middleDayOfWeek{
     @jobs_weakify(self)
     return ^NSDate * _Nullable(NSDate * _Nullable data){
         @jobs_strongify(self)
@@ -1550,7 +1566,7 @@
     };
 }
 
--(JobsRetIntegerByDateBlock)byFs_numberOfDaysInMonth{
+-(JobsRetIntegerByDateBlock _Nonnull)byFs_numberOfDaysInMonth{
     @jobs_weakify(self)
     return ^NSInteger(NSDate * _Nullable data){
         @jobs_strongify(self)
@@ -1558,11 +1574,21 @@
     };
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN NSCalendar
+-(JobsRetNSCalendarByNSLocaleBlock _Nonnull)byLocale{
+    @jobs_weakify(self)
+    return ^__kindof NSCalendar * _Nullable(NSLocale * _Nullable data){
+        @jobs_strongify(self)
+        [self setLocale:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END NSCalendar
 @end
 
 @implementation NSMapTable (JobsFSCalendarDSL)
 #pragma mark —— Methods
--(JobsRetNSMapTableByObjectForKeyedSubscriptBlock)byObjectForKeyedSubscript{
+-(JobsRetNSMapTableByObjectForKeyedSubscriptBlock _Nonnull)byObjectForKeyedSubscript{
     @jobs_weakify(self)
     return ^id _Nullable(id<NSCopying> _Nullable data){
         @jobs_strongify(self)
@@ -1570,7 +1596,7 @@
     };
 }
 
--(JobsRetNSMapTableByIDBlock)byRemoveObjectForKey{
+-(JobsRetNSMapTableByIDBlock _Nonnull)byRemoveObjectForKey{
     @jobs_weakify(self)
     return ^__kindof NSMapTable *_Nullable(id<NSCopying> _Nullable data){
         @jobs_strongify(self)
@@ -1579,7 +1605,7 @@
     };
 }
 
--(JobsRetNSMapTableByVoidBlock)byRemoveAllObjects{
+-(JobsRetNSMapTableByVoidBlock _Nonnull)byRemoveAllObjects{
     @jobs_weakify(self)
     return ^__kindof NSMapTable *_Nullable(void){
         @jobs_strongify(self)
@@ -1592,7 +1618,7 @@
 
 @implementation NSCache (JobsFSCalendarDSL)
 #pragma mark —— Methods
--(JobsRetNSCacheByNSUIntegerBlock)byTotalCostLimit{
+-(JobsRetNSCacheByNSUIntegerBlock _Nonnull)byTotalCostLimit{
     @jobs_weakify(self)
     return ^__kindof NSCache *_Nullable(NSUInteger data){
         @jobs_strongify(self)
@@ -1601,7 +1627,7 @@
     };
 }
 
--(JobsRetNSCacheByNSUIntegerBlock)byCountLimit{
+-(JobsRetNSCacheByNSUIntegerBlock _Nonnull)byCountLimit{
     @jobs_weakify(self)
     return ^__kindof NSCache *_Nullable(NSUInteger data){
         @jobs_strongify(self)
@@ -1610,7 +1636,7 @@
     };
 }
 
--(JobsRetNSCacheByBOOLBlock)byEvictsObjectsWithDiscardedContent{
+-(JobsRetNSCacheByBOOLBlock _Nonnull)byEvictsObjectsWithDiscardedContent{
     @jobs_weakify(self)
     return ^__kindof NSCache *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -1619,7 +1645,7 @@
     };
 }
 
--(JobsRetNSCacheByObjectForKeyedSubscriptBlock)byObjectForKeyedSubscript{
+-(JobsRetNSCacheByObjectForKeyedSubscriptBlock _Nonnull)byObjectForKeyedSubscript{
     @jobs_weakify(self)
     return ^id _Nullable(id<NSCopying> _Nullable data){
         @jobs_strongify(self)
@@ -1627,7 +1653,7 @@
     };
 }
 
--(JobsRetNSCacheByIDBlock)byRemoveObjectForKey{
+-(JobsRetNSCacheByIDBlock _Nonnull)byRemoveObjectForKey{
     @jobs_weakify(self)
     return ^__kindof NSCache *_Nullable(id<NSCopying> _Nullable data){
         @jobs_strongify(self)
@@ -1636,7 +1662,7 @@
     };
 }
 
--(JobsRetNSCacheByVoidBlock)byRemoveAllObjects{
+-(JobsRetNSCacheByVoidBlock _Nonnull)byRemoveAllObjects{
     @jobs_weakify(self)
     return ^__kindof NSCache *_Nullable(void){
         @jobs_strongify(self)
@@ -1649,7 +1675,7 @@
 
 @implementation NSObject (JobsFSCalendarDSL)
 #pragma mark —— Methods
--(JobsRetIDByStrBlock)byFs_variableForKey{
+-(JobsRetIDByStrBlock _Nonnull)byFs_variableForKey{
     @jobs_weakify(self)
     return ^id _Nullable(NSString * _Nullable data){
         @jobs_strongify(self)
@@ -1661,7 +1687,7 @@
 
 @implementation FSCalendarHeaderView (JobsFSCalendarDSL)
 #pragma mark —— Properties
--(JobsRetFSCalendarHeaderViewByCollectionViewBlock)byCollectionView{
+-(JobsRetFSCalendarHeaderViewByCollectionViewBlock _Nonnull)byCollectionView{
     @jobs_weakify(self)
     return ^__kindof FSCalendarHeaderView * _Nullable(FSCalendarCollectionView * _Nullable data){
         @jobs_strongify(self)
@@ -1670,7 +1696,7 @@
     };
 }
 
--(JobsRetFSCalendarHeaderViewByCollectionViewLayoutBlock)byCollectionViewLayout{
+-(JobsRetFSCalendarHeaderViewByCollectionViewLayoutBlock _Nonnull)byCollectionViewLayout{
     @jobs_weakify(self)
     return ^__kindof FSCalendarHeaderView * _Nullable(FSCalendarHeaderLayout * _Nullable data){
         @jobs_strongify(self)
@@ -1679,7 +1705,7 @@
     };
 }
 
--(JobsRetFSCalendarHeaderViewByCalendarBlock)byCalendar{
+-(JobsRetFSCalendarHeaderViewByCalendarBlock _Nonnull)byCalendar{
     @jobs_weakify(self)
     return ^__kindof FSCalendarHeaderView * _Nullable(FSCalendar * _Nullable data){
         @jobs_strongify(self)
@@ -1688,7 +1714,7 @@
     };
 }
 
--(JobsRetFSCalendarHeaderViewByScrollDirectionBlock)byScrollDirection{
+-(JobsRetFSCalendarHeaderViewByScrollDirectionBlock _Nonnull)byScrollDirection{
     @jobs_weakify(self)
     return ^__kindof FSCalendarHeaderView * _Nullable(UICollectionViewScrollDirection data){
         @jobs_strongify(self)
@@ -1697,7 +1723,7 @@
     };
 }
 
--(JobsRetFSCalendarHeaderViewByScrollEnabledBlock)byScrollEnabled{
+-(JobsRetFSCalendarHeaderViewByScrollEnabledBlock _Nonnull)byScrollEnabled{
     @jobs_weakify(self)
     return ^__kindof FSCalendarHeaderView * _Nullable(BOOL data){
         @jobs_strongify(self)
@@ -1707,7 +1733,7 @@
 }
 
 #pragma mark —— Methods
--(JobsRetFSCalendarHeaderViewBySetScrollOffsetBlock)bySetScrollOffset{
+-(JobsRetFSCalendarHeaderViewBySetScrollOffsetBlock _Nonnull)bySetScrollOffset{
     @jobs_weakify(self)
     return ^__kindof FSCalendarHeaderView * _Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -1716,7 +1742,7 @@
     };
 }
 
--(JobsRetFSCalendarHeaderViewByVoidBlock)byReloadData{
+-(JobsRetFSCalendarHeaderViewByVoidBlock _Nonnull)byReloadData{
     @jobs_weakify(self)
     return ^__kindof FSCalendarHeaderView * _Nullable(void){
         @jobs_strongify(self)
@@ -1725,7 +1751,7 @@
     };
 }
 
--(JobsRetFSCalendarHeaderViewByVoidBlock)byConfigureAppearance{
+-(JobsRetFSCalendarHeaderViewByVoidBlock _Nonnull)byConfigureAppearance{
     @jobs_weakify(self)
     return ^__kindof FSCalendarHeaderView * _Nullable(void){
         @jobs_strongify(self)
@@ -1738,7 +1764,7 @@
 
 @implementation FSCalendarHeaderCell (JobsFSCalendarDSL)
 #pragma mark —— Properties
--(JobsRetFSCalendarHeaderCellByTitleLabelBlock)byTitleLabel{
+-(JobsRetFSCalendarHeaderCellByTitleLabelBlock _Nonnull)byTitleLabel{
     @jobs_weakify(self)
     return ^__kindof FSCalendarHeaderCell * _Nullable(UILabel * _Nullable data){
         @jobs_strongify(self)
@@ -1747,7 +1773,7 @@
     };
 }
 
--(JobsRetFSCalendarHeaderCellByHeaderBlock)byHeader{
+-(JobsRetFSCalendarHeaderCellByHeaderBlock _Nonnull)byHeader{
     @jobs_weakify(self)
     return ^__kindof FSCalendarHeaderCell * _Nullable(FSCalendarHeaderView * _Nullable data){
         @jobs_strongify(self)
@@ -1760,7 +1786,7 @@
 
 @implementation FSCalendarHeaderTouchDeliver (JobsFSCalendarDSL)
 #pragma mark —— Properties
--(JobsRetFSCalendarHeaderTouchDeliverByCalendarBlock)byCalendar{
+-(JobsRetFSCalendarHeaderTouchDeliverByCalendarBlock _Nonnull)byCalendar{
     @jobs_weakify(self)
     return ^__kindof FSCalendarHeaderTouchDeliver * _Nullable(FSCalendar * _Nullable data){
         @jobs_strongify(self)
@@ -1769,7 +1795,7 @@
     };
 }
 
--(JobsRetFSCalendarHeaderTouchDeliverByHeaderBlock)byHeader{
+-(JobsRetFSCalendarHeaderTouchDeliverByHeaderBlock _Nonnull)byHeader{
     @jobs_weakify(self)
     return ^__kindof FSCalendarHeaderTouchDeliver * _Nullable(FSCalendarHeaderView * _Nullable data){
         @jobs_strongify(self)
@@ -1782,7 +1808,7 @@
 
 @implementation FSCalendarStickyHeader (JobsFSCalendarDSL)
 #pragma mark —— Properties
--(JobsRetFSCalendarStickyHeaderByCalendarBlock)byCalendar{
+-(JobsRetFSCalendarStickyHeaderByCalendarBlock _Nonnull)byCalendar{
     @jobs_weakify(self)
     return ^__kindof FSCalendarStickyHeader * _Nullable(FSCalendar * _Nullable data){
         @jobs_strongify(self)
@@ -1791,7 +1817,7 @@
     };
 }
 
--(JobsRetFSCalendarStickyHeaderByTitleLabelBlock)byTitleLabel{
+-(JobsRetFSCalendarStickyHeaderByTitleLabelBlock _Nonnull)byTitleLabel{
     @jobs_weakify(self)
     return ^__kindof FSCalendarStickyHeader * _Nullable(UILabel * _Nullable data){
         @jobs_strongify(self)
@@ -1800,7 +1826,7 @@
     };
 }
 
--(JobsRetFSCalendarStickyHeaderByMonthBlock)byMonth{
+-(JobsRetFSCalendarStickyHeaderByMonthBlock _Nonnull)byMonth{
     @jobs_weakify(self)
     return ^__kindof FSCalendarStickyHeader * _Nullable(NSDate * _Nullable data){
         @jobs_strongify(self)
@@ -1810,7 +1836,7 @@
 }
 
 #pragma mark —— Methods
--(JobsRetFSCalendarStickyHeaderByConfigureAppearanceBlock)byConfigureAppearance{
+-(JobsRetFSCalendarStickyHeaderByConfigureAppearanceBlock _Nonnull)byConfigureAppearance{
     @jobs_weakify(self)
     return ^__kindof FSCalendarStickyHeader * _Nullable(void){
         @jobs_strongify(self)
@@ -1823,7 +1849,7 @@
 
 @implementation FSCalendarTransitionCoordinator (JobsFSCalendarDSL)
 #pragma mark —— Properties
--(JobsRetFSCalendarTransitionCoordinatorByStateBlock)byState{
+-(JobsRetFSCalendarTransitionCoordinatorByStateBlock _Nonnull)byState{
     @jobs_weakify(self)
     return ^__kindof FSCalendarTransitionCoordinator * _Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -1832,7 +1858,7 @@
     };
 }
 
--(JobsRetFSCalendarTransitionCoordinatorByCachedMonthSizeBlock)byCachedMonthSize{
+-(JobsRetFSCalendarTransitionCoordinatorByCachedMonthSizeBlock _Nonnull)byCachedMonthSize{
     @jobs_weakify(self)
     return ^__kindof FSCalendarTransitionCoordinator * _Nullable(CGSize data){
         @jobs_strongify(self)
@@ -1841,7 +1867,7 @@
     };
 }
 
--(JobsRetNSIntegerByVoidBlock)byGetRepresentingScope{
+-(JobsRetNSIntegerByVoidBlock _Nonnull)byGetRepresentingScope{
     @jobs_weakify(self)
     return ^NSInteger(void){
         @jobs_strongify(self)
@@ -1850,7 +1876,7 @@
 }
 
 #pragma mark —— Methods
--(JobsRetFSCalendarTransitionCoordinatorByHandleScopeGestureBlock)byHandleScopeGesture{
+-(JobsRetFSCalendarTransitionCoordinatorByHandleScopeGestureBlock _Nonnull)byHandleScopeGesture{
     @jobs_weakify(self)
     return ^__kindof FSCalendarTransitionCoordinator * _Nullable(id _Nullable data){
         @jobs_strongify(self)
@@ -1863,7 +1889,7 @@
 
 @implementation FSCalendarTransitionAttributes (JobsFSCalendarDSL)
 #pragma mark —— Properties
--(JobsRetFSCalendarTransitionAttributesBySourceBoundsBlock)bySourceBounds{
+-(JobsRetFSCalendarTransitionAttributesBySourceBoundsBlock _Nonnull)bySourceBounds{
     @jobs_weakify(self)
     return ^__kindof FSCalendarTransitionAttributes * _Nullable(CGRect data){
         @jobs_strongify(self)
@@ -1872,7 +1898,7 @@
     };
 }
 
--(JobsRetFSCalendarTransitionAttributesByTargetBoundsBlock)byTargetBounds{
+-(JobsRetFSCalendarTransitionAttributesByTargetBoundsBlock _Nonnull)byTargetBounds{
     @jobs_weakify(self)
     return ^__kindof FSCalendarTransitionAttributes * _Nullable(CGRect data){
         @jobs_strongify(self)
@@ -1881,7 +1907,7 @@
     };
 }
 
--(JobsRetFSCalendarTransitionAttributesBySourcePageBlock)bySourcePage{
+-(JobsRetFSCalendarTransitionAttributesBySourcePageBlock _Nonnull)bySourcePage{
     @jobs_weakify(self)
     return ^__kindof FSCalendarTransitionAttributes * _Nullable(NSDate * _Nullable data){
         @jobs_strongify(self)
@@ -1890,7 +1916,7 @@
     };
 }
 
--(JobsRetFSCalendarTransitionAttributesByTargetPageBlock)byTargetPage{
+-(JobsRetFSCalendarTransitionAttributesByTargetPageBlock _Nonnull)byTargetPage{
     @jobs_weakify(self)
     return ^__kindof FSCalendarTransitionAttributes * _Nullable(NSDate * _Nullable data){
         @jobs_strongify(self)
@@ -1899,7 +1925,7 @@
     };
 }
 
--(JobsRetFSCalendarTransitionAttributesByFocusedRowBlock)byFocusedRow{
+-(JobsRetFSCalendarTransitionAttributesByFocusedRowBlock _Nonnull)byFocusedRow{
     @jobs_weakify(self)
     return ^__kindof FSCalendarTransitionAttributes * _Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -1908,7 +1934,7 @@
     };
 }
 
--(JobsRetFSCalendarTransitionAttributesByFocusedDateBlock)byFocusedDate{
+-(JobsRetFSCalendarTransitionAttributesByFocusedDateBlock _Nonnull)byFocusedDate{
     @jobs_weakify(self)
     return ^__kindof FSCalendarTransitionAttributes * _Nullable(NSDate * _Nullable data){
         @jobs_strongify(self)
@@ -1917,7 +1943,7 @@
     };
 }
 
--(JobsRetFSCalendarTransitionAttributesByTargetScopeBlock)byTargetScope{
+-(JobsRetFSCalendarTransitionAttributesByTargetScopeBlock _Nonnull)byTargetScope{
     @jobs_weakify(self)
     return ^__kindof FSCalendarTransitionAttributes * _Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -1927,7 +1953,7 @@
 }
 
 #pragma mark —— Methods
--(JobsRetFSCalendarTransitionAttributesByRevertBlock)byRevert{
+-(JobsRetFSCalendarTransitionAttributesByRevertBlock _Nonnull)byRevert{
     @jobs_weakify(self)
     return ^__kindof FSCalendarTransitionAttributes * _Nullable(void){
         @jobs_strongify(self)
@@ -1940,7 +1966,7 @@
 
 @implementation FSCalendarWeekdayView (JobsFSCalendarDSL)
 #pragma mark —— Properties
--(JobsRetFSCalendarWeekdayViewByGetWeekdayLabelsBlock)byGetWeekdayLabels{
+-(JobsRetFSCalendarWeekdayViewByGetWeekdayLabelsBlock _Nonnull)byGetWeekdayLabels{
     @jobs_weakify(self)
     return ^NSArray<UILabel *> * _Nullable(void){
         @jobs_strongify(self)
@@ -1948,7 +1974,7 @@
     };
 }
 
--(JobsRetFSCalendarWeekdayViewByCalendarBlock)byCalendar{
+-(JobsRetFSCalendarWeekdayViewByCalendarBlock _Nonnull)byCalendar{
     @jobs_weakify(self)
     return ^__kindof FSCalendarWeekdayView * _Nullable(FSCalendar * _Nullable data){
         @jobs_strongify(self)
@@ -1958,7 +1984,7 @@
 }
 
 #pragma mark —— Methods
--(JobsRetFSCalendarWeekdayViewByConfigureAppearanceBlock)byConfigureAppearance{
+-(JobsRetFSCalendarWeekdayViewByConfigureAppearanceBlock _Nonnull)byConfigureAppearance{
     @jobs_weakify(self)
     return ^__kindof FSCalendarWeekdayView * _Nullable(void){
         @jobs_strongify(self)

@@ -54,6 +54,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsShootingVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsShootingVC
+-(JobsRetJobsShootingVCByNSMutableArrayUIImageBlock _Nonnull)byPhotosImageMutArr;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsShootingVC
 @end
 
 NS_ASSUME_NONNULL_END

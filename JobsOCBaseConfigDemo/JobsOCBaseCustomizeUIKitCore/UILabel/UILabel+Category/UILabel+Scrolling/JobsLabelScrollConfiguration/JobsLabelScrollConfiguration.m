@@ -9,12 +9,16 @@
 
 @implementation JobsLabelScrollConfiguration
 
-+(instancetype)continuousConfiguration{
-    return [JobsLabelScrollConfiguration.alloc initWithMode:JobsLabelScrollModeContinuous];
++(JobsRetIDByVoidBlock _Nonnull)continuousConfiguration{
+    return ^id{
+        return [JobsLabelScrollConfiguration.alloc initWithMode:JobsLabelScrollModeContinuous];
+    };
 }
 
-+(instancetype)pingPongConfiguration{
-    return [JobsLabelScrollConfiguration.alloc initWithMode:JobsLabelScrollModePingPong];
++(JobsRetIDByVoidBlock _Nonnull)pingPongConfiguration{
+    return ^id{
+        return [JobsLabelScrollConfiguration.alloc initWithMode:JobsLabelScrollModePingPong];
+    };
 }
 
 -(instancetype)init{
@@ -54,16 +58,88 @@
     _framesPerSecond = MIN(MAX(1, framesPerSecond), 120);
 }
 
+-(JobsRetJobsLabelScrollConfigurationByNSUIntegerBlock _Nonnull)byMode{
+    @jobs_weakify(self)
+    return ^JobsLabelScrollConfiguration *(NSUInteger mode){
+        @jobs_strongify(self)
+        self.mode = (JobsLabelScrollMode)mode;
+        return self;
+    };
+}
+
+-(JobsRetJobsLabelScrollConfigurationByCGFloatBlock _Nonnull)bySpeed{
+    @jobs_weakify(self)
+    return ^JobsLabelScrollConfiguration *(CGFloat speed){
+        @jobs_strongify(self)
+        self.speed = speed;
+        return self;
+    };
+}
+
+-(JobsRetJobsLabelScrollConfigurationByCGFloatBlock _Nonnull)bySpacing{
+    @jobs_weakify(self)
+    return ^JobsLabelScrollConfiguration *(CGFloat spacing){
+        @jobs_strongify(self)
+        self.spacing = spacing;
+        return self;
+    };
+}
+
+-(JobsRetJobsLabelScrollConfigurationByNSTimeIntervalBlock _Nonnull)byStartDelay{
+    @jobs_weakify(self)
+    return ^JobsLabelScrollConfiguration *(NSTimeInterval startDelay){
+        @jobs_strongify(self)
+        self.startDelay = startDelay;
+        return self;
+    };
+}
+
+-(JobsRetJobsLabelScrollConfigurationByNSTimeIntervalBlock _Nonnull)byEdgePause{
+    @jobs_weakify(self)
+    return ^JobsLabelScrollConfiguration *(NSTimeInterval edgePause){
+        @jobs_strongify(self)
+        self.edgePause = edgePause;
+        return self;
+    };
+}
+
+-(JobsRetJobsLabelScrollConfigurationByNSIntegerBlock _Nonnull)byFramesPerSecond{
+    @jobs_weakify(self)
+    return ^JobsLabelScrollConfiguration *(NSInteger framesPerSecond){
+        @jobs_strongify(self)
+        self.framesPerSecond = framesPerSecond;
+        return self;
+    };
+}
+
+-(JobsRetJobsLabelScrollConfigurationByNSUIntegerBlock _Nonnull)byTimerType{
+    @jobs_weakify(self)
+    return ^JobsLabelScrollConfiguration *(NSUInteger timerType){
+        @jobs_strongify(self)
+        self.timerType = (JobsTimerType)timerType;
+        return self;
+    };
+}
+
+-(JobsRetJobsLabelScrollConfigurationByBOOLBlock _Nonnull)byRespectsReduceMotion{
+    @jobs_weakify(self)
+    return ^JobsLabelScrollConfiguration *(BOOL respectsReduceMotion){
+        @jobs_strongify(self)
+        self.respectsReduceMotion = respectsReduceMotion;
+        return self;
+    };
+}
+
 -(id)copyWithZone:(NSZone *)zone{
     JobsLabelScrollConfiguration *configuration = [[[self class] allocWithZone:zone] initWithMode:self.mode];
-    configuration.speed = self.speed;
-    configuration.spacing = self.spacing;
-    configuration.startDelay = self.startDelay;
-    configuration.edgePause = self.edgePause;
-    configuration.framesPerSecond = self.framesPerSecond;
-    configuration.timerType = self.timerType;
-    configuration.respectsReduceMotion = self.respectsReduceMotion;
-    return configuration;
+    return configuration
+        .bySpeed(self.speed)
+        .bySpacing(self.spacing)
+        .byStartDelay(self.startDelay)
+        .byEdgePause(self.edgePause)
+        .byFramesPerSecond(self.framesPerSecond)
+        .byTimerType(self.timerType)
+        .byRespectsReduceMotion(self.respectsReduceMotion);
 }
 
 @end

@@ -35,8 +35,9 @@ NS_ASSUME_NONNULL_BEGIN
 +(JobsRetDataByURLBlock _Nonnull)dataByContentsOfURL_NSDataReadingMappedAlways API_AVAILABLE(macos(10.7), ios(5.0), watchos(2.0), tvos(9.0));
 #pragma mark —— 一些功能性的
 /// 解压缩字符串
--(NSString *)decompressToStr;
+-(JobsRetStrByVoidBlock _Nonnull)decompressToStr;
 -(NSString *)stringByUTF8Encoding;
+-(JobsRetStrByVoidBlock _Nonnull)jobsStringByUTF8Encoding;
 
 @end
 

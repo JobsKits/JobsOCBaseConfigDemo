@@ -6,15 +6,16 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_NSSTRING_REACHABILITY_CCF15001DF
-#define JOBS_HEADER_GUARD_NSSTRING_REACHABILITY_CCF15001DF
-
-#import <Foundation/Foundation.h>
 
 #if __has_include(<Reachability/Reachability.h>)
 #import <Reachability/Reachability.h>
 #else
 #import "Reachability.h"
 #endif
+
+#define JOBS_HEADER_GUARD_NSSTRING_REACHABILITY_CCF15001DF
+
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

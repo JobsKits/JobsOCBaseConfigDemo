@@ -7,5 +7,22 @@
 
 #import "BaseViewController.h"
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 @interface JobsSideDrawerDemoVC : BaseViewController
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsSideDrawerDemoVC
+-(JobsRetJobsSideDrawerDemoVCByUIViewBlock _Nonnull)byDrawerContentView;
+-(JobsRetJobsSideDrawerDemoVCByUIViewBlock _Nonnull)byDrawerHostView;
+-(JobsRetJobsSideDrawerDemoVCByNSStringBlock _Nonnull)byGk_navTitle;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsSideDrawerDemoVC
 @end

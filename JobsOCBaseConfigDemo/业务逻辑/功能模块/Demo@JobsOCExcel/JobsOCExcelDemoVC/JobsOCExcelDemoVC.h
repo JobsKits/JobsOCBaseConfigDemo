@@ -6,6 +6,12 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "JobsOCExcelDemoCell.h"
 
 #if __has_include(<FDFullscreenPopGesture/FDFullscreenPopGesture.h>)
@@ -47,6 +53,9 @@ UITableViewDataSource
 ,JobsOCExcelViewDelegate
 >
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCExcelDemoVC
+-(JobsRetJobsOCExcelDemoVCByCGFloatBlock _Nonnull)byFd_interactivePopMaxAllowedInitialDistanceToLeftEdge;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCExcelDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

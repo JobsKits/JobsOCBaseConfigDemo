@@ -6,15 +6,16 @@
 //
 
 #ifndef SDWebImageModel_h
-#define SDWebImageModel_h
-
-#import <Foundation/Foundation.h>
 
 #if __has_include(<SDWebImage/SDWebImage.h>)
 #import <SDWebImage/SDWebImage.h>
 #else
 #import "SDWebImage.h"
 #endif
+
+#define SDWebImageModel_h
+
+#import <Foundation/Foundation.h>
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"

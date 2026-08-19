@@ -36,6 +36,7 @@
 
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import "JobsByOCPods.h"
+#import "UIBaseTextFieldDSL.h"
 #else
 #import "JobsByOCPods.h"
 #endif
@@ -47,7 +48,7 @@
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import "JobsDefines.h"
+#import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
 #endif
@@ -59,6 +60,10 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_copy()NSString *resString;
 Prop_copy()NSString *PlaceHolder;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorInputViewTFModel
+-(JobsRetJobsAppDoorInputViewTFModelByNSStringBlock _Nonnull)byPlaceHolder;
+-(JobsRetJobsAppDoorInputViewTFModelByNSStringBlock _Nonnull)byResString;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorInputViewTFModel
 @end
 
 @interface JobsAppDoorInputViewBaseStyle : BaseView

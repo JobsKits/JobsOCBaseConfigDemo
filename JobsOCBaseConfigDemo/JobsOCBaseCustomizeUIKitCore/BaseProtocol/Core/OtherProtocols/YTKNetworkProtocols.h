@@ -6,16 +6,17 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_YTKNETWORKPROTOCOLS_30DEE14285
-#define JOBS_HEADER_GUARD_YTKNETWORKPROTOCOLS_30DEE14285
-
-#import <Foundation/Foundation.h>
-#import "YTKCustomBaseRequestProtocol.h"
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
 #else
 #import "YTKNetwork.h"
 #endif
+
+#define JOBS_HEADER_GUARD_YTKNETWORKPROTOCOLS_30DEE14285
+
+#import <Foundation/Foundation.h>
+#import "YTKCustomBaseRequestProtocol.h"
 
 #import "JobsDefines.h"
 #import "JobsBlock.h"

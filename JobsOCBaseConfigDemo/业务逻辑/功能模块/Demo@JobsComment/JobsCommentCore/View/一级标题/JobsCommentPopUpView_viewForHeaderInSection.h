@@ -6,6 +6,12 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "JobsCommentConfig.h"
 #import "JobsCommentModel.h"
 
@@ -37,6 +43,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsCommentPopUpView_viewForHeaderInSection : BaseView
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsCommentPopUpView_viewForHeaderInSection
+-(JobsRetJobsCommentPopUpView_viewForHeaderInSectionByJobsFirstCommentModelBlock _Nonnull)byFirstCommentModel;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsCommentPopUpView_viewForHeaderInSection
 @end
 
 NS_ASSUME_NONNULL_END

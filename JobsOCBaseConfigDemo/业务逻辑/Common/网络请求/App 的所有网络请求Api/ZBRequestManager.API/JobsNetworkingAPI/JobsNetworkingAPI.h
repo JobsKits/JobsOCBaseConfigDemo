@@ -86,7 +86,7 @@ NS_ASSUME_NONNULL_END
      调用示例：【一般的网络请求，只带body参数，最多也就是自定义header】
      -(void)networking_messageSecondClassListGET{
          JobsLog(@"当前是否有网：%d 状态：%ld",[ZBRequestManager isNetworkReachable],(long)[ZBRequestManager networkReachability]);
-         DataManager.sharedManager.tag = [ReuseIdentifier stringByAppendingString:NSStringFromSelector(_cmd)];
+         ((DataManager *)DataManager.sharedManager).tag = [ReuseIdentifier stringByAppendingString:NSStringFromSelector(_cmd)];
          RequestTool *config = RequestTool.new
          config.languageType = HTTPRequestHeaderLanguageCN;
          RequestTool.setupPublicParametersBy(config);;//公共配置、插件机制、证书设置
@@ -120,12 +120,12 @@ NS_ASSUME_NONNULL_END
      //        request.headers = headers;//与公共配置 Headers 兼容
              request.retryCount = 1;//请求失败 单次请求 重新连接次数 优先级大于 全局设置，不影响其他请求设置
              request.timeoutInterval = 10;//默认30 //优先级 高于 公共配置,不影响其他请求设置
-             if (isValue(DataManager.sharedManager.tag)) {
-                 request.userInfo = @{@"info":DataManager.sharedManager.tag};//与公共配置 UserInfo 不兼容 优先级大于 公共配置
+             if (isValue(((DataManager *)DataManager.sharedManager).tag)) {
+                 request.userInfo = @{@"info":((DataManager *)DataManager.sharedManager).tag};//与公共配置 UserInfo 不兼容 优先级大于 公共配置
              };//与公共配置 UserInfo 不兼容 优先级大于 公共配置
 
              {
-     //            request.filtrationCacheKey = @[@"".tr];//与公共配置 filtrationCacheKey 兼容
+     //            request.filtrationCacheKey = @[@"".jobsTr()];//与公共配置 filtrationCacheKey 兼容
      //            request.requestSerializer = ZBJSONRequestSerializer; //单次请求设置 请求格式 默认JSON，优先级大于 公共配置，不影响其他请求设置
      //            request.responseSerializer = ZBJSONResponseSerializer; //单次请求设置 响应格式 默认JSON，优先级大于 公共配置,不影响其他请求设置
 
@@ -156,7 +156,7 @@ NS_ASSUME_NONNULL_END
     /// 帖子图片上传 POST
     -(void)networking_postUploadImagePOST{
      JobsLog(@"当前是否有网：%d 状态：%ld",[ZBRequestManager isNetworkReachable],(long)[ZBRequestManager networkReachability]);
-     DataManager.sharedManager.tag = [ReuseIdentifier stringByAppendingString:NSStringFromSelector(_cmd)];
+     ((DataManager *)DataManager.sharedManager).tag = [ReuseIdentifier stringByAppendingString:NSStringFromSelector(_cmd)];
 
      RequestTool *config = RequestTool.new
      config.languageType = HTTPRequestHeaderLanguageCN;
@@ -206,8 +206,8 @@ NS_ASSUME_NONNULL_END
          request.timeoutInterval = 120;//默认30 //优先级 高于 公共配置,不影响其他请求设置
          request.requestSerializer = ZBHTTPRequestSerializer;
          request.uploadDatas = uploadDatas;
-         if (isValue(DataManager.sharedManager.tag)) {
-             request.userInfo = @{@"info":DataManager.sharedManager.tag};//与公共配置 UserInfo 不兼容 优先级大于 公共配置
+         if (isValue(((DataManager *)DataManager.sharedManager).tag)) {
+             request.userInfo = @{@"info":((DataManager *)DataManager.sharedManager).tag};//与公共配置 UserInfo 不兼容 优先级大于 公共配置
          };//与公共配置 UserInfo 不兼容 优先级大于 公共配置
      } progress:^(NSProgress * _Nullable progress) {
          JobsLog(@"onProgress: %.2f", 100.f * progress.completedUnitCount/progress.totalUnitCount);
@@ -231,7 +231,7 @@ NS_ASSUME_NONNULL_END
     /// 帖子视频上传 POST
     -(void)networking_postuploadVideoPOST{
      JobsLog(@"当前是否有网：%d 状态：%ld",[ZBRequestManager isNetworkReachable],(long)[ZBRequestManager networkReachability]);
-     DataManager.sharedManager.tag = [ReuseIdentifier stringByAppendingString:NSStringFromSelector(_cmd)];
+     ((DataManager *)DataManager.sharedManager).tag = [ReuseIdentifier stringByAppendingString:NSStringFromSelector(_cmd)];
 
      RequestTool *config = RequestTool.new
      config.languageType = HTTPRequestHeaderLanguageCN;
@@ -290,8 +290,8 @@ NS_ASSUME_NONNULL_END
              request.timeoutInterval = 120;//默认30 //优先级 高于 公共配置,不影响其他请求设置
              request.requestSerializer = ZBHTTPRequestSerializer;
              request.uploadDatas = uploadDatas;
-             if (isValue(DataManager.sharedManager.tag)) {
-                 request.userInfo = @{@"info":DataManager.sharedManager.tag};//与公共配置 UserInfo 不兼容 优先级大于 公共配置
+             if (isValue(((DataManager *)DataManager.sharedManager).tag)) {
+                 request.userInfo = @{@"info":((DataManager *)DataManager.sharedManager).tag};//与公共配置 UserInfo 不兼容 优先级大于 公共配置
              };//与公共配置 UserInfo 不兼容 优先级大于 公共配置
          } progress:^(NSProgress * _Nullable progress) {
              JobsLog(@"onProgress: %.2f", 100.f * progress.completedUnitCount/progress.totalUnitCount);
@@ -324,7 +324,7 @@ NS_ASSUME_NONNULL_END
 //        }
 //    }
 //}else{
-//        @"异常接口".tr.add(NSObject.userInfoSelectVideoCountPOST.funcName).toast();
+//        @"异常接口".jobsTr().add(NSObject.userInfoSelectVideoCountPOST.funcName).toast();
 //}
 
 /**

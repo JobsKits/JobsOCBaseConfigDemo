@@ -10,8 +10,10 @@
 #import "JobsDouyinRefreshConfig.h"
 
 @implementation JobsDouyinRefreshConfig
-+(__kindof JobsDouyinRefreshConfig *)config {
-    return JobsDouyinRefreshConfig.alloc.init;
++(JobsRetJobsDouyinRefreshConfigByVoidBlock _Nonnull)config {
+    return ^__kindof JobsDouyinRefreshConfig *{
+        return JobsDouyinRefreshConfig.alloc.init;
+    };
 }
 
 -(instancetype)init {
@@ -37,42 +39,42 @@
     return config;
 }
 
--(JobsDouyinRefreshConfig *(^)(UIColor *))byRedColor {
+-(JobsRetJobsDouyinRefreshConfigByUIColorBlock _Nonnull)byRedColor {
     return ^JobsDouyinRefreshConfig *(UIColor *data) {
         self.redColor = data ?: RGB_COLOR(254, 44, 85);
         return self;
     };
 }
 
--(JobsDouyinRefreshConfig *(^)(UIColor *))byGreenColor {
+-(JobsRetJobsDouyinRefreshConfigByUIColorBlock _Nonnull)byGreenColor {
     return ^JobsDouyinRefreshConfig *(UIColor *data) {
         self.greenColor = data ?: RGB_COLOR(37, 244, 238);
         return self;
     };
 }
 
--(JobsDouyinRefreshConfig *(^)(CGFloat))byDotDiameter {
+-(JobsRetJobsDouyinRefreshConfigByCGFloatBlock _Nonnull)byDotDiameter {
     return ^JobsDouyinRefreshConfig *(CGFloat data) {
         self.dotDiameter = isfinite(data) ? MAX(2, data) : 14;
         return self;
     };
 }
 
--(JobsDouyinRefreshConfig *(^)(CGFloat))byHorizontalTravel {
+-(JobsRetJobsDouyinRefreshConfigByCGFloatBlock _Nonnull)byHorizontalTravel {
     return ^JobsDouyinRefreshConfig *(CGFloat data) {
         self.horizontalTravel = isfinite(data) ? MAX(2, data) : 24;
         return self;
     };
 }
 
--(JobsDouyinRefreshConfig *(^)(CGFloat))byJumpHeight {
+-(JobsRetJobsDouyinRefreshConfigByCGFloatBlock _Nonnull)byJumpHeight {
     return ^JobsDouyinRefreshConfig *(CGFloat data) {
         self.jumpHeight = isfinite(data) ? MAX(0, data) : 8;
         return self;
     };
 }
 
--(JobsDouyinRefreshConfig *(^)(NSTimeInterval))byCycleDuration {
+-(JobsRetJobsDouyinRefreshConfigByNSTimeIntervalBlock _Nonnull)byCycleDuration {
     return ^JobsDouyinRefreshConfig *(NSTimeInterval data) {
         self.cycleDuration = isfinite(data) ? MAX(0.36, data) : 0.84;
         return self;
@@ -80,8 +82,17 @@
 }
 
 -(CGSize)indicatorSize {
-    return CGSizeMake(self.horizontalTravel + self.dotDiameter,
-                      self.dotDiameter + self.jumpHeight * 2);
+    return ((((JobsRetCGSizeByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsDouyinRefreshConfig.class, @selector(jobsIndicatorSize)))(self, @selector(jobsIndicatorSize))))();
+}
+
+-(JobsRetCGSizeByVoidBlock _Nonnull)jobsIndicatorSize {
+    @jobs_weakify(self)
+    return ^CGSize{
+        @jobs_strongify(self)
+        if (!self) return (CGSize){0};
+        return CGSizeMake(self.horizontalTravel + self.dotDiameter,
+                          self.dotDiameter + self.jumpHeight * 2);
+    };
 }
 
 @end

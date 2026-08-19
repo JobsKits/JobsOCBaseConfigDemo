@@ -43,6 +43,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 设置当前显示状态
 -(JobsRetStepViewByNSIntegerBlock _Nonnull)byStatus;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsStepView
+-(JobsRetJobsStepViewByNSMutableArrayUIButtonModelBlock _Nonnull)byBtnModelMutArr;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsStepView
 @end
 
 NS_ASSUME_NONNULL_END
@@ -62,15 +65,15 @@ NS_INLINE __kindof JobsStepView *_Nonnull jobsMakeStepView(jobsByStepViewBlock _
                  .byRightViewWidth(JobsWidth(60))
                  .byBtnOffset(JobsWidth(60))
                  .byFirstBtnLeftOffset(JobsWidth(24))
-                 .byLeftLabHighlightBgCor(@"#C71A1A".cor)
-                 .byRightLabHighlightBgCor(@"#C71A1A".cor)
+                 .byLeftLabHighlightBgCor(@"#C71A1A".jobsCor())
+                 .byRightLabHighlightBgCor(@"#C71A1A".jobsCor())
                  .byLeftLabNormalBgCor(JobsGrayColor)
                  .byRightLabNormalBgCor(JobsGrayColor)
                  .byStatus(VerificationStatusVerifying)
                  .jobsRichViewByModel(jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIButtonModel *>* _Nullable data) {
-                     data.add(JobsStepView.makeButtonModelBy(@"Unverified".tr,@"正在进行第一步".img,@"正在进行第一步".img))
-                         .add(JobsStepView.makeButtonModelBy(@"Verifiying".tr,@"还未进行第二步".img,@"正在进行第二步".img))
-                         .add(JobsStepView.makeButtonModelBy(@"Verified".tr,@"还未进行第三步".img,@"正在进行第三步".img));
+                     data.add(JobsStepView.makeButtonModelBy(@"Unverified".jobsTr(),@"正在进行第一步".img,@"正在进行第一步".img))
+                         .add(JobsStepView.makeButtonModelBy(@"Verifiying".jobsTr(),@"还未进行第二步".img,@"正在进行第二步".img))
+                         .add(JobsStepView.makeButtonModelBy(@"Verified".jobsTr(),@"还未进行第三步".img,@"正在进行第三步".img));
                  }));
              })).setMasonryBy(^(MASConstraintMaker *_Nonnull make){
                  make.top.equalTo(self.gk_navigationBar.mas_bottom);

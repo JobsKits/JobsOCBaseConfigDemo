@@ -26,7 +26,17 @@ Prop_strong()CasinoUpgradeContentView *upgradeContentView;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CasinoUpgradePopupView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 #pragma mark —— BaseViewProtocol
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -67,10 +77,10 @@ Prop_strong()CasinoUpgradeContentView *upgradeContentView;
     if (!_upgradeContentView) {
         _upgradeContentView = CasinoUpgradeContentView.new;
         @jobs_weakify(self)
-        [_upgradeContentView actionObjBlock:^(id data) {
+        _upgradeContentView.actionObjBlock(^(id data) {
             @jobs_strongify(self)
             if (self.objBlock) self.objBlock(data);
-        }];
+        });
         _upgradeContentView.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.size.mas_equalTo(CasinoUpgradeContentView.viewSizeByModel(nil));
             make.top.equalTo(self.imageView.mas_bottom);

@@ -12,10 +12,32 @@
 Prop_strong()UIView *targetView;
 /// Data
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
+-(JobsRetJobsPullListAutoSizeViewByViewBlock _Nonnull)byTargetView;
+-(JobsRetJobsPullListAutoSizeViewByViewModelsBlock _Nonnull)byDataMutArr;
 
 @end
 
 @implementation JobsPullListAutoSizeView
+-(JobsRetJobsPullListAutoSizeViewByViewBlock _Nonnull)byTargetView{
+    @jobs_weakify(self)
+    return ^__kindof JobsPullListAutoSizeView *_Nullable(UIView *_Nullable view){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setTargetView:view];
+        return self;
+    };
+}
+
+-(JobsRetJobsPullListAutoSizeViewByViewModelsBlock _Nonnull)byDataMutArr{
+    @jobs_weakify(self)
+    return ^__kindof JobsPullListAutoSizeView *_Nullable(NSMutableArray<__kindof UIViewModel *> *_Nullable models){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setDataMutArr:models];
+        return self;
+    };
+}
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);
@@ -44,19 +66,24 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 - (instancetype)initWithTargetView:(UIView *__nonnull)targetView
                         dataMutArr:(NSArray <UIViewModel *>*__nonnull)dataMutArr{
     if (self = [super init]) {
-        self.targetView = targetView;
-        self.dataMutArr = (NSMutableArray *)dataMutArr;
-        [self makeUI];
+        self.byTargetView(targetView)
+            .byDataMutArr((NSMutableArray *)dataMutArr);
+        self.makeUI();
     };return self;
 }
 
--(void)makeUI{
-    self.byBgColor(JobsBlackColor);
-    self.byAlpha(0.32);
-    [jobsGetMainWindow() addSubview:self];
-    self.byFrame(jobsGetMainWindow().frame);
-    [jobsGetMainWindow() bringSubviewToFront:self];
-    self.tableView.byShow(self);
+-(jobsByVoidBlock _Nonnull)makeUI{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byBgColor(JobsBlackColor);
+        self.byAlpha(0.32);
+        [jobsGetMainWindow() addSubview:self];
+        self.byFrame(jobsGetMainWindow().frame);
+        [jobsGetMainWindow() bringSubviewToFront:self];
+        self.tableView.byShow(self);
+    };
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches

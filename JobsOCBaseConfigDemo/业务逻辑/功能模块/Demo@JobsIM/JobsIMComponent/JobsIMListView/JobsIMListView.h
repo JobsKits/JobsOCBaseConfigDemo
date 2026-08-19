@@ -9,12 +9,6 @@
 #import "JobsIMListDataModel.h"
 #import "JobsIMListTBVCell.h"
 
-#if __has_include(<MGSwipeTableCell/MGSwipeTableCell.h>)
-#import <MGSwipeTableCell/MGSwipeTableCell.h>
-#else
-#import "MGSwipeTableCell.h"
-#endif
-
 #if __has_include(<JobsLoadingImage/JobsLoadingImageHeader.h>)
 #import <JobsLoadingImage/JobsLoadingImageHeader.h>
 #else
@@ -55,6 +49,12 @@
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
 #import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<MGSwipeTableCell/MGSwipeTableCell.h>)
+#import <MGSwipeTableCell/MGSwipeTableCell.h>
+#else
+#import "MGSwipeTableCell.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

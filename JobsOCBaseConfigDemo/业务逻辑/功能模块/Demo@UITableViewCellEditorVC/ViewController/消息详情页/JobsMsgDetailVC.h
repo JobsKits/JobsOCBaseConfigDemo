@@ -54,6 +54,9 @@ NS_ASSUME_NONNULL_BEGIN
 #warning 需要测试
 @interface JobsMsgDetailVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsMsgDetailVC
+-(JobsRetJobsMsgDetailVCByJobsMsgDataModelBlock _Nonnull)byMsgDataModel;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsMsgDetailVC
 @end
 
 NS_ASSUME_NONNULL_END

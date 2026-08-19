@@ -6,16 +6,17 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_YTKBASEREQUEST_ANIMATINGACCESSORY_BFB08485BB
-#define JOBS_HEADER_GUARD_YTKBASEREQUEST_ANIMATINGACCESSORY_BFB08485BB
-
-#import <UIKit/UIKit.h>
-#import "YTKAnimatingRequestAccessory.h"
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
 #else
 #import "YTKNetwork.h"
 #endif
+
+#define JOBS_HEADER_GUARD_YTKBASEREQUEST_ANIMATINGACCESSORY_BFB08485BB
+
+#import <UIKit/UIKit.h>
+#import "YTKAnimatingRequestAccessory.h"
 
 #import "JobsDefines.h"
 

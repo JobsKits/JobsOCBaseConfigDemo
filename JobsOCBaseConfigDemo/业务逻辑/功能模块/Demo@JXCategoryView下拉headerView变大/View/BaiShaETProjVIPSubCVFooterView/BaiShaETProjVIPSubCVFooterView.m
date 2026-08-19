@@ -25,7 +25,7 @@ Prop_strong()BaseLabel *titleLab;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model;
+        self.byViewModel(model);
         self.byBgColor(JobsSecondarySystemBackgroundColor);
         self.titleLab.byAlpha(1);
     };
@@ -47,8 +47,8 @@ Prop_strong()BaseLabel *titleLab;
                 .byText(self.viewModel.textModel.text)
                 .byFont(self.viewModel.textModel.font ? : UIFontWeightBoldSize(14))
                 .byTextCor(self.viewModel.textModel.textCor ? : HEXCOLOR(0xAE8330))
-                .byTextAlignment(NSTextAlignmentCenter);
-            label.addOn(self).byAdd(^(MASConstraintMaker *make) {
+                .byTextAlignment(NSTextAlignmentCenter)
+            .addOn(self).byAdd(^(MASConstraintMaker *make) {
                 make.edges.equalTo(self);
             });
         });

@@ -6,17 +6,18 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIVIEW_EMPTYDATA_3DC85032A5
-#define JOBS_HEADER_GUARD_UIVIEW_EMPTYDATA_3DC85032A5
-
-#import <objc/runtime.h>
-#import <UIKit/UIKit.h>
-#import "UIView+Extra.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#define JOBS_HEADER_GUARD_UIVIEW_EMPTYDATA_3DC85032A5
+
+#import <objc/runtime.h>
+#import <UIKit/UIKit.h>
+#import "UIView+Extra.h"
 
 #import "JobsLanMgr.h"
 #import "JobsOCDSL.h"
@@ -33,7 +34,7 @@ Prop_copy()NSString *tipsTitle;
 
 -(jobsByVoidBlock _Nonnull)cleanSubview;
 -(jobsByClsBlock _Nonnull)cleanSubviewBy;
--(void)ifEmptyData;
+-(jobsByVoidBlock _Nonnull)ifEmptyData;
 
 @end
 

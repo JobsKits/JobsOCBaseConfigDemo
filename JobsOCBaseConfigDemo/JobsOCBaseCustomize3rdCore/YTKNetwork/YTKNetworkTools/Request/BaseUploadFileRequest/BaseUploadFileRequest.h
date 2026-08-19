@@ -6,10 +6,6 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_BASEUPLOADFILEREQUEST_89A107DA63
-#define JOBS_HEADER_GUARD_BASEUPLOADFILEREQUEST_89A107DA63
-
-#import <Foundation/Foundation.h>
-#import "BaseRequest.h"
 
 #if __has_include(<AFNetworking/AFNetworking.h>)
 #import <AFNetworking/AFNetworking.h>
@@ -22,6 +18,11 @@
 #else
 #import "YTKNetwork.h"
 #endif
+
+#define JOBS_HEADER_GUARD_BASEUPLOADFILEREQUEST_89A107DA63
+
+#import <Foundation/Foundation.h>
+#import "BaseRequest.h"
 
 #import "JobsStringUtilsHeader.h"
 #import "JobsModelDSL.h"

@@ -18,13 +18,24 @@
 #endif
 /// 检查联网情况
 
-#if __has_include(<Reachability/Reachability.h>)
-#import <Reachability/Reachability.h>
+#import "NSString+Reachability.h"
+
+#if __has_include(<KTVHTTPCache/KTVHTTPCache.h>)
+#import <KTVHTTPCache/KTVHTTPCache.h>
 #else
-#import "Reachability.h"
+#import "KTVHTTPCache.h"
 #endif
 
-#import "NSString+Reachability.h"
+#import "JobsByOCPods.h"
+#import "JobsLanMgr.h"
+#import "JobsMakes.h"
+#import "JobsOCKeyboardMgr.h"
+#import "JobsBlock.h"
+#import "JobsOCTools.h"
+#import "JobsOCDSL.h"
+#import "JobsDefines.h"
+#import "JobsNavBarHeader.h"
+#import "JobsOCSplash.h"
 
 #if __has_include(<GKNavigationBar/GKNavigationBar.h>)
 #import <GKNavigationBar/GKNavigationBar.h>
@@ -38,10 +49,10 @@
 #import "IQKeyboardManager.h"
 #endif
 
-#if __has_include(<KTVHTTPCache/KTVHTTPCache.h>)
-#import <KTVHTTPCache/KTVHTTPCache.h>
+#if __has_include(<Reachability/Reachability.h>)
+#import <Reachability/Reachability.h>
 #else
-#import "KTVHTTPCache.h"
+#import "Reachability.h"
 #endif
 
 #if __has_include(<TABAnimated/TABAnimated.h>)
@@ -49,17 +60,6 @@
 #else
 #import "TABAnimated.h"
 #endif
-
-#import "JobsByOCPods.h"
-#import "JobsLanMgr.h"
-#import "JobsMakes.h"
-#import "JobsOCKeyboardMgr.h"
-#import "JobsBlock.h"
-#import "JobsOCTools.h"
-#import "JobsOCDSL.h"
-#import "JobsDefines.h"
-#import "JobsNavBarHeader.h"
-#import "JobsOCSplash.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -6,15 +6,16 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_HXPHOTOCONFIGURATION_DSL_0C333388A6
-#define JOBS_HEADER_GUARD_HXPHOTOCONFIGURATION_DSL_0C333388A6
-
-#import <Foundation/Foundation.h>
 
 #if __has_include(<HXPhotoPickerObjC/HXPhotoPicker.h>)
 #import <HXPhotoPickerObjC/HXPhotoPicker.h>
 #else
 #import "HXPhotoPicker.h"
 #endif
+
+#define JOBS_HEADER_GUARD_HXPHOTOCONFIGURATION_DSL_0C333388A6
+
+#import <Foundation/Foundation.h>
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"

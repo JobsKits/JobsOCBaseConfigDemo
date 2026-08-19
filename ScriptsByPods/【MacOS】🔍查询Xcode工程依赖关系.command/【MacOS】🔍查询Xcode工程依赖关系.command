@@ -21,6 +21,14 @@ gray_echo()      { log "\033[0;90m$1\033[0m"; }         # ⚫ 次要信息
 bold_echo()      { log "\033[1m$1\033[0m"; }            # 📝 加粗
 underline_echo() { log "\033[4m$1\033[0m"; }            # 🔗 下划线
 
+# ✅ 判断环境变量是否表达启用状态
+is_truthy() {
+  case "${1:-}" in
+    1|true|TRUE|yes|YES|on|ON) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
 # ✅ 自述信息
 print_banner() {
   highlight_echo "═════════════════════════════════════════════════════════════════════"
@@ -147,6 +155,18 @@ detect_target_dir_from_script_location() {
   local parent_dir=""
 
   SELECTED_TARGET_DIR=""
+
+  if [[ -n "${JOBS_PROJECT_ROOT:-}" ]] && is_valid_project_dir "${JOBS_PROJECT_ROOT}"; then
+    SELECTED_TARGET_DIR="$(cd "${JOBS_PROJECT_ROOT}" && pwd)"
+    success_echo "已使用 Podfile 传入的工程目录：$SELECTED_TARGET_DIR"
+    return 0
+  fi
+
+  if is_truthy "${JOBS_POD_INSTALL_HOOK:-}" && is_valid_project_dir "${PWD}"; then
+    SELECTED_TARGET_DIR="$(pwd)"
+    success_echo "已使用 pod install 当前工程目录：$SELECTED_TARGET_DIR"
+    return 0
+  fi
 
   script_dir="$(get_script_dir)"
   parent_dir="$(dirname "$script_dir")"
@@ -362,6 +382,15 @@ install_homebrew() {
 ensure_graphviz() {
   warm_echo ""
   info_echo "检查 Graphviz..."
+
+  if is_truthy "${JOBS_POD_INSTALL_OFFLINE:-}"; then
+    if command -v dot >/dev/null 2>&1; then
+      success_echo "离线模式复用本机 Graphviz：$(command -v dot)"
+    else
+      warn_echo "离线模式未检测到 dot；跳过 Homebrew / Graphviz 安装，仍会生成 Markdown 与 HTML。"
+    fi
+    return 0
+  fi
 
   install_homebrew || {
     warn_echo "Homebrew 自检或安装失败。动态 HTML 图仍会生成；PNG 图可能无法生成。"
@@ -2280,6 +2309,12 @@ open_outputs() {
   local md_file="$report_dir/PodspecDependencies.md"
   local html_file="$report_dir/PodspecDependencies_interactive.html"
   local png_internal="$report_dir/PodspecDependencies_internal.png"
+
+  if is_truthy "${JOBS_POD_INSTALL_HOOK:-}" || is_truthy "${JOBS_SKIP_README:-}"; then
+    success_echo "报告已生成：$report_dir"
+    note_echo "自动钩子模式不打开 Finder 或浏览器。"
+    return 0
+  fi
 
   [[ -f "$html_file" ]] && open "$html_file"
   [[ -f "$md_file" ]] && open "$md_file"

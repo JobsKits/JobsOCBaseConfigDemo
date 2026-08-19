@@ -6,11 +6,12 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_MJREFRESH_368B0C562A
-#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_MJREFRESH_368B0C562A
 
-#import <objc/runtime.h>
-#import <UIKit/UIKit.h>
-#import "NSObject+Extra.h"
+#if __has_include(<MJRefresh/MJRefresh.h>)
+#import <MJRefresh/MJRefresh.h>
+#else
+#import "MJRefresh.h"
+#endif
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
@@ -18,11 +19,11 @@
 #import "ReactiveObjC.h"
 #endif
 
-#if __has_include(<MJRefresh/MJRefresh.h>)
-#import <MJRefresh/MJRefresh.h>
-#else
-#import "MJRefresh.h"
-#endif
+#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_MJREFRESH_368B0C562A
+
+#import <objc/runtime.h>
+#import <UIKit/UIKit.h>
+#import "NSObject+Extra.h"
 
 #import "JobsBaseUI.h"
 #import "JobsModelDSL.h"
@@ -64,21 +65,21 @@ NS_ASSUME_NONNULL_END
 
     {
         MJRefreshConfigModel *refreshConfigHeader = MJRefreshConfigModel.new;
-        refreshConfigHeader.byStateIdleTitle(@"下拉刷新".tr)
-                           .byPullingTitle(@"下拉刷新".tr)
-                           .byRefreshingTitle(@"立即释放刷新".tr)
-                           .byWillRefreshTitle(@"刷新数据".tr)
-                           .byNoMoreDataTitle(@"下拉刷新".tr);
+        refreshConfigHeader.byStateIdleTitle(@"下拉刷新".jobsTr())
+                           .byPullingTitle(@"下拉刷新".jobsTr())
+                           .byRefreshingTitle(@"立即释放刷新".jobsTr())
+                           .byWillRefreshTitle(@"刷新数据".jobsTr())
+                           .byNoMoreDataTitle(@"下拉刷新".jobsTr());
         refreshConfigHeader.loadBlock = ^id _Nullable(id  _Nullable data) {
             return nil;
         };
 
         MJRefreshConfigModel *refreshConfigFooter = MJRefreshConfigModel.new;
-        refreshConfigFooter.byStateIdleTitle(@"".tr)
-                           .byPullingTitle(@"".tr)
-                           .byRefreshingTitle(@"".tr)
-                           .byWillRefreshTitle(@"".tr)
-                           .byNoMoreDataTitle(@"".tr);
+        refreshConfigFooter.byStateIdleTitle(@"".jobsTr())
+                           .byPullingTitle(@"".jobsTr())
+                           .byRefreshingTitle(@"".jobsTr())
+                           .byWillRefreshTitle(@"".jobsTr())
+                           .byNoMoreDataTitle(@"".jobsTr());
 
         self.lotAnimMJRefreshHeader.refreshConfigModel = refreshConfigHeader;
         self.refreshConfigFooter = refreshConfigFooter;//数据赋值
@@ -92,11 +93,11 @@ NS_ASSUME_NONNULL_END
 
      {
          MJRefreshConfigModel *refreshConfigHeader = MJRefreshConfigModel.new;
-         refreshConfigHeader.byStateIdleTitle(@"下拉刷新".tr)
-                            .byPullingTitle(@"下拉刷新".tr)
-                            .byRefreshingTitle(@"立即释放刷新".tr)
-                            .byWillRefreshTitle(@"刷新数据".tr)
-                            .byNoMoreDataTitle(@"下拉刷新".tr);
+         refreshConfigHeader.byStateIdleTitle(@"下拉刷新".jobsTr())
+                            .byPullingTitle(@"下拉刷新".jobsTr())
+                            .byRefreshingTitle(@"立即释放刷新".jobsTr())
+                            .byWillRefreshTitle(@"刷新数据".jobsTr())
+                            .byNoMoreDataTitle(@"下拉刷新".jobsTr());
          refreshConfigFooter.loadBlock = ^id _Nullable(id  _Nullable data) {
              return nil;
          };

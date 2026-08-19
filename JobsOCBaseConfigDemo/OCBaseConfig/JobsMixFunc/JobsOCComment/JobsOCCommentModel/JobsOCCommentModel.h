@@ -10,6 +10,12 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import "JobsDefines.h"
 #else
@@ -33,6 +39,17 @@ Prop_copy(nullable)NSString *device;
 Prop_copy(nullable)NSString *location;
 Prop_copy()NSArray <JobsOCCommentModel *>*children;
 
+-(JobsRetJobsOCCommentModelByStrBlock _Nonnull)byMessageID;
+-(JobsRetJobsOCCommentModelByStrBlock _Nonnull)byUserAvatar;
+-(JobsRetJobsOCCommentModelByStrBlock _Nonnull)byNickname;
+-(JobsRetJobsOCCommentModelByStrBlock _Nonnull)byReplyID;
+-(JobsRetJobsOCCommentModelByStrBlock _Nonnull)byReplyUserName;
+-(JobsRetJobsOCCommentModelByStrBlock _Nonnull)byPublishTime;
+-(JobsRetJobsOCCommentModelByStrBlock _Nonnull)byContent;
+-(JobsRetJobsOCCommentModelByStrBlock _Nonnull)byDevice;
+-(JobsRetJobsOCCommentModelByStrBlock _Nonnull)byLocation;
+-(JobsRetJobsOCCommentModelByArrBlock _Nonnull)byChildren;
+
 +(instancetype)commentWithMessageID:(NSString *)messageID
                          userAvatar:(NSString *)userAvatar
                            nickname:(NSString *)nickname
@@ -43,7 +60,7 @@ Prop_copy()NSArray <JobsOCCommentModel *>*children;
                               device:(NSString *_Nullable)device
                             location:(NSString *_Nullable)location
                             children:(NSArray <JobsOCCommentModel *>*_Nullable)children;
--(BOOL)hasChildComments;
+-(JobsRetBOOLByVoidBlock _Nonnull)hasChildComments;
 
 @end
 

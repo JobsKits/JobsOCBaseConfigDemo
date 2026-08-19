@@ -6,6 +6,12 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -22,16 +28,16 @@ Prop_assign()CGFloat endScale;
 Prop_assign()CGFloat maximumRotation;
 Prop_assign()NSInteger maximumConcurrentCount;
 
-+(__kindof JobsFuseBubbleConfig *)config;
--(JobsFuseBubbleConfig *(^)(NSTimeInterval data))byEmissionInterval;
--(JobsFuseBubbleConfig *(^)(CGFloat data))byRiseDistance;
--(JobsFuseBubbleConfig *(^)(CGFloat data))byHorizontalDrift;
--(JobsFuseBubbleConfig *(^)(NSTimeInterval data))byDuration;
--(JobsFuseBubbleConfig *(^)(CGFloat data))byInitialScale;
--(JobsFuseBubbleConfig *(^)(CGFloat data))byPeakScale;
--(JobsFuseBubbleConfig *(^)(CGFloat data))byEndScale;
--(JobsFuseBubbleConfig *(^)(CGFloat data))byMaximumRotation;
--(JobsFuseBubbleConfig *(^)(NSInteger data))byMaximumConcurrentCount;
++(JobsRetJobsFuseBubbleConfigByVoidBlock _Nonnull)config;
+-(JobsRetJobsFuseBubbleConfigByNSTimeIntervalBlock _Nonnull)byEmissionInterval;
+-(JobsRetJobsFuseBubbleConfigByCGFloatBlock _Nonnull)byRiseDistance;
+-(JobsRetJobsFuseBubbleConfigByCGFloatBlock _Nonnull)byHorizontalDrift;
+-(JobsRetJobsFuseBubbleConfigByNSTimeIntervalBlock _Nonnull)byDuration;
+-(JobsRetJobsFuseBubbleConfigByCGFloatBlock _Nonnull)byInitialScale;
+-(JobsRetJobsFuseBubbleConfigByCGFloatBlock _Nonnull)byPeakScale;
+-(JobsRetJobsFuseBubbleConfigByCGFloatBlock _Nonnull)byEndScale;
+-(JobsRetJobsFuseBubbleConfigByCGFloatBlock _Nonnull)byMaximumRotation;
+-(JobsRetJobsFuseBubbleConfigByNSIntegerBlock _Nonnull)byMaximumConcurrentCount;
 
 @end
 

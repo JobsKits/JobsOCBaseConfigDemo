@@ -27,8 +27,10 @@ NS_ASSUME_NONNULL_BEGIN
 @optional
 #pragma mark —— 关于挂载的数据资料
 Prop_strong(nullable)UIViewModel *viewModel;
+-(JobsRetIDByIDBlock _Nonnull)byViewModel;
 Prop_weak(nullable)UIViewModel *viewModel_weak;
 Prop_strong(nullable)UIButtonModel *buttonModel;
+-(JobsRetIDByIDBlock _Nonnull)byButtonModel;
 Prop_strong(nullable)UIButtonModel *subButtonModel;
 Prop_strong(nullable)UITextModel *textModel;
 Prop_strong(nullable)UITextModel *subTextModel;
@@ -56,12 +58,14 @@ Prop_strong(nullable)UIViewModel *titleModel;
 /// 配置GKNavigationBar的标题（按钮）
 -(jobsByButtonModelBlock _Nonnull)setGKNavTitleBtnBy;
 /// 返回按钮的回调
--(JobsRetNavBarByVoidBtnBlocks _Nullable)JobsNavBarBackBtnClickBlock;
+-(JobsRetNavBarByVoidBtnBlocks _Nonnull)JobsNavBarBackBtnClickBlock;
 /// 关闭按钮的回调
--(JobsRetNavBarByVoidBtnBlocks _Nullable)JobsNavBarCloseBtnClickBlock;
+-(JobsRetNavBarByVoidBtnBlocks _Nonnull)JobsNavBarCloseBtnClickBlock;
 #pragma mark —— 获取绑定的数据源
 -(UIViewModel *_Nullable)getViewModel;
+-(JobsRetViewModelByVoidBlock _Nonnull)jobsGetViewModel;
 -(__kindof UIButtonModel *_Nullable)getButtonModel;
+-(JobsRetUIButtonModelByVoidBlock _Nonnull)jobsGetButtonModel;
 #pragma mark —— <AppToolsProtocol> 关于注册登录
 /// Token过期应该做的事情
 -(jobsByVoidBlock _Nonnull)tokenExpire;
@@ -80,19 +84,24 @@ Prop_strong(nullable)UIViewModel *titleModel;
 -(jobsByVoidBlock _Nonnull)forcedLogin;
 /// 触发退出登录模块之前，弹窗提示二次确认，确认以后再删除本地用户数据
 -(void)popUpViewToLogout;
+-(jobsByVoidBlock _Nonnull)jobsPopUpViewToLogout;
 #pragma mark —— <AppToolsProtocol> 关于 TabBar
 /// TabBar
 -(UITabBar *)getTabBar;
+-(JobsRetUITabBarByVoidBlock _Nonnull)jobsGetTabBar;
 /// JobsTabbarVC 关闭手势
 -(jobsByVoidBlock _Nonnull)tabBarClosePan;
 /// JobsTabbarVC 打开手势
 -(jobsByVoidBlock _Nonnull)tabBarOpenPan;
 /// 跳到首页
 -(void)jumpToHome;
+-(jobsByVoidBlock _Nonnull)jobsJumpToHome;
 /// 获取Tabbar管理的，不含导航的根控制器
 -(NSMutableArray <__kindof UIViewController *>*)appRootVC;
+-(JobsRetNSMutableArrayUIViewControllerByVoidBlock _Nonnull)jobsAppRootVC;
 /// 当前对象是否是 Tabbar管理的，不含导航的根控制器
 -(BOOL)isRootVC;
+-(JobsRetBOOLByVoidBlock _Nonnull)jobsIsRootVC;
 #pragma mark —— 关于图片编解码
 /// 图片base64编码，再固定50字符的位置加入固定盐。盐码（盐需大写、长度 16位）：RRU4JZTV5WZXPCVZ
 /// 编码
@@ -113,10 +122,13 @@ Prop_strong(nullable)UIViewModel *titleModel;
 -(jobsByStrBlock _Nonnull)openGameWithUrl;
 /// 默认头像👤
 -(UIImage *)defaultHeaderImage;
+-(JobsRetImageByVoidBlock _Nonnull)jobsDefaultHeaderImage;
 /// 当前语言【字符串形式】
 -(NSString *)currentLanguage;
+-(JobsRetStrByVoidBlock _Nonnull)jobsCurrentLanguage;
 /// 当前语言【枚举形式】
 -(HTTPRequestHeaderLanguageType)currentLanguageType;
+-(JobsRetHTTPRequestHeaderLanguageTypeByVoidBlock _Nonnull)jobsCurrentLanguageType;
 /// App 升级弹窗：在根控制器下实现，做到覆盖全局的统一
 -(void)appUpdateWithData:(CasinoGetiOSNewestVersionModel *_Nonnull)updateData
                sureBlock:(jobsByIDBlock _Nullable)sureBlock

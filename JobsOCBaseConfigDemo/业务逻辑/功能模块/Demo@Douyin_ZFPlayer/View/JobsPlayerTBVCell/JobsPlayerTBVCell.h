@@ -50,9 +50,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsPlayerTBVCell : UITableViewCell<BaseCellProtocol>
 
--(ZFPlayerController *)getPlayer;
--(void)stopPlayer;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)getPlayer;
+-(jobsByVoidBlock _Nonnull)stopPlayer;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsPlayerTBVCell
+-(JobsRetJobsPlayerTBVCellByVideoModel_CoreBlock _Nonnull)byVideoModel_Core;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsPlayerTBVCell
 @end
 
 NS_ASSUME_NONNULL_END

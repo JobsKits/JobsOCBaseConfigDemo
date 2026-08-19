@@ -15,7 +15,7 @@
     return ^__kindof UIView *_Nullable(__kindof UIView *_Nonnull superview, jobsByMASConstraintMakerBlock _Nullable block){
         @jobs_strongify(self)
         if (superview && self.superview != superview){
-            [superview addSubview:self];
+            superview.addSubview(self);
         }
         if (block){
             [self mas_makeConstraints:block];
@@ -148,7 +148,7 @@
 ///   - masonryAfterBlock: 希望变到的最后的约束
 -(void)jobsMasonryBeforeBlock:(jobsByMASConstraintMakerBlock _Nonnull)masonryBeforeBlock
             masonryAfterBlock:(jobsByMASConstraintMakerBlock _Nonnull)masonryAfterBlock{
-    [self uninstallAllLayoutAttribute];
+    [self uninstallAllLayoutAttribute]();
     if(masonryBeforeBlock) [self mas_remakeConstraints:masonryBeforeBlock];
     // 告诉视图需要更新布局
     [self.superview setNeedsUpdateConstraints];
@@ -176,7 +176,7 @@
 #pragma mark —— Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
 JobsKey(_masonryBlock)
 @dynamic masonryBlock;
--(jobsByMASConstraintMakerBlock)masonryBlock{
+-(jobsByMASConstraintMakerBlock _Nullable)masonryBlock{
     return Jobs_getAssociatedObject(_masonryBlock);
 }
 

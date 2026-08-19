@@ -6,16 +6,23 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_NSOBJECT_APPTOOLS_D21EC877E4
+
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
 #define JOBS_HEADER_GUARD_NSOBJECT_APPTOOLS_D21EC877E4
 
 #pragma once
 
 #import <Foundation/Foundation.h>
 
-#if __has_include(<XYColorOC/XYColorOC.h>)
-#import <XYColorOC/XYColorOC.h>
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
 #else
-#import "XYColorOC.h"
+#import "JobsBlock.h"
 #endif
 
 #import "JobsBaseProtocolHeader.h"
@@ -30,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (AppTools)<AppToolsProtocol>
 
--(UIButtonModel *)makeBackBtnModel;
+-(JobsRetUIButtonModelByVoidBlock _Nonnull)jobsMakeBackBtnModel;
 
 @end
 

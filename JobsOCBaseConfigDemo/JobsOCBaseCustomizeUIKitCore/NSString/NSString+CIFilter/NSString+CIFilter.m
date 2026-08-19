@@ -8,56 +8,66 @@
 #import "NSString+CIFilter.h"
 
 static UIImage *JobsCIImageToUIImage(CIImage *ciImage, CGSize targetSize) {
-    if (!ciImage || targetSize.width <= 0 || targetSize.height <= 0) return UIImage.new;
+    if (!ciImage || targetSize.width <= 0 || targetSize.height <= 0) return jobsMakeImage(^(UIImage *object){});
     CGRect extent = ciImage.extent;
-    if (CGRectIsEmpty(extent) || CGRectGetWidth(extent) <= 0 || CGRectGetHeight(extent) <= 0) return UIImage.new;
+    if (CGRectIsEmpty(extent) || CGRectGetWidth(extent) <= 0 || CGRectGetHeight(extent) <= 0) return jobsMakeImage(^(UIImage *object){});
     CGFloat scaleX = targetSize.width / CGRectGetWidth(extent);
     CGFloat scaleY = targetSize.height / CGRectGetHeight(extent);
     CIImage *scaledImage = [ciImage imageByApplyingTransform:CGAffineTransformMakeScale(scaleX, scaleY)];
     CIContext *context = [CIContext contextWithOptions:nil];
     CGImageRef cgImage = [context createCGImage:scaledImage fromRect:scaledImage.extent];
-    if (!cgImage) return UIImage.new;
+    if (!cgImage) return jobsMakeImage(^(UIImage *object){});
     UIImage *image = [UIImage imageWithCGImage:cgImage];
     CGImageRelease(cgImage);
-    return image ?: UIImage.new;
+    return image ?: jobsMakeImage(^(UIImage *object){});
 }
 
 static UIImage *JobsQRCodeUIImage(CIImage *ciImage, CGFloat widthSize) {
-    if (!ciImage || widthSize <= 0) return UIImage.new;
+    if (!ciImage || widthSize <= 0) return jobsMakeImage(^(UIImage *object){});
     CGRect extent = ciImage.extent;
-    if (CGRectIsEmpty(extent) || CGRectGetWidth(extent) <= 0 || CGRectGetHeight(extent) <= 0) return UIImage.new;
+    if (CGRectIsEmpty(extent) || CGRectGetWidth(extent) <= 0 || CGRectGetHeight(extent) <= 0) return jobsMakeImage(^(UIImage *object){});
     CGFloat scale = MAX(widthSize / CGRectGetWidth(extent), widthSize / CGRectGetHeight(extent));
     CIImage *scaledImage = [ciImage imageByApplyingTransform:CGAffineTransformMakeScale(scale, scale)];
     CIContext *context = [CIContext contextWithOptions:nil];
     CGImageRef cgImage = [context createCGImage:scaledImage fromRect:scaledImage.extent];
-    if (!cgImage) return UIImage.new;
+    if (!cgImage) return jobsMakeImage(^(UIImage *object){});
     UIImage *image = [UIImage imageWithCGImage:cgImage];
     CGImageRelease(cgImage);
-    return image ?: UIImage.new;
+    return image ?: jobsMakeImage(^(UIImage *object){});
 }
 
 @implementation NSString (CIFilter)
 /// 根据字符串生成二维码图像
--(UIImage *_Nonnull)createQRcode{
-    return [self jobsQRCodeImageByWidth:260 correctionLevel:@"M"];
+-(JobsRetImageByVoidBlock _Nonnull)createQRcode{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self jobsQRCodeImageByWidth:260 correctionLevel:@"M"];
+    };
 }
 /// 生成指定宽度的高清二维码图像
--(UIImage *)jobsQRCodeImageByWidth:(CGFloat)widthSize{
-    return [self jobsQRCodeImageByWidth:widthSize correctionLevel:@"M"];
+-(JobsRetImageByAlphaBlock _Nonnull)jobsQRCodeImageByWidth{
+    @jobs_weakify(self)
+    return ^UIImage *(CGFloat widthSize){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self jobsQRCodeImageByWidth:widthSize correctionLevel:@"M"];
+    };
 }
 /// 生成指定宽度和容错级别的高清二维码图像
 -(UIImage *)jobsQRCodeImageByWidth:(CGFloat)widthSize
                     correctionLevel:(NSString *_Nullable)correctionLevel{
-    if (!self.length || widthSize <= 0) return UIImage.new;
+    if (!self.length || widthSize <= 0) return jobsMakeImage(^(UIImage *object){});
     NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
-    if (!data) return UIImage.new;
-    CIFilter *filter = @"CIQRCodeGenerator".filter;
-    if (!filter) return UIImage.new;
+    if (!data) return jobsMakeImage(^(UIImage *object){});
+    CIFilter *filter = @"CIQRCodeGenerator".filter();
+    if (!filter) return jobsMakeImage(^(UIImage *object){});
     [filter setDefaults];
     filter.jobsKVC(@"inputMessage",data);
     filter.jobsKVC(@"inputCorrectionLevel",correctionLevel.length ? correctionLevel.uppercaseString : @"M");
     CIImage *outputImage = filter.outputImage;
-    if (!outputImage) return UIImage.new;
+    if (!outputImage) return jobsMakeImage(^(UIImage *object){});
     return JobsQRCodeUIImage(outputImage, widthSize);
 }
 /// 生成带中心 Logo 的高清二维码图像
@@ -68,7 +78,8 @@ static UIImage *JobsQRCodeUIImage(CIImage *ciImage, CGFloat widthSize) {
                    logoCornerRadius:(CGFloat)logoCornerRadius
                         borderWidth:(CGFloat)borderWidth
                         borderColor:(UIColor *_Nullable)borderColor{
-    UIImage *qrImage = [self jobsQRCodeImageByWidth:widthSize correctionLevel:correctionLevel ?: @"H"];
+    UIImage *qrImage = [self jobsQRCodeImageByWidth:widthSize
+                                   correctionLevel:correctionLevel ?: @"H"];
     if (!logo || !qrImage.size.width || !qrImage.size.height) return qrImage;
     CGFloat safeRatio = logoRatio > 0 ? MIN(logoRatio, 0.3) : 0.22;
     CGFloat logoSide = MAX(8, widthSize * safeRatio);
@@ -93,17 +104,17 @@ static UIImage *JobsQRCodeUIImage(CIImage *ciImage, CGFloat widthSize) {
 /// 生成 Code128 条形码图像
 -(UIImage *)jobsCode128BarcodeImageBySize:(CGSize)size
                                quietSpace:(CGFloat)quietSpace{
-    if (!self.length || size.width <= 0 || size.height <= 0) return UIImage.new;
+    if (!self.length || size.width <= 0 || size.height <= 0) return jobsMakeImage(^(UIImage *object){});
     NSData *data = [self dataUsingEncoding:NSASCIIStringEncoding];
     if (!data) data = [self dataUsingEncoding:NSUTF8StringEncoding];
-    if (!data) return UIImage.new;
-    CIFilter *filter = @"CICode128BarcodeGenerator".filter;
-    if (!filter) return UIImage.new;
+    if (!data) return jobsMakeImage(^(UIImage *object){});
+    CIFilter *filter = @"CICode128BarcodeGenerator".filter();
+    if (!filter) return jobsMakeImage(^(UIImage *object){});
     [filter setDefaults];
     filter.jobsKVC(@"inputMessage",data);
     filter.jobsKVC(@"inputQuietSpace",@(MAX(0, quietSpace)));
     CIImage *outputImage = filter.outputImage;
-    if (!outputImage) return UIImage.new;
+    if (!outputImage) return jobsMakeImage(^(UIImage *object){});
     return JobsCIImageToUIImage(outputImage, size);
 }
 /// 生成带可读文本的 Code128 条形码图像
@@ -114,7 +125,7 @@ static UIImage *JobsQRCodeUIImage(CIImage *ciImage, CGFloat widthSize) {
                                       font:(UIFont *_Nullable)font
                                  textColor:(UIColor *_Nullable)textColor
                            backgroundColor:(UIColor *_Nullable)backgroundColor{
-    if (width <= 0 || barHeight <= 0) return UIImage.new;
+    if (width <= 0 || barHeight <= 0) return jobsMakeImage(^(UIImage *object){});
     UIFont *safeFont = font ?: [UIFont monospacedDigitSystemFontOfSize:16 weight:UIFontWeightRegular];
     UIColor *safeTextColor = textColor ?: UIColor.blackColor;
     UIColor *safeBgColor = backgroundColor ?: UIColor.whiteColor;
@@ -141,8 +152,13 @@ static UIImage *JobsQRCodeUIImage(CIImage *ciImage, CGFloat widthSize) {
     return image ?: barImage;
 }
 /// 制作滤镜
--(CIFilter *_Nonnull)filter{
-    return [CIFilter filterWithName:self];
+-(JobsRetCIFilterByVoidBlock _Nonnull)filter{
+    @jobs_weakify(self)
+    return ^CIFilter *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [CIFilter filterWithName:self];
+    };
 }
 
 @end

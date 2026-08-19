@@ -28,8 +28,8 @@ BaseLayerProtocol_synthesize_part3
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleDefaultByTableView{
     return ^(UITableView * _Nonnull tableView) {
         MSCommentTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(MSCommentTBVCell);
-        cell.offsetXForEach = JobsWidth(7);
-        cell.offsetYForEach = JobsWidth(3);
+        cell.byOffsetXForEach(JobsWidth(7));
+        cell.byOffsetYForEach(JobsWidth(3));
         cell.byBgColor(JobsClearColor);
         cell.contentView.byBgColor(JobsSecondarySystemBackgroundColor);
         cell.cornerCutToCircleWithCornerRadius(JobsWidth(8));
@@ -61,13 +61,23 @@ BaseLayerProtocol_synthesize_part3
 }
 // 在具体的子类去实现,分类调用异常
 -(void)setFrame:(CGRect)frame{
-    JobsLog(@"self.offsetXForEach = %f",self.offsetXForEach);
-    JobsLog(@"self.offsetYForEach = %f",self.offsetYForEach);
-    frame.origin.x += self.offsetXForEach;
-    frame.origin.y += self.offsetYForEach;
-    frame.size.height -= self.offsetYForEach * 2;
-    frame.size.width -= self.offsetXForEach * 2;
-    [super setFrame:frame];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MSCommentTBVCell.class, @selector(jobsSetFrame)))(self, @selector(jobsSetFrame));
+    if (action) action(frame);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsSetFrame{
+    @jobs_weakify(self)
+    return ^(CGRect frame){
+        @jobs_strongify(self)
+        if (!self) return;
+        JobsLog(@"self.offsetXForEach = %f",self.offsetXForEach);
+        JobsLog(@"self.offsetYForEach = %f",self.offsetYForEach);
+        frame.origin.x += self.offsetXForEach;
+        frame.origin.y += self.offsetYForEach;
+        frame.size.height -= self.offsetYForEach * 2;
+        frame.size.width -= self.offsetXForEach * 2;
+        [super setFrame:frame];
+    };
 }
 #pragma mark —— lazyLoad
 -(UILabel *)titleLab{

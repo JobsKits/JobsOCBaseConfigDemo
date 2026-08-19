@@ -17,4 +17,13 @@
     };
 }
 
+-(JobsRetAlertCrtlByStringBlock _Nonnull)byMessage{
+    @jobs_weakify(self)
+    return ^__kindof UIAlertController *_Nullable(NSString *_Nullable data){
+        @jobs_strongify(self)
+        self.message = data;
+        return self;
+    };
+}
+
 @end

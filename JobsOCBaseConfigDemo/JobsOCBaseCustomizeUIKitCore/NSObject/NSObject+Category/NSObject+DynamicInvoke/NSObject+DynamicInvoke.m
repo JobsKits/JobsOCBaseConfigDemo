@@ -6,6 +6,7 @@
 //
 
 #import "NSObject+DynamicInvoke.h"
+
 #import "NSValue+Extra.h"
 #import "NSObject+Algorithm.h"
 #import "NSString+Extra.h"
@@ -65,7 +66,7 @@ callingMethodWithName:(NSString *_Nullable)methodName{
     if (!signature) {
         // 处理方式一：
         {
-            self.jobsToastErrMsg(@"方法不存在,请检查参数".tr);
+            self.jobsToastErrMsg(@"方法不存在,请检查参数".jobsTr());
             return nil;
         }
         // 处理方式二：【经常崩溃损伤硬件】
@@ -74,16 +75,16 @@ callingMethodWithName:(NSString *_Nullable)methodName{
 //            NSString *info = toStringByID(self.class)
 //                                .add(@":")
 //                                .add(toStringByID(NSStringFromSelector(selector)))
-//                                .add(@"unrecognized selector sent to instance".tr);
-//            @throw [NSException.alloc initWithName:@"方法不存在".tr
+//                                .add(@"unrecognized selector sent to instance".jobsTr());
+//            @throw [NSException.alloc initWithName:@"方法不存在".jobsTr()
 //                                              reason:info
 //                                            userInfo:nil];
 //        }
     }
     /// 只能使用该方法来创建，不能使用alloc init
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
-    invocation.target = targetObj;
-    invocation.selector = selector;
+    invocation.byTarget(targetObj);
+    invocation.bySelector(selector);
     /// 【防崩溃】如果传的不是数组，则封装成数组进行处理
     if (![paramarrays isKindOfClass:NSArray.class] && paramarrays) {
         paramarrays = @[paramarrays];
@@ -166,8 +167,13 @@ existMethodWithName:(NSString *_Nullable)methodName{
     }
 }
 /// 用block来代替selector
--(SEL _Nullable)jobsSelectorBlock:(JobsRetIDByTwoIDBlock _Nullable)selectorBlock{
-    return selectorBlocks(selectorBlock, nil, self);
+-(JobsRetSELByJobsRetIDByTwoIDBlockBlock _Nonnull)jobsSelectorBlock{
+    @jobs_weakify(self)
+    return ^SEL _Nullable(JobsRetIDByTwoIDBlock _Nullable selectorBlock){
+        @jobs_strongify(self)
+        if (!self) return (SEL _Nullable){0};
+        return selectorBlocks(selectorBlock, nil, self);
+    };
 }
 /// 替代系统 @selector(selector) ,用Block的方式调用代码，使得代码逻辑和形式上不割裂
 /// 类方法或全局函数，用于添加选择器
@@ -179,16 +185,16 @@ SEL _Nullable selectorBlocks(JobsRetIDByTwoIDBlock _Nullable block,
                              NSString *_Nullable selectorName,// MethodName(self)
                              NSObject *_Nonnull target) {
     if (!block) {
-        toastErr(@"方法不存在,请检查参数".tr);
+        toastErr(@"方法不存在,请检查参数".jobsTr());
         return NULL;
     }
     if (!target) {
-        toastErr(@"执行目标不存在,请检查参数".tr);
+        toastErr(@"执行目标不存在,请检查参数".jobsTr());
         return NULL;
     }
     NSString *selName = @"selector"
         .add(@"_")
-        .add(toStringByID(target.makeSnowflake))
+        .add(toStringByID(target.makeSnowflake()))
         .add(@"_")
         .add(selectorName);
     if (![selName hasSuffix:@":"]) selName = selName.add(@":");
@@ -236,7 +242,7 @@ SEL _Nullable selectorBlocks(JobsRetIDByTwoIDBlock _Nullable block,
             Jobs_setAssociatedCOPY_NONATOMICByTargetRawKey(target, sel, block)
             methodCache[cacheKey] = NSValue.byPointer(sel);
         } else {
-            [NSException raise:@"添加方法失败".tr
+            [NSException raise:@"添加方法失败".jobsTr()
                         format:@"%@ selectorBlock error", target];
         }
     };return sel;
@@ -305,6 +311,28 @@ JobsKey(_methodCache)
         @jobs_strongify(self)
         Protocol *protocol = NSProtocolFromString(data);
         return [self conformsToProtocol:protocol];
+    };
+}
+
+@end
+
+@implementation NSInvocation (JobsOCRuntimeKitsDSL)
+
+-(JobsRetInvocationByIDBlock _Nonnull)byTarget{
+    @jobs_weakify(self)
+    return ^__kindof NSInvocation *_Nullable(id _Nullable data){
+        @jobs_strongify(self)
+        self.target = data;
+        return self;
+    };
+}
+
+-(JobsRetInvocationBySELBlock _Nonnull)bySelector{
+    @jobs_weakify(self)
+    return ^__kindof NSInvocation *_Nullable(SEL _Nullable data){
+        @jobs_strongify(self)
+        self.selector = data;
+        return self;
     };
 }
 

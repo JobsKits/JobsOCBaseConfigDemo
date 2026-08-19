@@ -12,20 +12,20 @@
 #import "JobsDefines.h"
 
 #ifndef TextModelDataString
-#define TextModelDataString 主标题文字默认占位内容.tr
+#define TextModelDataString 主标题文字默认占位内容.jobsTr()
 #endif /* TextModelDataString */
 
 #ifndef TextModelDataString2
-#define TextModelDataString2 副标题文字默认占位内容.tr
+#define TextModelDataString2 副标题文字默认占位内容.jobsTr()
 #endif /* TextModelDataString2 */
 /// 数据归位
 #ifndef MakeDataNull // 如果未定义 MakeDataNull
 #define MakeDataNull \
-if ([self.viewModel.textModel.text isEqualToString:TextModelDataString.tr]) {\
-    self.viewModel.textModel.text = @"".tr;\
+if ([self.viewModel.textModel.text isEqualToString:TextModelDataString.jobsTr()]) {\
+    self.viewModel.textModel.text = @"".jobsTr();\
 }\
-if ([self.viewModel.subTextModel.text isEqualToString:TextModelDataString.tr]) {\
-    self.viewModel.subTextModel.text = @"".tr;\
+if ([self.viewModel.subTextModel.text isEqualToString:TextModelDataString.jobsTr()]) {\
+    self.viewModel.subTextModel.text = @"".jobsTr();\
 }
 #endif /* MakeDataNull */
 

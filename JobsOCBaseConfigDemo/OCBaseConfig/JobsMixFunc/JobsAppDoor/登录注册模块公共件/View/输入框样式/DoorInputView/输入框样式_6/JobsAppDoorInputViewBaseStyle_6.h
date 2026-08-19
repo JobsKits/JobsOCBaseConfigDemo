@@ -6,18 +6,25 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_6_EFD5CE445A
-#define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_6_EFD5CE445A
-
-#import <UIKit/UIKit.h>
-#import "JobsAppDoorConfig.h"
-#import "JobsAppDoorInputViewBaseStyle.h"
-#import "JobsOCTools.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_6_EFD5CE445A
+
+#import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+#import "JobsAppDoorConfig.h"
+#import "JobsAppDoorInputViewBaseStyle.h"
+#import "JobsOCTools.h"
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import "JobsBaseProtocolHeader.h"
@@ -65,6 +72,9 @@ NS_ASSUME_NONNULL_BEGIN
  
  */
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorInputViewBaseStyle_6
+-(JobsRetJobsAppDoorInputViewBaseStyle_6ByJobsAppDoorInputViewBaseStyleModelBlock _Nonnull)byDoorInputViewBaseStyleModel;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_6
 @end
 
 NS_ASSUME_NONNULL_END

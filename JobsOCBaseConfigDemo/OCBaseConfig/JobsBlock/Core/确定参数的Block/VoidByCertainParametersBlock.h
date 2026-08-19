@@ -18,6 +18,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
 typedef void(^jobsByVoidBlock)(void);
+typedef void(^jobsByGKPhotoBrowserConfigureBlock)(__kindof GKPhotoBrowserConfigure *_Nullable data);
 typedef jobsByVoidBlock JobsViewPushCompletionBlock;
 typedef jobsByVoidBlock JobsOCRefreshActionBlock;
 typedef void(^jobsByIDBlock)(id _Nullable data);
@@ -40,12 +41,14 @@ typedef void(^jobsByCABasicAnimationBlock)(__kindof CABasicAnimation *_Nullable 
 #pragma mark —— 关于 WKWebView.JS配置
 typedef void(^jobsByUserContentControllerBlock)(__kindof WKUserContentController *_Nullable data);
 typedef void(^jobsByWKWebViewConfigBlock)(__kindof WKWebViewConfiguration *_Nullable config);
+typedef void(^jobsByWKWebpagePreferencesBlock)(WKWebpagePreferences *_Nullable data);
 typedef void(^WKNavigationDelegateBlock1)(WKNavigationResponsePolicy policy);
 typedef void(^WKNavigationDelegateBlock2)(WKNavigationActionPolicy policy);
 #pragma mark —— 关于 JavaScript
 typedef void(^jobsByJSValueBlock)(JSValue *_Nullable value);
 #pragma mark —— 关于View
 typedef void(^jobsByViewBlock)(__kindof UIView *_Nullable view);
+typedef void(^jobsByJobsSideDrawerBlock)(JobsSideDrawer *_Nullable sideDrawer);
 typedef void(^jobsByPageControlBlock)(__kindof UIPageControl *_Nullable pageControl);
 typedef void(^jobsByScrollViewBlock)(__kindof UIScrollView *_Nullable scrollView);
 typedef void(^jobsByBtnBlock)(__kindof UIButton *_Nullable btn);
@@ -64,6 +67,7 @@ typedef void(^jobsByRefreshCtrlBlock)(__kindof UIRefreshControl *_Nullable refre
 typedef void(^jobsByPDFViewBlock)(__kindof PDFView *_Nullable view);
 typedef void(^jobsByTabBarItemBlock)(__kindof UITabBarItem *_Nullable tabBarItem);
 typedef void(^jobsByNavigationItemBlock)(__kindof UINavigationItem *_Nullable navigationItem);
+typedef void(^JobsOCCommentRefreshActionBlock)(__kindof JobsOCCommentView *_Nullable commentView);
 typedef void(^jobsByWKWebViewBlock)(__kindof WKWebView *_Nullable webView);
 typedef void(^jobsByJSContextBlock)(__kindof JSContext *_Nullable context);
 typedef void(^jobsByProgressViewBlock)(__kindof UIProgressView *_Nullable progressView);
@@ -160,6 +164,8 @@ typedef void(^jobsByLongBlock)(long data);
 typedef void(^jobsByUnsignedLongBlock)(unsigned long data);
 typedef void(^jobsByUnsignedLongLongBlock)(unsigned long long data);
 typedef void(^jobsByNSIntegerBlock)(NSInteger data);
+typedef jobsByNSIntegerBlock jobsByAppLanguageBlock;
+typedef jobsByNSIntegerBlock jobsByJobsOCDemoListCellTextDisplayStrategyBlock;
 typedef void(^jobsByNSUIntegerBlock)(NSUInteger data);
 typedef void(^jobsByUInt64_tBlock)(uint64_t data);
 typedef void(^jobsByCGFloatBlock)(CGFloat data);
@@ -256,4 +262,162 @@ typedef void(^jobsByColor_FloatBlock)(Jobs_ReturnButtonByColor_FloatBlock_Argume
 typedef void(^jobsByTwoIDBlock) (Jobs_2_Arguments);// weakSelf、arg
 typedef void(^JobsSelectorBlock1) (Jobs_3_Arguments);// weakSelf、arg、data
 #pragma clang diagnostic pop
+// JOBS_INLINE_BLOCK_VOID_TYPEDEF_AUTOGEN_BEGIN
+// JOBS_INLINE_BLOCK_VOID_TYPEDEF_AUTOGEN_END
+
+// JOBS_FUNCTIONAL_BLOCK_TYPEDEF_AUTOGEN_BEGIN
+
+#pragma mark —— Generated Functional Void Blocks
+typedef void(^jobsByCADisplayLinkBlock)(CADisplayLink *);
+typedef void(^jobsByCBCentralManagerBlock)(CBCentralManager *);
+typedef void(^jobsByCGContextRefBlock)(CGContextRef);
+typedef void(^jobsByCMAccelerationBlock)(CMAcceleration);
+typedef void(^jobsByCMFormatDescriptionRefBlock)(CMFormatDescriptionRef);
+typedef void(^jobsByCMSampleBufferRefBlock)(CMSampleBufferRef);
+typedef void(^jobsByCMTimeBlock)(CMTime);
+typedef void(^jobsByFetchNotifiViewBlockBlock)(FetchNotifiViewBlock);
+typedef void(^jobsByGXCardCellSwipeDirectionBlock)(GXCardCellSwipeDirection);
+typedef void(^jobsByIDJobsRefreshAnimatorProtocolBlock)(id<JobsRefreshAnimatorProtocol>);
+typedef void(^jobsByIDUIContentContainerBlock)(id<UIContentContainer>);
+typedef void(^jobsByIDUIViewControllerContextTransitioningBlock)(id<UIViewControllerContextTransitioning>);
+typedef void(^jobsByJXCategoryBaseCellModelBlock)(JXCategoryBaseCellModel *);
+typedef void(^jobsByJobsAppDoorInputViewBaseStyleBlock)(JobsAppDoorInputViewBaseStyle *);
+typedef void(^jobsByJobsGestureLockValidationResultBlock)(JobsGestureLockValidationResult);
+typedef void(^jobsByJobsLabelScrollConfigurationBlock)(JobsLabelScrollConfiguration *);
+typedef void(^jobsByJobsLocalNotificationModelBlock)(JobsLocalNotificationModel *);
+typedef void(^jobsByJobsOCAudioRecorderEngineBlock)(JobsOCAudioRecorderEngine *);
+typedef void(^jobsByJobsOCCalendarBlock)(JobsOCCalendar *);
+typedef void(^jobsByJobsOCCalendarAppearanceBlock)(JobsOCCalendarAppearance *);
+typedef void(^jobsByJobsOCCalendarDayCellBlock)(JobsOCCalendarDayCell *);
+typedef void(^jobsByJobsOCCommentConfigBlock)(JobsOCCommentConfig *);
+typedef void(^jobsByJobsOCCommentModeBlock)(JobsOCCommentMode);
+typedef void(^jobsByJobsOCCommentModelBlock)(JobsOCCommentModel *);
+typedef void(^jobsByJobsOCCommentViewBlock)(JobsOCCommentView *);
+typedef void(^jobsByJobsOCMarkdownDocumentBlock)(JobsOCMarkdownDocument *);
+typedef void(^jobsByJobsOCMarkdownViewBlock)(JobsOCMarkdownView *);
+typedef void(^jobsByJobsOCOpenConfigurationBlock)(JobsOCOpenConfiguration *);
+typedef void(^jobsByJobsOCRefreshPositionBlock)(JobsOCRefreshPosition);
+typedef void(^jobsByJobsOCRefreshStateBlock)(JobsOCRefreshState);
+typedef void(^jobsByJobsOCSearcherConfigBlock)(JobsOCSearcherConfig *);
+typedef void(^jobsByJobsOCSkeletonConfigBlock)(JobsOCSkeletonConfig *);
+typedef void(^jobsByJobsOCSkeletonUserBlock)(JobsOCSkeletonUser *);
+typedef void(^jobsByJobsOCSplashContentTypeBlock)(JobsOCSplashContentType);
+typedef void(^jobsByJobsOCVideoRecorderRecordButtonBlock)(JobsOCVideoRecorderRecordButton *);
+typedef void(^jobsByJobsOCVideoRecorderWriterFinishBlockBlock)(JobsOCVideoRecorderWriterFinishBlock);
+typedef void(^jobsByJobsRetBOOLByBOOLBlockBlock)(JobsRetBOOLByBOOLBlock _Nullable);
+typedef void(^jobsByJobsRetBOOLByIDBlockBlock)(JobsRetBOOLByIDBlock _Nullable);
+typedef void(^jobsByJobsRetBOOLByNSUIntegerBlockBlock)(JobsRetBOOLByNSUIntegerBlock _Nullable);
+typedef void(^jobsByJobsRetByCharBlockBlock)(JobsRetByCharBlock _Nullable);
+typedef void(^jobsByJobsRetByDoubleBlockBlock)(JobsRetByDoubleBlock _Nullable);
+typedef void(^jobsByJobsRetByFloatBlockBlock)(JobsRetByFloatBlock _Nullable);
+typedef void(^jobsByJobsRetByLongBlockBlock)(JobsRetByLongBlock _Nullable);
+typedef void(^jobsByJobsRetByNSIntegerBlockBlock)(JobsRetByNSIntegerBlock _Nullable);
+typedef void(^jobsByJobsRetByNSUIntegerBlockBlock)(JobsRetByNSUIntegerBlock _Nullable);
+typedef void(^jobsByJobsRetByShortBlockBlock)(JobsRetByShortBlock _Nullable);
+typedef void(^jobsByJobsRetByUnsignedCharBlockBlock)(JobsRetByUnsignedCharBlock _Nullable);
+typedef void(^jobsByJobsRetByUnsignedIntBlockBlock)(JobsRetByUnsignedIntBlock _Nullable);
+typedef void(^jobsByJobsRetByUnsignedLongBlockBlock)(JobsRetByUnsignedLongBlock _Nullable);
+typedef void(^jobsByJobsRetByUnsignedLongLongBlockBlock)(JobsRetByUnsignedLongLongBlock _Nullable);
+typedef void(^jobsByJobsRetByUnsignedShortBlockBlock)(JobsRetByUnsignedShortBlock _Nullable);
+typedef void(^jobsByJobsRetCGFloatByCGFloatBlockBlock)(JobsRetCGFloatByCGFloatBlock _Nullable);
+typedef void(^jobsByJobsRetCGFloatByIDBlockBlock)(JobsRetCGFloatByIDBlock _Nullable);
+typedef void(^jobsByJobsRetCharByIDBlockBlock)(JobsRetCharByIDBlock _Nullable);
+typedef void(^jobsByJobsRetDoubleByIDBlockBlock)(JobsRetDoubleByIDBlock _Nullable);
+typedef void(^jobsByJobsRetFloatByIDBlockBlock)(JobsRetFloatByIDBlock _Nullable);
+typedef void(^jobsByJobsRetIDByGestureBlockBlock)(JobsRetIDByGestureBlock _Nullable);
+typedef void(^jobsByJobsRetIDBySELBlockBlock)(JobsRetIDBySELBlock _Nullable);
+typedef void(^jobsByJobsRetIDByStrBlockBlock)(JobsRetIDByStrBlock _Nullable);
+typedef void(^jobsByJobsRetIDByTwoIDBlockBlock)(JobsRetIDByTwoIDBlock _Nullable);
+typedef void(^jobsByJobsRetIDByVoidBlockBlock)(JobsRetIDByVoidBlock _Nullable);
+typedef void(^jobsByJobsRetIntByIDBlockBlock)(JobsRetIntByIDBlock _Nullable);
+typedef void(^jobsByJobsRetIntByIntBlockBlock)(JobsRetIntByIntBlock _Nullable);
+typedef void(^jobsByJobsRetLongByIDBlockBlock)(JobsRetLongByIDBlock _Nullable);
+typedef void(^jobsByJobsRetNSIntegerByIDBlockBlock)(JobsRetNSIntegerByIDBlock _Nullable);
+typedef void(^jobsByJobsRetNSUIntegerByIDBlockBlock)(JobsRetNSUIntegerByIDBlock _Nullable);
+typedef void(^jobsByJobsRetShortByIDBlockBlock)(JobsRetShortByIDBlock _Nullable);
+typedef void(^jobsByJobsRetUnsignedCharByIDBlockBlock)(JobsRetUnsignedCharByIDBlock _Nullable);
+typedef void(^jobsByJobsRetUnsignedIntByIDBlockBlock)(JobsRetUnsignedIntByIDBlock _Nullable);
+typedef void(^jobsByJobsRetUnsignedLongByIDBlockBlock)(JobsRetUnsignedLongByIDBlock _Nullable);
+typedef void(^jobsByJobsRetUnsignedLongLongByIDBlockBlock)(JobsRetUnsignedLongLongByIDBlock _Nullable);
+typedef void(^jobsByJobsRetUnsignedShortByIDBlockBlock)(JobsRetUnsignedShortByIDBlock _Nullable);
+typedef void(^jobsByJobsUserModelBlock)(JobsUserModel * _Nullable);
+typedef void(^jobsByJobsViewPushCompletionBlockBlock)(JobsViewPushCompletionBlock);
+typedef void(^jobsByJobsWalletCardModelBlock)(JobsWalletCardModel *);
+typedef void(^jobsByMGSwipeTableCellBlock)(MGSwipeTableCell * _Nonnull);
+typedef void(^jobsByMJRefreshStateBlock)(MJRefreshState);
+typedef void(^jobsByNSArrayBlock)(NSArray *);
+typedef void(^jobsByNSArrayHXPhotoModelBlock)(NSArray <HXPhotoModel *>*);
+typedef void(^jobsByNSArrayIDBlock)(NSArray<id> *);
+typedef void(^jobsByNSArrayJobsAppDoorInputViewBaseStyleBlock)(NSArray<JobsAppDoorInputViewBaseStyle *> *);
+typedef void(^jobsByNSArrayJobsOCCommentModelBlock)(NSArray<JobsOCCommentModel *> *);
+typedef void(^jobsByNSArrayJobsWalletCardModelBlock)(NSArray<JobsWalletCardModel *> *);
+typedef void(^jobsByNSArrayNSArrayNSDictionaryNSStringNSNumberBlock)(NSArray <NSArray <NSDictionary <NSString *, NSNumber *>*>*>*);
+typedef void(^jobsByNSArrayNSDictionaryBlock)(NSArray <NSDictionary *>* _Nullable);
+typedef void(^jobsByNSArrayNSStringBlock)(NSArray <NSString *>*);
+typedef void(^jobsByNSArrayUIButtonBlock)(NSArray<UIButton *> *);
+typedef void(^jobsByNSArrayUITextFieldBlock)(NSArray <__kindof UITextField *>*);
+typedef void(^jobsByNSArrayUIViewBlock)(NSArray<__kindof UIView *> *);
+typedef void(^jobsByNSArrayUIViewControllerBlock)(NSArray<__kindof UIViewController *> *);
+typedef void(^jobsByNSArrayUser_RealmBlock)(NSArray <User_Realm *>* _Nullable);
+typedef void(^jobsByNSCoderBlock)(NSCoder *);
+typedef void(^jobsByNSAttributedStringBlock)(NSAttributedString *_Nullable);
+typedef void(^jobsByNSIndexSetBlock)(NSIndexSet *);
+typedef void(^jobsByNSInvocationBlock)(NSInvocation *);
+typedef void(^jobsByNSManagedObjectBlock)(NSManagedObject *);
+typedef void(^jobsByNSMutableArrayBlock)(NSMutableArray *);
+typedef void(^jobsByNSMutableArrayJobsOCDemoSectionModelBlock)(NSMutableArray <JobsOCDemoSectionModel *>*);
+typedef void(^jobsByNSMutableAttributedStringBlock)(NSMutableAttributedString *);
+typedef void(^jobsByNSMutableSetBlock)(NSMutableSet *);
+typedef void(^jobsByNSObjectFlutterPluginRegistrarBlock)(NSObject<FlutterPluginRegistrar>*);
+typedef void(^jobsByNSSetUISceneSessionBlock)(NSSet<UISceneSession *> *);
+typedef void(^jobsByNSUUIDBlock)(NSUUID *);
+typedef void(^jobsByNSUserActivityBlock)(NSUserActivity *);
+typedef void(^jobsBySDWebImageNoParamsBlockBlock)(SDWebImageNoParamsBlock _Nullable);
+typedef void(^jobsBySRWebSocketBlock)(SRWebSocket *);
+typedef void(^jobsByUIApplicationBlock)(UIApplication *);
+typedef void(^jobsByUICollectionViewLayoutAttributesBlock)(UICollectionViewLayoutAttributes *);
+typedef void(^jobsByUIControlEventsBlock)(UIControlEvents);
+typedef void(^jobsByUIDeviceOrientationBlock)(UIDeviceOrientation);
+typedef void(^jobsByUIAlertControllerBlock)(UIAlertController *_Nullable);
+typedef void(^jobsByUINavigationControllerBlock)(UINavigationController *);
+typedef void(^jobsByUISceneBlock)(UIScene *);
+typedef void(^jobsByUISceneSessionBlock)(UISceneSession *);
+typedef void(^jobsByUISearchControllerBlock)(UISearchController *);
+typedef void(^jobsByUITouchBlock)(UITouch *);
+typedef void(^jobsByUITraitCollectionBlock)(UITraitCollection *);
+typedef void(^jobsByUser_RealmBlock)(User_Realm *);
+typedef void(^jobsByZFPlayerGestureControlBlock)(ZFPlayerGestureControl *);
+typedef void(^jobsByZMJTipViewBlock)(ZMJTipView *);
+typedef void(^jobsBydispatch_block_tBlock)(dispatch_block_t);
+typedef void(^jobsByjobsByBOOLBlockBlock)(jobsByBOOLBlock _Nullable);
+typedef void(^jobsByjobsByCharBlockBlock)(jobsByCharBlock _Nullable);
+typedef void(^jobsByjobsByDoubleBlockBlock)(jobsByDoubleBlock _Nullable);
+typedef void(^jobsByjobsByFloatBlockBlock)(jobsByFloatBlock _Nullable);
+typedef void(^jobsByjobsByGestureRecognizerBlockBlock)(jobsByGestureRecognizerBlock _Nullable);
+typedef void(^jobsByjobsByIDBlockBlock)(jobsByIDBlock _Nullable);
+typedef void(^jobsByjobsByIPApiModelBlockBlock)(jobsByIPApiModelBlock _Nullable);
+typedef void(^jobsByjobsByIntBlockBlock)(jobsByIntBlock _Nullable);
+typedef void(^jobsByjobsByIpifyModelBlockBlock)(jobsByIpifyModelBlock _Nullable);
+typedef void(^jobsByjobsByIpinfoModelBlockBlock)(jobsByIpinfoModelBlock _Nullable);
+typedef void(^jobsByjobsByLongBlockBlock)(jobsByLongBlock _Nullable);
+typedef void(^jobsByjobsByNSIntegerBlockBlock)(jobsByNSIntegerBlock _Nullable);
+typedef void(^jobsByjobsByNSUIntegerBlockBlock)(jobsByNSUIntegerBlock _Nullable);
+typedef void(^jobsByjobsByResponseModelBlockBlock)(jobsByResponseModelBlock _Nullable);
+typedef void(^jobsByjobsBySELBlockBlock)(jobsBySELBlock _Nullable);
+typedef void(^jobsByjobsByShortBlockBlock)(jobsByShortBlock _Nullable);
+typedef void(^jobsByjobsByStrBlockBlock)(jobsByStrBlock _Nullable);
+typedef void(^jobsByjobsByTwoIDBlockBlock)(jobsByTwoIDBlock _Nullable);
+typedef void(^jobsByjobsByUnsignedCharBlockBlock)(jobsByUnsignedCharBlock _Nullable);
+typedef void(^jobsByjobsByUnsignedIntBlockBlock)(jobsByUnsignedIntBlock _Nullable);
+typedef void(^jobsByjobsByUnsignedLongBlockBlock)(jobsByUnsignedLongBlock _Nullable);
+typedef void(^jobsByjobsByUnsignedLongLongBlockBlock)(jobsByUnsignedLongLongBlock _Nullable);
+typedef void(^jobsByjobsByUnsignedShortBlockBlock)(jobsByUnsignedShortBlock _Nullable);
+typedef void(^jobsByjobsByYTKBatchRequestBlockBlock)(jobsByYTKBatchRequestBlock _Nullable);
+typedef void(^jobsByjobsByYTKChainRequestBlockBlock)(jobsByYTKChainRequestBlock _Nullable);
+typedef void(^jobsByunusedNSTimerBlock)(__unused NSTimer *);
+typedef void(^jobsByvoidBOOLBlock)(void (^)(BOOL));
+typedef void(^jobsByvoidBOOLNSErrorBlock)(void(^)(BOOL success, NSError *error));
+typedef void(^jobsByvoidNotifiViewBlock)(void (^ _Nonnull )(NotifiView * ));
+// JOBS_FUNCTIONAL_BLOCK_TYPEDEF_AUTOGEN_END
+
 #endif /* VoidByCertainParameters_h */

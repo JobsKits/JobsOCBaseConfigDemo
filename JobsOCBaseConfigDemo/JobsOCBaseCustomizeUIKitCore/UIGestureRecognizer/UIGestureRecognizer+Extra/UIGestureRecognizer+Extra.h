@@ -6,17 +6,18 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIGESTURERECOGNIZER_EXTRA_4121F3E0CF
-#define JOBS_HEADER_GUARD_UIGESTURERECOGNIZER_EXTRA_4121F3E0CF
-
-#pragma once
-
-#import <UIKit/UIKit.h>
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
 #import "ReactiveObjC.h"
 #endif
+
+#define JOBS_HEADER_GUARD_UIGESTURERECOGNIZER_EXTRA_4121F3E0CF
+
+#pragma once
+
+#import <UIKit/UIKit.h>
 
 #import "JobsBaseProtocolHeader.h"
 #import "JobsBlock.h"
@@ -28,8 +29,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_assign(nullable)id target;
 
--(__kindof UIGestureRecognizer *)gestureActionBy:(jobsByVoidBlock _Nonnull)block;
--(__kindof UIGestureRecognizer *)GestureActionBy:(jobsByGestureRecognizerBlock _Nonnull)block;
+-(JobsRetIDByIDBlock _Nonnull)byTarget;
+-(JobsRetUIGestureRecognizerByjobsByVoidBlockBlock _Nonnull)gestureActionBy;
+/// Manual_Add_ThirdParty 中的旧源码仍直接发送此消息，仅作为第三方 ABI 兼容入口保留。
+-(__kindof UIGestureRecognizer *_Nullable)gestureActionBy:(jobsByVoidBlock _Nonnull)block;
+-(JobsRetUIGestureRecognizerByjobsByGestureRecognizerBlockBlock _Nonnull)GestureActionBy;
+/// 仅供未纳入 Jobs 维护的历史源码兼容；Jobs 新代码统一使用 Block getter。
+-(__kindof UIGestureRecognizer *_Nonnull)GestureActionBy:(jobsByGestureRecognizerBlock _Nullable)block;
 -(JobsRetGestureRecognizerBySELBlock _Nonnull)removeAction;
 -(JobsRetGestureRecognizerBySELBlock _Nonnull)addAction;
 

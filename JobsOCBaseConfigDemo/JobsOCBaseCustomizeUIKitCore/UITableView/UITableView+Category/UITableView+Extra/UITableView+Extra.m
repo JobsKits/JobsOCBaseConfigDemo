@@ -41,56 +41,11 @@
     return [UITableView.alloc initWithFrame:CGRectZero style:UITableViewStyleInsetGrouped];
 }
 #pragma mark —— BaseTableViewProtocol
--(JobsRetTableViewByDelegateBlock _Nonnull)byDelegate{
-    @jobs_weakify(self)
-    return ^__kindof UITableView *_Nullable(id <UITableViewDelegate>_Nullable delegate){
-        @jobs_strongify(self)
-        self.delegate = delegate;
-        return self;
-    };
-}
-
--(JobsRetTableViewByDataSourceBlock _Nonnull)byDataSource{
-    @jobs_weakify(self)
-    return ^__kindof UITableView *_Nullable(id <UITableViewDataSource>_Nullable dataSource){
-        @jobs_strongify(self)
-        self.dataSource = dataSource;
-        return self;
-    };
-}
-
 -(JobsRetTableViewByDataSourcePrefetchingBlock _Nonnull)byDataSourcePrefetching API_AVAILABLE(ios(10.0)){
     @jobs_weakify(self)
     return ^__kindof UITableView *_Nullable(id <UITableViewDataSourcePrefetching>_Nullable dataSourcePrefetching){
         @jobs_strongify(self)
-        self.prefetchDataSource = dataSourcePrefetching;
-        return self;
-    };
-}
-
--(JobsRetTableViewByDragDelegateBlock _Nonnull)byDragDelegate API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos, watchos){
-    @jobs_weakify(self)
-    return ^__kindof UITableView *_Nullable(id <UITableViewDragDelegate>_Nullable delegate){
-        @jobs_strongify(self)
-        self.dragDelegate = delegate;
-        return self;
-    };
-}
-
--(JobsRetTableViewByDropDelegateBlock _Nonnull)byDropDelegate API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos, watchos){
-    @jobs_weakify(self)
-    return ^__kindof UITableView *_Nullable(id <UITableViewDropDelegate>_Nullable delegate){
-        @jobs_strongify(self)
-        self.dropDelegate = delegate;
-        return self;
-    };
-}
-
--(JobsRetTableViewByCellSeparatorStyleBlock _Nonnull)bySeparatorStyle{
-    @jobs_weakify(self)
-    return ^__kindof UITableView *_Nullable(UITableViewCellSeparatorStyle style){
-        @jobs_strongify(self)
-        self.separatorStyle = style;
+        self.byPrefetchDataSource(dataSourcePrefetching);
         return self;
     };
 }
@@ -100,33 +55,6 @@
     return ^__kindof UITableView *_Nullable(UIScrollViewContentInsetAdjustmentBehavior behavior){
         @jobs_strongify(self)
         self.contentInsetAdjustmentBehavior = behavior;
-        return self;
-    };
-}
-
--(JobsRetTableViewByCorBlock _Nonnull)bySeparatorColor{
-    @jobs_weakify(self)
-    return ^__kindof UITableView *_Nullable(UIColor *_Nullable cor){
-        @jobs_strongify(self)
-        self.separatorColor = cor;
-        return self;
-    };
-}
-
--(JobsRetTableViewByViewBlock _Nonnull)byTableHeaderView{
-    @jobs_weakify(self)
-    return ^__kindof UITableView *_Nullable(__kindof UIView *_Nullable view){
-        @jobs_strongify(self)
-        self.tableHeaderView = view;
-        return self;
-    };
-}
-
--(JobsRetTableViewByViewBlock _Nonnull)byTableFooterView{
-    @jobs_weakify(self)
-    return ^__kindof UITableView *_Nullable(__kindof UIView *_Nullable view){
-        @jobs_strongify(self)
-        self.tableFooterView = view;
         return self;
     };
 }
@@ -154,7 +82,7 @@
     return ^__kindof UITableView *_Nullable(__kindof MJRefreshHeader * _Nullable header){
         @jobs_strongify(self)
         self.mj_header = header;
-        self.mj_header.automaticallyChangeAlpha = YES; /// 根据拖拽比例自动切换透明度
+        self.mj_header.byAutomaticallyChangeAlpha(YES);
         return self;
     };
 }
@@ -164,7 +92,7 @@
     return ^__kindof UITableView *_Nullable(__kindof MJRefreshFooter * _Nullable header){
         @jobs_strongify(self)
         self.mj_footer = header;
-        self.mj_footer.automaticallyChangeAlpha = YES; /// 根据拖拽比例自动切换透明度
+        self.mj_footer.byAutomaticallyChangeAlpha(YES);
         return self;
     };
 }
@@ -208,15 +136,15 @@
     if (tableViewCellClass) {
         for (UITableViewCell *cell in self.visibleCells) {
             if ([cell isKindOfClass:tableViewCellClass]) {
-                cell.selected = NO;
-                cell.getViewModel.jobsSelected = NO;
+                cell.bySelected(NO);
+                cell.getViewModel.byJobsSelected(NO);
             }
         }
     }
     UITableViewCell *cell = (UITableViewCell *)self.cellBy(indexPath);
-    cell.selected = !cell.selected;
-    cell.jobsSelected = !cell.jobsSelected;
-    cell.getViewModel.jobsSelected = !cell.getViewModel.jobsSelected;/// 建议用model来修改
+    cell.bySelected(!cell.selected);
+    cell.byJobsSelected(!cell.jobsSelected);
+    cell.getViewModel.byJobsSelected(!cell.getViewModel.jobsSelected);
     return cell;
 }
 
@@ -224,8 +152,8 @@
                                     tableViewCellClass:(Class _Nullable)tableViewCellClass{
     JobsLog(@"%s", __FUNCTION__);
     UITableViewCell *cell = (UITableViewCell *)self.cellBy(indexPath);
-    cell.selected = !cell.selected;
-    cell.getViewModel.jobsSelected = !cell.getViewModel.jobsSelected;
+    cell.bySelected(!cell.selected);
+    cell.getViewModel.byJobsSelected(!cell.getViewModel.jobsSelected);
     return cell;
 }
 
@@ -275,7 +203,7 @@
                           cell:(__kindof UITableViewCell *)cell{
     /// 判断是否是该 section 的最后一行
     if (indexPath.row == [self numberOfRowsInSection:indexPath.section] - 1){
-        cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, cell.bounds.size.width);
+        cell.bySeparatorInset(UIEdgeInsetsMake(0, 0, 0, cell.bounds.size.width));
     }
 }
 

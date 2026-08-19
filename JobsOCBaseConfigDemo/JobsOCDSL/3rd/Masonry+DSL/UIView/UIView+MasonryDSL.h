@@ -6,16 +6,17 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIVIEW_MASONRY_DSL_4F3D9F6D5D
-#define JOBS_HEADER_GUARD_UIVIEW_MASONRY_DSL_4F3D9F6D5D
-
-#import <UIKit/UIKit.h>
-#import "UIView+DSL.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#define JOBS_HEADER_GUARD_UIVIEW_MASONRY_DSL_4F3D9F6D5D
+
+#import <UIKit/UIKit.h>
+#import "UIView+DSL.h"
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"
@@ -24,7 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (MasonryDSL)
 
-Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
+Prop_copy(nullable)jobsByMASConstraintMakerBlock masonryBlock;
 #pragma mark —— 不记录约束，直接修改/赋值
 /// 添加子视图到父视图 + 加载约束（不记录） +刷新UI
 -(JobsRetViewBySuperviewMasonryBlock _Nonnull)byAddTo;

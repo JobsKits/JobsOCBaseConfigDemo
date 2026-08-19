@@ -2,10 +2,13 @@
 //  UIActivityIndicatorView+DSL.m
 //  JobsOCBaseConfigDemo
 //
+//  Created by Jobs on 2026年8月3日，星期一.
+//
+
 #import "UIActivityIndicatorView+DSL.h"
 
 @implementation UIActivityIndicatorView (JobsChain)
-+(JobsRetActivityIndicatorViewByVoidBlock)byActivityIndicatorView{
++(JobsRetActivityIndicatorViewByVoidBlock _Nonnull)byActivityIndicatorView{
     return ^__kindof UIActivityIndicatorView *_Nullable(void){
         return [[self alloc] init];
     };
@@ -26,7 +29,7 @@
     };
 }
 
--(JobsRetActivityIndicatorViewByCorBlock)byColor{
+-(JobsRetActivityIndicatorViewByCorBlock _Nonnull)byColor{
     @jobs_weakify(self)
     return ^__kindof UIActivityIndicatorView *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
@@ -35,7 +38,7 @@
     };
 }
 
--(JobsRetActivityIndicatorViewByBOOLBlock)byHidesWhenStopped{
+-(JobsRetActivityIndicatorViewByBOOLBlock _Nonnull)byHidesWhenStopped{
     @jobs_weakify(self)
     return ^__kindof UIActivityIndicatorView *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -44,7 +47,7 @@
     };
 }
 
--(JobsRetActivityIndicatorViewByVoidBlock)byStartAnimating{
+-(JobsRetActivityIndicatorViewByVoidBlock _Nonnull)byStartAnimating{
     @jobs_weakify(self)
     return ^__kindof UIActivityIndicatorView *_Nullable(void){
         @jobs_strongify(self)
@@ -53,7 +56,7 @@
     };
 }
 
--(JobsRetActivityIndicatorViewByVoidBlock)byStopAnimating{
+-(JobsRetActivityIndicatorViewByVoidBlock _Nonnull)byStopAnimating{
     @jobs_weakify(self)
     return ^__kindof UIActivityIndicatorView *_Nullable(void){
         @jobs_strongify(self)

@@ -10,7 +10,6 @@
 
 #import <objc/runtime.h>
 #import <Foundation/Foundation.h>
-#import <AsyncDisplayKit/AsyncDisplayKit.h>
 
 #if __has_include(<AsyncDisplayKit/ASButtonNode.h>)
 #import <AsyncDisplayKit/ASButtonNode.h>
@@ -20,6 +19,13 @@
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"
+#import "UILongPressGestureRecognizer+DSL.h"
+
+#if __has_include(<AsyncDisplayKit/AsyncDisplayKit.h>)
+#import <AsyncDisplayKit/AsyncDisplayKit.h>
+#else
+#import "AsyncDisplayKit.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 /// ASButtonNode 链式 DSL（节选：标题/图片/边距/圆角/事件）

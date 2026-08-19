@@ -7,6 +7,12 @@
 
 #import "JobsOCSplashPresenter.h"
 
+@interface JobsOCSplashVC (HostGestureRestoration)
+
+-(jobsByRACSchedulerRecursiveBlock _Nonnull)restoreHostGesturesOnFinish;
+
+@end
+
 static UIViewController *JobsOCSplashOverlayHostViewController(UIViewController *hostViewController) {
     UIViewController *candidate = nil;
     if (hostViewController.presentedViewController && !hostViewController.presentedViewController.isBeingDismissed) {
@@ -28,9 +34,23 @@ static UIViewController *JobsOCSplashOverlayHostViewController(UIViewController 
 @implementation JobsOCSplashPresenter
 +(__kindof JobsOCSplashVC *)showOver:(__kindof UIViewController *)hostViewController configuration:(JobsOCSplashConfiguration *)configuration {
     UIViewController *overlayHostViewController = JobsOCSplashOverlayHostViewController(hostViewController);
+    NSMutableOrderedSet<UIGestureRecognizer *> *hostGestureRecognizerSet = NSMutableOrderedSet.orderedSet;
+    [hostGestureRecognizerSet addObjectsFromArray:hostViewController.view.gestureRecognizers ?: @[]];
+    [hostGestureRecognizerSet addObjectsFromArray:overlayHostViewController.view.gestureRecognizers ?: @[]];
+    NSArray<UIGestureRecognizer *> *hostGestureRecognizers = hostGestureRecognizerSet.array;
+    NSMutableArray<NSNumber *> *hostGestureEnabledStates = [NSMutableArray arrayWithCapacity:hostGestureRecognizers.count];
+    for (UIGestureRecognizer *gestureRecognizer in hostGestureRecognizers) {
+        [hostGestureEnabledStates addObject:@(gestureRecognizer.enabled)];
+        gestureRecognizer.byEnabled(NO);
+    }
     JobsOCSplashVC *splashVC = [[JobsOCSplashVC alloc] initWithConfiguration:configuration];
-    splashVC.view.frame = overlayHostViewController.view.bounds;
-    splashVC.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    splashVC.restoreHostGesturesOnFinish(^{
+        [hostGestureRecognizers enumerateObjectsUsingBlock:^(UIGestureRecognizer *gestureRecognizer, NSUInteger idx, BOOL *stop) {
+            gestureRecognizer.byEnabled(hostGestureEnabledStates[idx].boolValue);
+        }];
+    });
+    splashVC.view.byFrame(overlayHostViewController.view.bounds);
+    splashVC.view.byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
     [overlayHostViewController addChildViewController:splashVC];
     [overlayHostViewController.view addSubview:splashVC.view];
     [splashVC didMoveToParentViewController:overlayHostViewController];

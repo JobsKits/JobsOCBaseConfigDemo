@@ -10,6 +10,12 @@
 #import "UILabel+Extra.h"
 #import "JobsBlock.h"
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 #if __has_include(<MJRefresh/MJRefresh.h>)
 #import <MJRefresh/MJRefresh.h>
 #else
@@ -20,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MJRefreshBackStateFooter (Extra)
 
+-(JobsRetIDByBOOLBlock _Nonnull)byAutomaticallyChangeAlpha;
 -(JobsRetMJRefreshBackStateFooterByRefreshConfigModelBlock _Nonnull)byMJRefreshFooterConfigModel;
 
 @end

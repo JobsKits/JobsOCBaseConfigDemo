@@ -54,10 +54,10 @@ JobsKey(_customSysClearBtn)
 //            .jobsResetBtnBgImage(@"APPLY NOW".img)
 //            .jobsResetBtnTitleCor(JobsWhiteColor)
 //            .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-//            .jobsResetBtnTitle(@"APPLY NOW".tr)
+//            .jobsResetBtnTitle(@"APPLY NOW".jobsTr())
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                self.text = @"".tr;
+                self.text = @"".jobsTr();
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             }).byFrame(CGRectMake(0.0f,0.0f,15.0f,15.0f));

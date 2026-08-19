@@ -6,9 +6,22 @@
 //
 
 #ifndef JobsOCVideoRecorderVC_h
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 #define JobsOCVideoRecorderVC_h
 
 #import <TargetConditionals.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <UIKit/UIKit.h>
 #import "JobsOCVideoRecorderConfig.h"
 #import "JobsOCVideoRecorderCIFilterProcessor.h"
@@ -18,12 +31,6 @@
 #import "JobsOCVideoRecorderRecordButton.h"
 #import "JobsOCVideoRecorderPreviewView.h"
 #import "JobsOCVideoRecorderAlbumSaver.h"
-
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
-#else
-#import "Masonry.h"
-#endif
 
 #if __has_include(<TKPermissionKit/TKPermissionKit.h>)
 #import <TKPermissionKit/TKPermissionKit.h>
@@ -64,6 +71,8 @@ Prop_strong(readonly) JobsOCVideoRecorderConfig *config;
 -(instancetype)initWithConfig:(JobsOCVideoRecorderConfig *)config NS_DESIGNATED_INITIALIZER;
 -(instancetype)initWithNibName:(NSString *_Nullable)nibNameOrNil bundle:(NSBundle *_Nullable)nibBundleOrNil NS_UNAVAILABLE;
 -(instancetype)initWithCoder:(NSCoder *)coder NS_UNAVAILABLE;
+
+-(JobsRetBOOLByVoidBlock _Nonnull)jobsCanBecomeFirstResponder;
 
 @end
 

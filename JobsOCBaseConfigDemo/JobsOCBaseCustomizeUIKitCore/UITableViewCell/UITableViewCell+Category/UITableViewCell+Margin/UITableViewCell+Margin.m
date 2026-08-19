@@ -9,6 +9,23 @@
 
 @implementation UITableViewCell (Margin)
 UILocationProtocol_dynamic
+-(JobsRetTableViewCellByCGFloatBlock _Nonnull)byOffsetXForEach{
+    @jobs_weakify(self)
+    return ^__kindof UITableViewCell *_Nullable(CGFloat data){
+        @jobs_strongify(self)
+        self.offsetXForEach = data;
+        return self;
+    };
+}
+
+-(JobsRetTableViewCellByCGFloatBlock _Nonnull)byOffsetYForEach{
+    @jobs_weakify(self)
+    return ^__kindof UITableViewCell *_Nullable(CGFloat data){
+        @jobs_strongify(self)
+        self.offsetYForEach = data;
+        return self;
+    };
+}
 // 在具体的子类去实现,分类调用异常
 //-(void)setFrame:(CGRect)frame{
 //    JobsLog(@"self.offsetXForEach = %f",self.offsetXForEach);
@@ -153,18 +170,18 @@ UILocationProtocol_dynamic
     return ^(){
         @jobs_strongify(self)
         self.contentView.byFrame(self.bounds);
-        self.textLabelFrameOffsetX = JobsWidth(0);// 等价于用这个 self.textLabel.resetOriginXByOffset(JobsWidth(0));
-        self.textLabelFrameOffsetY = JobsWidth(0);// 等价于用这个 self.textLabel.resetOriginYByOffset(JobsWidth(0));
-        self.textLabelFrameOffsetWidth = JobsWidth(0);// 等价于用这个 self.textLabel.resetWidthByOffset(JobsWidth(0));
-        self.textLabelFrameOffsetHeight = JobsWidth(0);// 等价于用这个 self.textLabel.resetHeightByOffset(JobsWidth(0));
-        self.detailTextLabelOffsetX = JobsWidth(0);// 等价于用这个 self.detailTextLabel.resetOriginXByOffset(JobsWidth(0));
-        self.detailTextLabelOffsetY = JobsWidth(0);// 等价于用这个 self.detailTextLabel.resetOriginYByOffset(JobsWidth(0));
-        self.detailTextLabelOffsetWidth = JobsWidth(0);// 等价于用这个 self.detailTextLabel.resetWidthByOffset(JobsWidth(0));
-        self.detailTextLabelOffsetHeight = JobsWidth(0);// 等价于用这个 self.detailTextLabel.resetHeightByOffset(JobsWidth(0));
-        self.imageViewFrameOffsetX = JobsWidth(0);// 等价于用这个 self.imageView.resetOriginXByOffset(JobsWidth(0));
-        self.imageViewFrameOffsetY = JobsWidth(0);// 等价于用这个 self.imageView.resetOriginYByOffset(JobsWidth(0));
-        self.imageViewFrameOffsetWidth = JobsWidth(0);// 等价于用这个 self.imageView.resetWidthByOffset(JobsWidth(0));
-        self.imageViewFrameOffsetHeight = JobsWidth(0);// 等价于用这个 self.imageView.resetHeightByOffset(JobsWidth(0));
+        self.byTextLabelFrameOffsetX(JobsWidth(0));
+        self.byTextLabelFrameOffsetY(JobsWidth(0));
+        self.byTextLabelFrameOffsetWidth(JobsWidth(0));
+        self.byTextLabelFrameOffsetHeight(JobsWidth(0));
+        self.byDetailTextLabelOffsetX(JobsWidth(0));
+        self.byDetailTextLabelOffsetY(JobsWidth(0));
+        self.byDetailTextLabelOffsetWidth(JobsWidth(0));
+        self.byDetailTextLabelOffsetHeight(JobsWidth(0));
+        self.byImageViewFrameOffsetX(JobsWidth(0));
+        self.byImageViewFrameOffsetY(JobsWidth(0));
+        self.byImageViewFrameOffsetWidth(JobsWidth(0));
+        self.byImageViewFrameOffsetHeight(JobsWidth(0));
     };
 }
 /// 取内部类UITableViewCellEditControl,对编辑状态的Cell的点击按钮进行替换成自定义的
@@ -178,7 +195,7 @@ UILocationProtocol_dynamic
                     if ([view isKindOfClass:UIImageView.class]) {
                         UIImageView *img = (UIImageView *)view;
                         if (@"按钮已选中".img && @"按钮未选中".img) {
-                            img.image = self.selected ? @"按钮已选中".img : @"按钮未选中".img;
+                            img.byImage(self.selected ? @"按钮已选中".img : @"按钮未选中".img);
                         }
                     }
                 }

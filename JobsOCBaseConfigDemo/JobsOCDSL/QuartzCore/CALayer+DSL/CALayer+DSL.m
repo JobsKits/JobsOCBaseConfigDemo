@@ -8,6 +8,33 @@
 #import "CALayer+DSL.h"
 
 @implementation CALayer (JobsChain)
+-(JobsRetCALayerByCFTimeIntervalBlock _Nonnull)byBeginTime{
+    @jobs_weakify(self)
+    return ^__kindof CALayer *(CFTimeInterval beginTime){
+        @jobs_strongify(self)
+        self.beginTime = beginTime;
+        return self;
+    };
+}
+
+-(JobsRetCALayerByFloatBlock _Nonnull)bySpeed{
+    @jobs_weakify(self)
+    return ^__kindof CALayer *(float speed){
+        @jobs_strongify(self)
+        self.speed = speed;
+        return self;
+    };
+}
+
+-(JobsRetCALayerByCFTimeIntervalBlock _Nonnull)byTimeOffset{
+    @jobs_weakify(self)
+    return ^__kindof CALayer *(CFTimeInterval timeOffset){
+        @jobs_strongify(self)
+        self.timeOffset = timeOffset;
+        return self;
+    };
+}
+
 -(JobsRetCALayerByCGRectBlock _Nonnull)byBounds{
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(CGRect data){
@@ -149,7 +176,7 @@
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(CGColorRef _Nullable data){
         @jobs_strongify(self)
-        self.backgroundColor = data;
+        self.byBackgroundColor(data);
         return self;
     };
 }
@@ -158,7 +185,7 @@
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
-        self.backgroundColor = data.CGColor;
+        self.byBackgroundColor(data.CGColor);
         return self;
     };
 }
@@ -176,7 +203,7 @@
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
-        self.backgroundColor = data.CGColor;
+        self.byBackgroundColor(data.CGColor);
         return self;
     };
 }
@@ -368,7 +395,7 @@
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(CGFloat data){
         @jobs_strongify(self)
-        self.opacity = data;
+        self.byOpacity(data);
         return self;
     };
 }
@@ -468,7 +495,7 @@
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
-        self.borderColor = data.CGColor;
+        self.byBorderColor(data.CGColor);
         return self;
     };
 }
@@ -486,7 +513,7 @@
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
-        self.shadowColor = data.CGColor;
+        self.byShadowColor(data.CGColor);
         return self;
     };
 }

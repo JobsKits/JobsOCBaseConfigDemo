@@ -6,8 +6,15 @@
 //
 
 #import <math.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <UIKit/UIKit.h>
 #import "JobsTimer.h"
+#import "JobsOCDSL.h"
 #import "JobsDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
@@ -31,12 +38,16 @@ Prop_assign()NSTimeInterval interval;
 -(instancetype)init NS_UNAVAILABLE;
 +(instancetype)new NS_UNAVAILABLE;
 
--(instancetype)start;
--(instancetype)pause;
--(instancetype)resume;
--(instancetype)stop;
--(instancetype)stopAndReset:(BOOL)reset;
+-(JobsRetIDByVoidBlock _Nonnull)start;
+-(JobsRetIDByVoidBlock _Nonnull)pause;
+-(JobsRetIDByVoidBlock _Nonnull)resume;
+-(JobsRetIDByVoidBlock _Nonnull)jobsStop;
+-(JobsRetIDByBOOLBlock _Nonnull)stopAndReset;
+-(JobsRetJobsImageRotatorByDirectionBlock _Nonnull)byDirection;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsImageRotator
+-(JobsRetJobsImageRotatorByCGFloatBlock _Nonnull)byCurrentAngle;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsImageRotator
 @end
 
 NS_ASSUME_NONNULL_END

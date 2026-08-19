@@ -6,17 +6,24 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_3_42510BFE2E
-#define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_3_42510BFE2E
-
-#import <UIKit/UIKit.h>
-#import "JobsAppDoorConfig.h"
-#import "JobsAppDoorInputViewBaseStyle.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_3_42510BFE2E
+
+#import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+#import "JobsAppDoorConfig.h"
+#import "JobsAppDoorInputViewBaseStyle.h"
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import "JobsOCDSL.h"
@@ -68,6 +75,9 @@ NS_ASSUME_NONNULL_BEGIN
  - (instancetype)new NS_UNAVAILABLE;
  
  */
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorInputViewBaseStyle_3
+-(JobsRetJobsAppDoorInputViewBaseStyle_3ByJobsAppDoorInputViewBaseStyleModelBlock _Nonnull)byDoorInputViewBaseStyleModel;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_3
 @end
 
 NS_ASSUME_NONNULL_END
@@ -105,7 +115,7 @@ NS_ASSUME_NONNULL_END
          if (!_配置用户名输入框) {
              _配置用户名输入框 = JobsAppDoorInputViewBaseStyleModel.new;
              _配置用户名输入框.leftViewIMG = @"用户名".img;
-             _配置用户名输入框.placeHolderStr = @"请输入您的用户名".tr;
+             _配置用户名输入框.placeHolderStr = @"请输入您的用户名".jobsTr();
              _配置用户名输入框.placeholderFont = UIFontWeightRegularSize(JobsWidth(16));
              _配置用户名输入框.placeholderColor = JobsPlaceholderTextColor;
              _配置用户名输入框.placeHolderOffset = JobsWidth(35);

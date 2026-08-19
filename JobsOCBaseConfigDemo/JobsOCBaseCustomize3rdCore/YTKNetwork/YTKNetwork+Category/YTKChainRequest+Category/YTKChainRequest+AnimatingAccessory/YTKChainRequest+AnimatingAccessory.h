@@ -6,15 +6,22 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_YTKCHAINREQUEST_ANIMATINGACCESSORY_DB310FBB5B
-#define JOBS_HEADER_GUARD_YTKCHAINREQUEST_ANIMATINGACCESSORY_DB310FBB5B
-
-#import <UIKit/UIKit.h>
-#import "YTKAnimatingRequestAccessory.h"
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
 #else
 #import "YTKNetwork.h"
+#endif
+
+#define JOBS_HEADER_GUARD_YTKCHAINREQUEST_ANIMATINGACCESSORY_DB310FBB5B
+
+#import <UIKit/UIKit.h>
+#import "YTKAnimatingRequestAccessory.h"
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 @interface YTKChainRequest (AnimatingAccessory)

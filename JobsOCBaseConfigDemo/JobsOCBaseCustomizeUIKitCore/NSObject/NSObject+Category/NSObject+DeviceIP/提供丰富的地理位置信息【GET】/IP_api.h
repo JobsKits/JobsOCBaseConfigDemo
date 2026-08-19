@@ -6,15 +6,16 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_IP_API_322D6A993E
-#define JOBS_HEADER_GUARD_IP_API_322D6A993E
-
-#import <Foundation/Foundation.h>
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
 #else
 #import "YTKNetwork.h"
 #endif
+
+#define JOBS_HEADER_GUARD_IP_API_322D6A993E
+
+#import <Foundation/Foundation.h>
 
 #import "JobsBaseProtocolHeader.h"
 #import "YTKNetworkExtra.h"

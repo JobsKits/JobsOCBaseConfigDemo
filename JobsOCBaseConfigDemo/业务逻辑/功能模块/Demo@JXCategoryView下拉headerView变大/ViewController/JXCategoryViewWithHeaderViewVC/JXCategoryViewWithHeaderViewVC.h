@@ -6,16 +6,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "JXPagerView.h"
 #import "BaiShaETProjMembersSubsBaseVC.h"
 #import "BaiShaETProjCollectionHeaderView.h"
 #import "JXCategoryViewWithHeaderViewSubVC.h"
-
-#if __has_include(<JXCategoryView/JXCategoryView.h>)
-#import <JXCategoryView/JXCategoryView.h>
-#else
-#import "JXCategoryView.h"
-#endif
 
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>
@@ -51,6 +44,18 @@
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
 #import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JXCategoryView/JXCategoryView.h>)
+#import <JXCategoryView/JXCategoryView.h>
+#else
+#import "JXCategoryView.h"
+#endif
+
+#if __has_include(<JXPagingView/JXPagerView.h>)
+#import <JXPagingView/JXPagerView.h>
+#else
+#import "JXPagerView.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

@@ -38,6 +38,18 @@ Prop_assign()JobsIMPeerOnlineState peerOnlineState;
 Prop_assign()NSInteger unreadCount;
 Prop_copy(nullable)NSString *lastMessageID;
 
+-(JobsRetJobsIMListDataModelByStrBlock _Nonnull)byUserID;
+-(JobsRetJobsIMListDataModelByStrBlock _Nonnull)byPeerID;
+-(JobsRetJobsIMListDataModelByStrBlock _Nonnull)byUsernameStr;
+-(JobsRetJobsIMListDataModelByStrBlock _Nonnull)byContentStr;
+-(JobsRetJobsIMListDataModelByStrBlock _Nonnull)byTimeStr;
+-(JobsRetJobsIMListDataModelByImageBlock _Nonnull)byUserHeaderIMG;
+-(JobsRetJobsIMListDataModelByStrBlock _Nonnull)byUserHeaderURLStr;
+-(JobsRetJobsIMListDataModelByNSIntegerBlock _Nonnull)byTransportKind;
+-(JobsRetJobsIMListDataModelByNSIntegerBlock _Nonnull)byPeerOnlineState;
+-(JobsRetJobsIMListDataModelByNSIntegerBlock _Nonnull)byUnreadCount;
+-(JobsRetJobsIMListDataModelByStrBlock _Nonnull)byLastMessageID;
+
 @end
 
 NS_ASSUME_NONNULL_END

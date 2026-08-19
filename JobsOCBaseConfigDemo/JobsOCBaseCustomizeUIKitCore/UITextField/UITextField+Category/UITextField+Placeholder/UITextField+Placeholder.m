@@ -11,15 +11,25 @@
 /// UITextModelProtocol
 UITextModelProtocol_dynamic
 /// 修改Placeholder亦可以通过富文本来完成
--(__kindof NSAttributedString *)_defaultAttributedPlaceholder{
-    return self.richTextWithDataConfigMutArr(self.titleAttributedDataMutArr);
+-(JobsRetAttributedStringByVoidBlock _Nonnull)_defaultAttributedPlaceholder{
+    @jobs_weakify(self)
+    return ^NSAttributedString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.richTextWithDataConfigMutArr(self.titleAttributedDataMutArr);
+    };
 }
 
--(UILabel *)placeholderLabel{
-    if (isNull(self.placeholder)) self.placeholder = JobsSpace;
-    Ivar ivar = class_getInstanceVariable(UITextField.class, "_placeholderLabel");
-    UILabel *placeholderLabel = object_getIvar(self, ivar);
-    return placeholderLabel.byNumberOfLines(0);// 默认折行处理
+-(JobsRetLabelByVoidBlock _Nonnull)placeholderLabel{
+    @jobs_weakify(self)
+    return ^UILabel *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (isNull(self.placeholder)) self.placeholder = JobsSpace;
+        Ivar ivar = class_getInstanceVariable(UITextField.class, "_placeholderLabel");
+        UILabel *placeholderLabel = object_getIvar(self, ivar);
+        return placeholderLabel.byNumberOfLines(0);// 默认折行处理
+    };
 }
 #pragma mark —— Prop_strong()UIColor *placeholderColor;
 JobsKey(_placeholderColor)
@@ -27,13 +37,13 @@ JobsKey(_placeholderColor)
     UIColor *PlaceholderColor = Jobs_getAssociatedObject(_placeholderColor);
     if (!PlaceholderColor) {
         PlaceholderColor = self.textColor;
-        self.placeholderLabel.byTextCor(PlaceholderColor);
+        self.placeholderLabel().byTextCor(PlaceholderColor);
         Jobs_setAssociatedRETAIN_NONATOMIC(_placeholderColor, PlaceholderColor)
     };return PlaceholderColor;
 }
 
 -(void)setPlaceholderColor:(UIColor *)placeholderColor{
-    self.placeholderLabel.byTextCor(placeholderColor);
+    self.placeholderLabel().byTextCor(placeholderColor);
     Jobs_setAssociatedRETAIN_NONATOMIC(_placeholderColor, placeholderColor)
 }
 #pragma mark —— Prop_strong()UIFont *placeholderFont;
@@ -42,13 +52,13 @@ JobsKey(_placeholderFont)
     UIFont *PlaceholderFont = Jobs_getAssociatedObject(_placeholderFont);
     if (!PlaceholderFont) {
         PlaceholderFont = self.font;
-        self.placeholderLabel.byFont(PlaceholderFont);
+        self.placeholderLabel().byFont(PlaceholderFont);
         Jobs_setAssociatedRETAIN_NONATOMIC(_placeholderFont, PlaceholderFont)
     };return PlaceholderFont;
 }
 
 -(void)setPlaceholderFont:(UIFont *)placeholderFont{
-    self.placeholderLabel.byFont(placeholderFont);
+    self.placeholderLabel().byFont(placeholderFont);
     Jobs_setAssociatedRETAIN_NONATOMIC(_placeholderFont, placeholderFont)
 }
 #pragma mark —— Prop_strong()NSMutableArray <JobsRichTextConfig *>*titleAttributedDataMutArr;
@@ -78,11 +88,21 @@ JobsKey(_titleAttributedDataMutArr)
 #pragma mark —— @property(nonatomic,strong,nullable)NSAttributedString *attributedText API_AVAILABLE(ios(6.0));
 JobsKey(_attributedText)
 -(NSAttributedString *)attributedText{
-    NSAttributedString *AttributedText = Jobs_getAssociatedObject(_attributedText);
-    if(!AttributedText){
-        AttributedText = self.richTextWithDataConfigMutArr(self.titleAttributedDataMutArr);
-    }Jobs_setAssociatedRETAIN_NONATOMIC(_attributedText, AttributedText)
-    return AttributedText;
+    JobsRetAttributedStringByVoidBlock action = ((JobsRetAttributedStringByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UITextField.class, @selector(jobsAttributedText)))(self, @selector(jobsAttributedText));
+    return action ? action() : nil;
+}
+
+-(JobsRetAttributedStringByVoidBlock _Nonnull)jobsAttributedText{
+    @jobs_weakify(self)
+    return ^NSAttributedString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSAttributedString *AttributedText = Jobs_getAssociatedObject(_attributedText);
+        if(!AttributedText){
+            AttributedText = self.richTextWithDataConfigMutArr(self.titleAttributedDataMutArr);
+        }Jobs_setAssociatedRETAIN_NONATOMIC(_attributedText, AttributedText)
+        return AttributedText;
+    };
 }
 
 @end

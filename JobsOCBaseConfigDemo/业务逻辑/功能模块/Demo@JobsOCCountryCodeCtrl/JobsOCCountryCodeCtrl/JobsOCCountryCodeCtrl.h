@@ -6,18 +6,19 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSOC_COUNTRYCODECTRL_2F6A8C4B91
-#define JOBS_HEADER_GUARD_JOBSOC_COUNTRYCODECTRL_2F6A8C4B91
-
-#import <UIKit/UIKit.h>
-#import "JobsOCCountryCodeCtrlDelegate.h"
-#import "JobsBlock.h"
-#import "JobsDefines.h"
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
 #else
 #import "XYColorOC.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSOC_COUNTRYCODECTRL_2F6A8C4B91
+
+#import <UIKit/UIKit.h>
+#import "JobsOCCountryCodeCtrlDelegate.h"
+#import "JobsBlock.h"
+#import "JobsDefines.h"
 
 #import "JobsByOCPods.h"
 #import "JobsOCDSL.h"
@@ -32,9 +33,10 @@ UITableViewDataSource
 
 Prop_weak()id<JobsOCCountryCodeCtrlDelegate> countryCodeDelegate;
 Prop_copy()jobsByOCCountryCodeBlock countryCodeBlock;
+-(JobsRetJobsOCCountryCodeCtrlByCountryCodeBlock _Nonnull)byCountryCodeBlock;
 
-+(NSString *)jobs_countryFlagByCountryName:(NSString *)countryName;
-+(NSString *)jobs_countryNameTextByCountryName:(NSString *)countryName;
++(JobsRetStrByStrBlock _Nonnull)jobs_countryFlagByCountryName;
++(JobsRetStrByStrBlock _Nonnull)jobs_countryNameTextByCountryName;
 +(NSString *)jobs_countryCodeTextByCountryName:(NSString *)countryName code:(NSString *)code;
 +(NSAttributedString *)jobs_countryNameAttributedTextByCountryName:(NSString *)countryName
                                                               font:(UIFont *)font

@@ -25,22 +25,42 @@ Prop_strong()WKWebView *webView;
 }
 
 - (void)viewDidLoad {
-  [super viewDidLoad];
-  self.title = self.titleStr;
-  _webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
-  _webView.addOn(self.view);
-  NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
-  [_webView loadRequest:request];
-  UIBarButtonItem *closeItem = jobsMakeBarButtonItemByTitle(@"关闭",
-                                                            UIBarButtonItemStylePlain,
-                                                            self,
-                                                            @selector(close),
-                                                            nil);
-  self.navigationItem.leftBarButtonItem = closeItem;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(WebViewController.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.byTitle(self.titleStr);
+        _webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
+        _webView.addOn(self.view);
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
+        [_webView loadRequest:request];
+        UIBarButtonItem *closeItem = jobsMakeBarButtonItemByTitle(@"关闭",
+                                                                  UIBarButtonItemStylePlain,
+                                                                  self,
+                                                                  @selector(close),
+                                                                  nil);
+        self.navigationItem.byLeftBarButtonItem(closeItem);
+    };
 }
 
 - (void)close {
-  [self dismissViewControllerAnimated:YES completion:nil];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(WebViewController.class, @selector(jobsClose)))(self, @selector(jobsClose));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsClose{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self dismissViewControllerAnimated:YES completion:nil];
+    };
 }
 
 @end

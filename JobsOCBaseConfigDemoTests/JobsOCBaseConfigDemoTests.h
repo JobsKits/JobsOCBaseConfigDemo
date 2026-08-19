@@ -1,0 +1,22 @@
+//
+//  JobsOCBaseConfigDemoTests.h
+//  JobsOCBaseConfigDemo
+//
+//  Created by Jobs on 2026年6月27日，星期六.
+//
+
+#ifndef JOBS_HEADER_GUARD_JOBSOCBASECONFIGDEMOTESTS_E8A113D253
+#define JOBS_HEADER_GUARD_JOBSOCBASECONFIGDEMOTESTS_E8A113D253
+
+#import <XCTest/XCTest.h>
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+@interface JobsOCBaseConfigDemoTests : XCTestCase
+@end
+
+#endif /* JOBS_HEADER_GUARD_JOBSOCBASECONFIGDEMOTESTS_E8A113D253 */

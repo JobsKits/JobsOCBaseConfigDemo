@@ -6,12 +6,14 @@
 //
 
 #import "UIControl+DSL.h"
+
 /// 内部闭包包装器
 @interface _JobsClosureWrapper : NSObject
 
 Prop_copy()jobsByCtrlBlock handler;
 -(instancetype)initWithHandler:(jobsByCtrlBlock)handler;
 -(void)invoke:(UIControl *)sender;
+-(jobsByCtrlBlock _Nonnull)jobsInvoke;
 
 @end
 
@@ -23,9 +25,19 @@ Prop_copy()jobsByCtrlBlock handler;
 }
 
 -(void)invoke:(UIControl *)sender{
-    if (self.handler){
-        self.handler(sender);
-    }
+    jobsByCtrlBlock action = ((jobsByCtrlBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(_JobsClosureWrapper.class, @selector(jobsInvoke)))(self, @selector(jobsInvoke));
+    if (action) action(sender);
+}
+
+-(jobsByCtrlBlock _Nonnull)jobsInvoke{
+    @jobs_weakify(self)
+    return ^(UIControl * sender){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (self.handler){
+            self.handler(sender);
+        }
+    };
 }
 
 @end
@@ -75,8 +87,14 @@ static void JobsRemoveClosureActions(UIControl *control,
     [wrappers removeObjectForKey:eventKey];
 }
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN UIControl
+@interface UIControl (JobsPropertyDSLSetterAutogen_993f9dd8b1)
+-(void)setUxy_ignoreEvent:(BOOL)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UIControl
+
 @implementation UIControl (DSL)
--(JobsRetControlByHandlerBlock)onJobsTap{
+-(JobsRetControlByHandlerBlock _Nonnull)onJobsTap{
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (jobsByCtrlBlock handler){
         @jobs_strongify(self)
@@ -86,7 +104,7 @@ static void JobsRemoveClosureActions(UIControl *control,
     };
 }
 
--(JobsRetControlByHandlerBlock)onJobsChange{
+-(JobsRetControlByHandlerBlock _Nonnull)onJobsChange{
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (jobsByCtrlBlock handler){
         @jobs_strongify(self)
@@ -96,7 +114,7 @@ static void JobsRemoveClosureActions(UIControl *control,
     };
 }
 
--(JobsRetControlByEventsHandlerBlock)onJobsEvent{
+-(JobsRetControlByEventsHandlerBlock _Nonnull)onJobsEvent{
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (UIControlEvents events,
                                             jobsByCtrlBlock handler){
@@ -107,7 +125,7 @@ static void JobsRemoveClosureActions(UIControl *control,
     };
 }
 
--(JobsRetControlByEventsBlock)offJobsEvent{
+-(JobsRetControlByEventsBlock _Nonnull)offJobsEvent{
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (UIControlEvents events){
         @jobs_strongify(self)
@@ -118,7 +136,7 @@ static void JobsRemoveClosureActions(UIControl *control,
 
 #pragma mark —— 基础状态
 
--(JobsRetControlByBOOLBlock)byEnabled{
+-(JobsRetControlByBOOLBlock _Nonnull)byEnabled{
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (BOOL value){
         @jobs_strongify(self)
@@ -128,7 +146,7 @@ static void JobsRemoveClosureActions(UIControl *control,
     };
 }
 
--(JobsRetControlByBOOLBlock)bySelected{
+-(JobsRetControlByBOOLBlock _Nonnull)bySelected{
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (BOOL value){
         @jobs_strongify(self)
@@ -138,7 +156,7 @@ static void JobsRemoveClosureActions(UIControl *control,
     };
 }
 
--(JobsRetControlByBOOLBlock)byHighlighted{
+-(JobsRetControlByBOOLBlock _Nonnull)byHighlighted{
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (BOOL value){
         @jobs_strongify(self)
@@ -148,12 +166,12 @@ static void JobsRemoveClosureActions(UIControl *control,
     };
 }
 
--(JobsRetControlByVoidBlock)byToggleSelected{
+-(JobsRetControlByVoidBlock _Nonnull)byToggleSelected{
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable{
         @jobs_strongify(self)
         if (!self) return nil;
-        self.selected = !self.selected;
+        self.bySelected(!self.selected);
         return self;
     };
 }
@@ -176,19 +194,19 @@ static void JobsRemoveClosureActions(UIControl *control,
 
 #pragma mark —— 内容对齐
 
--(JobsRetControlByAlignBlock)byContentAlignment{
+-(JobsRetControlByAlignBlock _Nonnull)byContentAlignment{
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (UIControlContentHorizontalAlignment horizontal,
                                             UIControlContentVerticalAlignment vertical){
         @jobs_strongify(self)
         if (!self) return nil;
-        self.contentHorizontalAlignment = horizontal;
-        self.contentVerticalAlignment   = vertical;
+        self.byContentHorizontalAlignment(horizontal);
+        self.byContentVerticalAlignment(vertical);
         return self;
     };
 }
 
--(JobsRetControlByHorizontalAlignBlock)byContentHorizontalAlignment{
+-(JobsRetControlByHorizontalAlignBlock _Nonnull)byContentHorizontalAlignment{
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (UIControlContentHorizontalAlignment horizontal){
         @jobs_strongify(self)
@@ -198,7 +216,7 @@ static void JobsRemoveClosureActions(UIControl *control,
     };
 }
 
--(JobsRetControlByVerticalAlignBlock)byContentVerticalAlignment{
+-(JobsRetControlByVerticalAlignBlock _Nonnull)byContentVerticalAlignment{
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (UIControlContentVerticalAlignment vertical){
         @jobs_strongify(self)
@@ -208,7 +226,7 @@ static void JobsRemoveClosureActions(UIControl *control,
     };
 }
 
--(JobsRetControlByTargetActionEventsBlock)byAddTarget{
+-(JobsRetControlByTargetActionEventsBlock _Nonnull)byAddTarget{
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (__kindof id target,
                                             SEL action,
@@ -220,7 +238,7 @@ static void JobsRemoveClosureActions(UIControl *control,
     };
 }
 
--(JobsRetControlByTargetActionEventsBlock)byRemoveTarget{
+-(JobsRetControlByTargetActionEventsBlock _Nonnull)byRemoveTarget{
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (__kindof id target,
                                             SEL action,
@@ -232,7 +250,7 @@ static void JobsRemoveClosureActions(UIControl *control,
     };
 }
 
--(JobsRetControlByEventsBlock)bySendActions{
+-(JobsRetControlByEventsBlock _Nonnull)bySendActions{
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (UIControlEvents events){
         @jobs_strongify(self)
@@ -242,7 +260,7 @@ static void JobsRemoveClosureActions(UIControl *control,
     };
 }
 
--(JobsRetControlByActionBlock)bySendAction API_AVAILABLE(ios(14.0)){
+-(JobsRetControlByActionBlock _Nonnull)bySendAction API_AVAILABLE(ios(14.0)){
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (UIAction *action){
         @jobs_strongify(self)
@@ -253,11 +271,11 @@ static void JobsRemoveClosureActions(UIControl *control,
     };
 }
 
--(JobsRetControlByEventsBlock)bySendActionsForControlEvents{
+-(JobsRetControlByEventsBlock _Nonnull)bySendActionsForControlEvents{
     return self.bySendActions;
 }
 
--(JobsRetControlByActionEventsBlock)byAddAction API_AVAILABLE(ios(14.0)){
+-(JobsRetControlByActionEventsBlock _Nonnull)byAddAction API_AVAILABLE(ios(14.0)){
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (UIAction *action,
                                             UIControlEvents events){
@@ -271,7 +289,7 @@ static void JobsRemoveClosureActions(UIControl *control,
     };
 }
 
--(JobsRetControlByActionEventsBlock)byRemoveAction API_AVAILABLE(ios(14.0)){
+-(JobsRetControlByActionEventsBlock _Nonnull)byRemoveAction API_AVAILABLE(ios(14.0)){
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (UIAction *action,
                                             UIControlEvents events){
@@ -283,7 +301,7 @@ static void JobsRemoveClosureActions(UIControl *control,
     };
 }
 
--(JobsRetControlByIdentifierEventsBlock)byRemoveActionByIdentifier API_AVAILABLE(ios(14.0)){
+-(JobsRetControlByIdentifierEventsBlock _Nonnull)byRemoveActionByIdentifier API_AVAILABLE(ios(14.0)){
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (UIActionIdentifier identifier,
                                             UIControlEvents events){
@@ -295,7 +313,7 @@ static void JobsRemoveClosureActions(UIControl *control,
     };
 }
 
--(JobsRetControlByEventsIdentifierActionHandlerBlock)byOnAction API_AVAILABLE(ios(14.0)){
+-(JobsRetControlByEventsIdentifierActionHandlerBlock _Nonnull)byOnAction API_AVAILABLE(ios(14.0)){
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (UIControlEvents events,
                                             UIActionIdentifier _Nullable identifier,
@@ -316,7 +334,7 @@ static void JobsRemoveClosureActions(UIControl *control,
     };
 }
 
--(JobsRetControlByBOOLBlock)byShowsMenuAsPrimaryAction API_AVAILABLE(ios(14.0)){
+-(JobsRetControlByBOOLBlock _Nonnull)byShowsMenuAsPrimaryAction API_AVAILABLE(ios(14.0)){
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (BOOL value){
         @jobs_strongify(self)
@@ -327,7 +345,7 @@ static void JobsRemoveClosureActions(UIControl *control,
     };
 }
 
--(JobsRetControlByBOOLBlock)byContextMenuEnabled API_AVAILABLE(ios(14.0)){
+-(JobsRetControlByBOOLBlock _Nonnull)byContextMenuEnabled API_AVAILABLE(ios(14.0)){
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (BOOL value){
         @jobs_strongify(self)
@@ -338,11 +356,11 @@ static void JobsRemoveClosureActions(UIControl *control,
     };
 }
 
--(JobsRetControlByBOOLBlock)byContextMenuInteractionEnabled API_AVAILABLE(ios(14.0)){
+-(JobsRetControlByBOOLBlock _Nonnull)byContextMenuInteractionEnabled API_AVAILABLE(ios(14.0)){
     return self.byContextMenuEnabled;
 }
 
--(JobsRetControlByStringBlock)byToolTip API_AVAILABLE(ios(15.0)){
+-(JobsRetControlByStringBlock _Nonnull)byToolTip API_AVAILABLE(ios(15.0)){
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (NSString * _Nullable text){
         @jobs_strongify(self)
@@ -353,7 +371,7 @@ static void JobsRemoveClosureActions(UIControl *control,
     };
 }
 
--(JobsRetControlByBOOLBlock)bySymbolAnimationEnabled API_AVAILABLE(ios(17.0)){
+-(JobsRetControlByBOOLBlock _Nonnull)bySymbolAnimationEnabled API_AVAILABLE(ios(17.0)){
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (BOOL value){
         @jobs_strongify(self)
@@ -365,7 +383,7 @@ static void JobsRemoveClosureActions(UIControl *control,
 }
 
 #if defined(__IPHONE_17_4) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_17_4)
--(JobsRetControlByVoidBlock)byPerformPrimaryAction API_AVAILABLE(ios(17.4)){
+-(JobsRetControlByVoidBlock _Nonnull)byPerformPrimaryAction API_AVAILABLE(ios(17.4)){
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (void){
         @jobs_strongify(self)
@@ -377,4 +395,14 @@ static void JobsRemoveClosureActions(UIControl *control,
 }
 #endif
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN UIControl
+-(JobsRetControlByBOOLBlock _Nonnull)byUxy_ignoreEvent{
+    @jobs_weakify(self)
+    return ^__kindof UIControl * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setUxy_ignoreEvent:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UIControl
 @end

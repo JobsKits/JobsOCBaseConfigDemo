@@ -9,9 +9,22 @@
 #define JOBS_HEADER_GUARD_NSOBJECT_JOBSOCOPEN_F9D27E4A30
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <MessageUI/MessageUI.h>
 #import "JobsOCOpenConfiguration.h"
 #import "JobsGetWindow.h"
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+#import "JobsOCDSL.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -26,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
         successCompletionHandlerBlock:(jobsByIDBlock _Nullable)successCompletionHandlerBlock
            failCompletionHandlerBlock:(jobsByIDBlock _Nullable)failCompletionHandlerBlock;
 /// 跳转系统设置根页。
--(void)jobs_ocPushToSysConfig;
+-(jobsByVoidBlock _Nonnull)jobs_ocPushToSysConfig;
 /// 软性打开 URL，不关心成功失败。
 -(jobsByIDBlock _Nonnull)jobs_ocOpenURL;
 /// 软性打开 URL，只处理成功。

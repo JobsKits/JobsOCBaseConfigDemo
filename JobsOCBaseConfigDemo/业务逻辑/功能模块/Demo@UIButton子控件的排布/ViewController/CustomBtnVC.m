@@ -14,8 +14,8 @@ static NSString * const CustomBtnListCellReuseIdentifier = @"CustomBtnListCellRe
 Prop_strong()UITableView *tableView;
 Prop_copy()NSArray <UIViewModel *>*dataArr;
 
--(NSString *)demoTitleByViewModel:(UIViewModel *)viewModel;
--(NSString *)demoSubTitleByViewModel:(UIViewModel *)viewModel;
+-(JobsRetNSStringByUIViewModelBlock _Nonnull)demoTitleByViewModel;
+-(JobsRetNSStringByUIViewModelBlock _Nonnull)demoSubTitleByViewModel;
 
 @end
 
@@ -28,32 +28,52 @@ Prop_copy()NSArray <UIViewModel *>*dataArr;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CustomBtnVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(@"平替系统按钮".tr)
-                .byFont(UIFontWeightRegularSize(16));
-        })
-        .byBgCor(JobsSystemBackgroundColor)
-        .byNavBgCor(JobsSystemBackgroundColor);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(@"平替系统按钮".jobsTr())
+                    .byFont(UIFontWeightRegularSize(16));
+            })
+            .byBgCor(JobsSystemBackgroundColor)
+            .byNavBgCor(JobsSystemBackgroundColor);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.tableView.byAlpha(1);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CustomBtnVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.tableView.byAlpha(1);
+    };
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView
@@ -76,13 +96,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     UIViewModel *model = self.dataArr[indexPath.row];
     return cell
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
-            label.byText([self demoTitleByViewModel:model])
+            label.byText(self.demoTitleByViewModel(model))
                 .byFont(UIFontWeightMediumSize(JobsWidth(15)))
                 .byTextCor(JobsLabelColor)
                 .byNumberOfLines(1);
         })
         .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
-            label.byText([self demoSubTitleByViewModel:model])
+            label.byText(self.demoSubTitleByViewModel(model))
                 .byFont(UIFontWeightRegularSize(JobsWidth(12)))
                 .byTextCor(JobsSecondaryLabelColor)
                 .byNumberOfLines(2);
@@ -106,12 +126,22 @@ heightForFooterInSection:(NSInteger)section{
     return CGFLOAT_MIN;
 }
 #pragma mark —— Data
--(NSString *)demoTitleByViewModel:(UIViewModel *)viewModel{
-    return viewModel.textModel.attributedTitle.string ?: viewModel.textModel.text ?: @"";
+-(JobsRetNSStringByUIViewModelBlock _Nonnull)demoTitleByViewModel{
+    @jobs_weakify(self)
+    return ^NSString *(UIViewModel * viewModel){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return viewModel.textModel.attributedTitle.string ?: viewModel.textModel.text ?: @"";
+    };
 }
 
--(NSString *)demoSubTitleByViewModel:(UIViewModel *)viewModel{
-    return viewModel.subTextModel.attributedTitle.string ?: viewModel.subTextModel.text ?: @"";
+-(JobsRetNSStringByUIViewModelBlock _Nonnull)demoSubTitleByViewModel{
+    @jobs_weakify(self)
+    return ^NSString *(UIViewModel * viewModel){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return viewModel.subTextModel.attributedTitle.string ?: viewModel.subTextModel.text ?: @"";
+    };
 }
 #pragma mark —— LazyLoad
 -(UITableView *)tableView{
@@ -146,23 +176,23 @@ heightForFooterInSection:(NSInteger)section{
     if (!_dataArr) {
         _dataArr = @[
             self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"image左、label右【系统默认状态】".tr)
-                    .bySubTitle(@"使用 NSDirectionalRectEdgeLeading 展示系统默认排布".tr)
+                model.byTitle(@"image左、label右【系统默认状态】".jobsTr())
+                    .bySubTitle(@"使用 NSDirectionalRectEdgeLeading 展示系统默认排布".jobsTr())
                     .byCls(CustomBtnImageLeadingVC.class);
             })),
             self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"image右、label左".tr)
-                    .bySubTitle(@"使用 NSDirectionalRectEdgeTrailing 调整图文左右关系".tr)
+                model.byTitle(@"image右、label左".jobsTr())
+                    .bySubTitle(@"使用 NSDirectionalRectEdgeTrailing 调整图文左右关系".jobsTr())
                     .byCls(CustomBtnImageTrailingVC.class);
             })),
             self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"image上，label下".tr)
-                    .bySubTitle(@"使用 NSDirectionalRectEdgeTop 展示上下排布".tr)
+                model.byTitle(@"image上，label下".jobsTr())
+                    .bySubTitle(@"使用 NSDirectionalRectEdgeTop 展示上下排布".jobsTr())
                     .byCls(CustomBtnImageTopVC.class);
             })),
             self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"image下，label上".tr)
-                    .bySubTitle(@"使用 NSDirectionalRectEdgeBottom 展示上下反向排布".tr)
+                model.byTitle(@"image下，label上".jobsTr())
+                    .bySubTitle(@"使用 NSDirectionalRectEdgeBottom 展示上下反向排布".jobsTr())
                     .byCls(CustomBtnImageBottomVC.class);
             }))
         ];

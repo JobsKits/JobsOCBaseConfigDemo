@@ -6,6 +6,7 @@
 //
 
 #import "JobsBaseCollectionViewCell.h"
+
 #import "CALayer+Extra.h"
 #import "UICollectionViewCell+ShakeAnimation.h"
 #import "UICollectionView+JobsRegisterClass.h"
@@ -29,11 +30,31 @@ UITextFieldProtocol_synthesize_part2
 }
 
 - (void)drawRect:(CGRect)rect {
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBaseCollectionViewCell.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)setSelected:(BOOL)selected{
-    [super setSelected:selected];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBaseCollectionViewCell.class, @selector(jobsSetSelected)))(self, @selector(jobsSetSelected));
+    if (action) action(selected);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsSetSelected{
+    @jobs_weakify(self)
+    return ^(BOOL selected){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super setSelected:selected];
+    };
 }
 #pragma mark —— UICollectionViewCellProtocol
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
@@ -70,7 +91,7 @@ UITextFieldProtocol_synthesize_part2
     @jobs_weakify(self)
     return ^__kindof UICollectionViewCell *_Nullable(UIViewModel *_Nonnull model) {
         @jobs_strongify(self)
-        self.viewModel = model;
+        self.byViewModel(model);
         return self;
     };
 }

@@ -18,13 +18,13 @@
             .byEditable(NO)
             .bySelectable(YES)
             .byDataDetectorTypes(UIDataDetectorTypeLink)
-            .byTextAlignment(NSTextAlignmentCenter);
-        textView.byLinkTextAttributes(@{
+            .byTextAlignment(NSTextAlignmentCenter)
+        .byLinkTextAttributes(@{
             NSForegroundColorAttributeName: UIColor.yellowColor,
             NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
             NSUnderlineColorAttributeName: UIColor.yellowColor
-        });
-        textView
+        })
+
             .byScrollEnabled(NO)
             .byUserInteractionEnabled(YES)
             .byBgColor(JobsClearColor);
@@ -36,7 +36,7 @@
 -(nullable UIAction *)textView:(UITextView *)textView
       primaryActionForTextItem:(UITextItem *)textItem
                  defaultAction:(UIAction *)defaultAction API_AVAILABLE(ios(17.0)){
-    textItem.textView = textView;
+    textItem.byTextView(textView);
     if(self.objBlock) self.objBlock(textItem);
     return defaultAction; // 默认行为
 }

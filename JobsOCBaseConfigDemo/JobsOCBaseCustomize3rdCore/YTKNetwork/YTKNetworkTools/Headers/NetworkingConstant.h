@@ -20,7 +20,7 @@
 #endif /* HTTPSHeader */
 /// BaseURL
 #ifndef SERVER_URL
-#define SERVER_URL NSObject.BaseUrl
+#define SERVER_URL NSObject.jobsBaseUrl()
 #endif /* SERVER_URL */
 /// Token
 #ifndef HTTPRequestTokenKey

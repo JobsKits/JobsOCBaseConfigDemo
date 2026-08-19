@@ -6,6 +6,7 @@
 //
 
 #import "JobsOCDemoListSettingsVC.h"
+
 #import "AppDelegate+TabBarCtr.h"
 #import "UIViewController+BaseNavigationBar.h"
 
@@ -59,95 +60,142 @@ Prop_strong()UITableView *tableView;
 Prop_strong()NSMutableIndexSet *expandedSettingSectionIndexSet;
 Prop_assign()BOOL shouldApplyAppEntryAfterReturning;
 
--(BOOL)jobsOCSplashEnabled;
--(void)setJobsOCSplashEnabled:(BOOL)jobsOCSplashEnabled;
--(BOOL)demoListReturnToTopAndRefreshEnabled;
--(void)setDemoListReturnToTopAndRefreshEnabled:(BOOL)enabled;
--(BOOL)showsSuspendTimeButton;
--(void)setShowsSuspendTimeButton:(BOOL)showsSuspendTimeButton;
--(BOOL)demoListDarkModeEnabled;
--(void)setDemoListDarkModeEnabled:(BOOL)enabled;
--(void)applyDemoListInterfaceStyle;
--(UIColor *)demoListPageBackgroundColor;
--(UIColor *)demoListNavigationBackgroundColor;
--(UIColor *)demoListPrimaryTextColor;
--(UIColor *)demoListCellBackgroundColor;
--(UIColor *)demoListSeparatorColor;
--(void)applyDemoListNavigationInterfaceStyle;
--(void)applyDemoListTabBarInterfaceStyle;
--(NSString *)splashSwitchTitle;
--(NSString *)returnSwitchTitle;
--(NSString *)suspendTimeButtonSwitchTitle;
--(NSString *)themeSwitchTitle;
--(NSString *)deallocTipsSwitchTitle;
--(NSArray <NSString *>*)generalSettingTitleArr;
--(NSArray <NSString *>*)splashContentTitleArr;
--(NSArray <NSString *>*)languageTitleArr;
--(NSArray <NSString *>*)cellTextDisplayStrategyTitleArr;
--(JobsOCSplashContentType)splashContentTypeByRow:(NSInteger)row;
--(AppLanguage)appLanguageByRow:(NSInteger)row;
--(AppLanguage)currentEffectiveAppLanguage;
--(JobsOCDemoListCellTextDisplayStrategy)cellTextDisplayStrategyByRow:(NSInteger)row;
--(NSString *)expandableSectionTitleBySection:(JobsOCDemoListSettingSection)section;
--(UIView *)expansionAccessoryViewBySection:(JobsOCDemoListSettingSection)section;
--(NSString *)titleByIndexPath:(NSIndexPath *)indexPath;
--(UITableViewCellAccessoryType)accessoryTypeByIndexPath:(NSIndexPath *)indexPath;
--(void)updateLocalizedContent;
+-(JobsRetBOOLByVoidBlock _Nonnull)jobsOCSplashEnabled;
+-(jobsByBOOLBlock _Nonnull)setJobsOCSplashEnabled;
+-(JobsRetBOOLByVoidBlock _Nonnull)demoListReturnToTopAndRefreshEnabled;
+-(jobsByBOOLBlock _Nonnull)setDemoListReturnToTopAndRefreshEnabled;
+-(JobsRetBOOLByVoidBlock _Nonnull)showsSuspendTimeButton;
+-(jobsByBOOLBlock _Nonnull)setShowsSuspendTimeButton;
+-(JobsRetBOOLByVoidBlock _Nonnull)demoListDarkModeEnabled;
+-(jobsByBOOLBlock _Nonnull)setDemoListDarkModeEnabled;
+-(jobsByVoidBlock _Nonnull)applyDemoListInterfaceStyle;
+-(JobsRetCorByVoidBlock _Nonnull)demoListPageBackgroundColor;
+-(JobsRetCorByVoidBlock _Nonnull)demoListNavigationBackgroundColor;
+-(JobsRetCorByVoidBlock _Nonnull)demoListPrimaryTextColor;
+-(JobsRetCorByVoidBlock _Nonnull)demoListCellBackgroundColor;
+-(JobsRetCorByVoidBlock _Nonnull)demoListSeparatorColor;
+-(jobsByVoidBlock _Nonnull)applyDemoListNavigationInterfaceStyle;
+-(jobsByVoidBlock _Nonnull)applyDemoListTabBarInterfaceStyle;
+-(JobsRetStrByVoidBlock _Nonnull)splashSwitchTitle;
+-(JobsRetStrByVoidBlock _Nonnull)returnSwitchTitle;
+-(JobsRetStrByVoidBlock _Nonnull)suspendTimeButtonSwitchTitle;
+-(JobsRetStrByVoidBlock _Nonnull)themeSwitchTitle;
+-(JobsRetStrByVoidBlock _Nonnull)deallocTipsSwitchTitle;
+-(JobsRetNSArrayNSStringByVoidBlock _Nonnull)generalSettingTitleArr;
+-(JobsRetNSArrayNSStringByVoidBlock _Nonnull)splashContentTitleArr;
+-(JobsRetNSArrayNSStringByVoidBlock _Nonnull)languageTitleArr;
+-(JobsRetNSArrayNSStringByVoidBlock _Nonnull)cellTextDisplayStrategyTitleArr;
+-(JobsRetJobsOCSplashContentTypeByNSIntegerBlock _Nonnull)splashContentTypeByRow;
+-(JobsRetAppLanguageByNSIntegerBlock _Nonnull)appLanguageByRow;
+-(JobsRetAppLanguageByVoidBlock _Nonnull)currentEffectiveAppLanguage;
+-(JobsRetJobsOCDemoListCellTextDisplayStrategyByNSIntegerBlock _Nonnull)cellTextDisplayStrategyByRow;
+-(JobsRetNSStringByJobsOCDemoListSettingSectionBlock _Nonnull)expandableSectionTitleBySection;
+-(JobsRetUIViewByJobsOCDemoListSettingSectionBlock _Nonnull)expansionAccessoryViewBySection;
+-(JobsRetNSStringByNSIndexPathBlock _Nonnull)titleByIndexPath;
+-(JobsRetUITableViewCellAccessoryTypeByNSIndexPathBlock _Nonnull)accessoryTypeByIndexPath;
+-(jobsByVoidBlock _Nonnull)updateLocalizedContent;
 
 @end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCDemoListSettingsVC
+@interface JobsOCDemoListSettingsVC (JobsPropertyDSLSetterAutogen_ef46cb8a99)
+-(void)setExpandedSettingSectionIndexSet:(NSMutableIndexSet * _Nullable)data;
+-(void)setShouldApplyAppEntryAfterReturning:(BOOL)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCDemoListSettingsVC
 
 @implementation JobsOCDemoListSettingsVC
 @synthesize tableView = _tableView;
 
 -(void)loadView{
-    [super loadView];
-    self.expandedSettingSectionIndexSet = NSMutableIndexSet.indexSet;
-    [self updateLocalizedContent];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCDemoListSettingsVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
     @jobs_weakify(self)
-    [self addNotificationName:语言切换
-                        block:^(id _Nullable weakSelf,
-                                id _Nullable arg) {
+    return ^{
         @jobs_strongify(self)
-        [self applyDemoListInterfaceStyle];
-    }];
-    [self addNotificationName:JobsThemeDidChangeNotification
-                        block:^(id _Nullable weakSelf,
-                                id _Nullable arg) {
-        @jobs_strongify(self)
-        [self applyDemoListInterfaceStyle];
-    }];
+        if (!self) return;
+        [super loadView];
+        self.byExpandedSettingSectionIndexSet(NSMutableIndexSet.indexSet);
+        self.updateLocalizedContent();
+        @jobs_weakify(self)
+        [self addNotificationName:语言切换
+                            block:^(id _Nullable weakSelf,
+                                    id _Nullable arg) {
+            @jobs_strongify(self)
+            self.applyDemoListInterfaceStyle();
+        }];
+        [self addNotificationName:JobsThemeDidChangeNotification
+                            block:^(id _Nullable weakSelf,
+                                    id _Nullable arg) {
+            @jobs_strongify(self)
+            self.applyDemoListInterfaceStyle();
+        }];
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSecondarySystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.tableView.byAlpha(1);
-    [self applyDemoListInterfaceStyle];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCDemoListSettingsVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSecondarySystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.tableView.byAlpha(1);
+        self.applyDemoListInterfaceStyle();
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
-    if (!self.shouldApplyAppEntryAfterReturning || !self.isMovingFromParentViewController) return;
-    self.shouldApplyAppEntryAfterReturning = NO;
-    JobsOCApplyAppRootViewController();
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCDemoListSettingsVC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+        if (!self.shouldApplyAppEntryAfterReturning || !self.isMovingFromParentViewController) return;
+        self.byShouldApplyAppEntryAfterReturning(NO);
+        JobsOCApplyAppRootViewController();
+    };
 }
 
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return JobsOCDemoListSettingSectionCount;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCDemoListSettingsVC.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return JobsOCDemoListSettingSectionCount;
+    };
 }
 
 -(NSInteger)tableView:(UITableView *)tableView
 numberOfRowsInSection:(NSInteger)section{
-    if (section == JobsOCDemoListSettingSectionGeneral) return self.generalSettingTitleArr.count;
+    if (section == JobsOCDemoListSettingSectionGeneral) return self.generalSettingTitleArr().count;
     NSInteger optionCount = 0;
     if (section == JobsOCDemoListSettingSectionSplashContent) {
-        optionCount = self.splashContentTitleArr.count;
+        optionCount = self.splashContentTitleArr().count;
     }else if (section == JobsOCDemoListSettingSectionLanguage){
-        optionCount = self.languageTitleArr.count;
+        optionCount = self.languageTitleArr().count;
     }else{
-        optionCount = self.cellTextDisplayStrategyTitleArr.count;
+        optionCount = self.cellTextDisplayStrategyTitleArr().count;
     }
     return [self.expandedSettingSectionIndexSet containsIndex:section] ? optionCount + 1 : 1;
 }
@@ -176,25 +224,25 @@ titleForHeaderInSection:(NSInteger)section{
                  cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:JobsOCDemoListSettingsCellReuseIdentifier
                                                             forIndexPath:indexPath];
-    cell.byBgColor([self demoListCellBackgroundColor]);
-    cell.contentView.byBgColor([self demoListCellBackgroundColor]);
+    cell.byBgColor(self.demoListCellBackgroundColor());
+    cell.contentView.byBgColor(self.demoListCellBackgroundColor());
     cell.byTintColor(HEXCOLOR(0x1D7FF2));
-    cell.accessoryView = nil;
-    cell.indentationLevel = indexPath.section != JobsOCDemoListSettingSectionGeneral && indexPath.row > 0 ? 1 : 0;
-    cell.indentationWidth = JobsWidth(20);
+    cell.byAccessoryView(nil);
+    cell.byIndentationLevel(indexPath.section != JobsOCDemoListSettingSectionGeneral && indexPath.row > 0 ? 1 : 0);
+    cell.byIndentationWidth(JobsWidth(20));
     if (indexPath.section != JobsOCDemoListSettingSectionGeneral && indexPath.row == 0) {
-        cell.accessoryView = [self expansionAccessoryViewBySection:indexPath.section];
+        cell.byAccessoryView(self.expansionAccessoryViewBySection(indexPath.section));
     }
     return cell
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
-            label.byText([self titleByIndexPath:indexPath])
+            label.byText(self.titleByIndexPath(indexPath))
                 .byFont(UIFontWeightRegularSize(16))
-                .byTextCor([self demoListPrimaryTextColor])
+                .byTextCor(self.demoListPrimaryTextColor())
                 .byNumberOfLines(1)
                 .byAdjustsFontSizeToFitWidth(indexPath.section != JobsOCDemoListSettingSectionGeneral && indexPath.row == 0)
                 .byMinimumScaleFactor(indexPath.section != JobsOCDemoListSettingSectionGeneral && indexPath.row == 0 ? .72f : 1);
         })
-        .byAccessoryType([self accessoryTypeByIndexPath:indexPath])
+        .byAccessoryType(self.accessoryTypeByIndexPath(indexPath))
         .bySelectionStyle(UITableViewCellSelectionStyleDefault);
 }
 
@@ -213,16 +261,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     }
     NSInteger optionRow = indexPath.row - 1;
     if (indexPath.section == JobsOCDemoListSettingSectionSplashContent) {
-        JobsOCSplashContentType contentType = [self splashContentTypeByRow:optionRow];
-        [JobsOCSplashPreferences setContentTypeForNextLaunch:contentType];
-        ([NSString stringWithFormat:@"下次开屏内容已设为：%@".tr,
-                                    self.splashContentTitleArr[optionRow]]).toast();
+        JobsOCSplashContentType contentType = self.splashContentTypeByRow(optionRow);
+        JobsOCSplashPreferences.setContentTypeForNextLaunch(contentType);
+        ([NSString stringWithFormat:@"下次开屏内容已设为：%@".jobsTr(),
+                                    self.splashContentTitleArr()[optionRow]]).toast();
         [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section]
                  withRowAnimation:UITableViewRowAnimationAutomatic];
         return;
     }
     if (indexPath.section == JobsOCDemoListSettingSectionLanguage) {
-        self.appLanguageAtAppLanguageBy([self appLanguageByRow:optionRow]);
+        self.appLanguageAtAppLanguageBy(self.appLanguageByRow(optionRow));
         self.changeTabBarItemTitleBy([NSIndexPath indexPathForRow:optionRow
                                                         inSection:indexPath.section]);
         [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section]
@@ -230,41 +278,41 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         return;
     }
     if (indexPath.section == JobsOCDemoListSettingSectionCellTextDisplayStrategy) {
-        JobsOCDemoListCellTextDisplayStrategy strategy = [self cellTextDisplayStrategyByRow:optionRow];
+        JobsOCDemoListCellTextDisplayStrategy strategy = self.cellTextDisplayStrategyByRow(optionRow);
         JobsOCSetDemoListCellTextDisplayStrategy(strategy);
-        ([NSString stringWithFormat:@"列表主/副标题已设为：%@".tr,
-                                    self.cellTextDisplayStrategyTitleArr[optionRow]]).toast();
+        ([NSString stringWithFormat:@"列表主/副标题已设为：%@".jobsTr(),
+                                    self.cellTextDisplayStrategyTitleArr()[optionRow]]).toast();
         [tableView reloadSections:[NSIndexSet indexSetWithIndex:indexPath.section]
                  withRowAnimation:UITableViewRowAnimationAutomatic];
         return;
     }
     JobsOCDemoListSettingItem item = indexPath.row;
     if (item == JobsOCDemoListSettingItemSplash) {
-        [self setJobsOCSplashEnabled:![self jobsOCSplashEnabled]];
-        ([self jobsOCSplashEnabled] ? @"下次打开开屏".tr : @"下次关闭开屏".tr).toast();
+        self.setJobsOCSplashEnabled(![self jobsOCSplashEnabled]());
+        ([self jobsOCSplashEnabled]() ? @"下次打开开屏".jobsTr() : @"下次关闭开屏".jobsTr()).toast();
     }else if (item == JobsOCDemoListSettingItemReturnBehavior){
-        BOOL enabled = ![self demoListReturnToTopAndRefreshEnabled];
-        [self setDemoListReturnToTopAndRefreshEnabled:enabled];
-        (enabled ? @"返回主列表：回顶部并刷新".tr : @"返回主列表：保持原样".tr).toast();
+        BOOL enabled = ![self demoListReturnToTopAndRefreshEnabled]();
+        self.setDemoListReturnToTopAndRefreshEnabled(enabled);
+        (enabled ? @"返回主列表：回顶部并刷新".jobsTr() : @"返回主列表：保持原样".jobsTr()).toast();
     }else if (item == JobsOCDemoListSettingItemSuspendTimeButton){
-        [self setShowsSuspendTimeButton:![self showsSuspendTimeButton]];
-        ([self showsSuspendTimeButton] ? @"悬浮时间按钮已显示".tr : @"悬浮时间按钮已隐藏".tr).toast();
+        self.setShowsSuspendTimeButton(![self showsSuspendTimeButton]());
+        ([self showsSuspendTimeButton]() ? @"悬浮时间按钮已显示".jobsTr() : @"悬浮时间按钮已隐藏".jobsTr()).toast();
     }else if (item == JobsOCDemoListSettingItemTheme){
-        BOOL dark = ![self demoListDarkModeEnabled];
-        [self setDemoListDarkModeEnabled:dark];
-        (dark ? @"主题已切换：黑夜".tr : @"主题已切换：白天".tr).toast();
+        BOOL dark = ![self demoListDarkModeEnabled]();
+        self.setDemoListDarkModeEnabled(dark);
+        (dark ? @"主题已切换：黑夜".jobsTr() : @"主题已切换：白天".jobsTr()).toast();
     }else if (item == JobsOCDemoListSettingItemSideDrawerMode){
         BOOL fixed = ![NSUserDefaults.standardUserDefaults boolForKey:@"JobsOCDemoSideDrawerFixed"];
         [NSUserDefaults.standardUserDefaults setBool:fixed forKey:@"JobsOCDemoSideDrawerFixed"];
-        (fixed ? @"侧滑内容已设为固定".tr : @"侧滑内容已设为跟随".tr).toast();
+        (fixed ? @"侧滑内容已设为固定".jobsTr() : @"侧滑内容已设为跟随".jobsTr()).toast();
     }else if (item == JobsOCDemoListSettingItemAppEntry){
         BOOL usesTabBarEntry = !JobsOCDemoListUsesTabBarEntry();
         JobsOCSetDemoListUsesTabBarEntry(usesTabBarEntry);
-        self.shouldApplyAppEntryAfterReturning = YES;
-        (usesTabBarEntry ? @"返回后从 TabBar 进入".tr : @"返回后直接进入 Demo 列表".tr).toast();
+        self.byShouldApplyAppEntryAfterReturning(YES);
+        (usesTabBarEntry ? @"返回后从 TabBar 进入".jobsTr() : @"返回后直接进入 Demo 列表".jobsTr()).toast();
     }else if (item == JobsOCDemoListSettingItemDeallocTips){
         JobsSetControllerDeallocTipsEnabled(!JobsControllerDeallocTipsEnabled());
-        (JobsControllerDeallocTipsEnabled() ? @"控制器销毁提示已开启".tr : @"控制器销毁提示已关闭".tr).toast();
+        (JobsControllerDeallocTipsEnabled() ? @"控制器销毁提示已开启".jobsTr() : @"控制器销毁提示已关闭".jobsTr()).toast();
     }
     [self.tableView reloadData];
 }
@@ -295,313 +343,502 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     };return _tableView;
 }
 #pragma mark —— 一些私有方法
--(BOOL)jobsOCSplashEnabled{
-    id value = [NSUserDefaults.standardUserDefaults objectForKey:JobsOCSplashEnabledUserDefaultsKey];
-    return value ? [value boolValue] : YES;
+-(JobsRetBOOLByVoidBlock _Nonnull)jobsOCSplashEnabled{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        id value = [NSUserDefaults.standardUserDefaults objectForKey:JobsOCSplashEnabledUserDefaultsKey];
+        return value ? [value boolValue] : YES;
+    };
 }
 
--(void)setJobsOCSplashEnabled:(BOOL)jobsOCSplashEnabled{
-    [NSUserDefaults.standardUserDefaults setBool:jobsOCSplashEnabled
-                                          forKey:JobsOCSplashEnabledUserDefaultsKey];
-    [NSUserDefaults.standardUserDefaults synchronize];
+-(jobsByBOOLBlock _Nonnull)setJobsOCSplashEnabled{
+    @jobs_weakify(self)
+    return ^(BOOL jobsOCSplashEnabled){
+        @jobs_strongify(self)
+        if (!self) return;
+        [NSUserDefaults.standardUserDefaults setBool:jobsOCSplashEnabled
+                                              forKey:JobsOCSplashEnabledUserDefaultsKey];
+        [NSUserDefaults.standardUserDefaults synchronize];
+    };
 }
 
--(BOOL)demoListReturnToTopAndRefreshEnabled{
-    id value = [NSUserDefaults.standardUserDefaults objectForKey:JobsOCDemoListReturnToTopAndRefreshUserDefaultsKey];
-    return value ? [value boolValue] : YES;
+-(JobsRetBOOLByVoidBlock _Nonnull)demoListReturnToTopAndRefreshEnabled{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        id value = [NSUserDefaults.standardUserDefaults objectForKey:JobsOCDemoListReturnToTopAndRefreshUserDefaultsKey];
+        return value ? [value boolValue] : YES;
+    };
 }
 
--(void)setDemoListReturnToTopAndRefreshEnabled:(BOOL)enabled{
-    [NSUserDefaults.standardUserDefaults setBool:enabled
-                                          forKey:JobsOCDemoListReturnToTopAndRefreshUserDefaultsKey];
-    [NSUserDefaults.standardUserDefaults synchronize];
+-(jobsByBOOLBlock _Nonnull)setDemoListReturnToTopAndRefreshEnabled{
+    @jobs_weakify(self)
+    return ^(BOOL enabled){
+        @jobs_strongify(self)
+        if (!self) return;
+        [NSUserDefaults.standardUserDefaults setBool:enabled
+                                              forKey:JobsOCDemoListReturnToTopAndRefreshUserDefaultsKey];
+        [NSUserDefaults.standardUserDefaults synchronize];
+    };
 }
 
--(BOOL)showsSuspendTimeButton{
-    id value = [NSUserDefaults.standardUserDefaults objectForKey:JobsOCDemoSuspendTimeButtonVisibleUserDefaultsKey];
-    return value ? [value boolValue] : YES;
+-(JobsRetBOOLByVoidBlock _Nonnull)showsSuspendTimeButton{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        id value = [NSUserDefaults.standardUserDefaults objectForKey:JobsOCDemoSuspendTimeButtonVisibleUserDefaultsKey];
+        return value ? [value boolValue] : YES;
+    };
 }
 
--(void)setShowsSuspendTimeButton:(BOOL)showsSuspendTimeButton{
-    [NSUserDefaults.standardUserDefaults setBool:showsSuspendTimeButton
-                                          forKey:JobsOCDemoSuspendTimeButtonVisibleUserDefaultsKey];
-    [NSUserDefaults.standardUserDefaults synchronize];
+-(jobsByBOOLBlock _Nonnull)setShowsSuspendTimeButton{
+    @jobs_weakify(self)
+    return ^(BOOL showsSuspendTimeButton){
+        @jobs_strongify(self)
+        if (!self) return;
+        [NSUserDefaults.standardUserDefaults setBool:showsSuspendTimeButton
+                                              forKey:JobsOCDemoSuspendTimeButtonVisibleUserDefaultsKey];
+        [NSUserDefaults.standardUserDefaults synchronize];
+    };
 }
 
--(BOOL)demoListDarkModeEnabled{
-    return JobsThemeCenter.shared.isDarkMode;
+-(JobsRetBOOLByVoidBlock _Nonnull)demoListDarkModeEnabled{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return JobsThemeCenter.shared.isDarkMode;
+    };
 }
 
--(void)setDemoListDarkModeEnabled:(BOOL)enabled{
-    [JobsThemeCenter.shared setStyle:enabled ? JobsThemeStyleDark : JobsThemeStyleLight];
+-(jobsByBOOLBlock _Nonnull)setDemoListDarkModeEnabled{
+    @jobs_weakify(self)
+    return ^(BOOL enabled){
+        @jobs_strongify(self)
+        if (!self) return;
+        JobsThemeCenter.shared.setStyle(enabled ? JobsThemeStyleDark : JobsThemeStyleLight);
+    };
 }
 
--(void)applyDemoListInterfaceStyle{
-    self.view.byBgColor([self demoListPageBackgroundColor]);
-    [self updateLocalizedContent];
-    self.makeNavByAlpha(1);
-    self.navBar.backBtn.jobsResetBtnTitle(@"返回".tr);
-    [self applyDemoListNavigationInterfaceStyle];
-    [self applyDemoListTabBarInterfaceStyle];
-    if (_tableView) {
-        _tableView.separatorColor = [self demoListSeparatorColor];
-        [_tableView reloadData];
-    }
-}
-
--(UIColor *)demoListPageBackgroundColor{
-    return JobsSystemGroupedBackgroundColor;
-}
-
--(UIColor *)demoListNavigationBackgroundColor{
-    return JobsSystemBackgroundColor;
-}
-
--(UIColor *)demoListPrimaryTextColor{
-    return JobsLabelColor;
-}
-
--(UIColor *)demoListCellBackgroundColor{
-    return JobsSecondarySystemGroupedBackgroundColor;
-}
-
--(UIColor *)demoListSeparatorColor{
-    if (@available(iOS 13.0, *)) return UIColor.separatorColor;
-    return HEXCOLOR(0xE5E7EB);
-}
-
--(void)applyDemoListNavigationInterfaceStyle{
-    self
-        .byGKNavBackgroundColor([self demoListNavigationBackgroundColor])
-        .byGKNavBackgroundImage(nil)
-        .byGKNavTitleColor([self demoListPrimaryTextColor])
-        .byGKNavShadowColor([self demoListSeparatorColor])
-        .byGKNavigationBarBlock(^(__kindof GKCustomNavigationBar * _Nullable navigationBar) {
-            navigationBar.byTintColor([self demoListPrimaryTextColor]);
-        });
-    self.navBar.byBgColor([self demoListNavigationBackgroundColor]);
-    self.navBar.titleLab.byTextCor([self demoListPrimaryTextColor]);
-}
-
--(void)applyDemoListTabBarInterfaceStyle{
-    UIColor *backgroundColor = [self demoListNavigationBackgroundColor];
-    UIColor *titleColor = [self demoListPrimaryTextColor];
-    UIColor *selectedColor = HEXCOLOR(0x1D7FF2);
-    if (@available(iOS 13.0, *)) {
-        UITabBarAppearance *appearance = jobsMakeTabBarAppearance(^(__kindof UITabBarAppearance * _Nullable appearance) {
-            appearance
-                .byConfigureWithOpaqueBackground()
-                .byBackgroundColor(backgroundColor)
-                .byShadowColor([self demoListSeparatorColor]);
-        });
-        [UITabBar jobsApplyStandardAppearance:appearance];
-        if (@available(iOS 15.0, *)) {
-            [UITabBar jobsApplyScrollEdgeAppearance:appearance];
+-(jobsByVoidBlock _Nonnull)applyDemoListInterfaceStyle{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.view.byBgColor(self.demoListPageBackgroundColor());
+        self.updateLocalizedContent();
+        self.makeNavByAlpha(1);
+        self.navBar.backBtn.jobsResetBtnTitle(@"返回".jobsTr());
+        self.applyDemoListNavigationInterfaceStyle();
+        self.applyDemoListTabBarInterfaceStyle();
+        if (_tableView) {
+            _tableView.bySeparatorColor(self.demoListSeparatorColor());
+            [_tableView reloadData];
         }
-    }
-    NSMutableArray <UITabBar *>*tabBars = NSMutableArray.array;
-    if (self.tabBarController.tabBar) [tabBars addObject:self.tabBarController.tabBar];
-    if (AppDelegate.tabBarVC.tabBar && ![tabBars containsObject:AppDelegate.tabBarVC.tabBar]) {
-        [tabBars addObject:AppDelegate.tabBarVC.tabBar];
-    }
-    for (UITabBar *tabBar in tabBars) {
-        tabBar
-            .byBarTintColor(backgroundColor)
-            .byTintColor(selectedColor)
-            .byBgColor(backgroundColor);
-        if (@available(iOS 10.0, *)) {
-            tabBar.byUnselectedItemTintColor(titleColor);
-        }
+    };
+}
+
+-(JobsRetCorByVoidBlock _Nonnull)demoListPageBackgroundColor{
+    @jobs_weakify(self)
+    return ^UIColor *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return JobsSystemGroupedBackgroundColor;
+    };
+}
+
+-(JobsRetCorByVoidBlock _Nonnull)demoListNavigationBackgroundColor{
+    @jobs_weakify(self)
+    return ^UIColor *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return JobsSystemBackgroundColor;
+    };
+}
+
+-(JobsRetCorByVoidBlock _Nonnull)demoListPrimaryTextColor{
+    @jobs_weakify(self)
+    return ^UIColor *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return JobsLabelColor;
+    };
+}
+
+-(JobsRetCorByVoidBlock _Nonnull)demoListCellBackgroundColor{
+    @jobs_weakify(self)
+    return ^UIColor *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return JobsSecondarySystemGroupedBackgroundColor;
+    };
+}
+
+-(JobsRetCorByVoidBlock _Nonnull)demoListSeparatorColor{
+    @jobs_weakify(self)
+    return ^UIColor *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (@available(iOS 13.0, *)) return UIColor.separatorColor;
+        return HEXCOLOR(0xE5E7EB);
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)applyDemoListNavigationInterfaceStyle{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self
+            .byGKNavBackgroundColor(self.demoListNavigationBackgroundColor())
+            .byGKNavBackgroundImage(nil)
+            .byGKNavTitleColor(self.demoListPrimaryTextColor())
+            .byGKNavShadowColor(self.demoListSeparatorColor())
+            .byGKNavigationBarBlock(^(__kindof GKCustomNavigationBar * _Nullable navigationBar) {
+                navigationBar.byTintColor(self.demoListPrimaryTextColor());
+            });
+        self.navBar.byBgColor(self.demoListNavigationBackgroundColor());
+        self.navBar.titleLab.byTextCor(self.demoListPrimaryTextColor());
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)applyDemoListTabBarInterfaceStyle{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        UIColor *backgroundColor = self.demoListNavigationBackgroundColor();
+        UIColor *titleColor = self.demoListPrimaryTextColor();
+        UIColor *selectedColor = HEXCOLOR(0x1D7FF2);
         if (@available(iOS 13.0, *)) {
             UITabBarAppearance *appearance = jobsMakeTabBarAppearance(^(__kindof UITabBarAppearance * _Nullable appearance) {
                 appearance
                     .byConfigureWithOpaqueBackground()
                     .byBackgroundColor(backgroundColor)
-                    .byShadowColor([self demoListSeparatorColor]);
+                    .byShadowColor(self.demoListSeparatorColor());
             });
-            tabBar.byStandardAppearance(appearance);
+            UITabBar.jobsApplyStandardAppearance(appearance);
             if (@available(iOS 15.0, *)) {
-                tabBar.byScrollEdgeAppearance(appearance);
+                UITabBar.jobsApplyScrollEdgeAppearance(appearance);
             }
         }
-    }
-    for (UIButton *button in AppDelegate.tabBarItemMutArr) {
-        button
-            .jobsResetBtnTitleCor(titleColor)
-            .selectedStateTitleColorBy(selectedColor)
-            .highlightedStateTitleColorBy(selectedColor)
-            .titleColorForStateBy(selectedColor, UIControlStateSelected | UIControlStateHighlighted)
-            .byTintColor(titleColor)
-            .byBgColor(JobsClearColor);
-    }
-}
-
--(void)updateLocalizedContent{
-    UIColor *navBgColor = [self demoListNavigationBackgroundColor];
-    UIColor *titleColor = [self demoListPrimaryTextColor];
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr)
-                .byTextCor(titleColor);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"设置".tr)
-                .byFont(UIFontWeightRegularSize(18))
-                .byTextCor(titleColor);
-        })
-        .byBgCor(navBgColor)
-        .byNavBgCor(navBgColor);
-}
-
--(NSString *)splashSwitchTitle{
-    return [self jobsOCSplashEnabled] ? @"下次开屏：开".tr : @"下次开屏：关".tr;
-}
-
--(NSString *)returnSwitchTitle{
-    return [self demoListReturnToTopAndRefreshEnabled] ? @"返回：回顶部并刷新".tr : @"返回：保持原样".tr;
-}
-
--(NSString *)suspendTimeButtonSwitchTitle{
-    return [self showsSuspendTimeButton] ? @"悬浮时间：开".tr : @"悬浮时间：关".tr;
-}
-
--(NSString *)themeSwitchTitle{
-    return [self demoListDarkModeEnabled] ? @"主题切换：黑夜".tr : @"主题切换：白天".tr;
-}
-
--(NSString *)deallocTipsSwitchTitle{
-    return JobsControllerDeallocTipsEnabled() ? @"销毁提示：开".tr : @"销毁提示：关".tr;
-}
-
--(NSArray<NSString *> *)generalSettingTitleArr{
-    return @[
-        [self splashSwitchTitle],
-        [self returnSwitchTitle],
-        [self suspendTimeButtonSwitchTitle],
-        [self themeSwitchTitle],
-        [NSUserDefaults.standardUserDefaults boolForKey:@"JobsOCDemoSideDrawerFixed"] ? @"侧滑菜单：内容固定".tr : @"侧滑菜单：内容跟随".tr,
-        JobsOCDemoListUsesTabBarEntry() ? @"启动入口：TabBar".tr : @"启动入口：Demo 列表".tr,
-        [self deallocTipsSwitchTitle]
-    ];
-}
-
--(NSArray<NSString *> *)languageTitleArr{
-    return @[
-        @"中文".tr,
-        @"英文".tr,
-        @"他加禄语".tr
-    ];
-}
-
--(NSArray<NSString *> *)cellTextDisplayStrategyTitleArr{
-    return @[
-        @"一般模式".tr,
-        @"省略号模式".tr,
-        @"缩小字体模式".tr,
-        @"连续跑马灯".tr,
-        @"左右来回滚动".tr
-    ];
-}
-
--(NSArray<NSString *> *)splashContentTitleArr{
-    return @[
-        @"本地图片".tr,
-        @"本地 GIF".tr,
-        @"远程图片".tr,
-        @"本地视频".tr,
-        @"远程视频".tr
-    ];
-}
-
--(JobsOCSplashContentType)splashContentTypeByRow:(NSInteger)row{
-    if (row < JobsOCSplashContentTypeLocalImage || row > JobsOCSplashContentTypeRemoteVideo) {
-        return JobsOCSplashContentTypeLocalImage;
-    };return (JobsOCSplashContentType)row;
-}
-
--(AppLanguage)appLanguageByRow:(NSInteger)row{
-    switch (row) {
-        /// 处理 数值 0 分支
-        case 0:
-            return AppLanguageChineseSimplified;
-        /// 处理 数值 1 分支
-        case 1:
-            return AppLanguageEnglish;
-        /// 未匹配已知分支时执行兜底处理
-        default:
-            return AppLanguageTagalog;
-    }
-}
-
--(AppLanguage)currentEffectiveAppLanguage{
-    NSString *languageCode = LanMgr.languageCodeByAppLanguage(LanMgr.language).lowercaseString;
-    if ([languageCode hasPrefix:@"zh"]) return AppLanguageChineseSimplified;
-    if ([languageCode hasPrefix:@"fil"] || [languageCode hasPrefix:@"tl"]) return AppLanguageTagalog;
-    return AppLanguageEnglish;
-}
-
--(JobsOCDemoListCellTextDisplayStrategy)cellTextDisplayStrategyByRow:(NSInteger)row{
-    if (row < JobsOCDemoListCellTextDisplayStrategyNormal ||
-        row > JobsOCDemoListCellTextDisplayStrategyPingPong) {
-        return JobsOCDemoListCellTextDisplayStrategyContinuous;
-    };return (JobsOCDemoListCellTextDisplayStrategy)row;
-}
-
--(NSString *)expandableSectionTitleBySection:(JobsOCDemoListSettingSection)section{
-    if (section == JobsOCDemoListSettingSectionSplashContent) {
-        JobsOCSplashContentType contentType = JobsOCSplashPreferences.contentTypeForNextLaunch;
-        return [NSString stringWithFormat:@"开屏内容：%@".tr,
-                                          self.splashContentTitleArr[contentType]];
-    }
-    if (section == JobsOCDemoListSettingSectionLanguage) {
-        AppLanguage currentLanguage = [self currentEffectiveAppLanguage];
-        NSInteger currentRow = 0;
-        for (NSInteger row = 0; row < self.languageTitleArr.count; row++) {
-            if ([self appLanguageByRow:row] == currentLanguage) {
-                currentRow = row;
-                break;
+        NSMutableArray <UITabBar *>*tabBars = NSMutableArray.array;
+        if (self.tabBarController.tabBar) [tabBars addObject:self.tabBarController.tabBar];
+        if (AppDelegate.tabBarVC.tabBar && ![tabBars containsObject:AppDelegate.tabBarVC.tabBar]) {
+            [tabBars addObject:AppDelegate.tabBarVC.tabBar];
+        }
+        for (UITabBar *tabBar in tabBars) {
+            tabBar
+                .byBarTintColor(backgroundColor)
+                .byTintColor(selectedColor)
+                .byBgColor(backgroundColor);
+            if (@available(iOS 10.0, *)) {
+                tabBar.byUnselectedItemTintColor(titleColor);
             }
-        };return [NSString stringWithFormat:@"应用语言：%@".tr,
-                                            self.languageTitleArr[currentRow]];
-    }
-    JobsOCDemoListCellTextDisplayStrategy strategy = JobsOCCurrentDemoListCellTextDisplayStrategy();
-    return [NSString stringWithFormat:@"列表主/副标题：%@".tr,
-                                      self.cellTextDisplayStrategyTitleArr[strategy]];
+            if (@available(iOS 13.0, *)) {
+                UITabBarAppearance *appearance = jobsMakeTabBarAppearance(^(__kindof UITabBarAppearance * _Nullable appearance) {
+                    appearance
+                        .byConfigureWithOpaqueBackground()
+                        .byBackgroundColor(backgroundColor)
+                        .byShadowColor(self.demoListSeparatorColor());
+                });
+                tabBar.byStandardAppearance(appearance);
+                if (@available(iOS 15.0, *)) {
+                    tabBar.byScrollEdgeAppearance(appearance);
+                }
+            }
+        }
+        for (UIButton *button in AppDelegate.tabBarItemMutArr) {
+            button
+                .jobsResetBtnTitleCor(titleColor)
+                .selectedStateTitleColorBy(selectedColor)
+                .highlightedStateTitleColorBy(selectedColor)
+                .titleColorForStateBy(selectedColor, UIControlStateSelected | UIControlStateHighlighted)
+                .byTintColor(titleColor)
+                .byBgColor(JobsClearColor);
+        }
+    };
 }
 
--(UIView *)expansionAccessoryViewBySection:(JobsOCDemoListSettingSection)section{
-    BOOL expanded = [self.expandedSettingSectionIndexSet containsIndex:section];
-    return jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-        label
-            .byText(expanded ? @"收起".tr : @"展开".tr)
-            .byFont(UIFontWeightRegularSize(13))
-            .byTextCor(HEXCOLOR(0x1D7FF2))
-            .byTextAlignment(NSTextAlignmentRight)
-            .byFrame(CGRectMake(0, 0, JobsWidth(76), JobsWidth(24)));
-    });
+-(jobsByVoidBlock _Nonnull)updateLocalizedContent{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        UIColor *navBgColor = self.demoListNavigationBackgroundColor();
+        UIColor *titleColor = self.demoListPrimaryTextColor();
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr())
+                    .byTextCor(titleColor);
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"设置".jobsTr())
+                    .byFont(UIFontWeightRegularSize(18))
+                    .byTextCor(titleColor);
+            })
+            .byBgCor(navBgColor)
+            .byNavBgCor(navBgColor);
+    };
 }
 
--(NSString *)titleByIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == JobsOCDemoListSettingSectionGeneral) return self.generalSettingTitleArr[indexPath.row];
-    if (indexPath.row == 0) return [self expandableSectionTitleBySection:indexPath.section];
-    NSInteger optionRow = indexPath.row - 1;
-    if (indexPath.section == JobsOCDemoListSettingSectionSplashContent) return self.splashContentTitleArr[optionRow];
-    if (indexPath.section == JobsOCDemoListSettingSectionLanguage) return self.languageTitleArr[optionRow];
-    return self.cellTextDisplayStrategyTitleArr[optionRow];
+-(JobsRetStrByVoidBlock _Nonnull)splashSwitchTitle{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self jobsOCSplashEnabled]() ? @"下次开屏：开".jobsTr() : @"下次开屏：关".jobsTr();
+    };
 }
 
--(UITableViewCellAccessoryType)accessoryTypeByIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == JobsOCDemoListSettingSectionGeneral) {
-        return UITableViewCellAccessoryDisclosureIndicator;
-    }
-    if (indexPath.row == 0) return UITableViewCellAccessoryNone;
-    NSInteger optionRow = indexPath.row - 1;
-    if (indexPath.section == JobsOCDemoListSettingSectionSplashContent) {
-        return [self splashContentTypeByRow:optionRow] == JobsOCSplashPreferences.contentTypeForNextLaunch ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-    }
-    if (indexPath.section == JobsOCDemoListSettingSectionLanguage) {
-        return [self appLanguageByRow:optionRow] == [self currentEffectiveAppLanguage] ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
-    };return [self cellTextDisplayStrategyByRow:optionRow] == JobsOCCurrentDemoListCellTextDisplayStrategy() ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+-(JobsRetStrByVoidBlock _Nonnull)returnSwitchTitle{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self demoListReturnToTopAndRefreshEnabled]() ? @"返回：回顶部并刷新".jobsTr() : @"返回：保持原样".jobsTr();
+    };
 }
 
+-(JobsRetStrByVoidBlock _Nonnull)suspendTimeButtonSwitchTitle{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self showsSuspendTimeButton]() ? @"悬浮时间：开".jobsTr() : @"悬浮时间：关".jobsTr();
+    };
+}
+
+-(JobsRetStrByVoidBlock _Nonnull)themeSwitchTitle{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self demoListDarkModeEnabled]() ? @"主题切换：黑夜".jobsTr() : @"主题切换：白天".jobsTr();
+    };
+}
+
+-(JobsRetStrByVoidBlock _Nonnull)deallocTipsSwitchTitle{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return JobsControllerDeallocTipsEnabled() ? @"销毁提示：开".jobsTr() : @"销毁提示：关".jobsTr();
+    };
+}
+
+-(JobsRetNSArrayNSStringByVoidBlock _Nonnull)generalSettingTitleArr{
+    @jobs_weakify(self)
+    return ^NSArray<NSString *> *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @[
+            self.splashSwitchTitle(),
+            self.returnSwitchTitle(),
+            self.suspendTimeButtonSwitchTitle(),
+            self.themeSwitchTitle(),
+            [NSUserDefaults.standardUserDefaults boolForKey:@"JobsOCDemoSideDrawerFixed"] ? @"侧滑菜单：内容固定".jobsTr() : @"侧滑菜单：内容跟随".jobsTr(),
+            JobsOCDemoListUsesTabBarEntry() ? @"启动入口：TabBar".jobsTr() : @"启动入口：Demo 列表".jobsTr(),
+            self.deallocTipsSwitchTitle()
+        ];
+    };
+}
+
+-(JobsRetNSArrayNSStringByVoidBlock _Nonnull)languageTitleArr{
+    @jobs_weakify(self)
+    return ^NSArray<NSString *> *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @[
+            @"中文".jobsTr(),
+            @"英文".jobsTr(),
+            @"他加禄语".jobsTr()
+        ];
+    };
+}
+
+-(JobsRetNSArrayNSStringByVoidBlock _Nonnull)cellTextDisplayStrategyTitleArr{
+    @jobs_weakify(self)
+    return ^NSArray<NSString *> *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @[
+            @"一般模式".jobsTr(),
+            @"省略号模式".jobsTr(),
+            @"缩小字体模式".jobsTr(),
+            @"连续跑马灯".jobsTr(),
+            @"左右来回滚动".jobsTr()
+        ];
+    };
+}
+
+-(JobsRetNSArrayNSStringByVoidBlock _Nonnull)splashContentTitleArr{
+    @jobs_weakify(self)
+    return ^NSArray<NSString *> *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @[
+            @"本地图片".jobsTr(),
+            @"本地 GIF".jobsTr(),
+            @"远程图片".jobsTr(),
+            @"本地视频".jobsTr(),
+            @"远程视频".jobsTr()
+        ];
+    };
+}
+
+-(JobsRetJobsOCSplashContentTypeByNSIntegerBlock _Nonnull)splashContentTypeByRow{
+    @jobs_weakify(self)
+    return ^JobsOCSplashContentType(NSInteger row){
+        @jobs_strongify(self)
+        if (!self) return (JobsOCSplashContentType){0};
+        if (row < JobsOCSplashContentTypeLocalImage || row > JobsOCSplashContentTypeRemoteVideo) {
+            return JobsOCSplashContentTypeLocalImage;
+        };return (JobsOCSplashContentType)row;
+    };
+}
+
+-(JobsRetAppLanguageByNSIntegerBlock _Nonnull)appLanguageByRow{
+    @jobs_weakify(self)
+    return ^AppLanguage(NSInteger row){
+        @jobs_strongify(self)
+        if (!self) return (AppLanguage){0};
+        switch (row) {
+            /// 处理 数值 0 分支
+            case 0:
+                return AppLanguageChineseSimplified;
+            /// 处理 数值 1 分支
+            case 1:
+                return AppLanguageEnglish;
+            /// 未匹配已知分支时执行兜底处理
+            default:
+                return AppLanguageTagalog;
+        }
+    };
+}
+
+-(JobsRetAppLanguageByVoidBlock _Nonnull)currentEffectiveAppLanguage{
+    @jobs_weakify(self)
+    return ^AppLanguage{
+        @jobs_strongify(self)
+        if (!self) return (AppLanguage){0};
+        NSString *languageCode = LanMgr.languageCodeByAppLanguage(LanMgr.language).lowercaseString;
+        if ([languageCode hasPrefix:@"zh"]) return AppLanguageChineseSimplified;
+        if ([languageCode hasPrefix:@"fil"] || [languageCode hasPrefix:@"tl"]) return AppLanguageTagalog;
+        return AppLanguageEnglish;
+    };
+}
+
+-(JobsRetJobsOCDemoListCellTextDisplayStrategyByNSIntegerBlock _Nonnull)cellTextDisplayStrategyByRow{
+    @jobs_weakify(self)
+    return ^JobsOCDemoListCellTextDisplayStrategy(NSInteger row){
+        @jobs_strongify(self)
+        if (!self) return (JobsOCDemoListCellTextDisplayStrategy){0};
+        if (row < JobsOCDemoListCellTextDisplayStrategyNormal ||
+            row > JobsOCDemoListCellTextDisplayStrategyPingPong) {
+            return JobsOCDemoListCellTextDisplayStrategyContinuous;
+        };return (JobsOCDemoListCellTextDisplayStrategy)row;
+    };
+}
+
+-(JobsRetNSStringByJobsOCDemoListSettingSectionBlock _Nonnull)expandableSectionTitleBySection{
+    @jobs_weakify(self)
+    return ^NSString *(JobsOCDemoListSettingSection section){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (section == JobsOCDemoListSettingSectionSplashContent) {
+            JobsOCSplashContentType contentType = JobsOCSplashPreferences.contentTypeForNextLaunch();
+            return [NSString stringWithFormat:@"开屏内容：%@".jobsTr(),
+                                              self.splashContentTitleArr()[contentType]];
+        }
+        if (section == JobsOCDemoListSettingSectionLanguage) {
+            AppLanguage currentLanguage = self.currentEffectiveAppLanguage();
+            NSInteger currentRow = 0;
+            for (NSInteger row = 0; row < self.languageTitleArr().count; row++) {
+                if (self.appLanguageByRow(row) == currentLanguage) {
+                    currentRow = row;
+                    break;
+                }
+            };return [NSString stringWithFormat:@"应用语言：%@".jobsTr(),
+                                                self.languageTitleArr()[currentRow]];
+        }
+        JobsOCDemoListCellTextDisplayStrategy strategy = JobsOCCurrentDemoListCellTextDisplayStrategy();
+        return [NSString stringWithFormat:@"列表主/副标题：%@".jobsTr(),
+                                          self.cellTextDisplayStrategyTitleArr()[strategy]];
+    };
+}
+
+-(JobsRetUIViewByJobsOCDemoListSettingSectionBlock _Nonnull)expansionAccessoryViewBySection{
+    @jobs_weakify(self)
+    return ^UIView *(JobsOCDemoListSettingSection section){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        BOOL expanded = [self.expandedSettingSectionIndexSet containsIndex:section];
+        return jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(expanded ? @"收起".jobsTr() : @"展开".jobsTr())
+                .byFont(UIFontWeightRegularSize(13))
+                .byTextCor(HEXCOLOR(0x1D7FF2))
+                .byTextAlignment(NSTextAlignmentRight)
+                .byFrame(CGRectMake(0, 0, JobsWidth(76), JobsWidth(24)));
+        });
+    };
+}
+
+-(JobsRetNSStringByNSIndexPathBlock _Nonnull)titleByIndexPath{
+    @jobs_weakify(self)
+    return ^NSString *(NSIndexPath * indexPath){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (indexPath.section == JobsOCDemoListSettingSectionGeneral) return self.generalSettingTitleArr()[indexPath.row];
+        if (indexPath.row == 0) return self.expandableSectionTitleBySection(indexPath.section);
+        NSInteger optionRow = indexPath.row - 1;
+        if (indexPath.section == JobsOCDemoListSettingSectionSplashContent) return self.splashContentTitleArr()[optionRow];
+        if (indexPath.section == JobsOCDemoListSettingSectionLanguage) return self.languageTitleArr()[optionRow];
+        return self.cellTextDisplayStrategyTitleArr()[optionRow];
+    };
+}
+
+-(JobsRetUITableViewCellAccessoryTypeByNSIndexPathBlock _Nonnull)accessoryTypeByIndexPath{
+    @jobs_weakify(self)
+    return ^UITableViewCellAccessoryType(NSIndexPath * indexPath){
+        @jobs_strongify(self)
+        if (!self) return (UITableViewCellAccessoryType){0};
+        if (indexPath.section == JobsOCDemoListSettingSectionGeneral) {
+            return UITableViewCellAccessoryDisclosureIndicator;
+        }
+        if (indexPath.row == 0) return UITableViewCellAccessoryNone;
+        NSInteger optionRow = indexPath.row - 1;
+        if (indexPath.section == JobsOCDemoListSettingSectionSplashContent) {
+            return self.splashContentTypeByRow(optionRow) == JobsOCSplashPreferences.contentTypeForNextLaunch() ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+        }
+        if (indexPath.section == JobsOCDemoListSettingSectionLanguage) {
+            return self.appLanguageByRow(optionRow) == self.currentEffectiveAppLanguage() ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+        };return self.cellTextDisplayStrategyByRow(optionRow) == JobsOCCurrentDemoListCellTextDisplayStrategy() ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+    };
+}
+
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsOCDemoListSettingsVC
+-(JobsRetJobsOCDemoListSettingsVCByBOOLBlock _Nonnull)byShouldApplyAppEntryAfterReturning{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCDemoListSettingsVC * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setShouldApplyAppEntryAfterReturning:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsOCDemoListSettingsVCByNSMutableIndexSetBlock _Nonnull)byExpandedSettingSectionIndexSet{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCDemoListSettingsVC * _Nullable(NSMutableIndexSet * _Nullable data){
+        @jobs_strongify(self)
+        [self setExpandedSettingSectionIndexSet:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCDemoListSettingsVC
 @end

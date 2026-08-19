@@ -30,17 +30,19 @@ static AppLanguage _language = AppLanguageBySys;
 +(void)setLanguage:(AppLanguage)language{
     _language = language;
     NSString *languageCode = self.languageCodeByAppLanguage(language);
-    NSString *path = languageCode.add(@".lproj").pathForResourceWithFullName;
+    NSString *path = languageCode.add(@".lproj").jobsPathForResourceWithFullName();
     bundle = isValue(path) ? NSBundle.initByPath(path) : NSBundle.mainBundle;
     /// 存储当前语言设置
     JobsSetUserDefaultKeyWithInteger(JobsLanguageKey, language);
     JobsUserDefaultSynchronize;
 }
 /// 语言包路径
-+(NSBundle *_Nullable)bundle{
-    if (!bundle) {
-        [self setLanguage:JobsGetUserDefaultIntegerForKey(JobsLanguageKey)];
-    };return bundle;
++(JobsRetNSBundleByVoidBlock _Nonnull)bundle{
+    return ^NSBundle *_Nullable{
+        if (!bundle) {
+            [self setLanguage:JobsGetUserDefaultIntegerForKey(JobsLanguageKey)];
+        };return bundle;
+    };
 }
 /// 通过key取值对应的语言
 +(JobsRetStrByStrBlock _Nonnull)localStringByKey{
@@ -48,7 +50,7 @@ static AppLanguage _language = AppLanguageBySys;
     return ^__kindof NSString *_Nullable(__kindof NSString *_Nullable key){
         return [clazz localizedString:key
                            fromTable:nil
-                            inBundle:clazz.bundle];
+                            inBundle:clazz.bundle()];
     };
 }
 /// 枚举和语言字符串的转换
@@ -70,7 +72,7 @@ static AppLanguage _language = AppLanguageBySys;
                 /// tl（他加禄语）：这是菲律宾的主要语言之一，也是菲律宾语的基础语言。ISO 639-1代码为"tl"
                 /// fil-PH：表示菲律宾的菲律宾语
                 /// tl-PH：表示菲律宾的他加禄语
-                return isValue(@"fil.lproj".pathForResourceWithFullName) ? 菲律宾语_不带区域组合: 菲律宾语_菲律宾;
+                return isValue(@"fil.lproj".jobsPathForResourceWithFullName()) ? 菲律宾语_不带区域组合: 菲律宾语_菲律宾;
             /// 未匹配已知分支时执行兜底处理
             default:return NSLocale.preferredLanguages.firstObject;
         }

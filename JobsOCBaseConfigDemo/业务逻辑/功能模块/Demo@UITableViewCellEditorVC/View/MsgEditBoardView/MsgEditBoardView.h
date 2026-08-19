@@ -48,12 +48,12 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MsgEditBoardView : BaseView
 
 #pragma mark —— 一些公有方法
--(UIButton *)getAllChooseBtn;
--(UIButton *)getMarkToReadBtn;
--(UIButton *)getDeleteBtn;
+-(JobsRetBtnByVoidBlock _Nonnull)getAllChooseBtn;
+-(JobsRetBtnByVoidBlock _Nonnull)getMarkToReadBtn;
+-(JobsRetBtnByVoidBlock _Nonnull)getDeleteBtn;
 
--(void)appearByView:(UIView * _Nonnull)view;
--(void)disappearByView:(UIView * _Nullable)view;
+-(jobsByViewBlock _Nonnull)appearByView;
+-(jobsByViewBlock _Nonnull)disappearByView;
 
 @end
 

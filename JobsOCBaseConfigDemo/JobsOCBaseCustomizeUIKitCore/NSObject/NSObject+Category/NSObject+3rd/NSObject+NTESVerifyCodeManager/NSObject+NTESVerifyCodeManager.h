@@ -18,6 +18,10 @@
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
+@interface NTESVerifyCodeManager (JobsVerifyCodeDSL)
+-(JobsRetNTESVerifyCodeManagerByIDBlock _Nonnull)byDelegate;
+@end
+
 ///【NTESVerifyCodeManager】 二次封装 https://github.com/yidun/NTESVerifyCode
 @interface NSObject (NTESVerifyCodeManager)<NTESVerifyCodeManagerDelegate>
 

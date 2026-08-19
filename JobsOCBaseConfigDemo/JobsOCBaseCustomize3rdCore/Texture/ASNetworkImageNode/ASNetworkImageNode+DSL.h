@@ -8,9 +8,14 @@
 #ifndef JOBS_HEADER_GUARD_ASNETWORKIMAGENODE_DSL_EC9A3059AA
 #define JOBS_HEADER_GUARD_ASNETWORKIMAGENODE_DSL_EC9A3059AA
 
-#import <AsyncDisplayKit/AsyncDisplayKit.h>
 #import "JobsBlock.h"
 #import "JobsDefines.h"
+
+#if __has_include(<AsyncDisplayKit/AsyncDisplayKit.h>)
+#import <AsyncDisplayKit/AsyncDisplayKit.h>
+#else
+#import "AsyncDisplayKit.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -31,9 +36,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetNetworkImageNodeByBOOLBlock _Nonnull)byShouldRenderProgressImages;
 -(JobsRetNetworkImageNodeByBOOLBlock _Nonnull)byShouldRetryImageDownload;
 
--(CGFloat)by_currentImageQuality;
--(CGFloat)by_renderedImageQuality;
--(CGFloat)by_downloadProgress;
+-(JobsRetCGFloatByVoidBlock _Nonnull)by_currentImageQuality;
+-(JobsRetCGFloatByVoidBlock _Nonnull)by_renderedImageQuality;
+-(JobsRetCGFloatByVoidBlock _Nonnull)by_downloadProgress;
 
 @end
 

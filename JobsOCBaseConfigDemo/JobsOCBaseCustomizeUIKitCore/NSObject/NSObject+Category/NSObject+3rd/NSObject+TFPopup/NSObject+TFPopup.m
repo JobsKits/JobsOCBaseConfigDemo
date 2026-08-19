@@ -7,13 +7,35 @@
 
 #import "NSObject+TFPopup.h"
 
+@implementation TFPopupParam (JobsDSL)
+#define JobsTFPopupParamDSL(_name_, _blockType_, _dataType_, _property_) \
+-(_blockType_ _Nonnull)by##_name_{ \
+    @jobs_weakify(self) \
+    return ^__kindof TFPopupParam *_Nullable(_dataType_ data){ \
+        @jobs_strongify(self) \
+        self._property_ = data; \
+        return self; \
+    }; \
+}
+JobsTFPopupParamDSL(Duration, JobsRetTFPopupParamByCGFloatBlock, CGFloat, duration)
+JobsTFPopupParamDSL(ShowAnimationDelay, JobsRetTFPopupParamByCGFloatBlock, CGFloat, showAnimationDelay)
+JobsTFPopupParamDSL(HideAnimationDelay, JobsRetTFPopupParamByCGFloatBlock, CGFloat, hideAnimationDelay)
+JobsTFPopupParamDSL(BubbleDirection, JobsRetTFPopupParamByDirectionBlock, PopupDirection, bubbleDirection)
+JobsTFPopupParamDSL(PopupSize, JobsRetTFPopupParamByCGSizeBlock, CGSize, popupSize)
+JobsTFPopupParamDSL(DragEnable, JobsRetTFPopupParamByBOOLBlock, BOOL, dragEnable)
+JobsTFPopupParamDSL(AutoDissmissDuration, JobsRetTFPopupParamByCGFloatBlock, CGFloat, autoDissmissDuration)
+JobsTFPopupParamDSL(DisuseBackgroundTouchHide, JobsRetTFPopupParamByBOOLBlock, BOOL, disuseBackgroundTouchHide)
+JobsTFPopupParamDSL(BackgroundColor, JobsRetTFPopupParamByCorBlock, UIColor *_Nullable, backgroundColor)
+#undef JobsTFPopupParamDSL
+@end
+
 @implementation NSObject (TFPopup)
 #pragma mark —— 保证弹窗一定是被初始化
 -(__kindof UIView *)checkByView:(UIView *)view action:(jobsByVoidBlock _Nullable)action {
     if (view) {
         if (action) action(); // 执行传入的操作
     } else {
-        toastBy(@"请初始化视图".tr);
+        toastBy(@"请初始化视图".jobsTr());
     };return view;
 }
 #pragma mark —— 关闭所有的弹出提示框
@@ -99,8 +121,8 @@
     @jobs_weakify(self)
     return ^(UIView *_Nonnull data) {
         @jobs_strongify(self)
-        self.popupParameter.dragEnable = YES;
-        self.popupParameter.disuseBackgroundTouchHide = YES;// 禁止点击背景消失弹框
+        self.popupParameter.byDragEnable(YES)
+            .byDisuseBackgroundTouchHide(YES);// 禁止点击背景消失弹框
         [self checkByView:data action:^{
             @jobs_strongify(self)
             [data tf_showSlide:jobsGetMainWindow()
@@ -114,9 +136,9 @@
     @jobs_weakify(self)
     return ^(UIView *_Nonnull data) {
         @jobs_strongify(self)
-        self.popupParameter.dragEnable = YES;
-        self.popupParameter.backgroundColor = JobsBlackColor.colorWithAlphaComponentBy(.3f);
-        self.popupParameter.disuseBackgroundTouchHide = NO;// 允许点击背景消失弹框
+        self.popupParameter.byDragEnable(YES)
+            .byBackgroundColor(JobsBlackColor.colorWithAlphaComponentBy(.3f))
+            .byDisuseBackgroundTouchHide(NO);// 允许点击背景消失弹框
         [self checkByView:data action:^{
             @jobs_strongify(self)
             [data tf_showSlide:jobsGetMainWindow()
@@ -130,9 +152,9 @@
     @jobs_weakify(self)
     return ^(UIView *_Nonnull data) {
         @jobs_strongify(self)
-        self.popupParameter.dragEnable = YES;
-        self.popupParameter.backgroundColor = JobsBlackColor.colorWithAlphaComponentBy(.3f);
-        self.popupParameter.disuseBackgroundTouchHide = NO;/// 允许点击背景消失弹框
+        self.popupParameter.byDragEnable(YES)
+            .byBackgroundColor(JobsBlackColor.colorWithAlphaComponentBy(.3f))
+            .byDisuseBackgroundTouchHide(NO);/// 允许点击背景消失弹框
         [self checkByView:data action:^{
             @jobs_strongify(self)
             [data tf_showSlide:jobsGetMainWindow()
@@ -160,7 +182,7 @@
     @jobs_weakify(self)
     return ^(__kindof UIView *_Nonnull data) {
         @jobs_strongify(self)
-        self.popupParameter.popupSize = !jobsZeroSizeValue(data.sizer) ? data.sizer : data.viewSizeByModel(nil);
+        self.popupParameter.byPopupSize(!jobsZeroSizeValue(data.sizer) ? data.sizer : data.viewSizeByModel(nil));
         self._showViewCore(data);
     };
 }
@@ -169,7 +191,7 @@
     @jobs_weakify(self)
     return ^(UIView *_Nonnull data) {
         @jobs_strongify(self)
-        self.popupParameter.popupSize = !jobsZeroSizeValue(data.sizer) ? data.sizer : data.viewSizeByModel(nil);
+        self.popupParameter.byPopupSize(!jobsZeroSizeValue(data.sizer) ? data.sizer : data.viewSizeByModel(nil));
         self._showViewCore2(data);
     };
 }
@@ -178,7 +200,7 @@
     @jobs_weakify(self)
     return ^(__kindof UIView *_Nonnull data) {
         @jobs_strongify(self)
-        self.popupParameter.popupSize = !jobsZeroSizeValue(data.sizer) ? data.sizer : data.viewSizeByModel(nil);
+        self.popupParameter.byPopupSize(!jobsZeroSizeValue(data.sizer) ? data.sizer : data.viewSizeByModel(nil));
         self._showViewCore3(data);
     };
 }
@@ -187,7 +209,7 @@
     @jobs_weakify(self)
     return ^(__kindof UIView *_Nullable view,id _Nullable data) {
         @jobs_strongify(self)
-        self.popupParameter.popupSize = data ? view.viewSizeByModel(data) : view.sizer;
+        self.popupParameter.byPopupSize(data ? view.viewSizeByModel(data) : view.sizer);
         self._showViewCore(view);
     };
 }
@@ -196,7 +218,7 @@
     @jobs_weakify(self)
     return ^(__kindof UIView *_Nullable view,id _Nullable data) {
         @jobs_strongify(self)
-        self.popupParameter.popupSize = data ? view.viewSizeByModel(data) : view.sizer;
+        self.popupParameter.byPopupSize(data ? view.viewSizeByModel(data) : view.sizer);
         self._showViewCore(view);
     };
 }
@@ -205,7 +227,7 @@
     @jobs_weakify(self)
     return ^(__kindof UIView *_Nullable view,id _Nullable data) {
         @jobs_strongify(self)
-        self.popupParameter.popupSize = data ? view.viewSizeByModel(data) : view.sizer;
+        self.popupParameter.byPopupSize(data ? view.viewSizeByModel(data) : view.sizer);
         self._showViewCore2(view);
     };
 }
@@ -214,7 +236,7 @@
     @jobs_weakify(self)
     return ^(UIView *_Nonnull data) {
         @jobs_strongify(self)
-        self.tipsParameter.popupSize = !jobsZeroSizeValue(data.sizer) ? data.sizer : data.viewSizeByModel(nil);
+        self.tipsParameter.byPopupSize(!jobsZeroSizeValue(data.sizer) ? data.sizer : data.viewSizeByModel(nil));
         self._showTipsCore(data);
     };
 }
@@ -223,7 +245,7 @@
     @jobs_weakify(self)
     return ^(__kindof UIView *_Nullable view,id _Nullable data) {
         @jobs_strongify(self)
-        self.tipsParameter.popupSize = data ? view.viewSizeByModel(data) : view.sizer;
+        self.tipsParameter.byPopupSize(data ? view.viewSizeByModel(data) : view.sizer);
         self._showTipsCore(view);
     };
 }

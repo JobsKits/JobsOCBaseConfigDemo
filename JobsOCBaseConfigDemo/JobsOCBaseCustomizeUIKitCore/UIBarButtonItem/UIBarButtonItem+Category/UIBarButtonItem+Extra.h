@@ -6,15 +6,16 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIBARBUTTONITEM_EXTRA_C5C9457DC3
-#define JOBS_HEADER_GUARD_UIBARBUTTONITEM_EXTRA_C5C9457DC3
-
-#import <UIKit/UIKit.h>
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
 #import "ReactiveObjC.h"
 #endif
+
+#define JOBS_HEADER_GUARD_UIBARBUTTONITEM_EXTRA_C5C9457DC3
+
+#import <UIKit/UIKit.h>
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"

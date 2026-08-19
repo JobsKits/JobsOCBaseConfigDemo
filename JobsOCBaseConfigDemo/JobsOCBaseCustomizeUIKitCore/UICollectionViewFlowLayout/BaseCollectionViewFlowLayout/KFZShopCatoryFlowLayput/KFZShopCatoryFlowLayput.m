@@ -6,6 +6,7 @@
 //
 
 #import "KFZShopCatoryFlowLayput.h"
+
 #import "UIView+Extra.h"
 
 /// 自定义section背景view 注意继承于UICollectionReusableView
@@ -16,24 +17,42 @@
 
 @implementation KFZShopCatorySectionWhiteBgView
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
-    JobsLog(@"");
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(KFZShopCatorySectionWhiteBgView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+        JobsLog(@"");
+    };
 }
 
 - (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes{
-    [super applyLayoutAttributes:layoutAttributes];
-    self.backgroundColor = JobsSecondarySystemBackgroundColor;
-    //加阴影立体效果
-    [UIView makeTargetShadowview:self
-                       superView:nil
-                 shadowDirection:ShadowDirection_rightDown
-               shadowWithOffsetX:5
-                         offsetY:5
-                    cornerRadius:8
-                    shadowOffset:JobsDefaultSize
-                   shadowOpacity:1
-                layerShadowColor:JobsDefaultObj
-               layerShadowRadius:JobsDefaultValue];
+    ((((jobsByUICollectionViewLayoutAttributesBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(KFZShopCatorySectionWhiteBgView.class, @selector(applyLayoutAttributes)))(self, @selector(applyLayoutAttributes))))(layoutAttributes);
+}
+-(jobsByUICollectionViewLayoutAttributesBlock _Nonnull)applyLayoutAttributes{
+    @jobs_weakify(self)
+    return ^(UICollectionViewLayoutAttributes * layoutAttributes){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super applyLayoutAttributes:layoutAttributes];
+        self.byBgColor(JobsSecondarySystemBackgroundColor);
+        //加阴影立体效果
+        [UIView makeTargetShadowview:self
+                           superView:nil
+                     shadowDirection:ShadowDirection_rightDown
+                   shadowWithOffsetX:5
+                             offsetY:5
+                        cornerRadius:8
+                        shadowOffset:JobsDefaultSize
+                       shadowOpacity:1
+                    layerShadowColor:JobsDefaultObj
+                   layerShadowRadius:JobsDefaultValue];
+    };
 }
 
 @end
@@ -46,75 +65,95 @@ Prop_strong()NSMutableArray<UICollectionViewLayoutAttributes *> *decorationViewA
 @end
 
 @implementation KFZShopCatoryFlowLayput
-- (void)prepareLayout{
-    [super prepareLayout];
-    NSInteger sections = self.collectionView.numberOfSections;
-    if (sections == 0) {//没有内容直接返回
-        return;
-    }
-    if (self.affectedSectionsMutArr.count == 0) {
-        return;
-    }
-    id<UICollectionViewDelegateFlowLayout> delegate  = (id<UICollectionViewDelegateFlowLayout>) self.collectionView.delegate;
-    //1.初始化 注册背景view类
-    [self registerClass:[KFZShopCatorySectionWhiteBgView class] forDecorationViewOfKind:@"KFZShopCatorySectionWhiteBgView"];
-    [self.decorationViewAttrs removeAllObjects];
-    for (NSInteger section = 0; section < sections; section++) {
-       NSInteger numberOfItems = [self.collectionView numberOfItemsInSection:section];
-        if (numberOfItems > 0) {
-            UICollectionViewLayoutAttributes *firstAttr = [self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:0
-                                                                                                                      inSection:section]];
-            UICollectionViewLayoutAttributes *lastAttr = [self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:(numberOfItems - 1)
-                                                                                                                     inSection:section]];
-            UIEdgeInsets sectionInset = self.sectionInset;
-            if ([delegate respondsToSelector:@selector(collectionView:layout:insetForSectionAtIndex:)]) {
-                UIEdgeInsets inset = [delegate collectionView:self.collectionView
-                                                       layout:self
-                                       insetForSectionAtIndex:section];
-                if (!UIEdgeInsetsEqualToEdgeInsets(inset, sectionInset)) {
-                    sectionInset = inset;
-                }
-            }
-            CGSize sectionHeaderSize;
-            if ([delegate respondsToSelector:@selector(collectionView:layout:referenceSizeForHeaderInSection:)]) {
-                sectionHeaderSize = [delegate collectionView:self.collectionView
-                                                      layout:self
-                             referenceSizeForHeaderInSection:section];
-            }
-            if (section == 0) {
-                sectionHeaderSize.height = 0;
-            }
-            CGRect sectionFrame = CGRectUnion(firstAttr.frame, lastAttr.frame);
-            sectionFrame.origin.y += self.offsetY;
-            sectionFrame.size.height += self.offsetHeight;
-            sectionFrame.origin.x += self.offsetX;
-            sectionFrame.size.width += self.offsetWidth;
-            for (NSNumber *affectedIdx in self.affectedSectionsMutArr) {
-                if (affectedIdx.integerValue == section) {
-                    //2. 定义
-                    UICollectionViewLayoutAttributes *attr = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:@"KFZShopCatorySectionWhiteBgView"
-                                                                                                                         withIndexPath:[NSIndexPath indexPathForRow:0
-                                                                                                                                                          inSection:section]];
-                    attr.frame = sectionFrame;
-                    attr.zIndex = -1;
-                    [self.decorationViewAttrs addObject:attr];
-                }else{
-                    continue;
-                }
-            }
-        }else{
-            continue ;
+-(void)prepareLayout{
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(KFZShopCatoryFlowLayput.class, @selector(jobsPrepareLayout)))(self, @selector(jobsPrepareLayout));
+    if (action) action();
+}
+
+- (jobsByVoidBlock _Nonnull)jobsPrepareLayout{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super prepareLayout];
+        NSInteger sections = self.collectionView.numberOfSections;
+        if (sections == 0) {//没有内容直接返回
+            return;
         }
-    }
+        if (self.affectedSectionsMutArr.count == 0) {
+            return;
+        }
+        id<UICollectionViewDelegateFlowLayout> delegate  = (id<UICollectionViewDelegateFlowLayout>) self.collectionView.delegate;
+        //1.初始化 注册背景view类
+        [self registerClass:[KFZShopCatorySectionWhiteBgView class] forDecorationViewOfKind:@"KFZShopCatorySectionWhiteBgView"];
+        [self.decorationViewAttrs removeAllObjects];
+        for (NSInteger section = 0; section < sections; section++) {
+           NSInteger numberOfItems = [self.collectionView numberOfItemsInSection:section];
+            if (numberOfItems > 0) {
+                UICollectionViewLayoutAttributes *firstAttr = [self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:0
+                                                                                                                          inSection:section]];
+                UICollectionViewLayoutAttributes *lastAttr = [self layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:(numberOfItems - 1)
+                                                                                                                         inSection:section]];
+                UIEdgeInsets sectionInset = self.sectionInset;
+                if ([delegate respondsToSelector:@selector(collectionView:layout:insetForSectionAtIndex:)]) {
+                    UIEdgeInsets inset = [delegate collectionView:self.collectionView
+                                                           layout:self
+                                           insetForSectionAtIndex:section];
+                    if (!UIEdgeInsetsEqualToEdgeInsets(inset, sectionInset)) {
+                        sectionInset = inset;
+                    }
+                }
+                CGSize sectionHeaderSize;
+                if ([delegate respondsToSelector:@selector(collectionView:layout:referenceSizeForHeaderInSection:)]) {
+                    sectionHeaderSize = [delegate collectionView:self.collectionView
+                                                          layout:self
+                                 referenceSizeForHeaderInSection:section];
+                }
+                if (section == 0) {
+                    sectionHeaderSize.height = 0;
+                }
+                CGRect sectionFrame = CGRectUnion(firstAttr.frame, lastAttr.frame);
+                sectionFrame.origin.y += self.offsetY;
+                sectionFrame.size.height += self.offsetHeight;
+                sectionFrame.origin.x += self.offsetX;
+                sectionFrame.size.width += self.offsetWidth;
+                for (NSNumber *affectedIdx in self.affectedSectionsMutArr) {
+                    if (affectedIdx.integerValue == section) {
+                        //2. 定义
+                        UICollectionViewLayoutAttributes *attr = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:@"KFZShopCatorySectionWhiteBgView"
+                                                                                                                             withIndexPath:[NSIndexPath indexPathForRow:0
+                                                                                                                                                              inSection:section]];
+                        attr.byFrame(sectionFrame);
+                        attr.byZIndex(-1);
+                        [self.decorationViewAttrs addObject:attr];
+                    }else{
+                        continue;
+                    }
+                }
+            }else{
+                continue ;
+            }
+        }
+    };
 }
 
 - (NSArray<UICollectionViewLayoutAttributes *> *)layoutAttributesForElementsInRect:(CGRect)rect{
-    NSMutableArray * attrs = [[super layoutAttributesForElementsInRect:rect] mutableCopy];
-    for (UICollectionViewLayoutAttributes *attr in self.decorationViewAttrs) {
-        if (CGRectIntersectsRect(rect, attr.frame)) {
-            [attrs addObject:attr];
-        }
-    };return [attrs copy];
+    JobsRetNSArrayUICollectionViewLayoutAttributesByCGRectBlock action = ((JobsRetNSArrayUICollectionViewLayoutAttributesByCGRectBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(KFZShopCatoryFlowLayput.class, @selector(jobsLayoutAttributesForElementsInRect)))(self, @selector(jobsLayoutAttributesForElementsInRect));
+    return action ? action(rect) : nil;
+}
+
+-(JobsRetNSArrayUICollectionViewLayoutAttributesByCGRectBlock _Nonnull)jobsLayoutAttributesForElementsInRect{
+    @jobs_weakify(self)
+    return ^NSArray<UICollectionViewLayoutAttributes *> *(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSMutableArray * attrs = [[super layoutAttributesForElementsInRect:rect] mutableCopy];
+        for (UICollectionViewLayoutAttributes *attr in self.decorationViewAttrs) {
+            if (CGRectIntersectsRect(rect, attr.frame)) {
+                [attrs addObject:attr];
+            }
+        };return [attrs copy];
+    };
 }
 #pragma mark —— lazyLoad
 - (NSMutableArray<UICollectionViewLayoutAttributes *> *)decorationViewAttrs{

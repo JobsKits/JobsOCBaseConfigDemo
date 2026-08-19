@@ -28,6 +28,8 @@ WKNavigationDelegate
 ,WKScriptMessageHandler
 >
 
+-(JobsRetJobsNavBarWebVCByStrBlock _Nonnull)byURL;
+
 @end
 
 NS_ASSUME_NONNULL_END

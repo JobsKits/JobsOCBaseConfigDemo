@@ -8,13 +8,14 @@
 #import <UIKit/UIKit.h>
 #import "JobsTheme.h"
 
+#ifndef MacroDef_Cor_h
+
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
 #else
 #import "XYColorOC.h"
 #endif
 
-#ifndef MacroDef_Cor_h
 #define MacroDef_Cor_h
 #pragma mark —— XYColorOC.常见颜色
 /* lightTextColor is always light, and darkTextColor is always dark, regardless of the current UIUserInterfaceStyle.
@@ -324,6 +325,7 @@ alpha:1]
 #endif
 
 #pragma mark —— 颜色透明度
+
 NS_INLINE UIColor *_Nullable JobsColorWithAlpha(UIColor *_Nullable color, CGFloat alpha){
     return [color colorWithAlphaComponent:alpha];
 }

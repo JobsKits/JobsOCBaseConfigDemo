@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UISegmentedControl (DSL)
 
--(NSInteger)jobs_selectedSegmentIndex;
+-(JobsRetNSIntegerByVoidBlock _Nonnull)jobs_selectedSegmentIndex;
 -(JobsRetSegmentedControlByNSIntegerBlock _Nonnull)bySelectedSegmentIndex;
 -(JobsRetSegmentedControlByBOOLBlock _Nonnull)byMomentary;
 -(JobsRetSegmentedControlByBOOLBlock _Nonnull)byApportionsSegmentWidthsByContent;

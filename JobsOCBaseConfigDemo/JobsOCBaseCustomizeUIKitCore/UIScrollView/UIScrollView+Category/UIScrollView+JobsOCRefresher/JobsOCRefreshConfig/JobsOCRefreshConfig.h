@@ -55,12 +55,37 @@ Prop_copy(nullable) NSString *soundName;
 Prop_copy(nullable) NSArray<NSString *> *frameImageNames;
 Prop_strong(nullable) id<JobsRefreshAnimatorProtocol> animator;
 
-+ (instancetype)defaultHeaderConfig;
-+ (instancetype)defaultFooterConfig;
-+ (instancetype)defaultLeftConfigWithMode:(JobsOCRefreshHorizontalMode)mode;
-+ (instancetype)defaultRightConfigWithMode:(JobsOCRefreshHorizontalMode)mode;
-- (NSString *)readyTextForRole:(JobsOCRefreshRole)role;
-- (NSString *)refreshingTextForRole:(JobsOCRefreshRole)role;
+-(JobsRetJobsOCRefreshConfigByCGFloatBlock _Nonnull)byTriggerDistance;
+-(JobsRetJobsOCRefreshConfigByCGFloatBlock _Nonnull)byViewLength;
+-(JobsRetJobsOCRefreshConfigByBOOLBlock _Nonnull)byShowsInfo;
+-(JobsRetJobsOCRefreshConfigByBOOLBlock _Nonnull)byShowsText;
+-(JobsRetJobsOCRefreshConfigByBOOLBlock _Nonnull)byEnablesHaptics;
+-(JobsRetJobsOCRefreshConfigByHorizontalModeBlock _Nonnull)byHorizontalMode;
+-(JobsRetJobsOCRefreshConfigByAnimationTypeBlock _Nonnull)byAnimationType;
+-(JobsRetJobsOCRefreshConfigByTimeIntervalBlock _Nonnull)byFrameImageInterval;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byIdleText;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byPullingText;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byReadyRefreshText;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byReadyLoadMoreText;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byRefreshingText;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byLoadingMoreText;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byFailedText;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byDisabledText;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byNoMoreDataText;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byLastRefreshPrefix;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byLottieName;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byGifName;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byNetworkImageURLString;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)bySoundName;
+-(JobsRetJobsOCRefreshConfigByArrBlock _Nonnull)byFrameImageNames;
+-(JobsRetJobsOCRefreshConfigByIDBlock _Nonnull)byAnimator;
+
++ (JobsRetIDByVoidBlock _Nonnull)defaultHeaderConfig;
++ (JobsRetIDByVoidBlock _Nonnull)defaultFooterConfig;
++(JobsRetIDByJobsOCRefreshHorizontalModeBlock _Nonnull)defaultLeftConfigWithMode;
++(JobsRetIDByJobsOCRefreshHorizontalModeBlock _Nonnull)defaultRightConfigWithMode;
+-(JobsRetNSStringByJobsOCRefreshRoleBlock _Nonnull)readyTextForRole;
+-(JobsRetNSStringByJobsOCRefreshRoleBlock _Nonnull)refreshingTextForRole;
 
 @end
 

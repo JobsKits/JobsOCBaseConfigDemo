@@ -9,17 +9,27 @@
 #define JOBS_HEADER_GUARD_ZFIJKPLAYERMANAGER_ZFPLAYEREXTRADSL_C79D275D02
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <TargetConditionals.h>
 
 #if !TARGET_OS_SIMULATOR && __has_include(<IJKMediaFramework/IJKMediaFramework.h>) && __has_include(<ZFPlayer/ZFIJKPlayerManager.h>)
+#define JOBS_ZFPLAYER_EXTRA_HAS_IJK_MANAGER 1
 #import <ZFPlayer/ZFIJKPlayerManager.h>
 #elif !TARGET_OS_SIMULATOR && __has_include(<IJKMediaFramework/IJKMediaFramework.h>) && __has_include("ZFIJKPlayerManager.h")
+#define JOBS_ZFPLAYER_EXTRA_HAS_IJK_MANAGER 1
 #import "ZFIJKPlayerManager.h"
+#else
+#define JOBS_ZFPLAYER_EXTRA_HAS_IJK_MANAGER 0
 #endif
 
 #import "JobsDefines.h"
 
-#if !TARGET_OS_SIMULATOR && __has_include(<IJKMediaFramework/IJKMediaFramework.h>) && (__has_include(<ZFPlayer/ZFIJKPlayerManager.h>) || __has_include("ZFIJKPlayerManager.h"))
+#if JOBS_ZFPLAYER_EXTRA_HAS_IJK_MANAGER
 NS_ASSUME_NONNULL_BEGIN
 
 typedef __kindof ZFIJKPlayerManager *_Nullable(^JobsRetZFIJKPlayerManagerByURLBlock)(NSURL *_Nullable data);
@@ -53,12 +63,12 @@ typedef __kindof ZFIJKPlayerManager *_Nullable(^JobsRetZFIJKPlayerManagerByTimeI
 -(JobsRetZFIJKPlayerManagerByCGSizeBlock _Nonnull)byPresentationSize;
 -(JobsRetZFIJKPlayerManagerByTimeIntervalBlock _Nonnull)byTimeRefreshInterval;
 
--(__kindof ZFIJKPlayerManager *_Nonnull)byPrepareToPlay;
--(__kindof ZFIJKPlayerManager *_Nonnull)byReloadPlayer;
--(__kindof ZFIJKPlayerManager *_Nonnull)byPlay;
--(__kindof ZFIJKPlayerManager *_Nonnull)byPause;
--(__kindof ZFIJKPlayerManager *_Nonnull)byReplay;
--(__kindof ZFIJKPlayerManager *_Nonnull)byStop;
+-(JobsRetZFIJKPlayerManagerByVoidBlock _Nonnull)byPrepareToPlay;
+-(JobsRetZFIJKPlayerManagerByVoidBlock _Nonnull)byReloadPlayer;
+-(JobsRetZFIJKPlayerManagerByVoidBlock _Nonnull)byPlay;
+-(JobsRetZFIJKPlayerManagerByVoidBlock _Nonnull)byPause;
+-(JobsRetZFIJKPlayerManagerByVoidBlock _Nonnull)byReplay;
+-(JobsRetZFIJKPlayerManagerByVoidBlock _Nonnull)byStop;
 -(JobsRetZFIJKPlayerManagerByImageBlock _Nonnull)byThumbnailImageAtCurrentTime;
 
 -(JobsRetZFIJKPlayerManagerByMediaURLBlock _Nonnull)onPrepareToPlay;
@@ -71,6 +81,17 @@ typedef __kindof ZFIJKPlayerManager *_Nullable(^JobsRetZFIJKPlayerManagerByTimeI
 -(JobsRetZFIJKPlayerManagerByMediaBlock _Nonnull)onPlayDidEnd;
 -(JobsRetZFIJKPlayerManagerByPresentationSizeBlock _Nonnull)onPresentationSizeChanged;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN ZFIJKPlayerManager
+-(JobsRetZFIJKPlayerManagerByvoidIDZFPlayerMediaPlaybackassetBlock _Nonnull)byPlayerDidToEnd;
+-(JobsRetZFIJKPlayerManagerByvoidIDZFPlayerMediaPlaybackassetCGSizesizeBlock _Nonnull)byPresentationSizeChanged;
+-(JobsRetZFIJKPlayerManagerByvoidIDZFPlayerMediaPlaybackassetNSTimeIntervalbufferTimeBlock _Nonnull)byPlayerBufferTimeChanged;
+-(JobsRetZFIJKPlayerManagerByvoidIDZFPlayerMediaPlaybackassetNSTimeIntervalcurrentTimebff1d962bBlock _Nonnull)byPlayerPlayTimeChanged;
+-(JobsRetZFIJKPlayerManagerByvoidIDZFPlayerMediaPlaybackassetNSURLassetURLBlock _Nonnull)byPlayerPrepareToPlay;
+-(JobsRetZFIJKPlayerManagerByvoidIDZFPlayerMediaPlaybackassetNSURLassetURLBlock _Nonnull)byPlayerReadyToPlay;
+-(JobsRetZFIJKPlayerManagerByvoidIDZFPlayerMediaPlaybackassetZFPlayerLoadStateloadStateBlock _Nonnull)byPlayerLoadStateChanged;
+-(JobsRetZFIJKPlayerManagerByvoidIDZFPlayerMediaPlaybackassetZFPlayerPlaybackStateplayStateBlock _Nonnull)byPlayerPlayStateChanged;
+-(JobsRetZFIJKPlayerManagerByvoidIDZFPlayerMediaPlaybackassetiderrorBlock _Nonnull)byPlayerPlayFailed;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END ZFIJKPlayerManager
 @end
 
 NS_ASSUME_NONNULL_END

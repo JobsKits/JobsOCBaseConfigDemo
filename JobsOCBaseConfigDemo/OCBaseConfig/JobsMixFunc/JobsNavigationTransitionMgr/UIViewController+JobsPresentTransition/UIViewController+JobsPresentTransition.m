@@ -8,10 +8,15 @@
 #import "UIViewController+JobsPresentTransition.h"
 
 @implementation UIViewController (JobsPresentTransition)
--(JobsPresentTransitionMgr *)jobs_presentViewController:(UIViewController *)presentedViewController{
-    return [self jobs_presentViewController:presentedViewController
-                                  configure:nil
-                                 completion:nil];
+-(JobsRetJobsPresentTransitionMgrByUIViewControllerBlock _Nonnull)jobs_presentViewController{
+    @jobs_weakify(self)
+    return ^JobsPresentTransitionMgr *(UIViewController * presentedViewController){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self jobs_presentViewController:presentedViewController
+                                      configure:nil
+                                     completion:nil];
+    };
 }
 
 -(JobsPresentTransitionMgr *)jobs_presentViewController:(UIViewController *)presentedViewController

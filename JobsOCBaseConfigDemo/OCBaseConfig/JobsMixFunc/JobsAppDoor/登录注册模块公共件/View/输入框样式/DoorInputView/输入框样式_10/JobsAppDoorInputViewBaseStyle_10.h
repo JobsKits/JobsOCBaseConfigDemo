@@ -6,18 +6,25 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_10_010EC3A340
-#define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_10_010EC3A340
-
-#import <UIKit/UIKit.h>
-#import "JobsAppDoorConfig.h"
-#import "JobsAppDoorInputViewHeader.h"
-#import "JobsAppDoorInputViewBaseStyle.h"
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
 #import "Masonry.h"
 #endif
+
+#define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_10_010EC3A340
+
+#import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+#import "JobsAppDoorConfig.h"
+#import "JobsAppDoorInputViewHeader.h"
+#import "JobsAppDoorInputViewBaseStyle.h"
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import "JobsOCDSL.h"
@@ -81,6 +88,9 @@ NS_ASSUME_NONNULL_BEGIN
  - (instancetype)new NS_UNAVAILABLE;
  
  */
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorInputViewBaseStyle_10
+-(JobsRetJobsAppDoorInputViewBaseStyle_10ByJobsAppDoorInputViewBaseStyleModelBlock _Nonnull)byDoorInputViewBaseStyleModel;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_10
 @end
 
 NS_ASSUME_NONNULL_END
@@ -102,18 +112,18 @@ NS_ASSUME_NONNULL_END
                          
                          JobsBaseTableViewCell *cell00 = [self.tableView cellForRowAtIndexPath:[self myIndexPath:(JobsIndexPath){0,0}]];
                          if (self->OK) {
-                             cell00.textLabel.byText(@"输入金额已超过可取款金额".tr);
+                             cell00.textLabel.byText(@"输入金额已超过可取款金额".jobsTr());
 
-                             cell00.detailTextLabel.byText(@"".tr);
+                             cell00.detailTextLabel.byText(@"".jobsTr());
 
-                             self.tbvCellTipsLab.byText(@"".tr);
+                             self.tbvCellTipsLab.byText(@"".jobsTr());
 
                          }else{
                              cell00.textLabel.byText(self.dataMutArr[0].textModel.text);
 
                              cell00.detailTextLabel.byText(self.viewModel.amount);
 
-                             self.tbvCellTipsLab.byText(@"USDT".tr);
+                             self.tbvCellTipsLab.byText(@"USDT".jobsTr());
 
                          }
                      }
@@ -141,8 +151,8 @@ NS_ASSUME_NONNULL_END
          if (!_配置金额输入框) {
              _配置金额输入框 = JobsAppDoorInputViewBaseStyleModel.new;
      //        _配置金额输入框.leftViewIMG = @"安全".img;
-             _配置金额输入框.textModel.text = @"最大金额".tr;
-             _配置金额输入框.placeHolderStr = @"請輸入取款金額".tr;
+             _配置金额输入框.textModel.text = @"最大金额".jobsTr();
+             _配置金额输入框.placeHolderStr = @"請輸入取款金額".jobsTr();
              _配置金额输入框.placeholderFont = UIFontWeightRegularSize(14);
              _配置金额输入框.isShowDelBtn = YES;
              _配置金额输入框.isShowSecurityBtn = NO;

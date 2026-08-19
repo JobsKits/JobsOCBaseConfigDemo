@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import "JobsDefines.h"
 #else
@@ -41,18 +47,25 @@ Prop_assign()NSUInteger mixedGroupCount;
 Prop_copy(nullable)NSArray<NSString *> *customCharacters;
 Prop_copy(nullable)NSArray<NSArray<NSString *> *> *customCharacterGroups;
 
-+(instancetype)defaultConfig;
-+(instancetype)numberConfig;
-+(instancetype)chineseConfig;
-+(instancetype)simplifiedChineseConfig;
-+(instancetype)traditionalChineseConfig;
-+(instancetype)letterCaseSensitiveConfig;
-+(instancetype)letterCaseInsensitiveConfig;
-+(instancetype)mixedConfig;
-+(instancetype)twoMixedConfig;
-+(instancetype)threeMixedConfig;
-+(instancetype)fourMixedConfig;
-+(instancetype)fullMixedConfig;
+-(JobsRetJobsOCGraphicCaptchaConfigByUIntegerBlock _Nonnull)byLength;
+-(JobsRetJobsOCGraphicCaptchaConfigByBOOLBlock _Nonnull)byCaseSensitive;
+-(JobsRetJobsOCGraphicCaptchaConfigByUIntegerBlock _Nonnull)byCharacterUnits;
+-(JobsRetJobsOCGraphicCaptchaConfigByUIntegerBlock _Nonnull)byMixedGroupCount;
+-(JobsRetJobsOCGraphicCaptchaConfigByArrBlock _Nonnull)byCustomCharacters;
+-(JobsRetJobsOCGraphicCaptchaConfigByArrBlock _Nonnull)byCustomCharacterGroups;
+
++(JobsRetJobsOCGraphicCaptchaConfigByVoidBlock _Nonnull)defaultConfig;
++(JobsRetJobsOCGraphicCaptchaConfigByVoidBlock _Nonnull)numberConfig;
++(JobsRetJobsOCGraphicCaptchaConfigByVoidBlock _Nonnull)chineseConfig;
++(JobsRetJobsOCGraphicCaptchaConfigByVoidBlock _Nonnull)simplifiedChineseConfig;
++(JobsRetJobsOCGraphicCaptchaConfigByVoidBlock _Nonnull)traditionalChineseConfig;
++(JobsRetJobsOCGraphicCaptchaConfigByVoidBlock _Nonnull)letterCaseSensitiveConfig;
++(JobsRetJobsOCGraphicCaptchaConfigByVoidBlock _Nonnull)letterCaseInsensitiveConfig;
++(JobsRetJobsOCGraphicCaptchaConfigByVoidBlock _Nonnull)mixedConfig;
++(JobsRetJobsOCGraphicCaptchaConfigByVoidBlock _Nonnull)twoMixedConfig;
++(JobsRetJobsOCGraphicCaptchaConfigByVoidBlock _Nonnull)threeMixedConfig;
++(JobsRetJobsOCGraphicCaptchaConfigByVoidBlock _Nonnull)fourMixedConfig;
++(JobsRetJobsOCGraphicCaptchaConfigByVoidBlock _Nonnull)fullMixedConfig;
 
 @end
 

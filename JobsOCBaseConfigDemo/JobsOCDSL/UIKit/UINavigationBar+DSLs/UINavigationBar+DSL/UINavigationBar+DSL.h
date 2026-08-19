@@ -9,6 +9,7 @@
 #define JOBS_HEADER_GUARD_UINAVIGATIONBAR_DSL_D3B8916A42
 
 #import <UIKit/UIKit.h>
+#import "UIBarAppearance+DSL.h"
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>

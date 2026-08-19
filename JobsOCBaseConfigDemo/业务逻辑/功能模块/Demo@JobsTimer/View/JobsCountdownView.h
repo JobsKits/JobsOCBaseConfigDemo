@@ -47,8 +47,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsCountdownView : BaseView
 
--(void)refreshData;
+-(jobsByVoidBlock _Nonnull)refreshData;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsCountdownView
+-(JobsRetJobsCountdownViewByNSMutableArrayJobsRichTextConfigBlock _Nonnull)byRichTextConfigMutArr;
+-(JobsRetJobsCountdownViewByNSMutableArrayNSStringBlock _Nonnull)byRichTextMutArr;
+-(JobsRetJobsCountdownViewByNSStringBlock _Nonnull)byMinutesStr;
+-(JobsRetJobsCountdownViewByNSStringBlock _Nonnull)bySecondStr;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsCountdownView
 @end
 
 NS_ASSUME_NONNULL_END

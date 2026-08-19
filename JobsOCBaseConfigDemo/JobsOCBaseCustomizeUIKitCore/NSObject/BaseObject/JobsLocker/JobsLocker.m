@@ -29,7 +29,7 @@ Prop_assign(readwrite)JobsLockerType type;
         switch (type) {
             /// 处理 JobsLockerTypeNSLock 分支
             case JobsLockerTypeNSLock: {
-                _normalLock = [[NSLock alloc] init];
+                _normalLock = jobsMakeLock(^(NSLock *object){});
             } break;
             /// 处理 JobsLockerTypeRecursiveLock 分支
             case JobsLockerTypeRecursiveLock: {
@@ -68,48 +68,64 @@ Prop_assign(readwrite)JobsLockerType type;
     return [[self alloc] initWithType:JobsLockerTypeRecursiveLock];
 }
 
-+ (instancetype)pthreadLock {
-    return [[self alloc] initWithType:JobsLockerTypePThreadMutex];
++ (JobsRetIDByVoidBlock _Nonnull)pthreadLock {
+    return ^id{
+        return [[self alloc] initWithType:JobsLockerTypePThreadMutex];
+    };
 }
 
-+ (instancetype)unfairLock {
-    return [[self alloc] initWithType:JobsLockerTypeUnfairLock];
++ (JobsRetIDByVoidBlock _Nonnull)unfairLock {
+    return ^id{
+        return [[self alloc] initWithType:JobsLockerTypeUnfairLock];
+    };
 }
 
-+ (instancetype)semaphoreLock {
-    return [[self alloc] initWithType:JobsLockerTypeSemaphore];
++ (JobsRetIDByVoidBlock _Nonnull)semaphoreLock {
+    return ^id{
+        return [[self alloc] initWithType:JobsLockerTypeSemaphore];
+    };
 }
 
 #pragma mark —— Public
 
-- (void)withLock:(NS_NOESCAPE dispatch_block_t)block {
-    if (!block) return;
-    [self lock];
-    @try {
-        block();
-    } @finally {
-        [self unlock];
-    }
+-(jobsBydispatch_block_tBlock _Nonnull)withLock{
+    @jobs_weakify(self)
+    return ^(NS_NOESCAPE dispatch_block_t block){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (!block) return;
+        [self lock];
+        @try {
+            block();
+        } @finally {
+            [self unlock]();
+        }
+    };
 }
 
-- (BOOL)tryLock {
-    switch (self.type) {
-        /// 处理 JobsLockerTypeNSLock 分支
-        case JobsLockerTypeNSLock:
-            return [self.normalLock tryLock];
-        /// 处理 JobsLockerTypeRecursiveLock 分支
-        case JobsLockerTypeRecursiveLock:
-            return [self.recursiveLockInternal tryLock];
-        /// 处理 JobsLockerTypePThreadMutex 分支
-        case JobsLockerTypePThreadMutex:
-            return pthread_mutex_trylock(&_pthreadMutex) == 0;
-        /// 处理 JobsLockerTypeUnfairLock 分支
-        case JobsLockerTypeUnfairLock:
-            return os_unfair_lock_trylock(&_unfairLock);
-        /// 处理 JobsLockerTypeSemaphore 分支
-        case JobsLockerTypeSemaphore:
-            return dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_NOW) == 0;
-    }
+- (JobsRetBOOLByVoidBlock _Nonnull)tryLock {
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        switch (self.type) {
+            /// 处理 JobsLockerTypeNSLock 分支
+            case JobsLockerTypeNSLock:
+                return [self.normalLock tryLock];
+            /// 处理 JobsLockerTypeRecursiveLock 分支
+            case JobsLockerTypeRecursiveLock:
+                return [self.recursiveLockInternal tryLock];
+            /// 处理 JobsLockerTypePThreadMutex 分支
+            case JobsLockerTypePThreadMutex:
+                return pthread_mutex_trylock(&_pthreadMutex) == 0;
+            /// 处理 JobsLockerTypeUnfairLock 分支
+            case JobsLockerTypeUnfairLock:
+                return os_unfair_lock_trylock(&_unfairLock);
+            /// 处理 JobsLockerTypeSemaphore 分支
+            case JobsLockerTypeSemaphore:
+                return dispatch_semaphore_wait(_semaphore, DISPATCH_TIME_NOW) == 0;
+        }
+    };
 }
 
 - (void)lock {
@@ -137,29 +153,34 @@ Prop_assign(readwrite)JobsLockerType type;
     }
 }
 
-- (void)unlock {
-    switch (self.type) {
-        /// 处理 JobsLockerTypeNSLock 分支
-        case JobsLockerTypeNSLock:
-            [self.normalLock unlock];
-            break;
-        /// 处理 JobsLockerTypeRecursiveLock 分支
-        case JobsLockerTypeRecursiveLock:
-            [self.recursiveLockInternal unlock];
-            break;
-        /// 处理 JobsLockerTypePThreadMutex 分支
-        case JobsLockerTypePThreadMutex:
-            pthread_mutex_unlock(&_pthreadMutex);
-            break;
-        /// 处理 JobsLockerTypeUnfairLock 分支
-        case JobsLockerTypeUnfairLock:
-            os_unfair_lock_unlock(&_unfairLock);
-            break;
-        /// 处理 JobsLockerTypeSemaphore 分支
-        case JobsLockerTypeSemaphore:
-            dispatch_semaphore_signal(_semaphore);
-            break;
-    }
+- (jobsByVoidBlock _Nonnull)unlock {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        switch (self.type) {
+            /// 处理 JobsLockerTypeNSLock 分支
+            case JobsLockerTypeNSLock:
+                [self.normalLock unlock];
+                break;
+            /// 处理 JobsLockerTypeRecursiveLock 分支
+            case JobsLockerTypeRecursiveLock:
+                [self.recursiveLockInternal unlock];
+                break;
+            /// 处理 JobsLockerTypePThreadMutex 分支
+            case JobsLockerTypePThreadMutex:
+                pthread_mutex_unlock(&_pthreadMutex);
+                break;
+            /// 处理 JobsLockerTypeUnfairLock 分支
+            case JobsLockerTypeUnfairLock:
+                os_unfair_lock_unlock(&_unfairLock);
+                break;
+            /// 处理 JobsLockerTypeSemaphore 分支
+            case JobsLockerTypeSemaphore:
+                dispatch_semaphore_signal(_semaphore);
+                break;
+        }
+    };
 }
 
 @end

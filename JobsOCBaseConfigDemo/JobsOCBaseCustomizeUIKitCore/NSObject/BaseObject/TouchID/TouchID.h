@@ -1,5 +1,18 @@
 
+//
+//  TouchID.h
+//  JobsOCBaseConfigDemo
+//
+//  Created by Jobs on 2017年7月19日，星期三.
+//
+
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <LocalAuthentication/LocalAuthentication.h>
 
 #ifndef TOUCHID_ENUMS_DEFINED
@@ -33,7 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_copy()void(^MyBlock_TouchID_Style_Details)(TouchID_Style_Details);
 Prop_copy()void(^MyBlock_TouchID_Success_Or_Error)(TouchID_Success_Or_Error);
 
-+(instancetype)Touch_ID;
++(JobsRetIDByVoidBlock _Nonnull)Touch_ID;
 
 @end
 

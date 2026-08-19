@@ -11,31 +11,41 @@ static NSString * const JobsOCSplashEnabledKey = @"JobsOCSplash.isEnabledForNext
 static NSString * const JobsOCSplashContentTypeKey = @"com.jobs.splash.contentTypeForNextLaunch";
 
 @implementation JobsOCSplashPreferences
-+(BOOL)isEnabledForNextLaunch {
-    if (![NSUserDefaults.standardUserDefaults objectForKey:JobsOCSplashEnabledKey]) return YES;
-    return [NSUserDefaults.standardUserDefaults boolForKey:JobsOCSplashEnabledKey];
++(JobsRetBOOLByVoidBlock _Nonnull)isEnabledForNextLaunch {
+    return ^BOOL{
+        if (![NSUserDefaults.standardUserDefaults objectForKey:JobsOCSplashEnabledKey]) return YES;
+        return [NSUserDefaults.standardUserDefaults boolForKey:JobsOCSplashEnabledKey];
+    };
 }
 
-+(void)setEnabledForNextLaunch:(BOOL)enabled {
-    [NSUserDefaults.standardUserDefaults setBool:enabled forKey:JobsOCSplashEnabledKey];
++(jobsByBOOLBlock _Nonnull)setEnabledForNextLaunch{
+    return ^(BOOL enabled){
+        [NSUserDefaults.standardUserDefaults setBool:enabled forKey:JobsOCSplashEnabledKey];
+    };
 }
 
-+(BOOL)toggleForNextLaunch {
-    BOOL enabled = !self.isEnabledForNextLaunch;
-    [self setEnabledForNextLaunch:enabled];
-    return enabled;
++(JobsRetBOOLByVoidBlock _Nonnull)toggleForNextLaunch {
+    return ^BOOL{
+        BOOL enabled = !self.isEnabledForNextLaunch();
+        self.setEnabledForNextLaunch(enabled);
+        return enabled;
+    };
 }
 
-+(JobsOCSplashContentType)contentTypeForNextLaunch {
-    NSInteger rawValue = [NSUserDefaults.standardUserDefaults integerForKey:JobsOCSplashContentTypeKey];
-    if (rawValue < JobsOCSplashContentTypeLocalImage || rawValue > JobsOCSplashContentTypeRemoteVideo) {
-        return JobsOCSplashContentTypeLocalImage;
-    };return (JobsOCSplashContentType)rawValue;
++(JobsRetJobsOCSplashContentTypeByVoidBlock _Nonnull)contentTypeForNextLaunch {
+    return ^JobsOCSplashContentType{
+        NSInteger rawValue = [NSUserDefaults.standardUserDefaults integerForKey:JobsOCSplashContentTypeKey];
+        if (rawValue < JobsOCSplashContentTypeLocalImage || rawValue > JobsOCSplashContentTypeRemoteVideo) {
+            return JobsOCSplashContentTypeLocalImage;
+        };return (JobsOCSplashContentType)rawValue;
+    };
 }
 
-+(void)setContentTypeForNextLaunch:(JobsOCSplashContentType)contentType {
-    [NSUserDefaults.standardUserDefaults setInteger:contentType
-                                             forKey:JobsOCSplashContentTypeKey];
++(jobsByJobsOCSplashContentTypeBlock _Nonnull)setContentTypeForNextLaunch{
+    return ^(JobsOCSplashContentType contentType){
+        [NSUserDefaults.standardUserDefaults setInteger:contentType
+                                                 forKey:JobsOCSplashContentTypeKey];
+    };
 }
 
 @end

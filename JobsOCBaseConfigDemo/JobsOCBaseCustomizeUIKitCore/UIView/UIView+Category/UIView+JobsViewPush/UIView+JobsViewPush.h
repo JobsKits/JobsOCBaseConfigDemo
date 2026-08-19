@@ -23,6 +23,14 @@ typedef NS_ENUM(NSInteger, JobsViewPushDirection) {
     JobsViewPushDirectionRight
 };
 
+@class JobsViewPushConfiguration;
+typedef JobsViewPushConfiguration *_Nonnull(^JobsRetJobsViewPushConfigurationByVoidBlock)(void);
+typedef JobsViewPushConfiguration *_Nonnull(^JobsRetJobsViewPushConfigurationByJobsViewPushDirectionBlock)(JobsViewPushDirection);
+typedef JobsViewPushConfiguration *_Nonnull(^JobsRetJobsViewPushConfigurationByCGFloatBlock)(CGFloat);
+typedef JobsViewPushConfiguration *_Nonnull(^JobsRetJobsViewPushConfigurationByNSTimeIntervalBlock)(NSTimeInterval);
+typedef JobsViewPushConfiguration *_Nonnull(^JobsRetJobsViewPushConfigurationByBOOLBlock)(BOOL);
+typedef JobsViewPushConfiguration *_Nonnull(^JobsRetJobsViewPushConfigurationByUIColorBlock)(UIColor *);
+
 @interface JobsViewPushConfiguration : NSObject <NSCopying>
 
 Prop_assign()JobsViewPushDirection direction;
@@ -32,13 +40,13 @@ Prop_assign()BOOL allowsInteractiveDismiss;
 Prop_assign()BOOL dismissOnBackgroundTap;
 Prop_strong()UIColor *backgroundColor;
 
-+(instancetype)defaultConfiguration;
--(instancetype)byDirection:(JobsViewPushDirection)direction;
--(instancetype)byPresentedRatio:(CGFloat)presentedRatio;
--(instancetype)byAnimationDuration:(NSTimeInterval)animationDuration;
--(instancetype)byAllowsInteractiveDismiss:(BOOL)allowsInteractiveDismiss;
--(instancetype)byDismissOnBackgroundTap:(BOOL)dismissOnBackgroundTap;
--(instancetype)byBackgroundColor:(UIColor *)backgroundColor;
++(JobsRetJobsViewPushConfigurationByVoidBlock _Nonnull)defaultConfiguration;
+-(JobsRetJobsViewPushConfigurationByJobsViewPushDirectionBlock _Nonnull)byDirection;
+-(JobsRetJobsViewPushConfigurationByCGFloatBlock _Nonnull)byPresentedRatio;
+-(JobsRetJobsViewPushConfigurationByNSTimeIntervalBlock _Nonnull)byAnimationDuration;
+-(JobsRetJobsViewPushConfigurationByBOOLBlock _Nonnull)byAllowsInteractiveDismiss;
+-(JobsRetJobsViewPushConfigurationByBOOLBlock _Nonnull)byDismissOnBackgroundTap;
+-(JobsRetJobsViewPushConfigurationByUIColorBlock _Nonnull)byBackgroundColor;
 
 @end
 
@@ -52,11 +60,16 @@ Prop_copy(nullable)JobsViewPushCompletionBlock onDismiss;
 -(void)dismissAnimated:(BOOL)animated
             completion:(nullable JobsViewPushCompletionBlock)completion;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsViewPushPresentation
+-(JobsRetJobsViewPushPresentationByBOOLBlock _Nonnull)byAnimatingTransition;
+-(JobsRetJobsViewPushPresentationByBOOLBlock _Nonnull)byPresented;
+-(JobsRetJobsViewPushPresentationByJobsViewPushTransitionViewBlock _Nonnull)byTransitionView;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsViewPushPresentation
 @end
 
 @interface UIView (JobsViewPush)
 
--(JobsViewPushPresentation *)jobsPushView:(UIView *)presentedView;
+-(JobsRetJobsViewPushPresentationByUIViewBlock _Nonnull)jobsPushView;
 -(JobsViewPushPresentation *)jobsPushView:(UIView *)presentedView
                             configuration:(nullable JobsViewPushConfiguration *)configuration
                                completion:(nullable JobsViewPushCompletionBlock)completion;

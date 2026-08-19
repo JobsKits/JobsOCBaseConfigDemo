@@ -6,6 +6,7 @@
 //
 
 #import "JobsHeaderFooterView.h"
+
 #import "UIButton+Extra.h"
 #import "UIButton+SimplyMake.h"
 
@@ -20,6 +21,24 @@ Prop_strong()UIViewModel *subTitleModel;
 
 @implementation JobsHeaderFooterView
 @synthesize titleModel = _titleModel;
+-(JobsRetJobsHeaderFooterViewByViewModelBlock _Nonnull)byTitleModel{
+    @jobs_weakify(self)
+    return ^__kindof JobsHeaderFooterView *_Nullable(UIViewModel *_Nullable titleModel){
+        @jobs_strongify(self)
+        [self setTitleModel:titleModel];
+        return self;
+    };
+}
+
+-(JobsRetJobsHeaderFooterViewByViewModelBlock _Nonnull)bySubTitleModel{
+    @jobs_weakify(self)
+    return ^__kindof JobsHeaderFooterView *_Nullable(UIViewModel *_Nullable subTitleModel){
+        @jobs_strongify(self)
+        [self setSubTitleModel:subTitleModel];
+        return self;
+    };
+}
+
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
     };return self;
@@ -36,31 +55,41 @@ Prop_strong()UIViewModel *subTitleModel;
     @jobs_weakify(self)
     return ^(id _Nullable model) {
         @jobs_strongify(self)
-        self.titleModel = nil;
-        self.subTitleModel = nil;
+        self.byTitleModel(nil);
+        self.bySubTitleModel(nil);
         if ([model isKindOfClass:NSArray.class]) {
             NSArray<UIViewModel *> *viewModels = (NSArray<UIViewModel *> *)model;
             if (viewModels.count) {
-                self.titleModel = viewModels[0];
+                self.byTitleModel(viewModels[0]);
             }
             if (viewModels.count >= 2) {
-                self.subTitleModel = viewModels[1];
+                self.bySubTitleModel(viewModels[1]);
             }
         } else if ([model isKindOfClass:UIViewModel.class]) {
-            self.titleModel = model;
+            self.byTitleModel(model);
         }
-        self.viewModel = self.titleModel;
-        if (self.titleModel || _titleBtn) self.titleBtn.alpha = self.titleModel ? 1 : 0;
-        if (self.subTitleModel || _subTitleBtn) self.subTitleBtn.alpha = self.subTitleModel ? 1 : 0;
+        self.byViewModel(self.titleModel);
+        if (self.titleModel || _titleBtn) self.titleBtn.byAlpha(self.titleModel ? 1 : 0);
+        if (self.subTitleModel || _subTitleBtn) self.subTitleBtn.byAlpha(self.subTitleModel ? 1 : 0);
     };
 }
 #pragma mark —— 一些公共方法
--(BaseButton *)getTitleBtn{
-    return self.titleBtn;
+-(JobsRetBaseButtonByVoidBlock _Nonnull)getTitleBtn{
+    @jobs_weakify(self)
+    return ^BaseButton *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.titleBtn;
+    };
 }
 
--(BaseButton *)getSubTitleBtn{
-    return self.subTitleBtn;
+-(JobsRetBaseButtonByVoidBlock _Nonnull)getSubTitleBtn{
+    @jobs_weakify(self)
+    return ^BaseButton *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.subTitleBtn;
+    };
 }
 #pragma mark —— lazyLoad
 -(BaseButton *)titleBtn{
@@ -74,10 +103,10 @@ Prop_strong()UIViewModel *subTitleModel;
 //            .jobsResetBtnBgImage(@"APPLY NOW".img)
 //            .jobsResetBtnTitleCor(JobsWhiteColor)
 //            .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-//            .jobsResetBtnTitle(@"APPLY NOW".tr)
+//            .jobsResetBtnTitle(@"APPLY NOW".jobsTr())
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
@@ -124,10 +153,10 @@ Prop_strong()UIViewModel *subTitleModel;
 //            .jobsResetBtnBgImage(@"APPLY NOW".img)
 //            .jobsResetBtnTitleCor(JobsWhiteColor)
 //            .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-//            .jobsResetBtnTitle(@"APPLY NOW".tr)
+//            .jobsResetBtnTitle(@"APPLY NOW".jobsTr())
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                x.selected = !x.selected;
+                x.bySelected(!x.selected);
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");

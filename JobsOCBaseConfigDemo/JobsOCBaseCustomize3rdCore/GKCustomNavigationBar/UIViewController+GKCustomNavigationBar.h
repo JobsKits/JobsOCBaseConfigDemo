@@ -6,10 +6,12 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIVIEWCONTROLLER_GKCUSTOMNAVIGATIONBAR_9379508809
-#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_GKCUSTOMNAVIGATIONBAR_9379508809
 
-#import <objc/runtime.h>
-#import <UIKit/UIKit.h>
+#if __has_include(<GKNavigationBar/GKNavigationBar.h>)
+#import <GKNavigationBar/GKNavigationBar.h>
+#else
+#import "GKNavigationBar.h"
+#endif
 
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
@@ -17,11 +19,10 @@
 #import "Masonry.h"
 #endif
 
-#if __has_include(<GKNavigationBar/GKNavigationBar.h>)
-#import <GKNavigationBar/GKNavigationBar.h>
-#else
-#import "GKNavigationBar.h"
-#endif
+#define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_GKCUSTOMNAVIGATIONBAR_9379508809
+
+#import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 
 #import "JobsModelDSL.h"
 #import "JobsBaseUI.h"

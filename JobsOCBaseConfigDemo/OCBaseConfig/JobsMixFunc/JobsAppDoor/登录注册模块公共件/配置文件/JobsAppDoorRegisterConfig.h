@@ -10,6 +10,12 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsAppDoor/JobsAppDoorGraphicCaptchaConfig.h>)
 #import "JobsAppDoorGraphicCaptchaConfig.h"
 #else
@@ -33,9 +39,14 @@ Prop_assign()BOOL showsMobileBinding;
 Prop_assign()BOOL showsGraphicCaptcha;
 Prop_strong()JobsAppDoorGraphicCaptchaConfig *graphicCaptchaConfig;
 
-+(instancetype)basicConfig;
-+(instancetype)fullConfig;
++(JobsRetIDByVoidBlock _Nonnull)basicConfig;
++(JobsRetIDByVoidBlock _Nonnull)fullConfig;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorRegisterConfig
+-(JobsRetJobsAppDoorRegisterConfigByBOOLBlock _Nonnull)byShowsGraphicCaptcha;
+-(JobsRetJobsAppDoorRegisterConfigByBOOLBlock _Nonnull)byShowsMobileBinding;
+-(JobsRetJobsAppDoorRegisterConfigByJobsAppDoorGraphicCaptchaConfigBlock _Nonnull)byGraphicCaptchaConfig;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorRegisterConfig
 @end
 
 NS_ASSUME_NONNULL_END

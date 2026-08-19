@@ -6,6 +6,13 @@
 //
 
 #ifndef MJRefreshExtra_h
+
+#if __has_include(<MJRefresh/MJRefresh.h>)
+#import <MJRefresh/MJRefresh.h>
+#else
+#import "MJRefresh.h"
+#endif
+
 #define MJRefreshExtra_h
 
 #import "MJRefreshGifHeader+Extra.h"
@@ -16,12 +23,6 @@
 #import "MJRefreshBackGifFooter+Extra.h"
 #import "LOTAnimationMJRefreshHeader.h"
 #import "LOTAnimationMJRefreshFooter.h"
-
-#if __has_include(<MJRefresh/MJRefresh.h>)
-#import <MJRefresh/MJRefresh.h>
-#else
-#import "MJRefresh.h"
-#endif
 
 #import "JobsBaseProtocolHeader.h"
 

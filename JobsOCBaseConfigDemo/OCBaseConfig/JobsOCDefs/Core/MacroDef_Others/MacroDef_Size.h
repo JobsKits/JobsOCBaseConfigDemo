@@ -9,6 +9,12 @@
 #define MacroDef_Size_h
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "UIDevice+XMUtils.h"
 #import "MacroDef_Func.h"
 #import "MacroDef_SysWarning.h"
@@ -16,6 +22,10 @@
 #import "JobsDefineEnums.h" // 此文件用来存储记录全局的一些枚举
 #import "JobsDefineStructs.h" // 此文件用来存储记录全局的一些结构体
 #import "JobsGetWindow.h"
+
+@interface UIDevice (JobsFullScreenBlockDeclaration)
++ (JobsRetBOOLByVoidBlock _Nonnull)jobsIsFullScreen;
+@end
 
 /// 资料来源：
 /// https://tommygirl.cn/2022/09/15/iPhone_dev_size/
@@ -184,7 +194,7 @@ NS_INLINE iPhScrPxType iPhScrPx(void) {
 }
 /// 判断当前设备是否是全面屏
 NS_INLINE BOOL isFullScreen(void){
-    return UIDevice.isFullScreen;
+    return UIDevice.jobsIsFullScreen();
 }
 #pragma mark —— APP桌面Logo图片尺寸
 /**
@@ -461,7 +471,7 @@ NS_INLINE CGFloat JobsStatusBarHeightByAppleIncData(void) {
             return 59; // 假设 iPhone 16 Pro 系列继续沿用59高度
         }
         // 其他未来设备，默认返回全面屏或非全面屏高度
-        return UIDevice.isFullScreen ? 44 : 20;
+        return UIDevice.jobsIsFullScreen() ? 44 : 20;
     }
 }
 /// 方法二：状态栏高度

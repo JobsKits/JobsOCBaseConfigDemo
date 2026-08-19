@@ -6,6 +6,7 @@
 //
 
 #import "ZFAVPlayerManager+ZFPlayerExtraDSL.h"
+#import "ZFAVPlayerManager+DSL.h"
 
 @implementation ZFAVPlayerManager (ZFPlayerExtraDSL)
 -(JobsRetZFAVPlayerManagerByURLBlock _Nonnull)byAssetURL{
@@ -89,34 +90,60 @@
     };
 }
 
--(__kindof ZFAVPlayerManager *_Nonnull)byPrepareToPlay{
-    [self prepareToPlay];
-    return self;
+-(JobsRetZFAVPlayerManagerByVoidBlock _Nonnull)byPrepareToPlay{
+    @jobs_weakify(self)
+    return ^__kindof ZFAVPlayerManager *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self prepareToPlay];
+        return self;
+    };
 }
 
--(__kindof ZFAVPlayerManager *_Nonnull)byReloadPlayer{
-    [self reloadPlayer];
-    return self;
+-(JobsRetZFAVPlayerManagerByVoidBlock _Nonnull)byReloadPlayer{
+    @jobs_weakify(self)
+    return ^__kindof ZFAVPlayerManager *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self reloadPlayer];
+        return self;
+    };
 }
 
--(__kindof ZFAVPlayerManager *_Nonnull)byPlay{
-    [self play];
-    return self;
+-(JobsRetZFAVPlayerManagerByVoidBlock _Nonnull)byPlay{
+    @jobs_weakify(self)
+    return ^__kindof ZFAVPlayerManager *_Nullable{
+        @jobs_strongify(self)
+        [self play];
+        return self;
+    };
 }
 
--(__kindof ZFAVPlayerManager *_Nonnull)byPause{
-    [self pause];
-    return self;
+-(JobsRetZFAVPlayerManagerByVoidBlock _Nonnull)byPause{
+    @jobs_weakify(self)
+    return ^__kindof ZFAVPlayerManager *_Nullable{
+        @jobs_strongify(self)
+        [self pause];
+        return self;
+    };
 }
 
--(__kindof ZFAVPlayerManager *_Nonnull)byReplay{
-    [self replay];
-    return self;
+-(JobsRetZFAVPlayerManagerByVoidBlock _Nonnull)byReplay{
+    @jobs_weakify(self)
+    return ^__kindof ZFAVPlayerManager *_Nullable{
+        @jobs_strongify(self)
+        [self replay];
+        return self;
+    };
 }
 
--(__kindof ZFAVPlayerManager *_Nonnull)byStop{
-    [self stop];
-    return self;
+-(JobsRetZFAVPlayerManagerByVoidBlock _Nonnull)byStop{
+    @jobs_weakify(self)
+    return ^__kindof ZFAVPlayerManager *_Nullable{
+        @jobs_strongify(self)
+        [self stop];
+        return self;
+    };
 }
 
 -(JobsRetZFAVPlayerManagerByImageBlock _Nonnull)byThumbnailImageAtCurrentTime{
@@ -133,7 +160,7 @@
     @jobs_weakify(self)
     return ^__kindof ZFAVPlayerManager *_Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, NSURL *assetURL)){
         @jobs_strongify(self)
-        self.playerPrepareToPlay = data;
+        self.byPlayerPrepareToPlay(data);
         return self;
     };
 }
@@ -142,7 +169,7 @@
     @jobs_weakify(self)
     return ^__kindof ZFAVPlayerManager *_Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, NSURL *assetURL)){
         @jobs_strongify(self)
-        self.playerReadyToPlay = data;
+        self.byPlayerReadyToPlay(data);
         return self;
     };
 }
@@ -151,7 +178,7 @@
     @jobs_weakify(self)
     return ^__kindof ZFAVPlayerManager *_Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, NSTimeInterval currentTime, NSTimeInterval duration)){
         @jobs_strongify(self)
-        self.playerPlayTimeChanged = data;
+        self.byPlayerPlayTimeChanged(data);
         return self;
     };
 }
@@ -160,7 +187,7 @@
     @jobs_weakify(self)
     return ^__kindof ZFAVPlayerManager *_Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, NSTimeInterval bufferTime)){
         @jobs_strongify(self)
-        self.playerBufferTimeChanged = data;
+        self.byPlayerBufferTimeChanged(data);
         return self;
     };
 }
@@ -169,7 +196,7 @@
     @jobs_weakify(self)
     return ^__kindof ZFAVPlayerManager *_Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, ZFPlayerPlaybackState playState)){
         @jobs_strongify(self)
-        self.playerPlayStateChanged = data;
+        self.byPlayerPlayStateChanged(data);
         return self;
     };
 }
@@ -178,7 +205,7 @@
     @jobs_weakify(self)
     return ^__kindof ZFAVPlayerManager *_Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, ZFPlayerLoadState loadState)){
         @jobs_strongify(self)
-        self.playerLoadStateChanged = data;
+        self.byPlayerLoadStateChanged(data);
         return self;
     };
 }
@@ -187,7 +214,7 @@
     @jobs_weakify(self)
     return ^__kindof ZFAVPlayerManager *_Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, id error)){
         @jobs_strongify(self)
-        self.playerPlayFailed = data;
+        self.byPlayerPlayFailed(data);
         return self;
     };
 }
@@ -196,7 +223,7 @@
     @jobs_weakify(self)
     return ^__kindof ZFAVPlayerManager *_Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset)){
         @jobs_strongify(self)
-        self.playerDidToEnd = data;
+        self.byPlayerDidToEnd(data);
         return self;
     };
 }
@@ -205,7 +232,7 @@
     @jobs_weakify(self)
     return ^__kindof ZFAVPlayerManager *_Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, CGSize size)){
         @jobs_strongify(self)
-        self.presentationSizeChanged = data;
+        self.byPresentationSizeChanged(data);
         return self;
     };
 }

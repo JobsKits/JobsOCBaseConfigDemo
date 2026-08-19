@@ -6,6 +6,12 @@
 //
 
 #import <math.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <UIKit/UIKit.h>
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
@@ -26,14 +32,15 @@ Prop_assign()CGFloat triangleHeight;
 Prop_assign()CGFloat centerGap;
 Prop_assign()NSTimeInterval cycleDuration;
 
-+(__kindof JobsTodayNewsRefreshConfig *)config;
--(JobsTodayNewsRefreshConfig *(^)(UIColor *data))byStrokeColor;
--(JobsTodayNewsRefreshConfig *(^)(CGFloat data))byLineWidth;
--(JobsTodayNewsRefreshConfig *(^)(CGFloat data))byTriangleWidth;
--(JobsTodayNewsRefreshConfig *(^)(CGFloat data))byTriangleHeight;
--(JobsTodayNewsRefreshConfig *(^)(CGFloat data))byCenterGap;
--(JobsTodayNewsRefreshConfig *(^)(NSTimeInterval data))byCycleDuration;
++(JobsRetJobsTodayNewsRefreshConfigByVoidBlock _Nonnull)config;
+-(JobsRetJobsTodayNewsRefreshConfigByUIColorBlock _Nonnull)byStrokeColor;
+-(JobsRetJobsTodayNewsRefreshConfigByCGFloatBlock _Nonnull)byLineWidth;
+-(JobsRetJobsTodayNewsRefreshConfigByCGFloatBlock _Nonnull)byTriangleWidth;
+-(JobsRetJobsTodayNewsRefreshConfigByCGFloatBlock _Nonnull)byTriangleHeight;
+-(JobsRetJobsTodayNewsRefreshConfigByCGFloatBlock _Nonnull)byCenterGap;
+-(JobsRetJobsTodayNewsRefreshConfigByNSTimeIntervalBlock _Nonnull)byCycleDuration;
 -(CGSize)indicatorSize;
+-(JobsRetCGSizeByVoidBlock _Nonnull)jobsIndicatorSize;
 
 @end
 

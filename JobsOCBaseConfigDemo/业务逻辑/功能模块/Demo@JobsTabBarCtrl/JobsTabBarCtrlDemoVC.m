@@ -21,41 +21,71 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTabBarCtrlDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(@"JobsTabBarCtrl@横滑 Demo（>5 个按钮）".tr)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byBgImage(@"新首页的底图".img)
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(@"JobsTabBarCtrl@横滑 Demo（>5 个按钮）".jobsTr())
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byBgImage(@"新首页的底图".img)
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.makeNavByAlpha(1);
-    self.tabCtrl.view.byVisible(YES);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTabBarCtrlDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.makeNavByAlpha(1);
+        self.tabCtrl.view.byVisible(YES);
+    };
 }
 
 - (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    self.tabCtrl.view.byFrame(self.view.bounds);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTabBarCtrlDemoVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        self.tabCtrl.view.byFrame(self.view.bounds);
+    };
 }
 
 -(JobsTabBarCtrl *)tabCtrl{
@@ -87,12 +117,12 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
             [ctrl byEqualVisibleRangeFrom:2 to:5];
               // 2 ~ 5 个按钮时，一屏内等分，不滚动；超过 5 个按钮时，每个按钮宽度算成“5 等分的宽度”，多出来的靠 UIScrollView 滚动解决
             /// 安全监听点“按钮布局完成后”的回调@解决设定某个按钮的垂直凸起
-            [ctrl onButtonsLayoutedWeakOwner:^(JobsTabBarCtrl *owner,
+            ctrl.onButtonsLayoutedWeakOwner(^(JobsTabBarCtrl *owner,
                                                NSArray<UIButton *> *btns) {
                 if (btns.count > 2) {
                     btns[2].jobsResetBtnCornerRadiusValue(14).resetOriginYByOffset(-24.0);
                 }
-            }];
+            });
             [ctrl setDataSourceByButtons:jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
                 @jobs_strongify(self)
                 arr.add(UIButton.jobsInit()
@@ -103,7 +133,7 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
     //                    .jobsResetBtnBgImage(@"house.fill".sys_img)
                         .jobsResetBtnTitleCor(JobsRandomCor(1))
                         .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-                        .jobsResetBtnTitle(@"首页".tr)
+                        .jobsResetBtnTitle(@"首页".jobsTr())
                         .onClickBy(^(UIButton *x){
                             JobsLog(@"");
                         })
@@ -118,7 +148,7 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
     //                    .jobsResetBtnBgImage(@"tag.fill".sys_img)
                         .jobsResetBtnTitleCor(JobsRandomCor(1))
                         .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-                        .jobsResetBtnTitle(@"优惠".tr)
+                        .jobsResetBtnTitle(@"优惠".jobsTr())
                         .onClickBy(^(UIButton *x){
                             JobsLog(@"");
                         })
@@ -133,21 +163,21 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
     //                    .jobsResetBtnBgImage(@"creditcard.fill".sys_img)
                         .jobsResetBtnTitleCor(JobsRandomCor(1))
     //                    .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-    //                    .jobsResetBtnTitle(@"钱包".tr)
+    //                    .jobsResetBtnTitle(@"钱包".jobsTr())
                         .jobsResetBtnNormalAttributedTitle(self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
                             data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                                 @jobs_strongify(self)
                                 data1.byFont(UIFontWeightRegularSize(14))
-                                     .byTextCor(@"#666666".cor)
-                                     .byTargetString(@"您".tr)
-                                     .byParagraphStyle(self.jobsParagraphStyleCenter);
+                                     .byTextCor(@"#666666".jobsCor())
+                                     .byTargetString(@"您".jobsTr())
+                                     .byParagraphStyle(self.jobsParagraphStyleCenter());
                             }))
                             .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                                 @jobs_strongify(self)
                                 data1.byFont(UIFontWeightRegularSize(14))
-                                     .byTextCor(@"#BA9B77".cor)
-                                     .byTargetString(@"好".tr)
-                                     .byParagraphStyle(self.jobsParagraphStyleCenter);
+                                     .byTextCor(@"#BA9B77".jobsCor())
+                                     .byTargetString(@"好".jobsTr())
+                                     .byParagraphStyle(self.jobsParagraphStyleCenter());
                             }));
                         })))
                         .onClickBy(^(UIButton *x){
@@ -165,7 +195,7 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
     //                    .jobsResetBtnBgImage(@"person.2.fill".sys_img)
                         .jobsResetBtnTitleCor(JobsRandomCor(1))
                         .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-                        .jobsResetBtnTitle(@"APPLY NOW".tr)
+                        .jobsResetBtnTitle(@"APPLY NOW".jobsTr())
                         .onClickBy(^(UIButton *x){
                             JobsLog(@"");
                         })
@@ -180,7 +210,7 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
     //                    .jobsResetBtnBgImage(@"sparkles".sys_img)
                         .jobsResetBtnTitleCor(JobsRandomCor(1))
                         .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-                        .jobsResetBtnTitle(@"我的".tr)
+                        .jobsResetBtnTitle(@"我的".jobsTr())
                         .onClickBy(^(UIButton *x){
                             JobsLog(@"");
                         })
@@ -195,7 +225,7 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
     //                    .jobsResetBtnBgImage(@"message.fill".sys_img)
                         .jobsResetBtnTitleCor(JobsRandomCor(1))
                         .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-                        .jobsResetBtnTitle(@"信息".tr)
+                        .jobsResetBtnTitle(@"信息".jobsTr())
                         .onClickBy(^(UIButton *x){
                             JobsLog(@"");
                         })
@@ -210,7 +240,7 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
     //                    .jobsResetBtnBgImage(@"person.crop.circle.fill".sys_img)
                         .jobsResetBtnTitleCor(JobsRandomCor(1))
                         .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-                        .jobsResetBtnTitle(@"游戏".tr)
+                        .jobsResetBtnTitle(@"游戏".jobsTr())
                         .onClickBy(^(UIButton *x){
                             JobsLog(@"");
                         })
@@ -219,11 +249,11 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
                         }));
             })
                              controllers:jobsMakeMutArr(^(__kindof NSMutableArray<UIViewController *> * _Nullable arr) {
-                arr.add(ViewController_1.new.navCtrl)
-                .add(ViewController_2.new.navCtrl)
-                .add(ViewController_3.new.navCtrl)
-                .add(ViewController_4.new.navCtrl)
-                .add(ViewController_5.new.navCtrl);
+                arr.add(ViewController_1.new.navCtrl())
+                .add(ViewController_2.new.navCtrl())
+                .add(ViewController_3.new.navCtrl())
+                .add(ViewController_4.new.navCtrl())
+                .add(ViewController_5.new.navCtrl());
             })];
             [self addChildViewController:ctrl];
             ctrl.view.addOn(self.view);

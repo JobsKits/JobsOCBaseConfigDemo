@@ -34,7 +34,7 @@ NS_ASSUME_NONNULL_END
      @synthesize webView = _webView;
      -(WKWebView *)webView {
          if (!_webView) {
-     //        _webView = self.makeWebViewByURL(self.urlString.jobsUrl);
+     //        _webView = self.makeWebViewByURL(self.urlString.jobsURL());
              /// JS 回调 Objective-C 方法
              _webView = WKWebView.initBy(jobsMakeWebViewConfiguration(^(__kindof WKWebViewConfiguration * _Nullable config) {
                  config.userContentController = jobsMakeUserContentController(^(__kindof WKUserContentController * _Nullable data) {

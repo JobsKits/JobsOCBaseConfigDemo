@@ -10,6 +10,12 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<YTKNetwork/YTKBaseRequest.h>)
 #import <YTKNetwork/YTKBaseRequest.h>
 #else
@@ -31,7 +37,7 @@
 /// 给url追加arguments，用于全局参数，比如AppVersion, ApiVersion等
 @interface YTKUrlArgumentsFilter : NSObject <YTKUrlFilterProtocol>
 
-+(YTKUrlArgumentsFilter *)filterWithArguments:(NSDictionary *)arguments;
++(JobsRetYTKUrlArgumentsFilterByNSDictionaryBlock _Nonnull)filterWithArguments;
 
 -(NSString *)filterUrl:(NSString *)originUrl
            withRequest:(YTKBaseRequest *)request;

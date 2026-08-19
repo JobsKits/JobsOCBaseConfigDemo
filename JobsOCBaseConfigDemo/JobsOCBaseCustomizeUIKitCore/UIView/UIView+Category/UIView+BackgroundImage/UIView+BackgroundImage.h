@@ -6,13 +6,12 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIVIEW_BACKGROUNDIMAGE_44F789D452
-#define JOBS_HEADER_GUARD_UIVIEW_BACKGROUNDIMAGE_44F789D452
 
-#pragma once
-
-#import <objc/runtime.h>
-#import <UIKit/UIKit.h>
-#import "UIView+Extra.h"
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
@@ -20,11 +19,13 @@
 #import "XYColorOC.h"
 #endif
 
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
-#else
-#import "Masonry.h"
-#endif
+#define JOBS_HEADER_GUARD_UIVIEW_BACKGROUNDIMAGE_44F789D452
+
+#pragma once
+
+#import <objc/runtime.h>
+#import <UIKit/UIKit.h>
+#import "UIView+Extra.h"
 
 #import "JobsOCDSL.h"
 #import "JobsMakes.h"

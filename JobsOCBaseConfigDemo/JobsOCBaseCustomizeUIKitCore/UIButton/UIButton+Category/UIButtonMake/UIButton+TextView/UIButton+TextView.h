@@ -6,6 +6,19 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UIBUTTON_TEXTVIEW_C907ADABF9
+
+#if __has_include(<MJExtension/MJExtension.h>)
+#import <MJExtension/MJExtension.h>
+#else
+#import "MJExtension.h"
+#endif
+
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
 #define JOBS_HEADER_GUARD_UIBUTTON_TEXTVIEW_C907ADABF9
 
 #pragma once
@@ -15,18 +28,6 @@
 #import "UIView+Extra.h"
 #import "UITextItem+Extra.h"
 #import "BaseTextView.h"
-
-#if __has_include(<XYColorOC/XYColorOC.h>)
-#import <XYColorOC/XYColorOC.h>
-#else
-#import "XYColorOC.h"
-#endif
-
-#if __has_include(<MJExtension/MJExtension.h>)
-#import <MJExtension/MJExtension.h>
-#else
-#import "MJExtension.h"
-#endif
 
 #import "JobsModelDSL.h"
 #import "JobsOCDSL.h"

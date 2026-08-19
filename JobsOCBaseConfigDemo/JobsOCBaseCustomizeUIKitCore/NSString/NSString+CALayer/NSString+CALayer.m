@@ -25,14 +25,15 @@
                                          andWithDirection:directionStr];
     /// 创建路径图层
     return jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
-        layer.byFrame(aRect);
-        layer.bounds = CGPathGetBoundingBox(path.CGPath);
-        layer.geometryFlipped = NO;
-        layer.path = path.CGPath;
-        layer.strokeColor = aColor.CGColor;
-        layer.fillColor = aColor.CGColor;
-        layer.lineWidth = 1.0f;
-        layer.lineJoin = kCALineJoinBevel;
+        layer
+            .byPath(path.CGPath)
+            .byStrokeColor(aColor.CGColor)
+            .byFillColor(aColor.CGColor)
+            .byLineWidth(1.0f)
+            .byLineJoin(kCALineJoinBevel)
+            .byFrame(aRect)
+            .byBounds(CGPathGetBoundingBox(path.CGPath))
+            .byGeometryFlipped(NO);
         aView.layer.addSublayer(layer);
     });
 }

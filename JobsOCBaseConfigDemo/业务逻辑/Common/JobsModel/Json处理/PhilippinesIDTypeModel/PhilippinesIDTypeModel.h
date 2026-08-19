@@ -6,16 +6,17 @@
 //
 
 #ifndef PhilippinesIDTypeModel_h
-#define PhilippinesIDTypeModel_h
-
-#import <Foundation/Foundation.h>
-#import "BaseModel.h"
 
 #if __has_include(<MJExtension/MJExtension.h>)
 #import <MJExtension/MJExtension.h>
 #else
 #import "MJExtension.h"
 #endif
+
+#define PhilippinesIDTypeModel_h
+
+#import <Foundation/Foundation.h>
+#import "BaseModel.h"
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"

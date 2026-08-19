@@ -6,6 +6,7 @@
 //
 
 #import "JobsUserModel.h"
+
 #import "NSObject+Extra.h"
 #import "NSString+Extra.h"
 #import "NSMutableSet+Extra.h"
@@ -17,25 +18,45 @@ RACProtocol_synthesize
 - (id)mj_newValueFromOldValue:(id)oldValue
                      property:(MJProperty *)property{
     if (property.name.isEqualToString(@"headImage")) {
-        return toStringByID(oldValue).jobsUrl;
+        return toStringByID(oldValue).jobsURL();
     };return oldValue;
 }
 
-+(NSDictionary *)mj_replacedKeyFromPropertyName {
-    return [super mj_replacedKeyFromPropertyName].mutableCopy;
++(NSDictionary *)mj_replacedKeyFromPropertyName{
+    return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsUserModel.class, @selector(jobsMJReplacedKeyFromPropertyName)))(self, @selector(jobsMJReplacedKeyFromPropertyName)))();
+}
+
++(JobsRetDicByVoidBlock _Nonnull)jobsMJReplacedKeyFromPropertyName {
+    return ^NSDictionary *{
+        return [super mj_replacedKeyFromPropertyName].mutableCopy;
+    };
 }
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_userModelOnceToken = 0;
-    static_userModel = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsUserModel.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_userModelOnceToken = 0;
+        static_userModel = nil;
+    };
 }
 static JobsUserModel *static_userModel = nil;
 static dispatch_once_t static_userModelOnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_userModelOnceToken, ^{
-        static_userModel = JobsUserModel.new;
-    });return static_userModel;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsUserModel.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_userModelOnceToken, ^{
+            static_userModel = JobsUserModel.new;
+        });return static_userModel;
+    };
 }
 #pragma mark —— NSCoding
 /// 解档
@@ -61,18 +82,28 @@ static dispatch_once_t static_userModelOnceToken;
 }
 /// 归档
 -(void)encodeWithCoder:(NSCoder *)encoder{
-    [super encodeWithCoder:encoder];
-    // 获取对象的属性列表
-    JobsLog(@"printPropertyListByClass = %@",printPropertyListByClass(self.class));
-    for (NSString *key in printPropertyListByClass(self.class)) {
-        // 检查是否实现了协议中的属性对应的setter方法
-        JobsLog(@"key.jobsCapitalCaseString = %@",@"set".add(key.capitalizedString).add(@":"));
-        JobsLog(@"key = %@",key);
-        if ([self respondsToSelector:NSSelectorFromString(@"set".add(key.capitalizedString).add(@":"))]) {
-            id value = [self valueForKey:key];
-            [encoder encodeObject:value forKey:key];
+    jobsByNSCoderBlock action = ((jobsByNSCoderBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsUserModel.class, @selector(jobsEncodeWithCoder)))(self, @selector(jobsEncodeWithCoder));
+    if (action) action(encoder);
+}
+
+-(jobsByNSCoderBlock _Nonnull)jobsEncodeWithCoder{
+    @jobs_weakify(self)
+    return ^(NSCoder * encoder){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super encodeWithCoder:encoder];
+        // 获取对象的属性列表
+        JobsLog(@"printPropertyListByClass = %@",printPropertyListByClass(self.class));
+        for (NSString *key in printPropertyListByClass(self.class)) {
+            // 检查是否实现了协议中的属性对应的setter方法
+            JobsLog(@"key.jobsCapitalCaseString = %@",@"set".add(key.capitalizedString).add(@":"));
+            JobsLog(@"key = %@",key);
+            if ([self respondsToSelector:NSSelectorFromString(@"set".add(key.capitalizedString).add(@":"))]) {
+                id value = [self valueForKey:key];
+                [encoder encodeObject:value forKey:key];
+            }
         }
-    }
+    };
 }
 
 //- (nullable instancetype)initWithCoder:(NSCoder *)decoder {
@@ -137,7 +168,14 @@ static dispatch_once_t static_userModelOnceToken;
  通常情况下，为了确保数据的安全性，特别是在跨应用程序或跨设备之间传输数据时，您应该将其设置为 YES。这样可以确保在归档和解档过程中，只有指定的类可以被解档，从而防止潜在的安全风险。
  */
 +(BOOL)supportsSecureCoding{
-    return YES;
+    JobsRetBOOLByVoidBlock action = ((JobsRetBOOLByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsUserModel.class, @selector(jobsSupportsSecureCoding)))(self, @selector(jobsSupportsSecureCoding));
+    return action ? action() : (BOOL){0};
+}
+
++(JobsRetBOOLByVoidBlock _Nonnull)jobsSupportsSecureCoding{
+    return ^BOOL{
+        return YES;
+    };
 }
 #pragma mark —— 自动补全
 -(void)setExpireTime:(NSString *)expireTime{

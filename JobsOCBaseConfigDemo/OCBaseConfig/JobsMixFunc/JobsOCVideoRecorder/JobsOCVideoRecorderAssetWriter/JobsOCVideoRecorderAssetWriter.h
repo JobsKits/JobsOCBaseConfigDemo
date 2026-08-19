@@ -9,6 +9,12 @@
 #define JobsOCVideoRecorderAssetWriter_h
 
 #import <AVFoundation/AVFoundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <AudioToolbox/AudioToolbox.h>
 #import "JobsOCVideoRecorderConfig.h"
 #import "JobsDefines.h"
@@ -32,11 +38,21 @@ Prop_assign(readonly, getter=isWriting) BOOL writing;
        deviceOrientation:(UIDeviceOrientation)deviceOrientation
              frontCamera:(BOOL)frontCamera
                    error:(NSError **)error;
--(void)appendVideoSampleBuffer:(CMSampleBufferRef)sampleBuffer;
+-(jobsByCMSampleBufferRefBlock _Nonnull)appendVideoSampleBuffer;
 -(void)appendAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer;
--(void)finishWritingWithCompletion:(JobsOCVideoRecorderWriterFinishBlock)completion;
--(void)cancelWriting;
+-(jobsByCMSampleBufferRefBlock _Nonnull)appendAudioSampleBuffer;
+-(jobsByJobsOCVideoRecorderWriterFinishBlockBlock _Nonnull)finishWritingWithCompletion;
+-(jobsByVoidBlock _Nonnull)cancelWriting;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCVideoRecorderAssetWriter
+-(JobsRetJobsOCVideoRecorderAssetWriterByBOOLBlock _Nonnull)byAudioSamplePending;
+-(JobsRetJobsOCVideoRecorderAssetWriterByBOOLBlock _Nonnull)bySessionStarted;
+-(JobsRetJobsOCVideoRecorderAssetWriterByBOOLBlock _Nonnull)byVideoSamplePending;
+-(JobsRetJobsOCVideoRecorderAssetWriterByBOOLBlock _Nonnull)byWriting;
+-(JobsRetJobsOCVideoRecorderAssetWriterByCMTimeBlock _Nonnull)byFirstPresentationTime;
+-(JobsRetJobsOCVideoRecorderAssetWriterByCMTimeBlock _Nonnull)byLastPresentationTime;
+-(JobsRetJobsOCVideoRecorderAssetWriterByNSURLBlock _Nonnull)byOutputURL;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCVideoRecorderAssetWriter
 @end
 
 NS_ASSUME_NONNULL_END

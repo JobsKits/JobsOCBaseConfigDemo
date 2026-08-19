@@ -6,13 +6,12 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSTEXTVIEW_88A198A561
-#define JOBS_HEADER_GUARD_JOBSTEXTVIEW_88A198A561
 
-#import <UIKit/UIKit.h>
-#import "BaseView.h"
-#import "UIView+Extra.h"
-#import "UITextView+Extend.h"
-#import "JobsOCDSL.h"
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
 
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
@@ -20,11 +19,13 @@
 #import "XYColorOC.h"
 #endif
 
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
-#else
-#import "Masonry.h"
-#endif
+#define JOBS_HEADER_GUARD_JOBSTEXTVIEW_88A198A561
+
+#import <UIKit/UIKit.h>
+#import "BaseView.h"
+#import "UIView+Extra.h"
+#import "UITextView+Extend.h"
+#import "JobsOCDSL.h"
 
 #import "JobsLanMgr.h"
 #import "JobsMakes.h"
@@ -35,7 +36,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsTextView : BaseView
 
--(SZTextView *)getTextView;
+-(JobsRetJobsTextViewByTextModelBlock _Nonnull)byTextModel;
+-(JobsRetJobsTextViewByUIReturnKeyTypeBlock _Nonnull)byReturnKeyType_;
+-(JobsRetJobsTextViewByUIKeyboardAppearanceBlock _Nonnull)byKeyboardAppearance_;
+-(JobsRetJobsTextViewByUIKeyboardTypeBlock _Nonnull)byKeyboardType_;
+-(JobsRetJobsTextViewByStrBlock _Nonnull)byPlaceholder;
+-(JobsRetJobsTextViewByFontBlock _Nonnull)byFont;
+-(JobsRetJobsTextViewByFontBlock _Nonnull)byPlaceholderFont;
+-(JobsRetJobsTextViewByCorBlock _Nonnull)byPlaceholderColor;
+-(JobsRetSZTextViewByVoidBlock _Nonnull)getTextView;
 -(jobsByNSIntegerBlock _Nonnull)updateWordCount;
 
 @end

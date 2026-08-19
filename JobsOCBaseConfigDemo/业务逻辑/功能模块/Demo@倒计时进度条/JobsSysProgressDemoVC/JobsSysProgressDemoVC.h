@@ -65,6 +65,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsSysProgressDemoVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsSysProgressDemoVC
+-(JobsRetJobsSysProgressDemoVCByCGFloatBlock _Nonnull)byTotalSeconds;
+-(JobsRetJobsSysProgressDemoVCByJobsSysProgressDemoModeBlock _Nonnull)byProgressMode;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsSysProgressDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

@@ -7,12 +7,6 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
-#else
-#import "Masonry.h"
-#endif
-
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
 #else
@@ -55,10 +49,22 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsOCRefresherDemoVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCRefresherDemoVC
+-(JobsRetJobsOCRefresherDemoVCByBOOLBlock _Nonnull)byDidAutoStart;
+-(JobsRetJobsOCRefresherDemoVCByBOOLBlock _Nonnull)byDidBindRefresher;
+-(JobsRetJobsOCRefresherDemoVCByNSIntegerBlock _Nonnull)byHorizontalColumnCount;
+-(JobsRetJobsOCRefresherDemoVCByNSIntegerBlock _Nonnull)byVerticalRowCount;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCRefresherDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

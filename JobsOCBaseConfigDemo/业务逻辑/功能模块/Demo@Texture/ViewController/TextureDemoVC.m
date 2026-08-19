@@ -132,16 +132,16 @@ willBeginBatchFetchWithContext:(ASBatchContext *)context {
         _tableNode.view.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
         // 下拉刷新（系统 UIRefreshControl 也能配合 Texture）
         _tableNode.view.refreshControl = jobsMakeRefreshControl(^(__kindof UIRefreshControl * _Nullable refreshCtrl) {
-            [refreshCtrl jobs_onChange:^(UIRefreshControl *x) {
+            refreshCtrl.jobs_onChange(^(__kindof UIControl *x) {
                 // 刷新逻辑…
                 @jobs_weakify(self)
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW,(int64_t)(0.8 * NSEC_PER_SEC)),
                                dispatch_get_main_queue(), ^{
                     @jobs_strongify(self)
                     [self.tableNode reloadData];
-                    [x endRefreshing];
+                    [(UIRefreshControl *)x endRefreshing];
                 });
-            }];
+            });
         });
     };return _tableNode;
 }

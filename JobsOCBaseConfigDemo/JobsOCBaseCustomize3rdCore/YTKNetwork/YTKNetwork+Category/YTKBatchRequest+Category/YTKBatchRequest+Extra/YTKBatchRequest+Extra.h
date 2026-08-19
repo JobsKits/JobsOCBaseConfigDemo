@@ -6,15 +6,16 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_YTKBATCHREQUEST_EXTRA_750B1BC454
-#define JOBS_HEADER_GUARD_YTKBATCHREQUEST_EXTRA_750B1BC454
-
-#import <Foundation/Foundation.h>
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
 #else
 #import "YTKNetwork.h"
 #endif
+
+#define JOBS_HEADER_GUARD_YTKBATCHREQUEST_EXTRA_750B1BC454
+
+#import <Foundation/Foundation.h>
 
 #import "JobsBlock.h"
 #import "JobsDefines.h"

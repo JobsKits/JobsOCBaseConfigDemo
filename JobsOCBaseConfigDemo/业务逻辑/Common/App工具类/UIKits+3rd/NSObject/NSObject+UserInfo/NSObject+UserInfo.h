@@ -56,12 +56,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 -(BOOL)isLogin;
 /// 判定是否登录的标准1：是否本地存在用户数据模型 + 是否存在Token
--(BOOL)isLoginByToken;
+-(JobsRetBOOLByVoidBlock _Nonnull)isLoginByToken;
 /// 判定是否登录的标准2
 /// 登录是否过期：没有过期时间 ===  已经过期
 -(JobsRetBOOLByStrBlock _Nonnull)isLoginByExpiredTime;
 /// 检查是否登录并执行传入的代码块
 -(void)isLogin:(jobsByVoidBlock _Nullable)loginedinBlock;
+-(jobsByRACSchedulerRecursiveBlock _Nonnull)jobsCheckLogin;
 /// 刷新用户Token
 -(jobsByVoidBlock _Nonnull)refreshUserToken;
 /// 刷新用户Token（仅删除本地的用户数据）

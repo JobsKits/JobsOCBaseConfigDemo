@@ -7,10 +7,10 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
 #else
-#import "Masonry.h"
+#import "JobsBlock.h"
 #endif
 
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
@@ -31,11 +31,23 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsIconfontDemoBaseVC : BaseViewController
 
--(NSString *)demoTitle;
+-(JobsRetStrByVoidBlock _Nonnull)demoTitle;
 
 @end
 
@@ -55,6 +67,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsIconfontCacheDemoVC : JobsIconfontDemoBaseVC
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsIconfontCacheDemoVC
+-(JobsRetJobsIconfontCacheDemoVCByBOOLBlock _Nonnull)byAutomaticSecondLoadPending;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsIconfontCacheDemoVC
 @end
 
 @interface JobsIconfontGlyphDemoVC : JobsIconfontDemoBaseVC

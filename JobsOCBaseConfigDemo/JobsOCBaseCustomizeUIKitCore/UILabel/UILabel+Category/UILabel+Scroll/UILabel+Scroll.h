@@ -6,17 +6,18 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_UILABEL_SCROLL_FBDFEBFDA3
-#define JOBS_HEADER_GUARD_UILABEL_SCROLL_FBDFEBFDA3
-
-#import <objc/runtime.h>
-#import <UIKit/UIKit.h>
-#import "NSMutableDictionary+Extra.h"
 
 #if __has_include(<ReactiveObjC/ReactiveObjC.h>)
 #import <ReactiveObjC/ReactiveObjC.h>
 #else
 #import "ReactiveObjC.h"
 #endif
+
+#define JOBS_HEADER_GUARD_UILABEL_SCROLL_FBDFEBFDA3
+
+#import <objc/runtime.h>
+#import <UIKit/UIKit.h>
+#import "NSMutableDictionary+Extra.h"
 
 #import "JobsMakes.h"
 #import "JobsBlock.h"
@@ -47,7 +48,7 @@ NS_ASSUME_NONNULL_END
          @jobs_strongify(self)
          self.timerDisposable = [jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
              @jobs_strongify(self)
-             label.byText(@"-这是测试数据-".tr)
+             label.byText(@"-这是测试数据-".jobsTr())
                  .byTextCor(JobsRandomCor(1))
                  .byBgColor(JobsCyanColor);
              label.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
@@ -69,7 +70,7 @@ NS_ASSUME_NONNULL_END
          @jobs_strongify(self)
          jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
              @jobs_strongify(self)
-             label.byText(@"-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据".tr)
+             label.byText(@"-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据-这是测试数据".jobsTr())
                  .byTextCor(JobsRandomCor(1))
                  .byBgColor(JobsCyanColor);
              label.addOn(self.view).byAdd(^(MASConstraintMaker *make) {

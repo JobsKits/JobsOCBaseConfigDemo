@@ -28,6 +28,8 @@ UITableViewCellProtocol
 #pragma mark —— 一些公有的功能方法
 /// 值打印
 -(jobsByVoidBlock _Nonnull)printValue;
+-(JobsRetTableViewCellByCGFloatBlock _Nonnull)byOffsetXForEach;
+-(JobsRetTableViewCellByCGFloatBlock _Nonnull)byOffsetYForEach;
 /// 修改 UITableViewCell 中默认子控件的frame 【方法一】
 -(jobsByVoidBlock _Nonnull)modifySysChildViewFrame1;
 /// 修改 UITableViewCell 中默认子控件的frame 【方法二】

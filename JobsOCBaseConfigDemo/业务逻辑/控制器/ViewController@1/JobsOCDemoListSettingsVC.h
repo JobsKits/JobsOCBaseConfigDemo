@@ -7,6 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
 #else
@@ -58,6 +64,10 @@ FOUNDATION_EXPORT void JobsOCSetDemoListCellTextDisplayStrategy(JobsOCDemoListCe
 
 @interface JobsOCDemoListSettingsVC : BaseViewController <UITableViewDelegate, UITableViewDataSource>
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCDemoListSettingsVC
+-(JobsRetJobsOCDemoListSettingsVCByBOOLBlock _Nonnull)byShouldApplyAppEntryAfterReturning;
+-(JobsRetJobsOCDemoListSettingsVCByNSMutableIndexSetBlock _Nonnull)byExpandedSettingSectionIndexSet;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCDemoListSettingsVC
 @end
 
 NS_ASSUME_NONNULL_END

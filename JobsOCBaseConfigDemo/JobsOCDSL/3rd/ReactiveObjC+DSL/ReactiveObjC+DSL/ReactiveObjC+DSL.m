@@ -9,7 +9,7 @@
 
 #pragma mark —— NSObject.racDisposable
 @implementation NSObject (JobsRACDisposableChain)
--(JobsRetIDByRACDisposableBlock)byRacDisposable{
+-(JobsRetIDByRACDisposableBlock _Nonnull)byRacDisposable{
     @jobs_weakify(self)
     return ^id _Nullable(__kindof RACDisposable *_Nullable disposable){
         @jobs_strongify(self)
@@ -25,13 +25,13 @@
 
 #pragma mark —— RACDisposable
 @implementation RACDisposable (JobsChain)
-+(JobsRetRACDisposableByVoidCallbackBlock)byDisposable{
++(JobsRetRACDisposableByVoidCallbackBlock _Nonnull)byDisposable{
     return ^__kindof RACDisposable *_Nullable(jobsByVoidBlock _Nullable block){
         return [self disposableWithBlock:block ?: ^{}];
     };
 }
 
--(JobsRetBOOLByVoidBlock)byDisposed{
+-(JobsRetBOOLByVoidBlock _Nonnull)byDisposed{
     @jobs_weakify(self)
     return ^BOOL(void){
         @jobs_strongify(self)
@@ -39,7 +39,7 @@
     };
 }
 
--(JobsRetRACDisposableByVoidBlock)byDispose{
+-(JobsRetRACDisposableByVoidBlock _Nonnull)byDispose{
     @jobs_weakify(self)
     return ^__kindof RACDisposable *_Nullable(void){
         @jobs_strongify(self)
@@ -49,7 +49,7 @@
     };
 }
 
--(JobsRetRACScopedDisposableByVoidBlock)byScopedDisposable{
+-(JobsRetRACScopedDisposableByVoidBlock _Nonnull)byScopedDisposable{
     @jobs_weakify(self)
     return ^__kindof RACScopedDisposable *_Nullable(void){
         @jobs_strongify(self)
@@ -61,7 +61,7 @@
 
 #pragma mark —— RACScopedDisposable
 @implementation RACScopedDisposable (JobsChain)
-+(JobsRetRACScopedDisposableByRACDisposableBlock)byScopedDisposable{
++(JobsRetRACScopedDisposableByRACDisposableBlock _Nonnull)byScopedDisposable{
     return ^__kindof RACScopedDisposable *_Nullable(__kindof RACDisposable *_Nullable disposable){
         return disposable ? [self scopedDisposableWithDisposable:disposable] : nil;
     };
@@ -71,19 +71,19 @@
 
 #pragma mark —— RACCompoundDisposable
 @implementation RACCompoundDisposable (JobsChain)
-+(JobsRetRACCompoundDisposableByVoidBlock)byCompoundDisposable{
++(JobsRetRACCompoundDisposableByVoidBlock _Nonnull)byCompoundDisposable{
     return ^__kindof RACCompoundDisposable *_Nullable(void){
         return [self compoundDisposable];
     };
 }
 
-+(JobsRetRACCompoundDisposableByArrBlock)byCompoundDisposableByDisposables{
++(JobsRetRACCompoundDisposableByArrBlock _Nonnull)byCompoundDisposableByDisposables{
     return ^__kindof RACCompoundDisposable *_Nullable(__kindof NSArray *_Nullable disposables){
         return [self compoundDisposableWithDisposables:disposables];
     };
 }
 
--(JobsRetRACCompoundDisposableByRACDisposableBlock)byAddDisposable{
+-(JobsRetRACCompoundDisposableByRACDisposableBlock _Nonnull)byAddDisposable{
     @jobs_weakify(self)
     return ^__kindof RACCompoundDisposable *_Nullable(__kindof RACDisposable *_Nullable disposable){
         @jobs_strongify(self)
@@ -93,7 +93,7 @@
     };
 }
 
--(JobsRetRACCompoundDisposableByRACDisposableBlock)byRemoveDisposable{
+-(JobsRetRACCompoundDisposableByRACDisposableBlock _Nonnull)byRemoveDisposable{
     @jobs_weakify(self)
     return ^__kindof RACCompoundDisposable *_Nullable(__kindof RACDisposable *_Nullable disposable){
         @jobs_strongify(self)
@@ -107,7 +107,7 @@
 
 #pragma mark —— RACCommand
 @implementation RACCommand (JobsChain)
-+(JobsRetRACCommandByRACSignalValueBlock)bySignalBlock{
++(JobsRetRACCommandByRACSignalValueBlock _Nonnull)bySignalBlock{
     return ^__kindof RACCommand *_Nullable(JobsRetRACSignalByIDBlock _Nullable block){
         if (!block) return nil;
         return [[self alloc] initWithSignalBlock:^RACSignal *(id input) {
@@ -116,7 +116,7 @@
     };
 }
 
--(JobsRetRACSignalByVoidBlock)byExecutionSignals{
+-(JobsRetRACSignalByVoidBlock _Nonnull)byExecutionSignals{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(void){
         @jobs_strongify(self)
@@ -124,7 +124,7 @@
     };
 }
 
--(JobsRetRACSignalByVoidBlock)byExecuting{
+-(JobsRetRACSignalByVoidBlock _Nonnull)byExecuting{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(void){
         @jobs_strongify(self)
@@ -132,7 +132,7 @@
     };
 }
 
--(JobsRetRACSignalByVoidBlock)byEnabled{
+-(JobsRetRACSignalByVoidBlock _Nonnull)byEnabled{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(void){
         @jobs_strongify(self)
@@ -140,7 +140,7 @@
     };
 }
 
--(JobsRetRACSignalByVoidBlock)byErrors{
+-(JobsRetRACSignalByVoidBlock _Nonnull)byErrors{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(void){
         @jobs_strongify(self)
@@ -148,7 +148,7 @@
     };
 }
 
--(JobsRetRACCommandByBOOLBlock)byAllowsConcurrentExecution{
+-(JobsRetRACCommandByBOOLBlock _Nonnull)byAllowsConcurrentExecution{
     @jobs_weakify(self)
     return ^__kindof RACCommand *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -158,7 +158,7 @@
     };
 }
 
--(JobsRetRACSignalByIDBlock)byExecute{
+-(JobsRetRACSignalByIDBlock _Nonnull)byExecute{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(id _Nullable data){
         @jobs_strongify(self)
@@ -170,55 +170,55 @@
 
 #pragma mark —— RACSignal
 @implementation RACSignal (JobsChain)
-+(JobsRetRACSignalByIDBlock)byReturn{
++(JobsRetRACSignalByIDBlock _Nonnull)byReturn{
     return ^__kindof RACSignal *_Nullable(id _Nullable data){
         return [self return:data];
     };
 }
 
-+(JobsRetRACSignalByNSErrorBlock)byError{
++(JobsRetRACSignalByNSErrorBlock _Nonnull)byError{
     return ^__kindof RACSignal *_Nullable(NSError *_Nullable error){
         return [self error:error];
     };
 }
 
-+(JobsRetRACSignalByVoidBlock)byNever{
++(JobsRetRACSignalByVoidBlock _Nonnull)byNever{
     return ^__kindof RACSignal *_Nullable(void){
         return [self never];
     };
 }
 
-+(JobsRetRACSignalByVoidBlock)byEmpty{
++(JobsRetRACSignalByVoidBlock _Nonnull)byEmpty{
     return ^__kindof RACSignal *_Nullable(void){
         return [self empty];
     };
 }
 
-+(JobsRetRACSignalByIDBlock)byZip{
++(JobsRetRACSignalByIDBlock _Nonnull)byZip{
     return ^__kindof RACSignal *_Nullable(id _Nullable data){
         return data ? [self zip:data] : nil;
     };
 }
 
-+(JobsRetRACSignalByIDBlock)byConcat{
++(JobsRetRACSignalByIDBlock _Nonnull)byConcat{
     return ^__kindof RACSignal *_Nullable(id _Nullable data){
         return data ? [self concat:data] : nil;
     };
 }
 
-+(JobsRetRACSignalByIDBlock)byCombineLatest{
++(JobsRetRACSignalByIDBlock _Nonnull)byCombineLatest{
     return ^__kindof RACSignal *_Nullable(id _Nullable data){
         return data ? [self combineLatest:data] : nil;
     };
 }
 
-+(JobsRetRACSignalByIDBlock)byMerge{
++(JobsRetRACSignalByIDBlock _Nonnull)byMerge{
     return ^__kindof RACSignal *_Nullable(id _Nullable data){
         return data ? [self merge:data] : nil;
     };
 }
 
-+(JobsRetRACSignalByRACIDErrorTransformBlock)byTry{
++(JobsRetRACSignalByRACIDErrorTransformBlock _Nonnull)byTry{
     return ^__kindof RACSignal *_Nullable(JobsRetIDByIDNSErrorPointerBlock _Nullable block){
         if (!block) return nil;
         return [self try:^id(NSError **errorPtr) {
@@ -227,7 +227,7 @@
     };
 }
 
-+(JobsRetRACSignalByRACSignalProviderBlock)byDefer{
++(JobsRetRACSignalByRACSignalProviderBlock _Nonnull)byDefer{
     return ^__kindof RACSignal *_Nullable(JobsRetRACSignalByVoidBlock _Nullable block){
         if (!block) return nil;
         return [self defer:^RACSignal *{
@@ -236,7 +236,7 @@
     };
 }
 
--(JobsRetRACSequenceByVoidBlock)bySequence{
+-(JobsRetRACSequenceByVoidBlock _Nonnull)bySequence{
     @jobs_weakify(self)
     return ^__kindof RACSequence *_Nullable(void){
         @jobs_strongify(self)
@@ -245,7 +245,7 @@
 }
 
 #define JOBS_RAC_SIGNAL_NOARG_METHOD(_name, _selector) \
--(JobsRetRACSignalByVoidBlock)_name{ \
+-(JobsRetRACSignalByVoidBlock _Nonnull)_name{ \
     @jobs_weakify(self) \
     return ^__kindof RACSignal *_Nullable(void){ \
         @jobs_strongify(self) \
@@ -277,7 +277,7 @@ JOBS_RAC_SIGNAL_NOARG_METHOD(byAnd, and)
 JOBS_RAC_SIGNAL_NOARG_METHOD(byOr, or)
 JOBS_RAC_SIGNAL_NOARG_METHOD(byReduceApply, reduceApply)
 
--(JobsRetIDByVoidBlock)byFirst{
+-(JobsRetIDByVoidBlock _Nonnull)byFirst{
     @jobs_weakify(self)
     return ^id _Nullable(void){
         @jobs_strongify(self)
@@ -285,7 +285,7 @@ JOBS_RAC_SIGNAL_NOARG_METHOD(byReduceApply, reduceApply)
     };
 }
 
--(JobsRetRACMulticastConnectionByVoidBlock)byPublish{
+-(JobsRetRACMulticastConnectionByVoidBlock _Nonnull)byPublish{
     @jobs_weakify(self)
     return ^__kindof RACMulticastConnection *_Nullable(void){
         @jobs_strongify(self)
@@ -293,7 +293,7 @@ JOBS_RAC_SIGNAL_NOARG_METHOD(byReduceApply, reduceApply)
     };
 }
 
--(JobsRetRACSignalByRACBindBlockProviderBlock)byBind{
+-(JobsRetRACSignalByRACBindBlockProviderBlock _Nonnull)byBind{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(JobsRACSignalBindBlockProvider _Nullable block){
         @jobs_strongify(self)
@@ -307,7 +307,7 @@ JOBS_RAC_SIGNAL_NOARG_METHOD(byReduceApply, reduceApply)
     };
 }
 
--(JobsRetRACSignalByRACSignalBlock)byConcatSignal{
+-(JobsRetRACSignalByRACSignalBlock _Nonnull)byConcatSignal{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(__kindof RACSignal *_Nullable signal){
         @jobs_strongify(self)
@@ -315,7 +315,7 @@ JOBS_RAC_SIGNAL_NOARG_METHOD(byReduceApply, reduceApply)
     };
 }
 
--(JobsRetRACSignalByRACSignalBlock)byZipWith{
+-(JobsRetRACSignalByRACSignalBlock _Nonnull)byZipWith{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(__kindof RACSignal *_Nullable signal){
         @jobs_strongify(self)
@@ -323,7 +323,7 @@ JOBS_RAC_SIGNAL_NOARG_METHOD(byReduceApply, reduceApply)
     };
 }
 
--(JobsRetRACSignalByRACSignalValueBlock)byFlattenMap{
+-(JobsRetRACSignalByRACSignalValueBlock _Nonnull)byFlattenMap{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(JobsRetRACSignalByIDBlock _Nullable block){
         @jobs_strongify(self)
@@ -334,7 +334,7 @@ JOBS_RAC_SIGNAL_NOARG_METHOD(byReduceApply, reduceApply)
     };
 }
 
--(JobsRetRACSignalByRACIDTransformBlock)byMap{
+-(JobsRetRACSignalByRACIDTransformBlock _Nonnull)byMap{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(JobsRetIDByRACValueBlock _Nullable block){
         @jobs_strongify(self)
@@ -345,7 +345,7 @@ JOBS_RAC_SIGNAL_NOARG_METHOD(byReduceApply, reduceApply)
     };
 }
 
--(JobsRetRACSignalByIDBlock)byMapReplace{
+-(JobsRetRACSignalByIDBlock _Nonnull)byMapReplace{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(id _Nullable data){
         @jobs_strongify(self)
@@ -353,7 +353,7 @@ JOBS_RAC_SIGNAL_NOARG_METHOD(byReduceApply, reduceApply)
     };
 }
 
--(JobsRetRACSignalByRACBoolPredicateBlock)byFilter{
+-(JobsRetRACSignalByRACBoolPredicateBlock _Nonnull)byFilter{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(JobsRetBOOLByIDBlock _Nullable block){
         @jobs_strongify(self)
@@ -364,7 +364,7 @@ JOBS_RAC_SIGNAL_NOARG_METHOD(byReduceApply, reduceApply)
     };
 }
 
--(JobsRetRACSignalByIDBlock)byIgnore{
+-(JobsRetRACSignalByIDBlock _Nonnull)byIgnore{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(id _Nullable data){
         @jobs_strongify(self)
@@ -372,7 +372,7 @@ JOBS_RAC_SIGNAL_NOARG_METHOD(byReduceApply, reduceApply)
     };
 }
 
--(JobsRetRACSignalByIDBlock)byReduceEach{
+-(JobsRetRACSignalByIDBlock _Nonnull)byReduceEach{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(id _Nullable block){
         @jobs_strongify(self)
@@ -380,7 +380,7 @@ JOBS_RAC_SIGNAL_NOARG_METHOD(byReduceApply, reduceApply)
     };
 }
 
--(JobsRetRACSignalByIDBlock)byStartWith{
+-(JobsRetRACSignalByIDBlock _Nonnull)byStartWith{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(id _Nullable data){
         @jobs_strongify(self)
@@ -389,7 +389,7 @@ JOBS_RAC_SIGNAL_NOARG_METHOD(byReduceApply, reduceApply)
 }
 
 #define JOBS_RAC_SIGNAL_NSINTEGER_ARG(_name, _selector) \
--(JobsRetRACSignalByNSUIntegerBlock)_name{ \
+-(JobsRetRACSignalByNSUIntegerBlock _Nonnull)_name{ \
     @jobs_weakify(self) \
     return ^__kindof RACSignal *_Nullable(NSUInteger data){ \
         @jobs_strongify(self) \
@@ -403,7 +403,7 @@ JOBS_RAC_SIGNAL_NSINTEGER_ARG(byTakeLast, takeLast)
 JOBS_RAC_SIGNAL_NSINTEGER_ARG(byFlattenMaxConcurrent, flatten)
 
 #define JOBS_RAC_SIGNAL_PREDICATE_ARG(_name, _selector) \
--(JobsRetRACSignalByRACBoolPredicateBlock)_name{ \
+-(JobsRetRACSignalByRACBoolPredicateBlock _Nonnull)_name{ \
     @jobs_weakify(self) \
     return ^__kindof RACSignal *_Nullable(JobsRetBOOLByIDBlock _Nullable block){ \
         @jobs_strongify(self) \
@@ -419,7 +419,7 @@ JOBS_RAC_SIGNAL_PREDICATE_ARG(bySkipWhileBlock, skipWhileBlock)
 JOBS_RAC_SIGNAL_PREDICATE_ARG(byAnyPassingTest, any)
 JOBS_RAC_SIGNAL_PREDICATE_ARG(byAll, all)
 
--(JobsRetRACDisposableByRACSubscriberBlock)bySubscribe{
+-(JobsRetRACDisposableByRACSubscriberBlock _Nonnull)bySubscribe{
     @jobs_weakify(self)
     return ^__kindof RACDisposable *_Nullable(id<RACSubscriber> _Nullable subscriber){
         @jobs_strongify(self)
@@ -427,7 +427,7 @@ JOBS_RAC_SIGNAL_PREDICATE_ARG(byAll, all)
     };
 }
 
--(JobsRetRACDisposableByRACNextBlock)bySubscribeNext{
+-(JobsRetRACDisposableByRACNextBlock _Nonnull)bySubscribeNext{
     @jobs_weakify(self)
     return ^__kindof RACDisposable *_Nullable(jobsByIDBlock _Nullable block){
         @jobs_strongify(self)
@@ -435,7 +435,7 @@ JOBS_RAC_SIGNAL_PREDICATE_ARG(byAll, all)
     };
 }
 
--(JobsRetRACDisposableByRACErrorBlock)bySubscribeError{
+-(JobsRetRACDisposableByRACErrorBlock _Nonnull)bySubscribeError{
     @jobs_weakify(self)
     return ^__kindof RACDisposable *_Nullable(jobsByErrBlock _Nullable block){
         @jobs_strongify(self)
@@ -443,7 +443,7 @@ JOBS_RAC_SIGNAL_PREDICATE_ARG(byAll, all)
     };
 }
 
--(JobsRetRACDisposableByRACCompletedBlock)bySubscribeCompleted{
+-(JobsRetRACDisposableByRACCompletedBlock _Nonnull)bySubscribeCompleted{
     @jobs_weakify(self)
     return ^__kindof RACDisposable *_Nullable(jobsByVoidBlock _Nullable block){
         @jobs_strongify(self)
@@ -451,7 +451,7 @@ JOBS_RAC_SIGNAL_PREDICATE_ARG(byAll, all)
     };
 }
 
--(JobsRetRACSignalByRACNextBlock)byDoNext{
+-(JobsRetRACSignalByRACNextBlock _Nonnull)byDoNext{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(jobsByIDBlock _Nullable block){
         @jobs_strongify(self)
@@ -459,7 +459,7 @@ JOBS_RAC_SIGNAL_PREDICATE_ARG(byAll, all)
     };
 }
 
--(JobsRetRACSignalByRACErrorBlock)byDoError{
+-(JobsRetRACSignalByRACErrorBlock _Nonnull)byDoError{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(jobsByErrBlock _Nullable block){
         @jobs_strongify(self)
@@ -467,7 +467,7 @@ JOBS_RAC_SIGNAL_PREDICATE_ARG(byAll, all)
     };
 }
 
--(JobsRetRACSignalByRACCompletedBlock)byDoCompleted{
+-(JobsRetRACSignalByRACCompletedBlock _Nonnull)byDoCompleted{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(jobsByVoidBlock _Nullable block){
         @jobs_strongify(self)
@@ -475,7 +475,7 @@ JOBS_RAC_SIGNAL_PREDICATE_ARG(byAll, all)
     };
 }
 
--(JobsRetRACSignalByTimeIntervalBlock)byThrottle{
+-(JobsRetRACSignalByTimeIntervalBlock _Nonnull)byThrottle{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(NSTimeInterval data){
         @jobs_strongify(self)
@@ -483,7 +483,7 @@ JOBS_RAC_SIGNAL_PREDICATE_ARG(byAll, all)
     };
 }
 
--(JobsRetRACSignalByTimeIntervalBlock)byDelay{
+-(JobsRetRACSignalByTimeIntervalBlock _Nonnull)byDelay{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(NSTimeInterval data){
         @jobs_strongify(self)
@@ -491,7 +491,7 @@ JOBS_RAC_SIGNAL_PREDICATE_ARG(byAll, all)
     };
 }
 
--(JobsRetRACSignalByRACCompletedBlock)byInitially{
+-(JobsRetRACSignalByRACCompletedBlock _Nonnull)byInitially{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(jobsByVoidBlock _Nullable block){
         @jobs_strongify(self)
@@ -499,7 +499,7 @@ JOBS_RAC_SIGNAL_PREDICATE_ARG(byAll, all)
     };
 }
 
--(JobsRetRACSignalByRACCompletedBlock)byFinally{
+-(JobsRetRACSignalByRACCompletedBlock _Nonnull)byFinally{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(jobsByVoidBlock _Nullable block){
         @jobs_strongify(self)
@@ -508,7 +508,7 @@ JOBS_RAC_SIGNAL_PREDICATE_ARG(byAll, all)
 }
 
 #define JOBS_RAC_SIGNAL_SIGNAL_ARG(_name, _selector) \
--(JobsRetRACSignalByRACSignalBlock)_name{ \
+-(JobsRetRACSignalByRACSignalBlock _Nonnull)_name{ \
     @jobs_weakify(self) \
     return ^__kindof RACSignal *_Nullable(__kindof RACSignal *_Nullable signal){ \
         @jobs_strongify(self) \
@@ -523,7 +523,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(byTakeUntilReplacement, takeUntilReplacement)
 JOBS_RAC_SIGNAL_SIGNAL_ARG(byCatchTo, catchTo)
 JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
 
--(JobsRetRACSignalByRACSignalProviderBlock)byThen{
+-(JobsRetRACSignalByRACSignalProviderBlock _Nonnull)byThen{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(JobsRetRACSignalByVoidBlock _Nullable block){
         @jobs_strongify(self)
@@ -534,7 +534,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
     };
 }
 
--(JobsRetRACSignalByRACSignalErrorBlock)byCatch{
+-(JobsRetRACSignalByRACSignalErrorBlock _Nonnull)byCatch{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(JobsRetRACSignalByNSErrorBlock _Nullable block){
         @jobs_strongify(self)
@@ -545,7 +545,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
     };
 }
 
--(JobsRetRACSignalByRACBoolErrorPredicateBlock)byTryFilter{
+-(JobsRetRACSignalByRACBoolErrorPredicateBlock _Nonnull)byTryFilter{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(JobsRetBOOLByIDNSErrorPointerBlock _Nullable block){
         @jobs_strongify(self)
@@ -556,7 +556,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
     };
 }
 
--(JobsRetRACSignalByRACIDErrorTransformBlock)byTryMap{
+-(JobsRetRACSignalByRACIDErrorTransformBlock _Nonnull)byTryMap{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(JobsRetIDByIDNSErrorPointerBlock _Nullable block){
         @jobs_strongify(self)
@@ -567,7 +567,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
     };
 }
 
--(JobsRetIDByIDBlock)byFirstOrDefault{
+-(JobsRetIDByIDBlock _Nonnull)byFirstOrDefault{
     @jobs_weakify(self)
     return ^id _Nullable(id _Nullable data){
         @jobs_strongify(self)
@@ -575,7 +575,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
     };
 }
 
--(JobsRetRACMulticastConnectionByRACSubjectBlock)byMulticast{
+-(JobsRetRACMulticastConnectionByRACSubjectBlock _Nonnull)byMulticast{
     @jobs_weakify(self)
     return ^__kindof RACMulticastConnection *_Nullable(__kindof RACSubject *_Nullable subject){
         @jobs_strongify(self)
@@ -583,7 +583,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
     };
 }
 
--(JobsRetRACSignalByRACSchedulerBlock)byDeliverOn{
+-(JobsRetRACSignalByRACSchedulerBlock _Nonnull)byDeliverOn{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(__kindof RACScheduler *_Nullable scheduler){
         @jobs_strongify(self)
@@ -591,7 +591,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
     };
 }
 
--(JobsRetRACSignalByRACSchedulerBlock)bySubscribeOn{
+-(JobsRetRACSignalByRACSchedulerBlock _Nonnull)bySubscribeOn{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(__kindof RACScheduler *_Nullable scheduler){
         @jobs_strongify(self)
@@ -599,7 +599,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
     };
 }
 
--(JobsRetRACSignalByRACIDTransformBlock)byGroupBy{
+-(JobsRetRACSignalByRACIDTransformBlock _Nonnull)byGroupBy{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(JobsRetIDByRACValueBlock _Nullable block){
         @jobs_strongify(self)
@@ -610,7 +610,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
     };
 }
 
--(JobsRetRACSignalByNSIntegerBlock)byRetryCount{
+-(JobsRetRACSignalByNSIntegerBlock _Nonnull)byRetryCount{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -622,13 +622,13 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
 
 #pragma mark —— RACSubject / RACReplaySubject
 @implementation RACSubject (JobsChain)
-+(JobsRetRACSubjectByVoidBlock)bySubject{
++(JobsRetRACSubjectByVoidBlock _Nonnull)bySubject{
     return ^__kindof RACSubject *_Nullable(void){
         return [self subject];
     };
 }
 
--(JobsRetRACSubjectByIDBlock)bySendNext{
+-(JobsRetRACSubjectByIDBlock _Nonnull)bySendNext{
     @jobs_weakify(self)
     return ^__kindof RACSubject *_Nullable(id _Nullable data){
         @jobs_strongify(self)
@@ -638,7 +638,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
     };
 }
 
--(JobsRetRACSubjectByNSErrorBlock)bySendError{
+-(JobsRetRACSubjectByNSErrorBlock _Nonnull)bySendError{
     @jobs_weakify(self)
     return ^__kindof RACSubject *_Nullable(NSError *_Nullable error){
         @jobs_strongify(self)
@@ -648,7 +648,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
     };
 }
 
--(JobsRetRACSubjectByVoidBlock)bySendCompleted{
+-(JobsRetRACSubjectByVoidBlock _Nonnull)bySendCompleted{
     @jobs_weakify(self)
     return ^__kindof RACSubject *_Nullable(void){
         @jobs_strongify(self)
@@ -661,7 +661,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
 @end
 
 @implementation RACReplaySubject (JobsChain)
-+(JobsRetRACReplaySubjectByNSUIntegerBlock)byReplaySubjectWithCapacity{
++(JobsRetRACReplaySubjectByNSUIntegerBlock _Nonnull)byReplaySubjectWithCapacity{
     return ^__kindof RACReplaySubject *_Nullable(NSUInteger capacity){
         return [self replaySubjectWithCapacity:capacity];
     };
@@ -671,7 +671,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
 
 #pragma mark —— RACMulticastConnection
 @implementation RACMulticastConnection (JobsChain)
--(JobsRetRACSignalByVoidBlock)bySignal{
+-(JobsRetRACSignalByVoidBlock _Nonnull)bySignal{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(void){
         @jobs_strongify(self)
@@ -679,7 +679,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
     };
 }
 
--(JobsRetRACDisposableByVoidBlock)byConnect{
+-(JobsRetRACDisposableByVoidBlock _Nonnull)byConnect{
     @jobs_weakify(self)
     return ^__kindof RACDisposable *_Nullable(void){
         @jobs_strongify(self)
@@ -687,7 +687,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
     };
 }
 
--(JobsRetRACSignalByVoidBlock)byAutoconnect{
+-(JobsRetRACSignalByVoidBlock _Nonnull)byAutoconnect{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(void){
         @jobs_strongify(self)
@@ -699,29 +699,29 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
 
 #pragma mark —— RACScheduler
 @implementation RACScheduler (JobsChain)
-+(JobsRetRACSchedulerByVoidBlock)byImmediateScheduler{
++(JobsRetRACSchedulerByVoidBlock _Nonnull)byImmediateScheduler{
     return ^__kindof RACScheduler *_Nullable(void){ return [self immediateScheduler]; };
 }
 
-+(JobsRetRACSchedulerByVoidBlock)byMainThreadScheduler{
++(JobsRetRACSchedulerByVoidBlock _Nonnull)byMainThreadScheduler{
     return ^__kindof RACScheduler *_Nullable(void){ return [self mainThreadScheduler]; };
 }
 
-+(JobsRetRACSchedulerByVoidBlock)byScheduler{
++(JobsRetRACSchedulerByVoidBlock _Nonnull)byScheduler{
     return ^__kindof RACScheduler *_Nullable(void){ return [self scheduler]; };
 }
 
-+(JobsRetRACSchedulerByVoidBlock)byCurrentScheduler{
++(JobsRetRACSchedulerByVoidBlock _Nonnull)byCurrentScheduler{
     return ^__kindof RACScheduler *_Nullable(void){ return [self currentScheduler]; };
 }
 
-+(JobsRetRACSchedulerByNSIntegerBlock)bySchedulerWithPriority{
++(JobsRetRACSchedulerByNSIntegerBlock _Nonnull)bySchedulerWithPriority{
     return ^__kindof RACScheduler *_Nullable(NSInteger priority){
         return [self schedulerWithPriority:(RACSchedulerPriority)priority];
     };
 }
 
--(JobsRetRACDisposableByVoidCallbackForSchedulerBlock)bySchedule{
+-(JobsRetRACDisposableByVoidCallbackForSchedulerBlock _Nonnull)bySchedule{
     @jobs_weakify(self)
     return ^__kindof RACDisposable *_Nullable(jobsByVoidBlock _Nullable block){
         @jobs_strongify(self)
@@ -729,7 +729,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
     };
 }
 
--(JobsRetRACDisposableBySchedulerRecursiveBlock)byScheduleRecursiveBlock{
+-(JobsRetRACDisposableBySchedulerRecursiveBlock _Nonnull)byScheduleRecursiveBlock{
     @jobs_weakify(self)
     return ^__kindof RACDisposable *_Nullable(jobsByRACSchedulerRecursiveBlock _Nullable block){
         @jobs_strongify(self)
@@ -744,58 +744,58 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
 
 #pragma mark —— RACSequence
 @implementation RACSequence (JobsChain)
-+(JobsRetRACSequenceByIDBlock)byReturn{
++(JobsRetRACSequenceByIDBlock _Nonnull)byReturn{
     return ^__kindof RACSequence *_Nullable(id _Nullable data){ return [self return:data]; };
 }
 
-+(JobsRetRACSequenceByVoidBlock)byEmpty{
++(JobsRetRACSequenceByVoidBlock _Nonnull)byEmpty{
     return ^__kindof RACSequence *_Nullable(void){ return [self empty]; };
 }
 
-+(JobsRetRACSequenceByIDBlock)byZip{
++(JobsRetRACSequenceByIDBlock _Nonnull)byZip{
     return ^__kindof RACSequence *_Nullable(id _Nullable data){ return data ? [self zip:data] : nil; };
 }
 
-+(JobsRetRACSequenceByIDBlock)byConcat{
++(JobsRetRACSequenceByIDBlock _Nonnull)byConcat{
     return ^__kindof RACSequence *_Nullable(id _Nullable data){ return data ? [self concat:data] : nil; };
 }
 
--(JobsRetIDByVoidBlock)byHead{
+-(JobsRetIDByVoidBlock _Nonnull)byHead{
     @jobs_weakify(self)
     return ^id _Nullable(void){ @jobs_strongify(self) return self.head; };
 }
 
--(JobsRetRACSequenceByVoidBlock)byTail{
+-(JobsRetRACSequenceByVoidBlock _Nonnull)byTail{
     @jobs_weakify(self)
     return ^__kindof RACSequence *_Nullable(void){ @jobs_strongify(self) return self.tail; };
 }
 
--(JobsRetArrByVoidBlock)byArray{
+-(JobsRetArrByVoidBlock _Nonnull)byArray{
     @jobs_weakify(self)
     return ^__kindof NSArray *_Nullable(void){ @jobs_strongify(self) return self.array; };
 }
 
--(JobsRetIDByVoidBlock)byObjectEnumerator{
+-(JobsRetIDByVoidBlock _Nonnull)byObjectEnumerator{
     @jobs_weakify(self)
     return ^id _Nullable(void){ @jobs_strongify(self) return self.objectEnumerator; };
 }
 
--(JobsRetRACSequenceByVoidBlock)byEagerSequence{
+-(JobsRetRACSequenceByVoidBlock _Nonnull)byEagerSequence{
     @jobs_weakify(self)
     return ^__kindof RACSequence *_Nullable(void){ @jobs_strongify(self) return self.eagerSequence; };
 }
 
--(JobsRetRACSequenceByVoidBlock)byLazySequence{
+-(JobsRetRACSequenceByVoidBlock _Nonnull)byLazySequence{
     @jobs_weakify(self)
     return ^__kindof RACSequence *_Nullable(void){ @jobs_strongify(self) return self.lazySequence; };
 }
 
--(JobsRetRACSignalByVoidBlock)bySignal{
+-(JobsRetRACSignalByVoidBlock _Nonnull)bySignal{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(void){ @jobs_strongify(self) return self ? [self signal] : nil; };
 }
 
--(JobsRetRACSignalByRACSchedulerBlock)bySignalWithScheduler{
+-(JobsRetRACSignalByRACSchedulerBlock _Nonnull)bySignalWithScheduler{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(__kindof RACScheduler *_Nullable scheduler){
         @jobs_strongify(self)
@@ -803,7 +803,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
     };
 }
 
--(JobsRetRACSequenceByRACBindBlockProviderBlock)byBind{
+-(JobsRetRACSequenceByRACBindBlockProviderBlock _Nonnull)byBind{
     @jobs_weakify(self)
     return ^__kindof RACSequence *_Nullable(JobsRACSequenceBindBlockProvider _Nullable block){
         @jobs_strongify(self)
@@ -817,7 +817,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
     };
 }
 
--(JobsRetRACSequenceByRACSequenceBlock)byConcatSequence{
+-(JobsRetRACSequenceByRACSequenceBlock _Nonnull)byConcatSequence{
     @jobs_weakify(self)
     return ^__kindof RACSequence *_Nullable(__kindof RACSequence *_Nullable sequence){
         @jobs_strongify(self)
@@ -825,7 +825,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
     };
 }
 
--(JobsRetRACSequenceByRACSequenceBlock)byZipWith{
+-(JobsRetRACSequenceByRACSequenceBlock _Nonnull)byZipWith{
     @jobs_weakify(self)
     return ^__kindof RACSequence *_Nullable(__kindof RACSequence *_Nullable sequence){
         @jobs_strongify(self)
@@ -833,7 +833,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
     };
 }
 
--(JobsRetRACSequenceByRACSequenceValueBlock)byFlattenMap{
+-(JobsRetRACSequenceByRACSequenceValueBlock _Nonnull)byFlattenMap{
     @jobs_weakify(self)
     return ^__kindof RACSequence *_Nullable(JobsRetRACSequenceByIDBlock _Nullable block){
         @jobs_strongify(self)
@@ -842,12 +842,12 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
     };
 }
 
--(JobsRetRACSequenceByVoidBlock)byFlatten{
+-(JobsRetRACSequenceByVoidBlock _Nonnull)byFlatten{
     @jobs_weakify(self)
     return ^__kindof RACSequence *_Nullable(void){ @jobs_strongify(self) return self ? [self flatten] : nil; };
 }
 
--(JobsRetRACSequenceByRACIDTransformBlock)byMap{
+-(JobsRetRACSequenceByRACIDTransformBlock _Nonnull)byMap{
     @jobs_weakify(self)
     return ^__kindof RACSequence *_Nullable(JobsRetIDByRACValueBlock _Nullable block){
         @jobs_strongify(self)
@@ -856,12 +856,12 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
     };
 }
 
--(JobsRetRACSequenceByIDBlock)byMapReplace{
+-(JobsRetRACSequenceByIDBlock _Nonnull)byMapReplace{
     @jobs_weakify(self)
     return ^__kindof RACSequence *_Nullable(id _Nullable data){ @jobs_strongify(self) return self ? [self mapReplace:data] : nil; };
 }
 
--(JobsRetRACSequenceByRACBoolPredicateBlock)byFilter{
+-(JobsRetRACSequenceByRACBoolPredicateBlock _Nonnull)byFilter{
     @jobs_weakify(self)
     return ^__kindof RACSequence *_Nullable(JobsRetBOOLByIDBlock _Nullable block){
         @jobs_strongify(self)
@@ -870,23 +870,23 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
     };
 }
 
--(JobsRetRACSequenceByIDBlock)byIgnore{
+-(JobsRetRACSequenceByIDBlock _Nonnull)byIgnore{
     @jobs_weakify(self)
     return ^__kindof RACSequence *_Nullable(id _Nullable data){ @jobs_strongify(self) return self ? [self ignore:data] : nil; };
 }
 
--(JobsRetRACSequenceByIDBlock)byReduceEach{
+-(JobsRetRACSequenceByIDBlock _Nonnull)byReduceEach{
     @jobs_weakify(self)
     return ^__kindof RACSequence *_Nullable(id _Nullable block){ @jobs_strongify(self) return (self && block) ? [self reduceEach:block] : nil; };
 }
 
--(JobsRetRACSequenceByIDBlock)byStartWith{
+-(JobsRetRACSequenceByIDBlock _Nonnull)byStartWith{
     @jobs_weakify(self)
     return ^__kindof RACSequence *_Nullable(id _Nullable data){ @jobs_strongify(self) return self ? [self startWith:data] : nil; };
 }
 
 #define JOBS_RAC_SEQUENCE_NSINTEGER_ARG(_name, _selector) \
--(JobsRetRACSequenceByNSUIntegerBlock)_name{ \
+-(JobsRetRACSequenceByNSUIntegerBlock _Nonnull)_name{ \
     @jobs_weakify(self) \
     return ^__kindof RACSequence *_Nullable(NSUInteger data){ @jobs_strongify(self) return self ? [self _selector:data] : nil; }; \
 }
@@ -895,7 +895,7 @@ JOBS_RAC_SEQUENCE_NSINTEGER_ARG(bySkip, skip)
 JOBS_RAC_SEQUENCE_NSINTEGER_ARG(byTake, take)
 
 #define JOBS_RAC_SEQUENCE_PREDICATE_ARG(_name, _selector) \
--(JobsRetRACSequenceByRACBoolPredicateBlock)_name{ \
+-(JobsRetRACSequenceByRACBoolPredicateBlock _Nonnull)_name{ \
     @jobs_weakify(self) \
     return ^__kindof RACSequence *_Nullable(JobsRetBOOLByIDBlock _Nullable block){ \
         @jobs_strongify(self) \
@@ -909,12 +909,12 @@ JOBS_RAC_SEQUENCE_PREDICATE_ARG(byTakeWhileBlock, takeWhileBlock)
 JOBS_RAC_SEQUENCE_PREDICATE_ARG(bySkipUntilBlock, skipUntilBlock)
 JOBS_RAC_SEQUENCE_PREDICATE_ARG(bySkipWhileBlock, skipWhileBlock)
 
--(JobsRetRACSequenceByVoidBlock)byDistinctUntilChanged{
+-(JobsRetRACSequenceByVoidBlock _Nonnull)byDistinctUntilChanged{
     @jobs_weakify(self)
     return ^__kindof RACSequence *_Nullable(void){ @jobs_strongify(self) return self ? [self distinctUntilChanged] : nil; };
 }
 
--(JobsRetBOOLByRACBoolPredicateBlock)byAny{
+-(JobsRetBOOLByRACBoolPredicateBlock _Nonnull)byAny{
     @jobs_weakify(self)
     return ^BOOL(JobsRetBOOLByIDBlock _Nullable block){
         @jobs_strongify(self)
@@ -922,7 +922,7 @@ JOBS_RAC_SEQUENCE_PREDICATE_ARG(bySkipWhileBlock, skipWhileBlock)
     };
 }
 
--(JobsRetBOOLByRACBoolPredicateBlock)byAll{
+-(JobsRetBOOLByRACBoolPredicateBlock _Nonnull)byAll{
     @jobs_weakify(self)
     return ^BOOL(JobsRetBOOLByIDBlock _Nullable block){
         @jobs_strongify(self)
@@ -930,7 +930,7 @@ JOBS_RAC_SEQUENCE_PREDICATE_ARG(bySkipWhileBlock, skipWhileBlock)
     };
 }
 
--(JobsRetIDByRACBoolPredicateBlock)byObjectPassingTest{
+-(JobsRetIDByRACBoolPredicateBlock _Nonnull)byObjectPassingTest{
     @jobs_weakify(self)
     return ^id _Nullable(JobsRetBOOLByIDBlock _Nullable block){
         @jobs_strongify(self)
@@ -942,19 +942,19 @@ JOBS_RAC_SEQUENCE_PREDICATE_ARG(bySkipWhileBlock, skipWhileBlock)
 
 #pragma mark —— RACTuple
 @implementation RACTuple (JobsChain)
-+(JobsRetRACTupleByArrBlock)byTupleWithObjectsFromArray{
++(JobsRetRACTupleByArrBlock _Nonnull)byTupleWithObjectsFromArray{
     return ^__kindof RACTuple *_Nullable(__kindof NSArray *_Nullable data){
         return data ? [self tupleWithObjectsFromArray:data] : nil;
     };
 }
 
--(JobsRetNSUIntegerByVoidBlock)byCount{
+-(JobsRetNSUIntegerByVoidBlock _Nonnull)byCount{
     @jobs_weakify(self)
     return ^NSUInteger(void){ @jobs_strongify(self) return self.count; };
 }
 
 #define JOBS_RAC_TUPLE_ID_PROP(_name, _prop) \
--(JobsRetIDByVoidBlock)_name{ \
+-(JobsRetIDByVoidBlock _Nonnull)_name{ \
     @jobs_weakify(self) \
     return ^id _Nullable(void){ @jobs_strongify(self) return self._prop; }; \
 }
@@ -966,22 +966,22 @@ JOBS_RAC_TUPLE_ID_PROP(byFourth, fourth)
 JOBS_RAC_TUPLE_ID_PROP(byFifth, fifth)
 JOBS_RAC_TUPLE_ID_PROP(byLast, last)
 
--(JobsRetIDByUIntegerBlock)byObjectAtIndex{
+-(JobsRetIDByUIntegerBlock _Nonnull)byObjectAtIndex{
     @jobs_weakify(self)
     return ^id _Nullable(NSUInteger index){ @jobs_strongify(self) return self ? [self objectAtIndex:index] : nil; };
 }
 
--(JobsRetArrByVoidBlock)byAllObjects{
+-(JobsRetArrByVoidBlock _Nonnull)byAllObjects{
     @jobs_weakify(self)
     return ^__kindof NSArray *_Nullable(void){ @jobs_strongify(self) return self ? [self allObjects] : nil; };
 }
 
--(JobsRetRACTupleByIDBlock)byTupleByAddingObject{
+-(JobsRetRACTupleByIDBlock _Nonnull)byTupleByAddingObject{
     @jobs_weakify(self)
     return ^__kindof RACTuple *_Nullable(id _Nullable data){ @jobs_strongify(self) return self ? [self tupleByAddingObject:data] : nil; };
 }
 
--(JobsRetRACSequenceByVoidBlock)byRacSequence{
+-(JobsRetRACSequenceByVoidBlock _Nonnull)byRacSequence{
     @jobs_weakify(self)
     return ^__kindof RACSequence *_Nullable(void){ @jobs_strongify(self) return self.rac_sequence; };
 }

@@ -6,15 +6,16 @@
 //
 
 #ifndef YTKNetworkToolsHeader_h
-#define YTKNetworkToolsHeader_h
-
-#import <Foundation/Foundation.h>
 
 #if __has_include(<YTKNetwork/YTKNetwork.h>)
 #import <YTKNetwork/YTKNetwork.h>
 #else
 #import "YTKNetwork.h"
 #endif
+
+#define YTKNetworkToolsHeader_h
+
+#import <Foundation/Foundation.h>
 
 #if __has_include(<AFNetworking/AFURLRequestSerialization.h>)
 #import <AFNetworking/AFURLRequestSerialization.h>

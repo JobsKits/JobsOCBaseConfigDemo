@@ -9,17 +9,22 @@
 
 @implementation NSObject (MyAppTools)
 #pragma mark —— 一些私有化方法
--(NSMutableArray <Class>*_Nullable)makeDataArr{
-    NSMutableArray <Class>*tempDataArr = jobsMakeMutArr(^(__kindof NSMutableArray <Class>*_Nullable data) {
-        for (int y = 0; y < AppDelegate.viewCtrlByTabBarCtrlConfigMutArr.count; y++) {
-            UIViewController *viewController = AppDelegate.viewCtrlByTabBarCtrlConfigMutArr[y];
-            JobsTabBarItemConfig *tabBarItemConfig = AppDelegate.tabBarItemConfigMutArr[y];
-            if(tabBarItemConfig.isNotNeedCheckLogin){
-                Class cls = viewController.class;
-                data.add(cls);
+-(JobsRetNSMutableArrayClassByVoidBlock _Nonnull)makeDataArr{
+    @jobs_weakify(self)
+    return ^NSMutableArray <Class>*_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSMutableArray <Class>*tempDataArr = jobsMakeMutArr(^(__kindof NSMutableArray <Class>*_Nullable data) {
+            for (int y = 0; y < AppDelegate.viewCtrlByTabBarCtrlConfigMutArr.count; y++) {
+                UIViewController *viewController = AppDelegate.viewCtrlByTabBarCtrlConfigMutArr[y];
+                JobsTabBarItemConfig *tabBarItemConfig = AppDelegate.tabBarItemConfigMutArr[y];
+                if(tabBarItemConfig.isNotNeedCheckLogin){
+                    Class cls = viewController.class;
+                    data.add(cls);
+                }
             }
-        }
-    });return tempDataArr;
+        });return tempDataArr;
+    };
 }
 #pragma mark —— BaseProtocol
 /// 【通知监听】国际化语言修改UI
@@ -44,13 +49,13 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
         if (!appDelegate) appDelegate = AppDelegate.sharedManager;
         if ([appDelegate isKindOfClass:AppDelegate.class]) {
             AppDelegate *ad = (AppDelegate *)appDelegate;
-            [ad refreshTabBarTitle];
+            ad.refreshTabBarTitle();
         }
     };
 }
 #pragma mark —— 测试调试专用
 /// 查询当下的本地登录数据
--(jobsByVoidBlock _Nullable)checkLoginData{
+-(jobsByVoidBlock _Nonnull)checkLoginData{
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
@@ -108,23 +113,24 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
 }
 #pragma mark —— 一些公共设置
 /// 设置返回按钮的文字、返回按钮的行为（默认导航栏标题（图片）为 BLuckyRedLogo）
--(JobsRetNavBarConfigByStringAndActionBlock _Nullable)makeNavByTitleImageAndAction{
+-(JobsRetNavBarConfigByStringAndActionBlock _Nonnull)makeNavByTitleImageAndAction{
     return ^JobsNavBarConfig *_Nullable(NSString *_Nullable string,
                                         JobsRetIDByIDBlock _Nullable backActionBlock){
         return jobsMakeNavBarConfig(^(__kindof JobsNavBarConfig * _Nullable config) {
-            config.viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                viewModel.Alpha = 1;
-                viewModel.byNavBgCor(JobsClearColor)
+            config
+                .byViewModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
+                viewModel.byAlpha(1)
+                         .byNavBgCor(JobsClearColor)
                          .byNavBgImage(@"".img)
                          .byTitleImage(@"BLuckyRedLogo".img); /// 配置中间的标题为图片
-            });
-            config.backBtn = BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {
+            }))
+                .byBackBtn(BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {
                 // @jobs_strongify(self)
                 buttonModel.byNormalImage(@"全局返回箭头".img)
                            .byHighlightImage(@"全局返回箭头".img)
                            .byTitle(string)
                            .byTitleFont(bayonRegular(18))
-                           .byTitleCor(@"#E20808".cor)
+                           .byTitleCor(@"#E20808".jobsCor())
                            .byImagePlacement(NSDirectionalRectEdgeLeading)
                            .byTextAlignment(NSTextAlignmentCenter)
                            .bySubTextAlignment(NSTextAlignmentCenter)
@@ -135,30 +141,33 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
                     // @jobs_strongify(self)
                     return nil;
                 });
-            }));
+            })));
         });
     };
 }
 /// 设置导航栏标题（文字）、返回按钮的文字、返回按钮的行为
--(JobsRetNavBarConfigByStringsAndActionBlock _Nullable)makeNavByTitlesAndAction{
+-(JobsRetNavBarConfigByStringsAndActionBlock _Nonnull)makeNavByTitlesAndAction{
     return ^JobsNavBarConfig *_Nullable(NSString *_Nullable title,
                                         NSString *_Nullable backTitle,
                                         JobsRetIDByIDBlock _Nullable backActionBlock){
         return jobsMakeNavBarConfig(^(__kindof JobsNavBarConfig * _Nullable config) {
-            config.viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                viewModel.Alpha = 1;
-                viewModel.byNavBgCor(JobsClearColor);
-                viewModel.textModel.byText(title)
-                                   .byFont(bayonRegular(JobsWidth(18)));
-                viewModel.byNavBgImage(@"".img);
-            });
-            config.backBtn = BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {
+            config
+                .byViewModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
+                viewModel.byAlpha(1)
+                         .byNavBgCor(JobsClearColor)
+                         .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                    data.byText(title)
+                        .byFont(bayonRegular(JobsWidth(18)));
+                })
+                         .byNavBgImage(@"".img);
+            }))
+                .byBackBtn(BaseButton.initByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable buttonModel) {
                 // @jobs_strongify(self)
                 buttonModel.byNormalImage(@"全局返回箭头".img)
                            .byHighlightImage(@"全局返回箭头".img)
                            .byTitle(backTitle)
                            .byTitleFont(bayonRegular(18))
-                           .byTitleCor(@"#E20808".cor)
+                           .byTitleCor(@"#E20808".jobsCor())
                            .byImagePlacement(NSDirectionalRectEdgeLeading)
                            .byTextAlignment(NSTextAlignmentCenter)
                            .bySubTextAlignment(NSTextAlignmentCenter)
@@ -169,12 +178,12 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
                     // @jobs_strongify(self)
                     return nil;
                 });
-            }));
+            })));
         });
     };
 }
 /// 设置返回按钮的文字（默认退回上一个页面）
--(JobsRetNavBarConfigByStringBlock _Nullable)makeNav0ByTitle{
+-(JobsRetNavBarConfigByStringBlock _Nonnull)makeNav0ByTitle{
     @jobs_weakify(self)
     return ^JobsNavBarConfig *_Nullable(NSString *_Nullable string){
         @jobs_strongify(self)
@@ -188,7 +197,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
     };
 }
 /// 设置返回按钮的文字（默认退回TabBar0）
--(JobsRetNavBarConfigByStringBlock _Nullable)makeNav1ByTitle{
+-(JobsRetNavBarConfigByStringBlock _Nonnull)makeNav1ByTitle{
     @jobs_weakify(self)
     return ^JobsNavBarConfig *_Nullable(NSString *_Nullable string){
         @jobs_strongify(self)
@@ -202,7 +211,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
     };
 }
 /// 设置导航栏标题、返回按钮文字、返回按钮的行为
--(JobsRetNavBarConfigByStringsBlock _Nullable)makeNav2ByTitle{
+-(JobsRetNavBarConfigByStringsBlock _Nonnull)makeNav2ByTitle{
     @jobs_weakify(self)
     return ^JobsNavBarConfig *_Nullable(NSString *_Nullable title,NSString *_Nullable backBtnTitle){
         @jobs_strongify(self)
@@ -215,7 +224,7 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
     };
 }
 
--(JobsRetNavBarConfigByStringsBlock _Nullable)makeNav3ByTitle{
+-(JobsRetNavBarConfigByStringsBlock _Nonnull)makeNav3ByTitle{
     @jobs_weakify(self)
     return ^JobsNavBarConfig *_Nullable(NSString *_Nullable title,NSString *_Nullable backBtnTitle){
         @jobs_strongify(self)
@@ -253,15 +262,20 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
     };
 }
 /// 选择电话号码区位
--(__kindof UIButton *)zoneCodeBtnByBlock:(jobsByIDBlock _Nonnull)block{
-    return BaseButton.initByStyle1(@"+".add(@"63"),
-                                   JobsFontRegular(JobsWidth(16)),
-                                   JobsWhiteColor)
-    .onClickBy(^(UIButton *x){
-        if (block) block(x);
-    }).bySize(CGSizeMake(JobsWidth(50), JobsWidth(30)))
-        .rightBorderColor(JobsWhiteColor)
-        .rightBorderWidth(1);
+-(JobsRetButtonByIDBlocks _Nonnull)zoneCodeBtnByBlock{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *(jobsByIDBlock _Nonnull block){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return BaseButton.initByStyle1(@"+".add(@"63"),
+                                       JobsFontRegular(JobsWidth(16)),
+                                       JobsWhiteColor)
+        .onClickBy(^(UIButton *x){
+            if (block) block(x);
+        }).bySize(CGSizeMake(JobsWidth(50), JobsWidth(30)))
+            .rightBorderColor(JobsWhiteColor)
+            .rightBorderWidth(1);
+    };
 }
 /// 配置弹窗数据
 -(JobsRetViewModelByStringBlock _Nonnull)configPopUpDataBy{
@@ -269,192 +283,207 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
         return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
             viewModel.byText(data)
                      .byFont(UIFontWeightRegularSize(JobsWidth(16)))
-                     .byTextCor(@"#5D5D5D".cor)
+                     .byTextCor(@"#5D5D5D".jobsCor())
                      .bySelectedTextCor(JobsWhiteColor)
-                     .byBgSelectedCor(@"#5D5D5D".cor)
-                     .byBgCor(@"#1F1F1F".cor)
+                     .byBgSelectedCor(@"#5D5D5D".jobsCor())
+                     .byBgCor(@"#1F1F1F".jobsCor())
                      .byTextAlignment(NSTextAlignmentCenter);
         });
     };
 }
 /// 适配各种机型的开屏图片
--(NSString * _Nullable)imageNameOrURLString{
-    NSString *imgNameOrUrlStr = @"";
-    switch (iPhScrPx()) {
-        /// 屏幕分辨率(px) = 640 * 960
-        case iPhScrPxType_4_4S:{
-            imgNameOrUrlStr = @"640x960.png";
-        }break;
-        /// 屏幕分辨率(px) = 640 * 1136
-        case iPhScrPxType_5_5C_5S_SE:{
-            imgNameOrUrlStr = @"640x1136.png";
-        }break;
-        /// 屏幕分辨率(px) = 750 * 1334
-        case iPhScrPxType_6_6S_7_8_SE2_SE3:{
-            imgNameOrUrlStr = @"750x1334.png";
-        }break;
-        /// 屏幕分辨率(px) = 1242 * 2208
-        case iPhScrPxType_6_6S_7_8Plus:{
-            imgNameOrUrlStr = @"1242x2208.png";
-        }break;
-        /// 屏幕分辨率(px) = 1125 * 2436
-        case iPhScrPxType_X_XS_11Pro:{
-            imgNameOrUrlStr = @"1125x2436.png";
-        }break;
-        /// 屏幕分辨率(px) = 828 * 1792
-        case iPhScrPxType_XR_11:{
-            imgNameOrUrlStr = @"828x1792.png";
-        }break;
-        /// 屏幕分辨率(px) = 1242 * 2688
-        case iPhScrPxType_XSMax_11ProMax:{
-            imgNameOrUrlStr = @"1242x2688.png";
-        }break;
-        /// 屏幕分辨率(px) = 1125 * 2436
-        case iPhScrPxType_12mini:{
-            imgNameOrUrlStr = @"1125x2436.png";
-        }break;
-        /// 屏幕分辨率(px) = 1170 * 2532
-        case iPhScrPxType_12_12Pro:{
-            imgNameOrUrlStr = @"1170x2532.png";
-        }break;
-        /// 屏幕分辨率(px) = 1284 * 2778
-        case iPhScrPxType_12ProMax:{
-            imgNameOrUrlStr = @"1284x2778.png";
-        }break;
-        /// 屏幕分辨率(px) = 1125 * 2436
-        case iPhScrPxType_13mini:{
-            imgNameOrUrlStr = @"1125x2436.png";
-        }break;
-        /// 屏幕分辨率(px) = 1170 * 2532
-        case iPhScrPxType_13_13Pro:{
-            imgNameOrUrlStr = @"1170x2532.png";
-        }break;
-        /// 屏幕分辨率(px) = 1284 * 2778
-        case iPhScrPxType_13ProMax:{
-            imgNameOrUrlStr = @"1284x2778.png";
-        }break;
-        /// 屏幕分辨率(px) = 1125 * 2436
-        case iPhScrPxType_14:{
-            imgNameOrUrlStr = @"1125x2436.png";
-        }break;
-        /// 屏幕分辨率(px) = 1284 * 2778
-        case iPhScrPxType_14Plus:{
-            imgNameOrUrlStr = @"1284x2778.png";
-        }break;
-        /// 屏幕分辨率(px) = 1179 * 2556
-        case iPhScrPxType_14Pro:{
-            imgNameOrUrlStr = @"1179x2556.png";
-        }break;
-        /// 屏幕分辨率(px) = 1290 * 2796
-        case iPhScrPxType_14ProMax:{
-            imgNameOrUrlStr = @"1290x2796.png";
-        }break;
-        /// 未匹配已知分支时执行兜底处理
-        default:{
-            imgNameOrUrlStr = @"启动页SLOGAN.png";
-        }break;
-    };return imgNameOrUrlStr;
+-(JobsRetStrByVoidBlock _Nonnull)imageNameOrURLString{
+    @jobs_weakify(self)
+    return ^NSString * _Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSString *imgNameOrUrlStr = @"";
+        switch (iPhScrPx()) {
+            /// 屏幕分辨率(px) = 640 * 960
+            case iPhScrPxType_4_4S:{
+                imgNameOrUrlStr = @"640x960.png";
+            }break;
+            /// 屏幕分辨率(px) = 640 * 1136
+            case iPhScrPxType_5_5C_5S_SE:{
+                imgNameOrUrlStr = @"640x1136.png";
+            }break;
+            /// 屏幕分辨率(px) = 750 * 1334
+            case iPhScrPxType_6_6S_7_8_SE2_SE3:{
+                imgNameOrUrlStr = @"750x1334.png";
+            }break;
+            /// 屏幕分辨率(px) = 1242 * 2208
+            case iPhScrPxType_6_6S_7_8Plus:{
+                imgNameOrUrlStr = @"1242x2208.png";
+            }break;
+            /// 屏幕分辨率(px) = 1125 * 2436
+            case iPhScrPxType_X_XS_11Pro:{
+                imgNameOrUrlStr = @"1125x2436.png";
+            }break;
+            /// 屏幕分辨率(px) = 828 * 1792
+            case iPhScrPxType_XR_11:{
+                imgNameOrUrlStr = @"828x1792.png";
+            }break;
+            /// 屏幕分辨率(px) = 1242 * 2688
+            case iPhScrPxType_XSMax_11ProMax:{
+                imgNameOrUrlStr = @"1242x2688.png";
+            }break;
+            /// 屏幕分辨率(px) = 1125 * 2436
+            case iPhScrPxType_12mini:{
+                imgNameOrUrlStr = @"1125x2436.png";
+            }break;
+            /// 屏幕分辨率(px) = 1170 * 2532
+            case iPhScrPxType_12_12Pro:{
+                imgNameOrUrlStr = @"1170x2532.png";
+            }break;
+            /// 屏幕分辨率(px) = 1284 * 2778
+            case iPhScrPxType_12ProMax:{
+                imgNameOrUrlStr = @"1284x2778.png";
+            }break;
+            /// 屏幕分辨率(px) = 1125 * 2436
+            case iPhScrPxType_13mini:{
+                imgNameOrUrlStr = @"1125x2436.png";
+            }break;
+            /// 屏幕分辨率(px) = 1170 * 2532
+            case iPhScrPxType_13_13Pro:{
+                imgNameOrUrlStr = @"1170x2532.png";
+            }break;
+            /// 屏幕分辨率(px) = 1284 * 2778
+            case iPhScrPxType_13ProMax:{
+                imgNameOrUrlStr = @"1284x2778.png";
+            }break;
+            /// 屏幕分辨率(px) = 1125 * 2436
+            case iPhScrPxType_14:{
+                imgNameOrUrlStr = @"1125x2436.png";
+            }break;
+            /// 屏幕分辨率(px) = 1284 * 2778
+            case iPhScrPxType_14Plus:{
+                imgNameOrUrlStr = @"1284x2778.png";
+            }break;
+            /// 屏幕分辨率(px) = 1179 * 2556
+            case iPhScrPxType_14Pro:{
+                imgNameOrUrlStr = @"1179x2556.png";
+            }break;
+            /// 屏幕分辨率(px) = 1290 * 2796
+            case iPhScrPxType_14ProMax:{
+                imgNameOrUrlStr = @"1290x2796.png";
+            }break;
+            /// 未匹配已知分支时执行兜底处理
+            default:{
+                imgNameOrUrlStr = @"启动页SLOGAN.png";
+            }break;
+        };return imgNameOrUrlStr;
+    };
 }
 /// 适配各种机型的开屏视频
--(NSString * _Nullable)videoNameOrURLString{
-    NSString *imgNameOrUrlStr = @"";
-    switch (iPhScrPx()) {
-        /// 屏幕分辨率(px) = 640 * 960
-        case iPhScrPxType_4_4S:{
-            imgNameOrUrlStr = @"非iph_X.mp4";
-        }break;
-        /// 屏幕分辨率(px) = 640 * 1136
-        case iPhScrPxType_5_5C_5S_SE:{
-            imgNameOrUrlStr = @"非iph_X.mp4";
-        }break;
-        /// 屏幕分辨率(px) = 750 * 1334
-        case iPhScrPxType_6_6S_7_8_SE2_SE3:{
-            imgNameOrUrlStr = @"非iph_X.mp4";
-        }break;
-        /// 屏幕分辨率(px) = 1242 * 2208
-        case iPhScrPxType_6_6S_7_8Plus:{
-            imgNameOrUrlStr = @"非iph_X.mp4";
-        }break;
-        /// 屏幕分辨率(px) = 1125 * 2436
-        case iPhScrPxType_X_XS_11Pro:{
-            imgNameOrUrlStr = @"iph_X.mp4";
-        }break;
-        /// 屏幕分辨率(px) = 828 * 1792
-        case iPhScrPxType_XR_11:{
-            imgNameOrUrlStr = @"iph_X.mp4";
-        }break;
-        /// 屏幕分辨率(px) = 1242 * 2688
-        case iPhScrPxType_XSMax_11ProMax:{
-            imgNameOrUrlStr = @"iph_X.mp4";
-        }break;
-        /// 屏幕分辨率(px) = 1125 * 2436
-        case iPhScrPxType_12mini:{
-            imgNameOrUrlStr = @"iph_X.mp4";
-        }break;
-        /// 屏幕分辨率(px) = 1170 * 2532
-        case iPhScrPxType_12_12Pro:{
-            imgNameOrUrlStr = @"iph_X.mp4";
-        }break;
-        /// 屏幕分辨率(px) = 1284 * 2778
-        case iPhScrPxType_12ProMax:{
-            imgNameOrUrlStr = @"iph_X.mp4";
-        }break;
-        /// 屏幕分辨率(px) = 1125 * 2436
-        case iPhScrPxType_13mini:{
-            imgNameOrUrlStr = @"iph_X.mp4";
-        }break;
-        /// 屏幕分辨率(px) = 1170 * 2532
-        case iPhScrPxType_13_13Pro:{
-            imgNameOrUrlStr = @"iph_X.mp4";
-        }break;
-        /// 屏幕分辨率(px) = 1284 * 2778
-        case iPhScrPxType_13ProMax:{
-            imgNameOrUrlStr = @"iph_X.mp4";
-        }break;
-        /// 屏幕分辨率(px) = 1125 * 2436
-        case iPhScrPxType_14:{
-            imgNameOrUrlStr = @"iph_X.mp4";
-        }break;
-        /// 屏幕分辨率(px) = 1284 * 2778
-        case iPhScrPxType_14Plus:{
-            imgNameOrUrlStr = @"iph_X.mp4";
-        }break;
-        /// 屏幕分辨率(px) = 1179 * 2556
-        case iPhScrPxType_14Pro:{
-            imgNameOrUrlStr = @"iph_X.mp4";
-        }break;
-        /// 屏幕分辨率(px) = 1290 * 2796
-        case iPhScrPxType_14ProMax:{
-            imgNameOrUrlStr = @"iph_X.mp4";
-        }break;
-        /// 未匹配已知分支时执行兜底处理
-        default:{
-            imgNameOrUrlStr = @"iph_X.mp4";
-        }break;
-    };return imgNameOrUrlStr;
+-(JobsRetStrByVoidBlock _Nonnull)videoNameOrURLString{
+    @jobs_weakify(self)
+    return ^NSString * _Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSString *imgNameOrUrlStr = @"";
+        switch (iPhScrPx()) {
+            /// 屏幕分辨率(px) = 640 * 960
+            case iPhScrPxType_4_4S:{
+                imgNameOrUrlStr = @"非iph_X.mp4";
+            }break;
+            /// 屏幕分辨率(px) = 640 * 1136
+            case iPhScrPxType_5_5C_5S_SE:{
+                imgNameOrUrlStr = @"非iph_X.mp4";
+            }break;
+            /// 屏幕分辨率(px) = 750 * 1334
+            case iPhScrPxType_6_6S_7_8_SE2_SE3:{
+                imgNameOrUrlStr = @"非iph_X.mp4";
+            }break;
+            /// 屏幕分辨率(px) = 1242 * 2208
+            case iPhScrPxType_6_6S_7_8Plus:{
+                imgNameOrUrlStr = @"非iph_X.mp4";
+            }break;
+            /// 屏幕分辨率(px) = 1125 * 2436
+            case iPhScrPxType_X_XS_11Pro:{
+                imgNameOrUrlStr = @"iph_X.mp4";
+            }break;
+            /// 屏幕分辨率(px) = 828 * 1792
+            case iPhScrPxType_XR_11:{
+                imgNameOrUrlStr = @"iph_X.mp4";
+            }break;
+            /// 屏幕分辨率(px) = 1242 * 2688
+            case iPhScrPxType_XSMax_11ProMax:{
+                imgNameOrUrlStr = @"iph_X.mp4";
+            }break;
+            /// 屏幕分辨率(px) = 1125 * 2436
+            case iPhScrPxType_12mini:{
+                imgNameOrUrlStr = @"iph_X.mp4";
+            }break;
+            /// 屏幕分辨率(px) = 1170 * 2532
+            case iPhScrPxType_12_12Pro:{
+                imgNameOrUrlStr = @"iph_X.mp4";
+            }break;
+            /// 屏幕分辨率(px) = 1284 * 2778
+            case iPhScrPxType_12ProMax:{
+                imgNameOrUrlStr = @"iph_X.mp4";
+            }break;
+            /// 屏幕分辨率(px) = 1125 * 2436
+            case iPhScrPxType_13mini:{
+                imgNameOrUrlStr = @"iph_X.mp4";
+            }break;
+            /// 屏幕分辨率(px) = 1170 * 2532
+            case iPhScrPxType_13_13Pro:{
+                imgNameOrUrlStr = @"iph_X.mp4";
+            }break;
+            /// 屏幕分辨率(px) = 1284 * 2778
+            case iPhScrPxType_13ProMax:{
+                imgNameOrUrlStr = @"iph_X.mp4";
+            }break;
+            /// 屏幕分辨率(px) = 1125 * 2436
+            case iPhScrPxType_14:{
+                imgNameOrUrlStr = @"iph_X.mp4";
+            }break;
+            /// 屏幕分辨率(px) = 1284 * 2778
+            case iPhScrPxType_14Plus:{
+                imgNameOrUrlStr = @"iph_X.mp4";
+            }break;
+            /// 屏幕分辨率(px) = 1179 * 2556
+            case iPhScrPxType_14Pro:{
+                imgNameOrUrlStr = @"iph_X.mp4";
+            }break;
+            /// 屏幕分辨率(px) = 1290 * 2796
+            case iPhScrPxType_14ProMax:{
+                imgNameOrUrlStr = @"iph_X.mp4";
+            }break;
+            /// 未匹配已知分支时执行兜底处理
+            default:{
+                imgNameOrUrlStr = @"iph_X.mp4";
+            }break;
+        };return imgNameOrUrlStr;
+    };
 }
 /// 检查当前IP是否为菲律宾IP
--(void)checkIfIPInPhilippinesByBlock:(jobsByBOOLBlock _Nonnull)block{
-    [[NSURLSession.sharedSession dataTaskWithURL:@"https://ipapi.co/json/".jobsUrl
-                               completionHandler:^(NSData *_Nullable data,
-                                                   NSURLResponse *_Nullable response,
-                                                   NSError *_Nullable error) {
-        if (error) {
-            JobsLog(@"请求失败：%@", error.localizedDescription);
-            return;
-        }
-        NSError *jsonError;
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
-                                                             options:0
-                                                               error:&jsonError];
-        if (jsonError) {
-            JobsLog(@"JSON解析失败：%@", jsonError.localizedDescription);
-            return;
-        }
-        /// 从响应数据中获取国家代码
-        NSString *countryCode = json[@"country"];
-        if(block) block(countryCode.isEqualToString(@"PH"));
-    }] resume];
+-(jobsByjobsByBOOLBlockBlock _Nonnull)checkIfIPInPhilippinesByBlock{
+    @jobs_weakify(self)
+    return ^(jobsByBOOLBlock _Nonnull block){
+        @jobs_strongify(self)
+        if (!self) return;
+        [[NSURLSession.sharedSession dataTaskWithURL:@"https://ipapi.co/json/".jobsUrl
+                                   completionHandler:^(NSData *_Nullable data,
+                                                       NSURLResponse *_Nullable response,
+                                                       NSError *_Nullable error) {
+            if (error) {
+                JobsLog(@"请求失败：%@", error.localizedDescription);
+                return;
+            }
+            NSError *jsonError;
+            NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data
+                                                                 options:0
+                                                                   error:&jsonError];
+            if (jsonError) {
+                JobsLog(@"JSON解析失败：%@", jsonError.localizedDescription);
+                return;
+            }
+            /// 从响应数据中获取国家代码
+            NSString *countryCode = json[@"country"];
+            if(block) block(countryCode.isEqualToString(@"PH"));
+        }] resume];
+    };
 }
 /// 数据组装
 -(JobsRetViewModelByDecorationModelBlock _Nonnull)makeDatas{
@@ -469,69 +498,91 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
     };
 }
 /// 默认文本段落样式（两端对齐）
--(NSMutableParagraphStyle *)defaultParagraphStyle{
-    return jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
-        data.byAlignment(NSTextAlignmentJustified) // 两端对齐
-            .byParagraphSpacing(0) // 段距，取值 float
-            .byParagraphSpacingBefore(0) // 段首空间，取值 float
-            .byFirstLineHeadIndent(0.0) // 首行缩进，取值 float
-            .byHeadIndent(0.0) // 整体缩进(首行除外)，取值 float
-            .byLineSpacing(0); // 行距，取值 float
-    });
+-(JobsRetNSMutableParagraphStyleByVoidBlock _Nonnull)defaultParagraphStyle{
+    return ^NSMutableParagraphStyle *{
+        return jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
+            data.byAlignment(NSTextAlignmentJustified) // 两端对齐
+                .byParagraphSpacing(0) // 段距，取值 float
+                .byParagraphSpacingBefore(0) // 段首空间，取值 float
+                .byFirstLineHeadIndent(0.0) // 首行缩进，取值 float
+                .byHeadIndent(0.0) // 整体缩进(首行除外)，取值 float
+                .byLineSpacing(0); // 行距，取值 float
+        });
+    };
 }
 /// 默认文本段落样式（左端对齐）
--(NSMutableParagraphStyle *)defaultParagraphStyle2{
-    return jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
-        data.byAlignment(NSTextAlignmentLeft) // 左端对齐
-            .byParagraphSpacing(0) // 段距，取值 float
-            .byParagraphSpacingBefore(0) // 段首空间，取值 float
-            .byFirstLineHeadIndent(0.0) // 首行缩进，取值 float
-            .byHeadIndent(0.0) // 整体缩进(首行除外)，取值 float
-            .byLineSpacing(0); // 行距，取值 float
-    });
+-(JobsRetNSMutableParagraphStyleByVoidBlock _Nonnull)defaultParagraphStyle2{
+    @jobs_weakify(self)
+    return ^NSMutableParagraphStyle *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
+            data.byAlignment(NSTextAlignmentLeft) // 左端对齐
+                .byParagraphSpacing(0) // 段距，取值 float
+                .byParagraphSpacingBefore(0) // 段首空间，取值 float
+                .byFirstLineHeadIndent(0.0) // 首行缩进，取值 float
+                .byHeadIndent(0.0) // 整体缩进(首行除外)，取值 float
+                .byLineSpacing(0); // 行距，取值 float
+        });
+    };
 }
 /// Terms Of Use
--(void)makeTermsOfUseByBlock:(jobsByIDBlock _Nonnull)block{
-    ShowView(FMTermsOfUseView
-             .BySize(FMTermsOfUseView.viewSizeByModel(nil))
-             .JobsRichViewByModel2(nil)
-             .JobsBlock1(^(id _Nullable data) {
-                 if(block) block(data);
-             }));
+-(jobsByjobsByIDBlockBlock _Nonnull)makeTermsOfUseByBlock{
+    @jobs_weakify(self)
+    return ^(jobsByIDBlock _Nonnull block){
+        @jobs_strongify(self)
+        if (!self) return;
+        ShowView(FMTermsOfUseView
+                 .BySize(FMTermsOfUseView.viewSizeByModel(nil))
+                 .JobsRichViewByModel2(nil)
+                 .JobsBlock1(^(id _Nullable data) {
+                     if(block) block(data);
+                 }));
+    };
 }
 /// 联系我们.按钮
--(__kindof UIButton *_Nullable)makeContactBtn{
+-(JobsRetBtnByVoidBlock _Nonnull)makeContactBtn{
     @jobs_weakify(self)
-    return BaseButton.initByBackgroundImage(@"联系我们".img)
-        .onClickBy(^(UIButton *x){
-            @jobs_strongify(self)
-            if (self.objBlock) self.objBlock(x);
-            self.comingToPushVC(MyCollectionVC.new);
-            toastBy(@"联系我们".tr);
-        }).onLongPressGestureBy(^(id data){
-            JobsLog(@"");
-        });
+    return ^__kindof UIButton *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        @jobs_weakify(self)
+        return BaseButton.initByBackgroundImage(@"联系我们".img)
+            .onClickBy(^(UIButton *x){
+                @jobs_strongify(self)
+                if (self.objBlock) self.objBlock(x);
+                self.comingToPushVC(MyCollectionVC.new);
+                toastBy(@"联系我们".jobsTr());
+            }).onLongPressGestureBy(^(id data){
+                JobsLog(@"");
+            });
+    };
 }
 /// 关闭.按钮
--(__kindof UIButton *_Nullable)makeCloseBtnByActionBlock:(jobsByVoidBlock _Nullable)actionBlock{
+-(JobsRetUIButtonByjobsByVoidBlockBlock _Nonnull)makeCloseBtnByActionBlock{
     @jobs_weakify(self)
-    return BaseButton.initByBackgroundImage(@"关闭按钮（灰色）".img)
-        .onClickBy(^(UIButton *x){
-            @jobs_strongify(self)
-            if (self.objBlock) self.objBlock(x);
-            if(actionBlock) actionBlock();
-            if (KindOfViewCls(self)) {
-                UIView *view = (UIView *)self;
-                [view tf_hide:nil];
-            }
-        }).onLongPressGestureBy(^(id data){
-            JobsLog(@"");
-        });
+    return ^__kindof UIButton *_Nullable(jobsByVoidBlock _Nullable actionBlock){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        @jobs_weakify(self)
+        return BaseButton.initByBackgroundImage(@"关闭按钮（灰色）".img)
+            .onClickBy(^(UIButton *x){
+                @jobs_strongify(self)
+                if (self.objBlock) self.objBlock(x);
+                if(actionBlock) actionBlock();
+                if (KindOfViewCls(self)) {
+                    UIView *view = (UIView *)self;
+                    [view tf_hide:nil];
+                }
+            }).onLongPressGestureBy(^(id data){
+                JobsLog(@"");
+            });
+    };
 }
 /// 控制CustomTabBar的显隐
 -(jobsByBOOLBlock _Nonnull)showCustomTabBar{
     return ^(BOOL data){
-        CustomTabBar.jobsVisible = data;
+        CustomTabBar.byJobsVisible(data);
     };
 }
 /// 创建JobsCustomTabBar（单例模式）
@@ -540,31 +591,36 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
     return ^JobsCustomTabBar *_Nullable(__kindof UIView *_Nullable view){
         if(!sharedCustomTabBar){
             sharedCustomTabBar = jobsMakeCustomTabBar(^(__kindof JobsCustomTabBar *_Nullable customTabBar) {
-                customTabBar.byBgColor(JobsClearColor);
+                customTabBar.configMasonryBy(view)
 //                customTabBar.backgroundColor = JobsRedColor;
-                customTabBar.configMasonryBy(view);
+                .byBgColor(JobsClearColor);
             });
         };return sharedCustomTabBar;
     };
 }
 /// 导航返回键的配置
--(UIButtonModel *)makeBackBtnModel{
+-(JobsRetUIButtonModelByVoidBlock _Nonnull)makeBackBtnModel{
     @jobs_weakify(self)
-    return jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
+    return ^UIButtonModel *{
         @jobs_strongify(self)
-//        data.backgroundImage = @"返回".img
-        data.byHighlightBackgroundImage(@"返回".img)
-            .byHighlightImage(@"返回".img)
-            .byNormalImage(@"返回".img)
-            .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
-            .byTitle(self.viewModel.backBtnTitleModel.text)
-            .byFont(self.viewModel.backBtnTitleModel.font)
-            .byTitleCor(JobsLabelColor)
-            .bySelectedTitleCor(JobsLabelColor)
-            .byRoundingCorners(UIRectCornerAllCorners)
-            .byImagePlacement(NSDirectionalRectEdgeLeading)
-            .byImagePadding(JobsWidth(5));
-    });
+        if (!self) return nil;
+        @jobs_weakify(self)
+        return jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
+            @jobs_strongify(self)
+    //        data.backgroundImage = @"返回".img
+            data.byHighlightBackgroundImage(@"返回".img)
+                .byHighlightImage(@"返回".img)
+                .byNormalImage(@"返回".img)
+                .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
+                .byTitle(self.viewModel.backBtnTitleModel.text)
+                .byFont(self.viewModel.backBtnTitleModel.font)
+                .byTitleCor(JobsLabelColor)
+                .bySelectedTitleCor(JobsLabelColor)
+                .byRoundingCorners(UIRectCornerAllCorners)
+                .byImagePlacement(NSDirectionalRectEdgeLeading)
+                .byImagePadding(JobsWidth(5));
+        });
+    };
 }
 /// 发通知：登录成功
 -(jobsByVoidBlock _Nonnull)loginOK{
@@ -591,7 +647,7 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
         self.cleanUserData(); /// 清除用户数据资料
         JobsPostNotification(退出登录成功, @(YES));
         self.toLogin();
-        toastBy(@"Token 已经过期，请重新登录".tr);
+        toastBy(@"Token 已经过期，请重新登录".jobsTr());
     };
 }
 /// 退出登录应该做的事情
@@ -601,7 +657,7 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
         @jobs_strongify(self)
         self.cleanUserData();
         JobsPostNotification(退出登录成功, @(YES));
-        toastBy(@"退出登录成功".tr);
+        toastBy(@"退出登录成功".jobsTr());
         self.popToRootVCBy(YES);
     };
 }
@@ -610,9 +666,9 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
-        self.doorModel = nil;
+        self.byDoorModel(nil);
 #ifdef DEBUG
-        toastBy(@"Token过期，自动清除本地用户数据".tr);
+        toastBy(@"Token过期，自动清除本地用户数据".jobsTr());
 #endif
     };
 }
@@ -644,7 +700,7 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
-        [self toLoginOrRegisterWithRestricted:self.makeDataArr
+        [self toLoginOrRegisterWithRestricted:self.makeDataArr()
                            appDoorContentType:CurrentPage_Login];
     };
 }
@@ -658,6 +714,15 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
 -(void)popUpViewToLogout{
     [self popupShowScaleWithView:self.logOutPopupView popupParameter:self.popupParameter];
 }
+
+-(jobsByVoidBlock _Nonnull)jobsPopUpViewToLogout{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self popUpViewToLogout];
+    };
+}
 #pragma mark —— <AppToolsProtocol> 关于 TabBar
 /// 切换Tab
 -(jobsByNSIntegerBlock _Nonnull)backTo{
@@ -668,16 +733,34 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
 /// 控制TabBar的显隐（在TabBarController的条件下）
 -(jobsByBOOLBlock _Nonnull)showTabBar{
     return ^(BOOL data){
-        AppDelegate.jobsCustomTabBarVC.customTabBar.jobsVisible = data;
+        AppDelegate.jobsCustomTabBarVC.customTabBar.byJobsVisible(data);
     };
 }
 /// TabBar
 -(UITabBar *)getTabBar{
     return AppDelegate.tabBarVC.tabBar;
 }
+
+-(JobsRetUITabBarByVoidBlock _Nonnull)jobsGetTabBar{
+    @jobs_weakify(self)
+    return ^UITabBar *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self getTabBar];
+    };
+}
 /// 跳到首页
 -(void)jumpToHome{
-    AppDelegate.tabBarVC.selectedIndex = 0;
+    AppDelegate.tabBarVC.bySelectedIndex(0);
+}
+
+-(jobsByVoidBlock _Nonnull)jobsJumpToHome{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self jumpToHome];
+    };
 }
 /// JobsTabbarVC 关闭手势
 -(jobsByVoidBlock _Nonnull)tabBarClosePan{
@@ -695,11 +778,29 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
 -(NSMutableArray <__kindof UIViewController *>*)appRootVC{
     return AppDelegate.viewCtrlMutArr;
 }
+
+-(JobsRetNSMutableArrayUIViewControllerByVoidBlock _Nonnull)jobsAppRootVC{
+    @jobs_weakify(self)
+    return ^NSMutableArray <__kindof UIViewController *>*{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self appRootVC];
+    };
+}
 /// 当前对象是否是 Tabbar管理的，不含导航的根控制器
 -(BOOL)isRootVC{
     if ([self isKindOfClass:UIViewController.class]) {
         return self.appRootVC.containsObject((UIViewController *)self);
     }else return NO;
+}
+
+-(JobsRetBOOLByVoidBlock _Nonnull)jobsIsRootVC{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return NO;
+        return [self isRootVC];
+    };
 }
 #pragma mark —— 关于图片编解码
 /// 图片base64编码，再固定50字符的位置加入固定盐。盐码（盐需大写、长度 16位）：RRU4JZTV5WZXPCVZ
@@ -727,13 +828,13 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
     return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
         viewModel
             .byTextModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
-                textModel.byText(title.tr);
+                textModel.byText(title.jobsTr());
             }))
             .bySubTextModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
-                textModel.byText((isNull(subTitle) ? @"点击查看" : subTitle).tr);
+                textModel.byText((isNull(subTitle) ? @"点击查看" : subTitle).jobsTr());
             }))
             .byBackBtnTitleModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
-                textModel.byText(@"返回首页".tr);
+                textModel.byText(@"返回首页".jobsTr());
             }));
     });
 }
@@ -742,39 +843,39 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
                                 attributeSubTitle:(NSString *_Nullable)subTitle{
     return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
         {
-            NSMutableAttributedString *attributedText = JobsMutAttributedString(title.tr);
+            NSMutableAttributedString *attributedText = JobsMutAttributedString(title.jobsTr());
             attributedText.addFontAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
                 data.byValue(UITextModel.new.font)
-                    .byRange(NSMakeRange(0, title.tr.length));
+                    .byRange(NSMakeRange(0, title.jobsTr().length));
             }))
             .addAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
-                data.value = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
+                data.byValue(jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
                     data.byLineSpacing(0)
                         .byAlignment(NSTextAlignmentLeft) // 设置对齐方式为左对齐
                         .byLineBreakMode(NSLineBreakByWordWrapping); // 设置换行模式为单词换行
-                });
-                data.byRange(NSMakeRange(0, title.tr.length));
+                }))
+                    .byRange(NSMakeRange(0, title.jobsTr().length));
             }));
             viewModel.textModel.byAttributedTitle(attributedText);
         }
         {
-            NSMutableAttributedString *attributedText = JobsMutAttributedString((isNull(subTitle) ? @"点击查看" : subTitle).tr);
+            NSMutableAttributedString *attributedText = JobsMutAttributedString((isNull(subTitle) ? @"点击查看" : subTitle).jobsTr());
             attributedText.addFontAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
                 data.byValue(UITextModel.new.font)
-                    .byRange(NSMakeRange(0, (isNull(subTitle) ? @"点击查看" : subTitle).tr.length));
+                    .byRange(NSMakeRange(0, (isNull(subTitle) ? @"点击查看" : subTitle).jobsTr().length));
             }))
             .addAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
-                data.value = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
+                data.byValue(jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
                     data.byLineSpacing(0)
                         .byAlignment(NSTextAlignmentLeft) // 设置对齐方式为左对齐
                         .byLineBreakMode(NSLineBreakByWordWrapping); // 设置换行模式为单词换行
-                });
-                data.byRange(NSMakeRange(0, (isNull(subTitle) ? @"点击查看" : subTitle).tr.length));
+                }))
+                    .byRange(NSMakeRange(0, (isNull(subTitle) ? @"点击查看" : subTitle).jobsTr().length));
             }));
             viewModel.subTextModel.byAttributedTitle(attributedText);
         }
         viewModel.byBackBtnTitleModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回首页".tr);
+            data.byText(@"返回首页".jobsTr());
         }));
     });
 }
@@ -782,98 +883,126 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
 -(UIImage *)defaultHeaderImage{
     return self.isLogin ? @"default_avatar_white".img : @"未登录默认头像（灰）".img;
 }
+
+-(JobsRetImageByVoidBlock _Nonnull)jobsDefaultHeaderImage{
+    @jobs_weakify(self)
+    return ^UIImage *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self defaultHeaderImage];
+    };
+}
 /// 字符串当前语言环境
 -(NSString *)currentLanguage{
     if (currentLanguage().containsString(简体中文)) {
-        return @"简体中文".tr;
+        return @"简体中文".jobsTr();
     }else if (currentLanguage().containsString(英文_不带区域组合)){
         return @"English";
     }else{
         JobsLog(@"%@",currentLanguage());
-        return @"其他语言".tr;
+        return @"其他语言".jobsTr();
     }
 }
+
+-(JobsRetStrByVoidBlock _Nonnull)jobsCurrentLanguage{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self currentLanguage];
+    };
+}
 /// 首页的假数据
--(NSMutableArray <__kindof UIButtonModel *>*)gameDataMutArr{
-    return jobsMakeMutArr(^(__kindof NSMutableArray <UIButtonModel *>* _Nullable data) {
-        data.add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
-            model.byTitle(@"HOT Games".tr)
-                 .bySubTitle(@"".tr)
-                 .byTitleCor(@"#3D3D3D".cor)
-                 .byTitleFont(bayonRegular(JobsWidth(10)))
-                 .byBackgroundImage(@"首页切换游戏种类按钮背景图（未选择）".img)
-                 .byHighlightBackgroundImage(@"首页切换游戏种类按钮背景图（已选择）".img)
-                 .byHighlightImage(@"HOT Games".img)
-                 .byNormalImage(@"HOT Games".img)
-                 .byImagePlacement(NSDirectionalRectEdgeTop)
-                 .byBaseBackgroundColor(JobsClearColor);
-        })).add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
-            model.byTitle(@"SPORTS".tr)
-                 .bySubTitle(@"".tr)
-                 .byTitleCor(@"#3D3D3D".cor)
-                 .byTitleFont(bayonRegular(JobsWidth(10)))
-                 .byBackgroundImage(@"首页切换游戏种类按钮背景图（未选择）".img)
-                 .byHighlightBackgroundImage(@"首页切换游戏种类按钮背景图（已选择）".img)
-                 .byHighlightImage(@"SPORTS".img)
-                 .byNormalImage(@"SPORTS".img)
-                 .byImagePlacement(NSDirectionalRectEdgeTop)
-                 .byBaseBackgroundColor(JobsClearColor);
-        })).add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
-            model.byTitle(@"SLOT GAMES".tr)
-                 .bySubTitle(@"".tr)
-                 .byTitleCor(@"#3D3D3D".cor)
-                 .byTitleFont(bayonRegular(JobsWidth(10)))
-                 .byBackgroundImage(@"首页切换游戏种类按钮背景图（未选择）".img)
-                 .byHighlightBackgroundImage(@"首页切换游戏种类按钮背景图（已选择）".img)
-                 .byHighlightImage(@"SLOT GAMES".img)
-                 .byNormalImage(@"SLOT GAMES".img)
-                 .byImagePlacement(NSDirectionalRectEdgeTop)
-                 .byBaseBackgroundColor(JobsClearColor);
-        })).add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
-            model.byTitle(@"LIVE GAMES".tr)
-                 .bySubTitle(@"".tr)
-                 .byTitleCor(@"#3D3D3D".cor)
-                 .byTitleFont(bayonRegular(JobsWidth(10)))
-                 .byBackgroundImage(@"首页切换游戏种类按钮背景图（未选择）".img)
-                 .byHighlightBackgroundImage(@"首页切换游戏种类按钮背景图（已选择）".img)
-                 .byHighlightImage(@"LIVE GAMES".img)
-                 .byNormalImage(@"LIVE GAMES".img)
-                 .byImagePlacement(NSDirectionalRectEdgeTop)
-                 .byBaseBackgroundColor(JobsClearColor);
-        })).add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
-            model.byTitle(@"TABLE GAMES".tr)
-                 .bySubTitle(@"".tr)
-                 .byTitleCor(@"#3D3D3D".cor)
-                 .byTitleFont(bayonRegular(JobsWidth(10)))
-                 .byBackgroundImage(@"首页切换游戏种类按钮背景图（未选择）".img)
-                 .byHighlightBackgroundImage(@"首页切换游戏种类按钮背景图（已选择）".img)
-                 .byHighlightImage(@"TABLE GAMES".img)
-                 .byNormalImage(@"TABLE GAMES".img)
-                 .byImagePlacement(NSDirectionalRectEdgeTop)
-                 .byBaseBackgroundColor(JobsClearColor);
-        }));
-    });
+-(JobsRetNSMutableArrayUIButtonModelByVoidBlock _Nonnull)gameDataMutArr{
+    @jobs_weakify(self)
+    return ^NSMutableArray <__kindof UIButtonModel *>*{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return jobsMakeMutArr(^(__kindof NSMutableArray <UIButtonModel *>* _Nullable data) {
+            data.add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
+                model.byTitle(@"HOT Games".jobsTr())
+                     .bySubTitle(@"".jobsTr())
+                     .byTitleCor(@"#3D3D3D".jobsCor())
+                     .byTitleFont(bayonRegular(JobsWidth(10)))
+                     .byBackgroundImage(@"首页切换游戏种类按钮背景图（未选择）".img)
+                     .byHighlightBackgroundImage(@"首页切换游戏种类按钮背景图（已选择）".img)
+                     .byHighlightImage(@"HOT Games".img)
+                     .byNormalImage(@"HOT Games".img)
+                     .byImagePlacement(NSDirectionalRectEdgeTop)
+                     .byBaseBackgroundColor(JobsClearColor);
+            })).add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
+                model.byTitle(@"SPORTS".jobsTr())
+                     .bySubTitle(@"".jobsTr())
+                     .byTitleCor(@"#3D3D3D".jobsCor())
+                     .byTitleFont(bayonRegular(JobsWidth(10)))
+                     .byBackgroundImage(@"首页切换游戏种类按钮背景图（未选择）".img)
+                     .byHighlightBackgroundImage(@"首页切换游戏种类按钮背景图（已选择）".img)
+                     .byHighlightImage(@"SPORTS".img)
+                     .byNormalImage(@"SPORTS".img)
+                     .byImagePlacement(NSDirectionalRectEdgeTop)
+                     .byBaseBackgroundColor(JobsClearColor);
+            })).add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
+                model.byTitle(@"SLOT GAMES".jobsTr())
+                     .bySubTitle(@"".jobsTr())
+                     .byTitleCor(@"#3D3D3D".jobsCor())
+                     .byTitleFont(bayonRegular(JobsWidth(10)))
+                     .byBackgroundImage(@"首页切换游戏种类按钮背景图（未选择）".img)
+                     .byHighlightBackgroundImage(@"首页切换游戏种类按钮背景图（已选择）".img)
+                     .byHighlightImage(@"SLOT GAMES".img)
+                     .byNormalImage(@"SLOT GAMES".img)
+                     .byImagePlacement(NSDirectionalRectEdgeTop)
+                     .byBaseBackgroundColor(JobsClearColor);
+            })).add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
+                model.byTitle(@"LIVE GAMES".jobsTr())
+                     .bySubTitle(@"".jobsTr())
+                     .byTitleCor(@"#3D3D3D".jobsCor())
+                     .byTitleFont(bayonRegular(JobsWidth(10)))
+                     .byBackgroundImage(@"首页切换游戏种类按钮背景图（未选择）".img)
+                     .byHighlightBackgroundImage(@"首页切换游戏种类按钮背景图（已选择）".img)
+                     .byHighlightImage(@"LIVE GAMES".img)
+                     .byNormalImage(@"LIVE GAMES".img)
+                     .byImagePlacement(NSDirectionalRectEdgeTop)
+                     .byBaseBackgroundColor(JobsClearColor);
+            })).add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
+                model.byTitle(@"TABLE GAMES".jobsTr())
+                     .bySubTitle(@"".jobsTr())
+                     .byTitleCor(@"#3D3D3D".jobsCor())
+                     .byTitleFont(bayonRegular(JobsWidth(10)))
+                     .byBackgroundImage(@"首页切换游戏种类按钮背景图（未选择）".img)
+                     .byHighlightBackgroundImage(@"首页切换游戏种类按钮背景图（已选择）".img)
+                     .byHighlightImage(@"TABLE GAMES".img)
+                     .byNormalImage(@"TABLE GAMES".img)
+                     .byImagePlacement(NSDirectionalRectEdgeTop)
+                     .byBaseBackgroundColor(JobsClearColor);
+            }));
+        });
+    };
 }
 /// 收藏的假数据 @"PG".img;@"点赞".img;
--(NSMutableArray <__kindof UIViewModel *>*)favDataMutArr{
-    return jobsMakeMutArr(^(__kindof NSMutableArray<UIViewModel *> * _Nullable arr) {
-        arr.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.byBgImage(@"FlementalLinkFire".img)
-                .byImageUrl(@"https://zh.wikipedia.org/wiki/File:Jiang_Zemin_2002.jpg".jobsUrl)
-                .byImage(@"点赞".img)
-                .byText(@"FlementalLinkFire".tr);
-        })).add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.byBgImage(@"DragonSoar".img)
-                .byImageUrl(@"https://zh.wikipedia.org/wiki/File:Deng_Xiaoping_at_the_arrival_ceremony_for_the_Vice_Premier_of_China_(cropped).jpg".jobsUrl)
-                .byImage(@"点赞".img)
-                .byText(@"DragonSoar".tr);
-        })).add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.byBgImage(@"StreetFighter".img)
-                .byImageUrl(@"https://zh.wikipedia.org/wiki/File:Zhu_Rongji_in_2000.jpg".jobsUrl)
-                .byImage(@"点赞".img)
-                .byText(@"ELEMENTAL LINK".tr);
-        }));
-    });
+-(JobsRetNSMutableArrayUIViewModelByVoidBlock _Nonnull)favDataMutArr{
+    @jobs_weakify(self)
+    return ^NSMutableArray <__kindof UIViewModel *>*{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return jobsMakeMutArr(^(__kindof NSMutableArray<UIViewModel *> * _Nullable arr) {
+            arr.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
+                data.byBgImage(@"FlementalLinkFire".img)
+                    .byImageUrl(@"https://zh.wikipedia.org/wiki/File:Jiang_Zemin_2002.jpg".jobsUrl)
+                    .byImage(@"点赞".img)
+                    .byText(@"FlementalLinkFire".jobsTr());
+            })).add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
+                data.byBgImage(@"DragonSoar".img)
+                    .byImageUrl(@"https://zh.wikipedia.org/wiki/File:Deng_Xiaoping_at_the_arrival_ceremony_for_the_Vice_Premier_of_China_(cropped).jpg".jobsUrl)
+                    .byImage(@"点赞".img)
+                    .byText(@"DragonSoar".jobsTr());
+            })).add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
+                data.byBgImage(@"StreetFighter".img)
+                    .byImageUrl(@"https://zh.wikipedia.org/wiki/File:Zhu_Rongji_in_2000.jpg".jobsUrl)
+                    .byImage(@"点赞".img)
+                    .byText(@"ELEMENTAL LINK".jobsTr());
+            }));
+        });
+    };
 }
 
 -(HTTPRequestHeaderLanguageType)currentLanguageType{
@@ -886,13 +1015,22 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
         return HTTPRequestHeaderLanguageOther;
     }
 }
+
+-(JobsRetHTTPRequestHeaderLanguageTypeByVoidBlock _Nonnull)jobsCurrentLanguageType{
+    @jobs_weakify(self)
+    return ^HTTPRequestHeaderLanguageType{
+        @jobs_strongify(self)
+        if (!self) return (HTTPRequestHeaderLanguageType){0};
+        return [self currentLanguageType];
+    };
+}
 #pragma mark —— Loading动画
 -(jobsByViewBlock _Nonnull)showLoadingIndicatorBy{
     @jobs_weakify(self)
     return ^(__kindof UIView *_Nullable view){
         dispatch_async(dispatch_get_main_queue(), ^{
             @jobs_strongify(self)
-            self.loadingIndicator.center = view.center;
+            self.loadingIndicator.byCenter(view.center.x, view.center.y);
             view.addSubview(self.loadingIndicator);
             self.loadingIndicator.byVisible(1);
             [self.loadingIndicator startAnimating];
@@ -916,10 +1054,10 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
     return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
         viewModel
             .byTextModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
-                textModel.byText(@"主标题".tr);
+                textModel.byText(@"主标题".jobsTr());
             }))
             .bySubTextModel(jobsMakeTextModel(^(__kindof UITextModel * _Nullable textModel) {
-                textModel.byText(@"副标题".tr);
+                textModel.byText(@"副标题".jobsTr());
             }));
     });
 }
@@ -937,8 +1075,8 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
     [popupView actionObjBlock:^(__kindof UIButton *data) {
         @jobs_strongify(popupView)
         if([data.titleForNormalState isKindOfClass:NSString.class]){
-            if (data.titleForNormalState.isEqualToString(@"取消".tr)) {
-            }else if (data.titleForNormalState.isEqualToString(@"确认".tr)){
+            if (data.titleForNormalState.isEqualToString(@"取消".jobsTr())) {
+            }else if (data.titleForNormalState.isEqualToString(@"确认".jobsTr())){
             }else{}
         }
         [popupView tf_hide:^{
@@ -950,7 +1088,7 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
 //-(JobsOCBaseConfigTestPopupView *)JobsTestPopView:(NSString *)string{
 //    UIViewModel *viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
 //    UITextModel *textModel = UITextModel.new;
-//    textModel.text = isNull(string) ? @"登入按钮".tr : string;
+//    textModel.text = isNull(string) ? @"登入按钮".jobsTr() : string;
 //    viewModel.textModel = textModel;
 //    return [self jobsTestPopView:viewModel];
 //}
@@ -963,9 +1101,9 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
 //    @jobs_weakify(popupView)
 //    [testPopupView actionObjBlock:^(UIButton *data) {
 //        @jobs_strongify(popupView)
-//        if ([[data titleForNormalState] isEqualToString:@"Cancel".tr]) {
+//        if ([[data titleForNormalState] isEqualToString:@"Cancel".jobsTr()]) {
 //
-//        }else if ([[data titleForNormalState] isEqualToString:@"Sure".tr]){
+//        }else if ([[data titleForNormalState] isEqualToString:@"Sure".jobsTr()]){
 //
 //        }else{}
 //        [testPopupView tf_hide];
@@ -974,12 +1112,22 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
 //#endif
 //}
 #pragma mark —— 设备横屏的方向判定
--(BOOL)isLandscapeRight{
-    return JobsAppTool.currentInterfaceOrientationMask == UIInterfaceOrientationMaskLandscapeRight;
+-(JobsRetBOOLByVoidBlock _Nonnull)isLandscapeRight{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return JobsAppTool.currentInterfaceOrientationMask == UIInterfaceOrientationMaskLandscapeRight;
+    };
 }
 
--(BOOL)isLandscapeLeft{
-    return JobsAppTool.currentInterfaceOrientationMask == UIInterfaceOrientationMaskLandscapeLeft;
+-(JobsRetBOOLByVoidBlock _Nonnull)isLandscapeLeft{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return JobsAppTool.currentInterfaceOrientationMask == UIInterfaceOrientationMaskLandscapeLeft;
+    };
 }
 #pragma mark —— 通过验证返回YES
 -(JobsRetBOOLByStrBlock _Nonnull)userAndPasswordNotUpTo{
@@ -1020,15 +1168,15 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
         }else{
             if (isNull(model.userName) &&
                 isNull(model.password)) {
-                self.jobsToastErrMsg(@"Please complete the login information".tr);
+                self.jobsToastErrMsg(@"Please complete the login information".jobsTr());
             }else if (isValue(model.userName) &&
                       isNull(model.password)){
-                self.jobsToastErrMsg(@"Please enter your password".tr);
+                self.jobsToastErrMsg(@"Please enter your password".jobsTr());
             }else if (isNull(model.userName) &&
                       isValue(model.password)){
-                self.jobsToastErrMsg(@"Please enter a user name".tr);
+                self.jobsToastErrMsg(@"Please enter a user name".jobsTr());
             }else{
-                self.jobsToastErrMsg(@"The password consists of 6 to 15 characters and can only be letters and numbers".tr);
+                self.jobsToastErrMsg(@"The password consists of 6 to 15 characters and can only be letters and numbers".jobsTr());
             };return NO;
         }
     };
@@ -1088,7 +1236,7 @@ static JobsCustomTabBar *sharedCustomTabBar = nil;
     return ^BOOL(NSString *_Nullable telNum){
         return !telNum.isContainsSpecialSymbolsString(nil) &&/// 不包含特殊字符
         telNum.length <= 20 &&/// 长度小于20位
-        telNum.isContainBlank;/// 不包含空格
+        telNum.isContainBlank();/// 不包含空格
     };
 }
 #pragma mark —— Prop_strong()NSMutableArray<__kindof UIViewModel *> *hotLabelDataMutArr;
@@ -1103,8 +1251,8 @@ JobsKey(_hotLabelDataMutArr)
 //            UIViewModel *vm = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
 //
 //            vm.requestParams = element;
-//            vm.bgImageURLString = @"".tr;//[This.BaseUrl stringByAppendingString:element.appIconUrl];
-//            vm.textModel.text = @"".tr;
+//            vm.bgImageURLString = @"".jobsTr();//[This.BaseUrl stringByAppendingString:element.appIconUrl];
+//            vm.textModel.text = @"".jobsTr();
 //            vm.jobsSize = CGSizeMake(JobsWidth(46), JobsWidth(46));
 //            vm.offsetXForEach = JobsWidth(46);
 //            vm.offsetYForEach = JobsWidth(46);
@@ -1155,7 +1303,7 @@ JobsKey(__立即注册)
         @jobs_weakify(self)
         UIViewController *viewController = (UIViewController *)self;
         _立即注册 = BaseButton
-            .initByStyle1(@"立即注册".tr,
+            .initByStyle1(@"立即注册".jobsTr(),
                           UIFontWeightRegularSize(14),
                           HEXCOLOR(0x757575))
             .onClickBy(^(UIButton *x){
@@ -1190,7 +1338,7 @@ JobsKey(__联系客服)
         @jobs_weakify(self)
         UIViewController *viewController = (UIViewController *)self;
         _联系客服 = BaseButton
-            .initByStyle1(@"联系客服".tr,
+            .initByStyle1(@"联系客服".jobsTr(),
                           UIFontWeightRegularSize(14),
                           HEXCOLOR(0x757575))
             .onClickBy(^(UIButton *x){
@@ -1236,8 +1384,8 @@ JobsKey(_richTextMutArr)
     NSMutableArray <NSString *>*RichTextMutArr = Jobs_getAssociatedObject(_richTextMutArr);
     if (!RichTextMutArr) {
         RichTextMutArr = jobsMakeMutArr(^(NSMutableArray <NSString *>*_Nullable data) {
-            data.add(@"如需帮助，请联系".tr)
-            .add(@"专属客服".tr);
+            data.add(@"如需帮助，请联系".jobsTr())
+            .add(@"专属客服".jobsTr());
         });[self setRichTextMutArr:RichTextMutArr];
         Jobs_setAssociatedRETAIN_NONATOMIC(_richTextMutArr, RichTextMutArr)
     };return RichTextMutArr;
@@ -1285,18 +1433,18 @@ JobsKey(_connectionTipsTV)
     if (!ConnectionTipsTV) {
         @jobs_weakify(self)
         Jobs_setAssociatedRETAIN_NONATOMIC(_connectionTipsTV, jobsMakeTextView(^(__kindof UITextView * _Nullable textView) {
-            textView.userInteractionEnabled = YES;
-            textView.linkTextAttributes = jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable data) {
+            textView.byLinkTextAttributes(jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable data) {
                 @jobs_strongify(self)
                 [data setValue:self.richTextConfigMutArr[1].textCor forKey:NSForegroundColorAttributeName];// 链接文字颜色
                 [data setValue:JobsLightGrayColor forKey:NSUnderlineColorAttributeName];
                 [data setValue:@(NSUnderlinePatternSolid) forKey:NSUnderlineStyleAttributeName];
-            });
-            textView.attributedText = self.attributedStringData;//
-            [textView sizeToFit];
-            textView.byBgColor(JobsClearColor);
-            textView.editable = NO;// 必须禁止输入，否则点击将会弹出输入键盘
-            textView.scrollEnabled = NO;// 可选的，视具体情况而定
+            }))
+                .byAttributedText(self.attributedStringData)
+                .byEditable(NO)// 必须禁止输入，否则点击将会弹出输入键盘
+                .byScrollEnabled(NO)// 可选的，视具体情况而定
+                .byUserInteractionEnabled(YES)
+                .byBgColor(JobsClearColor)
+                .bySizeToFit();
             if ([self isKindOfClass:UIViewController.class]) {
                 textView.byDelegate(self);
                 UIViewController *viewController = (UIViewController *)self;
@@ -1319,10 +1467,10 @@ JobsKey(_jxCategoryViewTitleMutArr)
     NSMutableArray *JXCategoryViewTitleMutArr = Jobs_getAssociatedObject(_jxCategoryViewTitleMutArr);
     if (!JXCategoryViewTitleMutArr) {
         JXCategoryViewTitleMutArr = jobsMakeMutArr(^(NSMutableArray <NSString *>*_Nullable data) {
-            data.add(@"今日".tr)
-            .add(@"昨日".tr)
-            .add(@"近7日".tr)
-            .add(@"近30日".tr);
+            data.add(@"今日".jobsTr())
+            .add(@"昨日".jobsTr())
+            .add(@"近7日".jobsTr())
+            .add(@"近30日".jobsTr());
         });
         Jobs_setAssociatedRETAIN_NONATOMIC(_jxCategoryViewTitleMutArr, JXCategoryViewTitleMutArr)
     };return JXCategoryViewTitleMutArr;

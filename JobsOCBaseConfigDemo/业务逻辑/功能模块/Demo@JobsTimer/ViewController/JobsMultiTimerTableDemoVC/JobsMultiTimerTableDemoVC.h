@@ -65,6 +65,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsMultiTimerTableDemoVC : BaseViewController <UITableViewDelegate,UITableViewDataSource>
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsMultiTimerTableDemoVC
+-(JobsRetJobsMultiTimerTableDemoVCByBOOLBlock _Nonnull)byWisdomListVisible;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsMultiTimerTableDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

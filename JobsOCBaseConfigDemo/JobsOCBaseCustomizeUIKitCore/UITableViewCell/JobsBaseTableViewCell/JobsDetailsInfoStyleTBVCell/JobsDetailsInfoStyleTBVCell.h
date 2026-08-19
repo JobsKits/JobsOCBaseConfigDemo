@@ -6,25 +6,20 @@
 //
 
 #ifndef JOBS_HEADER_GUARD_JOBSDETAILSINFOSTYLETBVCELL_2D2D1101D3
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 #define JOBS_HEADER_GUARD_JOBSDETAILSINFOSTYLETBVCELL_2D2D1101D3
 
 #import <UIKit/UIKit.h>
 #import "UIView+Extra.h"
 #import "JobsBaseTableViewCell.h"
 
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
-#else
-#import "Masonry.h"
-#endif
-
 #import "JobsOCDSL.h"
-
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
-#else
-#import "Masonry.h"
-#endif
 
 #import "JobsBaseProtocolHeader.h"
 #import "JobsMakes.h"

@@ -11,6 +11,12 @@
 #import "JobsModel.h"
 #import "JobsBlock.h"
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsBaseModel (DSL)
@@ -363,6 +369,11 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetJobsBaseModelByJobsByBtnBlockBlock _Nonnull)byBackBtnClickAction;
 -(JobsRetJobsBaseModelByJobsByBtnBlockBlock _Nonnull)byCloseBtnClickAction;
 
+@end
+
+@interface JobsKeyValueModel (DSL)
+-(JobsRetJobsKeyValueModelByIDBlock _Nonnull)byKey;
+-(JobsRetJobsKeyValueModelByIDBlock _Nonnull)byValue;
 @end
 
 NS_ASSUME_NONNULL_END

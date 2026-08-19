@@ -19,4 +19,13 @@ JobsKey(_textView)
     Jobs_setAssociatedRETAIN_NONATOMIC(_textView, textView)
 }
 
+-(JobsRetUITextItemByTextViewBlock _Nonnull)byTextView{
+    @jobs_weakify(self)
+    return ^UITextItem *(UITextView *textView){
+        @jobs_strongify(self)
+        self.textView = textView;
+        return self;
+    };
+}
+
 @end
