@@ -194,7 +194,7 @@ Prop_copy(nullable, readwrite) NSDictionary *latestKeyboardUserInfo;
         self.byLatestKeyboardUserInfo(userInfo);
         self.byLatestKeyboardFrameInScreen(keyboardFrameValue ? keyboardFrameValue.CGRectValue : CGRectNull);
         JobsOCKeyboardConfig *config = self.currentConfig;
-        if (!config.isValid()) return;
+        if (!config || !config.isValid()) return;
         [self jobs_refreshTriggerViewForConfig:config preferredView:nil];
         JobsOCKeyboardResult *result = [JobsOCKeyboardCalculator resultByConfig:config notification:notification];
         [self jobs_consumeResult:result config:config];
@@ -212,7 +212,7 @@ Prop_copy(nullable, readwrite) NSDictionary *latestKeyboardUserInfo;
         @jobs_strongify(self)
         if (!self) return;
         JobsOCKeyboardConfig *config = self.currentConfig;
-        if (!config.isValid()) return;
+        if (!config || !config.isValid()) return;
         UIView *triggerView = [notification.object isKindOfClass:UIView.class] ? notification.object : nil;
         [self jobs_refreshTriggerViewForConfig:config preferredView:triggerView];
         self.jobs_reapplyLatestKeyboardForConfig(config);
@@ -225,6 +225,7 @@ Prop_copy(nullable, readwrite) NSDictionary *latestKeyboardUserInfo;
         @jobs_strongify(self)
         if (!self) return nil;
         NSMutableArray <__kindof UIView *>*views = NSMutableArray.array;
+        if (!config) return views;
         if (config.targetView) [views addObject:config.targetView];
         for (__kindof UIView *view in config.followViews()) {
             if (view && ![views containsObject:view]) [views addObject:view];
@@ -253,7 +254,7 @@ Prop_copy(nullable, readwrite) NSDictionary *latestKeyboardUserInfo;
 
 -(void)jobs_refreshTriggerViewForConfig:(__kindof JobsOCKeyboardConfig *)config
                           preferredView:(__kindof UIView *)preferredView{
-    if (!config.isValid()) return;
+    if (!config || !config.isValid()) return;
     UIView *targetView = config.targetView;
     UIView *triggerScopeView = config.triggerScopeView ?: targetView;
     UIView *triggerView = nil;
@@ -293,7 +294,7 @@ sharesMovingViewsWithConfig:(__kindof JobsOCKeyboardConfig *)right{
     return ^(__kindof JobsOCKeyboardConfig * config){
         @jobs_strongify(self)
         if (!self) return;
-        if (!config.isValid() || CGRectIsNull(self.latestKeyboardFrameInScreen)) return;
+        if (!config || !config.isValid() || CGRectIsNull(self.latestKeyboardFrameInScreen)) return;
         JobsOCKeyboardResult *result = [JobsOCKeyboardCalculator resultByConfig:config
                                                           keyboardFrameInScreen:self.latestKeyboardFrameInScreen
                                                                        userInfo:self.latestKeyboardUserInfo];
@@ -317,7 +318,7 @@ sharesMovingViewsWithConfig:(__kindof JobsOCKeyboardConfig *)right{
     return ^(__kindof JobsOCKeyboardConfig * config){
         @jobs_strongify(self)
         if (!self) return;
-        if (!config.shouldFlowByReturnKey) return;
+        if (!config || !config.shouldFlowByReturnKey) return;
         @jobs_weakify(self)
         NSArray <__kindof UITextField *>*inputFields = config.inputFields();
         for (UITextField *textField in inputFields) {
@@ -335,6 +336,7 @@ sharesMovingViewsWithConfig:(__kindof JobsOCKeyboardConfig *)right{
     return ^(__kindof JobsOCKeyboardConfig * config){
         @jobs_strongify(self)
         if (!self) return;
+        if (!config) return;
         for (UITextField *textField in config.inputFields()) {
             textField.offJobsEvent(UIControlEventEditingDidEndOnExit);
         }
@@ -343,6 +345,7 @@ sharesMovingViewsWithConfig:(__kindof JobsOCKeyboardConfig *)right{
 
 -(UITextField *)jobs_nextInputFieldAfterTextField:(__kindof UITextField *)textField
                                            config:(__kindof JobsOCKeyboardConfig *)config{
+    if (!config) return nil;
     NSArray <__kindof UITextField *>*inputFields = config.inputFields();
     NSUInteger index = [inputFields indexOfObject:textField];
     if (index == NSNotFound) return nil;
@@ -363,7 +366,7 @@ sharesMovingViewsWithConfig:(__kindof JobsOCKeyboardConfig *)right{
         @jobs_strongify(self)
         if (!self) return;
         JobsOCKeyboardConfig *config = self.currentConfig;
-        if (!config.shouldFlowByReturnKey) return;
+        if (!config || !config.shouldFlowByReturnKey) return;
         UITextField *nextTextField = [self jobs_nextInputFieldAfterTextField:textField config:config];
         if (nextTextField) {
             [nextTextField becomeFirstResponder];
@@ -390,7 +393,7 @@ sharesMovingViewsWithConfig:(__kindof JobsOCKeyboardConfig *)right{
         @jobs_strongify(self)
         if (!self) return;
         self.jobs_teardownEndEditingTapGesture();
-        if (!config.shouldResignOnTouchOutside) return;
+        if (!config || !config.shouldResignOnTouchOutside) return;
         UIView *hostView = self.jobs_endEditingHostViewByConfig(config);
         if (!hostView) return;
         UITapGestureRecognizer *tapGR = [UITapGestureRecognizer.alloc initWithTarget:self
@@ -436,7 +439,7 @@ sharesMovingViewsWithConfig:(__kindof JobsOCKeyboardConfig *)right{
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
       shouldReceiveTouch:(UITouch *)touch{
     JobsOCKeyboardConfig *config = self.currentConfig;
-    if (!config.shouldResignOnTouchOutside) return NO;
+    if (!config || !config.shouldResignOnTouchOutside) return NO;
     if ([touch.view isKindOfClass:UIControl.class]) return NO;
     for (UITextField *textField in config.inputFields()) {
         if ([touch.view isDescendantOfView:textField]) return NO;

@@ -75,7 +75,7 @@
     NSNumber *durationNumber = userInfo[UIKeyboardAnimationDurationUserInfoKey];
     if (durationNumber) result.animationDuration = durationNumber.doubleValue;
     result.byAnimationOptions(self.animationOptionsByUserInfo(userInfo));
-    if (!config.isValid()) return result;
+    if (!config || !config.isValid()) return result;
     UIView *container = self.containerViewByConfig(config);
     UIView *targetView = config.targetView;
     if (!container || !targetView) return result;
