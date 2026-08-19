@@ -57,16 +57,21 @@
     }else return YES;
 }
 /// 雪花算法
--(NSNumber *_Nonnull)makeSnowflake{
-    JobsOCSnowflake *snowflake = [JobsOCSnowflake.alloc initWithPublishMillisecond:self.currentUnixTimeStampInMilliseconds
-                                                                             IDCID:1
-                                                                         machineID:1];
-    NSNumber *snowflakeID = snowflake.nextID;
-    if (snowflakeID){
-        JobsLog(@"Generated Snowflake ID: %@", snowflakeID);
-    }else{
-        JobsLog(@"Failed to generate Snowflake ID.");
-    };return snowflakeID;
+-(JobsRetNSNumberByVoidBlock _Nonnull)makeSnowflake{
+    @jobs_weakify(self)
+    return ^NSNumber *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        JobsOCSnowflake *snowflake = [JobsOCSnowflake.alloc initWithPublishMillisecond:self.currentUnixTimeStampInMilliseconds()
+                                                                                 IDCID:1
+                                                                             machineID:1];
+        NSNumber *snowflakeID = snowflake.nextID();
+        if (snowflakeID){
+            JobsLog(@"Generated Snowflake ID: %@", snowflakeID);
+        }else{
+            JobsLog(@"Failed to generate Snowflake ID.");
+        };return snowflakeID;
+    };
 }
 /// 查询算法
 /// @param data 查询的数据源
@@ -85,7 +90,7 @@
                 }
             }else{// 自定义的对象
                 NSObject *customObj = (NSObject *)obj;
-                NSMutableArray <NSString *>*propertyList = customObj.propertyList;
+                NSMutableArray <NSString *>*propertyList = customObj.propertyList();
                 for (NSString *str in propertyList) {
                     switch (searchStrategy) {
                         /// 处理 JobsSearchStrategy_Accurate 分支
@@ -129,7 +134,7 @@
 /// 以当前手机系统时间（包含了时区）为基准，给定一个日期偏移值（正值代表未来，负值代表过去，0代表现在），返回字符串特定格式的“星期几”
 -(JobsRetStrByIntegerBlock _Nonnull)whatDayOfWeekDistanceNow{
     return ^NSString *_Nullable(NSInteger offsetDay){
-        JobsTimeModel *timeModel = JobsTimeModel.makeSpecificTime;
+        JobsTimeModel *timeModel = JobsTimeModel.makeSpecificTime();
         NSInteger currentWeekday = timeModel.currentWeekday;//当前时间是周几？1代表周日 2代表周一 7代表周六
         NSInteger offsetResDay = currentWeekday + offsetDay;//偏移量以后的值，对这个值进行分析和讨论
         NSInteger resResWeekDay = 0;//处理的结果落在0~6
@@ -149,35 +154,35 @@
         switch (resResWeekDay) {
             /// 处理 数值 0 分支
             case 0:{
-                return @"星期六".tr;
+                return @"星期六".jobsTr();
             }break;
             /// 处理 数值 1 分支
             case 1:{
-                return @"星期日".tr;
+                return @"星期日".jobsTr();
             }break;
             /// 处理 数值 2 分支
             case 2:{
-                return @"星期一".tr;
+                return @"星期一".jobsTr();
             }break;
             /// 处理 数值 3 分支
             case 3:{
-                return @"星期二".tr;
+                return @"星期二".jobsTr();
             }break;
             /// 处理 数值 4 分支
             case 4:{
-                return @"星期三".tr;
+                return @"星期三".jobsTr();
             }break;
             /// 处理 数值 5 分支
             case 5:{
-                return @"星期四".tr;
+                return @"星期四".jobsTr();
             }break;
             /// 处理 数值 6 分支
             case 6:{
-                return @"星期五".tr;
+                return @"星期五".jobsTr();
             }break;
             /// 未匹配已知分支时执行兜底处理
             default:
-                return @"异常数据".tr;
+                return @"异常数据".jobsTr();
                 break;
         }
     };

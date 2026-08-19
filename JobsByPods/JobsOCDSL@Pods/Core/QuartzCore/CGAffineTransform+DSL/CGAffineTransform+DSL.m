@@ -2,40 +2,43 @@
 //  CGAffineTransform+DSL.m
 //  JobsOCDSL
 //
+//  Created by Jobs on 2026年8月3日，星期一.
+//
+
 #import "CGAffineTransform+DSL.h"
 
 @implementation NSValue (JobsCGAffineTransformDSL)
-+(JobsRetValueByVoidBlock)byCGAffineTransformIdentity{
++(JobsRetValueByVoidBlock _Nonnull)byCGAffineTransformIdentity{
     return ^NSValue *_Nullable(void){
         return [NSValue valueWithCGAffineTransform:CGAffineTransformIdentity];
     };
 }
 
-+(JobsRetValueByAffineTransformBlock)byCGAffineTransform{
++(JobsRetValueByAffineTransformBlock _Nonnull)byCGAffineTransform{
     return ^NSValue *_Nullable(CGAffineTransform data){
         return [NSValue valueWithCGAffineTransform:data];
     };
 }
 
-+(JobsRetValueByPointBlock)byCGAffineTransformMakeTranslation{
++(JobsRetValueByPointBlock _Nonnull)byCGAffineTransformMakeTranslation{
     return ^NSValue *_Nullable(CGPoint data){
         return [NSValue valueWithCGAffineTransform:CGAffineTransformMakeTranslation(data.x, data.y)];
     };
 }
 
-+(JobsRetValueByPointBlock)byCGAffineTransformMakeScale{
++(JobsRetValueByPointBlock _Nonnull)byCGAffineTransformMakeScale{
     return ^NSValue *_Nullable(CGPoint data){
         return [NSValue valueWithCGAffineTransform:CGAffineTransformMakeScale(data.x, data.y)];
     };
 }
 
-+(JobsRetValueByCGFloatBlock)byCGAffineTransformMakeRotation{
++(JobsRetValueByCGFloatBlock _Nonnull)byCGAffineTransformMakeRotation{
     return ^NSValue *_Nullable(CGFloat data){
         return [NSValue valueWithCGAffineTransform:CGAffineTransformMakeRotation(data)];
     };
 }
 
--(JobsRetValueByPointBlock)byTranslate{
+-(JobsRetValueByPointBlock _Nonnull)byTranslate{
     @jobs_weakify(self)
     return ^NSValue *_Nullable(CGPoint data){
         @jobs_strongify(self)
@@ -43,7 +46,7 @@
     };
 }
 
--(JobsRetValueByPointBlock)byScale{
+-(JobsRetValueByPointBlock _Nonnull)byScale{
     @jobs_weakify(self)
     return ^NSValue *_Nullable(CGPoint data){
         @jobs_strongify(self)
@@ -51,7 +54,7 @@
     };
 }
 
--(JobsRetValueByCGFloatBlock)byRotate{
+-(JobsRetValueByCGFloatBlock _Nonnull)byRotate{
     @jobs_weakify(self)
     return ^NSValue *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -59,7 +62,7 @@
     };
 }
 
--(JobsRetValueByAffineTransformBlock)byConcat{
+-(JobsRetValueByAffineTransformBlock _Nonnull)byConcat{
     @jobs_weakify(self)
     return ^NSValue *_Nullable(CGAffineTransform data){
         @jobs_strongify(self)

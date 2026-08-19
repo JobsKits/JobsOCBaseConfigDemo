@@ -52,6 +52,7 @@ UIScrollViewDelegate
 Prop_strong()UIScrollView *scrollView;//这个属性一旦有值，说明开启UITableViewHeaderFooterView不悬停。系统在UITableViewStylePlain模式下是默认悬停的
 Prop_strong()Class scrollViewClass;
 Prop_copy()void(^scrollCallback)(UIScrollView *scrollView);
+-(JobsRetUIViewControllerByvoidUIScrollViewscrollViewBlock _Nonnull)byScrollCallback;
 
 @end
 

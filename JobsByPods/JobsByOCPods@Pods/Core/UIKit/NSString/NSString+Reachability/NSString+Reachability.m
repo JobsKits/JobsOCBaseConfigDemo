@@ -8,8 +8,13 @@
 #import "NSString+Reachability.h"
 
 @implementation NSString (Reachability)
--(Reachability *_Nonnull)makeReachability{
-    return [Reachability reachabilityWithHostname:self];
+-(JobsRetReachabilityByVoidBlock _Nonnull)makeReachability{
+    @jobs_weakify(self)
+    return ^Reachability *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [Reachability reachabilityWithHostname:self];
+    };
 }
 
 @end

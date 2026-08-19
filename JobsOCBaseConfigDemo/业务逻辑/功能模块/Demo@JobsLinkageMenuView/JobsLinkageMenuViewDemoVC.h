@@ -25,6 +25,12 @@
 #import "JobsLinkageMenuViewHeader.h"
 #endif
 
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
 #if __has_include(<JobsModel/JobsModel.h>)
 #import <JobsModel/JobsModel.h>
 #else
@@ -35,12 +41,6 @@
 #import <JobsModelDSL/JobsModelDSL.h>
 #else
 #import "JobsModelDSL.h"
-#endif
-
-#if __has_include(<JobsMakes/JobsMakes.h>)
-#import <JobsMakes/JobsMakes.h>
-#else
-#import "JobsMakes.h"
 #endif
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
@@ -65,6 +65,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsLinkageMenuViewDemoVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsLinkageMenuViewDemoVC
+-(JobsRetJobsLinkageMenuViewDemoVCByJobsLinkageMenuViewBlock _Nonnull)byLinkageView;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsLinkageMenuViewDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

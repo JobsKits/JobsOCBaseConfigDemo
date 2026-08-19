@@ -56,6 +56,12 @@ NS_ASSUME_NONNULL_BEGIN
 -(jobsByNavBarConfigBlock _Nonnull)makeNavByConfig;
 -(jobsByNavBarConfigBlock _Nonnull)makeGKNavByConfig;
 
+-(jobsByVoidBlock _Nonnull)jobsDidReceiveMemoryWarning;
+
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsNavSettingVC
+-(JobsRetJobsNavSettingVCByBOOLBlock _Nonnull)byHiddenNavigationBar;
+-(JobsRetJobsNavSettingVCByBOOLBlock _Nonnull)byExtendedLayoutIncludesOpaqueBars;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsNavSettingVC
 @end
 
 NS_ASSUME_NONNULL_END
@@ -79,9 +85,9 @@ NS_ASSUME_NONNULL_END
     //            @jobs_strongify(self)
              buttonModel.byNormalImage(@"全局返回箭头".img)
                         .byHighlightImage(@"全局返回箭头".img)
-                        .byTitle(@"".tr)
+                        .byTitle(@"".jobsTr())
                         .byTitleFont(bayonRegular(18))
-                        .byTitleCor(@"#8A93A1".cor)
+                        .byTitleCor(@"#8A93A1".jobsCor())
                         .byImagePlacement(NSDirectionalRectEdgeLeading)
                         .byTextAlignment(NSTextAlignmentCenter)
                         .bySubTextAlignment(NSTextAlignmentCenter)

@@ -27,6 +27,12 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface WKWebView (Extra)<BaseProtocol>
@@ -34,8 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
 +(JobsRetWKWebViewByConfigurationBlock _Nonnull)initBy;
 -(JobsRetWKWebViewByURLRequestBlock _Nonnull)loadRequest;
 -(JobsRetWKWebViewByURLBlock _Nonnull)loadFileURL;
+-(JobsRetWKWebViewByURLBlock _Nonnull)byUrl;
 -(JobsRetCollectionViewByNavDelegateBlock _Nonnull)byNavDelegate;
--(JobsRetCollectionViewByUIDelegateBlock _Nonnull)byUIDelegate;
 
 @end
 

@@ -46,6 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetTimerByDoubleBlock _Nonnull)byStartTime;
 -(JobsRetTimerByCGFloatBlock _Nonnull)byTime;
 -(JobsRetTimerByDoubleBlock _Nonnull)byTimeSecIntervalSinceDate;
+-(JobsRetTimerByDoubleBlock _Nonnull)byAccumulatedElapsed;
+-(JobsRetTimerByDateBlock _Nonnull)byLastStartDate;
 -(JobsRetTimerByStringBlock _Nonnull)byRunLoopMode;
 -(JobsRetTimerByUserInfo _Nonnull)byUserInfo;
 -(JobsRetTimerByQueue _Nonnull)byQueue;
@@ -56,7 +58,18 @@ NS_ASSUME_NONNULL_BEGIN
 /// 回调链式 DSL
 -(JobsRetTimerByCGFloatBlocks _Nonnull)byOnTick;
 -(JobsRetTimerByJTimerBlocks _Nonnull)byOnFinish;
+/// 旧工程与外部调用兼容入口，Block 形态使用 `jobsStop`。
+-(void)stop;
+-(jobsByVoidBlock _Nonnull)jobsStop;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsTimer
+-(JobsRetJobsTimerByBOOLBlock _Nonnull)byAutoPausedByAppState;
+-(JobsRetJobsTimerByBOOLBlock _Nonnull)byGcdTimerSuspended;
+-(JobsRetJobsTimerByCFRunLoopTimerRefBlock _Nonnull)byRlTimer;
+-(JobsRetJobsTimerByJobsTimerTargetProxyBlock _Nonnull)byDisplayLinkProxy;
+-(JobsRetJobsTimerByJobsTimerTargetProxyBlock _Nonnull)byNsTimerProxy;
+-(JobsRetJobsTimerBydispatch_source_tBlock _Nonnull)byGcdTimer;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsTimer
 @end
 
 NS_ASSUME_NONNULL_END

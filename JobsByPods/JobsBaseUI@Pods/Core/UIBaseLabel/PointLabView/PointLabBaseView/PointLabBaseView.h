@@ -68,12 +68,12 @@ NS_INLINE __kindof PointLabBaseView *_Nonnull jobsMakePointLabView(jobsByPointLa
              @jobs_weakify(self)
              _tipsLab = jobsMakePointLabView(^(__kindof PointLabBaseView * _Nullable view) {
                  @jobs_strongify(self)
-                 view.pointView.byBgColor(@"#D0D0D0".cor);
+                 view.pointView.byBgColor(@"#D0D0D0".jobsCor());
 
                  view.pointView.cornerCutToCircleWithCornerRadius(JobsWidth(4));
-                 view.label.byText(@"Your deposit will be successfully credited to your wallet once the transaction completed.".tr);
+                 view.label.byText(@"Your deposit will be successfully credited to your wallet once the transaction completed.".jobsTr());
 
-                 view.label.byTextCor(@"#D0D0D0".cor);
+                 view.label.byTextCor(@"#D0D0D0".jobsCor());
 
                  view.label.byFont(UIFontWeightRegularSize(JobsWidth(12)));
 

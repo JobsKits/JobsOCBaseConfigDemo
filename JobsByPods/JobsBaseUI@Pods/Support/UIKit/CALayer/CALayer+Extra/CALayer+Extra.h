@@ -12,6 +12,12 @@
 
 #import <QuartzCore/QuartzCore.h> // 提供 Core Animation 和 CALayer 能力，用于动画、图层和视觉渲染。
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else

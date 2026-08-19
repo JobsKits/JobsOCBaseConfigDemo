@@ -9,6 +9,17 @@
 #define JOBS_HEADER_GUARD_NSSTRING_JOBSOCOPEN_6787358AA7
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
 #import <MessageUI/MessageUI.h>
 #import "JobsOCOpenConfiguration.h"
 
@@ -18,17 +29,23 @@
 #import "JobsGetWindow.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (JobsOCOpen)
 
--(JobsOCOpenResult)jobs_open;
+-(JobsRetJobsOCOpenResultByVoidBlock _Nonnull)jobs_open;
 -(JobsOCOpenResult)jobs_openWithOptions:(NSDictionary<UIApplicationOpenExternalURLOptionsKey, id> *_Nullable)options
                              completion:(void (^_Nullable)(JobsOCOpenResult result))completion;
--(JobsOCOpenResult)jobs_call;
+-(JobsRetJobsOCOpenResultByVoidBlock _Nonnull)jobs_call;
 -(JobsOCOpenResult)jobs_callUsePrompt:(BOOL)usePrompt
                            completion:(void (^_Nullable)(JobsOCOpenResult result))completion;
--(JobsOCOpenResult)jobs_mail;
+-(JobsRetJobsOCOpenResultByVoidBlock _Nonnull)jobs_mail;
 -(JobsOCOpenResult)jobs_mailWithSubject:(NSString *_Nullable)subject
                                    body:(NSString *_Nullable)body
                                  isHTML:(BOOL)isHTML

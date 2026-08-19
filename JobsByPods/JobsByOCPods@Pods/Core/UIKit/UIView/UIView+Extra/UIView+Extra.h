@@ -80,7 +80,7 @@
 @interface UIView (JobsByOCPodsExtra) <BaseViewProtocol,BaseCellProtocol>
 #pragma mark —— init
 +(JobsRetViewByFrameBlock _Nonnull)initByFrame;
--(UIBarButtonItem *_Nonnull)barBtnItem;
+-(JobsRetBarButtonItemByVoidBlock _Nonnull)barBtnItem;
 Prop_assign()CGFloat jobsVisible;
 -(JobsRetViewByCGFloatBlock _Nonnull)byVisible;
 #pragma mark —— 打印
@@ -89,7 +89,7 @@ Prop_assign()CGFloat jobsVisible;
 -(jobsByStrBlock _Nonnull)jobsLogSize;
 #pragma mark —— 键盘事件
 /// 监听键盘事件
--(void)monitorKeyboardAction;
+-(jobsByVoidBlock _Nonnull)monitorKeyboardAction;
 #pragma mark —— 截屏
 /*
  1、将图片存本地相册 UIImageWriteToSavedPhotosAlbum
@@ -98,13 +98,14 @@ Prop_assign()CGFloat jobsVisible;
     2.2、UIScreenCapturedDidChangeNotification 判断是否在录屏状态 而当录屏状态改变时，UIKit会发送录屏通知
  */
 /// 获取屏幕截图
--(UIImage *_Nullable)screenShot;
+-(JobsRetImageByVoidBlock _Nonnull)screenShot;
 /// 获取启动页的截图
--(UIImage *_Nullable)lanuchScreenShot;
+-(JobsRetImageByVoidBlock _Nonnull)lanuchScreenShot;
 /// 获取某个view 上的截图
--(UIImage *_Nullable)viewShots;
+-(JobsRetImageByVoidBlock _Nonnull)viewShots;
 /// 获取某个scrollview 上的截图
 -(UIImage *_Nullable)scrollViewShot;
+-(JobsRetImageByVoidBlock _Nonnull)jobsScrollViewShot;
 /// 截图
 -(JobsRetImageByViewBlock _Nonnull)rendImage;
 /// 获取某个 范围内的 截图
@@ -137,9 +138,9 @@ Prop_assign()CGFloat jobsVisible;
 -(void)setBorderWithColor:(UIColor *_Nullable)color
               borderWidth:(CGFloat)borderWidth
                borderType:(UIBorderSideType)borderType;
-/// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
+/// 调用方式：view.layerByBorderCor(@"#FFD8D8".jobsCor()).layerByBorderWidth(1);
 -(JobsRetViewByCorBlock _Nonnull)layerByBorderCor;
-/// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
+/// 调用方式：view.layerByBorderCor(@"#FFD8D8".jobsCor()).layerByBorderWidth(1);
 -(JobsRetViewByFloatBlock _Nonnull)layerByBorderWidth;
 #pragma mark —— 切角
 /// 切整个View的4个角为统一的切角参数
@@ -186,7 +187,7 @@ Prop_assign()CGFloat jobsVisible;
 /// 顺时针旋转degrees弧度【依据中心点进行旋转】
 -(jobsByCGFloatBlock _Nonnull)transformByDegrees;
 
--(UIImage *_Nullable)getImage;
+-(JobsRetImageByVoidBlock _Nonnull)getImage;
 /// iOS 阴影效果 添加了shadowPath后消除了离屏渲染问题 。特别提示：不能存在 -(void)drawRect:(CGRect)rect 或者在-(void)drawRect:(CGRect)rect里面写，否则无效
 /// @param targetShadowview 需要作用阴影效果的View
 /// @param superview 该阴影效果的View的父View
@@ -213,7 +214,7 @@ Prop_assign()CGFloat jobsVisible;
 /**
  
      // 最外层的UI-描边
-     _textField_phone.layerByBorderCor(@"#FFC700".cor).layerByBorderWidth(1);
+     _textField_phone.layerByBorderCor(@"#FFC700".jobsCor()).layerByBorderWidth(1);
      // 最外层的UI-切全角
      _textField_phone.cornerCutToCircleWithCornerRadius(JobsWidth(8));
  */

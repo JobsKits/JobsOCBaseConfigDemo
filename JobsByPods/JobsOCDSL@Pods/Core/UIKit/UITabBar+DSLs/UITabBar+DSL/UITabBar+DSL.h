@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDSL/UIBarAppearance+DSL.h>)
+#import <JobsOCDSL/UIBarAppearance+DSL.h>
+#else
+#import "UIBarAppearance+DSL.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -26,13 +32,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UITabBar (DSL)
 
-+(void)jobsApplyStandardAppearance:(UITabBarAppearance *_Nonnull)appearance API_AVAILABLE(ios(13.0));
-+(void)jobsApplyScrollEdgeAppearance:(UITabBarAppearance *_Nullable)appearance API_AVAILABLE(ios(15.0));
++(jobsByTabBarAppearanceBlock _Nonnull)jobsApplyStandardAppearance;
++(jobsByTabBarAppearanceBlock _Nonnull)jobsApplyScrollEdgeAppearance;
 -(JobsRetTabBarByAppearanceBlock _Nonnull)byStandardAppearance API_AVAILABLE(ios(13.0));
 -(JobsRetTabBarByAppearanceBlock _Nonnull)byScrollEdgeAppearance API_AVAILABLE(ios(15.0));
 -(JobsRetTabBarByColorBlock _Nonnull)byBarTintColor;
 -(JobsRetTabBarByColorBlock _Nonnull)byUnselectedItemTintColor API_AVAILABLE(ios(10.0));
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN UITabBar
+-(JobsRetUITabBarByNSUIntegerBlock _Nonnull)bySelectedIndex;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UITabBar
 @end
 
 NS_ASSUME_NONNULL_END

@@ -27,14 +27,14 @@ JobsKey(_backBtnCategory)
         UIColor *backButtonColor = self.viewModel.backBtnTitleModel.textCor ? : JobsLabelColor;
         UIImage *backButtonImage = self.viewModel.backBtnIMG ? : @"全局返回箭头".img;
         BackBtnCategory = BaseButton.jobsInit()
-            .bgColorBy(JobsClearColor.colorWithAlphaComponentBy(0))
             .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
             .jobsResetImagePadding(1)
             .jobsResetBtnImage([backButtonImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate])
-            .jobsResetBtnBgImage(@"APPLY NOW".img)
             .jobsResetBtnTitleCor(backButtonColor)
             .jobsResetBtnTitleFont(self.viewModel.backBtnTitleModel.font)
             .jobsResetBtnTitle(self.viewModel.backBtnTitleModel.text)
+            .jobsResetBtnBgCor(JobsSecondarySystemBackgroundColor)
+            .jobsResetBtnCornerRadiusValue(JobsWidth(16))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);

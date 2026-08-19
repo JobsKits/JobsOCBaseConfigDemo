@@ -21,20 +21,40 @@
     };return cell;
 }
 /// 获取这个UICollectionViewCell所承载的UICollectionView
--(UICollectionView *)jobsGetCurrentCollectionView{
-    return (UICollectionView *)self.superview;
+-(JobsRetCollectionViewByVoidBlock _Nonnull)jobsGetCurrentCollectionView{
+    @jobs_weakify(self)
+    return ^UICollectionView *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return (UICollectionView *)self.superview;
+    };
 }
 /// 获取当前的UICollectionViewCell对应的indexPath
--(NSIndexPath *)jobsGetCurrentIndexPath{
-    return [(UICollectionView *)self.jobsGetCurrentCollectionView indexPathForCell:self];
+-(JobsRetNSIndexPathByVoidBlock _Nonnull)jobsGetCurrentIndexPath{
+    @jobs_weakify(self)
+    return ^NSIndexPath *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [(UICollectionView *)self.jobsGetCurrentCollectionView() indexPathForCell:self];
+    };
 }
 /// 获取当前的UICollectionViewCell对应的section个数
--(NSInteger)jobsGetCurrentNumberOfSections{
-    return self.jobsGetCurrentCollectionView.numberOfSections;
+-(JobsRetNSIntegerByVoidBlock _Nonnull)jobsGetCurrentNumberOfSections{
+    @jobs_weakify(self)
+    return ^NSInteger{
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return self.jobsGetCurrentCollectionView().numberOfSections;
+    };
 }
 /// 获取当前的UICollectionViewCell对应的section的的item个数
--(NSInteger)jobsGetCurrentNumberOfItemsInSection{
-    return [self.jobsGetCurrentCollectionView numberOfItemsInSection:self.jobsGetCurrentIndexPath.section];
+-(JobsRetNSIntegerByVoidBlock _Nonnull)jobsGetCurrentNumberOfItemsInSection{
+    @jobs_weakify(self)
+    return ^NSInteger{
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return [self.jobsGetCurrentCollectionView() numberOfItemsInSection:self.jobsGetCurrentIndexPath().section];
+    };
 }
 
 -(JobsRetCollectionViewCellByIndexPathBlock _Nonnull)byIndexPath{
@@ -85,9 +105,9 @@
     if(!borderWidth) borderWidth = 1.0f;
     if (!bottomLineCor) bottomLineCor = JobsWhiteColor;
     CGRect bounds = [self dx:dx dy:dy];
-    NSIndexPath *indexPath = self.jobsGetCurrentIndexPath;
+    NSIndexPath *indexPath = self.jobsGetCurrentIndexPath();
 //    NSInteger numberOfSections = self.jobsGetCurrentNumberOfSections;
-    NSInteger numberOfItemsInSection = self.jobsGetCurrentNumberOfItemsInSection;
+    NSInteger numberOfItemsInSection = self.jobsGetCurrentNumberOfItemsInSection();
     {
         // 绘制曲线
         UIBezierPath *bezierPath = nil;
@@ -112,10 +132,11 @@
         }
         {
             [self.layer insertSublayer:jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
-                layer.borderWidth = borderWidth;/// 线宽
-                layer.path = bezierPath.CGPath;/// 图层边框路径
-                layer.fillColor = cellBgCor.CGColor;/// 图层填充色,也就是cell的底色
-                layer.strokeColor = cellOutLineCor.CGColor;/// 图层边框线条颜色
+                layer
+                    .byPath(bezierPath.CGPath)
+                    .byFillColor(cellBgCor.CGColor)
+                    .byStrokeColor(cellOutLineCor.CGColor)
+                    .byBorderWidth(borderWidth);
             }) atIndex:0];/// 将图层添加到cell的图层中,并插到最底层
         }
         /// 除了最后一行以外，所有的cell的最下面的线为bottomLineCor
@@ -147,18 +168,19 @@
     if (indexPath.row != numberOfItemsInSection - 1) {
         /// 将图层添加到cell的图层中,并插到最底层
         [self.layer insertSublayer:jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
-            layer.borderWidth = borderWidth;
-            layer.strokeColor = bottomLineCor.CGColor;
-            layer.path = jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable linePath) {
-                linePath.moveTo(jobsMakeCGPointByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable model) {
-                    model.byJobsX(bounds.origin.x)
-                         .byJobsY(bounds.size.height);
-                })); /// 起点
-                linePath.add(jobsMakeCGPointByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable model) {
-                    model.byJobsX(bounds.origin.x + bounds.size.width)
-                         .byJobsY(bounds.size.height);
-                })); /// 其他点
-            }).CGPath;
+            layer
+                .byStrokeColor(bottomLineCor.CGColor)
+                .byPath(jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable linePath) {
+                    linePath.moveTo(jobsMakeCGPointByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable model) {
+                        model.byJobsX(bounds.origin.x)
+                             .byJobsY(bounds.size.height);
+                    })); /// 起点
+                    linePath.add(jobsMakeCGPointByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable model) {
+                        model.byJobsX(bounds.origin.x + bounds.size.width)
+                             .byJobsY(bounds.size.height);
+                    })); /// 其他点
+                }).CGPath)
+                .byBorderWidth(borderWidth);
         }) atIndex:1];
     }
 }
@@ -177,16 +199,17 @@
     if(indexPath.row){
         /// 将图层添加到cell的图层中,并插到最底层
         [self.layer insertSublayer:jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
-            layer.strokeColor = bottomLineCor.CGColor;
-            layer.borderWidth = borderWidth;
-            layer.path = jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable linePath) {
-                linePath.moveTo(jobsMakeCGPointByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable model) {
-                    model.byJobsX(bounds.origin.x);
-                }));/// 起点
-                linePath.add(jobsMakeCGPointByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable model) {
-                    model.byJobsX(bounds.origin.x + bounds.size.width);
-                }));/// 其他点
-            }).CGPath;
+            layer
+                .byStrokeColor(bottomLineCor.CGColor)
+                .byPath(jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable linePath) {
+                    linePath.moveTo(jobsMakeCGPointByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable model) {
+                        model.byJobsX(bounds.origin.x);
+                    }));/// 起点
+                    linePath.add(jobsMakeCGPointByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable model) {
+                        model.byJobsX(bounds.origin.x + bounds.size.width);
+                    }));/// 其他点
+                }).CGPath)
+                .byBorderWidth(borderWidth);
         }) atIndex:1];
     }
 }
@@ -217,7 +240,7 @@
     [path fill];
     // 设置边框的属性
     [borderColor setStroke];// 设置边框颜色
-    path.lineWidth = borderWidth; // 设置边框宽度
+    path.byLineWidth(borderWidth);
     // 添加路径到上下文中并绘制
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextAddPath(context, path.CGPath);
@@ -240,8 +263,8 @@
     CALayer *rightBorder = nil;
     if(borderSideType & UIBorderSideTypeTop || borderSideType & UIBorderSideTypeAll){
         topBorder = CALayer.layer;
-        topBorder.borderColor = borderColor.CGColor; // 选择你想要的颜色
-        topBorder.borderWidth = borderWidth;// 选择边框的宽度
+        topBorder.byBorderColor(borderColor.CGColor);
+        topBorder.byBorderWidth(borderWidth);
         // 设置边框的位置和大小
         topBorder.frame = CGRectMake(0,
                                      0,
@@ -250,8 +273,8 @@
     }
     if(borderSideType & UIBorderSideTypeBottom || borderSideType & UIBorderSideTypeAll){
         bottomBorder = CALayer.layer;
-        bottomBorder.borderColor = borderColor.CGColor; // 选择你想要的颜色
-        bottomBorder.borderWidth = borderWidth;// 选择边框的宽度
+        bottomBorder.byBorderColor(borderColor.CGColor);
+        bottomBorder.byBorderWidth(borderWidth);
         // 设置边框的位置和大小
         bottomBorder.frame = CGRectMake(0,
                                         self.contentView.frame.size.height - borderWidth,
@@ -260,8 +283,8 @@
     }
     if(borderSideType & UIBorderSideTypeLeft || borderSideType & UIBorderSideTypeAll){
         leftBorder = CALayer.layer;
-        leftBorder.borderColor = borderColor.CGColor; // 选择你想要的颜色
-        leftBorder.borderWidth = borderWidth;// 选择边框的宽度
+        leftBorder.byBorderColor(borderColor.CGColor);
+        leftBorder.byBorderWidth(borderWidth);
         // 设置边框的位置和大小
         leftBorder.frame = CGRectMake(0,
                                       0,
@@ -270,8 +293,8 @@
     }
     if(borderSideType & UIBorderSideTypeRight || borderSideType & UIBorderSideTypeAll){
         rightBorder = CALayer.layer;
-        rightBorder.borderColor = borderColor.CGColor; // 选择你想要的颜色
-        rightBorder.borderWidth = borderWidth;// 选择边框的宽度
+        rightBorder.byBorderColor(borderColor.CGColor);
+        rightBorder.byBorderWidth(borderWidth);
         // 设置边框的位置和大小
         rightBorder.frame = CGRectMake(self.contentView.frame.size.width - borderWidth,
                                        0,

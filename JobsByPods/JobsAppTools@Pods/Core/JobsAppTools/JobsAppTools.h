@@ -38,7 +38,7 @@
 
 /// 单例工具箱
 #ifndef JobsAppTool
-#define JobsAppTool JobsAppTools.sharedManager
+#define JobsAppTool ((JobsAppTools *)JobsAppTools.jobsSharedManager())
 #endif /* JobsAppTool */
 NS_ASSUME_NONNULL_BEGIN
 /// 本类结合 NSObject+AppTools 是对整个App作用于全局的工具箱 🧰
@@ -57,6 +57,9 @@ Prop_assign()DeviceOrientation jobsDeviceOrientation;
 /// 根据 x 和 y 的绝对值判断主方向
 -(JobsRetStrByCGPointBlock _Nonnull)directionByTranslation;
 -(JobsRetNSIntegerByPointBlock _Nonnull)directionByPoint;
+-(JobsRetJobsAppToolsByDeviceOrientationBlock _Nonnull)byJobsDeviceOrientation;
+-(JobsRetJobsAppToolsByUIInterfaceOrientationBlock _Nonnull)byCurrentInterfaceOrientation;
+-(JobsRetJobsAppToolsByUIInterfaceOrientationMaskBlock _Nonnull)byCurrentInterfaceOrientationMask;
 
 @end
 

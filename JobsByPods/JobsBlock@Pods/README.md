@@ -91,6 +91,13 @@ JobsBlock@Pods/
 - `VoidByCertainParametersBlock.h` 统一承接 `JobsOCRefresher` 的 `JobsOCRefreshActionBlock` 别名和 `jobsByOCRefreshConfigBlock` 配置回调，避免业务 Pod 内散落同签名 Block。
 - `JobsBlockHeader.h` 集中维护向前声明，避免 `@class` / `@protocol` 分散在业务头文件中。
 - `JobsBlockHeader.h` 对 `YTKNetwork`、`GKNavigationBar`、`ZFPlayer`、`Texture` 采用条件导入和能力宏；`JobsBlock.podspec` 不因此强制新增这些第三方依赖。
+- OC 新工程自建 Pod、应用 / Demo 与 OC 老工程中 Jobs 自维护的 0 / 1 入参功能方法统一使用本模块的 Block typedef；类型只按“返回类型 + 入参类型”去重，不在业务头文件重复声明。
+- 普通 Jobs 功能 API 直接改为无参 getter 返回 Block；系统回调、协议、Target-Action、Runtime 等固定 ABI 保留原 selector trampoline，功能内核收入 `jobsXxx` Block 门面。两种形态都只改 API 表达，不改副作用顺序和业务返回值。
+- 固定 ABI trampoline 必须通过 `JobsBlockInstanceMethodIMP` / `JobsBlockClassMethodIMP` 绑定当前定义类取得 Block 门面，不能使用 `self.jobsXxx` 动态派发；Runtime helper 同时兼容 `NSObject` 与 `NSProxy`，并避免父子类生命周期在 `[super ...]` 链路中回跳递归。
+- Block 捕获实例时统一使用 `@jobs_weakify(self)` / `@jobs_strongify(self)`；`JobsBlock` 自身为避免对 `JobsOCDefs` 形成反向循环，是保留显式 `__weak` / `__strong` 的唯一底层例外。
+- 属性、协议和跨模块公开 getter 保留原 selector 与原返回类型，另设 `jobsXxx` Block 门面；协议声明与实现返回类型必须完全一致。
+- `dealloc` 不调用会创建弱引用的 Block 门面；析构清理保留传统入口。可能为 `nil` 的接收者必须先守卫，不能直接执行其返回的 Block。
+- Block getter 的返回类型必须显式 `_Nonnull`；新增 Model、控制器或业务对象 DSL 时，先按签名复用本模块 typedef，缺失才在这里补齐。应用层不直接赋值：在属性真实宿主提供返回该具体类型的 Block，子模型配置结束后继续返回主对象，保证整段调用一链到底。
 
 ### 5.2、源码入口
 

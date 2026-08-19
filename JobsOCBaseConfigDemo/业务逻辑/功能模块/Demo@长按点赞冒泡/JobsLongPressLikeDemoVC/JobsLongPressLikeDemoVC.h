@@ -25,10 +25,10 @@
 #import "JobsByOCPods.h"
 #endif
 
-#if __has_include(<JobsMakes/JobsMakes.h>)
-#import <JobsMakes/JobsMakes.h>
+#if __has_include(<JobsFuseAnimation/JobsFuseAnimation.h>)
+#import <JobsFuseAnimation/JobsFuseAnimation.h>
 #else
-#import "JobsMakes.h"
+#import "JobsFuseAnimation.h"
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
@@ -37,16 +37,16 @@
 #import "JobsLanMgr.h"
 #endif
 
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
 #import "JobsOCDSL.h"
-#endif
-
-#if __has_include(<JobsFuseAnimation/JobsFuseAnimation.h>)
-#import <JobsFuseAnimation/JobsFuseAnimation.h>
-#else
-#import "JobsFuseAnimation.h"
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)

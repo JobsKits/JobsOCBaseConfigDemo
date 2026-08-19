@@ -55,5 +55,7 @@ Prop_strong()UIColor *textColor;
 Prop_copy()jobsByVoidBlock blockTapAction;
 Prop_copy()jobsByVoidBlock blockAnimationFinishedAction;
 
+-(JobsRetCountdownViewByNSIntegerBlock _Nonnull)byTime;
+
 @end
 #endif /* JOBS_HEADER_GUARD_COUNTDOWNVIEW_C3E55D4224 */

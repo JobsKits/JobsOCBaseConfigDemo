@@ -40,290 +40,373 @@ Prop_strong() NSMutableArray <UILabel *>*prizeTitleLabelMutArr;
 Prop_strong() UIButton *resultCloseButton;
 Prop_strong() UIImageView *resultBackgroundImageView;
 
+-(JobsRetLuckyDiskDemoVCByStrBlock _Nonnull)byResult;
+
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN LuckyDiskDemoVC
+@interface LuckyDiskDemoVC (JobsPropertyDSLSetterAutogen_4f851ab77b)
+-(void)setFastIndex:(NSInteger)data;
+-(void)setFastTimer:(NSTimer * _Nullable)data;
+-(void)setSelectedIndex:(NSInteger)data;
+-(void)setSlowIndex:(NSInteger)data;
+-(void)setSlowTimer:(NSTimer * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END LuckyDiskDemoVC
+
 @implementation LuckyDiskDemoVC
-- (void)viewDidLoad {
-    [super viewDidLoad];
+
+-(JobsRetLuckyDiskDemoVCByStrBlock _Nonnull)byResult{
     @jobs_weakify(self)
-    /// 容器 ScrollView
-    self.contentScrollView
-        .byFrame(CGRectMake(0,
-                            JobsMainScreen_HEIGHT() > 800 ? -44 : -20,
-                            JobsMainScreen_WIDTH(),
-                            JobsMainScreen_HEIGHT() + (JobsMainScreen_HEIGHT() > 800 ? 44 : 20)))
-        .addOn(self.view);
-    /// 背景图
-    self.backgroundImageView
-        .byFrame(CGRectMake(0, 0, JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT()))
-        .addOn(self.contentScrollView);
-    /// 顶部灯光转盘背景（懒加载 + alpha 唤起）
-    self.rotaryTable
-        .byFrame(CGRectMake((JobsMainScreen_WIDTH() - ScaleW(366)) / 2.0,
-                            ScaleW(218),
-                            ScaleW(366),
-                            ScaleW(318)))
-        .byAlpha(1.0f)
-        .addOn(self.contentScrollView);
-    /// 灯光闪烁定时器
-    self.itemBorderTimer =
-    [NSTimer scheduledTimerWithTimeInterval:0.5
-                                     target:self
-                                   selector:@selector(itemBorderTimerEvent)
-                                   userInfo:nil
-                                    repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:self.itemBorderTimer
-                                 forMode:NSRunLoopCommonModes];
-    /// 奖品网格区域
-    self.itemContainerView
-        .byFrame(CGRectMake(ScaleW(25),
-                            ScaleW(225) + (JobsMainScreen_HEIGHT() > 800 ? 44 : 20),
-                            JobsMainScreen_WIDTH() - ScaleW(50),
-                            ScaleW(248)))
-        .addOn(self.contentScrollView);
-    NSArray *itemImgArray =
-    @[@"LuckDraw_1",@"LuckDraw_2",@"LuckDraw_3",@"LuckDraw_4",
-      @"LuckDraw_10",@"LuckDraw_5",@"LuckDraw_9",@"LuckDraw_8",
-      @"LuckDraw_7",@"LuckDraw_6"];
-    // 上排 4 个
-    for (int i = 0; i < 4; i++) {
-        UIImageView *img = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
-            imageView
-                .byImage(((NSString *)itemImgArray[i]).img)
-                .byFrame(CGRectMake(i * ScaleW(82), 0, ScaleW(78), ScaleW(80)))
-                .addOn(self.itemContainerView);
-        });
-        [self.prizeImageViewMutArr addObject:img];
-        UILabel *label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label
-                .byText(self.itemTitleArray[i])
-                .byTextCor(UIColor.whiteColor)
-                .byFont(UIFontSystemFontOfSize(ScaleW(13)))
-                .byTextAlignment(NSTextAlignmentCenter)
-                .byFrame(CGRectMake(0, ScaleW(63), ScaleW(78), ScaleW(13)))
-                .addOn(img);
-        });
-        [self.prizeTitleLabelMutArr addObject:label];
-    }
-    // 中间 2 个
-    for (int i = 0; i < 2; i++) {
-        UIImageView *img = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
-            imageView
-                .byImage(((NSString *)itemImgArray[i + 4]).img)
-                .byFrame(CGRectMake(i * (ScaleW(78) + ScaleW(169)),
-                                    ScaleW(84),
-                                    ScaleW(78),
-                                    ScaleW(80)))
-                .addOn(self.itemContainerView);
-        });
-        [self.prizeImageViewMutArr addObject:img];
-        UILabel *label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label
-                .byText(self.itemTitleArray[i + 4])
-                .byTextCor(UIColor.whiteColor)
-                .byFont(UIFontSystemFontOfSize(ScaleW(13)))
-                .byTextAlignment(NSTextAlignmentCenter)
-                .byFrame(CGRectMake(0, ScaleW(63), ScaleW(78), ScaleW(13)))
-                .addOn(img);
-        });
-        [self.prizeTitleLabelMutArr addObject:label];
-    }
-    // 下排 4 个
-    for (int i = 0; i < 4; i++) {
-        UIImageView *img = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
-            imageView
-                .byImage(((NSString *)itemImgArray[i + 6]).img)
-                .byFrame(CGRectMake(i * ScaleW(82), ScaleW(168), ScaleW(78), ScaleW(80)))
-                .addOn(self.itemContainerView);
-        });
-        [self.prizeImageViewMutArr addObject:img];
-        UILabel *label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label
-                .byText(self.itemTitleArray[i + 6])
-                .byTextCor(UIColor.whiteColor)
-                .byFont(UIFontSystemFontOfSize(ScaleW(13)))
-                .byTextAlignment(NSTextAlignmentCenter)
-                .byFrame(CGRectMake(0, ScaleW(63), ScaleW(78), ScaleW(13)))
-                .addOn(img);
-        });
-        [self.prizeTitleLabelMutArr addObject:label];
-    }
-    // 高亮边框（懒加载：初始 alpha = 0）
-    self.itemBorderView
-        .byFrame(CGRectMake(ScaleW(-1), ScaleW(-1), ScaleW(80), ScaleW(82)))
-        .addOn(self.itemContainerView);
-    // 开始抽奖按钮（懒加载）
-    self.startButton
-        .jobsResetBtnBgImage(@"LuckDraw_button".img)
-        .onClickBy(^(__kindof UIButton * _Nullable button) {
-            [weak_self startButtonEvent:button];
-        })
-        .byFrame(CGRectMake(ScaleW(82.5), ScaleW(93.5), ScaleW(160), ScaleW(60.5)))
-        .byAlpha(1.0f)
-        .addOn(self.itemContainerView);
-    // 按钮内标题（懒加载）
-    self.startLabel
-        .byText(@"开始抽奖".tr)
-        .byTextCor(RGB_COLOR(65, 155, 9))
-        .byFont(UIFontSystemFontOfSize(ScaleW(15)))
-        .byFrame(CGRectMake(ScaleW(56), ScaleW(22), ScaleW(82), ScaleW(15)))
-        .addOn(self.startButton);
-    self.startLabel.byAlpha(1.0f);
+    return ^__kindof LuckyDiskDemoVC *_Nullable(NSString *_Nullable string){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setResult:string];
+        return self;
+    };
+}
+
+- (void)viewDidLoad {
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(LuckyDiskDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        @jobs_weakify(self)
+        /// 容器 ScrollView
+        self.contentScrollView
+            .byFrame(CGRectMake(0,
+                                JobsMainScreen_HEIGHT() > 800 ? -44 : -20,
+                                JobsMainScreen_WIDTH(),
+                                JobsMainScreen_HEIGHT() + (JobsMainScreen_HEIGHT() > 800 ? 44 : 20)))
+            .addOn(self.view);
+        /// 背景图
+        self.backgroundImageView
+            .byFrame(CGRectMake(0, 0, JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT()))
+            .addOn(self.contentScrollView);
+        /// 顶部灯光转盘背景（懒加载 + alpha 唤起）
+        self.rotaryTable
+            .byFrame(CGRectMake((JobsMainScreen_WIDTH() - ScaleW(366)) / 2.0,
+                                ScaleW(218),
+                                ScaleW(366),
+                                ScaleW(318)))
+            .byAlpha(1.0f)
+            .addOn(self.contentScrollView);
+        /// 灯光闪烁定时器
+        self.itemBorderTimer =
+        [NSTimer scheduledTimerWithTimeInterval:0.5
+                                         target:self
+                                       selector:@selector(itemBorderTimerEvent)
+                                       userInfo:nil
+                                        repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:self.itemBorderTimer
+                                     forMode:NSRunLoopCommonModes];
+        /// 奖品网格区域
+        self.itemContainerView
+            .byFrame(CGRectMake(ScaleW(25),
+                                ScaleW(225) + (JobsMainScreen_HEIGHT() > 800 ? 44 : 20),
+                                JobsMainScreen_WIDTH() - ScaleW(50),
+                                ScaleW(248)))
+            .addOn(self.contentScrollView);
+        NSArray *itemImgArray =
+        @[@"LuckDraw_1",@"LuckDraw_2",@"LuckDraw_3",@"LuckDraw_4",
+          @"LuckDraw_10",@"LuckDraw_5",@"LuckDraw_9",@"LuckDraw_8",
+          @"LuckDraw_7",@"LuckDraw_6"];
+        // 上排 4 个
+        for (int i = 0; i < 4; i++) {
+            UIImageView *img = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+                imageView
+                    .byImage(((NSString *)itemImgArray[i]).img)
+                    .byFrame(CGRectMake(i * ScaleW(82), 0, ScaleW(78), ScaleW(80)))
+                    .addOn(self.itemContainerView);
+            });
+            [self.prizeImageViewMutArr addObject:img];
+            UILabel *label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+                label
+                    .byText(self.itemTitleArray[i])
+                    .byTextCor(UIColor.whiteColor)
+                    .byFont(UIFontSystemFontOfSize(ScaleW(13)))
+                    .byTextAlignment(NSTextAlignmentCenter)
+                    .byFrame(CGRectMake(0, ScaleW(63), ScaleW(78), ScaleW(13)))
+                    .addOn(img);
+            });
+            [self.prizeTitleLabelMutArr addObject:label];
+        }
+        // 中间 2 个
+        for (int i = 0; i < 2; i++) {
+            UIImageView *img = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+                imageView
+                    .byImage(((NSString *)itemImgArray[i + 4]).img)
+                    .byFrame(CGRectMake(i * (ScaleW(78) + ScaleW(169)),
+                                        ScaleW(84),
+                                        ScaleW(78),
+                                        ScaleW(80)))
+                    .addOn(self.itemContainerView);
+            });
+            [self.prizeImageViewMutArr addObject:img];
+            UILabel *label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+                label
+                    .byText(self.itemTitleArray[i + 4])
+                    .byTextCor(UIColor.whiteColor)
+                    .byFont(UIFontSystemFontOfSize(ScaleW(13)))
+                    .byTextAlignment(NSTextAlignmentCenter)
+                    .byFrame(CGRectMake(0, ScaleW(63), ScaleW(78), ScaleW(13)))
+                    .addOn(img);
+            });
+            [self.prizeTitleLabelMutArr addObject:label];
+        }
+        // 下排 4 个
+        for (int i = 0; i < 4; i++) {
+            UIImageView *img = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+                imageView
+                    .byImage(((NSString *)itemImgArray[i + 6]).img)
+                    .byFrame(CGRectMake(i * ScaleW(82), ScaleW(168), ScaleW(78), ScaleW(80)))
+                    .addOn(self.itemContainerView);
+            });
+            [self.prizeImageViewMutArr addObject:img];
+            UILabel *label = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+                label
+                    .byText(self.itemTitleArray[i + 6])
+                    .byTextCor(UIColor.whiteColor)
+                    .byFont(UIFontSystemFontOfSize(ScaleW(13)))
+                    .byTextAlignment(NSTextAlignmentCenter)
+                    .byFrame(CGRectMake(0, ScaleW(63), ScaleW(78), ScaleW(13)))
+                    .addOn(img);
+            });
+            [self.prizeTitleLabelMutArr addObject:label];
+        }
+        // 高亮边框（懒加载：初始 alpha = 0）
+        self.itemBorderView
+            .byFrame(CGRectMake(ScaleW(-1), ScaleW(-1), ScaleW(80), ScaleW(82)))
+            .addOn(self.itemContainerView);
+        // 开始抽奖按钮（懒加载）
+        self.startButton
+            .jobsResetBtnBgImage(@"LuckDraw_button".img)
+            .onClickBy(^(__kindof UIButton * _Nullable button) {
+                weak_self.startButtonEvent(button);
+            })
+            .byFrame(CGRectMake(ScaleW(82.5), ScaleW(93.5), ScaleW(160), ScaleW(60.5)))
+            .byAlpha(1.0f)
+            .addOn(self.itemContainerView);
+        // 按钮内标题（懒加载）
+        self.startLabel
+            .byText(@"开始抽奖".jobsTr())
+            .byTextCor(RGB_COLOR(65, 155, 9))
+            .byFont(UIFontSystemFontOfSize(ScaleW(15)))
+            .byFrame(CGRectMake(ScaleW(56), ScaleW(22), ScaleW(82), ScaleW(15)))
+            .addOn(self.startButton);
+        self.startLabel.byAlpha(1.0f);
+    };
 }
 
 #pragma mark —— 抽奖逻辑
 
-- (void)getLotteryInfo {
-    self.fastIndex = 0;
-    self.slowIndex = -1;
-    self.selectedIndex = arc4random() % 10;
-    if (self.selectedIndex < 4) {
-        self.result = self.itemTitleArray[self.selectedIndex];
-    } else if (self.selectedIndex == 4) {
-        self.result = @"2018跳币";
-    } else if (self.selectedIndex == 5) {
-        self.result = @"88跳币";
-    } else if (self.selectedIndex == 6) {
-        self.result = @"28朵花";
-    } else if (self.selectedIndex == 7) {
-        self.result = @"128跳币";
-    } else if (self.selectedIndex == 8) {
-        self.result = @"528跳币";
-    } else if (self.selectedIndex == 9) {
-        self.result = @"128朵花";
-    }
-    // 显示高亮边框（alpha 唤起）
-    self.itemBorderView.byAlpha(1.0f);
-    self.fastTimer =
-    [NSTimer scheduledTimerWithTimeInterval:0.1
-                                     target:self
-                                   selector:@selector(fastTimerEvent)
-                                   userInfo:nil
-                                    repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:self.fastTimer
-                                 forMode:NSRunLoopCommonModes];
+- (jobsByVoidBlock _Nonnull)getLotteryInfo {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byFastIndex(0);
+        self.bySlowIndex(-1);
+        self.bySelectedIndex(arc4random() % 10);
+        if (self.selectedIndex < 4) {
+            self.byResult(self.itemTitleArray[self.selectedIndex]);
+        } else if (self.selectedIndex == 4) {
+            self.byResult(@"2018跳币");
+        } else if (self.selectedIndex == 5) {
+            self.byResult(@"88跳币");
+        } else if (self.selectedIndex == 6) {
+            self.byResult(@"28朵花");
+        } else if (self.selectedIndex == 7) {
+            self.byResult(@"128跳币");
+        } else if (self.selectedIndex == 8) {
+            self.byResult(@"528跳币");
+        } else if (self.selectedIndex == 9) {
+            self.byResult(@"128朵花");
+        }
+        // 显示高亮边框（alpha 唤起）
+        self.itemBorderView.byAlpha(1.0f);
+        self.fastTimer =
+        [NSTimer scheduledTimerWithTimeInterval:0.1
+                                         target:self
+                                       selector:@selector(fastTimerEvent)
+                                       userInfo:nil
+                                        repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:self.fastTimer
+                                     forMode:NSRunLoopCommonModes];
+    };
 }
 
-- (void)startButtonEvent:(UIButton *)sender {
-    self.startButton.byUserInteractionEnabled(NO);
-    [self getLotteryInfo];
+-(jobsByBtnBlock _Nonnull)startButtonEvent{
+    @jobs_weakify(self)
+    return ^(UIButton * sender){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.startButton.byUserInteractionEnabled(NO);
+        self.getLotteryInfo();
+    };
 }
 #pragma mark —— 边框灯光动画
 - (void)itemBorderTimerEvent {
-    if (self.rotaryTable.tag == 100) {
-        self.rotaryTable
-            .byImage(@"bg_lamp_2".img)
-            .byTag(101);
-    } else if (self.rotaryTable.tag == 101) {
-        self.rotaryTable
-            .byImage(@"bg_lamp_1".img)
-            .byTag(100);
-    }
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(LuckyDiskDemoVC.class, @selector(jobsItemBorderTimerEvent)))(self, @selector(jobsItemBorderTimerEvent));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsItemBorderTimerEvent{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (self.rotaryTable.tag == 100) {
+            self.rotaryTable
+                .byImage(@"bg_lamp_2".img)
+                .byTag(101);
+        } else if (self.rotaryTable.tag == 101) {
+            self.rotaryTable
+                .byImage(@"bg_lamp_1".img)
+                .byTag(100);
+        }
+    };
 }
 #pragma mark —— 快速移动动画
 - (void)fastTimerEvent {
-    self.fastIndex = self.fastIndex + 1;
-    NSInteger idx = self.fastIndex % 10;
-    if (idx == 0) {
-        self.itemBorderView.byFrame(CGRectMake(ScaleW(-1), ScaleW(-1), ScaleW(80), ScaleW(82)));
-    } else if (idx == 1) {
-        self.itemBorderView.byFrame(CGRectMake(ScaleW(82) - ScaleW(1), ScaleW(-1), ScaleW(80), ScaleW(82)));
-    } else if (idx == 2) {
-        self.itemBorderView.byFrame(CGRectMake(ScaleW(2 * 82) - ScaleW(1), ScaleW(-1), ScaleW(80), ScaleW(82)));
-    } else if (idx == 3) {
-        self.itemBorderView.byFrame(CGRectMake(ScaleW(3 * 82) - ScaleW(1), ScaleW(-1), ScaleW(80), ScaleW(82)));
-    } else if (idx == 4) {
-        self.itemBorderView.byFrame(CGRectMake(ScaleW(3 * 82) - ScaleW(1), ScaleW(84) - ScaleW(1), ScaleW(80), ScaleW(82)));
-    } else if (idx == 5) {
-        self.itemBorderView.byFrame(CGRectMake(ScaleW(3 * 82) - ScaleW(1), ScaleW(2 * 84) - ScaleW(1), ScaleW(80), ScaleW(82)));
-    } else if (idx == 6) {
-        self.itemBorderView.byFrame(CGRectMake(ScaleW(2 * 82) - ScaleW(1), ScaleW(2 * 84) - ScaleW(1), ScaleW(80), ScaleW(82)));
-    } else if (idx == 7) {
-        self.itemBorderView.byFrame(CGRectMake(ScaleW(82) - ScaleW(1), ScaleW(2 * 84) - ScaleW(1), ScaleW(80), ScaleW(82)));
-    } else if (idx == 8) {
-        self.itemBorderView.byFrame(CGRectMake(ScaleW(-1), ScaleW(2 * 84) - ScaleW(1), ScaleW(80), ScaleW(82)));
-    } else if (idx == 9) {
-        self.itemBorderView.byFrame(CGRectMake(ScaleW(-1), ScaleW(84) - ScaleW(1), ScaleW(80), ScaleW(82)));
-    }
-    if (self.fastIndex >= 29) {
-        [self.fastTimer invalidate];
-        self.fastTimer = nil;
-        self.slowTimer =
-        [NSTimer scheduledTimerWithTimeInterval:0.45
-                                         target:self
-                                       selector:@selector(slowTimerEvent)
-                                       userInfo:nil
-                                        repeats:YES];
-        [[NSRunLoop currentRunLoop] addTimer:self.slowTimer
-                                     forMode:NSRunLoopCommonModes];
-    }
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(LuckyDiskDemoVC.class, @selector(jobsFastTimerEvent)))(self, @selector(jobsFastTimerEvent));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsFastTimerEvent{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byFastIndex(self.fastIndex + 1);
+        NSInteger idx = self.fastIndex % 10;
+        if (idx == 0) {
+            self.itemBorderView.byFrame(CGRectMake(ScaleW(-1), ScaleW(-1), ScaleW(80), ScaleW(82)));
+        } else if (idx == 1) {
+            self.itemBorderView.byFrame(CGRectMake(ScaleW(82) - ScaleW(1), ScaleW(-1), ScaleW(80), ScaleW(82)));
+        } else if (idx == 2) {
+            self.itemBorderView.byFrame(CGRectMake(ScaleW(2 * 82) - ScaleW(1), ScaleW(-1), ScaleW(80), ScaleW(82)));
+        } else if (idx == 3) {
+            self.itemBorderView.byFrame(CGRectMake(ScaleW(3 * 82) - ScaleW(1), ScaleW(-1), ScaleW(80), ScaleW(82)));
+        } else if (idx == 4) {
+            self.itemBorderView.byFrame(CGRectMake(ScaleW(3 * 82) - ScaleW(1), ScaleW(84) - ScaleW(1), ScaleW(80), ScaleW(82)));
+        } else if (idx == 5) {
+            self.itemBorderView.byFrame(CGRectMake(ScaleW(3 * 82) - ScaleW(1), ScaleW(2 * 84) - ScaleW(1), ScaleW(80), ScaleW(82)));
+        } else if (idx == 6) {
+            self.itemBorderView.byFrame(CGRectMake(ScaleW(2 * 82) - ScaleW(1), ScaleW(2 * 84) - ScaleW(1), ScaleW(80), ScaleW(82)));
+        } else if (idx == 7) {
+            self.itemBorderView.byFrame(CGRectMake(ScaleW(82) - ScaleW(1), ScaleW(2 * 84) - ScaleW(1), ScaleW(80), ScaleW(82)));
+        } else if (idx == 8) {
+            self.itemBorderView.byFrame(CGRectMake(ScaleW(-1), ScaleW(2 * 84) - ScaleW(1), ScaleW(80), ScaleW(82)));
+        } else if (idx == 9) {
+            self.itemBorderView.byFrame(CGRectMake(ScaleW(-1), ScaleW(84) - ScaleW(1), ScaleW(80), ScaleW(82)));
+        }
+        if (self.fastIndex >= 29) {
+            self.fastTimer.invalidate;
+            self.byFastTimer(nil);
+            self.slowTimer =
+            [NSTimer scheduledTimerWithTimeInterval:0.45
+                                             target:self
+                                           selector:@selector(slowTimerEvent)
+                                           userInfo:nil
+                                            repeats:YES];
+            [[NSRunLoop currentRunLoop] addTimer:self.slowTimer
+                                         forMode:NSRunLoopCommonModes];
+        }
+    };
 }
 #pragma mark —— 慢速移动动画
 - (void)slowTimerEvent {
-    self.slowIndex = self.slowIndex + 1;
-    NSInteger idx = self.slowIndex % 10;
-    if (idx == 0) {
-        self.itemBorderView.byFrame(CGRectMake(ScaleW(-1), ScaleW(-1), ScaleW(80), ScaleW(82)));
-    } else if (idx == 1) {
-        self.itemBorderView.byFrame(CGRectMake(ScaleW(82) - ScaleW(1), ScaleW(-1), ScaleW(80), ScaleW(82)));
-    } else if (idx == 2) {
-        self.itemBorderView.byFrame(CGRectMake(ScaleW(2 * 82) - ScaleW(1), ScaleW(-1), ScaleW(80), ScaleW(82)));
-    } else if (idx == 3) {
-        self.itemBorderView.byFrame(CGRectMake(ScaleW(3 * 82) - ScaleW(1), ScaleW(-1), ScaleW(80), ScaleW(82)));
-    } else if (idx == 4) {
-        self.itemBorderView.byFrame(CGRectMake(ScaleW(3 * 82) - ScaleW(1), ScaleW(84) - ScaleW(1), ScaleW(80), ScaleW(82)));
-    } else if (idx == 5) {
-        self.itemBorderView.byFrame(CGRectMake(ScaleW(3 * 82) - ScaleW(1), ScaleW(2 * 84) - ScaleW(1), ScaleW(80), ScaleW(82)));
-    } else if (idx == 6) {
-        self.itemBorderView.byFrame(CGRectMake(ScaleW(2 * 82) - ScaleW(1), ScaleW(2 * 84) - ScaleW(1), ScaleW(80), ScaleW(82)));
-    } else if (idx == 7) {
-        self.itemBorderView.byFrame(CGRectMake(ScaleW(82) - ScaleW(1), ScaleW(2 * 84) - ScaleW(1), ScaleW(80), ScaleW(82)));
-    } else if (idx == 8) {
-        self.itemBorderView.byFrame(CGRectMake(ScaleW(-1), ScaleW(2 * 84) - ScaleW(1), ScaleW(80), ScaleW(82)));
-    } else if (idx == 9) {
-        self.itemBorderView.byFrame(CGRectMake(ScaleW(-1), ScaleW(84) - ScaleW(1), ScaleW(80), ScaleW(82)));
-    }
-    if (self.slowIndex >= self.selectedIndex) {
-        [self.slowTimer invalidate];
-        self.slowTimer = nil;
-        dispatch_time_t delayTime =
-        dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC));
-        dispatch_after(delayTime, dispatch_get_main_queue(), ^{
-            self.startButton.byUserInteractionEnabled(YES);
-            [self showLotteryResultView];
-        });
-    }
-}
-#pragma mark —— 结果弹窗
-- (void)showLotteryResultView {
-    // 触发懒加载
-    (void)self.lotteryResultBgView;
-    (void)self.lotteryResultView;
-    self.lotteryResultBgView.byAlpha(1.0f);
-    self.lotteryResultBgView.byBgColor([UIColor clearColor]);
-    self.lotteryResultView.byAlpha(1.0f);
-    self.lotteryResultView.byFrame(CGRectMake(ScaleW(25),
-                                              JobsMainScreen_HEIGHT(),
-                                              ScaleW(325),
-                                              ScaleW(386)));
-    // 更新中奖文案
-    self.resultLabel.byText([NSString stringWithFormat:@"恭喜您获得%@!", self.result]);
-    UIView.jobsAnimate(0.3,
-        ^{
-        self.lotteryResultView.byFrame(CGRectMake(ScaleW(25),
-                                                  ScaleW(130),
-                                                  ScaleW(325),
-                                                  ScaleW(386)));
-        self.lotteryResultBgView.byBgColor(RGBA_COLOR(0, 0, 0, 0.7));
-    });
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(LuckyDiskDemoVC.class, @selector(jobsSlowTimerEvent)))(self, @selector(jobsSlowTimerEvent));
+    if (action) action();
 }
 
-- (void)closeButtonEvent:(UIButton *)sender {
-    UIView.jobsAnimate(0.2,
-        ^{
-        self.lotteryResultView.byAlpha(0.0f);
-        self.lotteryResultBgView.byAlpha(0.0f);
-    });
+-(jobsByVoidBlock _Nonnull)jobsSlowTimerEvent{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.bySlowIndex(self.slowIndex + 1);
+        NSInteger idx = self.slowIndex % 10;
+        if (idx == 0) {
+            self.itemBorderView.byFrame(CGRectMake(ScaleW(-1), ScaleW(-1), ScaleW(80), ScaleW(82)));
+        } else if (idx == 1) {
+            self.itemBorderView.byFrame(CGRectMake(ScaleW(82) - ScaleW(1), ScaleW(-1), ScaleW(80), ScaleW(82)));
+        } else if (idx == 2) {
+            self.itemBorderView.byFrame(CGRectMake(ScaleW(2 * 82) - ScaleW(1), ScaleW(-1), ScaleW(80), ScaleW(82)));
+        } else if (idx == 3) {
+            self.itemBorderView.byFrame(CGRectMake(ScaleW(3 * 82) - ScaleW(1), ScaleW(-1), ScaleW(80), ScaleW(82)));
+        } else if (idx == 4) {
+            self.itemBorderView.byFrame(CGRectMake(ScaleW(3 * 82) - ScaleW(1), ScaleW(84) - ScaleW(1), ScaleW(80), ScaleW(82)));
+        } else if (idx == 5) {
+            self.itemBorderView.byFrame(CGRectMake(ScaleW(3 * 82) - ScaleW(1), ScaleW(2 * 84) - ScaleW(1), ScaleW(80), ScaleW(82)));
+        } else if (idx == 6) {
+            self.itemBorderView.byFrame(CGRectMake(ScaleW(2 * 82) - ScaleW(1), ScaleW(2 * 84) - ScaleW(1), ScaleW(80), ScaleW(82)));
+        } else if (idx == 7) {
+            self.itemBorderView.byFrame(CGRectMake(ScaleW(82) - ScaleW(1), ScaleW(2 * 84) - ScaleW(1), ScaleW(80), ScaleW(82)));
+        } else if (idx == 8) {
+            self.itemBorderView.byFrame(CGRectMake(ScaleW(-1), ScaleW(2 * 84) - ScaleW(1), ScaleW(80), ScaleW(82)));
+        } else if (idx == 9) {
+            self.itemBorderView.byFrame(CGRectMake(ScaleW(-1), ScaleW(84) - ScaleW(1), ScaleW(80), ScaleW(82)));
+        }
+        if (self.slowIndex >= self.selectedIndex) {
+            self.slowTimer.invalidate;
+            self.bySlowTimer(nil);
+            dispatch_time_t delayTime =
+            dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC));
+            dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+                self.startButton.byUserInteractionEnabled(YES);
+                self.showLotteryResultView();
+            });
+        }
+    };
+}
+#pragma mark —— 结果弹窗
+- (jobsByVoidBlock _Nonnull)showLotteryResultView {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        // 触发懒加载
+        (void)self.lotteryResultBgView;
+        (void)self.lotteryResultView;
+        self.lotteryResultBgView.byAlpha(1.0f);
+        self.lotteryResultBgView.byBgColor([UIColor clearColor]);
+        self.lotteryResultView.byAlpha(1.0f);
+        self.lotteryResultView.byFrame(CGRectMake(ScaleW(25),
+                                                  JobsMainScreen_HEIGHT(),
+                                                  ScaleW(325),
+                                                  ScaleW(386)));
+        // 更新中奖文案
+        self.resultLabel.byText([NSString stringWithFormat:@"恭喜您获得%@!", self.result]);
+        UIView.jobsAnimate(0.3,
+            ^{
+            self.lotteryResultView.byFrame(CGRectMake(ScaleW(25),
+                                                      ScaleW(130),
+                                                      ScaleW(325),
+                                                      ScaleW(386)));
+            self.lotteryResultBgView.byBgColor(RGBA_COLOR(0, 0, 0, 0.7));
+        });
+    };
+}
+
+-(jobsByBtnBlock _Nonnull)closeButtonEvent{
+    @jobs_weakify(self)
+    return ^(UIButton * sender){
+        @jobs_strongify(self)
+        if (!self) return;
+        UIView.jobsAnimate(0.2,
+            ^{
+            self.lotteryResultView.byAlpha(0.0f);
+            self.lotteryResultBgView.byAlpha(0.0f);
+        });
+    };
 }
 #pragma mark —— 懒加载属性
 - (__kindof NSArray *)itemTitleArray {
@@ -365,7 +448,7 @@ Prop_strong() UIImageView *resultBackgroundImageView;
 
 - (UIView *)itemContainerView {
     if (!_itemContainerView) {
-        _itemContainerView = UIView.new;
+        _itemContainerView = jobsMakeView(^(UIView *object){});
     };return _itemContainerView;
 }
 
@@ -466,7 +549,7 @@ Prop_strong() UIImageView *resultBackgroundImageView;
             button
                 .jobsResetBtnImage(@"pop_video_close".img)
                 .onClickBy(^(__kindof UIButton * _Nullable button) {
-                    [weak_self closeButtonEvent:button];
+                    weak_self.closeButtonEvent(button);
                 });
         });
     };return _resultCloseButton;
@@ -492,4 +575,50 @@ Prop_strong() UIImageView *resultBackgroundImageView;
     };return _resultLabel;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN LuckyDiskDemoVC
+-(JobsRetLuckyDiskDemoVCByNSIntegerBlock _Nonnull)byFastIndex{
+    @jobs_weakify(self)
+    return ^__kindof LuckyDiskDemoVC * _Nullable(NSInteger data){
+        @jobs_strongify(self)
+        [self setFastIndex:data];
+        return self;
+    };
+}
+
+-(JobsRetLuckyDiskDemoVCByNSIntegerBlock _Nonnull)bySelectedIndex{
+    @jobs_weakify(self)
+    return ^__kindof LuckyDiskDemoVC * _Nullable(NSInteger data){
+        @jobs_strongify(self)
+        [self setSelectedIndex:data];
+        return self;
+    };
+}
+
+-(JobsRetLuckyDiskDemoVCByNSIntegerBlock _Nonnull)bySlowIndex{
+    @jobs_weakify(self)
+    return ^__kindof LuckyDiskDemoVC * _Nullable(NSInteger data){
+        @jobs_strongify(self)
+        [self setSlowIndex:data];
+        return self;
+    };
+}
+
+-(JobsRetLuckyDiskDemoVCByNSTimerBlock _Nonnull)byFastTimer{
+    @jobs_weakify(self)
+    return ^__kindof LuckyDiskDemoVC * _Nullable(NSTimer * _Nullable data){
+        @jobs_strongify(self)
+        [self setFastTimer:data];
+        return self;
+    };
+}
+
+-(JobsRetLuckyDiskDemoVCByNSTimerBlock _Nonnull)bySlowTimer{
+    @jobs_weakify(self)
+    return ^__kindof LuckyDiskDemoVC * _Nullable(NSTimer * _Nullable data){
+        @jobs_strongify(self)
+        [self setSlowTimer:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END LuckyDiskDemoVC
 @end

@@ -53,6 +53,7 @@ composition, password recovery, image backgrounds, and video backgrounds.
   spec.dependency 'JobsModelDSL'
   spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsBaseUI'
+  spec.dependency 'UIBaseTextFieldDSL'
   spec.dependency 'JobsOCDefs'
   spec.dependency 'JobsCountdownBtn'
   spec.dependency 'JobsOCGraphicCaptcha'

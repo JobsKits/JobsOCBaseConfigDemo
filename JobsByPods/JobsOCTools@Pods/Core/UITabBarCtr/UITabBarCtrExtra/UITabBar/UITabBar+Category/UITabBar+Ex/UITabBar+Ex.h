@@ -52,7 +52,7 @@
 
 @interface UITabBar (Ex)
 /// 移除系统的 UITabBarButton
--(void)deleteUITabBarButton;
+-(jobsByVoidBlock _Nonnull)deleteUITabBarButton;
 -(LOTAnimationView *_Nullable)addLottieImage:(NSUInteger)index lottieName:(NSString *_Nullable)lottieName;
 -(jobsByNSIntegerBlock _Nonnull)animationLottieImageBy;
 -(jobsByVoidBlock _Nonnull)stopAnimationAllLottieView;

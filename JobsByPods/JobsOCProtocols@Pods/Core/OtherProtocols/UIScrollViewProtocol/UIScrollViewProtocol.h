@@ -37,11 +37,12 @@ typedef NS_OPTIONS(NSUInteger, JobsEmptyViewType) {
 /// UIScrollView 滑动的方向定义
 Prop_assign()ScrollDirection direction;
 /// 在 UIScrollViewDelegate协议方法 -(void)scrollViewDidScroll:(UIScrollView *)scrollView里进行调用
--(ScrollDirection)scrolldirectionWhenScrollViewDidScroll;
+-(JobsRetScrollDirectionByVoidBlock _Nonnull)scrolldirectionWhenScrollViewDidScroll;
 /// 刷新UI
 -(JobsRetScrollViewByVoidBlock _Nonnull)reloadDatas;
 /// 得到visibleCells
 -(NSArray <UIView *>*_Nullable)scrollViewCells;
+-(JobsRetNSArrayUIViewByVoidBlock _Nonnull)jobsScrollViewCells;
 /// 依据index得到cell
 -(JobsRetViewByNSUIntegerBlock _Nonnull)scrollViewCellsByIndex;
 /// 对系统方法 - (void)setContentOffset:(CGPoint)contentOffset animated:(BOOL)animated;  的二次封装

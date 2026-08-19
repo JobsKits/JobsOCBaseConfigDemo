@@ -11,6 +11,12 @@
 #pragma once
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsOCDefs/MacroDef_Strong@Weak.h>
 #import <JobsOCDefs/JobsDefineConstString.h>
 
@@ -18,6 +24,12 @@
 #import <JobsStringUtils/JobsStringUtilsHeader.h>
 #else
 #import "JobsStringUtilsHeader.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 typedef BOOL(^JobsRetBOOLByIDBlock)(id _Nullable data);

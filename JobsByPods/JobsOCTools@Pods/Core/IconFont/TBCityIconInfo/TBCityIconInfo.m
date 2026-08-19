@@ -8,11 +8,41 @@
 #import "TBCityIconInfo.h"
 
 @implementation TBCityIconInfo
+-(JobsRetTBCityIconInfoByStrBlock _Nonnull)byText{
+    @jobs_weakify(self)
+    return ^__kindof TBCityIconInfo *_Nullable(NSString *_Nullable string){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setText:string];
+        return self;
+    };
+}
+
+-(JobsRetTBCityIconInfoByNSIntegerBlock _Nonnull)bySize{
+    @jobs_weakify(self)
+    return ^__kindof TBCityIconInfo *_Nullable(NSInteger value){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setSize:value];
+        return self;
+    };
+}
+
+-(JobsRetTBCityIconInfoByCorBlock _Nonnull)byColor{
+    @jobs_weakify(self)
+    return ^__kindof TBCityIconInfo *_Nullable(UIColor *_Nullable color){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setColor:color];
+        return self;
+    };
+}
+
 - (instancetype)initWithText:(NSString *)text size:(NSInteger)size color:(UIColor *)color {
     if (self = [super init]) {
-        self.text = text;
-        self.size = size;
-        self.color = color;
+        self.byText(text)
+            .bySize(size)
+            .byColor(color);
     };return self;
 }
 

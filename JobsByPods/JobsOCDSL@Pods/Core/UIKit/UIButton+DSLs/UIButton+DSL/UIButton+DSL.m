@@ -7,6 +7,11 @@
 
 #import "UIButton+DSL.h"
 
+@interface UIButton (JobsUIButtonPropertyDSLSetter)
+-(void)setSizer:(CGSize)data;
+-(void)setZf_centerY:(CGFloat)data;
+@end
+
 @implementation UIButton (DSL)
 -(JobsRetBtnByButtonConfigurationBlock _Nonnull)byConfiguration{
     @jobs_weakify(self)
@@ -186,7 +191,16 @@
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(UIFont *_Nullable data){
         @jobs_strongify(self)
-        self.titleLabel.font = data;
+        self.titleLabel.byFont(data);
+        return self;
+    };
+}
+
+-(JobsRetBtnByBtnBlock _Nonnull)byButtonBlock{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *_Nullable(jobsByBtnBlock _Nullable block){
+        @jobs_strongify(self)
+        if (block) block(self);
         return self;
     };
 }
@@ -230,7 +244,7 @@
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(NSTextAlignment data){
         @jobs_strongify(self)
-        self.titleLabel.textAlignment = data;
+        self.titleLabel.byTextAlignment(data);
         SEL selector = NSSelectorFromString(@"setTitleAlignment:");
         if ([self respondsToSelector:selector]) {
             [self setValue:@(data) forKey:@"titleAlignment"];
@@ -242,7 +256,7 @@
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(NSLineBreakMode data){
         @jobs_strongify(self)
-        self.titleLabel.lineBreakMode = data;
+        self.titleLabel.byLineBreakMode(data);
         SEL lineBreakModeSelector = NSSelectorFromString(@"setLineBreakMode:");
         if ([self respondsToSelector:lineBreakModeSelector]) {
             [self setValue:@(data) forKey:@"lineBreakMode"];
@@ -274,7 +288,7 @@
                                                                            data.left,
                                                                            data.bottom,
                                                                            data.right);
-                self.configuration = configuration;
+                self.byConfiguration(configuration);
                 [self setNeedsUpdateConfiguration];
             }else{
                 SuppressWdeprecatedDeclarationsWarning(self.contentEdgeInsets = data;);
@@ -335,6 +349,33 @@
     return ^__kindof UIButton *_Nullable(BOOL data){
         @jobs_strongify(self)
         SuppressWdeprecatedDeclarationsWarning(self.showsTouchWhenHighlighted = data;);
+        return self;
+    };
+}
+
+-(JobsRetBtnByStringBlock _Nonnull)byAccessibilityLabel{
+    @jobs_weakify(self)
+    return ^__kindof UIButton * _Nullable(NSString * _Nullable data){
+        @jobs_strongify(self)
+        [self setAccessibilityLabel:data];
+        return self;
+    };
+}
+
+-(JobsRetBtnByCGSizeBlock _Nonnull)bySizer{
+    @jobs_weakify(self)
+    return ^__kindof UIButton * _Nullable(CGSize data){
+        @jobs_strongify(self)
+        [self setSizer:data];
+        return self;
+    };
+}
+
+-(JobsRetBtnByCGFloatBlock _Nonnull)byZf_centerY{
+    @jobs_weakify(self)
+    return ^__kindof UIButton * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setZf_centerY:data];
         return self;
     };
 }

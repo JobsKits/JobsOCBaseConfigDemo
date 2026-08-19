@@ -11,6 +11,12 @@
 #pragma once
 
 #import <objc/runtime.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <UIKit/UIKit.h>
 #import <JobsBaseUI/NSMutableArray+Extra.h>
 
@@ -48,7 +54,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 修改UITextField.Placeholder
 @interface UITextField (Placeholder)<UITextModelProtocol,AppToolsProtocol>
 
--(UILabel *)placeholderLabel;
+-(JobsRetLabelByVoidBlock _Nonnull)placeholderLabel;
+
+-(JobsRetAttributedStringByVoidBlock _Nonnull)jobsAttributedText;
 
 @end
 

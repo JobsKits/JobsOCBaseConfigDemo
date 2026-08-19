@@ -7,6 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCTimer/JobsOCTimer.h>)
+#import <JobsOCTimer/JobsOCTimer.h>
+#else
+#import "JobsTimer.h"
+#endif
+
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else
@@ -25,16 +31,22 @@
 #import "JobsByOCPods.h"
 #endif
 
-#if __has_include(<JobsMakes/JobsMakes.h>)
-#import <JobsMakes/JobsMakes.h>
+#if __has_include(<JobsFuseAnimation/JobsFuseAnimation.h>)
+#import <JobsFuseAnimation/JobsFuseAnimation.h>
 #else
-#import "JobsMakes.h"
+#import "JobsFuseAnimation.h"
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
 #import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
 #endif
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
@@ -55,22 +67,13 @@
 #import "JobsDefines.h"
 #endif
 
-#if __has_include(<JobsFuseAnimation/JobsFuseAnimation.h>)
-#import <JobsFuseAnimation/JobsFuseAnimation.h>
-#else
-#import "JobsFuseAnimation.h"
-#endif
-
-#if __has_include(<JobsOCTimer/JobsOCTimer.h>)
-#import <JobsOCTimer/JobsOCTimer.h>
-#else
-#import "JobsTimer.h"
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsCountdownLayerDemoVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsCountdownLayerDemoVC
+-(JobsRetJobsCountdownLayerDemoVCByCGFloatBlock _Nonnull)byTotalSeconds;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsCountdownLayerDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

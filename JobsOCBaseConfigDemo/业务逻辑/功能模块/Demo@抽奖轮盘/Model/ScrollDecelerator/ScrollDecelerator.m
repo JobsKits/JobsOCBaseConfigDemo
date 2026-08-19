@@ -8,11 +8,31 @@
 #import "ScrollDecelerator.h"
 
 @implementation ScrollDecelerator
+
+-(JobsRetScrollDeceleratorByCGFloatBlock _Nonnull)byVelocity{
+    @jobs_weakify(self)
+    return ^__kindof ScrollDecelerator *_Nullable(CGFloat value){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setVelocity:value];
+        return self;
+    };
+}
+
+-(JobsRetScrollDeceleratorByCGFloatBlock _Nonnull)byDecelerationRate{
+    @jobs_weakify(self)
+    return ^__kindof ScrollDecelerator *_Nullable(CGFloat value){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setDecelerationRate:value];
+        return self;
+    };
+}
+
 - (instancetype)initWithVelocity:(CGFloat)velocity
                 decelerationRate:(CGFloat)decelerationRate {
     if (self = [super init]) {
-        _velocity = velocity;
-        _decelerationRate = decelerationRate;
+        self.byVelocity(velocity).byDecelerationRate(decelerationRate);
     };return self;
 }
 
@@ -27,7 +47,7 @@
         CGFloat v1 = v0 * factor;  // 衰减后的速度
         // 位移 ≈ (v0 + v1) / 2 * dt （匀变速近似）
         CGFloat displacement = (v0 + v1) * 0.5 * dt;
-        self.velocity = v1;
+        self.byVelocity(v1);
         return displacement;
     };
 }

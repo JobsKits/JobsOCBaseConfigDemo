@@ -24,8 +24,8 @@
              }
 
              {// 一般的文字
-                 _btnConfig.title = @"入职Mata".tr;
-                 _btnConfig.subtitle = @"".tr;
+                 _btnConfig.title = @"入职Mata".jobsTr();
+                 _btnConfig.subtitle = @"".jobsTr();
                  _btnConfig.baseForegroundColor = JobsBlackColor;// 前景颜色（= 文字颜色）
              }
 
@@ -39,7 +39,7 @@
                      }];
                      return newTextAttributes.copy;
                  };
-                 _btnConfig.attributedTitle = [NSAttributedString.alloc initWithString:@"入职Mata".tr attributes:@{NSForegroundColorAttributeName:JobsBlackColor}];
+                 _btnConfig.attributedTitle = [NSAttributedString.alloc initWithString:@"入职Mata".jobsTr() attributes:@{NSForegroundColorAttributeName:JobsBlackColor}];
              }
 
              {// 其他
@@ -63,7 +63,7 @@
                  _btn1 = UIButton.jobsInit()
                      .jobsResetBtnImage(@"入职Mata".img)
                      .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
-                     .jobsResetBtnTitle(@"入职Mata".tr)
+                     .jobsResetBtnTitle(@"入职Mata".jobsTr())
                      .jobsResetBtnTitleCor(JobsBlackColor)
                      .byViewBlock(^(__kindof UIView *view) {
                          [(UIButton *)view layoutButtonWithEdgeInsetsStyle:NSDirectionalRectEdgeLeading imagePadding:JobsWidth(8)];
@@ -147,8 +147,8 @@
                                                    break;
                                            }
                                            // 4、 赋值
-                                           self.titleEdgeInsets = labelEdgeInsets;
-                                           self.imageEdgeInsets = imageEdgeInsets;
+                                           self.byTitleEdgeInsets(labelEdgeInsets);
+                                           self.byImageEdgeInsets(imageEdgeInsets);
                                            );return self;
 }
 

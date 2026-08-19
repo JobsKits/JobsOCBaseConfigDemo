@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -21,6 +27,10 @@
 Prop_copy()NSString *text;
 Prop_assign()NSInteger size;
 Prop_strong()UIColor *color;
+
+-(JobsRetTBCityIconInfoByStrBlock _Nonnull)byText;
+-(JobsRetTBCityIconInfoByNSIntegerBlock _Nonnull)bySize;
+-(JobsRetTBCityIconInfoByCorBlock _Nonnull)byColor;
 
 -(instancetype)initWithText:(NSString *)text size:(NSInteger)size color:(UIColor *)color;
 +(instancetype)iconInfoWithText:(NSString *)text size:(NSInteger)size color:(UIColor *)color;

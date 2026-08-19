@@ -6,6 +6,7 @@
 //
 
 #import "TMSWalletCollectionViewCell.h"
+
 #import <JobsBaseUI/UICollectionView+JobsRegisterClass.h>
 #import <JobsBaseUI/UIView+Extra.h>
 
@@ -20,15 +21,15 @@ Prop_strong()UILabel *titleLabel;
     if (self == [super initWithFrame:frame]) {
         self.byBgColor(JobsSecondarySystemBackgroundColor);
         self.contentView.byBgColor(JobsRandomColor);
-        self.layer.cornerRadius = 20;
-        self.layer.masksToBounds = YES;
+        self.layer.byCornerRadius(20);
+        self.layer.byMasksToBounds(YES);
     };return self;
 }
 #pragma mark —— BaseCellProtocol
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     TMSWalletCollectionViewCell *cell = JobsRegisterDequeueCollectionViewCell(TMSWalletCollectionViewCell);
-    cell.indexPath = indexPath;
+    cell.byIndexPath(indexPath);
     return cell;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -36,7 +37,7 @@ Prop_strong()UILabel *titleLabel;
     @jobs_weakify(self)
     return ^__kindof UICollectionViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
+        self.byViewModel(model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {}));
         self.titleLabel.byAlpha(1);
         return self;
     };

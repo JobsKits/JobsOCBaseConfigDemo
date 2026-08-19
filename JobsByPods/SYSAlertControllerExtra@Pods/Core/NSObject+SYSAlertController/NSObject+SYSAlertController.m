@@ -6,7 +6,19 @@
 //
 
 #import "NSObject+SYSAlertController.h"
+
 #import <SYSAlertControllerExtra/NSString+Extra.h>
+
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN UIPopoverPresentationController
+@interface UIPopoverPresentationController (JobsLocalPropertyDSLAutogen_0598540b1b)
+-(JobsRetUIPopoverPresentationControllerByCGRectBlock _Nonnull)bySourceRect;
+-(JobsRetUIPopoverPresentationControllerByUIPopoverArrowDirectionBlock _Nonnull)byPermittedArrowDirections;
+-(JobsRetUIPopoverPresentationControllerByUIViewBlock _Nonnull)bySourceView;
+-(void)setPermittedArrowDirections:(UIPopoverArrowDirection)data;
+-(void)setSourceRect:(CGRect)data;
+-(void)setSourceView:(UIView * _Nullable)data;
+@end
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END UIPopoverPresentationController
 
 @implementation NSObject (SYSAlertController)
 /// 屏幕正中央的Alert
@@ -27,7 +39,7 @@
                                                              handler:^(UIAlertAction * _Nonnull action) {
 //                @strongify(config)
                 if (!config.funcInWhere) {
-                    config.funcInWhere = config.targetVC;
+                    config.byFuncInWhere(config.targetVC);
                 }
                 // 核心方法:截取最后2个字符，如果是“：”则进行参数拼接
                 NSString *methodName = config.alertBtnActionArr[i];
@@ -48,7 +60,7 @@
             }];
             [alertController addAction:okAction];
         }
-    }else @"参数配置错误，请检查".tr.toast();
+    }else @"参数配置错误，请检查".jobsTr().toast();
     if (alertVCBlock) alertVCBlock(alertController);
     [config.targetVC presentViewController:alertController
                                   animated:config.animated
@@ -91,65 +103,68 @@
             }];
             [alertController addAction:okAction];
         }
-    }else @"参数配置错误，请检查".tr.toast();
+    }else @"参数配置错误，请检查".jobsTr().toast();
     if (alertVCBlock) alertVCBlock(alertController);
     UIPopoverPresentationController *popover = alertController.popoverPresentationController;
     if (popover){
-        popover.sourceView = config.sender;
-        popover.sourceRect = config.sender.bounds;
-        popover.permittedArrowDirections = UIPopoverArrowDirectionAny;
+        popover.bySourceView(config.sender);
+        popover.bySourceRect(config.sender.bounds);
+        popover.byPermittedArrowDirections(UIPopoverArrowDirectionAny);
     }
     [config.targetVC presentViewController:alertController
                                   animated:config.animated
                                 completion:completionBlock];
 }
 
-+(void)showLoginAlertViewWithTargetVC:(UIViewController *)targetVC{
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Login".tr
-                                                                             message:@"Enter Your Account Info Below".tr
-                                                                      preferredStyle:UIAlertControllerStyleAlert];
-    __weak UIViewController *weakTargetVC = targetVC;
-    @jobs_weakify(self)
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        @jobs_strongify(self)
-        textField.byPlaceholder(@"username".tr);
-        textField.onJobsEvent(UIControlEventEditingChanged, ^(__kindof UIControl * _Nullable control) {
-            UIViewController *strongTargetVC = weakTargetVC;
-            if (!strongTargetVC) return;
-            [self alertUserAccountInfoDidChange:(UITextField *)control
-                                       targetVC:strongTargetVC];
-        });
-    }];
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        @jobs_strongify(self)
-        textField.byPlaceholder(@"password".tr);
-        textField.bySecureTextEntry(YES);
-        textField.onJobsEvent(UIControlEventEditingChanged, ^(__kindof UIControl * _Nullable control) {
-            UIViewController *strongTargetVC = weakTargetVC;
-            if (!strongTargetVC) return;
-            [self alertUserAccountInfoDidChange:(UITextField *)control
-                                       targetVC:strongTargetVC];
-        });
-    }];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel".tr
-                                                           style:UIAlertActionStyleCancel
-                                                         handler:^(UIAlertAction * _Nonnull action) {
-                                                             JobsLog(@"Cancel Action");
-                                                         }];
-    UIAlertAction *loginAction = [UIAlertAction actionWithTitle:@"Login".tr
-                                                          style:UIAlertActionStyleDefault
-                                                        handler:^(UIAlertAction * _Nonnull action) {
-                                                            UITextField *userName = alertController.textFields.firstObject;
-                                                            UITextField *password = alertController.textFields.lastObject;
-                                                            // 输出用户名 密码到控制台
-                                                            JobsLog(@"username is %@, password is %@",userName.text,password.text);
-    }];
-    loginAction.enabled = NO;// 禁用Login按钮
-    [alertController addAction:cancelAction];
-    [alertController addAction:loginAction];
-    [targetVC presentViewController:alertController
-                           animated:YES
-                         completion:nil];
++(jobsByVCBlock _Nonnull)showLoginAlertViewWithTargetVC{
+    return ^(UIViewController * targetVC){
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Login".jobsTr()
+                                                                                 message:@"Enter Your Account Info Below".jobsTr()
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        __weak UIViewController *weakTargetVC = targetVC;
+        @jobs_weakify(self)
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            @jobs_strongify(self)
+            textField.byPlaceholder(@"username".jobsTr());
+            textField.onJobsEvent(UIControlEventEditingChanged, ^(__kindof UIControl * _Nullable control) {
+                UIViewController *strongTargetVC = weakTargetVC;
+                if (!strongTargetVC) return;
+                [self alertUserAccountInfoDidChange:(UITextField *)control
+                                           targetVC:strongTargetVC];
+            });
+        }];
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            @jobs_strongify(self)
+            textField
+                .byPlaceholder(@"password".jobsTr())
+                .bySecureTextEntry(YES);
+            textField.onJobsEvent(UIControlEventEditingChanged, ^(__kindof UIControl * _Nullable control) {
+                UIViewController *strongTargetVC = weakTargetVC;
+                if (!strongTargetVC) return;
+                [self alertUserAccountInfoDidChange:(UITextField *)control
+                                           targetVC:strongTargetVC];
+            });
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel".jobsTr()
+                                                               style:UIAlertActionStyleCancel
+                                                             handler:^(UIAlertAction * _Nonnull action) {
+                                                                 JobsLog(@"Cancel Action");
+                                                             }];
+        UIAlertAction *loginAction = [UIAlertAction actionWithTitle:@"Login".jobsTr()
+                                                              style:UIAlertActionStyleDefault
+                                                            handler:^(UIAlertAction * _Nonnull action) {
+                                                                UITextField *userName = alertController.textFields.firstObject;
+                                                                UITextField *password = alertController.textFields.lastObject;
+                                                                // 输出用户名 密码到控制台
+                                                                JobsLog(@"username is %@, password is %@",userName.text,password.text);
+        }];
+        loginAction.byEnabled(NO);
+        [alertController addAction:cancelAction];
+        [alertController addAction:loginAction];
+        [targetVC presentViewController:alertController
+                               animated:YES
+                             completion:nil];
+    };
 }
 //???
 +(void)alertUserAccountInfoDidChange:(UITextField *)sender
@@ -162,11 +177,42 @@
         if (userName.length > 3 &&
             password.length > 6)
             // 用户名大于3位，密码大于6位时，启用Login按钮。
-            loginAction.enabled = YES;
+            loginAction.byEnabled(YES);
         else
             // 用户名小于等于3位，密码小于等于6位，禁用Login按钮。
-            loginAction.enabled = NO;
+            loginAction.byEnabled(NO);
     }
 }
 
 @end
+
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN UIPopoverPresentationController
+@implementation UIPopoverPresentationController (JobsLocalPropertyDSLAutogen_0598540b1b)
+-(JobsRetUIPopoverPresentationControllerByCGRectBlock _Nonnull)bySourceRect{
+    @jobs_weakify(self)
+    return ^__kindof UIPopoverPresentationController * _Nullable(CGRect data){
+        @jobs_strongify(self)
+        [self setSourceRect:data];
+        return self;
+    };
+}
+
+-(JobsRetUIPopoverPresentationControllerByUIPopoverArrowDirectionBlock _Nonnull)byPermittedArrowDirections{
+    @jobs_weakify(self)
+    return ^__kindof UIPopoverPresentationController * _Nullable(UIPopoverArrowDirection data){
+        @jobs_strongify(self)
+        [self setPermittedArrowDirections:data];
+        return self;
+    };
+}
+
+-(JobsRetUIPopoverPresentationControllerByUIViewBlock _Nonnull)bySourceView{
+    @jobs_weakify(self)
+    return ^__kindof UIPopoverPresentationController * _Nullable(UIView * _Nullable data){
+        @jobs_strongify(self)
+        [self setSourceView:data];
+        return self;
+    };
+}
+@end
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UIPopoverPresentationController

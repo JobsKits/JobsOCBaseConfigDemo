@@ -6,13 +6,16 @@
 //
 
 #import "YTKUrlArgumentsFilter.h"
+#import <JobsOCDSL/JobsSystemAPIDSLSupplement.h>
 
 @implementation YTKUrlArgumentsFilter {
     NSDictionary *_arguments;
 }
 
-+(YTKUrlArgumentsFilter *)filterWithArguments:(NSDictionary *)arguments {
-    return [[self alloc] initWithArguments:arguments];
++(JobsRetYTKUrlArgumentsFilterByNSDictionaryBlock _Nonnull)filterWithArguments{
+    return ^YTKUrlArgumentsFilter *(NSDictionary * arguments){
+        return [[self alloc] initWithArguments:arguments];
+    };
 }
 
 -(instancetype _Nullable)initWithArguments:(NSDictionary *)arguments {
@@ -45,7 +48,7 @@
     }
     NSString *queryString = components.query ?: @"";
     NSString *newQueryString = [queryString stringByAppendingFormat:queryString.length > 0 ? @"&%@" : @"%@", paraUrlString];
-    components.query = newQueryString;
+    components.byQuery(newQueryString);
     return useDummyUrl ? [components.URL.absoluteString substringFromIndex:dummyUrl.length - 1] : components.URL.absoluteString;
 }
 

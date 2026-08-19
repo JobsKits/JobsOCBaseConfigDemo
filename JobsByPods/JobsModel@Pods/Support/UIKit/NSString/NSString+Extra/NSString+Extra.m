@@ -9,24 +9,15 @@
 
 @implementation NSString (JobsModelExtra)
 /// 完整的文件名提取普通文件名和文件后缀名
-- (JobsRetFileNameModelByStrBlock _Nonnull)byFileFullName{
-    return ^FileNameModel *_Nonnull(NSString *_Nullable fileFullName) {
-        return jobsMakeFileNameModel(^(FileNameModel * _Nonnull model) {
-            /// 使用 "." 分割文件名，获取文件名和文件类型
-            NSArray<NSString *> *components = [fileFullName componentsSeparatedByString:@"."];
-            if (components.count != 2) {
-                JobsLog(@"文件名格式错误: %@", fileFullName);
-                return;
-            }
-            model.name = components[0];
-            model.type = components[1];
-        });
-    };
-}
 /// 字符串是否包含URL【返回YES包含】
--(BOOL)isContainsUrl{
-    NSString *checkStr = @"https://".add(@"http://");
-    return [self rangeOfString:checkStr].location != NSNotFound;
+-(JobsRetBOOLByVoidBlock _Nonnull)isContainsUrl{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        NSString *checkStr = @"https://".add(@"http://");
+        return self.rangeOfString(checkStr).location != NSNotFound;
+    };
 }
 /// OC字符串拼接
 -(JobsRetStrByStrBlock _Nonnull)add{
@@ -82,13 +73,21 @@
     };
 }
 /// 返回网址相关的NSURL *
--(NSURL *_Nonnull)jobsUrl{
-    NSString *s = self.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
-    if (!isValue(s)) { return nil; }
-    if ([s hasPrefix:@"//"]) { s = @"https:".add(s); }
-    // 允许中文与特殊字符
-    NSString *encoded = [s stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet];
-    return [NSURL URLWithString:encoded ?: s];
+-(NSURL *)jobsUrl{
+    return (((JobsRetURLByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsURL)))(self, @selector(jobsURL)))();
+}
+-(JobsRetURLByVoidBlock _Nonnull)jobsURL{
+    @jobs_weakify(self)
+    return ^NSURL *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSString *s = self.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
+        if (!isValue(s)) { return nil; }
+        if ([s hasPrefix:@"//"]) { s = @"https:".add(s); }
+        // 允许中文与特殊字符
+        NSString *encoded = [s stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet];
+        return [NSURL URLWithString:encoded ?: s];
+    };
 }
 /// 格式化为中国时间
 -(JobsRetStrByStrBlock _Nonnull)chinaTime{

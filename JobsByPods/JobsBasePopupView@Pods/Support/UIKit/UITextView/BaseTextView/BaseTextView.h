@@ -67,7 +67,7 @@ NS_ASSUME_NONNULL_END
 
 NS_INLINE __kindof JobsBasePopupTextView *_Nonnull jobsMakeBasePopupTextView(jobsByJobsBasePopupTextViewBlock _Nonnull block){
     JobsBasePopupTextView *data = JobsBasePopupTextView.alloc.init;
-    data.linkTextAttributes = NSObject.linkTextAttributes;
+    data.linkTextAttributes = NSObject.linkTextAttributes();
     if (block) block(data);
     return data;
 }
@@ -92,16 +92,16 @@ NS_INLINE __kindof JobsBasePopupTextView *_Nonnull jobsMakeJobsBasePopupTextView
                              .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable config) {
                                  config.byFont(UIFontWeightRegularSize(JobsWidth(12)))
                                        .byTextCor(JobsWhiteColor)
-                                       .byTargetString(@"Already have account?".tr);
+                                       .byTargetString(@"Already have account?".jobsTr());
                          //        config.textBgCor = UIColor.clearColor;
-                                 config.byParagraphStyle(self.defaultParagraphStyle);
+                                 config.byParagraphStyle(self.defaultParagraphStyle());
                              }))
                              .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable config) {
                                  config.byFont(UIFontWeightRegularSize(JobsWidth(12)))
-                                       .byTextCor(@"#FFC700".cor)
-                                       .byTargetString(@" ".add(@"Login Here".tr));
+                                       .byTextCor(@"#FFC700".jobsCor())
+                                       .byTargetString(@" ".add(@"Login Here".jobsTr()));
                          //        config.textBgCor = UIColor.clearColor;
-                                 config.byParagraphStyle(self.defaultParagraphStyle)
+                                 config.byParagraphStyle(self.defaultParagraphStyle())
                                        .byUrlStr(@"www.google.com");
                              }));
                      })))

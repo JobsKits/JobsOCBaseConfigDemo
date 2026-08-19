@@ -21,8 +21,13 @@
     };
 }
 ///【实例方法】UIImage对象 转换为 16进制字符串
--(NSString *_Nullable)hexStr{
-    return UIImage.hexStringByImage(self);
+-(JobsRetStrByVoidBlock _Nonnull)hexStr{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return UIImage.hexStringByImage(self);
+    };
 }
 #pragma mark —— 16进制字符串 ==> UIImage对象
 ///【类方法】16进制字符串 转换为 UIImage对象
@@ -41,8 +46,13 @@
     };
 }
 ///【实例方法】16进制字符串 转换为 UIImage对象
--(UIImage *_Nullable)imageByHexString:(NSString *_Nonnull)hexString{
-    return UIImage.imageByHexString(hexString);
+-(JobsRetImageByStrBlock _Nonnull)imageByHexString{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable(NSString *_Nonnull hexString){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return UIImage.imageByHexString(hexString);
+    };
 }
 
 @end

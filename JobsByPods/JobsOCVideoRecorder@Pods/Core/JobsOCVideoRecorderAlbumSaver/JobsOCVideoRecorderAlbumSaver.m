@@ -7,6 +7,19 @@
 
 #import "JobsOCVideoRecorderAlbumSaver.h"
 
+@interface JobsOCVideoRecorderAlbumSaver ()
+
++(JobsRetPHAssetCollectionByNSStringBlock _Nonnull)assetCollectionWithTitle;
+
+@end
+
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN PHFetchOptions
+@interface PHFetchOptions (JobsLocalPropertyDSLAutogen_bc2aa1179a)
+-(JobsRetPHFetchOptionsByNSPredicateBlock _Nonnull)byPredicate;
+-(void)setPredicate:(NSPredicate * _Nullable)data;
+@end
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END PHFetchOptions
+
 @implementation JobsOCVideoRecorderAlbumSaver
 +(void)saveVideoAtURL:(NSURL *)videoURL
              albumName:(NSString *)albumName
@@ -16,7 +29,7 @@
         return;
     }
     NSString *targetAlbumName = albumName.length ? albumName : @"JobsOCVideoRecorder";
-    PHAssetCollection *collection = [self assetCollectionWithTitle:targetAlbumName];
+    PHAssetCollection *collection = self.assetCollectionWithTitle(targetAlbumName);
     if (!collection) {
         [self createAlbumWithTitle:targetAlbumName completion:^(PHAssetCollection *createdCollection, NSError *error) {
             if (error || !createdCollection) {
@@ -70,13 +83,15 @@
     }];
 }
 
-+(PHAssetCollection *)assetCollectionWithTitle:(NSString *)title{
-    PHFetchOptions *options = PHFetchOptions.new;
-    options.predicate = [NSPredicate predicateWithFormat:@"title = %@", title];
-    PHFetchResult<PHAssetCollection *> *result = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum
-                                                                                         subtype:PHAssetCollectionSubtypeAlbumRegular
-                                                                                         options:options];
-    return result.firstObject;
++(JobsRetPHAssetCollectionByNSStringBlock _Nonnull)assetCollectionWithTitle{
+    return ^PHAssetCollection *(NSString * title){
+        PHFetchOptions *options = PHFetchOptions.new;
+        options.byPredicate([NSPredicate predicateWithFormat:@"title = %@", title]);
+        PHFetchResult<PHAssetCollection *> *result = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum
+                                                                                             subtype:PHAssetCollectionSubtypeAlbumRegular
+                                                                                             options:options];
+        return result.firstObject;
+    };
 }
 
 +(void)complete:(JobsOCVideoRecorderAlbumSaveBlock)completion
@@ -95,3 +110,16 @@ assetLocalIdentifier:(NSString *)assetLocalIdentifier
 }
 
 @end
+
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN PHFetchOptions
+@implementation PHFetchOptions (JobsLocalPropertyDSLAutogen_bc2aa1179a)
+-(JobsRetPHFetchOptionsByNSPredicateBlock _Nonnull)byPredicate{
+    @jobs_weakify(self)
+    return ^__kindof PHFetchOptions * _Nullable(NSPredicate * _Nullable data){
+        @jobs_strongify(self)
+        [self setPredicate:data];
+        return self;
+    };
+}
+@end
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END PHFetchOptions

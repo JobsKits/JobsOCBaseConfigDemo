@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
 #else
@@ -34,9 +40,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BaseContentView : BaseView
 
--(void)showContentViewWithOffsetY:(CGFloat)offsetY;
--(void)removeContentViewWithOffsetY:(CGFloat)offsetY;
+-(jobsByCGFloatBlock _Nonnull)showContentViewWithOffsetY;
+-(jobsByCGFloatBlock _Nonnull)removeContentViewWithOffsetY;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN BaseContentView
+-(JobsRetBaseContentViewByCGRectBlock _Nonnull)byInitialContentViewRect;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END BaseContentView
 @end
 
 NS_ASSUME_NONNULL_END

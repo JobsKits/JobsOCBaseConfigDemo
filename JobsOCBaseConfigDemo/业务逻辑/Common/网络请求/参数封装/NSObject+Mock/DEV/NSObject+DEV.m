@@ -14,48 +14,58 @@
 /// 账号（用户名）：
 /// 密码：
 /// 手机验证码登录
--(FMDoorModel *)mock_dev_login_data1{
-    return jobsMakeDoorModel(^(__kindof FMDoorModel * _Nullable data) {
-        data.byCaptcha_id(@"")
-            .byCaptcha_key(@"")
-            .byCaptcha_output(@"")
-            .byCountryCode(@"CN")/// 国家编码两位码(中国CN、越南VN)-国家的ISO 3166-1 Alpha-2代码
-            .byDomain(@"")
-            .byGen_time(@"")
-            .byInviteCode(@"")/// 代理邀请码
-            .byLot_number(@"")
-            .byMobile(@"")/// 手机号
-            .byPass_token(@"")
-            .byPassword(@"^")/// 密码
-            .byReferCode(@"")
-            .bySmsCode(@"")/// 短信验证码
-            .byUserName(@"");/// 用户名
-    });
+-(JobsRetFMDoorModelByVoidBlock _Nonnull)mock_dev_login_data1{
+    @jobs_weakify(self)
+    return ^FMDoorModel *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return jobsMakeDoorModel(^(__kindof FMDoorModel * _Nullable data) {
+            data.byCaptcha_id(@"")
+                .byCaptcha_key(@"")
+                .byCaptcha_output(@"")
+                .byCountryCode(@"CN")/// 国家编码两位码(中国CN、越南VN)-国家的ISO 3166-1 Alpha-2代码
+                .byDomain(@"")
+                .byGen_time(@"")
+                .byInviteCode(@"")/// 代理邀请码
+                .byLot_number(@"")
+                .byMobile(@"")/// 手机号
+                .byPass_token(@"")
+                .byPassword(@"^")/// 密码
+                .byReferCode(@"")
+                .bySmsCode(@"")/// 短信验证码
+                .byUserName(@"");/// 用户名
+        });
+    };
 }
 /// 手机号码：
 /// 验证码：
 /// 账号（用户名）：
 /// 密码：
 /// 账密登录
--(FMDoorModel *)mock_dev_login_data2{
-    return jobsMakeDoorModel(^(__kindof FMDoorModel * _Nullable data) {
-        data.byCaptcha_id(@"")
-            .byCaptcha_key(@"")
-            .byCaptcha_output(@"")
-            .byCountryCode(@"PH")/// 国家编码两位码(中国CN、越南VN)-国家的ISO 3166-1 Alpha-2代码
-            .byDomain(@"")
-            .byDomainName(@"")/// 好友邀请域名
-            .byGen_time(@"")
-            .byInviteName(@"")/// 好友邀请人账号
-            .byInviteCode(@"")/// 代理邀请码
-            .byLot_number(@"")
-            .byMobile(@"")/// 手机号
-            .byPass_token(@"")
-            .byPassword(@"")/// 密码
-            .byReferCode(@"")
-            .bySmsCode(@"")/// 短信验证码
-            .byUserName(@"");/// 账号（用户名）：
-    });
+-(JobsRetFMDoorModelByVoidBlock _Nonnull)mock_dev_login_data2{
+    @jobs_weakify(self)
+    return ^FMDoorModel *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return jobsMakeDoorModel(^(__kindof FMDoorModel * _Nullable data) {
+            data.byCaptcha_id(@"")
+                .byCaptcha_key(@"")
+                .byCaptcha_output(@"")
+                .byCountryCode(@"PH")/// 国家编码两位码(中国CN、越南VN)-国家的ISO 3166-1 Alpha-2代码
+                .byDomain(@"")
+                .byDomainName(@"")/// 好友邀请域名
+                .byGen_time(@"")
+                .byInviteName(@"")/// 好友邀请人账号
+                .byInviteCode(@"")/// 代理邀请码
+                .byLot_number(@"")
+                .byMobile(@"")/// 手机号
+                .byPass_token(@"")
+                .byPassword(@"")/// 密码
+                .byReferCode(@"")
+                .bySmsCode(@"")/// 短信验证码
+                .byUserName(@"");/// 账号（用户名）：
+        });
+    };
 }
 #pragma mark —— 注册
 /// 电话号码：

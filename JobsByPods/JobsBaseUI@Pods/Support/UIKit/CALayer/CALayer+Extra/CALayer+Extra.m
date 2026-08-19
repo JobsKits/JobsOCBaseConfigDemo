@@ -13,7 +13,7 @@
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(CGFloat data){
         @jobs_strongify(self)
-        self.cornerRadius = data;
+        self.byCornerRadius(data);
         return self;
     };
 }
@@ -22,7 +22,7 @@
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(CGFloat data){
         @jobs_strongify(self)
-        self.borderWidth = data;
+        self.byBorderWidth(data);
         return self;
     };
 }
@@ -31,7 +31,7 @@
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
-        self.borderColor = data.CGColor;
+        self.byBorderColor(data.CGColor);
         return self;
     };
 }
@@ -40,7 +40,7 @@
     @jobs_weakify(self)
     return ^__kindof CALayer *_Nullable(BOOL data){
         @jobs_strongify(self)
-        self.masksToBounds = data;
+        self.byMasksToBounds(data);
         return self;
     };
 }

@@ -7,6 +7,31 @@
 
 #import "JobsNetworkingAPI+DemoTestApi.h"
 
+@implementation ZBURLRequest (JobsNetworkingDSL)
+
+#define JOBS_ZB_REQUEST_DSL(_selector_, _property_, _type_, _blockType_) \
+-(_blockType_ _Nonnull)_selector_{ \
+    @jobs_weakify(self) \
+    return ^__kindof ZBURLRequest *_Nullable(_type_ data){ \
+        @jobs_strongify(self) \
+        self._property_ = data; \
+        return self; \
+    }; \
+}
+
+JOBS_ZB_REQUEST_DSL(byServer, server, NSString *_Nullable, JobsRetZBURLRequestByStrBlock)
+JOBS_ZB_REQUEST_DSL(byUrl, url, NSString *_Nullable, JobsRetZBURLRequestByStrBlock)
+JOBS_ZB_REQUEST_DSL(byMethodType, methodType, NSInteger, JobsRetZBURLRequestByNSIntegerBlock)
+JOBS_ZB_REQUEST_DSL(byApiType, apiType, NSInteger, JobsRetZBURLRequestByNSIntegerBlock)
+JOBS_ZB_REQUEST_DSL(byParameters, parameters, id _Nullable, JobsRetZBURLRequestByIDBlock)
+JOBS_ZB_REQUEST_DSL(byRetryCount, retryCount, NSUInteger, JobsRetZBURLRequestByNSUIntegerBlock)
+JOBS_ZB_REQUEST_DSL(byTimeoutInterval, timeoutInterval, NSTimeInterval, JobsRetZBURLRequestByTimeIntervalBlock)
+JOBS_ZB_REQUEST_DSL(byUserInfo, userInfo, id _Nullable, JobsRetZBURLRequestByIDBlock)
+
+#undef JOBS_ZB_REQUEST_DSL
+
+@end
+
 @implementation JobsNetworkingAPI (DemoTestApi)
 NSString *appInterfaceTesting;
 +(void)appInterfaceTesting:(id)parameters
@@ -15,20 +40,21 @@ NSString *appInterfaceTesting;
 //    NSDictionary *parameterss = @{};
 //    NSDictionary *headers = @{};
     [ZBRequestManager requestWithConfig:^(ZBURLRequest * _Nullable request) {
-        request.server = This.BaseUrl;
-        request.url = request.server.add(This.appInterfaceTesting.url);
+        request
+            .byServer(This.jobsBaseUrl())
+            .byUrl(request.server.add(This.jobs_appInterfaceTesting().url))
+            .byMethodType(ZBMethodTypeGET)
+            .byApiType(ZBRequestTypeRefresh)
+            .byParameters(parameters)
+            .byRetryCount(1)
+            .byTimeoutInterval(10);
         JobsLog(@"request.URLString = %@",request.url);
-        request.methodType = ZBMethodTypeGET;//默认为GET
-        request.apiType = ZBRequestTypeRefresh;//（默认为ZBRequestTypeRefresh 不读取缓存，不存储缓存）
-        request.parameters = parameters;//与公共配置 Parameters 兼容
 //        request.headers = headers;//与公共配置 Headers 兼容
-        request.retryCount = 1;//请求失败 单次请求 重新连接次数 优先级大于 全局设置，不影响其他请求设置
-        request.timeoutInterval = 10;//默认30 //优先级 高于 公共配置,不影响其他请求设置
-        if (isValue(DataManager.sharedManager.tag)) {
-            request.userInfo = @{@"info":DataManager.sharedManager.tag};//与公共配置 UserInfo 不兼容 优先级大于 公共配置
+        if (isValue(DataManager.jobsSharedManager().tag)) {
+            request.byUserInfo(@{@"info":DataManager.jobsSharedManager().tag});
         };//与公共配置 UserInfo 不兼容 优先级大于 公共配置
         {
-//            request.filtrationCacheKey = @[@"".tr];//与公共配置 filtrationCacheKey 兼容
+//            request.filtrationCacheKey = @[@"".jobsTr()];//与公共配置 filtrationCacheKey 兼容
 //            request.requestSerializer = ZBJSONRequestSerializer; //单次请求设置 请求格式 默认JSON，优先级大于 公共配置，不影响其他请求设置
 //            request.responseSerializer = ZBJSONResponseSerializer; //单次请求设置 响应格式 默认JSON，优先级大于 公共配置,不影响其他请求设置
             /**

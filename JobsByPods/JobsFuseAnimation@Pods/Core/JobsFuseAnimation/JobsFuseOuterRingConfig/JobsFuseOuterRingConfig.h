@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #elif __has_include("../../../../JobsOCDefs@Pods/JobsDefines.h")
@@ -36,21 +42,21 @@ Prop_assign()NSTimeInterval fadeOutDuration;
 Prop_assign()CGFloat inset;
 Prop_assign()BOOL startsFromTop;
 
-+(__kindof JobsFuseOuterRingConfig *)config;
++(JobsRetJobsFuseOuterRingConfigByVoidBlock _Nonnull)config;
 -(instancetype)init;
--(JobsFuseOuterRingConfig *(^)(CGFloat data))byLineWidth;
--(JobsFuseOuterRingConfig *(^)(UIColor *data))byStrokeColor;
--(JobsFuseOuterRingConfig *(^)(UIColor *_Nullable data))byTrackColor;
--(JobsFuseOuterRingConfig *(^)(UIColor *data))byFillColor;
--(JobsFuseOuterRingConfig *(^)(CGFloat data))byFromOpacity;
--(JobsFuseOuterRingConfig *(^)(CGFloat data))byToOpacity;
--(JobsFuseOuterRingConfig *(^)(NSTimeInterval data))byGrowDuration;
--(JobsFuseOuterRingConfig *(^)(NSTimeInterval data))byTimerInterval;
--(JobsFuseOuterRingConfig *(^)(BOOL data))byRepeatsWhileHolding;
--(JobsFuseOuterRingConfig *(^)(NSTimeInterval data))byRetreatDuration;
--(JobsFuseOuterRingConfig *(^)(NSTimeInterval data))byFadeOutDuration;
--(JobsFuseOuterRingConfig *(^)(CGFloat data))byInset;
--(JobsFuseOuterRingConfig *(^)(BOOL data))byStartsFromTop;
+-(JobsRetJobsFuseOuterRingConfigByCGFloatBlock _Nonnull)byLineWidth;
+-(JobsRetJobsFuseOuterRingConfigByUIColorBlock _Nonnull)byStrokeColor;
+-(JobsRetJobsFuseOuterRingConfigByUIColorBlock _Nonnull)byTrackColor;
+-(JobsRetJobsFuseOuterRingConfigByUIColorBlock _Nonnull)byFillColor;
+-(JobsRetJobsFuseOuterRingConfigByCGFloatBlock _Nonnull)byFromOpacity;
+-(JobsRetJobsFuseOuterRingConfigByCGFloatBlock _Nonnull)byToOpacity;
+-(JobsRetJobsFuseOuterRingConfigByNSTimeIntervalBlock _Nonnull)byGrowDuration;
+-(JobsRetJobsFuseOuterRingConfigByNSTimeIntervalBlock _Nonnull)byTimerInterval;
+-(JobsRetJobsFuseOuterRingConfigByBOOLBlock _Nonnull)byRepeatsWhileHolding;
+-(JobsRetJobsFuseOuterRingConfigByNSTimeIntervalBlock _Nonnull)byRetreatDuration;
+-(JobsRetJobsFuseOuterRingConfigByNSTimeIntervalBlock _Nonnull)byFadeOutDuration;
+-(JobsRetJobsFuseOuterRingConfigByCGFloatBlock _Nonnull)byInset;
+-(JobsRetJobsFuseOuterRingConfigByBOOLBlock _Nonnull)byStartsFromTop;
 
 @end
 

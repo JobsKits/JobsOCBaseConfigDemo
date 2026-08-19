@@ -20,58 +20,128 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 }
 
 -(void)loadView{
-    [super loadView];
-    id<BaseProtocol> baseProtocolSelf = (id<BaseProtocol>)self;
-    if ([baseProtocolSelf.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)baseProtocolSelf.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsShowObjInfoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        id<BaseProtocol> baseProtocolSelf = (id<BaseProtocol>)self;
+        if ([baseProtocolSelf.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)baseProtocolSelf.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr)
-                .byTextCor(JobsRedColor);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(JobsGreenColor)
-                .byText(@"用户信息展示(开发测试专用)".tr)
-                .byFont(UIFontWeightRegularSize(16));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        // self.viewModel.bgImage = @"启动页SLOGAN".img;
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr())
+                    .byTextCor(JobsRedColor);
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byTextCor(JobsGreenColor)
+                    .byText(@"用户信息展示(开发测试专用)".jobsTr())
+                    .byFont(UIFontWeightRegularSize(16));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            // self.viewModel.bgImage = @"启动页SLOGAN".img;
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.makeNavByAlpha(1);
-    self.tableView.byShow(self);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsShowObjInfoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.makeNavByAlpha(1);
+        self.tableView.byShow(self);
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.tableView.mj_beginRefreshing_header();
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsShowObjInfoVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillAppear:animated];
+        self.tableView.mj_beginRefreshing_header();
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsShowObjInfoVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsShowObjInfoVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+    };
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
-    return UIStatusBarStyleDefault;
+    JobsRetUIStatusBarStyleByVoidBlock action = ((JobsRetUIStatusBarStyleByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsShowObjInfoVC.class, @selector(jobsPreferredStatusBarStyle)))(self, @selector(jobsPreferredStatusBarStyle));
+    return action ? action() : (UIStatusBarStyle){0};
+}
+
+-(JobsRetUIStatusBarStyleByVoidBlock _Nonnull)jobsPreferredStatusBarStyle{
+    @jobs_weakify(self)
+    return ^UIStatusBarStyle{
+        @jobs_strongify(self)
+        if (!self) return (UIStatusBarStyle){0};
+        return UIStatusBarStyleDefault;
+    };
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsShowObjInfoVC.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 1;
+    };
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
@@ -81,8 +151,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    UIPasteboard.generalPasteboard.string = self.dataMutArr[indexPath.row].subTextModel.text;
-    @"复制".tr.add(self.dataMutArr[indexPath.row].textModel.text).add(@"成功".tr).toast();
+    UIPasteboard.generalPasteboard.byString(self.dataMutArr[indexPath.row].subTextModel.text);
+    @"复制".jobsTr().add(self.dataMutArr[indexPath.row].textModel.text).add(@"成功".jobsTr()).toast();
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
@@ -129,14 +199,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 }))
                 .byShowsVerticalScrollIndicator(NO)
-                .byMJRefreshHeader(self.view.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
+                .byMJRefreshHeader(self.view.MJRefreshNormalHeaderBy(self.refreshHeaderDataBy(^id _Nullable(id  _Nullable data) {
                     @jobs_strongify(self)
                     NSObject.feedbackGenerator(nil);/// 震动反馈
                     if (self.dataMutArr.count) [self.dataMutArr removeAllObjects];
                     /// 装载数据
                     if ([self.viewModel.requestParams isKindOfClass:NSObject.class]) {
                         NSObject *requestParams = (NSObject *)self.viewModel.requestParams;
-                        NSArray <NSString *>*propertyList = requestParams.propertyList;
+                        NSArray <NSString *>*propertyList = requestParams.propertyList();
                         for (NSString *propertyInfo in propertyList) {
                             NSString *propertyName = [propertyInfo componentsSeparatedByString:@":"].firstObject;
                             id value = requestParams.valueForKey(propertyName);
@@ -165,12 +235,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                                   animationBlock:nil
                                                  completionBlock:nil];
                     });return nil;
-                }]))
-                .byMJRefreshFooter(self.view.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id  _Nullable data) {
+                })))
+                .byMJRefreshFooter(self.view.MJRefreshFooterBy(self.refreshFooterDataBy(^id _Nullable(id  _Nullable data) {
                     @jobs_strongify(self)
                     self->_tableView.endRefreshing(self.dataMutArr.count);
                     return nil;
-                }]))
+                })))
                 .byBgColor(JobsSecondarySystemBackgroundColor);
             self.view.addSubview(tableView);
             [self fullScreenConstraintTargetView:tableView topViewOffset:0];

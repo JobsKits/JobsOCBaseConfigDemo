@@ -58,6 +58,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(jobsByBtnBlock _Nonnull)resetUI;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsRightMenuView
+-(JobsRetJobsRightMenuViewByNSArrayUIButtonBlock _Nonnull)byDatas;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsRightMenuView
 @end
 
 NS_ASSUME_NONNULL_END
@@ -77,7 +80,7 @@ NS_ASSUME_NONNULL_END
                                                    .JobsRichViewByModel2(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
                                                        viewModel.data = jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIButton *>* _Nullable arr) {
                                                            arr.add(BaseButton.jobsInit()
-                                                                   .imageURL(@"".jobsUrl)
+                                                                   .imageURL(@"".jobsURL())
                                                                    .placeholderImage(@"首页右侧悬浮菜单人工客服".img)
                                                                    .options(SDWebImageRefreshCached)/// 强制刷新缓存
                                                                    .completed(^(UIImage * _Nullable image,
@@ -100,7 +103,7 @@ NS_ASSUME_NONNULL_END
                                                                JobsLog(@"");
                                                            }).normalLoad())
                                                           .add(BaseButton.jobsInit()
-                                                               .imageURL(@"".jobsUrl)
+                                                               .imageURL(@"".jobsURL())
                                                                .placeholderImage(@"首页右侧悬浮菜单Telegram".img)
                                                                .options(SDWebImageRefreshCached)/// 强制刷新缓存
                                                                .completed(^(UIImage * _Nullable image,
@@ -123,7 +126,7 @@ NS_ASSUME_NONNULL_END
                                                               JobsLog(@"");
                                                           }).normalLoad())
                                                           .add(BaseButton.jobsInit()
-                                                               .imageURL(@"".jobsUrl)
+                                                               .imageURL(@"".jobsURL())
                                                                .placeholderImage(@"首页右侧悬浮菜单FaceBook".img)
                                                                .options(SDWebImageRefreshCached)/// 强制刷新缓存
                                                                .completed(^(UIImage * _Nullable image,

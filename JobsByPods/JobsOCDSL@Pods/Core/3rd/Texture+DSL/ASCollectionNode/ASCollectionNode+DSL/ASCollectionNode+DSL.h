@@ -35,6 +35,37 @@ static inline void jobs_on_main(jobsByVoidBlock _Nullable work){
 
 @interface ASCollectionNode (DSL)
 
+-(JobsRetCollectionNodeByDelegateBlock _Nonnull)byDelegate;
+-(JobsRetCollectionNodeByDataSourceBlock _Nonnull)byDataSource;
+-(JobsRetCollectionNodeByCGFloatBlock _Nonnull)byLeadingScreensForBatching;
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byInverted;
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byAllowsSelection;
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byAllowsMultipleSelection;
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byAlwaysBounceVertical;
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byAlwaysBounceHorizontal;
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byShowsVerticalScrollIndicator;
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byShowsHorizontalScrollIndicator;
+-(JobsRetCollectionNodeByBoolBlock _Nonnull)byPagingEnabled;
+-(JobsRetCollectionNodeByLayoutBlock _Nonnull)byLayout;
+-(JobsRetCollectionNodeByInspectorBlock _Nonnull)byLayoutInspector;
+-(JobsRetCollectionNodeByInsetsBlock _Nonnull)byContentInset;
+-(JobsRetCollectionNodeByPointBlock _Nonnull)byContentOffset;
+-(JobsRetCollectionNodeByPointAnimatedBlock _Nonnull)bySetContentOffsetAnimated;
+-(JobsRetCollectionNodeByStringBlock _Nonnull)byRegisterSupplementaryKind;
+-(JobsRetCollectionNodeByScrollToItemBlock _Nonnull)byScrollToItem;
+-(JobsRetCollectionNodeBySelectBlock _Nonnull)bySelectItem;
+-(JobsRetCollectionNodeByDeselectBlock _Nonnull)byDeselectItem;
+-(JobsRetCollectionNodeByBatchAnimatedBlock _Nonnull)byPerformBatchAnimated;
+-(JobsRetCollectionNodeByBatchBlock _Nonnull)byPerformBatchUpdates;
+-(JobsRetCollectionNodeByReloadWithCompletionBlock _Nonnull)byReloadWithCompletion;
+-(JobsRetCollectionNodeByVoidBlock _Nonnull)byReload;
+-(JobsRetCollectionNodeByVoidBlock _Nonnull)byRelayoutItems;
+-(JobsRetCollectionNodeBySetTuningBlock _Nonnull)bySetTuningForRangeType;
+-(JobsRetCollectionNodeBySetTuningForModeBlock _Nonnull)bySetTuningForModeRangeType;
+-(JobsRetCollectionNodeByVoidBlock _Nonnull)byOnDidFinishProcessingUpdatesOnce;
+-(JobsRetCollectionNodeByDispatchBlock _Nonnull)byOnDidFinishProcessingUpdates;
+-(JobsRetCollectionNodeByVoidBlock _Nonnull)byWaitUntilAllUpdatesProcessed;
+
 @end
 
 NS_ASSUME_NONNULL_END

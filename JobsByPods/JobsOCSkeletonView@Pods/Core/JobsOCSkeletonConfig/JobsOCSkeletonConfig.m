@@ -8,21 +8,27 @@
 #import "JobsOCSkeletonConfig.h"
 
 @implementation JobsOCSkeletonConfig
-+(instancetype)defaultConfig{
-    return self.shimmerConfig;
++(JobsRetJobsOCSkeletonConfigByVoidBlock _Nonnull)defaultConfig{
+    return ^JobsOCSkeletonConfig *{
+        return self.shimmerConfig();
+    };
 }
 
-+(instancetype)shimmerConfig{
-    JobsOCSkeletonConfig *config = self.new;
-    config.animationStyle = JobsOCSkeletonAnimationStyleShimmer;
-    return config;
++(JobsRetJobsOCSkeletonConfigByVoidBlock _Nonnull)shimmerConfig{
+    return ^JobsOCSkeletonConfig *{
+        JobsOCSkeletonConfig *config = self.new;
+        config.byAnimationStyle(JobsOCSkeletonAnimationStyleShimmer);
+        return config;
+    };
 }
 
-+(instancetype)pulseConfig{
-    JobsOCSkeletonConfig *config = self.new;
-    config.animationStyle = JobsOCSkeletonAnimationStylePulse;
-    config.animationDuration = 0.9;
-    return config;
++(JobsRetJobsOCSkeletonConfigByVoidBlock _Nonnull)pulseConfig{
+    return ^JobsOCSkeletonConfig *{
+        JobsOCSkeletonConfig *config = self.new;
+        config.byAnimationStyle(JobsOCSkeletonAnimationStylePulse);
+        config.byAnimationDuration(0.9);
+        return config;
+    };
 }
 
 -(instancetype)init{
@@ -38,43 +44,73 @@
 
 -(id)copyWithZone:(NSZone *)zone{
     JobsOCSkeletonConfig *config = [[[self class] allocWithZone:zone] init];
-    config.baseColor = self.baseColor;
-    config.highlightColor = self.highlightColor;
-    config.animationDuration = self.animationDuration;
-    config.highlightWidthRatio = self.highlightWidthRatio;
-    config.cornerRadius = self.cornerRadius;
-    config.animationStyle = self.animationStyle;
+    config.byBaseColor(self.baseColor);
+    config.byHighlightColor(self.highlightColor);
+    config.byAnimationDuration(self.animationDuration);
+    config.byHighlightWidthRatio(self.highlightWidthRatio);
+    config.byCornerRadius(self.cornerRadius);
+    config.byAnimationStyle(self.animationStyle);
     return config;
 }
 
--(instancetype)byBaseColor:(UIColor *)baseColor{
-    self.baseColor = baseColor;
-    return self;
+-(JobsRetIDByUIColorBlock _Nonnull)byBaseColor{
+    @jobs_weakify(self)
+    return ^id(UIColor * baseColor){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.baseColor = baseColor;
+        return self;
+    };
 }
 
--(instancetype)byHighlightColor:(UIColor *)highlightColor{
-    self.highlightColor = highlightColor;
-    return self;
+-(JobsRetIDByUIColorBlock _Nonnull)byHighlightColor{
+    @jobs_weakify(self)
+    return ^id(UIColor * highlightColor){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.highlightColor = highlightColor;
+        return self;
+    };
 }
 
--(instancetype)byAnimationDuration:(NSTimeInterval)animationDuration{
-    self.animationDuration = MAX(animationDuration, 0.01);
-    return self;
+-(JobsRetIDByNSTimeIntervalBlock _Nonnull)byAnimationDuration{
+    @jobs_weakify(self)
+    return ^id(NSTimeInterval animationDuration){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.animationDuration = MAX(animationDuration, 0.01);
+        return self;
+    };
 }
 
--(instancetype)byHighlightWidthRatio:(CGFloat)highlightWidthRatio{
-    self.highlightWidthRatio = MIN(MAX(highlightWidthRatio, 0), 1);
-    return self;
+-(JobsRetIDByCGFloatBlock _Nonnull)byHighlightWidthRatio{
+    @jobs_weakify(self)
+    return ^id(CGFloat highlightWidthRatio){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.highlightWidthRatio = MIN(MAX(highlightWidthRatio, 0), 1);
+        return self;
+    };
 }
 
--(instancetype)byCornerRadius:(CGFloat)cornerRadius{
-    self.cornerRadius = cornerRadius;
-    return self;
+-(JobsRetIDByCGFloatBlock _Nonnull)byCornerRadius{
+    @jobs_weakify(self)
+    return ^id(CGFloat cornerRadius){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.cornerRadius = cornerRadius;
+        return self;
+    };
 }
 
--(instancetype)byAnimationStyle:(JobsOCSkeletonAnimationStyle)animationStyle{
-    self.animationStyle = animationStyle;
-    return self;
+-(JobsRetIDByJobsOCSkeletonAnimationStyleBlock _Nonnull)byAnimationStyle{
+    @jobs_weakify(self)
+    return ^id(JobsOCSkeletonAnimationStyle animationStyle){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.animationStyle = animationStyle;
+        return self;
+    };
 }
 
 @end

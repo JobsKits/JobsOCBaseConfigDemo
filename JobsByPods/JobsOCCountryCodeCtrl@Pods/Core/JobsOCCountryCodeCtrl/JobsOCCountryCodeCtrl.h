@@ -61,9 +61,10 @@ UITableViewDataSource
 
 Prop_weak()id<JobsOCCountryCodeCtrlDelegate> countryCodeDelegate;
 Prop_copy()jobsByOCCountryCodeBlock countryCodeBlock;
+-(JobsRetJobsOCCountryCodeCtrlByCountryCodeBlock _Nonnull)byCountryCodeBlock;
 
-+(NSString *)jobs_countryFlagByCountryName:(NSString *)countryName;
-+(NSString *)jobs_countryNameTextByCountryName:(NSString *)countryName;
++(JobsRetStrByStrBlock _Nonnull)jobs_countryFlagByCountryName;
++(JobsRetStrByStrBlock _Nonnull)jobs_countryNameTextByCountryName;
 +(NSString *)jobs_countryCodeTextByCountryName:(NSString *)countryName code:(NSString *)code;
 +(NSAttributedString *)jobs_countryNameAttributedTextByCountryName:(NSString *)countryName
                                                               font:(UIFont *)font

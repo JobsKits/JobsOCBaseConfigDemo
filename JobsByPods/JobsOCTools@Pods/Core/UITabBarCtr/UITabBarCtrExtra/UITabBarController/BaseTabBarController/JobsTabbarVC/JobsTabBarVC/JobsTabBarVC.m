@@ -6,6 +6,7 @@
 //
 
 #import "JobsTabBarVC.h"
+
 #import <JobsOCTools/UIViewController+Lottie.h>
 
 static NSArray<__kindof JobsTabBarItemConfig *> *JobsTabBarVCItemConfigs(void) {
@@ -36,8 +37,8 @@ static BOOL JobsTabBarVCIsLogin(id target) {
     NSMethodSignature *signature = [target methodSignatureForSelector:selector];
     if (!signature) return NO;
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
-    invocation.target = target;
-    invocation.selector = selector;
+    invocation.byTarget(target);
+    invocation.bySelector(selector);
     [invocation invoke];
     BOOL isLogin = NO;
     [invocation getReturnValue:&isLogin];
@@ -57,7 +58,31 @@ Prop_strong()NSMutableArray <UIViewModel *>*pullListAutoSizeViewMutArr;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsTabBarVC
+@interface JobsTabBarVC (JobsPropertyDSLSetterAutogen_66e0b0e374)
+-(void)setIsAnimationAlert:(BOOL)data;
+-(void)setIsFeedbackGenerator:(BOOL)data;
+-(void)setIsHiddenNavigationBar:(BOOL)data;
+-(void)setIsOpenPPBadge:(BOOL)data;
+-(void)setIsOpenScrollTabbar:(BOOL)data;
+-(void)setIsPlaySound:(BOOL)data;
+-(void)setMyTabBar:(JobsTabBar * _Nullable)data;
+-(void)setSelectedIndex:(NSUInteger)data;
+-(void)setViewControllers:(NSArray<__kindof UIViewController *> * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsTabBarVC
+
 @implementation JobsTabBarVC
+-(JobsRetJobsTabBarVCByDelegateBlock _Nonnull)byDelegate{
+    @jobs_weakify(self)
+    return ^__kindof JobsTabBarVC *_Nullable(id<UITabBarControllerDelegate> _Nullable delegate){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setDelegate:delegate];
+        return self;
+    };
+}
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);
@@ -65,21 +90,30 @@ Prop_strong()NSMutableArray <UIViewModel *>*pullListAutoSizeViewMutArr;
 #pragma mark —— 初始化方法
 static JobsTabBarVC *JobsTabBarVCInstance = nil;
 static dispatch_once_t JobsTabBarVCOnceToken;
-+ (instancetype _Nonnull)sharedManager {
-    dispatch_once(&JobsTabBarVCOnceToken, ^{
-        JobsTabBarVCInstance = [[super allocWithZone:NULL] init];
-    });return JobsTabBarVCInstance;
++(instancetype)sharedManager{
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsTabBarVC.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id _Nonnull{
+        dispatch_once(&JobsTabBarVCOnceToken, ^{
+            JobsTabBarVCInstance = [[super allocWithZone:NULL] init];
+        });return JobsTabBarVCInstance;
+    };
 }
 ///【单例模式】使用外界自定义的JobsTabBar
-+(instancetype _Nonnull)sharedInstanceWithJobsTabBar:(JobsTabBar *)tabBar{
-    dispatch_once(&JobsTabBarVCOnceToken, ^{
-        JobsTabBarVCInstance = [[super allocWithZone:NULL] init];
-        JobsTabBarVCInstance.myTabBar = tabBar;
-    });return JobsTabBarVCInstance;
++(JobsRetIDByJobsTabBarBlock _Nonnull)sharedInstanceWithJobsTabBar{
+    return ^id _Nonnull(JobsTabBar * tabBar){
+        dispatch_once(&JobsTabBarVCOnceToken, ^{
+            JobsTabBarVCInstance = [[super allocWithZone:NULL] init];
+            JobsTabBarVCInstance.byMyTabBar(tabBar);
+        });return JobsTabBarVCInstance;
+    };
 }
 
 + (instancetype _Nonnull)allocWithZone:(struct _NSZone *)zone {
-    return [self sharedManager];
+    return (((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsTabBarVC.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager)))();
 }
 /// 防止外部调用copy
 - (instancetype _Nonnull)copyWithZone:(NSZone *)zone {
@@ -96,82 +130,169 @@ static dispatch_once_t JobsTabBarVCOnceToken;
     };return self;
 }
 #pragma mark —— 单例的销毁
-+(void)destroySingleton {
-    JobsTabBarVCInstance = nil;
-    JobsTabBarVCOnceToken = 0;
++(void)destroySingleton{
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsTabBarVC.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        JobsTabBarVCInstance = nil;
+        JobsTabBarVCOnceToken = 0;
+    };
 }
 #pragma mark —— ViewController的生命周期
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTabBarVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    A = YES;
-    self.delegate = self;
-    self.isOpenScrollTabbar = YES;
+        A = YES;
+        self.byDelegate(self);
+        self.byOpenScrollTabbar(YES);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    /// 手势左右滑动以切换TabbarControl挂载的ViewController
-    if (self.isOpenScrollTabbar) {
-        [self openPan];
-        self.view.panGR.enabled = self.isOpenScrollTabbar;
-    }
-    self.myTabBar.byAlpha(1);
-//    self.suspendBtn.alpha = 1;
-//    UIDeviceOrientation f =  UIDevice.currentDevice.orientation;
-//    UIInterfaceOrientation s = self.getInterfaceOrientation;
-//    DeviceOrientation d = self.getDeviceOrientation;
-//    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTabBarVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+            [super viewDidLoad];
+            /// 手势左右滑动以切换TabbarControl挂载的ViewController
+            if (self.isOpenScrollTabbar) {
+                [self openPan]();
+                if (self.view.panGR) self.view.panGR.byEnabled(self.isOpenScrollTabbar);
+            }
+            self.myTabBar.byAlpha(1);
+        //    self.suspendBtn.alpha = 1;
+        //    UIDeviceOrientation f =  UIDevice.currentDevice.orientation;
+        //    UIInterfaceOrientation s = self.getInterfaceOrientation;
+        //    DeviceOrientation d = self.getDeviceOrientation;
+        //    JobsLog(@"");
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.isHiddenNavigationBar = YES;
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTabBarVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
     @jobs_weakify(self)
-    static dispatch_once_t JobsTabbarVC_viewWillAppear_onceToken;
-    dispatch_once(&JobsTabbarVC_viewWillAppear_onceToken, ^{
+    return ^(BOOL animated){
         @jobs_strongify(self)
-        [self UISetting];//最高只能在viewWillAppear，在viewDidLoad不出效果 self.tabBar.subviews为空
-//        [self 添加长按手势];
-    });
-//    UIDeviceOrientation f =  UIDevice.currentDevice.orientation;
-//    UIInterfaceOrientation s = self.getInterfaceOrientation;
-//    DeviceOrientation d = self.getDeviceOrientation;
-//    JobsLog(@"");
+        if (!self) return;
+            [super viewWillAppear:animated];
+            self.byHiddenNavigationBar(YES);
+            @jobs_weakify(self)
+            static dispatch_once_t JobsTabbarVC_viewWillAppear_onceToken;
+            dispatch_once(&JobsTabbarVC_viewWillAppear_onceToken, ^{
+                @jobs_strongify(self)
+                self.UISetting();//最高只能在viewWillAppear，在viewDidLoad不出效果 self.tabBar.subviews为空
+        //        [self 添加长按手势];
+            });
+        //    UIDeviceOrientation f =  UIDevice.currentDevice.orientation;
+        //    UIInterfaceOrientation s = self.getInterfaceOrientation;
+        //    DeviceOrientation d = self.getDeviceOrientation;
+        //    JobsLog(@"");
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-//    UIDeviceOrientation f =  UIDevice.currentDevice.orientation;
-//    UIInterfaceOrientation s = self.getInterfaceOrientation;
-//    DeviceOrientation d = self.getDeviceOrientation;
-//    JobsLog(@"");
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTabBarVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+            [super viewDidAppear:animated];
+        //    UIDeviceOrientation f =  UIDevice.currentDevice.orientation;
+        //    UIInterfaceOrientation s = self.getInterfaceOrientation;
+        //    DeviceOrientation d = self.getDeviceOrientation;
+        //    JobsLog(@"");
+    };
 }
 
 -(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTabBarVC.class, @selector(jobsViewWillLayoutSubviews)))(self, @selector(jobsViewWillLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewWillLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 static dispatch_once_t onceToken;
 -(void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    dispatch_once(&onceToken, ^{
-        self.myTabBar.height += self.myTabBar.customTabBarOffsetHeight;
-        self.myTabBar.y = self.view.height - self.myTabBar.height;
-    });self.ppBadge(YES);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTabBarVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        dispatch_once(&onceToken, ^{
+            self.myTabBar.height += self.myTabBar.customTabBarOffsetHeight();
+            self.myTabBar.byY(self.view.height - self.myTabBar.height);
+        });self.ppBadge(YES);
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTabBarVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTabBarVC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+    };
 }
 #pragma mark —— 在 UITabBarController 中适配横屏在 UITabBarController 中适配横屏
 #pragma clang diagnostic push
@@ -185,33 +306,53 @@ static dispatch_once_t onceToken;
 /// iPad设备上，默认返回值UIInterfaceOrientationMaskAllButUpSideDwon
 /// iPhone设备上，默认返回值是UIInterfaceOrientationMaskAll
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return self.selectedViewController.supportedInterfaceOrientations;
+    JobsRetUIInterfaceOrientationMaskByVoidBlock action = ((JobsRetUIInterfaceOrientationMaskByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTabBarVC.class, @selector(jobsSupportedInterfaceOrientations)))(self, @selector(jobsSupportedInterfaceOrientations));
+    return action ? action() : (UIInterfaceOrientationMask){0};
+}
+
+-(JobsRetUIInterfaceOrientationMaskByVoidBlock _Nonnull)jobsSupportedInterfaceOrientations{
+    @jobs_weakify(self)
+    return ^UIInterfaceOrientationMask{
+        @jobs_strongify(self)
+        if (!self) return (UIInterfaceOrientationMask){0};
+        return self.selectedViewController.supportedInterfaceOrientations;
+    };
 }
 /// 设置进入界面默认支持的方向
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
-    return [super preferredInterfaceOrientationForPresentation];
+    JobsRetUIInterfaceOrientationByVoidBlock action = ((JobsRetUIInterfaceOrientationByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTabBarVC.class, @selector(jobsPreferredInterfaceOrientationForPresentation)))(self, @selector(jobsPreferredInterfaceOrientationForPresentation));
+    return action ? action() : (UIInterfaceOrientation){0};
+}
+
+-(JobsRetUIInterfaceOrientationByVoidBlock _Nonnull)jobsPreferredInterfaceOrientationForPresentation{
+    @jobs_weakify(self)
+    return ^UIInterfaceOrientation{
+        @jobs_strongify(self)
+        if (!self) return (UIInterfaceOrientation){0};
+        return [super preferredInterfaceOrientationForPresentation];
+    };
 }
 #pragma mark —— 一些公有方法
 /// 关闭手势
--(jobsByVoidBlock _Nullable)closePan{
+-(jobsByVoidBlock _Nonnull)closePan{
     @jobs_weakify(self)
     return ^() {
         @jobs_strongify(self)
-        self.view.panGR.enabled = NO;
+        if (self.view.panGR) self.view.panGR.byEnabled(NO);
     };
 }
 /// 打开手势
--(jobsByVoidBlock _Nullable)openPan{
+-(jobsByVoidBlock _Nonnull)openPan{
     @jobs_weakify(self)
     return ^() {
         @jobs_strongify(self)
-        self.view.numberOfTouchesRequired = 1;
-        self.view.numberOfTapsRequired = 1;/// ⚠️注意：如果要设置长按手势，此属性必须设置为0⚠️
-        self.view.minimumPressDuration = 0.1;
-        self.view.allowableMovement = 1;
-        self.view.userInteractionEnabled = YES;
-        self.view.weak_target = self;
-        self.view.panGR_SelImp.selector = [self jobsSelectorBlock:^id _Nullable(id  _Nullable target,
+        self.view.byNumberOfTouchesRequired(1);
+        self.view.byNumberOfTapsRequired(1);
+        self.view.byMinimumPressDuration(0.1);
+        self.view.byAllowableMovement(1);
+        self.view.byUserInteractionEnabled(YES);
+        self.view.byWeak_target(self);
+        self.view.panGR_SelImp.selector = self.jobsSelectorBlock(^id _Nullable(id  _Nullable target,
                                                                                 UIPanGestureRecognizer *_Nullable pan) {
             @jobs_strongify(self)
             if (self.transitionCoordinator) return nil;
@@ -219,8 +360,8 @@ static dispatch_once_t onceToken;
                 pan.state == UIGestureRecognizerStateChanged){
                 self.beginInteractiveTransitionIfPossible(pan);
             };return nil;
-        }];
-        self.view.panGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
+        });
+        if (self.view.panGR) self.view.panGR.byEnabled(YES);
     };
 }
 /// 开启/关闭 PPBadgeView的效果,至少在viewDidLayoutSubviews后有效
@@ -229,10 +370,10 @@ static dispatch_once_t onceToken;
     return ^(BOOL open) {
         @jobs_strongify(self)
         if (@available(iOS 16.0, *)) {
-            self.isOpenPPBadge = open;
+            self.byOpenPPBadge(open);
             if (open) {
                 for (UITabBarItem *item in self.tabBar.items) {
-                    if (item.title.isEqualToString(@"首页".tr)) {
+                    if (item.title.isEqualToString(@"首页".jobsTr())) {
                         [item pp_addBadgeWithText:@"919+"];
 #pragma mark —— 动画
                         item.badgeView.图片从小放大();
@@ -246,7 +387,7 @@ static dispatch_once_t onceToken;
 }
 #pragma mark —— 一些私有方法
 /// 需要强制跳转登录的index。点击和手势滑动都需要共同调用
--(JobsRetBOOLByNSUIntegerBlock _Nullable)forcedLoginIndex{
+-(JobsRetBOOLByNSUIntegerBlock _Nonnull)forcedLoginIndex{
     @jobs_weakify(self)
     return ^(NSUInteger data) {
         @jobs_strongify(self)
@@ -259,7 +400,7 @@ static dispatch_once_t onceToken;
     };
 }
 /// 判别是否有Lottie
--(JobsRetBOOLByNSIntegerBlock)judgeLottieWithIndex{
+-(JobsRetBOOLByNSIntegerBlock _Nonnull)judgeLottieWithIndex{
     return ^BOOL(NSInteger index) {
         JobsTabBarItemConfig *config = nil;
         NSArray<__kindof JobsTabBarItemConfig *> *tabBarItemConfigs = JobsTabBarVCItemConfigs();
@@ -269,59 +410,64 @@ static dispatch_once_t onceToken;
     };
 }
 /// ❤️关键方法❤️
--(void)UISetting{
-    NSArray<__kindof JobsTabBarItemConfig *> *tabBarItemConfigs = JobsTabBarVCItemConfigs();
-    NSArray<__kindof UIViewController *> *viewControllers = JobsTabBarVCViewControllers();
-    for (int i = 0; i < tabBarItemConfigs.count; i++) {
-        if (i >= viewControllers.count) break;
-        JobsTabBarItemConfig *config = (JobsTabBarItemConfig *)tabBarItemConfigs[i];
-//        self.tabBarItem.title = config.title;
-//        self.tabBarItem.image = config.imageUnselected;
-        // For Test
-//        if ([self judgeLottieWithIndex:i]) {
-//            [self addLottieImage:config.lottieName];// 有Lottie动画名，则优先创建Lottie动画
-//        }
-        UIViewController *viewController = viewControllers[i];
-        viewController.title = config.title;
-        viewController.tabBarItem = JobsTabBarItem.initByConfig(config);
-        if (config.humpOffsetY != 0) {
-            //一般的图片
-            /// 修改图片偏移量，上下，左右必须为相反数，否则图片会被压缩
-            viewController.tabBarItem.imageInsets = UIEdgeInsetsMake(-config.humpOffsetY,
-                                                                     0,
-                                                                     -config.humpOffsetY / 2,
-                                                                     0);
-            /// 修改文字偏移量
-            viewController.tabBarItem.titlePositionAdjustment = UIOffsetMake(0, 0);/// titlePositionAdjustment是图文间距
+-(jobsByVoidBlock _Nonnull)UISetting{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        NSArray<__kindof JobsTabBarItemConfig *> *tabBarItemConfigs = JobsTabBarVCItemConfigs();
+        NSArray<__kindof UIViewController *> *viewControllers = JobsTabBarVCViewControllers();
+        for (int i = 0; i < tabBarItemConfigs.count; i++) {
+            if (i >= viewControllers.count) break;
+            JobsTabBarItemConfig *config = (JobsTabBarItemConfig *)tabBarItemConfigs[i];
+    //        self.tabBarItem.title = config.title;
+    //        self.tabBarItem.image = config.imageUnselected;
+            // For Test
+    //        if ([self judgeLottieWithIndex:i]) {
+    //            [self addLottieImage:config.lottieName];// 有Lottie动画名，则优先创建Lottie动画
+    //        }
+            UIViewController *viewController = viewControllers[i];
+            viewController.byTitle(config.title);
+            viewController.byTabBarItem(JobsTabBarItem.initByConfig(config));
+            if (config.humpOffsetY != 0) {
+                //一般的图片
+                /// 修改图片偏移量，上下，左右必须为相反数，否则图片会被压缩
+                viewController.tabBarItem.imageInsets = UIEdgeInsetsMake(-config.humpOffsetY,
+                                                                         0,
+                                                                         -config.humpOffsetY / 2,
+                                                                         0);
+                /// 修改文字偏移量
+                viewController.tabBarItem.byTitlePositionAdjustment(UIOffsetMake(0, 0));
+            }
+            /// 用导航控制器包裹每一个控制器
+    //        if (![viewController isKindOfClass:UINavigationController.class]) {/// 防止UIImagePickerController崩
+    //            BaseNavigationVC *nav = [BaseNavigationVC.alloc initWithRootViewController:viewController];
+    //            nav.title = config.title;
+    //            [AppDelegate.makeUIViewControllerMutArr replaceObjectAtIndex:i withObject:nav];/// 替换元素，每个VC加Navigation
+    //        }
         }
-        /// 用导航控制器包裹每一个控制器
-//        if (![viewController isKindOfClass:UINavigationController.class]) {/// 防止UIImagePickerController崩
-//            BaseNavigationVC *nav = [BaseNavigationVC.alloc initWithRootViewController:viewController];
-//            nav.title = config.title;
-//            [AppDelegate.makeUIViewControllerMutArr replaceObjectAtIndex:i withObject:nav];/// 替换元素，每个VC加Navigation
-//        }
-    }
-    /// ❤️这句话走了以后 才会有self.tabBar
-    self.viewControllers = JobsTabBarVCViewControllers();
-    for (UIView *subView in self.tabBar.subviews) {
-        if ([subView isKindOfClass:NSClassFromString(UITabBarButton)]) {
-            subView.图片从小放大();
-            self.UITabBarButtonMutArr.add(subView);
+        /// ❤️这句话走了以后 才会有self.tabBar
+        self.byViewControllers(JobsTabBarVCViewControllers());
+        for (UIView *subView in self.tabBar.subviews) {
+            if ([subView isKindOfClass:NSClassFromString(UITabBarButton)]) {
+                subView.图片从小放大();
+                self.UITabBarButtonMutArr.add(subView);
+            }
         }
-    }
-    /// 初始显示【具备Lottie播放条件才进行相关初始化操作】
-    extern NSUInteger DefaultIndex;
-    if (DefaultIndex < self.viewControllers.count) {
-        self.selectedIndex = DefaultIndex; /// 初始显示的视图控制器
-        if (self.judgeLottieWithIndex(self.selectedIndex)) {
-            NSArray<__kindof UIViewController *> *viewControllers = JobsTabBarVCViewControllers();
-            if (DefaultIndex < viewControllers.count) [viewControllers[DefaultIndex] lottieImagePlay];
-            self.tabBar.animationLottieImageBy(DefaultIndex);
+        /// 初始显示【具备Lottie播放条件才进行相关初始化操作】
+        extern NSUInteger DefaultIndex;
+        if (DefaultIndex < self.viewControllers.count) {
+            self.bySelectedIndex(DefaultIndex);
+            if (self.judgeLottieWithIndex(self.selectedIndex)) {
+                NSArray<__kindof UIViewController *> *viewControllers = JobsTabBarVCViewControllers();
+                if (DefaultIndex < viewControllers.count) (viewControllers[DefaultIndex]).lottieImagePlay();
+                self.tabBar.animationLottieImageBy(DefaultIndex);
+            }
         }
-    }
+    };
 }
 /// 手势左右滑动以切换TabbarControl挂载的ViewController
--(jobsByPanGestureRecognizerBlock)beginInteractiveTransitionIfPossible{
+-(jobsByPanGestureRecognizerBlock _Nonnull)beginInteractiveTransitionIfPossible{
     @jobs_weakify(self)
     return ^(UIPanGestureRecognizer __kindof *_Nullable sender) {
         @jobs_strongify(self)
@@ -368,14 +514,14 @@ static dispatch_once_t onceToken;
 #pragma mark —— TabBarItem的相关手势
 -(void)添加长按手势{
     for (UIView *subView in self.UITabBarButtonMutArr) {
-        subView.tag = [self.UITabBarButtonMutArr indexOfObject:subView];
-        subView.numberOfTouchesRequired = 1;
-        subView.numberOfTapsRequired = 1;/// ⚠️注意：如果要设置长按手势，此属性必须设置为0⚠️
-        subView.minimumPressDuration = 0.1;
-        subView.allowableMovement = 1;
-        subView.userInteractionEnabled = YES;
-        subView.weak_target = self;
-        subView.longPressGR_SelImp.selector = [self jobsSelectorBlock:^id _Nullable(id _Nullable target,
+        subView.byTag([self.UITabBarButtonMutArr indexOfObject:subView]);
+        subView.byNumberOfTouchesRequired(1);
+        subView.byNumberOfTapsRequired(1);
+        subView.byMinimumPressDuration(0.1);
+        subView.byAllowableMovement(1);
+        subView.byUserInteractionEnabled(YES);
+        subView.byWeak_target(self);
+        subView.longPressGR_SelImp.selector = self.jobsSelectorBlock(^id _Nullable(id _Nullable target,
                                                                                     UILongPressGestureRecognizer *_Nullable longPressGR) {
             if(self.gestureRecognizerBlock) self.gestureRecognizerBlock(longPressGR);
             switch (longPressGR.state) {
@@ -413,7 +559,7 @@ static dispatch_once_t onceToken;
                 default:
                     break;
             };return nil;
-        }];subView.longPressGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
+        });subView.longPressGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
     }
 }
 #pragma mark —— UITabBarDelegate
@@ -427,7 +573,7 @@ static dispatch_once_t onceToken;
             if(tabBarItemConfig.isNeedjump){
                 if (!self.forcedLoginIndex(index)) {
                     /// 不需要进行强制登录的时候，才重新赋值刷新self.selectedIndex
-                    self.selectedIndex = index;
+                    self.bySelectedIndex(index);
                 }
             }
         }
@@ -461,7 +607,7 @@ shouldSelectViewController:(UIViewController *)viewController {
     NSInteger index = [JobsTabBarVCViewControllers() indexOfObject:viewController];
     if ([viewController isKindOfClass:UIViewController.class] &&
         self.judgeLottieWithIndex(index)) {
-        [viewController lottieImagePlay];
+        viewController.lottieImagePlay();
     }
     if (self.retBoolByUIntegerBlock) A = self.retBoolByUIntegerBlock(index);
     return self.forcedLoginIndex(index) ? (A && JobsTabBarVCIsLogin(self)) : A;
@@ -497,9 +643,9 @@ shouldSelectViewController:(UIViewController *)viewController {
 -(UIViewModel *)viewModel{
     if (!_viewModel) {
         _viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-            data.byBgCor(JobsWhiteColor);
+            data.byBgCor(JobsWhiteColor)
     //        data.bgImage = isiPhoneX_series() ? @"底部导航栏背景(刘海屏.img") : @"底部导航栏背景(非刘海屏.img");
-            data.byIsTranslucent(NO)
+            .byIsTranslucent(NO)
                 .byOffsetHeight(JobsWidth(5));
         });
     };return _viewModel;
@@ -514,8 +660,9 @@ shouldSelectViewController:(UIViewController *)viewController {
         @jobs_weakify(self)
         _myTabBar = jobsMakeTabBar(^(JobsTabBar * _Nullable tabBar) {
             @jobs_strongify(self)
-            tabBar.alignmentType = ImageTopTitleBottom;
-            tabBar.jobsRichViewByModel(self.viewModel);
+            tabBar
+                .byAlignmentType(ImageTopTitleBottom)
+                .jobsRichViewByModel(self.viewModel);
             self.jobsKVC(@"tabBar",tabBar);/// ❤️KVC 进行替换❤️
         });
     };return _myTabBar;
@@ -525,16 +672,16 @@ shouldSelectViewController:(UIViewController *)viewController {
     if (!_pullListAutoSizeViewMutArr) {
         _pullListAutoSizeViewMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                viewModel.byImage(@"".tr.img);
-                viewModel.textModel.byText(@"111".tr);
+                viewModel.byImage(@"".jobsTr().img);
+                viewModel.textModel.byText(@"111".jobsTr());
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                viewModel.byImage(@"".tr.img);
-                viewModel.textModel.byText(@"222".tr);
+                viewModel.byImage(@"".jobsTr().img);
+                viewModel.textModel.byText(@"222".jobsTr());
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                viewModel.byImage(@"".tr.img);
-                viewModel.textModel.byText(@"333".tr);
+                viewModel.byImage(@"".jobsTr().img);
+                viewModel.textModel.byText(@"333".jobsTr());
             }));
         });
     };return _pullListAutoSizeViewMutArr;
@@ -547,4 +694,84 @@ shouldSelectViewController:(UIViewController *)viewController {
     };return _UITabBarButtonMutArr;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsTabBarVC
+-(JobsRetJobsTabBarVCByBOOLBlock _Nonnull)byAnimationAlert{
+    @jobs_weakify(self)
+    return ^__kindof JobsTabBarVC * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setIsAnimationAlert:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsTabBarVCByBOOLBlock _Nonnull)byFeedbackGenerator{
+    @jobs_weakify(self)
+    return ^__kindof JobsTabBarVC * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setIsFeedbackGenerator:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsTabBarVCByBOOLBlock _Nonnull)byOpenPPBadge{
+    @jobs_weakify(self)
+    return ^__kindof JobsTabBarVC * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setIsOpenPPBadge:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsTabBarVCByBOOLBlock _Nonnull)byOpenScrollTabbar{
+    @jobs_weakify(self)
+    return ^__kindof JobsTabBarVC * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setIsOpenScrollTabbar:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsTabBarVCByBOOLBlock _Nonnull)byPlaySound{
+    @jobs_weakify(self)
+    return ^__kindof JobsTabBarVC * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setIsPlaySound:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsTabBarVCByJobsTabBarBlock _Nonnull)byMyTabBar{
+    @jobs_weakify(self)
+    return ^__kindof JobsTabBarVC * _Nullable(JobsTabBar * _Nullable data){
+        @jobs_strongify(self)
+        [self setMyTabBar:data];
+        return self;
+    };
+}
+-(JobsRetJobsTabBarVCByBOOLBlock _Nonnull)byHiddenNavigationBar{
+    @jobs_weakify(self)
+    return ^__kindof JobsTabBarVC * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setIsHiddenNavigationBar:data];
+        return self;
+    };
+}
+-(JobsRetJobsTabBarVCByNSArrayUIViewControllerBlock _Nonnull)byViewControllers{
+    @jobs_weakify(self)
+    return ^__kindof JobsTabBarVC * _Nullable(NSArray<__kindof UIViewController *> * _Nullable data){
+        @jobs_strongify(self)
+        [self setViewControllers:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsTabBarVCByNSUIntegerBlock _Nonnull)bySelectedIndex{
+    @jobs_weakify(self)
+    return ^__kindof JobsTabBarVC * _Nullable(NSUInteger data){
+        @jobs_strongify(self)
+        [self setSelectedIndex:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsTabBarVC
 @end

@@ -86,6 +86,7 @@ Prop_strong(class)JobsCustomTabBarConfig *jobsCustomTabBarConfig;
 Prop_strong(class)NSMutableArray <JobsTabBarItemConfig *>*tabBarItemConfigMutArr;
 Prop_strong(class)NSMutableArray <__kindof UIButton *>*tabBarItemMutArr;
 Prop_strong(class)NSMutableArray <__kindof NSString *>*tabBarItemTitleMutArr;
++(JobsRetAppDelegateByNSMutableArrayNSStringBlock _Nonnull)byTabBarItemTitleMutArr;
 Prop_strong(class)NSMutableArray <__kindof NSString *>*imageSelectedNameMutArr;
 Prop_strong(class)NSMutableArray <__kindof NSString *>*imageUnselectedNameMutArr;
 Prop_strong(class)NSMutableArray <__kindof UIImage *>*imageSelectedMutArr;
@@ -98,7 +99,7 @@ Prop_strong(class)NSMutableArray <__kindof UINavigationController *>*navCtrMutAr
 +(void)button:(__kindof UIButton *)button index:(NSUInteger)index;
 +(jobsByNSUIntegerBlock _Nonnull)switchByIndex;
 /// 刷新 TabBarTitle
--(void)refreshTabBarTitle;
+-(jobsByVoidBlock _Nonnull)refreshTabBarTitle;
 
 @end
 

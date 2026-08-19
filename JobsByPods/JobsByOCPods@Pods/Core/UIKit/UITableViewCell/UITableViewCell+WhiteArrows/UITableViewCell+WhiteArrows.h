@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_strong()UIImage *img;
 Prop_assign()CGSize arrows_size;
 /// 必须 self.accessoryType = UITableViewCellAccessoryDisclosureIndicator; 打开后才可以启用
--(void)customAccessoryView:(jobsByIDBlock _Nullable)customAccessoryViewBlock;
+-(jobsByjobsByIDBlockBlock _Nonnull)customAccessoryView;
 
 @end
 

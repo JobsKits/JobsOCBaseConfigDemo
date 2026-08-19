@@ -7,6 +7,12 @@
 
 #import "UIScrollView+DSL.h"
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN UIScrollView
+@interface UIScrollView (JobsPropertyDSLSetterAutogen_b1d1750500)
+-(void)setButtonModelEmptyData:(UIButtonModel * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UIScrollView
+
 @implementation UIScrollView (DSL)
 #pragma mark —— UIScrollViewProtocol
 -(JobsRetScrollViewByDelegateBlock _Nonnull)byDelegate{
@@ -97,7 +103,7 @@
     return ^__kindof UIScrollView *_Nullable(__kindof MJRefreshHeader * _Nullable header){
         @jobs_strongify(self)
         self.mj_header = header;
-        self.mj_header.automaticallyChangeAlpha = YES; // 根据拖拽比例自动切换透明度
+        self.mj_header.byAutomaticallyChangeAlpha(YES);
         return self;
     };
 }
@@ -107,7 +113,7 @@
     return ^__kindof UIScrollView *_Nullable(__kindof MJRefreshFooter * _Nullable header){
         @jobs_strongify(self)
         self.mj_footer = header;
-        self.mj_footer.automaticallyChangeAlpha = YES; // 根据拖拽比例自动切换透明度
+        self.mj_footer.byAutomaticallyChangeAlpha(YES);
         return self;
     };
 }
@@ -117,7 +123,7 @@
     return ^__kindof UIScrollView *_Nullable(__kindof MJRefreshHeader *_Nullable header){
         @jobs_strongify(self)
         self.mj_header = header;
-        self.mj_header.automaticallyChangeAlpha = YES; // 根据拖拽比例自动切换透明度
+        self.mj_header.byAutomaticallyChangeAlpha(YES);
         return self;
     };
 }
@@ -127,7 +133,7 @@
     return ^__kindof UIScrollView *_Nullable(__kindof MJRefreshFooter *_Nullable footer){
         @jobs_strongify(self)
         self.mj_footer = footer;
-        self.mj_footer.automaticallyChangeAlpha = YES; // 根据拖拽比例自动切换透明度
+        self.mj_footer.byAutomaticallyChangeAlpha(YES);
         return self;
     };
 }
@@ -448,7 +454,7 @@
     @jobs_weakify(self)
     return ^__kindof UIScrollView *_Nullable(CGSize data) {
         @jobs_strongify(self)
-        self.contentSize = data;
+        self.byContentSize(data);
         return self;
     };
 }
@@ -457,7 +463,7 @@
     @jobs_weakify(self)
     return ^__kindof UIScrollView *_Nullable(CGFloat data) {
         @jobs_strongify(self)
-        self.contentSize = CGSizeMake(data, self.contentSize.height);
+        self.byContentSize(CGSizeMake(data, self.contentSize.height));
         return self;
     };
 }
@@ -466,7 +472,7 @@
     @jobs_weakify(self)
     return ^__kindof UIScrollView *_Nullable(CGFloat data) {
         @jobs_strongify(self)
-        self.contentSize = CGSizeMake(self.contentSize.width, data);
+        self.byContentSize(CGSizeMake(self.contentSize.width, data));
         return self;
     };
 }
@@ -495,7 +501,7 @@
     @jobs_weakify(self)
     return ^__kindof UIScrollView *_Nullable(CGPoint data) {
         @jobs_strongify(self)
-        self.contentOffset = data;
+        self.byContentOffset(data);
         return self;
     };
 }
@@ -504,7 +510,7 @@
     @jobs_weakify(self)
     return ^__kindof UIScrollView *_Nullable(CGFloat data) {
         @jobs_strongify(self)
-        self.contentOffset = CGPointMake(data, self.contentOffset.y);
+        self.byContentOffset(CGPointMake(data, self.contentOffset.y));
         return self;
     };
 }
@@ -513,7 +519,7 @@
     @jobs_weakify(self)
     return ^__kindof UIScrollView *_Nullable(CGFloat data) {
         @jobs_strongify(self)
-        self.contentOffset = CGPointMake(self.contentOffset.x, data);
+        self.byContentOffset(CGPointMake(self.contentOffset.x, data));
         return self;
     };
 }
@@ -542,7 +548,7 @@
     @jobs_weakify(self)
     return ^__kindof UIScrollView *_Nullable(UIEdgeInsets data) {
         @jobs_strongify(self)
-        self.contentInset = data;
+        self.byContentInset(data);
         return self;
     };
 }
@@ -639,6 +645,29 @@
                                              self.contentInset.left,
                                              self.contentInset.bottom,
                                              self.contentInset.right + data);
+        return self;
+    };
+}
+
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN UIScrollView
+-(JobsRetScrollViewByButtonModelBlock _Nonnull)byButtonModelEmptyData{
+    @jobs_weakify(self)
+    return ^__kindof UIScrollView * _Nullable(UIButtonModel * _Nullable data){
+        @jobs_strongify(self)
+        [self setButtonModelEmptyData:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UIScrollView
+@end
+
+@implementation MJRefreshComponent (JobsOCDSL)
+
+-(JobsRetMJRefreshComponentByBOOLBlock _Nonnull)byAutomaticallyChangeAlpha{
+    @jobs_weakify(self)
+    return ^__kindof MJRefreshComponent *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.automaticallyChangeAlpha = data;
         return self;
     };
 }

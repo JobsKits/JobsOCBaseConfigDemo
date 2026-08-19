@@ -13,16 +13,16 @@
 #import "JobsOCSceneCoordinator.h"
 #import "JobsOCSceneDelegateDemoVC.h"
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
-
 #if __has_include(<JobsAppTools/JobsAppToolsHeader.h>)
 #import <JobsAppTools/JobsAppToolsHeader.h>
 #else
 #import "JobsAppToolsHeader.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsOCTools/JobsOCTools.h>)

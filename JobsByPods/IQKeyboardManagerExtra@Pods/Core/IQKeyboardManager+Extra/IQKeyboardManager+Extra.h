@@ -32,6 +32,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IQKeyboardManager (Extra)
 
+-(JobsRetIQKeyboardManagerByBOOLBlock _Nonnull)byEnable;
+-(JobsRetIQKeyboardManagerByBOOLBlock _Nonnull)byShouldResignOnTouchOutside;
+-(JobsRetIQKeyboardManagerByBOOLBlock _Nonnull)byShouldToolbarUsesTextFieldTintColor;
+-(JobsRetIQKeyboardManagerByManageBehaviorBlock _Nonnull)byToolbarManageBehavior;
+-(JobsRetIQKeyboardManagerByBOOLBlock _Nonnull)byEnableAutoToolbar;
+-(JobsRetIQKeyboardManagerByBOOLBlock _Nonnull)byShouldShowToolbarPlaceholder;
+-(JobsRetIQKeyboardManagerByFontBlock _Nonnull)byPlaceholderFont;
+-(JobsRetIQKeyboardManagerByCGFloatBlock _Nonnull)byKeyboardDistanceFromTextField;
+
 @end
 
 NS_ASSUME_NONNULL_END

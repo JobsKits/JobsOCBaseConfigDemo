@@ -28,6 +28,12 @@
 #import "JobsBlock.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (Base16)
@@ -35,21 +41,21 @@ NS_ASSUME_NONNULL_BEGIN
 ///【类方法】将Base16字符串 转换回 原始的NSString对象
 +(JobsRetStrByStrBlock _Nonnull)stringByBase16String;
 ///【实例方法】将Base16字符串 转换回 原始的NSString对象
--(NSString *_Nullable)stringByBase16String;
+-(JobsRetStrByVoidBlock _Nonnull)stringByBase16String;
 ///【类方法】将普通的NSString字符串对象 转换为 以Base16（也称为十六进制）编码的字符串
 +(JobsRetStrByStrBlock _Nonnull)base16StringByImage;
 ///【实例方法】将普通的NSString字符串对象 转换为 以Base16（也称为十六进制）编码的字符串
--(NSString *_Nullable)base16StringByImage;
+-(JobsRetStrByVoidBlock _Nonnull)base16StringByImage;
 #pragma mark —— Base16 <==> UIImage
 ///【类方法】将以Base16编码的字符串 转换为 UIImage对象
 +(JobsRetImageByStrBlock _Nonnull)imageByBase16String;
 ///【实例方法】将以Base16编码的字符串 转换为 UIImage对象
--(UIImage *_Nullable)imageByBase16String;
+-(JobsRetImageByVoidBlock _Nonnull)imageByBase16String;
 #pragma mark —— Base16 <==> NSData
 ///【类方法】将以Base16编码的字符串 转换为 NSData对象
 +(JobsRetDataByStrBlock _Nonnull)dataWithBase16String;
 ///【实例方法】将以Base16编码的字符串 转换为 NSData对象
--(NSData *_Nullable)dataWithBase16String;
+-(JobsRetDataByVoidBlock _Nonnull)dataWithBase16String;
 
 @end
 

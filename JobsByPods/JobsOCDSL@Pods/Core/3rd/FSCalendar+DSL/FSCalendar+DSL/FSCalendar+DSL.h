@@ -4,6 +4,8 @@
 //
 //  Auto-generated from FSCalendar public headers on 2026年6月10日，星期三。
 //
+//  Created by Jobs on 2026年8月3日，星期一.
+//
 
 #ifndef JOBS_HEADER_GUARD_FSCALENDAR_DSL
 #define JOBS_HEADER_GUARD_FSCALENDAR_DSL
@@ -257,6 +259,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSCalendar (JobsFSCalendarDSL)
 #pragma mark —— Methods
+-(JobsRetCalendarByTimeZoneBlock _Nonnull)byTimeZone;
 -(JobsRetCalendarByNSUIntegerBlock _Nonnull)byMinimumDaysInFirstWeek;
 -(JobsRetDateByDateBlock _Nonnull)byFs_firstDayOfMonth;
 -(JobsRetDateByDateBlock _Nonnull)byFs_lastDayOfMonth;
@@ -264,6 +267,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetDateByDateBlock _Nonnull)byFs_lastDayOfWeek;
 -(JobsRetDateByDateBlock _Nonnull)byFs_middleDayOfWeek;
 -(JobsRetIntegerByDateBlock _Nonnull)byFs_numberOfDaysInMonth;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN NSCalendar
+-(JobsRetNSCalendarByNSLocaleBlock _Nonnull)byLocale;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END NSCalendar
 @end
 
 @interface NSMapTable (JobsFSCalendarDSL)

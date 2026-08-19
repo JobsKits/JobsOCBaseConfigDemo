@@ -33,16 +33,26 @@ Prop_strong()UILabel *foldIconLab;
 }
 
 - (void)layoutSubviews {
-    [super layoutSubviews];
-    self.textLabel.byHidden(YES);
-    // 解决当UITableViewHeaderFooterView悬浮的时候背景白色的问题（设置成透明色）
-    // 遍历子视图，找到UIVisualEffectView
-    for (UIView *subview in self.subviews) {
-        if([subview isKindOfClass:NSClassFromString(UISystemBackgroundView)]){
-            // subview.backgroundColor = JobsClearColor; 设置成透明色，无效
-            subview.jobsVisible = NO;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MSCommentTableHeaderFooterView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        self.textLabel.byHidden(YES);
+        // 解决当UITableViewHeaderFooterView悬浮的时候背景白色的问题（设置成透明色）
+        // 遍历子视图，找到UIVisualEffectView
+        for (UIView *subview in self.subviews) {
+            if([subview isKindOfClass:NSClassFromString(UISystemBackgroundView)]){
+                // subview.backgroundColor = JobsClearColor; 设置成透明色，无效
+                subview.byJobsVisible(NO);
+            }
         }
-    }
+    };
 }
 #pragma mark —— BaseViewProtocol
 -(void)jobsRichViewByCommentModel:(MSCommentModel *)commentModel
@@ -51,7 +61,7 @@ Prop_strong()UILabel *foldIconLab;
     self.titleLab.byText(commentModel.sectionTitle);
     self.subTitleLab.byText(commentModel.sectionSubTitle);
     self.foldStateLab
-        .byText([NSString stringWithFormat:folded ? @"已收起 · %ld条".tr : @"展开中 · %ld条".tr, (long)count])
+        .byText([NSString stringWithFormat:folded ? @"已收起 · %ld条".jobsTr() : @"展开中 · %ld条".jobsTr(), (long)count])
         .byTextCor(folded ? HEXCOLOR(0x3730A3) : HEXCOLOR(0x9A3412));
     self.foldIconLab
         .byText(folded ? @"+" : @"-")
@@ -65,7 +75,7 @@ Prop_strong()UILabel *foldIconLab;
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         if([model isKindOfClass:UIViewModel.class]){
-            self.viewModel = model;
+            self.byViewModel(model);
             self.textLabel.byText(self.viewModel.textModel.text);
             self.textLabel.byTextCor(self.viewModel.textModel.textCor);
             self.textLabel.byFont(self.viewModel.textModel.font);

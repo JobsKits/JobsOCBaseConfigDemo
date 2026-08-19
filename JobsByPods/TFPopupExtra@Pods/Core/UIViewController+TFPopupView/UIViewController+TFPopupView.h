@@ -64,9 +64,9 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_strong()JobsFiltrationView *filtrationView;// 过滤
 Prop_strong()JobsCustomView *customView;// 自定义
 /// 弹出筛选视图
--(__kindof UIView *)popUpFiltrationView;
+-(JobsRetViewByVoidBlock _Nonnull)popUpFiltrationView;
 /// 弹出自定义视图
--(__kindof UIView *)popUpCustomView;
+-(JobsRetViewByVoidBlock _Nonnull)popUpCustomView;
 /// 关闭弹出的视图
 -(jobsByViewBlock _Nonnull)hidePopupView;
 
@@ -97,7 +97,7 @@ NS_ASSUME_NONNULL_END
      -(UIButton *)filterBtn{
          if (!_filterBtn) {
              _filterBtn = UIButton.jobsInit()
-                 .jobsResetBtnTitle(@"篩選".tr)
+                 .jobsResetBtnTitle(@"篩選".jobsTr())
                  .jobsResetBtnImage(@"向下的箭头".img)
                  .jobsResetBtnTitleFont(fontName(@"NotoSans-Bold", 12))
                  .jobsResetBtnTitleCor(JobsLabelColor)
@@ -111,7 +111,7 @@ NS_ASSUME_NONNULL_END
 
              BtnClickEvent(_filterBtn, {
                  x.byToggleSelected();
-                 // @"篩選".tr.toast();
+                 // @"篩選".jobsTr().toast();
                  [x changeAction:x.jobs_isSelected];
                  self.currentIndex = [self->listContainerView valueForKey:@"currentIndex"];
                  JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %d",self.currentIndex.intValue);
@@ -132,7 +132,7 @@ NS_ASSUME_NONNULL_END
      -(UIButton *)customBtn{
          if (!_customBtn) {
              _customBtn = UIButton.jobsInit()
-                 .jobsResetBtnTitle(@"自定义".tr)
+                 .jobsResetBtnTitle(@"自定义".jobsTr())
                  .jobsResetBtnTitleFont(fontName(@"NotoSans-Bold", 12))
                  .jobsResetBtnTitleCor(JobsLabelColor)
                  .selectedStateTitleColorBy(HEXCOLOR(0xAE8330))
@@ -146,7 +146,7 @@ NS_ASSUME_NONNULL_END
 
              BtnClickEvent(_customBtn, {
                  x.byToggleSelected();
-                 /// @"自定义".tr.toast();
+                 /// @"自定义".jobsTr().toast();
                  self.currentIndex = [self->listContainerView valueForKey:@"currentIndex"];
                  JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %d",self.currentIndex.intValue);
                  self.vc = (BaiShaETProjAlreadySettledSubBaseVC *)self.childVCMutArr[self.currentIndex.intValue];

@@ -71,23 +71,28 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (Extra)
 
+-(JobsRetIDByIDBlock _Nonnull)byViewModel;
+
 Prop_strong()UIViewModel *viewModel;
 /// 获取本地普通图像
 Prop_strong(readonly,nullable)UIImage *img;    // -(nullable UIImage *)img;
 /// NSBundle
-+(NSBundle *_Nullable)mainBundle;
++(NSBundle *)mainBundle;
++(JobsRetNSBundleByVoidBlock _Nonnull)jobsMainBundle;
 /// NSLocale
-+(NSLocale *_Nullable)currentLocale;
++(NSLocale *)currentLocale;
++(JobsRetNSLocaleByVoidBlock _Nonnull)jobsCurrentLocale;
 /// UIDevice
-+(UIDevice *_Nullable)currentDevice;
++(UIDevice *)currentDevice;
++(JobsRetUIDeviceByVoidBlock _Nonnull)jobsCurrentDevice;
 /// 震动特效反馈
 +(jobsByViewBlock _Nonnull)feedbackGenerator;
 /// 播放自定义本地声音
 /// fileName 全文件名 包含后缀
--(jobsByStrBlock)playSoundEffect;
+-(jobsByStrBlock _Nonnull)playSoundEffect;
 -(JobsRetImageByStrBlock _Nonnull)imageByDataURL;
 /// 导航返回键的配置
--(UIButtonModel *)makeBackBtnModel;
+-(JobsRetUIButtonModelByVoidBlock _Nonnull)jobsMakeBackBtnModel;
 /// 返回按钮点击方法
 -(jobsByBtnBlock _Nonnull)jobsBackBtnClickEvent;
 -(JobsRetIDByDataBlock _Nonnull)JSONkNilOptions;

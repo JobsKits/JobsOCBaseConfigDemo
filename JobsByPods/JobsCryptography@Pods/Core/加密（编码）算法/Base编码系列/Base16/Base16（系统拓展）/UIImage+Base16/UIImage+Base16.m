@@ -6,6 +6,7 @@
 //
 
 #import "UIImage+Base16.h"
+
 /*
  UIImagePNGRepresentation：
  这个方法将UIImage对象转换为PNG格式的NSData对象。
@@ -40,8 +41,13 @@
     };
 }
 ///【实例方法】将UIImage对象 转换为 以Base16（也称为十六进制）编码的字符串
--(NSString *_Nullable)base16Str{
-    return UIImage.base16StringByImage(self);
+-(JobsRetStrByVoidBlock _Nonnull)base16Str{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return UIImage.base16StringByImage(self);
+    };
 }
 #pragma mark —— Base16 ==> UIImage
 ///【类方法】将以Base16编码的字符串 转换为 UIImage对象

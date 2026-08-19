@@ -32,12 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKNavigationBarConfigure (DSL)
 
-+(__kindof GKNavigationBarConfigure *_Nonnull)bySetupDefault;
++(JobsRetGKNavigationBarConfigureByVoidBlock _Nonnull)bySetupDefault;
 +(JobsRetGKNavConfigureByConfigureBlock _Nonnull)bySetup;
 +(JobsRetGKNavConfigureByConfigureBlock _Nonnull)byUpdate;
 
 -(JobsRetGKNavConfigureByConfigureBlock _Nonnull)dsl;
--(__kindof GKNavigationBarConfigure *_Nonnull)byCommit;
+-(JobsRetGKNavigationBarConfigureByVoidBlock _Nonnull)byCommit;
 -(JobsRetGKNavConfigureByColorBlock _Nonnull)byBackground;
 -(JobsRetGKNavConfigureByColorBlock _Nonnull)byBackgroundColor;
 -(JobsRetGKNavConfigureByImageBlock _Nonnull)byBackgroundImage;

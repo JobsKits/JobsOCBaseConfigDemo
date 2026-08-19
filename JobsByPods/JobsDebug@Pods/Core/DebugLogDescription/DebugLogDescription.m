@@ -6,6 +6,7 @@
 //
 
 #import "DebugLogDescription.h"
+
 #import <JobsDebug/NSObject+Extra.h>
 #import <JobsDebug/NSString+Extra.h>
 #import <JobsDebug/NSData+Extra.h>
@@ -13,17 +14,19 @@
 #ifdef DEBUG
 #pragma mark —— 打印model的内部属性内容
 @implementation NSObject (DebugDescription)
-+(void)redirectNSlogToDocumentFolder{
-    //如果已经连接Xcode调试则不输出到文件
-    if(isatty(STDOUT_FILENO)) return;
-    NSString *logFilePath = [self.documentsDir stringByAppendingPathComponent:JobsFormattedString(@"%@.log",[jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable data) {
-        data.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-    }) stringFromDate:NSDate.date])];
-    // 先删除已经存在的文件
-    [NSFileManager.defaultManager removeItemAtPath:logFilePath error:nil];
-    // 将log输入到文件
-    freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stdout);
-    freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
++(jobsByVoidBlock _Nonnull)redirectNSlogToDocumentFolder{
+    return ^{
+        //如果已经连接Xcode调试则不输出到文件
+        if(isatty(STDOUT_FILENO)) return;
+        NSString *logFilePath = [self.documentsDir() stringByAppendingPathComponent:JobsFormattedString(@"%@.log",[jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable data) {
+            data.byDateFormat(@"yyyy-MM-dd HH:mm:ss");
+        }) stringFromDate:NSDate.date])];
+        // 先删除已经存在的文件
+        [NSFileManager.defaultManager removeItemAtPath:logFilePath error:nil];
+        // 将log输入到文件
+        freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stdout);
+        freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
+    };
 }
 /// debugDescription方法只会在调试po的时候调用，而在代码中打印不会调用
 //- (NSString *)debugDescription {
@@ -59,25 +62,30 @@
 //    return [NSString stringWithFormat:@"<%@: %p> -- %@",self.class,self,dictionary];
 //}
 /// 将obj转换成json字符串。如果失败则返回nil.
--(NSString *)convertToJsonString {
-    //先判断是否能转化为JSON格式
-    if (![NSJSONSerialization isValidJSONObject:self]) return nil;
-    NSError *error = nil;
-    NSJSONWritingOptions jsonOptions = NSJSONWritingPrettyPrinted;
-    if (@available(iOS 11.0, *)) {
-        //11.0之后，可以将JSON按照key排列后输出，看起来会更舒服
-        jsonOptions = NSJSONWritingPrettyPrinted | NSJSONWritingSortedKeys;
-    }
-    //核心代码，字典转化为有格式输出的JSON字符串
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self
-                                                       options:NSJSONWritingPrettyPrinted
-                                                         error:&error];
-    if(error) {
-        JobsLog(@"error = %@",error.description);
-        if (!jsonData) return nil;
-        return nil;
-    }NSString *jsonString = jsonData.stringByUTF8Encoding;
-    return jsonString;
+-(JobsRetStrByVoidBlock _Nonnull)convertToJsonString {
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        //先判断是否能转化为JSON格式
+        if (![NSJSONSerialization isValidJSONObject:self]) return nil;
+        NSError *error = nil;
+        NSJSONWritingOptions jsonOptions = NSJSONWritingPrettyPrinted;
+        if (@available(iOS 11.0, *)) {
+            //11.0之后，可以将JSON按照key排列后输出，看起来会更舒服
+            jsonOptions = NSJSONWritingPrettyPrinted | NSJSONWritingSortedKeys;
+        }
+        //核心代码，字典转化为有格式输出的JSON字符串
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self
+                                                           options:NSJSONWritingPrettyPrinted
+                                                             error:&error];
+        if(error) {
+            JobsLog(@"error = %@",error.description);
+            if (!jsonData) return nil;
+            return nil;
+        }NSString *jsonString = jsonData.jobsStringByUTF8Encoding();
+        return jsonString;
+    };
 }
 
 @end
@@ -85,15 +93,35 @@
 @implementation NSDictionary (DebugDescription)
 //用此方法交换系统的 descriptionWithLocale: 方法。该方法在代码打印的时候调用。
 - (NSString *)printlog_descriptionWithLocale:(id)locale{
-    return self.convertToJsonString ? : [self printlog_descriptionWithLocale:locale];/// 转换成JSON格式字符串，如果无法转换，就使用原先的格式;
+    JobsRetStrByIDBlock action = ((JobsRetStrByIDBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSDictionary.class, @selector(jobsPrintlog_descriptionWithLocale)))(self, @selector(jobsPrintlog_descriptionWithLocale));
+    return action ? action(locale) : nil;
+}
+
+-(JobsRetStrByIDBlock _Nonnull)jobsPrintlog_descriptionWithLocale{
+    @jobs_weakify(self)
+    return ^NSString *(id locale){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.convertToJsonString() ? : [self printlog_descriptionWithLocale:locale];/// 转换成JSON格式字符串，如果无法转换，就使用原先的格式;
+    };
 }
 //用此方法交换系统的 descriptionWithLocale:indent:方法。功能同上。
 - (NSString *)printlog_descriptionWithLocale:(id)locale indent:(NSUInteger)level {
-    return self.convertToJsonString ? : [self printlog_descriptionWithLocale:locale indent:level];/// 转换成JSON格式字符串，如果无法转换，就使用原先的格式;
+    return self.convertToJsonString() ? : [self printlog_descriptionWithLocale:locale indent:level];/// 转换成JSON格式字符串，如果无法转换，就使用原先的格式;
 }
 //用此方法交换系统的 debugDescription 方法。该方法在控制台使用po打印的时候调用。
 - (NSString *)printlog_debugDescription{
-    return self.convertToJsonString ? : self.printlog_debugDescription;/// 转换成JSON格式字符串，如果无法转换，就使用原先的格式;
+    JobsRetStrByVoidBlock action = ((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSDictionary.class, @selector(jobsPrintlog_debugDescription)))(self, @selector(jobsPrintlog_debugDescription));
+    return action ? action() : nil;
+}
+
+-(JobsRetStrByVoidBlock _Nonnull)jobsPrintlog_debugDescription{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.convertToJsonString() ? : self.printlog_debugDescription;/// 转换成JSON格式字符串，如果无法转换，就使用原先的格式;
+    };
 }
 //在load方法中完成方法交换
 + (void)load {
@@ -132,15 +160,35 @@
 }
 //用此方法交换系统的 descriptionWithLocale: 方法。该方法在代码打印的时候调用。
 - (NSString *)printlog_descriptionWithLocale:(id)locale{
-    return self.convertToJsonString ? : [self printlog_descriptionWithLocale:locale];/// 转换成JSON格式字符串，如果无法转换，就使用原先的格式;
+    JobsRetStrByIDBlock action = ((JobsRetStrByIDBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSArray.class, @selector(jobsPrintlog_descriptionWithLocale)))(self, @selector(jobsPrintlog_descriptionWithLocale));
+    return action ? action(locale) : nil;
+}
+
+-(JobsRetStrByIDBlock _Nonnull)jobsPrintlog_descriptionWithLocale{
+    @jobs_weakify(self)
+    return ^NSString *(id locale){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.convertToJsonString() ? : [self printlog_descriptionWithLocale:locale];/// 转换成JSON格式字符串，如果无法转换，就使用原先的格式;
+    };
 }
 //用此方法交换系统的 descriptionWithLocale:indent:方法。功能同上。
 - (NSString *)printlog_descriptionWithLocale:(id)locale indent:(NSUInteger)level {
-    return self.convertToJsonString ? : [self printlog_descriptionWithLocale:locale indent:level];/// 转换成JSON格式字符串，如果无法转换，就使用原先的格式;
+    return self.convertToJsonString() ? : [self printlog_descriptionWithLocale:locale indent:level];/// 转换成JSON格式字符串，如果无法转换，就使用原先的格式;
 }
 //用此方法交换系统的 debugDescription 方法。该方法在控制台使用po打印的时候调用。
 - (NSString *)printlog_debugDescription{
-    return self.convertToJsonString ? : self.printlog_debugDescription;
+    JobsRetStrByVoidBlock action = ((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSArray.class, @selector(jobsPrintlog_debugDescription)))(self, @selector(jobsPrintlog_debugDescription));
+    return action ? action() : nil;
+}
+
+-(JobsRetStrByVoidBlock _Nonnull)jobsPrintlog_debugDescription{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.convertToJsonString() ? : self.printlog_debugDescription;
+    };
 }
 
 @end

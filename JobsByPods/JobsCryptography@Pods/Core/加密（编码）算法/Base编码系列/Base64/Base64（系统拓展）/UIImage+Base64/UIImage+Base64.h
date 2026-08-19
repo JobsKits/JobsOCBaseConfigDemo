@@ -22,6 +22,12 @@
 #import "JobsBlock.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 /*
  UIImagePNGRepresentation：
@@ -39,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///【类方法】UIImage对象 转换为 以Base64编码的字符串
 +(JobsRetStrByImageBlock _Nonnull)base64StringByImage;
 ///【实例方法】UIImage对象 转换为 以Base64编码的字符串
--(NSString *_Nullable)base64Str;
+-(JobsRetStrByVoidBlock _Nonnull)base64Str;
 #pragma mark —— Base64 ==> UIImage
 ///【类方法】将以Base64编码的字符串 转换为 UIImage对象
 +(JobsRetImageByStrBlock _Nonnull)imageByBase64String;

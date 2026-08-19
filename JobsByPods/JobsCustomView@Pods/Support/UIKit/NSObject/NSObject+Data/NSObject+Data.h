@@ -25,8 +25,10 @@
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
+#include <JobsOCProtocols/BaseProtocol.h>
 #else
 #import "JobsBaseProtocolHeader.h"
+#include "BaseProtocol.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -42,6 +44,8 @@
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
+
+@protocol BaseProtocol;
 
 @interface NSObject (Data)
 <

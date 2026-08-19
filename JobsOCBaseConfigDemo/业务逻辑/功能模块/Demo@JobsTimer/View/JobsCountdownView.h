@@ -7,10 +7,10 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<JobsMakes/JobsMakes.h>)
-#import <JobsMakes/JobsMakes.h>
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
 #else
-#import "JobsMakes.h"
+#import "JobsByOCPods.h"
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
@@ -19,10 +19,16 @@
 #import "JobsLanMgr.h"
 #endif
 
-#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
-#import <JobsByOCPods/JobsByOCPods.h>
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
 #else
-#import "JobsByOCPods.h"
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -37,18 +43,18 @@
 #import "JobsDefines.h"
 #endif
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsCountdownView : BaseView
 
--(void)refreshData;
+-(jobsByVoidBlock _Nonnull)refreshData;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsCountdownView
+-(JobsRetJobsCountdownViewByNSMutableArrayJobsRichTextConfigBlock _Nonnull)byRichTextConfigMutArr;
+-(JobsRetJobsCountdownViewByNSMutableArrayNSStringBlock _Nonnull)byRichTextMutArr;
+-(JobsRetJobsCountdownViewByNSStringBlock _Nonnull)byMinutesStr;
+-(JobsRetJobsCountdownViewByNSStringBlock _Nonnull)bySecondStr;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsCountdownView
 @end
 
 NS_ASSUME_NONNULL_END

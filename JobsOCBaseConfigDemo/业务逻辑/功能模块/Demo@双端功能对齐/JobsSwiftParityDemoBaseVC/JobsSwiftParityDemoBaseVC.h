@@ -13,6 +13,12 @@
 #import "Masonry.h"
 #endif
 
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
 #else
@@ -25,28 +31,22 @@
 #import "JobsByOCPods.h"
 #endif
 
-#if __has_include(<JobsMakes/JobsMakes.h>)
-#import <JobsMakes/JobsMakes.h>
-#else
-#import "JobsMakes.h"
-#endif
-
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
 #import "JobsLanMgr.h"
 #endif
 
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
 #import "JobsOCDSL.h"
-#endif
-
-#if __has_include(<XYColorOC/XYColorOC.h>)
-#import <XYColorOC/XYColorOC.h>
-#else
-#import "XYColorOC.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -74,13 +74,13 @@ Prop_strong()UILabel *previewTitleLab;
 Prop_strong()UIButton *primaryActionBtn;
 Prop_strong()UILabel *statusLab;
 
--(NSString *)demoNavigationTitle;
--(NSString *)demoDescription;
--(NSString *)demoIconName;
--(NSString *)primaryActionTitle;
--(void)configureDemo;
--(void)performPrimaryAction;
--(void)updateStatus:(NSString *)text;
+-(JobsRetStrByVoidBlock _Nonnull)demoNavigationTitle;
+-(JobsRetStrByVoidBlock _Nonnull)demoDescription;
+-(JobsRetStrByVoidBlock _Nonnull)demoIconName;
+-(JobsRetStrByVoidBlock _Nonnull)primaryActionTitle;
+-(jobsByVoidBlock _Nonnull)configureDemo;
+-(jobsByVoidBlock _Nonnull)performPrimaryAction;
+-(jobsByStrBlock _Nonnull)updateStatus;
 
 @end
 

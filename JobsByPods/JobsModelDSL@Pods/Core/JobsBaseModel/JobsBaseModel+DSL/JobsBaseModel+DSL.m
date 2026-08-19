@@ -3132,3 +3132,26 @@
 }
 
 @end
+
+@implementation JobsKeyValueModel (DSL)
+-(JobsRetJobsKeyValueModelByIDBlock _Nonnull)byKey{
+    @jobs_weakify(self)
+    return ^__kindof JobsKeyValueModel *_Nullable(id _Nullable data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.key = data;
+        return self;
+    };
+}
+
+-(JobsRetJobsKeyValueModelByIDBlock _Nonnull)byValue{
+    @jobs_weakify(self)
+    return ^__kindof JobsKeyValueModel *_Nullable(id _Nullable data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.value = data;
+        return self;
+    };
+}
+
+@end

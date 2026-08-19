@@ -6,6 +6,7 @@
 //
 
 #import "JobsViewNavigator.h"
+
 #import <JobsViewNavigator/UIView+Extra.h>
 #import <JobsViewNavigator/NSMutableArray+Extra.h>
 
@@ -54,7 +55,7 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
         @jobs_strongify(self)
         if (self.viewStack.count == 0) return self; // Prevent popping when there's no view
         UIView *topView = self.viewStack.lastObject;
-        [self.viewStack removeLastObject];
+        self.viewStack.removeLastObject;
         UIView *previousView = self.viewStack.lastObject;
         jobsByVoidBlock transitionBlock = ^{
             @jobs_strongify(self)
@@ -87,7 +88,7 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
         if (self.viewStack.count <= 1) return self; // 根视图或无视图堆栈
         while (self.viewStack.count > 1) {
             UIView *topView = self.viewStack.lastObject;
-            [self.viewStack removeLastObject];
+            self.viewStack.removeLastObject;
             [topView removeFromSuperview];
         }
         UIView *rootView = self.viewStack.firstObject;

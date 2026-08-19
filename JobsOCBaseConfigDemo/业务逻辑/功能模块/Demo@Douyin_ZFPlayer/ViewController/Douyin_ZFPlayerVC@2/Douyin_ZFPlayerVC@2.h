@@ -10,28 +10,16 @@
 #import "JobsVideoTBVCell.h"
 #import "VideoModel.h"
 
-#if __has_include(<ZFPlayer/ZFPlayer.h>)
-#import <ZFPlayer/ZFPlayer.h>
-#else
-#import "ZFPlayer.h"
-#endif
-
 #if __has_include(<KTVHTTPCache/KTVHTTPCache.h>)
 #import <KTVHTTPCache/KTVHTTPCache.h>
 #else
 #import "KTVHTTPCache.h"
 #endif
 
-#if __has_include(<ZFPlayerExtra/ZFPlayerExtra.h>)
-#import <ZFPlayerExtra/ZFPlayerExtra.h>
+#if __has_include(<ZFPlayer/ZFPlayer.h>)
+#import <ZFPlayer/ZFPlayer.h>
 #else
-#import "ZFPlayerExtra.h"
-#endif
-
-#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
-#import <JobsByOCPods/JobsByOCPods.h>
-#else
-#import "JobsByOCPods.h"
+#import "ZFPlayer.h"
 #endif
 
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
@@ -40,22 +28,16 @@
 #import "JobsBaseUI.h"
 #endif
 
+#if __has_include(<JobsBitsMonitor/JobsBitsMonitor.h>)
+#import <JobsBitsMonitor/JobsBitsMonitor.h>
+#else
+#import "JobsBitsMonitor.h"
+#endif
+
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>
 #else
 #import "JobsByOCPods.h"
-#endif
-
-#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
-#import <JobsModelDSL/JobsModelDSL.h>
-#else
-#import "JobsModelDSL.h"
-#endif
-
-#if __has_include(<JobsMakes/JobsMakes.h>)
-#import <JobsMakes/JobsMakes.h>
-#else
-#import "JobsMakes.h"
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
@@ -64,10 +46,28 @@
 #import "JobsLanMgr.h"
 #endif
 
-#if __has_include(<JobsBitsMonitor/JobsBitsMonitor.h>)
-#import <JobsBitsMonitor/JobsBitsMonitor.h>
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
 #else
-#import "JobsBitsMonitor.h"
+#import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
+#else
+#import "JobsModelDSL.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<ZFPlayerExtra/ZFPlayerExtra.h>)
+#import <ZFPlayerExtra/ZFPlayerExtra.h>
+#else
+#import "ZFPlayerExtra.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -82,12 +82,6 @@
 #import "JobsDefines.h"
 #endif
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Douyin_ZFPlayerVC_2 : BaseViewController
@@ -96,7 +90,7 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 /// 指定到某一行播放
--(void)playTheIndex:(NSInteger)index;
+-(jobsByNSIntegerBlock _Nonnull)playTheIndex;
 
 @end
 

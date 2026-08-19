@@ -6,17 +6,23 @@
 //
 
 #import "YTKBaseRequest+Extra.h"
+
 #import <YTKNetworkExtra/NSURL+Extra.h>
 #import <YTKNetworkExtra/NSObject+Extra.h>
 
 @implementation YTKBaseRequest (Extra)
--(NSMutableURLRequest *)jobsMakeRequestByBlock:(jobsByMutableURLRequestBlock _Nullable)block{
-    if (self.requestUrl.length < 1) return nil;
-    NSURL *url = [NSURL URLWithString:self.requestUrl];
-    if (!url) return nil;
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    if (block) block(request);
-    return request;
+-(JobsRetNSMutableURLRequestByjobsByMutableURLRequestBlockBlock _Nonnull)jobsMakeRequestByBlock{
+    @jobs_weakify(self)
+    return ^NSMutableURLRequest *(jobsByMutableURLRequestBlock _Nullable block){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (self.requestUrl.length < 1) return nil;
+        NSURL *url = [NSURL URLWithString:self.requestUrl];
+        if (!url) return nil;
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+        if (block) block(request);
+        return request;
+    };
 }
 #pragma mark —— 加URL参数
 +(JobsRetYTKBaseRequestByIDBlock _Nonnull)ByURLParameters{

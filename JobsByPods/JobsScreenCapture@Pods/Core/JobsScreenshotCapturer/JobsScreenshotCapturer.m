@@ -11,7 +11,7 @@ NSString * const JobsScreenshotCaptureErrorDomain = @"com.jobs.screen-capture";
 
 @interface JobsScreenshotCapturer ()
 
--(BOOL)canAddToPhotoLibrary:(PHAuthorizationStatus)status;
+-(JobsRetBOOLByPHAuthorizationStatusBlock _Nonnull)canAddToPhotoLibrary;
 -(NSError *)errorByCode:(JobsScreenshotCaptureErrorCode)code
             description:(NSString *)description;
 -(void)finish:(nullable jobsByErrBlock)completion
@@ -60,7 +60,7 @@ NSString * const JobsScreenshotCaptureErrorDomain = @"com.jobs.screen-capture";
         return;
     }
     void (^authorizationHandler)(PHAuthorizationStatus) = ^(PHAuthorizationStatus status) {
-        if (![self canAddToPhotoLibrary:status]) {
+        if (!self.canAddToPhotoLibrary(status)) {
             [self finish:completion
                     error:[self errorByCode:JobsScreenshotCaptureErrorCodePhotoLibraryUnauthorized
                                     description:@"没有相册写入权限，无法保存截图。"]];
@@ -86,10 +86,15 @@ NSString * const JobsScreenshotCaptureErrorDomain = @"com.jobs.screen-capture";
     }
 }
 
--(BOOL)canAddToPhotoLibrary:(PHAuthorizationStatus)status{
-    if (@available(iOS 14.0, *)) {
-        return status == PHAuthorizationStatusAuthorized || status == PHAuthorizationStatusLimited;
-    };return status == PHAuthorizationStatusAuthorized;
+-(JobsRetBOOLByPHAuthorizationStatusBlock _Nonnull)canAddToPhotoLibrary{
+    @jobs_weakify(self)
+    return ^BOOL(PHAuthorizationStatus status){
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        if (@available(iOS 14.0, *)) {
+            return status == PHAuthorizationStatusAuthorized || status == PHAuthorizationStatusLimited;
+        };return status == PHAuthorizationStatusAuthorized;
+    };
 }
 
 -(NSError *)errorByCode:(JobsScreenshotCaptureErrorCode)code

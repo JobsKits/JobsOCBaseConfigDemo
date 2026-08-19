@@ -8,6 +8,15 @@
 #import "UITabBarItem+Extra.h"
 
 @implementation UITabBarItem (Extra)
+-(JobsRetTabBarItemByUIOffsetBlock _Nonnull)byTitlePositionAdjustment{
+    @jobs_weakify(self)
+    return ^__kindof UITabBarItem *_Nullable(UIOffset data){
+        @jobs_strongify(self)
+        self.titlePositionAdjustment = data;
+        return self;
+    };
+}
+
 -(jobsByCorBlock _Nonnull)titleTextAttributesByNormalState{
     @jobs_weakify(self)
     return ^(UIColor *_Nullable data){

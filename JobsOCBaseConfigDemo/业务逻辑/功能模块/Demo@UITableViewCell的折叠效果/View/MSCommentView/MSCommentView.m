@@ -20,15 +20,29 @@ Prop_strong()NSMutableArray <MSCommentModel *>*dataMutArr;
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_commentViewOnceToken = 0;
-    static_commentView = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(MSCommentView.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_commentViewOnceToken = 0;
+        static_commentView = nil;
+    };
 }
 static MSCommentView *static_commentView = nil;
 static dispatch_once_t static_commentViewOnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_commentViewOnceToken, ^{
-        static_commentView = MSCommentView.new;
-    });return static_commentView;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(MSCommentView.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_commentViewOnceToken, ^{
+            static_commentView = MSCommentView.new;
+        });return static_commentView;
+    };
 }
 #pragma mark —— SysMethod
 -(instancetype)init{
@@ -56,33 +70,58 @@ static dispatch_once_t static_commentViewOnceToken;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MSCommentView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    /// 内部指定圆切角
-    [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
-                                    cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
-    [self cleanTableViewDebugBackground];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MSCommentView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        /// 内部指定圆切角
+        [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerTopRight
+                                        cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+        self.cleanTableViewDebugBackground();
+    };
 }
 #pragma mark —— 一些私有方法
--(void)cleanTableViewDebugBackground{
-    if (!_tableView) return;
-    _tableView.byBgColor(JobsSecondarySystemBackgroundColor);
-    _tableView.backgroundView.byBgColor(JobsSecondarySystemBackgroundColor);
-    for (UIView *subview in _tableView.subviews) {
-        if (![subview isKindOfClass:UITableViewCell.class] &&
-            ![subview isKindOfClass:UITableViewHeaderFooterView.class]) {
-            subview.byBgColor(JobsSecondarySystemBackgroundColor);
+-(jobsByVoidBlock _Nonnull)cleanTableViewDebugBackground{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (!_tableView) return;
+        _tableView.byBgColor(JobsSecondarySystemBackgroundColor);
+        _tableView.backgroundView.byBgColor(JobsSecondarySystemBackgroundColor);
+        for (UIView *subview in _tableView.subviews) {
+            if (![subview isKindOfClass:UITableViewCell.class] &&
+                ![subview isKindOfClass:UITableViewHeaderFooterView.class]) {
+                subview.byBgColor(JobsSecondarySystemBackgroundColor);
+            }
         }
-    }
+    };
 }
 /// 设置headerView
 -(void)headerView:(MSCommentTableHeaderFooterView *)headerView
           section:(NSInteger)section{
     [headerView jobsRichViewByCommentModel:self.dataMutArr[section]
-                                    folded:[self.tableView ww_isSectionFolded:section]];
+                                    folded:self.tableView.ww_isSectionFolded(section)];
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -112,7 +151,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.dataMutArr.count;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MSCommentView.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return self.dataMutArr.count;
+    };
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
@@ -160,22 +209,22 @@ viewForHeaderInSection:(NSInteger)section{
         .JobsBlock1(^(id _Nullable data) {;
         });
     {
-        headerView.numberOfTouchesRequired = 1;
-        headerView.numberOfTapsRequired = 1;/// ⚠️注意：如果要设置长按手势，此属性必须设置为0⚠️
-        headerView.minimumPressDuration = 0.1;
-        headerView.allowableMovement = 1;
-        headerView.userInteractionEnabled = YES;
-        headerView.weak_target = self;
-        headerView.tapGR_SelImp.selector = [self jobsSelectorBlock:^id _Nullable(id _Nullable target,
+        headerView.byNumberOfTouchesRequired(1);
+        headerView.byNumberOfTapsRequired(1);
+        headerView.byMinimumPressDuration(0.1);
+        headerView.byAllowableMovement(1);
+        headerView.byUserInteractionEnabled(YES);
+        headerView.byWeak_target(self);
+        headerView.tapGR_SelImp.selector = self.jobsSelectorBlock(^id _Nullable(id _Nullable target,
                                                                              UITapGestureRecognizer *_Nullable arg) {
             MSCommentTableHeaderFooterView *header = (MSCommentTableHeaderFooterView *)arg.view;
             NSInteger section = header.tag;
-            BOOL folded = ![tableView ww_isSectionFolded:section];
+            BOOL folded = !tableView.ww_isSectionFolded(section);
             [tableView ww_foldSection:section fold:folded];
             [header jobsRichViewByCommentModel:self.dataMutArr[section]
                                         folded:folded];
             return nil;
-        }];
+        });
         headerView.tapGR.byEnabled(YES);/// 必须在设置完Target和selector以后方可开启执行
     }headerView.tag = section;
     return headerView;
@@ -194,6 +243,8 @@ willDisplayHeaderView:(UIView *)view
         _tableView = jobsMakeBaseTableViewByGrouped(^(__kindof BaseTableView * _Nullable tableView) {
             tableView
                 .dataLink(self)
+                .byFoldable(YES)
+                .registerHeaderFooterViewClass(MSCommentTableHeaderFooterView.class,@"")
                 .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
                 .bySeparatorColor(HEXCOLOR(0xEEE2C8))
                 .byTableHeaderView(jobsMakeView(^(__kindof UIView * _Nullable view) {
@@ -205,25 +256,23 @@ willDisplayHeaderView:(UIView *)view
                 .byBackgroundView(jobsMakeView(^(__kindof UIView * _Nullable view) {
                     view.byBgColor(JobsSecondarySystemBackgroundColor);
                 }))
-                .byFoldable(YES)
                 .byShowsVerticalScrollIndicator(NO)
                 .byScrollEnabled(YES)
-                .byMJRefreshHeader(self.MJRefreshNormalHeaderBy([self refreshHeaderDataBy:^id _Nullable(id  _Nullable data) {
+                .byMJRefreshHeader(self.MJRefreshNormalHeaderBy(self.refreshHeaderDataBy(^id _Nullable(id  _Nullable data) {
                     @jobs_strongify(self)
                     NSObject.feedbackGenerator(nil);//震动反馈
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                         self.tableView.endRefreshing(YES);
                     });
                     return nil;
-                }]))
-                .byMJRefreshFooter(self.MJRefreshFooterBy([self refreshFooterDataBy:^id _Nullable(id  _Nullable data) {
+                })))
+                .byMJRefreshFooter(self.MJRefreshFooterBy(self.refreshFooterDataBy(^id _Nullable(id  _Nullable data) {
                     @jobs_strongify(self)
                     self.tableView.endRefreshing(YES);
                     return nil;
-                }]))
-                .byBgColor(JobsSecondarySystemBackgroundColor);
-            tableView.opaque = YES;
-            tableView.registerHeaderFooterViewClass(MSCommentTableHeaderFooterView.class,@"");
+                })))
+                .byBgColor(JobsSecondarySystemBackgroundColor)
+                .byOpaque(YES);
             if(@available(iOS 11.0, *)) {
                 tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
             }
@@ -249,47 +298,50 @@ willDisplayHeaderView:(UIView *)view
     if(!_dataMutArr){
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add(jobsMakeMSCommentModel(^(MSCommentModel * _Nullable commentModel) {
-                commentModel.sectionTitle = @"分组 1：默认展开".tr;
-                commentModel.sectionSubTitle = @"点击标题收起整组 cell，保留 header 可恢复".tr;
+                commentModel
+                    .bySectionTitle(@"分组 1：默认展开".jobsTr())
+                    .bySectionSubTitle(@"点击标题收起整组 cell，保留 header 可恢复".jobsTr());
                 commentModel.commentDataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <MSCommentDetailModel *>*_Nullable data2) {
                     data2.add(jobsMakeMSCommentDetailModel(^(MSCommentDetailModel * _Nullable model) {
-                        model.rowTitle = @"第 1 行：这是会被折叠隐藏的 UITableViewCell，点击上方橙色分组标题即可收起。".tr;
+                        model.byRowTitle(@"第 1 行：这是会被折叠隐藏的 UITableViewCell，点击上方橙色分组标题即可收起。".jobsTr());
                     }))
                     .add(jobsMakeMSCommentDetailModel(^(MSCommentDetailModel * _Nullable model) {
-                        model.rowTitle = @"第 2 行：收起后本行不再占位，只保留 section header 用来重新展开。".tr;
+                        model.byRowTitle(@"第 2 行：收起后本行不再占位，只保留 section header 用来重新展开。".jobsTr());
                     }))
                     .add(jobsMakeMSCommentDetailModel(^(MSCommentDetailModel * _Nullable model) {
-                        model.rowTitle = @"第 3 行：展开状态下可以看到完整 cell 列表，状态文案显示“展开中”。".tr;
+                        model.byRowTitle(@"第 3 行：展开状态下可以看到完整 cell 列表，状态文案显示“展开中”。".jobsTr());
                     }));
                 });;
             }))
             .add(jobsMakeMSCommentModel(^(MSCommentModel * _Nullable commentModel) {
-                commentModel.sectionTitle = @"分组 2：反复切换".tr;
-                commentModel.sectionSubTitle = @"对比展开 / 收起后的高度、数量和状态变化".tr;
+                commentModel
+                    .bySectionTitle(@"分组 2：反复切换".jobsTr())
+                    .bySectionSubTitle(@"对比展开 / 收起后的高度、数量和状态变化".jobsTr());
                 commentModel.commentDataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <MSCommentDetailModel *>*_Nullable data2) {
                     data2.add(jobsMakeMSCommentDetailModel(^(MSCommentDetailModel * _Nullable model) {
-                        model.rowTitle = @"第 1 行：这个分组用于对比展开和收起后的视觉差异。".tr;
+                        model.byRowTitle(@"第 1 行：这个分组用于对比展开和收起后的视觉差异。".jobsTr());
                     }))
                     .add(jobsMakeMSCommentDetailModel(^(MSCommentDetailModel * _Nullable model) {
-                        model.rowTitle = @"第 2 行：header 右侧的状态会在“展开中”和“已收起”之间切换。".tr;
+                        model.byRowTitle(@"第 2 行：header 右侧的状态会在“展开中”和“已收起”之间切换。".jobsTr());
                     }))
                     .add(jobsMakeMSCommentDetailModel(^(MSCommentDetailModel * _Nullable model) {
-                        model.rowTitle = @"第 3 行：加号和减号用于提示下一步可执行的展开或收起动作。".tr;
+                        model.byRowTitle(@"第 3 行：加号和减号用于提示下一步可执行的展开或收起动作。".jobsTr());
                     }));
                 });;
             }))
             .add(jobsMakeMSCommentModel(^(MSCommentModel * _Nullable commentModel) {
-                commentModel.sectionTitle = @"分组 3：复用状态".tr;
-                commentModel.sectionSubTitle = @"滚动复用时重新绑定标题、数量和折叠状态".tr;
+                commentModel
+                    .bySectionTitle(@"分组 3：复用状态".jobsTr())
+                    .bySectionSubTitle(@"滚动复用时重新绑定标题、数量和折叠状态".jobsTr());
                 commentModel.commentDataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <MSCommentDetailModel *>*_Nullable data2) {
                     data2.add(jobsMakeMSCommentDetailModel(^(MSCommentDetailModel * _Nullable model) {
-                        model.rowTitle = @"第 1 行：第三组用于验证 UITableViewHeaderFooterView 复用后的状态回填。".tr;
+                        model.byRowTitle(@"第 1 行：第三组用于验证 UITableViewHeaderFooterView 复用后的状态回填。".jobsTr());
                     }))
                     .add(jobsMakeMSCommentDetailModel(^(MSCommentDetailModel * _Nullable model) {
-                        model.rowTitle = @"第 2 行：header 复用时会按当前 section 重设标题、副标题和数量。".tr;
+                        model.byRowTitle(@"第 2 行：header 复用时会按当前 section 重设标题、副标题和数量。".jobsTr());
                     }))
                     .add(jobsMakeMSCommentDetailModel(^(MSCommentDetailModel * _Nullable model) {
-                        model.rowTitle = @"第 3 行：这个页面现在重点展示 UITableViewCell 的分组折叠效果。".tr;
+                        model.byRowTitle(@"第 3 行：这个页面现在重点展示 UITableViewCell 的分组折叠效果。".jobsTr());
                     }));
                 });;
             }));

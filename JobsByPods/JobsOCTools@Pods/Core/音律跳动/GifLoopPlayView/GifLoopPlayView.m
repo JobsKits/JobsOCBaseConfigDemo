@@ -13,6 +13,12 @@ Prop_strong()UIImageView *imageView;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN GifLoopPlayView
+@interface GifLoopPlayView (JobsPropertyDSLSetterAutogen_297c50028e)
+-(void)setStopped:(BOOL)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END GifLoopPlayView
+
 @implementation GifLoopPlayView
 static dispatch_once_t dispatchOnce;
 -(instancetype)init{
@@ -23,11 +29,21 @@ static dispatch_once_t dispatchOnce;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
-    dispatch_once(&dispatchOnce, ^{
-        self.imageView.byAlpha(1);
-        self.stopped = NO;// YES: 没有播放，NO：正在播放
-    });
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(GifLoopPlayView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+        dispatch_once(&dispatchOnce, ^{
+            self.imageView.byAlpha(1);
+            self.byStopped(NO);
+        });
+    };
 }
 //  YES - 停止；NO - 播放
 -(void)setStopped:(BOOL)stopped{
@@ -76,4 +92,14 @@ static dispatch_once_t dispatchOnce;
     };return _pauseImage;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN GifLoopPlayView
+-(JobsRetGifLoopPlayViewByBOOLBlock _Nonnull)byStopped{
+    @jobs_weakify(self)
+    return ^__kindof GifLoopPlayView * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setStopped:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END GifLoopPlayView
 @end

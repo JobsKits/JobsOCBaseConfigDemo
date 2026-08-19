@@ -39,11 +39,11 @@ UIKit maker callbacks and UIView animation / transition signatures are centraliz
     'UserNotifications',
     'Photos',
     'JavaScriptCore',
-    'NetworkExtension'
+    'NetworkExtension',
+    'MapKit'
   ]
 
   spec.dependency 'SDWebImage'
-  spec.dependency 'JobsOCDefs'
 
   JobsPodspecKitForJobsBlock.add_support_subspec(spec, support_context)
 

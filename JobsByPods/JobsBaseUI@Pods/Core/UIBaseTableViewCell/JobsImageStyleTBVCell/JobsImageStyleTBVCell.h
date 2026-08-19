@@ -52,7 +52,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 将一张图整个覆盖到TableViewCell上面
 @interface JobsImageStyleTBVCell : JobsBaseTableViewCell
 /// 获取绑定的数据源
--(UIViewModel *)getViewModel;
+-(UIViewModel *_Nullable)getViewModel;
+-(JobsRetViewModelByVoidBlock _Nonnull)jobsGetViewModel;
 
 @end
 

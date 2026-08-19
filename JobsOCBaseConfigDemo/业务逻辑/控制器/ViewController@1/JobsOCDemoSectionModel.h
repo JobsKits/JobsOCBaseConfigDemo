@@ -13,6 +13,12 @@
 #import "JobsModel.h"
 #endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -27,7 +33,9 @@ Prop_copy()NSString *title;
 Prop_copy()NSString *sectionDescription;
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 
-+(instancetype)sectionWithTitle:(NSString *)title;
++(JobsRetJobsOCDemoSectionModelByStrBlock _Nonnull)sectionWithTitle;
+-(JobsRetJobsOCDemoSectionModelByStrBlock _Nonnull)byTitle;
+-(JobsRetJobsOCDemoSectionModelByStrBlock _Nonnull)bySectionDescription;
 
 @end
 

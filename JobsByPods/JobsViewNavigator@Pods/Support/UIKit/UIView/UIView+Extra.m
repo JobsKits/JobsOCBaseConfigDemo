@@ -32,7 +32,7 @@
 #pragma mark —— Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
 JobsKey(_masonryBlock)
 @dynamic masonryBlock;
--(jobsByMASConstraintMakerBlock)masonryBlock{
+-(jobsByMASConstraintMakerBlock _Nullable)masonryBlock{
     return Jobs_getAssociatedObject(_masonryBlock);
 }
 

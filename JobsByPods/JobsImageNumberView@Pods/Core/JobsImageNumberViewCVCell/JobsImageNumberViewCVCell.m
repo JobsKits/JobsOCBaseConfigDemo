@@ -18,7 +18,7 @@ Prop_strong()UIImageView *textIMGV;
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     JobsImageNumberViewCVCell *cell = JobsRegisterDequeueCollectionViewCell(JobsImageNumberViewCVCell);
-    cell.indexPath = indexPath;
+    cell.byIndexPath(indexPath);
     return cell;
 }
 #pragma mark —— BaseCellProtocol

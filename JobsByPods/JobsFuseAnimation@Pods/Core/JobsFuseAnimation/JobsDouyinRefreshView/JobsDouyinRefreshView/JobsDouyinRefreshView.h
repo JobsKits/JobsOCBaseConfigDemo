@@ -6,7 +6,19 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsOCDSL/UIView+DSL.h>)
+#import <JobsOCDSL/UIView+DSL.h>
+#else
+#import "UIView+DSL.h"
+#endif
 
 #if __has_include(<JobsFuseAnimation/JobsDouyinRefreshConfig.h>)
 #import <JobsFuseAnimation/JobsDouyinRefreshConfig.h>
@@ -31,12 +43,19 @@ Prop_strong(readonly)JobsDouyinRefreshConfig *config;
 Prop_assign(readonly,getter=isAnimating)BOOL animating;
 
 -(instancetype)initWithConfig:(JobsDouyinRefreshConfig *)config;
--(instancetype)byConfig:(JobsDouyinRefreshConfig *)config;
--(instancetype)byStart;
--(instancetype)byPause;
--(instancetype)byResume;
--(instancetype)byStop;
+-(JobsRetIDByJobsDouyinRefreshConfigBlock _Nonnull)byConfig;
+-(JobsRetIDByVoidBlock _Nonnull)byStart;
+-(JobsRetIDByVoidBlock _Nonnull)byPause;
+-(JobsRetIDByVoidBlock _Nonnull)byResume;
+-(JobsRetIDByVoidBlock _Nonnull)byStop;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsDouyinRefreshView
+-(JobsRetJobsDouyinRefreshViewByBOOLBlock _Nonnull)byAnimating;
+-(JobsRetJobsDouyinRefreshViewByCFTimeIntervalBlock _Nonnull)byPausedTime;
+-(JobsRetJobsDouyinRefreshViewByCGRectBlock _Nonnull)byLastAnimationBounds;
+-(JobsRetJobsDouyinRefreshViewByBOOLBlock _Nonnull)byAccessibilityElement;
+-(JobsRetJobsDouyinRefreshViewByNSStringBlock _Nonnull)byAccessibilityLabel;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsDouyinRefreshView
 @end
 
 NS_ASSUME_NONNULL_END

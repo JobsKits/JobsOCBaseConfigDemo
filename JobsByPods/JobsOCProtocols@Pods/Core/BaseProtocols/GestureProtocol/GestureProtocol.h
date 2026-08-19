@@ -65,7 +65,7 @@ Prop_strong(nullable)JobsSEL_IMP *pinchGR_SelImp;
 Prop_strong(nullable)JobsSEL_IMP *rotationGR_SelImp;
 Prop_strong(nullable)JobsSEL_IMP *screenEdgePanGR_SelImp;
 
--(void)Dealloc;
+-(jobsByVoidBlock _Nonnull)Dealloc;
 
 @end
 

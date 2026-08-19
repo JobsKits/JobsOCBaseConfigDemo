@@ -7,6 +7,12 @@
 
 #import <CoreBluetooth/CoreBluetooth.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -43,6 +49,12 @@ Prop_copy(readonly)JobsBluetoothProfile *(^byAllowDuplicates)(BOOL allowDuplicat
 Prop_copy(readonly)JobsBluetoothProfile *(^byEncoder)(JobsBluetoothEncodeBlock encoder);
 Prop_copy(readonly)JobsBluetoothProfile *(^byDecoder)(JobsBluetoothDecodeBlock decoder);
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsBluetoothProfile
+-(JobsRetJobsBluetoothProfileByCBUUIDBlock _Nonnull)byNotifyCharacteristicUUID;
+-(JobsRetJobsBluetoothProfileByCBUUIDBlock _Nonnull)byReadCharacteristicUUID;
+-(JobsRetJobsBluetoothProfileByCBUUIDBlock _Nonnull)byWriteCharacteristicUUID;
+-(JobsRetJobsBluetoothProfileByNSArrayCBUUIDBlock _Nonnull)byServiceUUIDs;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsBluetoothProfile
 @end
 
 NS_ASSUME_NONNULL_END

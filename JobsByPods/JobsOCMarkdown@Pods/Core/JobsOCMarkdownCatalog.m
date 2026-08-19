@@ -59,10 +59,12 @@ NSErrorDomain const JobsOCMarkdownCatalogErrorDomain = @"com.jobs.markdown.catal
     };return self;
 }
 
-+(instancetype)bundledCatalogWithError:(NSError **)error{
-    return [self bundledCatalogInBundle:NSBundle.mainBundle
-                                  named:@"JobsMarkdownDocuments"
-                                  error:error];
++(JobsRetIDByNSErrorPointerBlock _Nonnull)bundledCatalogWithError{
+    return ^id(NSError ** error){
+        return [self bundledCatalogInBundle:NSBundle.mainBundle
+                                      named:@"JobsMarkdownDocuments"
+                                      error:error];
+    };
 }
 
 +(instancetype)bundledCatalogInBundle:(NSBundle *)bundle
@@ -77,19 +79,29 @@ NSErrorDomain const JobsOCMarkdownCatalogErrorDomain = @"com.jobs.markdown.catal
     };return [[self alloc] initWithBundleURL:bundleURL error:error];
 }
 
--(JobsOCMarkdownDocument *)documentWithRelativePath:(NSString *)relativePath{
-    NSString *normalizedPath = (relativePath.stringByRemovingPercentEncoding ?: relativePath);
-    normalizedPath = [normalizedPath stringByReplacingOccurrencesOfString:@"\\" withString:@"/"];
-    for (JobsOCMarkdownDocument *document in self.documents) {
-        if ([document.relativePath isEqualToString:normalizedPath]) return document;
-    };return nil;
+-(JobsRetJobsOCMarkdownDocumentByNSStringBlock _Nonnull)documentWithRelativePath{
+    @jobs_weakify(self)
+    return ^JobsOCMarkdownDocument *(NSString * relativePath){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSString *normalizedPath = (relativePath.stringByRemovingPercentEncoding ?: relativePath);
+        normalizedPath = [normalizedPath stringByReplacingOccurrencesOfString:@"\\" withString:@"/"];
+        for (JobsOCMarkdownDocument *document in self.documents) {
+            if ([document.relativePath isEqualToString:normalizedPath]) return document;
+        };return nil;
+    };
 }
 
--(JobsOCMarkdownDocument *)documentWithFileURL:(NSURL *)fileURL{
-    NSURL *normalizedURL = fileURL.standardizedURL;
-    for (JobsOCMarkdownDocument *document in self.documents) {
-        if ([document.fileURL.standardizedURL isEqual:normalizedURL]) return document;
-    };return nil;
+-(JobsRetJobsOCMarkdownDocumentByNSURLBlock _Nonnull)documentWithFileURL{
+    @jobs_weakify(self)
+    return ^JobsOCMarkdownDocument *(NSURL * fileURL){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSURL *normalizedURL = fileURL.standardizedURL;
+        for (JobsOCMarkdownDocument *document in self.documents) {
+            if ([document.fileURL.standardizedURL isEqual:normalizedURL]) return document;
+        };return nil;
+    };
 }
 
 +(NSError *)errorWithCode:(JobsOCMarkdownCatalogErrorCode)code

@@ -14,20 +14,30 @@
 @end
 
 @implementation LMJDropdownMenu (Extra)
--(__kindof UIButton *)great{
-    Ivar ivar = class_getInstanceVariable(LMJDropdownMenu.class, "mainBtn");
-    return ivar ? object_getIvar(self, ivar) : nil;
+-(JobsRetBtnByVoidBlock _Nonnull)great{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        Ivar ivar = class_getInstanceVariable(LMJDropdownMenu.class, "mainBtn");
+        return ivar ? object_getIvar(self, ivar) : nil;
+    };
 }
 
--(void)greatAtEmpty{
-    UIButton *btn = self.great;
-    btn.byImage(@"空白图".img);
-    if (@available(iOS 15.0, *)) {
-        UIButtonConfiguration *config = btn.configuration ?: UIButtonConfiguration.plainButtonConfiguration;
-        config.imagePlacement = NSDirectionalRectEdgeTrailing;
-        config.imagePadding = 5.0;
-        btn.configuration = config;
-    }
+-(jobsByVoidBlock _Nonnull)greatAtEmpty{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        UIButton *btn = self.great();
+        btn.byImage(@"空白图".img);
+        if (@available(iOS 15.0, *)) {
+            UIButtonConfiguration *config = btn.configuration ?: UIButtonConfiguration.plainButtonConfiguration;
+            config.byImagePlacement(NSDirectionalRectEdgeTrailing);
+            config.byImagePadding(5.0);
+            btn.byConfiguration(config);
+        }
+    };
 }
 
 @end

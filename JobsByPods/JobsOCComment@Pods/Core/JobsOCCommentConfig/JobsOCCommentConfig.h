@@ -38,8 +38,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class JobsOCCommentView;
 
-typedef void(^JobsOCCommentRefreshActionBlock)(__kindof JobsOCCommentView *commentView);
-
 @interface JobsOCCommentConfig : NSObject
 
 Prop_assign()JobsOCCommentMode mode;
@@ -57,9 +55,23 @@ Prop_copy(nullable)jobsByIDBlock replySelectedBlock;
 Prop_copy(nullable)JobsOCCommentRefreshActionBlock pullRefreshBlock;
 Prop_copy(nullable)JobsOCCommentRefreshActionBlock loadMoreBlock;
 
-+(instancetype)defaultConfig;
-+(NSString *)titleByMode:(JobsOCCommentMode)mode;
-+(NSString *)subtitleByMode:(JobsOCCommentMode)mode;
++(JobsRetJobsOCCommentConfigByVoidBlock _Nonnull)defaultConfig;
+-(JobsRetJobsOCCommentConfigByModeBlock _Nonnull)byMode;
+-(JobsRetJobsOCCommentConfigByStrBlock _Nonnull)byTitle;
+-(JobsRetJobsOCCommentConfigByBOOLBlock _Nonnull)byShowsDevice;
+-(JobsRetJobsOCCommentConfigByBOOLBlock _Nonnull)byShowsLocation;
+-(JobsRetJobsOCCommentConfigByBOOLBlock _Nonnull)byShowsReplyEntrance;
+-(JobsRetJobsOCCommentConfigByNSUIntegerBlock _Nonnull)byMaxVisibleChildReplyCount;
+-(JobsRetJobsOCCommentConfigByBOOLBlock _Nonnull)byEnablesPullRefresh;
+-(JobsRetJobsOCCommentConfigByBOOLBlock _Nonnull)byEnablesLoadMore;
+-(JobsRetJobsOCCommentConfigByRefreshConfigBlock _Nonnull)byPullRefreshConfig;
+-(JobsRetJobsOCCommentConfigByRefreshConfigBlock _Nonnull)byLoadMoreConfig;
+-(JobsRetJobsOCCommentConfigByJobsByIDBlock _Nonnull)byCommentSelectedBlock;
+-(JobsRetJobsOCCommentConfigByJobsByIDBlock _Nonnull)byReplySelectedBlock;
+-(JobsRetJobsOCCommentConfigByRefreshActionBlock _Nonnull)byPullRefreshBlock;
+-(JobsRetJobsOCCommentConfigByRefreshActionBlock _Nonnull)byLoadMoreBlock;
++(JobsRetNSStringByJobsOCCommentModeBlock _Nonnull)titleByMode;
++(JobsRetNSStringByJobsOCCommentModeBlock _Nonnull)subtitleByMode;
 
 @end
 

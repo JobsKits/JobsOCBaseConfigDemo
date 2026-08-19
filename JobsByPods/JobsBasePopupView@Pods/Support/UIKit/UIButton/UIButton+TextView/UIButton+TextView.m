@@ -13,19 +13,21 @@
     @jobs_weakify(self)
     return ^(__kindof UITextView *_Nullable textView){
         @jobs_strongify(self)
-        textView.byDelegate(self);
-        textView.byEditable(NO);
-        textView.bySelectable(YES);
-        textView.byDataDetectorTypes(UIDataDetectorTypeLink);
-        textView.byTextAlignment(NSTextAlignmentCenter);
-        textView.byLinkTextAttributes(@{
+        textView
+            .byDelegate(self)
+            .byEditable(NO)
+            .bySelectable(YES)
+            .byDataDetectorTypes(UIDataDetectorTypeLink)
+            .byTextAlignment(NSTextAlignmentCenter)
+        .byLinkTextAttributes(@{
             NSForegroundColorAttributeName: UIColor.yellowColor,
             NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
             NSUnderlineColorAttributeName: UIColor.yellowColor
-        });
-        textView.byScrollEnabled(NO);
-        textView.byUserInteractionEnabled(YES);
-        textView.byBgColor(JobsClearColor);
+        })
+
+            .byScrollEnabled(NO)
+            .byUserInteractionEnabled(YES)
+            .byBgColor(JobsClearColor);
         /// 将 textView 添加到当前视图
         self.addSubview(textView);
     };
@@ -34,7 +36,7 @@
 -(nullable UIAction *)textView:(UITextView *)textView
       primaryActionForTextItem:(UITextItem *)textItem
                  defaultAction:(UIAction *)defaultAction API_AVAILABLE(ios(17.0)){
-    textItem.textView = textView;
+    textItem.byTextView(textView);
     if(self.objBlock) self.objBlock(textItem);
     return defaultAction; // 默认行为
 }

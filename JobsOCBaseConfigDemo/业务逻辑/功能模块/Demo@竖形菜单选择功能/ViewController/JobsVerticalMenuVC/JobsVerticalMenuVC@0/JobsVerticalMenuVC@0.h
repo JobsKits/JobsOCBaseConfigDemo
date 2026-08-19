@@ -20,10 +20,10 @@
 #import "JobsBaseUI.h"
 #endif
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
 #else
-#import "JobsOCDSL.h"
+#import "JobsByOCPods.h"
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
@@ -38,10 +38,10 @@
 #import "JobsMakes.h"
 #endif
 
-#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
-#import <JobsByOCPods/JobsByOCPods.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
 #else
-#import "JobsByOCPods.h"
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -64,6 +64,10 @@ UITableViewDelegate,
 UITableViewDataSource
 >
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsVerticalMenuVC_0
+-(JobsRetJobsVerticalMenuVC_0ByBOOLBlock _Nonnull)bySearchMode;
+-(JobsRetJobsVerticalMenuVC_0ByMASConstraintBlock _Nonnull)bySearchViewWidthConstraint;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsVerticalMenuVC_0
 @end
 
 NS_ASSUME_NONNULL_END

@@ -18,6 +18,15 @@ Prop_strong()UIButton *modeBtn;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCSkeletonViewDemoVC
+@interface JobsOCSkeletonViewDemoVC (JobsPropertyDSLSetterAutogen_d02745f49c)
+-(void)setLoading:(BOOL)data;
+-(void)setSkeletonRowCount:(NSUInteger)data;
+-(void)setUseGradientSkeleton:(BOOL)data;
+-(void)setUserDataArr:(NSArray <JobsOCSkeletonUser *>* _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCSkeletonViewDemoVC
+
 @implementation JobsOCSkeletonViewDemoVC
 -(void)dealloc{
     JobsRemoveNotification(self);
@@ -25,90 +34,135 @@ Prop_strong()UIButton *modeBtn;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCSkeletonViewDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byText(@"JobsOCSkeletonView")
-                .byTextCor(JobsLabelColor)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        .byBgCor(HEXCOLOR(0xF5F7FA))
-        .byNavBgCor(HEXCOLOR(0xF5F7FA));
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byText(@"JobsOCSkeletonView")
+                    .byTextCor(JobsLabelColor)
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            .byBgCor(HEXCOLOR(0xF5F7FA))
+            .byNavBgCor(HEXCOLOR(0xF5F7FA));
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.useGradientSkeleton = YES;
-    self.skeletonRowCount = 8;
-    self.userDataArr = @[];
-    self.makeNavByAlpha(1);
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.rightBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
-        data.add(UIBarButtonItem.initBy(self.reloadBtn))
-            .add(UIBarButtonItem.initBy(self.modeBtn));
-    });
-    self.tableView.byAlpha(1);
-    [self startMockRequest];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCSkeletonViewDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.byUseGradientSkeleton(YES);
+        self.bySkeletonRowCount(8);
+        self.byUserDataArr(@[]);
+        self.makeNavByAlpha(1);
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.byRightBarButtonItems(jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
+            data.add(UIBarButtonItem.initBy(self.reloadBtn))
+                .add(UIBarButtonItem.initBy(self.modeBtn));
+        }));
+        self.tableView.byAlpha(1);
+        self.startMockRequest();
+    };
 }
 #pragma mark —— Actions
--(void)startMockRequest{
-    self.loading = YES;
-    self.userDataArr = @[];
-    [self.tableView reloadData];
+-(jobsByVoidBlock _Nonnull)startMockRequest{
     @jobs_weakify(self)
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    return ^{
         @jobs_strongify(self)
-        self.loading = NO;
-        self.userDataArr = [JobsOCSkeletonUser mockUsersWithCount:16];
-        self.tableView.byHideSkeletonAndReload();
-    });
+        if (!self) return;
+        self.byLoading(YES);
+        self.byUserDataArr(@[]);
+        [self.tableView reloadData];
+        @jobs_weakify(self)
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            @jobs_strongify(self)
+            self.byLoading(NO);
+            self.byUserDataArr(JobsOCSkeletonUser.mockUsersWithCount(16));
+            self.tableView.byHideSkeletonAndReload();
+        });
+    };
 }
 
--(void)reloadDataAction{
-    [self startMockRequest];
+-(jobsByVoidBlock _Nonnull)reloadDataAction{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.startMockRequest();
+    };
 }
 
--(void)switchSkeletonMode{
-    self.useGradientSkeleton = !self.useGradientSkeleton;
-    [self updateModeButtonTitle];
-    if (self.loading) [self.tableView reloadData];
+-(jobsByVoidBlock _Nonnull)switchSkeletonMode{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byUseGradientSkeleton(!self.useGradientSkeleton);
+        self.updateModeButtonTitle();
+        if (self.loading) [self.tableView reloadData];
+    };
 }
 
--(void)updateModeButtonTitle{
-    NSString *title = self.useGradientSkeleton ? @"扫光" : @"脉冲";
-    self.modeBtn.jobsResetBtnTitle(title.tr);
+-(jobsByVoidBlock _Nonnull)updateModeButtonTitle{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        NSString *title = self.useGradientSkeleton ? @"扫光" : @"脉冲";
+        self.modeBtn.jobsResetBtnTitle(title.jobsTr());
+    };
 }
 
--(JobsOCSkeletonConfig *)currentSkeletonConfig{
-    JobsOCSkeletonConfig *config = self.useGradientSkeleton ? JobsOCSkeletonConfig.shimmerConfig : JobsOCSkeletonConfig.pulseConfig;
-    if (self.useGradientSkeleton) {
-        config.baseColor = HEXCOLOR(0xE7ECF3);
-        config.highlightColor = HEXCOLOR(0xF9FBFF);
-        config.animationDuration = 1.15;
-    } else {
-        config.baseColor = HEXCOLOR(0xE4E9F1);
-        config.highlightColor = HEXCOLOR(0xE4E9F1);
-        config.animationDuration = 0.85;
-    }
-    config.cornerRadius = -1;
-    return config;
+-(JobsRetJobsOCSkeletonConfigByVoidBlock _Nonnull)currentSkeletonConfig{
+    @jobs_weakify(self)
+    return ^JobsOCSkeletonConfig *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        JobsOCSkeletonConfig *config = self.useGradientSkeleton ? JobsOCSkeletonConfig.shimmerConfig() : JobsOCSkeletonConfig.pulseConfig();
+        if (self.useGradientSkeleton) {
+            config.byBaseColor(HEXCOLOR(0xE7ECF3));
+            config.byHighlightColor(HEXCOLOR(0xF9FBFF));
+            config.byAnimationDuration(1.15);
+        } else {
+            config.byBaseColor(HEXCOLOR(0xE4E9F1));
+            config.byHighlightColor(HEXCOLOR(0xE4E9F1));
+            config.byAnimationDuration(0.85);
+        }
+        config.byCornerRadius(-1);
+        return config;
+    };
 }
 
 -(UIButton *)navButtonByTitle:(NSString *)title
                        action:(jobsByBtnBlock)action{
     return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
         button
-            .jobsResetBtnTitle(title.tr)
+            .jobsResetBtnTitle(title.jobsTr())
             .jobsResetBtnTitleFont(UIFontWeightMediumSize(14))
             .jobsResetBtnTitleCor(HEXCOLOR(0x0A84FF))
             .onClickBy(action)
@@ -123,12 +177,12 @@ numberOfRowsInSection:(NSInteger)section{
 
 -(UITableViewCell *)tableView:(UITableView *)tableView
         cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    JobsOCSkeletonUserCell *cell = [tableView dequeueReusableCellWithIdentifier:JobsOCSkeletonUserCell.reuseIdentifier
+    JobsOCSkeletonUserCell *cell = [tableView dequeueReusableCellWithIdentifier:[JobsOCSkeletonUserCell reuseIdentifier]()
                                                                    forIndexPath:indexPath];
     if (self.loading) {
-        [cell showSkeletonWithConfig:self.currentSkeletonConfig];
+        cell.showSkeletonWithConfig(self.currentSkeletonConfig());
     } else {
-        [cell configureWithUser:self.userDataArr[indexPath.row]];
+        cell.configureWithUser(self.userDataArr[indexPath.row]);
     };return cell;
 }
 #pragma mark —— UITableViewDelegate
@@ -159,7 +213,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byShowsVerticalScrollIndicator(NO)
                 .byBgColor(JobsSecondarySystemBackgroundColor);
             [tableView registerClass:JobsOCSkeletonUserCell.class
-               forCellReuseIdentifier:JobsOCSkeletonUserCell.reuseIdentifier];
+               forCellReuseIdentifier:[JobsOCSkeletonUserCell reuseIdentifier]()];
             tableView
                 .resetContentInset(UIEdgeInsetsMake(JobsWidth(12), 0, JobsWidth(24), 0))
                 .addOn(self.view);
@@ -177,7 +231,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         @jobs_weakify(self)
         _reloadBtn = [self navButtonByTitle:@"重载"
                                      action:^(__kindof UIButton * _Nullable button) {
-            [weak_self reloadDataAction];
+            weak_self.reloadDataAction();
         }];
     };return _reloadBtn;
 }
@@ -187,9 +241,46 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         @jobs_weakify(self)
         _modeBtn = [self navButtonByTitle:@"扫光"
                                    action:^(__kindof UIButton * _Nullable button) {
-            [weak_self switchSkeletonMode];
+            weak_self.switchSkeletonMode();
         }];
     };return _modeBtn;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsOCSkeletonViewDemoVC
+-(JobsRetJobsOCSkeletonViewDemoVCByBOOLBlock _Nonnull)byLoading{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCSkeletonViewDemoVC * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setLoading:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsOCSkeletonViewDemoVCByBOOLBlock _Nonnull)byUseGradientSkeleton{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCSkeletonViewDemoVC * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setUseGradientSkeleton:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsOCSkeletonViewDemoVCByNSArrayJobsOCSkeletonUserBlock _Nonnull)byUserDataArr{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCSkeletonViewDemoVC * _Nullable(NSArray <JobsOCSkeletonUser *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setUserDataArr:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsOCSkeletonViewDemoVCByNSUIntegerBlock _Nonnull)bySkeletonRowCount{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCSkeletonViewDemoVC * _Nullable(NSUInteger data){
+        @jobs_strongify(self)
+        [self setSkeletonRowCount:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCSkeletonViewDemoVC
 @end

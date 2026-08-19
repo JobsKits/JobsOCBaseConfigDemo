@@ -39,7 +39,7 @@ Prop_weak(nullable)id target;
 
 -(jobsBySELBlock _Nonnull)removeAction;
 -(jobsBySELBlock _Nonnull)addAction;
--(__kindof UIGestureRecognizer *)gestureActionBy:(jobsByVoidBlock _Nonnull)block;
+-(JobsRetUIGestureRecognizerByjobsByVoidBlockBlock _Nonnull)gestureActionBy;
 
 @end
 

@@ -9,13 +9,26 @@
 #define JOBS_HEADER_GUARD_NSDATA_EXTRA_BD582184C2
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <YTKNetworkExtra/NSString+Extra.h>
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSData (YTKNetworkExtraExtra)
 
 -(NSString *)stringByUTF8Encoding;
+-(JobsRetStrByVoidBlock _Nonnull)jobsStringByUTF8Encoding;
 
 @end
 

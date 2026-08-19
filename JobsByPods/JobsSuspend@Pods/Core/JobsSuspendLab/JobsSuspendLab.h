@@ -52,6 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JobsSuspendLab : UILabel <BaseProtocol>
 
 Prop_assign()BOOL isAllowDrag;// 是否允许托拽手势
+-(JobsRetUILabelByBOOLBlock _Nonnull)byAllowDrag;
 
 @end
 

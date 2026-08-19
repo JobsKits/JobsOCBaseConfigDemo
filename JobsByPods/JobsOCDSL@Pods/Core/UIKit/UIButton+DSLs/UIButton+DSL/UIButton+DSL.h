@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDSL/UILabel+DSL.h>)
+#import <JobsOCDSL/UILabel+DSL.h>
+#else
+#import "UILabel+DSL.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -64,6 +70,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBtnByAttributedStringBlock _Nonnull)byAttributedTitle API_AVAILABLE(ios(6.0));
 /// 设置标题字体。
 -(JobsRetBtnByFontBlock _Nonnull)byTitleFont;
+/// 回调当前 UIButton，用于在一条链中收口复合配置。
+-(JobsRetBtnByBtnBlock _Nonnull)byButtonBlock;
 /// 回调 UIButton 原生 titleLabel，便于继续使用 UILabel+DSL。
 -(JobsRetBtnByLabelBlock _Nonnull)byTitleLabel;
 /// 回调 BaseButton 等子类可能持有的 subtitleLabel。不存在时回调 nil，不中断链式调用。
@@ -90,6 +98,12 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBtnByBOOLBlock _Nonnull)byAdjustsImageWhenDisabled API_UNAVAILABLE(watchos);
 /// 设置 showsTouchWhenHighlighted。
 -(JobsRetBtnByBOOLBlock _Nonnull)byShowsTouchWhenHighlighted API_UNAVAILABLE(tvos) API_UNAVAILABLE(watchos);
+/// 设置 UIButton 可访问性标签。
+-(JobsRetBtnByStringBlock _Nonnull)byAccessibilityLabel;
+/// 设置 Jobs 几何扩展的 size。
+-(JobsRetBtnByCGSizeBlock _Nonnull)bySizer;
+/// 设置 ZFPlayer 几何扩展的中心 Y。
+-(JobsRetBtnByCGFloatBlock _Nonnull)byZf_centerY;
 
 @end
 

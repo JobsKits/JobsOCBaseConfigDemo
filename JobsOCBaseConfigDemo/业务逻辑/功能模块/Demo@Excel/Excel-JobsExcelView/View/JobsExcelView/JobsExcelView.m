@@ -29,11 +29,31 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsExcelView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsExcelView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -135,7 +155,7 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
                     @jobs_strongify(self)
                     if (!self) return;
                     NSValue *scrollValue = (NSValue *)value;
-                    self.contentView.tableView.contentOffset = scrollValue.CGPointValue;
+                    self.contentView.tableView.byContentOffset(scrollValue.CGPointValue);
                 })
         );
     };return _leftListView;
@@ -191,7 +211,7 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
                             @jobs_strongify(self)
                             if (!self) return;
                             NSValue *scrollValue = (NSValue *)value;
-                            self.leftListView.tableView.contentOffset = scrollValue.CGPointValue;
+                            self.leftListView.tableView.byContentOffset(scrollValue.CGPointValue);
                         })
                 )
                 .byAddDisposable(
@@ -200,7 +220,7 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
                             @jobs_strongify(self)
                             if (!self) return;
                             NSValue *scrollValue = (NSValue *)value;
-                            self.headView.collectionView.contentOffset = scrollValue.CGPointValue;
+                            self.headView.collectionView.byContentOffset(scrollValue.CGPointValue);
                         })
                 )
         );

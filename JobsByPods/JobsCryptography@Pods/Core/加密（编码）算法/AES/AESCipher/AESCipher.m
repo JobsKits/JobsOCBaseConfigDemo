@@ -15,7 +15,7 @@ NSData *cipherOperation(NSData *contentData,
                         NSData *keyData,
                         CCOperation operation) {
     NSUInteger dataLength = contentData.length;
-    void const *initVectorBytes = kInitVector.UTF8Encoding.bytes;
+    void const *initVectorBytes = kInitVector.jobsUTF8Encoding().bytes;
     void const *contentBytes = contentData.bytes;
     void const *keyBytes = keyData.bytes;
     size_t operationSize = dataLength + kCCBlockSizeAES128;
@@ -64,8 +64,8 @@ NSString *aesEncryptString(NSString *content,
                            NSString *key) {
     NSCParameterAssert(content);
     NSCParameterAssert(key);
-    NSData *contentData = content.UTF8Encoding;
-    NSData *keyData = key.UTF8Encoding;
+    NSData *contentData = content.jobsUTF8Encoding();
+    NSData *keyData = key.jobsUTF8Encoding();
     NSData *encrptedData = aesEncryptData(contentData, keyData);
     return [encrptedData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
 }
@@ -76,7 +76,7 @@ NSString *aesDecryptString(NSString *content,
     NSCParameterAssert(key);
     NSData *contentData = [NSData.alloc initWithBase64EncodedString:content
                                                             options:NSDataBase64DecodingIgnoreUnknownCharacters];
-    NSData *keyData = key.UTF8Encoding;
+    NSData *keyData = key.jobsUTF8Encoding();
     NSData *decryptedData = aesDecryptData(contentData, keyData);
     return NSString.initByUTF8Data(decryptedData);
 }

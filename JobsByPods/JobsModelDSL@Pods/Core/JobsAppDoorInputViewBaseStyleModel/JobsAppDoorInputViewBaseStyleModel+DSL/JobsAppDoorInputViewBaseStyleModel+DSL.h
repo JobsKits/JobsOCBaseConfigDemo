@@ -20,6 +20,12 @@
 #import "JobsBlock.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsAppDoorInputViewBaseStyleModel (DSL)
@@ -402,6 +408,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetJobsAppDoorInputViewBaseStyleModelByJobsByBtnBlockBlock _Nonnull)byBackBtnClickAction;
 -(JobsRetJobsAppDoorInputViewBaseStyleModelByJobsByBtnBlockBlock _Nonnull)byCloseBtnClickAction;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorInputViewBaseStyleModel
+-(JobsRetJobsAppDoorInputViewBaseStyleModelByBOOLBlock _Nonnull)byShowSecurityBtn;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyleModel
 @end
 
 NS_ASSUME_NONNULL_END

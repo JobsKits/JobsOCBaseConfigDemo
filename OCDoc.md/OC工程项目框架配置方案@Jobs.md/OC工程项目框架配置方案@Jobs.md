@@ -34,11 +34,27 @@ OC 侧核心调用思想是：`JobsMake` 创建对象，`JobsOCDSL` / `JobsModel
 
 - UI 创建优先使用 Jobs 自建 Pod 的公开聚合头和 `jobsMakeXXX`；业务代码不穿透到 Pod 私有目录。
 - `JobsMake` 只负责对象创建和 Block 入口，不负责堆业务配置。
+- Apple 系统类的无参构造统一进入 `jobsMakeType(config Block)`；带参初始化器由真实类型的类级 Block DSL 承接，例如 `NSUserActivity.initByActivityType(activityType)`，原生 `new` / `alloc-init` 只留在工厂底层。
 - Block 内部优先使用 `JobsOCDSL` / `JobsModelDSL` 点语法链式赋值。
+- 实例生成后，属性、无参实例方法和单参实例方法统一使用返回当前具体类型的 `byXxx(...)`，查询与明确终止动作除外。
 - 链式调用先写当前类本层能力，再写父类公共能力。
 - 加到父视图必须早于 [**Masonry**](https://github.com/SnapKit/Masonry) 约束。
 - frame 依赖效果可以在 `byAddTo` + 约束 + `layoutIfNeeded` 之后执行。
 - `UIView+DSL` 的 `byRemove()` 只负责移出父视图；`UIView+MasonryDSL` 的 `byClearConstraints()` 只负责清空 Masonry 约束；`JobsNavigationTransitionMgr` 的历史兼容入口使用 `byRemoveFromSuperviewForNavigation()`，不同 Category 不得用同一个 Selector 承担不同副作用。
+
+### 1.1、0 / 1 入参功能方法 Block 化
+
+- 覆盖 OC 新工程 Jobs 自建 Pod、应用层与所有 Demo，并同步 OC 老工程集成在主工程中的 Jobs 对应功能。继续排除 `Pods/`、`ManualByOCPods@Pods/`、生成代码、第三方和所有权不明文件。
+- Jobs 自定义的 0 / 1 入参普通功能方法统一改为无参 getter 返回 Block：`object.action()` 或 `object.action(value)`。原方法体完整迁入 Block，入参、返回类型、默认值、副作用顺序和异常边界不变。
+- 系统生命周期、协议 / delegate / dataSource、属性访问器、Target-Action、通知 selector、KVC / KVO、Runtime / swizzle 等固定 ABI 保留原 selector 薄 trampoline，功能内核迁入不冲突的 `jobsXxx` Block 门面。`dealloc`、`+load`、`+initialize` 和 `init` / `new` / `alloc` / `copy` 方法族不搬入捕获 `self` 的 Block。
+- 属性、协议和跨模块公开 getter 必须保留原 selector 与原返回类型，另设 `jobsXxx` Block 门面；协议声明与实现不得一边返回 Block、一边返回对象或标量。
+- 固定 ABI trampoline 不能用 `self.jobsXxx` 虚调用取门面，必须通过 `JobsBlockInstanceMethodIMP` / `JobsBlockClassMethodIMP` 绑定定义类 IMP 后同步执行 Block；Runtime helper 同时兼容 `NSObject` 与 `NSProxy` 根类体系。这样子类 Block 中的 `[super loadView]` / `[super viewDidLoad]` 进入父类 trampoline 时，不会动态派发回子类造成递归和栈溢出。
+- Block 捕获实例统一使用 `@jobs_weakify(self)` / `@jobs_strongify(self)`，并由头文件以 `__has_include` 双通道导入 `JobsDefines.h`。所有 Block typedef 统一收在 `JobsBlock`，按“返回类型 + 入参类型”去重。
+- `JobsDefines.h` 的双通道导入只能出现在对应 `.h` 的 import 区，`.m` / `.mm` 不得重复导入；代码片段也只生成方法体，不把宏头插进实现文件。
+- 上层功能代码不直接写 `receiver.property = value`。缺少入口时先在属性真实宿主补返回当前具体类型的 `byXxx` / `jobsSetXxx` Block，再回到调用方使用点语法；属性 setter / DSL 内核、结构体字段和固定 ABI 是明确边界，不做表面替换。
+- 懒加载、工厂与 Model 装配遵守“一镜到底”：主接收者只在链首出现一次，子模型通过 `byTextModelBlock(...)` / `bySubTextModelBlock(...)` 等真实宿主入口进入后再回到主链。DSL 参数内嵌 `jobsMakeXxx(...)` 时只有“工厂 + DSL”两层右括号，续链使用 `})).byNext(...)`，终止使用 `}));`。
+- `dealloc` 不调用会注册弱引用的 Block 门面；可能为 `nil` 的接收者必须先守卫再执行 Block，保持迁移前 Objective-C 向 `nil` 发消息的安全语义。
+- 验收必须同时完成：功能 API 审计无遗漏、Block typedef 覆盖 `unmatched=0`、显式 `weakSelf` / `strongSelf` 反扫只剩 `JobsBlock` 底层例外，以及 OC 新、老 App workspace 的 Debug 模拟器构建均通过。构建后还必须安装并冷启动两个 App 到根页面，确认生命周期无重入、无 `EXC_BAD_ACCESS` / 栈溢出；不能只以 `BUILD SUCCEEDED` 作为运行时改造的最终依据。
 
 ## 二、UI 创建与装配顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a>
 
@@ -471,6 +487,7 @@ sequenceDiagram
 - 根列表统一承接搜索、设置、排序 / 折叠、Demo 路由、图标映射和悬浮入口；新增 Demo 要同步对账这些消费者。
 - 根切换仍按 Scene 生命周期处理；主题不参与 Window 遍历，只重放已登记的背景、文字与显式图片资源。
 - Jobs 自维护页面优先继承 `BaseViewController` 等当前页面基座；导航统一走基座默认导航流程、`byGKNav*` DSL 与 `jobs_ensureDemoThemeButton` 所在公共层。
+- Demo 公共导航层统一刷新返回按钮的 template 图标、主文字色和次级背景色，并把 GK / 系统导航的普通标题、富文本 titleView、双行主副标题分别收口到主题主 / 次文字色。
 - 公共层注入的主题入口按钮始终使用透明背景，不显示额外色块。
 - 页面原有业务右按钮先建立，再由公共导航层补主题入口；不能用主题按钮覆盖业务动作。
 - `UIAlertController` 是系统弹框，不参与 Demo 导航栏和主题按钮注入；直接 `presentViewController:` 即可。
@@ -481,6 +498,7 @@ sequenceDiagram
 
 - `JobsThemeCenter` 位于 `JobsOCDefs`，读取主工程 `JobsThemeResources.json`、持久化状态、维护弱引用绑定并发布 `JobsThemeDidChangeNotification`。
 - `JobsLabelColor`、`JobsSecondaryLabelColor`、`JobsSystemBackgroundColor` 等背景 / 文字语义宏携带主题 Key；UIKit setter 自动登记，切换时不写 `overrideUserInterfaceStyle`，不遍历 Scene、Window 或控制器树。
+- 绑定刷新先强持有当前弱键快照再执行回调；回调可同步解绑或释放对象，不直接修改正在遍历的 `NSMapTable`。
 - 数据包留在 App 资源目录；OC 老工程使用同一实现但集成于主工程，不新增 Pod。图片只有显式使用 `JobsThemeImage(...)` 时参与主题。
 - 自定义绘制、`CGColor`、`CALayer`、CoreText 和第三方容器使用 `bindObject:slot:apply:` 显式登记背景 / 文字资源。
 - UI 验证覆盖初始、布局、点按 / 刷新、结束 / 停止、前后台、明暗主题、键盘、弹层和自定义绘制；“按钮能点”不等于全局主题完成。
@@ -488,14 +506,25 @@ sequenceDiagram
 ### 8.4、页面标准骨架
 
 ```objc
+// FeatureDemoVC.h
 #import <JobsBaseUI/JobsBaseUI.h>
-#import <JobsByOCPods/JobsByOCPods.h>
-#import <JobsOCDSL/JobsOCDSL.h>
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
-#import <Masonry/Masonry.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 @interface FeatureDemoVC : BaseViewController
 @end
+```
+
+```objc
+// FeatureDemoVC.m
+#import "FeatureDemoVC.h"
+#import <JobsByOCPods/JobsByOCPods.h>
+#import <JobsOCDSL/JobsOCDSL.h>
+#import <Masonry/Masonry.h>
 
 @interface FeatureDemoVC ()
 

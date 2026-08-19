@@ -22,11 +22,31 @@ Prop_strong()UIButton *cancelBtn;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCommentTitleHeaderView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCommentTitleHeaderView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 #pragma mark —— BaseViewProtocol
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
@@ -61,7 +81,7 @@ Prop_strong()UIButton *cancelBtn;
     if (!_titleLab) {
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"评论".tr)
+                .byText(@"评论".jobsTr())
                 .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightMediumSize(18))
             .bySizeToFit()

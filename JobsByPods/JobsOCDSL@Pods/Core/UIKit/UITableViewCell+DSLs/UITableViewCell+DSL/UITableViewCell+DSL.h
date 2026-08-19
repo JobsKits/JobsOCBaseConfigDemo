@@ -46,6 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetTableViewCellByVoidBlock _Nonnull)byPrepareForReuse;
 -(JobsRetTableViewCellBySelectionStyleBlock _Nonnull)bySelectionStyle;
 -(JobsRetTableViewCellByBOOLBlock _Nonnull)bySelected;
+-(JobsRetTableViewCellByBOOLBlock _Nonnull)byJobsSelected;
 -(JobsRetTableViewCellByBOOLBlock _Nonnull)byHighlighted;
 -(JobsRetTableViewCellByBOOLBlock _Nonnull)byShowsReorderControl;
 -(JobsRetTableViewCellByBOOLBlock _Nonnull)byShouldIndentWhileEditing;
@@ -65,6 +66,12 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetTableViewCellByBOOLBlock _Nonnull)byUserInteractionEnabledWhileDragging API_AVAILABLE(ios(11.0)) API_UNAVAILABLE(tvos, watchos);
 #endif
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN UITableViewCell
+-(JobsRetTableViewCellByImageBlock _Nonnull)byImg;
+-(JobsRetTableViewCellBySizeBlock _Nonnull)byArrows_size;
+-(void)setArrows_size:(CGSize)data;
+-(void)setImg:(UIImage * _Nullable)data;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UITableViewCell
 @end
 
 NS_ASSUME_NONNULL_END

@@ -36,10 +36,19 @@ Prop_strong()JobsOCExcelView *excelView;
 }
 
 -(void)prepareForReuse{
-    [super prepareForReuse];
-    self.excelView.delegate = nil;
-    [self.excelView setHorizontalContentOffset:0
-                                      animated:NO];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCExcelDemoCell.class, @selector(jobsPrepareForReuse)))(self, @selector(jobsPrepareForReuse));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsPrepareForReuse{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super prepareForReuse];
+        [self.excelView.byDelegate(nil) setHorizontalContentOffset:0
+                                                        animated:NO];
+    };
 }
 
 -(void)configureWithTitle:(NSString *)title
@@ -48,11 +57,10 @@ Prop_strong()JobsOCExcelView *excelView;
       freezeThroughColumn:(NSInteger)freezeThroughColumn
                  delegate:(id<JobsOCExcelViewDelegate>)delegate{
     self.titleLabel.byText(title);
-    self.excelView.delegate = delegate;
-    [self.excelView configureWithColumns:columns
-                                    rows:rows
-                     freezeThroughColumn:freezeThroughColumn
-                                   style:nil];
+    [self.excelView.byDelegate(delegate) configureWithColumns:columns
+                                                         rows:rows
+                                          freezeThroughColumn:freezeThroughColumn
+                                                        style:nil];
 }
 
 #pragma mark —— lazyLoad
@@ -73,8 +81,8 @@ Prop_strong()JobsOCExcelView *excelView;
 
 -(JobsOCExcelView *)excelView{
     if (!_excelView) {
-        _excelView = JobsOCExcelView.new;
-        _excelView.byCornerRadius(JobsWidth(12))
+        _excelView = JobsOCExcelView.new
+            .byCornerRadius(JobsWidth(12))
             .byClipsToBounds(YES)
             .addOn(self.contentView)
             .byAdd(^(MASConstraintMaker *make) {

@@ -7,6 +7,12 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -18,7 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface OCDynamic : NSObject
 
 +(void)Test;
++(jobsByVoidBlock _Nonnull)jobsTest;
 -(void)test;
+-(jobsByVoidBlock _Nonnull)jobsTest;
 
 @end
 

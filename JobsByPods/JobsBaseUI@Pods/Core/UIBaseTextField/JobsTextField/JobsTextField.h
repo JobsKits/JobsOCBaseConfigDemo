@@ -63,6 +63,7 @@ UITextFieldDelegate
 >
 /// UI
 Prop_strong(nonnull) UITextField *realTextField;
+-(JobsRetUITextFieldByVoidBlock _Nonnull)jobsRealTextField;
 /// 这个值需要在leftView之前设置才有效
 -(JobsRetJobsTextFieldByCGFloatBlock _Nonnull)byLeftViewByOutLineOffset;
 -(JobsRetJobsTextFieldByCGFloatBlock _Nonnull)byLeftViewByTextFieldOffset;
@@ -77,6 +78,9 @@ Prop_strong(nonnull) UITextField *realTextField;
 /// 只有在输入框不允许编辑的大前提之下，才允许加入手势
 -(JobsRetJobsTextFieldByGestureRecognizerBlock _Nonnull)byGesture;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsTextField
+-(JobsRetJobsTextFieldByJobsRetIDByIDBlockBlock _Nonnull)byOtherActionBlock;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsTextField
 @end
 
 NS_ASSUME_NONNULL_END
@@ -95,7 +99,7 @@ NS_INLINE __kindof JobsTextField *_Nonnull makeJobsTextField(jobsByJobsTextField
      }];
 
      // 修改 text 属性
-     textField.byText(@"新内容".tr);
+     textField.byText(@"新内容".jobsTr());
 
 
      或者
@@ -113,7 +117,7 @@ NS_INLINE __kindof JobsTextField *_Nonnull makeJobsTextField(jobsByJobsTextField
      }];
 
      // 模拟改变 text 值
-     textField.byText(@"新内容".tr);
+     textField.byText(@"新内容".jobsTr());
 
      // 手动发送信号
      [textFieldSignal sendNext:textField.text];
@@ -148,7 +152,7 @@ NS_INLINE __kindof JobsTextField *_Nonnull makeJobsTextField(jobsByJobsTextField
                                   }).onLongPressGestureBy(^(id data){
                                       JobsLog(@"");
                                   }).bySize(CGSizeMake(JobsWidth(16), JobsWidth(16))))
-                     .byBgColor(@"#f7f7f7".cor)
+                     .byBgColor(@"#f7f7f7".jobsCor())
                      .JobsRichViewByModel2(nil)
                      // 真实的textField，输入回调（每次输入的字符），如果要当前textField的字符，请取值textField.text
                      .JobsBlock1(^(id _Nullable data) {
@@ -160,15 +164,15 @@ NS_INLINE __kindof JobsTextField *_Nonnull makeJobsTextField(jobsByJobsTextField
                      .byKeyboardType(UIKeyboardTypePhonePad)
                      .byLeftViewMode(UITextFieldViewModeNever)
                      .byRightViewMode(UITextFieldViewModeNever)
-                     .byPlaceholder(@"Pick a Date".tr)
+                     .byPlaceholder(@"Pick a Date".jobsTr())
                      .byPlaceholderColor(JobsPlaceholderTextColor)
                      .byPlaceholderFont(pingFangTCRegular(15))
                      .byAttributedPlaceholder(nil)
-                     .byTextCor(@"#788190".cor)
+                     .byTextCor(@"#788190".jobsCor())
                      .bySecureTextEntry(NO);
              })
              .setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
-                 data.byLayerCor(@"#BBBBBB".cor)
+                 data.byLayerCor(@"#BBBBBB".jobsCor())
                      .byJobsWidth(1)
                      .byCornerRadiusValue(JobsWidth(8));
              }))

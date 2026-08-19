@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDSL/UIBackgroundConfiguration+DSL.h>)
+#import <JobsOCDSL/UIBackgroundConfiguration+DSL.h>
+#else
+#import "UIBackgroundConfiguration+DSL.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else

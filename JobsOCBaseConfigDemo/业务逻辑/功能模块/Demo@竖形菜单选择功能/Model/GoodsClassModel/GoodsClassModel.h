@@ -51,6 +51,22 @@ Prop_copy()NSString *showUrl;
 Prop_copy()NSString *productUrl;
 Prop_strong()NSMutableArray <GoodsClassModel *>*childrenList;
 
+-(JobsRetGoodsClassModelByStrBlock _Nonnull)byIdField;
+-(JobsRetGoodsClassModelByStrBlock _Nonnull)byPid;
+-(JobsRetGoodsClassModelByStrBlock _Nonnull)byName;
+-(JobsRetGoodsClassModelByStrBlock _Nonnull)byLevel;
+-(JobsRetGoodsClassModelByStrBlock _Nonnull)byIndexs;
+-(JobsRetGoodsClassModelByStrBlock _Nonnull)byIconUrl;
+-(JobsRetGoodsClassModelByStrBlock _Nonnull)byShowUrl;
+-(JobsRetGoodsClassModelByStrBlock _Nonnull)byProductUrl;
+-(JobsRetGoodsClassModelByMutArrBlock _Nonnull)byChildrenList;
+-(JobsRetGoodsClassModelByBOOLBlock _Nonnull)byJobsSelected;
+-(JobsRetGoodsClassModelByImageBlock _Nonnull)byBgImage;
+-(JobsRetGoodsClassModelByStrBlock _Nonnull)byTitle;
+-(JobsRetGoodsClassModelByURLBlock _Nonnull)byImageUrl;
+-(JobsRetGoodsClassModelByStrBlock _Nonnull)byText;
+-(JobsRetGoodsClassModelByImageBlock _Nonnull)byImage;
+
 @end
 
 NS_ASSUME_NONNULL_END

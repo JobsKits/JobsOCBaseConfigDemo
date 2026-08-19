@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -21,5 +27,9 @@
 -(instancetype)initWithGestureRecognizer:(UIPanGestureRecognizer *)gestureRecognizer NS_DESIGNATED_INITIALIZER;
 -(instancetype)init NS_UNAVAILABLE;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN TransitionController
+-(JobsRetTransitionControllerByCGPointBlock _Nonnull)byInitialTranslationInContainerView;
+-(JobsRetTransitionControllerByIDUIViewControllerContextTransitioningBlock _Nonnull)byTransitionContext;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END TransitionController
 @end
 #endif /* JOBS_HEADER_GUARD_TRANSITIONCONTROLLER_E2B09297EB */

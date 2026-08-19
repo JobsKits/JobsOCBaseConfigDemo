@@ -6,10 +6,6 @@
 //
 
 #ifndef JobsEmptyDataView_h
-#define JobsEmptyDataView_h
-
-#import <objc/runtime.h>
-#import <UIKit/UIKit.h>
 
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>
@@ -28,5 +24,10 @@
 #else
 #import "JobsDefines.h"
 #endif
+
+#define JobsEmptyDataView_h
+
+#import <objc/runtime.h>
+#import <UIKit/UIKit.h>
 
 #endif /* JobsEmptyDataView_h */

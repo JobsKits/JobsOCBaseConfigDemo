@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 删除元素
 -(JobsRetIDByIDBlock _Nonnull)remove;
 /// 阻止向可变数组添加空元素
--(JobsRetIDByIDBlock _Nonnull)addBy;
+-(JobsRetMutableArrayByArrBlock _Nonnull)addBy;
 /// 向数组加入一个从来没有没有过的元素，以保证数组元素的单一性
 -(JobsRetIDByIDBlock _Nonnull)jobsAddSoleObject;
 /// 将数组里的某个元素移动到原数组的某个位

@@ -2,7 +2,7 @@
 //  UIGestureRecognizer+Extra.h
 //  JobsOCDSL Support
 //
-//  Migrated from JobsByOCPods on 2026年6月10日，星期三.
+//  Created by Jobs on 2026年6月10日，星期三.
 //
 
 #ifndef JOBS_HEADER_GUARD_UIGESTURERECOGNIZER_EXTRA_89FAC8A5AC
@@ -35,8 +35,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_assign(nullable)id target;
 
--(__kindof UIGestureRecognizer *)gestureActionBy:(jobsByVoidBlock _Nonnull)block;
--(__kindof UIGestureRecognizer *)GestureActionBy:(jobsByGestureRecognizerBlock _Nonnull)block;
+-(JobsRetIDByIDBlock _Nonnull)byTarget;
+-(JobsRetUIGestureRecognizerByjobsByVoidBlockBlock _Nonnull)gestureActionBy;
+-(JobsRetUIGestureRecognizerByjobsByGestureRecognizerBlockBlock _Nonnull)GestureActionBy;
+/// 仅供未纳入 Jobs 维护的历史源码兼容；Jobs 新代码统一使用 Block getter。
+-(__kindof UIGestureRecognizer *_Nonnull)GestureActionBy:(jobsByGestureRecognizerBlock _Nullable)block;
 
 -(JobsRetGestureRecognizerBySELBlock _Nonnull)removeAction;
 -(JobsRetGestureRecognizerBySELBlock _Nonnull)addAction;

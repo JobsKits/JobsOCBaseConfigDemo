@@ -10,18 +10,28 @@
 @implementation NSString (Replace)
 #pragma mark —— 字符串加工
 /// 输入单词的首字母大写（适用于拼接set方法）
--(NSString *_Nonnull)capitalizeFirstLetter{
-    if(self.length){
-        return self.substringToIndex(1).uppercaseString
-            .add(self.substringFromIndex(1));
-    }else return self;
+-(JobsRetStrByVoidBlock _Nonnull)capitalizeFirstLetter{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if(self.length){
+            return self.substringToIndex(1).uppercaseString
+                .add(self.substringFromIndex(1));
+        }else return self;
+    };
 }
 /// 截取并返回一个字符串里面冒号前的值，并返回。如果没有冒号，则返回自身
--(NSString *)substringBeforeColon{
-    NSRange range = self.rangeOfString(@":");
-    if (range.location != NSNotFound) {
-        return self.substringToIndex(range.location);
-    } else return self; // 如果没有找到冒号，则返回原始字符串
+-(JobsRetStrByVoidBlock _Nonnull)substringBeforeColon{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSRange range = self.rangeOfString(@":");
+        if (range.location != NSNotFound) {
+            return self.substringToIndex(range.location);
+        } else return self; // 如果没有找到冒号，则返回原始字符串
+    };
 }
 /// OC字符串拼接
 -(JobsRetStrByStrBlock _Nonnull)add{
@@ -42,12 +52,22 @@
     };
 }
 /// 获取到最后一个字符
--(NSString *_Nonnull)getLastChars{
-    return self.substringFromIndex(self.length - 1);
+-(JobsRetStrByVoidBlock _Nonnull)getLastChars{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.substringFromIndex(self.length - 1);
+    };
 }
 /// 获取到最后一个非空格字符
--(NSString *_Nonnull)getLastValuedChars{
-    return self.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet).getLastChars;
+-(JobsRetStrByVoidBlock _Nonnull)getLastValuedChars{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet).getLastChars();
+    };
 }
 /// 用入参进行分隔字符串对外输出数组
 -(JobsRetArrByStrBlock _Nonnull)makeArrBy{
@@ -62,12 +82,12 @@
     @jobs_weakify(self)
     return ^__kindof NSString *_Nullable(NSString *_Nullable endString){
         @jobs_strongify(self)
-        NSRange startRange = self.range;
+        NSRange startRange = self.range();
         NSRange endRange = self.rangeOfString(endString);
         NSRange range = jobsMakeRangeByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
             data.byLocation(startRange.location + startRange.length)
                 .byLength(endRange.location - startRange.location - startRange.length);
-        });return [self substringWithRange:range];
+        });return self.substringWithRange(range);
     };
 }
 /// 组装set方法名：set+首字母大写+：
@@ -80,11 +100,11 @@
         /// 拼接大写的首字母和其余部分
         NSString *capitalizedString = capitalizedFirstLetter.add(restOfString);
         /// 在前面加上 "set"
-        return @"set".add(capitalizedString).pureString;
+        return @"set".add(capitalizedString).jobsPureString();
     };
 }
 #pragma mark —— 字符串替换
--(JobsRetStrByStrBlock _Nullable)replace{
+-(JobsRetStrByStrBlock _Nonnull)replace{
     @jobs_weakify(self)
     return ^__kindof NSString *_Nullable(NSString *_Nullable data){
         @jobs_strongify(self)
@@ -92,14 +112,19 @@
     };
 }
 ///  有时候我们加载的URL中可能会出现中文,需要我们手动进行转码,但是同时又要保证URL中的特殊字符保持不变,那么我们就可以使用下面的方法
--(NSURL *)Url_Chinese{
-    SuppressWdeprecatedDeclarationsWarning(
-      return NSString.toString(CFBridgingRelease(
-                                                 CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                                                         (CFStringRef)self,
-                                                                                         (CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]",
-                                                                                         NULL,
-                                                                                         kCFStringEncodingUTF8))).jobsUrl);
+-(JobsRetURLByVoidBlock _Nonnull)Url_Chinese{
+    @jobs_weakify(self)
+    return ^NSURL *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        SuppressWdeprecatedDeclarationsWarning(
+          return NSString.toString(CFBridgingRelease(
+                                                     CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                                                             (CFStringRef)self,
+                                                                                             (CFStringRef)@"!$&'()*+,-./:;=?@_~%#[]",
+                                                                                             NULL,
+                                                                                             kCFStringEncodingUTF8))).jobsURL());
+    };
 }
 /// 替换某个字符串中间的字符为replacement
 /// @param replacement 用来替换的字符（通常为 *）
@@ -119,19 +144,24 @@
 }
 /// 每隔num个字符添加一个空格的字符串算法
 /// @param num 默认值是4
--(NSString *)dealWithString:(NSInteger)num{
-    NSString *doneTitle = JobsEmpty;
-    if (num == 0) num = 4;
-    int count = 0;
-    for (int i = 0; i < self.length; i++) {
-        count++;
-        doneTitle = doneTitle.add([self substringWithRange:NSMakeRange(i, 1)]);
-        if (count == num) {
-            doneTitle = doneTitle.add(JobsSpace);
-            count = 0;
-        }
-    }JobsLog(@"%@", doneTitle);
-    return doneTitle;
+-(JobsRetStrByIntegerBlock _Nonnull)dealWithString{
+    @jobs_weakify(self)
+    return ^NSString *(NSInteger num){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSString *doneTitle = JobsEmpty;
+        if (num == 0) num = 4;
+        int count = 0;
+        for (int i = 0; i < self.length; i++) {
+            count++;
+            doneTitle = doneTitle.add(self.substringWithRange(NSMakeRange(i, 1)));
+            if (count == num) {
+                doneTitle = doneTitle.add(JobsSpace);
+                count = 0;
+            }
+        }JobsLog(@"%@", doneTitle);
+        return doneTitle;
+    };
 }
 /// 在字符串前面和后面拼接一个字符串
 -(JobsRetStrByStrsBlock _Nonnull)resetStringByFontAndTailStrings{
@@ -166,9 +196,14 @@
     };
 }
 /// 单词首字母转换为大写
--(NSString *)jobsCapitalCaseString{
-    return [self stringByReplacingCharactersInRange:NSMakeRange(0, 1)
-                                         withString:[self substringToIndex:1].capitalizedString];
+-(JobsRetStrByVoidBlock _Nonnull)jobsCapitalCaseString{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self stringByReplacingCharactersInRange:NSMakeRange(0, 1)
+                                             withString:[self substringToIndex:1].capitalizedString];
+    };
 }
 /// 服务器请求的数据为空值的时候进行替换本地默认值
 /// 因为json传输是通过对象包装来进行，所以其实归结起来就是2类，一类是基本数据类型被包装成Number、其他包装成String
@@ -176,7 +211,7 @@
 /// @param replaceString 进行替换的备用文字资源
 +(NSString *)nullableString:(id)nullableString
               replaceString:(NSString *)replaceString{
-    if (isNull(replaceString)) replaceString = @"No Data".tr;
+    if (isNull(replaceString)) replaceString = @"No Data".jobsTr();
     if (isNull(nullableString)) nullableString = replaceString;
     /// 只有NSNumber 和 NSString 这两种情况
     if([nullableString isKindOfClass:NSString.class]){
@@ -201,7 +236,7 @@
     if (!replaceStrLenth) replaceStrLenth = 3;
     if (isNull(replaceStr)) replaceStr = JobsDot;
     /// limit 是不包括省略号的实际的限制字数
-    if(!self.isPureDigit){
+    if(!self.isPureDigit()){
         JobsLog(@"当前字符串为%@,不是纯字符串，无法格式化输出",self);
         return @"";
     }
@@ -215,82 +250,166 @@
     if (self.length > limit) {
         if (lineBreakMode == NSLineBreakByTruncatingHead){/// 前面部分文字以...方式省略，显示尾部文字内容
             range = NSMakeRange(self.length - limit,limit);
-            resultStr = pointStr.add([self substringWithRange:range]);
+            resultStr = pointStr.add(self.substringWithRange(range));
         }else if (lineBreakMode == NSLineBreakByTruncatingTail){/// 结尾部分的内容以……方式省略，显示头的文字内容
             range = NSMakeRange(0,limit);
-            resultStr = [self substringWithRange:range].add(pointStr);
+            resultStr = self.substringWithRange(range).add(pointStr);
         }else if (lineBreakMode == NSLineBreakByTruncatingMiddle){/// 中间的内容以...方式省略，显示头尾的文字内容
             NSRange rangeA = NSMakeRange(0,floor(limit / 2));
-            NSString *resultStrA = [self substringWithRange:rangeA];
+            NSString *resultStrA = self.substringWithRange(rangeA);
             NSRange rangeB = NSMakeRange(floor(self.length - limit / 2),floor(limit / 2));
-            NSString *resultStrB = [self substringWithRange:rangeB];
+            NSString *resultStrB = self.substringWithRange(rangeB);
             resultStr = resultStrA.add(pointStr).add(resultStrB);
         }else{}
     };return resultStr;
 }
 /// 将字符串中除首尾字符外的所有字符替换为星号 (*)
--(NSString *_Nonnull)getAnonymousString{
-    if (self.length < 2) return self;
+-(JobsRetStrByVoidBlock _Nonnull)getAnonymousString{
     @jobs_weakify(self)
-    NSString *string = [jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
+    return ^NSString *_Nullable{
         @jobs_strongify(self)
-        for (int i = 1; i < self.length - 1; i++) {
-            char s = [self characterAtIndex:i];
-            s = '*';
-            NSString *tempString = StringWithUTF8String(&s);
-            data.add(tempString);
-        }
-    }) componentsJoinedByString:JobsEmpty];
-    return [self stringByReplacingCharactersInRange:NSMakeRange(1, self.length - 2) withString:string];
+        if (!self) return nil;
+        if (self.length < 2) return self;
+        @jobs_weakify(self)
+        NSString *string = [jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
+            @jobs_strongify(self)
+            for (int i = 1; i < self.length - 1; i++) {
+                char s = [self characterAtIndex:i];
+                s = '*';
+                NSString *tempString = StringWithUTF8String(&s);
+                data.add(tempString);
+            }
+        }) componentsJoinedByString:JobsEmpty];
+        return [self stringByReplacingCharactersInRange:NSMakeRange(1, self.length - 2) withString:string];
+    };
 }
 // 加密中国的电话号码。如：13409090909 => 134****0909
--(NSString *_Nonnull)encryptedChineseTele{
-    return [self omitByReplaceStr:JobsAsterisk
-                  replaceStrLenth:4
-                    lineBreakMode:NSLineBreakByTruncatingMiddle
-                            limit:7];
+-(JobsRetStrByVoidBlock _Nonnull)encryptedChineseTele{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self omitByReplaceStr:JobsAsterisk
+                      replaceStrLenth:4
+                        lineBreakMode:NSLineBreakByTruncatingMiddle
+                                limit:7];
+    };
 }
 /// OC字符串去除最后一个字符
--(NSString *_Nonnull)removeLastChars{
-    return [self substringToIndex:self.length - 1];
+-(JobsRetStrByVoidBlock _Nonnull)removeLastChars{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self substringToIndex:self.length - 1];
+    };
 }
 /// 去除OC字符串中的空格
 -(NSString *)pureString{
-    return [self stringByReplacingOccurrencesOfString:JobsSpace withString:JobsEmpty];
+    return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsPureString)))(self, @selector(jobsPureString)))();
+}
+
+-(JobsRetStrByVoidBlock _Nonnull)jobsPureString{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self stringByReplacingOccurrencesOfString:JobsSpace withString:JobsEmpty];
+    };
 }
 /// 去除OC字符串中的小数点
--(__kindof NSString *_Nullable)removeDecimalPoint{
-    return [self stringByReplacingOccurrencesOfString:JobsDot withString:JobsEmpty];
+-(NSString *)removeDecimalPoint{
+    return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsRemoveDecimalPoint)))(self, @selector(jobsRemoveDecimalPoint)))();
+}
+
+-(JobsRetStrByVoidBlock _Nonnull)jobsRemoveDecimalPoint{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self stringByReplacingOccurrencesOfString:JobsDot withString:JobsEmpty];
+    };
 }
 /// 去除OC字符串中回车符号的转义字符：\r
--(__kindof NSString *_Nullable)removeRetMark{
-    return [self stringByReplacingOccurrencesOfString:回车符号转义字符 withString:JobsEmpty];
+-(NSString *)removeRetMark{
+    return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsRemoveRetMark)))(self, @selector(jobsRemoveRetMark)))();
+}
+
+-(JobsRetStrByVoidBlock _Nonnull)jobsRemoveRetMark{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self stringByReplacingOccurrencesOfString:回车符号转义字符 withString:JobsEmpty];
+    };
 }
 /// 去除OC字符串中换行符号的转义字符：\n
--(__kindof NSString *_Nullable)removeNewLineMark{
-    return [self stringByReplacingOccurrencesOfString:JobsNewline withString:JobsEmpty];
+-(NSString *)removeNewLineMark{
+    return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsRemoveNewLineMark)))(self, @selector(jobsRemoveNewLineMark)))();
+}
+
+-(JobsRetStrByVoidBlock _Nonnull)jobsRemoveNewLineMark{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self stringByReplacingOccurrencesOfString:JobsNewline withString:JobsEmpty];
+    };
 }
 /// 去除OC字符串中换行符号的转义字符：\t
--(__kindof NSString *_Nullable)removeTableMark{
-    return [self stringByReplacingOccurrencesOfString:JobsTab withString:JobsEmpty];
+-(NSString *)removeTableMark{
+    return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsRemoveTableMark)))(self, @selector(jobsRemoveTableMark)))();
+}
+
+-(JobsRetStrByVoidBlock _Nonnull)jobsRemoveTableMark{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self stringByReplacingOccurrencesOfString:JobsTab withString:JobsEmpty];
+    };
 }
 /// 去除OC字符串中的等号：=
--(__kindof NSString *_Nullable)removeEqualMark{
-    return [self stringByReplacingOccurrencesOfString:JobsEqual withString:JobsEmpty];
+-(NSString *)removeEqualMark{
+    return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsRemoveEqualMark)))(self, @selector(jobsRemoveEqualMark)))();
+}
+
+-(JobsRetStrByVoidBlock _Nonnull)jobsRemoveEqualMark{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self stringByReplacingOccurrencesOfString:JobsEqual withString:JobsEmpty];
+    };
 }
 /// 去除OC字符串中的分隔符：/
--(__kindof NSString *_Nullable)removeSeparationMark{
-    return [self stringByReplacingOccurrencesOfString:JobsSeparation withString:JobsEmpty];
+-(JobsRetStrByVoidBlock _Nonnull)removeSeparationMark{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self stringByReplacingOccurrencesOfString:JobsSeparation withString:JobsEmpty];
+    };
 }
 /// 去除OC字符串中的冒号（英文输入法）
--(__kindof NSString *_Nullable)removeColonMark{
-    return [self stringByReplacingOccurrencesOfString:JobsColon withString:JobsEmpty];
+-(JobsRetStrByVoidBlock _Nonnull)removeColonMark{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self stringByReplacingOccurrencesOfString:JobsColon withString:JobsEmpty];
+    };
 }
 /// 去除OC字符串中零宽空格的转义字符：\u200B
 /// 零宽空格 (\u200B)：顾名思义，这个字符没有任何宽度（即不可见），它的作用是插入一个“空格”，但不会占据任何可见的空间。
 /// 零宽空格在视觉上不会显示出来，但它可以在字符串中用于各种控制和格式化的目的。
--(__kindof NSString *_Nullable)remove200BMark{
-    return [self stringByReplacingOccurrencesOfString:零宽转义字符 withString:JobsEmpty];
+-(JobsRetStrByVoidBlock _Nonnull)remove200BMark{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self stringByReplacingOccurrencesOfString:零宽转义字符 withString:JobsEmpty];
+    };
 }
 /// 从字符串中提取指定范围内的子字符串
 -(JobsRetStrByRangeBlock _Nonnull)substringWithRange{
@@ -301,15 +420,20 @@
     };
 }
 /// 将字符串的每一个字后面加换行符，使其竖向排列
--(__kindof NSString *_Nullable)addNewlines{
+-(JobsRetStrByVoidBlock _Nonnull)addNewlines{
     @jobs_weakify(self)
-    return jobsMakeMutString(^(__kindof NSMutableString * _Nullable data) {
+    return ^NSString *_Nullable{
         @jobs_strongify(self)
-        for (NSUInteger i = 0; i < self.length; i++) {
-            unichar character = [self characterAtIndex:i];
-            [data appendFormat:@"%C\n", character];
-        }
-    }).copy;
+        if (!self) return nil;
+        @jobs_weakify(self)
+        return jobsMakeMutString(^(__kindof NSMutableString * _Nullable data) {
+            @jobs_strongify(self)
+            for (NSUInteger i = 0; i < self.length; i++) {
+                unichar character = [self characterAtIndex:i];
+                [data appendFormat:@"%C\n", character];
+            }
+        }).copy;
+    };
 }
 
 @end

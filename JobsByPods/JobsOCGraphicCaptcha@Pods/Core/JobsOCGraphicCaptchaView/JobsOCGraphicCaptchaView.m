@@ -29,56 +29,181 @@ static UIColor *JobsOCGraphicCaptchaRandomColor(CGFloat alpha) {
 @end
 
 @implementation JobsOCGraphicCaptchaView
+-(JobsRetJobsOCGraphicCaptchaViewByConfigBlock _Nonnull)byConfig{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCGraphicCaptchaView *_Nullable(JobsOCGraphicCaptchaConfig *_Nullable data){
+        @jobs_strongify(self)
+        self.config = data;
+        return self;
+    };
+}
+
+-(JobsRetJobsOCGraphicCaptchaViewByStrBlock _Nonnull)byCaptchaText{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCGraphicCaptchaView *_Nullable(NSString *_Nullable data){
+        @jobs_strongify(self)
+        self.captchaText = data;
+        return self;
+    };
+}
+
+-(JobsRetJobsOCGraphicCaptchaViewByCorBlock _Nonnull)byTextColor{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCGraphicCaptchaView *_Nullable(UIColor *_Nullable data){
+        @jobs_strongify(self)
+        self.textColor = data;
+        return self;
+    };
+}
+
+-(JobsRetJobsOCGraphicCaptchaViewByCorBlock _Nonnull)byCaptchaBackgroundColor{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCGraphicCaptchaView *_Nullable(UIColor *_Nullable data){
+        @jobs_strongify(self)
+        self.captchaBackgroundColor = data;
+        return self;
+    };
+}
+
+-(JobsRetJobsOCGraphicCaptchaViewByNSUIntegerBlock _Nonnull)byInterferenceLineCount{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCGraphicCaptchaView *_Nullable(NSUInteger data){
+        @jobs_strongify(self)
+        self.interferenceLineCount = data;
+        return self;
+    };
+}
+
+-(JobsRetJobsOCGraphicCaptchaViewByNSUIntegerBlock _Nonnull)byNoisePointCount{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCGraphicCaptchaView *_Nullable(NSUInteger data){
+        @jobs_strongify(self)
+        self.noisePointCount = data;
+        return self;
+    };
+}
+
+-(JobsRetJobsOCGraphicCaptchaViewByBOOLBlock _Nonnull)byShouldRefreshWhenTapped{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCGraphicCaptchaView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.shouldRefreshWhenTapped = data;
+        return self;
+    };
+}
+
+-(JobsRetJobsOCGraphicCaptchaViewByRefreshBlock _Nonnull)byRefreshBlock{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCGraphicCaptchaView *_Nullable(jobsByStrBlock _Nullable data){
+        @jobs_strongify(self)
+        self.refreshBlock = data;
+        return self;
+    };
+}
+
+-(JobsRetJobsOCGraphicCaptchaViewByBOOLBlock _Nonnull)byOpaque{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCGraphicCaptchaView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.opaque = data;
+        return self;
+    };
+}
+
+-(JobsRetJobsOCGraphicCaptchaViewByBOOLBlock _Nonnull)byUserInteractionEnabled{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCGraphicCaptchaView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.userInteractionEnabled = data;
+        return self;
+    };
+}
+
 -(instancetype)init{
     if (self = [super init]) {
-        [self setupCaptchaView];
+        self.setupCaptchaView();
     };return self;
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        [self setupCaptchaView];
+        self.setupCaptchaView();
     };return self;
 }
 
 -(void)awakeFromNib{
-    [super awakeFromNib];
-    [self setupCaptchaView];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCGraphicCaptchaView.class, @selector(jobsAwakeFromNib)))(self, @selector(jobsAwakeFromNib));
+    if (action) action();
 }
 
--(void)setupCaptchaView{
-    self.opaque = NO;
-    self.userInteractionEnabled = YES;
-    self.shouldRefreshWhenTapped = YES;
-    self.interferenceLineCount = 7;
-    self.noisePointCount = 18;
-    self.captchaBackgroundColor = RGBA_SAMECOLOR(1 * 255.0, 0.92f);
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                          action:@selector(jobs_refreshCaptchaByTap)];
-    [self addGestureRecognizer:tap];
-    [self refreshCaptcha];
+-(jobsByVoidBlock _Nonnull)jobsAwakeFromNib{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super awakeFromNib];
+        self.setupCaptchaView();
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)setupCaptchaView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byOpaque(NO);
+        self.byUserInteractionEnabled(YES);
+        self.byShouldRefreshWhenTapped(YES);
+        self.byInterferenceLineCount(7);
+        self.byNoisePointCount(18);
+        self.byCaptchaBackgroundColor(RGBA_SAMECOLOR(1 * 255.0, 0.92f));
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                              action:@selector(jobs_refreshCaptchaByTap)];
+        [self addGestureRecognizer:tap];
+        self.refreshCaptcha();
+    };
 }
 
 -(void)jobs_refreshCaptchaByTap{
-    if (self.shouldRefreshWhenTapped) [self refreshCaptcha];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCGraphicCaptchaView.class, @selector(jobsJobs_refreshCaptchaByTap)))(self, @selector(jobsJobs_refreshCaptchaByTap));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsJobs_refreshCaptchaByTap{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (self.shouldRefreshWhenTapped) self.refreshCaptcha();
+    };
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
-    if (CGRectIsEmpty(rect)) return;
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    if (!context) return;
-    [self.captchaBackgroundColor setFill];
-    UIRectFill(rect);
-    [self drawNoiseInRect:rect
-                  context:context];
-    [self drawCaptchaTextInRect:rect
-                        context:context];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCGraphicCaptchaView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+        if (CGRectIsEmpty(rect)) return;
+        CGContextRef context = UIGraphicsGetCurrentContext();
+        if (!context) return;
+        [self.captchaBackgroundColor setFill];
+        UIRectFill(rect);
+        [self drawNoiseInRect:rect
+                      context:context];
+        [self drawCaptchaTextInRect:rect
+                            context:context];
+    };
 }
 
 -(void)drawCaptchaTextInRect:(CGRect)rect
                      context:(CGContextRef)context{
-    NSString *text = self.captchaText.length ? self.captchaText : [JobsOCGraphicCaptchaGenerator randomTextByConfig:self.config];
+    NSString *text = self.captchaText.length ? self.captchaText : JobsOCGraphicCaptchaGenerator.randomTextByConfig(self.config);
     if (!text.length) return;
     NSMutableArray<NSString *> *characters = NSMutableArray.array;
     [text enumerateSubstringsInRange:NSMakeRange(0, text.length)
@@ -133,27 +258,37 @@ static UIColor *JobsOCGraphicCaptchaRandomColor(CGFloat alpha) {
     }
 }
 
--(void)refreshCaptcha{
-    self.captchaText = [JobsOCGraphicCaptchaGenerator randomTextByConfig:self.config];
-    if (self.refreshBlock) self.refreshBlock(self.captchaText);
+-(jobsByVoidBlock _Nonnull)refreshCaptcha{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byCaptchaText(JobsOCGraphicCaptchaGenerator.randomTextByConfig(self.config));
+        if (self.refreshBlock) self.refreshBlock(self.captchaText);
+    };
 }
 
--(BOOL)validateInput:(NSString *_Nullable)input{
-    return [JobsOCGraphicCaptchaGenerator validateInput:input
-                                             captcha:self.captchaText
-                                       caseSensitive:self.config.caseSensitive];
+-(JobsRetBOOLByStrBlock _Nonnull)validateInput{
+    @jobs_weakify(self)
+    return ^BOOL(NSString *_Nullable input){
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return [JobsOCGraphicCaptchaGenerator validateInput:input
+                                                    captcha:self.captchaText
+                                              caseSensitive:self.config.caseSensitive];
+    };
 }
 
 #pragma mark —— LazyLoad
 -(JobsOCGraphicCaptchaConfig *)config{
     if (!_config) {
-        _config = JobsOCGraphicCaptchaConfig.defaultConfig;
+        _config = JobsOCGraphicCaptchaConfig.defaultConfig();
     };return _config;
 }
 
 -(void)setConfig:(JobsOCGraphicCaptchaConfig *)config{
-    _config = config.copy ?: JobsOCGraphicCaptchaConfig.defaultConfig;
-    [self refreshCaptcha];
+    _config = config.copy ?: JobsOCGraphicCaptchaConfig.defaultConfig();
+    self.refreshCaptcha();
 }
 
 -(void)setCaptchaText:(NSString *)captchaText{

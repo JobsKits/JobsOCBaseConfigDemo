@@ -46,8 +46,13 @@
     };
 }
 ///【实例方法】将NSData对象 转换为 以Base85编码的字符串
--(NSString *_Nullable)dataToBase85String{
-    return NSData.dataToBase85String(self);
+-(JobsRetStrByVoidBlock _Nonnull)dataToBase85String{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSData.dataToBase85String(self);
+    };
 }
 #pragma mark —— Base85 ==> NSData
 ///【类方法】接受一个包含Base85编码数据的NSString对象作为输入，并将其解码为对应的原始字节序列

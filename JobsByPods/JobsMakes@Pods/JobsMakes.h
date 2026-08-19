@@ -92,8 +92,10 @@ jobsMakeBezierPath(jobsByBezierPathBlock _Nullable block){
 }
 #pragma mark —— 关于 UIImage 的创建
 /// 创建用于清空系统图片属性的空 UIImage。
-NS_INLINE UIImage *_Nonnull jobsMakeImage(void){
-    return UIImage.new;
+NS_INLINE UIImage *_Nonnull jobsMakeImage(jobsByImageBlock _Nullable block){
+    UIImage *image = UIImage.new;
+    if (block) block(image);
+    return image;
 }
 #pragma mark —— 关于动画
 NS_INLINE __kindof CABasicAnimation *_Nonnull
@@ -386,9 +388,9 @@ NS_INLINE __kindof UITextView *_Nonnull
 jobsMakeTextView(jobsByTextViewBlock _Nonnull block){
     UITextView *data = UITextView.alloc.init;
     data.linkTextAttributes = @{
-        NSForegroundColorAttributeName: @"#FFCC00".cor,
+        NSForegroundColorAttributeName: @"#FFCC00".jobsCor(),
         NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-        NSUnderlineColorAttributeName: @"#FFCC00".cor,
+        NSUnderlineColorAttributeName: @"#FFCC00".jobsCor(),
     };
     if (block) block(data);
     return data;

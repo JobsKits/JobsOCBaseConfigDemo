@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:ASTextLayout::drawInContext:size:point:view:layer:debug:cancel:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm:3426"]
-  T1["method:ASBasicImageDownloaderContext::cancel<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASBasicImageDownloader.mm:97"]
+  S1["method:NSMutableAttributedString::as_setStrikethroughStyle:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:892"]
+  T1["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S1 -->|calls| T1
-  S2["method:ASTextLayout::drawInContext:size:point:view:layer:debug:cancel:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm:3426"]
-  T2["function:ASTextLayout::ASTextDrawText<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm:2690"]
+  S2["method:NSMutableAttributedString::as_setStrikethroughColor:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:897"]
+  T2["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S2 -->|calls| T2
-  S3["method:ASTextLayout::drawInContext:size:point:view:layer:debug:cancel:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm:3426"]
-  T3["method:ASBasicImageDownloaderContext::cancel<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASBasicImageDownloader.mm:97"]
+  S3["method:NSMutableAttributedString::as_setUnderlineStyle:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:901"]
+  T3["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S3 -->|calls| T3
-  S4["method:ASTextLayout::drawInContext:size:point:view:layer:debug:cancel:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm:3426"]
-  T4["function:ASTextLayout::ASTextDrawAttachment<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm:3054"]
+  S4["method:NSMutableAttributedString::as_setUnderlineColor:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:906"]
+  T4["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S4 -->|calls| T4
-  S5["method:ASTextLayout::drawInContext:size:point:view:layer:debug:cancel:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm:3426"]
-  T5["method:ASBasicImageDownloaderContext::cancel<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASBasicImageDownloader.mm:97"]
+  S5["method:NSMutableAttributedString::as_setUnderlineColor:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:906"]
+  T5["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S5 -->|calls| T5
-  S6["method:ASTextLayout::drawInContext:size:point:view:layer:debug:cancel:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm:3426"]
-  T6["function:ASTextLayout::ASTextDrawInnerShadow<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm:3161"]
+  S6["method:NSMutableAttributedString::as_setLigature:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:911"]
+  T6["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S6 -->|calls| T6
-  S7["method:ASTextLayout::drawInContext:size:point:view:layer:debug:cancel:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm:3426"]
-  T7["method:ASBasicImageDownloaderContext::cancel<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASBasicImageDownloader.mm:97"]
+  S7["method:NSMutableAttributedString::as_setTextEffect:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:915"]
+  T7["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S7 -->|calls| T7
-  S8["method:ASTextLayout::drawInContext:size:point:view:layer:debug:cancel:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm:3426"]
-  T8["function:ASTextLayout::ASTextDrawDecoration<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm:2927"]
+  S8["method:NSMutableAttributedString::as_setObliqueness:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:919"]
+  T8["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S8 -->|calls| T8
-  S9["method:ASTextLayout::drawInContext:size:point:view:layer:debug:cancel:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm:3426"]
-  T9["method:ASBasicImageDownloaderContext::cancel<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASBasicImageDownloader.mm:97"]
+  S9["method:NSMutableAttributedString::as_setExpansion:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:923"]
+  T9["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S9 -->|calls| T9
-  S10["method:ASTextLayout::drawInContext:size:point:view:layer:debug:cancel:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm:3426"]
-  T10["function:ASTextLayout::ASTextDrawBorder<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm:2797"]
+  S10["method:NSMutableAttributedString::as_setBaselineOffset:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:927"]
+  T10["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S10 -->|calls| T10
-  S11["method:ASTextLayout::drawInContext:size:point:view:layer:debug:cancel:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm:3426"]
-  T11["method:ASBasicImageDownloaderContext::cancel<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASBasicImageDownloader.mm:97"]
+  S11["method:NSMutableAttributedString::as_setVerticalGlyphForm:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:931"]
+  T11["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S11 -->|calls| T11
-  S12["method:ASTextLayout::drawInContext:size:point:view:layer:debug:cancel:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm:3426"]
-  T12["function:ASTextLayout::ASTextDrawDebug<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm:3233"]
+  S12["method:NSMutableAttributedString::as_setLanguage:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:936"]
+  T12["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S12 -->|calls| T12
-  S13["method:ASTextLayout::drawInContext:size:debug:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm:3477"]
-  T13["method:ASTextLayout::drawInContext:size:point:view:layer:debug:cancel:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLayout.mm:3426"]
+  S13["method:NSMutableAttributedString::as_setWritingDirection:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:940"]
+  T13["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S13 -->|calls| T13
-  S14["method:ASTextLine::setCTLine:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLine.mm:30"]
-  T14["method:ASTextLine::reloadBounds<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLine.mm:62"]
+  S14["method:NSMutableAttributedString::as_setParagraphStyle:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:944"]
+  T14["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S14 -->|calls| T14
-  S15["method:ASTextLine::setPosition:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLine.mm:57"]
-  T15["method:ASTextLine::reloadBounds<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLine.mm:62"]
+  S15["method:NSMutableAttributedString::as_setSuperscript:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:1042"]
+  T15["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S15 -->|calls| T15
-  S16["method:ASTextLine::reloadBounds<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLine.mm:62"]
-  T16["function:ASTextNSRangeFromCFRange<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/ASTextUtilities.h:302"]
+  S16["method:NSMutableAttributedString::as_setGlyphInfo:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:1049"]
+  T16["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S16 -->|calls| T16
-  S17["method:ASTextLine::reloadBounds<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLine.mm:62"]
-  T17["method:ASTextRange::init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextInput.mm:62"]
+  S17["method:NSMutableAttributedString::as_setCharacterShape:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:1053"]
+  T17["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S17 -->|calls| T17
-  S18["method:ASTextLine::reloadBounds<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLine.mm:62"]
-  T18["method:ASTextRange::init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextInput.mm:62"]
+  S18["method:NSMutableAttributedString::as_setRunDelegate:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:1060"]
+  T18["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S18 -->|calls| T18
-  S19["method:ASTextLine::reloadBounds<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextLine.mm:62"]
-  T19["method:ASTextRange::init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextInput.mm:62"]
+  S19["method:NSMutableAttributedString::as_setBaselineClass:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:1064"]
+  T19["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S19 -->|calls| T19
-  S20["file:JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/String/ASTextAttribute.h<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/String/ASTextAttribute.h:1"]
-  T20["function:ASTextAttributeGetType<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/String/ASTextAttribute.mm:31"]
+  S20["method:NSMutableAttributedString::as_setBaselineInfo:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:1068"]
+  T20["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S20 -->|calls| T20
-  S21["method:ASTextBackedString::initWithCoder:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/String/ASTextAttribute.mm:119"]
-  T21["method:ASTextDecoration::init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/String/ASTextAttribute.mm:226"]
+  S21["method:NSMutableAttributedString::as_setBaselineReferenceInfo:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:1072"]
+  T21["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S21 -->|calls| T21
-  S22["method:ASTextBinding::initWithCoder:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/String/ASTextAttribute.mm:146"]
-  T22["method:ASTextDecoration::init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/String/ASTextAttribute.mm:226"]
+  S22["method:NSMutableAttributedString::as_setRubyAnnotation:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:1076"]
+  T22["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S22 -->|calls| T22
-  S23["method:ASTextShadow::shadowWithNSShadow:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/String/ASTextAttribute.mm:171"]
-  T23["method:NSObject::isKindOfClass<br/>JobsByPods/JobsClass@Pods/Core/NSObject+Class/NSObject+Class.m:77"]
+  S23["method:NSMutableAttributedString::as_setAttachment:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:1080"]
+  T23["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S23 -->|calls| T23
-  S24["method:ASTextShadow::shadowWithNSShadow:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/String/ASTextAttribute.mm:171"]
-  T24["method:YYWeakProxy::class<br/>JobsByPods/ManualByOCPods@Pods/YYKits/Core/YYWeakProxy/YYWeakProxy.m:49"]
+  S24["method:NSMutableAttributedString::as_setLink:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:1084"]
+  T24["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S24 -->|calls| T24
-  S25["method:ASTextShadow::initWithCoder:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/String/ASTextAttribute.mm:203"]
-  T25["method:ASTextDecoration::init<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/String/ASTextAttribute.mm:226"]
+  S25["method:NSMutableAttributedString::as_setTextBackedString:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:1088"]
+  T25["method:NSMutableAttributedString::as_setAttribute:value:range:<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm:663"]
   S25 -->|calls| T25
 ```
 

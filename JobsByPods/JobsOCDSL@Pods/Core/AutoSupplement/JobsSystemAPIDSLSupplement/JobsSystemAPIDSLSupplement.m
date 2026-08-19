@@ -2,12 +2,14 @@
 //  JobsSystemAPIDSLSupplement.m
 //  JobsOCDSL
 //
+//  Created by Jobs on 2026年8月3日，星期一.
+//
 
 #import "JobsSystemAPIDSLSupplement.h"
 
 @implementation CAMetalLayer (JobsSystemAPIDSLSupplement)
 #if defined(__IPHONE_16_0)
--(JobsRetCAMetalLayerByBOOLBlock)byWantsExtendedDynamicRangeContent{
+-(JobsRetCAMetalLayerByBOOLBlock _Nonnull)byWantsExtendedDynamicRangeContent{
     @jobs_weakify(self)
     return ^__kindof CAMetalLayer *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -18,7 +20,7 @@
 
 #endif
 #if defined(__IPHONE_13_0)
--(JobsRetCAMetalLayerByBOOLBlock)byDisplaySyncEnabled{
+-(JobsRetCAMetalLayerByBOOLBlock _Nonnull)byDisplaySyncEnabled{
     @jobs_weakify(self)
     return ^__kindof CAMetalLayer *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -29,7 +31,7 @@
 
 #endif
 #if defined(__IPHONE_13_0)
--(JobsRetCAMetalLayerByBOOLBlock)byAllowsNextDrawableTimeout{
+-(JobsRetCAMetalLayerByBOOLBlock _Nonnull)byAllowsNextDrawableTimeout{
     @jobs_weakify(self)
     return ^__kindof CAMetalLayer *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -40,7 +42,7 @@
 
 #endif
 #if defined(__IPHONE_16_0)
--(JobsRetCAMetalLayerByNSDictionaryBlock)byDeveloperHUDProperties{
+-(JobsRetCAMetalLayerByNSDictionaryBlock _Nonnull)byDeveloperHUDProperties{
     @jobs_weakify(self)
     return ^__kindof CAMetalLayer *_Nullable(NSDictionary *_Nullable data){
         @jobs_strongify(self)
@@ -53,9 +55,504 @@
 
 @end
 
+@implementation NSDateComponents (JobsSystemAPIDSLSupplement)
+-(JobsRetDateComponentsByCalendarBlock _Nonnull)byCalendar{
+    @jobs_weakify(self)
+    return ^__kindof NSDateComponents *_Nullable(NSCalendar *_Nullable data){
+        @jobs_strongify(self)
+        self.calendar = data;
+        return self;
+    };
+}
+-(JobsRetDateComponentsByTimeZoneBlock _Nonnull)byTimeZone{
+    @jobs_weakify(self)
+    return ^__kindof NSDateComponents *_Nullable(NSTimeZone *_Nullable data){
+        @jobs_strongify(self)
+        self.timeZone = data;
+        return self;
+    };
+}
+#define JobsNSDateComponentsDSL(_name_, _property_) \
+-(JobsRetDateComponentsByIntegerBlock _Nonnull)by##_name_{ \
+    @jobs_weakify(self) \
+    return ^__kindof NSDateComponents *_Nullable(NSInteger data){ \
+        @jobs_strongify(self) \
+        self._property_ = data; \
+        return self; \
+    }; \
+}
+JobsNSDateComponentsDSL(Year, year)
+JobsNSDateComponentsDSL(Month, month)
+JobsNSDateComponentsDSL(Day, day)
+JobsNSDateComponentsDSL(Hour, hour)
+JobsNSDateComponentsDSL(Minute, minute)
+JobsNSDateComponentsDSL(Second, second)
+#undef JobsNSDateComponentsDSL
+@end
+
+@implementation UNMutableNotificationContent (JobsSystemAPIDSLSupplement)
+#define JobsUNMutableNotificationContentDSL(_name_, _blockType_, _dataType_, _property_) \
+-(_blockType_ _Nonnull)by##_name_{ \
+    @jobs_weakify(self) \
+    return ^__kindof UNMutableNotificationContent *_Nullable(_dataType_ data){ \
+        @jobs_strongify(self) \
+        self._property_ = data; \
+        return self; \
+    }; \
+}
+JobsUNMutableNotificationContentDSL(Title, JobsRetUNMutableNotificationContentByStrBlock, NSString *_Nullable, title)
+JobsUNMutableNotificationContentDSL(Subtitle, JobsRetUNMutableNotificationContentByStrBlock, NSString *_Nullable, subtitle)
+JobsUNMutableNotificationContentDSL(Badge, JobsRetUNMutableNotificationContentByNumBlock, NSNumber *_Nullable, badge)
+JobsUNMutableNotificationContentDSL(Body, JobsRetUNMutableNotificationContentByStrBlock, NSString *_Nullable, body)
+JobsUNMutableNotificationContentDSL(Sound, JobsRetUNMutableNotificationContentBySoundBlock, UNNotificationSound *_Nullable, sound)
+JobsUNMutableNotificationContentDSL(Attachments, JobsRetUNMutableNotificationContentByAttachmentsBlock, NSArray<UNNotificationAttachment *> *_Nullable, attachments)
+JobsUNMutableNotificationContentDSL(LaunchImageName, JobsRetUNMutableNotificationContentByStrBlock, NSString *_Nullable, launchImageName)
+JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotificationContentByStrBlock, NSString *_Nullable, categoryIdentifier)
+#undef JobsUNMutableNotificationContentDSL
+@end
+
+@implementation NSTextAttachment (JobsSystemAPIDSLSupplement)
+-(JobsRetTextAttachmentByImageBlock _Nonnull)byImage{
+    @jobs_weakify(self)
+    return ^__kindof NSTextAttachment *_Nullable(UIImage *_Nullable data){
+        @jobs_strongify(self)
+        self.image = data;
+        return self;
+    };
+}
+-(JobsRetTextAttachmentByCGRectBlock _Nonnull)byBounds{
+    @jobs_weakify(self)
+    return ^__kindof NSTextAttachment *_Nullable(CGRect data){
+        @jobs_strongify(self)
+        self.bounds = data;
+        return self;
+    };
+}
+@end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN AVPlayerLayer
+@interface AVPlayerLayer (JobsPropertyDSLSetterAutogen_c12572b573)
+-(void)setVideoGravity:(AVLayerVideoGravity)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END AVPlayerLayer
+
+@implementation AVPlayerLayer (JobsSystemAPIDSLSupplement)
+-(JobsRetAVPlayerLayerByPlayerBlock _Nonnull)byPlayer{
+    @jobs_weakify(self)
+    return ^__kindof AVPlayerLayer *_Nullable(AVPlayer *_Nullable data){
+        @jobs_strongify(self)
+        self.player = data;
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN AVPlayerLayer
+-(JobsRetAVPlayerLayerByAVLayerVideoGravityBlock _Nonnull)byVideoGravity{
+    @jobs_weakify(self)
+    return ^__kindof AVPlayerLayer * _Nullable(AVLayerVideoGravity data){
+        @jobs_strongify(self)
+        [self setVideoGravity:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END AVPlayerLayer
+@end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN UINavigationItem
+@interface UINavigationItem (JobsPropertyDSLSetterAutogen_c12572b573)
+-(void)setHidesBackButton:(BOOL)data;
+-(void)setLeftBarButtonItem:(UIBarButtonItem * _Nullable)data;
+-(void)setRightBarButtonItem:(UIBarButtonItem * _Nullable)data;
+-(void)setTitleView:(UIView * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UINavigationItem
+
+@implementation UINavigationItem (JobsSystemAPIDSLSupplement)
+-(JobsRetNavigationItemByBarButtonItemsBlock _Nonnull)byRightBarButtonItems{
+    @jobs_weakify(self)
+    return ^__kindof UINavigationItem *_Nullable(NSArray<UIBarButtonItem *> *_Nullable data){
+        @jobs_strongify(self)
+        self.rightBarButtonItems = data;
+        return self;
+    };
+}
+
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN UINavigationItem
+-(JobsRetUINavigationItemByUIBarButtonItemBlock _Nonnull)byLeftBarButtonItem{
+    @jobs_weakify(self)
+    return ^__kindof UINavigationItem * _Nullable(UIBarButtonItem * _Nullable data){
+        @jobs_strongify(self)
+        [self setLeftBarButtonItem:data];
+        return self;
+    };
+}
+-(JobsRetUINavigationItemByBOOLBlock _Nonnull)byHidesBackButton{
+    @jobs_weakify(self)
+    return ^__kindof UINavigationItem * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setHidesBackButton:data];
+        return self;
+    };
+}
+
+-(JobsRetUINavigationItemByUIBarButtonItemBlock _Nonnull)byRightBarButtonItem{
+    @jobs_weakify(self)
+    return ^__kindof UINavigationItem * _Nullable(UIBarButtonItem * _Nullable data){
+        @jobs_strongify(self)
+        [self setRightBarButtonItem:data];
+        return self;
+    };
+}
+
+-(JobsRetUINavigationItemByUIViewBlock _Nonnull)byTitleView{
+    @jobs_weakify(self)
+    return ^__kindof UINavigationItem * _Nullable(UIView * _Nullable data){
+        @jobs_strongify(self)
+        [self setTitleView:data];
+        return self;
+    };
+}
+-(JobsRetUINavigationItemByUINavigationItemLargeTitleDisplayModeBlock _Nonnull)byLargeTitleDisplayMode{
+    @jobs_weakify(self)
+    return ^__kindof UINavigationItem * _Nullable(UINavigationItemLargeTitleDisplayMode data){
+        @jobs_strongify(self)
+        [self setLargeTitleDisplayMode:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UINavigationItem
+@end
+
+
+@implementation UIViewController (JobsSystemAPIDSLSupplement)
+-(JobsRetVCByBOOLBlock _Nonnull)byHidesBottomBarWhenPushed{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.hidesBottomBarWhenPushed = data;
+        return self;
+    };
+}
+
+-(JobsRetUIViewControllerByUIModalPresentationStyleBlock _Nonnull)byModalPresentationStyle{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController * _Nullable(UIModalPresentationStyle data){
+        @jobs_strongify(self)
+        [self setModalPresentationStyle:data];
+        return self;
+    };
+}
+
+-(JobsRetUIViewControllerByIDUIViewControllerTransitioningDelegateBlock _Nonnull)byTransitioningDelegate{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController * _Nullable(id <UIViewControllerTransitioningDelegate> _Nullable data){
+        @jobs_strongify(self)
+        [self setTransitioningDelegate:data];
+        return self;
+    };
+}
+
+-(JobsRetUIViewControllerByUITabBarItemBlock _Nonnull)byTabBarItem{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController * _Nullable(UITabBarItem * _Nullable data){
+        @jobs_strongify(self)
+        [self setTabBarItem:data];
+        return self;
+    };
+}
+
+@end
+
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN NSURLComponents
+@interface NSURLComponents (JobsPropertyDSLSetterAutogen_c12572b573)
+-(void)setFragment:(NSString * _Nullable)data;
+-(void)setQuery:(NSString * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END NSURLComponents
+
+@implementation NSURLComponents (JobsSystemAPIDSLSupplement)
+-(JobsRetURLComponentsByStrBlock _Nonnull)byScheme{
+    @jobs_weakify(self)
+    return ^__kindof NSURLComponents *_Nullable(NSString *_Nullable data){
+        @jobs_strongify(self)
+        self.scheme = data;
+        return self;
+    };
+}
+
+-(JobsRetURLComponentsByStrBlock _Nonnull)byPath{
+    @jobs_weakify(self)
+    return ^__kindof NSURLComponents *_Nullable(NSString *_Nullable data){
+        @jobs_strongify(self)
+        self.path = data;
+        return self;
+    };
+}
+
+-(JobsRetURLComponentsByQueryItemsBlock _Nonnull)byQueryItems{
+    @jobs_weakify(self)
+    return ^__kindof NSURLComponents *_Nullable(NSArray<NSURLQueryItem *> *_Nullable data){
+        @jobs_strongify(self)
+        self.queryItems = data;
+        return self;
+    };
+}
+
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN NSURLComponents
+-(JobsRetURLComponentsByStrBlock _Nonnull)byFragment{
+    @jobs_weakify(self)
+    return ^__kindof NSURLComponents * _Nullable(NSString * _Nullable data){
+        @jobs_strongify(self)
+        [self setFragment:data];
+        return self;
+    };
+}
+
+-(JobsRetURLComponentsByStrBlock _Nonnull)byQuery{
+    @jobs_weakify(self)
+    return ^__kindof NSURLComponents * _Nullable(NSString * _Nullable data){
+        @jobs_strongify(self)
+        [self setQuery:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END NSURLComponents
+@end
+
+
+@implementation UIScreen (JobsSystemAPIDSLSupplement)
+-(JobsRetScreenByCGFloatBlock _Nonnull)byBrightness{
+    @jobs_weakify(self)
+    return ^__kindof UIScreen *_Nullable(CGFloat data){
+        @jobs_strongify(self)
+        self.brightness = data;
+        return self;
+    };
+}
+@end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN UIApplication
+@interface UIApplication (JobsPropertyDSLSetterAutogen_c12572b573)
+-(void)setApplicationIconBadgeNumber:(NSInteger)data;
+-(void)setApplicationSupportsShakeToEdit:(BOOL)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UIApplication
+
+@implementation UIApplication (JobsSystemAPIDSLSupplement)
+-(JobsRetApplicationByBOOLBlock _Nonnull)byIdleTimerDisabled{
+    @jobs_weakify(self)
+    return ^__kindof UIApplication *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.idleTimerDisabled = data;
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN UIApplication
+-(JobsRetApplicationByBOOLBlock _Nonnull)byApplicationSupportsShakeToEdit{
+    @jobs_weakify(self)
+    return ^__kindof UIApplication * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setApplicationSupportsShakeToEdit:data];
+        return self;
+    };
+}
+
+-(JobsRetUIApplicationByNSIntegerBlock _Nonnull)byApplicationIconBadgeNumber{
+    @jobs_weakify(self)
+    return ^__kindof UIApplication * _Nullable(NSInteger data){
+        @jobs_strongify(self)
+        [self setApplicationIconBadgeNumber:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UIApplication
+@end
+
+
+@implementation CATransition (JobsSystemAPIDSLSupplement)
+-(JobsRetCATransitionByTimeIntervalBlock _Nonnull)byDuration{
+    @jobs_weakify(self)
+    return ^__kindof CATransition *_Nullable(NSTimeInterval data){
+        @jobs_strongify(self)
+        self.duration = data;
+        return self;
+    };
+}
+-(JobsRetCATransitionByStrBlock _Nonnull)byType{
+    @jobs_weakify(self)
+    return ^__kindof CATransition *_Nullable(NSString *_Nullable data){
+        @jobs_strongify(self)
+        self.type = data;
+        return self;
+    };
+}
+-(JobsRetCATransitionByStrBlock _Nonnull)bySubtype{
+    @jobs_weakify(self)
+    return ^__kindof CATransition *_Nullable(NSString *_Nullable data){
+        @jobs_strongify(self)
+        self.subtype = data;
+        return self;
+    };
+}
+-(JobsRetCATransitionByTimingFunctionBlock _Nonnull)byTimingFunction{
+    @jobs_weakify(self)
+    return ^__kindof CATransition *_Nullable(CAMediaTimingFunction *_Nullable data){
+        @jobs_strongify(self)
+        self.timingFunction = data;
+        return self;
+    };
+}
+-(JobsRetCATransitionByBOOLBlock _Nonnull)byRemovedOnCompletion{
+    @jobs_weakify(self)
+    return ^__kindof CATransition *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.removedOnCompletion = data;
+        return self;
+    };
+}
+@end
+
+
+@implementation UIAlertAction (JobsSystemAPIDSLSupplement)
+-(JobsRetUIAlertActionByBOOLBlock _Nonnull)byEnabled{
+    @jobs_weakify(self)
+    return ^UIAlertAction *(BOOL enabled){
+        @jobs_strongify(self)
+        self.enabled = enabled;
+        return self;
+    };
+}
+@end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN NSShadow
+@interface NSShadow (JobsPropertyDSLSetterAutogen_c12572b573)
+-(void)setShadowBlurRadius:(CGFloat)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END NSShadow
+
+@implementation NSShadow (JobsSystemAPIDSLSupplement)
+-(JobsRetNSShadowByIDBlock _Nonnull)byShadowColor{
+    @jobs_weakify(self)
+    return ^NSShadow *(id shadowColor){
+        @jobs_strongify(self)
+        self.shadowColor = shadowColor;
+        return self;
+    };
+}
+
+-(JobsRetNSShadowByCGSizeBlock _Nonnull)byShadowOffset{
+    @jobs_weakify(self)
+    return ^NSShadow *(CGSize shadowOffset){
+        @jobs_strongify(self)
+        self.shadowOffset = shadowOffset;
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN NSShadow
+-(JobsRetNSShadowByCGFloatBlock _Nonnull)byShadowBlurRadius{
+    @jobs_weakify(self)
+    return ^__kindof NSShadow * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setShadowBlurRadius:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END NSShadow
+@end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN UICollectionViewLayoutAttributes
+@interface UICollectionViewLayoutAttributes (JobsPropertyDSLSetterAutogen_c12572b573)
+-(void)setZIndex:(NSInteger)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UICollectionViewLayoutAttributes
+
+@implementation UICollectionViewLayoutAttributes (JobsSystemAPIDSLSupplement)
+-(JobsRetCollectionViewLayoutAttributesByCGRectBlock _Nonnull)byFrame{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionViewLayoutAttributes *(CGRect frame){
+        @jobs_strongify(self)
+        self.frame = frame;
+        return self;
+    };
+}
+
+-(JobsRetCollectionViewLayoutAttributesByCGAffineTransformBlock _Nonnull)byTransform{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionViewLayoutAttributes *(CGAffineTransform transform){
+        @jobs_strongify(self)
+        self.transform = transform;
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN UICollectionViewLayoutAttributes
+-(JobsRetUICollectionViewLayoutAttributesByNSIntegerBlock _Nonnull)byZIndex{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionViewLayoutAttributes * _Nullable(NSInteger data){
+        @jobs_strongify(self)
+        [self setZIndex:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UICollectionViewLayoutAttributes
+@end
+
+@implementation UIPasteboard (JobsSystemAPIDSLSupplement)
+-(JobsRetUIPasteboardByStrBlock _Nonnull)byString{
+    @jobs_weakify(self)
+    return ^UIPasteboard *(NSString *string){
+        @jobs_strongify(self)
+        self.string = string;
+        return self;
+    };
+}
+@end
+
+@implementation UIWindow (JobsSystemAPIDSLSupplement)
+-(JobsRetUIWindowByViewControllerBlock _Nonnull)byRootViewController{
+    @jobs_weakify(self)
+    return ^__kindof UIWindow *_Nullable(__kindof UIViewController *_Nullable data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.rootViewController = data;
+        return self;
+    };
+}
+
+-(JobsRetUIWindowByWindowSceneBlock _Nonnull)byWindowScene{
+    @jobs_weakify(self)
+    return ^__kindof UIWindow *_Nullable(UIWindowScene *_Nullable data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.windowScene = data;
+        return self;
+    };
+}
+
+-(JobsRetUIWindowByFrameBlock _Nonnull)byWindowFrame{
+    @jobs_weakify(self)
+    return ^__kindof UIWindow *_Nullable(CGRect data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.frame = data;
+        return self;
+    };
+}
+
+-(JobsRetUIWindowByVoidBlock _Nonnull)byMakeKeyAndVisible{
+    @jobs_weakify(self)
+    return ^__kindof UIWindow *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self makeKeyAndVisible];
+        return self;
+    };
+}
+
+@end
+
 @implementation MFMailComposeViewController (JobsSystemAPIDSLSupplement)
 #if defined(__IPHONE_11_0)
--(JobsRetMailComposeVCByStrBlock)bySetPreferredSendingEmailAddress{
+-(JobsRetMailComposeVCByStrBlock _Nonnull)bySetPreferredSendingEmailAddress{
     @jobs_weakify(self)
     return ^__kindof MFMailComposeViewController *_Nullable(NSString *_Nullable data){
         @jobs_strongify(self)
@@ -69,7 +566,7 @@
 @end
 
 @implementation MFMessageComposeViewController (JobsSystemAPIDSLSupplement)
--(JobsRetMessageComposeVCByStrBlock)bySubject{
+-(JobsRetMessageComposeVCByStrBlock _Nonnull)bySubject{
     @jobs_weakify(self)
     return ^__kindof MFMessageComposeViewController *_Nullable(NSString *_Nullable data){
         @jobs_strongify(self)
@@ -81,7 +578,7 @@
 @end
 
 @implementation NSDateFormatter (JobsSystemAPIDSLSupplement)
--(JobsRetDateFormatterByBOOLBlock)byGeneratesCalendarDates{
+-(JobsRetDateFormatterByBOOLBlock _Nonnull)byGeneratesCalendarDates{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -90,7 +587,7 @@
     };
 }
 
--(JobsRetDateFormatterByDateBlock)byTwoDigitStartDate{
+-(JobsRetDateFormatterByDateBlock _Nonnull)byTwoDigitStartDate{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSDate *_Nullable data){
         @jobs_strongify(self)
@@ -99,7 +596,7 @@
     };
 }
 
--(JobsRetDateFormatterByDateBlock)byDefaultDate{
+-(JobsRetDateFormatterByDateBlock _Nonnull)byDefaultDate{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSDate *_Nullable data){
         @jobs_strongify(self)
@@ -108,7 +605,7 @@
     };
 }
 
--(JobsRetDateFormatterByArrBlock)byEraSymbols{
+-(JobsRetDateFormatterByArrBlock _Nonnull)byEraSymbols{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSArray<NSString *> *_Nullable data){
         @jobs_strongify(self)
@@ -117,7 +614,7 @@
     };
 }
 
--(JobsRetDateFormatterByArrBlock)byMonthSymbols{
+-(JobsRetDateFormatterByArrBlock _Nonnull)byMonthSymbols{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSArray<NSString *> *_Nullable data){
         @jobs_strongify(self)
@@ -126,7 +623,7 @@
     };
 }
 
--(JobsRetDateFormatterByArrBlock)byShortMonthSymbols{
+-(JobsRetDateFormatterByArrBlock _Nonnull)byShortMonthSymbols{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSArray<NSString *> *_Nullable data){
         @jobs_strongify(self)
@@ -135,7 +632,7 @@
     };
 }
 
--(JobsRetDateFormatterByArrBlock)byWeekdaySymbols{
+-(JobsRetDateFormatterByArrBlock _Nonnull)byWeekdaySymbols{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSArray<NSString *> *_Nullable data){
         @jobs_strongify(self)
@@ -144,7 +641,7 @@
     };
 }
 
--(JobsRetDateFormatterByArrBlock)byShortWeekdaySymbols{
+-(JobsRetDateFormatterByArrBlock _Nonnull)byShortWeekdaySymbols{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSArray<NSString *> *_Nullable data){
         @jobs_strongify(self)
@@ -153,7 +650,7 @@
     };
 }
 
--(JobsRetDateFormatterByArrBlock)byVeryShortWeekdaySymbols{
+-(JobsRetDateFormatterByArrBlock _Nonnull)byVeryShortWeekdaySymbols{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSArray<NSString *> *_Nullable data){
         @jobs_strongify(self)
@@ -162,7 +659,7 @@
     };
 }
 
--(JobsRetDateFormatterByArrBlock)byStandaloneMonthSymbols{
+-(JobsRetDateFormatterByArrBlock _Nonnull)byStandaloneMonthSymbols{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSArray<NSString *> *_Nullable data){
         @jobs_strongify(self)
@@ -171,7 +668,7 @@
     };
 }
 
--(JobsRetDateFormatterByArrBlock)byShortStandaloneMonthSymbols{
+-(JobsRetDateFormatterByArrBlock _Nonnull)byShortStandaloneMonthSymbols{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSArray<NSString *> *_Nullable data){
         @jobs_strongify(self)
@@ -180,7 +677,7 @@
     };
 }
 
--(JobsRetDateFormatterByArrBlock)byVeryShortStandaloneMonthSymbols{
+-(JobsRetDateFormatterByArrBlock _Nonnull)byVeryShortStandaloneMonthSymbols{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSArray<NSString *> *_Nullable data){
         @jobs_strongify(self)
@@ -189,7 +686,7 @@
     };
 }
 
--(JobsRetDateFormatterByArrBlock)byQuarterSymbols{
+-(JobsRetDateFormatterByArrBlock _Nonnull)byQuarterSymbols{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSArray<NSString *> *_Nullable data){
         @jobs_strongify(self)
@@ -198,7 +695,7 @@
     };
 }
 
--(JobsRetDateFormatterByArrBlock)byShortQuarterSymbols{
+-(JobsRetDateFormatterByArrBlock _Nonnull)byShortQuarterSymbols{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSArray<NSString *> *_Nullable data){
         @jobs_strongify(self)
@@ -207,7 +704,7 @@
     };
 }
 
--(JobsRetDateFormatterByArrBlock)byStandaloneQuarterSymbols{
+-(JobsRetDateFormatterByArrBlock _Nonnull)byStandaloneQuarterSymbols{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSArray<NSString *> *_Nullable data){
         @jobs_strongify(self)
@@ -216,7 +713,7 @@
     };
 }
 
--(JobsRetDateFormatterByArrBlock)byShortStandaloneQuarterSymbols{
+-(JobsRetDateFormatterByArrBlock _Nonnull)byShortStandaloneQuarterSymbols{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSArray<NSString *> *_Nullable data){
         @jobs_strongify(self)
@@ -225,7 +722,7 @@
     };
 }
 
--(JobsRetDateFormatterByArrBlock)byVeryShortMonthSymbols{
+-(JobsRetDateFormatterByArrBlock _Nonnull)byVeryShortMonthSymbols{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSArray<NSString *> *_Nullable data){
         @jobs_strongify(self)
@@ -234,7 +731,7 @@
     };
 }
 
--(JobsRetDateFormatterByStrBlock)byAMSymbol{
+-(JobsRetDateFormatterByStrBlock _Nonnull)byAMSymbol{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSString *_Nullable data){
         @jobs_strongify(self)
@@ -243,7 +740,7 @@
     };
 }
 
--(JobsRetDateFormatterByStrBlock)byPMSymbol{
+-(JobsRetDateFormatterByStrBlock _Nonnull)byPMSymbol{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSString *_Nullable data){
         @jobs_strongify(self)
@@ -252,7 +749,7 @@
     };
 }
 
--(JobsRetDateFormatterByDateBlock)byGregorianStartDate{
+-(JobsRetDateFormatterByDateBlock _Nonnull)byGregorianStartDate{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSDate *_Nullable data){
         @jobs_strongify(self)
@@ -261,7 +758,7 @@
     };
 }
 
--(JobsRetDateFormatterByBOOLBlock)byDoesRelativeDateFormatting{
+-(JobsRetDateFormatterByBOOLBlock _Nonnull)byDoesRelativeDateFormatting{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -270,7 +767,7 @@
     };
 }
 
--(JobsRetDateFormatterByNSIntegerBlock)byFormattingContext{
+-(JobsRetDateFormatterByNSIntegerBlock _Nonnull)byFormattingContext{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(NSFormattingContext data){
         @jobs_strongify(self)
@@ -282,7 +779,7 @@
 @end
 
 @implementation PDFView (JobsSystemAPIDSLSupplement)
--(JobsRetPDFViewByBOOLBlock)byDisplaysAsBook{
+-(JobsRetPDFViewByBOOLBlock _Nonnull)byDisplaysAsBook{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -291,7 +788,7 @@
     };
 }
 
--(JobsRetPDFViewByBOOLBlock)byDisplaysRTL{
+-(JobsRetPDFViewByBOOLBlock _Nonnull)byDisplaysRTL{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -300,7 +797,7 @@
     };
 }
 
--(JobsRetPDFViewByCGFloatBlock)byMinScaleFactor{
+-(JobsRetPDFViewByCGFloatBlock _Nonnull)byMinScaleFactor{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -309,7 +806,7 @@
     };
 }
 
--(JobsRetPDFViewByCGFloatBlock)byMaxScaleFactor{
+-(JobsRetPDFViewByCGFloatBlock _Nonnull)byMaxScaleFactor{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -318,7 +815,7 @@
     };
 }
 
--(JobsRetPDFViewByPDFInterpolationQualityBlock)byInterpolationQuality{
+-(JobsRetPDFViewByPDFInterpolationQualityBlock _Nonnull)byInterpolationQuality{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(PDFInterpolationQuality data){
         @jobs_strongify(self)
@@ -327,7 +824,7 @@
     };
 }
 
--(JobsRetPDFViewByUIEdgeInsetsBlock)byPageBreakMargins{
+-(JobsRetPDFViewByUIEdgeInsetsBlock _Nonnull)byPageBreakMargins{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(UIEdgeInsets data){
         @jobs_strongify(self)
@@ -336,7 +833,7 @@
     };
 }
 
--(JobsRetPDFViewByBOOLBlock)byPageShadowsEnabled{
+-(JobsRetPDFViewByBOOLBlock _Nonnull)byPageShadowsEnabled{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -345,7 +842,7 @@
     };
 }
 
--(JobsRetPDFViewByBOOLBlock)byUsePageViewController{
+-(JobsRetPDFViewByBOOLBlock _Nonnull)byUsePageViewController{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -354,7 +851,7 @@
     };
 }
 
--(JobsRetPDFViewByPDFPageBlock)byGoToPage{
+-(JobsRetPDFViewByPDFPageBlock _Nonnull)byGoToPage{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(PDFPage *_Nonnull data){
         @jobs_strongify(self)
@@ -363,7 +860,7 @@
     };
 }
 
--(JobsRetPDFViewByPDFDestinationBlock)byGoToDestination{
+-(JobsRetPDFViewByPDFDestinationBlock _Nonnull)byGoToDestination{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(PDFDestination *_Nonnull data){
         @jobs_strongify(self)
@@ -372,7 +869,7 @@
     };
 }
 
--(JobsRetPDFViewByPDFSelectionBlock)byGoToSelection{
+-(JobsRetPDFViewByPDFSelectionBlock _Nonnull)byGoToSelection{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(PDFSelection *_Nonnull data){
         @jobs_strongify(self)
@@ -381,7 +878,7 @@
     };
 }
 
--(JobsRetPDFViewByPDFSelectionBlock)bySetCurrentSelection{
+-(JobsRetPDFViewByPDFSelectionBlock _Nonnull)bySetCurrentSelection{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(PDFSelection *_Nullable data){
         @jobs_strongify(self)
@@ -390,7 +887,7 @@
     };
 }
 
--(JobsRetPDFViewByArrBlock)byHighlightedSelections{
+-(JobsRetPDFViewByArrBlock _Nonnull)byHighlightedSelections{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(NSArray<PDFSelection *> *_Nullable data){
         @jobs_strongify(self)
@@ -402,133 +899,9 @@
 @end
 
 @implementation UICollectionView (JobsSystemAPIDSLSupplement)
--(JobsRetCollectionViewByBOOLBlock)byPrefetchingEnabled{
-    @jobs_weakify(self)
-    return ^__kindof UICollectionView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.prefetchingEnabled = data;
-        return self;
-    };
-}
 
--(JobsRetCollectionViewByBOOLBlock)byDragInteractionEnabled{
-    @jobs_weakify(self)
-    return ^__kindof UICollectionView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        if (@available(iOS 11.0, *)) {
-            self.dragInteractionEnabled = data;
-        };return self;
-    };
-}
 
--(JobsRetCollectionViewByReorderingCadenceBlock)byReorderingCadence{
-    @jobs_weakify(self)
-    return ^__kindof UICollectionView *_Nullable(UICollectionViewReorderingCadence data){
-        @jobs_strongify(self)
-        if (@available(iOS 11.0, *)) {
-            self.reorderingCadence = data;
-        };return self;
-    };
-}
-
--(JobsRetCollectionViewBySelfSizingInvalidationBlock)bySelfSizingInvalidation{
-    @jobs_weakify(self)
-    return ^__kindof UICollectionView *_Nullable(UICollectionViewSelfSizingInvalidation data){
-        @jobs_strongify(self)
-        if (@available(iOS 16.0, tvOS 16.0, *)) {
-            self.selfSizingInvalidation = data;
-        };return self;
-    };
-}
-
--(JobsRetCollectionViewByBOOLBlock)byAllowsSelection{
-    @jobs_weakify(self)
-    return ^__kindof UICollectionView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.allowsSelection = data;
-        return self;
-    };
-}
-
--(JobsRetCollectionViewByBOOLBlock)byAllowsMultipleSelection{
-    @jobs_weakify(self)
-    return ^__kindof UICollectionView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.allowsMultipleSelection = data;
-        return self;
-    };
-}
-
--(JobsRetCollectionViewByBOOLBlock)byRemembersLastFocusedIndexPath{
-    @jobs_weakify(self)
-    return ^__kindof UICollectionView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.remembersLastFocusedIndexPath = data;
-        return self;
-    };
-}
-
--(JobsRetCollectionViewByBOOLBlock)bySelectionFollowsFocus{
-    @jobs_weakify(self)
-    return ^__kindof UICollectionView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        if (@available(iOS 15.0, tvOS 15.0, *)) {
-            self.selectionFollowsFocus = data;
-        };return self;
-    };
-}
-
--(JobsRetCollectionViewByBOOLBlock)byAllowsFocus{
-    @jobs_weakify(self)
-    return ^__kindof UICollectionView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        if (@available(iOS 15.0, tvOS 15.0, *)) {
-            self.allowsFocus = data;
-        };return self;
-    };
-}
-
--(JobsRetCollectionViewByBOOLBlock)byAllowsFocusDuringEditing{
-    @jobs_weakify(self)
-    return ^__kindof UICollectionView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        if (@available(iOS 15.0, tvOS 15.0, *)) {
-            self.allowsFocusDuringEditing = data;
-        };return self;
-    };
-}
-
--(JobsRetCollectionViewByBOOLBlock)byEditing{
-    @jobs_weakify(self)
-    return ^__kindof UICollectionView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        if (@available(iOS 14.0, tvOS 14.0, *)) {
-            self.editing = data;
-        };return self;
-    };
-}
-
--(JobsRetCollectionViewByBOOLBlock)byAllowsSelectionDuringEditing{
-    @jobs_weakify(self)
-    return ^__kindof UICollectionView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        if (@available(iOS 14.0, tvOS 14.0, *)) {
-            self.allowsSelectionDuringEditing = data;
-        };return self;
-    };
-}
-
--(JobsRetCollectionViewByBOOLBlock)byAllowsMultipleSelectionDuringEditing{
-    @jobs_weakify(self)
-    return ^__kindof UICollectionView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        if (@available(iOS 14.0, tvOS 14.0, *)) {
-            self.allowsMultipleSelectionDuringEditing = data;
-        };return self;
-    };
-}
-
--(JobsRetCollectionViewByVoidBlock)byReloadData{
+-(JobsRetCollectionViewByVoidBlock _Nonnull)byReloadData{
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(void){
         @jobs_strongify(self)
@@ -537,7 +910,7 @@
     };
 }
 
--(JobsRetCollectionViewByVoidBlock)byFinishInteractiveTransition{
+-(JobsRetCollectionViewByVoidBlock _Nonnull)byFinishInteractiveTransition{
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(void){
         @jobs_strongify(self)
@@ -546,7 +919,7 @@
     };
 }
 
--(JobsRetCollectionViewByVoidBlock)byCancelInteractiveTransition{
+-(JobsRetCollectionViewByVoidBlock _Nonnull)byCancelInteractiveTransition{
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(void){
         @jobs_strongify(self)
@@ -555,7 +928,7 @@
     };
 }
 
--(JobsRetCollectionViewByVoidBlock)byEndInteractiveMovement{
+-(JobsRetCollectionViewByVoidBlock _Nonnull)byEndInteractiveMovement{
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(void){
         @jobs_strongify(self)
@@ -565,7 +938,7 @@
     };
 }
 
--(JobsRetCollectionViewByVoidBlock)byCancelInteractiveMovement{
+-(JobsRetCollectionViewByVoidBlock _Nonnull)byCancelInteractiveMovement{
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(void){
         @jobs_strongify(self)
@@ -575,7 +948,7 @@
     };
 }
 
--(JobsRetCollectionViewByIndexSetBlock)byReloadSections{
+-(JobsRetCollectionViewByIndexSetBlock _Nonnull)byReloadSections{
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(NSIndexSet *_Nonnull data){
         @jobs_strongify(self)
@@ -584,7 +957,7 @@
     };
 }
 
--(JobsRetCollectionViewByIndexSetBlock)byInsertSections{
+-(JobsRetCollectionViewByIndexSetBlock _Nonnull)byInsertSections{
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(NSIndexSet *_Nonnull data){
         @jobs_strongify(self)
@@ -593,7 +966,7 @@
     };
 }
 
--(JobsRetCollectionViewByIndexSetBlock)byDeleteSections{
+-(JobsRetCollectionViewByIndexSetBlock _Nonnull)byDeleteSections{
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(NSIndexSet *_Nonnull data){
         @jobs_strongify(self)
@@ -602,7 +975,7 @@
     };
 }
 
--(JobsRetCollectionViewByArrBlock)byReloadItemsAtIndexPaths{
+-(JobsRetCollectionViewByArrBlock _Nonnull)byReloadItemsAtIndexPaths{
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(NSArray<NSIndexPath *> *_Nonnull data){
         @jobs_strongify(self)
@@ -611,7 +984,7 @@
     };
 }
 
--(JobsRetCollectionViewByArrBlock)byInsertItemsAtIndexPaths{
+-(JobsRetCollectionViewByArrBlock _Nonnull)byInsertItemsAtIndexPaths{
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(NSArray<NSIndexPath *> *_Nonnull data){
         @jobs_strongify(self)
@@ -620,7 +993,7 @@
     };
 }
 
--(JobsRetCollectionViewByArrBlock)byDeleteItemsAtIndexPaths{
+-(JobsRetCollectionViewByArrBlock _Nonnull)byDeleteItemsAtIndexPaths{
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(NSArray<NSIndexPath *> *_Nonnull data){
         @jobs_strongify(self)
@@ -629,7 +1002,7 @@
     };
 }
 
--(JobsRetCollectionViewByArrBlock)byReconfigureItemsAtIndexPaths{
+-(JobsRetCollectionViewByArrBlock _Nonnull)byReconfigureItemsAtIndexPaths{
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(NSArray<NSIndexPath *> *_Nonnull data){
         @jobs_strongify(self)
@@ -639,7 +1012,7 @@
     };
 }
 
--(JobsRetCollectionViewByCGPointBlock)byUpdateInteractiveMovementTargetPosition{
+-(JobsRetCollectionViewByCGPointBlock _Nonnull)byUpdateInteractiveMovementTargetPosition{
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(CGPoint data){
         @jobs_strongify(self)
@@ -652,296 +1025,9 @@
 @end
 
 @implementation UIScrollView (JobsSystemAPIDSLSupplement)
--(JobsRetScrollViewByPointBlock)byContentOffset{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(CGPoint data){
-        @jobs_strongify(self)
-        self.contentOffset = data;
-        return self;
-    };
-}
 
--(JobsRetScrollViewBySizeBlock)byContentSize{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(CGSize data){
-        @jobs_strongify(self)
-        self.contentSize = data;
-        return self;
-    };
-}
 
--(JobsRetScrollViewByUIEdgeInsetsBlock)byContentInset{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(UIEdgeInsets data){
-        @jobs_strongify(self)
-        self.contentInset = data;
-        return self;
-    };
-}
-
--(JobsRetScrollViewByPointBlock)byContentAlignmentPoint{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(CGPoint data){
-        @jobs_strongify(self)
-        if (@available(iOS 26.0, *)) {
-            self.contentAlignmentPoint = data;
-        };return self;
-    };
-}
-
--(JobsRetScrollViewByContentInsetAdjustmentBehaviorBlock)byContentInsetAdjustmentBehavior{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(UIScrollViewContentInsetAdjustmentBehavior data){
-        @jobs_strongify(self)
-        if (@available(iOS 11.0, tvOS 11.0, *)) {
-            self.contentInsetAdjustmentBehavior = data;
-        };return self;
-    };
-}
-
--(JobsRetScrollViewByBOOLBlock)byAutomaticallyAdjustsScrollIndicatorInsets{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        if (@available(iOS 13.0, tvOS 13.0, *)) {
-            self.automaticallyAdjustsScrollIndicatorInsets = data;
-        };return self;
-    };
-}
-
--(JobsRetScrollViewByBOOLBlock)byDirectionalLockEnabled{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.directionalLockEnabled = data;
-        return self;
-    };
-}
-
--(JobsRetScrollViewByBOOLBlock)byBounces{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.bounces = data;
-        return self;
-    };
-}
-
--(JobsRetScrollViewByBOOLBlock)byAlwaysBounceVertical{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.alwaysBounceVertical = data;
-        return self;
-    };
-}
-
--(JobsRetScrollViewByBOOLBlock)byAlwaysBounceHorizontal{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.alwaysBounceHorizontal = data;
-        return self;
-    };
-}
-
--(JobsRetScrollViewByBOOLBlock)byPagingEnabled{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.pagingEnabled = data;
-        return self;
-    };
-}
-
--(JobsRetScrollViewByBOOLBlock)byScrollEnabled{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.scrollEnabled = data;
-        return self;
-    };
-}
-
--(JobsRetScrollViewByBOOLBlock)byTransfersHorizontalScrollingToParent{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        if (@available(iOS 18.0, *)) {
-            self.transfersHorizontalScrollingToParent = data;
-        };return self;
-    };
-}
-
--(JobsRetScrollViewByBOOLBlock)byTransfersVerticalScrollingToParent{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        if (@available(iOS 18.0, *)) {
-            self.transfersVerticalScrollingToParent = data;
-        };return self;
-    };
-}
-
--(JobsRetScrollViewByBOOLBlock)byShowsVerticalScrollIndicator{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.showsVerticalScrollIndicator = data;
-        return self;
-    };
-}
-
--(JobsRetScrollViewByBOOLBlock)byShowsHorizontalScrollIndicator{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.showsHorizontalScrollIndicator = data;
-        return self;
-    };
-}
-
--(JobsRetScrollViewByIndicatorStyleBlock)byIndicatorStyle{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(UIScrollViewIndicatorStyle data){
-        @jobs_strongify(self)
-        self.indicatorStyle = data;
-        return self;
-    };
-}
-
--(JobsRetScrollViewByUIEdgeInsetsBlock)byVerticalScrollIndicatorInsets{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(UIEdgeInsets data){
-        @jobs_strongify(self)
-        if (@available(iOS 11.1, tvOS 11.1, *)) {
-            self.verticalScrollIndicatorInsets = data;
-        };return self;
-    };
-}
-
--(JobsRetScrollViewByUIEdgeInsetsBlock)byHorizontalScrollIndicatorInsets{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(UIEdgeInsets data){
-        @jobs_strongify(self)
-        if (@available(iOS 11.1, tvOS 11.1, *)) {
-            self.horizontalScrollIndicatorInsets = data;
-        };return self;
-    };
-}
-
--(JobsRetScrollViewByUIEdgeInsetsBlock)byScrollIndicatorInsets{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(UIEdgeInsets data){
-        @jobs_strongify(self)
-        self.scrollIndicatorInsets = data;
-        return self;
-    };
-}
-
--(JobsRetScrollViewByDecelerationRateBlock)byDecelerationRate{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(UIScrollViewDecelerationRate data){
-        @jobs_strongify(self)
-        self.decelerationRate = data;
-        return self;
-    };
-}
-
--(JobsRetScrollViewByNSIntegerBlock)byIndexDisplayMode{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(UIScrollViewIndexDisplayMode data){
-        @jobs_strongify(self)
-        if (@available(iOS 11.0, *)) {
-            self.indexDisplayMode = data;
-        };return self;
-    };
-}
-
--(JobsRetScrollViewByBOOLBlock)byDelaysContentTouches{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.delaysContentTouches = data;
-        return self;
-    };
-}
-
--(JobsRetScrollViewByBOOLBlock)byCanCancelContentTouches{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.canCancelContentTouches = data;
-        return self;
-    };
-}
-
--(JobsRetScrollViewByCGFloatBlock)byMinimumZoomScale{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(CGFloat data){
-        @jobs_strongify(self)
-        self.minimumZoomScale = data;
-        return self;
-    };
-}
-
--(JobsRetScrollViewByCGFloatBlock)byMaximumZoomScale{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(CGFloat data){
-        @jobs_strongify(self)
-        self.maximumZoomScale = data;
-        return self;
-    };
-}
-
--(JobsRetScrollViewByCGFloatBlock)byZoomScale{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(CGFloat data){
-        @jobs_strongify(self)
-        self.zoomScale = data;
-        return self;
-    };
-}
-
--(JobsRetScrollViewByBOOLBlock)byBouncesZoom{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.bouncesZoom = data;
-        return self;
-    };
-}
-
--(JobsRetScrollViewByBOOLBlock)byScrollsToTop{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.scrollsToTop = data;
-        return self;
-    };
-}
-
--(JobsRetScrollViewByKeyboardDismissModeBlock)byKeyboardDismissMode{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(UIScrollViewKeyboardDismissMode data){
-        @jobs_strongify(self)
-        if (@available(iOS 7.0, *)) {
-            self.keyboardDismissMode = data;
-        };return self;
-    };
-}
-
--(JobsRetScrollViewByBOOLBlock)byAllowsKeyboardScrolling{
-    @jobs_weakify(self)
-    return ^__kindof UIScrollView *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        if (@available(iOS 17.0, *)) {
-            self.allowsKeyboardScrolling = data;
-        };return self;
-    };
-}
-
--(JobsRetScrollViewByVoidBlock)byFlashScrollIndicators{
+-(JobsRetScrollViewByVoidBlock _Nonnull)byFlashScrollIndicators{
     @jobs_weakify(self)
     return ^__kindof UIScrollView *_Nullable(void){
         @jobs_strongify(self)
@@ -950,7 +1036,7 @@
     };
 }
 
--(JobsRetScrollViewByVoidBlock)byStopScrollingAndZooming{
+-(JobsRetScrollViewByVoidBlock _Nonnull)byStopScrollingAndZooming{
     @jobs_weakify(self)
     return ^__kindof UIScrollView *_Nullable(void){
         @jobs_strongify(self)
@@ -963,7 +1049,7 @@
 @end
 
 @implementation UIImageView (JobsSystemAPIDSLSupplement)
--(JobsRetImageViewBySymbolConfigurationBlock)byPreferredSymbolConfiguration{
+-(JobsRetImageViewBySymbolConfigurationBlock _Nonnull)byPreferredSymbolConfiguration{
     @jobs_weakify(self)
     return ^__kindof UIImageView *_Nonnull(UIImageSymbolConfiguration *_Nullable data){
         @jobs_strongify(self)
@@ -973,7 +1059,7 @@
     };
 }
 
--(JobsRetImageViewByImageDynamicRangeBlock)byPreferredImageDynamicRange{
+-(JobsRetImageViewByImageDynamicRangeBlock _Nonnull)byPreferredImageDynamicRange{
     @jobs_weakify(self)
     return ^__kindof UIImageView *_Nonnull(UIImageDynamicRange data){
         @jobs_strongify(self)
@@ -983,7 +1069,7 @@
     };
 }
 
--(JobsRetImageViewByVoidBlock)byStartAnimating{
+-(JobsRetImageViewByVoidBlock _Nonnull)byStartAnimating{
     @jobs_weakify(self)
     return ^__kindof UIImageView *_Nonnull(void){
         @jobs_strongify(self)
@@ -992,7 +1078,7 @@
     };
 }
 
--(JobsRetImageViewByVoidBlock)byStopAnimating{
+-(JobsRetImageViewByVoidBlock _Nonnull)byStopAnimating{
     @jobs_weakify(self)
     return ^__kindof UIImageView *_Nonnull(void){
         @jobs_strongify(self)
@@ -1001,7 +1087,7 @@
     };
 }
 
--(JobsRetImageViewByVoidBlock)byRemoveAllSymbolEffects{
+-(JobsRetImageViewByVoidBlock _Nonnull)byRemoveAllSymbolEffects{
     @jobs_weakify(self)
     return ^__kindof UIImageView *_Nonnull(void){
         @jobs_strongify(self)
@@ -1011,7 +1097,7 @@
     };
 }
 
--(JobsRetImageViewBySymbolEffectBlock)byAddSymbolEffect{
+-(JobsRetImageViewBySymbolEffectBlock _Nonnull)byAddSymbolEffect{
     @jobs_weakify(self)
     return ^__kindof UIImageView *_Nonnull(NSSymbolEffect *_Nonnull data){
         @jobs_strongify(self)
@@ -1021,7 +1107,7 @@
     };
 }
 
--(JobsRetImageViewBySymbolEffectBlock)byRemoveSymbolEffectOfType{
+-(JobsRetImageViewBySymbolEffectBlock _Nonnull)byRemoveSymbolEffectOfType{
     @jobs_weakify(self)
     return ^__kindof UIImageView *_Nonnull(NSSymbolEffect *_Nonnull data){
         @jobs_strongify(self)
@@ -1031,7 +1117,7 @@
     };
 }
 
--(JobsRetImageViewBySymbolEffectOptionsBlock)byRemoveAllSymbolEffectsWithOptions{
+-(JobsRetImageViewBySymbolEffectOptionsBlock _Nonnull)byRemoveAllSymbolEffectsWithOptions{
     @jobs_weakify(self)
     return ^__kindof UIImageView *_Nonnull(NSSymbolEffectOptions *_Nonnull data){
         @jobs_strongify(self)
@@ -1043,8 +1129,42 @@
 
 @end
 
+@implementation UIImagePickerController (JobsSystemAPIDSLSupplement)
+
+-(JobsRetImagePickerControllerBySourceTypeBlock _Nonnull)bySourceType{
+    @jobs_weakify(self)
+    return ^__kindof UIImagePickerController *_Nullable(UIImagePickerControllerSourceType data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.sourceType = data;
+        return self;
+    };
+}
+
+-(JobsRetImagePickerControllerByIDBlock _Nonnull)byDelegate{
+    @jobs_weakify(self)
+    return ^__kindof UIImagePickerController *_Nullable(id _Nullable data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.delegate = data;
+        return self;
+    };
+}
+
+-(JobsRetImagePickerControllerByBOOLBlock _Nonnull)byAllowsEditing{
+    @jobs_weakify(self)
+    return ^__kindof UIImagePickerController *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.allowsEditing = data;
+        return self;
+    };
+}
+
+@end
+
 @implementation UIPageControl (JobsSystemAPIDSLSupplement)
--(JobsRetPageControlByNSIntegerBlock)byNumberOfPages{
+-(JobsRetPageControlByNSIntegerBlock _Nonnull)byNumberOfPages{
     @jobs_weakify(self)
     return ^__kindof UIPageControl *_Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -1053,7 +1173,7 @@
     };
 }
 
--(JobsRetPageControlByNSIntegerBlock)byCurrentPage{
+-(JobsRetPageControlByNSIntegerBlock _Nonnull)byCurrentPage{
     @jobs_weakify(self)
     return ^__kindof UIPageControl *_Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -1062,7 +1182,7 @@
     };
 }
 
--(JobsRetPageControlByBOOLBlock)byHidesForSinglePage{
+-(JobsRetPageControlByBOOLBlock _Nonnull)byHidesForSinglePage{
     @jobs_weakify(self)
     return ^__kindof UIPageControl *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -1071,7 +1191,7 @@
     };
 }
 
--(JobsRetPageControlByBOOLBlock)byAllowsContinuousInteraction{
+-(JobsRetPageControlByBOOLBlock _Nonnull)byAllowsContinuousInteraction{
     @jobs_weakify(self)
     return ^__kindof UIPageControl *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -1081,7 +1201,7 @@
     };
 }
 
--(JobsRetPageControlByBOOLBlock)byDefersCurrentPageDisplay{
+-(JobsRetPageControlByBOOLBlock _Nonnull)byDefersCurrentPageDisplay{
     @jobs_weakify(self)
     return ^__kindof UIPageControl *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -1090,7 +1210,7 @@
     };
 }
 
--(JobsRetPageControlByVoidBlock)byUpdateCurrentPageDisplay{
+-(JobsRetPageControlByVoidBlock _Nonnull)byUpdateCurrentPageDisplay{
     @jobs_weakify(self)
     return ^__kindof UIPageControl *_Nullable(void){
         @jobs_strongify(self)
@@ -1099,7 +1219,7 @@
     };
 }
 
--(JobsRetPageControlByColorBlock)byPageIndicatorTintColor{
+-(JobsRetPageControlByColorBlock _Nonnull)byPageIndicatorTintColor{
     @jobs_weakify(self)
     return ^__kindof UIPageControl *_Nullable(UIColor *_Nullable color){
         @jobs_strongify(self)
@@ -1108,7 +1228,7 @@
     };
 }
 
--(JobsRetPageControlByColorBlock)byCurrentPageIndicatorTintColor{
+-(JobsRetPageControlByColorBlock _Nonnull)byCurrentPageIndicatorTintColor{
     @jobs_weakify(self)
     return ^__kindof UIPageControl *_Nullable(UIColor *_Nullable color){
         @jobs_strongify(self)
@@ -1117,7 +1237,7 @@
     };
 }
 
--(JobsRetPageControlByImageBlock)byPreferredIndicatorImage API_AVAILABLE(ios(14.0), tvos(14.0)){
+-(JobsRetPageControlByImageBlock _Nonnull)byPreferredIndicatorImage API_AVAILABLE(ios(14.0), tvos(14.0)){
     @jobs_weakify(self)
     return ^__kindof UIPageControl *_Nullable(UIImage *_Nullable image){
         @jobs_strongify(self)
@@ -1127,7 +1247,7 @@
     };
 }
 
--(JobsRetPageControlByImageAndNSIntegerBlock)byIndicatorImageForPage API_AVAILABLE(ios(14.0), tvos(14.0)){
+-(JobsRetPageControlByImageAndNSIntegerBlock _Nonnull)byIndicatorImageForPage API_AVAILABLE(ios(14.0), tvos(14.0)){
     @jobs_weakify(self)
     return ^__kindof UIPageControl *_Nullable(UIImage *_Nullable image, NSInteger page){
         @jobs_strongify(self)
@@ -1137,7 +1257,7 @@
     };
 }
 
--(JobsRetPageControlByBackgroundStyleBlock)byBackgroundStyle API_AVAILABLE(ios(14.0), tvos(14.0)){
+-(JobsRetPageControlByBackgroundStyleBlock _Nonnull)byBackgroundStyle API_AVAILABLE(ios(14.0), tvos(14.0)){
     @jobs_weakify(self)
     return ^__kindof UIPageControl *_Nullable(UIPageControlBackgroundStyle style){
         @jobs_strongify(self)
@@ -1147,7 +1267,7 @@
     };
 }
 
--(JobsRetPageControlByDirectionBlock)byDirection API_AVAILABLE(ios(16.0), tvos(16.0)){
+-(JobsRetPageControlByDirectionBlock _Nonnull)byDirection API_AVAILABLE(ios(16.0), tvos(16.0)){
     @jobs_weakify(self)
     return ^__kindof UIPageControl *_Nullable(UIPageControlDirection direction){
         @jobs_strongify(self)
@@ -1160,7 +1280,7 @@
 @end
 
 @implementation UITableView (JobsSystemAPIDSLSupplement)
--(JobsRetTableViewByVoidBlock)byBeginUpdates{
+-(JobsRetTableViewByVoidBlock _Nonnull)byBeginUpdates{
     @jobs_weakify(self)
     return ^__kindof UITableView *_Nullable(void){
         @jobs_strongify(self)
@@ -1169,7 +1289,7 @@
     };
 }
 
--(JobsRetTableViewByVoidBlock)byEndUpdates{
+-(JobsRetTableViewByVoidBlock _Nonnull)byEndUpdates{
     @jobs_weakify(self)
     return ^__kindof UITableView *_Nullable(void){
         @jobs_strongify(self)
@@ -1178,7 +1298,7 @@
     };
 }
 
--(JobsRetTableViewByVoidBlock)byReloadData{
+-(JobsRetTableViewByVoidBlock _Nonnull)byReloadData{
     @jobs_weakify(self)
     return ^__kindof UITableView *_Nullable(void){
         @jobs_strongify(self)
@@ -1187,7 +1307,7 @@
     };
 }
 
--(JobsRetTableViewByVoidBlock)byReloadSectionIndexTitles{
+-(JobsRetTableViewByVoidBlock _Nonnull)byReloadSectionIndexTitles{
     @jobs_weakify(self)
     return ^__kindof UITableView *_Nullable(void){
         @jobs_strongify(self)
@@ -1196,7 +1316,7 @@
     };
 }
 
--(JobsRetTableViewByArrBlock)byReconfigureRowsAtIndexPaths{
+-(JobsRetTableViewByArrBlock _Nonnull)byReconfigureRowsAtIndexPaths{
     @jobs_weakify(self)
     return ^__kindof UITableView *_Nullable(NSArray<NSIndexPath *> *_Nonnull data){
         @jobs_strongify(self)
@@ -1209,17 +1329,9 @@
 @end
 
 @implementation UILabel (JobsSystemAPIDSLSupplement)
--(JobsRetUILabelByVibrancyBlock)byPreferredVibrancy{
-    @jobs_weakify(self)
-    return ^__kindof UILabel *_Nullable(UILabelVibrancy data){
-        @jobs_strongify(self)
-        if (@available(iOS 17.0, tvOS 17.0, visionOS 1.0, *)) {
-            self.preferredVibrancy = data;
-        };return self;
-    };
-}
 
--(JobsRetUILabelByUIColorBlock)byTextColor{
+
+-(JobsRetUILabelByUIColorBlock _Nonnull)byTextColor{
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
@@ -1228,7 +1340,7 @@
     };
 }
 
--(JobsRetUILabelByNSAttributedStringBlock)byAttributedText{
+-(JobsRetUILabelByNSAttributedStringBlock _Nonnull)byAttributedText{
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(NSAttributedString *_Nullable data){
         @jobs_strongify(self)
@@ -1237,7 +1349,7 @@
     };
 }
 
--(JobsRetUILabelByUIColorBlock)byShadowColor{
+-(JobsRetUILabelByUIColorBlock _Nonnull)byShadowColor{
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
@@ -1246,7 +1358,7 @@
     };
 }
 
--(JobsRetUILabelByCGSizeBlock)byShadowOffset{
+-(JobsRetUILabelByCGSizeBlock _Nonnull)byShadowOffset{
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(CGSize data){
         @jobs_strongify(self)
@@ -1255,108 +1367,8 @@
     };
 }
 
--(JobsRetUILabelByUIColorBlock)byHighlightedTextColor{
-    @jobs_weakify(self)
-    return ^__kindof UILabel *_Nullable(UIColor *_Nullable data){
-        @jobs_strongify(self)
-        self.highlightedTextColor = data;
-        return self;
-    };
-}
 
--(JobsRetUILabelByBOOLBlock)byHighlighted{
-    @jobs_weakify(self)
-    return ^__kindof UILabel *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.highlighted = data;
-        return self;
-    };
-}
-
--(JobsRetUILabelByBOOLBlock)byEnabled{
-    @jobs_weakify(self)
-    return ^__kindof UILabel *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.enabled = data;
-        return self;
-    };
-}
-
--(JobsRetUILabelByNSIntegerBlock)byBaselineAdjustment{
-    @jobs_weakify(self)
-    return ^__kindof UILabel *_Nullable(UIBaselineAdjustment data){
-        @jobs_strongify(self)
-        self.baselineAdjustment = data;
-        return self;
-    };
-}
-
--(JobsRetUILabelByBOOLBlock)byAdjustsFontSizeToFitWidth{
-    @jobs_weakify(self)
-    return ^__kindof UILabel *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.adjustsFontSizeToFitWidth = data;
-        return self;
-    };
-}
-
--(JobsRetUILabelByCGFloatBlock)byMinimumScaleFactor{
-    @jobs_weakify(self)
-    return ^__kindof UILabel *_Nullable(CGFloat data){
-        @jobs_strongify(self)
-        self.minimumScaleFactor = data;
-        return self;
-    };
-}
-
--(JobsRetUILabelByNSIntegerBlock)byLineBreakMode{
-    @jobs_weakify(self)
-    return ^__kindof UILabel *_Nullable(NSLineBreakMode data){
-        @jobs_strongify(self)
-        self.lineBreakMode = data;
-        return self;
-    };
-}
-
--(JobsRetUILabelByBOOLBlock)byAllowsDefaultTighteningForTruncation{
-    @jobs_weakify(self)
-    return ^__kindof UILabel *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.allowsDefaultTighteningForTruncation = data;
-        return self;
-    };
-}
-
--(JobsRetUILabelByCGFloatBlock)byPreferredMaxLayoutWidth{
-    @jobs_weakify(self)
-    return ^__kindof UILabel *_Nullable(CGFloat data){
-        @jobs_strongify(self)
-        self.preferredMaxLayoutWidth = data;
-        return self;
-    };
-}
-
--(JobsRetUILabelByLineBreakStrategyBlock)byLineBreakStrategy{
-    @jobs_weakify(self)
-    return ^__kindof UILabel *_Nullable(NSLineBreakStrategy data){
-        @jobs_strongify(self)
-        if (@available(iOS 14.0, tvOS 14.0, watchOS 7.0, *)) {
-            self.lineBreakStrategy = data;
-        };return self;
-    };
-}
-
--(JobsRetUILabelByBOOLBlock)byShowsExpansionTextWhenTruncated{
-    @jobs_weakify(self)
-    return ^__kindof UILabel *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        if (@available(iOS 13.0, *)) {
-            self.showsExpansionTextWhenTruncated = data;
-        };return self;
-    };
-}
-
--(JobsRetUILabelByCGFloatBlock)byMinimumFontSize{
+-(JobsRetUILabelByCGFloatBlock _Nonnull)byMinimumFontSize{
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -1371,7 +1383,7 @@
     };
 }
 
--(JobsRetUILabelByBOOLBlock)byAdjustsLetterSpacingToFitWidth{
+-(JobsRetUILabelByBOOLBlock _Nonnull)byAdjustsLetterSpacingToFitWidth{
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -1381,21 +1393,14 @@
 }
 
 #if defined(__IPHONE_10_0)
--(JobsRetUILabelByBOOLBlock)byAdjustsFontForContentSizeCategory{
-    @jobs_weakify(self)
-    return ^__kindof UILabel *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.adjustsFontForContentSizeCategory = data;
-        return self;
-    };
-}
+
 
 #endif
 
 @end
 
 @implementation UITextField (JobsSystemAPIDSLSupplement)
--(JobsRetTextFieldByCorBlock)byTextColor{
+-(JobsRetTextFieldByCorBlock _Nonnull)byTextColor{
     @jobs_weakify(self)
     return ^__kindof UITextField *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
@@ -1404,7 +1409,7 @@
     };
 }
 
--(JobsRetTextFieldByNSIntegerBlock)byAutocapitalizationType{
+-(JobsRetTextFieldByNSIntegerBlock _Nonnull)byAutocapitalizationType{
     @jobs_weakify(self)
     return ^__kindof UITextField *_Nullable(UITextAutocapitalizationType data){
         @jobs_strongify(self)
@@ -1413,7 +1418,7 @@
     };
 }
 
--(JobsRetTextFieldByNSIntegerBlock)byAutocorrectionType{
+-(JobsRetTextFieldByNSIntegerBlock _Nonnull)byAutocorrectionType{
     @jobs_weakify(self)
     return ^__kindof UITextField *_Nullable(UITextAutocorrectionType data){
         @jobs_strongify(self)
@@ -1422,7 +1427,7 @@
     };
 }
 
--(JobsRetTextFieldByNSIntegerBlock)bySpellCheckingType{
+-(JobsRetTextFieldByNSIntegerBlock _Nonnull)bySpellCheckingType{
     @jobs_weakify(self)
     return ^__kindof UITextField *_Nullable(UITextSpellCheckingType data){
         @jobs_strongify(self)
@@ -1432,7 +1437,7 @@
 }
 
 #if defined(__IPHONE_11_0)
--(JobsRetTextFieldByNSIntegerBlock)bySmartQuotesType{
+-(JobsRetTextFieldByNSIntegerBlock _Nonnull)bySmartQuotesType{
     @jobs_weakify(self)
     return ^__kindof UITextField *_Nullable(UITextSmartQuotesType data){
         @jobs_strongify(self)
@@ -1443,7 +1448,7 @@
 
 #endif
 #if defined(__IPHONE_11_0)
--(JobsRetTextFieldByNSIntegerBlock)bySmartDashesType{
+-(JobsRetTextFieldByNSIntegerBlock _Nonnull)bySmartDashesType{
     @jobs_weakify(self)
     return ^__kindof UITextField *_Nullable(UITextSmartDashesType data){
         @jobs_strongify(self)
@@ -1454,7 +1459,7 @@
 
 #endif
 #if defined(__IPHONE_11_0)
--(JobsRetTextFieldByNSIntegerBlock)bySmartInsertDeleteType{
+-(JobsRetTextFieldByNSIntegerBlock _Nonnull)bySmartInsertDeleteType{
     @jobs_weakify(self)
     return ^__kindof UITextField *_Nullable(UITextSmartInsertDeleteType data){
         @jobs_strongify(self)
@@ -1464,7 +1469,7 @@
 }
 
 #endif
--(JobsRetTextFieldByBOOLBlock)byEnablesReturnKeyAutomatically{
+-(JobsRetTextFieldByBOOLBlock _Nonnull)byEnablesReturnKeyAutomatically{
     @jobs_weakify(self)
     return ^__kindof UITextField *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -1474,7 +1479,7 @@
 }
 
 #if defined(__IPHONE_10_0)
--(JobsRetTextFieldByTextContentTypeBlock)byTextContentType{
+-(JobsRetTextFieldByTextContentTypeBlock _Nonnull)byTextContentType{
     @jobs_weakify(self)
     return ^__kindof UITextField *_Nullable(UITextContentType _Nullable data){
         @jobs_strongify(self)
@@ -1485,7 +1490,7 @@
 
 #endif
 #if defined(__IPHONE_12_0)
--(JobsRetTextFieldByPasswordRulesBlock)byPasswordRules{
+-(JobsRetTextFieldByPasswordRulesBlock _Nonnull)byPasswordRules{
     @jobs_weakify(self)
     return ^__kindof UITextField *_Nullable(UITextInputPasswordRules *_Nullable data){
         @jobs_strongify(self)
@@ -1496,7 +1501,7 @@
 
 #endif
 #if defined(__IPHONE_10_0)
--(JobsRetTextFieldByBOOLBlock)byAdjustsFontForContentSizeCategory{
+-(JobsRetTextFieldByBOOLBlock _Nonnull)byAdjustsFontForContentSizeCategory{
     @jobs_weakify(self)
     return ^__kindof UITextField *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -1510,7 +1515,7 @@
 @end
 
 @implementation UITextView (JobsSystemAPIDSLSupplement)
--(JobsRetTextViewByCorBlock)byTextColor{
+-(JobsRetTextViewByCorBlock _Nonnull)byTextColor{
     @jobs_weakify(self)
     return ^__kindof UITextView *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
@@ -1519,7 +1524,7 @@
     };
 }
 
--(JobsRetTextViewByAttributedStringBlock)byAttributedString{
+-(JobsRetTextViewByAttributedStringBlock _Nonnull)byAttributedString{
     @jobs_weakify(self)
     return ^__kindof UITextView *_Nullable(NSAttributedString *_Nullable data){
         @jobs_strongify(self)
@@ -1529,7 +1534,7 @@
 }
 
 #if defined(__IPHONE_11_0)
--(JobsRetTextViewByTextDragDelegateBlock)byTextDragDelegate{
+-(JobsRetTextViewByTextDragDelegateBlock _Nonnull)byTextDragDelegate{
     @jobs_weakify(self)
     return ^__kindof UITextView *_Nullable(id<UITextDragDelegate> _Nullable data){
         @jobs_strongify(self)
@@ -1540,7 +1545,7 @@
 
 #endif
 #if defined(__IPHONE_11_0)
--(JobsRetTextViewByTextDropDelegateBlock)byTextDropDelegate{
+-(JobsRetTextViewByTextDropDelegateBlock _Nonnull)byTextDropDelegate{
     @jobs_weakify(self)
     return ^__kindof UITextView *_Nullable(id<UITextDropDelegate> _Nullable data){
         @jobs_strongify(self)
@@ -1551,7 +1556,7 @@
 
 #endif
 #if defined(__IPHONE_11_0)
--(JobsRetTextViewByTextDragOptionsBlock)byTextDragOptions{
+-(JobsRetTextViewByTextDragOptionsBlock _Nonnull)byTextDragOptions{
     @jobs_weakify(self)
     return ^__kindof UITextView *_Nullable(UITextDragOptions data){
         @jobs_strongify(self)
@@ -1562,7 +1567,7 @@
 
 #endif
 #if defined(__IPHONE_13_0)
--(JobsRetTextViewByBOOLBlock)byUsesStandardTextScaling{
+-(JobsRetTextViewByBOOLBlock _Nonnull)byUsesStandardTextScaling{
     @jobs_weakify(self)
     return ^__kindof UITextView *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -1573,7 +1578,7 @@
 
 #endif
 
--(JobsRetTextViewByBOOLBlock)byFindInteractionEnabled{
+-(JobsRetTextViewByBOOLBlock _Nonnull)byFindInteractionEnabled{
     @jobs_weakify(self)
     return ^__kindof UITextView *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -1583,7 +1588,7 @@
     };
 }
 
--(JobsRetTextViewByBorderStyleBlock)byBorderStyle{
+-(JobsRetTextViewByBorderStyleBlock _Nonnull)byBorderStyle{
     @jobs_weakify(self)
     return ^__kindof UITextView *_Nullable(UITextViewBorderStyle data){
         @jobs_strongify(self)
@@ -1593,7 +1598,7 @@
     };
 }
 
--(JobsRetTextViewByIDBlock)byInteractionState{
+-(JobsRetTextViewByIDBlock _Nonnull)byInteractionState{
     @jobs_weakify(self)
     return ^__kindof UITextView *_Nullable(id _Nullable data){
         @jobs_strongify(self)
@@ -1606,7 +1611,7 @@
 @end
 
 @implementation UIPanGestureRecognizer (JobsSystemAPIDSLSupplement)
--(JobsRetPanGestureRecognizerByUIScrollTypeMaskBlock)byAllowedScrollTypesMask{
+-(JobsRetPanGestureRecognizerByUIScrollTypeMaskBlock _Nonnull)byAllowedScrollTypesMask{
     @jobs_weakify(self)
     return ^UIPanGestureRecognizer *_Nullable(UIScrollTypeMask data){
         @jobs_strongify(self)
@@ -1619,7 +1624,7 @@
 @end
 
 @implementation UITapGestureRecognizer (JobsSystemAPIDSLSupplement)
--(JobsRetTapGestureRecognizerByUIEventButtonMaskBlock)byButtonMaskRequired{
+-(JobsRetTapGestureRecognizerByUIEventButtonMaskBlock _Nonnull)byButtonMaskRequired{
     @jobs_weakify(self)
     return ^UITapGestureRecognizer *_Nullable(UIEventButtonMask data){
         @jobs_strongify(self)
@@ -1632,7 +1637,7 @@
 @end
 
 @implementation UIView (JobsSystemAPIDSLSupplement)
--(JobsRetViewByStringBlock)byRestorationIdentifier{
+-(JobsRetViewByStringBlock _Nonnull)byRestorationIdentifier{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(NSString *_Nullable data){
         @jobs_strongify(self)
@@ -1641,7 +1646,7 @@
     };
 }
 
--(JobsRetViewByFrameBlock)byContentStretch{
+-(JobsRetViewByFrameBlock _Nonnull)byContentStretch{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(CGRect data){
         @jobs_strongify(self)
@@ -1651,7 +1656,7 @@
 }
 
 #if defined(__IPHONE_11_0)
--(JobsRetViewByArrBlock)byInteractions{
+-(JobsRetViewByArrBlock _Nonnull)byInteractions{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(NSArray<id<UIInteraction>> *_Nonnull data){
         @jobs_strongify(self)
@@ -1662,7 +1667,7 @@
 
 #endif
 #if defined(__IPHONE_13_0)
--(JobsRetViewByStringBlock)byLargeContentTitle{
+-(JobsRetViewByStringBlock _Nonnull)byLargeContentTitle{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(NSString *_Nullable data){
         @jobs_strongify(self)
@@ -1673,7 +1678,7 @@
 
 #endif
 #if defined(__IPHONE_13_0)
--(JobsRetViewByImageBlock)byLargeContentImage{
+-(JobsRetViewByImageBlock _Nonnull)byLargeContentImage{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(UIImage *_Nullable data){
         @jobs_strongify(self)
@@ -1684,7 +1689,7 @@
 
 #endif
 #if defined(__IPHONE_13_0)
--(JobsRetViewByBOOLBlock)byScalesLargeContentImage{
+-(JobsRetViewByBOOLBlock _Nonnull)byScalesLargeContentImage{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -1695,7 +1700,7 @@
 
 #endif
 #if defined(__IPHONE_13_0)
--(JobsRetViewByBOOLBlock)byShowsLargeContentViewer{
+-(JobsRetViewByBOOLBlock _Nonnull)byShowsLargeContentViewer{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -1706,7 +1711,7 @@
 
 #endif
 #if defined(__IPHONE_11_0)
--(JobsRetViewByBOOLBlock)byAccessibilityIgnoresInvertColors{
+-(JobsRetViewByBOOLBlock _Nonnull)byAccessibilityIgnoresInvertColors{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -1716,7 +1721,7 @@
 }
 
 #endif
--(JobsRetBOOLByBOOLBlock)byEndEditing{
+-(JobsRetBOOLByBOOLBlock _Nonnull)byEndEditing{
     @jobs_weakify(self)
     return ^BOOL(BOOL data){
         @jobs_strongify(self)
@@ -1724,11 +1729,99 @@
     };
 }
 
--(JobsRetViewByNSIntegerReturnViewBlock)byViewWithTag{
+-(JobsRetViewByNSIntegerReturnViewBlock _Nonnull)byViewWithTag{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(NSInteger data){
         @jobs_strongify(self)
         return [self viewWithTag:data];
+    };
+}
+
+@end
+
+@implementation UIGraphicsImageRendererFormat (JobsSystemAPIDSLSupplement)
+
+-(JobsRetGraphicsImageRendererFormatByBOOLBlock _Nonnull)byOpaque{
+    @jobs_weakify(self)
+    return ^__kindof UIGraphicsImageRendererFormat *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.opaque = data;
+        return self;
+    };
+}
+
+@end
+
+@implementation WKWebView (JobsSystemAPIDSLSupplement)
+
+-(JobsRetWKWebViewByIDBlock _Nonnull)byUIDelegate{
+    @jobs_weakify(self)
+    return ^__kindof WKWebView *_Nullable(id<WKUIDelegate> _Nullable delegate){
+        @jobs_strongify(self)
+        self.UIDelegate = delegate;
+        return self;
+    };
+}
+
+-(JobsRetWKWebViewByIDBlock _Nonnull)byNavigationDelegate{
+    @jobs_weakify(self)
+    return ^__kindof WKWebView *_Nullable(id<WKNavigationDelegate> _Nullable delegate){
+        @jobs_strongify(self)
+        self.navigationDelegate = delegate;
+        return self;
+    };
+}
+
+-(JobsRetWKWebViewByBOOLBlock _Nonnull)byAllowsBackForwardNavigationGestures{
+    @jobs_weakify(self)
+    return ^__kindof WKWebView *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.allowsBackForwardNavigationGestures = data;
+        return self;
+    };
+}
+
+@end
+
+@implementation WKWebViewConfiguration (JobsSystemAPIDSLSupplement)
+
+-(JobsRetWKWebViewConfigurationByUserContentControllerBlock _Nonnull)byUserContentController{
+    @jobs_weakify(self)
+    return ^__kindof WKWebViewConfiguration *_Nullable(WKUserContentController *_Nullable data){
+        @jobs_strongify(self)
+        self.userContentController = data;
+        return self;
+    };
+}
+
+-(JobsRetWKWebViewConfigurationByPreferencesBlock _Nonnull)byDefaultWebpagePreferences{
+    @jobs_weakify(self)
+    return ^__kindof WKWebViewConfiguration *_Nullable(jobsByWKWebpagePreferencesBlock _Nullable data){
+        @jobs_strongify(self)
+        if (data) data(self.defaultWebpagePreferences);
+        return self;
+    };
+}
+
+-(JobsRetWKWebViewConfigurationByBOOLBlock _Nonnull)byAllowsInlineMediaPlayback{
+    @jobs_weakify(self)
+    return ^__kindof WKWebViewConfiguration *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.allowsInlineMediaPlayback = data;
+        return self;
+    };
+}
+
+@end
+
+@implementation WKWebpagePreferences (JobsSystemAPIDSLSupplement)
+
+-(JobsRetWKWebpagePreferencesByBOOLBlock _Nonnull)byAllowsContentJavaScript{
+    @jobs_weakify(self)
+    return ^__kindof WKWebpagePreferences *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.allowsContentJavaScript = data;
+        return self;
     };
 }
 

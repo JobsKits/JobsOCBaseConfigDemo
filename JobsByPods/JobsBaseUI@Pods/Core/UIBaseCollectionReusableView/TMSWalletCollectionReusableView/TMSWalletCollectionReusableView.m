@@ -6,6 +6,7 @@
 //
 
 #import "TMSWalletCollectionReusableView.h"
+
 #import <JobsBaseUI/UIView+Extra.h>
 
 @interface TMSWalletCollectionReusableView ()
@@ -26,7 +27,7 @@
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
+        self.byViewModel(model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {}));
         self.label.byAlpha(1);
     };
 }

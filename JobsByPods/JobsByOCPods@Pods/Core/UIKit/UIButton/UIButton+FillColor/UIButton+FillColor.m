@@ -20,21 +20,23 @@ JobsKey(kUIButtonTitleNameKey)
 }
 #pragma mark —— Background Color For State
 - (void)by_setBackgroundColor:(UIColor *)backgroundColor forState:(UIControlState)state {
-    UIImage *img = [UIButton by_imageWithColor:backgroundColor];
+    UIImage *img = UIButton.by_imageWithColor(backgroundColor);
     [self setBackgroundImage:img forState:state];
 }
 /// 生成 1×1 纯色图，并做成可拉伸
-+(UIImage *)by_imageWithColor:(UIColor *)color {
-    if (!color) { return nil; }
-    CGRect rect = CGRectMake(0, 0, 1, 1);
-    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0.0);
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-    CGContextSetFillColorWithColor(ctx, color.CGColor);
-    CGContextFillRect(ctx, rect);
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    // 可拉伸，避免某些情况下的边缘采样问题
-    return [image resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeStretch];
++(JobsRetImageByCorBlock _Nonnull)by_imageWithColor{
+    return ^UIImage *(UIColor * color){
+        if (!color) { return nil; }
+        CGRect rect = CGRectMake(0, 0, 1, 1);
+        UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0.0);
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        CGContextSetFillColorWithColor(ctx, color.CGColor);
+        CGContextFillRect(ctx, rect);
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        // 可拉伸，避免某些情况下的边缘采样问题
+        return [image resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeStretch];
+    };
 }
 
 @end

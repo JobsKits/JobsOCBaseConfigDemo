@@ -1340,7 +1340,7 @@
     };
 }
 
--(__kindof UIButtonModel *_Nonnull (^ _Nonnull)(UIButtonConfiguration * _Nullable data))byButtonConfiguration{
+-(JobsRetUIButtonModelByUIButtonConfigurationBlock _Nonnull)byButtonConfiguration{
     @jobs_weakify(self)
     return ^__kindof UIButtonModel *_Nonnull(UIButtonConfiguration * _Nullable data) {
         @jobs_strongify(self)
@@ -1349,7 +1349,7 @@
     };
 }
 
--(__kindof UIButtonModel *_Nonnull (^ _Nonnull)(UIBackgroundConfiguration * _Nullable data))byBackgroundConfiguration{
+-(JobsRetUIButtonModelByUIBackgroundConfigurationPointerBlock _Nonnull)byBackgroundConfiguration{
     @jobs_weakify(self)
     return ^__kindof UIButtonModel *_Nonnull(UIBackgroundConfiguration * _Nullable data) {
         @jobs_strongify(self)

@@ -45,7 +45,8 @@
  */
 #pragma mark —— 🔑钥匙串存储：
 /// 读取数据
-+(JobsRetIDByStrBlock _Nonnull)load;
++(void)load;
++(JobsRetIDByStrBlock _Nonnull)jobsLoad;
 
 +(jobsByStrBlock _Nonnull)remove;
 /// 保存数据，并检查是否保存成功

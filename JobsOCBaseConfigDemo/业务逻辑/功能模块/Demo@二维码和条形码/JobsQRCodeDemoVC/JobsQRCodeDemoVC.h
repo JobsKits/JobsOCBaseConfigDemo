@@ -19,16 +19,16 @@
 #import "JobsBaseUI.h"
 #endif
 
-#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
-#import <JobsLanMgr/JobsLanMgr.h>
-#else
-#import "JobsLanMgr.h"
-#endif
-
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>
 #else
 #import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import <JobsLanMgr/JobsLanMgr.h>
+#else
+#import "JobsLanMgr.h"
 #endif
 
 #if __has_include(<JobsMakes/JobsMakes.h>)
@@ -43,6 +43,12 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -53,6 +59,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsQRCodeDemoVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsQRCodeDemoVC
+-(JobsRetJobsQRCodeDemoVCByNSStringBlock _Nonnull)byBarcodeContent;
+-(JobsRetJobsQRCodeDemoVCByNSStringBlock _Nonnull)byLogoQRContent;
+-(JobsRetJobsQRCodeDemoVCByNSStringBlock _Nonnull)byQrContent;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsQRCodeDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

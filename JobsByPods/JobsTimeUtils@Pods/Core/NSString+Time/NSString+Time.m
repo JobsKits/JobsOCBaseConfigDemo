@@ -6,6 +6,7 @@
 //
 
 #import "NSString+Time.h"
+
 #import <JobsTimeUtils/NSDate+Extra.h>
 #import <JobsTimeUtils/NSFormatter+Extra.h>
 #import <JobsTimeUtils/NSDateFormatter+Extra.h>
@@ -34,10 +35,10 @@
             sec = self.doubleValue / 1000.0;/// 毫秒级时间戳（13位）
         }else{
             JobsLog(@"不是正确的时间戳，请检查");
-            toastBy(@"不是正确的时间戳，请检查".tr);
+            toastBy(@"不是正确的时间戳，请检查".jobsTr());
             return nil;
         };return jobsMakeDateFormatter(^(__kindof NSDateFormatter *_Nullable dateFormatter) {
-            dateFormatter.dateFormat = timeFormat;
+            dateFormatter.byDateFormat(timeFormat);
         }).stringByDate(NSDate.initDateBy(sec));
     };
 }
@@ -57,8 +58,9 @@
         date = NSDate.initDateBy(self.doubleValue / 1000.0);
     };return jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable data) {
         @jobs_strongify(self)
-        data.dateFormat = isNull(timeFormatter) ? @"yyyy-MM-dd HH:mm:ss" : timeFormatter;
-        data.timeZone = timeZone(timeZoneType);
+        data
+            .byDateFormat(isNull(timeFormatter) ? @"yyyy-MM-dd HH:mm:ss" : timeFormatter)
+            .byTimeZone(timeZone(timeZoneType));
     }).date(date);
 }
 /// 当前时间戳较之当前时间是否已过期【过期返回YES】

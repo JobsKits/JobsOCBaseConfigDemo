@@ -54,15 +54,21 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsSystemAPIDSLSupplement.h>)
+#import <JobsOCDSL/JobsSystemAPIDSLSupplement.h>
+#else
+#import "JobsSystemAPIDSLSupplement.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (Extra)
 /// OC字符串拼接
 -(JobsRetStrByStrBlock _Nonnull)add;
 /// 字符串是否包含URL【返回YES包含】
--(BOOL)isContainsUrl;
+-(JobsRetBOOLByVoidBlock _Nonnull)isContainsUrl;
 /// 清除 SDImage 的图片缓存（用 url 为 key）
--(void)cleanSDImageCache:(SDWebImageNoParamsBlock _Nullable)block;
+-(jobsBySDWebImageNoParamsBlockBlock _Nonnull)cleanSDImageCache;
 /// 复制到系统剪切板
 -(JobsRetStrByVoidBlock _Nonnull)pasteboard;
 

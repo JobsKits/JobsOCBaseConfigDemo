@@ -64,7 +64,11 @@ JobsDoorInputViewProtocol
 >
 
 Prop_strong()JobsAppDoorConfig *configuration;
+-(JobsRetJobsAppDoorRegisterContentViewByConfigBlock _Nonnull)byConfiguration;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorRegisterContentView
+-(JobsRetJobsAppDoorRegisterContentViewByRACCompoundDisposableBlock _Nonnull)bySendBtnEnableDisposable;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorRegisterContentView
 @end
 
 NS_ASSUME_NONNULL_END

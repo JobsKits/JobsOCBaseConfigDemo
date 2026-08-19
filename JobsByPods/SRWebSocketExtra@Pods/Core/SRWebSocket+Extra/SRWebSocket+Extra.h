@@ -34,6 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(JobsRetSRWebSocketByNSURLRequestBlock _Nonnull)initByURLRequest;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN SRWebSocket
+-(JobsRetSRWebSocketBydispatch_queue_tBlock _Nonnull)byDelegateDispatchQueue;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END SRWebSocket
 @end
 
 NS_ASSUME_NONNULL_END

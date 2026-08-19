@@ -24,51 +24,76 @@ NS_INLINE NSArray <NSString *>*_Nonnull JobsOCSearcherRecommendTextArr(void){
 
 Prop_strong()JobsOCSearcherView *searchView;
 
--(JobsOCSearcherConfig *)demoSearchConfig;
+-(JobsRetJobsOCSearcherConfigByVoidBlock _Nonnull)demoSearchConfig;
 
 @end
 
 @implementation JobsOCSearcherDemoVC
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCSearcherDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byText(@"JobsOCSearcher".tr)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        .byBgCor(HEXCOLOR(0xF6F8FC))
-        .byNavBgCor(HEXCOLOR(0xF6F8FC));
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byText(@"JobsOCSearcher".jobsTr())
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            .byBgCor(HEXCOLOR(0xF6F8FC))
+            .byNavBgCor(HEXCOLOR(0xF6F8FC));
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.makeNavByAlpha(1);
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.searchView.byAlpha(1);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCSearcherDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
 }
 
--(JobsOCSearcherConfig *)demoSearchConfig{
-    JobsOCSearcherConfig *config = JobsOCSearcherConfig.defaultConfig;
-    config.placeholder = @"请输入搜索关键词".tr;
-    config.recommendTitle = @"🔍搜索推荐";
-    config.historyTitle = @"⏰搜索历史";
-    config.historyStorageKey = @"JobsOCSearcherDemoSearchConfirmHistoryData";
-    return config;
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.makeNavByAlpha(1);
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.searchView.byAlpha(1);
+    };
+}
+
+-(JobsRetJobsOCSearcherConfigByVoidBlock _Nonnull)demoSearchConfig{
+    @jobs_weakify(self)
+    return ^JobsOCSearcherConfig *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        JobsOCSearcherConfig *config = JobsOCSearcherConfig.defaultConfig();
+        config.byPlaceholder(@"请输入搜索关键词".jobsTr());
+        config.byRecommendTitle(@"🔍搜索推荐");
+        config.byHistoryTitle(@"⏰搜索历史");
+        config.byHistoryStorageKey(@"JobsOCSearcherDemoSearchConfirmHistoryData");
+        return config;
+    };
 }
 #pragma mark —— LazyLoad
 -(JobsOCSearcherView *)searchView{
     if (!_searchView) {
-        _searchView = [JobsOCSearcherView.alloc initWithConfig:self.demoSearchConfig];
+        _searchView = [JobsOCSearcherView.alloc initWithConfig:self.demoSearchConfig()];
         _searchView.byRecommendSearches(JobsOCSearcherRecommendTextArr())
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {

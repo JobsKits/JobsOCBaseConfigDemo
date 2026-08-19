@@ -11,7 +11,7 @@
 @implementation JobsAppDoorModel
 -(NSString *)userName{
     if (!_userName) {
-        _userName = self.readUserNameMutArr[0];
+        _userName = self.readUserNameMutArr()[0];
     };return _userName;
 }
 

@@ -6,8 +6,24 @@
 //
 
 #import <Foundation/Foundation.h>
+
 #import "AppDelegate.h"
 #import "AppDelegate+TabBarCtr.h"
+
+/// 根控制器
+#ifndef ROOT_VIEW_CONTROLLER_H
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
@@ -15,8 +31,6 @@
 #import "JobsDefines.h"
 #endif
 
-/// 根控制器
-#ifndef ROOT_VIEW_CONTROLLER_H
 #define ROOT_VIEW_CONTROLLER_H
 //
 //#define RootViewController AppDelegate.tabBarNavCtrl
@@ -29,20 +43,14 @@
 //#define RootViewController AppDelegate.lZTabBarCtrl
 #endif // ROOT_VIEW_CONTROLLER_H
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MyAppTools : NSObject
 
 Prop_assign()FMLoginWork loginWork;
 /// 仅仅为了iOS 13 版本向下兼容而存在
--(UIWindow *)makeAppDelegateWindow;
--(UIWindow *)makeSceneDelegateWindow;
+-(JobsRetWindowByVoidBlock _Nonnull)makeAppDelegateWindow;
+-(JobsRetWindowByVoidBlock _Nonnull)makeSceneDelegateWindow;
 -(void)appDelegateWindowBlock:(jobsByWindowBlock _Nullable)appDelegateWindowBlock
      sceneDelegateWindowBlock:(jobsByWindowBlock _Nullable)sceneDelegateWindowBlock;
 
@@ -52,7 +60,7 @@ NS_ASSUME_NONNULL_END
 
 NS_INLINE __kindof UIWindow *_Nonnull
 jobsMakeAppDelegateWindow(jobsByWindowBlock _Nonnull block){
-    UIWindow *data = MyAppTools.sharedManager.makeAppDelegateWindow;
+    UIWindow *data = ((MyAppTools *)MyAppTools.jobsSharedManager()).makeAppDelegateWindow();
     if (block) block(data);
     return data;
 }

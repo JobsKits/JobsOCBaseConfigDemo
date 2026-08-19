@@ -109,7 +109,7 @@ JobsOCCountryCodeCtrl@Pods/
 #endif
 ```
 
-选择结果可以通过 `JobsOCCountryCodeCtrlDelegate` 或 `countryCodeBlock` 回传。
+选择结果可以通过 `JobsOCCountryCodeCtrlDelegate` 或 `controller.byCountryCodeBlock(block)` 回传；`countryCodeBlock` 属性本身保留原 getter / setter ABI，Jobs 调用统一走返回当前控制器的 Block 门面。
 
 回填普通字符串文案时可使用 `+[JobsOCCountryCodeCtrl jobs_countryCodeTextByCountryName:code:]`，非中国台湾地区格式为 `旗子 国家 / 地区名 +区号`。
 需要在 UI 内展示中国台湾青天白日旗图片时，使用 `+[JobsOCCountryCodeCtrl jobs_countryCodeAttributedTextByCountryName:code:font:textColor:]` 或 `+[JobsOCCountryCodeCtrl jobs_countryNameAttributedTextByCountryName:font:textColor:]`。

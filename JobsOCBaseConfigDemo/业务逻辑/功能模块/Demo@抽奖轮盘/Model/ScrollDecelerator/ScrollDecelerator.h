@@ -27,8 +27,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ScrollDecelerator : NSObject
 /// 当前速度（比如角速度）
 Prop_assign()CGFloat velocity;
+-(JobsRetScrollDeceleratorByCGFloatBlock _Nonnull)byVelocity;
 /// 衰减系数（0~1，越接近 1 减速越慢）
 Prop_assign()CGFloat decelerationRate;
+-(JobsRetScrollDeceleratorByCGFloatBlock _Nonnull)byDecelerationRate;
 
 - (instancetype)initWithVelocity:(CGFloat)velocity
                 decelerationRate:(CGFloat)decelerationRate;

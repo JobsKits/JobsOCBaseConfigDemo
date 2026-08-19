@@ -36,6 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(JobsRetNavCtrByVCBlock _Nonnull)initBy;
 -(UIViewController *)rootViewController;
+-(JobsRetVCByVoidBlock _Nonnull)jobsRootViewController;
 -(jobsByNSIntegerBlock _Nonnull)navDirectionBy;
 
 @end

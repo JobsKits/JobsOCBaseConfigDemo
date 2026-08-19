@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else
@@ -29,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 BaseViewProtocol,
 UIViewModelProtocol
 >
+
+-(JobsRetBaseTableViewHeaderFooterViewByViewBlock _Nonnull)byBackgroundView;
 
 @end
 

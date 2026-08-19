@@ -13,10 +13,27 @@ Prop_strong()__kindof UIView *sliderView;
 /// Data
 Prop_assign()NSUInteger current_index;
 Prop_strong()NSMutableArray <UIButtonModel *>*buttonModels;
+-(JobsRetJobsToggleNavViewByButtonModelsBlock _Nonnull)byButtonModels;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsToggleNavView
+@interface JobsToggleNavView (JobsPropertyDSLSetterAutogen_7ec0539185)
+-(void)setCurrent_index:(NSUInteger)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsToggleNavView
+
 @implementation JobsToggleNavView
+-(JobsRetJobsToggleNavViewByButtonModelsBlock _Nonnull)byButtonModels{
+    @jobs_weakify(self)
+    return ^__kindof JobsToggleNavView *_Nullable(NSMutableArray<__kindof UIButtonModel *> *_Nullable models){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setButtonModels:models];
+        return self;
+    };
+}
+
 JobsToggleNavViewProtocolSynthesize
 -(void)dealloc{
     JobsLog(@"");
@@ -35,14 +52,34 @@ JobsToggleNavViewProtocolSynthesize
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsToggleNavView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    /// 内部指定圆切角
-//    [self appointCornerCutToCircleByRoundingCorners:UIRectCornerAllCorners
-//                                        cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsToggleNavView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+            [super layoutSubviews];
+            /// 内部指定圆切角
+        //    [self appointCornerCutToCircleByRoundingCorners:UIRectCornerAllCorners
+        //                                        cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+    };
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -55,7 +92,7 @@ JobsToggleNavViewProtocolSynthesize
     @jobs_weakify(self)
     return ^(NSMutableArray <UIButtonModel *>*_Nullable model) {
         @jobs_strongify(self)
-        self.buttonModels = model;
+        self.byButtonModels(model);
         if(self.buttonsArray.count) {
             for (__kindof UIButton *btn in self.buttonsArray) {
                 [btn removeFromSuperview];
@@ -68,7 +105,7 @@ JobsToggleNavViewProtocolSynthesize
                 .initByButtonModel(buttonModel)
                 .byFrame(jobsMakeCGRectByLocationModelBlock(^(__kindof JobsLocationModel *_Nullable data) {
                     @jobs_strongify(self)
-                    data.byJobsWidth(jobs3TO(buttonModel.jobsWidth,self.buttonWidth))
+                    data.byJobsWidth(jobs3TO(buttonModel.jobsWidth,self.buttonWidth()))
                         .byJobsHeight(jobs3TO(buttonModel.jobsHeight,self.height));
                     if(i == 0){
                         btnRight = data.jobsWidth;
@@ -78,7 +115,7 @@ JobsToggleNavViewProtocolSynthesize
                         btnRight += (data.jobsWidth + self.btn_each_offset * i);
                         buttonModel.byJobsRight(btnRight);
                         UIButtonModel *buttonModel2 = self.buttonModels[i - 1];/// 上一个
-                        CGFloat d = jobs3TO(buttonModel2.jobsWidth,self.buttonWidth);
+                        CGFloat d = jobs3TO(buttonModel2.jobsWidth,self.buttonWidth());
                         buttonModel.byJobsX((d + self.btn_each_offset) * i);
                         data.byJobsX(buttonModel2.jobsRight + self.btn_each_offset);
                     }
@@ -103,11 +140,11 @@ JobsToggleNavViewProtocolSynthesize
 //                    data.jobsWidth = jobs3TO(self.buttonModels[i].jobsWidth,self.buttonWidth);
 //                    data.jobsHeight = jobs3TO(self.buttonModels[i].jobsHeight,self.height);
 //                }));
-            button.index = i;
+            button.byIndex(i);
             self.buttonsArray.add(button);
             self.addSubview(button);
         }
-        self.current_index = 0;
+        self.byCurrent_index(0);
         self.sliderView.byAlpha(1);
         /// 设置按钮为选中状态
         self.buttonsArray[0].bySelected(YES);
@@ -142,8 +179,13 @@ JobsToggleNavViewProtocolSynthesize
     };
 }
 #pragma mark —— 一些私有方法
--(CGFloat)buttonWidth{
-    return (self.width - (self.buttonModels.count - 1) * self.btn_each_offset) / self.buttonModels.count;
+-(JobsRetCGFloatByVoidBlock _Nonnull)buttonWidth{
+    @jobs_weakify(self)
+    return ^CGFloat{
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+        return (self.width - (self.buttonModels.count - 1) * self.btn_each_offset) / self.buttonModels.count;
+    };
 }
 #pragma mark —— 一些公有方法
 /// 核心方法：拖动和点击的逻辑，都归属于这个方法
@@ -155,7 +197,7 @@ JobsToggleNavViewProtocolSynthesize
         if(index > self.buttonsArray.count - 1) index = self.buttonsArray.count - 1;
         if(index < 0) index = 0;
         JobsLog(@"当前选择：%lu",(unsigned long)index);
-        self.current_index = index;
+        self.byCurrent_index(index);
         /// 全部还原
         int t = 0;
         for (UIButton *subButton in self.buttonsArray) {
@@ -200,7 +242,7 @@ JobsToggleNavViewProtocolSynthesize
             @jobs_strongify(self)
             view
                 .bySize(CGSizeMake(self.sliderW, self.sliderH))
-                .byCenterX(self.buttonWidth / 2)
+                .byCenterX(self.buttonWidth() / 2)
                 .byY(self.height - self.sliderH)
                 .byBgColor(self.sliderColor)
                 .addOn(self);
@@ -249,7 +291,7 @@ JobsToggleNavViewProtocolSynthesize
                  .bySubTitle(nil)
                  .byTitleFont(bayonRegular(JobsWidth(16)))
                  .bySubTitleFont(nil)
-                 .byTitleCor(@"#ABABAB".cor)
+                 .byTitleCor(@"#ABABAB".jobsCor())
                  .bySubTitleCor(nil)
                  .byTitleLineBreakMode(NSLineBreakByWordWrapping)
                  .bySubtitleLineBreakMode(NSLineBreakByWordWrapping)
@@ -279,4 +321,14 @@ JobsToggleNavViewProtocolSynthesize
 //    };return _buttonModels;
 //}
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsToggleNavView
+-(JobsRetJobsToggleNavViewByNSUIntegerBlock _Nonnull)byCurrent_index{
+    @jobs_weakify(self)
+    return ^__kindof JobsToggleNavView * _Nullable(NSUInteger data){
+        @jobs_strongify(self)
+        [self setCurrent_index:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsToggleNavView
 @end

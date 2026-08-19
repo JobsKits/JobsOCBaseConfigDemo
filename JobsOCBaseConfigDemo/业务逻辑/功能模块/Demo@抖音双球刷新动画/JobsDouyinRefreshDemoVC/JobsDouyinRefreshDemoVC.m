@@ -22,95 +22,155 @@ Prop_assign()NSUInteger refreshGeneration;
 -(UIButton *)makeControlButtonWithTitle:(NSString *)title
                                   color:(UIColor *)color
                                  action:(jobsByBtnBlock)action;
--(void)beginSimulatedRefresh;
+-(jobsByVoidBlock _Nonnull)beginSimulatedRefresh;
 
 @end
 
 @implementation JobsDouyinRefreshDemoVC
 -(void)dealloc {
-    [_refreshView byStop];
+    _refreshView.byStop();
     JobsLog(@"%@",JobsLocalFunc);
 }
 
 -(void)loadView {
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if (self.viewModel.pushOrPresent != ComingStyle_Unknown) {
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsDouyinRefreshDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if (self.viewModel.pushOrPresent != ComingStyle_Unknown) {
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byText(@"抖音双球刷新动画".tr)
-                .byFont(UIFontWeightRegularSize(18))
-                .byTextCor(JobsLabelColor);
-        })
-        .byBgCor(HEXCOLOR(0xF5F7FA))
-        .byNavBgCor(HEXCOLOR(0xF5F7FA));
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byText(@"抖音双球刷新动画".jobsTr())
+                    .byFont(UIFontWeightRegularSize(18))
+                    .byTextCor(JobsLabelColor);
+            })
+            .byBgCor(HEXCOLOR(0xF5F7FA))
+            .byNavBgCor(HEXCOLOR(0xF5F7FA));
+    };
 }
 
 -(void)viewDidLoad {
-    [super viewDidLoad];
-    self.makeNavByAlpha(1);
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.hintLab.byHidden(NO);
-    self.animationCardView.byHidden(NO);
-    self.refreshView.byHidden(NO);
-    self.statusLab.byHidden(NO);
-    self.startBtn.byHidden(NO);
-    self.pauseBtn.byHidden(NO);
-    self.stopBtn.byHidden(NO);
-    self.simulateBtn.byHidden(NO);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsDouyinRefreshDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.makeNavByAlpha(1);
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.hintLab.byHidden(NO);
+        self.animationCardView.byHidden(NO);
+        self.refreshView.byHidden(NO);
+        self.statusLab.byHidden(NO);
+        self.startBtn.byHidden(NO);
+        self.pauseBtn.byHidden(NO);
+        self.stopBtn.byHidden(NO);
+        self.simulateBtn.byHidden(NO);
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self beginSimulatedRefresh];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsDouyinRefreshDemoVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+        self.beginSimulatedRefresh();
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    self.refreshGeneration += 1;
-    [self.refreshView byStop];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsDouyinRefreshDemoVC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+        self.refreshGeneration += 1;
+        self.refreshView.byStop();
+    };
 }
 
 #pragma mark —— Action
--(void)startRefreshAnimation {
-    self.refreshGeneration += 1;
-    self.statusLab.byText(@"正在刷新…".tr);
-    self.refreshView.isAnimating ? [self.refreshView byResume] : [self.refreshView byStart];
-}
-
--(void)pauseRefreshAnimation {
-    self.refreshGeneration += 1;
-    self.statusLab.byText(@"刷新已暂停".tr);
-    [self.refreshView byPause];
-}
-
--(void)stopRefreshAnimation {
-    self.refreshGeneration += 1;
-    self.statusLab.byText(@"刷新已停止".tr);
-    [self.refreshView byStop];
-}
-
--(void)beginSimulatedRefresh {
-    self.refreshGeneration += 1;
-    NSUInteger generation = self.refreshGeneration;
-    self.statusLab.byText(@"正在刷新…".tr);
-    [self.refreshView byStart];
+-(jobsByVoidBlock _Nonnull)startRefreshAnimation {
     @jobs_weakify(self)
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)),
-                   dispatch_get_main_queue(), ^{
+    return ^{
         @jobs_strongify(self)
-        if (generation != self.refreshGeneration) return;
-        self.statusLab.byText(@"刷新完成，点击按钮可再次演示".tr);
-        [self.refreshView byStop];
-    });
+        if (!self) return;
+        self.refreshGeneration += 1;
+        self.statusLab.byText(@"正在刷新…".jobsTr());
+        self.refreshView.isAnimating ? self.refreshView.byResume() : self.refreshView.byStart();
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)pauseRefreshAnimation {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.refreshGeneration += 1;
+        self.statusLab.byText(@"刷新已暂停".jobsTr());
+        self.refreshView.byPause();
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)stopRefreshAnimation {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.refreshGeneration += 1;
+        self.statusLab.byText(@"刷新已停止".jobsTr());
+        self.refreshView.byStop();
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)beginSimulatedRefresh {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.refreshGeneration += 1;
+        NSUInteger generation = self.refreshGeneration;
+        self.statusLab.byText(@"正在刷新…".jobsTr());
+        self.refreshView.byStart();
+        @jobs_weakify(self)
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)),
+                       dispatch_get_main_queue(), ^{
+            @jobs_strongify(self)
+            if (generation != self.refreshGeneration) return;
+            self.statusLab.byText(@"刷新完成，点击按钮可再次演示".jobsTr());
+            self.refreshView.byStop();
+        });
+    };
 }
 
 #pragma mark —— LazyLoad
@@ -119,7 +179,7 @@ Prop_assign()NSUInteger refreshGeneration;
         @jobs_weakify(self)
         _hintLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"红、绿双球交叉换位并错峰跳跃；组件可独立用于下拉刷新、加载态或空白页。".tr)
+                .byText(@"红、绿双球交叉换位并错峰跳跃；组件可独立用于下拉刷新、加载态或空白页。".jobsTr())
                 .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontWeightRegularSize(15))
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -163,7 +223,7 @@ Prop_assign()NSUInteger refreshGeneration;
 
 -(JobsDouyinRefreshView *)refreshView {
     if (!_refreshView) {
-        JobsDouyinRefreshConfig *config = JobsDouyinRefreshConfig.config
+        JobsDouyinRefreshConfig *config = JobsDouyinRefreshConfig.config()
             .byDotDiameter(JobsWidth(18))
             .byHorizontalTravel(JobsWidth(32))
             .byJumpHeight(JobsWidth(11))
@@ -184,7 +244,7 @@ Prop_assign()NSUInteger refreshGeneration;
         @jobs_weakify(self)
         _statusLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"正在刷新…".tr)
+                .byText(@"正在刷新…".jobsTr())
                 .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightMediumSize(14))
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -205,7 +265,7 @@ Prop_assign()NSUInteger refreshGeneration;
         _startBtn = [self makeControlButtonWithTitle:@"开始 / 继续"
                                               color:JobsGreenColor
                                              action:^(__kindof UIButton * _Nullable button) {
-            [weak_self startRefreshAnimation];
+            weak_self.startRefreshAnimation();
         }];
         _startBtn
             .addOn(self.view)
@@ -224,7 +284,7 @@ Prop_assign()NSUInteger refreshGeneration;
         _pauseBtn = [self makeControlButtonWithTitle:@"暂停"
                                               color:JobsOrangeColor
                                              action:^(__kindof UIButton * _Nullable button) {
-            [weak_self pauseRefreshAnimation];
+            weak_self.pauseRefreshAnimation();
         }];
         _pauseBtn
             .addOn(self.view)
@@ -242,7 +302,7 @@ Prop_assign()NSUInteger refreshGeneration;
         _stopBtn = [self makeControlButtonWithTitle:@"停止"
                                              color:JobsRedColor
                                             action:^(__kindof UIButton * _Nullable button) {
-            [weak_self stopRefreshAnimation];
+            weak_self.stopRefreshAnimation();
         }];
         _stopBtn
             .addOn(self.view)
@@ -262,7 +322,7 @@ Prop_assign()NSUInteger refreshGeneration;
         _simulateBtn = [self makeControlButtonWithTitle:@"模拟一次 2 秒刷新"
                                                  color:JobsBlueColor
                                                 action:^(__kindof UIButton * _Nullable button) {
-            [weak_self beginSimulatedRefresh];
+            weak_self.beginSimulatedRefresh();
         }];
         _simulateBtn
             .addOn(self.view)
@@ -280,7 +340,7 @@ Prop_assign()NSUInteger refreshGeneration;
                                  action:(jobsByBtnBlock)action {
     return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
         button
-            .jobsResetBtnTitle(title.tr)
+            .jobsResetBtnTitle(title.jobsTr())
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(15))
             .jobsResetBtnBgCor(color)

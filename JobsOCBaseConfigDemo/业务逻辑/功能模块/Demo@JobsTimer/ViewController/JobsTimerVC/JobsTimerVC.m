@@ -19,161 +19,257 @@ Prop_strong()NSMutableArray <NSString *>*btnTitleMutArr;
 Prop_strong()NSArray <UIColor *>*btnBgCorArr;
 Prop_assign()BOOL countUpTimerHasStarted;
 
--(void)layoutTimerControlButtons;
--(void)startCountUpTimer;
--(void)pauseCountUpTimer;
--(void)restartCountUpTimer;
--(void)stopCountUpTimer;
--(void)updateTimerStatusText:(NSString *)text;
--(void)showCountUpToastByTime:(CGFloat)time;
+-(jobsByVoidBlock _Nonnull)layoutTimerControlButtons;
+-(jobsByVoidBlock _Nonnull)startCountUpTimer;
+-(jobsByVoidBlock _Nonnull)pauseCountUpTimer;
+-(jobsByVoidBlock _Nonnull)restartCountUpTimer;
+-(jobsByVoidBlock _Nonnull)stopCountUpTimer;
+-(jobsByStrBlock _Nonnull)updateTimerStatusText;
+-(jobsByCGFloatBlock _Nonnull)showCountUpToastByTime;
 -(NSAttributedString *)normalTipAttributedStringWithText:(NSString *)text
                                                     font:(UIFont *)font
                                                textColor:(UIColor *)textColor;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsTimerVC
+@interface JobsTimerVC (JobsPropertyDSLSetterAutogen_68114939e5)
+-(void)setCountUpTimerHasStarted:(BOOL)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsTimerVC
+
 @implementation JobsTimerVC
 - (void)dealloc{
     /// 定时器完全移除以后，才会走dealloc方法
     JobsLog(@"%@",JobsLocalFunc);
-    [_countdownView.timer stop];
+    _countdownView.timer.jobsStop();
 //    JobsRemoveNotification(self);
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTimerVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"正计时".tr)
-                .byFont(UIFontWeightRegularSize(16))
-                .byTextCor(JobsLabelColor);
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"正计时".jobsTr())
+                    .byFont(UIFontWeightRegularSize(16))
+                    .byTextCor(JobsLabelColor);
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.countUpTitleLab.byVisible(YES);
-    self.countdownView.byVisible(YES);
-    [self layoutTimerControlButtons];
-    self.countUpStatusLab.byVisible(YES);
-    self.tipsTextView.byVisible(YES);
-    [self updateTimerControlButtons];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTimerVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.countUpTitleLab.byVisible(YES);
+        self.countdownView.byVisible(YES);
+        self.layoutTimerControlButtons();
+        self.countUpStatusLab.byVisible(YES);
+        self.tipsTextView.byVisible(YES);
+        self.updateTimerControlButtons();
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self updateTimerControlButtons];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTimerVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillAppear:animated];
+        self.updateTimerControlButtons();
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTimerVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    [self.countdownView.timer stop];
-    self.countUpTimerHasStarted = NO;
-    [self.countdownView refreshData];
-    [self updateTimerControlButtons];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTimerVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+        if (self.countdownView.timer) self.countdownView.timer.jobsStop();
+        self.byCountUpTimerHasStarted(NO);
+        self.countdownView.refreshData();
+        self.updateTimerControlButtons();
+    };
 }
 #pragma mark —— 一些私有方法
--(void)layoutTimerControlButtons {
-    /// 实现masonry水平固定间隔方法
-    [self.btnMutArr mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
-                                withFixedSpacing:JobsWidth(10)
-                                     leadSpacing:JobsWidth(20)
-                                     tailSpacing:JobsWidth(20)];
-    /// 设置array的垂直方向的约束
-    [self.btnMutArr mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.countdownView.mas_bottom).offset(JobsWidth(12));
-        make.height.mas_equalTo(JobsWidth(36));
-    }];
+-(jobsByVoidBlock _Nonnull)layoutTimerControlButtons {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        /// 实现masonry水平固定间隔方法
+        [self.btnMutArr mas_distributeViewsAlongAxis:MASAxisTypeHorizontal
+                                    withFixedSpacing:JobsWidth(10)
+                                         leadSpacing:JobsWidth(20)
+                                         tailSpacing:JobsWidth(20)];
+        /// 设置array的垂直方向的约束
+        [self.btnMutArr mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.countdownView.mas_bottom).offset(JobsWidth(12));
+            make.height.mas_equalTo(JobsWidth(36));
+        }];
+    };
 }
 /// Timer UI 状态同步
--(void)updateTimerControlButtons {
-    id<TimerProtocol> timer = self.countdownView.timer;
-    if (!timer || self.btnMutArr.count < 4) return;
-    UIButton *startBtn  = self.btnMutArr[0];
-    UIButton *pauseBtn  = self.btnMutArr[1];
-    UIButton *restartBtn = self.btnMutArr[2];
-    UIButton *stopBtn   = self.btnMutArr[3];
-    BOOL isRunning = timer.isRunning;
-    BOOL isPaused  = timer.isPaused;
-    BOOL canStart = !isRunning && !isPaused;
-    BOOL canPause = isRunning;
-    BOOL canRestart = self.countUpTimerHasStarted;
-    BOOL canStop = isRunning || isPaused;
-    startBtn.userInteractionEnabled = canStart;
-    pauseBtn.userInteractionEnabled = canPause;
-    restartBtn.userInteractionEnabled = canRestart;
-    stopBtn.userInteractionEnabled = canStop;
-    startBtn.byAlpha(canStart ? 1.0 : 0.42);
-    pauseBtn.byAlpha(canPause ? 1.0 : 0.42);
-    restartBtn.byAlpha(canRestart ? 1.0 : 0.42);
-    stopBtn.byAlpha(canStop ? 1.0 : 0.42);
+-(jobsByVoidBlock _Nonnull)updateTimerControlButtons {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        id<TimerProtocol> timer = self.countdownView.timer;
+        if (!timer || self.btnMutArr.count < 4) return;
+        UIButton *startBtn  = self.btnMutArr[0];
+        UIButton *pauseBtn  = self.btnMutArr[1];
+        UIButton *restartBtn = self.btnMutArr[2];
+        UIButton *stopBtn   = self.btnMutArr[3];
+        BOOL isRunning = timer.isRunning;
+        BOOL isPaused  = timer.isPaused;
+        BOOL canStart = !isRunning && !isPaused;
+        BOOL canPause = isRunning;
+        BOOL canRestart = self.countUpTimerHasStarted;
+        BOOL canStop = isRunning || isPaused;
+        startBtn.byUserInteractionEnabled(canStart);
+        pauseBtn.byUserInteractionEnabled(canPause);
+        restartBtn.byUserInteractionEnabled(canRestart);
+        stopBtn.byUserInteractionEnabled(canStop);
+        startBtn.byAlpha(canStart ? 1.0 : 0.42);
+        pauseBtn.byAlpha(canPause ? 1.0 : 0.42);
+        restartBtn.byAlpha(canRestart ? 1.0 : 0.42);
+        stopBtn.byAlpha(canStop ? 1.0 : 0.42);
+    };
 }
 
--(void)startCountUpTimer{
-    self.countUpTimerHasStarted = YES;
-    [self.countdownView refreshData];
-    [self.countdownView.timer start];
-    [self updateTimerStatusText:@"正计时已开始".tr];
+-(jobsByVoidBlock _Nonnull)startCountUpTimer{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byCountUpTimerHasStarted(YES);
+        self.countdownView.refreshData();
+        self.countdownView.timer.start();
+        self.updateTimerStatusText(@"正计时已开始".jobsTr());
+    };
 }
 
--(void)pauseCountUpTimer{
-    [self.countdownView.timer pause];
-    [self updateTimerStatusText:@"正计时已暂停，可重启或结束".tr];
+-(jobsByVoidBlock _Nonnull)pauseCountUpTimer{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (self.countdownView.timer) self.countdownView.timer.pause();
+        self.updateTimerStatusText(@"正计时已暂停，可重启或结束".jobsTr());
+    };
 }
 
--(void)restartCountUpTimer{
-    self.countUpTimerHasStarted = YES;
-    [self.countdownView.timer stop];
-    [self.countdownView refreshData];
-    [self.countdownView.timer start];
-    [self updateTimerStatusText:@"正计时已重启，从 00:00 重新开始".tr];
+-(jobsByVoidBlock _Nonnull)restartCountUpTimer{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byCountUpTimerHasStarted(YES);
+        if (self.countdownView.timer) self.countdownView.timer.jobsStop();
+        self.countdownView.refreshData();
+        self.countdownView.timer.start();
+        self.updateTimerStatusText(@"正计时已重启，从 00:00 重新开始".jobsTr());
+    };
 }
 
--(void)stopCountUpTimer{
-    self.countUpTimerHasStarted = NO;
-    [self.countdownView.timer stop];
-    [self.countdownView refreshData];
-    [self updateTimerStatusText:@"正计时已结束，等待手动开始".tr];
+-(jobsByVoidBlock _Nonnull)stopCountUpTimer{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byCountUpTimerHasStarted(NO);
+        if (self.countdownView.timer) self.countdownView.timer.jobsStop();
+        self.countdownView.refreshData();
+        self.updateTimerStatusText(@"正计时已结束，等待手动开始".jobsTr());
+    };
 }
 
--(void)updateTimerStatusText:(NSString *)text{
-    self.countUpStatusLab.byText(text);
+-(jobsByStrBlock _Nonnull)updateTimerStatusText{
+    @jobs_weakify(self)
+    return ^(NSString * text){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.countUpStatusLab.byText(text);
+    };
 }
 
--(void)showCountUpToastByTime:(CGFloat)time{
-    NSInteger seconds = MAX(0, (NSInteger)time);
-    [NSString stringWithFormat:@"%ld%@",(long)seconds, @"秒到了，我被打印出来了！".tr].toast();
+-(jobsByCGFloatBlock _Nonnull)showCountUpToastByTime{
+    @jobs_weakify(self)
+    return ^(CGFloat time){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSInteger seconds = MAX(0, (NSInteger)time);
+        [NSString stringWithFormat:@"%ld%@",(long)seconds, @"秒到了，我被打印出来了！".jobsTr()].toast();
+    };
 }
 
 -(NSAttributedString *)normalTipAttributedStringWithText:(NSString *)text
                                                     font:(UIFont *)font
                                                textColor:(UIColor *)textColor{
     NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
-    paragraphStyle.alignment = NSTextAlignmentLeft;
-    paragraphStyle.lineSpacing = JobsWidth(4);
-    paragraphStyle.paragraphSpacing = 0;
+    paragraphStyle.byAlignment(NSTextAlignmentLeft);
+    paragraphStyle.byLineSpacing(JobsWidth(4));
+    paragraphStyle.byParagraphSpacing(0);
     return [NSAttributedString.alloc initWithString:text ?: JobsEmpty
                                          attributes:@{
         NSFontAttributeName: font,
@@ -188,7 +284,7 @@ Prop_assign()BOOL countUpTimerHasStarted;
         @jobs_weakify(self)
         _countUpTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(@"正计时".tr)
+            label.byText(@"正计时".jobsTr())
                 .byFont(UIFontWeightSemiboldSize(18))
                 .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentLeft)
@@ -218,21 +314,21 @@ Prop_assign()BOOL countUpTimerHasStarted;
                     .onClickBy(^(UIButton *btn){
                         @jobs_strongify(self)
                         if (btn.tag == 0) {
-                            [self startCountUpTimer];
+                            self.startCountUpTimer();
                         }else if (btn.tag == 1){
-                            [self pauseCountUpTimer];
+                            self.pauseCountUpTimer();
                         }else if (btn.tag == 2){
-                            [self restartCountUpTimer];
+                            self.restartCountUpTimer();
                         }else{
-                            [self stopCountUpTimer];
+                            self.stopCountUpTimer();
                         }
-                        [self updateTimerControlButtons];
+                        self.updateTimerControlButtons();
                     }).onLongPressGestureBy(^(id data){
                         JobsLog(@"");
                     })
                     .jobsResetBtnLayerBorderCor(JobsClearColor)
                     .jobsResetBtnLayerBorderWidth(0);
-                btn.tag = idx;
+                btn.byTag(idx);
                 btn.addOn(self.view);
                 data.add(btn);
             }
@@ -243,10 +339,10 @@ Prop_assign()BOOL countUpTimerHasStarted;
 -(NSMutableArray<NSString *> *)btnTitleMutArr{
     if (!_btnTitleMutArr) {
         _btnTitleMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>*_Nullable data) {
-            data.add(@"开始".tr)
-            .add(@"暂停".tr)
-            .add(@"重启".tr)
-            .add(@"结束".tr);
+            data.add(@"开始".jobsTr())
+            .add(@"暂停".jobsTr())
+            .add(@"重启".jobsTr())
+            .add(@"结束".jobsTr());
         });
     };return _btnTitleMutArr;
 }
@@ -271,7 +367,7 @@ Prop_assign()BOOL countUpTimerHasStarted;
         _countdownView.objBlock = ^(id _Nullable data) {
             @jobs_strongify(self)
             if ([data isKindOfClass:NSNumber.class]) {
-                [self showCountUpToastByTime:[data doubleValue]];
+                self.showCountUpToastByTime([data doubleValue]);
             }
         };
         _countdownView.jobsRichViewByModel(nil);
@@ -289,7 +385,7 @@ Prop_assign()BOOL countUpTimerHasStarted;
         _countUpStatusLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             UIButton *firstBtn = self.btnMutArr.firstObject;
-            label.byText(@"请点击“开始”，正计时不会自动启动".tr)
+            label.byText(@"请点击“开始”，正计时不会自动启动".jobsTr())
                 .byFont(UIFontWeightRegularSize(13))
                 .byTextCor(JobsSecondaryLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -311,7 +407,7 @@ Prop_assign()BOOL countUpTimerHasStarted;
             @jobs_strongify(self)
             UIFont *font = UIFontWeightRegularSize(13);
             UIColor *textColor = HEXCOLOR(0x5F6B7A);
-            textView.byAttributedText([self normalTipAttributedStringWithText:@"这个 Demo 只展示 JobsTimer 正计时控制：点击“开始”后才进入正计时，每一秒 tick 都会显示 toast；可以手动暂停、重启和结束。倒计时按钮请进入独立的“倒计时按钮”Demo。".tr
+            textView.byAttributedText([self normalTipAttributedStringWithText:@"这个 Demo 只展示 JobsTimer 正计时控制：点击“开始”后才进入正计时，每一秒 tick 都会显示 toast；可以手动暂停、重启和结束。倒计时按钮请进入独立的“倒计时按钮”Demo。".jobsTr()
                                                                          font:font
                                                                     textColor:textColor])
                 .byTextAlignment(NSTextAlignmentLeft)
@@ -332,4 +428,14 @@ Prop_assign()BOOL countUpTimerHasStarted;
     };return _tipsTextView;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsTimerVC
+-(JobsRetJobsTimerVCByBOOLBlock _Nonnull)byCountUpTimerHasStarted{
+    @jobs_weakify(self)
+    return ^__kindof JobsTimerVC * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setCountUpTimerHasStarted:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsTimerVC
 @end

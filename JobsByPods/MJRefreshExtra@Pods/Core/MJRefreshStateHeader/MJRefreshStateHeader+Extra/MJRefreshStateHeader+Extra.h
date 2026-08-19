@@ -50,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface MJRefreshStateHeader (Extra)<MJRefreshProtocol>
 
+-(JobsRetIDByBOOLBlock _Nonnull)byAutomaticallyChangeAlpha;
 -(JobsRetMJRefreshStateHeaderByRefreshConfigModelBlock _Nonnull)byMJRefreshHeaderConfigModel;
 
 @end

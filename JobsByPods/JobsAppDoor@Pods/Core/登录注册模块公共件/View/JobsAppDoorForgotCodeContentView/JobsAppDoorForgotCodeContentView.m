@@ -17,9 +17,9 @@ Prop_strong()BaseButton *confirmBtn;
 Prop_strong()BaseButton *backHomeBtn;
 Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按钮
 
--(void)jobs_updateConfirmBtnState;
--(BOOL)jobs_canConfirmPassword;
--(JobsAppDoorInputViewBaseStyleModel *)jobs_passwordInputModelWithPlaceholder:(NSString *)placeholder;
+-(jobsByVoidBlock _Nonnull)jobs_updateConfirmBtnState;
+-(JobsRetBOOLByVoidBlock _Nonnull)jobs_canConfirmPassword;
+-(JobsRetJobsAppDoorInputViewBaseStyleModelByStrBlock _Nonnull)jobs_passwordInputModelWithPlaceholder;
 
 @end
 
@@ -36,7 +36,17 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAppDoorForgotCodeContentView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches
@@ -56,44 +66,60 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
         self.confirmBtn.byAlpha(1);
         self.backHomeBtn.byAlpha(1);
         self.contactCustomerServiceBtn.byAlpha(1);
-        [self jobs_updateConfirmBtnState];
+        self.jobs_updateConfirmBtnState();
     };
 }
 #pragma mark —— 一些私有方法
--(void)jobs_updateConfirmBtnState{
-    BOOL enabled = [self jobs_canConfirmPassword];
-    self.confirmBtn
-        .byEnabled(enabled)
-        .byUserInteractionEnabled(enabled)
-        .byAlpha(enabled ? 1 : 0.45f);
+-(jobsByVoidBlock _Nonnull)jobs_updateConfirmBtnState{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        BOOL enabled = self.jobs_canConfirmPassword();
+        self.confirmBtn
+            .byEnabled(enabled)
+            .byUserInteractionEnabled(enabled)
+            .byAlpha(enabled ? 1 : 0.45f);
+    };
 }
 
--(BOOL)jobs_canConfirmPassword{
-    NSString *password = self.passwordInputView.textFieldValue ? : @"";
-    NSString *confirmPassword = self.confirmPasswordInputView.textFieldValue ? : @"";
-    return password.length && confirmPassword.length && [password isEqualToString:confirmPassword];
+-(JobsRetBOOLByVoidBlock _Nonnull)jobs_canConfirmPassword{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        NSString *password = self.passwordInputView.textFieldValue ? : @"";
+        NSString *confirmPassword = self.confirmPasswordInputView.textFieldValue ? : @"";
+        return password.length && confirmPassword.length && [password isEqualToString:confirmPassword];
+    };
 }
 
--(JobsAppDoorInputViewBaseStyleModel *)jobs_passwordInputModelWithPlaceholder:(NSString *)placeholder{
-    UIImage *lockIcon = JobsAppDoorImageNamed(@"Lock") ? : JobsAppDoorImageNamed(@"codeDecode");
-    return jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable data) {
-        data.leftViewIMG = lockIcon;
-        data.placeholder = placeholder;
-        data.isShowDelBtn = YES;
-        data.isShowSecurityBtn = YES;
-        data.useCustomClearButton = YES;
-        data.returnKeyType = UIReturnKeyDone;
-        data.keyboardAppearance = UIKeyboardAppearanceAlert;
-        data.keyboardEnable = YES;
-        data.selectedSecurityBtnIMG = JobsAppDoorImageNamed(@"codeEncode");
-        data.unSelectedSecurityBtnIMG = JobsAppDoorImageNamed(@"codeDecode");
-        data.leftViewMode = UITextFieldViewModeAlways;
-        data.placeholderColor = JobsWhiteColor;
-        data.titleStrCor = JobsWhiteColor;
-        data.rightViewOffsetX = -JobsWidth(8);
-        data.placeHolderOffset = JobsWidth(35);
-        data.offset = JobsWidth(0);
-    });
+-(JobsRetJobsAppDoorInputViewBaseStyleModelByStrBlock _Nonnull)jobs_passwordInputModelWithPlaceholder{
+    @jobs_weakify(self)
+    return ^JobsAppDoorInputViewBaseStyleModel *(NSString * placeholder){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        UIImage *lockIcon = JobsAppDoorImageNamed(@"Lock") ? : JobsAppDoorImageNamed(@"codeDecode");
+        return jobsMakeAppDoorInputViewBaseStyleModel(^(JobsAppDoorInputViewBaseStyleModel * _Nullable data) {
+            data
+                .byLeftViewIMG(lockIcon)
+                .byPlaceholder(placeholder)
+                .byIsShowDelBtn(YES)
+                .byShowSecurityBtn(YES)
+                .byUseCustomClearButton(YES)
+                .byReturnKeyType(UIReturnKeyDone)
+                .byKeyboardAppearance(UIKeyboardAppearanceAlert)
+                .byKeyboardEnable(YES)
+                .bySelectedSecurityBtnIMG(JobsAppDoorImageNamed(@"codeEncode"))
+                .byUnSelectedSecurityBtnIMG(JobsAppDoorImageNamed(@"codeDecode"))
+                .byLeftViewMode(UITextFieldViewModeAlways)
+                .byPlaceholderColor(JobsWhiteColor)
+                .byTitleStrCor(JobsWhiteColor)
+                .byRightViewOffsetX(-JobsWidth(8))
+                .byPlaceHolderOffset(JobsWidth(35))
+                .byOffset(JobsWidth(0));
+        });
+    };
 }
 #pragma mark —— lazyLoad
 -(BaseButton *)backToLoginBtn{
@@ -156,12 +182,12 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
                 @jobs_strongify(self)
                 JobsAppDoorInputViewBaseStyle_3 *inputView = (JobsAppDoorInputViewBaseStyle_3 *)view;
                 /// 初始渲染可能同步触发文本信号，必须先于外部回调绑定完成
-                inputView.jobsRichViewByModel([self jobs_passwordInputModelWithPlaceholder:@"密码".tr]);
+                inputView.jobsRichViewByModel(self.jobs_passwordInputModelWithPlaceholder(@"密码".jobsTr()));
                 @jobs_weakify(self)
-                [inputView actionObjBlock:^(id data) {
+                inputView.actionObjBlock(^(id data) {
                     @jobs_strongify(self)
-                    [self jobs_updateConfirmBtnState];
-                }];
+                    self.jobs_updateConfirmBtnState();
+                });
             })
             .addOn(self)
             .byAdd(^(MASConstraintMaker *make) {
@@ -186,12 +212,12 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
                 @jobs_strongify(self)
                 JobsAppDoorInputViewBaseStyle_3 *inputView = (JobsAppDoorInputViewBaseStyle_3 *)view;
                 /// 初始渲染可能同步触发文本信号，必须先于外部回调绑定完成
-                inputView.jobsRichViewByModel([self jobs_passwordInputModelWithPlaceholder:@"确认密码".tr]);
+                inputView.jobsRichViewByModel(self.jobs_passwordInputModelWithPlaceholder(@"确认密码".jobsTr()));
                 @jobs_weakify(self)
-                [inputView actionObjBlock:^(id data) {
+                inputView.actionObjBlock(^(id data) {
                     @jobs_strongify(self)
-                    [self jobs_updateConfirmBtnState];
-                }];
+                    self.jobs_updateConfirmBtnState();
+                });
             })
             .addOn(self)
             .byAdd(^(MASConstraintMaker *make) {
@@ -213,13 +239,13 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
             .bgColorBy(Cor4)
             .jobsResetBtnTitleCor(Cor5)
             .jobsResetBtnTitleFont(UIFontWeightRegularSize(16))
-            .jobsResetBtnTitle(@"确认".tr)
+            .jobsResetBtnTitle(@"确认".jobsTr())
             .jobsResetBtnCornerRadiusValue(ThingsHeight / 2)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 [self endEditing:YES];
-                if (![self jobs_canConfirmPassword]) {
-                    toastBy(@"两次密码输入不一致".tr);
+                if (!self.jobs_canConfirmPassword()) {
+                    toastBy(@"两次密码输入不一致".jobsTr());
                     return;
                 }
                 if (self.objBlock) self.objBlock(x);
@@ -232,7 +258,7 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
                 make.left.right.height.equalTo(self.passwordInputView);
                 make.top.equalTo(self.confirmPasswordInputView.mas_bottom).offset(JobsWidth(24));
             });
-        [self jobs_updateConfirmBtnState];
+        self.jobs_updateConfirmBtnState();
     };return _confirmBtn;
 }
 

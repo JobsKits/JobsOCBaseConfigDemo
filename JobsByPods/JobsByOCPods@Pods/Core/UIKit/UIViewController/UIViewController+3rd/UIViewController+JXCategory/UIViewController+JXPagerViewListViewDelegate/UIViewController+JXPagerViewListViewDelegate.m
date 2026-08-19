@@ -13,9 +13,9 @@
     if ([scrollView isKindOfClass:self.scrollViewClass]) {
         CGFloat sectionHeaderHeight = 40;
         if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
-            scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+            scrollView.byContentInset(UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0));
         } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
-            scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+            scrollView.byContentInset(UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0));
         }
     }
     if (self.scrollCallback) self.scrollCallback(scrollView);
@@ -26,7 +26,7 @@
 }
 
 - (void)listViewDidScrollCallback:(void (^)(UIScrollView *))callback {
-    self.scrollCallback = callback;
+    (((JobsRetUIViewControllerByvoidUIScrollViewscrollViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIViewController.class, @selector(byScrollCallback)))(self, @selector(byScrollCallback)))(callback);
 }
 
 - (UIView *)listView {
@@ -81,12 +81,21 @@ JobsKey(_scrollView)
 #pragma mark —— Prop_copy()void(^scrollCallback)(UIScrollView *scrollView);
 JobsKey(_scrollCallback)
 @dynamic scrollCallback;
--(void (^)(UIScrollView * _Nonnull))scrollCallback{
+-(jobsByScrollViewBlock _Nonnull)scrollCallback{
     return Jobs_getAssociatedObject(_scrollCallback);
 }
 
 -(void)setScrollCallback:(void (^)(UIScrollView * _Nonnull))scrollCallback{
     Jobs_setAssociatedCOPY_NONATOMIC(_scrollCallback, scrollCallback)
+}
+
+-(JobsRetUIViewControllerByvoidUIScrollViewscrollViewBlock _Nonnull)byScrollCallback{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController * _Nullable(void (^ _Nullable data)(UIScrollView *scrollView)){
+        @jobs_strongify(self)
+        [self setScrollCallback:data];
+        return self;
+    };
 }
 
 @end

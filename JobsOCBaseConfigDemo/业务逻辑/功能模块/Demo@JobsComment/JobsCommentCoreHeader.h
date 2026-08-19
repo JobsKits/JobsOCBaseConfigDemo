@@ -6,6 +6,13 @@
 //
 
 #ifndef JobsCommentCoreHeader_h
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
 #define JobsCommentCoreHeader_h
 
 #pragma mark —— ViewController
@@ -23,11 +30,5 @@
 /// 二级标题
 #import "LoadMoreTBVCell.h"
 #import "InfoTBVCell.h"
-
-#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
-#import <JobsByOCPods/JobsByOCPods.h>
-#else
-#import "JobsByOCPods.h"
-#endif
 
 #endif /* JobsCommentCoreHeader_h */

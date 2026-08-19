@@ -70,8 +70,8 @@ UILocationProtocol
 Prop_assign()NSInteger thumpNum;/// 点赞数
 Prop_assign()RBCLikeButtonStatus thumbStatus;/// 按钮状态
 
--(void)recoverLike; // 恢复点赞
--(void)cancelLike;  // 取消点赞
+-(jobsByVoidBlock _Nonnull)recoverLike; // 恢复点赞
+-(jobsByVoidBlock _Nonnull)cancelLike;  // 取消点赞
 /**
  设置点赞
  
@@ -83,5 +83,9 @@ Prop_assign()RBCLikeButtonStatus thumbStatus;/// 按钮状态
                    thumbNum:(NSInteger)thumbNum
                   animation:(BOOL)animation;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN RBCLikeButton
+-(JobsRetRBCLikeButtonByBOOLBlock _Nonnull)byNeedAnimation;
+-(JobsRetRBCLikeButtonByNSIntegerBlock _Nonnull)byThumpNum;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END RBCLikeButton
 @end
 #endif /* JOBS_HEADER_GUARD_RBCLIKEBUTTON_2909D184F3 */

@@ -320,7 +320,7 @@
     @jobs_weakify(self)
     return ^__kindof UITextView *_Nullable(CGFloat padding){
         @jobs_strongify(self)
-        self.textContainer.lineFragmentPadding = padding;
+        self.textContainer.byLineFragmentPadding(padding);
         return self;
     };
 }
@@ -329,7 +329,7 @@
     @jobs_weakify(self)
     return ^__kindof UITextView *_Nullable(NSUInteger numberOfLines){
         @jobs_strongify(self)
-        self.textContainer.maximumNumberOfLines = numberOfLines;
+        self.textContainer.byMaximumNumberOfLines(numberOfLines);
         return self;
     };
 }
@@ -338,7 +338,7 @@
     @jobs_weakify(self)
     return ^__kindof UITextView *_Nullable(NSLineBreakMode lineBreakMode){
         @jobs_strongify(self)
-        self.textContainer.lineBreakMode = lineBreakMode;
+        self.textContainer.byLineBreakMode(lineBreakMode);
         return self;
     };
 }
@@ -347,7 +347,7 @@
     @jobs_weakify(self)
     return ^__kindof UITextView *_Nullable(BOOL data){
         @jobs_strongify(self)
-        self.textContainer.widthTracksTextView = data;
+        self.textContainer.byWidthTracksTextView(data);
         return self;
     };
 }
@@ -356,9 +356,31 @@
     @jobs_weakify(self)
     return ^__kindof UITextView *_Nullable(BOOL data){
         @jobs_strongify(self)
-        self.textContainer.heightTracksTextView = data;
+        self.textContainer.byHeightTracksTextView(data);
         return self;
     };
 }
+
+@end
+
+@implementation NSTextContainer (DSL)
+
+#define JOBS_TEXT_CONTAINER_DSL(_selector_, _blockType_, _valueType_, _property_) \
+-(_blockType_ _Nonnull)_selector_{ \
+    @jobs_weakify(self) \
+    return ^__kindof NSTextContainer *_Nullable(_valueType_ data){ \
+        @jobs_strongify(self) \
+        self._property_ = data; \
+        return self; \
+    }; \
+}
+
+JOBS_TEXT_CONTAINER_DSL(byLineFragmentPadding, JobsRetTextContainerByCGFloatBlock, CGFloat, lineFragmentPadding)
+JOBS_TEXT_CONTAINER_DSL(byMaximumNumberOfLines, JobsRetTextContainerByUIntegerBlock, NSUInteger, maximumNumberOfLines)
+JOBS_TEXT_CONTAINER_DSL(byLineBreakMode, JobsRetTextContainerByLineBreakModeBlock, NSLineBreakMode, lineBreakMode)
+JOBS_TEXT_CONTAINER_DSL(byWidthTracksTextView, JobsRetTextContainerByBOOLBlock, BOOL, widthTracksTextView)
+JOBS_TEXT_CONTAINER_DSL(byHeightTracksTextView, JobsRetTextContainerByBOOLBlock, BOOL, heightTracksTextView)
+
+#undef JOBS_TEXT_CONTAINER_DSL
 
 @end

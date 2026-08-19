@@ -19,28 +19,54 @@ Prop_copy(nullable)jobsCollectionViewNumberOfItemsInSectionBlock numberOfItemsIn
 Prop_copy(nullable)jobsCollectionViewCellForItemAtBlock cellForItemAtBlock;
 Prop_copy(nullable)jobsCollectionViewDidSelectItemAtBlock didSelectItemAtBlock;
 
+-(JobsRetIDByIDBlock _Nonnull)byTarget;
+
 @end
 
 @implementation JobsCollectionViewBlocksProxy
--(id)resolvedTarget{
-    return self.target ?: self;
+-(JobsRetIDByIDBlock _Nonnull)byTarget{
+    @jobs_weakify(self)
+    return ^id _Nullable(id _Nullable data){
+        @jobs_strongify(self)
+        self.target = data;
+        return self;
+    };
+}
+
+-(JobsRetIDByVoidBlock _Nonnull)resolvedTarget{
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.target ?: self;
+    };
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return self.numberOfSectionsBlock ? self.numberOfSectionsBlock(self.resolvedTarget, collectionView) : 1;
+    JobsRetNSIntegerByUICollectionViewBlock action = ((JobsRetNSIntegerByUICollectionViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCollectionViewBlocksProxy.class, @selector(jobsNumberOfSectionsInCollectionView)))(self, @selector(jobsNumberOfSectionsInCollectionView));
+    return action ? action(collectionView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUICollectionViewBlock _Nonnull)jobsNumberOfSectionsInCollectionView{
+    @jobs_weakify(self)
+    return ^NSInteger(UICollectionView * collectionView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return self.numberOfSectionsBlock ? self.numberOfSectionsBlock(self.resolvedTarget(), collectionView) : 1;
+    };
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return self.numberOfItemsInSectionBlock ? self.numberOfItemsInSectionBlock(self.resolvedTarget, collectionView, section) : 0;
+    return self.numberOfItemsInSectionBlock ? self.numberOfItemsInSectionBlock(self.resolvedTarget(), collectionView, section) : 0;
 }
 
 -(__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return self.cellForItemAtBlock ? self.cellForItemAtBlock(self.resolvedTarget, collectionView, indexPath) : UICollectionViewCell.alloc.init;
+    return self.cellForItemAtBlock ? self.cellForItemAtBlock(self.resolvedTarget(), collectionView, indexPath) : UICollectionViewCell.alloc.init;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if (self.didSelectItemAtBlock){
-        self.didSelectItemAtBlock(self.resolvedTarget, collectionView, indexPath);
+        self.didSelectItemAtBlock(self.resolvedTarget(), collectionView, indexPath);
     }
 }
 
@@ -51,29 +77,89 @@ Prop_copy(nullable)jobsCollectionViewDidSelectItemAtBlock didSelectItemAtBlock;
 Prop_weak(nullable)NSObject<UICollectionViewDataSource> *primary;
 Prop_weak(nullable)NSObject<UICollectionViewDataSource> *secondary;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsCollectionViewDataSourceMux
+-(JobsRetJobsCollectionViewDataSourceMuxByNSObjectUICollectionViewDataSourceBlock _Nonnull)byPrimary;
+-(JobsRetJobsCollectionViewDataSourceMuxByNSObjectUICollectionViewDataSourceBlock _Nonnull)bySecondary;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsCollectionViewDataSourceMux
 @end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsCollectionViewDataSourceMux
+@interface JobsCollectionViewDataSourceMux (JobsPropertyDSLSetterAutogen_8ccf522738)
+-(void)setPrimary:(NSObject<UICollectionViewDataSource> * _Nullable)data;
+-(void)setSecondary:(NSObject<UICollectionViewDataSource> * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsCollectionViewDataSourceMux
 
 @implementation JobsCollectionViewDataSourceMux
 -(BOOL)respondsToSelector:(SEL)aSelector{
-    if ([super respondsToSelector:aSelector]) return YES;
-    if ([(id)self.primary respondsToSelector:aSelector]) return YES;
-    if ([(id)self.secondary respondsToSelector:aSelector]) return YES;
-    return NO;
+    JobsRetBOOLBySELBlock action = ((JobsRetBOOLBySELBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCollectionViewDataSourceMux.class, @selector(jobsRespondsToSelector)))(self, @selector(jobsRespondsToSelector));
+    return action ? action(aSelector) : NO;
+}
+
+-(JobsRetBOOLBySELBlock _Nonnull)jobsRespondsToSelector{
+    @jobs_weakify(self)
+    return ^BOOL(SEL aSelector){
+        @jobs_strongify(self)
+        if (!self) return NO;
+        if ([super respondsToSelector:aSelector]) return YES;
+        if ([(id)self.primary respondsToSelector:aSelector]) return YES;
+        if ([(id)self.secondary respondsToSelector:aSelector]) return YES;
+        return NO;
+    };
 }
 
 -(id)forwardingTargetForSelector:(SEL)aSelector{
-    if ([(id)self.primary respondsToSelector:aSelector]) return self.primary;
-    if ([(id)self.secondary respondsToSelector:aSelector]) return self.secondary;
-    return [super forwardingTargetForSelector:aSelector];
+    JobsRetIDBySELBlock action = ((JobsRetIDBySELBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCollectionViewDataSourceMux.class, @selector(jobsForwardingTargetForSelector)))(self, @selector(jobsForwardingTargetForSelector));
+    return action ? action(aSelector) : nil;
+}
+
+-(JobsRetIDBySELBlock _Nonnull)jobsForwardingTargetForSelector{
+    @jobs_weakify(self)
+    return ^id(SEL aSelector){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if ([(id)self.primary respondsToSelector:aSelector]) return self.primary;
+        if ([(id)self.secondary respondsToSelector:aSelector]) return self.secondary;
+        return [super forwardingTargetForSelector:aSelector];
+    };
 }
 
 -(BOOL)conformsToProtocol:(Protocol *)aProtocol{
-    if ([super conformsToProtocol:aProtocol]) return YES;
-    if ([(id)self.primary conformsToProtocol:aProtocol]) return YES;
-    if ([(id)self.secondary conformsToProtocol:aProtocol]) return YES;
-    return NO;
+    JobsRetBOOLByProtocolBlock action = ((JobsRetBOOLByProtocolBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCollectionViewDataSourceMux.class, @selector(jobsConformsToProtocol)))(self, @selector(jobsConformsToProtocol));
+    return action ? action(aProtocol) : NO;
 }
 
+-(JobsRetBOOLByProtocolBlock _Nonnull)jobsConformsToProtocol{
+    @jobs_weakify(self)
+    return ^BOOL(Protocol * aProtocol){
+        @jobs_strongify(self)
+        if (!self) return NO;
+        if ([super conformsToProtocol:aProtocol]) return YES;
+        if ([(id)self.primary conformsToProtocol:aProtocol]) return YES;
+        if ([(id)self.secondary conformsToProtocol:aProtocol]) return YES;
+        return NO;
+    };
+}
+
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsCollectionViewDataSourceMux
+-(JobsRetJobsCollectionViewDataSourceMuxByNSObjectUICollectionViewDataSourceBlock _Nonnull)byPrimary{
+    @jobs_weakify(self)
+    return ^__kindof JobsCollectionViewDataSourceMux * _Nullable(NSObject<UICollectionViewDataSource> * _Nullable data){
+        @jobs_strongify(self)
+        [self setPrimary:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsCollectionViewDataSourceMuxByNSObjectUICollectionViewDataSourceBlock _Nonnull)bySecondary{
+    @jobs_weakify(self)
+    return ^__kindof JobsCollectionViewDataSourceMux * _Nullable(NSObject<UICollectionViewDataSource> * _Nullable data){
+        @jobs_strongify(self)
+        [self setSecondary:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsCollectionViewDataSourceMux
 @end
 
 @interface JobsCollectionViewDelegateMux : NSObject <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
@@ -81,29 +167,89 @@ Prop_weak(nullable)NSObject<UICollectionViewDataSource> *secondary;
 Prop_weak(nullable)NSObject<UICollectionViewDelegate> *primary;
 Prop_weak(nullable)NSObject<UICollectionViewDelegate> *secondary;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsCollectionViewDelegateMux
+-(JobsRetJobsCollectionViewDelegateMuxByNSObjectUICollectionViewDelegateBlock _Nonnull)byPrimary;
+-(JobsRetJobsCollectionViewDelegateMuxByNSObjectUICollectionViewDelegateBlock _Nonnull)bySecondary;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsCollectionViewDelegateMux
 @end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsCollectionViewDelegateMux
+@interface JobsCollectionViewDelegateMux (JobsPropertyDSLSetterAutogen_8ccf522738)
+-(void)setPrimary:(NSObject<UICollectionViewDelegate> * _Nullable)data;
+-(void)setSecondary:(NSObject<UICollectionViewDelegate> * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsCollectionViewDelegateMux
 
 @implementation JobsCollectionViewDelegateMux
 -(BOOL)respondsToSelector:(SEL)aSelector{
-    if ([super respondsToSelector:aSelector]) return YES;
-    if ([(id)self.primary respondsToSelector:aSelector]) return YES;
-    if ([(id)self.secondary respondsToSelector:aSelector]) return YES;
-    return NO;
+    JobsRetBOOLBySELBlock action = ((JobsRetBOOLBySELBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCollectionViewDelegateMux.class, @selector(jobsRespondsToSelector)))(self, @selector(jobsRespondsToSelector));
+    return action ? action(aSelector) : NO;
+}
+
+-(JobsRetBOOLBySELBlock _Nonnull)jobsRespondsToSelector{
+    @jobs_weakify(self)
+    return ^BOOL(SEL aSelector){
+        @jobs_strongify(self)
+        if (!self) return NO;
+        if ([super respondsToSelector:aSelector]) return YES;
+        if ([(id)self.primary respondsToSelector:aSelector]) return YES;
+        if ([(id)self.secondary respondsToSelector:aSelector]) return YES;
+        return NO;
+    };
 }
 
 -(id)forwardingTargetForSelector:(SEL)aSelector{
-    if ([(id)self.primary respondsToSelector:aSelector]) return self.primary;
-    if ([(id)self.secondary respondsToSelector:aSelector]) return self.secondary;
-    return [super forwardingTargetForSelector:aSelector];
+    JobsRetIDBySELBlock action = ((JobsRetIDBySELBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCollectionViewDelegateMux.class, @selector(jobsForwardingTargetForSelector)))(self, @selector(jobsForwardingTargetForSelector));
+    return action ? action(aSelector) : nil;
+}
+
+-(JobsRetIDBySELBlock _Nonnull)jobsForwardingTargetForSelector{
+    @jobs_weakify(self)
+    return ^id(SEL aSelector){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if ([(id)self.primary respondsToSelector:aSelector]) return self.primary;
+        if ([(id)self.secondary respondsToSelector:aSelector]) return self.secondary;
+        return [super forwardingTargetForSelector:aSelector];
+    };
 }
 
 -(BOOL)conformsToProtocol:(Protocol *)aProtocol{
-    if ([super conformsToProtocol:aProtocol]) return YES;
-    if ([(id)self.primary conformsToProtocol:aProtocol]) return YES;
-    if ([(id)self.secondary conformsToProtocol:aProtocol]) return YES;
-    return NO;
+    JobsRetBOOLByProtocolBlock action = ((JobsRetBOOLByProtocolBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCollectionViewDelegateMux.class, @selector(jobsConformsToProtocol)))(self, @selector(jobsConformsToProtocol));
+    return action ? action(aProtocol) : NO;
 }
 
+-(JobsRetBOOLByProtocolBlock _Nonnull)jobsConformsToProtocol{
+    @jobs_weakify(self)
+    return ^BOOL(Protocol * aProtocol){
+        @jobs_strongify(self)
+        if (!self) return NO;
+        if ([super conformsToProtocol:aProtocol]) return YES;
+        if ([(id)self.primary conformsToProtocol:aProtocol]) return YES;
+        if ([(id)self.secondary conformsToProtocol:aProtocol]) return YES;
+        return NO;
+    };
+}
+
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsCollectionViewDelegateMux
+-(JobsRetJobsCollectionViewDelegateMuxByNSObjectUICollectionViewDelegateBlock _Nonnull)byPrimary{
+    @jobs_weakify(self)
+    return ^__kindof JobsCollectionViewDelegateMux * _Nullable(NSObject<UICollectionViewDelegate> * _Nullable data){
+        @jobs_strongify(self)
+        [self setPrimary:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsCollectionViewDelegateMuxByNSObjectUICollectionViewDelegateBlock _Nonnull)bySecondary{
+    @jobs_weakify(self)
+    return ^__kindof JobsCollectionViewDelegateMux * _Nullable(NSObject<UICollectionViewDelegate> * _Nullable data){
+        @jobs_strongify(self)
+        [self setSecondary:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsCollectionViewDelegateMux
 @end
 
 static inline JobsCollectionViewBlocksProxy *jobs_collectionViewBlocksProxy(UICollectionView *collectionView, BOOL createIfNeeded){
@@ -134,22 +280,22 @@ static inline void jobs_installCollectionViewDataSourceMux(UICollectionView *col
     JobsCollectionViewBlocksProxy *proxy = jobs_collectionViewBlocksProxy(collectionView, YES);
     JobsCollectionViewDataSourceMux *mux = jobs_collectionViewDataSourceMux(collectionView, YES);
     id<UICollectionViewDataSource> current = collectionView.dataSource;
-    mux.primary = proxy;
+    mux.byPrimary(proxy);
     if (current && current != (id<UICollectionViewDataSource>)mux && current != (id<UICollectionViewDataSource>)proxy){
-        mux.secondary = (NSObject<UICollectionViewDataSource> *)current;
+        mux.bySecondary((NSObject<UICollectionViewDataSource> *)current);
     }
-    collectionView.dataSource = (id<UICollectionViewDataSource>)mux;
+    collectionView.byDataSource((id<UICollectionViewDataSource>)mux);
 }
 
 static inline void jobs_installCollectionViewDelegateMux(UICollectionView *collectionView){
     JobsCollectionViewBlocksProxy *proxy = jobs_collectionViewBlocksProxy(collectionView, YES);
     JobsCollectionViewDelegateMux *mux = jobs_collectionViewDelegateMux(collectionView, YES);
     id<UICollectionViewDelegate> current = collectionView.delegate;
-    mux.primary = proxy;
+    mux.byPrimary(proxy);
     if (current && current != (id<UICollectionViewDelegate>)mux && current != (id<UICollectionViewDelegate>)proxy){
-        mux.secondary = (NSObject<UICollectionViewDelegate> *)current;
+        mux.bySecondary((NSObject<UICollectionViewDelegate> *)current);
     }
-    collectionView.delegate = (id<UICollectionViewDelegate>)mux;
+    collectionView.byDelegate((id<UICollectionViewDelegate>)mux);
 }
 
 @implementation UICollectionView (DSL)
@@ -167,7 +313,7 @@ static inline void jobs_installCollectionViewDelegateMux(UICollectionView *colle
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable(__kindof UICollectionViewFlowLayout *_Nullable layout){
         @jobs_strongify(self)
-        self.collectionViewLayout = layout;
+        self.byCollectionViewLayout(layout);
         return self;
     };
 }
@@ -205,7 +351,7 @@ static inline void jobs_installCollectionViewDelegateMux(UICollectionView *colle
     return ^__kindof UICollectionView *_Nullable(id _Nullable target){
         @jobs_strongify(self)
         JobsCollectionViewBlocksProxy *proxy = jobs_collectionViewBlocksProxy(self, YES);
-        proxy.target = target;
+        proxy.byTarget(target);
         jobs_installCollectionViewDataSourceMux(self);
         jobs_installCollectionViewDelegateMux(self);
         return self;

@@ -18,12 +18,6 @@
 #import "JobsRandomUtilsHeader.h"
 #endif
 
-#if __has_include(<JobsTimeUtils/JobsTimeUtils.h>)
-#import <JobsTimeUtils/JobsTimeUtils.h>
-#else
-#import "JobsTimeUtils.h"
-#endif
-
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
@@ -79,7 +73,7 @@ Prop_copy()NSMutableDictionary <NSString *, NSValue *>*methodCache;/// 定义一
 /// 判断某个实例对象是否存在某个【不带参数的方法】
 +(BOOL)judgementObj:(NSObject *_Nonnull)obj existMethodWithName:(NSString *_Nullable)methodName;
 /// 用block来代替selector。
--(SEL _Nullable)jobsSelectorBlock:(JobsRetIDByTwoIDBlock _Nullable)selectorBlock;
+-(JobsRetSELByJobsRetIDByTwoIDBlockBlock _Nonnull)jobsSelectorBlock;
 /// 替代系统 @selector(selector) ,用Block的方式调用代码，使得代码逻辑和形式上不割裂
 /// - Parameters:
 ///   - block: 最终的执行体
@@ -92,6 +86,13 @@ SEL _Nullable selectorBlocks(JobsRetIDByTwoIDBlock _Nullable block,
 -(JobsRetIDByStrBlock _Nonnull)property;
 /// 是否遵从这样的协议？
 -(JobsRetBOOLByStrBlock _Nonnull)protocol;
+
+@end
+
+@interface NSInvocation (JobsOCRuntimeKitsDSL)
+
+-(JobsRetInvocationByIDBlock _Nonnull)byTarget;
+-(JobsRetInvocationBySELBlock _Nonnull)bySelector;
 
 @end
 

@@ -72,15 +72,15 @@
     return ^UIImage *_Nullable(__kindof NSString *_Nullable name){
         CGFloat scale = UIScreen.mainScreen.scale;
         if (scale > 1.0f) {
-            NSString *retinaPath = name.add(@"@2x.gif").pathForResourceWithFullName;
+            NSString *retinaPath = name.add(@"@2x.gif").jobsPathForResourceWithFullName();
             NSData *data = [NSData dataWithContentsOfFile:retinaPath];
             if (data) return UIImage.animatedGIFWithData(data);
-            NSString *path = name.add(@".gif").pathForResourceWithFullName;
+            NSString *path = name.add(@".gif").jobsPathForResourceWithFullName();
             data = [NSData dataWithContentsOfFile:path];
             if (data) return UIImage.animatedGIFWithData(data);
             return @"name".img;
         }else {
-            NSString *path = name.add(@".gif").pathForResourceWithFullName;
+            NSString *path = name.add(@".gif").jobsPathForResourceWithFullName();
             NSData *data = [NSData dataWithContentsOfFile:path];
             if (data) {
                 return UIImage.animatedGIFWithData(data);

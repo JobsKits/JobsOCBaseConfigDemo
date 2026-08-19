@@ -38,6 +38,7 @@ Prop_strong()UIPanGestureRecognizer *panRcognize;
 Prop_assign()BOOL suspendHapticOnDock;
 Prop_assign()BOOL suspendConfineInSafeArea;
 
+-(JobsRetViewByIDBlock _Nonnull)byVc;
 /// 以父视图 safeArea 左上角为坐标原点设置悬浮起点，并自动夹紧
 -(JobsRetViewByCGPointBlock _Nonnull)bySuspendOriginInSafeArea;
 /// 吸附结束后是否触发轻触觉

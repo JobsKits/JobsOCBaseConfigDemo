@@ -32,132 +32,227 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UITableViewCellEditorVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(@"站内信".tr)
-                .byFont(UIFontWeightBoldSize(17));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(@"站内信".jobsTr())
+                    .byFont(UIFontWeightBoldSize(17));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UITableViewCellEditorVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
     @jobs_weakify(self)
-    self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
-//        @jobs_strongify(self)
-//        data.add(UIBarButtonItem.initBy(self.aboutBtn));
-    });
-    self.rightBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
+    return ^{
         @jobs_strongify(self)
-        data.add(UIBarButtonItem.initBy(self.editBtn));
-    });
-    self.makeNavByAlpha(1);
-    self.tableView.byShow(self);
-    self.msgEditBoardView.jobsVisible = YES;
+        if (!self) return;
+            [super viewDidLoad];
+            @jobs_weakify(self)
+            self.byLeftBarButtonItems(jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
+        //        @jobs_strongify(self)
+        //        data.add(UIBarButtonItem.initBy(self.aboutBtn));
+            }))
+            .byRightBarButtonItems(jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
+                @jobs_strongify(self)
+                data.add(UIBarButtonItem.initBy(self.editBtn));
+            }));
+            self.makeNavByAlpha(1);
+            self.tableView.byShow(self);
+            self.msgEditBoardView.byJobsVisible(YES);
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UITableViewCellEditorVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillAppear:animated];
+    };
 }
 
 -(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UITableViewCellEditorVC.class, @selector(jobsViewWillLayoutSubviews)))(self, @selector(jobsViewWillLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewWillLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UITableViewCellEditorVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UITableViewCellEditorVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UITableViewCellEditorVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UITableViewCellEditorVC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+    };
 }
 #pragma mark —— 一些私有方法
--(NSString *)msgTypeTextByModel:(JobsMsgDataModel *)model{
-    switch (model.msgStyle) {
-        /// 处理 JobsMsgType_Notify 分支
-        case JobsMsgType_Notify:
-            return @"通知".tr;
-        /// 处理 JobsMsgType_Activity 分支
-        case JobsMsgType_Activity:
-            return @"活动".tr;
-        /// 处理 JobsMsgType_Notice 分支
-        case JobsMsgType_Notice:
-            return @"公告".tr;
-        /// 处理 JobsMsgType_Bonus 分支
-        case JobsMsgType_Bonus:
-            return @"红利".tr;
-        /// 未匹配已知分支时执行兜底处理
-        default:
-            return @"消息".tr;
-    }
+-(JobsRetNSStringByJobsMsgDataModelBlock _Nonnull)msgTypeTextByModel{
+    @jobs_weakify(self)
+    return ^NSString *(JobsMsgDataModel * model){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        switch (model.msgStyle) {
+            /// 处理 JobsMsgType_Notify 分支
+            case JobsMsgType_Notify:
+                return @"通知".jobsTr();
+            /// 处理 JobsMsgType_Activity 分支
+            case JobsMsgType_Activity:
+                return @"活动".jobsTr();
+            /// 处理 JobsMsgType_Notice 分支
+            case JobsMsgType_Notice:
+                return @"公告".jobsTr();
+            /// 处理 JobsMsgType_Bonus 分支
+            case JobsMsgType_Bonus:
+                return @"红利".jobsTr();
+            /// 未匹配已知分支时执行兜底处理
+            default:
+                return @"消息".jobsTr();
+        }
+    };
 }
 
--(UIColor *)msgAccentCorByModel:(JobsMsgDataModel *)model{
-    switch (model.msgStyle) {
-        /// 处理 JobsMsgType_Notify 分支
-        case JobsMsgType_Notify:
-            return HEXCOLOR(0x3B7CFF);
-        /// 处理 JobsMsgType_Activity 分支
-        case JobsMsgType_Activity:
-            return HEXCOLOR(0xAE8330);
-        /// 处理 JobsMsgType_Notice 分支
-        case JobsMsgType_Notice:
-            return HEXCOLOR(0x24A66A);
-        /// 处理 JobsMsgType_Bonus 分支
-        case JobsMsgType_Bonus:
-            return HEXCOLOR(0xEB677F);
-        /// 未匹配已知分支时执行兜底处理
-        default:
-            return HEXCOLOR(0x667085);
-    }
+-(JobsRetUIColorByJobsMsgDataModelBlock _Nonnull)msgAccentCorByModel{
+    @jobs_weakify(self)
+    return ^UIColor *(JobsMsgDataModel * model){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        switch (model.msgStyle) {
+            /// 处理 JobsMsgType_Notify 分支
+            case JobsMsgType_Notify:
+                return HEXCOLOR(0x3B7CFF);
+            /// 处理 JobsMsgType_Activity 分支
+            case JobsMsgType_Activity:
+                return HEXCOLOR(0xAE8330);
+            /// 处理 JobsMsgType_Notice 分支
+            case JobsMsgType_Notice:
+                return HEXCOLOR(0x24A66A);
+            /// 处理 JobsMsgType_Bonus 分支
+            case JobsMsgType_Bonus:
+                return HEXCOLOR(0xEB677F);
+            /// 未匹配已知分支时执行兜底处理
+            default:
+                return HEXCOLOR(0x667085);
+        }
+    };
 }
 
--(UIColor *)msgAccentBgCorByModel:(JobsMsgDataModel *)model{
-    switch (model.msgStyle) {
-        /// 处理 JobsMsgType_Notify 分支
-        case JobsMsgType_Notify:
-            return HEXCOLOR(0xEAF1FF);
-        /// 处理 JobsMsgType_Activity 分支
-        case JobsMsgType_Activity:
-            return HEXCOLOR(0xFFF4DD);
-        /// 处理 JobsMsgType_Notice 分支
-        case JobsMsgType_Notice:
-            return HEXCOLOR(0xE8F7EF);
-        /// 处理 JobsMsgType_Bonus 分支
-        case JobsMsgType_Bonus:
-            return HEXCOLOR(0xFFF0F3);
-        /// 未匹配已知分支时执行兜底处理
-        default:
-            return HEXCOLOR(0xF1F4F8);
-    }
+-(JobsRetUIColorByJobsMsgDataModelBlock _Nonnull)msgAccentBgCorByModel{
+    @jobs_weakify(self)
+    return ^UIColor *(JobsMsgDataModel * model){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        switch (model.msgStyle) {
+            /// 处理 JobsMsgType_Notify 分支
+            case JobsMsgType_Notify:
+                return HEXCOLOR(0xEAF1FF);
+            /// 处理 JobsMsgType_Activity 分支
+            case JobsMsgType_Activity:
+                return HEXCOLOR(0xFFF4DD);
+            /// 处理 JobsMsgType_Notice 分支
+            case JobsMsgType_Notice:
+                return HEXCOLOR(0xE8F7EF);
+            /// 处理 JobsMsgType_Bonus 分支
+            case JobsMsgType_Bonus:
+                return HEXCOLOR(0xFFF0F3);
+            /// 未匹配已知分支时执行兜底处理
+            default:
+                return HEXCOLOR(0xF1F4F8);
+        }
+    };
 }
 
 -(UILabel *)msgLabelByTag:(NSInteger)tag
@@ -165,135 +260,140 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
     return (UILabel *)[cell.contentView viewWithTag:tag];
 }
 
--(void)prepareMsgCellSubviewsIfNeeded:(UITableViewCell *)cell{
-    if ([cell.contentView viewWithTag:JobsMsgCellCardViewTag]) return;
-    cell.selectedBackgroundView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-        view.byBgColor(JobsClearColor);
-    });
-    cell.multipleSelectionBackgroundView = cell.selectedBackgroundView;
-    UIView *cardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-        view
-            .byBgColor(JobsSecondarySystemBackgroundColor)
-            .addOn(cell.contentView)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.top.equalTo(cell.contentView).offset(JobsWidth(6));
-                make.left.equalTo(cell.contentView).offset(JobsWidth(16));
-                make.right.equalTo(cell.contentView).offset(JobsWidth(-16));
-                make.bottom.equalTo(cell.contentView).offset(JobsWidth(-6));
-            });
-        view.layer
-            .byCornerRadius(JobsWidth(8))
-            .byShadowColor(RGBA_COLOR(39, 50, 68, 0.12).CGColor)
-            .byShadowOpacity(1)
-            .byShadowOffset(CGSizeMake(0, JobsWidth(4)))
-            .byShadowRadius(JobsWidth(10));
-    });
-    cardView.tag = JobsMsgCellCardViewTag;
-    UILabel *typeLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-        label
-            .byFont(UIFontWeightBoldSize(12))
-            .byTextAlignment(NSTextAlignmentCenter)
-            .byNumberOfLines(1)
-            .addOn(cardView);
-    });
-    typeLabel.tag = JobsMsgCellTypeLabelTag;
-    typeLabel.layer.byCornerRadius(JobsWidth(18)).byMasksToBounds(YES);
-    UILabel *timeLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-        label
-            .byFont(UIFontWeightRegularSize(11))
-            .byTextCor(JobsSecondaryLabelColor)
-            .byTextAlignment(NSTextAlignmentRight)
-            .byNumberOfLines(1)
-            .addOn(cardView);
-    });
-    timeLabel.tag = JobsMsgCellTimeLabelTag;
-    UILabel *titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-        label
-            .byTextCor(JobsLabelColor)
-            .byFont(UIFontWeightBoldSize(15))
-            .byNumberOfLines(1)
-            .addOn(cardView);
-    });
-    titleLabel.tag = JobsMsgCellTitleLabelTag;
-    UILabel *contentLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-        label
-            .byTextCor(JobsSecondaryLabelColor)
-            .byFont(UIFontWeightRegularSize(12))
-            .byNumberOfLines(1)
-            .addOn(cardView);
-    });
-    contentLabel.tag = JobsMsgCellContentLabelTag;
-    UILabel *readLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-        label
-            .byFont(UIFontWeightMediumSize(11))
-            .byTextAlignment(NSTextAlignmentCenter)
-            .byNumberOfLines(1)
-            .addOn(cardView);
-    });
-    readLabel.tag = JobsMsgCellReadLabelTag;
-    readLabel.layer.byCornerRadius(JobsWidth(9)).byMasksToBounds(YES);
-    UILabel *arrowLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-        label
-            .byText(@"›")
-            .byFont(UIFontWeightRegularSize(24))
-            .byTextCor(JobsSecondaryLabelColor)
-            .byTextAlignment(NSTextAlignmentCenter)
-            .addOn(cardView);
-    });
-    arrowLabel.tag = JobsMsgCellArrowLabelTag;
-    [typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(cardView).offset(JobsWidth(12));
-        make.top.equalTo(cardView).offset(JobsWidth(14));
-        make.size.mas_equalTo(CGSizeMake(JobsWidth(36), JobsWidth(36)));
-    }];
-    [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(cardView).offset(JobsWidth(15));
-        make.right.equalTo(cardView).offset(JobsWidth(-36));
-        make.width.mas_equalTo(JobsWidth(76));
-        make.height.mas_equalTo(JobsWidth(16));
-    }];
-    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(typeLabel.mas_right).offset(JobsWidth(12));
-        make.top.equalTo(cardView).offset(JobsWidth(13));
-        make.right.lessThanOrEqualTo(timeLabel.mas_left).offset(JobsWidth(-8));
-        make.height.mas_equalTo(JobsWidth(20));
-    }];
-    [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(titleLabel);
-        make.top.equalTo(titleLabel.mas_bottom).offset(JobsWidth(6));
-        make.right.equalTo(cardView).offset(JobsWidth(-36));
-        make.height.mas_equalTo(JobsWidth(17));
-    }];
-    [readLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(titleLabel);
-        make.bottom.equalTo(cardView).offset(JobsWidth(-12));
-        make.size.mas_equalTo(CGSizeMake(JobsWidth(44), JobsWidth(18)));
-    }];
-    [arrowLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(cardView).offset(JobsWidth(-14));
-        make.centerY.equalTo(cardView);
-        make.size.mas_equalTo(CGSizeMake(JobsWidth(12), JobsWidth(28)));
-    }];
+-(jobsByTableViewCellBlock _Nonnull)prepareMsgCellSubviewsIfNeeded{
+    @jobs_weakify(self)
+    return ^(UITableViewCell * cell){
+        @jobs_strongify(self)
+        if (!self) return;
+        if ([cell.contentView viewWithTag:JobsMsgCellCardViewTag]) return;
+        cell.selectedBackgroundView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byBgColor(JobsClearColor);
+        });
+        cell.byMultipleSelectionBackgroundView(cell.selectedBackgroundView);
+        UIView *cardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view
+                .byBgColor(JobsSecondarySystemBackgroundColor)
+                .addOn(cell.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(cell.contentView).offset(JobsWidth(6));
+                    make.left.equalTo(cell.contentView).offset(JobsWidth(16));
+                    make.right.equalTo(cell.contentView).offset(JobsWidth(-16));
+                    make.bottom.equalTo(cell.contentView).offset(JobsWidth(-6));
+                });
+            view.layer
+                .byCornerRadius(JobsWidth(8))
+                .byShadowColor(RGBA_COLOR(39, 50, 68, 0.12).CGColor)
+                .byShadowOpacity(1)
+                .byShadowOffset(CGSizeMake(0, JobsWidth(4)))
+                .byShadowRadius(JobsWidth(10));
+        });
+        cardView.byTag(JobsMsgCellCardViewTag);
+        UILabel *typeLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byFont(UIFontWeightBoldSize(12))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byNumberOfLines(1)
+                .addOn(cardView);
+        });
+        typeLabel.byTag(JobsMsgCellTypeLabelTag);
+        typeLabel.layer.byCornerRadius(JobsWidth(18)).byMasksToBounds(YES);
+        UILabel *timeLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byFont(UIFontWeightRegularSize(11))
+                .byTextCor(JobsSecondaryLabelColor)
+                .byTextAlignment(NSTextAlignmentRight)
+                .byNumberOfLines(1)
+                .addOn(cardView);
+        });
+        timeLabel.byTag(JobsMsgCellTimeLabelTag);
+        UILabel *titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byTextCor(JobsLabelColor)
+                .byFont(UIFontWeightBoldSize(15))
+                .byNumberOfLines(1)
+                .addOn(cardView);
+        });
+        titleLabel.byTag(JobsMsgCellTitleLabelTag);
+        UILabel *contentLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byTextCor(JobsSecondaryLabelColor)
+                .byFont(UIFontWeightRegularSize(12))
+                .byNumberOfLines(1)
+                .addOn(cardView);
+        });
+        contentLabel.byTag(JobsMsgCellContentLabelTag);
+        UILabel *readLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byFont(UIFontWeightMediumSize(11))
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byNumberOfLines(1)
+                .addOn(cardView);
+        });
+        readLabel.byTag(JobsMsgCellReadLabelTag);
+        readLabel.layer.byCornerRadius(JobsWidth(9)).byMasksToBounds(YES);
+        UILabel *arrowLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byText(@"›")
+                .byFont(UIFontWeightRegularSize(24))
+                .byTextCor(JobsSecondaryLabelColor)
+                .byTextAlignment(NSTextAlignmentCenter)
+                .addOn(cardView);
+        });
+        arrowLabel.byTag(JobsMsgCellArrowLabelTag);
+        [typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(cardView).offset(JobsWidth(12));
+            make.top.equalTo(cardView).offset(JobsWidth(14));
+            make.size.mas_equalTo(CGSizeMake(JobsWidth(36), JobsWidth(36)));
+        }];
+        [timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(cardView).offset(JobsWidth(15));
+            make.right.equalTo(cardView).offset(JobsWidth(-36));
+            make.width.mas_equalTo(JobsWidth(76));
+            make.height.mas_equalTo(JobsWidth(16));
+        }];
+        [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(typeLabel.mas_right).offset(JobsWidth(12));
+            make.top.equalTo(cardView).offset(JobsWidth(13));
+            make.right.lessThanOrEqualTo(timeLabel.mas_left).offset(JobsWidth(-8));
+            make.height.mas_equalTo(JobsWidth(20));
+        }];
+        [contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(titleLabel);
+            make.top.equalTo(titleLabel.mas_bottom).offset(JobsWidth(6));
+            make.right.equalTo(cardView).offset(JobsWidth(-36));
+            make.height.mas_equalTo(JobsWidth(17));
+        }];
+        [readLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(titleLabel);
+            make.bottom.equalTo(cardView).offset(JobsWidth(-12));
+            make.size.mas_equalTo(CGSizeMake(JobsWidth(44), JobsWidth(18)));
+        }];
+        [arrowLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.right.equalTo(cardView).offset(JobsWidth(-14));
+            make.centerY.equalTo(cardView);
+            make.size.mas_equalTo(CGSizeMake(JobsWidth(12), JobsWidth(28)));
+        }];
+    };
 }
 
 -(void)configMsgCell:(UITableViewCell *)cell
                model:(JobsMsgDataModel *)model{
-    [self prepareMsgCellSubviewsIfNeeded:cell];
+    self.prepareMsgCellSubviewsIfNeeded(cell);
     cell.textLabel.byHidden(YES);
     cell.detailTextLabel.byHidden(YES);
     cell.imageView.byHidden(YES);
     cell.byBgColor(JobsClearColor);
     cell.contentView.byBgColor(JobsClearColor);
-    UIColor *accentCor = [self msgAccentCorByModel:model];
+    UIColor *accentCor = self.msgAccentCorByModel(model);
     UILabel *typeLabel = [self msgLabelByTag:JobsMsgCellTypeLabelTag cell:cell];
     UILabel *titleLabel = [self msgLabelByTag:JobsMsgCellTitleLabelTag cell:cell];
     UILabel *contentLabel = [self msgLabelByTag:JobsMsgCellContentLabelTag cell:cell];
     UILabel *timeLabel = [self msgLabelByTag:JobsMsgCellTimeLabelTag cell:cell];
     UILabel *readLabel = [self msgLabelByTag:JobsMsgCellReadLabelTag cell:cell];
     typeLabel
-        .byText([self msgTypeTextByModel:model])
+        .byText(self.msgTypeTextByModel(model))
         .byTextCor(accentCor)
-        .byBgColor([self msgAccentBgCorByModel:model]);
+        .byBgColor(self.msgAccentBgCorByModel(model));
     titleLabel
         .byText(model.textModel.text)
         .byTextCor(model.isRead ? HEXCOLOR(0x5C6675) : JobsLabelColor)
@@ -303,59 +403,89 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
         .byTextCor(model.isRead ? HEXCOLOR(0xA2AAB5) : HEXCOLOR(0x6F7785));
     timeLabel.byText(model.timeText);
     readLabel
-        .byText(model.isRead ? @"已读".tr : @"未读".tr)
+        .byText(model.isRead ? @"已读".jobsTr() : @"未读".jobsTr())
         .byTextCor(model.isRead ? JobsSecondaryLabelColor : HEXCOLOR(0xEB677F))
         .byBgColor(model.isRead ? HEXCOLOR(0xF1F4F8) : HEXCOLOR(0xFFF0F3));
 }
 
--(void)dataForUI{
-    [self.tableView reloadData];
-    [self.tableView setEditing:NO animated:YES];
-    [self.selectedDataMutArr removeAllObjects];
-    self.msgEditBoardView.getDeleteBtn.enabledBlock(self.selectedDataMutArr.count);
-    self.msgEditBoardView.getMarkToReadBtn.enabledBlock(self.selectedDataMutArr.count);
-    self.editBtn.bySelected(NO);
-    self.editBtn.jobsResetBtnTitle(@"編輯".tr);
-    [self.msgEditBoardView disappearByView:self.view];
+-(jobsByVoidBlock _Nonnull)dataForUI{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self.tableView reloadData];
+        [self.tableView setEditing:NO animated:YES];
+        [self.selectedDataMutArr removeAllObjects];
+        self.msgEditBoardView.getDeleteBtn().enabledBlock(self.selectedDataMutArr.count);
+        self.msgEditBoardView.getMarkToReadBtn().enabledBlock(self.selectedDataMutArr.count);
+        self.editBtn.bySelected(NO);
+        self.editBtn.jobsResetBtnTitle(@"編輯".jobsTr());
+        self.msgEditBoardView.disappearByView(self.view);
+    };
 }
 /// 全选的实现
--(void)allChoose{
-    /// UI层
-    for (int i = 0; i< self.dataMutArr.count; i++) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        cell.bySelected(YES);
-        if ([self.tableView.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
-            [self.tableView.delegate tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+-(jobsByVoidBlock _Nonnull)allChoose{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        /// UI层
+        for (int i = 0; i< self.dataMutArr.count; i++) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            cell.bySelected(YES);
+            if ([self.tableView.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
+                [self.tableView.delegate tableView:self.tableView didSelectRowAtIndexPath:indexPath];
+            }
         }
-    }
-    /// Data层
-    [self.selectedDataMutArr removeAllObjects];
-    [self.selectedDataMutArr addObjectsFromArray:self.dataMutArr];
+        /// Data层
+        [self.selectedDataMutArr removeAllObjects];
+        [self.selectedDataMutArr addObjectsFromArray:self.dataMutArr];
+    };
 }
 /// 取消全选的实现
--(void)allCancelChoose{
-    /// UI层
-    for (int i = 0; i< self.dataMutArr.count; i++) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
-        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-        cell.bySelected(NO);
-    }
-    /// Data层
-    [self.selectedDataMutArr removeAllObjects];
+-(jobsByVoidBlock _Nonnull)allCancelChoose{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        /// UI层
+        for (int i = 0; i< self.dataMutArr.count; i++) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            cell.bySelected(NO);
+        }
+        /// Data层
+        [self.selectedDataMutArr removeAllObjects];
+    };
 }
 /// 单行点击改变数据层
--(NSMutableArray<JobsMsgDataModel *> *)manuallyDataAtIndexPath:(NSIndexPath *)indexPath{
-    [self.selectedDataMutArr containsObject:self.dataMutArr[indexPath.row]] ? [self.selectedDataMutArr removeObject:self.dataMutArr[indexPath.row]] : [self.selectedDataMutArr addObject:self.dataMutArr[indexPath.row]];
-    return self.selectedDataMutArr;
+-(JobsRetNSMutableArrayJobsMsgDataModelByNSIndexPathBlock _Nonnull)manuallyDataAtIndexPath{
+    @jobs_weakify(self)
+    return ^NSMutableArray<JobsMsgDataModel *> *(NSIndexPath * indexPath){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self.selectedDataMutArr containsObject:self.dataMutArr[indexPath.row]] ? [self.selectedDataMutArr removeObject:self.dataMutArr[indexPath.row]] : [self.selectedDataMutArr addObject:self.dataMutArr[indexPath.row]];
+        return self.selectedDataMutArr;
+    };
 }
 
--(MsgEditBoardView *)getMsgEditBoardView{
-    return self.msgEditBoardView;
+-(JobsRetMsgEditBoardViewByVoidBlock _Nonnull)getMsgEditBoardView{
+    @jobs_weakify(self)
+    return ^MsgEditBoardView *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.msgEditBoardView;
+    };
 }
 
--(UITableView *)getTableView{
-    return self.tableView;
+-(JobsRetTableViewByVoidBlock _Nonnull)getTableView{
+    @jobs_weakify(self)
+    return ^UITableView *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.tableView;
+    };
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (void)tableView:(UITableView*)tableView
@@ -374,16 +504,16 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.tableView.editing) {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         cell.bySelected(YES);
-        NSMutableArray<JobsMsgDataModel *> *dataMutArr = [self manuallyDataAtIndexPath:indexPath];
-        self.msgEditBoardView.getDeleteBtn.enabledBlock(dataMutArr.count);
-        self.msgEditBoardView.getMarkToReadBtn.enabledBlock(dataMutArr.count);
+        NSMutableArray<JobsMsgDataModel *> *dataMutArr = self.manuallyDataAtIndexPath(indexPath);
+        self.msgEditBoardView.getDeleteBtn().enabledBlock(dataMutArr.count);
+        self.msgEditBoardView.getMarkToReadBtn().enabledBlock(dataMutArr.count);
     }else{
         JobsMsgDetailVC *msgDetailVC = JobsMsgDetailVC.new;
-        [msgDetailVC actionObjBlock:^(JobsMsgDataModel *data) {
+        msgDetailVC.actionObjBlock(^(JobsMsgDataModel *data) {
             @jobs_strongify(self)
             [self.dataMutArr removeObject:data];
             [self.tableView reloadData];
-        }];
+        });
         self.comingToPushVCByRequestParams(msgDetailVC,jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
             @jobs_strongify(self)
             viewModel.byData(self.dataMutArr[indexPath.row]);
@@ -396,14 +526,24 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.tableView.editing) {
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         cell.bySelected(NO);
-        NSMutableArray<JobsMsgDataModel *> *dataMutArr = [self manuallyDataAtIndexPath:indexPath];
-        self.msgEditBoardView.getDeleteBtn.enabledBlock(dataMutArr.count);
-        self.msgEditBoardView.getMarkToReadBtn.enabledBlock(dataMutArr.count);
+        NSMutableArray<JobsMsgDataModel *> *dataMutArr = self.manuallyDataAtIndexPath(indexPath);
+        self.msgEditBoardView.getDeleteBtn().enabledBlock(dataMutArr.count);
+        self.msgEditBoardView.getMarkToReadBtn().enabledBlock(dataMutArr.count);
     }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UITableViewCellEditorVC.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 1;
+    };
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
@@ -433,17 +573,17 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         _editBtn = BaseButton.jobsInit()
             .jobsResetBtnTitleCor(JobsLabelColor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(13))
-            .jobsResetBtnTitle(@"編輯".tr)
+            .jobsResetBtnTitle(@"編輯".jobsTr())
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
-    //            toastBy(x.titleForNormalState);
+    //            toastBy(x.jobsTitleForNormalState());
                 BOOL selected = !x.selected;
                 x
-                    .jobsResetBtnTitle(selected ? @"完成".tr : @"編輯".tr)
+                    .jobsResetBtnTitle(selected ? @"完成".jobsTr() : @"編輯".jobsTr())
                     .bySelected(selected);
                 [self.tableView setEditing:x.selected animated:YES];
-                x.selected ? [self.getMsgEditBoardView appearByView:self.view] : [self.getMsgEditBoardView disappearByView:self.view];
+                x.selected ? self.getMsgEditBoardView().appearByView(self.view) : self.getMsgEditBoardView().disappearByView(self.view);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })
@@ -473,17 +613,17 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     @jobs_strongify(self)
                     NSObject.feedbackGenerator(nil);/// 震动反馈
                     self->_tableView.endRefreshing(YES);
-                }].byMJRefreshHeaderConfigModel(self.mjHeaderDefaultConfig))
+                }].byMJRefreshHeaderConfigModel(self.jobsMjHeaderDefaultConfig()))
                 .byMJRefreshFooter([MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
                     @jobs_strongify(self)
                     NSObject.feedbackGenerator(nil);/// 震动反馈
                     self->_tableView.endRefreshing(YES);
-                }].byMJRefreshFooterConfigModel(self.mjFooterDefaultConfig))
+                }].byMJRefreshFooterConfigModel(self.jobsMjFooterDefaultConfig()))
                 .byShowsVerticalScrollIndicator(NO)
-                .byBgColor(JobsSecondarySystemBackgroundColor);
-            tableView.resetContentInset(UIEdgeInsetsMake(JobsWidth(10), 0, JobsWidth(92), 0));
-            tableView.scrollIndicatorInsets = tableView.contentInset;
-            tableView.addOn(self.view);
+                .resetContentInset(UIEdgeInsetsMake(JobsWidth(10), 0, JobsWidth(92), 0))
+                .byScrollIndicatorInsets(tableView.contentInset)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
+                .addOn(self.view);
             [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
                 @jobs_strongify(self)
                 make.top.equalTo(self.gk_navigationBar.mas_bottom);
@@ -499,28 +639,28 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         _msgEditBoardView
             .byFrame(MsgEditBoardView.viewFrameByModel(nil))
             .jobsRichViewByModel(nil);
-        _msgEditBoardView.getDeleteBtn.enabledBlock(self.selectedDataMutArr.count);
+        _msgEditBoardView.getDeleteBtn().enabledBlock(self.selectedDataMutArr.count);
         @jobs_weakify(self)
-        [_msgEditBoardView actionObjBlock:^(id data) {
+        _msgEditBoardView.actionObjBlock(^(id data) {
             @jobs_strongify(self)
             if ([data isKindOfClass:UIButton.class]) {
                 UIButton *btn = (UIButton *)data;
-                if ([btn.jobsResetBtnTitle isEqualToString:@"全選".tr]) {
-                    btn.selected ? [self allChoose] : [self allCancelChoose];
-                }else if ([btn.jobsResetBtnTitle isEqualToString:@"標記為已讀".tr]){
+                if ([btn.jobsTitleForNormalState() isEqualToString:@"全選".jobsTr()]) {
+                    btn.selected ? self.allChoose() : self.allCancelChoose();
+                }else if ([btn.jobsTitleForNormalState() isEqualToString:@"標記為已讀".jobsTr()]){
                     for (JobsMsgDataModel *model in self.selectedDataMutArr) {//dataMutArr
-                        model.isRead = YES;
+                        model.byRead(YES);
                         NSUInteger index = [self.dataMutArr indexOfObject:model];
                         [self.dataMutArr replaceObjectAtIndex:index withObject:model];
                     }
-                    [self dataForUI];
-                }else if ([btn.jobsResetBtnTitle isEqualToString:@"删除".tr]){
+                    self.dataForUI();
+                }else if ([btn.jobsTitleForNormalState() isEqualToString:@"删除".jobsTr()]){
                     JobsLog(@"%@",self.selectedDataMutArr);
                     [self.dataMutArr removeObjectsInArray:self.selectedDataMutArr];
-                    [self dataForUI];
+                    self.dataForUI();
                 }else{}
             }
-        }];
+        });
     };return _msgEditBoardView;
 }
 
@@ -528,36 +668,60 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_dataMutArr) {
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add(jobsMakeMsgDataModel(^(__kindof JobsMsgDataModel * _Nullable viewModel) {
-                viewModel.msgStyle = JobsMsgType_Notify;/// 通知
-                viewModel.textModel.text = @"6月1日13:00點整，英超焦點賽月1日13:00點整，英超焦點賽".tr;
-                viewModel.subTextModel.text = @"夏季聯賽火熱來襲，全體會員虛擬幣存...夏季聯賽火熱來襲，全體會員虛擬幣存".tr;
-                viewModel.timeText = @"05-13 18:20".tr;
-                viewModel.isDraw = NO;
-                viewModel.isRead = NO;
+                /// 通知
+                viewModel
+                    .byMsgStyle(JobsMsgType_Notify)
+                    .byTimeText(@"05-13 18:20".jobsTr())
+                    .byIsDraw(NO)
+                    .byIsRead(NO)
+                    .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                        textModel.byText(@"6月1日13:00點整，英超焦點賽月1日13:00點整，英超焦點賽".jobsTr());
+                    })
+                    .bySubTextModelBlock(^(__kindof UITextModel * _Nullable subTextModel) {
+                        subTextModel.byText(@"夏季聯賽火熱來襲，全體會員虛擬幣存...夏季聯賽火熱來襲，全體會員虛擬幣存".jobsTr());
+                    });
             }))
             .add(jobsMakeMsgDataModel(^(__kindof JobsMsgDataModel * _Nullable viewModel) {
-                viewModel.msgStyle = JobsMsgType_Activity;/// 活动
-                viewModel.textModel.text = @"6月1日13:00點".tr;
-                viewModel.subTextModel.text = @"夏季聯賽火熱來襲，全體會員虛擬幣存...".tr;
-                viewModel.timeText = @"05-13 18:20".tr;
-                viewModel.isDraw = YES;
-                viewModel.isRead = YES;
+                /// 活动
+                viewModel
+                    .byMsgStyle(JobsMsgType_Activity)
+                    .byTimeText(@"05-13 18:20".jobsTr())
+                    .byIsDraw(YES)
+                    .byIsRead(YES)
+                    .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                        textModel.byText(@"6月1日13:00點".jobsTr());
+                    })
+                    .bySubTextModelBlock(^(__kindof UITextModel * _Nullable subTextModel) {
+                        subTextModel.byText(@"夏季聯賽火熱來襲，全體會員虛擬幣存...".jobsTr());
+                    });
             }))
             .add(jobsMakeMsgDataModel(^(__kindof JobsMsgDataModel * _Nullable viewModel) {
-                viewModel.msgStyle = JobsMsgType_Notice;/// 公告
-                viewModel.textModel.text = @"6月1日".tr;
-                viewModel.subTextModel.text = @"夏季聯賽火熱來襲，全體會員虛擬幣存...".tr;
-                viewModel.timeText = @"05-13 18:20".tr;
-                viewModel.isDraw = NO;
-                viewModel.isRead = NO;
+                /// 公告
+                viewModel
+                    .byMsgStyle(JobsMsgType_Notice)
+                    .byTimeText(@"05-13 18:20".jobsTr())
+                    .byIsDraw(NO)
+                    .byIsRead(NO)
+                    .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                        textModel.byText(@"6月1日".jobsTr());
+                    })
+                    .bySubTextModelBlock(^(__kindof UITextModel * _Nullable subTextModel) {
+                        subTextModel.byText(@"夏季聯賽火熱來襲，全體會員虛擬幣存...".jobsTr());
+                    });
             }))
             .add(jobsMakeMsgDataModel(^(__kindof JobsMsgDataModel * _Nullable viewModel) {
-                viewModel.msgStyle = JobsMsgType_Bonus;/// 红利
-                viewModel.textModel.text = @"wowowowowo".tr;
-                viewModel.subTextModel.text = @"夏季聯賽火熱來襲，全體會員虛擬幣存...".tr;
-                viewModel.timeText = @"05-13 18:20".tr;
-                viewModel.isDraw = YES;
-                viewModel.isRead = YES;
+                /// 红利
+                viewModel
+                    .byMsgStyle(JobsMsgType_Bonus)
+                    .byTimeText(@"05-13 18:20".jobsTr())
+                    .byIsDraw(YES)
+                    .byIsRead(YES)
+                    .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                        textModel.byText(@"wowowowowo".jobsTr());
+                    })
+                    .bySubTextModelBlock(^(__kindof UITextModel * _Nullable subTextModel) {
+                        subTextModel.byText(@"夏季聯賽火熱來襲，全體會員虛擬幣存...".jobsTr());
+                    });
             }));
         });
     };return _dataMutArr;

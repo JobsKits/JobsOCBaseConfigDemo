@@ -18,7 +18,7 @@
     @jobs_weakify(self)
     return ^__kindof CABasicAnimation *_Nullable(id _Nullable data){
         @jobs_strongify(self)
-        self.fromValue = data;
+        [self setFromValue:data];
         return self;
     };
 }
@@ -27,7 +27,7 @@
     @jobs_weakify(self)
     return ^__kindof CABasicAnimation *_Nullable(id _Nullable data){
         @jobs_strongify(self)
-        self.toValue = data;
+        [self setToValue:data];
         return self;
     };
 }
@@ -36,7 +36,7 @@
     @jobs_weakify(self)
     return ^__kindof CABasicAnimation *_Nullable(id _Nullable data){
         @jobs_strongify(self)
-        self.byValue = data;
+        [self setByValue:data];
         return self;
     };
 }
@@ -45,7 +45,7 @@
     @jobs_weakify(self)
     return ^__kindof CABasicAnimation *_Nullable(CFTimeInterval data){
         @jobs_strongify(self)
-        self.beginTime = data;
+        [self setBeginTime:data];
         return self;
     };
 }
@@ -54,7 +54,7 @@
     @jobs_weakify(self)
     return ^__kindof CABasicAnimation *_Nullable(CFTimeInterval data){
         @jobs_strongify(self)
-        self.duration = data;
+        [self setDuration:data];
         return self;
     };
 }
@@ -63,7 +63,7 @@
     @jobs_weakify(self)
     return ^__kindof CABasicAnimation *_Nullable(float data){
         @jobs_strongify(self)
-        self.speed = data;
+        [self setSpeed:data];
         return self;
     };
 }
@@ -72,7 +72,7 @@
     @jobs_weakify(self)
     return ^__kindof CABasicAnimation *_Nullable(CFTimeInterval data){
         @jobs_strongify(self)
-        self.timeOffset = data;
+        [self setTimeOffset:data];
         return self;
     };
 }
@@ -81,7 +81,7 @@
     @jobs_weakify(self)
     return ^__kindof CABasicAnimation *_Nullable(float data){
         @jobs_strongify(self)
-        self.repeatCount = data;
+        [self setRepeatCount:data];
         return self;
     };
 }
@@ -90,7 +90,7 @@
     @jobs_weakify(self)
     return ^__kindof CABasicAnimation *_Nullable(BOOL data){
         @jobs_strongify(self)
-        self.autoreverses = data;
+        [self setAutoreverses:data];
         return self;
     };
 }
@@ -99,7 +99,7 @@
     @jobs_weakify(self)
     return ^__kindof CABasicAnimation *_Nullable(CAMediaTimingFillMode _Nullable data){
         @jobs_strongify(self)
-        self.fillMode = data;
+        [self setFillMode:data];
         return self;
     };
 }

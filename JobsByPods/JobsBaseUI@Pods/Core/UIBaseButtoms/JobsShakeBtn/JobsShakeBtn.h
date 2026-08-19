@@ -59,6 +59,9 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_assign(getter=isShaking)BOOL shaking;// 是否抖动
 Prop_strong()UIImageView *iconBtn;// 右上角的按钮
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsShakeBtn
+-(JobsRetJobsShakeBtnByBOOLBlock _Nonnull)byShaking;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsShakeBtn
 @end
 
 NS_ASSUME_NONNULL_END

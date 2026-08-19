@@ -12,7 +12,7 @@
 -(JobsRetStackLayoutSpecByDirectionBlock _Nonnull)byDirection{
     ASStackLayoutSpec *spec = self;
     return ^ASStackLayoutSpec* (ASStackLayoutDirection dir){
-        spec.direction = dir;
+        spec.byDirection(dir);
         return spec;
     };
 }
@@ -20,7 +20,7 @@
 -(JobsRetStackLayoutSpecBySpacingBlock _Nonnull)bySpacing{
     ASStackLayoutSpec *spec = self;
     return ^ASStackLayoutSpec* (CGFloat spacing){
-        spec.spacing = spacing;
+        spec.bySpacing(spacing);
         return spec;
     };
 }
@@ -28,7 +28,7 @@
 -(JobsRetStackLayoutSpecByHorizontalAlignmentBlock _Nonnull)byHorizontalAlignment{
     ASStackLayoutSpec *spec = self;
     return ^ASStackLayoutSpec* (ASHorizontalAlignment align){
-        spec.horizontalAlignment = align; // 触发内部 resolve
+        spec.byHorizontalAlignment(align);
         return spec;
     };
 }
@@ -36,7 +36,7 @@
 -(JobsRetStackLayoutSpecByVerticalAlignmentBlock _Nonnull)byVerticalAlignment{
     ASStackLayoutSpec *spec = self;
     return ^ASStackLayoutSpec* (ASVerticalAlignment align){
-        spec.verticalAlignment = align; // 触发内部 resolve
+        spec.byVerticalAlignment(align);
         return spec;
     };
 }
@@ -44,7 +44,7 @@
 -(JobsRetStackLayoutSpecByJustifyContentBlock _Nonnull)byJustifyContent{
     ASStackLayoutSpec *spec = self;
     return ^ASStackLayoutSpec* (ASStackLayoutJustifyContent jc){
-        spec.justifyContent = jc;
+        spec.byJustifyContent(jc);
         return spec;
     };
 }
@@ -52,7 +52,7 @@
 -(JobsRetStackLayoutSpecByAlignItemsBlock _Nonnull)byAlignItems{
     ASStackLayoutSpec *spec = self;
     return ^ASStackLayoutSpec* (ASStackLayoutAlignItems ai){
-        spec.alignItems = ai;
+        spec.byAlignItems(ai);
         return spec;
     };
 }
@@ -60,7 +60,7 @@
 -(JobsRetStackLayoutSpecByFlexWrapBlock _Nonnull)byFlexWrap{
     ASStackLayoutSpec *spec = self;
     return ^ASStackLayoutSpec* (ASStackLayoutFlexWrap wrap){
-        spec.flexWrap = wrap;
+        spec.byFlexWrap(wrap);
         return spec;
     };
 }
@@ -68,7 +68,7 @@
 -(JobsRetStackLayoutSpecByAlignContentBlock _Nonnull)byAlignContent{
     ASStackLayoutSpec *spec = self;
     return ^ASStackLayoutSpec* (ASStackLayoutAlignContent ac){
-        spec.alignContent = ac;
+        spec.byAlignContent(ac);
         return spec;
     };
 }
@@ -76,7 +76,7 @@
 -(JobsRetStackLayoutSpecByLineSpacingBlock _Nonnull)byLineSpacing{
     ASStackLayoutSpec *spec = self;
     return ^ASStackLayoutSpec* (CGFloat lineSpacing){
-        spec.lineSpacing = lineSpacing;
+        spec.byLineSpacing(lineSpacing);
         return spec;
     };
 }
@@ -84,7 +84,7 @@
 -(JobsRetStackLayoutSpecByConcurrentBlock _Nonnull)byConcurrent{
     ASStackLayoutSpec *spec = self;
     return ^ASStackLayoutSpec* (BOOL concurrent){
-        spec.concurrent = concurrent;
+        spec.byConcurrent(concurrent);
         return spec;
     };
 }
@@ -92,7 +92,7 @@
 -(JobsRetStackLayoutSpecByChildrenBlock _Nonnull)byChildren{
     ASStackLayoutSpec *spec = self;
     return ^ASStackLayoutSpec* (NSArray<id<ASLayoutElement>> *children){
-        spec.children = children ?: @[];
+        spec.byChildren(children ?: @[]);
         return spec;
     };
 }
@@ -101,7 +101,7 @@
     ASStackLayoutSpec *spec = self;
     return ^ASStackLayoutSpec* (NSArray<id<ASLayoutElement>> *children){
         NSArray *old = spec.children ?: @[];
-        spec.children = [old arrayByAddingObjectsFromArray:(children ?: @[])];
+        spec.byChildren([old arrayByAddingObjectsFromArray:(children ?: @[])]);
         return spec;
     };
 }
@@ -111,7 +111,7 @@
     return ^ASStackLayoutSpec* (id<ASLayoutElement> child){
         if (!child) return spec;
         NSArray *old = spec.children ?: @[];
-        spec.children = [old arrayByAddingObject:child];
+        spec.byChildren([old arrayByAddingObject:child]);
         return spec;
     };
 }

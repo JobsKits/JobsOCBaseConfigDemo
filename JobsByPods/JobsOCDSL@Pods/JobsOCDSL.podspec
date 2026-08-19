@@ -36,6 +36,7 @@ Pod::Spec.new do |spec|
     'Metal',
     'MessageUI',
     'PDFKit',
+    'WebKit',
     'UserNotifications'
   ]
 

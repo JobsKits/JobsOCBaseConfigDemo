@@ -9,14 +9,14 @@
 
 @implementation UICollectionViewFlowLayout (DSL)
 #pragma mark —— Factory
-+(JobsRetCollectionViewFlowLayoutByVoidBlock)byCollectionViewFlowLayout{
++(JobsRetCollectionViewFlowLayoutByVoidBlock _Nonnull)byCollectionViewFlowLayout{
     return ^__kindof UICollectionViewFlowLayout *_Nullable(void){
         return [[self alloc] init];
     };
 }
 
 #pragma mark —— Layout Metrics
--(JobsRetCollectionViewFlowLayoutByCGFloatBlock)byMinimumLineSpacing{
+-(JobsRetCollectionViewFlowLayoutByCGFloatBlock _Nonnull)byMinimumLineSpacing{
     @jobs_weakify(self)
     return ^__kindof UICollectionViewFlowLayout *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -25,7 +25,7 @@
     };
 }
 
--(JobsRetCollectionViewFlowLayoutByCGFloatBlock)byMinimumInteritemSpacing{
+-(JobsRetCollectionViewFlowLayoutByCGFloatBlock _Nonnull)byMinimumInteritemSpacing{
     @jobs_weakify(self)
     return ^__kindof UICollectionViewFlowLayout *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -34,7 +34,7 @@
     };
 }
 
--(JobsRetCollectionViewFlowLayoutByCGSizeBlock)byItemSize{
+-(JobsRetCollectionViewFlowLayoutByCGSizeBlock _Nonnull)byItemSize{
     @jobs_weakify(self)
     return ^__kindof UICollectionViewFlowLayout *_Nullable(CGSize size){
         @jobs_strongify(self)
@@ -43,7 +43,7 @@
     };
 }
 
--(JobsRetCollectionViewFlowLayoutByCGSizeBlock)byEstimatedItemSize{
+-(JobsRetCollectionViewFlowLayoutByCGSizeBlock _Nonnull)byEstimatedItemSize{
     @jobs_weakify(self)
     return ^__kindof UICollectionViewFlowLayout *_Nullable(CGSize size){
         @jobs_strongify(self)
@@ -52,7 +52,7 @@
     };
 }
 
--(JobsRetCollectionViewFlowLayoutByUICollectionViewScrollDirectionBlock)byScrollDirection{
+-(JobsRetCollectionViewFlowLayoutByUICollectionViewScrollDirectionBlock _Nonnull)byScrollDirection{
     @jobs_weakify(self)
     return ^__kindof UICollectionViewFlowLayout *_Nullable(UICollectionViewScrollDirection direction){
         @jobs_strongify(self)
@@ -61,7 +61,7 @@
     };
 }
 
--(JobsRetCollectionViewFlowLayoutByCGSizeBlock)byHeaderReferenceSize{
+-(JobsRetCollectionViewFlowLayoutByCGSizeBlock _Nonnull)byHeaderReferenceSize{
     @jobs_weakify(self)
     return ^__kindof UICollectionViewFlowLayout *_Nullable(CGSize size){
         @jobs_strongify(self)
@@ -70,7 +70,7 @@
     };
 }
 
--(JobsRetCollectionViewFlowLayoutByCGSizeBlock)byFooterReferenceSize{
+-(JobsRetCollectionViewFlowLayoutByCGSizeBlock _Nonnull)byFooterReferenceSize{
     @jobs_weakify(self)
     return ^__kindof UICollectionViewFlowLayout *_Nullable(CGSize size){
         @jobs_strongify(self)
@@ -79,7 +79,7 @@
     };
 }
 
--(JobsRetCollectionViewFlowLayoutByUIEdgeInsetsBlock)bySectionInset{
+-(JobsRetCollectionViewFlowLayoutByUIEdgeInsetsBlock _Nonnull)bySectionInset{
     @jobs_weakify(self)
     return ^__kindof UICollectionViewFlowLayout *_Nullable(UIEdgeInsets insets){
         @jobs_strongify(self)
@@ -88,7 +88,7 @@
     };
 }
 
--(JobsRetCollectionViewFlowLayoutByBOOLBlock)bySectionHeadersPinToVisibleBounds{
+-(JobsRetCollectionViewFlowLayoutByBOOLBlock _Nonnull)bySectionHeadersPinToVisibleBounds{
     @jobs_weakify(self)
     return ^__kindof UICollectionViewFlowLayout *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -98,7 +98,7 @@
     };
 }
 
--(JobsRetCollectionViewFlowLayoutByBOOLBlock)bySectionFootersPinToVisibleBounds{
+-(JobsRetCollectionViewFlowLayoutByBOOLBlock _Nonnull)bySectionFootersPinToVisibleBounds{
     @jobs_weakify(self)
     return ^__kindof UICollectionViewFlowLayout *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -108,7 +108,7 @@
     };
 }
 
--(JobsRetCollectionViewFlowLayoutByUICollectionViewFlowLayoutSectionInsetReferenceBlock)bySectionInsetReference{
+-(JobsRetCollectionViewFlowLayoutByUICollectionViewFlowLayoutSectionInsetReferenceBlock _Nonnull)bySectionInsetReference{
     @jobs_weakify(self)
     return ^__kindof UICollectionViewFlowLayout *_Nullable(UICollectionViewFlowLayoutSectionInsetReference reference){
         @jobs_strongify(self)

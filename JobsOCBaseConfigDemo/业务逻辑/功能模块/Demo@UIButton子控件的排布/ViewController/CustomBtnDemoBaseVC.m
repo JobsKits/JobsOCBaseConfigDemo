@@ -27,44 +27,74 @@ Prop_strong()UIButton *demoBtn;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CustomBtnDemoBaseVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(self.demoTitle)
-                .byFont(UIFontWeightRegularSize(16));
-        })
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(self.demoTitle())
+                    .byFont(UIFontWeightRegularSize(16));
+            })
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.titleLab.byAlpha(1);
-    self.subTitleLab.byAlpha(1);
-    self.previewView.byAlpha(1);
-    self.demoBtn.byAlpha(1);
-}
-#pragma mark —— Demo
--(NSString *)demoTitle{
-    return @"UIButton子控件的排布".tr;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CustomBtnDemoBaseVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
 }
 
--(NSString *)demoSubTitle{
-    return @"单个页面只展示当前这一种 image/title 排布效果".tr;
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.titleLab.byAlpha(1);
+        self.subTitleLab.byAlpha(1);
+        self.previewView.byAlpha(1);
+        self.demoBtn.byAlpha(1);
+    };
+}
+#pragma mark —— Demo
+-(JobsRetStrByVoidBlock _Nonnull)demoTitle{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"UIButton子控件的排布".jobsTr();
+    };
+}
+
+-(JobsRetStrByVoidBlock _Nonnull)demoSubTitle{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"单个页面只展示当前这一种 image/title 排布效果".jobsTr();
+    };
 }
 
 -(NSDirectionalRectEdge)imagePlacement{
@@ -77,7 +107,7 @@ Prop_strong()UIButton *demoBtn;
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(self.demoTitle)
+                .byText(self.demoTitle())
                 .byFont(UIFontWeightSemiboldSize(JobsWidth(18)))
                 .byTextCor(JobsLabelColor)
                 .byNumberOfLines(0)
@@ -97,7 +127,7 @@ Prop_strong()UIButton *demoBtn;
         _subTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(self.demoSubTitle)
+                .byText(self.demoSubTitle())
                 .byFont(UIFontWeightRegularSize(JobsWidth(13)))
                 .byTextCor(JobsSecondaryLabelColor)
                 .byNumberOfLines(0)
@@ -134,7 +164,7 @@ Prop_strong()UIButton *demoBtn;
     if (!_demoBtn) {
         @jobs_weakify(self)
         _demoBtn = UIButton.jobsInit()
-            .jobsResetBtnTitle(self.demoTitle)
+            .jobsResetBtnTitle(self.demoTitle())
             .jobsResetBtnImage(@"Lock".img)
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))

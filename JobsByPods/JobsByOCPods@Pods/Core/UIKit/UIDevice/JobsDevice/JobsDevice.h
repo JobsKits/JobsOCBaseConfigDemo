@@ -15,7 +15,7 @@
 #pragma mark —— Base
 /// 获取手机UUID
 NS_INLINE NSString *jobsUUIDString(void) {
-    [UIDevice currentDevice];
+    UIDevice.currentDevice;
     return UIDevice.currentDevice.identifierForVendor.UUIDString;
 }
 /// 获取手机别名

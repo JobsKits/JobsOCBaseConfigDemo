@@ -6,6 +6,12 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsAppDoor/JobsAppDoorConfig.h>
 #import <JobsAppDoor/JobsAppDoorInputViewBaseStyle.h>
 
@@ -75,6 +81,9 @@ Prop_assign()InputViewStyle_5 style_5;
  - (instancetype)init NS_UNAVAILABLE;
  - (instancetype)new NS_UNAVAILABLE;
  */
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorInputViewBaseStyle_5
+-(JobsRetJobsAppDoorInputViewBaseStyle_5ByJobsAppDoorInputViewBaseStyleModelBlock _Nonnull)byDoorInputViewBaseStyleModel;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_5
 @end
 
 NS_ASSUME_NONNULL_END

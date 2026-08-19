@@ -7,12 +7,6 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<JobsOCUILabelScrolling/JobsOCUILabelScrolling.h>)
-#import <JobsOCUILabelScrolling/JobsOCUILabelScrolling.h>
-#else
-#import "JobsOCUILabelScrolling.h"
-#endif
-
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
 #else
@@ -25,22 +19,34 @@
 #import "JobsByOCPods.h"
 #endif
 
-#if __has_include(<JobsMakes/JobsMakes.h>)
-#import <JobsMakes/JobsMakes.h>
-#else
-#import "JobsMakes.h"
-#endif
-
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
 #import "JobsLanMgr.h"
 #endif
 
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
+#endif
+
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
 #import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsOCUILabelScrolling/JobsOCUILabelScrolling.h>)
+#import <JobsOCUILabelScrolling/JobsOCUILabelScrolling.h>
+#else
+#import "JobsOCUILabelScrolling.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
@@ -53,6 +59,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UILabelScrollingDemoVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN UILabelScrollingDemoVC
+-(JobsRetUILabelScrollingDemoVCByBOOLBlock _Nonnull)byUsesAlternativeCopy;
+-(JobsRetUILabelScrollingDemoVCByNSArrayUIButtonBlock _Nonnull)byControlButtons;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UILabelScrollingDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

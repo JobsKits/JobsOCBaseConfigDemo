@@ -8,6 +8,15 @@
 #import "ASDisplayNode+DSL.h"
 
 @implementation ASDisplayNode (DSL)
+
+-(JobsRetDisplayNodeByCGSizeBlock _Nonnull)byPreferredSize{
+    @jobs_weakify(self)
+    return ^__kindof ASDisplayNode *_Nonnull(CGSize data){
+        @jobs_strongify(self)
+        self.style.preferredSize = data;
+        return self;
+    };
+}
 -(JobsRetDisplayNodeByFrameBlock _Nonnull)byFrame{
     @jobs_weakify(self)
     return ^__kindof ASDisplayNode *_Nonnull(CGRect data){

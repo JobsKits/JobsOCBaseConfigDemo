@@ -11,13 +11,26 @@
 #pragma once
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsDebug/NSString+Extra.h>
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSData (Extra)
 
 -(NSString *)stringByUTF8Encoding;
+-(JobsRetStrByVoidBlock _Nonnull)jobsStringByUTF8Encoding;
 
 @end
 

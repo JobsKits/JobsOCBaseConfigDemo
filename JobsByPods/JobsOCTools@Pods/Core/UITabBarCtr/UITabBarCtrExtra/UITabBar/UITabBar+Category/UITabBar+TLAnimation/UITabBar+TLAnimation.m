@@ -6,6 +6,7 @@
 //
 
 #import "UITabBar+TLAnimation.h"
+#import <JobsOCDSL/UITabBar+DSL.h>
 
 @implementation UITabBar (TLAnimation)
 +(void)load {
@@ -16,50 +17,69 @@
     }
 }
 
-- (void)didAddSubview:(UIView *)subview {//这里的UIView *subview，其实就是UITabBarButton *，只不过UITabBarButton *是内部类未暴露
-    if ([self isMemberOfClass:UITabBar.class]) {
-        if ([subview isMemberOfClass:NSClassFromString(UITabBarButton)] ||// 原生
-            [subview isMemberOfClass:NSClassFromString(@"UIButton")]){// 自定义Button
-            self.btns.add(subview);
+- (void)didAddSubview:(UIView *)subview {
+    ((((jobsByViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UITabBar.class, @selector(didAddSubview)))(self, @selector(didAddSubview))))(subview);
+}
+-(jobsByViewBlock _Nonnull)didAddSubview{
+    @jobs_weakify(self)
+    return ^(UIView * subview){
+        @jobs_strongify(self)
+        if (!self) return;
+    //这里的UIView *subview，其实就是UITabBarButton *，只不过UITabBarButton *是内部类未暴露
+        if ([self isMemberOfClass:UITabBar.class]) {
+            if ([subview isMemberOfClass:NSClassFromString(UITabBarButton)] ||// 原生
+                [subview isMemberOfClass:NSClassFromString(@"UIButton")]){// 自定义Button
+                self.btns.add(subview);
+            }
         }
-    }
-    // 使用方法交换时出现错误，用此方法替代
-    SEL sel = NSSelectorFromString(@"tl_didAddSubview:");
-    if([self respondsToSelector:sel]) {
-        [self performSelector:sel
-                   withObject:subview
-                   afterDelay:0];
-    }
+        // 使用方法交换时出现错误，用此方法替代
+        SEL sel = NSSelectorFromString(@"tl_didAddSubview:");
+        if([self respondsToSelector:sel]) {
+            [self performSelector:sel
+                       withObject:subview
+                       afterDelay:0];
+        }
+    };
 }
 /// UITabBarItem选中监听
 - (void)tl_setSelectedItem:(UITabBarItem *)selectedItem {
-    NSUInteger index = [self.items indexOfObject:selectedItem];
-    NSUInteger previousIndex = self.selectedIndex;
-    if (previousIndex != index && self.btns.count > index) {
-        // 撤销选中动画
-        id <TLAnimationProtocol> deselectAnimation = self.items[previousIndex].animation;
-        SEL sel = @selector(playDeselectAnimationWhitTabBarButton:buttonImageView:buttonTextLabel:);
-        if (deselectAnimation && [deselectAnimation respondsToSelector:sel]) {
-            if ([deselectAnimation respondsToSelector:@selector(setToRight:)]) {
-                deselectAnimation.toRight = previousIndex < index;
+    jobsByTabBarItemBlock action = ((jobsByTabBarItemBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UITabBar.class, @selector(jobsTl_setSelectedItem)))(self, @selector(jobsTl_setSelectedItem));
+    if (action) action(selectedItem);
+}
+
+-(jobsByTabBarItemBlock _Nonnull)jobsTl_setSelectedItem{
+    @jobs_weakify(self)
+    return ^(UITabBarItem * selectedItem){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSUInteger index = [self.items indexOfObject:selectedItem];
+        NSUInteger previousIndex = self.selectedIndex;
+        if (previousIndex != index && self.btns.count > index) {
+            // 撤销选中动画
+            id <TLAnimationProtocol> deselectAnimation = self.items[previousIndex].animation;
+            SEL sel = @selector(playDeselectAnimationWhitTabBarButton:buttonImageView:buttonTextLabel:);
+            if (deselectAnimation && [deselectAnimation respondsToSelector:sel]) {
+                if ([deselectAnimation respondsToSelector:@selector(setToRight:)]) {
+                    deselectAnimation.toRight = previousIndex < index;
+                }
+                [deselectAnimation playDeselectAnimationWhitTabBarButton:self.btns[previousIndex]
+                                                         buttonImageView:imageView(self.btns[previousIndex])
+                                                         buttonTextLabel:textLabel(self.btns[previousIndex])];
             }
-            [deselectAnimation playDeselectAnimationWhitTabBarButton:self.btns[previousIndex]
-                                                     buttonImageView:imageView(self.btns[previousIndex])
-                                                     buttonTextLabel:textLabel(self.btns[previousIndex])];
-        }
-        // 选中动画
-        id <TLAnimationProtocol> selectAnimation = self.items[index].animation;
-        if (selectAnimation) {
-            if ([deselectAnimation respondsToSelector:@selector(setFromLeft:)]) {
-                deselectAnimation.fromLeft = previousIndex < index;
+            // 选中动画
+            id <TLAnimationProtocol> selectAnimation = self.items[index].animation;
+            if (selectAnimation) {
+                if ([deselectAnimation respondsToSelector:@selector(setFromLeft:)]) {
+                    deselectAnimation.fromLeft = previousIndex < index;
+                }
+                [selectAnimation playSelectAnimationWhitTabBarButton:self.btns[index]
+                                                     buttonImageView:imageView(self.btns[index])
+                                                     buttonTextLabel:textLabel(self.btns[index])];
             }
-            [selectAnimation playSelectAnimationWhitTabBarButton:self.btns[index]
-                                                 buttonImageView:imageView(self.btns[index])
-                                                 buttonTextLabel:textLabel(self.btns[index])];
+            self.selectedIndex = index;
         }
-        self.selectedIndex = index;
-    }
-    [self tl_setSelectedItem:selectedItem];
+        [self tl_setSelectedItem:selectedItem];
+    };
 }
 #pragma mark —— 一些私有方法
 UILabel *textLabel(UIView *btn) {
@@ -100,7 +120,7 @@ JobsKey(_btns)
     NSMutableArray *Btns = Jobs_getAssociatedObject(_btns);
     if (!Btns) {
         Btns = NSMutableArray.array;
-        self.selectedIndex = 0;
+        self.bySelectedIndex(0);
         Jobs_setAssociatedRETAIN_NONATOMIC(_btns, Btns);
     };return Btns;
 }
@@ -116,4 +136,3 @@ JobsKey(_selectedIndex)
 }
 
 @end
-

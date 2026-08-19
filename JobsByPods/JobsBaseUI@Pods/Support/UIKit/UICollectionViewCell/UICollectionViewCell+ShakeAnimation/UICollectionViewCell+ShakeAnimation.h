@@ -11,6 +11,12 @@
 #pragma once
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsBaseUI/NSMutableArray+Extra.h>
 
 #if __has_include(<JobsMakes/JobsMakes.h>)
@@ -19,12 +25,24 @@
 #import "JobsMakes.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsOCDSL/CAKeyframeAnimation+DSL.h>)
+#import <JobsOCDSL/CAKeyframeAnimation+DSL.h>
+#else
+#import "CAKeyframeAnimation+DSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UICollectionViewCell (ShakeAnimation)
 
--(void)beginShake;// 实现cell抖动方法
--(void)stopShake;// 实现cell停止抖动方法
+-(jobsByVoidBlock _Nonnull)beginShake;// 实现cell抖动方法
+-(jobsByVoidBlock _Nonnull)stopShake;// 实现cell停止抖动方法
 
 @end
 

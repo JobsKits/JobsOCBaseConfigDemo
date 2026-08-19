@@ -7,6 +7,12 @@
 
 #ifndef SingletonMacro_h
 #define SingletonMacro_h
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 /// 基于 dispatch_once 的单例宏
 #define DEFINE_SHARED_INSTANCE_USING_DISPATCH_ONCE \
     + (instancetype)sharedManager { \
@@ -16,6 +22,11 @@
             sharedManager = [[self alloc] init]; \
         }); \
         return sharedManager; \
+    } \
+    + (JobsRetIDByVoidBlock _Nonnull)jobsSharedManager { \
+        return ^id{ \
+            return [self sharedManager]; \
+        }; \
     } \
     + (void)destroyInstance { \
         sharedManager = nil; \
@@ -33,6 +44,7 @@
 
 #define DECLARE_SHARED_INSTANCE \
     + (instancetype)sharedManager; \
+    + (JobsRetIDByVoidBlock _Nonnull)jobsSharedManager; \
     + (void)destroyInstance;
 
 #define IMPLEMENT_SHARED_INSTANCE_USING_DISPATCH_ONCE(CLASSNAME) \
@@ -48,6 +60,11 @@
             } \
         } \
         return sharedManager; \
+    } \
+    + (JobsRetIDByVoidBlock _Nonnull)jobsSharedManager { \
+        return ^id{ \
+            return [self sharedManager]; \
+        }; \
     } \
     + (void)destroyInstance { \
         @synchronized (self) { \

@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_XLSPHEREVIEW_A45E24EFA5
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsOCTools/XLMatrix.h>
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
@@ -29,9 +35,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_assign() BOOL isTimerStart;
 
-- (void)setItems:(NSArray *)items;
-- (void)timerStart;
-- (void)timerStop;
+-(jobsByNSArrayBlock _Nonnull)setItems;
+- (jobsByVoidBlock _Nonnull)timerStart;
+- (jobsByVoidBlock _Nonnull)timerStop;
 
 @end
 

@@ -18,28 +18,28 @@
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(__kindof JobsLocationModel *_Nullable data){
         @jobs_strongify(self)
-        self.layer.borderColor = data.layerCor.CGColor;
-        self.layer.borderWidth = data.jobsWidth;
-        self.layer.cornerRadius = data.cornerRadiusValue;
-        self.layer.masksToBounds = data.masksToBounds;
+        self.layer.byBorderColor(data.layerCor.CGColor);
+        self.layer.byBorderWidth(data.jobsWidth);
+        self.layer.byCornerRadius(data.cornerRadiusValue);
+        self.layer.byMasksToBounds(data.masksToBounds);
         return self;
     };
 }
-/// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
+/// 调用方式：view.layerByBorderCor(@"#FFD8D8".jobsCor()).layerByBorderWidth(1);
 -(JobsRetViewByCorBlock _Nonnull)layerByBorderCor{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(UIColor *_Nullable layerBorderCor) {
         @jobs_strongify(self)
-        self.layer.borderColor = layerBorderCor.CGColor;
+        self.layer.byBorderColor(layerBorderCor.CGColor);
         return self;
     };
 }
-/// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
+/// 调用方式：view.layerByBorderCor(@"#FFD8D8".jobsCor()).layerByBorderWidth(1);
 -(JobsRetViewByFloatBlock _Nonnull)layerByBorderWidth{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(float borderWidth) {
         @jobs_strongify(self)
-        self.layer.borderWidth = borderWidth;
+        self.layer.byBorderWidth(borderWidth);
         return self;
     };
 }
@@ -48,8 +48,8 @@
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(float cornerRadiusValue) {
         @jobs_strongify(self)
-        self.layer.cornerRadius = cornerRadiusValue;
-        self.layer.masksToBounds = YES;
+        self.layer.byCornerRadius(cornerRadiusValue);
+        self.layer.byMasksToBounds(YES);
         return self;
     };
 }
@@ -90,7 +90,7 @@
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(CGFloat alpha){
         @jobs_strongify(self)
-        self.jobsVisible = alpha;
+        self.byJobsVisible(alpha);
         return self;
     };
 }
@@ -208,7 +208,7 @@
         @jobs_strongify(self)
         if ([self isKindOfClass:UILabel.class]) {
             UILabel *label = (UILabel *)self;
-            label.adjustsFontSizeToFitWidth = YES;// 必须有text，然后根据text来进行约束计算和布局
+            label.byAdjustsFontSizeToFitWidth(YES);
         };return self;
     };
 }

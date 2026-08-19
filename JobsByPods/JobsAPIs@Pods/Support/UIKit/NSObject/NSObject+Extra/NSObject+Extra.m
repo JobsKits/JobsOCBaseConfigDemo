@@ -6,6 +6,7 @@
 //
 
 #import "NSObject+Extra.h"
+
 #import <JobsAPIs/NSURLRequest+Extra.h>
 #import <JobsAPIs/NSData+Extra.h>
 #import <JobsAPIs/JobsBaseApi.h>
@@ -78,27 +79,27 @@
     @jobs_weakify(self)
     return ^(JobsBaseApi *_Nullable api){
         @jobs_strongify(self)
-        api.animatingText = @"正在加载".tr;
+        api.byAnimatingText(@"正在加载".jobsTr());
         if([self isKindOfClass:UIView.class]){
             UIView *view = (UIView *)self;
-            api.animatingView = view;
+            api.byAnimatingView(view);
         }
         if([self isKindOfClass:UIViewController.class]){
             UIViewController *vc = (UIViewController *)self;
-            api.animatingView = vc.view;
+            api.byAnimatingView(vc.view);
         }
     };
 }
 #ifdef DEBUG
 /// 打印请求体
--(JobsRetURLRequestByURLSessionTaskBlock _Nullable)printURLSessionRequestMessage{
+-(JobsRetURLRequestByURLSessionTaskBlock _Nonnull)printURLSessionRequestMessage{
     return ^__kindof NSMutableURLRequest *_Nullable(__kindof NSURLSessionDataTask *_Nullable task) {
         if(!task){JobsLog(@"NSURLSessionDataTask *task 为空,请检查");return nil;
 };return task.originalRequest.print();
     };
 }
 /// 打印URLRequest
--(JobsRetMutableURLRequestByURLRequestBlock _Nullable)printRequestMessage{
+-(JobsRetMutableURLRequestByURLRequestBlock _Nonnull)printRequestMessage{
     return ^__kindof NSMutableURLRequest *_Nullable(__kindof NSURLRequest *_Nullable data) {
         if (!data) {JobsLog(@"NSURLRequest *data 为空,请检查");return nil;
 };return data.print();

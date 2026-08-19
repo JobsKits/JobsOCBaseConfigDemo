@@ -68,7 +68,7 @@ NS_ASSUME_NONNULL_END
          if (!_textView) {
              _textView = SZTextView.new;
              _textView.delegate = self;
-             _textView.placeholder = @"在这里畅所欲言，留下您的宝贵意见吧！".tr;
+             _textView.placeholder = @"在这里畅所欲言，留下您的宝贵意见吧！".jobsTr();
 
              _textView.placeholderTextColor = RGB_COLOR(132, 134, 140);
              _textView.byFont(UIFontWeightMediumSize(12));
@@ -99,7 +99,7 @@ NS_ASSUME_NONNULL_END
          //textField.text 有值 && string无值 ————> 删除操作
          if (isValue(textView.text) && isNull(text)) {
              if (textView.text.length == 1) {
-                 resString = @"".tr;
+                 resString = @"".jobsTr();
              }else{
                  resString = [textView.text substringToIndex:(textView.text.length - 1)];//去掉最后一个
              }

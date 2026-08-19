@@ -43,15 +43,15 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetStrByStrBlock _Nonnull)add;
 #pragma mark —— 动画相关
 /// 创建CABasicAnimation
--(CABasicAnimation *)basicAnimation;
+-(JobsRetCABasicAnimationByVoidBlock _Nonnull)basicAnimation;
 /// 创建CAKeyframeAnimation（关键帧动画）
--(CAKeyframeAnimation *)keyframeAnimation;
+-(JobsRetCAKeyframeAnimationByVoidBlock _Nonnull)keyframeAnimation;
 
--(CAMediaTimingFunction *)makeCAMediaTimingFunction;
+-(JobsRetCAMediaTimingFunctionByVoidBlock _Nonnull)makeCAMediaTimingFunction;
 
--(CAKeyframeAnimation *)makeCAKeyframeAnimationByBlock:(jobsByCAKeyframeAnimationBlock _Nonnull)block;
+-(JobsRetCAKeyframeAnimationByjobsByCAKeyframeAnimationBlockBlock _Nonnull)makeCAKeyframeAnimationByBlock;
 
--(CABasicAnimation *)makeCABasicAnimationByBlock:(jobsByCABasicAnimationBlock _Nonnull)block;
+-(JobsRetCABasicAnimationByjobsByCABasicAnimationBlockBlock _Nonnull)makeCABasicAnimationByBlock;
 
 @end
 

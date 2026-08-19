@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
@@ -52,6 +58,10 @@ Prop_strong(readonly)UIButton *decreaseButton;
 Prop_strong(readonly)UITextField *textField;
 Prop_strong(readonly)UIButton *increaseButton;
 
+-(JobsRetJobsOCNumberStepperByNSIntegerBlock _Nonnull)byValue;
+-(JobsRetJobsOCNumberStepperByNumberBlock _Nonnull)byMinimumValue;
+-(JobsRetJobsOCNumberStepperByNumberBlock _Nonnull)byMaximumValue;
+-(JobsRetJobsOCNumberStepperByNSIntegerBlock _Nonnull)byStepValue;
 -(instancetype)configureWithValue:(NSInteger)value
                      minimumValue:(nullable NSNumber *)minimumValue
                      maximumValue:(nullable NSNumber *)maximumValue

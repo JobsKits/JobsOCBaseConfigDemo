@@ -37,6 +37,7 @@ description support and debug utilities for development and testing.
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsMakes'
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsStringUtils'
   spec.dependency 'JobsLanMgr'
   JobsPodspecKitForJobsDebug.add_support_subspec(spec, support_context)

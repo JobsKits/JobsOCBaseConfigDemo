@@ -63,9 +63,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BaseViewController : JobsTabBarSettingVC <BaseViewControllerProtocol>
 
+-(JobsRetBaseViewControllerByNSUIntegerBlock _Nonnull)byJobsTag;
+
 /// 子类返回 NO 时，不自动安装导航栏、标题和返回按钮。
 -(BOOL)jobs_requiresDefaultNavigationBar;
+-(JobsRetBOOLByVoidBlock _Nonnull)jobsJobs_requiresDefaultNavigationBar;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN BaseViewController
+-(JobsRetBaseViewControllerByBOOLBlock _Nonnull)byLoadView;
+-(JobsRetBaseViewControllerByBOOLBlock _Nonnull)byViewDidAppear;
+-(JobsRetBaseViewControllerByBOOLBlock _Nonnull)byViewDidDisappear;
+-(JobsRetBaseViewControllerByBOOLBlock _Nonnull)byViewDidLoad;
+-(JobsRetBaseViewControllerByBOOLBlock _Nonnull)byViewWillAppear;
+-(JobsRetBaseViewControllerByBOOLBlock _Nonnull)byViewWillDisappear;
+-(JobsRetBaseViewControllerByCGFloatBlock _Nonnull)byGk_navBarAlpha;
+-(JobsRetBaseViewControllerByNSArrayUIBarButtonItemBlock _Nonnull)byGk_navRightBarButtonItems;
+-(JobsRetBaseViewControllerByUIBarButtonItemBlock _Nonnull)byGk_navRightBarButtonItem;
+-(JobsRetBaseViewControllerByUIViewBlock _Nonnull)byGk_navTitleView;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END BaseViewController
 @end
 
 NS_ASSUME_NONNULL_END
@@ -76,7 +91,7 @@ NS_ASSUME_NONNULL_END
     -(UIButtonModel *)backBtnModel{
         if(!_backBtnModel){
             @jobs_weakify(self)
-            _backBtnModel = self.makeBackBtnModel
+            _backBtnModel = self.jobsMakeBackBtnModel()
                 .byTitleFont(bayonRegular(JobsWidth(18)))
                 .byTitleCor(JobsWhiteColor)
                 .bySelectedTitleCor(JobsWhiteColor)

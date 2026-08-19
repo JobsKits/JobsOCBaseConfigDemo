@@ -25,6 +25,12 @@
 #import "RACEXTKeyPathCoding.h"
 #endif
 
+//#if __has_include(<ReactiveObjC/RACEXTRuntimeExtensions.h>)
+//#import <ReactiveObjC/RACEXTRuntimeExtensions.h>
+//#else
+//#import "RACEXTRuntimeExtensions.h"
+//#endif
+
 #if __has_include(<AFNetworking/AFNetworking.h>)
 #import <AFNetworking/AFNetworking.h>
 #else
@@ -43,17 +49,11 @@
 #import "JobsDefines.h"
 #endif
 
-//#if __has_include(<ReactiveObjC/RACEXTRuntimeExtensions.h>)
-//#import <ReactiveObjC/RACEXTRuntimeExtensions.h>
-//#else
-//#import "RACEXTRuntimeExtensions.h"
-//#endif
-
 NS_ASSUME_NONNULL_BEGIN
 /// 网络监控
 @interface NSObject (AFNReachability)
 /// 监听网络状态的改变
-+(void)AFNReachability:(jobsByNSIntegerBlock)statusBlock;
++(jobsByjobsByNSIntegerBlockBlock _Nonnull)AFNReachability;
 
 @end
 

@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UITabBarItem (Extra)
 
+-(JobsRetTabBarItemByUIOffsetBlock _Nonnull)byTitlePositionAdjustment;
 -(jobsByCorBlock _Nonnull)titleTextAttributesByNormalState;
 -(jobsByCorBlock _Nonnull)titleTextAttributesByHighlightedState;
 -(jobsByCorBlock _Nonnull)titleTextAttributesByDisabledState;

@@ -18,40 +18,79 @@
                               device:(NSString *)device
                             location:(NSString *)location
                             children:(NSArray<JobsOCCommentModel *> *)children{
-    JobsOCCommentModel *model = JobsOCCommentModel.new;
-    model.messageID = [self jobs_normalizedStringBy:messageID];
-    model.userAvatar = [self jobs_normalizedStringBy:userAvatar];
-    model.nickname = [self jobs_normalizedStringBy:nickname];
-    model.replyID = [self jobs_normalizedStringBy:replyID];
-    model.replyUserName = [self jobs_normalizedStringBy:replyUserName];
-    model.publishTime = [self jobs_normalizedStringBy:publishTime];
-    model.content = [self jobs_normalizedStringBy:content];
-    model.device = [self jobs_normalizedStringBy:device];
-    model.location = [self jobs_normalizedStringBy:location];
-    model.children = [self jobs_validChildrenBy:children];
-    return model;
+    return JobsOCCommentModel.new
+        .byMessageID(self.jobs_normalizedStringBy(messageID))
+        .byUserAvatar(self.jobs_normalizedStringBy(userAvatar))
+        .byNickname(self.jobs_normalizedStringBy(nickname))
+        .byReplyID(self.jobs_normalizedStringBy(replyID))
+        .byReplyUserName(self.jobs_normalizedStringBy(replyUserName))
+        .byPublishTime(self.jobs_normalizedStringBy(publishTime))
+        .byContent(self.jobs_normalizedStringBy(content))
+        .byDevice(self.jobs_normalizedStringBy(device))
+        .byLocation(self.jobs_normalizedStringBy(location))
+        .byChildren(self.jobs_validChildrenBy(children));
 }
 
-+(NSString *)jobs_normalizedStringBy:(id)data{
-    if (![data isKindOfClass:NSString.class]) return @"";
-    return [(NSString *)data stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet] ? : @"";
+#define JobsOCCommentModelStringDSL(_name_, _property_) \
+-(JobsRetJobsOCCommentModelByStrBlock _Nonnull)by##_name_{ \
+    @jobs_weakify(self) \
+    return ^__kindof JobsOCCommentModel *_Nullable(NSString *_Nullable data){ \
+        @jobs_strongify(self) \
+        self._property_ = data; \
+        return self; \
+    }; \
 }
 
-+(NSArray <JobsOCCommentModel *>*)jobs_validChildrenBy:(NSArray *)children{
-    if (![children isKindOfClass:NSArray.class]) return @[];
-    NSMutableArray <JobsOCCommentModel *>*result = NSMutableArray.array;
-    for (id child in children) {
-        if (![child isKindOfClass:JobsOCCommentModel.class]) continue;
-        [result addObject:child];
-    };return result.copy;
+JobsOCCommentModelStringDSL(MessageID, messageID)
+JobsOCCommentModelStringDSL(UserAvatar, userAvatar)
+JobsOCCommentModelStringDSL(Nickname, nickname)
+JobsOCCommentModelStringDSL(ReplyID, replyID)
+JobsOCCommentModelStringDSL(ReplyUserName, replyUserName)
+JobsOCCommentModelStringDSL(PublishTime, publishTime)
+JobsOCCommentModelStringDSL(Content, content)
+JobsOCCommentModelStringDSL(Device, device)
+JobsOCCommentModelStringDSL(Location, location)
+
+#undef JobsOCCommentModelStringDSL
+
+-(JobsRetJobsOCCommentModelByArrBlock _Nonnull)byChildren{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCCommentModel *_Nullable(NSArray<JobsOCCommentModel *> *_Nullable data){
+        @jobs_strongify(self)
+        self.children = data;
+        return self;
+    };
+}
+
++(JobsRetStrByIDBlock _Nonnull)jobs_normalizedStringBy{
+    return ^NSString *(id data){
+        if (![data isKindOfClass:NSString.class]) return @"";
+        return [(NSString *)data stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet] ? : @"";
+    };
+}
+
++(JobsRetNSArrayJobsOCCommentModelByNSArrayBlock _Nonnull)jobs_validChildrenBy{
+    return ^NSArray <JobsOCCommentModel *>*(NSArray * children){
+        if (![children isKindOfClass:NSArray.class]) return @[];
+        NSMutableArray <JobsOCCommentModel *>*result = NSMutableArray.array;
+        for (id child in children) {
+            if (![child isKindOfClass:JobsOCCommentModel.class]) continue;
+            [result addObject:child];
+        };return result.copy;
+    };
 }
 
 -(NSArray<JobsOCCommentModel *> *)children{
     return _children ? : @[];
 }
 
--(BOOL)hasChildComments{
-    return self.children.count > 0;
+-(JobsRetBOOLByVoidBlock _Nonnull)hasChildComments{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return self.children.count > 0;
+    };
 }
 
 @end

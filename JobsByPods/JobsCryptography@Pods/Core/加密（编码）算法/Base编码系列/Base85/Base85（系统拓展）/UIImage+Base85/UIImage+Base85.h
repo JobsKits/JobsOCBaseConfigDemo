@@ -28,6 +28,12 @@
 #import "JobsBlock.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 /**
 
@@ -46,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///【类方法】将给定的UIImage对象 转换为 以Base85编码的字符串
 +(JobsRetStrByImageBlock _Nonnull)base85StringByImage;
 ///【实例方法】将给定的UIImage对象 转换为 以Base85编码的字符串
--(NSString *_Nullable)base85Str;
+-(JobsRetStrByVoidBlock _Nonnull)base85Str;
 #pragma mark —— Base85 ==> UIImage
 ///【类方法】从给定的以Base85编码的字符串中解码并转换为UIImage对象
 +(JobsRetImageByStrBlock _Nonnull)imageByBase85String;

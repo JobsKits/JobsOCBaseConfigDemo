@@ -22,6 +22,12 @@ Prop_strong()NSMutableArray <NSMutableArray <JobsRichTextConfig *>*>*richTextCon
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN BaiShaETProjCollectionHeaderView
+@interface BaiShaETProjCollectionHeaderView (JobsPropertyDSLSetterAutogen_a6b4637f41)
+-(void)setIsZoom:(BOOL)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END BaiShaETProjCollectionHeaderView
+
 @implementation BaiShaETProjCollectionHeaderView
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
@@ -30,16 +36,30 @@ Prop_strong()NSMutableArray <NSMutableArray <JobsRichTextConfig *>*>*richTextCon
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_collectionHeaderViewOnceToken = 0;
-    static_collectionHeaderView = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(BaiShaETProjCollectionHeaderView.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_collectionHeaderViewOnceToken = 0;
+        static_collectionHeaderView = nil;
+    };
 }
 
 static BaiShaETProjCollectionHeaderView *static_collectionHeaderView = nil;
 static dispatch_once_t static_collectionHeaderViewOnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_collectionHeaderViewOnceToken, ^{
-        static_collectionHeaderView = BaiShaETProjCollectionHeaderView.new;
-    });return static_collectionHeaderView;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(BaiShaETProjCollectionHeaderView.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_collectionHeaderViewOnceToken, ^{
+            static_collectionHeaderView = BaiShaETProjCollectionHeaderView.new;
+        });return static_collectionHeaderView;
+    };
 }
 
 -(instancetype)init{
@@ -54,20 +74,50 @@ static dispatch_once_t static_collectionHeaderViewOnceToken;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjCollectionHeaderView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjCollectionHeaderView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 #pragma mark —— UIScrollViewDelegate
 - (void)scrollViewDidScrollWithContentOffsetY:(CGFloat)contentOffsetY {
-    if (self.isZoom) {
-//        CGRect frame = self.imageViewFrame;
-//        frame.size.height -= contentOffsetY;
-//        frame.origin.y = contentOffsetY;
-//        self.imageView.frame = frame;
-    }
+    jobsByCGFloatBlock action = ((jobsByCGFloatBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjCollectionHeaderView.class, @selector(jobsScrollViewDidScrollWithContentOffsetY)))(self, @selector(jobsScrollViewDidScrollWithContentOffsetY));
+    if (action) action(contentOffsetY);
+}
+
+-(jobsByCGFloatBlock _Nonnull)jobsScrollViewDidScrollWithContentOffsetY{
+    @jobs_weakify(self)
+    return ^(CGFloat contentOffsetY){
+        @jobs_strongify(self)
+        if (!self) return;
+            if (self.isZoom) {
+        //        CGRect frame = self.imageViewFrame;
+        //        frame.size.height -= contentOffsetY;
+        //        frame.origin.y = contentOffsetY;
+        //        self.imageView.frame = frame;
+            }
+    };
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -80,7 +130,7 @@ static dispatch_once_t static_collectionHeaderViewOnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model;
+        self.byViewModel(model);
         MakeDataNull
         self.userHeaderBtn.byVisible(YES);
         self.progressView.byVisible(YES);
@@ -98,7 +148,17 @@ static dispatch_once_t static_collectionHeaderViewOnceToken;
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjCollectionHeaderView.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 1;
+    };
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
@@ -131,9 +191,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         @jobs_weakify(self)
         UIImage *avatarImage = @"默认头像".img;
         _userHeaderBtn = UIButton.jobsInit()
-        .jobsResetBtnTitle(self.readUserInfo.userName
+        .jobsResetBtnTitle(self.jobsCurrentUserInfo().userName
                                          .add(JobsSpace)
-                                         .add(@"VIP".tr.add(JobsSpace).add(@"0")))
+                                         .add(@"VIP".jobsTr().add(JobsSpace).add(@"0")))
         .jobsResetBtnImage(avatarImage)
         .jobsResetBtnTitleCor(HEXCOLOR(0xAE8330))
         .jobsResetBtnTitleFont(UIFontWeightBoldSize(16))
@@ -150,7 +210,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             make.centerX.equalTo(self);
             make.top.equalTo(self).offset(JobsWidth(43));
         });
-        JobsLog(@"%@",_userHeaderBtn.titleForNormalState);
+        JobsLog(@"%@",_userHeaderBtn.jobsTitleForNormalState());
     };return _userHeaderBtn;
 }
 
@@ -177,9 +237,10 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(JobsAnimationLabel *)animationLab{
     if (!_animationLab) {
-        _animationLab = JobsAnimationLabel.new.byTextCor(JobsLabelColor);
-        _animationLab.value = 12;
-        _animationLab.lastValue = 19.93;
+        _animationLab = JobsAnimationLabel.new
+            .byTextCor(JobsLabelColor)
+            .byValue(12)
+            .byLastValue(19.93);
         @jobs_weakify(self)
         [_animationLab animationTextStartValue:_animationLab.value
                                       endValue:_animationLab.lastValue
@@ -188,7 +249,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             @jobs_strongify(self)
             if (self.richTextMutArr.count > 2) [self.richTextMutArr removeObjectAtIndex:1];
             [self.richTextMutArr insertObject:[NSString stringWithFormat:@"%f", value] atIndex:1];
-            label.attributedText = [self richTextWithDataConfigMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
+            label.byAttributedString([self richTextWithDataConfigMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
                 data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                     @jobs_strongify(self)
                     data1.byFont(UIFontWeightRegularSize(12))
@@ -207,9 +268,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                          .byTextCor(JobsLabelColor)
                          .byTargetString(self.richTextMutArr[2]);
                 }));
-            })paragraphStyle:nil];
-            label.value = value;
-            label.lastValue = (label.value * 3);
+            })paragraphStyle:nil])
+                .byValue(value)
+                .byLastValue(label.value * 3);
         }];
         _animationLab.addOn(self)
             .byAdd(^(MASConstraintMaker *make) {
@@ -226,7 +287,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         _leftLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(@"Lv".tr.add(@" ").add(@"0"))
+                .byText(@"Lv".jobsTr().add(@" ").add(@"0"))
             .byTextCor(JobsSecondaryLabelColor)
             .byFont(UIFontWeightRegularSize(12))
             .byTextAlignment(NSTextAlignmentCenter)
@@ -248,7 +309,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         _rightLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(@"Lv".tr.add(@" ").add(@"1"))
+                .byText(@"Lv".jobsTr().add(@" ").add(@"1"))
                 .byTextCor(JobsSecondaryLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byFont(UIFontWeightRegularSize(12))
@@ -292,7 +353,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 -(NSMutableArray<NSString *> *)richTextMutArr{
     if (!_richTextMutArr) {
         _richTextMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            data.add(@"當前晉級進度".tr).add(JobsSpace.add(JobsPercent));
+            data.add(@"當前晉級進度".jobsTr()).add(JobsSpace.add(JobsPercent));
         });
     };return _richTextMutArr;
 }
@@ -303,13 +364,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         _dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
                 @jobs_strongify(self)
-                data1.textModel.byText(@"當前存款".tr);
+                data1.textModel.byText(@"當前存款".jobsTr());
                 data1.subTextModel.attributedTitle = [self richTextWithDataConfigMutArr:self.richTextConfigMutArr2[0]
                                                                         paragraphStyle:nil];
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
                 @jobs_strongify(self)
-                data1.textModel.byText(@"當前流水".tr);
+                data1.textModel.byText(@"當前流水".jobsTr());
                 data1.subTextModel.attributedTitle = [self richTextWithDataConfigMutArr:self.richTextConfigMutArr2[1]
                                                                         paragraphStyle:nil];
             }));
@@ -348,8 +409,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                              .byTextCor(JobsLabelColor)
                              .byTargetString(self.richTextMutArr2[0][1]);
                     }));
-            }));
-            data.add(jobsMakeMutArr(^(__kindof NSMutableArray <JobsRichTextConfig *>*_Nullable data1) {
+            }))
+            .add(jobsMakeMutArr(^(__kindof NSMutableArray <JobsRichTextConfig *>*_Nullable data1) {
                 data1
                     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data2) {
                         @jobs_strongify(self)
@@ -368,4 +429,14 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     };return _richTextConfigMutArr2;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN BaiShaETProjCollectionHeaderView
+-(JobsRetBaiShaETProjCollectionHeaderViewByBOOLBlock _Nonnull)byZoom{
+    @jobs_weakify(self)
+    return ^__kindof BaiShaETProjCollectionHeaderView * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setIsZoom:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END BaiShaETProjCollectionHeaderView
 @end

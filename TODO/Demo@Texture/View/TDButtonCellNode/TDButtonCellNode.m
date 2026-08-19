@@ -11,6 +11,13 @@
 
 @end
 
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN ASButtonNode
+@interface ASButtonNode (JobsLocalPropertyDSLAutogen_bceaa62939)
+-(JobsRetASButtonNodeByNSStringBlock _Nonnull)byAccessibilityLabel;
+-(void)setAccessibilityLabel:(NSString * _Nullable)data;
+@end
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END ASButtonNode
+
 @implementation TDButtonCellNode
 -(instancetype)init {
     if (self = [super init]) {
@@ -21,11 +28,21 @@
 }
 
 -(ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize{
+    JobsRetASLayoutSpecByASSizeRangeBlock action = ((JobsRetASLayoutSpecByASSizeRangeBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(TDButtonCellNode.class, @selector(jobsLayoutSpecThatFits)))(self, @selector(jobsLayoutSpecThatFits));
+    return action ? action(constrainedSize) : nil;
+}
+
+-(JobsRetASLayoutSpecByASSizeRangeBlock _Nonnull)jobsLayoutSpecThatFits{
     @jobs_weakify(self)
-    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(12, 16, 12, 16) child:jobsMakeVerticalStackLayoutSpec(^(ASStackLayoutSpec * _Nullable v) {
+    return ^ASLayoutSpec *(ASSizeRange constrainedSize){
         @jobs_strongify(self)
-        v.bySpacing(10).byAlignItems(ASStackLayoutAlignItemsStart).byChildren(@[self.button, self.descNode]);
-    })];
+        if (!self) return nil;
+        @jobs_weakify(self)
+        return [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(12, 16, 12, 16) child:jobsMakeVerticalStackLayoutSpec(^(ASStackLayoutSpec * _Nullable v) {
+            @jobs_strongify(self)
+            v.bySpacing(10).byAlignItems(ASStackLayoutAlignItemsStart).byChildren(@[self.button, self.descNode]);
+        })];
+    };
 }
 #pragma mark —— lazyLoad
 - (ASButtonNode *)button {
@@ -43,7 +60,7 @@
                     if (!self) return;
                     BOOL on = [self.button.backgroundColor isEqual:UIColor.systemBlueColor];
                     btn.byBgColor(on ? UIColor.systemGreenColor : UIColor.systemBlueColor);
-                    btn.accessibilityLabel = @"Tap to Toggle";
+                    btn.byAccessibilityLabel(@"Tap to Toggle");
                     [self setNeedsLayout];
                 })
                 .onLongPressGestureBy(^(__kindof ASButtonNode *btn, UILongPressGestureRecognizer *gr) {
@@ -68,3 +85,16 @@
 }
 
 @end
+
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN ASButtonNode
+@implementation ASButtonNode (JobsLocalPropertyDSLAutogen_bceaa62939)
+-(JobsRetASButtonNodeByNSStringBlock _Nonnull)byAccessibilityLabel{
+    @jobs_weakify(self)
+    return ^__kindof ASButtonNode * _Nullable(NSString * _Nullable data){
+        @jobs_strongify(self)
+        [self setAccessibilityLabel:data];
+        return self;
+    };
+}
+@end
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END ASButtonNode

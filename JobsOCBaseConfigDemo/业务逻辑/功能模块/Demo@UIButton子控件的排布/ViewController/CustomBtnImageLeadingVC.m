@@ -8,12 +8,22 @@
 #import "CustomBtnImageLeadingVC.h"
 
 @implementation CustomBtnImageLeadingVC
--(NSString *)demoTitle{
-    return @"image左、label右【系统默认状态】".tr;
+-(JobsRetStrByVoidBlock _Nonnull)demoTitle{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"image左、label右【系统默认状态】".jobsTr();
+    };
 }
 
--(NSString *)demoSubTitle{
-    return @"图标在 leading，标题在 trailing，保持 UIButton 默认图文顺序。".tr;
+-(JobsRetStrByVoidBlock _Nonnull)demoSubTitle{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"图标在 leading，标题在 trailing，保持 UIButton 默认图文顺序。".jobsTr();
+    };
 }
 
 -(NSDirectionalRectEdge)imagePlacement{

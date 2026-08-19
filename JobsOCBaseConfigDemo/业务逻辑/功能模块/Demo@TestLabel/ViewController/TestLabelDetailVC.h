@@ -7,12 +7,6 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
-#import <JobsLanMgr/JobsLanMgr.h>
-#else
-#import "JobsLanMgr.h"
-#endif
-
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
 #else
@@ -25,10 +19,22 @@
 #import "JobsByOCPods.h"
 #endif
 
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import <JobsLanMgr/JobsLanMgr.h>
+#else
+#import "JobsLanMgr.h"
+#endif
+
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>
 #else
 #import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -43,16 +49,15 @@
 #import "JobsDefines.h"
 #endif
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TestLabelDetailVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN TestLabelDetailVC
+-(JobsRetTestLabelDetailVCByBOOLBlock _Nonnull)byDidApplyShowingType;
+-(JobsRetTestLabelDetailVCByRACDisposableBlock _Nonnull)byScrollDisposable;
+-(JobsRetTestLabelDetailVCByTestLabelDemoModelBlock _Nonnull)byDemoModel;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END TestLabelDetailVC
 @end
 
 NS_ASSUME_NONNULL_END

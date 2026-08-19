@@ -24,13 +24,18 @@
     };
 }
 ///【实例方法】16进制字符串 转换成 普通的NSString对象
--(NSString *_Nullable)stringByHexString{
-    return NSString.stringByHexString(self);
+-(JobsRetStrByVoidBlock _Nonnull)stringByHexString{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSString.stringByHexString(self);
+    };
 }
 ///【类方法】普通的NSString对象 转换成 16进制字符串
 +(JobsRetStrByStrBlock _Nonnull)hexStringByString{
     return ^__kindof NSString *_Nullable(__kindof NSString *_Nullable string){
-        NSData *data = string.UTF8Encoding;
+        NSData *data = string.jobsUTF8Encoding();
         NSMutableString *hexString = NSMutableString.initByCapacity(data.length * 2);
         const unsigned char *bytes = data.bytes;
         for (int i = 0; i < data.length; ++i) {
@@ -39,8 +44,13 @@
     };
 }
 ///【实例方法】普通的NSString对象 转换成 16进制字符串
--(NSString *_Nullable)hexStringByString{
-    return NSString.hexStringByString(self);
+-(JobsRetStrByVoidBlock _Nonnull)hexStringByString{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSString.hexStringByString(self);
+    };
 }
 #pragma mark —— HexadecimalData ==> UIImage
 ///【类方法】16进制字符串 转换为 UIImage对象
@@ -59,8 +69,13 @@
     };
 }
 ///【实例方法】16进制字符串 转换为 UIImage对象
--(UIImage *_Nullable)imageByHexString{
-    return NSString.imageByHexString(self);
+-(JobsRetImageByVoidBlock _Nonnull)imageByHexString{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSString.imageByHexString(self);
+    };
 }
 #pragma mark —— HexadecimalData ==> NSData
 ///【类方法】16进制字符串 转换为 NSData对象
@@ -79,8 +94,13 @@
     };
 }
 ///【实例方法】16进制字符串 转换为 NSData对象
--(NSData *_Nullable)dataByHexString{
-    return NSString.dataByHexString(self);
+-(JobsRetDataByVoidBlock _Nonnull)dataByHexString{
+    @jobs_weakify(self)
+    return ^NSData *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSString.dataByHexString(self);
+    };
 }
 
 @end

@@ -17,18 +17,23 @@
     };
 }
 /// 打印的结果可以直接用于Postman
--(NSString *)jsonString{
-    NSError *error;
-    NSString *jsonString = @"";
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self
-                                                       options:NSJSONWritingPrettyPrinted
-                                                         error:&error];
-    if (error) {
-        JobsLog(@"JSON转换失败: %@", error.description);
-    } else {
-        jsonString = NSString.initByUTF8Data(jsonData);
-        JobsLog(@"%@", jsonString);
-    };return jsonString;
+-(JobsRetStrByVoidBlock _Nonnull)jsonString{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSError *error;
+        NSString *jsonString = @"";
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self
+                                                           options:NSJSONWritingPrettyPrinted
+                                                             error:&error];
+        if (error) {
+            JobsLog(@"JSON转换失败: %@", error.description);
+        } else {
+            jsonString = NSString.initByUTF8Data(jsonData);
+            JobsLog(@"%@", jsonString);
+        };return jsonString;
+    };
 }
 
 @end

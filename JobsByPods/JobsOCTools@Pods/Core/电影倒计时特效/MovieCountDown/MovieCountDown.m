@@ -21,33 +21,43 @@ Prop_strong()UIView *aphView;
 }
 #pragma mark —— 一些私有方法
 -(void)倒计时放大特效{
-    [self.timer start];
-    [self secountDown];
+    self.timer.start();
+    self.secountDown();
 }
 
--(void)secountDown{
-    if (!self.effectView) {
-        NSAssert(0,@"检查属性 effectView 不能为空");
-    }
-}
-
--(void)getCuntDown:(NSInteger)second{
-    self.countDown.byText(toStringByLong(second));
-    self.countDown.byAlpha(1);
-    self.aphView.byAlpha(0);
+-(jobsByVoidBlock _Nonnull)secountDown{
     @jobs_weakify(self)
-    [UIView animateWithDuration:0.8
-                     animations:^{
+    return ^{
         @jobs_strongify(self)
-        self.countDown.byAlpha(0.8);//透明度
-        self.aphView.byAlpha(0.1);
-        self.countDown.transform = CGAffineTransformMakeScale(1.5, 1.5);//放大值
-        self.aphView.transform = CGAffineTransformMakeScale(10, 10);//放大值
-    } completion:^(BOOL finished) {
+        if (!self) return;
+        if (!self.effectView) {
+            NSAssert(0,@"检查属性 effectView 不能为空");
+        }
+    };
+}
+
+-(jobsByNSIntegerBlock _Nonnull)getCuntDown{
+    @jobs_weakify(self)
+    return ^(NSInteger second){
         @jobs_strongify(self)
-        self.aphView.byAlpha(self.countDown.alpha =  0);
-        self.countDown.transform = self.aphView.transform = CGAffineTransformIdentity;//回复原大小
-    }];
+        if (!self) return;
+        self.countDown.byText(toStringByLong(second));
+        self.countDown.byAlpha(1);
+        self.aphView.byAlpha(0);
+        @jobs_weakify(self)
+        [UIView animateWithDuration:0.8
+                         animations:^{
+            @jobs_strongify(self)
+            self.countDown.byAlpha(0.8);//透明度
+            self.aphView.byAlpha(0.1);
+            self.countDown.byTransform(CGAffineTransformMakeScale(1.5, 1.5));
+            self.aphView.byTransform(CGAffineTransformMakeScale(10, 10));
+        } completion:^(BOOL finished) {
+            @jobs_strongify(self)
+            self.aphView.byAlpha(self.countDown.alpha =  0);
+            self.countDown.byTransform(self.aphView.transform = CGAffineTransformIdentity);
+        }];
+    };
 }
 #pragma mark —— lazyLoad
 -(UILabel *)countDown{
@@ -75,7 +85,7 @@ Prop_strong()UIView *aphView;
             view
                 .byBgColor(self.aphViewBackgroundColor)
                 .byFrame(jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
-                    data.jobsWidth = data.jobsHeight = JobsWidth(100);
+                    data.byJobsWidth(data.jobsHeight = JobsWidth(100));
                 }))
                 .byCenterX(self->_countDown.centerX)
                 .byCenterY(self->_countDown.centerY)
@@ -121,16 +131,17 @@ Prop_strong()UIView *aphView;
             .byOnTick(^(CGFloat time){
                 @jobs_strongify(self)
                 JobsLog(@"正在倒计时...");
-                [self getCuntDown:timer.time];
+                self.getCuntDown(timer.time);
                 if (self.objBlock) self.objBlock(timer);
             })
             .byOnFinish(^(JobsTimer *_Nullable timer){
                 @jobs_strongify(self)
                 JobsLog(@"倒计时结束...");
                 if (self.objBlock) self.objBlock(timer);
-            });
-            timer.accumulatedElapsed       = 0;
-            timer.lastStartDate            = nil;
+            })
+
+                .byAccumulatedElapsed(0)
+                .byLastStartDate(nil);
         });
     };return _timer;
 }

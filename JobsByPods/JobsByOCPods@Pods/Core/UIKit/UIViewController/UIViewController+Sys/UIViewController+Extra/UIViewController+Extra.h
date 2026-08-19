@@ -40,6 +40,12 @@
 #import "JobsBlock.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -53,8 +59,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)make:(MASConstraintMaker *)make topOffset:(CGFloat)topOffset;
 
 -(JobsRetVCByVCBlock _Nonnull)addChildViewController;
+-(JobsRetVCByBOOLBlock _Nonnull)byFdInteractivePopDisabled;
 /// 将自身用导航控制器进行包裹（如果自身就是导航控制器就什么也不做的返回）
--(UINavigationController *_Nonnull)navCtrl;
+-(JobsRetNavCtrByVoidBlock _Nonnull)navCtrl;
 /// 关闭系统自带的右滑关闭手势
 -(jobsByVoidBlock _Nonnull)clzPopGesture;
 /// 打开系统自带的右滑关闭手势

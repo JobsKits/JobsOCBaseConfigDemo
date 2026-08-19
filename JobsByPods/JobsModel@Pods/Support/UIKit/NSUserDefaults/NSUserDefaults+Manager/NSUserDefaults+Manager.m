@@ -26,14 +26,14 @@
                     // 步骤2@将归档数据存储到NSUserDefaults
                     JobsSetUserDefaultKeyWithObject(userDefaultModel.key, archivedData);
                     JobsUserDefaultSynchronize;
-                    JobsLog(@"%@",NSString.userDefaultsDir);
+                    JobsLog(@"%@",NSString.userDefaultsDir());
                     return;
                 }
             }
             if (userDefaultModel.booLValue) {
                 JobsSetUserBoolKeyWithBool(userDefaultModel.key, userDefaultModel.booLValue);
                 JobsUserDefaultSynchronize;
-                JobsLog(@"%@",NSString.userDefaultsDir);
+                JobsLog(@"%@",NSString.userDefaultsDir());
                 return;
             }
         }

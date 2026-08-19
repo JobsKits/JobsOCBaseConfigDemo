@@ -14,17 +14,53 @@ Prop_assign(class)SourceType sourceType;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN FMGameCVCell
+@interface FMGameCVCell (JobsPropertyDSLSetterAutogen_1b05ab0d16)
++(void)setSourceType:(SourceType)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END FMGameCVCell
+
 @implementation FMGameCVCell
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMGameCVCell.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMGameCVCell.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 #pragma mark —— BaseViewProtocol
 -(UIViewModel *_Nullable)getViewModel{
-    return self.viewModel;
+    JobsRetViewModelByVoidBlock action = ((JobsRetViewModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMGameCVCell.class, @selector(jobsGetViewModel)))(self, @selector(jobsGetViewModel));
+    return action ? action() : nil;
+}
+
+-(JobsRetViewModelByVoidBlock _Nonnull)jobsGetViewModel{
+    @jobs_weakify(self)
+    return ^UIViewModel *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.viewModel;
+    };
 }
 #pragma mark —— BaseCellProtocol
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
@@ -54,14 +90,14 @@ Prop_assign(class)SourceType sourceType;
     return ^__kindof UICollectionViewCell *_Nullable(id _Nullable model) {
         @jobs_strongify(self)
         if([model isKindOfClass:UIViewModel.class]){
-            self.viewModel = model;
+            self.byViewModel(model);
             self.button.jobsResetBtnImage(self.viewModel.image);
             self.button.jobsResetBtnTitle(self.viewModel.text);
             self.imageView.byImage(self.viewModel.bgImage);
             self.imageView
                     .imageURL(self.viewModel.imageUrl)
                     .placeholderImage(self.viewModel.bgImage)
-                    .options(self.makeSDWebImageOptions)
+                    .options(self.jobsMakeSDWebImageOptions())
                     .completed(^(UIImage * _Nullable image,
                                  NSError * _Nullable error,
                                  SDImageCacheType cacheType,
@@ -80,7 +116,7 @@ Prop_assign(class)SourceType sourceType;
             self.imageView
                     .imageURL(self.goodsClsModel.imageUrl)
                     .placeholderImage(self.goodsClsModel.bgImage)
-                    .options(self.makeSDWebImageOptions)
+                    .options(self.jobsMakeSDWebImageOptions())
                     .completed(^(UIImage * _Nullable image,
                                  NSError * _Nullable error,
                                  SDImageCacheType cacheType,
@@ -99,7 +135,7 @@ Prop_assign(class)SourceType sourceType;
     @jobs_weakify(self)
     return ^CGSize(NSNumber *_Nullable data){
         @jobs_strongify(self)
-        FMGameCVCell.sourceType = data.integerValue;
+        FMGameCVCell.bySourceType(data.integerValue);
         switch (self.sourceType) {
             /// 来自首页
             case SourceType_Home:
@@ -160,7 +196,7 @@ static SourceType _sourceType;
             .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
             .jobsResetImagePadding(1)
 //            .jobsResetBtnImage(self.viewModel.image)
-            .jobsResetBtnBgCor(@"#FF0000".cor)
+            .jobsResetBtnBgCor(@"#FF0000".jobsCor())
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .jobsResetBtnTitleFont(bayonRegular(JobsWidth(12)))
 //            .jobsResetBtnTitle(self.viewModel.text)
@@ -176,4 +212,14 @@ static SourceType _sourceType;
     };return _button;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN FMGameCVCell
++(JobsRetFMGameCVCellBySourceTypeBlock _Nonnull)bySourceType{
+    @jobs_weakify(self)
+    return ^Class _Nullable(SourceType data){
+        @jobs_strongify(self)
+        [self setSourceType:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END FMGameCVCell
 @end

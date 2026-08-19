@@ -6,6 +6,7 @@
 //
 
 #import "BaseModel.h"
+
 #import <JobsModel/NSString+Extra.h>
 
 @implementation BaseModel
@@ -37,21 +38,37 @@
 }
 
 -(void)encodeWithCoder:(NSCoder *)encoder{
-    // 获取对象的属性列表
-    NSArray *propertyKeys = printPropertyListByObj(self);
-    for (NSString *key in propertyKeys) {
-        // 检查是否实现了协议中的属性对应的setter方法
-        JobsLog(@"SSS = %@",(@"set".add(key.capitalizedString).add(@":")));
-        JobsLog(@"AAA = %@",key);
-        if ([self respondsToSelector:NSSelectorFromString(@"set".add(key.capitalizedString).add(@":"))]) {
-            id value = [self valueForKey:key];
-            [encoder encodeObject:value forKey:key];
+    jobsByNSCoderBlock action = ((jobsByNSCoderBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseModel.class, @selector(jobsEncodeWithCoder)))(self, @selector(jobsEncodeWithCoder));
+    if (action) action(encoder);
+}
+
+-(jobsByNSCoderBlock _Nonnull)jobsEncodeWithCoder{
+    @jobs_weakify(self)
+    return ^(NSCoder * encoder){
+        @jobs_strongify(self)
+        if (!self) return;
+        // 获取对象的属性列表
+        NSArray *propertyKeys = printPropertyListByObj(self);
+        for (NSString *key in propertyKeys) {
+            // 检查是否实现了协议中的属性对应的setter方法
+            JobsLog(@"SSS = %@",(@"set".add(key.capitalizedString).add(@":")));
+            JobsLog(@"AAA = %@",key);
+            if ([self respondsToSelector:NSSelectorFromString(@"set".add(key.capitalizedString).add(@":"))]) {
+                id value = [self valueForKey:key];
+                [encoder encodeObject:value forKey:key];
+            }
         }
-    }
+    };
 }
 #pragma mark —— NSSecureCoding
 + (BOOL)supportsSecureCoding {
-    return YES;
+    return (((JobsRetBOOLByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(BaseModel.class, @selector(jobsSupportsSecureCoding)))(self, @selector(jobsSupportsSecureCoding)))();
+}
+
++ (JobsRetBOOLByVoidBlock _Nonnull)jobsSupportsSecureCoding {
+    return ^BOOL{
+        return YES;
+    };
 }
 #pragma mark —— MJExtension
 +(__kindof NSDictionary *)mj_replacedKeyFromPropertyName{
@@ -66,8 +83,14 @@
 //}
 #pragma mark —— YYModel
 +(__kindof NSDictionary *)modelCustomPropertyMapper{
-    return @{
-        @"ID" : @"id"
+    return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(BaseModel.class, @selector(jobsModelCustomPropertyMapper)))(self, @selector(jobsModelCustomPropertyMapper)))();
+}
+
++(JobsRetDicByVoidBlock _Nonnull)jobsModelCustomPropertyMapper{
+    return ^__kindof NSDictionary *{
+        return @{
+            @"ID" : @"id"
+        };
     };
 }
 #pragma mark —— 重写这个方法进行字段类型转换

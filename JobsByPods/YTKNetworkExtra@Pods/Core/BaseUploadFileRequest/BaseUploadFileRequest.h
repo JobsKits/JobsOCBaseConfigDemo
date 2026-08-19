@@ -53,6 +53,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 -(JobsRetRequestByFileModelBlock _Nonnull)initBy;
 
+-(JobsRetYTKRequestSerializerTypeByVoidBlock _Nonnull)jobsRequestSerializerType;
+
 @end
 
 NS_ASSUME_NONNULL_END

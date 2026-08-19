@@ -17,16 +17,30 @@
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_searchViewOnceToken = 0;
-    static_searchView = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(BaiShaETProjSearchView.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_searchViewOnceToken = 0;
+        static_searchView = nil;
+    };
 }
 
 static BaiShaETProjSearchView *static_searchView = nil;
 static dispatch_once_t static_searchViewOnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_searchViewOnceToken, ^{
-        static_searchView = BaiShaETProjSearchView.new;
-    });return static_searchView;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(BaiShaETProjSearchView.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_searchViewOnceToken, ^{
+            static_searchView = BaiShaETProjSearchView.new;
+        });return static_searchView;
+    };
 }
 
 -(instancetype)init{
@@ -41,11 +55,31 @@ static dispatch_once_t static_searchViewOnceToken;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjSearchView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjSearchView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -58,7 +92,7 @@ static dispatch_once_t static_searchViewOnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
+        self.byViewModel(model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {}));
         MakeDataNull
         self.byBgColor(JobsRedColor);
     };

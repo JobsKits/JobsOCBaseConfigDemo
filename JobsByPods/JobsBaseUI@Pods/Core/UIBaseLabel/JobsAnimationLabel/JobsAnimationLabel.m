@@ -20,7 +20,55 @@ Prop_copy()void (^complete)(UILabel *label, CGFloat value);
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsAnimationLabel
+@interface JobsAnimationLabel (JobsPropertyDSLSetterAutogen_b38034495a)
+-(void)setComplete:(void (^ _Nullable)(UILabel *label, CGFloat value))data;
+-(void)setDisplayPerSecond:(NSInteger)data;
+-(void)setPlayLink:(CADisplayLink * _Nullable)data;
+-(void)setValueEnd:(CGFloat)data;
+-(void)setValueLast:(CGFloat)data;
+-(void)setValueStart:(CGFloat)data;
+-(void)setValueStep:(CGFloat)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAnimationLabel
+
 @implementation JobsAnimationLabel
+-(JobsRetJobsAnimationLabelByCorBlock _Nonnull)byTextCor{
+    @jobs_weakify(self)
+    return ^__kindof JobsAnimationLabel *_Nullable(UIColor *_Nullable color){
+        @jobs_strongify(self)
+        self.textColor = color;
+        return self;
+    };
+}
+
+-(JobsRetJobsAnimationLabelByCGFloatBlock _Nonnull)byValue{
+    @jobs_weakify(self)
+    return ^__kindof JobsAnimationLabel *_Nullable(CGFloat value){
+        @jobs_strongify(self)
+        self.value = value;
+        return self;
+    };
+}
+
+-(JobsRetJobsAnimationLabelByCGFloatBlock _Nonnull)byLastValue{
+    @jobs_weakify(self)
+    return ^__kindof JobsAnimationLabel *_Nullable(CGFloat lastValue){
+        @jobs_strongify(self)
+        self.lastValue = lastValue;
+        return self;
+    };
+}
+
+-(JobsRetJobsAnimationLabelByNSTimeIntervalBlock _Nonnull)byDuration{
+    @jobs_weakify(self)
+    return ^__kindof JobsAnimationLabel *_Nullable(NSTimeInterval duration){
+        @jobs_strongify(self)
+        [self setDuration:duration];
+        return self;
+    };
+}
+
 /**
  动画数字改变
  
@@ -33,24 +81,24 @@ Prop_copy()void (^complete)(UILabel *label, CGFloat value);
                        endValue:(CGFloat)toValue
                        duration:(CGFloat)duration
                        complete:(void (^)(UILabel *label, CGFloat value))complete{
-    self.duration = duration;
+    self.byDuration(duration);
     if (self.duration <= 0.0) {
-        self.duration = 2.0;
+        self.byDuration(2.0);
     }
-    self.displayPerSecond = 30;
-    self.valueStart = fromValue;
-    self.valueEnd = toValue;
-    self.complete = [complete copy];
-    self.valueLast = self.valueStart;
-    self.valueStep = (self.valueEnd - self.valueStart) / (self.duration==0 ? 1 : (self.displayPerSecond * self.duration));
+    self.byDisplayPerSecond(30);
+    self.byValueStart(fromValue);
+    self.byValueEnd(toValue);
+    self.byComplete([complete copy]);
+    self.byValueLast(self.valueStart);
+    self.byValueStep((self.valueEnd - self.valueStart) / (self.duration==0 ? 1 : (self.displayPerSecond * self.duration)));
     if (self.playLink) {
-        [self.playLink invalidate];
-        self.playLink = nil;
+        self.playLink.invalidate;
+        self.byPlayLink(nil);
     }
     self.playLink = [CADisplayLink displayLinkWithTarget:self
                                                 selector:@selector(countingAction)];
     if (@available(iOS 10.0, *)) {
-        self.playLink.preferredFramesPerSecond = self.displayPerSecond;
+        self.playLink.byPreferredFramesPerSecond(self.displayPerSecond);
     } else {
         SuppressWdeprecatedDeclarationsWarning(self.playLink.frameInterval = self.displayPerSecond;);
     }
@@ -59,29 +107,107 @@ Prop_copy()void (^complete)(UILabel *label, CGFloat value);
 }
 
 - (void)countingAction {
-    self.valueLast += self.valueStep;
-    if (self.valueStart < self.valueEnd) {
-        if (self.valueLast >= self.valueEnd) {
-            [self stopDisplayLink];
-        }
-    } else {
-        if (self.valueLast <= self.valueEnd) {
-            [self stopDisplayLink];
-        }
-    }
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAnimationLabel.class, @selector(jobsCountingAction)))(self, @selector(jobsCountingAction));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsCountingAction{
     @jobs_weakify(self)
-    dispatch_async(dispatch_get_main_queue(), ^{
+    return ^{
         @jobs_strongify(self)
-        if (self.complete) self.complete(self, self.valueLast);
-    });
+        if (!self) return;
+        self.valueLast += self.valueStep;
+        if (self.valueStart < self.valueEnd) {
+            if (self.valueLast >= self.valueEnd) {
+                self.stopDisplayLink();
+            }
+        } else {
+            if (self.valueLast <= self.valueEnd) {
+                self.stopDisplayLink();
+            }
+        }
+        @jobs_weakify(self)
+        dispatch_async(dispatch_get_main_queue(), ^{
+            @jobs_strongify(self)
+            if (self.complete) self.complete(self, self.valueLast);
+        });
+    };
 }
 
-- (void)stopDisplayLink{
-    if (self.playLink) {
-        [self.playLink invalidate];
-        self.playLink = nil;
-    }self.valueLast = self.valueEnd;
+- (jobsByVoidBlock _Nonnull)stopDisplayLink{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (self.playLink) {
+            self.playLink.invalidate;
+            self.byPlayLink(nil);
+        }self.valueLast = self.valueEnd;
+    };
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsAnimationLabel
+-(JobsRetJobsAnimationLabelByCADisplayLinkBlock _Nonnull)byPlayLink{
+    @jobs_weakify(self)
+    return ^__kindof JobsAnimationLabel * _Nullable(CADisplayLink * _Nullable data){
+        @jobs_strongify(self)
+        [self setPlayLink:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsAnimationLabelByCGFloatBlock _Nonnull)byValueEnd{
+    @jobs_weakify(self)
+    return ^__kindof JobsAnimationLabel * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setValueEnd:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsAnimationLabelByCGFloatBlock _Nonnull)byValueLast{
+    @jobs_weakify(self)
+    return ^__kindof JobsAnimationLabel * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setValueLast:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsAnimationLabelByCGFloatBlock _Nonnull)byValueStart{
+    @jobs_weakify(self)
+    return ^__kindof JobsAnimationLabel * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setValueStart:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsAnimationLabelByCGFloatBlock _Nonnull)byValueStep{
+    @jobs_weakify(self)
+    return ^__kindof JobsAnimationLabel * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setValueStep:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsAnimationLabelByNSIntegerBlock _Nonnull)byDisplayPerSecond{
+    @jobs_weakify(self)
+    return ^__kindof JobsAnimationLabel * _Nullable(NSInteger data){
+        @jobs_strongify(self)
+        [self setDisplayPerSecond:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsAnimationLabelByvoidUILabellabelCGFloatvalueBlock _Nonnull)byComplete{
+    @jobs_weakify(self)
+    return ^__kindof JobsAnimationLabel * _Nullable(void (^ _Nullable data)(UILabel *label, CGFloat value)){
+        @jobs_strongify(self)
+        [self setComplete:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAnimationLabel
 @end
-

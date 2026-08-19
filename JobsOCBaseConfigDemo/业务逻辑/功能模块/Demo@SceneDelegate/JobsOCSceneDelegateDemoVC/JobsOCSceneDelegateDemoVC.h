@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 #import "JobsOCSceneCoordinator.h"
 
 #if __has_include(<Masonry/Masonry.h>)
@@ -38,6 +39,12 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -49,9 +56,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JobsOCSceneDelegateDemoVC : BaseViewController
 
 -(instancetype)initWithRestorationActivity:(nullable NSUserActivity *)restorationActivity;
--(nullable NSUserActivity *)sceneRestorationActivity;
--(void)restoreSceneInteractionStateWithActivity:(NSUserActivity *)activity;
+-(JobsRetNSUserActivityByVoidBlock _Nonnull)sceneRestorationActivity;
+-(jobsByNSUserActivityBlock _Nonnull)restoreSceneInteractionStateWithActivity;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCSceneDelegateDemoVC
+-(JobsRetJobsOCSceneDelegateDemoVCByNSIntegerBlock _Nonnull)byCounter;
+-(JobsRetJobsOCSceneDelegateDemoVCByUIWindowSceneBlock _Nonnull)byCurrentScene;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCSceneDelegateDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

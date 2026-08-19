@@ -71,22 +71,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (DeviceIP)
 /// 获取ip地址
--(NSString *)getIPaddress;
+-(JobsRetStrByVoidBlock _Nonnull)getIPaddress;
 /// 获取设备当前本地IP地址
 -(JobsRetStrByBOOLBlock _Nonnull)getLocalIPAddressBy;
 /// 是否是有效的IP
 -(JobsRetBOOLByStrBlock _Nonnull)isValidatIP;
 /// 用于获取设备的所有 IP 地址（包括 IPv4 和 IPv6 地址），并以字典形式返回。通过查询网络接口获取这些信息。
--(NSDictionary *)getIPAddresses;
+-(JobsRetDicByVoidBlock _Nonnull)getIPAddresses;
 /// 简单可靠，只返回设备的公网 IP 地址【GET】
 /// https://api.ipify.org?format=json
--(void)getIpify:(jobsByIpifyModelBlock _Nullable)successBlock;
+-(jobsByjobsByIpifyModelBlockBlock _Nonnull)getIpify;
 /// 提供丰富的地理位置信息【GET】
 /// http://ip-api.com/json/
--(void)getIP:(jobsByIPApiModelBlock _Nullable)successBlock;
+-(jobsByjobsByIPApiModelBlockBlock _Nonnull)getIP;
 /// 提供详细的 IP 信息【GET】
 /// https://ipinfo.io/json
--(void)getIPInfo:(jobsByIpinfoModelBlock _Nullable)successBlock;
+-(jobsByjobsByIpinfoModelBlockBlock _Nonnull)getIPInfo;
 /// 提供免费和付费选项的地理位置和 IP 查询服务【GET】
 /// https://api.ipdata.co/?api-key=YOUR_API_KEY
 -(void)getIPDataByKey:(NSString *)key

@@ -103,6 +103,7 @@ BaseProtocol
 Prop_strong(readonly)JobsTabBar * _Nonnull myTabBar; // myTabBar.humpOffsetY 凸起的高度自定义，默认值30  offsetHeight
 /// Data
 Prop_assign()BOOL isOpenScrollTabbar; // 是否开启手势横向滚动子VC联动Tabbar切换，默认开启
+-(JobsRetJobsTabBarVCByDelegateBlock _Nonnull)byDelegate;
 Prop_assign()BOOL isAnimationAlert; // 图片从小放大
 Prop_assign()BOOL isShakerAnimation; // 重力弹跳动画效果
 Prop_assign()BOOL isPlaySound; // 点击声
@@ -110,23 +111,36 @@ Prop_assign()BOOL isFeedbackGenerator; // 振动反馈
 Prop_assign()BOOL isJumpToNextVC; // 当需要跳开的item,是否是需要直接跳到下一个VC？默认NO
 #pragma mark —— 初始化方法
 ///【单例模式】使用外界自定义的JobsTabBar
-+(instancetype _Nonnull)sharedInstanceWithJobsTabBar:(JobsTabBar *_Nullable)tabBar;
++(JobsRetIDByJobsTabBarBlock _Nonnull)sharedInstanceWithJobsTabBar;
 /// 一般的初始化模式
 -(instancetype _Nonnull)initWithJobsTabBar:(JobsTabBar *_Nonnull)tabBar;
 #pragma mark —— 一些公有方法
 /// 需要强制跳转登录的index。点击和手势滑动都需要共同调用
--(JobsRetBOOLByNSUIntegerBlock _Nullable)forcedLoginIndex;
+-(JobsRetBOOLByNSUIntegerBlock _Nonnull)forcedLoginIndex;
 /// 关闭手势
--(jobsByVoidBlock _Nullable)closePan;
+-(jobsByVoidBlock _Nonnull)closePan;
 /// 打开手势
--(jobsByVoidBlock _Nullable)openPan;
+-(jobsByVoidBlock _Nonnull)openPan;
 /// 开启/关闭 PPBadgeView的效果,至少在viewDidLayoutSubviews后有效
 -(jobsByBOOLBlock _Nonnull)ppBadge;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsTabBarVC
+-(JobsRetJobsTabBarVCByBOOLBlock _Nonnull)byAnimationAlert;
+-(JobsRetJobsTabBarVCByBOOLBlock _Nonnull)byFeedbackGenerator;
+-(JobsRetJobsTabBarVCByBOOLBlock _Nonnull)byOpenPPBadge;
+-(JobsRetJobsTabBarVCByBOOLBlock _Nonnull)byOpenScrollTabbar;
+-(JobsRetJobsTabBarVCByBOOLBlock _Nonnull)byPlaySound;
+-(JobsRetJobsTabBarVCByJobsTabBarBlock _Nonnull)byMyTabBar;
+-(JobsRetJobsTabBarVCByBOOLBlock _Nonnull)byHiddenNavigationBar;
+-(JobsRetJobsTabBarVCByNSArrayUIViewControllerBlock _Nonnull)byViewControllers;
+-(JobsRetJobsTabBarVCByNSUIntegerBlock _Nonnull)bySelectedIndex;
+-(void)setSelectedIndex:(NSUInteger)data;
+-(void)setViewControllers:(NSArray<__kindof UIViewController *> * _Nullable)data;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsTabBarVC
 @end
 
 NS_INLINE __kindof JobsTabBarVC *_Nonnull jobsMakeSharedManagerTabBarVC(jobsByTabBarVCBlock _Nonnull block){
-    JobsTabBarVC *data = JobsTabBarVC.sharedManager;
+    JobsTabBarVC *data = JobsTabBarVC.jobsSharedManager();
     if (block) block(data);
     return data;
 }

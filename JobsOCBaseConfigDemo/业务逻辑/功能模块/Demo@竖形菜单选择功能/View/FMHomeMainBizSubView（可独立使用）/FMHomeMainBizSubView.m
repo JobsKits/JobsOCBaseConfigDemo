@@ -22,6 +22,13 @@ Prop_assign()NSUInteger thisIndex;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN FMHomeMainBizSubView
+@interface FMHomeMainBizSubView (JobsPropertyDSLSetterAutogen_b8ca633a4b)
+-(void)setCellDataMutArr:(NSMutableArray <UIButtonModel *>* _Nullable)data;
+-(void)setRightViewCurrentSelectModel:(GoodsClassModel * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END FMHomeMainBizSubView
+
 @implementation FMHomeMainBizSubView
 -(void)dealloc{
     JobsLog(@"");
@@ -41,14 +48,34 @@ Prop_assign()NSUInteger thisIndex;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMHomeMainBizSubView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    /// 内部指定圆切角
-//    [self appointCornerCutToCircleByRoundingCorners:UIRectCornerAllCorners
-//                                        cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMHomeMainBizSubView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+            [super layoutSubviews];
+            /// 内部指定圆切角
+        //    [self appointCornerCutToCircleByRoundingCorners:UIRectCornerAllCorners
+        //                                        cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+    };
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -159,7 +186,7 @@ Prop_assign()NSUInteger thisIndex;
         @jobs_strongify(self)
         self.rightDataArray.clean();
         self.cellDataMutArr.clean();
-        self.cellDataMutArr = nil;
+        self.byCellDataMutArr(nil);
         /// 每个子页面的section个数
         for (int i = 0; i < self.cellDataMutArr.count; i++){
             self.rightDataArray.add(self.createTwoModel(data2,i));
@@ -188,10 +215,11 @@ Prop_assign()NSUInteger thisIndex;
     return ^__kindof GoodsClassModel *_Nullable(int iflag){
         return jobsMakeGoodsClassModel(^(GoodsClassModel * _Nullable model) {
 //            @jobs_strongify(self)
-            model.idField = toStringByInt(iflag);
-            model.pid = @"0";
-            model.name = @"一级目录".tr.add(toStringByInt(iflag));
-            model.textModel.text = @"";
+            model
+                .byIdField(toStringByInt(iflag))
+                .byPid(@"0")
+                .byName(@"一级目录".jobsTr().add(toStringByInt(iflag)));
+            model.textModel.byText(@"");
         });
     };
 }
@@ -201,25 +229,24 @@ Prop_assign()NSUInteger thisIndex;
     return ^__kindof GoodsClassModel *_Nullable(NSUInteger data1,int iFlag){
         return jobsMakeGoodsClassModel(^(GoodsClassModel * _Nullable model) {
             @jobs_strongify(self)
-            model.idField = toStringByInt(iFlag);
-            model.pid = toStringByInt(iFlag);
-            model.name = @"随机".tr.add(JobsDash).add(toStringByInt(iFlag));
-            model.textModel.text = @"1234";
-            model.subTextModel.text = toStringByInt(iFlag).add(@"球桌球".tr);
-            model.bgImage = self.cellDataMutArr[iFlag].backgroundImage;
-            model.title = self.cellTitleMutArr[data1];
-            /// ViewModel
-            model.imageUrl = @"https://zh.wikipedia.org/wiki/File:Jiang_Zemin_2002.jpg".jobsUrl;
-            model.text = @"FlementalLinkFire".tr;
-            model.image = @"点赞".img;
+            model.byIdField(toStringByInt(iFlag))
+                .byPid(toStringByInt(iFlag))
+                .byName(@"随机".jobsTr().add(JobsDash).add(toStringByInt(iFlag)))
+                .byBgImage(self.cellDataMutArr[iFlag].backgroundImage)
+                .byTitle(self.cellTitleMutArr[data1])
+                .byImageUrl(@"https://zh.wikipedia.org/wiki/File:Jiang_Zemin_2002.jpg".jobsURL())
+                .byText(@"FlementalLinkFire".jobsTr())
+                .byImage(@"点赞".img);
+            model.textModel.byText(@"1234");
+            model.subTextModel.byText(toStringByInt(iFlag).add(@"球桌球".jobsTr()));
             JobsLog(@"%@",model.bgImage);
-            model.childrenList = jobsMakeMutArr(^(__kindof NSMutableArray <GoodsClassModel *>*_Nullable arr) {
+            model.byChildrenList(jobsMakeMutArr(^(__kindof NSMutableArray <GoodsClassModel *>*_Nullable arr) {
                 @jobs_strongify(self)
                 /// 每个section里面的item数量
                 for (int i = 0; i < 9; i++){
                     arr.add(self.createThreeModel(i,model.title));
                 }
-            });JobsLog(@"LKL = %ld",model.childrenList.count);
+            }));JobsLog(@"LKL = %ld",model.childrenList.count);
         });
     };
 }
@@ -227,10 +254,11 @@ Prop_assign()NSUInteger thisIndex;
 -(JobsRetGoodsClassModelByIntStringBlock _Nonnull)createThreeModel{
     return ^__kindof GoodsClassModel *_Nullable(int iflag,NSString *_Nullable string){
         return jobsMakeGoodsClassModel(^(GoodsClassModel * _Nullable model) {
-            model.idField = toStringByInt(iflag);
-            model.pid = toStringByInt(iflag);
+            model
+                .byIdField(toStringByInt(iflag))
+                .byPid(toStringByInt(iflag));
             model.name = string.add(JobsDot)
-                .add(@"三级目录".tr).add(JobsDot)
+                .add(@"三级目录".jobsTr()).add(JobsDot)
                 .add(toStringByInt(iflag));
         });
     };
@@ -244,7 +272,7 @@ numberOfRowsInSection:(NSInteger)section{
 -(__kindof UITableViewCell *)tableView:(__kindof UITableView *)tableView
                  cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     JobsBtnStyleTBVCell *cell = JobsBtnStyleTBVCell.cellStyleDefaultByTableView(tableView);
-    cell.contentEdgeInsets = jobsMakeSameEdgeInset(JobsWidth(3));
+    cell.byContentEdgeInsets(jobsMakeSameEdgeInset(JobsWidth(3)));
     cell.JobsRichViewByModel2(self.leftCellDataMutArr[indexPath.row]);
     return cell;
 }
@@ -263,23 +291,33 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(__kindof UICollectionViewCell *)collectionView:(__kindof UICollectionView *)collectionView
                           cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ThreeClassCell *cell = [ThreeClassCell cellWithCollectionView:collectionView forIndexPath:indexPath];
-    cell.minimumInteritemSpacing = JobsWidth(3);
-    cell.cellCls = FMGameCVCell.class;
-    cell.data = @(SourceType_Home);
-    self.rightViewCurrentSelectModel = self.rightDataArray.objectAt(indexPath.section);
+    cell.byMinimumInteritemSpacing(JobsWidth(3))
+        .byCellCls(FMGameCVCell.class)
+        .byData(@(SourceType_Home));
+    self.byRightViewCurrentSelectModel(self.rightDataArray.objectAt(indexPath.section));
     cell.getCollectionHeight((NSMutableArray <NSObject *>*)self.rightViewCurrentSelectModel.childrenList);
     cell.JobsRichViewByModel2(self.rightDataArray);/// GoodsClassModel
     cell.reloadDatas();
 //    @jobs_weakify(self)
-    [cell actionObjBlock:^(GoodsClassModel *model) {
+    cell.actionObjBlock(^(GoodsClassModel *model) {
 //        @jobs_strongify(self)
         toastBy(model.name);
         JobsLog(@"选中的id : %@", model.idField);
-    }];return cell;
+    });return cell;
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(__kindof UICollectionView *)collectionView{
-    return self.rightDataArray.count;
+    JobsRetNSIntegerByUICollectionViewBlock action = ((JobsRetNSIntegerByUICollectionViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMHomeMainBizSubView.class, @selector(jobsNumberOfSectionsInCollectionView)))(self, @selector(jobsNumberOfSectionsInCollectionView));
+    return action ? action(collectionView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUICollectionViewBlock _Nonnull)jobsNumberOfSectionsInCollectionView{
+    @jobs_weakify(self)
+    return ^NSInteger(__kindof UICollectionView * collectionView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return self.rightDataArray.count;
+    };
 }
 
 - (NSInteger)collectionView:(__kindof UICollectionView *)collectionView
@@ -307,7 +345,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             });headerView.addSubview(label);
         }
         GoodsClassModel *rightModel = self.rightDataArray.objectAt(indexPath.section);
-        label.byText(rightModel.name ? : @"".tr);
+        label.byText(rightModel.name ? : @"".jobsTr());
         return headerView;
     }else if (kind.isEqualToString(UICollectionElementKindSectionFooter)){
         /// 底部视图
@@ -346,8 +384,8 @@ referenceSizeForFooterInSection:(NSInteger)section{
             tableView
                 .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
                 .byBounces(NO)
-                .byShowsVerticalScrollIndicator(NO);
-            tableView
+                .byShowsVerticalScrollIndicator(NO)
+
                 .byBgColor(JobsClearColor)
                 .byFrame(CGRectMake(0,0,TableViewWidth,JobsWidth(300)));
         }));
@@ -375,10 +413,10 @@ referenceSizeForFooterInSection:(NSInteger)section{
 -(ThreeClassCell *)tempCell{
     if (!_tempCell){
         _tempCell = jobsMakeThreeClassCell(^(__kindof ThreeClassCell * _Nullable cell) {
-            cell.cellCls = FMGameCVCell.class;
-            cell.data = @(SourceType_Home);
-            cell.minimumInteritemSpacing = JobsWidth(3);
-            cell.byFrame(CGRectMake(0,0,
+            cell.byCellCls(FMGameCVCell.class)
+                .byData(@(SourceType_Home));
+            cell.byMinimumInteritemSpacing(JobsWidth(3))
+                .byFrame(CGRectMake(0,0,
                                     ThreeClassCell.cellSizeByModel(nil).width,ThreeClassCell.cellSizeByModel(nil).height));
         });
     };return _tempCell;
@@ -442,4 +480,23 @@ referenceSizeForFooterInSection:(NSInteger)section{
     };return _rightDataArray;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN FMHomeMainBizSubView
+-(JobsRetFMHomeMainBizSubViewByGoodsClassModelBlock _Nonnull)byRightViewCurrentSelectModel{
+    @jobs_weakify(self)
+    return ^__kindof FMHomeMainBizSubView * _Nullable(GoodsClassModel * _Nullable data){
+        @jobs_strongify(self)
+        [self setRightViewCurrentSelectModel:data];
+        return self;
+    };
+}
+
+-(JobsRetFMHomeMainBizSubViewByNSMutableArrayUIButtonModelBlock _Nonnull)byCellDataMutArr{
+    @jobs_weakify(self)
+    return ^__kindof FMHomeMainBizSubView * _Nullable(NSMutableArray <UIButtonModel *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setCellDataMutArr:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END FMHomeMainBizSubView
 @end

@@ -11,6 +11,13 @@
 
 @end
 
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN ASLayoutElementStyle
+@interface ASLayoutElementStyle (JobsLocalPropertyDSLAutogen_15cee1dca7)
+-(JobsRetASLayoutElementStyleByCGSizeBlock _Nonnull)byPreferredSize;
+-(void)setPreferredSize:(CGSize)data;
+@end
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END ASLayoutElementStyle
+
 @implementation TDHorizontalItemNode
 -(instancetype)initWithIndex:(NSInteger)idx{
     if (self = [super init]) {
@@ -27,20 +34,31 @@
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
-    ASCenterLayoutSpec *centerText =
-    [ASCenterLayoutSpec centerLayoutSpecWithCenteringOptions:ASCenterLayoutSpecCenteringXY
-                                               sizingOptions:ASCenterLayoutSpecSizingOptionMinimumXY
-                                                       child:self.text];
-    ASOverlayLayoutSpec *overlay = [ASOverlayLayoutSpec overlayLayoutSpecWithChild:_colorNode overlay:centerText];
-    return overlay;
+    JobsRetASLayoutSpecByASSizeRangeBlock action = ((JobsRetASLayoutSpecByASSizeRangeBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(TDHorizontalItemNode.class, @selector(jobsLayoutSpecThatFits)))(self, @selector(jobsLayoutSpecThatFits));
+    return action ? action(constrainedSize) : nil;
+}
+
+-(JobsRetASLayoutSpecByASSizeRangeBlock _Nonnull)jobsLayoutSpecThatFits{
+    @jobs_weakify(self)
+    return ^ASLayoutSpec *(ASSizeRange constrainedSize){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        ASCenterLayoutSpec *centerText =
+        [ASCenterLayoutSpec centerLayoutSpecWithCenteringOptions:ASCenterLayoutSpecCenteringXY
+                                                   sizingOptions:ASCenterLayoutSpecSizingOptionMinimumXY
+                                                           child:self.text];
+        ASOverlayLayoutSpec *overlay = [ASOverlayLayoutSpec overlayLayoutSpecWithChild:_colorNode overlay:centerText];
+        return overlay;
+    };
 }
 #pragma mark —— lazyLoad
 -(ASDisplayNode *)colorNode{
     if(!_colorNode){
         _colorNode = jobsMakeDisplayNode(^(ASDisplayNode * _Nullable node) {
-            node.byBgColor(JobsRandomColor);
-            node.cornerRadius = 8.0;
-            node.style.preferredSize = CGSizeMake(120, 70);
+            node
+                .byBgColor(JobsRandomColor)
+                .byCornerRadius(8.0);
+            node.style.byPreferredSize(CGSizeMake(120, 70));
         });
     };return _colorNode;
 }

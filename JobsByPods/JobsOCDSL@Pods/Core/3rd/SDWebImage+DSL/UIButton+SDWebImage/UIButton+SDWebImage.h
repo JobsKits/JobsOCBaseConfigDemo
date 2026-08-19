@@ -8,6 +8,20 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDSL/UIButton+DSL.h>)
+#import <JobsOCDSL/UIButton+DSL.h>
+#else
+#import "UIButton+DSL.h"
+#endif
+
+#if __has_include(<JobsOCDSL/UIButtonConfiguration+DSL.h>)
+#import <JobsOCDSL/UIButtonConfiguration+DSL.h>
+#import <JobsOCDSL/UIBackgroundConfiguration+DSL.h>
+#else
+#import "UIButtonConfiguration+DSL.h"
+#import "UIBackgroundConfiguration+DSL.h"
+#endif
+
 #if __has_include(<SDWebImage/SDWebImage.h>)
 #import <SDWebImage/SDWebImage.h>
 #else

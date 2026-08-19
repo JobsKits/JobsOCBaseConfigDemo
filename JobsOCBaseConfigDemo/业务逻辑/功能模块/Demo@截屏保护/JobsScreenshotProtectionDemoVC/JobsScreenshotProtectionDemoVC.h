@@ -13,12 +13,6 @@
 #import "JobsBaseUI.h"
 #endif
 
-#if __has_include(<JobsScreenCapture/JobsScreenCapture.h>)
-#import <JobsScreenCapture/JobsScreenCapture.h>
-#else
-#import "JobsScreenCapture.h"
-#endif
-
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>
 #else
@@ -35,6 +29,12 @@
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
 #import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsScreenCapture/JobsScreenCapture.h>)
+#import <JobsScreenCapture/JobsScreenCapture.h>
+#else
+#import "JobsScreenCapture.h"
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)

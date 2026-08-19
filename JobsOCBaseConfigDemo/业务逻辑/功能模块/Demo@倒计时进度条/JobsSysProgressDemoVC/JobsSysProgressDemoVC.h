@@ -7,6 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCTimer/JobsOCTimer.h>)
+#import <JobsOCTimer/JobsOCTimer.h>
+#else
+#import "JobsTimer.h"
+#endif
+
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else
@@ -25,16 +31,16 @@
 #import "JobsByOCPods.h"
 #endif
 
-#if __has_include(<JobsMakes/JobsMakes.h>)
-#import <JobsMakes/JobsMakes.h>
-#else
-#import "JobsMakes.h"
-#endif
-
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
 #import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
 #endif
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
@@ -55,16 +61,14 @@
 #import "JobsDefines.h"
 #endif
 
-#if __has_include(<JobsOCTimer/JobsOCTimer.h>)
-#import <JobsOCTimer/JobsOCTimer.h>
-#else
-#import "JobsTimer.h"
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsSysProgressDemoVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsSysProgressDemoVC
+-(JobsRetJobsSysProgressDemoVCByCGFloatBlock _Nonnull)byTotalSeconds;
+-(JobsRetJobsSysProgressDemoVCByJobsSysProgressDemoModeBlock _Nonnull)byProgressMode;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsSysProgressDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

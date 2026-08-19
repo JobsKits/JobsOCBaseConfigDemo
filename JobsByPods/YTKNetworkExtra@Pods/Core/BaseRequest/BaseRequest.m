@@ -6,6 +6,7 @@
 //
 
 #import "BaseRequest.h"
+
 #import <YTKNetworkExtra/NSMutableDictionary+Extra.h>
 
 @interface BaseRequest ()
@@ -88,66 +89,126 @@ YTKCustomBaseRequestProtocol_synthesize
 }
 /// Body 参数（GET 请求不可用）
 -(id _Nullable)requestArgument{
-    return self.parameters;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseRequest.class, @selector(jobsRequestArgument)))(self, @selector(jobsRequestArgument));
+    return action ? action() : nil;
+}
+
+-(JobsRetIDByVoidBlock _Nonnull)jobsRequestArgument{
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.parameters;
+    };
 }
 /// 请求方式
 -(YTKRequestMethod)requestMethod {
-    return YTKRequestMethodPOST;
+    JobsRetYTKRequestMethodByVoidBlock action = ((JobsRetYTKRequestMethodByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseRequest.class, @selector(jobsRequestMethod)))(self, @selector(jobsRequestMethod));
+    return action ? action() : (YTKRequestMethod){0};
+}
+
+-(JobsRetYTKRequestMethodByVoidBlock _Nonnull)jobsRequestMethod{
+    @jobs_weakify(self)
+    return ^YTKRequestMethod{
+        @jobs_strongify(self)
+        if (!self) return (YTKRequestMethod){0};
+        return YTKRequestMethodPOST;
+    };
 }
 /// 限定接收到的字段类型，如果不匹配则外层block走Failure
 -(id)jsonValidator{
-    return nil;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseRequest.class, @selector(jobsJsonValidator)))(self, @selector(jobsJsonValidator));
+    return action ? action() : nil;
+}
+
+-(JobsRetIDByVoidBlock _Nonnull)jobsJsonValidator{
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return nil;
+    };
 }
 
 -(NSInteger)cacheTimeInSeconds{
-    return 60 * 3;
+    JobsRetNSIntegerByVoidBlock action = ((JobsRetNSIntegerByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseRequest.class, @selector(jobsCacheTimeInSeconds)))(self, @selector(jobsCacheTimeInSeconds));
+    return action ? action() : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByVoidBlock _Nonnull)jobsCacheTimeInSeconds{
+    @jobs_weakify(self)
+    return ^NSInteger{
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 60 * 3;
+    };
 }
 
 -(NSMutableDictionary *)customHTTPHeader{
-    if(!_customHTTPHeader){
-        /// 在这里添加你想要的 HTTP header
-        @jobs_weakify(self)
-        _customHTTPHeader = jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable headers) {
-            @jobs_strongify(self)
-            /// 设置 Content-Type
-            [headers setValue:APP_JSON
-                       forKey:ContentType];
-            /// 设置 Authorization
-            id doorModel = nil;
-            @try {
-                doorModel = [self valueForKey:@"doorModel"];
-            } @catch (__unused NSException *exception) {}
-            NSString *token = nil;
-            if (doorModel) {
+    JobsRetMutableDicByVoidBlock action = ((JobsRetMutableDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseRequest.class, @selector(jobsCustomHTTPHeader)))(self, @selector(jobsCustomHTTPHeader));
+    return action ? action() : nil;
+}
+
+-(JobsRetMutableDicByVoidBlock _Nonnull)jobsCustomHTTPHeader{
+    @jobs_weakify(self)
+    return ^NSMutableDictionary *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if(!_customHTTPHeader){
+            /// 在这里添加你想要的 HTTP header
+            @jobs_weakify(self)
+            _customHTTPHeader = jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable headers) {
+                @jobs_strongify(self)
+                /// 设置 Content-Type
+                [headers setValue:APP_JSON
+                           forKey:ContentType];
+                /// 设置 Authorization
+                id doorModel = nil;
                 @try {
-                    token = [doorModel valueForKey:@"token"];
+                    doorModel = [self valueForKey:@"doorModel"];
                 } @catch (__unused NSException *exception) {}
-            }
-            if (token.length > 0) {
-                [headers setValue:token forKey:Authorization];
-            }
-            /// 请求的语言环境
-    //        switch (self.currentLanguageType) {
-    //            case HTTPRequestHeaderLanguageEn:{
-    //                headers[@"language"] = @"en_US";
-    //            }break;
-    //            case HTTPRequestHeaderLanguageCN:{
-    //                headers[@"language"] = @"zh_CN";
-    //            }break;
-    //            default:
-    //                break;
-    //        }
-        });
-    };return _customHTTPHeader;
+                NSString *token = nil;
+                if (doorModel) {
+                    @try {
+                        token = [doorModel valueForKey:@"token"];
+                    } @catch (__unused NSException *exception) {}
+                }
+                if (token.length > 0) {
+                    [headers setValue:token forKey:Authorization];
+                }
+                /// 请求的语言环境
+        //        switch (self.currentLanguageType) {
+        //            case HTTPRequestHeaderLanguageEn:{
+        //                headers[@"language"] = @"en_US";
+        //            }break;
+        //            case HTTPRequestHeaderLanguageCN:{
+        //                headers[@"language"] = @"zh_CN";
+        //            }break;
+        //            default:
+        //                break;
+        //        }
+            });
+        };return _customHTTPHeader;
+    };
 }
 #pragma mark —— 在链式请求中，下一个请求的参数来源于上一个请求的结果
 //-(NSString *_Nonnull)userId{
-//    return [[self.responseJSONObject objectForKey:@"userId"] stringValue] ? : @"".tr;
+//    return [[self.responseJSONObject objectForKey:@"userId"] stringValue] ? : @"".jobsTr();
 //}
 #pragma mark —— 复写 YTKBaseRequest 方法
 /// 设置自定义的 HTTP Header
 -(NSMutableDictionary *)requestHeaderFieldValueDictionary{
-    return self.customHTTPHeader;
+    JobsRetMutableDicByVoidBlock action = ((JobsRetMutableDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseRequest.class, @selector(jobsRequestHeaderFieldValueDictionary)))(self, @selector(jobsRequestHeaderFieldValueDictionary));
+    return action ? action() : nil;
+}
+
+-(JobsRetMutableDicByVoidBlock _Nonnull)jobsRequestHeaderFieldValueDictionary{
+    @jobs_weakify(self)
+    return ^NSMutableDictionary *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.customHTTPHeader;
+    };
 }
 /// 具体子类实现请求Api
 //-(NSString *)requestUrl{
@@ -174,7 +235,7 @@ YTKCustomBaseRequestProtocol_synthesize
 //    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self.parameters
 //                                                       options:NSJSONWritingPrettyPrinted
 //                                                         error:&parseError];
-//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.requestUrl.jobsUrl
+//    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.requestUrl.jobsURL()
 //                                                           cachePolicy:NSURLRequestReloadIgnoringLocalCacheData
 //                                                       timeoutInterval:30];
 //    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -186,10 +247,20 @@ YTKCustomBaseRequestProtocol_synthesize
 //}
 #pragma mark —— LazyLoad
 -(NSMutableDictionary *)parameters{
-    if(!_parameters){
-        _parameters = jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable data) {
-        });
-    };return _parameters;
+    JobsRetMutableDicByVoidBlock action = ((JobsRetMutableDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseRequest.class, @selector(jobsParameters)))(self, @selector(jobsParameters));
+    return action ? action() : nil;
+}
+
+-(JobsRetMutableDicByVoidBlock _Nonnull)jobsParameters{
+    @jobs_weakify(self)
+    return ^NSMutableDictionary *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if(!_parameters){
+            _parameters = jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable data) {
+            });
+        };return _parameters;
+    };
 }
 
 @end

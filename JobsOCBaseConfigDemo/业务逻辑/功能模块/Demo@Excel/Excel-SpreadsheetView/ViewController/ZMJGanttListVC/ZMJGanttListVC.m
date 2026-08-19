@@ -33,65 +33,145 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZMJGanttListVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(@"ZMJGanttList".tr)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byBgImage(@"新首页的底图".img)
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1));// self.gk_navBackgroundColor 和 self.view.backgroundColor        .byNavBgImage(@"导航栏左侧底图".img);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(@"ZMJGanttList".jobsTr())
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byBgImage(@"新首页的底图".img)
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1));// self.gk_navBackgroundColor 和 self.view.backgroundColor        .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-//    [self.bgImageView removeFromSuperview];
-    self.spreadsheetView.byAlpha(1);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZMJGanttListVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+            [super viewDidLoad];
+            self.view.byBgColor(JobsSystemBackgroundColor);
+            self.makeNavByAlpha(1);
+        //    [self.bgImageView removeFromSuperview];
+            self.spreadsheetView.byAlpha(1);
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-//    [self updateStatusBarCor:JobsOrangeColor];/// 在具体子类实现，不要写在父类
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZMJGanttListVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+            [super viewWillAppear:animated];
+        //    [self updateStatusBarCor:JobsOrangeColor];/// 在具体子类实现，不要写在父类
+    };
 }
 
 -(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZMJGanttListVC.class, @selector(jobsViewWillLayoutSubviews)))(self, @selector(jobsViewWillLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewWillLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZMJGanttListVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZMJGanttListVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-//    [self restoreStatusBarCor];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZMJGanttListVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+            [super viewWillDisappear:animated];
+        //    [self restoreStatusBarCor];
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZMJGanttListVC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+    };
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -104,116 +184,156 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
     });
 }
 /// 获取当月的天数
-- (NSInteger)getNumberOfDaysInMonth:(NSDate *)theDay {
-    NSAssert(theDay != nil, @"theDay is null.");
-    NSCalendar * calendar = [NSCalendar.alloc initWithCalendarIdentifier:NSCalendarIdentifierGregorian]; // 指定日历的算法 NSGregorianCalendar - ios 8
-    NSDate * currentDate = NSDate.date;
-    NSRange range = [calendar rangeOfUnit:NSCalendarUnitDay  //NSDayCalendarUnit - ios 8
-                                   inUnit:NSCalendarUnitMonth //NSMonthCalendarUnit - ios 8
-                                  forDate:currentDate];
-    return range.length;
+-(JobsRetIntegerByDateBlock _Nonnull)getNumberOfDaysInMonth{
+    @jobs_weakify(self)
+    return ^NSInteger(NSDate * theDay){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        NSAssert(theDay != nil, @"theDay is null.");
+        NSCalendar * calendar = [NSCalendar.alloc initWithCalendarIdentifier:NSCalendarIdentifierGregorian]; // 指定日历的算法 NSGregorianCalendar - ios 8
+        NSDate * currentDate = NSDate.date;
+        NSRange range = [calendar rangeOfUnit:NSCalendarUnitDay  //NSDayCalendarUnit - ios 8
+                                       inUnit:NSCalendarUnitMonth //NSMonthCalendarUnit - ios 8
+                                      forDate:currentDate];
+        return range.length;
+    };
 }
 /// 获取当月中所有天数是周几
-- (NSArray<NSString *> *)getAllDaysWithCalender:(NSDate *)theDay {
-    NSAssert(theDay != nil, @"theDay is null.");
-    NSUInteger dayCount = [self getNumberOfDaysInMonth:theDay]; //一个月的总天数
-    static NSDateFormatter *formatter = nil;
-    if (!formatter) {
-        formatter = NSDateFormatter.new;
-    }
-    formatter.dateFormat = @"yyyy-MM";
-    NSString * str = [formatter stringFromDate:theDay];
-    formatter.dateFormat = @"yyyy-MM-dd";
-    NSMutableArray <NSString *>*allDaysArray = NSMutableArray.array;
-    for (NSInteger i = 1; i <= dayCount; i++) {
-        NSString *sr = str.add(str).add(@"-").add(toStringByNSInteger(i));
-        NSDate *suDate = [formatter dateFromString:sr];
-        allDaysArray.add([NSString stringWithFormat:@"%02ld %@", i, [self getweekDayWithDate:suDate]]);
-    }
-    JobsLog(@"allDaysArray %@",allDaysArray);
-    return allDaysArray.copy;
+-(JobsRetNSArrayNSStringByNSDateBlock _Nonnull)getAllDaysWithCalender{
+    @jobs_weakify(self)
+    return ^NSArray<NSString *> *(NSDate * theDay){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSAssert(theDay != nil, @"theDay is null.");
+        NSUInteger dayCount = self.getNumberOfDaysInMonth(theDay); //一个月的总天数
+        static NSDateFormatter *formatter = nil;
+        if (!formatter) {
+            formatter = NSDateFormatter.new;
+        }
+        formatter.dateFormat = @"yyyy-MM";
+        NSString * str = [formatter stringFromDate:theDay];
+        formatter.dateFormat = @"yyyy-MM-dd";
+        NSMutableArray <NSString *>*allDaysArray = NSMutableArray.array;
+        for (NSInteger i = 1; i <= dayCount; i++) {
+            NSString *sr = str.add(str).add(@"-").add(toStringByNSInteger(i));
+            NSDate *suDate = [formatter dateFromString:sr];
+            allDaysArray.add([NSString stringWithFormat:@"%02ld %@", i, self.getweekDayWithDate(suDate)]);
+        }
+        JobsLog(@"allDaysArray %@",allDaysArray);
+        return allDaysArray.copy;
+    };
 }
 /// 获得某天的数据
 /// 获取指定的日期是星期几
-- (NSString *)getweekDayWithDate:(NSDate *)date{
-    NSCalendar * calendar = [NSCalendar.alloc initWithCalendarIdentifier:NSCalendarIdentifierGregorian]; // 指定日历的算法
-    NSDateComponents *comps = [calendar components:NSCalendarUnitWeekday fromDate:date];
-    // 1 是周日，2是周一 3.以此类推
-    return [self translationArabicNum:comps.weekday];
+-(JobsRetStrByDateBlock _Nonnull)getweekDayWithDate{
+    @jobs_weakify(self)
+    return ^NSString *(NSDate * date){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSCalendar * calendar = [NSCalendar.alloc initWithCalendarIdentifier:NSCalendarIdentifierGregorian]; // 指定日历的算法
+        NSDateComponents *comps = [calendar components:NSCalendarUnitWeekday fromDate:date];
+        // 1 是周日，2是周一 3.以此类推
+        return self.translationArabicNum(comps.weekday);
+    };
 }
 /// 获取指定的日期当前月的第几周
-- (NSInteger)getweekdayOrdinalWithDate:(NSDate *)date{
-    NSCalendar * calendar = [NSCalendar.alloc initWithCalendarIdentifier:NSCalendarIdentifierGregorian]; // 指定日历的算法
-    NSDateComponents *comps = [calendar components:NSCalendarUnitWeekday | NSCalendarUnitWeekdayOrdinal | NSCalendarUnitWeekOfMonth | NSCalendarUnitWeekOfYear fromDate:date];
-    return comps.weekdayOrdinal;
+-(JobsRetIntegerByDateBlock _Nonnull)getweekdayOrdinalWithDate{
+    @jobs_weakify(self)
+    return ^NSInteger(NSDate * date){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        NSCalendar * calendar = [NSCalendar.alloc initWithCalendarIdentifier:NSCalendarIdentifierGregorian]; // 指定日历的算法
+        NSDateComponents *comps = [calendar components:NSCalendarUnitWeekday | NSCalendarUnitWeekdayOrdinal | NSCalendarUnitWeekOfMonth | NSCalendarUnitWeekOfYear fromDate:date];
+        return comps.weekdayOrdinal;
+    };
 }
 /// 获取指定的日期当年的第几月
-- (NSInteger)getmonthOrdinalWithDate:(NSDate *)date{
-    NSCalendar *calendar = [NSCalendar.alloc initWithCalendarIdentifier:NSCalendarIdentifierGregorian]; // 指定日历的算法
-    NSDateComponents *comps = [calendar components:NSCalendarUnitWeekday | NSCalendarUnitWeekdayOrdinal | NSCalendarUnitWeekOfMonth | NSCalendarUnitWeekOfYear | NSCalendarUnitMonth fromDate:date];
-    return comps.month;
+-(JobsRetIntegerByDateBlock _Nonnull)getmonthOrdinalWithDate{
+    @jobs_weakify(self)
+    return ^NSInteger(NSDate * date){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        NSCalendar *calendar = [NSCalendar.alloc initWithCalendarIdentifier:NSCalendarIdentifierGregorian]; // 指定日历的算法
+        NSDateComponents *comps = [calendar components:NSCalendarUnitWeekday | NSCalendarUnitWeekdayOrdinal | NSCalendarUnitWeekOfMonth | NSCalendarUnitWeekOfYear | NSCalendarUnitMonth fromDate:date];
+        return comps.month;
+    };
 }
 /// 将阿拉伯数字转换为中文数字
-- (NSString *)translationArabicNum:(NSInteger)arabicNum {
-    NSString *arabicNumStr = [NSString stringWithFormat:@"%ld",(long)arabicNum];
-    NSArray *arabicNumeralsArray = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"0"];
-    NSArray *chineseNumeralsArray = @[@"一",@"二",@"三",@"四",@"五",@"六",@"七",@"八",@"九",@"零"];
-    NSArray *digits = @[@"个",@"十",@"百",@"千",@"万",@"十",@"百",@"千",@"亿",@"十",@"百",@"千",@"兆"];
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:chineseNumeralsArray forKeys:arabicNumeralsArray];
-    if (arabicNum < 20 && arabicNum > 9) {
-        if (arabicNum == 10) {
-            return @"十";
-        }else{
-            NSString *subStr1 = [arabicNumStr substringWithRange:NSMakeRange(1, 1)];
-            NSString *a1 = dictionary.valueForKey(subStr1);
-            NSString *chinese1 = @"十".add(a1);
-            return chinese1;
-        }
-    }else{
-        NSMutableArray *sums = NSMutableArray.array;
-        for (int i = 0; i < arabicNumStr.length; i ++){
-            NSString *substr = [arabicNumStr substringWithRange:NSMakeRange(i, 1)];
-            NSString *a = dictionary.valueForKey(substr);
-            NSString *b = digits[arabicNumStr.length -i-1];
-            if(a){
-                NSString *sum = a.add(b);
-                if ([a isEqualToString:chineseNumeralsArray[9]]){
-                    if([b isEqualToString:digits[4]] || [b isEqualToString:digits[8]]){
-                        sum = b;
-                        if ([sums.lastObject isEqualToString:chineseNumeralsArray[9]]){
-                            [sums removeLastObject];
-                        }
-                    }else{
-                        sum = chineseNumeralsArray[9];
-                    }
-                    if ([sums.lastObject isEqualToString:sum]){
-                        continue;
-                    }
-                }sums.add(sum);
+-(JobsRetStrByIntegerBlock _Nonnull)translationArabicNum{
+    @jobs_weakify(self)
+    return ^NSString *(NSInteger arabicNum){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSString *arabicNumStr = [NSString stringWithFormat:@"%ld",(long)arabicNum];
+        NSArray *arabicNumeralsArray = @[@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@"0"];
+        NSArray *chineseNumeralsArray = @[@"一",@"二",@"三",@"四",@"五",@"六",@"七",@"八",@"九",@"零"];
+        NSArray *digits = @[@"个",@"十",@"百",@"千",@"万",@"十",@"百",@"千",@"亿",@"十",@"百",@"千",@"兆"];
+        NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:chineseNumeralsArray forKeys:arabicNumeralsArray];
+        if (arabicNum < 20 && arabicNum > 9) {
+            if (arabicNum == 10) {
+                return @"十";
+            }else{
+                NSString *subStr1 = [arabicNumStr substringWithRange:NSMakeRange(1, 1)];
+                NSString *a1 = dictionary.valueForKey(subStr1);
+                NSString *chinese1 = @"十".add(a1);
+                return chinese1;
             }
+        }else{
+            NSMutableArray *sums = NSMutableArray.array;
+            for (int i = 0; i < arabicNumStr.length; i ++){
+                NSString *substr = [arabicNumStr substringWithRange:NSMakeRange(i, 1)];
+                NSString *a = dictionary.valueForKey(substr);
+                NSString *b = digits[arabicNumStr.length -i-1];
+                if(a){
+                    NSString *sum = a.add(b);
+                    if ([a isEqualToString:chineseNumeralsArray[9]]){
+                        if([b isEqualToString:digits[4]] || [b isEqualToString:digits[8]]){
+                            sum = b;
+                            if ([sums.lastObject isEqualToString:chineseNumeralsArray[9]]){
+                                sums.removeLastObject;
+                            }
+                        }else{
+                            sum = chineseNumeralsArray[9];
+                        }
+                        if ([sums.lastObject isEqualToString:sum]){
+                            continue;
+                        }
+                    }sums.add(sum);
+                }
+            }
+            NSString *sumStr = [sums componentsJoinedByString:@""];
+            NSString *chinese = [sumStr substringToIndex:sumStr.length-1];
+            return chinese;
         }
-        NSString *sumStr = [sums componentsJoinedByString:@""];
-        NSString *chinese = [sumStr substringToIndex:sumStr.length-1];
-        return chinese;
-    }
+    };
 }
 /// yyyy-MM
-- (NSString *)formateMonthLimmited:(NSDate *)theDay {
-    NSAssert(theDay != nil, @"theDay is null.");
-    static NSDateFormatter * formatter = nil;
-    if (!formatter) {
-        formatter = NSDateFormatter.new;
-        formatter.dateFormat = @"yyyy-MM";
-    };return [formatter stringFromDate:theDay];
+-(JobsRetStrByDateBlock _Nonnull)formateMonthLimmited{
+    @jobs_weakify(self)
+    return ^NSString *(NSDate * theDay){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSAssert(theDay != nil, @"theDay is null.");
+        static NSDateFormatter * formatter = nil;
+        if (!formatter) {
+            formatter = NSDateFormatter.new;
+            formatter.dateFormat = @"yyyy-MM";
+        };return [formatter stringFromDate:theDay];
+    };
 }
 /// yyyy
-- (NSString *)formateYearLimmited:(NSDate *)theDay {
-    NSAssert(theDay != nil, @"theDay is null.");
-    static NSDateFormatter *formatter = nil;
-    if (!formatter) {
-        formatter = NSDateFormatter.new;
-        formatter.dateFormat = @"yyyy";
-    };return [formatter stringFromDate:theDay];
+-(JobsRetStrByDateBlock _Nonnull)formateYearLimmited{
+    @jobs_weakify(self)
+    return ^NSString *(NSDate * theDay){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSAssert(theDay != nil, @"theDay is null.");
+        static NSDateFormatter *formatter = nil;
+        if (!formatter) {
+            formatter = NSDateFormatter.new;
+            formatter.dateFormat = @"yyyy";
+        };return [formatter stringFromDate:theDay];
+    };
 }
 /// 获取两个日期之间的所有日期，精确到天
 - (NSArray<NSDate *> *)getDayArrayLeftDate:(NSDate *)aLeftDate rightDate:(NSDate *)aRightDate {
@@ -260,12 +380,17 @@ Prop_strong()NSMutableArray<UIColor *> *colors;
     };return result;
 }
 /// 日和星期几拼接
-- (NSString *)dailyAppendWeaklyForDate:(NSDate *)date {
-    static NSDateFormatter *formatter = nil;
-    if (!formatter) {
-        formatter = NSDateFormatter.new;
-        formatter.dateFormat = @"dd";
-    };return [formatter stringFromDate:date].add([formatter stringFromDate:date]).add(@" ").add([self getweekDayWithDate:date]);
+-(JobsRetStrByDateBlock _Nonnull)dailyAppendWeaklyForDate{
+    @jobs_weakify(self)
+    return ^NSString *(NSDate * date){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        static NSDateFormatter *formatter = nil;
+        if (!formatter) {
+            formatter = NSDateFormatter.new;
+            formatter.dateFormat = @"dd";
+        };return [formatter stringFromDate:date].add([formatter stringFromDate:date]).add(@" ").add(self.getweekDayWithDate(date));
+    };
 }
 
 NSDate *dateFromString(NSString *dateStr) {
@@ -292,18 +417,23 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
     };return 0;
 }
 
-- (NSInteger)chartFallbackOffset {
-    switch (self.displayMode) {
-        /// 处理 ZMJDisplayMode_daily 分支
-        case ZMJDisplayMode_daily:
-            return 0;
-        /// 处理 ZMJDisplayMode_weekly 分支
-        case ZMJDisplayMode_weekly:
-            return 2;
-        /// 处理 ZMJDisplayMode_monthly 分支
-        case ZMJDisplayMode_monthly:
-            return 5;
-    };return 0;
+- (JobsRetNSIntegerByVoidBlock _Nonnull)chartFallbackOffset {
+    @jobs_weakify(self)
+    return ^NSInteger{
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        switch (self.displayMode) {
+            /// 处理 ZMJDisplayMode_daily 分支
+            case ZMJDisplayMode_daily:
+                return 0;
+            /// 处理 ZMJDisplayMode_weekly 分支
+            case ZMJDisplayMode_weekly:
+                return 2;
+            /// 处理 ZMJDisplayMode_monthly 分支
+            case ZMJDisplayMode_monthly:
+                return 5;
+        };return 0;
+    };
 }
 
 - (ZMJCellRange *)chartCellRangeForTask:(ZMJTask *)task row:(NSInteger)row fallbackOffset:(NSInteger)fallbackOffset {
@@ -327,127 +457,167 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                                      to:[Location locationWithRow:row column:toColumn]];
 }
 
-- (NSArray<ZMJCellRange *> *)chartCellRangesWithFallbackOffset:(NSInteger)fallbackOffset {
-    NSMutableArray<ZMJCellRange *> *cellRanges = NSMutableArray.array;
+-(JobsRetNSArrayZMJCellRangeByNSIntegerBlock _Nonnull)chartCellRangesWithFallbackOffset{
     @jobs_weakify(self)
-    [self.tasks enumerateObjectsUsingBlock:^(ZMJTask * _Nonnull task,
-                                             NSUInteger index,
-                                             BOOL * _Nonnull stop) {
+    return ^NSArray<ZMJCellRange *> *(NSInteger fallbackOffset){
         @jobs_strongify(self)
-        ZMJCellRange *cellRange = [self chartCellRangeForTask:task
-                                                          row:index + 2
-                                               fallbackOffset:fallbackOffset];
-        if (cellRange) {
-            cellRanges.add(cellRange);
-        }
-    }];return cellRanges.copy;
+        if (!self) return nil;
+        NSMutableArray<ZMJCellRange *> *cellRanges = NSMutableArray.array;
+        @jobs_weakify(self)
+        [self.tasks enumerateObjectsUsingBlock:^(ZMJTask * _Nonnull task,
+                                                 NSUInteger index,
+                                                 BOOL * _Nonnull stop) {
+            @jobs_strongify(self)
+            ZMJCellRange *cellRange = [self chartCellRangeForTask:task
+                                                              row:index + 2
+                                                   fallbackOffset:fallbackOffset];
+            if (cellRange) {
+                cellRanges.add(cellRange);
+            }
+        }];return cellRanges.copy;
+    };
 }
 
-- (NSInteger)chartStartColumnForTask:(ZMJTask *)task {
-    ZMJCellRange *cellRange = [self chartCellRangeForTask:task
-                                                      row:0
-                                           fallbackOffset:self.chartFallbackOffset];
-    return cellRange ? cellRange.from.column : NSNotFound;
+-(JobsRetNSIntegerByZMJTaskBlock _Nonnull)chartStartColumnForTask{
+    @jobs_weakify(self)
+    return ^NSInteger(ZMJTask * task){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        ZMJCellRange *cellRange = [self chartCellRangeForTask:task
+                                                          row:0
+                                               fallbackOffset:self.chartFallbackOffset()];
+        return cellRange ? cellRange.from.column : NSNotFound;
+    };
 }
 #pragma mark —— Generate ZMJCellRanges
-- (NSArray<ZMJCellRange *> *)yearCellRangesWithRow:(NSInteger)row {
-    static NSMutableArray<ZMJCellRange *> *_yearCellRanges = nil;
-    if (_yearCellRanges == nil) {
-        _yearCellRanges = NSMutableArray.array;
-    }
-    if (_yearCellRanges.count != 0) {
-        return _yearCellRanges.copy;
-    }
-    Location *fromLocation = nil;
-    Location *toLocation   = nil;
-    for (NSDate *fristDayOfYear in self.years) {
-        for (NSDate *date in self.days) {
-            if ([date isEqualToDate:fristDayOfYear] ||
-                ([date isEqualToDate:self.days.lastObject] && [fristDayOfYear isEqualToDate:self.years.lastObject])) {
-                if ([self.days indexOfObject:date] > 0) {
-                    toLocation = [Location locationWithRow:row column:[self.days indexOfObject:date] - 1];
-                }
-                BOOL addFlag = NO;
-                if (fromLocation && toLocation) {
-                    [_yearCellRanges addObject:[ZMJCellRange cellRangeFrom:fromLocation
-                                                                        to:toLocation]];
-                    toLocation = nil;
-                    addFlag    = YES;
-                }
-                fromLocation = [Location locationWithRow:row column:[self.days indexOfObject:date]];
-                if (addFlag && ![fristDayOfYear isEqualToDate:self.years.lastObject]) {
-                    break;
+-(JobsRetNSArrayZMJCellRangeByNSIntegerBlock _Nonnull)yearCellRangesWithRow{
+    @jobs_weakify(self)
+    return ^NSArray<ZMJCellRange *> *(NSInteger row){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        static NSMutableArray<ZMJCellRange *> *_yearCellRanges = nil;
+        if (_yearCellRanges == nil) {
+            _yearCellRanges = NSMutableArray.array;
+        }
+        if (_yearCellRanges.count != 0) {
+            return _yearCellRanges.copy;
+        }
+        Location *fromLocation = nil;
+        Location *toLocation   = nil;
+        for (NSDate *fristDayOfYear in self.years) {
+            for (NSDate *date in self.days) {
+                if ([date isEqualToDate:fristDayOfYear] ||
+                    ([date isEqualToDate:self.days.lastObject] && [fristDayOfYear isEqualToDate:self.years.lastObject])) {
+                    if ([self.days indexOfObject:date] > 0) {
+                        toLocation = [Location locationWithRow:row column:[self.days indexOfObject:date] - 1];
+                    }
+                    BOOL addFlag = NO;
+                    if (fromLocation && toLocation) {
+                        [_yearCellRanges addObject:[ZMJCellRange cellRangeFrom:fromLocation
+                                                                            to:toLocation]];
+                        toLocation = nil;
+                        addFlag    = YES;
+                    }
+                    fromLocation = [Location locationWithRow:row column:[self.days indexOfObject:date]];
+                    if (addFlag && ![fristDayOfYear isEqualToDate:self.years.lastObject]) {
+                        break;
+                    }
                 }
             }
-        }
-    };return _yearCellRanges.copy;
+        };return _yearCellRanges.copy;
+    };
 }
 
-- (NSArray<ZMJCellRange *> *)monthCellRanges {
-    return [self monthCellRangesWithRow:0];
+- (JobsRetNSArrayZMJCellRangeByVoidBlock _Nonnull)monthCellRanges {
+    @jobs_weakify(self)
+    return ^NSArray<ZMJCellRange *> *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.monthCellRangesWithRow(0);
+    };
 }
 
-- (NSArray<ZMJCellRange *> *)monthCellRangesWithRow:(NSInteger)row {
-    NSMutableArray<ZMJCellRange *> *_monthCellRanges = NSMutableArray.array;
-    Location *fromLocation = nil;
-    Location *toLocation   = nil;
-    for (NSDate *fristDayOfmonth in self.months) {
-        for (NSDate *date in self.days) {
-            if ([date isEqualToDate:fristDayOfmonth] ||
-                ([date isEqualToDate:self.days.lastObject] &&
-                 [fristDayOfmonth isEqualToDate:self.months.lastObject])) {
-                if ([self.days indexOfObject:date] > 0) {
-                    toLocation = [Location locationWithRow:row column:[self.days indexOfObject:date] - 1];
-                }
-                if (fromLocation && toLocation) {
-                    _monthCellRanges.add([ZMJCellRange cellRangeFrom:fromLocation to:toLocation]);
-                    toLocation   = nil;
-                }
-                fromLocation = [Location locationWithRow:row column:[self.days indexOfObject:date]];
-            }
-        }
-    };return _monthCellRanges.copy;
-}
-
-- (NSArray<ZMJCellRange *> *)weekCellRangesWithRow:(NSInteger)row {
-    static NSMutableArray<ZMJCellRange *> *_weekCellRanges = nil;
-    if (_weekCellRanges == nil) {
-        _weekCellRanges = NSMutableArray.array;
-    }
-    if (_weekCellRanges.count != 0) {
-        return _weekCellRanges.copy;
-    }
-    Location *fromLocation = nil;
-    Location *toLocation   = nil;
-    for (NSDate *fristDayOfWeek in self.weeks) {
-        for (NSDate *date in self.days) {
-            if ([date isEqualToDate:fristDayOfWeek] ||
-                ([date isEqualToDate:self.days.lastObject] &&
-                 [fristDayOfWeek isEqualToDate:self.weeks.lastObject])) {
-                if ([self.days indexOfObject:date] > 0) {
-                    toLocation = [Location locationWithRow:row column:[self.days indexOfObject:date] - 1];
-                }
-                BOOL addFlag = NO;
-                if (fromLocation && toLocation) {
-                    _weekCellRanges.add([ZMJCellRange cellRangeFrom:fromLocation to:toLocation]);
-                    toLocation = nil;
-                    addFlag    = YES;
-                }
-                fromLocation = [Location locationWithRow:row column:[self.days indexOfObject:date]];
-                if (addFlag && ![fristDayOfWeek isEqualToDate:self.weeks.lastObject]) {
-                    break;
+-(JobsRetNSArrayZMJCellRangeByNSIntegerBlock _Nonnull)monthCellRangesWithRow{
+    @jobs_weakify(self)
+    return ^NSArray<ZMJCellRange *> *(NSInteger row){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSMutableArray<ZMJCellRange *> *_monthCellRanges = NSMutableArray.array;
+        Location *fromLocation = nil;
+        Location *toLocation   = nil;
+        for (NSDate *fristDayOfmonth in self.months) {
+            for (NSDate *date in self.days) {
+                if ([date isEqualToDate:fristDayOfmonth] ||
+                    ([date isEqualToDate:self.days.lastObject] &&
+                     [fristDayOfmonth isEqualToDate:self.months.lastObject])) {
+                    if ([self.days indexOfObject:date] > 0) {
+                        toLocation = [Location locationWithRow:row column:[self.days indexOfObject:date] - 1];
+                    }
+                    if (fromLocation && toLocation) {
+                        _monthCellRanges.add([ZMJCellRange cellRangeFrom:fromLocation to:toLocation]);
+                        toLocation   = nil;
+                    }
+                    fromLocation = [Location locationWithRow:row column:[self.days indexOfObject:date]];
                 }
             }
+        };return _monthCellRanges.copy;
+    };
+}
+
+-(JobsRetNSArrayZMJCellRangeByNSIntegerBlock _Nonnull)weekCellRangesWithRow{
+    @jobs_weakify(self)
+    return ^NSArray<ZMJCellRange *> *(NSInteger row){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        static NSMutableArray<ZMJCellRange *> *_weekCellRanges = nil;
+        if (_weekCellRanges == nil) {
+            _weekCellRanges = NSMutableArray.array;
         }
-    };return _weekCellRanges.copy;
+        if (_weekCellRanges.count != 0) {
+            return _weekCellRanges.copy;
+        }
+        Location *fromLocation = nil;
+        Location *toLocation   = nil;
+        for (NSDate *fristDayOfWeek in self.weeks) {
+            for (NSDate *date in self.days) {
+                if ([date isEqualToDate:fristDayOfWeek] ||
+                    ([date isEqualToDate:self.days.lastObject] &&
+                     [fristDayOfWeek isEqualToDate:self.weeks.lastObject])) {
+                    if ([self.days indexOfObject:date] > 0) {
+                        toLocation = [Location locationWithRow:row column:[self.days indexOfObject:date] - 1];
+                    }
+                    BOOL addFlag = NO;
+                    if (fromLocation && toLocation) {
+                        _weekCellRanges.add([ZMJCellRange cellRangeFrom:fromLocation to:toLocation]);
+                        toLocation = nil;
+                        addFlag    = YES;
+                    }
+                    fromLocation = [Location locationWithRow:row column:[self.days indexOfObject:date]];
+                    if (addFlag && ![fristDayOfWeek isEqualToDate:self.weeks.lastObject]) {
+                        break;
+                    }
+                }
+            }
+        };return _weekCellRanges.copy;
+    };
 }
 #pragma mark —— SpreadsheetViewDataSource
-- (NSInteger)numberOfColumns:(SpreadsheetView *)spreadsheetView {
-    return self.days.count - 1;
+-(JobsRetNSIntegerBySpreadsheetViewBlock _Nonnull)numberOfColumns{
+    @jobs_weakify(self)
+    return ^NSInteger(SpreadsheetView * spreadsheetView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return self.days.count - 1;
+    };
 }
 
-- (NSInteger)numberOfRows:(SpreadsheetView *)spreadsheetView {
-    return 2 + self.tasks.count;
+-(JobsRetNSIntegerBySpreadsheetViewBlock _Nonnull)numberOfRows{
+    @jobs_weakify(self)
+    return ^NSInteger(SpreadsheetView * spreadsheetView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 2 + self.tasks.count;
+    };
 }
 
 - (CGFloat)spreadsheetView:(SpreadsheetView *)spreadsheetView widthForColumn:(NSInteger)column {
@@ -475,43 +645,58 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
     }
 }
 
-- (NSInteger)frozenColumns:(SpreadsheetView *)spreadsheetView {
-    return 0;
+-(JobsRetNSIntegerBySpreadsheetViewBlock _Nonnull)frozenColumns{
+    @jobs_weakify(self)
+    return ^NSInteger(SpreadsheetView * spreadsheetView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 0;
+    };
 }
 
-- (NSInteger)frozenRows:(SpreadsheetView *)spreadsheetView {
-    return 2;
+-(JobsRetNSIntegerBySpreadsheetViewBlock _Nonnull)frozenRows{
+    @jobs_weakify(self)
+    return ^NSInteger(SpreadsheetView * spreadsheetView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 2;
+    };
 }
 
-- (NSArray<ZMJCellRange *> *)mergedCells:(SpreadsheetView *)spreadsheetView {
-    NSMutableArray<ZMJCellRange *> *result = NSMutableArray.array;
-    switch (self.displayMode) {
-        /// 处理 ZMJDisplayMode_daily 分支
-        case ZMJDisplayMode_daily:{
-            NSArray<ZMJCellRange *> *titleHeader = [self monthCellRangesWithRow:0];
-            NSArray<ZMJCellRange *> *charts = [self chartCellRangesWithFallbackOffset:self.chartFallbackOffset];
-            [result addObjectsFromArray:titleHeader];
-            [result addObjectsFromArray:charts];
-        }break;
-        /// 处理 ZMJDisplayMode_weekly 分支
-        case ZMJDisplayMode_weekly:{
-            NSArray<ZMJCellRange *> *titleHeader     = [self monthCellRangesWithRow:0];
-            NSArray<ZMJCellRange *> *weekTitleHeader = [self weekCellRangesWithRow:1];
-            NSArray<ZMJCellRange *> *charts = [self chartCellRangesWithFallbackOffset:self.chartFallbackOffset];
-            [result addObjectsFromArray:titleHeader];
-            [result addObjectsFromArray:weekTitleHeader];
-            [result addObjectsFromArray:charts];
-        }break;
-        /// 处理 ZMJDisplayMode_monthly 分支
-        case ZMJDisplayMode_monthly:{
-            NSArray<ZMJCellRange *> *titleHeader      = [self yearCellRangesWithRow:0];
-            NSArray<ZMJCellRange *> *monthTitleHeader = [self monthCellRangesWithRow:1];
-            NSArray<ZMJCellRange *> *charts = [self chartCellRangesWithFallbackOffset:self.chartFallbackOffset];
-            [result addObjectsFromArray:titleHeader];
-            [result addObjectsFromArray:monthTitleHeader];
-            [result addObjectsFromArray:charts];
-        }break;
-    };return result.copy;
+-(JobsRetNSArrayZMJCellRangeBySpreadsheetViewBlock _Nonnull)mergedCells{
+    @jobs_weakify(self)
+    return ^NSArray<ZMJCellRange *> *(SpreadsheetView * spreadsheetView){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSMutableArray<ZMJCellRange *> *result = NSMutableArray.array;
+        switch (self.displayMode) {
+            /// 处理 ZMJDisplayMode_daily 分支
+            case ZMJDisplayMode_daily:{
+                NSArray<ZMJCellRange *> *titleHeader = self.monthCellRangesWithRow(0);
+                NSArray<ZMJCellRange *> *charts = self.chartCellRangesWithFallbackOffset(self.chartFallbackOffset());
+                [result addObjectsFromArray:titleHeader];
+                [result addObjectsFromArray:charts];
+            }break;
+            /// 处理 ZMJDisplayMode_weekly 分支
+            case ZMJDisplayMode_weekly:{
+                NSArray<ZMJCellRange *> *titleHeader     = self.monthCellRangesWithRow(0);
+                NSArray<ZMJCellRange *> *weekTitleHeader = self.weekCellRangesWithRow(1);
+                NSArray<ZMJCellRange *> *charts = self.chartCellRangesWithFallbackOffset(self.chartFallbackOffset());
+                [result addObjectsFromArray:titleHeader];
+                [result addObjectsFromArray:weekTitleHeader];
+                [result addObjectsFromArray:charts];
+            }break;
+            /// 处理 ZMJDisplayMode_monthly 分支
+            case ZMJDisplayMode_monthly:{
+                NSArray<ZMJCellRange *> *titleHeader      = self.yearCellRangesWithRow(0);
+                NSArray<ZMJCellRange *> *monthTitleHeader = self.monthCellRangesWithRow(1);
+                NSArray<ZMJCellRange *> *charts = self.chartCellRangesWithFallbackOffset(self.chartFallbackOffset());
+                [result addObjectsFromArray:titleHeader];
+                [result addObjectsFromArray:monthTitleHeader];
+                [result addObjectsFromArray:charts];
+            }break;
+        };return result.copy;
+    };
 }
 
 - (ZMJCell *)spreadsheetView:(SpreadsheetView *)spreadsheetView
@@ -529,60 +714,60 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                 case ZMJDisplayMode_weekly:{
                     NSDate *(^getVilabelDateBlock)(NSInteger r, NSInteger c) = ^NSDate *(NSInteger r, NSInteger c) {
                         @jobs_strongify(self)
-                        for (ZMJCellRange *range in [self monthCellRangesWithRow:r]) {
+                        for (ZMJCellRange *range in self.monthCellRangesWithRow(r)) {
                             if (range.from.row == r && range.from.column == c) {
-                                return self.months[[[self monthCellRangesWithRow:r] indexOfObject:range]];
+                                return self.months[[self.monthCellRangesWithRow(r) indexOfObject:range]];
                             }
                         };return nil;
                     };
-                    cell.label.byText([self formateMonthLimmited:getVilabelDateBlock(row, column)]);
+                    cell.label.byText(self.formateMonthLimmited(getVilabelDateBlock(row, column)));
                 }break;
                 /// 处理 ZMJDisplayMode_monthly 分支
                 case ZMJDisplayMode_monthly:{
                     NSDate *(^getVilabelDateBlock)(NSInteger r, NSInteger c) = ^NSDate *(NSInteger r, NSInteger c) {
                         @jobs_strongify(self)
-                        for (ZMJCellRange *range in [self yearCellRangesWithRow:r]) {
+                        for (ZMJCellRange *range in self.yearCellRangesWithRow(r)) {
                             if (range.from.row == r && range.from.column == c) {
-                                return self.years[[[self yearCellRangesWithRow:r] indexOfObject:range]];
+                                return self.years[[self.yearCellRangesWithRow(r) indexOfObject:range]];
                             }
                         };return nil;
                     };
-                    cell.label.byText([self formateYearLimmited:getVilabelDateBlock(row, column)]);
+                    cell.label.byText(self.formateYearLimmited(getVilabelDateBlock(row, column)));
                 }break;
             }
         } else {
             switch (self.displayMode) {
                 /// 处理 ZMJDisplayMode_daily 分支
                 case ZMJDisplayMode_daily:
-                    cell.label.byText([self dailyAppendWeaklyForDate:self.days[column]]);
+                    cell.label.byText(self.dailyAppendWeaklyForDate(self.days[column]));
                     break;
                 /// 处理 ZMJDisplayMode_weekly 分支
                 case ZMJDisplayMode_weekly:{
                     NSInteger(^getVilabelIdxBlock)(NSInteger r, NSInteger c) = ^NSInteger(NSInteger r, NSInteger c) {
                         @jobs_strongify(self)
-                        for (NSInteger idx = 0; idx < [self weekCellRangesWithRow:r].count; idx++) {
-                            ZMJCellRange *range = [self weekCellRangesWithRow:r][idx];
+                        for (NSInteger idx = 0; idx < self.weekCellRangesWithRow(r).count; idx++) {
+                            ZMJCellRange *range = self.weekCellRangesWithRow(r)[idx];
                             if (range.from.row == r && range.from.column == c) {
                                 return idx;
                             }
                         };return 0;
                     };
-                    cell.label.text = [NSString stringWithFormat:@"第%ld周".tr,
-                                       (long)[self getweekdayOrdinalWithDate:self.weeks[getVilabelIdxBlock(row, column)]]];
+                    cell.label.text = [NSString stringWithFormat:@"第%ld周".jobsTr(),
+                                       (long)self.getweekdayOrdinalWithDate(self.weeks[getVilabelIdxBlock(row, column)])];
                 }break;
                 /// 处理 ZMJDisplayMode_monthly 分支
                 case ZMJDisplayMode_monthly:{
                     NSInteger(^getVilabelIdxBlock)(NSInteger r, NSInteger c) = ^NSInteger(NSInteger r, NSInteger c) {
                         @jobs_strongify(self)
-                        for (NSInteger idx = 0; idx < [self monthCellRangesWithRow:r].count; idx++) {
-                            ZMJCellRange *range = [self monthCellRangesWithRow:r][idx];
+                        for (NSInteger idx = 0; idx < self.monthCellRangesWithRow(r).count; idx++) {
+                            ZMJCellRange *range = self.monthCellRangesWithRow(r)[idx];
                             if (range.from.row == r && range.from.column == c) {
                                 return idx;
                             }
                         };return 0;
                     };
-                    cell.label.text = [NSString stringWithFormat:@"第%ld月".tr,
-                                       (long)[self getmonthOrdinalWithDate:self.years[getVilabelIdxBlock(row, column)]]];
+                    cell.label.text = [NSString stringWithFormat:@"第%ld月".jobsTr(),
+                                       (long)self.getmonthOrdinalWithDate(self.years[getVilabelIdxBlock(row, column)])];
                 }break;
             }
         }
@@ -592,7 +777,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
     } else {
         ZMJChartBarCell *cell = (ZMJChartBarCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:ZMJChartBarCell.description forIndexPath:indexPath];
         ZMJTask *task = self.tasks[row - 2];
-        NSInteger start = [self chartStartColumnForTask:task];
+        NSInteger start = self.chartStartColumnForTask(task);
         if (start == column) {
             cell.label.byText(self.tasks[row - 2].taskName);
             NSInteger colorIndex = arc4random() % 3;
@@ -605,12 +790,12 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
                 cell.direction = ZMJDashlineDirectionNone;
             }
             if (self.displayMode != ZMJDisplayMode_daily) {
-                cell.gridlines.right   = GridStyle.borderStyleNone;
+                cell.gridlines.right = GridStyle.borderStyleNone;
             }
         } else {
             cell.label.byText(@"");
             cell.color = JobsClearColor;
-            cell.gridlines.right   = [GridStyle style:GridStyle_default width:0 color:nil];
+            cell.gridlines.right = [GridStyle style:GridStyle_default width:0 color:nil];
         }
         cell.gridlines.bottom  = GridStyle.borderStyleNone;
         cell.gridlines.top     = GridStyle.borderStyleNone;
@@ -623,7 +808,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
             case ZMJDisplayMode_weekly:{
                 BOOL(^enableLeftGridlineBlock)(NSInteger r, NSInteger c) = ^BOOL(NSInteger r, NSInteger c) {
                     @jobs_strongify(self)
-                    for (ZMJCellRange *range in [self weekCellRangesWithRow:1]) {
+                    for (ZMJCellRange *range in self.weekCellRangesWithRow(1)) {
                         if (range.from.column == c) {
                             return YES;
                         }
@@ -635,7 +820,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
             case ZMJDisplayMode_monthly:{
                 BOOL(^enableLeftGridlineBlock)(NSInteger r, NSInteger c) = ^BOOL(NSInteger r, NSInteger c) {
                     @jobs_strongify(self)
-                    for (ZMJCellRange *range in [self monthCellRangesWithRow:1]) {
+                    for (ZMJCellRange *range in self.monthCellRangesWithRow(1)) {
                         if (range.from.column == c) {
                             return YES;
                         }
@@ -654,7 +839,7 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
     if (![cell isKindOfClass:ZMJChartBarCell.class]) {[self.tipView dismissWithCompletion:nil]; return;
     }
     ZMJTask *task = self.tasks[indexPath.row - 2];
-    NSInteger start = [self chartStartColumnForTask:task];
+    NSInteger start = self.chartStartColumnForTask(task);
     if (start != indexPath.column) {
         [self.tipView dismissWithCompletion:nil];
         return;
@@ -669,11 +854,21 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
     }
 }
 #pragma mark —— ZMJTipViewDelegate
--(void)tipViewDidDimiss:(ZMJTipView *)tipView{
-    self.spreadsheetView.scrollEnabled = YES;
+-(jobsByZMJTipViewBlock _Nonnull)tipViewDidDimiss{
+    @jobs_weakify(self)
+    return ^(ZMJTipView * tipView){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.spreadsheetView.scrollEnabled = YES;
+    };
 }
 
--(void)tipViewDidSelected:(ZMJTipView *)tipView{
+-(jobsByZMJTipViewBlock _Nonnull)tipViewDidSelected{
+    @jobs_weakify(self)
+    return ^(ZMJTipView * tipView){
+        @jobs_strongify(self)
+        if (!self) return;
+    };
 }
 #pragma mark —— lazyLoad
 -(NSMutableArray<ZMJTask *> *)tasks{
@@ -755,55 +950,60 @@ NSInteger getMinIndex(NSInteger begin, NSInteger offset) {
 }
 
 - (NSArray<NSDate *> *)years {
-    return [self fetchDateAccordingTimeUnit:ZMJTimeUnit_year];
+    return (((JobsRetNSArrayNSDateByZMJTimeUnitBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZMJGanttListVC.class, @selector(fetchDateAccordingTimeUnit)))(self, @selector(fetchDateAccordingTimeUnit)))(ZMJTimeUnit_year);
 }
 
 - (NSArray<NSDate *> *)months {
-    return [self fetchDateAccordingTimeUnit:ZMJTimeUnit_month];
+    return (((JobsRetNSArrayNSDateByZMJTimeUnitBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZMJGanttListVC.class, @selector(fetchDateAccordingTimeUnit)))(self, @selector(fetchDateAccordingTimeUnit)))(ZMJTimeUnit_month);
 }
 
 - (NSArray<NSDate *> *)weeks {
-    return [self fetchDateAccordingTimeUnit:ZMJTimeUnit_week];
+    return (((JobsRetNSArrayNSDateByZMJTimeUnitBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZMJGanttListVC.class, @selector(fetchDateAccordingTimeUnit)))(self, @selector(fetchDateAccordingTimeUnit)))(ZMJTimeUnit_week);
 }
 
-- (NSArray<NSDate *> *)fetchDateAccordingTimeUnit:(ZMJTimeUnit)timeUnit {
-    NSCalendarUnit calendarUnit =   NSCalendarUnitYear |
-                                    NSCalendarUnitMonth |
-                                    NSCalendarUnitDay |
-                                    NSCalendarUnitHour |
-                                    NSCalendarUnitMinute |
-                                    NSCalendarUnitSecond |
-                                    NSCalendarUnitWeekOfMonth |
-                                    NSCalendarUnitWeekday |
-                                    NSCalendarUnitWeekdayOrdinal |
-                                    NSCalendarUnitWeekOfMonth |
-                                    NSCalendarUnitWeekOfYear;
-    NSCalendar *greCalendar = [NSCalendar.alloc initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    NSInteger  previousDate = -1;
-    NSMutableArray<NSDate *> *_months = NSMutableArray.array;
-    for (NSDate *date in self.days) {
-        NSDateComponents *dateComponents = [greCalendar components:calendarUnit
-                                                          fromDate:date];
-        long long dateComponentTimeUnitValue = NSIntegerMin;
-        switch (timeUnit) {
-            /// 处理 ZMJTimeUnit_week 分支
-            case ZMJTimeUnit_week:
-                dateComponentTimeUnitValue = dateComponents.weekdayOrdinal;
-                break;
-            /// 处理 ZMJTimeUnit_month 分支
-            case ZMJTimeUnit_month:
-                dateComponentTimeUnitValue = dateComponents.month;
-                break;
-            /// 处理 ZMJTimeUnit_year 分支
-            case ZMJTimeUnit_year:
-                dateComponentTimeUnitValue = dateComponents.year;
-                break;
-        }
-        if ([date isEqualToDate:self.days.firstObject] || (previousDate != dateComponentTimeUnitValue)) {
-            [_months addObject:date];
-            previousDate = dateComponentTimeUnitValue;
-        }
-    };return _months.copy;
+-(JobsRetNSArrayNSDateByZMJTimeUnitBlock _Nonnull)fetchDateAccordingTimeUnit{
+    @jobs_weakify(self)
+    return ^NSArray<NSDate *> *(ZMJTimeUnit timeUnit){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSCalendarUnit calendarUnit =   NSCalendarUnitYear |
+                                        NSCalendarUnitMonth |
+                                        NSCalendarUnitDay |
+                                        NSCalendarUnitHour |
+                                        NSCalendarUnitMinute |
+                                        NSCalendarUnitSecond |
+                                        NSCalendarUnitWeekOfMonth |
+                                        NSCalendarUnitWeekday |
+                                        NSCalendarUnitWeekdayOrdinal |
+                                        NSCalendarUnitWeekOfMonth |
+                                        NSCalendarUnitWeekOfYear;
+        NSCalendar *greCalendar = [NSCalendar.alloc initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+        NSInteger  previousDate = -1;
+        NSMutableArray<NSDate *> *_months = NSMutableArray.array;
+        for (NSDate *date in self.days) {
+            NSDateComponents *dateComponents = [greCalendar components:calendarUnit
+                                                              fromDate:date];
+            long long dateComponentTimeUnitValue = NSIntegerMin;
+            switch (timeUnit) {
+                /// 处理 ZMJTimeUnit_week 分支
+                case ZMJTimeUnit_week:
+                    dateComponentTimeUnitValue = dateComponents.weekdayOrdinal;
+                    break;
+                /// 处理 ZMJTimeUnit_month 分支
+                case ZMJTimeUnit_month:
+                    dateComponentTimeUnitValue = dateComponents.month;
+                    break;
+                /// 处理 ZMJTimeUnit_year 分支
+                case ZMJTimeUnit_year:
+                    dateComponentTimeUnitValue = dateComponents.year;
+                    break;
+            }
+            if ([date isEqualToDate:self.days.firstObject] || (previousDate != dateComponentTimeUnitValue)) {
+                [_months addObject:date];
+                previousDate = dateComponentTimeUnitValue;
+            }
+        };return _months.copy;
+    };
 }
 
 - (ZMJTipView *)tipView {

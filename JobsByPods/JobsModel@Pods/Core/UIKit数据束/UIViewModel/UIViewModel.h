@@ -50,6 +50,8 @@ UIViewModelProtocol
 ,BaseViewProtocol
 >
 
+-(JobsRetAttributedStringByVoidBlock _Nonnull)jobsSelectedAttributedText;
+
 @end
 
 NS_ASSUME_NONNULL_END

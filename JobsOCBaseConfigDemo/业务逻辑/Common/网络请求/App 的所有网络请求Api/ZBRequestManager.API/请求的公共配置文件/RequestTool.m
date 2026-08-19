@@ -7,19 +7,25 @@
 
 #import "RequestTool.h"
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN RequestTool
+@interface RequestTool (JobsPropertyDSLSetterAutogen_50cc772c06)
+-(void)setLanguageType:(HTTPRequestHeaderLanguageType)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END RequestTool
+
 @implementation RequestTool
 /** 写在前面
  *  1、所有请求都需要在headers里面添加处理过的userAgent
     2、进app的时候，服务器会根据设备返回一个token，再请求其他接口的时候，需要将这个token做为Authorization键值对，加在请求的headers里面
  */
-+(jobsByRequestToolBlock _Nullable)setupPublicParametersBy{
++(jobsByRequestToolBlock _Nonnull)setupPublicParametersBy{
     return ^(RequestTool *_Nullable requestTool){
 #pragma mark —— 公共配置
         /**
          基础配置
          需要在请求之前配置，设置后所有请求都会带上 此基础配置
          */
-        JobsUserModel *f = self.readUserInfo;
+        JobsUserModel *f = self.jobsCurrentUserInfo();
         NSString *timeString = [NSString stringWithFormat:@"%.2f",NSDate.date.timeIntervalSince1970];
         NSMutableDictionary *parameters = jobsMakeMutDic(^(__kindof NSMutableDictionary *_Nullable data) {
             data[@"timeString"] = timeString;//时间戳
@@ -50,7 +56,7 @@
 #pragma mark —— Token
         if (isValue(f.token)) [AFRequestSerializer() setValue:f.token forHTTPHeaderField:@"authorization"];
         [ZBRequestManager setupBaseConfig:^(ZBConfig *_Nullable config) {
-            config.baseServer = This.BaseUrl;//如果同一个环境，有多个域名 不要设置baseURL
+            config.baseServer = This.jobsBaseUrl();//如果同一个环境，有多个域名 不要设置baseURL
             config.parameters = parameters;//公共参数
             // filtrationCacheKey因为时间戳是变动参数，缓存key需要过滤掉 变动参数,如果 不使用缓存功能 或者 没有变动参数 则不需要设置。
             config.filtrationCacheKey = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
@@ -151,10 +157,10 @@
          证书设置：
          ZBRequestEngine 继承AFHTTPSessionManager，所需其他设置 可以使用[ZBRequestEngine defaultEngine] 自行设置
          */
-        NSString *name = @"".tr;
+        NSString *name = @"".jobsTr();
         if (name.length > 0) {
             // 先导入证书
-            NSString *cerPath = name.add(@"cer").pathForResourceWithFullName;//证书的路径
+            NSString *cerPath = name.add(@"cer").jobsPathForResourceWithFullName();//证书的路径
             NSData *cerData = [NSData dataWithContentsOfFile:cerPath];
             AFSecurityPolicy *securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
             // 如果需要验证自建证书(无效证书)，需要设置为YES，默认为NO;
@@ -167,4 +173,14 @@
     };
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN RequestTool
+-(JobsRetRequestToolByHTTPRequestHeaderLanguageTypeBlock _Nonnull)byLanguageType{
+    @jobs_weakify(self)
+    return ^__kindof RequestTool * _Nullable(HTTPRequestHeaderLanguageType data){
+        @jobs_strongify(self)
+        [self setLanguageType:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END RequestTool
 @end

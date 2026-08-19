@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
@@ -68,6 +74,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CasinoCustomerServiceView : BaseView<AppToolsProtocol>
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN CasinoCustomerServiceView
+-(JobsRetCasinoCustomerServiceViewByNSMutableArrayUIViewModelBlock _Nonnull)byHotLabelDataMutArr;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END CasinoCustomerServiceView
 @end
 
 NS_ASSUME_NONNULL_END

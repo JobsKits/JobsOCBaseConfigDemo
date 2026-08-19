@@ -8,22 +8,16 @@
 #import <UIKit/UIKit.h>
 #import "JobsTextLabStyleTBVCell.h"
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
 #else
-#import "JobsOCDSL.h"
+#import "JobsBaseUI.h"
 #endif
 
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>
 #else
 #import "JobsByOCPods.h"
-#endif
-
-#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
-#import <JobsBaseUI/JobsBaseUI.h>
-#else
-#import "JobsBaseUI.h"
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
@@ -36,6 +30,12 @@
 #import <JobsMakes/JobsMakes.h>
 #else
 #import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -60,6 +60,9 @@ UITableViewDelegate
 
 -(UITableView *)tableView;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN PopListBaseView
+-(JobsRetPopListBaseViewByNSMutableArrayUIViewModelBlock _Nonnull)byDataMutArr;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END PopListBaseView
 @end
 
 NS_ASSUME_NONNULL_END
@@ -93,10 +96,10 @@ NS_INLINE __kindof PopListBaseView *_Nonnull jobsMakePopListBaseView(jobsByPopLi
                  UIViewModel *viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
                  viewModel.byText(model.chinese)
                           .byFont(UIFontWeightRegularSize(JobsWidth(16)))
-                          .byTextCor(@"#5D5D5D".cor)
+                          .byTextCor(@"#5D5D5D".jobsCor())
                           .bySelectedTextCor(JobsWhiteColor)
-                          .byBgSelectedCor(@"#5D5D5D".cor)
-                          .byBgCor(@"#1F1F1F".cor)
+                          .byBgSelectedCor(@"#5D5D5D".jobsCor())
+                          .byBgCor(@"#1F1F1F".jobsCor())
                           .byTextAlignment(NSTextAlignmentCenter);
                  _nationalPopList_dataMutArr.add(viewModel);
 

@@ -20,43 +20,73 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CustomTableViewCellVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(JobsLabelColor);
-        })
-        //        self.viewModel.textModel.text = @"充值".tr;
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byText(data.attributedTitle.string)
-                .byFont(UIFontWeightRegularSize(16));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byTextCor(JobsLabelColor);
+            })
+            //        self.viewModel.textModel.text = @"充值".jobsTr();
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byText(data.attributedTitle.string)
+                    .byFont(UIFontWeightRegularSize(16));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.makeNavByAlpha(1);
-    self.collectionView.byShow(self);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CustomTableViewCellVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.makeNavByAlpha(1);
+        self.collectionView.byShow(self);
+    };
 }
 #pragma mark —— UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return self.dataMutArr.count;
+    JobsRetNSIntegerByUICollectionViewBlock action = ((JobsRetNSIntegerByUICollectionViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CustomTableViewCellVC.class, @selector(jobsNumberOfSectionsInCollectionView)))(self, @selector(jobsNumberOfSectionsInCollectionView));
+    return action ? action(collectionView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUICollectionViewBlock _Nonnull)jobsNumberOfSectionsInCollectionView{
+    @jobs_weakify(self)
+    return ^NSInteger(UICollectionView * collectionView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return self.dataMutArr.count;
+    };
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView
@@ -120,7 +150,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     if (!_collectionView) {
         @jobs_weakify(self)
         /// 创建 UICollectionView
-        _collectionView = UICollectionView.initByLayout(self.verticalLayout)
+        _collectionView = UICollectionView.initByLayout(self.jobsVerticalLayout())
             .dataLink(self)
             .registerCollectionViewClass()
             .byShowsVerticalScrollIndicator(NO);
@@ -142,28 +172,28 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
                 data1.jobsDataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data2) {
                     data2.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data3) {
-                        data3.textModel.byText(@"存款金额".tr);
-                        data3.subTextModel.byText(@"10,000.00".tr);
+                        data3.textModel.byText(@"存款金额".jobsTr());
+                        data3.subTextModel.byText(@"10,000.00".jobsTr());
                     }))
                     .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data3) {
-                        data3.textModel.byText(@"存款方式".tr);
-                        data3.subTextModel.byText(@"虛擬幣充值".tr);
+                        data3.textModel.byText(@"存款方式".jobsTr());
+                        data3.subTextModel.byText(@"虛擬幣充值".jobsTr());
                     }))
                     .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data3) {
-                        data3.textModel.byText(@"訂單編號".tr);
-                        data3.subTextModel.byText(@"YSF2025022302644565964".tr);
+                        data3.textModel.byText(@"訂單編號".jobsTr());
+                        data3.subTextModel.byText(@"YSF2025022302644565964".jobsTr());
                     }))
                     .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data3) {
-                        data3.textModel.byText(@"轉賬姓名".tr);
-                        data3.subTextModel.byText(@"張三 ".tr);
+                        data3.textModel.byText(@"轉賬姓名".jobsTr());
+                        data3.subTextModel.byText(@"張三 ".jobsTr());
                     }))
                     .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data3) {
-                        data3.textModel.byText(@"銀行賬號".tr);
-                        data3.subTextModel.byText(@"6230 5822 0031 5762 430".tr);
+                        data3.textModel.byText(@"銀行賬號".jobsTr());
+                        data3.subTextModel.byText(@"6230 5822 0031 5762 430".jobsTr());
                     }))
                     .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data3) {
-                        data3.textModel.byText(@"轉賬地址".tr);
-                        data3.subTextModel.byText(@"中國平安銀行".tr);
+                        data3.textModel.byText(@"轉賬地址".jobsTr());
+                        data3.subTextModel.byText(@"中國平安銀行".jobsTr());
                     }));
                 });
             }));

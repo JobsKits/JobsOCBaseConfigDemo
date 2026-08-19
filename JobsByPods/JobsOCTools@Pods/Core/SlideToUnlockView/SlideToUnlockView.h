@@ -62,6 +62,12 @@ Prop_copy(readonly)SlideToUnlockView * _Nonnull (^byOnUnlock)(jobsByVoidBlock _N
 /// 复位到最左侧
 -(jobsByBOOLBlock _Nonnull)byResetAnimated;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN SlideToUnlockView
+-(JobsRetSlideToUnlockViewByCGFloatBlock _Nonnull)byPanStartProgress;
+-(JobsRetSlideToUnlockViewByCGFloatBlock _Nonnull)byThumbInset;
+-(JobsRetSlideToUnlockViewByCGSizeBlock _Nonnull)byThumbSize;
+-(JobsRetSlideToUnlockViewByMASConstraintBlock _Nonnull)byThumbLeadingConstraint;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END SlideToUnlockView
 @end
 
 NS_ASSUME_NONNULL_END

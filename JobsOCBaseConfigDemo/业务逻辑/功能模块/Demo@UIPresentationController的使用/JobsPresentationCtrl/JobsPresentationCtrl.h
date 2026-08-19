@@ -32,6 +32,13 @@ UIViewControllerAnimatedTransitioning,
 UIGestureRecognizerDelegate
 >
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsPresentationCtrl
+-(JobsRetJobsPresentationCtrlByBOOLBlock _Nonnull)byHasInteractiveFrame;
+-(JobsRetJobsPresentationCtrlByCGRectBlock _Nonnull)byInteractiveFrame;
+-(JobsRetJobsPresentationCtrlByCGRectBlock _Nonnull)byPanStartFrame;
+-(JobsRetJobsPresentationCtrlByUIViewBlock _Nonnull)byDimmingView;
+-(JobsRetJobsPresentationCtrlByUIViewBlock _Nonnull)byPresentationWrappingView;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsPresentationCtrl
 @end
 /**
  
@@ -56,6 +63,6 @@ UIGestureRecognizerDelegate
      jobsCommentCoreVC.transitioningDelegate = presentationController;
 
      [self forceComingToPresentVC:jobsCommentCoreVC
-                    requestParams:@"".tr
+                    requestParams:@"".jobsTr()
                        completion:nil];
  */

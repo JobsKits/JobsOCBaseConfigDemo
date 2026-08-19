@@ -65,8 +65,15 @@ Prop_strong(readonly) JobsOCSplashConfiguration *configuration;
 -(instancetype)initWithConfiguration:(JobsOCSplashConfiguration *)configuration NS_DESIGNATED_INITIALIZER;
 -(instancetype)initWithNibName:(NSString *_Nullable)nibNameOrNil bundle:(NSBundle *_Nullable)nibBundleOrNil NS_UNAVAILABLE;
 -(instancetype)initWithCoder:(NSCoder *)coder NS_UNAVAILABLE;
--(void)finish;
+-(jobsByVoidBlock _Nonnull)finish;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCSplashVC
+-(JobsRetJobsOCSplashVCByAVPlayerLayerBlock _Nonnull)byPlayerLayer;
+    -(JobsRetJobsOCSplashVCByBOOLBlock _Nonnull)byIsCountdownTime;
+-(JobsRetJobsOCSplashVCByBOOLBlock _Nonnull)byHasFinished;
+-(JobsRetJobsOCSplashVCByNSIntegerBlock _Nonnull)byCountdownTime;
+-(JobsRetJobsOCSplashVCByjobsByVoidBlockBlock _Nonnull)byHostGestureRestoration;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCSplashVC
 @end
 
 NS_ASSUME_NONNULL_END

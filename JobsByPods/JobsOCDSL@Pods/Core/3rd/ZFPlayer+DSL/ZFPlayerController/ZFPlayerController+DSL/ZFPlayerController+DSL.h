@@ -49,18 +49,28 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetZFPlayerByDisableGestureBlock _Nonnull)byDisableGestureTypes;
 -(JobsRetZFPlayerByDisablePanBlock _Nonnull)byDisablePanMovingDirection;
 
--(__kindof ZFPlayerController *_Nonnull)byPlay;
--(__kindof ZFPlayerController *_Nonnull)byPause;
--(__kindof ZFPlayerController *_Nonnull)byStop;
--(__kindof ZFPlayerController *_Nonnull)byPlayNext;
--(__kindof ZFPlayerController *_Nonnull)byPlayPrevious;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)byPlay;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)byPause;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)byStop;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)byPlayNext;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)byPlayPrevious;
 -(JobsRetZFPlayerByNSIntegerBlock _Nonnull)byPlayIndex;
 -(JobsRetZFPlayerByTimeCompletionBlock _Nonnull)bySeekToTime;
 -(JobsRetZFPlayerByViewBlock _Nonnull)byAddPlayerViewToContainerView;
--(__kindof ZFPlayerController *_Nonnull)byAddPlayerViewToCell;
--(__kindof ZFPlayerController *_Nonnull)byAddPlayerViewToSmallFloatView;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)byAddPlayerViewToCell;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)byAddPlayerViewToSmallFloatView;
 -(JobsRetZFPlayerByOrientationBlock _Nonnull)byRotateToOrientation;
 -(JobsRetZFPlayerByFullScreenBlock _Nonnull)byEnterFullScreen;
+
+-(JobsRetZFPlayerByMediaURLBlock _Nonnull)byPlayerPrepareToPlay;
+-(JobsRetZFPlayerByMediaURLBlock _Nonnull)byPlayerReadyToPlay;
+-(JobsRetZFPlayerByPlayTimeBlock _Nonnull)byPlayerPlayTimeChanged;
+-(JobsRetZFPlayerByPlaybackStateBlock _Nonnull)byPlayerPlayStateChanged;
+-(JobsRetZFPlayerByLoadStateBlock _Nonnull)byPlayerLoadStateChanged;
+-(JobsRetZFPlayerByMediaErrorBlock _Nonnull)byPlayerPlayFailed;
+-(JobsRetZFPlayerByMediaBlock _Nonnull)byPlayerDidToEnd;
+-(JobsRetZFPlayerByOrientationChangeBlock _Nonnull)byOrientationWillChange;
+-(JobsRetZFPlayerByOrientationChangeBlock _Nonnull)byOrientationDidChanged;
 
 -(JobsRetZFPlayerByMediaURLBlock _Nonnull)onPrepareToPlay;
 -(JobsRetZFPlayerByMediaURLBlock _Nonnull)onReadyToPlay;
@@ -72,6 +82,10 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetZFPlayerByOrientationChangeBlock _Nonnull)onOrientationWillChange;
 -(JobsRetZFPlayerByOrientationChangeBlock _Nonnull)onOrientationDidChanged;
 
+@end
+
+@interface ZFOrientationObserver (DSL)
+-(JobsRetZFOrientationObserverByZFFullScreenModeBlock _Nonnull)byFullScreenMode;
 @end
 
 NS_ASSUME_NONNULL_END

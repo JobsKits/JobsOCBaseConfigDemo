@@ -28,14 +28,34 @@ Prop_strong()FSCalendar *calendar;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCalenderView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    /// 内部指定圆切角
-    [self appointCornerCutToCircleByRoundingCorners:UIRectCornerAllCorners
-                                        cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCalenderView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        /// 内部指定圆切角
+        [self appointCornerCutToCircleByRoundingCorners:UIRectCornerAllCorners
+                                            cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+    };
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -48,7 +68,7 @@ Prop_strong()FSCalendar *calendar;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model;
+        self.byViewModel(model);
         [self.calendar reloadData];
     };
 }
@@ -66,7 +86,7 @@ Prop_strong()FSCalendar *calendar;
 -(nullable NSString *)calendar:(FSCalendar *)calendar
                   titleForDate:(NSDate *)date{
     return [jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter){
-        dateFormatter.dateFormat = @"dd";
+        dateFormatter.byDateFormat(@"dd");
     }) stringFromDate:date];
 }
 
@@ -74,34 +94,34 @@ Prop_strong()FSCalendar *calendar;
                subtitleForDate:(NSDate *)date {
     // 格式化日期，获取具体的日期字符串
     NSString *dateString = [jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter) {
-        dateFormatter.dateFormat = @"dd/MM";
+        dateFormatter.byDateFormat(@"dd/MM");
     }) stringFromDate:date];
     if (dateString.containsString(@"01/01")) {
-        return @"新年".tr; // 元旦
+        return @"新年".jobsTr(); // 元旦
     } else if (dateString.containsString(@"22/01")) {
-        return @"春节".tr; // 春节（需要农历日期处理，这里使用2024年的示例日期）
+        return @"春节".jobsTr(); // 春节（需要农历日期处理，这里使用2024年的示例日期）
     } else if (dateString.containsString(@"05/04")) {
-        return @"清明节".tr; // 清明节
+        return @"清明节".jobsTr(); // 清明节
     } else if (dateString.containsString(@"01/05")) {
-        return @"劳动节".tr; // 劳动节
+        return @"劳动节".jobsTr(); // 劳动节
     } else if (dateString.containsString(@"04/06")) {
-        return @"端午节".tr; // 端午节（需要农历日期处理）
+        return @"端午节".jobsTr(); // 端午节（需要农历日期处理）
     } else if (dateString.containsString(@"13/09")) {
-        return @"中秋节".tr; // 中秋节（需要农历日期处理）
+        return @"中秋节".jobsTr(); // 中秋节（需要农历日期处理）
     } else if (dateString.containsString(@"01/10")) {
-        return @"国庆节".tr; // 国庆节
+        return @"国庆节".jobsTr(); // 国庆节
     } else if (dateString.containsString(@"25/12")) {
-        return @"圣诞节".tr; // 圣诞节
+        return @"圣诞节".jobsTr(); // 圣诞节
     } else if (dateString.containsString(@"30/11")) {
-        return @"博尼法西奥日".tr; // 博尼法西奥日
+        return @"博尼法西奥日".jobsTr(); // 博尼法西奥日
     } else if (dateString.containsString(@"12/06")) {
-        return @"独立日".tr; // 独立日
+        return @"独立日".jobsTr(); // 独立日
     } else if (dateString.containsString(@"09/04")) {
-        return @"勇士日".tr; // 勇士日
+        return @"勇士日".jobsTr(); // 勇士日
     } else if (dateString.containsString(@"01/11")) {
-        return @"万灵节".tr; // 万灵节
+        return @"万灵节".jobsTr(); // 万灵节
     } else if (dateString.containsString(@"30/12")) {
-        return @"黎刹日".tr; // 黎刹日
+        return @"黎刹日".jobsTr(); // 黎刹日
     } else return nil; // 其他日期没有副标题
 }
 
@@ -110,11 +130,31 @@ Prop_strong()FSCalendar *calendar;
 //}
 
 -(NSDate *)minimumDateForCalendar:(FSCalendar *)calendar{
-    return NSDate.dateSince(-平年一年的秒数);/// 一年前
+    JobsRetNSDateByFSCalendarBlock action = ((JobsRetNSDateByFSCalendarBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCalenderView.class, @selector(jobsMinimumDateForCalendar)))(self, @selector(jobsMinimumDateForCalendar));
+    return action ? action(calendar) : nil;
+}
+
+-(JobsRetNSDateByFSCalendarBlock _Nonnull)jobsMinimumDateForCalendar{
+    @jobs_weakify(self)
+    return ^NSDate *(FSCalendar * calendar){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSDate.dateSince(-平年一年的秒数);/// 一年前
+    };
 }
 
 -(NSDate *)maximumDateForCalendar:(FSCalendar *)calendar{
-    return NSDate.dateSince(平年一年的秒数);/// 一年后
+    JobsRetNSDateByFSCalendarBlock action = ((JobsRetNSDateByFSCalendarBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCalenderView.class, @selector(jobsMaximumDateForCalendar)))(self, @selector(jobsMaximumDateForCalendar));
+    return action ? action(calendar) : nil;
+}
+
+-(JobsRetNSDateByFSCalendarBlock _Nonnull)jobsMaximumDateForCalendar{
+    @jobs_weakify(self)
+    return ^NSDate *(FSCalendar * calendar){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSDate.dateSince(平年一年的秒数);/// 一年后
+    };
 }
 
 //-(__kindof FSCalendarCell *)calendar:(FSCalendar *)calendar
@@ -168,6 +208,16 @@ atMonthPosition:(FSCalendarMonthPosition)monthPosition{
 }
 
 -(void)calendarCurrentPageDidChange:(FSCalendar *)calendar{
+    jobsByFSCalendarBlock action = ((jobsByFSCalendarBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCalenderView.class, @selector(jobsCalendarCurrentPageDidChange)))(self, @selector(jobsCalendarCurrentPageDidChange));
+    if (action) action(calendar);
+}
+
+-(jobsByFSCalendarBlock _Nonnull)jobsCalendarCurrentPageDidChange{
+    @jobs_weakify(self)
+    return ^(FSCalendar * calendar){
+        @jobs_strongify(self)
+        if (!self) return;
+    };
 }
 #pragma mark —— lazyLoad
 -(FSCalendar *)calendar{

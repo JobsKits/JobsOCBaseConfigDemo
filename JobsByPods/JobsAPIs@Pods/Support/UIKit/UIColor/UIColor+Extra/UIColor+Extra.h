@@ -66,7 +66,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 十六进制字符串 （默认透明度为1） => UIColor *
 +(JobsRetCorByStrBlock _Nonnull)colorWithHexString;
 /// UIColor * => UIImage *
-+(JobsRetImageByCorBlock)imageWithColor;
++(JobsRetImageByCorBlock _Nonnull)imageWithColor;
 /// 生成的渐变图像
 /// - Parameters:
 ///   - CorDataMutArr: 一个可选的NSMutableArray，其中包含用于渐变的颜色数组。如果未提供或为nil，方法将默认使用红色和绿色作为渐变颜色。
@@ -90,6 +90,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCorByCGFloatBlock _Nonnull)colorWithAlphaComponentBy;
 /// 根据颜色生成图片
 -(UIImage *)image;
+-(JobsRetImageByVoidBlock _Nonnull)jobsImage;
 
 @end
 

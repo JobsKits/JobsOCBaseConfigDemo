@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 完整的文件名提取普通文件名和文件后缀名
 -(JobsRetFileNameModelByStrBlock _Nonnull)byFileFullName;
 /// 字符串是否包含URL【返回YES包含】
--(BOOL)isContainsUrl;
+-(JobsRetBOOLByVoidBlock _Nonnull)isContainsUrl;
 /// OC字符串拼接
 -(JobsRetStrByStrBlock _Nonnull)add;
 
@@ -65,7 +65,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 对系统方法 stringByTrimmingCharactersInSet 的二次封装
 -(JobsRetStrByCharacterSetBlock _Nonnull)byTrimmingCharactersInSet;
 /// 返回网址相关的NSURL *
--(NSURL *_Nonnull)jobsUrl;
+-(NSURL *)jobsUrl;
+-(JobsRetURLByVoidBlock _Nonnull)jobsURL;
 /// 格式化为中国时间
 -(JobsRetStrByStrBlock _Nonnull)chinaTime;
 /// 时间戳（字符串）依据某一规范，格式化为能一目了然的时间（字符串）

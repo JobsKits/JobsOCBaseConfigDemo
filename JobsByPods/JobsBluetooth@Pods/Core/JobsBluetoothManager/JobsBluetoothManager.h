@@ -7,6 +7,11 @@
 
 #import <CoreBluetooth/CoreBluetooth.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -42,14 +47,17 @@ Prop_copy(readonly)JobsBluetoothManager *(^onLog)(void (^block)(NSString *messag
 
 -(instancetype)initWithProfile:(JobsBluetoothProfile *)profile NS_DESIGNATED_INITIALIZER;
 -(instancetype)init;
--(void)startScan;
--(void)stopScan;
--(void)connectIdentifier:(NSUUID *)identifier;
--(void)disconnect;
--(void)read;
--(void)setNotifyEnabled:(BOOL)enabled;
+-(jobsByVoidBlock _Nonnull)startScan;
+-(jobsByVoidBlock _Nonnull)stopScan;
+-(jobsByNSUUIDBlock _Nonnull)connectIdentifier;
+-(jobsByVoidBlock _Nonnull)disconnect;
+-(jobsByVoidBlock _Nonnull)read;
+-(jobsByBOOLBlock _Nonnull)setNotifyEnabled;
 -(void)sendCommand:(JobsBluetoothCommand *)command completion:(void (^)(NSData * _Nullable response, NSError * _Nullable error))completion;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsBluetoothManager
+-(JobsRetJobsBluetoothManagerByCBPeripheralBlock _Nonnull)byConnectedPeripheral;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsBluetoothManager
 @end
 
 NS_ASSUME_NONNULL_END

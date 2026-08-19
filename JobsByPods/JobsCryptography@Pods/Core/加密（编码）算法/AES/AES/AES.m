@@ -11,8 +11,8 @@
 +(NSString *)encrypt:(NSString *)message
             password:(NSString *)password{
     NSError *error = nil;
-    NSData *encryptedData = [message.UTF8Encoding AES256EncryptedDataUsingKey:password.UTF8Encoding.SHA256Hash error:&error];
-    NSString *base64EncodedString = encryptedData.base64StringFromData;
+    NSData *encryptedData = [message.jobsUTF8Encoding() AES256EncryptedDataUsingKey:password.jobsUTF8Encoding().SHA256Hash error:&error];
+    NSString *base64EncodedString = encryptedData.base64StringFromData();
     if(error){
         JobsLog(@"error = %@",error);
         return @"";
@@ -23,7 +23,7 @@
             password:(NSString *)password{
     NSError *error = nil;
     NSData *encryptedData = NSData.dataByBase64String(base64EncodedString);
-    NSData *decryptedData = [encryptedData decryptedAES256DataUsingKey:password.UTF8Encoding.SHA256Hash
+    NSData *decryptedData = [encryptedData decryptedAES256DataUsingKey:password.jobsUTF8Encoding().SHA256Hash
                                                                  error:&error];
     if(error){
         JobsLog(@"error = %@",error);

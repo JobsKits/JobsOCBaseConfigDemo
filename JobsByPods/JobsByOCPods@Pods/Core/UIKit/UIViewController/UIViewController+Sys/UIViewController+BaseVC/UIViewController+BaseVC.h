@@ -110,6 +110,15 @@ BaseViewControllerProtocol
 ,UIViewModelProtocol
 ,AppToolsProtocol
 >
+
+-(JobsRetVCByComingStyleBlock _Nonnull)byPushOrPresent;
+-(JobsRetVCByStrBlock _Nonnull)byTitle;
+-(JobsRetVCByWebViewBlock _Nonnull)byWebView;
+-(JobsRetVCByBOOLBlock _Nonnull)byHidesBottomBarWhenPushed;
+-(JobsRetVCByIDBlock _Nonnull)byRequestParams;
+-(JobsRetVCByVCBlock _Nonnull)byFromVC;
+/// 设置是否隐藏系统导航栏，并保持 UIViewController 链式返回类型。
+-(JobsRetVCByBOOLBlock _Nonnull)bySetupNavigationBarHidden;
 /**
  ❤️【强制推控制器】❤️
  1、自定义是PUSH还是PRESENT展现控制器，如果自定义PUSH但是navigationController不存在，则换用PRESENT展现控制器

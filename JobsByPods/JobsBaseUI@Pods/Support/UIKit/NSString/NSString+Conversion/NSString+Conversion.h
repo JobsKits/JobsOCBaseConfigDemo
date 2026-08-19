@@ -55,21 +55,23 @@ NS_ASSUME_NONNULL_BEGIN
 /// 对系统方法 initWithData.NSASCIIStringEncoding 的二次封装
 +(JobsRetStrByDataBlock _Nonnull)initByASCIIData;
 /// 转化为可变字符串
--(NSMutableString *_Nullable)Mutable;
--(NSData *_Nullable)UTF8Encoding;
--(NSData *_Nullable)ASCIIEncoding;
+-(JobsRetNSMutableStringByVoidBlock _Nonnull)Mutable;
+-(NSData *)UTF8Encoding;
+-(JobsRetDataByVoidBlock _Nonnull)jobsUTF8Encoding;
+-(NSData *)ASCIIEncoding;
+-(JobsRetDataByVoidBlock _Nonnull)jobsASCIIEncoding;
 /// 字符串中取数字
--(long long)getDigits;
+-(JobsRetlonglongByVoidBlock _Nonnull)getDigits;
 /// 读取本地JSON文件
--(nullable id)readLocalFileWithName;
+-(JobsRetIDByVoidBlock _Nonnull)readLocalFileWithName;
 /// JSON 转 NSDictionary
--(nullable id)dictionaryWithJsonString;
+-(JobsRetIDByVoidBlock _Nonnull)dictionaryWithJsonString;
 /// NSDictionary 转 json字符串方法//==[dic mj_JSONString]
 -(JobsRetStrByDicBlock _Nonnull)convertToJsonData;
 /// NSDictionary 转 NSString
 -(JobsRetStrByDicBlock _Nonnull)convertDictionaryToString;
 ///【实例方法】解压缩字符串
--(NSData *)compress;
+-(JobsRetDataByVoidBlock _Nonnull)compress;
 ///【类方法】压缩字符串成NSData
 -(JobsRetDataByStrBlock _Nonnull)compressString;
 ///【类方法】解压缩字符串
@@ -79,9 +81,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// OC字符串转NSDate
 -(JobsRetDateByDateFormatterBlock _Nonnull)dataByDateFormatter;
 /// OC字符串数组 转 OC字符串
-+(NSString *_Nonnull)toStrByStringArr:(NSArray <NSString *>*_Nonnull)arr;
++(JobsRetNSStringByNSArrayNSStringBlock _Nonnull)toStrByStringArr;
 /// 纯字符串格式化为4位数字为一组的银行卡格式字符串
--(__kindof NSString *_Nullable)bankCardStyle;
+-(JobsRetStrByVoidBlock _Nonnull)bankCardStyle;
 -(JobsRetStrByIntegerBlock _Nonnull)bankCardStyleBy;
 /// 将字典转换成GET请求的URL（带参数）
 -(JobsRetStrByDicBlock _Nonnull)GETRequestURLParaBy;

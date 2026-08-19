@@ -9,17 +9,22 @@
 
 @implementation FMDatabase (Manager)
 /// 依据路径创建数据库
--(FMDatabase *)createDataBaseWithPath:(NSString *_Nullable)dbPath{
-    // 数据库访问路径
-    if (dbPath.length == 0) {
-        NSString *documentsDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                                                     NSUserDomainMask,
-                                                                     YES).firstObject;
-        dbPath = [documentsDir stringByAppendingPathComponent:@"test.db"];
-    }
-    NSLog(@"!!!dbPath = %@",dbPath);
-    // 创建对应路径下数据库
-    return [FMDatabase databaseWithPath:dbPath];
+-(JobsRetFMDatabaseByNSStringBlock _Nonnull)createDataBaseWithPath{
+    @jobs_weakify(self)
+    return ^FMDatabase *(NSString *_Nullable dbPath){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        // 数据库访问路径
+        if (dbPath.length == 0) {
+            NSString *documentsDir = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                                         NSUserDomainMask,
+                                                                         YES).firstObject;
+            dbPath = [documentsDir stringByAppendingPathComponent:@"test.db"];
+        }
+        NSLog(@"!!!dbPath = %@",dbPath);
+        // 创建对应路径下数据库
+        return [FMDatabase databaseWithPath:dbPath];
+    };
 }
 /// 实际对数据库有变动的操作
 -(BOOL)handleExecuteUpdate:(NSString *)executeUpdate
@@ -32,24 +37,44 @@
     };return NO;
 }
 #pragma mark —— 增删改查中 除了查询（executeQuery），其余操作都用（executeUpdate）
--(BOOL)handleInsert{
-    return [self handleExecuteUpdate:@"insert into 't_student'(ID,name,phone,score) values(?,?,?,?)"
-                withArgumentsInArray:@[@113,@"x3",@"13",@53]];
+-(JobsRetBOOLByVoidBlock _Nonnull)handleInsert{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return [self handleExecuteUpdate:@"insert into 't_student'(ID,name,phone,score) values(?,?,?,?)"
+                    withArgumentsInArray:@[@113,@"x3",@"13",@53]];
+    };
 }
 
--(BOOL)handleDelete{
-    return [self handleExecuteUpdate:@"delete from 't_student' where ID = ?"
-                withArgumentsInArray:@[@113]];
+-(JobsRetBOOLByVoidBlock _Nonnull)handleDelete{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return [self handleExecuteUpdate:@"delete from 't_student' where ID = ?"
+                    withArgumentsInArray:@[@113]];
+    };
 }
 
--(BOOL)handleUpdate{
-    return [self handleExecuteUpdate:@"update 't_student' set ID = ? where name = ?"
-                withArgumentsInArray:@[@113,@"x3"]];
+-(JobsRetBOOLByVoidBlock _Nonnull)handleUpdate{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return [self handleExecuteUpdate:@"update 't_student' set ID = ? where name = ?"
+                    withArgumentsInArray:@[@113,@"x3"]];
+    };
 }
 
--(FMResultSet *)handleQuery{
-    return [self executeQuery:@"select * from 't_student' where ID = ?"
-         withArgumentsInArray:@[@113]];
+-(JobsRetFMResultSetByVoidBlock _Nonnull)handleQuery{
+    @jobs_weakify(self)
+    return ^FMResultSet *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self executeQuery:@"select * from 't_student' where ID = ?"
+             withArgumentsInArray:@[@113]];
+    };
 }
 /// 开启事务，返回是否事务回滚
 /// @param targetObj 指定的某类实例上开启事务
@@ -87,7 +112,7 @@
 -(void)handleMultiThreadedProtectionDB:(NSString *_Nullable)dbPath
                                 doWith:(jobsByIDBlock)doWithBlock{
     FMDatabaseQueue *dbQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
-    if ([[self createDataBaseWithPath:dbPath] open]) {
+    if ([self.createDataBaseWithPath(dbPath) open]) {
         [dbQueue inDatabase:^(FMDatabase * _Nonnull db) {
             if (doWithBlock) doWithBlock(db);
         }];

@@ -17,8 +17,13 @@
     };
 }
 ///【实例方法】以MIME编码的数据 转换成 NSData对象
--(NSData *_Nullable)dataByMIMEString:(NSString *_Nonnull)MIMEString{
-    return NSData.dataByMIMEString(MIMEString);
+-(JobsRetDataByStrBlock _Nonnull)dataByMIMEString{
+    @jobs_weakify(self)
+    return ^NSData *_Nullable(NSString *_Nonnull MIMEString){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSData.dataByMIMEString(MIMEString);
+    };
 }
 ///【类方法】NSData对象 转换成 以MIME编码的数据
 +(JobsRetStrByDataBlock _Nonnull)MIMEStringByImage{
@@ -27,8 +32,13 @@
     };
 }
 ///【实例方法】NSData对象 转换成 以MIME编码的数据
--(NSString *_Nullable)MIMEStringByImage{
-    return NSData.MIMEStringByImage(self);
+-(JobsRetStrByVoidBlock _Nonnull)MIMEStringByImage{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSData.MIMEStringByImage(self);
+    };
 }
 
 @end

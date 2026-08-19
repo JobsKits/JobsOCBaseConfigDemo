@@ -58,7 +58,7 @@
 +(jobsByStrBlock _Nonnull)jobsToastLoadingMsg{
     return ^(NSString *_Nullable errMsg) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSString *path = @"toastLoading.gif".pathForResourceWithFullName;
+            NSString *path = @"toastLoading.gif".jobsPathForResourceWithFullName();
             NSData *data = [NSData dataWithContentsOfFile:path];
             UIImage *image = [UIImage sd_imageWithGIFData:data];
             [WHToast showImage:image
@@ -78,7 +78,7 @@
 +(jobsByVoidBlock _Nonnull)jobsToastHide{
     return ^() {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [WHToast hide];// UI更新代码
+            WHToast.hide;// UI更新代码
         });
     };
 }

@@ -19,7 +19,7 @@
 #import "JobsDefines.h"
 #endif
 
-typedef void(^FinishBlock)(NSString* _Nullable key);
+typedef jobsByStrBlock FinishBlock;
 #ifndef NOTIFI_VIEW_STATE_ENUM_DEFINED
 #define NOTIFI_VIEW_STATE_ENUM_DEFINED
 typedef NS_ENUM(NSInteger, NotifiViewState) {
@@ -55,16 +55,19 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NotifiView : UIView
 
 Prop_assign()NotifiViewState state;
+-(JobsRetNotifiViewByNSIntegerBlock _Nonnull)byState;
 Prop_assign()BOOL canAddtionTime;
 Prop_assign()NSTimeInterval duration;
 Prop_strong(readonly)NSDictionary* data;  // @{@"key":@"xxx", @"data" : {NSDictionary class]}
+-(JobsRetNotifiViewByDicBlock _Nonnull)byData;
 Prop_copy()NSString* key;    ///当前可用的key值，  不能重复
 
 - (void)updateWithData:(NSDictionary*)data
                 finish:(FinishBlock)finishBlock;
 - (void)showWithData:(NSDictionary*)data
               finish:(FinishBlock)finishBlock;
-- (void)cancel;
+-(void)cancel;
+-(jobsByVoidBlock _Nonnull)jobsCancel;
 
 @end
 

@@ -13,6 +13,12 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsExcelLeftListView
+@interface JobsExcelLeftListView (JobsPropertyDSLSetterAutogen_272e3aee9c)
+-(void)setExcelConfigureData:(JobsExcelConfigureViewModel * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsExcelLeftListView
+
 @implementation JobsExcelLeftListView
 /// RACProtocol
 @synthesize racDisposable = _racDisposable;
@@ -30,7 +36,7 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
     @jobs_weakify(self)
     return ^(JobsExcelConfigureViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.excelConfigureData = model;
+        self.byExcelConfigureData(model);
         self.tableView.byRowHeight(model.itemH);
         self.tableView.byShow(self);
     };
@@ -42,7 +48,17 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsExcelLeftListView.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 1;
+    };
 }
 
 -(CGFloat)tableView:(UITableView *)tableView
@@ -66,20 +82,30 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 #pragma mark —— UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    JobsLog(@"KKK3 = %f", scrollView.contentOffset.y);
-    /// 防止在初始情况下，无意义的往下拉动👇🏻
-    if (scrollView.contentOffset.y < 0) {
-        scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, 0);
-    }else{
-        /// 防止在初始情况下，无意义的往上拉动👆🏻
-        CGFloat d = ((self.excelConfigureData.colNumber + 1) * self.excelConfigureData.itemH - self.excelConfigureData.XZExcelH) + self.excelConfigureData.scrollOffsetY;
-        if(scrollView.contentOffset.y > d) {
-            scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, d);
+    jobsByScrollViewBlock action = ((jobsByScrollViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsExcelLeftListView.class, @selector(jobsScrollViewDidScroll)))(self, @selector(jobsScrollViewDidScroll));
+    if (action) action(scrollView);
+}
+
+-(jobsByScrollViewBlock _Nonnull)jobsScrollViewDidScroll{
+    @jobs_weakify(self)
+    return ^(UIScrollView * scrollView){
+        @jobs_strongify(self)
+        if (!self) return;
+        JobsLog(@"KKK3 = %f", scrollView.contentOffset.y);
+        /// 防止在初始情况下，无意义的往下拉动👇🏻
+        if (scrollView.contentOffset.y < 0) {
+            scrollView.byContentOffset(CGPointMake(scrollView.contentOffset.x, 0));
+        }else{
+            /// 防止在初始情况下，无意义的往上拉动👆🏻
+            CGFloat d = ((self.excelConfigureData.colNumber + 1) * self.excelConfigureData.itemH - self.excelConfigureData.XZExcelH) + self.excelConfigureData.scrollOffsetY;
+            if(scrollView.contentOffset.y > d) {
+                scrollView.byContentOffset(CGPointMake(scrollView.contentOffset.x, d));
+            }
+            if(scrollView.contentOffset.y <= d) {
+                self.excelConfigureData.byVerticalScrollValue(NSValue.byPoint(scrollView.contentOffset));
+            }
         }
-        if(scrollView.contentOffset.y <= d) {
-            self.excelConfigureData.VerticalScrollValue = NSValue.byPoint(scrollView.contentOffset);
-        }
-    }
+    };
 }
 #pragma mark —— lazyLoad
 /// BaseViewProtocol
@@ -95,7 +121,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 //                .registerHeaderFooterViewClass(MSCommentTableHeaderFooterView.class,nil)
                 .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0))
                 .emptyDataByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                    data.byTitle(@"NO MESSAGES FOUND".tr)
+                    data.byTitle(@"NO MESSAGES FOUND".jobsTr())
                         .byTitleCor(JobsWhiteColor)
                         .byTitleFont(bayonRegular(JobsWidth(30)))
                         .byNormalImage(@"小狮子".img);
@@ -116,4 +142,14 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     };return _tableView;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsExcelLeftListView
+-(JobsRetJobsExcelLeftListViewByJobsExcelConfigureViewModelBlock _Nonnull)byExcelConfigureData{
+    @jobs_weakify(self)
+    return ^__kindof JobsExcelLeftListView * _Nullable(JobsExcelConfigureViewModel * _Nullable data){
+        @jobs_strongify(self)
+        [self setExcelConfigureData:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsExcelLeftListView
 @end

@@ -62,7 +62,7 @@
  */
 /// 获取当前 iOS 移动设备的屏幕分辨率类型
 NS_INLINE iPhScrPxType iPhScrPx(void) {
-    NSString *platform = UIDevice.platformIDStr;
+    NSString *platform = UIDevice.jobsPlatformIDStr();
     if (!platform.length) return iPhScrPxType_None;
     if ([platform isEqualToString:@"iPhone3,1"] ||   // iPhone 4 (GSM)
         [platform isEqualToString:@"iPhone3,2"] ||   // iPhone 4 (GSM Rev A)
@@ -189,7 +189,7 @@ NS_INLINE iPhScrPxType iPhScrPx(void) {
 }
 /// 判断当前设备是否是全面屏
 NS_INLINE BOOL isFullScreen(void){
-    return UIDevice.isFullScreen;
+    return UIDevice.isFullScreen();
 }
 #pragma mark —— APP桌面Logo图片尺寸
 /**
@@ -433,40 +433,40 @@ NS_INLINE CGFloat JobsStatusBarHeightByAppleIncData(void) {
         return isiPhoneX_series() ? 44 : 20; // iOS 14 以下的设备
     } else {
         // iPhone 11 系列及更早的全面屏设备
-        if ([UIDevice.simulatorModel isEqualToString:@"iPhone12,1"] ||  // iPhone 11
-            [UIDevice.simulatorModel isEqualToString:@"iPhone12,3"] ||  // iPhone 11 Pro
-            [UIDevice.simulatorModel isEqualToString:@"iPhone12,5"] ||  // iPhone 11 Pro Max
-            [UIDevice.simulatorModel isEqualToString:@"iPhone10,6"] ||  // iPhone X
-            [UIDevice.simulatorModel isEqualToString:@"iPhone10,8"]) {  // iPhone XR
+        if ([UIDevice.jobsSimulatorModel() isEqualToString:@"iPhone12,1"] ||  // iPhone 11
+            [UIDevice.jobsSimulatorModel() isEqualToString:@"iPhone12,3"] ||  // iPhone 11 Pro
+            [UIDevice.jobsSimulatorModel() isEqualToString:@"iPhone12,5"] ||  // iPhone 11 Pro Max
+            [UIDevice.jobsSimulatorModel() isEqualToString:@"iPhone10,6"] ||  // iPhone X
+            [UIDevice.jobsSimulatorModel() isEqualToString:@"iPhone10,8"]) {  // iPhone XR
             return 48;
         }
         // iPhone 12 - iPhone 15 标准系列
-        if ([UIDevice.simulatorModel isEqualToString:@"iPhone13,2"] ||  // iPhone 12
-            [UIDevice.simulatorModel isEqualToString:@"iPhone13,3"] ||  // iPhone 12 Pro
-            [UIDevice.simulatorModel isEqualToString:@"iPhone14,2"] ||  // iPhone 13 Pro
-            [UIDevice.simulatorModel isEqualToString:@"iPhone14,5"] ||  // iPhone 13
-            [UIDevice.simulatorModel isEqualToString:@"iPhone14,7"] ||  // iPhone 14
-            [UIDevice.simulatorModel isEqualToString:@"iPhone14,8"] ||  // iPhone 14 Plus
-            [UIDevice.simulatorModel isEqualToString:@"iPhone15,4"] ||  // iPhone 15
-            [UIDevice.simulatorModel isEqualToString:@"iPhone15,5"]) {  // iPhone 15 Plus
+        if ([UIDevice.jobsSimulatorModel() isEqualToString:@"iPhone13,2"] ||  // iPhone 12
+            [UIDevice.jobsSimulatorModel() isEqualToString:@"iPhone13,3"] ||  // iPhone 12 Pro
+            [UIDevice.jobsSimulatorModel() isEqualToString:@"iPhone14,2"] ||  // iPhone 13 Pro
+            [UIDevice.jobsSimulatorModel() isEqualToString:@"iPhone14,5"] ||  // iPhone 13
+            [UIDevice.jobsSimulatorModel() isEqualToString:@"iPhone14,7"] ||  // iPhone 14
+            [UIDevice.jobsSimulatorModel() isEqualToString:@"iPhone14,8"] ||  // iPhone 14 Plus
+            [UIDevice.jobsSimulatorModel() isEqualToString:@"iPhone15,4"] ||  // iPhone 15
+            [UIDevice.jobsSimulatorModel() isEqualToString:@"iPhone15,5"]) {  // iPhone 15 Plus
             return 47;
         }
         // iPhone 14 Pro / Pro Max 及 iPhone 15 Pro / Pro Max
-        if ([UIDevice.simulatorModel isEqualToString:@"iPhone15,2"] ||  // iPhone 14 Pro
-            [UIDevice.simulatorModel isEqualToString:@"iPhone15,3"] ||  // iPhone 14 Pro Max
-            [UIDevice.simulatorModel isEqualToString:@"iPhone16,1"] ||  // iPhone 15 Pro
-            [UIDevice.simulatorModel isEqualToString:@"iPhone16,2"]) {  // iPhone 15 Pro Max
+        if ([UIDevice.jobsSimulatorModel() isEqualToString:@"iPhone15,2"] ||  // iPhone 14 Pro
+            [UIDevice.jobsSimulatorModel() isEqualToString:@"iPhone15,3"] ||  // iPhone 14 Pro Max
+            [UIDevice.jobsSimulatorModel() isEqualToString:@"iPhone16,1"] ||  // iPhone 15 Pro
+            [UIDevice.jobsSimulatorModel() isEqualToString:@"iPhone16,2"]) {  // iPhone 15 Pro Max
             return 59;
         }
         // iPhone 16 标准系列（占位，未来设备）
-        if ([UIDevice.simulatorModel isEqualToString:@"iPhone17,2"] ||  // iPhone 16
-            [UIDevice.simulatorModel isEqualToString:@"iPhone17,3"] ||  // iPhone 16 Plus
-            [UIDevice.simulatorModel isEqualToString:@"iPhone18,2"] ||  // iPhone 16 Pro
-            [UIDevice.simulatorModel isEqualToString:@"iPhone18,3"]) {  // iPhone 16 Pro Max
+        if ([UIDevice.jobsSimulatorModel() isEqualToString:@"iPhone17,2"] ||  // iPhone 16
+            [UIDevice.jobsSimulatorModel() isEqualToString:@"iPhone17,3"] ||  // iPhone 16 Plus
+            [UIDevice.jobsSimulatorModel() isEqualToString:@"iPhone18,2"] ||  // iPhone 16 Pro
+            [UIDevice.jobsSimulatorModel() isEqualToString:@"iPhone18,3"]) {  // iPhone 16 Pro Max
             return 59; // 假设 iPhone 16 Pro 系列继续沿用59高度
         }
         // 其他未来设备，默认返回全面屏或非全面屏高度
-        return UIDevice.isFullScreen ? 44 : 20;
+        return UIDevice.isFullScreen() ? 44 : 20;
     }
 }
 /// 方法二：状态栏高度

@@ -8,13 +8,13 @@
 #import "PDFView+DSL.h"
 
 @implementation PDFView (JobsChain)
-+(JobsRetPDFViewByVoidBlock)byPDFView{
++(JobsRetPDFViewByVoidBlock _Nonnull)byPDFView{
     return ^__kindof PDFView *_Nullable(void){
         return [[self alloc] init];
     };
 }
 
--(JobsRetPDFViewByPDFDocumentBlock)byDocument{
+-(JobsRetPDFViewByPDFDocumentBlock _Nonnull)byDocument{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(PDFDocument *_Nullable data){
         @jobs_strongify(self)
@@ -23,7 +23,7 @@
     };
 }
 
--(JobsRetPDFViewByDelegateBlock)byDelegate{
+-(JobsRetPDFViewByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(id<PDFViewDelegate> _Nullable data){
         @jobs_strongify(self)
@@ -32,7 +32,7 @@
     };
 }
 
--(JobsRetPDFViewByBOOLBlock)byAutoScales{
+-(JobsRetPDFViewByBOOLBlock _Nonnull)byAutoScales{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -41,7 +41,7 @@
     };
 }
 
--(JobsRetPDFViewByCGFloatBlock)byScaleFactor{
+-(JobsRetPDFViewByCGFloatBlock _Nonnull)byScaleFactor{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(CGFloat data){
         @jobs_strongify(self)
@@ -50,7 +50,7 @@
     };
 }
 
--(JobsRetPDFViewByCorBlock)byBackgroundColor{
+-(JobsRetPDFViewByCorBlock _Nonnull)byBackgroundColor{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
@@ -59,7 +59,7 @@
     };
 }
 
--(JobsRetPDFViewByPDFDisplayModeBlock)byDisplayMode{
+-(JobsRetPDFViewByPDFDisplayModeBlock _Nonnull)byDisplayMode{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(PDFDisplayMode data){
         @jobs_strongify(self)
@@ -68,7 +68,7 @@
     };
 }
 
--(JobsRetPDFViewByPDFDisplayDirectionBlock)byDisplayDirection{
+-(JobsRetPDFViewByPDFDisplayDirectionBlock _Nonnull)byDisplayDirection{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(PDFDisplayDirection data){
         @jobs_strongify(self)
@@ -77,7 +77,7 @@
     };
 }
 
--(JobsRetPDFViewByBOOLBlock)byDisplaysPageBreaks{
+-(JobsRetPDFViewByBOOLBlock _Nonnull)byDisplaysPageBreaks{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(BOOL data){
         @jobs_strongify(self)
@@ -86,7 +86,7 @@
     };
 }
 
--(JobsRetPDFViewByPDFDisplayBoxBlock)byDisplayBox{
+-(JobsRetPDFViewByPDFDisplayBoxBlock _Nonnull)byDisplayBox{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(PDFDisplayBox data){
         @jobs_strongify(self)
@@ -95,7 +95,7 @@
     };
 }
 
--(JobsRetPDFViewByVoidBlock)byGoToFirstPage{
+-(JobsRetPDFViewByVoidBlock _Nonnull)byGoToFirstPage{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(void){
         @jobs_strongify(self)
@@ -104,7 +104,7 @@
     };
 }
 
--(JobsRetPDFViewByVoidBlock)byGoToLastPage{
+-(JobsRetPDFViewByVoidBlock _Nonnull)byGoToLastPage{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(void){
         @jobs_strongify(self)
@@ -113,7 +113,7 @@
     };
 }
 
--(JobsRetPDFViewByVoidBlock)byGoToNextPage{
+-(JobsRetPDFViewByVoidBlock _Nonnull)byGoToNextPage{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(void){
         @jobs_strongify(self)
@@ -122,7 +122,7 @@
     };
 }
 
--(JobsRetPDFViewByVoidBlock)byGoToPreviousPage{
+-(JobsRetPDFViewByVoidBlock _Nonnull)byGoToPreviousPage{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(void){
         @jobs_strongify(self)
@@ -132,7 +132,7 @@
 }
 
 #if defined(PDFKIT_PLATFORM_OSX)
--(JobsRetPDFViewByPDFAreaOfInterestBlock)bySetCursorForAreaOfInterest{
+-(JobsRetPDFViewByPDFAreaOfInterestBlock _Nonnull)bySetCursorForAreaOfInterest{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(PDFAreaOfInterest data){
         @jobs_strongify(self)
@@ -142,7 +142,7 @@
 }
 #endif
 
--(JobsRetPDFViewByPDFActionBlock)byPerformAction{
+-(JobsRetPDFViewByPDFActionBlock _Nonnull)byPerformAction{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(PDFAction *_Nullable data){
         @jobs_strongify(self)
@@ -152,7 +152,7 @@
     };
 }
 
--(JobsRetPDFViewByVoidBlock)byClearSelection{
+-(JobsRetPDFViewByVoidBlock _Nonnull)byClearSelection{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(void){
         @jobs_strongify(self)
@@ -161,7 +161,7 @@
     };
 }
 
--(JobsRetPDFViewByVoidBlock)byLayoutDocumentView{
+-(JobsRetPDFViewByVoidBlock _Nonnull)byLayoutDocumentView{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(void){
         @jobs_strongify(self)
@@ -170,7 +170,7 @@
     };
 }
 
--(JobsRetPDFViewByPDFPageBlock)byAnnotationsChangedOnPage{
+-(JobsRetPDFViewByPDFPageBlock _Nonnull)byAnnotationsChangedOnPage{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(PDFPage *_Nullable data){
         @jobs_strongify(self)

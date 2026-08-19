@@ -12,8 +12,8 @@
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(float cornerRadiusValue) {
         @jobs_strongify(self)
-        self.layer.cornerRadius = cornerRadiusValue;
-        self.layer.masksToBounds = YES;
+        self.layer.byCornerRadius(cornerRadiusValue);
+        self.layer.byMasksToBounds(YES);
         return self;
     };
 }
@@ -22,7 +22,7 @@
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(UIColor *_Nullable layerBorderCor) {
         @jobs_strongify(self)
-        self.layer.borderColor = layerBorderCor.CGColor;
+        self.layer.byBorderColor(layerBorderCor.CGColor);
         return self;
     };
 }
@@ -31,7 +31,7 @@
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(float borderWidth) {
         @jobs_strongify(self)
-        self.layer.borderWidth = borderWidth;
+        self.layer.byBorderWidth(borderWidth);
         return self;
     };
 }
@@ -42,9 +42,9 @@
                                                    byRoundingCorners:corners
                                                          cornerRadii:cornerRadii];
     CAShapeLayer *maskLayer = CAShapeLayer.layer;
-    maskLayer.frame = self.bounds;
-    maskLayer.path = maskPath.CGPath;
-    self.layer.mask = maskLayer;
+    maskLayer.byFrame(self.bounds);
+    maskLayer.byPath(maskPath.CGPath);
+    self.layer.byMask(maskLayer);
 }
 
 -(JobsRetViewByGestureRecognizer _Nonnull)addGesture{
@@ -67,14 +67,14 @@
                                 options:UIViewAnimationOptionCurveLinear
                              animations:^{
                 @jobs_strongify(self)
-                self.transform = endAngle;
+                self.byTransform(endAngle);
             } completion:^(BOOL finished) {
                 @jobs_strongify(self)
                 self.currentAngle += self.rotateChangeAngle;
                 if (!self.isStopRotateAnimation) self.旋转动画(YES);
             }];
         } else {
-            self.isStopRotateAnimation = !self.isStopRotateAnimation;
+            self.byStopRotateAnimation(!self.isStopRotateAnimation);
         };return self;
     };
 }

@@ -30,6 +30,12 @@
 #import "UIButton+SimplyMake.h"
 #endif
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -48,9 +54,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_copy(nullable)jobsByStrBlock deleteBlock;
 
-+(NSString *)reuseIdentifier;
--(void)updateWithText:(NSString *_Nullable)text;
++(JobsRetStrByVoidBlock _Nonnull)reuseIdentifier;
+-(jobsByStrBlock _Nonnull)updateWithText;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCSearcherRecordCell
+-(JobsRetJobsOCSearcherRecordCellByNSStringBlock _Nonnull)byHistoryText;
+-(JobsRetJobsOCSearcherRecordCellByjobsByStrBlockBlock _Nonnull)byDeleteBlock;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCSearcherRecordCell
 @end
 
 NS_ASSUME_NONNULL_END

@@ -89,7 +89,7 @@ NS_ASSUME_NONNULL_BEGIN
      通过计算ASCII码来实现:
      循环遍历字符串长度，按照length来取值。判断这个值在不在ASCII的范围内，在的话就是1个字节，不在就是Unicode编码2个字节。
  */
--(NSUInteger)textLength;
+-(JobsRetNSUIntegerByVoidBlock _Nonnull)textLength;
 /// 统计字符串中中英文的字数
 -(JobsRetByNSIntegerBlock _Nonnull)statisticsAlphabetNumberByType;
 

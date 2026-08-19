@@ -10,11 +10,11 @@
 @implementation NSObject (Sound)
 /// 播放自定义本地声音
 /// fileName 文件名 包含后缀
--(jobsByStrBlock)playSoundWithFileName{
+-(jobsByStrBlock _Nonnull)playSoundWithFileName{
     return ^(NSString *_Nullable fileName){
         SystemSoundID soundID;
         /// 得到音效文件的地址
-        NSURL *url = fileName.pathForResourceWithName.jobsFileUrl;
+        NSURL *url = fileName.pathForResourceWithName().jobsFileUrl();
         /// 生成系统音效id
         OSStatus errorCode = AudioServicesCreateSystemSoundID((__bridge CFURLRef)(url) , &soundID);
         if (errorCode) {
@@ -27,14 +27,14 @@
 }
 /// 播放自定义本地声音
 /// fileName 全文件名 包含后缀
--(jobsByStrBlock)playSoundEffect{
+-(jobsByStrBlock _Nonnull)playSoundEffect{
     return ^(NSString *_Nullable fileFullName){
         FileNameModel *fileNameModel = fileFullName.byFileFullName(fileFullName);
         SystemSoundID soundID;
         /// 得到音效文件的地址
-        NSString *soundFilePath = fileNameModel.name.add(fileNameModel.type).pathForResourceWithFullName;
+        NSString *soundFilePath = fileNameModel.name.add(fileNameModel.type).jobsPathForResourceWithFullName();
         /// 生成系统音效id
-        OSStatus errorCode = AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundFilePath.jobsUrl, &soundID);
+        OSStatus errorCode = AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundFilePath.jobsURL(), &soundID);
         if (errorCode) {
             JobsLog(@"create sound failed");
             return;

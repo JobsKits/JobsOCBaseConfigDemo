@@ -12,6 +12,14 @@
 #import <QuartzCore/QuartzCore.h>
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDSL/CALayer+DSL.h>)
+#import <JobsOCDSL/CALayer+DSL.h>
+#import <JobsOCDSL/CAShapeLayer+DSL.h>
+#else
+#import "CALayer+DSL.h"
+#import "CAShapeLayer+DSL.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -36,14 +44,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_assign()UILabelShowingType labelShowingType;
 Prop_assign()CGFloat value;
+-(JobsRetUILabelByCGFloatBlock _Nonnull)byValue;
 Prop_assign()CGFloat lastValue;
+-(JobsRetUILabelByCGFloatBlock _Nonnull)byLastValue;
 Prop_strong()CAShapeLayer *shapeLayer;
 Prop_assign()JobsDirectionType transformLayerDirectionType;
 
--(__kindof NSMutableAttributedString *)makeAttributedStringBySelfText;
+-(JobsRetNSMutableAttributedStringByVoidBlock _Nonnull)makeAttributedStringBySelfText;
 -(JobsRetLabelByNSIntegerBlock _Nonnull)transformLayer;
 -(JobsRetLabelByImageBlock _Nonnull)bgImage;
 -(JobsRetLabelByNSIntegerBlock _Nonnull)byNumberOfLines;
+-(JobsRetLabelByNSUIntegerBlock _Nonnull)byLabelShowingType;
 -(JobsRetLabelByNSUIntegerBlock _Nonnull)makeLabelByShowingType;
 
 -(JobsRetLabelByAttributedStringBlock _Nonnull)byAttributedString;

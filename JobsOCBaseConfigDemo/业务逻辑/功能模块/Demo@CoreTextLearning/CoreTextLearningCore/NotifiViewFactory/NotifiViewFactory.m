@@ -12,35 +12,57 @@
 @end
 
 @implementation NotifiViewFactory
-+ (instancetype)shared {
-    static NotifiViewFactory *factory = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        factory = [[self alloc] init];
-    });return factory;
++ (JobsRetIDByVoidBlock _Nonnull)shared {
+    return ^id{
+        static NotifiViewFactory *factory = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            factory = [[self alloc] init];
+        });return factory;
+    };
 }
 
-- (void)setNotifiViews:(NSArray *)notifiViews{
-    _notifiViews = notifiViews;
+-(void)setNotifiViews:(NSArray *)notifiViews{
+    jobsByNSArrayBlock action = ((jobsByNSArrayBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NotifiViewFactory.class, @selector(jobsSetNotifiViews)))(self, @selector(jobsSetNotifiViews));
+    if (action) action(notifiViews);
 }
 
-- (void)fetchAvailableView:(void (^)(NotifiView * _Nonnull))block{
-    for (NotifiView* v in self.notifiViews) {
-        if (v.state == NotifiViewStateInit ||
-            v.state == NotifiViewStateFinish) {
-            v.state = NotifiViewStateReady;
-            if (block) block(v);
-            return;
+-(jobsByNSArrayBlock _Nonnull)jobsSetNotifiViews{
+    @jobs_weakify(self)
+    return ^(NSArray * notifiViews){
+        @jobs_strongify(self)
+        if (!self) return;
+        _notifiViews = notifiViews;
+    };
+}
+
+-(jobsByvoidNotifiViewBlock _Nonnull)fetchAvailableView{
+    @jobs_weakify(self)
+    return ^(void (^block)(NotifiView * _Nonnull)){
+        @jobs_strongify(self)
+        if (!self) return;
+        for (NotifiView* v in self.notifiViews) {
+            if (v.state == NotifiViewStateInit ||
+                v.state == NotifiViewStateFinish) {
+                v.byState(NotifiViewStateReady);
+                if (block) block(v);
+                return;
+            }
         }
-    }
+    };
 }
 
-- (NotifiView *)fetchViewWithKey:(NSString*)key{
-    for (NotifiView* v in self.notifiViews) {
-        if ([v.key isEqualToString:key]) {
-            return v;
-        }
-    };return nil;
+-(JobsRetNotifiViewByNSStringBlock _Nonnull)fetchViewWithKey{
+    @jobs_weakify(self)
+    return ^NotifiView *(NSString* key){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        for (NotifiView* v in self.notifiViews) {
+            if ([v.key isEqualToString:key]) {
+                return v;
+            }
+        };return nil;
+    };
 }
 
 @end

@@ -16,8 +16,8 @@
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         MyFansTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(MyFansTBVCell);
-        cell.offsetXForEach = 10;
-        cell.offsetYForEach = 20;
+        cell.byOffsetXForEach(10);
+        cell.byOffsetYForEach(20);
         /// 加阴影立体效果
         [UIView makeTargetShadowview:cell
                            superView:nil
@@ -34,21 +34,41 @@
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MyFansTBVCell.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)setFrame:(CGRect)frame{
-    JobsLog(@"self.offsetXForEach = %f",self.offsetXForEach);
-    JobsLog(@"self.offsetYForEach = %f",self.offsetYForEach);
-    if (!frame.origin.x) {
-        frame.origin.x += self.offsetXForEach;
-        frame.size.width -= self.offsetXForEach * 2;
-    }
-    if (!frame.origin.y) {
-        frame.origin.y += self.offsetYForEach;
-        frame.size.height -= self.offsetYForEach * 2;
-    }
-    [super setFrame:frame];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MyFansTBVCell.class, @selector(jobsSetFrame)))(self, @selector(jobsSetFrame));
+    if (action) action(frame);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsSetFrame{
+    @jobs_weakify(self)
+    return ^(CGRect frame){
+        @jobs_strongify(self)
+        if (!self) return;
+        JobsLog(@"self.offsetXForEach = %f",self.offsetXForEach);
+        JobsLog(@"self.offsetYForEach = %f",self.offsetYForEach);
+        if (!frame.origin.x) {
+            frame.origin.x += self.offsetXForEach;
+            frame.size.width -= self.offsetXForEach * 2;
+        }
+        if (!frame.origin.y) {
+            frame.origin.y += self.offsetYForEach;
+            frame.size.height -= self.offsetYForEach * 2;
+        }
+        [super setFrame:frame];
+    };
 }
 #pragma mark —— BaseCellProtocol
 +(JobsRetCGFloatByIDBlock _Nonnull)cellHeightByModel{
@@ -62,9 +82,9 @@
     return ^__kindof UITableViewCell *_Nullable(id _Nullable model) {
         @jobs_strongify(self)
         self.imgView
-                .imageURL(@" ".jobsUrl)
+                .imageURL(@" ".jobsURL())
                 .placeholderImage(toStringByInt([model intValue]).add(@".jpeg").img)
-                .options(self.makeSDWebImageOptions)
+                .options(self.jobsMakeSDWebImageOptions())
                 .completed(^(UIImage * _Nullable image,
                              NSError * _Nullable error,
                              SDImageCacheType cacheType,

@@ -68,9 +68,9 @@ Prop_assign()CGFloat jobsVisible;
 +(JobsRetViewByFrameBlock _Nonnull)initByFrame;
 /// 描边：统一设置Layer的线宽+颜色+圆切角（不一定切角）
 -(JobsRetViewByLocationModelBlock _Nonnull)layerBy;
-/// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
+/// 调用方式：view.layerByBorderCor(@"#FFD8D8".jobsCor()).layerByBorderWidth(1);
 -(JobsRetViewByCorBlock _Nonnull)layerByBorderCor;
-/// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
+/// 调用方式：view.layerByBorderCor(@"#FFD8D8".jobsCor()).layerByBorderWidth(1);
 -(JobsRetViewByFloatBlock _Nonnull)layerByBorderWidth;
 /// 切整个View的4个角为统一的切角参数
 -(JobsRetViewByFloatBlock _Nonnull)cornerCutToCircleWithCornerRadius;

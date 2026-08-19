@@ -7,12 +7,6 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
-#import <JobsLanMgr/JobsLanMgr.h>
-#else
-#import "JobsLanMgr.h"
-#endif
-
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
 #else
@@ -23,6 +17,18 @@
 #import <JobsByOCPods/JobsByOCPods.h>
 #else
 #import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import <JobsLanMgr/JobsLanMgr.h>
+#else
+#import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -37,12 +43,6 @@
 #import "JobsDefines.h"
 #endif
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
 //此类解耦手势
 @interface JobsPopUpVC : BaseViewController
@@ -52,6 +52,10 @@ UIGestureRecognizerDelegate
 
 Prop_assign()CGFloat popUpHeight;//默认弹出高度300
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsPopUpVC
+-(JobsRetJobsPopUpVCByBOOLBlock _Nonnull)byHiddenNavigationBar;
+-(JobsRetJobsPopUpVCByCGSizeBlock _Nonnull)byPreferredContentSize;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsPopUpVC
 @end
 
 NS_ASSUME_NONNULL_END
@@ -68,7 +72,7 @@ NS_ASSUME_NONNULL_END
                               toVC:popUpVC
                        comingStyle:ComingStyle_PUSH
                  presentationStyle:UIModalPresentationAutomatic
-                     requestParams:@"".tr
+                     requestParams:@"".jobsTr()
                            success:^(id data) {}
                           animated:YES];
 

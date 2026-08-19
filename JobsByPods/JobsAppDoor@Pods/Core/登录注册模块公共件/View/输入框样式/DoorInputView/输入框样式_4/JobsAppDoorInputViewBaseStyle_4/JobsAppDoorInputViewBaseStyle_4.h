@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_4_20B57D4BCF
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsAppDoor/JobsAppDoorConfig.h>
 #import <JobsAppDoor/JobsAppDoorInputViewBaseStyle.h>
 
@@ -70,6 +76,10 @@ Prop_strong()JobsOCGraphicCaptchaConfig *graphicCaptchaConfig;
      - (instancetype)init NS_UNAVAILABLE;
      - (instancetype)new NS_UNAVAILABLE;
  */
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorInputViewBaseStyle_4
+-(JobsRetJobsAppDoorInputViewBaseStyle_4ByJobsAppDoorInputViewBaseStyleModelBlock _Nonnull)byDoorInputViewBaseStyleModel;
+-(JobsRetJobsAppDoorInputViewBaseStyle_4ByJobsOCGraphicCaptchaConfigBlock _Nonnull)byGraphicCaptchaConfig;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_4
 @end
 
 NS_ASSUME_NONNULL_END

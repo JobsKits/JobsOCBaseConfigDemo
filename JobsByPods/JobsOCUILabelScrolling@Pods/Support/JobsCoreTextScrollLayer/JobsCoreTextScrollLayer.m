@@ -18,16 +18,27 @@ Prop_assign(readwrite)CGFloat textLayoutWidth;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsCoreTextScrollLayer
+@interface JobsCoreTextScrollLayer (JobsPropertyDSLSetterAutogen_0c786b773f)
+-(void)setBaselineY:(CGFloat)data;
+-(void)setDuplicateOriginX:(NSNumber * _Nullable)data;
+-(void)setLineOriginX:(CGFloat)data;
+-(void)setTextLayoutWidth:(CGFloat)data;
+-(void)setTextLine:(CTLineRef)data;
+-(void)setTextWidth:(CGFloat)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsCoreTextScrollLayer
+
 @implementation JobsCoreTextScrollLayer
 
 -(instancetype)init{
-    if (self = [super init]) [self prepareLayer];
+    if (self = [super init]) self.prepareLayer();
     return self;
 }
 
 -(instancetype)initWithLayer:(id)layer{
     if (self = [super initWithLayer:layer]) {
-        [self prepareLayer];
+        self.prepareLayer();
         if ([layer isKindOfClass:JobsCoreTextScrollLayer.class]) {
             JobsCoreTextScrollLayer *sourceLayer = layer;
             self.textLine = sourceLayer.textLine ? CFRetain(sourceLayer.textLine) : NULL;
@@ -44,11 +55,16 @@ Prop_assign(readwrite)CGFloat textLayoutWidth;
     if (_textLine) CFRelease(_textLine);
 }
 
--(void)prepareLayer{
-    self.contentsScale = UIScreen.mainScreen.scale;
-    self.drawsAsynchronously = YES;
-    self.needsDisplayOnBoundsChange = YES;
-    self.anchorPoint = CGPointZero;
+-(jobsByVoidBlock _Nonnull)prepareLayer{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byContentsScale(UIScreen.mainScreen.scale);
+        self.byDrawsAsynchronously(YES);
+        self.byNeedsDisplayOnBoundsChange(YES);
+        self.byAnchorPoint(CGPointZero);
+    };
 }
 
 -(void)updateWithAttributedText:(NSAttributedString *)attributedText
@@ -70,40 +86,103 @@ Prop_assign(readwrite)CGFloat textLayoutWidth;
     CGFloat normalizedHeight = MAX(0, height);
 
     if (_textLine) CFRelease(_textLine);
-    self.textLine = line;
-    self.lineOriginX = -minimumX;
-    self.baselineY = MAX(0, (normalizedHeight - ascent - descent) * 0.5 + descent);
-    self.textLayoutWidth = MAX(0, typographicWidth);
-    self.textWidth = ceil(MAX(0, maximumX - minimumX));
+    self.byTextLine(line);
+    self.byLineOriginX(-minimumX);
+    self.byBaselineY(MAX(0, (normalizedHeight - ascent - descent) * 0.5 + descent));
+    self.byTextLayoutWidth(MAX(0, typographicWidth));
+    self.byTextWidth(ceil(MAX(0, maximumX - minimumX)));
 
     if (duplicateSpacing) {
-        self.duplicateOriginX = @(self.lineOriginX + self.textWidth + MAX(0, duplicateSpacing.doubleValue));
+        self.byDuplicateOriginX(@(self.lineOriginX + self.textWidth + MAX(0, duplicateSpacing.doubleValue)));
     }else{
-        self.duplicateOriginX = nil;
+        self.byDuplicateOriginX(nil);
     }
     CGFloat canvasWidth = self.duplicateOriginX ? self.duplicateOriginX.doubleValue + self.textWidth : self.textWidth;
-    self.bounds = CGRectMake(0, 0, ceil(canvasWidth), normalizedHeight);
-    self.position = CGPointZero;
+    self.byBounds(CGRectMake(0, 0, ceil(canvasWidth), normalizedHeight));
+    self.byPosition(CGPointZero);
     [self setNeedsDisplay];
 }
 
 -(void)drawInContext:(CGContextRef)context{
-    if (!self.textLine) return;
-    CGContextSaveGState(context);
-    CGContextSetShouldAntialias(context, YES);
-    CGContextSetShouldSmoothFonts(context, YES);
-    CGContextSetTextMatrix(context, CGAffineTransformIdentity);
-    CGContextTranslateCTM(context, 0, CGRectGetHeight(self.bounds));
-    CGContextScaleCTM(context, 1, -1);
-    CGContextSetTextPosition(context, self.lineOriginX, self.baselineY);
-    CTLineDraw(self.textLine, context);
-    if (self.duplicateOriginX) {
-        CGContextSetTextPosition(context,
-                                 self.duplicateOriginX.doubleValue,
-                                 self.baselineY);
+    ((((jobsByCGContextRefBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCoreTextScrollLayer.class, @selector(drawInContext)))(self, @selector(drawInContext))))(context);
+}
+-(jobsByCGContextRefBlock _Nonnull)drawInContext{
+    @jobs_weakify(self)
+    return ^(CGContextRef context){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (!self.textLine) return;
+        CGContextSaveGState(context);
+        CGContextSetShouldAntialias(context, YES);
+        CGContextSetShouldSmoothFonts(context, YES);
+        CGContextSetTextMatrix(context, CGAffineTransformIdentity);
+        CGContextTranslateCTM(context, 0, CGRectGetHeight(self.bounds));
+        CGContextScaleCTM(context, 1, -1);
+        CGContextSetTextPosition(context, self.lineOriginX, self.baselineY);
         CTLineDraw(self.textLine, context);
-    }
-    CGContextRestoreGState(context);
+        if (self.duplicateOriginX) {
+            CGContextSetTextPosition(context,
+                                     self.duplicateOriginX.doubleValue,
+                                     self.baselineY);
+            CTLineDraw(self.textLine, context);
+        }
+        CGContextRestoreGState(context);
+    };
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsCoreTextScrollLayer
+-(JobsRetJobsCoreTextScrollLayerByCGFloatBlock _Nonnull)byBaselineY{
+    @jobs_weakify(self)
+    return ^__kindof JobsCoreTextScrollLayer * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setBaselineY:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsCoreTextScrollLayerByCGFloatBlock _Nonnull)byLineOriginX{
+    @jobs_weakify(self)
+    return ^__kindof JobsCoreTextScrollLayer * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setLineOriginX:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsCoreTextScrollLayerByCGFloatBlock _Nonnull)byTextLayoutWidth{
+    @jobs_weakify(self)
+    return ^__kindof JobsCoreTextScrollLayer * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setTextLayoutWidth:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsCoreTextScrollLayerByCGFloatBlock _Nonnull)byTextWidth{
+    @jobs_weakify(self)
+    return ^__kindof JobsCoreTextScrollLayer * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setTextWidth:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsCoreTextScrollLayerByCTLineRefBlock _Nonnull)byTextLine{
+    @jobs_weakify(self)
+    return ^__kindof JobsCoreTextScrollLayer * _Nullable(CTLineRef data){
+        @jobs_strongify(self)
+        [self setTextLine:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsCoreTextScrollLayerByNSNumberBlock _Nonnull)byDuplicateOriginX{
+    @jobs_weakify(self)
+    return ^__kindof JobsCoreTextScrollLayer * _Nullable(NSNumber * _Nullable data){
+        @jobs_strongify(self)
+        [self setDuplicateOriginX:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsCoreTextScrollLayer
 @end

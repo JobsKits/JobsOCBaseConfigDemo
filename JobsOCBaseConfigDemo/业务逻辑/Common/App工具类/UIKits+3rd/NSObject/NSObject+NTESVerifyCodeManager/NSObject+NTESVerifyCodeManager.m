@@ -7,10 +7,78 @@
 
 #import "NSObject+NTESVerifyCodeManager.h"
 
+@implementation NTESVerifyCodeManager (JobsVerifyCodeDSL)
+-(JobsRetNTESVerifyCodeManagerByIDBlock _Nonnull)byDelegate{
+    @jobs_weakify(self)
+    return ^__kindof NTESVerifyCodeManager *_Nullable(id _Nullable data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.delegate = data;
+        return self;
+    };
+}
+
+#define JOBS_NTES_MANAGER_SCALAR_DSL(_type_, _block_type_, _selector_, _property_) \
+-(_block_type_ _Nonnull)_selector_{ \
+    @jobs_weakify(self) \
+    return ^__kindof NTESVerifyCodeManager *_Nullable(_type_ data){ \
+        @jobs_strongify(self) \
+        self._property_ = data; \
+        return self; \
+    }; \
+}
+
+JOBS_NTES_MANAGER_SCALAR_DSL(CGFloat, JobsRetNTESVerifyCodeManagerByCGFloatBlock, byAlpha, alpha)
+JOBS_NTES_MANAGER_SCALAR_DSL(CGRect, JobsRetNTESVerifyCodeManagerByCGRectBlock, byFrame, frame)
+JOBS_NTES_MANAGER_SCALAR_DSL(NTESVerifyCodeLang, JobsRetNTESVerifyCodeManagerByLangBlock, byLang, lang)
+JOBS_NTES_MANAGER_SCALAR_DSL(NTESUserInterfaceStyle, JobsRetNTESVerifyCodeManagerByInterfaceStyleBlock, byUserInterfaceStyle, userInterfaceStyle)
+JOBS_NTES_MANAGER_SCALAR_DSL(NTESVerifyCodeProtocol, JobsRetNTESVerifyCodeManagerByProtocolBlock, byProtocol, protocol)
+JOBS_NTES_MANAGER_SCALAR_DSL(BOOL, JobsRetNTESVerifyCodeManagerByBOOLBlock, byOpenFallBack, openFallBack)
+JOBS_NTES_MANAGER_SCALAR_DSL(NSUInteger, JobsRetNTESVerifyCodeManagerByNSUIntegerBlock, byFallBackCount, fallBackCount)
+JOBS_NTES_MANAGER_SCALAR_DSL(BOOL, JobsRetNTESVerifyCodeManagerByBOOLBlock, byCloseButtonHidden, closeButtonHidden)
+
+#undef JOBS_NTES_MANAGER_SCALAR_DSL
+
+-(JobsRetNTESVerifyCodeManagerByCorBlock _Nonnull)byColor{
+    @jobs_weakify(self)
+    return ^__kindof NTESVerifyCodeManager *_Nullable(UIColor *_Nullable data){
+        @jobs_strongify(self)
+        self.color = data;
+        return self;
+    };
+}
+
+@end
+
+@implementation NTESVerifyCodeStyleConfig (JobsVerifyCodeDSL)
+#define JOBS_NTES_STYLE_DSL(_type_, _block_type_, _selector_, _property_) \
+-(_block_type_ _Nonnull)_selector_{ \
+    @jobs_weakify(self) \
+    return ^__kindof NTESVerifyCodeStyleConfig *_Nullable(_type_ data){ \
+        @jobs_strongify(self) \
+        self._property_ = data; \
+        return self; \
+    }; \
+}
+
+JOBS_NTES_STYLE_DSL(NTESCapBarTextAlign, JobsRetNTESVerifyCodeStyleConfigByTextAlignBlock, byCapBarTextAlign, capBarTextAlign)
+JOBS_NTES_STYLE_DSL(NSString *, JobsRetNTESVerifyCodeStyleConfigByStrBlock, byCapBarTextColor, capBarTextColor)
+JOBS_NTES_STYLE_DSL(NSUInteger, JobsRetNTESVerifyCodeStyleConfigByNSUIntegerBlock, byCapBarTextSize, capBarTextSize)
+JOBS_NTES_STYLE_DSL(NSString *, JobsRetNTESVerifyCodeStyleConfigByStrBlock, byCapBarTextWeight, capBarTextWeight)
+JOBS_NTES_STYLE_DSL(NSString *, JobsRetNTESVerifyCodeStyleConfigByStrBlock, byBorderColor, borderColor)
+JOBS_NTES_STYLE_DSL(NSUInteger, JobsRetNTESVerifyCodeStyleConfigByNSUIntegerBlock, byRadius, radius)
+JOBS_NTES_STYLE_DSL(NSUInteger, JobsRetNTESVerifyCodeStyleConfigByNSUIntegerBlock, byBorderRadius, borderRadius)
+JOBS_NTES_STYLE_DSL(NSString *, JobsRetNTESVerifyCodeStyleConfigByStrBlock, byBackgroundMoving, backgroundMoving)
+JOBS_NTES_STYLE_DSL(NSUInteger, JobsRetNTESVerifyCodeStyleConfigByNSUIntegerBlock, byExecuteBorderRadius, executeBorderRadius)
+JOBS_NTES_STYLE_DSL(NSString *, JobsRetNTESVerifyCodeStyleConfigByStrBlock, byExecuteBackground, executeBackground)
+
+#undef JOBS_NTES_STYLE_DSL
+@end
+
 @implementation NSObject (NTESVerifyCodeManager)
 #pragma mark —— BaseProtocol
 // 显示验证码
--(jobsByVoidBlock)show_verifyCode_NTES{
+-(jobsByVoidBlock _Nonnull)show_verifyCode_NTES{
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
@@ -37,9 +105,14 @@
     JobsLog(@"收到验证结果的回调:(%d,%@,%@)", result, validate, message);
 }
 /// 关闭验证码窗口后的回调
-- (void)verifyCodeCloseWindow{
-    //用户关闭验证后执行的方法
-    JobsLog(@"收到关闭验证码视图的回调");
+- (jobsByVoidBlock _Nonnull)verifyCodeCloseWindow{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        //用户关闭验证后执行的方法
+        JobsLog(@"收到关闭验证码视图的回调");
+    };
 }
 
 - (void)verifyCodeCloseWindow:(NTESVerifyCodeClose)close {
@@ -53,7 +126,7 @@ JobsKey(_verifyCodeManager)
     if(!VerifyCodeManager){
         /// 获取验证码管理对象
         VerifyCodeManager = NTESVerifyCodeManager.getInstance;
-        VerifyCodeManager.delegate = self;
+        VerifyCodeManager.byDelegate(self);
         [VerifyCodeManager configureVerifyCode:网易易盾KEY 
                                        timeout:7.0
                                    styleConfig:self.verifyCodeStyleConfig];
@@ -69,38 +142,33 @@ JobsKey(_verifyCodeManager)
         switch (LanMgr.language) {
             /// 处理 AppLanguageChineseSimplified 分支
             case AppLanguageChineseSimplified:{
-                VerifyCodeManager.lang = NTESVerifyCodeLangCN;
+                VerifyCodeManager.byLang(NTESVerifyCodeLangCN);
             } break;
             /// 处理 AppLanguageChineseTraditional 分支
             case AppLanguageChineseTraditional:{
-                VerifyCodeManager.lang = NTESVerifyCodeLangTW;
+                VerifyCodeManager.byLang(NTESVerifyCodeLangTW);
             } break;
             /// 处理 AppLanguageEnglish 分支
             case AppLanguageEnglish:{
-                VerifyCodeManager.lang = NTESVerifyCodeLangENUS;
+                VerifyCodeManager.byLang(NTESVerifyCodeLangENUS);
             } break;
             /// 处理 AppLanguageTagalog 分支
             case AppLanguageTagalog:{
-                VerifyCodeManager.lang = NTESVerifyCodeLangFIL;
+                VerifyCodeManager.byLang(NTESVerifyCodeLangFIL);
             } break;
         /// 未匹配已知分支时执行兜底处理
         default:
                 break;
         }
         // 设置透明度
-        VerifyCodeManager.alpha = 0.3;
-        VerifyCodeManager.userInterfaceStyle = NTESUserInterfaceStyleDark;
-        // 设置颜色
-        VerifyCodeManager.color = JobsBlackColor;
-        // 设置frame
-        VerifyCodeManager.frame = CGRectNull;
-        // 私有化协议类型
-        VerifyCodeManager.protocol = NTESVerifyCodeProtocolHttps;
-        // 是否开启降级方案
-        VerifyCodeManager.openFallBack = YES;
-        VerifyCodeManager.fallBackCount = 3;
-        // 是否隐藏关闭按钮
-        VerifyCodeManager.closeButtonHidden = NO;
+        VerifyCodeManager.byAlpha(0.3)
+            .byUserInterfaceStyle(NTESUserInterfaceStyleDark)
+            .byColor(JobsBlackColor)
+            .byFrame(CGRectNull)
+            .byProtocol(NTESVerifyCodeProtocolHttps)
+            .byOpenFallBack(YES)
+            .byFallBackCount(3)
+            .byCloseButtonHidden(NO);
         Jobs_setAssociatedRETAIN_NONATOMIC(_verifyCodeManager, VerifyCodeManager)
     };return VerifyCodeManager;
 }
@@ -114,17 +182,17 @@ JobsKey(_verifyCodeStyleConfig)
 -(NTESVerifyCodeStyleConfig *)verifyCodeStyleConfig{
     NTESVerifyCodeStyleConfig *VerifyCodeStyleConfig = Jobs_getAssociatedObject(_verifyCodeStyleConfig);
     if(!VerifyCodeStyleConfig){
-        VerifyCodeStyleConfig = NTESVerifyCodeStyleConfig.new;
-        VerifyCodeStyleConfig.capBarTextAlign = NTESCapBarTextAlignCenter;
-        VerifyCodeStyleConfig.capBarTextColor = @"#25D4D0";
-        VerifyCodeStyleConfig.capBarTextSize = 18;
-        VerifyCodeStyleConfig.capBarTextWeight = @"bold";
-        VerifyCodeStyleConfig.borderColor = @"#25D4D0";
-        VerifyCodeStyleConfig.radius = 10;
-        VerifyCodeStyleConfig.borderRadius = 10;
-        VerifyCodeStyleConfig.backgroundMoving = @"#DC143C";
-        VerifyCodeStyleConfig.executeBorderRadius = 10;
-        VerifyCodeStyleConfig.executeBackground = @"#DC143C";
+        VerifyCodeStyleConfig = NTESVerifyCodeStyleConfig.new
+            .byCapBarTextAlign(NTESCapBarTextAlignCenter)
+            .byCapBarTextColor(@"#25D4D0")
+            .byCapBarTextSize(18)
+            .byCapBarTextWeight(@"bold")
+            .byBorderColor(@"#25D4D0")
+            .byRadius(10)
+            .byBorderRadius(10)
+            .byBackgroundMoving(@"#DC143C")
+            .byExecuteBorderRadius(10)
+            .byExecuteBackground(@"#DC143C");
         Jobs_setAssociatedRETAIN_NONATOMIC(_verifyCodeStyleConfig, VerifyCodeStyleConfig)
     };return VerifyCodeStyleConfig;
 }

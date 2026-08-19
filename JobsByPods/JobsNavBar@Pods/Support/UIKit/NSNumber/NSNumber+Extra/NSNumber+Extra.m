@@ -109,13 +109,18 @@
     };
 }
 
--(CGFloat)byFloat{
-    /// 根据平台进行解包
-    #if TARGET_OS_MAC && !TARGET_OS_IPHONE
-    return [self doubleValue];  // macOS 使用 double
-    #else
-    return [self floatValue];   // iOS 使用 float
-    #endif
+-(JobsRetCGFloatByVoidBlock _Nonnull)byFloat{
+    @jobs_weakify(self)
+    return ^CGFloat{
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+        /// 根据平台进行解包
+        #if TARGET_OS_MAC && !TARGET_OS_IPHONE
+        return [self doubleValue];  // macOS 使用 double
+        #else
+        return [self floatValue];   // iOS 使用 float
+        #endif
+    };
 }
 
 -(JobsRetStrByNumberBlock _Nonnull)toString{

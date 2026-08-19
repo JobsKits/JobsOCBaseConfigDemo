@@ -20,6 +20,12 @@
 #import "JobsBlock.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MasonryModel (DSL)
@@ -39,6 +45,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetMasonryModelByBOOLBlock _Nonnull)byIs_mas_makeConstraints;
 -(JobsRetMasonryModelByUIViewPointerBlock _Nonnull)byView;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN MasonryModel
+-(JobsRetMasonryModelByMASAxisTypeBlock _Nonnull)byAxisType;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END MasonryModel
 @end
 
 NS_ASSUME_NONNULL_END

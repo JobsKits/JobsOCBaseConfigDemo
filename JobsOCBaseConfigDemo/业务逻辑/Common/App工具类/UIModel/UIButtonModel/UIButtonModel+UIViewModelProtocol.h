@@ -6,6 +6,7 @@
 //
 
 #import <objc/runtime.h>
+
 #import <Foundation/Foundation.h>
 #import "NSString+Extra.h"
 
@@ -27,6 +28,12 @@
 #import "JobsModelDSL.h"
 #endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -36,6 +43,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIButtonModel (UIViewModelProtocol)<UIViewModelProtocol>
+
+-(JobsRetStrByVoidBlock _Nonnull)jobsNormalImageURLString;
+-(JobsRetURLByVoidBlock _Nonnull)jobsNormalImageURL;
+-(JobsRetStrByVoidBlock _Nonnull)jobsNormalBgImageURLString;
+-(JobsRetURLByVoidBlock _Nonnull)jobsNormalBgImageURL;
 
 @end
 

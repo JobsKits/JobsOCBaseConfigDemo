@@ -6,6 +6,253 @@
 //
 
 #ifndef Pods_h
+
+#if __has_include(<AFNetworking/AFNetworking.h>)
+#import <AFNetworking/AFNetworking.h>
+#else
+#import "AFNetworking.h"
+#endif
+
+#if __has_include(<BMLongPressDragCellCollectionView/BMLongPressDragCellCollectionView.h>)
+#import <BMLongPressDragCellCollectionView/BMLongPressDragCellCollectionView.h>
+#else
+#import "BMLongPressDragCellCollectionView.h"
+#endif
+
+#if __has_include(<BRPickerView/BRPickerView.h>)
+#import <BRPickerView/BRPickerView.h>
+#else
+#import "BRPickerView.h"
+#endif
+
+#if __has_include(<Flutter/Flutter.h>)
+#import <Flutter/Flutter.h>
+#else
+#import "Flutter.h"
+#endif
+
+#if __has_include(<FMDB/FMDB.h>)
+#import <FMDB/FMDB.h>
+#else
+#import "FMDB.h"
+#endif
+
+#if __has_include(<FSCalendar/FSCalendar.h>)
+#import <FSCalendar/FSCalendar.h>
+#else
+#import "FSCalendar.h"
+#endif
+
+#if __has_include(<GKNavigationBar/GKNavigationBar.h>)
+#import <GKNavigationBar/GKNavigationBar.h>
+#else
+#import "GKNavigationBar.h"
+#endif
+
+#if __has_include(<GKPhotoBrowser/GKPhotoBrowser.h>)
+#import <GKPhotoBrowser/GKPhotoBrowser.h>
+#else
+#import "GKPhotoBrowser.h"
+#endif
+
+#if __has_include(<HTMLReader/HTMLReader.h>)
+#import <HTMLReader/HTMLReader.h>
+#else
+#import "HTMLReader.h"
+#endif
+
+#if __has_include(<HXPhotoPickerObjC/HXPhotoPicker.h>)
+#import <HXPhotoPickerObjC/HXPhotoPicker.h>
+#else
+#import "HXPhotoPicker.h"
+#endif
+
+#if __has_include(<HXRotationTool/UIInterface+HXRotation.h>)
+#import <HXRotationTool/UIInterface+HXRotation.h>
+#else
+#import "UIInterface+HXRotation.h"
+#endif
+
+#if __has_include(<JPImageresizerView/JPImageresizerView.h>)
+#import <JPImageresizerView/JPImageresizerView.h>
+#else
+#import "JPImageresizerView.h"
+#endif
+
+#if __has_include(<JXCategoryView/JXCategoryView.h>)
+#import <JXCategoryView/JXCategoryView.h>
+#else
+#import "JXCategoryView.h"
+#endif
+
+#if __has_include(<JXPagingView/JXPagerView.h>)
+#import <JXPagingView/JXPagerView.h>
+#else
+#import "JXPagerView.h"
+#endif
+
+#if __has_include(<LMJDropdownMenu/LMJDropdownMenu.h>)
+#import <LMJDropdownMenu/LMJDropdownMenu.h>
+#else
+#import "LMJDropdownMenu.h"
+#endif
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
+#if __has_include(<MGSwipeTableCell/MGSwipeTableCell.h>)
+#import <MGSwipeTableCell/MGSwipeTableCell.h>
+#else
+#import "MGSwipeTableCell.h"
+#endif
+
+#if __has_include(<MJExtension/MJExtension.h>)
+#import <MJExtension/MJExtension.h>
+#else
+#import "MJExtension.h"
+#endif
+
+#if __has_include(<MJRefresh/MJRefresh.h>)
+#import <MJRefresh/MJRefresh.h>
+#else
+#import "MJRefresh.h"
+#endif
+
+#if __has_include(<OpenUDID/OpenUDID.h>)
+#import <OpenUDID/OpenUDID.h>
+#else
+#import "OpenUDID.h"
+#endif
+
+#if __has_include(<pop/POP.h>)
+#import <pop/POP.h>
+#else
+#import "POP.h"
+#endif
+
+#if __has_include(<PPBadgeView/PPBadgeView.h>)
+#import <PPBadgeView/PPBadgeView.h>
+#else
+#import "PPBadgeView.h"
+#endif
+
+#if __has_include(<Reachability/Reachability.h>)
+#import <Reachability/Reachability.h>
+#else
+#import "Reachability.h"
+#endif
+
+#if __has_include(<ReactiveObjC/ReactiveObjC.h>)
+#import <ReactiveObjC/ReactiveObjC.h>
+#else
+#import "ReactiveObjC.h"
+#endif
+
+#if __has_include(<SDWebImage/SDWebImage.h>)
+#import <SDWebImage/SDWebImage.h>
+#else
+#import "SDWebImage.h"
+#endif
+
+#if __has_include(<Shimmer/FBShimmering.h>)
+#import <Shimmer/FBShimmering.h>
+#else
+#import "FBShimmering.h"
+#endif
+
+#if __has_include(<SocketRocket/SocketRocket.h>)
+#import <SocketRocket/SocketRocket.h>
+#else
+#import "SocketRocket.h"
+#endif
+
+#if __has_include(<SPAlertController/SPAlertController.h>)
+#import <SPAlertController/SPAlertController.h>
+#else
+#import "SPAlertController.h"
+#endif
+
+#if __has_include(<SZTextView/SZTextView.h>)
+#import <SZTextView/SZTextView.h>
+#else
+#import "SZTextView.h"
+#endif
+
+#if __has_include(<TABAnimated/TABAnimated.h>)
+#import <TABAnimated/TABAnimated.h>
+#else
+#import "TABAnimated.h"
+#endif
+
+#if __has_include(<TFPopup/TFPopup.h>)
+#import <TFPopup/TFPopup.h>
+#else
+#import "TFPopup.h"
+#endif
+
+#if __has_include(<TXFileOperation/TXFileOperation.h>)
+#import <TXFileOperation/TXFileOperation.h>
+#else
+#import "TXFileOperation.h"
+#endif
+
+#if __has_include(<WHToast/WHToast.h>)
+#import <WHToast/WHToast.h>
+#else
+#import "WHToast.h"
+#endif
+
+#if __has_include(<WMZCode/WMZCodeView.h>)
+#import <WMZCode/WMZCodeView.h>
+#else
+#import "WMZCodeView.h"
+#endif
+
+#if __has_include(<XYColorOC/XYColorOC.h>)
+#import <XYColorOC/XYColorOC.h>
+#else
+#import "XYColorOC.h"
+#endif
+
+#if __has_include(<XZMRefresh/XZMRefresh.h>)
+#import <XZMRefresh/XZMRefresh.h>
+#else
+#import "XZMRefresh.h"
+#endif
+
+#if __has_include(<YTKNetwork/YTKNetwork.h>)
+#import <YTKNetwork/YTKNetwork.h>
+#else
+#import "YTKNetwork.h"
+#endif
+
+#if __has_include(<ZBNetworking/ZBNetworking.h>)
+#import <ZBNetworking/ZBNetworking.h>
+#else
+#import "ZBNetworking.h"
+#endif
+
+#if __has_include(<ZFPlayer/ZFPlayer.h>)
+#import <ZFPlayer/ZFPlayer.h>
+#else
+#import "ZFPlayer.h"
+#endif
+
+#if __has_include(<ZMJGanttChart/ZMJGanttChart.h>)
+#import <ZMJGanttChart/ZMJGanttChart.h>
+#else
+#import "ZMJGanttChart.h"
+#endif
+
+#if __has_include(<ZMJTipView/ZMJTipView.h>)
+#import <ZMJTipView/ZMJTipView.h>
+#else
+#import "ZMJTipView.h"
+#endif
+
 #define Pods_h
 /// 以下是 Debug 区段
 #if DEBUG
@@ -32,60 +279,11 @@
 /// 以上是 Debug 区段
 
 #import "UITextView+Placeholder.h"
-#import "UIInterface+HXRotation.h"
-
-#if __has_include(<XYColorOC/XYColorOC.h>)
-#import <XYColorOC/XYColorOC.h>
-#else
-#import "XYColorOC.h"
-#endif
 
 #if __has_include(<VerifyCode/NTESVerifyCodeManager.h>)
 #import <VerifyCode/NTESVerifyCodeManager.h>
 #else
 #import "NTESVerifyCodeManager.h"
-#endif
-
-#if __has_include(<YTKNetwork/YTKNetwork.h>)
-#import <YTKNetwork/YTKNetwork.h>
-#else
-#import "YTKNetwork.h"
-#endif
-
-#if __has_include(<ZBNetworking/ZBNetworking.h>)
-#import <ZBNetworking/ZBNetworking.h>
-#else
-#import "ZBNetworking.h"
-#endif
-
-#if __has_include(<WMZCode/WMZCodeView.h>)
-#import <WMZCode/WMZCodeView.h>
-#else
-#import "WMZCodeView.h"
-#endif
-
-#if __has_include(<FSCalendar/FSCalendar.h>)
-#import <FSCalendar/FSCalendar.h>
-#else
-#import "FSCalendar.h"
-#endif
-
-#if __has_include(<HTMLReader/HTMLReader.h>)
-#import <HTMLReader/HTMLReader.h>
-#else
-#import "HTMLReader.h"
-#endif
-
-#if __has_include(<ZMJGanttChart/ZMJGanttChart.h>)
-#import <ZMJGanttChart/ZMJGanttChart.h>
-#else
-#import "ZMJGanttChart.h"
-#endif
-
-#if __has_include(<LMJDropdownMenu/LMJDropdownMenu.h>)
-#import <LMJDropdownMenu/LMJDropdownMenu.h>
-#else
-#import "LMJDropdownMenu.h"
 #endif
 
 #if __has_include(<WMZBanner/WMZBannerView.h>)
@@ -94,155 +292,17 @@
 #import "WMZBannerView.h"
 #endif
 
-#if __has_include(<ZMJTipView/ZMJTipView.h>)
-#import <ZMJTipView/ZMJTipView.h>
-#else
-#import "ZMJTipView.h"
-#endif
-
-#if __has_include(<SocketRocket/SocketRocket.h>)
-#import <SocketRocket/SocketRocket.h>
-#else
-#import "SocketRocket.h"
-#endif
-
 //#if __has_include(<VerifyCode/NTESVerifyCodeManager.h>)
 //#import <VerifyCode/NTESVerifyCodeManager.h>
 //#else
 //#import "NTESVerifyCodeManager.h"
 //#endif
 
-#if __has_include(<FMDB/FMDB.h>)
-#import <FMDB/FMDB.h>
-#else
-#import "FMDB.h"
-#endif
-
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
-#else
-#import "Masonry.h"
-#endif
-
 //#if __has_include(<SDAutoLayout/SDAutoLayout.h>)
 //#import <SDAutoLayout/SDAutoLayout.h>
 //#else
 //#import "SDAutoLayout.h"
 //#endif
-
-#if __has_include(<TABAnimated/TABAnimated.h>)
-#import <TABAnimated/TABAnimated.h>
-#else
-#import "TABAnimated.h"
-#endif
-
-#if __has_include(<Flutter/Flutter.h>)
-#import <Flutter/Flutter.h>
-#else
-#import "Flutter.h"
-#endif
-
-#if __has_include(<Reachability/Reachability.h>)
-#import <Reachability/Reachability.h>
-#else
-#import "Reachability.h"//检查联网情况
-#endif
-
-#if __has_include(<AFNetworking/AFNetworking.h>)
-#import <AFNetworking/AFNetworking.h>
-#else
-#import "AFNetworking.h"
-#endif
-
-#if __has_include(<SDWebImage/SDWebImage.h>)
-#import <SDWebImage/SDWebImage.h>
-#else
-#import "SDWebImage.h"
-#endif
-
-#if __has_include(<MJExtension/MJExtension.h>)
-#import <MJExtension/MJExtension.h>
-#else
-#import "MJExtension.h"
-#endif
-
-#if __has_include(<MJRefresh/MJRefresh.h>)
-#import <MJRefresh/MJRefresh.h>
-#else
-#import "MJRefresh.h"
-#endif
-
-#if __has_include(<XZMRefresh/XZMRefresh.h>)
-#import <XZMRefresh/XZMRefresh.h>
-#else
-#import "XZMRefresh.h"
-#endif
-
-#if __has_include(<SPAlertController/SPAlertController.h>)
-#import <SPAlertController/SPAlertController.h>
-#else
-#import "SPAlertController.h"
-#endif
-
-#if __has_include(<ReactiveObjC/ReactiveObjC.h>)
-#import <ReactiveObjC/ReactiveObjC.h>
-#else
-#import "ReactiveObjC.h"
-#endif
-
-#if __has_include(<BRPickerView/BRPickerView.h>)
-#import <BRPickerView/BRPickerView.h>
-#else
-#import "BRPickerView.h"
-#endif
-
-#if __has_include(<JXCategoryView/JXCategoryView.h>)
-#import <JXCategoryView/JXCategoryView.h>
-#else
-#import "JXCategoryView.h"
-#endif
-
-#if __has_include(<JXPagingView/JXPagerView.h>)
-#import <JXPagingView/JXPagerView.h>
-#else
-#import "JXPagerView.h"
-#endif
-
-#if __has_include(<JPImageresizerView/JPImageresizerView.h>)
-#import <JPImageresizerView/JPImageresizerView.h>
-#else
-#import "JPImageresizerView.h"
-#endif
-
-#if __has_include(<GKNavigationBar/GKNavigationBar.h>)
-#import <GKNavigationBar/GKNavigationBar.h>
-#else
-#import "GKNavigationBar.h"
-#endif
-
-#if __has_include(<TFPopup/TFPopup.h>)
-#import <TFPopup/TFPopup.h>
-#else
-#import "TFPopup.h"
-#endif
-
-#if __has_include(<PPBadgeView/PPBadgeView.h>)
-#import <PPBadgeView/PPBadgeView.h>
-#else
-#import "PPBadgeView.h"
-#endif
-
-#if __has_include(<WHToast/WHToast.h>)
-#import <WHToast/WHToast.h>
-#else
-#import "WHToast.h"
-#endif
-
-#if __has_include(<MGSwipeTableCell/MGSwipeTableCell.h>)
-#import <MGSwipeTableCell/MGSwipeTableCell.h>
-#else
-#import "MGSwipeTableCell.h"
-#endif
 
 #if __has_include(<lottie-ios/Lottie.h>)
 #import <lottie-ios/Lottie.h>
@@ -254,24 +314,6 @@
 #import <YQImageCompressTool/YQImageCompressTool.h>
 #else
 #import "YQImageCompressTool.h"
-#endif
-
-#if __has_include(<TXFileOperation/TXFileOperation.h>)
-#import <TXFileOperation/TXFileOperation.h>
-#else
-#import "TXFileOperation.h"
-#endif
-
-#if __has_include(<OpenUDID/OpenUDID.h>)
-#import <OpenUDID/OpenUDID.h>
-#else
-#import "OpenUDID.h"
-#endif
-
-#if __has_include(<pop/POP.h>)
-#import <pop/POP.h>
-#else
-#import "POP.h"
 #endif
 
 #if __has_include(<AYCheckManager/AYCheckManager.h>)
@@ -286,50 +328,15 @@
 #import "BEMCheckBoxHeader.h"
 #endif
 
-#if __has_include(<Shimmer/FBShimmering.h>)
-#import <Shimmer/FBShimmering.h>
-#else
-#import "FBShimmering.h"
-#endif
-
 //#if __has_include(<FMDB/FMDB.h>)
 //#import <FMDB/FMDB.h>
 //#else
 //#import "FMDB.h"
 //#endif
 
-#if __has_include(<SZTextView/SZTextView.h>)
-#import <SZTextView/SZTextView.h>
-#else
-#import "SZTextView.h"
-#endif
-
-#if __has_include(<HXPhotoPickerObjC/HXPhotoPicker.h>)
-#import <HXPhotoPickerObjC/HXPhotoPicker.h>
-#else
-#import "HXPhotoPicker.h"
-#endif
-
-#if __has_include(<BMLongPressDragCellCollectionView/BMLongPressDragCellCollectionView.h>)
-#import <BMLongPressDragCellCollectionView/BMLongPressDragCellCollectionView.h>
-#else
-#import "BMLongPressDragCellCollectionView.h"
-#endif
-
-#if __has_include(<GKPhotoBrowser/GKPhotoBrowser.h>)
-#import <GKPhotoBrowser/GKPhotoBrowser.h>
-#else
-#import "GKPhotoBrowser.h"
-#endif
-
 #pragma mark —— ZFPlayer 播放器相关
 //Core
 
-#if __has_include(<ZFPlayer/ZFPlayer.h>)
-#import <ZFPlayer/ZFPlayer.h>
-#else
-#import "ZFPlayer.h"
-#endif
 //AVPlayer
 
 #if __has_include(<ZFPlayer/ZFAVPlayerManager.h>)

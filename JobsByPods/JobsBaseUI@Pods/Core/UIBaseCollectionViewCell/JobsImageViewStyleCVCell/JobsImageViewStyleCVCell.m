@@ -6,6 +6,7 @@
 //
 
 #import "JobsImageViewStyleCVCell.h"
+
 #import <JobsBaseUI/CALayer+Extra.h>
 #import <JobsBaseUI/UIView+Extra.h>
 #import <JobsBaseUI/UICollectionView+JobsRegisterClass.h>
@@ -23,7 +24,17 @@
 }
 #pragma mark —— BaseViewProtocol
 -(UIViewModel *_Nullable)getViewModel{
-    return self.viewModel;
+    JobsRetViewModelByVoidBlock action = ((JobsRetViewModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsImageViewStyleCVCell.class, @selector(jobsGetViewModel)))(self, @selector(jobsGetViewModel));
+    return action ? action() : nil;
+}
+
+-(JobsRetViewModelByVoidBlock _Nonnull)jobsGetViewModel{
+    @jobs_weakify(self)
+    return ^UIViewModel *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.viewModel;
+    };
 }
 #pragma mark —— BaseCellProtocol
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
@@ -53,7 +64,7 @@
     @jobs_weakify(self)
     return ^__kindof UICollectionViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model;
+        self.byViewModel(model);
         self.imageView.byImage(self.viewModel.image);
         return self;
     };
@@ -65,8 +76,13 @@
     };
 }
 #pragma mark —— 一些公有方法
--(UIImageView *)getImageView{
-    return self.imageView;
+-(JobsRetImageViewByVoidBlock _Nonnull)getImageView{
+    @jobs_weakify(self)
+    return ^UIImageView *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.imageView;
+    };
 }
 #pragma mark —— lazyLoad
 /// BaseViewProtocol

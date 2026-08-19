@@ -26,7 +26,7 @@
     @jobs_weakify(self)
     return ^BOOL(id _Nullable data) {
         @jobs_strongify(self)
-        return [self containsObject:data];;
+        return [self containsObject:data];
     };
 }
 

@@ -7,6 +7,13 @@
 
 #import "UITableViewCell+DSL.h"
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN UITableViewCell
+@interface UITableViewCell (JobsPropertyDSLSetterAutogen_6c0189895e)
+-(void)setArrows_size:(CGSize)data;
+-(void)setImg:(UIImage * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UITableViewCell
+
 @implementation UITableViewCell (DSL)
 -(JobsRetTableViewCellByLabelBlock _Nonnull)byTextLabel{
     @jobs_weakify(self)
@@ -152,6 +159,15 @@
     return ^__kindof UITableViewCell *_Nullable(BOOL data){
         @jobs_strongify(self)
         self.selected = data;
+        return self;
+    };
+}
+
+-(JobsRetTableViewCellByBOOLBlock _Nonnull)byJobsSelected{
+    @jobs_weakify(self)
+    return ^__kindof UITableViewCell *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setValue:@(data) forKey:@"jobsSelected"];
         return self;
     };
 }
@@ -302,4 +318,23 @@
 }
 #endif
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN UITableViewCell
+-(JobsRetTableViewCellByImageBlock _Nonnull)byImg{
+    @jobs_weakify(self)
+    return ^__kindof UITableViewCell * _Nullable(UIImage * _Nullable data){
+        @jobs_strongify(self)
+        [self setImg:data];
+        return self;
+    };
+}
+
+-(JobsRetTableViewCellBySizeBlock _Nonnull)byArrows_size{
+    @jobs_weakify(self)
+    return ^__kindof UITableViewCell * _Nullable(CGSize data){
+        @jobs_strongify(self)
+        [self setArrows_size:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UITableViewCell
 @end

@@ -16,15 +16,25 @@
 -(instancetype)init {
     if (self = [super init]) {
         self.displaysAsynchronously = YES;                       // 开启异步绘制
-        self.opaque = YES;                                       // 不透明更高效
+        self.opaque = YES;
         self.byBgColor(UIColor.secondarySystemBackgroundColor);
         self.cornerRadius = 0;
     };return self;
 }
 /// 传递绘制所需的不可变参数（在主线程调用）
 -(id<NSObject>)drawParametersForAsyncLayer:(_ASDisplayLayer *)layer {
-    // 这里不再传 w/h，直接使用 drawRect: 的 bounds 即可；保留行数参数示例
-    return @{ @"lineCount": @(8) };
+    JobsRetIDNSObjectByASDisplayLayerBlock action = ((JobsRetIDNSObjectByASDisplayLayerBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(TDDrawingNode.class, @selector(jobsDrawParametersForAsyncLayer)))(self, @selector(jobsDrawParametersForAsyncLayer));
+    return action ? action(layer) : nil;
+}
+
+-(JobsRetIDNSObjectByASDisplayLayerBlock _Nonnull)jobsDrawParametersForAsyncLayer{
+    @jobs_weakify(self)
+    return ^id<NSObject>(_ASDisplayLayer * layer){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        // 这里不再传 w/h，直接使用 drawRect: 的 bounds 即可；保留行数参数示例
+        return @{ @"lineCount": @(8) };
+    };
 }
 /// 真正的绘制（可能在后台线程调用，必须线程安全）
 +(void)drawRect:(CGRect)bounds
@@ -45,7 +55,7 @@
         jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable line) {
             [line moveToPoint:CGPointMake(12, y)];
             [line addLineToPoint:CGPointMake(CGRectGetWidth(bounds) - 12, y)];
-            line.lineWidth = 1.0;
+            line.byLineWidth(1.0);
             [line stroke];
         });
     }

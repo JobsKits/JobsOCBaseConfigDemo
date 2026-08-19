@@ -12,15 +12,24 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (Extra)
 /// NSBundle
-+(NSBundle *_Nullable)mainBundle;
++(NSBundle *)mainBundle;
++(JobsRetNSBundleByVoidBlock _Nonnull)jobsMainBundle;
 /// NSLocale
-+(NSLocale *_Nullable)currentLocale;
++(NSLocale *)currentLocale;
++(JobsRetNSLocaleByVoidBlock _Nonnull)jobsCurrentLocale;
 /// UIDevice
-+(UIDevice *_Nullable)currentDevice;
++(UIDevice *)currentDevice;
++(JobsRetUIDeviceByVoidBlock _Nonnull)jobsCurrentDevice;
 
 @end
 

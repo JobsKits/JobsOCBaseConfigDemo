@@ -10,7 +10,13 @@
 @implementation JobsChildCommentModel
 #pragma mark —— YYModel
 + (NSDictionary *)modelCustomPropertyMapper{
-    return [super modelCustomPropertyMapper].mutableCopy;
+    return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsChildCommentModel.class, @selector(jobsModelCustomPropertyMapper)))(self, @selector(jobsModelCustomPropertyMapper)))();
+}
+
++ (JobsRetDicByVoidBlock _Nonnull)jobsModelCustomPropertyMapper{
+    return ^NSDictionary *{
+        return [super modelCustomPropertyMapper].mutableCopy;
+    };
 }
 #pragma mark —— MJExtention
 +(NSDictionary *)mj_replacedKeyFromPropertyName {
@@ -23,14 +29,26 @@
 @implementation JobsFirstCommentModel
 #pragma mark —— YYModel
 + (NSDictionary *)modelCustomPropertyMapper{
-    NSMutableDictionary *dict = [super modelCustomPropertyMapper].mutableCopy;
-    dict[@"childDataArr"] = @"child";
-    return dict;
+    return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsFirstCommentModel.class, @selector(jobsModelCustomPropertyMapper)))(self, @selector(jobsModelCustomPropertyMapper)))();
+}
+
++ (JobsRetDicByVoidBlock _Nonnull)jobsModelCustomPropertyMapper{
+    return ^NSDictionary *{
+        NSMutableDictionary *dict = [super modelCustomPropertyMapper].mutableCopy;
+        dict[@"childDataArr"] = @"child";
+        return dict;
+    };
 }
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
-    return @{
-        @"childDataArr" : JobsChildCommentModel.class
+    return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsFirstCommentModel.class, @selector(jobsModelContainerPropertyGenericClass)))(self, @selector(jobsModelContainerPropertyGenericClass)))();
+}
+
++ (JobsRetDicByVoidBlock _Nonnull)jobsModelContainerPropertyGenericClass {
+    return ^NSDictionary *{
+        return @{
+            @"childDataArr" : JobsChildCommentModel.class
+        };
     };
 }
 #pragma mark —— MJExtention
@@ -52,14 +70,26 @@
 @implementation JobsCommentModel
 #pragma mark —— YYModel
 + (NSDictionary *)modelCustomPropertyMapper{
-    return @{
-        @"listDataArr": @"list"
+    return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsCommentModel.class, @selector(jobsModelCustomPropertyMapper)))(self, @selector(jobsModelCustomPropertyMapper)))();
+}
+
++ (JobsRetDicByVoidBlock _Nonnull)jobsModelCustomPropertyMapper{
+    return ^NSDictionary *{
+        return @{
+            @"listDataArr": @"list"
+        };
     };
 }
 
 + (NSDictionary *)modelContainerPropertyGenericClass {
-    return @{
-        @"list" : JobsFirstCommentModel.class
+    return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsCommentModel.class, @selector(jobsModelContainerPropertyGenericClass)))(self, @selector(jobsModelContainerPropertyGenericClass)))();
+}
+
++ (JobsRetDicByVoidBlock _Nonnull)jobsModelContainerPropertyGenericClass {
+    return ^NSDictionary *{
+        return @{
+            @"list" : JobsFirstCommentModel.class
+        };
     };
 }
 #pragma mark —— MJExtention
@@ -77,6 +107,12 @@
 }
 
 @end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsFirstCommentCustomCofigModel
+@interface JobsFirstCommentCustomCofigModel (JobsPropertyDSLSetterAutogen_d731aa0aa7)
+-(void)setChildDataArr:(NSArray <JobsChildCommentModel *>* _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsFirstCommentCustomCofigModel
 
 @implementation JobsFirstCommentCustomCofigModel
 #pragma mark —— 自定义属性
@@ -106,4 +142,14 @@
     return NO;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsFirstCommentCustomCofigModel
+-(JobsRetJobsFirstCommentCustomCofigModelByNSArrayJobsChildCommentModelBlock _Nonnull)byChildDataArr{
+    @jobs_weakify(self)
+    return ^__kindof JobsFirstCommentCustomCofigModel * _Nullable(NSArray <JobsChildCommentModel *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setChildDataArr:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsFirstCommentCustomCofigModel
 @end

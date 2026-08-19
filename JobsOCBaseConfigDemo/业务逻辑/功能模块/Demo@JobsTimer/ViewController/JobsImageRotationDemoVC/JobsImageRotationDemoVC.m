@@ -20,90 +20,150 @@ Prop_strong()UILabel *statusLab;
 Prop_strong()NSMutableArray <UIButton *>*controlBtnMutArr;
 Prop_strong()NSArray <NSString *>*controlTitleArr;
 
--(void)startRotations;
--(void)pauseRotations;
--(void)resumeRotations;
--(void)stopRotations;
+-(jobsByVoidBlock _Nonnull)startRotations;
+-(jobsByVoidBlock _Nonnull)pauseRotations;
+-(jobsByVoidBlock _Nonnull)resumeRotations;
+-(jobsByVoidBlock _Nonnull)stopRotations;
 
 @end
 
 @implementation JobsImageRotationDemoVC
 
 -(void)dealloc{
-    [_clockwiseClockIconView stop];
-    [_counterclockwiseClockIconView stop];
+    if (_clockwiseClockIconView) _clockwiseClockIconView.jobsStop();
+    if (_counterclockwiseClockIconView) _counterclockwiseClockIconView.jobsStop();
     JobsLog(@"%@",JobsLocalFunc);
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if (self.viewModel.pushOrPresent != ComingStyle_Unknown) {
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsImageRotationDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if (self.viewModel.pushOrPresent != ComingStyle_Unknown) {
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"动态时钟图标@JobsImageRotation".tr)
-                .byFont(UIFontWeightRegularSize(16))
-                .byTextCor(JobsLabelColor);
-        })
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"动态时钟图标@JobsImageRotation".jobsTr())
+                    .byFont(UIFontWeightRegularSize(16))
+                    .byTextCor(JobsLabelColor);
+            })
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.descriptionLab.byVisible(YES);
-    self.clockwiseClockIconView.byVisible(YES);
-    self.counterclockwiseClockIconView.byVisible(YES);
-    self.clockwiseLab.byVisible(YES);
-    self.counterclockwiseLab.byVisible(YES);
-    self.statusLab.byVisible(YES);
-    for (UIButton *btn in self.controlBtnMutArr) {
-        btn.byVisible(YES);
-    }
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsImageRotationDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.descriptionLab.byVisible(YES);
+        self.clockwiseClockIconView.byVisible(YES);
+        self.counterclockwiseClockIconView.byVisible(YES);
+        self.clockwiseLab.byVisible(YES);
+        self.counterclockwiseLab.byVisible(YES);
+        self.statusLab.byVisible(YES);
+        for (UIButton *btn in self.controlBtnMutArr) {
+            btn.byVisible(YES);
+        }
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    [self startRotations];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsImageRotationDemoVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+        self.startRotations();
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    [self stopRotations];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsImageRotationDemoVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+        self.stopRotations();
+    };
 }
 #pragma mark —— 一些私有方法
--(void)startRotations{
-    [self.clockwiseClockIconView start];
-    [self.counterclockwiseClockIconView start];
-    self.statusLab.byText(@"旋转中：顺时针 6 秒/周｜逆时针 3 秒/周".tr);
+-(jobsByVoidBlock _Nonnull)startRotations{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.clockwiseClockIconView.start();
+        self.counterclockwiseClockIconView.start();
+        self.statusLab.byText(@"旋转中：顺时针 6 秒/周｜逆时针 3 秒/周".jobsTr());
+    };
 }
 
--(void)pauseRotations{
-    [self.clockwiseClockIconView pause];
-    [self.counterclockwiseClockIconView pause];
-    self.statusLab.byText(@"已暂停".tr);
+-(jobsByVoidBlock _Nonnull)pauseRotations{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (self.clockwiseClockIconView) self.clockwiseClockIconView.pause();
+        if (self.counterclockwiseClockIconView) self.counterclockwiseClockIconView.pause();
+        self.statusLab.byText(@"已暂停".jobsTr());
+    };
 }
 
--(void)resumeRotations{
-    [self.clockwiseClockIconView resume];
-    [self.counterclockwiseClockIconView resume];
-    self.statusLab.byText(@"已继续".tr);
+-(jobsByVoidBlock _Nonnull)resumeRotations{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (self.clockwiseClockIconView) self.clockwiseClockIconView.resume();
+        if (self.counterclockwiseClockIconView) self.counterclockwiseClockIconView.resume();
+        self.statusLab.byText(@"已继续".jobsTr());
+    };
 }
 
--(void)stopRotations{
-    [self.clockwiseClockIconView stop];
-    [self.counterclockwiseClockIconView stop];
-    self.statusLab.byText(@"已停止并复位".tr);
+-(jobsByVoidBlock _Nonnull)stopRotations{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (self.clockwiseClockIconView) self.clockwiseClockIconView.jobsStop();
+        if (self.counterclockwiseClockIconView) self.counterclockwiseClockIconView.jobsStop();
+        self.statusLab.byText(@"已停止并复位".jobsTr());
+    };
 }
 #pragma mark —— lazyLoad
 -(UILabel *)descriptionLab{
@@ -111,7 +171,7 @@ Prop_strong()NSArray <NSString *>*controlTitleArr;
         @jobs_weakify(self)
         _descriptionLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(@"无刻度、固定时针，仅分针绕圆心旋转；方向与速度由外界传入。".tr)
+            label.byText(@"无刻度、固定时针，仅分针绕圆心旋转；方向与速度由外界传入。".jobsTr())
                 .byFont(UIFontWeightRegularSize(15))
                 .byTextCor(JobsSecondaryLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -161,7 +221,7 @@ Prop_strong()NSArray <NSString *>*controlTitleArr;
         @jobs_weakify(self)
         _clockwiseLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(@"默认顺时针\n6 秒/周".tr)
+            label.byText(@"默认顺时针\n6 秒/周".jobsTr())
                 .byFont(UIFontWeightMediumSize(14))
                 .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -180,7 +240,7 @@ Prop_strong()NSArray <NSString *>*controlTitleArr;
         @jobs_weakify(self)
         _counterclockwiseLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(@"逆时针\n3 秒/周".tr)
+            label.byText(@"逆时针\n3 秒/周".jobsTr())
                 .byFont(UIFontWeightMediumSize(14))
                 .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -216,13 +276,13 @@ Prop_strong()NSArray <NSString *>*controlTitleArr;
                     .onClickBy(^(UIButton *data) {
                         @jobs_strongify(self)
                         if (data.tag == 0) {
-                            [self startRotations];
+                            self.startRotations();
                         }else if (data.tag == 1){
-                            [self pauseRotations];
+                            self.pauseRotations();
                         }else if (data.tag == 2){
-                            [self resumeRotations];
+                            self.resumeRotations();
                         }else{
-                            [self stopRotations];
+                            self.stopRotations();
                         }
                     })
                     .byTag(idx)
@@ -249,7 +309,7 @@ Prop_strong()NSArray <NSString *>*controlTitleArr;
 
 -(NSArray<NSString *> *)controlTitleArr{
     if (!_controlTitleArr) {
-        _controlTitleArr = @[@"开始".tr, @"暂停".tr, @"继续".tr, @"停止".tr];
+        _controlTitleArr = @[@"开始".jobsTr(), @"暂停".jobsTr(), @"继续".jobsTr(), @"停止".jobsTr()];
     };return _controlTitleArr;
 }
 
@@ -258,7 +318,7 @@ Prop_strong()NSArray <NSString *>*controlTitleArr;
         @jobs_weakify(self)
         _statusLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(@"等待开始".tr)
+            label.byText(@"等待开始".jobsTr())
                 .byFont(UIFontWeightMediumSize(14))
                 .byTextCor(JobsSecondaryLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)

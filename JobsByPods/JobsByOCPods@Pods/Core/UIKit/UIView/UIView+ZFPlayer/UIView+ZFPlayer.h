@@ -141,7 +141,7 @@ Prop_strong(nullable)CustomZFPlayerControlView *customPlayerControlView;
 Prop_strong(nullable)ZFIJKPlayerManager *ijkPlayerManager;/// ZFPlayer的作者告诉我：如果要兼容FLV流视频格式请用这个
 #endif
 
--(void)enterBackgroundStopPlayer;
+-(jobsByVoidBlock _Nonnull)enterBackgroundStopPlayer;
 
 @end
 

@@ -2,19 +2,13 @@
 //  CADisplayLink+DSL.m
 //  JobsOCDSL
 //
+//  Created by Jobs on 2026年8月3日，星期一.
+//
+
 #import "CADisplayLink+DSL.h"
 
 @implementation CADisplayLink (JobsChain)
--(JobsRetCADisplayLinkByBOOLBlock)byPaused{
-    @jobs_weakify(self)
-    return ^__kindof CADisplayLink *_Nullable(BOOL data){
-        @jobs_strongify(self)
-        self.paused = data;
-        return self;
-    };
-}
-
--(JobsRetCADisplayLinkByNSIntegerBlock)byFrameInterval{
+-(JobsRetCADisplayLinkByNSIntegerBlock _Nonnull)byFrameInterval{
     @jobs_weakify(self)
     return ^__kindof CADisplayLink *_Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -28,7 +22,7 @@
     };
 }
 
--(JobsRetCADisplayLinkByNSIntegerBlock)byPreferredFramesPerSecond{
+-(JobsRetCADisplayLinkByNSIntegerBlock _Nonnull)byPreferredFramesPerSecond{
     @jobs_weakify(self)
     return ^__kindof CADisplayLink *_Nullable(NSInteger data){
         @jobs_strongify(self)
@@ -37,7 +31,7 @@
     };
 }
 
--(JobsRetCADisplayLinkByVoidBlock)byInvalidate{
+-(JobsRetCADisplayLinkByVoidBlock _Nonnull)byInvalidate{
     @jobs_weakify(self)
     return ^__kindof CADisplayLink *_Nullable(void){
         @jobs_strongify(self)
@@ -46,7 +40,7 @@
     };
 }
 #if defined(__IPHONE_15_0)
--(JobsRetCADisplayLinkByCAFrameRateRangeBlock)byPreferredFrameRateRange API_AVAILABLE(ios(15.0)){
+-(JobsRetCADisplayLinkByCAFrameRateRangeBlock _Nonnull)byPreferredFrameRateRange API_AVAILABLE(ios(15.0)){
     @jobs_weakify(self)
     return ^__kindof CADisplayLink *_Nullable(CAFrameRateRange data){
         @jobs_strongify(self)

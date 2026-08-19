@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>
 #else
@@ -46,6 +52,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_assign()CGFloat MIN_HEIGHT;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN RYCuteView
+-(JobsRetRYCuteViewByBOOLBlock _Nonnull)byAnimating;
+-(JobsRetRYCuteViewByCGFloatBlock _Nonnull)byCurveX;
+-(JobsRetRYCuteViewByCGFloatBlock _Nonnull)byCurveY;
+-(JobsRetRYCuteViewByCGFloatBlock _Nonnull)byMHeight;
+-(JobsRetRYCuteViewByCGFloatBlock _Nonnull)byMIN_HEIGHT;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END RYCuteView
 @end
 
 NS_ASSUME_NONNULL_END

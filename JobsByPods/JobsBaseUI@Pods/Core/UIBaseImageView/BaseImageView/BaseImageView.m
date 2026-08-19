@@ -6,6 +6,7 @@
 //
 
 #import "BaseImageView.h"
+
 #import <JobsBaseUI/UIView+Extra.h>
 
 @interface BaseImageView ()
@@ -21,18 +22,28 @@ RACProtocol_synthesize
 BaseViewProtocol_synthesize
 -(instancetype)init{
     if (self = [super init]) {
-        self.userInteractionEnabled = YES;
+        self.byUserInteractionEnabled(YES);
     };return self;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.userInteractionEnabled = YES;
+        self.byUserInteractionEnabled(YES);
     };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseImageView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 /**
  
@@ -43,17 +54,36 @@ BaseViewProtocol_synthesize
      在 UICollectionView 调用 reloaddata 方法后, 强制调用其 layoutIfNeeded 方法, 接着调用刷新完后的操作.
  */
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    /// 在这里设置这个View的size，外界设置的话，在某些情况下会因为内部生命周期的问题，导致异常
-    // self.size = MSPayView.viewSizeByModel(nil);
-    if(!jobsZeroSizeValue(self.layoutSubviewsRectCornerSize)){
-        [self appointCornerCutToCircleByRoundingCorners:self.layoutSubviewsRectCorner
-                                            cornerRadii:self.layoutSubviewsRectCornerSize];
-    }
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseImageView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        /// 在这里设置这个View的size，外界设置的话，在某些情况下会因为内部生命周期的问题，导致异常
+        // self.size = MSPayView.viewSizeByModel(nil);
+        if(!jobsZeroSizeValue(self.layoutSubviewsRectCornerSize)){
+            [self appointCornerCutToCircleByRoundingCorners:self.layoutSubviewsRectCorner
+                                                cornerRadii:self.layoutSubviewsRectCornerSize];
+        }
+    };
 }
 
 -(void)layoutIfNeeded{
-    [super layoutIfNeeded];
+    (((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseImageView.class, @selector(jobsLayoutIfNeeded)))(self, @selector(jobsLayoutIfNeeded)))();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutIfNeeded{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutIfNeeded];
+    };
 }
 
 @end

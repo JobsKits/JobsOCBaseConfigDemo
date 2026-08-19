@@ -15,6 +15,7 @@ Prop_assign()NSInteger numberOfRows;
 Prop_strong()NSMutableDictionary<NSIndexPath *, NSArray<NSNumber *> *> *slotInfo;
 Prop_strong()NSDateFormatter *hourFormatter;
 Prop_strong()NSDateFormatter *twelveHourFormatter;
+-(JobsRetNSIntegerBySpreadsheetViewBlock _Nonnull)jobsNumberOfRows;
 
 @end
 
@@ -25,73 +26,166 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZMJTimeableVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(@"ZMJTimeable".tr)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byBgImage(@"新首页的底图".img)
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1)); // self.gk_navBackgroundColor 和 self.view.backgroundColor        .byNavBgImage(@"导航栏左侧底图".img);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(@"ZMJTimeable".jobsTr())
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byBgImage(@"新首页的底图".img)
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1)); // self.gk_navBackgroundColor 和 self.view.backgroundColor        .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-//    [self.bgImageView removeFromSuperview];
-    self.spreadsheetView.byAlpha(1);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZMJTimeableVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+            [super viewDidLoad];
+            self.view.byBgColor(JobsSystemBackgroundColor);
+            self.makeNavByAlpha(1);
+        //    [self.bgImageView removeFromSuperview];
+            self.spreadsheetView.byAlpha(1);
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-//    [self updateStatusBarCor:JobsOrangeColor];/// 在具体子类实现，不要写在父类
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZMJTimeableVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+            [super viewWillAppear:animated];
+        //    [self updateStatusBarCor:JobsOrangeColor];/// 在具体子类实现，不要写在父类
+    };
 }
 
 -(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZMJTimeableVC.class, @selector(jobsViewWillLayoutSubviews)))(self, @selector(jobsViewWillLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewWillLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZMJTimeableVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZMJTimeableVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-//    [self restoreStatusBarCor];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZMJTimeableVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+            [super viewWillDisappear:animated];
+        //    [self restoreStatusBarCor];
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZMJTimeableVC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+    };
 }
 #pragma mark —— SpreadsheetViewDataSource
-- (NSInteger)numberOfColumns:(SpreadsheetView *)spreadsheetView {
-    return self.channels.count + 1;
+-(JobsRetNSIntegerBySpreadsheetViewBlock _Nonnull)numberOfColumns{
+    @jobs_weakify(self)
+    return ^NSInteger(SpreadsheetView * spreadsheetView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return self.channels.count + 1;
+    };
 }
 
 - (NSInteger)numberOfRows:(SpreadsheetView *)spreadsheetView {
-    return self.numberOfRows;
+    return (((JobsRetNSIntegerBySpreadsheetViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZMJTimeableVC.class, @selector(jobsNumberOfRows)))(self, @selector(jobsNumberOfRows)))(spreadsheetView);
+}
+-(JobsRetNSIntegerBySpreadsheetViewBlock _Nonnull)jobsNumberOfRows{
+    @jobs_weakify(self)
+    return ^NSInteger(SpreadsheetView * spreadsheetView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return self.numberOfRows;
+    };
 }
 
 - (CGFloat)spreadsheetView:(SpreadsheetView *)spreadsheetView widthForColumn:(NSInteger)column {
@@ -102,41 +196,56 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
     return row == 0 ? 44 : 2;
 }
 
-- (NSInteger)frozenColumns:(SpreadsheetView *)spreadsheetView {
-    return 1;
-}
-
-- (NSInteger)frozenRows:(SpreadsheetView *)spreadsheetView {
-    return 1;
-}
-
-- (NSArray<ZMJCellRange *> *)mergedCells:(SpreadsheetView *)spreadsheetView {
-    __block NSMutableArray<ZMJCellRange *> *mergedCells = NSMutableArray.array;
-    for (int row = 0; row < 24; row++) {
-        mergedCells.add([ZMJCellRange cellRangeFrom:[Location locationWithRow:60 * row + 1 column:0]
-                                                           to:[Location locationWithRow:60 * (row + 1) column:0]]);
-    }
-    NSArray<NSNumber *> *seeds = @[@5, @10, @20, @20, @30, @30, @30, @30, @40, @40, @50, @50, @60, @60, @60, @60, @90, @90, @90, @90, @120, @120, @120];
+-(JobsRetNSIntegerBySpreadsheetViewBlock _Nonnull)frozenColumns{
     @jobs_weakify(self)
-    [self.channels enumerateObjectsUsingBlock:^(NSString * _Nonnull channel,
-                                                NSUInteger index,
-                                                BOOL * _Nonnull stop) {
+    return ^NSInteger(SpreadsheetView * spreadsheetView){
         @jobs_strongify(self)
-        NSInteger minutes = 0;
-        while (minutes < 24 * 60) {
-            NSInteger duration = seeds[arc4random_uniform((uint32_t)seeds.count)].integerValue;
-            if (minutes + duration + 1 >= weak_self.numberOfRows) {
-                mergedCells.add([ZMJCellRange cellRangeFrom:[Location locationWithRow:minutes + 1 column:index + 1]
-                                                                   to:[Location locationWithRow:weak_self.numberOfRows - 1 column:index + 1]]);
-                break;
-            }
-            ZMJCellRange *cellRange = [ZMJCellRange cellRangeFrom:[Location locationWithRow:minutes + 1 column:index + 1]
-                                                               to:[Location locationWithRow:minutes + duration + 1 column:index + 1]];
-            mergedCells.add(cellRange);
-            [weak_self.slotInfo setObject:@[@(minutes), @(duration)] forKey:[NSIndexPath indexPathWithRow:cellRange.from.row column:cellRange.from.column]];
-            minutes += duration + 1;
+        if (!self) return (NSInteger){0};
+        return 1;
+    };
+}
+
+-(JobsRetNSIntegerBySpreadsheetViewBlock _Nonnull)frozenRows{
+    @jobs_weakify(self)
+    return ^NSInteger(SpreadsheetView * spreadsheetView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 1;
+    };
+}
+
+-(JobsRetNSArrayZMJCellRangeBySpreadsheetViewBlock _Nonnull)mergedCells{
+    @jobs_weakify(self)
+    return ^NSArray<ZMJCellRange *> *(SpreadsheetView * spreadsheetView){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        __block NSMutableArray<ZMJCellRange *> *mergedCells = NSMutableArray.array;
+        for (int row = 0; row < 24; row++) {
+            mergedCells.add([ZMJCellRange cellRangeFrom:[Location locationWithRow:60 * row + 1 column:0]
+                                                               to:[Location locationWithRow:60 * (row + 1) column:0]]);
         }
-    }];return mergedCells;
+        NSArray<NSNumber *> *seeds = @[@5, @10, @20, @20, @30, @30, @30, @30, @40, @40, @50, @50, @60, @60, @60, @60, @90, @90, @90, @90, @120, @120, @120];
+        @jobs_weakify(self)
+        [self.channels enumerateObjectsUsingBlock:^(NSString * _Nonnull channel,
+                                                    NSUInteger index,
+                                                    BOOL * _Nonnull stop) {
+            @jobs_strongify(self)
+            NSInteger minutes = 0;
+            while (minutes < 24 * 60) {
+                NSInteger duration = seeds[arc4random_uniform((uint32_t)seeds.count)].integerValue;
+                if (minutes + duration + 1 >= weak_self.numberOfRows) {
+                    mergedCells.add([ZMJCellRange cellRangeFrom:[Location locationWithRow:minutes + 1 column:index + 1]
+                                                                       to:[Location locationWithRow:weak_self.numberOfRows - 1 column:index + 1]]);
+                    break;
+                }
+                ZMJCellRange *cellRange = [ZMJCellRange cellRangeFrom:[Location locationWithRow:minutes + 1 column:index + 1]
+                                                                   to:[Location locationWithRow:minutes + duration + 1 column:index + 1]];
+                mergedCells.add(cellRange);
+                [weak_self.slotInfo setObject:@[@(minutes), @(duration)] forKey:[NSIndexPath indexPathWithRow:cellRange.from.row column:cellRange.from.column]];
+                minutes += duration + 1;
+            }
+        }];return mergedCells;
+    };
 }
 
 - (ZMJCell *)spreadsheetView:(SpreadsheetView *)spreadsheetView
@@ -166,7 +275,7 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
         NSInteger duration = minutesDuration[1].integerValue;
         SlotCell *cell = (SlotCell *)[spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(SlotCell.class) forIndexPath:indexPath];
         cell.minutes = minutes % 60;
-        cell.title = @"Dummy Text".tr;
+        cell.title = @"Dummy Text".jobsTr();
         cell.tableHighlight = duration > 20 ? @"Lorem ipsum dolor sit amet, consectetur adipiscing elit" : @"";
         return cell;
     };return [spreadsheetView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(MyBlankCell.class) forIndexPath:indexPath];
@@ -241,7 +350,7 @@ Prop_strong()NSDateFormatter *twelveHourFormatter;
     if(!_spreadsheetView){
         _spreadsheetView = SpreadsheetView.new;
         _spreadsheetView.dataSource = self;
-        _spreadsheetView.delegate   = self;
+        _spreadsheetView.delegate = self;
         _spreadsheetView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [_spreadsheetView registerClass:HourCell.class forCellWithReuseIdentifier:NSStringFromClass(HourCell.class)];
         [_spreadsheetView registerClass:ChannelCell.class forCellWithReuseIdentifier:NSStringFromClass(ChannelCell.class)];

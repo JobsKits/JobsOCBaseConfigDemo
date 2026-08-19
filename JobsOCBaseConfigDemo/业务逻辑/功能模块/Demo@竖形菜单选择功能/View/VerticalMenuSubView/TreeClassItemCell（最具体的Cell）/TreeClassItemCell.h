@@ -22,10 +22,10 @@
 #import "JobsBaseProtocolHeader.h"
 #endif
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
 #else
-#import "JobsOCDSL.h"
+#import "JobsMakes.h"
 #endif
 
 #if __has_include(<JobsModelDSL/JobsModelDSL.h>)
@@ -34,10 +34,10 @@
 #import "JobsModelDSL.h"
 #endif
 
-#if __has_include(<JobsMakes/JobsMakes.h>)
-#import <JobsMakes/JobsMakes.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
 #else
-#import "JobsMakes.h"
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

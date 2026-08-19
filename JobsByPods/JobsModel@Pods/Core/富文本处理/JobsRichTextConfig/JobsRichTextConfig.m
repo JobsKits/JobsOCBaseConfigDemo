@@ -13,7 +13,7 @@
     if (!_paragraphStyle) {
         _paragraphStyle = jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
             /// JobsModel 是底层模型 Pod，不能反向依赖 JobsOCDSL。
-            data.lineSpacing = JobsWidth(10);/// 行间距
+            data.lineSpacing = JobsWidth(10);/// 行距
             data.paragraphSpacing = JobsWidth(20);/// 段落间距
             data.alignment = NSTextAlignmentLeft;/// 对齐方式
             data.firstLineHeadIndent = JobsWidth(30);/// 指定段落开始的缩进像素

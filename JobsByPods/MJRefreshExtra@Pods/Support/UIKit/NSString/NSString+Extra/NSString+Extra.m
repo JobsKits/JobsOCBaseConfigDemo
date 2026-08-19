@@ -24,29 +24,5 @@
     };
 }
 /// 字符串是否包含URL【返回YES包含】
--(BOOL)isContainsUrl{
-    NSString *checkStr = @"https://".add(@"http://");
-    return [self rangeOfString:checkStr].location != NSNotFound;
-}
 /// OC字符串拼接
--(JobsRetStrByStrBlock _Nonnull)add{
-    @jobs_weakify(self)
-    return ^NSMutableString *_Nullable(NSString *_Nonnull str) {
-        @jobs_strongify(self)
-        if(!str) str = JobsEmpty;
-        // 系统的stringByAppendingString方法在参数为nil的时候会崩溃
-        return JobsMutableString([self stringByAppendingString:str]); // 原始字符串不会改变，输出一个新的字符串
-    };
-}
-
--(JobsRetBOOLByIDBlock _Nonnull)isEqualToString{
-    @jobs_weakify(self)
-    return ^BOOL(NSString *data){
-        @jobs_strongify(self)
-        if ([data isKindOfClass:NSString.class]) {
-            return [self isEqualToString:data];
-        };return NO;
-    };
-}
-
 @end

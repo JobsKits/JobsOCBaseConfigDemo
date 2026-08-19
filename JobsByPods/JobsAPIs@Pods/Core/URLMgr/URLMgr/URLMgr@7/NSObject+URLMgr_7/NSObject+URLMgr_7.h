@@ -34,9 +34,11 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSObject (URLMgr_7)
 #pragma mark —— 其他
 /// 获取客服
--(URLManagerModel *)post_operation_advice_config_serviceLines;
+-(URLManagerModel *_Nullable)post_operation_advice_config_serviceLines;
+-(JobsRetURLManagerModelByVoidBlock _Nonnull)jobs_post_operation_advice_config_serviceLines;
 /// kyc 身份证上传
--(URLManagerModel *)post_kyc_image_upload;
+-(URLManagerModel *_Nullable)post_kyc_image_upload;
+-(JobsRetURLManagerModelByVoidBlock _Nonnull)jobs_post_kyc_image_upload;
 
 @end
 

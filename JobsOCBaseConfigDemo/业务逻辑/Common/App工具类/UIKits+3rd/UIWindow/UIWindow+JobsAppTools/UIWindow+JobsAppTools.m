@@ -9,10 +9,15 @@
 
 @implementation UIWindow (JobsAppTools)
 /// 横屏模式下的Window（宽高互换）
--(__kindof UIWindow *)landscape{
-    if(JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape){
-        self.byFrame(self.landscapeWindowFrame());
-    };return self;
+-(JobsRetWindowByVoidBlock _Nonnull)landscape{
+    @jobs_weakify(self)
+    return ^__kindof UIWindow *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if(JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape){
+            self.byFrame(self.landscapeWindowFrame());
+        };return self;
+    };
 }
 
 @end

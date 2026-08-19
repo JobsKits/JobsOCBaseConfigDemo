@@ -7,6 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
+#import "JobsMosaicBrushImageView.h"
+#import "UIImage+JobsMosaicDemo.h"
+
+#if __has_include(<SDWebImage/SDWebImage.h>)
+#import <SDWebImage/SDWebImage.h>
+
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
@@ -31,20 +37,24 @@
 #import "JobsMakes.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
 #import "JobsOCDSL.h"
 #endif
 
-#if __has_include(<SDWebImage/SDWebImage.h>)
-#import <SDWebImage/SDWebImage.h>
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 #define JOBS_MOSAIC_HAS_SDWEBIMAGE 1
 #elif __has_include("SDWebImage.h")
 #import "SDWebImage.h"
@@ -52,9 +62,6 @@
 #else
 #define JOBS_MOSAIC_HAS_SDWEBIMAGE 0
 #endif
-
-#import "JobsMosaicBrushImageView.h"
-#import "UIImage+JobsMosaicDemo.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -66,11 +73,15 @@ Prop_strong()UIImage *originalImage;
 Prop_assign()BOOL hasEdited;
 
 -(NSString *)pageTitle;
--(UIImage *_Nullable)imageForSaving;
--(void)onImageLoaded:(UIImage *)image;
+-(JobsRetStrByVoidBlock _Nonnull)jobsPageTitle;
+-(JobsRetImageByVoidBlock _Nonnull)imageForSaving;
+-(jobsByImageBlock _Nonnull)onImageLoaded;
 -(void)showStatus:(NSString *)text
  hiddenAfterDelay:(BOOL)hiddenAfterDelay;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsMosaicBaseDemoVC
+-(JobsRetJobsMosaicBaseDemoVCByUIImageBlock _Nonnull)byOriginalImage;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsMosaicBaseDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

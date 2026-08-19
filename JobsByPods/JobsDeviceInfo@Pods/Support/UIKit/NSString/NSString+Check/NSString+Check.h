@@ -44,51 +44,51 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBOOLByIDBlock _Nonnull)hasPrefix;
 -(JobsRetBOOLByIDBlock _Nonnull)hasSuffix;
 /// 判断字符串对象是否为狭义范围内的空格
--(BOOL)isNotBlank;
+-(JobsRetBOOLByVoidBlock _Nonnull)isNotBlank;
 /// 判断是否是广义范围内的空格(space、\t、\r、\n)
--(BOOL)isSpace;
+-(JobsRetBOOLByVoidBlock _Nonnull)isSpace;
 /// 判断字符串是否包含空格：返回YES【没有空格】
--(BOOL)isContainBlank;
+-(JobsRetBOOLByVoidBlock _Nonnull)isContainBlank;
 /// 给定某字符串，判断里面的组成char是否全部为某个char
 /// @param standardChar 执行标准
--(BOOL)isAllSameCharWithStandardChar:(char)standardChar;
+-(JobsRetBOOLBycharBlock _Nonnull)isAllSameCharWithStandardChar;
 /// 是否是系统自带九宫格输入 yes-是 no-不是
--(BOOL)isNineKeyBoard;
+-(JobsRetBOOLByVoidBlock _Nonnull)isNineKeyBoard;
 /// 判断是否为整形
--(BOOL)isPureInt;
+-(JobsRetBOOLByVoidBlock _Nonnull)isPureInt;
 /// 判断是否为浮点形
--(BOOL)isPureFloat;
+-(JobsRetBOOLByVoidBlock _Nonnull)isPureFloat;
 /// 判断是否是数字字母结合
--(BOOL)isAlnum;
+-(JobsRetBOOLByVoidBlock _Nonnull)isAlnum;
 /// 判断是否是ASCII码的控制字符
--(BOOL)isCntrl;
+-(JobsRetBOOLByVoidBlock _Nonnull)isCntrl;
 /// 判断是否是为可打印字符(不包含空格)
--(BOOL)isGraph;
+-(JobsRetBOOLByVoidBlock _Nonnull)isGraph;
 /// 判断字符是否为可打印字符（含空格）
--(BOOL)isPrint;
+-(JobsRetBOOLByVoidBlock _Nonnull)isPrint;
 /// 判断是否是小写的英文字母
--(BOOL)isLower;
+-(JobsRetBOOLByVoidBlock _Nonnull)isLower;
 /// 判断字符是否为大写英文字母
--(BOOL)isUpper;
+-(JobsRetBOOLByVoidBlock _Nonnull)isUpper;
 /// 判断字符是否为16进制数字
--(BOOL)isXdigit;
+-(JobsRetBOOLByVoidBlock _Nonnull)isXdigit;
 /// 判断字符是否为标点符号或特殊字符
--(BOOL)isPunct;
+-(JobsRetBOOLByVoidBlock _Nonnull)isPunct;
 /// 是否全是字母（26个英文字母）
--(BOOL)isAllLetterCharacter;
+-(JobsRetBOOLByVoidBlock _Nonnull)isAllLetterCharacter;
 /// 字符串是否包含URL【返回YES包含】
--(BOOL)isContainsUrl;
+-(JobsRetBOOLByVoidBlock _Nonnull)isContainsUrl;
 /// 正则匹配手机号
--(BOOL)checkTelNumber;
+-(JobsRetBOOLByVoidBlock _Nonnull)checkTelNumber;
 /// 正则判断是否为菲律宾手机号码
 /// 菲律宾的手机号码通常有以下格式：
 /// 11位数字，以 9 开头的数字序列
 /// 国际格式为 +63 开头，后面是10位数字
--(BOOL)isPhilippinesPhoneNum;
+-(JobsRetBOOLByVoidBlock _Nonnull)isPhilippinesPhoneNum;
 /// 至少包含一个数字、大写字母、小写字母和特殊字符
--(BOOL)isMixedCharacterString;
+-(JobsRetBOOLByVoidBlock _Nonnull)isMixedCharacterString;
 /// 检查是否是纯数字
--(BOOL)isPureDigit;
+-(JobsRetBOOLByVoidBlock _Nonnull)isPureDigit;
 /// 本字符串是否包含入参字符串的任何字符
 -(JobsRetBOOLByStrBlock _Nonnull)isContainBy;
 /// 本字符串是否不包含入参字符串的任何字符

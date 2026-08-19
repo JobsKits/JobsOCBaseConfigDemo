@@ -52,6 +52,9 @@ Prop_strong()UIFont *animationFont; // 动画最终字体
 Prop_assign()CGFloat moveDistance; // 移动距离,默认为field高度的一半,设置0无效（关闭动画请使用isPlaceholdAnimationable）
 Prop_assign()NSTimeInterval animationTime;
 
+-(JobsRetMagicTextFieldByBOOLBlock _Nonnull)byPlaceholdAnimationable;
+-(JobsRetBOOLByVoidBlock _Nonnull)jobsResignFirstResponder;
+
 @end
 
 NS_ASSUME_NONNULL_END

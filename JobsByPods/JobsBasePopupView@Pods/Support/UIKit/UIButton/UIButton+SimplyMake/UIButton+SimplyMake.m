@@ -583,7 +583,7 @@ JobsKey(_clickBlock)
 -(void)setClickBlock:(jobsByBtnBlock _Nullable)clickBlock{
     Jobs_setAssociatedRETAIN_NONATOMIC(_clickBlock, clickBlock);
 }
-#pragma mark —— Prop_copy(class)jobsByBtnBlock longPressGestureBlock;
+#pragma mark —— Prop_copy(nullableclass)jobsByBtnBlock longPressGestureBlock;
 JobsKey(_longPressGestureBlock)
 @dynamic longPressGestureBlock;
 -(jobsByBtnBlock _Nullable)longPressGestureBlock{

@@ -48,7 +48,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 完整的文件名提取普通文件名和文件后缀名
 -(JobsRetFileNameModelByStrBlock _Nonnull)byFileFullName;
 /// 字符串是否包含URL【返回YES包含】
--(BOOL)isContainsUrl;
+-(JobsRetBOOLByVoidBlock _Nonnull)isContainsUrl;
 /// OC字符串拼接
 -(JobsRetStrByStrBlock _Nonnull)add;
 

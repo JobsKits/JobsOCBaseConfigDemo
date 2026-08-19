@@ -23,8 +23,18 @@
 }
 
 - (void)layoutSubviews {
-    [super layoutSubviews];
-    self.btn.byAlpha(1);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ZMJTaskCell.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        self.btn.byAlpha(1);
+    };
 }
 
 @end

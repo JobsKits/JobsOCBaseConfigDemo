@@ -9,7 +9,7 @@
 
 @interface JobsOCSplashVC (HostGestureRestoration)
 
--(void)restoreHostGesturesOnFinish:(jobsByVoidBlock)block;
+-(jobsByRACSchedulerRecursiveBlock _Nonnull)restoreHostGesturesOnFinish;
 
 @end
 
@@ -44,11 +44,11 @@ static UIViewController *JobsOCSplashOverlayHostViewController(UIViewController 
         gestureRecognizer.byEnabled(NO);
     }
     JobsOCSplashVC *splashVC = [[JobsOCSplashVC alloc] initWithConfiguration:configuration];
-    [splashVC restoreHostGesturesOnFinish:^{
+    splashVC.restoreHostGesturesOnFinish(^{
         [hostGestureRecognizers enumerateObjectsUsingBlock:^(UIGestureRecognizer *gestureRecognizer, NSUInteger idx, BOOL *stop) {
             gestureRecognizer.byEnabled(hostGestureEnabledStates[idx].boolValue);
         }];
-    }];
+    });
     splashVC.view
         .byFrame(overlayHostViewController.view.bounds)
         .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);

@@ -46,7 +46,9 @@ Prop_assign()CGFloat jobsOffsetY;
 /// 结构体
 Prop_assign()CGSize jobsSize;// 二维尺寸
 Prop_assign()CGRect jobsRect;
+-(JobsRetIDByFrameBlock _Nonnull)byJobsRect;
 Prop_assign()CGPoint jobsPoint;
+-(JobsRetIDByCGPointBlock _Nonnull)byJobsPoint;
 Prop_assign()UIRectCorner rectCorner;// 设置切哪个直角
 Prop_assign()CGSize cornerRadii;// 设置切哪个直角的切角矩形
 Prop_assign()UILayoutConstraintAxis axis;

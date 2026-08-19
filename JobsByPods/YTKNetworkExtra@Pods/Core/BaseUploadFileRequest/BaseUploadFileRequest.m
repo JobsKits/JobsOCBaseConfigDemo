@@ -24,7 +24,17 @@ Prop_strong()JobsFileModel *fileModel;
 }
 /// 使用 HTTP 序列化方式
 -(YTKRequestSerializerType)requestSerializerType{
-    return YTKRequestSerializerTypeHTTP;
+    JobsRetYTKRequestSerializerTypeByVoidBlock action = ((JobsRetYTKRequestSerializerTypeByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseUploadFileRequest.class, @selector(jobsRequestSerializerType)))(self, @selector(jobsRequestSerializerType));
+    return action ? action() : (YTKRequestSerializerType){0};
+}
+
+-(JobsRetYTKRequestSerializerTypeByVoidBlock _Nonnull)jobsRequestSerializerType{
+    @jobs_weakify(self)
+    return ^YTKRequestSerializerType{
+        @jobs_strongify(self)
+        if (!self) return (YTKRequestSerializerType){0};
+        return YTKRequestSerializerTypeHTTP;
+    };
 }
 
 -(AFConstructingBlock)constructingBodyBlock {

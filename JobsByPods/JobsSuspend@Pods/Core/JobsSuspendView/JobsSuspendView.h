@@ -42,8 +42,11 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_assign()BOOL isAllowDrag; // 是否允许托拽手势
 Prop_copy()jobsByIDBlock suspendViewBlock;
 
--(void)actionSuspendViewBlock:(jobsByIDBlock _Nullable)suspendLabBlock;
+-(jobsByjobsByIDBlockBlock _Nonnull)actionSuspendViewBlock;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsSuspendView
+-(JobsRetJobsSuspendViewByjobsByIDBlockBlock _Nonnull)bySuspendViewBlock;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsSuspendView
 @end
 
 NS_ASSUME_NONNULL_END

@@ -6,6 +6,12 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "JobsOCExcelCell.h"
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
@@ -20,11 +26,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_copy()NSArray<JobsOCExcelCell *> *cells;
 
-+(instancetype)rowWithCells:(NSArray<JobsOCExcelCell *> *)cells;
-+(instancetype)rowWithValues:(NSArray<NSString *> *)values;
++(JobsRetIDByNSArrayJobsOCExcelCellBlock _Nonnull)rowWithCells;
++(JobsRetIDByNSArrayNSStringBlock _Nonnull)rowWithValues;
 +(instancetype)rowWithValues:(NSArray<NSString *> *)values
              textDisplayMode:(JobsLabelTextDisplayMode)textDisplayMode;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCExcelRow
+-(JobsRetJobsOCExcelRowByNSArrayJobsOCExcelCellBlock _Nonnull)byCells;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCExcelRow
 @end
 
 NS_ASSUME_NONNULL_END

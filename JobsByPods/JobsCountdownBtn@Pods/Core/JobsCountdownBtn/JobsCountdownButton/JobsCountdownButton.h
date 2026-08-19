@@ -48,13 +48,15 @@ Prop_assign()NSTimeInterval jobsCountdownDuration;
 Prop_copy(nullable)NSString *jobsCountdownNormalTitle;
 Prop_copy(nullable)jobsByIDBlock jobsCountdownClickBlock;
 
-+(instancetype)verificationCodeButton;
--(instancetype)jobsConfigAsVerificationCodeButton;
--(instancetype)byJobsCountdownDuration:(NSTimeInterval)duration;
--(instancetype)byJobsCountdownNormalTitle:(NSString *)title;
--(instancetype)byJobsCountdownClickBlock:(jobsByIDBlock _Nullable)block;
--(void)jobsStartCountdown;
--(void)jobsResetCountdownTitle;
++(JobsRetIDByVoidBlock _Nonnull)verificationCodeButton;
+-(JobsRetIDByVoidBlock _Nonnull)jobsConfigAsVerificationCodeButton;
+-(JobsRetIDByNSTimeIntervalBlock _Nonnull)byJobsCountdownDuration;
+-(JobsRetIDByStrBlock _Nonnull)byJobsCountdownNormalTitle;
+-(JobsRetIDByVoidIDBlocks _Nonnull)byJobsCountdownClickBlock;
+-(jobsByVoidBlock _Nonnull)jobsStartCountdown;
+-(jobsByVoidBlock _Nonnull)jobsResetCountdownTitle;
+
+-(jobsByVoidBlock _Nonnull)jobsAwakeFromNib;
 
 @end
 

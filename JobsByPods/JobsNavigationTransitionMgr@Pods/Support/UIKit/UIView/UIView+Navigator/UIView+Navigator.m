@@ -15,7 +15,7 @@
     return ^(__kindof UIView *_Nullable nextView){
         @jobs_strongify(self)
         self.configViewNavigatorByPushview(nextView);
-        nextView.navigator = self.navigator;
+        nextView.byNavigator(self.navigator);
         self.navigator.pushView(nextView,YES);
     };
 }
@@ -50,7 +50,7 @@
     return ^(UIView __kindof * _Nullable superview) {
         @jobs_strongify(self)
         superview.navigator.byFrame(superview.bounds);
-        self.navigator = superview.navigator;
+        self.byNavigator(superview.navigator);
     };
 }
 
@@ -68,7 +68,7 @@
     return ^(UIView __kindof * _Nullable pushview) {
         @jobs_strongify(self)
         self.navigator.byFrame(self.bounds);
-        pushview.navigator = self.navigator;
+        pushview.byNavigator(self.navigator);
     };
 }
 
@@ -88,7 +88,7 @@
              UIView *_Nullable view) {
         @jobs_strongify(self)
         self.navigator.byFrame(view.bounds);
-        view.navigator = superview.navigator;
+        view.byNavigator(superview.navigator);
     };
 }
 #pragma mark —— Prop_strong()JobsViewNavigator *navigator;

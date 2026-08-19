@@ -50,9 +50,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// Tips封装
 -(jobsByIDBlock _Nonnull)tipsByApi;
 /// 打印请求体
--(JobsRetURLRequestByURLSessionTaskBlock _Nullable)printURLSessionRequestMessage;
+-(JobsRetURLRequestByURLSessionTaskBlock _Nonnull)printURLSessionRequestMessage;
 /// 打印URLRequest
--(JobsRetMutableURLRequestByURLRequestBlock _Nullable)printRequestMessage;
+-(JobsRetMutableURLRequestByURLRequestBlock _Nonnull)printRequestMessage;
 
 @end
 

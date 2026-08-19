@@ -24,6 +24,7 @@ JobsLuckyEnvelopeRain wraps JobsOCTimer into a reusable red packet rain view for
 
   spec.dependency 'JobsBaseUI'
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsOCTimer'
 

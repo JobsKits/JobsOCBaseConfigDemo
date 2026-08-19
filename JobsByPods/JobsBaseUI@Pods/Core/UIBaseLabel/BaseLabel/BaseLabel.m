@@ -6,6 +6,7 @@
 //
 
 #import "BaseLabel.h"
+
 #import <JobsBaseUI/UIView+Extra.h>
 #import <JobsBaseUI/NSString+Check.h>
 #import <JobsBaseUI/NSString+Menu.h>
@@ -18,6 +19,33 @@
 @end
 
 @implementation BaseLabel
+-(JobsRetBaseLabelByCGFloatBlock _Nonnull)byJobsOffsetX{
+    @jobs_weakify(self)
+    return ^__kindof BaseLabel *_Nullable(CGFloat data){
+        @jobs_strongify(self)
+        self.jobsOffsetX = data;
+        return self;
+    };
+}
+
+-(JobsRetBaseLabelByCGFloatBlock _Nonnull)byJobsOffsetY{
+    @jobs_weakify(self)
+    return ^__kindof BaseLabel *_Nullable(CGFloat data){
+        @jobs_strongify(self)
+        self.jobsOffsetY = data;
+        return self;
+    };
+}
+
+-(JobsRetBaseLabelByUIEdgeInsetsBlock _Nonnull)byEdgeInsets{
+    @jobs_weakify(self)
+    return ^__kindof BaseLabel *_Nullable(UIEdgeInsets data){
+        @jobs_strongify(self)
+        self.edgeInsets = data;
+        return self;
+    };
+}
+
 UILocationProtocol_synthesize
 -(instancetype)init{
     if (self = [super init]) {
@@ -27,12 +55,12 @@ UILocationProtocol_synthesize
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         {/// 配置相关手势
-            self.numberOfTouchesRequired = 1;
-            self.numberOfTapsRequired = 1;/// ⚠️注意：如果要设置长按手势，此属性必须设置为0⚠️
-            self.minimumPressDuration = 0.1;
-            self.allowableMovement = 1;
-            self.weak_target = self;
-            self.userInteractionEnabled = YES;
+            self.byNumberOfTouchesRequired(1);
+            self.byNumberOfTapsRequired(1);
+            self.byMinimumPressDuration(0.1);
+            self.byAllowableMovement(1);
+            self.byWeak_target(self);
+            self.byUserInteractionEnabled(YES);
             @jobs_weakify(self)
             self.longPressGR_SelImp.selector = selectorBlocks(^id _Nullable(id _Nullable weakSelf,
                                                                             id _Nullable arg) {
@@ -54,7 +82,7 @@ UILocationProtocol_synthesize
 -(jobsByStrBlock _Nonnull)copyText{
     return ^(NSString *_Nullable text){
         text.pasteboard();
-        JobsLog(@"%@%@",@"复制的文字：".tr,text);
+        JobsLog(@"%@%@",@"复制的文字：".jobsTr(),text);
     };
 }
 /// 弹出系统菜单控件
@@ -74,10 +102,10 @@ UILocationProtocol_synthesize
             [menuInteraction presentEditMenuWithConfiguration:configuration];
         } else {
             // 使用 UIMenuController（适配 iOS 16 以下版本）
-            UIMenuController.sharedMenuController.menuItems = nil;
+            UIMenuController.sharedMenuController.byMenuItems(nil);
             UIMenuController *menu = jobsMakeMenuController(^(__kindof UIMenuController * _Nullable menu) {
                 menu.menuItems = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
-                    data.add(@"请复制".tr.initMenuItemBy(selectorBlocks(^id _Nullable(id _Nullable weakSelf,
+                    data.add(@"请复制".jobsTr().initMenuItemBy(selectorBlocks(^id _Nullable(id _Nullable weakSelf,
                                                                                                           id _Nullable arg) {
                         @jobs_strongify(self)
                         if (self.retIDBySelectorBlock) self.retIDBySelectorBlock(weakSelf, arg);
@@ -106,7 +134,7 @@ UILocationProtocol_synthesize
     id identifier = configuration.identifier;
     NSString *text = [identifier isKindOfClass:NSString.class] ? (NSString *)identifier : self.text;
     @jobs_weakify(self)
-    UIAction *copyAction = jobsMakeAction(@"请复制".tr,
+    UIAction *copyAction = jobsMakeAction(@"请复制".jobsTr(),
                                           nil,
                                           nil,
                                           ^(__kindof UIAction * _Nonnull action) {
@@ -137,11 +165,31 @@ UILocationProtocol_synthesize
 }
 #pragma mark —— 复写相关父类方法
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseLabel.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)setFrame:(CGRect)frame{
-    [super setFrame:frame];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseLabel.class, @selector(jobsSetFrame)))(self, @selector(jobsSetFrame));
+    if (action) action(frame);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsSetFrame{
+    @jobs_weakify(self)
+    return ^(CGRect frame){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super setFrame:frame];
+    };
 }
 /// 修改绘制文字的区域，edgeInsets增加bounds
 -(CGRect)textRectForBounds:(CGRect)bounds
@@ -156,16 +204,26 @@ UILocationProtocol_synthesize
 }
 /// 绘制文字
 -(void)drawTextInRect:(CGRect)rect{
-    CGRect newRect = rect;
-    newRect.origin.y += self.jobsOffsetX;
-    newRect.origin.x += self.jobsOffsetY;
-    if (isValue(self.text)) {
-        [super drawTextInRect:UIEdgeInsetsInsetRect(newRect, self.edgeInsets)];
-        self.jobsVisible = YES;
-    } else {
-        [super drawTextInRect:UIEdgeInsetsInsetRect(newRect, UIEdgeInsetsZero)];
-        self.jobsVisible = NO;
-    }
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseLabel.class, @selector(jobsDrawTextInRect)))(self, @selector(jobsDrawTextInRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawTextInRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        CGRect newRect = rect;
+        newRect.origin.y += self.jobsOffsetX;
+        newRect.origin.x += self.jobsOffsetY;
+        if (isValue(self.text)) {
+            [super drawTextInRect:UIEdgeInsetsInsetRect(newRect, self.edgeInsets)];
+            self.byJobsVisible(YES);
+        } else {
+            [super drawTextInRect:UIEdgeInsetsInsetRect(newRect, UIEdgeInsetsZero)];
+            self.byJobsVisible(NO);
+        }
+    };
 }
 #pragma mark —— LazyLoad
 

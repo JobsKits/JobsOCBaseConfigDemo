@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -44,9 +50,17 @@ Prop_assign()JobsTimerType timerType;
 /// 开启“减弱动态效果”时保持静态文本。
 Prop_assign()BOOL respectsReduceMotion;
 
-+(instancetype)continuousConfiguration;
-+(instancetype)pingPongConfiguration;
++(JobsRetIDByVoidBlock _Nonnull)continuousConfiguration;
++(JobsRetIDByVoidBlock _Nonnull)pingPongConfiguration;
 -(instancetype)initWithMode:(JobsLabelScrollMode)mode NS_DESIGNATED_INITIALIZER;
+-(JobsRetJobsLabelScrollConfigurationByNSUIntegerBlock _Nonnull)byMode;
+-(JobsRetJobsLabelScrollConfigurationByCGFloatBlock _Nonnull)bySpeed;
+-(JobsRetJobsLabelScrollConfigurationByCGFloatBlock _Nonnull)bySpacing;
+-(JobsRetJobsLabelScrollConfigurationByNSTimeIntervalBlock _Nonnull)byStartDelay;
+-(JobsRetJobsLabelScrollConfigurationByNSTimeIntervalBlock _Nonnull)byEdgePause;
+-(JobsRetJobsLabelScrollConfigurationByNSIntegerBlock _Nonnull)byFramesPerSecond;
+-(JobsRetJobsLabelScrollConfigurationByNSUIntegerBlock _Nonnull)byTimerType;
+-(JobsRetJobsLabelScrollConfigurationByBOOLBlock _Nonnull)byRespectsReduceMotion;
 
 @end
 

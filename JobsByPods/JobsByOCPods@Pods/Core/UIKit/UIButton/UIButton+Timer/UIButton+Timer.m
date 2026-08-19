@@ -55,14 +55,15 @@ JobsKey(_timer)
                     @jobs_strongify(self)
                     JobsLog(@"按钮计时结束");
                     // 计时结束：恢复可点击 & 切到结束 UI
-                    self.enabled = YES;
+                    self.byEnabled(YES);
                     // 外部配置的 onFinish 回调
                     if (self.onFinish) self.onFinish(t2);
                     if (self.objBlock) self.objBlock(t2);
-                });
+                })
             // 内部时间状态初始化（保险措施）
-            t.accumulatedElapsed = 0;
-            t.lastStartDate      = nil;
+
+                .byAccumulatedElapsed(0)
+                .byLastStartDate(nil);
         });
         Jobs_setAssociatedRETAIN_NONATOMIC(_timer, timer)
     };return timer;
@@ -99,7 +100,7 @@ JobsKey(_timer)
     };
 }
 /// 设置按钮富文本标题
-- (jobsByButtonModelBlock)configTitle{
+- (jobsByButtonModelBlock _Nonnull)configTitle{
     @jobs_weakify(self)
     return ^(UIButtonModel *_Nullable model) {
         @jobs_strongify(self)
@@ -138,13 +139,13 @@ JobsKey(_timer)
     return ^__kindof UIButton *_Nullable(NSInteger startTime) {
         @jobs_strongify(self)
         // 配置总时长
-        self.startTime = startTime;
+        self.byStartTime(startTime);
         // 同步给内部 JobsTimer
         self.timer.byStartTime(startTime);
         // 计时期间是否允许点击
-        self.enabled = self.isCanBeClickWhenTimerCycle;
+        self.byEnabled(self.isCanBeClickWhenTimerCycle);
         // 启动计时
-        [self.timer start];
+        self.timer.start();
         return self;
     };
 }
@@ -153,7 +154,7 @@ JobsKey(_timer)
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable{
         @jobs_strongify(self)
-        [self.timer pause];
+        if (self.timer) self.timer.pause();
         return self;
     };
 }
@@ -162,7 +163,7 @@ JobsKey(_timer)
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable{
         @jobs_strongify(self)
-        [self.timer resume];
+        if (self.timer) self.timer.resume();
         return self;
     };
 }
@@ -171,8 +172,8 @@ JobsKey(_timer)
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable{
         @jobs_strongify(self)
-        self.enabled = YES;
-        [self.timer stop];
+        self.byEnabled(YES);
+        if (self.timer) self.timer.jobsStop();
         return self;
     };
 }
@@ -227,7 +228,7 @@ JobsKey(_timeInterval)
 #pragma mark —— TimerProtocol.onTick
 JobsKey(_onTick)
 //@dynamic onTick;
-- (JobsRetBtnByCGFloatBlocks)byOnTick{
+- (JobsRetBtnByCGFloatBlocks _Nonnull)byOnTick{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(jobsByCGFloatBlock block) {
         @jobs_strongify(self)
@@ -236,7 +237,7 @@ JobsKey(_onTick)
     };
 }
 
--(jobsByCGFloatBlock)onTick{
+-(jobsByCGFloatBlock _Nullable)onTick{
     return Jobs_getAssociatedObject(_onTick);
 }
 
@@ -246,7 +247,7 @@ JobsKey(_onTick)
 #pragma mark —— TimerProtocol.onFinish
 JobsKey(_onFinish)
 //@dynamic onFinish;
-- (JobsRetBtnByJTimerBlocks)byOnFinish{
+- (JobsRetBtnByJTimerBlocks _Nonnull)byOnFinish{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(JobsTimerBlock block) {
         @jobs_strongify(self)
@@ -255,7 +256,7 @@ JobsKey(_onFinish)
     };
 }
 
--(JobsTimerBlock)onFinish{
+-(JobsTimerBlock _Nullable)onFinish{
     return Jobs_getAssociatedObject(_onFinish);
 }
 

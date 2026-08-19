@@ -16,8 +16,13 @@
     };
 }
 ///【实例方法】以MIME编码的字符串数据 转换成 普通NSString对象
--(NSString *_Nullable)mimeData{
-    return NSString.stringByMIMEData(self);
+-(JobsRetStrByVoidBlock _Nonnull)mimeData{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSString.stringByMIMEData(self);
+    };
 }
 #pragma mark —— MIME编码的数据 ==> NSData对象
 ///【类方法】以MIME编码的数据 转换成 NSData对象
@@ -28,8 +33,13 @@
     };
 }
 ///【实例方法】以MIME编码的数据 转换成 NSData对象
--(NSData *_Nullable)dataByMIMEString{
-    return NSString.dataByMIMEString(self);
+-(JobsRetDataByVoidBlock _Nonnull)dataByMIMEString{
+    @jobs_weakify(self)
+    return ^NSData *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSString.dataByMIMEString(self);
+    };
 }
 #pragma mark —— MIME编码的数据 ==> UIImage对象
 ///【类方法】以MIME编码的数据 转换成 UIImage对象
@@ -39,8 +49,13 @@
     };
 }
 ///【实例方法】以MIME编码的数据 转换成 UIImage对象
--(UIImage *_Nullable)imageByMIMEString{
-    return NSString.imageByMIMEString(self);
+-(JobsRetImageByVoidBlock _Nonnull)imageByMIMEString{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSString.imageByMIMEString(self);
+    };
 }
 
 @end

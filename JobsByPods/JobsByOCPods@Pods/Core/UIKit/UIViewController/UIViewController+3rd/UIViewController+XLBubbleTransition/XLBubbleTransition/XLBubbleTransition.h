@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_XLBUBBLETRANSITION_F733844DE5
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsByOCPods/UIViewController+XLBubbleTransition.h>
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
@@ -34,7 +40,12 @@ Prop_assign()XLBubbleTransitionType transitionType;
 Prop_assign()CGRect anchorRect;
 
 /// 初始化方法
-+ (instancetype)transitionWithAnchorRect:(CGRect)anchorRect;
++(JobsRetIDByFrameBlock _Nonnull)transitionWithAnchorRect;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN XLBubbleTransition
+-(JobsRetXLBubbleTransitionByCAShapeLayerBlock _Nonnull)byMaskLayer;
+-(JobsRetXLBubbleTransitionByCGRectBlock _Nonnull)byAnchorRect;
+-(JobsRetXLBubbleTransitionByIDUIViewControllerContextTransitioningBlock _Nonnull)byTransitionContext;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END XLBubbleTransition
 @end
 #endif /* JOBS_HEADER_GUARD_XLBUBBLETRANSITION_F733844DE5 */

@@ -7,19 +7,45 @@
 
 #import "JobsAppDoorInputViewBaseStyle.h"
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsAppDoorInputViewTFModel
+@interface JobsAppDoorInputViewTFModel (JobsPropertyDSLSetterAutogen_f73033874c)
+-(void)setPlaceHolder:(NSString * _Nullable)data;
+-(void)setResString:(NSString * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorInputViewTFModel
+
 @implementation JobsAppDoorInputViewTFModel
 -(NSString *)PlaceHolder{
     if (!_PlaceHolder) {
-        _PlaceHolder = @"".tr;
+        _PlaceHolder = @"".jobsTr();
     };return _PlaceHolder;
 }
 
 -(NSString *)resString{
     if (!_resString) {
-        _resString = @"".tr;
+        _resString = @"".jobsTr();
     };return _resString;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsAppDoorInputViewTFModel
+-(JobsRetJobsAppDoorInputViewTFModelByNSStringBlock _Nonnull)byPlaceHolder{
+    @jobs_weakify(self)
+    return ^__kindof JobsAppDoorInputViewTFModel * _Nullable(NSString * _Nullable data){
+        @jobs_strongify(self)
+        [self setPlaceHolder:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsAppDoorInputViewTFModelByNSStringBlock _Nonnull)byResString{
+    @jobs_weakify(self)
+    return ^__kindof JobsAppDoorInputViewTFModel * _Nullable(NSString * _Nullable data){
+        @jobs_strongify(self)
+        [self setResString:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAppDoorInputViewTFModel
 @end
 
 @interface JobsAppDoorInputViewBaseStyle ()
@@ -30,8 +56,8 @@
 -(JobsAppDoorInputViewTFModel *)textFieldInputModel{
     if (!_textFieldInputModel) {
         _textFieldInputModel = JobsAppDoorInputViewTFModel.new;
-        _textFieldInputModel.resString = @"".tr;
-        _textFieldInputModel.PlaceHolder = self.textField.placeholder;
+        _textFieldInputModel.byResString(@"".jobsTr());
+        _textFieldInputModel.byPlaceHolder(self.textField.placeholder);
     };return _textFieldInputModel;
 }
 

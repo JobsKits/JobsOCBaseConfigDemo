@@ -22,7 +22,7 @@
     @jobs_weakify(self)
     return ^NSString *(NSMutableArray <NSString *>*_Nullable arr){
         @jobs_strongify(self)
-        if (!arr) arr = self.makeStringArr;
+        if (!arr) arr = self.makeStringArr();
         NSCharacterSet *set = [NSCharacterSet characterSetWithCharactersInString:self.specialSymbolsActionBy(arr)];
         /**
             componentsJoinedByString：将array数组转换为string字符串、构造并返回一个NSString对象，该对象是在数组元素之间插入给定分隔符的结果
@@ -39,7 +39,7 @@
     @jobs_weakify(self)
     return ^BOOL(__kindof NSArray *_Nullable arr){
         @jobs_strongify(self)
-        if (!arr) arr = self.makeStringArr;
+        if (!arr) arr = self.makeStringArr();
         NSString *checkStr = self.specialSymbolsActionBy(arr);
         NSArray <NSString *>*checkArr = [checkStr componentsSeparatedByString:@""]; // 意思是通过“,”来切割字符串
         for (NSString *str in checkArr) {
@@ -50,21 +50,27 @@
     };
 }
 #pragma mark —— 一些私有方法
--(NSMutableArray <NSString *>*)makeStringArr{
-    return jobsMakeMutArr(^(NSMutableArray <NSString *>*_Nullable data) {
-        data.add(皇冠符号);
-        data.add(数学符号);
-        data.add(标点符号);
-        data.add(单位符号);
-        data.add(货币符号);
-        data.add(制表符);
-        data.add(特殊符号);
-        data.add(键盘特殊符号);
-        data.add(编号序号);
-        data.add(爱心符号);
-        data.add(箭头符号);
-        data.add(符号图案);
-    });
+-(JobsRetNSMutableArrayNSStringByVoidBlock _Nonnull)makeStringArr{
+    @jobs_weakify(self)
+    return ^NSMutableArray <NSString *>*{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return jobsMakeMutArr(^(NSMutableArray <NSString *>*_Nullable data) {
+            data
+                .add(皇冠符号)
+                .add(数学符号)
+                .add(标点符号)
+                .add(单位符号)
+                .add(货币符号)
+                .add(制表符)
+                .add(特殊符号)
+                .add(键盘特殊符号)
+                .add(编号序号)
+                .add(爱心符号)
+                .add(箭头符号)
+                .add(符号图案);
+        });
+    };
 }
 
 @end

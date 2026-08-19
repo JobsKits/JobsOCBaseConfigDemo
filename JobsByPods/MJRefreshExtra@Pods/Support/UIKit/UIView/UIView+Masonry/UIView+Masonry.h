@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (Masonry)
 
-Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
+Prop_copy(nullable)jobsByMASConstraintMakerBlock masonryBlock;
 #pragma mark —— 一些Masonry算法
 /// 制作一个带有n*m小矩形内容的大矩形（二次封装）
 -(jobsByViewArrayRowsColumnsBlock _Nonnull)gridLayoutBy;
@@ -69,9 +69,9 @@ NS_ASSUME_NONNULL_END
              @jobs_weakify(self)
              _forgotten_code_btn = self.addSubview(BaseButton.jobsInit()
                                                    .bgColorBy(JobsClearColor)
-                                                   .jobsResetBtnTitleCor(@"#FF0000".cor)
+                                                   .jobsResetBtnTitleCor(@"#FF0000".jobsCor())
                                                    .jobsResetBtnTitleFont(pingFangHKRegular(JobsWidth(13)))
-                                                   .jobsResetBtnTitle(@"Forgot Password?".tr)
+                                                   .jobsResetBtnTitle(@"Forgot Password?".jobsTr())
                                                    .onClickBy(^(UIButton *x){
                                                        @jobs_strongify(self)
                                                        self.getCurrentViewController.comingToPushVC(FMForgotPwdVC.new);
@@ -96,11 +96,11 @@ NS_ASSUME_NONNULL_END
                  .jobsResetImagePlacement(NSDirectionalRectEdgeTop)
                  .jobsResetImagePadding(1)
                  .jobsResetBtnImage(@"Betslip".img))
-                 .jobsResetBtnTitleCor(@"#666666".cor)
+                 .jobsResetBtnTitleCor(@"#666666".jobsCor())
                  .jobsResetBtnTitleFont(pingFangHKLight(JobsWidth(12)))
-                 .jobsResetBtnTitle(@"Betslip".tr)
+                 .jobsResetBtnTitle(@"Betslip".jobsTr())
                  .onClickBy(^(UIButton *x){
-                     toastBy(@"Betslip".tr);
+                     toastBy(@"Betslip".jobsTr());
                  }).onLongPressGestureBy(^(id data){
                      JobsLog(@"");
                  }))
@@ -109,11 +109,11 @@ NS_ASSUME_NONNULL_END
              .jobsResetImagePlacement(NSDirectionalRectEdgeTop)
              .jobsResetImagePadding(1)
              .jobsResetBtnImage(@"Statement".img))
-             .jobsResetBtnTitleCor(@"#666666".cor)
+             .jobsResetBtnTitleCor(@"#666666".jobsCor())
              .jobsResetBtnTitleFont(pingFangHKLight(JobsWidth(12)))
-             .jobsResetBtnTitle(@"Statement".tr)
+             .jobsResetBtnTitle(@"Statement".jobsTr())
              .onClickBy(^(UIButton *x){
-                 toastBy(@"Statement".tr);
+                 toastBy(@"Statement".jobsTr());
              }).onLongPressGestureBy(^(id data){
                  JobsLog(@"");
              }))
@@ -122,11 +122,11 @@ NS_ASSUME_NONNULL_END
              .jobsResetImagePlacement(NSDirectionalRectEdgeTop)
              .jobsResetImagePadding(1)
              .jobsResetBtnImage(@"Promo".img))
-             .jobsResetBtnTitleCor(@"#666666".cor)
+             .jobsResetBtnTitleCor(@"#666666".jobsCor())
              .jobsResetBtnTitleFont(pingFangHKLight(JobsWidth(12)))
-             .jobsResetBtnTitle(@"Promo".tr)
+             .jobsResetBtnTitle(@"Promo".jobsTr())
              .onClickBy(^(UIButton *x){
-                 toastBy(@"Promo".tr);
+                 toastBy(@"Promo".jobsTr());
              }).onLongPressGestureBy(^(id data){
                  JobsLog(@"");
              }))
@@ -135,11 +135,11 @@ NS_ASSUME_NONNULL_END
              .jobsResetImagePlacement(NSDirectionalRectEdgeTop)
              .jobsResetImagePadding(1)
              .jobsResetBtnImage(@"Security".img))
-             .jobsResetBtnTitleCor(@"#666666".cor)
+             .jobsResetBtnTitleCor(@"#666666".jobsCor())
              .jobsResetBtnTitleFont(pingFangHKLight(JobsWidth(12)))
-             .jobsResetBtnTitle(@"Security".tr)
+             .jobsResetBtnTitle(@"Security".jobsTr())
              .onClickBy(^(UIButton *x){
-                 toastBy(@"Security".tr);
+                 toastBy(@"Security".jobsTr());
              }).onLongPressGestureBy(^(id data){
                  JobsLog(@"");
              }))
@@ -148,11 +148,11 @@ NS_ASSUME_NONNULL_END
              .jobsResetImagePlacement(NSDirectionalRectEdgeTop)
              .jobsResetImagePadding(1)
              .jobsResetBtnImage(@"Help Center".img))
-             .jobsResetBtnTitleCor(@"#666666".cor)
+             .jobsResetBtnTitleCor(@"#666666".jobsCor())
              .jobsResetBtnTitleFont(pingFangHKLight(JobsWidth(12)))
-             .jobsResetBtnTitle(@"Help Center".tr)
+             .jobsResetBtnTitle(@"Help Center".jobsTr())
              .onClickBy(^(UIButton *x){
-                 toastBy(@"Help Center".tr);
+                 toastBy(@"Help Center".jobsTr());
              }).onLongPressGestureBy(^(id data){
                  JobsLog(@"");
              }))
@@ -161,11 +161,11 @@ NS_ASSUME_NONNULL_END
              .jobsResetImagePlacement(NSDirectionalRectEdgeTop)
              .jobsResetImagePadding(1)
              .jobsResetBtnImage(@"Feedback".img))
-             .jobsResetBtnTitleCor(@"#666666".cor)
+             .jobsResetBtnTitleCor(@"#666666".jobsCor())
              .jobsResetBtnTitleFont(pingFangHKLight(JobsWidth(12)))
-             .jobsResetBtnTitle(@"Feedback".tr)
+             .jobsResetBtnTitle(@"Feedback".jobsTr())
              .onClickBy(^(UIButton *x){
-                 toastBy(@"Feedback".tr);
+                 toastBy(@"Feedback".jobsTr());
              }).onLongPressGestureBy(^(id data){
                  JobsLog(@"");
              }));

@@ -9,8 +9,13 @@
 
 @implementation NSString (Debug)
 /// 该文字是否是Debug定义的文字
--(BOOL)isDebugText{
-    return self.isEqualToString(TextModelDataString.tr);
+-(JobsRetBOOLByVoidBlock _Nonnull)isDebugText{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return self.isEqualToString(TextModelDataString.jobsTr());
+    };
 }
 
 @end

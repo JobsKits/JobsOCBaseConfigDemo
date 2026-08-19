@@ -14,49 +14,86 @@ Prop_strong()UILabel *valueLabel;
 Prop_strong()UISlider *blockSizeSlider;
 Prop_assign()NSUInteger renderVersion;
 
--(void)sliderValueChanged:(UISlider *)slider;
--(void)applyCurrentMosaic;
+-(jobsBySliderBlock _Nonnull)sliderValueChanged;
+-(jobsByVoidBlock _Nonnull)applyCurrentMosaic;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsMosaicWholeImageDemoVC
+@interface JobsMosaicWholeImageDemoVC (JobsPropertyDSLSetterAutogen_18ccf6b4d1)
+-(void)setHasEdited:(BOOL)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsMosaicWholeImageDemoVC
+
 @implementation JobsMosaicWholeImageDemoVC
--(NSString *)pageTitle{
-    return @"整图粗细马赛克".tr;
+-(JobsRetStrByVoidBlock _Nonnull)jobsPageTitle{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"整图粗细马赛克".jobsTr();
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.controlView.byAlpha(1);
-    [self applyCurrentMosaic];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMosaicWholeImageDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
 }
 
--(void)onImageLoaded:(UIImage *)image{
-    [super onImageLoaded:image];
-    if (_controlView) [self applyCurrentMosaic];
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.controlView.byAlpha(1);
+        self.applyCurrentMosaic();
+    };
 }
 
--(void)sliderValueChanged:(UISlider *)slider{
-    [self applyCurrentMosaic];
+-(jobsByImageBlock _Nonnull)onImageLoaded{
+    @jobs_weakify(self)
+    return ^(UIImage * image){
+        @jobs_strongify(self)
+        if (!self) return;
+        jobsByImageBlock action = [super onImageLoaded];
+        if (action) action(image);
+        if (_controlView) self.applyCurrentMosaic();
+    };
 }
 
--(void)applyCurrentMosaic{
-    UIImage *sourceImage = self.originalImage;
-    if (!sourceImage) return;
-    CGFloat blockSize = self.blockSizeSlider.value;
-    self.valueLabel.byText([NSString stringWithFormat:@"像素块：%.0f", blockSize]);
-    NSUInteger currentVersion = ++self.renderVersion;
-    [self showStatus:@"正在生成整图马赛克".tr
-    hiddenAfterDelay:NO];
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        UIImage *resultImage = [sourceImage jobs_mosaicPixelatedImageWithBlockSize:blockSize];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (currentVersion != self.renderVersion) return;
-            self.imageView.byImage(resultImage);
-            self.hasEdited = YES;
-            [self showStatus:@"拖动滑块可调节马赛克粗细".tr
-            hiddenAfterDelay:YES];
+-(jobsBySliderBlock _Nonnull)sliderValueChanged{
+    @jobs_weakify(self)
+    return ^(UISlider * slider){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.applyCurrentMosaic();
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)applyCurrentMosaic{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        UIImage *sourceImage = self.originalImage;
+        if (!sourceImage) return;
+        CGFloat blockSize = self.blockSizeSlider.value;
+        self.valueLabel.byText([NSString stringWithFormat:@"像素块：%.0f", blockSize]);
+        NSUInteger currentVersion = ++self.renderVersion;
+        [self showStatus:@"正在生成整图马赛克".jobsTr()
+        hiddenAfterDelay:NO];
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+            UIImage *resultImage = sourceImage.jobs_mosaicPixelatedImageWithBlockSize(blockSize);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (currentVersion != self.renderVersion) return;
+                self.imageView.byImage(resultImage);
+                self.byHasEdited(YES);
+                [self showStatus:@"拖动滑块可调节马赛克粗细".jobsTr()
+                hiddenAfterDelay:YES];
+            });
         });
-    });
+    };
 }
 #pragma mark —— LazyLoad
 -(UIView *)controlView{
@@ -110,7 +147,7 @@ Prop_assign()NSUInteger renderVersion;
                 .byMaximumValue(46)
                 .byValue(18)
                 .onJobsChange(^(__kindof UIControl * _Nullable control) {
-                    [weak_self sliderValueChanged:(UISlider *)control];
+                    weak_self.sliderValueChanged((UISlider *)control);
                 })
                 .addOn(_controlView)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -121,4 +158,14 @@ Prop_assign()NSUInteger renderVersion;
     };return _blockSizeSlider;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsMosaicWholeImageDemoVC
+-(JobsRetJobsMosaicWholeImageDemoVCByBOOLBlock _Nonnull)byHasEdited{
+    @jobs_weakify(self)
+    return ^__kindof JobsMosaicWholeImageDemoVC * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setHasEdited:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsMosaicWholeImageDemoVC
 @end

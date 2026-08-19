@@ -31,6 +31,9 @@ JobsOCWebSocket wraps SocketRocket connection state, heartbeat pings, exponentia
   spec.frameworks       = ['Foundation']
 
   spec.dependency 'SocketRocket'
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsOCDefs'
+  spec.dependency 'SRWebSocketExtra'
 
   JobsPodspecKitForJobsOCWebSocket.add_support_subspec(spec, support_context)
   JobsPodspecKitForJobsOCWebSocket.apply_standard_exclude_files(spec)

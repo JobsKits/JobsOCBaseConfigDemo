@@ -15,7 +15,7 @@
         NSString *raw = SELF.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
         if (!isValue(raw)) { return nil; }
         // 1) 拒绝网络：同步接口不触网
-        if (SELF.isContainsUrl) { return nil; }
+        if (SELF.isContainsUrl()) { return nil; }
         // 2) dataURL: data:image/png;base64,xxxx
         if ([raw hasPrefix:@"data:image/"]) {
             UIImage *img = self.imageByDataURL(raw);
@@ -58,7 +58,16 @@
 }
 /// 获取当前时间
 -(NSDate *)currentDate{
-    return NSDate.date;
+    return (((JobsRetDateByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobsCurrentDate)))(self, @selector(jobsCurrentDate)))();
+}
+
+-(JobsRetDateByVoidBlock _Nonnull)jobsCurrentDate{
+    @jobs_weakify(self)
+    return ^NSDate *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSDate.date;
+    };
 }
 /**
 
@@ -94,16 +103,34 @@
     };
 }
 /// NSBundle
-+(NSBundle *_Nullable)mainBundle{
-    return NSBundle.mainBundle;
++(NSBundle *)mainBundle{
+    return (((JobsRetNSBundleByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(NSObject.class, @selector(jobsMainBundle)))(self, @selector(jobsMainBundle)))();
+}
+
++(JobsRetNSBundleByVoidBlock _Nonnull)jobsMainBundle{
+    return ^NSBundle *_Nullable{
+        return NSBundle.mainBundle;
+    };
 }
 /// NSLocale
-+(NSLocale *_Nullable)currentLocale{
-    return NSLocale.currentLocale;
++(NSLocale *)currentLocale{
+    return (((JobsRetNSLocaleByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(NSObject.class, @selector(jobsCurrentLocale)))(self, @selector(jobsCurrentLocale)))();
+}
+
++(JobsRetNSLocaleByVoidBlock _Nonnull)jobsCurrentLocale{
+    return ^NSLocale *_Nullable{
+        return NSLocale.currentLocale;
+    };
 }
 /// UIDevice
-+(UIDevice *_Nullable)currentDevice{
-    return UIDevice.currentDevice;
++(UIDevice *)currentDevice{
+    return (((JobsRetUIDeviceByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(NSObject.class, @selector(jobsCurrentDevice)))(self, @selector(jobsCurrentDevice)))();
+}
+
++(JobsRetUIDeviceByVoidBlock _Nonnull)jobsCurrentDevice{
+    return ^UIDevice *_Nullable{
+        return UIDevice.currentDevice;
+    };
 }
 
 @end

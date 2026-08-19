@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 #import "JobsWidgetCenterBridge.h"
 
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
@@ -38,6 +39,12 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -48,6 +55,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WidgetVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN WidgetVC
+-(JobsRetWidgetVCByJobsWidgetDemoFamilyBlock _Nonnull)byWidgetFamily;
+-(JobsRetWidgetVCByNSIntegerBlock _Nonnull)byCounter;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END WidgetVC
 @end
 
 NS_ASSUME_NONNULL_END

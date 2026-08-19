@@ -10,6 +10,11 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>
 #else
@@ -25,7 +30,9 @@
 @protocol HAHandleDemoViewDelegate <NSObject>
 @optional
 -(void)animationCompleted;
+-(jobsByVoidBlock _Nonnull)jobsAnimationCompleted;
 -(void)animationCancel;
+-(jobsByVoidBlock _Nonnull)jobsAnimationCancel;
 
 @end
 
@@ -41,9 +48,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_weak()id<HAHandleDemoViewDelegate> delegate;
 
--(void)handleBtnTouchDownAction;
--(void)handleBtnTouchUpOutsideAction;
+-(jobsByVoidBlock _Nonnull)handleBtnTouchDownAction;
+-(jobsByVoidBlock _Nonnull)handleBtnTouchUpOutsideAction;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN HAHandleDemoView
+-(JobsRetHAHandleDemoViewByNSTimerBlock _Nonnull)byEnlangerTimer;
+-(JobsRetHAHandleDemoViewByNSTimerBlock _Nonnull)byShrinkTimer;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END HAHandleDemoView
 @end
 
 NS_ASSUME_NONNULL_END

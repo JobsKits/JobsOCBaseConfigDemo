@@ -50,7 +50,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(BaseButton *)leftBtn;
 -(BaseButton *)rightBtn;
 /// 获取绑定的数据源
--(UIViewModel *)getViewModel;
+-(UIViewModel *_Nullable)getViewModel;
+-(JobsRetViewModelByVoidBlock _Nonnull)jobsGetViewModel;
 
 @end
 

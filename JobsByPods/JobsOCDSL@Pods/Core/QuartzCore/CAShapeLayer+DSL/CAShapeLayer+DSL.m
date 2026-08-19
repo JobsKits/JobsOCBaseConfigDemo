@@ -41,7 +41,7 @@
     @jobs_weakify(self)
     return ^__kindof CAShapeLayer *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
-        self.strokeColor = data.CGColor;
+        self.byStrokeColor(data.CGColor);
         return self;
     };
 }
@@ -59,7 +59,7 @@
     @jobs_weakify(self)
     return ^__kindof CAShapeLayer *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
-        self.fillColor = data.CGColor;
+        self.byFillColor(data.CGColor);
         return self;
     };
 }

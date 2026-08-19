@@ -22,6 +22,12 @@
 #import "JobsBlock.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSData (MIME)
@@ -29,11 +35,11 @@ NS_ASSUME_NONNULL_BEGIN
 ///【类方法】以MIME编码的数据 转换成 NSData对象
 +(JobsRetDataByStrBlock _Nonnull)dataByMIMEString;
 ///【实例方法】以MIME编码的数据 转换成 NSData对象
--(NSData *_Nullable)dataByMIMEString:(NSString *_Nonnull)MIMEString;
+-(JobsRetDataByStrBlock _Nonnull)dataByMIMEString;
 ///【类方法】NSData对象 转换成 以MIME编码的数据
 +(JobsRetStrByDataBlock _Nonnull)MIMEStringByImage;
 ///【实例方法】NSData对象 转换成 以MIME编码的数据
--(NSString *_Nullable)MIMEStringByImage;
+-(JobsRetStrByVoidBlock _Nonnull)MIMEStringByImage;
 
 @end
 

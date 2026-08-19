@@ -7,6 +7,9 @@
 
 #import <UIKit/UIKit.h>
 
+#import "JobsMosaicWholeImageDemoVC.h"
+#import "JobsMosaicBrushDemoVC.h"
+
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
@@ -19,20 +22,17 @@
 #import "JobsBaseUI.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
 #import "JobsOCDSL.h"
 #endif
 
-#import "JobsMosaicWholeImageDemoVC.h"
-#import "JobsMosaicBrushDemoVC.h"
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

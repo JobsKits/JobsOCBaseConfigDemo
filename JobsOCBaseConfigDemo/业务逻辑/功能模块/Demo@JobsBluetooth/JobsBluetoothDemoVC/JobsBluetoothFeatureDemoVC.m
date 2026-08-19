@@ -17,9 +17,9 @@ Prop_strong()UITextView *logTextView;
 Prop_strong()NSMutableArray <NSString *>*logLines;
 Prop_strong()JobsBluetoothManager *bluetoothManager;
 
--(void)runFeature;
--(void)appendLog:(NSString *)message;
--(NSString *)localizedBluetoothLogMessage:(NSString *)message;
+-(jobsByVoidBlock _Nonnull)runFeature;
+-(jobsByStrBlock _Nonnull)appendLog;
+-(JobsRetStrByStrBlock _Nonnull)localizedBluetoothLogMessage;
 
 @end
 
@@ -33,80 +33,115 @@ Prop_strong()JobsBluetoothManager *bluetoothManager;
 }
 
 -(void)loadView{
-    [super loadView];
-    self.viewModel.byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-        data.byText(self.featureTitle)
-            .byFont(UIFontWeightRegularSize(16));
-    });
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBluetoothFeatureDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        self.viewModel.byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+            data.byText(self.featureTitle)
+                .byFont(UIFontWeightRegularSize(16));
+        });
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.descriptionLabel.byVisible(YES);
-    self.executeButton.byVisible(YES);
-    self.logTextView.byVisible(YES);
-    [self appendLog:@"详情页已进入，点击蓝色按钮开始演示。".tr];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBluetoothFeatureDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
 }
 
--(void)runFeature{
-    [self appendLog:[NSString stringWithFormat:@"执行：%@".tr, self.featureTitle]];
-    if (self.featureIndex <= 3 || self.featureIndex == 21) {
-        [self.bluetoothManager startScan];
-    }else if (self.featureIndex <= 6){
-        [self.bluetoothManager startScan];
-        JobsBluetoothPeripheral *peripheral = self.bluetoothManager.discoveredPeripherals.firstObject;
-        if (peripheral) [self.bluetoothManager connectIdentifier:peripheral.identifier];
-    }else if (self.featureIndex == 7){
-        [self.bluetoothManager read];
-        [self appendLog:@"已提交 Read 请求；真实设备需要配置 FFF3 特征。".tr];
-    }else if (self.featureIndex == 10){
-        [self.bluetoothManager setNotifyEnabled:YES];
-        [self appendLog:@"已提交 Notify 开启请求。".tr];
-    }else if (self.featureIndex == 11){
-        [self appendLog:@"MTU 与分包根据 maximumWriteValueLength 动态决定。".tr];
-    }else if (self.featureIndex == 15){
-        [self.bluetoothManager disconnect];
-    }else if (self.featureIndex == 16){
-        [self appendLog:@"状态恢复由 Manager 收口；宿主显式声明 bluetooth-central。".tr];
-    }else if (self.featureIndex == 17 || self.featureIndex == 24){
-        [self appendLog:@"Profile、Manager、Command 已全部通过 byXxx / onXxx DSL 配置。".tr];
-    }else{
-        JobsBluetoothCommand *command = JobsBluetoothCommand.new
-            .byIdentifier([NSString stringWithFormat:@"demo.%ld", (long)self.featureIndex])
-            .byPayload([[NSString stringWithFormat:@"JobsBluetooth-%ld", (long)self.featureIndex] dataUsingEncoding:NSUTF8StringEncoding])
-            .byTimeout(3)
-            .byRetryCount(2)
-            .byPriority(self.featureIndex)
-            .byResponseMatcher(^BOOL(NSData *data) { return data.length > 0; });
-        [self.bluetoothManager sendCommand:command completion:^(NSData * _Nullable response, NSError * _Nullable error) {
-            [self appendLog:[NSString stringWithFormat:@"命令完成：%@ / %@".tr, response, error]];
-        }];
-    }
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.descriptionLabel.byVisible(YES);
+        self.executeButton.byVisible(YES);
+        self.logTextView.byVisible(YES);
+        self.appendLog(@"详情页已进入，点击蓝色按钮开始演示。".jobsTr());
+    };
 }
 
--(void)appendLog:(NSString *)message{
-    NSString *line = [NSString stringWithFormat:@"[%@] %@", NSDate.date.description, message];
-    [self.logLines addObject:line];
-    self.logTextView.byText([self.logLines componentsJoinedByString:@"\n"]);
-    if (self.logTextView.text.length) {
-        [self.logTextView scrollRangeToVisible:NSMakeRange(self.logTextView.text.length - 1, 1)];
-    }
+-(jobsByVoidBlock _Nonnull)runFeature{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.appendLog([NSString stringWithFormat:@"执行：%@".jobsTr(), self.featureTitle]);
+        if (self.featureIndex <= 3 || self.featureIndex == 21) {
+            self.bluetoothManager.startScan();
+        }else if (self.featureIndex <= 6){
+            self.bluetoothManager.startScan();
+            JobsBluetoothPeripheral *peripheral = self.bluetoothManager.discoveredPeripherals.firstObject;
+            if (peripheral) self.bluetoothManager.connectIdentifier(peripheral.identifier);
+        }else if (self.featureIndex == 7){
+            self.bluetoothManager.read();
+            self.appendLog(@"已提交 Read 请求；真实设备需要配置 FFF3 特征。".jobsTr());
+        }else if (self.featureIndex == 10){
+            self.bluetoothManager.setNotifyEnabled(YES);
+            self.appendLog(@"已提交 Notify 开启请求。".jobsTr());
+        }else if (self.featureIndex == 11){
+            self.appendLog(@"MTU 与分包根据 maximumWriteValueLength 动态决定。".jobsTr());
+        }else if (self.featureIndex == 15){
+            self.bluetoothManager.disconnect();
+        }else if (self.featureIndex == 16){
+            self.appendLog(@"状态恢复由 Manager 收口；宿主显式声明 bluetooth-central。".jobsTr());
+        }else if (self.featureIndex == 17 || self.featureIndex == 24){
+            self.appendLog(@"Profile、Manager、Command 已全部通过 byXxx / onXxx DSL 配置。".jobsTr());
+        }else{
+            JobsBluetoothCommand *command = JobsBluetoothCommand.new
+                .byIdentifier([NSString stringWithFormat:@"demo.%ld", (long)self.featureIndex])
+                .byPayload([[NSString stringWithFormat:@"JobsBluetooth-%ld", (long)self.featureIndex] dataUsingEncoding:NSUTF8StringEncoding])
+                .byTimeout(3)
+                .byRetryCount(2)
+                .byPriority(self.featureIndex)
+                .byResponseMatcher(^BOOL(NSData *data) { return data.length > 0; });
+            [self.bluetoothManager sendCommand:command completion:^(NSData * _Nullable response, NSError * _Nullable error) {
+                self.appendLog([NSString stringWithFormat:@"命令完成：%@ / %@".jobsTr(), response, error]);
+            }];
+        }
+    };
 }
 
--(NSString *)localizedBluetoothLogMessage:(NSString *)message{
-    NSString *connectPrefix = @"连接 ";
-    if ([message hasPrefix:connectPrefix]) {
-        return [NSString stringWithFormat:@"连接 %@".tr,
-                                          [message substringFromIndex:connectPrefix.length]];
-    };return message.tr;
+-(jobsByStrBlock _Nonnull)appendLog{
+    @jobs_weakify(self)
+    return ^(NSString * message){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSString *line = [NSString stringWithFormat:@"[%@] %@", NSDate.date.description, message];
+        [self.logLines addObject:line];
+        self.logTextView.byText([self.logLines componentsJoinedByString:@"\n"]);
+        if (self.logTextView.text.length) {
+            [self.logTextView scrollRangeToVisible:NSMakeRange(self.logTextView.text.length - 1, 1)];
+        }
+    };
+}
+
+-(JobsRetStrByStrBlock _Nonnull)localizedBluetoothLogMessage{
+    @jobs_weakify(self)
+    return ^NSString *(NSString * message){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSString *connectPrefix = @"连接 ";
+        if ([message hasPrefix:connectPrefix]) {
+            return [NSString stringWithFormat:@"连接 %@".jobsTr(),
+                                              [message substringFromIndex:connectPrefix.length]];
+        };return message.jobsTr();
+    };
 }
 
 -(UILabel *)descriptionLabel{
     if (!_descriptionLabel) {
         _descriptionLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.byText([NSString stringWithFormat:@"当前演示：%@\n默认启用 Mock Transport，可在模拟器直接验证点击链路和数据回调。".tr, self.featureTitle])
+            label.byText([NSString stringWithFormat:@"当前演示：%@\n默认启用 Mock Transport，可在模拟器直接验证点击链路和数据回调。".jobsTr(), self.featureTitle])
                 .byFont(UIFontWeightRegularSize(15))
                 .byNumberOfLines(0)
                 .byTextCor(JobsLabelColor)
@@ -123,12 +158,12 @@ Prop_strong()JobsBluetoothManager *bluetoothManager;
     if (!_executeButton) {
         @jobs_weakify(self)
         _executeButton = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
-            button.jobsResetBtnTitle([NSString stringWithFormat:@"执行 %@".tr, self.featureTitle])
+            button.jobsResetBtnTitle([NSString stringWithFormat:@"执行 %@".jobsTr(), self.featureTitle])
                 .jobsResetBtnTitleCor(JobsWhiteColor)
                 .jobsResetBtnTitleFont(UIFontWeightBoldSize(16))
                 .jobsResetBtnBgCor(HEXCOLOR(0x007AFF))
                 .onClickBy(^(__kindof UIButton * _Nullable button) {
-                    [weak_self runFeature];
+                    weak_self.runFeature();
                 })
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer.byCornerRadius(JobsWidth(10))
@@ -184,10 +219,10 @@ Prop_strong()JobsBluetoothManager *bluetoothManager;
             .byAllowDuplicates(NO);
         _bluetoothManager = [JobsBluetoothManager.alloc initWithProfile:profile]
             .byMockTransport(JobsBluetoothMockTransport.new.byEnabled(YES).byLatency(0.2))
-            .onStateChanged(^(JobsBluetoothState state) { [self appendLog:[NSString stringWithFormat:@"状态变化：%ld".tr, (long)state]]; })
-            .onPeripheralDiscovered(^(JobsBluetoothPeripheral *peripheral) { [self appendLog:[NSString stringWithFormat:@"发现设备：%@｜RSSI %@".tr, peripheral.name, peripheral.RSSI]]; })
-            .onDataReceived(^(NSData *data, id decodedObject) { [self appendLog:[NSString stringWithFormat:@"收到：%@｜解析值：%@".tr, data, decodedObject]]; })
-            .onLog(^(NSString *message) { [self appendLog:[self localizedBluetoothLogMessage:message]]; });
+            .onStateChanged(^(JobsBluetoothState state) { self.appendLog([NSString stringWithFormat:@"状态变化：%ld".jobsTr(), (long)state]); })
+            .onPeripheralDiscovered(^(JobsBluetoothPeripheral *peripheral) { self.appendLog([NSString stringWithFormat:@"发现设备：%@｜RSSI %@".jobsTr(), peripheral.name, peripheral.RSSI]); })
+            .onDataReceived(^(NSData *data, id decodedObject) { self.appendLog([NSString stringWithFormat:@"收到：%@｜解析值：%@".jobsTr(), data, decodedObject]); })
+            .onLog(^(NSString *message) { self.appendLog(self.localizedBluetoothLogMessage(message)); });
     };return _bluetoothManager;
 }
 

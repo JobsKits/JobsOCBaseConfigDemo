@@ -77,7 +77,7 @@ Prop_strong()BRPickerStyle *customStyle;
 
 /// 以应对一个视图上面多个 BRPickerView 的情况。
 /// 关键代码：[self.pickerView1 addPickerToView:承接的视图1]; 只能一对一承接。
-- (BRPickerStyle *)makeCustomStyle;
+- (JobsRetBRPickerStyleByVoidBlock _Nonnull)makeCustomStyle;
 - (BRPickerViewExtraRetTextPickerViewByPickerModeBlock)makeTextPickerView;
 - (BRPickerViewExtraRetTextPickerViewByPickerModeBlock)makeStringPickerView;       // 旧命名兼容
 - (BRPickerViewExtraRetTextPickerViewByPickerStyleBlock)makeAddressPickerView;     // 旧命名兼容：返回 BRTextPickerView 级联选择器

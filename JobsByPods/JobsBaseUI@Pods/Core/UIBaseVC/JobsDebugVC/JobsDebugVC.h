@@ -60,6 +60,8 @@ FOUNDATION_EXPORT void JobsSetControllerDeallocTipsEnabled(BOOL enabled);
 
 @interface JobsDebugVC : UIViewController
 
+-(jobsByVoidBlock _Nonnull)jobsDidReceiveMemoryWarning;
+
 @end
 
 NS_ASSUME_NONNULL_END

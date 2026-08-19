@@ -41,137 +41,251 @@ Prop_assign()BOOL volumePanelShowing;
 Prop_assign()BOOL videoPausedByApplicationState;
 Prop_strong()JobsAppDoorModel *appDoorModel;
 
--(void)jobs_bringDoorControlsToFront;
--(void)jobs_refreshLogoVisibilityForKeyboardVisible:(BOOL)keyboardVisible;
--(void)jobs_installDoorVideoApplicationStateObservers;
+-(jobsByVoidBlock _Nonnull)jobs_bringDoorControlsToFront;
+-(jobsByBOOLBlock _Nonnull)jobs_refreshLogoVisibilityForKeyboardVisible;
+-(jobsByVoidBlock _Nonnull)jobs_installDoorVideoApplicationStateObservers;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsAppDoorVC
+@interface JobsAppDoorVC (JobsPropertyDSLSetterAutogen_29ab4c1122)
+-(void)setAppDoorModel:(JobsAppDoorModel * _Nullable)data;
+-(void)setCurrentActivateTFIndex:(NSInteger)data;
+-(void)setCustomerServiceBtnY:(CGFloat)data;
+-(void)setForgotCodeContentViewY:(CGFloat)data;
+-(void)setIsHiddenNavigationBar:(BOOL)data;
+-(void)setJobsAppDoorContentViewY:(CGFloat)data;
+-(void)setLastTimeActivateTFIndex:(NSInteger)data;
+-(void)setLogoContentViewY:(CGFloat)data;
+-(void)setVideoPausedByApplicationState:(BOOL)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorVC
+
 @implementation JobsAppDoorVC
+-(JobsRetJobsAppDoorVCByConfigBlock _Nonnull)byConfiguration{
+    @jobs_weakify(self)
+    return ^__kindof JobsAppDoorVC *_Nullable(JobsAppDoorConfig *_Nullable config){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setConfiguration:config];
+        return self;
+    };
+}
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);
 }
 
 +(void)destroySingleton{
-    static_jobsAppDoorOnceToken = 0;
-    static_appDoorVC = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsAppDoorVC.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_jobsAppDoorOnceToken = 0;
+        static_appDoorVC = nil;
+    };
 }
 static JobsAppDoorVC *static_appDoorVC = nil;
 static dispatch_once_t static_jobsAppDoorOnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_jobsAppDoorOnceToken, ^{
-        static_appDoorVC = JobsAppDoorVC.new;
-    });return static_appDoorVC;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsAppDoorVC.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_jobsAppDoorOnceToken, ^{
+            static_appDoorVC = JobsAppDoorVC.new;
+        });return static_appDoorVC;
+    };
 }
 
 -(instancetype)init{
     if (self = [super init]) {
-        _configuration = JobsAppDoorConfig.defaultConfig;
-        [self jobs_installDoorVideoApplicationStateObservers];
+        _configuration = JobsAppDoorConfig.defaultConfig();
+        self.jobs_installDoorVideoApplicationStateObservers();
     };return self;
 }
 
 -(instancetype)initWithConfiguration:(JobsAppDoorConfig *)configuration{
     if (self = [self init]) {
-        _configuration = configuration.copy ? : JobsAppDoorConfig.defaultConfig;
+        _configuration = configuration.copy ? : JobsAppDoorConfig.defaultConfig();
     };return self;
 }
 
 -(BOOL)jobs_requiresDefaultNavigationBar{
-    return NO;
+    JobsRetBOOLByVoidBlock action = ((JobsRetBOOLByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAppDoorVC.class, @selector(jobsJobs_requiresDefaultNavigationBar)))(self, @selector(jobsJobs_requiresDefaultNavigationBar));
+    return action ? action() : NO;
 }
 
--(void)jobs_applyConfigurationFromRequestParams{
-    id parameters = self.requestParams;
-    if ([parameters isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)parameters;
-        parameters = self.viewModel.requestParams;
-    }
-    if ([parameters isKindOfClass:JobsAppDoorConfig.class]) {
-        self.configuration = [parameters copy];
-    }else if ([parameters isKindOfClass:NSNumber.class]) {
-        self.configuration.backgroundType = [parameters integerValue];
-    }
+-(JobsRetBOOLByVoidBlock _Nonnull)jobsJobs_requiresDefaultNavigationBar{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return NO;
+        return NO;
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)jobs_applyConfigurationFromRequestParams{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        id parameters = self.requestParams;
+        if ([parameters isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)parameters);
+            parameters = self.viewModel.requestParams;
+        }
+        if ([parameters isKindOfClass:JobsAppDoorConfig.class]) {
+            self.byConfiguration([parameters copy]);
+        }else if ([parameters isKindOfClass:NSNumber.class]) {
+            self.configuration.byBackgroundType([parameters integerValue]);
+        }
+    };
 }
 
 -(void)loadView{
-    [super loadView];
-    self.isHiddenNavigationBar = YES;
-    self.bgImage = nil;
-    [self jobs_applyConfigurationFromRequestParams];
-    if (self.configuration.backgroundType == JobsAppDoorBgType_Image) {
-        self.view = self.bgImgV;
-    }else if (self.configuration.backgroundType == JobsAppDoorBgType_Video){
-        [self.player.currentPlayerManager play];
-    }
-    self.currentPage = @(CurrentPage_Login);//默认页面是登录
-    //标的值初始化
-    self.logoContentViewY = 0;
-    self.jobsAppDoorContentViewY = 0;
-    self.customerServiceBtnY = 0;
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(JobsLabelColor);
-            data.byText(data.attributedTitle.string);
-            data.byFont(UIFontWeightRegularSize(16));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAppDoorVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        self.byHiddenNavigationBar(YES);
+        self.byBgImage(nil);
+        self.jobs_applyConfigurationFromRequestParams();
+        if (self.configuration.backgroundType == JobsAppDoorBgType_Image) {
+            self.byView(self.bgImgV);
+        }else if (self.configuration.backgroundType == JobsAppDoorBgType_Video){
+            [self.player.currentPlayerManager play];
+        }
+        self.byCurrentPage(@(CurrentPage_Login));
+        //标的值初始化
+        self.byLogoContentViewY(0);
+        self.byJobsAppDoorContentViewY(0);
+        self.byCustomerServiceBtnY(0);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(data.attributedTitle.string)
+                    .byFont(UIFontWeightRegularSize(16));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.jobsAppDoorContentView.图片从小放大();
-    self.logoContentView.图片从小放大();
-    self.customerServiceBtn.图片从小放大();
-    if (_player) {
-        self.volumeBtn.图片从小放大();
-        self.volumePanelView.byVisible(NO);
-        [self jobs_installVolumeDismissGestureIfNeeded];
-        [self jobs_refreshVolumeControlFrame];
-    }
-    [self jobs_bringDoorControlsToFront];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAppDoorVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.jobsAppDoorContentView.图片从小放大();
+        self.logoContentView.图片从小放大();
+        self.customerServiceBtn.图片从小放大();
+        if (_player) {
+            self.volumeBtn.图片从小放大();
+            self.volumePanelView.byVisible(NO);
+            self.jobs_installVolumeDismissGestureIfNeeded();
+            self.jobs_refreshVolumeControlFrame();
+        }
+        self.jobs_bringDoorControlsToFront();
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    [self jobs_refreshVolumeControlFrame];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAppDoorVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        self.jobs_refreshVolumeControlFrame();
+    };
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self jobs_refreshLogoVisibilityForKeyboardVisible:NO];
-    [self jobs_resumeDoorVideoIfNeeded];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAppDoorVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillAppear:animated];
+        self.jobs_refreshLogoVisibilityForKeyboardVisible(NO);
+        self.jobs_resumeDoorVideoIfNeeded();
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    JobsLog(@"%@",self.requestParams);
-    if (self.currentPage.integerValue == CurrentPage_Login) [self.jobsAppDoorContentView animationToLogin];
-    [self jobs_refreshKeyboardMgrConfig];
-    [self jobs_resumeDoorVideoIfNeeded];
-    [self jobs_bringDoorControlsToFront];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAppDoorVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+        JobsLog(@"%@",self.requestParams);
+        if (self.currentPage.integerValue == CurrentPage_Login) self.jobsAppDoorContentView.animationToLogin();
+        self.jobs_refreshKeyboardMgrConfig();
+        self.jobs_resumeDoorVideoIfNeeded();
+        self.jobs_bringDoorControlsToFront();
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    [JobsOCKeyboardMgr.shared clearConfigByOwner:self];
-    if (self.configuration.backgroundType == JobsAppDoorBgType_Video) {
-        BOOL shouldPauseVideo = self.isBeingDismissed || self.isMovingFromParentViewController || self.navigationController.isBeingDismissed;
-        if (shouldPauseVideo && self.player.currentPlayerManager.isPlaying) {
-            [self.player.currentPlayerManager pause];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAppDoorVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+        ((JobsOCKeyboardMgr *)JobsOCKeyboardMgr.shared()).clearConfigByOwner(self);
+        if (self.configuration.backgroundType == JobsAppDoorBgType_Video) {
+            BOOL shouldPauseVideo = self.isBeingDismissed || self.isMovingFromParentViewController || self.navigationController.isBeingDismissed;
+            if (shouldPauseVideo && self.player.currentPlayerManager.isPlaying) {
+                self.player.currentPlayerManager.pause;
+            }
+            [self jobs_setVolumePanelVisible:NO animated:NO];
         }
-        [self jobs_setVolumePanelVisible:NO animated:NO];
-    }
+    };
 }
 #pragma mark —— 一些私有方法
 -(void)竖形按钮在左边{
@@ -183,13 +297,13 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
         .jobsResetBtnBgCor(Cor3)
         .jobsResetBtnTitleCor(Cor1)
         .jobsResetBtnTitle(Title1);
-    self.currentPage = @(CurrentPage_Register);//注册页面
-    [self jobs_refreshLogoVisibilityForKeyboardVisible:NO];
+    self.byCurrentPage(@(CurrentPage_Register));
+    self.jobs_refreshLogoVisibilityForKeyboardVisible(NO);
     self->_jobsAppDoorContentView
         .byFrame(CGRectMake(JobsAppDoorContentViewRegisterX,
-                            self.configuration.registerContentY,
+                            self.configuration.registerContentY(),
                             JobsAppDoorContentViewRegisterWidth,
-                            self.configuration.registerContentHeight));
+                            self.configuration.registerContentHeight()));
     toRegisterBtn
         .byFrame(CGRectMake(0,
                             0,
@@ -206,8 +320,8 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
         .jobsResetBtnBgCor(Cor1)
         .jobsResetBtnTitleCor(Cor4)
         .jobsResetBtnTitle(Title12);
-    self.currentPage = @(CurrentPage_Login);//登录页面
-    [self jobs_refreshLogoVisibilityForKeyboardVisible:JobsOCKeyboardMgr.shared.latestResult.keyboardVisible];
+    self.byCurrentPage(@(CurrentPage_Login));
+    self.jobs_refreshLogoVisibilityForKeyboardVisible(((JobsOCKeyboardMgr *)JobsOCKeyboardMgr.shared()).latestResult.keyboardVisible);
     self->_jobsAppDoorContentView
         .byFrame(CGRectMake(JobsAppDoorContentViewLoginX,
                             JobsAppDoorContentViewLoginY,
@@ -220,102 +334,172 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                             self->_jobsAppDoorContentView.height));
 }
 /// 进此页面先自动跳转到注册页面
--(void)toRegister{
-    [self.jobsAppDoorContentView animationToRegister];
-}
-
--(UIView *)jobs_activeDoorContentViewForKeyboard{
-    if (self.currentPage.integerValue == CurrentPage_ForgotCode && _forgotCodeContentView) return _forgotCodeContentView;
-    return self.jobsAppDoorContentView;
-}
-
--(void)jobs_refreshLogoVisibilityForKeyboardVisible:(BOOL)keyboardVisible{
-    BOOL logoVisible = self.currentPage.integerValue == CurrentPage_Login && !keyboardVisible;
-    self.logoContentView.byAlpha(logoVisible ? 1.0f : 0.0f);
-}
-
--(void)jobs_refreshKeyboardMgrConfig{
-    UIView *targetView = [self jobs_activeDoorContentViewForKeyboard];
-    if (!targetView) return;
-    NSArray *followViews = self.customerServiceBtn ? @[self.customerServiceBtn] : @[];
-    CGFloat keyboardExtraSpacing = JobsWidth(16);
-    if (self.currentPage.integerValue == CurrentPage_Register) {
-        keyboardExtraSpacing += MAX(0, (NSInteger)self.configuration.registerFieldCount - 3) * (ThingsHeight + InputViewOffset) / 2;
-    }
+-(jobsByVoidBlock _Nonnull)toRegister{
     @jobs_weakify(self)
-    JobsOCKeyboardMgr.shared.byConfig(jobsMakeOCKeyboardConfig(^(__kindof JobsOCKeyboardConfig * _Nullable data) {
+    return ^{
         @jobs_strongify(self)
-        data.byOwner(self)
-            .byTargetView(targetView)
-            .byContainerView(self.view)
-            .byFollowViews(followViews)
-            .byExtraSpacing(keyboardExtraSpacing)
-            .byTopSpacing(JobsWidth(12))
-            .byAccessoryPolicy(JobsOCKeyboardAccessoryPolicyAuto)
-            .byResultBlock(^(JobsOCKeyboardResult *result) {
-                @jobs_strongify(self)
-                [self jobs_refreshLogoVisibilityForKeyboardVisible:result.keyboardVisible];
-            });
-    }));
+        if (!self) return;
+        self.jobsAppDoorContentView.animationToRegister();
+    };
 }
 
--(BOOL)jobs_isVideoDoorMode{
-    return self.configuration.backgroundType == JobsAppDoorBgType_Video;
+-(JobsRetViewByVoidBlock _Nonnull)jobs_activeDoorContentViewForKeyboard{
+    @jobs_weakify(self)
+    return ^UIView *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (self.currentPage.integerValue == CurrentPage_ForgotCode && _forgotCodeContentView) return _forgotCodeContentView;
+        return self.jobsAppDoorContentView;
+    };
 }
 
--(void)jobs_resumeDoorVideoIfNeeded{
-    if (![self jobs_isVideoDoorMode] || !_player) return;
-    if (!self.player.currentPlayerManager.isPlaying) {
-        [self.player.currentPlayerManager play];
-    }
+-(jobsByBOOLBlock _Nonnull)jobs_refreshLogoVisibilityForKeyboardVisible{
+    @jobs_weakify(self)
+    return ^(BOOL keyboardVisible){
+        @jobs_strongify(self)
+        if (!self) return;
+        BOOL logoVisible = self.currentPage.integerValue == CurrentPage_Login && !keyboardVisible;
+        self.logoContentView.byAlpha(logoVisible ? 1.0f : 0.0f);
+    };
 }
 
--(void)jobs_installDoorVideoApplicationStateObservers{
-    JobsAddNotification(self,
-                        @selector(jobs_applicationDidEnterBackground:),
-                        UIApplicationDidEnterBackgroundNotification,
-                        nil);
-    JobsAddNotification(self,
-                        @selector(jobs_applicationDidBecomeActive:),
-                        UIApplicationDidBecomeActiveNotification,
-                        nil);
+-(jobsByVoidBlock _Nonnull)jobs_refreshKeyboardMgrConfig{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        UIView *targetView = self.jobs_activeDoorContentViewForKeyboard();
+        if (!targetView) return;
+        NSArray *followViews = self.customerServiceBtn ? @[self.customerServiceBtn] : @[];
+        CGFloat keyboardExtraSpacing = JobsWidth(16);
+        if (self.currentPage.integerValue == CurrentPage_Register) {
+            keyboardExtraSpacing += MAX(0, (NSInteger)self.configuration.registerFieldCount() - 3) * (ThingsHeight + InputViewOffset) / 2;
+        }
+        @jobs_weakify(self)
+        ((JobsOCKeyboardMgr *)JobsOCKeyboardMgr.shared()).byConfig(jobsMakeOCKeyboardConfig(^(__kindof JobsOCKeyboardConfig * _Nullable data) {
+            @jobs_strongify(self)
+            data.byOwner(self)
+                .byTargetView(targetView)
+                .byContainerView(self.view)
+                .byFollowViews(followViews)
+                .byExtraSpacing(keyboardExtraSpacing)
+                .byTopSpacing(JobsWidth(12))
+                .byAccessoryPolicy(JobsOCKeyboardAccessoryPolicyAuto)
+                .byResultBlock(^(JobsOCKeyboardResult *result) {
+                    @jobs_strongify(self)
+                    self.jobs_refreshLogoVisibilityForKeyboardVisible(result.keyboardVisible);
+                });
+        }));
+    };
+}
+
+-(JobsRetBOOLByVoidBlock _Nonnull)jobs_isVideoDoorMode{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return self.configuration.backgroundType == JobsAppDoorBgType_Video;
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)jobs_resumeDoorVideoIfNeeded{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (![self jobs_isVideoDoorMode]() || !_player) return;
+        if (!self.player.currentPlayerManager.isPlaying) {
+            [self.player.currentPlayerManager play];
+        }
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)jobs_installDoorVideoApplicationStateObservers{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        JobsAddNotification(self,
+                            @selector(jobs_applicationDidEnterBackground:),
+                            UIApplicationDidEnterBackgroundNotification,
+                            nil);
+        JobsAddNotification(self,
+                            @selector(jobs_applicationDidBecomeActive:),
+                            UIApplicationDidBecomeActiveNotification,
+                            nil);
+    };
 }
 
 -(void)jobs_applicationDidEnterBackground:(NSNotification *)notification{
-    (void)notification;
-    if (![self jobs_isVideoDoorMode] || !_player) return;
-    id<ZFPlayerMediaPlayback> currentPlayerManager = _player.currentPlayerManager;
-    self.videoPausedByApplicationState = currentPlayerManager.isPlaying;
-    if (self.videoPausedByApplicationState) [currentPlayerManager pause];
+    jobsByNotificationBlock action = ((jobsByNotificationBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAppDoorVC.class, @selector(jobsJobs_applicationDidEnterBackground)))(self, @selector(jobsJobs_applicationDidEnterBackground));
+    if (action) action(notification);
+}
+
+-(jobsByNotificationBlock _Nonnull)jobsJobs_applicationDidEnterBackground{
+    @jobs_weakify(self)
+    return ^(NSNotification * notification){
+        @jobs_strongify(self)
+        if (!self) return;
+        (void)notification;
+        if (![self jobs_isVideoDoorMode]() || !_player) return;
+        id<ZFPlayerMediaPlayback> currentPlayerManager = _player.currentPlayerManager;
+        self.byVideoPausedByApplicationState(currentPlayerManager.isPlaying);
+        if (self.videoPausedByApplicationState) currentPlayerManager.pause;
+    };
 }
 
 -(void)jobs_applicationDidBecomeActive:(NSNotification *)notification{
-    (void)notification;
-    BOOL shouldResumeVideo = self.videoPausedByApplicationState;
-    self.videoPausedByApplicationState = NO;
-    if (!shouldResumeVideo || !self.viewIfLoaded.window) return;
-    [self jobs_resumeDoorVideoIfNeeded];
+    jobsByNotificationBlock action = ((jobsByNotificationBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAppDoorVC.class, @selector(jobsJobs_applicationDidBecomeActive)))(self, @selector(jobsJobs_applicationDidBecomeActive));
+    if (action) action(notification);
 }
 
--(void)jobs_installVolumeDismissGestureIfNeeded{
-    if (_volumeDismissTapGesture) return;
+-(jobsByNotificationBlock _Nonnull)jobsJobs_applicationDidBecomeActive{
     @jobs_weakify(self)
-    _volumeDismissTapGesture = [jobsMakeTapGesture(^(UITapGestureRecognizer * _Nullable gesture) {
+    return ^(NSNotification * notification){
         @jobs_strongify(self)
-        gesture
-            .byCancelsTouchesInView(NO)
-            .byDelegate(self);
-    }) GestureActionBy:^(__kindof UIGestureRecognizer * _Nullable gesture) {
+        if (!self) return;
+        (void)notification;
+        BOOL shouldResumeVideo = self.videoPausedByApplicationState;
+        self.byVideoPausedByApplicationState(NO);
+        if (!shouldResumeVideo || !self.viewIfLoaded.window) return;
+        self.jobs_resumeDoorVideoIfNeeded();
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)jobs_installVolumeDismissGestureIfNeeded{
+    @jobs_weakify(self)
+    return ^{
         @jobs_strongify(self)
-        [self jobs_volumeDismissTap:(UITapGestureRecognizer *)gesture];
-    }];
-    self.view.addGesture(_volumeDismissTapGesture);
+        if (!self) return;
+        if (_volumeDismissTapGesture) return;
+        @jobs_weakify(self)
+        _volumeDismissTapGesture = (jobsMakeTapGesture(^(UITapGestureRecognizer * _Nullable gesture) {
+            @jobs_strongify(self)
+            gesture
+                .byCancelsTouchesInView(NO)
+                .byDelegate(self);
+        })).GestureActionBy(^(__kindof UIGestureRecognizer * _Nullable gesture) {
+            @jobs_strongify(self)
+            [self jobs_volumeDismissTap:(UITapGestureRecognizer *)gesture];
+        });
+        self.view.addGesture(_volumeDismissTapGesture);
+    };
 }
 
 -(void)jobs_volumeDismissTap:(UITapGestureRecognizer *)tapGesture{
-    if (!self.volumePanelShowing) return;
-    [self jobs_setVolumePanelVisible:NO
-                            animated:YES];
+    jobsByTapGestureRecognizerBlock action = ((jobsByTapGestureRecognizerBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAppDoorVC.class, @selector(jobsJobs_volumeDismissTap)))(self, @selector(jobsJobs_volumeDismissTap));
+    if (action) action(tapGesture);
+}
+
+-(jobsByTapGestureRecognizerBlock _Nonnull)jobsJobs_volumeDismissTap{
+    @jobs_weakify(self)
+    return ^(UITapGestureRecognizer * tapGesture){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (!self.volumePanelShowing) return;
+        [self jobs_setVolumePanelVisible:NO
+                                animated:YES];
+    };
 }
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
@@ -328,62 +512,92 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
     };return YES;
 }
 
--(float)jobs_currentDoorVolume{
-    id<ZFPlayerMediaPlayback> currentPlayerManager = _player.currentPlayerManager;
-    float volume = _volumeSlider ? _volumeSlider.value : 0;
-    if (_player) {
-        volume = _player.volume;
-    }else if (currentPlayerManager) {
-        volume = currentPlayerManager.volume;
-    }else if (_playerManager) {
-        volume = _playerManager.volume;
-    };return MAX(0, MIN(1, volume));
+-(JobsRetFloatByVoidBlock _Nonnull)jobs_currentDoorVolume{
+    @jobs_weakify(self)
+    return ^float{
+        @jobs_strongify(self)
+        if (!self) return (float){0};
+        id<ZFPlayerMediaPlayback> currentPlayerManager = _player.currentPlayerManager;
+        float volume = _volumeSlider ? _volumeSlider.value : 0;
+        if (_player) {
+            volume = _player.volume;
+        }else if (currentPlayerManager) {
+            volume = currentPlayerManager.volume;
+        }else if (_playerManager) {
+            volume = _playerManager.volume;
+        };return MAX(0, MIN(1, volume));
+    };
 }
 
--(float)jobs_volumeValueByPanelPoint:(CGPoint)point{
-    CGRect sliderFrame = self.volumeSlider.frame;
-    CGFloat sliderHeight = CGRectGetHeight(sliderFrame);
-    if (sliderHeight <= 0) return [self jobs_currentDoorVolume];
-    CGFloat progress = 1.0f - ((point.y - CGRectGetMinY(sliderFrame)) / sliderHeight);
-    return (float)MAX(0, MIN(1, progress));
+-(JobsRetfloatByCGPointBlock _Nonnull)jobs_volumeValueByPanelPoint{
+    @jobs_weakify(self)
+    return ^float(CGPoint point){
+        @jobs_strongify(self)
+        if (!self) return (float){0};
+        CGRect sliderFrame = self.volumeSlider.frame;
+        CGFloat sliderHeight = CGRectGetHeight(sliderFrame);
+        if (sliderHeight <= 0) return self.jobs_currentDoorVolume();
+        CGFloat progress = 1.0f - ((point.y - CGRectGetMinY(sliderFrame)) / sliderHeight);
+        return (float)MAX(0, MIN(1, progress));
+    };
 }
 
--(void)jobs_applyDoorVolume:(float)volume{
-    volume = MAX(0, MIN(1, volume));
-    BOOL muted = volume <= 0.001f;
-    id<ZFPlayerMediaPlayback> currentPlayerManager = _player.currentPlayerManager;
-    self.volumeSlider.byValue(volume);
-    if (_player) {
-        _player.muted = muted;
-        _player.volume = volume;
-    }
-    if (currentPlayerManager) {
-        currentPlayerManager.muted = muted;
-        currentPlayerManager.volume = volume;
-    }
-    if (_playerManager && _playerManager != currentPlayerManager) {
-        _playerManager.muted = muted;
-        _playerManager.volume = volume;
-    }
-    [self jobs_updateVolumePercentText];
+-(jobsByFloatBlock _Nonnull)jobs_applyDoorVolume{
+    @jobs_weakify(self)
+    return ^(float volume){
+        @jobs_strongify(self)
+        if (!self) return;
+        volume = MAX(0, MIN(1, volume));
+        BOOL muted = volume <= 0.001f;
+        id<ZFPlayerMediaPlayback> currentPlayerManager = _player.currentPlayerManager;
+        self.volumeSlider.byValue(volume);
+        if (_player) {
+            _player.byMuted(muted);
+            _player.byVolume(volume);
+        }
+        if (currentPlayerManager) {
+            ((NSObject *)currentPlayerManager).byMuted(muted);
+            ((NSObject *)currentPlayerManager).byVolume(volume);
+        }
+        if (_playerManager && _playerManager != currentPlayerManager) {
+            _playerManager.byMuted(muted);
+            _playerManager.byVolume(volume);
+        }
+        self.jobs_updateVolumePercentText();
+    };
 }
 
 -(void)jobs_volumePanelValueGesture:(UIGestureRecognizer *)gesture{
-    if (!self.volumePanelShowing || !_volumePanelView) return;
-    CGPoint point = [gesture locationInView:self.volumePanelView];
-    CGRect sliderFrame = self.volumeSlider.frame;
-    CGRect sliderHitFrame = CGRectMake(0,
-                                       CGRectGetMinY(sliderFrame) - JobsWidth(18),
-                                       self.volumePanelView.width,
-                                       CGRectGetHeight(sliderFrame) + JobsWidth(36));
-    if (!CGRectContainsPoint(sliderHitFrame, point)) return;
-    [self jobs_applyDoorVolume:[self jobs_volumeValueByPanelPoint:point]];
+    jobsByGestureRecognizerBlock action = ((jobsByGestureRecognizerBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAppDoorVC.class, @selector(jobsJobs_volumePanelValueGesture)))(self, @selector(jobsJobs_volumePanelValueGesture));
+    if (action) action(gesture);
 }
 
--(void)jobs_updateVolumePercentText{
-    float volume = [self jobs_currentDoorVolume];
-    NSInteger percent = (NSInteger)(MAX(0, MIN(1, volume)) * 100.0f + 0.5f);
-    self.volumePercentLab.byText([NSString stringWithFormat:@"%ld%%",(long)percent]);
+-(jobsByGestureRecognizerBlock _Nonnull)jobsJobs_volumePanelValueGesture{
+    @jobs_weakify(self)
+    return ^(UIGestureRecognizer * gesture){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (!self.volumePanelShowing || !_volumePanelView) return;
+        CGPoint point = [gesture locationInView:self.volumePanelView];
+        CGRect sliderFrame = self.volumeSlider.frame;
+        CGRect sliderHitFrame = CGRectMake(0,
+                                           CGRectGetMinY(sliderFrame) - JobsWidth(18),
+                                           self.volumePanelView.width,
+                                           CGRectGetHeight(sliderFrame) + JobsWidth(36));
+        if (!CGRectContainsPoint(sliderHitFrame, point)) return;
+        self.jobs_applyDoorVolume(self.jobs_volumeValueByPanelPoint(point));
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)jobs_updateVolumePercentText{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        float volume = self.jobs_currentDoorVolume();
+        NSInteger percent = (NSInteger)(MAX(0, MIN(1, volume)) * 100.0f + 0.5f);
+        self.volumePercentLab.byText([NSString stringWithFormat:@"%ld%%",(long)percent]);
+    };
 }
 
 -(NSString *)jobs_countryCodeTitleByCountryName:(NSString *)countryName
@@ -391,126 +605,161 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
     NSString *cleanCode = code.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
     if (!cleanCode.length) cleanCode = @"86";
     NSString *codeText = [cleanCode hasPrefix:@"+"] ? cleanCode : [NSString stringWithFormat:@"+%@",cleanCode];
-    if ([self jobs_isTaiwanCountryName:countryName]) return [NSString stringWithFormat:@"｜%@",codeText];
-    return [NSString stringWithFormat:@"%@｜%@",[self jobs_countryFlagByCountryName:countryName],codeText];
+    if (self.jobs_isTaiwanCountryName(countryName)) return [NSString stringWithFormat:@"｜%@",codeText];
+    return [NSString stringWithFormat:@"%@｜%@",self.jobs_countryFlagByCountryName(countryName),codeText];
 }
 
--(BOOL)jobs_isTaiwanCountryName:(NSString *)countryName{
-    NSString *cleanCountryName = countryName.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
-    if (!cleanCountryName.length) return NO;
-    NSSet <NSString *>*taiwanNames = [NSSet setWithArray:@[@"中国台湾",@"台湾",@"Taiwan",@"Taiwan, China",@"China Taiwan"]];
-    return [taiwanNames containsObject:cleanCountryName];
-}
-
--(UIImage *)jobs_countryFlagImageByCountryName:(NSString *)countryName{
-    if (![self jobs_isTaiwanCountryName:countryName]) return nil;
-    return JobsAppDoorImageNamed(@"AppDoorTaiwanBlueSkyWhiteSun");
-}
-
--(NSString *)jobs_countryFlagByCountryName:(NSString *)countryName{
-    NSString *cleanCountryName = countryName.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
-    if (!cleanCountryName.length) return @"🇨🇳";
-    NSDictionary <NSString *,NSString *>*specialISOCodeByCountryName = @{
-        @"中国":@"CN",
-        @"中国香港":@"HK",
-        @"香港":@"HK",
-        @"中国澳门":@"MO",
-        @"澳门":@"MO",
-        @"中国台湾":@"TW",
-        @"台湾":@"TW"
-    };
-    NSString *ISOCode = specialISOCodeByCountryName[cleanCountryName];
-    if (ISOCode.length) return [self jobs_flagEmojiByISOCode:ISOCode];
-    NSArray <NSLocale *>*locales = @[
-        NSLocale.currentLocale,
-        [NSLocale localeWithLocaleIdentifier:@"zh_Hans_CN"],
-        [NSLocale localeWithLocaleIdentifier:@"en_US"]
-    ];
-    for (NSString *countryCode in NSLocale.ISOCountryCodes) {
-        for (NSLocale *locale in locales) {
-            NSString *displayName = [locale displayNameForKey:NSLocaleCountryCode value:countryCode];
-            if ([cleanCountryName isEqualToString:displayName]) return [self jobs_flagEmojiByISOCode:countryCode];
-        }
-    };return @"🌐";
-}
-
--(NSString *)jobs_flagEmojiByISOCode:(NSString *)ISOCode{
-    NSString *uppercaseISOCode = ISOCode.uppercaseString;
-    if (uppercaseISOCode.length != 2) return @"🌐";
-    uint32_t base = 0x1F1E6;
-    uint32_t scalars[2] = {
-        base + [uppercaseISOCode characterAtIndex:0] - 'A',
-        base + [uppercaseISOCode characterAtIndex:1] - 'A'
-    };
-    NSData *data = [NSData dataWithBytes:scalars length:sizeof(scalars)];
-    NSString *flag = [NSString.alloc initWithData:data encoding:NSUTF32LittleEndianStringEncoding];
-    return flag.length ? flag : @"🌐";
-}
-
--(void)jobs_pushCountryCodeCtrlBySender:(UIButton *)sender{
-    JobsOCCountryCodeCtrl *countryCodeCtrl = JobsOCCountryCodeCtrl.new;
-    countryCodeCtrl.hidesBottomBarWhenPushed = YES;
+-(JobsRetBOOLByStrBlock _Nonnull)jobs_isTaiwanCountryName{
     @jobs_weakify(self)
-    countryCodeCtrl.countryCodeBlock = ^(__kindof NSString * _Nullable countryName,
-                                         __kindof NSString * _Nullable code) {
+    return ^BOOL(NSString * countryName){
         @jobs_strongify(self)
-        UIImage *flagImage = [self jobs_countryFlagImageByCountryName:countryName];
-        sender.jobsResetBtnImage(flagImage);
-        if (flagImage) {
-            sender.imageView.byContentMode(UIViewContentModeScaleAspectFit);
-            sender.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeLeading,JobsWidth(4));
-        }else{
-            sender
-                .byImageEdgeInsets(UIEdgeInsetsZero)
-                .byTitleEdgeInsets(UIEdgeInsetsZero);
-        }
-        sender.jobsResetBtnTitle([self jobs_countryCodeTitleByCountryName:countryName code:code]);
+        if (!self) return (BOOL){0};
+        NSString *cleanCountryName = countryName.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
+        if (!cleanCountryName.length) return NO;
+        NSSet <NSString *>*taiwanNames = [NSSet setWithArray:@[@"中国台湾",@"台湾",@"Taiwan",@"Taiwan, China",@"China Taiwan"]];
+        return [taiwanNames containsObject:cleanCountryName];
     };
-    if (self.navigationController) {
-        [self.navigationController pushViewController:countryCodeCtrl animated:YES];
-    }else{
-        [self presentViewController:countryCodeCtrl animated:YES completion:nil];
-    }
 }
 
--(void)jobs_refreshVolumeControlFrame{
-    if (!_volumeBtn) return;
-    CGFloat buttonWH = JobsWidth(36);
-    CGFloat right = JobsWidth(18);
-    CGFloat top = self.view.safeAreaInsets.top + JobsWidth(12);
-    if (top < JobsWidth(28)) top = JobsWidth(28);
-    CGFloat viewWidth = self.view.width > 0 ? self.view.width : JobsMainScreen_WIDTH();
-    self.volumeBtn.byFrame(CGRectMake(viewWidth - right - buttonWH,
-                                      top,
-                                      buttonWH,
-                                      buttonWH));
-    CGFloat volumeBtnCornerRadius = buttonWH / 2;
-    self.volumeBtn.jobsResetBtnCornerRadiusValue(volumeBtnCornerRadius);
-    self.volumeBtn.layer
-        .byCornerRadius(volumeBtnCornerRadius)
-        .byMasksToBounds(YES);
-    CGFloat panelW = JobsWidth(52);
-    CGFloat panelH = JobsWidth(188);
-    self.volumePanelView.byFrame(CGRectMake(self.volumeBtn.centerX - panelW / 2,
-                                            self.volumeBtn.bottom + JobsWidth(8),
-                                            panelW,
-                                            panelH));
-    self.volumePercentLab.byFrame(CGRectMake(0,
-                                             JobsWidth(8),
-                                             panelW,
-                                             JobsWidth(20)));
-    self.volumeSlider
-        .byBounds(CGRectMake(0, 0, panelH - JobsWidth(54), JobsWidth(28)))
-        .byCenterPoint(CGPointMake(panelW / 2, panelH / 2 + JobsWidth(10)));
-    [self jobs_bringDoorControlsToFront];
+-(JobsRetImageByStrBlock _Nonnull)jobs_countryFlagImageByCountryName{
+    @jobs_weakify(self)
+    return ^UIImage *(NSString * countryName){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (!self.jobs_isTaiwanCountryName(countryName)) return nil;
+        return JobsAppDoorImageNamed(@"AppDoorTaiwanBlueSkyWhiteSun");
+    };
 }
 
--(void)jobs_bringDoorControlsToFront{
-    if (_jobsAppDoorContentView) [self.view bringSubviewToFront:_jobsAppDoorContentView];
-    if (_logoContentView) [self.view bringSubviewToFront:_logoContentView];
-    if (_customerServiceBtn) [self.view bringSubviewToFront:_customerServiceBtn];
-    if (_volumePanelView) [self.view bringSubviewToFront:_volumePanelView];
-    if (_volumeBtn) [self.view bringSubviewToFront:_volumeBtn];
+-(JobsRetStrByStrBlock _Nonnull)jobs_countryFlagByCountryName{
+    @jobs_weakify(self)
+    return ^NSString *(NSString * countryName){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSString *cleanCountryName = countryName.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
+        if (!cleanCountryName.length) return @"🇨🇳";
+        NSDictionary <NSString *,NSString *>*specialISOCodeByCountryName = @{
+            @"中国":@"CN",
+            @"中国香港":@"HK",
+            @"香港":@"HK",
+            @"中国澳门":@"MO",
+            @"澳门":@"MO",
+            @"中国台湾":@"TW",
+            @"台湾":@"TW"
+        };
+        NSString *ISOCode = specialISOCodeByCountryName[cleanCountryName];
+        if (ISOCode.length) return self.jobs_flagEmojiByISOCode(ISOCode);
+        NSArray <NSLocale *>*locales = @[
+            NSLocale.currentLocale,
+            [NSLocale localeWithLocaleIdentifier:@"zh_Hans_CN"],
+            [NSLocale localeWithLocaleIdentifier:@"en_US"]
+        ];
+        for (NSString *countryCode in NSLocale.ISOCountryCodes) {
+            for (NSLocale *locale in locales) {
+                NSString *displayName = [locale displayNameForKey:NSLocaleCountryCode value:countryCode];
+                if ([cleanCountryName isEqualToString:displayName]) return self.jobs_flagEmojiByISOCode(countryCode);
+            }
+        };return @"🌐";
+    };
+}
+
+-(JobsRetStrByStrBlock _Nonnull)jobs_flagEmojiByISOCode{
+    @jobs_weakify(self)
+    return ^NSString *(NSString * ISOCode){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSString *uppercaseISOCode = ISOCode.uppercaseString;
+        if (uppercaseISOCode.length != 2) return @"🌐";
+        uint32_t base = 0x1F1E6;
+        uint32_t scalars[2] = {
+            base + [uppercaseISOCode characterAtIndex:0] - 'A',
+            base + [uppercaseISOCode characterAtIndex:1] - 'A'
+        };
+        NSData *data = [NSData dataWithBytes:scalars length:sizeof(scalars)];
+        NSString *flag = [NSString.alloc initWithData:data encoding:NSUTF32LittleEndianStringEncoding];
+        return flag.length ? flag : @"🌐";
+    };
+}
+
+-(jobsByBtnBlock _Nonnull)jobs_pushCountryCodeCtrlBySender{
+    @jobs_weakify(self)
+    return ^(UIButton * sender){
+        @jobs_strongify(self)
+        if (!self) return;
+        JobsOCCountryCodeCtrl *countryCodeCtrl = JobsOCCountryCodeCtrl.new;
+        countryCodeCtrl.byHidesBottomBarWhenPushed(YES);
+        @jobs_weakify(self)
+        countryCodeCtrl.countryCodeBlock = ^(__kindof NSString * _Nullable countryName,
+                                             __kindof NSString * _Nullable code) {
+            @jobs_strongify(self)
+            UIImage *flagImage = self.jobs_countryFlagImageByCountryName(countryName);
+            sender.jobsResetBtnImage(flagImage);
+            if (flagImage) {
+                sender.imageView.byContentMode(UIViewContentModeScaleAspectFit);
+                sender.jobsResetImagePlacement_Padding(NSDirectionalRectEdgeLeading,JobsWidth(4));
+            }else{
+                sender
+                    .byImageEdgeInsets(UIEdgeInsetsZero)
+                    .byTitleEdgeInsets(UIEdgeInsetsZero);
+            }
+            sender.jobsResetBtnTitle([self jobs_countryCodeTitleByCountryName:countryName code:code]);
+        };
+        if (self.navigationController) {
+            [self.navigationController pushViewController:countryCodeCtrl animated:YES];
+        }else{
+            [self presentViewController:countryCodeCtrl animated:YES completion:nil];
+        }
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)jobs_refreshVolumeControlFrame{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (!_volumeBtn) return;
+        CGFloat buttonWH = JobsWidth(36);
+        CGFloat right = JobsWidth(18);
+        CGFloat top = self.view.safeAreaInsets.top + JobsWidth(12);
+        if (top < JobsWidth(28)) top = JobsWidth(28);
+        CGFloat viewWidth = self.view.width > 0 ? self.view.width : JobsMainScreen_WIDTH();
+        self.volumeBtn.byFrame(CGRectMake(viewWidth - right - buttonWH,
+                                          top,
+                                          buttonWH,
+                                          buttonWH));
+        CGFloat volumeBtnCornerRadius = buttonWH / 2;
+        self.volumeBtn.jobsResetBtnCornerRadiusValue(volumeBtnCornerRadius);
+        self.volumeBtn.layer
+            .byCornerRadius(volumeBtnCornerRadius)
+            .byMasksToBounds(YES);
+        CGFloat panelW = JobsWidth(52);
+        CGFloat panelH = JobsWidth(188);
+        self.volumePanelView.byFrame(CGRectMake(self.volumeBtn.centerX - panelW / 2,
+                                                self.volumeBtn.bottom + JobsWidth(8),
+                                                panelW,
+                                                panelH));
+        self.volumePercentLab.byFrame(CGRectMake(0,
+                                                 JobsWidth(8),
+                                                 panelW,
+                                                 JobsWidth(20)));
+        self.volumeSlider
+            .byBounds(CGRectMake(0, 0, panelH - JobsWidth(54), JobsWidth(28)))
+            .byCenterPoint(CGPointMake(panelW / 2, panelH / 2 + JobsWidth(10)));
+        self.jobs_bringDoorControlsToFront();
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)jobs_bringDoorControlsToFront{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (_jobsAppDoorContentView) [self.view bringSubviewToFront:_jobsAppDoorContentView];
+        if (_logoContentView) [self.view bringSubviewToFront:_logoContentView];
+        if (_customerServiceBtn) [self.view bringSubviewToFront:_customerServiceBtn];
+        if (_volumePanelView) [self.view bringSubviewToFront:_volumePanelView];
+        if (_volumeBtn) [self.view bringSubviewToFront:_volumeBtn];
+    };
 }
 
 -(void)jobs_setVolumePanelVisible:(BOOL)visible
@@ -520,8 +769,8 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
     self.volumePanelView
         .byHidden(NO)
         .byUserInteractionEnabled(visible);
-    if (visible) self.volumeSlider.byValue([self jobs_currentDoorVolume]);
-    [self jobs_updateVolumePercentText];
+    if (visible) self.volumeSlider.byValue(self.jobs_currentDoorVolume());
+    self.jobs_updateVolumePercentText();
     CGFloat alpha = visible ? 1 : 0;
     CGAffineTransform transform = visible ? CGAffineTransformIdentity : CGAffineTransformMakeScale(0.88f, 0.88f);
     void (^animations)(void) = ^{
@@ -548,13 +797,23 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
     }];
 }
 
--(void)jobs_toggleVolumePanel{
-    [self jobs_setVolumePanelVisible:!self.volumePanelShowing
-                            animated:YES];
+-(jobsByVoidBlock _Nonnull)jobs_toggleVolumePanel{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self jobs_setVolumePanelVisible:!self.volumePanelShowing
+                                animated:YES];
+    };
 }
 
--(void)jobs_volumeSliderValueChanged:(UISlider *)slider{
-    [self jobs_applyDoorVolume:slider.value];
+-(jobsBySliderBlock _Nonnull)jobs_volumeSliderValueChanged{
+    @jobs_weakify(self)
+    return ^(UISlider * slider){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.jobs_applyDoorVolume(slider.value);
+    };
 }
 #pragma mark —— 网络请求
 /// 注册网络请求
@@ -575,7 +834,12 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
     /// TODO
 }
 /// 网易云盾验证
--(void)NTESVerifyCodeWithBlock:(jobsByIDBlock)block{
+-(jobsByjobsByIDBlockBlock _Nonnull)NTESVerifyCodeWithBlock{
+    @jobs_weakify(self)
+    return ^(jobsByIDBlock block){
+        @jobs_strongify(self)
+        if (!self) return;
+    };
 }
 #pragma mark —— lazyLoad
 -(JobsAppDoorLogoContentView *)logoContentView{
@@ -588,7 +852,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                 make.centerX.equalTo(self.view);
             });
         [self.view layoutIfNeeded];
-        self.logoContentViewY = self.logoContentView.y;
+        self.byLogoContentViewY(self.logoContentView.y);
     };return _logoContentView;
 }
 
@@ -604,19 +868,19 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             .byViewBlock(^(__kindof UIView *view) {
                 @jobs_strongify(self)
                 JobsAppDoorForgotCodeContentView *contentView = (JobsAppDoorForgotCodeContentView *)view;
-                self.forgotCodeContentViewY = contentView.y;
+                self.byForgotCodeContentViewY(contentView.y);
                 contentView.jobsRichViewByModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {}));
                 @jobs_weakify(self)
-                [contentView actionObjBlock:^(id data) {
+                contentView.actionObjBlock(^(id data) {
                     @jobs_strongify(self)
                     if ([data isKindOfClass:UIButton.class]) {
                         UIButton *btn = (UIButton *)data;
-                        NSString *btnTitle = btn.titleLabel.text ? : btn.titleForNormalState;
+                        NSString *btnTitle = btn.titleLabel.text ? : btn.jobsTitleForNormalState();
                         if ([btnTitle isEqualToString:Title1]){
-                            self.currentPage = @(CurrentPage_Login);
-                            [self.forgotCodeContentView removeContentViewWithOffsetY:0];
-                            [self.jobsAppDoorContentView showContentViewWithOffsetY:0];
-                            [self jobs_refreshKeyboardMgrConfig];
+                            self.byCurrentPage(@(CurrentPage_Login));
+                            self.forgotCodeContentView.removeContentViewWithOffsetY(0);
+                            self.jobsAppDoorContentView.showContentViewWithOffsetY(0);
+                            self.jobs_refreshKeyboardMgrConfig();
                             @jobs_weakify(self)
                             [UIView animateWithDuration:2
                                                   delay:0.1
@@ -629,10 +893,10 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                             } completion:nil];
                         }else if ([btnTitle isEqualToString:Title4]){
                             self.backBtnClickEvent(btn);
-                            [JobsAppDoorVC destroySingleton];
+                            JobsAppDoorVC.jobsDestroySingleton();
                         }else{}
                     }
-                }];
+                });
             })
             .cornerCutToCircleWithCornerRadius(8);
     };return _forgotCodeContentView;
@@ -652,27 +916,27 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             .byViewBlock(^(__kindof UIView *view) {
                 @jobs_strongify(self)
                 JobsAppDoorContentView *contentView = (JobsAppDoorContentView *)view;
-                contentView.configuration = self.configuration.copy;
-                self.jobsAppDoorContentViewY = contentView.y;
+                contentView.byConfiguration(self.configuration.copy);
+                self.byJobsAppDoorContentViewY(contentView.y);
                 /// 监测输入字符回调 和 激活的textField 和 toRegisterBtn/abandonLoginBtn点击事件
                 @jobs_weakify(self)
-                [contentView actionObjBlock:^(id data) {
+                contentView.actionObjBlock(^(id data) {
                     @jobs_strongify(self)
                     if ([data isKindOfClass:UIButton.class]) {
                         [self.view endEditing:YES];
                         UIButton *btn = (UIButton *)data;
-                        NSString *btnTitle = btn.titleLabel.text ? : btn.titleForNormalState;
+                        NSString *btnTitle = btn.titleLabel.text ? : btn.jobsTitleForNormalState();
                         if ([btn.requestParams isKindOfClass:NSString.class] &&
                             [btn.requestParams isEqualToString:@"JobsAppDoorCountryCodeCtrl"]) {
-                            [self jobs_pushCountryCodeCtrlBySender:btn];
+                            self.jobs_pushCountryCodeCtrlBySender(btn);
                         }
-                        else if ([btnTitle isEqualToString:Title2] ||// Title2 @"L\no\ng\ni\nn".tr
+                        else if ([btnTitle isEqualToString:Title2] ||// Title2 @"L\no\ng\ni\nn".jobsTr()
                             [btnTitle isEqualToString:Title12] ||
-                            [btnTitle isEqualToString:Title1]) {// Title1 @"B\na\nc\nk\nT\no\nL\no\ng\ni\nn".tr
+                            [btnTitle isEqualToString:Title1]) {// Title1 @"B\na\nc\nk\nT\no\nL\no\ng\ni\nn".jobsTr()
                             self->toRegisterBtn = (UIButton *)data;
                             //状态置空
-                            self.currentActivateTFIndex = 0;
-                            self.lastTimeActivateTFIndex = 0;
+                            self.byCurrentActivateTFIndex(0);
+                            self.byLastTimeActivateTFIndex(0);
                             if (self->toRegisterBtn.jobs_isSelected) {
                                 [self 竖形按钮在左边];
                             }else{
@@ -681,33 +945,33 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                             self.customerServiceBtn
                                 .byTop(self.jobsAppDoorContentView.top + self.jobsAppDoorContentView.height + JobsWidth(8))
                                 .byCenterX(self.jobsAppDoorContentView.centerX);
-                            self.customerServiceBtnY =  self.customerServiceBtn.y;
-                            [self jobs_refreshKeyboardMgrConfig];
+                            self.byCustomerServiceBtnY(self.customerServiceBtn.y);
+                            self.jobs_refreshKeyboardMgrConfig();
                         }
-                        else if ([btnTitle isEqualToString:Title6]){// Title6 @"Register".tr
+                        else if ([btnTitle isEqualToString:Title6]){// Title6 @"Register".jobsTr()
                         }
-                        else if ([btnTitle isEqualToString:Title7]){// @"Login".tr
+                        else if ([btnTitle isEqualToString:Title7]){// @"Login".jobsTr()
                         }
-                        else if ([btnTitle isEqualToString:Title4]){// Title4 @"Back to HomePage".tr
+                        else if ([btnTitle isEqualToString:Title4]){// Title4 @"Back to HomePage".jobsTr()
                             UIButton *abandonLoginBtn = (UIButton *)data;
                             self.backBtnClickEvent(abandonLoginBtn);
-                            [JobsAppDoorVC destroySingleton];
+                            JobsAppDoorVC.jobsDestroySingleton();
                         }
-                        else if ([btnTitle isEqualToString:Title5]){// Title5 @"记住我".tr
+                        else if ([btnTitle isEqualToString:Title5]){// Title5 @"记住我".jobsTr()
                         }
-                        else if ([btnTitle isEqualToString:Title3]){// Title3 @"Forgot code".tr
+                        else if ([btnTitle isEqualToString:Title3]){// Title3 @"Forgot code".jobsTr()
                             {//本页动效实现的
-                                self.currentPage = @(CurrentPage_ForgotCode);
-                                [self->_jobsAppDoorContentView removeContentViewWithOffsetY:0];
-                                [self.forgotCodeContentView showContentViewWithOffsetY:0];
+                                self.byCurrentPage(@(CurrentPage_ForgotCode));
+                                (self->_jobsAppDoorContentView).removeContentViewWithOffsetY(0);
+                                self.forgotCodeContentView.showContentViewWithOffsetY(0);
                                 self.customerServiceBtn.byAlpha(0);
-                                [self jobs_refreshKeyboardMgrConfig];
+                                self.jobs_refreshKeyboardMgrConfig();
                             }
                         }else{}
                     }else if ([data isKindOfClass:JobsAppDoorModel.class]){
-                        self.appDoorModel = (JobsAppDoorModel *)data;
+                        self.byAppDoorModel((JobsAppDoorModel *)data);
                     }else{}
-                }];
+                });
                 contentView.jobsRichViewByModel(nil);
             })
             .cornerCutToCircleWithCornerRadius(8);
@@ -742,7 +1006,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             .jobsResetBtnTitleFont(UIFontWeightMediumSize(10))
             .jobsResetBtnTitle(Title8)
             .onClickBy(^ (UIButton *x) {
-                [x byFuseTapScale];
+                x.byFuseTapScale();
                 JobsLog(@"点击客服按钮");
             })
             .onLongPressGestureBy(^ (id data) {
@@ -798,7 +1062,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             .bgColorBy(Cor1)
             .onClickBy(^(UIButton *x) {
                 @jobs_strongify(self)
-                [self jobs_toggleVolumePanel];
+                self.jobs_toggleVolumePanel();
             })
             .setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
                 data.byJobsWidth(1)
@@ -844,11 +1108,11 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                     self.volumeSlider.addOn(view);
                     self.volumeSliderPanGesture = [UIPanGestureRecognizer.alloc initWithTarget:self
                                                                                          action:@selector(jobs_volumePanelValueGesture:)];
-                    self.volumeSliderPanGesture.cancelsTouchesInView = NO;
+                    self.volumeSliderPanGesture.byCancelsTouchesInView(NO);
                     [view addGestureRecognizer:self.volumeSliderPanGesture];
                     self.volumeSliderTapGesture = [UITapGestureRecognizer.alloc initWithTarget:self
                                                                                         action:@selector(jobs_volumePanelValueGesture:)];
-                    self.volumeSliderTapGesture.cancelsTouchesInView = NO;
+                    self.volumeSliderTapGesture.byCancelsTouchesInView(NO);
                     [view addGestureRecognizer:self.volumeSliderTapGesture];
                 });
         });
@@ -865,7 +1129,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
                 .byAdjustsFontSizeToFitWidth(YES)
                 .byMinimumScaleFactor(0.7f);
         });
-        [self jobs_updateVolumePercentText];
+        self.jobs_updateVolumePercentText();
     };return _volumePercentLab;
 }
 
@@ -877,13 +1141,13 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
             slider
                 .byMinimumValue(0)
                 .byMaximumValue(1)
-                .byValue([self jobs_currentDoorVolume])
+                .byValue(self.jobs_currentDoorVolume())
                 .byMinimumTrackTintColor(Cor4)
                 .byMaximumTrackTintColor(JobsWhiteColor.colorWithAlphaComponentBy(0.28f))
                 .byThumbTintColor(Cor4)
                 .onJobsChange(^(__kindof UIControl * _Nullable ctrl) {
                     @jobs_strongify(self)
-                    [self jobs_volumeSliderValueChanged:(UISlider *)ctrl];
+                    self.jobs_volumeSliderValueChanged((UISlider *)ctrl);
                 })
                 .byTransform(CGAffineTransformMakeRotation(-M_PI_2));
         });
@@ -906,11 +1170,11 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
         @jobs_weakify(self)
         _player = [ZFPlayerController.alloc initWithPlayerManager:self.playerManager
                                                     containerView:self.view];
-        _player.controlView = self.customPlayerControlView;
+        _player.byControlView(self.customPlayerControlView);
 //        ZFPlayer_DoorVC = _player;
         [_player setPlayerDidToEnd:^(id<ZFPlayerMediaPlayback>  _Nonnull asset) {
             @jobs_strongify(self)
-            self.playerManager.byReplay;// 设置循环播放
+            self.playerManager.byReplay();// 设置循环播放
         }];
     };return _player;
 }
@@ -918,19 +1182,19 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
 -(CustomZFPlayerControlView *)customPlayerControlView{
     if (!_customPlayerControlView) {
         _customPlayerControlView = CustomZFPlayerControlView.new;
-        _customPlayerControlView.userInteractionEnabled = NO;
+        _customPlayerControlView.byUserInteractionEnabled(NO);
         @jobs_weakify(self)
-        [_customPlayerControlView actionCustomZFPlayerControlViewBlock:^(id data, id data2) {
+        _customPlayerControlView.actionCustomZFPlayerControlViewBlock(^(id data, id data2) {
             @jobs_strongify(self)
             [self.view endEditing:YES];
-        }];
+        });
     };return _customPlayerControlView;
 }
 
 -(UIImageView *)bgImgV{
     if (!_bgImgV) {
         UIImage *appDoorBgImage = JobsAppDoorImageNamed(self.configuration.backgroundImageName) ? :
-            JobsAppDoorImageNamed(@"bg_video") ? : JobsBlackColor.image;
+            JobsAppDoorImageNamed(@"bg_video") ? : JobsBlackColor.jobsImage();
         _bgImgV = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             imageView
                 .byImage(appDoorBgImage)
@@ -939,4 +1203,86 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
     };return _bgImgV;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsAppDoorVC
+-(JobsRetJobsAppDoorVCByBOOLBlock _Nonnull)byHiddenNavigationBar{
+    @jobs_weakify(self)
+    return ^__kindof JobsAppDoorVC * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setIsHiddenNavigationBar:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsAppDoorVCByBOOLBlock _Nonnull)byVideoPausedByApplicationState{
+    @jobs_weakify(self)
+    return ^__kindof JobsAppDoorVC * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setVideoPausedByApplicationState:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsAppDoorVCByCGFloatBlock _Nonnull)byCustomerServiceBtnY{
+    @jobs_weakify(self)
+    return ^__kindof JobsAppDoorVC * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setCustomerServiceBtnY:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsAppDoorVCByCGFloatBlock _Nonnull)byForgotCodeContentViewY{
+    @jobs_weakify(self)
+    return ^__kindof JobsAppDoorVC * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setForgotCodeContentViewY:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsAppDoorVCByCGFloatBlock _Nonnull)byJobsAppDoorContentViewY{
+    @jobs_weakify(self)
+    return ^__kindof JobsAppDoorVC * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setJobsAppDoorContentViewY:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsAppDoorVCByCGFloatBlock _Nonnull)byLogoContentViewY{
+    @jobs_weakify(self)
+    return ^__kindof JobsAppDoorVC * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setLogoContentViewY:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsAppDoorVCByJobsAppDoorModelBlock _Nonnull)byAppDoorModel{
+    @jobs_weakify(self)
+    return ^__kindof JobsAppDoorVC * _Nullable(JobsAppDoorModel * _Nullable data){
+        @jobs_strongify(self)
+        [self setAppDoorModel:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsAppDoorVCByNSIntegerBlock _Nonnull)byCurrentActivateTFIndex{
+    @jobs_weakify(self)
+    return ^__kindof JobsAppDoorVC * _Nullable(NSInteger data){
+        @jobs_strongify(self)
+        [self setCurrentActivateTFIndex:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsAppDoorVCByNSIntegerBlock _Nonnull)byLastTimeActivateTFIndex{
+    @jobs_weakify(self)
+    return ^__kindof JobsAppDoorVC * _Nullable(NSInteger data){
+        @jobs_strongify(self)
+        [self setLastTimeActivateTFIndex:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAppDoorVC
 @end

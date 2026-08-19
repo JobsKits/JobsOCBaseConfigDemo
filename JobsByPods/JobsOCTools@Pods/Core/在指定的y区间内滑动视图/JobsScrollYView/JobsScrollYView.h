@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
 #else
@@ -31,6 +37,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsScrollYView : BaseView
 
+-(jobsByVoidBlock _Nonnull)jobsAwakeFromNib;
+
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsScrollYView
+-(JobsRetJobsScrollYViewByCGFloatBlock _Nonnull)byX;
+-(JobsRetJobsScrollYViewByCGFloatBlock _Nonnull)byY;
+-(JobsRetJobsScrollYViewByCGPointBlock _Nonnull)byInitialTouchPoint;
+-(JobsRetJobsScrollYViewByCGSizeBlock _Nonnull)bySizer;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsScrollYView
 @end
 
 NS_ASSUME_NONNULL_END

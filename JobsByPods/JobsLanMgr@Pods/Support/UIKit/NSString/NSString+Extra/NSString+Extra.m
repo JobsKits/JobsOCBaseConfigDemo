@@ -19,11 +19,20 @@
 }
 
 -(NSString *)pathForResourceWithFullName{
-    // 拆分文件名和扩展名
-    NSString *name = self.stringByDeletingPathExtension;
-    NSString *extension = self.pathExtension;
-    // 使用 NSBundle 获取文件路径
-    return [NSBundle.mainBundle pathForResource:name ofType:extension];
+    return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsPathForResourceWithFullName)))(self, @selector(jobsPathForResourceWithFullName)))();
+}
+
+-(JobsRetStrByVoidBlock _Nonnull)jobsPathForResourceWithFullName{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        // 拆分文件名和扩展名
+        NSString *name = self.stringByDeletingPathExtension;
+        NSString *extension = self.pathExtension;
+        // 使用 NSBundle 获取文件路径
+        return [NSBundle.mainBundle pathForResource:name ofType:extension];
+    };
 }
 
 @end

@@ -17,32 +17,67 @@
     };
 }
 
--(UIImage *_Nullable)imageByNormalState{
-    return self.imageByState(UIControlStateNormal);
+-(JobsRetImageByVoidBlock _Nonnull)imageByNormalState{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.imageByState(UIControlStateNormal);
+    };
 }
 
--(UIImage *_Nullable)imageByHighlightedState{
-    return self.imageByState(UIControlStateHighlighted);
+-(JobsRetImageByVoidBlock _Nonnull)imageByHighlightedState{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.imageByState(UIControlStateHighlighted);
+    };
 }
 
--(UIImage *_Nullable)imageByDisabledState{
-    return self.imageByState(UIControlStateDisabled);
+-(JobsRetImageByVoidBlock _Nonnull)imageByDisabledState{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.imageByState(UIControlStateDisabled);
+    };
 }
 
--(UIImage *_Nullable)imageBySelectedState{
-    return self.imageByState(UIControlStateSelected);
+-(JobsRetImageByVoidBlock _Nonnull)imageBySelectedState{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.imageByState(UIControlStateSelected);
+    };
 }
 
--(UIImage *_Nullable)imageByFocusedState API_AVAILABLE(ios(9.0)){
-    return self.imageByState(UIControlStateFocused);
+-(JobsRetImageByVoidBlock _Nonnull)imageByFocusedState API_AVAILABLE(ios(9.0)){
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.imageByState(UIControlStateFocused);
+    };
 }
 
--(UIImage *_Nullable)imageByApplicationState{
-    return self.imageByState(UIControlStateApplication);
+-(JobsRetImageByVoidBlock _Nonnull)imageByApplicationState{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.imageByState(UIControlStateApplication);
+    };
 }
 
--(UIImage *_Nullable)imageByReservedState{
-    return self.imageByState(UIControlStateReserved);
+-(JobsRetImageByVoidBlock _Nonnull)imageByReservedState{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.imageByState(UIControlStateReserved);
+    };
 }
 
 -(JobsRetBtnByImageBlock _Nonnull)normalStateImageBy{
@@ -126,32 +161,67 @@
     };
 }
 
--(UIImage *_Nullable)backgroundImageByNormalState{
-    return self.backgroundImageByState(UIControlStateNormal);
+-(JobsRetImageByVoidBlock _Nonnull)backgroundImageByNormalState{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.backgroundImageByState(UIControlStateNormal);
+    };
 }
 
--(UIImage *_Nullable)backgroundImageByHighlightedState{
-    return self.backgroundImageByState(UIControlStateHighlighted);
+-(JobsRetImageByVoidBlock _Nonnull)backgroundImageByHighlightedState{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.backgroundImageByState(UIControlStateHighlighted);
+    };
 }
 
--(UIImage *_Nullable)backgroundImageByDisabledState{
-    return self.backgroundImageByState(UIControlStateDisabled);
+-(JobsRetImageByVoidBlock _Nonnull)backgroundImageByDisabledState{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.backgroundImageByState(UIControlStateDisabled);
+    };
 }
 
--(UIImage *_Nullable)backgroundImageBySelectedState{
-    return self.backgroundImageByState(UIControlStateSelected);
+-(JobsRetImageByVoidBlock _Nonnull)backgroundImageBySelectedState{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.backgroundImageByState(UIControlStateSelected);
+    };
 }
 
--(UIImage *_Nullable)backgroundImageByFocusedState API_AVAILABLE(ios(9.0)){
-    return self.backgroundImageByState(UIControlStateFocused);
+-(JobsRetImageByVoidBlock _Nonnull)backgroundImageByFocusedState API_AVAILABLE(ios(9.0)){
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.backgroundImageByState(UIControlStateFocused);
+    };
 }
 
--(UIImage *_Nullable)backgroundImageByApplicationState{
-    return self.backgroundImageByState(UIControlStateApplication);
+-(JobsRetImageByVoidBlock _Nonnull)backgroundImageByApplicationState{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.backgroundImageByState(UIControlStateApplication);
+    };
 }
 
--(UIImage *_Nullable)backgroundImageByReservedState{
-    return self.backgroundImageByState(UIControlStateReserved);
+-(JobsRetImageByVoidBlock _Nonnull)backgroundImageByReservedState{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.backgroundImageByState(UIControlStateReserved);
+    };
 }
 
 -(JobsRetBtnByImageBlock _Nonnull)normalStateBackgroundImageBy{
@@ -235,32 +305,67 @@
     };
 }
 
--(UIColor *_Nullable)titleColorByNormalState{
-    return self.titleColorByState(UIControlStateNormal);
+-(JobsRetCorByVoidBlock _Nonnull)titleColorByNormalState{
+    @jobs_weakify(self)
+    return ^UIColor *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.titleColorByState(UIControlStateNormal);
+    };
 }
 
--(UIColor *_Nullable)titleColorByHighlightedState{
-    return self.titleColorByState(UIControlStateHighlighted);
+-(JobsRetCorByVoidBlock _Nonnull)titleColorByHighlightedState{
+    @jobs_weakify(self)
+    return ^UIColor *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.titleColorByState(UIControlStateHighlighted);
+    };
 }
 
--(UIColor *_Nullable)titleColorByDisabledState{
-    return self.titleColorByState(UIControlStateDisabled);
+-(JobsRetCorByVoidBlock _Nonnull)titleColorByDisabledState{
+    @jobs_weakify(self)
+    return ^UIColor *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.titleColorByState(UIControlStateDisabled);
+    };
 }
 
--(UIColor *_Nullable)titleColorBySelectedState{
-    return self.titleColorByState(UIControlStateSelected);
+-(JobsRetCorByVoidBlock _Nonnull)titleColorBySelectedState{
+    @jobs_weakify(self)
+    return ^UIColor *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.titleColorByState(UIControlStateSelected);
+    };
 }
 
--(UIColor *_Nullable)titleColorByFocusedState API_AVAILABLE(ios(9.0)){
-    return self.titleColorByState(UIControlStateFocused);
+-(JobsRetCorByVoidBlock _Nonnull)titleColorByFocusedState API_AVAILABLE(ios(9.0)){
+    @jobs_weakify(self)
+    return ^UIColor *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.titleColorByState(UIControlStateFocused);
+    };
 }
 
--(UIColor *_Nullable)titleColorByApplicationState{
-    return self.titleColorByState(UIControlStateApplication);
+-(JobsRetCorByVoidBlock _Nonnull)titleColorByApplicationState{
+    @jobs_weakify(self)
+    return ^UIColor *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.titleColorByState(UIControlStateApplication);
+    };
 }
 
--(UIColor *_Nullable)titleColorByReservedState{
-    return self.titleColorByState(UIControlStateReserved);
+-(JobsRetCorByVoidBlock _Nonnull)titleColorByReservedState{
+    @jobs_weakify(self)
+    return ^UIColor *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.titleColorByState(UIControlStateReserved);
+    };
 }
 
 -(JobsRetBtnByCorBlock _Nonnull)normalStateTitleColorBy{
@@ -364,32 +469,67 @@
     };
 }
 
--(NSString *_Nullable)titleByNormalState{
-    return self.titleByState(UIControlStateNormal);
+-(JobsRetStrByVoidBlock _Nonnull)titleByNormalState{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.titleByState(UIControlStateNormal);
+    };
 }
 
--(NSString *_Nullable)titleByHighlightedState{
-    return self.titleByState(UIControlStateHighlighted);
+-(JobsRetStrByVoidBlock _Nonnull)titleByHighlightedState{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.titleByState(UIControlStateHighlighted);
+    };
 }
 
--(NSString *_Nullable)titleByDisabledState{
-    return self.titleByState(UIControlStateDisabled);
+-(JobsRetStrByVoidBlock _Nonnull)titleByDisabledState{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.titleByState(UIControlStateDisabled);
+    };
 }
 
--(NSString *_Nullable)titleBySelectedState{
-    return self.titleByState(UIControlStateSelected);
+-(JobsRetStrByVoidBlock _Nonnull)titleBySelectedState{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.titleByState(UIControlStateSelected);
+    };
 }
 
--(NSString *_Nullable)titleByFocusedState API_AVAILABLE(ios(9.0)){
-    return self.titleByState(UIControlStateFocused);
+-(JobsRetStrByVoidBlock _Nonnull)titleByFocusedState API_AVAILABLE(ios(9.0)){
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.titleByState(UIControlStateFocused);
+    };
 }
 
--(NSString *_Nullable)titleByApplicationState{
-    return self.titleByState(UIControlStateApplication);
+-(JobsRetStrByVoidBlock _Nonnull)titleByApplicationState{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.titleByState(UIControlStateApplication);
+    };
 }
 
--(NSString *_Nullable)titleByReservedState{
-    return self.titleByState(UIControlStateReserved);
+-(JobsRetStrByVoidBlock _Nonnull)titleByReservedState{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.titleByState(UIControlStateReserved);
+    };
 }
 
 -(JobsRetBtnByStringBlock _Nonnull)normalStateTitleBy{
@@ -465,8 +605,13 @@
     };
 }
 #pragma mark —— UIButton.subtitle
--(NSAttributedString *_Nullable)attributedSubtitle{
-    return self.subtitleLabel.attributedText;
+-(JobsRetAttributedStringByVoidBlock _Nonnull)attributedSubtitle{
+    @jobs_weakify(self)
+    return ^NSAttributedString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.subtitleLabel.attributedText;
+    };
 }
 #pragma mark —— UIButton.attributedTitle
 -(NSAttributedString *_Nullable)attributedTitle{
@@ -481,32 +626,67 @@
     };
 }
 
--(NSAttributedString *_Nullable)attributedTitleByNormalState{
-    return self.attributedTitleByState(UIControlStateNormal);
+-(JobsRetAttributedStringByVoidBlock _Nonnull)attributedTitleByNormalState{
+    @jobs_weakify(self)
+    return ^NSAttributedString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.attributedTitleByState(UIControlStateNormal);
+    };
 }
 
--(NSAttributedString *_Nullable)attributedTitleByHighlightedState{
-    return self.attributedTitleByState(UIControlStateHighlighted);
+-(JobsRetAttributedStringByVoidBlock _Nonnull)attributedTitleByHighlightedState{
+    @jobs_weakify(self)
+    return ^NSAttributedString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.attributedTitleByState(UIControlStateHighlighted);
+    };
 }
 
--(NSAttributedString *_Nullable)attributedTitleByDisabledState{
-    return self.attributedTitleByState(UIControlStateDisabled);
+-(JobsRetAttributedStringByVoidBlock _Nonnull)attributedTitleByDisabledState{
+    @jobs_weakify(self)
+    return ^NSAttributedString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.attributedTitleByState(UIControlStateDisabled);
+    };
 }
 
--(NSAttributedString *_Nullable)attributedTitleBySelectedState{
-    return self.attributedTitleByState(UIControlStateSelected);
+-(JobsRetAttributedStringByVoidBlock _Nonnull)attributedTitleBySelectedState{
+    @jobs_weakify(self)
+    return ^NSAttributedString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.attributedTitleByState(UIControlStateSelected);
+    };
 }
 
--(NSAttributedString *_Nullable)attributedTitleByFocusedState API_AVAILABLE(ios(9.0)){
-    return self.attributedTitleByState(UIControlStateFocused);
+-(JobsRetAttributedStringByVoidBlock _Nonnull)attributedTitleByFocusedState API_AVAILABLE(ios(9.0)){
+    @jobs_weakify(self)
+    return ^NSAttributedString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.attributedTitleByState(UIControlStateFocused);
+    };
 }
 
--(NSAttributedString *_Nullable)attributedTitleByApplicationState{
-    return self.attributedTitleByState(UIControlStateApplication);
+-(JobsRetAttributedStringByVoidBlock _Nonnull)attributedTitleByApplicationState{
+    @jobs_weakify(self)
+    return ^NSAttributedString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.attributedTitleByState(UIControlStateApplication);
+    };
 }
 
--(NSAttributedString *_Nullable)attributedTitleByReservedState{
-    return self.attributedTitleByState(UIControlStateReserved);
+-(JobsRetAttributedStringByVoidBlock _Nonnull)attributedTitleByReservedState{
+    @jobs_weakify(self)
+    return ^NSAttributedString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.attributedTitleByState(UIControlStateReserved);
+    };
 }
 
 -(JobsRetBtnByAttributedStringBlock _Nonnull)selectedAttributedTitleBy{

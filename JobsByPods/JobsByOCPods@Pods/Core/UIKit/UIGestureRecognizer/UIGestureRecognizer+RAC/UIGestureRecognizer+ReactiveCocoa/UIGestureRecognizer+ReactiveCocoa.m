@@ -6,23 +6,36 @@
 //
 
 #import "UIGestureRecognizer+ReactiveCocoa.h"
+#import <JobsOCDSL/UIGestureRecognizer+DSL.h>
 
 @implementation UIGestureRecognizer (ReactiveCocoa)
-+(instancetype)rac_recognizer{
-    UIGestureRecognizer *recognizer = self.new;
-    [recognizer rac_initializeRAC];
-    [recognizer addTarget:recognizer.rac_gestureHandler
-                   action:@selector(rac_handleGesture)];
-    return recognizer;
++(JobsRetIDByVoidBlock _Nonnull)rac_recognizer{
+    return ^id{
+        UIGestureRecognizer *recognizer = self.new;
+        recognizer.rac_initializeRAC();
+        [recognizer addTarget:recognizer.rac_gestureHandler
+                       action:@selector(rac_handleGesture)];
+        return recognizer;
+    };
 }
 
--(RACSignal *)rac_signal{
-    return self.rac_subject;
+-(JobsRetRACSignalByVoidBlock _Nonnull)rac_signal{
+    @jobs_weakify(self)
+    return ^RACSignal *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.rac_subject;
+    };
 }
 
--(void)rac_initializeRAC{
-    self.rac_gestureHandler = RACGestureRecognizerActionHandler.new;
-    self.rac_subject = RACSubject.subject;
+-(jobsByVoidBlock _Nonnull)rac_initializeRAC{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byRac_gestureHandler(RACGestureRecognizerActionHandler.new);
+        self.byRac_subject(RACSubject.subject);
+    };
 }
 
 @end

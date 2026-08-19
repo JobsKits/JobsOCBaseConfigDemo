@@ -18,6 +18,12 @@ Prop_assign()BOOL wantsAnimating;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsImageRefreshView
+@interface JobsImageRefreshView (JobsPropertyDSLSetterAutogen_5608e644d3)
+-(void)setFrameIndex:(NSUInteger)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsImageRefreshView
+
 @implementation JobsImageRefreshView
 -(instancetype)initWithImage:(UIImage *)image {
     return [self initWithImages:image ? @[image] : @[] frameInterval:0.08];
@@ -37,65 +43,130 @@ Prop_assign()BOOL wantsAnimating;
                                                  MAX(1, firstImage.size.height)) : CGSizeMake(20, 20);
         self.byUserInteractionEnabled(NO);
         self.imageView.addOn(self);
-        [self jobs_showFrameAtIndex:0];
+        self.jobs_showFrameAtIndex(0);
     };return self;
 }
 
 -(void)dealloc {
-    [self.frameTimer stop];
+    if (self.frameTimer) self.frameTimer.jobsStop();
 }
 
 -(CGSize)intrinsicContentSize {
-    return self.indicatorSize;
+    JobsRetCGSizeByVoidBlock action = ((JobsRetCGSizeByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsImageRefreshView.class, @selector(jobsIntrinsicContentSize)))(self, @selector(jobsIntrinsicContentSize));
+    return action ? action() : (CGSize){0};
+}
+
+-(JobsRetCGSizeByVoidBlock _Nonnull)jobsIntrinsicContentSize{
+    @jobs_weakify(self)
+    return ^CGSize{
+        @jobs_strongify(self)
+        if (!self) return (CGSize){0};
+        return self.indicatorSize;
+    };
 }
 
 -(void)layoutSubviews {
-    [super layoutSubviews];
-    self.imageView.byFrame(self.bounds);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsImageRefreshView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
 }
 
--(void)didMoveToWindow {
-    [super didMoveToWindow];
-    if (self.wantsAnimating && self.window) [self jobs_startTimerIfNeeded];
-    if (!self.window) [self.frameTimer pause];
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        self.imageView.byFrame(self.bounds);
+    };
 }
 
--(instancetype)byStart {
-    self.wantsAnimating = YES;
-    self.byHidden(NO);
-    [self jobs_startTimerIfNeeded];
-    return self;
+-(jobsByVoidBlock _Nonnull)jobsDidMoveToWindow {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super didMoveToWindow];
+        if (self.wantsAnimating && self.window) self.jobs_startTimerIfNeeded();
+        if (!self.window) if (self.frameTimer) self.frameTimer.pause();
+    };
 }
 
--(instancetype)byPause {
-    self.wantsAnimating = NO;
-    [self.frameTimer pause];
-    return self;
+-(void)didMoveToWindow{
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsImageRefreshView.class, @selector(jobsDidMoveToWindow)))(self, @selector(jobsDidMoveToWindow));
+    if (action) action();
 }
 
--(instancetype)byResume {
-    self.wantsAnimating = YES;
-    self.byHidden(NO);
-    self.frameTimer.isPaused ? [self.frameTimer resume] : [self jobs_startTimerIfNeeded];
-    return self;
+-(JobsRetIDByVoidBlock _Nonnull)byStart {
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.wantsAnimating = YES;
+        self.byHidden(NO);
+        self.jobs_startTimerIfNeeded();
+        return self;
+    };
 }
 
--(instancetype)byStop {
-    self.wantsAnimating = NO;
-    [self.frameTimer stop];
-    self.frameTimer = nil;
-    self.frameIndex = 0;
-    [self jobs_showFrameAtIndex:0];
-    return self;
+-(JobsRetIDByVoidBlock _Nonnull)byPause {
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.wantsAnimating = NO;
+        if (self.frameTimer) self.frameTimer.pause();
+        return self;
+    };
+}
+
+-(JobsRetIDByVoidBlock _Nonnull)byResume {
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.wantsAnimating = YES;
+        self.byHidden(NO);
+        JobsTimer *frameTimer = self.frameTimer;
+        if (frameTimer && frameTimer.isPaused) {
+            frameTimer.resume();
+        } else {
+            self.jobs_startTimerIfNeeded();
+        }
+        return self;
+    };
+}
+
+-(JobsRetIDByVoidBlock _Nonnull)byStop {
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.wantsAnimating = NO;
+        if (self.frameTimer) self.frameTimer.jobsStop();
+        self.frameTimer = nil;
+        self.frameIndex = 0;
+        self.jobs_showFrameAtIndex(0);
+        return self;
+    };
 }
 
 #pragma mark —— JobsRefreshAnimatorProtocol
--(UIView *)refreshAnimatorView {
-    return self;
+-(JobsRetViewByVoidBlock _Nonnull)refreshAnimatorView {
+    @jobs_weakify(self)
+    return ^UIView *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self;
+    };
 }
 
--(CGSize)refreshAnimatorPreferredSize {
-    return self.indicatorSize;
+-(JobsRetCGSizeByVoidBlock _Nonnull)refreshAnimatorPreferredSize {
+    @jobs_weakify(self)
+    return ^CGSize{
+        @jobs_strongify(self)
+        if (!self) return (CGSize){0};
+        return self.indicatorSize;
+    };
 }
 
 -(void)refreshAnimatorApplyPhase:(JobsRefreshAnimatorPhase)phase
@@ -104,7 +175,7 @@ Prop_assign()BOOL wantsAnimating;
     switch (phase) {
         /// 处理 JobsRefreshAnimatorPhasePulling 分支
         case JobsRefreshAnimatorPhasePulling:
-            [self byStop];
+            self.byStop();
             self.byHidden(NO)
                 .byAlpha(0.35 + normalized * 0.65)
                 .byTransform(CGAffineTransformMakeScale(0.78 + normalized * 0.22,
@@ -112,7 +183,7 @@ Prop_assign()BOOL wantsAnimating;
             break;
         /// 处理 JobsRefreshAnimatorPhaseReady 分支
         case JobsRefreshAnimatorPhaseReady:
-            [self byStop];
+            self.byStop();
             self.byHidden(NO)
                 .byAlpha(1)
                 .byTransform(CGAffineTransformIdentity);
@@ -121,11 +192,11 @@ Prop_assign()BOOL wantsAnimating;
         case JobsRefreshAnimatorPhaseRefreshing:
             self.byAlpha(1)
                 .byTransform(CGAffineTransformIdentity);
-            [self byStart];
+            self.byStart();
             break;
         /// 处理 JobsRefreshAnimatorPhaseEnding 分支
         case JobsRefreshAnimatorPhaseEnding:
-            [self byStop];
+            self.byStop();
             self.byHidden(NO)
                 .byAlpha(1)
                 .byTransform(CGAffineTransformIdentity);
@@ -134,7 +205,7 @@ Prop_assign()BOOL wantsAnimating;
         case JobsRefreshAnimatorPhaseIdle:
         /// 处理 JobsRefreshAnimatorPhaseInactive 分支
         case JobsRefreshAnimatorPhaseInactive:
-            [self byStop];
+            self.byStop();
             self.byHidden(YES)
                 .byAlpha(0)
                 .byTransform(CGAffineTransformIdentity);
@@ -143,41 +214,51 @@ Prop_assign()BOOL wantsAnimating;
 }
 
 #pragma mark —— Private
--(void)jobs_startTimerIfNeeded {
-    if (!self.window || self.images.count < 2 || UIAccessibilityIsReduceMotionEnabled()) {
-        [self jobs_showFrameAtIndex:0];
-        return;
-    }
-    if (self.frameTimer) {
-        [self.frameTimer resume];
-        return;
-    }
+-(jobsByVoidBlock _Nonnull)jobs_startTimerIfNeeded {
     @jobs_weakify(self)
-    self.frameTimer = jobsMakeTimer(^(JobsTimer * _Nullable timer) {
-        timer.byTimerType(JobsTimerTypeGCD)
-            .byTimeInterval(self.frameInterval)
-            .byTimeSecIntervalSinceDate(0)
-            .byQueue(dispatch_get_main_queue())
-            .byTimerState(JobsTimerStateIdle)
-            .byStartTime(0)
-            .byTime(0)
-            .byOnTick(^(CGFloat time) {
-                @jobs_strongify(self)
-                if (!self.images.count) return;
-                self.frameIndex = (self.frameIndex + 1) % self.images.count;
-                [self jobs_showFrameAtIndex:self.frameIndex];
-            });
-    });
-    [self.frameTimer start];
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (!self.window || self.images.count < 2 || UIAccessibilityIsReduceMotionEnabled()) {
+            self.jobs_showFrameAtIndex(0);
+            return;
+        }
+        if (self.frameTimer) {
+            self.frameTimer.resume();
+            return;
+        }
+        @jobs_weakify(self)
+        self.frameTimer = jobsMakeTimer(^(JobsTimer * _Nullable timer) {
+            timer.byTimerType(JobsTimerTypeGCD)
+                .byTimeInterval(self.frameInterval)
+                .byTimeSecIntervalSinceDate(0)
+                .byQueue(dispatch_get_main_queue())
+                .byTimerState(JobsTimerStateIdle)
+                .byStartTime(0)
+                .byTime(0)
+                .byOnTick(^(CGFloat time) {
+                    @jobs_strongify(self)
+                    if (!self.images.count) return;
+                    self.byFrameIndex((self.frameIndex + 1) % self.images.count);
+                    self.jobs_showFrameAtIndex(self.frameIndex);
+                });
+        });
+        self.frameTimer.start();
+    };
 }
 
--(void)jobs_showFrameAtIndex:(NSUInteger)frameIndex {
-    if (!self.images.count) {
-        self.imageView.byImage(nil);
-        return;
-    }
-    NSUInteger safeIndex = MIN(frameIndex, self.images.count - 1);
-    self.imageView.byImage(self.images[safeIndex]);
+-(jobsByNSUIntegerBlock _Nonnull)jobs_showFrameAtIndex{
+    @jobs_weakify(self)
+    return ^(NSUInteger frameIndex){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (!self.images.count) {
+            self.imageView.byImage(nil);
+            return;
+        }
+        NSUInteger safeIndex = MIN(frameIndex, self.images.count - 1);
+        self.imageView.byImage(self.images[safeIndex]);
+    };
 }
 
 #pragma mark —— LazyLoad
@@ -189,4 +270,14 @@ Prop_assign()BOOL wantsAnimating;
     };return _imageView;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsImageRefreshView
+-(JobsRetJobsImageRefreshViewByNSUIntegerBlock _Nonnull)byFrameIndex{
+    @jobs_weakify(self)
+    return ^__kindof JobsImageRefreshView * _Nullable(NSUInteger data){
+        @jobs_strongify(self)
+        [self setFrameIndex:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsImageRefreshView
 @end

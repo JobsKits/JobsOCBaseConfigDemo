@@ -62,6 +62,12 @@ Prop_strong(readonly)BaseButton *backBtn;
 Prop_strong(readonly)UILabel *titleLab;
 Prop_strong(readonly)BaseButton *closeBtn;
 
+-(JobsRetNavBarByVoidBtnBlocks _Nonnull)byBackBtnClickAction;
+-(JobsRetNavBarByVoidBtnBlocks _Nonnull)byCloseBtnClickAction;
+
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsNavBar
+-(JobsRetJobsNavBarByJobsNavBarConfigBlock _Nonnull)byNavBarConfig;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsNavBar
 @end
 
 NS_ASSUME_NONNULL_END

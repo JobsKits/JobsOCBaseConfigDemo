@@ -18,16 +18,26 @@ Prop_assign()CGSize size;
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     MainTableViewCellItem *cell = JobsRegisterDequeueCollectionViewCell(MainTableViewCellItem);
-    cell.indexPath = indexPath;
+    cell.byIndexPath(indexPath);
     return cell;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
-    self.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel *_Nullable data) {
-        data.byLayerCor(JobsLightGrayColor)
-            .byJobsWidth(JobsWidth(.5f));
-    }));
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MainTableViewCellItem.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+        self.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel *_Nullable data) {
+            data.byLayerCor(JobsLightGrayColor)
+                .byJobsWidth(JobsWidth(.5f));
+        }));
+    };
 }
 #pragma mark —— BaseCellProtocol
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】

@@ -6,11 +6,14 @@
 //
 
 #import "JobsOCOpenConfiguration.h"
+
 #import <JobsOCOpen/NSString+Sys.h>
 
 @implementation JobsOCOpenConfiguration
-+(instancetype)config{
-    return [[self alloc] init];
++(JobsRetIDByVoidBlock _Nonnull)config{
+    return ^id{
+        return [[self alloc] init];
+    };
 }
 
 -(instancetype)init{
@@ -19,75 +22,77 @@
 
 -(instancetype)initWithURL:(NSURL *_Nullable)url{
     if (self = [super init]) {
-        self.url = url ?: [NSURL URLWithString:@"http://www.baidu.com"];
-        self.mode = JobsOCOpenModeInApp;
-        self.animated = YES;
+        self.byURL(url ?: [NSURL URLWithString:@"http://www.baidu.com"]);
+        self.byMode(JobsOCOpenModeInApp);
+        self.byAnimated(YES);
     };return self;
 }
 
-+(NSURL *_Nullable)jobsURLWithString:(NSString *_Nullable)string{
-    if (![string isKindOfClass:NSString.class]) return nil;
-    NSString *trimmed = string.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
-    if (!trimmed.length) return nil;
-    NSURL *directURL = [NSURL URLWithString:trimmed];
-    if (directURL.scheme.length) return directURL;
-    NSString *prepared = [trimmed containsString:@"://"] ? trimmed : [@"https://" stringByAppendingString:trimmed];
-    NSURL *preparedURL = [NSURL URLWithString:prepared];
-    if (preparedURL) return preparedURL;
-    NSString *encoded = [prepared stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet];
-    return encoded.length ? [NSURL URLWithString:encoded] : nil;
++(JobsRetURLByStrBlock _Nonnull)jobsURLWithString{
+    return ^NSURL *_Nullable(NSString *_Nullable string){
+        if (![string isKindOfClass:NSString.class]) return nil;
+        NSString *trimmed = string.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
+        if (!trimmed.length) return nil;
+        NSURL *directURL = [NSURL URLWithString:trimmed];
+        if (directURL.scheme.length) return directURL;
+        NSString *prepared = [trimmed containsString:@"://"] ? trimmed : [@"https://" stringByAppendingString:trimmed];
+        NSURL *preparedURL = [NSURL URLWithString:prepared];
+        if (preparedURL) return preparedURL;
+        NSString *encoded = [prepared stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLFragmentAllowedCharacterSet];
+        return encoded.length ? [NSURL URLWithString:encoded] : nil;
+    };
 }
 
--(JobsOCOpenConfiguration *_Nonnull(^)(NSURL *_Nullable))byURL{
+-(JobsRetJobsOCOpenConfigurationByNSURLBlock _Nonnull)byURL{
     @jobs_weakify(self)
     return ^JobsOCOpenConfiguration *_Nonnull(NSURL *_Nullable url){
         @jobs_strongify(self)
-        self.url = url;
+        [self setUrl:url];
         return self;
     };
 }
 
--(JobsOCOpenConfiguration *_Nonnull(^)(NSString *_Nullable))byURLString{
+-(JobsRetJobsOCOpenConfigurationByNSStringBlock _Nonnull)byURLString{
     @jobs_weakify(self)
     return ^JobsOCOpenConfiguration *_Nonnull(NSString *_Nullable urlString){
         @jobs_strongify(self)
-        self.url = [JobsOCOpenConfiguration jobsURLWithString:urlString];
+        self.byURL(JobsOCOpenConfiguration.jobsURLWithString(urlString));
         return self;
     };
 }
 
--(JobsOCOpenConfiguration *_Nonnull(^)(JobsOCOpenMode))byMode{
+-(JobsRetJobsOCOpenConfigurationByJobsOCOpenModeBlock _Nonnull)byMode{
     @jobs_weakify(self)
     return ^JobsOCOpenConfiguration *_Nonnull(JobsOCOpenMode mode){
         @jobs_strongify(self)
-        self.mode = mode;
+        [self setMode:mode];
         return self;
     };
 }
 
--(JobsOCOpenConfiguration *_Nonnull(^)(NSString *_Nullable))byTitle{
+-(JobsRetJobsOCOpenConfigurationByNSStringBlock _Nonnull)byTitle{
     @jobs_weakify(self)
     return ^JobsOCOpenConfiguration *_Nonnull(NSString *_Nullable title){
         @jobs_strongify(self)
-        self.pageTitle = title;
+        [self setPageTitle:title];
         return self;
     };
 }
 
--(JobsOCOpenConfiguration *_Nonnull(^)(BOOL))byAnimated{
+-(JobsRetJobsOCOpenConfigurationByBOOLBlock _Nonnull)byAnimated{
     @jobs_weakify(self)
     return ^JobsOCOpenConfiguration *_Nonnull(BOOL animated){
         @jobs_strongify(self)
-        self.animated = animated;
+        [self setAnimated:animated];
         return self;
     };
 }
 
--(JobsOCOpenConfiguration *_Nonnull(^)(jobsByBOOLBlock _Nullable))byCompletion{
+-(JobsRetJobsOCOpenConfigurationByjobsByBOOLBlockBlock _Nonnull)byCompletion{
     @jobs_weakify(self)
     return ^JobsOCOpenConfiguration *_Nonnull(jobsByBOOLBlock _Nullable completion){
         @jobs_strongify(self)
-        self.completion = completion;
+        [self setCompletion:completion];
         return self;
     };
 }

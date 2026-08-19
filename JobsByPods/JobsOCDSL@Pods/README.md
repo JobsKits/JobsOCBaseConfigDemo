@@ -28,6 +28,8 @@ JobsOCDSL@Pods/
 ├── Core/
 │   ├── CoreMotion/
 │   │   └── CMMotionManager+DSL/
+│   ├── Foundation/
+│   │   └── NSUserActivity+DSL/
 │   ├── UIKit/
 │   │   ├── UILabel+DSL/
 │   │   ├── UITextField+DSL/
@@ -81,6 +83,8 @@ JobsOCDSL@Pods/
 
 ## 方法型 DSL 补充
 
+- 系统类创建分为两类：无参初始化交给 `JobsMakes` 的 `jobsMakeType(config Block)`；带参初始化由真实类型提供类级 Block DSL。`NSUserActivity.initByActivityType(activityType)` 是后者的标准示例，原生 `initWithActivityType:` 只存在于分类实现内部。
+- `NSUserActivity+DSL` 收口标题、`userInfo`、required keys、URL、日期、关键词、delegate、handoff / search / prediction 开关，以及 `byBecomeCurrent()`、`byResignCurrent()`、`byInvalidate()`；实例创建后不再散落系统属性赋值和 0 / 1 参数方法调用。
 - `CMMotionManager+DSL` 提供 `byAccelerometerUpdateInterval(...)`、`byGyroUpdateInterval(...)`、`byMagnetometerUpdateInterval(...)`、`byDeviceMotionUpdateInterval(...)` 及对应 `byStart...` / `byStop...` 链式入口；`byStopAllUpdates()` 用于在页面退出或对象销毁前统一停止传感器。
 - `UIBezierPath+DSL` 已把 `moveToPoint:`、`addLineToPoint:`、`appendPath:`、`applyTransform:`、`containsPoint:` 改成链式入口，并用 `byBezierPathWithRoundedRect`、`byBezierPathWithRoundedCorners`、`byBezierPathWithArcCenter` 收口三类常用路径工厂。
 - `CALayer+DSL` 除属性包装外，补齐 `addSublayer:`、`removeAnimationForKey:`、`drawInContext:`、`renderInContext:`、`containsPoint:` 等方法型 DSL。

@@ -43,7 +43,7 @@
                              size.height + 1);
     CGContextFillRect(context, rect);
     NSMutableParagraphStyle *paragraph = NSMutableParagraphStyle.new;
-    paragraph.alignment = textAlignment;
+    paragraph.byAlignment(textAlignment);
     NSDictionary *attributes = @ {
         NSForegroundColorAttributeName:textColor,
         NSFontAttributeName:font,
@@ -65,7 +65,7 @@
     /// 恢复滤镜的默认属性
     [filter setDefaults];
     /// 将字符串转换成NSData
-    NSData *data = string.UTF8Encoding;
+    NSData *data = string.jobsUTF8Encoding();
     /// 通过KVO设置滤镜inputmessage数据
     filter.jobsKVC(@"inputMessage",data);
     /// 获得滤镜输出的图像
@@ -98,7 +98,7 @@
     CGImageRef scaledImage = CGBitmapContextCreateImage(bitmapRef);
     CGContextRelease(bitmapRef);
     CGImageRelease(bitmapImage);
-    return [UIImage imageWithCGImage:scaledImage];
+    return UIImage.imageWithCGImage(scaledImage);
 }
 /// 对UIImage对象进行缩放，并返回一个指定尺寸的新图像
 -(JobsRetImageByCGSizeBlock _Nonnull)imageResize{
@@ -144,7 +144,7 @@
                                       rect.size.width * scale,
                                       rect.size.height * scale);
         CGImageRef newImageRef = CGImageCreateWithImageInRect(self.CGImage, scaleRect);
-        UIImage *newImage = [UIImage imageWithCGImage:newImageRef].dw_RescaleImageToSize(rect.size);
+        UIImage *newImage = UIImage.imageWithCGImage(newImageRef).dw_RescaleImageToSize(rect.size);
         CGImageRelease(newImageRef);
         return newImage;
     };
@@ -240,13 +240,13 @@
 /// 对系统方法 imageWithCGImage 的二次封装
 +(JobsRetImageByCGImageRefBlock _Nonnull)imageWithCGImage{
     return ^UIImage *_Nonnull(CGImageRef _Nullable data){
-        return [UIImage imageWithCGImage:data];
+        return UIImage.imageWithCGImage(data);
     };
 }
 /// 对系统方法 imageWithContentsOfFile 的二次封装
 +(JobsRetImageByStrBlock _Nonnull)imageWithContentsOfFile{
     return ^UIImage *_Nonnull(__kindof NSString *_Nullable data){
-        return [UIImage imageWithContentsOfFile:data];
+        return UIImage.imageWithContentsOfFile(data);
     };
 }
 

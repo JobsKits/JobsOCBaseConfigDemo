@@ -7,6 +7,12 @@
 
 #import "JobsOCRefreshConfig.h"
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>
 #else
@@ -41,10 +47,16 @@ Prop_strong(readonly) id<JobsRefreshAnimatorProtocol> animator;
 - (instancetype)initWithFrame:(CGRect)frame NS_UNAVAILABLE;
 - (instancetype)initWithCoder:(NSCoder *)coder NS_UNAVAILABLE;
 - (void)applyState:(JobsOCRefreshState)state progress:(CGFloat)progress;
-- (void)replaceAnimator:(nullable id<JobsRefreshAnimatorProtocol>)animator;
-- (void)markRefreshedAt:(NSDate *)date;
-- (CGFloat)refreshLength;
+-(jobsByIDJobsRefreshAnimatorProtocolBlock _Nonnull)replaceAnimator;
+-(jobsByDateBlock _Nonnull)markRefreshedAt;
+- (JobsRetCGFloatByVoidBlock _Nonnull)refreshLength;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCRefreshComponent
+-(JobsRetJobsOCRefreshComponentByCGFloatBlock _Nonnull)byLastProgress;
+-(JobsRetJobsOCRefreshComponentByIDJobsRefreshAnimatorProtocolBlock _Nonnull)byAnimator;
+-(JobsRetJobsOCRefreshComponentByNSDateBlock _Nonnull)byLastRefreshedAt;
+-(JobsRetJobsOCRefreshComponentByUIViewBlock _Nonnull)byAnimatorView;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCRefreshComponent
 @end
 
 NS_ASSUME_NONNULL_END

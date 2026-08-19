@@ -102,7 +102,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_assign()BOOL isZoom;
 
+-(JobsRetUICollectionHeaderFooterViewByFrameBlock _Nonnull)byImageViewFrame;
 -(void)scrollViewDidScrollWithContentOffsetY:(CGFloat)contentOffsetY;
+-(jobsByCGFloatBlock _Nonnull)jobsScrollViewDidScrollWithContentOffsetY;
 
 @end
 

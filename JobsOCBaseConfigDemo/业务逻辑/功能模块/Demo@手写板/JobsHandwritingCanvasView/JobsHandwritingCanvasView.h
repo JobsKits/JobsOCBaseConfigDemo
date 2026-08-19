@@ -7,12 +7,6 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
-#import "JobsBlock.h"
-#endif
-
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>
 #else
@@ -23,6 +17,12 @@
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
 #import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
@@ -37,11 +37,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_assign(readonly)BOOL hasStrokes;
 
--(instancetype)byContentDidChange:(nullable jobsByVoidBlock)contentDidChange;
--(void)replaceNormalizedStrokes:(NSArray <NSArray <NSDictionary <NSString *, NSNumber *>*>*>*)strokes;
--(NSArray <NSArray <NSDictionary <NSString *, NSNumber *>*>*>*)normalizedStrokes;
--(void)clearCanvas;
+-(JobsRetIDByVoidBlocks _Nonnull)byContentDidChange;
+-(jobsByNSArrayNSArrayNSDictionaryNSStringNSNumberBlock _Nonnull)replaceNormalizedStrokes;
+-(JobsRetNSArrayNSArrayNSDictionaryNSStringNSNumberByVoidBlock _Nonnull)normalizedStrokes;
+-(jobsByVoidBlock _Nonnull)clearCanvas;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsHandwritingCanvasView
+-(JobsRetJobsHandwritingCanvasViewByCGSizeBlock _Nonnull)byLastLayoutSize;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsHandwritingCanvasView
 @end
 
 NS_ASSUME_NONNULL_END

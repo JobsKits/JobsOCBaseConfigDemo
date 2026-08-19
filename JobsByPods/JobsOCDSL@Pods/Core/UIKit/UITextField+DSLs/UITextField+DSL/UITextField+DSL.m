@@ -93,7 +93,7 @@
             [attributes addEntriesFromDictionary:[self.attributedPlaceholder attributesAtIndex:0 effectiveRange:nil]];
         }
         if (cor) attributes[NSForegroundColorAttributeName] = cor;
-        self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:attributes];
+        self.byAttributedPlaceholder([[NSAttributedString alloc] initWithString:placeholder attributes:attributes]);
         return self;
     };
 }
@@ -108,7 +108,7 @@
             [attributes addEntriesFromDictionary:[self.attributedPlaceholder attributesAtIndex:0 effectiveRange:nil]];
         }
         if (font) attributes[NSFontAttributeName] = font;
-        self.attributedPlaceholder = [[NSAttributedString alloc] initWithString:placeholder attributes:attributes];
+        self.byAttributedPlaceholder([[NSAttributedString alloc] initWithString:placeholder attributes:attributes]);
         return self;
     };
 }

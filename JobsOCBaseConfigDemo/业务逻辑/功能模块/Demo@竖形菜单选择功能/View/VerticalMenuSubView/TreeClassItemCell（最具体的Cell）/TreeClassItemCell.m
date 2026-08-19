@@ -25,13 +25,13 @@ UILocationProtocol_synthesize
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     TreeClassItemCell *cell = JobsRegisterDequeueCollectionViewCell(TreeClassItemCell);
-    cell.indexPath = indexPath;
+    cell.byIndexPath(indexPath);
     return cell;
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]){
-        self.jobsRect = frame;
+        self.byJobsRect(frame);
         self.byBgColor(ThreeClassCellBgCor);
         self.contentView.byBgColor(ThreeClassCellBgCor);
     };return self;
@@ -123,7 +123,7 @@ UILocationProtocol_synthesize
                 x.bySelected(!x.selected);
                 if(x.selected){
                     x.jobsResetBtnImage(self.dataModel.highlightImage);
-                    self.dataModel.jobsSelected = x.selected;
+                    self.dataModel.byJobsSelected(x.selected);
                 }
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){

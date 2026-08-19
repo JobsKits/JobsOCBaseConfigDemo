@@ -6,6 +6,7 @@
 //
 
 #import "BaseButton.h"
+
 #import <JobsBaseUI/UIButton+UI.h>
 #import <JobsBaseUI/UIButton+SimplyMake.h>
 
@@ -14,6 +15,51 @@
 @end
 
 @implementation BaseButton
+-(JobsRetBaseButtonByIDBlock _Nonnull)byData{
+    @jobs_weakify(self)
+    return ^__kindof BaseButton *_Nullable(id _Nullable data){
+        @jobs_strongify(self)
+        self.data = data;
+        return self;
+    };
+}
+
+-(JobsRetBaseButtonByNSIntegerBlock _Nonnull)byIndex{
+    @jobs_weakify(self)
+    return ^__kindof BaseButton *_Nullable(NSInteger data){
+        @jobs_strongify(self)
+        self.index = data;
+        return self;
+    };
+}
+
+-(JobsRetBaseButtonByCGRectBlock _Nonnull)byImageViewFrame{
+    @jobs_weakify(self)
+    return ^__kindof BaseButton *_Nullable(CGRect data){
+        @jobs_strongify(self)
+        self.btnImageViewFrame = data;
+        return self;
+    };
+}
+
+-(JobsRetBaseButtonByCGRectBlock _Nonnull)byTextLabelFrame{
+    @jobs_weakify(self)
+    return ^__kindof BaseButton *_Nullable(CGRect data){
+        @jobs_strongify(self)
+        self.textLabelFrame = data;
+        return self;
+    };
+}
+
+-(JobsRetBaseButtonByCGRectBlock _Nonnull)bySubTextLabelFrame{
+    @jobs_weakify(self)
+    return ^__kindof BaseButton *_Nullable(CGRect data){
+        @jobs_strongify(self)
+        self.subTextLabelFrame = data;
+        return self;
+    };
+}
+
 /// BaseProtocol
 BaseProtocol_synthesize
 /// RACProtocol
@@ -47,23 +93,54 @@ GestureProtocol_synthesize
 }
 
 - (void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
-    self.panGR.enabled = self.isAllowDrag;// 悬浮按钮的关键代码
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseButton.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+        UIGestureRecognizer *panGestureRecognizer = self.panGR;
+        if (panGestureRecognizer) panGestureRecognizer.byEnabled(self.isAllowDrag);
+    };
 }
 /// 【形成Frame后直接return，避免被其他中间过程修改】
 -(void)layoutSubviews{
-    [super layoutSubviews];
-//    [self printValue];
-    [self resetSubViews];
-    for (UIView *subview in self.subviews) {
-        if ([subview isKindOfClass:NSClassFromString(UISystemBackgroundView)]) {
-            subview.byFrame(self.bounds);
-        }
-    }
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseButton.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+            [super layoutSubviews];
+        //    [self printValue];
+            self.resetSubViews();
+            for (UIView *subview in self.subviews) {
+                if ([subview isKindOfClass:NSClassFromString(UISystemBackgroundView)]) {
+                    subview.byFrame(self.bounds);
+                }
+            }
+    };
 }
 
 -(void)setFrame:(CGRect)frame{
-    [super setFrame:frame];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseButton.class, @selector(jobsSetFrame)))(self, @selector(jobsSetFrame));
+    if (action) action(frame);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsSetFrame{
+    @jobs_weakify(self)
+    return ^(CGRect frame){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super setFrame:frame];
+    };
 }
 //@synthesize highlighted = _highlighted;
 //-(void)setHighlighted:(BOOL)highlighted{
@@ -91,160 +168,170 @@ GestureProtocol_synthesize
 }
 #pragma mark —— 一些私有方法
 /// 只能在-(void)layoutSubviews里面进行调用
--(void)resetSubViews{
+-(jobsByVoidBlock _Nonnull)resetSubViews{
     @jobs_weakify(self)
-    {/// 【组 1】UIButton 单独自定义设置系统自带控件的Frame ❤️与组2、3属性互斥❤️
-        if (!jobsZeroRectValue(self.textLabelFrame)) {
-            self.titleLabel.byFrame(self.textLabelFrame);
-        }
-        if (!jobsZeroRectValue(self.subTextLabelFrame)) {
-            if (@available(iOS 15.0, *)) {
-                self.subtitleLabel.byFrame(self.subTextLabelFrame);
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        @jobs_weakify(self)
+        {/// 【组 1】UIButton 单独自定义设置系统自带控件的Frame ❤️与组2、3属性互斥❤️
+            if (!jobsZeroRectValue(self.textLabelFrame)) {
+                self.titleLabel.byFrame(self.textLabelFrame);
             }
-        }
-        if (!jobsZeroRectValue(self.imageViewFrame)) {
-            self.imageView.byFrame(self.imageViewFrame);
-        }
-    }
-    {/// 【组 2】UIButton 单独自定义设置系统自带控件的Size ❤️与组1、3属性互斥❤️
-        {
-            if (!jobsZeroSizeValue(self.textLabelSize)) {
-                self.titleLabel.resetSize(self.textLabelSize);
-            }
-            self.titleLabel.resetOriginXByOffset(self.textLabelFrameOffsetX);
-            self.titleLabel.resetOriginYByOffset(self.textLabelFrameOffsetY);
-        }
-        {
-            if (@available(iOS 15.0, *)) {
-                if(!jobsZeroSizeValue(self.subTextLabelSize)){
-                    self.subtitleLabel.resetSize(self.subTextLabelSize);
-                }
-                if(self.subtitleLabel){
-                    self.subtitleLabel.resetOriginXByOffset(self.subTextLabelFrameOffsetX);
-                    self.subtitleLabel.resetOriginYByOffset(self.subTextLabelFrameOffsetY);
-                }
-            }
-        }
-        {
-            if (!jobsZeroSizeValue(self.imageViewSize)) {
-                self.imageView.resetSize(self.imageViewSize);
-            }
-            if(self.imageView){
-                self.imageView.resetOriginXByOffset(self.imageViewFrameOffsetX);
-                self.imageView.resetOriginYByOffset(self.imageViewFrameOffsetY);
-            }
-        }
-    }
-    {/// 【组 2】UIButton 单独自定义设置系统自带控件的Size ❤️与组1、3属性互斥❤️
-        {
-            if (!jobsZeroSizeValue(self.textLabelSize)) {
-                self.titleLabel.resetSize(self.textLabelSize);
-            }
-            if(self.textLabelFrameResetX){
-                self.titleLabel.resetOriginX(self.textLabelFrameResetX);
-            }
-            if(self.textLabelFrameResetY){
-                self.titleLabel.resetOriginY(self.textLabelFrameResetY);
-            }
-        }
-        {
-            if (!jobsZeroSizeValue(self.subTextLabelSize)) {
+            if (!jobsZeroRectValue(self.subTextLabelFrame)) {
                 if (@available(iOS 15.0, *)) {
-                    if(self.subtitleLabel) self.subtitleLabel.resetSize(self.subTextLabelSize);
+                    self.subtitleLabel.byFrame(self.subTextLabelFrame);
                 }
             }
-            if(self.subTextLabelFrameResetX){
+            if (!jobsZeroRectValue(self.imageViewFrame)) {
+                self.imageView.byFrame(self.imageViewFrame);
+            }
+        }
+        {/// 【组 2】UIButton 单独自定义设置系统自带控件的Size ❤️与组1、3属性互斥❤️
+            {
+                if (!jobsZeroSizeValue(self.textLabelSize)) {
+                    self.titleLabel.resetSize(self.textLabelSize);
+                }
+                self.titleLabel.resetOriginXByOffset(self.textLabelFrameOffsetX);
+                self.titleLabel.resetOriginYByOffset(self.textLabelFrameOffsetY);
+            }
+            {
                 if (@available(iOS 15.0, *)) {
-                    if(self.subtitleLabel) self.subtitleLabel.resetOriginX(self.subTextLabelFrameResetX);
+                    if(!jobsZeroSizeValue(self.subTextLabelSize)){
+                        self.subtitleLabel.resetSize(self.subTextLabelSize);
+                    }
+                    if(self.subtitleLabel){
+                        self.subtitleLabel.resetOriginXByOffset(self.subTextLabelFrameOffsetX);
+                        self.subtitleLabel.resetOriginYByOffset(self.subTextLabelFrameOffsetY);
+                    }
                 }
             }
-            if(self.subTextLabelFrameResetY){
+            {
+                if (!jobsZeroSizeValue(self.imageViewSize)) {
+                    self.imageView.resetSize(self.imageViewSize);
+                }
+                if(self.imageView){
+                    self.imageView.resetOriginXByOffset(self.imageViewFrameOffsetX);
+                    self.imageView.resetOriginYByOffset(self.imageViewFrameOffsetY);
+                }
+            }
+        }
+        {/// 【组 2】UIButton 单独自定义设置系统自带控件的Size ❤️与组1、3属性互斥❤️
+            {
+                if (!jobsZeroSizeValue(self.textLabelSize)) {
+                    self.titleLabel.resetSize(self.textLabelSize);
+                }
+                if(self.textLabelFrameResetX){
+                    self.titleLabel.resetOriginX(self.textLabelFrameResetX);
+                }
+                if(self.textLabelFrameResetY){
+                    self.titleLabel.resetOriginY(self.textLabelFrameResetY);
+                }
+            }
+            {
+                if (!jobsZeroSizeValue(self.subTextLabelSize)) {
+                    if (@available(iOS 15.0, *)) {
+                        if(self.subtitleLabel) self.subtitleLabel.resetSize(self.subTextLabelSize);
+                    }
+                }
+                if(self.subTextLabelFrameResetX){
+                    if (@available(iOS 15.0, *)) {
+                        if(self.subtitleLabel) self.subtitleLabel.resetOriginX(self.subTextLabelFrameResetX);
+                    }
+                }
+                if(self.subTextLabelFrameResetY){
+                    if (@available(iOS 15.0, *)) {
+                        if(self.subtitleLabel) self.subtitleLabel.resetOriginY(self.subTextLabelFrameResetY);
+                    }
+                }
+            }
+            {
+                if (!jobsZeroSizeValue(self.imageViewSize)) {
+                    self.imageView.resetSize(self.imageViewSize);
+                }
+                if (self.imageViewFrameResetX) {
+                    self.imageView.resetOriginX(self.imageViewFrameResetX);
+                }
+                if (self.imageViewFrameResetY) {
+                    self.imageView.resetOriginY(self.imageViewFrameResetY);
+                }
+            }
+        }
+        {/// 【组 3】UIButton 单独自定义设置系统自带控件的长宽 ❤️与组1、2属性互斥❤️
+            {
+                self.titleLabel.resetWidthByOffset(self.textLabelWidth);
+                self.titleLabel.resetHeightByOffset(self.textLabelHeight);
+                self.titleLabel.resetOriginXByOffset(self.textLabelFrameOffsetX);
+                self.titleLabel.resetOriginYByOffset(self.textLabelFrameOffsetY);
+            }
+            {
                 if (@available(iOS 15.0, *)) {
-                    if(self.subtitleLabel) self.subtitleLabel.resetOriginY(self.subTextLabelFrameResetY);
+                    if(self.subtitleLabel) {
+                        self.subtitleLabel.resetWidthByOffset(self.subTextLabelWidth);
+                        self.subtitleLabel.resetHeightByOffset(self.subTextLabelHeight);
+                        self.subtitleLabel.resetOriginXByOffset(self.subTextLabelFrameOffsetX);
+                        self.subtitleLabel.resetOriginYByOffset(self.subTextLabelFrameOffsetY);
+                    }
+                }
+            }
+            {
+                if(self.imageView){
+                    self.imageView.resetWidthByOffset(self.imageViewWidth);
+                    self.imageView.resetHeightByOffset(self.imageViewHeight);
+                    self.imageView.resetOriginXByOffset(self.imageViewFrameOffsetX);
+                    self.imageView.resetOriginYByOffset(self.imageViewFrameOffsetY);
                 }
             }
         }
-        {
-            if (!jobsZeroSizeValue(self.imageViewSize)) {
-                self.imageView.resetSize(self.imageViewSize);
-            }
-            if (self.imageViewFrameResetX) {
-                self.imageView.resetOriginX(self.imageViewFrameResetX);
-            }
-            if (self.imageViewFrameResetY) {
-                self.imageView.resetOriginY(self.imageViewFrameResetY);
-            }
+        {/// UIButton 单独自定义设置系统自带控件的偏移量 ❤️与其他组属性不互斥❤️
+            self.titleLabel.offsetForView(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
+                @jobs_strongify(self)
+                viewModel.byOffsetXForEach(self.textLabelFrameOffsetX)
+                         .byOffsetYForEach(self.textLabelFrameOffsetY)
+                         .byOffsetWidth(self.textLabelFrameOffsetWidth)
+                         .byOffsetHeight(self.textLabelFrameOffsetHeight);
+            }));
+            self.imageView.offsetForView(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
+                @jobs_strongify(self)
+                viewModel.byOffsetXForEach(self.imageViewFrameOffsetX)
+                         .byOffsetYForEach(self.imageViewFrameOffsetY)
+                         .byOffsetWidth(self.imageViewFrameOffsetWidth)
+                         .byOffsetHeight(self.imageViewFrameOffsetHeight);
+            }));
         }
-    }
-    {/// 【组 3】UIButton 单独自定义设置系统自带控件的长宽 ❤️与组1、2属性互斥❤️
-        {
-            self.titleLabel.resetWidthByOffset(self.textLabelWidth);
-            self.titleLabel.resetHeightByOffset(self.textLabelHeight);
-            self.titleLabel.resetOriginXByOffset(self.textLabelFrameOffsetX);
-            self.titleLabel.resetOriginYByOffset(self.textLabelFrameOffsetY);
-        }
-        {
-            if (@available(iOS 15.0, *)) {
-                if(self.subtitleLabel) {
-                    self.subtitleLabel.resetWidthByOffset(self.subTextLabelWidth);
-                    self.subtitleLabel.resetHeightByOffset(self.subTextLabelHeight);
-                    self.subtitleLabel.resetOriginXByOffset(self.subTextLabelFrameOffsetX);
-                    self.subtitleLabel.resetOriginYByOffset(self.subTextLabelFrameOffsetY);
-                }
-            }
-        }
-        {
-            if(self.imageView){
-                self.imageView.resetWidthByOffset(self.imageViewWidth);
-                self.imageView.resetHeightByOffset(self.imageViewHeight);
-                self.imageView.resetOriginXByOffset(self.imageViewFrameOffsetX);
-                self.imageView.resetOriginYByOffset(self.imageViewFrameOffsetY);
-            }
-        }
-    }
-    {/// UIButton 单独自定义设置系统自带控件的偏移量 ❤️与其他组属性不互斥❤️
-        self.titleLabel.offsetForView(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            @jobs_strongify(self)
-            viewModel.byOffsetXForEach(self.textLabelFrameOffsetX)
-                     .byOffsetYForEach(self.textLabelFrameOffsetY)
-                     .byOffsetWidth(self.textLabelFrameOffsetWidth)
-                     .byOffsetHeight(self.textLabelFrameOffsetHeight);
-        }));
-        self.imageView.offsetForView(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            @jobs_strongify(self)
-            viewModel.byOffsetXForEach(self.imageViewFrameOffsetX)
-                     .byOffsetYForEach(self.imageViewFrameOffsetY)
-                     .byOffsetWidth(self.imageViewFrameOffsetWidth)
-                     .byOffsetHeight(self.imageViewFrameOffsetHeight);
-        }));
-    }
+    };
 }
 
--(void)printValue{
-    JobsLog(@"self.textLabelFrame = %@",NSStringFromCGRect(self.textLabelFrame));
-    JobsLog(@"self.subTextLabelFrame = %@",NSStringFromCGRect(self.subTextLabelFrame));
-    JobsLog(@"self.imageViewFrame = %@",NSStringFromCGRect(self.imageViewFrame));
-    JobsLog(@"self.textLabelSize = %@",NSStringFromCGSize(self.textLabelSize));
-    JobsLog(@"self.subTextLabelSize = %@",NSStringFromCGSize(self.subTextLabelSize));
-    JobsLog(@"self.imageViewSize = %@",NSStringFromCGSize(self.imageViewSize));
-    JobsLog(@"self.textLabelWidth = %f",self.textLabelWidth);
-    JobsLog(@"self.textLabelHeight = %f",self.textLabelHeight);
-    JobsLog(@"self.subTextLabelWidth = %f",self.subTextLabelWidth);
-    JobsLog(@"self.subTextLabelHeight = %f",self.subTextLabelHeight);
-    JobsLog(@"self.imageViewWidth = %f",self.imageViewWidth);
-    JobsLog(@"self.imageViewHeight = %f",self.imageViewHeight);
-    JobsLog(@"self.textLabelFrameOffsetX = %f",self.textLabelFrameOffsetX);
-    JobsLog(@"self.textLabelFrameOffsetY = %f",self.textLabelFrameOffsetY);
-    JobsLog(@"self.textLabelFrameOffsetWidth = %f",self.textLabelFrameOffsetWidth);
-    JobsLog(@"self.textLabelFrameOffsetHeight = %f",self.textLabelFrameOffsetHeight);
-    JobsLog(@"self.subTextLabelFrameOffsetX = %f",self.subTextLabelFrameOffsetX);
-    JobsLog(@"self.subTextLabelFrameOffsetY = %f",self.subTextLabelFrameOffsetY);
-    JobsLog(@"self.subTextLabelFrameOffsetWidth = %f",self.subTextLabelFrameOffsetWidth);
-    JobsLog(@"self.subTextLabelFrameOffsetHeight = %f",self.subTextLabelFrameOffsetHeight);
-    JobsLog(@"self.imageViewFrameOffsetX = %f",self.imageViewFrameOffsetX);
-    JobsLog(@"self.imageViewFrameOffsetY = %f",self.imageViewFrameOffsetY);
-    JobsLog(@"self.imageViewFrameOffsetWidth = %f",self.imageViewFrameOffsetWidth);
-    JobsLog(@"self.imageViewFrameOffsetHeight = %f",self.imageViewFrameOffsetHeight);
+-(jobsByVoidBlock _Nonnull)printValue{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        JobsLog(@"self.textLabelFrame = %@",NSStringFromCGRect(self.textLabelFrame));
+        JobsLog(@"self.subTextLabelFrame = %@",NSStringFromCGRect(self.subTextLabelFrame));
+        JobsLog(@"self.imageViewFrame = %@",NSStringFromCGRect(self.imageViewFrame));
+        JobsLog(@"self.textLabelSize = %@",NSStringFromCGSize(self.textLabelSize));
+        JobsLog(@"self.subTextLabelSize = %@",NSStringFromCGSize(self.subTextLabelSize));
+        JobsLog(@"self.imageViewSize = %@",NSStringFromCGSize(self.imageViewSize));
+        JobsLog(@"self.textLabelWidth = %f",self.textLabelWidth);
+        JobsLog(@"self.textLabelHeight = %f",self.textLabelHeight);
+        JobsLog(@"self.subTextLabelWidth = %f",self.subTextLabelWidth);
+        JobsLog(@"self.subTextLabelHeight = %f",self.subTextLabelHeight);
+        JobsLog(@"self.imageViewWidth = %f",self.imageViewWidth);
+        JobsLog(@"self.imageViewHeight = %f",self.imageViewHeight);
+        JobsLog(@"self.textLabelFrameOffsetX = %f",self.textLabelFrameOffsetX);
+        JobsLog(@"self.textLabelFrameOffsetY = %f",self.textLabelFrameOffsetY);
+        JobsLog(@"self.textLabelFrameOffsetWidth = %f",self.textLabelFrameOffsetWidth);
+        JobsLog(@"self.textLabelFrameOffsetHeight = %f",self.textLabelFrameOffsetHeight);
+        JobsLog(@"self.subTextLabelFrameOffsetX = %f",self.subTextLabelFrameOffsetX);
+        JobsLog(@"self.subTextLabelFrameOffsetY = %f",self.subTextLabelFrameOffsetY);
+        JobsLog(@"self.subTextLabelFrameOffsetWidth = %f",self.subTextLabelFrameOffsetWidth);
+        JobsLog(@"self.subTextLabelFrameOffsetHeight = %f",self.subTextLabelFrameOffsetHeight);
+        JobsLog(@"self.imageViewFrameOffsetX = %f",self.imageViewFrameOffsetX);
+        JobsLog(@"self.imageViewFrameOffsetY = %f",self.imageViewFrameOffsetY);
+        JobsLog(@"self.imageViewFrameOffsetWidth = %f",self.imageViewFrameOffsetWidth);
+        JobsLog(@"self.imageViewFrameOffsetHeight = %f",self.imageViewFrameOffsetHeight);
+    };
 }
 #pragma mark —— BaseButtonProtocol
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】

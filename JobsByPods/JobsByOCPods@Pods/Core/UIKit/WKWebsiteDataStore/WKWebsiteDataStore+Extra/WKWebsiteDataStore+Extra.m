@@ -8,7 +8,7 @@
 #import "WKWebsiteDataStore+Extra.h"
 
 @implementation WKWebsiteDataStore (Extra)
-- (jobsByVoidBlock)clean {
+- (jobsByVoidBlock _Nonnull)clean {
     return ^{
         // 标准写法：不依赖链式宏/JobsLog，保证 Pod 边界内可编译
         NSSet<NSString *> *types = [NSSet setWithObjects:

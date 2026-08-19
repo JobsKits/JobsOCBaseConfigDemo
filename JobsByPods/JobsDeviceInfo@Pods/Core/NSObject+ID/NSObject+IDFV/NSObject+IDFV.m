@@ -18,8 +18,13 @@
 
      注意：如果用户将属于此Vender的所有App卸载，则idfv的值会被重置，即再重装此Vender的App，idfv的值和之前不同。
  */
--(NSString *)IDFV{
-    return UIDevice.currentDevice.identifierForVendor.UUIDString;
+-(JobsRetStrByVoidBlock _Nonnull)IDFV{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return UIDevice.currentDevice.identifierForVendor.UUIDString;
+    };
 }
 
 @end

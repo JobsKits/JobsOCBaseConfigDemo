@@ -21,65 +21,145 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ExcelVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(@"Excel".tr)
-                .byFont(UIFontWeightSemiboldSize(18));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
-        .byBgCor(HEXCOLOR(0xF6F8FB))
-        .byNavBgCor(HEXCOLOR(0xF6F8FB));/// self.gk_navBackgroundColor 和 self.view.backgroundColor
-        //    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(@"Excel".jobsTr())
+                    .byFont(UIFontWeightSemiboldSize(18));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
+            .byBgCor(HEXCOLOR(0xF6F8FB))
+            .byNavBgCor(HEXCOLOR(0xF6F8FB));/// self.gk_navBackgroundColor 和 self.view.backgroundColor
+            //    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-//    [self.bgImageView removeFromSuperview];
-    self.tableView.byShow(self);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ExcelVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+            [super viewDidLoad];
+            self.view.byBgColor(JobsSystemBackgroundColor);
+            self.makeNavByAlpha(1);
+        //    [self.bgImageView removeFromSuperview];
+            self.tableView.byShow(self);
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-//    self.updateStatusBarCor(JobsOrangeColor);/// 在具体子类实现，不要写在父类
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ExcelVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+            [super viewWillAppear:animated];
+        //    self.updateStatusBarCor(JobsOrangeColor);/// 在具体子类实现，不要写在父类
+    };
 }
 
 -(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ExcelVC.class, @selector(jobsViewWillLayoutSubviews)))(self, @selector(jobsViewWillLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewWillLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ExcelVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ExcelVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-//    self.restoreStatusBarCor(nil);
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ExcelVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+            [super viewWillDisappear:animated];
+        //    self.restoreStatusBarCor(nil);
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ExcelVC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+    };
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -95,7 +175,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.dataMutArr[indexPath.section][indexPath.row].cls) {
         self.comingToPushVCByRequestParams(self.dataMutArr[indexPath.section][indexPath.row].cls.new,
                                            self.dataMutArr[indexPath.section][indexPath.row]);
-    }else @"尚未接入此功能".tr.toast();
+    }else @"尚未接入此功能".jobsTr().toast();
 }
 /// 编辑模式下，点击取消左边已选中的cell的按钮
 - (void)tableView:(UITableView *)tableView
@@ -103,7 +183,17 @@ didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.dataMutArr.count;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ExcelVC.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return self.dataMutArr.count;
+    };
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
@@ -119,7 +209,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     JobsBaseTableViewCell *cell = (JobsBaseTableViewCell *)self.tbvSectionRowCellMutArr[indexPath.section][indexPath.row];
-    UIColor *statusCor = [self jobs_excelStatusColorByIndexPath:indexPath];
+    UIColor *statusCor = self.jobs_excelStatusColorByIndexPath(indexPath);
     cell.byBgColor(JobsSecondarySystemBackgroundColor);
     return cell
         .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
@@ -199,13 +289,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     /// 隐藏最后一个单元格的分界线
     [tableView hideSeparatorLineAtLast:indexPath cell:cell];
     /// 自定义 UITableViewCell 的箭头
-    cell.img = @"向右的箭头（小）".img;
+    ((JobsBaseTableViewCell *)cell).byImg(@"向右的箭头（小）".img);
 //    @jobs_weakify(self)
-    [cell customAccessoryView:^(id data) {
+    cell.customAccessoryView(^(id data) {
 //        @jobs_strongify(self)
         JobsBaseTableViewCell *cell = (JobsBaseTableViewCell *)data;
         JobsLog(@"MMM - %ld",cell.index);
-    }];
+    });
     cell.accessoryView.resetWidth(8);
     /// 以 section 为单位，对首尾 cell 做圆角处理
     [cell roundedCornerFirstAndLastCellByTableView:tableView
@@ -217,11 +307,16 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     })];
 }
 
--(UIColor *)jobs_excelStatusColorByIndexPath:(NSIndexPath *)indexPath{
-    UIViewModel *model = self.dataMutArr[indexPath.section][indexPath.row];
-    NSString *subTitle = model.subTextModel.attributedTitle.string;
-    if (!subTitle.length) subTitle = model.subTextModel.text;
-    return [subTitle containsString:@"崩溃"] ? HEXCOLOR(0xC05621) : HEXCOLOR(0x0F766E);
+-(JobsRetUIColorByNSIndexPathBlock _Nonnull)jobs_excelStatusColorByIndexPath{
+    @jobs_weakify(self)
+    return ^UIColor *(NSIndexPath * indexPath){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        UIViewModel *model = self.dataMutArr[indexPath.section][indexPath.row];
+        NSString *subTitle = model.subTextModel.attributedTitle.string;
+        if (!subTitle.length) subTitle = model.subTextModel.text;
+        return [subTitle containsString:@"崩溃"] ? HEXCOLOR(0xC05621) : HEXCOLOR(0x0F766E);
+    };
 }
 
 #pragma mark —— lazyLoad
@@ -238,12 +333,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     @jobs_strongify(self)
                     NSObject.feedbackGenerator(nil);// 震动反馈
                     self->_tableView.endRefreshing(YES);
-                }].byMJRefreshHeaderConfigModel(self.mjHeaderDefaultConfig))
+                }].byMJRefreshHeaderConfigModel(self.jobsMjHeaderDefaultConfig()))
                 .byMJRefreshFooter([MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
                     @jobs_strongify(self)
                     NSObject.feedbackGenerator(nil);// 震动反馈
                     self->_tableView.endRefreshing(YES);
-                }].byMJRefreshFooterConfigModel(self.mjFooterDefaultConfig))
+                }].byMJRefreshFooterConfigModel(self.jobsMjFooterDefaultConfig()))
                 .bySectionHeaderTopPadding(0)
                 .bySeparatorColor(HEXCOLOR(0xE8EDF3))
                 .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
@@ -276,8 +371,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .add(JobsBaseTableViewCell.cellStyleValue1ByTableView(self.tableView))
                 .add(JobsBaseTableViewCell.cellStyleValue1ByTableView(self.tableView))
                 .add(JobsBaseTableViewCell.cellStyleValue1ByTableView(self.tableView));
-            }));
-            data.add(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable rowCellMutArr) {
+            }))
+            .add(jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable rowCellMutArr) {
                 @jobs_strongify(self)
                 rowCellMutArr.add(JobsBaseTableViewCell.cellStyleValue1ByTableView(self.tableView));
             }));
@@ -293,31 +388,31 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             data.add(jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIViewModel *>* _Nullable data1) {
                 @jobs_strongify(self)
                 data1.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.byTitle(@"ZMJClassData".tr)
-                         .bySubTitle(@"正常".tr)
+                    model.byTitle(@"ZMJClassData".jobsTr())
+                         .bySubTitle(@"正常".jobsTr())
                          .byCls(ZMJClassDataVC.class);
                 })))
                 .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.byTitle(@"ZMJTimeable".tr)
-                         .bySubTitle(@"正常".tr)
+                    model.byTitle(@"ZMJTimeable".jobsTr())
+                         .bySubTitle(@"正常".jobsTr())
                          .byCls(ZMJTimeableVC.class);
                 })))
                 .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.byTitle(@"ZMJSchedule".tr)
-                         .bySubTitle(@"正常".tr)
+                    model.byTitle(@"ZMJSchedule".jobsTr())
+                         .bySubTitle(@"正常".jobsTr())
                          .byCls(ZMJScheduleVC.class);
                 })))
                 .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.byTitle(@"ZMJGanttList".tr)
-                         .bySubTitle(@"有崩溃，需要修复".tr)
+                    model.byTitle(@"ZMJGanttList".jobsTr())
+                         .bySubTitle(@"有崩溃，需要修复".jobsTr())
                          .byCls(ZMJGanttListVC.class);
                 })));
-            }));
-            data.add(jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIViewModel *>* _Nullable data1) {
+            }))
+            .add(jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIViewModel *>* _Nullable data1) {
                 @jobs_strongify(self)
                 data1.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                    model.byTitle(@"JobsExcel".tr)
-                         .bySubTitle(@"JobsExcel".tr)
+                    model.byTitle(@"JobsExcel".jobsTr())
+                         .bySubTitle(@"JobsExcel".jobsTr())
                          .byCls(JobsExcelVC.class);
                 })));
             }));

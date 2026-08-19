@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -26,8 +32,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BaseNavigationBar : UINavigationBar
 
--(void)actionBlockBaseNavigationBar:(jobsByIDBlock _Nonnull)baseNavigationBarBlock;
+-(jobsByjobsByIDBlockBlock _Nonnull)actionBlockBaseNavigationBar;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN BaseNavigationBar
+-(JobsRetBaseNavigationBarByjobsByIDBlockBlock _Nonnull)byBaseNavigationBarBlock;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END BaseNavigationBar
 @end
 
 NS_ASSUME_NONNULL_END

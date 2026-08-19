@@ -185,7 +185,6 @@ for Jobs projects.
   spec.dependency 'JobsClass'
   spec.dependency 'JobsMakes'
   spec.dependency 'JobsOCDefs'
-  spec.dependency 'JobsTimeUtils'
   spec.dependency 'JobsOCSnowflake'
   spec.dependency 'JobsRandomUtils'
   spec.dependency 'JobsOCProtocols'

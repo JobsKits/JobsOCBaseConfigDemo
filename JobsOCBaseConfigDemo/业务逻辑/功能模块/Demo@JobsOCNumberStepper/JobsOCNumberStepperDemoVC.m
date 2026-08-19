@@ -23,49 +23,74 @@ Prop_strong()NSMutableArray <JobsOCNumberStepper *>*numberStepperMutArr;
 @implementation JobsOCNumberStepperDemoVC
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.makeNavByAlpha(1);
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.contentStackView.byHidden(NO);
-    [self setupScenarios];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCNumberStepperDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.makeNavByAlpha(1);
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.contentStackView.byHidden(NO);
+        self.setupScenarios();
+    };
 }
 
 -(void)loadView{
-    [super loadView];
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"数字步进输入".tr);
-        })
-        .byBgCor(JobsSystemBackgroundColor)
-        .byNavBgCor(JobsSystemBackgroundColor);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCNumberStepperDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"数字步进输入".jobsTr());
+            })
+            .byBgCor(JobsSystemBackgroundColor)
+            .byNavBgCor(JobsSystemBackgroundColor);
+    };
 }
 
 #pragma mark —— Scenarios
--(void)setupScenarios{
-    self.contentStackView.byAddArrangedSubview(self.introLab);
-    [self addScenarioWithTitle:@"不设置边界"
-                        detail:@"minimumValue = nil，maximumValue = nil"
-                         value:0
-                  minimumValue:nil
-                  maximumValue:nil];
-    [self addScenarioWithTitle:@"仅设置下限"
-                        detail:@"minimumValue = 4；当前值到 4 时减号不可点"
-                         value:4
-                  minimumValue:@4
-                  maximumValue:nil];
-    [self addScenarioWithTitle:@"仅设置上限"
-                        detail:@"maximumValue = 8；当前值到 8 时加号不可点"
-                         value:8
-                  minimumValue:nil
-                  maximumValue:@8];
-    [self addScenarioWithTitle:@"同时设置上下限"
-                        detail:@"输入框只接受整数，结束编辑后自动收敛到 4...8"
-                         value:6
-                  minimumValue:@4
-                  maximumValue:@8];
+-(jobsByVoidBlock _Nonnull)setupScenarios{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.contentStackView.byAddArrangedSubview(self.introLab);
+        [self addScenarioWithTitle:@"不设置边界"
+                            detail:@"minimumValue = nil，maximumValue = nil"
+                             value:0
+                      minimumValue:nil
+                      maximumValue:nil];
+        [self addScenarioWithTitle:@"仅设置下限"
+                            detail:@"minimumValue = 4；当前值到 4 时减号不可点"
+                             value:4
+                      minimumValue:@4
+                      maximumValue:nil];
+        [self addScenarioWithTitle:@"仅设置上限"
+                            detail:@"maximumValue = 8；当前值到 8 时加号不可点"
+                             value:8
+                      minimumValue:nil
+                      maximumValue:@8];
+        [self addScenarioWithTitle:@"同时设置上下限"
+                            detail:@"输入框只接受整数，结束编辑后自动收敛到 4...8"
+                             value:6
+                      minimumValue:@4
+                      maximumValue:@8];
+    };
 }
 
 -(void)addScenarioWithTitle:(NSString *)title
@@ -80,13 +105,13 @@ Prop_strong()NSMutableArray <JobsOCNumberStepper *>*numberStepperMutArr;
     });
     UILabel *titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
-            .byText(title.tr)
+            .byText(title.jobsTr())
             .byTextCor(JobsLabelColor)
             .byFont(UIFontWeightSemiboldSize(16));
     });
     UILabel *detailLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         label
-            .byText(detail.tr)
+            .byText(detail.jobsTr())
             .byTextCor(JobsSecondaryLabelColor)
             .byFont(UIFontWeightRegularSize(13))
             .byNumberOfLines(0);
@@ -188,7 +213,7 @@ Prop_strong()NSMutableArray <JobsOCNumberStepper *>*numberStepperMutArr;
     if (!_introLab) {
         _introLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"减号 + 整数输入框 + 加号。上下限均为可选配置；到达已设置的边界时，对应按钮会自动禁用并置灰。".tr)
+                .byText(@"减号 + 整数输入框 + 加号。上下限均为可选配置；到达已设置的边界时，对应按钮会自动禁用并置灰。".jobsTr())
                 .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontWeightRegularSize(14))
                 .byNumberOfLines(0);

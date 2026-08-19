@@ -10,6 +10,17 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>
 #else
@@ -60,14 +71,15 @@ Prop_strong(readonly)UITableView *tableView;
 Prop_strong(readonly)JobsOCCommentConfig *config;
 Prop_copy(readonly)NSArray <JobsOCCommentModel *>*comments;
 
+-(JobsRetJobsOCCommentViewByConfigBlock _Nonnull)byConfig;
 -(instancetype)initWithConfig:(JobsOCCommentConfig *_Nullable)config;
--(__kindof JobsOCCommentView *_Nullable(^)(NSArray <JobsOCCommentModel *>*_Nullable comments))byComments;
--(__kindof JobsOCCommentView *_Nullable(^)(JobsOCCommentMode mode))byMode;
--(void)reloadWithConfig:(JobsOCCommentConfig *_Nullable)config;
--(void)reloadWithComments:(NSArray <JobsOCCommentModel *>*_Nullable)comments;
--(void)endPullRefresh;
--(void)endLoadMore;
--(void)endLoadMoreWithNoMoreData:(BOOL)noMoreData;
+-(JobsRetJobsOCCommentViewByNSArrayJobsOCCommentModelBlock _Nonnull)byComments;
+-(JobsRetJobsOCCommentViewByJobsOCCommentModeBlock _Nonnull)byMode;
+-(jobsByJobsOCCommentConfigBlock _Nonnull)reloadWithConfig;
+-(jobsByNSArrayJobsOCCommentModelBlock _Nonnull)reloadWithComments;
+-(jobsByVoidBlock _Nonnull)endPullRefresh;
+-(jobsByVoidBlock _Nonnull)endLoadMore;
+-(jobsByBOOLBlock _Nonnull)endLoadMoreWithNoMoreData;
 -(void)endRefreshingAtPosition:(JobsOCRefreshPosition)position
                        toState:(JobsOCRefreshState)state;
 

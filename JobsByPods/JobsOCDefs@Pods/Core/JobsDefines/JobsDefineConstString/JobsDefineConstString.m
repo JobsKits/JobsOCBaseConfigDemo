@@ -5,8 +5,9 @@
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
-#import "JobsDefineConstString.h" // 常量字符串的定义
-///
+#import "JobsDefineConstString.h"
+
+/// 常量字符串的定义
 NSRange const NSRangeZero = (NSRange){0, 0};// 使用结构体直接赋值
 /// SDK内部类
 NSString *const UISystemBackgroundView = @"_UISystemBackgroundView";

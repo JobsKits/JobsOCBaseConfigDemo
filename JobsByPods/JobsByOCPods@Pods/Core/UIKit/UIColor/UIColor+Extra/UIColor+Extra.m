@@ -115,7 +115,7 @@
     };
 }
 /// UIColor * => UIImage *
-+(JobsRetImageByCorBlock)imageWithColor{
++(JobsRetImageByCorBlock _Nonnull)imageWithColor{
     return ^UIImage * _Nullable(UIColor * _Nullable cor) {
         CGRect rect = CGRectMake(0.0f,
                                  0.0f,
@@ -156,8 +156,9 @@
     }
     if (!CorDataMutArr) {
         CorDataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            data.add((id)JobsRedColor.CGColor);
-            data.add((id)JobsGreenColor.CGColor);
+            data
+                .add((id)JobsRedColor.CGColor)
+                .add((id)JobsGreenColor.CGColor);
         });
     }else{
         for (int t = 0; t < CorDataMutArr.count; t++) {
@@ -195,7 +196,7 @@
 #pragma mark —— 实例方法
 /// 将一个确定的UIColor子类，翻译成RGB格式的字符串值并对外输出【可能因为四舍五入的问题影响末位精度，误差在±1】
 /// 资料来源  https://blog.csdn.net/thanklife/article/details/25784879
--(JobsRetStrByCorBlock)rgbCorStrBy{
+-(JobsRetStrByCorBlock _Nonnull)rgbCorStrBy{
     @jobs_weakify(self)
     return ^NSString *_Nullable(UIColor * _Nullable data) {
         @jobs_strongify(self)
@@ -212,13 +213,13 @@
         /// 获取蓝色值
         int b = [[RGBArr objectAtIndex:3] floatValue] * 255;
         NSString *blueStr = toStringByInt(b);
-        return @"红色".tr
+        return @"红色".jobsTr()
             .add(@":")
             .add(redStr)
-            .add(@"绿色".tr)
+            .add(@"绿色".jobsTr())
             .add(@":")
             .add(greenStr)
-            .add(@"蓝色".tr)
+            .add(@"蓝色".jobsTr())
             .add(@":")
             .add(blueStr);
     };
@@ -265,10 +266,18 @@
 }
 /// 根据颜色生成图片
 -(UIImage *)image{
-    return self.imageByRect(CGRectMake(0.0f,
-                                       0.0f,
-                                       1.0f,
-                                       1.0f));
+    return (((JobsRetImageByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIColor.class, @selector(jobsImage)))(self, @selector(jobsImage)))();
+}
+-(JobsRetImageByVoidBlock _Nonnull)jobsImage{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.imageByRect(CGRectMake(0.0f,
+                                           0.0f,
+                                           1.0f,
+                                           1.0f));
+    };
 }
 /// 根据颜色生成图片
 -(JobsRetImageByFrameBlock _Nonnull)imageByRect{

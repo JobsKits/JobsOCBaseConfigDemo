@@ -29,13 +29,13 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIButton (UIControlState)
 #pragma mark —— UIButton.image
 -(JobsRetImageByNSUIntegerBlock _Nonnull)imageByState;
--(UIImage *_Nullable)imageByNormalState;
--(UIImage *_Nullable)imageByHighlightedState;
--(UIImage *_Nullable)imageByDisabledState;
--(UIImage *_Nullable)imageBySelectedState;
--(UIImage *_Nullable)imageByFocusedState API_AVAILABLE(ios(9.0));
--(UIImage *_Nullable)imageByApplicationState;
--(UIImage *_Nullable)imageByReservedState;
+-(JobsRetImageByVoidBlock _Nonnull)imageByNormalState;
+-(JobsRetImageByVoidBlock _Nonnull)imageByHighlightedState;
+-(JobsRetImageByVoidBlock _Nonnull)imageByDisabledState;
+-(JobsRetImageByVoidBlock _Nonnull)imageBySelectedState;
+-(JobsRetImageByVoidBlock _Nonnull)imageByFocusedState API_AVAILABLE(ios(9.0));
+-(JobsRetImageByVoidBlock _Nonnull)imageByApplicationState;
+-(JobsRetImageByVoidBlock _Nonnull)imageByReservedState;
 -(JobsRetBtnByImageBlock _Nonnull)normalStateImageBy;
 -(JobsRetBtnByImageBlock _Nonnull)highlightedStateImageBy;
 -(JobsRetBtnByImageBlock _Nonnull)disabledStateImageBy;
@@ -46,13 +46,13 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBtnByImageAndControlStateBlock _Nonnull)imageForStateBy;
 #pragma mark —— UIButton.backgroundImage
 -(JobsRetImageByNSUIntegerBlock _Nonnull)backgroundImageByState;
--(UIImage *_Nullable)backgroundImageByNormalState;
--(UIImage *_Nullable)backgroundImageByHighlightedState;
--(UIImage *_Nullable)backgroundImageByDisabledState;
--(UIImage *_Nullable)backgroundImageBySelectedState;
--(UIImage *_Nullable)backgroundImageByFocusedState API_AVAILABLE(ios(9.0));
--(UIImage *_Nullable)backgroundImageByApplicationState;
--(UIImage *_Nullable)backgroundImageByReservedState;
+-(JobsRetImageByVoidBlock _Nonnull)backgroundImageByNormalState;
+-(JobsRetImageByVoidBlock _Nonnull)backgroundImageByHighlightedState;
+-(JobsRetImageByVoidBlock _Nonnull)backgroundImageByDisabledState;
+-(JobsRetImageByVoidBlock _Nonnull)backgroundImageBySelectedState;
+-(JobsRetImageByVoidBlock _Nonnull)backgroundImageByFocusedState API_AVAILABLE(ios(9.0));
+-(JobsRetImageByVoidBlock _Nonnull)backgroundImageByApplicationState;
+-(JobsRetImageByVoidBlock _Nonnull)backgroundImageByReservedState;
 -(JobsRetBtnByImageBlock _Nonnull)normalStateBackgroundImageBy;
 -(JobsRetBtnByImageBlock _Nonnull)highlightedStateBackgroundImageBy;
 -(JobsRetBtnByImageBlock _Nonnull)disabledStateBackgroundImageBy;
@@ -63,13 +63,13 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBtnByImageAndControlStateBlock _Nonnull)backgroundImageForStateBy;
 #pragma mark —— UIButton.titleColor
 -(JobsRetCorByNSUIntegerBlock _Nonnull)titleColorByState;
--(UIColor *_Nullable)titleColorByNormalState;
--(UIColor *_Nullable)titleColorByHighlightedState;
--(UIColor *_Nullable)titleColorByDisabledState;
--(UIColor *_Nullable)titleColorBySelectedState;
--(UIColor *_Nullable)titleColorByFocusedState API_AVAILABLE(ios(9.0));
--(UIColor *_Nullable)titleColorByApplicationState;
--(UIColor *_Nullable)titleColorByReservedState;
+-(JobsRetCorByVoidBlock _Nonnull)titleColorByNormalState;
+-(JobsRetCorByVoidBlock _Nonnull)titleColorByHighlightedState;
+-(JobsRetCorByVoidBlock _Nonnull)titleColorByDisabledState;
+-(JobsRetCorByVoidBlock _Nonnull)titleColorBySelectedState;
+-(JobsRetCorByVoidBlock _Nonnull)titleColorByFocusedState API_AVAILABLE(ios(9.0));
+-(JobsRetCorByVoidBlock _Nonnull)titleColorByApplicationState;
+-(JobsRetCorByVoidBlock _Nonnull)titleColorByReservedState;
 -(JobsRetBtnByCorBlock _Nonnull)normalStateTitleColorBy;
 -(JobsRetBtnByCorBlock _Nonnull)highlightedStateTitleColorBy;
 -(JobsRetBtnByCorBlock _Nonnull)disabledStateTitleColorBy;
@@ -85,13 +85,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// TODO
 #pragma mark —— UIButton.title
 -(JobsRetStrByUIntegerBlock _Nonnull)titleByState;
--(NSString *_Nullable)titleByNormalState;
--(NSString *_Nullable)titleByHighlightedState;
--(NSString *_Nullable)titleByDisabledState;
--(NSString *_Nullable)titleBySelectedState;
--(NSString *_Nullable)titleByFocusedState API_AVAILABLE(ios(9.0));
--(NSString *_Nullable)titleByApplicationState;
--(NSString *_Nullable)titleByReservedState;
+-(JobsRetStrByVoidBlock _Nonnull)titleByNormalState;
+-(JobsRetStrByVoidBlock _Nonnull)titleByHighlightedState;
+-(JobsRetStrByVoidBlock _Nonnull)titleByDisabledState;
+-(JobsRetStrByVoidBlock _Nonnull)titleBySelectedState;
+-(JobsRetStrByVoidBlock _Nonnull)titleByFocusedState API_AVAILABLE(ios(9.0));
+-(JobsRetStrByVoidBlock _Nonnull)titleByApplicationState;
+-(JobsRetStrByVoidBlock _Nonnull)titleByReservedState;
 -(JobsRetBtnByStringBlock _Nonnull)normalStateTitleBy;
 -(JobsRetBtnByStringBlock _Nonnull)highlightedStateTitleBy;
 -(JobsRetBtnByStringBlock _Nonnull)disabledStateTitleBy;
@@ -101,17 +101,17 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBtnByStringBlock _Nonnull)reservedStateTitleBy;
 -(JobsRetBtnByStringAndControlStateBlock _Nonnull)titleForStateBy;
 #pragma mark —— UIButton.subtitle
--(NSAttributedString *_Nullable)attributedSubtitle;
+-(JobsRetAttributedStringByVoidBlock _Nonnull)attributedSubtitle;
 #pragma mark —— UIButton.attributedTitle
 -(NSAttributedString *_Nullable)attributedTitle;
 -(JobsRetAttributedStringByNSUIntegerBlock _Nonnull)attributedTitleByState;
--(NSAttributedString *_Nullable)attributedTitleByNormalState;
--(NSAttributedString *_Nullable)attributedTitleByHighlightedState;
--(NSAttributedString *_Nullable)attributedTitleByDisabledState;
--(NSAttributedString *_Nullable)attributedTitleBySelectedState;
--(NSAttributedString *_Nullable)attributedTitleByFocusedState API_AVAILABLE(ios(9.0));
--(NSAttributedString *_Nullable)attributedTitleByApplicationState;
--(NSAttributedString *_Nullable)attributedTitleByReservedState;
+-(JobsRetAttributedStringByVoidBlock _Nonnull)attributedTitleByNormalState;
+-(JobsRetAttributedStringByVoidBlock _Nonnull)attributedTitleByHighlightedState;
+-(JobsRetAttributedStringByVoidBlock _Nonnull)attributedTitleByDisabledState;
+-(JobsRetAttributedStringByVoidBlock _Nonnull)attributedTitleBySelectedState;
+-(JobsRetAttributedStringByVoidBlock _Nonnull)attributedTitleByFocusedState API_AVAILABLE(ios(9.0));
+-(JobsRetAttributedStringByVoidBlock _Nonnull)attributedTitleByApplicationState;
+-(JobsRetAttributedStringByVoidBlock _Nonnull)attributedTitleByReservedState;
 -(JobsRetBtnByAttributedStringBlock _Nonnull)selectedAttributedTitleBy;
 -(JobsRetBtnByAttributedStringBlock _Nonnull)normalStateAttributedTitleBy;
 -(JobsRetBtnByAttributedStringBlock _Nonnull)highlightedStateAttributedTitleBy;

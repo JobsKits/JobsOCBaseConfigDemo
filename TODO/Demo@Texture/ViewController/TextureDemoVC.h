@@ -71,6 +71,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TextureDemoVC : ASDKViewController<ASTableNode *> <ASTableDataSource, ASTableDelegate>
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN TextureDemoVC
+-(JobsRetTextureDemoVCByBOOLBlock _Nonnull)byHasMore;
+-(void)setHasMore:(BOOL)data;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END TextureDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

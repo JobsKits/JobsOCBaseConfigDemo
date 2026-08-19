@@ -9,12 +9,6 @@
 #import <JobsBlock/JobsBlockDef.h>
 #import <JobsBlock/JobsBlockHeader.h>
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
 #ifndef JobsBizBlock_h
 #define JobsBizBlock_h
 typedef void(^jobsByFirstCommentCustomCofigModelBlock)(__kindof JobsFirstCommentCustomCofigModel *_Nullable model);

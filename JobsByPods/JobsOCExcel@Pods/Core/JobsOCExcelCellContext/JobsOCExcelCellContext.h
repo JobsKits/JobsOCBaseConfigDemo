@@ -7,6 +7,12 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -20,6 +26,10 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_assign()NSInteger row;
 Prop_assign()NSInteger column;
 Prop_copy()NSString *value;
+
+-(JobsRetJobsOCExcelCellContextByNSIntegerBlock _Nonnull)byRow;
+-(JobsRetJobsOCExcelCellContextByNSIntegerBlock _Nonnull)byColumn;
+-(JobsRetJobsOCExcelCellContextByStrBlock _Nonnull)byValue;
 
 +(instancetype)contextWithRow:(NSInteger)row
                        column:(NSInteger)column

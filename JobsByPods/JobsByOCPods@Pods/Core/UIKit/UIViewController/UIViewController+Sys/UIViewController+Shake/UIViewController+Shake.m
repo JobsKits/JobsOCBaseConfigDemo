@@ -9,10 +9,15 @@
 
 @implementation UIViewController (Shake)
 #pragma mark —— 系统方法
--(void)invokeWhenViewDidLoadUsingSysFunc{
-    //设置允许摇一摇功能
-    UIApplication.sharedApplication.applicationSupportsShakeToEdit = YES;
-    [self becomeFirstResponder];
+-(jobsByVoidBlock _Nonnull)invokeWhenViewDidLoadUsingSysFunc{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        //设置允许摇一摇功能
+        UIApplication.sharedApplication.byApplicationSupportsShakeToEdit(YES);
+        [self becomeFirstResponder];
+    };
 }
 /// 摇一摇开始摇动
 - (void)motionBegan:(UIEventSubtype)motion
@@ -36,71 +41,91 @@
     if (self.objBlock) self.objBlock(@(UIViewControllerShakeCancelType));
 }
 #pragma mark —— 加速仪
--(void)invokeWhenViewDidAppearUsingCMMotionManager{
+-(jobsByVoidBlock _Nonnull)invokeWhenViewDidAppearUsingCMMotionManager{
     @jobs_weakify(self)
-    [JobsNotificationCenter addObserverForName:UIApplicationDidEnterBackgroundNotification
-                                        object:nil
-                                         queue:nil
-                                    usingBlock:^(NSNotification * _Nonnull notification) {
+    return ^{
         @jobs_strongify(self)
-//        NSString *notificationName = notification.name;
-        if (notification.name.isEqualToString(UIApplicationDidEnterBackgroundNotification)){
-            [self.motionManager stopAccelerometerUpdates];
-        }else{
-            [self startAccelerometer];
-        }
-    }];
-    [JobsNotificationCenter addObserverForName:UIApplicationWillEnterForegroundNotification
-                                        object:nil
-                                         queue:nil
-                                    usingBlock:^(NSNotification * _Nonnull notification) {
-        @jobs_strongify(self)
-//        NSString *notificationName = notification.name;
-        if (notification.name.isEqualToString(UIApplicationDidEnterBackgroundNotification)){
-            [self.motionManager stopAccelerometerUpdates];
-        }else{
-            [self startAccelerometer];
-        }
-    }];
-}
-
--(void)startAccelerometer{
-    //以push的方式更新并在block中接收加速度
-    @jobs_weakify(self)
-    [self.motionManager startAccelerometerUpdatesToQueue:NSOperationQueue.new
-                                             withHandler:^(CMAccelerometerData *accelerometerData,
-                                                           NSError *error) {
-        @jobs_strongify(self)
-        [self outputAccelertionData:accelerometerData.acceleration];
-        if (error) {
-            JobsLog(@"motion error:%@",error);
-        }
-    }];
-}
-
--(void)stopAccelerometerWhenViewDidDisappear{
-    [self.motionManager stopAccelerometerUpdates];
-    JobsNotificationCenter.Remove(UIApplicationDidEnterBackgroundNotification,self);
-    JobsNotificationCenter.Remove(UIApplicationWillEnterForegroundNotification,self);
-}
-
--(void)outputAccelertionData:(CMAcceleration)acceleration{
-    //综合3个方向的加速度
-    double accelerameter = sqrt(pow( acceleration.x , 2 ) + pow( acceleration.y , 2 ) + pow( acceleration.z , 2));
-    //当综合加速度大于2.3时，就激活效果（此数值根据需求可以调整，数据越小，用户摇动的动作就越小，越容易激活，反之加大难度，但不容易误触发）
-    if (accelerameter > 1.5f) {
-        //立即停止更新加速仪（很重要！）
-        [self.motionManager stopAccelerometerUpdates];
+        if (!self) return;
         @jobs_weakify(self)
-        dispatch_async(dispatch_get_main_queue(), ^{
+        [JobsNotificationCenter addObserverForName:UIApplicationDidEnterBackgroundNotification
+                                            object:nil
+                                             queue:nil
+                                        usingBlock:^(NSNotification * _Nonnull notification) {
             @jobs_strongify(self)
-            //UI线程必须在此block内执行，例如摇一摇动画、UIAlertView之类
-            //设置开始摇晃时震动
-            [NSObject shake];
-            //加载动画
-            if (self.objBlock) self.objBlock(@(UIViewControllerShakeBeganType));
-        });
-    }
+    //        NSString *notificationName = notification.name;
+            if (notification.name.isEqualToString(UIApplicationDidEnterBackgroundNotification)){
+                [self.motionManager stopAccelerometerUpdates];
+            }else{
+                self.startAccelerometer();
+            }
+        }];
+        [JobsNotificationCenter addObserverForName:UIApplicationWillEnterForegroundNotification
+                                            object:nil
+                                             queue:nil
+                                        usingBlock:^(NSNotification * _Nonnull notification) {
+            @jobs_strongify(self)
+    //        NSString *notificationName = notification.name;
+            if (notification.name.isEqualToString(UIApplicationDidEnterBackgroundNotification)){
+                [self.motionManager stopAccelerometerUpdates];
+            }else{
+                self.startAccelerometer();
+            }
+        }];
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)startAccelerometer{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        //以push的方式更新并在block中接收加速度
+        @jobs_weakify(self)
+        [self.motionManager startAccelerometerUpdatesToQueue:NSOperationQueue.new
+                                                 withHandler:^(CMAccelerometerData *accelerometerData,
+                                                               NSError *error) {
+            @jobs_strongify(self)
+            self.outputAccelertionData(accelerometerData.acceleration);
+            if (error) {
+                JobsLog(@"motion error:%@",error);
+            }
+        }];
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)stopAccelerometerWhenViewDidDisappear{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self.motionManager stopAccelerometerUpdates];
+        JobsNotificationCenter.Remove(UIApplicationDidEnterBackgroundNotification,self);
+        JobsNotificationCenter.Remove(UIApplicationWillEnterForegroundNotification,self);
+    };
+}
+
+-(jobsByCMAccelerationBlock _Nonnull)outputAccelertionData{
+    @jobs_weakify(self)
+    return ^(CMAcceleration acceleration){
+        @jobs_strongify(self)
+        if (!self) return;
+        //综合3个方向的加速度
+        double accelerameter = sqrt(pow( acceleration.x , 2 ) + pow( acceleration.y , 2 ) + pow( acceleration.z , 2));
+        //当综合加速度大于2.3时，就激活效果（此数值根据需求可以调整，数据越小，用户摇动的动作就越小，越容易激活，反之加大难度，但不容易误触发）
+        if (accelerameter > 1.5f) {
+            //立即停止更新加速仪（很重要！）
+            [self.motionManager stopAccelerometerUpdates];
+            @jobs_weakify(self)
+            dispatch_async(dispatch_get_main_queue(), ^{
+                @jobs_strongify(self)
+                //UI线程必须在此block内执行，例如摇一摇动画、UIAlertView之类
+                //设置开始摇晃时震动
+                NSObject.shake();
+                //加载动画
+                if (self.objBlock) self.objBlock(@(UIViewControllerShakeBeganType));
+            });
+        }
+    };
 }
 #pragma mark —— Prop_strong()CMMotionManager *motionManager;
 JobsKey(_motionManager)
@@ -109,7 +134,7 @@ JobsKey(_motionManager)
     CMMotionManager *MotionManager = Jobs_getAssociatedObject(_motionManager);
     if (!MotionManager) {
         MotionManager = CMMotionManager.new;
-        MotionManager.accelerometerUpdateInterval = 0.5;//加速仪更新频率，以秒为单位
+        MotionManager.byAccelerometerUpdateInterval(0.5);
         Jobs_setAssociatedRETAIN_NONATOMIC(_motionManager, MotionManager)
     };return MotionManager;
 }

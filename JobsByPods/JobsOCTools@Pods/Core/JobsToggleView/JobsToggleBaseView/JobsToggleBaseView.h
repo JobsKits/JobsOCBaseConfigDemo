@@ -81,6 +81,9 @@ Prop_weak()__kindof UIButton *currentSelectedBtn;
 /// 当前显示的View
 -(jobsByNSIntegerBlock _Nonnull)switchViewsBy;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsToggleBaseView
+-(JobsRetJobsToggleBaseViewByNSMutableArrayUIButtonModelBlock _Nonnull)byTaggedNavDatas;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsToggleBaseView
 @end
 
 NS_ASSUME_NONNULL_END
@@ -108,10 +111,10 @@ NS_INLINE __kindof JobsToggleBaseView *_Nonnull jobsMakeToggleBaseView(jobsByTog
                          @jobs_strongify(self)
                          data1.byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
                               .byTitleFont(bayonRegular(JobsWidth(20)))
-                              .byTitle(@"PHONE NO.".tr)
+                              .byTitle(@"PHONE NO.".jobsTr())
                               .byJobsWidth(JobsWidth(90))
-                              .byTitleCor(@"#8A93A1".cor)
-                              .bySelectedTitleCor(@"#C90000".cor)
+                              .byTitleCor(@"#8A93A1".jobsCor())
+                              .bySelectedTitleCor(@"#C90000".jobsCor())
                               .byRoundingCorners(UIRectCornerAllCorners);
                          data1.view = FMLoginByPhoneView
                              .BySize(FMLoginByPhoneView.viewSizeByModel(nil))
@@ -130,10 +133,10 @@ NS_INLINE __kindof JobsToggleBaseView *_Nonnull jobsMakeToggleBaseView(jobsByTog
                          @jobs_strongify(self)
                          data1.byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
                               .byTitleFont(bayonRegular(JobsWidth(20)))
-                              .byTitle(@"ACCOUNT NAME".tr)
+                              .byTitle(@"ACCOUNT NAME".jobsTr())
                               .byJobsWidth(JobsWidth(130))
-                              .byTitleCor(@"#8A93A1".cor)
-                              .bySelectedTitleCor(@"#C90000".cor)
+                              .byTitleCor(@"#8A93A1".jobsCor())
+                              .bySelectedTitleCor(@"#C90000".jobsCor())
                               .byRoundingCorners(UIRectCornerAllCorners);
                          data1.view = FMLoginByUsrNameView
                              .BySize(FMLoginByUsrNameView.viewSizeByModel(nil))

@@ -6,6 +6,12 @@
 //
 
 #import <pthread.h> // 提供 POSIX 线程接口，用于底层多线程控制、线程同步和并发处理。
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <Foundation/Foundation.h>
 #import <os/lock.h> // 提供系统级高性能锁，如 os_unfair_lock，适合轻量级同步场景。
 
@@ -48,19 +54,19 @@ Prop_assign(readonly)JobsLockerType type;
 /// NSRecursiveLock
 +(instancetype)recursiveLock;
 /// pthread_mutex
-+(instancetype)pthreadLock;
++(JobsRetIDByVoidBlock _Nonnull)pthreadLock;
 /// os_unfair_lock
-+(instancetype)unfairLock;
++(JobsRetIDByVoidBlock _Nonnull)unfairLock;
 /// dispatch_semaphore
-+(instancetype)semaphoreLock;
++(JobsRetIDByVoidBlock _Nonnull)semaphoreLock;
 /// 加锁执行，执行完成后自动解锁
--(void)withLock:(NS_NOESCAPE dispatch_block_t)block;
+-(jobsBydispatch_block_tBlock _Nonnull)withLock;
 /// 尝试加锁，成功返回 YES，失败返回 NO
--(BOOL)tryLock;
+-(JobsRetBOOLByVoidBlock _Nonnull)tryLock;
 /// 手动加锁
 -(void)lock;
 /// 手动解锁
--(void)unlock;
+-(jobsByVoidBlock _Nonnull)unlock;
 
 @end
 

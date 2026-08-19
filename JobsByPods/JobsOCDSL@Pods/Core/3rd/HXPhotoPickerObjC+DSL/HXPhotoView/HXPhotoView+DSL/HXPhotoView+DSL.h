@@ -56,11 +56,11 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetHXPhotoViewByBOOLBlock _Nonnull)byAdaptiveDarkness;
 -(JobsRetHXPhotoViewByCGFloatBlock _Nonnull)byMaximumHeight;
 -(JobsRetHXPhotoViewByIndexPathBlock _Nonnull)byCurrentIndexPath;
--(__kindof HXPhotoView *_Nonnull)byGoPhotoViewController;
--(__kindof HXPhotoView *_Nonnull)byDirectGoPhotoViewController;
--(__kindof HXPhotoView *_Nonnull)byGoCameraViewController;
+-(JobsRetHXPhotoViewByVoidBlock _Nonnull)byGoPhotoViewController;
+-(JobsRetHXPhotoViewByVoidBlock _Nonnull)byDirectGoPhotoViewController;
+-(JobsRetHXPhotoViewByVoidBlock _Nonnull)byGoCameraViewController;
 -(JobsRetHXPhotoViewByNSIntegerBlock _Nonnull)byDeleteModelWithIndex;
--(__kindof HXPhotoView *_Nonnull)byRefreshView;
+-(JobsRetHXPhotoViewByVoidBlock _Nonnull)byRefreshView;
 -(JobsRetHXPhotoViewByNSIntegerBlock _Nonnull)byJumpPreviewViewControllerWithIndex;
 
 @end

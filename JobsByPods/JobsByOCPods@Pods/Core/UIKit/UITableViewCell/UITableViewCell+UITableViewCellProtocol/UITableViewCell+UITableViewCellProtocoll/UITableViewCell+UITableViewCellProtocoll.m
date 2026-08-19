@@ -91,42 +91,48 @@ UITableViewCellProtocol_dynamic
     };
 }
 /// 获取这个UITableViewCell所承载的UITableView
--(UITableView *)jobsGetCurrentTableView{
-    return (UITableView *)self.superview;
-}
-/// 获取当前的UITableViewCell对应的indexPath
--(NSIndexPath *)jobsGetCurrentIndexPath{
-    return [(UITableView *)self.jobsGetCurrentTableView indexPathForCell:self];
-}
-/// 获取当前的UITableViewCell对应的section个数
--(NSInteger)jobsGetCurrentNumberOfSections{
-    return [self.jobsGetCurrentTableView numberOfSections];
-}
-/// 获取当前的UITableViewCell对应的section的的row个数
--(NSInteger)jobsGetCurrentNumberOfRowsInSection{
-    return [self.jobsGetCurrentTableView numberOfRowsInSection:self.jobsGetCurrentIndexPath.section];
-}
-#pragma mark —— BaseCellProtocol
--(JobsRetTableViewCellByIDBlock _Nonnull)jobsRichElementsTableViewCellBy{
+-(JobsRetTableViewByVoidBlock _Nonnull)jobsGetCurrentTableView{
     @jobs_weakify(self)
-    return ^__kindof UITableViewCell *_Nullable(UIViewModel *_Nullable model) {
+    return ^UITableView *{
         @jobs_strongify(self)
-        if ([model isKindOfClass:UIViewModel.class]) {
-            self.textLabel
-                .byTextCor(model.textModel.textCor)
-                .byFont(model.textModel.font)
-                .byText(model.textModel.text);
-            self.imageView.image = model.image;
-        };return self;
+        if (!self) return nil;
+        return (UITableView *)self.superview;
     };
 }
-
+/// 获取当前的UITableViewCell对应的indexPath
+-(JobsRetNSIndexPathByVoidBlock _Nonnull)jobsGetCurrentIndexPath{
+    @jobs_weakify(self)
+    return ^NSIndexPath *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [(UITableView *)self.jobsGetCurrentTableView() indexPathForCell:self];
+    };
+}
+/// 获取当前的UITableViewCell对应的section个数
+-(JobsRetNSIntegerByVoidBlock _Nonnull)jobsGetCurrentNumberOfSections{
+    @jobs_weakify(self)
+    return ^NSInteger{
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return [self.jobsGetCurrentTableView() numberOfSections];
+    };
+}
+/// 获取当前的UITableViewCell对应的section的的row个数
+-(JobsRetNSIntegerByVoidBlock _Nonnull)jobsGetCurrentNumberOfRowsInSection{
+    @jobs_weakify(self)
+    return ^NSInteger{
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return [self.jobsGetCurrentTableView() numberOfRowsInSection:self.jobsGetCurrentIndexPath().section];
+    };
+}
+#pragma mark —— BaseCellProtocol
 -(jobsByImageBlock _Nonnull)setCellBgImage{
     @jobs_weakify(self)
     return ^(UIImage *_Nullable bgImage){
         @jobs_strongify(self)
         self.byBgColor(self.contentView.backgroundColor = JobsClearColor);
-        self.backgroundImageView.image = bgImage;
+        self.backgroundImageView.byImage(bgImage);
     };
 }
 
@@ -140,7 +146,7 @@ UITableViewCellProtocol_dynamic
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(UIImage *_Nonnull image){
         @jobs_strongify(self)
-        self.imageView.image = image;
+        self.imageView.byImage(image);
         return self;
     };
 }
@@ -437,7 +443,7 @@ UITableViewCellProtocol_dynamic
                                                     indexPath:(NSIndexPath *)indexPath
                                                   layerConfig:(JobsLocationModel *)layerConfig{
     // 关闭分割线
-    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone);
     @jobs_weakify(self)
     if (jobsZeroSizeValue(layerConfig.roundingCornersRadii)) layerConfig.roundingCornersRadii = CGSizeMake(JobsWidth(10.0), JobsWidth(10.0));
     // 当前 section 的总行数
@@ -452,7 +458,7 @@ UITableViewCellProtocol_dynamic
         corner = UIRectCornerBottomLeft | UIRectCornerBottomRight;
     } else {
         // 中间 cell，无圆角和边框
-        self.layer.mask = nil;
+        self.layer.byMask(nil);
         // 移除边框 Layer（避免复用残留）
         NSArray *sublayers = self.layer.sublayers.copy;
         for (CALayer *sublayer in sublayers) {
@@ -467,8 +473,9 @@ UITableViewCellProtocol_dynamic
                                                          cornerRadii:layerConfig.roundingCornersRadii];
     self.layer.mask = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
         @jobs_strongify(self)
-        layer.byFrame(self.bounds);
-        layer.byPath(maskPath.CGPath);
+        layer
+            .byPath(maskPath.CGPath)
+            .byFrame(self.bounds);
     });
     // 添加边框 Layer（可选）
     if (layerConfig.layerBorderCor && layerConfig.borderWidth > 0) {
@@ -484,9 +491,10 @@ UITableViewCellProtocol_dynamic
             borderLayer.byPath(maskPath.CGPath)
                 .byStrokeColor(layerConfig.layerBorderCor.CGColor)
                 .byFillColor(UIColor.clearColor.CGColor)
-                .byLineWidth(layerConfig.borderWidth);
-            borderLayer.byFrame(self.bounds);
-            borderLayer.byName(RoundedBorderLayer);
+                .byLineWidth(layerConfig.borderWidth)
+
+                .byFrame(self.bounds)
+                .byName(RoundedBorderLayer);
         }));
     };return self.layer;
 }
@@ -494,11 +502,11 @@ UITableViewCellProtocol_dynamic
 -(__kindof CALayer *)roundedCornerLastCellByTableView:(UITableView *)tableView
                                             indexPath:(NSIndexPath *)indexPath
                                           layerConfig:(JobsLocationModel *)layerConfig{
-    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone);
     NSInteger numberOfRows = [tableView numberOfRowsInSection:indexPath.section];
     @jobs_weakify(self)
     if (jobsZeroSizeValue(layerConfig.roundingCornersRadii)) {
-        layerConfig.roundingCornersRadii = CGSizeMake(JobsWidth(10.0), JobsWidth(10.0));
+        layerConfig.byRoundingCornersRadii(CGSizeMake(JobsWidth(10.0), JobsWidth(10.0)));
     }
     if (indexPath.row == numberOfRows - 1) {
         // 当前为该 section 的最后一个 cell，处理圆角遮罩
@@ -549,14 +557,15 @@ UITableViewCellProtocol_dynamic
                         .byStrokeColor(layerConfig.layerBorderCor.CGColor)
                         .byFillColor(UIColor.clearColor.CGColor)
                         .byLineWidth(layerConfig.borderWidth);
-                    borderLayer.byFrame(self.bounds);
-                    borderLayer.byName(RoundedBorderLayer);
+                    borderLayer
+                        .byFrame(self.bounds)
+                        .byName(RoundedBorderLayer);
                 }));
             });
         }
     } else {
         // 非最后一个 cell，清除圆角遮罩和边框
-        self.layer.mask = nil;
+        self.layer.byMask(nil);
         NSArray *sublayers = self.layer.sublayers.copy;
         for (CALayer *sublayer in sublayers) {
             if ([sublayer.name isEqualToString:RoundedBorderLayer]) {
@@ -569,11 +578,11 @@ UITableViewCellProtocol_dynamic
 -(__kindof CALayer *)roundedCornerFirstCellByTableView:(UITableView *)tableView
                                              indexPath:(NSIndexPath *)indexPath
                                            layerConfig:(JobsLocationModel *)layerConfig{
-    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    tableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone);
     NSInteger numberOfRows = [tableView numberOfRowsInSection:indexPath.section];
     @jobs_weakify(self)
     if (jobsZeroSizeValue(layerConfig.roundingCornersRadii)) {
-        layerConfig.roundingCornersRadii = CGSizeMake(JobsWidth(10.0), JobsWidth(10.0));
+        layerConfig.byRoundingCornersRadii(CGSizeMake(JobsWidth(10.0), JobsWidth(10.0)));
     }
     if (indexPath.row == 0 && numberOfRows > 0) {
         // 当前为该 section 的第一个 cell，处理圆角遮罩
@@ -628,7 +637,7 @@ UITableViewCellProtocol_dynamic
         }
     } else {
         // 非第一个 cell，清除圆角遮罩和边框
-        self.layer.mask = nil;
+        self.layer.byMask(nil);
         NSArray *sublayers = self.layer.sublayers.copy;
         for (CALayer *sublayer in sublayers) {
             if ([sublayer.name isEqualToString:RoundedBorderLayer]) {
@@ -688,8 +697,8 @@ UITableViewCellProtocol_dynamic
                 .byPath(jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable data) {
                 [data moveToPoint:CGPointMake(bounds.origin.x, bounds.size.height)];// 起点
                 [data addLineToPoint:CGPointMake(bounds.origin.x + bounds.size.width, bounds.size.height)];// 其他点
-            }).CGPath);
-            layer.byBorderWidth(layerConfig.borderWidth);
+            }).CGPath)
+            .byBorderWidth(layerConfig.borderWidth);
         }) atIndex:1];
     }
 }
@@ -713,8 +722,8 @@ UITableViewCellProtocol_dynamic
                     linePath
                         .byMoveToPoint(CGPointMake(bounds.origin.x, 0))// 起点
                         .byAddLineToPoint(CGPointMake(bounds.origin.x + bounds.size.width, 0));// 其他点
-            }).CGPath);
-            layer.byBorderWidth(layerConfig.borderWidth);
+            }).CGPath)
+            .byBorderWidth(layerConfig.borderWidth);
         }) atIndex:1];
     }
 }

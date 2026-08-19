@@ -26,12 +26,21 @@
         return self;
     };
 }
+
+-(JobsRetTableViewHeaderFooterViewByNSIntegerBlock _Nonnull)byHeaderFooterViewStyle{
+    @jobs_weakify(self)
+    return ^__kindof UITableViewHeaderFooterView *_Nullable(JobsHeaderFooterViewStyle style){
+        @jobs_strongify(self)
+        [self setHeaderFooterViewStyle:style];
+        return self;
+    };
+}
 /// 标记是HeaderView 还是 FooterView
 -(JobsRetTableViewHeaderFooterViewByNSIntegerBlock _Nonnull)byStyle{
     @jobs_weakify(self)
     return ^__kindof UITableViewHeaderFooterView *_Nullable(JobsHeaderFooterViewStyle style){
         @jobs_strongify(self)
-        self.headerFooterViewStyle = style;
+        self.byHeaderFooterViewStyle(style);
         return self;
     };
 }

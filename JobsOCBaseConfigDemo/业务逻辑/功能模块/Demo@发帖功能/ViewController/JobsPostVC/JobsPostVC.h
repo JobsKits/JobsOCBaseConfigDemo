@@ -8,22 +8,16 @@
 #import "JobsPostDelView.h"
 #import "NSObject+SPAlertController.h"
 
-#if __has_include(<SZTextView/SZTextView.h>)
-#import <SZTextView/SZTextView.h>
-#else
-#import "SZTextView.h"
-#endif
-
 #if __has_include(<HXPhotoPickerObjC/HXPhotoPicker.h>)
 #import <HXPhotoPickerObjC/HXPhotoPicker.h>
 #else
 #import "HXPhotoPicker.h"
 #endif
 
-#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
-#import <JobsLanMgr/JobsLanMgr.h>
+#if __has_include(<SZTextView/SZTextView.h>)
+#import <SZTextView/SZTextView.h>
 #else
-#import "JobsLanMgr.h"
+#import "SZTextView.h"
 #endif
 
 #if __has_include(<FileFolderHandleTool/FileFolderHandleToolHeader.h>)
@@ -44,6 +38,12 @@
 #import "JobsByOCPods.h"
 #endif
 
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import <JobsLanMgr/JobsLanMgr.h>
+#else
+#import "JobsLanMgr.h"
+#endif
+
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>
 #else
@@ -54,6 +54,12 @@
 #import <JobsModelDSL/JobsModelDSL.h>
 #else
 #import "JobsModelDSL.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -68,12 +74,6 @@
 #import "JobsDefines.h"
 #endif
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsPostVC : BaseViewController
@@ -82,6 +82,16 @@ HXPhotoViewDelegate
 ,UITextViewDelegate
 >
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsPostVC
+-(JobsRetJobsPostVCByBOOLBlock _Nonnull)byFd_interactivePopDisabled;
+-(JobsRetJobsPostVCByBOOLBlock _Nonnull)byNeedDeleteItem;
+-(JobsRetJobsPostVCByNSArrayHXPhotoModelBlock _Nonnull)byHistoryPhotoDataArr;
+-(JobsRetJobsPostVCByNSArrayHXPhotoModelBlock _Nonnull)byPhotosDataArr;
+-(JobsRetJobsPostVCByNSArrayHXPhotoModelBlock _Nonnull)byVideosDataArr;
+-(JobsRetJobsPostVCByNSDataBlock _Nonnull)byVideosData;
+-(JobsRetJobsPostVCByNSMutableArrayUIImageBlock _Nonnull)byPhotosImageMutArr;
+-(JobsRetJobsPostVCByNSStringBlock _Nonnull)byInputDataString;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsPostVC
 @end
 
 NS_ASSUME_NONNULL_END

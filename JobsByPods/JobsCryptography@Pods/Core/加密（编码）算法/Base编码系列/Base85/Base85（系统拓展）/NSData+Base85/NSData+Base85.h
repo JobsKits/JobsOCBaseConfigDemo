@@ -28,6 +28,12 @@
 #import "JobsBlock.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSData (Base85)
@@ -35,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///【类方法】将NSData对象 转换为 以Base85编码的字符串
 +(JobsRetStrByDataBlock _Nonnull)dataToBase85String;
 ///【实例方法】将NSData对象 转换为 以Base85编码的字符串
--(NSString *_Nullable)dataToBase85String;
+-(JobsRetStrByVoidBlock _Nonnull)dataToBase85String;
 #pragma mark —— Base85 ==> NSData
 ///【类方法】接受一个包含Base85编码数据的NSString对象作为输入，并将其解码为对应的原始字节序列
 +(JobsRetDataByStrBlock _Nonnull)dataByBase85String;

@@ -6,35 +6,42 @@
 //
 
 #import "NSObject+RichText.h"
+
 #import <JobsRichTextUtils/NSMutableArray+Extra.h>
 #import <JobsRichTextUtils/UIColor+Extra.h>
 #import <JobsRichTextUtils/NSString+Extra.h>
 
 @implementation NSObject (RichText)
 /// 调用示例：对外输出 NSMutableArray <JobsRichTextConfig *>*
--(NSMutableArray <JobsRichTextConfig *>*)makeRichTextConfigMutArr{
-    return jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-        data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
-            data1.byFont(UIFontWeightRegularSize(10.6))
-                 .byTextCor(RGB_SAMECOLOR(115))
-                 .byTargetString(@"我是第一段文字".tr);
-        }));
-        data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
-            data1.font = UIFontWeightRegularSize(10.6);;
-            data1.textCor = [UIColor gradientCorDataMutArr:jobsMakeMutArr(^(NSMutableArray <UIColor *>*_Nullable data) {
-                data.add(RGB_COLOR(247, 131, 97));
-                data.add(RGB_COLOR(245, 75, 100));
-            })
-                                                 startPoint:CGPointZero
-                                                   endPoint:CGPointZero
-                                                     opaque:NO
-                                            targetViewRect:jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable model) {
-                model.byJobsWidth(JobsWidth(400))
-                     .byJobsHeight(JobsWidth(1));
-            })];
-            data1.byTargetString(@"我是第二段文字".tr);
-        }));
-    });;
+-(JobsRetNSMutableArrayJobsRichTextConfigByVoidBlock _Nonnull)makeRichTextConfigMutArr{
+    @jobs_weakify(self)
+    return ^NSMutableArray <JobsRichTextConfig *>*{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
+            data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
+                data1.byFont(UIFontWeightRegularSize(10.6))
+                     .byTextCor(RGB_SAMECOLOR(115))
+                     .byTargetString(@"我是第一段文字".jobsTr());
+            }))
+            .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
+                data1.byFont(UIFontWeightRegularSize(10.6));
+                data1.textCor = [UIColor gradientCorDataMutArr:jobsMakeMutArr(^(NSMutableArray <UIColor *>*_Nullable data) {
+                    data
+                        .add(RGB_COLOR(247, 131, 97))
+                        .add(RGB_COLOR(245, 75, 100));
+                })
+                                                     startPoint:CGPointZero
+                                                       endPoint:CGPointZero
+                                                         opaque:NO
+                                                targetViewRect:jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable model) {
+                    model.byJobsWidth(JobsWidth(400))
+                         .byJobsHeight(JobsWidth(1));
+                })];
+                data1.byTargetString(@"我是第二段文字".jobsTr());
+            }));
+        });;
+    };
 }
 /// 整合输出富文本，作用于lable.attributedText
 /// @param richTextDataConfigMutArr 富文本的配置集合,对该纯文本字符串的释义

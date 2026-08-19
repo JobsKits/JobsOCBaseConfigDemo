@@ -14,6 +14,8 @@ Pod::Spec.new do |spec|
   spec.source           = { :path => '.' }
   spec.frameworks = ['Foundation']
   spec.dependency 'Reachability'
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsOCDefs'
 
   spec.source_files = [
     'ReachabilityExtra.h',

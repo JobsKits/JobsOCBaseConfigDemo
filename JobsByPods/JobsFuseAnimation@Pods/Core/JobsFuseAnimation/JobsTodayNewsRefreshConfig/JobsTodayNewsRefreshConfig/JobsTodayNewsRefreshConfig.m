@@ -8,8 +8,10 @@
 #import "JobsTodayNewsRefreshConfig.h"
 
 @implementation JobsTodayNewsRefreshConfig
-+(__kindof JobsTodayNewsRefreshConfig *)config {
-    return JobsTodayNewsRefreshConfig.alloc.init;
++(JobsRetJobsTodayNewsRefreshConfigByVoidBlock _Nonnull)config {
+    return ^__kindof JobsTodayNewsRefreshConfig *{
+        return JobsTodayNewsRefreshConfig.alloc.init;
+    };
 }
 
 -(instancetype)init {
@@ -34,42 +36,42 @@
     return config;
 }
 
--(JobsTodayNewsRefreshConfig *(^)(UIColor *))byStrokeColor {
+-(JobsRetJobsTodayNewsRefreshConfigByUIColorBlock _Nonnull)byStrokeColor {
     return ^JobsTodayNewsRefreshConfig *(UIColor *data) {
         self.strokeColor = data ?: RGB_COLOR(255, 75, 75);
         return self;
     };
 }
 
--(JobsTodayNewsRefreshConfig *(^)(CGFloat))byLineWidth {
+-(JobsRetJobsTodayNewsRefreshConfigByCGFloatBlock _Nonnull)byLineWidth {
     return ^JobsTodayNewsRefreshConfig *(CGFloat data) {
         self.lineWidth = isfinite(data) ? MAX(0.5, data) : 1.8;
         return self;
     };
 }
 
--(JobsTodayNewsRefreshConfig *(^)(CGFloat))byTriangleWidth {
+-(JobsRetJobsTodayNewsRefreshConfigByCGFloatBlock _Nonnull)byTriangleWidth {
     return ^JobsTodayNewsRefreshConfig *(CGFloat data) {
         self.triangleWidth = isfinite(data) ? MAX(4, data) : 15;
         return self;
     };
 }
 
--(JobsTodayNewsRefreshConfig *(^)(CGFloat))byTriangleHeight {
+-(JobsRetJobsTodayNewsRefreshConfigByCGFloatBlock _Nonnull)byTriangleHeight {
     return ^JobsTodayNewsRefreshConfig *(CGFloat data) {
         self.triangleHeight = isfinite(data) ? MAX(4, data) : 16;
         return self;
     };
 }
 
--(JobsTodayNewsRefreshConfig *(^)(CGFloat))byCenterGap {
+-(JobsRetJobsTodayNewsRefreshConfigByCGFloatBlock _Nonnull)byCenterGap {
     return ^JobsTodayNewsRefreshConfig *(CGFloat data) {
         self.centerGap = isfinite(data) ? MAX(0, data) : 1;
         return self;
     };
 }
 
--(JobsTodayNewsRefreshConfig *(^)(NSTimeInterval))byCycleDuration {
+-(JobsRetJobsTodayNewsRefreshConfigByNSTimeIntervalBlock _Nonnull)byCycleDuration {
     return ^JobsTodayNewsRefreshConfig *(NSTimeInterval data) {
         self.cycleDuration = isfinite(data) ? MAX(0.3, data) : 0.65;
         return self;
@@ -77,8 +79,17 @@
 }
 
 -(CGSize)indicatorSize {
-    return CGSizeMake(self.triangleWidth * 2 + self.centerGap + self.lineWidth * 2,
-                      self.triangleHeight + self.lineWidth * 2);
+    return ((((JobsRetCGSizeByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTodayNewsRefreshConfig.class, @selector(jobsIndicatorSize)))(self, @selector(jobsIndicatorSize))))();
+}
+
+-(JobsRetCGSizeByVoidBlock _Nonnull)jobsIndicatorSize {
+    @jobs_weakify(self)
+    return ^CGSize{
+        @jobs_strongify(self)
+        if (!self) return (CGSize){0};
+        return CGSizeMake(self.triangleWidth * 2 + self.centerGap + self.lineWidth * 2,
+                          self.triangleHeight + self.lineWidth * 2);
+    };
 }
 
 @end

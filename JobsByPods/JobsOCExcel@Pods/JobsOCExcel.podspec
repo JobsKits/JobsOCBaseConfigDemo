@@ -20,6 +20,7 @@ Pod::Spec.new do |spec|
   spec.dependency 'JobsMakes'
   spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCUILabelScrolling'
   spec.dependency 'Masonry'
   JobsPodspecKitForJobsOCExcel.apply_standard_exclude_files(spec)

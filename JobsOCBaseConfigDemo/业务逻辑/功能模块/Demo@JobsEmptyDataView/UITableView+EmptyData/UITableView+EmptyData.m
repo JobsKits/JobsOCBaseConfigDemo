@@ -21,44 +21,59 @@ JobsKey(JobsTableViewEmptyDataReloadingKey)
 }
 
 -(void)jobsReloadData{
-    if ([Jobs_getAssociatedObject(JobsTableViewEmptyDataReloadingKey) boolValue]) return;
-    Jobs_setAssociatedRETAIN_NONATOMIC(JobsTableViewEmptyDataReloadingKey, @YES)
-    [self jobsReloadData]; // 调用原始的 reloadData（已经交换过）
-    Jobs_setAssociatedRETAIN_NONATOMIC(JobsTableViewEmptyDataReloadingKey, @NO)
-    switch (self.jobsEmptyViewType) {
-        /// 处理 JobsEmptyViewTypeLabel 分支
-        case JobsEmptyViewTypeLabel:{
-            self.showEmptyLabelBy(self.textModelEmptyData);
-        }break;
-        /// 处理 JobsEmptyViewTypeButton 分支
-        case JobsEmptyViewTypeButton:{
-            self.showEmptyButtonBy(self.buttonModelEmptyData);
-        }break;
-        /// 处理 JobsEmptyViewTypeCustomView 分支
-        case JobsEmptyViewTypeCustomView:{
-            self.showEmptyViewBy(self.emptyDataView);
-        }break;
-        /// 未匹配已知分支时执行兜底处理
-        default:break;
-    }
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UITableView.class, @selector(jobsJobsReloadData)))(self, @selector(jobsJobsReloadData));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsJobsReloadData{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if ([Jobs_getAssociatedObject(JobsTableViewEmptyDataReloadingKey) boolValue]) return;
+        Jobs_setAssociatedRETAIN_NONATOMIC(JobsTableViewEmptyDataReloadingKey, @YES)
+        [self jobsReloadData]; // 调用原始的 reloadData（已经交换过）
+        Jobs_setAssociatedRETAIN_NONATOMIC(JobsTableViewEmptyDataReloadingKey, @NO)
+        switch (self.jobsEmptyViewType) {
+            /// 处理 JobsEmptyViewTypeLabel 分支
+            case JobsEmptyViewTypeLabel:{
+                self.showEmptyLabelBy(self.textModelEmptyData);
+            }break;
+            /// 处理 JobsEmptyViewTypeButton 分支
+            case JobsEmptyViewTypeButton:{
+                self.showEmptyButtonBy(self.buttonModelEmptyData);
+            }break;
+            /// 处理 JobsEmptyViewTypeCustomView 分支
+            case JobsEmptyViewTypeCustomView:{
+                self.showEmptyViewBy(self.emptyDataView);
+            }break;
+            /// 未匹配已知分支时执行兜底处理
+            default:break;
+        }
+    };
 }
 #pragma mark —— 一些私有方法
--(BOOL)hasData{
-    NSInteger numberOfSections = self.numberOfSections;
-    BOOL hasData = NO;
-    for (NSInteger section = 0; section < numberOfSections; section++) {
-        if ([self numberOfRowsInSection:section] > 0) {
-            hasData = YES;
-            break;
-        }
-    };return hasData;
+-(JobsRetBOOLByVoidBlock _Nonnull)hasData{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        NSInteger numberOfSections = self.numberOfSections;
+        BOOL hasData = NO;
+        for (NSInteger section = 0; section < numberOfSections; section++) {
+            if ([self numberOfRowsInSection:section] > 0) {
+                hasData = YES;
+                break;
+            }
+        };return hasData;
+    };
 }
 
 -(JobsRetViewByButtonModelBlock _Nonnull)showEmptyButtonBy{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(UIButtonModel *model){
         @jobs_strongify(self)
-        if(self.hasData){
+        if(self.hasData()){
             self.cleanSubviewBy(BaseView.class);
             return self;
         }else{
@@ -69,7 +84,7 @@ JobsKey(JobsTableViewEmptyDataReloadingKey)
                     .cleanSubviewBy(BaseView.class);
                 self.addSubview(view)
                     .addSubview(UIButton.initByButtonModel(model ? : jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                        data.byTitle(@"No Datas".tr)
+                        data.byTitle(@"No Datas".jobsTr())
                             .byTitleCor(JobsWhiteColor)
                             .byTitleFont(bayonRegular(JobsWidth(30)))
                             .byNormalImage(@"暂无数据".img)
@@ -90,7 +105,7 @@ JobsKey(JobsTableViewEmptyDataReloadingKey)
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(UITextModel *model){
         @jobs_strongify(self)
-        if(self.hasData){
+        if(self.hasData()){
             self.cleanSubviewBy(BaseView.class);
             return self;
         }else{
@@ -104,7 +119,7 @@ JobsKey(JobsTableViewEmptyDataReloadingKey)
                     label
                         .byTextAlignment(model.textAlignment ? : NSTextAlignmentCenter)
                         .byTextCor(model.textCor ? : JobsRedColor)
-                        .byText(isValue(model.text) ? model.text : @"No Datas".tr)
+                        .byText(isValue(model.text) ? model.text : @"No Datas".jobsTr())
                         .makeLabelByShowingType(UILabelShowingType_05)
                         .addOn(view)
                         .byAdd(^(MASConstraintMaker *make){
@@ -123,7 +138,7 @@ JobsKey(JobsTableViewEmptyDataReloadingKey)
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(__kindof UIView *view){
         @jobs_strongify(self)
-        if(self.hasData){
+        if(self.hasData()){
             self.cleanSubviewBy(UIView.class);
             return self;
         }else{

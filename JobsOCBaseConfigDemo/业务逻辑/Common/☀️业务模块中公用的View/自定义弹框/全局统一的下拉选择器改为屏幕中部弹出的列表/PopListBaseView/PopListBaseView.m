@@ -15,6 +15,12 @@ Prop_strong()NSMutableArray <__kindof NSString *>*datas;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN PopListBaseView
+@interface PopListBaseView (JobsPropertyDSLSetterAutogen_18855350d9)
+-(void)setDataMutArr:(NSMutableArray <__kindof UIViewModel *>* _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END PopListBaseView
+
 @implementation PopListBaseView
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
@@ -32,7 +38,17 @@ Prop_strong()NSMutableArray <__kindof NSString *>*datas;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(PopListBaseView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 #pragma mark —— BaseViewProtocol
@@ -47,7 +63,7 @@ Prop_strong()NSMutableArray <__kindof NSString *>*datas;
     return ^(NSMutableArray <__kindof UIViewModel *>* model) {
         @jobs_strongify(self)
         self.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
-        self.dataMutArr = model;
+        self.byDataMutArr(model);
         self.tableView.byShow(self);
     };
 }
@@ -56,8 +72,8 @@ Prop_strong()NSMutableArray <__kindof NSString *>*datas;
     return ^CGSize(NSArray *_Nullable data){
         if(data){
             return jobsMakeCGSizeByLocationModelBlock(^(__kindof JobsLocationModel *_Nullable data1) {
-                data1.byJobsWidth(PopListBaseView.CellWidth)
-                     .byJobsHeight(MIN(data.count * PopListBaseView.CellHeight,JobsWidth(259)));/// 高度限制在 JobsWidth(259)
+                data1.byJobsWidth(PopListBaseView.jobsCellWidth())
+                     .byJobsHeight(MIN(data.count * PopListBaseView.jobsCellHeight(),JobsWidth(259)));/// 高度限制在 JobsWidth(259)
                 JobsLog(@"KKK = %f-%f",data1.jobsWidth,data1.jobsHeight);
             });
         }else return CGSizeMake(JobsWidth(300), JobsWidth(259));
@@ -65,10 +81,20 @@ Prop_strong()NSMutableArray <__kindof NSString *>*datas;
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    /// 内部指定圆切角
-    [self appointCornerCutToCircleByRoundingCorners:UIRectCornerAllCorners
-                                        cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(PopListBaseView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        /// 内部指定圆切角
+        [self appointCornerCutToCircleByRoundingCorners:UIRectCornerAllCorners
+                                            cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+    };
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (void)tableView:(UITableView *)tableView
@@ -94,7 +120,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(PopListBaseView.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 1;
+    };
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
@@ -125,7 +161,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         _tableView = self.addSubview(jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             tableView
                 .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
-                .bySeparatorColor(@"#1E1E1E".cor)
+                .bySeparatorColor(@"#1E1E1E".jobsCor())
                 .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0))
                 .byTableHeaderView(jobsMakeView(^(__kindof UIView * _Nullable view) {
                     /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
@@ -134,7 +170,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     /// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 }))
                 .emptyDataByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                    data.byTitle(@"NO MESSAGES FOUND".tr)
+                    data.byTitle(@"NO MESSAGES FOUND".jobsTr())
                         .byTitleCor(JobsWhiteColor)
                         .byTitleFont(bayonRegular(JobsWidth(30)))
                         .byNormalImage(@"小狮子".img);
@@ -169,9 +205,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 -(NSMutableArray<__kindof NSString *> *)datas{
     if(!_datas){
         _datas = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            data.add(@"选项1".tr)
-            .add(@"选项2".tr)
-            .add(@"选项3".tr);
+            data.add(@"选项1".jobsTr())
+            .add(@"选项2".jobsTr())
+            .add(@"选项3".jobsTr());
         });
     };return _datas;
 }
@@ -194,27 +230,49 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 static CGFloat _CellHeight = 0;
 +(CGFloat)CellHeight {
-    if (!_CellHeight) {
-        _CellHeight = JobsWidth(37);
-    };return _CellHeight;
+    return (((JobsRetCGFloatByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(PopListBaseView.class, @selector(jobsCellHeight)))(self, @selector(jobsCellHeight)))();
+}
+
++(JobsRetCGFloatByVoidBlock _Nonnull)jobsCellHeight {
+    return ^CGFloat{
+        if (!_CellHeight) {
+            _CellHeight = JobsWidth(37);
+        };return _CellHeight;
+    };
 }
 static CGFloat _CellWidth = 0;
 +(CGFloat)CellWidth {
-    if (!_CellWidth) {
-        _CellWidth = JobsWidth(300);
-    };return _CellWidth;
+    return (((JobsRetCGFloatByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(PopListBaseView.class, @selector(jobsCellWidth)))(self, @selector(jobsCellWidth)))();
+}
+
++(JobsRetCGFloatByVoidBlock _Nonnull)jobsCellWidth {
+    return ^CGFloat{
+        if (!_CellWidth) {
+            _CellWidth = JobsWidth(300);
+        };return _CellWidth;
+    };
 }
 @synthesize cellHeight = _cellHeight;
 -(CGFloat)cellHeight{
     if(!_cellHeight){
-        _cellHeight = PopListBaseView.CellHeight;
+        _cellHeight = PopListBaseView.jobsCellHeight();
     };return _cellHeight;
 }
 @synthesize cellWidth = _cellWidth;
 -(CGFloat)cellWidth{
     if(!_cellWidth){
-        _cellWidth = PopListBaseView.CellWidth;
+        _cellWidth = PopListBaseView.jobsCellWidth();
     };return _cellWidth;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN PopListBaseView
+-(JobsRetPopListBaseViewByNSMutableArrayUIViewModelBlock _Nonnull)byDataMutArr{
+    @jobs_weakify(self)
+    return ^__kindof PopListBaseView * _Nullable(NSMutableArray <__kindof UIViewModel *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setDataMutArr:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END PopListBaseView
 @end

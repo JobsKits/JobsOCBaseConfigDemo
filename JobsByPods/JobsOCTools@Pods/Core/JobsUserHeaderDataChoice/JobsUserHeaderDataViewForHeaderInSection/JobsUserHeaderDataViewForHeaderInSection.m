@@ -28,11 +28,31 @@ Prop_strong()UILabel *titleLab;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsUserHeaderDataViewForHeaderInSection.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsUserHeaderDataViewForHeaderInSection.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 #pragma mark —— BaseViewProtocol
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -40,7 +60,7 @@ Prop_strong()UILabel *titleLab;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
+        self.byViewModel(model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {}));
         MakeDataNull
         self.titleLab.byAlpha(1);
     };
@@ -58,7 +78,7 @@ Prop_strong()UILabel *titleLab;
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(isNull(self.viewModel.textModel.text) ? @"请设置大标题".tr : self.viewModel.textModel.text)
+                .byText(isNull(self.viewModel.textModel.text) ? @"请设置大标题".jobsTr() : self.viewModel.textModel.text)
             .byTextCor(self.viewModel.textModel.textCor)
             .byFont(UIFontWeightRegularSize(JobsWidth(20)))
             .byTextAlignment(NSTextAlignmentCenter)

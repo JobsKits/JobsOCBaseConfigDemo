@@ -8,6 +8,12 @@
 #define NSObject_Extra_h
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsModel/NSString+Extra.h>
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
@@ -31,6 +37,7 @@ Prop_strong(readonly,nullable)UIImage *img; // -(nullable UIImage *)img;
 -(JobsRetImageByStrBlock _Nonnull)imageByDataURL;
 /// 获取当前时间
 -(NSDate *)currentDate;
+-(JobsRetDateByVoidBlock _Nonnull)jobsCurrentDate;
 /**
 
      NSMutableArray <UIViewModel *>*dataMutArr = popupView.valueForKey(@"dataMutArr");
@@ -43,11 +50,14 @@ Prop_strong(readonly,nullable)UIImage *img; // -(nullable UIImage *)img;
 /// KVC 的二次封装
 -(jobsByKey_ValueBlock _Nonnull)jobsKVC;
 /// NSBundle
-+(NSBundle *_Nullable)mainBundle;
++(NSBundle *)mainBundle;
++(JobsRetNSBundleByVoidBlock _Nonnull)jobsMainBundle;
 /// NSLocale
-+(NSLocale *_Nullable)currentLocale;
++(NSLocale *)currentLocale;
++(JobsRetNSLocaleByVoidBlock _Nonnull)jobsCurrentLocale;
 /// UIDevice
-+(UIDevice *_Nullable)currentDevice;
++(UIDevice *)currentDevice;
++(JobsRetUIDeviceByVoidBlock _Nonnull)jobsCurrentDevice;
 
 @end
 

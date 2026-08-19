@@ -12,7 +12,7 @@
     @jobs_weakify(self)
     return ^__kindof CAAnimation *_Nullable(CAMediaTimingFunction *_Nullable data){
         @jobs_strongify(self)
-        self.timingFunction = data;
+        [self setTimingFunction:data];
         return self;
     };
 }
@@ -21,7 +21,7 @@
     @jobs_weakify(self)
     return ^__kindof CAAnimation *_Nullable(id<CAAnimationDelegate> _Nullable delegate){
         @jobs_strongify(self)
-        self.delegate = delegate;
+        [self setDelegate:delegate];
         return self;
     };
 }
@@ -30,7 +30,7 @@
     @jobs_weakify(self)
     return ^__kindof CAAnimation *_Nullable(BOOL data){
         @jobs_strongify(self)
-        self.removedOnCompletion = data;
+        [self setRemovedOnCompletion:data];
         return self;
     };
 }

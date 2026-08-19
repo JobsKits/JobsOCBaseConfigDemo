@@ -95,6 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCorByCGFloatBlock _Nonnull)colorWithAlphaComponentBy;
 /// 根据颜色生成图片
 -(UIImage *)image;
+-(JobsRetImageByVoidBlock _Nonnull)jobsImage;
 
 @end
 

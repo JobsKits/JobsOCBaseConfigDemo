@@ -20,60 +20,91 @@ Prop_strong()JobsWalletCardModel *cardModel;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsWalletCardCollectionViewCell
+@interface JobsWalletCardCollectionViewCell (JobsPropertyDSLSetterAutogen_6851592337)
+-(void)setCardModel:(JobsWalletCardModel * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsWalletCardCollectionViewCell
+
 @implementation JobsWalletCardCollectionViewCell
 -(instancetype)initWithFrame:(CGRect)frame{
     if ((self = [super initWithFrame:frame])) {
         self.byBgColor(JobsClearColor);
-        self.clipsToBounds = NO;
-        self.layer.masksToBounds = NO;
-        self.layer.shadowColor = RGBA_COLOR(32, 58, 86, 0.22).CGColor;
-        self.layer.shadowOpacity = 1;
-        self.layer.shadowOffset = CGSizeMake(0, JobsWidth(5));
-        self.layer.shadowRadius = JobsWidth(10);
+        self.byClipsToBounds(NO);
+        self.layer.byMasksToBounds(NO);
+        self.layer.byShadowColor(RGBA_COLOR(32, 58, 86, 0.22).CGColor);
+        self.layer.byShadowOpacity(1);
+        self.layer.byShadowOffset(CGSizeMake(0, JobsWidth(5)));
+        self.layer.byShadowRadius(JobsWidth(10));
         self.contentView.byBgColor(JobsSecondarySystemBackgroundColor);
-        self.contentView.layer.cornerRadius = JobsWidth(16);
-        self.contentView.layer.masksToBounds = YES;
-        self.contentView.layer.borderWidth = JobsWidth(1);
-        self.contentView.layer.borderColor = RGBA_COLOR(255, 255, 255, 0.86).CGColor;
-        self.backgroundImageView.alpha = 1;
-        self.logoView.alpha = 1;
-        self.bankNameLabel.alpha = 1;
-        self.cardNumberLabel.alpha = 1;
-        self.expirationLabel.alpha = 1;
-        self.cvcLabel.alpha = 1;
+        self.contentView.layer.byCornerRadius(JobsWidth(16));
+        self.contentView.layer.byMasksToBounds(YES);
+        self.contentView.layer.byBorderWidth(JobsWidth(1));
+        self.contentView.layer.byBorderColor(RGBA_COLOR(255, 255, 255, 0.86).CGColor);
+        self.backgroundImageView.byAlpha(1);
+        self.logoView.byAlpha(1);
+        self.bankNameLabel.byAlpha(1);
+        self.cardNumberLabel.byAlpha(1);
+        self.expirationLabel.byAlpha(1);
+        self.cvcLabel.byAlpha(1);
     };return self;
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    CGFloat cornerRadius = JobsWidth(16);
-    self.contentView.frame = UIEdgeInsetsInsetRect(self.bounds, UIEdgeInsetsMake(JobsWidth(2), JobsWidth(4), JobsWidth(2), JobsWidth(4)));
-    self.contentView.layer.cornerRadius = cornerRadius;
-    self.layer.shadowPath = UIBezierPath.byBezierPathWithRoundedRect(self.contentView.frame, cornerRadius).CGPath;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsWalletCardCollectionViewCell.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        CGFloat cornerRadius = JobsWidth(16);
+        self.contentView.byFrame(UIEdgeInsetsInsetRect(self.bounds, UIEdgeInsetsMake(JobsWidth(2), JobsWidth(4), JobsWidth(2), JobsWidth(4))));
+        self.contentView.layer.byCornerRadius(cornerRadius);
+        self.layer.byShadowPath(UIBezierPath.byBezierPathWithRoundedRect(self.contentView.frame, cornerRadius).CGPath);
+    };
 }
 
 -(void)prepareForReuse{
-    [super prepareForReuse];
-    self.backgroundImageView.byImage(nil);
-    self.logoView.byImage(nil);
-    self.bankNameLabel.byText(nil);
-    self.cardNumberLabel.byText(nil);
-    self.expirationLabel.byText(nil);
-    self.cvcLabel.byText(nil);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsWalletCardCollectionViewCell.class, @selector(jobsPrepareForReuse)))(self, @selector(jobsPrepareForReuse));
+    if (action) action();
 }
 
--(void)jobsRichCardModel:(JobsWalletCardModel *)model{
-    self.cardModel = model;
-    self.backgroundImageView.byHidden(!model.backgroundImage);
-    self.backgroundImageView.byImage(model.backgroundImage);
-    self.contentView.byBgColor(model.backgroundImage ? JobsClearColor : (model.backgroundColor ?: HEXCOLOR(0xD9EEFF)));
-    self.logoView.byImage(model.bankIcon);
-    self.bankNameLabel.byText(model.bankName);
-    self.cardNumberLabel.byText(model.cardNumber);
-    self.expirationLabel.byText(isValue(model.expirationDate) ? [NSString stringWithFormat:@"EXP %@", model.expirationDate] : nil);
-    self.cvcLabel.byText(isValue(model.cvc) ? [NSString stringWithFormat:@"CVC %@", model.cvc] : nil);
-    self.expirationLabel.byHidden(!isValue(model.expirationDate));
-    self.cvcLabel.byHidden(!isValue(model.cvc));
+-(jobsByVoidBlock _Nonnull)jobsPrepareForReuse{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super prepareForReuse];
+        self.backgroundImageView.byImage(nil);
+        self.logoView.byImage(nil);
+        self.bankNameLabel.byText(nil);
+        self.cardNumberLabel.byText(nil);
+        self.expirationLabel.byText(nil);
+        self.cvcLabel.byText(nil);
+    };
+}
+
+-(jobsByJobsWalletCardModelBlock _Nonnull)jobsRichCardModel{
+    @jobs_weakify(self)
+    return ^(JobsWalletCardModel * model){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byCardModel(model);
+        self.backgroundImageView.byHidden(!model.backgroundImage);
+        self.backgroundImageView.byImage(model.backgroundImage);
+        self.contentView.byBgColor(model.backgroundImage ? JobsClearColor : (model.backgroundColor ?: HEXCOLOR(0xD9EEFF)));
+        self.logoView.byImage(model.bankIcon);
+        self.bankNameLabel.byText(model.bankName);
+        self.cardNumberLabel.byText(model.cardNumber);
+        self.expirationLabel.byText(isValue(model.expirationDate) ? [NSString stringWithFormat:@"EXP %@", model.expirationDate] : nil);
+        self.cvcLabel.byText(isValue(model.cvc) ? [NSString stringWithFormat:@"CVC %@", model.cvc] : nil);
+        self.expirationLabel.byHidden(!isValue(model.expirationDate));
+        self.cvcLabel.byHidden(!isValue(model.cvc));
+    };
 }
 
 -(UIImageView *)backgroundImageView{
@@ -197,4 +228,14 @@ Prop_strong()JobsWalletCardModel *cardModel;
     };return _cvcLabel;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsWalletCardCollectionViewCell
+-(JobsRetJobsWalletCardCollectionViewCellByJobsWalletCardModelBlock _Nonnull)byCardModel{
+    @jobs_weakify(self)
+    return ^__kindof JobsWalletCardCollectionViewCell * _Nullable(JobsWalletCardModel * _Nullable data){
+        @jobs_strongify(self)
+        [self setCardModel:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsWalletCardCollectionViewCell
 @end

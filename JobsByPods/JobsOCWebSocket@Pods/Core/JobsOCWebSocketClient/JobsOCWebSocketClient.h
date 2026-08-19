@@ -7,10 +7,22 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<SocketRocket/SRWebSocket.h>)
 #import <SocketRocket/SRWebSocket.h>
 #else
 #import "SRWebSocket.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
@@ -54,15 +66,25 @@ willReconnectAtAttempt:(NSInteger)attempt
 @property(atomic, assign)NSTimeInterval maximumReconnectDelay;
 @property(atomic, assign)NSInteger maximumReconnectAttempts;
 
+-(JobsRetJobsOCWebSocketClientByIDBlock _Nonnull)byDelegate;
 -(instancetype)initWithURL:(NSURL *)URL;
--(void)connect;
--(void)connectWithURL:(NSURL *)URL;
--(void)disconnect;
+-(jobsByVoidBlock _Nonnull)connect;
+-(jobsByURLBlock _Nonnull)connectWithURL;
+-(jobsByVoidBlock _Nonnull)disconnect;
 -(BOOL)sendText:(NSString *)text
           error:(NSError * _Nullable * _Nullable)error;
 -(BOOL)sendData:(NSData *)data
           error:(NSError * _Nullable * _Nullable)error;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCWebSocketClient
+-(JobsRetJobsOCWebSocketClientByBOOLBlock _Nonnull)byManuallyDisconnected;
+-(JobsRetJobsOCWebSocketClientByJobsOCWebSocketStateBlock _Nonnull)byState;
+-(JobsRetJobsOCWebSocketClientByNSIntegerBlock _Nonnull)byReconnectAttempt;
+-(JobsRetJobsOCWebSocketClientByNSURLBlock _Nonnull)byURL;
+-(JobsRetJobsOCWebSocketClientBySRWebSocketBlock _Nonnull)bySocket;
+-(JobsRetJobsOCWebSocketClientBydispatch_block_tBlock _Nonnull)byReconnectWorkItem;
+-(JobsRetJobsOCWebSocketClientBydispatch_source_tBlock _Nonnull)byHeartbeatTimer;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCWebSocketClient
 @end
 
 NS_ASSUME_NONNULL_END

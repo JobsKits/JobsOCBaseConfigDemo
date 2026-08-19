@@ -38,21 +38,26 @@ JobsKey(JobsYTKChainDelegateProxyKey)
     return self.requestArray;
 }
 
--(JobsYTKChainDelegateProxy *)jobs_chainProxy{
-    JobsYTKChainDelegateProxy *proxy = Jobs_getAssociatedObject(JobsYTKChainDelegateProxyKey);
-    if (!proxy){
-        proxy = JobsYTKChainDelegateProxy.new;
-        Jobs_setAssociatedRETAIN_NONATOMIC(JobsYTKChainDelegateProxyKey, proxy)
-    }
-    self.delegate = proxy;
-    return proxy;
+-(JobsRetJobsYTKChainDelegateProxyByVoidBlock _Nonnull)jobs_chainProxy{
+    @jobs_weakify(self)
+    return ^JobsYTKChainDelegateProxy *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        JobsYTKChainDelegateProxy *proxy = Jobs_getAssociatedObject(JobsYTKChainDelegateProxyKey);
+        if (!proxy){
+            proxy = JobsYTKChainDelegateProxy.new;
+            Jobs_setAssociatedRETAIN_NONATOMIC(JobsYTKChainDelegateProxyKey, proxy)
+        }
+        self.delegate = proxy;
+        return proxy;
+    };
 }
 
 -(JobsRetYTKChainRequestByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^__kindof YTKChainRequest *_Nullable(id<YTKChainRequestDelegate> _Nullable data){
         @jobs_strongify(self)
-        self.jobs_chainProxy.realDelegate = data;
+        self.jobs_chainProxy().realDelegate = data;
         return self;
     };
 }
@@ -100,7 +105,7 @@ JobsKey(JobsYTKChainDelegateProxyKey)
     @jobs_weakify(self)
     return ^__kindof YTKChainRequest *_Nullable(JobsYTKChainSuccessBlock _Nullable data){
         @jobs_strongify(self)
-        self.jobs_chainProxy.successBlock = data;
+        self.jobs_chainProxy().successBlock = data;
         return self;
     };
 }
@@ -109,7 +114,7 @@ JobsKey(JobsYTKChainDelegateProxyKey)
     @jobs_weakify(self)
     return ^__kindof YTKChainRequest *_Nullable(JobsYTKChainFailureBlock _Nullable data){
         @jobs_strongify(self)
-        self.jobs_chainProxy.failureBlock = data;
+        self.jobs_chainProxy().failureBlock = data;
         return self;
     };
 }
@@ -118,8 +123,8 @@ JobsKey(JobsYTKChainDelegateProxyKey)
     @jobs_weakify(self)
     return ^__kindof YTKChainRequest *_Nullable(JobsYTKChainSuccessBlock _Nullable success, JobsYTKChainFailureBlock _Nullable failure){
         @jobs_strongify(self)
-        self.jobs_chainProxy.successBlock = success;
-        self.jobs_chainProxy.failureBlock = failure;
+        self.jobs_chainProxy().successBlock = success;
+        self.jobs_chainProxy().failureBlock = failure;
         return self;
     };
 }
@@ -128,14 +133,24 @@ JobsKey(JobsYTKChainDelegateProxyKey)
     return self.byCompletion;
 }
 
--(__kindof YTKChainRequest *_Nonnull)byStart{
-    [self start];
-    return self;
+-(JobsRetYTKChainRequestByVoidBlock _Nonnull)byStart{
+    @jobs_weakify(self)
+    return ^__kindof YTKChainRequest *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self start];
+        return self;
+    };
 }
 
--(__kindof YTKChainRequest *_Nonnull)byStop{
-    [self stop];
-    return self;
+-(JobsRetYTKChainRequestByVoidBlock _Nonnull)byStop{
+    @jobs_weakify(self)
+    return ^__kindof YTKChainRequest *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self stop];
+        return self;
+    };
 }
 
 @end

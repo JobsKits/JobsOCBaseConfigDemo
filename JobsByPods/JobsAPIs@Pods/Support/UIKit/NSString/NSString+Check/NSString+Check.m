@@ -56,168 +56,273 @@
     };
 }
 /// 判断字符串对象是否为狭义范围内的空格
--(BOOL)isNotBlank{
-    for (NSInteger i = 0; i < self.length; ++i) {
-        unichar c = [self characterAtIndex:i];
-        if (![NSCharacterSet.whitespaceAndNewlineCharacterSet characterIsMember:c]) return YES;
-    };return NO;
+-(JobsRetBOOLByVoidBlock _Nonnull)isNotBlank{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        for (NSInteger i = 0; i < self.length; ++i) {
+            unichar c = [self characterAtIndex:i];
+            if (![NSCharacterSet.whitespaceAndNewlineCharacterSet characterIsMember:c]) return YES;
+        };return NO;
+    };
 }
 /// 判断是否是广义范围内的空格(space、\t、\r、\n)
--(BOOL)isSpace{
-    unichar c;
-    for (int i = 0; i < self.length; i++) {
-        c = [self characterAtIndex:i];
-        if (!isspace(c)) return NO;
-//        if (!isblank(c)) return NO;/// 只能判断是否是空格(space和\t)
-    };return YES;
+-(JobsRetBOOLByVoidBlock _Nonnull)isSpace{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        unichar c;
+        for (int i = 0; i < self.length; i++) {
+            c = [self characterAtIndex:i];
+            if (!isspace(c)) return NO;
+    //        if (!isblank(c)) return NO;/// 只能判断是否是空格(space和\t)
+        };return YES;
+    };
 }
 /// 判断字符串是否包含空格：返回YES【没有空格】
--(BOOL)isContainBlank{
-    return [self rangeOfString:@" "].location == NSNotFound;
+-(JobsRetBOOLByVoidBlock _Nonnull)isContainBlank{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return [self rangeOfString:@" "].location == NSNotFound;
+    };
 }
 /// 给定某字符串，判断里面的组成char是否全部为某个char
 /// @param standardChar 执行标准
--(BOOL)isAllSameCharWithStandardChar:(char)standardChar{
-    if (self.length) {
-        @jobs_weakify(self)
-        NSMutableArray <NSString *>*carries = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-            @jobs_strongify(self)
-            for (int i = 0; i < self.length; i++) {
-                char s = [self characterAtIndex:i];
-                if(s == standardChar){
-                    NSString *tempString = StringWithUTF8String(&s);
-                    data.add(tempString);
+-(JobsRetBOOLBycharBlock _Nonnull)isAllSameCharWithStandardChar{
+    @jobs_weakify(self)
+    return ^BOOL(char standardChar){
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        if (self.length) {
+            @jobs_weakify(self)
+            NSMutableArray <NSString *>*carries = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
+                @jobs_strongify(self)
+                for (int i = 0; i < self.length; i++) {
+                    char s = [self characterAtIndex:i];
+                    if(s == standardChar){
+                        NSString *tempString = StringWithUTF8String(&s);
+                        data.add(tempString);
+                    }
                 }
-            }
-        });return carries.count == self.length;
-    };return NO;
+            });return carries.count == self.length;
+        };return NO;
+    };
 }
 /// 是否是系统自带九宫格输入 yes-是 no-不是
--(BOOL)isNineKeyBoard{
-    NSString *other = @"➋➌➍➎➏➐➑➒";
-    int len = (int)self.length;
-    for(int i = 0;i < len;i++){
-        if(!([other rangeOfString:self].location != NSNotFound)) return NO;
-    };return YES;
+-(JobsRetBOOLByVoidBlock _Nonnull)isNineKeyBoard{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        NSString *other = @"➋➌➍➎➏➐➑➒";
+        int len = (int)self.length;
+        for(int i = 0;i < len;i++){
+            if(!([other rangeOfString:self].location != NSNotFound)) return NO;
+        };return YES;
+    };
 }
 /// 判断是否为整形
--(BOOL)isPureInt{
-    NSScanner *scan = [NSScanner scannerWithString:self];
-    int val;
-    return [scan scanInt:&val] && scan.isAtEnd;
+-(JobsRetBOOLByVoidBlock _Nonnull)isPureInt{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        NSScanner *scan = [NSScanner scannerWithString:self];
+        int val;
+        return [scan scanInt:&val] && scan.isAtEnd;
+    };
 }
 /// 判断是否为浮点形
--(BOOL)isPureFloat{
-    NSScanner* scan = [NSScanner scannerWithString:self];
-    float val;
-    return [scan scanFloat:&val] && scan.isAtEnd;
+-(JobsRetBOOLByVoidBlock _Nonnull)isPureFloat{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        NSScanner* scan = [NSScanner scannerWithString:self];
+        float val;
+        return [scan scanFloat:&val] && scan.isAtEnd;
+    };
 }
 /// 判断是否是数字字母结合
--(BOOL)isAlnum{
-    unichar c;
-    for (int i = 0; i < self.length; i++) {
-        c = [self characterAtIndex:i];
-        if (!isalnum(c)) return NO;
-    };return YES;
+-(JobsRetBOOLByVoidBlock _Nonnull)isAlnum{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        unichar c;
+        for (int i = 0; i < self.length; i++) {
+            c = [self characterAtIndex:i];
+            if (!isalnum(c)) return NO;
+        };return YES;
+    };
 }
 /// 判断是否是ASCII码的控制字符
--(BOOL)isCntrl{
-    unichar c;
-    for (int i = 0; i < self.length; i++) {
-        c = [self characterAtIndex:i];
-        if (!iscntrl(c)) return NO;
-    };return YES;
+-(JobsRetBOOLByVoidBlock _Nonnull)isCntrl{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        unichar c;
+        for (int i = 0; i < self.length; i++) {
+            c = [self characterAtIndex:i];
+            if (!iscntrl(c)) return NO;
+        };return YES;
+    };
 }
 /// 判断是否是为可打印字符(不包含空格)
--(BOOL)isGraph{
-    unichar c;
-    for (int i = 0; i < self.length; i++) {
-        c = [self characterAtIndex:i];
-        if (!isgraph(c)) return NO;
-    };return YES;
+-(JobsRetBOOLByVoidBlock _Nonnull)isGraph{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        unichar c;
+        for (int i = 0; i < self.length; i++) {
+            c = [self characterAtIndex:i];
+            if (!isgraph(c)) return NO;
+        };return YES;
+    };
 }
 /// 判断字符是否为可打印字符（含空格）
--(BOOL)isPrint{
-    unichar c;
-    for (int i = 0; i < self.length; i++) {
-        c = [self characterAtIndex:i];
-        if (!isprint(c)) return NO;
-    };return YES;
+-(JobsRetBOOLByVoidBlock _Nonnull)isPrint{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        unichar c;
+        for (int i = 0; i < self.length; i++) {
+            c = [self characterAtIndex:i];
+            if (!isprint(c)) return NO;
+        };return YES;
+    };
 }
 /// 判断是否是小写的英文字母
--(BOOL)isLower{
-    unichar c;
-    for (int i = 0; i < self.length; i++) {
-        c = [self characterAtIndex:i];
-        if (!islower(c)) return NO;
-    };return YES;
+-(JobsRetBOOLByVoidBlock _Nonnull)isLower{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        unichar c;
+        for (int i = 0; i < self.length; i++) {
+            c = [self characterAtIndex:i];
+            if (!islower(c)) return NO;
+        };return YES;
+    };
 }
 /// 判断字符是否为大写英文字母
--(BOOL)isUpper{
-    unichar c;
-    for (int i = 0; i < self.length; i++) {
-        c = [self characterAtIndex:i];
-        if (!isupper(c)) return NO;
-    };return YES;
+-(JobsRetBOOLByVoidBlock _Nonnull)isUpper{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        unichar c;
+        for (int i = 0; i < self.length; i++) {
+            c = [self characterAtIndex:i];
+            if (!isupper(c)) return NO;
+        };return YES;
+    };
 }
 /// 判断字符是否为16进制数字
--(BOOL)isXdigit{
-    unichar c;
-    for (int i = 0; i < self.length; i++) {
-        c = [self characterAtIndex:i];
-        if (!isxdigit(c)) return NO;
-    };return YES;
+-(JobsRetBOOLByVoidBlock _Nonnull)isXdigit{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        unichar c;
+        for (int i = 0; i < self.length; i++) {
+            c = [self characterAtIndex:i];
+            if (!isxdigit(c)) return NO;
+        };return YES;
+    };
 }
 /// 判断字符是否为标点符号或特殊字符
--(BOOL)isPunct{
-    unichar c;
-    for (int i = 0; i < self.length; i++) {
-        c = [self characterAtIndex:i];
-        if (!ispunct(c)) return NO;
-    };return YES;
+-(JobsRetBOOLByVoidBlock _Nonnull)isPunct{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        unichar c;
+        for (int i = 0; i < self.length; i++) {
+            c = [self characterAtIndex:i];
+            if (!ispunct(c)) return NO;
+        };return YES;
+    };
 }
 /// 是否全是字母（26个英文字母）
--(BOOL)isAllLetterCharacter{
-    NSString *stringRegex = @"^[A-Za-z]+$";
-    NSPredicate *stringTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", stringRegex];
-    return [stringTest evaluateWithObject:self];
+-(JobsRetBOOLByVoidBlock _Nonnull)isAllLetterCharacter{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        NSString *stringRegex = @"^[A-Za-z]+$";
+        NSPredicate *stringTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", stringRegex];
+        return [stringTest evaluateWithObject:self];
+    };
 }
 /// 字符串是否包含URL【返回YES包含】
--(BOOL)isContainsUrl{
-    NSString *checkStr = @"https://".add(@"http://");
-    return [self rangeOfString:checkStr].location != NSNotFound;
+-(JobsRetBOOLByVoidBlock _Nonnull)isContainsUrl{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        NSString *checkStr = @"https://".add(@"http://");
+        return [self rangeOfString:checkStr].location != NSNotFound;
+    };
 }
 /// 正则匹配手机号
--(BOOL)checkTelNumber{
-    NSString *pattern = @"^1+[3578]+\\d{9}";
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
-    BOOL isMatch = [pred evaluateWithObject:self];
-    return isMatch;
+-(JobsRetBOOLByVoidBlock _Nonnull)checkTelNumber{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        NSString *pattern = @"^1+[3578]+\\d{9}";
+        NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+        BOOL isMatch = [pred evaluateWithObject:self];
+        return isMatch;
+    };
 }
 /// 正则判断是否为菲律宾手机号码
 /// 菲律宾的手机号码通常有以下格式：
 /// 以 0 开头，后跟 9 和9位数字（如 09668536375）
 /// 直接是10位数字，以 9 开头（如 9668536375）
 /// 国际格式为 +63 开头，后面是10位数字
--(BOOL)isPhilippinesPhoneNum{
-    /// 判断是否为纯数字
-    if(self.isPureDigit){
-        NSString *pattern = @"^(0?9\\d{9})$";  /// 允许以 0 开头，或直接为 9 开头的 10 位数字
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
-        return [predicate evaluateWithObject:self];
-    }else return NO;
+-(JobsRetBOOLByVoidBlock _Nonnull)isPhilippinesPhoneNum{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        /// 判断是否为纯数字
+        if(self.isPureDigit()){
+            NSString *pattern = @"^(0?9\\d{9})$";  /// 允许以 0 开头，或直接为 9 开头的 10 位数字
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+            return [predicate evaluateWithObject:self];
+        }else return NO;
+    };
 }
 /// 至少包含一个数字、大写字母、小写字母和特殊字符
--(BOOL)isMixedCharacterString{
-    NSString *pattern = @"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).+$";
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
-    return [predicate evaluateWithObject:self];
+-(JobsRetBOOLByVoidBlock _Nonnull)isMixedCharacterString{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        NSString *pattern = @"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).+$";
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", pattern];
+        return [predicate evaluateWithObject:self];
+    };
 }
 /// 检查是否是纯数字
--(BOOL)isPureDigit{
-    if(self.length){
-        return [self.pureString rangeOfCharacterFromSet:NSCharacterSet.decimalDigitCharacterSet.invertedSet].location == NSNotFound;
-    }else return NO;
+-(JobsRetBOOLByVoidBlock _Nonnull)isPureDigit{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        if(self.length){
+            return [self.jobsPureString() rangeOfCharacterFromSet:NSCharacterSet.decimalDigitCharacterSet.invertedSet].location == NSNotFound;
+        }else return NO;
+    };
 }
 /// 本字符串是否包含入参字符串的任何字符
 -(JobsRetBOOLByStrBlock _Nonnull)isContainBy{

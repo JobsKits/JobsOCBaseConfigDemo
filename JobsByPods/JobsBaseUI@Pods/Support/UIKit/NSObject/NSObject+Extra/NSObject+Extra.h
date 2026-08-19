@@ -78,6 +78,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (JobsBaseUIExtra)
 
+-(JobsRetIDByIDBlock _Nonnull)byViewModel;
+-(JobsRetIDByIDBlock _Nonnull)byButtonModel;
+
 Prop_strong()UIViewModel *viewModel;
 /// 获取本地普通图像
 Prop_strong(readonly,nullable)UIImage *img;    // -(nullable UIImage *)img;
@@ -94,11 +97,12 @@ Prop_strong(readonly,nullable)UIImage *img;    // -(nullable UIImage *)img;
 +(jobsByViewBlock _Nonnull)feedbackGenerator;
 /// 播放自定义本地声音
 /// fileName 全文件名 包含后缀
--(jobsByStrBlock)playSoundEffect;
+-(jobsByStrBlock _Nonnull)playSoundEffect;
 -(JobsRetImageByStrBlock _Nonnull)imageByDataURL;
 -(UIColor *)cor;
+-(JobsRetCorByVoidBlock _Nonnull)jobsCor;
 /// 导航返回键的配置
--(UIButtonModel *)makeBackBtnModel;
+-(JobsRetUIButtonModelByVoidBlock _Nonnull)jobsMakeBackBtnModel;
 /// GKNavigationBar 返回按钮点击方法
 ///【子类需要覆写 】创建返回键的点击事件
 -(jobsByBtnBlock _Nonnull)jobsBackBtnClickEvent;
@@ -110,14 +114,19 @@ Prop_strong(readonly,nullable)UIImage *img;    // -(nullable UIImage *)img;
 -(JobsRetDataByDicBlock _Nonnull)JSONWritingPrettyPrinted;
 /// 刷新控件的头部数据
 -(MJRefreshConfigModel *_Nullable)mjHeaderDefaultConfig;
+-(JobsRetMJRefreshConfigModelByVoidBlock _Nonnull)jobsMjHeaderDefaultConfig;
+-(JobsRetMJRefreshConfigModelByRetIDByIDBlocks _Nonnull)refreshHeaderDataBy;
+/// 仅供未纳入 Jobs 维护的历史源码保持二进制/源码兼容；Jobs 新代码统一调用 Block getter。
 -(MJRefreshConfigModel *_Nonnull)refreshHeaderDataBy:(JobsRetIDByIDBlock _Nonnull)loadBlock;
 /// 刷新控件的尾部数据
 -(MJRefreshConfigModel *_Nullable)mjFooterDefaultConfig;
+-(JobsRetMJRefreshConfigModelByVoidBlock _Nonnull)jobsMjFooterDefaultConfig;
+-(JobsRetMJRefreshConfigModelByRetIDByIDBlocks _Nonnull)refreshFooterDataBy;
 -(MJRefreshConfigModel *_Nonnull)refreshFooterDataBy:(JobsRetIDByIDBlock _Nonnull)loadBlock;
 /// DeviceOrientation 检测屏幕方向
--(DeviceOrientation)getDeviceOrientation;
+-(JobsRetDeviceOrientationByVoidBlock _Nonnull)jobsGetDeviceOrientation;
 /// 设置返回按钮的文字（默认退回上一个页面）
--(JobsRetNavBarConfigByStringBlock _Nullable)makeNav0ByTitle;
+-(JobsRetNavBarConfigByStringBlock _Nonnull)makeNav0ByTitle;
 
 @end
 

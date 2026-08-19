@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_JOBSTEXTLABSTYLETBVCELL_70818A3301
 
 #import <JobsBaseUI/UIView+Extra.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsBaseUI/JobsBaseTableViewCell.h>
 
 #if __has_include(<Masonry/Masonry.h>)
@@ -45,7 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 将一个Label整个覆盖到TableViewCell上面
 @interface JobsTextLabStyleTBVCell : JobsBaseTableViewCell
 /// 获取绑定的数据源
--(UIViewModel *)getViewModel;
+-(UIViewModel *_Nullable)getViewModel;
+-(JobsRetViewModelByVoidBlock _Nonnull)jobsGetViewModel;
 
 @end
 

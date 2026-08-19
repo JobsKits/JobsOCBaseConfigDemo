@@ -2,6 +2,9 @@
 //  UIGestureRecognizer+DSL.h
 //  JobsOCDSL
 //
+//  Created by Jobs on 2026年8月3日，星期一.
+//
+
 #ifndef JOBS_HEADER_GUARD_UIGESTURERECOGNIZER_DSL
 #define JOBS_HEADER_GUARD_UIGESTURERECOGNIZER_DSL
 
@@ -35,6 +38,10 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetGestureByGesture _Nonnull)byRequireGestureRecognizerToFail;
 -(JobsRetCGPointByViewBlock _Nonnull)byLocationInView;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN UIGestureRecognizer
+-(JobsRetUIGestureRecognizerByRACGestureRecognizerActionHandlerBlock _Nonnull)byRac_gestureHandler;
+-(JobsRetUIGestureRecognizerByRACSubjectBlock _Nonnull)byRac_subject;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UIGestureRecognizer
 @end
 NS_ASSUME_NONNULL_END
 #endif

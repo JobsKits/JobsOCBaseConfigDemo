@@ -14,48 +14,58 @@
 /// 账号（用户名）：dev023
 /// 密码：Jobs29506045^
 /// 手机验证码登录
--(FMDoorModel *)mock_uat_login_data1{
-    return jobsMakeDoorModel(^(__kindof FMDoorModel * _Nullable data) {
-        data.byCaptcha_id(@"")
-            .byCaptcha_key(@"")
-            .byCaptcha_output(@"")
-            .byCountryCode(@"CN")/// 国家编码两位码(中国CN、越南VN)-国家的ISO 3166-1 Alpha-2代码
-            .byDomain(@"")
-            .byGen_time(@"")
-            .byInviteCode(@"")/// 代理邀请码
-            .byLot_number(@"")
-            .byMobile(@"09970000001")/// 手机号 09970000001
-            .byPass_token(@"")
-            .byPassword(@"Jobs29506045^")/// 密码 Jobs29506045^
-            .byReferCode(@"")
-            .bySmsCode(@"888")/// 短信验证码 888
-            .byUserName(@"dev023");/// 用户名 dev023
-    });
+-(JobsRetFMDoorModelByVoidBlock _Nonnull)mock_uat_login_data1{
+    @jobs_weakify(self)
+    return ^FMDoorModel *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return jobsMakeDoorModel(^(__kindof FMDoorModel * _Nullable data) {
+            data.byCaptcha_id(@"")
+                .byCaptcha_key(@"")
+                .byCaptcha_output(@"")
+                .byCountryCode(@"CN")/// 国家编码两位码(中国CN、越南VN)-国家的ISO 3166-1 Alpha-2代码
+                .byDomain(@"")
+                .byGen_time(@"")
+                .byInviteCode(@"")/// 代理邀请码
+                .byLot_number(@"")
+                .byMobile(@"09970000001")/// 手机号 09970000001
+                .byPass_token(@"")
+                .byPassword(@"Jobs29506045^")/// 密码 Jobs29506045^
+                .byReferCode(@"")
+                .bySmsCode(@"888")/// 短信验证码 888
+                .byUserName(@"dev023");/// 用户名 dev023
+        });
+    };
 }
 /// 手机号码：09970000002
 /// 验证码：888
 /// 账号（用户名）：JobsGo
 /// 密码：Jobs29506045^
 /// 备注：账密登录
--(FMDoorModel *)mock_uat_login_data2{
-    return jobsMakeDoorModel(^(__kindof FMDoorModel *_Nullable data) {
-        data.byCaptcha_id(@"")
-            .byCaptcha_key(@"")
-            .byCaptcha_output(@"")
-            .byCountryCode(@"PH")/// 国家编码两位码(中国CN、越南VN)-国家的ISO 3166-1 Alpha-2代码
-            .byDomain(@"")
-            .byDomainName(@"")/// 好友邀请域名
-            .byGen_time(@"")
-            .byInviteName(@"")/// 好友邀请人账号
-            .byInviteCode(@"")/// 代理邀请码
-            .byLot_number(@"")
-            .byMobile(@"09970000002")/// 手机号 09970000002
-            .byPass_token(@"")
-            .byPassword(@"Jobs29506045^")/// 密码 Jobs29506045^
-            .byReferCode(@"")
-            .bySmsCode(@"888")/// 短信验证码 888
-            .byUserName(@"JobsGo");/// 账号（用户名）：pendlessk01
-    });
+-(JobsRetFMDoorModelByVoidBlock _Nonnull)mock_uat_login_data2{
+    @jobs_weakify(self)
+    return ^FMDoorModel *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return jobsMakeDoorModel(^(__kindof FMDoorModel *_Nullable data) {
+            data.byCaptcha_id(@"")
+                .byCaptcha_key(@"")
+                .byCaptcha_output(@"")
+                .byCountryCode(@"PH")/// 国家编码两位码(中国CN、越南VN)-国家的ISO 3166-1 Alpha-2代码
+                .byDomain(@"")
+                .byDomainName(@"")/// 好友邀请域名
+                .byGen_time(@"")
+                .byInviteName(@"")/// 好友邀请人账号
+                .byInviteCode(@"")/// 代理邀请码
+                .byLot_number(@"")
+                .byMobile(@"09970000002")/// 手机号 09970000002
+                .byPass_token(@"")
+                .byPassword(@"Jobs29506045^")/// 密码 Jobs29506045^
+                .byReferCode(@"")
+                .bySmsCode(@"888")/// 短信验证码 888
+                .byUserName(@"JobsGo");/// 账号（用户名）：pendlessk01
+        });
+    };
 }
 #pragma mark —— 注册
 /// 电话号码：09970000001

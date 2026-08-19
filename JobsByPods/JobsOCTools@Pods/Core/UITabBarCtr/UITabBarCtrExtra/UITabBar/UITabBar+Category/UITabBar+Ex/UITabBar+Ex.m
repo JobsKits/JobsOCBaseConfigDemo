@@ -9,12 +9,17 @@
 
 @implementation UITabBar (Ex)
 /// 移除系统的 UITabBarButton
--(void)deleteUITabBarButton{
-    for (UIView *childView in self.subviews) {
-        if ([childView isKindOfClass:UIControl.class]) {//UITabBarButton
-            [childView removeFromSuperview];
+-(jobsByVoidBlock _Nonnull)deleteUITabBarButton{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        for (UIView *childView in self.subviews) {
+            if ([childView isKindOfClass:UIControl.class]) {//UITabBarButton
+                [childView removeFromSuperview];
+            }
         }
-    }
+    };
 }
 
 -(LOTAnimationView *_Nullable)addLottieImage:(NSUInteger)index lottieName:(NSString *_Nullable)lottieName{
@@ -23,9 +28,9 @@
     if (isValue(lottieName) && lottieName) {
         lottieView = [LOTAnimationView animationNamed:lottieName];
         lottieView.addOn(self);
-        lottieView.userInteractionEnabled = NO;
+        lottieView.byUserInteractionEnabled(NO);
         lottieView.byContentMode(UIViewContentModeScaleAspectFit);
-        lottieView.tag = 888 + index;
+        lottieView.byTag(888 + index);
         lottieView.byBgColor(JobsYellowColor);
     };return lottieView;
 }
@@ -50,7 +55,7 @@
         for (int i = 0; i < self.items.count; i++) {
             LOTAnimationView *lottieView = [self viewWithTag:888 + i];
             if (lottieView && [lottieView isKindOfClass:LOTAnimationView.class]) {
-                [lottieView stop];
+                lottieView.stop;
             }
         }
     };

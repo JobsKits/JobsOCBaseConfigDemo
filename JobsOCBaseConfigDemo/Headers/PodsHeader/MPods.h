@@ -6,16 +6,23 @@
 //
 
 #ifndef MPods_h
-#define MPods_h
-/// 极大程度上尊重作者，不去污染源代码的基础上，用分类去实现一些功能
-#import "ZMJCell+CustomView.h"
-#import "FMDatabase+Manager.h"
+
+#if __has_include(<KTVHTTPCache/KTVHTTPCache.h>)
+#import <KTVHTTPCache/KTVHTTPCache.h>
+#else
+#import "KTVHTTPCache.h"
+#endif
 
 #if __has_include(<TKPermissionKit/TKPermissionKit.h>)
 #import <TKPermissionKit/TKPermissionKit.h>
 #else
 #import "TKPermissionKit.h"
 #endif
+
+#define MPods_h
+/// 极大程度上尊重作者，不去污染源代码的基础上，用分类去实现一些功能
+#import "ZMJCell+CustomView.h"
+#import "FMDatabase+Manager.h"
 
 /// JXCategoryView
 
@@ -45,12 +52,6 @@
 #if __has_include(<ReactiveObjC/RACEXTRuntimeExtensions.h>)
 #else
 #import "RACEXTRuntimeExtensions.h"
-#endif
-
-#if __has_include(<KTVHTTPCache/KTVHTTPCache.h>)
-#import <KTVHTTPCache/KTVHTTPCache.h>
-#else
-#import "KTVHTTPCache.h"
 #endif
 
 #if __has_include(<GTCaptcha4/GTCaptcha4.h>)

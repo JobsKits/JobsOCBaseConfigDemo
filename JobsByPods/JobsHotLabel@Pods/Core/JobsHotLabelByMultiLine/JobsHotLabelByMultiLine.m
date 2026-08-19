@@ -14,20 +14,40 @@ Prop_strong()JobsHotLabelWithMultiLineModel *dataModel;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsHotLabelByMultiLine
+@interface JobsHotLabelByMultiLine (JobsPropertyDSLSetterAutogen_9cfb45098c)
+-(void)setDataModel:(JobsHotLabelWithMultiLineModel * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsHotLabelByMultiLine
+
 @implementation JobsHotLabelByMultiLine
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_hotLabelWithMultiLineOnceToken = 0;
-    static_hotLabelWithMultiLine = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsHotLabelByMultiLine.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_hotLabelWithMultiLineOnceToken = 0;
+        static_hotLabelWithMultiLine = nil;
+    };
 }
 
 static JobsHotLabelByMultiLine *static_hotLabelWithMultiLine = nil;
 static dispatch_once_t static_hotLabelWithMultiLineOnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_hotLabelWithMultiLineOnceToken, ^{
-        static_hotLabelWithMultiLine = JobsHotLabelByMultiLine.new;
-    });return static_hotLabelWithMultiLine;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsHotLabelByMultiLine.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_hotLabelWithMultiLineOnceToken, ^{
+            static_hotLabelWithMultiLine = JobsHotLabelByMultiLine.new;
+        });return static_hotLabelWithMultiLine;
+    };
 }
 
 -(instancetype)init{
@@ -43,7 +63,17 @@ static dispatch_once_t static_hotLabelWithMultiLineOnceToken;
 }
 /// 必须有frame的前提下才会进行绘制
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsHotLabelByMultiLine.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 #pragma mark —— BaseCellProtocol
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -51,7 +81,7 @@ static dispatch_once_t static_hotLabelWithMultiLineOnceToken;
     @jobs_weakify(self)
     return ^(JobsHotLabelWithMultiLineModel * _Nullable model) {
         @jobs_strongify(self)
-        self.dataModel = model;
+        self.byDataModel(model);
         self.byBgColor(self.dataModel.bgCor);
         if (self.dataModel.viewModels.count) {
             self.collectionView.byShow(self);
@@ -83,7 +113,17 @@ static dispatch_once_t static_hotLabelWithMultiLineOnceToken;
 }
 #pragma mark —— UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
+    JobsRetNSIntegerByUICollectionViewBlock action = ((JobsRetNSIntegerByUICollectionViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsHotLabelByMultiLine.class, @selector(jobsNumberOfSectionsInCollectionView)))(self, @selector(jobsNumberOfSectionsInCollectionView));
+    return action ? action(collectionView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUICollectionViewBlock _Nonnull)jobsNumberOfSectionsInCollectionView{
+    @jobs_weakify(self)
+    return ^NSInteger(UICollectionView * collectionView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 1;
+    };
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView
@@ -218,7 +258,7 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
 -(UICollectionView *)collectionView{
     if (!_collectionView) {
         @jobs_weakify(self)
-        _collectionView = UICollectionView.initByLayout(self.verticalLayout)
+        _collectionView = UICollectionView.initByLayout(self.jobsVerticalLayout())
             .registerCollectionViewCellClass(JobsHotLabelByMultiLineCVCell.class, @"")
             .dataLink(self)
             .byShowsVerticalScrollIndicator(NO)
@@ -239,10 +279,20 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             for (UIViewModel *viewModel in self.dataModel.viewModels) {
                 NSUInteger index = self.dataModel.viewModels.indexBy(viewModel);
                 data.add([JobsHotLabelByMultiLineCVCell cellWithCollectionView:self.collectionView
-                                                                  forIndexPath:[self myIndexPath:(JobsIndexPath){0,index}]]);
+                                                                  forIndexPath:self.myIndexPath((JobsIndexPath){0,index})]);
             }
         });
     };return _cvcellMutArr;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsHotLabelByMultiLine
+-(JobsRetJobsHotLabelByMultiLineByJobsHotLabelWithMultiLineModelBlock _Nonnull)byDataModel{
+    @jobs_weakify(self)
+    return ^__kindof JobsHotLabelByMultiLine * _Nullable(JobsHotLabelWithMultiLineModel * _Nullable data){
+        @jobs_strongify(self)
+        [self setDataModel:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsHotLabelByMultiLine
 @end

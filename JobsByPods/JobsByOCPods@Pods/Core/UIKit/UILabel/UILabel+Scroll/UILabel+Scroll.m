@@ -30,8 +30,8 @@
             /// 将文本的第一个字符移动到末尾，实现滚动效果
             if (self.text.length > 0) {
                 NSString *firstCharacter = self.text.substringToIndex(1);
-                self.text = self.text.substringFromIndex(1);
-                self.text = self.text.add(firstCharacter);
+                self.byText(self.text.substringFromIndex(1));
+                self.byText(self.text.add(firstCharacter));
             }if (doBlock) doBlock();
         }];
     };return nil;
@@ -90,7 +90,7 @@ JobsKey(_stopScrolling)
             @jobs_strongify(self)
             CGFloat offsetX = scrollView.contentOffset.x + 1; /// 每次移动1个单位
             if (offsetX >= textWidth) offsetX = 0; /// 回到起始位置
-            self.textColor = JobsClearColor;
+            self.byTextColor(JobsClearColor);
             [scrollView setContentOffset:CGPointMake(offsetX, 0) animated:NO];
         }];
         /// 保存 disposable，以便手动停止

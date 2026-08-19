@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (Extra)
 
-Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
+Prop_copy(nullable)jobsByMASConstraintMakerBlock masonryBlock;
 
 -(jobsByVoidBlock _Nonnull)refresh;
 -(JobsRetViewByViewBlock _Nonnull)addSubview;

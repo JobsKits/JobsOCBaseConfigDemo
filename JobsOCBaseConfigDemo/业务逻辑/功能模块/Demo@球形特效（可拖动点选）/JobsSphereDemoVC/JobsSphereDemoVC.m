@@ -15,91 +15,137 @@ Prop_strong()NSArray <NSString *>*tagTitleArr;
 Prop_strong()NSMutableArray <UIButton *>*tagButtonMutArr;
 Prop_assign()BOOL sphereItemsPrepared;
 
--(void)prepareSphereItemsIfNeeded;
--(void)tagButtonClickEvent:(UIButton *)sender;
+-(jobsByVoidBlock _Nonnull)prepareSphereItemsIfNeeded;
+-(jobsByBtnBlock _Nonnull)tagButtonClickEvent;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsSphereDemoVC
+@interface JobsSphereDemoVC (JobsPropertyDSLSetterAutogen_3fdb07ecb3)
+-(void)setSphereItemsPrepared:(BOOL)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsSphereDemoVC
+
 @implementation JobsSphereDemoVC
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsSphereDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"球形特效".tr)
-                .byFont(UIFontWeightRegularSize(17))
-                .byTextCor(JobsLabelColor);
-        })
-        .byBgCor(HEXCOLOR(0xF4F5F8))
-        .byNavBgCor(HEXCOLOR(0xF4F5F8));
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"球形特效".jobsTr())
+                    .byFont(UIFontWeightRegularSize(17))
+                    .byTextCor(JobsLabelColor);
+            })
+            .byBgCor(HEXCOLOR(0xF4F5F8))
+            .byNavBgCor(HEXCOLOR(0xF4F5F8));
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.sphereView.byAlpha(1);
-    self.statusLabel.byAlpha(1);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsSphereDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.sphereView.byAlpha(1);
+        self.statusLabel.byAlpha(1);
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    [self prepareSphereItemsIfNeeded];
-}
-#pragma mark —— 一些私有方法
--(void)prepareSphereItemsIfNeeded{
-    @jobs_weakify(self)
-    if (self.sphereItemsPrepared || CGRectGetWidth(self.sphereView.bounds) <= 0) return;
-    self.sphereItemsPrepared = YES;
-    [self.tagButtonMutArr removeAllObjects];
-    for (NSInteger index = 0; index < self.tagTitleArr.count; index++) {
-        NSString *title = self.tagTitleArr[index];
-        UIButton *button = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
-            button
-                .jobsResetBtnTitle(title.tr)
-                .jobsResetBtnTitleCor(UIColor.whiteColor)
-                .jobsResetBtnTitleFont(UIFontWeightMediumSize(14))
-                .jobsResetBtnBgCor(jobsMakeCor2(^(__kindof JobsCorModel *_Nullable corModel) {
-                    corModel
-                        .byHue((CGFloat)index / (CGFloat)self.tagTitleArr.count)
-                        .bySaturation(.62)
-                        .byBrightness(.92)
-                        .byAlpha(1);
-                }))
-                .byContentEdgeInsets(UIEdgeInsetsMake(0, JobsWidth(12), 0, JobsWidth(12)))
-                .byTag(index)
-                .bySizeToFit();
-        });
-        CGRect frame = button.frame;
-        frame.size.width = MAX(frame.size.width + JobsWidth(16), JobsWidth(74));
-        frame.size.height = JobsWidth(32);
-        button
-            .onClickBy(^(__kindof UIButton * _Nullable button) {
-                [weak_self tagButtonClickEvent:button];
-            })
-            .byFrame(frame)
-            .byLayer(^(__kindof CALayer * _Nullable layer) {
-                layer
-                    .byCornerRadius(JobsWidth(16))
-                    .byMasksToBounds(YES);
-            })
-            .addOn(self.sphereView);
-        [self.tagButtonMutArr addObject:button];
-    }
-    [self.sphereView setItems:self.tagButtonMutArr];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsSphereDemoVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
 }
 
--(void)tagButtonClickEvent:(UIButton *)sender{
-    if (sender.tag < 0 || sender.tag >= (NSInteger)self.tagTitleArr.count) return;
-    self.statusLabel.byText([NSString stringWithFormat:@"已选中：%@", self.tagTitleArr[sender.tag].tr]);
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        self.prepareSphereItemsIfNeeded();
+    };
+}
+#pragma mark —— 一些私有方法
+-(jobsByVoidBlock _Nonnull)prepareSphereItemsIfNeeded{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        @jobs_weakify(self)
+        if (self.sphereItemsPrepared || CGRectGetWidth(self.sphereView.bounds) <= 0) return;
+        self.bySphereItemsPrepared(YES);
+        [self.tagButtonMutArr removeAllObjects];
+        for (NSInteger index = 0; index < self.tagTitleArr.count; index++) {
+            NSString *title = self.tagTitleArr[index];
+            UIButton *button = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+                button
+                    .jobsResetBtnTitle(title.jobsTr())
+                    .jobsResetBtnTitleCor(UIColor.whiteColor)
+                    .jobsResetBtnTitleFont(UIFontWeightMediumSize(14))
+                    .jobsResetBtnBgCor(jobsMakeCor2(^(__kindof JobsCorModel *_Nullable corModel) {
+                        corModel
+                            .byHue((CGFloat)index / (CGFloat)self.tagTitleArr.count)
+                            .bySaturation(.62)
+                            .byBrightness(.92)
+                            .byAlpha(1);
+                    }))
+                    .byContentEdgeInsets(UIEdgeInsetsMake(0, JobsWidth(12), 0, JobsWidth(12)))
+                    .byTag(index)
+                    .bySizeToFit();
+            });
+            CGRect frame = button.frame;
+            frame.size.width = MAX(frame.size.width + JobsWidth(16), JobsWidth(74));
+            frame.size.height = JobsWidth(32);
+            button
+                .onClickBy(^(__kindof UIButton * _Nullable button) {
+                    weak_self.tagButtonClickEvent(button);
+                })
+                .byFrame(frame)
+                .byLayer(^(__kindof CALayer * _Nullable layer) {
+                    layer
+                        .byCornerRadius(JobsWidth(16))
+                        .byMasksToBounds(YES);
+                })
+                .addOn(self.sphereView);
+            [self.tagButtonMutArr addObject:button];
+        }
+        self.sphereView.setItems(self.tagButtonMutArr);
+    };
+}
+
+-(jobsByBtnBlock _Nonnull)tagButtonClickEvent{
+    @jobs_weakify(self)
+    return ^(UIButton * sender){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (sender.tag < 0 || sender.tag >= (NSInteger)self.tagTitleArr.count) return;
+        self.statusLabel.byText([NSString stringWithFormat:@"已选中：%@", self.tagTitleArr[sender.tag].jobsTr()]);
+    };
 }
 #pragma mark —— LazyLoad
 -(XLSphereView *)sphereView{
@@ -121,7 +167,7 @@ Prop_assign()BOOL sphereItemsPrepared;
     if (!_statusLabel) {
         _statusLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"拖动球体旋转，点按前景标签".tr)
+                .byText(@"拖动球体旋转，点按前景标签".jobsTr())
                 .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontWeightRegularSize(15))
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -162,4 +208,14 @@ Prop_assign()BOOL sphereItemsPrepared;
     };return _tagButtonMutArr;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsSphereDemoVC
+-(JobsRetJobsSphereDemoVCByBOOLBlock _Nonnull)bySphereItemsPrepared{
+    @jobs_weakify(self)
+    return ^__kindof JobsSphereDemoVC * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setSphereItemsPrepared:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsSphereDemoVC
 @end

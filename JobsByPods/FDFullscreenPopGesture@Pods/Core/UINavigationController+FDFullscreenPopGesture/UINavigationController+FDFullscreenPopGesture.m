@@ -6,41 +6,111 @@
 //
 
 #import "UINavigationController+FDFullscreenPopGesture.h"
+
 #import <FDFullscreenPopGesture/NSObject+Extra.h>
 #import <FDFullscreenPopGesture/UIViewController+BaseNavigationBar.h>
+
+@interface UIGestureRecognizer (JobsFDFullscreenPopGestureDSL)
+-(JobsRetIDByIDBlock _Nonnull)byDelegate;
+-(JobsRetIDByBOOLBlock _Nonnull)byEnabled;
+-(JobsRetIDByUIntegerBlock _Nonnull)byMaximumNumberOfTouches;
+@end
+
+@implementation UIGestureRecognizer (JobsFDFullscreenPopGestureDSL)
+-(JobsRetIDByIDBlock _Nonnull)byDelegate{
+    @jobs_weakify(self)
+    return ^id _Nullable(id<UIGestureRecognizerDelegate> _Nullable data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.delegate = data;
+        return self;
+    };
+}
+
+-(JobsRetIDByBOOLBlock _Nonnull)byEnabled{
+    @jobs_weakify(self)
+    return ^id _Nullable(BOOL data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.enabled = data;
+        return self;
+    };
+}
+
+-(JobsRetIDByUIntegerBlock _Nonnull)byMaximumNumberOfTouches{
+    @jobs_weakify(self)
+    return ^id _Nullable(NSUInteger data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if ([self isKindOfClass:UIPanGestureRecognizer.class]) {
+            ((UIPanGestureRecognizer *)self).maximumNumberOfTouches = data;
+        };return self;
+    };
+}
+@end
 
 @interface _FDFullscreenPopGestureRecognizerDelegate : NSObject<UIGestureRecognizerDelegate>
 
 Prop_weak()UINavigationController *navigationController;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN _FDFullscreenPopGestureRecognizerDelegate
+-(JobsRetFDFullscreenPopGestureRecognizerDelegateByUINavigationControllerBlock _Nonnull)byNavigationController;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END _FDFullscreenPopGestureRecognizerDelegate
 @end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN _FDFullscreenPopGestureRecognizerDelegate
+@interface _FDFullscreenPopGestureRecognizerDelegate (JobsPropertyDSLSetterAutogen_2ac0de272b)
+-(void)setNavigationController:(UINavigationController * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END _FDFullscreenPopGestureRecognizerDelegate
 
 @implementation _FDFullscreenPopGestureRecognizerDelegate
 - (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer{
-    // Ignore when no view controller is pushed into the navigation stack.
-    if (self.navigationController.viewControllers.count <= 1) return NO;
-    // Ignore when the active view controller doesn't allow interactive pop.
-    UIViewController *topViewController = self.navigationController.viewControllers.lastObject;
-    if (topViewController.fd_interactivePopDisabled) return NO;
-    // Ignore when the beginning location is beyond max allowed initial distance to left edge.
-    CGPoint beginningLocation = [gestureRecognizer locationInView:gestureRecognizer.view];
-    CGFloat maxAllowedInitialDistance = topViewController.fd_interactivePopMaxAllowedInitialDistanceToLeftEdge;
-    if (maxAllowedInitialDistance > 0 && beginningLocation.x > maxAllowedInitialDistance) return NO;
-    // Ignore pan gesture when the navigation controller is currently in transition.
-    if ([self.navigationController.valueForKey(@"_isTransitioning") boolValue]) return NO;
-    // Prevent calling the handler when the gesture begins in an opposite direction.
-    CGPoint translation = [gestureRecognizer translationInView:gestureRecognizer.view];
-    BOOL isLeftToRight = [UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionLeftToRight;
-    CGFloat multiplier = isLeftToRight ? 1 : - 1;
-    return (translation.x * multiplier) > 0;
+    JobsRetBOOLByUIPanGestureRecognizerBlock action = ((JobsRetBOOLByUIPanGestureRecognizerBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(_FDFullscreenPopGestureRecognizerDelegate.class, @selector(jobsGestureRecognizerShouldBegin)))(self, @selector(jobsGestureRecognizerShouldBegin));
+    return action ? action(gestureRecognizer) : NO;
 }
 
+-(JobsRetBOOLByUIPanGestureRecognizerBlock _Nonnull)jobsGestureRecognizerShouldBegin{
+    @jobs_weakify(self)
+    return ^BOOL(UIPanGestureRecognizer * gestureRecognizer){
+        @jobs_strongify(self)
+        if (!self) return NO;
+        // Ignore when no view controller is pushed into the navigation stack.
+        if (self.navigationController.viewControllers.count <= 1) return NO;
+        // Ignore when the active view controller doesn't allow interactive pop.
+        UIViewController *topViewController = self.navigationController.viewControllers.lastObject;
+        if (topViewController.fd_interactivePopDisabled) return NO;
+        // Ignore when the beginning location is beyond max allowed initial distance to left edge.
+        CGPoint beginningLocation = [gestureRecognizer locationInView:gestureRecognizer.view];
+        CGFloat maxAllowedInitialDistance = topViewController.fd_interactivePopMaxAllowedInitialDistanceToLeftEdge;
+        if (maxAllowedInitialDistance > 0 && beginningLocation.x > maxAllowedInitialDistance) return NO;
+        // Ignore pan gesture when the navigation controller is currently in transition.
+        if ([self.navigationController.valueForKey(@"_isTransitioning") boolValue]) return NO;
+        // Prevent calling the handler when the gesture begins in an opposite direction.
+        CGPoint translation = [gestureRecognizer translationInView:gestureRecognizer.view];
+        BOOL isLeftToRight = [UIApplication sharedApplication].userInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionLeftToRight;
+        CGFloat multiplier = isLeftToRight ? 1 : - 1;
+        return (translation.x * multiplier) > 0;
+    };
+}
+
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN _FDFullscreenPopGestureRecognizerDelegate
+-(JobsRetFDFullscreenPopGestureRecognizerDelegateByUINavigationControllerBlock _Nonnull)byNavigationController{
+    @jobs_weakify(self)
+    return ^__kindof _FDFullscreenPopGestureRecognizerDelegate * _Nullable(UINavigationController * _Nullable data){
+        @jobs_strongify(self)
+        [self setNavigationController:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END _FDFullscreenPopGestureRecognizerDelegate
 @end
 
 typedef void (^_FDViewControllerWillAppearInjectBlock)(UIViewController *viewController, BOOL animated);
 @interface UIViewController (FDFullscreenPopGesturePrivate)
 
 Prop_copy()_FDViewControllerWillAppearInjectBlock fd_willAppearInjectBlock;
+-(JobsRetUIViewControllerByFDViewControllerWillAppearInjectBlockBlock _Nonnull)byFd_willAppearInjectBlock;
 
 @end
 
@@ -58,14 +128,34 @@ Prop_copy()_FDViewControllerWillAppearInjectBlock fd_willAppearInjectBlock;
 }
 
 - (void)fd_viewWillAppear:(BOOL)animated{
-    // Forward to primary implementation.
-    [self fd_viewWillAppear:animated];
-    if (self.fd_willAppearInjectBlock) self.fd_willAppearInjectBlock(self, animated);
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIViewController.class, @selector(jobsFd_viewWillAppear)))(self, @selector(jobsFd_viewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsFd_viewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        // Forward to primary implementation.
+        [self fd_viewWillAppear:animated];
+        if (self.fd_willAppearInjectBlock) self.fd_willAppearInjectBlock(self, animated);
+    };
 }
 
 - (void)fd_viewWillDisappear:(BOOL)animated{
-    // Forward to primary implementation.
-    [self fd_viewWillDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIViewController.class, @selector(jobsFd_viewWillDisappear)))(self, @selector(jobsFd_viewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsFd_viewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        // Forward to primary implementation.
+        [self fd_viewWillDisappear:animated];
+    };
 }
 
 JobsKey(_fd_willAppearInjectBlock)
@@ -76,6 +166,15 @@ JobsKey(_fd_willAppearInjectBlock)
 
 - (void)setFd_willAppearInjectBlock:(_FDViewControllerWillAppearInjectBlock)block{
     Jobs_setAssociatedCOPY_NONATOMIC(_fd_willAppearInjectBlock, block)
+}
+
+-(JobsRetUIViewControllerByFDViewControllerWillAppearInjectBlockBlock _Nonnull)byFd_willAppearInjectBlock{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController * _Nullable(_FDViewControllerWillAppearInjectBlock data){
+        @jobs_strongify(self)
+        [self setFd_willAppearInjectBlock:data];
+        return self;
+    };
 }
 
 @end
@@ -106,60 +205,74 @@ JobsKey(_fd_willAppearInjectBlock)
 }
 
 - (void)fd_pushViewController:(UIViewController *)viewController animated:(BOOL)animated{
-    if (![self.interactivePopGestureRecognizer.view.gestureRecognizers containsObject:self.fd_fullscreenPopGestureRecognizer]) {
+    UIGestureRecognizer *interactivePopGestureRecognizer = self.interactivePopGestureRecognizer;
+    UIView *interactivePopGestureHostView = interactivePopGestureRecognizer.view;
+    if (interactivePopGestureRecognizer &&
+        interactivePopGestureHostView &&
+        ![interactivePopGestureHostView.gestureRecognizers containsObject:self.fd_fullscreenPopGestureRecognizer]) {
         // Add our own gesture recognizer to where the onboard screen edge pan gesture recognizer is attached to.
-        [self.interactivePopGestureRecognizer.view addGestureRecognizer:self.fd_fullscreenPopGestureRecognizer];
+        [interactivePopGestureHostView addGestureRecognizer:self.fd_fullscreenPopGestureRecognizer];
         // Forward the gesture events to the private handler of the onboard gesture recognizer.
-        NSArray *internalTargets = [self.interactivePopGestureRecognizer valueForKey:@"targets"];
+        NSArray *internalTargets = [interactivePopGestureRecognizer valueForKey:@"targets"];
         id internalTarget = [internalTargets.firstObject valueForKey:@"target"];
         SEL internalAction = NSSelectorFromString(@"handleNavigationTransition:");
-        self.fd_fullscreenPopGestureRecognizer.delegate = self.fd_popGestureRecognizerDelegate;
+        self.fd_fullscreenPopGestureRecognizer.byDelegate(self.fd_popGestureRecognizerDelegate());
         [self.fd_fullscreenPopGestureRecognizer addTarget:internalTarget
                                                    action:internalAction];
         // Disable the onboard gesture recognizer.
-        self.interactivePopGestureRecognizer.enabled = NO;
+        interactivePopGestureRecognizer.byEnabled(NO);
     }
     // Handle perferred navigation bar appearance.
-    [self fd_setupViewControllerBasedNavigationBarAppearanceIfNeeded:viewController];
+    self.fd_setupViewControllerBasedNavigationBarAppearanceIfNeeded(viewController);
     // Forward to primary implementation.
     if (![self.viewControllers containsObject:viewController]) {
         [self fd_pushViewController:viewController animated:animated];
     }
 }
 
-- (void)fd_setupViewControllerBasedNavigationBarAppearanceIfNeeded:(UIViewController *)appearingViewController{
-    if (!self.fd_viewControllerBasedNavigationBarAppearanceEnabled) return;
-    __weak typeof(self) weakSelf = self;
-    _FDViewControllerWillAppearInjectBlock block = ^(UIViewController *viewController,
-                                                     BOOL animated) {
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        [strongSelf setNavigationBarHidden:viewController.isHiddenNavigationBar animated:animated];
+-(jobsByVCBlock _Nonnull)fd_setupViewControllerBasedNavigationBarAppearanceIfNeeded{
+    @jobs_weakify(self)
+    return ^(UIViewController * appearingViewController){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (!self.fd_viewControllerBasedNavigationBarAppearanceEnabled) return;
+        @jobs_weakify(self)
+        _FDViewControllerWillAppearInjectBlock block = ^(UIViewController *viewController,
+                                                         BOOL animated) {
+            @jobs_strongify(self)
+            [self setNavigationBarHidden:viewController.isHiddenNavigationBar animated:animated];
+        };
+        // Setup will appear inject block to appearing view controller.
+        // Setup disappearing view controller as well, because not every view controller is added into
+        // stack by pushing, maybe by "-setViewControllers:".
+        appearingViewController.byFd_willAppearInjectBlock(block);
+        UIViewController *disappearingViewController = self.viewControllers.lastObject;
+        if (disappearingViewController && !disappearingViewController.fd_willAppearInjectBlock) {
+            disappearingViewController.byFd_willAppearInjectBlock(block);
+        }
     };
-    // Setup will appear inject block to appearing view controller.
-    // Setup disappearing view controller as well, because not every view controller is added into
-    // stack by pushing, maybe by "-setViewControllers:".
-    appearingViewController.fd_willAppearInjectBlock = block;
-    UIViewController *disappearingViewController = self.viewControllers.lastObject;
-    if (disappearingViewController && !disappearingViewController.fd_willAppearInjectBlock) {
-        disappearingViewController.fd_willAppearInjectBlock = block;
-    }
 }
 
 JobsKey(_fd_popGestureRecognizerDelegate)
-- (_FDFullscreenPopGestureRecognizerDelegate *)fd_popGestureRecognizerDelegate{
-    _FDFullscreenPopGestureRecognizerDelegate *delegate = Jobs_getAssociatedObject(_fd_popGestureRecognizerDelegate);
-    if (!delegate) {
-        delegate = _FDFullscreenPopGestureRecognizerDelegate.new;
-        delegate.navigationController = self;
-        Jobs_setAssociatedRETAIN_NONATOMIC(_fd_popGestureRecognizerDelegate, delegate)
-    };return delegate;
+- (JobsRetFDFullscreenPopGestureRecognizerDelegateByVoidBlock _Nonnull)fd_popGestureRecognizerDelegate{
+    @jobs_weakify(self)
+    return ^_FDFullscreenPopGestureRecognizerDelegate *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        _FDFullscreenPopGestureRecognizerDelegate *delegate = Jobs_getAssociatedObject(_fd_popGestureRecognizerDelegate);
+        if (!delegate) {
+            delegate = _FDFullscreenPopGestureRecognizerDelegate.new;
+            delegate.byNavigationController(self);
+            Jobs_setAssociatedRETAIN_NONATOMIC(_fd_popGestureRecognizerDelegate, delegate)
+        };return delegate;
+    };
 }
 
 JobsKey(_fd_viewControllerBasedNavigationBarAppearanceEnabled)
 - (BOOL)fd_viewControllerBasedNavigationBarAppearanceEnabled{
     NSNumber *number = Jobs_getAssociatedObject(_fd_viewControllerBasedNavigationBarAppearanceEnabled);
     if (number) return number.boolValue;
-    self.fd_viewControllerBasedNavigationBarAppearanceEnabled = YES;
+    self.byFd_viewControllerBasedNavigationBarAppearanceEnabled(YES);
     return YES;
 }
 
@@ -167,11 +280,20 @@ JobsKey(_fd_viewControllerBasedNavigationBarAppearanceEnabled)
     Jobs_setAssociatedRETAIN_NONATOMIC(_fd_viewControllerBasedNavigationBarAppearanceEnabled, @(enabled))
 }
 
+-(JobsRetUINavigationControllerByBOOLBlock _Nonnull)byFd_viewControllerBasedNavigationBarAppearanceEnabled{
+    @jobs_weakify(self)
+    return ^__kindof UINavigationController * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setFd_viewControllerBasedNavigationBarAppearanceEnabled:data];
+        return self;
+    };
+}
+
 PROP_STRONG_OBJECT_LAZY(UIPanGestureRecognizer,
                         fd_fullscreenPopGestureRecognizer,
                         Fd_fullscreenPopGestureRecognizer,
                         {
-                            obj.maximumNumberOfTouches = 1;
+                            obj.byMaximumNumberOfTouches(1);
                         })
 
 @end

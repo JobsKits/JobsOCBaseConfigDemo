@@ -63,7 +63,7 @@
     @jobs_weakify(self)
     return ^__kindof UITableView *_Nullable(id <UITableViewDataSourcePrefetching>_Nullable dataSourcePrefetching){
         @jobs_strongify(self)
-        self.prefetchDataSource = dataSourcePrefetching;
+        self.byPrefetchDataSource(dataSourcePrefetching);
         return self;
     };
 }
@@ -154,7 +154,7 @@
     return ^__kindof UITableView *_Nullable(__kindof MJRefreshHeader * _Nullable header){
         @jobs_strongify(self)
         self.mj_header = header;
-        self.mj_header.automaticallyChangeAlpha = YES; /// 根据拖拽比例自动切换透明度
+        self.mj_header.byAutomaticallyChangeAlpha(YES);
         return self;
     };
 }
@@ -164,7 +164,7 @@
     return ^__kindof UITableView *_Nullable(__kindof MJRefreshFooter * _Nullable header){
         @jobs_strongify(self)
         self.mj_footer = header;
-        self.mj_footer.automaticallyChangeAlpha = YES; /// 根据拖拽比例自动切换透明度
+        self.mj_footer.byAutomaticallyChangeAlpha(YES);
         return self;
     };
 }
@@ -208,15 +208,15 @@
     if (tableViewCellClass) {
         for (UITableViewCell *cell in self.visibleCells) {
             if ([cell isKindOfClass:tableViewCellClass]) {
-                cell.selected = NO;
-                cell.getViewModel.jobsSelected = NO;
+                cell.bySelected(NO);
+                cell.getViewModel.byJobsSelected(NO);
             }
         }
     }
     UITableViewCell *cell = (UITableViewCell *)self.cellBy(indexPath);
-    cell.selected = !cell.selected;
-    cell.jobsSelected = !cell.jobsSelected;
-    cell.getViewModel.jobsSelected = !cell.getViewModel.jobsSelected;/// 建议用model来修改
+    cell.bySelected(!cell.selected);
+    cell.byJobsSelected(!cell.jobsSelected);
+    cell.getViewModel.byJobsSelected(!cell.getViewModel.jobsSelected);
     return cell;
 }
 
@@ -224,8 +224,8 @@
                                     tableViewCellClass:(Class _Nullable)tableViewCellClass{
     JobsLog(@"%s", __FUNCTION__);
     UITableViewCell *cell = (UITableViewCell *)self.cellBy(indexPath);
-    cell.selected = !cell.selected;
-    cell.getViewModel.jobsSelected = !cell.getViewModel.jobsSelected;
+    cell.bySelected(!cell.selected);
+    cell.getViewModel.byJobsSelected(!cell.getViewModel.jobsSelected);
     return cell;
 }
 
@@ -275,7 +275,7 @@
                           cell:(__kindof UITableViewCell *)cell{
     /// 判断是否是该 section 的最后一行
     if (indexPath.row == [self numberOfRowsInSection:indexPath.section] - 1){
-        cell.separatorInset = UIEdgeInsetsMake(0, 0, 0, cell.bounds.size.width);
+        cell.bySeparatorInset(UIEdgeInsetsMake(0, 0, 0, cell.bounds.size.width));
     }
 }
 

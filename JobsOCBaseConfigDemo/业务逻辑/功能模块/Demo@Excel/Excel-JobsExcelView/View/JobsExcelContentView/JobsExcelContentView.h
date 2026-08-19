@@ -65,6 +65,10 @@ BaseViewProtocol
 @property(nonatomic,strong,nonnull,readonly)JobsExcelConfigureViewModel *excelConfigureData;
 -(jobsByPointBlock _Nonnull)configureContentOffSet;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsExcelContentView
+-(JobsRetJobsExcelContentViewByCGPointBlock _Nonnull)byContentOffenset;
+-(JobsRetJobsExcelContentViewByJobsExcelConfigureViewModelBlock _Nonnull)byExcelConfigureData;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsExcelContentView
 @end
 
 NS_INLINE __kindof JobsExcelContentView *_Nonnull jobsMakeExcelContentView(jobsByExcelContentViewBlock _Nonnull block){

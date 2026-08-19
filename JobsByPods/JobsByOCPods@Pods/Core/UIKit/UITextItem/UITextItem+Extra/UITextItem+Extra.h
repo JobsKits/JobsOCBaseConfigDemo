@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_strong()UITextView *textView;
 
+-(JobsRetUITextItemByTextViewBlock _Nonnull)byTextView;
+
 @end
 
 NS_ASSUME_NONNULL_END

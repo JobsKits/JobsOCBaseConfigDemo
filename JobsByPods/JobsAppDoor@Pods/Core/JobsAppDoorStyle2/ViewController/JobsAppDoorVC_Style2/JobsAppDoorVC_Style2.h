@@ -168,9 +168,28 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JobsAppDoorVC_Style2 : BaseViewController
 
 Prop_strong()JobsAppDoorConfig *configuration;
+-(JobsRetJobsAppDoorVCStyle2ByConfigBlock _Nonnull)byConfiguration;
 
 -(instancetype)initWithConfiguration:(JobsAppDoorConfig *)configuration;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorVC_Style2
+-(JobsRetJobsAppDoorVC_Style2ByBOOLBlock _Nonnull)byHiddenNavigationBar;
+-(JobsRetJobsAppDoorVC_Style2ByBOOLBlock _Nonnull)byLoginDoorInputEditing;
+-(JobsRetJobsAppDoorVC_Style2ByBOOLBlock _Nonnull)byVideoPausedByApplicationState;
+-(JobsRetJobsAppDoorVC_Style2ByCGFloatBlock _Nonnull)byForgotCodeContentViewY;
+-(JobsRetJobsAppDoorVC_Style2ByCGFloatBlock _Nonnull)byLoginContentViewY;
+-(JobsRetJobsAppDoorVC_Style2ByCGFloatBlock _Nonnull)byLoginCustomerServiceBtnY;
+-(JobsRetJobsAppDoorVC_Style2ByCGFloatBlock _Nonnull)byLogoContentViewY;
+-(JobsRetJobsAppDoorVC_Style2ByCGFloatBlock _Nonnull)byRegisterContentViewY;
+-(JobsRetJobsAppDoorVC_Style2ByCGFloatBlock _Nonnull)byRegisterCustomerServiceBtnY;
+-(JobsRetJobsAppDoorVC_Style2ByCGFloatBlock _Nonnull)byGk_navBarAlpha;
+-(JobsRetJobsAppDoorVC_Style2ByNSArrayUIBarButtonItemBlock _Nonnull)byGk_navLeftBarButtonItems;
+-(JobsRetJobsAppDoorVC_Style2ByNSArrayUIBarButtonItemBlock _Nonnull)byGk_navRightBarButtonItems;
+-(JobsRetJobsAppDoorVC_Style2ByNSStringBlock _Nonnull)byGk_navTitle;
+-(JobsRetJobsAppDoorVC_Style2ByUIBarButtonItemBlock _Nonnull)byGk_navLeftBarButtonItem;
+-(JobsRetJobsAppDoorVC_Style2ByUIBarButtonItemBlock _Nonnull)byGk_navRightBarButtonItem;
+-(JobsRetJobsAppDoorVC_Style2ByUIViewBlock _Nonnull)byGk_navTitleView;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorVC_Style2
 @end
 
 NS_ASSUME_NONNULL_END

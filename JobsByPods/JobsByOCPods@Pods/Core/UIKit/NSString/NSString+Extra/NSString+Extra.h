@@ -60,17 +60,31 @@
 #import "JobsBlock.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsSystemAPIDSLSupplement.h>)
+#import <JobsOCDSL/JobsSystemAPIDSLSupplement.h>
+#else
+#import "JobsSystemAPIDSLSupplement.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (JobsByOCPodsExtra)
 
 -(UIColor *)cor;
+-(JobsRetCorByVoidBlock _Nonnull)jobsCor;
 /// 图片URL路径补齐
--(NSString *_Nullable)imageURLPlus;
+-(NSString *)imageURLPlus;
+-(JobsRetStrByVoidBlock _Nonnull)jobsImageURLPlus;
 /// 一般的URL路径补齐
--(NSString *_Nullable)normalURLPlus;
+-(JobsRetStrByVoidBlock _Nonnull)normalURLPlus;
 /// 清除 SDImage 的图片缓存（用 url 为 key）
--(void)cleanSDImageCache:(SDWebImageNoParamsBlock _Nullable)block;
+-(jobsBySDWebImageNoParamsBlockBlock _Nonnull)cleanSDImageCache;
 /// 复制到系统剪切板
 -(JobsRetStrByVoidBlock _Nonnull)pasteboard;
 /// 完整的文件名提取普通文件名和文件后缀名

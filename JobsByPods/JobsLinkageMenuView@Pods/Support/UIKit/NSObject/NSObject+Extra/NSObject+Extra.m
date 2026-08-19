@@ -15,7 +15,7 @@
         NSString *raw = SELF.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
         if (!isValue(raw)) { return nil; }
         // 1) 拒绝网络：同步接口不触网
-        if (SELF.isContainsUrl) { return nil; }
+        if (SELF.isContainsUrl()) { return nil; }
         // 2) dataURL: data:image/png;base64,xxxx
         if ([raw hasPrefix:@"data:image/"]) {
             UIImage *img = self.imageByDataURL(raw);
@@ -73,7 +73,7 @@
         } else if (@available(iOS 10.0, *)) {
             /// iOS 10.0 - 17.4 使用旧的初始化方法
             UIImpactFeedbackGenerator *generator = UIImpactFeedbackGenerator.initByMediumStyle;
-            [generator prepare];
+            generator.prepare;
             [generator impactOccurred];
         } else {
             /// iOS 10.0 以下，使用系统音效反馈

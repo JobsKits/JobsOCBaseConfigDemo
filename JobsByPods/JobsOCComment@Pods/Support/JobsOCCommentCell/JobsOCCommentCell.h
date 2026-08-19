@@ -10,6 +10,17 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>
 #else
@@ -44,7 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsOCCommentCell : UITableViewCell
 
-+(NSString *)reuseIdentifier;
++(JobsRetStrByVoidBlock _Nonnull)reuseIdentifier;
 -(void)updateWithComment:(JobsOCCommentModel *)comment
                   config:(JobsOCCommentConfig *)config
                    depth:(NSInteger)depth

@@ -53,6 +53,12 @@ BaseButtonProtocol,
 UIMarkProtocol
 >
 
+-(JobsRetBaseButtonByIDBlock _Nonnull)byData;
+-(JobsRetBaseButtonByNSIntegerBlock _Nonnull)byIndex;
+-(JobsRetBaseButtonByCGRectBlock _Nonnull)byImageViewFrame;
+-(JobsRetBaseButtonByCGRectBlock _Nonnull)byTextLabelFrame;
+-(JobsRetBaseButtonByCGRectBlock _Nonnull)bySubTextLabelFrame;
+
 @end
 
 NS_ASSUME_NONNULL_END

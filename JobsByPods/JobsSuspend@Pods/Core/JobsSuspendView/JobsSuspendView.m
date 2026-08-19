@@ -6,6 +6,7 @@
 //
 
 #import "JobsSuspendView.h"
+
 #import <JobsSuspend/NSObject+Extra.h>
 #import <JobsSuspend/NSString+Extra.h>
 #import <JobsSuspend/UIView+Extra.h>
@@ -13,6 +14,12 @@
 @interface JobsSuspendView ()
 
 @end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsSuspendView
+@interface JobsSuspendView (JobsPropertyDSLSetterAutogen_274eca34b0)
+-(void)setSuspendViewBlock:(jobsByIDBlock)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsSuspendView
 
 @implementation JobsSuspendView
 -(instancetype)init{
@@ -23,12 +30,27 @@
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
-    self.panRcognize.byEnabled(self.isAllowDrag);
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsSuspendView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
 }
 
--(void)actionSuspendViewBlock:(jobsByIDBlock _Nullable)suspendViewBlock{
-    self.suspendViewBlock = suspendViewBlock;
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+        if (self.panRcognize) self.panRcognize.byEnabled(self.isAllowDrag);
+    };
+}
+
+-(jobsByjobsByIDBlockBlock _Nonnull)actionSuspendViewBlock{
+    @jobs_weakify(self)
+    return ^(jobsByIDBlock _Nullable suspendViewBlock){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.bySuspendViewBlock(suspendViewBlock);
+    };
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches
@@ -38,4 +60,14 @@
     }
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsSuspendView
+-(JobsRetJobsSuspendViewByjobsByIDBlockBlock _Nonnull)bySuspendViewBlock{
+    @jobs_weakify(self)
+    return ^__kindof JobsSuspendView * _Nullable(jobsByIDBlock data){
+        @jobs_strongify(self)
+        [self setSuspendViewBlock:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsSuspendView
 @end

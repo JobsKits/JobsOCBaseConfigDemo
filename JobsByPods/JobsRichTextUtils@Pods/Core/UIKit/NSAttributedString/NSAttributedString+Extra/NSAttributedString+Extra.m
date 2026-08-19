@@ -59,20 +59,25 @@
     };
 }
 /// 移除超链接属性
--(NSAttributedString *_Nonnull)removeHyperlinks{
-    NSMutableAttributedString *mutableAttributedText = NSMutableAttributedString.initByAttributedString(self);
-    [mutableAttributedText enumerateAttributesInRange:NSMakeRange(0, self.length)
-                                              options:0
-                                           usingBlock:^(NSDictionary<NSAttributedStringKey, id> *_Nonnull attrs,
-                                                        NSRange range,
-                                                        BOOL * _Nonnull stop) {
-        // 如果存在超链接属性
-        if (attrs[NSLinkAttributeName]) {
-            NSMutableDictionary<NSAttributedStringKey, id> *newAttributes = attrs.mutableCopy;
-            [newAttributes removeObjectForKey:NSLinkAttributeName]; /// 移除超链接属性
-            [mutableAttributedText setAttributes:newAttributes range:range];
-        }
-    }];return mutableAttributedText.copy;
+-(JobsRetAttributedStringByVoidBlock _Nonnull)removeHyperlinks{
+    @jobs_weakify(self)
+    return ^NSAttributedString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSMutableAttributedString *mutableAttributedText = NSMutableAttributedString.initByAttributedString(self);
+        [mutableAttributedText enumerateAttributesInRange:NSMakeRange(0, self.length)
+                                                  options:0
+                                               usingBlock:^(NSDictionary<NSAttributedStringKey, id> *_Nonnull attrs,
+                                                            NSRange range,
+                                                            BOOL * _Nonnull stop) {
+            // 如果存在超链接属性
+            if (attrs[NSLinkAttributeName]) {
+                NSMutableDictionary<NSAttributedStringKey, id> *newAttributes = attrs.mutableCopy;
+                [newAttributes removeObjectForKey:NSLinkAttributeName]; /// 移除超链接属性
+                [mutableAttributedText setAttributes:newAttributes range:range];
+            }
+        }];return mutableAttributedText.copy;
+    };
 }
 
 @end

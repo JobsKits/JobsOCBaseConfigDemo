@@ -19,10 +19,10 @@
 #import "JobsBaseUI.h"
 #endif
 
-#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
-#import <JobsLanMgr/JobsLanMgr.h>
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
 #else
-#import "JobsLanMgr.h"
+#import "JobsByOCPods.h"
 #endif
 
 #if __has_include(<JobsClockView/JobsClockViewHeader.h>)
@@ -31,10 +31,10 @@
 #import "JobsClockViewHeader.h"
 #endif
 
-#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
-#import <JobsByOCPods/JobsByOCPods.h>
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import <JobsLanMgr/JobsLanMgr.h>
 #else
-#import "JobsByOCPods.h"
+#import "JobsLanMgr.h"
 #endif
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)

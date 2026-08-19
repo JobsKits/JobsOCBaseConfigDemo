@@ -12,12 +12,17 @@
 ///【类方法】NSString对象 转换成  以Base64 编码的字符串
 +(JobsRetStrByStrBlock _Nonnull)base64String{
     return ^__kindof NSString *_Nullable(NSString *_Nullable data){
-        return [data.UTF8Encoding base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+        return [data.jobsUTF8Encoding() base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     };
 }
 ///【实例方法】NSString对象 转换成  以Base64 编码的字符串
--(NSString *_Nullable)base64String{
-    return NSString.base64String(self);
+-(JobsRetStrByVoidBlock _Nonnull)base64String{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSString.base64String(self);
+    };
 }
 ///【类方法】Base64 编码的字符串  转换成 NSString对象
 +(JobsRetStrByStrBlock _Nonnull)nsStringByBase64{
@@ -26,8 +31,13 @@
     };
 }
 ///【实例方法】Base64 编码的字符串  转换成 NSString对象
--(NSString *_Nullable)nsStringByBase64{
-    return NSString.nsStringByBase64(self);
+-(JobsRetStrByVoidBlock _Nonnull)nsStringByBase64{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSString.nsStringByBase64(self);
+    };
 }
 #pragma mark —— Base64 <==> UIImage
 ///【类方法】将以Base64编码的字符串 转换为 UIImage对象
@@ -37,8 +47,13 @@
     };
 }
 ///【实例方法】将以Base64编码的字符串 转换为 UIImage对象
--(UIImage *_Nullable)imageByBase64String{
-    return NSString.imageByBase64String(self);
+-(JobsRetImageByVoidBlock _Nonnull)imageByBase64String{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSString.imageByBase64String(self);
+    };
 }
 #pragma mark —— Base64 <==> NSData
 ///【类方法】将给定的以Base64编码的字符串 转换为 NSData对象。实现了将Base64字符串解码为原始二进制数据的过程。
@@ -107,8 +122,13 @@
     };
 }
 ///【实例方法】将给定的以Base64编码的字符串 转换为 NSData对象。实现了将Base64字符串解码为原始二进制数据的过程。
--(NSData *_Nullable)dataByBase64String{
-    return NSString.dataByBase64String(self);
+-(JobsRetDataByVoidBlock _Nonnull)dataByBase64String{
+    @jobs_weakify(self)
+    return ^NSData *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSString.dataByBase64String(self);
+    };
 }
 
 @end

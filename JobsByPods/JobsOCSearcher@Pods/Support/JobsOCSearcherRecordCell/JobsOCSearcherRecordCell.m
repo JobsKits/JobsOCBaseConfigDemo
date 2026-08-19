@@ -7,12 +7,6 @@
 
 #import "JobsOCSearcherRecordCell.h"
 
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
-#else
-#import "Masonry.h"
-#endif
-
 @interface JobsOCSearcherRecordCell ()
 
 Prop_strong()UILabel *historyLabel;
@@ -21,15 +15,24 @@ Prop_copy()NSString *historyText;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCSearcherRecordCell
+@interface JobsOCSearcherRecordCell (JobsPropertyDSLSetterAutogen_6f9ef4a713)
+-(void)setDeleteBlock:(jobsByStrBlock)data;
+-(void)setHistoryText:(NSString * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCSearcherRecordCell
+
 @implementation JobsOCSearcherRecordCell
-+(NSString *)reuseIdentifier{
-    return NSStringFromClass(self);
++(JobsRetStrByVoidBlock _Nonnull)reuseIdentifier{
+    return ^NSString *_Nullable{
+        return NSStringFromClass(self);
+    };
 }
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style
              reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.bySelectionStyle(UITableViewCellSelectionStyleNone);
         self.byBgColor(UIColor.clearColor);
     self.contentView.byBgColor(JobsSecondarySystemBackgroundColor);
         self.historyLabel.addOn(self.contentView);
@@ -48,24 +51,49 @@ Prop_copy()NSString *historyText;
 }
 
 -(void)prepareForReuse{
-    [super prepareForReuse];
-    self.historyText = @"";
-    self.historyLabel.byText(@"");
-    self.deleteBlock = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCSearcherRecordCell.class, @selector(jobsPrepareForReuse)))(self, @selector(jobsPrepareForReuse));
+    if (action) action();
 }
 
--(void)updateWithText:(NSString *)text{
-    self.historyText = [self normalizedTextBy:text];
-    self.historyLabel.byText(self.historyText);
+-(jobsByVoidBlock _Nonnull)jobsPrepareForReuse{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super prepareForReuse];
+        self.byHistoryText(@"");
+        self.historyLabel.byText(@"");
+        self.byDeleteBlock(nil);
+    };
 }
 
--(NSString *)normalizedTextBy:(NSString *)text{
-    if (![text isKindOfClass:NSString.class]) return @"";
-    return [text stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet] ? : @"";
+-(jobsByStrBlock _Nonnull)updateWithText{
+    @jobs_weakify(self)
+    return ^(NSString * text){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byHistoryText(self.normalizedTextBy(text));
+        self.historyLabel.byText(self.historyText);
+    };
 }
 
--(void)deleteButtonEvent{
-    if (self.deleteBlock) self.deleteBlock(self.historyText);
+-(JobsRetStrByStrBlock _Nonnull)normalizedTextBy{
+    @jobs_weakify(self)
+    return ^NSString *(NSString * text){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (![text isKindOfClass:NSString.class]) return @"";
+        return [text stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet] ? : @"";
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)deleteButtonEvent{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (self.deleteBlock) self.deleteBlock(self.historyText);
+    };
 }
 
 -(UILabel *)historyLabel{
@@ -85,14 +113,33 @@ Prop_copy()NSString *historyText;
         @jobs_weakify(self)
         _deleteButton = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
-                .jobsResetBtnTitle(@"删除".tr)
+                .jobsResetBtnTitle(@"删除".jobsTr())
                 .jobsResetBtnTitleCor(RGBA_COLOR(0.63 * 255.0, 0.67 * 255.0, 0.73 * 255.0, 1))
                 .jobsResetBtnTitleFont(UIFontWeightRegularSize(13))
                 .onClickBy(^(__kindof UIButton * _Nullable button) {
-                    [weak_self deleteButtonEvent];
+                    weak_self.deleteButtonEvent();
                 });
         });
     };return _deleteButton;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsOCSearcherRecordCell
+-(JobsRetJobsOCSearcherRecordCellByNSStringBlock _Nonnull)byHistoryText{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCSearcherRecordCell * _Nullable(NSString * _Nullable data){
+        @jobs_strongify(self)
+        [self setHistoryText:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsOCSearcherRecordCellByjobsByStrBlockBlock _Nonnull)byDeleteBlock{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCSearcherRecordCell * _Nullable(jobsByStrBlock data){
+        @jobs_strongify(self)
+        [self setDeleteBlock:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCSearcherRecordCell
 @end

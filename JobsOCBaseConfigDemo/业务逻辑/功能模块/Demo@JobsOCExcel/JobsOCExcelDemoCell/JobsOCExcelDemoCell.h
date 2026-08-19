@@ -7,10 +7,10 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<JobsOCExcel/JobsOCExcel.h>)
-#import <JobsOCExcel/JobsOCExcel.h>
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
 #else
-#import "JobsOCExcel.h"
+#import "JobsMakes.h"
 #endif
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
@@ -19,10 +19,10 @@
 #import "JobsOCDSL.h"
 #endif
 
-#if __has_include(<JobsMakes/JobsMakes.h>)
-#import <JobsMakes/JobsMakes.h>
+#if __has_include(<JobsOCExcel/JobsOCExcel.h>)
+#import <JobsOCExcel/JobsOCExcel.h>
 #else
-#import "JobsMakes.h"
+#import "JobsOCExcel.h"
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)

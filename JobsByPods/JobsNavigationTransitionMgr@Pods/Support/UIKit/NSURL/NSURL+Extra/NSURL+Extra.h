@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface This (JobsNavigationTransitionMgrURL)
 
-+(NSString *_Nullable)BaseUrl_Image;
++(JobsRetStrByVoidBlock _Nonnull)BaseUrl_Image;
 
 @end
 
@@ -52,15 +52,16 @@ NS_ASSUME_NONNULL_BEGIN
 /// 对系统方法 fileURLWithPath 的二次封装
 +(JobsRetURLByStrBlock _Nonnull)fileURLWithPath;
 ///  能否正常打开Url
--(BOOL)jobsCanOpenUrl;
+-(JobsRetBOOLByVoidBlock _Nonnull)jobsCanOpenUrl;
 /// 一般的URL路径补齐
--(NSURL *_Nullable)normalURLPlus;
+-(JobsRetURLByVoidBlock _Nonnull)normalURLPlus;
 /// NSString + NSURL => NSURL
 -(JobsRetURLByStrBlock _Nonnull)add;
 /// NSURL + NSURL => NSURL
 -(JobsRetURLByURLBlock _Nonnull)Add;
 /// NSURL => NSMutableURLRequest
 -(NSMutableURLRequest *)URLRequest;
+-(JobsRetMutableURLRequestByVoidBlock _Nonnull)jobsURLRequest;
 
 @end
 

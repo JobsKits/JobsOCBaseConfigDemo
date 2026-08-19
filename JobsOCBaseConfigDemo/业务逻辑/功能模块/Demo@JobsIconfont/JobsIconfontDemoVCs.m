@@ -11,29 +11,54 @@ static NSString *const JobsIconfontDemoCellID = @"JobsIconfontDemoCell";
 static NSString *const JobsIconfontReuseCellID = @"JobsIconfontReuseCell";
 
 @implementation JobsIconfontDemoBaseVC
--(NSString *)demoTitle{
-    return @"JobsIconfont";
+-(JobsRetStrByVoidBlock _Nonnull)demoTitle{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"JobsIconfont";
+    };
 }
 
 -(void)loadView{
-    [super loadView];
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(self.title.length ? self.title : self.demoTitle.tr)
-                .byFont(UIFontWeightRegularSize(17))
-                .byTextCor(JobsLabelColor);
-        })
-        .byBgCor(JobsSystemBackgroundColor)
-        .byNavBgCor(JobsSystemBackgroundColor);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsIconfontDemoBaseVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(self.title.length ? self.title : self.demoTitle().jobsTr())
+                    .byFont(UIFontWeightRegularSize(17))
+                    .byTextCor(JobsLabelColor);
+            })
+            .byBgCor(JobsSystemBackgroundColor)
+            .byNavBgCor(JobsSystemBackgroundColor);
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsIconfontDemoBaseVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+    };
 }
 
 @end
@@ -46,13 +71,28 @@ Prop_strong()NSArray <NSDictionary *> *rows;
 @end
 
 @implementation JobsIconfontDemoListVC
--(NSString *)demoTitle{
-    return @"JobsIconfont 全功能封装";
+-(JobsRetStrByVoidBlock _Nonnull)demoTitle{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"JobsIconfont 全功能封装";
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.listView.byVisible(YES);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsIconfontDemoListVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.listView.byVisible(YES);
+    };
 }
 
 -(NSInteger)tableView:(UITableView *)tableView
@@ -97,7 +137,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *row = self.rows[indexPath.row];
     Class cls = row[@"class"];
     JobsIconfontDemoBaseVC *demoVC = cls.new;
-    demoVC.title = row[@"title"];
+    demoVC.byTitle(row[@"title"]);
     self.comingToPushVCByRequestParams(demoVC,nil);
 }
 #pragma mark —— LazyLoad
@@ -165,62 +205,102 @@ Prop_strong()UIButton *reloadButton;
 Prop_strong()UIButton *forceReloadButton;
 Prop_strong()NSArray <JobsIconfontRemoteAsset>*assets;
 
--(void)loadSelectedAsset:(BOOL)forceRefresh;
+-(jobsByBOOLBlock _Nonnull)loadSelectedAsset;
 
 @end
 
 @implementation JobsIconfontRemoteImageDemoVC
--(NSString *)demoTitle{
-    return @"远程图片与错误兜底";
+-(JobsRetStrByVoidBlock _Nonnull)demoTitle{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"远程图片与错误兜底";
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.segmentedControl.hidden = NO;
-    self.iconView.hidden = NO;
-    self.statusLabel.hidden = NO;
-    self.reloadButton.hidden = NO;
-    self.forceReloadButton.hidden = NO;
-    [self loadSelectedAsset:NO];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsIconfontRemoteImageDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.segmentedControl.byHidden(NO);
+        self.iconView.byHidden(NO);
+        self.statusLabel.byHidden(NO);
+        self.reloadButton.byHidden(NO);
+        self.forceReloadButton.byHidden(NO);
+        self.loadSelectedAsset(NO);
+    };
 }
 
 -(void)selectionChanged:(UISegmentedControl *)sender{
-    [self loadSelectedAsset:NO];
+    jobsBySegmentedControlBlock action = ((jobsBySegmentedControlBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsIconfontRemoteImageDemoVC.class, @selector(jobsSelectionChanged)))(self, @selector(jobsSelectionChanged));
+    if (action) action(sender);
 }
 
--(void)reloadButtonTap:(UIButton *)sender{
-    [self loadSelectedAsset:NO];
-}
-
--(void)forceReloadButtonTap:(UIButton *)sender{
-    [self loadSelectedAsset:YES];
-}
-
--(void)loadSelectedAsset:(BOOL)forceRefresh{
-    NSInteger index = MAX(0,MIN(self.segmentedControl.selectedSegmentIndex,
-                                (NSInteger)self.assets.count - 1));
-    JobsIconfontRemoteAsset asset = self.assets[index];
+-(jobsBySegmentedControlBlock _Nonnull)jobsSelectionChanged{
     @jobs_weakify(self)
-    [self.iconView byJobsIconfontAsset:asset
-                           targetSize:CGSizeMake(320, 220)
-                         forceRefresh:forceRefresh
-                           completion:^(JobsIconfontLoadResult * _Nonnull result) {
+    return ^(UISegmentedControl * sender){
         @jobs_strongify(self)
-        switch (result.stage) {
-            case JobsIconfontLoadStagePlaceholder:
-                self.statusLabel.byText([NSString stringWithFormat:@"已显示本地占位图，正在加载 %@…",
-                                         [JobsIconfontManager.shared titleForRemoteAsset:asset]]);
-                break;
-            case JobsIconfontLoadStageSuccess:
-                self.statusLabel.byText([NSString stringWithFormat:@"加载成功｜%@｜%@",
-                                         result.loaderName,
-                                         result.isCacheHit ? @"缓存命中" : @"网络返回"]);
-                break;
-            case JobsIconfontLoadStageFailure:
-                self.statusLabel.byText(@"URL 无效或网络失败｜继续显示框架内置兜底图");
-                break;
-        }
-    }];
+        if (!self) return;
+        self.loadSelectedAsset(NO);
+    };
+}
+
+-(jobsByBtnBlock _Nonnull)reloadButtonTap{
+    @jobs_weakify(self)
+    return ^(UIButton * sender){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.loadSelectedAsset(NO);
+    };
+}
+
+-(jobsByBtnBlock _Nonnull)forceReloadButtonTap{
+    @jobs_weakify(self)
+    return ^(UIButton * sender){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.loadSelectedAsset(YES);
+    };
+}
+
+-(jobsByBOOLBlock _Nonnull)loadSelectedAsset{
+    @jobs_weakify(self)
+    return ^(BOOL forceRefresh){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSInteger index = MAX(0,MIN(self.segmentedControl.selectedSegmentIndex,
+                                    (NSInteger)self.assets.count - 1));
+        JobsIconfontRemoteAsset asset = self.assets[index];
+        @jobs_weakify(self)
+        [self.iconView byJobsIconfontAsset:asset
+                               targetSize:CGSizeMake(320, 220)
+                             forceRefresh:forceRefresh
+                               completion:^(JobsIconfontLoadResult * _Nonnull result) {
+            @jobs_strongify(self)
+            switch (result.stage) {
+                case JobsIconfontLoadStagePlaceholder:
+                    self.statusLabel.byText([NSString stringWithFormat:@"已显示本地占位图，正在加载 %@…",
+                                             (JobsIconfontManager.shared).titleForRemoteAsset(asset)]);
+                    break;
+                case JobsIconfontLoadStageSuccess:
+                    self.statusLabel.byText([NSString stringWithFormat:@"加载成功｜%@｜%@",
+                                             result.loaderName,
+                                             result.isCacheHit ? @"缓存命中" : @"网络返回"]);
+                    break;
+                case JobsIconfontLoadStageFailure:
+                    self.statusLabel.byText(@"URL 无效或网络失败｜继续显示框架内置兜底图");
+                    break;
+            }
+        }];
+    };
 }
 #pragma mark —— LazyLoad
 -(NSArray<JobsIconfontRemoteAsset> *)assets{
@@ -237,10 +317,10 @@ Prop_strong()NSArray <JobsIconfontRemoteAsset>*assets;
     if (!_segmentedControl) {
         NSMutableArray *titles = NSMutableArray.array;
         for (JobsIconfontRemoteAsset asset in self.assets) {
-            [titles addObject:[JobsIconfontManager.shared titleForRemoteAsset:asset]];
+            [titles addObject:(JobsIconfontManager.shared).titleForRemoteAsset(asset)];
         }
         _segmentedControl = [UISegmentedControl.alloc initWithItems:titles];
-        _segmentedControl.selectedSegmentIndex = 0;
+        _segmentedControl.bySelectedSegmentIndex(0);
         [_segmentedControl addTarget:self
                               action:@selector(selectionChanged:)
                     forControlEvents:UIControlEventValueChanged];
@@ -254,7 +334,7 @@ Prop_strong()NSArray <JobsIconfontRemoteAsset>*assets;
 
 -(UIImageView *)iconView{
     if (!_iconView) {
-        _iconView = UIImageView.new
+        _iconView = jobsMakeImageView(^(UIImageView *object){})
             .byContentMode(UIViewContentModeScaleAspectFit)
             .byBgColor(JobsSecondarySystemBackgroundColor)
             .byCornerRadius(JobsWidth(16))
@@ -271,7 +351,7 @@ Prop_strong()NSArray <JobsIconfontRemoteAsset>*assets;
 
 -(UILabel *)statusLabel{
     if (!_statusLabel) {
-        _statusLabel = UILabel.new
+        _statusLabel = jobsMakeLabel(^(UILabel *object){})
             .byText(@"等待加载")
             .byFont(UIFontWeightMediumSize(14))
             .byTextCor(JobsSecondaryLabelColor)
@@ -295,7 +375,7 @@ Prop_strong()NSArray <JobsIconfontRemoteAsset>*assets;
             .jobsResetBtnBgCor(UIColor.systemBlueColor)
             .jobsResetBtnCornerRadiusValue(JobsWidth(10))
             .onClickBy(^(__kindof UIButton * _Nullable button) {
-                [weak_self reloadButtonTap:button];
+                weak_self.reloadButtonTap(button);
             })
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {
@@ -315,7 +395,7 @@ Prop_strong()NSArray <JobsIconfontRemoteAsset>*assets;
             .jobsResetBtnBgCor(UIColor.systemOrangeColor)
             .jobsResetBtnCornerRadiusValue(JobsWidth(10))
             .onClickBy(^(__kindof UIButton * _Nullable button) {
-                [weak_self forceReloadButtonTap:button];
+                weak_self.forceReloadButtonTap(button);
             })
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {
@@ -343,24 +423,34 @@ Prop_strong()UILabel *stateLabel;
 -(instancetype)initWithStyle:(UITableViewCellStyle)style
              reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.iconView.hidden = NO;
-        self.titleLabel.hidden = NO;
-        self.stateLabel.hidden = NO;
+        self.bySelectionStyle(UITableViewCellSelectionStyleNone);
+        self.iconView.byHidden(NO);
+        self.titleLabel.byHidden(NO);
+        self.stateLabel.byHidden(NO);
     };return self;
 }
 
 -(void)prepareForReuse{
-    [super prepareForReuse];
-    [self.iconView byCancelJobsIconfontLoad];
-    self.stateLabel.byText(@"已取消旧任务");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsIconfontReuseCell.class, @selector(jobsPrepareForReuse)))(self, @selector(jobsPrepareForReuse));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsPrepareForReuse{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super prepareForReuse];
+        self.iconView.byCancelJobsIconfontLoad();
+        self.stateLabel.byText(@"已取消旧任务");
+    };
 }
 
 -(instancetype)byAsset:(JobsIconfontRemoteAsset)asset
                    row:(NSInteger)row{
     self.titleLabel.byText([NSString stringWithFormat:@"Row %ld｜%@",
                             (long)row + 1,
-                            [JobsIconfontManager.shared titleForRemoteAsset:asset]]);
+                            (JobsIconfontManager.shared).titleForRemoteAsset(asset)]);
     @jobs_weakify(self)
     [self.iconView byJobsIconfontAsset:asset
                            targetSize:CGSizeMake(50, 50)
@@ -385,7 +475,7 @@ Prop_strong()UILabel *stateLabel;
 
 -(UIImageView *)iconView{
     if (!_iconView) {
-        _iconView = UIImageView.new
+        _iconView = jobsMakeImageView(^(UIImageView *object){})
             .byContentMode(UIViewContentModeScaleAspectFit)
             .byBgColor(JobsSecondarySystemBackgroundColor)
             .byCornerRadius(JobsWidth(10))
@@ -401,7 +491,7 @@ Prop_strong()UILabel *stateLabel;
 
 -(UILabel *)titleLabel{
     if (!_titleLabel) {
-        _titleLabel = UILabel.new
+        _titleLabel = jobsMakeLabel(^(UILabel *object){})
             .byFont(UIFontWeightSemiboldSize(15))
             .byTextCor(JobsLabelColor)
             .addOn(self.contentView)
@@ -415,7 +505,7 @@ Prop_strong()UILabel *stateLabel;
 
 -(UILabel *)stateLabel{
     if (!_stateLabel) {
-        _stateLabel = UILabel.new
+        _stateLabel = jobsMakeLabel(^(UILabel *object){})
             .byFont(UIFontWeightRegularSize(12))
             .byTextCor(JobsSecondaryLabelColor)
             .addOn(self.contentView)
@@ -436,13 +526,28 @@ Prop_strong()NSArray <JobsIconfontRemoteAsset>*assets;
 @end
 
 @implementation JobsIconfontReuseListDemoVC
--(NSString *)demoTitle{
-    return @"列表复用与防串图";
+-(JobsRetStrByVoidBlock _Nonnull)demoTitle{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"列表复用与防串图";
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.reuseTableView.byVisible(YES);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsIconfontReuseListDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.reuseTableView.byVisible(YES);
+    };
 }
 
 -(NSInteger)tableView:(UITableView *)tableView
@@ -505,29 +610,55 @@ Prop_assign()BOOL automaticSecondLoadPending;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsIconfontCacheDemoVC
+@interface JobsIconfontCacheDemoVC (JobsPropertyDSLSetterAutogen_5f82378eb7)
+-(void)setAutomaticSecondLoadPending:(BOOL)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsIconfontCacheDemoVC
+
 @implementation JobsIconfontCacheDemoVC
--(NSString *)demoTitle{
-    return @"缓存命中、清理与重载";
+-(JobsRetStrByVoidBlock _Nonnull)demoTitle{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"缓存命中、清理与重载";
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.automaticSecondLoadPending = YES;
-    self.iconView.hidden = NO;
-    self.statusLabel.hidden = NO;
-    self.clearButton.hidden = NO;
-    [self loadImageForceRefresh:YES
-                          phase:@"首次网络加载"];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsIconfontCacheDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
 }
 
--(void)clearButtonTap:(UIButton *)sender{
-    self.statusLabel.byText(@"正在统一清理缓存…");
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
     @jobs_weakify(self)
-    [JobsIconfontManager.shared clearImageCache:^{
+    return ^{
         @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.byAutomaticSecondLoadPending(YES);
+        self.iconView.byHidden(NO);
+        self.statusLabel.byHidden(NO);
+        self.clearButton.byHidden(NO);
         [self loadImageForceRefresh:YES
-                              phase:@"清理后的强制重载"];
-    }];
+                              phase:@"首次网络加载"];
+    };
+}
+
+-(jobsByBtnBlock _Nonnull)clearButtonTap{
+    @jobs_weakify(self)
+    return ^(UIButton * sender){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.statusLabel.byText(@"正在统一清理缓存…");
+        @jobs_weakify(self)
+        (JobsIconfontManager.shared).clearImageCache(^{
+            @jobs_strongify(self)
+            [self loadImageForceRefresh:YES
+                                  phase:@"清理后的强制重载"];
+        });
+    };
 }
 
 -(void)loadImageForceRefresh:(BOOL)forceRefresh
@@ -548,7 +679,7 @@ Prop_assign()BOOL automaticSecondLoadPending;
                                          result.loaderName,
                                          result.isCacheHit ? @"缓存命中" : @"网络返回"]);
                 if (!self.automaticSecondLoadPending) break;
-                self.automaticSecondLoadPending = NO;
+                self.byAutomaticSecondLoadPending(NO);
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW,
                                              (int64_t)(0.7 * NSEC_PER_SEC)),
                                dispatch_get_main_queue(), ^{
@@ -565,7 +696,7 @@ Prop_assign()BOOL automaticSecondLoadPending;
 
 -(UIImageView *)iconView{
     if (!_iconView) {
-        _iconView = UIImageView.new
+        _iconView = jobsMakeImageView(^(UIImageView *object){})
             .byContentMode(UIViewContentModeScaleAspectFit)
             .byBgColor(JobsSecondarySystemBackgroundColor)
             .byCornerRadius(JobsWidth(16))
@@ -581,7 +712,7 @@ Prop_assign()BOOL automaticSecondLoadPending;
 
 -(UILabel *)statusLabel{
     if (!_statusLabel) {
-        _statusLabel = UILabel.new
+        _statusLabel = jobsMakeLabel(^(UILabel *object){})
             .byText(@"首次加载准备中")
             .byFont(UIFontWeightMediumSize(15))
             .byTextCor(JobsLabelColor)
@@ -605,7 +736,7 @@ Prop_assign()BOOL automaticSecondLoadPending;
             .jobsResetBtnBgCor(UIColor.systemRedColor)
             .jobsResetBtnCornerRadiusValue(JobsWidth(10))
             .onClickBy(^(__kindof UIButton * _Nullable button) {
-                [weak_self clearButtonTap:button];
+                weak_self.clearButtonTap(button);
             })
             .addOn(self.view)
             .byAdd(^(MASConstraintMaker *make) {
@@ -617,6 +748,16 @@ Prop_assign()BOOL automaticSecondLoadPending;
     };return _clearButton;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsIconfontCacheDemoVC
+-(JobsRetJobsIconfontCacheDemoVCByBOOLBlock _Nonnull)byAutomaticSecondLoadPending{
+    @jobs_weakify(self)
+    return ^__kindof JobsIconfontCacheDemoVC * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setAutomaticSecondLoadPending:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsIconfontCacheDemoVC
 @end
 
 @interface JobsIconfontGlyphDemoVC ()
@@ -626,13 +767,28 @@ Prop_strong()UITableView *glyphTableView;
 @end
 
 @implementation JobsIconfontGlyphDemoVC
--(NSString *)demoTitle{
-    return @"Icon Font / Unicode / UIImage";
+-(JobsRetStrByVoidBlock _Nonnull)demoTitle{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"Icon Font / Unicode / UIImage";
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.glyphTableView.byVisible(YES);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsIconfontGlyphDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.glyphTableView.byVisible(YES);
+    };
 }
 
 -(NSInteger)tableView:(UITableView *)tableView
@@ -658,7 +814,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                                                                    color:UIColor.systemIndigoColor];
     return cell
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
-            label.byText([JobsIconfontManager.shared titleForGlyph:glyph])
+            label.byText((JobsIconfontManager.shared).titleForGlyph(glyph))
                 .byFont(UIFontWeightSemiboldSize(16));
         })
         .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
@@ -694,27 +850,52 @@ Prop_strong()UILabel *fallbackLabel;
 @end
 
 @implementation JobsIconfontTextFontDemoVC
--(NSString *)demoTitle{
-    return @"阿里妈妈文字字体";
+-(JobsRetStrByVoidBlock _Nonnull)demoTitle{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"阿里妈妈文字字体";
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.sampleLabel.hidden = NO;
-    self.sizeLabel.hidden = NO;
-    self.slider.hidden = NO;
-    self.fallbackLabel.hidden = NO;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsIconfontTextFontDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.sampleLabel.byHidden(NO);
+        self.sizeLabel.byHidden(NO);
+        self.slider.byHidden(NO);
+        self.fallbackLabel.byHidden(NO);
+    };
 }
 
 -(void)sizeChanged:(UISlider *)sender{
-    CGFloat size = round(sender.value);
-    [self.sampleLabel byJobsIconfontTextSize:size];
-    self.sizeLabel.byText([NSString stringWithFormat:@"字号：%ld",(long)size]);
+    jobsBySliderBlock action = ((jobsBySliderBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsIconfontTextFontDemoVC.class, @selector(jobsSizeChanged)))(self, @selector(jobsSizeChanged));
+    if (action) action(sender);
+}
+
+-(jobsBySliderBlock _Nonnull)jobsSizeChanged{
+    @jobs_weakify(self)
+    return ^(UISlider * sender){
+        @jobs_strongify(self)
+        if (!self) return;
+        CGFloat size = round(sender.value);
+        self.sampleLabel.byJobsIconfontTextSize(size);
+        self.sizeLabel.byText([NSString stringWithFormat:@"字号：%ld",(long)size]);
+    };
 }
 
 -(UILabel *)sampleLabel{
     if (!_sampleLabel) {
-        _sampleLabel = UILabel.new
+        _sampleLabel = jobsMakeLabel(^(UILabel *object){})
             .byText(@"阿里妈妈·智造字\nAI 让设计更有温度\n012345678")
             .byTextCor(JobsLabelColor)
             .byTextAlignment(NSTextAlignmentCenter)
@@ -725,13 +906,13 @@ Prop_strong()UILabel *fallbackLabel;
                 make.left.equalTo(self.view).offset(JobsWidth(20));
                 make.right.equalTo(self.view).inset(JobsWidth(20));
             });
-        [_sampleLabel byJobsIconfontTextSize:34];
+        _sampleLabel.byJobsIconfontTextSize(34);
     };return _sampleLabel;
 }
 
 -(UILabel *)sizeLabel{
     if (!_sizeLabel) {
-        _sizeLabel = UILabel.new
+        _sizeLabel = jobsMakeLabel(^(UILabel *object){})
             .byText(@"字号：34")
             .byFont(UIFontWeightMediumSize(14))
             .byTextCor(JobsSecondaryLabelColor)
@@ -746,10 +927,10 @@ Prop_strong()UILabel *fallbackLabel;
 
 -(UISlider *)slider{
     if (!_slider) {
-        _slider = UISlider.new;
-        _slider.minimumValue = 18;
-        _slider.maximumValue = 52;
-        _slider.value = 34;
+        _slider = jobsMakeSlider(^(UISlider *object){});
+        _slider.byMinimumValue(18);
+        _slider.byMaximumValue(52);
+        _slider.byValue(34);
         [_slider addTarget:self
                     action:@selector(sizeChanged:)
           forControlEvents:UIControlEventValueChanged];
@@ -763,7 +944,7 @@ Prop_strong()UILabel *fallbackLabel;
 
 -(UILabel *)fallbackLabel{
     if (!_fallbackLabel) {
-        _fallbackLabel = UILabel.new
+        _fallbackLabel = jobsMakeLabel(^(UILabel *object){})
             .byText(@"字体缺失时，JobsIconfont 自动回退系统字体")
             .byFont(UIFontWeightRegularSize(14))
             .byTextCor(JobsTertiaryLabelColor)

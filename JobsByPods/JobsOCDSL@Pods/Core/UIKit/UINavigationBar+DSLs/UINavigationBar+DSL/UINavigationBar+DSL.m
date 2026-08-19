@@ -10,21 +10,21 @@
 static UINavigationBarAppearance *_Nonnull JobsNavigationBarAppearanceByBackgroundColor(UINavigationBarAppearance *_Nullable source,
                                                                                          UIColor *_Nullable color) API_AVAILABLE(ios(13.0), tvos(13.0)){
     UINavigationBarAppearance *appearance = source ? source.copy : UINavigationBarAppearance.new;
-    appearance.backgroundColor = color;
+    appearance.byBackgroundColor(color);
     return appearance;
 }
 
 static UINavigationBarAppearance *_Nonnull JobsNavigationBarAppearanceByShadowImage(UINavigationBarAppearance *_Nullable source,
                                                                                       UIImage *_Nullable image) API_AVAILABLE(ios(13.0), tvos(13.0)){
     UINavigationBarAppearance *appearance = source ? source.copy : UINavigationBarAppearance.new;
-    appearance.shadowImage = image;
+    appearance.byShadowImage(image);
     return appearance;
 }
 
 static UINavigationBarAppearance *_Nonnull JobsNavigationBarAppearanceByBackgroundImage(UINavigationBarAppearance *_Nullable source,
                                                                                           UIImage *_Nullable image) API_AVAILABLE(ios(13.0), tvos(13.0)){
     UINavigationBarAppearance *appearance = source ? source.copy : UINavigationBarAppearance.new;
-    appearance.backgroundImage = image;
+    appearance.byBackgroundImage(image);
     return appearance;
 }
 
@@ -70,11 +70,11 @@ static UINavigationBarAppearance *_Nonnull JobsNavigationBarAppearanceByBackgrou
     return ^__kindof UINavigationBar *_Nullable(UIColor *_Nullable data){
         @jobs_strongify(self)
         if (@available(iOS 13.0, tvOS 13.0, *)) {
-            self.standardAppearance = JobsNavigationBarAppearanceByBackgroundColor(self.standardAppearance, data);
-            self.scrollEdgeAppearance = JobsNavigationBarAppearanceByBackgroundColor(self.scrollEdgeAppearance ?: self.standardAppearance, data);
-            self.compactAppearance = JobsNavigationBarAppearanceByBackgroundColor(self.compactAppearance ?: self.standardAppearance, data);
+            self.byStandardAppearance(JobsNavigationBarAppearanceByBackgroundColor(self.standardAppearance, data));
+            self.byScrollEdgeAppearance(JobsNavigationBarAppearanceByBackgroundColor(self.scrollEdgeAppearance ?: self.standardAppearance, data));
+            self.byCompactAppearance(JobsNavigationBarAppearanceByBackgroundColor(self.compactAppearance ?: self.standardAppearance, data));
             if (@available(iOS 15.0, tvOS 15.0, *)) {
-                self.compactScrollEdgeAppearance = JobsNavigationBarAppearanceByBackgroundColor(self.compactScrollEdgeAppearance ?: self.compactAppearance, data);
+                self.byCompactScrollEdgeAppearance(JobsNavigationBarAppearanceByBackgroundColor(self.compactScrollEdgeAppearance ?: self.compactAppearance, data));
             }
         }else{
             SuppressWdeprecatedDeclarationsWarning(self.barTintColor = data;);
@@ -114,11 +114,11 @@ static UINavigationBarAppearance *_Nonnull JobsNavigationBarAppearanceByBackgrou
     return ^__kindof UINavigationBar *_Nullable(UIImage *_Nullable data){
         @jobs_strongify(self)
         if (@available(iOS 13.0, tvOS 13.0, *)) {
-            self.standardAppearance = JobsNavigationBarAppearanceByShadowImage(self.standardAppearance, data);
-            self.scrollEdgeAppearance = JobsNavigationBarAppearanceByShadowImage(self.scrollEdgeAppearance ?: self.standardAppearance, data);
-            self.compactAppearance = JobsNavigationBarAppearanceByShadowImage(self.compactAppearance ?: self.standardAppearance, data);
+            self.byStandardAppearance(JobsNavigationBarAppearanceByShadowImage(self.standardAppearance, data));
+            self.byScrollEdgeAppearance(JobsNavigationBarAppearanceByShadowImage(self.scrollEdgeAppearance ?: self.standardAppearance, data));
+            self.byCompactAppearance(JobsNavigationBarAppearanceByShadowImage(self.compactAppearance ?: self.standardAppearance, data));
             if (@available(iOS 15.0, tvOS 15.0, *)) {
-                self.compactScrollEdgeAppearance = JobsNavigationBarAppearanceByShadowImage(self.compactScrollEdgeAppearance ?: self.compactAppearance, data);
+                self.byCompactScrollEdgeAppearance(JobsNavigationBarAppearanceByShadowImage(self.compactScrollEdgeAppearance ?: self.compactAppearance, data));
             }
         }else{
             SuppressWdeprecatedDeclarationsWarning(self.shadowImage = data;);
@@ -132,12 +132,12 @@ static UINavigationBarAppearance *_Nonnull JobsNavigationBarAppearanceByBackgrou
         @jobs_strongify(self)
         if (@available(iOS 13.0, tvOS 13.0, *)) {
             if (barMetrics == UIBarMetricsDefault) {
-                self.standardAppearance = JobsNavigationBarAppearanceByBackgroundImage(self.standardAppearance, image);
-                self.scrollEdgeAppearance = JobsNavigationBarAppearanceByBackgroundImage(self.scrollEdgeAppearance ?: self.standardAppearance, image);
+                self.byStandardAppearance(JobsNavigationBarAppearanceByBackgroundImage(self.standardAppearance, image));
+                self.byScrollEdgeAppearance(JobsNavigationBarAppearanceByBackgroundImage(self.scrollEdgeAppearance ?: self.standardAppearance, image));
             }else{
-                self.compactAppearance = JobsNavigationBarAppearanceByBackgroundImage(self.compactAppearance ?: self.standardAppearance, image);
+                self.byCompactAppearance(JobsNavigationBarAppearanceByBackgroundImage(self.compactAppearance ?: self.standardAppearance, image));
                 if (@available(iOS 15.0, tvOS 15.0, *)) {
-                    self.compactScrollEdgeAppearance = JobsNavigationBarAppearanceByBackgroundImage(self.compactScrollEdgeAppearance ?: self.compactAppearance, image);
+                    self.byCompactScrollEdgeAppearance(JobsNavigationBarAppearanceByBackgroundImage(self.compactScrollEdgeAppearance ?: self.compactAppearance, image));
                 }
             }
         }else{

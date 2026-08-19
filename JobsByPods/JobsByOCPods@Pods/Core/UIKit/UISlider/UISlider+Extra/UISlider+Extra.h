@@ -32,8 +32,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UISlider (Extra)
 
--(RACDisposable *)jobsSliderAllTouchEventBlock:(jobsByIDBlock)subscribeNextBlock;
--(RACDisposable *)jobsSliderValueChangedEventBlock:(jobsByIDBlock)subscribeNextBlock;
+-(JobsRetRACDisposableByRACNextBlock _Nonnull)jobsSliderAllTouchEventBlock;
+-(JobsRetRACDisposableByRACNextBlock _Nonnull)jobsSliderValueChangedEventBlock;
+/// 仅供不可修改的第三方源码保持 ABI；Jobs 自有代码统一使用点语法 Block。
+-(RACDisposable *_Nullable)jobsSliderValueChangedEventBlock:(jobsByIDBlock _Nullable)subscribeNextBlock;
 
 @end
 

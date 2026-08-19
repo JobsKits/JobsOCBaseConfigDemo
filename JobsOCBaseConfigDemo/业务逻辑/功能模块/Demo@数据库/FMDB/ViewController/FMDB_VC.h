@@ -14,10 +14,10 @@
 #import "JobsBaseUI.h"
 #endif
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
 #else
-#import "JobsOCDSL.h"
+#import "JobsByOCPods.h"
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
@@ -26,16 +26,10 @@
 #import "JobsLanMgr.h"
 #endif
 
-#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
-#import <JobsBaseUI/JobsBaseUI.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
 #else
-#import "JobsBaseUI.h"
-#endif
-
-#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
-#import <JobsByOCPods/JobsByOCPods.h>
-#else
-#import "JobsByOCPods.h"
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)

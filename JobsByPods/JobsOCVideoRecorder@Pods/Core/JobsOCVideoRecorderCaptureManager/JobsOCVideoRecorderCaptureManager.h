@@ -9,6 +9,12 @@
 #define JobsOCVideoRecorderCaptureManager_h
 
 #import <AVFoundation/AVFoundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <TargetConditionals.h>
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
@@ -38,14 +44,22 @@ Prop_weak(nullable) id<JobsOCVideoRecorderCaptureManagerDelegate> delegate;
 Prop_strong(readonly) AVCaptureVideoPreviewLayer *previewLayer;
 Prop_assign(readonly) AVCaptureDevicePosition currentPosition;
 
-+(BOOL)isCameraSwitchAvailable;
++(JobsRetBOOLByVoidBlock _Nonnull)isCameraSwitchAvailable;
 -(instancetype)initWithPosition:(AVCaptureDevicePosition)position
              mirrorFrontPreview:(BOOL)mirrorFrontPreview;
--(void)startRunning;
--(void)stopRunning;
--(void)switchCameraWithCompletion:(void(^_Nullable)(BOOL success, NSError *_Nullable error))completion;
--(void)updatePreviewOrientation:(UIDeviceOrientation)deviceOrientation;
+-(jobsByVoidBlock _Nonnull)startRunning;
+-(jobsByVoidBlock _Nonnull)stopRunning;
+-(jobsByvoidBOOLNSErrorBlock _Nonnull)switchCameraWithCompletion;
+-(jobsByUIDeviceOrientationBlock _Nonnull)updatePreviewOrientation;
+-(JobsRetJobsOCVideoRecorderCaptureManagerByDelegateBlock _Nonnull)byDelegate;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCVideoRecorderCaptureManager
+-(JobsRetJobsOCVideoRecorderCaptureManagerByAVCaptureAudioDataOutputBlock _Nonnull)byAudioOutput;
+-(JobsRetJobsOCVideoRecorderCaptureManagerByAVCaptureDeviceInputBlock _Nonnull)byAudioInput;
+-(JobsRetJobsOCVideoRecorderCaptureManagerByAVCaptureDeviceInputBlock _Nonnull)byVideoInput;
+-(JobsRetJobsOCVideoRecorderCaptureManagerByAVCaptureDevicePositionBlock _Nonnull)byCurrentPosition;
+-(JobsRetJobsOCVideoRecorderCaptureManagerByAVCaptureVideoDataOutputBlock _Nonnull)byVideoOutput;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCVideoRecorderCaptureManager
 @end
 
 NS_ASSUME_NONNULL_END

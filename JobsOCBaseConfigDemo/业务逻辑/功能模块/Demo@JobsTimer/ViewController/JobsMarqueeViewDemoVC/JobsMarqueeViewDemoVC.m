@@ -25,89 +25,149 @@ Prop_strong()UILabel *tipLab;
 -(NSArray<UIButton *> *)noticeButtonsWithPrefix:(NSString *)prefix
                                           color:(UIColor *)color
                                           count:(NSUInteger)count;
--(NSArray<UIButton *> *)bannerButtons;
+-(JobsRetNSArrayUIButtonByVoidBlock _Nonnull)bannerButtons;
 -(UIButton *)demoButtonWithTitle:(NSString *)title
                         subTitle:(nullable NSString *)subTitle
                            color:(UIColor *)color
                              tag:(NSInteger)tag;
--(void)demoButtonTapped:(UIButton *)sender;
--(void)startAllMarquees;
--(void)pauseAllMarquees;
--(void)stopAllMarquees;
+-(jobsByBtnBlock _Nonnull)demoButtonTapped;
+-(jobsByVoidBlock _Nonnull)startAllMarquees;
+-(jobsByVoidBlock _Nonnull)pauseAllMarquees;
+-(jobsByVoidBlock _Nonnull)stopAllMarquees;
 
 @end
 
 @implementation JobsMarqueeViewDemoVC
 -(void)dealloc{
-    [self stopAllMarquees];
+    (((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMarqueeViewDemoVC.class, @selector(stopAllMarquees)))(self, @selector(stopAllMarquees)))();
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMarqueeViewDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"JobsMarqueeView".tr)
-                .byFont(UIFontWeightRegularSize(16))
-                .byTextCor(JobsLabelColor);
-        })
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"JobsMarqueeView".jobsTr())
+                    .byFont(UIFontWeightRegularSize(16))
+                    .byTextCor(JobsLabelColor);
+            })
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.scrollView.byVisible(YES);
-    self.contentView.byVisible(YES);
-    self.tipLab.byVisible(YES);
-    self.leftContinuousMarquee.byVisible(YES);
-    self.topFrequencyMarquee.byVisible(YES);
-    self.bannerMarquee.byVisible(YES);
-    self.rightContinuousMarquee.byVisible(YES);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMarqueeViewDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.scrollView.byVisible(YES);
+        self.contentView.byVisible(YES);
+        self.tipLab.byVisible(YES);
+        self.leftContinuousMarquee.byVisible(YES);
+        self.topFrequencyMarquee.byVisible(YES);
+        self.bannerMarquee.byVisible(YES);
+        self.rightContinuousMarquee.byVisible(YES);
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    [self startAllMarquees];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMarqueeViewDemoVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+        self.startAllMarquees();
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    [self stopAllMarquees];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMarqueeViewDemoVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+        self.stopAllMarquees();
+    };
 }
 #pragma mark —— Actions
--(void)demoButtonTapped:(UIButton *)sender{
-    NSString *text = sender.currentTitle ?: @"JobsMarqueeView";
-    [NSString stringWithFormat:@"%@%@", @"点击：".tr, text].toast();
+-(jobsByBtnBlock _Nonnull)demoButtonTapped{
+    @jobs_weakify(self)
+    return ^(UIButton * sender){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSString *text = sender.currentTitle ?: @"JobsMarqueeView";
+        [NSString stringWithFormat:@"%@%@", @"点击：".jobsTr(), text].toast();
+    };
 }
 
--(void)startAllMarquees{
-    for (JobsMarqueeView *view in self.marqueeArr) {
-        [view start];
-    }
+-(jobsByVoidBlock _Nonnull)startAllMarquees{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        for (JobsMarqueeView *view in self.marqueeArr) {
+            view.start();
+        }
+    };
 }
 
--(void)pauseAllMarquees{
-    for (JobsMarqueeView *view in self.marqueeArr) {
-        [view pause];
-    }
+-(jobsByVoidBlock _Nonnull)pauseAllMarquees{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        for (JobsMarqueeView *view in self.marqueeArr) {
+            view.pause();
+        }
+    };
 }
 
--(void)stopAllMarquees{
-    for (JobsMarqueeView *view in self.marqueeArr) {
-        [view stop];
-    }
+-(jobsByVoidBlock _Nonnull)stopAllMarquees{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        for (JobsMarqueeView *view in self.marqueeArr) {
+            view.jobsStop();
+        }
+    };
 }
 #pragma mark —— Factories
 -(UILabel *)sectionLabelWithTitle:(NSString *)title
@@ -116,7 +176,7 @@ Prop_strong()UILabel *tipLab;
     @jobs_weakify(self)
     return jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
         @jobs_strongify(self)
-        label.byText(title.tr)
+        label.byText(title.jobsTr())
             .byFont(UIFontWeightMediumSize(14))
             .byTextCor(JobsSecondaryLabelColor)
             .byNumberOfLines(1)
@@ -139,8 +199,8 @@ Prop_strong()UILabel *tipLab;
                                           count:(NSUInteger)count{
     NSMutableArray<UIButton *> *buttons = NSMutableArray.array;
     for (NSUInteger idx = 0; idx < count; idx++) {
-        NSString *title = [NSString stringWithFormat:@"%@ · %@ %lu", prefix.tr, @"公告".tr, (unsigned long)idx + 1];
-        NSString *subTitle = idx % 2 == 0 ? @"JobsOCTimerMgr 驱动".tr : @"按钮事件会被复制".tr;
+        NSString *title = [NSString stringWithFormat:@"%@ · %@ %lu", prefix.jobsTr(), @"公告".jobsTr(), (unsigned long)idx + 1];
+        NSString *subTitle = idx % 2 == 0 ? @"JobsOCTimerMgr 驱动".jobsTr() : @"按钮事件会被复制".jobsTr();
         [buttons addObject:[self demoButtonWithTitle:title
                                             subTitle:subTitle
                                                color:color
@@ -148,21 +208,26 @@ Prop_strong()UILabel *tipLab;
     };return buttons.copy;
 }
 
--(NSArray<UIButton *> *)bannerButtons{
-    return @[
-        [self demoButtonWithTitle:@"轮播图 · 活动一".tr
-                         subTitle:@"fillBounds + PageControl".tr
-                            color:HEXCOLOR(0x2F80ED)
-                              tag:100],
-        [self demoButtonWithTitle:@"轮播图 · 活动二".tr
-                         subTitle:@"支持手动拖拽后恢复".tr
-                            color:HEXCOLOR(0x27AE60)
-                              tag:101],
-        [self demoButtonWithTitle:@"轮播图 · 活动三".tr
-                         subTitle:@"一屏一页间隔滚动".tr
-                            color:HEXCOLOR(0x9B51E0)
-                              tag:102]
-    ];
+-(JobsRetNSArrayUIButtonByVoidBlock _Nonnull)bannerButtons{
+    @jobs_weakify(self)
+    return ^NSArray<UIButton *> *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @[
+            [self demoButtonWithTitle:@"轮播图 · 活动一".jobsTr()
+                             subTitle:@"fillBounds + PageControl".jobsTr()
+                                color:HEXCOLOR(0x2F80ED)
+                                  tag:100],
+            [self demoButtonWithTitle:@"轮播图 · 活动二".jobsTr()
+                             subTitle:@"支持手动拖拽后恢复".jobsTr()
+                                color:HEXCOLOR(0x27AE60)
+                                  tag:101],
+            [self demoButtonWithTitle:@"轮播图 · 活动三".jobsTr()
+                             subTitle:@"一屏一页间隔滚动".jobsTr()
+                                color:HEXCOLOR(0x9B51E0)
+                                  tag:102]
+        ];
+    };
 }
 
 -(UIButton *)demoButtonWithTitle:(NSString *)title
@@ -172,7 +237,7 @@ Prop_strong()UILabel *tipLab;
     @jobs_weakify(self)
     return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
         button
-            .jobsResetBtnTitle(subTitle.length ? [NSString stringWithFormat:@"%@\n%@", title.tr, subTitle.tr] : title.tr)
+            .jobsResetBtnTitle(subTitle.length ? [NSString stringWithFormat:@"%@\n%@", title.jobsTr(), subTitle.jobsTr()] : title.jobsTr())
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .jobsResetBtnTitleFont(subTitle.length ? UIFontWeightRegularSize(13) : UIFontWeightMediumSize(15))
             .jobsResetBtnBgCor(color)
@@ -183,7 +248,7 @@ Prop_strong()UILabel *tipLab;
                     .byTextAlignment(NSTextAlignmentCenter);
             })
             .onClickBy(^(__kindof UIButton * _Nullable button) {
-                [weak_self demoButtonTapped:button];
+                weak_self.demoButtonTapped(button);
             })
             .byTag(tag);
     });
@@ -228,7 +293,7 @@ Prop_strong()UILabel *tipLab;
         @jobs_weakify(self)
         _tipLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
-            label.byText(@"跑马灯和轮播图共用 JobsMarqueeView；连续滚动看起来像公告流，fillBounds + interval 就是轮播图。".tr)
+            label.byText(@"跑马灯和轮播图共用 JobsMarqueeView；连续滚动看起来像公告流，fillBounds + interval 就是轮播图。".jobsTr())
                 .byFont(UIFontWeightRegularSize(13))
                 .byTextCor(JobsSecondaryLabelColor)
                 .byNumberOfLines(0)
@@ -250,12 +315,9 @@ Prop_strong()UILabel *tipLab;
         UILabel *titleLab = [self sectionLabelWithTitle:@"横向连续跑马灯"
                                                 topView:self.tipLab
                                               topOffset:JobsWidth(14)];
-        _leftContinuousMarquee = [[[[JobsMarqueeView.alloc.init byDirection:JobsMarqueeDirectionLeft]
-                                    byContinuousWithSpeed:42]
-                                   byItemSizeMode:JobsMarqueeItemSizeModeFitContent]
-                                  byDataSourceButtons:[self noticeButtonsWithPrefix:@"向左连续"
+        _leftContinuousMarquee = (((JobsMarqueeView.alloc.init.byDirection(JobsMarqueeDirectionLeft)).byContinuousWithSpeed(42)).byItemSizeMode(JobsMarqueeItemSizeModeFitContent)).byDataSourceButtons([self noticeButtonsWithPrefix:@"向左连续"
                                                                                color:HEXCOLOR(0xF2994A)
-                                                                               count:4]];
+                                                                               count:4]);
         _leftContinuousMarquee.byBgColor(JobsSecondarySystemBackgroundColor)
             .byCornerRadius(JobsWidth(8))
             .addOn(self.contentView)
@@ -273,12 +335,9 @@ Prop_strong()UILabel *tipLab;
         UILabel *titleLab = [self sectionLabelWithTitle:@"纵向间隔公告"
                                                 topView:self.leftContinuousMarquee
                                               topOffset:JobsWidth(16)];
-        _topFrequencyMarquee = [[[[JobsMarqueeView.alloc.init byDirection:JobsMarqueeDirectionTop]
-                                  byFrequencyWithInterval:1.2]
-                                 byItemSizeMode:JobsMarqueeItemSizeModeFillBounds]
-                                byDataSourceButtons:[self noticeButtonsWithPrefix:@"向上翻页"
+        _topFrequencyMarquee = (((JobsMarqueeView.alloc.init.byDirection(JobsMarqueeDirectionTop)).byFrequencyWithInterval(1.2)).byItemSizeMode(JobsMarqueeItemSizeModeFillBounds)).byDataSourceButtons([self noticeButtonsWithPrefix:@"向上翻页"
                                                                              color:HEXCOLOR(0x56CCF2)
-                                                                             count:3]];
+                                                                             count:3]);
         _topFrequencyMarquee.byBgColor(JobsSecondarySystemBackgroundColor)
             .byCornerRadius(JobsWidth(8))
             .addOn(self.contentView)
@@ -294,12 +353,7 @@ Prop_strong()UILabel *tipLab;
         UILabel *titleLab = [self sectionLabelWithTitle:@"轮播图"
                                                 topView:self.topFrequencyMarquee
                                               topOffset:JobsWidth(16)];
-        _bannerMarquee = [[[[[[JobsMarqueeView.alloc.init byDirection:JobsMarqueeDirectionLeft]
-                              byFrequencyWithInterval:2.0]
-                             byItemSizeMode:JobsMarqueeItemSizeModeFillBounds]
-                            byManualScrollEnabled:YES]
-                           byPageControlEnabled:YES]
-                          byDataSourceButtons:self.bannerButtons];
+        _bannerMarquee = (((((JobsMarqueeView.alloc.init.byDirection(JobsMarqueeDirectionLeft)).byFrequencyWithInterval(2.0)).byItemSizeMode(JobsMarqueeItemSizeModeFillBounds)).byManualScrollEnabled(YES)).byPageControlEnabled(YES)).byDataSourceButtons(self.bannerButtons());
         _bannerMarquee.byBgColor(JobsSecondarySystemBackgroundColor)
             .byCornerRadius(JobsWidth(10))
             .addOn(self.contentView)
@@ -316,12 +370,9 @@ Prop_strong()UILabel *tipLab;
         UILabel *titleLab = [self sectionLabelWithTitle:@"反向连续跑马灯"
                                                 topView:self.bannerMarquee
                                               topOffset:JobsWidth(16)];
-        _rightContinuousMarquee = [[[[JobsMarqueeView.alloc.init byDirection:JobsMarqueeDirectionRight]
-                                     byContinuousWithSpeed:36]
-                                    byItemSizeMode:JobsMarqueeItemSizeModeFitContent]
-                                   byDataSourceButtons:[self noticeButtonsWithPrefix:@"向右连续"
+        _rightContinuousMarquee = (((JobsMarqueeView.alloc.init.byDirection(JobsMarqueeDirectionRight)).byContinuousWithSpeed(36)).byItemSizeMode(JobsMarqueeItemSizeModeFitContent)).byDataSourceButtons([self noticeButtonsWithPrefix:@"向右连续"
                                                                                 color:HEXCOLOR(0xEB5757)
-                                                                                count:4]];
+                                                                                count:4]);
         _rightContinuousMarquee.byBgColor(JobsSecondarySystemBackgroundColor)
             .byCornerRadius(JobsWidth(8))
             .addOn(self.contentView)

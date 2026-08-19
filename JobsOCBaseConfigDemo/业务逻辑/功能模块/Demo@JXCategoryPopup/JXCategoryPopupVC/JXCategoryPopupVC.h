@@ -14,12 +14,6 @@
 #import "JXCategoryView.h"
 #endif
 
-#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
-#import <JobsLanMgr/JobsLanMgr.h>
-#else
-#import "JobsLanMgr.h"
-#endif
-
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
 #else
@@ -32,22 +26,16 @@
 #import "JobsByOCPods.h"
 #endif
 
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import <JobsLanMgr/JobsLanMgr.h>
+#else
+#import "JobsLanMgr.h"
+#endif
+
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>
 #else
 #import "JobsMakes.h"
-#endif
-
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
-#import "JobsBlock.h"
-#endif
-
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
 #endif
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
@@ -62,6 +50,18 @@
 #import "TFPopupExtra.h"
 #endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JXCategoryPopupVC : BaseViewController
@@ -72,6 +72,11 @@ JXCategoryTitleViewDataSource
 ,TFPopupDelegate
 >
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JXCategoryPopupVC
+-(JobsRetJXCategoryPopupVCByNSIntegerBlock _Nonnull)byCurrentIndex;
+-(JobsRetJXCategoryPopupVCByUIViewBlock _Nonnull)byPopUpCustomView;
+-(JobsRetJXCategoryPopupVCByUIViewBlock _Nonnull)byPopUpFiltrationView;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JXCategoryPopupVC
 @end
 
 NS_ASSUME_NONNULL_END

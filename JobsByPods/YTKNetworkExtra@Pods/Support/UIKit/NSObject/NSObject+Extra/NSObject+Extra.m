@@ -6,6 +6,7 @@
 //
 
 #import "NSObject+Extra.h"
+
 #import <YTKNetworkExtra/NSURLRequest+Extra.h>
 
 @implementation NSObject (YTKNetworkExtraExtra)
@@ -20,14 +21,14 @@
     };
 }
 /// 打印请求体
--(JobsRetURLRequestByURLSessionTaskBlock _Nullable)printURLSessionRequestMessage{
+-(JobsRetURLRequestByURLSessionTaskBlock _Nonnull)printURLSessionRequestMessage{
     return ^__kindof NSMutableURLRequest *_Nullable(__kindof NSURLSessionDataTask *_Nullable task) {
         if(!task){JobsLog(@"NSURLSessionDataTask *task 为空,请检查");return nil;
 };return task.originalRequest.print();
     };
 }
 /// 打印URLRequest
--(JobsRetMutableURLRequestByURLRequestBlock _Nullable)printRequestMessage{
+-(JobsRetMutableURLRequestByURLRequestBlock _Nonnull)printRequestMessage{
     return ^__kindof NSMutableURLRequest *_Nullable(__kindof NSURLRequest *_Nullable data) {
         if (!data) {JobsLog(@"NSURLRequest *data 为空,请检查");return nil;
 };return data.print();

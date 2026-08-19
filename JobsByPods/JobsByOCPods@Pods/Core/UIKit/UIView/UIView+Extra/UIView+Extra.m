@@ -15,8 +15,13 @@
     };
 }
 
--(UIBarButtonItem *_Nonnull)barBtnItem{
-    return [UIBarButtonItem.alloc initWithCustomView:self];
+-(JobsRetBarButtonItemByVoidBlock _Nonnull)barBtnItem{
+    @jobs_weakify(self)
+    return ^UIBarButtonItem *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [UIBarButtonItem.alloc initWithCustomView:self];
+    };
 }
 #pragma mark —— BaseViewProtocol
 /// 用于类
@@ -300,28 +305,33 @@
 }
 #pragma mark —— 键盘事件
 /// 监听键盘事件
--(void)monitorKeyboardAction{
-    //    @jobs_weakify(self)
-    [self addNotificationName:UIKeyboardWillShowNotification
-                        block:^(id _Nullable weakSelf,
-                                id _Nullable arg) {
-//        @jobs_strongify(self)
-        NSNotification *notification = (NSNotification *)arg;
-        if([notification.object isKindOfClass:NSNumber.class]){
-            NSNumber *b = notification.object;
-            JobsLog(@"SSS = %d",b.boolValue);
-        }JobsLog(@"通知传递过来的 = %@",notification.object);
-    }];
-    [self addNotificationName:UIKeyboardWillHideNotification
-                        block:^(id _Nullable weakSelf,
-                                id _Nullable arg) {
-//        @jobs_strongify(self)
-        NSNotification *notification = (NSNotification *)arg;
-        if([notification.object isKindOfClass:NSNumber.class]){
-            NSNumber *b = notification.object;
-            JobsLog(@"SSS = %d",b.boolValue);
-        }JobsLog(@"通知传递过来的 = %@",notification.object);
-    }];
+-(jobsByVoidBlock _Nonnull)monitorKeyboardAction{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        //    @jobs_weakify(self)
+        [self addNotificationName:UIKeyboardWillShowNotification
+                            block:^(id _Nullable weakSelf,
+                                    id _Nullable arg) {
+    //        @jobs_strongify(self)
+            NSNotification *notification = (NSNotification *)arg;
+            if([notification.object isKindOfClass:NSNumber.class]){
+                NSNumber *b = notification.object;
+                JobsLog(@"SSS = %d",b.boolValue);
+            }JobsLog(@"通知传递过来的 = %@",notification.object);
+        }];
+        [self addNotificationName:UIKeyboardWillHideNotification
+                            block:^(id _Nullable weakSelf,
+                                    id _Nullable arg) {
+    //        @jobs_strongify(self)
+            NSNotification *notification = (NSNotification *)arg;
+            if([notification.object isKindOfClass:NSNumber.class]){
+                NSNumber *b = notification.object;
+                JobsLog(@"SSS = %d",b.boolValue);
+            }JobsLog(@"通知传递过来的 = %@",notification.object);
+        }];
+    };
 }
 #pragma mark —— 截屏
 /*
@@ -332,76 +342,101 @@
      2.2、UIScreenCapturedDidChangeNotification 判断是否在录屏状态 而当录屏状态改变时，UIKit会发送录屏通知
  */
 /// 获取屏幕截图
--(UIImage *_Nullable)screenShot{
-    CGSize size = UIScreen.mainScreen.bounds.size;
-    CGFloat scale = UIScreen.mainScreen.scale;
-    UIGraphicsBeginImageContextWithOptions(size,
-                                           YES,
-                                           scale);
-    [jobsGetMainWindow().layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
-}
-/// 获取启动页的截图
--(UIImage *_Nullable)lanuchScreenShot{
-    NSString *name = NSBundle.mainBundle.infoDictionary.valueForKey(@"UILaunchStoryboardName");
-    if(!name) return nil;
-    UIViewController *vc = [self vcByStoryboardWithName:name storyboardBundle:nil];
-    if(vc){
-        UIView *view = vc.view;
-        UIWindow *window = jobsGetMainWindow();
-        view.byFrame(window.bounds);
-        [window addSubview:view];
-        window.refresh();
-        UIImage *image = self.screenShot;
-        window = nil;
-        return image;
-    };return nil;
-}
-/// 获取某个view 上的截图
--(UIImage *_Nullable)viewShots{
-    if (CGRectIsEmpty(self.frame)) return nil;
-    CGSize size = self.bounds.size;
-    CGFloat scale = UIScreen.mainScreen.scale;
-    UIGraphicsBeginImageContextWithOptions(size,
-                                           NO,
-                                           scale);
-    if ([self respondsToSelector:@selector(drawViewHierarchyInRect:afterScreenUpdates:)]) {
-        /// 对view进行一个快照，然后将快照渲染到当前的上下文中 https://www.jianshu.com/p/3d246235388c
-        /// rect：指定图片绘制的坐标
-        /// afterUpdates：截图的瞬间是否将屏幕当前的变更渲染进去
-        [self drawViewHierarchyInRect:self.bounds
-                   afterScreenUpdates:YES];
-    }else{
-        /// 将view的layer渲染到当前的绘制的上下文中
-        [self.layer renderInContext:UIGraphicsGetCurrentContext()];
-    }
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
-}
-/// 获取某个scrollview 上的截图
--(UIImage *_Nullable)scrollViewShot{
-    if ([self isKindOfClass:UIScrollView.class]) {
-        UIScrollView *scrollview = (UIScrollView *)self;
-        UIGraphicsBeginImageContextWithOptions(scrollview.contentSize,
+-(JobsRetImageByVoidBlock _Nonnull)screenShot{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        CGSize size = UIScreen.mainScreen.bounds.size;
+        CGFloat scale = UIScreen.mainScreen.scale;
+        UIGraphicsBeginImageContextWithOptions(size,
                                                YES,
-                                               UIScreen.mainScreen.scale);
-        /// 获取当前scrollview的frame 和 contentOffset
-        // CGRect saveFrame = scrollview.frame;
-        // CGPoint saveOffset = scrollview.contentOffset;
-        /// 置为起点
-        scrollview.contentOffset = CGPointZero;
-        scrollview.frame = CGRectMake(0,
-                                      0,
-                                      scrollview.contentSize.width,
-                                      scrollview.contentSize.height);
-        [scrollview.layer renderInContext:UIGraphicsGetCurrentContext()];
+                                               scale);
+        [jobsGetMainWindow().layer renderInContext:UIGraphicsGetCurrentContext()];
         UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
         return image;
-    };return nil;
+    };
+}
+/// 获取启动页的截图
+-(JobsRetImageByVoidBlock _Nonnull)lanuchScreenShot{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSString *name = NSBundle.mainBundle.infoDictionary.valueForKey(@"UILaunchStoryboardName");
+        if(!name) return nil;
+        UIViewController *vc = [self vcByStoryboardWithName:name storyboardBundle:nil];
+        if(vc){
+            UIView *view = vc.view;
+            UIWindow *window = jobsGetMainWindow();
+            view.byFrame(window.bounds);
+            window.addSubview(view);
+            window.refresh();
+            UIImage *image = self.screenShot();
+            window = nil;
+            return image;
+        };return nil;
+    };
+}
+/// 获取某个view 上的截图
+-(JobsRetImageByVoidBlock _Nonnull)viewShots{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (CGRectIsEmpty(self.frame)) return nil;
+        CGSize size = self.bounds.size;
+        CGFloat scale = UIScreen.mainScreen.scale;
+        UIGraphicsBeginImageContextWithOptions(size,
+                                               NO,
+                                               scale);
+        if ([self respondsToSelector:@selector(drawViewHierarchyInRect:afterScreenUpdates:)]) {
+            /// 对view进行一个快照，然后将快照渲染到当前的上下文中 https://www.jianshu.com/p/3d246235388c
+            /// rect：指定图片绘制的坐标
+            /// afterUpdates：截图的瞬间是否将屏幕当前的变更渲染进去
+            [self drawViewHierarchyInRect:self.bounds
+                       afterScreenUpdates:YES];
+        }else{
+            /// 将view的layer渲染到当前的绘制的上下文中
+            [self.layer renderInContext:UIGraphicsGetCurrentContext()];
+        }
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        return image;
+    };
+}
+/// 获取某个scrollview 上的截图
+-(UIImage *_Nullable)scrollViewShot{
+    JobsRetImageByVoidBlock action = ((JobsRetImageByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIView.class, @selector(jobsScrollViewShot)))(self, @selector(jobsScrollViewShot));
+    return action ? action() : nil;
+}
+
+-(JobsRetImageByVoidBlock _Nonnull)jobsScrollViewShot{
+    @jobs_weakify(self)
+    return ^UIImage *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if ([self isKindOfClass:UIScrollView.class]) {
+            UIScrollView *scrollview = (UIScrollView *)self;
+            UIGraphicsBeginImageContextWithOptions(scrollview.contentSize,
+                                                   YES,
+                                                   UIScreen.mainScreen.scale);
+            /// 获取当前scrollview的frame 和 contentOffset
+            // CGRect saveFrame = scrollview.frame;
+            // CGPoint saveOffset = scrollview.contentOffset;
+            /// 置为起点
+            scrollview.byContentOffset(CGPointZero);
+            scrollview.frame = CGRectMake(0,
+                                          0,
+                                          scrollview.contentSize.width,
+                                          scrollview.contentSize.height);
+            [scrollview.layer renderInContext:UIGraphicsGetCurrentContext()];
+            UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            return image;
+        };return nil;
+    };
 }
 /// 截图
 -(JobsRetImageByViewBlock _Nonnull)rendImage{
@@ -438,43 +473,63 @@
 }
 #pragma mark —— 描边
 JobsKey(_leftBorderLayer)
--(CALayer *)leftBorderLayer{
-    CALayer *layer = Jobs_getAssociatedObject(_leftBorderLayer);
-    if (!layer) {
-        layer = self.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable layer) {
-        }));Jobs_setAssociatedRETAIN_NONATOMIC(_leftBorderLayer, layer);
-    };return layer;
+-(JobsRetCALayerByVoidBlock _Nonnull)leftBorderLayer{
+    @jobs_weakify(self)
+    return ^CALayer *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        CALayer *layer = Jobs_getAssociatedObject(_leftBorderLayer);
+        if (!layer) {
+            layer = self.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable layer) {
+            }));Jobs_setAssociatedRETAIN_NONATOMIC(_leftBorderLayer, layer);
+        };return layer;
+    };
 }
 JobsKey(_rightBorderLayer)
--(CALayer *)rightBorderLayer{
-    CALayer *layer = Jobs_getAssociatedObject(_rightBorderLayer);
-    if (!layer) {
-        layer = self.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable layer) {
-        }));Jobs_setAssociatedRETAIN_NONATOMIC(_rightBorderLayer, layer);
-    };return layer;
+-(JobsRetCALayerByVoidBlock _Nonnull)rightBorderLayer{
+    @jobs_weakify(self)
+    return ^CALayer *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        CALayer *layer = Jobs_getAssociatedObject(_rightBorderLayer);
+        if (!layer) {
+            layer = self.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable layer) {
+            }));Jobs_setAssociatedRETAIN_NONATOMIC(_rightBorderLayer, layer);
+        };return layer;
+    };
 }
 JobsKey(_topBorderLayer)
--(CALayer *)topBorderLayer{
-    CALayer *layer = Jobs_getAssociatedObject(_topBorderLayer);
-    if (!layer) {
-        layer = self.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable layer) {
-        }));Jobs_setAssociatedRETAIN_NONATOMIC(_topBorderLayer, layer);
-    };return layer;
+-(JobsRetCALayerByVoidBlock _Nonnull)topBorderLayer{
+    @jobs_weakify(self)
+    return ^CALayer *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        CALayer *layer = Jobs_getAssociatedObject(_topBorderLayer);
+        if (!layer) {
+            layer = self.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable layer) {
+            }));Jobs_setAssociatedRETAIN_NONATOMIC(_topBorderLayer, layer);
+        };return layer;
+    };
 }
 JobsKey(_bottomBorderLayer)
--(CALayer *)bottomBorderLayer{
-    CALayer *layer = Jobs_getAssociatedObject(_bottomBorderLayer);
-    if (!layer) {
-        layer = self.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable layer) {
-        }));Jobs_setAssociatedRETAIN_NONATOMIC(_bottomBorderLayer, layer);
-    };return layer;
+-(JobsRetCALayerByVoidBlock _Nonnull)bottomBorderLayer{
+    @jobs_weakify(self)
+    return ^CALayer *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        CALayer *layer = Jobs_getAssociatedObject(_bottomBorderLayer);
+        if (!layer) {
+            layer = self.layer.addSublayer(jobsMakeCALayer(^(__kindof CALayer * _Nullable layer) {
+            }));Jobs_setAssociatedRETAIN_NONATOMIC(_bottomBorderLayer, layer);
+        };return layer;
+    };
 }
 /// 调用方式：view.leftBorderColor(color).leftBorderWidth(borderType);
 -(JobsRetViewByCorBlock _Nonnull)leftBorderColor{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(UIColor *_Nullable color){
         @jobs_strongify(self)
-        CALayer *layer = self.leftBorderLayer;
+        CALayer *layer = self.leftBorderLayer();
         layer.byBgColor(color.CGColor);
         return self;
     };
@@ -484,7 +539,7 @@ JobsKey(_bottomBorderLayer)
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(UIColor *_Nullable color){
         @jobs_strongify(self)
-        CALayer *layer = self.rightBorderLayer;
+        CALayer *layer = self.rightBorderLayer();
         layer.byBgColor(color.CGColor);
         return self;
     };
@@ -494,7 +549,7 @@ JobsKey(_bottomBorderLayer)
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(UIColor *_Nullable color){
         @jobs_strongify(self)
-        CALayer *layer = self.topBorderLayer;
+        CALayer *layer = self.topBorderLayer();
         layer.byBgColor(color.CGColor);
         return self;
     };
@@ -504,7 +559,7 @@ JobsKey(_bottomBorderLayer)
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(UIColor *_Nullable color){
         @jobs_strongify(self)
-        CALayer *layer = self.bottomBorderLayer;
+        CALayer *layer = self.bottomBorderLayer();
         layer.byBgColor(color.CGColor);
         return self;
     };
@@ -514,7 +569,7 @@ JobsKey(_bottomBorderLayer)
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(float borderWidth){
         @jobs_strongify(self)
-        CALayer *layer = self.leftBorderLayer;
+        CALayer *layer = self.leftBorderLayer();
         layer.frame = CGRectMake(0,
                                  0,
                                  borderWidth,
@@ -527,7 +582,7 @@ JobsKey(_bottomBorderLayer)
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(float borderWidth){
         @jobs_strongify(self)
-        CALayer *layer = self.rightBorderLayer;
+        CALayer *layer = self.rightBorderLayer();
         layer.frame = CGRectMake(self.frame.size.width - borderWidth,
                                  0,
                                  borderWidth,
@@ -540,7 +595,7 @@ JobsKey(_bottomBorderLayer)
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(float borderWidth){
         @jobs_strongify(self)
-        CALayer *layer = self.topBorderLayer;
+        CALayer *layer = self.topBorderLayer();
         layer.frame = CGRectMake(0,
                                  0,
                                  self.frame.size.width,
@@ -553,7 +608,7 @@ JobsKey(_bottomBorderLayer)
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(float borderWidth){
         @jobs_strongify(self)
-        CALayer *layer = self.bottomBorderLayer;
+        CALayer *layer = self.bottomBorderLayer();
         layer.frame = CGRectMake(0,
                                  self.frame.size.height - borderWidth,
                                  self.frame.size.width,
@@ -566,7 +621,7 @@ JobsKey(_bottomBorderLayer)
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(__kindof JobsLocationModel *_Nullable data){
         @jobs_strongify(self)
-        data.masksToBounds = YES;
+        data.byMasksToBounds(YES);
         self.layerBy(data);
         return self;
     };
@@ -576,10 +631,10 @@ JobsKey(_bottomBorderLayer)
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(__kindof JobsLocationModel *_Nullable data){
         @jobs_strongify(self)
-        self.layer.borderColor = data.layerCor.CGColor;
-        self.layer.borderWidth = data.jobsWidth;
-        self.layer.cornerRadius = data.cornerRadiusValue;
-        self.layer.masksToBounds = data.masksToBounds;
+        self.layer.byBorderColor(data.layerCor.CGColor);
+        self.layer.byBorderWidth(data.jobsWidth);
+        self.layer.byCornerRadius(data.cornerRadiusValue);
+        self.layer.byMasksToBounds(data.masksToBounds);
         return self;
     };
 }
@@ -600,21 +655,21 @@ JobsKey(_bottomBorderLayer)
     /// 下
     if (borderType & UIBorderSideTypeBottom) self.bottomBorderColor(color).bottomBorderWidth(borderType);
 }
-/// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
+/// 调用方式：view.layerByBorderCor(@"#FFD8D8".jobsCor()).layerByBorderWidth(1);
 -(JobsRetViewByCorBlock _Nonnull)layerByBorderCor{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(UIColor *_Nullable layerBorderCor) {
         @jobs_strongify(self)
-        self.layer.borderColor = layerBorderCor.CGColor;
+        self.layer.byBorderColor(layerBorderCor.CGColor);
         return self;
     };
 }
-/// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
+/// 调用方式：view.layerByBorderCor(@"#FFD8D8".jobsCor()).layerByBorderWidth(1);
 -(JobsRetViewByFloatBlock _Nonnull)layerByBorderWidth{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(float borderWidth) {
         @jobs_strongify(self)
-        self.layer.borderWidth = borderWidth;
+        self.layer.byBorderWidth(borderWidth);
         return self;
     };
 }
@@ -624,8 +679,8 @@ JobsKey(_bottomBorderLayer)
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(float cornerRadiusValue) {
         @jobs_strongify(self)
-        self.layer.cornerRadius = cornerRadiusValue;
-        self.layer.masksToBounds = YES;
+        self.layer.byCornerRadius(cornerRadiusValue);
+        self.layer.byMasksToBounds(YES);
         return self;
     };
 }
@@ -658,8 +713,9 @@ JobsKey(_cornerRadii)
         /// 创建 CAShapeLayer 并设置 path
         self.layer.mask = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
             @jobs_strongify(self)
-            layer.byFrame(self.bounds);
-            layer.path = maskPath.CGPath;
+            layer
+                .byPath(maskPath.CGPath)
+                .byFrame(self.bounds);
         });return self;
     };
 }
@@ -680,8 +736,9 @@ JobsKey(_cornerRadii)
     @jobs_weakify(self)
     self.layer.mask = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable data) {
         @jobs_strongify(self)
-        data.byFrame(self.bounds);
-        data.path = maskPath.CGPath;
+        data
+            .byPath(maskPath.CGPath)
+            .byFrame(self.bounds);
     });
 }
 #pragma mark —— 其他
@@ -700,7 +757,7 @@ JobsKey(_cornerRadii)
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(NSInteger data){
         @jobs_strongify(self)
-        return [self viewWithTag:data];
+        return self.viewWithTag(data);
     };
 }
 
@@ -766,13 +823,13 @@ JobsKey(_cornerRadii)
                                    byTarget:(id _Nonnull)target{
     self.viewTapGRSavePicsBaseConfigByTarget(target);
     @jobs_weakify(self)
-    self.tapGR_SelImp.selector = [target jobsSelectorBlock:^id _Nullable(id _Nullable target,
+    self.tapGR_SelImp.selector = ((NSObject *)target).jobsSelectorBlock(^id _Nullable(id _Nullable target,
                                                                          UITapGestureRecognizer *_Nullable arg) {
         @jobs_strongify(self)
         GKPhotoBrowser *browser = [target tapImageWithIndexPath:indexPath imageDataMutArr:imageDataMutArr];
-        [browser showFromVC:self.currentController];
+        [browser showFromVC:self.currentController()];
         return nil;
-    }];self.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
+    });self.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
 }
 /// 针对数据源是NSURL  *的GKPhotoBrowser
 -(void)viewTapGRSavePicsWithImageUrlMutArr:(NSMutableArray <NSURL *>*_Nonnull)imageUrlMutArr
@@ -780,13 +837,13 @@ JobsKey(_cornerRadii)
                                   byTarget:(id _Nonnull)target{
     self.viewTapGRSavePicsBaseConfigByTarget(target);
     @jobs_weakify(self)
-    self.tapGR_SelImp.selector = [target jobsSelectorBlock:^id _Nullable(id _Nullable target,
+    self.tapGR_SelImp.selector = ((NSObject *)target).jobsSelectorBlock(^id _Nullable(id _Nullable target,
                                                                          UITapGestureRecognizer *_Nullable arg) {
         @jobs_strongify(self)
         GKPhotoBrowser *browser = [target tapImageWithIndexPath:indexPath imageUrlMutArr:imageUrlMutArr];
-        [browser showFromVC:self.currentController];
+        [browser showFromVC:self.currentController()];
         return nil;
-    }];self.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
+    });self.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
 }
 /// 针对数据源是NSString  *的GKPhotoBrowser
 -(void)viewTapGRSavePicsWithImageUrlStrMutArr:(NSMutableArray <NSString *>*_Nonnull)imageUrlStrMutArr
@@ -794,25 +851,25 @@ JobsKey(_cornerRadii)
                                      byTarget:(id _Nonnull)target{
     self.viewTapGRSavePicsBaseConfigByTarget(target);
     @jobs_weakify(self)
-    self.tapGR_SelImp.selector = [target jobsSelectorBlock:^id _Nullable(id _Nullable target,
+    self.tapGR_SelImp.selector = ((NSObject *)target).jobsSelectorBlock(^id _Nullable(id _Nullable target,
                                                                          UITapGestureRecognizer *_Nullable arg) {
         @jobs_strongify(self)
         GKPhotoBrowser *browser = [target tapImageWithIndexPath:indexPath imageUrlStrMutArr:imageUrlStrMutArr];
-        [browser showFromVC:self.currentController];
+        [browser showFromVC:self.currentController()];
         return nil;
-    }];self.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
+    });self.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
 }
 /// 对GKPhotoBrowser保存图片的基础设置
 -(jobsByIDBlock _Nonnull)viewTapGRSavePicsBaseConfigByTarget{
     @jobs_weakify(self)
     return ^(id _Nullable target){
         @jobs_strongify(self)
-        self.numberOfTouchesRequired = 1;
-        self.numberOfTapsRequired = 1; ///⚠️ 注意：如果要设置长按手势，此属性必须设置为0⚠️
-        self.minimumPressDuration = 0.1;
-        self.allowableMovement = 1;
-        self.userInteractionEnabled = YES;
-        self.weak_target = target;
+        self.byNumberOfTouchesRequired(1);
+        self.byNumberOfTapsRequired(1);
+        self.byMinimumPressDuration(0.1);
+        self.byAllowableMovement(1);
+        self.byUserInteractionEnabled(YES);
+        self.byWeak_target(target);
     };
 }
 /// popView取消按钮常规处理方法
@@ -830,7 +887,7 @@ JobsKey(_cornerRadii)
     @jobs_weakify(self)
     return ^(CGFloat radians){
         @jobs_strongify(self)
-        self.transform = CGAffineTransformMakeRotation(M_PI * radians);
+        self.byTransform(CGAffineTransformMakeRotation(M_PI * radians));
         self.transformByRadians(1.5f); // 逆时针旋转 3 * 90度
     };
 }
@@ -842,23 +899,28 @@ JobsKey(_cornerRadii)
         /// 将度数转换为弧度
         CGFloat radians = degrees * (M_PI / 180.0);
         /// 应用旋转变换（radians为正数将逆时针旋转）
-        self.transform = CGAffineTransformMakeRotation(radians);
+        self.byTransform(CGAffineTransformMakeRotation(radians));
         self.transformByDegrees(45);// 逆时针旋转 45 度
     };
 }
 
--(UIImage *_Nullable)getImage{
-    /// 检查视图的大小是否为有效值
-    CGSize size = self.bounds.size;
-    /// 如果 size 是 {0, 0}，直接返回 nil
-    if (jobsZeroSizeValue(size)) return nil;
-    /// 使用 UIGraphicsImageRenderer 创建图像
-    UIGraphicsImageRenderer *renderer = [UIGraphicsImageRenderer.alloc initWithSize:size];
-    @jobs_weakify(self )
-    UIImage *image = [renderer imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull context) {
+-(JobsRetImageByVoidBlock _Nonnull)getImage{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
         @jobs_strongify(self)
-        [self.layer renderInContext:context.CGContext];
-    }];return image;
+        if (!self) return nil;
+        /// 检查视图的大小是否为有效值
+        CGSize size = self.bounds.size;
+        /// 如果 size 是 {0, 0}，直接返回 nil
+        if (jobsZeroSizeValue(size)) return nil;
+        /// 使用 UIGraphicsImageRenderer 创建图像
+        UIGraphicsImageRenderer *renderer = [UIGraphicsImageRenderer.alloc initWithSize:size];
+        @jobs_weakify(self )
+        UIImage *image = [renderer imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull context) {
+            @jobs_strongify(self)
+            [self.layer renderInContext:context.CGContext];
+        }];return image;
+    };
 }
 /// iOS 阴影效果 添加了shadowPath后消除了离屏渲染问题 。特别提示：不能存在 -(void)drawRect:(CGRect)rect 或者在-(void)drawRect:(CGRect)rect里面写，否则无效
 /// @param targetShadowview 需要作用阴影效果的View
@@ -881,13 +943,13 @@ JobsKey(_cornerRadii)
               shadowOpacity:(CGFloat)shadowOpacity
            layerShadowColor:(UIColor *__nullable)layerShadowColor
           layerShadowRadius:(CGFloat)layerShadowRadius{
-    targetShadowview.layer.cornerRadius = cornerRadius;/// 圆切角
+    targetShadowview.layer.byCornerRadius(cornerRadius);
     /// targetShadowview当在某些masonry约束的时候，没有frame,需要进行刷新得到frame，否则不会出现阴影效果
     if (superview && CGRectEqualToRect(targetShadowview.frame,CGRectZero)) superview.refresh();
-    targetShadowview.layer.shadowOpacity = (shadowOpacity != 0) ? : 0.7f;//shadowOpacity设置了阴影的不透明度,取值范围在0~1;
-    targetShadowview.layer.shadowOffset = shadowOffset;//阴影偏移量
-    targetShadowview.layer.shadowColor = (layerShadowColor ? :JobsDarkGrayColor).CGColor;//阴影颜色   JobsLightGrayColor.CGColor;
-    targetShadowview.layer.shadowRadius = (layerShadowRadius != 0) ? : 8.0f;//模糊计算的半径
+    targetShadowview.layer.byShadowOpacity((shadowOpacity != 0) ? : 0.7f);
+    targetShadowview.layer.byShadowOffset(shadowOffset);
+    targetShadowview.layer.byShadowColor((layerShadowColor ? :JobsDarkGrayColor).CGColor);
+    targetShadowview.layer.byShadowRadius((layerShadowRadius != 0) ? : 8.0f);
     /// 偏移量保持为正数，便于后续计算
     offsetX = offsetX >= 0 ? offsetX : -offsetX;
     offsetY = offsetY >= 0 ? offsetY : -offsetY;
@@ -970,7 +1032,7 @@ JobsKey(_cornerRadii)
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(CGFloat alpha){
         @jobs_strongify(self)
-        self.jobsVisible = alpha;
+        self.byJobsVisible(alpha);
         return self;
     };
 }

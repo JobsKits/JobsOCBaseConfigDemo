@@ -16,8 +16,8 @@ Prop_strong()UIButton *bottomDirectionBtn;
 Prop_strong()UIButton *leftDirectionBtn;
 Prop_strong()UIButton *rightDirectionBtn;
 
--(CGFloat)jobs_presentedRatio;
--(CGFloat)jobs_presentedRatioByText:(NSString *)text;
+-(JobsRetCGFloatByVoidBlock _Nonnull)jobs_presentedRatio;
+-(JobsRetCGFloatByNSStringBlock _Nonnull)jobs_presentedRatioByText;
 -(void)jobs_presentByDirection:(JobsTransitionDirection)direction
                        bgColor:(UIColor *)bgColor;
 -(UIButton *)jobs_makeDirectionBtnByTitle:(NSString *)title
@@ -34,70 +34,150 @@ Prop_strong()UIButton *rightDirectionBtn;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPresentingVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(JobsLabelColor);
-        })
-        //    self.viewModel.textModel.text = @"消息详情页".tr;
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byText(data.attributedTitle.string)
-                .byFont(UIFontWeightRegularSize(16));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byTextCor(JobsLabelColor);
+            })
+            //    self.viewModel.textModel.text = @"消息详情页".jobsTr();
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byText(data.attributedTitle.string)
+                    .byFont(UIFontWeightRegularSize(16));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.topDirectionBtn.byAlpha(1);
-    self.bottomDirectionBtn.byAlpha(1);
-    self.leftDirectionBtn.byAlpha(1);
-    self.rightDirectionBtn.byAlpha(1);
-    self.presentedRatioTitleLab.byAlpha(1);
-    self.presentedRatioTextField.byAlpha(1);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPresentingVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.topDirectionBtn.byAlpha(1);
+        self.bottomDirectionBtn.byAlpha(1);
+        self.leftDirectionBtn.byAlpha(1);
+        self.rightDirectionBtn.byAlpha(1);
+        self.presentedRatioTitleLab.byAlpha(1);
+        self.presentedRatioTextField.byAlpha(1);
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-//    self.updateStatusBarCor(JobsOrangeColor);/// 在具体子类实现，不要写在父类。父类只做提示
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPresentingVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+            [super viewWillAppear:animated];
+        //    self.updateStatusBarCor(JobsOrangeColor);/// 在具体子类实现，不要写在父类。父类只做提示
+    };
 }
 
 -(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPresentingVC.class, @selector(jobsViewWillLayoutSubviews)))(self, @selector(jobsViewWillLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewWillLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillLayoutSubviews];
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPresentingVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPresentingVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-//    self.restoreStatusBarCor(nil);
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPresentingVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+            [super viewWillDisappear:animated];
+        //    self.restoreStatusBarCor(nil);
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPresentingVC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+    };
 }
 
 -(void)jobs_presentByDirection:(JobsTransitionDirection)direction
@@ -107,22 +187,33 @@ Prop_strong()UIButton *rightDirectionBtn;
     vc.view.byBgColor(bgColor);
     [self jobs_presentViewController:vc
                             configure:^(__kindof JobsPresentTransitionMgr * _Nullable manager) {
-        manager.direction = direction;
-        manager.presentedRatio = self.jobs_presentedRatio;
+        manager
+            .byDirection(direction)
+            .byPresentedRatio(self.jobs_presentedRatio());
     } completion:nil];
 }
 
--(CGFloat)jobs_presentedRatio{
-    return [self jobs_presentedRatioByText:self.presentedRatioTextField.text];
+-(JobsRetCGFloatByVoidBlock _Nonnull)jobs_presentedRatio{
+    @jobs_weakify(self)
+    return ^CGFloat{
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+        return self.jobs_presentedRatioByText(self.presentedRatioTextField.text);
+    };
 }
 
--(CGFloat)jobs_presentedRatioByText:(NSString *)text{
-    NSString *trimmedText = [text stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
-    NSString *normalizedText = [trimmedText stringByReplacingOccurrencesOfString:@"%" withString:@""];
-    CGFloat value = normalizedText.doubleValue;
-    if (value <= 0) value = 50.f;
-    if (value <= 1.f && [normalizedText rangeOfString:@"."].location != NSNotFound) return MIN(MAX(0.01f, value), 1.f);
-    return MIN(MAX(1.f, value), 100.f) / 100.f;
+-(JobsRetCGFloatByNSStringBlock _Nonnull)jobs_presentedRatioByText{
+    @jobs_weakify(self)
+    return ^CGFloat(NSString * text){
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+        NSString *trimmedText = [text stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+        NSString *normalizedText = [trimmedText stringByReplacingOccurrencesOfString:@"%" withString:@""];
+        CGFloat value = normalizedText.doubleValue;
+        if (value <= 0) value = 50.f;
+        if (value <= 1.f && [normalizedText rangeOfString:@"."].location != NSNotFound) return MIN(MAX(0.01f, value), 1.f);
+        return MIN(MAX(1.f, value), 100.f) / 100.f;
+    };
 }
 
 -(UIButton *)jobs_makeDirectionBtnByTitle:(NSString *)title
@@ -133,7 +224,7 @@ Prop_strong()UIButton *rightDirectionBtn;
     return jobsMakeButton(^(__kindof UIButton * _Nullable button) {
         @jobs_strongify(self)
         button
-            .byTitle(title.tr)
+            .byTitle(title.jobsTr())
             .byTitleCor(JobsWhiteColor)
             .byTitleFont(UIFontWeightRegularSize(15))
             .onClickBy(^(UIButton *x){
@@ -206,7 +297,7 @@ Prop_strong()UIButton *rightDirectionBtn;
         _presentedRatioTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(@"进入百分比".tr)
+                .byText(@"进入百分比".jobsTr())
                 .byFont(UIFontWeightRegularSize(14))
                 .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentRight)
@@ -227,7 +318,7 @@ Prop_strong()UIButton *rightDirectionBtn;
             @jobs_strongify(self)
             textField
                 .byText(@"50")
-                .byPlaceholder(@"50".tr)
+                .byPlaceholder(@"50".jobsTr())
                 .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightRegularSize(14))
                 .byTextAlignment(NSTextAlignmentCenter)

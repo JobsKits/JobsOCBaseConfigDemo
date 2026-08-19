@@ -34,8 +34,13 @@
     };
 }
 ///【实例方法】将Base16字符串 转换回 原始的NSString对象
--(NSString *_Nullable)stringByBase16String{
-    return NSString.stringByBase16String(self);
+-(JobsRetStrByVoidBlock _Nonnull)stringByBase16String{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSString.stringByBase16String(self);
+    };
 }
 ///【类方法】将普通的NSString字符串对象 转换为 以Base16（也称为十六进制）编码的字符串
 +(JobsRetStrByStrBlock _Nonnull)base16StringByImage{
@@ -48,7 +53,7 @@
          
          例如：如果原始字符串是"Hello"，则它将转换为Base16字符串"48656C6C6F"，其中每个字符都表示原始字符串中相应的字节的十六进制值。
          */
-        NSData *data = string.UTF8Encoding;
+        NSData *data = string.jobsUTF8Encoding();
         const unsigned char *bytes = (const unsigned char *)data.bytes;
         NSUInteger length = data.length;
         NSMutableString *hexString = NSMutableString.initByCapacity(length * 2);
@@ -58,8 +63,13 @@
     };
 }
 ///【实例方法】将普通的NSString字符串对象 转换为 以Base16（也称为十六进制）编码的字符串
--(NSString *_Nullable)base16StringByImage{
-    return NSString.base16StringByImage(self);
+-(JobsRetStrByVoidBlock _Nonnull)base16StringByImage{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSString.base16StringByImage(self);
+    };
 }
 #pragma mark —— Base16 <==> UIImage
 ///【类方法】将以Base16编码的字符串 转换为 UIImage对象
@@ -85,8 +95,13 @@
     };
 }
 ///【实例方法】将以Base16编码的字符串 转换为 UIImage对象
--(UIImage *_Nullable)imageByBase16String{
-    return NSString.imageByBase16String(self);
+-(JobsRetImageByVoidBlock _Nonnull)imageByBase16String{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSString.imageByBase16String(self);
+    };
 }
 #pragma mark —— Base16 <==> NSData
 ///【类方法】将以Base16编码的字符串 转换为 NSData对象
@@ -113,8 +128,13 @@
     };
 }
 ///【实例方法】将以Base16编码的字符串 转换为 NSData对象
--(NSData *_Nullable)dataWithBase16String{
-    return NSString.dataWithBase16String(self);
+-(JobsRetDataByVoidBlock _Nonnull)dataWithBase16String{
+    @jobs_weakify(self)
+    return ^NSData *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSString.dataWithBase16String(self);
+    };
 }
 
 @end

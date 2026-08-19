@@ -33,6 +33,7 @@ Prop_strong(nullable)UIColor *navBgCor;
 /// 未选中状态
 Prop_strong(nullable)UIImage *image;//【未选中状态】图片
 Prop_strong(nullable)UIImage *bgImage;//【未选中状态】背景图片
+-(JobsRetIDByImageBlock _Nonnull)byBgImage;
 Prop_copy(nullable)NSString *imageURLString;//【未选中状态】图片URL(字符串形式)
 Prop_copy(nullable)NSString *bgImageURLString;//【未选中状态】背景图片URL(字符串形式)
 Prop_strong(nullable)UIColor *bgCor;//【未选中状态】背景颜色

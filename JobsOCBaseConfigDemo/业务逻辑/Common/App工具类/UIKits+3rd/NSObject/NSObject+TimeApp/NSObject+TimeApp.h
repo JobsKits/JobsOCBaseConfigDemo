@@ -7,10 +7,10 @@
 
 #import <Foundation/Foundation.h>
 
-#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
-#import <JobsModelDSL/JobsModelDSL.h>
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
 #else
-#import "JobsModelDSL.h"
+#import "JobsByOCPods.h"
 #endif
 
 #if __has_include(<JobsMakes/JobsMakes.h>)
@@ -19,10 +19,10 @@
 #import "JobsMakes.h"
 #endif
 
-#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
-#import <JobsByOCPods/JobsByOCPods.h>
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
 #else
-#import "JobsByOCPods.h"
+#import "JobsModelDSL.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -31,11 +31,17 @@
 #import "JobsBlock.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (TimeApp)
 /// 判断是否当日第一次启动App
--(BOOL)isFirstLaunchApp;
+-(JobsRetBOOLByVoidBlock _Nonnull)isFirstLaunchApp;
 
 @end
 

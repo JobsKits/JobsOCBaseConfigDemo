@@ -38,7 +38,7 @@ Prop_copy()NSString *animatingText;
 -(id)initWithAnimatingView:(UIView *)animatingView;
 -(id)initWithAnimatingView:(UIView *)animatingView animatingText:(NSString *)animatingText;
 
-+(id)accessoryWithAnimatingView:(UIView *)animatingView;
++(JobsRetIDByUIViewBlock _Nonnull)accessoryWithAnimatingView;
 +(id)accessoryWithAnimatingView:(UIView *)animatingView animatingText:(NSString *)animatingText;
 
 @end

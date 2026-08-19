@@ -31,6 +31,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsAnimationLabel : UILabel
+
+-(JobsRetJobsAnimationLabelByCorBlock _Nonnull)byTextCor;
+-(JobsRetJobsAnimationLabelByCGFloatBlock _Nonnull)byValue;
+-(JobsRetJobsAnimationLabelByCGFloatBlock _Nonnull)byLastValue;
+-(JobsRetJobsAnimationLabelByNSTimeIntervalBlock _Nonnull)byDuration;
 /**
  动画数字改变
  
@@ -43,6 +48,15 @@ NS_ASSUME_NONNULL_BEGIN
                        endValue:(CGFloat)toValue
                        duration:(CGFloat)duration
                        complete:(void (^)(UILabel *label, CGFloat value))complete;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAnimationLabel
+-(JobsRetJobsAnimationLabelByCADisplayLinkBlock _Nonnull)byPlayLink;
+-(JobsRetJobsAnimationLabelByCGFloatBlock _Nonnull)byValueEnd;
+-(JobsRetJobsAnimationLabelByCGFloatBlock _Nonnull)byValueLast;
+-(JobsRetJobsAnimationLabelByCGFloatBlock _Nonnull)byValueStart;
+-(JobsRetJobsAnimationLabelByCGFloatBlock _Nonnull)byValueStep;
+-(JobsRetJobsAnimationLabelByNSIntegerBlock _Nonnull)byDisplayPerSecond;
+-(JobsRetJobsAnimationLabelByvoidUILabellabelCGFloatvalueBlock _Nonnull)byComplete;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAnimationLabel
 @end
 
 NS_ASSUME_NONNULL_END

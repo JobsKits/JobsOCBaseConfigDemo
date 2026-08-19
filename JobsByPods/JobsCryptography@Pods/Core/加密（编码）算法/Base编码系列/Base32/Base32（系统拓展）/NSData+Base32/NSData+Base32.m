@@ -16,8 +16,13 @@
     };
 }
 ///【实例方法】将NSData对象 转换为 以Base32编码的字符串
--(NSString *_Nullable)base32String{
-    return NSData.base32String(self);
+-(JobsRetStrByVoidBlock _Nonnull)base32String{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSData.base32String(self);
+    };
 }
 #pragma mark —— Base32 ==> NSData
 ///【类方法】将Base32编码的字符串 转换为 NSData对象

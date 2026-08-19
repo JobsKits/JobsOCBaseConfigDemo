@@ -19,16 +19,33 @@
  2.layoutAttributesForElementsInRect:方法
  */
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds{
-    return YES;
+    return ((((JobsRetBOOLByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(XZMLayout.class, @selector(shouldInvalidateLayoutForBoundsChange)))(self, @selector(shouldInvalidateLayoutForBoundsChange))))(newBounds);
+}
+-(JobsRetBOOLByFrameBlock _Nonnull)shouldInvalidateLayoutForBoundsChange{
+    @jobs_weakify(self)
+    return ^BOOL(CGRect newBounds){
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return YES;
+    };
 }
 /// 用来做布局的初始化操作（不建议在init方法中进行布局的初始化操作）
 - (void)prepareLayout{
-    [super prepareLayout];
-    // 水平滚动
-    self.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    CGFloat inset = (self.collectionView.frame.size.width - self.itemSize.width) * 0.5;
-    /** 设置内边距 */
-    self.sectionInset = UIEdgeInsetsMake(0, inset, 0, inset);
+    (((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(XZMLayout.class, @selector(jobsPrepareLayout)))(self, @selector(jobsPrepareLayout)))();
+}
+
+- (jobsByVoidBlock _Nonnull)jobsPrepareLayout{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super prepareLayout];
+        // 水平滚动
+        self.byScrollDirection(UICollectionViewScrollDirectionHorizontal);
+        CGFloat inset = (self.collectionView.frame.size.width - self.itemSize.width) * 0.5;
+        /** 设置内边距 */
+        self.bySectionInset(UIEdgeInsetsMake(0, inset, 0, inset));
+    };
 }
 /**
 
@@ -39,19 +56,29 @@
 /// 这个方法的返回值是一个数组（数组里面存放着rect范围内所有元素的布局属性）
 /// 这个方法的返回值决定了rect范围内所有元素的排布（frame）
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect{
-    // 获得super已经计算好的布局属性
-    NSArray *array = [super layoutAttributesForElementsInRect:rect];
-    // 计算collectionView最中心点的x值
-    CGFloat centerX = self.collectionView.contentOffset.x + self.collectionView.frame.size.width * 0.5;
-    // 在原有布局属性的基础上，进行微调
-    for (UICollectionViewLayoutAttributes *attrs in array) {
-        // cell的中心点x 和 collectionView最中心点的x值 的间距
-        CGFloat delta = ABS(attrs.center.x - centerX);
-        // 根据间距值 计算 cell的缩放比例
-        CGFloat scale = 1 - delta / self.collectionView.frame.size.width * 0.15;
-        // 设置缩放比例
-        attrs.transform = CGAffineTransformMakeScale(scale, scale);
-    };return array;
+    JobsRetNSArrayByCGRectBlock action = ((JobsRetNSArrayByCGRectBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(XZMLayout.class, @selector(jobsLayoutAttributesForElementsInRect)))(self, @selector(jobsLayoutAttributesForElementsInRect));
+    return action ? action(rect) : nil;
+}
+
+-(JobsRetNSArrayByCGRectBlock _Nonnull)jobsLayoutAttributesForElementsInRect{
+    @jobs_weakify(self)
+    return ^NSArray *(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        // 获得super已经计算好的布局属性
+        NSArray *array = [super layoutAttributesForElementsInRect:rect];
+        // 计算collectionView最中心点的x值
+        CGFloat centerX = self.collectionView.contentOffset.x + self.collectionView.frame.size.width * 0.5;
+        // 在原有布局属性的基础上，进行微调
+        for (UICollectionViewLayoutAttributes *attrs in array) {
+            // cell的中心点x 和 collectionView最中心点的x值 的间距
+            CGFloat delta = ABS(attrs.center.x - centerX);
+            // 根据间距值 计算 cell的缩放比例
+            CGFloat scale = 1 - delta / self.collectionView.frame.size.width * 0.15;
+            // 设置缩放比例
+            attrs.byTransform(CGAffineTransformMakeScale(scale, scale));
+        };return array;
+    };
 }
 /// 这个方法的返回值，就决定了collectionView停止滚动时的偏移量
 - (CGPoint)targetContentOffsetForProposedContentOffset:(CGPoint)proposedContentOffset

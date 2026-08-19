@@ -32,12 +32,16 @@
 @optional
 /// 有多少列
 - (NSUInteger)columnCountInWaterFallLayout:(LMHWaterFallLayout *)waterFallLayout;
+-(JobsRetNSUIntegerByLMHWaterFallLayoutBlock _Nonnull)jobsColumnCountInWaterFallLayout;
 /// 每列之间的间距
 - (CGFloat)columnMarginInWaterFallLayout:(LMHWaterFallLayout *)waterFallLayout;
+-(JobsRetCGFloatByLMHWaterFallLayoutBlock _Nonnull)jobsColumnMarginInWaterFallLayout;
 /// 每行之间的间距
 - (CGFloat)rowMarginInWaterFallLayout:(LMHWaterFallLayout *)waterFallLayout;
+-(JobsRetCGFloatByLMHWaterFallLayoutBlock _Nonnull)jobsRowMarginInWaterFallLayout;
 /// 每个item的内边距
 - (UIEdgeInsets)edgeInsetdInWaterFallLayout:(LMHWaterFallLayout *)waterFallLayout;
+-(JobsRetUIEdgeInsetsByLMHWaterFallLayoutBlock _Nonnull)jobsEdgeInsetdInWaterFallLayout;
 
 @end
 

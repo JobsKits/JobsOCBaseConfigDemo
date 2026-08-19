@@ -7,19 +7,30 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #if __has_include(<JobsOCSkeletonView/UIView+JobsOCSkeletonView.h>)
 #import <JobsOCSkeletonView/UIView+JobsOCSkeletonView.h>
 #else
 #import "UIView+JobsOCSkeletonView.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImageView (JobsOCSkeletonView)
 
--(void)jobs_beginShimmerLoading;
--(void)jobs_beginShimmerLoadingWithConfig:(nullable JobsOCSkeletonConfig *)config;
--(void)jobs_endShimmerLoading;
+-(jobsByVoidBlock _Nonnull)jobs_beginShimmerLoading;
+-(jobsByJobsOCSkeletonConfigBlock _Nonnull)jobs_beginShimmerLoadingWithConfig;
+-(jobsByVoidBlock _Nonnull)jobs_endShimmerLoading;
 -(instancetype)jobs_setImage:(nullable UIImage *)image
                     fallback:(nullable UIImage *)fallback
                shimmerConfig:(nullable JobsOCSkeletonConfig *)shimmerConfig

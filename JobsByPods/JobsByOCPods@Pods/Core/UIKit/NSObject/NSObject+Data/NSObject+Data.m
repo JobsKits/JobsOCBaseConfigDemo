@@ -38,6 +38,16 @@
         return nil;
     };
 }
+/// 为当前对象绑定关联数据，并返回当前对象继续链式调用
+-(JobsRetIDByIDBlock _Nonnull)byData{
+    @jobs_weakify(self)
+    return ^id _Nullable(id _Nullable data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.data = data;
+        return self;
+    };
+}
 #pragma mark —— 关于万物数据绑定
 #pragma mark —— @property(nonatomic,strong,nullable)id __block data;// 绑定的数据源，数据类型id
 JobsKey(_data)

@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (MasonryDSL)
 
-Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
+Prop_copy(nullable)jobsByMASConstraintMakerBlock masonryBlock;
 #pragma mark —— 不记录约束，直接修改/赋值
 /// 判断当前控制器 view 是否已经包含目标子视图
 -(JobsRetBOOLByViewBlock _Nonnull)containBy;

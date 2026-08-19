@@ -8,30 +8,12 @@
 
 #import "JobsOCMarkdownDocumentsDemoVC.h"
 
-#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
-#import <JobsByOCPods/JobsByOCPods.h>
-#else
-#import "JobsByOCPods.h"
-#endif
-
-#if __has_include(<JobsMakes/JobsMakes.h>)
-#import <JobsMakes/JobsMakes.h>
-#else
-#import "JobsMakes.h"
-#endif
-
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
-#else
-#import "Masonry.h"
-#endif
-
 static NSString *const JobsOCMarkdownDocumentCellReuseIdentifier = @"JobsOCMarkdownDocumentCell";
 
 @interface JobsOCMarkdownDocumentCell : UITableViewCell
 
--(instancetype)byDocument:(JobsOCMarkdownDocument *)document;
--(instancetype)byErrorMessage:(NSString *)message;
+-(JobsRetIDByJobsOCMarkdownDocumentBlock _Nonnull)byDocument;
+-(JobsRetIDByStrBlock _Nonnull)byErrorMessage;
 
 @end
 
@@ -41,6 +23,10 @@ Prop_strong()JobsOCMarkdownDocument *document;
 Prop_strong()JobsOCMarkdownCatalog *catalog;
 Prop_copy(nullable)NSString *initialAnchor;
 Prop_strong()JobsOCMarkdownView *markdownView;
+
+-(JobsRetJobsOCMarkdownDocumentDemoVCByDocumentBlock _Nonnull)byDocument;
+-(JobsRetJobsOCMarkdownDocumentDemoVCByCatalogBlock _Nonnull)byCatalog;
+-(JobsRetJobsOCMarkdownDocumentDemoVCByStrBlock _Nonnull)byInitialAnchor;
 
 -(instancetype)initWithDocument:(JobsOCMarkdownDocument *)document
                          catalog:(JobsOCMarkdownCatalog *)catalog;
@@ -64,35 +50,73 @@ Prop_strong(nullable)NSError *catalogError;
 Prop_strong()UISearchBar *searchBar;
 Prop_strong()UITableView *documentTableView;
 
--(void)jobsLoadCatalog;
--(void)jobsApplySearch:(NSString *)query;
+-(jobsByVoidBlock _Nonnull)jobsLoadCatalog;
+-(jobsByStrBlock _Nonnull)jobsApplySearch;
+-(JobsRetJobsOCMarkdownDocumentsDemoVCByCatalogBlock _Nonnull)byCatalog;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCMarkdownDocumentsDemoVC
+@interface JobsOCMarkdownDocumentsDemoVC (JobsPropertyDSLSetterAutogen_cb95e2fa19)
+-(void)setCatalogError:(NSError * _Nullable)data;
+-(void)setVisibleDocuments:(NSArray <JobsOCMarkdownDocument *>* _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCMarkdownDocumentsDemoVC
+
 @implementation JobsOCMarkdownDocumentsDemoVC
 
+-(JobsRetJobsOCMarkdownDocumentsDemoVCByCatalogBlock _Nonnull)byCatalog{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCMarkdownDocumentsDemoVC *_Nullable(JobsOCMarkdownCatalog *_Nullable catalog){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.catalog = catalog;
+        return self;
+    };
+}
+
 -(void)loadView{
-    [super loadView];
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byText(@"Markdown 文档浏览器".tr)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        .byBgCor(JobsSystemGroupedBackgroundColor)
-        .byNavBgCor(JobsSystemBackgroundColor);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCMarkdownDocumentsDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byText(@"Markdown 文档浏览器".jobsTr())
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            .byBgCor(JobsSystemGroupedBackgroundColor)
+            .byNavBgCor(JobsSystemBackgroundColor);
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemGroupedBackgroundColor);
-    self.makeNavByAlpha(1);
-    [self jobsLoadCatalog];
-    self.searchBar.byAlpha(1);
-    self.documentTableView.byAlpha(1);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCMarkdownDocumentsDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemGroupedBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.jobsLoadCatalog();
+        self.searchBar.byAlpha(1);
+        self.documentTableView.byAlpha(1);
+    };
 }
 #pragma mark —— UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView
@@ -105,8 +129,8 @@ numberOfRowsInSection:(NSInteger)section{
     JobsOCMarkdownDocumentCell *cell = [tableView dequeueReusableCellWithIdentifier:JobsOCMarkdownDocumentCellReuseIdentifier
                                                                        forIndexPath:indexPath];
     if (self.catalogError) {
-        return [cell byErrorMessage:self.catalogError.localizedDescription];
-    };return [cell byDocument:self.visibleDocuments[indexPath.row]];
+        return cell.byErrorMessage(self.catalogError.localizedDescription);
+    };return cell.byDocument(self.visibleDocuments[indexPath.row]);
 }
 #pragma mark —— UITableViewDelegate
 -(CGFloat)tableView:(UITableView *)tableView
@@ -126,23 +150,31 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 #pragma mark —— UISearchBarDelegate
 -(void)searchBar:(UISearchBar *)searchBar
    textDidChange:(NSString *)searchText{
-    [self jobsApplySearch:searchText];
+    (((jobsByStrBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCMarkdownDocumentsDemoVC.class, @selector(jobsApplySearch)))(self, @selector(jobsApplySearch)))(searchText);
 }
 
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
-    [searchBar resignFirstResponder];
+    ((((jobsByUISearchBarBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCMarkdownDocumentsDemoVC.class, @selector(searchBarSearchButtonClicked)))(self, @selector(searchBarSearchButtonClicked))))(searchBar);
+}
+-(jobsByUISearchBarBlock _Nonnull)searchBarSearchButtonClicked{
+    @jobs_weakify(self)
+    return ^(UISearchBar * searchBar){
+        @jobs_strongify(self)
+        if (!self) return;
+        searchBar.resignFirstResponder;
+    };
 }
 #pragma mark —— lazyLoad
 -(UISearchBar *)searchBar{
     if (!_searchBar) {
         _searchBar = jobsMakeUISearchBar(^(__kindof UISearchBar * _Nullable searchBar) {
             searchBar
-                .byPlaceholder(@"按标题或工程相对路径搜索".tr)
+                .byPlaceholder(@"按标题或工程相对路径搜索".jobsTr())
                 .byDelegate(self)
                 .byShowsCancelButton(NO)
                 .bySearchBarStyle(UISearchBarStyleMinimal)
                 .byTranslucent(YES)
-                .byBackgroundImage(jobsMakeImage())
+                .byBackgroundImage(jobsMakeImage(^(UIImage *object){}))
                 .byBarTintColor(JobsSystemBackgroundColor)
                 .byBgColor(JobsSystemBackgroundColor)
                 .addOn(self.view)
@@ -181,33 +213,62 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     };return _documentTableView;
 }
 #pragma mark —— 一些私有方法
--(void)jobsLoadCatalog{
-    NSError *error = nil;
-    self.catalog = [JobsOCMarkdownCatalog bundledCatalogWithError:&error];
-    self.catalogError = error;
-    self.allDocuments = [self.catalog.documents sortedArrayUsingComparator:^NSComparisonResult(JobsOCMarkdownDocument * _Nonnull obj1,
-                                                                                                JobsOCMarkdownDocument * _Nonnull obj2) {
-        return [obj1.relativePath localizedStandardCompare:obj2.relativePath];
-    }] ?: @[];
-    self.visibleDocuments = self.allDocuments;
-    [self.documentTableView reloadData];
+-(jobsByVoidBlock _Nonnull)jobsLoadCatalog{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        NSError *error = nil;
+        self.byCatalog(JobsOCMarkdownCatalog.bundledCatalogWithError(&error));
+        self.byCatalogError(error);
+        self.allDocuments = [self.catalog.documents sortedArrayUsingComparator:^NSComparisonResult(JobsOCMarkdownDocument * _Nonnull obj1,
+                                                                                                    JobsOCMarkdownDocument * _Nonnull obj2) {
+            return [obj1.relativePath localizedStandardCompare:obj2.relativePath];
+        }] ?: @[];
+        self.byVisibleDocuments(self.allDocuments);
+        [self.documentTableView reloadData];
+    };
 }
 
--(void)jobsApplySearch:(NSString *)query{
-    NSString *keyword = [query stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
-    if (!keyword.length) {
-        self.visibleDocuments = self.allDocuments;
-    }else{
-        NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(JobsOCMarkdownDocument *document,
-                                                                       NSDictionary<NSString *,id> *bindings) {
-            return [document.title localizedCaseInsensitiveContainsString:keyword]
-                || [document.relativePath localizedCaseInsensitiveContainsString:keyword];
-        }];
-        self.visibleDocuments = [self.allDocuments filteredArrayUsingPredicate:predicate];
-    }
-    [self.documentTableView reloadData];
+-(jobsByStrBlock _Nonnull)jobsApplySearch{
+    @jobs_weakify(self)
+    return ^(NSString * query){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSString *keyword = [query stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+        if (!keyword.length) {
+            self.byVisibleDocuments(self.allDocuments);
+        }else{
+            NSPredicate *predicate = [NSPredicate predicateWithBlock:^BOOL(JobsOCMarkdownDocument *document,
+                                                                           NSDictionary<NSString *,id> *bindings) {
+                return [document.title localizedCaseInsensitiveContainsString:keyword]
+                    || [document.relativePath localizedCaseInsensitiveContainsString:keyword];
+            }];
+            self.byVisibleDocuments([self.allDocuments filteredArrayUsingPredicate:predicate]);
+        }
+        [self.documentTableView reloadData];
+    };
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsOCMarkdownDocumentsDemoVC
+-(JobsRetJobsOCMarkdownDocumentsDemoVCByNSArrayJobsOCMarkdownDocumentBlock _Nonnull)byVisibleDocuments{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCMarkdownDocumentsDemoVC * _Nullable(NSArray <JobsOCMarkdownDocument *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setVisibleDocuments:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsOCMarkdownDocumentsDemoVCByNSErrorBlock _Nonnull)byCatalogError{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCMarkdownDocumentsDemoVC * _Nullable(NSError * _Nullable data){
+        @jobs_strongify(self)
+        [self setCatalogError:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCMarkdownDocumentsDemoVC
 @end
 
 @implementation JobsOCMarkdownDocumentCell
@@ -222,58 +283,99 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     };return self;
 }
 
--(instancetype)byDocument:(JobsOCMarkdownDocument *)document{
-    self
-        .byTextLabel(^(__kindof UILabel * _Nullable label) {
-            label
-                .byText(document.title)
-                .byTextCor(JobsLabelColor)
-                .byFont(UIFontWeightRegularSize(16))
-                .byNumberOfLines(1);
-        })
-        .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
-            label
-                .byText(document.relativePath)
-                .byTextCor(JobsSecondaryLabelColor)
-                .byFont(UIFontWeightRegularSize(12))
-                .byNumberOfLines(2);
-        })
-        .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
-        .bySelectionStyle(UITableViewCellSelectionStyleDefault)
-        .byContentView(^(__kindof UIView * _Nullable view) {
-            view.byBgColor(JobsClearColor);
-        })
-        .byBgColor(JobsSystemBackgroundColor);
-    return self;
+-(JobsRetIDByJobsOCMarkdownDocumentBlock _Nonnull)byDocument{
+    @jobs_weakify(self)
+    return ^id(JobsOCMarkdownDocument * document){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self
+            .byTextLabel(^(__kindof UILabel * _Nullable label) {
+                label
+                    .byText(document.title)
+                    .byTextCor(JobsLabelColor)
+                    .byFont(UIFontWeightRegularSize(16))
+                    .byNumberOfLines(1);
+            })
+            .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
+                label
+                    .byText(document.relativePath)
+                    .byTextCor(JobsSecondaryLabelColor)
+                    .byFont(UIFontWeightRegularSize(12))
+                    .byNumberOfLines(2);
+            })
+            .byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
+            .bySelectionStyle(UITableViewCellSelectionStyleDefault)
+            .byContentView(^(__kindof UIView * _Nullable view) {
+                view.byBgColor(JobsClearColor);
+            })
+            .byBgColor(JobsSystemBackgroundColor);
+        return self;
+    };
 }
 
--(instancetype)byErrorMessage:(NSString *)message{
-    self
-        .byTextLabel(^(__kindof UILabel * _Nullable label) {
-            label
-                .byText(@"无法读取 Markdown 文档".tr)
-                .byTextCor(UIColor.systemRedColor)
-                .byFont(UIFontWeightRegularSize(16));
-        })
-        .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
-            label
-                .byText(message)
-                .byTextCor(JobsSecondaryLabelColor)
-                .byFont(UIFontWeightRegularSize(12))
-                .byNumberOfLines(0);
-        })
-        .byAccessoryType(UITableViewCellAccessoryNone)
-        .bySelectionStyle(UITableViewCellSelectionStyleNone)
-        .byContentView(^(__kindof UIView * _Nullable view) {
-            view.byBgColor(JobsClearColor);
-        })
-        .byBgColor(JobsSystemBackgroundColor);
-    return self;
+-(JobsRetIDByStrBlock _Nonnull)byErrorMessage{
+    @jobs_weakify(self)
+    return ^id(NSString * message){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self
+            .byTextLabel(^(__kindof UILabel * _Nullable label) {
+                label
+                    .byText(@"无法读取 Markdown 文档".jobsTr())
+                    .byTextCor(UIColor.systemRedColor)
+                    .byFont(UIFontWeightRegularSize(16));
+            })
+            .byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
+                label
+                    .byText(message)
+                    .byTextCor(JobsSecondaryLabelColor)
+                    .byFont(UIFontWeightRegularSize(12))
+                    .byNumberOfLines(0);
+            })
+            .byAccessoryType(UITableViewCellAccessoryNone)
+            .bySelectionStyle(UITableViewCellSelectionStyleNone)
+            .byContentView(^(__kindof UIView * _Nullable view) {
+                view.byBgColor(JobsClearColor);
+            })
+            .byBgColor(JobsSystemBackgroundColor);
+        return self;
+    };
 }
 
 @end
 
 @implementation JobsOCMarkdownDocumentDemoVC
+
+-(JobsRetJobsOCMarkdownDocumentDemoVCByDocumentBlock _Nonnull)byDocument{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCMarkdownDocumentDemoVC *_Nullable(JobsOCMarkdownDocument *_Nullable document){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setDocument:document];
+        return self;
+    };
+}
+
+-(JobsRetJobsOCMarkdownDocumentDemoVCByCatalogBlock _Nonnull)byCatalog{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCMarkdownDocumentDemoVC *_Nullable(JobsOCMarkdownCatalog *_Nullable catalog){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setCatalog:catalog];
+        return self;
+    };
+}
+
+-(JobsRetJobsOCMarkdownDocumentDemoVCByStrBlock _Nonnull)byInitialAnchor{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCMarkdownDocumentDemoVC *_Nullable(NSString *_Nullable string){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setInitialAnchor:string];
+        return self;
+    };
+}
+
 
 -(instancetype)initWithDocument:(JobsOCMarkdownDocument *)document
                          catalog:(JobsOCMarkdownCatalog *)catalog{
@@ -284,11 +386,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                          catalog:(JobsOCMarkdownCatalog *)catalog
                    initialAnchor:(nullable NSString *)initialAnchor{
     if (self = [super init]) {
-        self.document = document;
-        self.catalog = catalog;
-        self.initialAnchor = initialAnchor;
+        self.byDocument(document).byCatalog(catalog).byInitialAnchor(initialAnchor);
         NSString *title = document.title.length ? document.title : @"Markdown";
-        self.title = title;
+        self.byTitle(title);
         self.viewModel.byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
             data
                 .byText(title)
@@ -298,33 +398,62 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 -(void)loadView{
-    [super loadView];
-    NSString *title = self.document.title ?: @"Markdown";
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byText(title)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        .byBgCor(JobsSystemBackgroundColor)
-        .byNavBgCor(JobsSystemBackgroundColor);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCMarkdownDocumentDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        NSString *title = self.document.title ?: @"Markdown";
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byText(title)
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            .byBgCor(JobsSystemBackgroundColor)
+            .byNavBgCor(JobsSystemBackgroundColor);
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.byGKNavTitle(self.document.title.length ? self.document.title : @"Markdown");
-    self.markdownView.delegate = self;
-    [self.markdownView loadDocument:self.document];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCMarkdownDocumentDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.byGKNavTitle(self.document.title.length ? self.document.title : @"Markdown");
+        self.markdownView.byDelegate(self).loadDocument(self.document);
+    };
 }
 #pragma mark —— JobsOCMarkdownViewDelegate
 -(void)markdownViewDidFinishRendering:(JobsOCMarkdownView *)markdownView{
-    if (!self.initialAnchor.length) return;
-    [markdownView scrollToAnchor:self.initialAnchor animated:NO];
+    jobsByJobsOCMarkdownViewBlock action = ((jobsByJobsOCMarkdownViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCMarkdownDocumentDemoVC.class, @selector(jobsMarkdownViewDidFinishRendering)))(self, @selector(jobsMarkdownViewDidFinishRendering));
+    if (action) action(markdownView);
+}
+
+-(jobsByJobsOCMarkdownViewBlock _Nonnull)jobsMarkdownViewDidFinishRendering{
+    @jobs_weakify(self)
+    return ^(JobsOCMarkdownView * markdownView){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (!self.initialAnchor.length) return;
+        [markdownView scrollToAnchor:self.initialAnchor animated:NO];
+    };
 }
 
 -(void)markdownView:(JobsOCMarkdownView *)markdownView
@@ -332,8 +461,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (URL.isFileURL) {
         NSURLComponents *components = [NSURLComponents componentsWithURL:URL resolvingAgainstBaseURL:NO];
         NSString *anchor = components.fragment;
-        components.fragment = nil;
-        JobsOCMarkdownDocument *linkedDocument = [self.catalog documentWithFileURL:components.URL];
+        components.byFragment(nil);
+        JobsOCMarkdownDocument *linkedDocument = self.catalog.documentWithFileURL(components.URL);
         if (linkedDocument) {
             if ([linkedDocument.identifier isEqualToString:self.document.identifier] && anchor.length) {
                 [markdownView scrollToAnchor:anchor animated:YES];

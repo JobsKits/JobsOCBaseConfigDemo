@@ -7,22 +7,28 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
-#import <JobsByOCPods/JobsByOCPods.h>
-#else
-#import "JobsByOCPods.h"
-#endif
-
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
 #else
 #import "JobsBaseUI.h"
 #endif
 
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
 #import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -37,23 +43,17 @@
 #import "JobsDefines.h"
 #endif
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MsgEditBoardView : BaseView
 
 #pragma mark —— 一些公有方法
--(UIButton *)getAllChooseBtn;
--(UIButton *)getMarkToReadBtn;
--(UIButton *)getDeleteBtn;
+-(JobsRetBtnByVoidBlock _Nonnull)getAllChooseBtn;
+-(JobsRetBtnByVoidBlock _Nonnull)getMarkToReadBtn;
+-(JobsRetBtnByVoidBlock _Nonnull)getDeleteBtn;
 
--(void)appearByView:(UIView * _Nonnull)view;
--(void)disappearByView:(UIView * _Nullable)view;
+-(jobsByViewBlock _Nonnull)appearByView;
+-(jobsByViewBlock _Nonnull)disappearByView;
 
 @end
 

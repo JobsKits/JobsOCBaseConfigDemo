@@ -7,12 +7,24 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 @interface UIView (layout)
 
-- (CGFloat)x_;
-- (CGFloat)y_;
-- (CGFloat)w_;
-- (CGFloat)h_;
+- (JobsRetCGFloatByVoidBlock _Nonnull)x_;
+- (JobsRetCGFloatByVoidBlock _Nonnull)y_;
+- (JobsRetCGFloatByVoidBlock _Nonnull)w_;
+- (JobsRetCGFloatByVoidBlock _Nonnull)h_;
 
 @end
 

@@ -6,6 +6,7 @@
 //
 
 #import "JobsWalletCardView.h"
+
 #import <JobsWallet/JobsWalletCardCollectionViewCell.h>
 
 @interface JobsWalletCardView ()
@@ -14,6 +15,12 @@ Prop_strong()UICollectionView *collectionView;
 Prop_strong()JobsWalletCollectionViewLayout *walletLayout;
 
 @end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsWalletCardView
+@interface JobsWalletCardView (JobsPropertyDSLSetterAutogen_f6c4547d7d)
+-(void)setCardModels:(NSArray<JobsWalletCardModel *> * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsWalletCardView
 
 @implementation JobsWalletCardView
 @synthesize collectionView = _collectionView;
@@ -31,25 +38,40 @@ Prop_strong()JobsWalletCollectionViewLayout *walletLayout;
         _expandStyle = expandStyle;
         _cardModels = cardModels.copy ?: @[];
         self.byBgColor(JobsClearColor);
-        self.collectionView.alpha = 1;
+        self.collectionView.byAlpha(1);
     };return self;
 }
 
--(void)reloadDataWithCardModels:(NSArray<JobsWalletCardModel *> *)cardModels{
-    self.cardModels = cardModels;
+-(jobsByNSArrayJobsWalletCardModelBlock _Nonnull)reloadDataWithCardModels{
+    @jobs_weakify(self)
+    return ^(NSArray<JobsWalletCardModel *> * cardModels){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byCardModels(cardModels);
+    };
 }
 
--(void)expandAllCards{
-    [self.walletLayout expandAllIndexPaths];
+-(jobsByVoidBlock _Nonnull)expandAllCards{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.walletLayout.expandAllIndexPaths();
+    };
 }
 
--(void)collapseAllCards{
-    [self.walletLayout resetExpandedIndexPathsAnimated:YES];
+-(jobsByVoidBlock _Nonnull)collapseAllCards{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.walletLayout.resetExpandedIndexPathsAnimated(YES);
+    };
 }
 
 -(void)setCardModels:(NSArray<JobsWalletCardModel *> *)cardModels{
     _cardModels = cardModels.copy ?: @[];
-    [self.walletLayout resetExpandedIndexPaths];
+    self.walletLayout.resetExpandedIndexPaths();
     [self.collectionView reloadData];
 }
 
@@ -60,7 +82,17 @@ Prop_strong()JobsWalletCollectionViewLayout *walletLayout;
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return 1;
+    JobsRetNSIntegerByUICollectionViewBlock action = ((JobsRetNSIntegerByUICollectionViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsWalletCardView.class, @selector(jobsNumberOfSectionsInCollectionView)))(self, @selector(jobsNumberOfSectionsInCollectionView));
+    return action ? action(collectionView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUICollectionViewBlock _Nonnull)jobsNumberOfSectionsInCollectionView{
+    @jobs_weakify(self)
+    return ^NSInteger(UICollectionView * collectionView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 1;
+    };
 }
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView
@@ -72,14 +104,14 @@ Prop_strong()JobsWalletCollectionViewLayout *walletLayout;
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     JobsWalletCardCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass(JobsWalletCardCollectionViewCell.class) forIndexPath:indexPath];
     if (indexPath.item < self.cardModels.count) {
-        [cell jobsRichCardModel:self.cardModels[indexPath.item]];
+        cell.jobsRichCardModel(self.cardModels[indexPath.item]);
     };return cell;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView
 didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.item >= self.cardModels.count) return;
-    [self.walletLayout toggleIndexPath:indexPath];
+    self.walletLayout.toggleIndexPath(indexPath);
 }
 
 -(UICollectionView *)collectionView{
@@ -104,12 +136,22 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
 -(JobsWalletCollectionViewLayout *)walletLayout{
     if (!_walletLayout) {
         _walletLayout = JobsWalletCollectionViewLayout.new;
-        _walletLayout.padding = JobsWidth(15);
-        _walletLayout.itemHeight = JobsWidth(96);
-        _walletLayout.overlapRatio = 0.5;
-        _walletLayout.expandedItemSpacing = JobsWidth(10);
-        _walletLayout.expandStyle = self.expandStyle;
+        _walletLayout.byPadding(JobsWidth(15));
+        _walletLayout.byItemHeight(JobsWidth(96));
+        _walletLayout.byOverlapRatio(0.5);
+        _walletLayout.byExpandedItemSpacing(JobsWidth(10));
+        _walletLayout.byExpandStyle(self.expandStyle);
     };return _walletLayout;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsWalletCardView
+-(JobsRetJobsWalletCardViewByNSArrayJobsWalletCardModelBlock _Nonnull)byCardModels{
+    @jobs_weakify(self)
+    return ^__kindof JobsWalletCardView * _Nullable(NSArray<JobsWalletCardModel *> * _Nullable data){
+        @jobs_strongify(self)
+        [self setCardModels:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsWalletCardView
 @end

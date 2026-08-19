@@ -9,26 +9,23 @@
 
 @implementation NSString (JobsByOCPodsExtra)
 -(UIColor *)cor{
-    return UIColor.jobsCor(self);
+    return (((JobsRetCorByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsCor)))(self, @selector(jobsCor)))();
 }
+
 /// 图片URL路径补齐
--(NSString *_Nullable)imageURLPlus{
-    if(!This.BaseUrl_Image || !This.BaseUrl) return self;
-    if(!self.containsString(HTTP) && isValue(self)){
-        return (isValue(This.BaseUrl_Image) ? This.BaseUrl_Image : This.BaseUrl).add(self);
-    }else return self;
+-(NSString *)imageURLPlus{
+    return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsImageURLPlus)))(self, @selector(jobsImageURLPlus)))();
 }
 /// 一般的URL路径补齐
--(NSString *_Nullable)normalURLPlus{
-    if(!This.BaseUrl_Image) return self;
-    if(!self.containsString(HTTP) && isValue(self)){
-        return This.BaseUrl_Image.add(self);
-    }else return self;
-}
 /// 清除 SDImage 的图片缓存（用 url 为 key）
 /// ⚠️ 这个方法一旦使用，亦会清除掉 placeholderImage
--(void)cleanSDImageCache:(SDWebImageNoParamsBlock _Nullable)block{
-    [SDImageCache.sharedImageCache removeImageForKey:self withCompletion:block];
+-(jobsBySDWebImageNoParamsBlockBlock _Nonnull)cleanSDImageCache{
+    @jobs_weakify(self)
+    return ^(SDWebImageNoParamsBlock _Nullable block){
+        @jobs_strongify(self)
+        if (!self) return;
+        [SDImageCache.sharedImageCache removeImageForKey:self withCompletion:block];
+    };
 }
 /// 复制到系统剪切板
 -(JobsRetStrByVoidBlock _Nonnull)pasteboard{
@@ -36,8 +33,8 @@
         @jobs_weakify(self)
         return jobsMakePasteboard(^(__kindof UIPasteboard * _Nullable pasteboard) {
             @jobs_strongify(self)
-            pasteboard.string = self;
-            self.jobsToastSuccessMsg(@"复制成功".tr);
+            pasteboard.byString(self);
+            self.jobsToastSuccessMsg(@"复制成功".jobsTr());
         }).string;
     };
 }

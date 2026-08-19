@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(jobsByVoidBlock _Nonnull)语言切换的监听;
 -(jobsByVoidBlock _Nonnull)设备方向的监听;
 
+-(jobsByVoidBlock _Nonnull)jobsDidReceiveMemoryWarning;
+
 @end
 
 NS_ASSUME_NONNULL_END

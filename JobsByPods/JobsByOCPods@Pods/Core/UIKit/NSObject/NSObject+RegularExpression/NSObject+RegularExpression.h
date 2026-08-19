@@ -22,6 +22,12 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSInteger, JobsCNIDErrorCode) {
@@ -51,7 +57,7 @@ FOUNDATION_EXPORT NSString * const JobsCNIDErrorDomain;
 #pragma mark —— 身份证号验证
 -(JobsRetBOOLByStrBlock _Nonnull)checkingIdCard;
 /// 中国大陆公民身份证号码严格校验
-+(BOOL)jobs_isValidCNID:(NSString *_Nullable)raw;
++(JobsRetBOOLByStrBlock _Nonnull)jobs_isValidCNID;
 /// 中国大陆公民身份证号码严格校验，成功时返回标准化后的 18 位号码
 +(NSString *_Nullable)jobs_validateCNID:(NSString *_Nullable)raw
                                   error:(NSError *_Nullable *_Nullable)error;

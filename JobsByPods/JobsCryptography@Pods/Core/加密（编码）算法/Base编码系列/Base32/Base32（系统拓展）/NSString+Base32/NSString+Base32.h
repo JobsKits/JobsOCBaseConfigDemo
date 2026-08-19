@@ -24,6 +24,12 @@
 #import "JobsBlock.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (Base32)
@@ -31,21 +37,21 @@ NS_ASSUME_NONNULL_BEGIN
 ///【类方法】以Base32编码的字符串 转换为 普通的字符串
 +(JobsRetStrByStrBlock _Nonnull)stringByBase32String;
 ///【实例方法】以Base32编码的字符串 转换为 普通的字符串
--(NSString *_Nullable)stringByBase32String;
+-(JobsRetStrByVoidBlock _Nonnull)stringByBase32String;
 ///【类方法】普通的字符串 转换为 以Base32编码的字符串
 +(JobsRetStrByStrBlock _Nonnull)base32String;
 ///【实例方法】普通的字符串 转换为 以Base32编码的字符串
--(NSString *_Nullable)base32String;
+-(JobsRetStrByVoidBlock _Nonnull)base32String;
 #pragma mark —— Base32 <==> UIImage
 ///【类方法】将以Base32编码的字符串 转换为 NSData对象，然后再转成UIImage
 +(JobsRetImageByStrBlock _Nonnull)imageByBase32String;
 ///【实例方法】将以Base32编码的字符串 转换为 NSData对象，然后再转成UIImage
--(UIImage *_Nullable)imageByBase32String;
+-(JobsRetImageByVoidBlock _Nonnull)imageByBase32String;
 #pragma mark —— Base32 <==> NSData
 /// 将Base32编码的字符串 转换为 NSData对象
 +(JobsRetDataByStrBlock _Nonnull)dataWithBase32String;
 ///【实例方法】将Base32编码的字符串 转换为 NSData对象
--(NSData *_Nullable)dataWithBase32String;
+-(JobsRetDataByVoidBlock _Nonnull)dataWithBase32String;
 
 @end
 

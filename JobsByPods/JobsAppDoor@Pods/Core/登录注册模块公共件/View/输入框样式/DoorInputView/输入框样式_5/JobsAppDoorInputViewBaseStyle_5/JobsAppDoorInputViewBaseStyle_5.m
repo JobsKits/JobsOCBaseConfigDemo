@@ -23,10 +23,16 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsAppDoorInputViewBaseStyle_5
+@interface JobsAppDoorInputViewBaseStyle_5 (JobsPropertyDSLSetterAutogen_7b1010b771)
+-(void)setDoorInputViewBaseStyleModel:(JobsAppDoorInputViewBaseStyleModel * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_5
+
 @implementation JobsAppDoorInputViewBaseStyle_5
 @synthesize thisViewSize = _thisViewSize;
 -(void)dealloc{
-    [_authCodeBtn stop];
+    _authCodeBtn.stop;
     jobsByCtrlBlock disappearBlock = dropDownListView.dropDownListViewDisappear;
     if (disappearBlock) disappearBlock(nil);
 }
@@ -34,59 +40,99 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
 - (instancetype)initWithSize:(CGSize)thisViewSize{
     if (self = [super init]) {
 //        self.backgroundColor = JobsRedColor;
-        self.thisViewSize = thisViewSize;
+        self.byThisViewSize(thisViewSize);
     };return self;
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAppDoorInputViewBaseStyle_5.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
-    // 指定描边
-    [self setBorderWithColor:RGBA_COLOR(162, 162, 162, 0.2f)
-                 borderWidth:1
-                  borderType:UIBorderSideTypeBottom];
-}
-#pragma mark —— 一些私有方法
--(void)registerNotification{
-    @jobs_weakify(self)
-    [self addNotificationName:@"关闭电话号码区号选择器"
-                        block:^(id _Nullable weakSelf,
-                                id _Nullable arg) {
-        @jobs_strongify(self)
-        NSNotification *notification = (NSNotification *)arg;
-        if([notification.object isKindOfClass:NSNumber.class]){
-            NSNumber *b = notification.object;
-            JobsLog(@"SSS = %d",b.boolValue);
-        }
-        if (self.style_5 == InputViewStyle_5_3) {
-            self->dropDownListView.dropDownListViewDisappear(self.chooseBtn);
-        }
-    }];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAppDoorInputViewBaseStyle_5.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
 }
 
--(void)configTextField{
-    self.zyTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
-    self.zyTextField.background = self.doorInputViewBaseStyleModel.background;
-    self.zyTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
-    self.zyTextField.byTextCor(self.doorInputViewBaseStyleModel.ZYtextColor);
-    self.zyTextField.useCustomClearButton = self.doorInputViewBaseStyleModel.useCustomClearButton;
-    self.zyTextField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;
-    self.zyTextField.rightViewOffsetX = self.doorInputViewBaseStyleModel.rightViewOffsetX ? : JobsWidth(8);// 删除按钮的偏移量
-    self.zyTextField.placeHolderAlignment = self.doorInputViewBaseStyleModel.placeHolderAlignment;
-    self.zyTextField.placeHolderOffset = self.doorInputViewBaseStyleModel.placeHolderOffset;
-    self.zyTextField.leftViewOffsetX = self.doorInputViewBaseStyleModel.leftViewOffsetX;
-    self.zyTextField.text_offset = self.doorInputViewBaseStyleModel.offset;
-    self.zyTextField.requestParams = self.textFieldInputModel;
-    self.zyTextField.placeholderColor = self.doorInputViewBaseStyleModel.placeholderColor;
-    self.zyTextField.placeholderFont = self.doorInputViewBaseStyleModel.placeholderFont;
-    self.zyTextField.fieldEditorOffset = self.doorInputViewBaseStyleModel.fieldEditorOffset ? : JobsWidth(50);
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+        // 指定描边
+        [self setBorderWithColor:RGBA_COLOR(162, 162, 162, 0.2f)
+                     borderWidth:1
+                      borderType:UIBorderSideTypeBottom];
+    };
+}
+#pragma mark —— 一些私有方法
+-(jobsByVoidBlock _Nonnull)registerNotification{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        @jobs_weakify(self)
+        [self addNotificationName:@"关闭电话号码区号选择器"
+                            block:^(id _Nullable weakSelf,
+                                    id _Nullable arg) {
+            @jobs_strongify(self)
+            NSNotification *notification = (NSNotification *)arg;
+            if([notification.object isKindOfClass:NSNumber.class]){
+                NSNumber *b = notification.object;
+                JobsLog(@"SSS = %d",b.boolValue);
+            }
+            if (self.style_5 == InputViewStyle_5_3) {
+                self->dropDownListView.dropDownListViewDisappear(self.chooseBtn);
+            }
+        }];
+    };
+}
+
+-(jobsByVoidBlock _Nonnull)configTextField{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.zyTextField.byPlaceholder(self.doorInputViewBaseStyleModel.placeholder);
+        self.zyTextField.byBackground(self.doorInputViewBaseStyleModel.background);
+        self.zyTextField.byKeyboardType(self.doorInputViewBaseStyleModel.keyboardType);
+        self.zyTextField.byTextCor(self.doorInputViewBaseStyleModel.ZYtextColor);
+        self.zyTextField.byUseCustomClearButton(self.doorInputViewBaseStyleModel.useCustomClearButton);
+        self.zyTextField.byIsShowDelBtn(self.doorInputViewBaseStyleModel.isShowDelBtn);
+        self.zyTextField.byRightViewOffsetX(self.doorInputViewBaseStyleModel.rightViewOffsetX ? : JobsWidth(8));
+        self.zyTextField.byPlaceHolderAlignment(self.doorInputViewBaseStyleModel.placeHolderAlignment);
+        self.zyTextField.byPlaceHolderOffset(self.doorInputViewBaseStyleModel.placeHolderOffset);
+        self.zyTextField.byLeftViewOffsetX(self.doorInputViewBaseStyleModel.leftViewOffsetX);
+        self.zyTextField.byTextOffset(self.doorInputViewBaseStyleModel.offset);
+        self.zyTextField.byRequestParams(self.textFieldInputModel);
+        self.zyTextField.byPlaceholderColor(self.doorInputViewBaseStyleModel.placeholderColor);
+        self.zyTextField.byPlaceholderFont(self.doorInputViewBaseStyleModel.placeholderFont);
+        self.zyTextField.byFieldEditorOffset(self.doorInputViewBaseStyleModel.fieldEditorOffset ? : JobsWidth(50));
+    };
 }
 #pragma mark —— UITextFieldDelegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    return self.doorInputViewBaseStyleModel.keyboardEnable;
+    JobsRetBOOLByUITextFieldBlock action = ((JobsRetBOOLByUITextFieldBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAppDoorInputViewBaseStyle_5.class, @selector(jobsTextFieldShouldBeginEditing)))(self, @selector(jobsTextFieldShouldBeginEditing));
+    return action ? action(textField) : NO;
+}
+
+-(JobsRetBOOLByUITextFieldBlock _Nonnull)jobsTextFieldShouldBeginEditing{
+    @jobs_weakify(self)
+    return ^BOOL(UITextField * textField){
+        @jobs_strongify(self)
+        if (!self) return NO;
+        return self.doorInputViewBaseStyleModel.keyboardEnable;
+    };
 }
 #pragma mark —— BaseViewProtocol
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -100,8 +146,8 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
     @jobs_weakify(self)
     return ^(JobsAppDoorInputViewBaseStyleModel *_Nullable doorInputViewBaseStyleModel) {
         @jobs_strongify(self)
-        self.doorInputViewBaseStyleModel = doorInputViewBaseStyleModel ? : JobsAppDoorInputViewBaseStyleModel.new;
-        [self registerNotification];
+        self.byDoorInputViewBaseStyleModel(doorInputViewBaseStyleModel ? : JobsAppDoorInputViewBaseStyleModel.new);
+        self.registerNotification();
 #warning 这里需要被修改
     //    self.chooseBtnSize = CGSizeMake([UIView widthByData:self.chooseBtnViewModel] + JobsWidth(10), JobsWidth(16));
         if (self.doorInputViewBaseStyleModel) {
@@ -123,35 +169,60 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
                 default:
                     break;
             }
-            self.zyTextField.isShowDelBtn = self.doorInputViewBaseStyleModel.isShowDelBtn;/// ❎
-            [self configTextField];
+            self.zyTextField.byIsShowDelBtn(self.doorInputViewBaseStyleModel.isShowDelBtn);/// ❎
+            self.configTextField();
         }
     };
 }
 #pragma mark —— JobsDoorInputViewProtocol
 -(ZYTextField *_Nullable)getTextField{
-    return self.zyTextField;
+    JobsRetZYTextFieldByVoidBlock action = ((JobsRetZYTextFieldByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAppDoorInputViewBaseStyle_5.class, @selector(jobsGetTextField)))(self, @selector(jobsGetTextField));
+    return action ? action() : nil;
+}
+
+-(JobsRetZYTextFieldByVoidBlock _Nonnull)jobsGetTextField{
+    @jobs_weakify(self)
+    return ^ZYTextField *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.zyTextField;
+    };
 }
 
 -(NSString *_Nullable)textFieldValue{
-    return self.zyTextField.text;
+    JobsRetStrByVoidBlock action = ((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAppDoorInputViewBaseStyle_5.class, @selector(jobsTextFieldValue)))(self, @selector(jobsTextFieldValue));
+    return action ? action() : nil;
 }
 
--(BaseButton *)getSecurityModeBtn{
-    return _securityModeBtn;
+-(JobsRetStrByVoidBlock _Nonnull)jobsTextFieldValue{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.zyTextField.text;
+    };
+}
+
+-(JobsRetBaseButtonByVoidBlock _Nonnull)getSecurityModeBtn{
+    @jobs_weakify(self)
+    return ^BaseButton *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return _securityModeBtn;
+    };
 }
 #pragma mark —— lazyLoad
 -(BaseButton *)securityModeBtn{
     if (!_securityModeBtn) {
         @jobs_weakify(self)
         _securityModeBtn = BaseButton
-            .initByNormalImage(self.doorInputViewBaseStyleModel.unSelectedSecurityBtnIMG ? : JobsBlueColor.image)
+            .initByNormalImage(self.doorInputViewBaseStyleModel.unSelectedSecurityBtnIMG ? : JobsBlueColor.jobsImage())
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
                 x.byToggleSelected();
                 if (x.jobs_isSelected) {
-                    x.jobsResetBtnImage(self.doorInputViewBaseStyleModel.selectedSecurityBtnIMG ? : JobsRedColor.image);
+                    x.jobsResetBtnImage(self.doorInputViewBaseStyleModel.selectedSecurityBtnIMG ? : JobsRedColor.jobsImage());
                 }
                 self.zyTextField.bySecureTextEntry(x.jobs_isSelected);
                 if (x.jobs_isSelected && !self.zyTextField.isEditing) {
@@ -276,9 +347,9 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
             return self.retBoolByIDBlock ? self.retBoolByIDBlock(data) : YES;
         } subscribeNextBlock:^(NSString * _Nullable x) {
             @jobs_strongify(self)
-            self.securityModeBtn.jobsVisible = isValue(x) && self.doorInputViewBaseStyleModel.isShowSecurityBtn;/// 👁
+            self.securityModeBtn.byJobsVisible(isValue(x) && self.doorInputViewBaseStyleModel.isShowSecurityBtn);
             if (x.isContainsSpecialSymbolsString(nil)) {
-                toastBy(@"Do not enter special characters".tr);
+                toastBy(@"Do not enter special characters".jobsTr());
             }else{
                 if (self.objBlock) self.objBlock(self->_zyTextField);
             }
@@ -298,8 +369,8 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
             }else{}
         });
     }
-    if (self.doorInputViewBaseStyleModel.textModel.text.isDebugText) {
-        _zyTextField.byText(@"".tr);
+    if (self.doorInputViewBaseStyleModel.textModel.text.isDebugText()) {
+        _zyTextField.byText(@"".jobsTr());
     };return _zyTextField;
 }
 
@@ -308,13 +379,13 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
         @jobs_weakify(self)
         _chooseBtnViewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
             @jobs_strongify(self)
-            data.textModel.byText(@"请选择区号".tr)
+            data.textModel.byText(@"请选择区号".jobsTr())
                           .byTextCor(JobsSecondaryLabelColor)
                           .byTextLineSpacing(0)
                           .byFont(UIFontWeightRegularSize(14));
             data.byBgCor(JobsClearColor)
                 .byJobsWidth(self.chooseBtnSize.width);
-            data.subTextModel.byText(@"".tr);
+            data.subTextModel.byText(@"".jobsTr());
             data.byImage(@"向下的箭头".img);
         });
     };return _chooseBtnViewModel;
@@ -326,26 +397,36 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
         _jobsPageViewDataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
                 @jobs_strongify(self)
-                viewModel.textModel.byText(@"+87".tr)
+                viewModel.textModel.byText(@"+87".jobsTr())
                                    .byTextCor(JobsSecondaryLabelColor)
                                    .byTextLineSpacing(0)
                                    .byFont(UIFontWeightRegularSize(14));
                 viewModel.byBgCor(JobsClearColor)
                          .byJobsWidth(self.chooseBtnSize.width);
-                viewModel.subTextModel.byText(@"".tr);
-            }));
-            data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
+                viewModel.subTextModel.byText(@"".jobsTr());
+            }))
+            .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
                 @jobs_strongify(self)
-                viewModel.textModel.byText(@"+88".tr)
+                viewModel.textModel.byText(@"+88".jobsTr())
                                    .byTextCor(JobsSecondaryLabelColor)
                                    .byTextLineSpacing(0)
                                    .byFont(UIFontWeightRegularSize(14));
                 viewModel.byBgCor(JobsClearColor)
                          .byJobsWidth(self.chooseBtnSize.width);
-                viewModel.subTextModel.byText(@"".tr);
+                viewModel.subTextModel.byText(@"".jobsTr());
             }));
         });
     };return _jobsPageViewDataMutArr;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsAppDoorInputViewBaseStyle_5
+-(JobsRetJobsAppDoorInputViewBaseStyle_5ByJobsAppDoorInputViewBaseStyleModelBlock _Nonnull)byDoorInputViewBaseStyleModel{
+    @jobs_weakify(self)
+    return ^__kindof JobsAppDoorInputViewBaseStyle_5 * _Nullable(JobsAppDoorInputViewBaseStyleModel * _Nullable data){
+        @jobs_strongify(self)
+        [self setDoorInputViewBaseStyleModel:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_5
 @end

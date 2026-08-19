@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_DEBUGLOGDESCRIPTION_4812D86079
 
 #import <objc/runtime.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <Foundation/Foundation.h>
 
 #if __has_include(<JobsStringUtils/JobsStringUtilsHeader.h>)
@@ -29,11 +35,17 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #ifdef DEBUG
 
 @interface NSObject (DebugDescription)
 
-+(void)redirectNSlogToDocumentFolder;
++(jobsByVoidBlock _Nonnull)redirectNSlogToDocumentFolder;
 
 @end
 

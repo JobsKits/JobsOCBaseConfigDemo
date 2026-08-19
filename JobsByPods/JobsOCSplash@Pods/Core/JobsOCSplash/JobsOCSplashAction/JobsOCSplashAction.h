@@ -39,11 +39,14 @@ Prop_strong(nullable, readonly) NSURL *URL;
 Prop_copy(nullable, readonly) JobsOCSplashActionBlock customBlock;
 Prop_assign() BOOL opensExternally;
 
-+(__kindof JobsOCSplashAction *)none;
-+(__kindof JobsOCSplashAction *)openURL:(NSURL *)URL;
-+(__kindof JobsOCSplashAction *)custom:(JobsOCSplashActionBlock)block;
--(JobsOCSplashAction *(^)(BOOL data))byOpensExternally;
--(void)performWithSplashVC:(__kindof JobsOCSplashVC *)splashVC;
++(JobsRetJobsOCSplashActionByVoidBlock _Nonnull)none;
++(JobsRetJobsOCSplashActionByNSURLBlock _Nonnull)openURL;
++(JobsRetJobsOCSplashActionByJobsOCSplashActionBlockBlock _Nonnull)custom;
+-(JobsRetJobsOCSplashActionByActionTypeBlock _Nonnull)byType;
+-(JobsRetJobsOCSplashActionByNSURLBlock _Nonnull)byURL;
+-(JobsRetJobsOCSplashActionByJobsOCSplashActionBlockBlock _Nonnull)byCustomBlock;
+-(JobsRetJobsOCSplashActionByBOOLBlock _Nonnull)byOpensExternally;
+-(JobsOCSplashActionBlock _Nonnull)performWithSplashVC;
 
 @end
 

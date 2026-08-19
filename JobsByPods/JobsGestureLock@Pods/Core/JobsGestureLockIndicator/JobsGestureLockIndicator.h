@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
 #import <JobsBaseUI/UIButton+SimplyMake.h>
@@ -39,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_strong()JobsGestureLockConfiguration *configuration;
 
 -(instancetype)initWithConfiguration:(nullable JobsGestureLockConfiguration *)configuration;
--(void)updateWithPattern:(nullable NSString *)pattern;
+-(jobsByStrBlock _Nonnull)updateWithPattern;
 
 @end
 

@@ -28,6 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 +(JobsRetAVAssetImageGeneratorByAVURLAssetBlock _Nonnull)initBy;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN AVAssetImageGenerator
+-(JobsRetAVAssetImageGeneratorByBOOLBlock _Nonnull)byAppliesPreferredTrackTransform;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END AVAssetImageGenerator
 @end
 
 NS_ASSUME_NONNULL_END

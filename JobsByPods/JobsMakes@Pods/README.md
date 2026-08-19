@@ -45,13 +45,25 @@
 ## 三、UI 创建公约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 常用 UI 创建统一优先走本 Pod 当前真实导出的 `jobsMakeView`、`jobsMakeLabel`、`jobsMakeImageView`、`jobsMakeTextView`、`jobsMakeTextField`、`jobsMakeCollectionView`、`jobsMakeScrollView`、`jobsMakeSlider`、`jobsMakeSwitch`、`jobsMakeStackView`、`jobsMakeProgressView`、`jobsMakeSegmentedControl`、`jobsMakeContextualAction`、`jobsMakeSwipeActionsConfiguration`、`jobsMakeNavigationBarAppearance`、`jobsMakeTabBarAppearance` 等工厂。
-- 菜单与系统条目创建分别使用 `jobsMakeAction`、`jobsMakeMenu` / `jobsMakeMenuByConfiguration`、`jobsMakeContextMenuConfiguration`、`jobsMakeNib`、`jobsMakeBarButtonItemByTitle`、`jobsMakeBarButtonItemByImage`、`jobsMakeBarButtonItemBySystemItem`；空图片走 `jobsMakeImage()`。
+- 菜单与系统条目创建分别使用 `jobsMakeAction`、`jobsMakeMenu` / `jobsMakeMenuByConfiguration`、`jobsMakeContextMenuConfiguration`、`jobsMakeNib`、`jobsMakeBarButtonItemByTitle`、`jobsMakeBarButtonItemByImage`、`jobsMakeBarButtonItemBySystemItem`；空图片走 `jobsMakeImage(config Block)`。
 - 空贝塞尔路径统一使用 `jobsMakeBezierPath(nil)`；该工厂的配置 Block 允许为空，不再另增与它同义的空路径入口。
 - `UIBarButtonItem.initBy(view)` 已承接 customView 创建，`UINavigationController.initBy(viewController)` 已承接 root controller 创建，本 Pod 不重复铺设同义工厂。
 - `jobsMakeButton` 与 `jobsMakeTableViewByPlain/Grouped/InsetGrouped` 当前归属 `JobsByOCPods`，不属于 `JobsMakes`；调用方应按真实聚合头和 Pod 依赖使用，不能只因同为 `jobsMake` 命名就误判归属。
 - `jobsMakeOCKeyboardConfig` 归属 `JobsOCKeyboardMgr/Core/JobsOCKeyboardConfig`；`JobsMakes` 不反向依赖键盘业务 Pod，避免与 `JobsOCDSL` 形成循环。
 - Block 内部先写当前类 DSL，再写父类 DSL；`byAddTo` 放在靠后位置，保证“先加父视图，再布约束”。
 - 如果样式依赖真实 `frame`，例如圆角路径、渐变层、阴影路径、动画起点，放到 `byAddTo + layoutIfNeeded` 之后执行。
+
+- Foundation 无参对象同样使用创建 Block，例如：
+
+  ```objc
+  NSDateFormatter *formatter = jobsMakeDateFormatter(^(NSDateFormatter *dateFormatter) {
+      dateFormatter
+          .byLocale([NSLocale localeWithLocaleIdentifier:@"zh_Hans_CN"])
+          .byDateFormat(@"HH:mm:ss.SSS");
+  });
+  ```
+
+  带参初始化不塞进通用工厂，而是由真实系统类型提供 `initByXxx(arguments)` 类级 Block DSL。
 
   ```objc
   _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {

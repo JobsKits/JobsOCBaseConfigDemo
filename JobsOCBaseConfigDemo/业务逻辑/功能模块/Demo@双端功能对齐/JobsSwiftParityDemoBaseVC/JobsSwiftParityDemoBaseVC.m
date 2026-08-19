@@ -10,68 +10,125 @@
 @implementation JobsSwiftParityDemoBaseVC
 
 -(void)dealloc{
-    [_primaryActionBtn jobs_removeAllHandlers];
+    _primaryActionBtn.jobs_removeAllHandlers();
     JobsLog(@"%@",JobsLocalFunc);
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if (self.viewModel.pushOrPresent != ComingStyle_Unknown) {
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsSwiftParityDemoBaseVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if (self.viewModel.pushOrPresent != ComingStyle_Unknown) {
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(self.demoNavigationTitle.tr)
-                .byFont(UIFontWeightRegularSize(16))
-                .byTextCor(UIColor.labelColor);
-        })
-        .byBgCor(UIColor.systemGroupedBackgroundColor)
-        .byNavBgCor(UIColor.systemBackgroundColor);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(self.demoNavigationTitle().jobsTr())
+                    .byFont(UIFontWeightRegularSize(16))
+                    .byTextCor(UIColor.labelColor);
+            })
+            .byBgCor(UIColor.systemGroupedBackgroundColor)
+            .byNavBgCor(UIColor.systemBackgroundColor);
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.makeNavByAlpha(1);
-    self.view.byBgColor(UIColor.systemGroupedBackgroundColor);
-    self.parityScrollView.byHidden(NO);
-    self.contentView.byHidden(NO);
-    self.introLab.byHidden(NO);
-    self.previewView.byHidden(NO);
-    self.previewImageView.byHidden(NO);
-    self.previewTitleLab.byHidden(NO);
-    self.primaryActionBtn.byHidden(NO);
-    self.statusLab.byHidden(NO);
-    [self configureDemo];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsSwiftParityDemoBaseVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
 }
 
--(NSString *)demoNavigationTitle{
-    return @"功能演示";
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.makeNavByAlpha(1);
+        self.view.byBgColor(UIColor.systemGroupedBackgroundColor);
+        self.parityScrollView.byHidden(NO);
+        self.contentView.byHidden(NO);
+        self.introLab.byHidden(NO);
+        self.previewView.byHidden(NO);
+        self.previewImageView.byHidden(NO);
+        self.previewTitleLab.byHidden(NO);
+        self.primaryActionBtn.byHidden(NO);
+        self.statusLab.byHidden(NO);
+        self.configureDemo();
+    };
 }
 
--(NSString *)demoDescription{
-    return @"该页面用于展示一项独立功能。";
+-(JobsRetStrByVoidBlock _Nonnull)demoNavigationTitle{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"功能演示";
+    };
 }
 
--(NSString *)demoIconName{
-    return @"arrow.left.arrow.right.circle";
+-(JobsRetStrByVoidBlock _Nonnull)demoDescription{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"该页面用于展示一项独立功能。";
+    };
 }
 
--(NSString *)primaryActionTitle{
-    return @"执行 Demo";
+-(JobsRetStrByVoidBlock _Nonnull)demoIconName{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"arrow.left.arrow.right.circle";
+    };
 }
 
--(void)configureDemo{}
+-(JobsRetStrByVoidBlock _Nonnull)primaryActionTitle{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"执行 Demo";
+    };
+}
 
--(void)performPrimaryAction{}
+-(jobsByVoidBlock _Nonnull)configureDemo{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+    };
+}
 
--(void)updateStatus:(NSString *)text{
-    self.statusLab.byText([NSString stringWithFormat:@"状态：%@",text]);
+-(jobsByVoidBlock _Nonnull)performPrimaryAction{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+    };
+}
+
+-(jobsByStrBlock _Nonnull)updateStatus{
+    @jobs_weakify(self)
+    return ^(NSString * text){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.statusLab.byText([NSString stringWithFormat:@"状态：%@",text]);
+    };
 }
 #pragma mark —— LazyLoad
 -(UIScrollView *)parityScrollView{
@@ -107,7 +164,7 @@
     if (!_introLab) {
         _introLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(self.demoDescription.tr)
+                .byText(self.demoDescription().jobsTr())
                 .byNumberOfLines(0)
                 .byFont(UIFontWeightRegularSize(14))
                 .byTextCor(UIColor.secondaryLabelColor);
@@ -143,7 +200,7 @@
     if (!_previewImageView) {
         _previewImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
             imageView
-                .byImage(self.demoIconName.sys_img)
+                .byImage(self.demoIconName().sys_img)
                 .byContentMode(UIViewContentModeScaleAspectFit)
                 .byTintColor(UIColor.systemBlueColor)
                 .byClipsToBounds(YES);
@@ -162,7 +219,7 @@
     if (!_previewTitleLab) {
         _previewTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(self.demoNavigationTitle.tr)
+                .byText(self.demoNavigationTitle().jobsTr())
                 .byNumberOfLines(0)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byFont(UIFontWeightSemiboldSize(17))
@@ -183,7 +240,7 @@
         @jobs_weakify(self)
         _primaryActionBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
-                .jobsResetBtnTitle(self.primaryActionTitle.tr)
+                .jobsResetBtnTitle(self.primaryActionTitle().jobsTr())
                 .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(16))
                 .jobsResetBtnTitleCor(UIColor.whiteColor)
                 .jobsResetBtnBgCor(UIColor.systemBlueColor)

@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_END
 
 NS_INLINE __kindof BaseTextView *_Nonnull jobsMakeBaseTextView(jobsByBaseTextViewBlock _Nonnull block){
     BaseTextView *data = BaseTextView.alloc.init;
-    data.linkTextAttributes = NSObject.linkTextAttributes;
+    data.linkTextAttributes = NSObject.linkTextAttributes();
     if (block) block(data);
     return data;
 }
@@ -75,16 +75,16 @@ NS_INLINE __kindof BaseTextView *_Nonnull jobsMakeBaseTextView(jobsByBaseTextVie
                      data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable config) {
                          config.byFont(UIFontWeightRegularSize(JobsWidth(12)))
                                .byTextCor(JobsWhiteColor)
-                               .byTargetString(@"Already have account?".tr);
+                               .byTargetString(@"Already have account?".jobsTr());
                  //        config.textBgCor = UIColor.clearColor;
-                         config.byParagraphStyle(self.defaultParagraphStyle);
+                         config.byParagraphStyle(self.defaultParagraphStyle());
                      }));
                      data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable config) {
                          config.byFont(UIFontWeightRegularSize(JobsWidth(12)))
-                               .byTextCor(@"#FFC700".cor)
-                               .byTargetString(@" ".add(@"Login Here".tr));
+                               .byTextCor(@"#FFC700".jobsCor())
+                               .byTargetString(@" ".add(@"Login Here".jobsTr()));
                  //        config.textBgCor = UIColor.clearColor;
-                         config.byParagraphStyle(self.defaultParagraphStyle)
+                         config.byParagraphStyle(self.defaultParagraphStyle())
                                .byUrlStr(@"www.google.com");
                      }));
                  }))).byBgColor(JobsClearColor);

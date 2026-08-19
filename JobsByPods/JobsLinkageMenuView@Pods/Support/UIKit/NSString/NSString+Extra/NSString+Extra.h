@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// OC字符串拼接
 -(JobsRetStrByStrBlock _Nonnull)add;
 /// 字符串是否包含URL【返回YES包含】
--(BOOL)isContainsUrl;
+-(JobsRetBOOLByVoidBlock _Nonnull)isContainsUrl;
 /// 对系统方法 - (nullable instancetype)initWithContentsOfFile:(NSString *)path encoding:(NSStringEncoding)enc error:(NSError **)error; 的二次封装
 -(JobsRetStrByStrBlock _Nonnull)initByContentsOfFile;
 

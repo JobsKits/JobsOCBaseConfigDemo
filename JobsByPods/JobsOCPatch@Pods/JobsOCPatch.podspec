@@ -29,6 +29,7 @@ JobsOCPatch provides a small Objective-C runtime patch manager that can temporar
   ]
 
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsBlock'
 
   JobsPodspecKitForJobsOCPatch.add_support_subspec(spec, support_context)
 

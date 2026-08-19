@@ -9,16 +9,34 @@
 
 @implementation NSObject (Extra)
 /// NSBundle
-+(NSBundle *_Nullable)mainBundle{
-    return NSBundle.mainBundle;
++(NSBundle *)mainBundle{
+    return (((JobsRetNSBundleByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(NSObject.class, @selector(jobsMainBundle)))(self, @selector(jobsMainBundle)))();
+}
+
++(JobsRetNSBundleByVoidBlock _Nonnull)jobsMainBundle{
+    return ^NSBundle *_Nullable{
+        return NSBundle.mainBundle;
+    };
 }
 /// NSLocale
-+(NSLocale *_Nullable)currentLocale{
-    return NSLocale.currentLocale;
++(NSLocale *)currentLocale{
+    return (((JobsRetNSLocaleByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(NSObject.class, @selector(jobsCurrentLocale)))(self, @selector(jobsCurrentLocale)))();
+}
+
++(JobsRetNSLocaleByVoidBlock _Nonnull)jobsCurrentLocale{
+    return ^NSLocale *_Nullable{
+        return NSLocale.currentLocale;
+    };
 }
 /// UIDevice
-+(UIDevice *_Nullable)currentDevice{
-    return UIDevice.currentDevice;
++(UIDevice *)currentDevice{
+    return (((JobsRetUIDeviceByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(NSObject.class, @selector(jobsCurrentDevice)))(self, @selector(jobsCurrentDevice)))();
+}
+
++(JobsRetUIDeviceByVoidBlock _Nonnull)jobsCurrentDevice{
+    return ^UIDevice *_Nullable{
+        return UIDevice.currentDevice;
+    };
 }
 /// 震动特效反馈
 +(jobsByViewBlock _Nonnull)feedbackGenerator{
@@ -37,7 +55,7 @@
         } else if (@available(iOS 10.0, *)) {
             /// iOS 10.0 - 17.4 使用旧的初始化方法
             UIImpactFeedbackGenerator *generator = UIImpactFeedbackGenerator.initByMediumStyle;
-            [generator prepare];
+            generator.prepare;
             [generator impactOccurred];
         } else {
             /// iOS 10.0 以下，使用系统音效反馈
@@ -47,14 +65,14 @@
 }
 /// 播放自定义本地声音
 /// fileName 全文件名 包含后缀
--(jobsByStrBlock)playSoundEffect{
+-(jobsByStrBlock _Nonnull)playSoundEffect{
     return ^(NSString *_Nullable fileFullName){
         FileNameModel *fileNameModel = fileFullName.byFileFullName(fileFullName);
         SystemSoundID soundID;
         /// 得到音效文件的地址
-        NSString *soundFilePath = fileNameModel.name.add(fileNameModel.type).pathForResourceWithFullName;
+        NSString *soundFilePath = fileNameModel.name.add(fileNameModel.type).jobsPathForResourceWithFullName();
         /// 生成系统音效id
-        OSStatus errorCode = AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundFilePath.jobsUrl, &soundID);
+        OSStatus errorCode = AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundFilePath.jobsURL(), &soundID);
         if (errorCode) {
             JobsLog(@"create sound failed");
             return;
@@ -70,7 +88,7 @@
         NSString *raw = SELF.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
         if (!isValue(raw)) { return nil; }
         // 1) 拒绝网络：同步接口不触网
-        if (SELF.isContainsUrl) { return nil; }
+        if (SELF.isContainsUrl()) { return nil; }
         // 2) dataURL: data:image/png;base64,xxxx
         if ([raw hasPrefix:@"data:image/"]) {
             UIImage *img = self.imageByDataURL(raw);
@@ -112,23 +130,28 @@
     };
 }
 /// 导航返回键的配置
--(UIButtonModel *)makeBackBtnModel{
+-(JobsRetUIButtonModelByVoidBlock _Nonnull)jobsMakeBackBtnModel{
     @jobs_weakify(self)
-    return jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
+    return ^UIButtonModel *{
         @jobs_strongify(self)
-//        data.backgroundImage = @"返回".img
-        data.byHighlightBackgroundImage(@"返回".img)
-            .byHighlightImage(@"返回".img)
-            .byNormalImage(@"返回".img)
-            .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
-            .byTitle(self.viewModel.backBtnTitleModel.text)
-            .byFont(self.viewModel.backBtnTitleModel.font)
-            .byTitleCor(JobsLabelColor)
-            .bySelectedTitleCor(JobsLabelColor)
-            .byRoundingCorners(UIRectCornerAllCorners)
-            .byImagePlacement(NSDirectionalRectEdgeLeading)
-            .byImagePadding(JobsWidth(5));
-    });
+        if (!self) return nil;
+        @jobs_weakify(self)
+        return jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
+            @jobs_strongify(self)
+    //        data.backgroundImage = @"返回".img
+            data.byHighlightBackgroundImage(@"返回".img)
+                .byHighlightImage(@"返回".img)
+                .byNormalImage(@"返回".img)
+                .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
+                .byTitle(self.viewModel.backBtnTitleModel.text)
+                .byFont(self.viewModel.backBtnTitleModel.font)
+                .byTitleCor(JobsLabelColor)
+                .bySelectedTitleCor(JobsLabelColor)
+                .byRoundingCorners(UIRectCornerAllCorners)
+                .byImagePlacement(NSDirectionalRectEdgeLeading)
+                .byImagePadding(JobsWidth(5));
+        });
+    };
 }
 
 -(jobsByBtnBlock _Nonnull)jobsBackBtnClickEvent{
@@ -170,5 +193,12 @@
 }
 /// Prop_strong()UIViewModel *viewModel;
 PROP_STRONG_OBJECT_Default_TYPE(UIViewModel, viewModel, ViewModel)
+
+-(JobsRetIDByIDBlock _Nonnull)byViewModel{
+    return ^id(UIViewModel *_Nullable viewModel){
+        [self setViewModel:viewModel];
+        return self;
+    };
+}
 
 @end

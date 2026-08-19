@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface WKWebsiteDataStore (Extra)
 
-- (jobsByVoidBlock)clean;
+- (jobsByVoidBlock _Nonnull)clean;
 
 @end
 

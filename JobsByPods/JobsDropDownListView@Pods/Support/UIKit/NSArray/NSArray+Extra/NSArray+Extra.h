@@ -53,7 +53,7 @@
 /// 数组里面是否包含某个元素
 -(JobsRetBOOLByIDBlock _Nonnull)containsObject;
 /// 数组转字符串
--(NSString *_Nonnull)string;
+-(JobsRetStrByVoidBlock _Nonnull)string;
 /// 数组比较
 -(JobsRetBOOLByArrBlock _Nonnull)compareEqualArrElement;
 /// 数组计算交集

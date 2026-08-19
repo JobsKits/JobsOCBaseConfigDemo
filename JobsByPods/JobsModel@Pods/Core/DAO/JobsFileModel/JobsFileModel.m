@@ -12,7 +12,7 @@
 @implementation JobsFileModel
 -(NSString *)fileName{
     if(!_fileName){
-        _fileName = self.currentDate.toReadableTime(nil);
+        _fileName = self.jobsCurrentDate().toReadableTime(nil);
     };return _fileName;
 }
 

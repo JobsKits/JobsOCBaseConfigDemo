@@ -13,18 +13,23 @@ JobsKey(JobsUILabelTextDisplayModeKey)
 
 @interface UILabel (ScrollingPrivate)
 
--(nullable JobsLabelScrollController *)jobs_existingScrollController;
--(JobsLabelScrollController *)jobs_scrollController;
+-(JobsRetJobsLabelScrollControllerByVoidBlock _Nonnull)jobs_existingScrollController;
+-(JobsRetJobsLabelScrollControllerByVoidBlock _Nonnull)jobs_scrollController;
 
 @end
 
 @implementation UILabel (Scrolling)
 
--(instancetype)byTextDisplayMode:(JobsLabelTextDisplayMode)mode{
-    return [self byTextDisplayMode:mode
-               minimumScaleFactor:.5f
-             maximumNumberOfLines:2
-              scrollConfiguration:JobsLabelScrollConfiguration.continuousConfiguration];
+-(JobsRetIDByJobsLabelTextDisplayModeBlock _Nonnull)byTextDisplayMode{
+    @jobs_weakify(self)
+    return ^id(JobsLabelTextDisplayMode mode){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [self byTextDisplayMode:mode
+                   minimumScaleFactor:.5f
+                 maximumNumberOfLines:2
+                  scrollConfiguration:JobsLabelScrollConfiguration.continuousConfiguration()];
+    };
 }
 
 -(instancetype)byTextDisplayMode:(JobsLabelTextDisplayMode)mode
@@ -35,7 +40,7 @@ JobsKey(JobsUILabelTextDisplayModeKey)
     switch (mode) {
         /// 处理 JobsLabelTextDisplayModeScaleToFit 分支
         case JobsLabelTextDisplayModeScaleToFit:
-            [self byStopTextScroll]
+            self.byStopTextScroll()
                 .byNumberOfLines(1)
                 .byAdjustsFontSizeToFitWidth(YES)
                 .byMinimumScaleFactor(MIN(MAX(.01f, minimumScaleFactor), 1))
@@ -43,7 +48,7 @@ JobsKey(JobsUILabelTextDisplayModeKey)
             break;
         /// 处理 JobsLabelTextDisplayModeSingleLineTailTruncation 分支
         case JobsLabelTextDisplayModeSingleLineTailTruncation:
-            [self byStopTextScroll]
+            self.byStopTextScroll()
                 .byNumberOfLines(1)
                 .byAdjustsFontSizeToFitWidth(NO)
                 .byMinimumScaleFactor(1)
@@ -51,7 +56,7 @@ JobsKey(JobsUILabelTextDisplayModeKey)
             break;
         /// 处理 JobsLabelTextDisplayModeMultiLineTailTruncation 分支
         case JobsLabelTextDisplayModeMultiLineTailTruncation:
-            [self byStopTextScroll]
+            self.byStopTextScroll()
                 .byNumberOfLines(MAX(2, maximumNumberOfLines))
                 .byAdjustsFontSizeToFitWidth(NO)
                 .byMinimumScaleFactor(1)
@@ -63,61 +68,112 @@ JobsKey(JobsUILabelTextDisplayModeKey)
                 .byAdjustsFontSizeToFitWidth(NO)
                 .byMinimumScaleFactor(1)
                 .byLineBreakMode(NSLineBreakByClipping);
-            [self byTextScroll:scrollConfiguration ?: JobsLabelScrollConfiguration.continuousConfiguration];
-            [self byStartTextScroll];
+            self.byTextScroll(scrollConfiguration ?: JobsLabelScrollConfiguration.continuousConfiguration());
+            self.byStartTextScroll();
             break;
-    }return self;
+    };return self;
 }
 
--(JobsLabelTextDisplayMode)jobs_textDisplayMode{
-    NSNumber *value = Jobs_getAssociatedObject(JobsUILabelTextDisplayModeKey);
-    return value ? value.unsignedIntegerValue : JobsLabelTextDisplayModeSingleLineTailTruncation;
+-(JobsRetJobsLabelTextDisplayModeByVoidBlock _Nonnull)jobs_textDisplayMode{
+    @jobs_weakify(self)
+    return ^JobsLabelTextDisplayMode{
+        @jobs_strongify(self)
+        if (!self) return (JobsLabelTextDisplayMode){0};
+        NSNumber *value = Jobs_getAssociatedObject(JobsUILabelTextDisplayModeKey);
+        return value ? value.unsignedIntegerValue : JobsLabelTextDisplayModeSingleLineTailTruncation;
+    };
 }
 
--(JobsLabelScrollController *)jobs_scrollController{
-    JobsLabelScrollController *controller = [self jobs_existingScrollController];
-    if (!controller) {
-        controller = [JobsLabelScrollController.alloc initWithLabel:self];
-        Jobs_setAssociatedRETAIN_NONATOMIC(JobsUILabelScrollingControllerKey, controller)
-    }return controller;
+-(JobsRetJobsLabelScrollControllerByVoidBlock _Nonnull)jobs_scrollController{
+    @jobs_weakify(self)
+    return ^JobsLabelScrollController *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        JobsLabelScrollController *controller = self.jobs_existingScrollController();
+        if (!controller) {
+            controller = [JobsLabelScrollController.alloc initWithLabel:self];
+            Jobs_setAssociatedRETAIN_NONATOMIC(JobsUILabelScrollingControllerKey, controller)
+        };return controller;
+    };
 }
 
--(JobsLabelScrollController *)jobs_existingScrollController{
-    return Jobs_getAssociatedObject(JobsUILabelScrollingControllerKey);
+-(JobsRetJobsLabelScrollControllerByVoidBlock _Nonnull)jobs_existingScrollController{
+    @jobs_weakify(self)
+    return ^JobsLabelScrollController *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return Jobs_getAssociatedObject(JobsUILabelScrollingControllerKey);
+    };
 }
 
--(instancetype)byTextScroll:(JobsLabelScrollConfiguration *)configuration{
-    [self.jobs_scrollController configure:configuration];
-    return self;
+-(JobsRetIDByJobsLabelScrollConfigurationBlock _Nonnull)byTextScroll{
+    @jobs_weakify(self)
+    return ^id(JobsLabelScrollConfiguration * configuration){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        (self.jobs_scrollController()).configure(configuration);
+        return self;
+    };
 }
 
--(instancetype)byStartTextScroll{
-    [self.jobs_scrollController start];
-    return self;
+-(JobsRetIDByVoidBlock _Nonnull)byStartTextScroll{
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        (self.jobs_scrollController()).start();
+        return self;
+    };
 }
 
--(instancetype)byPauseTextScroll{
-    [self.jobs_scrollController pause];
-    return self;
+-(JobsRetIDByVoidBlock _Nonnull)byPauseTextScroll{
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        (self.jobs_scrollController()).pause();
+        return self;
+    };
 }
 
--(instancetype)byResumeTextScroll{
-    [self.jobs_scrollController resume];
-    return self;
+-(JobsRetIDByVoidBlock _Nonnull)byResumeTextScroll{
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        (self.jobs_scrollController()).resume();
+        return self;
+    };
 }
 
--(instancetype)byReloadTextScroll{
-    [self.jobs_scrollController reload];
-    return self;
+-(JobsRetIDByVoidBlock _Nonnull)byReloadTextScroll{
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        (self.jobs_scrollController()).reload();
+        return self;
+    };
 }
 
--(instancetype)byStopTextScroll{
-    [self.jobs_existingScrollController stop];
-    return self;
+-(JobsRetLabelByVoidBlock _Nonnull)byStopTextScroll{
+    @jobs_weakify(self)
+    return ^__kindof UILabel *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        JobsLabelScrollController *controller = self.jobs_existingScrollController();
+        if (controller) controller.jobsStop();
+        return self;
+    };
 }
 
--(BOOL)jobs_isTextScrolling{
-    return self.jobs_existingScrollController.isRunning;
+-(JobsRetBOOLByVoidBlock _Nonnull)jobs_isTextScrolling{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return self.jobs_existingScrollController().isRunning;
+    };
 }
 
 @end

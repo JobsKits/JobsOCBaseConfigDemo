@@ -9,7 +9,19 @@
 #define JOBS_HEADER_GUARD_JOBSBIOKIT_BF73A67F98
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <LocalAuthentication/LocalAuthentication.h>
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -45,19 +57,19 @@ typedef void(^JobsBioKitReply)(JobsBioKitResult result,
 @interface JobsBioKit : NSObject
 
 /// 单例入口，适合需要统一管理认证策略的场景。
-+ (instancetype)shared;
++ (JobsRetIDByVoidBlock _Nonnull)shared;
 
 /// 当前设备支持的生物识别类型。
-+ (JobsBioKitType)biometryType;
++ (JobsRetJobsBioKitTypeByVoidBlock _Nonnull)biometryType;
 
 /// 获取当前生物识别类型对应的可读名称。
-+ (NSString *)biometryName;
++ (JobsRetStrByVoidBlock _Nonnull)biometryName;
 
 /// 当前设备是否可进行生物识别认证。
-+ (BOOL)isBiometryAvailable:(NSError * _Nullable * _Nullable)error;
++(JobsRetBOOLByNSErrorBlock _Nonnull)isBiometryAvailable;
 
 /// 当前设备是否可进行设备所有者认证（生物识别 / 设备密码 / 其他系统支持方式）。
-+ (BOOL)isDeviceOwnerAuthenticationAvailable:(NSError * _Nullable * _Nullable)error;
++(JobsRetBOOLByNSErrorBlock _Nonnull)isDeviceOwnerAuthenticationAvailable;
 
 /// 发起身份认证。
 /// @param reason 系统弹窗展示的认证原因。
@@ -75,7 +87,7 @@ typedef void(^JobsBioKitReply)(JobsBioKitResult result,
                          reply:(JobsBioKitReply)reply;
 
 /// 将系统错误转换为业务结果枚举。
-+ (JobsBioKitResult)resultForError:(nullable NSError *)error;
++(JobsRetJobsBioKitResultByNSErrorBlock _Nonnull)resultForError;
 
 @end
 

@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_1_A2DF156E15
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsAppDoor/JobsAppDoorConfig.h>
 #import <JobsAppDoor/JobsAppDoorInputViewBaseStyle.h>
 
@@ -67,7 +73,7 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_assign()CGFloat countDownBtnWidth;
 Prop_assign()CGFloat textFieldWidth;
 /// 倒计时按钮（需要销毁定时器）
--(UIButton *)getCountDownBtn;
+-(JobsRetBtnByVoidBlock _Nonnull)getCountDownBtn;
 /**
  
  * 其实并不建议用init方法,而是期望带参数初始化，比如对应BaseViewProtocol里面的 - (instancetype)initWithSize:(CGSize)thisViewSize
@@ -80,6 +86,11 @@ Prop_assign()CGFloat textFieldWidth;
  
  */
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorInputViewBaseStyle_1
+-(JobsRetJobsAppDoorInputViewBaseStyle_1ByJobsAppDoorInputViewBaseStyleModelBlock _Nonnull)byDoorInputViewBaseStyleModel;
+-(JobsRetJobsAppDoorInputViewBaseStyle_1ByNSStringBlock _Nonnull)byTitleStr_1;
+-(JobsRetJobsAppDoorInputViewBaseStyle_1ByNSStringBlock _Nonnull)byTitleStr_2;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_1
 @end
 
 NS_ASSUME_NONNULL_END

@@ -11,26 +11,49 @@
 
 Prop_strong()UIView *bgView;
 
+-(JobsRetTextCellByViewBlock _Nonnull)bySelectedBackgroundView;
+
 @end
 
 @implementation TextCell
+
+-(JobsRetTextCellByViewBlock _Nonnull)bySelectedBackgroundView{
+    @jobs_weakify(self)
+    return ^__kindof TextCell *_Nullable(UIView *_Nullable view){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setSelectedBackgroundView:view];
+        return self;
+    };
+}
+
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.selectedBackgroundView = self.bgView;
+        self.bySelectedBackgroundView(self.bgView);
         self.label.byAlpha(1);
     };return self;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)coder{
     if (self = [super initWithCoder:coder]) {
-        self.selectedBackgroundView = self.bgView;
+        self.bySelectedBackgroundView(self.bgView);
         self.label.byAlpha(1);
     };return self;
 }
 
-- (void)setFrame:(CGRect)frame {
-    [super setFrame:frame];
-    self.label.byFrame(CGRectInset(self.bounds, 4, 2));
+-(void)setFrame:(CGRect)frame{
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(TextCell.class, @selector(jobsSetFrame)))(self, @selector(jobsSetFrame));
+    if (action) action(frame);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsSetFrame{
+    @jobs_weakify(self)
+    return ^(CGRect frame){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super setFrame:frame];
+        self.label.byFrame(CGRectInset(self.bounds, 4, 2));
+    };
 }
 #pragma mark —— lazyLoad
 -(UIView *)bgView{

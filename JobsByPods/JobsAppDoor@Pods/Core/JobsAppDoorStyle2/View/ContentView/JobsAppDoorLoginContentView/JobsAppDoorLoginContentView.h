@@ -65,6 +65,9 @@ JobsDoorInputViewProtocol
 ,BaseViewProtocol
 >
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorLoginContentView
+-(JobsRetJobsAppDoorLoginContentViewByRACCompoundDisposableBlock _Nonnull)bySendBtnEnableDisposable;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorLoginContentView
 @end
 
 NS_ASSUME_NONNULL_END

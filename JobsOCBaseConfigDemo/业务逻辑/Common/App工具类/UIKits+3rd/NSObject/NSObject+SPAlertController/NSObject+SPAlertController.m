@@ -7,6 +7,58 @@
 
 #import "NSObject+SPAlertController.h"
 
+@implementation SPAlertController (JobsSPAlertControllerDSL)
+
+#define JOBS_SP_ALERT_CONTROLLER_DSL(_selector_, _property_, _type_, _blockType_) \
+-(_blockType_ _Nonnull)_selector_{ \
+    @jobs_weakify(self) \
+    return ^__kindof SPAlertController *_Nullable(_type_ data){ \
+        @jobs_strongify(self) \
+        self._property_ = data; \
+        return self; \
+    }; \
+}
+
+JOBS_SP_ALERT_CONTROLLER_DSL(byTitleColor, titleColor, UIColor *_Nullable, JobsRetSPAlertControllerByCorBlock)
+JOBS_SP_ALERT_CONTROLLER_DSL(byMessageColor, messageColor, UIColor *_Nullable, JobsRetSPAlertControllerByCorBlock)
+JOBS_SP_ALERT_CONTROLLER_DSL(byTitleFont, titleFont, UIFont *_Nullable, JobsRetSPAlertControllerByFontBlock)
+JOBS_SP_ALERT_CONTROLLER_DSL(byMessageFont, messageFont, UIFont *_Nullable, JobsRetSPAlertControllerByFontBlock)
+
+#undef JOBS_SP_ALERT_CONTROLLER_DSL
+
+@end
+
+@implementation SPAlertAction (JobsSPAlertControllerDSL)
+-(JobsRetSPAlertActionByNSIntegerBlock _Nonnull)byIndex{
+    @jobs_weakify(self)
+    return ^__kindof SPAlertAction *_Nullable(NSInteger data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.index = data;
+        return self;
+    };
+}
+
+-(JobsRetSPAlertActionByCorBlock _Nonnull)byTitleColor{
+    @jobs_weakify(self)
+    return ^__kindof SPAlertAction *_Nullable(UIColor *_Nullable data){
+        @jobs_strongify(self)
+        self.titleColor = data;
+        return self;
+    };
+}
+
+-(JobsRetSPAlertActionByFontBlock _Nonnull)byTitleFont{
+    @jobs_weakify(self)
+    return ^__kindof SPAlertAction *_Nullable(UIFont *_Nullable data){
+        @jobs_strongify(self)
+        self.titleFont = data;
+        return self;
+    };
+}
+
+@end
+
 @implementation NSObject (SPAlertController)
 /// 自定义的Alert
 /// @param config 配置文件
@@ -80,7 +132,7 @@
         }break;
         /// 未匹配已知分支时执行兜底处理
         default:
-            self.jobsToastErrMsg(@"参数配置错误，请检查".tr);
+            self.jobsToastErrMsg(@"参数配置错误，请检查".jobsTr());
             return nil;
             break;
     }
@@ -112,13 +164,13 @@
                     }
                 })];
             }];
-            action.index = i;//做记号
+            action.byIndex(i);
             JobsLog(@"DDD = %ld",action.index);
             [vc addAction:action];
             mutArr.add(action);
         }if (alertVCBlock) alertVCBlock(vc,mutArr);
     }else{
-        self.jobsToastErrMsg(@"参数配置错误，请检查".tr);
+        self.jobsToastErrMsg(@"参数配置错误，请检查".jobsTr());
         return nil;
     }
     [config.targetVC presentViewController:vc

@@ -92,8 +92,14 @@ Prop_copy(nullable)jobsByArrBlock onButtonsLayouted;
 /// 主动选中某个 index
 -(void)selectIndex:(NSInteger)index animated:(BOOL)animated;
 /// 手动触发布局重排
--(void)requestRelayout;
+-(jobsByVoidBlock _Nonnull)requestRelayout;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsTabBarCtrl
+-(JobsRetJobsTabBarCtrlByNSIntegerBlock _Nonnull)bySelectedIndex;
+-(JobsRetTabBarCtrlByArrBlocks _Nonnull)byOnButtonsBuilt;
+-(JobsRetTabBarCtrlByArrBlocks _Nonnull)byOnButtonsLayouted;
+-(JobsRetTabBarCtrlByBOOLBlock _Nonnull)byBuiltOnce;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsTabBarCtrl
 @end
 
 #pragma mark —— 链式配置（和 Swift 版保持风格）
@@ -115,7 +121,7 @@ Prop_copy(nullable)jobsByArrBlock onButtonsLayouted;
 
 -(instancetype)byEqualVisibleRangeFrom:(NSInteger)min to:(NSInteger)max ;
 -(instancetype)byDataSourceWithButtons:(NSArray<UIButton *> *)buttons controllers:(NSArray<UIViewController *> *)controllers ;
--(instancetype)onButtonsLayoutedWeakOwner:(void(^)(JobsTabBarCtrl *owner, NSArray<UIButton *> *buttons))block ;
+-(JobsRetIDByvoidJobsTabBarCtrlNSArrayUIButtonBlock _Nonnull)onButtonsLayoutedWeakOwner;
 
 @end
 

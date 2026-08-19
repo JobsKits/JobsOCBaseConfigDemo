@@ -29,7 +29,7 @@ Prop_assign()BOOL ww_foldable;
 /// 链式设置 UITableView 折叠能力
 -(JobsRetTableViewByBOOLBlock _Nonnull)byFoldable;
 /// 返回某个section的折叠状态。YES - 折叠中
--(BOOL)ww_isSectionFolded:(NSInteger)section;
+-(JobsRetBOOLByNSIntegerBlock _Nonnull)ww_isSectionFolded;
 /// 设置指定section的折叠状态。
 -(void)ww_foldSection:(NSInteger)section fold:(BOOL)fold;
 

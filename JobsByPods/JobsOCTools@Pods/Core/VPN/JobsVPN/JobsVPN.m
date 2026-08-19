@@ -7,6 +7,44 @@
 
 #import "JobsVPN.h"
 
+@implementation NEVPNManager (JobsVPNDSL)
+#define JobsNEVPNManagerDSL(_name_, _blockType_, _dataType_, _property_) \
+-(_blockType_ _Nonnull)by##_name_{ \
+    @jobs_weakify(self) \
+    return ^__kindof NEVPNManager *_Nullable(_dataType_ data){ \
+        @jobs_strongify(self) \
+        self._property_ = data; \
+        return self; \
+    }; \
+}
+JobsNEVPNManagerDSL(OnDemandEnabled, JobsRetNEVPNManagerByBOOLBlock, BOOL, onDemandEnabled)
+JobsNEVPNManagerDSL(LocalizedDescription, JobsRetNEVPNManagerByStrBlock, NSString *_Nullable, localizedDescription)
+JobsNEVPNManagerDSL(Enabled, JobsRetNEVPNManagerByBOOLBlock, BOOL, enabled)
+JobsNEVPNManagerDSL(ProtocolConfiguration, JobsRetNEVPNManagerByProtocolBlock, NEVPNProtocol *_Nullable, protocolConfiguration)
+#undef JobsNEVPNManagerDSL
+@end
+
+@implementation NEVPNProtocolIKEv2 (JobsVPNDSL)
+#define JobsNEVPNProtocolIKEv2DSL(_name_, _blockType_, _dataType_, _property_) \
+-(_blockType_ _Nonnull)by##_name_{ \
+    @jobs_weakify(self) \
+    return ^__kindof NEVPNProtocolIKEv2 *_Nullable(_dataType_ data){ \
+        @jobs_strongify(self) \
+        self._property_ = data; \
+        return self; \
+    }; \
+}
+JobsNEVPNProtocolIKEv2DSL(ServerAddress, JobsRetNEVPNProtocolIKEv2ByStrBlock, NSString *_Nullable, serverAddress)
+JobsNEVPNProtocolIKEv2DSL(RemoteIdentifier, JobsRetNEVPNProtocolIKEv2ByStrBlock, NSString *_Nullable, remoteIdentifier)
+JobsNEVPNProtocolIKEv2DSL(LocalIdentifier, JobsRetNEVPNProtocolIKEv2ByStrBlock, NSString *_Nullable, localIdentifier)
+JobsNEVPNProtocolIKEv2DSL(Username, JobsRetNEVPNProtocolIKEv2ByStrBlock, NSString *_Nullable, username)
+JobsNEVPNProtocolIKEv2DSL(PasswordReference, JobsRetNEVPNProtocolIKEv2ByDataBlock, NSData *_Nullable, passwordReference)
+JobsNEVPNProtocolIKEv2DSL(AuthenticationMethod, JobsRetNEVPNProtocolIKEv2ByAuthenticationMethodBlock, NEVPNIKEAuthenticationMethod, authenticationMethod)
+JobsNEVPNProtocolIKEv2DSL(UseExtendedAuthentication, JobsRetNEVPNProtocolIKEv2ByBOOLBlock, BOOL, useExtendedAuthentication)
+JobsNEVPNProtocolIKEv2DSL(DisconnectOnSleep, JobsRetNEVPNProtocolIKEv2ByBOOLBlock, BOOL, disconnectOnSleep)
+#undef JobsNEVPNProtocolIKEv2DSL
+@end
+
 @implementation JobsVPN
 #pragma mark —— 一些私有方法
 -(JobsRetDataByStrBlock _Nonnull)getKeychainPassword{
@@ -17,53 +55,62 @@
     };
 }
 #pragma mark —— 一些公共方法
--(void)configureVPN{
+-(jobsByVoidBlock _Nonnull)configureVPN{
     @jobs_weakify(self)
-    jobsMakeVPNManager(^(__kindof NEVPNManager * _Nullable VPNManager) {
+    return ^{
         @jobs_strongify(self)
-        [VPNManager loadFromPreferencesWithCompletionHandler:^(NSError * _Nullable error) {
-            if (error) {
-                NSLog(@"加载 VPN 配置失败: %@", error.localizedDescription);
-                return;
-            }
-            VPNManager.onDemandEnabled = NO; // 按需连接设置
-            VPNManager.localizedDescription = @"My VPN"; // 显示的 VPN 名称
-            VPNManager.enabled = YES;
-            VPNManager.protocolConfiguration = jobsMakeNEVPNProtocolIKEv2(^(__kindof NEVPNProtocolIKEv2 * _Nullable VPNProtocolIKEv2) {
-                @jobs_strongify(self)
-                VPNProtocolIKEv2.serverAddress = @"vpn.example.com"; // VPN 服务器地址
-                VPNProtocolIKEv2.remoteIdentifier = @"vpn.example.com"; // 远程标识符
-                VPNProtocolIKEv2.localIdentifier = nil; // 本地标识符（可选）
-                VPNProtocolIKEv2.username = @"your_username"; // 用户名
-                VPNProtocolIKEv2.passwordReference = self.getKeychainPassword(@"vpn_password"); // 密码存储在 Keychain
-                VPNProtocolIKEv2.authenticationMethod = NEVPNIKEAuthenticationMethodNone; // 身份验证方式
-                VPNProtocolIKEv2.useExtendedAuthentication = YES;
-                VPNProtocolIKEv2.disconnectOnSleep = NO; // 是否在睡眠时断开连接
-            });
-            [VPNManager saveToPreferencesWithCompletionHandler:^(NSError * _Nullable error) {
+        jobsMakeVPNManager(^(__kindof NEVPNManager * _Nullable VPNManager) {
+            @jobs_strongify(self)
+            [VPNManager loadFromPreferencesWithCompletionHandler:^(NSError * _Nullable error) {
                 if (error) {
-                    NSLog(@"保存 VPN 配置失败: %@", error.localizedDescription);
-                } else {
-                    NSLog(@"VPN 配置已保存");
+                    NSLog(@"加载 VPN 配置失败: %@", error.localizedDescription);
+                    return;
                 }
+                VPNManager
+                    .byOnDemandEnabled(NO)
+                    .byLocalizedDescription(@"My VPN")
+                    .byEnabled(YES)
+                    .byProtocolConfiguration(jobsMakeNEVPNProtocolIKEv2(^(__kindof NEVPNProtocolIKEv2 * _Nullable VPNProtocolIKEv2) {
+                        @jobs_strongify(self)
+                        VPNProtocolIKEv2
+                            .byServerAddress(@"vpn.example.com")
+                            .byRemoteIdentifier(@"vpn.example.com")
+                            .byLocalIdentifier(nil)
+                            .byUsername(@"your_username")
+                            .byPasswordReference(self.getKeychainPassword(@"vpn_password"))
+                            .byAuthenticationMethod(NEVPNIKEAuthenticationMethodNone)
+                            .byUseExtendedAuthentication(YES)
+                            .byDisconnectOnSleep(NO);
+                    }));
+                [VPNManager saveToPreferencesWithCompletionHandler:^(NSError * _Nullable error) {
+                    if (error) {
+                        NSLog(@"保存 VPN 配置失败: %@", error.localizedDescription);
+                    } else {
+                        NSLog(@"VPN 配置已保存");
+                    }
+                }];
             }];
-        }];
-    });
+        });
+    };
 }
 
--(void)startVPN{
-    NSError *startError = nil;
-    [NEVPNManager.sharedManager.connection startVPNTunnelAndReturnError:&startError];
-    if (startError) {
-        NSLog(@"启动 VPN 失败: %@", startError.localizedDescription);
-    } else {
-        NSLog(@"VPN 已启动");
-    }
+-(jobsByVoidBlock _Nonnull)startVPN{
+    return ^{
+        NSError *startError = nil;
+        [NEVPNManager.sharedManager.connection startVPNTunnelAndReturnError:&startError];
+        if (startError) {
+            NSLog(@"启动 VPN 失败: %@", startError.localizedDescription);
+        } else {
+            NSLog(@"VPN 已启动");
+        }
+    };
 }
 
--(void)stopVPN{
-    [NEVPNManager.sharedManager.connection stopVPNTunnel];
-    NSLog(@"VPN 已停止");
+-(jobsByVoidBlock _Nonnull)stopVPN{
+    return ^{
+        [NEVPNManager.sharedManager.connection stopVPNTunnel];
+        NSLog(@"VPN 已停止");
+    };
 }
 
 @end

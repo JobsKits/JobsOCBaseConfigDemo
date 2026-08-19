@@ -6,6 +6,7 @@
 //
 
 #import "JobsStatusBarSetttingVC.h"
+
 #import <JobsBaseUI/NSArray+Extra.h>
 #import <JobsBaseUI/NSObject+Extra.h>
 
@@ -16,8 +17,18 @@
 @implementation JobsStatusBarSetttingVC
 #pragma mark —— BaseViewControllerProtocol
 BaseViewControllerProtocol_synthesize
--(void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+-(void)didReceiveMemoryWarning{
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsStatusBarSetttingVC.class, @selector(jobsDidReceiveMemoryWarning)))(self, @selector(jobsDidReceiveMemoryWarning));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsDidReceiveMemoryWarning {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super didReceiveMemoryWarning];
+    };
 }
 
 -(void)dealloc{
@@ -25,36 +36,116 @@ BaseViewControllerProtocol_synthesize
 }
 
 -(void)loadView{
-    [super loadView];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsStatusBarSetttingVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+    };
 }
 
 -(void)viewDidLoad {
-    [super viewDidLoad];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsStatusBarSetttingVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsStatusBarSetttingVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillAppear:animated];
+    };
 }
 
 -(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsStatusBarSetttingVC.class, @selector(jobsViewWillLayoutSubviews)))(self, @selector(jobsViewWillLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewWillLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillLayoutSubviews];
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsStatusBarSetttingVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsStatusBarSetttingVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-//    self.restoreStatusBarCor(nil);
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsStatusBarSetttingVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+            [super viewWillDisappear:animated];
+        //    self.restoreStatusBarCor(nil);
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsStatusBarSetttingVC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+    };
 }
 /**
 
@@ -82,7 +173,17 @@ BaseViewControllerProtocol_synthesize
          }
  */
 -(UIStatusBarStyle)preferredStatusBarStyle{
-    return UIStatusBarStyleLightContent;
+    JobsRetUIStatusBarStyleByVoidBlock action = ((JobsRetUIStatusBarStyleByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsStatusBarSetttingVC.class, @selector(jobsPreferredStatusBarStyle)))(self, @selector(jobsPreferredStatusBarStyle));
+    return action ? action() : (UIStatusBarStyle){0};
+}
+
+-(JobsRetUIStatusBarStyleByVoidBlock _Nonnull)jobsPreferredStatusBarStyle{
+    @jobs_weakify(self)
+    return ^UIStatusBarStyle{
+        @jobs_strongify(self)
+        if (!self) return (UIStatusBarStyle){0};
+        return UIStatusBarStyleLightContent;
+    };
 }
 #pragma mark —— 一些公有方法<BaseViewControllerProtocol>
 /// 恢复状态栏颜色
@@ -117,7 +218,7 @@ BaseViewControllerProtocol_synthesize
     };
 }
 #pragma mark —— 一些私有方法
--(jobsByCorBlock)changeStatusBarCor{
+-(jobsByCorBlock _Nonnull)changeStatusBarCor{
     return ^(UIColor *_Nullable data){
         UIView *statusBar = [UIApplication.sharedApplication.valueForKey(@"statusBarWindow") valueForKey:@"statusBar"];
         if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {

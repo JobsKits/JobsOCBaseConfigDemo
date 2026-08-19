@@ -58,7 +58,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsTextView : BaseView
 
--(SZTextView *)getTextView;
+-(JobsRetJobsTextViewByTextModelBlock _Nonnull)byTextModel;
+-(JobsRetJobsTextViewByUIReturnKeyTypeBlock _Nonnull)byReturnKeyType_;
+-(JobsRetJobsTextViewByUIKeyboardAppearanceBlock _Nonnull)byKeyboardAppearance_;
+-(JobsRetJobsTextViewByUIKeyboardTypeBlock _Nonnull)byKeyboardType_;
+-(JobsRetJobsTextViewByStrBlock _Nonnull)byPlaceholder;
+-(JobsRetJobsTextViewByFontBlock _Nonnull)byFont;
+-(JobsRetJobsTextViewByFontBlock _Nonnull)byPlaceholderFont;
+-(JobsRetJobsTextViewByCorBlock _Nonnull)byPlaceholderColor;
+-(JobsRetSZTextViewByVoidBlock _Nonnull)getTextView;
 -(jobsByNSIntegerBlock _Nonnull)updateWordCount;
 
 @end

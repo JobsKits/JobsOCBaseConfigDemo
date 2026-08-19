@@ -9,14 +9,24 @@
 
 @implementation NSObject (Extra)
 /// Documents目录（这个目录通常用于存储应用程序中的用户数据或需要持久保存的数据。用户可以通过 iTunes 文件共享或 iCloud 访问该目录中的内容）下，用户主目录下，返回完整路径
--(NSArray <NSString *>*_Nonnull)documentsPaths{
-    return NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
-                                               NSUserDomainMask,
-                                               YES);
+-(JobsRetNSArrayNSStringByVoidBlock _Nonnull)documentsPaths{
+    @jobs_weakify(self)
+    return ^NSArray <NSString *>*_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,
+                                                   NSUserDomainMask,
+                                                   YES);
+    };
 }
 /// 获取真机沙盒中Documents的目录路径：
--(NSString *_Nonnull)documentsDir{
-    return self.documentsPaths.firstObject;
+-(JobsRetStrByVoidBlock _Nonnull)documentsDir{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.documentsPaths().firstObject;
+    };
 }
 
 @end

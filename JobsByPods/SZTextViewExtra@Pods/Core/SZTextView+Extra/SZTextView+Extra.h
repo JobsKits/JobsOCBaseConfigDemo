@@ -32,6 +32,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SZTextView (Extra)
 
+-(JobsRetSZTextViewByStrBlock _Nonnull)byText;
+-(JobsRetSZTextViewByCorBlock _Nonnull)byTextCor;
+-(JobsRetSZTextViewByFontBlock _Nonnull)byFont;
+-(JobsRetSZTextViewByStrBlock _Nonnull)byPlaceholder;
+-(JobsRetSZTextViewByFontBlock _Nonnull)byPlaceholderFont;
+-(JobsRetSZTextViewByCorBlock _Nonnull)byPlaceholderColor;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -33,6 +33,7 @@ JobsTimeUtils contains Objective-C time and date helper categories used across J
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsClass'
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsStringUtils'
   spec.dependency 'WHToastExtra'
   JobsPodspecKitForJobsTimeUtils.add_support_subspec(spec, support_context)

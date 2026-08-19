@@ -6,6 +6,7 @@
 //
 
 #import "JobsBasePopupView.h"
+
 #import <JobsBasePopupView/BaseButton.h>
 #import <JobsBasePopupView/UIButton+SimplyMake.h>
 #import <JobsBasePopupView/UIView+BackgroundImage.h>
@@ -35,7 +36,7 @@ Prop_strong()BaseButton *btn2;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model;
+        self.byViewModel(model);
         if (model) {
             if (self.viewModel.bgImage) {
                 self.backgroundImageView.byImage(self.viewModel.bgImage);
@@ -97,7 +98,7 @@ Prop_strong()BaseButton *btn2;
 -(BaseButton *)btn1{
     if (!_btn1) {
         _btn1 = BaseButton
-            .initByStyle4(@"Cancel".tr,
+            .initByStyle4(@"Cancel".jobsTr(),
                           UIFontWeightRegularSize(14),
                           HEXCOLOR(0x502600),
                           self.viewModel.image,
@@ -122,7 +123,7 @@ Prop_strong()BaseButton *btn2;
     if (!_btn2) {
         @jobs_weakify(self)
         _btn2 = BaseButton
-            .initByStyle4(@"Sure".tr,
+            .initByStyle4(@"Sure".jobsTr(),
                           UIFontWeightRegularSize(14),
                           HEXCOLOR(0x502600),
                           self.viewModel.image,

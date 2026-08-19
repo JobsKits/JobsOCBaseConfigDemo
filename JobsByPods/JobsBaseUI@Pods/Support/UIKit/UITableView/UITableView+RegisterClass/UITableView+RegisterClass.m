@@ -9,9 +9,14 @@
 
 @implementation UITableView (RegisterClass)
 #pragma mark —— 注册
--(void)registerTableViewClass{
-    [self registerClass:UITableViewCell.class forCellReuseIdentifier:UITableViewCell.class.description.add(@"")];
-    /// 以此类推
+-(jobsByVoidBlock _Nonnull)registerTableViewClass{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self registerClass:UITableViewCell.class forCellReuseIdentifier:UITableViewCell.class.description.add(@"")];
+        /// 以此类推
+    };
 }
 
 -(JobsRetTableViewByStringBlock _Nonnull)byRegisterTableViewClass{

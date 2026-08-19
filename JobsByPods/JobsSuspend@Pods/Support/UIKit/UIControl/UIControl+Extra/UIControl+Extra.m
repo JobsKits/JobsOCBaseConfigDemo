@@ -6,6 +6,7 @@
 //
 
 #import "UIControl+Extra.h"
+
 #import <JobsSuspend/JobsControlTarget.h>
 
 JobsKey(kJobsTargetsMapKey)
@@ -25,10 +26,11 @@ static inline JobsControlTarget *_jobs_bind(UIControl *ctl, UIControlEvents sing
         [map removeObjectForKey:@(singleEvent)];
     }
     JobsControlTarget *t = jobsMakeControlTarget(^(JobsControlTarget * _Nullable target) {
-        target.block = [block copy];
-        target.policy = JobsInvokePolicyNone;
-        target.boundControl = ctl;
-        target.event = singleEvent;
+        target
+            .byBlock([block copy])
+            .byPolicy(JobsInvokePolicyNone)
+            .byBoundControl(ctl)
+            .byEvent(singleEvent);
     });
     [ctl addTarget:t action:@selector(invoke:) forControlEvents:singleEvent];
     map[@(singleEvent)] = t;
@@ -36,9 +38,14 @@ static inline JobsControlTarget *_jobs_bind(UIControl *ctl, UIControlEvents sing
 }
 
 @implementation UIControl (Extra)
--(instancetype)jobs_onChange:(jobsByCtrlBlock _Nonnull)block{
-    _jobs_bind(self, UIControlEventValueChanged, block);
-    return self;
+-(JobsRetIDByjobsByCtrlBlockBlock _Nonnull)jobs_onChange{
+    @jobs_weakify(self)
+    return ^id(jobsByCtrlBlock _Nonnull block){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        _jobs_bind(self, UIControlEventValueChanged, block);
+        return self;
+    };
 }
 
 @end

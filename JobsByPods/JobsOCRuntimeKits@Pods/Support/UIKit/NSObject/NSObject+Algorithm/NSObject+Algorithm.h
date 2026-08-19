@@ -15,12 +15,6 @@
 #import <JobsOCRuntimeKits/NSObject+Extra.h>
 #import <JobsOCRuntimeKits/NSMutableSet+Extra.h>
 
-#if __has_include(<JobsTimeUtils/JobsTimeUtils.h>)
-#import <JobsTimeUtils/JobsTimeUtils.h>
-#else
-#import "JobsTimeUtils.h"
-#endif
-
 #if __has_include(<JobsOCSnowflake/JobsOCSnowflakeHeader.h>)
 #import <JobsOCSnowflake/JobsOCSnowflakeHeader.h>
 #else
@@ -85,7 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 -(BOOL)judgementExactDivisionByNum1:(NSNumber *_Nonnull)num1 num2:(NSNumber *_Nonnull)num2;
 /// 雪花算法
--(NSNumber *_Nonnull)makeSnowflake;
+-(JobsRetNSNumberByVoidBlock _Nonnull)makeSnowflake;
 /// 查询算法
 /// @param data 查询的数据源
 /// @param searchStrategy 查询策略

@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 阻止向可变数组添加空元素
 -(JobsRetMutableArrayByIDBlock _Nonnull)add;
 /// 阻止向可变数组添加空元素
--(JobsRetIDByIDBlock _Nonnull)addBy;
+-(JobsRetMutableArrayByArrBlock _Nonnull)addBy;
 /// 删除元素
 -(JobsRetIDByIDBlock _Nonnull)remove;
 

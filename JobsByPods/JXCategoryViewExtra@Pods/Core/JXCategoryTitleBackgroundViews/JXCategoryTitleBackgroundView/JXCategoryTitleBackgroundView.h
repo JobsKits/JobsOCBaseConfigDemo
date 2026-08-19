@@ -43,6 +43,17 @@ Prop_assign()CGFloat backgroundCornerRadius;
 Prop_assign()CGFloat backgroundWidth;
 Prop_assign()CGFloat backgroundHeight;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JXCategoryTitleBackgroundView
+-(JobsRetJXCategoryTitleBackgroundViewByCGFloatBlock _Nonnull)byBackgroundCornerRadius;
+-(JobsRetJXCategoryTitleBackgroundViewByCGFloatBlock _Nonnull)byBackgroundHeight;
+-(JobsRetJXCategoryTitleBackgroundViewByCGFloatBlock _Nonnull)byBackgroundWidth;
+-(JobsRetJXCategoryTitleBackgroundViewByCGFloatBlock _Nonnull)byBorderLineWidth;
+-(JobsRetJXCategoryTitleBackgroundViewByUIColorBlock _Nonnull)byNormalBackgroundColor;
+-(JobsRetJXCategoryTitleBackgroundViewByUIColorBlock _Nonnull)byNormalBorderColor;
+-(JobsRetJXCategoryTitleBackgroundViewByUIColorBlock _Nonnull)bySelectedBackgroundColor;
+-(JobsRetJXCategoryTitleBackgroundViewByUIColorBlock _Nonnull)bySelectedBorderColor;
+-(JobsRetJXCategoryTitleBackgroundViewByCGFloatBlock _Nonnull)byCellWidthIncrement;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JXCategoryTitleBackgroundView
 @end
 
 NS_ASSUME_NONNULL_END

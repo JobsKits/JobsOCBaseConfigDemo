@@ -23,23 +23,63 @@ AppToolsProtocol_synthesize
 BaseViewProtocol_synthesize
 @synthesize contentEdgeInsets = _contentEdgeInsets;
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBtnStyleTBVCell.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
-    /// 此时，self.btn.titleLabel 和 self.btn.subtitleLabel 有正确的Frame，可以指导 self.btn.titleTextView 和 self.btn.subtitleTextView 进行下一步的正常工作
-    if(self.viewModel) self.button.resetByViewModel(self.viewModel,self.selected);
-    if(self.buttonModel) self.button.resetByButtonModel(self.buttonModel,self.selected);
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBtnStyleTBVCell.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+        /// 此时，self.btn.titleLabel 和 self.btn.subtitleLabel 有正确的Frame，可以指导 self.btn.titleTextView 和 self.btn.subtitleTextView 进行下一步的正常工作
+        if(self.viewModel) self.button.resetByViewModel(self.viewModel,self.selected);
+        if(self.buttonModel) self.button.resetByButtonModel(self.buttonModel,self.selected);
+    };
 }
 #pragma mark —— BaseViewProtocol
 /// 获取绑定的数据源
--(UIViewModel *)getViewModel{
-    return self.viewModel;
+-(UIViewModel *_Nullable)getViewModel{
+    JobsRetViewModelByVoidBlock action = ((JobsRetViewModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBtnStyleTBVCell.class, @selector(jobsGetViewModel)))(self, @selector(jobsGetViewModel));
+    return action ? action() : nil;
 }
 
--(UIButtonModel *_Nullable)getButtonModel{
-    return self.buttonModel;
+-(JobsRetViewModelByVoidBlock _Nonnull)jobsGetViewModel{
+    @jobs_weakify(self)
+    return ^UIViewModel *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.viewModel;
+    };
+}
+
+-(__kindof UIButtonModel *_Nullable)getButtonModel{
+    JobsRetUIButtonModelByVoidBlock action = ((JobsRetUIButtonModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBtnStyleTBVCell.class, @selector(jobsGetButtonModel)))(self, @selector(jobsGetButtonModel));
+    return action ? action() : nil;
+}
+
+-(JobsRetUIButtonModelByVoidBlock _Nonnull)jobsGetButtonModel{
+    @jobs_weakify(self)
+    return ^UIButtonModel *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.buttonModel;
+    };
 }
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
@@ -54,7 +94,7 @@ BaseViewProtocol_synthesize
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(id _Nullable model) {
         @jobs_strongify(self)
-        self.button.data = model;
+        self.button.byData(model);
         if(KindOfViewModelCls(model)) self.viewModel = model;
         if(KindOfButtonModelCls(model)) self.buttonModel = model;
         return self;
@@ -68,77 +108,97 @@ BaseViewProtocol_synthesize
 }
 
 -(void)setViewModel:(UIViewModel *)viewModel{
-    _viewModel = viewModel;
+    jobsByViewModelBlock action = ((jobsByViewModelBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBtnStyleTBVCell.class, @selector(jobsSetViewModel)))(self, @selector(jobsSetViewModel));
+    if (action) action(viewModel);
+}
+
+-(jobsByViewModelBlock _Nonnull)jobsSetViewModel{
     @jobs_weakify(self)
-    /// viewModel + textModel
-    _button.bySelected(viewModel.jobsSelected);
-    _button.byEnabled(viewModel.jobsEnabled);/// 这个属性为YES，则优先响应Btn。这个属性为NO，则响应UITableViewCell
-    _button.resetByViewModel(viewModel,self.selected)
-        .onClickBy(^(UIButton *x){
-            @jobs_strongify(self)
-            if (self.objBlock) self.objBlock(x);
-        }).onLongPressGestureBy(^(id data){
-            JobsLog(@"");
-        });
-    /// 背景图
-    if(viewModel.normalBgImageURL){
-        _button.imageURL(viewModel.normalBgImageURLString.imageURLPlus.jobsUrl)
-            .placeholderImage(viewModel.normalImage)
-            .options(self.makeSDWebImageOptions)
-            .completed(^(UIImage *_Nullable image,
-                         NSError *_Nullable error,
-                         SDImageCacheType cacheType,
-                         NSURL *_Nullable imageURL) {
-                if (error) {
-                    JobsLog(@"aa图片加载失败: %@-%@", error,imageURL);
-                }else{
-                    JobsLog(@"图片加载成功");
-                }
-            }).bgNormalLoad();
-    }else _button.jobsResetBtnBgImage(viewModel.backgroundImage);
-    /// 图文间距
-    if (@available(iOS 16.0, *)) _button.jobsResetImagePadding(viewModel.imageTitleSpace);
-    /// 图文相对位置关系
-    if (@available(iOS 16.0, *)) _button.jobsResetImagePlacement(viewModel.buttonEdgeInsetsStyle);
-    /// 圆切角
-    _button.jobsResetBtnCornerRadiusValue(viewModel.layerCornerRadius);
+    return ^(UIViewModel * viewModel){
+        @jobs_strongify(self)
+        if (!self) return;
+        _viewModel = viewModel;
+        @jobs_weakify(self)
+        /// viewModel + textModel
+        _button.bySelected(viewModel.jobsSelected);
+        if (_button) _button.byEnabled(viewModel.jobsEnabled);/// 这个属性为YES，则优先响应Btn。这个属性为NO，则响应UITableViewCell
+        _button.resetByViewModel(viewModel,self.selected)
+            .onClickBy(^(UIButton *x){
+                @jobs_strongify(self)
+                if (self.objBlock) self.objBlock(x);
+            }).onLongPressGestureBy(^(id data){
+                JobsLog(@"");
+            });
+        /// 背景图
+        if(viewModel.normalBgImageURL){
+            _button.imageURL(viewModel.normalBgImageURLString.jobsImageURLPlus().jobsURL())
+                .placeholderImage(viewModel.normalImage)
+                .options(self.jobsMakeSDWebImageOptions())
+                .completed(^(UIImage *_Nullable image,
+                             NSError *_Nullable error,
+                             SDImageCacheType cacheType,
+                             NSURL *_Nullable imageURL) {
+                    if (error) {
+                        JobsLog(@"aa图片加载失败: %@-%@", error,imageURL);
+                    }else{
+                        JobsLog(@"图片加载成功");
+                    }
+                }).bgNormalLoad();
+        }else _button.jobsResetBtnBgImage(viewModel.backgroundImage);
+        /// 图文间距
+        if (@available(iOS 16.0, *)) _button.jobsResetImagePadding(viewModel.imageTitleSpace);
+        /// 图文相对位置关系
+        if (@available(iOS 16.0, *)) _button.jobsResetImagePlacement(viewModel.buttonEdgeInsetsStyle);
+        /// 圆切角
+        _button.jobsResetBtnCornerRadiusValue(viewModel.layerCornerRadius);
+    };
 }
 
 -(void)setButtonModel:(UIButtonModel *)buttonModel{
-    _buttonModel = buttonModel;
+    jobsByButtonModelBlock action = ((jobsByButtonModelBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBtnStyleTBVCell.class, @selector(jobsSetButtonModel)))(self, @selector(jobsSetButtonModel));
+    if (action) action(buttonModel);
+}
+
+-(jobsByButtonModelBlock _Nonnull)jobsSetButtonModel{
     @jobs_weakify(self)
-    _button
-        .bySelected(buttonModel.jobsSelected)
-        .byEnabled(buttonModel.jobsEnabled);
-    _button.resetByButtonModel(buttonModel,self.selected)
-        .onClickBy(^(UIButton *x){
-            @jobs_strongify(self)
-            if (self.objBlock) self.objBlock(x);
-        }).onLongPressGestureBy(^(id data){
-            JobsLog(@"");
-        });
-    /// 背景图
-    if(buttonModel.normalBgImageURL){
-        _button.imageURL(buttonModel.normalBgImageURLString.imageURLPlus.jobsUrl)
-            .placeholderImage(buttonModel.backgroundImage)
-            .options(self.makeSDWebImageOptions)
-            .completed(^(UIImage * _Nullable image,
-                         NSError * _Nullable error,
-                         SDImageCacheType cacheType,
-                         NSURL * _Nullable imageURL) {
-                if (error) {
-                    JobsLog(@"aa图片加载失败: %@-%@", error,imageURL);
-                } else {
-                    JobsLog(@"图片加载成功");
-                }
-            }).bgNormalLoad();
-    }else _button.jobsResetBtnBgImage(buttonModel.backgroundImage);
-    /// 图文间距
-    if (@available(iOS 16.0, *)) _button.jobsResetImagePadding(buttonModel.imagePadding);
-    /// 图文相对位置关系
-    if (@available(iOS 16.0, *)) _button.jobsResetImagePlacement(buttonModel.imagePlacement);
-    /// 圆切角
-    _button.jobsResetBtnCornerRadiusValue(buttonModel.cornerRadiusValue);
+    return ^(UIButtonModel * buttonModel){
+        @jobs_strongify(self)
+        if (!self) return;
+        _buttonModel = buttonModel;
+        @jobs_weakify(self)
+        _button
+            .bySelected(buttonModel.jobsSelected)
+            .byEnabled(buttonModel.jobsEnabled);
+        _button.resetByButtonModel(buttonModel,self.selected)
+            .onClickBy(^(UIButton *x){
+                @jobs_strongify(self)
+                if (self.objBlock) self.objBlock(x);
+            }).onLongPressGestureBy(^(id data){
+                JobsLog(@"");
+            });
+        /// 背景图
+        if(buttonModel.normalBgImageURL){
+            _button.imageURL(buttonModel.normalBgImageURLString.jobsImageURLPlus().jobsURL())
+                .placeholderImage(buttonModel.backgroundImage)
+                .options(self.jobsMakeSDWebImageOptions())
+                .completed(^(UIImage * _Nullable image,
+                             NSError * _Nullable error,
+                             SDImageCacheType cacheType,
+                             NSURL * _Nullable imageURL) {
+                    if (error) {
+                        JobsLog(@"aa图片加载失败: %@-%@", error,imageURL);
+                    } else {
+                        JobsLog(@"图片加载成功");
+                    }
+                }).bgNormalLoad();
+        }else _button.jobsResetBtnBgImage(buttonModel.backgroundImage);
+        /// 图文间距
+        if (@available(iOS 16.0, *)) _button.jobsResetImagePadding(buttonModel.imagePadding);
+        /// 图文相对位置关系
+        if (@available(iOS 16.0, *)) _button.jobsResetImagePlacement(buttonModel.imagePlacement);
+        /// 圆切角
+        _button.jobsResetBtnCornerRadiusValue(buttonModel.cornerRadiusValue);
+    };
 }
 #pragma mark —— BaseButtonProtocol
 -(JobsRetTableViewCellByUIEdgeInsetsBlock _Nonnull)byContentEdgeInsets{

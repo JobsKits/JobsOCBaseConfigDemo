@@ -82,6 +82,10 @@ Prop_strong(nullable)__kindof UIView *view;
 Prop_copy(nullable)JobsRetRACDisposableByRetIDByIDBlocks jobsReturnedTestBlock;
 Prop_copy(nullable)jobsByVoidBlock jobsTestBlock;
 
+-(JobsRetCGFloatByVoidBlock _Nonnull)jobsSubTitleWidth API_AVAILABLE(ios(16.0));
+
+-(JobsRetStrByVoidBlock _Nonnull)jobsSubTitle;
+
 @end
 
 NS_ASSUME_NONNULL_END

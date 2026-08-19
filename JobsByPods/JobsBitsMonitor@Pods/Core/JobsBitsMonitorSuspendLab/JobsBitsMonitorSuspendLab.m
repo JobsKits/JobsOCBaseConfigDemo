@@ -21,7 +21,7 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
 -(instancetype)initBy:(JobsBitsMonitorDisplayStyle)style{
     if (self = [super init]) {
         if(style == JobsBitsMonitorDisplayStylePlainText)        {
-            JobsNetworkTrafficMonitor.shared.onUpdateBy(^(JobsNetworkSource *source,
+            ((JobsNetworkTrafficMonitor *)JobsNetworkTrafficMonitor.shared()).onUpdateBy(^(JobsNetworkSource *source,
                                                           uint64_t uploadBytesPerSec,
                                                           uint64_t downloadBytesPerSec){
                 NSString *upStr   = JobsFormatSpeed(uploadBytesPerSec);
@@ -34,7 +34,7 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
                 });
             }).byStartWithInterval(1.0);
         }else{
-            JobsNetworkTrafficMonitor.shared.onUpdateBy(^(JobsNetworkSource *source,
+            ((JobsNetworkTrafficMonitor *)JobsNetworkTrafficMonitor.shared()).onUpdateBy(^(JobsNetworkSource *source,
                                                           uint64_t uploadBytesPerSec,
                                                           uint64_t downloadBytesPerSec){
                 NSString *upStr   = JobsFormatSpeed(uploadBytesPerSec);
@@ -103,14 +103,14 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
             }).byStartWithInterval(1.0);
         }
         {
-            self.numberOfTouchesRequired = 1;
-            self.numberOfTapsRequired = 1;/// ⚠️注意：如果要设置长按手势，此属性必须设置为0⚠️
-            self.minimumPressDuration = 0.1;
-            self.allowableMovement = 1;
-            self.userInteractionEnabled = YES;
+            self.byNumberOfTouchesRequired(1);
+            self.byNumberOfTapsRequired(1);
+            self.byMinimumPressDuration(0.1);
+            self.byAllowableMovement(1);
+            self.byUserInteractionEnabled(YES);
             @jobs_weakify(self)
-            self.weak_target = weak_self;
-            self.tapGR_SelImp.selector = [self jobsSelectorBlock:^id _Nullable(id _Nullable target,
+            self.byWeak_target(weak_self);
+            self.tapGR_SelImp.selector = self.jobsSelectorBlock(^id _Nullable(id _Nullable target,
                                                                                UITapGestureRecognizer *_Nullable arg) {
                 @jobs_strongify(self)
                 ZWPullMenuView *menuView = [ZWPullMenuView pullMenuAnchorView:self titleArray:self.operationEnvironMutArr];
@@ -120,35 +120,40 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
                     JobsLog(@"action----->%ld",(long)menuRow);
                     networkingEnvir(menuRow);
                     if (menuRow + 1 <= self.operationEnvironMutArr.count) {
-                        @"当前环境".tr.add(self.operationEnvironMutArr[menuRow]).toast();
-                    }else self.jobsToastErrMsg(@"切换环境出现错误".tr);
+                        @"当前环境".jobsTr().add(self.operationEnvironMutArr[menuRow]).toast();
+                    }else self.jobsToastErrMsg(@"切换环境出现错误".jobsTr());
                 };return nil;
-            }];self.tapGR.byEnabled(YES);/// 必须在设置完Target和selector以后方可开启执行
-        };[self commonInit_JobsBitsMonitorSuspendLab];
+            });if (self.tapGR) self.tapGR.byEnabled(YES);/// 必须在设置完Target和selector以后方可开启执行
+        };self.commonInit_JobsBitsMonitorSuspendLab();
     };return self;
 }
 
--(void)commonInit_JobsBitsMonitorSuspendLab{
-    /// 👉 基础外观
-    self.numberOfLines = 0;
-    self.textAlignment = NSTextAlignmentCenter;
-    self
-        .byTextCor(UIColor.whiteColor)
-        .byFont(UIFontMonospacedDigitSystemWeightMediumSize(11));
-    self.layer.cornerRadius  = 8.0;
-    self.layer.masksToBounds = YES;
-    self.byBgColor([UIColor.blackColor colorWithAlphaComponent:0.7]);
+-(jobsByVoidBlock _Nonnull)commonInit_JobsBitsMonitorSuspendLab{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        /// 👉 基础外观
+        self.byNumberOfLines(0);
+        self.byTextAlignment(NSTextAlignmentCenter);
+        self
+            .byTextCor(UIColor.whiteColor)
+            .byFont(UIFontMonospacedDigitSystemWeightMediumSize(11));
+        self.layer.byCornerRadius(8.0);
+        self.layer.byMasksToBounds(YES);
+        self.byBgColor([UIColor.blackColor colorWithAlphaComponent:0.7]);
+    };
 }
 
 -(JobsRetLabelByTextBlock _Nonnull)byText{
     @jobs_weakify(self)
     return ^__kindof JobsBitsMonitorSuspendLab *_Nullable(__kindof NSString *_Nullable text){
         @jobs_strongify(self)
-        self.attributedText = nil;
+        self.byAttributedText(nil);
         self.text           = text;
         /// 普通文本可以稍微简单一点
-        self.font      = UIFontWeightRegularSize(11);
-        self.textColor = UIColor.whiteColor;
+        self.byFont(UIFontWeightRegularSize(11));
+        self.byTextColor(UIColor.whiteColor);
         return self;
     };
 }
@@ -157,8 +162,8 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
     @jobs_weakify(self)
     return ^__kindof JobsBitsMonitorSuspendLab *_Nullable(__kindof NSAttributedString *_Nullable attributedString){
         @jobs_strongify(self)
-        self.text         = nil;
-        self.attributedText = attributedString;
+        self.byText(nil);
+        self.byAttributedText(attributedString);
         /// 字体、颜色都由外部富文本控制，这里不再动它
         return self;
     };
@@ -190,13 +195,13 @@ static NSString * _Nonnull JobsFormatSpeed(uint64_t bytesPerSec) {
 -(NSMutableArray<NSString *> *)operationEnvironMutArr{
     if (!_operationEnvironMutArr) {
         _operationEnvironMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>* _Nullable data) {
-            data.add(@"开发环境_01".tr)
-            .add(@"开发环境_02".tr)
-            .add(@"开发环境_03".tr)
-            .add(@"开发环境_04".tr)
-            .add(@"测试环境".tr)
-            .add(@"UAT环境".tr)
-            .add(@"生产环境".tr);
+            data.add(@"开发环境_01".jobsTr())
+            .add(@"开发环境_02".jobsTr())
+            .add(@"开发环境_03".jobsTr())
+            .add(@"开发环境_04".jobsTr())
+            .add(@"测试环境".jobsTr())
+            .add(@"UAT环境".jobsTr())
+            .add(@"生产环境".jobsTr());
         });
     };return _operationEnvironMutArr;
 }

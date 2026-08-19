@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (Extra)
 
-Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
+Prop_copy(nullable)jobsByMASConstraintMakerBlock masonryBlock;
 
 -(JobsRetViewByViewBlock _Nonnull)addSubview;
 -(void)appointCornerCutToCircleByRoundingCorners:(UIRectCorner)corners

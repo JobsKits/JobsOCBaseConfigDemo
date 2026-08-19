@@ -46,17 +46,24 @@
 #import "JobsDefines.h"
 #endif
 
+@interface SRWebSocket (JobsSocketRocketUtilityDSL)
+-(JobsRetSRWebSocketByDelegateBlock _Nonnull)byDelegate;
+-(JobsRetSRWebSocketByVoidBlock _Nonnull)byOpen;
+@end
+
 @interface SocketRocketUtility : NSObject<SRWebSocketDelegate,BaseProtocol>
 /// 获取连接状态
 Prop_assign(readonly)SRReadyState socketReadyState;
 
-+(SocketRocketUtility *_Nullable)instance;
++(JobsRetSocketRocketUtilityByVoidBlock _Nonnull)instance;
 /// 开始连接
 -(jobsByStrBlock _Nonnull)SRWebSocketOpenWithURLString;
 /// 关闭连接
--(void)SRWebSocketClose;
+-(jobsByVoidBlock _Nonnull)SRWebSocketClose;
 /// 发送数据
 -(jobsByIDBlock _Nonnull)sendData;
+-(JobsRetSocketRocketUtilityByStrBlock _Nonnull)byURLString;
+-(JobsRetSocketRocketUtilityBySRWebSocketBlock _Nonnull)bySocket;
 
 @end
 #endif /* JOBS_HEADER_GUARD_SOCKETROCKETUTILITY_9BFDFF3F9E */

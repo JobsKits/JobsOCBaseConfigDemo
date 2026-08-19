@@ -6,6 +6,7 @@
 //
 
 #import "JobsSuspendLab.h"
+
 #import <JobsSuspend/NSObject+Extra.h>
 #import <JobsSuspend/NSString+Extra.h>
 #import <JobsSuspend/UIView+Extra.h>
@@ -17,20 +18,40 @@
 @end
 
 @implementation JobsSuspendLab
+-(JobsRetUILabelByBOOLBlock _Nonnull)byAllowDrag{
+    @jobs_weakify(self)
+    return ^__kindof UILabel *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.isAllowDrag = data;
+        return self;
+    };
+}
+
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(self.backgroundColor ? :JobsBlackColor);
-        self.byText(JobsNonnullString(self.text, @"No Data".tr));
-        self.internationalizationKEY = @"No Data";
-        self.textAlignment = NSTextAlignmentCenter;
+        self.byText(JobsNonnullString(self.text, @"No Data".jobsTr()));
+        self.byInternationalizationKEY(@"No Data");
+        self.byTextAlignment(NSTextAlignmentCenter);
     };return self;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
-    self.panRcognize.byEnabled(self.isAllowDrag);
-    self.userInteractionEnabled = self.isAllowDrag;
-    self.cornerCutToCircleWithCornerRadius(self.height / 2);
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsSuspendLab.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+        if (self.panRcognize) self.panRcognize.byEnabled(self.isAllowDrag);
+        self.byUserInteractionEnabled(self.isAllowDrag);
+        self.cornerCutToCircleWithCornerRadius(self.height / 2);
+    };
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches

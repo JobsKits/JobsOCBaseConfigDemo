@@ -13,6 +13,12 @@
 #import "JobsMakes.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -25,20 +31,8 @@
 #import "JobsDefines.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
 #define kBorderWith 10
 #define KCenter CGPointMake(self.bounds.size.width / 2.0, self.bounds.size.height / 2.0)
-
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -66,8 +60,18 @@ Prop_strong()UIColor *outLayerColor;
               lineSize:(CGSize)size
                  color:(UIColor *)color;
 
--(void)updateProgress:(CGFloat)progress;
+-(jobsByCGFloatBlock _Nonnull)updateProgress;
+-(jobsByCorBlock _Nonnull)jobsSetProgressColor;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN PHCycleView
+-(JobsRetPHCycleViewByCGFloatBlock _Nonnull)byCurrentProgress;
+-(JobsRetPHCycleViewByNSStringBlock _Nonnull)byDescribeStr;
+-(JobsRetPHCycleViewByUIColorBlock _Nonnull)byDescribeTextColor;
+-(JobsRetPHCycleViewByUIColorBlock _Nonnull)byOutLayerColor;
+-(JobsRetPHCycleViewByUIColorBlock _Nonnull)byProgressTextColor;
+-(JobsRetPHCycleViewByUIFontBlock _Nonnull)byDescribeFont;
+-(JobsRetPHCycleViewByUIFontBlock _Nonnull)byProgressFont;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END PHCycleView
 @end
 
 NS_ASSUME_NONNULL_END

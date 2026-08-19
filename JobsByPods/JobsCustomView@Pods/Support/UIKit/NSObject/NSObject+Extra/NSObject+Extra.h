@@ -11,6 +11,12 @@
 #pragma once
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <AudioToolbox/AudioToolbox.h> // 用于调用系统级音频能力。
 #import <JobsCustomView/NSData+Extra.h>
 #import <JobsCustomView/NSString+Extra.h>

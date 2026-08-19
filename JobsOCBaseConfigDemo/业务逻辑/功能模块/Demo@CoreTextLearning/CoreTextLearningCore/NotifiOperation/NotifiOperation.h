@@ -48,6 +48,8 @@ Prop_strong()NotifiView *showView;
                              Info:(id)data
                     completeBlock:(FinishBlock)finishBlock;
 
+-(jobsByVoidBlock _Nonnull)jobsStart;
+
 @end
 
 NS_ASSUME_NONNULL_END

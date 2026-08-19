@@ -6,6 +6,7 @@
 //
 
 #import "NotifiManager.h"
+
 #import "NotifiOperation.h"
 #import "NotifiViewFactory.h"
 
@@ -16,17 +17,24 @@ Prop_strong()NSOperationQueue* queue;
 @end
 
 @implementation NotifiManager
-+ (instancetype)shared {
-    static NotifiManager *manager = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        manager = [[self alloc] init];
-    });
-    return manager;
++ (JobsRetNotifiManagerByVoidBlock _Nonnull)shared {
+    return ^NotifiManager *{
+        static NotifiManager *manager = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            manager = [[self alloc] init];
+        });
+        return manager;
+    };
 }
 
-- (void)setQueueNaxConcurrentOperationCount:(NSInteger)count{
-    self.queue.maxConcurrentOperationCount = count;
+-(jobsByNSIntegerBlock _Nonnull)setQueueNaxConcurrentOperationCount{
+    @jobs_weakify(self)
+    return ^(NSInteger count){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.queue.maxConcurrentOperationCount = count;
+    };
 }
 
 - (void)showNotifiWithData:(id)data
@@ -45,7 +53,7 @@ Prop_strong()NSOperationQueue* queue;
 - (void)updateNotifiWithData:(id)data
                  finishBlock:(FinishBlock)finishBlock{
     NSString* key = data[kNotifiViewKey];
-    NotifiView* nView = [[NotifiViewFactory shared] fetchViewWithKey:key];
+    NotifiView* nView = (((NotifiViewFactory *)NotifiViewFactory.shared())).fetchViewWithKey(key);
     if (nView) {
         [nView updateWithData:data finish:^(NSString *key) {
             JobsLog(@"更新完成!Key => %@", key);

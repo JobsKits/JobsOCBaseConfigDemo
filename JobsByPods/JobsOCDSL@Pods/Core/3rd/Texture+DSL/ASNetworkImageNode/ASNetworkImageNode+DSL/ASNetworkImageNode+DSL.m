@@ -95,16 +95,31 @@
     };
 }
 
--(CGFloat)by_currentImageQuality{
-    return self.currentImageQuality;
+-(JobsRetCGFloatByVoidBlock _Nonnull)by_currentImageQuality{
+    @jobs_weakify(self)
+    return ^CGFloat{
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+        return self.currentImageQuality;
+    };
 }
 
--(CGFloat)by_renderedImageQuality{
-    return self.renderedImageQuality;
+-(JobsRetCGFloatByVoidBlock _Nonnull)by_renderedImageQuality{
+    @jobs_weakify(self)
+    return ^CGFloat{
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+        return self.renderedImageQuality;
+    };
 }
 
--(CGFloat)by_downloadProgress{
-    return self.downloadProgress;
+-(JobsRetCGFloatByVoidBlock _Nonnull)by_downloadProgress{
+    @jobs_weakify(self)
+    return ^CGFloat{
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+        return self.downloadProgress;
+    };
 }
 
 @end

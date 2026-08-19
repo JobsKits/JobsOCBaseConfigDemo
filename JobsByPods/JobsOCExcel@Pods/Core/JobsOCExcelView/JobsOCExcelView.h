@@ -6,6 +6,12 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "JobsOCExcelStyle.h"
 #import "JobsOCExcelColumn.h"
 #import "JobsOCExcelRow.h"
@@ -58,14 +64,22 @@ Prop_strong(readonly)JobsOCExcelStyle *style;
 Prop_assign(readonly)CGFloat requiredHeight;
 Prop_assign(readonly)CGFloat horizontalContentOffset;
 
+-(JobsRetJobsOCExcelViewByIDBlock _Nonnull)byDelegate;
 -(void)configureWithColumns:(NSArray<JobsOCExcelColumn *> *)columns
                        rows:(NSArray<JobsOCExcelRow *> *)rows
         freezeThroughColumn:(NSInteger)freezeThroughColumn
                       style:(nullable JobsOCExcelStyle *)style;
 -(void)reloadData;
+-(jobsByVoidBlock _Nonnull)jobsReloadData;
 -(void)setHorizontalContentOffset:(CGFloat)offset
                          animated:(BOOL)animated;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCExcelView
+-(JobsRetJobsOCExcelViewByNSArrayJobsOCExcelColumnBlock _Nonnull)byColumns;
+-(JobsRetJobsOCExcelViewByNSArrayJobsOCExcelRowBlock _Nonnull)byRows;
+-(JobsRetJobsOCExcelViewByNSIntegerBlock _Nonnull)byFreezeThroughColumn;
+-(JobsRetJobsOCExcelViewByNSMutableArrayUILabelBlock _Nonnull)byGeneratedLabels;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCExcelView
 @end
 
 NS_ASSUME_NONNULL_END

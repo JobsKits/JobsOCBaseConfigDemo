@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 #import "JobsTopViewItem.h"
 #import "JobsExcelConfigureViewModel.h"
 
@@ -33,16 +34,22 @@
 #import "JobsMakes.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
 #import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 @interface JobsExcelTopHeadView : UIView
@@ -55,6 +62,9 @@ BaseViewProtocol
 
 @property(nonatomic,strong,nonnull,readonly)JobsExcelConfigureViewModel *excelConfigureData;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsExcelTopHeadView
+-(JobsRetJobsExcelTopHeadViewByJobsExcelConfigureViewModelBlock _Nonnull)byExcelConfigureData;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsExcelTopHeadView
 @end
 
 NS_INLINE __kindof JobsExcelTopHeadView *_Nonnull jobsMakeExcelTopHeadView(jobsByExcelTopHeadViewBlock _Nonnull block){

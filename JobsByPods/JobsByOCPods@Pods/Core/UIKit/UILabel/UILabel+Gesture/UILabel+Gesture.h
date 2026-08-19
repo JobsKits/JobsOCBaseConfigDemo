@@ -10,6 +10,11 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #if __has_include(<ReactiveObjC/RACmetamacros.h>)
 #import <ReactiveObjC/RACmetamacros.h>
 #else
@@ -62,7 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UILabel (Gesture)
 
--(void)makeLabelGesture;
+-(jobsByVoidBlock _Nonnull)makeLabelGesture;
 
 @end
 

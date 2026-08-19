@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// iOS系统内置了UISwithch控件的size，所以通过代码调整UISwithch的大小无效。默认大小：宽51.0f 、高31.0f
 @interface UISwitch (UI)
 
--(RACDisposable *)jobsSwitchClickEventBlock:(jobsByIDBlock)subscribeNextBlock;
+-(JobsRetRACDisposableByRACNextBlock _Nonnull)jobsSwitchClickEventBlock;
 
 @end
 
@@ -81,7 +81,7 @@ NS_ASSUME_NONNULL_END
                  [Switch jobsSwitchClickEventBlock:^(UISwitch *x) {
                      x.byOn(!x.jobs_isOn)
                          .byThumbTintColor(x.jobs_isOn ? self.cor : HEXCOLOR(0xB0B0B0));
-                     (x.jobs_isOn ? @"打开解锁".tr:@"关闭解锁".tr).toast();
+                     (x.jobs_isOn ? @"打开解锁".jobsTr():@"关闭解锁".jobsTr()).toast();
                      x.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _Nullable data) {
                          data.layerCor = Switch.jobs_isOn ? self.cor : HEXCOLOR(0xB0B0B0)
                          data.byJobsWidth(1);

@@ -21,16 +21,16 @@
 #import "ZBNetworking.h"
 #endif
 
-#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
-#import <JobsModelDSL/JobsModelDSL.h>
-#else
-#import "JobsModelDSL.h"
-#endif
-
 #if __has_include(<JobsAPIs/JobsAPIs.h>)
 #import <JobsAPIs/JobsAPIs.h>
 #else
 #import "JobsAPIs.h"
+#endif
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
@@ -45,10 +45,10 @@
 #import "JobsMakes.h"
 #endif
 
-#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
-#import <JobsByOCPods/JobsByOCPods.h>
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
 #else
-#import "JobsByOCPods.h"
+#import "JobsModelDSL.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -73,8 +73,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_assign()HTTPRequestHeaderLanguageType languageType;
 
-+(jobsByRequestToolBlock _Nullable)setupPublicParametersBy;
++(jobsByRequestToolBlock _Nonnull)setupPublicParametersBy;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN RequestTool
+-(JobsRetRequestToolByHTTPRequestHeaderLanguageTypeBlock _Nonnull)byLanguageType;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END RequestTool
 @end
 
 NS_ASSUME_NONNULL_END

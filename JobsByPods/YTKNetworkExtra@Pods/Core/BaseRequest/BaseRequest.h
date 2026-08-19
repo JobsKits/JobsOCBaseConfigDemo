@@ -55,6 +55,12 @@ NS_ASSUME_NONNULL_BEGIN
 +(JobsRetYTKRequestByDictionaryBlock _Nonnull)initByBodyParameters; // 直接调用，后面不能拼byURLParameters
 +(JobsRetYTKRequestByDictionaryBlock _Nonnull)initByURLParameters;  // 直接调用，后面不能拼byBodyParameters
 
+-(JobsRetMutableDicByVoidBlock _Nonnull)jobsCustomHTTPHeader;
+
+-(JobsRetMutableDicByVoidBlock _Nonnull)jobsParameters;
+
+-(JobsRetMutableDicByVoidBlock _Nonnull)jobsRequestHeaderFieldValueDictionary;
+
 @end
 
 NS_ASSUME_NONNULL_END

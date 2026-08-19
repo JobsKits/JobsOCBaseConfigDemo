@@ -17,32 +17,42 @@ Prop_strong()UIView *resizedSubview;
 
 @implementation CXBVC
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    CGRect frame = fitTop(100, 80, 200, 200);
-    self.takeView.byFrame(frame).addOn(self.view);
-    frame = fitHor(20, 20, 100, 60);
-    self.horizontalSubview.byFrame(frame).addOn(self.takeView);
-    frame = CGRectMake(0, 0, self.takeView.w_ - hs(50), hs(120));
-    self.resizedSubview.byFrame(frame).addOn(self.takeView);
-    self.takeView.resetSize(CGSizeMake(300, 500));
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CXBVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        CGRect frame = fitTop(100, 80, 200, 200);
+        self.takeView.byFrame(frame).addOn(self.view);
+        frame = fitHor(20, 20, 100, 60);
+        self.horizontalSubview.byFrame(frame).addOn(self.takeView);
+        frame = CGRectMake(0, 0, self.takeView.w_() - hs(50), hs(120));
+        self.resizedSubview.byFrame(frame).addOn(self.takeView);
+        self.takeView.resetSize(CGSizeMake(300, 500));
+    };
 }
 
 -(UIView *)takeView{
     if (!_takeView) {
-        _takeView = UIView.new.byBgColor(JobsRedColor);
+        _takeView = jobsMakeView(^(UIView *object){}).byBgColor(JobsRedColor);
     };return _takeView;
 }
 
 -(UIView *)horizontalSubview{
     if (!_horizontalSubview) {
-        _horizontalSubview = UIView.new.byBgColor(JobsGreenColor);
+        _horizontalSubview = jobsMakeView(^(UIView *object){}).byBgColor(JobsGreenColor);
     };return _horizontalSubview;
 }
 
 -(UIView *)resizedSubview{
     if (!_resizedSubview) {
-        _resizedSubview = UIView.new.byBgColor(JobsYellowColor);
+        _resizedSubview = jobsMakeView(^(UIView *object){}).byBgColor(JobsYellowColor);
     };return _resizedSubview;
 }
 

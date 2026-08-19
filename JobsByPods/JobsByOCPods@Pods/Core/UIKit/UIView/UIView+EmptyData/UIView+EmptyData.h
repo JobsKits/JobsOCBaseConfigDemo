@@ -57,7 +57,7 @@ Prop_copy()NSString *tipsTitle;
 
 -(jobsByVoidBlock _Nonnull)cleanSubview;
 -(jobsByClsBlock _Nonnull)cleanSubviewBy;
--(void)ifEmptyData;
+-(jobsByVoidBlock _Nonnull)ifEmptyData;
 
 @end
 

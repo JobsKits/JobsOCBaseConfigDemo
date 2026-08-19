@@ -28,8 +28,13 @@
     };
 }
 ///【实例方法】将NSData对象 转换为 以Base16（也称为十六进制）编码的字符串
--(NSString *_Nullable)base16StringByImage{
-    return NSData.base16StringByData(self);
+-(JobsRetStrByVoidBlock _Nonnull)base16StringByImage{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSData.base16StringByData(self);
+    };
 }
 #pragma mark —— Base16 ==> NSData
 ///【类方法】将以Base16编码的字符串 转换为 NSData对象

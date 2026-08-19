@@ -12,7 +12,7 @@
 @implementation LongPressToDeleteImageView
 - (instancetype)init{
     if (self = [super init]) {
-        self.userInteractionEnabled = YES;
+        self.byUserInteractionEnabled(YES);
         UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self
                                                                                                action:@selector(longPress:)];
         [self addGestureRecognizer:longPress];
@@ -20,19 +20,30 @@
 }
 
 -(void)longPress:(UILongPressGestureRecognizer*)longPress{
-    if (longPress.state == UIGestureRecognizerStateBegan) {
-        CAKeyframeAnimation *anim = [CAKeyframeAnimation animation];
-        anim.keyPath = @"transform.rotation";
-        anim.values = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
-            data.add(@(angelToRandian(-7)));
-            data.add(@(angelToRandian(7)));
-            data.add(@(angelToRandian(-7)));
-        });
-        anim.repeatCount = MAXFLOAT;
-        anim.duration = 0.2;
-        [self.layer addAnimation:anim forKey:nil];
-        self.byHidden(NO);
-    }
+    jobsByLongPressGestureRecognizerBlock action = ((jobsByLongPressGestureRecognizerBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(LongPressToDeleteImageView.class, @selector(jobsLongPress)))(self, @selector(jobsLongPress));
+    if (action) action(longPress);
+}
+
+-(jobsByLongPressGestureRecognizerBlock _Nonnull)jobsLongPress{
+    @jobs_weakify(self)
+    return ^(UILongPressGestureRecognizer* longPress){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (longPress.state == UIGestureRecognizerStateBegan) {
+            CAKeyframeAnimation *anim = [CAKeyframeAnimation animation];
+            anim.byKeyPath(@"transform.rotation");
+            anim.values = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
+                data
+                    .add(@(angelToRandian(-7)))
+                    .add(@(angelToRandian(7)))
+                    .add(@(angelToRandian(-7)));
+            });
+            anim.byRepeatCount(MAXFLOAT);
+            anim.byDuration(0.2);
+            [self.layer addAnimation:anim forKey:nil];
+            self.byHidden(NO);
+        }
+    };
 }
 //// 恢复抖动
 //view.layer.speed = 1.0;

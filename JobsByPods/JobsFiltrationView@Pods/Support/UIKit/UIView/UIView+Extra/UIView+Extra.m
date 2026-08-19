@@ -29,8 +29,9 @@
     @jobs_weakify(self)
     self.layer.mask = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable data) {
         @jobs_strongify(self)
-        data.byFrame(self.bounds);
-        data.path = maskPath.CGPath;
+        data
+            .byPath(maskPath.CGPath)
+            .byFrame(self.bounds);
     });
 }
 
@@ -46,7 +47,7 @@
 JobsKey(_masonryBlock)
 @dynamic masonryBlock;
 
--(jobsByMASConstraintMakerBlock)masonryBlock{
+-(jobsByMASConstraintMakerBlock _Nullable)masonryBlock{
     return Jobs_getAssociatedObject(_masonryBlock);
 }
 

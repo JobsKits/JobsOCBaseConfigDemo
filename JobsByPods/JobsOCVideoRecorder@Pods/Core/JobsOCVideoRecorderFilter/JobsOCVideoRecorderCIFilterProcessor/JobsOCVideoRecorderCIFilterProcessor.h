@@ -9,6 +9,12 @@
 #define JobsOCVideoRecorderCIFilterProcessor_h
 
 #import <CoreImage/CoreImage.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsOCVideoRecorder/JobsOCVideoRecorderFilterProtocol.h>
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
@@ -33,10 +39,13 @@ typedef NS_ENUM(NSUInteger, JobsOCVideoRecorderCIFilterType) {
 
 Prop_assign() JobsOCVideoRecorderCIFilterType filterType;
 
-+(NSArray<NSNumber *> *)allFilterTypes;
-+(NSString *)titleForFilterType:(JobsOCVideoRecorderCIFilterType)filterType;
++(JobsRetNSArrayNSNumberByVoidBlock _Nonnull)allFilterTypes;
++(JobsRetNSStringByJobsOCVideoRecorderCIFilterTypeBlock _Nonnull)titleForFilterType;
 -(instancetype)initWithFilterType:(JobsOCVideoRecorderCIFilterType)filterType;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCVideoRecorderCIFilterProcessor
+-(JobsRetJobsOCVideoRecorderCIFilterProcessorByJobsOCVideoRecorderCIFilterTypeBlock _Nonnull)byFilterType;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCVideoRecorderCIFilterProcessor
 @end
 
 NS_ASSUME_NONNULL_END

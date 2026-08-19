@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ASDisplayNode (DSL)
 
 -(JobsRetDisplayNodeByFrameBlock _Nonnull)byFrame;
+-(JobsRetDisplayNodeByCGSizeBlock _Nonnull)byPreferredSize;
 -(JobsRetDisplayNodeByColorBlock _Nonnull)byBgColor;
 -(JobsRetDisplayNodeByCGFloatBlock _Nonnull)byAlpha;
 -(JobsRetDisplayNodeByBOOLBlock _Nonnull)byHidden;

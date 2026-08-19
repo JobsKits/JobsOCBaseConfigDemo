@@ -13,6 +13,9 @@ Pod::Spec.new do |s|
   s.public_header_files = 'Core/**/*.h'
   s.frameworks = 'AVFoundation', 'UIKit'
   s.dependency 'JobsOCTimer'
+  s.dependency 'JobsOCDSL'
+  s.dependency 'JobsBlock'
+  s.dependency 'JobsOCDefs'
   JobsPodspecKitForJobsOCAudioRecorder.apply_standard_exclude_files(s)
   JobsPodspecKitForJobsOCAudioRecorder.apply_standard_xcconfig(s)
 end

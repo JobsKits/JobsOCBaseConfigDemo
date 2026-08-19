@@ -41,12 +41,21 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 @interface JobsToggleNavView : BaseView<JobsToggleNavViewProtocol>
 /// UI
 Prop_copy(nullable)NSMutableArray <__kindof UIButton *>*buttonsArray;
 /// 选择某一个标签
 -(jobsByNSIntegerBlock _Nonnull)selectingOneTagByIndex;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsToggleNavView
+-(JobsRetJobsToggleNavViewByNSUIntegerBlock _Nonnull)byCurrent_index;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsToggleNavView
 @end
 
 NS_INLINE __kindof JobsToggleNavView *_Nonnull jobsMakeToggleNavView(jobsByToggleNavViewBlock _Nonnull block){

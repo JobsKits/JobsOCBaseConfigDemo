@@ -13,15 +13,31 @@ Prop_copy()jobsByTwoIDBlock customZFPlayerControlViewBlock;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN CustomZFPlayerControlView
+@interface CustomZFPlayerControlView (JobsPropertyDSLSetterAutogen_d0f583561d)
+-(void)setCustomZFPlayerControlViewBlock:(jobsByTwoIDBlock)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END CustomZFPlayerControlView
+
 @implementation CustomZFPlayerControlView
--(void)gestureSingleTapped:(ZFPlayerGestureControl *)gestureControl{
-    [self endEditing:YES];
-    if (self.customZFPlayerControlViewBlock) self.customZFPlayerControlViewBlock(NSStringFromSelector(_cmd),@1);
+-(jobsByZFPlayerGestureControlBlock _Nonnull)gestureSingleTapped{
+    @jobs_weakify(self)
+    return ^(ZFPlayerGestureControl * gestureControl){
+        @jobs_strongify(self)
+        if (!self) return;
+        [self endEditing:YES];
+        if (self.customZFPlayerControlViewBlock) self.customZFPlayerControlViewBlock(NSStringFromSelector(_cmd),@1);
+    };
 }
 
--(void)gestureDoubleTapped:(ZFPlayerGestureControl *)gestureControl{
-    JobsLog(@"");
-    [self endEditing:YES];
+-(jobsByZFPlayerGestureControlBlock _Nonnull)gestureDoubleTapped{
+    @jobs_weakify(self)
+    return ^(ZFPlayerGestureControl * gestureControl){
+        @jobs_strongify(self)
+        if (!self) return;
+        JobsLog(@"");
+        [self endEditing:YES];
+    };
 }
 //走一次
 -(void)gestureBeganPan:(ZFPlayerGestureControl *)gestureControl
@@ -56,8 +72,23 @@ Prop_copy()jobsByTwoIDBlock customZFPlayerControlViewBlock;
     JobsLog(@"");
 }
 
--(void)actionCustomZFPlayerControlViewBlock:(jobsByTwoIDBlock _Nullable)customZFPlayerControlViewBlock{
-    self.customZFPlayerControlViewBlock = customZFPlayerControlViewBlock;
+-(jobsByjobsByTwoIDBlockBlock _Nonnull)actionCustomZFPlayerControlViewBlock{
+    @jobs_weakify(self)
+    return ^(jobsByTwoIDBlock _Nullable customZFPlayerControlViewBlock){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byCustomZFPlayerControlViewBlock(customZFPlayerControlViewBlock);
+    };
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN CustomZFPlayerControlView
+-(JobsRetCustomZFPlayerControlViewByjobsByTwoIDBlockBlock _Nonnull)byCustomZFPlayerControlViewBlock{
+    @jobs_weakify(self)
+    return ^__kindof CustomZFPlayerControlView * _Nullable(jobsByTwoIDBlock data){
+        @jobs_strongify(self)
+        [self setCustomZFPlayerControlViewBlock:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END CustomZFPlayerControlView
 @end

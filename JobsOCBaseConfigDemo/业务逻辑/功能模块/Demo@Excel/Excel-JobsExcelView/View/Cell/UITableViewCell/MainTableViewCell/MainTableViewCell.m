@@ -46,7 +46,7 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
     @jobs_weakify(self)
     return ^(CGPoint contentOffset){
         @jobs_strongify(self)
-        self.collectionView.contentOffset = contentOffset;
+        self.collectionView.byContentOffset(contentOffset);
     };
 }
 #pragma mark —— UITableViewCellProtocol
@@ -60,20 +60,30 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
 }
 #pragma mark —— UIScrollViewDelegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    JobsLog(@"MainTableViewCell - scrollView.contentOffset.x = %f",scrollView.contentOffset.x);
-    if (scrollView.contentOffset.x >= 0) {
-        /// 防止在数据拉完的情况下，无意义的往左拉动👈🏻
-        CGFloat d = (self.excelConfigureData.colNumber * self.excelConfigureData.itemW - self.excelConfigureData.XZExcelW) + self.excelConfigureData.itemW + self.excelConfigureData.scrollOffsetX;
-        if(scrollView.contentOffset.x > d) scrollView.contentOffset = CGPointMake(d, scrollView.contentOffset.y);
-        @jobs_weakify(self)
-        self.delegate.jobsDelegate(@"mianTableViewCellScrollerDid",^(){
-            @jobs_strongify(self)
-            self.delegate.mianTableViewCellScrollerDid(scrollView);
-        });
-    }else{
-        /// 防止在数据拉完的情况下，无意义的往右拉动👉🏻
-        scrollView.contentOffset = CGPointMake(0, scrollView.contentOffset.y);
-    }
+    jobsByScrollViewBlock action = ((jobsByScrollViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(MainTableViewCell.class, @selector(jobsScrollViewDidScroll)))(self, @selector(jobsScrollViewDidScroll));
+    if (action) action(scrollView);
+}
+
+-(jobsByScrollViewBlock _Nonnull)jobsScrollViewDidScroll{
+    @jobs_weakify(self)
+    return ^(UIScrollView * scrollView){
+        @jobs_strongify(self)
+        if (!self) return;
+        JobsLog(@"MainTableViewCell - scrollView.contentOffset.x = %f",scrollView.contentOffset.x);
+        if (scrollView.contentOffset.x >= 0) {
+            /// 防止在数据拉完的情况下，无意义的往左拉动👈🏻
+            CGFloat d = (self.excelConfigureData.colNumber * self.excelConfigureData.itemW - self.excelConfigureData.XZExcelW) + self.excelConfigureData.itemW + self.excelConfigureData.scrollOffsetX;
+            if(scrollView.contentOffset.x > d) scrollView.contentOffset = CGPointMake(d, scrollView.contentOffset.y);
+            @jobs_weakify(self)
+            self.delegate.jobsDelegate(@"mianTableViewCellScrollerDid",^(){
+                @jobs_strongify(self)
+                self.delegate.mianTableViewCellScrollerDid(scrollView);
+            });
+        }else{
+            /// 防止在数据拉完的情况下，无意义的往右拉动👉🏻
+            scrollView.byContentOffset(CGPointMake(0, scrollView.contentOffset.y));
+        }
+    };
 }
 #pragma mark —— UICollectionView 代理和数据源
 - (NSInteger)collectionView:(UICollectionView *)collectionView
@@ -116,14 +126,15 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
                 data.byJobsWidth(self.excelConfigureData.itemW)
                     .byJobsHeight(self.excelConfigureData.itemH);
             });
-            data.minimumLineSpacing = 0;
-            data.minimumInteritemSpacing = 0;
+            data
+                .byMinimumLineSpacing(0)
+                .byMinimumInteritemSpacing(0);
         })];
         _collectionView
             .dataLink(self)
             .byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.showsHorizontalScrollIndicator = NO;
+        _collectionView.byShowsVerticalScrollIndicator(NO);
+        _collectionView.byShowsHorizontalScrollIndicator(NO);
         _collectionView.addOn(self.contentView).byAdd(^(MASConstraintMaker *make) {
             make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(0, 0, 0, 0));
         });

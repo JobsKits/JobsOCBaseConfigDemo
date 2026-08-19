@@ -54,6 +54,7 @@ and loading accessories on top of YTKNetwork.
   spec.dependency 'JobsMakes'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsOCDSL'
   spec.dependency 'YTKNetwork'
   spec.dependency 'MJExtension'
   spec.dependency 'AFNetworking'

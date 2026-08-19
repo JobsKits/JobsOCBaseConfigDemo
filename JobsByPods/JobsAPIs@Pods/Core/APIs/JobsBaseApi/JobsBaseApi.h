@@ -10,6 +10,12 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<YTKNetworkExtra/YTKNetworkExtra.h>)
 #import <YTKNetworkExtra/YTKNetworkExtra.h>
 #else
@@ -26,6 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// JobsBaseApi >> BaseRequest >> YTKRequest >> YTKBaseRequest >> NSObject
 @interface JobsBaseApi : BaseRequest
 
+-(JobsRetURLRequestByVoidBlock _Nonnull)jobsBuildCustomUrlRequest;
+
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsBaseApi
+-(JobsRetJobsBaseApiByNSStringBlock _Nonnull)byAnimatingText;
+-(JobsRetJobsBaseApiByUIViewBlock _Nonnull)byAnimatingView;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsBaseApi
 @end
 
 NS_ASSUME_NONNULL_END

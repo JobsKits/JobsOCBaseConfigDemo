@@ -38,6 +38,13 @@ Prop_strong()UIColor *timeTitleSelectedColor;
 Prop_strong()UIFont *timeTitleFont;
 Prop_strong()UIFont *timeTitleSelectedFont;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JXCategoryTimelineCellModel
+-(JobsRetJXCategoryTimelineCellModelByNSStringBlock _Nonnull)byTimeTitle;
+-(JobsRetJXCategoryTimelineCellModelByUIColorBlock _Nonnull)byTimeTitleNormalColor;
+-(JobsRetJXCategoryTimelineCellModelByUIColorBlock _Nonnull)byTimeTitleSelectedColor;
+-(JobsRetJXCategoryTimelineCellModelByUIFontBlock _Nonnull)byTimeTitleFont;
+-(JobsRetJXCategoryTimelineCellModelByUIFontBlock _Nonnull)byTimeTitleSelectedFont;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JXCategoryTimelineCellModel
 @end
 
 NS_ASSUME_NONNULL_END

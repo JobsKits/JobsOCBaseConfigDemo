@@ -17,19 +17,29 @@
     };
 }
 ///【实例方法】以Base32编码的字符串 转换为 普通的字符串
--(NSString *_Nullable)stringByBase32String{
-    NSData *utf8encoding = MF_Base32Codec.dataFromBase32String(self);
-    return NSString.initByUTF8Data(utf8encoding);
+-(JobsRetStrByVoidBlock _Nonnull)stringByBase32String{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSData *utf8encoding = MF_Base32Codec.dataFromBase32String(self);
+        return NSString.initByUTF8Data(utf8encoding);
+    };
 }
 ///【类方法】普通的字符串 转换为 以Base32编码的字符串
 +(JobsRetStrByStrBlock _Nonnull)base32String{
     return ^__kindof NSString *_Nullable(NSString *_Nullable string){
-        return MF_Base32Codec.base32StringFromData(string.UTF8Encoding);
+        return MF_Base32Codec.base32StringFromData(string.jobsUTF8Encoding());
     };
 }
 ///【实例方法】普通的字符串 转换为 以Base32编码的字符串
--(NSString *_Nullable)base32String{
-    return MF_Base32Codec.base32StringFromData(self.UTF8Encoding);
+-(JobsRetStrByVoidBlock _Nonnull)base32String{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return MF_Base32Codec.base32StringFromData(self.jobsUTF8Encoding());
+    };
 }
 #pragma mark —— Base32 <==> UIImage
 ///【类方法】将以Base32编码的字符串 转换为 NSData对象，然后再转成UIImage
@@ -39,8 +49,13 @@
     };
 }
 ///【实例方法】将以Base32编码的字符串 转换为 NSData对象，然后再转成UIImage
--(UIImage *_Nullable)imageByBase32String{
-   return UIImage.imageByData(NSData.dataWithBase32String(self));
+-(JobsRetImageByVoidBlock _Nonnull)imageByBase32String{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+       return UIImage.imageByData(NSData.dataWithBase32String(self));
+    };
 }
 #pragma mark —— Base32 <==> NSData
 /// 将Base32编码的字符串 转换为 NSData对象
@@ -50,8 +65,13 @@
     };
 }
 ///【实例方法】将Base32编码的字符串 转换为 NSData对象
--(NSData *_Nullable)dataWithBase32String{
-    return MF_Base32Codec.dataFromBase32String(self);
+-(JobsRetDataByVoidBlock _Nonnull)dataWithBase32String{
+    @jobs_weakify(self)
+    return ^NSData *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return MF_Base32Codec.dataFromBase32String(self);
+    };
 }
 
 @end

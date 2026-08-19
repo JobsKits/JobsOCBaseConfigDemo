@@ -15,27 +15,52 @@ Prop_strong()JobsOCSnowflake *snowflake;
 
 @implementation JobsSwiftParitySnowflakeDemoVC
 
--(NSString *)demoNavigationTitle{
-    return @"雪花算法";
+-(JobsRetStrByVoidBlock _Nonnull)demoNavigationTitle{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"雪花算法";
+    };
 }
 
--(NSString *)demoDescription{
-    return @"使用固定发布纪元、数据中心 ID 和机器 ID 生成唯一编号。";
+-(JobsRetStrByVoidBlock _Nonnull)demoDescription{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"使用固定发布纪元、数据中心 ID 和机器 ID 生成唯一编号。";
+    };
 }
 
--(NSString *)demoIconName{
-    return @"snowflake";
+-(JobsRetStrByVoidBlock _Nonnull)demoIconName{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"snowflake";
+    };
 }
 
--(NSString *)primaryActionTitle{
-    return @"生成 Snowflake ID";
+-(JobsRetStrByVoidBlock _Nonnull)primaryActionTitle{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"生成 Snowflake ID";
+    };
 }
 
--(void)performPrimaryAction{
-    NSNumber *snowflakeID = self.snowflake.nextID;
-    self.previewImageView.byImage(@"snowflake".sys_img);
-    self.previewTitleLab.byText([NSString stringWithFormat:@"Snowflake ID\n%@",snowflakeID ?: @"生成失败"]);
-    [self updateStatus:snowflakeID ? @"雪花 ID 生成成功" : @"雪花 ID 生成失败"];
+-(jobsByVoidBlock _Nonnull)performPrimaryAction{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        NSNumber *snowflakeID = self.snowflake.nextID();
+        self.previewImageView.byImage(@"snowflake".sys_img);
+        self.previewTitleLab.byText([NSString stringWithFormat:@"Snowflake ID\n%@",snowflakeID ?: @"生成失败"]);
+        self.updateStatus(snowflakeID ? @"雪花 ID 生成成功" : @"雪花 ID 生成失败");
+    };
 }
 #pragma mark —— LazyLoad
 -(JobsOCSnowflake *)snowflake{

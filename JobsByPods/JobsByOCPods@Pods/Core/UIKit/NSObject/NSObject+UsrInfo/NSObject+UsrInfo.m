@@ -27,7 +27,15 @@
 }
 /// 读取用户信息【用户信息】/【JobsUserModel】
 -(JobsUserModel <NSCoding>*_Nullable)readUserInfo{
-    return self.readUserInfoByUserName(JobsUserModel.class,用户信息);
+    return (((JobsRetUserModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobsCurrentUserInfo)))(self, @selector(jobsCurrentUserInfo)))();
+}
+-(JobsRetUserModelByVoidBlock _Nonnull)jobsCurrentUserInfo{
+    @jobs_weakify(self)
+    return ^__kindof JobsUserModel <NSCoding>*_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.readUserInfoByUserName(JobsUserModel.class,用户信息);
+    };
 }
 /// 保存用户数据
 -(jobsByIDAndKeyBlock _Nonnull)jobsSaveUserInfo{
@@ -62,7 +70,7 @@
     return ^id _Nullable(Class _Nonnull cls,NSString *_Nullable userName){
         NSData *archivedData = NSUserDefaults.readWithKey(userName);
         if(archivedData){
-            if(self.systemVersion.floatValue < 12.0){
+            if(self.systemVersion().floatValue < 12.0){
                 SuppressWdeprecatedDeclarationsWarning(return [NSKeyedUnarchiver unarchiveObjectWithData:archivedData];);
             }else{
                 NSError *error = nil;
@@ -109,8 +117,13 @@
     };
 }
 /// 读取用户名组
--(NSArray *_Nullable)readUserNameMutArr{
-    return JobsUserDefaults.valueForKey(用户名数组);
+-(JobsRetArrByVoidBlock _Nonnull)readUserNameMutArr{
+    @jobs_weakify(self)
+    return ^NSArray *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return JobsUserDefaults.valueForKey(用户名数组);
+    };
 }
 /// 全局删除已经登录成功的用户名
 -(jobsByStrBlock _Nonnull)deleteUserName{

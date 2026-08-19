@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
@@ -52,6 +58,9 @@ Prop_strong()NSMutableArray<UIImage *> *gifMutArr; // 要播放的动画序列
 Prop_strong()UIImage *pauseImage;
                   // 暂停时显示的图片
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN GifLoopPlayView
+-(JobsRetGifLoopPlayViewByBOOLBlock _Nonnull)byStopped;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END GifLoopPlayView
 @end
 
 NS_ASSUME_NONNULL_END

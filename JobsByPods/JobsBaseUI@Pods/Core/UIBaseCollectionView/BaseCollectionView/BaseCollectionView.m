@@ -6,6 +6,7 @@
 //
 
 #import "BaseCollectionView.h"
+
 #import <JobsBaseUI/UIView+Extra.h>
 
 @interface BaseCollectionView ()
@@ -25,7 +26,17 @@ BaseViewProtocol_synthesize
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseCollectionView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 /**
  1. 刷新完成后触发 layoutsubview
@@ -35,15 +46,34 @@ BaseViewProtocol_synthesize
  在 UICollectionView 调用 reloaddata 方法后, 强制调用其 layoutIfNeeded 方法, 接着调用刷新完后的操作.
  */
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    if(!jobsZeroSizeValue(self.layoutSubviewsRectCornerSize)){
-        [self appointCornerCutToCircleByRoundingCorners:self.layoutSubviewsRectCorner
-                                            cornerRadii:self.layoutSubviewsRectCornerSize];
-    }
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseCollectionView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        if(!jobsZeroSizeValue(self.layoutSubviewsRectCornerSize)){
+            [self appointCornerCutToCircleByRoundingCorners:self.layoutSubviewsRectCorner
+                                                cornerRadii:self.layoutSubviewsRectCornerSize];
+        }
+    };
 }
 
 -(void)layoutIfNeeded{
-    [super layoutIfNeeded];
+    (((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseCollectionView.class, @selector(jobsLayoutIfNeeded)))(self, @selector(jobsLayoutIfNeeded)))();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutIfNeeded{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutIfNeeded];
+    };
 }
 #pragma mark —— BaseViewProtocol
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】

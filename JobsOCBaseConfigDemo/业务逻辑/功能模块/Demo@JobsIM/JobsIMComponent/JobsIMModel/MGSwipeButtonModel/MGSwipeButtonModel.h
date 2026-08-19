@@ -27,6 +27,10 @@ Prop_strong()UIImage *IconIMG;
 Prop_strong()UIColor *bgCor;
 Prop_copy()NSString *titleStr;
 
+-(JobsRetMGSwipeButtonModelByImageBlock _Nonnull)byIconIMG;
+-(JobsRetMGSwipeButtonModelByCorBlock _Nonnull)byBgCor;
+-(JobsRetMGSwipeButtonModelByStrBlock _Nonnull)byTitleStr;
+
 @end
 
 NS_ASSUME_NONNULL_END

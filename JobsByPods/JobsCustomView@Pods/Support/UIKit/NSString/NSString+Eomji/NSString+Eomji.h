@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_NSSTRING_EOMJI_B161990141
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsCustomView/NSString+Conversion.h>
 
 #if __has_include(<JobsStringUtils/JobsStringUtilsHeader.h>)
@@ -28,22 +34,22 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSString (Eomji)
 #pragma mark —— Eomji相关
 /// 编码emoji
--(NSString *)emojiEncode;
+-(JobsRetStrByVoidBlock _Nonnull)emojiEncode;
 /// 解码emoji
--(NSString *)emojiDecode;
+-(JobsRetStrByVoidBlock _Nonnull)emojiDecode;
 /// 判断第三方键盘中的表情
--(BOOL)hasEmoji;
+-(JobsRetBOOLByVoidBlock _Nonnull)hasEmoji;
 /// 去除表情
--(NSString *)disableEmoji;
+-(JobsRetStrByVoidBlock _Nonnull)disableEmoji;
 /// iOS判断某字符串是否是Emoji表情【有一定缺陷，但能满足大多数业务场景需求（因为Emoji在不断的发展更新，不应该本地写死）】
--(BOOL)validateContainsEmoji;
+-(JobsRetBOOLByVoidBlock _Nonnull)validateContainsEmoji;
 
--(BOOL)isHaveAppleEomji;
+-(JobsRetBOOLByVoidBlock _Nonnull)isHaveAppleEomji;
 /**
     过滤表情
     在这个方法中处理  - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
  */
--(BOOL)isContainsTwoEmoji;
+-(JobsRetBOOLByVoidBlock _Nonnull)isContainsTwoEmoji;
 
 @end
 

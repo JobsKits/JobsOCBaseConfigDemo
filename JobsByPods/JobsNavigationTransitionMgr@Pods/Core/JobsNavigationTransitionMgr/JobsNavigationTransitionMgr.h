@@ -58,6 +58,11 @@ UINavigationControllerDelegate
 ,BaseProtocol
 >
 
+-(JobsRetNavigationTransitionMgrByVCBlock _Nonnull)byViewController;
+-(JobsRetNavigationTransitionMgrByDirectionBlock _Nonnull)byDirection;
+-(JobsRetNavigationTransitionMgrByInteractiveTransitionBlock _Nonnull)byInteractiveTransition;
+-(JobsRetNavigationTransitionMgrByComingStyleBlock _Nonnull)byComingStyle;
+
 +(void)setDirection:(JobsTransitionDirection)direction
 forNavigationController:(UINavigationController *)navCtrlVC;
 /// 自定义 push/pop 控制器的手势方向

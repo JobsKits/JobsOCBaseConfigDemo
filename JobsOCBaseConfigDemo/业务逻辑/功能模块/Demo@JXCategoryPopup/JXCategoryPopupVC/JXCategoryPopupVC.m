@@ -22,73 +22,177 @@ Prop_strong()JXCategoryPopupSubVC *vc;
 Prop_strong()NSMutableArray <NSString *>*titleMutArr;
 Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
 
+-(JobsRetJXCategoryPopupVCBySubVCBlock _Nonnull)byVc;
+
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JXCategoryPopupVC
+@interface JXCategoryPopupVC (JobsPropertyDSLSetterAutogen_2849a66479)
+-(void)setCurrentIndex:(NSInteger)data;
+-(void)setPopUpCustomView:(UIView * _Nullable)data;
+-(void)setPopUpFiltrationView:(UIView * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JXCategoryPopupVC
+
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JXCategoryIndicatorLineView
+@interface JXCategoryIndicatorLineView (JobsLocalPropertyDSLAutogen_2849a66479)
+-(JobsRetJXCategoryIndicatorLineViewByCGFloatBlock _Nonnull)byIndicatorHeight;
+-(JobsRetJXCategoryIndicatorLineViewByCGFloatBlock _Nonnull)byIndicatorWidthIncrement;
+-(JobsRetJXCategoryIndicatorLineViewByCGFloatBlock _Nonnull)byVerticalMargin;
+-(JobsRetJXCategoryIndicatorLineViewByUIColorBlock _Nonnull)byIndicatorColor;
+-(void)setIndicatorColor:(UIColor * _Nullable)data;
+-(void)setIndicatorHeight:(CGFloat)data;
+-(void)setIndicatorWidthIncrement:(CGFloat)data;
+-(void)setVerticalMargin:(CGFloat)data;
+@end
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END JXCategoryIndicatorLineView
+
 @implementation JXCategoryPopupVC
+
+-(JobsRetJXCategoryPopupVCBySubVCBlock _Nonnull)byVc{
+    @jobs_weakify(self)
+    return ^__kindof JXCategoryPopupVC *_Nullable(JXCategoryPopupSubVC *_Nullable viewController){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setVc:viewController];
+        return self;
+    };
+}
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        self.viewModel
-            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-                data
-                    .byText(data.attributedTitle.string)
-                    .byTextCor(JobsLabelColor)
-                    .byFont(UIFontWeightRegularSize(18));
-            });
-    }
-//    self.viewModel.textModel.text = @"JXCategoryPopupVC".tr;
-    self.bgImage = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JXCategoryPopupVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+            [super loadView];
+            if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+                self.byViewModel((UIViewModel *)self.requestParams);
+                self.viewModel
+                    .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                        data
+                            .byText(data.attributedTitle.string)
+                            .byTextCor(JobsLabelColor)
+                            .byFont(UIFontWeightRegularSize(18));
+                    });
+            }
+        //    self.viewModel.textModel.text = @"JXCategoryPopupVC".jobsTr();
+            self.byBgImage(nil);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.categoryView.byAlpha(1);
-    self.filterBtn.byAlpha(1);
-    self.customBtn.byAlpha(1);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JXCategoryPopupVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.categoryView.byAlpha(1);
+        self.filterBtn.byAlpha(1);
+        self.customBtn.byAlpha(1);
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JXCategoryPopupVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillAppear:animated];
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JXCategoryPopupVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JXCategoryPopupVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
-}
-#pragma mark —— 一些私有方法
--(NSInteger)jobsCurrentListIndex{
-    if (!self.childVCMutArr.count) return 0;
-    NSInteger index = self.categoryView.selectedIndex;
-    id value = [self.listContainerView valueForKey:@"currentIndex"];
-    if ([value respondsToSelector:@selector(integerValue)]) {
-        index = [value integerValue];
-    }
-    if (index < 0 || (NSUInteger)index >= self.childVCMutArr.count) {
-        index = MIN(MAX(index, 0), (NSInteger)self.childVCMutArr.count - 1);
-    };return index;
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JXCategoryPopupVC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
 }
 
--(JXCategoryPopupSubVC *)jobsCurrentPopupSubVC{
-    if (!self.childVCMutArr.count) return nil;
-    self.currentIndex = [self jobsCurrentListIndex];
-    UIViewController *vc = self.childVCMutArr[(NSUInteger)self.currentIndex];
-    if (![vc isKindOfClass:JXCategoryPopupSubVC.class]) return nil;
-    return (JXCategoryPopupSubVC *)vc;
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+    };
+}
+#pragma mark —— 一些私有方法
+-(JobsRetNSIntegerByVoidBlock _Nonnull)jobsCurrentListIndex{
+    @jobs_weakify(self)
+    return ^NSInteger{
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        if (!self.childVCMutArr.count) return 0;
+        NSInteger index = self.categoryView.selectedIndex;
+        id value = [self.listContainerView valueForKey:@"currentIndex"];
+        if ([value respondsToSelector:@selector(integerValue)]) {
+            index = [value integerValue];
+        }
+        if (index < 0 || (NSUInteger)index >= self.childVCMutArr.count) {
+            index = MIN(MAX(index, 0), (NSInteger)self.childVCMutArr.count - 1);
+        };return index;
+    };
+}
+
+-(JobsRetJXCategoryPopupSubVCByVoidBlock _Nonnull)jobsCurrentPopupSubVC{
+    @jobs_weakify(self)
+    return ^JXCategoryPopupSubVC *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (!self.childVCMutArr.count) return nil;
+        self.byCurrentIndex(self.jobsCurrentListIndex());
+        UIViewController *vc = self.childVCMutArr[(NSUInteger)self.currentIndex];
+        if (![vc isKindOfClass:JXCategoryPopupSubVC.class]) return nil;
+        return (JXCategoryPopupSubVC *)vc;
+    };
 }
 #pragma mark JXCategoryTitleViewDataSource
 //// 如果将JXCategoryTitleView嵌套进UITableView的cell，每次重用的时候，JXCategoryTitleView进行reloadData时，会重新计算所有的title宽度。所以该应用场景，需要UITableView的cellModel缓存titles的文字宽度，再通过该代理方法返回给JXCategoryTitleView。
@@ -105,8 +209,13 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
  @param listContainerView 列表的容器视图
  @return list的数量
  */
-- (NSInteger)numberOfListsInlistContainerView:(JXCategoryListContainerView *)listContainerView{
-    return self.titleMutArr.count;
+-(JobsRetNSIntegerByJXCategoryListContainerViewBlock _Nonnull)numberOfListsInlistContainerView{
+    @jobs_weakify(self)
+    return ^NSInteger(JXCategoryListContainerView * listContainerView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return self.titleMutArr.count;
+    };
 }
 /**
  根据index初始化一个对应列表实例，需要是遵从`JXCategoryListContentViewDelegate`协议的对象。
@@ -149,34 +258,44 @@ ratio:(CGFloat)ratio {
 }
 #pragma mark —— TFPopupDelegate
 /// 在 tf_hide 之后执行
-- (BOOL)tf_popupViewWillHide:(UIView *)popup{
-    if (self.filterBtn.selected) {
-        self.filterBtn.bySelected(NO);
-        [self.filterBtn changeAction:NO];
-    };return YES;
+-(JobsRetBOOLByViewBlock _Nonnull)tf_popupViewWillHide{
+    @jobs_weakify(self)
+    return ^BOOL(UIView * popup){
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        if (self.filterBtn.selected) {
+            self.filterBtn.bySelected(NO);
+            self.filterBtn.changeAction(NO);
+        };return YES;
+    };
 }
 
-- (BOOL)tf_popupViewWillShow:(UIView *)popup{
-    [popup showDefaultBackground];
-    return YES;
+-(JobsRetBOOLByViewBlock _Nonnull)tf_popupViewWillShow{
+    @jobs_weakify(self)
+    return ^BOOL(UIView * popup){
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        [popup showDefaultBackground];
+        return YES;
+    };
 }
 #pragma mark —— LazyLoad
 -(JXCategoryTitleView *)categoryView{
     if (!_categoryView) {
         _categoryView = JXCategoryTitleView.new;
         _categoryView.byBgColor(RGBA_COLOR(255, 238, 221, 0.98));
-        _categoryView.titleSelectedColor = HEXCOLOR(0xAE8330);
-        _categoryView.titleColor = HEXCOLOR(0x8D765C);
-        _categoryView.titleFont = UIFontWeightRegularSize(16);
-        _categoryView.titleSelectedFont = UIFontWeightSemiboldSize(22);
-        _categoryView.delegate = self;
-        _categoryView.titles = self.titleMutArr;
-        _categoryView.titleColorGradientEnabled = YES;
-        _categoryView.indicators = @[self.lineView];//
-        _categoryView.defaultSelectedIndex = 1;// 默认从第二个开始显示
-        _categoryView.cellSpacing = JobsWidth(8);
+        _categoryView.byTitleSelectedColor(HEXCOLOR(0xAE8330));
+        _categoryView.byTitleColor(HEXCOLOR(0x8D765C));
+        _categoryView.byTitleFont(UIFontWeightRegularSize(16));
+        _categoryView.byTitleSelectedFont(UIFontWeightSemiboldSize(22));
+        _categoryView.byDelegate(self);
+        _categoryView.byTitles(self.titleMutArr);
+        _categoryView.byTitleColorGradientEnabled(YES);
+        _categoryView.byIndicators(@[self.lineView]);
+        _categoryView.byDefaultSelectedIndex(1);
+        _categoryView.byCellSpacing(JobsWidth(8));
         // 关联cotentScrollView，关联之后才可以互相联动！！！
-        _categoryView.contentScrollView = self.listContainerView.scrollView;//
+        _categoryView.byContentScrollView(self.listContainerView.scrollView);
         _categoryView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.top.equalTo(self.gk_navigationBar.mas_bottom);
             make.left.equalTo(self.view);
@@ -190,10 +309,10 @@ ratio:(CGFloat)ratio {
 -(JXCategoryIndicatorLineView *)lineView{
     if (!_lineView) {
         _lineView = JXCategoryIndicatorLineView.new;
-        _lineView.indicatorColor = HEXCOLOR(0xAE8330);
-        _lineView.indicatorHeight = JobsWidth(3);
-        _lineView.indicatorWidthIncrement = JobsWidth(6);
-        _lineView.verticalMargin = 0;
+        _lineView.byIndicatorColor(HEXCOLOR(0xAE8330));
+        _lineView.byIndicatorHeight(JobsWidth(3));
+        _lineView.byIndicatorWidthIncrement(JobsWidth(6));
+        _lineView.byVerticalMargin(0);
     };return _lineView;
 }
 /// 此属性决定依附于此的viewController
@@ -201,14 +320,14 @@ ratio:(CGFloat)ratio {
     if (!_listContainerView) {
         _listContainerView = [JXCategoryListContainerView.alloc initWithType:JXCategoryListContainerType_CollectionView
                                                                     delegate:self];
-        _listContainerView.defaultSelectedIndex = 1;// 默认从第二个开始显示
+        _listContainerView.byDefaultSelectedIndex(1);
         _listContainerView.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(listContainerViewDefaultOffset);
             make.left.right.bottom.equalTo(self.view);
         });
         [self.view layoutIfNeeded];
         /// ❤️在需要的地方写❤️
-        JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %ld",(long)[self jobsCurrentListIndex]);
+        JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %ld",(long)self.jobsCurrentListIndex());
     };return _listContainerView;
 }
 
@@ -216,12 +335,12 @@ ratio:(CGFloat)ratio {
     if (!_titleMutArr) {
         _titleMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>*_Nullable data) {
             data
-                .add(@"全部游戏".tr)
-                .add(@"真人".tr)
-                .add(@"体育".tr)
-                .add(@"电子".tr)
-                .add(@"棋牌".tr)
-                .add(@"彩票".tr);
+                .add(@"全部游戏".jobsTr())
+                .add(@"真人".jobsTr())
+                .add(@"体育".jobsTr())
+                .add(@"电子".jobsTr())
+                .add(@"棋牌".jobsTr())
+                .add(@"彩票".jobsTr());
         });
     };return _titleMutArr;
 }
@@ -232,9 +351,7 @@ ratio:(CGFloat)ratio {
         _childVCMutArr = jobsMakeMutArr(^(__kindof NSMutableArray <__kindof UIViewController *>*_Nullable data) {
             @jobs_strongify(self)
             for (NSString *str in self.titleMutArr) {
-                JXCategoryPopupSubVC *vc = JXCategoryPopupSubVC.new;
-                vc.pageTitle = str;
-                data.add(vc);
+                data.add(JXCategoryPopupSubVC.new.byPageTitle(str));
             }
         });
     };return _childVCMutArr;
@@ -250,30 +367,30 @@ ratio:(CGFloat)ratio {
             .jobsResetBtnImage(@"筛选箭头（向下）".img)
             .jobsResetBtnTitleCor(JobsLabelColor)
             .jobsResetBtnTitleFont(fontName(@"NotoSans-Bold", 12))
-            .jobsResetBtnTitle(@"篩選".tr)
+            .jobsResetBtnTitle(@"篩選".jobsTr())
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
                 x.bySelected(!x.selected);
-                @"篩選".tr.toast();
-                [x changeAction:x.selected];
-                self.vc = [self jobsCurrentPopupSubVC];
+                @"篩選".jobsTr().toast();
+                x.changeAction(x.selected);
+                self.byVc(self.jobsCurrentPopupSubVC());
                 JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %ld",(long)self.currentIndex);
                 if (!self.vc) {
                     x.bySelected(NO);
-                    [x changeAction:NO];
+                    x.changeAction(NO);
                     return;
                 }
                 self.vc.hidePopupView(self.popUpCustomView);
                 if (x.selected) {
                     self.customBtn.bySelected(NO);
                     self.customBtn.jobsResetBtnTitleCor(JobsLabelColor);
-                    self.popUpFiltrationView = self.vc.filtrationView;
-                    self.popUpFiltrationView.popupDelegate = self;
+                    self.byPopUpFiltrationView(self.vc.filtrationView);
+                    self.popUpFiltrationView.byPopupDelegate(self);
                     [self.vc popUpFiltrationView];
                 }else{
                     self.vc.hidePopupView(self.popUpFiltrationView);
-                    self.popUpFiltrationView = nil;
+                    self.byPopUpFiltrationView(nil);
                 }
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
@@ -294,7 +411,7 @@ ratio:(CGFloat)ratio {
         _customBtn = BaseButton.jobsInit()
             .jobsResetBtnTitleCor(JobsLabelColor)
             .jobsResetBtnTitleFont(fontName(@"NotoSans-Bold", 12))
-            .jobsResetBtnTitle(@"自定义".tr)
+            .jobsResetBtnTitle(@"自定义".jobsTr())
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
@@ -302,8 +419,8 @@ ratio:(CGFloat)ratio {
                 x
                     .jobsResetBtnTitleCor(selected ? HEXCOLOR(0xAE8330) : JobsLabelColor)
                     .bySelected(selected);
-                @"自定义".tr.toast();
-                self.vc = [self jobsCurrentPopupSubVC];
+                @"自定义".jobsTr().toast();
+                self.byVc(self.jobsCurrentPopupSubVC());
                 JobsLog(@"滑动或者点击以后，改变控制器，得到的目前最新的index = %ld",(long)self.currentIndex);
                 if (!self.vc) {
                     x
@@ -311,16 +428,16 @@ ratio:(CGFloat)ratio {
                         .bySelected(NO);
                     return;
                 }
-                self.popUpFiltrationView = self.vc.filtrationView;
+                self.byPopUpFiltrationView(self.vc.filtrationView);
                 self.vc.hidePopupView(self.popUpFiltrationView);
                 if (x.selected) {
                     self.filterBtn.bySelected(NO);
-                    [self.filterBtn changeAction:NO];
-                    self.popUpCustomView = self.vc.popUpCustomView;
+                    self.filterBtn.changeAction(NO);
+                    self.byPopUpCustomView(self.vc.popUpCustomView());
     //                self.popUpCustomView.popupDelegate = self;
                 }else{
                     self.vc.hidePopupView(self.popUpCustomView);
-                    self.popUpCustomView = nil;
+                    self.byPopUpCustomView(nil);
                 }
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
@@ -337,4 +454,72 @@ ratio:(CGFloat)ratio {
     };return _customBtn;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JXCategoryPopupVC
+-(JobsRetJXCategoryPopupVCByNSIntegerBlock _Nonnull)byCurrentIndex{
+    @jobs_weakify(self)
+    return ^__kindof JXCategoryPopupVC * _Nullable(NSInteger data){
+        @jobs_strongify(self)
+        [self setCurrentIndex:data];
+        return self;
+    };
+}
+
+-(JobsRetJXCategoryPopupVCByUIViewBlock _Nonnull)byPopUpCustomView{
+    @jobs_weakify(self)
+    return ^__kindof JXCategoryPopupVC * _Nullable(UIView * _Nullable data){
+        @jobs_strongify(self)
+        [self setPopUpCustomView:data];
+        return self;
+    };
+}
+
+-(JobsRetJXCategoryPopupVCByUIViewBlock _Nonnull)byPopUpFiltrationView{
+    @jobs_weakify(self)
+    return ^__kindof JXCategoryPopupVC * _Nullable(UIView * _Nullable data){
+        @jobs_strongify(self)
+        [self setPopUpFiltrationView:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JXCategoryPopupVC
 @end
+
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JXCategoryIndicatorLineView
+@implementation JXCategoryIndicatorLineView (JobsLocalPropertyDSLAutogen_2849a66479)
+-(JobsRetJXCategoryIndicatorLineViewByCGFloatBlock _Nonnull)byIndicatorHeight{
+    @jobs_weakify(self)
+    return ^__kindof JXCategoryIndicatorLineView * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setIndicatorHeight:data];
+        return self;
+    };
+}
+
+-(JobsRetJXCategoryIndicatorLineViewByCGFloatBlock _Nonnull)byIndicatorWidthIncrement{
+    @jobs_weakify(self)
+    return ^__kindof JXCategoryIndicatorLineView * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setIndicatorWidthIncrement:data];
+        return self;
+    };
+}
+
+-(JobsRetJXCategoryIndicatorLineViewByCGFloatBlock _Nonnull)byVerticalMargin{
+    @jobs_weakify(self)
+    return ^__kindof JXCategoryIndicatorLineView * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setVerticalMargin:data];
+        return self;
+    };
+}
+
+-(JobsRetJXCategoryIndicatorLineViewByUIColorBlock _Nonnull)byIndicatorColor{
+    @jobs_weakify(self)
+    return ^__kindof JXCategoryIndicatorLineView * _Nullable(UIColor * _Nullable data){
+        @jobs_strongify(self)
+        [self setIndicatorColor:data];
+        return self;
+    };
+}
+@end
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JXCategoryIndicatorLineView

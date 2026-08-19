@@ -11,7 +11,7 @@
 #import <JobsBlock/JobsBlock.h>
 #else
 #import "JobsBlock.h"
-#endif 
+#endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
@@ -20,6 +20,17 @@
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
+
+@interface ZBURLRequest (JobsNetworkingDSL)
+-(JobsRetZBURLRequestByStrBlock _Nonnull)byServer;
+-(JobsRetZBURLRequestByStrBlock _Nonnull)byUrl;
+-(JobsRetZBURLRequestByNSIntegerBlock _Nonnull)byMethodType;
+-(JobsRetZBURLRequestByNSIntegerBlock _Nonnull)byApiType;
+-(JobsRetZBURLRequestByIDBlock _Nonnull)byParameters;
+-(JobsRetZBURLRequestByNSUIntegerBlock _Nonnull)byRetryCount;
+-(JobsRetZBURLRequestByTimeIntervalBlock _Nonnull)byTimeoutInterval;
+-(JobsRetZBURLRequestByIDBlock _Nonnull)byUserInfo;
+@end
 
 @interface JobsNetworkingAPI (DemoTestApi)
 /*
@@ -34,4 +45,3 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
-

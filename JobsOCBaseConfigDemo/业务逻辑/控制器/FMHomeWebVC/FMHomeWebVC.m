@@ -6,8 +6,9 @@
 //
 
 #import "FMHomeWebVC.h"
+
 /**
- 
+
      产品：https://www.bsports.ph/
      UAT：https://bsports.net.ph
      测试：https://www.sports3333.com
@@ -34,33 +35,93 @@ Prop_copy()NSString *urlString;
 }
 
 -(void)loadView{
-    [super loadView];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMHomeWebVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.launchImageView.byAlpha(1);
-    [self.loadingIndicator startAnimating];
-    self.webView.byAlpha(1);
-    self.view.bringSubviewToFront(self.launchImageView); // 确保启动图在最上层
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMHomeWebVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.launchImageView.byAlpha(1);
+        [self.loadingIndicator startAnimating];
+        self.webView.byAlpha(1);
+        self.view.bringSubviewToFront(self.launchImageView); // 确保启动图在最上层
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self setNeedsStatusBarAppearanceUpdate];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMHomeWebVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillAppear:animated];
+        [self setNeedsStatusBarAppearanceUpdate];
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMHomeWebVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMHomeWebVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMHomeWebVC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+    };
 }
 #pragma mark —— WKScriptMessageHandler
 /// JS 回调 Objective-C 方法
@@ -114,15 +175,15 @@ didFailProvisionalNavigation:(WKNavigation *)navigation
 @synthesize webView = _webView;
 -(WKWebView *)webView {
     if (!_webView) {
-//        _webView = self.makeWebViewByURL(self.urlString.jobsUrl); 
+//        _webView = self.makeWebViewByURL(self.urlString.jobsURL());
         /// JS 回调 Objective-C 方法
         _webView = WKWebView.initBy(jobsMakeWebViewConfiguration(^(__kindof WKWebViewConfiguration * _Nullable config) {
             config.userContentController = jobsMakeUserContentController(^(__kindof WKUserContentController * _Nullable data) {
                 [data addScriptMessageHandler:self name:@"iOSBridge"]; // handler 名字
             });
         }));
-        _webView.navigationDelegate = self; // 设置代理监听网页加载状态
-        _webView.loadRequest(self.urlString.URLRequest);
+        _webView.byNavigationDelegate(self);
+        _webView.loadRequest(self.urlString.jobsURLRequest());
         /// 从 Objective-C 调用 JavaScript 方法
         [_webView evaluateJavaScript:@"navigator.userAgent"
                    completionHandler:^(id result, NSError *error) {

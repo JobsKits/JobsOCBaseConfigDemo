@@ -34,8 +34,8 @@
     return ^(UIImage *_Nullable image){
         @jobs_strongify(self)
         self.customSysClearBtn.jobsResetBtnImage(image);
-        self.rightView = self.customSysClearBtn;
-        self.rightViewMode = UITextFieldViewModeWhileEditing;
+        self.byRightView(self.customSysClearBtn);
+        self.byRightViewMode(UITextFieldViewModeWhileEditing);
     };
 }
 #pragma mark —— Prop_strong()UIButton *customSysClearBtn;
@@ -53,10 +53,10 @@ JobsKey(_customSysClearBtn)
 //            .jobsResetBtnBgImage(@"APPLY NOW".img)
 //            .jobsResetBtnTitleCor(JobsWhiteColor)
 //            .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-//            .jobsResetBtnTitle(@"APPLY NOW".tr)
+//            .jobsResetBtnTitle(@"APPLY NOW".jobsTr())
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                self.text = @"".tr;
+                self.byText(@"".jobsTr());
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             }).byFrame(CGRectMake(0.0f,0.0f,15.0f,15.0f));

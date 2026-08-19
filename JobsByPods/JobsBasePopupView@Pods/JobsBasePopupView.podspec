@@ -42,6 +42,7 @@ model-driven view rendering support.
   
   spec.dependency 'JobsModelDSL'
   spec.dependency 'JobsMakes'
+  spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDefs'
   spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsClass'

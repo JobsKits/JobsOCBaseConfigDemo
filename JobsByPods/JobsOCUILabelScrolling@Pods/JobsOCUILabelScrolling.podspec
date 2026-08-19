@@ -26,6 +26,7 @@ motion, preserves attributed text, and is driven by JobsOCTimer.
   spec.dependency 'JobsOCTimer'
   spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsBlock'
 
   spec.source_files = [
     'JobsOCUILabelScrolling.h',

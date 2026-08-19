@@ -10,6 +10,24 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<SDWebImage/SDWebImage.h>)
+#import <SDWebImage/SDWebImage.h>
+#else
+#import "SDWebImage.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NSString *JobsIconfontRemoteAsset NS_TYPED_ENUM;
@@ -51,17 +69,22 @@ typedef void(^JobsIconfontLoadCompletion)(JobsIconfontLoadResult *result);
 @interface JobsIconfontLoadToken : NSObject
 
 -(void)cancel;
+-(jobsByVoidBlock _Nonnull)jobsCancel;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsIconfontLoadToken
+-(JobsRetJobsIconfontLoadTokenByBOOLBlock _Nonnull)byCancelled;
+-(JobsRetJobsIconfontLoadTokenBydispatch_block_tBlock _Nonnull)byCancellation;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsIconfontLoadToken
 @end
 
 @interface JobsIconfontManager : NSObject
 
 @property(class,nonatomic,strong,readonly)JobsIconfontManager *shared;
 
--(UIFont *)iconFontOfSize:(CGFloat)size;
--(UIFont *)textFontOfSize:(CGFloat)size;
--(NSString *)titleForGlyph:(JobsIconfontGlyph)glyph;
--(NSString *)titleForRemoteAsset:(JobsIconfontRemoteAsset)asset;
+-(JobsRetUIFontByCGFloatBlock _Nonnull)iconFontOfSize;
+-(JobsRetUIFontByCGFloatBlock _Nonnull)textFontOfSize;
+-(JobsRetNSStringByJobsIconfontGlyphBlock _Nonnull)titleForGlyph;
+-(JobsRetNSStringByJobsIconfontRemoteAssetBlock _Nonnull)titleForRemoteAsset;
 
 -(UIImage *)iconImageForGlyph:(JobsIconfontGlyph)glyph
                         size:(CGSize)size
@@ -78,8 +101,8 @@ typedef void(^JobsIconfontLoadCompletion)(JobsIconfontLoadResult *result);
                          targetSize:(CGSize)targetSize
                        forceRefresh:(BOOL)forceRefresh
                          completion:(nullable JobsIconfontLoadCompletion)completion;
--(void)cancelLoadInImageView:(UIImageView *)imageView;
--(void)clearImageCache:(nullable dispatch_block_t)completion;
+-(jobsByImageViewBlock _Nonnull)cancelLoadInImageView;
+-(jobsBydispatch_block_tBlock _Nonnull)clearImageCache;
 
 @end
 
@@ -89,7 +112,7 @@ typedef void(^JobsIconfontLoadCompletion)(JobsIconfontLoadResult *result);
                         targetSize:(CGSize)targetSize
                       forceRefresh:(BOOL)forceRefresh
                         completion:(nullable JobsIconfontLoadCompletion)completion;
--(instancetype)byCancelJobsIconfontLoad;
+-(JobsRetIDByVoidBlock _Nonnull)byCancelJobsIconfontLoad;
 
 @end
 
@@ -98,7 +121,7 @@ typedef void(^JobsIconfontLoadCompletion)(JobsIconfontLoadResult *result);
 -(instancetype)byJobsIconfontGlyph:(JobsIconfontGlyph)glyph
                               size:(CGFloat)size
                              color:(UIColor *)color;
--(instancetype)byJobsIconfontTextSize:(CGFloat)size;
+-(JobsRetIDByCGFloatBlock _Nonnull)byJobsIconfontTextSize;
 
 @end
 

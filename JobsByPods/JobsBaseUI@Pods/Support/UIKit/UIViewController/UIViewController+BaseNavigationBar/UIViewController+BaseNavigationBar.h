@@ -11,6 +11,12 @@
 #pragma once
 
 #import <objc/runtime.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <UIKit/UIKit.h>
 
 #if __has_include(<GKNavigationBar/GKNavigationBar.h>)
@@ -32,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_assign()BOOL isHiddenNavigationBar;
 
 /// Demo 子页面右侧只保留主题入口；其它业务动作合并到同入口下拉列表。
--(void)jobs_ensureDemoThemeButton;
+-(jobsByVoidBlock _Nonnull)jobs_ensureDemoThemeButton;
 
 @end
 

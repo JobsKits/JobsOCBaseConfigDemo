@@ -100,6 +100,8 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability"
 @interface UIButton (UI)<BaseButtonProtocol,BaseProtocol>
+
+-(JobsRetBtnByFontBlock _Nonnull)bySubTitleFont;
 #pragma mark —— 一些功能性
 /// 为了兼容新的Api，批量设定UIButton
 /// 新Api较老的Api，增加了subTitle
@@ -186,10 +188,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// 通过 Transformer 得到 文字颜色
 -(JobsRetCorByConfigTextAttributesTransformerBlock _Nonnull)getTitleColorByTransformer;
 /// RAC 点击事件2次封装
--(RACDisposable *)jobsBtnClickEventBlock:(JobsRetIDByIDBlock _Nullable)subscribeNextBlock;
+-(JobsRetRACDisposableByRetIDByIDBlocks _Nonnull)jobsBtnClickEventBlock;
 -(JobsRetRACDisposableByRetIDByIDBlocks _Nonnull)jobsBtnClickEventByBlock;
 /// 设置按钮的长按手势
--(void)jobsBtnLongPressGestureEventBlock:(JobsRetIDByIDBlock _Nullable)longPressGestureEventBlock;
+-(jobsByRetIDByIDBlocks _Nonnull)jobsBtnLongPressGestureEventBlock;
 -(jobsByRetIDByIDBlocks _Nonnull)jobsBtnLongPressGestureEventByBlock;
 /// 方法名字符串（带参数、参数之间用"："隔开）、作用对象、参数
 -(JobsRetIDByThreeIDBlock _Nonnull)btnClickActionWithParamarrays;
@@ -198,7 +200,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 代码触发点击调用
 -(jobsByVoidBlock _Nonnull)actionByCode;
 /// UIButton 上的 image 旋转一定的角度angle
--(void)changeAction:(CGFloat)angle;
+-(jobsByCGFloatBlock _Nonnull)changeAction;
 /// 当Button不可用的时候，需要做些什么
 -(JobsRetBtnByBOOLBlock _Nonnull)enabledBlock;
 #pragma mark —— 一些通用修改（Api已做向下兼容）
@@ -251,19 +253,20 @@ NS_ASSUME_NONNULL_BEGIN
 ///【兼容】重设Btn的图文间距和相对位置
 -(JobsRetBtnByImagePlacementAndPaddingBlock _Nonnull)jobsResetImagePlacement_Padding;
 ///【兼容】获取按钮图片（普通状态下）
--(UIImage *_Nullable)imageForNormalState;
+-(JobsRetImageByVoidBlock _Nonnull)imageForNormalState;
 ///【兼容】获取按钮背景图片（普通状态下）
--(UIImage *_Nullable)backgroundImageForNormalState;
+-(JobsRetImageByVoidBlock _Nonnull)backgroundImageForNormalState;
 ///【兼容】获取按钮富文本字符串内容
--(NSString *_Nullable)titleForConfigurationAttributedText;
+-(JobsRetStrByVoidBlock _Nonnull)titleForConfigurationAttributedText;
 ///【兼容】获取按钮富文本内容（更通用）
--(NSAttributedString *_Nullable)titleForConfigurationAttributed;
+-(JobsRetAttributedStringByVoidBlock _Nonnull)titleForConfigurationAttributed;
 ///【兼容】获取按钮富文本内容（普通状态下）
--(NSAttributedString *_Nullable)attributedTitleForNormalState;
+-(JobsRetAttributedStringByVoidBlock _Nonnull)attributedTitleForNormalState;
 ///【兼容】获取按钮主文字内容
--(NSString *_Nullable)titleForNormalState;
+-(NSString *)titleForNormalState;
+-(JobsRetStrByVoidBlock _Nonnull)jobsTitleForNormalState;
 ///【兼容】获取按钮主文字颜色
--(UIColor *_Nullable)titleColorForNormalState;
+-(JobsRetCorByVoidBlock _Nonnull)titleColorForNormalState;
 
 @end
 #pragma clang diagnostic pop
@@ -297,7 +300,7 @@ NS_ASSUME_NONNULL_END
          .jobsResetBtnBgImage(@"APPLY NOW".img)
          .jobsResetBtnTitleCor(JobsWhiteColor)
          .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-         .jobsResetBtnTitle(@"APPLY NOW".tr)
+         .jobsResetBtnTitle(@"APPLY NOW".jobsTr())
          .onClickBy(^(UIButton *x){
              JobsLog(@"");
          }).onLongPressGestureBy(^(id data){
@@ -305,7 +308,7 @@ NS_ASSUME_NONNULL_END
          });
      
      _headBtn = BaseButton.jobsInit()
-        .imageURL(@"".jobsUrl)
+        .imageURL(@"".jobsURL())
         .placeholderImage(@"用户默认头像".img))
         .options(SDWebImageRefreshCached)/// 强制刷新缓存
         .completed(^(UIImage * _Nullable image,
@@ -331,21 +334,21 @@ NS_ASSUME_NONNULL_END
                  data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                      @jobs_strongify(self)
                      data1.byFont(UIFontWeightRegularSize(14))
-                          .byTextCor(@"#666666".cor)
+                          .byTextCor(@"#666666".jobsCor())
                           .byTargetString(self.richTextMutArr[0])
                           .byParagraphStyle(self.jobsParagraphStyleCenter);
                  }));
                  data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                      @jobs_strongify(self)
                      data1.byFont(UIFontWeightRegularSize(14))
-                          .byTextCor(@"#BA9B77".cor)
+                          .byTextCor(@"#BA9B77".jobsCor())
                           .byTargetString(self.richTextMutArr[1])
                           .byParagraphStyle(self.jobsParagraphStyleCenter);
                  }));
                  data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                      @jobs_strongify(self)
                      data1.byFont(UIFontWeightRegularSize(14))
-                          .byTextCor(@"#666666".cor)
+                          .byTextCor(@"#666666".jobsCor())
                           .byTargetString(self.richTextMutArr[2])
                           .byParagraphStyle(self.jobsParagraphStyleCenter);
                  }));
@@ -356,7 +359,7 @@ NS_ASSUME_NONNULL_END
                  .jobsResetBtnBgImage(@"APPLY NOW".img))
                  .jobsResetBtnTitleCor(JobsWhiteColor)
                  .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-                 .jobsResetBtnTitle(@"APPLY NOW".tr)
+                 .jobsResetBtnTitle(@"APPLY NOW".jobsTr())
                  .onClickBy(^(UIButton *x){
                      @jobs_strongify(self)
                      x.byToggleSelected();

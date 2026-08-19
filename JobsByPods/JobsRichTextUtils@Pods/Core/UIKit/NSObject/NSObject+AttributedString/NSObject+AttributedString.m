@@ -6,19 +6,27 @@
 //
 
 #import "NSObject+AttributedString.h"
+
 #import <JobsRichTextUtils/NSString+Extra.h>
 
 @implementation NSObject (AttributedString)
-+(__kindof NSDictionary <NSAttributedStringKey,id>*)linkTextAttributes{
-    return @{
-        NSForegroundColorAttributeName: @"#FFCC00".cor,
-        NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
-        NSUnderlineColorAttributeName: @"#FFCC00".cor,
++(JobsRetNSDictionaryNSAttributedStringKeyIDByVoidBlock _Nonnull)linkTextAttributes{
+    return ^__kindof NSDictionary <NSAttributedStringKey,id>*{
+        return @{
+            NSForegroundColorAttributeName: @"#FFCC00".jobsCor(),
+            NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
+            NSUnderlineColorAttributeName: @"#FFCC00".jobsCor(),
+        };
     };
 }
 /// 超链接的文字以及下划线的颜色设置
--(__kindof NSDictionary <NSAttributedStringKey,id>*)makeLinkTextAttributes{
-    return NSObject.linkTextAttributes;
+-(JobsRetNSDictionaryNSAttributedStringKeyIDByVoidBlock _Nonnull)makeLinkTextAttributes{
+    @jobs_weakify(self)
+    return ^__kindof NSDictionary <NSAttributedStringKey,id>*{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSObject.linkTextAttributes();
+    };
 }
 
 @end

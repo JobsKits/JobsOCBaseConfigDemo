@@ -29,7 +29,7 @@ NS_INLINE NSString *caesardDecode(NSString *string){
         [arr addObject:encryptStr];
     }
     // 加密结果
-    NSString *encodeStr = [arr componentsJoinedByString:@"".tr];
+    NSString *encodeStr = [arr componentsJoinedByString:@"".jobsTr()];
     return encodeStr;
 }
 /// 凯撒解密
@@ -44,7 +44,7 @@ NS_INLINE NSString *caesarEncrypt(NSString *encodeStr){
         [arr addObject:encryptStr];
     }
     // 解密结果
-    NSString *decodeStr = [arr componentsJoinedByString:@"".tr];
+    NSString *decodeStr = [arr componentsJoinedByString:@"".jobsTr()];
     return decodeStr;
 }
 

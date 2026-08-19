@@ -19,11 +19,23 @@ Prop_strong()CAShapeLayer *insideLayer;
 Prop_assign()CGFloat currentProgress;
 
 -(void)_updateProgress:(CGFloat)progress animated:(BOOL)animated;
--(void)_updateProgressWithTouch:(UITouch *)touch;
--(CGFloat)_progressWithTouchPoint:(CGPoint)point;
--(CGFloat)_safeProgress:(CGFloat)progress;
+-(jobsByUITouchBlock _Nonnull)_updateProgressWithTouch;
+-(JobsRetByCGPointBlock _Nonnull)_progressWithTouchPoint;
+-(JobsRetCGFloatByCGFloatBlock _Nonnull)_safeProgress;
 
 @end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN PHCycleView
+@interface PHCycleView (JobsPropertyDSLSetterAutogen_e812d12dcb)
+-(void)setCurrentProgress:(CGFloat)data;
+-(void)setDescribeFont:(UIFont * _Nullable)data;
+-(void)setDescribeStr:(NSString * _Nullable)data;
+-(void)setDescribeTextColor:(UIColor * _Nullable)data;
+-(void)setOutLayerColor:(UIColor * _Nullable)data;
+-(void)setProgressFont:(UIFont * _Nullable)data;
+-(void)setProgressTextColor:(UIColor * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END PHCycleView
 
 @implementation PHCycleView
 static CGFloat const PHCycleViewMinProgress = 0.0f;
@@ -32,9 +44,9 @@ static CGFloat const PHCycleViewStrokeStart = M_PI / 12.0;
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.multipleTouchEnabled = NO;
-        self.userInteractionEnabled = YES;
-        [self drawProgress];
+        self.byMultipleTouchEnabled(NO);
+        self.byUserInteractionEnabled(YES);
+        self.drawProgress();
     };return self;
 }
 /// 核心代码
@@ -50,9 +62,9 @@ static CGFloat const PHCycleViewStrokeStart = M_PI / 12.0;
         CGPoint layerCenter = CGPointMake(frame.size.width * 0.5, frame.size.height * 0.5);
         linesLayer.addSublayer(jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
             layer.byStrokeColor(color.CGColor)
-                .byLineWidth(size.width);
-            layer.lineCap = kCALineCapRound;
-            layer.byPath(jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable data) {
+                .byLineWidth(size.width)
+            .byLineCap(kCALineCapRound)
+            .byPath(jobsMakeBezierPath(^(__kindof UIBezierPath * _Nullable data) {
                 data.moveTo([self _calcCircleCoordinateWithCenter:layerCenter
                                                             angle:i * angle
                                                            radius:layerCenter.x]);
@@ -72,14 +84,19 @@ static CGFloat const PHCycleViewStrokeStart = M_PI / 12.0;
     return CGPointMake(ct.x + x2, ct.y - y2);
 }
 //外界调用
--(void)updateProgress:(CGFloat)progress{
-    [self _updateProgress:progress animated:YES];
+-(jobsByCGFloatBlock _Nonnull)updateProgress{
+    @jobs_weakify(self)
+    return ^(CGFloat progress){
+        @jobs_strongify(self)
+        if (!self) return;
+        [self _updateProgress:progress animated:YES];
+    };
 }
 
 -(void)_updateProgress:(CGFloat)progress animated:(BOOL)animated{
-    CGFloat safeProgress = [self _safeProgress:progress];
+    CGFloat safeProgress = self._safeProgress(progress);
     CGFloat strokeEnd = PHCycleViewStrokeStart + safeProgress / PHCycleViewMaxProgress * (1 - PHCycleViewStrokeStart);
-    self.currentProgress = safeProgress;
+    self.byCurrentProgress(safeProgress);
     [CATransaction begin];
     if (animated) {
         [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn]];
@@ -87,46 +104,61 @@ static CGFloat const PHCycleViewStrokeStart = M_PI / 12.0;
     }else{
         [CATransaction setDisableActions:YES];
     }
-    self.progressLayer.strokeEnd = strokeEnd;
+    self.progressLayer.byStrokeEnd(strokeEnd);
     [CATransaction commit];
     self.progressLabel.byText([NSString stringWithFormat:@"%.0f",safeProgress]);
 }
 
--(void)_updateProgressWithTouch:(UITouch *)touch{
-    if (!touch) return;
-    [self _updateProgress:[self _progressWithTouchPoint:[touch locationInView:self]]
-                 animated:NO];
+-(jobsByUITouchBlock _Nonnull)_updateProgressWithTouch{
+    @jobs_weakify(self)
+    return ^(UITouch * touch){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (!touch) return;
+        [self _updateProgress:self._progressWithTouchPoint([touch locationInView:self])
+                     animated:NO];
+    };
 }
 
--(CGFloat)_progressWithTouchPoint:(CGPoint)point{
-    CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
-    CGFloat deltaX = point.x - center.x;
-    CGFloat deltaY = point.y - center.y;
-    if (hypot(deltaX, deltaY) <= 1.0f) return self.currentProgress;
-    CGFloat fraction = (atan2(deltaY, deltaX) + M_PI_2) / (M_PI * 2.0);
-    if (fraction < 0) fraction += 1.0f;
-    if (fraction < PHCycleViewStrokeStart) {
-        fraction = fraction <= PHCycleViewStrokeStart * 0.5f ? 1.0f : PHCycleViewStrokeStart;
-    };return (fraction - PHCycleViewStrokeStart) / (1 - PHCycleViewStrokeStart) * PHCycleViewMaxProgress;
+-(JobsRetByCGPointBlock _Nonnull)_progressWithTouchPoint{
+    @jobs_weakify(self)
+    return ^CGFloat(CGPoint point){
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+        CGPoint center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+        CGFloat deltaX = point.x - center.x;
+        CGFloat deltaY = point.y - center.y;
+        if (hypot(deltaX, deltaY) <= 1.0f) return self.currentProgress;
+        CGFloat fraction = (atan2(deltaY, deltaX) + M_PI_2) / (M_PI * 2.0);
+        if (fraction < 0) fraction += 1.0f;
+        if (fraction < PHCycleViewStrokeStart) {
+            fraction = fraction <= PHCycleViewStrokeStart * 0.5f ? 1.0f : PHCycleViewStrokeStart;
+        };return (fraction - PHCycleViewStrokeStart) / (1 - PHCycleViewStrokeStart) * PHCycleViewMaxProgress;
+    };
 }
 
--(CGFloat)_safeProgress:(CGFloat)progress{
-    return MAX(PHCycleViewMinProgress, MIN(PHCycleViewMaxProgress, progress));
+-(JobsRetCGFloatByCGFloatBlock _Nonnull)_safeProgress{
+    @jobs_weakify(self)
+    return ^CGFloat(CGFloat progress){
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+        return MAX(PHCycleViewMinProgress, MIN(PHCycleViewMaxProgress, progress));
+    };
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [super touchesBegan:touches withEvent:event];
-    [self _updateProgressWithTouch:touches.anyObject];
+    self._updateProgressWithTouch(touches.anyObject);
 }
 
 -(void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [super touchesMoved:touches withEvent:event];
-    [self _updateProgressWithTouch:touches.anyObject];
+    self._updateProgressWithTouch(touches.anyObject);
 }
 
 -(void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [super touchesEnded:touches withEvent:event];
-    [self _updateProgressWithTouch:touches.anyObject];
+    self._updateProgressWithTouch(touches.anyObject);
 }
 
 //外界调用
@@ -145,17 +177,30 @@ static CGFloat const PHCycleViewStrokeStart = M_PI / 12.0;
     self.layer.addSublayer(linesLayer);
 }
 
--(void)drawProgress{
-    self.transform = CGAffineTransformMakeRotation(-M_PI/0.8);
-    self.insideLayer.opaque = 1;
-    self.outLayer.opaque = 1;
-    self.progressLayer.opaque = 1;
-    self.progressLabel.byAlpha(1);
-    self.describeLabel.byAlpha(1);
+-(jobsByVoidBlock _Nonnull)drawProgress{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byTransform(CGAffineTransformMakeRotation(-M_PI/0.8));
+        self.insideLayer.byOpaque(1);
+        self.outLayer.byOpaque(1);
+        self.progressLayer.byOpaque(1);
+        self.progressLabel.byAlpha(1);
+        self.describeLabel.byAlpha(1);
+    };
 }
 #pragma mark —— set方法
 - (void)setProgressColor:(UIColor *)progressColor{
-    self.progressLayer.byStrokeColor(progressColor.CGColor);
+    (((jobsByCorBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(PHCycleView.class, @selector(jobsSetProgressColor)))(self, @selector(jobsSetProgressColor)))(progressColor);
+}
+-(jobsByCorBlock _Nonnull)jobsSetProgressColor{
+    @jobs_weakify(self)
+    return ^(UIColor *progressColor){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.progressLayer.byStrokeColor(progressColor.CGColor);
+    };
 }
 
 - (void)setProgressFont:(UIFont *)progressFont{
@@ -288,4 +333,68 @@ static CGFloat const PHCycleViewStrokeStart = M_PI / 12.0;
     };return _describeLabel;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN PHCycleView
+-(JobsRetPHCycleViewByCGFloatBlock _Nonnull)byCurrentProgress{
+    @jobs_weakify(self)
+    return ^__kindof PHCycleView * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setCurrentProgress:data];
+        return self;
+    };
+}
+
+-(JobsRetPHCycleViewByNSStringBlock _Nonnull)byDescribeStr{
+    @jobs_weakify(self)
+    return ^__kindof PHCycleView * _Nullable(NSString * _Nullable data){
+        @jobs_strongify(self)
+        [self setDescribeStr:data];
+        return self;
+    };
+}
+
+-(JobsRetPHCycleViewByUIColorBlock _Nonnull)byDescribeTextColor{
+    @jobs_weakify(self)
+    return ^__kindof PHCycleView * _Nullable(UIColor * _Nullable data){
+        @jobs_strongify(self)
+        [self setDescribeTextColor:data];
+        return self;
+    };
+}
+
+-(JobsRetPHCycleViewByUIColorBlock _Nonnull)byOutLayerColor{
+    @jobs_weakify(self)
+    return ^__kindof PHCycleView * _Nullable(UIColor * _Nullable data){
+        @jobs_strongify(self)
+        [self setOutLayerColor:data];
+        return self;
+    };
+}
+
+-(JobsRetPHCycleViewByUIColorBlock _Nonnull)byProgressTextColor{
+    @jobs_weakify(self)
+    return ^__kindof PHCycleView * _Nullable(UIColor * _Nullable data){
+        @jobs_strongify(self)
+        [self setProgressTextColor:data];
+        return self;
+    };
+}
+
+-(JobsRetPHCycleViewByUIFontBlock _Nonnull)byDescribeFont{
+    @jobs_weakify(self)
+    return ^__kindof PHCycleView * _Nullable(UIFont * _Nullable data){
+        @jobs_strongify(self)
+        [self setDescribeFont:data];
+        return self;
+    };
+}
+
+-(JobsRetPHCycleViewByUIFontBlock _Nonnull)byProgressFont{
+    @jobs_weakify(self)
+    return ^__kindof PHCycleView * _Nullable(UIFont * _Nullable data){
+        @jobs_strongify(self)
+        [self setProgressFont:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END PHCycleView
 @end

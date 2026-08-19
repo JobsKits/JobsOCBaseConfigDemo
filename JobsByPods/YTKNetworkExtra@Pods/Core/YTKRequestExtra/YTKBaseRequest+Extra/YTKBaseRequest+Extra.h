@@ -47,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_strong()JobsResponseModel *responseModel;
 
--(NSMutableURLRequest *)jobsMakeRequestByBlock:(jobsByMutableURLRequestBlock _Nullable)block;
+-(JobsRetNSMutableURLRequestByjobsByMutableURLRequestBlockBlock _Nonnull)jobsMakeRequestByBlock;
 
 @end
 

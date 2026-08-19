@@ -25,7 +25,7 @@
 #import <JobsOCDefs/JobsDefineUserDefault.h>
 
 #pragma mark —— 获取 AppDelegate 和 SceneDelegate
-/// AppDelegate.sharedManager
+/// ((AppDelegate *)AppDelegate.jobsSharedManager())
 NS_INLINE id<UIApplicationDelegate> _Nullable getSysAppDelegate(void){
     return UIApplication.sharedApplication.delegate;
 }

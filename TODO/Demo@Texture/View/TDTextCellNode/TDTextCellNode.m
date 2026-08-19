@@ -39,12 +39,22 @@
 }
 
 - (ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
+    JobsRetASLayoutSpecByASSizeRangeBlock action = ((JobsRetASLayoutSpecByASSizeRangeBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(TDTextCellNode.class, @selector(jobsLayoutSpecThatFits)))(self, @selector(jobsLayoutSpecThatFits));
+    return action ? action(constrainedSize) : nil;
+}
+
+-(JobsRetASLayoutSpecByASSizeRangeBlock _Nonnull)jobsLayoutSpecThatFits{
     @jobs_weakify(self)
-    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(12, 16, 12, 16)
-                                                  child:jobsMakeVerticalStackLayoutSpec(^(__kindof ASStackLayoutSpec * _Nullable layout) {
+    return ^ASLayoutSpec *(ASSizeRange constrainedSize){
         @jobs_strongify(self)
-        layout.bySpacing(6).byChildren(@[self.title, self.subtitle]);
-    })];
+        if (!self) return nil;
+        @jobs_weakify(self)
+        return [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(12, 16, 12, 16)
+                                                      child:jobsMakeVerticalStackLayoutSpec(^(__kindof ASStackLayoutSpec * _Nullable layout) {
+            @jobs_strongify(self)
+            layout.bySpacing(6).byChildren(@[self.title, self.subtitle]);
+        })];
+    };
 }
 
 @end

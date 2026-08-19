@@ -152,29 +152,54 @@
     };
 }
 
--(__kindof ZFPlayerController *_Nonnull)byPlay{
-    [self.currentPlayerManager play];
-    return self;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)byPlay{
+    @jobs_weakify(self)
+    return ^__kindof ZFPlayerController *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self.currentPlayerManager play];
+        return self;
+    };
 }
 
--(__kindof ZFPlayerController *_Nonnull)byPause{
-    [self.currentPlayerManager pause];
-    return self;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)byPause{
+    @jobs_weakify(self)
+    return ^__kindof ZFPlayerController *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self.currentPlayerManager pause];
+        return self;
+    };
 }
 
--(__kindof ZFPlayerController *_Nonnull)byStop{
-    [self stop];
-    return self;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)byStop{
+    @jobs_weakify(self)
+    return ^__kindof ZFPlayerController *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self stop];
+        return self;
+    };
 }
 
--(__kindof ZFPlayerController *_Nonnull)byPlayNext{
-    [self playTheNext];
-    return self;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)byPlayNext{
+    @jobs_weakify(self)
+    return ^__kindof ZFPlayerController *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self playTheNext];
+        return self;
+    };
 }
 
--(__kindof ZFPlayerController *_Nonnull)byPlayPrevious{
-    [self playThePrevious];
-    return self;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)byPlayPrevious{
+    @jobs_weakify(self)
+    return ^__kindof ZFPlayerController *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self playThePrevious];
+        return self;
+    };
 }
 
 -(JobsRetZFPlayerByNSIntegerBlock _Nonnull)byPlayIndex{
@@ -205,14 +230,24 @@
     };
 }
 
--(__kindof ZFPlayerController *_Nonnull)byAddPlayerViewToCell{
-    [self addPlayerViewToCell];
-    return self;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)byAddPlayerViewToCell{
+    @jobs_weakify(self)
+    return ^__kindof ZFPlayerController *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self addPlayerViewToCell];
+        return self;
+    };
 }
 
--(__kindof ZFPlayerController *_Nonnull)byAddPlayerViewToSmallFloatView{
-    [self addPlayerViewToSmallFloatView];
-    return self;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)byAddPlayerViewToSmallFloatView{
+    @jobs_weakify(self)
+    return ^__kindof ZFPlayerController *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self addPlayerViewToSmallFloatView];
+        return self;
+    };
 }
 
 -(JobsRetZFPlayerByOrientationBlock _Nonnull)byRotateToOrientation{
@@ -233,12 +268,92 @@
     };
 }
 
+-(JobsRetZFPlayerByMediaURLBlock _Nonnull)byPlayerPrepareToPlay{
+    @jobs_weakify(self)
+    return ^__kindof ZFPlayerController * _Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, NSURL *assetURL)){
+        @jobs_strongify(self)
+        [self setPlayerPrepareToPlay:data];
+        return self;
+    };
+}
+
+-(JobsRetZFPlayerByMediaURLBlock _Nonnull)byPlayerReadyToPlay{
+    @jobs_weakify(self)
+    return ^__kindof ZFPlayerController * _Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, NSURL *assetURL)){
+        @jobs_strongify(self)
+        [self setPlayerReadyToPlay:data];
+        return self;
+    };
+}
+
+-(JobsRetZFPlayerByPlayTimeBlock _Nonnull)byPlayerPlayTimeChanged{
+    @jobs_weakify(self)
+    return ^__kindof ZFPlayerController * _Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, NSTimeInterval currentTime, NSTimeInterval duration)){
+        @jobs_strongify(self)
+        [self setPlayerPlayTimeChanged:data];
+        return self;
+    };
+}
+
+-(JobsRetZFPlayerByPlaybackStateBlock _Nonnull)byPlayerPlayStateChanged{
+    @jobs_weakify(self)
+    return ^__kindof ZFPlayerController * _Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, ZFPlayerPlaybackState playState)){
+        @jobs_strongify(self)
+        [self setPlayerPlayStateChanged:data];
+        return self;
+    };
+}
+
+-(JobsRetZFPlayerByLoadStateBlock _Nonnull)byPlayerLoadStateChanged{
+    @jobs_weakify(self)
+    return ^__kindof ZFPlayerController * _Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, ZFPlayerLoadState loadState)){
+        @jobs_strongify(self)
+        [self setPlayerLoadStateChanged:data];
+        return self;
+    };
+}
+
+-(JobsRetZFPlayerByMediaErrorBlock _Nonnull)byPlayerPlayFailed{
+    @jobs_weakify(self)
+    return ^__kindof ZFPlayerController * _Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, id error)){
+        @jobs_strongify(self)
+        [self setPlayerPlayFailed:data];
+        return self;
+    };
+}
+
+-(JobsRetZFPlayerByMediaBlock _Nonnull)byPlayerDidToEnd{
+    @jobs_weakify(self)
+    return ^__kindof ZFPlayerController * _Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset)){
+        @jobs_strongify(self)
+        [self setPlayerDidToEnd:data];
+        return self;
+    };
+}
+
+-(JobsRetZFPlayerByOrientationChangeBlock _Nonnull)byOrientationWillChange{
+    @jobs_weakify(self)
+    return ^__kindof ZFPlayerController * _Nullable(void (^ _Nullable data)(ZFPlayerController *player, BOOL isFullScreen)){
+        @jobs_strongify(self)
+        [self setOrientationWillChange:data];
+        return self;
+    };
+}
+
+-(JobsRetZFPlayerByOrientationChangeBlock _Nonnull)byOrientationDidChanged{
+    @jobs_weakify(self)
+    return ^__kindof ZFPlayerController * _Nullable(void (^ _Nullable data)(ZFPlayerController *player, BOOL isFullScreen)){
+        @jobs_strongify(self)
+        [self setOrientationDidChanged:data];
+        return self;
+    };
+}
+
 -(JobsRetZFPlayerByMediaURLBlock _Nonnull)onPrepareToPlay{
     @jobs_weakify(self)
     return ^__kindof ZFPlayerController *_Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, NSURL *assetURL)){
         @jobs_strongify(self)
-        self.playerPrepareToPlay = data;
-        return self;
+        return self.byPlayerPrepareToPlay(data);
     };
 }
 
@@ -246,8 +361,7 @@
     @jobs_weakify(self)
     return ^__kindof ZFPlayerController *_Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, NSURL *assetURL)){
         @jobs_strongify(self)
-        self.playerReadyToPlay = data;
-        return self;
+        return self.byPlayerReadyToPlay(data);
     };
 }
 
@@ -255,8 +369,7 @@
     @jobs_weakify(self)
     return ^__kindof ZFPlayerController *_Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, NSTimeInterval currentTime, NSTimeInterval duration)){
         @jobs_strongify(self)
-        self.playerPlayTimeChanged = data;
-        return self;
+        return self.byPlayerPlayTimeChanged(data);
     };
 }
 
@@ -264,8 +377,7 @@
     @jobs_weakify(self)
     return ^__kindof ZFPlayerController *_Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, ZFPlayerPlaybackState playState)){
         @jobs_strongify(self)
-        self.playerPlayStateChanged = data;
-        return self;
+        return self.byPlayerPlayStateChanged(data);
     };
 }
 
@@ -273,8 +385,7 @@
     @jobs_weakify(self)
     return ^__kindof ZFPlayerController *_Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, ZFPlayerLoadState loadState)){
         @jobs_strongify(self)
-        self.playerLoadStateChanged = data;
-        return self;
+        return self.byPlayerLoadStateChanged(data);
     };
 }
 
@@ -282,8 +393,7 @@
     @jobs_weakify(self)
     return ^__kindof ZFPlayerController *_Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset, id error)){
         @jobs_strongify(self)
-        self.playerPlayFailed = data;
-        return self;
+        return self.byPlayerPlayFailed(data);
     };
 }
 
@@ -291,8 +401,7 @@
     @jobs_weakify(self)
     return ^__kindof ZFPlayerController *_Nullable(void (^ _Nullable data)(id<ZFPlayerMediaPlayback> asset)){
         @jobs_strongify(self)
-        self.playerDidToEnd = data;
-        return self;
+        return self.byPlayerDidToEnd(data);
     };
 }
 
@@ -300,8 +409,7 @@
     @jobs_weakify(self)
     return ^__kindof ZFPlayerController *_Nullable(void (^ _Nullable data)(ZFPlayerController *player, BOOL isFullScreen)){
         @jobs_strongify(self)
-        self.orientationWillChange = data;
-        return self;
+        return self.byOrientationWillChange(data);
     };
 }
 
@@ -309,9 +417,19 @@
     @jobs_weakify(self)
     return ^__kindof ZFPlayerController *_Nullable(void (^ _Nullable data)(ZFPlayerController *player, BOOL isFullScreen)){
         @jobs_strongify(self)
-        self.orientationDidChanged = data;
-        return self;
+        return self.byOrientationDidChanged(data);
     };
 }
 
+@end
+
+@implementation ZFOrientationObserver (DSL)
+-(JobsRetZFOrientationObserverByZFFullScreenModeBlock _Nonnull)byFullScreenMode{
+    @jobs_weakify(self)
+    return ^__kindof ZFOrientationObserver * _Nullable(ZFFullScreenMode data){
+        @jobs_strongify(self)
+        [self setFullScreenMode:data];
+        return self;
+    };
+}
 @end

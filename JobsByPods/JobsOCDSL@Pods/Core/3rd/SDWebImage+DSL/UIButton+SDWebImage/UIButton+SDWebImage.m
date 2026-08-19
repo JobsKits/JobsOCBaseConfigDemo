@@ -9,22 +9,27 @@
 
 @implementation UIButton (SDWebImage)
 #pragma mark —— 一些私有方法
--(SDWebImageModel *)makeSDWebImageModel{
-    return jobsMakeSDWebImageModel(^(__kindof SDWebImageModel * _Nullable data) {
-        data.byUrl(Jobs_getAssociatedObject(_imageURL))
-            .byPlaceholder(Jobs_getAssociatedObject(_placeholderImage));
-        data.options = [Jobs_getAssociatedObject(_options) integerValue];
-        data.completion = Jobs_getAssociatedObject(_completed);
-        data.progress = Jobs_getAssociatedObject(_progress);
-    });
+-(JobsRetSDWebImageModelByVoidBlock _Nonnull)makeSDWebImageModel{
+    @jobs_weakify(self)
+    return ^SDWebImageModel *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return jobsMakeSDWebImageModel(^(__kindof SDWebImageModel * _Nullable data) {
+            data.byUrl(Jobs_getAssociatedObject(_imageURL))
+                .byPlaceholder(Jobs_getAssociatedObject(_placeholderImage))
+                .byOptions([Jobs_getAssociatedObject(_options) integerValue])
+                .byCompletion(Jobs_getAssociatedObject(_completed))
+                .byProgress(Jobs_getAssociatedObject(_progress));
+        });
+    };
 }
 
 -(void)jobsApplyImage:(UIImage *)image forState:(UIControlState)state{
     if (@available(iOS 15.0, *)) {
         if (self.configuration) {
             UIButtonConfiguration *configuration = self.configuration;
-            configuration.image = image;
-            self.configuration = configuration;
+            configuration.byImage(image);
+            self.byConfiguration(configuration);
             return;
         }
     }
@@ -36,9 +41,9 @@
         if (self.configuration) {
             UIButtonConfiguration *configuration = self.configuration;
             UIBackgroundConfiguration *background = configuration.background;
-            background.image = image;
-            configuration.background = background;
-            self.configuration = configuration;
+            background.byImage(image);
+            configuration.byBackground(background);
+            self.byConfiguration(configuration);
             return;
         }
     }
@@ -48,18 +53,18 @@
 -(JobsRetBtnByControlStateBlock _Nonnull)baseLoadImageBy{
     return ^__kindof UIButton *_Nullable(UIControlState data){
         @jobs_weakify(self)
-        [self sd_setImageWithURL:self.makeSDWebImageModel.url
+        [self sd_setImageWithURL:self.makeSDWebImageModel().url
                         forState:data
-                placeholderImage:self.makeSDWebImageModel.placeholder
-                         options:self.makeSDWebImageModel.options
-                        progress:self.makeSDWebImageModel.progress
+                placeholderImage:self.makeSDWebImageModel().placeholder
+                         options:self.makeSDWebImageModel().options
+                        progress:self.makeSDWebImageModel().progress
                        completed:^(UIImage * _Nullable image,
                                    NSError * _Nullable error,
                                    SDImageCacheType cacheType,
                                    NSURL * _Nullable imageURL) {
             @jobs_strongify(self)
-            [self jobsApplyImage:image ?: self.makeSDWebImageModel.placeholder forState:data];
-            if (self.makeSDWebImageModel.completion) self.makeSDWebImageModel.completion(image, error, cacheType, imageURL);
+            [self jobsApplyImage:image ?: self.makeSDWebImageModel().placeholder forState:data];
+            if (self.makeSDWebImageModel().completion) self.makeSDWebImageModel().completion(image, error, cacheType, imageURL);
         }];return self;
     };
 }
@@ -67,18 +72,18 @@
 -(JobsRetBtnByControlStateBlock _Nonnull)baseLoadBgImageBy{
     return ^__kindof UIButton *_Nullable(UIControlState data){
         @jobs_weakify(self)
-        [self sd_setBackgroundImageWithURL:self.makeSDWebImageModel.url
+        [self sd_setBackgroundImageWithURL:self.makeSDWebImageModel().url
                                   forState:data
-                          placeholderImage:self.makeSDWebImageModel.placeholder
-                                   options:self.makeSDWebImageModel.options
-                                  progress:self.makeSDWebImageModel.progress
+                          placeholderImage:self.makeSDWebImageModel().placeholder
+                                   options:self.makeSDWebImageModel().options
+                                  progress:self.makeSDWebImageModel().progress
                                  completed:^(UIImage * _Nullable image,
                                              NSError * _Nullable error,
                                              SDImageCacheType cacheType,
                                              NSURL * _Nullable imageURL) {
             @jobs_strongify(self)
-            [self jobsApplyBackgroundImage:image ?: self.makeSDWebImageModel.placeholder forState:data];
-            if (self.makeSDWebImageModel.completion) self.makeSDWebImageModel.completion(image, error, cacheType, imageURL);
+            [self jobsApplyBackgroundImage:image ?: self.makeSDWebImageModel().placeholder forState:data];
+            if (self.makeSDWebImageModel().completion) self.makeSDWebImageModel().completion(image, error, cacheType, imageURL);
         }];return self;
     };
 }

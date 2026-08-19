@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -31,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)XDTextBtnViewClickIndex:(NSInteger)index lastClickIndex:(NSInteger)lastClickIndex;
 //isSingle = NO
 - (void)XDTextBtnViewSelectIndexes:(NSArray *)indexes;
+-(jobsByNSArrayBlock _Nonnull)jobsXDTextBtnViewSelectIndexes;
 
 @end
 
@@ -75,6 +82,9 @@ Prop_weak()id <XDTextBtnViewDelegate> delegate;
  */
 Prop_assign(readonly)CGFloat maxY;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN XDTextBtnView
+-(JobsRetXDTextBtnViewByNSIntegerBlock _Nonnull)byLastIndex;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END XDTextBtnView
 @end
 
 NS_ASSUME_NONNULL_END

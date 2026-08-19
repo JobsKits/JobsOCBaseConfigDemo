@@ -7,12 +7,6 @@
 
 #import "JobsOCCommentCell.h"
 
-#if __has_include(<Masonry/Masonry.h>)
-#import <Masonry/Masonry.h>
-#else
-#import "Masonry.h"
-#endif
-
 @interface JobsOCCommentCell ()
 
 Prop_strong()UIView *containerView;
@@ -29,10 +23,10 @@ Prop_strong()UILabel *contentLabel;
 Prop_strong()UILabel *metaLabel;
 Prop_strong()UILabel *replySummaryLabel;
 
--(NSString *)jobs_initialTextByName:(NSString *)name;
--(UIColor *)jobs_avatarColorByText:(NSString *)text;
--(NSString *)jobs_metaTextByComment:(JobsOCCommentModel *)comment;
--(void)jobs_updateReplyHintByParentComment:(JobsOCCommentModel *)parentComment;
+-(JobsRetStrByStrBlock _Nonnull)jobs_initialTextByName;
+-(JobsRetCorByStrBlock _Nonnull)jobs_avatarColorByText;
+-(JobsRetNSStringByJobsOCCommentModelBlock _Nonnull)jobs_metaTextByComment;
+-(jobsByJobsOCCommentModelBlock _Nonnull)jobs_updateReplyHintByParentComment;
 -(void)jobs_updateAvatarImageView:(UIImageView *)imageView
                       avatarLabel:(UILabel *)avatarLabel
                           byName:(NSString *)name
@@ -41,14 +35,16 @@ Prop_strong()UILabel *replySummaryLabel;
 @end
 
 @implementation JobsOCCommentCell
-+(NSString *)reuseIdentifier{
-    return NSStringFromClass(self);
++(JobsRetStrByVoidBlock _Nonnull)reuseIdentifier{
+    return ^NSString *_Nullable{
+        return NSStringFromClass(self);
+    };
 }
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style
              reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.bySelectionStyle(UITableViewCellSelectionStyleNone);
         self.byBgColor(UIColor.clearColor);
         self.contentView.byBgColor(UIColor.clearColor);
         self.containerView.addOn(self.contentView);
@@ -77,27 +73,37 @@ Prop_strong()UILabel *replySummaryLabel;
 }
 
 -(void)prepareForReuse{
-    [super prepareForReuse];
-    self.avatarImageView.byImage(nil);
-    self.avatarImageView.byHidden(NO);
-    self.avatarLabel.byText(nil);
-    self.avatarLabel.byHidden(NO);
-    self.nameLabel.byText(nil);
-    self.nameLabel.byHidden(NO);
-    self.timeLabel.byText(nil);
-    self.timeLabel.byHidden(NO);
-    self.replyHintStackView.byHidden(YES);
-    self.replyHintAvatarImageView.byImage(nil);
-    self.replyHintAvatarLabel.byText(nil);
-    self.replyHintLabel.byText(nil);
-    self.replyHintLabel.byHidden(NO);
-    self.contentLabel.byText(nil);
-    self.contentLabel.byHidden(NO);
-    self.metaLabel.byText(nil);
-    self.metaLabel.byHidden(NO);
-    self.replySummaryLabel.byText(nil);
-    self.replySummaryLabel.byHidden(YES);
-    self.replySummaryLabel.textAlignment = NSTextAlignmentLeft;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCCommentCell.class, @selector(jobsPrepareForReuse)))(self, @selector(jobsPrepareForReuse));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsPrepareForReuse{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super prepareForReuse];
+        self.avatarImageView.byImage(nil);
+        self.avatarImageView.byHidden(NO);
+        self.avatarLabel.byText(nil);
+        self.avatarLabel.byHidden(NO);
+        self.nameLabel.byText(nil);
+        self.nameLabel.byHidden(NO);
+        self.timeLabel.byText(nil);
+        self.timeLabel.byHidden(NO);
+        self.replyHintStackView.byHidden(YES);
+        self.replyHintAvatarImageView.byImage(nil);
+        self.replyHintAvatarLabel.byText(nil);
+        self.replyHintLabel.byText(nil);
+        self.replyHintLabel.byHidden(NO);
+        self.contentLabel.byText(nil);
+        self.contentLabel.byHidden(NO);
+        self.metaLabel.byText(nil);
+        self.metaLabel.byHidden(NO);
+        self.replySummaryLabel.byText(nil);
+        self.replySummaryLabel.byHidden(YES);
+        self.replySummaryLabel.byTextAlignment(NSTextAlignmentLeft);
+    };
 }
 
 -(void)updateWithComment:(JobsOCCommentModel *)comment
@@ -113,12 +119,12 @@ Prop_strong()UILabel *replySummaryLabel;
     self.nameLabel.byText(comment.nickname.length ? comment.nickname : @"匿名用户");
     self.timeLabel.byText(comment.publishTime);
     self.contentLabel.byText(comment.content);
-    self.metaLabel.byText([self jobs_metaTextByComment:comment]);
+    self.metaLabel.byText(self.jobs_metaTextByComment(comment));
     self.metaLabel.byHidden(self.metaLabel.text.length == 0);
     self.replyHintStackView.byHidden(YES);
     self.replySummaryLabel.byHidden(YES);
     if (mode == JobsOCCommentModeCustom && depth >= 2 && parentComment.nickname.length) {
-        [self jobs_updateReplyHintByParentComment:parentComment];
+        self.jobs_updateReplyHintByParentComment(parentComment);
     }
     if (config.showsReplyEntrance &&
         mode == JobsOCCommentModeToutiao &&
@@ -148,17 +154,22 @@ Prop_strong()UILabel *replySummaryLabel;
     self.contentLabel.byHidden(YES);
     self.metaLabel.byHidden(YES);
     self.replySummaryLabel.byText(moreText.length ? moreText : JobsOCCommentMoreRepliesText);
-    self.replySummaryLabel.textAlignment = NSTextAlignmentCenter;
+    self.replySummaryLabel.byTextAlignment(NSTextAlignmentCenter);
     self.replySummaryLabel.byHidden(NO);
 }
 
--(void)jobs_updateReplyHintByParentComment:(JobsOCCommentModel *)parentComment{
-    [self jobs_updateAvatarImageView:self.replyHintAvatarImageView
-                          avatarLabel:self.replyHintAvatarLabel
-                              byName:parentComment.nickname
-                           userAvatar:parentComment.userAvatar];
-    self.replyHintLabel.byText([NSString stringWithFormat:@"回复：“%@”", parentComment.nickname]);
-    self.replyHintStackView.byHidden(NO);
+-(jobsByJobsOCCommentModelBlock _Nonnull)jobs_updateReplyHintByParentComment{
+    @jobs_weakify(self)
+    return ^(JobsOCCommentModel * parentComment){
+        @jobs_strongify(self)
+        if (!self) return;
+        [self jobs_updateAvatarImageView:self.replyHintAvatarImageView
+                              avatarLabel:self.replyHintAvatarLabel
+                                  byName:parentComment.nickname
+                               userAvatar:parentComment.userAvatar];
+        self.replyHintLabel.byText([NSString stringWithFormat:@"回复：“%@”", parentComment.nickname]);
+        self.replyHintStackView.byHidden(NO);
+    };
 }
 
 -(void)jobs_updateAvatarImageView:(UIImageView *)imageView
@@ -169,44 +180,59 @@ Prop_strong()UILabel *replySummaryLabel;
     imageView.byImage(avatarImage);
     avatarLabel.byHidden(avatarImage != nil);
     if (!avatarImage) {
-        NSString *initialText = [self jobs_initialTextByName:name];
+        NSString *initialText = self.jobs_initialTextByName(name);
         avatarLabel.byText(initialText);
-        imageView.byBgColor([self jobs_avatarColorByText:initialText]);
+        imageView.byBgColor(self.jobs_avatarColorByText(initialText));
     }else{
         imageView.byBgColor(UIColor.clearColor);
     }
 }
 
--(NSString *)jobs_initialTextByName:(NSString *)name{
-    NSString *text = name.length ? name : @"匿";
-    NSRange range = [text rangeOfComposedCharacterSequenceAtIndex:0];
-    return [text substringWithRange:range];
+-(JobsRetStrByStrBlock _Nonnull)jobs_initialTextByName{
+    @jobs_weakify(self)
+    return ^NSString *(NSString * name){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSString *text = name.length ? name : @"匿";
+        NSRange range = [text rangeOfComposedCharacterSequenceAtIndex:0];
+        return [text substringWithRange:range];
+    };
 }
 
--(UIColor *)jobs_avatarColorByText:(NSString *)text{
-    NSUInteger hash = text.hash;
-    NSArray <UIColor *>*colors = @[
-        RGBA_COLOR(0.22 * 255.0, 0.45 * 255.0, 0.78 * 255.0, 1),
-        RGBA_COLOR(0.13 * 255.0, 0.60 * 255.0, 0.42 * 255.0, 1),
-        RGBA_COLOR(0.82 * 255.0, 0.31 * 255.0, 0.33 * 255.0, 1),
-        RGBA_COLOR(0.52 * 255.0, 0.36 * 255.0, 0.76 * 255.0, 1),
-        RGBA_COLOR(0.90 * 255.0, 0.55 * 255.0, 0.18 * 255.0, 1)
-    ];
-    return colors[hash % colors.count];
+-(JobsRetCorByStrBlock _Nonnull)jobs_avatarColorByText{
+    @jobs_weakify(self)
+    return ^UIColor *(NSString * text){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSUInteger hash = text.hash;
+        NSArray <UIColor *>*colors = @[
+            RGBA_COLOR(0.22 * 255.0, 0.45 * 255.0, 0.78 * 255.0, 1),
+            RGBA_COLOR(0.13 * 255.0, 0.60 * 255.0, 0.42 * 255.0, 1),
+            RGBA_COLOR(0.82 * 255.0, 0.31 * 255.0, 0.33 * 255.0, 1),
+            RGBA_COLOR(0.52 * 255.0, 0.36 * 255.0, 0.76 * 255.0, 1),
+            RGBA_COLOR(0.90 * 255.0, 0.55 * 255.0, 0.18 * 255.0, 1)
+        ];
+        return colors[hash % colors.count];
+    };
 }
 
--(NSString *)jobs_metaTextByComment:(JobsOCCommentModel *)comment{
-    NSMutableArray <NSString *>*meta = NSMutableArray.array;
-    if (comment.device.length) [meta addObject:comment.device];
-    if (comment.location.length) [meta addObject:comment.location];
-    return [meta componentsJoinedByString:@" · "];
+-(JobsRetNSStringByJobsOCCommentModelBlock _Nonnull)jobs_metaTextByComment{
+    @jobs_weakify(self)
+    return ^NSString *(JobsOCCommentModel * comment){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSMutableArray <NSString *>*meta = NSMutableArray.array;
+        if (comment.device.length) [meta addObject:comment.device];
+        if (comment.location.length) [meta addObject:comment.location];
+        return [meta componentsJoinedByString:@" · "];
+    };
 }
 #pragma mark —— LazyLoad
 -(UIView *)containerView{
     if (!_containerView) {
         _containerView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-            view.translatesAutoresizingMaskIntoConstraints = NO;
-            view
+            view.byTranslatesAutoresizingMaskIntoConstraints(NO)
+
                 .byCornerRadius(8)
                 .byClipsToBounds(YES);
         });
@@ -216,8 +242,8 @@ Prop_strong()UILabel *replySummaryLabel;
 -(UIImageView *)avatarImageView{
     if (!_avatarImageView) {
         _avatarImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
-            imageView.translatesAutoresizingMaskIntoConstraints = NO;
-            imageView
+            imageView.byTranslatesAutoresizingMaskIntoConstraints(NO)
+
                 .byContentMode(UIViewContentModeScaleAspectFill)
                 .byUserInteractionEnabled(NO)
                 .byCornerRadius(18)
@@ -229,11 +255,10 @@ Prop_strong()UILabel *replySummaryLabel;
 -(UILabel *)avatarLabel{
     if (!_avatarLabel) {
         _avatarLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-            label.translatesAutoresizingMaskIntoConstraints = NO;
-            label
-                .byFont(UIFontWeightSemiboldSize(15))
+            label.byFont(UIFontWeightSemiboldSize(15))
                 .byTextAlignment(NSTextAlignmentCenter)
-                .byTextCor(UIColor.whiteColor);
+                .byTextCor(UIColor.whiteColor)
+                .byTranslatesAutoresizingMaskIntoConstraints(NO);
         });
     };return _avatarLabel;
 }

@@ -12,6 +12,12 @@
 #import <JobsDropDownListView/JobsDropDownListView.h>
 #import <JobsDropDownListView/JobsDropDownListTBVCell.h>
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (JobsDropDownListView)

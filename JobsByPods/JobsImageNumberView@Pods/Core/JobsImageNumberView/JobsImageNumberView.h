@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_JOBSIMAGENUMBERVIEW_FE5D1FFA33
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsImageNumberView/JobsImageNumberViewCVCell.h>
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
@@ -38,6 +44,9 @@ UICollectionViewDataSource
 ,UICollectionViewDelegateFlowLayout
 >
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsImageNumberView
+-(JobsRetJobsImageNumberViewByNSArrayUIImageBlock _Nonnull)byDataMutArr;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsImageNumberView
 @end
 
 NS_ASSUME_NONNULL_END

@@ -8,6 +8,20 @@
 #import <UIKit/UIKit.h>
 #import "NSObject+HXPhotoPicker.h"
 
+#ifndef PIC_TO_STR_STYLE_ENUM_DEFINED
+
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
+#else
+#import "JobsBaseUI.h"
+#endif
+
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
@@ -20,22 +34,10 @@
 #import "JobsLoadingImageHeader.h"
 #endif
 
-#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
-#import <JobsBaseUI/JobsBaseUI.h>
-#else
-#import "JobsBaseUI.h"
-#endif
-
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>
 #else
 #import "JobsMakes.h"
-#endif
-
-#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
-#import <JobsByOCPods/JobsByOCPods.h>
-#else
-#import "JobsByOCPods.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -50,8 +52,8 @@
 #import "JobsDefines.h"
 #endif
 
-#ifndef PIC_TO_STR_STYLE_ENUM_DEFINED
 #define PIC_TO_STR_STYLE_ENUM_DEFINED
+
 typedef NS_ENUM(NSInteger, PicToStrStyle) {
     PicToStrStyle_Hexadecimal = 0,/// 图片 转 十六进制
     PicToStrStyle_Base16,/// 图片 转 Base16字符编码
@@ -72,6 +74,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PicToStrStoreSubVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN PicToStrStoreSubVC
+-(JobsRetPicToStrStoreSubVCByNSMutableArrayUIImageBlock _Nonnull)byPhotosImageMutArr;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END PicToStrStoreSubVC
 @end
 
 NS_ASSUME_NONNULL_END

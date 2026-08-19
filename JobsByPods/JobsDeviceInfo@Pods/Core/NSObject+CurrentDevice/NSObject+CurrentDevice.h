@@ -9,47 +9,60 @@
 #define JOBS_HEADER_GUARD_NSOBJECT_CURRENTDEVICE_685C06291D
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsDeviceInfo/NSObject+ID.h>
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (CurrentDevice)
 /// App发布的版本号
--(NSString *)appVersion;
+-(JobsRetStrByVoidBlock _Nonnull)appVersion;
 /// BUILD 版本号
--(NSString *)appBuildVersion;
+-(JobsRetStrByVoidBlock _Nonnull)appBuildVersion;
 /// App名字
 -(NSString *)appDisplayName;
+-(JobsRetStrByVoidBlock _Nonnull)jobsAppDisplayName;
 /// 当前语言
--(NSString *)localLanguage;
+-(JobsRetStrByVoidBlock _Nonnull)localLanguage;
 /// 当前国家
--(NSString *)localCountry;
+-(JobsRetStrByVoidBlock _Nonnull)localCountry;
 /// 设备名称
--(NSString *)deviceName;
+-(JobsRetStrByVoidBlock _Nonnull)deviceName;
 /// 设备类型
--(NSString *)deviceModel;
+-(JobsRetStrByVoidBlock _Nonnull)deviceModel;
 /// 本地化模式
--(NSString *)deviceLocalizedModel;
+-(JobsRetStrByVoidBlock _Nonnull)deviceLocalizedModel;
 /// 系统名字
--(NSString *)deviceSystemName;
+-(JobsRetStrByVoidBlock _Nonnull)deviceSystemName;
 /// 系统版本
--(NSString *)deviceSystemVersion;
+-(JobsRetStrByVoidBlock _Nonnull)deviceSystemVersion;
 
--(NSString *)deviceIdentity;
+-(JobsRetStrByVoidBlock _Nonnull)deviceIdentity;
 
--(NSString *)uuid;
+-(JobsRetStrByVoidBlock _Nonnull)uuid;
 
--(NSString *)idfv;
+-(JobsRetStrByVoidBlock _Nonnull)idfv;
 /// 设备朝向
--(UIDeviceOrientation )deviceOrientation;
+-(JobsRetUIDeviceOrientationByVoidBlock _Nonnull)deviceOrientation;
 /// 是否是Retina显示屏
--(BOOL)isRetina;
+-(JobsRetBOOLByVoidBlock _Nonnull)isRetina;
 
--(BOOL)isPhone;
+-(JobsRetBOOLByVoidBlock _Nonnull)isPhone;
 
--(BOOL)isPad;
+-(JobsRetBOOLByVoidBlock _Nonnull)isPad;
 
--(BOOL)isPod;
+-(JobsRetBOOLByVoidBlock _Nonnull)isPod;
 
 @end
 

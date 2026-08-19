@@ -12,6 +12,12 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsStringUtils/JobsStringUtilsHeader.h>)
 #import <JobsStringUtils/JobsStringUtilsHeader.h>
 #else
@@ -35,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (JobsLanMgrExtra)
 /// App 国际化相关系统宏二次封装 + 设置缺省值
-+(NSString *_Nullable)localStringWithKey:(nonnull NSString *)key;
++(JobsRetStrByStrBlock _Nonnull)localStringWithKey;
 +(NSString *_Nullable)localizedString:(nonnull NSString *)key
                             fromTable:(nullable NSString *)tableName
                              inBundle:(nullable NSBundle *)bundle;

@@ -51,7 +51,7 @@
         @jobs_strongify(self)
         if(!data){
             data = jobsMakeDateFormatter(^(__kindof NSDateFormatter *_Nullable data) {
-                data.dateFormat = @"yyyy-MM-dd";
+                data.byDateFormat(@"yyyy-MM-dd");
             });
         };return data.stringByDate(self);
     };
@@ -69,18 +69,53 @@
     };
 }
 /// 将 NSDate  *转换输出成人类可读的（年\月\日）时间（字符串）
--(NSString *_Nullable)readableDayTime{
-    return jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter) {
-        dateFormatter.timeZone = timeZone(TimeZoneTypeCSTChina);
-        dateFormatter.dateFormat = @"yyyy-MM-dd"; // 格式化为日期字符串
-    }).stringByDate(self);
+-(JobsRetStrByVoidBlock _Nonnull)readableDayTime{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter) {
+            dateFormatter
+                .byTimeZone(timeZone(TimeZoneTypeCSTChina))
+                .byDateFormat(@"yyyy-MM-dd");
+        }).stringByDate(self);
+    };
 }
 /// 将 NSDate  *转换输出成人类可读的（年\月\日\时\分\秒）时间（字符串）
--(NSString *_Nullable)readableTime{
-    return jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter) {
-        dateFormatter.timeZone = timeZone(TimeZoneTypeCSTChina);
-        dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss"; // 格式化为日期字符串
-    }).stringByDate(self);
+-(JobsRetStrByVoidBlock _Nonnull)readableTime{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable dateFormatter) {
+            dateFormatter
+                .byTimeZone(timeZone(TimeZoneTypeCSTChina))
+                .byDateFormat(@"yyyy-MM-dd HH:mm:ss");
+        }).stringByDate(self);
+    };
 }
+
+@end
+
+@implementation NSDateComponents (JobsTimeUtilsExtra)
+
+#define JOBS_DATE_COMPONENT_INTEGER_DSL(_selector_, _property_) \
+-(JobsRetDateComponentsByIntegerBlock _Nonnull)_selector_{ \
+    @jobs_weakify(self) \
+    return ^__kindof NSDateComponents *_Nullable(NSInteger data){ \
+        @jobs_strongify(self) \
+        self._property_ = data; \
+        return self; \
+    }; \
+}
+
+JOBS_DATE_COMPONENT_INTEGER_DSL(byYear, year)
+JOBS_DATE_COMPONENT_INTEGER_DSL(byMonth, month)
+JOBS_DATE_COMPONENT_INTEGER_DSL(byDay, day)
+JOBS_DATE_COMPONENT_INTEGER_DSL(byHour, hour)
+JOBS_DATE_COMPONENT_INTEGER_DSL(byMinute, minute)
+JOBS_DATE_COMPONENT_INTEGER_DSL(bySecond, second)
+
+#undef JOBS_DATE_COMPONENT_INTEGER_DSL
 
 @end

@@ -13,7 +13,7 @@
 +(JobsRetStrByDataBlock _Nonnull)hexStringByData{
     return ^__kindof NSString *_Nullable(__kindof NSData *_Nullable data){
         const unsigned char *dataBuffer = (const unsigned char *)data.bytes;
-        if (!dataBuffer) return @"".tr;
+        if (!dataBuffer) return @"".jobsTr();
         NSUInteger dataLength = data.length;
         NSMutableString *hexString = NSMutableString.initByCapacity(dataLength * 2);
         for (int i = 0; i < dataLength; ++i) {
@@ -22,8 +22,13 @@
     };
 }
 ///【实例方法】NSData对象  转换为  16进制字符串
--(NSString *_Nullable)hexStringByData{
-    return NSData.hexStringByData(self);
+-(JobsRetStrByVoidBlock _Nonnull)hexStringByData{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSData.hexStringByData(self);
+    };
 }
 #pragma mark —— 16进制字符串 ==> NSData对象
 ///【类方法】16进制字符串 转换为 NSData对象

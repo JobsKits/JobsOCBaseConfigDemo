@@ -73,5 +73,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@interface NSTextContainer (DSL)
+
+-(JobsRetTextContainerByCGFloatBlock _Nonnull)byLineFragmentPadding;
+-(JobsRetTextContainerByUIntegerBlock _Nonnull)byMaximumNumberOfLines;
+-(JobsRetTextContainerByLineBreakModeBlock _Nonnull)byLineBreakMode;
+-(JobsRetTextContainerByBOOLBlock _Nonnull)byWidthTracksTextView;
+-(JobsRetTextContainerByBOOLBlock _Nonnull)byHeightTracksTextView;
+
+@end
+
 NS_ASSUME_NONNULL_END
 #endif /* JOBS_HEADER_GUARD_UITEXTVIEW_DSL_4F3A7E82B1 */

@@ -72,6 +72,9 @@ Prop_assign()CGFloat ZYTextFieldBorderWidth;
 Prop_assign(nullable)UIColor *ZYTextFieldBorderColor;
 Prop_assign()BOOL ZYTextFieldMasksToBounds;
 
+-(JobsRetBOOLByVoidBlock _Nonnull)jobsResignFirstResponder;
+-(JobsRetCGRectByCGRectBlock _Nonnull)jobsBorderRectForBounds;
+
 @end
 
 NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBlock _Nonnull block){
@@ -110,7 +113,7 @@ NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBl
              _textField.byKeyboardType(UIKeyboardTypeDefault);
              _textField.rightView = self.titleLab;
              _textField.rightViewMode = UITextFieldViewModeAlways;
-             _textField.byPlaceholder(@"打赏的Mata值".tr);
+             _textField.byPlaceholder(@"打赏的Mata值".jobsTr());
              _textField.placeholderColor = JobsPlaceholderTextColor;
              _textField.placeholderFont = UIFontWeightRegularSize(12);
              _textField.drawPlaceholderInRect = CGRectMake(0, 0, JobsWidth(255 - 20 - 40 - 5), JobsWidth(32));
@@ -235,7 +238,7 @@ NS_INLINE __kindof ZYTextField *_Nonnull jobsMakeZYTextField(jobsByZYTextFieldBl
              _textField.leftViewMode = UITextFieldViewModeAlways;
              _textField.rightView = self.searchBtn;
              _textField.rightViewMode = UITextFieldViewModeAlways;
-             _textField.byPlaceholder(@"搜索关键词".tr);
+             _textField.byPlaceholder(@"搜索关键词".jobsTr());
 
              _textField.placeholderFont = UIFontWeightRegularSize(14);
              _textField.placeholderColor = JobsPlaceholderTextColor;

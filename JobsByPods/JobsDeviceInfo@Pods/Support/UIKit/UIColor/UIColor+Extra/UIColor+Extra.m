@@ -240,10 +240,19 @@
 }
 /// 根据颜色生成图片
 -(UIImage *)image{
-    return self.imageByRect(CGRectMake(0.0f,
-                                       0.0f,
-                                       1.0f,
-                                       1.0f));
+    return (((JobsRetImageByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIColor.class, @selector(jobsImage)))(self, @selector(jobsImage)))();
+}
+
+-(JobsRetImageByVoidBlock _Nonnull)jobsImage{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.imageByRect(CGRectMake(0.0f,
+                                           0.0f,
+                                           1.0f,
+                                           1.0f));
+    };
 }
 /// 根据颜色生成图片
 -(JobsRetImageByFrameBlock _Nonnull)imageByRect{

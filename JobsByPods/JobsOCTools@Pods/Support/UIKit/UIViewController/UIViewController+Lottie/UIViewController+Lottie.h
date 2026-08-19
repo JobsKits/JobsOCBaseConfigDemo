@@ -11,6 +11,12 @@
 #pragma once
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsByOCPods/JobsByOCPods.h>
 
 #if __has_include(<lottie-ios/Lottie.h>)
@@ -25,14 +31,20 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (Lottie)
 /// 加盖一个Lottie播放器在本控制器view之上
 /// @param lottieImage LottieName
--(void)addLottieImage:(NSString *)lottieImage;
+-(jobsByStrBlock _Nonnull)addLottieImage;
 /// 开始播放Lottie动画
--(void)lottieImagePlay;
+-(jobsByVoidBlock _Nonnull)lottieImagePlay;
 
 @end
 

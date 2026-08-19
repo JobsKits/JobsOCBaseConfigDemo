@@ -19,6 +19,7 @@ Pod::Spec.new do |spec|
   spec.source = { :path => '.' }
   spec.frameworks = ['Foundation', 'CoreBluetooth']
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsBlock'
   spec.source_files = ['JobsBluetooth.h', 'Core/**/*.{h,m,mm}']
   spec.public_header_files = ['JobsBluetooth.h', 'Core/**/*.h']
   spec.header_dir = 'JobsBluetooth'

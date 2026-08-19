@@ -35,7 +35,7 @@ JobsKey(JobsSpinRevolutionsPerSecondKey)
                                 options:UIViewAnimationOptionCurveLinear
                              animations:^{
                 @jobs_strongify(self)
-                self.transform = endAngle;
+                self.byTransform(endAngle);
             } completion:^(BOOL finished) {
                 @jobs_strongify(self)
                 // 增加角度
@@ -48,7 +48,7 @@ JobsKey(JobsSpinRevolutionsPerSecondKey)
             }];
         } else {
             // 停止旋转
-            self.isStopRotateAnimation = !self.isStopRotateAnimation;
+            self.byStopRotateAnimation(!self.isStopRotateAnimation);
         };return self;
     };
 }
@@ -67,17 +67,17 @@ JobsKey(JobsSpinRevolutionsPerSecondKey)
         @jobs_strongify(self)
         CGFloat speed = MAX(0.001, revolutionsPerSecond);
         Jobs_setAssociatedRETAIN_NONATOMIC(JobsSpinRevolutionsPerSecondKey, @(speed))
-        if (self.jobs_isSpinning) return self;
+        if (self.jobs_isSpinning()) return self;
         NSNumber *pausedAngle = Jobs_getAssociatedObject(JobsSpinPausedAngleKey);
         CGFloat startAngle = pausedAngle ? pausedAngle.doubleValue : 0;
-        self.layer.sublayerTransform = CATransform3DMakeRotation(startAngle, 0, 0, 1);
+        self.layer.bySublayerTransform(CATransform3DMakeRotation(startAngle, 0, 0, 1));
         CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"sublayerTransform.rotation.z"];
         animation.fromValue = @(startAngle);
         animation.toValue = @(startAngle + M_PI * 2);
-        animation.duration = 1.0 / speed;
-        animation.repeatCount = INFINITY;
+        animation.byDuration(1.0 / speed);
+        animation.byRepeatCount(INFINITY);
         animation.removedOnCompletion = NO;
-        animation.fillMode = kCAFillModeForwards;
+        animation.byFillMode(kCAFillModeForwards);
         [self.layer addAnimation:animation forKey:JobsSpinAnimationKey];
         Jobs_setAssociatedRETAIN_NONATOMIC(JobsSpinPausedAngleKey, nil)
         return self;
@@ -88,10 +88,10 @@ JobsKey(JobsSpinRevolutionsPerSecondKey)
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(void) {
         @jobs_strongify(self)
-        if (!self.jobs_isSpinning) return self;
+        if (!self.jobs_isSpinning()) return self;
         CALayer *presentationLayer = self.layer.presentationLayer;
         CATransform3D currentTransform = presentationLayer ? presentationLayer.sublayerTransform : self.layer.sublayerTransform;
-        self.layer.sublayerTransform = currentTransform;
+        self.layer.bySublayerTransform(currentTransform);
         CGFloat currentAngle = atan2(currentTransform.m12, currentTransform.m11);
         Jobs_setAssociatedRETAIN_NONATOMIC(JobsSpinPausedAngleKey, @(currentAngle))
         [self.layer removeAnimationForKey:JobsSpinAnimationKey];
@@ -113,18 +113,28 @@ JobsKey(JobsSpinRevolutionsPerSecondKey)
     return ^__kindof UIView *_Nullable(void) {
         @jobs_strongify(self)
         [self.layer removeAnimationForKey:JobsSpinAnimationKey];
-        self.layer.sublayerTransform = CATransform3DIdentity;
+        self.layer.bySublayerTransform(CATransform3DIdentity);
         Jobs_setAssociatedRETAIN_NONATOMIC(JobsSpinPausedAngleKey, nil)
         return self;
     };
 }
 
--(BOOL)jobs_isSpinning{
-    return [self.layer animationForKey:JobsSpinAnimationKey] != nil;
+-(JobsRetBOOLByVoidBlock _Nonnull)jobs_isSpinning{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return [self.layer animationForKey:JobsSpinAnimationKey] != nil;
+    };
 }
 
--(BOOL)jobs_isSpinPaused{
-    return !self.jobs_isSpinning && Jobs_getAssociatedObject(JobsSpinPausedAngleKey) != nil;
+-(JobsRetBOOLByVoidBlock _Nonnull)jobs_isSpinPaused{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return !self.jobs_isSpinning() && Jobs_getAssociatedObject(JobsSpinPausedAngleKey) != nil;
+    };
 }
 /// 旋转一定时间之后停止下来
 -(JobsRetViewByFloatBlock _Nonnull)旋转动画By{
@@ -139,7 +149,7 @@ JobsKey(JobsSpinRevolutionsPerSecondKey)
                             options:UIViewAnimationOptionCurveLinear
                          animations:^{
             @jobs_strongify(self)
-            self.transform = endTransform;
+            self.byTransform(endTransform);
         } completion:^(BOOL finished) {
             // 动画完成后不再递归调用
         }];return self;
@@ -150,8 +160,8 @@ JobsKey(JobsSpinRevolutionsPerSecondKey)
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable() {
         @jobs_strongify(self)
-        CAKeyframeAnimation *popAnimation = @"transform".keyframeAnimation;
-        popAnimation.duration = 1;
+        CAKeyframeAnimation *popAnimation = @"transform".keyframeAnimation();
+        popAnimation.byDuration(1);
         popAnimation.values = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data
                 .add([NSValue valueWithCATransform3D:CATransform3DMakeScale(0.01f,0.01f,1.0f)])
@@ -167,9 +177,9 @@ JobsKey(JobsSpinRevolutionsPerSecondKey)
         });
         popAnimation.timingFunctions = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data
-                .add(kCAMediaTimingFunctionEaseInEaseOut.makeCAMediaTimingFunction)
-                .add(kCAMediaTimingFunctionEaseInEaseOut.makeCAMediaTimingFunction)
-                .add(kCAMediaTimingFunctionEaseInEaseOut.makeCAMediaTimingFunction);
+                .add(kCAMediaTimingFunctionEaseInEaseOut.makeCAMediaTimingFunction())
+                .add(kCAMediaTimingFunctionEaseInEaseOut.makeCAMediaTimingFunction())
+                .add(kCAMediaTimingFunctionEaseInEaseOut.makeCAMediaTimingFunction());
         });
         [self.layer addAnimation:popAnimation forKey:nil];
         return self;
@@ -180,47 +190,52 @@ JobsKey(JobsSpinRevolutionsPerSecondKey)
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable() {
         @jobs_strongify(self)
-        CABasicAnimation *hover = @"position".basicAnimation;
-        hover.additive = YES; // fromValue and toValue will be relative instead of absolute values
-        hover.fromValue = [NSValue valueWithCGPoint:CGPointZero];
-        hover.toValue = [NSValue valueWithCGPoint:CGPointMake(0.0, -10.0)]; // y increases downwards on iOS
-        hover.autoreverses = YES; // Animate back to normal afterwards
-        hover.duration = 0.5; // The duration for one part of the animation (0.2 up and 0.2 down)
-        hover.repeatCount = INFINITY; // The number of times the animation should repeat
-        hover.removedOnCompletion = NO;//锁屏进入继续动画
+        CABasicAnimation *hover = @"position".basicAnimation();
+        hover.byAdditive(YES);
+        hover.byFromValue([NSValue valueWithCGPoint:CGPointZero]);
+        hover.byToValue([NSValue valueWithCGPoint:CGPointMake(0.0, -10.0)]);
+        hover.byAutoreverses(YES);
+        hover.byDuration(0.5);
+        hover.byRepeatCount(INFINITY);
+        hover.byRemovedOnCompletion(NO);
         [self.layer addAnimation:hover forKey:@"myHoverAnimation"];
         return self;
     };
 }
 /// 点击放大再缩小
--(void)addViewAnimationWithCompletionBlock:(jobsByIDBlock _Nullable)completionBlock{
-    self.transform = CGAffineTransformIdentity;
-    [UIView animateKeyframesWithDuration:0.5
-                                   delay:0
-                                 options:0
-                              animations:^{
-        @jobs_weakify(self)
-        [UIView addKeyframeWithRelativeStartTime:0
-                                relativeDuration:1 / 3.0
-                                      animations:^{
-            @jobs_strongify(self)
-            self.transform = CGAffineTransformMakeScale(1.5, 1.5);
+-(jobsByjobsByIDBlockBlock _Nonnull)addViewAnimationWithCompletionBlock{
+    @jobs_weakify(self)
+    return ^(jobsByIDBlock _Nullable completionBlock){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byTransform(CGAffineTransformIdentity);
+        [UIView animateKeyframesWithDuration:0.5
+                                       delay:0
+                                     options:0
+                                  animations:^{
+            @jobs_weakify(self)
+            [UIView addKeyframeWithRelativeStartTime:0
+                                    relativeDuration:1 / 3.0
+                                          animations:^{
+                @jobs_strongify(self)
+                self.byTransform(CGAffineTransformMakeScale(1.5, 1.5));
+            }];
+            [UIView addKeyframeWithRelativeStartTime:1/3.0
+                                    relativeDuration:1/3.0
+                                          animations:^{
+                @jobs_strongify(self)
+                self.byTransform(CGAffineTransformMakeScale(0.8, 0.8));
+            }];
+            [UIView addKeyframeWithRelativeStartTime:2/3.0
+                                    relativeDuration:1/3.0
+                                          animations:^{
+                @jobs_strongify(self)
+                self.byTransform(CGAffineTransformMakeScale(1.0, 1.0));
+            }];
+        } completion:^(BOOL finished) {
+            if (completionBlock) completionBlock(@1);
         }];
-        [UIView addKeyframeWithRelativeStartTime:1/3.0
-                                relativeDuration:1/3.0
-                                      animations:^{
-            @jobs_strongify(self)
-            self.transform = CGAffineTransformMakeScale(0.8, 0.8);
-        }];
-        [UIView addKeyframeWithRelativeStartTime:2/3.0
-                                relativeDuration:1/3.0
-                                      animations:^{
-            @jobs_strongify(self)
-            self.transform = CGAffineTransformMakeScale(1.0, 1.0);
-        }];
-    } completion:^(BOOL finished) {
-        if (completionBlock) completionBlock(@1);
-    }];
+    };
 }
 /// 逐渐显示
 -(void)graduallyShowWithAnimationBlock:(jobsByIDBlock _Nullable)animationBlock
@@ -258,7 +273,7 @@ JobsKey(JobsSpinRevolutionsPerSecondKey)
                             height:(float)height{
     CAKeyframeAnimation * animation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.y"];
     CGFloat currentTx = self.transform.ty;
-    animation.duration = duration;
+    animation.byDuration(duration);
     animation.values = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
         data
             .add(@(currentTx))
@@ -279,7 +294,7 @@ JobsKey(JobsSpinRevolutionsPerSecondKey)
             .add(@(0.875))
             .add(@(1));
     });
-    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    animation.byTimingFunction([CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]);
     [self.layer addAnimation:animation forKey:@"kViewShakerAnimationKey"];
 }
 #pragma mark —— Prop_assign()CGFloat rotateChangeAngle;
@@ -351,11 +366,12 @@ JobsKey(_shakeAnim)
     if (!ShakeAnim) {
         #define Angle2Radian(angle) ((angle) / 180.0 * M_PI)
         jobsMakeCAKeyframeAnimation(^(__kindof CAKeyframeAnimation * _Nullable animation) {
-            animation.keyPath = @"transform.rotation";
-            animation.duration = 0.25;
-            animation.repeatCount = MAXFLOAT;// 动画次数设置为最大
-            animation.removedOnCompletion = NO;// 保持动画执行完毕后的状态
-            animation.fillMode = kCAFillModeForwards;
+            animation
+                .byKeyPath(@"transform.rotation")
+                .byDuration(0.25)
+                .byRepeatCount(MAXFLOAT)
+                .byRemovedOnCompletion(NO)
+                .byFillMode(kCAFillModeForwards);
             animation.values = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
                 arr.add(@(Angle2Radian(-baseRandomContainBorderValue(7))))
                 .add(@(Angle2Radian(baseRandomContainBorderValue(7))))

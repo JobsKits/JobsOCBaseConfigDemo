@@ -16,6 +16,12 @@
 #import "JobsDefineProperty.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 /// 在 App 入口处配置一次（设计稿尺寸，比如 375x812）
 FOUNDATION_EXPORT void JXScaleSetup(CGFloat designWidth, CGFloat designHeight);

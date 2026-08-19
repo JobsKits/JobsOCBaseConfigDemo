@@ -27,6 +27,7 @@ timer lifecycle management through JobsOCTimerMgr.
   spec.dependency 'JobsByOCPods'
   spec.dependency 'JobsOCTimerMgr'
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsBlock'
 
   spec.source_files = [
     'JobsMarqueeView.h',

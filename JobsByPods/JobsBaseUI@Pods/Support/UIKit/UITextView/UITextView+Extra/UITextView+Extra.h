@@ -30,6 +30,12 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UITextView (JobsBaseUIExtra)
@@ -37,13 +43,13 @@ NS_ASSUME_NONNULL_BEGIN
 /// 从 iOS 16 起，UITextView 使用新的文本渲染系统，会使用 UITextLayoutFragmentView。
 /// 它默认在某些情况下会将内容垂直居中，比如文本少、没有足够内容填满 UITextView 的高度时。
 /// 所以一下操作就是在关闭这个新特性
--(void)switchs;
+-(jobsByVoidBlock _Nonnull)switchs;
 -(JobsRetTextViewByNSIntegerBlock _Nonnull)byTextAlignment;
 -(JobsRetTextViewByEdgeInsetsBlock _Nonnull)byTextContainerInset;
 -(JobsRetTextViewByEdgeInsetsBlock _Nonnull)byContentInset;
 -(JobsRetTextViewByPointBlock _Nonnull)byContentOffset;
 -(JobsRetTextViewByPointBlock _Nonnull)byContentOffsetWithAnimated;
--(RACDisposable *)jobsTextViewSubscribeNextBlock:(jobsByIDBlock _Nullable)subscribeNextBlock;
+-(JobsRetRACDisposableByRACNextBlock _Nonnull)jobsTextViewSubscribeNextBlock;
 -(RACDisposable *)jobsTextViewFilterBlock:(JobsRetBOOLByIDBlock _Nullable)filterBlock
                        subscribeNextBlock:(jobsByIDBlock _Nullable)subscribeNextBlock;
 -(JobsRetTextViewByAttributedTextBlock _Nonnull)byAttributedText;

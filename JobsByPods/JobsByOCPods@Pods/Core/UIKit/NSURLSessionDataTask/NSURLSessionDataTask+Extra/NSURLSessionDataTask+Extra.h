@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_NSURLSESSIONDATATASK_EXTRA_1D9950D2A3
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsByOCPods/NSURLRequest+Extra.h>
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)

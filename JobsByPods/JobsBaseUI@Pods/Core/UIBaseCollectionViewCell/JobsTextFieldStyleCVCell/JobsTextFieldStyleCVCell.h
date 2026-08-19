@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_JOBSTEXTFIELDSTYLECVCELL_ADE3665A5E
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsBaseUI/UIView+Extra.h>
 #import <JobsBaseUI/ZYTextField.h>
 #import <JobsBaseUI/JobsBaseCollectionViewCell.h>
@@ -36,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JobsTextFieldStyleCVCell : JobsBaseCollectionViewCell<UITextFieldDelegate>
 
 -(ZYTextField *)getTextField;
+-(JobsRetZYTextFieldByVoidBlock _Nonnull)jobsGetTextField;
 
 @end
 

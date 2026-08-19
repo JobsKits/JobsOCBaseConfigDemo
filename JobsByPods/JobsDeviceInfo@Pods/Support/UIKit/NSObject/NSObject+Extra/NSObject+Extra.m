@@ -9,16 +9,34 @@
 
 @implementation NSObject (Extra)
 /// NSBundle
-+(NSBundle *_Nullable)mainBundle{
-    return NSBundle.mainBundle;
++(NSBundle *)mainBundle{
+    return (((JobsRetNSBundleByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(NSObject.class, @selector(jobsMainBundle)))(self, @selector(jobsMainBundle)))();
+}
+
++(JobsRetNSBundleByVoidBlock _Nonnull)jobsMainBundle{
+    return ^NSBundle *_Nullable{
+        return NSBundle.mainBundle;
+    };
 }
 /// NSLocale
-+(NSLocale *_Nullable)currentLocale{
-    return NSLocale.currentLocale;
++(NSLocale *)currentLocale{
+    return (((JobsRetNSLocaleByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(NSObject.class, @selector(jobsCurrentLocale)))(self, @selector(jobsCurrentLocale)))();
+}
+
++(JobsRetNSLocaleByVoidBlock _Nonnull)jobsCurrentLocale{
+    return ^NSLocale *_Nullable{
+        return NSLocale.currentLocale;
+    };
 }
 /// UIDevice
-+(UIDevice *_Nullable)currentDevice{
-    return UIDevice.currentDevice;
++(UIDevice *)currentDevice{
+    return (((JobsRetUIDeviceByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(NSObject.class, @selector(jobsCurrentDevice)))(self, @selector(jobsCurrentDevice)))();
+}
+
++(JobsRetUIDeviceByVoidBlock _Nonnull)jobsCurrentDevice{
+    return ^UIDevice *_Nullable{
+        return UIDevice.currentDevice;
+    };
 }
 
 @end

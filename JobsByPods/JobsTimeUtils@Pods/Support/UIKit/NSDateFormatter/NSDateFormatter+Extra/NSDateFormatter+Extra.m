@@ -8,6 +8,15 @@
 #import "NSDateFormatter+Extra.h"
 
 @implementation NSDateFormatter (Extra)
+/// 链式设置时区
+-(JobsRetDateFormatterByTimeZoneBlock _Nonnull)byTimeZone{
+    @jobs_weakify(self)
+    return ^__kindof NSDateFormatter *_Nullable(NSTimeZone *_Nullable data){
+        @jobs_strongify(self)
+        self.timeZone = data;
+        return self;
+    };
+}
 /// 对系统方法 stringFromDate 的二次封装
 -(JobsRetStrByDateBlock _Nonnull)stringByDate{
     @jobs_weakify(self)

@@ -29,42 +29,72 @@ Prop_copy()NSArray <NSString *>*sectionTitleArr;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(TestLabelVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(@"Label 表现列表".tr)
-                .byFont(UIFontWeightRegularSize(16));
-        })
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(@"Label 表现列表".jobsTr())
+                    .byFont(UIFontWeightRegularSize(16));
+            })
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.tableView.byAlpha(1);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(TestLabelVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.tableView.byAlpha(1);
+    };
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.dataArr.count;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(TestLabelVC.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return self.dataArr.count;
+    };
 }
 
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section{
-    return [self dataArrBySection:section].count;
+    return self.dataArrBySection(section).count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
@@ -80,7 +110,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                                     reuseIdentifier:TestLabelListCellReuseIdentifier];
         cell.byBgColor(JobsSecondarySystemBackgroundColor);
     }
-    TestLabelDemoModel *model = [self dataArrBySection:indexPath.section][indexPath.row];
+    TestLabelDemoModel *model = self.dataArrBySection(indexPath.section)[indexPath.row];
     return cell
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
             label.byText(model.title)
@@ -101,7 +131,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 - (void)tableView:(UITableView *)tableView
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    TestLabelDemoModel *model = [self dataArrBySection:indexPath.section][indexPath.row];
+    TestLabelDemoModel *model = self.dataArrBySection(indexPath.section)[indexPath.row];
     [self forceComingToPushVC:TestLabelDetailVC.new
                 requestParams:model];
 }
@@ -130,9 +160,14 @@ heightForFooterInSection:(NSInteger)section{
     return CGFLOAT_MIN;
 }
 #pragma mark —— Data
--(NSArray<TestLabelDemoModel *> *)dataArrBySection:(NSInteger)section{
-    if (section >= self.dataArr.count) return @[];
-    return self.dataArr[section];
+-(JobsRetNSArrayTestLabelDemoModelByNSIntegerBlock _Nonnull)dataArrBySection{
+    @jobs_weakify(self)
+    return ^NSArray<TestLabelDemoModel *> *(NSInteger section){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (section >= self.dataArr.count) return @[];
+        return self.dataArr[section];
+    };
 }
 
 -(TestLabelDemoModel *)demoModelWithTitle:(NSString *)title
@@ -148,22 +183,27 @@ heightForFooterInSection:(NSInteger)section{
                                                        controlType:controlType
                                                           richText:richText
                                                      manualNewline:manualNewline];
-    NSString *controlTitle = controlType == TestLabelDemoControlTypeButtonTitle ? @"UIButton.titleLabel".tr : @"BaseLabel".tr;
-    model.detailTitle = controlTitle.add(JobsNewline).add(title);
-    model.detailSubTitle = detailSubTitle;
+    NSString *controlTitle = controlType == TestLabelDemoControlTypeButtonTitle ? @"UIButton.titleLabel".jobsTr() : @"BaseLabel".jobsTr();
+    model.byDetailTitle(controlTitle.add(JobsNewline).add(title));
+    model.byDetailSubTitle(detailSubTitle);
     return model;
 }
 
--(TestLabelDemoModel *)scrollLabelDemoModel{
-    TestLabelDemoModel *model = [self demoModelWithTitle:@"超长文本滚动".tr
-                                                subTitle:@"超出后滚动".tr
-                                          detailSubTitle:@"UILabel 分类能力".tr.add(JobsNewline).add(@"文本宽度超过 Label 后，startScrollingIfNeededWithInterval 自动横向滚动".tr)
-                                             showingType:UILabelShowingType_01
-                                             controlType:TestLabelDemoControlTypeLabel
-                                                richText:NO
-                                           manualNewline:NO];
-    model.scrollLabelDemo = YES;
-    return model;
+-(JobsRetTestLabelDemoModelByVoidBlock _Nonnull)scrollLabelDemoModel{
+    @jobs_weakify(self)
+    return ^TestLabelDemoModel *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        TestLabelDemoModel *model = [self demoModelWithTitle:@"超长文本滚动".jobsTr()
+                                                    subTitle:@"超出后滚动".jobsTr()
+                                              detailSubTitle:@"UILabel 分类能力".jobsTr().add(JobsNewline).add(@"文本宽度超过 Label 后，startScrollingIfNeededWithInterval 自动横向滚动".jobsTr())
+                                                 showingType:UILabelShowingType_01
+                                                 controlType:TestLabelDemoControlTypeLabel
+                                                    richText:NO
+                                               manualNewline:NO];
+        model.byScrollLabelDemo(YES);
+        return model;
+    };
 }
 #pragma mark —— LazyLoad
 -(UITableView *)tableView{
@@ -198,103 +238,103 @@ heightForFooterInSection:(NSInteger)section{
     if (!_dataArr) {
         _dataArr = @[
             @[
-                [self demoModelWithTitle:@"固定宽高省略".tr
-                                 subTitle:@"超出省略".tr
-                           detailSubTitle:@"定宽定高定字体".tr.add(JobsNewline).add(@"超出内容以省略号收口".tr)
+                [self demoModelWithTitle:@"固定宽高省略".jobsTr()
+                                 subTitle:@"超出省略".jobsTr()
+                           detailSubTitle:@"定宽定高定字体".jobsTr().add(JobsNewline).add(@"超出内容以省略号收口".jobsTr())
                               showingType:UILabelShowingType_01
                               controlType:TestLabelDemoControlTypeLabel
                                  richText:NO
                             manualNewline:NO],
-                [self demoModelWithTitle:@"AutoScroll 单行滚动".tr
-                                 subTitle:@"横向滚动".tr
-                           detailSubTitle:@"定宽定高".tr.add(JobsNewline).add(@"超出内容由 AutoScroll 横向滚动展示".tr)
+                [self demoModelWithTitle:@"AutoScroll 单行滚动".jobsTr()
+                                 subTitle:@"横向滚动".jobsTr()
+                           detailSubTitle:@"定宽定高".jobsTr().add(JobsNewline).add(@"超出内容由 AutoScroll 横向滚动展示".jobsTr())
                               showingType:UILabelShowingType_02
                               controlType:TestLabelDemoControlTypeLabel
                                  richText:NO
                             manualNewline:NO],
-                self.scrollLabelDemoModel,
-                [self demoModelWithTitle:@"宽度自适应".tr
-                                 subTitle:@"定高不定宽".tr
-                           detailSubTitle:@"定高不定宽".tr.add(JobsNewline).add(@"按文字真实宽度撑开".tr)
+                self.scrollLabelDemoModel(),
+                [self demoModelWithTitle:@"宽度自适应".jobsTr()
+                                 subTitle:@"定高不定宽".jobsTr()
+                           detailSubTitle:@"定高不定宽".jobsTr().add(JobsNewline).add(@"按文字真实宽度撑开".jobsTr())
                               showingType:UILabelShowingType_03
                               controlType:TestLabelDemoControlTypeLabel
                                  richText:NO
                             manualNewline:NO],
-                [self demoModelWithTitle:@"缩小字号全展示".tr
-                                 subTitle:@"自动缩小字号".tr
-                           detailSubTitle:@"定宽定高".tr.add(JobsNewline).add(@"通过缩小字号尽量展示完整内容".tr)
+                [self demoModelWithTitle:@"缩小字号全展示".jobsTr()
+                                 subTitle:@"自动缩小字号".jobsTr()
+                           detailSubTitle:@"定宽定高".jobsTr().add(JobsNewline).add(@"通过缩小字号尽量展示完整内容".jobsTr())
                               showingType:UILabelShowingType_04
                               controlType:TestLabelDemoControlTypeLabel
                                  richText:NO
                             manualNewline:NO],
-                [self demoModelWithTitle:@"普通文本自动换行".tr
-                                 subTitle:@"自动换行".tr
-                           detailSubTitle:@"定宽不定高".tr.add(JobsNewline).add(@"普通文本按宽度自动换行".tr)
+                [self demoModelWithTitle:@"普通文本自动换行".jobsTr()
+                                 subTitle:@"自动换行".jobsTr()
+                           detailSubTitle:@"定宽不定高".jobsTr().add(JobsNewline).add(@"普通文本按宽度自动换行".jobsTr())
                               showingType:UILabelShowingType_05
                               controlType:TestLabelDemoControlTypeLabel
                                  richText:NO
                             manualNewline:NO],
-                [self demoModelWithTitle:@"普通文本手动换行".tr
-                                 subTitle:@"手动换行符".tr
-                           detailSubTitle:@"文本内置换行符".tr.add(JobsNewline).add(@"固定宽度下展示多行".tr)
+                [self demoModelWithTitle:@"普通文本手动换行".jobsTr()
+                                 subTitle:@"手动换行符".jobsTr()
+                           detailSubTitle:@"文本内置换行符".jobsTr().add(JobsNewline).add(@"固定宽度下展示多行".jobsTr())
                               showingType:UILabelShowingType_05
                               controlType:TestLabelDemoControlTypeLabel
                                  richText:NO
                             manualNewline:YES],
-                [self demoModelWithTitle:@"富文本手动换行".tr
-                                 subTitle:@"富文本分段".tr
-                           detailSubTitle:@"富文本分段配置字体、颜色和背景".tr.add(JobsNewline).add(@"按换行符展示多行".tr)
+                [self demoModelWithTitle:@"富文本手动换行".jobsTr()
+                                 subTitle:@"富文本分段".jobsTr()
+                           detailSubTitle:@"富文本分段配置字体、颜色和背景".jobsTr().add(JobsNewline).add(@"按换行符展示多行".jobsTr())
                               showingType:UILabelShowingType_05
                               controlType:TestLabelDemoControlTypeLabel
                                  richText:YES
                             manualNewline:YES]
             ],
             @[
-                [self demoModelWithTitle:@"固定宽高省略".tr
-                                 subTitle:@"超出省略".tr
-                           detailSubTitle:@"按钮标题定宽定高".tr.add(JobsNewline).add(@"超出内容按 Label 规则省略".tr)
+                [self demoModelWithTitle:@"固定宽高省略".jobsTr()
+                                 subTitle:@"超出省略".jobsTr()
+                           detailSubTitle:@"按钮标题定宽定高".jobsTr().add(JobsNewline).add(@"超出内容按 Label 规则省略".jobsTr())
                               showingType:UILabelShowingType_01
                               controlType:TestLabelDemoControlTypeButtonTitle
                                  richText:NO
                             manualNewline:NO],
-                [self demoModelWithTitle:@"AutoScroll 单行滚动".tr
-                                 subTitle:@"横向滚动".tr
-                           detailSubTitle:@"按钮标题区域固定".tr.add(JobsNewline).add(@"超出内容横向滚动展示".tr)
+                [self demoModelWithTitle:@"AutoScroll 单行滚动".jobsTr()
+                                 subTitle:@"横向滚动".jobsTr()
+                           detailSubTitle:@"按钮标题区域固定".jobsTr().add(JobsNewline).add(@"超出内容横向滚动展示".jobsTr())
                               showingType:UILabelShowingType_02
                               controlType:TestLabelDemoControlTypeButtonTitle
                                  richText:NO
                             manualNewline:NO],
-                [self demoModelWithTitle:@"宽度自适应".tr
-                                 subTitle:@"按内容撑开".tr
-                           detailSubTitle:@"按钮标题按内容宽度自适应".tr.add(JobsNewline).add(@"保持单行显示".tr)
+                [self demoModelWithTitle:@"宽度自适应".jobsTr()
+                                 subTitle:@"按内容撑开".jobsTr()
+                           detailSubTitle:@"按钮标题按内容宽度自适应".jobsTr().add(JobsNewline).add(@"保持单行显示".jobsTr())
                               showingType:UILabelShowingType_03
                               controlType:TestLabelDemoControlTypeButtonTitle
                                  richText:NO
                             manualNewline:NO],
-                [self demoModelWithTitle:@"缩小字号全展示".tr
-                                 subTitle:@"自动缩小字号".tr
-                           detailSubTitle:@"按钮标题固定宽高".tr.add(JobsNewline).add(@"通过缩小字号尽量展示完整内容".tr)
+                [self demoModelWithTitle:@"缩小字号全展示".jobsTr()
+                                 subTitle:@"自动缩小字号".jobsTr()
+                           detailSubTitle:@"按钮标题固定宽高".jobsTr().add(JobsNewline).add(@"通过缩小字号尽量展示完整内容".jobsTr())
                               showingType:UILabelShowingType_04
                               controlType:TestLabelDemoControlTypeButtonTitle
                                  richText:NO
                             manualNewline:NO],
-                [self demoModelWithTitle:@"普通文本自动换行".tr
-                                 subTitle:@"自动换行".tr
-                           detailSubTitle:@"按钮 titleLabel 开启多行".tr.add(JobsNewline).add(@"普通文本按宽度自动换行".tr)
+                [self demoModelWithTitle:@"普通文本自动换行".jobsTr()
+                                 subTitle:@"自动换行".jobsTr()
+                           detailSubTitle:@"按钮 titleLabel 开启多行".jobsTr().add(JobsNewline).add(@"普通文本按宽度自动换行".jobsTr())
                               showingType:UILabelShowingType_05
                               controlType:TestLabelDemoControlTypeButtonTitle
                                  richText:NO
                             manualNewline:NO],
-                [self demoModelWithTitle:@"普通文本手动换行".tr
-                                 subTitle:@"手动换行符".tr
-                           detailSubTitle:@"按钮标题内置换行符".tr.add(JobsNewline).add(@"固定宽度下展示多行".tr)
+                [self demoModelWithTitle:@"普通文本手动换行".jobsTr()
+                                 subTitle:@"手动换行符".jobsTr()
+                           detailSubTitle:@"按钮标题内置换行符".jobsTr().add(JobsNewline).add(@"固定宽度下展示多行".jobsTr())
                               showingType:UILabelShowingType_05
                               controlType:TestLabelDemoControlTypeButtonTitle
                                  richText:NO
                             manualNewline:YES],
-                [self demoModelWithTitle:@"富文本手动换行".tr
-                                 subTitle:@"富文本分段".tr
-                           detailSubTitle:@"按钮富文本标题分段配置样式".tr.add(JobsNewline).add(@"按换行符展示多行".tr)
+                [self demoModelWithTitle:@"富文本手动换行".jobsTr()
+                                 subTitle:@"富文本分段".jobsTr()
+                           detailSubTitle:@"按钮富文本标题分段配置样式".jobsTr().add(JobsNewline).add(@"按换行符展示多行".jobsTr())
                               showingType:UILabelShowingType_05
                               controlType:TestLabelDemoControlTypeButtonTitle
                                  richText:YES
@@ -307,8 +347,8 @@ heightForFooterInSection:(NSInteger)section{
 -(NSArray<NSString *> *)sectionTitleArr{
     if (!_sectionTitleArr) {
         _sectionTitleArr = @[
-            @"BaseLabel".tr,
-            @"UIButton.titleLabel".tr
+            @"BaseLabel".jobsTr(),
+            @"UIButton.titleLabel".jobsTr()
         ];
     };return _sectionTitleArr;
 }

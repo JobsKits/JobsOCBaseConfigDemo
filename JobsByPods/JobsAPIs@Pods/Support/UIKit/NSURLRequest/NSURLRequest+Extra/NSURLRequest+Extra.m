@@ -21,7 +21,7 @@
         JobsLog(@"请求URL:%@\n", self.URL);
         JobsLog(@"请求方式:%@\n", self.HTTPMethod);
         JobsLog(@"请求头信息:%@\n", self.allHTTPHeaderFields);
-        JobsLog(@"请求正文信息:%@\n", self.HTTPBody.stringByUTF8Encoding);
+        JobsLog(@"请求正文信息:%@\n", self.HTTPBody.jobsStringByUTF8Encoding());
         JobsLog(@"请求响应时间:%@\n", self.currentTimestampString(nil));
         return self.mutableCopy;
     };

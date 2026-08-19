@@ -8,9 +8,37 @@
 #import "UIView+layout.h"
 
 @implementation UIView (layout)
-- (CGFloat)x_{ return self.frame.origin.x; }
-- (CGFloat)y_{ return self.frame.origin.y; }
-- (CGFloat)w_{ return self.frame.size.width; }
-- (CGFloat)h_{ return self.frame.size.height; }
+- (JobsRetCGFloatByVoidBlock _Nonnull)x_{
+    @jobs_weakify(self)
+    return ^CGFloat{
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+     return self.frame.origin.x;
+    };
+}
+- (JobsRetCGFloatByVoidBlock _Nonnull)y_{
+    @jobs_weakify(self)
+    return ^CGFloat{
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+     return self.frame.origin.y;
+    };
+}
+- (JobsRetCGFloatByVoidBlock _Nonnull)w_{
+    @jobs_weakify(self)
+    return ^CGFloat{
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+     return self.frame.size.width;
+    };
+}
+- (JobsRetCGFloatByVoidBlock _Nonnull)h_{
+    @jobs_weakify(self)
+    return ^CGFloat{
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+     return self.frame.size.height;
+    };
+}
 
 @end

@@ -32,7 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface GKGestureHandleConfigure (DSL)
 
-+(__kindof GKGestureHandleConfigure *_Nonnull)bySetupDefault;
++(JobsRetGKGestureHandleConfigureByVoidBlock _Nonnull)bySetupDefault;
 +(JobsRetGKGestureConfigureByConfigureBlock _Nonnull)bySetup;
 +(JobsRetGKGestureConfigureByConfigureBlock _Nonnull)byUpdate;
 

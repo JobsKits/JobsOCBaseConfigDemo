@@ -45,6 +45,15 @@ Prop_strong()NSMutableArray <__kindof UIButton *>*tabBarItems;
 Prop_strong()NSMutableArray <__kindof UIViewController *>*viewControllers;
 Prop_strong(null_resettable)NSMutableArray <__kindof NSNumber *>*tabBarItemYOffsets;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsCustomTabBarConfig
+-(JobsRetJobsCustomTabBarConfigByCGFloatBlock _Nonnull)byTabBarHeight;
+-(JobsRetJobsCustomTabBarConfigByCGFloatBlock _Nonnull)byTabBarWidth;
+-(JobsRetJobsCustomTabBarConfigByNSMutableArrayNSNumberBlock _Nonnull)byTabBarItemYOffsets;
+-(JobsRetJobsCustomTabBarConfigByNSMutableArrayUIButtonBlock _Nonnull)byTabBarItems;
+-(JobsRetJobsCustomTabBarConfigByNSMutableArrayUIViewControllerBlock _Nonnull)byViewControllers;
+-(JobsRetJobsCustomTabBarConfigByUIColorBlock _Nonnull)byTabBarBackgroundColor;
+-(JobsRetJobsCustomTabBarConfigByUIImageBlock _Nonnull)byTabBarBackgroundImage;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsCustomTabBarConfig
 @end
 
 NS_ASSUME_NONNULL_END
@@ -56,7 +65,7 @@ NS_INLINE __kindof JobsCustomTabBarConfig *_Nonnull jobsMakeNormalCustomTabBarCo
 }
 
 NS_INLINE __kindof JobsCustomTabBarConfig *_Nonnull jobsMakeSharedManagerCustomTabBarConfig(jobsByCustomTabBarConfigBlock _Nonnull block){
-    JobsCustomTabBarConfig *data = JobsCustomTabBarConfig.sharedManager;
+    JobsCustomTabBarConfig *data = JobsCustomTabBarConfig.jobsSharedManager();
     if (block) block(data);
     return data;
 }

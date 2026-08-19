@@ -28,6 +28,12 @@ Prop_copy()NSString *compressedBase64Str;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN CompressStrVC
+@interface CompressStrVC (JobsPropertyDSLSetterAutogen_80afe47fbc)
+-(void)setCompressedBase64Str:(NSString * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END CompressStrVC
+
 @implementation CompressStrVC
 - (void)dealloc{
     JobsRemoveNotification(self);
@@ -35,114 +41,214 @@ Prop_copy()NSString *compressedBase64Str;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CompressStrVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(data.attributedTitle.string)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byBgImage(@"新首页的底图".img)
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(data.attributedTitle.string)
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byBgImage(@"新首页的底图".img)
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    [self buildDemoUI];
-    [self refreshCompressResult];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CompressStrVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.buildDemoUI();
+        self.refreshCompressResult();
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CompressStrVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillAppear:animated];
+    };
 }
 
 -(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CompressStrVC.class, @selector(jobsViewWillLayoutSubviews)))(self, @selector(jobsViewWillLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewWillLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CompressStrVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CompressStrVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CompressStrVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CompressStrVC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+    };
 }
 #pragma mark —— UI
--(void)buildDemoUI{
-    (void)self.contentScrollView;
-    (void)self.contentCardView;
-    (void)self.titleLab;
-    (void)self.algorithmTitleLab;
-    (void)self.algorithmValueLab;
-    (void)self.sourceTitleLab;
-    (void)self.sourceTextView;
-    (void)self.compressedInfoTitleLab;
-    (void)self.compressedInfoValueLab;
-    (void)self.compressedStringTitleLab;
-    (void)self.compressedStringValueLab;
-    (void)self.resultTitleLab;
-    (void)self.resultValueLab;
-    (void)self.refreshBtn;
+-(jobsByVoidBlock _Nonnull)buildDemoUI{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        (void)self.contentScrollView;
+        (void)self.contentCardView;
+        (void)self.titleLab;
+        (void)self.algorithmTitleLab;
+        (void)self.algorithmValueLab;
+        (void)self.sourceTitleLab;
+        (void)self.sourceTextView;
+        (void)self.compressedInfoTitleLab;
+        (void)self.compressedInfoValueLab;
+        (void)self.compressedStringTitleLab;
+        (void)self.compressedStringValueLab;
+        (void)self.resultTitleLab;
+        (void)self.resultValueLab;
+        (void)self.refreshBtn;
+    };
 }
 
--(void)refreshCompressResult{
-    NSString *sourceText = self.inputTextForCompress;
-    NSData *sourceData = sourceText.UTF8Encoding;
-    NSData *data = sourceText.compress;
-    NSString *base64Str = [data base64EncodedStringWithOptions:0] ? : @"";
-    NSString *decompressStr = data.decompressToStr ? : @"";
-    CGFloat ratio = sourceData.length ? ((CGFloat)data.length / (CGFloat)sourceData.length) * 100.0 : 0;
-    self.compressedBase64Str = base64Str;
-    self.compressedInfoValueLab.byText([NSString stringWithFormat:@"原始 UTF8 NSData 长度：%lu bytes\n压缩后 NSData 长度：%lu bytes\nBase64 字符数：%lu\n压缩率：%.2f%%",
-                                        (unsigned long)sourceData.length,
-                                        (unsigned long)data.length,
-                                        (unsigned long)base64Str.length,
-                                        ratio]);
-    self.compressedStringValueLab.byText(base64Str);
-    self.resultValueLab.byText(decompressStr);
-    JobsLog(@"压缩后的数据: %@",data);
-    JobsLog(@"解压后的字符串: %@",decompressStr);
+-(jobsByVoidBlock _Nonnull)refreshCompressResult{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        NSString *sourceText = self.inputTextForCompress();
+        NSData *sourceData = sourceText.jobsUTF8Encoding();
+        NSData *data = sourceText.compress();
+        NSString *base64Str = [data base64EncodedStringWithOptions:0] ? : @"";
+        NSString *decompressStr = data.decompressToStr() ? : @"";
+        CGFloat ratio = sourceData.length ? ((CGFloat)data.length / (CGFloat)sourceData.length) * 100.0 : 0;
+        self.byCompressedBase64Str(base64Str);
+        self.compressedInfoValueLab.byText([NSString stringWithFormat:@"原始 UTF8 NSData 长度：%lu bytes\n压缩后 NSData 长度：%lu bytes\nBase64 字符数：%lu\n压缩率：%.2f%%",
+                                            (unsigned long)sourceData.length,
+                                            (unsigned long)data.length,
+                                            (unsigned long)base64Str.length,
+                                            ratio]);
+        self.compressedStringValueLab.byText(base64Str);
+        self.resultValueLab.byText(decompressStr);
+        JobsLog(@"压缩后的数据: %@",data);
+        JobsLog(@"解压后的字符串: %@",decompressStr);
+    };
 }
 
--(NSString *)inputTextForCompress{
-    NSString *inputText = self.sourceTextView.text ? : @"";
-    NSString *trimText = [inputText stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
-    if (!trimText.length) {
-        self.sourceTextView.byText(self.demoText);
-        return self.demoText;
-    };return inputText;
+-(JobsRetStrByVoidBlock _Nonnull)inputTextForCompress{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSString *inputText = self.sourceTextView.text ? : @"";
+        NSString *trimText = [inputText stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+        if (!trimText.length) {
+            self.sourceTextView.byText(self.demoText);
+            return self.demoText;
+        };return inputText;
+    };
 }
 
--(NSString *)compressAlgorithmText{
-    return @"压缩：NSString -> UTF8 NSData -> NSKeyedArchiver archivedDataWithRootObject:requiringSecureCoding:NO:error: -> Base64 字符串"
-           @"\n解压：NSData -> NSKeyedUnarchiver unarchivedObjectOfClass:NSData -> UTF8 NSString";
+-(JobsRetStrByVoidBlock _Nonnull)compressAlgorithmText{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"压缩：NSString -> UTF8 NSData -> NSKeyedArchiver archivedDataWithRootObject:requiringSecureCoding:NO:error: -> Base64 字符串"
+               @"\n解压：NSData -> NSKeyedUnarchiver unarchivedObjectOfClass:NSData -> UTF8 NSString";
+    };
 }
 
 -(void)copyCompressedStringByLongPress:(UILongPressGestureRecognizer *)gesture{
@@ -165,7 +271,7 @@ Prop_copy()NSString *compressedBase64Str;
                 });
         });
         if (@available(iOS 11.0, *)) {
-            _contentScrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+            _contentScrollView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
         }
     };return _contentScrollView;
 }
@@ -196,7 +302,7 @@ Prop_copy()NSString *compressedBase64Str;
     if (!_titleLab) {
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"字符串压缩 / 解压结果".tr)
+                .byText(@"字符串压缩 / 解压结果".jobsTr())
                 .byFont(UIFontWeightSemiboldSize(19))
                 .byTextCor(JobsLabelColor)
                 .byNumberOfLines(0)
@@ -212,7 +318,7 @@ Prop_copy()NSString *compressedBase64Str;
 
 -(UILabel *)algorithmTitleLab{
     if (!_algorithmTitleLab) {
-        _algorithmTitleLab = [self sectionTitleLabByText:@"压缩算法".tr
+        _algorithmTitleLab = [self sectionTitleLabByText:@"压缩算法".jobsTr()
                                                      top:self.titleLab.mas_bottom
                                                   offset:JobsWidth(22)];
     };return _algorithmTitleLab;
@@ -222,13 +328,13 @@ Prop_copy()NSString *compressedBase64Str;
     if (!_algorithmValueLab) {
         _algorithmValueLab = [self sectionValueLabByTop:self.algorithmTitleLab.mas_bottom
                                                 offset:JobsWidth(8)];
-        _algorithmValueLab.byText(self.compressAlgorithmText);
+        _algorithmValueLab.byText(self.compressAlgorithmText());
     };return _algorithmValueLab;
 }
 
 -(UILabel *)sourceTitleLab{
     if (!_sourceTitleLab) {
-        _sourceTitleLab = [self sectionTitleLabByText:@"原始字符串".tr
+        _sourceTitleLab = [self sectionTitleLabByText:@"原始字符串".jobsTr()
                                                  top:self.algorithmValueLab.mas_bottom
                                               offset:JobsWidth(22)];
     };return _sourceTitleLab;
@@ -258,7 +364,7 @@ Prop_copy()NSString *compressedBase64Str;
 
 -(UILabel *)compressedInfoTitleLab{
     if (!_compressedInfoTitleLab) {
-        _compressedInfoTitleLab = [self sectionTitleLabByText:@"压缩信息".tr
+        _compressedInfoTitleLab = [self sectionTitleLabByText:@"压缩信息".jobsTr()
                                                          top:self.sourceTextView.mas_bottom
                                                       offset:JobsWidth(18)];
     };return _compressedInfoTitleLab;
@@ -273,7 +379,7 @@ Prop_copy()NSString *compressedBase64Str;
 
 -(UILabel *)compressedStringTitleLab{
     if (!_compressedStringTitleLab) {
-        _compressedStringTitleLab = [self sectionTitleLabByText:@"压缩字符串（Base64，长按复制）".tr
+        _compressedStringTitleLab = [self sectionTitleLabByText:@"压缩字符串（Base64，长按复制）".jobsTr()
                                                            top:self.compressedInfoValueLab.mas_bottom
                                                         offset:JobsWidth(18)];
     };return _compressedStringTitleLab;
@@ -295,7 +401,7 @@ Prop_copy()NSString *compressedBase64Str;
 
 -(UILabel *)resultTitleLab{
     if (!_resultTitleLab) {
-        _resultTitleLab = [self sectionTitleLabByText:@"解压后".tr
+        _resultTitleLab = [self sectionTitleLabByText:@"解压后".jobsTr()
                                                  top:self.compressedStringValueLab.mas_bottom
                                               offset:JobsWidth(18)];
     };return _resultTitleLab;
@@ -313,13 +419,13 @@ Prop_copy()NSString *compressedBase64Str;
         @jobs_weakify(self)
         _refreshBtn = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
             btn
-                .byTitle(@"重新压缩".tr)
+                .byTitle(@"重新压缩".jobsTr())
                 .byTitleFont(UIFontWeightMediumSize(15))
                 .byTitleCor(JobsWhiteColor)
                 .onClickBy(^(UIButton *x) {
                     @jobs_strongify(self)
                     [self.view endEditing:YES];
-                    [self refreshCompressResult];
+                    self.refreshCompressResult();
                 })
                 .byBgColor(HEXCOLOR(0x1E2A36))
                 .addOn(self.contentCardView)
@@ -377,4 +483,14 @@ Prop_copy()NSString *compressedBase64Str;
     });
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN CompressStrVC
+-(JobsRetCompressStrVCByNSStringBlock _Nonnull)byCompressedBase64Str{
+    @jobs_weakify(self)
+    return ^__kindof CompressStrVC * _Nullable(NSString * _Nullable data){
+        @jobs_strongify(self)
+        [self setCompressedBase64Str:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END CompressStrVC
 @end

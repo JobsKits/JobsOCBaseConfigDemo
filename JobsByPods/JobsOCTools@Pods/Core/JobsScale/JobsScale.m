@@ -15,64 +15,115 @@ Prop_assign()BOOL useSafeArea;
 Prop_assign(readonly)CGFloat scaleX;
 Prop_assign(readonly)CGFloat scaleY;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsScale
+-(JobsRetJobsScaleByBOOLBlock _Nonnull)byUseSafeArea;
+-(JobsRetJobsScaleByCGFloatBlock _Nonnull)byDesignH;
+-(JobsRetJobsScaleByCGFloatBlock _Nonnull)byDesignW;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsScale
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsScale
+@interface JobsScale (JobsPropertyDSLSetterAutogen_fbc81404f7)
+-(void)setDesignH:(CGFloat)data;
+-(void)setDesignW:(CGFloat)data;
+-(void)setUseSafeArea:(BOOL)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsScale
+
 @implementation JobsScale
-- (CGFloat)screenWidth {
-    if (@available(iOS 13.0, *)) {
-        // 优先取当前活动窗口的尺寸
-        for (UIWindowScene *scene in UIApplication.sharedApplication.connectedScenes) {
-            if (scene.activationState == UISceneActivationStateForegroundActive) {
-                for (UIWindow *win in scene.windows) {
-                    if (win.isKeyWindow) {
-                        if (self.useSafeArea) {
-                            UIEdgeInsets insets = win.safeAreaInsets;
-                            return MAX(0, win.bounds.size.width - (insets.left + insets.right));
-                        };return win.bounds.size.width;
+- (JobsRetCGFloatByVoidBlock _Nonnull)screenWidth {
+    @jobs_weakify(self)
+    return ^CGFloat{
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+        if (@available(iOS 13.0, *)) {
+            // 优先取当前活动窗口的尺寸
+            for (UIWindowScene *scene in UIApplication.sharedApplication.connectedScenes) {
+                if (scene.activationState == UISceneActivationStateForegroundActive) {
+                    for (UIWindow *win in scene.windows) {
+                        if (win.isKeyWindow) {
+                            if (self.useSafeArea) {
+                                UIEdgeInsets insets = win.safeAreaInsets;
+                                return MAX(0, win.bounds.size.width - (insets.left + insets.right));
+                            };return win.bounds.size.width;
+                        }
                     }
                 }
             }
         }
-    }
-    CGSize size = UIScreen.mainScreen.bounds.size;
-    if (self.useSafeArea) {
-        UIEdgeInsets insets = UIApplication.sharedApplication.keyWindow.safeAreaInsets;
-        return MAX(0, size.width - (insets.left + insets.right));
-    };return size.width;
+        CGSize size = UIScreen.mainScreen.bounds.size;
+        if (self.useSafeArea) {
+            UIEdgeInsets insets = UIApplication.sharedApplication.keyWindow.safeAreaInsets;
+            return MAX(0, size.width - (insets.left + insets.right));
+        };return size.width;
+    };
 }
 
-- (CGFloat)screenHeight {
-    if (@available(iOS 13.0, *)) {
-        for (UIWindowScene *scene in UIApplication.sharedApplication.connectedScenes) {
-            if (scene.activationState == UISceneActivationStateForegroundActive) {
-                for (UIWindow *win in scene.windows) {
-                    if (win.isKeyWindow) {
-                        if (self.useSafeArea) {
-                            UIEdgeInsets insets = win.safeAreaInsets;
-                            return MAX(0, win.bounds.size.height - (insets.top + insets.bottom));
-                        };return win.bounds.size.height;
+- (JobsRetCGFloatByVoidBlock _Nonnull)screenHeight {
+    @jobs_weakify(self)
+    return ^CGFloat{
+        @jobs_strongify(self)
+        if (!self) return (CGFloat){0};
+        if (@available(iOS 13.0, *)) {
+            for (UIWindowScene *scene in UIApplication.sharedApplication.connectedScenes) {
+                if (scene.activationState == UISceneActivationStateForegroundActive) {
+                    for (UIWindow *win in scene.windows) {
+                        if (win.isKeyWindow) {
+                            if (self.useSafeArea) {
+                                UIEdgeInsets insets = win.safeAreaInsets;
+                                return MAX(0, win.bounds.size.height - (insets.top + insets.bottom));
+                            };return win.bounds.size.height;
+                        }
                     }
                 }
             }
         }
-    }
-    CGSize size = UIScreen.mainScreen.bounds.size;
-    if (self.useSafeArea) {
-        UIEdgeInsets insets = UIApplication.sharedApplication.keyWindow.safeAreaInsets;
-        return MAX(0, size.height - (insets.top + insets.bottom));
-    };return size.height;
+        CGSize size = UIScreen.mainScreen.bounds.size;
+        if (self.useSafeArea) {
+            UIEdgeInsets insets = UIApplication.sharedApplication.keyWindow.safeAreaInsets;
+            return MAX(0, size.height - (insets.top + insets.bottom));
+        };return size.height;
+    };
 }
 
 - (CGFloat)scaleX {
     if (self.designW <= 0) return 1.0;
-    return [self screenWidth] / self.designW;
+    return self.screenWidth() / self.designW;
 }
 
 - (CGFloat)scaleY {
     if (self.designH <= 0) return 1.0;
-    return [self screenHeight] / self.designH;
+    return self.screenHeight() / self.designH;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsScale
+-(JobsRetJobsScaleByBOOLBlock _Nonnull)byUseSafeArea{
+    @jobs_weakify(self)
+    return ^__kindof JobsScale * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setUseSafeArea:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsScaleByCGFloatBlock _Nonnull)byDesignH{
+    @jobs_weakify(self)
+    return ^__kindof JobsScale * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setDesignH:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsScaleByCGFloatBlock _Nonnull)byDesignW{
+    @jobs_weakify(self)
+    return ^__kindof JobsScale * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setDesignW:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsScale
 @end
 
 /// 单例容器
@@ -84,9 +135,9 @@ void JXScaleSetup(CGFloat designWidth, CGFloat designHeight) {
     dispatch_once(&onceToken, ^{
         _box = [JobsScale new];
     });
-    _box.designW = designWidth > 0 ? designWidth : 375.0;
-    _box.designH = designHeight > 0 ? designHeight : 812.0;
-    _box.useSafeArea = NO;
+    _box.byDesignW(designWidth > 0 ? designWidth : 375.0);
+    _box.byDesignH(designHeight > 0 ? designHeight : 812.0);
+    _box.byUseSafeArea(NO);
 }
 
 void JXScaleSetupUsingSafeArea(CGFloat designWidth, CGFloat designHeight) {
@@ -94,9 +145,9 @@ void JXScaleSetupUsingSafeArea(CGFloat designWidth, CGFloat designHeight) {
     dispatch_once(&onceToken, ^{
         _box = [JobsScale new];
     });
-    _box.designW = designWidth > 0 ? designWidth : 375.0;
-    _box.designH = designHeight > 0 ? designHeight : 812.0;
-    _box.useSafeArea = YES;
+    _box.byDesignW(designWidth > 0 ? designWidth : 375.0);
+    _box.byDesignH(designHeight > 0 ? designHeight : 812.0);
+    _box.byUseSafeArea(YES);
 }
 
 /// 如果忘记配置，给个兜底，且打印一次警告

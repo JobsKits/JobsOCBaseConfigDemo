@@ -6,6 +6,12 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "NotifiView.h"
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
@@ -16,11 +22,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class NotifiManager;
+typedef NotifiManager *_Nullable(^JobsRetNotifiManagerByVoidBlock)(void);
+
 @interface NotifiManager : NSObject
 
-+ (instancetype)shared;
++ (JobsRetNotifiManagerByVoidBlock _Nonnull)shared;
 /** 设置队列的并发数(不可大于绑定的notifiView的个数) */
-- (void)setQueueNaxConcurrentOperationCount:(NSInteger)count;
+-(jobsByNSIntegerBlock _Nonnull)setQueueNaxConcurrentOperationCount;
 /** 显示notifiView */
 - (void)showNotifiWithData:(id)data
                     onView:(UIView*)onView

@@ -13,28 +13,28 @@
     @jobs_weakify(self)
     return ^(__kindof UITextView *_Nullable textView){
         @jobs_strongify(self)
-        textView.byDelegate(self);
-        textView.byEditable(NO);// UITextView 即使是不可编辑的情况下，也会处理点击事件，如链接检测和文本选择
-        textView.byTextAlignment(NSTextAlignmentCenter);
-        textView.bySelectable(YES);// 确保可以选择
-        textView.byDataDetectorTypes(UIDataDetectorTypeLink);// 启用链接检测
-        textView.byScrollEnabled(NO);
-        textView.byUserInteractionEnabled(YES);// 需要处理点击事件，比如：链接检测和文本选择
-        textView.byBgColor(JobsClearColor);
+        textView.byDelegate(self)
+        .byEditable(NO)// UITextView 即使是不可编辑的情况下，也会处理点击事件，如链接检测和文本选择
+        .byTextAlignment(NSTextAlignmentCenter)
+        .bySelectable(YES)// 确保可以选择
+        .byDataDetectorTypes(UIDataDetectorTypeLink)// 启用链接检测
+        .byScrollEnabled(NO)
+        .byUserInteractionEnabled(YES)// 需要处理点击事件，比如：链接检测和文本选择
+        .byBgColor(JobsClearColor)
             /// 对于 textView，只有通过下面的方法，才可以完整修改超链接的文字 + 下划线颜色
 //            .byLinkTextAttributes(@{
 //                NSForegroundColorAttributeName: UIColor.yellowColor,
 //                NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle),
 //                NSUnderlineColorAttributeName: UIColor.yellowColor
 //            })
-        textView.addOn(self);
+        .addOn(self);
     };
 }
 #pragma mark —— UITextViewDelegate
 -(nullable UIAction *)textView:(UITextView *)textView
       primaryActionForTextItem:(UITextItem *)textItem
                  defaultAction:(UIAction *)defaultAction API_AVAILABLE(ios(17.0)){
-    textItem.textView = textView;
+    textItem.byTextView(textView);
     if(self.objBlock) self.objBlock(textItem);
     return defaultAction; // 默认行为
 }

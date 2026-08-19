@@ -6,6 +6,7 @@
 //
 
 #import "JobsFiltrationView.h"
+
 #import <JobsFiltrationView/NSMutableArray+Extra.h>
 #import <JobsFiltrationView/UIView+Extra.h>
 
@@ -21,16 +22,30 @@ Prop_strong()JobsHotLabelByMultiLine *hotLabel;
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_filtrationViewOnceToken = 0;
-    static_filtrationView = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsFiltrationView.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_filtrationViewOnceToken = 0;
+        static_filtrationView = nil;
+    };
 }
 
 static JobsFiltrationView *static_filtrationView = nil;
 static dispatch_once_t static_filtrationViewOnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_filtrationViewOnceToken, ^{
-        static_filtrationView = JobsFiltrationView.new;
-    });return static_filtrationView;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsFiltrationView.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_filtrationViewOnceToken, ^{
+            static_filtrationView = JobsFiltrationView.new;
+        });return static_filtrationView;
+    };
 }
 
 -(instancetype)init{
@@ -52,11 +67,31 @@ static dispatch_once_t static_filtrationViewOnceToken;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsFiltrationView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsFiltrationView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 #pragma mark —— BaseViewProtocol
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -64,7 +99,7 @@ static dispatch_once_t static_filtrationViewOnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model;
+        self.byViewModel(model);
         MakeDataNull
         self.hotLabel.byAlpha(1);
     };
@@ -79,10 +114,10 @@ static dispatch_once_t static_filtrationViewOnceToken;
 -(JobsHotLabelByMultiLine *)hotLabel{
     if (!_hotLabel) {
         JobsHotLabelWithMultiLineModel *model = JobsHotLabelWithMultiLineModel.new;
-        model.bgCor = HEXCOLOR(0xFDFCF9);
+        model.byBgCor(HEXCOLOR(0xFDFCF9));
         model.footerViewModel = jobsMakeHeaderFooterViewModel(^(JobsHeaderFooterViewModel * _Nullable data) {
             data.byUseFooterView(NO);
-            data.textModel.byText(@"查看详情".tr)
+            data.textModel.byText(@"查看详情".jobsTr())
                           .byTextAlignment(NSTextAlignmentLeft)
                           .byTextCor(JobsLabelColor)
                           .byFont(UIFontWeightBoldSize(14));
@@ -91,14 +126,14 @@ static dispatch_once_t static_filtrationViewOnceToken;
         });
         model.viewModels = jobsMakeMutArr(^(__kindof NSMutableArray<UIViewModel *> * _Nullable data) {
             for (NSString *str in jobsMakeMutArr(^(__kindof NSMutableArray<NSString *> * _Nullable arr) {
-                arr.add(@"全部".tr)
-                .add(@"充值".tr)
-                .add(@"取款".tr)
-                .add(@"转账".tr)
-                .add(@"返水".tr)
-                .add((@"会员活动".tr))
-                .add(@"VIP福利".tr)
-                .add(@"其他".tr);
+                arr.add(@"全部".jobsTr())
+                .add(@"充值".jobsTr())
+                .add(@"取款".jobsTr())
+                .add(@"转账".jobsTr())
+                .add(@"返水".jobsTr())
+                .add((@"会员活动".jobsTr()))
+                .add(@"VIP福利".jobsTr())
+                .add(@"其他".jobsTr());
             })) {
                 data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable vm) {
                     vm.textModel.byText(str)
@@ -111,7 +146,7 @@ static dispatch_once_t static_filtrationViewOnceToken;
         });
         model.headerViewModel = jobsMakeHeaderFooterViewModel(^(JobsHeaderFooterViewModel * _Nullable data) {
             data.byUseHeaderView(YES);
-            data.textModel.byText(@"交易类型".tr)
+            data.textModel.byText(@"交易类型".jobsTr())
                           .byTextCor(JobsLabelColor)
                           .byFont(UIFontWeightBoldSize(14))
                           .byTextAlignment(NSTextAlignmentLeft);

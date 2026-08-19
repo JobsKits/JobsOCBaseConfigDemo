@@ -29,7 +29,7 @@
     return ^__kindof UICollectionView *_Nullable(__kindof MJRefreshHeader * _Nullable header){
         @jobs_strongify(self)
         self.mj_header = header;
-        self.mj_header.automaticallyChangeAlpha = YES; /// 根据拖拽比例自动切换透明度
+        self.mj_header.byAutomaticallyChangeAlpha(YES);
         return self;
     };
 }
@@ -39,7 +39,7 @@
     return ^__kindof UICollectionView *_Nullable(__kindof MJRefreshFooter * _Nullable header){
         @jobs_strongify(self)
         self.mj_footer = header;
-        self.mj_footer.automaticallyChangeAlpha = YES; /// 根据拖拽比例自动切换透明度
+        self.mj_footer.byAutomaticallyChangeAlpha(YES);
         return self;
     };
 }
@@ -115,7 +115,7 @@
     if (collectionViewCellClass) {
         for (UICollectionViewCell *cell in self.visibleCells) {
             if ([cell isKindOfClass:collectionViewCellClass]) {
-                cell.selected = NO;
+                cell.bySelected(NO);
             }
         }
     };return self.cellBy(indexPath).bySelected(YES);;

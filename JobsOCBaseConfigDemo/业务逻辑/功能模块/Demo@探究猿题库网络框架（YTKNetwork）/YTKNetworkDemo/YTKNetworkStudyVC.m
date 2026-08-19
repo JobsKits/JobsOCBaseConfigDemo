@@ -11,6 +11,21 @@
 
 @end
 
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN YTKNetworkConfig
+@interface YTKNetworkConfig (JobsLocalPropertyDSLAutogen_4590bceeb1)
+-(JobsRetYTKNetworkConfigByAFSecurityPolicyBlock _Nonnull)bySecurityPolicy;
+-(JobsRetYTKNetworkConfigByBOOLBlock _Nonnull)byDebugLogEnabled;
+-(JobsRetYTKNetworkConfigByNSStringBlock _Nonnull)byBaseUrl;
+-(JobsRetYTKNetworkConfigByNSStringBlock _Nonnull)byCdnUrl;
+-(JobsRetYTKNetworkConfigByNSURLSessionConfigurationBlock _Nonnull)bySessionConfiguration;
+-(void)setBaseUrl:(NSString * _Nullable)data;
+-(void)setCdnUrl:(NSString * _Nullable)data;
+-(void)setDebugLogEnabled:(BOOL)data;
+-(void)setSecurityPolicy:(AFSecurityPolicy * _Nullable)data;
+-(void)setSessionConfiguration:(NSURLSessionConfiguration* _Nullable)data;
+@end
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END YTKNetworkConfig
+
 @implementation YTKNetworkStudyVC
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
@@ -18,101 +33,161 @@
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
-        }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(data.attributedTitle.string)
-                .byFont(UIFontWeightRegularSize(16));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
-        /// 下列配置一般体现在 AppDelegate
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(YTKNetworkStudyVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
     @jobs_weakify(self)
-    jobsMakeYTKNetworkConfig(^(__kindof YTKNetworkConfig * _Nullable data) {
+    return ^{
         @jobs_strongify(self)
-        data.baseUrl = This.BaseUrl;
-        data.cdnUrl = @"";
-        //data.urlFilters = nil;
-        //data.cacheDirPathFilters = nil;
-        data.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
-        data.debugLogEnabled = YES;
-        data.sessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration;
-        [data addUrlFilter:[YTKUrlArgumentsFilter filterWithArguments:@{@"version": self.appVersion}]];
-    });
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
+        }
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(data.attributedTitle.string)
+                    .byFont(UIFontWeightRegularSize(16));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+            /// 下列配置一般体现在 AppDelegate
+        @jobs_weakify(self)
+        jobsMakeYTKNetworkConfig(^(__kindof YTKNetworkConfig * _Nullable data) {
+            @jobs_strongify(self)
+            data
+                .byBaseUrl(This.jobsBaseUrl())
+                .byCdnUrl(@"")
+            //data.urlFilters = nil;
+            //data.cacheDirPathFilters = nil;
+
+                .bySecurityPolicy([AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone])
+                .byDebugLogEnabled(YES)
+                .bySessionConfiguration(NSURLSessionConfiguration.defaultSessionConfiguration);
+            [data addUrlFilter:YTKUrlArgumentsFilter.filterWithArguments(@{@"version": self.appVersion()})];
+        });
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(YTKNetworkStudyVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(YTKNetworkStudyVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
     @jobs_weakify(self)
-    /// 普通的单个请求
-    [self loadCacheData:^(JobsResponseModel *_Nullable responseModel) {
-    }];
-    /// 多请求の同步请求
-    [self sendBatchRequest:^(YTKBatchRequest *_Nullable batchRequest) {
-        NSArray *requests = batchRequest.requestArray;
-        GetImageApi *a = (GetImageApi *)requests[0];
-        GetImageApi *b = (GetImageApi *)requests[1];
-        GetImageApi *c = (GetImageApi *)requests[2];
-        GetUserInfoApi *user = (GetUserInfoApi *)requests[3];
-        ///deal with requests result ...
-        JobsLog(@"%@, %@, %@, %@", a, b, c, user);
-        /// 以下是我们需要的值
-        a.responseObject;
-        b.responseObject;
-        c.responseObject;
-        user.responseObject;
-    }];
-    /// 多请求の链式请求。链式请求的结果集体现在<YTKChainRequestDelegate>
-    [self sendChainRequest:^(YTKChainRequest *_Nullable chainReq) {
+    return ^(BOOL animated){
         @jobs_strongify(self)
-        chainReq.byDelegate(self);
-    }];
-    /// 上传KYC的图片@POST
-    [self uploadKYCImage:UIImagePNGRepresentation(@"启动页SLOGAN".img)
-            successBlock:^(JobsResponseModel * _Nullable responseModel) {
-        JobsLog(@"");
-    }];
+        if (!self) return;
+        [super viewWillAppear:animated];
+        @jobs_weakify(self)
+        /// 普通的单个请求
+        self.loadCacheData(^(JobsResponseModel *_Nullable responseModel) {
+        });
+        /// 多请求の同步请求
+        self.sendBatchRequest(^(YTKBatchRequest *_Nullable batchRequest) {
+            NSArray *requests = batchRequest.requestArray;
+            GetImageApi *a = (GetImageApi *)requests[0];
+            GetImageApi *b = (GetImageApi *)requests[1];
+            GetImageApi *c = (GetImageApi *)requests[2];
+            GetUserInfoApi *user = (GetUserInfoApi *)requests[3];
+            ///deal with requests result ...
+            JobsLog(@"%@, %@, %@, %@", a, b, c, user);
+            /// 以下是我们需要的值
+            a.responseObject;
+            b.responseObject;
+            c.responseObject;
+            user.responseObject;
+        });
+        /// 多请求の链式请求。链式请求的结果集体现在<YTKChainRequestDelegate>
+        self.sendChainRequest(^(YTKChainRequest *_Nullable chainReq) {
+            @jobs_strongify(self)
+            chainReq.byDelegate(self);
+        });
+        /// 上传KYC的图片@POST
+        [self uploadKYCImage:UIImagePNGRepresentation(@"启动页SLOGAN".img)
+                successBlock:^(JobsResponseModel * _Nullable responseModel) {
+            JobsLog(@"");
+        }];
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(YTKNetworkStudyVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(YTKNetworkStudyVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+    };
 }
 #pragma mark —— YTKChainRequestDelegate
 -(void)chainRequestFinished:(YTKChainRequest *)chainRequest{
-    JobsLog(@"all requests are done");
-//    chainRequest.requestArray;
-//    chainRequest.requestAccessories;
-    YTKBaseRequest *resultRequest = chainRequest.requestArray.lastObject;
-    [self request:resultRequest successBlock:^(JobsResponseModel *_Nullable responseModel){
-//        self.dataMutArr2 = GetDepositDiscountActivityRecordModel.byData(responseModel.data);
-        JobsLog(@"");
-    }];
+    ((((JobsYTKChainSuccessBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(YTKNetworkStudyVC.class, @selector(chainRequestFinished)))(self, @selector(chainRequestFinished))))(chainRequest);
+}
+-(JobsYTKChainSuccessBlock _Nonnull)chainRequestFinished{
+    @jobs_weakify(self)
+    return ^(YTKChainRequest * chainRequest){
+        @jobs_strongify(self)
+        if (!self) return;
+        JobsLog(@"all requests are done");
+    //    chainRequest.requestArray;
+    //    chainRequest.requestAccessories;
+        YTKBaseRequest *resultRequest = chainRequest.requestArray.lastObject;
+        [self request:resultRequest successBlock:^(JobsResponseModel *_Nullable responseModel){
+    //        self.dataMutArr2 = GetDepositDiscountActivityRecordModel.byData(responseModel.data);
+            JobsLog(@"");
+        }];
+    };
 }
 
 -(void)chainRequestFailed:(YTKChainRequest *)chainRequest
@@ -124,3 +199,52 @@
 #pragma mark —— lazyLoad
 
 @end
+
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN YTKNetworkConfig
+@implementation YTKNetworkConfig (JobsLocalPropertyDSLAutogen_4590bceeb1)
+-(JobsRetYTKNetworkConfigByAFSecurityPolicyBlock _Nonnull)bySecurityPolicy{
+    @jobs_weakify(self)
+    return ^__kindof YTKNetworkConfig * _Nullable(AFSecurityPolicy * _Nullable data){
+        @jobs_strongify(self)
+        [self setSecurityPolicy:data];
+        return self;
+    };
+}
+
+-(JobsRetYTKNetworkConfigByBOOLBlock _Nonnull)byDebugLogEnabled{
+    @jobs_weakify(self)
+    return ^__kindof YTKNetworkConfig * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setDebugLogEnabled:data];
+        return self;
+    };
+}
+
+-(JobsRetYTKNetworkConfigByNSStringBlock _Nonnull)byBaseUrl{
+    @jobs_weakify(self)
+    return ^__kindof YTKNetworkConfig * _Nullable(NSString * _Nullable data){
+        @jobs_strongify(self)
+        [self setBaseUrl:data];
+        return self;
+    };
+}
+
+-(JobsRetYTKNetworkConfigByNSStringBlock _Nonnull)byCdnUrl{
+    @jobs_weakify(self)
+    return ^__kindof YTKNetworkConfig * _Nullable(NSString * _Nullable data){
+        @jobs_strongify(self)
+        [self setCdnUrl:data];
+        return self;
+    };
+}
+
+-(JobsRetYTKNetworkConfigByNSURLSessionConfigurationBlock _Nonnull)bySessionConfiguration{
+    @jobs_weakify(self)
+    return ^__kindof YTKNetworkConfig * _Nullable(NSURLSessionConfiguration* _Nullable data){
+        @jobs_strongify(self)
+        [self setSessionConfiguration:data];
+        return self;
+    };
+}
+@end
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END YTKNetworkConfig

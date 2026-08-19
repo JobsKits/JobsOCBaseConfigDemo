@@ -7,6 +7,17 @@
 
 #import "UICollectionView+JobsRegisterClass.h"
 
+@implementation UICollectionReusableView (JobsRegisterClassDSL)
+-(JobsRetCollectionReusableViewByIndexPathBlock _Nonnull)byIndexPath{
+    @jobs_weakify(self)
+    return ^__kindof UICollectionReusableView *_Nullable(NSIndexPath *_Nullable data){
+        @jobs_strongify(self)
+        self.indexPath = data;
+        return self;
+    };
+}
+@end
+
 @implementation UICollectionView (JobsRegisterClass)
 /// 注册的时候不开辟内存，只有当用字符串进行取值的时候才开辟内存
 /// UICollectionView 本身并没有直接提供公开的 API 来检查某个 reuseIdentifier 是否已经注册
@@ -102,7 +113,7 @@
                                                           withReuseIdentifier:cls.description
                                                                  forIndexPath:indexPath];
     }
-    collectionReusableView.indexPath = indexPath;
+    collectionReusableView.byIndexPath(indexPath);
     return collectionReusableView;
 }
 /// 依据字符串取UICollectionElementKindSectionFooter
@@ -117,7 +128,7 @@
                                                           withReuseIdentifier:cls.description
                                                                  forIndexPath:indexPath];
     }
-    collectionReusableView.indexPath = indexPath;
+    collectionReusableView.byIndexPath(indexPath);
     return collectionReusableView;
 }
 /// 一种用字符串取UICollectionViewCell及其子类的方法❤️复用字符串是目标类的类名❤️

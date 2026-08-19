@@ -20,21 +20,21 @@
         };return subView;
     };
 }
-/// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
+/// 调用方式：view.layerByBorderCor(@"#FFD8D8".jobsCor()).layerByBorderWidth(1);
 -(JobsRetViewByCorBlock _Nonnull)layerByBorderCor{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(UIColor *_Nullable layerBorderCor) {
         @jobs_strongify(self)
-        self.layer.borderColor = layerBorderCor.CGColor;
+        self.layer.byBorderColor(layerBorderCor.CGColor);
         return self;
     };
 }
-/// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
+/// 调用方式：view.layerByBorderCor(@"#FFD8D8".jobsCor()).layerByBorderWidth(1);
 -(JobsRetViewByFloatBlock _Nonnull)layerByBorderWidth{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(float borderWidth) {
         @jobs_strongify(self)
-        self.layer.borderWidth = borderWidth;
+        self.layer.byBorderWidth(borderWidth);
         return self;
     };
 }
@@ -43,8 +43,8 @@
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(float cornerRadiusValue) {
         @jobs_strongify(self)
-        self.layer.cornerRadius = cornerRadiusValue;
-        self.layer.masksToBounds = YES;
+        self.layer.byCornerRadius(cornerRadiusValue);
+        self.layer.byMasksToBounds(YES);
         return self;
     };
 }
@@ -100,7 +100,7 @@
 #pragma mark —— Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
 JobsKey(_masonryBlock)
 @dynamic masonryBlock;
--(jobsByMASConstraintMakerBlock)masonryBlock{
+-(jobsByMASConstraintMakerBlock _Nullable)masonryBlock{
     return Jobs_getAssociatedObject(_masonryBlock);
 }
 

@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (Extra)
 /// 字符串是否包含URL【返回YES包含】
--(BOOL)isContainsUrl;
+-(JobsRetBOOLByVoidBlock _Nonnull)isContainsUrl;
 /// OC字符串拼接
 -(JobsRetStrByStrBlock _Nonnull)add;
 /// 获取一行字符串的高度

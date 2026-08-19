@@ -38,18 +38,18 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface FMDatabase (Manager)
 /// 依据路径创建数据库
--(FMDatabase *)createDataBaseWithPath:(NSString *_Nullable)dbPath;
+-(JobsRetFMDatabaseByNSStringBlock _Nonnull)createDataBaseWithPath;
 /// 实际对数据库有变动的操作
 -(BOOL)handleExecuteUpdate:(NSString *)executeUpdate
       withArgumentsInArray:(NSArray *_Nullable)argumentsInArray;
 #pragma mark —— 增删改查中 除了查询（executeQuery），其余操作都用（executeUpdate）
--(BOOL)handleInsert;
+-(JobsRetBOOLByVoidBlock _Nonnull)handleInsert;
 
--(BOOL)handleDelete;
+-(JobsRetBOOLByVoidBlock _Nonnull)handleDelete;
 
--(BOOL)handleUpdate;
+-(JobsRetBOOLByVoidBlock _Nonnull)handleUpdate;
 
--(FMResultSet *)handleQuery;
+-(JobsRetFMResultSetByVoidBlock _Nonnull)handleQuery;
 /// 开启事务，返回是否事务回滚
 /// @param targetObj 指定的某类实例上开启事务
 /// @param methodName 开启的事务提取出来封装成一个不带参方法

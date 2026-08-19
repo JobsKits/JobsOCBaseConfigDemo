@@ -7,16 +7,26 @@
 
 #import "JobsOCExcelRow.h"
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCExcelRow
+@interface JobsOCExcelRow (JobsPropertyDSLSetterAutogen_4a2b81695c)
+-(void)setCells:(NSArray<JobsOCExcelCell *> * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCExcelRow
+
 @implementation JobsOCExcelRow
-+(instancetype)rowWithCells:(NSArray<JobsOCExcelCell *> *)cells{
-    JobsOCExcelRow *row = JobsOCExcelRow.new;
-    row.cells = cells ?: NSArray.array;
-    return row;
++(JobsRetIDByNSArrayJobsOCExcelCellBlock _Nonnull)rowWithCells{
+    return ^id(NSArray<JobsOCExcelCell *> * cells){
+        JobsOCExcelRow *row = JobsOCExcelRow.new;
+        row.byCells(cells ?: NSArray.array);
+        return row;
+    };
 }
 
-+(instancetype)rowWithValues:(NSArray<NSString *> *)values{
-    return [self rowWithValues:values
-               textDisplayMode:JobsLabelTextDisplayModeSingleLineTailTruncation];
++(JobsRetIDByNSArrayNSStringBlock _Nonnull)rowWithValues{
+    return ^id(NSArray<NSString *> * values){
+        return [self rowWithValues:values
+                   textDisplayMode:JobsLabelTextDisplayModeSingleLineTailTruncation];
+    };
 }
 
 +(instancetype)rowWithValues:(NSArray<NSString *> *)values
@@ -25,7 +35,17 @@
     for (NSString *value in values ?: NSArray.array) {
         [cells addObject:[JobsOCExcelCell cellWithText:value
                                       textDisplayMode:textDisplayMode]];
-    }return [self rowWithCells:cells.copy];
+    }return self.rowWithCells(cells.copy);
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsOCExcelRow
+-(JobsRetJobsOCExcelRowByNSArrayJobsOCExcelCellBlock _Nonnull)byCells{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCExcelRow * _Nullable(NSArray<JobsOCExcelCell *> * _Nullable data){
+        @jobs_strongify(self)
+        [self setCells:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCExcelRow
 @end

@@ -18,6 +18,12 @@ Prop_strong()NSMutableArray <UIButtonModel *>*taggedNavDatas;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsToggleBaseView
+@interface JobsToggleBaseView (JobsPropertyDSLSetterAutogen_8457f07b08)
+-(void)setTaggedNavDatas:(NSMutableArray <UIButtonModel *>* _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsToggleBaseView
+
 @implementation JobsToggleBaseView
 /// JobsToggleNavViewProtocol
 JobsToggleNavViewProtocolSynthesize
@@ -38,14 +44,34 @@ JobsToggleNavViewProtocolSynthesize
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsToggleBaseView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    /// 内部指定圆切角
-//    [self appointCornerCutToCircleByRoundingCorners:UIRectCornerAllCorners
-//                                        cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsToggleBaseView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+            [super layoutSubviews];
+            /// 内部指定圆切角
+        //    [self appointCornerCutToCircleByRoundingCorners:UIRectCornerAllCorners
+        //                                        cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+    };
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -58,7 +84,7 @@ JobsToggleNavViewProtocolSynthesize
     @jobs_weakify(self)
     return ^(NSMutableArray <UIButtonModel *>*_Nullable model) {
         @jobs_strongify(self)
-        self.taggedNavDatas = model;
+        self.byTaggedNavDatas(model);
         self.taggedNavView.byAlpha(1);
         self.makeScrollContentViewsFrameBy(self.refreshScrollContentViews(model));/// 可滑动子View的Frame
         self.configBgScroll(self.refreshScrollContentViews(model)).alpha = 1;/// 配置显示的Scroll
@@ -86,7 +112,7 @@ JobsToggleNavViewProtocolSynthesize
     @jobs_weakify(self)
     return ^(NSInteger index){
         @jobs_strongify(self)
-        self.bgScroll.contentOffset = CGPointMake(self.bgScroll.width * index,0);
+        self.bgScroll.byContentOffset(CGPointMake(self.bgScroll.width * index,0));
         self.taggedNavView.selectingOneTagByIndex(index);
     };
 }
@@ -178,27 +204,47 @@ JobsToggleNavViewProtocolSynthesize
 @synthesize lastContentOffset = _lastContentOffset;
 /// 会反复执行多次
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    JobsLog(@"");
-    CGPoint currentOffset = scrollView.contentOffset;
-    if (currentOffset.y > self.lastContentOffset.y) {
-        scrollView.direction = ScrollDirectionUp;/// 向上滑动
-    } else if (currentOffset.y < self.lastContentOffset.y) {
-        scrollView.direction = ScrollDirectionDown;/// 向下滑动
-    }
-    if (currentOffset.x > self.lastContentOffset.x) {
-        scrollView.direction = ScrollDirectionLeft;/// 向左滑动
-    } else if (currentOffset.x < self.lastContentOffset.x) {
-        scrollView.direction = ScrollDirectionRight;/// 向右滑动
-    }self.lastContentOffset = currentOffset;
+    jobsByScrollViewBlock action = ((jobsByScrollViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsToggleBaseView.class, @selector(jobsScrollViewDidScroll)))(self, @selector(jobsScrollViewDidScroll));
+    if (action) action(scrollView);
+}
+
+-(jobsByScrollViewBlock _Nonnull)jobsScrollViewDidScroll{
+    @jobs_weakify(self)
+    return ^(UIScrollView * scrollView){
+        @jobs_strongify(self)
+        if (!self) return;
+        JobsLog(@"");
+        CGPoint currentOffset = scrollView.contentOffset;
+        if (currentOffset.y > self.lastContentOffset.y) {
+            scrollView.byDirection(ScrollDirectionUp);
+        } else if (currentOffset.y < self.lastContentOffset.y) {
+            scrollView.byDirection(ScrollDirectionDown);
+        }
+        if (currentOffset.x > self.lastContentOffset.x) {
+            scrollView.byDirection(ScrollDirectionLeft);
+        } else if (currentOffset.x < self.lastContentOffset.x) {
+            scrollView.byDirection(ScrollDirectionRight);
+        }self.lastContentOffset = currentOffset;
+    };
 }
 ///（手动滑动的时候触发）完全停止滑动
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    JobsLog(@"");
-    CGFloat pageWidth = scrollView.frame.size.width;
-    NSInteger index = round(scrollView.contentOffset.x / pageWidth);
-    /// 自动对齐到整数页（如果不是精确停在整数位置）
-    [scrollView setContentOffset:CGPointMake(index * pageWidth, 0) animated:YES];
-    self.taggedNavView.selectingOneTagByIndex(index);
+    jobsByScrollViewBlock action = ((jobsByScrollViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsToggleBaseView.class, @selector(jobsScrollViewDidEndDecelerating)))(self, @selector(jobsScrollViewDidEndDecelerating));
+    if (action) action(scrollView);
+}
+
+-(jobsByScrollViewBlock _Nonnull)jobsScrollViewDidEndDecelerating{
+    @jobs_weakify(self)
+    return ^(UIScrollView * scrollView){
+        @jobs_strongify(self)
+        if (!self) return;
+        JobsLog(@"");
+        CGFloat pageWidth = scrollView.frame.size.width;
+        NSInteger index = round(scrollView.contentOffset.x / pageWidth);
+        /// 自动对齐到整数页（如果不是精确停在整数位置）
+        [scrollView setContentOffset:CGPointMake(index * pageWidth, 0) animated:YES];
+        self.taggedNavView.selectingOneTagByIndex(index);
+    };
 }
 #pragma mark —— lazyLoad
 -(JobsToggleNavView *)taggedNavView{
@@ -270,9 +316,9 @@ JobsToggleNavViewProtocolSynthesize
             @jobs_strongify(self)
             for (int y = 0; y < self.tempTitles.count; y++) {
                 data.add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                    data.byTitle(@"第".tr
+                    data.byTitle(@"第".jobsTr()
                         .add(toStringByInt(y))
-                        .add(@"个".tr));
+                        .add(@"个".jobsTr()));
                 }));
             }
         });
@@ -296,7 +342,7 @@ JobsToggleNavViewProtocolSynthesize
                  .bySubTitle(nil)
                  .byTitleFont(bayonRegular(JobsWidth(16)))
                  .bySubTitleFont(nil)
-                 .byTitleCor(@"#ABABAB".cor)
+                 .byTitleCor(@"#ABABAB".jobsCor())
                  .bySubTitleCor(nil)
                  .byTitleLineBreakMode(NSLineBreakByWordWrapping)
                  .bySubtitleLineBreakMode(NSLineBreakByWordWrapping)
@@ -347,12 +393,22 @@ JobsToggleNavViewProtocolSynthesize
 -(NSMutableArray<NSString *>*)tempTitles{
     if(!_tempTitles){
         _tempTitles = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>*_Nullable data) {
-            data.add(@"人生到处知何似，恰似飞鸿踏雪泥；".tr)
-            .add(@"泥上偶然留指爪，鸿飞那复计东西。".tr)
-            .add(@"老僧已死成新塔，坏壁无由见旧题；".tr)
-            .add(@"往日崎岖还记否，路长人困蹇驴嘶。".tr);
+            data.add(@"人生到处知何似，恰似飞鸿踏雪泥；".jobsTr())
+            .add(@"泥上偶然留指爪，鸿飞那复计东西。".jobsTr())
+            .add(@"老僧已死成新塔，坏壁无由见旧题；".jobsTr())
+            .add(@"往日崎岖还记否，路长人困蹇驴嘶。".jobsTr());
         });
     };return _tempTitles;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsToggleBaseView
+-(JobsRetJobsToggleBaseViewByNSMutableArrayUIButtonModelBlock _Nonnull)byTaggedNavDatas{
+    @jobs_weakify(self)
+    return ^__kindof JobsToggleBaseView * _Nullable(NSMutableArray <UIButtonModel *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setTaggedNavDatas:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsToggleBaseView
 @end

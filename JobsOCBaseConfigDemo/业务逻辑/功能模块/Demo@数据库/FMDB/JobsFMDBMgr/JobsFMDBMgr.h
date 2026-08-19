@@ -34,18 +34,19 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JobsFMDBMgr : NSObject
 
 +(instancetype)sharedManager;
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager;
 /// 单例的销毁
-+(void)destroyInstance;
++(jobsByVoidBlock _Nonnull)destroyInstance;
 /// 建表
-- (void)createTable;
+- (jobsByVoidBlock _Nonnull)createTable;
 /// 增加数据
 - (void)insertUserWithName:(NSString *)name age:(NSInteger)age;
 /// 查询数据
-- (NSArray *)fetchAllUsers;
+- (JobsRetArrByVoidBlock _Nonnull)fetchAllUsers;
 /// 更新/改正 数据
 - (void)updateUserWithID:(NSInteger)userID newName:(NSString *)newName newAge:(NSInteger)newAge;
 /// 删除数据
-- (void)deleteUserWithID:(NSInteger)userID;
+-(jobsByNSIntegerBlock _Nonnull)deleteUserWithID;
 
 @end
 

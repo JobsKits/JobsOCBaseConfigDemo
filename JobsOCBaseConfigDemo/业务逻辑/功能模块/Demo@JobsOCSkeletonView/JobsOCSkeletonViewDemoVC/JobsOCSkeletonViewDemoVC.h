@@ -7,6 +7,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "JobsOCSkeletonUserCell.h"
+
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
@@ -55,12 +57,16 @@
 #import "JobsDefines.h"
 #endif
 
-#import "JobsOCSkeletonUserCell.h"
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsOCSkeletonViewDemoVC : BaseViewController <UITableViewDataSource,UITableViewDelegate>
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCSkeletonViewDemoVC
+-(JobsRetJobsOCSkeletonViewDemoVCByBOOLBlock _Nonnull)byLoading;
+-(JobsRetJobsOCSkeletonViewDemoVCByBOOLBlock _Nonnull)byUseGradientSkeleton;
+-(JobsRetJobsOCSkeletonViewDemoVCByNSArrayJobsOCSkeletonUserBlock _Nonnull)byUserDataArr;
+-(JobsRetJobsOCSkeletonViewDemoVCByNSUIntegerBlock _Nonnull)bySkeletonRowCount;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCSkeletonViewDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

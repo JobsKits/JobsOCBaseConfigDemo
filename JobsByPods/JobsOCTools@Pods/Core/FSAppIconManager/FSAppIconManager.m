@@ -8,22 +8,26 @@
 #import "FSAppIconManager.h"
 
 @implementation FSAppIconManager
-+(NSString *)getCurrentAppIconName{
-    if (@available(iOS 10.3, *)) {
-        return (UIApplication.sharedApplication.alternateIconName.length == 0) ? @"".tr : UIApplication. sharedApplication.alternateIconName;
-    } else {
-        // Fallback on earlier versions
-        return @"".tr;
-    }
++(JobsRetStrByVoidBlock _Nonnull)getCurrentAppIconName{
+    return ^NSString *_Nullable{
+        if (@available(iOS 10.3, *)) {
+            return (UIApplication.sharedApplication.alternateIconName.length == 0) ? @"".jobsTr() : UIApplication. sharedApplication.alternateIconName;
+        } else {
+            // Fallback on earlier versions
+            return @"".jobsTr();
+        }
+    };
 }
 
-+(BOOL)canChangeAppIcon{
-    if (@available(iOS 10.3, *)) {
-        return UIApplication.sharedApplication.supportsAlternateIcons;
-    } else {
-        // Fallback on earlier versions
-        return NO;
-    }
++(JobsRetBOOLByVoidBlock _Nonnull)canChangeAppIcon{
+    return ^BOOL{
+        if (@available(iOS 10.3, *)) {
+            return UIApplication.sharedApplication.supportsAlternateIcons;
+        } else {
+            // Fallback on earlier versions
+            return NO;
+        }
+    };
 }
 
 +(void)changeAppIconWithIconName:(NSString *)iconName
@@ -38,9 +42,9 @@
         NSDictionary *userInfo = @{
                                    NSLocalizedDescriptionKey: NSLocalizedString(@"AppIcon change failed", nil),
                                    NSLocalizedFailureReasonErrorKey: NSLocalizedString(@"The current system version does not support replacing the AppIcon.", nil),
-                                   NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"".tr, nil)
+                                   NSLocalizedRecoverySuggestionErrorKey: NSLocalizedString(@"".jobsTr(), nil)
                                    };
-        NSError *error = [NSError errorWithDomain:@"".tr
+        NSError *error = [NSError errorWithDomain:@"".jobsTr()
                                              code:34001
                                          userInfo:userInfo];
         completionHandler(error);

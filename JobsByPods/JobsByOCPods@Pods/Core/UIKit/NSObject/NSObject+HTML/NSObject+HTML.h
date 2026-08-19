@@ -35,9 +35,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (HTML)<WKScriptMessageHandler,WKNavigationDelegate>
 /// HTML 必要标签
-- (__kindof NSMutableArray<NSString *> *)requiredHTMLTags;
+- (JobsRetNSMutableArrayNSStringByVoidBlock _Nonnull)requiredHTMLTags;
 /// HTML 标签
--(__kindof NSArray <__kindof NSString *>*)htmlTags;
+-(JobsRetNSArrayNSStringByVoidBlock _Nonnull)htmlTags;
 /// 一个常规的WebView
 -(JobsRetWKWebViewByViewModelBlock _Nonnull)makeNormaleWebViewByViewModel;
 
@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_END
      @synthesize webView = _webView;
      -(WKWebView *)webView {
          if (!_webView) {
-     //        _webView = self.makeWebViewByURL(self.urlString.jobsUrl);
+     //        _webView = self.makeWebViewByURL(self.urlString.jobsURL());
              /// JS 回调 Objective-C 方法
              _webView = WKWebView.initBy(jobsMakeWebViewConfiguration(^(__kindof WKWebViewConfiguration * _Nullable config) {
                  config.userContentController = jobsMakeUserContentController(^(__kindof WKUserContentController * _Nullable data) {

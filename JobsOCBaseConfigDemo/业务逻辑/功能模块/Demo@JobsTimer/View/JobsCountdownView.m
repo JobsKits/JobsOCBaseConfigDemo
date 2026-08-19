@@ -20,30 +20,53 @@ Prop_strong()NSMutableArray <JobsRichTextConfig *>*richTextConfigMutArr;
 Prop_strong()NSMutableArray <NSString *>*richTextMutArr;
 Prop_strong()NSMutableParagraphStyle *paragraphStyle;
 
--(void)updateElapsedDisplayWithTime:(CGFloat)time;
+-(jobsByCGFloatBlock _Nonnull)updateElapsedDisplayWithTime;
 
 @end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsCountdownView
+@interface JobsCountdownView (JobsPropertyDSLSetterAutogen_14fba2648a)
+-(void)setMinutesStr:(NSString * _Nullable)data;
+-(void)setRichTextConfigMutArr:(NSMutableArray <JobsRichTextConfig *>* _Nullable)data;
+-(void)setRichTextMutArr:(NSMutableArray <NSString *>* _Nullable)data;
+-(void)setSecondStr:(NSString * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsCountdownView
 
 @implementation JobsCountdownView
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 -(void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
-    [self.timer stop];
+    if (self.timer) self.timer.jobsStop();
 }
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_countdownViewOnceToken = 0;
-    static_countdownView = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsCountdownView.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_countdownViewOnceToken = 0;
+        static_countdownView = nil;
+    };
 }
 
 static JobsCountdownView *static_countdownView = nil;
 static dispatch_once_t static_countdownViewOnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_countdownViewOnceToken, ^{
-        static_countdownView = JobsCountdownView.new;
-    });return static_countdownView;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsCountdownView.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_countdownViewOnceToken, ^{
+            static_countdownView = JobsCountdownView.new;
+        });return static_countdownView;
+    };
 }
 
 -(instancetype)init{
@@ -58,11 +81,31 @@ static dispatch_once_t static_countdownViewOnceToken;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCountdownView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCountdownView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -75,9 +118,9 @@ static dispatch_once_t static_countdownViewOnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
+        self.byViewModel(model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {}));
         MakeDataNull
-        [self refreshData];
+        self.refreshData();
         self.titleLab.byVisible(YES);
         self.countdownTimeLab.byVisible(YES);
     };
@@ -89,21 +132,31 @@ static dispatch_once_t static_countdownViewOnceToken;
     };
 }
 #pragma mark —— 公共方法
--(void)refreshData{
-    self.minutesStr = nil;
-    self.secondStr = nil;
-    self.richTextConfigMutArr = nil;
-    self.richTextMutArr = nil;
-    self.countdownTimeLab.byAttributedString([self richTextWithDataConfigMutArr:self.richTextConfigMutArr
-                                                                 paragraphStyle:self.paragraphStyle]);
+-(jobsByVoidBlock _Nonnull)refreshData{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byMinutesStr(nil);
+        self.bySecondStr(nil);
+        self.byRichTextConfigMutArr(nil);
+        self.byRichTextMutArr(nil);
+        self.countdownTimeLab.byAttributedString([self richTextWithDataConfigMutArr:self.richTextConfigMutArr
+                                                                     paragraphStyle:self.paragraphStyle]);
+    };
 }
 
--(void)updateElapsedDisplayWithTime:(CGFloat)time{
-    NSInteger totalSeconds = MAX(0, (NSInteger)time);
-    self.minutesStr = [NSString stringWithFormat:@"%02ld",(long)(totalSeconds / 60)];
-    self.secondStr = [NSString stringWithFormat:@"%02ld",(long)(totalSeconds % 60)];
-    self.countdownTimeLab.byAttributedString([self richTextWithDataConfigMutArr:self.richTextConfigMutArr
-                                                                 paragraphStyle:self.paragraphStyle]);
+-(jobsByCGFloatBlock _Nonnull)updateElapsedDisplayWithTime{
+    @jobs_weakify(self)
+    return ^(CGFloat time){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSInteger totalSeconds = MAX(0, (NSInteger)time);
+        self.byMinutesStr([NSString stringWithFormat:@"%02ld",(long)(totalSeconds / 60)]);
+        self.bySecondStr([NSString stringWithFormat:@"%02ld",(long)(totalSeconds % 60)]);
+        self.countdownTimeLab.byAttributedString([self richTextWithDataConfigMutArr:self.richTextConfigMutArr
+                                                                     paragraphStyle:self.paragraphStyle]);
+    };
 }
 #pragma mark —— lazyLoad
 @synthesize timer = _timer;
@@ -126,16 +179,17 @@ static dispatch_once_t static_countdownViewOnceToken;
                 .byQueue(dispatch_get_main_queue())
                 .byOnTick(^(CGFloat time){
                     @jobs_strongify(self)
-                    [self updateElapsedDisplayWithTime:time];
+                    self.updateElapsedDisplayWithTime(time);
                     if (self.objBlock) self.objBlock(@(time));
                 })
                 .byOnFinish(^(__kindof JobsTimer * _Nullable t){
                     @jobs_strongify(self)
                     if (self.objBlock) self.objBlock(t);
-                });
+                })
             /// 这些是内部状态初始化，不暴露成 DSL 也可以
-            timer.accumulatedElapsed = 0;   // 已经流逝的时间（总 elapsed，单位秒）
-            timer.lastStartDate      = nil; // 最近一次 start/resume 的时间点（支持 pause/resume）
+
+                .byAccumulatedElapsed(0)
+                .byLastStartDate(nil);
         });
     };return _timer;
 }
@@ -143,12 +197,12 @@ static dispatch_once_t static_countdownViewOnceToken;
 -(JobsTimeModel *)formatTime{
     if (!_formatTime) {
         _formatTime = jobsMakeTimeModel(^(__kindof JobsTimeModel * _Nullable data) {
-            data.byYear(@"".tr)
-                .byMonth(@"".tr)
-                .byDay(@"".tr)
-                .byHour(@"".tr)
-                .byMinute(@"分".tr)
-                .bySecond(@"秒".tr);
+            data.byYear(@"".jobsTr())
+                .byMonth(@"".jobsTr())
+                .byDay(@"".jobsTr())
+                .byHour(@"".jobsTr())
+                .byMinute(@"分".jobsTr())
+                .bySecond(@"秒".jobsTr());
         });
     };return _formatTime;
 }
@@ -159,7 +213,7 @@ static dispatch_once_t static_countdownViewOnceToken;
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(@"正计时已用时".tr)
+                .byText(@"正计时已用时".jobsTr())
                 .byFont(UIFontWeightMediumSize(15))
                 .byTextCor(JobsSecondaryLabelColor)
                 .addOn(self)
@@ -205,7 +259,7 @@ static dispatch_once_t static_countdownViewOnceToken;
     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data) {
         data.byFont(UIFontWeightRegularSize(12))
             .byTextCor(JobsSecondaryLabelColor)
-            .byTargetString(@"分".tr);
+            .byTargetString(@"分".jobsTr());
     }))
     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data) {
         data.byFont(UIFontWeightBoldSize(48))
@@ -215,7 +269,7 @@ static dispatch_once_t static_countdownViewOnceToken;
     .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data) {
         data.byFont(UIFontWeightRegularSize(12))
             .byTextCor(JobsSecondaryLabelColor)
-            .byTargetString(@"秒".tr);
+            .byTargetString(@"秒".jobsTr());
     }));return _richTextConfigMutArr;
 }
 
@@ -223,9 +277,9 @@ static dispatch_once_t static_countdownViewOnceToken;
     JobsMutableArray(_richTextMutArr);
     return _richTextMutArr
         .add(self.minutesStr)
-        .add(@"分".tr)
+        .add(@"分".jobsTr())
         .add(self.secondStr)
-        .add(@"秒".tr);
+        .add(@"秒".jobsTr());
 }
 
 -(NSMutableParagraphStyle *)paragraphStyle{
@@ -238,14 +292,51 @@ static dispatch_once_t static_countdownViewOnceToken;
 
 -(NSString *)minutesStr{
     if (!_minutesStr) {
-        _minutesStr = @"00".tr;
+        _minutesStr = @"00".jobsTr();
     };return _minutesStr;
 }
 
 -(NSString *)secondStr{
     if (!_secondStr) {
-        _secondStr = @"00".tr;
+        _secondStr = @"00".jobsTr();
     };return _secondStr;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsCountdownView
+-(JobsRetJobsCountdownViewByNSMutableArrayJobsRichTextConfigBlock _Nonnull)byRichTextConfigMutArr{
+    @jobs_weakify(self)
+    return ^__kindof JobsCountdownView * _Nullable(NSMutableArray <JobsRichTextConfig *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setRichTextConfigMutArr:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsCountdownViewByNSMutableArrayNSStringBlock _Nonnull)byRichTextMutArr{
+    @jobs_weakify(self)
+    return ^__kindof JobsCountdownView * _Nullable(NSMutableArray <NSString *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setRichTextMutArr:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsCountdownViewByNSStringBlock _Nonnull)byMinutesStr{
+    @jobs_weakify(self)
+    return ^__kindof JobsCountdownView * _Nullable(NSString * _Nullable data){
+        @jobs_strongify(self)
+        [self setMinutesStr:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsCountdownViewByNSStringBlock _Nonnull)bySecondStr{
+    @jobs_weakify(self)
+    return ^__kindof JobsCountdownView * _Nullable(NSString * _Nullable data){
+        @jobs_strongify(self)
+        [self setSecondStr:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsCountdownView
 @end

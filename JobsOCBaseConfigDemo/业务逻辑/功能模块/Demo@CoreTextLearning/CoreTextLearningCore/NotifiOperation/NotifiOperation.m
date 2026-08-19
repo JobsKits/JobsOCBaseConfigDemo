@@ -6,6 +6,7 @@
 //
 
 #import "NotifiOperation.h"
+
 #import "NotifiViewFactory.h"
 
 @implementation NotifiOperation
@@ -26,33 +27,43 @@
     NotifiOperation *op = [[NotifiOperation alloc] init];
     op.data = data;
     op.fatherView = fatherView;
-    op.finishBlock  = finishBlock;
+    op.finishBlock = finishBlock;
     return op;
 }
 
-- (void)start {
-    if ([self isCancelled]) {
-        _finished = YES;
-        return;
-    }
-    _executing = YES;
-    [[NotifiViewFactory shared] fetchAvailableView:^(NotifiView * _Nullable view) {
-        @jobs_weakify(self)
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            @jobs_strongify(self)
-            view.addOn(self.fatherView);
-            [view layoutIfNeeded];
+-(void)start{
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NotifiOperation.class, @selector(jobsStart)))(self, @selector(jobsStart));
+    if (action) action();
+}
+
+- (jobsByVoidBlock _Nonnull)jobsStart {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if ([self isCancelled]) {
+            _finished = YES;
+            return;
+        }
+        _executing = YES;
+        (((NotifiViewFactory *)NotifiViewFactory.shared())).fetchAvailableView(^(NotifiView * _Nullable view) {
             @jobs_weakify(self)
-            [view showWithData:self.data
-                        finish:^(NSString *key) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 @jobs_strongify(self)
-                self.finished = YES;
-                if (self.finishBlock) {
-                    self.finishBlock(key);
-                }
+                view.addOn(self.fatherView);
+                [view layoutIfNeeded];
+                @jobs_weakify(self)
+                [view showWithData:self.data
+                            finish:^(NSString *key) {
+                    @jobs_strongify(self)
+                    self.finished = YES;
+                    if (self.finishBlock) {
+                        self.finishBlock(key);
+                    }
+                }];
             }];
-        }];
-    }];
+        });
+    };
 }
 #pragma mark —— 手动触发 KVO
 - (void)setExecuting:(BOOL)executing{

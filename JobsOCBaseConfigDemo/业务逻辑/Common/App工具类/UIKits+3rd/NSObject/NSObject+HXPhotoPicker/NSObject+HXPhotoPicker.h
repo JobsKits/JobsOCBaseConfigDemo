@@ -9,16 +9,16 @@
 #import <TargetConditionals.h>
 #import <UIKit/UIKit.h>
 
-#if __has_include(<TKPermissionKit/TKPermissionKit.h>)
-#import <TKPermissionKit/TKPermissionKit.h>
-#else
-#import "TKPermissionKit.h"
-#endif
-
 #if __has_include(<HXPhotoPickerObjC/HXPhotoPicker.h>)
 #import <HXPhotoPickerObjC/HXPhotoPicker.h>
 #else
 #import "HXPhotoPicker.h"
+#endif
+
+#if __has_include(<TKPermissionKit/TKPermissionKit.h>)
+#import <TKPermissionKit/TKPermissionKit.h>
+#else
+#import "TKPermissionKit.h"
 #endif
 
 #if __has_include(<WHToast/WHToast.h>)
@@ -27,28 +27,28 @@
 #import "WHToast.h"
 #endif
 
-#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
-#import <JobsLanMgr/JobsLanMgr.h>
-#else
-#import "JobsLanMgr.h"
-#endif
-
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>
 #else
 #import "JobsByOCPods.h"
 #endif
 
-#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
-#import <JobsModelDSL/JobsModelDSL.h>
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import <JobsLanMgr/JobsLanMgr.h>
 #else
-#import "JobsModelDSL.h"
+#import "JobsLanMgr.h"
 #endif
 
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>
 #else
 #import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
+#else
+#import "JobsModelDSL.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -73,6 +73,7 @@ HXCustomNavigationControllerDelegate
 >
 
 Prop_strong()HXPhotoManager *photoManager; /// 选取图片的数据管理类
+-(JobsRetIDByHXPhotoManagerBlock _Nonnull)byPhotoManager;
 Prop_strong()NSMutableArray <HXPhotoModel *>*historyPhotoDataMutArr; /// 与之相对应的是self.photoManager.afterSelectedArray
 Prop_strong()NSMutableArray <HXPhotoModel *>*photosDataMutArr;
 Prop_strong()NSMutableArray <HXPhotoModel *>*videosDataMutArr;

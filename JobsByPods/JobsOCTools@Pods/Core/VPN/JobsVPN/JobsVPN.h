@@ -31,11 +31,29 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@interface NEVPNManager (JobsVPNDSL)
+-(JobsRetNEVPNManagerByBOOLBlock _Nonnull)byOnDemandEnabled;
+-(JobsRetNEVPNManagerByStrBlock _Nonnull)byLocalizedDescription;
+-(JobsRetNEVPNManagerByBOOLBlock _Nonnull)byEnabled;
+-(JobsRetNEVPNManagerByProtocolBlock _Nonnull)byProtocolConfiguration;
+@end
+
+@interface NEVPNProtocolIKEv2 (JobsVPNDSL)
+-(JobsRetNEVPNProtocolIKEv2ByStrBlock _Nonnull)byServerAddress;
+-(JobsRetNEVPNProtocolIKEv2ByStrBlock _Nonnull)byRemoteIdentifier;
+-(JobsRetNEVPNProtocolIKEv2ByStrBlock _Nonnull)byLocalIdentifier;
+-(JobsRetNEVPNProtocolIKEv2ByStrBlock _Nonnull)byUsername;
+-(JobsRetNEVPNProtocolIKEv2ByDataBlock _Nonnull)byPasswordReference;
+-(JobsRetNEVPNProtocolIKEv2ByAuthenticationMethodBlock _Nonnull)byAuthenticationMethod;
+-(JobsRetNEVPNProtocolIKEv2ByBOOLBlock _Nonnull)byUseExtendedAuthentication;
+-(JobsRetNEVPNProtocolIKEv2ByBOOLBlock _Nonnull)byDisconnectOnSleep;
+@end
+
 @interface JobsVPN : NSObject
 
--(void)configureVPN;
--(void)startVPN;
--(void)stopVPN;
+-(jobsByVoidBlock _Nonnull)configureVPN;
+-(jobsByVoidBlock _Nonnull)startVPN;
+-(jobsByVoidBlock _Nonnull)stopVPN;
 
 @end
 

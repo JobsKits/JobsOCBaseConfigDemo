@@ -39,7 +39,8 @@
      获取硬件平台名称，叫 device model 或者 machine name
      @return 硬件平台名称，如 iPhone3,1、iPad7,4 等
  */
-+(NSString * _Nullable)platform;
++(NSString *)platform;
++(JobsRetStrByVoidBlock _Nonnull)jobsPlatform;
 /**
 
      机型判定
@@ -50,29 +51,33 @@
  */
 +(JobsRetStrByStrBlock _Nonnull)platformBy;
 ///  获取设备型号名称（可以区分iOS模拟器）
-+(NSString * _Nullable)platformNameStr;
++(NSString *)platformNameStr;
++(JobsRetStrByVoidBlock _Nonnull)jobsPlatformNameStr;
 /// 获取当前设备标识符Identifier（不区分iOS模拟器：把IOS模拟器当真机对待）
-+(NSString * _Nullable)platformIDStr;
++(NSString *)platformIDStr;
++(JobsRetStrByVoidBlock _Nonnull)jobsPlatformIDStr;
 /// 判断当前机型是否是iphone6 及其以上机型,过滤掉对ipad的判断
-+(BOOL)judgementUpperIphone6;
++(JobsRetBOOLByVoidBlock _Nonnull)judgementUpperIphone6;
 /// 判断当前机型是否为非刘海屏：是刘海屏return YES，不是刘海屏return NO
-+(BOOL)isFullScreen;
++(JobsRetBOOLByVoidBlock _Nonnull)isFullScreen;
 /// 判断当前是否是iOS模拟器
 +(BOOL)isSimulator;
++(JobsRetBOOLByVoidBlock _Nonnull)jobsIsSimulator;
 /// 判断当前手机设备是否为刘海屏（兼容iOS模拟器）
-+(BOOL)isBangScreen;
++(JobsRetBOOLByVoidBlock _Nonnull)isBangScreen;
 /// 判断当前iOS机型
-+(NSString *_Nullable)machineName;
++(JobsRetStrByVoidBlock _Nonnull)machineName;
 /// 判定当前设备是否为iPhone（iOS模拟器也被视作为iPhone）
-+(BOOL)isiPhone;
++(JobsRetBOOLByVoidBlock _Nonnull)isiPhone;
 /// 判断当前iOS模拟器所模拟的机型
-+(NSString *_Nullable)simulatorModel;
++(NSString *)simulatorModel;
++(JobsRetStrByVoidBlock _Nonnull)jobsSimulatorModel;
 /**
 
      获取设备型号名称
      @return 设备型号名称，与 platformString 一致，只查询一次然后缓存
  */
-+(NSString *_Nullable)deviceName;
++(JobsRetStrByVoidBlock _Nonnull)deviceName;
 
 @end
 /**

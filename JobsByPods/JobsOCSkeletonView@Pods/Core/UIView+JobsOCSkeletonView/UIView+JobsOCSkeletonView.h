@@ -37,13 +37,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (JobsOCSkeletonView)
 
--(BOOL)jobs_isSkeletonShowing;
--(BOOL)jobs_isSkeletonable;
--(void)jobs_startSkeleton;
--(void)jobs_startSkeletonWithConfig:(nullable JobsOCSkeletonConfig *)config;
--(void)jobs_stopSkeleton;
--(void)jobs_updateSkeletonLayout;
--(void)jobs_setSkeletonMask:(nullable CALayer *)maskLayer;
+-(JobsRetBOOLByVoidBlock _Nonnull)jobs_isSkeletonShowing;
+-(JobsRetBOOLByVoidBlock _Nonnull)jobs_isSkeletonable;
+-(jobsByVoidBlock _Nonnull)jobs_startSkeleton;
+-(jobsByJobsOCSkeletonConfigBlock _Nonnull)jobs_startSkeletonWithConfig;
+-(jobsByVoidBlock _Nonnull)jobs_stopSkeleton;
+-(jobsByVoidBlock _Nonnull)jobs_updateSkeletonLayout;
+-(jobsByCALayerBlock _Nonnull)jobs_setSkeletonMask;
 -(JobsRetViewByBOOLBlock _Nonnull)bySkeletonable;
 -(JobsRetViewByCGFloatBlock _Nonnull)bySkeletonCornerRadius;
 -(instancetype)bySkeletonWithEnabled:(BOOL)enabled

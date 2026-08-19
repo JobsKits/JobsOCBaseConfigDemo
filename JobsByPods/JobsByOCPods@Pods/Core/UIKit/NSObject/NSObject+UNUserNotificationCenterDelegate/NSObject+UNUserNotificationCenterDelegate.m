@@ -34,12 +34,12 @@
             NSString *text = ((UNTextInputNotificationResponse *)response).userText;
             if (isValue(text)) {
                 jobsGetMainWindow().rootViewController.comingToPresentVC(self.makeAlertControllerByAlertModel(jobsMakeAlertModel(^(JobsAlertModel * _Nullable data) {
-                    data.byAlertControllerTitle(@"Comment".tr);
-                    data.message = @"You just said".tr
+                    data.byAlertControllerTitle(@"Comment".jobsTr());
+                    data.message = @"You just said".jobsTr()
                         .add(@":")
-                        .add(text.tr);
+                        .add(text.jobsTr());
                     data.byPreferredStyle(UIAlertControllerStyleAlert)
-                        .byAlertActionTitle(@"OK".tr)
+                        .byAlertActionTitle(@"OK".jobsTr())
                         .byAlertActionStyle(UIAlertActionStyleDefault);
                     data.alertActionBlock = ^(__kindof UIAlertAction * _Nullable action) {
                         JobsLog(@"OK");
@@ -61,21 +61,21 @@
         NSDateComponents *components = [calendar componentsInTimeZone:NSTimeZone.localTimeZone
                                                              fromDate:date];
         UNNotificationRequest.initBy(jobsMakeUNNotificationRequestModel(^(UNNotificationRequestModel * _Nullable data) {
-            data.byIdentifier(@"calendar");
-            data.content = jobsMakeUNMutableNotificationContent(^(__kindof UNMutableNotificationContent * _Nullable content) {
-                content.title = @"Calendar Reminder".tr;
-                content.body = @"github.com/pro648";
-                content.sound = UNNotificationSound.defaultSound;
-                content.categoryIdentifier = @"calendarCategory".tr;
-            });
-            data.trigger = UNCalendarNotificationTrigger.initByNORepeats(jobsMakeDateComponents(^(NSDateComponents * _Nullable dateComponents) {
-                dateComponents.calendar = calendar;
-                dateComponents.timeZone = NSTimeZone.localTimeZone;
-                dateComponents.month = components.month;
-                dateComponents.day = components.day;
-                dateComponents.hour = components.hour;
-                dateComponents.minute = components.minute;
-            }));
+            data.byIdentifier(@"calendar")
+                .byContent(jobsMakeUNMutableNotificationContent(^(__kindof UNMutableNotificationContent * _Nullable content) {
+                content.byTitle(@"Calendar Reminder".jobsTr())
+                    .byBody(@"github.com/pro648")
+                    .bySound(UNNotificationSound.defaultSound)
+                    .byCategoryIdentifier(@"calendarCategory".jobsTr());
+            }))
+                .byTrigger(UNCalendarNotificationTrigger.initByNORepeats(jobsMakeDateComponents(^(NSDateComponents * _Nullable dateComponents) {
+                dateComponents.byCalendar(calendar)
+                    .byTimeZone(NSTimeZone.localTimeZone)
+                    .byMonth(components.month)
+                    .byDay(components.day)
+                    .byHour(components.hour)
+                    .byMinute(components.minute);
+            })));
         })).notificationRequestCompletionHandlerBy(^(NSError * _Nullable error){
             if (error) {
                 JobsLog(@"Failed to add request to notification center. error:\(error)");
@@ -109,7 +109,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
     } else if (response.notification.request.content.categoryIdentifier.isEqualToString(@"customUICategory")) {
         self.handleCustomUICategory(response);
     }else{}
-    UIApplication.sharedApplication.applicationIconBadgeNumber = 0;
+    UIApplication.sharedApplication.byApplicationIconBadgeNumber(0);
     if(completionHandler) completionHandler();
 }
 

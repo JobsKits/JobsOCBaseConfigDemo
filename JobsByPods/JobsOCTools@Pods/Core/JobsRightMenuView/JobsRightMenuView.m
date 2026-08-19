@@ -13,10 +13,27 @@ Prop_strong()BaseButton *suspendBtn;
 Prop_strong()UIImageView *stackImageView;
 /// Data
 Prop_copy()NSArray <__kindof UIButton*>*datas;
+-(JobsRetJobsRightMenuViewByBOOLBlock _Nonnull)byAllowDrag;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsRightMenuView
+@interface JobsRightMenuView (JobsPropertyDSLSetterAutogen_e4bc94e340)
+-(void)setDatas:(NSArray <__kindof UIButton*>* _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsRightMenuView
+
 @implementation JobsRightMenuView
+-(JobsRetJobsRightMenuViewByBOOLBlock _Nonnull)byAllowDrag{
+    @jobs_weakify(self)
+    return ^__kindof JobsRightMenuView *_Nullable(BOOL value){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setIsAllowDrag:value];
+        return self;
+    };
+}
+
 @synthesize isAllowDrag = _isAllowDrag;
 -(void)dealloc{
     JobsLog(@"");
@@ -36,16 +53,36 @@ Prop_copy()NSArray <__kindof UIButton*>*datas;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
-    self.panRcognize.enabled = YES;
-    self.isAllowDrag = YES;//悬浮效果必须要的参数
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsRightMenuView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+        if (self.panRcognize) self.panRcognize.byEnabled(YES);
+        self.byAllowDrag(YES);
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    /// 内部指定圆切角
-    [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft
-                                        cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsRightMenuView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        /// 内部指定圆切角
+        [self appointCornerCutToCircleByRoundingCorners:UIRectCornerTopLeft | UIRectCornerBottomLeft
+                                            cornerRadii:CGSizeMake(JobsWidth(8), JobsWidth(8))];
+    };
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -59,7 +96,7 @@ Prop_copy()NSArray <__kindof UIButton*>*datas;
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
         if([model.data isKindOfClass:NSArray.class]){
-            self.datas = (NSArray *)model.data;
+            self.byDatas((NSArray *)model.data);
         }
         self.suspendBtn.byAlpha(1);
         self.stackImageView.byAlpha(1);
@@ -95,8 +132,9 @@ Prop_copy()NSArray <__kindof UIButton*>*datas;
                                       .onClickBy(^(UIButton *x){
                                           JobsLog(@"");
                                           @jobs_strongify(self)
-                                          x.byToggleSelected();
-                                          x.jobsResetBtnBgImage(x.jobs_isSelected ? @"首页悬浮按钮（朝右）".img : @"首页悬浮按钮（朝左）".img);
+                                          x
+                                              .jobsResetBtnBgImage(!x.jobs_isSelected ? @"首页悬浮按钮（朝右）".img : @"首页悬浮按钮（朝左）".img)
+                                              .byToggleSelected();
                                           if (self.objBlock) self.objBlock(x);
                                       }).onLongPressGestureBy(^(id data){
                                           JobsLog(@"");
@@ -155,4 +193,14 @@ Prop_copy()NSArray <__kindof UIButton*>*datas;
     };return _datas;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsRightMenuView
+-(JobsRetJobsRightMenuViewByNSArrayUIButtonBlock _Nonnull)byDatas{
+    @jobs_weakify(self)
+    return ^__kindof JobsRightMenuView * _Nullable(NSArray <__kindof UIButton*>* _Nullable data){
+        @jobs_strongify(self)
+        [self setDatas:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsRightMenuView
 @end

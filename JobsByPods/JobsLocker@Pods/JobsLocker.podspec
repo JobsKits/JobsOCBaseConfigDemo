@@ -37,6 +37,7 @@ so the same locker can optionally coordinate one-time execution semantics.
   spec.header_dir = 'JobsLocker'
 
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsBlock'
 
   JobsPodspecKitForJobsLocker.apply_standard_xcconfig(spec)
 

@@ -11,6 +11,12 @@
 #pragma once
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsLinkageMenuView/NSString+Extra.h>
 #import <JobsLinkageMenuView/UIImpactFeedbackGenerator+Extra.h>
 #import <JobsLinkageMenuView/NSString+Sys.h>

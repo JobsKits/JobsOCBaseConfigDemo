@@ -14,32 +14,68 @@ Prop_copy()jobsByVoidBlock screenshotHandler;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsScreenshotObserver
+@interface JobsScreenshotObserver (JobsPropertyDSLSetterAutogen_206dd8f20a)
+-(void)setScreenshotHandler:(jobsByVoidBlock)data;
+-(void)setScreenshotToken:(id <NSObject> _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsScreenshotObserver
+
 @implementation JobsScreenshotObserver
 
 -(void)dealloc{
-    [self stop];
+    (((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsScreenshotObserver.class, @selector(jobsStop)))(self, @selector(jobsStop)))();
 }
 
--(instancetype)startWithHandler:(jobsByVoidBlock)handler{
-    [self stop];
-    self.screenshotHandler = handler;
+-(JobsRetIDByVoidBlocks _Nonnull)startWithHandler{
     @jobs_weakify(self)
-    self.screenshotToken = [NSNotificationCenter.defaultCenter addObserverForName:UIApplicationUserDidTakeScreenshotNotification
-                                                                            object:nil
-                                                                             queue:NSOperationQueue.mainQueue
-                                                                        usingBlock:^(__unused NSNotification *note) {
+    return ^id(jobsByVoidBlock handler){
         @jobs_strongify(self)
-        if (self.screenshotHandler) self.screenshotHandler();
-    }];return self;
+        if (!self) return nil;
+        self.jobsStop();
+        self.byScreenshotHandler(handler);
+        @jobs_weakify(self)
+        self.screenshotToken = [NSNotificationCenter.defaultCenter addObserverForName:UIApplicationUserDidTakeScreenshotNotification
+                                                                                object:nil
+                                                                                 queue:NSOperationQueue.mainQueue
+                                                                            usingBlock:^(__unused NSNotification *note) {
+            @jobs_strongify(self)
+            if (self.screenshotHandler) self.screenshotHandler();
+        }];return self;
+    };
 }
 
--(instancetype)stop{
-    if (self.screenshotToken) {
-        [NSNotificationCenter.defaultCenter removeObserver:self.screenshotToken];
-    }
-    self.screenshotToken = nil;
-    self.screenshotHandler = nil;
-    return self;
+-(JobsRetIDByVoidBlock _Nonnull)jobsStop{
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (self.screenshotToken) {
+            [NSNotificationCenter.defaultCenter removeObserver:self.screenshotToken];
+        }
+        self.byScreenshotToken(nil);
+        self.byScreenshotHandler(nil);
+        return self;
+    };
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsScreenshotObserver
+-(JobsRetJobsScreenshotObserverByIDNSObjectBlock _Nonnull)byScreenshotToken{
+    @jobs_weakify(self)
+    return ^__kindof JobsScreenshotObserver * _Nullable(id <NSObject> _Nullable data){
+        @jobs_strongify(self)
+        [self setScreenshotToken:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsScreenshotObserverByjobsByVoidBlockBlock _Nonnull)byScreenshotHandler{
+    @jobs_weakify(self)
+    return ^__kindof JobsScreenshotObserver * _Nullable(jobsByVoidBlock data){
+        @jobs_strongify(self)
+        [self setScreenshotHandler:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsScreenshotObserver
 @end

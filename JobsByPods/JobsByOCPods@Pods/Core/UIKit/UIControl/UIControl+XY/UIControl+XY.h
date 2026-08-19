@@ -29,6 +29,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_assign()NSTimeInterval uxy_acceptEventInterval;//可以用这个给重复点击加间隔
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN UIControl
+-(JobsRetControlByBOOLBlock _Nonnull)byUxy_ignoreEvent;
+-(void)setUxy_ignoreEvent:(BOOL)data;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UIControl
 @end
 
 NS_ASSUME_NONNULL_END

@@ -54,6 +54,9 @@ BaseButtonProtocol,
 UIMarkProtocol
 >
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN BaseButton
+-(JobsRetBaseButtonByCGSizeBlock _Nonnull)bySizer;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END BaseButton
 @end
 
 NS_ASSUME_NONNULL_END

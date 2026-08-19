@@ -23,12 +23,19 @@
 #import "JobsByOCPods.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 #warning UITabBarItem 不是 UIView的子类，所以无法在其子类里面添加任何手势以及视图
 @interface JobsTabBarItem : UITabBarItem
 
 +(JobsRetTabBarItemByConfigBlock _Nonnull)initByConfig;
+-(JobsRetJobsTabBarItemByImageBlock _Nonnull)byImage;
 -(instancetype)initWithConfig:(JobsTabBarItemConfig *_Nullable)config;
 
 @end

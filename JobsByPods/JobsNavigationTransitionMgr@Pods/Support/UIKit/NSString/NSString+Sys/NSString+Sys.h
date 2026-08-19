@@ -30,7 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSString (Sys)
 
 -(UIColor *)cor;
--(UIColor *)namedCor;
+-(JobsRetCorByVoidBlock _Nonnull)jobsCor;
+-(JobsRetCorByVoidBlock _Nonnull)namedCor;
 /// 取UIStoryboard
 -(JobsRetStoryboardByBundleBlock _Nonnull)sbByBundle;
 /// 对系统方法 substringFromIndex 的二次封装
@@ -42,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 对系统方法 rangeOfString 的二次封装
 -(JobsRetRangeByStrBlock _Nonnull)rangeOfString;
 /// 对系统方法 rangeOfString 的二次封装（当执行参数是本字符串时）
--(NSRange)range;
+-(JobsRetRangeByVoidBlock _Nonnull)range;
 /// 对系统方法 stringByTrimmingCharactersInSet 的二次封装
 -(JobsRetStrByCharacterSetBlock _Nonnull)byTrimmingCharactersInSet;
 /// 对系统方法 characterAtIndex 的二次封装

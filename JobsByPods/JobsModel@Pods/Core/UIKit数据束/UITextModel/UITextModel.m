@@ -26,7 +26,7 @@ UIViewModelOthersProtocol_synthesize
 //-(NSString *)text{
 //    if (!_text) {
 //#ifdef DEBUG
-//        _text = TextModelDataString.tr;
+//        _text = TextModelDataString.jobsTr();
 //#endif
 //    };return _text;
 //}
@@ -34,7 +34,7 @@ UIViewModelOthersProtocol_synthesize
 //-(NSString *)subText{
 //    if(!_subText){
 //#ifdef DEBUG
-//        _subText = TextModelDataString2.tr;
+//        _subText = TextModelDataString2.jobsTr();
 //#endif
 //    };return _subText;
 //}

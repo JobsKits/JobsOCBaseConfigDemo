@@ -15,6 +15,21 @@ Prop_assign()BOOL wantsAnimating;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsLottieRefreshView
+@interface JobsLottieRefreshView (JobsPropertyDSLSetterAutogen_a1637b40e8)
+-(void)setWantsAnimating:(BOOL)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsLottieRefreshView
+
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN LOTAnimationView
+@interface LOTAnimationView (JobsLocalPropertyDSLAutogen_a1637b40e8)
+-(JobsRetLOTAnimationViewByBOOLBlock _Nonnull)byLoopAnimation;
+-(JobsRetLOTAnimationViewByCGFloatBlock _Nonnull)byAnimationProgress;
+-(void)setAnimationProgress:(CGFloat)data;
+-(void)setLoopAnimation:(BOOL)data;
+@end
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END LOTAnimationView
+
 @implementation JobsLottieRefreshView
 -(instancetype)initWithAnimationNamed:(NSString *)animationName {
     if (self = [super initWithFrame:CGRectZero]) {
@@ -22,7 +37,7 @@ Prop_assign()BOOL wantsAnimating;
         _indicatorSize = CGSizeMake(24, 24);
         self.byUserInteractionEnabled(NO);
         _lottieView = [LOTAnimationView animationNamed:_animationName.stringByDeletingPathExtension];
-        [self jobs_setupLottieView];
+        self.jobs_setupLottieView();
     };return self;
 }
 
@@ -32,61 +47,121 @@ Prop_assign()BOOL wantsAnimating;
         _indicatorSize = CGSizeMake(24, 24);
         self.byUserInteractionEnabled(NO);
         _lottieView = animationPath.length ? [LOTAnimationView animationWithFilePath:animationPath] : nil;
-        [self jobs_setupLottieView];
+        self.jobs_setupLottieView();
     };return self;
 }
 
 -(CGSize)intrinsicContentSize {
-    return self.indicatorSize;
+    JobsRetCGSizeByVoidBlock action = ((JobsRetCGSizeByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsLottieRefreshView.class, @selector(jobsIntrinsicContentSize)))(self, @selector(jobsIntrinsicContentSize));
+    return action ? action() : (CGSize){0};
+}
+
+-(JobsRetCGSizeByVoidBlock _Nonnull)jobsIntrinsicContentSize{
+    @jobs_weakify(self)
+    return ^CGSize{
+        @jobs_strongify(self)
+        if (!self) return (CGSize){0};
+        return self.indicatorSize;
+    };
 }
 
 -(void)layoutSubviews {
-    [super layoutSubviews];
-    self.lottieView.byFrame(self.bounds);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsLottieRefreshView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
 }
 
--(void)didMoveToWindow {
-    [super didMoveToWindow];
-    if (self.wantsAnimating && self.window) [self byResume];
-    if (!self.window) [self.lottieView pause];
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        self.lottieView.byFrame(self.bounds);
+    };
 }
 
--(instancetype)byStart {
-    self.wantsAnimating = YES;
-    self.byHidden(NO);
-    if (UIAccessibilityIsReduceMotionEnabled()) {
-        [self.lottieView stop];
-        self.lottieView.animationProgress = 1;
-    } else {
-        self.lottieView.loopAnimation = YES;
-        [self.lottieView play];
-    };return self;
+-(jobsByVoidBlock _Nonnull)jobsDidMoveToWindow {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super didMoveToWindow];
+        if (self.wantsAnimating && self.window) self.byResume();
+        if (!self.window) self.lottieView.pause;
+    };
 }
 
--(instancetype)byPause {
-    self.wantsAnimating = NO;
-    [self.lottieView pause];
-    return self;
+-(void)didMoveToWindow{
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsLottieRefreshView.class, @selector(jobsDidMoveToWindow)))(self, @selector(jobsDidMoveToWindow));
+    if (action) action();
 }
 
--(instancetype)byResume {
-    return [self byStart];
+-(JobsRetIDByVoidBlock _Nonnull)byStart {
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.wantsAnimating = YES;
+        self.byHidden(NO);
+        if (UIAccessibilityIsReduceMotionEnabled()) {
+            self.lottieView.stop;
+            self.lottieView.animationProgress = 1;
+        } else {
+            self.lottieView.loopAnimation = YES;
+            [self.lottieView play];
+        };return self;
+    };
 }
 
--(instancetype)byStop {
-    self.wantsAnimating = NO;
-    [self.lottieView stop];
-    self.lottieView.animationProgress = 0;
-    return self;
+-(JobsRetIDByVoidBlock _Nonnull)byPause {
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.wantsAnimating = NO;
+        self.lottieView.pause;
+        return self;
+    };
+}
+
+-(JobsRetIDByVoidBlock _Nonnull)byResume {
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.byStart();
+    };
+}
+
+-(JobsRetIDByVoidBlock _Nonnull)byStop {
+    @jobs_weakify(self)
+    return ^id{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.wantsAnimating = NO;
+        self.lottieView.stop;
+        self.lottieView.animationProgress = 0;
+        return self;
+    };
 }
 
 #pragma mark —— JobsRefreshAnimatorProtocol
--(UIView *)refreshAnimatorView {
-    return self;
+-(JobsRetViewByVoidBlock _Nonnull)refreshAnimatorView {
+    @jobs_weakify(self)
+    return ^UIView *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self;
+    };
 }
 
--(CGSize)refreshAnimatorPreferredSize {
-    return self.indicatorSize;
+-(JobsRetCGSizeByVoidBlock _Nonnull)refreshAnimatorPreferredSize {
+    @jobs_weakify(self)
+    return ^CGSize{
+        @jobs_strongify(self)
+        if (!self) return (CGSize){0};
+        return self.indicatorSize;
+    };
 }
 
 -(void)refreshAnimatorApplyPhase:(JobsRefreshAnimatorPhase)phase
@@ -95,44 +170,59 @@ Prop_assign()BOOL wantsAnimating;
     switch (phase) {
         /// 处理 JobsRefreshAnimatorPhasePulling 分支
         case JobsRefreshAnimatorPhasePulling:
-            self.wantsAnimating = NO;
-            [self.lottieView pause];
-            self.lottieView.animationProgress = normalized;
+            self.byWantsAnimating(NO);
+            self.lottieView.pause;
+            self.lottieView.byAnimationProgress(normalized);
             self.byHidden(NO).byAlpha(0.35 + normalized * 0.65);
             break;
         /// 处理 JobsRefreshAnimatorPhaseReady 分支
         case JobsRefreshAnimatorPhaseReady:
-            self.wantsAnimating = NO;
-            [self.lottieView pause];
-            self.lottieView.animationProgress = 1;
+            self.byWantsAnimating(NO);
+            self.lottieView.pause;
+            self.lottieView.byAnimationProgress(1);
             self.byHidden(NO).byAlpha(1);
             break;
         /// 处理 JobsRefreshAnimatorPhaseRefreshing 分支
         case JobsRefreshAnimatorPhaseRefreshing:
             self.byAlpha(1);
-            [self byStart];
+            self.byStart();
             break;
         /// 处理 JobsRefreshAnimatorPhaseEnding 分支
         case JobsRefreshAnimatorPhaseEnding:
-            [self byPause];
+            self.byPause();
             self.byHidden(NO).byAlpha(1);
             break;
         /// 处理 JobsRefreshAnimatorPhaseIdle 分支
         case JobsRefreshAnimatorPhaseIdle:
         /// 处理 JobsRefreshAnimatorPhaseInactive 分支
         case JobsRefreshAnimatorPhaseInactive:
-            [self byStop];
+            self.byStop();
             self.byHidden(YES).byAlpha(0);
             break;
     }
 }
 
 #pragma mark —— Private
--(void)jobs_setupLottieView {
-    self.lottieView.loopAnimation = YES;
-    self.lottieView.byContentMode(UIViewContentModeScaleAspectFit)
-        .byUserInteractionEnabled(NO)
-        .addOn(self);
+-(jobsByVoidBlock _Nonnull)jobs_setupLottieView {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.lottieView.byLoopAnimation(YES);
+        self.lottieView.byContentMode(UIViewContentModeScaleAspectFit)
+            .byUserInteractionEnabled(NO)
+            .addOn(self);
+    };
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsLottieRefreshView
+-(JobsRetJobsLottieRefreshViewByBOOLBlock _Nonnull)byWantsAnimating{
+    @jobs_weakify(self)
+    return ^__kindof JobsLottieRefreshView * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setWantsAnimating:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsLottieRefreshView
 @end

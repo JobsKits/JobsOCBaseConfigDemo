@@ -18,30 +18,59 @@ Prop_strong()UIButton *clearButton;
 Prop_assign()CGFloat brushDiameter;
 Prop_assign()NSUInteger renderVersion;
 
--(void)switchValueChanged:(UISwitch *)sender;
--(void)clearBrush;
--(void)renderBrushImage;
+-(jobsBySwitchBlock _Nonnull)switchValueChanged;
+-(jobsByVoidBlock _Nonnull)clearBrush;
+-(jobsByVoidBlock _Nonnull)renderBrushImage;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsMosaicBrushDemoVC
+@interface JobsMosaicBrushDemoVC (JobsPropertyDSLSetterAutogen_2e05a95f79)
+-(void)setBrushDiameter:(CGFloat)data;
+-(void)setHasEdited:(BOOL)data;
+-(void)setMosaicImage:(UIImage * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsMosaicBrushDemoVC
+
 @implementation JobsMosaicBrushDemoVC
--(NSString *)pageTitle{
-    return @"手势涂抹马赛克".tr;
+-(JobsRetStrByVoidBlock _Nonnull)jobsPageTitle{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return @"手势涂抹马赛克".jobsTr();
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.imageView.brushDelegate = self;
-    self.imageView.brushEnabled = YES;
-    self.brushDiameter = 42;
-    self.controlView.byAlpha(1);
-    [self showStatus:@"手指在图片上拖动即可局部打码".tr
-    hiddenAfterDelay:YES];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMosaicBrushDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
 }
 
--(void)onImageLoaded:(UIImage *)image{
-    [super onImageLoaded:image];
-    self.mosaicImage = [self.originalImage jobs_mosaicPixelatedImageWithBlockSize:18];
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.imageView.byBrushDelegate(self);
+        self.imageView.byBrushEnabled(YES);
+        self.byBrushDiameter(42);
+        self.controlView.byAlpha(1);
+        [self showStatus:@"手指在图片上拖动即可局部打码".jobsTr()
+        hiddenAfterDelay:YES];
+    };
+}
+
+-(jobsByImageBlock _Nonnull)onImageLoaded{
+    @jobs_weakify(self)
+    return ^(UIImage * image){
+        @jobs_strongify(self)
+        if (!self) return;
+        jobsByImageBlock action = [super onImageLoaded];
+        if (action) action(image);
+        self.byMosaicImage(self.originalImage.jobs_mosaicPixelatedImageWithBlockSize(18));
+    };
 }
 #pragma mark —— JobsMosaicBrushImageViewDelegate
 -(void)mosaicBrushImageView:(JobsMosaicBrushImageView *)imageView
@@ -52,40 +81,55 @@ Prop_assign()NSUInteger renderVersion;
                                                                  valid:&valid];
     if (!valid) return;
     [self.brushPointValueMutArr addObject:[NSValue valueWithCGPoint:imagePoint]];
-    [self renderBrushImage];
+    self.renderBrushImage();
 }
 #pragma mark —— Action
--(void)switchValueChanged:(UISwitch *)sender{
-    self.imageView.brushEnabled = sender.isOn;
-    [self showStatus:sender.isOn ? @"已开启涂抹".tr : @"已暂停涂抹".tr
-    hiddenAfterDelay:YES];
+-(jobsBySwitchBlock _Nonnull)switchValueChanged{
+    @jobs_weakify(self)
+    return ^(UISwitch * sender){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.imageView.byBrushEnabled(sender.isOn);
+        [self showStatus:sender.isOn ? @"已开启涂抹".jobsTr() : @"已暂停涂抹".jobsTr()
+        hiddenAfterDelay:YES];
+    };
 }
 
--(void)clearBrush{
-    [self.brushPointValueMutArr removeAllObjects];
-    self.imageView.byImage(self.originalImage);
-    self.hasEdited = NO;
-    [self showStatus:@"已清除涂抹区域".tr
-    hiddenAfterDelay:YES];
+-(jobsByVoidBlock _Nonnull)clearBrush{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self.brushPointValueMutArr removeAllObjects];
+        self.imageView.byImage(self.originalImage);
+        self.byHasEdited(NO);
+        [self showStatus:@"已清除涂抹区域".jobsTr()
+        hiddenAfterDelay:YES];
+    };
 }
 
--(void)renderBrushImage{
-    UIImage *sourceImage = self.originalImage;
-    UIImage *mosaicImage = self.mosaicImage;
-    NSArray <NSValue *>*centers = self.brushPointValueMutArr.copy;
-    if (!sourceImage || !mosaicImage || !centers.count) return;
-    CGFloat diameter = self.brushDiameter;
-    NSUInteger currentVersion = ++self.renderVersion;
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        UIImage *resultImage = [sourceImage jobs_mosaicPaintedImageWithMosaicImage:mosaicImage
-                                                                           centers:centers
-                                                                     brushDiameter:diameter];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (currentVersion != self.renderVersion) return;
-            self.imageView.byImage(resultImage);
-            self.hasEdited = YES;
+-(jobsByVoidBlock _Nonnull)renderBrushImage{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        UIImage *sourceImage = self.originalImage;
+        UIImage *mosaicImage = self.mosaicImage;
+        NSArray <NSValue *>*centers = self.brushPointValueMutArr.copy;
+        if (!sourceImage || !mosaicImage || !centers.count) return;
+        CGFloat diameter = self.brushDiameter;
+        NSUInteger currentVersion = ++self.renderVersion;
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+            UIImage *resultImage = [sourceImage jobs_mosaicPaintedImageWithMosaicImage:mosaicImage
+                                                                               centers:centers
+                                                                         brushDiameter:diameter];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (currentVersion != self.renderVersion) return;
+                self.imageView.byImage(resultImage);
+                self.byHasEdited(YES);
+            });
         });
-    });
+    };
 }
 #pragma mark —— LazyLoad
 -(UIView *)controlView{
@@ -123,7 +167,7 @@ Prop_assign()NSUInteger renderVersion;
     if (!_controlTitleLabel) {
         _controlTitleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"涂抹".tr)
+                .byText(@"涂抹".jobsTr())
                 .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightMediumSize(15));
         });
@@ -137,7 +181,7 @@ Prop_assign()NSUInteger renderVersion;
             Switch
                 .byOn(YES)
                 .onJobsChange(^(__kindof UIControl * _Nullable control) {
-                    [weak_self switchValueChanged:(UISwitch *)control];
+                    weak_self.switchValueChanged((UISwitch *)control);
                 })
                 .addOn(_controlView)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -153,12 +197,12 @@ Prop_assign()NSUInteger renderVersion;
         @jobs_weakify(self)
         _clearButton = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
-                .jobsResetBtnTitle(@"清除".tr)
+                .jobsResetBtnTitle(@"清除".jobsTr())
                 .jobsResetBtnTitleCor(JobsLabelColor)
                 .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
                 .jobsResetBtnBgCor(HEXCOLOR(0xEEF2F7))
                 .onClickBy(^(__kindof UIButton * _Nullable button) {
-                    [weak_self clearBrush];
+                    weak_self.clearBrush();
                 })
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer
@@ -181,4 +225,32 @@ Prop_assign()NSUInteger renderVersion;
     };return _brushPointValueMutArr;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsMosaicBrushDemoVC
+-(JobsRetJobsMosaicBrushDemoVCByBOOLBlock _Nonnull)byHasEdited{
+    @jobs_weakify(self)
+    return ^__kindof JobsMosaicBrushDemoVC * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setHasEdited:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsMosaicBrushDemoVCByCGFloatBlock _Nonnull)byBrushDiameter{
+    @jobs_weakify(self)
+    return ^__kindof JobsMosaicBrushDemoVC * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setBrushDiameter:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsMosaicBrushDemoVCByUIImageBlock _Nonnull)byMosaicImage{
+    @jobs_weakify(self)
+    return ^__kindof JobsMosaicBrushDemoVC * _Nullable(UIImage * _Nullable data){
+        @jobs_strongify(self)
+        [self setMosaicImage:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsMosaicBrushDemoVC
 @end

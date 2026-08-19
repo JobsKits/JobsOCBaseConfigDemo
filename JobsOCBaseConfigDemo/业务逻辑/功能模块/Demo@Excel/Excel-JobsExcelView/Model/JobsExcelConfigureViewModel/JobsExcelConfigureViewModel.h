@@ -14,10 +14,10 @@
 #import "ReactiveObjC.h"
 #endif
 
-#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
-#import <JobsModelDSL/JobsModelDSL.h>
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
 #else
-#import "JobsModelDSL.h"
+#import "JobsByOCPods.h"
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
@@ -26,16 +26,16 @@
 #import "JobsLanMgr.h"
 #endif
 
-#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
-#import <JobsByOCPods/JobsByOCPods.h>
-#else
-#import "JobsByOCPods.h"
-#endif
-
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>
 #else
 #import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
+#else
+#import "JobsModelDSL.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -89,6 +89,13 @@ Prop_copy(nonnull)NSMutableArray <NSMutableArray <NSString *>*>*contentTitles;
 Prop_strong()NSMutableArray <NSString *>*_Nullable topHeaderTitles;
 Prop_strong()NSMutableArray <NSString *>*_Nullable leftTitles;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsExcelConfigureViewModel
+-(JobsRetJobsExcelConfigureViewModelByCGFloatBlock _Nonnull)byItemW;
+-(JobsRetJobsExcelConfigureViewModelByCGFloatBlock _Nonnull)byXZExcelH;
+-(JobsRetJobsExcelConfigureViewModelByCGFloatBlock _Nonnull)byXZExcelW;
+-(JobsRetJobsExcelConfigureViewModelByNSValueBlock _Nonnull)byHorizontalScrollValue;
+-(JobsRetJobsExcelConfigureViewModelByNSValueBlock _Nonnull)byVerticalScrollValue;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsExcelConfigureViewModel
 @end
 
 NS_INLINE __kindof JobsExcelConfigureViewModel *_Nonnull jobsMakeExcelConfigureViewModel(jobsByExcelConfigureViewModelBlock _Nonnull block){

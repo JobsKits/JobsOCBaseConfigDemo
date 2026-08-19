@@ -25,7 +25,7 @@
         } else if (@available(iOS 10.0, *)) {
             /// iOS 10.0 - 17.4 使用旧的初始化方法
             UIImpactFeedbackGenerator *generator = UIImpactFeedbackGenerator.initByMediumStyle;
-            [generator prepare];
+            generator.prepare;
             [generator impactOccurred];
         } else {
             /// iOS 10.0 以下，使用系统音效反馈
@@ -35,14 +35,14 @@
 }
 /// 播放自定义本地声音
 /// fileName 全文件名 包含后缀
--(jobsByStrBlock)playSoundEffect{
+-(jobsByStrBlock _Nonnull)playSoundEffect{
     return ^(NSString *_Nullable fileFullName){
         FileNameModel *fileNameModel = fileFullName.byFileFullName(fileFullName);
         SystemSoundID soundID;
         /// 得到音效文件的地址
-        NSString *soundFilePath = fileNameModel.name.add(fileNameModel.type).pathForResourceWithFullName;
+        NSString *soundFilePath = fileNameModel.name.add(fileNameModel.type).jobsPathForResourceWithFullName();
         /// 生成系统音效id
-        OSStatus errorCode = AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundFilePath.jobsUrl, &soundID);
+        OSStatus errorCode = AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundFilePath.jobsURL(), &soundID);
         if (errorCode) {
             JobsLog(@"create sound failed");
             return;
@@ -58,7 +58,7 @@
         NSString *raw = SELF.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
         if (!isValue(raw)) { return nil; }
         // 1) 拒绝网络：同步接口不触网
-        if (SELF.isContainsUrl) { return nil; }
+        if (SELF.isContainsUrl()) { return nil; }
         // 2) dataURL: data:image/png;base64,xxxx
         if ([raw hasPrefix:@"data:image/"]) {
             UIImage *img = self.imageByDataURL(raw);
@@ -101,26 +101,40 @@
 }
 
 -(UIColor *)cor{
-    return UIColor.jobsCor(self);
+    return (((JobsRetCorByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobsCor)))(self, @selector(jobsCor)))();
+}
+
+-(JobsRetCorByVoidBlock _Nonnull)jobsCor{
+    @jobs_weakify(self)
+    return ^UIColor *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return UIColor.jobsCor(self);
+    };
 }
 /// 导航返回键的配置
--(UIButtonModel *)makeBackBtnModel{
+-(JobsRetUIButtonModelByVoidBlock _Nonnull)jobsMakeBackBtnModel{
     @jobs_weakify(self)
-    return jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
+    return ^UIButtonModel *{
         @jobs_strongify(self)
-//        data.backgroundImage = @"返回".img
-        data.byHighlightBackgroundImage(@"返回".img)
-            .byHighlightImage(@"返回".img)
-            .byNormalImage(@"返回".img)
-            .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
-            .byTitle(self.viewModel.backBtnTitleModel.text)
-            .byFont(self.viewModel.backBtnTitleModel.font)
-            .byTitleCor(JobsLabelColor)
-            .bySelectedTitleCor(JobsLabelColor)
-            .byRoundingCorners(UIRectCornerAllCorners)
-            .byImagePlacement(NSDirectionalRectEdgeLeading)
-            .byImagePadding(JobsWidth(5));
-    });
+        if (!self) return nil;
+        @jobs_weakify(self)
+        return jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
+            @jobs_strongify(self)
+    //        data.backgroundImage = @"返回".img
+            data.byHighlightBackgroundImage(@"返回".img)
+                .byHighlightImage(@"返回".img)
+                .byNormalImage(@"返回".img)
+                .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
+                .byTitle(self.viewModel.backBtnTitleModel.text)
+                .byFont(self.viewModel.backBtnTitleModel.font)
+                .byTitleCor(JobsLabelColor)
+                .bySelectedTitleCor(JobsLabelColor)
+                .byRoundingCorners(UIRectCornerAllCorners)
+                .byImagePlacement(NSDirectionalRectEdgeLeading)
+                .byImagePadding(JobsWidth(5));
+        });
+    };
 }
 /// KVC 的二次封装
 -(jobsByKey_ValueBlock _Nonnull)jobsKVC{
@@ -177,33 +191,63 @@
 }
 
 -(MJRefreshConfigModel *_Nullable)mjHeaderDefaultConfig{
-    return jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable data) {
-        data.byStateIdleTitle(@"下拉可以刷新".tr)
-            .byPullingTitle(@"下拉可以刷新".tr)
-            .byRefreshingTitle(@"松开立即刷新".tr)
-            .byWillRefreshTitle(@"刷新数据中".tr)
-            .byNoMoreDataTitle(@"下拉可以刷新".tr)
-            .byAutomaticallyChangeAlpha(YES);
-    });
+    JobsRetMJRefreshConfigModelByVoidBlock action = ((JobsRetMJRefreshConfigModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobsMjHeaderDefaultConfig)))(self, @selector(jobsMjHeaderDefaultConfig));
+    return action ? action() : nil;
 }
 
--(MJRefreshConfigModel *_Nonnull)refreshHeaderDataBy:(JobsRetIDByIDBlock _Nonnull)loadBlock{
-    return self.mjHeaderDefaultConfig.byLoadBlock(loadBlock);
+-(JobsRetMJRefreshConfigModelByVoidBlock _Nonnull)jobsMjHeaderDefaultConfig{
+    @jobs_weakify(self)
+    return ^MJRefreshConfigModel *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable data) {
+            data.byStateIdleTitle(@"下拉可以刷新".jobsTr())
+                .byPullingTitle(@"下拉可以刷新".jobsTr())
+                .byRefreshingTitle(@"松开立即刷新".jobsTr())
+                .byWillRefreshTitle(@"刷新数据中".jobsTr())
+                .byNoMoreDataTitle(@"下拉可以刷新".jobsTr())
+                .byAutomaticallyChangeAlpha(YES);
+        });
+    };
+}
+
+-(JobsRetMJRefreshConfigModelByRetIDByIDBlocks _Nonnull)refreshHeaderDataBy{
+    @jobs_weakify(self)
+    return ^MJRefreshConfigModel *_Nonnull(JobsRetIDByIDBlock _Nonnull loadBlock){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.jobsMjHeaderDefaultConfig().byLoadBlock(loadBlock);
+    };
 }
 
 -(MJRefreshConfigModel *_Nullable)mjFooterDefaultConfig{
-    return jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable data) {
-        data.byStateIdleTitle(@"".tr)
-            .byPullingTitle(@"".tr)
-            .byRefreshingTitle(@"".tr)
-            .byWillRefreshTitle(@"".tr)
-            .byNoMoreDataTitle(@"".tr)
-            .byAutomaticallyChangeAlpha(YES);
-    });
+    JobsRetMJRefreshConfigModelByVoidBlock action = ((JobsRetMJRefreshConfigModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobsMjFooterDefaultConfig)))(self, @selector(jobsMjFooterDefaultConfig));
+    return action ? action() : nil;
 }
 
--(MJRefreshConfigModel *_Nonnull)refreshFooterDataBy:(JobsRetIDByIDBlock _Nonnull)loadBlock{
-    return self.mjFooterDefaultConfig.byLoadBlock(loadBlock);
+-(JobsRetMJRefreshConfigModelByVoidBlock _Nonnull)jobsMjFooterDefaultConfig{
+    @jobs_weakify(self)
+    return ^MJRefreshConfigModel *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable data) {
+            data.byStateIdleTitle(@"".jobsTr())
+                .byPullingTitle(@"".jobsTr())
+                .byRefreshingTitle(@"".jobsTr())
+                .byWillRefreshTitle(@"".jobsTr())
+                .byNoMoreDataTitle(@"".jobsTr())
+                .byAutomaticallyChangeAlpha(YES);
+        });
+    };
+}
+
+-(JobsRetMJRefreshConfigModelByRetIDByIDBlocks _Nonnull)refreshFooterDataBy{
+    @jobs_weakify(self)
+    return ^MJRefreshConfigModel *_Nonnull(JobsRetIDByIDBlock _Nonnull loadBlock){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.jobsMjFooterDefaultConfig().byLoadBlock(loadBlock);
+    };
 }
 
 -(jobsByBtnBlock _Nonnull)jobsBackBtnClickEvent{
@@ -232,38 +276,43 @@
     };
 }
 
--(DeviceOrientation)getDeviceOrientation{
-    UIInterfaceOrientation orientation = UIInterfaceOrientationUnknown;
-    for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
-        if (![scene isKindOfClass:UIWindowScene.class]) continue;
-        UIWindowScene *windowScene = (UIWindowScene *)scene;
-        orientation = windowScene.interfaceOrientation;
-        if (orientation != UIInterfaceOrientationUnknown) break;
-    }
-    switch (orientation) {
-        /// 处理 UIInterfaceOrientationLandscapeLeft 分支
-        case UIInterfaceOrientationLandscapeLeft:
-        /// 处理 UIInterfaceOrientationLandscapeRight 分支
-        case UIInterfaceOrientationLandscapeRight:
-            return DeviceOrientationLandscape;
-        /// 处理 UIInterfaceOrientationPortrait 分支
-        case UIInterfaceOrientationPortrait:
-        /// 处理 UIInterfaceOrientationPortraitUpsideDown 分支
-        case UIInterfaceOrientationPortraitUpsideDown:
-            return DeviceOrientationPortrait;
-        /// 未匹配已知分支时执行兜底处理
-        default:
-            return DeviceOrientationUnknown;
-    }
+-(JobsRetDeviceOrientationByVoidBlock _Nonnull)jobsGetDeviceOrientation{
+    @jobs_weakify(self)
+    return ^DeviceOrientation{
+        @jobs_strongify(self)
+        if (!self) return (DeviceOrientation){0};
+        UIInterfaceOrientation orientation = UIInterfaceOrientationUnknown;
+        for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
+            if (![scene isKindOfClass:UIWindowScene.class]) continue;
+            UIWindowScene *windowScene = (UIWindowScene *)scene;
+            orientation = windowScene.interfaceOrientation;
+            if (orientation != UIInterfaceOrientationUnknown) break;
+        }
+        switch (orientation) {
+            /// 处理 UIInterfaceOrientationLandscapeLeft 分支
+            case UIInterfaceOrientationLandscapeLeft:
+            /// 处理 UIInterfaceOrientationLandscapeRight 分支
+            case UIInterfaceOrientationLandscapeRight:
+                return DeviceOrientationLandscape;
+            /// 处理 UIInterfaceOrientationPortrait 分支
+            case UIInterfaceOrientationPortrait:
+            /// 处理 UIInterfaceOrientationPortraitUpsideDown 分支
+            case UIInterfaceOrientationPortraitUpsideDown:
+                return DeviceOrientationPortrait;
+            /// 未匹配已知分支时执行兜底处理
+            default:
+                return DeviceOrientationUnknown;
+        }
+    };
 }
 
--(JobsRetNavBarConfigByStringBlock _Nullable)makeNav0ByTitle{
+-(JobsRetNavBarConfigByStringBlock _Nonnull)makeNav0ByTitle{
     @jobs_weakify(self)
     return ^JobsNavBarConfig *_Nullable(NSString *_Nullable string){
         @jobs_strongify(self)
         return jobsMakeNavBarConfig(^(__kindof JobsNavBarConfig * _Nullable config) {
             config.viewModel = jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-                viewModel.Alpha = 1;
+                viewModel.byAlpha(1);
                 viewModel.byNavBgCor(JobsClearColor)
                          .byNavBgImage(@"".img)
                          .byTitleImage(@"BLuckyRedLogo".img);
@@ -273,7 +322,7 @@
                            .byHighlightImage(@"全局返回箭头".img)
                            .byTitle(string)
                            .byTitleFont(bayonRegular(18))
-                           .byTitleCor(@"#E20808".cor)
+                           .byTitleCor(@"#E20808".jobsCor())
                            .byImagePlacement(NSDirectionalRectEdgeLeading)
                            .byTextAlignment(NSTextAlignmentCenter)
                            .bySubTextAlignment(NSTextAlignmentCenter)
@@ -281,7 +330,7 @@
                            .byImagePadding(JobsWidth(5))
                            .byClickEventBlock(^id(__kindof UIButton *_Nullable x){
                     @jobs_strongify(self)
-                    x.selected = !x.selected;
+                    x.bySelected(!x.selected);
                     UIViewController *vc = [self isKindOfClass:UIViewController.class] ? (UIViewController *)self : nil;
                     [vc.navigationController popViewControllerAnimated:YES];
                     return nil;
@@ -294,5 +343,12 @@
 }
 /// Prop_strong()UIViewModel *viewModel;
 PROP_STRONG_OBJECT_Default_TYPE(UIViewModel, viewModel, ViewModel)
+
+-(JobsRetIDByIDBlock _Nonnull)byViewModel{
+    return ^id(UIViewModel *_Nullable viewModel){
+        [self setViewModel:viewModel];
+        return self;
+    };
+}
 
 @end

@@ -9,28 +9,33 @@
 
 @implementation JobsOCSplashGIFDecoder
 +(nullable UIImage *)imageWithData:(NSData *)data {
-    CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)data, nil);
-    if (!source) return nil;
-    size_t frameCount = CGImageSourceGetCount(source);
-    if (frameCount <= 1) {
-        CGImageRef imageRef = CGImageSourceCreateImageAtIndex(source, 0, nil);
-        UIImage *image = imageRef ? [UIImage imageWithCGImage:imageRef] : nil;
-        if (imageRef) CGImageRelease(imageRef);
+    return ((((JobsRetImageByDataBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsOCSplashGIFDecoder.class, @selector(imageWithData)))(self, @selector(imageWithData))))(data);
+}
++(JobsRetImageByDataBlock _Nonnull)imageWithData{
+    return ^UIImage *(NSData * data){
+        CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)data, nil);
+        if (!source) return nil;
+        size_t frameCount = CGImageSourceGetCount(source);
+        if (frameCount <= 1) {
+            CGImageRef imageRef = CGImageSourceCreateImageAtIndex(source, 0, nil);
+            UIImage *image = imageRef ? [UIImage imageWithCGImage:imageRef] : nil;
+            if (imageRef) CGImageRelease(imageRef);
+            CFRelease(source);
+            return image;
+        }
+        NSMutableArray<UIImage *> *frames = NSMutableArray.array;
+        NSTimeInterval duration = 0;
+        for (size_t index = 0; index < frameCount; index++) {
+            CGImageRef imageRef = CGImageSourceCreateImageAtIndex(source, index, nil);
+            if (!imageRef) continue;
+            [frames addObject:[UIImage imageWithCGImage:imageRef]];
+            duration += [self frameDurationWithSource:source index:index];
+            CGImageRelease(imageRef);
+        }
         CFRelease(source);
-        return image;
-    }
-    NSMutableArray<UIImage *> *frames = NSMutableArray.array;
-    NSTimeInterval duration = 0;
-    for (size_t index = 0; index < frameCount; index++) {
-        CGImageRef imageRef = CGImageSourceCreateImageAtIndex(source, index, nil);
-        if (!imageRef) continue;
-        [frames addObject:[UIImage imageWithCGImage:imageRef]];
-        duration += [self frameDurationWithSource:source index:index];
-        CGImageRelease(imageRef);
-    }
-    CFRelease(source);
-    if (!frames.count) return nil;
-    return [UIImage animatedImageWithImages:frames duration:MAX(duration, 0.1)];
+        if (!frames.count) return nil;
+        return [UIImage animatedImageWithImages:frames duration:MAX(duration, 0.1)];
+    };
 }
 
 +(NSTimeInterval)frameDurationWithSource:(CGImageSourceRef)source index:(size_t)index {

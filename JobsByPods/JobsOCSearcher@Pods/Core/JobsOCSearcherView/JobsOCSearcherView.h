@@ -10,6 +10,17 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #if __has_include(<JobsOCSearcher/JobsOCSearcherConfig.h>)
 #import <JobsOCSearcher/JobsOCSearcherConfig.h>
 #else
@@ -57,15 +68,23 @@ Prop_strong(readonly)UITextField *textField;
 Prop_strong(readonly)JobsOCSearcherConfig *config;
 Prop_copy(readonly)NSArray <NSString *>*historySearches;
 
+-(JobsRetJobsOCSearcherViewByConfigBlock _Nonnull)byConfig;
 -(instancetype)initWithConfig:(JobsOCSearcherConfig *_Nullable)config;
 /// 链式配置搜索推荐词元；传 nil / 空数组时隐藏搜索推荐模块。
--(__kindof JobsOCSearcherView *_Nullable(^)(NSArray <NSString *>*_Nullable recommendSearches))byRecommendSearches;
--(void)reloadWithConfig:(JobsOCSearcherConfig *_Nullable)config;
--(void)reloadHistorySearches;
--(void)saveHistoryByText:(NSString *_Nullable)text;
--(void)deleteHistoryByText:(NSString *_Nullable)text;
--(void)clearHistory;
+-(JobsRetJobsOCSearcherViewByNSArrayNSStringBlock _Nonnull)byRecommendSearches;
+-(jobsByJobsOCSearcherConfigBlock _Nonnull)reloadWithConfig;
+-(jobsByVoidBlock _Nonnull)reloadHistorySearches;
+-(jobsByStrBlock _Nonnull)saveHistoryByText;
+-(jobsByStrBlock _Nonnull)deleteHistoryByText;
+-(jobsByVoidBlock _Nonnull)clearHistory;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCSearcherView
+-(JobsRetJobsOCSearcherViewByMASConstraintBlock _Nonnull)byRecommendSectionHeightConstraint;
+-(JobsRetJobsOCSearcherViewByMASConstraintBlock _Nonnull)bySearchButtonLeftConstraint;
+-(JobsRetJobsOCSearcherViewByMASConstraintBlock _Nonnull)bySearchButtonWidthConstraint;
+-(JobsRetJobsOCSearcherViewByNSArrayNSStringBlock _Nonnull)byHistorySearches;
+-(JobsRetJobsOCSearcherViewByNSArrayUIButtonBlock _Nonnull)byRecommendButtonArr;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCSearcherView
 @end
 
 NS_ASSUME_NONNULL_END

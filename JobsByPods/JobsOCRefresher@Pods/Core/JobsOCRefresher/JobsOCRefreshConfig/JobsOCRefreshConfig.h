@@ -54,12 +54,31 @@ Prop_copy() NSString *noMoreDataText;
 Prop_copy() NSString *lastRefreshPrefix;
 Prop_copy(nullable) NSString *soundName;
 
-+ (instancetype)defaultHeaderConfig;
-+ (instancetype)defaultFooterConfig;
-+ (instancetype)defaultLeftConfigWithMode:(JobsOCRefreshHorizontalMode)mode;
-+ (instancetype)defaultRightConfigWithMode:(JobsOCRefreshHorizontalMode)mode;
-- (NSString *)readyTextForRole:(JobsOCRefreshRole)role;
-- (NSString *)refreshingTextForRole:(JobsOCRefreshRole)role;
+-(JobsRetJobsOCRefreshConfigByCGFloatBlock _Nonnull)byTriggerDistance;
+-(JobsRetJobsOCRefreshConfigByCGFloatBlock _Nonnull)byViewLength;
+-(JobsRetJobsOCRefreshConfigByBOOLBlock _Nonnull)byShowsInfo;
+-(JobsRetJobsOCRefreshConfigByBOOLBlock _Nonnull)byShowsText;
+-(JobsRetJobsOCRefreshConfigByBOOLBlock _Nonnull)byEnablesHaptics;
+-(JobsRetJobsOCRefreshConfigByHorizontalModeBlock _Nonnull)byHorizontalMode;
+-(JobsRetJobsOCRefreshConfigByIDBlock _Nonnull)byAnimator;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byIdleText;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byPullingText;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byReadyRefreshText;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byReadyLoadMoreText;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byRefreshingText;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byLoadingMoreText;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byFailedText;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byDisabledText;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byNoMoreDataText;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)byLastRefreshPrefix;
+-(JobsRetJobsOCRefreshConfigByStrBlock _Nonnull)bySoundName;
+
++ (JobsRetIDByVoidBlock _Nonnull)defaultHeaderConfig;
++ (JobsRetIDByVoidBlock _Nonnull)defaultFooterConfig;
++(JobsRetIDByJobsOCRefreshHorizontalModeBlock _Nonnull)defaultLeftConfigWithMode;
++(JobsRetIDByJobsOCRefreshHorizontalModeBlock _Nonnull)defaultRightConfigWithMode;
+-(JobsRetNSStringByJobsOCRefreshRoleBlock _Nonnull)readyTextForRole;
+-(JobsRetNSStringByJobsOCRefreshRoleBlock _Nonnull)refreshingTextForRole;
 
 @end
 

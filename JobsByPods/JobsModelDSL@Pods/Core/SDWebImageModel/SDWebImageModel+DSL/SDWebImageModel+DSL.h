@@ -20,12 +20,21 @@
 #import "JobsBlock.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SDWebImageModel (DSL)
 
 -(JobsRetSDWebImageModelByURLBlock _Nonnull)byUrl;
 -(JobsRetSDWebImageModelByImageBlock _Nonnull)byPlaceholder;
+-(JobsRetSDWebImageModelByUIntegerBlock _Nonnull)byOptions;
+-(JobsRetSDWebImageModelByCompletionBlock _Nonnull)byCompletion;
+-(JobsRetSDWebImageModelByProgressBlock _Nonnull)byProgress;
 
 @end
 

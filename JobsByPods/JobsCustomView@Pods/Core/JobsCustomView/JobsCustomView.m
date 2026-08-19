@@ -6,6 +6,7 @@
 //
 
 #import "JobsCustomView.h"
+
 #import <JobsCustomView/NSObject+Extra.h>
 #import <JobsCustomView/NSMutableArray+Extra.h>
 #import <JobsCustomView/UIButton+SimplyMake.h>
@@ -29,22 +30,42 @@ Prop_assign()CGSize btnSize;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsCustomView
+@interface JobsCustomView (JobsPropertyDSLSetterAutogen_d08e39b275)
+-(void)setBtnSize:(CGSize)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsCustomView
+
 @implementation JobsCustomView
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_customViewOnceToken = 0;
-    static_customView = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsCustomView.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_customViewOnceToken = 0;
+        static_customView = nil;
+    };
 }
 
 static JobsCustomView *static_customView = nil;
 static dispatch_once_t static_customViewOnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_customViewOnceToken, ^{
-        static_customView = JobsCustomView.new;
-    });return static_customView;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsCustomView.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_customViewOnceToken, ^{
+            static_customView = JobsCustomView.new;
+        });return static_customView;
+    };
 }
 
 -(instancetype)init{
@@ -66,11 +87,31 @@ static dispatch_once_t static_customViewOnceToken;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCustomView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCustomView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 #pragma mark —— BaseViewProtocol
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -78,8 +119,8 @@ static dispatch_once_t static_customViewOnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.btnSize = CGSizeMake(JobsWidth(160), JobsWidth(40));
-        self.viewModel = model;
+        self.byBtnSize(CGSizeMake(JobsWidth(160), JobsWidth(40)));
+        self.byViewModel(model);
         MakeDataNull
         self.indicatorIMGV.byAlpha(1);
         self.segmentationLine.byAlpha(1);
@@ -183,7 +224,7 @@ static dispatch_once_t static_customViewOnceToken;
         _tipsLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(@"當前支持查詢最近30天的投注記錄".tr)
+                .byText(@"當前支持查詢最近30天的投注記錄".jobsTr())
                 .byFont(UIFontWeightRegularSize(12))
                 .byTextCor(JobsSecondaryLabelColor)
                 .makeLabelByShowingType(UILabelShowingType_03)
@@ -212,12 +253,12 @@ static dispatch_once_t static_customViewOnceToken;
                                                                  0,
                                                                  self.btnSize.width,
                                                                  self.btnSize.height)])
-            .jobsResetBtnTitle(@"取消".tr)
+            .jobsResetBtnTitle(@"取消".jobsTr())
             .jobsResetBtnTitleCor(JobsSecondaryLabelColor)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 x.byToggleSelected();
-                toastBy(x.titleForNormalState);
+                toastBy(x.jobsTitleForNormalState());
                 if (self.objBlock) self.objBlock(x);
             })
             .onLongPressGestureBy(^(id data){
@@ -249,12 +290,12 @@ static dispatch_once_t static_customViewOnceToken;
                                                                  0,
                                                                  self.btnSize.width,
                                                                  self.btnSize.height)])
-            .jobsResetBtnTitle(@"确定".tr)
+            .jobsResetBtnTitle(@"确定".jobsTr())
             .jobsResetBtnTitleCor(JobsSecondaryLabelColor)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 x.byToggleSelected();
-                toastBy(x.titleForNormalState);
+                toastBy(x.jobsTitleForNormalState());
                 if (self.objBlock) self.objBlock(x);
             })
             .onLongPressGestureBy(^(id data){
@@ -270,4 +311,14 @@ static dispatch_once_t static_customViewOnceToken;
     };return _sureBtn;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsCustomView
+-(JobsRetJobsCustomViewByCGSizeBlock _Nonnull)byBtnSize{
+    @jobs_weakify(self)
+    return ^__kindof JobsCustomView * _Nullable(CGSize data){
+        @jobs_strongify(self)
+        [self setBtnSize:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsCustomView
 @end

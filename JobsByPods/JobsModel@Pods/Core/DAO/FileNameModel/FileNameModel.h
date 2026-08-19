@@ -29,6 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_copy()NSString *name;
 Prop_copy()NSString *type;
 
+-(JobsRetFileNameModelByStrBlock _Nonnull)byName;
+-(JobsRetFileNameModelByStrBlock _Nonnull)byType;
+
 @end
 
 NS_ASSUME_NONNULL_END

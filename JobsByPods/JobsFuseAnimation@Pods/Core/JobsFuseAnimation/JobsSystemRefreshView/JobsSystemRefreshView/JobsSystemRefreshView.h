@@ -7,6 +7,18 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDSL/UIView+DSL.h>)
+#import <JobsOCDSL/UIView+DSL.h>
+#else
+#import "UIView+DSL.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsFuseAnimation/JobsRefreshAnimatorProtocol.h>)
 #import <JobsFuseAnimation/JobsRefreshAnimatorProtocol.h>
 #else
@@ -32,8 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_assign()CGSize indicatorSize;
 
-+(__kindof JobsSystemRefreshView *)refreshView;
--(instancetype)byIndicatorSize:(CGSize)indicatorSize;
++(JobsRetJobsSystemRefreshViewByVoidBlock _Nonnull)refreshView;
+-(JobsRetIDByCGSizeBlock _Nonnull)byIndicatorSize;
 
 @end
 

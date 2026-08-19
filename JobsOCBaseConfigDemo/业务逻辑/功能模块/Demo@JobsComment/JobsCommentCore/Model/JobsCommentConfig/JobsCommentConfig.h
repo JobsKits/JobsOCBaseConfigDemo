@@ -21,6 +21,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+@class JobsCommentConfig;
+typedef JobsCommentConfig *_Nullable(^JobsRetJobsCommentConfigByVoidBlock)(void);
+
 @interface JobsCommentConfig : NSObject
 
 Prop_assign(readonly)CGSize headerImageViewSize;/// 发表此评论的用户的头像大小
@@ -33,6 +36,7 @@ Prop_assign(readonly)CGFloat cellHeight;/// 显示评论的承载cell高度
 Prop_assign(readonly)CGFloat secondLevelCommentOffset;/// 二级标题相对于一级标题控件的偏移量
 
 +(instancetype)sharedManager;
++(JobsRetJobsCommentConfigByVoidBlock _Nonnull)jobsSharedManager;
 
 @end
 

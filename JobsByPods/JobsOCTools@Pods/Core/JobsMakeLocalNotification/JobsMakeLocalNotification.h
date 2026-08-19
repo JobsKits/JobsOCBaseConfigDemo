@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_JOBSMAKELOCALNOTIFICATION_7DF2F94DB3
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <UserNotifications/UserNotifications.h> // 提供本地通知和远程通知处理能力，是现代通知框架的统一入口。
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
@@ -39,7 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsMakeLocalNotification : NSObject
 
-- (void)triggerLocalNotification:(JobsLocalNotificationModel *)localNotificationModel;
+-(jobsByJobsLocalNotificationModelBlock _Nonnull)triggerLocalNotification;
 
 @end
 

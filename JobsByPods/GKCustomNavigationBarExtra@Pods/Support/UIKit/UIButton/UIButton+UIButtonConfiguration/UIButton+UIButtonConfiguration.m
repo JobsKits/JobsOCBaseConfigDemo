@@ -6,6 +6,7 @@
 //
 
 #import "UIButton+UIButtonConfiguration.h"
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability"
 @implementation UIButton (UIButtonConfiguration)
@@ -21,42 +22,52 @@
 /// 注意⚠️因为UIConfigurationTextAttributesTransformer是没有办法直接获取到里面的字体的，只能从外面生成以后直接赋值，也就是每次修改需要给一个完整的UIConfigurationTextAttributesTransformer对象进UIButtonConfiguration
 -(void)jobsSetBtnTitleFont:(UIFont *_Nullable)titleFont
                btnTitleCor:(UIColor *_Nullable)titleCor{
-    self.jobsResetTitleTextAttributesTransformer([self jobsSetConfigTextAttributesTransformerByTitleFont:titleFont
+    (((JobsRetBtnConfigByTitleTextAttributesTransformerBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIButton.class, @selector(jobsResetTitleTextAttributesTransformer)))(self, @selector(jobsResetTitleTextAttributesTransformer)))([self jobsSetConfigTextAttributesTransformerByTitleFont:titleFont
                                                                                              btnTitleCor:titleCor]);
 }
 
 -(void)jobsSetBtnSubTitleFont:(UIFont *_Nullable)subTitleFont
                btnSubTitleCor:(UIColor *_Nullable)subTitleCor{
-    self.jobsResetSubtitleTextAttributesTransformer([self jobsSetConfigTextAttributesTransformerByTitleFont:subTitleFont
+    (((JobsRetBtnConfigBySubtitleTextAttributesTransformerBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIButton.class, @selector(jobsResetSubtitleTextAttributesTransformer)))(self, @selector(jobsResetSubtitleTextAttributesTransformer)))([self jobsSetConfigTextAttributesTransformerByTitleFont:subTitleFont
                                                                                                 btnTitleCor:subTitleCor]);
 }
 /// 重设UIButtonConfiguration并使之生效  JobsRetButtonConfigurationByButtonConfigurationBlock
--(__kindof UIButton *)jobsUpdateButtonConfiguration:(jobsByBtnConfigBlock _Nullable)configurationBlock {
-    if (@available(iOS 16.0, *)) {
-        UIButtonConfiguration *config = nil;
-        if(self.configuration){
-            config = self.configuration.copy;
-        }else{
-            config = jobsMakePlainBtnConfig(^(__kindof UIButtonConfiguration * _Nullable config) {
-            });
-        }
-        if (configurationBlock) configurationBlock(config);
-        self.configuration = config;
-        self.updateConfigBy();
-    };return self;
+-(JobsRetUIButtonByjobsByBtnConfigBlockBlock _Nonnull)jobsUpdateButtonConfiguration{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *(jobsByBtnConfigBlock _Nullable configurationBlock){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (@available(iOS 16.0, *)) {
+            UIButtonConfiguration *config = nil;
+            if(self.configuration){
+                config = self.configuration.copy;
+            }else{
+                config = jobsMakePlainBtnConfig(^(__kindof UIButtonConfiguration * _Nullable config) {
+                });
+            }
+            if (configurationBlock) configurationBlock(config);
+            self.byConfiguration(config);
+            self.updateConfigBy();
+        };return self;
+    };
 }
 
--(UIButtonConfiguration *)JobsUpdateButtonConfiguration:(jobsByBtnConfigBlock _Nullable)configurationBlock{
-    [self jobsUpdateButtonConfiguration:configurationBlock];
-    self.updateConfigBy();
-    return self.configuration;
+-(JobsRetUIButtonConfigurationByjobsByBtnConfigBlockBlock _Nonnull)JobsUpdateButtonConfiguration{
+    @jobs_weakify(self)
+    return ^UIButtonConfiguration *(jobsByBtnConfigBlock _Nullable configurationBlock){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.jobsUpdateButtonConfiguration(configurationBlock);
+        self.updateConfigBy();
+        return self.configuration;
+    };
 }
 /// 点语法入口：UIButtonConfiguration 作为回调参数，外层仍返回 UIButton，便于继续按钮链式调用
 -(JobsRetBtnByBtnConfigBlock _Nonnull)jobsUpdateButtonConfigurationBy API_IOS15_TVOS15_UNAVAILABLE_WATCHOS{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(jobsByBtnConfigBlock _Nullable block) {
         @jobs_strongify(self)
-        return [self jobsUpdateButtonConfiguration:block];
+        return self.jobsUpdateButtonConfiguration(block);
     };
 }
 ///【最新的Api】修改主标题的对齐方式
@@ -64,17 +75,18 @@
     @jobs_weakify(self)
     return ^__kindof UIButton *(NSTextAlignment data) {
         @jobs_strongify(self)
-        return [self jobsUpdateButtonConfiguration:^(UIButtonConfiguration * _Nullable config) {
+        return self.jobsUpdateButtonConfiguration(^(UIButtonConfiguration * _Nullable config) {
             @jobs_strongify(self)
             if(config.subtitle){
                 config.attributedSubtitle = JobsAttributedStringByAttributes(config.subtitle,jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable data1) {
                     @jobs_strongify(self)
-                    data1.add(NSForegroundColorAttributeName,self.getTitleColorByTransformer(config.titleTextAttributesTransformer));
-                    data1.add(NSFontAttributeName,self.getTitleFontByTransformer(config.titleTextAttributesTransformer));
-                    data1.add(NSParagraphStyleAttributeName,self.jobsparagraphStyleByTextAlignment(data));
+                    data1
+                        .add(NSForegroundColorAttributeName,self.getTitleColorByTransformer(config.titleTextAttributesTransformer))
+                        .add(NSFontAttributeName,self.getTitleFontByTransformer(config.titleTextAttributesTransformer))
+                        .add(NSParagraphStyleAttributeName,self.jobsparagraphStyleByTextAlignment(data));
                 }));
             }
-        }];
+        });
     };
 }
 ///【最新的Api】修改副标题的对齐方式
@@ -82,15 +94,16 @@
     @jobs_weakify(self)
     return ^__kindof UIButton *(NSTextAlignment data) {
         @jobs_strongify(self)
-        return [self jobsUpdateButtonConfiguration:^(UIButtonConfiguration * _Nullable config) {
+        return self.jobsUpdateButtonConfiguration(^(UIButtonConfiguration * _Nullable config) {
             @jobs_strongify(self)
             config.attributedSubtitle = JobsAttributedStringByAttributes(config.subtitle, jobsMakeMutDic(^(__kindof NSMutableDictionary <NSAttributedStringKey, id>*_Nullable data1) {
                 @jobs_strongify(self)
-                data1.add(NSForegroundColorAttributeName,self.getTitleColorByTransformer(config.subtitleTextAttributesTransformer));
-                data1.add(NSFontAttributeName,self.getTitleFontByTransformer(config.subtitleTextAttributesTransformer));
-                data1.add(NSParagraphStyleAttributeName,self.jobsparagraphStyleByTextAlignment(data));
+                data1
+                    .add(NSForegroundColorAttributeName,self.getTitleColorByTransformer(config.subtitleTextAttributesTransformer))
+                    .add(NSFontAttributeName,self.getTitleFontByTransformer(config.subtitleTextAttributesTransformer))
+                    .add(NSParagraphStyleAttributeName,self.jobsparagraphStyleByTextAlignment(data));
             }));
-        }];
+        });
     };
 }
 ///【最新的Api】重设Btn的图文相对位置
@@ -98,9 +111,9 @@
     @jobs_weakify(self)
     return ^__kindof UIButton *(NSDirectionalRectEdge data) {
         @jobs_strongify(self)
-        return [self jobsUpdateButtonConfiguration:^(UIButtonConfiguration *_Nullable config) {
-            config.imagePlacement = data;
-        }];
+        return self.jobsUpdateButtonConfiguration(^(UIButtonConfiguration *_Nullable config) {
+            config.byImagePlacement(data);
+        });
     };
 }
 ///【最新的Api】重设Btn的图文间距
@@ -108,9 +121,9 @@
     @jobs_weakify(self)
     return ^__kindof UIButton *(CGFloat data) {
         @jobs_strongify(self)
-        return [self jobsUpdateButtonConfiguration:^(UIButtonConfiguration *_Nullable config) {
-            config.imagePadding = data;
-        }];
+        return self.jobsUpdateButtonConfiguration(^(UIButtonConfiguration *_Nullable config) {
+            config.byImagePadding(data);
+        });
     };
 }
 ///【最新的Api】重设Btn主标题与副标题之间的距离
@@ -118,9 +131,9 @@
     @jobs_weakify(self)
     return ^__kindof UIButton *(CGFloat data) {
         @jobs_strongify(self)
-        return [self jobsUpdateButtonConfiguration:^(UIButtonConfiguration *_Nullable config) {
-            config.titlePadding = data;
-        }];
+        return self.jobsUpdateButtonConfiguration(^(UIButtonConfiguration *_Nullable config) {
+            config.byTitlePadding(data);
+        });
     };
 }
 /**
@@ -133,9 +146,9 @@
     @jobs_weakify(self)
     return ^__kindof UIButton *(UIButtonConfigurationTitleAlignment data) {
         @jobs_strongify(self)
-        return [self jobsUpdateButtonConfiguration:^(UIButtonConfiguration *_Nullable config) {
-            config.titleAlignment = data;
-        }];
+        return self.jobsUpdateButtonConfiguration(^(UIButtonConfiguration *_Nullable config) {
+            config.byTitleAlignment(data);
+        });
     };
 }
 
@@ -143,9 +156,9 @@
     @jobs_weakify(self)
     return ^__kindof UIButton *(BOOL data) {
         @jobs_strongify(self)
-        return [self jobsUpdateButtonConfiguration:^(UIButtonConfiguration *_Nullable config) {
-            config.automaticallyUpdateForSelection = data;
-        }];
+        return self.jobsUpdateButtonConfiguration(^(UIButtonConfiguration *_Nullable config) {
+            config.byAutomaticallyUpdateForSelection(data);
+        });
     };
 }
 
@@ -153,9 +166,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(UIBackgroundConfiguration *data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration *_Nullable config) {
-            config.background = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration *_Nullable config) {
+            config.byBackground(data);
+        });
     };
 }
 
@@ -163,9 +176,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(UIImage *data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration *_Nullable config) {
-            config.background.image = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration *_Nullable config) {
+            config.background.byImage(data);
+        });
     };
 }
 
@@ -173,9 +186,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(UIButtonConfigurationCornerStyle data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration *_Nullable config) {
-            config.cornerStyle = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration *_Nullable config) {
+            config.byCornerStyle(data);
+        });
     };
 }
 
@@ -183,9 +196,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(UIButtonConfigurationSize data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration *_Nullable config) {
-            config.buttonSize = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration *_Nullable config) {
+            config.byButtonSize(data);
+        });
     };
 }
 
@@ -193,9 +206,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(UIButtonConfigurationMacIdiomStyle data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration * _Nullable config) {
-            config.macIdiomStyle = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration * _Nullable config) {
+            config.byMacIdiomStyle(data);
+        });
     };
 }
 
@@ -203,12 +216,12 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(UIColor *data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration * _Nullable config) {
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration * _Nullable config) {
             UIBackgroundConfiguration *bgConfig = config.background.copy;
-            config.baseBackgroundColor = data;
-            bgConfig.backgroundColor = data;
-            config.background = bgConfig;
-        }];
+            config.byBaseBackgroundColor(data);
+            bgConfig.byBackgroundColor(data);
+            config.byBackground(bgConfig);
+        });
     };
 }
 
@@ -216,9 +229,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(UIImage *data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration * _Nullable config) {
-            config.image = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration * _Nullable config) {
+            config.byImage(data);
+        });
     };
 }
 
@@ -226,9 +239,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(UIConfigurationColorTransformer data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration * _Nullable config) {
-            config.imageColorTransformer = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration * _Nullable config) {
+            config.byImageColorTransformer(data);
+        });
     };
 }
 
@@ -236,9 +249,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(UIImageSymbolConfiguration *data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration * _Nullable config) {
-            config.preferredSymbolConfigurationForImage = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration * _Nullable config) {
+            config.byPreferredSymbolConfigurationForImage(data);
+        });
     };
 }
 
@@ -246,9 +259,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(BOOL data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration * _Nullable config) {
-            config.showsActivityIndicator = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration * _Nullable config) {
+            config.byShowsActivityIndicator(data);
+        });
     };
 }
 
@@ -256,9 +269,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(UIConfigurationColorTransformer data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration * _Nullable config) {
-            config.activityIndicatorColorTransformer = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration * _Nullable config) {
+            config.byActivityIndicatorColorTransformer(data);
+        });
     };
 }
 
@@ -266,9 +279,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(NSString *data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration * _Nullable config) {
-            config.title = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration * _Nullable config) {
+            config.byTitle(data);
+        });
     };
 }
 
@@ -276,9 +289,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(NSString *data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration * _Nullable config) {
-            config.subtitle = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration * _Nullable config) {
+            config.bySubtitle(data);
+        });
     };
 }
 
@@ -286,9 +299,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(NSAttributedString *data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration * _Nullable config) {
-            config.attributedTitle = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration * _Nullable config) {
+            config.byAttributedTitle(data);
+        });
     };
 }
 
@@ -296,9 +309,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(UIConfigurationTextAttributesTransformer data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration * _Nullable config) {
-            config.titleTextAttributesTransformer = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration * _Nullable config) {
+            config.byTitleTextAttributesTransformer(data);
+        });
     };
 }
 
@@ -306,9 +319,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(NSLineBreakMode data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration * _Nullable config) {
-            config.titleLineBreakMode = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration * _Nullable config) {
+            config.byTitleLineBreakMode(data);
+        });
     };
 }
 
@@ -316,9 +329,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(NSLineBreakMode data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration * _Nullable config) {
-            config.subtitleLineBreakMode = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration * _Nullable config) {
+            config.bySubtitleLineBreakMode(data);
+        });
     };
 }
 
@@ -326,9 +339,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(NSString *data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration * _Nullable config) {
-            config.subtitle = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration * _Nullable config) {
+            config.bySubtitle(data);
+        });
     };
 }
 
@@ -336,9 +349,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(NSAttributedString *data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration * _Nullable config) {
-            config.attributedSubtitle = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration * _Nullable config) {
+            config.byAttributedSubtitle(data);
+        });
     };
 }
 
@@ -346,9 +359,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(UIConfigurationTextAttributesTransformer data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration * _Nullable config) {
-            config.subtitleTextAttributesTransformer = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration * _Nullable config) {
+            config.bySubtitleTextAttributesTransformer(data);
+        });
     };
 }
 
@@ -356,9 +369,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(NSLineBreakMode data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration * _Nullable config) {
-            config.subtitleLineBreakMode = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration * _Nullable config) {
+            config.bySubtitleLineBreakMode(data);
+        });
     };
 }
 
@@ -366,9 +379,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(UIButtonConfigurationIndicator data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration * _Nullable config) {
-            config.indicator = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration * _Nullable config) {
+            config.byIndicator(data);
+        });
     };
 }
 
@@ -376,9 +389,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(UIConfigurationColorTransformer data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration *_Nullable config) {
-            config.indicatorColorTransformer = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration *_Nullable config) {
+            config.byIndicatorColorTransformer(data);
+        });
     };
 }
 
@@ -386,9 +399,9 @@
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(NSDirectionalEdgeInsets data) {
         @jobs_strongify(self)
-        return [self JobsUpdateButtonConfiguration:^(UIButtonConfiguration *_Nullable config) {
-            config.contentInsets = data;
-        }];
+        return self.JobsUpdateButtonConfiguration(^(UIButtonConfiguration *_Nullable config) {
+            config.byContentInsets(data);
+        });
     };
 }
 
@@ -397,11 +410,11 @@
     return ^UIButtonConfiguration *(UIColor *data) {
         @jobs_strongify(self)
         /// 更新 baseForegroundColor 颜色
-        [self jobsUpdateButtonConfiguration:^(UIButtonConfiguration *_Nullable config) {
+        self.jobsUpdateButtonConfiguration(^(UIButtonConfiguration *_Nullable config) {
             @jobs_strongify(self)
-            config.baseForegroundColor = data;
-            self.configuration = config;
-        }];
+            config.byBaseForegroundColor(data);
+            self.byConfiguration(config);
+        });
         /// 获取当前的 titleTextAttributesTransformer 字体
         UIConfigurationTextAttributesTransformer currentTransformer = self.configuration.titleTextAttributesTransformer;
         UIFont *currentFont = nil;
@@ -422,10 +435,10 @@
     return ^UIButtonConfiguration *(UIColor *data) {
         @jobs_strongify(self)
         /// 更新 baseForegroundColor，或用于其他需要的配置
-        [self jobsUpdateButtonConfiguration:^(UIButtonConfiguration *_Nullable config) {
+        self.jobsUpdateButtonConfiguration(^(UIButtonConfiguration *_Nullable config) {
             @jobs_strongify(self)
-            self.configuration = config;
-        }];
+            self.byConfiguration(config);
+        });
         /// 获取当前的 subtitleTextAttributesTransformer 字体，保持字体不变，仅更新颜色
         UIConfigurationTextAttributesTransformer currentSubtitleTransformer = self.configuration.subtitleTextAttributesTransformer;
         UIFont *currentSubtitleFont = nil;

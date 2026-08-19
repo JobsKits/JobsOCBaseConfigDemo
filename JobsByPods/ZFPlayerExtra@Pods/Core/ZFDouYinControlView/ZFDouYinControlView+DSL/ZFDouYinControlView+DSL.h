@@ -10,6 +10,11 @@
 
 #import <ZFPlayerExtra/ZFDouYinControlView.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -24,7 +29,7 @@ typedef __kindof ZFDouYinControlView *_Nullable(^JobsRetZFDouYinControlViewByStr
 @interface ZFDouYinControlView (DSL)
 
 -(JobsRetZFDouYinControlViewByPlayerBlock _Nonnull)byPlayer;
--(__kindof ZFDouYinControlView *_Nonnull)byResetControlView;
+-(JobsRetZFDouYinControlViewByVoidBlock _Nonnull)byResetControlView;
 -(JobsRetZFDouYinControlViewByStringBlock _Nonnull)byShowCoverViewWithUrl;
 
 @end

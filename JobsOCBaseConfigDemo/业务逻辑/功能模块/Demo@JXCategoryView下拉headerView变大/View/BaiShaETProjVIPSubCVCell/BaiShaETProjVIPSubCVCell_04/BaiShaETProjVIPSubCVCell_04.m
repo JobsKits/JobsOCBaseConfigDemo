@@ -21,13 +21,23 @@
 }
 #pragma mark —— BaseViewProtocol
 -(UIViewModel *_Nullable)getViewModel{
-    return self.viewModel;
+    JobsRetViewModelByVoidBlock action = ((JobsRetViewModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjVIPSubCVCell_04.class, @selector(jobsGetViewModel)))(self, @selector(jobsGetViewModel));
+    return action ? action() : nil;
+}
+
+-(JobsRetViewModelByVoidBlock _Nonnull)jobsGetViewModel{
+    @jobs_weakify(self)
+    return ^UIViewModel *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.viewModel;
+    };
 }
 #pragma mark —— BaseCellProtocol
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     BaiShaETProjVIPSubCVCell_04 *cell = JobsRegisterDequeueCollectionViewCell(BaiShaETProjVIPSubCVCell_04);
-    cell.indexPath = indexPath;
+    cell.byIndexPath(indexPath);
     return cell;
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -35,7 +45,7 @@
     @jobs_weakify(self)
     return ^__kindof UICollectionViewCell *_Nullable(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model;
+        self.byViewModel(model);
         if (self.viewModel) {
         };return self;
     };

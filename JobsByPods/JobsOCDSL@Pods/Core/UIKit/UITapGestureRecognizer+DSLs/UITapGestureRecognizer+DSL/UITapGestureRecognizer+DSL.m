@@ -2,10 +2,13 @@
 //  UITapGestureRecognizer+DSL.m
 //  JobsOCDSL
 //
+//  Created by Jobs on 2026年8月3日，星期一.
+//
+
 #import "UITapGestureRecognizer+DSL.h"
 
 @implementation UITapGestureRecognizer (JobsChain)
--(JobsRetTapGestureRecognizerByNSUIntegerBlock)byNumberOfTapsRequired{
+-(JobsRetTapGestureRecognizerByNSUIntegerBlock _Nonnull)byNumberOfTapsRequired{
     @jobs_weakify(self)
     return ^__kindof UITapGestureRecognizer *_Nullable(NSUInteger data){
         @jobs_strongify(self)
@@ -14,7 +17,7 @@
     };
 }
 
--(JobsRetTapGestureRecognizerByNSUIntegerBlock)byNumberOfTouchesRequired{
+-(JobsRetTapGestureRecognizerByNSUIntegerBlock _Nonnull)byNumberOfTouchesRequired{
     @jobs_weakify(self)
     return ^__kindof UITapGestureRecognizer *_Nullable(NSUInteger data){
         @jobs_strongify(self)

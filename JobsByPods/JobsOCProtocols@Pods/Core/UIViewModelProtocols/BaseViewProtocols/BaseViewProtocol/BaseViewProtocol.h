@@ -79,6 +79,7 @@ Prop_strong(nullable)UIColor *layerCor;
 Prop_strong(nullable)NSMutableArray <MASConstraint *>*constraintMutArr;/* #import <Masonry/Masonry.h> */
 /// 视图长、宽、高的定义
 Prop_assign()CGSize thisViewSize;
+-(JobsRetIDByCGSizeBlock _Nonnull)byThisViewSize;
 /// 标记是HeaderView 还是 FooterView
 Prop_assign()JobsHeaderFooterViewStyle headerFooterViewStyle;
 Prop_copy(nullable)jobsByBtnBlock backBtnClickAction;
@@ -155,8 +156,8 @@ Prop_copy(nullable)jobsByBtnBlock closeBtnClickAction;
 -(JobsRetScrollViewByIDBlock _Nonnull)dataLink; // 用于 UIScrollView/UITableView/UICollectionView 的数据源绑定
 -(JobsRetScrollViewByIDBlock _Nonnull)byShow; // 用于显示 UICollectionView / UITableView
 -(jobsByIDBlock _Nonnull)update;
--(JobsRetNavBarByVoidBtnBlocks _Nullable)JobsNavBarBackBtnClickBlock; // 返回按钮的回调
--(JobsRetNavBarByVoidBtnBlocks _Nullable)JobsNavBarCloseBtnClickBlock; // 关闭按钮的回调
+-(JobsRetNavBarByVoidBtnBlocks _Nonnull)JobsNavBarBackBtnClickBlock; // 返回按钮的回调
+-(JobsRetNavBarByVoidBtnBlocks _Nonnull)JobsNavBarCloseBtnClickBlock; // 关闭按钮的回调
 #pragma mark —— 关于 UITableViewHeaderFooterView
 +(JobsRetTableViewHeaderFooterViewByTableViewAndSaltBlock _Nonnull)initByReuseIdentifier;
 -(JobsRetTableViewHeaderFooterViewByNSIntegerBlock _Nonnull)bySection;
@@ -166,7 +167,8 @@ Prop_copy(nullable)jobsByBtnBlock closeBtnClickAction;
 /// 清除数据
 -(JobsRetViewByVoidBlock _Nonnull)cleanTextFieldValue;
 /// 返回真实的 TextField
--(__kindof UITextField *)realTextField;
+-(UITextField *)realTextField;
+-(JobsRetUITextFieldByVoidBlock _Nonnull)jobsRealTextField;
 /**
  在这个方法里：
  传入：UITableViewHeaderFooterView *
@@ -176,11 +178,11 @@ Prop_copy(nullable)jobsByBtnBlock closeBtnClickAction;
  */
 -(JobsRetViewByTableViewHeaderFooterViewBlock _Nonnull)makeViewOnTableViewHeaderFooterView;
 #pragma mark —— 在View内部进行实现处理，对外暴露的值。（不直接暴露UI控件）
--(id _Nullable)value;
--(id _Nullable)value1;
--(id _Nullable)value2;
--(id _Nullable)value3;
--(id _Nullable)value4;
+-(JobsRetIDByVoidBlock _Nonnull)value;
+-(JobsRetIDByVoidBlock _Nonnull)value1;
+-(JobsRetIDByVoidBlock _Nonnull)value2;
+-(JobsRetIDByVoidBlock _Nonnull)value3;
+-(JobsRetIDByVoidBlock _Nonnull)value4;
 
 @end
 

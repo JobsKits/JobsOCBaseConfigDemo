@@ -5,29 +5,93 @@
 //  Created by Jobs on 2026年6月27日，星期六.
 //
 
-#import <XCTest/XCTest.h>
+#import "JobsOCBaseConfigDemoUITestsLaunchTests.h"
 
-@interface JobsOCBaseConfigDemoUITestsLaunchTests : XCTestCase
-
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN XCTAttachment
+@interface XCTAttachment (JobsLocalPropertyDSLAutogen_7f4cd2a0e2)
+-(JobsRetXCTAttachmentByNSStringBlock _Nonnull)byName;
+-(JobsRetXCTAttachmentByXCTAttachmentLifetimeBlock _Nonnull)byLifetime;
+-(void)setLifetime:(XCTAttachmentLifetime)data;
+-(void)setName:(NSString * _Nullable)data;
 @end
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END XCTAttachment
 
 @implementation JobsOCBaseConfigDemoUITestsLaunchTests
 +(BOOL)runsForEachTargetApplicationUIConfiguration {
-    return YES;
+    JobsRetBOOLByVoidBlock action = ((JobsRetBOOLByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsOCBaseConfigDemoUITestsLaunchTests.class, @selector(jobsRunsForEachTargetApplicationUIConfiguration)))(self, @selector(jobsRunsForEachTargetApplicationUIConfiguration));
+    return action ? action() : NO;
+}
+
++(JobsRetBOOLByVoidBlock _Nonnull)jobsRunsForEachTargetApplicationUIConfiguration{
+    return ^BOOL{
+        return YES;
+    };
 }
 
 -(void)setUp {
-    [super setUp];
-    self.continueAfterFailure = NO;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigDemoUITestsLaunchTests.class, @selector(jobsSetUp)))(self, @selector(jobsSetUp));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsSetUp{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super setUp];
+        self.byContinueAfterFailure(NO);
+    };
 }
 
 -(void)testLaunch {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
-    [app launch];
-    XCTAttachment *attachment = [XCTAttachment attachmentWithScreenshot:XCUIScreen.mainScreen.screenshot];
-    attachment.name = @"Launch Screen";
-    attachment.lifetime = XCTAttachmentLifetimeKeepAlways;
-    [self addAttachment:attachment];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigDemoUITestsLaunchTests.class, @selector(jobsTestLaunch)))(self, @selector(jobsTestLaunch));
+    if (action) action();
 }
 
+-(jobsByVoidBlock _Nonnull)jobsTestLaunch{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        XCUIApplication *app = [[XCUIApplication alloc] init];
+        [app launch];
+        XCTAttachment *attachment = [XCTAttachment attachmentWithScreenshot:XCUIScreen.mainScreen.screenshot];
+        attachment.byName(@"Launch Screen");
+        attachment.byLifetime(XCTAttachmentLifetimeKeepAlways);
+        [self addAttachment:attachment];
+    };
+}
+
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsOCBaseConfigDemoUITestsLaunchTests
+-(JobsRetJobsOCBaseConfigDemoUITestsLaunchTestsByBOOLBlock _Nonnull)byContinueAfterFailure{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCBaseConfigDemoUITestsLaunchTests * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setContinueAfterFailure:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCBaseConfigDemoUITestsLaunchTests
 @end
+
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN XCTAttachment
+@implementation XCTAttachment (JobsLocalPropertyDSLAutogen_7f4cd2a0e2)
+-(JobsRetXCTAttachmentByNSStringBlock _Nonnull)byName{
+    @jobs_weakify(self)
+    return ^__kindof XCTAttachment * _Nullable(NSString * _Nullable data){
+        @jobs_strongify(self)
+        [self setName:data];
+        return self;
+    };
+}
+
+-(JobsRetXCTAttachmentByXCTAttachmentLifetimeBlock _Nonnull)byLifetime{
+    @jobs_weakify(self)
+    return ^__kindof XCTAttachment * _Nullable(XCTAttachmentLifetime data){
+        @jobs_strongify(self)
+        [self setLifetime:data];
+        return self;
+    };
+}
+@end
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END XCTAttachment

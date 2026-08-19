@@ -62,7 +62,7 @@ UIKit categories, model helpers, and related resource files.
   spec.dependency 'MJRefresh'
   spec.dependency 'lottie-ios', '~> 2.5.3'
   spec.dependency 'XYColorOC'
-  spec.dependency 'SZTextView'
+  spec.dependency 'SZTextViewExtra'
   spec.dependency 'XZMRefresh'
   spec.dependency 'MJExtension'
   spec.dependency 'TABAnimated'

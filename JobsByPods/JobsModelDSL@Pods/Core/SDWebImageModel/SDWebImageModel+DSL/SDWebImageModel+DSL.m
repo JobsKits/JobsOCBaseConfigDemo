@@ -26,4 +26,31 @@
     };
 }
 
+-(JobsRetSDWebImageModelByUIntegerBlock _Nonnull)byOptions{
+    @jobs_weakify(self)
+    return ^__kindof SDWebImageModel *_Nullable(NSUInteger data){
+        @jobs_strongify(self)
+        self.options = data;
+        return self;
+    };
+}
+
+-(JobsRetSDWebImageModelByCompletionBlock _Nonnull)byCompletion{
+    @jobs_weakify(self)
+    return ^__kindof SDWebImageModel *_Nullable(SDExternalCompletionBlock _Nullable data){
+        @jobs_strongify(self)
+        self.completion = data;
+        return self;
+    };
+}
+
+-(JobsRetSDWebImageModelByProgressBlock _Nonnull)byProgress{
+    @jobs_weakify(self)
+    return ^__kindof SDWebImageModel *_Nullable(SDImageLoaderProgressBlock _Nullable data){
+        @jobs_strongify(self)
+        self.progress = data;
+        return self;
+    };
+}
+
 @end

@@ -9,30 +9,40 @@
 
 @implementation UIViewController (TFPopupView)
 /// 弹出筛选视图
--(__kindof UIView *)popUpFiltrationView{
-    self.popupParameter.disuseBackgroundTouchHide = NO;
-    if ([self isKindOfClass:UIViewController.class]) {
-        [self.filtrationView tf_showFold:self.view
-                             targetFrame:jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
-            data.byJobsWidth(JobsFiltrationView.viewSizeByModel(nil).width)
-                .byJobsHeight(JobsFiltrationView.viewSizeByModel(nil).height);
-        })
-                               direction:PopupDirectionTop
-                              popupParam:self.popupParameter];
-    };return self.filtrationView;
+-(JobsRetViewByVoidBlock _Nonnull)popUpFiltrationView{
+    @jobs_weakify(self)
+    return ^__kindof UIView *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.popupParameter.byDisuseBackgroundTouchHide(NO);
+        if ([self isKindOfClass:UIViewController.class]) {
+            [self.filtrationView tf_showFold:self.view
+                                 targetFrame:jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
+                data.byJobsWidth(JobsFiltrationView.viewSizeByModel(nil).width)
+                    .byJobsHeight(JobsFiltrationView.viewSizeByModel(nil).height);
+            })
+                                   direction:PopupDirectionTop
+                                  popupParam:self.popupParameter];
+        };return self.filtrationView;
+    };
 }
 /// 弹出自定义视图
--(__kindof UIView *)popUpCustomView{
-    self.popupParameter.disuseBackgroundTouchHide = NO;
-    if ([self isKindOfClass:UIViewController.class]) {
-        [self.customView tf_showFold:self.view
-                         targetFrame:jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
-            data.byJobsWidth(JobsCustomView.viewSizeByModel(nil).width)
-                .byJobsHeight(JobsCustomView.viewSizeByModel(nil).height);
-        })
-                           direction:PopupDirectionTop
-                          popupParam:self.popupParameter];
-    };return self.customView;
+-(JobsRetViewByVoidBlock _Nonnull)popUpCustomView{
+    @jobs_weakify(self)
+    return ^__kindof UIView *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.popupParameter.byDisuseBackgroundTouchHide(NO);
+        if ([self isKindOfClass:UIViewController.class]) {
+            [self.customView tf_showFold:self.view
+                             targetFrame:jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable data) {
+                data.byJobsWidth(JobsCustomView.viewSizeByModel(nil).width)
+                    .byJobsHeight(JobsCustomView.viewSizeByModel(nil).height);
+            })
+                               direction:PopupDirectionTop
+                              popupParam:self.popupParameter];
+        };return self.customView;
+    };
 }
 /// 关闭弹出的视图
 -(jobsByViewBlock _Nonnull)hidePopupView{

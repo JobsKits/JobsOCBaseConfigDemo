@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// OC字符串拼接
 -(JobsRetStrByStrBlock _Nonnull)add;
 -(NSString *)pathForResourceWithFullName;
+-(JobsRetStrByVoidBlock _Nonnull)jobsPathForResourceWithFullName;
 
 @end
 

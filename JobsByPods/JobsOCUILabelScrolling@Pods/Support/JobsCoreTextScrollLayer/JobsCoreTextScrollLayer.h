@@ -6,8 +6,20 @@
 //
 
 #import <CoreText/CoreText.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <QuartzCore/QuartzCore.h>
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsOCDSL/CALayer+DSL.h>)
+#import <JobsOCDSL/CALayer+DSL.h>
+#else
+#import "CALayer+DSL.h"
+#endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
@@ -28,6 +40,14 @@ Prop_assign(readonly)CGFloat textLayoutWidth;
                          height:(CGFloat)height
                duplicateSpacing:(nullable NSNumber *)duplicateSpacing;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsCoreTextScrollLayer
+-(JobsRetJobsCoreTextScrollLayerByCGFloatBlock _Nonnull)byBaselineY;
+-(JobsRetJobsCoreTextScrollLayerByCGFloatBlock _Nonnull)byLineOriginX;
+-(JobsRetJobsCoreTextScrollLayerByCGFloatBlock _Nonnull)byTextLayoutWidth;
+-(JobsRetJobsCoreTextScrollLayerByCGFloatBlock _Nonnull)byTextWidth;
+-(JobsRetJobsCoreTextScrollLayerByCTLineRefBlock _Nonnull)byTextLine;
+-(JobsRetJobsCoreTextScrollLayerByNSNumberBlock _Nonnull)byDuplicateOriginX;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsCoreTextScrollLayer
 @end
 
 NS_ASSUME_NONNULL_END

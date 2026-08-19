@@ -25,19 +25,25 @@
 #import "JobsBlock.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (CAAnimation)
 /// 创建CABasicAnimation
--(CABasicAnimation *)basicAnimation;
+-(JobsRetCABasicAnimationByVoidBlock _Nonnull)basicAnimation;
 /// 创建CAKeyframeAnimation（关键帧动画）
--(CAKeyframeAnimation *)keyframeAnimation;
+-(JobsRetCAKeyframeAnimationByVoidBlock _Nonnull)keyframeAnimation;
 
--(CAMediaTimingFunction *)makeCAMediaTimingFunction;
+-(JobsRetCAMediaTimingFunctionByVoidBlock _Nonnull)makeCAMediaTimingFunction;
 
--(CAKeyframeAnimation *)makeCAKeyframeAnimationByBlock:(jobsByCAKeyframeAnimationBlock _Nonnull)block;
+-(JobsRetCAKeyframeAnimationByjobsByCAKeyframeAnimationBlockBlock _Nonnull)makeCAKeyframeAnimationByBlock;
 
--(CABasicAnimation *)makeCABasicAnimationByBlock:(jobsByCABasicAnimationBlock _Nonnull)block;
+-(JobsRetCABasicAnimationByjobsByCABasicAnimationBlockBlock _Nonnull)makeCABasicAnimationByBlock;
 
 @end
 

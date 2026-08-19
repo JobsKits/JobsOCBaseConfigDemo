@@ -19,12 +19,6 @@
 #import "JobsByOCPods.h"
 #endif
 
-#if __has_include(<JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>)
-#import <JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>
-#else
-#import "JobsOCCountryCodeCtrlHeader.h"
-#endif
-
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
@@ -35,6 +29,12 @@
 #import <JobsMakes/JobsMakes.h>
 #else
 #import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>)
+#import <JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>
+#else
+#import "JobsOCCountryCodeCtrlHeader.h"
 #endif
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)

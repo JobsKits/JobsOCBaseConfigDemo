@@ -4,11 +4,19 @@
 //
 //  Migrated from JobsByOCPods on 2026年6月10日，星期三.
 //
+//  Created by Jobs on 2026年8月3日，星期一.
+//
 
 #ifndef JOBS_HEADER_GUARD_NSOBJECT_EXTRA_9D07F63D88
 #define JOBS_HEADER_GUARD_NSOBJECT_EXTRA_9D07F63D88
 
 #import <objc/runtime.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <UIKit/UIKit.h>
 
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
@@ -29,6 +37,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 /// 手势迁移所需的弱目标对象。未显式设置时，默认返回 self。
 Prop_weak(nullable)id weak_target;
+-(JobsRetIDByIDBlock _Nonnull)byWeak_target;
+-(JobsRetIDByIDBlock _Nonnull)byInternationalizationKEY;
 
 @end
 

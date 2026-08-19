@@ -6,7 +6,19 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "NotifiView.h"
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 typedef void(^FetchNotifiViewBlock)(NotifiView *_Nullable view);
 
@@ -16,13 +28,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(nonatomic,readonly,copy)NSArray *notifiViews;
 
-+(instancetype)shared;
++(JobsRetIDByVoidBlock _Nonnull)shared;
 
--(void)setNotifiViews:(NSArray * _Nonnull)notifiViews;
+-(void)setNotifiViews:(NSArray *)notifiViews;
+-(jobsByNSArrayBlock _Nonnull)jobsSetNotifiViews;
 //取得一个目前可用的NotifiView, 如果没有可能为空
--(void)fetchAvailableView:(FetchNotifiViewBlock)block;
+-(jobsByFetchNotifiViewBlockBlock _Nonnull)fetchAvailableView;
 //如果key指向的view为空，则返回nil
--(NotifiView*)fetchViewWithKey:(NSString*)key;
+-(JobsRetNotifiViewByNSStringBlock _Nonnull)fetchViewWithKey;
 
 @end
 

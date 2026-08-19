@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_NSOBJECT_DEVICEID_4354B1AD1B
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <Security/Security.h>
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
@@ -26,8 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
      这样以后即使APP删了再装回来，也可以从KeyChain中读取回来。使用group还可以可以保证同一个开发商的所有程序针对同一台设备能够获取到相同的不变的UDID。
      但是刷机或重装系统后uuid还是会改变。
  */
--(void)deleteDeviceID;
--(NSString *)deviceID;
+-(jobsByVoidBlock _Nonnull)deleteDeviceID;
+-(JobsRetStrByVoidBlock _Nonnull)deviceID;
 
 @end
 

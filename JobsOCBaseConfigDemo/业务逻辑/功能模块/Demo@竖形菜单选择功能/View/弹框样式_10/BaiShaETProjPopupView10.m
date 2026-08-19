@@ -21,20 +21,41 @@ Prop_assign()NSInteger selectedIndex;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN BaiShaETProjPopupView10
+@interface BaiShaETProjPopupView10 (JobsPropertyDSLSetterAutogen_8a2439c1b7)
+-(void)setDataMutArr:(NSMutableArray <UIViewModel *>* _Nullable)data;
+-(void)setSelectedIndex:(NSInteger)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END BaiShaETProjPopupView10
+
 @implementation BaiShaETProjPopupView10
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_popupView10OnceToken = 0;
-    static_popupView10 = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(BaiShaETProjPopupView10.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_popupView10OnceToken = 0;
+        static_popupView10 = nil;
+    };
 }
 
 static BaiShaETProjPopupView10 *static_popupView10 = nil;
 static dispatch_once_t static_popupView10OnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_popupView10OnceToken, ^{
-        static_popupView10 = BaiShaETProjPopupView10.new;
-    });return static_popupView10;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(BaiShaETProjPopupView10.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_popupView10OnceToken, ^{
+            static_popupView10 = BaiShaETProjPopupView10.new;
+        });return static_popupView10;
+    };
 }
 
 -(instancetype)init{
@@ -44,7 +65,17 @@ static dispatch_once_t static_popupView10OnceToken;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjPopupView10.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 #pragma mark —— BaseViewProtocol
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -52,8 +83,8 @@ static dispatch_once_t static_popupView10OnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.dataMutArr = model.data;
-        self.selectedIndex = model.index;
+        self.byDataMutArr(model.data);
+        self.bySelectedIndex(model.index);
         MakeDataNull
         self.titleLab.byAlpha(1);
         self.closeBtn.byAlpha(1);
@@ -70,7 +101,7 @@ static dispatch_once_t static_popupView10OnceToken;
     };
 }
 #pragma mark —— 一些公有方法
--(jobsByBOOLBlock)shakeCell{
+-(jobsByBOOLBlock _Nonnull)shakeCell{
     @jobs_weakify(self)
     return ^(BOOL start) {
         @jobs_strongify(self)
@@ -81,7 +112,17 @@ static dispatch_once_t static_popupView10OnceToken;
 }
 #pragma mark —— UICollectionViewDataSource
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return 1;
+    JobsRetNSIntegerByUICollectionViewBlock action = ((JobsRetNSIntegerByUICollectionViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjPopupView10.class, @selector(jobsNumberOfSectionsInCollectionView)))(self, @selector(jobsNumberOfSectionsInCollectionView));
+    return action ? action(collectionView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUICollectionViewBlock _Nonnull)jobsNumberOfSectionsInCollectionView{
+    @jobs_weakify(self)
+    return ^NSInteger(UICollectionView * collectionView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 1;
+    };
 }
 
 - (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView
@@ -97,7 +138,7 @@ static dispatch_once_t static_popupView10OnceToken;
         cell.button.jobsResetBtnTitleCor(JobsSecondaryLabelColor);
     }
     cell.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel *_Nullable data) {
-        data.byLayerCor(@"#6E5600".cor)
+        data.byLayerCor(@"#6E5600".jobsCor())
             .byJobsWidth(JobsWidth(1))
             .byCornerRadiusValue(JobsBtnStyleCVCell.cellSizeByModel(nil).height / 2);
     }));return cell;
@@ -115,11 +156,16 @@ numberOfItemsInSection:(NSInteger)section {
         JobsHeaderFooterView *headerView = [collectionView UICollectionElementKindSectionHeaderClass:JobsHeaderFooterView.class
                                                                                         forIndexPath:indexPath];
         headerView.jobsRichViewByModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.byText(@"拖動按鈕迸行位置調整".tr);
-            viewModel.subTextModel.byText(@"".tr);
+            viewModel
+                .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                    textModel.byText(@"拖動按鈕迸行位置調整".jobsTr());
+                })
+                .bySubTextModelBlock(^(__kindof UITextModel * _Nullable subTextModel) {
+                    subTextModel.byText(@"".jobsTr());
+                });
         }));
         headerView.byBgColor(HEXCOLOR(0xFFFCF7));
-        headerView.getTitleBtn.byRemake(^(MASConstraintMaker *make) {
+        headerView.getTitleBtn().byRemake(^(MASConstraintMaker *make) {
             make.center.equalTo(headerView);
             make.top.equalTo(self.titleLab.mas_bottom);
             make.height.mas_equalTo(JobsWidth(20));
@@ -206,16 +252,42 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
 #pragma mark —— iOS9的新特性实现UICollectionViewCell拖拽
 /// 开始移动的时候调用此方法，可以获取相应的datasource方法设置特殊的indexpath 能否移动,如果能移动返回的是YES ,不能移动返回的是NO
 -(BOOL)beginInteractiveMovementForItemAtIndexPath:(NSIndexPath *)indexPath{
-    return YES;
+    return ((((JobsRetBOOLByNSIndexPathBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjPopupView10.class, @selector(beginInteractiveMovementForItemAtIndexPath)))(self, @selector(beginInteractiveMovementForItemAtIndexPath))))(indexPath);
+}
+-(JobsRetBOOLByNSIndexPathBlock _Nonnull)beginInteractiveMovementForItemAtIndexPath{
+    @jobs_weakify(self)
+    return ^BOOL(NSIndexPath * indexPath){
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return YES;
+    };
 }
 /// 更新移动过程的位置
 -(void)updateInteractiveMovementTargetPosition:(CGPoint)targetPosition{
+    ((((jobsByPointBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjPopupView10.class, @selector(updateInteractiveMovementTargetPosition)))(self, @selector(updateInteractiveMovementTargetPosition))))(targetPosition);
+}
+-(jobsByPointBlock _Nonnull)updateInteractiveMovementTargetPosition{
+    @jobs_weakify(self)
+    return ^(CGPoint targetPosition){
+        @jobs_strongify(self)
+        if (!self) return;
+    };
 }
 /// 结束移动的时候调用此方法，collectionView 会响应相应的datasource方法，collectionView:moveItemAtIndexPath:toIndexPath: 我们可以在这个方法中将移动的数据源，与目标数据源交互位置。
--(void)endInteractiveMovement{
+-(jobsByVoidBlock _Nonnull)endInteractiveMovement{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+    };
 }
 /// 取消移动的时候调用，会返回最原始的位置
--(void)cancelInteractiveMovement{
+-(jobsByVoidBlock _Nonnull)cancelInteractiveMovement{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+    };
 }
 /// 在开始移动的时候会调用这个方法，如果有特殊的单元格不想被移动可以return NO， 如果没有限制就返回YES
 -(BOOL)collectionView:(__kindof UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -247,7 +319,7 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (!_collectionView) {
         @jobs_weakify(self)
         /// 创建 UICollectionView
-        _collectionView = UICollectionView.initByLayout(self.verticalLayout)
+        _collectionView = UICollectionView.initByLayout(self.jobsVerticalLayout())
             .registerCollectionViewClass()
             .dataLink(self)
             .byShowsVerticalScrollIndicator(NO)
@@ -317,7 +389,7 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
         _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(@"全部分類".tr)
+                .byText(@"全部分類".jobsTr())
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byTextCor(JobsBlueColor)
                 .byUserInteractionEnabled(YES)
@@ -361,7 +433,7 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (!_cancelBtn) {
         @jobs_weakify(self)
         _cancelBtn = BaseButton
-            .initByStyle3(@"恢复默认".tr,
+            .initByStyle3(@"恢复默认".jobsTr(),
                           UIFontWeightRegularSize(18)
                           ,HEXCOLOR(0xB0B0B0)
                           ,@"弹窗取消按钮".img)
@@ -387,7 +459,7 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (!_sureBtn) {
         @jobs_weakify(self)
         _sureBtn = BaseButton
-            .initByStyle3(@"完成".tr
+            .initByStyle3(@"完成".jobsTr()
                           ,UIFontWeightRegularSize(18)
                           ,JobsBlackColor
                           ,@"弹窗提交按钮".img)
@@ -442,4 +514,23 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     };return _cor;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN BaiShaETProjPopupView10
+-(JobsRetBaiShaETProjPopupView10ByNSIntegerBlock _Nonnull)bySelectedIndex{
+    @jobs_weakify(self)
+    return ^__kindof BaiShaETProjPopupView10 * _Nullable(NSInteger data){
+        @jobs_strongify(self)
+        [self setSelectedIndex:data];
+        return self;
+    };
+}
+
+-(JobsRetBaiShaETProjPopupView10ByNSMutableArrayUIViewModelBlock _Nonnull)byDataMutArr{
+    @jobs_weakify(self)
+    return ^__kindof BaiShaETProjPopupView10 * _Nullable(NSMutableArray <UIViewModel *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setDataMutArr:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END BaiShaETProjPopupView10
 @end

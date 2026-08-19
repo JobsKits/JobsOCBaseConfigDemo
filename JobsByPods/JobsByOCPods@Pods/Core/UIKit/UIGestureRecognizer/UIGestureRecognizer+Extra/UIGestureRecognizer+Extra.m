@@ -8,16 +8,30 @@
 #import "UIGestureRecognizer+Extra.h"
 
 @implementation UIGestureRecognizer (JobsByOCPodsExtra)
--(__kindof UIGestureRecognizer *)gestureActionBy:(jobsByVoidBlock _Nonnull)block{
-    [self.rac_gestureSignal subscribeNext:^(__kindof UIGestureRecognizer * _Nullable gesture) {
-        if(block) block();
-    }];return self;
+-(JobsRetUIGestureRecognizerByjobsByVoidBlockBlock _Nonnull)gestureActionBy{
+    @jobs_weakify(self)
+    return ^__kindof UIGestureRecognizer *(jobsByVoidBlock _Nonnull block){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self.rac_gestureSignal subscribeNext:^(__kindof UIGestureRecognizer * _Nullable gesture) {
+            if(block) block();
+        }];return self;
+    };
 }
 
--(__kindof UIGestureRecognizer *)GestureActionBy:(jobsByGestureRecognizerBlock _Nonnull)block{
-    [self.rac_gestureSignal subscribeNext:^(__kindof UIGestureRecognizer * _Nullable gesture) {
-        if(block) block(gesture);
-    }];return self;
+-(JobsRetUIGestureRecognizerByjobsByGestureRecognizerBlockBlock _Nonnull)GestureActionBy{
+    @jobs_weakify(self)
+    return ^__kindof UIGestureRecognizer *(jobsByGestureRecognizerBlock _Nonnull block){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self.rac_gestureSignal subscribeNext:^(__kindof UIGestureRecognizer * _Nullable gesture) {
+            if(block) block(gesture);
+        }];return self;
+    };
+}
+
+-(__kindof UIGestureRecognizer *_Nonnull)GestureActionBy:(jobsByGestureRecognizerBlock _Nullable)block{
+    return (((JobsRetUIGestureRecognizerByjobsByGestureRecognizerBlockBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIGestureRecognizer.class, @selector(GestureActionBy)))(self, @selector(GestureActionBy)))(block);
 }
 
 -(jobsBySELBlock _Nonnull)removeAction{

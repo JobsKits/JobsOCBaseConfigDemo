@@ -33,16 +33,16 @@
 #import "JobsByOCPods.h"
 #endif
 
-#if __has_include(<JobsMakes/JobsMakes.h>)
-#import <JobsMakes/JobsMakes.h>
-#else
-#import "JobsMakes.h"
-#endif
-
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
 #import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
 #endif
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
@@ -67,6 +67,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsRedPacketRainDemoVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsRedPacketRainDemoVC
+-(JobsRetJobsRedPacketRainDemoVCByBOOLBlock _Nonnull)byRaining;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsRedPacketRainDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

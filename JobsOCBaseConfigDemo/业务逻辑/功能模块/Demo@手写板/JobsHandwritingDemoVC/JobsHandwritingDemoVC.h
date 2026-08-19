@@ -6,6 +6,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 #import "JobsHandwritingCanvasView.h"
 
 #if __has_include(<Masonry/Masonry.h>)
@@ -38,6 +39,12 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -48,6 +55,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsHandwritingDemoVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsHandwritingDemoVC
+-(JobsRetJobsHandwritingDemoVCByBOOLBlock _Nonnull)byHasUnsavedChanges;
+-(JobsRetJobsHandwritingDemoVCByBOOLBlock _Nonnull)byLeaveAlertShowing;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsHandwritingDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

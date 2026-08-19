@@ -78,6 +78,7 @@ Prop_assign()CGRect textRectForBounds;
 Prop_assign()CGRect editingRectForBounds;     // 重置编辑区域【编辑状态下的起始位置】、UIFieldEditor的位置大小【键盘弹起+落下会调用此方法】❤️❤️这个值，一般 == textRectForBounds。当超过输入距离的时候，新输入的字符会将之前的字符往左边顶
 
 -(void)otherActionBlock:(JobsRetIDByIDBlock _Nullable)otherActionBlock;
+-(jobsByRetIDByIDBlocks _Nullable)otherActionBlock;
 
 @end
 

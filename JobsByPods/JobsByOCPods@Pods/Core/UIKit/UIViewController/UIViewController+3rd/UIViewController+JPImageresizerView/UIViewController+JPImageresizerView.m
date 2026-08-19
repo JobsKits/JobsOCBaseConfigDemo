@@ -7,13 +7,30 @@
 
 #import "UIViewController+JPImageresizerView.h"
 
+@implementation JPImageresizerAppearance (JobsDSL)
+#define JobsJPImageresizerAppearanceDSL(_name_, _blockType_, _dataType_, _property_) \
+-(_blockType_ _Nonnull)by##_name_{ \
+    @jobs_weakify(self) \
+    return ^__kindof JPImageresizerAppearance *_Nullable(_dataType_ data){ \
+        @jobs_strongify(self) \
+        self._property_ = data; \
+        return self; \
+    }; \
+}
+JobsJPImageresizerAppearanceDSL(StrokeColor, JobsRetJPImageresizerAppearanceByCorBlock, UIColor *_Nullable, strokeColor)
+JobsJPImageresizerAppearanceDSL(BgEffect, JobsRetJPImageresizerAppearanceByBlurEffectBlock, UIBlurEffect *_Nullable, bgEffect)
+JobsJPImageresizerAppearanceDSL(BgColor, JobsRetJPImageresizerAppearanceByCorBlock, UIColor *_Nullable, bgColor)
+JobsJPImageresizerAppearanceDSL(MaskAlpha, JobsRetJPImageresizerAppearanceByCGFloatBlock, CGFloat, maskAlpha)
+#undef JobsJPImageresizerAppearanceDSL
+@end
+
 static void JobsApplyJPImageresizerBlurAppearance(JPImageresizerConfigure *configure,
                                                   UIBlurEffectStyle blurEffectStyle) {
     configure.jp_mainAppearance(^(JPImageresizerAppearance *appearance) {
-        appearance.strokeColor = UIColor.whiteColor;
-        appearance.bgEffect = [UIBlurEffect effectWithStyle:blurEffectStyle];
-        appearance.bgColor = UIColor.blackColor;
-        appearance.maskAlpha = 0.75;
+        appearance.byStrokeColor(UIColor.whiteColor)
+            .byBgEffect([UIBlurEffect effectWithStyle:blurEffectStyle])
+            .byBgColor(UIColor.blackColor)
+            .byMaskAlpha(0.75);
     });
 }
 

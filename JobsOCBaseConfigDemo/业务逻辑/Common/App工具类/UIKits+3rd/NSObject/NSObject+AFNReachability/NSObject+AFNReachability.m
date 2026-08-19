@@ -9,22 +9,24 @@
 
 @implementation NSObject (AFNReachability)
 /// 监听网络状态的改变
-+(void)AFNReachability:(jobsByNSIntegerBlock)statusBlock{
-    /*
-     AFNetworkReachabilityStatusUnknown          = 未知
-     AFNetworkReachabilityStatusNotReachable     = 没有网络
-     AFNetworkReachabilityStatusReachableViaWWAN = 3G
-     AFNetworkReachabilityStatusReachableViaWiFi = WIFI
-     */
-    AFNetworkReachabilityManager *networkReachabilityManager = AFNetworkReachabilityManager.sharedManager;
-    /// 如果没有请求完成就检测网络
-    @jobs_weakify(networkReachabilityManager)
-    [networkReachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
-        if (statusBlock) statusBlock(status);
-        JobsPostNotification(网络状态监控, @(status));
-        @jobs_strongify(networkReachabilityManager)
-        [networkReachabilityManager startMonitoring];
-    }];
++(jobsByjobsByNSIntegerBlockBlock _Nonnull)AFNReachability{
+    return ^(jobsByNSIntegerBlock statusBlock){
+        /*
+         AFNetworkReachabilityStatusUnknown          = 未知
+         AFNetworkReachabilityStatusNotReachable     = 没有网络
+         AFNetworkReachabilityStatusReachableViaWWAN = 3G
+         AFNetworkReachabilityStatusReachableViaWiFi = WIFI
+         */
+        AFNetworkReachabilityManager *networkReachabilityManager = AFNetworkReachabilityManager.sharedManager;
+        /// 如果没有请求完成就检测网络
+        @jobs_weakify(networkReachabilityManager)
+        [networkReachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            if (statusBlock) statusBlock(status);
+            JobsPostNotification(网络状态监控, @(status));
+            @jobs_strongify(networkReachabilityManager)
+            [networkReachabilityManager startMonitoring];
+        }];
+    };
 }
 
 @end

@@ -10,16 +10,28 @@
 @interface _JobsOCOpenObjectMailProxy : NSObject <MFMailComposeViewControllerDelegate>
 
 Prop_copy(nullable) jobsByVoidBlock completionHandlerBlock;
+-(JobsRetIDByjobsByVoidBlockBlock _Nonnull)byCompletionHandlerBlock;
 
 @end
 
 @implementation _JobsOCOpenObjectMailProxy
-+(instancetype)shared{
-    static _JobsOCOpenObjectMailProxy *proxy = nil;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        proxy = self.class.new;
-    });return proxy;
+-(JobsRetIDByjobsByVoidBlockBlock _Nonnull)byCompletionHandlerBlock{
+    @jobs_weakify(self)
+    return ^id(jobsByVoidBlock _Nullable completionHandlerBlock){
+        @jobs_strongify(self)
+        [self setCompletionHandlerBlock:completionHandlerBlock];
+        return self;
+    };
+}
+
++(JobsRetIDByVoidBlock _Nonnull)shared{
+    return ^id{
+        static _JobsOCOpenObjectMailProxy *proxy = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            proxy = self.class.new;
+        });return proxy;
+    };
 }
 
 -(void)mailComposeController:(MFMailComposeViewController *)controller
@@ -27,7 +39,7 @@ Prop_copy(nullable) jobsByVoidBlock completionHandlerBlock;
                        error:(NSError *)error{
     jobsByVoidBlock completion = self.completionHandlerBlock;
     [controller dismissViewControllerAnimated:YES completion:completion];
-    self.completionHandlerBlock = nil;
+    self.byCompletionHandlerBlock(nil);
 }
 
 @end
@@ -40,9 +52,9 @@ Prop_copy(nullable) jobsByVoidBlock completionHandlerBlock;
         return;
     }
     MFMailComposeViewController *vc = mailComposeVC ?: MFMailComposeViewController.new;
-    _JobsOCOpenObjectMailProxy.shared.completionHandlerBlock = completionHandlerBlock;
-    vc.mailComposeDelegate = _JobsOCOpenObjectMailProxy.shared;
-    UIViewController *host = [self jobs_ocTopViewController];
+    ((_JobsOCOpenObjectMailProxy *)_JobsOCOpenObjectMailProxy.shared()).byCompletionHandlerBlock(completionHandlerBlock);
+    vc.byMailComposeDelegate(((_JobsOCOpenObjectMailProxy *)_JobsOCOpenObjectMailProxy.shared()));
+    UIViewController *host = self.jobs_ocTopViewController();
     if (!host) {
         if (completionHandlerBlock) completionHandlerBlock();
         return;
@@ -55,7 +67,7 @@ Prop_copy(nullable) jobsByVoidBlock completionHandlerBlock;
         successCompletionHandlerBlock:(jobsByIDBlock _Nullable)successCompletionHandlerBlock
            failCompletionHandlerBlock:(jobsByIDBlock _Nullable)failCompletionHandlerBlock{
     NSString *scheme = dialFinishBackToApp ? @"telprompt://" : @"tel://";
-    NSString *phone = [self jobs_ocSanitizedPhoneNumber:telephoneNumber];
+    NSString *phone = self.jobs_ocSanitizedPhoneNumber(telephoneNumber);
     if (!phone.length) {
         if (failCompletionHandlerBlock) failCompletionHandlerBlock(@(JobsOCOpenResultInvalidInput));
         return;
@@ -70,8 +82,13 @@ Prop_copy(nullable) jobsByVoidBlock completionHandlerBlock;
     }];
 }
 
--(void)jobs_ocPushToSysConfig{
-    self.jobs_ocOpenURL(UIApplicationOpenSettingsURLString);
+-(jobsByVoidBlock _Nonnull)jobs_ocPushToSysConfig{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.jobs_ocOpenURL(UIApplicationOpenSettingsURLString);
+    };
 }
 
 -(jobsByIDBlock _Nonnull)jobs_ocOpenURL{
@@ -122,7 +139,7 @@ successCompletionHandlerBlock:^{
               options:(NSDictionary<UIApplicationOpenExternalURLOptionsKey,id> *_Nullable)options
 successCompletionHandlerBlock:(jobsByVoidBlock _Nullable)successCompletionHandlerBlock
 failCompletionHandlerBlock:(jobsByVoidBlock _Nullable)failCompletionHandlerBlock{
-    NSURL *openURL = [self jobs_ocURLWithValue:URL];
+    NSURL *openURL = self.jobs_ocURLWithValue(URL);
     if (!openURL || ![UIApplication.sharedApplication canOpenURL:openURL]) {
         if (failCompletionHandlerBlock) failCompletionHandlerBlock();
         return NO;
@@ -136,41 +153,61 @@ failCompletionHandlerBlock:(jobsByVoidBlock _Nullable)failCompletionHandlerBlock
     }];return YES;
 }
 
--(NSURL *_Nullable)jobs_ocURLWithValue:(id _Nullable)value{
-    if ([value isKindOfClass:NSURL.class]) return value;
-    if ([value isKindOfClass:NSString.class]) return [JobsOCOpenConfiguration jobsURLWithString:value];
-    return nil;
+-(JobsRetNSURLByIDBlock _Nonnull)jobs_ocURLWithValue{
+    @jobs_weakify(self)
+    return ^NSURL *_Nullable(id _Nullable value){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if ([value isKindOfClass:NSURL.class]) return value;
+        if ([value isKindOfClass:NSString.class]) return JobsOCOpenConfiguration.jobsURLWithString(value);
+        return nil;
+    };
 }
 
--(NSString *)jobs_ocSanitizedPhoneNumber:(NSString *_Nullable)telephoneNumber{
-    if (![telephoneNumber isKindOfClass:NSString.class]) return @"";
-    NSMutableString *phone = NSMutableString.string;
-    for (NSUInteger idx = 0; idx < telephoneNumber.length; idx++) {
-        unichar character = [telephoneNumber characterAtIndex:idx];
-        if ([[NSCharacterSet decimalDigitCharacterSet] characterIsMember:character]) {
-            [phone appendFormat:@"%C", character];
-        }else if (character == '+' && !phone.length){
-            [phone appendString:@"+"];
+-(JobsRetStrByStrBlock _Nonnull)jobs_ocSanitizedPhoneNumber{
+    @jobs_weakify(self)
+    return ^NSString *(NSString *_Nullable telephoneNumber){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (![telephoneNumber isKindOfClass:NSString.class]) return @"";
+        NSMutableString *phone = NSMutableString.string;
+        for (NSUInteger idx = 0; idx < telephoneNumber.length; idx++) {
+            unichar character = [telephoneNumber characterAtIndex:idx];
+            if ([[NSCharacterSet decimalDigitCharacterSet] characterIsMember:character]) {
+                [phone appendFormat:@"%C", character];
+            }else if (character == '+' && !phone.length){
+                [phone appendString:@"+"];
+            }
+        };return phone.copy;
+    };
+}
+
+-(JobsRetVCByVoidBlock _Nonnull)jobs_ocTopViewController{
+    @jobs_weakify(self)
+    return ^UIViewController *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        UIViewController *rootViewController = jobsGetMainWindow().rootViewController;
+        return self.jobs_ocTopViewControllerFrom(rootViewController);
+    };
+}
+
+-(JobsRetVCByVCBlock _Nonnull)jobs_ocTopViewControllerFrom{
+    @jobs_weakify(self)
+    return ^UIViewController *_Nullable(UIViewController *_Nullable viewController){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (!viewController) return nil;
+        if (viewController.presentedViewController) return self.jobs_ocTopViewControllerFrom(viewController.presentedViewController);
+        if ([viewController isKindOfClass:UINavigationController.class]) {
+            UINavigationController *navigationController = (UINavigationController *)viewController;
+            return self.jobs_ocTopViewControllerFrom(navigationController.visibleViewController);
         }
-    };return phone.copy;
-}
-
--(UIViewController *_Nullable)jobs_ocTopViewController{
-    UIViewController *rootViewController = jobsGetMainWindow().rootViewController;
-    return [self jobs_ocTopViewControllerFrom:rootViewController];
-}
-
--(UIViewController *_Nullable)jobs_ocTopViewControllerFrom:(UIViewController *_Nullable)viewController{
-    if (!viewController) return nil;
-    if (viewController.presentedViewController) return [self jobs_ocTopViewControllerFrom:viewController.presentedViewController];
-    if ([viewController isKindOfClass:UINavigationController.class]) {
-        UINavigationController *navigationController = (UINavigationController *)viewController;
-        return [self jobs_ocTopViewControllerFrom:navigationController.visibleViewController];
-    }
-    if ([viewController isKindOfClass:UITabBarController.class]) {
-        UITabBarController *tabBarController = (UITabBarController *)viewController;
-        return [self jobs_ocTopViewControllerFrom:tabBarController.selectedViewController];
-    };return viewController;
+        if ([viewController isKindOfClass:UITabBarController.class]) {
+            UITabBarController *tabBarController = (UITabBarController *)viewController;
+            return self.jobs_ocTopViewControllerFrom(tabBarController.selectedViewController);
+        };return viewController;
+    };
 }
 
 @end

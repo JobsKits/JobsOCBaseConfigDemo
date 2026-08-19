@@ -16,12 +16,19 @@ Prop_copy()NSMutableDictionary *dataInfo;
 @implementation DataManager
 /// 数据管理对象单例
 +(instancetype)sharedManager{
-    static DataManager *sharedManager = nil;
-    @synchronized(self){
-        if (!sharedManager) {
-            sharedManager = DataManager.new;
-        }
-    };return sharedManager;
+    JobsRetDataManagerByVoidBlock action = ((JobsRetDataManagerByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(DataManager.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetDataManagerByVoidBlock _Nonnull)jobsSharedManager{
+    return ^DataManager *{
+        static DataManager *sharedManager = nil;
+        @synchronized(self){
+            if (!sharedManager) {
+                sharedManager = DataManager.new;
+            }
+        };return sharedManager;
+    };
 }
 /// 保存页面数据
 -(void)saveDataInfo:(__kindof NSDictionary *)info
@@ -32,8 +39,13 @@ Prop_copy()NSMutableDictionary *dataInfo;
     _dataInfo.saveDataBy(info.dataByKey(key));
 }
 /// 根据menuId获取相应页面的数据
--(NSDictionary *)dataInfoWithKey:(NSString *)key {
-    return [_dataInfo objectForKey:key];
+-(JobsRetDicByStringBlock _Nonnull)dataInfoWithKey{
+    @jobs_weakify(self)
+    return ^NSDictionary *(NSString * key){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [_dataInfo objectForKey:key];
+    };
 }
 #pragma mark —— lazyLoad
 -(NSMutableDictionary *)dataInfo{

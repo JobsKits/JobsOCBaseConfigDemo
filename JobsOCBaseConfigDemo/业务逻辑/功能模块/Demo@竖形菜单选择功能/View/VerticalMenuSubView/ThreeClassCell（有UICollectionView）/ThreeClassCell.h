@@ -51,10 +51,22 @@ Prop_assign()CGFloat sectionInsetRight;
 Prop_assign()CGFloat minimumLineSpacing;// 上下行间距
 Prop_assign()CGFloat minimumInteritemSpacing;// 左右列间距
 Prop_strong()Class <UICollectionViewCellProtocol>cellCls;
+
+-(JobsRetThreeClassCellByCGFloatBlock _Nonnull)bySectionInsetTop;
+-(JobsRetThreeClassCellByCGFloatBlock _Nonnull)bySectionInsetLeft;
+-(JobsRetThreeClassCellByCGFloatBlock _Nonnull)bySectionInsetBottom;
+-(JobsRetThreeClassCellByCGFloatBlock _Nonnull)bySectionInsetRight;
+-(JobsRetThreeClassCellByCGFloatBlock _Nonnull)byMinimumLineSpacing;
+-(JobsRetThreeClassCellByCGFloatBlock _Nonnull)byMinimumInteritemSpacing;
+-(JobsRetThreeClassCellByClassBlock _Nonnull)byCellCls;
 #pragma mark —— 一些公有方法
 -(JobsRetCGFloatByArrBlock _Nonnull)getCollectionHeight;
 -(JobsRetViewByVoidBlock _Nonnull)reloadDatas;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN ThreeClassCell
+-(JobsRetThreeClassCellByNSIntegerBlock _Nonnull)byRowCount;
+-(JobsRetThreeClassCellByNSMutableArrayGoodsClassModelBlock _Nonnull)byDataArray;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END ThreeClassCell
 @end
 
 NS_ASSUME_NONNULL_END

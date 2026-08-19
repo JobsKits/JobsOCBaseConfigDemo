@@ -29,4 +29,6 @@ Pod::Spec.new do |spec|
     'UIKit'
   ]
   spec.dependency 'SDWebImage'
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsOCDefs'
 end

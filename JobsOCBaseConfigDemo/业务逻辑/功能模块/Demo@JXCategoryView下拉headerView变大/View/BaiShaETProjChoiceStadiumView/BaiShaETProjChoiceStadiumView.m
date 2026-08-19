@@ -27,11 +27,31 @@ Prop_strong()UIColor *cor;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjChoiceStadiumTBVHeaderView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjChoiceStadiumTBVHeaderView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 #pragma mark —— BaseViewProtocol
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -74,16 +94,30 @@ Prop_strong()NSMutableArray <JobsBaseTableViewCell *>*tbvCellMutArr;
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_choiceStadiumViewOnceToken = 0;
-    static_choiceStadiumView = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(BaiShaETProjChoiceStadiumView.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_choiceStadiumViewOnceToken = 0;
+        static_choiceStadiumView = nil;
+    };
 }
 
 static BaiShaETProjChoiceStadiumView *static_choiceStadiumView = nil;
 static dispatch_once_t static_choiceStadiumViewOnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_choiceStadiumViewOnceToken, ^{
-        static_choiceStadiumView = BaiShaETProjChoiceStadiumView.new;
-    });return static_choiceStadiumView;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(BaiShaETProjChoiceStadiumView.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_choiceStadiumViewOnceToken, ^{
+            static_choiceStadiumView = BaiShaETProjChoiceStadiumView.new;
+        });return static_choiceStadiumView;
+    };
 }
 
 -(instancetype)init{
@@ -98,11 +132,31 @@ static dispatch_once_t static_choiceStadiumViewOnceToken;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjChoiceStadiumView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjChoiceStadiumView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -115,7 +169,7 @@ static dispatch_once_t static_choiceStadiumViewOnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model;
+        self.byViewModel(model);
         MakeDataNull
         self.tableView.byShow(self);
     };
@@ -123,37 +177,69 @@ static dispatch_once_t static_choiceStadiumViewOnceToken;
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 +(JobsRetCGSizeByIDBlock _Nonnull)viewSizeByModel{
     return ^CGSize(id _Nullable data){
-        return CGSizeMake(JobsWidth(JobsMainScreen_WIDTH()), JobsWidth(46) * [BaiShaETProjChoiceStadiumView createDataMutArr].count + JobsWidth(44) + JobsBottomSafeAreaHeight());
+        return CGSizeMake(JobsWidth(JobsMainScreen_WIDTH()), JobsWidth(46) * BaiShaETProjChoiceStadiumView.createDataMutArr().count + JobsWidth(44) + JobsBottomSafeAreaHeight());
     };
 }
 #pragma mark —— 一些私有方法
-+(NSMutableArray<UIViewModel *> *)createDataMutArr{
-    NSMutableArray <UIViewModel *>*dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-        data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.byText(@"DG體育".tr);
-            viewModel.subTextModel.byText(@"".tr);
-        }))
-        .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.byText(@"DG真人".tr);
-            viewModel.subTextModel.byText(@"".tr);
-        }))
-        .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.byText(@"DG電子".tr);
-            viewModel.subTextModel.byText(@"".tr);
-        }))
-        .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.byText(@"DG彩票".tr);
-            viewModel.subTextModel.byText(@"".tr);
-        }))
-        .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.byText(@"DG棋牌".tr);
-            viewModel.subTextModel.byText(@"".tr);
-        }))
-        .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
-            viewModel.textModel.byText(@"DA電子".tr);
-            viewModel.subTextModel.byText(@"".tr);
-        }));
-    });return dataMutArr;
++(JobsRetNSMutableArrayUIViewModelByVoidBlock _Nonnull)createDataMutArr{
+    return ^NSMutableArray<UIViewModel *> *{
+        NSMutableArray <UIViewModel *>*dataMutArr = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
+            data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
+                viewModel
+                    .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                        textModel.byText(@"DG體育".jobsTr());
+                    })
+                    .bySubTextModelBlock(^(__kindof UITextModel * _Nullable subTextModel) {
+                        subTextModel.byText(@"".jobsTr());
+                    });
+            }))
+            .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
+                viewModel
+                    .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                        textModel.byText(@"DG真人".jobsTr());
+                    })
+                    .bySubTextModelBlock(^(__kindof UITextModel * _Nullable subTextModel) {
+                        subTextModel.byText(@"".jobsTr());
+                    });
+            }))
+            .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
+                viewModel
+                    .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                        textModel.byText(@"DG電子".jobsTr());
+                    })
+                    .bySubTextModelBlock(^(__kindof UITextModel * _Nullable subTextModel) {
+                        subTextModel.byText(@"".jobsTr());
+                    });
+            }))
+            .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
+                viewModel
+                    .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                        textModel.byText(@"DG彩票".jobsTr());
+                    })
+                    .bySubTextModelBlock(^(__kindof UITextModel * _Nullable subTextModel) {
+                        subTextModel.byText(@"".jobsTr());
+                    });
+            }))
+            .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
+                viewModel
+                    .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                        textModel.byText(@"DG棋牌".jobsTr());
+                    })
+                    .bySubTextModelBlock(^(__kindof UITextModel * _Nullable subTextModel) {
+                        subTextModel.byText(@"".jobsTr());
+                    });
+            }))
+            .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
+                viewModel
+                    .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                        textModel.byText(@"DA電子".jobsTr());
+                    })
+                    .bySubTextModelBlock(^(__kindof UITextModel * _Nullable subTextModel) {
+                        subTextModel.byText(@"".jobsTr());
+                    });
+            }));
+        });return dataMutArr;
+    };
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (void)tableView:(UITableView *)tableView
@@ -172,7 +258,17 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjChoiceStadiumView.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 1;
+    };
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
@@ -218,13 +314,13 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                     @jobs_strongify(self)
                     NSObject.feedbackGenerator(nil);/// 震动反馈
                     self->_tableView.endRefreshing(YES);
-                    self.currentPage = @(1);
-                }].byMJRefreshHeaderConfigModel(self.mjHeaderDefaultConfig))
+                    self.byCurrentPage(@(1));
+                }].byMJRefreshHeaderConfigModel(self.jobsMjHeaderDefaultConfig()))
                 .byMJRefreshFooter([MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
                     @jobs_strongify(self)
                     NSObject.feedbackGenerator(nil);/// 震动反馈
                     self->_tableView.endRefreshing(YES);
-                }].byMJRefreshFooterConfigModel(self.mjFooterDefaultConfig))
+                }].byMJRefreshFooterConfigModel(self.jobsMjFooterDefaultConfig()))
                 .byRegisterTableViewClass(nil)
                 .bySeparatorColor(HEXCOLOR(0xEEEEEE))
                 .byTableHeaderView(self.tbvHeaderView) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
@@ -249,7 +345,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 -(BaiShaETProjChoiceStadiumTBVHeaderView *)tbvHeaderView{
     if (!_tbvHeaderView) {
         _tbvHeaderView = BaiShaETProjChoiceStadiumTBVHeaderView.new
-            .byText(@"選擇場館".tr)
+            .byText(@"選擇場館".jobsTr())
             .byTextCor(JobsLabelColor)
             .byFont(UIFontWeightBoldSize(16))
             .byTextAlignment(NSTextAlignmentCenter)
@@ -259,7 +355,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
     if (!_dataMutArr) {
-        _dataMutArr = [BaiShaETProjChoiceStadiumView createDataMutArr];
+        _dataMutArr = BaiShaETProjChoiceStadiumView.createDataMutArr();
     };return _dataMutArr;
 }
 

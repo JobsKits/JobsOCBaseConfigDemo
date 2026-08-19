@@ -30,27 +30,26 @@ static CGFloat jobsDropDownListViewHeightByModels(NSArray <__kindof UIViewModel 
                                                        finishBlock:(jobsByIDBlock _Nullable)finishBlock{
     if (!motivateFromView || !data.count) return nil;
     NSMutableArray <__kindof UIViewModel *>*dataMutArr = data.mutableCopy;
-    JobsDropDownListView *dropDownListView = JobsDropDownListView.new;
-    dropDownListView.direction = direction;
-    __weak JobsDropDownListView *weakDropDownListView = dropDownListView;
-    [dropDownListView actionObjBlock:^(id selectedData) {
-        JobsDropDownListView *strongDropDownListView = weakDropDownListView;
+    JobsDropDownListView *dropDownListView = JobsDropDownListView.new.byDirection(direction);
+    @jobs_weakify(dropDownListView)
+    dropDownListView.actionObjBlock(^(id selectedData) {
+        @jobs_strongify(dropDownListView)
         UIControl *motivateControl = [motivateFromView isKindOfClass:UIControl.class]
             ? (UIControl *)motivateFromView
             : nil;
-        jobsByCtrlBlock disappearBlock = strongDropDownListView.dropDownListViewDisappear;
+        jobsByCtrlBlock disappearBlock = dropDownListView.dropDownListViewDisappear;
         if (disappearBlock) disappearBlock(motivateControl);
         if (finishBlock) finishBlock(selectedData);
-    }];
+    });
     CGRect anchorFrame = jobsDropDownListViewWindowFrameByView(motivateFromView);
     CGFloat listHeight = jobsDropDownListViewHeightByModels(dataMutArr);
-    [dropDownListView jobsReloadDataWithModels:dataMutArr];
+    dropDownListView.jobsReloadDataWithModels(dataMutArr);
     dropDownListView.byFrame(jobsMakeFrameByLocationModelBlock(^(__kindof JobsLocationModel * _Nullable location) {
-        location.byJobsX(anchorFrame.origin.x);
-        location.jobsY = direction == JobsDropDownListViewDirection_UP
-            ? anchorFrame.origin.y - motivateViewOffset - listHeight
-            : anchorFrame.origin.y + anchorFrame.size.height + motivateViewOffset;
-        location.byJobsWidth(anchorFrame.size.width)
+        location.byJobsX(anchorFrame.origin.x)
+                .byJobsY(direction == JobsDropDownListViewDirection_UP
+                    ? anchorFrame.origin.y - motivateViewOffset - listHeight
+                    : anchorFrame.origin.y + anchorFrame.size.height + motivateViewOffset)
+                .byJobsWidth(anchorFrame.size.width)
                 .byJobsHeight(listHeight);
     }));
     dropDownListView.addOn(jobsGetMainWindow());

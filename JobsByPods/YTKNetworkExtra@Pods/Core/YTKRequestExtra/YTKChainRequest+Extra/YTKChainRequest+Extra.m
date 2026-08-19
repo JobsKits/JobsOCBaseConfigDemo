@@ -13,7 +13,7 @@
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
-        [self start];
+        self.start;
     };
 }
 

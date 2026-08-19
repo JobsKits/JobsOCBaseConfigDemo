@@ -1,4 +1,4 @@
-# `CodeX+UnderstandAnything.command`
+# `CodeX + Understand Anything`
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
@@ -6,397 +6,306 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
-> 这个脚本用于在需要时，通过 [**Codex**](https://openai.com/codex) + [**Understand Anything**](https://github.com/Lum1104/Understand-Anything) 为 [**Xcode**](https://developer.apple.com/xcode) / iOS 工程生成代码图谱。  
-> 它不是 `pod install` 高频流程的一部分，也不会默认在每次安装依赖时消耗 AI 算力。  
+> 本目录的 `.command` 用于体检 [**Codex**](https://openai.com/codex) 与 [**Understand Anything**](https://github.com/Lum1104/Understand-Anything)，定位一个 [**Xcode**](https://developer.apple.com/xcode/) / iOS 工程，并给出生成中文代码知识图谱的命令。脚本不会自动分析工程，也不会挂接 `pod install`；安装、升级和启动 Codex 都需要用户单独确认。
 
-## 一、脚本用途 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+Understand Anything 会把源码关系整理为持久化知识图谱，适合查看模块、调用关系、变更影响、领域流程和新成员入门。它不是编译器、静态检查器或代码质量评分器，图谱结论仍需回到源码和真实构建验证。
 
-- `CodeX+UnderstandAnything.command` 负责在本地 MacOS 环境中辅助启动 [**Understand Anything**](https://github.com/Lum1104/Understand-Anything) 的代码图谱生成流程。
-- 脚本会先寻找当前 [**Xcode**](https://developer.apple.com/xcode) / iOS 工程根目录，再检查 [**Codex**](https://openai.com/codex) 和 [**Understand Anything**](https://github.com/Lum1104/Understand-Anything) 是否可用。
-- 找到工程后，脚本会打印识别到的 `.xcworkspace` 或 `.xcodeproj` 全名和路径，并等待用户回车确认。
-- [**Understand Anything**](https://github.com/Lum1104/Understand-Anything) 没有安装时，脚本会自动安装到 [**Codex**](https://openai.com/codex)。
-- [**Understand Anything**](https://github.com/Lum1104/Understand-Anything) 已经安装时，脚本会提示是否升级：
+## 一、目录内容 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-  ```text
-  直接回车：跳过升级
-  输入任意字符后回车：执行升级
-  ```
+### 1.1、文件结构
 
-- 脚本最后会用日志形式打印 [**Understand Anything**](https://github.com/Lum1104/Understand-Anything) 在 [**Codex**](https://openai.com/codex) 里的具体使用方式：
+```text
+./
+├── *.command
+└── README.md
+```
 
-  ```text
-  /understand --language zh
-  /understand-dashboard
-  ```
+- `.command`：可双击运行的 macOS zsh 入口。
+- `README.md`：运行前说明、交互、风险和排错手册。
 
-## 二、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 1.2、脚本不会做什么
 
-- 适合以下场景：
+- 不自动执行 `/understand`，因此不会在用户不知情时消耗 AI 额度。
+- 不自动安装 Codex CLI，只在缺失时给出 OpenAI 官方文档入口。
+- 不把分析动作挂进 `pod install`、构建阶段或 Git Hook。
+- 不递归扫描整台电脑，只在脚本向上有限层级寻找工程，或使用用户明确输入的路径。
+- 不自动提交、推送或上传项目源码。
 
-  | 场景 | 是否适合 | 说明 |
-  | --- | --- | --- |
-  | 第一次接手大型 iOS 工程 | 适合 | 用代码图谱快速理解模块、类、函数和依赖关系。 |
-  | 需要给别人讲项目结构 | 适合 | 可以通过 Dashboard 辅助说明工程结构。 |
-  | 重构前分析影响范围 | 适合 | 先生成图谱，再让 AI 辅助理解调用链。 |
-  | 每次 `pod install` 后自动执行 | 不适合 | [**Understand Anything**](https://github.com/Lum1104/Understand-Anything) 需要 AI 算力，不适合高频无感触发。 |
-  | Codex 无额度 / 未登录时生成高质量语义图谱 | 不适合 | [**Understand Anything**](https://github.com/Lum1104/Understand-Anything) 的语义能力依赖 AI 环境。 |
+## 二、适用场景
 
-- 这个脚本定位是“必要时手动运行”，不是 [**CocoaPods**](https://cocoapods.org/) 安装流程的自动钩子。
+### 2.1、适合使用
 
-## 三、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+- 第一次接手大型 iOS 工程，需要快速建立模块地图。
+- 代码仓库已经发生变化，需要用 `/understand-diff` 看影响面。
+- 需要针对一个函数、文件或模块做深度解释。
+- 想提取业务领域关系或生成新成员 Onboarding 文档。
+- 本机 Understand Anything 已安装，需要可选升级和健康检查。
 
-- 当前脚本目录采用 Jobs 标准的“同名文件夹包裹脚本”结构：
+### 2.2、不适合使用
 
-  ```text
-  CodeX+UnderstandAnything.command/
-  ├── CodeX+UnderstandAnything.command
-  └── README.md
-  ```
+- 只想搜索一个确定的符号；此时 `rg`、Xcode Find 或 CodeGraph 更直接。
+- 项目包含无权分析的第三方、客户或敏感源码。
+- 当前网络、账号或 AI 额度不允许生成图谱。
+- 想把图谱输出当作安全审计、编译结果或事实证明。
 
-- 双击运行 `.command` 时，脚本会优先展示同目录下的 `README.md`，用户按回车后才继续执行真实逻辑。
-- 如果缺少 `README.md`，脚本会继续输出内置说明，但不建议删除本文件。
+## 三、执行前检查
 
-## 四、执行前检查 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 3.1、必需条件
 
-- 执行前请确认当前机器具备以下条件：
+| 条件 | 说明 |
+| --- | --- |
+| macOS + zsh | `.command` 使用 zsh 语法 |
+| Codex CLI | 脚本通过 `codex` 命令启动会话 |
+| Xcode 工程 | 根目录第一层包含 `.xcworkspace` 或 `.xcodeproj` |
+| 网络 | 首次安装或升级 Understand Anything 时需要 |
+| 授权 | 只分析 Jobs 自有、开源许可或明确授权源码 |
 
-  | 检查项 | 要求 | 说明 |
-  | --- | --- | --- |
-  | 系统 | MacOS | `.command` 脚本按 MacOS / `zsh` 环境设计。 |
-  | **Shell** | `zsh` | 脚本使用 `# shell: zsh`。 |
-  | 工程 | `.xcworkspace` 或 `.xcodeproj` | 用于判断 iOS 工程根目录。 |
-  | [**Codex**](https://openai.com/codex) | 已安装并可运行 | 脚本会检查 `codex` 命令是否存在。 |
-  | [**Understand Anything**](https://github.com/Lum1104/Understand-Anything) | 可安装 / 可升级 | 未安装时脚本会尝试安装。 |
-  | 网络 | 能访问 GitHub | 首次安装 / 升级 [**Understand Anything**](https://github.com/Lum1104/Understand-Anything) 需要联网。 |
-  | AI 额度 | Codex 可正常使用 | 真正生成图谱时依赖 AI 算力。 |
+### 3.2、推荐检查
 
-- 检查 [**Codex**](https://openai.com/codex) 是否可用：
+```shell
+codex --version
+git --version
+curl --version
+```
 
-  ```shell
-  codex --version
-  ```
+如果只使用现有安装且不升级，脚本不会主动下载内容。
 
-- 如果没有安装 [**Codex**](https://openai.com/codex)，请先安装并登录。
+## 四、运行方式
 
-## 五、运行方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 4.1、Finder 双击
 
-### 5.1、双击运行
+双击当前目录中的 `.command`。脚本会先显示内置自述；只有按回车确认后，才初始化日志并进入工程定位。
 
-- 直接双击：
+### 4.2、Terminal 运行
 
-  ```text
-  CodeX+UnderstandAnything.command
-  ```
+```shell
+./当前脚本.command
+```
 
-- 脚本会先展示 `README.md`，按回车后继续。
-- 如果 MacOS 提示没有执行权限，可以在终端里执行：
+可以把工程根目录、`.xcworkspace` 或 `.xcodeproj` 作为第一个参数：
 
-  ```shell
-  chmod +x "CodeX+UnderstandAnything.command"
-  ```
+```shell
+./当前脚本.command "/path/to/YourProject.xcworkspace"
+```
 
-### 5.2、终端运行
+`当前脚本.command` 只是文档占位名，实际执行时使用本目录真实文件名。
 
-- 进入脚本所在目录：
+### 4.3、工程定位规则
 
-  ```shell
-  cd "CodeX+UnderstandAnything.command"
-  ```
+脚本按以下顺序处理：
 
-- 执行脚本：
+1、如果传入第一个参数，先验证该路径。
 
-  ```shell
-  ./CodeX+UnderstandAnything.command
-  ```
+2、从脚本当前目录开始，最多向上检查八层。
 
-## 六、执行流程 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+3、每层只查看直属的 `.xcworkspace` 和 `.xcodeproj`，不递归进入 Pods 或子工程。
 
-### 6.1、展示自述并等待确认
+4、命中后列出工程包，由用户确认。
 
-- 脚本启动后会优先读取同目录 `README.md`。
-- 用户按回车后继续执行。
-- 用户按 `Ctrl+C` 可以随时取消。
+5、自动定位失败后，循环等待用户输入或把路径拖入终端。
 
-### 6.2、查找 Xcode / iOS 工程根目录
+这样可以覆盖脚本放在 `ScriptsByDevTools/脚本目录/` 时，项目根目录位于上面两层或三层的常见结构。
 
-- 脚本会按下面顺序查找工程目录：
+## 五、交互规则
 
-  | 顺序 | 查找位置 | 命中标准 |
-  | --- | --- | --- |
-  | 1 | 脚本当前目录 | 能找到 `.xcworkspace` 或 `.xcodeproj`。 |
-  | 2 | 脚本当前目录的上一级 | 能找到 `.xcworkspace` 或 `.xcodeproj`。 |
-  | 3 | 用户输入 / 拖入路径 | 循环要求输入，直到命中有效工程。 |
+### 5.1、内置自述
 
-- 用户可以拖入以下任意一种路径：
+- 按回车：确认理解用途与影响，继续体检。
+- 按 `Ctrl+C`：立即取消，不创建日志、不联网、不安装。
 
-  ```text
-  工程根目录
-  xxx.xcworkspace
-  xxx.xcodeproj
-  ```
+### 5.2、安装与升级
 
-- 脚本会自动去除路径首尾引号，兼容中文、空格、括号和常见特殊字符。
+- 直接回车：跳过。
+- 输入任意字符后回车：执行。
 
-### 6.3、打印工程识别结果
+安装时脚本会把官方 `install.sh` 下载到独立临时目录，记录 SHA-256 后再执行；不会使用不可审计的 `curl | bash` 管道。升级调用已安装仓库中的：
 
-- 找到工程后，脚本会打印：
+```shell
+bash ./install.sh --update
+```
 
-  ```text
-  工程根目录
-  命中的 .xcworkspace
-  命中的 .xcodeproj
-  ```
+### 5.3、启动 Codex
 
-- 如果同时存在 `.xcworkspace` 和 `.xcodeproj`，优先关注 `.xcworkspace`。
-- 打印完成后，脚本会等待用户回车确认，避免误操作到错误工程。
+- 直接回车：不启动，安全结束。
+- 输入任意字符后回车：进入已确认工程根目录并执行 `codex`。
 
-### 6.4、Codex 环境检查
+真正生成图谱仍需进入 Codex 后主动输入 `/understand`。
 
-- 脚本会检查本机是否存在 `codex` 命令。
-- 如果未检测到 `codex`，脚本会提示先安装 [**Codex**](https://openai.com/codex)，并停止后续 [**Understand Anything**](https://github.com/Lum1104/Understand-Anything) 流程。
-- 如果 `codex` 存在，脚本会继续检查 [**Understand Anything**](https://github.com/Lum1104/Understand-Anything)。
+## 六、完整流程
 
-### 6.5、[**Understand Anything**](https://github.com/Lum1104/Understand-Anything) 安装 / 升级检查
+```mermaid
+flowchart TD
+    A[显示脚本内置自述] --> B{用户确认}
+    B -->|Ctrl+C| Z[无副作用退出]
+    B -->|回车| C[初始化日志]
+    C --> D[定位并确认 Xcode 工程]
+    D --> E[体检 Codex CLI]
+    E --> F{Understand Anything 已安装}
+    F -->|是| G{是否升级}
+    F -->|否| H{是否安装}
+    G -->|跳过或完成| I[验证仓库与 Skill 入口]
+    H -->|执行| I
+    H -->|跳过| Z2[记录日志并退出]
+    I --> J[打印命令地图]
+    J --> K{是否启动 Codex}
+    K -->|否| L[记录日志并退出]
+    K -->|是| M[进入工程根目录启动 Codex]
+```
 
-- 如果未检测到 [**Understand Anything**](https://github.com/Lum1104/Understand-Anything)，脚本会执行安装命令：
+## 七、Understand Anything 命令地图
 
-  ```shell
-  curl -fsSL https://raw.githubusercontent.com/Lum1104/Understand-Anything/main/install.sh | bash -s codex
-  ```
+### 7.1、生成与查看图谱
 
-- 如果已检测到 [**Understand Anything**](https://github.com/Lum1104/Understand-Anything)，脚本会提示是否升级：
+```text
+/understand --language zh
+/understand-dashboard
+```
 
-  ```text
-  直接回车：跳过升级
-  输入任意字符后回车：执行升级
-  ```
+- `/understand`：首次生成知识图谱；已有图谱时默认按项目变化增量处理。
+- `--language zh`：要求生成中文说明。
+- `/understand-dashboard`：打开交互式 Dashboard。
 
-- 升级属于普通更新动作，不默认执行，必须由用户输入任意字符后确认。
+图谱通常写入：
 
-### 6.6、打印 Codex 使用说明
+```text
+.understand-anything/knowledge-graph.json
+```
 
-- 脚本不会默认强行消耗 Codex token 去执行 `/understand`。
-- 脚本会打印推荐操作流程：
+### 7.2、围绕图谱继续工作
 
-  ```shell
-  cd "你的工程根目录"
-  codex
-  ```
+| 命令 | 用途 |
+| --- | --- |
+| `/understand-chat` | 基于图谱询问代码关系 |
+| `/understand-diff` | 分析 Git Diff、影响组件与风险 |
+| `/understand-explain` | 深入解释指定文件、函数或模块 |
+| `/understand-onboard` | 生成项目入门指南 |
+| `/understand-domain` | 提取业务实体与领域流程 |
+| `/understand-knowledge` | 分析知识库文档并构建关系图 |
 
-- 进入 [**Codex**](https://openai.com/codex) 后执行：
+命令能力以当前安装版本的官方 Skill 文档为准；升级后若命令发生变化，应先重启 Codex 再检查。
 
-  ```text
-  /understand --language zh
-  /understand-dashboard
-  ```
+### 7.3、大型工程建议
 
-### 6.7、可选启动 Codex
+- 首次只指定 Jobs 自有源码目录，排除 `Pods`、生成代码和无权分析内容。
+- 先用 `/understand` 建立全景，再用 `/understand-explain` 深挖热点，不要反复全量生成。
+- 图谱是辅助索引；涉及构建、运行和安全结论时，必须回到真实源码、测试与工具输出。
 
-- 脚本末尾会询问是否立即从工程根目录启动 [**Codex**](https://openai.com/codex)。
-- 默认策略：
+## 八、安装位置与加载关系
 
-  ```text
-  直接回车：启动 Codex
-  输入任意字符后回车：不启动，只打印说明
-  ```
+### 8.1、仓库与 Skill 入口
 
-## 七、脚本执行命令 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+默认上游仓库位置：
 
-- 给脚本授权：
+```text
+~/.understand-anything/repo
+```
 
-  ```shell
-  chmod +x "CodeX+UnderstandAnything.command"
-  ```
+Codex 用户级 Skill 入口位于：
 
-- 运行脚本：
+```text
+~/.agents/skills/understand*
+```
 
-  ```shell
-  ./CodeX+UnderstandAnything.command
-  ```
+安装器通常通过符号链接把上游 Skill 暴露给 Codex。脚本会列出实际入口及其链接目标，便于确认当前加载来源。
 
-- 手动安装 [**Understand Anything**](https://github.com/Lum1104/Understand-Anything) 到 [**Codex**](https://openai.com/codex)：
+### 8.2、为什么升级后要重启 Codex
 
-  ```shell
-  curl -fsSL https://raw.githubusercontent.com/Lum1104/Understand-Anything/main/install.sh | bash -s codex
-  ```
+Codex 在会话启动时发现 Skills。安装或升级发生在当前会话之后时，旧会话未必重新加载 Skill 描述，因此应退出并从工程根目录启动新会话。
 
-- 进入工程目录后启动 [**Codex**](https://openai.com/codex)：
+## 九、日志文件
 
-  ```shell
-  cd "你的工程根目录"
-  codex
-  ```
+### 9.1、位置与内容
 
-- 在 [**Codex**](https://openai.com/codex) 内生成中文代码图谱：
+日志位于系统临时目录，文件名为：
 
-  ```text
-  /understand --language zh
-  ```
+```text
+当前脚本完整文件名.log
+```
 
-- 在 [**Codex**](https://openai.com/codex) 内打开图谱 Dashboard：
+脚本通过 `tee` 把确认后的终端输出同步写入日志，包括：
 
-  ```text
-  /understand-dashboard
-  ```
+- 脚本和工程路径。
+- Codex 版本。
+- Understand Anything 分支与提交。
+- 安装脚本 SHA-256。
+- 用户选择、验证结果和退出码。
 
-## 八、[**Understand Anything**](https://github.com/Lum1104/Understand-Anything) 使用说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+内置自述确认前不创建或清空日志。
 
-- 推荐第一次进入工程后执行：
+## 十、风险说明
 
-  ```text
-  /understand --language zh
-  ```
+### 10.1、AI 额度与源码边界
 
-- 这个命令会尝试扫描当前工程，并生成中文语义说明和代码图谱。
-- 生成完成后，再执行：
+- `/understand` 会读取目标源码并消耗 Codex/AI 额度。
+- 不要分析第三方、供应商、客户或所有权不明确的代码。
+- 图谱目录可能包含架构和业务关系，不应当作无敏感信息随意上传。
 
-  ```text
-  /understand-dashboard
-  ```
+### 10.2、安装供应链
 
-- Dashboard 适合查看：
+- 安装来源固定为 Understand Anything 官方 [**GitHub**](https://github.com) 仓库的 HTTPS 地址。
+- 脚本记录下载内容哈希，但未内置官方发布签名或固定哈希；哈希记录用于审计，不等于上游身份的密码学证明。
+- 高安全环境应先人工审阅下载的 `install.sh` 和固定提交，再执行安装。
 
-  | 内容 | 说明 |
-  | --- | --- |
-  | 模块关系 | 看项目主要模块如何连接。 |
-  | 类 / 函数结构 | 看核心类型、方法和调用关系。 |
-  | 业务域映射 | 辅助理解功能域、页面流和关键路径。 |
-  | 依赖关系 | 辅助判断重构影响范围。 |
+### 10.3、自动升级
 
-- 常见生成物路径：
+脚本不自动升级。用户每次都可以直接回车跳过；执行升级前应确保上游仓库没有需要保留的本地修改。
 
-  ```text
-  .understand-anything/knowledge-graph.json
-  ```
+## 十一、常见问题
 
-## 九、流程图 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 11.1、为什么找不到工程
 
-- 脚本整体流程如下：
+- 根目录第一层没有 `.xcworkspace` 或 `.xcodeproj`。
+- 传入的是源码子目录，不是工程根目录。
+- 工程包尚未生成或被移动。
+- 目标是纯 Package / 非 Xcode 工程，本脚本的定位策略不适用。
 
-  ```mermaid
-  flowchart TD
-      A[双击或终端运行脚本] --> B[展示 README 并等待回车]
-      B --> C[查找 Xcode / iOS 工程]
-      C --> D{是否命中 .xcworkspace / .xcodeproj}
-      D -- 是 --> E[打印工程路径并等待确认]
-      D -- 否 --> F[循环要求用户输入或拖入工程路径]
-      F --> C
-      E --> G[检查 codex 命令]
-      G --> H{Codex 是否可用}
-      H -- 否 --> I[提示安装 Codex 后结束]
-      H -- 是 --> J[检查 Understand Anything]
-      J --> K{是否已安装}
-      K -- 否 --> L[安装 Understand Anything 到 Codex]
-      K -- 是 --> M[询问是否升级]
-      L --> N[打印 Codex 内使用命令]
-      M --> N
-      N --> O{是否立即启动 Codex}
-      O -- 回车 --> P[从工程根目录启动 Codex]
-      O -- 输入任意字符 --> Q[只打印说明后结束]
-  ```
+可直接把正确工程包拖进终端。
 
-## 十、日志文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 11.2、为什么安装后没有 `/understand`
 
-- 脚本日志默认写入：
+1、退出当前 Codex 会话。
 
-  ```text
-  $TMPDIR/CodeX+UnderstandAnything.log
-  ```
+2、检查 `~/.agents/skills/understand*` 是否存在并指向上游仓库。
 
-- 如果脚本执行异常，请先查看终端输出，再查看日志文件。
-- 日志会记录：
+3、重新进入工程根目录执行 `codex`。
 
-  | 日志内容 | 说明 |
-  | --- | --- |
-  | 脚本路径 | 当前执行的 `.command` 文件路径。 |
-  | 工程查找过程 | 当前目录、上一级目录、用户输入路径的命中情况。 |
-  | 命中的工程文件 | `.xcworkspace` / `.xcodeproj` 全名和路径。 |
-  | Codex 检查结果 | `codex` 命令是否存在。 |
-  | [**Understand Anything**](https://github.com/Lum1104/Understand-Anything) 检查结果 | 是否安装、是否升级、安装命令是否执行成功。 |
-  | 后续操作提示 | `/understand --language zh` 和 `/understand-dashboard` 的使用说明。 |
+4、仍不可见时重新运行脚本，查看日志中的 Skill 入口验证。
 
-## 十一、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 11.3、为什么 Dashboard 没打开
 
-- 本脚本不会主动执行以下危险操作：
+- 先确认 `/understand` 已成功生成图谱。
+- 检查 `.understand-anything/knowledge-graph.json` 是否存在。
+- 查看 Codex 输出的端口、依赖或浏览器错误。
+- 不要把旧仓库的 Dashboard 地址硬编码到当前项目。
 
-  ```text
-  sudo
-  rm -rf
-  git reset --hard
-  git clean
-  pod install
-  xcodebuild
-  flutter clean
-  ```
+### 11.4、为什么图谱和源码不一致
 
-- 首次安装 [**Understand Anything**](https://github.com/Lum1104/Understand-Anything) 或执行升级时，会联网访问 [**GitHub**](https://github.com)。
-- 真正执行 `/understand --language zh` 时，会使用 [**Codex**](https://openai.com/codex) / AI 算力。
-- 如果 Codex token 余额不足，图谱生成可能失败或无法完成。
-- 不建议把 [**Understand Anything**](https://github.com/Lum1104/Understand-Anything) 挂到高频 `pod install` 流程里，因为这会拖慢依赖安装，并可能无感消耗 AI 额度。
-- 升级 [**Understand Anything**](https://github.com/Lum1104/Understand-Anything) 属于普通更新动作，脚本设计为：
+- 图谱可能基于旧提交或增量扫描范围不完整。
+- 生成代码、Pods 或动态派发关系可能被刻意排除或无法完全推断。
+- 更新图谱后仍要用源码搜索、CodeGraph、构建和运行验证关键结论。
 
-  ```text
-  直接回车：跳过升级
-  输入任意字符后回车：执行升级
-  ```
+## 十二、验证声明
 
-## 十二、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 12.1、可安全执行的验证
 
-### 12.1、为什么不直接放进 Podfile？
+维护脚本后至少执行：
 
-- 因为 [**Understand Anything**](https://github.com/Lum1104/Understand-Anything) 依赖 AI 算力，不适合每次 `pod install` 高频自动触发。
-- `pod install` 更适合挂本地索引、依赖报告、CodeGraph 这类偏本地的能力。
-- [**Understand Anything**](https://github.com/Lum1104/Understand-Anything) 更适合在需要理解架构、重构分析、生成图谱时手动执行。
+```shell
+zsh -n ./当前脚本.command
+```
 
-### 12.2、Codex 没余额还能生成图谱吗？
+语法检查不会安装、升级、启动 Codex 或生成图谱。完整交互验证应在测试工程中人工执行，并分别覆盖：自动命中、手动拖入、跳过安装、跳过升级和不启动 Codex。
 
-- 不能稳定生成高质量语义图谱。
-- [**Understand Anything**](https://github.com/Lum1104/Understand-Anything) 的结构扫描可以依赖本地解析能力，但语义摘要、业务域映射和可解释图谱依赖 AI 环境。
-- Codex 无额度、未登录或网络异常时，`/understand --language zh` 可能失败。
+### 12.2、未执行声明
 
-### 12.3、脚本为什么只打印 `/understand`，不自动执行？
+仅进行 `zsh -n` 时，应明确记录：没有执行安装器、没有升级上游仓库、没有生成知识图谱、没有消耗分析额度。
 
-- 这是为了避免误触消耗 AI 额度。
-- 生成图谱通常是高成本动作，应该由用户确认工程目录和当前 Codex 状态后再手动执行。
-- 脚本的职责是完成工程定位、环境检查、安装 / 升级检查和使用提示。
+## 十三、官方资料
 
-### 12.4、为什么优先识别 `.xcworkspace`？
-
-- iOS 工程使用 [**CocoaPods**](https://cocoapods.org/) 后，通常应该从 `.xcworkspace` 打开。
-- 如果同一目录同时存在 `.xcworkspace` 和 `.xcodeproj`，说明该工程大概率已经集成 Pods，后续分析也应以工程根目录为准。
-
-### 12.5、[**Understand Anything**](https://github.com/Lum1104/Understand-Anything) 图谱生成在哪里？
-
-- 常见路径是：
-
-  ```text
-  .understand-anything/knowledge-graph.json
-  ```
-
-- 这个目录通常位于当前工程根目录下。
-- 如果没有生成，请检查 [**Codex**](https://openai.com/codex) 是否正常、当前目录是否正确、`/understand --language zh` 是否执行成功。
-
-### 12.6、脚本找不到工程怎么办？
-
-- 请拖入或输入以下任意一种路径：
-
-  ```text
-  工程根目录
-  xxx.xcworkspace
-  xxx.xcodeproj
-  ```
-
-- 如果输入的是 `.xcworkspace` 或 `.xcodeproj`，脚本会自动回到其上级目录作为工程根目录。
-- 如果路径包含空格、中文或括号，可以直接从 Finder 拖入终端。
-
-## 十三、未执行声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
-
-- 本文档只说明 `CodeX+UnderstandAnything.command` 的使用方式和风险边界。
-- 阅读 `README.md` 本身不会修改工程文件。
-- 只有用户继续运行脚本，并在后续 [**Codex**](https://openai.com/codex) 中手动执行 `/understand --language zh`，才会触发代码图谱生成流程。
-
----
+- [**Understand Anything 仓库**](https://github.com/Lum1104/Understand-Anything)
+- [**OpenAI Codex CLI**](https://developers.openai.com/codex/cli)
+- [**Xcode**](https://developer.apple.com/xcode/)
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

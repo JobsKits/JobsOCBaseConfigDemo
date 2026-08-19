@@ -115,6 +115,81 @@ static UIViewModel *JobsAdaptiveNavigationTitleModel(id _Nullable requestParams)
 }
 
 @implementation UIViewController (BaseVC)
+-(JobsRetVCByStrBlock _Nonnull)byTitle{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController *_Nullable(NSString *_Nullable title){
+        @jobs_strongify(self)
+        [self setTitle:title];
+        return self;
+    };
+}
+
+-(JobsRetVCByViewBlock _Nonnull)byView{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController *_Nullable(__kindof UIView *_Nonnull view){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setView:view];
+        return self;
+    };
+}
+
+-(JobsRetVCByWebViewBlock _Nonnull)byWebView{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController *_Nullable(__kindof WKWebView *_Nonnull webView){
+        @jobs_strongify(self)
+        [self setWebView:webView];
+        return self;
+    };
+}
+
+-(JobsRetVCByIDBlock _Nonnull)byRequestParams{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController *_Nullable(id _Nullable data){
+        @jobs_strongify(self)
+        self.requestParams = data;
+        return self;
+    };
+}
+
+-(JobsRetVCByVCBlock _Nonnull)byFromVC{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController *_Nullable(__kindof UIViewController *_Nonnull data){
+        @jobs_strongify(self)
+        self.fromVC = data;
+        return self;
+    };
+}
+
+-(JobsRetVCByComingStyleBlock _Nonnull)byPushOrPresent{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController *_Nullable(ComingStyle pushOrPresent){
+        @jobs_strongify(self)
+        [self setPushOrPresent:pushOrPresent];
+        return self;
+    };
+}
+
+-(JobsRetVCByBarButtonItemsBlock _Nonnull)byLeftBarButtonItems{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController *_Nullable(NSArray<UIBarButtonItem *> *_Nullable data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setLeftBarButtonItems:data.mutableCopy];
+        return self;
+    };
+}
+
+-(JobsRetVCByBarButtonItemsBlock _Nonnull)byRightBarButtonItems{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController *_Nullable(NSArray<UIBarButtonItem *> *_Nullable data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setRightBarButtonItems:data.mutableCopy];
+        return self;
+    };
+}
+
 #pragma mark —— 一些功能性
 -(jobsByView2Block _Nonnull)configViewNavigatorBySuperviewAndView{
     @jobs_weakify(self)
@@ -122,22 +197,27 @@ static UIViewModel *JobsAdaptiveNavigationTitleModel(id _Nullable requestParams)
              UIView *_Nullable view) {
         @jobs_strongify(self)
         self.view.navigator.byFrame(view.bounds);
-        view.navigator = superview.navigator;
+        view.byNavigator(superview.navigator);
         superview.addSubview(self.view.navigator);
     };
 }
 
--(void)showUserInfo{
-    if (JobsDebug) {
-        UIViewModel *viewModel = [self configViewModelWithTitle:@"用户信息展示(开发测试专用)".tr subTitle:nil];
-        viewModel.byCls(JobsShowObjInfoVC.class)
-                 .byRequestParams(self.readUserInfo);
-        [self forceComingToPushVC:viewModel.cls.new
-                    requestParams:viewModel];// 测试专用
-    }
+-(jobsByVoidBlock _Nonnull)showUserInfo{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        if (JobsDebug) {
+            UIViewModel *viewModel = [self configViewModelWithTitle:@"用户信息展示(开发测试专用)".jobsTr() subTitle:nil];
+            viewModel.byCls(JobsShowObjInfoVC.class)
+                     .byRequestParams(self.jobsCurrentUserInfo());
+            [self forceComingToPushVC:viewModel.cls.new
+                        requestParams:viewModel];// 测试专用
+        }
+    };
 }
 /// 配置GKNavigationBar（不包括返回键的设定）
--(jobsByViewModelBlock)setGKNav{
+-(jobsByViewModelBlock _Nonnull)setGKNav{
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable data) {
         @jobs_strongify(self)
@@ -176,6 +256,8 @@ static UIViewModel *JobsAdaptiveNavigationTitleModel(id _Nullable requestParams)
         }
         backButton
             .jobsResetBtnTitleCor(backButtonColor)
+            .jobsResetBtnBgCor(JobsSecondarySystemBackgroundColor)
+            .jobsResetBtnCornerRadiusValue(JobsWidth(16))
             .byTintColor(backButtonColor);
         self.byGKNavLeftBarButtonItem(UIBarButtonItem.initBy(backButton));
     };
@@ -238,16 +320,18 @@ static UIViewModel *JobsAdaptiveNavigationTitleModel(id _Nullable requestParams)
         }
         if([toVC isKindOfClass:UINavigationController.class]){
             UINavigationController *navVC = (UINavigationController *)toVC;
-            navVC.rootViewController.requestParams = requestParams;
-            navVC.rootViewController.fromVC = fromVC;// 【承上启下】下一个页面记录是从哪里来的
+            navVC.jobsRootViewController()
+                .byRequestParams(requestParams)
+                .byFromVC(fromVC);// 【承上启下】下一个页面记录是从哪里来的
         }else{
-            toVC.requestParams = requestParams;
+            toVC
+                .byRequestParams(requestParams)
+                .byFromVC(fromVC);// 【承上启下】下一个页面记录是从哪里来的
             JobsLog(@"%@",toVC.requestParams);
-            toVC.fromVC = fromVC;// 【承上启下】下一个页面记录是从哪里来的
         }
         NSString *navigationTitle = JobsNavigationTitleFromRequestParams(requestParams);
         if (!navigationTargetVC.title.length && navigationTitle.length) {
-            navigationTargetVC.title = navigationTitle;
+            navigationTargetVC.byTitle(navigationTitle);
         }
         BOOL shouldKeepCustomTitleView = navigationTargetVC.navigationItem.titleView ||
                                          navigationTargetVC.gk_navTitleView;
@@ -261,9 +345,9 @@ static UIViewModel *JobsAdaptiveNavigationTitleModel(id _Nullable requestParams)
         jobsByVoidBlock presentViewControllerBlock = ^(){
             /// 防止多次present控制器
             if(!fromVC.presentedViewController){
-                toVC.pushOrPresent = ComingStyle_PRESENT;
+                toVC.byPushOrPresent(ComingStyle_PRESENT);
                 /// iOS_13中modalPresentationStyle的默认改为UIModalPresentationAutomatic,而在之前默认是UIModalPresentationFullScreen
-                toVC.modalPresentationStyle = presentationStyle;
+                toVC.byModalPresentationStyle(presentationStyle);
                 [weak_fromVC presentViewController:toVC
                                           animated:animated
                                         completion:^{
@@ -275,8 +359,8 @@ static UIViewModel *JobsAdaptiveNavigationTitleModel(id _Nullable requestParams)
             /// 处理 ComingStyle_PUSH 分支
             case ComingStyle_PUSH:{
                 if (fromVC.navigationController) {
-                    toVC.pushOrPresent = ComingStyle_PUSH;
-                    toVC.hidesBottomBarWhenPushed = hidesBottomBarWhenPushed;/// 下面有黑条
+                    toVC.byPushOrPresent(ComingStyle_PUSH);
+                    toVC.byHidesBottomBarWhenPushed(hidesBottomBarWhenPushed);
                     [weak_fromVC.navigationController pushViewController:toVC animated:animated];
                     if (successBlock) successBlock(toVC);
                 }else if(presentViewControllerBlock) presentViewControllerBlock();
@@ -346,6 +430,15 @@ JobsKey(_setupNavigationBarHidden)
 -(void)setSetupNavigationBarHidden:(BOOL)setupNavigationBarHidden{
     Jobs_setAssociatedRETAIN_NONATOMIC(_setupNavigationBarHidden, @(setupNavigationBarHidden));
 }
+
+-(JobsRetVCByBOOLBlock _Nonnull)bySetupNavigationBarHidden{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController *_Nullable(BOOL hidden){
+        @jobs_strongify(self)
+        self.setupNavigationBarHidden = hidden;
+        return self;
+    };
+}
 #pragma mark —— Prop_assign()NSUInteger __block jobsTag;
 JobsKey(_jobsTag)
 @dynamic jobsTag;
@@ -385,13 +478,13 @@ JobsKey(_navBar)
         NavBar = jobsMakeNavBar(^(__kindof JobsNavBar * _Nullable data) {
             @jobs_strongify(self)
             if(JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape){
-                self.navBarConfig.backBtnModel.jobsOffsetX = self.navBarConfig.backBtnModel.jobsOffsetX ? : JobsWidth(40);
-                self.navBarConfig.closeBtnModel.jobsOffsetX = self.navBarConfig.closeBtnModel.jobsOffsetX ? : JobsWidth(40);
+                self.navBarConfig.backBtnModel.byJobsOffsetX(self.navBarConfig.backBtnModel.jobsOffsetX ? : JobsWidth(40));
+                self.navBarConfig.closeBtnModel.byJobsOffsetX(self.navBarConfig.closeBtnModel.jobsOffsetX ? : JobsWidth(40));
             }
 //            JobsLog(@"%f",self.navBarConfig.backBtnModel.jobsOffsetX);
 //            JobsLog(@"%f",self.navBarConfig.closeBtnModel.jobsOffsetX);
 //            if(!self.navBarConfig.title) self.navBarConfig.title = self.viewModel.textModel.text;
-            data.navBarConfig = self.navBarConfig;
+            data.byNavBarConfig(self.navBarConfig);
             self.view.addSubview(data.JobsRichViewByModel2(nil)
                                  .JobsNavBarBackBtnClickBlock(^(__kindof UIButton *_Nullable x){
                                      @jobs_strongify(self)

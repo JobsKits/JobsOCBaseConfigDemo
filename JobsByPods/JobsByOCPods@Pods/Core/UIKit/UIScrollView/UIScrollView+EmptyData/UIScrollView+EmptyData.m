@@ -6,14 +6,14 @@
 //
 
 #import "UIScrollView+EmptyData.h"
+#import <JobsOCDSL/UIScrollView+DSL.h>
 
 @implementation UIScrollView (EmptyData)
 -(JobsRetScrollViewByButtonModelBlock _Nonnull)emptyDataByButtonModel{
     @jobs_weakify(self)
     return ^__kindof UIScrollView *_Nullable(__kindof UIButtonModel *_Nullable buttonModel){
         @jobs_strongify(self)
-        self.buttonModelEmptyData = buttonModel;
-        return self;
+        return self.byButtonModelEmptyData(buttonModel);
     };
 }
 #pragma mark —— Prop_assign()JobsEmptyViewType jobsEmptyViewType;

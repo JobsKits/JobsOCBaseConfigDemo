@@ -20,10 +20,24 @@
 #import "JobsBlock.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BRPickerStyle (DSL)
 
+-(JobsRetBRPickerStyleByCorBlock _Nonnull)bySeparatorColor;
+
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN BRPickerStyle
+-(JobsRetBRPickerStyleByCorBlock _Nonnull)byPickerColor;
+-(JobsRetBRPickerStyleByCorBlock _Nonnull)byPickerTextColor;
+-(JobsRetBRPickerStyleByNSStringBlock _Nonnull)byCancelBtnTitle;
+-(JobsRetBRPickerStyleByNSStringBlock _Nonnull)byDoneBtnTitle;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END BRPickerStyle
 @end
 
 NS_ASSUME_NONNULL_END

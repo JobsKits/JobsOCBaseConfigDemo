@@ -23,7 +23,7 @@
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
-        NSObject.jobsToastMsg(self.tr);
+        NSObject.jobsToastMsg(self.jobsTr());
     };
 }
 

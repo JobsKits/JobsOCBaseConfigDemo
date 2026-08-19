@@ -215,7 +215,7 @@ static inline void UninstallAllConstraints(__kindof UIView *_Nullable view){
 ///   - masonryAfterBlock: 希望变到的最后的约束
 -(void)jobsMasonryBeforeBlock:(jobsByMASConstraintMakerBlock _Nonnull)masonryBeforeBlock
             masonryAfterBlock:(jobsByMASConstraintMakerBlock _Nonnull)masonryAfterBlock{
-    [self uninstallAllLayoutAttribute];
+    self.uninstallAllLayoutAttribute();
     if(masonryBeforeBlock) [self.view mas_remakeConstraints:masonryBeforeBlock];
     /// 告诉视图需要更新布局
     [self.view setNeedsUpdateConstraints];
@@ -245,7 +245,7 @@ static inline void UninstallAllConstraints(__kindof UIView *_Nullable view){
 #pragma mark —— Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
 JobsKey(_masonryBlock)
 @dynamic masonryBlock;
--(jobsByMASConstraintMakerBlock)masonryBlock{
+-(jobsByMASConstraintMakerBlock _Nullable)masonryBlock{
     return Jobs_getAssociatedObject(_masonryBlock);
 }
 

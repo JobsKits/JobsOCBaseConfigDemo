@@ -25,7 +25,7 @@
         NSString *raw = SELF.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
         if (!isValue(raw)) { return nil; }
         /// 拒绝网络：同步接口不触网
-        if (SELF.isContainsUrl) { return nil; }
+        if (SELF.isContainsUrl()) { return nil; }
         UIImage *named = [UIImage systemImageNamed:raw];
         if (named) { return named; }
         if (!named && isValue(self)) {
@@ -40,7 +40,7 @@
         NSString *raw = SELF.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
         if (!isValue(raw)) { return nil; }
         // 1) 拒绝网络：同步接口不触网
-        if (SELF.isContainsUrl) { return nil; }
+        if (SELF.isContainsUrl()) { return nil; }
         // 2) dataURL: data:image/png;base64,xxxx
         if ([raw hasPrefix:@"data:image/"]) {
             UIImage *img = self.imageByDataURL(raw);
@@ -73,11 +73,11 @@
     if([self isKindOfClass:NSString.class]){
         NSString *SELF = (NSString *)self;
         // 本地 / 同步路径
-        if (!SELF.isContainsUrl) {
+        if (!SELF.isContainsUrl()) {
             completion(self.img ?: placeholder);
             return;
         }
-        NSURL *url = SELF.jobsUrl;
+        NSURL *url = SELF.jobsURL();
         if (!url) { completion(placeholder); return; }
         // 先查缓存
         UIImage *cached = [SDImageCache.sharedImageCache imageFromCacheForKey:url.absoluteString];

@@ -8,22 +8,22 @@
 #import <UIKit/UIKit.h>
 #import "JobsBtnStyleCVCell.h"
 
-#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
-#import <JobsLanMgr/JobsLanMgr.h>
-#else
-#import "JobsLanMgr.h"
-#endif
-
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>
 #else
 #import "JobsByOCPods.h"
 #endif
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import <JobsLanMgr/JobsLanMgr.h>
 #else
-#import "JobsOCDSL.h"
+#import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
 #endif
 
 #if __has_include(<JobsModelDSL/JobsModelDSL.h>)
@@ -32,10 +32,10 @@
 #import "JobsModelDSL.h"
 #endif
 
-#if __has_include(<JobsMakes/JobsMakes.h>)
-#import <JobsMakes/JobsMakes.h>
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
 #else
-#import "JobsMakes.h"
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -61,6 +61,10 @@ UICollectionViewDataSource
 #pragma mark —— 一些公有方法
 -(jobsByBOOLBlock _Nonnull)shakeCell;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN BaiShaETProjPopupView10
+-(JobsRetBaiShaETProjPopupView10ByNSIntegerBlock _Nonnull)bySelectedIndex;
+-(JobsRetBaiShaETProjPopupView10ByNSMutableArrayUIViewModelBlock _Nonnull)byDataMutArr;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END BaiShaETProjPopupView10
 @end
 
 NS_ASSUME_NONNULL_END

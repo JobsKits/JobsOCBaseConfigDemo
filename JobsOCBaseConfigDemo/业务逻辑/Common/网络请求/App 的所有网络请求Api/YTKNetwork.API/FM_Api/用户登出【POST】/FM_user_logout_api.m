@@ -10,11 +10,31 @@
 @implementation FM_user_logout_api
 /// 请求的完整URL：用户登出【POST】
 -(NSString *)requestUrl{
-    return This.BaseUrl.add(self.post_user_auth_logout.url);
+    JobsRetStrByVoidBlock action = ((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FM_user_logout_api.class, @selector(jobsRequestUrl)))(self, @selector(jobsRequestUrl));
+    return action ? action() : nil;
+}
+
+-(JobsRetStrByVoidBlock _Nonnull)jobsRequestUrl{
+    @jobs_weakify(self)
+    return ^NSString *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return This.jobsBaseUrl().add(self.jobs_post_user_auth_logout().url);
+    };
 }
 /// 请求方式
 -(YTKRequestMethod)requestMethod {
-    return YTKRequestMethodPOST;
+    JobsRetYTKRequestMethodByVoidBlock action = ((JobsRetYTKRequestMethodByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FM_user_logout_api.class, @selector(jobsRequestMethod)))(self, @selector(jobsRequestMethod));
+    return action ? action() : (YTKRequestMethod){0};
+}
+
+-(JobsRetYTKRequestMethodByVoidBlock _Nonnull)jobsRequestMethod{
+    @jobs_weakify(self)
+    return ^YTKRequestMethod{
+        @jobs_strongify(self)
+        if (!self) return (YTKRequestMethod){0};
+        return YTKRequestMethodPOST;
+    };
 }
 
 @end

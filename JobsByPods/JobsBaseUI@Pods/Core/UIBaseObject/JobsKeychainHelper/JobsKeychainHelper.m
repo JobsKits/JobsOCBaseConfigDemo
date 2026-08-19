@@ -6,13 +6,16 @@
 //
 
 #import "JobsKeychainHelper.h"
+
 #import <JobsBaseUI/NSKeyedArchiver+Extra.h>
 #import <JobsBaseUI/NSMutableDictionary+Extra.h>
 
 @implementation JobsKeychainHelper
 #pragma mark —— 🔑钥匙串存储：
 /// 读取数据
-+(JobsRetIDByStrBlock _Nonnull)load{
++(void)load{}
+
++(JobsRetIDByStrBlock _Nonnull)jobsLoad{
     return ^id _Nullable(__kindof NSString *_Nullable service){
         id ret = nil;
         // 创建一个数据对象
@@ -83,7 +86,7 @@
     /// 创建字典来保存 Keychain 数据,并添加到 Keychain
     OSStatus status = SecItemAdd((__bridge CFDictionaryRef)jobsMakeMutDic(^(__kindof NSMutableDictionary * _Nullable data) {
         data.addByDic(JobsKeychainHelper.getKeychainBaseQuery(service));
-        [data setObject:password.UTF8Encoding forKey:(__bridge id)kSecValueData];
+        [data setObject:password.jobsUTF8Encoding() forKey:(__bridge id)kSecValueData];
     }), NULL);return (status == errSecSuccess);
 }
 /// service + account ==> password

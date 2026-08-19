@@ -17,6 +17,12 @@
 #import "YTKNetwork.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 @interface YTKChainRequest (AnimatingAccessory)
 
 Prop_weak()UIView *animatingView;

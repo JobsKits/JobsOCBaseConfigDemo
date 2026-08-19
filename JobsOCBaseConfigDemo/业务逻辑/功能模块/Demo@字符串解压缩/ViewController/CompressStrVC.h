@@ -7,10 +7,22 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
+#else
+#import "JobsBaseUI.h"
+#endif
+
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>
 #else
 #import "JobsByOCPods.h"
+#endif
+
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import <JobsLanMgr/JobsLanMgr.h>
+#else
+#import "JobsLanMgr.h"
 #endif
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
@@ -19,16 +31,10 @@
 #import "JobsOCDSL.h"
 #endif
 
-#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
-#import <JobsBaseUI/JobsBaseUI.h>
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
 #else
-#import "JobsBaseUI.h"
-#endif
-
-#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
-#import <JobsLanMgr/JobsLanMgr.h>
-#else
-#import "JobsLanMgr.h"
+#import "JobsBlock.h"
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
@@ -41,6 +47,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CompressStrVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN CompressStrVC
+-(JobsRetCompressStrVCByNSStringBlock _Nonnull)byCompressedBase64Str;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END CompressStrVC
 @end
 
 NS_ASSUME_NONNULL_END

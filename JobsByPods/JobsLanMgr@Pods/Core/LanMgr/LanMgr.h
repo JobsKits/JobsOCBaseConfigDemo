@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 获取和设置当前语言
 Prop_assign(class)AppLanguage language;
 /// 语言包路径
-+(NSBundle *_Nullable)bundle;
++(JobsRetNSBundleByVoidBlock _Nonnull)bundle;
 /// 通过key取值对应的语言
 +(JobsRetStrByStrBlock _Nonnull)localStringByKey;
 /// 枚举和语言字符串的转换

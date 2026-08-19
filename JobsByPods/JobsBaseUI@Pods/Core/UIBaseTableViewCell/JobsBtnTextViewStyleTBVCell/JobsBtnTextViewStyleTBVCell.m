@@ -6,10 +6,11 @@
 //
 
 #import "JobsBtnTextViewStyleTBVCell.h"
+
 #import <JobsBaseUI/UITextView+Extra.h>
 #import <JobsBaseUI/NSString+Sys.h>
 #import <JobsBaseUI/NSObject+Extra.h>
-#import <JobsBaseUI/SZTextView+Extra.h>
+#import <SZTextViewExtra/SZTextView+Extra.h>
 #import <JobsBaseUI/UIButton+SimplyMake.h>
 #import <JobsBaseUI/UIButton+UI.h>
 #import <JobsBaseUI/UITableView+RegisterClass.h>
@@ -30,7 +31,17 @@ BaseViewProtocol_synthesize
 /// AppToolsProtocol
 AppToolsProtocol_synthesize
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBtnTextViewStyleTBVCell.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 #pragma mark —— BaseCellProtocol
 /// UITableViewCell
@@ -46,7 +57,7 @@ AppToolsProtocol_synthesize
     return ^__kindof UITableViewCell *_Nullable(id _Nullable data) {
         @jobs_strongify(self)
         if([data isKindOfClass:UIViewModel.class]) {
-            self.viewModel = data;
+            self.byViewModel(data);
             self.button.bgColorBy(self.viewModel.bgCor)
                 .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
                 .jobsResetImagePadding(self.viewModel.imagePadding)
@@ -57,17 +68,17 @@ AppToolsProtocol_synthesize
                 .jobsResetBtnTitle(self.viewModel.title ? : @"");
             /// 富文本的优先级大于普通文本
             if(self.viewModel.attributedTitle){
-                self.textView.attributedText = self.viewModel.attributedTitle;
+                self.textView.byAttributedText(self.viewModel.attributedTitle);
             }else{
                 self.textView
                     .byText(self.viewModel.text)
                     .byTextCor(self.viewModel.textCor)
                     .byFont(self.viewModel.font);
-                self.textView.textAlignment = self.viewModel.textAlignment;
+                self.textView.byTextAlignment(self.viewModel.textAlignment);
             }if(!self.viewModel.selectedImage_) self.viewModel.selectedImage_ = self.viewModel.image;
         }
         if([data isKindOfClass:UIButtonModel.class]) {
-            self.buttonModel = data;
+            self.byButtonModel(data);
             self.button.bgColorBy(self.buttonModel.baseBackgroundColor)
                 .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
                 .jobsResetImagePadding(self.buttonModel.imagePadding)
@@ -78,14 +89,14 @@ AppToolsProtocol_synthesize
                 .jobsResetBtnTitle(self.buttonModel.title ? : @"");
             /// 富文本的优先级大于普通文本
             if(self.buttonModel.attributedTitle){
-                self.textView.attributedText = self.buttonModel.attributedTitle;
+                self.textView.byAttributedText(self.buttonModel.attributedTitle);
             }else{
                 self.textView.byText(self.buttonModel.title);
-                self.textView.textAlignment = self.buttonModel.textAlignment;
+                self.textView.byTextAlignment(self.buttonModel.textAlignment);
                 /// 从 iOS 16 起，UITextView 使用新的文本渲染系统，会使用 UITextLayoutFragmentView。
                 /// 它默认在某些情况下会将内容垂直居中，比如文本少、没有足够内容填满 UITextView 的高度时。
                 /// 所以一下操作就是在关闭这个新特性
-                [self.textView switchs];
+                self.textView.switchs();
                 self.textView
                     .byTextCor(self.buttonModel.titleCor)
                     .byFont(self.buttonModel.titleFont);
@@ -135,7 +146,7 @@ AppToolsProtocol_synthesize
     /// 检查文本项是否为链接类型
     if (textItem.link.absoluteString.containsString(url)) {
         /// 创建一个自定义的 UIAction
-        return jobsMakeAction(@"自定义操作".tr,
+        return jobsMakeAction(@"自定义操作".jobsTr(),
                               nil,
                               nil,
                               ^(__kindof UIAction * _Nonnull action) {
@@ -184,14 +195,15 @@ AppToolsProtocol_synthesize
         @jobs_weakify(self)
         _textView = jobsMakeBaseTextView(^(__kindof BaseTextView * _Nullable textView) {
             @jobs_strongify(self)
-            textView.byBgColor(JobsClearColor);
-            textView.delegate = self;
-            textView.scrollEnabled = NO;
-            textView.dataDetectorTypes = UIDataDetectorTypeLink; /// 启用链接检测
-            textView.editable = NO; /// 禁止编辑。必须 editable = NO 才能点击链接跳转
-            textView.selectable = YES; /// 允许选择链接
-            textView.linkTextAttributes = self.makeLinkTextAttributes;
-            textView.addOn(self.contentView).byAdd(self.masonryBlock);
+            textView
+                .byDataDetectorTypes(UIDataDetectorTypeLink)
+                .byEditable(NO)
+                .bySelectable(YES)
+                .byLinkTextAttributes(self.makeLinkTextAttributes())
+                .byDelegate(self)
+                .byScrollEnabled(NO)
+                .byBgColor(JobsClearColor)
+                .addOn(self.contentView).byAdd(self.masonryBlock);
         });
     };return _textView;
 }
@@ -204,14 +216,14 @@ AppToolsProtocol_synthesize
             textView
                 .byTextCor(JobsLabelColor)
                 .byFont(UIFontWeightMediumSize(18))
+                .byPlaceholder(@"请输入充值金额".jobsTr())
+                .byPlaceholderFont(textView.font)
+                .byPlaceholderColor(JobsPlaceholderTextColor)
+                .byDelegate(self)
+                .byReturnKeyType(UIReturnKeyDefault)
+                .byKeyboardAppearance(UIKeyboardAppearanceDefault)
+                .byKeyboardType(UIKeyboardTypeNumberPad)
                 .byBgColor(JobsSecondarySystemBackgroundColor);
-            textView.delegate = self;
-            textView.returnKeyType = UIReturnKeyDefault;
-            textView.keyboardAppearance = UIKeyboardAppearanceDefault;
-            textView.keyboardType = UIKeyboardTypeNumberPad;
-            textView.placeholder = @"请输入充值金额".tr;
-            textView.placeholderFont = textView.font;
-            textView.placeholderColor = JobsPlaceholderTextColor;
             [textView jobsTextViewFilterBlock:^BOOL(id  _Nullable data) {
 //                @jobs_strongify(self)
                 return YES;
@@ -227,17 +239,19 @@ AppToolsProtocol_synthesize
         @jobs_weakify(self)
         _jobsTextView = makeJobsTextView(^(__kindof JobsTextView * _Nullable textView) {
             @jobs_strongify(self)
-            textView.szTextView.byTextCor(JobsLabelColor);
-            textView.szTextView.delegate = self;
-            textView.szTextView.byBgColor(JobsClearColor);
-            textView.byBgColor(JobsClearColor);
-            textView.returnKeyType_ = UIReturnKeyDefault;
-            textView.keyboardAppearance_ = UIKeyboardAppearanceDefault;
-            textView.keyboardType_ = UIKeyboardTypeNumberPad;
-            textView.placeholder = @"请输入充值金额".tr;
-            textView.font = UIFontWeightMediumSize(18);
-            textView.placeholderFont = textView.font;
-            textView.placeholderColor = JobsPlaceholderTextColor;
+            textView.szTextView
+                .byTextCor(JobsLabelColor)
+                .byDelegate(self)
+                .byBgColor(JobsClearColor);
+            textView
+                .byReturnKeyType_(UIReturnKeyDefault)
+                .byKeyboardAppearance_(UIKeyboardAppearanceDefault)
+                .byKeyboardType_(UIKeyboardTypeNumberPad)
+                .byPlaceholder(@"请输入充值金额".jobsTr())
+                .byFont(UIFontWeightMediumSize(18))
+                .byPlaceholderFont(textView.font)
+                .byPlaceholderColor(JobsPlaceholderTextColor)
+                .byBgColor(JobsClearColor);
             [textView.szTextView jobsTextViewFilterBlock:^BOOL(id _Nullable data) {
 //                @jobs_strongify(self)
                 return YES;

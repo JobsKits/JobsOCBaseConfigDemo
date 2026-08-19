@@ -120,19 +120,33 @@
 }
 #pragma mark —— 一些功能性的
 /// 解压缩字符串
--(NSString *)decompressToStr{
-    NSError *error = nil;
-    NSString *string = @"";
-    NSData *data = [NSKeyedUnarchiver unarchivedObjectOfClass:NSData.class
-                                                     fromData:self
-                                                        error:&error];
-    if(error) JobsLog(@"%@",error.description);
-    if(data) string = data.stringByUTF8Encoding;
-    return string;
+-(JobsRetStrByVoidBlock _Nonnull)decompressToStr{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSError *error = nil;
+        NSString *string = @"";
+        NSData *data = [NSKeyedUnarchiver unarchivedObjectOfClass:NSData.class
+                                                         fromData:self
+                                                            error:&error];
+        if(error) JobsLog(@"%@",error.description);
+        if(data) string = data.jobsStringByUTF8Encoding();
+        return string;
+    };
 }
 
 -(NSString *)stringByUTF8Encoding{
-    return NSString.initByUTF8Data(self);
+    return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSData.class, @selector(jobsStringByUTF8Encoding)))(self, @selector(jobsStringByUTF8Encoding)))();
+}
+
+-(JobsRetStrByVoidBlock _Nonnull)jobsStringByUTF8Encoding{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSString.initByUTF8Data(self);
+    };
 }
 
 @end

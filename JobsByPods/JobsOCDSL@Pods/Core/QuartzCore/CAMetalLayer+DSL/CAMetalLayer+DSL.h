@@ -9,7 +9,19 @@
 #define JOBS_HEADER_GUARD_CAMETALLAYER_DSL_A6F3C2D1
 
 #import <QuartzCore/CAMetalLayer.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "CALayer+DSL.h"
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 

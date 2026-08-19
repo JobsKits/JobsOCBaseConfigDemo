@@ -22,7 +22,17 @@ Prop_strong()NSMutableArray <JobsIMListDataModel *>*jobsIMListMutArr;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsIMListView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 #pragma mark —— BaseViewProtocol
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -63,8 +73,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     return cell.byAllowsMultipleSwipe(YES);
 }
 #pragma mark —— MGSwipeTableCellDelegate
--(void)swipeTableCellWillBeginSwiping:(nonnull MGSwipeTableCell *)cell{
-    NSObject.feedbackGenerator(nil);//震动反馈
+-(jobsByMGSwipeTableCellBlock _Nonnull)swipeTableCellWillBeginSwiping{
+    @jobs_weakify(self)
+    return ^(MGSwipeTableCell * cell){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSObject.feedbackGenerator(nil);//震动反馈
+    };
 }
 /// 点击了第几个滑动出现的按钮？
 -(BOOL)swipeTableCell:(MGSwipeTableCell *)cell
@@ -88,11 +103,11 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
             MJRefreshConfigModel *headerConfig = jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable model) {
-                model.byStateIdleTitle(@"下拉刷新数据".tr)
-                    .byPullingTitle(@"下拉刷新数据".tr)
-                    .byRefreshingTitle(@"正在刷新数据".tr)
-                    .byWillRefreshTitle(@"刷新数据中".tr)
-                    .byNoMoreDataTitle(@"下拉刷新数据".tr)
+                model.byStateIdleTitle(@"下拉刷新数据".jobsTr())
+                    .byPullingTitle(@"下拉刷新数据".jobsTr())
+                    .byRefreshingTitle(@"正在刷新数据".jobsTr())
+                    .byWillRefreshTitle(@"刷新数据中".jobsTr())
+                    .byNoMoreDataTitle(@"下拉刷新数据".jobsTr())
                     .byTextColor(JobsSecondaryLabelColor)
                     .byLoadBlock(^id _Nullable(id _Nullable data) {
                         @jobs_strongify(self)
@@ -102,11 +117,11 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                     });
             });
             MJRefreshConfigModel *footerConfig = jobsMakeRefreshConfigModel(^(__kindof MJRefreshConfigModel * _Nullable model) {
-                model.byStateIdleTitle(@"".tr)
-                    .byPullingTitle(@"".tr)
-                    .byRefreshingTitle(@"".tr)
-                    .byWillRefreshTitle(@"".tr)
-                    .byNoMoreDataTitle(@"".tr)
+                model.byStateIdleTitle(@"".jobsTr())
+                    .byPullingTitle(@"".jobsTr())
+                    .byRefreshingTitle(@"".jobsTr())
+                    .byWillRefreshTitle(@"".jobsTr())
+                    .byNoMoreDataTitle(@"".jobsTr())
                     .byTextColor(JobsSecondaryLabelColor)
                     .byLoadBlock(^id _Nullable(id _Nullable data) {
                         @jobs_strongify(self)
@@ -124,8 +139,8 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                 .bySeparatorStyle(UITableViewCellSeparatorStyleNone)
                 .byPagingEnabled(YES) // 这个属性为YES会使得Tableview一格一格的翻动
                 .byShowsVerticalScrollIndicator(NO)
-                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
-            tableView
+                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
+
                 .byBgColor(self.bgColour)
                 .addOn(self);
             [tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -142,41 +157,41 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
     if (!_jobsIMListMutArr) {
         _jobsIMListMutArr = jobsMakeMutArr(^(__kindof NSMutableArray<JobsIMListDataModel *> * _Nullable arr) {
             arr.add(jobsMakeIMListDataModel(^(__kindof JobsIMListDataModel * _Nullable model) {
-                model.userID = @"jobsim_peer_mahuateng";
-                model.peerID = @"lan_peer_mahuateng";
-                model.usernameStr = @"马化腾";
-                model.contentStr = @"晚上西藏饭店3楼喜马拉雅厅不见不散，到了电话";
-                model.timeStr = @"22:54";
-                model.userHeaderIMG = UIImage.animatedGIFByName(@"动态头像_1 尺寸126");
-                model.transportKind = JobsIMTransportKindLANBonjourNetwork;
-                model.peerOnlineState = JobsIMPeerOnlineStateOnlineForeground;
+                model.byUserID(@"jobsim_peer_mahuateng")
+                    .byPeerID(@"lan_peer_mahuateng")
+                    .byUsernameStr(@"马化腾")
+                    .byContentStr(@"晚上西藏饭店3楼喜马拉雅厅不见不散，到了电话")
+                    .byTimeStr(@"22:54")
+                    .byUserHeaderIMG(UIImage.animatedGIFByName(@"动态头像_1 尺寸126"))
+                    .byTransportKind(JobsIMTransportKindLANBonjourNetwork)
+                    .byPeerOnlineState(JobsIMPeerOnlineStateOnlineForeground);
             })).add(jobsMakeIMListDataModel(^(__kindof JobsIMListDataModel * _Nullable model) {
-                model.userID = @"jobsim_peer_mayun";
-                model.peerID = @"nearby_peer_mayun";
-                model.usernameStr = @"马云";
-                model.contentStr = @"刘总请再给我一次机会";
-                model.timeStr = @"05:34";
-                model.userHeaderIMG = UIImage.animatedGIFByName(@"动态头像_2 尺寸126");
-                model.transportKind = JobsIMTransportKindNearbyMultipeer;
-                model.peerOnlineState = JobsIMPeerOnlineStateOnlineForeground;
+                model.byUserID(@"jobsim_peer_mayun")
+                    .byPeerID(@"nearby_peer_mayun")
+                    .byUsernameStr(@"马云")
+                    .byContentStr(@"刘总请再给我一次机会")
+                    .byTimeStr(@"05:34")
+                    .byUserHeaderIMG(UIImage.animatedGIFByName(@"动态头像_2 尺寸126"))
+                    .byTransportKind(JobsIMTransportKindNearbyMultipeer)
+                    .byPeerOnlineState(JobsIMPeerOnlineStateOnlineForeground);
             })).add(jobsMakeIMListDataModel(^(__kindof JobsIMListDataModel * _Nullable model) {
-                model.userID = @"jobsim_peer_lijiacheng";
-                model.peerID = @"lan_peer_lijiacheng";
-                model.usernameStr = @"李嘉诚";
-                model.contentStr = @"小刘我很看好你，什么时候有空过来坐坐";
-                model.timeStr = @"02:14";
-                model.userHeaderIMG = UIImage.animatedGIFByName(@"动态头像_1 尺寸126");
-                model.transportKind = JobsIMTransportKindLANBonjourNetwork;
-                model.peerOnlineState = JobsIMPeerOnlineStateBackgroundMaybeOffline;
+                model.byUserID(@"jobsim_peer_lijiacheng")
+                    .byPeerID(@"lan_peer_lijiacheng")
+                    .byUsernameStr(@"李嘉诚")
+                    .byContentStr(@"小刘我很看好你，什么时候有空过来坐坐")
+                    .byTimeStr(@"02:14")
+                    .byUserHeaderIMG(UIImage.animatedGIFByName(@"动态头像_1 尺寸126"))
+                    .byTransportKind(JobsIMTransportKindLANBonjourNetwork)
+                    .byPeerOnlineState(JobsIMPeerOnlineStateBackgroundMaybeOffline);
             })).add(jobsMakeIMListDataModel(^(__kindof JobsIMListDataModel * _Nullable model) {
-                model.userID = @"jobsim_peer_nio_wang";
-                model.peerID = @"nearby_peer_nio_wang";
-                model.usernameStr = @"蔚来卡地亚花园城营销小王";
-                model.contentStr = @"刘总给你留了一套独栋，什么时候有空过来办手续";
-                model.timeStr = @"20:34";
-                model.userHeaderIMG = UIImage.animatedGIFByName(@"动态头像_2 尺寸126");
-                model.transportKind = JobsIMTransportKindNearbyMultipeer;
-                model.peerOnlineState = JobsIMPeerOnlineStateOffline;
+                model.byUserID(@"jobsim_peer_nio_wang")
+                    .byPeerID(@"nearby_peer_nio_wang")
+                    .byUsernameStr(@"蔚来卡地亚花园城营销小王")
+                    .byContentStr(@"刘总给你留了一套独栋，什么时候有空过来办手续")
+                    .byTimeStr(@"20:34")
+                    .byUserHeaderIMG(UIImage.animatedGIFByName(@"动态头像_2 尺寸126"))
+                    .byTransportKind(JobsIMTransportKindNearbyMultipeer)
+                    .byPeerOnlineState(JobsIMPeerOnlineStateOffline);
             }));
         });
     };return _jobsIMListMutArr;

@@ -7,6 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -21,10 +27,14 @@ Prop_copy()NSString *name;
 Prop_copy()NSString *detail;
 Prop_strong()UIColor *color;
 
+-(JobsRetJobsOCSkeletonUserByStrBlock _Nonnull)byName;
+-(JobsRetJobsOCSkeletonUserByStrBlock _Nonnull)byDetail;
+-(JobsRetJobsOCSkeletonUserByCorBlock _Nonnull)byColor;
+
 +(instancetype)userWithName:(NSString *)name
                      detail:(NSString *)detail
                       color:(UIColor *)color;
-+(NSArray <JobsOCSkeletonUser *>*)mockUsersWithCount:(NSUInteger)count;
++(JobsRetNSArrayJobsOCSkeletonUserByNSUIntegerBlock _Nonnull)mockUsersWithCount;
 
 @end
 

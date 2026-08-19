@@ -57,19 +57,19 @@ static BOOL JobsCNIDBirthDateIsValid(NSString *birthString) {
     NSInteger month = [birthString substringWithRange:NSMakeRange(4, 2)].integerValue;
     NSInteger day = [birthString substringWithRange:NSMakeRange(6, 2)].integerValue;
     NSCalendar *calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
-    NSDateComponents *components = NSDateComponents.new;
-    components.year = year;
-    components.month = month;
-    components.day = day;
+    NSDateComponents *components = NSDateComponents.new
+        .byYear(year)
+        .byMonth(month)
+        .byDay(day);
     NSDate *birthDate = [calendar dateFromComponents:components];
     if (!birthDate) return NO;
     NSDateComponents *actual = [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay
                                            fromDate:birthDate];
     if (actual.year != year || actual.month != month || actual.day != day) return NO;
-    NSDateComponents *minComponents = NSDateComponents.new;
-    minComponents.year = 1900;
-    minComponents.month = 1;
-    minComponents.day = 1;
+    NSDateComponents *minComponents = NSDateComponents.new
+        .byYear(1900)
+        .byMonth(1)
+        .byDay(1);
     NSDate *minDate = [calendar dateFromComponents:minComponents];
     if ([birthDate compare:minDate] == NSOrderedAscending || [birthDate compare:NSDate.date] == NSOrderedDescending) return NO;
     return YES;
@@ -161,8 +161,10 @@ static BOOL JobsCNIDValidate18(NSString *id18, NSError **error) {
     };
 }
 /// 中国大陆公民身份证号码严格校验
-+(BOOL)jobs_isValidCNID:(NSString *_Nullable)raw{
-    return [NSObject jobs_validateCNID:raw error:nil].length > 0;
++(JobsRetBOOLByStrBlock _Nonnull)jobs_isValidCNID{
+    return ^BOOL(NSString *_Nullable raw){
+        return [NSObject jobs_validateCNID:raw error:nil].length > 0;
+    };
 }
 /// 中国大陆公民身份证号码严格校验，成功时返回标准化后的 18 位号码
 +(NSString *_Nullable)jobs_validateCNID:(NSString *_Nullable)raw

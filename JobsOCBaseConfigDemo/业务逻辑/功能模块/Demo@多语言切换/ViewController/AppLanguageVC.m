@@ -20,87 +20,137 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
-        }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(@"App国际化之应用内部切换语言".tr)
-                .byFont(UIFontWeightRegularSize(16));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(AppLanguageVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
     @jobs_weakify(self)
-    [self addNotificationName:语言切换
-                        block:^(id _Nullable weakSelf,
-                                id _Nullable arg) {
+    return ^{
         @jobs_strongify(self)
-        NSNotification *notification = (NSNotification *)arg;
-        if([notification.object isKindOfClass:NSNumber.class]){
-            NSNumber *b = notification.object;
-            JobsLog(@"SSS = %d",b.boolValue);
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-        JobsLog(@"通知传递过来的 = %@",notification.object);
-    }];
-    self.jobsBackBlock = ^id _Nullable(id _Nullable data) {
-        JobsLog(@"退出页面的逻辑");
-        return nil;
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(@"App国际化之应用内部切换语言".jobsTr())
+                    .byFont(UIFontWeightRegularSize(16));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+        @jobs_weakify(self)
+        [self addNotificationName:语言切换
+                            block:^(id _Nullable weakSelf,
+                                    id _Nullable arg) {
+            @jobs_strongify(self)
+            NSNotification *notification = (NSNotification *)arg;
+            if([notification.object isKindOfClass:NSNumber.class]){
+                NSNumber *b = notification.object;
+                JobsLog(@"SSS = %d",b.boolValue);
+            }
+            JobsLog(@"通知传递过来的 = %@",notification.object);
+        }];
+        self.jobsBackBlock = ^id _Nullable(id _Nullable data) {
+            JobsLog(@"退出页面的逻辑");
+            return nil;
+        };
     };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.makeNavByAlpha(1);
-    self.tableView.byShow(self);
-    UIDeviceOrientation f =  UIDevice.currentDevice.orientation;
-    UIInterfaceOrientation s = self.getInterfaceOrientation;
-    DeviceOrientation d = self.getDeviceOrientation;
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(AppLanguageVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.makeNavByAlpha(1);
+        self.tableView.byShow(self);
+        UIDeviceOrientation f =  UIDevice.currentDevice.orientation;
+        UIInterfaceOrientation s = self.jobsGetInterfaceOrientation();
+        DeviceOrientation d = self.jobsGetDeviceOrientation();
+        JobsLog(@"");
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    [self.tableView.mj_header beginRefreshing];
-    UIDeviceOrientation f =  UIDevice.currentDevice.orientation;
-    UIInterfaceOrientation s = self.getInterfaceOrientation;
-    DeviceOrientation d = self.getDeviceOrientation;
-    JobsLog(@"");
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(AppLanguageVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillAppear:animated];
+        self.tableView.mj_header.beginRefreshing;
+        UIDeviceOrientation f =  UIDevice.currentDevice.orientation;
+        UIInterfaceOrientation s = self.jobsGetInterfaceOrientation();
+        DeviceOrientation d = self.jobsGetDeviceOrientation();
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    UIDeviceOrientation f =  UIDevice.currentDevice.orientation;
-    UIInterfaceOrientation s = self.getInterfaceOrientation;
-    DeviceOrientation d = self.getDeviceOrientation;
-    JobsLog(@"");
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(AppLanguageVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+        UIDeviceOrientation f =  UIDevice.currentDevice.orientation;
+        UIInterfaceOrientation s = self.jobsGetInterfaceOrientation();
+        DeviceOrientation d = self.jobsGetDeviceOrientation();
+        JobsLog(@"");
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(AppLanguageVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+    };
 }
 #pragma mark —— BaseViewProtocol
--(JobsRetViewByTableViewHeaderFooterViewBlock)makeViewOnTableViewHeaderFooterView{
+-(JobsRetViewByTableViewHeaderFooterViewBlock _Nonnull)makeViewOnTableViewHeaderFooterView{
     return ^__kindof UIView *_Nullable (__kindof UITableViewHeaderFooterView *_Nonnull headerFooterView) {
         /// 清除缓存以确保新图片被加载
         [SDImageCache.sharedImageCache clearMemory];
         [SDImageCache.sharedImageCache clearDiskOnCompletion:nil];
         return jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
-            imageView.byImage(@"6.59".tr.img);
-            imageView.addOn(headerFooterView).byAdd(^(MASConstraintMaker *make) {
+            imageView.byImage(@"6.59".jobsTr().img)
+            .addOn(headerFooterView).byAdd(^(MASConstraintMaker *make) {
                 make.center.equalTo(headerFooterView);
                 make.size.mas_equalTo(CGSizeMake(BaseTableViewHeaderFooterView.heightForHeaderInSection(nil),
                                                  BaseTableViewHeaderFooterView.heightForHeaderInSection(nil)));
@@ -110,7 +160,17 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(AppLanguageVC.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 1;
+    };
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
@@ -124,7 +184,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     /// 当前点选的Cell
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     for (UITableViewCell *acell in tableView.visibleCells) {
-        acell.accessoryType = acell == cell ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+        acell.byAccessoryType(acell == cell ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone);
     }
     self.appLanguageAtAppLanguageBy(self.dataMutArr[indexPath.row].appLanguage);/// 设置App语言环境并发送全局通知JobsLanguageSwitchNotification
     self.changeTabBarItemTitleBy(indexPath); //【App语言国际化】更改UITabBarItem的标题
@@ -132,7 +192,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self.dataMutArr removeAllObjects];
     _dataMutArr = nil;
     /// 刷新本界面
-    [self.tableView.mj_header beginRefreshing];
+    self.tableView.mj_header.beginRefreshing;
 //    @jobs_weakify(self)
     /// 2秒后退出本页面
 //    DispathdDelaySth(2.0, weak_self.backBtnClickEvent(nil));
@@ -168,17 +228,17 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 - (nullable __kindof UIView *)tableView:(UITableView *)tableView
         viewForHeaderInSection:(NSInteger)section{
     BaseTableViewHeaderFooterView *headerView = tableView.tableViewHeaderFooterView(BaseTableViewHeaderFooterView.class,@"");
-    headerView.headerFooterViewStyle = JobsHeaderViewStyle;
-    headerView.section = section;
+    headerView.byHeaderFooterViewStyle(JobsHeaderViewStyle);
+    headerView.bySection(section);
     /// headerView.backgroundColor 和  headerView.contentView.backgroundColor 均是无效操作❌
     /// 只有 headerView.backgroundView.backgroundColor 是有效操作✅
     headerView.backgroundView.byBgColor(JobsCyanColor);
     self.makeViewOnTableViewHeaderFooterView(headerView).byAlpha(1);
     headerView.jobsRichViewByModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {}));
 //        @jobs_weakify(self)
-    [headerView actionObjBlock:^(id data) {
+    headerView.actionObjBlock(^(id data) {
 //            @jobs_strongify(self)
-    }];return headerView;
+    });return headerView;
 }
 #pragma mark —— lazyLoad
 /// BaseViewProtocol
@@ -212,12 +272,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                                   animationBlock:nil
                                                  completionBlock:nil];
                     });
-                }].byMJRefreshHeaderConfigModel(self.mjHeaderDefaultConfig))
+                }].byMJRefreshHeaderConfigModel(self.jobsMjHeaderDefaultConfig()))
                 .byMJRefreshFooter([MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
                     @jobs_strongify(self)
                     NSObject.feedbackGenerator(nil); // 震动反馈
                     self->_tableView.endRefreshing(YES);
-                }].byMJRefreshFooterConfigModel(self.mjFooterDefaultConfig))
+                }].byMJRefreshFooterConfigModel(self.jobsMjFooterDefaultConfig()))
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
@@ -234,25 +294,25 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             data.add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
                 data1.byAppLanguage(AppLanguageBySys)
                      .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
-                         textModel.byText(@"跟随系统".tr);
+                         textModel.byText(@"跟随系统".jobsTr());
                      });
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
                 data1.byAppLanguage(AppLanguageChineseSimplified)
                      .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
-                         textModel.byText(@"中文".tr);
+                         textModel.byText(@"中文".jobsTr());
                      });
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
                 data1.byAppLanguage(AppLanguageEnglish)
                      .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
-                         textModel.byText(@"英文".tr);
+                         textModel.byText(@"英文".jobsTr());
                      });
             }))
             .add(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data1) {
                 data1.byAppLanguage(AppLanguageTagalog)
                      .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
-                         textModel.byText(@"他加禄语".tr);
+                         textModel.byText(@"他加禄语".jobsTr());
                      });
             }));
         });

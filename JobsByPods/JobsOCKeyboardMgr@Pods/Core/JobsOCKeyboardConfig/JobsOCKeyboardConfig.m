@@ -14,6 +14,12 @@ Prop_strong(readwrite) NSPointerArray *inputFieldPointerArray;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCKeyboardConfig
+@interface JobsOCKeyboardConfig (JobsPropertyDSLSetterAutogen_7adb786e8d)
+-(void)setInputFieldPointerArray:(NSPointerArray * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCKeyboardConfig
+
 @implementation JobsOCKeyboardConfig
 -(instancetype)init{
     if (self = [super init]) {
@@ -30,199 +36,234 @@ Prop_strong(readwrite) NSPointerArray *inputFieldPointerArray;
     };return self;
 }
 
--(BOOL)isValid{
-    return self.targetView != nil;
+-(JobsRetBOOLByVoidBlock _Nonnull)isValid{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return self.targetView != nil;
+    };
 }
 
--(NSArray <__kindof UIView *>*)followViews{
-    return self.followViewHashTable.allObjects;
+-(JobsRetNSArrayUIViewByVoidBlock _Nonnull)followViews{
+    @jobs_weakify(self)
+    return ^NSArray <__kindof UIView *>*{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.followViewHashTable.allObjects;
+    };
 }
 
--(NSArray <__kindof UITextField *>*)inputFields{
-    [self.inputFieldPointerArray compact];
-    NSMutableArray <__kindof UITextField *>*textFields = NSMutableArray.array;
-    for (NSUInteger i = 0; i < self.inputFieldPointerArray.count; i++) {
-        UITextField *textField = (__bridge UITextField *)([self.inputFieldPointerArray pointerAtIndex:i]);
-        if (textField) [textFields addObject:textField];
-    };return textFields;
+-(JobsRetNSArrayUITextFieldByVoidBlock _Nonnull)inputFields{
+    @jobs_weakify(self)
+    return ^NSArray <__kindof UITextField *>*{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self.inputFieldPointerArray compact];
+        NSMutableArray <__kindof UITextField *>*textFields = NSMutableArray.array;
+        for (NSUInteger i = 0; i < self.inputFieldPointerArray.count; i++) {
+            UITextField *textField = (__bridge UITextField *)([self.inputFieldPointerArray pointerAtIndex:i]);
+            if (textField) [textFields addObject:textField];
+        };return textFields;
+    };
 }
 
--(void)resetFollowViews:(NSArray<__kindof UIView *> *)data{
-    [self.followViewHashTable removeAllObjects];
-    for (__kindof UIView *view in data) {
-        if (view) [self.followViewHashTable addObject:view];
-    }
-}
-
--(void)resetInputFields:(NSArray <__kindof UITextField *>*)data{
-    self.inputFieldPointerArray = NSPointerArray.weakObjectsPointerArray;
-    for (__kindof UITextField *textField in data) {
-        if ([textField isKindOfClass:UITextField.class]) {
-            [self.inputFieldPointerArray addPointer:(__bridge void *)textField];
+-(jobsByNSArrayUIViewBlock _Nonnull)resetFollowViews{
+    @jobs_weakify(self)
+    return ^(NSArray<__kindof UIView *> * data){
+        @jobs_strongify(self)
+        if (!self) return;
+        [self.followViewHashTable removeAllObjects];
+        for (__kindof UIView *view in data) {
+            if (view) [self.followViewHashTable addObject:view];
         }
-    }
+    };
+}
+
+-(jobsByNSArrayUITextFieldBlock _Nonnull)resetInputFields{
+    @jobs_weakify(self)
+    return ^(NSArray <__kindof UITextField *>* data){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byInputFieldPointerArray(NSPointerArray.weakObjectsPointerArray);
+        for (__kindof UITextField *textField in data) {
+            if ([textField isKindOfClass:UITextField.class]) {
+                [self.inputFieldPointerArray addPointer:(__bridge void *)textField];
+            }
+        }
+    };
 }
 #pragma mark —— DSL
--(JobsRetJobsOCKeyboardConfigByIDBlock)byOwner{
-    __weak typeof(self) weakSelf = self;
+-(JobsRetJobsOCKeyboardConfigByIDBlock _Nonnull)byOwner{
+    @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardConfig *_Nullable(id _Nullable data) {
-        __strong typeof(weakSelf) self = weakSelf;
+        @jobs_strongify(self)
         self.owner = data;
         return self;
     };
 }
 
--(JobsRetJobsOCKeyboardConfigByViewBlock)byTargetView{
-    __weak typeof(self) weakSelf = self;
+-(JobsRetJobsOCKeyboardConfigByViewBlock _Nonnull)byTargetView{
+    @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardConfig *_Nullable(__kindof UIView *_Nullable data) {
-        __strong typeof(weakSelf) self = weakSelf;
+        @jobs_strongify(self)
         self.targetView = data;
         return self;
     };
 }
 
--(JobsRetJobsOCKeyboardConfigByViewBlock)byTriggerView{
-    __weak typeof(self) weakSelf = self;
+-(JobsRetJobsOCKeyboardConfigByViewBlock _Nonnull)byTriggerView{
+    @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardConfig *_Nullable(__kindof UIView *_Nullable data) {
-        __strong typeof(weakSelf) self = weakSelf;
+        @jobs_strongify(self)
         self.triggerView = data;
         return self;
     };
 }
 
--(JobsRetJobsOCKeyboardConfigByViewBlock)byTriggerScopeView{
-    __weak typeof(self) weakSelf = self;
+-(JobsRetJobsOCKeyboardConfigByViewBlock _Nonnull)byTriggerScopeView{
+    @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardConfig *_Nullable(__kindof UIView *_Nullable data) {
-        __strong typeof(weakSelf) self = weakSelf;
+        @jobs_strongify(self)
         self.triggerScopeView = data;
         return self;
     };
 }
 
--(JobsRetJobsOCKeyboardConfigByViewBlock)byContainerView{
-    __weak typeof(self) weakSelf = self;
+-(JobsRetJobsOCKeyboardConfigByViewBlock _Nonnull)byContainerView{
+    @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardConfig *_Nullable(__kindof UIView *_Nullable data) {
-        __strong typeof(weakSelf) self = weakSelf;
+        @jobs_strongify(self)
         self.containerView = data;
         return self;
     };
 }
 
--(JobsRetJobsOCKeyboardConfigByViewBlock)byAccessoryView{
-    __weak typeof(self) weakSelf = self;
+-(JobsRetJobsOCKeyboardConfigByViewBlock _Nonnull)byAccessoryView{
+    @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardConfig *_Nullable(__kindof UIView *_Nullable data) {
-        __strong typeof(weakSelf) self = weakSelf;
+        @jobs_strongify(self)
         self.accessoryView = data;
         return self;
     };
 }
 
--(JobsRetJobsOCKeyboardConfigByArrBlock)byFollowViews{
-    __weak typeof(self) weakSelf = self;
+-(JobsRetJobsOCKeyboardConfigByArrBlock _Nonnull)byFollowViews{
+    @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardConfig *_Nullable(__kindof NSArray<__kindof UIView *> *_Nullable data) {
-        __strong typeof(weakSelf) self = weakSelf;
-        [self resetFollowViews:data];
+        @jobs_strongify(self)
+        self.resetFollowViews(data);
         return self;
     };
 }
 
--(JobsRetJobsOCKeyboardConfigByArrBlock)byInputFields{
-    __weak typeof(self) weakSelf = self;
+-(JobsRetJobsOCKeyboardConfigByArrBlock _Nonnull)byInputFields{
+    @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardConfig *_Nullable(__kindof NSArray<__kindof UIView *> *_Nullable data) {
-        __strong typeof(weakSelf) self = weakSelf;
-        [self resetInputFields:(NSArray <__kindof UITextField *>*)data];
+        @jobs_strongify(self)
+        self.resetInputFields((NSArray <__kindof UITextField *>*)data);
         return self;
     };
 }
 
--(JobsRetJobsOCKeyboardConfigByCGFloatBlock)byAccessoryHeight{
-    __weak typeof(self) weakSelf = self;
+-(JobsRetJobsOCKeyboardConfigByCGFloatBlock _Nonnull)byAccessoryHeight{
+    @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardConfig *_Nullable(CGFloat data) {
-        __strong typeof(weakSelf) self = weakSelf;
+        @jobs_strongify(self)
         self.accessoryHeight = data;
         return self;
     };
 }
 
--(JobsRetJobsOCKeyboardConfigByCGFloatBlock)byExtraSpacing{
-    __weak typeof(self) weakSelf = self;
+-(JobsRetJobsOCKeyboardConfigByCGFloatBlock _Nonnull)byExtraSpacing{
+    @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardConfig *_Nullable(CGFloat data) {
-        __strong typeof(weakSelf) self = weakSelf;
+        @jobs_strongify(self)
         self.extraSpacing = data;
         return self;
     };
 }
 
--(JobsRetJobsOCKeyboardConfigByCGFloatBlock)byTopSpacing{
-    __weak typeof(self) weakSelf = self;
+-(JobsRetJobsOCKeyboardConfigByCGFloatBlock _Nonnull)byTopSpacing{
+    @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardConfig *_Nullable(CGFloat data) {
-        __strong typeof(weakSelf) self = weakSelf;
+        @jobs_strongify(self)
         self.topSpacing = data;
         return self;
     };
 }
 
--(JobsRetJobsOCKeyboardConfigByCGFloatBlock)byMaxLiftDistance{
-    __weak typeof(self) weakSelf = self;
+-(JobsRetJobsOCKeyboardConfigByCGFloatBlock _Nonnull)byMaxLiftDistance{
+    @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardConfig *_Nullable(CGFloat data) {
-        __strong typeof(weakSelf) self = weakSelf;
+        @jobs_strongify(self)
         self.maxLiftDistance = data;
         return self;
     };
 }
 
--(JobsRetJobsOCKeyboardConfigByBOOLBlock)byShouldCheckHorizontalOverlap{
-    __weak typeof(self) weakSelf = self;
+-(JobsRetJobsOCKeyboardConfigByBOOLBlock _Nonnull)byShouldCheckHorizontalOverlap{
+    @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardConfig *_Nullable(BOOL data) {
-        __strong typeof(weakSelf) self = weakSelf;
+        @jobs_strongify(self)
         self.shouldCheckHorizontalOverlap = data;
         return self;
     };
 }
 
--(JobsRetJobsOCKeyboardConfigByBOOLBlock)byShouldResignOnTouchOutside{
-    __weak typeof(self) weakSelf = self;
+-(JobsRetJobsOCKeyboardConfigByBOOLBlock _Nonnull)byShouldResignOnTouchOutside{
+    @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardConfig *_Nullable(BOOL data) {
-        __strong typeof(weakSelf) self = weakSelf;
+        @jobs_strongify(self)
         self.shouldResignOnTouchOutside = data;
         return self;
     };
 }
 
--(JobsRetJobsOCKeyboardConfigByBOOLBlock)byShouldFlowByReturnKey{
-    __weak typeof(self) weakSelf = self;
+-(JobsRetJobsOCKeyboardConfigByBOOLBlock _Nonnull)byShouldFlowByReturnKey{
+    @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardConfig *_Nullable(BOOL data) {
-        __strong typeof(weakSelf) self = weakSelf;
+        @jobs_strongify(self)
         self.shouldFlowByReturnKey = data;
         return self;
     };
 }
 
--(JobsRetJobsOCKeyboardConfigByApplyModeBlock)byApplyMode{
-    __weak typeof(self) weakSelf = self;
+-(JobsRetJobsOCKeyboardConfigByApplyModeBlock _Nonnull)byApplyMode{
+    @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardConfig *_Nullable(JobsOCKeyboardApplyMode data) {
-        __strong typeof(weakSelf) self = weakSelf;
+        @jobs_strongify(self)
         self.applyMode = data;
         return self;
     };
 }
 
--(JobsRetJobsOCKeyboardConfigByAccessoryPolicyBlock)byAccessoryPolicy{
-    __weak typeof(self) weakSelf = self;
+-(JobsRetJobsOCKeyboardConfigByAccessoryPolicyBlock _Nonnull)byAccessoryPolicy{
+    @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardConfig *_Nullable(JobsOCKeyboardAccessoryPolicy data) {
-        __strong typeof(weakSelf) self = weakSelf;
+        @jobs_strongify(self)
         self.accessoryPolicy = data;
         return self;
     };
 }
 
--(JobsRetJobsOCKeyboardConfigByResultBlock)byResultBlock{
-    __weak typeof(self) weakSelf = self;
+-(JobsRetJobsOCKeyboardConfigByResultBlock _Nonnull)byResultBlock{
+    @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardConfig *_Nullable(jobsByOCKeyboardResultBlock _Nullable data) {
-        __strong typeof(weakSelf) self = weakSelf;
+        @jobs_strongify(self)
         self.resultBlock = data;
         return self;
     };
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsOCKeyboardConfig
+-(JobsRetJobsOCKeyboardConfigByNSPointerArrayBlock _Nonnull)byInputFieldPointerArray{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCKeyboardConfig * _Nullable(NSPointerArray * _Nullable data){
+        @jobs_strongify(self)
+        [self setInputFieldPointerArray:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCKeyboardConfig
 @end

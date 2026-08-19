@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_UIVIEW_JOBSNAVBAR_134E7AF0F6
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsNavBar/JobsNavBar.h>
 #import <JobsNavBar/UIView+Extra.h>
 
@@ -50,8 +56,8 @@ Prop_strong(nullable)JobsNavBarConfig *jobs_navBarConfig;
 Prop_strong(nullable)JobsNavBar *jobs_navBar;
 
 -(JobsRetNavBarConfigByButtonModelBlock _Nonnull)makeNavBarConfig;
--(JobsNavBar *_Nullable)jobs_addNavBarWithConfig:(JobsNavBarConfig *_Nullable)config;
--(void)jobs_removeNavBar;
+-(JobsRetJobsNavBarByJobsNavBarConfigBlock _Nonnull)jobs_addNavBarWithConfig;
+-(jobsByVoidBlock _Nonnull)jobs_removeNavBar;
 
 @end
 

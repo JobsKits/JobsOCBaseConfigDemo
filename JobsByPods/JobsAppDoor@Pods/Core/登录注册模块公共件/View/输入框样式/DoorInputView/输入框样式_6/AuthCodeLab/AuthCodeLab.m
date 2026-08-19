@@ -14,17 +14,22 @@
 @implementation AuthCodeLab
 - (instancetype)init{
     if (self = [super init]) {
-        self.userInteractionEnabled = YES;
-        [self requestAuthCode];
+        self.byUserInteractionEnabled(YES);
+        self.requestAuthCode();
     };return self;
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches
           withEvent:(UIEvent *)event{
-    [self requestAuthCode];
+    (((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(AuthCodeLab.class, @selector(requestAuthCode)))(self, @selector(requestAuthCode)))();
 }
 // 获取验证码
--(void)requestAuthCode{
+-(jobsByVoidBlock _Nonnull)requestAuthCode{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+    };
 }
 
 @end

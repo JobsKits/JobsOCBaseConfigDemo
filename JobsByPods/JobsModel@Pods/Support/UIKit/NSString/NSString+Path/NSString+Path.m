@@ -10,34 +10,58 @@
 @implementation NSString (JobsModelPath)
 #pragma mark —— iOS 获取文件的 文件名 和 后缀
 /// 从路径中获得完整的文件名 （带后缀）
--(NSString *)getFullFileNameByFilePath{
-    return self.lastPathComponent;
+-(JobsRetStrByVoidBlock _Nonnull)getFullFileNameByFilePath{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.lastPathComponent;
+    };
 }
 /// 从路径中获得完整的文件名 （不带后缀）
--(NSString *)getOnlyFileNameByFilePath{
-    return self.getFullFileNameByFilePath.stringByDeletingPathExtension;
+-(JobsRetStrByVoidBlock _Nonnull)getOnlyFileNameByFilePath{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.getFullFileNameByFilePath().stringByDeletingPathExtension;
+    };
 }
 /// 从路径中获得文件完整的后缀名 （不带'.'）
 +(JobsRetStrByStrBlock _Nonnull)getSuffixFileName{
     return ^__kindof NSString *_Nullable(NSString *_Nullable data){
-        return data.getFullFileNameByFilePath.pathExtension;
+        return data.getFullFileNameByFilePath().pathExtension;
     };
 }
 #pragma mark —— 目录获取
 -(NSString *)pathForResourceWithFullName{
-    // 拆分文件名和扩展名
-    NSString *name = self.stringByDeletingPathExtension;
-    NSString *extension = self.pathExtension;
-    // 使用 NSBundle 获取文件路径
-    return [NSBundle.mainBundle pathForResource:name ofType:extension];
+    return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsPathForResourceWithFullName)))(self, @selector(jobsPathForResourceWithFullName)))();
 }
 
--(NSString *)pathForResourceWithName{
-    // 拆分文件名和扩展名
-    NSString *name = self.stringByDeletingPathExtension;
-//    NSString *extension = self.pathExtension;
-    // 使用 NSBundle 获取文件路径
-    return [NSBundle.mainBundle pathForResource:name ofType:nil];
+-(JobsRetStrByVoidBlock _Nonnull)jobsPathForResourceWithFullName{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        // 拆分文件名和扩展名
+        NSString *name = self.stringByDeletingPathExtension;
+        NSString *extension = self.pathExtension;
+        // 使用 NSBundle 获取文件路径
+        return [NSBundle.mainBundle pathForResource:name ofType:extension];
+    };
+}
+
+-(JobsRetStrByVoidBlock _Nonnull)pathForResourceWithName{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        // 拆分文件名和扩展名
+        NSString *name = self.stringByDeletingPathExtension;
+    //    NSString *extension = self.pathExtension;
+        // 使用 NSBundle 获取文件路径
+        return [NSBundle.mainBundle pathForResource:name ofType:nil];
+    };
 }
 /// OC字符串路径拼接
 -(JobsRetStrByStrBlock _Nonnull)addPathComponent{
@@ -52,16 +76,16 @@
 /// 完整的文件名提取普通文件名和文件后缀名
 -(JobsRetFileNameModelByStrBlock _Nonnull)byFileFullName{
     return ^FileNameModel *_Nonnull(NSString *_Nullable fileFullName){
-        FileNameModel *fileNameModel = FileNameModel.new;
-        /// 使用"."分割文件名，获取文件名和文件类型
-        NSArray<NSString *> *components = [fileFullName componentsSeparatedByString:@"."];
-        if (components.count != 2) {
-            JobsLog(@"文件名格式错误: %@", fileFullName);
-            return fileNameModel;
-        }
-        fileNameModel.name = components[0];
-        fileNameModel.type = components[1];
-        return fileNameModel;
+        return jobsMakeFileNameModel(^(FileNameModel * _Nonnull model) {
+            /// 使用"."分割文件名，获取文件名和文件类型
+            NSArray<NSString *> *components = [fileFullName componentsSeparatedByString:@"."];
+            if (components.count != 2) {
+                JobsLog(@"文件名格式错误: %@", fileFullName);
+                return;
+            }
+            model.byName(components[0])
+                .byType(components[1]);
+        });
     };
 }
 

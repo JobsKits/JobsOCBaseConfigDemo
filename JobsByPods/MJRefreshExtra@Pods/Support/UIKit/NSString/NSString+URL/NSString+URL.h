@@ -11,6 +11,12 @@
 #pragma once
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <MJRefreshExtra/NSString+Sys.h>
 #import <MJRefreshExtra/NSURLRequest+Extra.h>
 #import <MJRefreshExtra/NSString+Replace.h>
@@ -31,24 +37,29 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (URL)
 /// 返回网址相关的NSURL *
--(NSURL *_Nonnull)jobsUrl;
+-(NSURL *)jobsUrl;
+-(JobsRetURLByVoidBlock _Nonnull)jobsURL;
 /// NSString => NSURLRequest
--(NSMutableURLRequest *_Nonnull)URLRequest;
+-(NSMutableURLRequest *)URLRequest;
+-(JobsRetMutableURLRequestByVoidBlock _Nonnull)jobsURLRequest;
 /// 返回文件路径相关的NSURL *
 /// 增加file://
--(NSURL *_Nonnull)jobsFileUrl;
+-(JobsRetURLByVoidBlock _Nonnull)jobsFileUrl;
 ///  能否正常打开Url
--(BOOL)jobsCanOpenUrl;
+-(JobsRetBOOLByVoidBlock _Nonnull)jobsCanOpenUrl;
 /**
 
      问题：直接其他地方复制过来的中文字进行网页搜索、或者中文字识别排序等情况的，会出现搜索不到的情况。
      解决方法：可能存在复制源里面的文字带了空白url编码%E2%80%8B，空白编码没有宽度，虽然看不到但是会影响结果无法正确匹配对应的中文字。可以把文字重新url编码即可。
  */
--(NSString *_Nonnull)urlProtect;
+-(NSString *)urlProtect;
+-(JobsRetStrByVoidBlock _Nonnull)jobsURLProtect;
 
--(NSString *_Nonnull)byHttp;
+-(NSString *)byHttp;
+-(JobsRetStrByVoidBlock _Nonnull)jobsByHttp;
 
--(NSString *_Nonnull)byHttps;
+-(NSString *)byHttps;
+-(JobsRetStrByVoidBlock _Nonnull)jobsByHttps;
 
 @end
 

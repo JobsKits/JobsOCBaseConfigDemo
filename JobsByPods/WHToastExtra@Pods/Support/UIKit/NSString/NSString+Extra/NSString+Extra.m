@@ -9,9 +9,14 @@
 
 @implementation NSString (Extra)
 /// 字符串是否包含URL【返回YES包含】
--(BOOL)isContainsUrl{
-    NSString *checkStr = @"https://".add(@"http://");
-    return [self rangeOfString:checkStr].location != NSNotFound;
+-(JobsRetBOOLByVoidBlock _Nonnull)isContainsUrl{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        NSString *checkStr = @"https://".add(@"http://");
+        return [self rangeOfString:checkStr].location != NSNotFound;
+    };
 }
 /// OC字符串拼接
 -(JobsRetStrByStrBlock _Nonnull)add{

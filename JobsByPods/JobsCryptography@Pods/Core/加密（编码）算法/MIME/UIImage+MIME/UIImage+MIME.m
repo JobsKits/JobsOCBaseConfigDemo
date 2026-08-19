@@ -12,7 +12,7 @@
 ///【类方法】以MIME编码的数据 转换成 UIImage对象
 +(JobsRetImageByStrBlock _Nonnull)imageByMIMEString{
     return ^UIImage *_Nullable(NSString *_Nullable MIMEString){
-        return UIImage.imageWithData(NSData.dataByMIMEString(MIMEString));
+        return [UIImage imageWithData:NSData.dataByMIMEString(MIMEString)];
     };
 }
 ///【实例方法】以MIME编码的数据 转换成 UIImage对象
@@ -25,12 +25,17 @@
 +(JobsRetStrByImageBlock _Nonnull)MIMEStringByImage{
     return ^__kindof NSString *_Nullable(UIImage *_Nullable image){
         NSData *imageData = UIImagePNGRepresentation(image); // or UIImageJPEGRepresentation(self, compressionQuality)
-        return imageData.MIMEStringByImage;
+        return imageData.MIMEStringByImage();
     };
 }
 ///【实例方法】UIImage对象 转换成 以MIME编码的数据
--(NSString *_Nullable)MIMEStr{
-    return UIImage.MIMEStringByImage(self);
+-(JobsRetStrByVoidBlock _Nonnull)MIMEStr{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return UIImage.MIMEStringByImage(self);
+    };
 }
 
 @end

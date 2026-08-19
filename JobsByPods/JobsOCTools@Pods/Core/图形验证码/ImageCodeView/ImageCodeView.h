@@ -44,7 +44,14 @@ Prop_strong()UIColor *color;
 Prop_strong()UIFont *font;
 Prop_strong()UIColor *bgColor;//外界不传值定义内部即用随机色彩
 
--(void)actionBlockImageCodeView:(jobsByIDBlock _Nullable)imageCodeViewBlock;
+-(JobsRetImageCodeViewByArrBlock _Nonnull)byCodeArr;
+-(JobsRetImageCodeViewByStrBlock _Nonnull)byCodeStr;
+-(JobsRetImageCodeViewByCorBlock _Nonnull)byColor;
+-(JobsRetImageCodeViewByFontBlock _Nonnull)byFont;
+-(JobsRetImageCodeViewByCorBlock _Nonnull)byBgColor;
+-(jobsByjobsByIDBlockBlock _Nonnull)actionBlockImageCodeView;
+
+-(jobsByVoidBlock _Nonnull)jobsAwakeFromNib;
 
 @end
 

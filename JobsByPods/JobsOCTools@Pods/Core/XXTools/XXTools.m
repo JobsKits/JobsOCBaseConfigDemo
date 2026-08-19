@@ -26,16 +26,16 @@ Prop_strong()UILabel *lab2;
                         superView:(UIView *)superView
                      cornerRadius:(CGFloat)cornerRadius{
     //1、父视图切角,多余部分不显示
-    superView.clipsToBounds = YES;
+    superView.byClipsToBounds(YES);
     //2、展示容器图片
     self.labView.frame = CGRectMake(-width/2,
                                     -width/2,
                                     width,
                                     width);
     self.labView.byBgColor(JobsYellowColor);
-    self.labView.clipsToBounds = YES;
-    self.labView.layer.cornerRadius = cornerRadius;
-    self.labView.transform = CGAffineTransformMakeRotation(-M_PI_4);
+    self.labView.byClipsToBounds(YES);
+    self.labView.layer.byCornerRadius(cornerRadius);
+    self.labView.byTransform(CGAffineTransformMakeRotation(-M_PI_4));
     self.labView.addOn(superView);
     //3、展示文字
     self.lab2.frame = CGRectMake(-width/4,
@@ -45,18 +45,19 @@ Prop_strong()UILabel *lab2;
     self.lab2
         .byText(text)
         .byTextCor(JobsRedColor);
-    self.lab2.textAlignment = NSTextAlignmentCenter;
+    self.lab2.byTextAlignment(NSTextAlignmentCenter);
     if (@available(iOS 8.2, *)) {
         self.lab2.byFont(UIFontSystemFontOfSizeAndWeight(10, -0.4));
     } else {
         self.lab2.byFont(UIFontWeightRegularSize(10));
     }
     self.lab2.byBgColor(JobsClearColor);//lab2 不要颜色
-    self.lab2.transform = CGAffineTransformMakeRotation(-M_PI_4);
+    self.lab2.byTransform(CGAffineTransformMakeRotation(-M_PI_4));
     self.lab2.addOn(superView);
     return jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
-        data.add(self.labView);
-        data.add(self.lab2);
+        data
+            .add(self.labView)
+            .add(self.lab2);
     });
 }
 

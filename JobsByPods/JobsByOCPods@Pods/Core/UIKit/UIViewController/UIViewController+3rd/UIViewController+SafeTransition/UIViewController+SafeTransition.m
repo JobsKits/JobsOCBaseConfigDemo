@@ -16,6 +16,12 @@ static JobsRecordPresentedViewController *static_JobsRecordPresentedVC = nil;
         }
     };return static_JobsRecordPresentedVC;
 }
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        return [self sharedManager];
+    };
+}
 #pragma mark —— lazyLoad
 -(NSMutableArray<__kindof UIViewController *> *)presentedVCMutArr{
     if (!_presentedVCMutArr) {
@@ -40,7 +46,7 @@ static JobsRecordPresentedViewController *static_JobsRecordPresentedVC = nil;
 
 -(void)swiz_dismissViewControllerAnimated:(BOOL)animated
                                completion:(jobsByVoidBlock _Nullable)completion{
-    [JobsRecordPresentedViewController.sharedManager.presentedVCMutArr removeAllObjects];
+    [((JobsRecordPresentedViewController *)JobsRecordPresentedViewController.jobsSharedManager()).presentedVCMutArr removeAllObjects];
     [self swiz_dismissViewControllerAnimated:animated completion:completion];
 }
 
@@ -57,13 +63,13 @@ static JobsRecordPresentedViewController *static_JobsRecordPresentedVC = nil;
                 AVAuthorizationStatus status = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
                 if (status == AVAuthorizationStatusDenied ||
                     status == AVAuthorizationStatusRestricted) {
-                    @"请在iPhone的“设置-隐私-相机”选项中，允许App访问您的相机。".tr.toast();
+                    @"请在iPhone的“设置-隐私-相机”选项中，允许App访问您的相机。".jobsTr().toast();
                 }
             };
         }
     }
-    if ([self checkPresented:vc]) {
-        [JobsRecordPresentedViewController.sharedManager.presentedVCMutArr addObject:vc];
+    if (self.checkPresented(vc)) {
+        [((JobsRecordPresentedViewController *)JobsRecordPresentedViewController.jobsSharedManager()).presentedVCMutArr addObject:vc];
         [self swiz_presentViewController:vc
                                 animated:animated
                               completion:completion];
@@ -78,10 +84,15 @@ static JobsRecordPresentedViewController *static_JobsRecordPresentedVC = nil;
  【因为OC的数组、字典、集合是类簇，并不希望我们对此进行继承】
  如果下一次presented和数组里面进行记录的ViewController是同一个类型，那么不允许presented
  */
--(BOOL)checkPresented:(UIViewController *)viewController{
-    for (UIViewController *vc in JobsRecordPresentedViewController.sharedManager.presentedVCMutArr) {
-        if ([viewController isKindOfClass:vc.class]) return NO;
-    };return YES;
+-(JobsRetBOOLByVCBlock _Nonnull)checkPresented{
+    @jobs_weakify(self)
+    return ^BOOL(UIViewController * viewController){
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        for (UIViewController *vc in ((JobsRecordPresentedViewController *)JobsRecordPresentedViewController.jobsSharedManager()).presentedVCMutArr) {
+            if ([viewController isKindOfClass:vc.class]) return NO;
+        };return YES;
+    };
 }
 
 @end

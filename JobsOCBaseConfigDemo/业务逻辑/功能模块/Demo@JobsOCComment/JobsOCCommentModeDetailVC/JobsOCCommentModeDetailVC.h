@@ -25,16 +25,22 @@
 #import "JobsOCComment.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
-#else
-#import "JobsDefines.h"
-#endif
-
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
 #import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
@@ -47,6 +53,17 @@ Prop_assign()BOOL replyDetailStyle;
 Prop_assign()CGFloat popUpHeight;
 Prop_copy()NSArray <JobsOCCommentModel *>*commentArr;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCCommentModeDetailVC
+-(JobsRetJobsOCCommentModeDetailVCByBOOLBlock _Nonnull)byHiddenNavigationBar;
+-(JobsRetJobsOCCommentModeDetailVCByBOOLBlock _Nonnull)byPopupStyle;
+-(JobsRetJobsOCCommentModeDetailVCByBOOLBlock _Nonnull)byReplyDetailStyle;
+-(JobsRetJobsOCCommentModeDetailVCByCGFloatBlock _Nonnull)byPopUpHeight;
+-(JobsRetJobsOCCommentModeDetailVCByJobsOCCommentModeBlock _Nonnull)byMode;
+-(JobsRetJobsOCCommentModeDetailVCByNSArrayJobsOCCommentModelBlock _Nonnull)byCommentArr;
+-(JobsRetJobsOCCommentModeDetailVCByCGSizeBlock _Nonnull)byPreferredContentSize;
+-(JobsRetJobsOCCommentModeDetailVCByIDUIViewControllerTransitioningDelegateBlock _Nonnull)byTransitioningDelegate;
+-(JobsRetJobsOCCommentModeDetailVCByUIModalPresentationStyleBlock _Nonnull)byModalPresentationStyle;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCCommentModeDetailVC
 @end
 
 NS_ASSUME_NONNULL_END

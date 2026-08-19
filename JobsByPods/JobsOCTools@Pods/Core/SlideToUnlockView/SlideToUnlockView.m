@@ -13,6 +13,7 @@ Prop_assign()CGFloat thumbInset;
 Prop_assign()CGSize  thumbSize;
 Prop_assign()CGFloat panStartProgress;   // < 手势开始时的进度备份
 Prop_assign()CGFloat progress;
+-(JobsRetSlideToUnlockViewByCGFloatBlock _Nonnull)byProgress;
            // < 0 ~ 1，映射滑块位置
 Prop_strong()UIView *trackView;
 Prop_strong()UILabel *titleLabel;
@@ -22,28 +23,62 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN SlideToUnlockView
+@interface SlideToUnlockView (JobsPropertyDSLSetterAutogen_db15de5857)
+-(void)setPanStartProgress:(CGFloat)data;
+-(void)setThumbInset:(CGFloat)data;
+-(void)setThumbLeadingConstraint:(MASConstraint * _Nullable)data;
+-(void)setThumbSize:(CGSize)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END SlideToUnlockView
+
 @implementation SlideToUnlockView
+-(JobsRetSlideToUnlockViewByCGFloatBlock _Nonnull)byProgress{
+    @jobs_weakify(self)
+    return ^__kindof SlideToUnlockView *_Nullable(CGFloat progress){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setProgress:progress];
+        return self;
+    };
+}
+
 #pragma mark —— Init
 -(instancetype)init{
     if(self = [super init]){
-        [self commonInit];
+        self.commonInit();
     };return self;
 }
 
--(void)commonInit{
-    self.byBgColor(UIColor.clearColor);
-    self.thumbInset = 4.f;
-    self.thumbSize  = CGSizeMake(52.f, 52.f);
-    self.progress   = 0.f;
-    self.trackView.byVisible(YES);// 轨道
-    self.titleLabel.byVisible(YES);// 中央文字
-    self.thumbView.byVisible(YES);// 滑块
-    self.arrow.byVisible(YES);// 箭头
+-(jobsByVoidBlock _Nonnull)commonInit{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byBgColor(UIColor.clearColor);
+        self.byThumbInset(4.f);
+        self.byThumbSize(CGSizeMake(52.f, 52.f));
+        self.byProgress(0.f);
+        self.trackView.byVisible(YES);// 轨道
+        self.titleLabel.byVisible(YES);// 中央文字
+        self.thumbView.byVisible(YES);// 滑块
+        self.arrow.byVisible(YES);// 箭头
+    };
 }
 #pragma mark —— Layout
 -(void)layoutSubviews {
-    [super layoutSubviews];
-    self.byUpdateLayoutForProgress(NO);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(SlideToUnlockView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        self.byUpdateLayoutForProgress(NO);
+    };
 }
 #pragma mark —— 一些公有方法
 /// State
@@ -54,7 +89,7 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
     self.byUpdateLayoutForProgress(NO);
 }
 /// DSL: byOnUnlock 点语法
--(SlideToUnlockView * _Nonnull (^)(jobsByVoidBlock _Nullable))byOnUnlock{
+-(JobsRetSlideToUnlockViewByjobsByVoidBlockBlock _Nonnull)byOnUnlock{
     @jobs_weakify(self)
     return ^SlideToUnlockView * (jobsByVoidBlock handler) {
         @jobs_strongify(self)
@@ -86,7 +121,7 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
     @jobs_weakify(self)
     return ^(BOOL animated){
         @jobs_strongify(self)
-        self.progress = 0.f;
+        self.byProgress(0.f);
         self.byUpdateLayoutForProgress(animated);
     };
 }
@@ -117,7 +152,7 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
         _titleLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(@"滑动以解锁".tr)
+                .byText(@"滑动以解锁".jobsTr())
                 .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontWeightMediumSize(16))
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -146,9 +181,9 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
                         .byShadowRadius(4.f)
                         .byShadowOffset(CGSizeMake(0, 2));
                 })
-                .addGesture([jobsMakePanGesture(^(__kindof UIPanGestureRecognizer * _Nullable gesture) {
+                .addGesture((jobsMakePanGesture(^(__kindof UIPanGestureRecognizer * _Nullable gesture) {
                     /// 这里写手势的配置
-                }) GestureActionBy:^(__kindof UIGestureRecognizer * _Nullable pan) {
+                })).GestureActionBy(^(__kindof UIGestureRecognizer * _Nullable pan) {
                     /// 这里写手势的触发
                     @jobs_strongify(self)
                     UIView *container = pan.view.superview;
@@ -161,12 +196,12 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
                     switch (pan.state) {
                         /// 处理 UIGestureRecognizerStateBegan 分支
                         case UIGestureRecognizerStateBegan: {
-                            self.panStartProgress = self.progress;
+                            self.byPanStartProgress(self.progress);
                         } break;
                         /// 处理 UIGestureRecognizerStateChanged 分支
                         case UIGestureRecognizerStateChanged: {
                             CGFloat delta = translation.x / dragWidth;
-                            self.progress = self.panStartProgress + delta;
+                            self.byProgress(self.panStartProgress + delta);
                             self.byLayoutIfNeeded();
                         } break;
                         /// 处理 UIGestureRecognizerStateEnded 分支
@@ -176,7 +211,7 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
                         /// 处理 UIGestureRecognizerStateFailed 分支
                         case UIGestureRecognizerStateFailed: {
                             if (self.progress > 0.85f) {
-                                self.progress = 1.f;
+                                self.byProgress(1.f);
                                 self.byUpdateLayoutForProgress(YES);
                                 if (self.onUnlock) self.onUnlock();
                                 /// 如果希望可重复使用，稍后自动复位
@@ -193,13 +228,13 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
                         default:
                             break;
                     }
-                }])
+                }))
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
                     make.centerY.equalTo(self);
                     make.size.mas_equalTo(self.thumbSize);
-                    self.thumbLeadingConstraint = make.leading.equalTo(self).offset(self.thumbInset);
+                    self.byThumbLeadingConstraint(make.leading.equalTo(self).offset(self.thumbInset));
                 });
         });
     };return _thumbView;
@@ -221,4 +256,41 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
     };return _arrow;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN SlideToUnlockView
+-(JobsRetSlideToUnlockViewByCGFloatBlock _Nonnull)byPanStartProgress{
+    @jobs_weakify(self)
+    return ^__kindof SlideToUnlockView * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setPanStartProgress:data];
+        return self;
+    };
+}
+
+-(JobsRetSlideToUnlockViewByCGFloatBlock _Nonnull)byThumbInset{
+    @jobs_weakify(self)
+    return ^__kindof SlideToUnlockView * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setThumbInset:data];
+        return self;
+    };
+}
+
+-(JobsRetSlideToUnlockViewByCGSizeBlock _Nonnull)byThumbSize{
+    @jobs_weakify(self)
+    return ^__kindof SlideToUnlockView * _Nullable(CGSize data){
+        @jobs_strongify(self)
+        [self setThumbSize:data];
+        return self;
+    };
+}
+
+-(JobsRetSlideToUnlockViewByMASConstraintBlock _Nonnull)byThumbLeadingConstraint{
+    @jobs_weakify(self)
+    return ^__kindof SlideToUnlockView * _Nullable(MASConstraint * _Nullable data){
+        @jobs_strongify(self)
+        [self setThumbLeadingConstraint:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END SlideToUnlockView
 @end

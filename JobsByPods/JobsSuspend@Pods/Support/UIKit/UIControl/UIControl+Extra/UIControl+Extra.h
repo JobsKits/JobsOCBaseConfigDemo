@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIControl (Extra)
 
--(instancetype)jobs_onChange:(jobsByCtrlBlock _Nonnull)block;
+-(JobsRetIDByjobsByCtrlBlockBlock _Nonnull)jobs_onChange;
 
 @end
 

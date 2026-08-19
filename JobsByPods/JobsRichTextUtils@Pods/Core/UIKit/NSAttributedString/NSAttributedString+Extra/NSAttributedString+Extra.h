@@ -43,7 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 将富文本的颜色统一进行设置
 -(JobsRetAttributedStringByCorBlock _Nonnull)changeTextColorBy;
 /// 移除超链接属性
--(NSAttributedString *_Nonnull)removeHyperlinks;
+-(JobsRetAttributedStringByVoidBlock _Nonnull)removeHyperlinks;
 
 @end
 

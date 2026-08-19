@@ -26,6 +26,12 @@
 #import "JobsMakes.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -38,16 +44,13 @@
 #import "JobsDefines.h"
 #endif
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CasinoUpgradeContentView : BaseView
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN CasinoUpgradeContentView
+-(JobsRetCasinoUpgradeContentViewByJobsGetiOSNewestVersionModelBlock _Nonnull)byIOSNewestVersionModel;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END CasinoUpgradeContentView
 @end
 
 NS_ASSUME_NONNULL_END

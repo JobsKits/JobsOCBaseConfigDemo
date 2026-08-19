@@ -5,4 +5,8 @@
 //  Created by Jobs on 2026年7月19日，星期日.
 //
 
-#import <JobsAppDoor/JobsAppDoorVC_Style2.h>
+#if __has_include(<JobsAppDoor/JobsAppDoor.h>)
+#import <JobsAppDoor/JobsAppDoor.h>
+#else
+#import "JobsAppDoor.h"
+#endif

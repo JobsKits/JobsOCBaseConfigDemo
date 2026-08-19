@@ -13,10 +13,10 @@
 #import "Masonry.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
 #else
-#import "JobsDefines.h"
+#import "JobsMakes.h"
 #endif
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
@@ -25,19 +25,25 @@
 #import "JobsOCDSL.h"
 #endif
 
-#if __has_include(<JobsMakes/JobsMakes.h>)
-#import <JobsMakes/JobsMakes.h>
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
 #else
-#import "JobsMakes.h"
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsLiveMsgCell : UITableViewCell
 
-+(NSString *)reuseIdentifier;
--(void)configureWithText:(NSString *)text;
--(void)playAppearAnimation;
++(JobsRetStrByVoidBlock _Nonnull)reuseIdentifier;
+-(jobsByStrBlock _Nonnull)configureWithText;
+-(jobsByVoidBlock _Nonnull)playAppearAnimation;
 
 @end
 

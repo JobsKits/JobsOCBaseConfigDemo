@@ -22,6 +22,12 @@
 #import "JobsMakes.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<ZFPlayerExtra/ZFPlayerExtra.h>)
 #import <ZFPlayerExtra/ZFPlayerExtra.h>
 #else
@@ -40,19 +46,16 @@
 #import "JobsDefines.h"
 #endif
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsPlayerTBVCell : UITableViewCell<BaseCellProtocol>
 
--(ZFPlayerController *)getPlayer;
--(void)stopPlayer;
+-(JobsRetZFPlayerControllerByVoidBlock _Nonnull)getPlayer;
+-(jobsByVoidBlock _Nonnull)stopPlayer;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsPlayerTBVCell
+-(JobsRetJobsPlayerTBVCellByVideoModel_CoreBlock _Nonnull)byVideoModel_Core;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsPlayerTBVCell
 @end
 
 NS_ASSUME_NONNULL_END

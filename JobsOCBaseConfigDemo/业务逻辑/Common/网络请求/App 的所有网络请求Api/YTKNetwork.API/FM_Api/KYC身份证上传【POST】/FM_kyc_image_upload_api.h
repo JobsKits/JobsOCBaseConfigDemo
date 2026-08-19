@@ -11,6 +11,12 @@
 #import "YTKNetworkExtra.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 /// KYC身份证上传@POST
 @interface FM_kyc_image_upload_api : BaseUploadFileRequest

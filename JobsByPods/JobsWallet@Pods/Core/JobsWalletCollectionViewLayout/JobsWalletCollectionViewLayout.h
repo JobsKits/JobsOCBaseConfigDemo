@@ -10,6 +10,16 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -33,11 +43,19 @@ Prop_assign()CGFloat contentBottomSpacing;
 Prop_assign()NSTimeInterval animationDuration;
 Prop_assign()JobsWalletCardExpandStyle expandStyle;
 
--(void)toggleIndexPath:(NSIndexPath *)indexPath;
--(void)expandAllIndexPaths;
--(void)resetExpandedIndexPaths;
--(void)resetExpandedIndexPathsAnimated:(BOOL)animated;
+-(jobsByIndexPathBlock _Nonnull)toggleIndexPath;
+-(jobsByVoidBlock _Nonnull)expandAllIndexPaths;
+-(jobsByVoidBlock _Nonnull)resetExpandedIndexPaths;
+-(jobsByBOOLBlock _Nonnull)resetExpandedIndexPathsAnimated;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsWalletCollectionViewLayout
+-(JobsRetJobsWalletCollectionViewLayoutByCGFloatBlock _Nonnull)byExpandedItemSpacing;
+-(JobsRetJobsWalletCollectionViewLayoutByCGFloatBlock _Nonnull)byItemHeight;
+-(JobsRetJobsWalletCollectionViewLayoutByCGFloatBlock _Nonnull)byOverlapRatio;
+-(JobsRetJobsWalletCollectionViewLayoutByCGFloatBlock _Nonnull)byPadding;
+-(JobsRetJobsWalletCollectionViewLayoutByCGSizeBlock _Nonnull)byCurrentContentSize;
+-(JobsRetJobsWalletCollectionViewLayoutByJobsWalletCardExpandStyleBlock _Nonnull)byExpandStyle;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsWalletCollectionViewLayout
 @end
 
 NS_ASSUME_NONNULL_END

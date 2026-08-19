@@ -8,6 +8,9 @@
 #import <Foundation/Foundation.h>
 #import "APIKey.h"
 
+@import LiveChat;
+//#  pod 'LiveChat' # 第三方的聊天工具 https://github.com/livechat/chat-window-ios
+
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
@@ -26,8 +29,6 @@
 #import "JobsDefines.h"
 #endif
 
-@import LiveChat;
-//#  pod 'LiveChat' # 第三方的聊天工具 https://github.com/livechat/chat-window-ios
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (LiveChat)<LiveChatDelegate>

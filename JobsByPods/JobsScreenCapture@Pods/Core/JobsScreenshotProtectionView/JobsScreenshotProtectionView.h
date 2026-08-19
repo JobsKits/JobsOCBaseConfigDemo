@@ -7,6 +7,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
@@ -39,6 +45,10 @@ Prop_strong(readonly)UIView *contentView;
 Prop_assign(readonly,getter=isProtectionAvailable)BOOL protectionAvailable;
 Prop_assign(getter=isProtectionEnabled)BOOL protectionEnabled;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsScreenshotProtectionView
+-(JobsRetJobsScreenshotProtectionViewByBOOLBlock _Nonnull)byProtectionAvailable;
+-(JobsRetJobsScreenshotProtectionViewByBOOLBlock _Nonnull)byProtectionEnabled;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsScreenshotProtectionView
 @end
 
 NS_ASSUME_NONNULL_END

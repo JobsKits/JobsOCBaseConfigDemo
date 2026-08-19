@@ -8,8 +8,10 @@
 #import "JobsFuseBubbleConfig.h"
 
 @implementation JobsFuseBubbleConfig
-+(__kindof JobsFuseBubbleConfig *)config {
-    return JobsFuseBubbleConfig.alloc.init;
++(JobsRetJobsFuseBubbleConfigByVoidBlock _Nonnull)config {
+    return ^__kindof JobsFuseBubbleConfig *{
+        return JobsFuseBubbleConfig.alloc.init;
+    };
 }
 
 -(instancetype)init {
@@ -28,75 +30,75 @@
 
 -(id)copyWithZone:(NSZone *)zone {
     JobsFuseBubbleConfig *config = [[JobsFuseBubbleConfig allocWithZone:zone] init];
-    config.emissionInterval = self.emissionInterval;
-    config.riseDistance = self.riseDistance;
-    config.horizontalDrift = self.horizontalDrift;
-    config.duration = self.duration;
-    config.initialScale = self.initialScale;
-    config.peakScale = self.peakScale;
-    config.endScale = self.endScale;
-    config.maximumRotation = self.maximumRotation;
-    config.maximumConcurrentCount = self.maximumConcurrentCount;
+    config.byEmissionInterval(self.emissionInterval);
+    config.byRiseDistance(self.riseDistance);
+    config.byHorizontalDrift(self.horizontalDrift);
+    config.byDuration(self.duration);
+    config.byInitialScale(self.initialScale);
+    config.byPeakScale(self.peakScale);
+    config.byEndScale(self.endScale);
+    config.byMaximumRotation(self.maximumRotation);
+    config.byMaximumConcurrentCount(self.maximumConcurrentCount);
     return config;
 }
 
--(JobsFuseBubbleConfig *(^)(NSTimeInterval))byEmissionInterval {
+-(JobsRetJobsFuseBubbleConfigByNSTimeIntervalBlock _Nonnull)byEmissionInterval {
     return ^JobsFuseBubbleConfig *(NSTimeInterval data) {
         self.emissionInterval = MAX(0.06, data);
         return self;
     };
 }
 
--(JobsFuseBubbleConfig *(^)(CGFloat))byRiseDistance {
+-(JobsRetJobsFuseBubbleConfigByCGFloatBlock _Nonnull)byRiseDistance {
     return ^JobsFuseBubbleConfig *(CGFloat data) {
         self.riseDistance = MAX(24, data);
         return self;
     };
 }
 
--(JobsFuseBubbleConfig *(^)(CGFloat))byHorizontalDrift {
+-(JobsRetJobsFuseBubbleConfigByCGFloatBlock _Nonnull)byHorizontalDrift {
     return ^JobsFuseBubbleConfig *(CGFloat data) {
         self.horizontalDrift = MAX(0, data);
         return self;
     };
 }
 
--(JobsFuseBubbleConfig *(^)(NSTimeInterval))byDuration {
+-(JobsRetJobsFuseBubbleConfigByNSTimeIntervalBlock _Nonnull)byDuration {
     return ^JobsFuseBubbleConfig *(NSTimeInterval data) {
         self.duration = MAX(0.2, data);
         return self;
     };
 }
 
--(JobsFuseBubbleConfig *(^)(CGFloat))byInitialScale {
+-(JobsRetJobsFuseBubbleConfigByCGFloatBlock _Nonnull)byInitialScale {
     return ^JobsFuseBubbleConfig *(CGFloat data) {
         self.initialScale = MAX(0.01, data);
         return self;
     };
 }
 
--(JobsFuseBubbleConfig *(^)(CGFloat))byPeakScale {
+-(JobsRetJobsFuseBubbleConfigByCGFloatBlock _Nonnull)byPeakScale {
     return ^JobsFuseBubbleConfig *(CGFloat data) {
         self.peakScale = MAX(0.01, data);
         return self;
     };
 }
 
--(JobsFuseBubbleConfig *(^)(CGFloat))byEndScale {
+-(JobsRetJobsFuseBubbleConfigByCGFloatBlock _Nonnull)byEndScale {
     return ^JobsFuseBubbleConfig *(CGFloat data) {
         self.endScale = MAX(0.01, data);
         return self;
     };
 }
 
--(JobsFuseBubbleConfig *(^)(CGFloat))byMaximumRotation {
+-(JobsRetJobsFuseBubbleConfigByCGFloatBlock _Nonnull)byMaximumRotation {
     return ^JobsFuseBubbleConfig *(CGFloat data) {
         self.maximumRotation = MAX(0, data);
         return self;
     };
 }
 
--(JobsFuseBubbleConfig *(^)(NSInteger))byMaximumConcurrentCount {
+-(JobsRetJobsFuseBubbleConfigByNSIntegerBlock _Nonnull)byMaximumConcurrentCount {
     return ^JobsFuseBubbleConfig *(NSInteger data) {
         self.maximumConcurrentCount = MAX(1, data);
         return self;

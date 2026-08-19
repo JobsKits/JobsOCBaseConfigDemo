@@ -11,6 +11,12 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
 #else
@@ -23,10 +29,18 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsOCOpenWebViewController : BaseViewController <WKNavigationDelegate>
 
+-(JobsRetJobsOCOpenWebVCByURLBlock _Nonnull)byURL;
+-(JobsRetJobsOCOpenWebVCByStrBlock _Nonnull)byPageTitle;
 -(instancetype)initWithURL:(NSURL *)url
                      title:(NSString *_Nullable)title NS_DESIGNATED_INITIALIZER;
 -(instancetype)init NS_UNAVAILABLE;

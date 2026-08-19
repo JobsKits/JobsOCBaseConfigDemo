@@ -10,28 +10,10 @@
 #import "GetUserInfoApi.h"
 #import "NSObject+YTKNetworks.h"
 
-#if __has_include(<YTKNetworkExtra/YTKNetworkExtra.h>)
-#import <YTKNetworkExtra/YTKNetworkExtra.h>
-#else
-#import "YTKNetworkExtra.h"
-#endif
-
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
 #else
 #import "JobsBaseUI.h"
-#endif
-
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
-
-#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
-#import <JobsLanMgr/JobsLanMgr.h>
-#else
-#import "JobsLanMgr.h"
 #endif
 
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
@@ -40,10 +22,28 @@
 #import "JobsByOCPods.h"
 #endif
 
+#if __has_include(<JobsLanMgr/JobsLanMgr.h>)
+#import <JobsLanMgr/JobsLanMgr.h>
+#else
+#import "JobsLanMgr.h"
+#endif
+
 #if __has_include(<JobsModelDSL/JobsModelDSL.h>)
 #import <JobsModelDSL/JobsModelDSL.h>
 #else
 #import "JobsModelDSL.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<YTKNetworkExtra/YTKNetworkExtra.h>)
+#import <YTKNetworkExtra/YTKNetworkExtra.h>
+#else
+#import "YTKNetworkExtra.h"
 #endif
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)

@@ -16,34 +16,64 @@ Prop_strong()UILabel *hintLab;
 
 @implementation UILabelWordRotatingVC
 -(void)loadView{
-    [super loadView];
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(@"UILabel文字旋转".tr)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        .byBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UILabelWordRotatingVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(@"UILabel文字旋转".jobsTr())
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            .byBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.previewView.byAlpha(1);
-    self.label.byAlpha(1);
-    self.hintLab.byAlpha(1);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UILabelWordRotatingVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.previewView.byAlpha(1);
+        self.label.byAlpha(1);
+        self.hintLab.byAlpha(1);
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    self.label.byTextCor(JobsBlueColor).transformLayer(JobsDirectionLeft);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UILabelWordRotatingVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        self.label.byTextCor(JobsBlueColor).transformLayer(JobsDirectionLeft);
+    };
 }
 #pragma mark —— LazyLoad
 -(UIView *)previewView{
@@ -75,7 +105,7 @@ Prop_strong()UILabel *hintLab;
         _label = jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(@"输入的内容".tr)
+                .byText(@"输入的内容".jobsTr())
                 .byFont(UIFontWeightBoldSize(JobsWidth(22)))
                 .byTextCor(JobsBlueColor)
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -101,7 +131,7 @@ Prop_strong()UILabel *hintLab;
         _hintLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             @jobs_strongify(self)
             label
-                .byText(@"文字方向：朝左".tr)
+                .byText(@"文字方向：朝左".jobsTr())
                 .byFont(UIFontWeightRegularSize(JobsWidth(13)))
                 .byTextCor(JobsSecondaryLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)

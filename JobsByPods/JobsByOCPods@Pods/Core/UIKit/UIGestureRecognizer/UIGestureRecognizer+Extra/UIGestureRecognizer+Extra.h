@@ -39,8 +39,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIGestureRecognizer (JobsByOCPodsExtra)<BaseProtocol>
 
--(__kindof UIGestureRecognizer *)gestureActionBy:(jobsByVoidBlock _Nonnull)block;
--(__kindof UIGestureRecognizer *)GestureActionBy:(jobsByGestureRecognizerBlock _Nonnull)block;
+-(JobsRetUIGestureRecognizerByjobsByVoidBlockBlock _Nonnull)gestureActionBy;
+-(JobsRetUIGestureRecognizerByjobsByGestureRecognizerBlockBlock _Nonnull)GestureActionBy;
+/// 仅供未纳入 Jobs 维护的历史源码兼容；Jobs 新代码统一使用 Block getter。
+-(__kindof UIGestureRecognizer *_Nonnull)GestureActionBy:(jobsByGestureRecognizerBlock _Nullable)block;
 
 -(jobsBySELBlock _Nonnull)removeAction;
 -(jobsBySELBlock _Nonnull)addAction;

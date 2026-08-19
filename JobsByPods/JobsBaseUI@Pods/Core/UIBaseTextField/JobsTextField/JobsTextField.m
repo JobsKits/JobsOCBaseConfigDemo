@@ -6,6 +6,7 @@
 //
 
 #import "JobsTextField.h"
+
 #import <JobsBaseUI/UITextField+Extra.h>
 #import <JobsBaseUI/UITextField+Placeholder.h>
 #import <JobsBaseUI/NSObject+Measure.h>
@@ -21,6 +22,12 @@ Prop_assign()CGFloat rightViewByTextFieldOffset;
 Prop_copy(nullable)JobsRetIDByIDBlock otherActionBlock;
 
 @end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsTextField
+@interface JobsTextField (JobsPropertyDSLSetterAutogen_b075b431d8)
+-(void)setOtherActionBlock:(JobsRetIDByIDBlock)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsTextField
 
 @implementation JobsTextField
 /// BaseViewProtocol
@@ -43,18 +50,46 @@ RACProtocol_synthesize
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTextField.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    /// 内部指定圆切角
-    [self appointCornerCutToCircleByRoundingCorners:self.layoutSubviewsRectCorner
-                                        cornerRadii:self.layoutSubviewsRectCornerSize];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTextField.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        /// 内部指定圆切角
+        [self appointCornerCutToCircleByRoundingCorners:self.layoutSubviewsRectCorner
+                                            cornerRadii:self.layoutSubviewsRectCornerSize];
+    };
 }
 #pragma mark —— 一些公有方法
 -(void)otherActionBlock:(JobsRetIDByIDBlock _Nullable)otherActionBlock{
-    self.otherActionBlock = otherActionBlock;
+    ((((jobsByRetIDByIDBlocks (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTextField.class, @selector(otherActionBlock)))(self, @selector(otherActionBlock))))(otherActionBlock);
+}
+-(jobsByRetIDByIDBlocks _Nullable)otherActionBlock{
+    @jobs_weakify(self)
+    return ^(JobsRetIDByIDBlock _Nullable otherActionBlock){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byOtherActionBlock(otherActionBlock);
+    };
 }
 /// 这个值需要在leftView之前设置才有效
 -(JobsRetJobsTextFieldByCGFloatBlock _Nonnull)byLeftViewByOutLineOffset{
@@ -154,22 +189,58 @@ RACProtocol_synthesize
 /// 含义：在文本字段即将开始编辑时调用。返回YES表示允许编辑，返回NO则表示不允许编辑。
 /// 用途：您可以使用此方法进行输入验证或单元格选择，以决定是否允许用户开始编辑。
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    if(self.notAllowEdit){
-        if(self.otherActionBlock) self.otherActionBlock(textField);
-    } return !self.notAllowEdit;
+    JobsRetBOOLByUITextFieldBlock action = ((JobsRetBOOLByUITextFieldBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTextField.class, @selector(jobsTextFieldShouldBeginEditing)))(self, @selector(jobsTextFieldShouldBeginEditing));
+    return action ? action(textField) : NO;
+}
+
+-(JobsRetBOOLByUITextFieldBlock _Nonnull)jobsTextFieldShouldBeginEditing{
+    @jobs_weakify(self)
+    return ^BOOL(UITextField * textField){
+        @jobs_strongify(self)
+        if (!self) return NO;
+        if(self.notAllowEdit){
+            if(self.otherActionBlock) self.otherActionBlock(textField);
+        } return !self.notAllowEdit;
+    };
 }
 /// 含义：文本字段已经开始编辑时调用。
 /// 用途：在此方法中，您可以开始相应的操作，例如更新用户界面（UI），显示工具条等。
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
+    ((((jobsByTextFieldBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTextField.class, @selector(textFieldDidBeginEditing)))(self, @selector(textFieldDidBeginEditing))))(textField);
+}
+-(jobsByTextFieldBlock _Nonnull)textFieldDidBeginEditing{
+    @jobs_weakify(self)
+    return ^(UITextField * textField){
+        @jobs_strongify(self)
+        if (!self) return;
+    };
 }
 /// 含义：在文本字段即将结束编辑时调用。返回YES表示允许结束编辑，返回NO则表示不允许结束编辑。
 /// 用途：您可以在这里执行验证，例如检查用户输入的有效性。
 -(BOOL)textFieldShouldEndEditing:(UITextField *)textField{
-    return YES;
+    JobsRetBOOLByUITextFieldBlock action = ((JobsRetBOOLByUITextFieldBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTextField.class, @selector(jobsTextFieldShouldEndEditing)))(self, @selector(jobsTextFieldShouldEndEditing));
+    return action ? action(textField) : NO;
+}
+
+-(JobsRetBOOLByUITextFieldBlock _Nonnull)jobsTextFieldShouldEndEditing{
+    @jobs_weakify(self)
+    return ^BOOL(UITextField * textField){
+        @jobs_strongify(self)
+        if (!self) return NO;
+        return YES;
+    };
 }
 /// 含义：文本字段已经结束编辑时调用。
 /// 用途：在此方法中，可以处理输入完成后的操作，例如更新数据模型或用户界面的状态。
 -(void)textFieldDidEndEditing:(UITextField *)textField{
+    ((((jobsByTextFieldBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTextField.class, @selector(textFieldDidEndEditing)))(self, @selector(textFieldDidEndEditing))))(textField);
+}
+-(jobsByTextFieldBlock _Nonnull)textFieldDidEndEditing{
+    @jobs_weakify(self)
+    return ^(UITextField * textField){
+        @jobs_strongify(self)
+        if (!self) return;
+    };
 }
 /// 含义：文本字段结束编辑时调用，并带有结束原因。
 /// 用途：可以根据不同的结束原因执行不同的操作。
@@ -188,16 +259,44 @@ replacementString:(NSString *)string{
 /// 用途：可以用于实时更新相关UI或执行某些操作。
 /// API_AVAILABLE(ios(13.0), tvos(13.0));
 -(void)textFieldDidChangeSelection:(UITextField *)textField{
+    ((((jobsByTextFieldBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTextField.class, @selector(textFieldDidChangeSelection)))(self, @selector(textFieldDidChangeSelection))))(textField);
+}
+-(jobsByTextFieldBlock _Nonnull)textFieldDidChangeSelection{
+    @jobs_weakify(self)
+    return ^(UITextField * textField){
+        @jobs_strongify(self)
+        if (!self) return;
+    };
 }
 /// 含义：在清除文本字段内容之前调用。返回YES允许清除，返回NO禁止清除。
 /// 用途：可以用于提示用户、确认清除操作或进行额外的验证。
 -(BOOL)textFieldShouldClear:(UITextField *)textField{
-    return YES;
+    JobsRetBOOLByUITextFieldBlock action = ((JobsRetBOOLByUITextFieldBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTextField.class, @selector(jobsTextFieldShouldClear)))(self, @selector(jobsTextFieldShouldClear));
+    return action ? action(textField) : NO;
+}
+
+-(JobsRetBOOLByUITextFieldBlock _Nonnull)jobsTextFieldShouldClear{
+    @jobs_weakify(self)
+    return ^BOOL(UITextField * textField){
+        @jobs_strongify(self)
+        if (!self) return NO;
+        return YES;
+    };
 }
 /// 含义：在用户按下“Return”键时调用。返回YES表示处理当前输入（如关闭键盘），返回NO表示不处理。
 /// 用途：一般用于提交表单，关闭键盘，或进行下一步的输入。
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    return YES;
+    JobsRetBOOLByUITextFieldBlock action = ((JobsRetBOOLByUITextFieldBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTextField.class, @selector(jobsTextFieldShouldReturn)))(self, @selector(jobsTextFieldShouldReturn));
+    return action ? action(textField) : NO;
+}
+
+-(JobsRetBOOLByUITextFieldBlock _Nonnull)jobsTextFieldShouldReturn{
+    @jobs_weakify(self)
+    return ^BOOL(UITextField * textField){
+        @jobs_strongify(self)
+        if (!self) return NO;
+        return YES;
+    };
 }
 /// 含义：在文本字段要展示编辑菜单时调用。可自定义菜单内容。
 /// 用途：可以提供自定义的剪切、复制、粘贴等操作选项。
@@ -257,4 +356,23 @@ willDismissEditMenuWithAnimator:(id<UIEditMenuInteractionAnimating>)animator{
     };return _realTextField;
 }
 
+-(JobsRetUITextFieldByVoidBlock _Nonnull)jobsRealTextField{
+    @jobs_weakify(self)
+    return ^UITextField *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.realTextField;
+    };
+}
+
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsTextField
+-(JobsRetJobsTextFieldByJobsRetIDByIDBlockBlock _Nonnull)byOtherActionBlock{
+    @jobs_weakify(self)
+    return ^__kindof JobsTextField * _Nullable(JobsRetIDByIDBlock data){
+        @jobs_strongify(self)
+        [self setOtherActionBlock:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsTextField
 @end

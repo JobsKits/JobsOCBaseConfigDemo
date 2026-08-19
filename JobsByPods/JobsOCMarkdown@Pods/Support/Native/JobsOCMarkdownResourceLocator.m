@@ -10,21 +10,25 @@
 
 @implementation JobsOCMarkdownResourceLocator
 
-+(NSBundle *)runtimeBundle{
-    NSString *name = @"JobsOCMarkdownResources";
-    NSArray <NSBundle *>*candidates = @[
-        NSBundle.mainBundle,
-        [NSBundle bundleForClass:self]
-    ];
-    for (NSBundle *candidate in candidates) {
-        NSURL *url = [candidate URLForResource:name withExtension:@"bundle"];
-        NSBundle *bundle = url ? [NSBundle bundleWithURL:url] : nil;
-        if (bundle) return bundle;
-    };return nil;
++(JobsRetNSBundleByVoidBlock _Nonnull)runtimeBundle{
+    return ^NSBundle *{
+        NSString *name = @"JobsOCMarkdownResources";
+        NSArray <NSBundle *>*candidates = @[
+            NSBundle.mainBundle,
+            [NSBundle bundleForClass:self]
+        ];
+        for (NSBundle *candidate in candidates) {
+            NSURL *url = [candidate URLForResource:name withExtension:@"bundle"];
+            NSBundle *bundle = url ? [NSBundle bundleWithURL:url] : nil;
+            if (bundle) return bundle;
+        };return nil;
+    };
 }
 
-+(NSURL *)templateURL{
-    return [self.runtimeBundle URLForResource:@"index" withExtension:@"html"];
++(JobsRetURLByVoidBlock _Nonnull)templateURL{
+    return ^NSURL *_Nullable{
+        return [self.runtimeBundle() URLForResource:@"index" withExtension:@"html"];
+    };
 }
 
 @end

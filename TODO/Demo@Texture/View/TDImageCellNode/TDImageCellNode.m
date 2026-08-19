@@ -34,12 +34,22 @@
 }
 
 -(ASLayoutSpec *)layoutSpecThatFits:(ASSizeRange)constrainedSize {
-    // Ratio 16:9 裁切
-    ASRatioLayoutSpec *ratio = [ASRatioLayoutSpec ratioLayoutSpecWithRatio:(9.0/16.0) child:_image];
-    // overlay 右下角角标
-    ASInsetLayoutSpec *badgeInset = [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(INFINITY, INFINITY, 8, 8) child:_badge];
-    ASOverlayLayoutSpec *overlay = [ASOverlayLayoutSpec overlayLayoutSpecWithChild:ratio overlay:badgeInset];
-    return [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(8, 16, 8, 16) child:overlay];
+    JobsRetASLayoutSpecByASSizeRangeBlock action = ((JobsRetASLayoutSpecByASSizeRangeBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(TDImageCellNode.class, @selector(jobsLayoutSpecThatFits)))(self, @selector(jobsLayoutSpecThatFits));
+    return action ? action(constrainedSize) : nil;
+}
+
+-(JobsRetASLayoutSpecByASSizeRangeBlock _Nonnull)jobsLayoutSpecThatFits{
+    @jobs_weakify(self)
+    return ^ASLayoutSpec *(ASSizeRange constrainedSize){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        // Ratio 16:9 裁切
+        ASRatioLayoutSpec *ratio = [ASRatioLayoutSpec ratioLayoutSpecWithRatio:(9.0/16.0) child:_image];
+        // overlay 右下角角标
+        ASInsetLayoutSpec *badgeInset = [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(INFINITY, INFINITY, 8, 8) child:_badge];
+        ASOverlayLayoutSpec *overlay = [ASOverlayLayoutSpec overlayLayoutSpecWithChild:ratio overlay:badgeInset];
+        return [ASInsetLayoutSpec insetLayoutSpecWithInsets:UIEdgeInsetsMake(8, 16, 8, 16) child:overlay];
+    };
 }
 
 @end

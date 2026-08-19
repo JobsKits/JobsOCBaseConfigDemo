@@ -27,10 +27,20 @@ static dispatch_once_t JobsAppDoorLogoContentViewDispatchOnce;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
-    dispatch_once(&JobsAppDoorLogoContentViewDispatchOnce, ^{
-        self.mainImgV.byAlpha(1);
-    });
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAppDoorLogoContentView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+        dispatch_once(&JobsAppDoorLogoContentViewDispatchOnce, ^{
+            self.mainImgV.byAlpha(1);
+        });
+    };
 }
 #pragma mark —— lazyLoad
 -(UIImageView *)mainImgV{

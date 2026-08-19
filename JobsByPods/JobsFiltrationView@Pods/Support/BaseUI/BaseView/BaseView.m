@@ -6,6 +6,7 @@
 //
 
 #import "BaseView.h"
+
 #import <JobsFiltrationView/NSObject+Extra.h>
 #import <JobsFiltrationView/UIView+Extra.h>
 
@@ -40,19 +41,48 @@ UIViewModelProtocol_synthesize_part1
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    if(!jobsZeroSizeValue(self.layoutSubviewsRectCornerSize)){
-        [self appointCornerCutToCircleByRoundingCorners:self.layoutSubviewsRectCorner
-                                            cornerRadii:self.layoutSubviewsRectCornerSize];
-    }
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        if(!jobsZeroSizeValue(self.layoutSubviewsRectCornerSize)){
+            [self appointCornerCutToCircleByRoundingCorners:self.layoutSubviewsRectCorner
+                                                cornerRadii:self.layoutSubviewsRectCornerSize];
+        }
+    };
 }
 
 -(void)layoutIfNeeded{
-    [super layoutIfNeeded];
+    (((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseView.class, @selector(jobsLayoutIfNeeded)))(self, @selector(jobsLayoutIfNeeded)))();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutIfNeeded{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutIfNeeded];
+    };
 }
 #pragma mark —— lazyLoad
 /// 在具体的子类去实现，以覆盖父类的方法实现
@@ -69,7 +99,7 @@ UIViewModelProtocol_synthesize_part1
 -(UIButtonModel *)backBtnModel{
     if(!_backBtnModel){
         @jobs_weakify(self)
-        _backBtnModel = self.makeBackBtnModel
+        _backBtnModel = self.jobsMakeBackBtnModel()
             .byLongPressGestureEventBlock(^id(__kindof UIButton *x) {
                 JobsLog(@"按钮的长按事件触发");
                 return nil;

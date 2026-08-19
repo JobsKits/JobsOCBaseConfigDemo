@@ -24,7 +24,9 @@ Pod::Spec.new do |spec|
   ]
 
   spec.dependency 'JobsOCTimer'
+  spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsBlock'
 
   JobsPodspecKitForJobsImageRotation.add_support_subspec(spec, support_context)
 

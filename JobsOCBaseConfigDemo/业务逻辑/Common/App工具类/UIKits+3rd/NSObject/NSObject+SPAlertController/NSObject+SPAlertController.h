@@ -7,12 +7,6 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
-
 #if __has_include(<SPAlertController/SPAlertController.h>)
 #import <SPAlertController/SPAlertController.h>
 #else
@@ -43,6 +37,12 @@
 #import "JobsModelDSL.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -56,6 +56,19 @@
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
+@interface SPAlertController (JobsSPAlertControllerDSL)
+-(JobsRetSPAlertControllerByCorBlock _Nonnull)byTitleColor;
+-(JobsRetSPAlertControllerByCorBlock _Nonnull)byMessageColor;
+-(JobsRetSPAlertControllerByFontBlock _Nonnull)byTitleFont;
+-(JobsRetSPAlertControllerByFontBlock _Nonnull)byMessageFont;
+@end
+
+@interface SPAlertAction (JobsSPAlertControllerDSL)
+-(JobsRetSPAlertActionByNSIntegerBlock _Nonnull)byIndex;
+-(JobsRetSPAlertActionByCorBlock _Nonnull)byTitleColor;
+-(JobsRetSPAlertActionByFontBlock _Nonnull)byTitleFont;
+@end
+
 /// pod 'SPAlertController'# https://github.com/SPStore/SPAlertController 深度定制AlertController
 @interface NSObject (SPAlertController)
 /// 自定义的Alert
@@ -85,7 +98,7 @@ NS_ASSUME_NONNULL_END
      -(UIButton *)channelBtn{
          if (!_channelBtn) {
              _channelBtn = UIButton.jobsInit()
-                 .jobsResetBtnTitle(@"渠道切换点我就行".tr)
+                 .jobsResetBtnTitle(@"渠道切换点我就行".jobsTr())
                  .jobsResetBtnTitleCor(JobsRedColor)
                  .byBgColor(JobsYellowColor);
 
@@ -94,8 +107,8 @@ NS_ASSUME_NONNULL_END
                  @jobs_strongify(self)
                  SPAlertControllerConfig *config = SPAlertControllerConfig.new;
                  config.SPAlertControllerInitType = NSObject_SPAlertControllerInitType_2;
-                 config.byTitle(@"提示".tr)
-                       .byMessage(@"审核通过后可查看，是否删除".tr)//@"视频审核未通过，是否删除？"
+                 config.byTitle(@"提示".jobsTr())
+                       .byMessage(@"审核通过后可查看，是否删除".jobsTr())//@"视频审核未通过，是否删除？"
                        .byPreferredStyle(SPAlertControllerStyleActionSheet);
                  config.animationType = SPAlertAnimationTypeDefault;
                  config.byAlertActionTitleArr(self.channelMutArr);
@@ -155,7 +168,7 @@ NS_ASSUME_NONNULL_END
          RichLabelDataStringsModel *title_4_Model = RichLabelDataStringsModel.new;
          RichLabelDataStringsModel *title_5_Model = RichLabelDataStringsModel.new;
          {
-             title_1_Model.dataString = @"您当前的金币数为".tr;
+             title_1_Model.dataString = @"您当前的金币数为".jobsTr();
 
              RichLabelFontModel *richLabelFontModel = RichLabelFontModel.new;
              richLabelFontModel.font = UIFontWeightRegularSize(12);
@@ -185,7 +198,7 @@ NS_ASSUME_NONNULL_END
          }
 
          {
-             title_3_Model.dataString = @"个，可兑换的余额为".tr;
+             title_3_Model.dataString = @"个，可兑换的余额为".jobsTr();
 
              RichLabelFontModel *richLabelFontModel = RichLabelFontModel.new;
              richLabelFontModel.font = UIFontWeightRegularSize(12);
@@ -215,7 +228,7 @@ NS_ASSUME_NONNULL_END
          }
 
          {
-             title_5_Model.dataString = @"元，确认兑换吗？".tr;
+             title_5_Model.dataString = @"元，确认兑换吗？".jobsTr();
 
              RichLabelFontModel *richLabelFontModel = RichLabelFontModel.new;
              richLabelFontModel.font = UIFontWeightRegularSize(12);
@@ -237,12 +250,12 @@ NS_ASSUME_NONNULL_END
 
          SPAlertControllerConfig *config = SPAlertControllerConfig.new;
          config.SPAlertControllerInitType = NSObject_SPAlertControllerInitType_2;
-         config.byTitle(@"兑换余额".tr)
+         config.byTitle(@"兑换余额".jobsTr())
                .byPreferredStyle(SPAlertControllerStyleAlert);
          config.animationType = SPAlertAnimationTypeDefault;
-         config.byAlertActionTitleArr(@[@"取消".tr,@"确定".tr])
+         config.byAlertActionTitleArr(@[@"取消".jobsTr(),@"确定".jobsTr()])
                .byAlertActionStyleArr(@[@(SPAlertActionStyleDestructive),@(SPAlertActionStyleDefault)])
-               .byAlertBtnActionArr(@[@"".tr,@"networking_chargeGoldPOST"])// 金币换余额
+               .byAlertBtnActionArr(@[@"".jobsTr(),@"networking_chargeGoldPOST"])// 金币换余额
                .byTargetVC([NSObject getCurrentViewController])
                .byFuncInWhere(self)
                .byAnimated(YES);

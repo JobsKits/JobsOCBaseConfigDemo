@@ -17,6 +17,12 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN CasinoUpgradeContentView
+@interface CasinoUpgradeContentView (JobsPropertyDSLSetterAutogen_584234f3a6)
+-(void)setIOSNewestVersionModel:(JobsGetiOSNewestVersionModel * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END CasinoUpgradeContentView
+
 @implementation CasinoUpgradeContentView
 -(instancetype)init{
     if (self = [super init]) {
@@ -29,14 +35,24 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CasinoUpgradeContentView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 #pragma mark —— BaseViewProtocol
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel{
     @jobs_weakify(self)
     return ^(JobsGetiOSNewestVersionModel *_Nullable model) {
         @jobs_strongify(self)
-        self.iOSNewestVersionModel = model;
+        self.byIOSNewestVersionModel(model);
         self.titleLab.byAlpha(1);
         if (self.iOSNewestVersionModel.isForced == JobsUpdateByUser) {
             self.cancelBtn.byAlpha(1);
@@ -61,7 +77,7 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
             label
                 .byFont(UIFontWeightMediumSize(14))
                 .byTextCor(HEXCOLOR(0x524740))
-                .byText(@"The existing new version needs to be updated. Are you sure to download it?".tr)
+                .byText(@"The existing new version needs to be updated. Are you sure to download it?".jobsTr())
                 .byNumberOfLines(0)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .makeLabelByShowingType(UILabelShowingType_03)
@@ -80,7 +96,7 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
     if (!_cancelBtn) {
         @jobs_weakify(self)
         _cancelBtn = UIButton.jobsInit()
-            .jobsResetBtnTitle(@"Cancel".tr)
+            .jobsResetBtnTitle(@"Cancel".jobsTr())
             .jobsResetBtnTitleCor(HEXCOLOR(0x502600))
             .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
             .jobsResetBtnBgImage(@"弹窗取消按钮背景图".img)
@@ -101,7 +117,7 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
     if (!_sureBtn) {
         @jobs_weakify(self)
         _sureBtn = UIButton.jobsInit()
-            .jobsResetBtnTitle(@"Sure".tr)
+            .jobsResetBtnTitle(@"Sure".jobsTr())
             .jobsResetBtnTitleCor(HEXCOLOR(0x502600))
             .jobsResetBtnBgImage(@"弹窗确定按钮背景图".img)
             .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
@@ -123,4 +139,14 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
     };return _sureBtn;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN CasinoUpgradeContentView
+-(JobsRetCasinoUpgradeContentViewByJobsGetiOSNewestVersionModelBlock _Nonnull)byIOSNewestVersionModel{
+    @jobs_weakify(self)
+    return ^__kindof CasinoUpgradeContentView * _Nullable(JobsGetiOSNewestVersionModel * _Nullable data){
+        @jobs_strongify(self)
+        [self setIOSNewestVersionModel:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END CasinoUpgradeContentView
 @end

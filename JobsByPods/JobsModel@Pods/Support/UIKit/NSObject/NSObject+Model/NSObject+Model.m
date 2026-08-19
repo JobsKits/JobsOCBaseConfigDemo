@@ -6,6 +6,7 @@
 //
 
 #import "NSObject+Model.h"
+
 #import <JobsModel/NSObject+UsrInfo.h>
 
 @implementation NSObject (Model)
@@ -16,12 +17,17 @@ JobsKey(_loginModel)
     return self.readUserInfoByUserName(JobsUserModel.class,用户信息);
 }
 
--(void)setLoginModel:(JobsUserModel *_Nullable)doorModel{
-    if(doorModel){
-        self.jobsSaveUserInfo(doorModel,用户信息);
-    }else{
-        self.deleteUserInfoByUserName(用户信息);
-    }
+-(jobsByJobsUserModelBlock _Nonnull)setLoginModel{
+    @jobs_weakify(self)
+    return ^(JobsUserModel *_Nullable doorModel){
+        @jobs_strongify(self)
+        if (!self) return;
+        if(doorModel){
+            self.jobsSaveUserInfo(doorModel,用户信息);
+        }else{
+            self.deleteUserInfoByUserName(用户信息);
+        }
+    };
 }
 
 @end

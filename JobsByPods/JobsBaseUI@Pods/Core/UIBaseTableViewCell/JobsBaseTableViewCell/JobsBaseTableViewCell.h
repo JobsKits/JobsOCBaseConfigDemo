@@ -52,6 +52,10 @@ UIViewModelProtocol,
 AppToolsProtocol
 >
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsBaseTableViewCell
+-(JobsRetJobsBaseTableViewCellByBOOLBlock _Nonnull)bySetTBVCellOffset;
+-(JobsRetJobsBaseTableViewCellByUIImageBlock _Nonnull)byImg;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsBaseTableViewCell
 @end
 
 NS_ASSUME_NONNULL_END

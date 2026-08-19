@@ -14,41 +14,65 @@
      获取硬件平台名称，叫 device model 或者 machine name
      @return 硬件平台名称，如 iPhone3,1、iPad7,4 等
  */
-+(NSString * _Nullable)platform{
-    size_t size;
-    sysctlbyname("hw.machine",
-                 NULL,
-                 &size,
-                 NULL,
-                 0);
-    char *machine = (char *)malloc(size);
-    if (machine == NULL) {
-        return nil;
-    }
-    sysctlbyname("hw.machine",
-                 machine,
-                 &size,
-                 NULL,
-                 0);
-    NSString *platform = [NSString stringWithCString:machine
-                                            encoding:NSUTF8StringEncoding];
-    free(machine);
-    return platform;
++(NSString *)platform{
+    return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(UIDevice.class, @selector(jobsPlatform)))(self, @selector(jobsPlatform)))();
+}
+
++(JobsRetStrByVoidBlock _Nonnull)jobsPlatform{
+    return ^NSString *_Nullable{
+        size_t size;
+        sysctlbyname("hw.machine",
+                     NULL,
+                     &size,
+                     NULL,
+                     0);
+        char *machine = (char *)malloc(size);
+        if (machine == NULL) {
+            return nil;
+        }
+        sysctlbyname("hw.machine",
+                     machine,
+                     &size,
+                     NULL,
+                     0);
+        NSString *platform = [NSString stringWithCString:machine
+                                                encoding:NSUTF8StringEncoding];
+        free(machine);
+        return platform;
+    };
 }
 /// 获取当前设备标识符Identifier（不区分iOS模拟器：把IOS模拟器当真机对待）
-+(NSString * _Nullable)platformIDStr{
-    return self.isSimulator ? UIDevice.simulatorModel : self.platform;
++(NSString *)platformIDStr{
+    return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(UIDevice.class, @selector(jobsPlatformIDStr)))(self, @selector(jobsPlatformIDStr)))();
+}
+
++(JobsRetStrByVoidBlock _Nonnull)jobsPlatformIDStr{
+    return ^NSString *_Nullable{
+        return self.jobsIsSimulator() ? UIDevice.jobsSimulatorModel() : self.jobsPlatform();
+    };
 }
 /// 判断当前是否是iOS模拟器
 +(BOOL)isSimulator{
-    return [UIDevice.platformNameStr isEqualToString:@"iPhone Simulator"];
+    return (((JobsRetBOOLByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(UIDevice.class, @selector(jobsIsSimulator)))(self, @selector(jobsIsSimulator)))();
+}
+
++(JobsRetBOOLByVoidBlock _Nonnull)jobsIsSimulator{
+    return ^BOOL{
+        return [UIDevice.jobsPlatformNameStr() isEqualToString:@"iPhone Simulator"];
+    };
 }
 ///  获取设备型号名称（可以区分iOS模拟器）
-+(NSString * _Nullable)platformNameStr{
-    NSString *platformStr = self.platform;
-    if (!platformStr) {
-        return UIDevice.currentDevice.model; // e.g. @"iPhone", @"iPod touch"
-    };return self.platformBy(platformStr);
++(NSString *)platformNameStr{
+    return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(UIDevice.class, @selector(jobsPlatformNameStr)))(self, @selector(jobsPlatformNameStr)))();
+}
+
++(JobsRetStrByVoidBlock _Nonnull)jobsPlatformNameStr{
+    return ^NSString *_Nullable{
+        NSString *platformStr = self.jobsPlatform();
+        if (!platformStr) {
+            return UIDevice.currentDevice.model; // e.g. @"iPhone", @"iPod touch"
+        };return self.platformBy(platformStr);
+    };
 }
 /// 机型判定
 ///
@@ -183,25 +207,33 @@
     };
 }
 /// 判断当前iOS模拟器所模拟的机型
-+(NSString * _Nullable)simulatorModel{
-    if (TARGET_OS_SIMULATOR) {
-        NSDictionary *environment = NSProcessInfo.processInfo.environment;
-        return environment[@"SIMULATOR_MODEL_IDENTIFIER"];
-    };return nil; /// 不在模拟器上运行，返回 nil 或其他合适的值
++(NSString *)simulatorModel{
+    return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(UIDevice.class, @selector(jobsSimulatorModel)))(self, @selector(jobsSimulatorModel)))();
+}
+
++(JobsRetStrByVoidBlock _Nonnull)jobsSimulatorModel{
+    return ^NSString *_Nullable{
+        if (TARGET_OS_SIMULATOR) {
+            NSDictionary *environment = NSProcessInfo.processInfo.environment;
+            return environment[@"SIMULATOR_MODEL_IDENTIFIER"];
+        };return nil; /// 不在模拟器上运行，返回 nil 或其他合适的值
+    };
 }
 /// 判断当前机型是否为全面屏 iPhone（基于 machine identifier）
 /// 全面屏机型返回 YES，非全面屏机型返回 NO
-+(BOOL)isFullScreen{
-    NSString *machine = UIDevice.currentDevice.machineModel;
-    if (![machine hasPrefix:@"iPhone"]) return NO;
-    return !([machine hasPrefix:@"iPhone8,"]
-          || [machine hasPrefix:@"iPhone9,"]
-          || [machine hasPrefix:@"iPhone10,1"]
-          || [machine hasPrefix:@"iPhone10,2"]
-          || [machine hasPrefix:@"iPhone10,4"]
-          || [machine hasPrefix:@"iPhone10,5"]
-          || [machine hasPrefix:@"iPhone12,8"]
-          || [machine hasPrefix:@"iPhone14,6"]);
++(JobsRetBOOLByVoidBlock _Nonnull)isFullScreen{
+    return ^BOOL{
+        NSString *machine = UIDevice.currentDevice.machineModel;
+        if (![machine hasPrefix:@"iPhone"]) return NO;
+        return !([machine hasPrefix:@"iPhone8,"]
+              || [machine hasPrefix:@"iPhone9,"]
+              || [machine hasPrefix:@"iPhone10,1"]
+              || [machine hasPrefix:@"iPhone10,2"]
+              || [machine hasPrefix:@"iPhone10,4"]
+              || [machine hasPrefix:@"iPhone10,5"]
+              || [machine hasPrefix:@"iPhone12,8"]
+              || [machine hasPrefix:@"iPhone14,6"]);
+    };
 }
 
 -(NSString *)machineModel {

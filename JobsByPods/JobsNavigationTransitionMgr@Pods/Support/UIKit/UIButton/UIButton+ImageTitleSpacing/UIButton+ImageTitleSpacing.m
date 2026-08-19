@@ -10,7 +10,7 @@
 @implementation UIButton (ImageTitleSpacing)
 -(__kindof UIButton *)layoutButtonWithEdgeInsetsStyle:(NSDirectionalRectEdge)style
                                          imagePadding:(CGFloat)imagePadding{
-    if (self.deviceSystemVersion.floatValue >= 15.0) {
+    if (self.deviceSystemVersion().floatValue >= 15.0) {
 /**
  
      利用 UIButtonConfiguration 来解决问题，示例：
@@ -24,8 +24,8 @@
              }
 
              {// 一般的文字
-                 _btnConfig.title = @"入职Mata".tr;
-                 _btnConfig.subtitle = @"".tr;
+                 _btnConfig.title = @"入职Mata".jobsTr();
+                 _btnConfig.subtitle = @"".jobsTr();
                  _btnConfig.baseForegroundColor = JobsBlackColor;// 前景颜色（= 文字颜色）
              }
 
@@ -39,7 +39,7 @@
                      }];
                      return newTextAttributes.copy;
                  };
-                 _btnConfig.attributedTitle = [NSAttributedString.alloc initWithString:@"入职Mata".tr attributes:@{NSForegroundColorAttributeName:JobsBlackColor}];
+                 _btnConfig.attributedTitle = [NSAttributedString.alloc initWithString:@"入职Mata".jobsTr() attributes:@{NSForegroundColorAttributeName:JobsBlackColor}];
              }
 
              {// 其他
@@ -63,7 +63,7 @@
                  _btn1 = UIButton.jobsInit()
                      .jobsResetBtnImage(@"入职Mata".img)
                      .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
-                     .jobsResetBtnTitle(@"入职Mata".tr)
+                     .jobsResetBtnTitle(@"入职Mata".jobsTr())
                      .jobsResetBtnTitleCor(JobsBlackColor)
                      .byViewBlock(^(__kindof UIView *view) {
                          [(UIButton *)view layoutButtonWithEdgeInsetsStyle:NSDirectionalRectEdgeLeading imagePadding:JobsWidth(8)];
@@ -91,8 +91,8 @@
                                            CGFloat labelWidth = 0.0;
                                            CGFloat labelHeight = 0.0;
                                            /// 由于iOS8中titleLabel的size为0
-                                           labelWidth = self.systemVersion.floatValue >= 8.0 ? self.titleLabel.intrinsicContentSize.width : self.titleLabel.width;
-                                           labelHeight = self.systemVersion.floatValue >= 8.0 ? self.titleLabel.intrinsicContentSize.height : self.titleLabel.height;
+                                           labelWidth = self.systemVersion().floatValue >= 8.0 ? self.titleLabel.intrinsicContentSize.width : self.titleLabel.width;
+                                           labelHeight = self.systemVersion().floatValue >= 8.0 ? self.titleLabel.intrinsicContentSize.height : self.titleLabel.height;
                                            // 2、 声明全局的imageEdgeInsets和labelEdgeInsets
                                            UIEdgeInsets imageEdgeInsets = UIEdgeInsetsZero;
                                            UIEdgeInsets labelEdgeInsets = UIEdgeInsetsZero;
@@ -147,8 +147,8 @@
                                                    break;
                                            }
                                            // 4、 赋值
-                                           self.titleEdgeInsets = labelEdgeInsets;
-                                           self.imageEdgeInsets = imageEdgeInsets;
+                                           self.byTitleEdgeInsets(labelEdgeInsets);
+                                           self.byImageEdgeInsets(imageEdgeInsets);
                                            );return self;
 }
 

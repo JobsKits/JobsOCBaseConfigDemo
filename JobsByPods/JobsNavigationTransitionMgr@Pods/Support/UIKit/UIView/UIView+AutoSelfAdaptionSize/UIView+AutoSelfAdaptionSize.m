@@ -24,7 +24,7 @@
         @jobs_strongify(self)
         if ([self isKindOfClass:UILabel.class]) {
             UILabel *label = (UILabel *)self;
-            label.adjustsFontSizeToFitWidth = YES;// 必须有text，然后根据text来进行约束计算和布局
+            label.byAdjustsFontSizeToFitWidth(YES);
         };return self;
     };
 }
@@ -50,7 +50,7 @@
         if ([self isKindOfClass:UIButton.class]) {
             UIButton *btn = (UIButton *)self;
             [btn.titleLabel sizeToFit];
-            btn.titleLabel.adjustsFontSizeToFitWidth = YES;
+            btn.titleLabel.byAdjustsFontSizeToFitWidth(YES);
         };return self;
     };
 }

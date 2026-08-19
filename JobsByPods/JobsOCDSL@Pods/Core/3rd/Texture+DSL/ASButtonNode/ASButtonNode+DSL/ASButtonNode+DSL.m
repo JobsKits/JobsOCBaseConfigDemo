@@ -114,8 +114,8 @@ JobsKey(kJobsButtonLongPressGRKey)
             // ⚠️ 需要 view，直接访问会触发 loadView：在 DSL 场景可接受
             [self.view addGestureRecognizer:gr];
         }
-        gr.minimumPressDuration = MAX(0.0, minDuration);
-        gr.allowableMovement   = MAX(0.0, allowableMovement);
+        gr.byMinimumPressDuration(MAX(0.0, minDuration));
+        gr.byAllowableMovement(MAX(0.0, allowableMovement));
         return self;
     };
 }

@@ -34,6 +34,12 @@
 #import "JobsBlock.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSData (HexadecimalData)
@@ -41,7 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///【类方法】NSData对象  转换为  16进制字符串
 +(JobsRetStrByDataBlock _Nonnull)hexStringByData;
 ///【实例方法】NSData对象  转换为  16进制字符串
--(NSString *_Nullable)hexStringByData;
+-(JobsRetStrByVoidBlock _Nonnull)hexStringByData;
 #pragma mark —— 16进制字符串 ==> NSData对象
 ///【类方法】16进制字符串 转换为 NSData对象
 +(JobsRetDataByStrBlock _Nonnull)dataByHexString;

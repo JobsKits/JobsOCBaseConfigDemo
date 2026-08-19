@@ -6,6 +6,7 @@
 //
 
 #import "JobsNavigationTransitionMgr.h"
+
 #import <JobsNavigationTransitionMgr/UIView+Extra.h>
 #import <JobsNavigationTransitionMgr/UIViewController+Extra.h>
 #import <JobsNavigationTransitionMgr/UIGestureRecognizer+Extra.h>
@@ -20,37 +21,72 @@ Prop_assign()ComingStyle comingStyle;
 @end
 
 @implementation JobsNavigationTransitionMgr
+#define JobsNavigationTransitionMgrDSL(_type_, _name_, _property_, _dataType_) \
+-(JobsRetNavigationTransitionMgrBy##_type_##Block _Nonnull)by##_name_{ \
+    @jobs_weakify(self) \
+    return ^__kindof JobsNavigationTransitionMgr *_Nullable(_dataType_ data){ \
+        @jobs_strongify(self) \
+        self._property_ = data; \
+        return self; \
+    }; \
+}
+JobsNavigationTransitionMgrDSL(VC, ViewController, viewController, UIViewController *_Nullable)
+JobsNavigationTransitionMgrDSL(Direction, Direction, direction, JobsTransitionDirection)
+JobsNavigationTransitionMgrDSL(InteractiveTransition, InteractiveTransition, interactiveTransition, UIPercentDrivenInteractiveTransition *_Nullable)
+JobsNavigationTransitionMgrDSL(ComingStyle, ComingStyle, comingStyle, ComingStyle)
+#undef JobsNavigationTransitionMgrDSL
+
 static JobsTransitionDirection _storedDirection;
 static JobsNavigationTransitionMgr *static_navigationTransitionMgr = nil;
 static dispatch_once_t static_navigationTransitionManagerOnceToken;
 JobsKey(_navigationTransitionMgr)
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_navigationTransitionManagerOnceToken = 0;
-    static_navigationTransitionMgr = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsNavigationTransitionMgr.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_navigationTransitionManagerOnceToken = 0;
+        static_navigationTransitionMgr = nil;
+    };
 }
 
 +(instancetype)sharedManager{
-    dispatch_once(&static_navigationTransitionManagerOnceToken, ^{
-        static_navigationTransitionMgr = JobsNavigationTransitionMgr.new;
-    });return static_navigationTransitionMgr;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsNavigationTransitionMgr.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_navigationTransitionManagerOnceToken, ^{
+            static_navigationTransitionMgr = JobsNavigationTransitionMgr.new;
+        });return static_navigationTransitionMgr;
+    };
 }
 #pragma mark —— 一些私有方法
--(BOOL)isPush{
-    return self.comingStyle == ComingStyle_PUSH;
+-(JobsRetBOOLByVoidBlock _Nonnull)isPush{
+    @jobs_weakify(self)
+    return ^BOOL{
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return self.comingStyle == ComingStyle_PUSH;
+    };
 }
 #pragma mark —— 一些公共方法
 +(void)setDirection:(JobsTransitionDirection)direction
 forNavigationController:(UINavigationController *)navCtrlVC{
     _storedDirection = direction;
-    navCtrlVC.byDelegate(self.sharedManager);
+    navCtrlVC.byDelegate(self.jobsSharedManager());
 }
 /// 自定义 push/pop 控制器的手势方向
 +(void)attachToViewController:(UIViewController *)viewController
            animationDirection:(JobsTransitionDirection)direction {
     JobsNavigationTransitionMgr *manager = jobsMakeNavigationTransitionMgr(^(__kindof JobsNavigationTransitionMgr * _Nullable manager) {
-        manager.viewController = viewController;
-        manager.direction = direction;
+        manager
+            .byViewController(viewController)
+            .byDirection(direction);
     });
     /// 关联对象，防止被释放
     Jobs_setAssociatedRETAIN_NONATOMICByTarget(viewController, _navigationTransitionMgr, manager)
@@ -59,9 +95,9 @@ forNavigationController:(UINavigationController *)navCtrlVC{
     /// 设置导航控制器代理
     viewController.navigationController.byDelegate(manager);
     /// 添加自定义滑动手势
-    viewController.view.addGesture([jobsMakePanGesture(^(__kindof UIPanGestureRecognizer * _Nullable gesture) {
-        gesture.delegate = manager;
-    }) GestureActionBy:^(UIPanGestureRecognizer * _Nullable gesture) {
+    viewController.view.addGesture((jobsMakePanGesture(^(__kindof UIPanGestureRecognizer * _Nullable gesture) {
+        gesture.byDelegate(manager);
+    })).GestureActionBy(^(UIPanGestureRecognizer * _Nullable gesture) {
         CGPoint translation = [gesture translationInView:gesture.view];
         CGFloat progress = translation.x / gesture.view.bounds.size.width;
         /// 右往左滑动手势
@@ -70,7 +106,7 @@ forNavigationController:(UINavigationController *)navCtrlVC{
             switch (gesture.state) {
                 /// 处理 UIGestureRecognizerStateBegan 分支
                 case UIGestureRecognizerStateBegan:
-                    manager.interactiveTransition = UIPercentDrivenInteractiveTransition.new;
+                    manager.byInteractiveTransition(UIPercentDrivenInteractiveTransition.new);
                     [viewController.navigationController popViewControllerAnimated:YES];
                     break;
                 /// 处理 UIGestureRecognizerStateChanged 分支
@@ -85,13 +121,13 @@ forNavigationController:(UINavigationController *)navCtrlVC{
                         [manager.interactiveTransition finishInteractiveTransition];
                     } else {
                         [manager.interactiveTransition cancelInteractiveTransition];
-                    }manager.interactiveTransition = nil;
+                    }manager.byInteractiveTransition(nil);
                 } break;
                 /// 未匹配已知分支时执行兜底处理
                 default:break;
             }
         }
-    }]);
+    }));
 }
 #pragma mark —— UINavigationControllerDelegate
 /// 当导航控制器要执行动画切换时，询问是否需要一个交互式的转场控制器
@@ -111,72 +147,92 @@ forNavigationController:(UINavigationController *)navCtrlVC{
                                                 toViewController:(UIViewController *)toVC {
     if(operation == UINavigationControllerOperationPush){
         return jobsMakeNavigationTransitionMgr(^(__kindof JobsNavigationTransitionMgr * _Nullable manager) {
-            manager.direction = _storedDirection;
-            manager.comingStyle = ComingStyle_PUSH;
+            manager
+                .byDirection(_storedDirection)
+                .byComingStyle(ComingStyle_PUSH);
         });
     }
     if(operation == UINavigationControllerOperationPop){
         return jobsMakeNavigationTransitionMgr(^(__kindof JobsNavigationTransitionMgr * _Nullable manager) {
-            manager.direction = _storedDirection;
-            manager.comingStyle = ComingStyle_POP;
+            manager
+                .byDirection(_storedDirection)
+                .byComingStyle(ComingStyle_POP);
         });
     };return nil;
 }
 #pragma mark —— UIViewControllerAnimatedTransitioning
 /// 自定义转场动画需要多长时间
 -(NSTimeInterval)transitionDuration:(id<UIViewControllerContextTransitioning>)transitionContext{
-    return self.time;
+    JobsRetNSTimeIntervalByIDUIViewControllerContextTransitioningBlock action = ((JobsRetNSTimeIntervalByIDUIViewControllerContextTransitioningBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsNavigationTransitionMgr.class, @selector(jobsTransitionDuration)))(self, @selector(jobsTransitionDuration));
+    return action ? action(transitionContext) : (NSTimeInterval){0};
+}
+
+-(JobsRetNSTimeIntervalByIDUIViewControllerContextTransitioningBlock _Nonnull)jobsTransitionDuration{
+    @jobs_weakify(self)
+    return ^NSTimeInterval(id<UIViewControllerContextTransitioning> transitionContext){
+        @jobs_strongify(self)
+        if (!self) return (NSTimeInterval){0};
+        return self.time;
+    };
 }
 /// 执行自定义的视图控制器转场动画逻辑（位移动画、缩放、透明度等）（push、pop、present、dismiss）
 -(void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext{
-    UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
-    UIViewController *toVC   = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-    UIView *containerView = transitionContext.containerView;
-    CGRect screenBounds = UIScreen.mainScreen.bounds;
-    CGRect toStartFrame = screenBounds;
-    CGRect fromEndFrame = screenBounds;
-    CGFloat w = screenBounds.size.width;
-    CGFloat h = screenBounds.size.height;
-    switch (self.direction) {
-        /// 处理 JobsTransitionDirectionLeft 分支
-        case JobsTransitionDirectionLeft:
-            toStartFrame = self.isPush ? CGRectOffset(screenBounds, -w, 0) : screenBounds;
-            fromEndFrame = self.isPush ? screenBounds : CGRectOffset(screenBounds, -w, 0);
-            break;
-        /// 处理 JobsTransitionDirectionRight 分支
-        case JobsTransitionDirectionRight:
-            toStartFrame = self.isPush ? CGRectOffset(screenBounds, w, 0) : screenBounds;
-            fromEndFrame = self.isPush ? screenBounds : CGRectOffset(screenBounds, w, 0);
-            break;
-        /// 处理 JobsTransitionDirectionTop 分支
-        case JobsTransitionDirectionTop:
-            toStartFrame = self.isPush ? CGRectOffset(screenBounds, 0, -h) : screenBounds;
-            fromEndFrame = self.isPush ? screenBounds : CGRectOffset(screenBounds, 0, -h);
-            break;
-        /// 处理 JobsTransitionDirectionBottom 分支
-        case JobsTransitionDirectionBottom:
-            toStartFrame = self.isPush ? CGRectOffset(screenBounds, 0, h) : screenBounds;
-            fromEndFrame = self.isPush ? screenBounds : CGRectOffset(screenBounds, 0, h);
-            break;
-    }
-    if (self.isPush) {
-        containerView.addSubview(toVC.view);
-        toVC.view.byFrame(toStartFrame);
-    } else {
-        [containerView insertSubview:toVC.view belowSubview:fromVC.view];
-        toVC.view.byFrame(screenBounds);
-    }
-    [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-        if (self.isPush) {
-            toVC.view.byFrame(screenBounds);
-            fromVC.view.byFrame(screenBounds);
-        } else {
-            fromVC.view.byFrame(fromEndFrame);
+    ((((jobsByIDUIViewControllerContextTransitioningBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsNavigationTransitionMgr.class, @selector(animateTransition)))(self, @selector(animateTransition))))(transitionContext);
+}
+-(jobsByIDUIViewControllerContextTransitioningBlock _Nonnull)animateTransition{
+    @jobs_weakify(self)
+    return ^(id<UIViewControllerContextTransitioning> transitionContext){
+        @jobs_strongify(self)
+        if (!self) return;
+        UIViewController *fromVC = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+        UIViewController *toVC   = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+        UIView *containerView = transitionContext.containerView;
+        CGRect screenBounds = UIScreen.mainScreen.bounds;
+        CGRect toStartFrame = screenBounds;
+        CGRect fromEndFrame = screenBounds;
+        CGFloat w = screenBounds.size.width;
+        CGFloat h = screenBounds.size.height;
+        switch (self.direction) {
+            /// 处理 JobsTransitionDirectionLeft 分支
+            case JobsTransitionDirectionLeft:
+                toStartFrame = self.isPush() ? CGRectOffset(screenBounds, -w, 0) : screenBounds;
+                fromEndFrame = self.isPush() ? screenBounds : CGRectOffset(screenBounds, -w, 0);
+                break;
+            /// 处理 JobsTransitionDirectionRight 分支
+            case JobsTransitionDirectionRight:
+                toStartFrame = self.isPush() ? CGRectOffset(screenBounds, w, 0) : screenBounds;
+                fromEndFrame = self.isPush() ? screenBounds : CGRectOffset(screenBounds, w, 0);
+                break;
+            /// 处理 JobsTransitionDirectionTop 分支
+            case JobsTransitionDirectionTop:
+                toStartFrame = self.isPush() ? CGRectOffset(screenBounds, 0, -h) : screenBounds;
+                fromEndFrame = self.isPush() ? screenBounds : CGRectOffset(screenBounds, 0, -h);
+                break;
+            /// 处理 JobsTransitionDirectionBottom 分支
+            case JobsTransitionDirectionBottom:
+                toStartFrame = self.isPush() ? CGRectOffset(screenBounds, 0, h) : screenBounds;
+                fromEndFrame = self.isPush() ? screenBounds : CGRectOffset(screenBounds, 0, h);
+                break;
         }
-    } completion:^(BOOL finished) {
-        /// 一定要调用 [transitionContext completeTransition:]，否则系统会认为转场未完成，界面卡住
-        [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
-    }];
+        if (self.isPush()) {
+            containerView.addSubview(toVC.view);
+            toVC.view.byFrame(toStartFrame);
+        } else {
+            [containerView insertSubview:toVC.view belowSubview:fromVC.view];
+            toVC.view.byFrame(screenBounds);
+        }
+        [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
+            if (self.isPush()) {
+                toVC.view.byFrame(screenBounds);
+                fromVC.view.byFrame(screenBounds);
+            } else {
+                fromVC.view.byFrame(fromEndFrame);
+            }
+        } completion:^(BOOL finished) {
+            /// 一定要调用 [transitionContext completeTransition:]，否则系统会认为转场未完成，界面卡住
+            [transitionContext completeTransition:!transitionContext.transitionWasCancelled];
+        }];
+    };
 }
 /// BaseProtocol
 @synthesize time = _time;

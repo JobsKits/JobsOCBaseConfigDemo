@@ -25,14 +25,6 @@
     };
 }
 #pragma mark —— UI刷新（调用系统底层方法）
--(jobsByVoidBlock _Nonnull)refresh{
-    @jobs_weakify(self)
-    return ^(){
-        @jobs_strongify(self)
-        [self setNeedsLayout];
-        [self layoutIfNeeded];
-    };
-}
 #pragma mark —— 创建不同类型的MJHeader 和 MJFootor
 /// Header
 -(JobsRetLOTAnimationMJRefreshHeaderByRefreshConfigModelBlock _Nonnull)LOTAnimationMJRefreshHeaderBy{
@@ -64,7 +56,7 @@
                 .byFont(refreshConfigModel.font)// 设置字体
                 .byTextCor(refreshConfigModel.textColor);// 设置颜色
             /// 根据拖拽比例自动切换透明度
-            refreshHeader.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
+            refreshHeader.byAutomaticallyChangeAlpha(refreshConfigModel.automaticallyChangeAlpha);
             /// 震动特效反馈
             if (refreshConfigModel.isShake) NSObject.feedbackGenerator(nil);
         };return refreshHeader;
@@ -84,7 +76,7 @@
                 .byFont(refreshConfigModel.font)// 设置字体
                 .byTextCor(refreshConfigModel.textColor);// 设置颜色
             // 根据拖拽比例自动切换透明度
-            refreshHeader.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
+            refreshHeader.byAutomaticallyChangeAlpha(refreshConfigModel.automaticallyChangeAlpha);
             //震动特效反馈
             if (refreshConfigModel.isShake) NSObject.feedbackGenerator(nil);
         };return refreshHeader;
@@ -104,7 +96,7 @@
                 .byFont(refreshConfigModel.font)// 设置字体
                 .byTextCor(refreshConfigModel.textColor);// 设置颜色
             // 根据拖拽比例自动切换透明度
-            refreshHeader.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
+            refreshHeader.byAutomaticallyChangeAlpha(refreshConfigModel.automaticallyChangeAlpha);
             //震动特效反馈
             if (refreshConfigModel.isShake) NSObject.feedbackGenerator(nil);
         };return refreshHeader;
@@ -118,7 +110,7 @@
         }];
         {//其他
             // 根据拖拽比例自动切换透明度
-            refreshHeader.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
+            refreshHeader.byAutomaticallyChangeAlpha(refreshConfigModel.automaticallyChangeAlpha);
             // 震动特效反馈
             if (refreshConfigModel.isShake) NSObject.feedbackGenerator(nil);
         };return refreshHeader;
@@ -149,7 +141,7 @@
                 .byFont(refreshConfigModel.font)// 设置字体
                 .byTextCor(refreshConfigModel.textColor);// 设置颜色
             /// 根据拖拽比例自动切换透明度
-            refreshHeader.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
+            refreshHeader.byAutomaticallyChangeAlpha(refreshConfigModel.automaticallyChangeAlpha);
             /// 震动特效反馈
             if (refreshConfigModel.isShake) NSObject.feedbackGenerator(nil);
         };return refreshHeader;
@@ -180,7 +172,7 @@
                 .byFont(refreshConfigModel.font)// 设置字体
                 .byTextCor(refreshConfigModel.textColor);// 设置颜色
             /// 根据拖拽比例自动切换透明度
-            refreshFooter.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
+            refreshFooter.byAutomaticallyChangeAlpha(refreshConfigModel.automaticallyChangeAlpha);
             if (self.refreshConfigFooter.isShake) NSObject.feedbackGenerator(nil);
         };return refreshFooter;
     };
@@ -199,7 +191,7 @@
                 .byFont(refreshConfigModel.font)// 设置字体
                 .byTextCor(refreshConfigModel.textColor);// 设置颜色
             // 根据拖拽比例自动切换透明度
-            refreshFooter.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
+            refreshFooter.byAutomaticallyChangeAlpha(refreshConfigModel.automaticallyChangeAlpha);
             if (self.refreshConfigFooter.isShake) NSObject.feedbackGenerator(nil);
         };return refreshFooter;
     };
@@ -218,7 +210,7 @@
                 .byFont(refreshConfigModel.font)// 设置字体
                 .byTextCor(refreshConfigModel.textColor);// 设置颜色
             // 根据拖拽比例自动切换透明度
-            refreshFooter.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
+            refreshFooter.byAutomaticallyChangeAlpha(refreshConfigModel.automaticallyChangeAlpha);
             if (self.refreshConfigFooter.isShake) NSObject.feedbackGenerator(nil);
         };return refreshFooter;
     };
@@ -237,7 +229,7 @@
                 .byFont(refreshConfigModel.font)// 设置字体
                 .byTextCor(refreshConfigModel.textColor);// 设置颜色
             // 根据拖拽比例自动切换透明度
-            refreshFooter.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
+            refreshFooter.byAutomaticallyChangeAlpha(refreshConfigModel.automaticallyChangeAlpha);
             if (refreshConfigModel.isShake) NSObject.feedbackGenerator(nil);
         };return refreshFooter;
     };
@@ -273,7 +265,7 @@
                 .byFont(refreshConfigModel.font)// 设置字体
                 .byTextCor(refreshConfigModel.textColor);// 设置颜色
             // 根据拖拽比例自动切换透明度
-            refreshFooter.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
+            refreshFooter.byAutomaticallyChangeAlpha(refreshConfigModel.automaticallyChangeAlpha);
             if (refreshConfigModel.isShake) NSObject.feedbackGenerator(nil);
         };return refreshFooter;
     };
@@ -292,7 +284,7 @@
                 .byFont(refreshConfigModel.font)// 设置字体
                 .byTextCor(refreshConfigModel.textColor);// 设置颜色
             // 根据拖拽比例自动切换透明度
-            refreshFooter.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
+            refreshFooter.byAutomaticallyChangeAlpha(refreshConfigModel.automaticallyChangeAlpha);
             if (self.refreshConfigFooter.isShake) NSObject.feedbackGenerator(nil);
         };return refreshFooter;
     };
@@ -306,7 +298,7 @@
         {//其他
             if (refreshConfigModel.isShake) NSObject.feedbackGenerator(nil);
             // 根据拖拽比例自动切换透明度
-            refreshFooter.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
+            refreshFooter.byAutomaticallyChangeAlpha(refreshConfigModel.automaticallyChangeAlpha);
         };return refreshFooter;
     };
 }
@@ -319,7 +311,7 @@
         {//其他
             if (refreshConfigModel.isShake) NSObject.feedbackGenerator(nil);
             // 根据拖拽比例自动切换透明度
-            refreshFooter.automaticallyChangeAlpha = refreshConfigModel.automaticallyChangeAlpha;
+            refreshFooter.byAutomaticallyChangeAlpha(refreshConfigModel.automaticallyChangeAlpha);
         };return refreshFooter;
     };
 }
@@ -330,7 +322,7 @@
         @jobs_strongify(self)
         if(KindOfScrollViewCls(self)){
             UIScrollView *scrollView = (UIScrollView *)self;
-            [scrollView.xzm_header beginRefreshing];
+            scrollView.xzm_header.beginRefreshing;
         }
     };
 }
@@ -341,7 +333,7 @@
         @jobs_strongify(self)
         if(KindOfScrollViewCls(self)){
             UIScrollView *scrollView = (UIScrollView *)self;
-            if(scrollView.xzm_header.state == XZMRefreshStateRefreshing) [scrollView.xzm_header endRefreshing];
+            if(scrollView.xzm_header.state == XZMRefreshStateRefreshing) scrollView.xzm_header.endRefreshing;
         }
     };
 }
@@ -352,7 +344,7 @@
         @jobs_strongify(self)
         if(KindOfScrollViewCls(self)){
             UIScrollView *scrollView = (UIScrollView *)self;
-            [scrollView.xzm_gifHeader beginRefreshing];
+            scrollView.xzm_gifHeader.beginRefreshing;
         }
     };
 }
@@ -363,7 +355,7 @@
         @jobs_strongify(self)
         if(KindOfScrollViewCls(self)){
             UIScrollView *scrollView = (UIScrollView *)self;
-            if(scrollView.xzm_gifHeader.state == XZMRefreshStateRefreshing) [scrollView.xzm_gifHeader endRefreshing];
+            if(scrollView.xzm_gifHeader.state == XZMRefreshStateRefreshing) scrollView.xzm_gifHeader.endRefreshing;
         }
     };
 }
@@ -374,7 +366,7 @@
         @jobs_strongify(self)
         if(KindOfScrollViewCls(self)){
             UIScrollView *scrollView = (UIScrollView *)self;
-            [scrollView.xzm_footer beginRefreshing];
+            scrollView.xzm_footer.beginRefreshing;
         }
     };
 }
@@ -385,7 +377,7 @@
         @jobs_strongify(self)
         if(KindOfScrollViewCls(self)){
             UIScrollView *scrollView = (UIScrollView *)self;
-            if(scrollView.xzm_footer.state == XZMRefreshStateRefreshing) [scrollView.xzm_footer endRefreshing];
+            if(scrollView.xzm_footer.state == XZMRefreshStateRefreshing) scrollView.xzm_footer.endRefreshing;
         }
     };
 }
@@ -396,7 +388,7 @@
         @jobs_strongify(self)
         if(KindOfScrollViewCls(self)){
             UIScrollView *scrollView = (UIScrollView *)self;
-            [scrollView.xzm_gifFooter beginRefreshing];
+            scrollView.xzm_gifFooter.beginRefreshing;
         }
     };
 }
@@ -407,7 +399,7 @@
         @jobs_strongify(self)
         if(KindOfScrollViewCls(self)){
             UIScrollView *scrollView = (UIScrollView *)self;
-            if(scrollView.xzm_gifFooter.state == XZMRefreshStateRefreshing) [scrollView.xzm_gifFooter endRefreshing];
+            if(scrollView.xzm_gifFooter.state == XZMRefreshStateRefreshing) scrollView.xzm_gifFooter.endRefreshing;
         }
     };
 }
@@ -418,7 +410,7 @@
         @jobs_strongify(self)
         if(KindOfScrollViewCls(self)){
             UIScrollView *scrollView = (UIScrollView *)self;
-            [scrollView.mj_header beginRefreshing];
+            scrollView.mj_header.beginRefreshing;
         }
     };
 }
@@ -429,7 +421,7 @@
         @jobs_strongify(self)
         if(KindOfScrollViewCls(self)){
             UIScrollView *scrollView = (UIScrollView *)self;
-            [scrollView.mj_header endRefreshing];
+            scrollView.mj_header.endRefreshing;
         }
     };
 }
@@ -440,7 +432,7 @@
         @jobs_strongify(self)
         if(KindOfScrollViewCls(self)){
             UIScrollView *scrollView = (UIScrollView *)self;
-            [scrollView.mj_footer beginRefreshing];
+            scrollView.mj_footer.beginRefreshing;
         }
     };
 }
@@ -451,7 +443,7 @@
         @jobs_strongify(self)
         if(KindOfScrollViewCls(self)){
             UIScrollView *scrollView = (UIScrollView *)self;
-            [scrollView.mj_footer endRefreshing];
+            scrollView.mj_footer.endRefreshing;
         }
     };
 }
@@ -462,7 +454,7 @@
         @jobs_strongify(self)
         if(KindOfScrollViewCls(self)){
             UIScrollView *scrollView = (UIScrollView *)self;
-            [scrollView.mj_trailer beginRefreshing];
+            scrollView.mj_trailer.beginRefreshing;
         }
     };
 }
@@ -473,7 +465,7 @@
         @jobs_strongify(self)
         if(KindOfScrollViewCls(self)){
             UIScrollView *scrollView = (UIScrollView *)self;
-            [scrollView.mj_trailer endRefreshing];
+            scrollView.mj_trailer.endRefreshing;
         }
     };
 }
@@ -523,7 +515,7 @@
         @jobs_strongify(self)
         if(KindOfScrollViewCls(self)){
             UIScrollView *scrollView = (UIScrollView *)self;
-            if (scrollView.mj_header.refreshing) [scrollView.mj_header endRefreshing];// 结束刷新
+            if (scrollView.mj_header.refreshing) scrollView.mj_header.endRefreshing;// 结束刷新
         }
     };
 }
@@ -561,7 +553,7 @@
         @jobs_strongify(self)
         if(KindOfScrollViewCls(self)){
             UIScrollView *scrollView = (UIScrollView *)self;
-            if (scrollView.xzm_header.state == XZMRefreshStateRefreshing) [scrollView.xzm_header endRefreshing]; // 结束刷新
+            if (scrollView.xzm_header.state == XZMRefreshStateRefreshing) scrollView.xzm_header.endRefreshing; // 结束刷新
         }
     };
 }
@@ -572,7 +564,7 @@
         @jobs_strongify(self)
         if(KindOfScrollViewCls(self)){
             UIScrollView *scrollView = (UIScrollView *)self;
-            if (scrollView.xzm_footer.state == XZMRefreshStateRefreshing) [scrollView.xzm_footer endRefreshing];// 结束刷新
+            if (scrollView.xzm_footer.state == XZMRefreshStateRefreshing) scrollView.xzm_footer.endRefreshing;// 结束刷新
         }
     };
 }

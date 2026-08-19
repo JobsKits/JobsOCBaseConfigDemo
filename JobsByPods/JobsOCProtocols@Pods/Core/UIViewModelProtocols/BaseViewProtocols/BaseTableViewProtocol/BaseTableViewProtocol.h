@@ -90,7 +90,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 隐藏最后一个单元格的分界线
 -(void)hideSeparatorLineAtLast:(NSIndexPath *)indexPath cell:(__kindof UITableViewCell *)cell;
 #pragma mark —— RegisterClass
--(void)registerTableViewClass;
+-(jobsByVoidBlock _Nonnull)registerTableViewClass;
 -(JobsRetTableViewByStringBlock _Nonnull)byRegisterTableViewClass;
 /// 不加盐注册
 -(jobsByClsBlock _Nonnull)registerTableViewClassBy;

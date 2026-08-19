@@ -6,6 +6,7 @@
 //
 
 #import "JobsAnimatedNumberLabelDemoVC.h"
+
 #import <math.h>
 
 @interface JobsAnimatedNumberLabelDemoVC ()
@@ -22,6 +23,13 @@ Prop_assign()CGFloat defaultEnd;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsAnimatedNumberLabelDemoVC
+@interface JobsAnimatedNumberLabelDemoVC (JobsPropertyDSLSetterAutogen_d67e3caf7e)
+-(void)setDefaultEnd:(CGFloat)data;
+-(void)setDefaultStart:(CGFloat)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAnimatedNumberLabelDemoVC
+
 @implementation JobsAnimatedNumberLabelDemoVC
 -(void)dealloc{
     if (_valueLabel) _valueLabel.byStopAnimatedTextNumber();
@@ -29,119 +37,184 @@ Prop_assign()CGFloat defaultEnd;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAnimatedNumberLabelDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"UILabel 数字动效".tr)
-                .byFont(UIFontWeightRegularSize(16))
-                .byTextCor(JobsLabelColor);
-        })
-        .byBgCor(JobsWhiteColor)
-        .byNavBgCor(JobsWhiteColor);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"UILabel 数字动效".jobsTr())
+                    .byFont(UIFontWeightRegularSize(16))
+                    .byTextCor(JobsLabelColor);
+            })
+            .byBgCor(JobsWhiteColor)
+            .byNavBgCor(JobsWhiteColor);
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.defaultStart = 60;
-    self.defaultEnd = 0;
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.contentView.byVisible(YES);
-    self.valueLabel.byVisible(YES);
-    self.hintLabel.byVisible(YES);
-    self.startTF.byVisible(YES);
-    self.endTF.byVisible(YES);
-    self.startBtn.byVisible(YES);
-    self.stopBtn.byVisible(YES);
-    [self jobs_syncStartTextToLabel:JobsEmpty];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAnimatedNumberLabelDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.byDefaultStart(60);
+        self.byDefaultEnd(0);
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.contentView.byVisible(YES);
+        self.valueLabel.byVisible(YES);
+        self.hintLabel.byVisible(YES);
+        self.startTF.byVisible(YES);
+        self.endTF.byVisible(YES);
+        self.startBtn.byVisible(YES);
+        self.stopBtn.byVisible(YES);
+        self.jobs_syncStartTextToLabel(JobsEmpty);
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
-    self.valueLabel.byStopAnimatedTextNumber();
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAnimatedNumberLabelDemoVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+        self.valueLabel.byStopAnimatedTextNumber();
+    };
 }
 #pragma mark —— Actions
--(void)jobs_startAnimatedNumber{
-    [self.view endEditing:YES];
-    [self jobs_filterTextField:self.startTF
-                      syncLabel:YES];
-    [self jobs_filterTextField:self.endTF
-                      syncLabel:NO];
-    NSString *startRaw = [self jobs_trimmedText:self.startTF.text ?: JobsEmpty];
-    NSString *endRaw = [self jobs_trimmedText:self.endTF.text ?: JobsEmpty];
-    if (startRaw.length && ![self jobs_isNumericText:startRaw]) {
-        @"起点只能输入数字".tr.toast();
-        return;
-    }
-    if (endRaw.length && ![self jobs_isNumericText:endRaw]) {
-        @"终点只能输入数字".tr.toast();
-        return;
-    }
-    CGFloat startValue = [self jobs_valueFromText:startRaw
-                                         fallback:self.defaultStart];
-    CGFloat endValue = [self jobs_valueFromText:endRaw
-                                       fallback:self.defaultEnd];
-    NSString *endText = [self jobs_targetTextByValue:endValue];
-    self.valueLabel.byStopAnimatedTextNumber();
-    UILabel *label = [self.valueLabel byAnimatedTextNumberFrom:@(startValue)
-                                                           step:nil
-                                                       duration:0.9
-                                                minimumInterval:1.0 / 60.0
-                                                     completion:nil];
-    label.byStartAnimatedTextNumber(endText);
+-(jobsByVoidBlock _Nonnull)jobs_startAnimatedNumber{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self.view endEditing:YES];
+        [self jobs_filterTextField:self.startTF
+                          syncLabel:YES];
+        [self jobs_filterTextField:self.endTF
+                          syncLabel:NO];
+        NSString *startRaw = self.jobs_trimmedText(self.startTF.text ?: JobsEmpty);
+        NSString *endRaw = self.jobs_trimmedText(self.endTF.text ?: JobsEmpty);
+        if (startRaw.length && !self.jobs_isNumericText(startRaw)) {
+            @"起点只能输入数字".jobsTr().toast();
+            return;
+        }
+        if (endRaw.length && !self.jobs_isNumericText(endRaw)) {
+            @"终点只能输入数字".jobsTr().toast();
+            return;
+        }
+        CGFloat startValue = [self jobs_valueFromText:startRaw
+                                             fallback:self.defaultStart];
+        CGFloat endValue = [self jobs_valueFromText:endRaw
+                                           fallback:self.defaultEnd];
+        NSString *endText = self.jobs_targetTextByValue(endValue);
+        self.valueLabel.byStopAnimatedTextNumber();
+        UILabel *label = [self.valueLabel byAnimatedTextNumberFrom:@(startValue)
+                                                               step:nil
+                                                           duration:0.9
+                                                    minimumInterval:1.0 / 60.0
+                                                         completion:nil];
+        label.byStartAnimatedTextNumber(endText);
+    };
 }
 
--(void)jobs_stopAnimatedNumber{
-    self.valueLabel.byStopAnimatedTextNumber();
+-(jobsByVoidBlock _Nonnull)jobs_stopAnimatedNumber{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.valueLabel.byStopAnimatedTextNumber();
+    };
 }
 
--(void)jobs_startTextChanged{
-    [self jobs_filterTextField:self.startTF
-                      syncLabel:YES];
+-(jobsByVoidBlock _Nonnull)jobs_startTextChanged{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self jobs_filterTextField:self.startTF
+                          syncLabel:YES];
+    };
 }
 
--(void)jobs_endTextChanged{
-    [self jobs_filterTextField:self.endTF
-                      syncLabel:NO];
+-(jobsByVoidBlock _Nonnull)jobs_endTextChanged{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self jobs_filterTextField:self.endTF
+                          syncLabel:NO];
+    };
 }
 #pragma mark —— Private
--(NSString *)jobs_trimmedText:(NSString *)text{
-    return [text stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+-(JobsRetStrByStrBlock _Nonnull)jobs_trimmedText{
+    @jobs_weakify(self)
+    return ^NSString *(NSString * text){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [text stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+    };
 }
 
--(NSString *)jobs_numericTextByFilteringText:(NSString *)text{
-    NSMutableString *result = NSMutableString.string;
-    BOOL hasDot = NO;
-    BOOL hasSign = NO;
-    for (NSUInteger idx = 0; idx < text.length; idx++) {
-        unichar ch = [text characterAtIndex:idx];
-        if ([[NSCharacterSet decimalDigitCharacterSet] characterIsMember:ch]) {
-            [result appendFormat:@"%C",ch];
-        }else if (ch == '.' && !hasDot) {
-            hasDot = YES;
-            [result appendString:@"."];
-        }else if (ch == '-' && !hasSign && result.length == 0) {
-            hasSign = YES;
-            [result appendString:@"-"];
-        }
-    };return result;
+-(JobsRetStrByStrBlock _Nonnull)jobs_numericTextByFilteringText{
+    @jobs_weakify(self)
+    return ^NSString *(NSString * text){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSMutableString *result = NSMutableString.string;
+        BOOL hasDot = NO;
+        BOOL hasSign = NO;
+        for (NSUInteger idx = 0; idx < text.length; idx++) {
+            unichar ch = [text characterAtIndex:idx];
+            if ([[NSCharacterSet decimalDigitCharacterSet] characterIsMember:ch]) {
+                [result appendFormat:@"%C",ch];
+            }else if (ch == '.' && !hasDot) {
+                hasDot = YES;
+                [result appendString:@"."];
+            }else if (ch == '-' && !hasSign && result.length == 0) {
+                hasSign = YES;
+                [result appendString:@"-"];
+            }
+        };return result;
+    };
 }
 
--(BOOL)jobs_isNumericText:(NSString *)text{
-    NSString *trimmed = [self jobs_trimmedText:text];
-    if (!trimmed.length) return NO;
-    NSScanner *scanner = [NSScanner scannerWithString:trimmed];
-    double value = 0;
-    return [scanner scanDouble:&value] && scanner.isAtEnd;
+-(JobsRetBOOLByStrBlock _Nonnull)jobs_isNumericText{
+    @jobs_weakify(self)
+    return ^BOOL(NSString * text){
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        NSString *trimmed = self.jobs_trimmedText(text);
+        if (!trimmed.length) return NO;
+        NSScanner *scanner = [NSScanner scannerWithString:trimmed];
+        double value = 0;
+        return [scanner scanDouble:&value] && scanner.isAtEnd;
+    };
 }
 
 -(CGFloat)jobs_valueFromText:(NSString *)text
@@ -150,27 +223,37 @@ Prop_assign()CGFloat defaultEnd;
     return (CGFloat)text.doubleValue;
 }
 
--(NSString *)jobs_targetTextByValue:(CGFloat)value{
-    if (fabs(value - llround(value)) < 0.0000001) {
-        return [NSString stringWithFormat:@"%lld",(long long)llround(value)];
-    };return [NSString stringWithFormat:@"%g",value];
+-(JobsRetStrByCGFloatBlock _Nonnull)jobs_targetTextByValue{
+    @jobs_weakify(self)
+    return ^NSString *(CGFloat value){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (fabs(value - llround(value)) < 0.0000001) {
+            return [NSString stringWithFormat:@"%lld",(long long)llround(value)];
+        };return [NSString stringWithFormat:@"%g",value];
+    };
 }
 
--(void)jobs_syncStartTextToLabel:(NSString *)text{
-    NSString *trimmed = [self jobs_trimmedText:text ?: JobsEmpty];
-    if (!trimmed.length) {
-        self.valueLabel.byText([self jobs_targetTextByValue:self.defaultStart]);
-    }else if ([self jobs_isNumericText:trimmed]) {
-        self.valueLabel.byText(trimmed);
-    }
+-(jobsByStrBlock _Nonnull)jobs_syncStartTextToLabel{
+    @jobs_weakify(self)
+    return ^(NSString * text){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSString *trimmed = self.jobs_trimmedText(text ?: JobsEmpty);
+        if (!trimmed.length) {
+            self.valueLabel.byText(self.jobs_targetTextByValue(self.defaultStart));
+        }else if (self.jobs_isNumericText(trimmed)) {
+            self.valueLabel.byText(trimmed);
+        }
+    };
 }
 
 -(void)jobs_filterTextField:(UITextField *)textField
                   syncLabel:(BOOL)syncLabel{
     NSString *rawText = textField.text ?: JobsEmpty;
-    NSString *filteredText = [self jobs_numericTextByFilteringText:rawText];
+    NSString *filteredText = self.jobs_numericTextByFilteringText(rawText);
     if (![filteredText isEqualToString:rawText]) textField.byText(filteredText);
-    if (syncLabel) [self jobs_syncStartTextToLabel:filteredText];
+    if (syncLabel) self.jobs_syncStartTextToLabel(filteredText);
 }
 #pragma mark —— LazyLoad
 -(UIView *)contentView{
@@ -216,7 +299,7 @@ Prop_assign()CGFloat defaultEnd;
     if (!_hintLabel) {
         _hintLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"起点 -> 终点（只允许数字输入）\n不填默认：起点 60，终点 0".tr)
+                .byText(@"起点 -> 终点（只允许数字输入）\n不填默认：起点 60，终点 0".jobsTr())
                 .byTextCor(JobsSecondaryLabelColor)
                 .byFont(UIFontWeightRegularSize(15))
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -235,7 +318,7 @@ Prop_assign()CGFloat defaultEnd;
     if (!_startTF) {
         @jobs_weakify(self)
         _startTF = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
-            textField.byPlaceholder(@"起点（默认 60）".tr)
+            textField.byPlaceholder(@"起点（默认 60）".jobsTr())
                 .byFont(UIFontWeightRegularSize(15))
                 .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -244,7 +327,7 @@ Prop_assign()CGFloat defaultEnd;
                 .byClearButtonMode(UITextFieldViewModeWhileEditing)
                 .byBorderStyle(UITextBorderStyleRoundedRect)
                 .onJobsEvent(UIControlEventEditingChanged, ^(__kindof UIControl * _Nullable control) {
-                    [weak_self jobs_startTextChanged];
+                    weak_self.jobs_startTextChanged();
                 })
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -260,7 +343,7 @@ Prop_assign()CGFloat defaultEnd;
     if (!_endTF) {
         @jobs_weakify(self)
         _endTF = jobsMakeTextField(^(__kindof UITextField * _Nullable textField) {
-            textField.byPlaceholder(@"终点（默认 0）".tr)
+            textField.byPlaceholder(@"终点（默认 0）".jobsTr())
                 .byFont(UIFontWeightRegularSize(15))
                 .byTextCor(JobsLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -269,7 +352,7 @@ Prop_assign()CGFloat defaultEnd;
                 .byClearButtonMode(UITextFieldViewModeWhileEditing)
                 .byBorderStyle(UITextBorderStyleRoundedRect)
                 .onJobsEvent(UIControlEventEditingChanged, ^(__kindof UIControl * _Nullable control) {
-                    [weak_self jobs_endTextChanged];
+                    weak_self.jobs_endTextChanged();
                 })
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
@@ -287,12 +370,12 @@ Prop_assign()CGFloat defaultEnd;
         @jobs_weakify(self)
         _startBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
-                .jobsResetBtnTitle(@"启动".tr)
+                .jobsResetBtnTitle(@"启动".jobsTr())
                 .jobsResetBtnTitleCor(HEXCOLOR(0xFF375F))
                 .jobsResetBtnTitleFont(UIFontWeightRegularSize(18))
                 .jobsResetBtnBgCor(HEXCOLOR(0x34C759))
                 .onClickBy(^(__kindof UIButton * _Nullable button) {
-                    [weak_self jobs_startAnimatedNumber];
+                    weak_self.jobs_startAnimatedNumber();
                 })
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer
@@ -314,12 +397,12 @@ Prop_assign()CGFloat defaultEnd;
         @jobs_weakify(self)
         _stopBtn = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button
-                .jobsResetBtnTitle(@"停止".tr)
+                .jobsResetBtnTitle(@"停止".jobsTr())
                 .jobsResetBtnTitleCor(HEXCOLOR(0x007AFF))
                 .jobsResetBtnTitleFont(UIFontWeightRegularSize(18))
                 .jobsResetBtnBgCor(HEXCOLOR(0xFF8A1F))
                 .onClickBy(^(__kindof UIButton * _Nullable button) {
-                    [weak_self jobs_stopAnimatedNumber];
+                    weak_self.jobs_stopAnimatedNumber();
                 })
                 .byLayer(^(__kindof CALayer * _Nullable layer) {
                     layer
@@ -336,4 +419,23 @@ Prop_assign()CGFloat defaultEnd;
     };return _stopBtn;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsAnimatedNumberLabelDemoVC
+-(JobsRetJobsAnimatedNumberLabelDemoVCByCGFloatBlock _Nonnull)byDefaultEnd{
+    @jobs_weakify(self)
+    return ^__kindof JobsAnimatedNumberLabelDemoVC * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setDefaultEnd:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsAnimatedNumberLabelDemoVCByCGFloatBlock _Nonnull)byDefaultStart{
+    @jobs_weakify(self)
+    return ^__kindof JobsAnimatedNumberLabelDemoVC * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setDefaultStart:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAnimatedNumberLabelDemoVC
 @end

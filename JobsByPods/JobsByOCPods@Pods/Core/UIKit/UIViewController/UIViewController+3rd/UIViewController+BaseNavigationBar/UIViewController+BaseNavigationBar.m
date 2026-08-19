@@ -43,9 +43,10 @@ JobsKey(_navigationBar)
                 @jobs_strongify(self)
                 data.add(self.navItem);
             });
-            navBar.translucent = self.isBarTranslucent;
-            navBar.byHidden(self.isHiddenNavigationBar);
-            navBar.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
+            navBar
+                .byTranslucent(self.isBarTranslucent)
+                .byHidden(self.isHiddenNavigationBar)
+            .addOn(self.view).byAdd(^(MASConstraintMaker *make) {
                 make.left.right.top.equalTo(self.view);
                 make.height.mas_offset(self.jobsNavigationBarHeight);
             });
@@ -130,8 +131,8 @@ JobsKey(_shadow)
         @jobs_weakify(self)
         Shadow = jobsMakeShadow(^(__kindof NSShadow * _Nullable shadow) {
             @jobs_strongify(self)
-            Shadow.shadowColor = self.shadowCor;
-            Shadow.shadowOffset = CGSizeZero;
+            Shadow.byShadowColor(self.shadowCor);
+            Shadow.byShadowOffset(CGSizeZero);
         });Jobs_setAssociatedRETAIN_NONATOMIC(_shadow, Shadow)
     };return Shadow;
 }
@@ -148,8 +149,8 @@ JobsKey(_navItem)
         @jobs_weakify(self)
         NavItem = jobsMakeNavigationItem(^(__kindof UINavigationItem * _Nullable navigationItem) {
             @jobs_strongify(self)
-            NavItem.title = self.title;
-            NavItem.leftBarButtonItem = self.leftBarButtonItem_back;
+            NavItem.byTitle(self.title);
+            NavItem.byLeftBarButtonItem(self.leftBarButtonItem_back);
         });Jobs_setAssociatedRETAIN_NONATOMIC(_navItem, NavItem)
     };return NavItem;
 }

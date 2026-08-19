@@ -8,8 +8,10 @@
 #import "JobsFuseOuterRingConfig.h"
 
 @implementation JobsFuseOuterRingConfig
-+(__kindof JobsFuseOuterRingConfig *)config {
-    return JobsFuseOuterRingConfig.alloc.init;
++(JobsRetJobsFuseOuterRingConfigByVoidBlock _Nonnull)config {
+    return ^__kindof JobsFuseOuterRingConfig *{
+        return JobsFuseOuterRingConfig.alloc.init;
+    };
 }
 
 -(instancetype)init {
@@ -32,107 +34,107 @@
 
 -(id)copyWithZone:(NSZone *)zone {
     JobsFuseOuterRingConfig *config = [[JobsFuseOuterRingConfig allocWithZone:zone] init];
-    config.lineWidth = self.lineWidth;
-    config.strokeColor = self.strokeColor;
-    config.trackColor = self.trackColor;
-    config.fillColor = self.fillColor;
-    config.fromOpacity = self.fromOpacity;
-    config.toOpacity = self.toOpacity;
-    config.growDuration = self.growDuration;
-    config.timerInterval = self.timerInterval;
-    config.repeatsWhileHolding = self.repeatsWhileHolding;
-    config.retreatDuration = self.retreatDuration;
-    config.fadeOutDuration = self.fadeOutDuration;
-    config.inset = self.inset;
-    config.startsFromTop = self.startsFromTop;
+    config.byLineWidth(self.lineWidth);
+    config.byStrokeColor(self.strokeColor);
+    config.byTrackColor(self.trackColor);
+    config.byFillColor(self.fillColor);
+    config.byFromOpacity(self.fromOpacity);
+    config.byToOpacity(self.toOpacity);
+    config.byGrowDuration(self.growDuration);
+    config.byTimerInterval(self.timerInterval);
+    config.byRepeatsWhileHolding(self.repeatsWhileHolding);
+    config.byRetreatDuration(self.retreatDuration);
+    config.byFadeOutDuration(self.fadeOutDuration);
+    config.byInset(self.inset);
+    config.byStartsFromTop(self.startsFromTop);
     return config;
 }
 
--(JobsFuseOuterRingConfig *(^)(CGFloat))byLineWidth {
+-(JobsRetJobsFuseOuterRingConfigByCGFloatBlock _Nonnull)byLineWidth {
     return ^JobsFuseOuterRingConfig *(CGFloat data) {
         self.lineWidth = MAX(0.5, data);
         return self;
     };
 }
 
--(JobsFuseOuterRingConfig *(^)(UIColor *))byStrokeColor {
+-(JobsRetJobsFuseOuterRingConfigByUIColorBlock _Nonnull)byStrokeColor {
     return ^JobsFuseOuterRingConfig *(UIColor *data) {
         self.strokeColor = data ?: UIColor.whiteColor;
         return self;
     };
 }
 
--(JobsFuseOuterRingConfig *(^)(UIColor *_Nullable))byTrackColor {
+-(JobsRetJobsFuseOuterRingConfigByUIColorBlock _Nonnull)byTrackColor {
     return ^JobsFuseOuterRingConfig *(UIColor *_Nullable data) {
         self.trackColor = data;
         return self;
     };
 }
 
--(JobsFuseOuterRingConfig *(^)(UIColor *))byFillColor {
+-(JobsRetJobsFuseOuterRingConfigByUIColorBlock _Nonnull)byFillColor {
     return ^JobsFuseOuterRingConfig *(UIColor *data) {
         self.fillColor = data ?: UIColor.clearColor;
         return self;
     };
 }
 
--(JobsFuseOuterRingConfig *(^)(CGFloat))byFromOpacity {
+-(JobsRetJobsFuseOuterRingConfigByCGFloatBlock _Nonnull)byFromOpacity {
     return ^JobsFuseOuterRingConfig *(CGFloat data) {
         self.fromOpacity = data;
         return self;
     };
 }
 
--(JobsFuseOuterRingConfig *(^)(CGFloat))byToOpacity {
+-(JobsRetJobsFuseOuterRingConfigByCGFloatBlock _Nonnull)byToOpacity {
     return ^JobsFuseOuterRingConfig *(CGFloat data) {
         self.toOpacity = data;
         return self;
     };
 }
 
--(JobsFuseOuterRingConfig *(^)(NSTimeInterval))byGrowDuration {
+-(JobsRetJobsFuseOuterRingConfigByNSTimeIntervalBlock _Nonnull)byGrowDuration {
     return ^JobsFuseOuterRingConfig *(NSTimeInterval data) {
         self.growDuration = MAX(0.001, data);
         return self;
     };
 }
 
--(JobsFuseOuterRingConfig *(^)(NSTimeInterval))byTimerInterval {
+-(JobsRetJobsFuseOuterRingConfigByNSTimeIntervalBlock _Nonnull)byTimerInterval {
     return ^JobsFuseOuterRingConfig *(NSTimeInterval data) {
         self.timerInterval = MAX(0.001, data);
         return self;
     };
 }
 
--(JobsFuseOuterRingConfig *(^)(BOOL))byRepeatsWhileHolding {
+-(JobsRetJobsFuseOuterRingConfigByBOOLBlock _Nonnull)byRepeatsWhileHolding {
     return ^JobsFuseOuterRingConfig *(BOOL data) {
         self.repeatsWhileHolding = data;
         return self;
     };
 }
 
--(JobsFuseOuterRingConfig *(^)(NSTimeInterval))byRetreatDuration {
+-(JobsRetJobsFuseOuterRingConfigByNSTimeIntervalBlock _Nonnull)byRetreatDuration {
     return ^JobsFuseOuterRingConfig *(NSTimeInterval data) {
         self.retreatDuration = MAX(0, data);
         return self;
     };
 }
 
--(JobsFuseOuterRingConfig *(^)(NSTimeInterval))byFadeOutDuration {
+-(JobsRetJobsFuseOuterRingConfigByNSTimeIntervalBlock _Nonnull)byFadeOutDuration {
     return ^JobsFuseOuterRingConfig *(NSTimeInterval data) {
         self.fadeOutDuration = MAX(0, data);
         return self;
     };
 }
 
--(JobsFuseOuterRingConfig *(^)(CGFloat))byInset {
+-(JobsRetJobsFuseOuterRingConfigByCGFloatBlock _Nonnull)byInset {
     return ^JobsFuseOuterRingConfig *(CGFloat data) {
         self.inset = MAX(0, data);
         return self;
     };
 }
 
--(JobsFuseOuterRingConfig *(^)(BOOL))byStartsFromTop {
+-(JobsRetJobsFuseOuterRingConfigByBOOLBlock _Nonnull)byStartsFromTop {
     return ^JobsFuseOuterRingConfig *(BOOL data) {
         self.startsFromTop = data;
         return self;

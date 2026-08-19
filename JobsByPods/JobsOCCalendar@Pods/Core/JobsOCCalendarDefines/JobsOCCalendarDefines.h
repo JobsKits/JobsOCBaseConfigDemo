@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -53,7 +59,9 @@ typedef NS_OPTIONS(NSUInteger, JobsOCCalendarCaseOptions) {
 -(nullable NSString *)calendar:(JobsOCCalendar *)calendar subtitleForDate:(NSDate *)date;
 -(nullable UIImage *)calendar:(JobsOCCalendar *)calendar imageForDate:(NSDate *)date;
 -(NSDate *)minimumDateForCalendar:(JobsOCCalendar *)calendar;
+-(JobsRetNSDateByJobsOCCalendarBlock _Nonnull)jobsMinimumDateForCalendar;
 -(NSDate *)maximumDateForCalendar:(JobsOCCalendar *)calendar;
+-(JobsRetNSDateByJobsOCCalendarBlock _Nonnull)jobsMaximumDateForCalendar;
 -(__kindof JobsOCCalendarDayCell *)calendar:(JobsOCCalendar *)calendar
                               cellForDate:(NSDate *)date
                            atMonthPosition:(JobsOCCalendarMonthPosition)position;
@@ -82,6 +90,7 @@ willDisplayCell:(JobsOCCalendarDayCell *)cell
         forDate:(NSDate *)date
 atMonthPosition:(JobsOCCalendarMonthPosition)monthPosition;
 -(void)calendarCurrentPageDidChange:(JobsOCCalendar *)calendar;
+-(jobsByJobsOCCalendarBlock _Nonnull)jobsCalendarCurrentPageDidChange;
 @end
 
 @protocol JobsOCCalendarDelegateAppearance <NSObject>
@@ -99,8 +108,6 @@ subtitleDefaultColorForDate:(NSDate *)date;
                    appearance:(JobsOCCalendarAppearance *)appearance
 selectionColorForDate:(NSDate *)date;
 @end
-
-typedef void(^jobsByJobsOCCalendarBlock)(__kindof JobsOCCalendar *_Nullable calendar);
 
 NS_ASSUME_NONNULL_END
 

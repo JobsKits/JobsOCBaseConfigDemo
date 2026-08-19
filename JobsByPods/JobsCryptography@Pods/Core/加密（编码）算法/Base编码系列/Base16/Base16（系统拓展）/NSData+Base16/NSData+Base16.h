@@ -28,6 +28,12 @@
 #import "JobsBlock.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSData (Base16)
@@ -35,7 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///【类方法】将NSData对象 转换为 以Base16（也称为十六进制）编码的字符串
 +(JobsRetStrByDataBlock _Nonnull)base16StringByData;
 ///【实例方法】将NSData对象 转换为 以Base16（也称为十六进制）编码的字符串
--(NSString *_Nullable)base16StringByImage;
+-(JobsRetStrByVoidBlock _Nonnull)base16StringByImage;
 #pragma mark —— Base16 ==> NSData
 ///【类方法】将以Base16编码的字符串 转换为 NSData对象
 +(JobsRetDataByStrBlock _Nonnull)dataByBase16String;

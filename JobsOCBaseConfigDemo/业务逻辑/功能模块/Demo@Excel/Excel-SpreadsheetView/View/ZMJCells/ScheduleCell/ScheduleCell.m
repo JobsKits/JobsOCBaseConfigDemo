@@ -26,9 +26,19 @@
     };return self;
 }
 
-- (void)setFrame:(CGRect)frame {
-    [super setFrame:frame];
-    self.label.byFrame(CGRectInset(self.bounds, 4, 0));
+-(void)setFrame:(CGRect)frame{
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(ScheduleCell.class, @selector(jobsSetFrame)))(self, @selector(jobsSetFrame));
+    if (action) action(frame);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsSetFrame{
+    @jobs_weakify(self)
+    return ^(CGRect frame){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super setFrame:frame];
+        self.label.byFrame(CGRectInset(self.bounds, 4, 0));
+    };
 }
 
 - (void)setColor:(UIColor *)color {

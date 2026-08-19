@@ -26,18 +26,38 @@
     };return self;
 }
 
-- (void)setFrame:(CGRect)frame {
-    [super setFrame:frame];
-    self.label.byFrame(CGRectInset(self.bounds, 4, 2));
+-(void)setFrame:(CGRect)frame{
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(HeaderCell.class, @selector(jobsSetFrame)))(self, @selector(jobsSetFrame));
+    if (action) action(frame);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsSetFrame{
+    @jobs_weakify(self)
+    return ^(CGRect frame){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super setFrame:frame];
+        self.label.byFrame(CGRectInset(self.bounds, 4, 2));
+    };
 }
 
 - (void)layoutSubviews {
-    [super layoutSubviews];
-    [self.sortArrow sizeToFit];
-    CGRect frame = self.sortArrow.frame;
-    frame.origin.x = self.frame.size.width - self.sortArrow.frame.size.width - 8;
-    frame.origin.y = (self.frame.size.height - self.sortArrow.frame.size.height) / 2;
-    self.sortArrow.byFrame(frame);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(HeaderCell.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        [self.sortArrow sizeToFit];
+        CGRect frame = self.sortArrow.frame;
+        frame.origin.x = self.frame.size.width - self.sortArrow.frame.size.width - 8;
+        frame.origin.y = (self.frame.size.height - self.sortArrow.frame.size.height) / 2;
+        self.sortArrow.byFrame(frame);
+    };
 }
 #pragma mark —— lazyLoad
 @synthesize label = _label;

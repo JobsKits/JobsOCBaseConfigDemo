@@ -26,32 +26,52 @@ Prop_copy()NSString *dot;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(PointLabTestVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(@"文字前面小圆点".tr)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1));
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(@"文字前面小圆点".jobsTr())
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1));
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.makeNavByAlpha(1);
-    self.contentView.byAlpha(1);
-    self.label.byAlpha(1);
-    self.label2.byAlpha(1);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(PointLabTestVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.makeNavByAlpha(1);
+        self.contentView.byAlpha(1);
+        self.label.byAlpha(1);
+        self.label2.byAlpha(1);
+    };
 }
 
 //-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -146,7 +166,7 @@ Prop_copy()NSString *dot;
             }))
             /// 设置文本颜色
             .addForegroundColorAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data1) {
-                data1.byValue(@"#D0D0D0".cor)
+                data1.byValue(@"#D0D0D0".jobsCor())
                      .byRange(NSMakeRange(1, attributedLength - 1));
             }))
             .addFontAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data1) {
@@ -164,11 +184,11 @@ Prop_copy()NSString *dot;
         for (NSString *item in self.items) {
             // 添加小圆点
             _attributedString2.add(JobsAttributedStringByTextAttachment(jobsMakeTextAttachment(^(NSTextAttachment * _Nullable data) {
-                data.bounds = CGRectMake(0, 0, 10, 10); // 设置圆点的大小和位置
+                data.byBounds(CGRectMake(0, 0, 10, 10));
                 UIGraphicsBeginImageContextWithOptions(data.bounds.size, NO, 0);
                 [JobsRedColor setFill];// 设置圆点的颜色
                 UIBezierPath.byBezierPathWithOvalInRect(data.bounds).byFill();
-                data.image = UIGraphicsGetImageFromCurrentImageContext();
+                data.byImage(UIGraphicsGetImageFromCurrentImageContext());
                 UIGraphicsEndImageContext();
             })));
             // 添加空格后再添加文本
@@ -181,7 +201,7 @@ Prop_copy()NSString *dot;
                         .byRange(NSMakeRange(0, text.length));
                 }))
                 .addForegroundColorAttributeNameByParagraphStyleModel(jobsMakeParagraphStyleModel(^(__kindof JobsParagraphStyleModel * _Nullable data) {
-                    data.byValue(@"#D0D0D0".cor)
+                    data.byValue(@"#D0D0D0".jobsCor())
                         .byRange(NSMakeRange(0, text.length));
                 }));
             _attributedString2.add(text);

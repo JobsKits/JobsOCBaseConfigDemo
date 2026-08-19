@@ -18,28 +18,28 @@
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(__kindof JobsLocationModel *_Nullable data){
         @jobs_strongify(self)
-        self.layer.borderColor = data.layerCor.CGColor;
-        self.layer.borderWidth = data.jobsWidth;
-        self.layer.cornerRadius = data.cornerRadiusValue;
-        self.layer.masksToBounds = data.masksToBounds;
+        self.layer.byBorderColor(data.layerCor.CGColor);
+        self.layer.byBorderWidth(data.jobsWidth);
+        self.layer.byCornerRadius(data.cornerRadiusValue);
+        self.layer.byMasksToBounds(data.masksToBounds);
         return self;
     };
 }
-/// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
+/// 调用方式：view.layerByBorderCor(@"#FFD8D8".jobsCor()).layerByBorderWidth(1);
 -(JobsRetViewByCorBlock _Nonnull)layerByBorderCor{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(UIColor *_Nullable layerBorderCor) {
         @jobs_strongify(self)
-        self.layer.borderColor = layerBorderCor.CGColor;
+        self.layer.byBorderColor(layerBorderCor.CGColor);
         return self;
     };
 }
-/// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
+/// 调用方式：view.layerByBorderCor(@"#FFD8D8".jobsCor()).layerByBorderWidth(1);
 -(JobsRetViewByFloatBlock _Nonnull)layerByBorderWidth{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(float borderWidth) {
         @jobs_strongify(self)
-        self.layer.borderWidth = borderWidth;
+        self.layer.byBorderWidth(borderWidth);
         return self;
     };
 }
@@ -48,8 +48,8 @@
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(float cornerRadiusValue) {
         @jobs_strongify(self)
-        self.layer.cornerRadius = cornerRadiusValue;
-        self.layer.masksToBounds = YES;
+        self.layer.byCornerRadius(cornerRadiusValue);
+        self.layer.byMasksToBounds(YES);
         return self;
     };
 }
@@ -70,8 +70,9 @@
     @jobs_weakify(self)
     self.layer.mask = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable data) {
         @jobs_strongify(self)
-        data.byFrame(self.bounds);
-        data.path = maskPath.CGPath;
+        data
+            .byPath(maskPath.CGPath)
+            .byFrame(self.bounds);
     });
 }
 
@@ -97,7 +98,7 @@
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(CGFloat alpha){
         @jobs_strongify(self)
-        self.jobsVisible = alpha;
+        self.byJobsVisible(alpha);
         return self;
     };
 }
@@ -122,13 +123,13 @@
               shadowOpacity:(CGFloat)shadowOpacity
            layerShadowColor:(UIColor *__nullable)layerShadowColor
           layerShadowRadius:(CGFloat)layerShadowRadius{
-    targetShadowview.layer.cornerRadius = cornerRadius;/// 圆切角
+    targetShadowview.layer.byCornerRadius(cornerRadius);
     /// targetShadowview当在某些masonry约束的时候，没有frame,需要进行刷新得到frame，否则不会出现阴影效果
     if (superview && CGRectEqualToRect(targetShadowview.frame,CGRectZero)) superview.refresh();
-    targetShadowview.layer.shadowOpacity = (shadowOpacity != 0) ? : 0.7f;//shadowOpacity设置了阴影的不透明度,取值范围在0~1;
-    targetShadowview.layer.shadowOffset = shadowOffset;//阴影偏移量
-    targetShadowview.layer.shadowColor = (layerShadowColor ? :JobsDarkGrayColor).CGColor;//阴影颜色   JobsLightGrayColor.CGColor;
-    targetShadowview.layer.shadowRadius = (layerShadowRadius != 0) ? : 8.0f;//模糊计算的半径
+    targetShadowview.layer.byShadowOpacity((shadowOpacity != 0) ? : 0.7f);
+    targetShadowview.layer.byShadowOffset(shadowOffset);
+    targetShadowview.layer.byShadowColor((layerShadowColor ? :JobsDarkGrayColor).CGColor);
+    targetShadowview.layer.byShadowRadius((layerShadowRadius != 0) ? : 8.0f);
     /// 偏移量保持为正数，便于后续计算
     offsetX = offsetX >= 0 ? offsetX : -offsetX;
     offsetY = offsetY >= 0 ? offsetY : -offsetY;
@@ -223,14 +224,14 @@
         @jobs_strongify(self)
         if ([self isKindOfClass:UILabel.class]) {
             UILabel *label = (UILabel *)self;
-            label.adjustsFontSizeToFitWidth = YES;// 必须有text，然后根据text来进行约束计算和布局
+            label.byAdjustsFontSizeToFitWidth(YES);
         };return self;
     };
 }
 #pragma mark —— Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
 JobsKey(_masonryBlock)
 @dynamic masonryBlock;
--(jobsByMASConstraintMakerBlock)masonryBlock{
+-(jobsByMASConstraintMakerBlock _Nullable)masonryBlock{
     return Jobs_getAssociatedObject(_masonryBlock);
 }
 

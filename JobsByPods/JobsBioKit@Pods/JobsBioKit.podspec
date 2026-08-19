@@ -25,6 +25,9 @@ A standalone CocoaPods component for Touch ID, Face ID, Optic ID and passcode fa
   ]
   spec.header_dir = 'JobsBioKit'
 
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsOCDefs'
+
   JobsPodspecKitForJobsBioKit.apply_standard_exclude_files(spec)
 
   JobsPodspecKitForJobsBioKit.apply_standard_xcconfig(

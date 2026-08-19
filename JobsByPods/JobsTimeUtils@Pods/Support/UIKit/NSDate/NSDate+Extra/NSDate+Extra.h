@@ -37,6 +37,12 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSDate (JobsTimeUtilsExtra)
@@ -61,9 +67,20 @@ NS_ASSUME_NONNULL_BEGIN
 /// 入参：日期格式化标准（NSString *）缺省标准：年/月/日
 -(JobsRetStrByStrBlock _Nonnull)toReadableTimeBy;
 /// 将 NSDate  *转换输出成人类可读的（年\月\日）时间（字符串）
--(NSString *_Nullable)readableDayTime;
+-(JobsRetStrByVoidBlock _Nonnull)readableDayTime;
 /// 将 NSDate  *转换输出成人类可读的（年\月\日\时\分\秒）时间（字符串）
--(NSString *_Nullable)readableTime;
+-(JobsRetStrByVoidBlock _Nonnull)readableTime;
+
+@end
+
+@interface NSDateComponents (JobsTimeUtilsExtra)
+
+-(JobsRetDateComponentsByIntegerBlock _Nonnull)byYear;
+-(JobsRetDateComponentsByIntegerBlock _Nonnull)byMonth;
+-(JobsRetDateComponentsByIntegerBlock _Nonnull)byDay;
+-(JobsRetDateComponentsByIntegerBlock _Nonnull)byHour;
+-(JobsRetDateComponentsByIntegerBlock _Nonnull)byMinute;
+-(JobsRetDateComponentsByIntegerBlock _Nonnull)bySecond;
 
 @end
 

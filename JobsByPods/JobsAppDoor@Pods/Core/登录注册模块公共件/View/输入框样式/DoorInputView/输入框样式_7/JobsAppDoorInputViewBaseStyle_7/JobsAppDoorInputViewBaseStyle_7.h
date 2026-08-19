@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_7_D1F2310759
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsAppDoor/JobsAppDoorConfig.h>
 #import <JobsAppDoor/JobsAppDoorInputViewBaseStyle.h>
 #import <JobsOCTools/JobsOCTools.h>
@@ -74,6 +80,9 @@ NS_ASSUME_NONNULL_BEGIN
  - (instancetype)init NS_UNAVAILABLE;
  - (instancetype)new NS_UNAVAILABLE;
  */
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorInputViewBaseStyle_7
+-(JobsRetJobsAppDoorInputViewBaseStyle_7ByJobsAppDoorInputViewBaseStyleModelBlock _Nonnull)byDoorInputViewBaseStyleModel;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_7
 @end
 
 NS_ASSUME_NONNULL_END
@@ -110,7 +119,7 @@ NS_ASSUME_NONNULL_END
          if (!_配置选择区号并输入手机号) {
              _配置选择区号并输入手机号 = JobsAppDoorInputViewBaseStyleModel.new;
              _配置选择区号并输入手机号.leftViewIMG = @"小手机图标".img;
-             _配置选择区号并输入手机号.placeHolderStr = @"请输入您的手机号".tr;
+             _配置选择区号并输入手机号.placeHolderStr = @"请输入您的手机号".jobsTr();
      //        配置选择区号并输入手机号.placeholderColor = HEXCOLOR(0xC4C4C4);
              _配置选择区号并输入手机号.placeholderFont = UIFontWeightRegularSize(JobsWidth(16));
              _配置选择区号并输入手机号.isShowDelBtn = YES;

@@ -12,6 +12,12 @@
 #import <UIKit/UIKit.h>
 #import <FDFullscreenPopGesture/UIScrollView+FDFullscreenPopGesture.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -34,6 +40,7 @@ Prop_strong(readonly)UIPanGestureRecognizer *fd_fullscreenPopGestureRecognizer;
 /// rather than a global way, checking "fd_prefersNavigationBarHidden" property.
 /// Default to YES, disable it if you don't want so.
 Prop_assign()BOOL fd_viewControllerBasedNavigationBarAppearanceEnabled;
+-(JobsRetUINavigationControllerByBOOLBlock _Nonnull)byFd_viewControllerBasedNavigationBarAppearanceEnabled;
 
 @end
 /// Allows any view controller to disable interactive pop gesture, which might

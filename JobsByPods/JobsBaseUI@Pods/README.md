@@ -66,8 +66,8 @@ JobsBaseUI@Pods/
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
 - `Support/UIKit/UIButton/UIButton+SDWebImage` 只保留历史兼容入口，真实链式实现已下沉到 `JobsOCDSL/3rd/SDWebImage+DSL`。
-- `BaseViewController` 会在 Demo 子页面进入前及转场完成后兜底 Jobs/GK 导航栏、Jobs 返回按钮和标题；只处理真实导航栈成员或直接模态页面，导航 / Tab / Split 容器、`UIAlertController` 及其私有子控制器不会创建导航栏。已有系统富文本标题及右侧业务按钮会迁移到 GK 导航栏，不再沿用系统导航容器。根页面不处理，专门演示系统导航栏的 `JobsNavigationDemoVC` 保持原样；全屏业务页可覆写 `jobs_requiresDefaultNavigationBar` 并返回 `NO`，明确关闭整套默认导航 UI。
-- `UIViewController+BaseNavigationBar` 会识别 `ViewController_1` Demo 根列表的导航 / 模态子页面及类名包含 `Demo` 的独立演示页，右上角最多只保留一个透明背景的主题入口；没有业务动作时直接切换主题，月亮 / 太阳图标与无障碍文案表达下一次点击会切换到的主题；存在业务动作时用 Demo 总入口同款 `ellipsis.circle` 展开下拉列表，展开后切换为填充图标与“收起”语义，统一承载主题与页面动作。切换结果由 `JobsThemeCenter` 持久化并按资源绑定更新。
+- `BaseViewController` 会在 Demo 子页面进入前及转场完成后兜底 Jobs/GK 导航栏、Jobs 返回按钮和标题；只处理真实导航栈成员或直接模态页面，导航 / Tab / Split 容器、`UIAlertController` 及其私有子控制器不会创建导航栏。已有系统富文本标题及右侧业务按钮会迁移到 GK 导航栏，不再沿用系统导航容器。根页面不处理，专门演示系统导航栏的 `JobsNavigationDemoVC` 继续使用系统导航栏但参与同一主题绑定；全屏业务页可覆写 `jobs_requiresDefaultNavigationBar` 并返回 `NO`，明确关闭整套默认导航 UI。
+- `UIViewController+BaseNavigationBar` 会识别 `ViewController_1` Demo 根列表的导航 / 模态子页面及类名包含 `Demo` 的独立演示页，统一刷新返回按钮的 template 图标、主文字色和次级背景，并把 GK / 系统导航的普通标题、富文本 titleView、双行主副标题收口到主题主 / 次文字色。右上角最多只保留一个透明背景的主题入口；没有业务动作时直接切换主题，月亮 / 太阳图标与无障碍文案表达下一次点击会切换到的主题；存在业务动作时用 Demo 总入口同款 `ellipsis.circle` 展开下拉列表，展开后切换为填充图标与“收起”语义，统一承载主题与页面动作。切换结果由 `JobsThemeCenter` 持久化并按资源绑定更新。
 - `JobsDebugVC` 通过 `JobsControllerDeallocTipsEnabled()` / `JobsSetControllerDeallocTipsEnabled(...)` 持久化控制销毁 Toast，默认开启；关闭只隐藏提示，不影响通知清理与调试日志。
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

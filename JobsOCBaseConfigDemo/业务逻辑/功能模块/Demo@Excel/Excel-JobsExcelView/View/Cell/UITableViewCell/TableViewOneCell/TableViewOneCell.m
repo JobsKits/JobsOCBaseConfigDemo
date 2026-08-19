@@ -42,7 +42,7 @@ Prop_assign()CGSize size;
         self.bgImageView_.byAlpha(1);
         CGSize size = CGSizeMake(self.excelConfigureData.itemW, self.excelConfigureData.itemH);
         if (!CGSizeEqualToSize(self.size, size)) {
-            self.size = size;
+            self.bySize(size);
             self.drawLineBySize(size);
         };return self;
     };

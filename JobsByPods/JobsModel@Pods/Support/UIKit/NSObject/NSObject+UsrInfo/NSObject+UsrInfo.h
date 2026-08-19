@@ -43,6 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(jobsByUserModelBlock _Nonnull)saveUserInfo;
 /// 读取用户信息【用户信息】/【JobsUserModel】
 -(JobsUserModel <NSCoding>*_Nullable)readUserInfo;
+-(JobsRetUserModelByVoidBlock _Nonnull)jobsCurrentUserInfo;
 /// 保存用户数据
 -(jobsByIDAndKeyBlock _Nonnull)jobsSaveUserInfo;
 /// 读取用户信息
@@ -58,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 全局保存已经登录成功 且 并未删除的用户名组
 -(jobsByStrBlock _Nonnull)saveUserName;
 /// 读取用户名组
--(NSArray *_Nullable)readUserNameMutArr;
+-(JobsRetArrByVoidBlock _Nonnull)readUserNameMutArr;
 /// 全局删除已经登录成功的用户名
 -(jobsByStrBlock _Nonnull)deleteUserName;
 

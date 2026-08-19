@@ -65,13 +65,13 @@ NS_ASSUME_NONNULL_END
 #pragma mark —— 弹出提示
 NS_INLINE void toastBy(NSString *_Nullable msg){
     if(!msg || ![msg isKindOfClass:NSString.class]){
-        msg = @"数据错误".tr;
+        msg = @"数据错误".jobsTr();
     }NSObject.jobsToastMsg(msg);
 }
 
 NS_INLINE void toastErr(NSString *_Nullable msg){
     if(!msg || ![msg isKindOfClass:NSString.class]){
-        msg = @"数据错误".tr;
+        msg = @"数据错误".jobsTr();
     }NSObject.jobsToastErrMsg(msg);
 }
 #endif /* JOBS_HEADER_GUARD_NSOBJECT_WHTOAST_A8B4616A59 */

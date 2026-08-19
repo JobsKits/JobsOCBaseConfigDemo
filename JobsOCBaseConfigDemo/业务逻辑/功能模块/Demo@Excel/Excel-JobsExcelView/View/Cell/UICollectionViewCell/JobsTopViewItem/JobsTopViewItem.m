@@ -42,10 +42,20 @@ Prop_assign()CGSize size;
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
-    /// 内部指定圆切角
-    [self appointCornerCutToCircleByRoundingCorners:UIRectCornerAllCorners
-                                        cornerRadii:CGSizeMake(JobsWidth(0), JobsWidth(0))];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTopViewItem.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        /// 内部指定圆切角
+        [self appointCornerCutToCircleByRoundingCorners:UIRectCornerAllCorners
+                                            cornerRadii:CGSizeMake(JobsWidth(0), JobsWidth(0))];
+    };
 }
 #pragma mark —— BaseCellProtocol
 -(JobsRetCollectionViewCellByIDBlock _Nonnull)jobsRichElementsCollectionViewCellBy{
@@ -56,7 +66,7 @@ Prop_assign()CGSize size;
         self.bgImageView.byAlpha(1);
         CGSize size = CGSizeMake(viewModel.itemW, viewModel.itemH);
         if (!CGSizeEqualToSize(self.size, size)) {
-            self.size = size;
+            self.bySize(size);
             // 其他点
             self.linePath.add(CGPointMake(size.width, 0));
             self.linePath.add(CGPointMake(size.width, size.height));

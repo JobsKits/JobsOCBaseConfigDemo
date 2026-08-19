@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_JOBSTEXTVIEWSTYLETBVCELL_1CAC990851
 
 #import <JobsBaseUI/JobsTextView.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsBaseUI/UIView+Extra.h>
 #import <JobsBaseUI/JobsBaseTableViewCell.h>
 
@@ -52,7 +58,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// 将一个TextView整个覆盖到TableViewCell上面
 @interface JobsTextViewStyleTBVCell : JobsBaseTableViewCell<UITextViewDelegate>
 /// 获取绑定的数据源
--(UIViewModel *)getViewModel;
+-(UIViewModel *_Nullable)getViewModel;
+-(JobsRetViewModelByVoidBlock _Nonnull)jobsGetViewModel;
 
 @end
 

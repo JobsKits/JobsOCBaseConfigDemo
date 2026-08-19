@@ -7,13 +7,23 @@
 
 #import "UITabBar+DSL.h"
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN UITabBar
+@interface UITabBar (JobsPropertyDSLSetterAutogen_f10cea142f)
+-(void)setSelectedIndex:(NSUInteger)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UITabBar
+
 @implementation UITabBar (DSL)
-+(void)jobsApplyStandardAppearance:(UITabBarAppearance *_Nonnull)appearance{
-    UITabBar.appearance.standardAppearance = appearance;
++(jobsByTabBarAppearanceBlock _Nonnull)jobsApplyStandardAppearance{
+    return ^(UITabBarAppearance *_Nonnull appearance){
+        [UITabBar.appearance setStandardAppearance:appearance];
+    };
 }
 
-+(void)jobsApplyScrollEdgeAppearance:(UITabBarAppearance *_Nullable)appearance{
-    UITabBar.appearance.scrollEdgeAppearance = appearance;
++(jobsByTabBarAppearanceBlock _Nonnull)jobsApplyScrollEdgeAppearance{
+    return ^(UITabBarAppearance *_Nullable appearance){
+        [UITabBar.appearance setScrollEdgeAppearance:appearance];
+    };
 }
 
 -(JobsRetTabBarByAppearanceBlock _Nonnull)byStandardAppearance{
@@ -40,14 +50,14 @@
         @jobs_strongify(self)
         if (@available(iOS 13.0, tvOS 13.0, *)) {
             UITabBarAppearance *standardAppearance = self.standardAppearance.copy;
-            standardAppearance.backgroundColor = data;
-            self.standardAppearance = standardAppearance;
+            standardAppearance.byBackgroundColor(data);
+            self.byStandardAppearance(standardAppearance);
             if (@available(iOS 15.0, tvOS 15.0, *)) {
                 UITabBarAppearance *scrollEdgeAppearance = self.scrollEdgeAppearance
                     ? self.scrollEdgeAppearance.copy
                     : standardAppearance.copy;
-                scrollEdgeAppearance.backgroundColor = data;
-                self.scrollEdgeAppearance = scrollEdgeAppearance;
+                scrollEdgeAppearance.byBackgroundColor(data);
+                self.byScrollEdgeAppearance(scrollEdgeAppearance);
             }
         }else{
             SuppressWdeprecatedDeclarationsWarning(self.barTintColor = data;);
@@ -64,4 +74,14 @@
     };
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN UITabBar
+-(JobsRetUITabBarByNSUIntegerBlock _Nonnull)bySelectedIndex{
+    @jobs_weakify(self)
+    return ^__kindof UITabBar * _Nullable(NSUInteger data){
+        @jobs_strongify(self)
+        [self setSelectedIndex:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UITabBar
 @end

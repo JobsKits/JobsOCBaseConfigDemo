@@ -7,6 +7,12 @@
 
 #import "NSMutableDictionary+Ordered.h"
 
+@interface NSMutableDictionary (OrderedPrivate)
+
+-(jobsByNSMutableArrayBlock _Nonnull)setKeys;
+
+@end
+
 static BOOL isHasBeenRemoved;
 /**
     因为是对setObject:forKey:、removeObjectForKey:、removeAllObjects、removeObjectsForKeys:
@@ -34,13 +40,23 @@ JobsKey(OrderedDictionaryKeys)
     return Jobs_getAssociatedObject(OrderedDictionaryKeys);
 }
 
--(void)setKeys:(NSMutableArray *)keys {
-    Jobs_setAssociatedRETAIN_NONATOMIC(OrderedDictionaryKeys, keys)
+-(void)setKeys:(NSMutableArray *)keys{
+    jobsByNSMutableArrayBlock action = ((jobsByNSMutableArrayBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSMutableDictionary.class, @selector(jobsSetKeys)))(self, @selector(jobsSetKeys));
+    if (action) action(keys);
+}
+
+-(jobsByNSMutableArrayBlock _Nonnull)jobsSetKeys{
+    @jobs_weakify(self)
+    return ^(NSMutableArray * keys){
+        @jobs_strongify(self)
+        if (!self) return;
+        Jobs_setAssociatedRETAIN_NONATOMIC(OrderedDictionaryKeys, keys)
+    };
 }
 /// 添加键值对
 -(void)swizzled_setObject:(nonnull id)anObject
                    forKey:(nonnull id<NSCopying>)aKey{
-    if (!self.keys) self.keys = NSMutableArray.array;
+    if (!self.keys) self.jobsSetKeys(NSMutableArray.array);
     @jobs_weakify(self)
     if (self.keys.count == self.allKeys.count) {
         [self.keys enumerateObjectsUsingBlock:^(id _Nonnull obj,
@@ -56,27 +72,67 @@ JobsKey(OrderedDictionaryKeys)
 }
 /// 移除给定key键值对
 -(void)swizzled_removeObjectForKey:(id)aKey{
-    if (!isHasBeenRemoved) {
-        [self.keys removeObject:aKey];
-    }isHasBeenRemoved = NO;
-    [self swizzled_removeObjectForKey:aKey];
+    jobsByIDBlock action = ((jobsByIDBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSMutableDictionary.class, @selector(jobsSwizzled_removeObjectForKey)))(self, @selector(jobsSwizzled_removeObjectForKey));
+    if (action) action(aKey);
+}
+
+-(jobsByIDBlock _Nonnull)jobsSwizzled_removeObjectForKey{
+    @jobs_weakify(self)
+    return ^(id aKey){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (!isHasBeenRemoved) {
+            [self.keys removeObject:aKey];
+        }isHasBeenRemoved = NO;
+        [self swizzled_removeObjectForKey:aKey];
+    };
 }
 /// 移除全部键值对
 -(void)swizzled_removeAllObjects {
-    [self.keys removeAllObjects];
-    [self swizzled_removeAllObjects];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSMutableDictionary.class, @selector(jobsSwizzled_removeAllObjects)))(self, @selector(jobsSwizzled_removeAllObjects));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsSwizzled_removeAllObjects{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self.keys removeAllObjects];
+        [self swizzled_removeAllObjects];
+    };
 }
 /// 移除给定的keyArray键值对
 -(void)swizzled_removeObjectsForKeys:(NSArray<id> *)keyArray{
-    for (id obj in keyArray) {
-        [self.keys removeObject:obj];
-    }[self swizzled_removeObjectsForKeys:keyArray];
+    jobsByNSArrayIDBlock action = ((jobsByNSArrayIDBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSMutableDictionary.class, @selector(jobsSwizzled_removeObjectsForKeys)))(self, @selector(jobsSwizzled_removeObjectsForKeys));
+    if (action) action(keyArray);
+}
+
+-(jobsByNSArrayIDBlock _Nonnull)jobsSwizzled_removeObjectsForKeys{
+    @jobs_weakify(self)
+    return ^(NSArray<id> * keyArray){
+        @jobs_strongify(self)
+        if (!self) return;
+        for (id obj in keyArray) {
+            [self.keys removeObject:obj];
+        }[self swizzled_removeObjectsForKeys:keyArray];
+    };
 }
 /// 获取给定index的对象
 - (id)objectAtIndex:(NSUInteger)index {
-    if (index >= self.keys.count) {
-        return nil;
-    };return [self objectForKey:self.keys[index]];
+    JobsRetIDByUIntegerBlock action = ((JobsRetIDByUIntegerBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSMutableDictionary.class, @selector(jobsObjectAtIndex)))(self, @selector(jobsObjectAtIndex));
+    return action ? action(index) : nil;
+}
+
+-(JobsRetIDByUIntegerBlock _Nonnull)jobsObjectAtIndex{
+    @jobs_weakify(self)
+    return ^id(NSUInteger index){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        if (index >= self.keys.count) {
+            return nil;
+        };return [self objectForKey:self.keys[index]];
+    };
 }
 /// 插入键值对至给定index
 -(void)insertObject:(id)anObject
@@ -98,14 +154,27 @@ JobsKey(OrderedDictionaryKeys)
     }
 }
 /// 移除最后一个键值对
--(void)removeLastObject{
-    [self removeObjectAtIndex:self.keys.count - 1];
+-(jobsByVoidBlock _Nonnull)removeLastObject{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [self removeObjectAtIndex:self.keys.count - 1];
+    };
 }
 /// 移除给定index的键值对
 -(void)removeObjectAtIndex:(NSUInteger)index{
-    if (index < self.keys.count) {
-        [self removeObjectForKey:self.keys[index]];
-    }
+    ((((jobsByNSUIntegerBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSMutableDictionary.class, @selector(removeObjectAtIndex)))(self, @selector(removeObjectAtIndex))))(index);
+}
+-(jobsByNSUIntegerBlock _Nonnull)removeObjectAtIndex{
+    @jobs_weakify(self)
+    return ^(NSUInteger index){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (index < self.keys.count) {
+            [self removeObjectForKey:self.keys[index]];
+        }
+    };
 }
 /// 替换给定index的值
 -(void)replaceObjectAtIndex:(NSUInteger)index
@@ -131,13 +200,21 @@ JobsKey(OrderedDictionaryKeys)
 }
 /// 移除给定indexes的键值对
 -(void)removeObjectsAtIndexes:(NSIndexSet *)indexes {
+    ((((jobsByNSIndexSetBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSMutableDictionary.class, @selector(removeObjectsAtIndexes)))(self, @selector(removeObjectsAtIndexes))))(indexes);
+}
+-(jobsByNSIndexSetBlock _Nonnull)removeObjectsAtIndexes{
     @jobs_weakify(self)
-    [indexes enumerateIndexesWithOptions:NSEnumerationReverse
-                              usingBlock:^(NSUInteger idx,
-                                           BOOL * _Nonnull stop) {
+    return ^(NSIndexSet * indexes){
         @jobs_strongify(self)
-        [self removeObjectAtIndex:idx];
-   }];
+        if (!self) return;
+        @jobs_weakify(self)
+        [indexes enumerateIndexesWithOptions:NSEnumerationReverse
+                                  usingBlock:^(NSUInteger idx,
+                                               BOOL * _Nonnull stop) {
+            @jobs_strongify(self)
+            [self removeObjectAtIndex:idx];
+       }];
+    };
 }
 /// 替换给定indexes的值
 -(void)replaceObjectsAtIndexes:(NSIndexSet *)indexes

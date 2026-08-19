@@ -50,13 +50,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface BaseTextView : UITextView
 
+-(JobsRetBaseTextViewByStrBlock _Nonnull)byPlaceholder;
+
 @end
 
 NS_ASSUME_NONNULL_END
 
 NS_INLINE __kindof BaseTextView *_Nonnull jobsMakeBaseTextView(jobsByBaseTextViewBlock _Nonnull block){
     BaseTextView *data = BaseTextView.alloc.init;
-    data.linkTextAttributes = NSObject.linkTextAttributes;
+    data.linkTextAttributes = NSObject.linkTextAttributes();
     if (block) block(data);
     return data;
 }
@@ -81,16 +83,16 @@ NS_INLINE __kindof BaseTextView *_Nonnull jobsMakeBaseTextView(jobsByBaseTextVie
                                  config
                                      .byFont(UIFontWeightRegularSize(JobsWidth(12)))
                                      .byTextCor(JobsWhiteColor)
-                                     .byTargetString(@"Already have account?".tr)
-                                     .byParagraphStyle(self.defaultParagraphStyle);
+                                     .byTargetString(@"Already have account?".jobsTr())
+                                     .byParagraphStyle(self.defaultParagraphStyle());
                                  // config.textBgCor = UIColor.clearColor;
                              }))
                              .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable config) {
                                  config
                                      .byFont(UIFontWeightRegularSize(JobsWidth(12)))
-                                     .byTextCor(@"#FFC700".cor)
-                                     .byTargetString(@" ".add(@"Login Here".tr))
-                                     .byParagraphStyle(self.defaultParagraphStyle)
+                                     .byTextCor(@"#FFC700".jobsCor())
+                                     .byTargetString(@" ".add(@"Login Here".jobsTr()))
+                                     .byParagraphStyle(self.defaultParagraphStyle())
                                      .byUrlStr(@"www.google.com");
                                  // config.textBgCor = UIColor.clearColor;
                              }));

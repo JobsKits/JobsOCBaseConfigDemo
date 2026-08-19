@@ -181,4 +181,51 @@ pod install --no-repo-update
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
 - `JobsOCBaseConfigDemoTests` 覆盖 inactive→active 自动恢复和手动暂停不被误恢复。
 
+## 十、系统计时机制对比与选型 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+### 10.1、先统一概念
+
+日常所说的“iOS 系统 Timer”并不都属于 UIKit：
+
+- `NSTimer` 位于 [**Foundation**](https://developer.apple.com/documentation/foundation/nstimer)。
+- `DispatchSourceTimer / dispatch_source_t` Timer 位于 [**Dispatch**](https://developer.apple.com/documentation/dispatch/dispatchsourcetimer)。
+- `CADisplayLink` 位于 [**QuartzCore**](https://developer.apple.com/documentation/quartzcore/cadisplaylink)。
+- `CFRunLoopTimerRef` 位于 [**Core Foundation**](https://developer.apple.com/documentation/corefoundation/cfrunlooptimer)，并与 `NSTimer` toll-free bridged。
+
+四套 API 对应四种调度模型。它们都不是硬实时机制，也都不会赋予 App 后台保活能力。
+
+### 10.2、四种内核怎么选
+
+| 系统机制 | 调度模型 | 优势 | 代价与风险 | 推荐场景 | `JobsTimerType` |
+| ---- | ---- | ---- | ---- | ---- | ---- |
+| `NSTimer` | 依赖指定线程的 RunLoop 与 Mode | API 简单；适合 UI 低频刷新；支持 `tolerance` 节能 | RunLoop 忙或 Mode 不匹配会延后；不是实时计时器；需处理失效与引用关系 | 轮播、验证码、普通 UI 倒计时 | `JobsTimerTypeNSTimer` |
+| `DispatchSourceTimer`（GCD Timer） | 在指定 Dispatch Queue 上投递事件，不依赖 RunLoop | 可选择串行/并发队列；适合非 UI 调度；leeway 可平衡功耗 | suspend/resume/cancel 状态必须配平；仍受 QoS、系统负载和队列阻塞影响 | 心跳、轮询、缓存清理、工作队列节拍 | `JobsTimerTypeGCD` |
+| `CADisplayLink` | 跟随显示刷新周期回调 | 与屏幕刷新协调；提供时间戳；适配高刷屏 | 实际帧率会受硬件、低电量、温控和主线程负载影响；不适合业务倒计时 | 逐帧动画、进度绘制、视觉插值 | `JobsTimerTypeDisplayLink` |
+| `CFRunLoopTimerRef` | Core Foundation 级 RunLoop Timer | 可显式控制 RunLoop、Mode、下一次触发时间与上下文 | C API 更冗长；所有权与线程亲和更容易出错；仍受 RunLoop 延迟 | 基础设施、精细 RunLoop 集成或 C/CF 互操作 | `JobsTimerTypeRunLoop` |
+
+### 10.3、经常被误当成 Timer 的 API
+
+| API | 适合 | 不适合 |
+| ---- | ---- | ---- |
+| `dispatch_after` | 一次性延迟执行 | 重复、暂停、恢复、统一生命周期管理 |
+| `performSelector:withObject:afterDelay:` | 当前 RunLoop 上的一次性延迟消息 | 跨队列调度、重复任务、复杂取消治理 |
+| `BGTaskScheduler` | 由系统择机执行后台刷新或维护任务 | 秒级准点触发、常驻后台 Timer |
+
+### 10.4、场景决策顺序
+
+1. 回调必须跟屏幕刷新同步，选择 `JobsTimerTypeDisplayLink`。
+2. 必须脱离 RunLoop，或需要在工作队列执行，选择 `JobsTimerTypeGCD`。
+3. 只是主线程低频 UI 刷新，选择 `JobsTimerTypeNSTimer`，并使用 common Mode。
+4. 需要直接控制 RunLoop Timer 或进行 Core Foundation 互操作，选择 `JobsTimerTypeRunLoop`。
+5. 只有一次延迟动作，使用 `dispatch_after` 等一次性 API，不创建重复 Timer。
+6. App 被系统挂起后仍需工作，改用匹配业务资格的后台系统机制；四种 Timer 都不是后台保活方案。
+
+### 10.5、正确性底线
+
+- GCD Timer 只是避开 RunLoop Mode 影响，不等于硬实时；队列阻塞、QoS、系统负载和 leeway 都可能带来延迟。
+- 倒计时以绝对 `endAt` 为时间真值，每次 tick 重新计算剩余时间，不把 tick 次数当时间。
+- 动画按 `timestamp` / `targetTimestamp` 或单调时钟计算进度，不假设 DisplayLink 每帧必到。
+- 可接受少量延迟的重复任务设置合理 `tolerance` / leeway，减少无意义唤醒。
+- 单个局部 Timer 使用 `JobsTimer`；需要 identifier 去重、列表复用、Scope、前后台策略或批量治理时使用 `JobsOCTimerMgr`。
+
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

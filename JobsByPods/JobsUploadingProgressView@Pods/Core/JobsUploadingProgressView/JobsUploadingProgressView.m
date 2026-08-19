@@ -20,17 +20,30 @@ Prop_strong()CAKeyframeAnimation *anim;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsUploadingProgressView
+@interface JobsUploadingProgressView (JobsPropertyDSLSetterAutogen_3bca37b444)
+-(void)setAnim:(CAKeyframeAnimation * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsUploadingProgressView
+
 @implementation JobsUploadingProgressView
 static JobsUploadingProgressView *static_uploadingProgressView = nil;
 +(instancetype)sharedManager{
-    @synchronized(self){
-        if (!static_uploadingProgressView) {
-            static_uploadingProgressView = [JobsUploadingProgressView.alloc initWithFrame:CGRectMake((JobsMainScreen_WIDTH() - 267) / 2,
-                                                                                                   JobsMainScreen_HEIGHT() / 2 - 76,
-                                                                                                   267,
-                                                                                                   76)];
-        }
-    };return static_uploadingProgressView;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsUploadingProgressView.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        @synchronized(self){
+            if (!static_uploadingProgressView) {
+                static_uploadingProgressView = [JobsUploadingProgressView.alloc initWithFrame:CGRectMake((JobsMainScreen_WIDTH() - 267) / 2,
+                                                                                                       JobsMainScreen_HEIGHT() / 2 - 76,
+                                                                                                       267,
+                                                                                                       76)];
+            }
+        };return static_uploadingProgressView;
+    };
 }
 
 - (instancetype)initWithFrame:(CGRect)frame{
@@ -39,34 +52,64 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
         self.addOn(jobsGetMainWindow());
         [jobsGetMainWindow() bringSubviewToFront:self];
         self.imge = @"icon_upload_imge".img;
-        self.strokeColor = self.byPatternImage(@"gradualColor".img.imageResize(CGSizeMake(50, 25))); //圆环底色
+        self.byStrokeColor(self.byPatternImage(@"gradualColor".img.imageResize(CGSizeMake(50, 25))));
         self.radius = 34;
         self.byHidden(YES);
         self.byBgColor(JobsSecondarySystemBackgroundColor.colorWithAlphaComponentBy(.9f));
-        self.layer.cornerRadius = 10;
-        self.clipsToBounds = YES;
+        self.layer.byCornerRadius(10);
+        self.byClipsToBounds(YES);
     };return self;
 }
+
+-(JobsRetJobsUploadingProgressViewByCorBlock _Nonnull)byStrokeColor{
+    @jobs_weakify(self)
+    return ^__kindof JobsUploadingProgressView *_Nullable(UIColor *_Nullable color){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setStrokeColor:color];
+        return self;
+    };
+}
 #pragma mark —— 一些公有方法
-- (void)updateProgressText:(NSString *)progressText {
-    self.byHidden(NO);
-    self.backView.byHidden(NO);
-    self.subrefreshLabel.byText(progressText);
-    [self starAnimation];
+-(jobsByStrBlock _Nonnull)updateProgressText{
+    @jobs_weakify(self)
+    return ^(NSString * progressText){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byHidden(NO);
+        self.backView.byHidden(NO);
+        self.subrefreshLabel.byText(progressText);
+        self.starAnimation();
+    };
 }
 #pragma mark —— 一些私有方法
 /// 创建动画
-- (void)starAnimation{
-    self.shapLayer.byHidden(NO);
-    self.imgeV.byAlpha(1);
+- (jobsByVoidBlock _Nonnull)starAnimation{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.shapLayer.byHidden(NO);
+        self.imgeV.byAlpha(1);
+    };
 }
 
 -(void)dismiss{
-    self.byHidden(YES);
-    self.backView.byHidden(YES);
-    [self.shapLayer removeAnimationForKey:@"CLAnimation"];
-    [self.timer stop];
-    self.anim = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsUploadingProgressView.class, @selector(jobsDismiss)))(self, @selector(jobsDismiss));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsDismiss{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byHidden(YES);
+        self.backView.byHidden(YES);
+        [self.shapLayer removeAnimationForKey:@"CLAnimation"];
+        if (self.timer) self.timer.jobsStop();
+        self.byAnim(nil);
+    };
 }
 #pragma mark —— lazyLoad
 @synthesize timer = _timer;
@@ -84,16 +127,17 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
             .byTime(0)
             .byOnTick(^(CGFloat time){
                 @jobs_strongify(self)
-                self.refreshLabel.byText(@"正在上传...".tr);
+                self.refreshLabel.byText(@"正在上传...".jobsTr());
                 if (self.objBlock) self.objBlock(timer);
             })
             .byOnFinish(^(JobsTimer *_Nullable timer){
                 @jobs_strongify(self)
                 JobsLog(@"倒计时结束...");
                 if (self.objBlock) self.objBlock(timer);
-            });
-            timer.accumulatedElapsed       = 0;
-            timer.lastStartDate            = nil;
+            })
+
+                .byAccumulatedElapsed(0)
+                .byLastStartDate(nil);
         });
     };return _timer;
 }
@@ -192,7 +236,7 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
             @jobs_strongify(self)
             label
                 .byTextCor(JobsWhiteColor)
-                .byText(@"正在上传...".tr)
+                .byText(@"正在上传...".jobsTr())
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.equalTo(self.shapLayerView.mas_right).offset(JobsWidth(12));
@@ -220,4 +264,14 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
     };return _subrefreshLabel;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsUploadingProgressView
+-(JobsRetJobsUploadingProgressViewByCAKeyframeAnimationBlock _Nonnull)byAnim{
+    @jobs_weakify(self)
+    return ^__kindof JobsUploadingProgressView * _Nullable(CAKeyframeAnimation * _Nullable data){
+        @jobs_strongify(self)
+        [self setAnim:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsUploadingProgressView
 @end

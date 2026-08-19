@@ -19,29 +19,55 @@ Prop_copy()NSArray<NSDictionary<NSString *, id> *> *sheets;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCExcelDemoVC
+@interface JobsOCExcelDemoVC (JobsPropertyDSLSetterAutogen_1c416cd166)
+-(void)setFd_interactivePopMaxAllowedInitialDistanceToLeftEdge:(CGFloat)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCExcelDemoVC
+
 @implementation JobsOCExcelDemoVC
 -(void)loadView{
-    [super loadView];
-    self.setupNavigationBarHidden = YES;
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"JobsOCExcel".tr)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        .byBgCor(UIColor.systemGroupedBackgroundColor)
-        .byNavBgCor(UIColor.systemBackgroundColor);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCExcelDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        self.bySetupNavigationBarHidden(YES);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"JobsOCExcel".jobsTr())
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            .byBgCor(UIColor.systemGroupedBackgroundColor)
+            .byNavBgCor(UIColor.systemBackgroundColor);
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.byGKMaxPopDistance(24);
-    self.fd_interactivePopMaxAllowedInitialDistanceToLeftEdge = 24;
-    self.makeNavByAlpha(1);
-    self.view.byBgColor(UIColor.systemGroupedBackgroundColor);
-    self.excelTableView.byAlpha(1);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCExcelDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.byGKMaxPopDistance(24);
+        self.byFd_interactivePopMaxAllowedInitialDistanceToLeftEdge(24);
+        self.makeNavByAlpha(1);
+        self.view.byBgColor(UIColor.systemGroupedBackgroundColor);
+        self.excelTableView.byAlpha(1);
+    };
 }
 
 -(NSInteger)tableView:(UITableView *)tableView
@@ -110,10 +136,10 @@ Prop_copy()NSArray<NSDictionary<NSString *, id> *> *sheets;
                                                 widths:@[@104, @112, @112, @112, @112, @112, @112, @112, @112]],
                 @"freezeThroughColumn": @0,
                 @"rows": @[
-                    [JobsOCExcelRow rowWithValues:@[@"深圳", @"128", @"146", @"158", @"171", @"189", @"203", @"218", @"236"]],
-                    [JobsOCExcelRow rowWithValues:@[@"上海", @"116", @"134", @"149", @"163", @"177", @"195", @"210", @"229"]],
-                    [JobsOCExcelRow rowWithValues:@[@"北京", @"109", @"121", @"138", @"152", @"168", @"181", @"199", @"214"]],
-                    [JobsOCExcelRow rowWithValues:@[@"成都", @"93", @"105", @"117", @"126", @"142", @"156", @"173", @"188"]]
+                    JobsOCExcelRow.rowWithValues(@[@"深圳", @"128", @"146", @"158", @"171", @"189", @"203", @"218", @"236"]),
+                    JobsOCExcelRow.rowWithValues(@[@"上海", @"116", @"134", @"149", @"163", @"177", @"195", @"210", @"229"]),
+                    JobsOCExcelRow.rowWithValues(@[@"北京", @"109", @"121", @"138", @"152", @"168", @"181", @"199", @"214"]),
+                    JobsOCExcelRow.rowWithValues(@[@"成都", @"93", @"105", @"117", @"126", @"142", @"156", @"173", @"188"])
                 ]
             },
             @{
@@ -122,9 +148,9 @@ Prop_copy()NSArray<NSDictionary<NSString *, id> *> *sheets;
                                                 widths:@[@104, @132, @104, @104, @104, @104, @104, @104, @104]],
                 @"freezeThroughColumn": @1,
                 @"rows": @[
-                    [JobsOCExcelRow rowWithValues:@[@"用户", @"用户中心", @"99.99%", @"32ms", @"88ms", @"142ms", @"860", @"0.02%", @"Jobs"]],
-                    [JobsOCExcelRow rowWithValues:@[@"交易", @"订单中心", @"99.95%", @"45ms", @"121ms", @"206ms", @"620", @"0.08%", @"Jobs"]],
-                    [JobsOCExcelRow rowWithValues:@[@"交易", @"支付网关", @"99.98%", @"51ms", @"136ms", @"248ms", @"540", @"0.03%", @"Jobs"]]
+                    JobsOCExcelRow.rowWithValues(@[@"用户", @"用户中心", @"99.99%", @"32ms", @"88ms", @"142ms", @"860", @"0.02%", @"Jobs"]),
+                    JobsOCExcelRow.rowWithValues(@[@"交易", @"订单中心", @"99.95%", @"45ms", @"121ms", @"206ms", @"620", @"0.08%", @"Jobs"]),
+                    JobsOCExcelRow.rowWithValues(@[@"交易", @"支付网关", @"99.98%", @"51ms", @"136ms", @"248ms", @"540", @"0.03%", @"Jobs"])
                 ]
             },
             @{
@@ -133,30 +159,40 @@ Prop_copy()NSArray<NSDictionary<NSString *, id> *> *sheets;
                                                 widths:@[@108, @176]],
                 @"freezeThroughColumn": @0,
                 @"rows": @[
-                    [JobsOCExcelRow rowWithCells:@[
-                        [JobsOCExcelCell cellWithText:@"缩小字体"],
+                    JobsOCExcelRow.rowWithCells(@[
+                        JobsOCExcelCell.cellWithText(@"缩小字体"),
                         [JobsOCExcelCell cellWithText:@"内容很长时自动缩小字号直到尽量完整显示"
                                      textDisplayMode:JobsLabelTextDisplayModeScaleToFit]
-                    ]],
-                    [JobsOCExcelRow rowWithCells:@[
-                        [JobsOCExcelCell cellWithText:@"单行省略"],
+                    ]),
+                    JobsOCExcelRow.rowWithCells(@[
+                        JobsOCExcelCell.cellWithText(@"单行省略"),
                         [JobsOCExcelCell cellWithText:@"不缩小字号，保持一行，超出后在尾部显示省略号"
                                      textDisplayMode:JobsLabelTextDisplayModeSingleLineTailTruncation]
-                    ]],
-                    [JobsOCExcelRow rowWithCells:@[
-                        [JobsOCExcelCell cellWithText:@"多行省略"],
+                    ]),
+                    JobsOCExcelRow.rowWithCells(@[
+                        JobsOCExcelCell.cellWithText(@"多行省略"),
                         [JobsOCExcelCell cellWithText:@"不缩小字号，允许两行显示；两行仍放不下时，最后一行尾部使用省略号"
                                      textDisplayMode:JobsLabelTextDisplayModeMultiLineTailTruncation]
-                    ]],
-                    [JobsOCExcelRow rowWithCells:@[
-                        [JobsOCExcelCell cellWithText:@"滚动展示"],
+                    ]),
+                    JobsOCExcelRow.rowWithCells(@[
+                        JobsOCExcelCell.cellWithText(@"滚动展示"),
                         [JobsOCExcelCell cellWithText:@"UILabel+Scrolling 使用 CoreText 完整滚动展示这一段超长文字"
                                      textDisplayMode:JobsLabelTextDisplayModeScrolling]
-                    ]]
+                    ])
                 ]
             }
         ];
     };return _sheets;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsOCExcelDemoVC
+-(JobsRetJobsOCExcelDemoVCByCGFloatBlock _Nonnull)byFd_interactivePopMaxAllowedInitialDistanceToLeftEdge{
+    @jobs_weakify(self)
+    return ^__kindof JobsOCExcelDemoVC * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setFd_interactivePopMaxAllowedInitialDistanceToLeftEdge:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCExcelDemoVC
 @end

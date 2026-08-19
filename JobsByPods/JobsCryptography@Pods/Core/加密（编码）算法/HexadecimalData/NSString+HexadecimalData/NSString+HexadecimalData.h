@@ -28,6 +28,12 @@
 #import "JobsBlock.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (HexadecimalData)
@@ -35,21 +41,21 @@ NS_ASSUME_NONNULL_BEGIN
 ///【类方法】16进制字符串 转换成 普通的NSString对象
 +(JobsRetStrByStrBlock _Nonnull)stringByHexString;
 ///【实例方法】16进制字符串 转换成 普通的NSString对象
--(NSString *_Nullable)stringByHexString;
+-(JobsRetStrByVoidBlock _Nonnull)stringByHexString;
 ///【类方法】普通的NSString对象 转换成 16进制字符串
 +(JobsRetStrByStrBlock _Nonnull)hexStringByString;
 ///【实例方法】普通的NSString对象 转换成 16进制字符串
--(NSString *_Nullable)hexStringByString;
+-(JobsRetStrByVoidBlock _Nonnull)hexStringByString;
 #pragma mark —— HexadecimalData ==> UIImage
 ///【类方法】16进制字符串 转换为 UIImage对象
 +(JobsRetImageByStrBlock _Nonnull)imageByHexString;
 ///【实例方法】16进制字符串 转换为 UIImage对象
--(UIImage *_Nullable)imageByHexString;
+-(JobsRetImageByVoidBlock _Nonnull)imageByHexString;
 #pragma mark —— HexadecimalData ==> NSData
 ///【类方法】16进制字符串 转换为 NSData对象
 +(JobsRetDataByStrBlock _Nonnull)dataByHexString;
 ///【实例方法】16进制字符串 转换为 NSData对象
--(NSData *_Nullable)dataByHexString;
+-(JobsRetDataByVoidBlock _Nonnull)dataByHexString;
 
 @end
 

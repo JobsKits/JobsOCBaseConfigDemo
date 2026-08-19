@@ -14,6 +14,16 @@ Prop_strong()JobsTabBarItemConfig *tabBarControllerConfig;
 @end
 
 @implementation JobsTabBarItem
+-(JobsRetJobsTabBarItemByImageBlock _Nonnull)byImage{
+    @jobs_weakify(self)
+    return ^__kindof JobsTabBarItem *_Nullable(UIImage *_Nullable image){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self setImage:image];
+        return self;
+    };
+}
+
 +(JobsRetTabBarItemByConfigBlock _Nonnull)initByConfig{
     return ^__kindof UITabBarItem *_Nullable(__kindof JobsTabBarItemConfig *_Nullable data){
         return [self.class.alloc initWithConfig:data];
@@ -24,9 +34,9 @@ Prop_strong()JobsTabBarItemConfig *tabBarControllerConfig;
     if (self = [super init]) {
         if (config) {
             self.tabBarControllerConfig = config;
-            self.image = [config.imageUnselected imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            self.byImage([config.imageUnselected imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]);
             self.selectedImage = [config.imageSelected imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-            self.title = config.title;
+            self.byTitle(config.title);
             self.titleTextAttributesByNormalState(config.titleCorNormal);
             self.titleTextAttributesBySelectedState(config.titleCorNormal);
         }

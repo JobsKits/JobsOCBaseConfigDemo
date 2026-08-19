@@ -24,7 +24,7 @@
     @jobs_weakify(self)
     return ^__kindof HQTextField *_Nullable(void){
         @jobs_strongify(self)
-        [self showWarn];
+        self.showWarn();
         return self;
     };
 }
@@ -189,7 +189,7 @@
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(CGFloat data){
         @jobs_strongify(self)
-        self.text_offset = data;
+        [self setText_offset:data];
         return self;
     };
 }

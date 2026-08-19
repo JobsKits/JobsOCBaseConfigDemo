@@ -8,10 +8,30 @@
 #import "JobsOCDemoSectionModel.h"
 
 @implementation JobsOCDemoSectionModel
-+(instancetype)sectionWithTitle:(NSString *)title{
-    JobsOCDemoSectionModel *sectionModel = JobsOCDemoSectionModel.new;
-    sectionModel.title = title;
-    return sectionModel;
++(JobsRetJobsOCDemoSectionModelByStrBlock _Nonnull)sectionWithTitle{
+    return ^JobsOCDemoSectionModel *(NSString * title){
+        return JobsOCDemoSectionModel.new.byTitle(title);
+    };
+}
+
+-(JobsRetJobsOCDemoSectionModelByStrBlock _Nonnull)byTitle{
+    @jobs_weakify(self)
+    return ^JobsOCDemoSectionModel *(NSString *_Nullable title) {
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.title = title;
+        return self;
+    };
+}
+
+-(JobsRetJobsOCDemoSectionModelByStrBlock _Nonnull)bySectionDescription{
+    @jobs_weakify(self)
+    return ^JobsOCDemoSectionModel *(NSString *_Nullable sectionDescription) {
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.sectionDescription = sectionDescription;
+        return self;
+    };
 }
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{

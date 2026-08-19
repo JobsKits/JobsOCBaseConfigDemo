@@ -13,11 +13,11 @@
     return ^__kindof UIButton *_Nullable(UILabelShowingType labelShowingType) {
         @jobs_strongify(self)
         [self.superview layoutIfNeeded];
-        self.titleLabel.labelShowingType = labelShowingType;
+        self.titleLabel.byLabelShowingType(labelShowingType);
         switch (labelShowingType) {
             /// 一行显示。定宽、定高、定字体。多余部分用…表示（省略号的位置由NSLineBreakMode控制）
             case UILabelShowingType_01:{
-                self.titleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;// NSLineBreakByTruncatingHead、NSLineBreakByTruncatingMiddle、NSLineBreakByTruncatingTail
+                self.titleLabel.byLineBreakMode(NSLineBreakByTruncatingMiddle);
             }break;
             /// 一行显示。定宽、定高、定字体。多余部分scrollerView
             case UILabelShowingType_02:{
@@ -26,7 +26,7 @@
             }break;
             /// 一行显示。不定宽、定高、定字体。宽度自适应
             case UILabelShowingType_03:{
-                [self buttonAutoWidthByFont];
+                self.buttonAutoWidthByFont();
                 self.uninstall(NSLayoutAttributeWidth);
             }break;
             /// 一行显示。定宽、定高。缩小字体方式全展示
@@ -36,11 +36,11 @@
             /// 多行显示。定宽、不定高、定字体
             case UILabelShowingType_05:{
                 self.titleLabel.byNumberOfLines(0);
-                self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;/// 自动折行设置【默认】需要提前设置imageTitleSpace
+                self.titleLabel.byLineBreakMode(NSLineBreakByWordWrapping);
                 self.uninstall(NSLayoutAttributeHeight);
                 JobsLog(@"%f,%f",self.width,self.height);
-                JobsLog(@"%@",self.titleForNormalState);
-                CGSize size = [UILabel sizeWithText:self.titleForNormalState
+                JobsLog(@"%@",self.jobsTitleForNormalState());
+                CGSize size = [UILabel sizeWithText:self.jobsTitleForNormalState()
                                                font:self.titleLabel.font
                                             maxSize:CGSizeMake(self.width, MAXFLOAT)];
                 [self mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -59,11 +59,11 @@
     return ^__kindof UIButton *_Nullable(UILabelShowingType labelShowingType) {
         @jobs_strongify(self)
         [self.superview layoutIfNeeded];
-        self.subtitleLabel.labelShowingType = labelShowingType;
+        self.subtitleLabel.byLabelShowingType(labelShowingType);
         switch (labelShowingType) {
             /// 一行显示。定宽、定高、定字体。多余部分用…表示（省略号的位置由NSLineBreakMode控制）
             case UILabelShowingType_01:{
-                self.subtitleLabel.lineBreakMode = NSLineBreakByTruncatingMiddle;// NSLineBreakByTruncatingHead、NSLineBreakByTruncatingMiddle、NSLineBreakByTruncatingTail
+                self.subtitleLabel.byLineBreakMode(NSLineBreakByTruncatingMiddle);
             }break;
             /// 一行显示。定宽、定高、定字体。多余部分scrollerView
             case UILabelShowingType_02:{
@@ -82,11 +82,11 @@
             /// 多行显示。定宽、不定高、定字体
             case UILabelShowingType_05:{
                 self.subtitleLabel.byNumberOfLines(0);
-                self.subtitleLabel.lineBreakMode = NSLineBreakByWordWrapping;/// 自动折行设置【默认】需要提前设置imageTitleSpace
+                self.subtitleLabel.byLineBreakMode(NSLineBreakByWordWrapping);
                 self.uninstall(NSLayoutAttributeHeight);
                 JobsLog(@"%f,%f",self.width,self.height);
-                JobsLog(@"%@",self.titleForNormalState);
-                CGSize size = [UILabel sizeWithText:self.titleForNormalState
+                JobsLog(@"%@",self.jobsTitleForNormalState());
+                CGSize size = [UILabel sizeWithText:self.jobsTitleForNormalState()
                                                font:self.subtitleLabel.font
                                             maxSize:CGSizeMake(self.width, MAXFLOAT)];
                 [self mas_updateConstraints:^(MASConstraintMaker *make) {

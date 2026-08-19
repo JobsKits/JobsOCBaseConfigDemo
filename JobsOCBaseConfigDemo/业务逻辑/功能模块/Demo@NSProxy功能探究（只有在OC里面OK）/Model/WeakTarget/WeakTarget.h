@@ -25,7 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_weak(nullable)id target;
 
-+(instancetype)withTarget:(id)target;
+-(JobsRetWeakTargetByIDBlock _Nonnull)byTarget;
++(JobsRetWeakTargetByIDBlock _Nonnull)withTarget;
 
 @end
 

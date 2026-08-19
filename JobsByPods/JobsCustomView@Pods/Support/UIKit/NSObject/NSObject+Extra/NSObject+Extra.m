@@ -23,7 +23,7 @@
             [generator impactOccurred];
         } else if (@available(iOS 10.0, *)) {
             UIImpactFeedbackGenerator *generator = UIImpactFeedbackGenerator.initByMediumStyle;
-            [generator prepare];
+            generator.prepare;
             [generator impactOccurred];
         } else {
             AudioServicesPlaySystemSound(1520);
@@ -37,7 +37,7 @@
         NSString *raw = SELF.byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);
         if (!isValue(raw)) { return nil; }
         // 1) 拒绝网络：同步接口不触网
-        if (SELF.isContainsUrl) { return nil; }
+        if (SELF.isContainsUrl()) { return nil; }
         // 2) dataURL: data:image/png;base64,xxxx
         if ([raw hasPrefix:@"data:image/"]) {
             UIImage *img = self.imageByDataURL(raw);

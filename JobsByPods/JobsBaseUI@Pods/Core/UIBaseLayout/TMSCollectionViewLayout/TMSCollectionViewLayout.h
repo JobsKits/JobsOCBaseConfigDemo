@@ -28,6 +28,12 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsSystemAPIDSLSupplement.h>)
+#import <JobsOCDSL/JobsSystemAPIDSLSupplement.h>
+#else
+#import "JobsSystemAPIDSLSupplement.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface TMSCollectionViewLayout : UICollectionViewLayout
@@ -44,6 +50,10 @@ Prop_assign()CGFloat expandedItemSpacing;
 /// 点击item
 -(void)didClickWithIndexPath:(NSIndexPath *)clickIndexPath isExpand:(BOOL)isExpand;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN TMSCollectionViewLayout
+-(JobsRetTMSCollectionViewLayoutByBOOLBlock _Nonnull)byExpand;
+-(JobsRetTMSCollectionViewLayoutByNSIndexPathBlock _Nonnull)byClickIndexPath;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END TMSCollectionViewLayout
 @end
 
 NS_ASSUME_NONNULL_END

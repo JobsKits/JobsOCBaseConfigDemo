@@ -25,11 +25,13 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
-
-@interface WKWebViewConfiguration (Extra)
-
-@end
 
 NS_ASSUME_NONNULL_END
 
@@ -37,7 +39,7 @@ NS_ASSUME_NONNULL_END
 #define JOBS_MAKE_WK_WEB_VIEW_CONFIGURATION
 
 NS_INLINE __kindof WKWebViewConfiguration *_Nonnull jobsMakeWKWebViewConfiguration(jobsByWKWebViewConfigBlock _Nonnull block){
-    WKWebViewConfiguration *data = WKWebViewConfiguration.alloc.init;
+    WKWebViewConfiguration *data = jobsMakeWebViewConfiguration(^(WKWebViewConfiguration *object){});
     if (block) block(data);
     return data;
 }

@@ -7,6 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import "JobsOCMarkdownDocument.h"
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
@@ -35,12 +41,12 @@ Prop_copy(readonly)NSArray <NSString *>*missingResources;
 
 -(nullable instancetype)initWithBundleURL:(NSURL *)bundleURL
                                     error:(NSError **)error NS_DESIGNATED_INITIALIZER;
-+(nullable instancetype)bundledCatalogWithError:(NSError **)error;
++(JobsRetIDByNSErrorPointerBlock _Nonnull)bundledCatalogWithError;
 +(nullable instancetype)bundledCatalogInBundle:(NSBundle *)bundle
                                           named:(NSString *)name
                                           error:(NSError **)error;
--(nullable JobsOCMarkdownDocument *)documentWithRelativePath:(NSString *)relativePath;
--(nullable JobsOCMarkdownDocument *)documentWithFileURL:(NSURL *)fileURL;
+-(JobsRetJobsOCMarkdownDocumentByNSStringBlock _Nonnull)documentWithRelativePath;
+-(JobsRetJobsOCMarkdownDocumentByNSURLBlock _Nonnull)documentWithFileURL;
 
 -(instancetype)init NS_UNAVAILABLE;
 

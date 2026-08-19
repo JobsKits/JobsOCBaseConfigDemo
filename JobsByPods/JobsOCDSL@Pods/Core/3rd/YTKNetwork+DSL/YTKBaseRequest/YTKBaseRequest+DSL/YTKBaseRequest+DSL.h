@@ -44,9 +44,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetYTKBaseRequestByCompletionBlock _Nonnull)byFailure;
 -(JobsRetYTKBaseRequestByCompletionBlocks _Nonnull)byCompletion;
 -(JobsRetYTKBaseRequestByAccessoryBlock _Nonnull)byAddAccessory;
--(__kindof YTKBaseRequest *_Nonnull)byStart;
--(__kindof YTKBaseRequest *_Nonnull)byStop;
--(__kindof YTKBaseRequest *_Nonnull)byClearCompletion;
+-(JobsRetYTKBaseRequestByVoidBlock _Nonnull)byStart;
+-(JobsRetYTKBaseRequestByVoidBlock _Nonnull)byStop;
+-(JobsRetYTKBaseRequestByVoidBlock _Nonnull)byClearCompletion;
 
 @end
 

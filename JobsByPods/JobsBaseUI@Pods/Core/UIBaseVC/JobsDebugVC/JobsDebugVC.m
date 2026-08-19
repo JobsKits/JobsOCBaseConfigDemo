@@ -6,6 +6,7 @@
 //
 
 #import "JobsDebugVC.h"
+
 #import <JobsBaseUI/NSString+Extra.h>
 
 NSString *const JobsControllerDeallocTipsEnabledUserDefaultsKey = @"com.jobs.debug.showsControllerDeinitTips";
@@ -26,15 +27,25 @@ void JobsSetControllerDeallocTipsEnabled(BOOL enabled) {
 @end
 
 @implementation JobsDebugVC
--(void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+-(void)didReceiveMemoryWarning{
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsDebugVC.class, @selector(jobsDidReceiveMemoryWarning)))(self, @selector(jobsDidReceiveMemoryWarning));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsDidReceiveMemoryWarning {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super didReceiveMemoryWarning];
+    };
 }
 
 -(void)dealloc{
     JobsRemoveNotification(self);
     if (JobsDebug) {
         if (JobsControllerDeallocTipsEnabled()) {
-            toastBy(@"成功销毁了控制器".tr.add(NSStringFromClass(self.class)));
+            toastBy(@"成功销毁了控制器".jobsTr().add(NSStringFromClass(self.class)));
         }
         JobsLog(@"%@",JobsLocalFunc);
         PrintRetainCount(self)
@@ -42,47 +53,127 @@ void JobsSetControllerDeallocTipsEnabled(BOOL enabled) {
 }
 
 -(void)loadView{
-    [super loadView];
-    self.UIViewControllerLifeCycle(JobsLocalFunc);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsDebugVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        self.UIViewControllerLifeCycle(JobsLocalFunc);
+    };
 }
 
 -(void)viewDidLoad {
-    [super viewDidLoad];
-    self.UIViewControllerLifeCycle(JobsLocalFunc);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsDebugVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.UIViewControllerLifeCycle(JobsLocalFunc);
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.UIViewControllerLifeCycle(JobsLocalFunc);
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsDebugVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillAppear:animated];
+        self.UIViewControllerLifeCycle(JobsLocalFunc);
+    };
 }
 
 -(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-    self.UIViewControllerLifeCycle(JobsLocalFunc);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsDebugVC.class, @selector(jobsViewWillLayoutSubviews)))(self, @selector(jobsViewWillLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewWillLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillLayoutSubviews];
+        self.UIViewControllerLifeCycle(JobsLocalFunc);
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    self.UIViewControllerLifeCycle(JobsLocalFunc);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsDebugVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        self.UIViewControllerLifeCycle(JobsLocalFunc);
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    self.UIViewControllerLifeCycle(JobsLocalFunc);
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsDebugVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+        self.UIViewControllerLifeCycle(JobsLocalFunc);
+    };
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    self.UIViewControllerLifeCycle(JobsLocalFunc);
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsDebugVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+        self.UIViewControllerLifeCycle(JobsLocalFunc);
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
-    self.UIViewControllerLifeCycle(JobsLocalFunc);
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsDebugVC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+        self.UIViewControllerLifeCycle(JobsLocalFunc);
+    };
 }
 #pragma mark —— 一些私有方法
 /// 用于检测UIViewController的生命周期
--(jobsByStrBlock)UIViewControllerLifeCycle{
+-(jobsByStrBlock _Nonnull)UIViewControllerLifeCycle{
     @jobs_weakify(self)
     return ^(NSString *_Nullable lifeCycle) {
         @jobs_strongify(self)

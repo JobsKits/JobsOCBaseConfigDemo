@@ -9,7 +9,19 @@
 #define JOBS_HEADER_GUARD_NSOBJECT_IDFA_DCABCBE309
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <AdSupport/AdSupport.h> // 提供广告标识符 IDFA 访问能力，通常需结合 ATT 授权状态判断是否可用。
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -23,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  注意：由于idfa会出现取不到的情况，故绝不可以作为业务分析的主id，来识别用户。
  */
--(NSString *)IDFA;
+-(JobsRetStrByVoidBlock _Nonnull)IDFA;
 
 @end
 

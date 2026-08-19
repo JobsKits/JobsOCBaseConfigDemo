@@ -96,7 +96,7 @@ BOOL JobsUIMenuItemCanPerformAction(SEL action){
     return ^__kindof UIMenuItem *_Nullable(jobsByMenuItemBlock _Nullable block){
         @jobs_strongify(self)
         Jobs_setAssociatedCOPY_NONATOMIC(JobsUIMenuItemActionBlockKey, block)
-        self.action = JobsUIMenuItemEnsureActionSelector(self);
+        self.byAction(JobsUIMenuItemEnsureActionSelector(self));
         return self;
     };
 }

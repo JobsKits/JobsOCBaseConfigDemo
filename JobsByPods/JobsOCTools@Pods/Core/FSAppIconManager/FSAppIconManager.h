@@ -10,6 +10,11 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>
 #else
@@ -29,13 +34,13 @@
      * If ``, the primary application icon is being used. Or the current system version is not supported.
      @return IconName
  */
-+ (NSString *_Nullable)getCurrentAppIconName;
++ (JobsRetStrByVoidBlock _Nonnull)getCurrentAppIconName;
 /**
 
      Check whether the current device supports changing icon
      @return result, YES or NO
  */
-+ (BOOL)canChangeAppIcon;
++ (JobsRetBOOLByVoidBlock _Nonnull)canChangeAppIcon;
 /**
  Change the icon
 

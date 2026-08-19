@@ -64,8 +64,8 @@ NS_ASSUME_NONNULL_BEGIN
 /// UILabel实现背景图片
 @interface JobsBaseLabel : BaseLabel
 #pragma mark —— 一些公有方法
--(UIImageView *)getBgImageView;
--(BaseLabel *)getLabel;
+-(JobsRetImageViewByVoidBlock _Nonnull)getBgImageView;
+-(JobsRetLabelByVoidBlock _Nonnull)getLabel;
 
 @end
 
@@ -89,7 +89,7 @@ NS_ASSUME_NONNULL_END
              });
 
          }
-         _titleLab.getLabel.byText(@" 真人           ".tr);
+         _titleLab.getLabel.byText(@" 真人           ".jobsTr());
 
         _titleLab.getBgImageView.byImage(@"优惠活动背景图_真人".img)
 

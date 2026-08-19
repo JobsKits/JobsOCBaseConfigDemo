@@ -46,8 +46,13 @@ Prop_strong()NSMutableArray *valueMutArr;
     };return self;
 }
 
--(NSArray *)jobsTupleValueArr{
-    return (NSArray *)self.valueMutArr;
+-(JobsRetArrByVoidBlock _Nonnull)jobsTupleValueArr{
+    @jobs_weakify(self)
+    return ^NSArray *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return (NSArray *)self.valueMutArr;
+    };
 }
 #pragma mark —— lazyLoad
 -(NSMutableArray *)valueMutArr{

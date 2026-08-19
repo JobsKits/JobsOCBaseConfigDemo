@@ -27,14 +27,34 @@ Prop_strong()CAGradientLayer *cagradientLayer;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(GDFadeView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)setFrame:(CGRect)frame{
-    [super setFrame:frame];
-    self.backLabel.byAlpha(1);
-    self.frontLabel.byAlpha(1);
-    self.createMask();
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(GDFadeView.class, @selector(jobsSetFrame)))(self, @selector(jobsSetFrame));
+    if (action) action(frame);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsSetFrame{
+    @jobs_weakify(self)
+    return ^(CGRect frame){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super setFrame:frame];
+        self.backLabel.byAlpha(1);
+        self.frontLabel.byAlpha(1);
+        self.createMask();
+    };
 }
 #pragma mark —— 一些私有方法
 -(jobsByVoidBlock _Nonnull)createMask{
@@ -52,10 +72,10 @@ Prop_strong()CAGradientLayer *cagradientLayer;
                 .add(@(0.5))
                 .add(@(0.75));
         });
-        self.cagradientLayer.startPoint = CGPointZero;
-        self.cagradientLayer.endPoint = CGPointMake(1, 0);
-        self.frontLabel.layer.mask = self.cagradientLayer;
-        self.cagradientLayer.position = CGPointMake(-self.bounds.size.width/4.0,self.bounds.size.height/2.0);
+        self.cagradientLayer.byStartPoint(CGPointZero);
+        self.cagradientLayer.byEndPoint(CGPointMake(1, 0));
+        self.frontLabel.layer.byMask(self.cagradientLayer);
+        self.cagradientLayer.byPosition(CGPointMake(-self.bounds.size.width/4.0,self.bounds.size.height/2.0));
     };
 }
 
@@ -66,13 +86,14 @@ Prop_strong()CAGradientLayer *cagradientLayer;
         return self.frontLabel.byLayer(^(CALayer *layer) {
             layer.mask.byAddAnimation(jobsMakeCABasicAnimation(^(__kindof CABasicAnimation * _Nullable animation) {
                 @jobs_strongify(self)
-                animation.keyPath = @"transform.translation.x";
-                animation.fromValue = @(0);
-                animation.toValue = @(self.bounds.size.width + self.bounds.size.width / 2.0);
-                animation.duration = duration;
-                animation.repeatCount = MAXFLOAT;
-                animation.removedOnCompletion = NO;
-                animation.fillMode = kCAFillModeForwards;
+                animation
+                    .byFromValue(@(0))
+                    .byToValue(@(self.bounds.size.width + self.bounds.size.width / 2.0))
+                    .byKeyPath(@"transform.translation.x")
+                    .byDuration(duration)
+                    .byRepeatCount(MAXFLOAT)
+                    .byRemovedOnCompletion(NO)
+                    .byFillMode(kCAFillModeForwards);
             }), nil);
         });
     };

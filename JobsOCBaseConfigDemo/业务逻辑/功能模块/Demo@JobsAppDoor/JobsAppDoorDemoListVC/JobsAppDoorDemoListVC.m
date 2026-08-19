@@ -16,38 +16,58 @@ Prop_strong()NSArray <UIViewModel *>*demoArr;
                               subTitle:(NSString *)subTitle
                                    cls:(Class)cls
                          requestParams:(nullable id)requestParams;
--(void)pushDemoViewModel:(UIViewModel *)viewModel;
+-(jobsByViewModelBlock _Nonnull)pushDemoViewModel;
 
 @end
 
 @implementation JobsAppDoorDemoListVC
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if (self.viewModel.pushOrPresent != ComingStyle_Unknown) {
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAppDoorDemoListVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if (self.viewModel.pushOrPresent != ComingStyle_Unknown) {
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr)
-                .byTextCor(JobsLabelColor);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"JobsAppDoor".tr)
-                .byFont(UIFontWeightRegularSize(17))
-                .byTextCor(JobsLabelColor);
-        })
-        .byBgCor(JobsSystemBackgroundColor)
-        .byNavBgCor(JobsSystemBackgroundColor);
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr())
+                    .byTextCor(JobsLabelColor);
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"JobsAppDoor".jobsTr())
+                    .byFont(UIFontWeightRegularSize(17))
+                    .byTextCor(JobsLabelColor);
+            })
+            .byBgCor(JobsSystemBackgroundColor)
+            .byNavBgCor(JobsSystemBackgroundColor);
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemGroupedBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.demoTableView.byVisible(YES);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAppDoorDemoListVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemGroupedBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.demoTableView.byVisible(YES);
+    };
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView
@@ -84,7 +104,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:YES];
-    [self pushDemoViewModel:self.demoArr[indexPath.row]];
+    self.pushDemoViewModel(self.demoArr[indexPath.row]);
 }
 #pragma mark —— 一些私有方法
 -(UIViewModel *)demoViewModelWithTitle:(NSString *)title
@@ -92,18 +112,23 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                                    cls:(Class)cls
                          requestParams:(nullable id)requestParams{
     return self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-        model.byTitle(title.tr)
-            .bySubTitle(subTitle.tr)
+        model.byTitle(title.jobsTr())
+            .bySubTitle(subTitle.jobsTr())
             .byCls(cls)
             .byRequestParams(requestParams);
     }));
 }
 
--(void)pushDemoViewModel:(UIViewModel *)viewModel{
-    if (viewModel.cls) {
-        self.comingToPushVCByRequestParams(viewModel.cls.new,
-                                           viewModel);
-    }else @"尚未接入此功能".tr.toast();
+-(jobsByViewModelBlock _Nonnull)pushDemoViewModel{
+    @jobs_weakify(self)
+    return ^(UIViewModel * viewModel){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (viewModel.cls) {
+            self.comingToPushVCByRequestParams(viewModel.cls.new,
+                                               viewModel);
+        }else @"尚未接入此功能".jobsTr().toast();
+    };
 }
 #pragma mark —— LazyLoad
 -(UITableView *)demoTableView{
@@ -135,10 +160,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 -(NSArray<UIViewModel *> *)demoArr{
     if (!_demoArr) {
-        JobsAppDoorConfig *style1Config = JobsAppDoorConfig.fullConfig;
-        style1Config.registerConfig.graphicCaptchaConfig = JobsAppDoorGraphicCaptchaConfig.numberAndEnglishConfig;
-        JobsAppDoorConfig *style2Config = JobsAppDoorConfig.fullConfig;
-        style2Config.registerConfig.graphicCaptchaConfig = JobsAppDoorGraphicCaptchaConfig.allCharactersConfig;
+        JobsAppDoorConfig *style1Config = JobsAppDoorConfig.fullConfig();
+        style1Config.registerConfig.byGraphicCaptchaConfig(JobsAppDoorGraphicCaptchaConfig.numberAndEnglishConfig());
+        JobsAppDoorConfig *style2Config = JobsAppDoorConfig.fullConfig();
+        style2Config.registerConfig.byGraphicCaptchaConfig(JobsAppDoorGraphicCaptchaConfig.allCharactersConfig());
         _demoArr = @[
             [self demoViewModelWithTitle:@"JobsAppDoor-1"
                                 subTitle:@"登录注册的第一种表现形式"

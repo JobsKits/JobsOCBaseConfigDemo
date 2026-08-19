@@ -528,7 +528,53 @@ if (blk) blk(sender);
 - **分类关联属性也要复制**：通过 Associated Objects 保存 Block 时使用 `OBJC_ASSOCIATION_COPY` 或 `OBJC_ASSOCIATION_COPY_NONATOMIC`。
 - **避免无意义的长期状态**：如果 Block 只是当前方法的实现细节，保持为参数或局部变量；不要为了调用方便把它升级为属性。
 
-### 10.5、`NSString` 属性不要使用 `assign`
+### 10.5、类方法返回 Block 时的 `self` 与 `weak/strong`
+
+> **核心结论：如果类方法返回的 Block 只捕获 `self` 这个类对象，通常不需要 `weak self / strong self`。**
+
+在实例方法中，`self` 指向当前实例；在类方法中，`self` 指向接收这条类消息的 **Class 对象**。类方法虽然从元类的方法列表中查找，但此时的 `self` 仍是 Class 对象，不是某个业务实例，也不要把它误称为元类对象。
+
+普通业务类注册进 Objective-C Runtime 后，Class 对象通常与 App 进程同生命周期。即使按 Block 强捕获对象引用的语义理解，也不会像普通实例那样因为这次捕获而被额外延长业务生命周期，因此不存在最常见的引用环：
+
+```text
+实例对象 -> 强持有 Block -> Block 强持有实例对象
+```
+
+当前 OC 新、老工程中的 `JobsOCSceneCoordinator.discardSessions()` 就属于这种情况：
+
+```objective-c
++(jobsByNSSetUISceneSessionBlock _Nonnull)discardSessions{
+    return ^(NSSet<UISceneSession *> *sessions){
+        for (UISceneSession *session in sessions) {
+            [self.countersBySessionIdentifier()
+                removeObjectForKey:session.persistentIdentifier];
+            [self.eventsBySessionIdentifier()
+                removeObjectForKey:session.persistentIdentifier];
+        }
+    };
+}
+```
+
+- Block 捕获的 `self` 是调用 `discardSessions()` 的 Class 对象；`sessions` 是 Block 入参，不是从外层捕获的实例。
+- 使用 `self` 会保留动态派发：如果子类继承并调用该类方法，Block 内的类方法仍可以派发到子类重写；写死 `JobsOCSceneCoordinator` 会固定到父类语义。
+- `self.countersBySessionIdentifier()` 是 Jobs Block Getter 的正确点语法：先取得 Block，再通过 `()` 执行并拿到字典。不能改成 `[[self countersBySessionIdentifier] removeObjectForKey:...]`，否则是在给 Block 对象发送字典消息。
+- 只有 Block 还捕获了普通实例或其它外部对象时，才继续分析这些对象的持有关系；“代码写在类方法里”不能替其它捕获对象自动排除循环引用。
+
+| 场景 | 是否需要 `weak/strong` | 判断重点 |
+| ---- | --------------------- | -------- |
+| 类方法返回 Block，只捕获 Class `self` | 通常不需要 | Class 对象与进程同生命周期，不是业务实例引用环 |
+| 实例持有 Block，Block 又捕获该实例 `self` | 通常需要 | 是否形成“实例 -> Block -> 实例”闭环 |
+| 类方法返回 Block，但还捕获了外部实例 | 视持有关系决定 | 分析被捕获实例，而不是只看类方法形式 |
+| Block 只在当前调用中同步执行且不逃逸 | 通常不需要 | 是否真的存在长期相互持有 |
+
+另外，Markdown 中的 `**_Nonnull**` 只是把 `_Nonnull` 加粗的标记，不是 Objective-C 的 `**` 双指针。真实声明已经核对为：
+
+```objective-c
+typedef void(^jobsByNSSetUISceneSessionBlock)(NSSet<UISceneSession *> *);
++(jobsByNSSetUISceneSessionBlock _Nonnull)discardSessions;
+```
+
+### 10.6、`NSString` 属性不要使用 `assign`
 
 - Objective-C 对象属性使用 `assign` 不会维持对象生命周期，`NSString *` 也不例外，可能形成悬垂引用。
 - 希望隔离调用方传入的 `NSMutableString` 时使用 `copy`；明确共享同一对象时才考虑 `strong`。
@@ -1566,50 +1612,126 @@ UITableViewDataSource
       }
   }
   ```
-## 二十九、<font color="red">**OC.定时器**</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 二十九、Objective-C 系统计时机制与 `JobsOCTimer` 选型 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 29.1、GCD
+### 29.1、先分清：它们不是同一种 Timer
 
-- **优势：**
-  - **简单易用：** GCD 提供了简单易用的 API，使得在应用程序中执行并发任务变得非常容易。你只需使用几行代码就可以实现任务的并行执行。
-  - **性能优化：** GCD 使用底层系统资源来管理任务的执行，可以根据系统的资源状况来动态调整任务的执行顺序和优先级，从而优化应用程序的性能。
-  - **多核支持：** GCD 可以利用多核处理器来并行执行任务，从而提高应用程序的性能和响应速度。
-  - **自动管理：** GCD 可以自动管理线程的生命周期和资源，你不需要手动创建和管理线程，从而减少了代码的复杂性和出错的可能性。
-  - **灵活性：** GCD 提供了多种不同类型的队列和调度方式，可以满足不同类型任务的需求，例如串行队列、并行队列、同步执行、异步执行等。
-- **劣势：**
-  - **学习曲线：** 对于初学者来说，GCD 的概念可能比较抽象，需要一定的学习成本才能掌握其使用方法和最佳实践。
-  - **调试困难：** 由于 GCD 是基于异步执行的，并且任务的执行顺序和时间不确定，因此在调试时可能会遇到一些困难，特别是涉及到多个并发任务时。
-  - **竞争条件：** 如果不正确地使用 GCD，可能会导致竞争条件和死锁等并发问题，因此在编写并发代码时需要特别小心。
-  - **不适合所有场景：** 虽然 GCD 可以满足大多数应用程序的并发需求，但并不适用于所有类型的并发任务，特别是涉及到复杂的同步和通信问题时可能需要使用其他并发技术。
+日常所说的“UIKit Timer”是 iOS 业务语境下的统称，严格来说这些 API 分属不同框架：
 
-### 29.2、NSTimer
+- [**Foundation.NSTimer**](https://developer.apple.com/documentation/foundation/nstimer)：依赖 RunLoop。
+- [**DispatchSourceTimer**](https://developer.apple.com/documentation/dispatch/dispatchsourcetimer)：由 GCD 在指定队列投递事件，不依赖 RunLoop。
+- [**CADisplayLink**](https://developer.apple.com/documentation/quartzcore/cadisplaylink)：跟随显示刷新节奏，用于视觉更新。
+- [**CFRunLoopTimerRef**](https://developer.apple.com/documentation/corefoundation/cfrunlooptimer)：Core Foundation 级 RunLoop Timer，与 `NSTimer` toll-free bridged。
 
-- 优势：
-  - **简单易用：** NSTimer 的使用非常简单，只需创建一个实例并指定一个目标方法和触发时间间隔，然后将其添加到运行循环中即可。
-  - **灵活性：** NSTimer 可以执行一次性或重复任务；如需限定重复次数，由业务代码自行计数并 `invalidate`。
-  - **RunLoop 集成：** 适合与界面和 RunLoop 模式配合的低频调度。
+系统提供多种计时机制，是因为“UI 低频刷新、工作队列调度、逐帧渲染、RunLoop 基础设施”不是同一个问题。它们都不是硬实时机制，也都不会赋予 App 后台保活能力。
 
-- **劣势：**
-  - **不是实时计时器：** 触发时间受 RunLoop 模式、主线程负载、系统调度和 `tolerance` 影响，只保证不会早于计划时间，不保证准点执行。
-  - **运行循环依赖：** NSTimer 是依赖于运行循环的，如果运行循环被阻塞或者停止了，NSTimer 的触发也会受到影响。
-  - **线程边界：** Timer 应在其所属 RunLoop 的线程中安排和管理；不能因为能在任意线程创建对象，就推导出对同一 Timer 的跨线程并发操作天然安全。
-  - **内存管理：** 如果 NSTimer 持有它的目标对象，而目标对象又持有 NSTimer，可能会导致循环引用和内存泄漏的问题，因此在使用时需要小心管理内存。
-  - **不适合高精度或逐帧任务：** 逐帧动画优先考虑 `CADisplayLink`，精度要求更高的后台调度应选择更合适的时钟与调度 API。
+### 29.2、核心对比
 
-### 29.3、CADisplayLink
+| 机制 | 依赖与回调位置 | 优势 | 劣势 | 首选场景 | Jobs 映射 |
+| ---- | ---- | ---- | ---- | ---- | ---- |
+| `NSTimer` | 注册到某个 RunLoop 的一个或多个 Mode；通常在主线程回调 | 简单；适合 UI；支持一次性/重复与 `tolerance` | RunLoop 忙、Mode 不匹配或主线程阻塞时会延后；需正确失效并处理引用关系 | 轮播、验证码、普通倒计时、UI 状态轮询 | `JobsTimerTypeNSTimer` |
+| GCD Timer | 在指定 Dispatch Queue 上投递；不依赖 RunLoop | 队列可控；适合非 UI；leeway 允许系统合并唤醒 | suspend/resume/cancel 状态容易失衡；队列阻塞照样延迟 | 心跳、轮询、缓存维护、工作队列节拍 | `JobsTimerTypeGCD` |
+| `CADisplayLink` | 挂到 RunLoop，回调与显示刷新周期协调 | 视觉节奏最匹配；提供 `timestamp`、`targetTimestamp` 与首选帧率 | 实际帧率会变化；主线程繁忙会掉帧；不适合业务计时 | 逐帧动画、进度绘制、交互视觉插值 | `JobsTimerTypeDisplayLink` |
+| `CFRunLoopTimerRef` | Core Foundation RunLoop + Mode | 可控制下一次触发时间、Mode、Context 和底层互操作 | C API 冗长；所有权、线程亲和与 Context 管理复杂；仍受 RunLoop 延迟 | RunLoop 基础设施、C/CF 互操作、特殊 Mode 调度 | `JobsTimerTypeRunLoop` |
 
-`CADisplayLink` 将回调与屏幕刷新节奏关联，适合驱动逐帧动画和渲染状态更新；它不是保证每一帧都必定执行的高精度计时器。
+#### 29.2.1、`NSTimer`
 
-- **优势：**
-  - **同屏幕刷新同步：** CADisplayLink 会在每次屏幕刷新之前调用指定的方法，确保动画更新与屏幕刷新同步，从而实现流畅的动画效果。
-  - **时间信息：** 可通过 `timestamp`、`targetTimestamp` 和首选帧率范围计算动画进度；首选帧率是调度目标，不是绝对保证。
-  - **简单易用：** CADisplayLink 的使用非常简单，只需创建一个实例并指定一个目标方法，然后将其添加到主运行循环中即可。
-  - **适配刷新率：** 系统会结合屏幕能力和调度状态安排回调，业务仍应按时间差更新动画，不能按固定帧数假设持续时间。
+- Apple 明确说明它不是实时机制：RunLoop 无法及时处理时，实际回调可以明显晚于计划时间。
+- 重复 Timer 按原计划触发时间继续排期；错过多个周期时只回调一次，不会补发每个丢失 tick。
+- `tolerance` 允许在计划时间之后延迟触发，不允许提前触发；合理容差可以减少 CPU 唤醒。
+- `NSDefaultRunLoopMode` 下，滚动等 Mode 切换可能让回调暂时不被处理；需要滚动期间继续刷新时使用 `NSRunLoopCommonModes`。
+- target-selector 形态要处理 Timer、RunLoop、target 的持有关系；`JobsOCTimer` 使用弱代理收口这一风险。
 
-- **劣势：**
-  - **主线程阻塞：** 使用 CADisplayLink 进行动画更新时，相关的方法会在主线程中执行，如果动画逻辑复杂或者处理时间过长，可能会导致主线程阻塞，影响应用的响应性能。
-  - **不适合所有场景：** CADisplayLink 适用于实现基于帧率的动画效果，但并不适用于所有类型的动画，例如复杂的过渡效果或基于物理引擎的动画。
-  - **需谨慎管理：** 使用 CADisplayLink 进行动画更新时，需要谨慎管理内存和资源，避免出现内存泄漏或性能问题。
+#### 29.2.2、GCD Timer
+
+- `dispatch_time` 使用单调时间，适合“经过多久”的间隔调度；墙上时间调度受系统时间调整影响，语义不同。
+- leeway 是允许系统延后投递的窗口，用于功耗与及时性的折中。
+- 不依赖 RunLoop，不代表一定更准；目标队列阻塞、QoS 较低或系统繁忙时仍会延后。
+- 原生 Dispatch Source 在激活、挂起、恢复、取消之间有严格状态要求；`JobsOCTimer` 负责配平并用 generation token 拦截旧回调。
+
+#### 29.2.3、`CADisplayLink`
+
+- 它表达“下一帧应该更新视觉状态”，而不是“每隔固定毫秒执行业务”。
+- 首选帧率只是请求，系统会结合最大刷新率、低电量模式、温度和用户设置选择实际帧率。
+- 动画进度按时间戳或单调时钟计算；按回调次数累加会在掉帧、高刷或刷新率变化时产生速度漂移。
+- 回调中只做轻量状态更新与绘制准备，重计算会直接制造卡顿。
+
+#### 29.2.4、`CFRunLoopTimerRef`
+
+- 它和 `NSTimer` 共享 RunLoop 计时语义，不是“天然更精准”的替代品。
+- 价值在于底层 C 接口：明确指定 RunLoop、Mode、Context、Order 与下一次触发时间。
+- 普通业务没有 Core Foundation 互操作需求时，优先使用 `NSTimer` 或 Jobs 封装。
+
+### 29.3、非 Timer，但经常用于“等一会儿”
+
+| API | 特点 | 应该使用的场景 | 不应替代的能力 |
+| ---- | ---- | ---- | ---- |
+| `dispatch_after` | 一次性延迟向队列提交 Block | 简单延迟、轻量防抖尾部动作 | 重复 tick、暂停、恢复、集中管理 |
+| `performSelector:withObject:afterDelay:` | 依赖当前线程 RunLoop 的延迟消息 | 已有 selector 流程中的一次性延迟 | 跨队列工作、重复调度、复杂取消治理 |
+| [**BGTaskScheduler**](https://developer.apple.com/documentation/backgroundtasks/bgtaskscheduler) | 系统根据资源与策略择机运行 | App 被挂起后的内容刷新与维护 | 秒级准点回调、常驻后台 Timer |
+
+`dispatch_source_t` 使用后台队列，只代表回调不在主队列，不代表 App 获得了 iOS 后台执行资格。
+
+### 29.4、选型决策
+
+1. 需要和屏幕逐帧同步：选 `CADisplayLink` / `JobsTimerTypeDisplayLink`。
+2. 需要脱离 RunLoop，在工作队列做心跳、轮询或维护：选 GCD Timer / `JobsTimerTypeGCD`。
+3. 只是在主线程低频更新普通 UI：选 `NSTimer` / `JobsTimerTypeNSTimer`，Mode 使用 common。
+4. 需要直接控制 RunLoop Timer 的 Mode、Context 或下一次触发：选 `CFRunLoopTimerRef` / `JobsTimerTypeRunLoop`。
+5. 只需要延迟一次：选 `dispatch_after` 等一次性延时 API。
+6. 需要系统挂起后执行：选符合业务资格的 Background Tasks、后台传输、定位或音频等机制，不选普通 Timer。
+
+### 29.5、原生最小代码：只用于理解系统差异
+
+Jobs 应用层生产代码优先使用 `JobsOCTimer` / `JobsOCTimerMgr`。下面的原生代码用于理解系统模型，不作为绕开 Jobs 封装的推荐写法。
+
+- RunLoop Timer：
+
+  ```objc
+  __weak typeof(self) weakSelf = self;
+  NSTimer *timer = [NSTimer timerWithTimeInterval:1
+                                          repeats:YES
+                                            block:^(__unused NSTimer *timer) {
+      __strong typeof(weakSelf) self = weakSelf;
+      if (!self) return;
+      // 主线程 UI 刷新
+  }];
+  timer.tolerance = 0.1;
+  [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+  self.timer = timer;
+  ```
+
+- GCD Timer：
+
+  ```objc
+  dispatch_queue_t queue = dispatch_queue_create("com.jobs.timer.example",
+                                                  DISPATCH_QUEUE_SERIAL);
+  dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER,
+                                                   0,
+                                                   0,
+                                                   queue);
+  dispatch_source_set_timer(timer,
+                            dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC),
+                            NSEC_PER_SEC,
+                            100 * NSEC_PER_MSEC);
+  dispatch_source_set_event_handler(timer, ^{
+      // 非 UI 工作；更新 UI 时再切回主线程
+  });
+  dispatch_activate(timer);
+  self.sourceTimer = timer;
+  ```
+
+### 29.6、为什么还需要 `JobsOCTimer` / `JobsOCTimerMgr`
+
+- `JobsOCTimer` 用 `TimerProtocol` 统一四个内核的 `start/pause/resume/fireOnce/stop`、线程亲和、前后台策略、一次性完成顺序和回调防穿透。
+- `JobsOCTimerMgr` 在内核之上治理 identifier、回调组、Scope、前后台状态机、实例安全取消和批量清理。
+- 单个对象私有、生命周期清晰时用 `JobsTimer`；多个 Timer、列表复用或需要跨对象治理时用 Manager。
+- Cell 复用使用稳定 Model identifier，并通过 `expectedTimer` 精准移除；页面只持有 Scope，不持有“最后一个 Timer”。
+- 倒计时以绝对 `endAt` 为时间真值，每次 tick 根据当前时间重算剩余值。Timer 只负责唤醒刷新，不代表真实经过时间。
+
+  ```objc
+  NSTimeInterval remaining = MAX(0, [model.endAt timeIntervalSinceNow]);
+  ```
 
 ## 三十、<font color="red">**OC.多线程**</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

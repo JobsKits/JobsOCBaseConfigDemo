@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JXCategoryView/JXCategoryTitleCellModel.h>)
 #import <JXCategoryView/JXCategoryTitleCellModel.h>
 #else
@@ -32,5 +38,15 @@ Prop_assign()CGFloat borderLineWidth;
 Prop_assign()CGFloat backgroundCornerRadius;
 Prop_assign()CGFloat backgroundWidth;
 Prop_assign()CGFloat backgroundHeight;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JXCategoryTitleBackgroundCellModel
+-(JobsRetJXCategoryTitleBackgroundCellModelByCGFloatBlock _Nonnull)byBackgroundCornerRadius;
+-(JobsRetJXCategoryTitleBackgroundCellModelByCGFloatBlock _Nonnull)byBackgroundHeight;
+-(JobsRetJXCategoryTitleBackgroundCellModelByCGFloatBlock _Nonnull)byBackgroundWidth;
+-(JobsRetJXCategoryTitleBackgroundCellModelByCGFloatBlock _Nonnull)byBorderLineWidth;
+-(JobsRetJXCategoryTitleBackgroundCellModelByUIColorBlock _Nonnull)byNormalBackgroundColor;
+-(JobsRetJXCategoryTitleBackgroundCellModelByUIColorBlock _Nonnull)byNormalBorderColor;
+-(JobsRetJXCategoryTitleBackgroundCellModelByUIColorBlock _Nonnull)bySelectedBackgroundColor;
+-(JobsRetJXCategoryTitleBackgroundCellModelByUIColorBlock _Nonnull)bySelectedBorderColor;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JXCategoryTitleBackgroundCellModel
 @end
 #endif /* JOBS_HEADER_GUARD_JXCATEGORYTITLEBACKGROUNDCELLMODEL_6A7712F42B */

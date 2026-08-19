@@ -6,7 +6,3 @@
 //
 
 #import "WKWebViewConfiguration+Extra.h"
-
-@implementation WKWebViewConfiguration (Extra)
-
-@end

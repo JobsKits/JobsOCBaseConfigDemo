@@ -21,7 +21,16 @@
 }
 
 -(UIViewController *)rootViewController{
-    return self.viewControllers.firstObject;
+    return ((((JobsRetVCByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UINavigationController.class, @selector(jobsRootViewController)))(self, @selector(jobsRootViewController))))();
+}
+
+-(JobsRetVCByVoidBlock _Nonnull)jobsRootViewController{
+    @jobs_weakify(self)
+    return ^UIViewController *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.viewControllers.firstObject;
+    };
 }
 
 -(jobsByNSIntegerBlock _Nonnull)navDirectionBy{

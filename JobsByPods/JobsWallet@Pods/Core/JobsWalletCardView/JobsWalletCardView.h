@@ -9,6 +9,12 @@
 #define JobsWalletCardView_h
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsWallet/JobsWalletCollectionViewLayout.h>
 
 #if __has_include(<Masonry/Masonry.h>)
@@ -49,10 +55,13 @@ Prop_assign()JobsWalletCardExpandStyle expandStyle;
 -(instancetype)initWithFrame:(CGRect)frame
                  expandStyle:(JobsWalletCardExpandStyle)expandStyle
                   cardModels:(NSArray<JobsWalletCardModel *> *)cardModels;
--(void)reloadDataWithCardModels:(NSArray<JobsWalletCardModel *> *)cardModels;
--(void)expandAllCards;
--(void)collapseAllCards;
+-(jobsByNSArrayJobsWalletCardModelBlock _Nonnull)reloadDataWithCardModels;
+-(jobsByVoidBlock _Nonnull)expandAllCards;
+-(jobsByVoidBlock _Nonnull)collapseAllCards;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsWalletCardView
+-(JobsRetJobsWalletCardViewByNSArrayJobsWalletCardModelBlock _Nonnull)byCardModels;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsWalletCardView
 @end
 
 NS_ASSUME_NONNULL_END

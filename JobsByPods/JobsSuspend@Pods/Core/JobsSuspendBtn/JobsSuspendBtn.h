@@ -78,7 +78,7 @@ NS_ASSUME_NONNULL_END
              SuspendBtn.onClickBy(^(UIButton *x) {
                  @jobs_strongify(self)
                  x.byToggleSelected();
-                 JobsLog(@"%@",x.jobs_isSelected ? @"开始旋转".tr : @"停止旋转".tr);
+                 JobsLog(@"%@",x.jobs_isSelected ? @"开始旋转".jobsTr() : @"停止旋转".jobsTr());
                  // x.旋转动画(x.selected);
                  if (self.objBlock) self.objBlock(x);
              });

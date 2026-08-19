@@ -138,14 +138,14 @@ NS_INLINE __kindof UITableView *_Nonnull jobsMakeTableViewByInsetGrouped(jobsByT
                          /// TODO
                      })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                      .byTableFooterView(jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
-                         label.byText(@"- 没有更多的内容了 -".tr)
+                         label.byText(@"- 没有更多的内容了 -".jobsTr())
                              .byFont(UIFontWeightRegularSize(12))
                              .byTextAlignment(NSTextAlignmentCenter)
                              .byTextCor(JobsSecondaryLabelColor)
                              .makeLabelByShowingType(UILabelShowingType_03);
                      }))/// 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                      .emptyDataByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                         data.byTitle(@"NO MESSAGES FOUND".tr)
+                         data.byTitle(@"NO MESSAGES FOUND".jobsTr())
                              .byTitleCor(JobsWhiteColor)
                              .byTitleFont(bayonRegular(JobsWidth(30)))
                              .byNormalImage(@"小狮子".img);

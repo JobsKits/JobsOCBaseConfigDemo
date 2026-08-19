@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>
 #else
@@ -31,6 +37,17 @@ Prop_assign() CGRect triggerFrameInContainer;
 Prop_assign() NSTimeInterval animationDuration;
 Prop_assign() UIViewAnimationOptions animationOptions;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCKeyboardResult
+-(JobsRetJobsOCKeyboardResultByBOOLBlock _Nonnull)byKeyboardVisible;
+-(JobsRetJobsOCKeyboardResultByBOOLBlock _Nonnull)byShouldAdjust;
+-(JobsRetJobsOCKeyboardResultByCGFloatBlock _Nonnull)byOffsetY;
+-(JobsRetJobsOCKeyboardResultByCGRectBlock _Nonnull)byAccessoryFrameInContainer;
+-(JobsRetJobsOCKeyboardResultByCGRectBlock _Nonnull)byKeyboardFrameInContainer;
+-(JobsRetJobsOCKeyboardResultByCGRectBlock _Nonnull)byObstructionFrameInContainer;
+-(JobsRetJobsOCKeyboardResultByCGRectBlock _Nonnull)byTargetFrameInContainer;
+-(JobsRetJobsOCKeyboardResultByCGRectBlock _Nonnull)byTriggerFrameInContainer;
+-(JobsRetJobsOCKeyboardResultByUIViewAnimationOptionsBlock _Nonnull)byAnimationOptions;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCKeyboardResult
 @end
 
 NS_ASSUME_NONNULL_END

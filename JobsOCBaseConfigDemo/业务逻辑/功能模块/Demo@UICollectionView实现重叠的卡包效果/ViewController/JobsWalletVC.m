@@ -26,6 +26,14 @@ Prop_assign()JobsWalletCardExpandStyle walletStyle;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsWalletVC
+@interface JobsWalletVC (JobsPropertyDSLSetterAutogen_26237c1259)
+-(void)setShowsModeList:(BOOL)data;
+-(void)setWalletCardsExpanded:(BOOL)data;
+-(void)setWalletStyle:(JobsWalletCardExpandStyle)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsWalletVC
+
 @implementation JobsWalletVC
 - (void)dealloc{
     JobsRemoveNotification(self);
@@ -33,45 +41,65 @@ Prop_assign()JobsWalletCardExpandStyle walletStyle;
 }
 
 -(void)loadView{
-    [super loadView];
-    self.walletStyle = JobsWalletCardExpandStyleOnlySelected;
-    self.showsModeList = ![self.requestParams isKindOfClass:NSNumber.class];
-    if ([self.requestParams isKindOfClass:NSNumber.class]) {
-        self.walletStyle = [(NSNumber *)self.requestParams integerValue];
-    }
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsWalletVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        self.byWalletStyle(JobsWalletCardExpandStyleOnlySelected);
+        self.byShowsModeList(![self.requestParams isKindOfClass:NSNumber.class]);
+        if ([self.requestParams isKindOfClass:NSNumber.class]) {
+            self.byWalletStyle([(NSNumber *)self.requestParams integerValue]);
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byTextCor(JobsLabelColor);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byText(self.showsModeList ? @"卡片展开动效".tr : [self titleByWalletStyle:self.walletStyle])
-                .byFont(UIFontWeightSemiboldSize(17));
-        })
-        .byBgCor(HEXCOLOR(0xF5F7FB))
-        .byNavBgCor(HEXCOLOR(0xFFF1E4))
-        .byNavBgImage(@"导航栏左侧底图".img);
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
+        }
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byTextCor(JobsLabelColor);
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byText(self.showsModeList ? @"卡片展开动效".jobsTr() : self.titleByWalletStyle(self.walletStyle))
+                    .byFont(UIFontWeightSemiboldSize(17));
+            })
+            .byBgCor(HEXCOLOR(0xF5F7FB))
+            .byNavBgCor(HEXCOLOR(0xFFF1E4))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.makeNavByAlpha(1);
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    if (self.showsModeList) {
-        self.modeTableView.byAlpha(1);
-    } else {
-        [self setupRightItems];
-        self.walletCardView.byAlpha(1);
-    }
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsWalletVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.makeNavByAlpha(1);
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        if (self.showsModeList) {
+            self.modeTableView.byAlpha(1);
+        } else {
+            self.setupRightItems();
+            self.walletCardView.byAlpha(1);
+        }
+    };
 }
 
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
@@ -94,7 +122,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                                       reuseIdentifier:JobsWalletModeCellReuseIdentifier];
     }
     if (![cell.contentView viewWithTag:JobsWalletModeCardViewTag]) {
-        [self setupModeCell:cell];
+        self.setupModeCell(cell);
     }
     if (indexPath.row < self.modeDataSource.count) {
         UIViewModel *viewModel = self.modeDataSource[indexPath.row];
@@ -108,23 +136,28 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row >= self.modeDataSource.count) return;
     UIViewModel *viewModel = self.modeDataSource[indexPath.row];
     JobsWalletVC *vc = JobsWalletVC.new;
-    vc.requestParams = viewModel.requestParams;
+    vc.byRequestParams(viewModel.requestParams);
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark —— 一些私有方法
 
--(NSString *)titleByWalletStyle:(JobsWalletCardExpandStyle)style{
-    switch (style) {
-        /// 处理 JobsWalletCardExpandStyleKeepOpened 分支
-        case JobsWalletCardExpandStyleKeepOpened:
-            return @"独立展开".tr;
-        /// 处理 JobsWalletCardExpandStyleOnlySelected 分支
-        case JobsWalletCardExpandStyleOnlySelected:
-        /// 未匹配已知分支时执行兜底处理
-        default:
-            return @"单选展开".tr;
-    }
+-(JobsRetNSStringByJobsWalletCardExpandStyleBlock _Nonnull)titleByWalletStyle{
+    @jobs_weakify(self)
+    return ^NSString *(JobsWalletCardExpandStyle style){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        switch (style) {
+            /// 处理 JobsWalletCardExpandStyleKeepOpened 分支
+            case JobsWalletCardExpandStyleKeepOpened:
+                return @"独立展开".jobsTr();
+            /// 处理 JobsWalletCardExpandStyleOnlySelected 分支
+            case JobsWalletCardExpandStyleOnlySelected:
+            /// 未匹配已知分支时执行兜底处理
+            default:
+                return @"单选展开".jobsTr();
+        }
+    };
 }
 
 -(JobsWalletCardModel *)cardModelWithBankName:(NSString *)bankName
@@ -133,103 +166,123 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                               backgroundColor:(UIColor *)backgroundColor
                                           cvc:(NSString *_Nullable)cvc
                                expirationDate:(NSString *_Nullable)expirationDate{
-    JobsWalletCardModel *model = JobsWalletCardModel.new;
-    model.bankName = bankName.tr;
-    model.cardNumber = cardNumber.tr;
-    model.bankIcon = iconName.img;
-    model.backgroundColor = backgroundColor;
-    model.cvc = cvc;
-    model.expirationDate = expirationDate;
-    return model;
+    return JobsWalletCardModel.new
+        .byBankName(bankName.jobsTr())
+        .byCardNumber(cardNumber.jobsTr())
+        .byBankIcon(iconName.img)
+        .byBackgroundColor(backgroundColor)
+        .byCvc(cvc)
+        .byExpirationDate(expirationDate);
 }
 
--(void)setupRightItems{
-    self.rightBarButtonItems = jobsMakeMutArr(^(__kindof NSMutableArray<UIBarButtonItem *> * _Nullable data) {
-        data.add(self.walletExpandBtn.bySize(CGSizeMake(JobsWidth(58), JobsWidth(32))).barBtnItem);
-    });
+-(jobsByVoidBlock _Nonnull)setupRightItems{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byRightBarButtonItems(jobsMakeMutArr(^(__kindof NSMutableArray<UIBarButtonItem *> * _Nullable data) {
+            data.add(self.walletExpandBtn.bySize(CGSizeMake(JobsWidth(58), JobsWidth(32))).barBtnItem());
+        }));
+    };
 }
 
--(void)toggleWalletCardsExpanded{
-    self.walletCardsExpanded = !self.walletCardsExpanded;
-    if (self.walletCardsExpanded) {
-        [self.walletCardView expandAllCards];
-    } else {
-        [self.walletCardView collapseAllCards];
-    }
-    [self refreshWalletExpandBtnTitle];
+-(jobsByVoidBlock _Nonnull)toggleWalletCardsExpanded{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        self.byWalletCardsExpanded(!self.walletCardsExpanded);
+        if (self.walletCardsExpanded) {
+            self.walletCardView.expandAllCards();
+        } else {
+            self.walletCardView.collapseAllCards();
+        }
+        self.refreshWalletExpandBtnTitle();
+    };
 }
 
--(void)refreshWalletExpandBtnTitle{
-    _walletExpandBtn.jobsResetBtnTitle(self.walletCardsExpanded ? @"收起".tr : @"展开".tr);
+-(jobsByVoidBlock _Nonnull)refreshWalletExpandBtnTitle{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        _walletExpandBtn.jobsResetBtnTitle(self.walletCardsExpanded ? @"收起".jobsTr() : @"展开".jobsTr());
+    };
 }
 
--(void)setupModeCell:(UITableViewCell *)cell{
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.accessoryType = UITableViewCellAccessoryNone;
-    cell.byBgColor(JobsClearColor);
-    cell.contentView
-        .byBgColor(JobsClearColor)
-        .byLayer(^(__kindof CALayer * _Nullable layer) {
-            layer
-                .byCornerRadius(0)
-                .byMasksToBounds(NO);
+-(jobsByTableViewCellBlock _Nonnull)setupModeCell{
+    @jobs_weakify(self)
+    return ^(UITableViewCell * cell){
+        @jobs_strongify(self)
+        if (!self) return;
+        cell
+            .bySelectionStyle(UITableViewCellSelectionStyleNone)
+            .byAccessoryType(UITableViewCellAccessoryNone)
+            .byBgColor(JobsClearColor);
+        cell.contentView
+            .byBgColor(JobsClearColor)
+            .byLayer(^(__kindof CALayer * _Nullable layer) {
+                layer
+                    .byCornerRadius(0)
+                    .byMasksToBounds(NO);
+            });
+        UIView *cardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byTag(JobsWalletModeCardViewTag)
+                .byBgColor(JobsSecondarySystemBackgroundColor)
+                .byCornerRadius(JobsWidth(18))
+                .byClipsToBounds(NO)
+                .addOn(cell.contentView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(cell.contentView).offset(JobsWidth(8));
+                    make.bottom.equalTo(cell.contentView).offset(-JobsWidth(8));
+                    make.left.equalTo(cell.contentView).offset(JobsWidth(24));
+                    make.right.equalTo(cell.contentView).offset(-JobsWidth(24));
+                });
+            view.layer
+                .byShadowColor(RGBA_COLOR(36, 54, 77, 0.08).CGColor)
+                .byShadowOpacity(1)
+                .byShadowOffset(CGSizeMake(0, JobsWidth(4)))
+                .byShadowRadius(JobsWidth(10));
         });
-    UIView *cardView = jobsMakeView(^(__kindof UIView * _Nullable view) {
-        view.byTag(JobsWalletModeCardViewTag)
-            .byBgColor(JobsSecondarySystemBackgroundColor)
-            .byCornerRadius(JobsWidth(18))
-            .byClipsToBounds(NO)
-            .addOn(cell.contentView)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.top.equalTo(cell.contentView).offset(JobsWidth(8));
-                make.bottom.equalTo(cell.contentView).offset(-JobsWidth(8));
-                make.left.equalTo(cell.contentView).offset(JobsWidth(24));
-                make.right.equalTo(cell.contentView).offset(-JobsWidth(24));
-            });
-        view.layer
-            .byShadowColor(RGBA_COLOR(36, 54, 77, 0.08).CGColor)
-            .byShadowOpacity(1)
-            .byShadowOffset(CGSizeMake(0, JobsWidth(4)))
-            .byShadowRadius(JobsWidth(10));
-    });
-    UIImageView *chevronView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
-        imageView.tag = JobsWalletModeChevronViewTag;
-        imageView.byImage([@"chevron.right".sys_img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate])
-            .byTintColor(HEXCOLOR(0xC2C9D2))
-            .byContentMode(UIViewContentModeScaleAspectFit)
-            .addOn(cardView)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.right.equalTo(cardView).offset(-JobsWidth(18));
-                make.centerY.equalTo(cardView);
-                make.size.mas_equalTo(CGSizeMake(JobsWidth(16), JobsWidth(16)));
-            });
-    });
-    jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-        label.tag = JobsWalletModeTitleLabelTag;
-        label.byFont(UIFontWeightSemiboldSize(16))
-            .byTextCor(JobsLabelColor)
-            .byNumberOfLines(1)
-            .byLineBreakMode(NSLineBreakByTruncatingTail)
-            .addOn(cardView)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.left.equalTo(cardView).offset(JobsWidth(24));
-                make.right.lessThanOrEqualTo(chevronView.mas_left).offset(-JobsWidth(14));
-                make.top.equalTo(cardView).offset(JobsWidth(22));
-            });
-    });
-    jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
-        label.tag = JobsWalletModeSubTitleLabelTag;
-        label.byFont(UIFontWeightRegularSize(12))
-            .byTextCor(JobsSecondaryLabelColor)
-            .byNumberOfLines(2)
-            .byLineBreakMode(NSLineBreakByTruncatingTail)
-            .addOn(cardView)
-            .byAdd(^(MASConstraintMaker *make) {
-                make.left.equalTo(cardView).offset(JobsWidth(24));
-                make.right.lessThanOrEqualTo(chevronView.mas_left).offset(-JobsWidth(14));
-                make.top.equalTo(cardView).offset(JobsWidth(48));
-            });
-    });
+        UIImageView *chevronView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView.byTag(JobsWalletModeChevronViewTag);
+            imageView.byImage([@"chevron.right".sys_img imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate])
+                .byTintColor(HEXCOLOR(0xC2C9D2))
+                .byContentMode(UIViewContentModeScaleAspectFit)
+                .addOn(cardView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.right.equalTo(cardView).offset(-JobsWidth(18));
+                    make.centerY.equalTo(cardView);
+                    make.size.mas_equalTo(CGSizeMake(JobsWidth(16), JobsWidth(16)));
+                });
+        });
+        jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label.byTag(JobsWalletModeTitleLabelTag);
+            label.byFont(UIFontWeightSemiboldSize(16))
+                .byTextCor(JobsLabelColor)
+                .byNumberOfLines(1)
+                .byLineBreakMode(NSLineBreakByTruncatingTail)
+                .addOn(cardView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(cardView).offset(JobsWidth(24));
+                    make.right.lessThanOrEqualTo(chevronView.mas_left).offset(-JobsWidth(14));
+                    make.top.equalTo(cardView).offset(JobsWidth(22));
+                });
+        });
+        jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label.byTag(JobsWalletModeSubTitleLabelTag);
+            label.byFont(UIFontWeightRegularSize(12))
+                .byTextCor(JobsSecondaryLabelColor)
+                .byNumberOfLines(2)
+                .byLineBreakMode(NSLineBreakByTruncatingTail)
+                .addOn(cardView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.left.equalTo(cardView).offset(JobsWidth(24));
+                    make.right.lessThanOrEqualTo(chevronView.mas_left).offset(-JobsWidth(14));
+                    make.top.equalTo(cardView).offset(JobsWidth(48));
+                });
+        });
+    };
 }
 
 -(void)configureModeCell:(UITableViewCell *)cell
@@ -255,8 +308,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byBgColor(JobsClearColor)
                 .addOn(self.view);
         });
-        _modeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _modeTableView.showsVerticalScrollIndicator = NO;
+        _modeTableView.bySeparatorStyle(UITableViewCellSeparatorStyleNone);
+        _modeTableView.byShowsVerticalScrollIndicator(NO);
         [_modeTableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.right.bottom.equalTo(self.view);
             make.top.equalTo(self.gk_navigationBar.mas_bottom);
@@ -281,7 +334,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_walletExpandBtn) {
         @jobs_weakify(self)
         _walletExpandBtn = BaseButton
-            .initByStyle1(@"展开".tr,
+            .initByStyle1(@"展开".jobsTr(),
                           UIFontWeightMediumSize(14),
                           HEXCOLOR(0x2F3A46))
             .bgColorBy(JobsClearColor)
@@ -289,7 +342,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             .jobsResetBtnLayerBorderWidth(0)
             .onClickBy(^(UIButton *x) {
                 @jobs_strongify(self)
-                [self toggleWalletCardsExpanded];
+                self.toggleWalletCardsExpanded();
             })
             .makeBtnTitleByShowingType(UILabelShowingType_03);
     };return _walletExpandBtn;
@@ -299,14 +352,14 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!_modeDataSource) {
         _modeDataSource = @[
             jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-                data.textModel.byText(@"单选展开".tr);
-                data.subTextModel.byText(@"只显示当下点选的卡片，其他卡片自动收回。".tr);
-                data.requestParams = @(JobsWalletCardExpandStyleOnlySelected);
+                data.textModel.byText(@"单选展开".jobsTr());
+                data.subTextModel.byText(@"只显示当下点选的卡片，其他卡片自动收回。".jobsTr());
+                data.byRequestParams(@(JobsWalletCardExpandStyleOnlySelected));
             }),
             jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {
-                data.textModel.byText(@"独立展开".tr);
-                data.subTextModel.byText(@"每张卡片独立开合，只要不再次关闭就保持展开。".tr);
-                data.requestParams = @(JobsWalletCardExpandStyleKeepOpened);
+                data.textModel.byText(@"独立展开".jobsTr());
+                data.subTextModel.byText(@"每张卡片独立开合，只要不再次关闭就保持展开。".jobsTr());
+                data.byRequestParams(@(JobsWalletCardExpandStyleKeepOpened));
             })
         ];
     };return _modeDataSource;
@@ -361,4 +414,32 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     };return _cardModels;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsWalletVC
+-(JobsRetJobsWalletVCByBOOLBlock _Nonnull)byShowsModeList{
+    @jobs_weakify(self)
+    return ^__kindof JobsWalletVC * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setShowsModeList:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsWalletVCByBOOLBlock _Nonnull)byWalletCardsExpanded{
+    @jobs_weakify(self)
+    return ^__kindof JobsWalletVC * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setWalletCardsExpanded:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsWalletVCByJobsWalletCardExpandStyleBlock _Nonnull)byWalletStyle{
+    @jobs_weakify(self)
+    return ^__kindof JobsWalletVC * _Nullable(JobsWalletCardExpandStyle data){
+        @jobs_strongify(self)
+        [self setWalletStyle:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsWalletVC
 @end

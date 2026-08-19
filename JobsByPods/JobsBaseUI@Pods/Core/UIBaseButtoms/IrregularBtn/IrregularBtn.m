@@ -24,10 +24,20 @@ static dispatch_once_t irregularBtnDispatchOnce;
 }
 // 绘制图形时添加path遮罩
 - (void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
-    dispatch_once(&irregularBtnDispatchOnce, ^{
-        self.shapLayer.byHidden(NO);
-    });
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(IrregularBtn.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+        dispatch_once(&irregularBtnDispatchOnce, ^{
+            self.shapLayer.byHidden(NO);
+        });
+    };
 }
 // 点击的覆盖方法，点击时判断点是否在path内，YES则响应，NO则不响应
 - (BOOL)pointInside:(CGPoint)point

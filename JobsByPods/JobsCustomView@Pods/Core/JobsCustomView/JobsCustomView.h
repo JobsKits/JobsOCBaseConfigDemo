@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
@@ -74,6 +80,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsCustomView : BaseView
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsCustomView
+-(JobsRetJobsCustomViewByCGSizeBlock _Nonnull)byBtnSize;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsCustomView
 @end
 
 NS_ASSUME_NONNULL_END

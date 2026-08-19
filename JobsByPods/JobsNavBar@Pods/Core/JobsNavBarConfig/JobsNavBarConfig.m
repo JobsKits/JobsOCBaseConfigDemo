@@ -6,6 +6,7 @@
 //
 
 #import "JobsNavBarConfig.h"
+
 #import <JobsNavBar/NSString+Sys.h>
 #import <JobsNavBar/UIColor+Extra.h>
 #import <JobsNavBar/NSObject+Extra.h>
@@ -25,21 +26,35 @@ UIPictureAndBackGroundCorProtocol_synthesize
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_navBarConfigOnceToken = 0;
-    static_navBarConfig = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsNavBarConfig.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_navBarConfigOnceToken = 0;
+        static_navBarConfig = nil;
+    };
 }
 
 +(instancetype)sharedManager{
-    dispatch_once(&static_navBarConfigOnceToken, ^{
-        static_navBarConfig = JobsNavBarConfig.new;
-    });return static_navBarConfig;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsNavBarConfig.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_navBarConfigOnceToken, ^{
+            static_navBarConfig = JobsNavBarConfig.new;
+        });return static_navBarConfig;
+    };
 }
 #pragma mark —— LazyLoad
 /// 在具体的子类去实现，以覆盖父类的方法实现
 -(UIButtonModel *)backBtnModel{
     if(!_backBtnModel){
         @jobs_weakify(self)
-        _backBtnModel = self.makeBackBtnModel
+        _backBtnModel = self.jobsMakeBackBtnModel()
             .byLongPressGestureEventBlock(^id (__kindof UIButton *x) {
                 JobsLog(@"按钮的长按事件触发");
                 return nil;
@@ -61,8 +76,8 @@ UIPictureAndBackGroundCorProtocol_synthesize
                 .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
                 .byTitleCor(JobsClearColor)
                 .bySelectedTitleCor(JobsClearColor)
-                .byRoundingCorners(UIRectCornerAllCorners);
-            data.byLongPressGestureEventBlock(^id(__kindof UIButton *x) {
+                .byRoundingCorners(UIRectCornerAllCorners)
+            .byLongPressGestureEventBlock(^id(__kindof UIButton *x) {
                 JobsLog(@"按钮的长按事件触发");
                 return nil;
             }).byClickEventBlock(^id(BaseButton *x){
@@ -76,7 +91,7 @@ UIPictureAndBackGroundCorProtocol_synthesize
 
 -(NSString *)text{
     if(!_text){
-        _text = @"JobsNavBar".tr;
+        _text = @"JobsNavBar".jobsTr();
     };return _text;
 }
 
@@ -88,7 +103,7 @@ UIPictureAndBackGroundCorProtocol_synthesize
 
 -(UIColor *)textCor{
     if(!_textCor){
-        _textCor = @"#FFC700".cor;
+        _textCor = @"#FFC700".jobsCor();
     };return _textCor;
 }
 

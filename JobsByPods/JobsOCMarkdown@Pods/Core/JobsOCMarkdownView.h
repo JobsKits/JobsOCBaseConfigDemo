@@ -7,6 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<Masonry/Masonry.h>)
+#import <Masonry/Masonry.h>
+#else
+#import "Masonry.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <WebKit/WebKit.h>
 #import "JobsOCMarkdownConfiguration.h"
 #import "JobsOCMarkdownDocument.h"
@@ -24,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol JobsOCMarkdownViewDelegate <NSObject>
 @optional
 -(void)markdownViewDidFinishRendering:(JobsOCMarkdownView *)markdownView;
+-(jobsByJobsOCMarkdownViewBlock _Nonnull)jobsMarkdownViewDidFinishRendering;
 -(void)markdownView:(JobsOCMarkdownView *)markdownView
   didRequestOpenURL:(NSURL *)URL;
 -(void)markdownView:(JobsOCMarkdownView *)markdownView
@@ -37,9 +56,10 @@ Prop_strong(readonly)WKWebView *webView;
 Prop_strong(readonly,nullable)JobsOCMarkdownDocument *document;
 Prop_strong(readonly)JobsOCMarkdownConfiguration *markdownConfiguration;
 
--(instancetype)byConfiguration:(JobsOCMarkdownConfiguration *)configuration;
--(instancetype)byDocument:(JobsOCMarkdownDocument *)document;
--(void)loadDocument:(JobsOCMarkdownDocument *)document;
+-(JobsRetJobsOCMarkdownViewByIDBlock _Nonnull)byDelegate;
+-(JobsRetIDByJobsOCMarkdownConfigurationBlock _Nonnull)byConfiguration;
+-(JobsRetIDByJobsOCMarkdownDocumentBlock _Nonnull)byDocument;
+-(jobsByJobsOCMarkdownDocumentBlock _Nonnull)loadDocument;
 -(void)loadDocument:(JobsOCMarkdownDocument *)document
       configuration:(nullable JobsOCMarkdownConfiguration *)configuration;
 -(void)renderMarkdown:(NSString *)markdown
@@ -47,13 +67,17 @@ Prop_strong(readonly)JobsOCMarkdownConfiguration *markdownConfiguration;
               baseURL:(nullable NSURL *)baseURL
         readAccessURL:(nullable NSURL *)readAccessURL
         configuration:(nullable JobsOCMarkdownConfiguration *)configuration;
--(void)reloadDocument;
+-(jobsByVoidBlock _Nonnull)reloadDocument;
 -(void)scrollToAnchor:(NSString *)anchor
              animated:(BOOL)animated;
 -(void)findText:(NSString *)text
       backwards:(BOOL)backwards
      completion:(void (^_Nullable)(WKFindResult *result))completion API_AVAILABLE(ios(14.5));
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCMarkdownView
+-(JobsRetJobsOCMarkdownViewByBOOLBlock _Nonnull)byRuntimeReady;
+-(JobsRetJobsOCMarkdownViewByJobsOCMarkdownConfigurationBlock _Nonnull)byMarkdownConfiguration;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCMarkdownView
 @end
 
 NS_ASSUME_NONNULL_END

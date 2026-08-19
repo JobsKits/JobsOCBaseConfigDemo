@@ -6,6 +6,7 @@
 //
 
 #import "UIView+SuspendView.h"
+
 #import <JobsSuspend/UIView+Measure.h>
 
 @interface JobsSuspendGestureDelegate : NSObject<UIGestureRecognizerDelegate>
@@ -48,6 +49,15 @@ JobsKey(_vc)
 
 -(void)setVc:(UIViewController *)vc{
     Jobs_setAssociatedRETAIN_NONATOMIC(_vc, vc)
+}
+-(JobsRetViewByIDBlock _Nonnull)byVc{
+    @jobs_weakify(self)
+    return ^__kindof UIView *_Nullable(id _Nullable data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.vc = data;
+        return self;
+    };
 }
 JobsKey(_suspendHapticOnDock)
 @dynamic suspendHapticOnDock;
@@ -117,9 +127,9 @@ JobsKey(_suspendGestureDelegate)
 -(UIPanGestureRecognizer *)panRcognize{
     UIPanGestureRecognizer *PanRcognize = Jobs_getAssociatedObject(_panRcognize);
     if (!PanRcognize) {
-        self.weak_target = self;/// ⚠️注意：任何手势这一句都要写
+        self.byWeak_target(self);
         @jobs_weakify(self)
-        self.panGR_SelImp.selector = [self jobsSelectorBlock:^id _Nullable(id  _Nullable target,
+        self.panGR_SelImp.selector = self.jobsSelectorBlock(^id _Nullable(id  _Nullable target,
                                                                            UIPanGestureRecognizer *_Nullable recognizer) {
             @jobs_strongify(self)
             UIView *container = recognizer.view.superview;
@@ -187,19 +197,19 @@ JobsKey(_suspendGestureDelegate)
             [recognizer setTranslation:CGPointMake(0, 0)
                                 inView:container];
             return nil;
-        }];
+        });
         PanRcognize = self.panGR;
         JobsSuspendGestureDelegate *delegate = Jobs_getAssociatedObject(_suspendGestureDelegate);
         if (!delegate) {
             delegate = JobsSuspendGestureDelegate.new;
             Jobs_setAssociatedRETAIN_NONATOMIC(_suspendGestureDelegate, delegate)
         }
-        PanRcognize.delegate = delegate;
+        PanRcognize.byDelegate(delegate);
         PanRcognize.byEnabled(YES);
-        PanRcognize.minimumNumberOfTouches = 1;
-        PanRcognize.maximumNumberOfTouches = 2;
-        PanRcognize.delaysTouchesEnded = NO;
-        PanRcognize.cancelsTouchesInView = NO;
+        PanRcognize.byMinimumNumberOfTouches(1);
+        PanRcognize.byMaximumNumberOfTouches(2);
+        PanRcognize.byDelaysTouchesEnded(NO);
+        PanRcognize.byCancelsTouchesInView(NO);
         Jobs_setAssociatedRETAIN_NONATOMIC(_panRcognize, PanRcognize)
     };return PanRcognize;
 }

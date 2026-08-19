@@ -40,6 +40,7 @@ and an optional ready-to-use view controller for create/validate flows.
 
 
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsBlock'
   spec.dependency 'JobsBaseUI'
   spec.dependency 'JobsMakes'
   spec.dependency 'JobsOCDSL'

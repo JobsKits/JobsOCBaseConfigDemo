@@ -21,16 +21,16 @@
 #import "JobsLanMgr.h"
 #endif
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
-
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>
 #else
 #import "JobsMakes.h"
+#endif
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -71,17 +71,17 @@ Prop_copy(nullable)jobsByLuckyWheelSegmentBlock segmentTapHandler;
 /// 长按事件
 Prop_copy(nullable)jobsByLuckyWheelSegmentAndLPGesturerBlock segmentLongPressHandler;
 /// 启动减速旋转；旋转中重复调用会按内部配置重置初始角速度
-- (void)startSpinWithScrollLikeDeceleration;
+- (jobsByVoidBlock _Nonnull)startSpinWithScrollLikeDeceleration;
 /// 指定初始角速度启动减速旋转；旋转中重复调用会重置为该速度
-- (void)startSpinWithScrollLikeDecelerationWithInitialVelocity:(CGFloat)initialVelocity;
+-(jobsByCGFloatBlock _Nonnull)startSpinWithScrollLikeDecelerationWithInitialVelocity;
 /// 开始 / 停止切换
-- (void)toggleSpin;
+- (jobsByVoidBlock _Nonnull)toggleSpin;
 /// 停止旋转
-- (void)stopSpin;
+- (jobsByVoidBlock _Nonnull)stopSpin;
 /// （可选）非 DSL 版本，直接配置
-- (instancetype)onSegmentTap:(jobsByLuckyWheelSegmentBlock)handler;
-- (instancetype)onSegmentLongPress:(jobsByLuckyWheelSegmentAndLPGesturerBlock)handler;
-- (instancetype)onSpinningStateChanged:(jobsByBOOLBlock)handler;
+-(JobsRetIDByjobsByLuckyWheelSegmentBlockBlock _Nonnull)onSegmentTap;
+-(JobsRetIDByjobsByLuckyWheelSegmentAndLPGesturerBlockBlock _Nonnull)onSegmentLongPress;
+-(JobsRetIDByjobsByBOOLBlockBlock _Nonnull)onSpinningStateChanged;
 #pragma mark —— DSL
 /// DSL@设置指针方向
 - (JobsRetLuckyWheelViewByPointerDirectionBlock _Nonnull)byPointerDirection;
@@ -101,6 +101,15 @@ Prop_copy(nullable)jobsByLuckyWheelSegmentAndLPGesturerBlock segmentLongPressHan
 /// DSL@配置长按回调
 - (JobsRetLuckyWheelViewBySegmentLongPressDSLBlock _Nonnull)bySegmentLongPress;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN LuckyWheelView
+-(JobsRetLuckyWheelViewByBOOLBlock _Nonnull)bySpinning;
+-(JobsRetLuckyWheelViewByCFTimeIntervalBlock _Nonnull)byLastTouchTimestamp;
+-(JobsRetLuckyWheelViewByCGFloatBlock _Nonnull)byAngularVelocityFromPan;
+-(JobsRetLuckyWheelViewByCGFloatBlock _Nonnull)byLastTouchAngle;
+-(JobsRetLuckyWheelViewBySegmentLongPressDSLBlock _Nonnull)bySegmentLongPressHandler;
+-(JobsRetLuckyWheelViewBySegmentTapDSLBlock _Nonnull)bySegmentTapHandler;
+-(JobsRetLuckyWheelViewByjobsByBOOLBlockBlock _Nonnull)bySpinningStateChangedHandler;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END LuckyWheelView
 @end
 
 NS_ASSUME_NONNULL_END

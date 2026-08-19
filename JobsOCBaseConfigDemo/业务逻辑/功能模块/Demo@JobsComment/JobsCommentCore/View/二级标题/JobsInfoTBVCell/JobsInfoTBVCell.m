@@ -13,7 +13,7 @@ Prop_strong()RBCLikeButton *likeBtn;
 /// Data
 Prop_strong()JobsChildCommentModel *childCommentModel;
 
--(UIImage *_Nullable)jobs_commentAvatarPlaceholderImageByID:(NSString *_Nullable)avatarID;
+-(JobsRetImageByStrBlock _Nonnull)jobs_commentAvatarPlaceholderImageByID;
 
 @end
 
@@ -27,7 +27,7 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
             cell
                 .bySelectionStyle(UITableViewCellSelectionStyleNone)
                 .byContentView(^(__kindof UIView * _Nullable view) {
-                    view.byBgColor(JobsCommentConfig.sharedManager.bgCor);
+                    view.byBgColor(JobsCommentConfig.jobsSharedManager().bgCor);
                 });
             cell.byBgColor(JobsClearColor);
         };return cell;
@@ -36,7 +36,7 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
 #pragma mark —— BaseCellProtocol
 +(JobsRetCGFloatByIDBlock _Nonnull)cellHeightByModel{
     return ^CGFloat(id _Nullable data){
-        return JobsCommentConfig.sharedManager.cellHeight;
+        return JobsCommentConfig.jobsSharedManager().cellHeight;
     };
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -49,12 +49,12 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
             self.likeBtn.byAlpha(1);
             self.textLabel.byText(self.childCommentModel.nickname);
             self.detailTextLabel.byText(self.childCommentModel.content);
-            UIImage *placeholderImage = [self jobs_commentAvatarPlaceholderImageByID:self.childCommentModel.ID ? : self.childCommentModel.userId];
+            UIImage *placeholderImage = self.jobs_commentAvatarPlaceholderImageByID(self.childCommentModel.ID ? : self.childCommentModel.userId);
             self.imageView.byImage(placeholderImage);
             self.imageView
-                .imageURL(self.childCommentModel.headImg.imageURLPlus.jobsUrl)
+                .imageURL(self.childCommentModel.headImg.jobsImageURLPlus().jobsURL())
                 .placeholderImage(placeholderImage)
-                .options(self.makeSDWebImageOptions)
+                .options(self.jobsMakeSDWebImageOptions())
                 .completed(^(UIImage * _Nullable image,
                              NSError * _Nullable error,
                              SDImageCacheType cacheType,
@@ -70,34 +70,49 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
 }
 #pragma mark —— 复写系统父类方法
 - (void)layoutSubviews {
-    [super layoutSubviews];
-    CGFloat avatarWH = JobsCommentConfig.sharedManager.headerImageViewSize.width;
-    CGFloat left = JobsCommentConfig.sharedManager.secondLevelCommentOffset + JobsWidth(14);
-    CGFloat top = JobsWidth(14);
-    CGFloat textX = left + avatarWH + JobsWidth(10);
-    CGFloat likeW = JobsWidth(46);
-    CGFloat textW = self.contentView.width - textX - likeW - JobsWidth(22);
-    self.imageView.byFrame(CGRectMake(left, top, avatarWH, avatarWH));
-    self.imageView
-        .byContentMode(UIViewContentModeScaleAspectFill)
-        .byClipsToBounds(YES);
-    self.imageView.cornerCutToCircleWithCornerRadius(self.imageView.height / 2);
-    self.textLabel
-        .byFont(JobsCommentConfig.sharedManager.titleFont)
-        .byTextCor(JobsCommentConfig.sharedManager.titleCor)
-        .byNumberOfLines(1);
-    self.detailTextLabel
-        .byFont(JobsCommentConfig.sharedManager.subTitleFont)
-        .byTextCor(JobsCommentConfig.sharedManager.subTitleCor)
-        .byNumberOfLines(2);
-    self.textLabel.byFrame(CGRectMake(textX, JobsWidth(12), textW, JobsWidth(18)));
-    self.detailTextLabel.byFrame(CGRectMake(textX, CGRectGetMaxY(self.textLabel.frame) + JobsWidth(4), textW, JobsWidth(36)));
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsInfoTBVCell.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        CGFloat avatarWH = JobsCommentConfig.jobsSharedManager().headerImageViewSize.width;
+        CGFloat left = JobsCommentConfig.jobsSharedManager().secondLevelCommentOffset + JobsWidth(14);
+        CGFloat top = JobsWidth(14);
+        CGFloat textX = left + avatarWH + JobsWidth(10);
+        CGFloat likeW = JobsWidth(46);
+        CGFloat textW = self.contentView.width - textX - likeW - JobsWidth(22);
+        self.imageView.byFrame(CGRectMake(left, top, avatarWH, avatarWH));
+        self.imageView
+            .byContentMode(UIViewContentModeScaleAspectFill)
+            .byClipsToBounds(YES);
+        self.imageView.cornerCutToCircleWithCornerRadius(self.imageView.height / 2);
+        self.textLabel
+            .byFont(JobsCommentConfig.jobsSharedManager().titleFont)
+            .byTextCor(JobsCommentConfig.jobsSharedManager().titleCor)
+            .byNumberOfLines(1);
+        self.detailTextLabel
+            .byFont(JobsCommentConfig.jobsSharedManager().subTitleFont)
+            .byTextCor(JobsCommentConfig.jobsSharedManager().subTitleCor)
+            .byNumberOfLines(2);
+        self.textLabel.byFrame(CGRectMake(textX, JobsWidth(12), textW, JobsWidth(18)));
+        self.detailTextLabel.byFrame(CGRectMake(textX, CGRectGetMaxY(self.textLabel.frame) + JobsWidth(4), textW, JobsWidth(36)));
+    };
 }
 #pragma mark —— lazyLoad
--(UIImage *_Nullable)jobs_commentAvatarPlaceholderImageByID:(NSString *_Nullable)avatarID{
-    NSString *seed = avatarID.length ? avatarID : @"jobs-comment-placeholder";
-    NSInteger imageIndex = seed.hash % 4 + 1;
-    return JobsLoadBundleImage(@"bundle", @"头像", nil, [NSString stringWithFormat:@"头像_%ld",(long)imageIndex]) ? : @"用户默认头像".img;
+-(JobsRetImageByStrBlock _Nonnull)jobs_commentAvatarPlaceholderImageByID{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable(NSString *_Nullable avatarID){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSString *seed = avatarID.length ? avatarID : @"jobs-comment-placeholder";
+        NSInteger imageIndex = seed.hash % 4 + 1;
+        return JobsLoadBundleImage(@"bundle", @"头像", nil, [NSString stringWithFormat:@"头像_%ld",(long)imageIndex]) ? : @"用户默认头像".img;
+    };
 }
 
 -(RBCLikeButton *)likeBtn{
@@ -118,9 +133,9 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
     //                           thumbNum:x.selected ? x.thumpNum + 1 : x.thumpNum - 1
     //                          animation:YES];
                 if(x.selected){
-                    x.thumpNum = x.thumpNum + 1;
+                    x.byThumpNum(x.thumpNum + 1);
                 }else{
-                    x.thumpNum = x.thumpNum - 1;
+                    x.byThumpNum(x.thumpNum - 1);
                 }
                 x
                     .jobsResetBtnTitle(toStringByNSInteger(x.thumpNum))
@@ -136,10 +151,10 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
                 make.right.equalTo(self.contentView).offset(-JobsWidth(14));
                 make.centerY.equalTo(self.contentView);
             });
-        _likeBtn.thumpNum = 0;
+        _likeBtn.byThumpNum(0);
     }
     _likeBtn.bySelected(self.childCommentModel.isPraise.boolValue);
-    _likeBtn.thumpNum = self.childCommentModel.praiseNum;
+    _likeBtn.byThumpNum(self.childCommentModel.praiseNum);
     _likeBtn
         .jobsResetBtnTitle(toStringByNSInteger(_likeBtn.thumpNum))
         .jobsResetBtnTitleCor(_likeBtn.selected ? JobsRedColor : HEXCOLOR(0x94A3B8))

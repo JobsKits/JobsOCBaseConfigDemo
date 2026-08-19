@@ -11,12 +11,27 @@
 #import "Realm.h"
 #endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface User_Realm : RLMObject
 
 @property NSString *name;
 @property NSInteger age;
+
+-(JobsRetUser_RealmByStrBlock _Nonnull)byName;
+-(JobsRetUser_RealmByNSIntegerBlock _Nonnull)byAge;
 
 @end
 // 需要为 Realm 模型类定义一个 RLMArray 类型的属性时，使用宏定义来简化声明

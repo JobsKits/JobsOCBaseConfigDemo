@@ -81,10 +81,15 @@ UITableViewDelegate
 
 Prop_assign()JobsDropDownListViewDirection direction;
 
--(JobsDropDownListView *_Nonnull)jobsReloadDataWithModels:(NSArray <__kindof UIViewModel *>*_Nullable)models;
+-(JobsRetJobsDropDownListViewByDirectionBlock _Nonnull)byDirection;
+-(JobsRetJobsDropDownListViewByNSArrayUIViewModelBlock _Nonnull)jobsReloadDataWithModels;
 -(jobsByIDBlock _Nonnull)jobsRichViewByModel;
 -(jobsByCtrlBlock _Nonnull)dropDownListViewDisappear;
 -(instancetype)initWithTableViewClass:(Class <UITableViewCellProtocol>_Nonnull)tableViewClass;// 要链接自定义的cell用这个初始化方法
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsDropDownListView
+-(JobsRetJobsDropDownListViewByNSMutableArrayUITableViewCellBlock _Nonnull)byTbvCellMutArr;
+-(JobsRetJobsDropDownListViewByNSMutableArrayUIViewModelBlock _Nonnull)byDataMutArr;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsDropDownListView
 @end
 
 NS_ASSUME_NONNULL_END
@@ -95,7 +100,7 @@ NS_ASSUME_NONNULL_END
      if(!_btn){
          @jobs_weakify(self)
          _btn = BaseButton
-             .initByStyle1(@"点击按钮弹出下拉列表".tr,UIFontWeightRegularSize(12),JobsWhiteColor)
+             .initByStyle1(@"点击按钮弹出下拉列表".jobsTr(),UIFontWeightRegularSize(12),JobsWhiteColor)
              .bgColorBy(JobsWhiteColor)
              .cornerRadiusValueBy(JobsWidth(8))
              .onClickBy(^(UIButton *x){

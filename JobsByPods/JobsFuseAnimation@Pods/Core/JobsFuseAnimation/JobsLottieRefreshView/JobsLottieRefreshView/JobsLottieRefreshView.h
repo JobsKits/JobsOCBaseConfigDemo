@@ -7,6 +7,18 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsOCDSL/UIView+DSL.h>)
+#import <JobsOCDSL/UIView+DSL.h>
+#else
+#import "UIView+DSL.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<lottie-ios/Lottie.h>)
 #import <lottie-ios/Lottie.h>
 #else
@@ -41,11 +53,14 @@ Prop_assign()CGSize indicatorSize;
 
 -(instancetype)initWithAnimationNamed:(NSString *)animationName;
 -(instancetype)initWithAnimationPath:(NSString *)animationPath;
--(instancetype)byStart;
--(instancetype)byPause;
--(instancetype)byResume;
--(instancetype)byStop;
+-(JobsRetIDByVoidBlock _Nonnull)byStart;
+-(JobsRetIDByVoidBlock _Nonnull)byPause;
+-(JobsRetIDByVoidBlock _Nonnull)byResume;
+-(JobsRetIDByVoidBlock _Nonnull)byStop;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsLottieRefreshView
+-(JobsRetJobsLottieRefreshViewByBOOLBlock _Nonnull)byWantsAnimating;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsLottieRefreshView
 @end
 
 NS_ASSUME_NONNULL_END

@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_JOBSAPPDOORINPUTVIEWBASESTYLE_6_EFD5CE445A
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsAppDoor/JobsAppDoorConfig.h>
 #import <JobsAppDoor/JobsAppDoorInputViewBaseStyle.h>
 #import <JobsOCTools/JobsOCTools.h>
@@ -65,6 +71,9 @@ NS_ASSUME_NONNULL_BEGIN
  
  */
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorInputViewBaseStyle_6
+-(JobsRetJobsAppDoorInputViewBaseStyle_6ByJobsAppDoorInputViewBaseStyleModelBlock _Nonnull)byDoorInputViewBaseStyleModel;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_6
 @end
 
 NS_ASSUME_NONNULL_END

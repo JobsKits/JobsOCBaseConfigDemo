@@ -12,6 +12,12 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<XYColorOC/XYColorOC.h>)
 #import <XYColorOC/XYColorOC.h>
 #else
@@ -54,7 +60,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (AppTools)<AppToolsProtocol>
 
--(UIButtonModel *)makeBackBtnModel;
+-(JobsRetUIButtonModelByVoidBlock _Nonnull)jobsMakeBackBtnModel;
 
 @end
 

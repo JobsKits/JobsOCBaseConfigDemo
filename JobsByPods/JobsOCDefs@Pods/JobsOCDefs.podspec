@@ -35,6 +35,7 @@ It also centralizes system-font construction, including arbitrary UIFontWeight v
   spec.dependency 'XYColorOC'
   spec.dependency 'YTKNetwork'
   spec.dependency 'GKNavigationBar'
+  spec.dependency 'JobsBlock'
   spec.dependency 'JobsStringUtils'
   spec.dependency 'JobsGetWindow'
 

@@ -17,9 +17,9 @@ Prop_strong()LuckyWheelView *wheelView;
 Prop_strong()UIButton *spinToggleBtn;
 Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
 
-- (UIImage *)luckyWheelResultToastImage;
-- (void)showLuckyWheelResultToastBySegment:(LuckyWheelSegment *)segment;
-- (void)updateSpinToggleBtnBySpinning:(BOOL)spinning;
+- (JobsRetImageByVoidBlock _Nonnull)luckyWheelResultToastImage;
+-(jobsByLuckyWheelSegmentBlock _Nonnull)showLuckyWheelResultToastBySegment;
+-(jobsByBOOLBlock _Nonnull)updateSpinToggleBtnBySpinning;
 
 @end
 
@@ -30,118 +30,163 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(LuckyWheelDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(@"抽奖转盘".tr)
-                .byFont(UIFontWeightRegularSize(18));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
-        .byBgCor(HEXCOLOR(0xFFF7EA))
-        .byNavBgCor(HEXCOLOR(0xFFF1E2));/// self.gk_navBackgroundColor 和 self.view.backgroundColor
-        //    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(@"抽奖转盘".jobsTr())
+                    .byFont(UIFontWeightRegularSize(18));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;/// self.gk_navBackgroundImage 和 self.bgImageView
+            .byBgCor(HEXCOLOR(0xFFF7EA))
+            .byNavBgCor(HEXCOLOR(0xFFF1E2));/// self.gk_navBackgroundColor 和 self.view.backgroundColor
+            //    self.viewModel.navBgImage = @"导航栏左侧底图".img;
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.backgroundGradientLayer.byHidden(NO);
-    self.stageView.byVisible(YES);
-    self.stageTitleLab.byVisible(YES);
-    self.stageSubTitleLab.byVisible(YES);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(LuckyWheelDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
     @jobs_weakify(self)
-    self.rightBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
+    return ^{
         @jobs_strongify(self)
-        data.add(UIBarButtonItem.initBy(self.spinToggleBtn));
-    });
-    self.makeNavByAlpha(1);
-    self.wheelView.byVisible(YES);
-    [self updateSpinToggleBtnBySpinning:self.wheelView.isSpinning];
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.backgroundGradientLayer.byHidden(NO);
+        self.stageView.byVisible(YES);
+        self.stageTitleLab.byVisible(YES);
+        self.stageSubTitleLab.byVisible(YES);
+        @jobs_weakify(self)
+        self.byRightBarButtonItems(jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
+            @jobs_strongify(self)
+            data.add(UIBarButtonItem.initBy(self.spinToggleBtn));
+        }));
+        self.makeNavByAlpha(1);
+        self.wheelView.byVisible(YES);
+        self.updateSpinToggleBtnBySpinning(self.wheelView.isSpinning);
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    self.backgroundGradientLayer.byFrame(self.view.bounds);
-    self.stageView.layer.byShadowPath(UIBezierPath.byBezierPathWithRoundedRect(self.stageView.bounds,
-                                                                               JobsWidth(24)).CGPath);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(LuckyWheelDemoVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
 }
 
--(void)updateSpinToggleBtnBySpinning:(BOOL)spinning{
-    self.spinToggleBtn.bySelected(spinning);
-    self.spinToggleBtn.jobsResetBtnTitle(spinning ? @"停止".tr : @"开始抽奖".tr);
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        self.backgroundGradientLayer.byFrame(self.view.bounds);
+        self.stageView.layer.byShadowPath(UIBezierPath.byBezierPathWithRoundedRect(self.stageView.bounds,
+                                                                                   JobsWidth(24)).CGPath);
+    };
 }
 
-- (void)showLuckyWheelResultToastBySegment:(LuckyWheelSegment *)segment {
-    NSString *result = (segment.text ?: @"未知奖项").tr;
-    [WHToast showImage:self.luckyWheelResultToastImage
-               message:[NSString stringWithFormat:@"%@\n%@", @"抽奖结果：".tr, result]
-              duration:1.5
-         finishHandler:nil];
+-(jobsByBOOLBlock _Nonnull)updateSpinToggleBtnBySpinning{
+    @jobs_weakify(self)
+    return ^(BOOL spinning){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.spinToggleBtn.bySelected(spinning);
+        self.spinToggleBtn.jobsResetBtnTitle(spinning ? @"停止".jobsTr() : @"开始抽奖".jobsTr());
+    };
 }
 
-- (UIImage *)luckyWheelResultToastImage {
-    CGSize size = CGSizeMake(JobsWidth(44), JobsWidth(44));
-    UIGraphicsImageRendererFormat *format = UIGraphicsImageRendererFormat.defaultFormat;
-    format.opaque = NO;
-    UIGraphicsImageRenderer *renderer = [UIGraphicsImageRenderer.alloc initWithSize:size
-                                                                             format:format];
-    return [renderer imageWithActions:^(__unused UIGraphicsImageRendererContext * _Nonnull rendererContext) {
-        NSString *emoji = @"🎉";
-        UIFont *font = UIFontSystemFontOfSize(size.width * 0.78);
-        NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
-        paragraphStyle.alignment = NSTextAlignmentCenter;
-        NSDictionary<NSAttributedStringKey, id> *attributes = @{
-            NSFontAttributeName: font,
-            NSParagraphStyleAttributeName: paragraphStyle
-        };
-        CGSize emojiSize = [emoji sizeWithAttributes:attributes];
-        CGRect rect = CGRectMake((size.width - emojiSize.width) / 2.0,
-                                 (size.height - emojiSize.height) / 2.0,
-                                 emojiSize.width,
-                                 emojiSize.height);
-        [emoji drawInRect:rect
-           withAttributes:attributes];
-    }];
+-(jobsByLuckyWheelSegmentBlock _Nonnull)showLuckyWheelResultToastBySegment{
+    @jobs_weakify(self)
+    return ^(LuckyWheelSegment * segment){
+        @jobs_strongify(self)
+        if (!self) return;
+        NSString *result = (segment.text ?: @"未知奖项").jobsTr();
+        [WHToast showImage:self.luckyWheelResultToastImage()
+                   message:[NSString stringWithFormat:@"%@\n%@", @"抽奖结果：".jobsTr(), result]
+                  duration:1.5
+             finishHandler:nil];
+    };
+}
+
+- (JobsRetImageByVoidBlock _Nonnull)luckyWheelResultToastImage {
+    @jobs_weakify(self)
+    return ^UIImage *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        CGSize size = CGSizeMake(JobsWidth(44), JobsWidth(44));
+        UIGraphicsImageRendererFormat *format = UIGraphicsImageRendererFormat.defaultFormat;
+        format.byOpaque(NO);
+        UIGraphicsImageRenderer *renderer = [UIGraphicsImageRenderer.alloc initWithSize:size
+                                                                                 format:format];
+        return [renderer imageWithActions:^(__unused UIGraphicsImageRendererContext * _Nonnull rendererContext) {
+            NSString *emoji = @"🎉";
+            UIFont *font = UIFontSystemFontOfSize(size.width * 0.78);
+            NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
+            paragraphStyle.byAlignment(NSTextAlignmentCenter);
+            NSDictionary<NSAttributedStringKey, id> *attributes = @{
+                NSFontAttributeName: font,
+                NSParagraphStyleAttributeName: paragraphStyle
+            };
+            CGSize emojiSize = [emoji sizeWithAttributes:attributes];
+            CGRect rect = CGRectMake((size.width - emojiSize.width) / 2.0,
+                                     (size.height - emojiSize.height) / 2.0,
+                                     emojiSize.width,
+                                     emojiSize.height);
+            [emoji drawInRect:rect
+               withAttributes:attributes];
+        }];
+    };
 }
 #pragma mark —— Lazyload
 -(NSMutableArray<LuckyWheelSegment *> *)segments{
     if(!_segments){
         _segments = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
-            arr.add([LuckyWheelSegment.alloc initWithText:@"一等奖".tr
+            arr.add([LuckyWheelSegment.alloc initWithText:@"一等奖".jobsTr()
                                                  textFont:UIFontWeightSemiboldSize(JobsWidth(13))
                                                 textColor:HEXCOLOR(0x314255)
                                            attributedText:nil
                                           backgroundColor:HEXCOLOR(0xBFE5F2)
                                          placeholderImage:@"gift.fill".sys_img
                                            imageURLString:@"https://picsum.photos/30"])
-            .add([LuckyWheelSegment.alloc initWithText:@"二等奖".tr
+            .add([LuckyWheelSegment.alloc initWithText:@"二等奖".jobsTr()
                                               textFont:UIFontWeightSemiboldSize(JobsWidth(13))
                                              textColor:HEXCOLOR(0x314255)
                                         attributedText:nil
                                        backgroundColor:HEXCOLOR(0xFFE2A9)
                                       placeholderImage:@"sparkles".sys_img
                                         imageURLString:@"https://picsum.photos/30"])
-            .add([LuckyWheelSegment.alloc initWithText:@"三等奖".tr
+            .add([LuckyWheelSegment.alloc initWithText:@"三等奖".jobsTr()
                                               textFont:UIFontWeightSemiboldSize(JobsWidth(13))
                                              textColor:HEXCOLOR(0x314255)
                                         attributedText:nil
                                        backgroundColor:HEXCOLOR(0xCDEBDC)
                                       placeholderImage:@"seal.fill".sys_img
                                         imageURLString:@"https://picsum.photos/30"])
-            .add([LuckyWheelSegment.alloc initWithText:@"谢谢参与".tr
+            .add([LuckyWheelSegment.alloc initWithText:@"谢谢参与".jobsTr()
                                               textFont:UIFontWeightSemiboldSize(JobsWidth(13))
                                              textColor:HEXCOLOR(0x314255)
                                         attributedText:nil
@@ -160,9 +205,9 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
             (__bridge id)HEXCOLOR(0xF9E7C8).CGColor,
             (__bridge id)HEXCOLOR(0xFFE8D6).CGColor
         ];
-        _backgroundGradientLayer.locations = @[@0, @0.48, @1];
-        _backgroundGradientLayer.startPoint = CGPointMake(0.2, 0);
-        _backgroundGradientLayer.endPoint = CGPointMake(0.9, 1);
+        _backgroundGradientLayer.byLocations(@[@0, @0.48, @1]);
+        _backgroundGradientLayer.byStartPoint(CGPointMake(0.2, 0));
+        _backgroundGradientLayer.byEndPoint(CGPointMake(0.9, 1));
         [self.view.layer insertSublayer:_backgroundGradientLayer atIndex:0];
     };return _backgroundGradientLayer;
 }
@@ -198,7 +243,7 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
         @jobs_weakify(self)
         _stageTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"LUCKY WHEEL".tr)
+                .byText(@"LUCKY WHEEL".jobsTr())
                 .byFont(UIFontWeightSemiboldSize(JobsWidth(15)))
                 .byTextCor(HEXCOLOR(0xC37A19))
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -219,7 +264,7 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
         @jobs_weakify(self)
         _stageSubTitleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"转动今日手气".tr)
+                .byText(@"转动今日手气".jobsTr())
                 .byFont(UIFontWeightRegularSize(JobsWidth(13)))
                 .byTextCor(JobsSecondaryLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
@@ -240,7 +285,6 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
         @jobs_weakify(self)
         _wheelView = jobsMakeLuckyWheelView(^(__kindof LuckyWheelView * _Nullable wheel) {
             @jobs_strongify(self)
-            wheel.translatesAutoresizingMaskIntoConstraints = NO;
             wheel.bySegments(self.segments)
                 .byPointerDirection(JobsDirectionUp)
                 .bySpinDuration(3.0)
@@ -248,18 +292,20 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
                 .byPanRotationEnabled(YES)
                 .bySegmentTap(^(LuckyWheelSegment * _Nonnull segment) {
                     @jobs_strongify(self)
-                    [self showLuckyWheelResultToastBySegment:segment];
+                    self.showLuckyWheelResultToastBySegment(segment);
                 })
                 .bySegmentLongPress(^(LuckyWheelSegment * _Nonnull segment,
                                       UILongPressGestureRecognizer * _Nonnull gr) {
                  if (gr.state == UIGestureRecognizerStateBegan) {
                      [NSString stringWithFormat:@"长按奖项：%@", segment.text ?: @""].toast();
                  }
-             }).byBgColor(JobsClearColor);
-            [wheel onSpinningStateChanged:^(BOOL spinning) {
+             })
+            .onSpinningStateChanged(^(BOOL spinning) {
                 @jobs_strongify(self)
-                [self updateSpinToggleBtnBySpinning:spinning];
-            }];
+                self.updateSpinToggleBtnBySpinning(spinning);
+            });
+            wheel.byTranslatesAutoresizingMaskIntoConstraints(NO)
+                .byBgColor(JobsClearColor);
         })
         .addOn(self.stageView)
         .byAdd(^(MASConstraintMaker *make) {
@@ -275,8 +321,8 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
     if(!_spinToggleBtn){
         @jobs_weakify(self)
         _spinToggleBtn = BaseButton.jobsInit()
-            .jobsResetBtnTitle(@"开始抽奖".tr)
-            .selectedStateTitleBy(@"停止".tr)
+            .jobsResetBtnTitle(@"开始抽奖".jobsTr())
+            .selectedStateTitleBy(@"停止".jobsTr())
             .jobsResetBtnTitleCor(HEXCOLOR(0x5F3B12))
             .selectedStateTitleColorBy(HEXCOLOR(0x5F3B12))
             .jobsResetBtnTitleFont(UIFontWeightMediumSize(JobsWidth(15)))
@@ -284,8 +330,8 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
             .jobsResetBtnCornerRadiusValue(JobsWidth(18))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                [self.wheelView toggleSpin];
-                [self updateSpinToggleBtnBySpinning:self.wheelView.isSpinning];
+                self.wheelView.toggleSpin();
+                self.updateSpinToggleBtnBySpinning(self.wheelView.isSpinning);
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             })

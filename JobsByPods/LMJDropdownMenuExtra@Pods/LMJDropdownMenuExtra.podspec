@@ -15,6 +15,8 @@ Pod::Spec.new do |spec|
   spec.frameworks = ['Foundation', 'UIKit']
   spec.dependency 'LMJDropdownMenu'
   spec.dependency 'JobsOCDSL'
+  spec.dependency 'JobsBlock'
+  spec.dependency 'JobsOCDefs'
 
   spec.source_files = [
     'LMJDropdownMenuExtra.h',

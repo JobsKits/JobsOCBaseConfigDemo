@@ -24,7 +24,17 @@ Prop_strong()BaseButton *sendBtn;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsIMInputview.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 #pragma mark —— BaseViewProtocol
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -42,12 +52,12 @@ Prop_strong()BaseButton *sendBtn;
     return ^(NSString *_Nullable string){
         @jobs_strongify(self)
         if (isValue(string)) {
-            self.sendBtn.userInteractionEnabled = YES;
-            self.sendBtn.byEnabled(YES);
+            self.sendBtn.byUserInteractionEnabled(YES);
+            if (self.sendBtn) self.sendBtn.byEnabled(YES);
             self.imgView.byImage(@"输入框有值".img);
         }else{
-            self.sendBtn.userInteractionEnabled = NO;
-            self.sendBtn.byEnabled(NO);
+            self.sendBtn.byUserInteractionEnabled(NO);
+            if (self.sendBtn) self.sendBtn.byEnabled(NO);
             self.imgView.byImage(@"输入框无值".img);
         }
     };
@@ -55,29 +65,47 @@ Prop_strong()BaseButton *sendBtn;
 #pragma mark —— UITextFieldDelegate
 /// 告诉委托人对指定的文本字段停止编辑
 - (void)textFieldDidEndEditing:(ZYTextField *)textField{
-    [textField isEmptyText];
+    ((((jobsByZYTextFieldBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsIMInputview.class, @selector(textFieldDidEndEditing)))(self, @selector(textFieldDidEndEditing))))(textField);
+}
+-(jobsByZYTextFieldBlock _Nonnull)textFieldDidEndEditing{
+    @jobs_weakify(self)
+    return ^(ZYTextField * textField){
+        @jobs_strongify(self)
+        if (!self) return;
+        textField.isEmptyText();
+    };
 }
 /// 询问委托人文本字段是否应处理按下返回按钮
 - (BOOL)textFieldShouldReturn:(ZYTextField *)textField{
-    [self endEditing:YES];
-    if (self.objBlock) self.objBlock(textField);
-    return YES;
+    JobsRetBOOLByZYTextFieldBlock action = ((JobsRetBOOLByZYTextFieldBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsIMInputview.class, @selector(jobsTextFieldShouldReturn)))(self, @selector(jobsTextFieldShouldReturn));
+    return action ? action(textField) : NO;
+}
+
+-(JobsRetBOOLByZYTextFieldBlock _Nonnull)jobsTextFieldShouldReturn{
+    @jobs_weakify(self)
+    return ^BOOL(ZYTextField * textField){
+        @jobs_strongify(self)
+        if (!self) return NO;
+        [self endEditing:YES];
+        if (self.objBlock) self.objBlock(textField);
+        return YES;
+    };
 }
 #pragma mark —— lazyLoad
 -(BaseButton *)sendBtn{
     if (!_sendBtn) {
         @jobs_weakify(self)
         _sendBtn = BaseButton.jobsInit()
-            .jobsResetBtnBgImage(JobsCyanColor.image)
+            .jobsResetBtnBgImage(JobsCyanColor.jobsImage())
             .jobsResetBtnTitleCor(JobsWhiteColor)
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-            .jobsResetBtnTitle(@"发送".tr)
+            .jobsResetBtnTitle(@"发送".jobsTr())
             .jobsResetBtnCornerRadiusValue(JobsWidth(3))
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 BOOL selected = !x.selected;
                 x
-                    .jobsResetBtnBgImage(JobsLightGrayColor.image)
+                    .jobsResetBtnBgImage(JobsLightGrayColor.jobsImage())
                     .bySelected(selected);
                 if (self.objBlock) self.objBlock(x);
                 [self endEditing:YES];
@@ -85,7 +113,7 @@ Prop_strong()BaseButton *sendBtn;
                     self.playSoundEffect(@"Sound.wav");
                     if (self.objBlock) self.objBlock(self.inputTextField);
                 }
-                self.inputTextField.byText(@"".tr);
+                self.inputTextField.byText(@"".jobsTr());
                 x.byEnabled(NO);
             })
             .onLongPressGestureBy(^(id data){
@@ -100,8 +128,8 @@ Prop_strong()BaseButton *sendBtn;
                 make.right.equalTo(self).offset(-10);
                 make.width.mas_equalTo(50);
             });
-        _sendBtn.userInteractionEnabled = NO;
-        _sendBtn.byEnabled(NO);
+        _sendBtn.byUserInteractionEnabled(NO);
+        if (_sendBtn) _sendBtn.byEnabled(NO);
     };return _sendBtn;
 }
 
@@ -112,7 +140,7 @@ Prop_strong()BaseButton *sendBtn;
             @jobs_strongify(self)
             textField
                 .byPlaceHolderAlignment(NSTextAlignmentCenter)
-                .byPlaceholder(@"在此输入需要发送的信息".tr)
+                .byPlaceholder(@"在此输入需要发送的信息".jobsTr())
                 .byDelegate(self)
                 .byLeftView(self.imgView)
                 .byLeftViewOffsetX(20)
@@ -160,7 +188,7 @@ Prop_strong()BaseButton *sendBtn;
     if (!_adNoticeLab) {
         _adNoticeLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
             label
-                .byText(@"Jobs安全聊天，为您的聊天加密护航".tr)
+                .byText(@"Jobs安全聊天，为您的聊天加密护航".jobsTr())
                 .byTextCor(JobsSecondaryLabelColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byFont(UIFontWeightRegularSize(JobsWidth(12)))

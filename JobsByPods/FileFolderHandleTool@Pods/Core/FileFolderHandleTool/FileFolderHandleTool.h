@@ -135,11 +135,11 @@ NS_ASSUME_NONNULL_BEGIN
 /// 删除文件（夹）
 +(BOOL)removeItemAtPath:(NSString *)path error:(NSError *__autoreleasing *)error;
 /// 给定一个路径，删除旗下所有东西
-+(jobsByStrBlock)cleanFilesWithPath;
++(jobsByStrBlock _Nonnull)cleanFilesWithPath;
 /// 清空Cashes文件夹
-+(BOOL)clearCachesDirectory;
++(JobsRetBOOLByVoidBlock _Nonnull)clearCachesDirectory;
 /// 清空temp文件夹
-+(BOOL)clearTmpDirectory;
++(JobsRetBOOLByVoidBlock _Nonnull)clearTmpDirectory;
 #pragma mark —— 复制文件（夹）
 /// 复制文件 依据源文件的路径复制一份到目标路径：
 /*参数1、被复制文件路径
@@ -223,7 +223,7 @@ NS_ASSUME_NONNULL_BEGIN
 didFinishSavingWithError:(NSError *)error
            contextInfo:(void *)contextInfo;
 /// 保存文件到系统默认的相册，videoPath为视频下载到本地之后的本地路径
-+(void)saveVideo:(NSString *)videoPath;
++(jobsByStrBlock _Nonnull)saveVideo;
 /// 保存视频完成之后的回调
 +(void)video:(NSString *)videoPath
 didFinishSavingWithError:(NSError *)error

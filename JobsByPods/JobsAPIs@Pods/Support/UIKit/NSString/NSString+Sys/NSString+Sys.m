@@ -9,11 +9,25 @@
 
 @implementation NSString (Sys)
 -(UIColor *)cor{
-    return UIColor.jobsCor(self);
+    return (((JobsRetCorByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsCor)))(self, @selector(jobsCor)))();
 }
 
--(UIColor *)namedCor{
-    return [UIColor colorNamed:self];
+-(JobsRetCorByVoidBlock _Nonnull)jobsCor{
+    @jobs_weakify(self)
+    return ^UIColor *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return UIColor.jobsCor(self);
+    };
+}
+
+-(JobsRetCorByVoidBlock _Nonnull)namedCor{
+    @jobs_weakify(self)
+    return ^UIColor *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return [UIColor colorNamed:self];
+    };
 }
 /// 取UIStoryboard
 -(JobsRetStoryboardByBundleBlock _Nonnull)sbByBundle{
@@ -56,8 +70,13 @@
     };
 }
 /// 对系统方法 rangeOfString 的二次封装（当执行参数是本字符串时）
--(NSRange)range{
-    return [self rangeOfString:self];
+-(JobsRetRangeByVoidBlock _Nonnull)range{
+    @jobs_weakify(self)
+    return ^NSRange{
+        @jobs_strongify(self)
+        if (!self) return (NSRange){0};
+        return self.rangeOfString(self);
+    };
 }
 /// 对系统方法 stringByTrimmingCharactersInSet 的二次封装
 -(JobsRetStrByCharacterSetBlock _Nonnull)byTrimmingCharactersInSet{

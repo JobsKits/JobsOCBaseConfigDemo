@@ -7,6 +7,14 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsProgressBar/JobsProgressBarHeader.h>)
+#import <JobsProgressBar/JobsProgressBarHeader.h>
+#elif __has_include(<JobsProgressBar/JobsProgressBar.h>)
+#import <JobsProgressBar/JobsProgressBar.h>
+#else
+#import "JobsProgressBar.h"
+#endif
+
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else
@@ -25,16 +33,16 @@
 #import "JobsByOCPods.h"
 #endif
 
-#if __has_include(<JobsMakes/JobsMakes.h>)
-#import <JobsMakes/JobsMakes.h>
-#else
-#import "JobsMakes.h"
-#endif
-
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
 #import "JobsLanMgr.h"
+#endif
+
+#if __has_include(<JobsMakes/JobsMakes.h>)
+#import <JobsMakes/JobsMakes.h>
+#else
+#import "JobsMakes.h"
 #endif
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
@@ -55,18 +63,13 @@
 #import "JobsDefines.h"
 #endif
 
-#if __has_include(<JobsProgressBar/JobsProgressBarHeader.h>)
-#import <JobsProgressBar/JobsProgressBarHeader.h>
-#elif __has_include(<JobsProgressBar/JobsProgressBar.h>)
-#import <JobsProgressBar/JobsProgressBar.h>
-#else
-#import "JobsProgressBar.h"
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsProgressDemoVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsProgressDemoVC
+-(JobsRetJobsProgressDemoVCByBOOLBlock _Nonnull)byAutoRunning;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsProgressDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

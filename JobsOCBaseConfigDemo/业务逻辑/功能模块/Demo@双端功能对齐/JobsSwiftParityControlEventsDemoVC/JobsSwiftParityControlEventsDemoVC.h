@@ -13,10 +13,25 @@
 #import "XYColorOC.h"
 #endif
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsSwiftParityControlEventsDemoVC : JobsSwiftParityDemoBaseVC
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsSwiftParityControlEventsDemoVC
+-(JobsRetJobsSwiftParityControlEventsDemoVCByNSUIntegerBlock _Nonnull)byControlEventCount;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsSwiftParityControlEventsDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

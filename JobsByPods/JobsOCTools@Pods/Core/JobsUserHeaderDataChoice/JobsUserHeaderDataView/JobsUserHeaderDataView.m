@@ -12,8 +12,8 @@ static void JobsUserHeaderDataViewSetAssociatedObject(id target, SEL setter, id 
     NSMethodSignature *signature = [target methodSignatureForSelector:setter];
     if (!signature) return;
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
-    invocation.target = target;
-    invocation.selector = setter;
+    invocation.byTarget(target);
+    invocation.bySelector(setter);
     [invocation setArgument:&value atIndex:2];
     [invocation invoke];
 }
@@ -26,8 +26,8 @@ static void JobsUserHeaderDataViewInvokePhotoAlbum(id target,
     NSMethodSignature *signature = [target methodSignatureForSelector:selector];
     if (!signature) return;
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
-    invocation.target = target;
-    invocation.selector = selector;
+    invocation.byTarget(target);
+    invocation.bySelector(selector);
     [invocation setArgument:&successBlock atIndex:2];
     [invocation setArgument:&failBlock atIndex:3];
     [invocation invoke];
@@ -55,16 +55,30 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{
-    static_choiceUserHeaderDataViewOnceToken = 0;
-    static_choiceUserHeaderDataView = nil;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsUserHeaderDataView.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_choiceUserHeaderDataViewOnceToken = 0;
+        static_choiceUserHeaderDataView = nil;
+    };
 }
 
 static JobsUserHeaderDataView *static_choiceUserHeaderDataView = nil;
 static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
 +(instancetype)sharedManager{
-    dispatch_once(&static_choiceUserHeaderDataViewOnceToken, ^{
-        static_choiceUserHeaderDataView = JobsUserHeaderDataView.new;
-    });return static_choiceUserHeaderDataView;
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsUserHeaderDataView.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_choiceUserHeaderDataViewOnceToken, ^{
+            static_choiceUserHeaderDataView = JobsUserHeaderDataView.new;
+        });return static_choiceUserHeaderDataView;
+    };
 }
 
 -(instancetype)init{
@@ -91,11 +105,31 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsUserHeaderDataView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)layoutSubviews{
-    [super layoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsUserHeaderDataView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+    };
 }
 #pragma mark —— 一些公有方法
 -(__kindof JobsUserHeaderDataView *)makeImageByBlock:(jobsByIDBlock _Nullable)block
@@ -106,9 +140,9 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
         .JobsRichViewByModel2(nil)
         .JobsBlock1(^(JobsUserHeaderDataViewTBVCell *cell) {
             @jobs_strongify(self)
-            if (cell.getTitleValue.isEqualToString(拍照.tr)) {
+            if (cell.getTitleValue().isEqualToString(拍照.jobsTr())) {
                 JobsUserHeaderDataViewInvokeCamera(self);/// 完全意义上的调用系统的相机拍照功能
-            }else if (cell.getTitleValue.isEqualToString(从相册中选取.tr)){
+            }else if (cell.getTitleValue().isEqualToString(从相册中选取.jobsTr())){
                 JobsUserHeaderDataViewInvokePhotoAlbum(self, ^(HXPhotoPickerModel *data) {
                     @jobs_strongify(self)
                     JobsUserHeaderDataViewSetAssociatedObject(self, @selector(setPhotoManager:), data.photoManager);
@@ -121,7 +155,7 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
                 }, ^(HXPhotoPickerModel *data) {
     //                @jobs_strongify(self)
                 });
-            }else if (cell.getTitleValue.isEqualToString(取消.tr)){
+            }else if (cell.getTitleValue().isEqualToString(取消.jobsTr())){
 //                    @jobs_strongify(self)
             }else{}
             if(finishBlock) finishBlock();
@@ -129,12 +163,14 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
     return self;
 }
 #pragma mark —— 一些私有方法
-+(NSMutableArray<UIViewModel *> *)createDataMutArr{
-    return jobsMakeMutArr(^(__kindof NSMutableArray <UIViewModel *>* _Nullable arr) {
-        arr.add(JobsUserHeaderDataView.makeViewModelBy(@"拍照".tr))
-        .add(JobsUserHeaderDataView.makeViewModelBy(@"从相册中选取".tr))
-        .add(JobsUserHeaderDataView.makeViewModelBy(@"取消".tr));
-    });
++(JobsRetNSMutableArrayUIViewModelByVoidBlock _Nonnull)createDataMutArr{
+    return ^NSMutableArray<UIViewModel *> *{
+        return jobsMakeMutArr(^(__kindof NSMutableArray <UIViewModel *>* _Nullable arr) {
+            arr.add(JobsUserHeaderDataView.makeViewModelBy(@"拍照".jobsTr()))
+            .add(JobsUserHeaderDataView.makeViewModelBy(@"从相册中选取".jobsTr()))
+            .add(JobsUserHeaderDataView.makeViewModelBy(@"取消".jobsTr()));
+        });
+    };
 }
 
 +(JobsRetViewModelByStringBlock _Nonnull)makeViewModelBy{
@@ -152,7 +188,7 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
     @jobs_weakify(self)
     return ^(UIViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.viewModel = model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {});
+        self.byViewModel(model ? : jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data) {}));
     //    self.viewModel.usesTableViewHeaderView = YES;// 这个属性在外面设置
         MakeDataNull
         self.tableView.byShow(self);
@@ -167,12 +203,22 @@ static dispatch_once_t static_choiceUserHeaderDataViewOnceToken;
                           (data.usesTableViewHeaderView ? JobsUserHeaderDataViewForHeaderInSection.viewHeightByModel(nil) : 0 ) +
                           JobsBottomSafeAreaHeight() +
                           JobsWidth(31) +
-                          JobsUserHeaderDataViewTBVCell.cellHeightByModel(nil) * JobsUserHeaderDataView.createDataMutArr.count);
+                          JobsUserHeaderDataViewTBVCell.cellHeightByModel(nil) * JobsUserHeaderDataView.createDataMutArr().count);
     };
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsUserHeaderDataView.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 1;
+    };
 }
 
 - (CGFloat)tableView:(UITableView *)tableView
@@ -245,14 +291,14 @@ viewForHeaderInSection:(NSInteger)section{
                 })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .byTableFooterView(jobsMakeLabel(^(__kindof UILabel *_Nullable label) {
                     label
-                        .byText(@"- 没有更多的内容了 -".tr)
+                        .byText(@"- 没有更多的内容了 -".jobsTr())
                         .byFont(UIFontWeightRegularSize(12))
                         .byTextAlignment(NSTextAlignmentCenter)
                         .byTextCor(JobsSecondaryLabelColor)
                         .makeLabelByShowingType(UILabelShowingType_03);
                 })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .emptyDataByButtonModel(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
-                    data.byTitle(@"NO MESSAGES FOUND".tr)
+                    data.byTitle(@"NO MESSAGES FOUND".jobsTr())
                         .byTitleCor(JobsWhiteColor)
                         .byTitleFont(bayonRegular(JobsWidth(30)))
                         .byNormalImage(@"小狮子".img);
@@ -262,13 +308,13 @@ viewForHeaderInSection:(NSInteger)section{
                     @jobs_strongify(self)
                     NSObject.feedbackGenerator(nil);/// 震动反馈
                     self->_tableView.endRefreshing(YES);
-                }].byMJRefreshHeaderConfigModel(self.mjHeaderDefaultConfig))
+                }].byMJRefreshHeaderConfigModel(self.jobsMjHeaderDefaultConfig()))
                 /// 普通的MJRefreshFooter（触发事件）
                 .byMJRefreshFooter([MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
                     @jobs_strongify(self)
                     NSObject.feedbackGenerator(nil);// 震动反馈
                     self->_tableView.endRefreshing(self.dataMutArr.count);
-                }].byMJRefreshFooterConfigModel(self.mjFooterDefaultConfig))
+                }].byMJRefreshFooterConfigModel(self.jobsMjFooterDefaultConfig()))
                 .byShowsVerticalScrollIndicator(NO)
                 .byShowsHorizontalScrollIndicator(NO)
                 .byScrollEnabled(YES)
@@ -284,7 +330,7 @@ viewForHeaderInSection:(NSInteger)section{
 
 -(NSMutableArray<UIViewModel *> *)dataMutArr{
     if (!_dataMutArr) {
-        _dataMutArr = JobsUserHeaderDataView.createDataMutArr;
+        _dataMutArr = JobsUserHeaderDataView.createDataMutArr();
     };return _dataMutArr;
 }
 

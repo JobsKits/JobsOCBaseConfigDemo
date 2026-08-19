@@ -21,6 +21,12 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsMsgDetailVC
+@interface JobsMsgDetailVC (JobsPropertyDSLSetterAutogen_3b9c6f75dd)
+-(void)setMsgDataModel:(JobsMsgDataModel * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsMsgDetailVC
+
 @implementation JobsMsgDetailVC
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
@@ -28,75 +34,155 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
 }
 
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        self.msgDataModel = self.viewModel.data;
-    }
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data
-                .byTextCor(JobsLabelColor)
-                .byText(@"消息详情页".tr)
-                .byFont(UIFontWeightBoldSize(17));
-        })
-        // 使用原则：底图有 + 底色有 = 优先使用底图数据
-        // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
-        // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
-        .byBgCor(HEXCOLOR(0xF6F7FB))
-        //    self.viewModel.bgImage = @"启动页SLOGAN".img;
-        .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
-        .byNavBgImage(@"导航栏左侧底图".img);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMsgDetailVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            self.byMsgDataModel(self.viewModel.data);
+        }
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data
+                    .byTextCor(JobsLabelColor)
+                    .byText(@"消息详情页".jobsTr())
+                    .byFont(UIFontWeightBoldSize(17));
+            })
+            // 使用原则：底图有 + 底色有 = 优先使用底图数据
+            // 以下2个属性的设置，涉及到的UI结论 请参阅父类（BaseViewController）的私有方法：-(void)setBackGround
+            // self.viewModel.bgImage = @"内部招聘导航栏背景图".img;
+            .byBgCor(HEXCOLOR(0xF6F7FB))
+            //    self.viewModel.bgImage = @"启动页SLOGAN".img;
+            .byNavBgCor(RGBA_COLOR(255, 238, 221, 1))
+            .byNavBgImage(@"导航栏左侧底图".img);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMsgDetailVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
     @jobs_weakify(self)
-    self.leftBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
+    return ^{
         @jobs_strongify(self)
-//        data.add(UIBarButtonItem.initBy(self.shareBtn));
-    });
-    self.rightBarButtonItems = jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
-        @jobs_strongify(self)
-        data.add(UIBarButtonItem.initBy(self.deleteBtn));
-    });
-    self.makeNavByAlpha(1);
-    self.headerCardView.byAlpha(1);
-    self.titleLab.byAlpha(1);
-    self.subTitleLab.byAlpha(1);
-    self.drawBtn.byAlpha(1);
-    self.lineLab.byAlpha(1);
-    self.contentCardView.byAlpha(1);
-    self.textView.byAlpha(1);
+        if (!self) return;
+            [super viewDidLoad];
+            @jobs_weakify(self)
+            self.byLeftBarButtonItems(jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
+                @jobs_strongify(self)
+        //        data.add(UIBarButtonItem.initBy(self.shareBtn));
+            }))
+            .byRightBarButtonItems(jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
+                @jobs_strongify(self)
+                data.add(UIBarButtonItem.initBy(self.deleteBtn));
+            }));
+            self.makeNavByAlpha(1);
+            self.headerCardView.byAlpha(1);
+            self.titleLab.byAlpha(1);
+            self.subTitleLab.byAlpha(1);
+            self.drawBtn.byAlpha(1);
+            self.lineLab.byAlpha(1);
+            self.contentCardView.byAlpha(1);
+            self.textView.byAlpha(1);
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMsgDetailVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillAppear:animated];
+    };
 }
 
 -(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMsgDetailVC.class, @selector(jobsViewWillLayoutSubviews)))(self, @selector(jobsViewWillLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewWillLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
-    JobsLog(@"");
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMsgDetailVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+        JobsLog(@"");
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMsgDetailVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMsgDetailVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMsgDetailVC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+    };
 }
 #pragma mark —— lazyLoad
 -(UIView *)headerCardView{
@@ -192,8 +278,8 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
         @jobs_weakify(self)
         _drawBtn = UIButton.jobsInit()
             .jobsResetBtnTitle(self.msgDataModel.isDraw ?
-                               JobsSpace.add(@"已领取".tr).add(JobsSpace) :
-                               JobsSpace.add(@"领取".tr).add(JobsSpace))
+                               JobsSpace.add(@"已领取".jobsTr()).add(JobsSpace) :
+                               JobsSpace.add(@"领取".jobsTr()).add(JobsSpace))
             .jobsResetBtnTitleCor(self.msgDataModel.isDraw ? JobsSecondaryLabelColor : HEXCOLOR(0xAE8330))
             .selectedStateTitleColorBy(HEXCOLOR(0x8F98A6))
             .bgColorBy(self.msgDataModel.isDraw ? HEXCOLOR(0xF1F4F8) : HEXCOLOR(0xFFF4DD))
@@ -236,17 +322,17 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
                 .byText(self.msgDataModel.subTextModel.text)
                 .byTextColor(HEXCOLOR(0x5C6675))
                 .byFont(UIFontWeightRegularSize(15))
+                .byEditable(NO)
+                .bySelectable(NO)
+                .byTextContainerInset(UIEdgeInsetsZero)
+                .byScrollEnabled(YES)
                 .byBgColor(JobsClearColor)
                 .addOn(self.contentCardView)
                 .byOn(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
                     make.edges.equalTo(self.contentCardView).insets(UIEdgeInsetsMake(JobsWidth(16), JobsWidth(14), JobsWidth(16), JobsWidth(14)));
                 });
-            textView.editable = NO;
-            textView.selectable = NO;
-            textView.scrollEnabled = YES;
-            textView.textContainerInset = UIEdgeInsetsZero;
-            textView.textContainer.lineFragmentPadding = 0;
+            textView.textContainer.byLineFragmentPadding(0);
         });
     };return _textView;
 }
@@ -258,7 +344,7 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
             .bgColorBy(RGBA_COLOR(255, 255, 255, 0.92))
             .jobsResetBtnTitleCor(HEXCOLOR(0xEB677F))
             .jobsResetBtnTitleFont(UIFontWeightBoldSize(13))
-            .jobsResetBtnTitle(@"删除".tr)
+            .jobsResetBtnTitle(@"删除".jobsTr())
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 self.backBtnClickEvent(x);
@@ -276,4 +362,14 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
     };return _deleteBtn;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsMsgDetailVC
+-(JobsRetJobsMsgDetailVCByJobsMsgDataModelBlock _Nonnull)byMsgDataModel{
+    @jobs_weakify(self)
+    return ^__kindof JobsMsgDetailVC * _Nullable(JobsMsgDataModel * _Nullable data){
+        @jobs_strongify(self)
+        [self setMsgDataModel:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsMsgDetailVC
 @end

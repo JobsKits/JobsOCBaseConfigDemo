@@ -25,6 +25,12 @@
 #import "JobsLanMgr.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -37,12 +43,6 @@
 #import "JobsDefines.h"
 #endif
 
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BaiShaETProjMembersSubsBaseVC : BaseViewController
@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_strong()UILabel *topLineLab;
 
 #pragma mark —— 一些公有方法
--(CGSize)getTopLineLabSize;
+-(JobsRetCGSizeByVoidBlock _Nonnull)getTopLineLabSize;
 
 @end
 

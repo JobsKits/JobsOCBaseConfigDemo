@@ -6,19 +6,34 @@
 //
 
 #import <Foundation/Foundation.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <objc/runtime.h>
 #import "JobsOCPatchModel.h"
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
+
+@class JobsOCPatchMgr;
+typedef JobsOCPatchMgr *_Nullable(^JobsRetJobsOCPatchMgrByVoidBlock)(void);
 
 @interface JobsOCPatchMgr : NSObject
 
-+(instancetype)shared;
++(JobsRetJobsOCPatchMgrByVoidBlock _Nonnull)shared;
 
--(BOOL)installPayloadPatch:(JobsOCPatchModel *)patch;
--(BOOL)rollbackPatchByIdentifier:(NSString *)identifier;
--(void)rollbackAllPatches;
--(BOOL)containsPatchByIdentifier:(NSString *)identifier;
+-(JobsRetBOOLByJobsOCPatchModelBlock _Nonnull)installPayloadPatch;
+-(JobsRetBOOLByStrBlock _Nonnull)rollbackPatchByIdentifier;
+-(jobsByVoidBlock _Nonnull)rollbackAllPatches;
+-(JobsRetBOOLByStrBlock _Nonnull)containsPatchByIdentifier;
 
 @end
 

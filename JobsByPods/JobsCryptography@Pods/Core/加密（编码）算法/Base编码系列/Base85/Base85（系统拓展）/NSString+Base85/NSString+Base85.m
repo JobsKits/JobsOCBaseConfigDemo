@@ -12,12 +12,17 @@
 ///【类方法】普通的NSString对象 转换成 以Base85编码的字符串
 +(JobsRetStrByStrBlock _Nonnull)base85String{
     return ^__kindof NSString *_Nullable(__kindof NSString *_Nullable string){
-        return NSData.dataToBase85String(string.UTF8Encoding);
+        return NSData.dataToBase85String(string.jobsUTF8Encoding());
     };
 }
 ///【实例方法】普通的NSString对象 转换成 以Base85编码的字符串
--(NSString *_Nullable)base85String{
-    return NSString.base85String(self);
+-(JobsRetStrByVoidBlock _Nonnull)base85String{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSString.base85String(self);
+    };
 }
 ///【类方法】以Base85编码的字符串 转换成 普通的NSString对象
 +(JobsRetStrByStrBlock _Nonnull)stringByBase85String{
@@ -26,8 +31,13 @@
     };
 }
 ///【实例方法】以Base85编码的字符串 转换成 普通的NSString对象
--(NSString *_Nullable)stringByBase85String{
-    return NSString.stringByBase85String(self);
+-(JobsRetStrByVoidBlock _Nonnull)stringByBase85String{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSString.stringByBase85String(self);
+    };
 }
 #pragma mark —— Base85 ==> NSData
 ///【类方法】接受一个包含Base85编码数据的NSString对象作为输入，并将其解码为对应的原始字节序列
@@ -56,8 +66,13 @@
     };
 }
 ///【实例方法】接受一个包含Base85编码数据的NSString对象作为输入，并将其解码为对应的原始字节序列
--(NSData *_Nullable)dataByBase85String{
-    return NSString.dataByBase85String(self);
+-(JobsRetDataByVoidBlock _Nonnull)dataByBase85String{
+    @jobs_weakify(self)
+    return ^NSData *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSString.dataByBase85String(self);
+    };
 }
 #pragma mark —— Base85 ==> UIImage
 ///【类方法】从给定的以Base85编码的字符串中解码并转换为UIImage对象
@@ -84,8 +99,13 @@
     };
 }
 ///【实例方法】从给定的以Base85编码的字符串中解码并转换为UIImage对象
--(UIImage *_Nullable)imageByBase85String{
-    return NSString.imageByBase85String(self);
+-(JobsRetImageByVoidBlock _Nonnull)imageByBase85String{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return NSString.imageByBase85String(self);
+    };
 }
 
 @end

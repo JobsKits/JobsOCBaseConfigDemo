@@ -35,11 +35,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 #ifndef LZ_TAB_BAR_ITEM_TYPE_ENUM_DEFINED
 #define LZ_TAB_BAR_ITEM_TYPE_ENUM_DEFINED
-typedef enum : NSUInteger {
+typedef NS_ENUM(NSUInteger, LZTabBarItemType) {
     LZTabBarItemTypeDefault,  /// 默认类型
     LZTabBarItemTypeImage,    /// 仅图片
     LZTabBarItemTypeText      /// 仅文字
-} LZTabBarItemType;
+};
 #endif /* LZ_TAB_BAR_ITEM_TYPE_ENUM_DEFINED */
 
 @protocol LZTabBarItemDelegate;
@@ -51,6 +51,12 @@ Prop_copy()NSString *title;
 Prop_strong()UIColor *titleColor;
 Prop_assign()LZTabBarItemType type;
 Prop_assign()id <LZTabBarItemDelegate> delegate;
+
+-(JobsRetLZTabBarItemByStrBlock _Nonnull)byIcon;
+-(JobsRetLZTabBarItemByStrBlock _Nonnull)byTitle;
+-(JobsRetLZTabBarItemByCorBlock _Nonnull)byTitleColor;
+-(JobsRetLZTabBarItemByTypeBlock _Nonnull)byType;
+-(JobsRetLZTabBarItemByDelegateBlock _Nonnull)byDelegate;
 
 @end
 

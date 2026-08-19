@@ -22,46 +22,76 @@ Prop_strong()NSArray <NSArray <UIViewModel *>*>*demoGroupArr;
 -(UIViewModel *)demoViewModelWithTitle:(NSString *)title
                               subTitle:(NSString *)subTitle
                                    cls:(Class)cls;
--(void)pushDemoViewModel:(UIViewModel *)viewModel;
+-(jobsByViewModelBlock _Nonnull)pushDemoViewModel;
 
 @end
 
 @implementation JobsTimerDemoListVC
 -(void)loadView{
-    [super loadView];
-    if ([self.requestParams isKindOfClass:UIViewModel.class]) {
-        self.viewModel = (UIViewModel *)self.requestParams;
-        if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
-            self.pushOrPresent = self.viewModel.pushOrPresent;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTimerDemoListVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        if ([self.requestParams isKindOfClass:UIViewModel.class]) {
+            self.byViewModel((UIViewModel *)self.requestParams);
+            if(self.viewModel.pushOrPresent != ComingStyle_Unknown){
+                self.byPushOrPresent(self.viewModel.pushOrPresent);
+            }
         }
-    }
-    UIColor *navigationBackgroundColor = [UIColor xy_createWithLightColor:RGBA_COLOR(255, 238, 221, 1)
-                                                                 darkColor:JobsSecondarySystemBackgroundColor];
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr)
-                .byTextCor(JobsLabelColor);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"Timer".tr)
-                .byFont(UIFontWeightRegularSize(16))
-                .byTextCor(JobsLabelColor);
-        })
-        .byBgCor(navigationBackgroundColor)
-        .byNavBgCor(navigationBackgroundColor)
-        .byNavBgImage(nil);
+        UIColor *navigationBackgroundColor = [UIColor xy_createWithLightColor:RGBA_COLOR(255, 238, 221, 1)
+                                                                     darkColor:JobsSecondarySystemBackgroundColor];
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr())
+                    .byTextCor(JobsLabelColor);
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"Timer".jobsTr())
+                    .byFont(UIFontWeightRegularSize(16))
+                    .byTextCor(JobsLabelColor);
+            })
+            .byBgCor(navigationBackgroundColor)
+            .byNavBgCor(navigationBackgroundColor)
+            .byNavBgImage(nil);
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.view.byBgColor([UIColor xy_createWithLightColor:HEXCOLOR(0xF4F5F8)
-                                               darkColor:JobsSystemGroupedBackgroundColor]);
-    self.makeNavByAlpha(1);
-    self.tableView.byVisible(YES);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTimerDemoListVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor([UIColor xy_createWithLightColor:HEXCOLOR(0xF4F5F8)
+                                                   darkColor:JobsSystemGroupedBackgroundColor]);
+        self.makeNavByAlpha(1);
+        self.tableView.byVisible(YES);
+    };
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return self.demoGroupArr.count;
+    JobsRetNSIntegerByUITableViewBlock action = ((JobsRetNSIntegerByUITableViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTimerDemoListVC.class, @selector(jobsNumberOfSectionsInTableView)))(self, @selector(jobsNumberOfSectionsInTableView));
+    return action ? action(tableView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUITableViewBlock _Nonnull)jobsNumberOfSectionsInTableView{
+    @jobs_weakify(self)
+    return ^NSInteger(UITableView * tableView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return self.demoGroupArr.count;
+    };
 }
 
 -(NSInteger)tableView:(UITableView *)tableView
@@ -116,24 +146,29 @@ titleForHeaderInSection:(NSInteger)section{
 didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath
                              animated:YES];
-    [self pushDemoViewModel:self.demoGroupArr[indexPath.section][indexPath.row]];
+    self.pushDemoViewModel(self.demoGroupArr[indexPath.section][indexPath.row]);
 }
 #pragma mark —— 一些私有方法
 -(UIViewModel *)demoViewModelWithTitle:(NSString *)title
                               subTitle:(NSString *)subTitle
                                    cls:(Class)cls{
     return self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-        model.byTitle(title.tr)
-            .bySubTitle(subTitle.tr)
+        model.byTitle(title.jobsTr())
+            .bySubTitle(subTitle.jobsTr())
             .byCls(cls);
     }));
 }
 
--(void)pushDemoViewModel:(UIViewModel *)viewModel{
-    if (viewModel.cls) {
-        self.comingToPushVCByRequestParams(viewModel.cls.new,
-                                           viewModel);
-    }else @"尚未接入此功能".tr.toast();
+-(jobsByViewModelBlock _Nonnull)pushDemoViewModel{
+    @jobs_weakify(self)
+    return ^(UIViewModel * viewModel){
+        @jobs_strongify(self)
+        if (!self) return;
+        if (viewModel.cls) {
+            self.comingToPushVCByRequestParams(viewModel.cls.new,
+                                               viewModel);
+        }else @"尚未接入此功能".jobsTr().toast();
+    };
 }
 #pragma mark —— lazyLoad
 -(UITableView *)tableView{

@@ -40,6 +40,7 @@ button. Optional lower and upper bounds automatically disable the related button
   spec.dependency 'JobsMakes'
   spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsBlock'
 
   JobsPodspecKitForJobsOCNumberStepper.apply_standard_xcconfig(spec)
 end

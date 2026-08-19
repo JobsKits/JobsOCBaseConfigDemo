@@ -14,6 +14,16 @@ Prop_assign()NSInteger colNumber;// 列数
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsExcelConfigureViewModel
+@interface JobsExcelConfigureViewModel (JobsPropertyDSLSetterAutogen_51596d3780)
+-(void)setHorizontalScrollValue:(NSValue * _Nullable)data;
+-(void)setItemW:(CGFloat)data;
+-(void)setVerticalScrollValue:(NSValue * _Nullable)data;
+-(void)setXZExcelH:(CGFloat)data;
+-(void)setXZExcelW:(CGFloat)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsExcelConfigureViewModel
+
 @implementation JobsExcelConfigureViewModel
 - (instancetype)init{
     if (self = [super init]) {
@@ -53,16 +63,16 @@ Prop_assign()NSInteger colNumber;// 列数
         /// 头部标题
         self.topHeaderTitles = jobsMakeMutArr(^(__kindof NSMutableArray <NSString *>*_Nullable arr) {
             arr
-                .add(@"数字/标题".tr)
-                .add(@"标题一".tr)
-                .add(@"标题二".tr)
-                .add(@"标题三".tr)
-                .add(@"标题四".tr)
-                .add(@"标题五".tr)
-                .add(@"标题六".tr)
-                .add(@"标题七".tr)
-                .add(@"标题八".tr)
-                .add(@"标题九".tr);
+                .add(@"数字/标题".jobsTr())
+                .add(@"标题一".jobsTr())
+                .add(@"标题二".jobsTr())
+                .add(@"标题三".jobsTr())
+                .add(@"标题四".jobsTr())
+                .add(@"标题五".jobsTr())
+                .add(@"标题六".jobsTr())
+                .add(@"标题七".jobsTr())
+                .add(@"标题八".jobsTr())
+                .add(@"标题九".jobsTr());
         });
         /// 第一个元素
         self.data_00 = jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable model) {
@@ -87,7 +97,7 @@ Prop_assign()NSInteger colNumber;// 列数
                                  .byImagePadding(JobsWidth(8))
                                  .byNormalImage(@"复制图标".img)
                                  .byClickEventBlock(^id _Nullable(UIButton *_Nullable data) {
-                                data.titleForNormalState.pasteboard();
+                                data.jobsTitleForNormalState().pasteboard();
                                 return nil;
                             });
                         }
@@ -131,7 +141,7 @@ Prop_assign()NSInteger colNumber;// 列数
         @jobs_weakify(self)
         _data_00 = jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data) {
             @jobs_strongify(self)
-            data.byTitle(self.topHeaderTitles.count ? self.topHeaderTitles[0] : @"楼层".tr)
+            data.byTitle(self.topHeaderTitles.count ? self.topHeaderTitles[0] : @"楼层".jobsTr())
                 .byTitleCor(self.cor4)
                 .byBaseBackgroundColor(self.cor0)
                 .byBackgroundImage(self.image0);
@@ -147,7 +157,7 @@ Prop_assign()NSInteger colNumber;// 列数
             for (int y = 1; y <= self.contentArr[0].count ; y++) {
                 data.add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data1) {
                     @jobs_strongify(self)
-                    data1.byTitle(self.topHeaderTitles[y] ? : toStringByInt(y).add(@"层".tr))
+                    data1.byTitle(self.topHeaderTitles[y] ? : toStringByInt(y).add(@"层".jobsTr()))
                          .byBaseBackgroundColor(JobsClearColor.colorWithAlphaComponentBy(0))
                          .byTitleCor(self.cor4)
                          .byBaseBackgroundColor(self.cor3)
@@ -166,7 +176,7 @@ Prop_assign()NSInteger colNumber;// 列数
 //            for (int y = 1; y <= self.contentArr.count ; y++) {
 //                data.add(jobsMakeButtonModel(^(__kindof UIButtonModel * _Nullable data1) {
 //                    @jobs_strongify(self)
-//                    data1.title = toStringByInt(y).add(@"楼".tr);
+//                    data1.title = toStringByInt(y).add(@"楼".jobsTr());
 //                    data1.baseBackgroundColor = JobsClearColor.colorWithAlphaComponentBy(0);
 //                    data1.titleCor = JobsWhiteColor;
 //                    data1.baseBackgroundColor = y % 2 ? self.cor2 : self.cor1;
@@ -203,13 +213,13 @@ Prop_assign()NSInteger colNumber;// 列数
 /// 奇数行的背景颜色
 -(UIColor *)cor1{
     if(!_cor1){
-        _cor1 = @"#7900B2".cor;
+        _cor1 = @"#7900B2".jobsCor();
     };return _cor1;
 }
 /// 偶数行的背景颜色
 -(UIColor *)cor2{
     if(!_cor2){
-        _cor2 = @"#4B00AB".cor;
+        _cor2 = @"#4B00AB".jobsCor();
     };return _cor2;
 }
 /// 第一行的背景颜色
@@ -310,4 +320,50 @@ Prop_assign()NSInteger colNumber;// 列数
     };return _itemW;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsExcelConfigureViewModel
+-(JobsRetJobsExcelConfigureViewModelByCGFloatBlock _Nonnull)byItemW{
+    @jobs_weakify(self)
+    return ^__kindof JobsExcelConfigureViewModel * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setItemW:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsExcelConfigureViewModelByCGFloatBlock _Nonnull)byXZExcelH{
+    @jobs_weakify(self)
+    return ^__kindof JobsExcelConfigureViewModel * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setXZExcelH:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsExcelConfigureViewModelByCGFloatBlock _Nonnull)byXZExcelW{
+    @jobs_weakify(self)
+    return ^__kindof JobsExcelConfigureViewModel * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setXZExcelW:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsExcelConfigureViewModelByNSValueBlock _Nonnull)byHorizontalScrollValue{
+    @jobs_weakify(self)
+    return ^__kindof JobsExcelConfigureViewModel * _Nullable(NSValue * _Nullable data){
+        @jobs_strongify(self)
+        [self setHorizontalScrollValue:data];
+        return self;
+    };
+}
+
+-(JobsRetJobsExcelConfigureViewModelByNSValueBlock _Nonnull)byVerticalScrollValue{
+    @jobs_weakify(self)
+    return ^__kindof JobsExcelConfigureViewModel * _Nullable(NSValue * _Nullable data){
+        @jobs_strongify(self)
+        [self setVerticalScrollValue:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsExcelConfigureViewModel
 @end

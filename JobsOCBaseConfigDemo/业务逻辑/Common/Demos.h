@@ -6,6 +6,25 @@
 //
 
 #ifndef Demos_h
+
+#if __has_include(<JobsAppDoor/JobsAppDoor.h>)
+#import <JobsAppDoor/JobsAppDoor.h>
+#else
+#import "JobsAppDoor.h"
+#endif
+
+#if __has_include(<JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>)
+#import <JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>
+#else
+#import "JobsOCCountryCodeCtrlHeader.h"
+#endif
+
+#if __has_include(<JobsOCVideoRecorder/JobsOCVideoRecorder.h>)
+#import <JobsOCVideoRecorder/JobsOCVideoRecorder.h>
+#else
+#import "JobsOCVideoRecorder.h"
+#endif
+
 #define Demos_h
 /// 相关功能模块组测试控制器
 #import "JobsProgressVC.h"
@@ -14,12 +33,6 @@
 #import "DynamicViewTestVC.h"
 #import "TestIrregularViewTestVC.h"
 #import "JobsZFPlayerDemoListVC.h"
-
-#if __has_include(<JobsAppDoor/JobsAppDoor.h>)
-#import <JobsAppDoor/JobsAppDoor.h>
-#else
-#import "JobsAppDoor.h"
-#endif
 
 #import "JobsAppDoorDemoListVC.h"
 #import "JobsCommentVC.h"
@@ -128,17 +141,5 @@
 #import "JobsSwiftParityAlertDemoVC.h"
 #import "JobsSwiftParityOpenDemoVC.h"
 #import "JobsSwiftParitySnowflakeDemoVC.h"
-
-#if __has_include(<JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>)
-#import <JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>
-#else
-#import "JobsOCCountryCodeCtrlHeader.h"
-#endif
-
-#if __has_include(<JobsOCVideoRecorder/JobsOCVideoRecorder.h>)
-#import <JobsOCVideoRecorder/JobsOCVideoRecorder.h>
-#else
-#import "JobsOCVideoRecorder.h"
-#endif
 
 #endif /* Demos_h */

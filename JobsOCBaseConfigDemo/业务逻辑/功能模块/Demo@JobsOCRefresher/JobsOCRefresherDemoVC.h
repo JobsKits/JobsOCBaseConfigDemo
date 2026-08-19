@@ -19,12 +19,6 @@
 #import "JobsBaseUI.h"
 #endif
 
-#if __has_include(<JobsOCRefresher/JobsOCRefresher.h>)
-#import <JobsOCRefresher/JobsOCRefresher.h>
-#else
-#import "JobsOCRefresher.h"
-#endif
-
 #if __has_include(<JobsFuseAnimation/JobsFuseAnimation.h>)
 #import <JobsFuseAnimation/JobsFuseAnimation.h>
 #else
@@ -43,6 +37,12 @@
 #import "JobsOCDSL.h"
 #endif
 
+#if __has_include(<JobsOCRefresher/JobsOCRefresher.h>)
+#import <JobsOCRefresher/JobsOCRefresher.h>
+#else
+#import "JobsOCRefresher.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -59,6 +59,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsOCRefresherDemoVC : BaseViewController
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCRefresherDemoVC
+-(JobsRetJobsOCRefresherDemoVCByBOOLBlock _Nonnull)byDidAutoStart;
+-(JobsRetJobsOCRefresherDemoVCByBOOLBlock _Nonnull)byDidBindRefresher;
+-(JobsRetJobsOCRefresherDemoVCByNSIntegerBlock _Nonnull)byHorizontalColumnCount;
+-(JobsRetJobsOCRefresherDemoVCByNSIntegerBlock _Nonnull)byVerticalRowCount;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCRefresherDemoVC
 @end
 
 NS_ASSUME_NONNULL_END

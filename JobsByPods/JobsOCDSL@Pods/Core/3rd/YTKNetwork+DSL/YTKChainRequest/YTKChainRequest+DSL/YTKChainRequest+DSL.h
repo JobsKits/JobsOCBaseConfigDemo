@@ -44,8 +44,8 @@ Prop_strong(readonly)NSArray<YTKBaseRequest *> *jobs_requests;
 -(JobsRetYTKChainRequestByFailureBlock _Nonnull)byFailure;
 -(JobsRetYTKChainRequestByCompletionBlocks _Nonnull)byCompletion;
 -(JobsRetYTKChainRequestByCompletionBlocks _Nonnull)byJobsVoidBlock;
--(__kindof YTKChainRequest *_Nonnull)byStart;
--(__kindof YTKChainRequest *_Nonnull)byStop;
+-(JobsRetYTKChainRequestByVoidBlock _Nonnull)byStart;
+-(JobsRetYTKChainRequestByVoidBlock _Nonnull)byStop;
 
 @end
 

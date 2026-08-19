@@ -117,19 +117,34 @@
     };
 }
 
--(__kindof YTKBaseRequest *_Nonnull)byStart{
-    [self start];
-    return self;
+-(JobsRetYTKBaseRequestByVoidBlock _Nonnull)byStart{
+    @jobs_weakify(self)
+    return ^__kindof YTKBaseRequest *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self start];
+        return self;
+    };
 }
 
--(__kindof YTKBaseRequest *_Nonnull)byStop{
-    [self stop];
-    return self;
+-(JobsRetYTKBaseRequestByVoidBlock _Nonnull)byStop{
+    @jobs_weakify(self)
+    return ^__kindof YTKBaseRequest *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self stop];
+        return self;
+    };
 }
 
--(__kindof YTKBaseRequest *_Nonnull)byClearCompletion{
-    [self clearCompletionBlock];
-    return self;
+-(JobsRetYTKBaseRequestByVoidBlock _Nonnull)byClearCompletion{
+    @jobs_weakify(self)
+    return ^__kindof YTKBaseRequest *_Nonnull{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        [self clearCompletionBlock];
+        return self;
+    };
 }
 
 @end

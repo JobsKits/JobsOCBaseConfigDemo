@@ -6,6 +6,7 @@
 //
 
 #import "UIImage+Base32.h"
+
 /*
  UIImagePNGRepresentation：
  这个方法将UIImage对象转换为PNG格式的NSData对象。
@@ -40,8 +41,13 @@
     };
 }
 ///【实例方法】UIImage 转 NSData（PNG格式）
--(NSData *_Nullable)PNGImageData{
-    return UIImage.dataWithPNGImage(self);
+-(JobsRetDataByVoidBlock _Nonnull)PNGImageData{
+    @jobs_weakify(self)
+    return ^NSData *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return UIImage.dataWithPNGImage(self);
+    };
 }
 #pragma mark —— 【Sys】UIImage ==> NSData.JPEG
 ///【类方法】UIImage 转 NSData（JPEG格式），指定压缩质量
@@ -62,12 +68,17 @@
 ///【类方法】将UIimage对象转成用Base32编码的字符串
 +(JobsRetStrByImageBlock _Nonnull)base32StringByImage{
     return ^__kindof NSString *_Nullable(UIImage *_Nullable image){
-        return UIImagePNGRepresentation(image).base32String;
+        return UIImagePNGRepresentation(image).base32String();
     };
 }
 ///【实例方法】将UIimage对象转成用Base32编码的字符串
--(NSString *_Nullable)base32Str{
-    return UIImage.base32StringByImage(self);
+-(JobsRetStrByVoidBlock _Nonnull)base32Str{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return UIImage.base32StringByImage(self);
+    };
 }
 ///【类方法】将以Base32编码的字符串 转换为 NSData对象，然后再转成UIImage
 +(JobsRetImageByStrBlock _Nonnull)imageByBase32String{

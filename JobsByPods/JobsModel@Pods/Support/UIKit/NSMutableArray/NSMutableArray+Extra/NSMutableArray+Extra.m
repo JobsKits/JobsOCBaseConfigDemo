@@ -20,9 +20,9 @@
     };
 }
 /// 阻止向可变数组添加空元素
--(JobsRetIDByIDBlock _Nonnull)addBy{
+-(JobsRetMutableArrayByArrBlock _Nonnull)addBy{
     @jobs_weakify(self)
-    return ^id (__kindof NSArray *data) {
+    return ^NSMutableArray <__kindof NSObject *>*_Nullable(__kindof NSArray *_Nullable data) {
         @jobs_strongify(self)
         if(data){
             [self addObjectsFromArray:data];/// 向数组加入nil会崩

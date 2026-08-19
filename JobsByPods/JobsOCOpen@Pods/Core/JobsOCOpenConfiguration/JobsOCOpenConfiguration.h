@@ -43,15 +43,15 @@ Prop_copy(nullable) NSString *pageTitle;
 Prop_assign() BOOL animated;
 Prop_copy(nullable) jobsByBOOLBlock completion;
 
-+(instancetype)config;
-+(NSURL *_Nullable)jobsURLWithString:(NSString *_Nullable)string;
++(JobsRetIDByVoidBlock _Nonnull)config;
++(JobsRetURLByStrBlock _Nonnull)jobsURLWithString;
 -(instancetype)initWithURL:(NSURL *_Nullable)url;
--(JobsOCOpenConfiguration *_Nonnull(^)(NSURL *_Nullable url))byURL;
--(JobsOCOpenConfiguration *_Nonnull(^)(NSString *_Nullable urlString))byURLString;
--(JobsOCOpenConfiguration *_Nonnull(^)(JobsOCOpenMode mode))byMode;
--(JobsOCOpenConfiguration *_Nonnull(^)(NSString *_Nullable title))byTitle;
--(JobsOCOpenConfiguration *_Nonnull(^)(BOOL animated))byAnimated;
--(JobsOCOpenConfiguration *_Nonnull(^)(jobsByBOOLBlock _Nullable completion))byCompletion;
+-(JobsRetJobsOCOpenConfigurationByNSURLBlock _Nonnull)byURL;
+-(JobsRetJobsOCOpenConfigurationByNSStringBlock _Nonnull)byURLString;
+-(JobsRetJobsOCOpenConfigurationByJobsOCOpenModeBlock _Nonnull)byMode;
+-(JobsRetJobsOCOpenConfigurationByNSStringBlock _Nonnull)byTitle;
+-(JobsRetJobsOCOpenConfigurationByBOOLBlock _Nonnull)byAnimated;
+-(JobsRetJobsOCOpenConfigurationByjobsByBOOLBlockBlock _Nonnull)byCompletion;
 
 @end
 

@@ -6,6 +6,7 @@
 //
 
 #import "UIImage+Base85.h"
+
 /**
 
      UIImagePNGRepresentation：
@@ -54,8 +55,13 @@
     };
 }
 ///【实例方法】将给定的UIImage对象 转换为 以Base85编码的字符串
--(NSString *_Nullable)base85Str{
-    return UIImage.base85StringByImage(self);
+-(JobsRetStrByVoidBlock _Nonnull)base85Str{
+    @jobs_weakify(self)
+    return ^NSString *_Nullable{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return UIImage.base85StringByImage(self);
+    };
 }
 #pragma mark —— Base85 ==> UIImage
 ///【类方法】从给定的以Base85编码的字符串中解码并转换为UIImage对象

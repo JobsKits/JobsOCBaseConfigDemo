@@ -15,27 +15,60 @@ Prop_assign() BOOL hasMore;
 
 @end
 
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN ASTableNode
+@interface ASTableNode (JobsLocalPropertyDSLAutogen_e8d1b04d76)
+-(JobsRetASTableNodeByBOOLBlock _Nonnull)byInverted;
+-(JobsRetASTableNodeByCGFloatBlock _Nonnull)byLeadingScreensForBatching;
+-(JobsRetASTableNodeByIDASTableDataSourceBlock _Nonnull)byDataSource;
+-(JobsRetASTableNodeByIDASTableDelegateBlock _Nonnull)byDelegate;
+-(void)setDataSource:(id<ASTableDataSource> _Nullable)data;
+-(void)setDelegate:(id<ASTableDelegate> _Nullable)data;
+-(void)setInverted:(BOOL)data;
+-(void)setLeadingScreensForBatching:(CGFloat)data;
+@end
+// JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END ASTableNode
+
 @implementation TextureDemoVC
 - (instancetype)init {
     if (self = [super initWithNode:self.tableNode]) {
-        self.title = @"Texture Demo (OC)";
+        self.title = @;
         _hasMore = YES;
     };return self;
 }
 
 -(void)loadView{
-    [super loadView];
-    self.node.byBgColor(UIColor.systemBackgroundColor);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(TextureDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        self.node.byBgColor(UIColor.systemBackgroundColor);
+    };
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    // 导航大标题
-    if (@available(iOS 11.0, *)) {
-        self.navigationItem.largeTitleDisplayMode = UINavigationItemLargeTitleDisplayModeAutomatic;
-        self.navigationController.navigationBar.prefersLargeTitles = YES;
-    }
-    self.tableNode.inverted = NO;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(TextureDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        // 导航大标题
+        if (@available(iOS 11.0, *)) {
+            self.navigationItem.byLargeTitleDisplayMode(UINavigationItemLargeTitleDisplayModeAutomatic);
+            self.navigationController.navigationBar.byPrefersLargeTitles(YES);
+        }
+        self.tableNode.byInverted(NO);
+    };
 }
 #pragma mark —— ASTable DataSource (推荐使用 Block 创建以获得异步构建收益)
 - (NSInteger)tableNode:(ASTableNode *)tableNode
@@ -84,7 +117,17 @@ Prop_assign() BOOL hasMore;
 }
 #pragma mark —— ASTable Delegate (批量加载示例)
 -(BOOL)shouldBatchFetchForTableNode:(ASTableNode *)tableNode {
-    return self.hasMore;
+    JobsRetBOOLByASTableNodeBlock action = ((JobsRetBOOLByASTableNodeBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(TextureDemoVC.class, @selector(jobsShouldBatchFetchForTableNode)))(self, @selector(jobsShouldBatchFetchForTableNode));
+    return action ? action(tableNode) : NO;
+}
+
+-(JobsRetBOOLByASTableNodeBlock _Nonnull)jobsShouldBatchFetchForTableNode{
+    @jobs_weakify(self)
+    return ^BOOL(ASTableNode * tableNode){
+        @jobs_strongify(self)
+        if (!self) return NO;
+        return self.hasMore;
+    };
 }
 
 -(void)tableNode:(ASTableNode *)tableNode
@@ -104,7 +147,7 @@ willBeginBatchFetchWithContext:(ASBatchContext *)context {
         for (NSInteger i = startCount; i < self.rows.count; i++) {
             [inserts addObject:[NSIndexPath indexPathForRow:i inSection:0]];
         }
-        self.hasMore = (self.rows.count < 60);
+        self.byHasMore((self.rows.count < 60));
         [self.tableNode insertRowsAtIndexPaths:inserts withRowAnimation:UITableViewRowAnimationAutomatic];
         [context completeBatchFetching:YES];
     });
@@ -129,12 +172,12 @@ willBeginBatchFetchWithContext:(ASBatchContext *)context {
 -(ASTableNode *)tableNode{
     if(!_tableNode){
         _tableNode = [ASTableNode.alloc initWithStyle:UITableViewStyleInsetGrouped];
-        _tableNode.delegate = self;
-        _tableNode.dataSource = self;
+        _tableNode.byDelegate(self);
+        _tableNode.byDataSource(self);
         // 范围/批量加载调优
-        _tableNode.leadingScreensForBatching = 2.0; // 提前两屏准备
-        _tableNode.view.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        _tableNode.view.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+        _tableNode.byLeadingScreensForBatching(2.0);
+        _tableNode.view.bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine);
+        _tableNode.view.byKeyboardDismissMode(UIScrollViewKeyboardDismissModeOnDrag);
         // 下拉刷新（系统 UIRefreshControl 也能配合 Texture）
         _tableNode.view.refreshControl = jobsMakeRefreshControl(^(__kindof UIRefreshControl * _Nullable refreshCtrl) {
             [refreshCtrl jobs_onChange:^(UIRefreshControl *x) {
@@ -151,4 +194,54 @@ willBeginBatchFetchWithContext:(ASBatchContext *)context {
     };return _tableNode;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN TextureDemoVC
+-(JobsRetTextureDemoVCByBOOLBlock _Nonnull)byHasMore{
+    @jobs_weakify(self)
+    return ^__kindof TextureDemoVC * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setHasMore:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END TextureDemoVC
 @end
+
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN ASTableNode
+@implementation ASTableNode (JobsLocalPropertyDSLAutogen_e8d1b04d76)
+-(JobsRetASTableNodeByBOOLBlock _Nonnull)byInverted{
+    @jobs_weakify(self)
+    return ^__kindof ASTableNode * _Nullable(BOOL data){
+        @jobs_strongify(self)
+        [self setInverted:data];
+        return self;
+    };
+}
+
+-(JobsRetASTableNodeByCGFloatBlock _Nonnull)byLeadingScreensForBatching{
+    @jobs_weakify(self)
+    return ^__kindof ASTableNode * _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        [self setLeadingScreensForBatching:data];
+        return self;
+    };
+}
+
+-(JobsRetASTableNodeByIDASTableDataSourceBlock _Nonnull)byDataSource{
+    @jobs_weakify(self)
+    return ^__kindof ASTableNode * _Nullable(id<ASTableDataSource> _Nullable data){
+        @jobs_strongify(self)
+        [self setDataSource:data];
+        return self;
+    };
+}
+
+-(JobsRetASTableNodeByIDASTableDelegateBlock _Nonnull)byDelegate{
+    @jobs_weakify(self)
+    return ^__kindof ASTableNode * _Nullable(id<ASTableDelegate> _Nullable data){
+        @jobs_strongify(self)
+        [self setDelegate:data];
+        return self;
+    };
+}
+@end
+// JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END ASTableNode

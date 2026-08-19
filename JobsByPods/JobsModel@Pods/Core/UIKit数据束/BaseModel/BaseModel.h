@@ -9,6 +9,12 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<MJExtension/MJExtension.h>)
 #import <MJExtension/MJExtension.h>
 #else
@@ -38,6 +44,7 @@ NSSecureCoding// 解码
 +(__kindof NSDictionary *)mj_replacedKeyFromPropertyName;
 #pragma mark —— YYModel
 +(__kindof NSDictionary *)modelCustomPropertyMapper;
++(JobsRetDicByVoidBlock _Nonnull)jobsModelCustomPropertyMapper;
 
 @end
 

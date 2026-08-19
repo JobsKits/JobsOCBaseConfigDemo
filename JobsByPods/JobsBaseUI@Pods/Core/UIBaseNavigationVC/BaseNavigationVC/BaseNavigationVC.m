@@ -6,6 +6,7 @@
 //
 
 #import "BaseNavigationVC.h"
+
 #import <JobsBaseUI/NSObject+Extra.h>
 #import <JobsBaseUI/UIViewController+BaseNavigationBar.h>
 
@@ -27,38 +28,118 @@ Prop_strong()NSShadow *shadow;
 }
 
 -(void)loadView{
-    [super loadView];
-    self.delegate = self;
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseNavigationVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        self.byDelegate(self);
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-//    self.navigationBar.hidden = YES;// [self setNavigationBarHidden:YES animated:YES]; 这么写不行
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseNavigationVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+            [super viewDidLoad];
+        //    self.navigationBar.hidden = YES;// [self setNavigationBarHidden:YES animated:YES]; 这么写不行
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-//    self.navigationBar.hidden = YES;// [self setNavigationBarHidden:YES animated:YES]; 这么写不行
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseNavigationVC.class, @selector(jobsViewWillAppear)))(self, @selector(jobsViewWillAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+            [super viewWillAppear:animated];
+        //    self.navigationBar.hidden = YES;// [self setNavigationBarHidden:YES animated:YES]; 这么写不行
+    };
 }
 
 -(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseNavigationVC.class, @selector(jobsViewDidAppear)))(self, @selector(jobsViewDidAppear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidAppear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidAppear:animated];
+    };
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
-    [super viewWillDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseNavigationVC.class, @selector(jobsViewWillDisappear)))(self, @selector(jobsViewWillDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewWillDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillDisappear:animated];
+    };
 }
 
 -(void)viewDidDisappear:(BOOL)animated{
-    [super viewDidDisappear:animated];
+    jobsByBOOLBlock action = ((jobsByBOOLBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseNavigationVC.class, @selector(jobsViewDidDisappear)))(self, @selector(jobsViewDidDisappear));
+    if (action) action(animated);
+}
+
+-(jobsByBOOLBlock _Nonnull)jobsViewDidDisappear{
+    @jobs_weakify(self)
+    return ^(BOOL animated){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidDisappear:animated];
+    };
 }
 
 -(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseNavigationVC.class, @selector(jobsViewWillLayoutSubviews)))(self, @selector(jobsViewWillLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewWillLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewWillLayoutSubviews];
+    };
 }
 
 -(void)viewDidLayoutSubviews{
-    [super viewDidLayoutSubviews];
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseNavigationVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLayoutSubviews];
+    };
 }
 //在指定的单独的控制器里面更改状态栏的颜色（不是全局统一样式的批量改）
 /** 同时在指定的控制器里面实现此方法
@@ -68,12 +149,31 @@ Prop_strong()NSShadow *shadow;
     }
  */
 - (UIViewController *)childViewControllerForStatusBarStyle {
-    return self.topViewController;
+    return (((JobsRetVCByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseNavigationVC.class, @selector(jobsChildViewControllerForStatusBarStyle)))(self, @selector(jobsChildViewControllerForStatusBarStyle)))();
 }
 
-- (void)setViewControllers:(NSArray<__kindof UIViewController *> *)viewControllers{
-    [self setViewControllers:viewControllers
-                    animated:YES];
+- (JobsRetVCByVoidBlock _Nonnull)jobsChildViewControllerForStatusBarStyle {
+    @jobs_weakify(self)
+    return ^UIViewController *{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        return self.topViewController;
+    };
+}
+
+-(void)setViewControllers:(NSArray<__kindof UIViewController *> *)viewControllers{
+    jobsByNSArrayUIViewControllerBlock action = ((jobsByNSArrayUIViewControllerBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseNavigationVC.class, @selector(jobsSetViewControllers)))(self, @selector(jobsSetViewControllers));
+    if (action) action(viewControllers);
+}
+
+-(jobsByNSArrayUIViewControllerBlock _Nonnull)jobsSetViewControllers{
+    @jobs_weakify(self)
+    return ^(NSArray<__kindof UIViewController *> * viewControllers){
+        @jobs_strongify(self)
+        if (!self) return;
+        [self setViewControllers:viewControllers
+                        animated:YES];
+    };
 }
 
 - (void)setViewControllers:(NSArray<UIViewController *> *)viewControllers
@@ -86,7 +186,7 @@ Prop_strong()NSShadow *shadow;
 
 - (void)pushViewController:(UIViewController *)viewController
                   animated:(BOOL)animated{
-    viewController.hidesBottomBarWhenPushed = self.viewControllers.count;// push 的时候把 tabBar 隐藏了
+    viewController.byHidesBottomBarWhenPushed(self.viewControllers.count);
     [super pushViewController:viewController animated:animated];
 }
 #pragma clang diagnostic push
@@ -97,7 +197,17 @@ Prop_strong()NSShadow *shadow;
 }
 #pragma clang diagnostic pop
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return [self.topViewController supportedInterfaceOrientations];
+    JobsRetUIInterfaceOrientationMaskByVoidBlock action = ((JobsRetUIInterfaceOrientationMaskByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseNavigationVC.class, @selector(jobsSupportedInterfaceOrientations)))(self, @selector(jobsSupportedInterfaceOrientations));
+    return action ? action() : (UIInterfaceOrientationMask){0};
+}
+
+-(JobsRetUIInterfaceOrientationMaskByVoidBlock _Nonnull)jobsSupportedInterfaceOrientations{
+    @jobs_weakify(self)
+    return ^UIInterfaceOrientationMask{
+        @jobs_strongify(self)
+        if (!self) return (UIInterfaceOrientationMask){0};
+        return [self.topViewController supportedInterfaceOrientations];
+    };
 }
 #pragma mark —— UINavigationControllerDelegate
 - (void)navigationController:(UINavigationController *)navigationController
@@ -109,12 +219,12 @@ Prop_strong()NSShadow *shadow;
 - (void)navigationController:(UINavigationController *)navigationController
        didShowViewController:(UIViewController *)viewController
                     animated:(BOOL)animated{
-    self.interactivePopGestureRecognizer.delegate = (id)viewController;
+    self.interactivePopGestureRecognizer.byDelegate((id)viewController);
 }
 #pragma mark —— 一些私有方法
 /// 如果用系统的navigationBar，而并非自定义👇
 -(void)自定义navigationBar{
-    self.navigationBar.translucent = NO;
+    self.navigationBar.byTranslucent(NO);
     [self.navigationBar setBackgroundImage:@"启动页SLOGAN".img forBarMetrics:UIBarMetricsDefault]; // 仅仅是 navigationBar 背景
 //    [self.navigationBar setShadowImage:@"启动页SLOGAN".img];// 图片大了会全屏
     if ([self.navigationBar respondsToSelector:@selector(setBackgroundImage:forBarMetrics:)]) { // 设置NavgationBar的背景图片
@@ -132,8 +242,9 @@ Prop_strong()NSShadow *shadow;
 -(NSShadow *)shadow{
     if (!_shadow) {
         _shadow = jobsMakeShadow(^(__kindof NSShadow * _Nullable shadow) {
-            shadow.shadowColor = RGBA_COLOR(0,0,0,0.8);
-            shadow.shadowOffset = CGSizeZero;
+            shadow
+                .byShadowColor(RGBA_COLOR(0,0,0,0.8))
+                .byShadowOffset(CGSizeZero);
         });
     };return _shadow;
 }

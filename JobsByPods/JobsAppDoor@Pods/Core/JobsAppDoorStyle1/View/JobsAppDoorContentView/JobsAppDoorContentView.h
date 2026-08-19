@@ -9,6 +9,12 @@
 #define JOBS_HEADER_GUARD_JOBSAPPDOORCONTENTVIEW_5F125A14FE
 
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
 #import <JobsOCTools/JobsOCTools.h>
 #import <JobsAppDoor/BaseContentView.h>
 #import <JobsAppDoor/JobsAppDoorConfig.h>
@@ -58,13 +64,21 @@ Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*loginDoorInputView
 Prop_strong()NSMutableArray <JobsAppDoorInputViewBaseStyle *>*registerDoorInputViewBaseStyleMutArr;
 Prop_strong()JobsAppDoorModel *appDoorModel;/// 网络请求的传入参数
 Prop_strong()JobsAppDoorConfig *configuration;
+-(JobsRetJobsAppDoorContentViewByInputViewsBlock _Nonnull)byLoginDoorInputViewBaseStyleMutArr;
+-(JobsRetJobsAppDoorContentViewByInputViewsBlock _Nonnull)byRegisterDoorInputViewBaseStyleMutArr;
+-(JobsRetJobsAppDoorContentViewByModelBlock _Nonnull)byAppDoorModel;
+-(JobsRetJobsAppDoorContentViewByConfigBlock _Nonnull)byConfiguration;
 /// 获取存储按钮
--(UIButton *)getStoreCodeBtn;
+-(JobsRetBtnByVoidBlock _Nonnull)getStoreCodeBtn;
 /// 去登录【外部调用】
--(void)animationToLogin;
+-(jobsByVoidBlock _Nonnull)animationToLogin;
 /// 去注册【外部调用】
--(void)animationToRegister;
+-(jobsByVoidBlock _Nonnull)animationToRegister;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorContentView
+-(JobsRetJobsAppDoorContentViewByRACCompoundDisposableBlock _Nonnull)bySendBtnEnableDisposable;
+-(JobsRetJobsAppDoorContentViewByRACDisposableBlock _Nonnull)byVerificationCodeBtnEnableDisposable;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorContentView
 @end
 
 NS_ASSUME_NONNULL_END

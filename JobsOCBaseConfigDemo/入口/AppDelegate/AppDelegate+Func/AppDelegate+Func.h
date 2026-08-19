@@ -18,12 +18,6 @@
 #endif
 /// 检查联网情况
 
-#if __has_include(<Reachability/Reachability.h>)
-#import <Reachability/Reachability.h>
-#else
-#import "Reachability.h"
-#endif
-
 #if __has_include(<GKNavigationBar/GKNavigationBar.h>)
 #import <GKNavigationBar/GKNavigationBar.h>
 #else
@@ -40,6 +34,12 @@
 #import <KTVHTTPCache/KTVHTTPCache.h>
 #else
 #import "KTVHTTPCache.h"
+#endif
+
+#if __has_include(<Reachability/Reachability.h>)
+#import <Reachability/Reachability.h>
+#else
+#import "Reachability.h"
 #endif
 
 #if __has_include(<TABAnimated/TABAnimated.h>)
@@ -60,22 +60,10 @@
 #import "JobsMakes.h"
 #endif
 
-#if __has_include(<JobsOCKeyboardMgr/JobsOCKeyboardMgr.h>)
-#import <JobsOCKeyboardMgr/JobsOCKeyboardMgr.h>
+#if __has_include(<JobsNavBar/JobsNavBarHeader.h>)
+#import <JobsNavBar/JobsNavBarHeader.h>
 #else
-#import "JobsOCKeyboardMgr.h"
-#endif
-
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
-#import "JobsBlock.h"
-#endif
-
-#if __has_include(<JobsOCTools/JobsOCTools.h>)
-#import <JobsOCTools/JobsOCTools.h>
-#else
-#import "JobsOCTools.h"
+#import "JobsNavBarHeader.h"
 #endif
 
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
@@ -84,22 +72,40 @@
 #import "JobsOCDSL.h"
 #endif
 
-#if __has_include(<JobsOCDefs/JobsDefines.h>)
-#import <JobsOCDefs/JobsDefines.h>
+#if __has_include(<JobsOCKeyboardMgr/JobsOCKeyboardMgr.h>)
+#import <JobsOCKeyboardMgr/JobsOCKeyboardMgr.h>
 #else
-#import "JobsDefines.h"
-#endif
-
-#if __has_include(<JobsNavBar/JobsNavBarHeader.h>)
-#import <JobsNavBar/JobsNavBarHeader.h>
-#else
-#import "JobsNavBarHeader.h"
+#import "JobsOCKeyboardMgr.h"
 #endif
 
 #if __has_include(<JobsOCSplash/JobsOCSplash.h>)
 #import <JobsOCSplash/JobsOCSplash.h>
 #else
 #import "JobsOCSplash.h"
+#endif
+
+#if __has_include(<JobsOCTools/JobsOCTools.h>)
+#import <JobsOCTools/JobsOCTools.h>
+#else
+#import "JobsOCTools.h"
+#endif
+
+#if __has_include(<ReachabilityExtra/ReachabilityExtra.h>)
+#import <ReachabilityExtra/ReachabilityExtra.h>
+#else
+#import "ReachabilityExtra.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

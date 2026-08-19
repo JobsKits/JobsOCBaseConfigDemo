@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<Masonry/Masonry.h>)
 #import <Masonry/Masonry.h>
 #else
@@ -44,8 +50,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsWalletCardCollectionViewCell : UICollectionViewCell
 
--(void)jobsRichCardModel:(JobsWalletCardModel *)model;
+-(jobsByJobsWalletCardModelBlock _Nonnull)jobsRichCardModel;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsWalletCardCollectionViewCell
+-(JobsRetJobsWalletCardCollectionViewCellByJobsWalletCardModelBlock _Nonnull)byCardModel;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsWalletCardCollectionViewCell
 @end
 
 NS_ASSUME_NONNULL_END

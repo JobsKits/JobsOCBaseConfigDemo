@@ -13,6 +13,12 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsExcelTopHeadView
+@interface JobsExcelTopHeadView (JobsPropertyDSLSetterAutogen_53d13725eb)
+-(void)setExcelConfigureData:(JobsExcelConfigureViewModel * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsExcelTopHeadView
+
 @implementation JobsExcelTopHeadView
 /// RACProtocol
 @synthesize racDisposable = _racDisposable;// 用于取消订阅
@@ -30,7 +36,7 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
     @jobs_weakify(self)
     return ^(JobsExcelConfigureViewModel *_Nullable model) {
         @jobs_strongify(self)
-        self.excelConfigureData = model;
+        self.byExcelConfigureData(model);
         self.collectionView.byShow(self);
     };
 }
@@ -59,13 +65,23 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
 }
 #pragma mark —— UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    self.excelConfigureData.HorizontalScrollValue = NSValue.byPoint(scrollView.contentOffset);
-    JobsLog(@"JobsExcelTopHeadView - scrollView.contentOffset.x = %f", scrollView.contentOffset.x);
-    /// 防止在初始情况下，无意义的往右拉动👉🏻
-    if (scrollView.contentOffset.x < 0) scrollView.contentOffset = CGPointMake(0, scrollView.contentOffset.y);
-    /// 防止在初始情况下，无意义的往左拉动👈🏻
-    CGFloat d = (self.excelConfigureData.colNumber * self.excelConfigureData.itemW - self.excelConfigureData.XZExcelW) + self.excelConfigureData.itemW + self.excelConfigureData.scrollOffsetX;
-    if(scrollView.contentOffset.x > d) scrollView.contentOffset = CGPointMake(d, scrollView.contentOffset.y);
+    jobsByScrollViewBlock action = ((jobsByScrollViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsExcelTopHeadView.class, @selector(jobsScrollViewDidScroll)))(self, @selector(jobsScrollViewDidScroll));
+    if (action) action(scrollView);
+}
+
+-(jobsByScrollViewBlock _Nonnull)jobsScrollViewDidScroll{
+    @jobs_weakify(self)
+    return ^(UIScrollView * scrollView){
+        @jobs_strongify(self)
+        if (!self) return;
+        self.excelConfigureData.byHorizontalScrollValue(NSValue.byPoint(scrollView.contentOffset));
+        JobsLog(@"JobsExcelTopHeadView - scrollView.contentOffset.x = %f", scrollView.contentOffset.x);
+        /// 防止在初始情况下，无意义的往右拉动👉🏻
+        if (scrollView.contentOffset.x < 0) scrollView.contentOffset = CGPointMake(0, scrollView.contentOffset.y);
+        /// 防止在初始情况下，无意义的往左拉动👈🏻
+        CGFloat d = (self.excelConfigureData.colNumber * self.excelConfigureData.itemW - self.excelConfigureData.XZExcelW) + self.excelConfigureData.itemW + self.excelConfigureData.scrollOffsetX;
+        if(scrollView.contentOffset.x > d) scrollView.contentOffset = CGPointMake(d, scrollView.contentOffset.y);
+    };
 }
 #pragma mark —— getter and setter
 @synthesize collectionView = _collectionView;
@@ -79,18 +95,29 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
                 data.byJobsWidth(self.excelConfigureData.itemW)
                     .byJobsHeight(self.excelConfigureData.itemH);
             });
-            data.minimumLineSpacing = 0;
-            data.minimumInteritemSpacing = 0;
+            data
+                .byMinimumLineSpacing(0)
+                .byMinimumInteritemSpacing(0);
         })];
         _collectionView
             .dataLink(self)
             .byBgColor(JobsClearColor);
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.showsHorizontalScrollIndicator = NO;
+        _collectionView.byShowsVerticalScrollIndicator(NO);
+        _collectionView.byShowsHorizontalScrollIndicator(NO);
         _collectionView.addOn(self).byAdd(^(MASConstraintMaker *make) {
             make.edges.equalTo(self).insets(UIEdgeInsetsMake(0, 0, 0, 0));
         });
     };return _collectionView;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsExcelTopHeadView
+-(JobsRetJobsExcelTopHeadViewByJobsExcelConfigureViewModelBlock _Nonnull)byExcelConfigureData{
+    @jobs_weakify(self)
+    return ^__kindof JobsExcelTopHeadView * _Nullable(JobsExcelConfigureViewModel * _Nullable data){
+        @jobs_strongify(self)
+        [self setExcelConfigureData:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsExcelTopHeadView
 @end

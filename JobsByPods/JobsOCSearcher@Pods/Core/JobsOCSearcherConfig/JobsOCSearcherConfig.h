@@ -41,7 +41,21 @@ Prop_copy(nullable)jobsByArrBlock historyChangedBlock;
 Prop_copy(nullable)jobsByVoidBlock cancelBlock;
 Prop_copy(nullable)jobsByVoidBlock clearHistoryBlock;
 
-+(instancetype)defaultConfig;
++(JobsRetJobsOCSearcherConfigByVoidBlock _Nonnull)defaultConfig;
+-(JobsRetJobsOCSearcherConfigByStrBlock _Nonnull)byPlaceholder;
+-(JobsRetJobsOCSearcherConfigByStrBlock _Nonnull)bySearchButtonTitle;
+-(JobsRetJobsOCSearcherConfigByStrBlock _Nonnull)byRecommendTitle;
+-(JobsRetJobsOCSearcherConfigByStrBlock _Nonnull)byHistoryTitle;
+-(JobsRetJobsOCSearcherConfigByStrBlock _Nonnull)byHistoryStorageKey;
+-(JobsRetJobsOCSearcherConfigByNSUIntegerBlock _Nonnull)byMaxHistoryCount;
+-(JobsRetJobsOCSearcherConfigByBOOLBlock _Nonnull)byDismissKeyboardWhenCancel;
+-(JobsRetJobsOCSearcherConfigByJobsByStrBlock _Nonnull)bySearchTextDidChangeBlock;
+-(JobsRetJobsOCSearcherConfigByJobsByStrBlock _Nonnull)bySearchConfirmBlock;
+-(JobsRetJobsOCSearcherConfigByJobsByStrBlock _Nonnull)byItemSelectedBlock;
+-(JobsRetJobsOCSearcherConfigByJobsByStrBlock _Nonnull)byHistoryDeleteBlock;
+-(JobsRetJobsOCSearcherConfigByJobsByArrBlock _Nonnull)byHistoryChangedBlock;
+-(JobsRetJobsOCSearcherConfigByJobsByVoidBlock _Nonnull)byCancelBlock;
+-(JobsRetJobsOCSearcherConfigByJobsByVoidBlock _Nonnull)byClearHistoryBlock;
 
 @end
 

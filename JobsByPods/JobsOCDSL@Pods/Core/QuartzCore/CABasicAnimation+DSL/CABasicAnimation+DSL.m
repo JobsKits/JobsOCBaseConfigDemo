@@ -2,10 +2,13 @@
 //  CABasicAnimation+DSL.m
 //  JobsOCDSL
 //
+//  Created by Jobs on 2026年8月3日，星期一.
+//
+
 #import "CABasicAnimation+DSL.h"
 
 @implementation CABasicAnimation (JobsChain)
--(JobsRetCABasicAnimationByIDBlock)byFromValue{
+-(JobsRetCABasicAnimationByIDBlock _Nonnull)byFromValue{
     @jobs_weakify(self)
     return ^__kindof CABasicAnimation *_Nullable(id _Nullable data){
         @jobs_strongify(self)
@@ -14,7 +17,7 @@
     };
 }
 
--(JobsRetCABasicAnimationByIDBlock)byToValue{
+-(JobsRetCABasicAnimationByIDBlock _Nonnull)byToValue{
     @jobs_weakify(self)
     return ^__kindof CABasicAnimation *_Nullable(id _Nullable data){
         @jobs_strongify(self)
@@ -23,7 +26,7 @@
     };
 }
 
--(JobsRetCABasicAnimationByIDBlock)byByValue{
+-(JobsRetCABasicAnimationByIDBlock _Nonnull)byByValue{
     @jobs_weakify(self)
     return ^__kindof CABasicAnimation *_Nullable(id _Nullable data){
         @jobs_strongify(self)

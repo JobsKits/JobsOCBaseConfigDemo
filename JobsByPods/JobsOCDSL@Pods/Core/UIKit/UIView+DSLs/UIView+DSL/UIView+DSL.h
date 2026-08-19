@@ -180,13 +180,13 @@ Prop(readonly)CGFloat maxX;
 Prop(readonly)CGFloat maxY;
 Prop(readonly)CGPoint boundCenter;
 /// [平移]这个view, 让view.maxX = maxX
--(void)setMaxXByShift:(CGFloat)maxX;
+-(jobsByCGFloatBlock _Nonnull)setMaxXByShift;
 /// [拉伸]这个view, 让view.maxX = maxX
--(void)setMaxXByStretch:(CGFloat)maxX;
+-(jobsByCGFloatBlock _Nonnull)setMaxXByStretch;
 /// [平移]这个view, 让view.maxY = maxY
--(void)setMaxYByShift:(CGFloat)maxY;
+-(jobsByCGFloatBlock _Nonnull)setMaxYByShift;
 /// [拉伸]这个view, 让view.maxY = maxY
--(void)setMaxYByStretch:(CGFloat)maxY;
+-(jobsByCGFloatBlock _Nonnull)setMaxYByStretch;
 
 #pragma mark —— Geometry
 -(JobsRetViewByFrameBlock _Nonnull)byFrame;
@@ -226,6 +226,7 @@ Prop_assign()CGSize layoutSubviewsRectCornerSize;
 -(JobsRetViewByCorBlock _Nonnull)byTintColor;
 -(JobsRetViewByNSIntegerBlock _Nonnull)byTintAdjustmentMode;
 #pragma mark —— Semantics / RTL
+-(JobsRetViewByStringBlock _Nonnull)byAccessibilityIdentifier;
 -(JobsRetViewByNSIntegerBlock _Nonnull)bySemanticContentAttribute;
 #pragma mark —— Layout behaviors
 -(JobsRetViewByBOOLBlock _Nonnull)byAutoresizesSubviews;

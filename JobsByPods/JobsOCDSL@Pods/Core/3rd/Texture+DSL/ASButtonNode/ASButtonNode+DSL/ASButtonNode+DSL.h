@@ -30,6 +30,12 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsOCDSL/UILongPressGestureRecognizer+DSL.h>)
+#import <JobsOCDSL/UILongPressGestureRecognizer+DSL.h>
+#else
+#import "UILongPressGestureRecognizer+DSL.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 /// ASButtonNode 链式 DSL（节选：标题/图片/边距/圆角/事件）
 @interface ASButtonNode (DSL)

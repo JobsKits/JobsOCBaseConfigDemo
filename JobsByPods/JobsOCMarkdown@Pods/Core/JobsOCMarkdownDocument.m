@@ -25,13 +25,33 @@
 }
 
 -(BOOL)isEqual:(id)object{
-    if (self == object) return YES;
-    if (![object isKindOfClass:JobsOCMarkdownDocument.class]) return NO;
-    return [self.identifier isEqualToString:((JobsOCMarkdownDocument *)object).identifier];
+    JobsRetBOOLByIDBlock action = ((JobsRetBOOLByIDBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCMarkdownDocument.class, @selector(jobsIsEqual)))(self, @selector(jobsIsEqual));
+    return action ? action(object) : NO;
+}
+
+-(JobsRetBOOLByIDBlock _Nonnull)jobsIsEqual{
+    @jobs_weakify(self)
+    return ^BOOL(id object){
+        @jobs_strongify(self)
+        if (!self) return NO;
+        if (self == object) return YES;
+        if (![object isKindOfClass:JobsOCMarkdownDocument.class]) return NO;
+        return [self.identifier isEqualToString:((JobsOCMarkdownDocument *)object).identifier];
+    };
 }
 
 -(NSUInteger)hash{
-    return self.identifier.hash;
+    JobsRetNSUIntegerByVoidBlock action = ((JobsRetNSUIntegerByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCMarkdownDocument.class, @selector(jobsHash)))(self, @selector(jobsHash));
+    return action ? action() : (NSUInteger){0};
+}
+
+-(JobsRetNSUIntegerByVoidBlock _Nonnull)jobsHash{
+    @jobs_weakify(self)
+    return ^NSUInteger{
+        @jobs_strongify(self)
+        if (!self) return (NSUInteger){0};
+        return self.identifier.hash;
+    };
 }
 
 @end

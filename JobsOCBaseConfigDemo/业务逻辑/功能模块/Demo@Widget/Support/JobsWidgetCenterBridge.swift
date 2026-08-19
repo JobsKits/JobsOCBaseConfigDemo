@@ -26,15 +26,30 @@ final class JobsWidgetCenterBridge: NSObject {
         return value > 0 ? value : defaultCounter
     }
 
+    @objc(jobsCounter)
+    class func jobsCounter() -> @convention(block) () -> Int {
+        { counter() }
+    }
+
     @objc(saveCounter:)
     class func saveCounter(_ counter: Int) {
         defaults.set(counter, forKey: counterKey)
         reloadTimelines()
     }
 
+    @objc(jobsSaveCounter)
+    class func jobsSaveCounter() -> @convention(block) (Int) -> Void {
+        { saveCounter($0) }
+    }
+
     @objc(reloadTimelines)
     class func reloadTimelines() {
         defaults.set(Date(), forKey: updatedAtKey)
         WidgetCenter.shared.reloadTimelines(ofKind: widgetKind)
+    }
+
+    @objc(jobsReloadTimelines)
+    class func jobsReloadTimelines() -> @convention(block) () -> Void {
+        { reloadTimelines() }
     }
 }

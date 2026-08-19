@@ -13,12 +13,6 @@
 #import "JobsBaseUI.h"
 #endif
 
-#if __has_include(<JobsViewPush/JobsViewPush.h>)
-#import <JobsViewPush/JobsViewPush.h>
-#else
-#import "JobsViewPush.h"
-#endif
-
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>
 #else
@@ -35,6 +29,12 @@
 #import <JobsOCDSL/JobsOCDSL.h>
 #else
 #import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsViewPush/JobsViewPush.h>)
+#import <JobsViewPush/JobsViewPush.h>
+#else
+#import "JobsViewPush.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

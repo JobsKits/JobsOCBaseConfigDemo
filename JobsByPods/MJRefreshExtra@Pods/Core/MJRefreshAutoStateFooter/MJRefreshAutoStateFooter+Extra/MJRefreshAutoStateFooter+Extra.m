@@ -26,19 +26,41 @@ static inline void MJRefreshExtraFeedbackIfNeeded(MJRefreshConfigModel *config) 
     if (!config.isShake) return;
     if (@available(iOS 10.0, *)) {
         UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
-        [generator prepare];
+        generator.prepare;
         [generator impactOccurred];
     }
 }
 
+@implementation MJRefreshFooter (JobsExtra)
+
+-(JobsRetMJRefreshFooterByStateBlock _Nonnull)byState{
+    @jobs_weakify(self)
+    return ^__kindof MJRefreshFooter *_Nullable(MJRefreshState data){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        self.state = data;
+        return self;
+    };
+}
+
+@end
+
 @implementation MJRefreshAutoStateFooter (Extra)
+-(JobsRetIDByBOOLBlock _Nonnull)byAutomaticallyChangeAlpha{
+    @jobs_weakify(self)
+    return ^id(BOOL automaticallyChangeAlpha){
+        @jobs_strongify(self)
+        self.automaticallyChangeAlpha = automaticallyChangeAlpha;
+        return self;
+    };
+}
 -(JobsRetMJRefreshAutoStateFooterByRefreshConfigModelBlock _Nonnull)byMJRefreshFooterConfigModel{
     @jobs_weakify(self)
     return ^__kindof MJRefreshAutoStateFooter *_Nullable(MJRefreshConfigModel *_Nullable config){
         @jobs_strongify(self)
         MJRefreshExtraApplyStateTitles(self, config);/// 文字
         MJRefreshExtraApplyStateLabelStyle(self.stateLabel, config);/// 字体和颜色
-        self.automaticallyChangeAlpha = config.automaticallyChangeAlpha;
+        self.byAutomaticallyChangeAlpha(config.automaticallyChangeAlpha);
         MJRefreshExtraFeedbackIfNeeded(config);/// 震动特效反馈
         return self;
     };

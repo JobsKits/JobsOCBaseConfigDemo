@@ -9,8 +9,13 @@
 
 @implementation UIScrollView (UIScrollViewProtocol)
 /// 在 UIScrollViewDelegate协议方法 -(void)scrollViewDidScroll:(UIScrollView *)scrollView里进行调用
--(ScrollDirection)scrolldirectionWhenScrollViewDidScroll{
-    return ScrollDirectionNone;
+-(JobsRetScrollDirectionByVoidBlock _Nonnull)scrolldirectionWhenScrollViewDidScroll{
+    @jobs_weakify(self)
+    return ^ScrollDirection{
+        @jobs_strongify(self)
+        if (!self) return (ScrollDirection){0};
+        return ScrollDirectionNone;
+    };
 }
 /// 如果使用：dispatch_async + dispatch_get_main_queue()进行主线程上的调用，会执行2次刷新的协议方法
 -(JobsRetViewByVoidBlock _Nonnull)reloadDatas{
@@ -30,16 +35,26 @@
 }
 /// 得到visibleCells
 -(NSArray <UIView *>*_Nullable)scrollViewCells{
-    NSArray <UIView *>*cells = nil;
-    if(self){
-        if (self.isKindOfClass(UICollectionView.class)) {
-            UICollectionView *collectionView = (UICollectionView *)self;
-            cells = collectionView.visibleCells;
-        }else if (self.isKindOfClass(UITableView.class)){
-            UITableView *tableView = (UITableView *)self;
-            cells = tableView.visibleCells;
-        }else{}
-    };return cells;
+    JobsRetNSArrayUIViewByVoidBlock action = ((JobsRetNSArrayUIViewByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UIScrollView.class, @selector(jobsScrollViewCells)))(self, @selector(jobsScrollViewCells));
+    return action ? action() : nil;
+}
+
+-(JobsRetNSArrayUIViewByVoidBlock _Nonnull)jobsScrollViewCells{
+    @jobs_weakify(self)
+    return ^NSArray <UIView *>*{
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSArray <UIView *>*cells = nil;
+        if(self){
+            if (self.isKindOfClass(UICollectionView.class)) {
+                UICollectionView *collectionView = (UICollectionView *)self;
+                cells = collectionView.visibleCells;
+            }else if (self.isKindOfClass(UITableView.class)){
+                UITableView *tableView = (UITableView *)self;
+                cells = tableView.visibleCells;
+            }else{}
+        };return cells;
+    };
 }
 /// 依据index得到cell
 -(JobsRetViewByNSUIntegerBlock _Nonnull)scrollViewCellsByIndex{

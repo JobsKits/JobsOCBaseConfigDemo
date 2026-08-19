@@ -52,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///【类方法】UIImage 转 NSData（PNG格式）
 +(JobsRetDataByImageBlock _Nonnull)dataWithPNGImage;
 ///【实例方法】UIImage 转 NSData（PNG格式）
--(NSData *_Nullable)PNGImageData;
+-(JobsRetDataByVoidBlock _Nonnull)PNGImageData;
 #pragma mark —— 【Sys】UIImage ==> NSData.JPEG
 ///【类方法】UIImage 转 NSData（JPEG格式），指定压缩质量
 +(NSData *_Nullable)dataWithJPEGImage:(UIImage *_Nonnull)image
@@ -64,7 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///【类方法】将UIimage对象转成用Base32编码的字符串
 +(JobsRetStrByImageBlock _Nonnull)base32StringByImage;
 ///【实例方法】将UIimage对象转成用Base32编码的字符串
--(NSString *_Nullable)base32Str;
+-(JobsRetStrByVoidBlock _Nonnull)base32Str;
 ///【类方法】将以Base32编码的字符串 转换为 NSData对象，然后再转成UIImage
 +(JobsRetImageByStrBlock _Nonnull)imageByBase32String;
 ///【实例方法】将以Base32编码的字符串 转换为 NSData对象，然后再转成UIImage

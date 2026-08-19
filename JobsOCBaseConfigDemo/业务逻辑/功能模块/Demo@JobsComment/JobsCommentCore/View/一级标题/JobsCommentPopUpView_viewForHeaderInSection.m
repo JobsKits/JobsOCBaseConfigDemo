@@ -14,9 +14,15 @@ Prop_strong()RBCLikeButton *likeBtn;
 /// Data
 Prop_strong()JobsFirstCommentModel *firstCommentModel;
 
--(UIImage *_Nullable)jobs_commentAvatarPlaceholderImageByID:(NSString *_Nullable)avatarID;
+-(JobsRetImageByStrBlock _Nonnull)jobs_commentAvatarPlaceholderImageByID;
 
 @end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsCommentPopUpView_viewForHeaderInSection
+@interface JobsCommentPopUpView_viewForHeaderInSection (JobsPropertyDSLSetterAutogen_3646245bfd)
+-(void)setFirstCommentModel:(JobsFirstCommentModel * _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsCommentPopUpView_viewForHeaderInSection
 
 @implementation JobsCommentPopUpView_viewForHeaderInSection
 -(instancetype)init{
@@ -25,7 +31,17 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
 }
 
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCommentPopUpView_viewForHeaderInSection.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 
 -(void)touchesBegan:(NSSet<UITouch *> *)touches
@@ -36,7 +52,7 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
 /// 具体由子类进行复写【数据定高】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 +(JobsRetCGFloatByIDBlock _Nonnull)viewHeightByModel{
     return ^CGFloat(id _Nullable data){
-        return JobsCommentConfig.sharedManager.cellHeight;
+        return JobsCommentConfig.jobsSharedManager().cellHeight;
     };
 }
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -46,7 +62,7 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
         @jobs_strongify(self)
         self.byBgColor(JobsSecondarySystemBackgroundColor);
         if ([model isKindOfClass:JobsFirstCommentModel.class]) {
-            self.firstCommentModel = model;
+            self.byFirstCommentModel(model);
             self.userInfoBtn.byAlpha(1);
             self.likeBtn.byAlpha(1);
         }
@@ -56,12 +72,15 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
 -(BaseButton *)userInfoBtn{
     if(!_userInfoBtn){
         @jobs_weakify(self)
-        _userInfoBtn = BaseButton.jobsInit()
+        _userInfoBtn = ((BaseButton *)BaseButton.jobsInit())
+            .byImageViewFrame(CGRectMake(0, JobsWidth(16), JobsWidth(40), JobsWidth(40)))
+            .byTextLabelFrame(CGRectMake(JobsWidth(52), JobsWidth(14), JobsWidth(220), JobsWidth(18)))
+            .bySubTextLabelFrame(CGRectMake(JobsWidth(52), JobsWidth(34), JobsWidth(240), JobsWidth(22)))
             .bgColorBy(JobsClearColor)
             .jobsResetImagePlacement(NSDirectionalRectEdgeLeading)
             .jobsResetImagePadding(0)
-            .jobsResetBtnTitleCor(JobsCommentConfig.sharedManager.titleCor)
-            .jobsResetBtnTitleFont(JobsCommentConfig.sharedManager.titleFont)
+            .jobsResetBtnTitleCor(JobsCommentConfig.jobsSharedManager().titleCor)
+            .jobsResetBtnTitleFont(JobsCommentConfig.jobsSharedManager().titleFont)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 x.bySelected(!x.selected);
@@ -76,21 +95,18 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
                 make.top.bottom.equalTo(self);
             });
         /// 很重要，自定义设置UIBotton.imageView
-        _userInfoBtn.imageViewFrame = CGRectMake(0, JobsWidth(16), JobsWidth(40), JobsWidth(40));
-        _userInfoBtn.textLabelFrame = CGRectMake(JobsWidth(52), JobsWidth(14), JobsWidth(220), JobsWidth(18));
-        _userInfoBtn.subTextLabelFrame = CGRectMake(JobsWidth(52), JobsWidth(34), JobsWidth(240), JobsWidth(22));
         _userInfoBtn.imageView
             .byContentMode(UIViewContentModeScaleAspectFill)
             .byClipsToBounds(YES);
         _userInfoBtn.imageView.cornerCutToCircleWithCornerRadius(JobsWidth(20));
     }
-    UIImage *placeholderImage = [self jobs_commentAvatarPlaceholderImageByID:self.firstCommentModel.ID ? : self.firstCommentModel.userId];
+    UIImage *placeholderImage = self.jobs_commentAvatarPlaceholderImageByID(self.firstCommentModel.ID ? : self.firstCommentModel.userId);
     self->_userInfoBtn.jobsResetBtnImage(placeholderImage);
-    if (self.firstCommentModel.headImg.jobsCanOpenUrl) {
+    if (self.firstCommentModel.headImg.jobsCanOpenUrl()) {
         self->_userInfoBtn
-            .imageURL(self.firstCommentModel.headImg.imageURLPlus.jobsUrl)
+            .imageURL(self.firstCommentModel.headImg.jobsImageURLPlus().jobsURL())
             .placeholderImage(placeholderImage)
-            .options(self.makeSDWebImageOptions)
+            .options(self.jobsMakeSDWebImageOptions())
             .completed(^(UIImage * _Nullable image,
                          NSError * _Nullable error,
                          SDImageCacheType cacheType,
@@ -108,20 +124,25 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
         .jobsUpdateButtonConfigurationBy(^(UIButtonConfiguration *config) {
             config
                 .byAttributedTitle([NSMutableAttributedString.alloc initWithString:self.firstCommentModel.nickname ? : @""
-                                                                        attributes:@{NSFontAttributeName: JobsCommentConfig.sharedManager.titleFont,
-                                                                  NSForegroundColorAttributeName: JobsCommentConfig.sharedManager.titleCor}])
+                                                                        attributes:@{NSFontAttributeName: JobsCommentConfig.jobsSharedManager().titleFont,
+                                                                  NSForegroundColorAttributeName: JobsCommentConfig.jobsSharedManager().titleCor}])
                 .byAttributedSubtitle([NSMutableAttributedString.alloc initWithString:self.firstCommentModel.content ? : @""
-                                                                           attributes:@{NSFontAttributeName: JobsCommentConfig.sharedManager.subTitleFont,
-                                                                     NSForegroundColorAttributeName: JobsCommentConfig.sharedManager.subTitleCor}]);
+                                                                           attributes:@{NSFontAttributeName: JobsCommentConfig.jobsSharedManager().subTitleFont,
+                                                                     NSForegroundColorAttributeName: JobsCommentConfig.jobsSharedManager().subTitleCor}]);
         })
         .makeBtnTitleByShowingType(UILabelShowingType_03);
     return _userInfoBtn;
 }
 
--(UIImage *_Nullable)jobs_commentAvatarPlaceholderImageByID:(NSString *_Nullable)avatarID{
-    NSString *seed = avatarID.length ? avatarID : @"jobs-comment-placeholder";
-    NSInteger imageIndex = seed.hash % 4 + 1;
-    return JobsLoadBundleImage(@"bundle", @"头像", nil, [NSString stringWithFormat:@"头像_%ld",(long)imageIndex]) ? : @"用户默认头像".img;
+-(JobsRetImageByStrBlock _Nonnull)jobs_commentAvatarPlaceholderImageByID{
+    @jobs_weakify(self)
+    return ^UIImage *_Nullable(NSString *_Nullable avatarID){
+        @jobs_strongify(self)
+        if (!self) return nil;
+        NSString *seed = avatarID.length ? avatarID : @"jobs-comment-placeholder";
+        NSInteger imageIndex = seed.hash % 4 + 1;
+        return JobsLoadBundleImage(@"bundle", @"头像", nil, [NSString stringWithFormat:@"头像_%ld",(long)imageIndex]) ? : @"用户默认头像".img;
+    };
 }
 
 -(RBCLikeButton *)likeBtn{
@@ -142,9 +163,9 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
     //                           thumbNum:x.selected ? x.thumpNum + 1 : x.thumpNum - 1
     //                          animation:YES];
                 if(x.selected){
-                    x.thumpNum = x.thumpNum + 1;
+                    x.byThumpNum(x.thumpNum + 1);
                 }else{
-                    x.thumpNum = x.thumpNum - 1;
+                    x.byThumpNum(x.thumpNum - 1);
                 }
                 x
                     .jobsResetBtnTitle(toStringByNSInteger(x.thumpNum))
@@ -160,10 +181,10 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
                 make.right.equalTo(self).offset(-JobsWidth(14));
                 make.centerY.equalTo(self);
             });
-        _likeBtn.thumpNum = 0;
+        _likeBtn.byThumpNum(0);
     }
     _likeBtn.bySelected(self.firstCommentModel.isPraise);
-    _likeBtn.thumpNum = self.firstCommentModel.praiseNum;
+    _likeBtn.byThumpNum(self.firstCommentModel.praiseNum);
     _likeBtn
         .jobsResetBtnTitle(toStringByNSInteger(_likeBtn.thumpNum))
         .jobsResetBtnTitleCor(_likeBtn.selected ? JobsRedColor : HEXCOLOR(0x94A3B8))
@@ -172,4 +193,14 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
     return _likeBtn;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsCommentPopUpView_viewForHeaderInSection
+-(JobsRetJobsCommentPopUpView_viewForHeaderInSectionByJobsFirstCommentModelBlock _Nonnull)byFirstCommentModel{
+    @jobs_weakify(self)
+    return ^__kindof JobsCommentPopUpView_viewForHeaderInSection * _Nullable(JobsFirstCommentModel * _Nullable data){
+        @jobs_strongify(self)
+        [self setFirstCommentModel:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsCommentPopUpView_viewForHeaderInSection
 @end

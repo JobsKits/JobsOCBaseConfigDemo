@@ -128,13 +128,13 @@ Prop_assign()CGFloat imageViewFrameOffsetHeight;/// 负值缩小，正值放大
 /// UITableViewCell的一些默认样式设置
 -(jobsByVoidBlock _Nonnull)settingForTableViewCell;
 /// 获取这个UITableViewCell所承载的UITableView
--(__kindof UITableView *_Nullable)jobsGetCurrentTableView;
+-(JobsRetTableViewByVoidBlock _Nonnull)jobsGetCurrentTableView;
 /// 获取当前的UITableViewCell对应的indexPath
--(NSIndexPath *_Nullable)jobsGetCurrentIndexPath;
+-(JobsRetNSIndexPathByVoidBlock _Nonnull)jobsGetCurrentIndexPath;
 /// 获取当前的UITableViewCell对应的section个数
--(NSInteger)jobsGetCurrentNumberOfSections;
+-(JobsRetNSIntegerByVoidBlock _Nonnull)jobsGetCurrentNumberOfSections;
 /// 获取当前的UITableViewCell对应的section的的row个数
--(NSInteger)jobsGetCurrentNumberOfRowsInSection;
+-(JobsRetNSIntegerByVoidBlock _Nonnull)jobsGetCurrentNumberOfRowsInSection;
 /// 以section为单位，每个section的第一行和最后一行的cell圆角化处理【cell之间没有分割线】
 -(__kindof CALayer *)roundedCornerFirstAndLastCellByTableView:(UITableView *)tableView
                                                     indexPath:(NSIndexPath *)indexPath

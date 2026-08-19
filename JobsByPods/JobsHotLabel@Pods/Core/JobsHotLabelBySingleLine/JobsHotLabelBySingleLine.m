@@ -6,6 +6,7 @@
 //
 
 #import "JobsHotLabelBySingleLine.h"
+#import <JobsOCDSL/UIButton+DSL.h>
 
 @interface JobsHotLabelBySingleLine (){
     CGSize btnSize;
@@ -19,7 +20,31 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
 
 @end
 
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsHotLabelBySingleLine
+@interface JobsHotLabelBySingleLine (JobsPropertyDSLSetterAutogen_aaab5f9032)
+-(void)setViewModelDataArr:(NSArray <UIViewModel *>* _Nullable)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsHotLabelBySingleLine
+
 @implementation JobsHotLabelBySingleLine
+-(JobsRetJobsHotLabelBySingleLineByUILabelShowingTypeBlock _Nonnull)byLabelShowingType{
+    @jobs_weakify(self)
+    return ^__kindof JobsHotLabelBySingleLine *_Nullable(UILabelShowingType data){
+        @jobs_strongify(self)
+        self.labelShowingType = data;
+        return self;
+    };
+}
+
+-(JobsRetJobsHotLabelBySingleLineByCGSizeBlock _Nonnull)byElementDefaultSize{
+    @jobs_weakify(self)
+    return ^__kindof JobsHotLabelBySingleLine *_Nullable(CGSize data){
+        @jobs_strongify(self)
+        self.elementDefaultSize = data;
+        return self;
+    };
+}
+
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsSecondarySystemBackgroundColor);
@@ -33,7 +58,17 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
 }
 /// 必须有frame的前提下才会进行绘制
 -(void)drawRect:(CGRect)rect{
-    [super drawRect:rect];
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsHotLabelBySingleLine.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
 }
 #pragma mark —— BaseViewProtocol
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -48,7 +83,7 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
     return ^(NSMutableArray <UIViewModel *>*_Nullable model) {
         @jobs_strongify(self)
         if (model.count) {
-            self.viewModelDataArr = model;
+            self.byViewModelDataArr(model);
             self.createHotLabelByArr(self.viewModelDataArr);
         }
     };
@@ -62,13 +97,13 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
         if (dataArr.count) {
 //            self.dynamicCalculationWithDataArr(dataArr);
             for (UIViewModel *vm in dataArr) {
-                self.viewModel = vm;
+                self.byViewModel(vm);
                 // 其实item是button,因为button有相对于Label更为丰富的表现形式
                 UIButton *btn = self.configBtnBy(vm);
-                btn.sizer = self->btnSize;
+                btn.bySizer(self->btnSize);
                 self.btnMutArr.add(btn);
                 self.stackView.add(btn);
-            }[self useHighestValue];/// 取最大的高度值使用
+            }self.useHighestValue();/// 取最大的高度值使用
         }
     };
 }
@@ -108,45 +143,55 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
     return ^__kindof UIButton *_Nullable(UIViewModel *_Nullable vm){
         return jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
             @jobs_strongify(self)
-            btn.bySelected(self.viewModel.jobsSelected);
-            btn.requestParams = vm.requestParams;
             btn.jobsResetBtnTitle(vm.textModel.text)
             .jobsResetBtnTitleFont(vm.textModel.font)
             .jobsResetBtnTitleCor(vm.textModel.textCor)
             .onClickBy(^(UIButton *x){
                 JobsLog(@"");
                 @jobs_strongify(self)
-                [self changeButtonState];
+                self.changeButtonState();
                 x.byToggleSelected();
                 if (self.objBlock) self.objBlock(x);
             })
+            .makeBtnTitleByShowingType(self.labelShowingType)
+            .bySelected(self.viewModel.jobsSelected)
+            .bySize(CGSizeMake((JobsMainScreen_WIDTH() - JobsWidth(15 * 5)) / 4, JobsWidth(30)))
+            .byRequestParams(vm.requestParams)
             .JobsBlock1(^(id _Nullable data) {
                 @jobs_strongify(self)
                 self.btnHeightMutArr.add(data);
-            })
-            .bySize(CGSizeMake((JobsMainScreen_WIDTH() - JobsWidth(15 * 5)) / 4, JobsWidth(30)));
-            btn.makeBtnTitleByShowingType(self.labelShowingType);
+            });
         });
     };
 }
 /// 取最大的高度值使用
--(void)useHighestValue{
-    for (UIButton *btn in self.btnMutArr) {
-        /// 取最高的值
-        NSNumber *highestNum = @(self.elementDefaultSize.height);
-        for (NSNumber *num in self.btnHeightMutArr) {
-            highestNum = @(MAX(highestNum.floatValue, num.floatValue));
+-(jobsByVoidBlock _Nonnull)useHighestValue{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        for (UIButton *btn in self.btnMutArr) {
+            /// 取最高的值
+            NSNumber *highestNum = @(self.elementDefaultSize.height);
+            for (NSNumber *num in self.btnHeightMutArr) {
+                highestNum = @(MAX(highestNum.floatValue, num.floatValue));
+            }
+            btn.byRemake(^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(self.elementDefaultSize.width, highestNum.floatValue));
+            });
         }
-        btn.byRemake(^(MASConstraintMaker *make) {
-            make.size.mas_equalTo(CGSizeMake(self.elementDefaultSize.width, highestNum.floatValue));
-        });
-    }
+    };
 }
 
--(void)changeButtonState{
-    for (UIButton *btn in self.btnMutArr) {
-        btn.bySelected(NO);
-    }
+-(jobsByVoidBlock _Nonnull)changeButtonState{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        for (UIButton *btn in self.btnMutArr) {
+            btn.bySelected(NO);
+        }
+    };
 }
 #pragma mark —— lazyLoad
 /**
@@ -180,9 +225,9 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
             stackView
                 .byAxis(UILayoutConstraintAxisHorizontal)
                 .byDistribution(UIStackViewDistributionEqualSpacing)
-                .byAlignment(UIStackViewAlignmentCenter);
+                .byAlignment(UIStackViewAlignmentCenter)
             /// 注意这里设置的约束，最后一个宽度的约束很关键
-            stackView.addOn(self.scrollView).byAdd(^(MASConstraintMaker *make) {
+            .addOn(self.scrollView).byAdd(^(MASConstraintMaker *make) {
                 make.height.equalTo(self);
                 make.centerY.equalTo(self.scrollView);
                 if (self.scrollView.contentSize.width > self.scrollView.width) {
@@ -230,4 +275,14 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
     };return _btnHeightMutArr;
 }
 
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsHotLabelBySingleLine
+-(JobsRetJobsHotLabelBySingleLineByNSArrayUIViewModelBlock _Nonnull)byViewModelDataArr{
+    @jobs_weakify(self)
+    return ^__kindof JobsHotLabelBySingleLine * _Nullable(NSArray <UIViewModel *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setViewModelDataArr:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsHotLabelBySingleLine
 @end

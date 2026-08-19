@@ -42,14 +42,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (Extra)
 
-Prop_copy()jobsByMASConstraintMakerBlock masonryBlock;
+Prop_copy(nullable)jobsByMASConstraintMakerBlock masonryBlock;
 Prop_assign()CGFloat jobsVisible;
 
 -(JobsRetViewByViewBlock _Nonnull)addSubview;
 -(jobsByVoidBlock _Nonnull)refresh;
-/// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
+/// 调用方式：view.layerByBorderCor(@"#FFD8D8".jobsCor()).layerByBorderWidth(1);
 -(JobsRetViewByCorBlock _Nonnull)layerByBorderCor;
-/// 调用方式：view.layerByBorderCor(@"#FFD8D8".cor).layerByBorderWidth(1);
+/// 调用方式：view.layerByBorderCor(@"#FFD8D8".jobsCor()).layerByBorderWidth(1);
 -(JobsRetViewByFloatBlock _Nonnull)layerByBorderWidth;
 /// 切整个View的4个角为统一的切角参数
 -(JobsRetViewByFloatBlock _Nonnull)cornerCutToCircleWithCornerRadius;

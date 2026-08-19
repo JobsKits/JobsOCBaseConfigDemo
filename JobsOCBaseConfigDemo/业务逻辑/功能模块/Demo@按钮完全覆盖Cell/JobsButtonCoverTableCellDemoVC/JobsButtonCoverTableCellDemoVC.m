@@ -19,25 +19,45 @@ Prop_strong()NSArray<UIViewModel *> *demoArr;
 
 @implementation JobsButtonCoverTableCellDemoVC
 -(void)loadView{
-    [super loadView];
-    self.viewModel
-        .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"返回".tr);
-        })
-        .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
-            data.byText(@"按钮完全覆盖 UITableViewCell".tr)
-                .byFont(UIFontWeightRegularSize(17))
-                .byTextCor(JobsLabelColor);
-        })
-        .byBgCor(HEXCOLOR(0xF4F5F8))
-        .byNavBgCor(HEXCOLOR(0xF4F5F8));
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsButtonCoverTableCellDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLoadView{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super loadView];
+        self.viewModel
+            .byBackBtnTitleModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"返回".jobsTr());
+            })
+            .byTextModelBlock(^(__kindof UITextModel * _Nullable data) {
+                data.byText(@"按钮完全覆盖 UITableViewCell".jobsTr())
+                    .byFont(UIFontWeightRegularSize(17))
+                    .byTextCor(JobsLabelColor);
+            })
+            .byBgCor(HEXCOLOR(0xF4F5F8))
+            .byNavBgCor(HEXCOLOR(0xF4F5F8));
+    };
 }
 
 -(void)viewDidLoad{
-    [super viewDidLoad];
-    self.view.byBgColor(JobsSystemBackgroundColor);
-    self.makeNavByAlpha(1);
-    self.coverTableView.byVisible(YES);
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsButtonCoverTableCellDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsViewDidLoad{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super viewDidLoad];
+        self.view.byBgColor(JobsSystemBackgroundColor);
+        self.makeNavByAlpha(1);
+        self.coverTableView.byVisible(YES);
+    };
 }
 #pragma mark —— UITableViewDelegate,UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView
@@ -73,8 +93,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(UIViewModel *)demoViewModelWithTitle:(NSString *)title
                       backgroundColor:(UIColor *)backgroundColor{
     return jobsMakeViewModel(^(__kindof UIViewModel * _Nullable model) {
-        model.byTitle(title.tr)
-            .bySubTitle(@"按钮铺满整个 UITableViewCell".tr)
+        model.byTitle(title.jobsTr())
+            .bySubTitle(@"按钮铺满整个 UITableViewCell".jobsTr())
             .byTitleCor(JobsWhiteColor)
             .bySubTitleCor(JobsWhiteColor.colorWithAlphaComponentBy(0.78))
             .byTitleFont(UIFontWeightSemiboldSize(16))

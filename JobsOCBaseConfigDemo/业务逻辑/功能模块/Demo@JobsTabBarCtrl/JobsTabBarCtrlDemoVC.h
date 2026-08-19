@@ -12,22 +12,16 @@
 #import "ViewController@4.h"
 #import "ViewController@5.h"
 
-#if __has_include(<JobsTabBarCtrl/JobsTabBarCtrlHeader.h>)
-#import <JobsTabBarCtrl/JobsTabBarCtrlHeader.h>
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
 #else
-#import "JobsTabBarCtrlHeader.h"
+#import "JobsBaseUI.h"
 #endif
 
 #if __has_include(<JobsByOCPods/JobsByOCPods.h>)
 #import <JobsByOCPods/JobsByOCPods.h>
 #else
 #import "JobsByOCPods.h"
-#endif
-
-#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
-#import <JobsBaseUI/JobsBaseUI.h>
-#else
-#import "JobsBaseUI.h"
 #endif
 
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
@@ -42,6 +36,18 @@
 #import "JobsMakes.h"
 #endif
 
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
+#import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsTabBarCtrl/JobsTabBarCtrlHeader.h>)
+#import <JobsTabBarCtrl/JobsTabBarCtrlHeader.h>
+#else
+#import "JobsTabBarCtrlHeader.h"
+#endif
+
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
@@ -52,12 +58,6 @@
 #import <JobsOCDefs/JobsDefines.h>
 #else
 #import "JobsDefines.h"
-#endif
-
-#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
-#import <JobsOCDSL/JobsOCDSL.h>
-#else
-#import "JobsOCDSL.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

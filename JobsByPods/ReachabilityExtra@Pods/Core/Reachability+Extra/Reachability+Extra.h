@@ -10,16 +10,31 @@
 
 #import <Foundation/Foundation.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<Reachability/Reachability.h>)
 #import <Reachability/Reachability.h>
 #else
 #import "Reachability.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 /// 检查联网情况
 @interface Reachability (Extra)
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN Reachability
+-(JobsRetReachabilityByBOOLBlock _Nonnull)byReachableOnWWAN;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END Reachability
 @end
 
 NS_ASSUME_NONNULL_END

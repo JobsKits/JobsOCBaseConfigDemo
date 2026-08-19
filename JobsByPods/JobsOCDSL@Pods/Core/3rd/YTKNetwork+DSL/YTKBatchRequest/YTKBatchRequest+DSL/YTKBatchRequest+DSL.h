@@ -43,9 +43,9 @@ Prop_assign(readonly)BOOL jobs_isFromCache;
 -(JobsRetYTKBatchRequestBySuccessBlock _Nonnull)bySuccess;
 -(JobsRetYTKBatchRequestBySuccessBlock _Nonnull)byFailure;
 -(JobsRetYTKBatchRequestByCompletionBlocks _Nonnull)byCompletion;
--(__kindof YTKBatchRequest *_Nonnull)byStart;
--(__kindof YTKBatchRequest *_Nonnull)byStop;
--(__kindof YTKBatchRequest *_Nonnull)byClearCompletion;
+-(JobsRetYTKBatchRequestByVoidBlock _Nonnull)byStart;
+-(JobsRetYTKBatchRequestByVoidBlock _Nonnull)byStop;
+-(JobsRetYTKBatchRequestByVoidBlock _Nonnull)byClearCompletion;
 
 @end
 

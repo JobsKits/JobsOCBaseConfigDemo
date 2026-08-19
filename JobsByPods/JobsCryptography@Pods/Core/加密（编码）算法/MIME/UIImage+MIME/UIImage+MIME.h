@@ -23,6 +23,12 @@
 #import "JobsBlock.h"
 #endif
 
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
+#import "JobsDefines.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImage (MIME)
@@ -34,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///【类方法】UIImage对象 转换成 以MIME编码的数据
 +(JobsRetStrByImageBlock _Nonnull)MIMEStringByImage;
 ///【实例方法】UIImage对象 转换成 以MIME编码的数据
--(NSString *_Nullable)MIMEStr;
+-(JobsRetStrByVoidBlock _Nonnull)MIMEStr;
 
 @end
 

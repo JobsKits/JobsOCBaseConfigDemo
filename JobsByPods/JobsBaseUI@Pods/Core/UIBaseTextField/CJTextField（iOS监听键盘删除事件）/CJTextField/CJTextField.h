@@ -41,6 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_weak()id <CJTextFieldDeleteDelegate>cj_delegate;
 
+-(jobsByVoidBlock _Nonnull)jobsDeleteBackward;
+
 @end
 
 NS_ASSUME_NONNULL_END

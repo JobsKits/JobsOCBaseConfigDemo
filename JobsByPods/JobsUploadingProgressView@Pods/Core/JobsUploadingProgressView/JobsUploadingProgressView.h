@@ -10,6 +10,12 @@
 
 #import <UIKit/UIKit.h>
 
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
+#import "JobsBlock.h"
+#endif
+
 #if __has_include(<JobsLanMgr/JobsLanMgr.h>)
 #import <JobsLanMgr/JobsLanMgr.h>
 #else
@@ -58,8 +64,13 @@ Prop_assign()CGFloat height; // 提示框 h
 Prop_assign()CGFloat radius; // 圆半径
 
 +(instancetype)sharedManager;
--(void)updateProgressText:(NSString *)progressText;
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager;
+-(JobsRetJobsUploadingProgressViewByCorBlock _Nonnull)byStrokeColor;
+-(jobsByStrBlock _Nonnull)updateProgressText;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsUploadingProgressView
+-(JobsRetJobsUploadingProgressViewByCAKeyframeAnimationBlock _Nonnull)byAnim;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsUploadingProgressView
 @end
 
 NS_ASSUME_NONNULL_END

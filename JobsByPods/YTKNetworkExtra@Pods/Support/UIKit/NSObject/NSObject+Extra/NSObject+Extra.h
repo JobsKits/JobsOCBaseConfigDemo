@@ -34,9 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 万能解析
 +(JobsRetIDByIDBlock _Nonnull)byData;
 /// 打印请求体
--(JobsRetURLRequestByURLSessionTaskBlock _Nullable)printURLSessionRequestMessage;
+-(JobsRetURLRequestByURLSessionTaskBlock _Nonnull)printURLSessionRequestMessage;
 /// 打印URLRequest
--(JobsRetMutableURLRequestByURLRequestBlock _Nullable)printRequestMessage;
+-(JobsRetMutableURLRequestByURLRequestBlock _Nonnull)printRequestMessage;
 
 @end
 

@@ -8,10 +8,12 @@
 #import "JobsOCKeyboardCalculator.h"
 
 @implementation JobsOCKeyboardCalculator
-+(__kindof UIView *)containerViewByConfig:(__kindof JobsOCKeyboardConfig *)config{
-    if (config.containerView) return config.containerView;
-    if (config.targetView.window) return config.targetView.window;
-    return config.targetView.superview;
++(JobsRetUIViewByJobsOCKeyboardConfigBlock _Nonnull)containerViewByConfig{
+    return ^__kindof UIView *(__kindof JobsOCKeyboardConfig * config){
+        if (config.containerView) return config.containerView;
+        if (config.targetView.window) return config.targetView.window;
+        return config.targetView.superview;
+    };
 }
 
 +(CGRect)accessoryFrameByConfig:(__kindof JobsOCKeyboardConfig *)config
@@ -40,12 +42,14 @@
     };return CGRectNull;
 }
 
-+(UIViewAnimationOptions)animationOptionsByUserInfo:(NSDictionary *)userInfo{
-    NSNumber *curveNumber = userInfo[UIKeyboardAnimationCurveUserInfoKey];
-    NSInteger curve = curveNumber ? curveNumber.integerValue : UIViewAnimationCurveEaseInOut;
-    return (UIViewAnimationOptions)(curve << 16) |
-           UIViewAnimationOptionBeginFromCurrentState |
-           UIViewAnimationOptionAllowUserInteraction;
++(JobsRetUIViewAnimationOptionsByNSDictionaryBlock _Nonnull)animationOptionsByUserInfo{
+    return ^UIViewAnimationOptions(NSDictionary * userInfo){
+        NSNumber *curveNumber = userInfo[UIKeyboardAnimationCurveUserInfoKey];
+        NSInteger curve = curveNumber ? curveNumber.integerValue : UIViewAnimationCurveEaseInOut;
+        return (UIViewAnimationOptions)(curve << 16) |
+               UIViewAnimationOptionBeginFromCurrentState |
+               UIViewAnimationOptionAllowUserInteraction;
+    };
 }
 
 +(BOOL)rect:(CGRect)left horizontallyIntersectsRect:(CGRect)right{
@@ -70,32 +74,32 @@
     userInfo = userInfo ?: @{};
     NSNumber *durationNumber = userInfo[UIKeyboardAnimationDurationUserInfoKey];
     if (durationNumber) result.animationDuration = durationNumber.doubleValue;
-    result.animationOptions = [self animationOptionsByUserInfo:userInfo];
-    if (!config.isValid) return result;
-    UIView *container = [self containerViewByConfig:config];
+    result.byAnimationOptions(self.animationOptionsByUserInfo(userInfo));
+    if (!config.isValid()) return result;
+    UIView *container = self.containerViewByConfig(config);
     UIView *targetView = config.targetView;
     if (!container || !targetView) return result;
     UIView *triggerView = config.triggerView ?: targetView;
     if (CGRectIsNull(keyboardFrameInScreen) || CGRectIsEmpty(keyboardFrameInScreen)) return result;
     CGRect keyboardFrame = [container convertRect:keyboardFrameInScreen fromView:nil];
-    result.keyboardFrameInContainer = keyboardFrame;
-    result.targetFrameInContainer = [container convertRect:targetView.bounds fromView:targetView];
-    result.triggerFrameInContainer = [container convertRect:triggerView.bounds fromView:triggerView];
+    result.byKeyboardFrameInContainer(keyboardFrame);
+    result.byTargetFrameInContainer([container convertRect:targetView.bounds fromView:targetView]);
+    result.byTriggerFrameInContainer([container convertRect:triggerView.bounds fromView:triggerView]);
     BOOL hasKeyboardSize = CGRectGetWidth(keyboardFrame) > 0 && CGRectGetHeight(keyboardFrame) > 0;
     BOOL keyboardVisible = hasKeyboardSize &&
                            CGRectIntersectsRect(container.bounds, keyboardFrame) &&
                            CGRectGetMinY(keyboardFrame) < CGRectGetMaxY(container.bounds);
-    result.keyboardVisible = keyboardVisible;
+    result.byKeyboardVisible(keyboardVisible);
     if (!keyboardVisible) return result;
     CGRect accessoryFrame = [self accessoryFrameByConfig:config
                                               container:container
                                           keyboardFrame:keyboardFrame];
-    result.accessoryFrameInContainer = accessoryFrame;
+    result.byAccessoryFrameInContainer(accessoryFrame);
     CGRect obstructionFrame = keyboardFrame;
     if (!CGRectIsNull(accessoryFrame) && !CGRectIsEmpty(accessoryFrame)) {
         obstructionFrame = CGRectUnion(obstructionFrame, accessoryFrame);
     }
-    result.obstructionFrameInContainer = obstructionFrame;
+    result.byObstructionFrameInContainer(obstructionFrame);
     if (config.shouldCheckHorizontalOverlap &&
         ![self rect:result.triggerFrameInContainer horizontallyIntersectsRect:obstructionFrame]) {
         return result;
@@ -106,8 +110,8 @@
     CGFloat maxLift = config.maxLiftDistance > 0
         ? config.maxLiftDistance
         : MAX(0, CGRectGetMinY(result.targetFrameInContainer) - safeTop);
-    result.offsetY = MIN(rawOffset, maxLift);
-    result.shouldAdjust = result.offsetY > 0;
+    result.byOffsetY(MIN(rawOffset, maxLift));
+    result.byShouldAdjust(result.offsetY > 0);
     return result;
 }
 

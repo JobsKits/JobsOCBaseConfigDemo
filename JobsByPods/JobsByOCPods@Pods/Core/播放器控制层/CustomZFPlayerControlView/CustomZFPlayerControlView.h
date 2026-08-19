@@ -125,8 +125,11 @@ NS_ASSUME_NONNULL_BEGIN
 ///播放器的控制层
 @interface CustomZFPlayerControlView : ZFPlayerControlView <ZFPlayerMediaControl>
 
--(void)actionCustomZFPlayerControlViewBlock:(jobsByTwoIDBlock _Nullable)CustomZFPlayerControlViewBlock;
+-(jobsByjobsByTwoIDBlockBlock _Nonnull)actionCustomZFPlayerControlViewBlock;
 
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN CustomZFPlayerControlView
+-(JobsRetCustomZFPlayerControlViewByjobsByTwoIDBlockBlock _Nonnull)byCustomZFPlayerControlViewBlock;
+// JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END CustomZFPlayerControlView
 @end
 
 NS_ASSUME_NONNULL_END

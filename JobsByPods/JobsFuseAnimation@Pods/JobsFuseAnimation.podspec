@@ -23,6 +23,7 @@ JobsFuseAnimation provides chainable Objective-C UIView animations and a protoco
 
   spec.frameworks = ['UIKit', 'QuartzCore', 'AudioToolbox', 'ImageIO']
   spec.dependency 'JobsOCDefs'
+  spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDSL'
   spec.dependency 'JobsMakes'
   spec.dependency 'JobsOCTimer'

@@ -11,12 +11,6 @@
 #import "GetCustomerContactApi.h"
 #import "JobsNetworkingHeader.h"    // Api
 
-#if __has_include(<YTKNetwork/YTKNetwork.h>)
-#import <YTKNetwork/YTKNetwork.h>
-#else
-#import "YTKNetwork.h"
-#endif
-
 #if __has_include(<AFNetworking/AFURLRequestSerialization.h>)
 #import <AFNetworking/AFURLRequestSerialization.h>
 #else
@@ -29,22 +23,16 @@
 #import "MJExtension.h"
 #endif
 
+#if __has_include(<YTKNetwork/YTKNetwork.h>)
+#import <YTKNetwork/YTKNetwork.h>
+#else
+#import "YTKNetwork.h"
+#endif
+
 #if __has_include(<JobsOCProtocols/JobsBaseProtocolHeader.h>)
 #import <JobsOCProtocols/JobsBaseProtocolHeader.h>
 #else
 #import "JobsBaseProtocolHeader.h"
-#endif
-
-#if __has_include(<YTKNetworkExtra/YTKNetworkExtra.h>)
-#import <YTKNetworkExtra/YTKNetworkExtra.h>
-#else
-#import "YTKNetworkExtra.h"
-#endif
-
-#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
-#import <JobsModelDSL/JobsModelDSL.h>
-#else
-#import "JobsModelDSL.h"
 #endif
 
 #if __has_include(<JobsAPIs/JobsAPIs.h>)
@@ -53,22 +41,28 @@
 #import "JobsAPIs.h"
 #endif
 
+#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
+#import <JobsByOCPods/JobsByOCPods.h>
+#else
+#import "JobsByOCPods.h"
+#endif
+
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>
 #else
 #import "JobsMakes.h"
 #endif
 
-#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
-#import <JobsByOCPods/JobsByOCPods.h>
+#if __has_include(<JobsModelDSL/JobsModelDSL.h>)
+#import <JobsModelDSL/JobsModelDSL.h>
 #else
-#import "JobsByOCPods.h"
+#import "JobsModelDSL.h"
 #endif
 
-#if __has_include(<JobsByOCPods/JobsByOCPods.h>)
-#import <JobsByOCPods/JobsByOCPods.h>
+#if __has_include(<YTKNetworkExtra/YTKNetworkExtra.h>)
+#import <YTKNetworkExtra/YTKNetworkExtra.h>
 #else
-#import "JobsByOCPods.h"
+#import "YTKNetworkExtra.h"
 #endif
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -88,15 +82,15 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSObject (YTKNetworks)<YTKChainRequestDelegate>
 #pragma mark —— 示例代码
 /// 普通的单个请求
--(void)loadCacheData:(jobsByResponseModelBlock _Nullable)successBlock;
+-(jobsByjobsByResponseModelBlockBlock _Nonnull)loadCacheData;
 /// 多请求の同步请求
--(void)sendBatchRequest:(jobsByYTKBatchRequestBlock _Nullable)successBlock;
+-(jobsByjobsByYTKBatchRequestBlockBlock _Nonnull)sendBatchRequest;
 /// 多请求の链式请求。链式请求的结果集体现在<YTKChainRequestDelegate>
--(void)sendChainRequest:(jobsByYTKChainRequestBlock _Nullable)successBlock;
+-(jobsByjobsByYTKChainRequestBlockBlock _Nonnull)sendChainRequest;
 #pragma mark —— 查询广告列表-支持游客：APP首页右下3Banner【GET】
--(void)getAds:(jobsByResponseModelBlock _Nullable)successBlock;
+-(jobsByjobsByResponseModelBlockBlock _Nonnull)getAds;
 #pragma mark —— 用户登出【POST】
--(void)fm_logout:(jobsByResponseModelBlock _Nullable)successBlock;
+-(jobsByjobsByResponseModelBlockBlock _Nonnull)fm_logout;
 #pragma mark —— 存款优惠活动信息【POST】
 -(void)depositDiscountActivityRecordByURLParameters:(NSString *_Nullable)urlParameters
                                        successBlock:(jobsByYTKChainRequestBlock _Nullable)successBlock;
