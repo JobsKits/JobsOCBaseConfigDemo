@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -165,5 +167,39 @@ pod install --no-repo-update
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+集中定义 UI、业务、网络及第三方适配模型。BaseModel 和协议提供基础表达，具体模型承载字段、默认值或数组元素映射；视图与请求层消费这些模型，链式配置由 JobsModelDSL 提供。
+
+### 10.2、运行脉络
+
+原始数据或配置意图 → 构造具体模型 → 应用默认值/字段映射 → 交给视图、请求或业务层消费。
+
+### 10.3、关键设计与边界
+
+- 第三方适配模型与第三方源码要区分，保留实际来源和维护范围。
+- 嵌套数组元素类型、字段别名和 getter 默认值影响数据解析，不能只抄属性名称。
+- 模型不应在重建时顺带承担页面展示和网络调度。
+
+### 10.4、阅读与重建顺序
+
+先确定消费方使用哪一个模型，再读字段、默认 getter 和映射方法，最后补对应 DSL。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsModel.h](<./JobsModel.h>)
+- [Core/3rd/BRStringPickerViewModel/BRStringPickerViewModel.h](<./Core/3rd/BRStringPickerViewModel/BRStringPickerViewModel.h>)
+- [Core/3rd/GTCaptcha4Model/GTCaptcha4Model.h](<./Core/3rd/GTCaptcha4Model/GTCaptcha4Model.h>)
+- [Core/3rd/GTCaptcha4ResultModel/GTCaptcha4ResultModel.h](<./Core/3rd/GTCaptcha4ResultModel/GTCaptcha4ResultModel.h>)
+- [Core/3rd/HXPhotoPickerModel/HXPhotoPickerModel.h](<./Core/3rd/HXPhotoPickerModel/HXPhotoPickerModel.h>)
+
+依赖与编译入口：[JobsModel.podspec](<./JobsModel.podspec>)。其中显式依赖声明包括 `GTCaptcha4`、`HXPhotoPickerObjC`、`Masonry`、`MJExtension`、`XYColorOC`、`ReactiveObjC`、`SDWebImage`、`SPAlertController`、`JobsMakes`、`JobsClass`、`JobsBlock`、`JobsOCDefs`、`JobsOCProtocols`、`JobsStringUtils`、`JobsLoadingImage`、`JobsLanMgr`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -4,6 +4,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font>
@@ -43,5 +45,39 @@
 pod install
 xcodebuild -workspace JobsOCBaseConfigDemo.xcworkspace -scheme JobsOCBaseConfigDemo -configuration Debug -destination 'generic/platform=iOS Simulator' build
 ```
+
+<a id="jobs-architecture"></a>
+
+## 五、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 5.1、设计目的与职责划分
+
+为 JobsModel 中的具体模型提供类型化链式赋值分类。它不重新定义模型字段，而是将模型已有属性整理成 byXxx 入口，供视图、请求和配置代码连续构造。
+
+### 5.2、运行脉络
+
+创建具体模型 → 按字段调用 byXxx → 保持当前模型类型继续链式配置 → 交给消费方。
+
+### 5.3、关键设计与边界
+
+- 属性含义与默认值由 JobsModel 决定，DSL 不应复制另一套模型定义。
+- 旧字段别名与新字段名称需要核对实际映射，例如选择器的文件名、列数等兼容项。
+- 嵌套模型与回调字段要保留原类型，不能用泛型字典替代全部强类型配置。
+
+### 5.4、阅读与重建顺序
+
+先读目标模型，再对照其同名 DSL 分类；重建顺序是模型契约在前、链式门面在后。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsModelDSL.h](<./JobsModelDSL.h>)
+- [Core/BRStringPickerViewModel/BRStringPickerViewModel+DSL/BRStringPickerViewModel+DSL.h](<./Core/BRStringPickerViewModel/BRStringPickerViewModel+DSL/BRStringPickerViewModel+DSL.h>)
+- [Core/BRTextModel/BRTextModel+DSL/BRTextModel+DSL.h](<./Core/BRTextModel/BRTextModel+DSL/BRTextModel+DSL.h>)
+- [Core/CasinoCustomerContactElementModel/CasinoCustomerContactElementModel+DSL/CasinoCustomerContactElementModel+DSL.h](<./Core/CasinoCustomerContactElementModel/CasinoCustomerContactElementModel+DSL/CasinoCustomerContactElementModel+DSL.h>)
+- [Core/CasinoCustomerContactModel/CasinoCustomerContactModel+DSL/CasinoCustomerContactModel+DSL.h](<./Core/CasinoCustomerContactModel/CasinoCustomerContactModel+DSL/CasinoCustomerContactModel+DSL.h>)
+
+依赖与编译入口：[JobsModelDSL.podspec](<./JobsModelDSL.podspec>)。其中显式依赖声明包括 `JobsModel`、`JobsBlock`、`JobsOCProtocols`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

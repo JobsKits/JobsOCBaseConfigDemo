@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -138,5 +140,36 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+通过网卡累计字节差计算速率，并用悬浮 Label 显示结果。对象保存上次字节数和首轮标记，格式化方法把原始数值转为可读文本；它与独立的 JobsNetWorkTools 采样器是不同实现。
+
+### 10.2、运行脉络
+
+读取累计流量 → 与上次采样作差 → 格式化速率 → 更新悬浮提示 → 保存本轮基准。
+
+### 10.3、关键设计与边界
+
+- 累计字节不是瞬时速率，必须结合采样时间理解。
+- 第一次采样缺少前值，不能按普通差值处理。
+- 统计网卡流量不等于只统计当前 App 的某一个网络请求。
+
+### 10.4、阅读与重建顺序
+
+先看 getInterfaceBytes，再看首轮/lastBytes 状态和显示入口；重建时明确采样间隔与网卡过滤。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [Core/JobsMonitorNetwoking/JobsMonitorNetwoking.h](<./Core/JobsMonitorNetwoking/JobsMonitorNetwoking.h>)
+- [JobsMonitorNetwokingHeader.h](<./JobsMonitorNetwokingHeader.h>)
+
+依赖与编译入口：[JobsMonitorNetwoking.podspec](<./JobsMonitorNetwoking.podspec>)。其中显式依赖声明包括 `JobsSuspend`、`JobsOCDefs`、`JobsOCDSL`、`JobsBlock`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

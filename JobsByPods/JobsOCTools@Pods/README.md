@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -201,5 +203,39 @@ pod install --no-repo-update
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+这是多个历史工具与 UI 能力的集合入口，包含崩溃日志、图标/通知、缩放、页面组合等分支，并依赖已拆出的独立 Pod。它不对应单一业务流程，阅读时应沿具体功能目录与聚合入口定位。
+
+### 10.2、运行脉络
+
+从需求选择功能分支 → 进入独立工具或组合视图 → 调用所依赖的基础 Pod → 返回结果或呈现 UI。
+
+### 10.3、关键设计与边界
+
+- Core 中既有自维护工具也有历史来源组件，不能仅凭目录或统一文件头认定全部为自研。
+- 崩溃日志的启动标记、写入、尾部读取和清理是一套独立生命周期，不应与普通 UI 工具混作同一初始化。
+- 已拆出的计时器、验证码、悬浮等能力应按真实依赖引用，避免在重建集合库时重复生成。
+
+### 10.4、阅读与重建顺序
+
+先从业务入口反查所属子目录，再区分本库实际实现与外部依赖；按功能逐块重建，不一次复制整套聚合依赖。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsOCTools.h](<./JobsOCTools.h>)
+- [Core/FSAppIconManager/FSAppIconManager.h](<./Core/FSAppIconManager/FSAppIconManager.h>)
+- [Core/JobsRightMenuView/JobsRightMenuView.h](<./Core/JobsRightMenuView/JobsRightMenuView.h>)
+- [Core/JobsShowNumView/JobsShowNumView.h](<./Core/JobsShowNumView/JobsShowNumView.h>)
+- [Core/JobsStepView/JobsStepView.h](<./Core/JobsStepView/JobsStepView.h>)
+
+依赖与编译入口：[JobsOCTools.podspec](<./JobsOCTools.podspec>)。其中显式依赖声明包括 `FDFullscreenPopGesture`、`FSCalendar`、`Masonry`、`PPBadgeView`、`ReactiveObjC`、`SocketRocket`、`ZFPlayer`、`lottie-ios`、`JobsBlock`、`JobsMakes`、`JobsModelDSL`、`JobsOCDSL`、`JobsBaseUI`、`JobsOCDefs`、`JobsCryptography`、`JobsStringUtils`、`JobsOCTimer`、`JobsCountdownBtn`、`JobsOCGraphicCaptcha`、`JobsSuspend`、`JobsOCKeyboardMgr`、`JobsByOCPods`、`JobsAppTools`、`TFPopupExtra`、`JobsHotLabel`、`JobsDeviceInfo`、`AFSecurityPolicyExtra`、`HTMLDocumentExtra`、`FMDatabaseExtra`、`FSCalendarExtra`、`GKCustomNavigationBarExtra`、`HXPhotoManagerExtra`、`HXPhotoViewExtra`、`IQKeyboardManagerExtra`、`JXCategoryViewExtra`、`LMJDropdownMenuExtra`、`MGSwipeTableCellExtra`、`RACExtra`、`ReachabilityExtra`、`SRWebSocketExtra`、`SZTextViewExtra`、`ZFPlayerExtra`、`ZMJCellExtra`、`JobsOCProtocols`、`JobsLoadingImage`、`JobsOCRuntimeKits`、`JobsLanMgr`、`JobsOCCountryCodeCtrl`、`JobsFuseAnimation`、`XYColorOC`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

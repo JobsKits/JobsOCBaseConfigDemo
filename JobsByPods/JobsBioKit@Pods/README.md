@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -132,5 +134,36 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+以 LocalAuthentication 的 LAContext 为系统边界，将生物识别能力查询、设备所有者认证与系统错误映射统一为 JobsBioKitType/Result。系统负责实际认证，库负责策略与回调表达。
+
+### 10.2、运行脉络
+
+检查设备能力 → 选择仅生物识别或允许设备密码的策略 → 发起系统认证 → 映射结果 → 主线程 reply。
+
+### 10.3、关键设计与边界
+
+- 可用性查询与认证成功是两件事；用户取消、系统取消、不可用等结果需要区分。
+- allowPasscodeFallback 影响认证策略，localizedFallbackTitle 影响系统按钮文案，不能互相替代。
+- 业务仍需提供认证原因和宿主所需权限说明。
+
+### 10.4、阅读与重建顺序
+
+先看类型/结果枚举与错误映射，再看能力检查和 authenticate 入口；重建时保留系统认证边界。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [Core/JobsBioKit/JobsBioKit.h](<./Core/JobsBioKit/JobsBioKit.h>)
+- [JobsBioKitHeader.h](<./JobsBioKitHeader.h>)
+
+依赖与编译入口：[JobsBioKit.podspec](<./JobsBioKit.podspec>)。其中显式依赖声明包括 `JobsBlock`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

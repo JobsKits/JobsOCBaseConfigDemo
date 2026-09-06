@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -135,5 +137,35 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+这是 FSCalendar 的扩展接入位置。当前 Core 中的 FSCalendar(Extra) 分类为空，主要价值是保持模块入口与依赖位置，不能据此推断已有自研日历渲染或日期选择算法。
+
+### 10.2、运行脉络
+
+引入聚合头 → 获得 FSCalendar 依赖及分类扩展位置 → 使用上游日历能力。
+
+### 10.3、关键设计与边界
+
+- 当前没有已实现的额外分类方法。
+- 需要添加 Jobs 特有能力时，应先定义清楚与上游 delegate/dataSource 的边界，不能把整个 FSCalendar 当作本库的自研实现。
+
+### 10.4、阅读与重建顺序
+
+先核对空分类和 podspec；重建现状只需要模块接入，不应凭空生成额外功能。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [FSCalendarExtra.h](<./FSCalendarExtra.h>)
+- [Core/FSCalendar+Extra/FSCalendar+Extra.h](<./Core/FSCalendar+Extra/FSCalendar+Extra.h>)
+
+依赖与编译入口：[FSCalendarExtra.podspec](<./FSCalendarExtra.podspec>)。其中显式依赖声明包括 `FSCalendar`、`JobsBlock`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

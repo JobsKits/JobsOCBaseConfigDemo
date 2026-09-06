@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -132,5 +134,35 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+为 Reachability 的蜂窝网络可达策略提供一个 Jobs 链式配置入口。本库不新增网络探测引擎，只修改现有 Reachability 对象的 reachableOnWWAN 设置。
+
+### 10.2、运行脉络
+
+准备 Reachability 对象 → byReachableOnWWAN 配置蜂窝可达策略 → 继续由上游处理可达状态。
+
+### 10.3、关键设计与边界
+
+- 该设置不是一次真实业务接口请求的成功结果，也不负责请求重试。
+- 链式配置与启动监听需要区分，不能在重建中暗中附加联网副作用。
+
+### 10.4、阅读与重建顺序
+
+先核对唯一分类方法到上游属性的映射；网络监控的生命周期在调用方或其他管理模块中理解。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [ReachabilityExtra.h](<./ReachabilityExtra.h>)
+- [Core/Reachability+Extra/Reachability+Extra.h](<./Core/Reachability+Extra/Reachability+Extra.h>)
+
+依赖与编译入口：[ReachabilityExtra.podspec](<./ReachabilityExtra.podspec>)。其中显式依赖声明包括 `Reachability`、`JobsBlock`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

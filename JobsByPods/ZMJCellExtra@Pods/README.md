@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -138,5 +140,35 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+给 ZMJGanttChart 的 ZMJCell 增加按钮、颜色条和颜色状态。分类通过属性访问为表格单元提供定制内容，上游继续负责表格布局与复用。
+
+### 10.2、运行脉络
+
+取得 ZMJCell → 访问/配置按钮或颜色条 → 按数据更新颜色与内容 → 交给上游表格展示。
+
+### 10.3、关键设计与边界
+
+- 附加视图属于 Cell 的状态，复用时需要由调用方按新数据更新，不能只在首次创建时赋值。
+- 定制 Cell 内容与整个甘特图的数据、滚动和布局算法应保持分离。
+
+### 10.4、阅读与重建顺序
+
+先读 btn、colorBarView、color 的属性实现，再看上层如何在单元配置时使用。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [ZMJCellExtra.h](<./ZMJCellExtra.h>)
+- [Core/ZMJCell+CustomView/ZMJCell+CustomView.h](<./Core/ZMJCell+CustomView/ZMJCell+CustomView.h>)
+
+依赖与编译入口：[ZMJCellExtra.podspec](<./ZMJCellExtra.podspec>)。其中显式依赖声明包括 `ZMJGanttChart`、`JobsMakes`、`JobsOCDSL`、`JobsBlock`、`JobsOCDefs`、`JobsBaseUI`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

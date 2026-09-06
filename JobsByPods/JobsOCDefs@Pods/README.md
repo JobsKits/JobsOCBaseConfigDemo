@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -145,5 +147,39 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+集中维护常量、枚举、属性/协议辅助宏等公共定义，供多个 Pod 使用同一套名称和类型。它主要是编译期约定与少量常量定义，不是执行流程的统一管理器。
+
+### 10.2、运行脉络
+
+确定公共语义 → 通过聚合头引入定义 → 各 Pod 以相同类型/常量实现功能。
+
+### 10.3、关键设计与边界
+
+- 宏展开可能包含声明或关联属性实现，不能只把宏名当作普通函数。
+- 枚举值和常量字符串可能被持久化或跨模块传递，重建时不能无意改变值。
+- 底层定义应控制对上层业务的依赖，防止循环引入。
+
+### 10.4、阅读与重建顺序
+
+先按常量、枚举、属性和协议宏分组，再查看实际使用点；优先还原被依赖的最小定义集合。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsDefines.h](<./JobsDefines.h>)
+- [Core/JobsDefines/JobsDefineOCProtocol/JobsDefineOCProtocol.h](<./Core/JobsDefines/JobsDefineOCProtocol/JobsDefineOCProtocol.h>)
+- [Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineAppToolsProtocol/JobsDefineAppToolsProtocol.h](<./Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineAppToolsProtocol/JobsDefineAppToolsProtocol.h>)
+- [Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineBaseButtonProtocol/JobsDefineBaseButtonProtocol.h](<./Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineBaseButtonProtocol/JobsDefineBaseButtonProtocol.h>)
+- [Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineBaseLayerProtocol/JobsDefineBaseLayerProtocol.h](<./Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineBaseLayerProtocol/JobsDefineBaseLayerProtocol.h>)
+
+依赖与编译入口：[JobsOCDefs.podspec](<./JobsOCDefs.podspec>)。其中显式依赖声明包括 `XYColorOC`、`YTKNetwork`、`GKNavigationBar`、`JobsBlock`、`JobsStringUtils`、`JobsGetWindow`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -143,5 +145,37 @@ pod install --no-repo-update
 - `JobsOCCountryCodeCtrl` 类名和 Pod 名一致；不要在其它 Pod 里继续编译同职责的国家代码选择控制器。
 - plist 是运行时必要资源，移动目录或改资源声明后必须验证选择页能正常显示国家列表。
 - `countryCodeDelegate` 和 `countryCodeBlock` 是公开回调边界；Block typedef 统一收口在 `JobsBlock`。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+从本地 plist 读取国家/地区及电话区号，组织选择列表，并提供名称、旗帜和区号文字的格式化入口。delegate 与 Block 是选择结果的两种公开回传方式。
+
+### 10.2、运行脉络
+
+加载资源列表 → 整理名称/旗帜/区号显示 → 用户选择条目 → 将国家与代码回传宿主。
+
+### 10.3、关键设计与边界
+
+- 国家代码、电话区号和显示名称不是同一种数据，不能混用。
+- plist 是运行时必要资源，仅重建控制器而没有数据文件不能得到完整列表。
+- 旗帜与富文本展示包含特定资源/格式化分支，不能用简单拼接替代所有情况。
+
+### 10.4、阅读与重建顺序
+
+先看资源读取，再看公开格式化入口与选择回调；重建时先确认可用的数据来源和资源包。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [Core/JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrl.h](<./Core/JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrl.h>)
+- [Core/JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlDelegate/JobsOCCountryCodeCtrlDelegate.h](<./Core/JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlDelegate/JobsOCCountryCodeCtrlDelegate.h>)
+- [JobsOCCountryCodeCtrlHeader.h](<./JobsOCCountryCodeCtrlHeader.h>)
+
+依赖与编译入口：[JobsOCCountryCodeCtrl.podspec](<./JobsOCCountryCodeCtrl.podspec>)。其中显式依赖声明包括 `JobsBlock`、`JobsByOCPods`、`JobsOCDSL`、`JobsOCDefs`、`JobsLanMgr`、`XYColorOC`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

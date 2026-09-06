@@ -4,6 +4,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -97,5 +99,38 @@ pod install --no-repo-update
 
 - 改动 `Core`、podspec、依赖或公开头后，需要重新执行 [**CocoaPods**](https://cocoapods.org/) 集成验证。
 - 当前封装走纯 UIKit / CoreAnimation，不直接暴露 `TABAnimated` 或 `Shimmer` 三方 API；如果后续要桥接 TABAnimated table skeleton，可在本 Pod 增加单独 Support 层，不污染当前公开基础 API。
+
+<a id="jobs-architecture"></a>
+
+## 八、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 8.1、设计目的与职责划分
+
+以 Config 定义 shimmer/pulse 的颜色、时长、高光宽度和圆角，通过 UIView/UIImageView 分类挂载骨架效果。图层动画负责占位表现，图片视图分支还需管理原图恢复。
+
+### 8.2、运行脉络
+
+配置骨架样式 → 挂载占位层 → 播放呼吸/扫光 → 内容就绪时停止并移除 → 恢复真实图片或视图内容。
+
+### 8.3、关键设计与边界
+
+- 当前使用 UIKit/CoreAnimation，不直接对外暴露 TABAnimated 或 Shimmer API。
+- 停止动画与恢复内容是两个必要动作，不能只把图层隐藏。
+- 占位尺寸与原视图布局同步，主题改变后图层颜色也需要重新解析。
+
+### 8.4、阅读与重建顺序
+
+先看 Config，再分别看 UIView 和 UIImageView 的挂载/恢复路径；重建时先打通一次开始到清理的闭环。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsOCSkeletonView.h](<./JobsOCSkeletonView.h>)
+- [Core/JobsOCSkeletonConfig/JobsOCSkeletonConfig.h](<./Core/JobsOCSkeletonConfig/JobsOCSkeletonConfig.h>)
+- [Core/UIImageView+JobsOCSkeletonView/UIImageView+JobsOCSkeletonView.h](<./Core/UIImageView+JobsOCSkeletonView/UIImageView+JobsOCSkeletonView.h>)
+- [Core/UIView+JobsOCSkeletonView/UIView+JobsOCSkeletonView.h](<./Core/UIView+JobsOCSkeletonView/UIView+JobsOCSkeletonView.h>)
+
+依赖与编译入口：[JobsOCSkeletonView.podspec](<./JobsOCSkeletonView.podspec>)。其中显式依赖声明包括 `JobsBlock`、`JobsOCDSL`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

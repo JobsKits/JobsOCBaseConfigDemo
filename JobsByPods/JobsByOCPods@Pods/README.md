@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -162,5 +164,39 @@ pod install --no-repo-update
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+按 Apple 系统类组织工厂、分类和功能封装，是多种基础能力的汇集处。每个类目录对应自己的系统对象；实例配置 DSL、创建工具与功能型扩展可能由相邻 Pod 协作提供。
+
+### 10.2、运行脉络
+
+按系统类型定位分类 → 创建或取得对象 → 应用 Jobs 功能入口 → 由系统对象完成实际操作。
+
+### 10.3、关键设计与边界
+
+- 媒体预览、图层动画、通知、列表和按钮不能被理解为一条统一业务流程，应按系统类型切入。
+- 聚合头可见、源码纳入编译、依赖实际存在是三个独立条件。
+- 与 JobsOCDSL/JobsMakes 已拆分的能力应按真实入口归属理解，避免重建同名分类造成冲突。
+
+### 10.4、阅读与重建顺序
+
+先从目标系统类的公开头切入，再读对应实现和实际 import；无需一开始复刻整个系统封装集合。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsByOCPods.h](<./JobsByOCPods.h>)
+- [Core/播放器控制层/CustomZFPlayerControlView/CustomZFPlayerControlView.h](<./Core/播放器控制层/CustomZFPlayerControlView/CustomZFPlayerControlView.h>)
+- [Core/UIKit/NSObject/NSObject+PopViewToLogOut/NSObject+PopViewToLogOut.h](<./Core/UIKit/NSObject/NSObject+PopViewToLogOut/NSObject+PopViewToLogOut.h>)
+- [Core/UIKit/NSObject/NSObject+UIScrollViewDelegate/NSObject+UIScrollViewDelegate.h](<./Core/UIKit/NSObject/NSObject+UIScrollViewDelegate/NSObject+UIScrollViewDelegate.h>)
+- [Core/UIKit/NSString/NSString+WKWebView/NSString+WKWebView.h](<./Core/UIKit/NSString/NSString+WKWebView/NSString+WKWebView.h>)
+
+依赖与编译入口：[JobsByOCPods.podspec](<./JobsByOCPods.podspec>)。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

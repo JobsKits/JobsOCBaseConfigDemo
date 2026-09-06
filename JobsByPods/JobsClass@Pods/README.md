@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -140,5 +142,37 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+通过 Runtime 查看对象/类的成员变量、属性、方法和协议，并提供模型属性值读取等辅助能力。内联工具负责底层遍历，NSObject 分类提供实例调用入口。
+
+### 10.2、运行脉络
+
+传入类或对象 → 枚举 Runtime 元信息 → 可选读取值/打印 → 返回集合供调试或映射。
+
+### 10.3、关键设计与边界
+
+- 属性声明不保证 getter 存在，@dynamic 等场景不能盲目用 KVC 读取。
+- 字典无序与模型属性遍历顺序是不同问题，不能把运行时遍历结果当成稳定业务排序协议。
+- 打印接口与仅返回集合接口要区分，避免重建后产生额外日志副作用。
+
+### 10.4、阅读与重建顺序
+
+先看 JobsClassInline，再对照 NSObject 分类；使用属性值映射时单独核对排序和缺失 getter 的行为。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsClass.h](<./JobsClass.h>)
+- [Core/JobsClassInline/JobsClassInline.h](<./Core/JobsClassInline/JobsClassInline.h>)
+- [Core/NSObject+Class/NSObject+Class.h](<./Core/NSObject+Class/NSObject+Class.h>)
+
+依赖与编译入口：[JobsClass.podspec](<./JobsClass.podspec>)。其中显式依赖声明包括 `MJExtension`、`JobsBlock`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

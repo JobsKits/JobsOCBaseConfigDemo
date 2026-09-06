@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -135,5 +137,36 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+为 SocketRocket 的 SRWebSocket 提供 URLRequest 创建入口与代理回调队列设置。它是连接对象的构建适配层，连接协议、帧收发和网络状态由 SocketRocket 承担。
+
+### 10.2、运行脉络
+
+准备 NSURLRequest → 创建 SRWebSocket → 配置 delegateDispatchQueue → 由调用方启动并消费连接事件。
+
+### 10.3、关键设计与边界
+
+- 构造对象与 open 连接不是同一步。
+- 回调队列会影响代理事件的执行位置，UI 更新不能忽略线程切换。
+- 本分类没有提供完整的心跳、离线队列或自动重连管理器。
+
+### 10.4、阅读与重建顺序
+
+先重建两个配置入口，再在上层确定连接生命周期与重连政策。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [SRWebSocketExtra.h](<./SRWebSocketExtra.h>)
+- [Core/SRWebSocket+Extra/SRWebSocket+Extra.h](<./Core/SRWebSocket+Extra/SRWebSocket+Extra.h>)
+
+依赖与编译入口：[SRWebSocketExtra.podspec](<./SRWebSocketExtra.podspec>)。其中显式依赖声明包括 `SocketRocket`、`JobsBlock`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

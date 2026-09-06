@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -152,5 +154,39 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+围绕 ZFPlayer 的播放器管理器和控制视图提供 Jobs 的配置链。AVPlayer 与 IJK 管理器负责媒体播放，ZFDouYinControlView 负责短视频场景交互，DSL 连接地址、播放状态和回调。
+
+### 10.2、运行脉络
+
+选择播放管理器 → 配置媒体地址及承载视图 → 绑定控制视图与状态回调 → 准备/播放/暂停/停止。
+
+### 10.3、关键设计与边界
+
+- 管理器与控制视图分层，替换控制界面不应重新实现解码内核。
+- 准备播放、播放、重播、停止以及音量/静音属于不同操作；进度、缓冲和错误回调也不能合并。
+- podspec 声明了多个上游 subspec，重建时应核对实际可用的播放后端，不把所有后端当作系统自带。
+
+### 10.4、阅读与重建顺序
+
+先看管理器 DSL，再看控制视图与其 DSL；先打通一个媒体地址的生命周期，再扩展列表场景。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [ZFPlayerExtra.h](<./ZFPlayerExtra.h>)
+- [Core/ZFPlayerExtra/ZFPlayerExtra.h](<./Core/ZFPlayerExtra/ZFPlayerExtra.h>)
+- [Core/ZFAVPlayerManager/ZFAVPlayerManager+ZFPlayerExtraDSL/ZFAVPlayerManager+ZFPlayerExtraDSL.h](<./Core/ZFAVPlayerManager/ZFAVPlayerManager+ZFPlayerExtraDSL/ZFAVPlayerManager+ZFPlayerExtraDSL.h>)
+- [Core/ZFDouYinControlView/ZFDouYinControlView+DSL/ZFDouYinControlView+DSL.h](<./Core/ZFDouYinControlView/ZFDouYinControlView+DSL/ZFDouYinControlView+DSL.h>)
+- [Core/ZFDouYinControlView/ZFDouYinControlView/ZFDouYinControlView.h](<./Core/ZFDouYinControlView/ZFDouYinControlView/ZFDouYinControlView.h>)
+
+依赖与编译入口：[ZFPlayerExtra.podspec](<./ZFPlayerExtra.podspec>)。其中显式依赖声明包括 `ZFPlayer`、`ZFPlayer/AVPlayer`、`ZFPlayer/ControlView`、`ZFPlayer/ijkplayer`、`JobsBlock`、`JobsOCDefs`、`JobsOCDSL`、`JobsBaseUI`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

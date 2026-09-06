@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -143,5 +145,37 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+为 BRPickerView 补充 Jobs 的选择器创建、样式和数据配置表达。样式对象负责颜色与按钮文案，文本/日期选择器负责选择类型与数据，NSObject 分类提供使用入口；真正的滚轮和选择行为由上游承载。
+
+### 10.2、运行脉络
+
+准备选择数据和样式 → 选择文本或日期模式 → 配置标题、列数或日期范围 → 展示选择器并接收结果。
+
+### 10.3、关键设计与边界
+
+- 文本选择器的数据列结构必须与 pickerMode、showColumnNum 一致，不能只重建外观。
+- 日期上限、自动选择、取消/完成文案属于不同配置维度；新增样式应写入 BRPickerStyle，而不是散落到业务页面。
+
+### 10.4、阅读与重建顺序
+
+先看 BRPickerStyle 与 BRTextPickerView 分类，再看 NSObject 的组合入口；重建 Jobs 适配层时保留 BRPickerView 依赖边界。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [BRPickerViewExtra.h](<./BRPickerViewExtra.h>)
+- [Core/NSObject+BRPickerView/NSObject+BRPickerView.h](<./Core/NSObject+BRPickerView/NSObject+BRPickerView.h>)
+- [Core/BRTextPickerView/BRTextPickerView+Extra/BRTextPickerView+Extra.h](<./Core/BRTextPickerView/BRTextPickerView+Extra/BRTextPickerView+Extra.h>)
+- [Core/BRPickerStyle/BRPickerStyle+DSL/BRPickerStyle+DSL.h](<./Core/BRPickerStyle/BRPickerStyle+DSL/BRPickerStyle+DSL.h>)
+
+依赖与编译入口：[BRPickerViewExtra.podspec](<./BRPickerViewExtra.podspec>)。其中显式依赖声明包括 `XYColorOC`、`BRPickerView`、`JobsBlock`、`JobsModelDSL`、`JobsMakes`、`JobsOCDefs`、`JobsLanMgr`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

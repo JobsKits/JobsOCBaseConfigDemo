@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -151,5 +153,36 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+把 WHToast 的普通、成功、失败、加载和隐藏提示组织为 NSObject 的类/实例 Block 入口。调用方使用统一业务语义，真正的提示展示由 WHToast 承担。
+
+### 10.2、运行脉络
+
+选择提示语义 → 传入文案 → 转交 WHToast 展示 → 在需要时调用隐藏入口。
+
+### 10.3、关键设计与边界
+
+- 类入口和实例入口是两种使用形式，不应形成两套不一致的提示规则。
+- 加载提示需要关注结束时机，不能只重建 show 而漏掉 hide。
+- 文案、主题与宿主显示环境属于组合依赖，提示工具不负责判断业务成功或失败。
+
+### 10.4、阅读与重建顺序
+
+先对照五组提示入口，再核对它们调用上游的具体方式与显示参数。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [WHToastExtra.h](<./WHToastExtra.h>)
+- [Core/NSObject+WHToast/NSObject+WHToast.h](<./Core/NSObject+WHToast/NSObject+WHToast.h>)
+
+依赖与编译入口：[WHToastExtra.podspec](<./WHToastExtra.podspec>)。其中显式依赖声明包括 `Masonry`、`WHToast`、`XYColorOC`、`JobsModelDSL`、`JobsBlock`、`JobsMakes`、`JobsClass`、`JobsOCDefs`、`SDWebImage`、`MJExtension`、`ReactiveObjC`、`JobsOCProtocols`、`JobsLanMgr`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

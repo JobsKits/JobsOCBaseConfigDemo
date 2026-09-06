@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -145,5 +147,35 @@ pod install --no-repo-update
 - 登录弹窗输入变化通过 `onJobsEvent(UIControlEventEditingChanged, block)` 传入真实 `targetVC`，避免把 `UIEvent` 误当成业务控制器参数。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+以 SYSAlertControllerConfig 为输入，把系统 Alert 与 ActionSheet 的组装和展示集中到 NSObject 分类。调用方提供配置并接收 UIAlertController 或展示完成回调，系统负责弹框交互。
+
+### 10.2、运行脉络
+
+准备弹框配置 → 选择 Alert/ActionSheet → 组装系统控制器和动作 → 交给宿主展示 → 处理点击与完成回调。
+
+### 10.3、关键设计与边界
+
+- 弹框样式、动作回调、展示完成回调分别承担不同含义。
+- 展示依赖正确的宿主控制器；ActionSheet 的展示位置及设备差异仍需要在接入时核对。
+
+### 10.4、阅读与重建顺序
+
+先看配置模型，再看两个展示入口如何将模型转为系统对象，最后核对宿主与回调的生命周期。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [SYSAlertControllerExtra.h](<./SYSAlertControllerExtra.h>)
+- [Core/NSObject+SYSAlertController/NSObject+SYSAlertController.h](<./Core/NSObject+SYSAlertController/NSObject+SYSAlertController.h>)
+
+依赖与编译入口：[SYSAlertControllerExtra.podspec](<./SYSAlertControllerExtra.podspec>)。其中显式依赖声明包括 `WHToast`、`WHToastExtra`、`ReactiveObjC`、`JobsModelDSL`、`JobsOCDSL`、`JobsBlock`、`JobsOCDefs`、`JobsOCRuntimeKits`、`JobsLanMgr`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

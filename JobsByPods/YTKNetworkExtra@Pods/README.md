@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -148,5 +150,39 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+以 BaseRequest 和 BaseUploadFileRequest 为基础组织 Jobs 的网络适配。请求参数/请求头属于请求层，NSObject 分类负责标准响应解析，Accessory 连接加载动画，批量与链式请求由 YTKNetwork 协调。
+
+### 10.2、运行脉络
+
+构造请求参数和请求头 → 发起普通/上传/批量请求 → 处理网络结果 → 解析 msg、code、data → 回调业务并结束附属动画。
+
+### 10.3、关键设计与边界
+
+- Body 参数与 URL 参数入口有明确区别，现有注释特别限制了两种初始化后的混接；重建时应按请求方法保留语义。
+- 网络成功与业务 code 成功不能混为一谈；响应模型转换与原始响应应有清晰边界。
+- 加载动画挂在请求生命周期上，批量/链式请求也有对应 Accessory，不能让失败路径遗留加载状态。
+
+### 10.4、阅读与重建顺序
+
+先重建 BaseRequest 的参数与响应约定，再做上传和响应模型转换，最后补动画附件与批量/链式适配。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [YTKNetworkExtra.h](<./YTKNetworkExtra.h>)
+- [Core/BaseRequest/BaseRequest.h](<./Core/BaseRequest/BaseRequest.h>)
+- [Core/JobsResponseModel+YTKNetwork/JobsResponseModel+YTKNetwork.h](<./Core/JobsResponseModel+YTKNetwork/JobsResponseModel+YTKNetwork.h>)
+- [Core/BaseUploadFileRequest/BaseUploadFileRequest.h](<./Core/BaseUploadFileRequest/BaseUploadFileRequest.h>)
+- [Core/NSObject+YTKNetwork/NSObject+YTKNetwork.h](<./Core/NSObject+YTKNetwork/NSObject+YTKNetwork.h>)
+
+依赖与编译入口：[YTKNetworkExtra.podspec](<./YTKNetworkExtra.podspec>)。其中显式依赖声明包括 `JobsModelDSL`、`JobsMakes`、`JobsBlock`、`JobsOCDefs`、`JobsOCDSL`、`YTKNetwork`、`MJExtension`、`AFNetworking`、`WHToastExtra`、`JobsTimeUtils`、`JobsOCProtocols`、`JobsStringUtils`、`JobsLanMgr`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

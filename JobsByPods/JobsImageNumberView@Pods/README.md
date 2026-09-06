@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -141,5 +143,37 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+通过 CollectionView 将图片数组渲染为图片数字或图像序列。外层视图承接数据，专用 Cell 展示单张图，列表的数据源和布局连接两者。
+
+### 10.2、运行脉络
+
+准备 UIImage 数组 → byDataMutArr/模型入口更新数据 → CollectionView 配置单元 → 按序显示图片。
+
+### 10.3、关键设计与边界
+
+- 输入已经是图片，本库并不自动把任意数字转换成完整图片资源集。
+- 图片顺序与 Cell 索引一一对应，更新数据时需同步刷新列表。
+- 视觉尺寸和图片比例需要在布局中明确，不能只依赖资源像素尺寸。
+
+### 10.4、阅读与重建顺序
+
+先看数据数组与 dataSource，再看专用 Cell 的渲染和尺寸；重建时先明确图片数字的资源映射由谁提供。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [Core/JobsImageNumberView/JobsImageNumberView.h](<./Core/JobsImageNumberView/JobsImageNumberView.h>)
+- [Core/JobsImageNumberViewCVCell/JobsImageNumberViewCVCell.h](<./Core/JobsImageNumberViewCVCell/JobsImageNumberViewCVCell.h>)
+- [JobsImageNumberViewHeader.h](<./JobsImageNumberViewHeader.h>)
+
+依赖与编译入口：[JobsImageNumberView.podspec](<./JobsImageNumberView.podspec>)。其中显式依赖声明包括 `JobsMakes`、`JobsOCDSL`、`JobsBlock`、`JobsOCDefs`、`JobsBaseUI`、`JobsByOCPods`、`JobsOCProtocols`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

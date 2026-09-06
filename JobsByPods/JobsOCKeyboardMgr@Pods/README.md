@@ -4,6 +4,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font>
@@ -115,5 +117,39 @@ rg -n -U "\\}\\n\\s*return\\b|\\}return\\b" JobsByPods/JobsOCKeyboardMgr@Pods --
 输入框回车流转事件使用 `offJobsEvent(...).onJobsEvent(...)` 成对重绑，销毁或切换配置时用 `offJobsEvent(...)` 解绑，避免重复回调。
 
 涉及 Pod 依赖或公开头变更后，再按工程需要执行 `pod install --no-repo-update` 和对应 scheme 编译。
+
+<a id="jobs-architecture"></a>
+
+## 六、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 6.1、设计目的与职责划分
+
+将键盘跟随拆成 Config、Calculator、Result 和 Manager。配置指定 owner、跟随视图与输入框，计算器根据键盘/视图位置得到结果，管理器观察事件并应用布局或通知调用方。
+
+### 6.2、运行脉络
+
+绑定配置与输入框 → 接收键盘通知 → 统一坐标计算遮挡 → 生成位移结果 → 应用跟随或交给回调 → 隐藏/解绑时恢复。
+
+### 6.3、关键设计与边界
+
+- 真实 UITextField 需要被明确传入，深层业务包装不能只传外壳视图。
+- 计算结果与直接修改界面是不同模式，应按 applyMode 理解。
+- 回车流转使用成对解绑/重绑，重复配置不能叠加相同回调。
+
+### 6.4、阅读与重建顺序
+
+先看 Config，再看 Calculator 的坐标与相交计算，最后看 Manager 的通知、应用与清理路径。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsOCKeyboardMgr.h](<./JobsOCKeyboardMgr.h>)
+- [Core/JobsOCKeyboardMgr/JobsOCKeyboardMgr.m](<./Core/JobsOCKeyboardMgr/JobsOCKeyboardMgr.m>)
+- [Core/JobsOCKeyboardConfig/JobsOCKeyboardConfig.h](<./Core/JobsOCKeyboardConfig/JobsOCKeyboardConfig.h>)
+- [Core/JobsOCKeyboardCalculator/JobsOCKeyboardCalculator.h](<./Core/JobsOCKeyboardCalculator/JobsOCKeyboardCalculator.h>)
+- [Core/JobsOCKeyboardResult/JobsOCKeyboardResult.h](<./Core/JobsOCKeyboardResult/JobsOCKeyboardResult.h>)
+
+依赖与编译入口：[JobsOCKeyboardMgr.podspec](<./JobsOCKeyboardMgr.podspec>)。其中显式依赖声明包括 `JobsBlock`、`JobsOCDSL`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

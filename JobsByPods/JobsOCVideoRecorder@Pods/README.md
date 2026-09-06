@@ -4,6 +4,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font>
@@ -110,5 +112,39 @@ JobsOCVideoRecorderVC *vc = [JobsOCVideoRecorderVC.alloc initWithConfig:config];
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 八、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 8.1、设计目的与职责划分
+
+将视频录制拆为 CaptureManager、AssetWriter、滤镜处理、配置和 AlbumSaver。采集层产生音视频样本，处理层改变视频图像，写入器负责文件完成，相册保存作为独立异步阶段。
+
+### 8.2、运行脉络
+
+准备权限与采集配置 → 预览/采集音视频 → 可选滤镜处理 → 写入媒体文件 → 完成文件后按需保存相册。
+
+### 8.3、关键设计与边界
+
+- 预览已经显示不代表文件已经写入完成，writer finish 与相册 save 需要分别处理结果。
+- 视频滤镜与音频采集各有时间序列，重建时不能丢失音视频同步。
+- 取消、权限拒绝、写入失败和相册失败不能都报告为录制成功。
+
+### 8.4、阅读与重建顺序
+
+先看 Config/CaptureManager，再看样本到 AssetWriter 的路径与滤镜接口，最后看 AlbumSaver；UI 快门只是这些动作的入口。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsOCVideoRecorder.h](<./JobsOCVideoRecorder.h>)
+- [Core/JobsOCVideoRecorderCaptureManager/JobsOCVideoRecorderCaptureManager.h](<./Core/JobsOCVideoRecorderCaptureManager/JobsOCVideoRecorderCaptureManager.h>)
+- [Core/JobsOCVideoRecorderConfig/JobsOCVideoRecorderConfig.h](<./Core/JobsOCVideoRecorderConfig/JobsOCVideoRecorderConfig.h>)
+- [Core/JobsOCVideoRecorderPreviewView/JobsOCVideoRecorderPreviewView.h](<./Core/JobsOCVideoRecorderPreviewView/JobsOCVideoRecorderPreviewView.h>)
+- [Core/JobsOCVideoRecorderFilter/JobsOCVideoRecorderFilterProtocol/JobsOCVideoRecorderFilterProtocol.h](<./Core/JobsOCVideoRecorderFilter/JobsOCVideoRecorderFilterProtocol/JobsOCVideoRecorderFilterProtocol.h>)
+
+依赖与编译入口：[JobsOCVideoRecorder.podspec](<./JobsOCVideoRecorder.podspec>)。其中显式依赖声明包括 `Masonry`、`TKPermissionKit`、`JobsByOCPods`、`JobsOCDSL`、`JobsMakes`、`JobsBlock`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

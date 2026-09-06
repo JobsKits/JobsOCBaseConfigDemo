@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -135,5 +137,36 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+提供文件后缀、Bundle 资源路径、图片路径、图片数据与 UIImage 构建等基础函数。职责是把资源定位与资源解码分开，让调用者明确自己持有的是名称、路径、数据还是图像。
+
+### 10.2、运行脉络
+
+确定资源 Bundle 和文件名 → 补齐后缀并定位路径 → 读取数据或图片 → 返回资源结果。
+
+### 10.3、关键设计与边界
+
+- 文件名补后缀不是路径拼接，不能把目录和扩展名规则混在一起。
+- 主 Bundle 与 Pod 资源 Bundle 可能不同，重建时需要保留定位上下文。
+- 路径存在、数据可读和图像可解码是不同阶段。
+
+### 10.4、阅读与重建顺序
+
+先看路径函数，再看图片数据与图像构建入口；从一种真实资源的定位过程理解整个库。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [Core/JobsLoadingImage/JobsLoadingImage.h](<./Core/JobsLoadingImage/JobsLoadingImage.h>)
+- [JobsLoadingImageHeader.h](<./JobsLoadingImageHeader.h>)
+
+依赖与编译入口：[JobsLoadingImage.podspec](<./JobsLoadingImage.podspec>)。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

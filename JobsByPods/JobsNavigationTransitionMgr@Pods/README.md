@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -187,5 +189,36 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+以导航控制器代理和自定义滑动手势协调 push/pop 转场。管理器保存方向、进入方式和交互转场对象，通过关联对象维持挂载后的生命周期。
+
+### 10.2、运行脉络
+
+挂载到控制器 → 配置方向并接管相关代理/手势 → 开始交互转场 → 手势变化更新进度 → 结束时完成或取消。
+
+### 10.3、关键设计与边界
+
+- 源码挂载过程会禁用系统 pop 手势并设置导航代理，接入时需要核对与其他导航库的协作。
+- 手势 began、changed、ended/cancelled 分支承担不同阶段，取消不能按完成处理。
+- 管理器存活时间必须覆盖转场，临时局部对象可能无法承接后续回调。
+
+### 10.4、阅读与重建顺序
+
+先读 attachToViewController，再跟踪手势处理、交互进度与代理动画回调；重建时先打通一次可取消的转场。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [Core/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr.h](<./Core/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr.h>)
+- [JobsNavigationTransitionMgrHeader.h](<./JobsNavigationTransitionMgrHeader.h>)
+
+依赖与编译入口：[JobsNavigationTransitionMgr.podspec](<./JobsNavigationTransitionMgr.podspec>)。其中显式依赖声明包括 `FDFullscreenPopGesture`、`GKNavigationBar`、`GKPhotoBrowser`、`Masonry`、`MJExtension`、`MJRefresh`、`MJRefreshExtra`、`ReactiveObjC`、`SDWebImage`、`TABAnimated`、`TFPopup`、`WHToast`、`XZMRefresh`、`YYImage`、`WHToastExtra`、`JobsNavBar`、`JobsModelDSL`、`JobsClass`、`JobsBlock`、`JobsOCDSL`、`JobsDebug`、`JobsMakes`、`JobsOCDefs`、`JobsBaseUI`、`JobsAppTools`、`JobsTimeUtils`、`JobsDeviceInfo`、`JobsOCProtocols`、`JobsOCSnowflake`、`JobsStringUtils`、`JobsLoadingImage`、`JobsOCRuntimeKits`、`JobsViewNavigator`、`JobsRichTextUtils`、`JobsLanMgr`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -1,5 +1,7 @@
 # `JobsScreenCapture`
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ## 一、Pod 定位
 
 `JobsScreenCapture` 是 Objective-C 新工程的自建本地 Pod，负责统一封装三类截屏能力：
@@ -60,3 +62,36 @@ ruby -c JobsScreenCapture.podspec
 pod install --no-repo-update
 xcodebuild -workspace JobsOCBaseConfigDemo.xcworkspace -scheme JobsScreenCapture -sdk iphonesimulator -destination 'generic/platform=iOS Simulator' build
 ```
+
+<a id="jobs-architecture"></a>
+
+## 七、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 7.1、设计目的与职责划分
+
+拆成主动截屏保存、系统截屏观察和敏感内容保护容器三部分。Capturer 生成图片并处理相册添加，Observer 接收已发生的截屏通知，ProtectionView 尝试使用系统安全文本渲染容器。
+
+### 7.2、运行脉络
+
+主动路径：指定视图 → 截图 → 申请/检查相册添加权限 → 保存并回报；保护路径：检测安全容器能力 → 承载敏感内容。
+
+### 7.3、关键设计与边界
+
+- 系统截屏通知是事后通知，不是阻止截图的拦截器。
+- 相册添加拒绝需要返回错误，宿主必须提供用途说明。
+- 无法识别安全渲染容器时 isProtectionAvailable 为 NO 并退回普通显示，不能声称已保护。
+
+### 7.4、阅读与重建顺序
+
+先分别理解 Capturer、Observer、ProtectionView，再组合到页面；重建时明确截图保护的系统行为依赖和降级。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsScreenCapture.h](<./JobsScreenCapture.h>)
+- [Core/JobsScreenshotProtectionView/JobsScreenshotProtectionView.h](<./Core/JobsScreenshotProtectionView/JobsScreenshotProtectionView.h>)
+- [Core/JobsScreenshotCapturer/JobsScreenshotCapturer.h](<./Core/JobsScreenshotCapturer/JobsScreenshotCapturer.h>)
+- [Core/JobsScreenshotObserver/JobsScreenshotObserver.h](<./Core/JobsScreenshotObserver/JobsScreenshotObserver.h>)
+
+依赖与编译入口：[JobsScreenCapture.podspec](<./JobsScreenCapture.podspec>)。其中显式依赖声明包括 `JobsBlock`、`JobsOCDefs`、`JobsOCDSL`、`JobsMakes`、`Masonry`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。

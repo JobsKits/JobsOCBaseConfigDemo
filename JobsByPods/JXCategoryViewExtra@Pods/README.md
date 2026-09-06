@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -143,5 +145,39 @@ pod install --no-repo-update
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+在 JXCategoryView/JXPagingView 之上提供分类栏配置与定制单元。基础视图绑定内容滚动视图和列表容器，标题/图片/数字/圆点分类控制表现，时间线与标题背景按 View、Cell、CellModel 分工。
+
+### 10.2、运行脉络
+
+准备分类数据 → 配置分类视图和指示器 → 绑定列表容器/内容滚动视图 → 根据选择与滚动更新单元表现。
+
+### 10.3、关键设计与边界
+
+- 分类栏、指示器和内容列表有不同职责，绑定关系决定联动能否成立。
+- 默认选中索引、图片数组与数据数量要一致；重建时要保留普通态和选中态。
+- reloadDatasWithoutListContainer 明确区别于连列表容器一起刷新，不能合并成一个语义含糊的 reload。
+
+### 10.4、阅读与重建顺序
+
+先读 BaseView 与 ListContainer 连接，再按使用场景进入 Title/Image/Dot/Number，最后看定制 CellModel 与 Cell 的分工。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JXCategoryViewExtra.h](<./JXCategoryViewExtra.h>)
+- [Core/JXCategoryBaseView/JXCategoryBaseView+Extra/JXCategoryBaseView+Extra.h](<./Core/JXCategoryBaseView/JXCategoryBaseView+Extra/JXCategoryBaseView+Extra.h>)
+- [Core/JXCategoryDotView/JXCategoryDotView+Extra/JXCategoryDotView+Extra.h](<./Core/JXCategoryDotView/JXCategoryDotView+Extra/JXCategoryDotView+Extra.h>)
+- [Core/JXCategoryImageView/JXCategoryImageView+Extra/JXCategoryImageView+Extra.h](<./Core/JXCategoryImageView/JXCategoryImageView+Extra/JXCategoryImageView+Extra.h>)
+- [Core/JXCategoryIndicatorView/JXCategoryIndicatorView+Extra/JXCategoryIndicatorView+Extra.h](<./Core/JXCategoryIndicatorView/JXCategoryIndicatorView+Extra/JXCategoryIndicatorView+Extra.h>)
+
+依赖与编译入口：[JXCategoryViewExtra.podspec](<./JXCategoryViewExtra.podspec>)。其中显式依赖声明包括 `JXCategoryView`、`JXPagingView/Pager`、`JobsMakes`、`JobsOCDSL`、`JobsBlock`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

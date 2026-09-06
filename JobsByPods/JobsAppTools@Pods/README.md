@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -149,5 +151,35 @@ pod install --no-repo-update
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+以单例保存 App 层的方向信息，并提供由位移/坐标判断方向的工具。设备朝向、界面朝向和允许的朝向掩码分别表达不同信息。
+
+### 10.2、运行脉络
+
+取得共享工具对象 → 写入方向相关状态或传入位移 → 返回方向判断 → 上层决定布局或交互。
+
+### 10.3、关键设计与边界
+
+- 初始化阶段的设备方向可能尚未就绪，不能直接等同于当前界面方向。
+- 单例销毁、alloc/copy 限制与普通实例初始化不是同一生命周期。
+
+### 10.4、阅读与重建顺序
+
+先读共享实例与销毁入口，再核对三类方向状态，最后看 point/translation 的判断逻辑。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [Core/JobsAppTools/JobsAppTools.h](<./Core/JobsAppTools/JobsAppTools.h>)
+- [JobsAppToolsHeader.h](<./JobsAppToolsHeader.h>)
+
+依赖与编译入口：[JobsAppTools.podspec](<./JobsAppTools.podspec>)。其中显式依赖声明包括 `JobsModelDSL`、`JobsOCDSL`、`JobsMakes`、`JobsBlock`、`JobsOCDefs`、`JobsOCProtocols`、`JobsLanMgr`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

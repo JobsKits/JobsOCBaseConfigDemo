@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -140,5 +142,36 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+在一个 UIView 容器内部维护 viewStack，提供视图级 push、pop 和回到根视图。它管理的是 UIView 层级，不是 UINavigationController 的控制器栈。
+
+### 10.2、运行脉络
+
+创建容器 → pushView 压入并展示 → popViewAnimated 返回上一视图 → popToRootViewAnimated 回到根层。
+
+### 10.3、关键设计与边界
+
+- 视图切换不会自动获得控制器的完整生命周期转发，宿主需自行管理相关业务。
+- 栈数据与容器子视图应保持一致，不能只移除画面而保留错误栈顶。
+- 空栈与根视图返回属于边界，需要按实现处理。
+
+### 10.4、阅读与重建顺序
+
+先看 viewStack，再对照三个栈操作如何改变层级与动画；重建时先实现无动画栈语义。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [Core/JobsViewNavigator/JobsViewNavigator.h](<./Core/JobsViewNavigator/JobsViewNavigator.h>)
+- [JobsViewNavigatorHeader.h](<./JobsViewNavigatorHeader.h>)
+
+依赖与编译入口：[JobsViewNavigator.podspec](<./JobsViewNavigator.podspec>)。其中显式依赖声明包括 `Masonry`、`JobsBlock`、`JobsMakes`、`JobsOCDSL`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

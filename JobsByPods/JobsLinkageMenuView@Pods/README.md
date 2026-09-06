@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -165,5 +167,37 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+将菜单选择和内容滚动连接为联动视图，配置类保存菜单宽度、间距、文字及选中样式。选择标签与滚动标签分开记录，用于协调用户点击和滚动驱动的更新。
+
+### 10.2、运行脉络
+
+构造菜单及内容 → 点击菜单定位内容 → 内容滚动反向更新选中项 → 通过菜单/空内容回调通知宿主。
+
+### 10.3、关键设计与边界
+
+- 点击驱动和滚动驱动需要区分，避免双方互相触发形成循环跳转。
+- choseTag、DTScrollTag、newChoseTag 是理解联动状态的重要入口。
+- 空内容点击有独立回调，不能静默当成普通菜单成功选择。
+
+### 10.4、阅读与重建顺序
+
+先看配置与索引状态，再分别追踪菜单点击和内容滚动路径，最后看 reloadData 对两侧状态的同步。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [Core/JobsLinkageMenuView/JobsLinkageMenuView.h](<./Core/JobsLinkageMenuView/JobsLinkageMenuView.h>)
+- [Core/JobsLinkageMenuViewConfig/JobsLinkageMenuViewConfig.h](<./Core/JobsLinkageMenuViewConfig/JobsLinkageMenuViewConfig.h>)
+- [JobsLinkageMenuViewHeader.h](<./JobsLinkageMenuViewHeader.h>)
+
+依赖与编译入口：[JobsLinkageMenuView.podspec](<./JobsLinkageMenuView.podspec>)。其中显式依赖声明包括 `Masonry`、`MJExtension`、`MJRefresh`、`MJRefreshExtra`、`ReactiveObjC`、`TABAnimated`、`TXFileOperation`、`XZMRefresh`、`YTKNetworkExtra`、`JobsAppTools`、`JobsBaseUI`、`JobsBlock`、`JobsOCDSL`、`JobsClass`、`JobsDeviceInfo`、`JobsLanMgr`、`JobsMakes`、`JobsModelDSL`、`JobsOCDefs`、`JobsOCProtocols`、`JobsOCRuntimeKits`、`JobsRichTextUtils`、`JobsStringUtils`、`JobsTimeUtils`、`XYColorOC`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

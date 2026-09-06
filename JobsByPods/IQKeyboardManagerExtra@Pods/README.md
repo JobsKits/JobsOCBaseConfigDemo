@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -135,5 +137,35 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+把 IQKeyboardManager 的启用、点击外部收键盘、工具栏与输入距离等设置表达为 Jobs 链式接口。键盘避让和工具栏调度继续由 IQKeyboardManager 负责。
+
+### 10.2、运行脉络
+
+取得键盘管理器 → 设置启用与交互策略 → 配置工具栏和输入间距 → 上游响应键盘事件。
+
+### 10.3、关键设计与边界
+
+- 自动工具栏开关、工具栏管理行为和 placeholder 样式是独立设置。
+- 这些方法配置的是传入的管理器；作用范围取决于该管理器的使用方式，不能假定都是页面局部状态。
+
+### 10.4、阅读与重建顺序
+
+先按开关、工具栏、距离三组阅读分类方法，再核对每个 Block 返回的管理器类型。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [IQKeyboardManagerExtra.h](<./IQKeyboardManagerExtra.h>)
+- [Core/IQKeyboardManager+Extra/IQKeyboardManager+Extra.h](<./Core/IQKeyboardManager+Extra/IQKeyboardManager+Extra.h>)
+
+依赖与编译入口：[IQKeyboardManagerExtra.podspec](<./IQKeyboardManagerExtra.podspec>)。其中显式依赖声明包括 `IQKeyboardManager`、`JobsBlock`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

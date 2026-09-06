@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -148,5 +150,39 @@ pod install --no-repo-update
 - `selectorBlocks` 用于手势、通知等动态回调时，生成的 selector 必须保持单参数 `:` 形式；缓存命中前要确认目标类已注册对应方法，避免 action 触发时出现 `unrecognized selector`。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+把动态调用、SEL/IMP 处理、Runtime 信息读取和方法交换分组封装。DynamicInvoke 目录包含调用形态示例，NSObject 分类提供运行时操作入口，底层需要遵守真实方法签名。
+
+### 10.2、运行脉络
+
+确定对象和 selector → 查询/构建调用信息 → 按签名传参或交换实现 → 执行并取回结果。
+
+### 10.3、关键设计与边界
+
+- 对象、基本类型和 Block 参数不能统一按 id 处理，错误签名可能直接破坏调用。
+- 动态调用样例与可复用核心应区分；不能把 test 系列方法理解为业务功能。
+- 方法交换影响调用路径和范围，重建时需要明确安装时机与重复安装行为。
+
+### 10.4、阅读与重建顺序
+
+先读实际需要的 NSObject 分类和 SEL/IMP 工具，再用 DynamicInvoke 中相应签名样例理解调用路径。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsOCRuntimeKits.h](<./JobsOCRuntimeKits.h>)
+- [Core/DynamicInvoke/DynamicInvoke.h](<./Core/DynamicInvoke/DynamicInvoke.h>)
+- [Core/JobsSEL_IMP/JobsSEL_IMP.h](<./Core/JobsSEL_IMP/JobsSEL_IMP.h>)
+- [Core/NSObject+DynamicInvoke/NSObject+DynamicInvoke.h](<./Core/NSObject+DynamicInvoke/NSObject+DynamicInvoke.h>)
+- [Core/NSObject+RunrtimeGet/NSObject+RunrtimeGet.h](<./Core/NSObject+RunrtimeGet/NSObject+RunrtimeGet.h>)
+
+依赖与编译入口：[JobsOCRuntimeKits.podspec](<./JobsOCRuntimeKits.podspec>)。其中显式依赖声明包括 `JobsBlock`、`JobsOCDefs`、`WHToastExtra`、`JobsModelDSL`、`JobsClass`、`JobsMakes`、`JobsOCSnowflake`、`JobsRandomUtils`、`JobsOCProtocols`、`JobsLanMgr`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

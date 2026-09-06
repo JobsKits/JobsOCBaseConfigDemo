@@ -4,6 +4,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font>
@@ -111,5 +113,39 @@ ruby -c JobsFuseAnimation.podspec
 ```shell
 pod install --no-repo-update
 ```
+
+<a id="jobs-architecture"></a>
+
+## 五、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 5.1、设计目的与职责划分
+
+将品牌刷新动效、图片/GIF/Lottie 动画及视图动画封装成表现组件。每种效果由配置描述尺寸、颜色和时间，动画视图负责绘制与播放，通过刷新动画协议与外部状态机协作。
+
+### 5.2、运行脉络
+
+选择动画类型与配置 → 创建动画视图 → 接收阶段/进度 → 播放、暂停或结束 → 替换时清理旧动画。
+
+### 5.3、关键设计与边界
+
+- 刷新状态机属于 Refresher，动画组件不能自行触发网络请求或决定刷新是否完成。
+- 尺寸、周期和运动范围都是配置的一部分，不能仅用动画名称表达完整效果。
+- 资源型动画依赖对应文件与运行库；几何绘制型动画则依赖图层/路径，重建方式不同。
+
+### 5.4、阅读与重建顺序
+
+先选一种动画读配置与视图，再看公共协议的阶段映射；保持状态治理与表现层可替换。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsFuseAnimation.h](<./JobsFuseAnimation.h>)
+- [Core/JobsFuseAnimation/JobsFuseOuterRingConfig/JobsFuseOuterRingConfig.h](<./Core/JobsFuseAnimation/JobsFuseOuterRingConfig/JobsFuseOuterRingConfig.h>)
+- [Core/JobsFuseAnimation/UIView+JobsFuseAnimation/UIView+JobsFuseAnimation.h](<./Core/JobsFuseAnimation/UIView+JobsFuseAnimation/UIView+JobsFuseAnimation.h>)
+- [Core/JobsFuseAnimation/JobsDouyinRefreshConfig/JobsDouyinRefreshConfig/JobsDouyinRefreshConfig.h](<./Core/JobsFuseAnimation/JobsDouyinRefreshConfig/JobsDouyinRefreshConfig/JobsDouyinRefreshConfig.h>)
+- [Core/JobsFuseAnimation/JobsDouyinRefreshView/JobsDouyinRefreshView/JobsDouyinRefreshView.h](<./Core/JobsFuseAnimation/JobsDouyinRefreshView/JobsDouyinRefreshView/JobsDouyinRefreshView.h>)
+
+依赖与编译入口：[JobsFuseAnimation.podspec](<./JobsFuseAnimation.podspec>)。其中显式依赖声明包括 `JobsOCDefs`、`JobsBlock`、`JobsOCDSL`、`JobsMakes`、`JobsOCTimer`、`lottie-ios`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

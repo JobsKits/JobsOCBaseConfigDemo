@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -151,5 +153,39 @@ pod install --no-repo-update
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+以单行/多行两类视图展示标签集合，多行版本由模型、CollectionView Cell 和头尾配置配合。标签数据与排版分离，外层筛选或业务页面可以复用同一标签表现层。
+
+### 10.2、运行脉络
+
+准备标签及头尾模型 → 选择单行或多行展示 → 计算/布置标签单元 → 用户选择后通知上层。
+
+### 10.3、关键设计与边界
+
+- 单行与多行不是单纯高度差异，容器与排版逻辑应分别阅读。
+- 文字长度影响单元尺寸，不能用固定按钮宽度替代所有情况。
+- 模型更新、集合引用与复用刷新需同时考虑，避免标签文字和选中状态错位。
+
+### 10.4、阅读与重建顺序
+
+先看多行配置模型，再看对应 Cell 和容器，最后对照单行版本的适用场景。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsHotLabel.h](<./JobsHotLabel.h>)
+- [Core/JobsHotLabelConfig/JobsHotLabelConfig.h](<./Core/JobsHotLabelConfig/JobsHotLabelConfig.h>)
+- [Core/JobsHotLabelWithMultiLineModel/JobsHotLabelWithMultiLineModel.h](<./Core/JobsHotLabelWithMultiLineModel/JobsHotLabelWithMultiLineModel.h>)
+- [Core/JobsHotLabelByMultiLine/JobsHotLabelByMultiLine.h](<./Core/JobsHotLabelByMultiLine/JobsHotLabelByMultiLine.h>)
+- [Core/JobsHotLabelByMultiLineCVCell/JobsHotLabelByMultiLineCVCell.h](<./Core/JobsHotLabelByMultiLineCVCell/JobsHotLabelByMultiLineCVCell.h>)
+
+依赖与编译入口：[JobsHotLabel.podspec](<./JobsHotLabel.podspec>)。其中显式依赖声明包括 `JobsMakes`、`JobsModelDSL`、`JobsOCDSL`、`JobsBlock`、`JobsOCDefs`、`JobsBaseUI`、`JobsByOCPods`、`JobsOCProtocols`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

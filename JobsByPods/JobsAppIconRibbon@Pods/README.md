@@ -4,6 +4,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font>
@@ -81,13 +83,7 @@ JobsAppIconRibbon-UAT
 
 ## 四、生成规则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-```mermaid
-flowchart LR
-    A[读取构建环境] --> B[读取原始 AppIcon]
-    B --> C[绘制右上角绶带]
-    C --> D[生成派生 appiconset]
-    D --> E[Xcode 编译 AppIcon]
-```
+流程图见[架构脉络与关键设计](#jobs-architecture-diagram-1)。
 
 - 原始 AppIcon 始终只读。
 - 派生目录与原始 `.appiconset` 位于同一个 `.xcassets`。
@@ -143,5 +139,47 @@ zsh './JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbon.sh'
 - 派生目录属于构建产物，不建议提交 Git。
 - App Store 包是否显示 `RELEASE` 由项目决定；不需要时可让正式 Configuration 使用原始 AppIcon。
 - 修改图标或样式后，建议分别构建 Debug、Release 并检查桌面显示效果。
+
+<a id="jobs-architecture"></a>
+
+## 九、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 9.1、设计目的与职责划分
+
+这是构建期图标派生工具，不是运行时 UI 控件。构建配置与样式参数交给 [**Swift**](https://www.swift.org/) 生成器，生成器在原始 AppIcon 图片上绘制环境绶带，输出独立的派生 appiconset 供当前构建使用。
+
+### 9.2、运行脉络
+
+读取原始 AppIcon 与环境配置 → 解析颜色/字体/文案 → 对图标绘制绶带 → 输出派生资源集 → 构建使用派生图标名。
+
+<a id="jobs-architecture-diagram-1"></a>
+
+原「四、生成规则」流程图集中于此，原章节的参数说明和示例仍保留。
+
+```mermaid
+flowchart LR
+    A[读取构建环境] --> B[读取原始 AppIcon]
+    B --> C[绘制右上角绶带]
+    C --> D[生成派生 appiconset]
+    D --> E[Xcode 编译 AppIcon]
+```
+
+### 9.3、关键设计与边界
+
+- 原始图标不被覆盖；SOURCE_APPICONSET 不应指回已派生目录，否则可能重复叠加。
+- 构建环境与运行时环境不同，修改图标后需要重新构建才能体现在桌面。
+- 字体不可用时存在回退，派生目录属于构建产物；是否给正式包加绶带由项目配置决定。
+
+### 9.4、阅读与重建顺序
+
+先看 podspec/构建入口与配置参数，再看 Scripts 中的 options、configuration、render；无需重建一套 App 内图标切换界面。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [Scripts/JobsAppIconRibbonGenerator.swift](<./Scripts/JobsAppIconRibbonGenerator.swift>)
+
+依赖与编译入口：[JobsAppIconRibbon.podspec](<./JobsAppIconRibbon.podspec>)。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -148,5 +150,36 @@ pod install --no-repo-update
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+用表盘、刻度、数字标签和三根指针组成模拟时钟。JobsOCTimer 提供刷新节拍，视图负责时间到角度的映射及图层展示；定时器与绘制分层。
+
+### 10.2、运行脉络
+
+布局表盘与指针 → 启动指定计时内核 → 读取时间并更新指针 → 停止走表。
+
+### 10.3、关键设计与边界
+
+- 默认 start 使用 GCD 内核、每秒刷新；startByTimerType 可以选择底层类型。
+- 真实时间与刷新次数不同，重建时不能只按回调次数累加时钟。
+- 尺寸变化、主题变化与计时启动是不同入口，图层布局不能只在初始化执行一次。
+
+### 10.4、阅读与重建顺序
+
+先看表盘/指针引用，再看启动、更新时间、停止路径，最后核对布局与主题刷新。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [Core/JobsClockView/JobsClockView.h](<./Core/JobsClockView/JobsClockView.h>)
+- [JobsClockViewHeader.h](<./JobsClockViewHeader.h>)
+
+依赖与编译入口：[JobsClockView.podspec](<./JobsClockView.podspec>)。其中显式依赖声明包括 `JobsBlock`、`JobsOCDefs`、`JobsOCDSL`、`JobsMakes`、`JobsOCTimer`、`JobsOCProtocols`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

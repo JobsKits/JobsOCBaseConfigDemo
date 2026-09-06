@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -144,5 +146,36 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+将网络速率信息投射到可悬浮的 JobsSuspendLab。网络采样来自 JobsNetWorkTools，悬浮交互来自 JobsSuspend，本库负责来源、上行、下行的普通文本或富文本展示。
+
+### 10.2、运行脉络
+
+选择显示样式 → 接入网络速率数据 → 格式化上下行数值 → 更新悬浮 Label → 生命周期结束时清理。
+
+### 10.3、关键设计与边界
+
+- initBy 明确要求显示样式，普通 init/new 不可用。
+- 富文本模式保留外部字体与颜色，不应再按普通文本路径覆盖。
+- 速率展示和网络采样频率属于不同层，排查时应先确认数据来源。
+
+### 10.4、阅读与重建顺序
+
+先看 initBy 与两种文本路径，再追踪速率来源和销毁处理。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsBitsMonitor.h](<./JobsBitsMonitor.h>)
+- [Core/JobsBitsMonitorSuspendLab/JobsBitsMonitorSuspendLab.h](<./Core/JobsBitsMonitorSuspendLab/JobsBitsMonitorSuspendLab.h>)
+
+依赖与编译入口：[JobsBitsMonitor.podspec](<./JobsBitsMonitor.podspec>)。其中显式依赖声明包括 `JobsLanMgr`、`JobsNetWorkTools`、`ZWPullMenuView`、`JobsByOCPods`、`JobsSuspend`、`JobsOCDefs`、`JobsBlock`、`JobsModelDSL`、`JobsOCDSL`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

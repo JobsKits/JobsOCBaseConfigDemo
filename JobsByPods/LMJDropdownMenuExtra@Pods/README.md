@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -135,5 +137,35 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+为 LMJDropdownMenu 暴露内部主按钮，并提供空白图的显示处理。great 通过运行时查找 mainBtn，greatAtEmpty 在取得按钮后写入图片与新系统按钮配置。
+
+### 10.2、运行脉络
+
+运行时查找 mainBtn → 返回内部 UIButton → 可选执行 greatAtEmpty 调整图片位置和间距。
+
+### 10.3、关键设计与边界
+
+- 依赖上游私有实例变量名 mainBtn；上游结构变化时可能返回 nil，不能当作稳定公开 API。
+- 空白图属于宿主资源依赖；iOS 15+ 分支使用 UIButtonConfiguration。
+
+### 10.4、阅读与重建顺序
+
+先核对 mainBtn 的访问方式，再看图像资源与按钮配置；重建时优先明确上游版本和内部结构耦合。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [LMJDropdownMenuExtra.h](<./LMJDropdownMenuExtra.h>)
+- [Core/LMJDropdownMenu+Extra/LMJDropdownMenu+Extra.h](<./Core/LMJDropdownMenu+Extra/LMJDropdownMenu+Extra.h>)
+
+依赖与编译入口：[LMJDropdownMenuExtra.podspec](<./LMJDropdownMenuExtra.podspec>)。其中显式依赖声明包括 `LMJDropdownMenu`、`JobsOCDSL`、`JobsBlock`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

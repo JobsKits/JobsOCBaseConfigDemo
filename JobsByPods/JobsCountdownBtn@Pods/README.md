@@ -4,6 +4,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font>
@@ -43,5 +45,36 @@ ruby -c JobsCountdownBtn.podspec
 ```shell
 pod install --no-repo-update
 ```
+
+<a id="jobs-architecture"></a>
+
+## 四、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 4.1、设计目的与职责划分
+
+把验证码按钮的普通标题、倒计时标题、点击回调与计时生命周期封装在 UIButton 子类。JobsOCTimer 驱动倒计时，JobsLanMgr 提供文字表达，按钮不负责发送短信请求。
+
+### 4.2、运行脉络
+
+配置普通标题与时长 → 业务决定启动倒计时 → 定时更新剩余时间和按钮状态 → 结束后恢复普通标题。
+
+### 4.3、关键设计与边界
+
+- 点击业务回调与开始计时有独立入口，重建时需明确验证码请求成功/失败与计时启动的关系。
+- 重复开始、重新配置时长和恢复标题要分别处理，不能只追加另一个 timer。
+- 代码创建与 nib 唤醒最终都需要建立一致的默认配置。
+
+### 4.4、阅读与重建顺序
+
+先看验证码按钮工厂和默认值，再看 jobsStartCountdown、标题生成与重置；外部请求留给宿主。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsCountdownBtn.h](<./JobsCountdownBtn.h>)
+- [Core/JobsCountdownBtn/JobsCountdownButton/JobsCountdownButton.h](<./Core/JobsCountdownBtn/JobsCountdownButton/JobsCountdownButton.h>)
+
+依赖与编译入口：[JobsCountdownBtn.podspec](<./JobsCountdownBtn.podspec>)。其中显式依赖声明包括 `JobsBlock`、`JobsOCDefs`、`JobsByOCPods`、`JobsOCTimer`、`JobsLanMgr`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

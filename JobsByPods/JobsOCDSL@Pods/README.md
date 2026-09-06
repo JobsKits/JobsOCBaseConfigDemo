@@ -4,6 +4,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font>
@@ -260,5 +262,40 @@ JobsOCDSL@Pods/
 - `UIControl` 事件优先使用 `onJobsTap` / `onJobsChange` / `onJobsEvent`；需要解绑时使用 `offJobsEvent`。`byAddTarget` 仅作 Target-Action 兼容入口保留，不作为调用方新增写法。
 - 不把非 DSL 辅助文件迁入本 Pod；如果某个旧 `+DSL` 文件混入了业务辅助能力，需要先拆干净再迁入。
 - 修改 `Core`、podspec 或依赖后，需要重新执行 `pod install --no-repo-update` 并检查依赖报告。
+
+<a id="jobs-architecture"></a>
+
+## 十三、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 13.1、设计目的与职责划分
+
+把系统与部分第三方对象的属性配置、对象内子配置和事件绑定组织为类型化 Block 链。它负责实例侧表达，JobsMakes 负责创建，JobsModelDSL 负责模型，具体业务组件仍各自维护行为。
+
+### 13.2、运行脉络
+
+创建具体对象 → 使用该类型的 byXxx 配置 → 经宿主级 Block 配置子对象并回到主链 → 绑定事件或执行终止动作。
+
+### 13.3、关键设计与边界
+
+- 配置返回值应保持可继续调用的具体对象类型；查询和终止动作需要按真实语义区别处理。
+- 按钮替换事件、追加事件、长按以及解绑并不等价，重建时必须保留语义。
+- 同名分类在不同 Pod 重复实现会造成冲突，先核对真实类型与所属模块。
+- 通用 DSL 不应吸收所有业务控件，UIBaseTextFieldDSL 等专用层已有独立依赖边界。
+
+### 13.4、阅读与重建顺序
+
+先选一个实际对象追踪创建、配置和事件，再扩展其他类型；从接口签名与返回类型开始重建，不按名称批量猜实现。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsOCDSL.h](<./JobsOCDSL.h>)
+- [Core/CoreMotion/CMMotionManager+DSL/CMMotionManager+DSL.h](<./Core/CoreMotion/CMMotionManager+DSL/CMMotionManager+DSL.h>)
+- [Core/MessageUI/MFMailComposeViewController+DSL/MFMailComposeViewController+DSL.h](<./Core/MessageUI/MFMailComposeViewController+DSL/MFMailComposeViewController+DSL.h>)
+- [Core/MessageUI/MFMessageComposeViewController+DSL/MFMessageComposeViewController+DSL.h](<./Core/MessageUI/MFMessageComposeViewController+DSL/MFMessageComposeViewController+DSL.h>)
+- [Core/PDFKit/PDFView+DSL/PDFView+DSL.h](<./Core/PDFKit/PDFView+DSL/PDFView+DSL.h>)
+
+依赖与编译入口：[JobsOCDSL.podspec](<./JobsOCDSL.podspec>)。其中显式依赖声明包括 `JobsMakes`、`JobsBlock`、`JobsModelDSL`、`JobsOCDefs`、`JobsOCProtocols`、`JobsOCRuntimeKits`、`JobsOCTimer`、`GKNavigationBar`、`Masonry`、`Texture`、`ZFPlayer`、`MJRefresh`、`YTKNetwork`、`FSCalendar`、`ReactiveObjC`、`HXPhotoPickerObjC`、`SDWebImage`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

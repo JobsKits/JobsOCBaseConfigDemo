@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -141,5 +143,39 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+用协议组织视图、模型、控制器、手势、计时器与请求等模块的共同接口。协议表达调用双方的约定，实际存储和行为由遵循协议的类或分类完成。
+
+### 10.2、运行脉络
+
+消费方依赖协议 → 具体类型声明遵循 → 类/分类实现约定 → 通过统一接口协作。
+
+### 10.3、关键设计与边界
+
+- 协议声明属性不会自动生成存储或 getter/setter，尤其不能把 @dynamic 当作已实现。
+- 公共协议组合与具体业务协议要分开，避免为了少量方法引入全部上层依赖。
+- 可选方法、回调签名和返回类型影响运行时调用安全。
+
+### 10.4、阅读与重建顺序
+
+先选目标领域协议，再追踪真实实现者与调用方；重建时逐项落实协议，而不是只生成头文件。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsBaseProtocolHeader.h](<./JobsBaseProtocolHeader.h>)
+- [Core/BaseProtocols/AppToolsProtocol/AppToolsProtocol.h](<./Core/BaseProtocols/AppToolsProtocol/AppToolsProtocol.h>)
+- [Core/BaseProtocols/BaseProtocol/BaseProtocol.h](<./Core/BaseProtocols/BaseProtocol/BaseProtocol.h>)
+- [Core/BaseProtocols/GestureProtocol/GestureProtocol.h](<./Core/BaseProtocols/GestureProtocol/GestureProtocol.h>)
+- [Core/BaseProtocols/TimerProtocol/TimerProtocol.h](<./Core/BaseProtocols/TimerProtocol/TimerProtocol.h>)
+
+依赖与编译入口：[JobsOCProtocols.podspec](<./JobsOCProtocols.podspec>)。其中显式依赖声明包括 `JobsBlock`、`JobsOCDefs`、`SPAlertController`、`ReactiveObjC`、`YTKNetwork`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -13,6 +13,8 @@ Demo 主题入口调用 `JobsThemeCenter.toggle`；`JobsOCDefs` 根据主工程 
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -188,5 +190,39 @@ pod install --no-repo-update
 - BaseVC 的页面根背景不展示固定底色或底图；业务图片必须下沉到内容子视图，避免覆盖全局明暗主题。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要显式绑定主题 Key，或监听 `JobsThemeDidChangeNotification` 后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+这是按控件类型组织的 UI 基础组件集合，包含基础 View、Button、Cell、列表布局和多种输入框。公共模型/协议提供统一表达，各具体控件实现自己的布局、渲染和交互；Support 承接局部支撑。
+
+### 10.2、运行脉络
+
+选择具体基础控件 → 注入模型和配置 → 组装子视图/约束 → 接收交互并回传 → 在复用或状态变化时更新。
+
+### 10.3、关键设计与边界
+
+- 同一库包含多种控件，不存在一条适用于全部组件的统一业务状态机。
+- Cell 复用、输入框占位动画和按钮点击具有不同生命周期，应按类型阅读。
+- 自维护代码与历史引入组件要保留来源边界，不能把目录内所有实现都视为需要重新生成的自研内核。
+
+### 10.4、阅读与重建顺序
+
+先选业务需要的 BaseView/BaseButton/BaseCell 或输入框分支，再沿模型、协议、实现追踪；不要从所有文件列表开始整体重写。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsBaseUI.h](<./JobsBaseUI.h>)
+- [Core/UIBaseView/BaseView/BaseView.h](<./Core/UIBaseView/BaseView/BaseView.h>)
+- [Core/UIBaseButton/BaseButton/BaseButton.h](<./Core/UIBaseButton/BaseButton/BaseButton.h>)
+- [Core/UIBaseCollectionReusableView/BaseCollectionReusableView/BaseCollectionReusableView.h](<./Core/UIBaseCollectionReusableView/BaseCollectionReusableView/BaseCollectionReusableView.h>)
+- [Core/UIBaseCollectionReusableView/JobsHeaderFooterView/JobsHeaderFooterView.h](<./Core/UIBaseCollectionReusableView/JobsHeaderFooterView/JobsHeaderFooterView.h>)
+
+依赖与编译入口：[JobsBaseUI.podspec](<./JobsBaseUI.podspec>)。其中显式依赖声明包括 `Masonry`、`MJRefresh`、`lottie-ios`、`XYColorOC`、`SZTextViewExtra`、`XZMRefresh`、`MJExtension`、`TABAnimated`、`ReactiveObjC`、`GKNavigationBar`、`MJRefreshExtra`、`WHToastExtra`、`JobsModelDSL`、`JobsClass`、`JobsBlock`、`JobsOCDSL`、`JobsMakes`、`JobsNavBar`、`JobsOCDefs`、`JobsAppTools`、`JobsTimeUtils`、`JobsDeviceInfo`、`JobsStringUtils`、`JobsRandomUtils`、`JobsOCProtocols`、`JobsLoadingImage`、`JobsBasePopupView`、`JobsRichTextUtils`、`JobsOCRuntimeKits`、`JobsLanMgr`、`This`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

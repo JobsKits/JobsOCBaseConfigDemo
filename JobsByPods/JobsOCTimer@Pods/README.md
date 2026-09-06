@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -227,5 +229,53 @@ pod install --no-repo-update
 - 动画按 `timestamp` / `targetTimestamp` 或单调时钟计算进度，不假设 DisplayLink 每帧必到。
 - 可接受少量延迟的重复任务设置合理 `tolerance` / leeway，减少无意义唤醒。
 - 单个局部 Timer 使用 `JobsTimer`；需要 identifier 去重、列表复用、Scope、前后台策略或批量治理时使用 `JobsOCTimerMgr`。
+
+<a id="jobs-architecture"></a>
+
+## 十一、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 11.1、设计目的与职责划分
+
+以统一 JobsTimer/TimerProtocol 管理不同计时内核，提供间隔、倒计时、队列、RunLoop 模式、tick/finish 和前后台策略。系统内核负责调度，封装负责状态、时间参数与生命周期。
+
+### 11.2、运行脉络
+
+选择内核和计时方式 → 配置回调/时间参数 → start → tick 或暂停/恢复 → finish/stop 清理底层对象。
+
+下图用于说明主要关系；异常、退出与线程边界结合下一节阅读。
+
+```mermaid
+stateDiagram-v2
+    [*] --> 待启动
+    待启动 --> 运行: start
+    运行 --> 暂停: pause
+    暂停 --> 运行: resume
+    运行 --> 已停止: stop
+    暂停 --> 已停止: stop
+    已停止 --> [*]
+    note right of 已停止
+        旧代回调失效
+        底层资源清理
+    end note
+```
+
+### 11.3、关键设计与边界
+
+- GCD Timer 不受 RunLoop Mode 影响，但仍受队列阻塞和系统调度影响，不是硬实时或后台保活。
+- 倒计时应以绝对结束时间计算剩余量，动画按真实时间推进，不能把 tick 次数当时间真值。
+- 手动暂停与系统前后台自动暂停需要区分，避免恢复时错误唤醒本来手动暂停的任务。
+
+### 11.4、阅读与重建顺序
+
+先看状态/内核和公开配置，再看各内核创建、暂停、恢复、停止与代理清理；需要多任务治理时再进入 Manager。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsOCTimer.h](<./JobsOCTimer.h>)
+- [Core/JobsTimer/JobsTimer.h](<./Core/JobsTimer/JobsTimer.h>)
+
+依赖与编译入口：[JobsOCTimer.podspec](<./JobsOCTimer.podspec>)。其中显式依赖声明包括 `WHToast`、`SDWebImage`、`JobsBlock`、`JobsOCDefs`、`JobsStringUtils`、`JobsOCProtocols`、`JobsLanMgr`、`JobsMakes`、`WHToastExtra`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

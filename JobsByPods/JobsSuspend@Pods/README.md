@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -148,5 +150,39 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+为按钮、Label 和普通视图提供悬浮展示与拖拽能力，并用 UIView/UIViewController 分类连接宿主。具体视图负责内容表达，公共悬浮逻辑负责拖动和位置变化。
+
+### 10.2、运行脉络
+
+创建悬浮对象 → 挂载宿主 → 开启/关闭拖拽 → 响应拖动或点击 → 宿主按生命周期移除。
+
+### 10.3、关键设计与边界
+
+- 拖动开关不应改变按钮/Label 本身的业务意义，点击与拖动需要区分。
+- 容器坐标、可用边界与安全区关系影响最终停靠位置。
+- 悬浮视图持续存在时需明确持有者，不能只创建后丢失可修改引用。
+
+### 10.4、阅读与重建顺序
+
+先看 UIView 的悬浮分类，再看 Button/Label 的专用入口，最后追踪控制器挂载关系。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsSuspend.h](<./JobsSuspend.h>)
+- [Core/JobsSuspendView/JobsSuspendView.h](<./Core/JobsSuspendView/JobsSuspendView.h>)
+- [Core/UIView+SuspendView/UIView+SuspendView.h](<./Core/UIView+SuspendView/UIView+SuspendView.h>)
+- [Core/UIViewController+SuspendBtn/UIViewController+SuspendBtn.h](<./Core/UIViewController+SuspendBtn/UIViewController+SuspendBtn.h>)
+- [Core/JobsSuspendBtn/JobsSuspendBtn.h](<./Core/JobsSuspendBtn/JobsSuspendBtn.h>)
+
+依赖与编译入口：[JobsSuspend.podspec](<./JobsSuspend.podspec>)。其中显式依赖声明包括 `ReactiveObjC`、`XYColorOC`、`JobsModelDSL`、`JobsBlock`、`JobsOCDSL`、`JobsLanMgr`、`JobsOCDefs`、`JobsBaseUI`、`JobsDeviceInfo`、`JobsLoadingImage`、`JobsOCRuntimeKits`、`JobsRichTextUtils`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

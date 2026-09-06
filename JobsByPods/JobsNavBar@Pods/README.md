@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -165,5 +167,37 @@ pod install --no-repo-update
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+用 JobsNavBarConfig 将标题、背景与返回/关闭按钮配置交给自定义导航栏视图。视图本身继承 UIImageView，负责渲染和点击回传，导航栈的 push/pop 决策由宿主执行。
+
+### 10.2、运行脉络
+
+准备导航栏配置 → 渲染标题和按钮 → 布局到宿主顶部 → 点击返回/关闭 → 回调宿主执行动作。
+
+### 10.3、关键设计与边界
+
+- 返回和关闭是不同语义，不能无条件都调用 pop。
+- 配置模型和已创建按钮要保持同步，更新标题或主题不应丢失业务回调。
+- 自定义导航栏与系统导航栏同时存在时，展示策略应由宿主明确协调。
+
+### 10.4、阅读与重建顺序
+
+先看 Config，再看 byNavBarConfig 和两个点击入口，最后看布局与模型渲染。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [Core/JobsNavBar/JobsNavBar.h](<./Core/JobsNavBar/JobsNavBar.h>)
+- [Core/JobsNavBarConfig/JobsNavBarConfig.h](<./Core/JobsNavBarConfig/JobsNavBarConfig.h>)
+- [JobsNavBarHeader.h](<./JobsNavBarHeader.h>)
+
+依赖与编译入口：[JobsNavBar.podspec](<./JobsNavBar.podspec>)。其中显式依赖声明包括 `Masonry`、`MJRefresh`、`MJExtension`、`JobsMakes`、`JobsBlock`、`JobsOCDSL`、`JobsModelDSL`、`JobsOCDefs`、`JobsAppTools`、`JobsDeviceInfo`、`JobsOCRuntimeKits`、`JobsRichTextUtils`、`JobsStringUtils`、`JobsOCProtocols`、`JobsLanMgr`、`MJRefreshExtra`、`ReactiveObjC`、`TABAnimated`、`WHToastExtra`、`XYColorOC`、`XZMRefresh`、`lottie-ios`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

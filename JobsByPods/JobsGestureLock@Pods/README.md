@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -149,5 +151,39 @@ pod install --no-repo-update
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+把图案锁拆成配置、手势绘制、状态指示、存储和控制器。绘制层产生经过节点的图案，控制器区分创建/确认/校验阶段，存储层承接已确认结果，资源访问单独封装。
+
+### 10.2、运行脉络
+
+选择模式与配置 → 用户滑过节点 → 检查图案长度 → 创建/确认或比对已有结果 → 展示成功/错误反馈。
+
+### 10.3、关键设计与边界
+
+- 创建后的再次确认与普通解锁校验不是同一状态。
+- minimumPatternLength、线宽/颜色和状态文案分别属于验证与视觉配置。
+- 绘制图案不应直接等同于服务器身份认证；存储方式与清除时机需单独理解。
+
+### 10.4、阅读与重建顺序
+
+先看模式/结果枚举与配置，再看 View 如何形成节点序列，最后看控制器与 Storage 的协作。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsGestureLock.h](<./JobsGestureLock.h>)
+- [Core/JobsGestureLockConfiguration/JobsGestureLockConfiguration.h](<./Core/JobsGestureLockConfiguration/JobsGestureLockConfiguration.h>)
+- [Core/JobsGestureLockView/JobsGestureLockView.h](<./Core/JobsGestureLockView/JobsGestureLockView.h>)
+- [Core/JobsGestureLockIndicator/JobsGestureLockIndicator.h](<./Core/JobsGestureLockIndicator/JobsGestureLockIndicator.h>)
+- [Core/JobsGestureLockResource/JobsGestureLockResource.h](<./Core/JobsGestureLockResource/JobsGestureLockResource.h>)
+
+依赖与编译入口：[JobsGestureLock.podspec](<./JobsGestureLock.podspec>)。其中显式依赖声明包括 `JobsOCDefs`、`JobsBlock`、`JobsBaseUI`、`JobsMakes`、`JobsOCDSL`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

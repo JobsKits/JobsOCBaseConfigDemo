@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -137,5 +139,36 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+以起始毫秒时间、数据中心号、机器号和序列构成雪花 ID，并提供从 ID 解析时间/中心/机器的入口。对象保存上次生成毫秒与当前序列，供连续生成时使用。
+
+### 10.2、运行脉络
+
+配置时间基点和节点编号 → 读取当前毫秒 → 更新同毫秒序列 → 按位组合 ID → 按需解析组成字段。
+
+### 10.3、关键设计与边界
+
+- 秒与毫秒不能混用，位宽和时间基点属于互通契约。
+- 节点编号重复、系统时间回拨和同毫秒序列耗尽都需要看实现分支，不能笼统承诺绝对唯一。
+- 并发调用的保护方式应单独核对，生成器名称本身不保证线程安全。
+
+### 10.4、阅读与重建顺序
+
+先看位宽/基点与初始化范围，再看 nextID 的时间和序列处理，最后核对三个解析入口。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [Core/JobsOCSnowflake/JobsOCSnowflake.h](<./Core/JobsOCSnowflake/JobsOCSnowflake.h>)
+- [JobsOCSnowflakeHeader.h](<./JobsOCSnowflakeHeader.h>)
+
+依赖与编译入口：[JobsOCSnowflake.podspec](<./JobsOCSnowflake.podspec>)。其中显式依赖声明包括 `JobsBlock`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -140,5 +142,39 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+汇集摘要、编码和加解密接口，按算法及 NSData/NSString/UIImage 等适配对象分组。它包含系统密码库包装和历史算法实现，不能把所有算法都视为同等用途或同等来源。
+
+### 10.2、运行脉络
+
+明确摘要、编码或加解密需求 → 选择算法与数据表示 → 配置所需参数 → 执行转换 → 处理字节结果、编码和错误。
+
+### 10.3、关键设计与边界
+
+- Base 编码不是保密加密，摘要也不是可逆加密；README 中的旧名称需要结合实际方法理解。
+- 算法模式、密钥、IV、填充及字符串编码共同决定互通，不能只写一个算法名称。
+- 存在非 Jobs 版权/混合来源文件，重建范围仅限自维护封装；历史算法的存在不代表推荐用于新安全方案。
+
+### 10.4、阅读与重建顺序
+
+先按用途选分组，再看参数和错误契约；采用系统或获准依赖实现算法，不从中文说明自行发明密码算法。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsCryptography.h](<./JobsCryptography.h>)
+- [Core/HASH 信息摘要/MD5/MD5.h](<./Core/HASH 信息摘要/MD5/MD5.h>)
+- [Core/加密（编码）算法/Cryptography/Cryptography.h](<./Core/加密（编码）算法/Cryptography/Cryptography.h>)
+- [Core/加密（编码）算法/DES/DES.h](<./Core/加密（编码）算法/DES/DES.h>)
+- [Core/加密（编码）算法/HexadecimalData/HexadecimalData.h](<./Core/加密（编码）算法/HexadecimalData/HexadecimalData.h>)
+
+依赖与编译入口：[JobsCryptography.podspec](<./JobsCryptography.podspec>)。其中显式依赖声明包括 `JobsBlock`、`JobsMakes`、`JobsOCDefs`、`JobsByOCPods`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

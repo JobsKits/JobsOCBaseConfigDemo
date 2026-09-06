@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -136,5 +138,36 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+在 FMDB 之上集中组织数据库路径、执行更新、事务和队列访问。路径创建与 SQL 执行是两件事，数据库对象、结果集和串行队列仍由 FMDB 提供；本库还保留了针对 t_student 的演示方法。
+
+### 10.2、运行脉络
+
+确定数据库路径 → 创建/打开 FMDatabase → 执行 SQL 或队列任务 → 消费结果并处理关闭。
+
+### 10.3、关键设计与边界
+
+- 路径为空时创建入口使用 Documents/test.db；handleInsert、handleDelete、handleUpdate、handleQuery 中有固定表名和演示参数，不是通用数据仓库。
+- handleExecuteUpdate 负责打开与关闭，handleQuery 直接返回结果集，调用者需要区分二者的连接生命周期。
+- 事务实现的 finally 中仍执行 commit、close 并返回 NO，不能仅凭方法注释把返回值当作可靠的回滚结果；重建时应单独明确事务成功、异常与返回语义。
+
+### 10.4、阅读与重建顺序
+
+先读路径和通用 SQL 更新入口，再读结果集、事务、FMDatabaseQueue 分支；把演示 SQL 与真正可复用的连接管理分开理解。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [FMDatabaseExtra.h](<./FMDatabaseExtra.h>)
+- [Core/FMDatabase+Manager/FMDatabase+Manager.h](<./Core/FMDatabase+Manager/FMDatabase+Manager.h>)
+
+依赖与编译入口：[FMDatabaseExtra.podspec](<./FMDatabaseExtra.podspec>)。其中显式依赖声明包括 `FMDB`、`JobsBlock`、`JobsOCDefs`、`JobsOCRuntimeKits`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -135,5 +137,35 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+为 HXPhotoView 提供基于现成 HXPhotoManager 的创建入口。管理器持有选择配置和状态，视图负责显示与交互，本分类只连接二者。
+
+### 10.2、运行脉络
+
+准备 HXPhotoManager → initBy 创建 HXPhotoView → 宿主挂载并处理选择交互。
+
+### 10.3、关键设计与边界
+
+- 入口接收管理器，不重新决定图片/视频类型。
+- 重建时要保留同一管理器与视图之间的状态关系，不能每次展示都无意创建另一份选择状态。
+
+### 10.4、阅读与重建顺序
+
+从 initBy 的管理器参数开始，再理解宿主如何持有与挂载视图；选择算法仍属于上游。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [HXPhotoViewExtra.h](<./HXPhotoViewExtra.h>)
+- [Core/HXPhotoView+Extra/HXPhotoView+Extra.h](<./Core/HXPhotoView+Extra/HXPhotoView+Extra.h>)
+
+依赖与编译入口：[HXPhotoViewExtra.podspec](<./HXPhotoViewExtra.podspec>)。其中显式依赖声明包括 `HXPhotoPickerObjC`、`JobsBlock`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

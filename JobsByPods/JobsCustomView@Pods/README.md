@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -166,5 +168,36 @@ pod install --no-repo-update
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+在 BaseView 上组织起止日期选择的组合界面。from/to 容器和 BRDatePickerView 分别承接两个端点，提示、分隔、取消和确认按钮负责展示与提交。
+
+### 10.2、运行脉络
+
+传入视图模型 → 布置起止时间区域 → 通过对应选择器修改值 → 取消或确认 → 将结果交回宿主。
+
+### 10.3、关键设计与边界
+
+- 起点与终点是两个独立状态，不能只重建成单日期选择器。
+- 按钮尺寸通过 byBtnSize 配置，整体尺寸与数据渲染入口分别维护。
+- 类还提供共享实例入口，使用时需要明确是否复用同一份选择状态。
+
+### 10.4、阅读与重建顺序
+
+先看模型渲染与 from/to 选择器，再看确认/取消交互和单例使用方式。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [Core/JobsCustomView/JobsCustomView.h](<./Core/JobsCustomView/JobsCustomView.h>)
+- [JobsCustomViewHeader.h](<./JobsCustomViewHeader.h>)
+
+依赖与编译入口：[JobsCustomView.podspec](<./JobsCustomView.podspec>)。其中显式依赖声明包括 `Masonry`、`Reachability`、`TXFileOperation`、`YTKNetworkExtra`、`XYColorOC`、`JobsBaseUI`、`JobsBlock`、`JobsOCDSL`、`JobsClass`、`JobsLanMgr`、`JobsMakes`、`JobsOCDefs`、`JobsOCProtocols`、`JobsOCRuntimeKits`、`JobsStringUtils`、`MJExtension`、`MJRefresh`、`MJRefreshExtra`、`ReactiveObjC`、`TABAnimated`、`XZMRefresh`、`BRPickerView`、`JobsModelDSL`、`BRPickerViewExtra`、`This`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -188,5 +190,36 @@ pod install --no-repo-update
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+在 GKNavigationBar 的 titleView 接口之上组织 Jobs 标题按钮和主副标题组合。UIViewController 分类保存相关模型与视图，将 UIButtonModel 或 UIViewModel 翻译为导航栏标题区域。
+
+### 10.2、运行脉络
+
+提供标题模型 → 创建/更新标题按钮或双 Label 视图 → 写入 gk_navTitleView → 由导航栏承载展示。
+
+### 10.3、关键设计与边界
+
+- 主标题来自 textModel，副标题来自 subTextModel；不能把两者压成一个无法分别配置的字符串。
+- 标题按钮的布局依赖实际承载关系，源码特别区分了父控件与 gk_navigationBar，修改时需要保留这层关系。
+- 本库负责标题区域，不能把整个导航控制器、转场或业务路由职责并入。
+
+### 10.4、阅读与重建顺序
+
+从 gk_navTitleBtnBy、gk_navTitleViewBy 进入，再看关联视图和模型的 getter/setter；先重建模型到标题视图的映射，再处理布局。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [GKCustomNavigationBarExtra.h](<./GKCustomNavigationBarExtra.h>)
+- [Core/UIViewController+GKCustomNavigationBar/UIViewController+GKCustomNavigationBar.h](<./Core/UIViewController+GKCustomNavigationBar/UIViewController+GKCustomNavigationBar.h>)
+
+依赖与编译入口：[GKCustomNavigationBarExtra.podspec](<./GKCustomNavigationBarExtra.podspec>)。其中显式依赖声明包括 `Masonry`、`GKNavigationBar`、`MJExtension`、`MJRefresh`、`MJRefreshExtra`、`ReactiveObjC`、`TABAnimated`、`XZMRefresh`、`XYColorOC`、`JobsBaseUI`、`JobsBlock`、`JobsOCDSL`、`JobsDeviceInfo`、`JobsLanMgr`、`JobsMakes`、`JobsModelDSL`、`JobsOCDefs`、`JobsOCProtocols`、`JobsOCRuntimeKits`、`JobsRichTextUtils`、`JobsStringUtils`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

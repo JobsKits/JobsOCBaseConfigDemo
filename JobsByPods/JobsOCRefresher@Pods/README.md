@@ -4,6 +4,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font>
@@ -164,5 +166,55 @@ config.animator = [[JobsLottieRefreshView alloc] initWithAnimationNamed:@"refres
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 七、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 7.1、设计目的与职责划分
+
+由滚动视图分类托管刷新挂载与状态，Config 定义触发位置和策略，Component 展示文案、时间与动画。动画通过统一协议接入 JobsFuseAnimation，刷新治理与表现分离。
+
+### 7.2、运行脉络
+
+挂载刷新组件 → 滚动产生拉动进度 → 到达条件触发刷新 → 业务完成后结束 → 更新状态/时间并恢复布局。
+
+下图用于说明主要关系；异常、退出与线程边界结合下一节阅读。
+
+```mermaid
+flowchart TD
+    A["观察滚动距离"] --> B["下拉进度"]
+    B --> C{"达到阈值并释放？"}
+    C -->|否| A
+    C -->|是| D["刷新状态与 inset 占位"]
+    D --> E["业务回调发起加载"]
+    E --> F{"宿主交付结果"}
+    F -->|结束| G["收尾并恢复 inset"]
+    F -->|失败或无更多| H["对应终态与表现"]
+    G --> A
+    D -.-> I["动画插件消费当前阶段"]
+```
+
+### 7.3、关键设计与边界
+
+- 上下左右位置影响布局与触发距离，不能假定只有竖向下拉。
+- replaceAnimator 支持原位替换表现，不能因此丢失当前进度和刷新状态。
+- 刷新回调只表示触发，业务需要明确结束或无更多数据状态。
+
+### 7.4、阅读与重建顺序
+
+先读 Defines/Config，再追踪 UIScrollView 分类的状态推进，最后看 Component 到动画协议的映射。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsOCRefresher.h](<./JobsOCRefresher.h>)
+- [Core/JobsOCRefresher/JobsOCRefreshConfig/JobsOCRefreshConfig.h](<./Core/JobsOCRefresher/JobsOCRefreshConfig/JobsOCRefreshConfig.h>)
+- [Core/JobsOCRefresher/UIScrollView+JobsOCRefresher/UIScrollView+JobsOCRefresher.h](<./Core/JobsOCRefresher/UIScrollView+JobsOCRefresher/UIScrollView+JobsOCRefresher.h>)
+- [Core/JobsOCRefresher/JobsOCRefreshComponent/JobsOCRefreshComponent.h](<./Core/JobsOCRefresher/JobsOCRefreshComponent/JobsOCRefreshComponent.h>)
+- [Core/JobsOCRefresher/JobsOCRefreshDefines/JobsOCRefreshDefines.h](<./Core/JobsOCRefresher/JobsOCRefreshDefines/JobsOCRefreshDefines.h>)
+
+依赖与编译入口：[JobsOCRefresher.podspec](<./JobsOCRefresher.podspec>)。其中显式依赖声明包括 `JobsBlock`、`JobsLanMgr`、`JobsMakes`、`JobsOCDSL`、`JobsOCDefs`、`JobsFuseAnimation`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -4,6 +4,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font>
@@ -121,5 +123,39 @@ pod install --no-repo-update
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+以评论模型、显示配置和评论视图拆分数据与表现。配置决定展示模式、设备/位置、回复入口和可见子回复数量，视图组织评论列表并通过回调把选择、回复、刷新和加载更多交给宿主。
+
+### 10.2、运行脉络
+
+提供评论模型和配置 → 渲染主评论/子回复 → 用户选择或触发刷新 → 宿主更新数据 → 列表重新展示。
+
+### 10.3、关键设计与边界
+
+- 评论点击与回复点击有独立回调，刷新和加载更多也需分别结束。
+- 可见子回复上限是展示策略，不等于服务器返回的数据总量。
+- 组件不负责真正提交评论或分页接口请求，网络结果应由宿主写回。
+
+### 10.4、阅读与重建顺序
+
+先读 Model 和 Config，再看 View 如何展开子回复和接入 JobsOCRefresher；重建时先定义层级关系与事件。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsOCComment.h](<./JobsOCComment.h>)
+- [Core/JobsOCCommentConfig/JobsOCCommentConfig.h](<./Core/JobsOCCommentConfig/JobsOCCommentConfig.h>)
+- [Core/JobsOCCommentModel/JobsOCCommentModel.h](<./Core/JobsOCCommentModel/JobsOCCommentModel.h>)
+- [Core/JobsOCCommentView/JobsOCCommentView.h](<./Core/JobsOCCommentView/JobsOCCommentView.h>)
+- [Core/JobsOCCommentDefines/JobsOCCommentDefines.h](<./Core/JobsOCCommentDefines/JobsOCCommentDefines.h>)
+
+依赖与编译入口：[JobsOCComment.podspec](<./JobsOCComment.podspec>)。其中显式依赖声明包括 `Masonry`、`JobsBlock`、`JobsBaseUI`、`JobsMakes`、`JobsOCDSL`、`JobsOCDefs`、`JobsOCRefresher`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

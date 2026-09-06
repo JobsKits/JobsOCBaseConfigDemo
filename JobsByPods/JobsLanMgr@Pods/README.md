@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -141,5 +143,37 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+以 LanMgr 保存应用选择的语言，并将 AppLanguage 枚举映射到语言代码和 Bundle。NSString 分类提供更方便的本地化使用入口，语言资源本身仍来自对应语言包。
+
+### 10.2、运行脉络
+
+读取持久化语言 → 映射语言代码 → 定位语言 Bundle → 按 key 读取文字；切换时更新语言设置。
+
+### 10.3、关键设计与边界
+
+- 选择语言、持久化语言和刷新已显示界面是不同职责。
+- 语言枚举和实际资源目录代码必须匹配，尤其不能仅凭显示名称推断资源路径。
+- 缺失 key 或 Bundle 时的结果应沿实现理解，不应假设总能返回目标语言。
+
+### 10.4、阅读与重建顺序
+
+先看 language 的读取/设置，再看 languageCodeByAppLanguage 与 bundle，最后看字符串分类。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsLanMgr.h](<./JobsLanMgr.h>)
+- [Core/LanMgr/LanMgr.h](<./Core/LanMgr/LanMgr.h>)
+- [Core/NSString+JobsLanMgr/NSString+JobsLanMgr.h](<./Core/NSString+JobsLanMgr/NSString+JobsLanMgr.h>)
+
+依赖与编译入口：[JobsLanMgr.podspec](<./JobsLanMgr.podspec>)。其中显式依赖声明包括 `SDWebImage`、`JobsBlock`、`JobsOCDefs`、`JobsStringUtils`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

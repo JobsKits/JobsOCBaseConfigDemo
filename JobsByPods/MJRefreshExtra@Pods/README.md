@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -156,5 +158,39 @@ pod install --no-repo-update
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+在 MJRefresh 的刷新状态机上补充 Jobs 的分类配置与动画头尾。普通状态/GIF 分类处理外观和配置，LOTAnimationMJRefreshHeader/Footer 将 Lottie 动画连接到刷新生命周期。
+
+### 10.2、运行脉络
+
+配置刷新头尾 → 挂到滚动视图 → MJRefresh 推进刷新状态 → 更新文案和动画 → 业务完成后结束刷新。
+
+### 10.3、关键设计与边界
+
+- 刷新触发与网络请求完成是不同事件，业务仍需调用结束入口。
+- prepare、placeSubviews、setState、beginRefreshing、endRefreshing 分别负责初始化、布局、状态和动画启停，不宜全部堆进一个回调。
+- 本库使用 LOTAnimationView 接口，podspec 声明 lottie-ios 2.5 系列，不能用新版本 API 名称直接替换旧实现。
+
+### 10.4、阅读与重建顺序
+
+先看刷新头尾的状态连接，再看配置模型和分类；重建时保留上游状态机与本地动画表现的分工。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [MJRefreshExtra.h](<./MJRefreshExtra.h>)
+- [Core/LOTAnimationMJRefreshFooter/LOTAnimationMJRefreshFooter.h](<./Core/LOTAnimationMJRefreshFooter/LOTAnimationMJRefreshFooter.h>)
+- [Core/LOTAnimationMJRefreshHeader/LOTAnimationMJRefreshHeader.h](<./Core/LOTAnimationMJRefreshHeader/LOTAnimationMJRefreshHeader.h>)
+- [Core/MJRefreshAutoGifFooter/MJRefreshAutoGifFooter+Extra/MJRefreshAutoGifFooter+Extra.h](<./Core/MJRefreshAutoGifFooter/MJRefreshAutoGifFooter+Extra/MJRefreshAutoGifFooter+Extra.h>)
+- [Core/MJRefreshAutoStateFooter/MJRefreshAutoStateFooter+Extra/MJRefreshAutoStateFooter+Extra.h](<./Core/MJRefreshAutoStateFooter/MJRefreshAutoStateFooter+Extra/MJRefreshAutoStateFooter+Extra.h>)
+
+依赖与编译入口：[MJRefreshExtra.podspec](<./MJRefreshExtra.podspec>)。其中显式依赖声明包括 `TABAnimated`、`MJRefresh`、`JobsModelDSL`、`XYColorOC`、`JobsMakes`、`JobsBlock`、`JobsOCDSL`、`lottie-ios`、`JobsOCDefs`、`XZMRefresh`、`WHToastExtra`、`JobsDeviceInfo`、`JobsOCProtocols`、`JobsStringUtils`、`JobsLoadingImage`、`JobsRichTextUtils`、`JobsOCRuntimeKits`、`JobsLanMgr`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

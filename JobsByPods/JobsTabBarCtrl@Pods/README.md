@@ -4,6 +4,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -131,5 +133,36 @@ ruby -rxcodeproj -e 'p = Xcodeproj::Project.open("Pods/Pods.xcodeproj"); puts [p
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 九、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 9.1、设计目的与职责划分
+
+用按钮数组与子控制器数组组成可横向翻页的 Tab 容器。TabBar 负责选择表现，内容滚动视图负责页面切换，控制器协调选中 index 与子页面关系。
+
+### 9.2、运行脉络
+
+提供按钮和子控制器 → 建立一一映射 → 布局 TabBar/内容页 → 点击或滑动切换 → 尺寸变化时重新布局。
+
+### 9.3、关键设计与边界
+
+- 首次构建回调与每次布局回调不同，不能在旋转时重复执行仅一次的初始化业务。
+- 按钮数量超过等分范围时有独立宽度策略，不应始终硬编码五等分。
+- 是否禁止子页纵向滚动是可选策略，不能默认破坏子页面自身滚动。
+
+### 9.4、阅读与重建顺序
+
+先看数据源与 selectedIndex，再看点击/滑动同步，最后看安全区、按钮宽度和重排回调。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [Core/JobsTabBarCtrl/JobsTabBarCtrl.h](<./Core/JobsTabBarCtrl/JobsTabBarCtrl.h>)
+- [JobsTabBarCtrlHeader.h](<./JobsTabBarCtrlHeader.h>)
+
+依赖与编译入口：[JobsTabBarCtrl.podspec](<./JobsTabBarCtrl.podspec>)。其中显式依赖声明包括 `JobsBlock`、`JobsMakes`、`JobsByOCPods`、`JobsBaseUI`、`JobsOCDefs`、`JobsOCDSL`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

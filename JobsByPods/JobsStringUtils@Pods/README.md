@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -136,5 +138,35 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+将字符串/空值判断放在基础函数层，供上层模型和 UI 复用。核心关注输入对象究竟是 nil、NULL、空串还是有效内容，而不是业务格式化或富文本渲染。
+
+### 10.2、运行脉络
+
+接收待判断值 → 按真实类型与空值规则判断 → 返回结果供上层分支使用。
+
+### 10.3、关键设计与边界
+
+- nil 接收者不会按普通实例方法执行，因此空值入口采用函数/类层表达有实际意义。
+- 空对象、空字符串与字符串形式的占位内容需要按函数定义区分，不能随意合并。
+
+### 10.4、阅读与重建顺序
+
+先读 JobsStringUtils.h 的函数声明与内联判断，再看实现；把空值策略与业务默认值分开。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [Core/JobsStringUtils/JobsStringUtils.h](<./Core/JobsStringUtils/JobsStringUtils.h>)
+- [JobsStringUtilsHeader.h](<./JobsStringUtilsHeader.h>)
+
+依赖与编译入口：[JobsStringUtils.podspec](<./JobsStringUtils.podspec>)。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

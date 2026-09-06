@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -136,5 +138,36 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+提供多种整数随机区间函数，重点是上界是否包含、是否带偏移及旧函数兼容。调用方选择区间语义，底层函数返回随机整数。
+
+### 10.2、运行脉络
+
+确定区间端点 → 选择开/闭区间函数 → 生成整数 → 用于业务展示或抽样。
+
+### 10.3、关键设计与边界
+
+- [0,border)、[0,border] 与带 offset 的区间不能混用。
+- 无效区间、极值与整数范围需要按具体实现核对，不能只凭示例推断所有输入都安全。
+- 这些通用随机辅助不应自动被当作密钥或安全令牌生成器。
+
+### 10.4、阅读与重建顺序
+
+先按包含/不包含上界分类阅读，再看偏移和兼容入口的实际公式。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [Core/JobsRandomUtils/JobsRandomUtils.h](<./Core/JobsRandomUtils/JobsRandomUtils.h>)
+- [JobsRandomUtilsHeader.h](<./JobsRandomUtilsHeader.h>)
+
+依赖与编译入口：[JobsRandomUtils.podspec](<./JobsRandomUtils.podspec>)。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

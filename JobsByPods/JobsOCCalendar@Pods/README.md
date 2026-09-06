@@ -4,6 +4,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font>
@@ -123,5 +125,39 @@ pod install --no-repo-update
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 八、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 8.1、设计目的与职责划分
+
+由日历容器、日期 Cell、Appearance 和公共定义组成自研日历。容器根据 Calendar、当前页和 scope 组织日期，数据源提供内容，delegate 接收选择和页面变化，外观对象统一样式。
+
+### 8.2、运行脉络
+
+确定月份/周范围 → 生成日期单元 → 应用占位和外观 → 响应滚动或日期选择 → 更新页与选择集合。
+
+### 8.3、关键设计与边界
+
+- 当前页、今天与已选日期是不同状态。
+- 多选、滑动选择和占位日期策略分别影响交互与布局。
+- 月份变化可能影响高度，bounds 变化后的布局失效与 reload 策略需按配置处理。
+
+### 8.4、阅读与重建顺序
+
+先看 scope/placeholder 定义和容器公开接口，再看 DayCell/Appearance；先重建日期模型，再重建布局与选择。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [Core/JobsOCCalendar/JobsOCCalendar.h](<./Core/JobsOCCalendar/JobsOCCalendar.h>)
+- [JobsOCCalendarHeader.h](<./JobsOCCalendarHeader.h>)
+- [Core/JobsOCCalendarAppearance/JobsOCCalendarAppearance.h](<./Core/JobsOCCalendarAppearance/JobsOCCalendarAppearance.h>)
+- [Core/JobsOCCalendarDayCell/JobsOCCalendarDayCell.h](<./Core/JobsOCCalendarDayCell/JobsOCCalendarDayCell.h>)
+- [Core/JobsOCCalendarDefines/JobsOCCalendarDefines.h](<./Core/JobsOCCalendarDefines/JobsOCCalendarDefines.h>)
+
+依赖与编译入口：[JobsOCCalendar.podspec](<./JobsOCCalendar.podspec>)。其中显式依赖声明包括 `JobsBlock`、`JobsMakes`、`JobsOCDSL`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

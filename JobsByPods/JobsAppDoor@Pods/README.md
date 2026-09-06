@@ -4,6 +4,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -161,5 +163,53 @@ xcodebuild -workspace JobsOCBaseConfigDemo.xcworkspace -scheme JobsAppDoor -sdk 
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 十一、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 11.1、设计目的与职责划分
+
+将登录、注册、忘记密码及公共输入件分层，Style1 采用侧栏/面板切换，Style2 采用独立卡片横滑。公共层提供配置、资源与输入组件，验证码、倒计时、键盘和国家代码由独立 Pod 组合。
+
+### 11.2、运行脉络
+
+选择样式并注入配置 → 构建登录/注册输入内容 → 用户切换页面状态 → 校验并回调业务 → 根据结果更新界面。
+
+下图用于说明主要关系；异常、退出与线程边界结合下一节阅读。
+
+```mermaid
+flowchart LR
+    A["配置与公共表单"] --> B{"选择样式"}
+    B --> C["Style1 侧轨面板"]
+    B --> D["Style2 独立卡片"]
+    C --> E["登录、注册、找回密码模式"]
+    D --> E
+    E --> F["收集输入并分发动作"]
+    F --> G["宿主执行认证业务"]
+```
+
+### 11.3、关键设计与边界
+
+- 两套样式共享公共能力，但切换布局与运动方式不同，不能只换颜色。
+- 认证页面只收集输入并分发业务动作，真实账号认证仍需宿主接入。
+- 资源统一放在 JobsAppDoorResources.bundle；键盘跟随与页面切换需要协调，不能让旧状态继续驱动新卡片。
+- Style2 的 Logo 只属于初始登录态，注册/忘记密码和返回首页的行为需按原文保持。
+
+### 11.4、阅读与重建顺序
+
+先读配置和公共输入件，再分别跟踪 Style1/Style2 的切换，最后组合验证码、倒计时、键盘与业务回调。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsAppDoor.h](<./JobsAppDoor.h>)
+- [Core/JobsAppDoorStyle1/View/JobsAppDoorContentView/JobsAppDoorContentView.h](<./Core/JobsAppDoorStyle1/View/JobsAppDoorContentView/JobsAppDoorContentView.h>)
+- [Core/登录注册模块公共件/View/BaseContentView/BaseContentView.h](<./Core/登录注册模块公共件/View/BaseContentView/BaseContentView.h>)
+- [Core/登录注册模块公共件/View/JobsAppDoorForgotCodeContentView/JobsAppDoorForgotCodeContentView.h](<./Core/登录注册模块公共件/View/JobsAppDoorForgotCodeContentView/JobsAppDoorForgotCodeContentView.h>)
+- [Core/登录注册模块公共件/View/JobsAppDoorInputViewBaseStyle/JobsAppDoorInputViewBaseStyle.h](<./Core/登录注册模块公共件/View/JobsAppDoorInputViewBaseStyle/JobsAppDoorInputViewBaseStyle.h>)
+
+依赖与编译入口：[JobsAppDoor.podspec](<./JobsAppDoor.podspec>)。其中显式依赖声明包括 `Masonry`、`ReactiveObjC`、`ZFPlayer`、`JobsBlock`、`JobsMakes`、`JobsModel`、`JobsModelDSL`、`JobsOCDSL`、`JobsBaseUI`、`UIBaseTextFieldDSL`、`JobsOCDefs`、`JobsCountdownBtn`、`JobsOCGraphicCaptcha`、`JobsOCKeyboardMgr`、`JobsByOCPods`、`JobsOCTools`、`JobsHotLabel`、`JobsDeviceInfo`、`JobsOCProtocols`、`JobsLanMgr`、`JobsOCCountryCodeCtrl`、`JobsFuseAnimation`、`ZFPlayerExtra`、`XYColorOC`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➔点我回到首页</a>

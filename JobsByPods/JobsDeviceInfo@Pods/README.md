@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -153,5 +155,39 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+将 App 元数据、设备/系统信息与多种标识查询分组提供。CurrentDevice 读取版本、名称、语言和设备状态，ID 目录区分 UUID、IDFV、IDFA 等来源，SysInfo 承接系统信息。
+
+### 10.2、运行脉络
+
+确定要查询的信息类别 → 进入对应分类 → 读取系统或本地来源 → 返回结果给上层使用。
+
+### 10.3、关键设计与边界
+
+- 不同标识的来源、权限和生命周期不同，不能统一解释为永久设备 ID。
+- App 版本与 build 版本、设备方向与界面方向都应分开。
+- 查询能力不会自动替业务完成权限说明与拒绝后的处理。
+
+### 10.4、阅读与重建顺序
+
+先按元数据/状态/标识分组，再读具体 getter 的实际来源；重建时保留可用性和空结果分支。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsDeviceInfo.h](<./JobsDeviceInfo.h>)
+- [Core/NSObject+CurrentDevice/NSObject+CurrentDevice.h](<./Core/NSObject+CurrentDevice/NSObject+CurrentDevice.h>)
+- [Core/NSObject+ID/NSObject+ID.h](<./Core/NSObject+ID/NSObject+ID.h>)
+- [Core/NSObject+SysInfo/NSObject+SysInfo.h](<./Core/NSObject+SysInfo/NSObject+SysInfo.h>)
+- [Core/NSObject+ID/NSObject+DeviceID/NSObject+DeviceID.h](<./Core/NSObject+ID/NSObject+DeviceID/NSObject+DeviceID.h>)
+
+依赖与编译入口：[JobsDeviceInfo.podspec](<./JobsDeviceInfo.podspec>)。其中显式依赖声明包括 `Masonry`、`YTKNetwork`、`MJExtension`、`AFNetworking`、`ReactiveObjC`、`TXFileOperation`、`JobsModelDSL`、`JobsOCDSL`、`JobsMakes`、`JobsBlock`、`JobsClass`、`JobsOCDefs`、`JobsStringUtils`、`JobsOCProtocols`、`JobsRichTextUtils`、`JobsLanMgr`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

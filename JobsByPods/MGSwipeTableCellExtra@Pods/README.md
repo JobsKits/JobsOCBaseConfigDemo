@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -140,5 +142,36 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+通过 MGSwipeTableCellProtocol 声明 Jobs 的侧滑 Cell 配置，再由分类承接上游 delegate 和多行同时侧滑设置。侧滑动画、手势和按钮布局仍来自 MGSwipeTableCell。
+
+### 10.2、运行脉络
+
+创建侧滑 Cell → 配置 delegate 与同时侧滑策略 → 上游接收手势 → delegate 处理业务动作。
+
+### 10.3、关键设计与边界
+
+- 协议声明与分类实现要分开核对；协议里的业务扩展不应自动被视为所有 Cell 都已实现。
+- 复用 Cell 的业务状态与全局侧滑策略属于不同层次，重建时需要明确设置作用范围。
+
+### 10.4、阅读与重建顺序
+
+先阅读协议，再对照分类中真实实现的方法；以已实现入口建立适配层。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [MGSwipeTableCellExtra.h](<./MGSwipeTableCellExtra.h>)
+- [Core/MGSwipeTableCellProtocol/MGSwipeTableCellProtocol.h](<./Core/MGSwipeTableCellProtocol/MGSwipeTableCellProtocol.h>)
+- [Core/MGSwipeTableCell+Extra/MGSwipeTableCell+Extra.h](<./Core/MGSwipeTableCell+Extra/MGSwipeTableCell+Extra.h>)
+
+依赖与编译入口：[MGSwipeTableCellExtra.podspec](<./MGSwipeTableCellExtra.podspec>)。其中显式依赖声明包括 `MGSwipeTableCell`、`JobsBlock`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

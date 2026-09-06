@@ -4,6 +4,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -143,5 +145,39 @@ ruby -rxcodeproj -e 'p = Xcodeproj::Project.open("Pods/Pods.xcodeproj"); puts [p
 - `telprompt://` 历史上存在审核风险，默认拨号入口使用 `tel://`。
 - `JobsOCOpener` 的 completion 表示打开动作是否成功触发；应用内网页实际加载结果由 `WKNavigationDelegate` 生命周期决定。
 - 邮件入口优先使用 `MFMailComposeViewController`，不可用时回退到 `mailto:`。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+把 URL、网页、拨号、邮件及外部应用打开请求集中到 Opener。Configuration 表达目标和模式，应用内网页控制器负责浏览，NSObject/NSString 分类提供调用便利。
+
+### 10.2、运行脉络
+
+构造 URL 与打开模式 → 判断可用路径 → 应用内展示或转交系统 → 返回打开动作结果。
+
+### 10.3、关键设计与边界
+
+- completion 表示打开动作是否触发成功，不代表网页已加载成功。
+- 邮件优先系统编辑器，不可用时可走 mailto；拨号与第三方 scheme 有各自接入条件。
+- 宿主负责需要的 scheme 白名单，不能只重建 opener 就认为所有外部应用都能打开。
+
+### 10.4、阅读与重建顺序
+
+先看 Configuration 的模式/结果，再看 Opener 分流和 WebView 生命周期，最后看便捷分类。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsOCOpen.h](<./JobsOCOpen.h>)
+- [Core/JobsOCOpenConfiguration/JobsOCOpenConfiguration.h](<./Core/JobsOCOpenConfiguration/JobsOCOpenConfiguration.h>)
+- [Core/JobsOCOpenWebViewController/JobsOCOpenWebViewController.h](<./Core/JobsOCOpenWebViewController/JobsOCOpenWebViewController.h>)
+- [Core/JobsOCOpener/JobsOCOpener.h](<./Core/JobsOCOpener/JobsOCOpener.h>)
+- [Core/NSObject+JobsOCOpen/NSObject+JobsOCOpen.h](<./Core/NSObject+JobsOCOpen/NSObject+JobsOCOpen.h>)
+
+依赖与编译入口：[JobsOCOpen.podspec](<./JobsOCOpen.podspec>)。其中显式依赖声明包括 `JobsBaseUI`、`JobsBlock`、`JobsGetWindow`、`JobsOCDefs`、`JobsOCDSL`、`JobsStringUtils`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

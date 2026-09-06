@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -192,5 +194,38 @@ pod install --no-repo-update
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 十一、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 11.1、设计目的与职责划分
+
+用列表容器、定制 Cell 和 NSObject 使用入口组织下拉菜单。模型提供图标、标题、副标题等展示信息，方向配置决定展开表现，列表负责渲染与点击分发。
+
+### 11.2、运行脉络
+
+准备菜单模型 → 创建指定 Cell 类型的容器 → 配置方向并展开 → 点击条目回传 → 收起列表。
+
+### 11.3、关键设计与边界
+
+- jobsReloadDataWithModels 更新菜单数据，不等同于重新创建整个容器。
+- 支持传入 Cell 类型，因此容器与具体条目样式应保持解耦。
+- 图标、主副标题和箭头均属于可更新的单元内容，复用时应对应新模型。
+
+### 11.4、阅读与重建顺序
+
+先读容器公开入口，再看 Cell 的模型渲染与高度，最后看 NSObject 分类如何挂载和收起。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [Core/JobsDropDownListView/JobsDropDownListView.h](<./Core/JobsDropDownListView/JobsDropDownListView.h>)
+- [Core/NSObject+JobsDropDownListView/NSObject+JobsDropDownListView.h](<./Core/NSObject+JobsDropDownListView/NSObject+JobsDropDownListView.h>)
+- [Core/JobsDropDownListTBVCell/JobsDropDownListTBVCell.h](<./Core/JobsDropDownListTBVCell/JobsDropDownListTBVCell.h>)
+- [JobsDropDownListViewHeader.h](<./JobsDropDownListViewHeader.h>)
+
+依赖与编译入口：[JobsDropDownListView.podspec](<./JobsDropDownListView.podspec>)。其中显式依赖声明包括 `JobsModel`、`JobsModelDSL`、`JobsMakes`、`JobsClass`、`JobsBlock`、`JobsOCDSL`、`MJRefresh`、`JobsBaseUI`、`JobsOCDefs`、`JobsOCProtocols`、`JobsOCRuntimeKits`、`JobsLanMgr`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -132,5 +134,38 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+把 NSLock、递归锁、pthread mutex、os_unfair_lock 与信号量统一到一个锁对象，并另设 Once 分类。调用者选择互斥机制，withLock 承接临界区，手动 lock/unlock 与 tryLock 保留不同使用方式。
+
+### 10.2、运行脉络
+
+指定锁类型 → 进入临界区或尝试加锁 → 执行受保护操作 → 解锁；Once 分支控制一次性执行。
+
+### 10.3、关键设计与边界
+
+- 递归锁与普通锁对同线程重入的语义不同，不能只换名字。
+- tryLock 的失败是正常分支，不应在失败后执行临界区。
+- 自动范围加锁与手动解锁不能混用，Once 的作用域也应单独核对。
+
+### 10.4、阅读与重建顺序
+
+先看 JobsLockerType 与各类型分支，再看 withLock/tryLock，最后阅读 Once 的标识和执行范围。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [Core/JobsLocker/JobsLocker.h](<./Core/JobsLocker/JobsLocker.h>)
+- [Example/ExampleUsage.h](<./Example/ExampleUsage.h>)
+- [Core/JobsLocker+Once/JobsLocker+Once.h](<./Core/JobsLocker+Once/JobsLocker+Once.h>)
+- [JobsLockerUmbrella.h](<./JobsLockerUmbrella.h>)
+
+依赖与编译入口：[JobsLocker.podspec](<./JobsLocker.podspec>)。其中显式依赖声明包括 `JobsOCDefs`、`JobsBlock`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -134,5 +136,35 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+把 AFNetworking 的证书策略创建入口整理成 Jobs 工厂。`AFSecurityPolicy` 仍负责策略对象和证书校验，本库只把三种 pinning 模式表达为可读入口，不实现网络传输或证书解析算法。
+
+### 10.2、运行脉络
+
+选择 None、公钥或证书模式 → 创建 AFSecurityPolicy → 交给网络会话使用。
+
+### 10.3、关键设计与边界
+
+- `initBy` 接收 AFSSLPinningMode；三个具名入口直接调用上游 policyWithPinningMode。
+- 创建策略不等于已经配置业务证书、域名或网络会话；重建时不能把 None 模式解释为已经完成证书绑定。
+
+### 10.4、阅读与重建顺序
+
+先理解三种创建入口与上游模式的映射，再接入实际网络客户端；保留上游安全校验语义。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [AFSecurityPolicyExtra.h](<./AFSecurityPolicyExtra.h>)
+- [Core/AFSecurityPolicy+Extra/AFSecurityPolicy+Extra.h](<./Core/AFSecurityPolicy+Extra/AFSecurityPolicy+Extra.h>)
+
+依赖与编译入口：[AFSecurityPolicyExtra.podspec](<./AFSecurityPolicyExtra.podspec>)。其中显式依赖声明包括 `AFNetworking`、`JobsBlock`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -151,5 +153,39 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+业务请求层建立在 YTKNetworkExtra 的 BaseRequest 上。JobsBaseApi 组织自定义请求、参数与加载提示，RegisterApi/UploadImageApi 表达具体接口，URLMgr 和 DeviceIP 分类分别管理地址与公网 IP 查询。
+
+### 10.2、运行脉络
+
+选择具体 API → 组合地址、方法、请求头与参数 → 交给请求基类执行 → 解析结果供业务或下一请求使用。
+
+### 10.3、关键设计与边界
+
+- 具体接口和通用请求基础设施分层；更换后端时不应把地址和业务字段写进通用网络库。
+- 链式请求可能把上一请求的 userId 作为下一请求输入，应保留数据依赖顺序。
+- 外部 IP 服务只是具体查询实现，不能把其可用性当作本库保证。
+
+### 10.4、阅读与重建顺序
+
+先看 JobsBaseApi，再选一个具体 API 和 URLMgr 分支追踪完整请求；重建时先定义业务接口与响应结构。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsAPIs.h](<./JobsAPIs.h>)
+- [Core/URLMgr/URLMgr.h](<./Core/URLMgr/URLMgr.h>)
+- [Core/APIs/JobsBaseApi/JobsBaseApi.h](<./Core/APIs/JobsBaseApi/JobsBaseApi.h>)
+- [Core/URLMgr/This+URLMgr/This+URLMgr.h](<./Core/URLMgr/This+URLMgr/This+URLMgr.h>)
+- [Core/URLMgr/URLMgr/URLMgr@1/NSObject+URLMgr_1/NSObject+URLMgr_1.h](<./Core/URLMgr/URLMgr/URLMgr@1/NSObject+URLMgr_1/NSObject+URLMgr_1.h>)
+
+依赖与编译入口：[JobsAPIs.podspec](<./JobsAPIs.podspec>)。其中显式依赖声明包括 `This`、`JobsModelDSL`、`JobsBlock`、`JobsClass`、`JobsOCDefs`、`YTKNetwork`、`MJExtension`、`WHToastExtra`、`JobsTimeUtils`、`JobsDeviceInfo`、`JobsStringUtils`、`TXFileOperation`、`JobsOCProtocols`、`YTKNetworkExtra`、`JobsLanMgr`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

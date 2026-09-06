@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -150,5 +152,37 @@ pod install --no-repo-update
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+把 TFPopup 的弹出参数与 Jobs 的业务视图、数据模型连接起来。NSObject 分类提供缩放、滑动、中央/底部展示，以及手动关闭和自动消失的不同入口。
+
+### 10.2、运行脉络
+
+准备弹出视图和可选数据 → 选择展示方式 → 应用背景点击与消失策略 → TFPopup 执行动画 → 主动或自动收起。
+
+### 10.3、关键设计与边界
+
+- show_view、show_view2、show_view3 等入口在位置和背景点击关闭策略上不同，不能只看相似名字合并。
+- 带数据和不带数据入口要保留；tips 的自动消失与普通弹窗手动关闭也要区分。
+- 隐藏全部弹窗与关闭某次业务弹窗的作用范围不同，调用时需要明确。
+
+### 10.4、阅读与重建顺序
+
+先按展示位置、动画、背景点击、数据四个维度整理入口，再看参数对象和内部公共展示方法。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [TFPopupExtra.h](<./TFPopupExtra.h>)
+- [Core/UIViewController+TFPopupView/UIViewController+TFPopupView.h](<./Core/UIViewController+TFPopupView/UIViewController+TFPopupView.h>)
+- [Core/NSObject+TFPopup/NSObject+TFPopup.h](<./Core/NSObject+TFPopup/NSObject+TFPopup.h>)
+
+依赖与编译入口：[TFPopupExtra.podspec](<./TFPopupExtra.podspec>)。其中显式依赖声明包括 `TFPopup`、`JobsBlock`、`JobsModelDSL`、`JobsOCDSL`、`JobsOCDefs`、`JobsByOCPods`、`JobsCustomView`、`JobsFiltrationView`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

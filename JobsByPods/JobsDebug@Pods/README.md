@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -141,5 +143,36 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+为 NSArray/NSDictionary 提供便于阅读的调试输出，并提供 NSLog 重定向到文档目录的入口。分类通过加载期接入描述方法，JSON 转换用于改善输出表达。
+
+### 10.2、运行脉络
+
+集合进入打印/调试路径 → 使用定制描述或 JSON 转换 → 输出内容；另一路由显式重定向入口改变日志去向。
+
+### 10.3、关键设计与边界
+
+- debugDescription 与普通 description/日志调用不是同一入口。
+- 集合描述的加载期替换影响范围较大，与单次格式化函数不同。
+- 日志可能包含业务数据，重建和使用时应明确是否落盘及脱敏边界。
+
+### 10.4、阅读与重建顺序
+
+先看加载期描述方法接入，再看转换失败处理，最后单独理解日志重定向。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsDebug.h](<./JobsDebug.h>)
+- [Core/DebugLogDescription/DebugLogDescription.h](<./Core/DebugLogDescription/DebugLogDescription.h>)
+
+依赖与编译入口：[JobsDebug.podspec](<./JobsDebug.podspec>)。其中显式依赖声明包括 `JobsBlock`、`JobsMakes`、`JobsOCDefs`、`JobsOCDSL`、`JobsStringUtils`、`JobsLanMgr`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -174,3 +176,37 @@ pod install --no-repo-update
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>
 
 - QuartzCore 子类 DSL 已同步补齐返回当前子类类型的通用 Block typedef，避免链式调用中从 CAShapeLayer/CAGradientLayer 等降级为 CALayer。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+为 OC 各模块提供共享的 Block 类型语言。按有/无返回值、确定/不定参数及业务类型分组，NSObject 的回调属性工具负责挂载回调，类型声明本身不执行业务。
+
+### 10.2、运行脉络
+
+定义匹配输入/输出的 Block 类型 → 接口使用该类型 → 对象保存回调 → 业务时机触发。
+
+### 10.3、关键设计与边界
+
+- 回调参数、可空性和返回对象类型是调用契约，不能只按名称生成 void Block。
+- 类型别名、回调存储和回调执行分属不同职责；存入 Block 不等于立即调用。
+- 底层类型层应控制依赖方向，避免为某个业务类型引入整套上层实现。
+
+### 10.4、阅读与重建顺序
+
+先看聚合头和基础返回/参数类型，再进入业务类型与 NSObject 回调存储；重建依赖模块前先建立最小公共类型集。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsBlock.h](<./JobsBlock.h>)
+- [JobsBlockDef.h](<./JobsBlockDef.h>)
+- [JobsBlockHeader.h](<./JobsBlockHeader.h>)
+- [Core/JobsBizBlock/JobsBizBlock.h](<./Core/JobsBizBlock/JobsBizBlock.h>)
+- [Core/Tools/NSObject+CallBackInfoByBlock/NSObject+CallBackInfoByBlock.h](<./Core/Tools/NSObject+CallBackInfoByBlock/NSObject+CallBackInfoByBlock.h>)
+
+依赖与编译入口：[JobsBlock.podspec](<./JobsBlock.podspec>)。其中显式依赖声明包括 `SDWebImage`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。

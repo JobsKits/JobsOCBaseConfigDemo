@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -228,5 +230,52 @@ pod install --no-repo-update
 - 页面或业务域有多条 Timer 时，用 Scope 整组 pause/resume/remove。
 - 倒计时把绝对 `endAt` 作为时间真值；Manager 管物理 Timer，不承担业务时间真值。
 - GCD Timer 只能避开 RunLoop Mode 影响，仍需面对队列阻塞、QoS、系统负载和 leeway。
+
+<a id="jobs-architecture"></a>
+
+## 十一、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 11.1、设计目的与职责划分
+
+在 JobsTimer 之上按稳定 identifier 注册任务，管理多回调、前后台策略、精准取消和 Scope 生命周期。Model 持有业务时间语义，Manager 持有物理 Timer，页面只需持有相应 Scope。
+
+### 11.2、运行脉络
+
+以标识创建/替换任务 → 注册 tick/finish 回调 → 按策略启动 → 根据标识或 Scope 控制 → 校验期望 Timer 后精准移除。
+
+下图用于说明主要关系；异常、退出与线程边界结合下一节阅读。
+
+```mermaid
+flowchart TD
+    A["按 identifier 创建"] --> B{"已有登记项？"}
+    B -->|否| C["登记新计时器"]
+    B -->|是| D{"去重策略"}
+    D -->|保留| E["返回已有项"]
+    D -->|替换| C
+    D -->|报错| F["交付冲突"]
+    C --> G["按标识或 Scope 管理"]
+    G --> H["清理时核对 expectedTimer"]
+    H --> I["停止并移除对应项"]
+```
+
+### 11.3、关键设计与边界
+
+- 同标识替换先原子更新注册项，再在锁外停止旧 Timer，避免外部回调进入锁内。
+- 列表复用通过 expectedTimer 区分新旧实例，旧 Cell 的清理不能误删同标识的新 Timer。
+- 追加回调、任务本体和 Scope 所有权分开；Manager 不改变底层精度，也不替业务维护 endAt。
+
+### 11.4、阅读与重建顺序
+
+先读标识协议和后台策略，再看 upsert、回调注册、expectedTimer 取消和 Scope；用一次列表复用场景串联职责。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsOCTimerMgr.h](<./JobsOCTimerMgr.h>)
+- [Core/JobsTimerMgr+DSL/JobsTimerMgr+DSL.h](<./Core/JobsTimerMgr+DSL/JobsTimerMgr+DSL.h>)
+- [Core/JobsTimerMgr/JobsTimerMgr.h](<./Core/JobsTimerMgr/JobsTimerMgr.h>)
+
+依赖与编译入口：[JobsOCTimerMgr.podspec](<./JobsOCTimerMgr.podspec>)。其中显式依赖声明包括 `JobsMakes`、`JobsBlock`、`JobsOCDefs`、`JobsOCTimer`、`JobsOCProtocols`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

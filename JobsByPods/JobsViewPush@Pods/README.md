@@ -6,6 +6,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font>
@@ -95,5 +97,37 @@ pod install --no-repo-update
 - Push、拖动和退出必须在主线程执行。
 - 同一个源 View 再次 Push 时，当前推出 View 会先无动画退出。
 - 背景点击由过渡层接收，用于让上层 View 失焦退出，不会继续透传给底层业务控件。
+
+<a id="jobs-architecture"></a>
+
+## 九、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 9.1、设计目的与职责划分
+
+提供 UIView 的推出覆盖层与可配置侧边抽屉。SideDrawer 保存宿主、内容、方向和比例，并协调遮罩与交互进度；视图分类提供推出/退出便利入口。
+
+### 9.2、运行脉络
+
+挂载宿主与内容 → 计算打开位置 → 动画或拖动推进 → 点击背景/调用关闭 → 清理过渡层并恢复。
+
+### 9.3、关键设计与边界
+
+- 同一源 View 再次推出时先无动画退出当前内容，避免叠加旧覆盖层。
+- 背景点击由过渡层消费，不继续穿透到底层业务控件。
+- 推出、拖动和退出要求主线程；位移实现与布局基准不能混用 transform 造成退出跳位。
+
+### 9.4、阅读与重建顺序
+
+先读 SideDrawer 配置与 open/close/invalidate，再看 UIView 分类的重入处理；重建时先固定坐标基准与遮罩归属。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsViewPush.h](<./JobsViewPush.h>)
+- [Core/UIView+JobsViewPush/UIView+JobsViewPush.h](<./Core/UIView+JobsViewPush/UIView+JobsViewPush.h>)
+- [Core/JobsSideDrawer/JobsSideDrawer.h](<./Core/JobsSideDrawer/JobsSideDrawer.h>)
+
+依赖与编译入口：[JobsViewPush.podspec](<./JobsViewPush.podspec>)。其中显式依赖声明包括 `JobsBlock`、`JobsOCDefs`、`JobsOCDSL`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

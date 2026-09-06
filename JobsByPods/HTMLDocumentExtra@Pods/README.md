@@ -11,6 +11,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -135,5 +137,35 @@ pod install --no-repo-update
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+将 HTMLReader 的文档创建和文字提取收口为两个 Jobs 入口。HTMLDocument 负责解析结构，分类负责把字符串转换和正文文字提取接成容易调用的流程。
+
+### 10.2、运行脉络
+
+输入 HTML 字符串 → 创建 HTMLDocument → 提取有效文字 → 返回字符串。
+
+### 10.3、关键设计与边界
+
+- HTML 解析与网页展示不同，本库不是 WKWebView，也不执行网页脚本。
+- initBy 返回文档对象，formatHTML 返回提取结果；重建时应保留两种结果类型的区别。
+
+### 10.4、阅读与重建顺序
+
+先看 initBy，再看 formatHTML 对文档内容的提取方式；标签解析继续由 HTMLReader 承担。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [HTMLDocumentExtra.h](<./HTMLDocumentExtra.h>)
+- [Core/HTMLDocument+Extra/HTMLDocument+Extra.h](<./Core/HTMLDocument+Extra/HTMLDocument+Extra.h>)
+
+依赖与编译入口：[HTMLDocumentExtra.podspec](<./HTMLDocumentExtra.podspec>)。其中显式依赖声明包括 `HTMLReader`、`JobsBlock`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

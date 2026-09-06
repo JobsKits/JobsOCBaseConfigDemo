@@ -4,6 +4,8 @@
 
 [toc]
 
+> 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
+
 ---
 
 ## 🔥 <font id=前言>前言</font>
@@ -145,5 +147,37 @@ pod install --no-repo-update
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
 - 验证时从 Demo 全局主题入口分别切换白天和黑夜，检查组件的背景、文字、禁用态、占位态与弹出层对比度。
+
+<a id="jobs-architecture"></a>
+
+## 十、架构脉络与关键设计
+
+本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
+
+### 10.1、设计目的与职责划分
+
+把搜索输入、推荐词和本地历史集中到一个可配置视图。Config 决定文案、历史存储键、容量和回调，View 负责显示与交互，实际搜索请求留给宿主。
+
+### 10.2、运行脉络
+
+输入或点选词条 → 分发文本变化/确认事件 → 按规则更新历史 → 宿主执行搜索 → 可删除单项或清空历史。
+
+### 10.3、关键设计与边界
+
+- 文本变化、确认搜索和点击词条是不同回调，避免同时触发重复请求。
+- historyStorageKey 决定历史隔离范围，maxHistoryCount 决定展示/保存容量。
+- 取消时是否收键盘可配置，删除历史与清空历史也有独立事件。
+
+### 10.4、阅读与重建顺序
+
+先看 Config 的事件与存储策略，再看 View 的输入、历史更新和重载路径。
+
+源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
+
+- [JobsOCSearcher.h](<./JobsOCSearcher.h>)
+- [Core/JobsOCSearcherConfig/JobsOCSearcherConfig.h](<./Core/JobsOCSearcherConfig/JobsOCSearcherConfig.h>)
+- [Core/JobsOCSearcherView/JobsOCSearcherView.h](<./Core/JobsOCSearcherView/JobsOCSearcherView.h>)
+
+依赖与编译入口：[JobsOCSearcher.podspec](<./JobsOCSearcher.podspec>)。其中显式依赖声明包括 `Masonry`、`JobsBlock`、`JobsBaseUI`、`JobsMakes`、`JobsOCDSL`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>
