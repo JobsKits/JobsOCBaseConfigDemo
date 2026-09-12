@@ -5,6 +5,10 @@
 # - 影响范围：只重建配置指定的 JobsAppIconRibbon-*.appiconset，不修改原始图标。
 # - 运行提示：Xcode 构建阶段无交互执行；终端独立运行会先等待确认。
 
+# Xcode 构建环境可能不带 locale；先固定 UTF-8，避免中文脚本路径在 zsh 中被错误解码。
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+
 typeset -g SCRIPT_DIR=""
 typeset -g SCRIPT_PATH=""
 typeset -g LOG_FILE=""
