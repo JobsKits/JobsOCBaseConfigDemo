@@ -55,10 +55,10 @@ flowchart LR
   M12 -->|calls:92| M2
   M10 -->|calls:74| M2
   M12 -->|calls:66| M9
+  M1 -->|calls:62| M7
   M13 -->|calls:61| M2
   M7 -->|calls:59| M9
   M7 -->|calls:59| M4
-  M1 -->|calls:58| M7
   M11 -->|calls:58| M2
   M14 -->|calls:53| M2
   M15 -->|calls:52| M2

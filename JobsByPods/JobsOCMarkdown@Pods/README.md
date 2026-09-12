@@ -28,6 +28,8 @@ pod 'JobsOCMarkdown', :path => './JobsByPods/JobsOCMarkdown@Pods'
 
 宿主 App 还需要在构建阶段调用 `Support/JobsMarkdownPackager.rb`，把当前仓库的
 Markdown 和被引用的本地资源写入 App 内的 `JobsMarkdownDocuments.bundle`。
+打包器会主动把 Xcode 非交互 Shell 返回的文件系统路径规范为 UTF-8，中文目录
+不会因为构建进程缺少 `LANG` / `LC_ALL` 而导致清单 JSON 生成失败。
 OC 老工程不依赖本 Pod，而是把同一组 Objective-C 源码、资源和打包器直接集成
 进主工程。
 

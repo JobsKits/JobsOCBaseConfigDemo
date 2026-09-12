@@ -32,9 +32,10 @@ class JobsMarkdownPackager
   ].freeze
 
   def initialize(project_root, output_bundle, project_name)
-    @project_root = Pathname(project_root).expand_path.cleanpath
-    @output_bundle = Pathname(output_bundle).expand_path.cleanpath
-    @project_name = project_name.to_s.empty? ? @project_root.basename.to_s : project_name.to_s
+    @project_root = normalized_pathname(project_root)
+    @output_bundle = normalized_pathname(output_bundle)
+    normalized_project_name = utf8_string(project_name, '项目名')
+    @project_name = normalized_project_name.empty? ? @project_root.basename.to_s : normalized_project_name
     @documents = []
     @missing_resources = []
     @copied_resources = {}
@@ -50,6 +51,27 @@ class JobsMarkdownPackager
   end
 
   private
+
+  # Xcode 的非交互 Shell 可能没有 UTF-8 locale，需要主动纠正路径编码标签。
+  def utf8_string(value, description)
+    string = value.to_s.dup
+    if [Encoding::ASCII_8BIT, Encoding::US_ASCII].include?(string.encoding)
+      string.force_encoding(Encoding::UTF_8)
+    else
+      string.encode!(Encoding::UTF_8)
+    end
+    raise "#{description}不是有效的 UTF-8" unless string.valid_encoding?
+
+    string
+  rescue Encoding::InvalidByteSequenceError, Encoding::UndefinedConversionError => e
+    raise "#{description}无法转换为 UTF-8：#{e.message}"
+  end
+
+  # expand_path 会再次套用进程默认编码，因此在展开后重新标记为 UTF-8。
+  def normalized_pathname(value)
+    expanded = Pathname(value.to_s).expand_path.cleanpath
+    Pathname(utf8_string(expanded.to_s, '路径'))
+  end
 
   # 限制输入必须是仓库目录，输出必须是构建产物内的固定 Bundle 名。
   def validate_paths!
@@ -69,7 +91,7 @@ class JobsMarkdownPackager
   # 返回排除第三方、构建产物和生成目录后的 Markdown 文件。
   def markdown_paths
     Dir.glob(@project_root.join('**', '*').to_s, File::FNM_DOTMATCH)
-       .map { |path| Pathname(path) }
+       .map { |path| Pathname(utf8_string(path, '扫描路径')) }
        .select(&:file?)
        .select { |path| path.extname.casecmp('.md').zero? }
        .reject { |path| excluded?(relative_path(path)) }
@@ -210,12 +232,14 @@ class JobsMarkdownPackager
       documents: @documents,
       missingResources: @missing_resources.uniq.sort
     }
-    @output_bundle.join('manifest.json').write(JSON.pretty_generate(manifest))
+    @output_bundle.join('manifest.json').open('w:UTF-8') do |file|
+      file.write(JSON.pretty_generate(manifest))
+    end
   end
 
   # 返回相对仓库根目录的 POSIX 路径。
   def relative_path(path)
-    path.relative_path_from(@project_root).to_s
+    utf8_string(path.relative_path_from(@project_root).to_s, '相对路径')
   end
 
   # 返回 Bundle 内保存文档原目录结构的根目录。
