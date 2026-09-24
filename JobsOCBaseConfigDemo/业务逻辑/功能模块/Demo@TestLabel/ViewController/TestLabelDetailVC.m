@@ -190,21 +190,21 @@ Prop_assign()BOOL didApplyShowingType;
                      .byTextCor(JobsBlueColor)
                      .byTargetString(@"编译器自动管理内存地址".jobsTr().add(JobsNewline))
                      .byTextBgCor(JobsBrownColor)
-                     .byParagraphStyle(self.defaultParagraphStyle());
+                     .byParagraphStyle(self.jobsDefaultParagraphStyle());
             }))
             .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                 data1.byFont(UIFontWeightSemiboldSize(JobsWidth(13)))
                      .byTextCor(JobsWhiteColor)
                      .byTargetString(@"让程序员更加专注于".jobsTr().add(JobsNewline))
                      .byTextBgCor(JobsBrownColor)
-                     .byParagraphStyle(self.defaultParagraphStyle());
+                     .byParagraphStyle(self.jobsDefaultParagraphStyle());
             }))
             .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                 data1.byFont(UIFontWeightUltraLightSize(JobsWidth(14)))
                      .byTextCor(JobsGreenColor)
                      .byTargetString(@"APP的业务。".jobsTr())
                      .byTextBgCor(JobsBrownColor)
-                     .byParagraphStyle(self.defaultParagraphStyle());
+                     .byParagraphStyle(self.jobsDefaultParagraphStyle());
             }));
         }));
     };

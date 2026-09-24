@@ -86,7 +86,7 @@ NS_INLINE __kindof BaseTextView *_Nonnull jobsMakeBaseTextView(jobsByBaseTextVie
                                      .byFont(UIFontWeightRegularSize(JobsWidth(12)))
                                      .byTextCor(JobsWhiteColor)
                                      .byTargetString(@"Already have account?".jobsTr())
-                                     .byParagraphStyle(self.defaultParagraphStyle());
+                                     .byParagraphStyle(self.jobsDefaultParagraphStyle());
                                  // config.textBgCor = UIColor.clearColor;
                              }))
                              .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable config) {
@@ -94,7 +94,7 @@ NS_INLINE __kindof BaseTextView *_Nonnull jobsMakeBaseTextView(jobsByBaseTextVie
                                      .byFont(UIFontWeightRegularSize(JobsWidth(12)))
                                      .byTextCor(@"#FFC700".jobsCor())
                                      .byTargetString(@" ".add(@"Login Here".jobsTr()))
-                                     .byParagraphStyle(self.defaultParagraphStyle())
+                                     .byParagraphStyle(self.jobsDefaultParagraphStyle())
                                      .byUrlStr(@"www.google.com");
                                  // config.textBgCor = UIColor.clearColor;
                              }));

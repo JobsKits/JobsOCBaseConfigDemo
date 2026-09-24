@@ -77,14 +77,14 @@ NS_INLINE __kindof BaseTextView *_Nonnull jobsMakeBaseTextView(jobsByBaseTextVie
                                .byTextCor(JobsWhiteColor)
                                .byTargetString(@"Already have account?".jobsTr());
                  //        config.textBgCor = UIColor.clearColor;
-                         config.byParagraphStyle(self.defaultParagraphStyle());
+                         config.byParagraphStyle(self.jobsDefaultParagraphStyle());
                      }));
                      data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable config) {
                          config.byFont(UIFontWeightRegularSize(JobsWidth(12)))
                                .byTextCor(@"#FFC700".jobsCor())
                                .byTargetString(@" ".add(@"Login Here".jobsTr()));
                  //        config.textBgCor = UIColor.clearColor;
-                         config.byParagraphStyle(self.defaultParagraphStyle())
+                         config.byParagraphStyle(self.jobsDefaultParagraphStyle())
                                .byUrlStr(@"www.google.com");
                      }));
                  }))).byBgColor(JobsClearColor);

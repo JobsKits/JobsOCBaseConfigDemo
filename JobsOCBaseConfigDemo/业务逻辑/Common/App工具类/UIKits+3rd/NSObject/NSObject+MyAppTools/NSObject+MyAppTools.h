@@ -156,7 +156,7 @@ Prop_strong()NSMutableArray <JobsRichTextConfig *>*richTextConfigMutArr;
 /// 数据组装
 -(JobsRetViewModelByDecorationModelBlock _Nonnull)makeDatas;
 /// 默认文本段落样式（两端对齐）
--(JobsRetNSMutableParagraphStyleByVoidBlock _Nonnull)defaultParagraphStyle;
+-(JobsRetNSMutableParagraphStyleByVoidBlock _Nonnull)jobsDefaultParagraphStyle;
 /// 默认文本段落样式（左端对齐）
 -(JobsRetNSMutableParagraphStyleByVoidBlock _Nonnull)defaultParagraphStyle2;
 /// Terms Of Use

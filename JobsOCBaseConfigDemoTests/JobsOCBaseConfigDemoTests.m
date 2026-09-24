@@ -325,6 +325,67 @@
     };
 }
 
+-(void)testBluetoothFeaturePagesLoadAndExecute {
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigDemoTests.class, @selector(jobsTestBluetoothFeaturePagesLoadAndExecute)))(self, @selector(jobsTestBluetoothFeaturePagesLoadAndExecute));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsTestBluetoothFeaturePagesLoadAndExecute{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        XCTAssertFalse([NSObject instancesRespondToSelector:NSSelectorFromString(@"defaultParagraphStyle")]);
+        Class controllerClass = NSClassFromString(@"JobsBluetoothFeatureDemoVC");
+        XCTAssertNotNil(controllerClass);
+        typedef id (*JobsBluetoothInitIMP)(id, SEL, NSInteger, NSString *);
+        for (NSInteger index = 0; index < 28; index++) {
+            UIViewController *controller = ((JobsBluetoothInitIMP)objc_msgSend)([controllerClass alloc],
+                NSSelectorFromString(@"initWithFeatureIndex:featureTitle:"), index, @"蓝牙回归");
+            UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:controller];
+            XCTAssertNoThrow([navigation loadViewIfNeeded]);
+            XCTAssertNoThrow([controller loadViewIfNeeded], @"入口 %ld", (long)index + 1);
+            UIButton *button = [controller valueForKey:@"executeButton"];
+            XCTAssertNotNil(button);
+            XCTAssertNoThrow([button sendActionsForControlEvents:UIControlEventTouchUpInside]);
+            UITextView *logView = [controller valueForKey:@"logTextView"];
+            XCTAssertTrue(logView.text.length > 0);
+        }
+    };
+}
+
+-(void)testBluetoothCellFollowsThemeWithoutReload {
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigDemoTests.class, @selector(jobsTestBluetoothCellFollowsThemeWithoutReload)))(self, @selector(jobsTestBluetoothCellFollowsThemeWithoutReload));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsTestBluetoothCellFollowsThemeWithoutReload{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        UIViewController *controller = [NSClassFromString(@"JobsBluetoothDemoVC") new];
+        UINavigationController *navigation = [[UINavigationController alloc] initWithRootViewController:controller];
+        [navigation loadViewIfNeeded];
+        [controller loadViewIfNeeded];
+        UITableView *table = [controller valueForKey:@"tableView"];
+        UITableViewCell *cell = [table.dataSource tableView:table cellForRowAtIndexPath:
+            [NSIndexPath indexPathForRow:0 inSection:0]];
+        JobsThemeCenter *center = JobsThemeCenter.shared;
+        JobsThemeStyle originalStyle = center.currentStyle;
+        @try {
+            for (JobsThemeStyle style in @[JobsThemeStyleLight, JobsThemeStyleDark, JobsThemeStyleLight]) {
+                center.setStyle(style);
+                XCTAssertEqualObjects(cell.backgroundColor, center.resolvedColorForKey(JobsThemeColorKeyBackgroundGroupedSecondary));
+                XCTAssertEqualObjects(cell.textLabel.textColor, center.resolvedColorForKey(JobsThemeColorKeyTextPrimary));
+                XCTAssertEqualObjects(cell.detailTextLabel.textColor, center.resolvedColorForKey(JobsThemeColorKeyTextSecondary));
+            }
+        } @finally {
+            center.setStyle(originalStyle);
+        }
+    };
+}
+
 -(void)testPerformanceExample {
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigDemoTests.class, @selector(jobsTestPerformanceExample)))(self, @selector(jobsTestPerformanceExample));
     if (action) action();

@@ -73,15 +73,17 @@ NS_INLINE __kindof JobsRichTextConfig *_Nonnull jobsMakeRichTextConfig(jobsByRic
 /**
 
      /// 默认文本段落样式
-     -(NSMutableParagraphStyle *)defaultParagraphStyle{
-         return jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
-             data.alignment = NSTextAlignmentJustified;
-             data.paragraphSpacing = 0;/// 段距，取值 float
-             data.paragraphSpacingBefore = 0;/// 段首空间，取值 float
-             data.firstLineHeadIndent = 0.0;/// 首行缩进，取值 float
-             data.headIndent = 0.0;/// 整体缩进(首行除外)，取值 float
-             data.lineSpacing = 0;/// 行距，取值 float
-         });
+     -(JobsRetNSMutableParagraphStyleByVoidBlock _Nonnull)jobsDefaultParagraphStyle{
+         return ^NSMutableParagraphStyle *{
+             return jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
+                 data.byAlignment(NSTextAlignmentJustified)
+                     .byParagraphSpacing(0)
+                     .byParagraphSpacingBefore(0)
+                     .byFirstLineHeadIndent(0)
+                     .byHeadIndent(0)
+                     .byLineSpacing(0);
+             });
+         };
      }
 
      @synthesize attributedTitle = _attributedTitle;
@@ -95,14 +97,14 @@ NS_INLINE __kindof JobsRichTextConfig *_Nonnull jobsMakeRichTextConfig(jobsByRic
                      data1.textCor = JobsBlueColor;
                      data1.targetString = @"编译器自动管理内存地址".jobsTr().add(JobsNewline);
                      data1.textBgCor = JobsBrownColor;
-                     data1.paragraphStyle = self.defaultParagraphStyle;
+                     data1.paragraphStyle = self.jobsDefaultParagraphStyle();
                  }))
                  .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                      data1.font = UIFontWeightSemiboldSize(JobsWidth(13));
                      data1.textCor = JobsWhiteColor;
                      data1.targetString = @"让程序员更加专注于".jobsTr().add(JobsNewline);
                      data1.textBgCor = JobsBrownColor;
-                     data1.paragraphStyle = self.defaultParagraphStyle;
+                     data1.paragraphStyle = self.jobsDefaultParagraphStyle();
                  }))
                  .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                      @jobs_strongify(self)
@@ -110,7 +112,7 @@ NS_INLINE __kindof JobsRichTextConfig *_Nonnull jobsMakeRichTextConfig(jobsByRic
                      data1.textCor = JobsGreenColor;
                      data1.targetString = @"APP的业务。".jobsTr();
                      data1.textBgCor = JobsBrownColor;
-                     data1.paragraphStyle = self.defaultParagraphStyle;
+                     data1.paragraphStyle = self.jobsDefaultParagraphStyle();
                  }));
              }));
          };return _attributedTitle;
