@@ -118,7 +118,7 @@ Jobs 自维护的应用、Demo 与主工程集成功能统一执行同一套 [**
 | 刷新与动画 | `JobsOCRefresher` + `JobsFuseAnimation` | 上下左右四向刷新、统一状态机、触感 / 声音；系统、图片、GIF、Lottie、今日头条、抖音动画可在挂载后原位热替换。 |
 | 表格与长文字 | `JobsOCExcel` + `JobsOCUILabelScrolling` | Office 式冻结 `0...N` 列；单元格支持缩放、单行省略、多行省略和 CoreText 完整滚动。 |
 | 截屏 | `JobsScreenCapture` | 主动渲染并保存相册、系统截屏观察、敏感区域截图保护三条能力独立组合。 |
-| 音视频与硬件 | `JobsOCAudioRecorder`、`JobsOCVideoRecorder`、`JobsBluetooth`、`JobsBioKit` | 录音与本地音频管理、视频录制、多设备 BLE 扫描 / 连接 / 读写 / Mock、生物识别；录音与视频录制快门统一使用白色内圆、留白间隔和白色外圈，红色仅承担录制进度提示；视频写入采用单帧背压并丢弃迟到帧，录制页和直播采集进入后台时立即停止采集，回前台只恢复预览。 |
+| 音视频与硬件 | `JobsOCAudioRecorder`、`JobsOCVideoRecorder`、`JobsBluetooth`、`JobsBioKit` | 录音与本地音频管理、视频录制、多设备 BLE 扫描 / 连接 / 读写 / Mock、生物识别；蓝牙 Demo 列表的 Cell 背景与主副标题绑定项目主题，切换明暗主题时原位更新；录音与视频录制快门统一使用白色内圆、留白间隔和白色外圈，红色仅承担录制进度提示；视频写入采用单帧背压并丢弃迟到帧，录制页和直播采集进入后台时立即停止采集，回前台只恢复预览。 |
 | UI 状态与交互 | `JobsOCSkeletonView`、`JobsOCGraphicCaptcha`、`JobsOCNumberStepper`、`JobsOCKeyboardMgr`、`JobsSuspend` | 骨架屏、按英文大写 / 小写 / 数字 / 简体 / 繁体五类独立生成单个至五类组合的图形验证码、边界数字步进输入、键盘避让、悬浮控件均提供可复用组件和独立 Demo。 |
 | 抽奖轮盘 | `LuckyWheelView`、`LuckyWheelDemoVC` | 中心按钮在旋转中保持可点；每次点按都按当前配置重置初始角速度并视为新一轮抽奖，复用同一个 `CADisplayLink`，只在最终自然停止时结算。 |
 | 二维码与条形码 | `NSString+CIFilter`、`JobsQRCodeDemoVC` | 支持普通二维码、带中心 Logo 二维码和 Code128 条形码；点击生成图像会通过 Jobs 手势 DSL 将来源字符串复制到系统剪切板。 |
@@ -6424,14 +6424,14 @@ vc.navCtrl
                   data1.textCor = JobsBlueColor;
                   data1.targetString = JobsInternationalization(@"编译器自动管理内存地址").add(JobsNewline);
                   data1.textBgCor = JobsBrownColor;
-                  data1.paragraphStyle = self.defaultParagraphStyle;
+                  data1.paragraphStyle = self.jobsDefaultParagraphStyle();
               }))
               .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                   data1.font = UIFontWeightSemiboldSize(JobsWidth(13));
                   data1.textCor = JobsWhiteColor;
                   data1.targetString = JobsInternationalization(@"让程序员更加专注于").add(JobsNewline);
                   data1.textBgCor = JobsBrownColor;
-                  data1.paragraphStyle = self.defaultParagraphStyle;
+                  data1.paragraphStyle = self.jobsDefaultParagraphStyle();
               }))
               .add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                   @jobs_strongify(self)
@@ -6439,21 +6439,23 @@ vc.navCtrl
                   data1.textCor = JobsGreenColor;
                   data1.targetString = JobsInternationalization(@"APP的业务。");
                   data1.textBgCor = JobsBrownColor;
-                  data1.paragraphStyle = self.defaultParagraphStyle;
+                  data1.paragraphStyle = self.jobsDefaultParagraphStyle();
               }));
           }));
       }return _attributedTitle;
   }
-  /// 默认文本段落样式
-  -(NSMutableParagraphStyle *)defaultParagraphStyle{
-      return jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
-          data.byAlignment(NSTextAlignmentJustified)
-              .byParagraphSpacing(0) // 段距，取值 float
-              .byParagraphSpacingBefore(0) // 段首空间，取值 float
-              .byFirstLineHeadIndent(0.0) // 首行缩进，取值 float
-              .byHeadIndent(0.0) // 整体缩进(首行除外)，取值 float
-              .byLineSpacing(0); // 行距，取值 float
-      });
+  /// 自定义段落样式使用 Jobs 前缀，避免 NSObject 分类与系统排版 selector 冲突。
+  -(JobsRetNSMutableParagraphStyleByVoidBlock _Nonnull)jobsDefaultParagraphStyle{
+      return ^NSMutableParagraphStyle *{
+          return jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
+              data.byAlignment(NSTextAlignmentJustified)
+                  .byParagraphSpacing(0)
+                  .byParagraphSpacingBefore(0)
+                  .byFirstLineHeadIndent(0)
+                  .byHeadIndent(0)
+                  .byLineSpacing(0);
+          });
+      };
   }
   ```
   
@@ -6662,7 +6664,7 @@ vc.navCtrl
               data1.font = UIFontWeightBoldSize(JobsWidth(14));
               data1.textCor = JobsCor(@"#6B6B6B");
               data1.targetString = JobsInternationalization(@"Please read our ").uppercaseString;
-              data1.paragraphStyle = self.defaultParagraphStyle;
+              data1.paragraphStyle = self.jobsDefaultParagraphStyle();
           }));
           data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig *_Nullable data1) {
               @jobs_strongify(self)
@@ -6671,7 +6673,7 @@ vc.navCtrl
               data1.targetString = JobsInternationalization(@"RESPONSIBLE GAMING");
               data1.underlineCor = JobsCor(@"#FFCC00");
               data1.underlineStyle = NSUnderlineStyleSingle;
-              data1.paragraphStyle = self.defaultParagraphStyle;
+              data1.paragraphStyle = self.jobsDefaultParagraphStyle();
               data1.urlStr = @"myapp://responsible_gaming";/// 这里必须是一个URL形式的字符串，SDK框架内部才能识别处理，并执行协议方法
           }));
           data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig *_Nullable data1) {
@@ -6679,7 +6681,7 @@ vc.navCtrl
               data1.font = UIFontWeightBoldSize(JobsWidth(14));
               data1.textCor = JobsCor(@"#6B6B6B");;
               data1.targetString = JobsInternationalization(@" carefully:").uppercaseString;
-              data1.paragraphStyle = self.defaultParagraphStyle;
+              data1.paragraphStyle = self.jobsDefaultParagraphStyle();
           }));
       }));
       ```

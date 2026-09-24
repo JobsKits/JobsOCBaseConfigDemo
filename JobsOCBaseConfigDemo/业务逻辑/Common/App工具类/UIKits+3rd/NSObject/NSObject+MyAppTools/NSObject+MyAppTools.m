@@ -498,7 +498,8 @@ languageSwitchNotificationWithSelector:(SEL)aSelector{
     };
 }
 /// 默认文本段落样式（两端对齐）
--(JobsRetNSMutableParagraphStyleByVoidBlock _Nonnull)defaultParagraphStyle{
+/// 避免向所有 NSObject 注入 TextKit 内部同名 selector。
+-(JobsRetNSMutableParagraphStyleByVoidBlock _Nonnull)jobsDefaultParagraphStyle{
     return ^NSMutableParagraphStyle *{
         return jobsMakeParagraphStyle(^(NSMutableParagraphStyle * _Nullable data) {
             data.byAlignment(NSTextAlignmentJustified) // 两端对齐

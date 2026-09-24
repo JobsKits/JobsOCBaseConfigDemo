@@ -204,7 +204,7 @@
                          .byTextCor(JobsWhiteColor)
                          .byTargetString(@"的".jobsTr())
                          .byTextBgCor(JobsBrownColor)
-                         .byParagraphStyle(self.defaultParagraphStyle());
+                         .byParagraphStyle(self.jobsDefaultParagraphStyle());
                 }));
                 data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable data1) {
                     @jobs_strongify(self)
@@ -212,7 +212,7 @@
                          .byTextCor(JobsRedColor)
                          .byTargetString(@"语法糖".jobsTr())
                          .byTextBgCor(JobsBrownColor)
-                         .byParagraphStyle(self.defaultParagraphStyle());
+                         .byParagraphStyle(self.jobsDefaultParagraphStyle());
                 }));
             })))
                 .byBgColor(UIColor.clearColor)

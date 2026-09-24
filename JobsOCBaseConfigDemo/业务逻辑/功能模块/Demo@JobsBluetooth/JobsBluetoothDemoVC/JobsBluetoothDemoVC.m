@@ -6,7 +6,6 @@
 //
 
 #import "JobsBluetoothDemoVC.h"
-
 #import "JobsBluetoothFeatureDemoVC.h"
 
 @interface JobsBluetoothDemoVC ()
@@ -62,11 +61,14 @@ Prop_copy()NSArray <NSString *>*features;
     if (!cell) cell = [UITableViewCell.alloc initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
     return cell.byTextLabel(^(__kindof UILabel * _Nullable label) {
         label.byText([NSString stringWithFormat:@"%ld. %@", (long)indexPath.row + 1, self.features[indexPath.row]])
-            .byFont(UIFontWeightMediumSize(15));
+            .byFont(UIFontWeightMediumSize(15))
+            .byTextCor(JobsLabelColor);
     }).byDetailTextLabel(^(__kindof UILabel * _Nullable label) {
         label.byText(indexPath.row == 21 ? @"进入详情页，模拟器可直接运行".jobsTr() : @"进入独立功能详情页".jobsTr())
-            .byFont(UIFontWeightRegularSize(12));
-    }).byAccessoryType(UITableViewCellAccessoryDisclosureIndicator);
+            .byFont(UIFontWeightRegularSize(12))
+            .byTextCor(JobsSecondaryLabelColor);
+    }).byAccessoryType(UITableViewCellAccessoryDisclosureIndicator)
+        .byBgColor(JobsSecondarySystemGroupedBackgroundColor);
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
