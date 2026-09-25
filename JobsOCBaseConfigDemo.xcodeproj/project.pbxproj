@@ -1931,6 +1931,7 @@
 				D2BAFBB0599FD955F46FD8C4 /* [CP] Copy Pods Resources */,
 				C7D030072026073000000021 /* Package Markdown Documents */,
 				F30000412F22000100C0DE01 /* Embed App Extensions */,
+				A2D000022026092500000002 /* Save Device IPA */,
 			);
 			buildRules = (
 			);
@@ -2120,6 +2121,29 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A2D000022026092500000002 /* Save Device IPA */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(TARGET_BUILD_DIR)/$(WRAPPER_NAME)",
+				"$(SRCROOT)/ScriptsByDevTools/save_device_ipa_after_build.sh",
+			);
+			name = "Save Device IPA";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/build/$(PRODUCT_NAME).ipa",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/zsh;
+			shellScript = "/bin/zsh \"${SRCROOT}/ScriptsByDevTools/save_device_ipa_after_build.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		A71510202026071500BADA55 /* Generate AppIcon Environment Ribbon */ = {
