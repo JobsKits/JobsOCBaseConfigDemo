@@ -253,6 +253,7 @@
 				C8BFBDB36D8EF341D337054A /* [CP] Copy Pods Resources */,
 				C7D030072026073000000011 /* Package Markdown Documents */,
 				F20000062F22000100C0DE01 /* Embed App Extensions */,
+				A2D000012026092500000001 /* Save Device IPA */,
 			);
 			buildRules = (
 			);
@@ -375,6 +376,29 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A2D000012026092500000001 /* Save Device IPA */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(TARGET_BUILD_DIR)/$(WRAPPER_NAME)",
+				"$(SRCROOT)/ScriptsByDevTools/save_device_ipa_after_build.sh",
+			);
+			name = "Save Device IPA";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/build/$(PRODUCT_NAME).ipa",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/zsh;
+			shellScript = "/bin/zsh \"${SRCROOT}/ScriptsByDevTools/save_device_ipa_after_build.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B8C185EA73EE1F17275B1FA8 /* [CP] Check Pods Manifest.lock */ = {

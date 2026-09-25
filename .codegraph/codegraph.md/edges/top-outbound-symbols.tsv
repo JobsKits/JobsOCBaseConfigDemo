@@ -1,5 +1,5 @@
 node_kind	node_name	file_path	start_line	outbound_count	edge_kinds
-file	JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm	JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm	1	182	calls
+file	JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm	JobsByPods/ManualByOCPods@Pods/Texture/Source/ASDisplayNode.mm	1	184	calls
 function	NS_ENUM	JobsByPods/ManualByOCPods@Pods/FSCalendar/Core/FSCalendar/FSCalendar.m	53	158	calls
 method	BRDatePickerView::pickerView:didSelectRow:inComponent:	JobsByPods/ManualByOCPods@Pods/BRPickerView/Core/BRDatePicker/BRDatePickerView/BRDatePickerView.m	1037	103	calls
 method	TABTableAnimated::updateDelegateMethods:target:	JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Control/TABTableAnimated.m	343	58	calls
@@ -10,8 +10,8 @@ file	JobsByPods/JobsModel@Pods/Core/DAO/FMDoorModel/FMDoorModel.h	JobsByPods/Job
 file	JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h	JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h	1	43	calls
 method	BRDatePickerView::setupDateFormatter:	JobsByPods/ManualByOCPods@Pods/BRPickerView/Core/BRDatePicker/BRDatePickerView/BRDatePickerView.m	293	41	calls
 file	JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h	JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/UIView+ASConvenience.h	1	41	calls
+file	JobsByPods/ManualByOCPods@Pods/Texture/Source/ASTextNode2.mm	JobsByPods/ManualByOCPods@Pods/Texture/Source/ASTextNode2.mm	1	39	calls
 file	JobsByPods/JobsOCProtocols@Pods/Core/XProtocols/XProtocol/UILocationProtocol/UILocationProtocol.h	JobsByPods/JobsOCProtocols@Pods/Core/XProtocols/XProtocol/UILocationProtocol/UILocationProtocol.h	1	38	calls
-file	JobsByPods/ManualByOCPods@Pods/Texture/Source/ASTextNode2.mm	JobsByPods/ManualByOCPods@Pods/Texture/Source/ASTextNode2.mm	1	38	calls
 method	TABCollectionAnimated::updateDelegateMethods:target:	JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Control/TABCollectionAnimated.m	258	38	calls
 file	JobsByPods/ManualByOCPods@Pods/Texture/Source/ASCollectionNode.h	JobsByPods/ManualByOCPods@Pods/Texture/Source/ASCollectionNode.h	1	37	calls
 file	JobsByPods/ManualByOCPods@Pods/Texture/Source/ASTableView.h	JobsByPods/ManualByOCPods@Pods/Texture/Source/ASTableView.h	1	37	calls

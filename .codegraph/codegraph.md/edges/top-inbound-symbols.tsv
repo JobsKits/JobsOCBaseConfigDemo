@@ -8,7 +8,7 @@ method	ASActionController::action	JobsByPods/ManualByOCPods@Pods/Texture/Tests/A
 variable	property	JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.h	60	245	calls
 method	MASConstraint::offset	JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASConstraint.m	116	211	calls
 function	Prop_assign	JobsByPods/JobsModel@Pods/Core/UIKit数据束/JobsNetworkSource/JobsNetworkSource.h	31	201	calls
-variable	block	JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/Transactions/_ASAsyncTransaction.mm	351	193	calls
+variable	block	JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/Transactions/_ASAsyncTransaction.mm	351	188	calls
 function	Prop_strong	JobsByPods/JobsModel@Pods/Core/UIKit数据束/FileFolderHandleModel/FileFolderHandleModel.h	26	174	calls
 method	TABFormAnimated::addNewMethodWithSel:newSel:	JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Control/TABFormAnimated.m	105	121	calls
 function	ASDisplayNodeWithBackgroundColor	JobsByPods/ManualByOCPods@Pods/Texture/Tests/ASLayoutSpecSnapshotTestsHelper.h	31	112	calls
@@ -42,7 +42,6 @@ method	_ASDisplayLayer::setNeedsDisplay	JobsByPods/ManualByOCPods@Pods/Texture/S
 method	ASAbstractLayoutController::init	JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASAbstractLayoutController.mm	136	49	calls
 method	ASStackLayoutSpecSnapshotTests::testStackLayoutSpecWithStyle:sizeRange:subnodes:identifier:	JobsByPods/ManualByOCPods@Pods/Texture/Tests/ASStackLayoutSpecSnapshotTests.mm	83	49	calls
 function	ASDimensionMakeWithPoints	JobsByPods/ManualByOCPods@Pods/Texture/Source/Layout/ASDimension.h	131	47	calls
-function	jobsMakeParagraphStyle	JobsByPods/JobsModel@Pods/Core/富文本处理/JobsRichTextConfig/JobsRichTextConfig.h	25	47	calls
 method	NSMutableAttributedString::as_setAttribute:value:range:	JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Utility/NSAttributedString+ASText.mm	663	46	calls
 function	ASDisplayShouldFetchBatchForContext	JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/ASBatchFetching.mm	37	43	calls
 method	ASMutableAttributedStringBuilder::length	JobsByPods/ManualByOCPods@Pods/Texture/Source/Details/ASMutableAttributedStringBuilder.mm	223	43	calls
@@ -79,3 +78,4 @@ method	UIBarButtonItem::byHidden	JobsByPods/JobsOCDSL@Pods/Core/UIKit/UIBarButto
 method	ASCollectionNode::initWithFrame:collectionViewLayout:	JobsByPods/ManualByOCPods@Pods/Texture/Source/ASCollectionNode.mm	267	27	calls
 function	ASDisplayNodeSizeToFitSize	JobsByPods/ManualByOCPods@Pods/Texture/Tests/ASDisplayNodeTestsHelper.mm	45	27	calls
 method	TestTableView::initWithFrame:style:	JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Base/View/TestTableView.m	21	27	calls
+function	ASDisplayNodeSizeToFitSizeRange	JobsByPods/ManualByOCPods@Pods/Texture/Tests/ASDisplayNodeTestsHelper.mm	51	26	calls
