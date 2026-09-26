@@ -66,7 +66,7 @@
 
 本节只回答“项目最值得复用什么”。具体原理、完整参数和边界说明继续以对应源码、模块 `README.md` 与可运行 Demo 为准。
 
-### 2.1、统一工程基座
+### 2.1、统一工程基座 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 | 特色 | 精炼说明 |
 | --- | --- |
@@ -81,7 +81,7 @@
 
 Jobs 自维护的应用、Demo 与本地 Pod 统一执行同一套 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 表达：0 / 1 入参功能方法返回显式 `_Nonnull` Block，typedef 集中在 `JobsBlock`；对象属性写入先补到真实宿主 DSL，再从创建到子模型、装配和终止动作保持一条点语法链。`JobsDefines.h` 双通道只进入头文件，固定 ABI 才保留传统 selector trampoline；验收同时要求模拟器编译和冷启动通过。
 
-### 2.2、最小 UI Demo
+### 2.2、最小 UI Demo <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 下面一个懒加载 getter 同时展示创建、按钮专用兼容配置、Block 事件、加入父视图和 Masonry 布局：
 
@@ -108,7 +108,7 @@ Jobs 自维护的应用、Demo 与本地 Pod 统一执行同一套 [**Objective-
 }
 ```
 
-### 2.3、重点特色矩阵
+### 2.3、重点特色矩阵 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 | 能力域 | 代表模块 | 特色摘要 |
 | --- | --- | --- |
@@ -128,7 +128,7 @@ Jobs 自维护的应用、Demo 与本地 Pod 统一执行同一套 [**Objective-
 | 业务组件 | `JobsOCSearcher`、`JobsOCComment`、`JobsOCCalendar`、`JobsWallet`、`JobsLuckyEnvelopeRain` | 搜索、评论、日历、卡包、红包雨等能力均可单独复用。 |
 | 工程化 | 本地能力模块、`Extra` 适配层、依赖报告、Xcode CodeSnippets、`.command` | 不改上游源码地扩展第三方能力；公开头、资源、依赖、Demo、README 与代码块一起维护。 |
 
-### 2.4、代表性能力 Demo
+### 2.4、代表性能力 Demo <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 开屏配置只描述内容和行为，展示层会自动处理缓存、本地兜底与倒计时：
 
@@ -206,7 +206,7 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
 
 对应 Demo 总入口按列表细分远程成功 / 错误 URL、本地占位、列表复用防串图、缓存清理与重载、Icon Font / Unicode / UIImage，以及阿里妈妈文字字体场景。每个具体 Demo 页的导航栏主标题直接继承所点击入口 Cell 的主标题。框架运行时不抓取 iconfont 网页，也不依赖登录态或未公开接口。
 
-### 2.5、完整能力模块清单
+### 2.5、完整能力模块清单 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 <details>
 <summary><b>展开查看 107 个本地能力模块</b></summary>
@@ -230,6 +230,51 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
 - `JobsOCMarkdown` 由独立 OC 本地 Pod 管理；构建阶段把仓库内 Jobs 自有 `*.md` 及相对资源打入 `JobsMarkdownDocuments.bundle`，Demo 按 YAML `title`、首个一级标题、文件名生成列表标题，列表点按态使用主题语义背景色，详情导航栏显示当前文档标题，并以 UTF-8 安全传输正文后离线渲染 `[toc]`、表格、任务列表、代码高亮、Mermaid、KaTeX、常用 HTML、深浅色和自定义 CSS。
 
 </details>
+
+### 2.6、<font color=red>安装与构建自动挂载脚本</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+本工程通过 [**CocoaPods**](https://cocoapods.org/) 钩子、[**Xcode**](https://developer.apple.com/xcode) Build Phases 和共享 Scheme 挂载脚本。安装前置任务、安装收尾、目标构建阶段与整个 Scheme 的构建后动作分别触发，不能统一视为“编译成功后执行”。
+
+**安装前后：入口与行为**
+
+[Podfile](./Podfile) 顶部加载 `./ScriptsByPods/【MacOS】📦Pod Install离线保护.command/jobs_pod_install_offline_guard.rb`；统一调度入口是同目录的 `【MacOS】📦Pod Install离线保护.command`。详见[本地脚本保护说明](<./ScriptsByPods/【MacOS】📦Pod Install离线保护.command/README.md>)。
+
+| 时机 | 挂载脚本 / 入口 | 实际行为与产物 |
+| --- | --- | --- |
+| `pod install` 读取 Podfile 时，依赖解析前 | Ruby 入口异步启动 `--preflight` | 不等待依赖下载；下面的报告与索引任务独立运行，不阻塞安装主流程 |
+| 前置任务 | [查询工程依赖关系](<./ScriptsByPods/【MacOS】🔍查询Xcode工程依赖关系.command/README.md>) | 扫描本地 podspec，生成 `./PodspecDependencyReport/` 下的依赖报告与关系图 |
+| 前置任务 | [CodeGraph 初始化脚本](./ScriptsByPods/codegraph_init.command/codegraph_init.command) | 本机工具可用时后台建立 / 更新 [**CodeGraph**](https://github.com/colbymchenry/codegraph) 索引并导出 Markdown；通过 PID 避免重复启动 |
+| 工程集成完成后，`post_integrate` | 统一入口 `--post-integrate` → [恢复 PIF 构建会话](<./ScriptsByPods/【MacOS】🧹恢复Xcode PIF构建会话.command/README.md>) | 有活动构建则跳过；无活动构建时结束当前用户的空闲构建服务，再通过工作空间列表命令重建会话 |
+
+前置任务强制离线，只复用已有工具，不自动安装工具链；失败不覆盖 CocoaPods 自身结果。PIF 收尾脚本缺失、失败或异常时记录警告，不把已完成的依赖安装改判为失败。该恢复流程不删除 `Pods`、锁文件、工作空间或 `DerivedData`。
+
+`post_install` 还会执行 Podfile 内的构建配置与兼容性修补；`post_integrate` 同时维护 Pods 工程中的 `Podfile` / `Podfile.deps` 引用。这些是 Podfile 内联逻辑，外置收尾脚本的实际调用点是 `post_integrate`。
+
+OC 新工程设置 `JOBS_POD_INSTALL_PURE=1` 或 `JOBS_POD_INSTALL_SKIP_EXTERNAL_SCRIPTS=1` 时，会跳过可选的集成后增强及后置脚本；顶部异步前置入口没有使用这两个开关，不能据此认为所有脚本都已关闭。
+
+**构建阶段与构建后动作**
+
+挂载位置可直接查看[主工程 Build Phases](./JobsOCBaseConfigDemo.xcodeproj/project.pbxproj)和[共享 Scheme](./JobsOCBaseConfigDemo.xcodeproj/xcshareddata/xcschemes/JobsOCBaseConfigDemo.xcscheme)。
+
+| 时机 / 阶段 | 脚本 / 配置入口 | 实际行为与产物 |
+| --- | --- | --- |
+| 构建中：`Package Markdown Documents` | [JobsMarkdownPackager.rb](./JobsByPods/JobsOCMarkdown@Pods/Support/JobsMarkdownPackager.rb) | 将项目文档与相对资源打入 App 内的 `JobsMarkdownDocuments.bundle`，供 Markdown Demo 离线阅读 |
+| 本地 Pod 编译前：`Generate AppIcon Environment Ribbon` | [JobsAppIconRibbon.podspec](./JobsByPods/JobsAppIconRibbon@Pods/JobsAppIconRibbon.podspec) → `Scripts/JobsAppIconRibbon.sh` | 由 podspec 的 `script_phase` 挂载图标环境绶带生成器 |
+| 主 App 最后一个 Build Phase：`Save Device IPA` | [save_device_ipa_after_build.sh](./ScriptsByDevTools/save_device_ipa_after_build.sh) | 仅处理 `iphoneos` 且非 `clean` 的 App，生成 `./build/<App产品名>.ipa`，同名覆盖；模拟器跳过，Tests / Widget 没有挂载此阶段 |
+| Scheme Build 开始 / 结束 | `XBT Build Timer Start / End` → 外部 `xbt-build-hook.sh start / end` | 记录开始、结束时间和耗时；写入用户目录下的 `.xcode-build-timer/state/` 状态及历史日志 |
+
+IPA 留存属于主 App 的构建阶段，发生在 Scheme 后置动作之前，不代表整个工作空间已成功完成。脚本要求有效签名身份，在临时 `Payload/<App>.app` 快照上校验签名：已有有效签名则保留原元数据，否则尝试补签并再次严格校验；失败会使该构建阶段报错。留存目录 `./build/` 已由 Git 忽略。
+
+XBT 是仓库外的本机依赖，当前共享 Scheme 使用固定用户绝对路径调用，并未检测脚本是否存在；迁移机器时需在 Scheme 的 Build Pre-actions / Post-actions 中核对路径。状态目录中的 `latest.env`、`builds/*.env` 与 `history.log` 用于计时；`finished` 仅表示结束钩子执行，不是编译成功判据。
+
+CocoaPods 生成的 `[CP] Check Pods Manifest.lock`、`[CP] Embed Pods Frameworks`、`[CP] Copy Pods Resources` 仍负责锁文件一致性、framework 嵌入和资源复制，属于构建内阶段。
+
+**日志与定位**
+
+- 安装前置总日志：系统临时目录中的 `jobs-pod-install-preflight-<工程摘要>.log`。
+- 调度汇总与索引日志：系统临时目录中的 `【MacOS】📦Pod Install离线保护.<工程摘要>.log`、`codegraph_init.<工程摘要>.async.log`；PIF 与依赖报告脚本另有各自日志。
+- IPA 留存：Xcode 构建日志与系统临时目录中的 `save_device_ipa_after_build.log`。
+- 排查时先确认触发入口，再检查对应日志；目录中存在脚本，不代表它已被当前 Podfile、target 或 Scheme 挂载。
 
 ## 三、🧨开发支持 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -279,7 +324,7 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
 
 * **注入调试工具**
 
-  * 同时支持 [**Swift**](https://developer.apple.com/swift/), **Objc**& **C++ **的代码热重载工具！
+  * 同时支持 [**Swift**](https://developer.apple.com/swift/)、**Objc**、**C++ **的代码热重载工具
 
     * [**InjectionIII**](https://github.com/johnno1962/InjectionIII)
     * [**InjectionNext**](https://github.com/johnno1962/InjectionNext)
@@ -337,22 +382,22 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
     * [**UICollectionView点击事件**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/其他.md/UICollectionView点击事件.md)
   * UI
     * [**自定义 UITabBarController**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/自定义 UITabBarController.md/自定义 UITabBarController.md)
-      * [**UITableView 的使用指南**]()
-      * [**关于UITableViewCell和UICollectionViewCell圆切角+Cell的偏移量**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/其他.md/关于UITableViewCell和UICollectionViewCell圆切角+Cell的偏移量.md)
-      * [**JXCategoryView框架的使用**](https://github.com/JobsKits/JobsDocs/tree/main/iOS相关的文档和资料.md/JXCategoryView.md)
-      * [**iOS状态栏颜色的修改**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/其他.md/iOS状态栏颜色的修改.md)
-      * [**横屏UI切换**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/横屏UI切换.md/横屏UI切换.md)
-      * [**路由**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/其他.md/路由.md)
+    * [**UITableView 的使用指南**]()
+    * [**关于UITableViewCell和UICollectionViewCell圆切角+Cell的偏移量**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/其他.md/关于UITableViewCell和UICollectionViewCell圆切角+Cell的偏移量.md)
+    * [**JXCategoryView框架的使用**](https://github.com/JobsKits/JobsDocs/tree/main/iOS相关的文档和资料.md/JXCategoryView.md)
+    * [**iOS状态栏颜色的修改**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/其他.md/iOS状态栏颜色的修改.md)
+    * [**横屏UI切换**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/横屏UI切换.md/横屏UI切换.md)
+    * [**路由**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/其他.md/路由.md)
   * Data
     * [**查找系统警告对应的编码**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/查找系统警告对应的编码/查找系统警告对应的编码.png)
     * [**MJExtension用法**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/MJExtension用法.md/MJExtension用法.md)
-      * [**OC模型解析**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/OC模型解析.md/OC模型解析.md)
-      * [**iOS禁用返回手势**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/其他.md/iOS禁用返回手势.md)
-      * [**读取本地plist**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/其他.md/读取本地plist.md)
-      * [**<font color=red id=时间按照【年-月份】分组>时间按照【年-月份】分组</font>**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/其他.md/时间按照【年-月份】分组.md)
-      * [**精确度量 iOS App 的启动时间**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/其他.md/精确度量 iOS-App的启动时间.md)
-      * [**本地通知**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/本地通知.md/本地通知.md)
-      * [**中国公民身份证校验规则**](https://github.com/JobsKits/JobsDocs/blob/main/中国公民身份证校验规则.md/中国公民身份证校验规则.md)
+    * [**OC模型解析**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/OC模型解析.md/OC模型解析.md)
+    * [**iOS禁用返回手势**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/其他.md/iOS禁用返回手势.md)
+    * [**读取本地plist**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/其他.md/读取本地plist.md)
+    * [**<font color=red id=时间按照【年-月份】分组>时间按照【年-月份】分组</font>**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/其他.md/时间按照【年-月份】分组.md)
+    * [**精确度量 iOS App 的启动时间**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/其他.md/精确度量 iOS-App的启动时间.md)
+    * [**本地通知**](https://github.com/JobsKits/JobsDocs/blob/main/iOS相关的文档和资料.md/本地通知.md/本地通知.md)
+    * [**中国公民身份证校验规则**](https://github.com/JobsKits/JobsDocs/blob/main/中国公民身份证校验规则.md/中国公民身份证校验规则.md)
     * [**<font color=red id=iOS功能：跳转其他App,如果本机不存在,则进行下载 >iOS功能：跳转其他App,如果本机不存在,则进行下载 （需要补充）</font>**](TODO)
 
 #### 2.4、相关研究 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -405,7 +450,7 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
 
 
 ### 4、在Apple芯片（目前是M系列）编译失败的解决方案 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
-* 安装 Rosetta
+* 安装 **Rosetta**
   
   ```shell
   softwareupdate --install-rosetta --agree-to-license
@@ -545,7 +590,7 @@ Current targets:
 
 ### 7、<font color=red>**C**</font>ommand <font color=red>**L**</font>ine <font color=red>**T**</font>ools <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-* 安装
+* 安装（2种方式）
 
   * （通过终端）下载安装`Command Line Tools`
 
@@ -2546,7 +2591,7 @@ classDiagram
 
   * 上述 `firstObject` 只能作为旧单窗口示意，不能用于多场景业务。页面应从自己的 `view.window.windowScene` 获取当前 Scene，再使用该 Scene 的 `session` 和 `delegate`。
 
-#### 15.1、SceneDelegate 多场景与窗口会话 Demo
+#### 15.1、SceneDelegate 多场景与窗口会话 Demo <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * 根列表提供独立入口 `JobsOCSceneDelegateDemoVC`，不是静态说明页：
   * 新建 Scene 窗口，并通过 `NSUserActivity` 直接路由到 Demo
@@ -4546,7 +4591,7 @@ static const uint32_t kSequenceBits = 12;
 
 > 使用[**UIButtonConfiguration**](https://www.jianshu.com/p/12426709420e)会影响老旧Api的作用效果
 
-#### 28.1、转换为 <font size=5>**`UIBarButtonItem`**</font>
+#### 28.1、转换为 <font size=5>**`UIBarButtonItem`**</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```swift
 self.navigationItem.leftBarButtonItem =
@@ -12135,7 +12180,7 @@ cell.contentView.layerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _N
   * 所以在大型项目中，如果多个模块都给同一个类写了相同方法名的分类，会导致：
     - 调用结果 **不确定**；
     - 甚至不同环境下结果会不一样。
-  
+
 ### 3、为什么在[**Masonry**](https://github.com/SnapKit/Masonry)/[**SnapKit**](https://github.com/SnapKit/SnapKit)里面可以不用**weak**化的`self`❓ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
   * 因为 [**Masonry**](https://github.com/SnapKit/Masonry)/[**SnapKit**](https://github.com/SnapKit/SnapKit) 的约束闭包是**同步执行、不会被保存（non-escaping）**的
@@ -12146,11 +12191,11 @@ cell.contentView.layerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _N
   
     - 把 **block** 存成 `self.someBlock = ^{ ... self ... };`（典型循环引用）
     - 传给会把 **block** 保存在属性里的对象，而这个对象又被 `self` 强持有
-  
+
 ### 4、只有对不可变对象进行`copy`操作是指针复制（浅复制），其它情况都是内容复制（深复制） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
   ![image-20251104111634703](./assets/image-20251104111634703.png)
-  
+
 ### 5、在[**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html)里面，`NSMutableArray`属性用`copy`还是`strong`修饰❓ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
   * `NSMutableArray` 当属性，正常情况下用 `strong`，不要用 `copy`。因为，如果用<font color=red>**copy**</font>，**setter** 会做的是：对一个 `NSMutableArray` 调用 `copy`，**返回的是不可变的 `NSArray` 对象**（类簇行为）。此时调用`addObject`会崩溃！
@@ -12203,10 +12248,10 @@ cell.contentView.layerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _N
     ```text
     纯 Objective-C → 首次加入 Swift：
     可能支付一次 Swift 基础成本，增量相对明显。
-
+    
     纯 Swift → 加入 Objective-C：
     通常只增加 Objective-C 代码、元数据和资源，增量相对较小。
-
+    
     已经混编 → 继续增加任一语言：
     主要看新增代码、链接方式、第三方依赖和资源，不再有明显的首次混编成本。
     ```

@@ -55,16 +55,9 @@ resolve_signing_context() {
     return 1
   }
 
-  typeset entitlements="${CODE_SIGN_ENTITLEMENTS:-}"
-  if [[ -n "$entitlements" && "$entitlements" != /* ]]; then
-    entitlements="${SRCROOT}/${entitlements}"
-  fi
-
   typeset -g SIGNING_IDENTITY="$identity"
-  typeset -g SIGNING_ENTITLEMENTS=""
-  [[ -f "$entitlements" ]] && SIGNING_ENTITLEMENTS="$entitlements"
 }
-# 将真机 App 复制到临时 Payload，并重新签名快照以覆盖 Xcode 尚未完成的最终 CodeSign 时序。
+# 将真机 App 复制到临时 Payload，并尽量保留 Xcode 已完成的完整签名元数据。
 stage_and_sign_app() {
   typeset staging_root="$(mktemp -d "${TMPDIR:-/tmp}/${SCRIPT_BASENAME}.XXXXXX")"
   typeset payload_dir="${staging_root}/Payload"
@@ -80,14 +73,17 @@ stage_and_sign_app() {
     return 1
   }
 
-  typeset -a sign_arguments
-  sign_arguments=(--force --deep --sign "$SIGNING_IDENTITY")
-  [[ -n "$SIGNING_ENTITLEMENTS" ]] && sign_arguments+=(--entitlements "$SIGNING_ENTITLEMENTS")
-  /usr/bin/codesign "${sign_arguments[@]}" "$staged_app" || {
-    log "✖ IPA 快照签名失败：${staged_app}"
-    /bin/rm -rf -- "$staging_root"
-    return 1
-  }
+  if ! /usr/bin/codesign --verify --deep --strict "$staged_app" >/dev/null 2>&1; then
+    typeset -a sign_arguments
+    sign_arguments=(--force --sign "$SIGNING_IDENTITY" --preserve-metadata=identifier,entitlements,requirements,flags)
+    /usr/bin/codesign "${sign_arguments[@]}" "$staged_app" || {
+      log "✖ IPA 快照签名失败：${staged_app}"
+      /bin/rm -rf -- "$staging_root"
+      return 1
+    }
+  else
+    log "ℹ Xcode 真机 App 已通过完整签名校验，保留原始签名元数据。"
+  fi
   /usr/bin/codesign --verify --deep --strict "$staged_app" || {
     log "✖ IPA 快照签名校验失败：${staged_app}"
     /bin/rm -rf -- "$staging_root"
