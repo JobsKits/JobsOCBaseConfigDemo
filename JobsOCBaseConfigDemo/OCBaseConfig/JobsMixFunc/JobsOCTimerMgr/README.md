@@ -10,11 +10,11 @@
 
 > 老工程的标准 Timer Manager 与新 OC `JobsOCTimerMgr` 保持同一状态机语义。
 
-## 一、定位
+## 一、定位 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 `JobsTimerMgr` 是 OC 老工程的主计时管理器，按 identifier 管理 `JobsTimer`，提供原子覆盖、生命周期控制、回调叠加与前后台策略。实现与 OC 新工程 `JobsOCTimerMgr` 保持能力对齐，但继续集成在主工程目录中。
 
-## 二、推荐 DSL
+## 二、推荐 DSL <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 NSString *identifier = @"home.countdown";
@@ -39,7 +39,7 @@ JobsTimerMgr.shared
 });
 ```
 
-## 三、并发保证
+## 三、并发保证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 同 identifier 先在串行隔离队列中原子替换，再在队列外停止旧 timer。
 - 回调执行前核对 Entry 身份，旧 timer 的残留事件不会命中新 timer 的回调组。
@@ -51,13 +51,13 @@ JobsTimerMgr.shared
 - `startImmediately`、`start:`、`resume:` 后同步当前应用状态；应用已经 inactive / background 时启动也不会绕过策略。
 - cancel 策略只在真实 background 时停止并移除，短暂 inactive 不会误取消。
 
-## 四、验证
+## 四、验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 使用老工程主 scheme 完整编译，并编译 `JobsOCBaseConfigDemoTests`；测试覆盖实例安全取消和 Scope 生命周期。变更同步到新 OC 工程时只对齐行为，不复制 Pod 目录结构。
 
-## 五、系统计时机制对比与 Manager 选型
+## 五、系统计时机制对比与 Manager 选型 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 5.1、Manager 不替代内核选择
+### 5.1、Manager 不替代内核选择 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 `JobsTimerMgr` 解决的是 Timer 的所有权、identifier、回调组、Scope 和批量生命周期，不替代底层 `timerType` 选择。
 
@@ -70,7 +70,7 @@ JobsTimerMgr.shared
 
 四种机制都不是硬实时 Timer，也都不是后台保活方案。
 
-### 5.2、决策顺序
+### 5.2、决策顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 1. 屏幕逐帧刷新选择 `JobsTimerTypeDisplayLink`。
 2. 非 UI 工作队列、心跳或轮询选择 `JobsTimerTypeGCD`。
@@ -79,10 +79,12 @@ JobsTimerMgr.shared
 5. 只有一次延迟动作时使用 `dispatch_after` 等一次性 API。
 6. App 被系统挂起后需要执行工作时，使用符合业务资格的后台系统机制。
 
-### 5.3、什么时候必须上 Manager
+### 5.3、什么时候必须上 Manager <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 同一业务可能重复创建 Timer 时，使用稳定 identifier。
 - Cell 复用时，使用 Model identifier + `expectedTimer` 精准解绑。
 - 页面或业务域包含多条 Timer 时，使用 Scope 整组 pause/resume/remove。
 - 倒计时以绝对 `endAt` 为时间真值，Timer tick 只触发重算。
 - 单个对象私有、生命周期清晰且无需跨对象查找时，可以直接使用 `JobsTimer`。
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

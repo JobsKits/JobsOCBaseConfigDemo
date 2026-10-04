@@ -4,7 +4,7 @@
 这次主要会说下 ProtocolKit 的原理 和 我们改造的方案。
 
 
-## ProtocolKit 实现原理解析
+## ProtocolKit 实现原理解析 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先来看头文件，作者很巧妙利用了 OC 保留关键字 `@defs`，来封装真正的实现宏，  defs 主要用来美化 IDE 的显示效果
 
@@ -36,7 +36,7 @@ void _pk_extension_load(Protocol *protocol, Class containerClass);
 
 主要是支持同个文件内的，拆分 `Protocol` 不同方法的实现， 可以看下图
 
-# ![3.jpeg](https://upload-images.jianshu.io/upload_images/1332613-42fcb3c0bac103e2.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+# <span id="前言">![3.jpeg](https://upload-images.jianshu.io/upload_images/1332613-42fcb3c0bac103e2.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)</span>
 
 实现原理 简单来说， 生成一个 Class 代码， 然后 Class 里面的就是，`协议方法默认实现` 的代码， 然后 Class +load 方法中， 把对应 Protocol 和 自己 传给内部保存起来。 
 
@@ -122,7 +122,7 @@ __attribute__((constructor)) static void _pk_extension_inject_entry(void) {
 
 大致源码就是这样了，可以考虑下 上述实现中，有`哪些问题？`，然后 `如何优化？`
 
-### 主要问题
+### 主要问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 1. 启动时间变长，在启动时就会把所有 class 的 initialized 执行完，这对启动时间是个损耗
 2. Class 的生命周期乱了，因为我们很多的操作，基于 initialized 方法来触发，总体来说 还是对性能有影响
@@ -261,3 +261,4 @@ __attribute__((constructor)) static void imy_load_premain_entry(void) {
 
 优化后的地址： [https://github.com/li6185377/ProtocolKit](https://github.com/li6185377/ProtocolKit)
 
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

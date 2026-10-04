@@ -6,7 +6,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 `【MacOS】⏬双击下载Hammerspoon热键配置.command` 是一个可双击运行的 macOS `.command` 脚本。
 
@@ -81,11 +81,11 @@ flowchart TD
 
 ## 九、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 1. 运行后看不到配置怎么办？
+### 1. 运行后看不到配置怎么办？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看终端输出和 `$TMPDIR/【MacOS】⏬双击下载Hammerspoon热键配置.log`，再确认 `HotKey@Hammerspoon` 是否生成。
 
-### 2. 为什么 README 里写 SourceTree？
+### 2. 为什么 README 里写 SourceTree？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 脚本内部提示文案复用了旧字符串，但真实仓库地址是 Hammerspoon 热键配置仓库。
 ## 十、未执行声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

@@ -6,7 +6,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 `【MacOS】⏬双击下载iOS效率脚本.command` 是一个可双击运行的 macOS `.command` 脚本。
 
@@ -81,11 +81,11 @@ flowchart TD
 
 ## 九、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 1. 下载后的目录为什么像一个 `.command`？
+### 1. 下载后的目录为什么像一个 `.command`？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 这是原脚本设置的目录名，用于提醒“把这个文件夹管理的脚本拖到 iOS 项目根目录运行”。
 
-### 2. 会自动执行里面的 iOS 脚本吗？
+### 2. 会自动执行里面的 iOS 脚本吗？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 不会，只会下载、授权并打开目录。
 ## 十、未执行声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

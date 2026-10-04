@@ -6,11 +6,11 @@ prevPage: cell-node.html
 nextPage: text-node.html
 ---
 
-### Basic Usage
+### <span id="前言">Basic Usage <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 `ASButtonNode` subclasses `ASControlNode` in the same way `UIButton` subclasses `UIControl`. In contrast, being able to layer back the subnodes of every button can significantly lighten main thread impact relative to `UIButton`.
 
-### Control State
+### Control State <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 If you've used `-setTitle:forControlState:` then you already know how to set up an ASButtonNode.  The `ASButtonNode` version adds in a few parameters for conveniently setting attributes.
 
@@ -42,7 +42,7 @@ buttonNode.setAttributedTitle(attributedTitle, for: .normal)
 </div>
 </div>
 
-### Target-Action Pairs
+### Target-Action Pairs <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Again, analagous to UIKit, you can add sets of target-action pairs to respond to various events.  
 
@@ -59,7 +59,7 @@ buttonNode.addTarget(self, action: #selector(buttonPressed), forControlEvents: .
 </div>
 </div>
 
-### Content Alignment
+### Content Alignment <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 `ASButtonNode` offers both `contentVerticalAlignment` and `contentHorizontalAlignment` properties.  This allows you to easily set the alignment of the titleLabel or image you're using for your button.  
 
@@ -81,18 +81,19 @@ buttonNode.contentHorizontalAlignment = .middle
 <div class = "note"><strong>Note:</strong> At the moment, this property will not work if you aren't using <em><code>-layoutSpecThatFits:</code></em>.
 </div>
 
-### Gotchas
+### Gotchas <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 There are a few things that might trip up someone new to the framework.
 
-##### View Hierarchies
+##### View Hierarchies <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 Let's say you want to add an `ASButtonNode` to the view of one of your existing view controllers.  The first thing you'll notice is that setting a title for a control state doesn't seem to make your title appear.  You can fix this by calling `-measure:` on the button which will cause its title label to be measured and laid out.
 
 The next thing you'll notice is that, if you set titles of various lengths for different control states, the button will dynamically grow and shrink as the title changes.  This is because changing the title causes `-setNeedsLayout` to be called on the button.  Within a node hierarchy, this makes sense, and will work as expected.
 
 Long story short, use an `ASDKViewController`.
 
-##### Selected State
+##### Selected State <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 If you want your button to change to a "selected" state after being tapped, you'll need to do that manually.
 
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

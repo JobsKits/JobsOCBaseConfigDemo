@@ -25,7 +25,7 @@ tableNode.view.leadingScreensForBatching = 3.0  // overriding default of 2.0
 </div>
 </div>
 
-### Batch Fetching Delegate Methods
+### <span id="前言">Batch Fetching Delegate Methods <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 The first thing you have to do in order to support batch fetching, is implement a method that decides if it's an appropriate time to load new content or not.
 
@@ -149,3 +149,5 @@ Check out the following sample apps to see the batch fetching API in action:
   <li><a href="https://github.com/texturegroup/texture/tree/master/examples/CatDealsCollectionView">CatDealsCollectionView</a></li>
   <li><a href="https://github.com/texturegroup/texture/tree/master/examples/ASCollectionView">ASCollectionView</a></li>
 </ul>
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

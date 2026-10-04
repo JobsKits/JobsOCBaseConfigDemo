@@ -6,7 +6,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 `【MacOS】⏬命令行下载Xcode模拟器配件.command` 是一个可双击运行的 macOS `.command` 脚本。
 
@@ -79,11 +79,11 @@ flowchart TD
 
 ## 九、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 1. 提示 xcodebuild 找不到怎么办？
+### 1. 提示 xcodebuild 找不到怎么办？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先安装完整 Xcode，并确认 `xcode-select -p` 指向 `$APPLICATIONS_DIR/Xcode.app/Contents/Developer`。
 
-### 2. 清理缓存会删项目吗？
+### 2. 清理缓存会删项目吗？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 不会直接删除你的工程源码，但会清理 Xcode 和模拟器缓存。
 ## 十、未执行声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

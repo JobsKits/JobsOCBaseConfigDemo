@@ -6,7 +6,7 @@ permalink: /docs/uicollectionview-challenges.html
 
 `UICollectionView` is one of the most commonly used classes and many challenges with iOS development are related to its architecture.
 
-## How `UICollectionView` Works 
+## <span id="前言">How `UICollectionView` Works <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span> 
 
 There are two important methods that `UICollectionView` requires. 
 
@@ -82,7 +82,7 @@ There is no easy, universal way to handle loading content such as:
 <li>other info - such as images or secondary JSON requests</li>
 </ul>
 
-## How `ASCollectionNode` works
+## How `ASCollectionNode` works <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 <h4><b>Unified Cell Measurement & Allocation</b></h4>
 
@@ -152,9 +152,11 @@ Because `ASCollectionNode` is aware of the position of all of its nodes, it can 
 
 Lastly, almost all of the concepts we've discussed here apply to `UITableView` / `ASTableNode` and `UIPageViewController` / `ASPagerNode`.
 
-## iOS 10 Cell Pre-fetching
+## iOS 10 Cell Pre-fetching <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 Inspired by Texture, iOS 10 introduced a <a href="">cell pre-fetching</a>. This API increases the number of cells that the collection tracks at any given time, which helps, but isn't anywhere as performance centric as being aware of all cells in the data source. 
 
 Additionally, iOS9 still constitutes a substantial precentage of most app's userbase and will not reduce in number anywhere close to as quickly as the sunset trajectory of iOS 7 and iOS 8 devices. Whereas iOS 9 is the last supported version for about a half-dozen devices, there were zero devices that were deprecated on iOS 8 and only one deivce deprecated on iOS 7. 
 
 Unfortunately, these iOS 9 devices are the ones in which performance is most key!
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

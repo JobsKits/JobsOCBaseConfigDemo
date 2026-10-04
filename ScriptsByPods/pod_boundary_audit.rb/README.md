@@ -6,7 +6,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 `pod_boundary_audit.rb` 是一个面向 `JobsByPods` 的 [**Ruby**](https://www.ruby-lang.org) 审计脚本，用来按当前约定扫描本地 Pod 的 `Core / Support` 边界问题，并可选择性地自动修整一批安全改动。
 
@@ -39,19 +39,19 @@
 
 ## 三、运行方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 3.1、先做语法检查
+### 3.1、先做语法检查 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 ruby -c pod_boundary_audit.rb
 ```
 
-### 3.2、只扫描，不写文件
+### 3.2、只扫描，不写文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 ruby pod_boundary_audit.rb --dry-run
 ```
 
-### 3.3、扫描并生成报告
+### 3.3、扫描并生成报告 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 ruby pod_boundary_audit.rb
@@ -63,19 +63,19 @@ ruby pod_boundary_audit.rb
 PodspecDependencyReport/PodBoundaryAudit.md
 ```
 
-### 3.4、扫描并自动修整安全候选
+### 3.4、扫描并自动修整安全候选 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 ruby pod_boundary_audit.rb --fix-safe-core-support-imports
 ```
 
-### 3.5、只预览自动修整结果
+### 3.5、只预览自动修整结果 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 ruby pod_boundary_audit.rb --fix-safe-core-support-imports --dry-run
 ```
 
-### 3.6、指定目录和报告路径
+### 3.6、指定目录和报告路径 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 ruby pod_boundary_audit.rb \

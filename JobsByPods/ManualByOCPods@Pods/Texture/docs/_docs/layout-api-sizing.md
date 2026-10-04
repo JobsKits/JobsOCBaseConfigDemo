@@ -10,7 +10,7 @@ The easiest way to understand the compound dimension types in the Layout API is 
 
 <img src="/static/images/layout-api-sizing-1.png">
 
-## Values  (CGFloat, ASRelativeDimension)
+## <span id="前言">Values  (CGFloat, ASRelativeDimension) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 <br>
 `ASRelativeDimension` is essentially a normal **CGFloat with support for representing either a point value, or a % value**.  It allows the same API to take in both fixed values, as well as relative ones.  
 
@@ -22,7 +22,7 @@ When a relative (%) value is used, it is resolved against the size of the parent
 Note that .flexBasis can be set on any &ltASLayoutable&gt (a node, or a layout spec), but will only take effect if that element is added as a child of a <i>stack</i> layout spec. This container-dependence of layoutable properties is a key area we’re working on clarifying.
 </div>
 
-#### Constructing ASRelativeDimensions
+#### Constructing ASRelativeDimensions <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 `ASDimension.h` contains 3 convenience functions to construct an `ASRelativeDimension`.  It is easiest to use function that corresponds to the type (top 2 functions).
 
@@ -43,7 +43,7 @@ public func ASDimensionMake(_ unit: ASDimensionUnit, _ value: CGFloat)
 </div>
 </div>
 
-#### ASRelativeDimension Example
+#### ASRelativeDimension Example <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 `PIPlaceSingleDetailNode` uses flexBasis to set 2 child nodes of a horizontal stack to share the width 40 / 60:
 
@@ -66,7 +66,7 @@ horizontalStack.children = [leftSideStack, detailsLabel]
 
 <img src="/static/images/flexbasis.png" width="40%" height="40%">
 
-## Sizes (CGSize,  ASRelativeSize)
+## Sizes (CGSize,  ASRelativeSize) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 `ASRelativeSize` is **similar to a CGSize, but its width and height may represent either a point or percent value.**  In fact, their unit type may even be different from one another. `ASRelativeSize` doesn't have a direct use in the Layout API, except to construct an `ASRelativeSizeRange`.
 
@@ -74,7 +74,7 @@ horizontalStack.children = [leftSideStack, detailsLabel]
 
 - the type of the width and height are independent; either one individually, or both, may be a point or percent value. (e.g. you could specify that an ASRelativeSize that has a height in points, but a variable % width)
 
-#### Constructing ASRelativeSizes
+#### Constructing ASRelativeSizes <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 `ASRelativeSize.h` contains 2 convenience functions to construct an `ASRelativeSize`.  **If you don't need to support relative (%) values, you can construct an `ASRelativeSize` with just a CGSize.**
 
@@ -93,7 +93,7 @@ ASLayoutSize(width: ASDimension, height: ASDimension)
 </div>
 </div>
 
-## Size Ranges (ASSizeRange, ASRelativeSizeRange)
+## Size Ranges (ASSizeRange, ASRelativeSizeRange) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Because the layout spec system allows flexibility with elements growing and shrinking, we sometimes need to provide limits / boundaries to its flexibility.
 
@@ -103,7 +103,7 @@ In the Pinterest code base, the **minimum size seems to be only necessary for st
 
 **It’s much more common that the “max” constraint is what matters, though.**  This is the case when text is wrapping or truncating - it’s encountering the maximum allowed width.  Setting a minimum width for text doesn’t actually do anything—the text can’t be made longer—unless it’s in a stack, and spacing is added around it.
 
-#### ASSizeRange
+#### ASSizeRange <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 UIKit doesn't provide a structure to bundle a minimum and maximum CGSize.  So `ASSizeRange` was created to support **a minimum and maximum CGSize pair**. 
 
@@ -122,7 +122,7 @@ open func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 </div>
 </div>
 
-#### ASRelativeSizeRange
+#### ASRelativeSizeRange <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 `ASRelativeSizeRange` is essentially **a minimum and maximum size pair, that are used to constrain the size of a layout object.**  The minimum and maximum sizes must **support both point and relative sizes**, which is where our friend the ASRelativeSize comes in.  Hence, an ASRelativeSizeRange consists of a minimum and maximum `ASRelativeSize`. 
 
@@ -132,13 +132,13 @@ ASRelativeSizeRange is used to set the `sizeRange` property on a child of an `AS
 Note that .sizeRange can be set on any &ltASLayoutable&gt (a node, or a layout spec), but will only take effect if that element is added as a child of a <i>static</i> layout spec. This container-dependence of layoutable properties is a key area we’re working on clarifying.
 </div>
 
-#### ASSizeRange vs. ASRelativeSizeRange
+#### ASSizeRange vs. ASRelativeSizeRange <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 Why do we pass a `ASSizeRange *constrainedSize` to a node's `layoutSpecThatFits:` function, but a `ASRelativeSizeRange` for the `.sizeRange` property on an element provided as a child of a layout spec?
 
  It’s pretty rare that you need the percent feature for a .sizeRange feature, but it’s there to make the API as flexible as possible. The input value of the constrainedSize that comes into the argument, has already been resolved by the parent’s size. It may have been influenced by a percent type, but has always be converted by that point into points. 
 
-#### Constructing ASRelativeSizeRange
+#### Constructing ASRelativeSizeRange <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 `ASRelativeSize.h` contains 4 convenience functions to construct an `ASRelativeSizeRange` from the various smaller units.  
 
@@ -161,7 +161,7 @@ public func ASSizeRangeMake(_ exactSize: CGSize) -> ASSizeRange
 </div>
 </div>
 
-### Sizing Conclusion
+### Sizing Conclusion <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 Here we have our original table, which has been annotated to show the uses of the various units in the Layout API.
 
@@ -169,3 +169,4 @@ Here we have our original table, which has been annotated to show the uses of th
 
 It’s worth noting that that there’s a certain flexibility to be able to use so many powerful options with a single API - flexBasis and sizeRange can be used to set points and percentages in different directions. However, since the majority of do not use the full set of options, we should adjust the API so that the powerful capabilities are a slightly more hidden.
 
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

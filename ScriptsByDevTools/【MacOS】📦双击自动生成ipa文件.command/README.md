@@ -6,7 +6,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 `【MacOS】📦双击自动生成ipa文件.command` 是一个可双击运行的 macOS `.command` 脚本。
 
@@ -99,15 +99,15 @@ flowchart TD
 
 ## 九、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 1. 如何指定工程？
+### 1. 如何指定工程？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 使用 `--project ./MyApp.xcworkspace` 或 `--project ./MyApp.xcodeproj`。
 
-### 2. 如何指定输出目录？
+### 2. 如何指定输出目录？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 使用 `--out ~/Desktop/ipa`。
 
-### 3. 构建失败怎么查？
+### 3. 构建失败怎么查？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 脚本会打开 `$TMPDIR/【MacOS】📦双击自动生成ipa文件.command.log`，先看里面的 `xcodebuild` 错误。
 ## 十、未执行声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

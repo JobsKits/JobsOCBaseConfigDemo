@@ -1,10 +1,10 @@
-# JobsOCMarkdown
+# <span id="前言">JobsOCMarkdown</span>
 
 [toc]
 
 ---
 
-## 一、能力
+## 一、能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 `JobsOCMarkdown` 是直接集成于 Jobs Objective-C 老工程主工程的本地 Markdown
 渲染组件。它使用 `WKWebView` 承载成熟的 Web 解析内核，支持：
@@ -18,7 +18,7 @@
 - UTF-8 文本在原生层与 JavaScript 运行时之间安全传输；
 - 构建期文档清单，以及 Markdown 文件之间的链接。
 
-## 二、接入
+## 二、接入 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 源码位于 `OCBaseConfig/JobsMixFunc/JobsOCMarkdown`，并由 `JobsMixFunc.h` 对外
 暴露。老工程不新增 `JobsOCMarkdown` Pod 依赖。
@@ -28,7 +28,7 @@ Markdown 和被引用的本地资源写入 App 内的 `JobsMarkdownDocuments.bun
 打包器会主动把 Xcode 非交互 Shell 返回的文件系统路径规范为 UTF-8，中文目录
 不会因为构建进程缺少 `LANG` / `LC_ALL` 而导致清单 JSON 生成失败。
 
-## 三、读取与渲染
+## 三、读取与渲染 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objective-c
 NSError *error = nil;
@@ -40,8 +40,10 @@ JobsOCMarkdownDocument *document = catalog.documents.firstObject;
 文档列表属于宿主 Demo；组件只负责清单模型、文件读取与渲染。宿主 Demo 的
 详情导航标题跟随当前文档标题，列表点按态使用主题语义背景色。
 
-## 四、第三方内核
+## 四、第三方内核 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 资源包内原样包含 `markdown-it`、`highlight.js`、`Mermaid`、`KaTeX` 和
 `DOMPurify` 的浏览器发行文件。版本与许可证见 `ThirdPartyLicenses`，Jobs 自有
 代码不修改这些第三方文件。
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

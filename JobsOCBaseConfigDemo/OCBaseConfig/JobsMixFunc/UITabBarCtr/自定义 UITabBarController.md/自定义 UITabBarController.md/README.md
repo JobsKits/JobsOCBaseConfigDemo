@@ -1,8 +1,8 @@
-# 自定义 UITabBarController
+# <span id="前言">自定义 UITabBarController</span>
 
 [toc]
 
-## 一、<font id=相关目录结构>相关目录结构</font>
+## 一、<font id=相关目录结构>相关目录结构</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * <font color=red>`JobsTabBarVC`</font>：**`UITabBarController`**
   * `JobsTabBarItemConfig`：**`NSObject`**
@@ -22,9 +22,9 @@
   * `LZTabBarConfig` ：**`NSObject`**
   * `LZTabBarItem`：**`UIView`**
 
-## 二、拓展系统TabBarVC <a href="#相关目录结构" style="font-size:17px; color:green;"><b>回到顶部</b></a>
+## 二、拓展系统TabBarVC <a href="#相关目录结构" style="font-size:17px; color:green;"><b>回到顶部</b></a> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 1、<font color=red>`JobsTabBarVC`</font>
+### 1、<font color=red>`JobsTabBarVC`</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * 产生背景
   * 在极大的拥抱系统API的基础上进行拓展，使用系统优化好的控件，在后期可能会避免一些不必要的麻烦
@@ -38,7 +38,7 @@
     * 点击`UITabBarItem`支持自检跳转：检测跳转登录模块、自定义点击跳转行为（不一定非要切换根控制器，而是比如弹出一个提示语）
     * 对某个`UITabBarItem`的垂直距离自定义
   
-#### 1.1、对横屏的适配
+#### 1.1、对横屏的适配 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
   ```objective-c
   #pragma mark —— 在 UITabBarController 中适配横屏在 UITabBarController 中适配横屏
@@ -62,7 +62,7 @@
   }
   ```
 
-#### 1.2、<font color=red id=KVC.tabBar>对系统的 `UITabBar` 通过**KVC**的方式替换为自定义的 `JobsTabBar`</font>
+#### 1.2、<font color=red id=KVC.tabBar>对系统的 `UITabBar` 通过**KVC**的方式替换为自定义的 `JobsTabBar`</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
   ```objective-c
   @property(nonatomic,strong,readonly)JobsTabBar *myTabBar;/// myTabBar.humpOffsetY 凸起的高度自定义，默认值30  offsetHeight
@@ -82,7 +82,7 @@
   }
   ```
 
-#### 1.3、滑动手势切换子控制器
+#### 1.3、滑动手势切换子控制器 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
   ```objective-c
   /// 关闭手势
@@ -124,7 +124,7 @@
   }
   ```
 
-#### 1.4、长按手势
+#### 1.4、长按手势 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
   ```objective-c
   -(void)添加长按手势{
@@ -175,7 +175,7 @@
   }
   ```
 
-#### 1.5、支持[**`PPBadgeView`**](https://github.com/jkpang/PPBadgeView)：`TabBarItem`计数小红点
+#### 1.5、支持[**`PPBadgeView`**](https://github.com/jkpang/PPBadgeView)：`TabBarItem`计数小红点 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```ruby
 pod 'PPBadgeView' # https://github.com/jkpang/PPBadgeView iOS自定义Badge组件, 支持UIView, UITabBarItem, UIBarButtonItem以及子类NO_SMP
@@ -211,7 +211,7 @@ if (self.isOpenPPBadge) {
  }
 ```
 
-#### 1.6、至少在`-(void)viewWillAppear:(BOOL)animated`以后的生命周期，实现
+#### 1.6、至少在`-(void)viewWillAppear:(BOOL)animated`以后的生命周期，实现 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
   ```objective-c
   if (config.humpOffsetY != 0) {
@@ -226,7 +226,7 @@ if (self.isOpenPPBadge) {
   }
   ```
 
-#### 1.7、防止多次加载UI的特殊处理
+#### 1.7、防止多次加载UI的特殊处理 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
   ```objective-c
   -(void)viewWillAppear:(BOOL)animated{
@@ -241,7 +241,7 @@ if (self.isOpenPPBadge) {
   }
   ```
 
-#### 1.8、防止当子控制器为`UIImagePickerController` 引起的崩溃
+#### 1.8、防止当子控制器为`UIImagePickerController` 引起的崩溃 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
   ```objective-c
   UIViewController *viewController = self.childVCMutArr[i];
@@ -252,7 +252,7 @@ if (self.isOpenPPBadge) {
   }
   ```
 
-#### 1.9、强行自检跳转登录模块
+#### 1.9、强行自检跳转登录模块 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objective-c
 /// 对单个的 TabBarItem 进行的配置。这个类不能用作单例
@@ -274,7 +274,7 @@ Prop_assign()BOOL isNeedjump;/// 跳开处理，即不切控制器，而是做�
 }
 ```
 
-#### 1.10、支持**`Lottie`**动画
+#### 1.10、支持**`Lottie`**动画 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * 关注实现类：[**@interface UIViewController (Lottie)**](https://github.com/295060456/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+Others/UIViewController+Lottie)
 
@@ -284,7 +284,7 @@ Prop_assign()BOOL isNeedjump;/// 跳开处理，即不切控制器，而是做�
   }
   ```
 
-### 2、`JobsTabBar`
+### 2、`JobsTabBar` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * 对`UITabBarItem`上的图文位置有约束作用。在居中对齐的大前提下
 
@@ -380,13 +380,13 @@ Prop_assign()BOOL isNeedjump;/// 跳开处理，即不切控制器，而是做�
   }
   ```
 
-## 三、高度自定义TabBarVC <a href="#相关目录结构" style="font-size:17px; color:green;"><b>回到顶部</b></a>
+## 三、高度自定义TabBarVC <a href="#相关目录结构" style="font-size:17px; color:green;"><b>回到顶部</b></a> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * 产生背景：系统的Api会有一些反人类思维的做法，会极大影响我们对于一些UI的布控
   * `UITabBarItem`仅仅是针对`UITabBarController`的一个配置文件，而不是视图层。图片和文字是配置在`UITabBarItem`里面的
   * 当需要自定义 `UITabBarItem`中配置的图文位置，就相对比较吃力。特别是在横屏条件下，无法准确定位图文的生长周期，导致布局失败
 
-### 1、<font color =red>`JobsCustomTabBarVC`</font>
+### 1、<font color =red>`JobsCustomTabBarVC`</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * 将系统的 `UITabBarItem`替换为按钮（**UIButton**）更加符合国人思维习惯
 
@@ -447,14 +447,14 @@ Prop_assign()BOOL isNeedjump;/// 跳开处理，即不切控制器，而是做�
   }
   ```
 
-### 2、<font color=red>`LZTabBarController`</font>
+### 2、<font color=red>`LZTabBarController`</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * `@interface LZTabBarItem : UIView`
 * 配置文件：`LZTabBarConfig`
 * 将系统的 `UITabBarItem`替换为点击手势（**UITapGestureRecognizer**）更加符合国人思维习惯
 * **UITapGestureRecognizer**于`LZTabBarItem`
 
-## 四、其他 <a href="#相关目录结构" style="font-size:17px; color:green;"><b>回到顶部</b></a>
+## 四、其他 <a href="#相关目录结构" style="font-size:17px; color:green;"><b>回到顶部</b></a> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * 生命周期
 
@@ -558,3 +558,5 @@ Prop_assign()BOOL isNeedjump;/// 跳开处理，即不切控制器，而是做�
 
   * [**iOS Tabbar各种定制**](https://www.jianshu.com/p/a64348ba0b5b)
   * [**UITabBarController的selectedIndex属性不起作用？**](https://blog.csdn.net/weixin_42012181/article/details/80846660)
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

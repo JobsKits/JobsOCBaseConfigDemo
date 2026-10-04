@@ -1,8 +1,8 @@
-# UIButton+UI
+# <span id="前言">UIButton+UI</span>
 
-## 一、创建调用
+## 一、创建调用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 1、<font color=red>**推荐用以下这两个**</font>。在自建APi之上再进行封装一层，更加的简洁
+### 1、<font color=red>**推荐用以下这两个**</font>。在自建APi之上再进行封装一层，更加的简洁 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objective-c
  -(UIButton *)mailBtn{
@@ -180,7 +180,7 @@
 }
 ```
 
-### 2、自建APi。特别的冗长，不利于阅读和使用（不推荐）
+### 2、自建APi。特别的冗长，不利于阅读和使用（不推荐） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * <span style="color:red; font-weight:bold;">警告：</span>一旦采用**UIButtonConfiguration**创建的UIButton，其他用老式Api创建的UIButton会全部出现异常（例如：title不显示）因为全部渲染走**UIButtonConfiguration**。但是**UIButtonConfiguration**会很方便我们应对富文本的需求。
 
@@ -242,7 +242,7 @@
 }
 ```
 
-## 其他
+## 其他 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 *  这些对齐方式可用于控制按钮内部文本和图像在按钮内的水平位置
 
@@ -275,3 +275,4 @@ button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
 
 
 
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

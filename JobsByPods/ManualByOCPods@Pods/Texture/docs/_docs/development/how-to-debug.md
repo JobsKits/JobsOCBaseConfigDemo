@@ -6,7 +6,7 @@ prevPage: how-to-develop.html
 nextPage: threading.html
 ---
 
-# Debug
+# <span id="前言">Debug</span>
 
 Debugging Texture should follow:
 1. Define the erroneous state
@@ -16,7 +16,7 @@ Debugging Texture should follow:
 5. Produce a diff where the reproduction case passes
 6. Create an experiment to protect other Texture consumers while you verify this change in production
 
-## Crashes
+## Crashes <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Sometimes, the environment can get into a state where a fatal interrupt signal occurs inside UIKit. The exception could be from an invalid memory address, unrecognized selector, or a typical out of bounds to name a few. Since Texture is fairly robust, it is the case sometimes that UIKit is more fragile or implicitly expects some behavior by its implementors. It is also likely that crashes will be occurring for a small percentage of your users, visible to you only through a crash reporting service.
 
@@ -88,7 +88,7 @@ Using `if (ASActivateExperimentalFeature(ASExperimentalSkipClearData)) {` you ca
 
 @maicki and @nguyenhuy were then able to confirm that preventing the clearData in the data source change prevented this crash from occurring in the wild.
 
-## UIKit Debugging
+## UIKit Debugging <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Now this is where things get a little bit fun. Let's look at another crash with nearly the same call stack.
 
@@ -290,7 +290,7 @@ Looking back at our crash log, we see that the fatal is thrown on a `[NSCFNumber
 
 This is very unsettling. It should be impossible for a 0x0 address to be sent the hashing invocation, unless the procedure was not branching to this safer part of the block invoke, and instead was executing through to the other branches in this procedure. However, this is impossible due to the `*(edi + 0x1c)` as statically defined earlier.
 
-## Weaver (View and Layout debugging)
+## Weaver (View and Layout debugging) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 [Weaver](https://github.com/TextureGroup/Weaver) is a remote debugging tool for Texture apps. It is a client library and gateway server combination that uses Chrome DevTools on your browser to debug your application's layout hierarchy.
 
@@ -299,3 +299,5 @@ Demo video: https://youtu.be/zdACP6dQlQ8
 Weaver is a hard fork of PonyDebugger. It was trimmed down and modified to work with layout elements from both UIKit and Texture.
 
 To use Weaver, you must enable the client in your iOS application and connect it to the gateway server called "ponyd".
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

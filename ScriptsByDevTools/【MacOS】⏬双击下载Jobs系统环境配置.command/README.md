@@ -6,7 +6,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 `【MacOS】⏬双击下载Jobs系统环境配置.command` 是一个可双击运行的 macOS `.command` 脚本。
 
@@ -78,11 +78,11 @@ flowchart TD
 
 ## 九、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 1. 这个脚本和安装环境脚本是一回事吗？
+### 1. 这个脚本和安装环境脚本是一回事吗？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 不是。当前脚本负责下载配置仓库，真正安装或同步环境要看下载仓库里的入口脚本。
 
-### 2. 失败先看哪里？
+### 2. 失败先看哪里？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看 `$TMPDIR/【MacOS】⏬双击下载Jobs系统环境配置.log` 和终端中的 `git clone` 错误。
 ## 十、未执行声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

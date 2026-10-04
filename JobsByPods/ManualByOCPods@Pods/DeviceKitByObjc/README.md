@@ -10,7 +10,7 @@
 
 `DeviceKitByObjc@Pods` 是一个本地 [**CocoaPods**](https://cocoapods.org/) Pod，用于把 `Support/Device.generated.swift` 中的设备映射数据转成 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 能力。
 
-## 一、目录结构
+## 一、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```text
 DeviceKitByObjc@Pods/
@@ -32,7 +32,7 @@ DeviceKitByObjc@Pods/
 └── README.md
 ```
 
-## 二、使用方式
+## 二、使用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```ruby
 pod 'DeviceKitByObjc', :path => 'path/to/DeviceKitByObjc@Pods'
@@ -42,7 +42,7 @@ pod 'DeviceKitByObjc', :path => 'path/to/DeviceKitByObjc@Pods'
 #import <DeviceKitByObjc/DeviceKitByObjc.h>
 ```
 
-## 三、`Core` / `Support` 边界
+## 三、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 | 目录 | 职责 | 是否参与编译 |
 | --- | --- | --- |
@@ -50,7 +50,7 @@ pod 'DeviceKitByObjc', :path => 'path/to/DeviceKitByObjc@Pods'
 | `Resources` | 隐私清单等资源文件 | 是 |
 | `Support` | 生成器和上游 Swift 数据源 | 否，仅 `preserve_paths` 保留 |
 
-## 四、验证方式
+## 四、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 ruby -c DeviceKitByObjc.podspec
@@ -60,7 +60,9 @@ ruby -c DeviceKitByObjc.podspec
 pod lib lint DeviceKitByObjc.podspec --allow-warnings --verbose
 ```
 
-## 五、风险说明
+## 五、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Support/generate_devicekit_oc.py` 当前不进入 `source_files`，需要重新生成 `Core` 代码时再手动执行。
 - `Resources/PrivacyInfo.xcprivacy` 已通过 `resource_bundles` 纳入 Pod。
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

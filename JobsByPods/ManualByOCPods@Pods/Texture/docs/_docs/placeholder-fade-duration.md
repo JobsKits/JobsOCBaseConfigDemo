@@ -6,7 +6,7 @@ prevPage: image-modification-block.html
 nextPage: accessibility.html
 ---
 
-## ASDisplayNodes may Implement Placeholders
+## <span id="前言">ASDisplayNodes may Implement Placeholders <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 Any `ASDisplayNode` subclass may implement the `-placeholderImage` method to provide a placeholder that covers content until a node's contents are finished displaying. To use placeholders, set `.placeholderEnabled = YES` and optionally set a `.placeholderFadeDuration`;
 
@@ -21,12 +21,14 @@ An ideal resource for creating placeholder images, including rounded rect solid 
 
 See our ancient <a href="https://github.com/texturegroup/texture/tree/master/examples_extra/Placeholders">Placeholders sample app</a> to see this concept, first invented by the Facebook Paper team, in action. 
 
-## `.neverShowPlaceholders`
+## `.neverShowPlaceholders` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Hear <a href="https://youtu.be/RY_X7l1g79Q">Scott Goodson explain</a> placeholders, `.neverShowPlaceholders` and why UIKit doesn't have them.  
 
-## ASNetworkImageNode also have Default Images
+## ASNetworkImageNode also have Default Images <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 In _addition_ to placeholders, `ASNetworkImageNode`s also have a `.defaultImage` property. While placeholders are meant to be transient, default images will persist if the image node's `.URL` property is `nil` or  if the URL fails to load. 
 
 We suggest using default images for avatars, while using placeholder images for photos. 
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

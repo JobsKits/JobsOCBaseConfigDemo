@@ -10,7 +10,7 @@ nextPage: multiplex-image-node.html
 
 It's also important to note that this node does not support <a href = "/docs/layer-backing.html">layer backing</a> due to the fact that it supports user interaction.
 
-### Basic Usage
+### <span id="前言">Basic Usage <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 Using an editable text node as a text input is easy.  If you want it to have text by default, you can assign an attributed string to the `attributedText` property.  
 
@@ -34,7 +34,7 @@ editableTextNode.textContainerInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, r
 </div>
 </div>
 
-### Placeholder Text
+### Placeholder Text <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 If you want to display a text box with a placeholder that disappears after a user starts typing, just assign an attributed string to the `attributedPlaceholderText` property.
 
@@ -54,7 +54,7 @@ editableTextNode.attributedPlaceholderText = NSAttributedString(string: "Type so
 
 The property `isDisplayingPlaceholder` will initially return `YES`, but will toggle to `NO` any time the `attributedText` property is set to a non-empty string.
 
-### Typing Attributes
+### Typing Attributes <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 To set up the style of the text your user will type into this text field, you can set the `typingAttributes`.
 
@@ -76,7 +76,7 @@ editableTextNode.typingAttributes = [NSForegroundColorAttributeName: UIColor.blu
 </div>
 
 
-### ASEditableTextNode Delegate
+### ASEditableTextNode Delegate <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 In order to respond to events associated with an editable text node, you can use any of the following delegate methods:
 
@@ -151,3 +151,4 @@ optional public func editableTextNodeDidFinishEditing(_ editableTextNode: ASEdit
 </div>
 </div>
 
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

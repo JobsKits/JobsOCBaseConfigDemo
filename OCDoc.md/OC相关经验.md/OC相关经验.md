@@ -31,7 +31,7 @@
 
 ![IMAGE 2024-09-09 23:23:12](<./assets/IMAGE 2024-09-09 23:23:12.jpg>)
 
-### 1.1、`int *p = &a`
+### 1.1、`int *p = &a` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * 这行代码是在C或C++中声明了一个整数指针变量 `p`，并将其初始化为变量 `a` 的地址；
 * `&a` 表示取变量 `a` 的地址，然后将这个地址赋给指针变量 `p`；
@@ -39,7 +39,7 @@
 * `int *p` 表示 `p` 是一个整数指针，可以用来存储整数变量的地址；
 * 整数指针是指一个指针，其目标是整数类型的变量
 
-### 1.2、数组指针与指针数组
+### 1.2、数组指针与指针数组 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * <font color=red>**数组指针（Pointer to Array）**</font>
 
@@ -164,7 +164,7 @@
 
 ## 四、数据结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 4.1、数据结构总览
+### 4.1、数据结构总览 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * 一维线性结构
 
@@ -197,7 +197,7 @@
   | **跳表 (Skip List)**          | 类似多层链表，查找效率接近平衡树       | Redis 内部、排序结构 |
   | **位图 (BitMap)**             | 用一堆 0/1 表示状态                    | 去重、统计、压缩存储 |
 
-### 4.2、各个数据结构的介绍
+### 4.2、各个数据结构的介绍 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * 树（Tree）
 

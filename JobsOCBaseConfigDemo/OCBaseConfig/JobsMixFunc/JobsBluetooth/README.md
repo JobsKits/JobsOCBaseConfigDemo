@@ -17,7 +17,7 @@
 - 支持 Mock Transport；模拟器和无真机环境也能运行完整 Demo。
 - 本模块面向 BLE，不承诺任意经典蓝牙、蓝牙音频或未经 MFi 授权的 ExternalAccessory 能力。
 
-## 二、架构
+## 二、架构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```mermaid
 flowchart TD
@@ -28,7 +28,7 @@ flowchart TD
     D --> F["Mock Transport"]
 ```
 
-## 三、DSL 快速开始
+## 三、DSL 快速开始 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 JobsBluetoothProfile *profile = JobsBluetoothProfile.new
@@ -48,27 +48,27 @@ JobsBluetoothManager *manager = [JobsBluetoothManager.alloc initWithProfile:prof
 [manager startScan];
 ```
 
-## 四、线程与生命周期
+## 四、线程与生命周期 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - [**CoreBluetooth**](https://developer.apple.com/documentation/corebluetooth) 回调由 Manager 收口，业务层不直接持有 `CBPeripheral`。
 - 业务回调默认投递到主队列，也可以通过 `byCallbackQueue` 指定。
 - 主动断开与异常断开拥有不同入口；自动重连策略应由 Profile 决定。
 - 配置 DSL 返回当前主对象；扫描、连接、发送等终止动作不伪造链式返回值。
 
-## 五、权限配置
+## 五、权限配置 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - App 的 `Info.plist` 至少配置 `NSBluetoothAlwaysUsageDescription`。
 - 兼容旧系统时同时配置 `NSBluetoothPeripheralUsageDescription`。
 - 需要后台 BLE 时，由宿主 App 在 Background Modes 中启用 `bluetooth-central`，Pod 不替宿主偷偷开启。
 
-## 六、扩展设备协议
+## 六、扩展设备协议 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - UUID 和连接策略写入 `JobsBluetoothProfile`。
 - 业务对象转字节写入 Encoder。
 - Notify 字节转业务对象写入 Decoder。
 - CRC、分包、加密和应答匹配作为独立策略注入，不写进 Manager。
 
-## 七、Demo 覆盖
+## 七、Demo 覆盖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Demo 覆盖权限、扫描、过滤、RSSI、连接、多设备、服务发现、Read、Write、Notify、MTU、分包、命令队列、超时、重试、重连、前后台、Profile、Codec、校验、握手、Mock、录制回放、诊断、DSL、OTA 扩展和未知协议占位。
 

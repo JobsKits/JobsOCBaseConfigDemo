@@ -14,12 +14,12 @@ nextPage: intelligent-preloading.html
 <li><a href="adoption-guide-2-0-beta1.html#layout-api-updates">Migrating to 2.0 (Layout)</a></li>
 </ol>
 
-## Release Notes
+## <span id="前言">Release Notes <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 Please read the official release notes on <a href="https://usecanvas.com/htroisi/20-release-notes/1W9sFA8hIzWPco5qqCQFaf">GitHub</a>.
 
 
-## Getting the Release Candidate
+## Getting the Release Candidate <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Add the following to your podfile
 
@@ -44,7 +44,7 @@ pod update Texture
 
 in the terminal.
 
-## Testing 2.0  
+## Testing 2.0 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>  
 
 Once you have updated to 2.0, you will see many deprecation warnings. Don't worry! 
 
@@ -64,20 +64,20 @@ One key behavior change you may notice:
 
 If you still have issues, please file a GitHub issue and we'd be happy to help you out!
 
-## Migrating to 2.0
+## Migrating to 2.0 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Once your app is working, it's time to start converting! 
 
 A full API changelog from `1.9.92` to `2.0-beta.1` is available <a href="apidiff-1992-to-20beta1.html">here</a>.
 
-#### ASDisplayNode Changes
+#### ASDisplayNode Changes <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - ASDisplayNode's `.usesImplicitHierarchyManagement` has been renamed to `.automaticallyManagesSubnodes`. The <a href = "http://texturegroup.org/docs/automatic-subnode-mgmt.html">Automatic Subnode Management</a> API has been moved out of Beta, but has a few documented [limitations]().
 
 - ASDisplayNode's `-cancelLayoutTransitionsInProgress` has been renamed to `-cancelLayoutTransition`. The <a href = "layout-transition-api.html">Layout Transition API</a> has been moved out of Beta. Significant new functionality is planed for future dot releases. 
 
 
-#### Updated Interface State Callback Methods
+#### Updated Interface State Callback Methods <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 The new method names are meant to unify the range update methods to show how they relate to each other and be a bit more self-explanatory:
 
@@ -91,7 +91,7 @@ These new methods replace the following:
 - `displayStateDidChange:(BOOL)inDisplayState`
 - `visibleStateDidChange:(BOOL)isVisible`
 
-#### Collection / Table API Updates
+#### Collection / Table API Updates <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Texture's collection and table APIs have been moved from the view space (`collectionView`, `tableView`) to the node space (`collectionNode`, `tableNode`). 
 
@@ -138,10 +138,12 @@ Resources:
 - PR [#2390](https://github.com/facebook/AsyncDisplayKit/pull/2390) and PR [#2381](https://github.com/facebook/AsyncDisplayKit/pull/2381) show how we converted AsyncDisplayKit's [example projects](https://github.com/texturegroup/texture/tree/master/examples) to conform to this new API. 
 
 
-#### Layout API Updates
+#### Layout API Updates <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Please read the separate <a href="layout2-conversion-guide.html">Layout 2.0 Conversion Guide</a> for an overview of the upgrades and to see how to convert your existing layout code. 
 
-#### Help us out
+#### Help us out <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 If we're missing something from this list, please let us know or edit this doc for us (GitHub edit link at the top of page)!  
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

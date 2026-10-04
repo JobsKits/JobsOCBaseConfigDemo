@@ -14,7 +14,7 @@ This `interfaceState` property is constantly updated by an `ASRangeController` w
 
 A node used outside of a container won't have its state updated by any range controller. This sometimes results in a flash as nodes are rendered after realizing they're already onscreen without any warning.
 
-## Interface State Ranges
+## <span id="前言">Interface State Ranges <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 When nodes are added to a scrolling or paging interface they are typically in one of the following ranges.  This means that as the scrolling view is scrolled, their interface states will be updated as they move through them.
 
@@ -41,7 +41,7 @@ A node will be in one of following ranges:
   </tr>
 </table>
 
-## ASRangeTuningParameters
+## ASRangeTuningParameters <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 The size of each of these ranges is measured in "screenfuls".  While the default sizes will work well for many use cases, they can be tweaked quite easily by setting the tuning parameters for range type on your scrolling node.
 
@@ -51,11 +51,11 @@ In the above visualization of a scrolling collection, the user is scrolling down
 
 Intelligent preloading also works in multiple dimensions. 
 
-## Interface State Callbacks
+## Interface State Callbacks <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 As a user scrolls, nodes move through the ranges and react appropriately by loading data, rendering, etc.  Your own <a href = "subclassing.html">node subclasses</a> can easily tap into this mechanism by implementing the corresponding callback methods.
 
-#### Visible Range 
+#### Visible Range <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a> 
 
 <div class = "highlight-group">
 <span class="language-toggle"></span>
@@ -67,7 +67,7 @@ As a user scrolls, nodes move through the ranges and react appropriately by load
 </div>
 </div>
 
-#### Display Range
+#### Display Range <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 <div class = "highlight-group">
 <span class="language-toggle"></span>
@@ -79,7 +79,7 @@ As a user scrolls, nodes move through the ranges and react appropriately by load
 </div>
 </div>
 
-#### Preload Range
+#### Preload Range <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 <div class = "highlight-group">
 <span class="language-toggle"></span>
@@ -93,3 +93,5 @@ As a user scrolls, nodes move through the ranges and react appropriately by load
 
 <br>
 Just remember to call super ok? 😉
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

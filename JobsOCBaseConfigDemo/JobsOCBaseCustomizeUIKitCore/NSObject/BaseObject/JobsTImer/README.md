@@ -10,11 +10,11 @@
 
 > 老工程继续按主工程集成方式维护 `JobsTimer`，只与新 OC Pod 对齐行为，不引入 Pod 结构。
 
-## 一、定位
+## 一、定位 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 这里是 OC 老工程集成于主工程的定时器实现，与 OC 新工程 `JobsOCTimer` 本地 Pod 保持同一生命周期语义，但不引入新的 Pod 形态。
 
-## 二、核心保证
+## 二、核心保证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 统一支持 `NSTimer`、GCD、`CADisplayLink` 和 `CFRunLoopTimer`。
 - 非 GCD 内核必须在主线程创建与操作；GCD 内核支持跨线程生命周期调用。
@@ -25,7 +25,7 @@
 - 一次性和倒计时终态先失效引擎，再在同一队列依次执行 `tick`、`finish`。
 - 应用进入 inactive / background 时自动暂停，重新活跃只恢复自动暂停项；手动 `pause` 会撤销自动恢复资格，手动 `resume` 会复核当前应用状态。
 
-## 三、使用
+## 三、使用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 JobsTimer *timer = jobsMakeTimer(^(JobsTimer * _Nullable timer) {
@@ -40,11 +40,11 @@ JobsTimer *timer = jobsMakeTimer(^(JobsTimer * _Nullable timer) {
 [timer start];
 ```
 
-## 四、同步边界
+## 四、同步边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 功能升级需要与 OC 新工程 `JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/` 对照；只平移源码语义，不把本地 Pod 结构或依赖带回老工程。
 
-## 五、验证
+## 五、验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 xcodebuild -workspace JobsOCBaseConfigDemo.xcworkspace -scheme JobsOCBaseConfigDemo -configuration Debug -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
@@ -53,3 +53,5 @@ xcodebuild -workspace JobsOCBaseConfigDemo.xcworkspace -scheme JobsOCBaseConfigD
 `JobsOCBaseConfigDemoTests` 覆盖自动暂停恢复与手动暂停保护。
 
 四种系统计时机制的完整差异、选型顺序与 Jobs 映射，统一查看 `../../../../OCBaseConfig/JobsMixFunc/JobsOCTimer/README.md`。
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

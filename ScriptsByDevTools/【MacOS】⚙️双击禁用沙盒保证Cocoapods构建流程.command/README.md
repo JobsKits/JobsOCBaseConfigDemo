@@ -6,7 +6,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 `【MacOS】⚙️双击禁用沙盒保证Cocoapods构建流程.command` 是一个可双击运行的 macOS `.command` 脚本。
 
@@ -83,11 +83,11 @@ flowchart TD
 
 ## 九、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 1. 执行后怎么确认？
+### 1. 执行后怎么确认？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 运行 `git diff`，检查 `project.pbxproj` 里 `ENABLE_USER_SCRIPT_SANDBOXING = NO;` 是否符合预期。
 
-### 2. Flutter 工程应该放哪里？
+### 2. Flutter 工程应该放哪里？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 放在 Flutter 工程根目录，脚本会自动进入 `ios` 子目录。
 ## 十、未执行声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

@@ -17,7 +17,7 @@ MsgHandlingError(message: "unable to initiate PIF transfer session (operation in
 
 脚本既可由 `Podfile` 的 `post_integrate` 在 `pod install` 完成后自动调用，也可在终端独立诊断和恢复。
 
-## 一、脚本行为
+## 一、脚本行为 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 脚本按以下顺序执行：
 
@@ -27,7 +27,7 @@ MsgHandlingError(message: "unable to initiate PIF transfer session (operation in
 4. 只向可确认空闲的构建服务发送 `TERM`，最多等待 5 秒，不升级为 `KILL`。
 5. 在没有活动构建信号时，通过 `xcodebuild -workspace ... -list` 验证工作区依赖图入口，最长等待 60 秒。
 
-## 二、安全边界
+## 二、安全边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 不关闭 Xcode 主进程。
 - 不删除 `DerivedData`、ModuleCache、Pods 或工程文件。
@@ -37,13 +37,13 @@ MsgHandlingError(message: "unable to initiate PIF transfer session (operation in
 - 验证超时时，只终止本脚本自己启动的 `xcodebuild`。
 - 自动钩子失败时由 `Podfile` 输出警告，不阻断 `pod install`。
 
-## 三、运行方式
+## 三、运行方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 3.1 `pod install` 后自动运行
+### 3.1 `pod install` 后自动运行 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 工程 `Podfile` 已在 `post_integrate` 最后调用本脚本。自动模式不要求终端输入，日志仍会保留。
 
-### 3.2 只读诊断
+### 3.2 只读诊断 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 ./【MacOS】🧹恢复Xcode\ PIF构建会话.command --check-only
@@ -51,7 +51,7 @@ MsgHandlingError(message: "unable to initiate PIF transfer session (operation in
 
 该模式只报告哪些服务处于活动状态或可安全回收，不发送任何终止信号，也不启动依赖图验证。
 
-### 3.3 独立恢复
+### 3.3 独立恢复 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 ./【MacOS】🧹恢复Xcode\ PIF构建会话.command
@@ -65,24 +65,24 @@ MsgHandlingError(message: "unable to initiate PIF transfer session (operation in
 - `--skip-verify`：完成安全回收后不运行 `xcodebuild -list`。
 - `--help`：显示参数说明。
 
-## 四、日志
+## 四、日志 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 日志统一写入 `$TMPDIR`：
 
 - `【MacOS】🧹恢复Xcode PIF构建会话.log`：进程判断、回收和汇总日志。
 - `【MacOS】🧹恢复Xcode PIF构建会话.xcodebuild-list.log`：工作区依赖图验证输出。
 
-## 五、常见问题
+## 五、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 5.1 为什么不直接删除 DerivedData？
+### 5.1 为什么不直接删除 DerivedData？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 该错误的直接冲突点通常是构建服务中的并行 PIF 会话。先回收空闲会话的影响更小，也不会让所有工程重新编译。
 
-### 5.2 检测到活动构建时怎么办？
+### 5.2 检测到活动构建时怎么办？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 脚本会安全跳过。等待现有编译结束后重新执行，或再次运行 `pod install` 即可。
 
-### 5.3 自动恢复失败会不会导致 Pods 安装失败？
+### 5.3 自动恢复失败会不会导致 Pods 安装失败？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 不会。三个 iOS 工程都把它作为可选后置增强；失败只给出警告和日志路径。
 

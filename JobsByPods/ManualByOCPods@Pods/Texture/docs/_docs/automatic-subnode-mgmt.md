@@ -10,7 +10,7 @@ Enabling Automatic Subnode Management (ASM) is required to use the <a href="layo
 
 When enabled, ASM means that your nodes no longer require `addSubnode:` or `removeFromSupernode` method calls. The presence or absence of the ASM node _and_ its subnodes is completely determined in its `layoutSpecThatFits:` method.
 
-### Example ###
+### <span id="前言">Example ### <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 <br>
 Consider the following intialization method from the PhotoCellNode class in <a href="https://github.com/texturegroup/texture/tree/master/examples/ASDKgram">ASDKgram sample app</a>. This <code>ASCellNode</code> subclass produces a simple social media photo feed cell. 
 
@@ -281,7 +281,7 @@ Here you can see that the children of the `headerSubStack` depend on whether or 
 
 The `_userAvatarImageNode`, `_photoImageNode`, and `_photoCommentsNode` are added into the ASLayoutSpec, but will not show up until their data fetches return.
 
-### Updating an ASLayoutSpec ###
+### Updating an ASLayoutSpec ### <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 **If something happens that you know will change your `ASLayoutSpec`,  it is your job to call `setNeedsLayout`**. This is equivalent to `transitionLayout:duration:0` in the Transition Layout API. You can see this call in the completion block of the `photo.location reverseGeocodedLocationWithCompletionBlock:` call in the first code block. 
 
@@ -294,3 +294,5 @@ This is just a simple example, but this feature has many more powerful uses.
 <div class = "note">
 <b>Warning:</b> <code>addSubnode:</code> and <code>removeFromSupernode</code> should never be called on a node that has ASM enabled. Doing so could cause the following exception - "A flattened layout must consist exclusively of node sublayouts".
 </div> 
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -40,7 +40,7 @@ flowchart LR
 
 ## 二、样板源码与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 2.1、当前样板
+### 2.1、当前样板 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 | 项目 | 内容 |
 | --- | --- |
@@ -53,7 +53,7 @@ flowchart LR
 
 这组代码职责单一、公开 API 小、没有资源和跨模块依赖，适合作为第一个 Framework target。
 
-### 2.2、最小消费者
+### 2.2、最小消费者 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本文目录提供：
 
@@ -90,7 +90,7 @@ int value = JobsRandomNumber(1, 10);
 
 ## 四、创建 Framework target <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 4.1、创建 target
+### 4.1、创建 target <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 在 [**Xcode**](https://developer.apple.com/xcode) 中执行：
 
@@ -100,7 +100,7 @@ int value = JobsRandomNumber(1, 10);
 4. Language 使用 `Objective-C`。
 5. 创建后把 Scheme 设为 Shared，保证命令行和 CI 可以看到。
 
-### 4.2、Build Settings
+### 4.2、Build Settings <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 | 设置 | 建议值 | 说明 |
 | --- | --- | --- |
@@ -114,7 +114,7 @@ int value = JobsRandomNumber(1, 10);
 
 不要手写 `ARCHS=arm64`。使用 `generic/platform=iOS` 与 `generic/platform=iOS Simulator`，由 Xcode 按平台决定支持架构。
 
-### 4.3、Target Membership
+### 4.3、Target Membership <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 把以下文件加入 `JobsRandomUtils` Framework target：
 
@@ -134,15 +134,15 @@ Headers Build Phase：
 
 ## 五、迁移期间避免重复符号 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 5.1、并行构建阶段
+### 5.1、并行构建阶段 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Framework target 可以与 App target 同时编译同一份源码，但 App 此时不要再链接这份 Framework。这个阶段只验证 Framework 自己能否独立构建和归档。
 
-### 5.2、消费者验证阶段
+### 5.2、消费者验证阶段 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 用不包含 `JobsRandomUtils.m` 源码的独立消费者工程链接 XCFramework，验证公开头、模块和运行结果。
 
-### 5.3、正式切换阶段
+### 5.3、正式切换阶段 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 当 App 决定使用二进制实现时：
 
@@ -162,7 +162,7 @@ cd "/Users/jobs/Documents/Github/JobsBaseConfig/JobsBaseConfig@JobsOCBaseConfigD
 xcodebuild -workspace JobsOCBaseConfigDemo.xcworkspace -list | rg "JobsRandomUtils"
 ```
 
-### 6.1、iOS 真机
+### 6.1、iOS 真机 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 xcodebuild archive \
@@ -177,7 +177,7 @@ xcodebuild archive \
   ONLY_ACTIVE_ARCH=NO
 ```
 
-### 6.2、iOS Simulator
+### 6.2、iOS Simulator <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 xcodebuild archive \
@@ -225,20 +225,20 @@ find "build/XCFrameworkDemo/JobsRandomUtils.xcframework" \
 
 ## 八、公开头、依赖与 Category <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 8.1、公开头
+### 8.1、公开头 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 公开头只能引用消费者确实能获得的系统 Framework 或二进制模块。
 - 私有实现头留在 Framework target 内部，不通过 Header Search Paths 偶然泄漏。
 - 若模块变大，新增根聚合头统一导出公共 API，消费者不穿透内部目录。
 
-### 8.2、依赖
+### 8.2、依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 系统 Framework 在 Framework target 的 Link Binary 配置中声明。
 - 其它 Jobs 模块优先分别二进制化并显式声明依赖。
 - 公开 API 出现依赖模块类型时，消费者必须同时拿到该模块。
 - 不使用主 App PCH、宏集合或业务聚合头掩盖缺失的直接依赖。
 
-### 8.3、Category
+### 8.3、Category <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 `JobsRandomUtils` 当前是 C 函数实现，不依赖 Category 装载。下沉其它含 Category 的模块时：
 
@@ -258,14 +258,14 @@ find "build/XCFrameworkDemo/JobsRandomUtils.xcframework" \
 
 ## 十、二进制接入方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 10.1、手工接入
+### 10.1、手工接入 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 把 `JobsRandomUtils.xcframework` 拖入消费者工程。
 - 静态 Framework 通常选择 `Do Not Embed`。
 - 动态 Framework 使用 `Embed & Sign`。
 - 不再额外加入原源码目录的 Header Search Paths。
 
-### 10.2、CocoaPods 二进制 Pod
+### 10.2、CocoaPods 二进制 Pod <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```ruby
 Pod::Spec.new do |spec|
@@ -278,7 +278,7 @@ Pod::Spec.new do |spec|
 end
 ```
 
-### 10.3、Swift Package 二进制 Target
+### 10.3、Swift Package 二进制 Target <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Apple 的[**二进制 Framework Swift Package 分发文档**](https://developer.apple.com/documentation/xcode/distributing-binary-frameworks-as-swift-packages)要求远程 ZIP 提供 checksum：
 

@@ -18,7 +18,7 @@ Texture may be added to your project via CocoaPods or Carthage. Do not forget to
 
 or create a <a href="https://developer.apple.com/library/ios/documentation/swift/conceptual/buildingcocoaapps/MixandMatch.html">Objective-C bridging header</a> (Swift). If you have any problems installing Texture, please contact us on Github or <a href = "/slack.html">Slack</a>!
 
-## CocoaPods
+## <span id="前言">CocoaPods <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 Texture is available on <a href="https://cocoapods.org/pods/Texture">CocoaPods</a>. Add the following to your Podfile:
 
@@ -58,7 +58,7 @@ in the project directory in Terminal.
 
 Don't forget to use the workspace `.xcworkspace` file, _not_ the project `.xcodeproj` file.
 
-## Carthage (standard build)
+## Carthage (standard build) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 <div class = "note">
 The standard way to use Carthage is to have a Cartfile list the dependencies, and then run `carthage update` to download the dependenices into the `Cathage/Checkouts` folder and build each of those into frameworks located in the `Carthage/Build` folder, and finally the developer has to manually integrate in the project.
@@ -107,8 +107,10 @@ Look for terminal output confirming `Texture`, `PINRemoteImage (3.0.0-beta.2)` a
 
 In Xcode, on your application targets’ **“General”** settings tab, in the **“Linked Frameworks and Libraries”** section, drag and drop each framework you want to use from the `Carthage/Build` folder on disk.
 
-## Carthage (light)
+## Carthage (light) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Texture does not yet support the lighter way of using Carthage, in which you manually add the project files. This is because one of its dependencies, `PINCache` (a nested dependency of `PINRemoteImage`) does not yet have a project file. 
 
 Without including `PINRemoteImage` and `PINCache`, you will not get Texture's full image feature set. 
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

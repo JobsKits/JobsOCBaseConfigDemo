@@ -23,7 +23,7 @@ In addition to the inline examples comparing **1.x** layout code vs **2.0** layo
 
 All other **2.0** changes not related to the Layout API are documented <a href="adoption-guide-2-0-beta1.html">here</a>. 
 
-## Introduction of true flex factors
+## <span id="前言">Introduction of true flex factors <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 With **1.x** the `flexGrow` and `flexShrink` properties were of type `BOOL`. 
 
@@ -52,11 +52,11 @@ layoutElement.style.flexShrink = 1.0;
 </div>
 </div>
 
-## `ASStackLayoutSpec`'s `.alignItems` property default changed 
+## `ASStackLayoutSpec`'s `.alignItems` property default changed <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a> 
 
 `ASStackLayoutSpec`'s `.alignItems` property default changed to `ASStackLayoutAlignItemsStretch` instead of `ASStackLayoutAlignItemsStart` to align with the CSS align-items property.
 
-## Rename `ASStaticLayoutSpec` to `ASAbsoluteLayoutSpec` & behavior change
+## Rename `ASStaticLayoutSpec` to `ASAbsoluteLayoutSpec` & behavior change <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 `ASStaticLayoutSpec` has been renamed to `ASAbsoluteLayoutSpec`, to be consistent with web terminology and better represent the intended behavior.
 
@@ -115,13 +115,13 @@ With the new `ASAbsoluteLayoutSpec` and same code above, the layout would now lo
 
 <img src="/static/images/layout-examples-photo-with-inset-text-overlay-diagram.png">
 
-## Rename `ASLayoutable` to `ASLayoutElement`
+## Rename `ASLayoutable` to `ASLayoutElement` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Remember that an `ASLayoutSpec` contains children that conform to the `ASLayoutElement` protocol. Both `ASDisplayNodes` and `ASLayoutSpecs` conform to this protocol. 
 
 The protocol has remained the same as **1.x**, but the name has been changed to be more descriptive. 
 
-## Set `ASLayoutElement` properties via `ASLayoutElementStyle`
+## Set `ASLayoutElement` properties via `ASLayoutElementStyle` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 An `ASLayoutElement`'s properties are are now set via it's `ASLayoutElementStyle` object.
 
@@ -160,7 +160,7 @@ stackLayoutSpec.justifyContent = ASStackLayoutJustifyContentStart;
 </div>
 </div>
 
-## Setting the size of an `ASLayoutElement`
+## Setting the size of an `ASLayoutElement` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 With **2.0** we introduce a new, easier, way to set the size of an `ASLayoutElement`. These methods replace the deprecated `-preferredFrameSize` and `-sizeRange` **1.x** methods.
 
@@ -287,7 +287,7 @@ If you previously wrapped a `ASLayoutElement` within a `ASStaticLayoutSpec` just
 </div>
 </div>
 
-## Deprecation of `-[ASDisplayNode preferredFrameSize]`
+## Deprecation of `-[ASDisplayNode preferredFrameSize]` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 With the introduction of new sizing properties there is no need anymore for the `-[ASDisplayNode preferredFrameSize]` property. Therefore it is deprecated in **2.0**. Instead, use the size values on the `style` object of an `ASDisplayNode`:
 
@@ -311,11 +311,11 @@ displayNode.style.preferredSize = CGSize(100, 100);
 
 `-[ASDisplayNode preferredFrameSize]` was not supported properly and was often more confusing than helpful. The new sizing methods should be easier and more clear to implment.
 
-## Deprecation of `-[ASLayoutElement measureWithSizeRange:]`
+## Deprecation of `-[ASLayoutElement measureWithSizeRange:]` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 `-[ASLayoutElement measureWithSizeRange:]` is deprecated in **2.0**.
 
-#### Calling `measureWithSizeRange:`
+#### Calling `measureWithSizeRange:` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 If you previously called `-[ASLayoutElement measureWithSizeRange:]` to receive an `ASLayout`, call `-[ASLayoutElement layoutThatFits:]` now instead.
 
@@ -335,7 +335,7 @@ ASLayout *layout = [layoutElement layoutThatFits:someSizeRange];
 </div>
 </div>
 
-#### Implementing `measureWithSizeRange:`
+#### Implementing `measureWithSizeRange:` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 If you are implementing a custom `class` that conforms to `ASLayoutElement` (e.g. creating a custom `ASLayoutSpec`) , replace `-measureWithSizeRange:` with `-calculateLayoutThatFits:`
 
@@ -392,7 +392,7 @@ Call this on children`layoutElements` to compute their layouts within your imple
 
 For sample implementations of layout specs and the usage of the `calculateLayoutThatFits:` family of methods, check out the layout specs in Texture itself!
 
-## Deprecation of `-[ASDisplayNode measure:]` 
+## Deprecation of `-[ASDisplayNode measure:]` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a> 
 
 Use `-[ASDisplayNode layoutThatFits:]` instead to get an `ASLayout` and call `size` on the returned `ASLayout`:
 
@@ -425,7 +425,7 @@ let size = layout.size
 </div>
 </div>
 
-## Remove of `-[ASAbsoluteLayoutElement sizeRange]`
+## Remove of `-[ASAbsoluteLayoutElement sizeRange]` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 The `sizeRange` property was removed from the `ASAbsoluteLayoutElement` protocol. Instead set the one of the following:
 
@@ -456,7 +456,7 @@ layoutElement.style.preferredSizeRange = ASRelativeSizeRangeMakeWithExactCGSize(
 
 Due to the removal of `-[ASAbsoluteLayoutElement sizeRange]`, we also removed the `ASRelativeSizeRange`, as the type was no longer needed.
 
-## Rename `ASRelativeDimension` to `ASDimension`
+## Rename `ASRelativeDimension` to `ASDimension` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 To simplify the naming and support the fact that dimensions are widely used in Texture now, `ASRelativeDimension` was renamed to `ASDimension`. Having a shorter name and handy functions to create it was an important goal for us.
 
@@ -485,7 +485,7 @@ dimensionInFractions = ASDimensionMake("50%");
 </div>
 </div>
 
-## Introduction of `ASDimensionUnitAuto`
+## Introduction of `ASDimensionUnitAuto` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Previously `ASDimensionUnitPoints` and `ASDimensionUnitFraction` were the only two `ASDimensionUnit` enum values available. A new dimension type called `ASDimensionUnitAuto` now exists. All of the ``ASLayoutElementStyle` sizing properties are set to `ASDimensionAuto` by default.
 
@@ -517,3 +517,4 @@ videoNode.style.preferredSize = CGSizeMake(200, 100);
 </div>
 </div>
 
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

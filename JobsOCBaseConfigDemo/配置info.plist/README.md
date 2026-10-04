@@ -1,9 +1,9 @@
-#  配置`info.plist`
+#  <span id="前言">配置`info.plist`</span>
 
 * 这个文件不需要包含进项目工程，系统通过自检（读取指定目录下的指定名的文件）读取，如果包含进项目，编译会出问题
 * 用**Open As Source Code**的方式，打开`info.plist`，并添加以下信息
 [toc]
-## 1、App索取用户权限（做多语言化处理）
+## 1、App索取用户权限（做多语言化处理） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 ```xml
 <key>NSFaceIDUsageDescription</key>
 <string>$(NSFaceIDUsageDescription)</string><!-- App需要您的同意，才能访问您的面容识别功能，用于安全验证 -->
@@ -76,7 +76,7 @@
 "我们需要获取你的TV权限" = "NSVideoSubscriberAccountUsageDescription";
 ```
 
-## 2、App多语言化
+## 2、App多语言化 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```xml
 <!-- 用于指定应用程序的显示名称是否本地化 -->
@@ -94,7 +94,7 @@
 <string>en</string>
 ```
 
-## 3、App添加外部字体
+## 3、App添加外部字体 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * 需要把外部字体包含进工程项目里面
 
@@ -106,7 +106,7 @@
   </array>
   ```
 
-## 4、App白名单
+## 4、App白名单 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * iOS 9系统策略更新，限制了http协议的访问，此外应用需要在`Info.plist`中将要使用的URL Schemes列为白名单，才可正常检查其他应用是否安装。
 
@@ -154,7 +154,7 @@
   </array>
   ```
 
-## 5、App屏幕旋转
+## 5、App屏幕旋转 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```xml
 <key>UISupportedInterfaceOrientations</key>
@@ -166,7 +166,7 @@
 </array>
 ```
 
-## 6、iOS 横竖屏UI切换
+## 6、iOS 横竖屏UI切换 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * iPhone 应用
 
@@ -192,7 +192,7 @@
   </array>
   ```
 
-## 7、App添加Appicon
+## 7、App添加Appicon <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```xml
 <key>CFBundleIcons</key>
@@ -259,7 +259,7 @@
 </dict>
 ```
 
-## 8、iOS 状态栏修改
+## 8、iOS 状态栏修改 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```xml
 <!-- iOS 状态栏颜色的修改【全局设置 全局是NO、局部是YES】View controller-based status bar appearance : NO-->
@@ -273,7 +273,7 @@
 <true/>
 ```
 
-## 9、App名
+## 9、App名 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```xml
 <!-- 是应用程序的唯一标识符，通常以反转的域名格式（例如：com.example.MyApp）表示。-->
@@ -291,7 +291,7 @@
 <string>CFBundleDisplayName</string>
 ```
 
-## 10、App多场景的支持
+## 10、App多场景的支持 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```xml
 <!--❤️【UIApplicationSceneManifest】iOS 13 开始引入。支持多窗口应用程序，允许用户在 iPad 和 macOS 上运行多个实例的应用程序❤️-->
@@ -322,7 +322,7 @@
 </dict>
 ```
 
-## 11、`WKWebKit` 相关
+## 11、`WKWebKit` 相关 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```xml
 <!--允许加载外部资源-->
@@ -350,7 +350,7 @@
 ```
 
 
-## 12、其他
+## 12、其他 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * ```xml
   <!-- 配置 UILaunchStoryboardName，项目里面就必须将 Main.storyboard 包含到工程，进入编译期-->
@@ -369,3 +369,5 @@
   <key>NSPersistentStoreTypeKey</key>
   <string>SQLite</string>
   ```
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

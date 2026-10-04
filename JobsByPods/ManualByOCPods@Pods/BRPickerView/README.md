@@ -1,4 +1,4 @@
-# BRPickerView
+# <span id="前言">BRPickerView</span>
 
 BRPickerView 封装的是iOS中常用的选择器组件，主要包括：**`BRDatePickerView`** 日期选择器（支持年月日、年月等15种日期样式选择，支持设置星期、至今等）、**`BRTextPickerView`** 文本选择器（支持单列、多列、省市区、省市、省、自定义多级联动选择）。支持自定义主题样式，适配深色模式，支持将选择器组件添加到指定容器视图。
 
@@ -7,7 +7,7 @@ BRPickerView 封装的是iOS中常用的选择器组件，主要包括：**`BRDa
 >- 从 `V3.0.0` 版本起，移除了 `BRAddressPickerView`、`BRStringPickerView` 废弃组件；请使用 `BRTextPickerView` 新组件进行替代。如果项目大面积报错：① 可暂时使用 2.9.9 旧版本：`pod 'BRPickerView', '2.9.9'`；② 或下载Demo，手动把`Deprecated` 目录添加到项目中。
 >- 如果不能找到最新版本，请先执行一下 `pod repo update ` 更新本地仓库，使 CocoaPods 能识别最新可用的库版本。 
 
-#### 📒 稀土掘金：https://juejin.cn/post/6844903605468676104
+#### 📒 稀土掘金：https://juejin.cn/post/6844903605468676104 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 
 
@@ -21,19 +21,19 @@ BRPickerView 封装的是iOS中常用的选择器组件，主要包括：**`BRDa
 
 # 安装
 
-#### CocoaPods
+#### CocoaPods <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 1. 在 Podfile 中添加 `pod 'BRPickerView'`
 2. 执行 `pod install` 或 `pod update` 
 3. 导入头文件 ` #import <BRPickerView.h>`
 
-#### SPM Supported
+#### SPM Supported <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 1. 依次点击 Xcode 的菜单 File  > Add Package Dependencies...
 2. 输出 `https://github.com/agiapp/BRPickerView`搜索并选择，然后点击 Add Package
 
 
-#### 手动导入
+#### 手动导入 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 1. 将与 `README.md` 同级目录下的 `BRPickerView` 文件夹拽入项目中（注意：删除PrivacyInfo.xcprivacy文件）
 
@@ -47,7 +47,7 @@ BRPickerView 封装的是iOS中常用的选择器组件，主要包括：**`BRDa
 
 # 使用
 
-### 时间选择器：`BRDatePickerView`
+### 时间选择器：`BRDatePickerView` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 查看 BRDatePickerView.h 头文件，里面提供了两种使用方式，参见源码。
 
@@ -211,7 +211,7 @@ datePickerView.pickerHeaderView = headerView;
 
 
 
-### 文本选择器：`BRTextPickerView`
+### 文本选择器：`BRTextPickerView` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 查看 BRTextPickerView.h 头文件，提供了三种类型：
 
@@ -227,7 +227,7 @@ typedef NS_ENUM(NSInteger, BRTextPickerMode) {
 };
 ```
 
-#### 1. 单列文本选择器
+#### 1. 单列文本选择器 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 使用示例：
 
@@ -302,7 +302,7 @@ textPickerView.singleResultBlock = ^(BRTextModel * _Nullable model, NSInteger in
 
 
 
-#### 2. 多列文本选择器
+#### 2. 多列文本选择器 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 使用示例：
 
@@ -384,7 +384,7 @@ textPickerView.pickerStyle = customStyle;
 
 
 
-#### 3. 多列联动文本选择器
+#### 3. 多列联动文本选择器 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 使用示例：
 
@@ -642,132 +642,132 @@ textPickerView.pickerStyle = customStyle;
 
 # 更新记录
 
-#### 2026-05-20（V3.0.0）
+#### 2026-05-20（V3.0.0） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 移除 BRAddressPickerView、BRStringPickerView 废弃组件
 - 修改库支持的平台和版本为 iOS 11.0+
 
 - fix：[#355](https://github.com/agiapp/BRPickerView/issues/355) 
 
-#### 2025-10-24（V2.9.9）
+#### 2025-10-24（V2.9.9） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - Merge pull request  [#329](https://github.com/agiapp/BRPickerView/pull/329)、 [#348](https://github.com/agiapp/BRPickerView/pull/348)
 
-#### 2025-10-17（V2.9.8）
+#### 2025-10-17（V2.9.8） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - fix：[#345](https://github.com/agiapp/BRPickerView/issues/345) 、[#349](https://github.com/agiapp/BRPickerView/issues/349) 
 
-#### 2025-05-27（V2.9.7）
+#### 2025-05-27（V2.9.7） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 修改 Swift Package Manager 集成方式
 
-#### 2025-05-21（V2.9.6）
+#### 2025-05-21（V2.9.6） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - fix：[#318](https://github.com/agiapp/BRPickerView/issues/318) 
 
-#### 2025-04-22（V2.9.5）
+#### 2025-04-22（V2.9.5） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - fix：[#319](https://github.com/agiapp/BRPickerView/issues/319) 、[#326](https://github.com/agiapp/BRPickerView/issues/326) 、[#340](https://github.com/agiapp/BRPickerView/issues/340) 
 
-#### 2025-03-16（V2.9.3）
+#### 2025-03-16（V2.9.3） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - [#336](https://github.com/agiapp/BRPickerView/issues/336) ：优化选择年月日时分秒时，UI显示最后一个秒显示不全问题
 
-#### 2024-07-24（V2.9.1）
+#### 2024-07-24（V2.9.1） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 新增 maxTextLines 属性
 - 取消 selectRowAnimated 属性 readonly 限制
 
-#### 2024-07-17（V2.9.0）
+#### 2024-07-17（V2.9.0） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 新增 BRTextPickerView 文本选择组件（用于替代BRAddressPickerView、BRStringPickerView组件）
 
-#### 2024-07-02（V2.8.8）
+#### 2024-07-02（V2.8.8） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - [#310](https://github.com/agiapp/BRPickerView/issues/310) ：更新本地省市区数据源数据
 
 - [#314](https://github.com/agiapp/BRPickerView/issues/314) ：修改maskView视图命名，解决因命名冲突在iOS 18 上出现的崩溃问题
 
-#### 2024-05-28（V2.8.7）
+#### 2024-05-28（V2.8.7） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 解决已知问题：[#308](https://github.com/agiapp/BRPickerView/issues/308) 、[#309](https://github.com/agiapp/BRPickerView/issues/309) 
 - 时间选择器新增 `twelveHourMode` 属性，支持设置12小时制
 - 支持 Swift Package Manager
 
-#### 2024-04-28（V2.8.5）
+#### 2024-04-28（V2.8.5） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 解决已知问题：[#305](https://github.com/agiapp/BRPickerView/issues/305) 
 - 添加可设置选择器组件的列宽属性：`columnWidth`
 - 添加可设置`BRStringPickerView` 选择器组件的列间隔属性：`columnSpacing`
 
-#### 2024-04-23（V2.8.2）
+#### 2024-04-23（V2.8.2） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 解决已知问题：[#304](https://github.com/agiapp/BRPickerView/issues/304) 
 
 - Add PrivacyInfo.xcprivacy
 
-#### 2022-07-08（V2.8.0）
+#### 2022-07-08（V2.8.0） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 优化代码。
 
-#### 2022-06-16（V2.7.8）
+#### 2022-06-16（V2.7.8） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 优化代码。
 
-#### 2022-03-30（V2.7.7）
+#### 2022-03-30（V2.7.7） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 优化代码。
 
-#### 2021-10-09（V2.7.6）
+#### 2021-10-09（V2.7.6） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 适配iOS15
 
-#### 2021-05-28（V2.7.5）
+#### 2021-05-28（V2.7.5） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 日期选择器新增属性：`monthNames` 和 `customUnit`
 
 - 解决已知问题：[#232](https://github.com/agiapp/BRPickerView/issues/232) 、[#231](https://github.com/agiapp/BRPickerView/issues/231)  、[#230](https://github.com/agiapp/BRPickerView/issues/230)  、[#227](https://github.com/agiapp/BRPickerView/issues/227)  、[#225](https://github.com/agiapp/BRPickerView/issues/225) 、[#219](https://github.com/agiapp/BRPickerView/issues/219) 、[#206](https://github.com/agiapp/BRPickerView/issues/206) 
 
-#### 2020-09-25（V2.7.3）
+#### 2020-09-25（V2.7.3） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 适配选择器iOS14的样式：[#189](https://github.com/agiapp/BRPickerView/issues/189) 、[#191](https://github.com/agiapp/BRPickerView/issues/191)
 
-#### 2020-09-23（V2.7.2）
+#### 2020-09-23（V2.7.2） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 日期选择器新增添加自定义字符串属性：`firstRowContent` 和 `lastRowContent`
 - 解决日期选择器设置最小日期时，存在的联动不正确的问题：[#184](https://github.com/agiapp/BRPickerView/issues/184) 
 
-#### 2020-08-28（V2.7.0）
+#### 2020-08-28（V2.7.0） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 日期选择器添加 `nonSelectableDates` 属性：[#178](https://github.com/agiapp/BRPickerView/issues/178) 
 - 优化选中行文本显示：[#177](https://github.com/agiapp/BRPickerView/issues/177) 
 
-#### 2020-08-16（V2.6.8）
+#### 2020-08-16（V2.6.8） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 优化代码，适配 iPad 分屏显示
 - 新增 `keyView` 属性（即组件的父视图：可以将组件添加到 自己获取的 keyWindow 上，或页面的 view 上）
 
-#### 2020-08-09（V2.6.7）
+#### 2020-08-09（V2.6.7） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 适配 iOS14
 
-#### 2020-08-06（V2.6.6）
+#### 2020-08-06（V2.6.6） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 修复 [#163](https://github.com/agiapp/BRPickerView/issues/163) 和  [#170](https://github.com/agiapp/BRPickerView/issues/170) 
 
-#### 2020-07-18（V2.6.5）
+#### 2020-07-18（V2.6.5） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 字符串选择器新增支持多级联动选择
 
-#### 2020-06-24（V2.6.3）
+#### 2020-06-24（V2.6.3） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 日期选择器新增属性：`timeZone` 和 `addCustomString`
 
-#### 2020-05-12（V2.6.2）
+#### 2020-05-12（V2.6.2） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 实现 [#145](#145) 和  [#146](#146) 需求
 
-#### 2020-04-30（V2.6.0）
+#### 2020-04-30（V2.6.0） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 新增样式属性：`selectRowTextColor` 和 `selectRowTextFont`
 - 日期选择器新增数字显示属性：`numberFullName`
@@ -775,46 +775,46 @@ textPickerView.pickerStyle = customStyle;
 
 - 修复 [#143](#143)
 
-#### 2020-04-27（V2.5.8）
+#### 2020-04-27（V2.5.8） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 修复 [#138](https://github.com/agiapp/BRPickerView/issues/138) 和 [#142](https://github.com/agiapp/BRPickerView/issues/142)
 - 日期选择器新增 `descending` 属性，支持降序的时间列表
 - 更新地址选择器地区数据源
 
-#### 2020-03-31（V2.5.7）
+#### 2020-03-31（V2.5.7） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 优化代码，解决已知问题
 
-#### 2020-02-26（V2.5.6）
+#### 2020-02-26（V2.5.6） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 优化代码，兼容部分国际化日期样式
 
-#### 2020-02-24（V2.5.5）
+#### 2020-02-24（V2.5.5） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 添加设置选择器选中行背景颜色的功能，新增属性 `selectRowColor`
 
-#### 2020-01-31（V2.5.3）
+#### 2020-01-31（V2.5.3） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 新增属性：`pickerHeaderView`、`pickerFooterView`
 - 新增刷新选择器数据方法：`reloadData`
 
-#### 2020-01-05（V2.5.1）
+#### 2020-01-05（V2.5.1） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 优化代码，添加 `BRDatePickerModeYM` 支持国际化英式日期
 
-#### 2020-01-02（V2.5.0）
+#### 2020-01-02（V2.5.0） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 日期选择器新增属性：`showUnitType`（日期单位显示样式）、`minuteInterval`、`secondInterval`
 - 封装了常用的几种模板样式，使用更加简单便捷
 - 框架内默认适配深色模式显示
 
-#### 2019-12-26（V2.4.6）
+#### 2019-12-26（V2.4.6） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 添加支持动态更新属性 `title` 、 `selectDate`、`pickerMode` 的值
 - 日期选择器添加 `showWeek` 属性，及新增 `BRDatePickerModeMS` 日期类型
 - 优化选择器【用法二】的使用，新增选择器滚动选择时回调的属性
 
-#### 2019-11-28（V2.4.5）
+#### 2019-11-28（V2.4.5） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 日期选择器新增选择 ”至今“ 和 显示 ”今天“ 的功能，见以下两个属性：
 
@@ -822,7 +822,7 @@ textPickerView.pickerStyle = customStyle;
 
   `addToNow`：控制是否添加选择 “至今”，默认为 NO
 
-#### 2019-11-26（V2.4.3）
+#### 2019-11-26（V2.4.3） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 日期选择器新增以下三种选择类型：
 
@@ -830,13 +830,13 @@ textPickerView.pickerStyle = customStyle;
 
 - 更新地址选择器地区数据源
 
-#### 2019-11-07（V2.4.2）
+#### 2019-11-07（V2.4.2） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 日期选择器添加：BRDatePickerModeYMDH（yyyy-MM-dd HH）类型
 - 地址选择器添加：selectIndexs 属性，可根据索引去设置默认选择
 - 适配横屏及刘海屏安全区域显示效果
 
-#### 2019-11-04（V2.4.0）
+#### 2019-11-04（V2.4.0） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 优化选择器子目录管理，方便轻量级、模块化集成
 
@@ -848,15 +848,15 @@ textPickerView.pickerStyle = customStyle;
 
   `pod 'BRPickerView/StringPickerView'`	// 仅集成字符串选择器的功能
 
-#### 2019-11-01（V2.3.8）
+#### 2019-11-01（V2.3.8） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 优化代码，添加更多的自定义样式属性
 
-#### 2019-10-30（V2.3.6）
+#### 2019-10-30（V2.3.6） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 优化代码，添加国际化支持
 
-#### 2019-10-26（V2.3.5）
+#### 2019-10-26（V2.3.5） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 添加传统的创建对象设置属性的使用方式
 - 开放设置选择器颜色及样式，适配深色模式
@@ -865,62 +865,64 @@ textPickerView.pickerStyle = customStyle;
 - 支持将子视图添加到选择器上（见BaseView.h文件，扩展二方法）
 - 优化代码，配置Pod库的层级目录
 
-#### 2018-04-27（V2.2.1）:
+#### 2018-04-27（V2.2.1）: <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 修复bug，适配iPad和横屏显示。
 - 优化代码，提高框架适应性，降低内存消耗。
 
-#### 2018-04-03（V2.2.0）
+#### 2018-04-03（V2.2.0） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 时间选择器新添加了7种显示类型（BRDatePickerMode），可根据自己项目的需求选择性使用。
 - 适配横屏，及 iPhoneX 底部安全区域。
 - 修改了最小时间和最大时间的参数名称（以前版本是传 NSString 类型， 现在传 NSDate 类型）
 - 修复比较时间大小时出现的bug。
 
-#### 2018-03-19（V2.1.3）
+#### 2018-03-19（V2.1.3） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 修改地址选择器确认选择后的回调参数。
 - 现修改如下：可通过省市区的模型获取省市区的 name（名称）、code（id）、index（索引）`resultBlock:^(BRProvinceModel *province, BRCityModel *city, BRAreaModel *area) {}`
 - 去掉第三方依赖库 `MJExtension` ，修改为手动解析地址数据源。
 
-#### 2018-03-11（V2.1.2）
+#### 2018-03-11（V2.1.2） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 重命名了Github用户名，更新项目相关的路径。（提示：pod之前的版本不受影响）
 
-#### 2018-02-28（V2.1.1）
+#### 2018-02-28（V2.1.1） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 修复某些情况下无法用bundle加载本地数据源（BRCity.plist）bug。
 
-#### 2018-01-26（V2.1.0）
+#### 2018-01-26（V2.1.0） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 给地址选择器添加了一个方法（见方法4），提供数据源参数，支持外部传入地区数据源。
 - 提示：要注意数据源格式，参考 BRCity.json。可以把 BRCity.json 文件的内容放到后台去维护，通过后台接口获取地区数据源（即 BRCity.json 文件的内容）。
 
-#### 2018-01-25（V2.0.0）
+#### 2018-01-25（V2.0.0） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 更新了地址数据源（BRCity.plist），地区信息是2018年最新最全的，与微信的地区信息完全一致。
 - 支持自定义默认选择地址（格式：@[@"浙江省", @"杭州市", @"西湖区"]），支持下次点击进入地址选择器时，默认地址为上次选择的结果。
 - 修改了日期选择器、地址选择器、字符串选择器的接口方法（删除了之前的方法2）。
 - 添加了地址选择器显示类型，支持3种显示：只显示省份、显示省份和城市、显示省市区。
 
-#### 2018-01-05（V1.3.0）
+#### 2018-01-05（V1.3.0） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 添加取消选择的回调方法（点击背景或取消按钮会执行 `cancelBlock` ）
 - 合并了字符串选择器 数组数据源和plist数据源对应的方法，`dataSource` 参数支持两种类型：
 
-#### 2018-01-02（V1.2.0）
+#### 2018-01-02（V1.2.0） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 添加支持自定义主题颜色的方法。
 
-#### 2017-11-26（V1.1.0）
+#### 2017-11-26（V1.1.0） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 更换第三方依赖库。
 - 用MJExtension 替换了 原来的YYModel，以前没有注意导入YYModel，同时又导入YYKit会导致重复导入而冲突（另外使用YYModel时，手动导入和pod导入 其中的头文件和方法名也不一样，所以很容易出错）。
 
-#### 2017-11-16（V1.0.0）
+#### 2017-11-16（V1.0.0） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 初始版本！
 
 # 许可证
 
 BRPickerView 使用 MIT 许可证，详情见 LICENSE 文件。
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

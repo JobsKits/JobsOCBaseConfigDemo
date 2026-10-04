@@ -1,4 +1,4 @@
-# Contribution Guidelines
+# <span id="前言">Contribution Guidelines</span>
 Texture is the most actively developed open source project at [Pinterest](https://www.pinterest.com) and is used extensively to deliver a world-class Pinner experience. This document is setup to ensure contributing to the project is easy and transparent.
 
 # Questions
@@ -24,11 +24,11 @@ Over time, exceptional community members from a much more diverse background wil
 
 Think you've found a bug or have a new feature to suggest? [Let us know](https://github.com/TextureGroup/Texture/issues/new)!
 
-## Where to Find Known Issues
+## Where to Find Known Issues <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 We use [GitHub Issues](https://github.com/texturegroup/texture/issues) for all bug tracking. We keep a close eye on this and try to make it clear when we have an internal fix in progress. Before filing a new issue, try to make sure your problem doesn't already exist.
 
-## Reporting New Issues
+## Reporting New Issues <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 1. Update to the most recent master release if possible. We may have already fixed your bug.
 2. Search for similar [issues](https://github.com/TextureGroup/Texture/issues). It's possible somebody has encountered this bug already.
 3. Provide a reduced test case that specifically shows the problem. This demo should be fully operational with the exception of the bug you want to demonstrate. The more pared down, the better. If it is not possible to produce a test case, please make sure you provide very specific steps to reproduce the error. If we cannot reproduce it, and there is no other evidence to help us figure out a fix we will close the issue.
@@ -38,7 +38,7 @@ We use [GitHub Issues](https://github.com/texturegroup/texture/issues) for all b
 
 The more information you provide, the easier it is for us to validate that there is a bug and the faster we'll be able to take action.
 
-## Issues Triaging
+## Issues Triaging <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 - You might be requested to provide a reproduction or extra information. In that case, the issue will be labeled as **N****eeds More Info**. If we did not get any response after fourteen days, we will ping you to remind you about it. We might close the issue if we do not hear from you after two weeks since the original notice.
 - If you submit a feature request as a GitHub issue, you will be invited to follow the instructions in this section otherwise the issue will be closed.
 - Issues that become inactive will be labelled accordingly to inform the original poster and Texture contributors that the issue should be closed since the issue is no longer actionable. The issue can be reopened at a later time if needed, e.g. becomes actionable again.
@@ -49,7 +49,7 @@ If you intend to change the public API, or make any non-trivial changes to the i
 
 If you're only fixing a bug, it's fine to submit a pull request right away, but we still recommend to file an issue detailing what you're fixing. This is helpful in case we don't accept that specific fix but want to keep track of the issue.
 
-## RFC Issue process
+## RFC Issue process <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 1. Texture has an RFC process for feature requests. To begin the discussion either gather feedback on the Texture Slack channel or draft an Texture RFC as a Github Issue.
 2. The title of the GitHub RFC Issue should have `[RFC]` as prefix: `[RFC] Add new cool feature`
 3. Provide a clear and detailed explanation of the feature you want and why it's important to add. Keep in mind that we want features that will be useful to the majority of our users and not just a small subset. If you're just targeting a minority of users, consider writing an add-on library for Texture.
@@ -62,11 +62,11 @@ In short, if you have an idea that would be nice to have, create an issue on the
 
 All work on Texture happens directly on [GitHub](https://github.com/TextureGroup/Texture). Both core team members and external contributors send pull requests which go through the same review process.
 
-## `master` is under active development
+## `master` is under active development <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 We will do our best to keep master in good shape, with tests passing at all times. But in order to move fast, we will make API changes that your application might not be compatible with. We will do our best to communicate these changes and version appropriately so you can lock into a specific version if need be.
 
-## Pull Requests
+## Pull Requests <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 If you send a pull request, please do it against the master branch. We maintain stable branches for major versions separately but we don't accept pull requests to them directly. Instead, we cherry-pick non-breaking changes from master to the latest stable major version.
 
@@ -259,3 +259,5 @@ Complete your CLA [here](https://cla-assistant.io/TextureGroup/Texture)
 # License
 
 By contributing to Texture, you agree that your contributions will be licensed under its Apache 2 license.
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

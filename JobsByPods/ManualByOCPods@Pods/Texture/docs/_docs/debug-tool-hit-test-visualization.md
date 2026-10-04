@@ -6,7 +6,7 @@ prevPage: corner-rounding.html
 nextPage: debug-tool-pixel-scaling.html
 ---
 
-## Visualize ASControlNode Tappable Areas
+## <span id="前言">Visualize ASControlNode Tappable Areas <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 <br>
 This debug feature adds a semi-transparent highlight overlay on any ASControlNodes containing a `target:action:` pair or gesture recognizer. The tappable range is defined as the ASControlNode’s frame + its `.hitTestSlop` `UIEdgeInsets`. Hit test slop is a unique feature of `ASControlNode` that allows it to extend its tappable range. 
 
@@ -19,11 +19,11 @@ In the screenshot below, you can quickly see that
 
 ![screen shot 2016-03-25 at 4 39 23 pm](https://cloud.githubusercontent.com/assets/3419380/14057034/e1e71450-f2b1-11e5-8091-3e6f22862994.png)
 
-## Restrictions
+## Restrictions <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 A _green_ border on the edge(s) of the highlight overlay indicates that that edge of the tapable area is restricted by one of it's superview's tapable areas. An _orange_ border on the edge(s) of the highlight overlay indicates that that edge of the tapable area is clipped by .clipsToBounds of a parent in its hierarchy. 
 
-## Usage
+## Usage <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 In your `AppDelegate.m` file, 
 <ul>
@@ -32,3 +32,5 @@ In your `AppDelegate.m` file,
 </ul>
 
 **Make sure to call this method before initializing any ASControlNodes - including ASButtonNodes, ASImageNodes, and ASTextNodes.**
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>
