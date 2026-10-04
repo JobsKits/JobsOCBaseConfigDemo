@@ -1,13 +1,13 @@
-## 以下所有参数的注释均可以在框架中找到，建议直接在框架中查看
+## <span id="前言">以下所有参数的注释均可以在框架中找到，建议直接在框架中查看 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
-## 目录
+## 目录 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 - 全局方法和属性
 - 局部（控制视图）属性
 - 链式语法说明
 
-## 全局方法和属性
+## 全局方法和属性 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-#### 一、`appDelegate`初始化方法列表
+#### 一、`appDelegate`初始化方法列表 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 | 初始化方法| 名称 | 
 | ------ | ------ | 
@@ -19,7 +19,7 @@
 - 初始化方法仅仅设置的是项目中全局的动画效果，默认动画内容颜色。
 - 设置`TABViewAnimated`中局部动画属性`superAnimationType`覆盖全局属性，在一个工程中兼容多种动画。
 
-#### 二、全局属性列表
+#### 二、全局属性列表 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 使用方法
 ```
@@ -47,7 +47,7 @@
 |animatedDurationBin|呼吸灯|持续时长|1.0|
 |dropAnimationDeepColor|豆瓣动画|豆瓣动画变色值|0xE1E1E1|
 
-## 局部（控制视图）属性
+## 局部（控制视图）属性 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 **使用方法**
 
 ```
@@ -67,7 +67,7 @@ _tableView.tabAnimated.xxx = xxx;
 |canLoadAgain| 通用|是否可以重复启动动画|NO|
 |animatedCount| 表格组件| 动画数量|单个section情况下，填满表格可视区域|
 
-## 链式语法说明
+## 链式语法说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 | 链式函数名称 | 含义 | 
 | ------ |   ------ |
@@ -101,3 +101,4 @@ lastScale(x): 最后一行和原宽度的比例系数，默认值0.5
 注意，普通的动画元素也可以通过设置这三个属性，达到多行的特殊效果。
 - 每一个动画元素都可以设置`line(x)`达到多行的效果
 
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

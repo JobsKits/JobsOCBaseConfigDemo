@@ -19,11 +19,11 @@
 - 支持 Mock Transport；模拟器和无真机环境也能运行完整 Demo。
 - 本 Pod 面向 BLE，不承诺任意经典蓝牙、蓝牙音频或未经 MFi 授权的 ExternalAccessory 能力。
 
-## 二、架构
+## 二、架构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 流程图见[架构脉络与关键设计](#jobs-architecture-diagram-1)。
 
-## 三、DSL 快速开始
+## 三、DSL 快速开始 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 JobsBluetoothProfile *profile = JobsBluetoothProfile.new
@@ -43,41 +43,41 @@ JobsBluetoothManager *manager = [JobsBluetoothManager.alloc initWithProfile:prof
 [manager startScan];
 ```
 
-## 四、线程与生命周期
+## 四、线程与生命周期 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - [**CoreBluetooth**](https://developer.apple.com/documentation/corebluetooth) 回调由 Manager 收口，业务层不直接持有 `CBPeripheral`。
 - 业务回调默认投递到主队列，也可以通过 `byCallbackQueue` 指定。
 - 主动断开与异常断开拥有不同入口；自动重连策略应由 Profile 决定。
 - 配置 DSL 返回当前主对象；扫描、连接、发送等终止动作不伪造链式返回值。
 
-## 五、权限配置
+## 五、权限配置 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - App 的 `Info.plist` 至少配置 `NSBluetoothAlwaysUsageDescription`。
 - 兼容旧系统时同时配置 `NSBluetoothPeripheralUsageDescription`。
 - 需要后台 BLE 时，由宿主 App 在 Background Modes 中启用 `bluetooth-central`，Pod 不替宿主偷偷开启。
 
-## 六、扩展设备协议
+## 六、扩展设备协议 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - UUID 和连接策略写入 `JobsBluetoothProfile`。
 - 业务对象转字节写入 Encoder。
 - Notify 字节转业务对象写入 Decoder。
 - CRC、分包、加密和应答匹配作为独立策略注入，不写进 Manager。
 
-## 七、Demo 覆盖
+## 七、Demo 覆盖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Demo 覆盖权限、扫描、过滤、RSSI、连接、多设备、服务发现、Read、Write、Notify、MTU、分包、命令队列、超时、重试、重连、前后台、Profile、Codec、校验、握手、Mock、录制回放、诊断、DSL、OTA 扩展和未知协议占位。
 
 <a id="jobs-architecture"></a>
 
-## 八、架构脉络与关键设计
+## 八、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 8.1、设计目的与职责划分
+### 8.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 以 Manager 组织 BLE 扫描、单个当前连接、服务特征发现、读写和通知，Profile 描述 UUID 与编解码入口，Command 保存 payload 及扩展参数，MockTransport 提供模拟广告与回显。当前实现是基础传输骨架。
 
-### 8.2、运行脉络
+### 8.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 配置 Profile → 扫描并连接 → 发现服务和特征 → 写入 payload 并立即回报提交 → 独立接收 Notify 数据并解码
 
@@ -94,7 +94,7 @@ flowchart TD
     D --> F["Mock Transport"]
 ```
 
-### 8.3、关键设计与边界
+### 8.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - Command 虽有 timeout、retryCount、priority、responseMatcher 字段，当前 Manager 没有消费这些字段形成命令队列、超时重试或应答匹配；不能把参数预留写成已实现能力。
 - 真实发送在调用系统 writeValue 后立即回报空数据成功，不表示设备确认或业务响应成功；Notify 走独立的数据回调。
@@ -102,7 +102,7 @@ flowchart TD
 - ready 在发现特征回调中设置，业务还需确认所需特征及握手条件；Mock 回显成功不能替代真实协议验证。
 - 原文架构图表达分层意图，Demo 覆盖项不等于每项都在 Core 落地。重建可先完成现有路径，再明确设计队列、分包、重连等扩展。
 
-### 8.4、阅读与重建顺序
+### 8.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先读 Profile、Command 和状态定义，再逐步跟踪 Manager 的 scan/connect/send/Notify，最后看 MockTransport；补扩展时单独定义结束与错误语义。
 

@@ -15,7 +15,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 > 这份自述用于记录 `JobsOCProtocols` 在 Jobs 本地 [**CocoaPods**](https://cocoapods.org/) 体系里的职责边界、目录结构、依赖关系和验证方式。
 补充描述：JobsOCProtocols provides shared protocol definitions.
@@ -66,29 +66,29 @@ JobsOCProtocols@Pods/
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 5.1、公开头文件
+### 5.1、公开头文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsBaseProtocolHeader.h`
 - `Core/**/*.h`
 
-### 5.2、源码入口
+### 5.2、源码入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsBaseProtocolHeader.h`
 - `Core/**/*.{h,m,mm}`
 
-### 5.3、默认安装边界
+### 5.3、默认安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
 - `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 
-### 5.4、系统框架
+### 5.4、系统框架 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Foundation`
 - `UIKit`
 - `WebKit`
 - `PDFKit`
 
-### 5.5、Pod 依赖
+### 5.5、Pod 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsBlock`
 - `JobsOCDefs`
@@ -146,25 +146,25 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 十、架构脉络与关键设计
+## 十、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 10.1、设计目的与职责划分
+### 10.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 用协议组织视图、模型、控制器、手势、计时器与请求等模块的共同接口。协议表达调用双方的约定，实际存储和行为由遵循协议的类或分类完成。
 
-### 10.2、运行脉络
+### 10.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 消费方依赖协议 → 具体类型声明遵循 → 类/分类实现约定 → 通过统一接口协作。
 
-### 10.3、关键设计与边界
+### 10.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 协议声明属性不会自动生成存储或 getter/setter，尤其不能把 @dynamic 当作已实现。
 - 公共协议组合与具体业务协议要分开，避免为了少量方法引入全部上层依赖。
 - 可选方法、回调签名和返回类型影响运行时调用安全。
 
-### 10.4、阅读与重建顺序
+### 10.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先选目标领域协议，再追踪真实实现者与调用方；重建时逐项落实协议，而不是只生成头文件。
 

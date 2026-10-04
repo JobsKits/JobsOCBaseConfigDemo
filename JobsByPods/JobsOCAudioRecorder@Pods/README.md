@@ -1,4 +1,4 @@
-# JobsOCAudioRecorder
+# <span id="前言">JobsOCAudioRecorder</span>
 
 > 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
 
@@ -11,15 +11,15 @@
 
 <a id="jobs-architecture"></a>
 
-## 一、架构脉络与关键设计
+## 一、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 1.1、设计目的与职责划分
+### 1.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 将录音引擎、录音文件记录/存储、播放与圆形快门组织在独立组件中。引擎控制系统音频对象，Store 管理文件，快门将按住、松开和移出手势转为录制动作。
 
-### 1.2、运行脉络
+### 1.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 准备录音权限和会话 → 按住开始录制 → 计时更新快门 → 松开保存或移出取消 → Store 管理文件并供播放。
 
@@ -37,13 +37,13 @@ flowchart TD
     F --> I["存储管理或试听"]
 ```
 
-### 1.3、关键设计与边界
+### 1.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 短录音最短有效时长默认 3 秒；不足时先 onCancel 清理临时文件，再 onTooShort 通知业务。
 - 取消与正常停止保存不同，不能保留已取消的临时录音。
 - 短录音计时依赖 JobsOCTimer，Demo 布局与业务提示留在宿主。
 
-### 1.4、阅读与重建顺序
+### 1.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看录音记录和 Store，再看引擎协议与快门事件；重建时先明确文件何时创建、保存和删除。
 
@@ -52,3 +52,5 @@ flowchart TD
 - [Core/JobsOCAudioRecorder.h](<./Core/JobsOCAudioRecorder.h>)
 
 依赖与编译入口：[JobsOCAudioRecorder.podspec](<./JobsOCAudioRecorder.podspec>)。其中显式依赖声明包括 `JobsOCTimer`、`JobsOCDSL`、`JobsBlock`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

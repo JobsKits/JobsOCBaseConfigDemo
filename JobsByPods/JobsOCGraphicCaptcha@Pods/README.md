@@ -8,7 +8,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 > `JobsOCGraphicCaptcha` 是 Jobs 本地 [**CocoaPods**](https://cocoapods.org/) 体系里的图形验证码 Pod，负责字符池、随机验证码文本、大小写校验策略和验证码绘制视图。
 
@@ -105,25 +105,25 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 八、架构脉络与关键设计
+## 八、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 8.1、设计目的与职责划分
+### 8.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 把字符配置、验证码生成和图形显示分成三层。Config 决定长度、大小写及字符分组，Generator 生成待验证内容，View 负责展示与刷新，DSL 提供便捷配置。
 
-### 8.2、运行脉络
+### 8.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 选择字符集与长度 → 生成验证码 → 绘制显示 → 接收输入并按配置比较 → 需要时刷新。
 
-### 8.3、关键设计与边界
+### 8.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 简体与繁体字符池独立维护，兼容中文入口会合并两者。
 - 混合字符组与自定义字符组不等同于简单字符拼接，重建时需明确抽样规则。
 - 本地验证码展示不能替代服务端验证与防滥用策略。
 
-### 8.4、阅读与重建顺序
+### 8.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先读 Config 与字符单元，再看 Generator，最后连接 View；重建时先保证生成和比较使用同一规则。
 

@@ -15,7 +15,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 > 这份自述用于记录 `JobsOCDefs` 在 Jobs 本地 [**CocoaPods**](https://cocoapods.org/) 体系里的职责边界、目录结构、依赖关系和验证方式。
 补充描述：JobsOCDefs provides shared macros, constants and base definitions.
@@ -70,29 +70,29 @@ JobsOCDefs@Pods/
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 5.1、公开头文件
+### 5.1、公开头文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsDefines.h`
 - `Core/**/*.h`
 - `MacroDef_Font.h` 使用 `UIFontSystemFontOfSizeAndWeight(fontSize, weight)` 承接任意 `UIFontWeight`；`UIFontWeightUltraLightSize(...)` 至 `UIFontWeightBlackSize(...)` 等标准字重快捷入口继续保留，并统一复用该基础封装。
 - `UIFontMonospacedDigitSystemWeight*Size(...)` 只封装等宽数字管线；`UIFontMonospacedSystemWeight*Size(...)` 从 iOS 13 / watchOS 6 起封装完整等宽系统字体管线，二者不能互相代替。
 
-### 5.2、源码入口
+### 5.2、源码入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsDefines.h`
 - `Core/**/*.{h,m,mm}`
 
-### 5.3、默认安装边界
+### 5.3、默认安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
 - `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 
-### 5.4、系统框架
+### 5.4、系统框架 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Foundation`
 - `UIKit`
 
-### 5.5、Pod 依赖
+### 5.5、Pod 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `XYColorOC`
 - `YTKNetwork`
@@ -150,25 +150,25 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 十、架构脉络与关键设计
+## 十、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 10.1、设计目的与职责划分
+### 10.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 集中维护常量、枚举、属性/协议辅助宏等公共定义，供多个 Pod 使用同一套名称和类型。它主要是编译期约定与少量常量定义，不是执行流程的统一管理器。
 
-### 10.2、运行脉络
+### 10.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 确定公共语义 → 通过聚合头引入定义 → 各 Pod 以相同类型/常量实现功能。
 
-### 10.3、关键设计与边界
+### 10.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 宏展开可能包含声明或关联属性实现，不能只把宏名当作普通函数。
 - 枚举值和常量字符串可能被持久化或跨模块传递，重建时不能无意改变值。
 - 底层定义应控制对上层业务的依赖，防止循环引入。
 
-### 10.4、阅读与重建顺序
+### 10.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先按常量、枚举、属性和协议宏分组，再查看实际使用点；优先还原被依赖的最小定义集合。
 

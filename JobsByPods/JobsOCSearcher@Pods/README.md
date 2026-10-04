@@ -61,23 +61,23 @@ JobsOCSearcher@Pods/
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 5.1、公开头文件
+### 5.1、公开头文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsOCSearcher.h`
 - `Core/**/*.h`
 
-### 5.2、源码入口
+### 5.2、源码入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsOCSearcher.h`
 - `Core/**/*.{h,m,mm}`
 - `Support/**/*.{h,m,mm}`
 
-### 5.3、系统框架
+### 5.3、系统框架 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Foundation`
 - `UIKit`
 
-### 5.4、Pod 依赖
+### 5.4、Pod 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Masonry`（组件布局和动态约束更新）
 - `JobsBlock`
@@ -142,7 +142,7 @@ pod install --no-repo-update
 - 组件的搜索框、推荐区、历史标题和 Cell 约束统一使用 `Masonry`，不直接创建系统 `NSLayoutConstraint`。
 - 组件内部只负责展示和记录搜索词，真正搜索结果、网络请求、页面跳转由业务侧通过回调自行处理。
 
-## 明暗主题契约
+## 明暗主题契约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
@@ -150,25 +150,25 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 十、架构脉络与关键设计
+## 十、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 10.1、设计目的与职责划分
+### 10.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 把搜索输入、推荐词和本地历史集中到一个可配置视图。Config 决定文案、历史存储键、容量和回调，View 负责显示与交互，实际搜索请求留给宿主。
 
-### 10.2、运行脉络
+### 10.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 输入或点选词条 → 分发文本变化/确认事件 → 按规则更新历史 → 宿主执行搜索 → 可删除单项或清空历史。
 
-### 10.3、关键设计与边界
+### 10.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 文本变化、确认搜索和点击词条是不同回调，避免同时触发重复请求。
 - historyStorageKey 决定历史隔离范围，maxHistoryCount 决定展示/保存容量。
 - 取消时是否收键盘可配置，删除历史与清空历史也有独立事件。
 
-### 10.4、阅读与重建顺序
+### 10.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看 Config 的事件与存储策略，再看 View 的输入、历史更新和重载路径。
 

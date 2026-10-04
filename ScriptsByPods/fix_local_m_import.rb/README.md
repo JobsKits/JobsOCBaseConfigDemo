@@ -6,7 +6,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 `fix_local_m_import.rb` 是一个面向 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 工程的 [**Ruby**](https://www.ruby-lang.org) 小工具，用来批量修复 `.m` / `.mm` 文件里错误写成尖括号形式的本地头文件引用。
 
@@ -47,7 +47,7 @@
 
 ## 三、运行方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 3.1、先做语法检查
+### 3.1、先做语法检查 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 ruby -c fix_local_m_import.rb
@@ -59,7 +59,7 @@ ruby -c fix_local_m_import.rb
 Syntax OK
 ```
 
-### 3.2、先 dry-run 预览
+### 3.2、先 dry-run 预览 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 ruby fix_local_m_import.rb "<path-to>/your/project" --dry-run
@@ -72,7 +72,7 @@ ruby fix_local_m_import.rb "<path-to>/your/project" --dry-run
 changed_files=1, changed_imports=1
 ```
 
-### 3.3、确认后正式修复
+### 3.3、确认后正式修复 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 ruby fix_local_m_import.rb "<path-to>/your/project"
@@ -85,7 +85,7 @@ ruby fix_local_m_import.rb "<path-to>/your/project"
 changed_files=1, changed_imports=1
 ```
 
-### 3.4、不传路径时的默认行为
+### 3.4、不传路径时的默认行为 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 ruby fix_local_m_import.rb --dry-run
@@ -154,7 +154,7 @@ flowchart TD
 
 ## 七、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 7.1、为什么有些 `#import <A/B.h>` 没有被改？
+### 7.1、为什么有些 `#import <A/B.h>` 没有被改？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 因为脚本只取 `File.basename(import_path)`，也就是只看 `B.h`。只有当前 `.m` / `.mm` 同目录真实存在 `B.h`，才会替换成：
 
@@ -162,11 +162,11 @@ flowchart TD
 #import "B.h"
 ```
 
-### 7.2、为什么不是全部尖括号 import 都替换？
+### 7.2、为什么不是全部尖括号 import 都替换？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 这是正确的。系统库、第三方 framework、Pod 暴露头文件很多都应该继续用尖括号，不能乱改。
 
-### 7.3、怎么确认具体改了什么？
+### 7.3、怎么确认具体改了什么？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 正式执行后看 Git diff：
 
@@ -174,7 +174,7 @@ flowchart TD
 git diff -- '*.m' '*.mm'
 ```
 
-### 7.4、怎么回滚？
+### 7.4、怎么回滚？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 如果工程在 Git 管理下，可以按文件回滚：
 

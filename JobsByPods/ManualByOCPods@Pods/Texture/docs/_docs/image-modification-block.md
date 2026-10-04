@@ -45,7 +45,7 @@ backgroundImageNode.image = someImage
 
 The image named "someImage" will now be blurred asynchronously before being assigned to the imageNode to be displayed.
 
-### Adding image effects
+### <span id="前言">Adding image effects <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 The most efficient way to add image effects is by leveraging the `imageModificationBlock` block. If a block is provided it can perform drawing operations on the image during the display phase. As display is happening on a background thread it will not block the main thread.
 
@@ -150,3 +150,5 @@ extension UIImage {
 </div>
 
 The imageModificationBlock is very handy and can be used to add all kind of image effects, such as rounding, adding borders, or other pattern overlays, without extraneous display calls.
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -14,13 +14,13 @@
 
 ## 一、用途 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 1.1、适用场景
+### 1.1、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - Demo、业务页、组件页需要稳定的月历视图，同时希望避免横竖屏、宽度变化、异步刷新导致的日历错位。
 - 业务层需要通过 `JobsOCCalendarDataSource`、`JobsOCCalendarDelegate` 和 `JobsOCCalendarAppearance` 配置标题、副标题、日期范围、选中态和外观。
 - 需要把日历能力收口成 Jobs 自己可控、可审计、可继续扩展的本地 Pod。
 
-### 1.2、能力边界
+### 1.2、能力边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsOCCalendar` 继承 `UIView`，内部固定 7 列、最多 6 行日期格，年月标题始终按自身 bounds 居中。
 - `JobsOCCalendar` 的目标是替代旧日历入口；后续新能力应继续落在 Jobs 自己的 API 和实现里。
@@ -64,7 +64,7 @@ JobsOCCalendar@Pods
 
 ## 四、公开能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 4.1、引用方式
+### 4.1、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 #if __has_include(<JobsOCCalendar/JobsOCCalendarHeader.h>)
@@ -74,7 +74,7 @@ JobsOCCalendar@Pods
 #endif
 ```
 
-### 4.2、创建入口
+### 4.2、创建入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 JobsOCCalendar *calendar = jobsMakeJobsOCCalendar(^(__kindof JobsOCCalendar * _Nullable calendar) {
@@ -85,7 +85,7 @@ JobsOCCalendar *calendar = jobsMakeJobsOCCalendar(^(__kindof JobsOCCalendar * _N
 });
 ```
 
-### 4.3、稳定性 API
+### 4.3、稳定性 API <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 | API | 说明 |
 | --- | --- |
@@ -120,7 +120,7 @@ pod install --no-repo-update
 - `JobsOCCalendarDayCell` 是 `UIControl` 子类，点按通过 `onJobsTap` Block 链式入口绑定，不使用按钮专属 `onClickBy`。
 - 如果业务页仍然给日历设置大于屏幕的固定宽度，JobsOCCalendar 会尽量稳定内部布局，但正确做法仍然是让外层约束限制在 safe area / 父视图宽度内。
 
-## 明暗主题契约
+## 明暗主题契约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
@@ -128,25 +128,25 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 八、架构脉络与关键设计
+## 八、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 8.1、设计目的与职责划分
+### 8.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 由日历容器、日期 Cell、Appearance 和公共定义组成自研日历。容器根据 Calendar、当前页和 scope 组织日期，数据源提供内容，delegate 接收选择和页面变化，外观对象统一样式。
 
-### 8.2、运行脉络
+### 8.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 确定月份/周范围 → 生成日期单元 → 应用占位和外观 → 响应滚动或日期选择 → 更新页与选择集合。
 
-### 8.3、关键设计与边界
+### 8.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 当前页、今天与已选日期是不同状态。
 - 多选、滑动选择和占位日期策略分别影响交互与布局。
 - 月份变化可能影响高度，bounds 变化后的布局失效与 reload 策略需按配置处理。
 
-### 8.4、阅读与重建顺序
+### 8.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看 scope/placeholder 定义和容器公开接口，再看 DayCell/Appearance；先重建日期模型，再重建布局与选择。
 

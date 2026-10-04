@@ -4,11 +4,11 @@ description: "any input (code, docs, papers, images) → knowledge graph → clu
 trigger: /graphify
 ---
 
-# /graphify
+# <span id="前言">/graphify</span>
 
 Turn any folder of files into a navigable knowledge graph with community detection, an honest audit trail, and three outputs: interactive HTML, GraphRAG-ready JSON, and a plain-language GRAPH_REPORT.md.
 
-## Usage
+## Usage <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```
 /graphify                                             # full pipeline on current directory → Obsidian vault
@@ -34,7 +34,7 @@ Turn any folder of files into a navigable knowledge graph with community detecti
 /graphify explain "SwinTransformer"                   # plain-language explanation of a node
 ```
 
-## What graphify is for
+## What graphify is for <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 graphify is built around Andrej Karpathy's /raw folder workflow: drop anything into a folder - papers, tweets, screenshots, code, notes - and get a structured knowledge graph that shows you what you didn't know was connected.
 
@@ -49,7 +49,7 @@ Use it for:
 - A research corpus (citation graph + concept graph in one)
 - Your personal /raw folder (drop everything in, let it grow, query it)
 
-## What You Must Do When Invoked
+## What You Must Do When Invoked <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 If the user invoked `/graphify --help` or `/graphify -h` (with no other arguments), print the contents of the `## Usage` section above verbatim and stop. Do not run any commands, do not detect files, do not default the path to `.`. Just print the Usage block and return.
 
@@ -59,7 +59,7 @@ If `graphify-out/` exists, use `graphify query`, `graphify explain`, or `graphif
 
 Follow these steps in order. Do not skip steps.
 
-### Step 1 - Ensure graphify is installed
+### Step 1 - Ensure graphify is installed <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```bash
 # Detect the correct Python interpreter (handles pipx, venv, system installs)
@@ -81,7 +81,7 @@ If the import succeeds, print nothing and move straight to Step 2.
 
 **In every subsequent bash block, replace `python3` with `$(cat .graphify_python)` to use the correct interpreter.**
 
-### Step 2 - Detect files
+### Step 2 - Detect files <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```bash
 $(cat .graphify_python) -c "
@@ -112,7 +112,7 @@ Then act on it:
 - If `total_words` > 2,000,000 OR `total_files` > 200: show the warning and the top 5 subdirectories by file count, then ask which subfolder to run on. Wait for the user's answer before proceeding.
 - Otherwise: proceed directly to Step 2.5 if video files were detected, or Step 3 if not.
 
-### Step 2.5 - Transcribe video / audio files (only if video files detected)
+### Step 2.5 - Transcribe video / audio files (only if video files detected) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Skip this step entirely if `detect` returned zero `video` files.
 
@@ -156,7 +156,7 @@ After transcription:
 
 **Whisper model:** Default is `base`. If the user passed `--whisper-model <name>`, set `GRAPHIFY_WHISPER_MODEL=<name>` in the environment before running the command above.
 
-### Step 3 - Extract entities and relationships
+### Step 3 - Extract entities and relationships <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 **Before starting:** note whether `--mode deep` was given. You must pass `DEEP_MODE=true` to every subagent in Step B2 if it was. Track this from the original invocation - do not lose it.
 
@@ -166,7 +166,7 @@ This step has two parts: **structural extraction** (deterministic, free) and **s
 
 Note: Parallelizing AST + semantic saves 5-15s on large corpora. AST is deterministic and fast; start it while subagents are processing docs/papers.
 
-#### Part A - Structural extraction for code files
+#### Part A - Structural extraction for code files <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 For any code files detected, run AST extraction in parallel with Part B subagents:
 
@@ -192,7 +192,7 @@ else:
 "
 ```
 
-#### Part B - Semantic extraction (parallel subagents)
+#### Part B - Semantic extraction (parallel subagents) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 **Fast path:** If detection found zero docs, papers, and images (code-only corpus), skip Part B entirely and go straight to Part C. AST handles code - there is nothing for semantic subagents to do.
 
@@ -393,7 +393,7 @@ print(f'Extraction complete - {len(deduped)} nodes, {len(all_edges)} edges ({len
 ```
 Clean up temp files: `rm -f .graphify_cached.json .graphify_uncached.txt .graphify_semantic_new.json`
 
-#### Part C - Merge AST + semantic into final extraction
+#### Part C - Merge AST + semantic into final extraction <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```bash
 $(cat .graphify_python) -c "
@@ -429,7 +429,7 @@ print(f'Merged: {total} nodes, {edges} edges ({len(ast[\"nodes\"])} AST + {len(s
 "
 ```
 
-### Step 4 - Build graph, cluster, analyze, generate outputs
+### Step 4 - Build graph, cluster, analyze, generate outputs <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```bash
 mkdir -p graphify-out
@@ -479,7 +479,7 @@ If this step prints `ERROR: Graph is empty`, stop and tell the user what happene
 
 Replace INPUT_PATH with the actual path.
 
-### Step 5 - Label communities
+### Step 5 - Label communities <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Read `.graphify_analysis.json`. For each community key, look at its node labels and write a 2-5 word plain-language name (e.g. "Attention Mechanism", "Training Pipeline", "Data Loading").
 
@@ -519,7 +519,7 @@ print('Report updated with community labels')
 Replace `LABELS_DICT` with the actual dict you constructed (e.g. `{0: "Attention Mechanism", 1: "Training Pipeline"}`).
 Replace INPUT_PATH with the actual path.
 
-### Step 6 - Generate Obsidian vault (opt-in) + HTML
+### Step 6 - Generate Obsidian vault (opt-in) + HTML <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 **Generate HTML always** (unless `--no-viz`). **Obsidian vault only if `--obsidian` was explicitly given** — skip it otherwise, it generates one file per node.
 
@@ -579,7 +579,7 @@ else:
 "
 ```
 
-### Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag)
+### Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 **If `--neo4j`** - generate a Cypher file for manual import:
 
@@ -618,7 +618,7 @@ print(f'Pushed to Neo4j: {result[\"nodes\"]} nodes, {result[\"edges\"]} edges')
 
 Replace `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD` with actual values. Default URI is `bolt://localhost:7687`, default user is `neo4j`. Uses MERGE - safe to re-run without creating duplicates.
 
-### Step 7b - SVG export (only if --svg flag)
+### Step 7b - SVG export (only if --svg flag) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```bash
 $(cat .graphify_python) -c "
@@ -640,7 +640,7 @@ print('graph.svg written - embeds in Obsidian, Notion, GitHub READMEs')
 "
 ```
 
-### Step 7c - GraphML export (only if --graphml flag)
+### Step 7c - GraphML export (only if --graphml flag) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```bash
 $(cat .graphify_python) -c "
@@ -660,7 +660,7 @@ print('graph.graphml written - open in Gephi, yEd, or any GraphML tool')
 "
 ```
 
-### Step 7d - MCP server (only if --mcp flag)
+### Step 7d - MCP server (only if --mcp flag) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```bash
 python3 -m graphify.serve graphify-out/graph.json
@@ -680,7 +680,7 @@ To configure in Claude Desktop, add to `claude_desktop_config.json`:
 }
 ```
 
-### Step 8 - Token reduction benchmark (only if total_words > 5000)
+### Step 8 - Token reduction benchmark (only if total_words > 5000) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 If `total_words` from `.graphify_detect.json` is greater than 5,000, run:
 
@@ -700,7 +700,7 @@ Print the output directly in chat. If `total_words <= 5000`, skip silently - the
 
 ---
 
-### Step 9 - Save manifest, update cost tracker, clean up, and report
+### Step 9 - Save manifest, update cost tracker, clean up, and report <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```bash
 $(cat .graphify_python) -c "
@@ -772,7 +772,7 @@ The graph is the map. Your job after the pipeline is to be the guide.
 
 ---
 
-## For --update (incremental re-extraction)
+## For --update (incremental re-extraction) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Use when you've added or modified files since the last run. Only re-extracts changed files - saves tokens and time.
 
@@ -891,7 +891,7 @@ Clean up after: `rm -f .graphify_old.json`
 
 ---
 
-## For --cluster-only
+## For --cluster-only <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Skip Steps 1–3. Load the existing graph from `graphify-out/graph.json` and re-run clustering:
 
@@ -938,7 +938,7 @@ Then run Steps 5–9 as normal (label communities, generate viz, benchmark, clea
 
 ---
 
-## For /graphify query
+## For /graphify query <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Two traversal modes - choose based on the question:
 
@@ -1065,7 +1065,7 @@ Replace `QUESTION` with the question, `ANSWER` with your full answer text, `SOUR
 
 ---
 
-## For /graphify path
+## For /graphify path <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Find the shortest path between two named concepts in the graph.
 
@@ -1138,7 +1138,7 @@ $(cat .graphify_python) -m graphify save-result --question "Path from NODE_A to 
 
 ---
 
-## For /graphify explain
+## For /graphify explain <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Give a plain-language explanation of a single node - everything connected to it.
 
@@ -1204,7 +1204,7 @@ $(cat .graphify_python) -m graphify save-result --question "Explain NODE_NAME" -
 
 ---
 
-## For /graphify add
+## For /graphify add <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Fetch a URL and add it to the corpus, then update the graph.
 
@@ -1237,7 +1237,7 @@ Supported URL types (auto-detected):
 
 ---
 
-## For --watch
+## For --watch <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Start a background watcher that monitors a folder and auto-updates the graph when files change.
 
@@ -1258,7 +1258,7 @@ For agentic workflows: run `--watch` in a background terminal. Code changes from
 
 ---
 
-## For git commit hook
+## For git commit hook <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Install a post-commit hook that auto-rebuilds the graph after every commit. No background process needed - triggers once per commit, works with any editor.
 
@@ -1274,7 +1274,7 @@ If a post-commit hook already exists, graphify appends to it rather than replaci
 
 ---
 
-## For native CLAUDE.md integration
+## For native CLAUDE.md integration <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Run once per project to make graphify always-on in Claude Code sessions:
 
@@ -1290,10 +1290,12 @@ graphify claude uninstall  # remove the section
 
 ---
 
-## Honesty Rules
+## Honesty Rules <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - Never invent an edge. If unsure, use AMBIGUOUS.
 - Never skip the corpus check warning.
 - Always show token cost in the report.
 - Never hide cohesion scores behind symbols - show the raw number.
 - Never run HTML viz on a graph with more than 5,000 nodes without warning the user.
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

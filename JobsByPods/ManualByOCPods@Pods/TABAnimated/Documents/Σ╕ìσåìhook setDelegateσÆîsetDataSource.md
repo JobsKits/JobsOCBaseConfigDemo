@@ -1,4 +1,4 @@
-## 不再hook setDelegate和setDataSource
+## <span id="前言">不再hook setDelegate和setDataSource <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 TABAnimated从起初的版本开始，为了对`UITableView `和`UICollectionView `进行弱管理，采取了hook的方式，其中包含UITableView和UICollectionView的`setDelegate`和`setDataSource`方法。
 
@@ -8,11 +8,11 @@ TABAnimated从起初的版本开始，为了对`UITableView `和`UICollectionVie
 
 在最新的版本中，将相关的代理方法的hook时机延迟到了目标视图第一次启动TABAnimated骨架屏的时候。
 
-## 适配自适应高度是如何做的？
+## 适配自适应高度是如何做的？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 **答：**实际上采用的是，为代理对象手动加入`heightForRowAtIndexPath`这一实例方法，让其在动画时，遵循指定高度规则，在动画结束后，遵循自动高度规则。
 
-#### 在此过程中发现了一个值得关注的问题
+#### 在此过程中发现了一个值得关注的问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 **答：**发现在进行addMethod，交换IMP地址，这些操作后，只有首次加载不走`heightForRowAtIndexPath`方法，也就是在第一次就没办法按照我们说好的规则运行：`在动画时，遵循指定高度规则，在动画结束后，遵循自动高度`。
 
@@ -26,3 +26,5 @@ TABAnimated从起初的版本开始，为了对`UITableView `和`UICollectionVie
 
 **结论：同xib/sb那个问题一样，xib/sb在切换源代理的时候，并不会走`setDelegate`和`setDataSource`方法。
 OC基于方法列表本身有一套缓存机制，在重新赋值delegate后，苹果工程师又对于UITableView/UICollectionView做了相应的调整。**
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

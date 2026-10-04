@@ -8,7 +8,7 @@ nextPage: network-image-node.html
 
 `ASImageNode` is the Texture equivalent to `UIImageView`.  The most basic difference is that images are decoded asynchronously by default.  Of course, there are more advanced improvements as well such as GIF support and `imageModificationBlock`s.
 
-### Basic Usage
+### <span id="前言">Basic Usage <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 Using an image node works exactly like using an image view.  
 
@@ -33,7 +33,7 @@ imageNode.contentMode = .scaleAspectFill
 </div>
 
 
-### Image transformations and effects
+### Image transformations and effects <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Many times, operations that would affect the appearance of an image you're displaying are big sources of main thread work. Naturally, you want to move these to a background thread.
 
@@ -41,7 +41,7 @@ By assigning an `imageModificationBlock` to your `imageNode`, you can define a s
 
 You can read more about it at <a href="image-modification-block.html">Image Modification Blocks</a>.
 
-### Image Cropping
+### Image Cropping <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 When an `imageNode`'s `contentMode` property is set to `UIViewContentModeScaleAspectFill`, it will automatically expand the image to fill the entire area of the imageNode, and crop any areas that go past the bounds due to scaling the image.
 
@@ -75,16 +75,18 @@ Alternatively, you can set the `x` value of the origin to `1.0` to right align t
 
 <img width = "300" src = "/static/images/catsButt.png"/>
 
-### Forced  Upscaling
+### Forced  Upscaling <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 By default, an image won't be upscaled on the CPU when it is too small to fit into the bounds of the `imageNode` it has been set on.
 
 You can set `forceUpscaling` to `YES` if you'd like to change this fact.  Doing so means your app will take up more memory any time you use an image that is smaller than its destination.
 
-### Detecting Image Scaling
+### Detecting Image Scaling <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 By using the <a href = "debug-tool-pixel-scaling.html">pixel scaling tool</a>, you can easily check each image in your app to see how much it has been scaled up or down.
 
 If images are too big, you risk rendering excessive amounts of image data, and when they're too small you spend time upscaling a low quality image.
 
 If you control your API, consider returning correctly scaled images so that this work can be avoided.
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

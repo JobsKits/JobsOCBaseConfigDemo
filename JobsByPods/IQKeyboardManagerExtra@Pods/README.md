@@ -15,7 +15,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 > 这份自述用于记录 `IQKeyboardManagerExtra` 在 Jobs 本地 [**CocoaPods**](https://cocoapods.org/) 体系里的职责边界、目录结构、依赖关系和验证方式。
 
@@ -64,27 +64,27 @@ IQKeyboardManagerExtra@Pods/
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 5.1、公开头文件
+### 5.1、公开头文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `IQKeyboardManagerExtra.h`
 - `Core/**/*.h`
 
-### 5.2、源码入口
+### 5.2、源码入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `IQKeyboardManagerExtra.h`
 - `Core/**/*.{h,m,mm}`
 
-### 5.3、默认安装边界
+### 5.3、默认安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
 - `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 
-### 5.4、系统框架
+### 5.4、系统框架 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Foundation`
 - `UIKit`
 
-### 5.5、Pod 依赖
+### 5.5、Pod 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `IQKeyboardManager`
 - `JobsBlock`
@@ -140,24 +140,24 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 十、架构脉络与关键设计
+## 十、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 10.1、设计目的与职责划分
+### 10.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 把 IQKeyboardManager 的启用、点击外部收键盘、工具栏与输入距离等设置表达为 Jobs 链式接口。键盘避让和工具栏调度继续由 IQKeyboardManager 负责。
 
-### 10.2、运行脉络
+### 10.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 取得键盘管理器 → 设置启用与交互策略 → 配置工具栏和输入间距 → 上游响应键盘事件。
 
-### 10.3、关键设计与边界
+### 10.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 自动工具栏开关、工具栏管理行为和 placeholder 样式是独立设置。
 - 这些方法配置的是传入的管理器；作用范围取决于该管理器的使用方式，不能假定都是页面局部状态。
 
-### 10.4、阅读与重建顺序
+### 10.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先按开关、工具栏、距离三组阅读分类方法，再核对每个 Block 返回的管理器类型。
 

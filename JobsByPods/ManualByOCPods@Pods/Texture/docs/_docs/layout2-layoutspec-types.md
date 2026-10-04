@@ -23,7 +23,7 @@ The following `ASLayoutSpec` subclasses can be used to compose simple or very co
 
 You may also subclass <a href="layout2-layoutspec-types.html#aslayoutspec">`ASLayoutSpec`</a> in order to make your own, custom layout specs. 
 
-## ASWrapperLayoutSpec
+## <span id="前言">ASWrapperLayoutSpec <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 `ASWrapperLayoutSpec` is a simple `ASLayoutSpec` subclass that can wrap a `ASLayoutElement` and calculate the layout of the child based on the size set on the layout element. 
 
@@ -70,7 +70,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 </div>
 </div>
 
-## ASStackLayoutSpec (Flexbox Container)
+## ASStackLayoutSpec (Flexbox Container) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 Of all the layoutSpecs in Texture, `ASStackLayoutSpec` is the most useful and powerful. `ASStackLayoutSpec` uses the flexbox algorithm to determine the position and size of its children. Flexbox is designed to provide a consistent layout on different screen sizes. In a stack layout you align items in either a vertical or horizontal stack. A stack layout can be a child of another stack layout, which makes it possible to create almost any layout using a stack layout spec. 
 
 `ASStackLayoutSpec` has 7 properties in addition to its `<ASLayoutElement>` properties:
@@ -136,7 +136,7 @@ Flexbox works the same way in Texture as it does in CSS on the web, with a few e
 
 <br>
 
-## ASInsetLayoutSpec
+## ASInsetLayoutSpec <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 During the layout pass, the `ASInsetLayoutSpec` passes its `constrainedSize.max` `CGSize` to its child, after subtracting its insets. Once the child determines it's final size, the inset spec passes its final size up as the size of its child plus its inset margin. Since the inset layout spec is sized based on the size of it's child, the child **must** have an instrinsic size or explicitly set its size. 
 
 <img src="/static/images/layoutSpec-types/ASInsetLayoutSpec-diagram.png" width="75%">
@@ -172,7 +172,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 </div>
 </div>
 
-## ASOverlayLayoutSpec
+## ASOverlayLayoutSpec <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 `ASOverlayLayoutSpec` lays out its child (blue), stretching another component on top of it as an overlay (red). 
 
 <img src="/static/images/layoutSpec-types/ASOverlayLayouSpec-diagram.png" width="65%">
@@ -210,7 +210,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 </div>
 </div>
 
-## ASBackgroundLayoutSpec
+## ASBackgroundLayoutSpec <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 `ASBackgroundLayoutSpec` lays out a component (blue), stretching another component behind it as a backdrop (red). 
 
 <img src="/static/images/layoutSpec-types/ASBackgroundLayoutSpec-diagram.png" width="65%">
@@ -252,7 +252,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 
 Note: The order in which subnodes are added matters for this layout spec; the background object must be added as a subnode to the parent node before the foreground object. Using ASM does not currently guarantee this order!
 
-## ASCenterLayoutSpec
+## ASCenterLayoutSpec <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 `ASCenterLayoutSpec` centers its child within its max `constrainedSize`. 
 
 <img src="/static/images/layoutSpec-types/ASCenterLayoutSpec-diagram.png" width="65%">
@@ -292,7 +292,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 </div>
 </div>
 
-## ASRatioLayoutSpec
+## ASRatioLayoutSpec <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 `ASRatioLayoutSpec` lays out a component at a fixed aspect ratio which can scale. This spec **must** have a width or a height passed to it as a constrainedSize as it uses this value to scale itself. 
 
 <img src="/static/images/layoutSpec-types/ASRatioLayoutSpec-diagram.png" width="65%">
@@ -327,7 +327,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 </div>
 </div>
 
-## ASRelativeLayoutSpec
+## ASRelativeLayoutSpec <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 Lays out a component and positions it within the layout bounds according to vertical and horizontal positional specifiers. Similar to the “9-part” image areas, a child can be positioned at any of the 4 corners, or the middle of any of the 4 edges, as well as the center.
 
 This is a very powerful class, but too complex to cover in this overview. For more information, look into `ASRelativeLayoutSpec`'s `-calculateLayoutThatFits:` method + properties.
@@ -375,7 +375,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 </div>
 </div>
 
-## ASAbsoluteLayoutSpec
+## ASAbsoluteLayoutSpec <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 Within `ASAbsoluteLayoutSpec` you can specify exact locations (x/y coordinates) of its children by setting their `layoutPosition` property. Absolute layouts are less flexible and harder to maintain than other types of layouts.
 
 `ASAbsoluteLayoutSpec` has one property:
@@ -435,7 +435,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 </div>
 </div>
 
-## ASCornerLayoutSpec
+## ASCornerLayoutSpec <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 `ASCornerLayoutSpec` is a new convenient layout spec for fast corner element layout. The easy way to position an element in corner is to use declarative code expression rather than manual coordinate calculation, and ASCornerLayoutSpec can achieve this goal.
 
 <img src="/static/images/example-app-screenshots/ASCornerLayoutSpec.png" width="75%">
@@ -477,7 +477,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 </div>
 </div>
 
-## ASLayoutSpec
+## ASLayoutSpec <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 `ASLayoutSpec` is the main class from that all layout spec's are subclassed. It's main job is to handle all the children management, but it also can be used to create custom layout specs. Only the super advanced should want / need to create a custom subclasses of `ASLayoutSpec` though. Instead try to use provided layout specs and compose them together to create more advanced layouts.
 
 Another use of `ASLayoutSpec` is to be used as a spacer in a `ASStackLayoutSpec` with other children, when `.flexGrow` and/or `.flexShrink` is applied.
@@ -515,3 +515,5 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 </pre>
 </div>
 </div>
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -8,7 +8,7 @@ nextPage: layout2-layoutspec-types.html
 
 Check out the layout specs <a href="https://github.com/texturegroup/texture/tree/master/examples/LayoutSpecExamples">example project</a> to play around with the code below. 
 
-## Simple Header with Left and Right Justified Text
+## <span id="前言">Simple Header with Left and Right Justified Text <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 <img src="/static/images/layout-examples-simple-header-with-left-right-justified-text.png">
 
@@ -82,7 +82,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 
 Rotate the example project from portrait to landscape to see how the spacer grows and shrinks.
 
-## Photo with Inset Text Overlay
+## Photo with Inset Text Overlay <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 <img src="/static/images/layout-examples-photo-with-inset-text-overlay.png">
 
@@ -124,7 +124,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 </div>
 </div>
 
-## Photo with Outset Icon Overlay
+## Photo with Outset Icon Overlay <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 <img src="/static/images/layout-examples-photo-with-outset-icon-overlay.png">
 
@@ -160,7 +160,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 
 
 
-## Simple Inset Text Cell
+## Simple Inset Text Cell <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 <img src="/static/images/layout-examples-simple-inset-text-cell.png" width="40%">
 
@@ -198,7 +198,7 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
 </div>
 </div>
 
-## Top and Bottom Separator Lines
+## Top and Bottom Separator Lines <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 <img src="/static/images/layout-examples-top-bottom-separator-line.png">
 
@@ -250,3 +250,5 @@ override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec
   </pre>
 </div>
 </div>
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

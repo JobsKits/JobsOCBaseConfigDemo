@@ -15,13 +15,13 @@ When it comes to corner rounding, many developers stick with CALayer's `.cornerR
 <li>Texture corner rounding methods</li>
 </ul>
 
-## CALayer's .cornerRadius is Expensive
+## <span id="前言">CALayer's .cornerRadius is Expensive <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 Why is `.cornerRadius` so expensive?  Use of CALayer's `.cornerRadius` property triggers offscreen rendering to perform the clipping operation on every frame - 60 FPS during scrolling - even if the content in that area isn't changing!  This means that the GPU has to switch contexts on every frame, between compositing the overall frame + additional passes for each use of `.cornerRadius`.  
 
 Importantly, these costs don't show up in the Time Profiler, because they affect work done by the CoreAnimation Render Server on your app's behalf.  This intensive thrash annihilates performance for a lot of devices.  On the iPhone 4, 4S, and 5 / 5C (along with comparable iPads / iPods), expect to see notably degraded performance.  On the iPhone 5S and newer, even if you can't see the impact directly, it will reduce headroom so that it takes less to cause a frame drop. 
 
-## Performant Corner Rounding Strategies
+## Performant Corner Rounding Strategies <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 There are only three things to consider when picking a corner rounding strategy:
 
@@ -51,7 +51,7 @@ The final consideration is to determine if all four corners cover the same node 
 
 <img src="/static/images/corner-rounding-overlap.png" width="60%" height="60%">
 
-### Precomposited Corners
+### Precomposited Corners <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Precomposited corners refer to corners drawn using bezier paths to clip the content in a CGContext / UIGraphicsContext (`[path clip]`).  In this scenario, the corners become part of the image itself — and are "baked in" to the single CALayer.  There are two types of precomposited corners. 
 
@@ -67,7 +67,7 @@ Note that Texture nodes have a special optimization of `.cornerRadius` that auto
 If you're looking for a simple, flat-color rounded rectangle or circle, Texture offers a variety of conveniences to provide this.  See `UIImage+ASConveniences.h` for methods to create flat-colored, rounded-corner resizable images using precomposited corners (both alpha and opaque are supported). These are great for use as placeholders for image nodes or backgrounds for ASButtonNode.
 </div>
 
-### Clip Corner
+### Clip Corner <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 This strategy involves placing **4 seperate opaque corners that sit on top of the content** that needs corner rounding.  This method is flexible and has quite good performance.  It has minor CPU overhead of 4 seperate layers, one layer for each corner. 
 
@@ -80,29 +80,29 @@ Clip corners applies to two main types of corner rounding situations:
 <li>Rounded corners on top of a stationary texture or photo background.  The photo clip corner method is tricky, but useful!</li>
 </ul>
 
-## Is it ever okay to use CALayer's .cornerRadius property?
+## Is it ever okay to use CALayer's .cornerRadius property? <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 There are a few, quite rare cases in which it is appropriate to use `.cornerRadius.` These include when there is dynamic content moving _both_ through the inside and underneath the corner.  For certain animations, this is impossible to avoid.  However, in many cases, it is easy to adjust your design to eliminate one of the sources of movement.  One such case was discussed in the section on corner movement.
 
 It is much less bad, and okay as a shortcut, to use `.cornerRadius.` for screens in which nothing moves.  However, *any* motion on the screen, even movement that doesn't involve the corners, will cause the `.cornerRadius.` performance tax.  For example, having a rounded element in the navigation bar with a scrolling view beneath it will cause the impact even if they don't overlap.  Animating anything onscreen, even if the user doesn't interact, will as well.  Additionally, any type of screen refresh will incur the cost of corner rounding. 
 
-### Rasterization and Layerbacking
+### Rasterization and Layerbacking <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Some people have suggested that using CALayer's `.shouldRasterize` can improve the performance of the `.cornerRadius` property.  This is not well understood option that is generally perilous.  As long as nothing causes it to re-rasterize (no movement, no tap to change color, not on a table view that moves, etc), it is okay to use.  Generally we don't encourage this because it is very easy to cause much worse performance.  For people who have not great app architecture and insist on using CALayer's `.cornerRadius` (e.g. their app is not very performant), this _can_ make a meaningful difference.  However, if you are building your app from the ground up, we highly reccommend that you choose one of the better corner rounding strategies above. 
 
 CALayer's `.shouldRasterize` is unrelated to Texture `node.shouldRasterizeDescendents`. When enabled, `.shouldRasterizeDescendents` will prevent the actual view and layer of the subnode children from being created. 
 
-## Corner Rounding Strategy Flowchart
+## Corner Rounding Strategy Flowchart <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Use this flowchart to select the most performant strategy to round a set of corners.
 
 <img src="/static/images/corner-rounding-flowchart-v2.png" alt="corner rounding strategy flowchart">
 
-## Texture Support
+## Texture Support <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 The following code exemplifies different ways how to archive corner rounding within Texture:
 
-### Use `.cornerRadius`
+### Use `.cornerRadius` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 <div class = "highlight-group">
 <span class="language-toggle"><a data-lang="swift" class="swiftButton">Swift</a><a data-lang="objective-c" class = "active objcButton">Objective-C</a></span>
@@ -123,7 +123,7 @@ photoImageNode.cornerRadius = cornerRadius
 </div>
 
 
-### Use precomposition for rounding corners
+### Use precomposition for rounding corners <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 <div class = "highlight-group">
 <span class="language-toggle"><a data-lang="swift" class="swiftButton">Swift</a><a data-lang="objective-c" class = "active objcButton">Objective-C</a></span>
@@ -145,7 +145,7 @@ photoImageNode.cornerRadius = cornerRadius
 </div>
 
 
-### Use clipping for rounding corners
+### Use clipping for rounding corners <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 <div class = "highlight-group">
 <span class="language-toggle"><a data-lang="swift" class="swiftButton">Swift</a><a data-lang="objective-c" class = "active objcButton">Objective-C</a></span>
@@ -168,7 +168,7 @@ photoImageNode.cornerRadius = cornerRadius
 </div>
 
 
-### Use `willDisplayNodeContentWithRenderingContext` to set a clipping path for the content for rounding corners
+### Use `willDisplayNodeContentWithRenderingContext` to set a clipping path for the content for rounding corners <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 <div class = "highlight-group">
 <span class="language-toggle"><a data-lang="swift" class="swiftButton">Swift</a><a data-lang="objective-c" class = "active objcButton">Objective-C</a></span>
@@ -206,7 +206,7 @@ photoImageNode.willDisplayNodeContentWithRenderingContext = { context, drawParam
 </div>
 </div>
 
-### Use `ASImageNode` extras to round the image and add a border.
+### Use `ASImageNode` extras to round the image and add a border. <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 This is great for example to round avatar images.
 
@@ -225,3 +225,5 @@ photoImageNode.imageModificationBlock = ASImageNodeRoundBorderModificationBlock(
 </pre>
 </div>
 </div>
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -15,7 +15,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 > 这份自述用于记录 `JobsLanMgr` 在 Jobs 本地 [**CocoaPods**](https://cocoapods.org/) 体系里的职责边界、目录结构、依赖关系和验证方式。
 补充描述：JobsLanMgr provides language utilities and block helpers for Jobs projects, including NSString, NSBundle, NSObject categories, and other support classes.
@@ -68,28 +68,28 @@ JobsLanMgr@Pods/
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 5.1、公开头文件
+### 5.1、公开头文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsLanMgr.h`
 - `Core/**/*.h`
 
-### 5.2、源码入口
+### 5.2、源码入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsLanMgr.h`
 - `Core/**/*.{h,m,mm}`
 - `NSString+JobsLanMgr` 暴露 `.tr` 国际化入口和 `inStr(...)` 本地化忽略大小写包含判断入口；`.tr` 统一通过 `LanMgr.bundle` 取值，保证用户在 App 内切换语言后，全 App 后续文案刷新都基于当前 App 语言，而不是继续跟随系统语言。
 
-### 5.3、默认安装边界
+### 5.3、默认安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
 - `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 
-### 5.4、系统框架
+### 5.4、系统框架 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Foundation`
 - `UIKit`
 
-### 5.5、Pod 依赖
+### 5.5、Pod 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `SDWebImage`
 - `JobsBlock`
@@ -146,25 +146,25 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 十、架构脉络与关键设计
+## 十、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 10.1、设计目的与职责划分
+### 10.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 以 LanMgr 保存应用选择的语言，并将 AppLanguage 枚举映射到语言代码和 Bundle。NSString 分类提供更方便的本地化使用入口，语言资源本身仍来自对应语言包。
 
-### 10.2、运行脉络
+### 10.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 读取持久化语言 → 映射语言代码 → 定位语言 Bundle → 按 key 读取文字；切换时更新语言设置。
 
-### 10.3、关键设计与边界
+### 10.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 选择语言、持久化语言和刷新已显示界面是不同职责。
 - 语言枚举和实际资源目录代码必须匹配，尤其不能仅凭显示名称推断资源路径。
 - 缺失 key 或 Bundle 时的结果应沿实现理解，不应假设总能返回目标语言。
 
-### 10.4、阅读与重建顺序
+### 10.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看 language 的读取/设置，再看 languageCodeByAppLanguage 与 bundle，最后看字符串分类。
 

@@ -6,7 +6,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 > 这个脚本用于扫描 [**Xcode**](https://developer.apple.com/xcode) / [**CocoaPods**](https://cocoapods.org/) 工程里的 `*.podspec`，输出依赖分析报告、[**Mermaid**](https://mermaid.js.org) 图源码、[**Graphviz**](https://graphviz.org/) 图源码和互动 HTML 图。
 
@@ -25,7 +25,7 @@
 
 ## 二、运行方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 2.1、双击运行
+### 2.1、双击运行 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 推荐把整个文件夹放到目标工程根目录，或放到目标工程的下一层目录。
 - 双击运行：
@@ -39,7 +39,7 @@
   - 脚本所在目录的上一层是否存在 `Podfile`。
 - 如果自动识别失败，会要求你拖入一个包含 `Podfile` 的工程目录。
 
-### 2.2、终端运行
+### 2.2、终端运行 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 也可以在终端里执行：
 
@@ -47,7 +47,7 @@
   zsh './【MacOS】🔍查询Xcode工程依赖关系.command'
   ```
 
-### 2.3、Podfile 自动钩子
+### 2.3、Podfile 自动钩子 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 自动钩子通过 `JOBS_PROJECT_ROOT` 直接传入工程根目录，不进入拖拽或回车流程。
 - 自动钩子生成报告后不会打开 Finder、浏览器或产物文件。

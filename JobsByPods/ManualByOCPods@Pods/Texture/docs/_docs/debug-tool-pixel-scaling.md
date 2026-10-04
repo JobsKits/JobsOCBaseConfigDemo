@@ -6,7 +6,7 @@ prevPage: debug-tool-hit-test-visualization.html
 nextPage: debug-tool-ASRangeController.html
 ---
 
-## Visualize ASImageNode.image’s pixel scaling
+## <span id="前言">Visualize ASImageNode.image’s pixel scaling <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 <br>
 This debug feature adds a red text overlay on the bottom right hand corner of an ASImageNode if (and only if) the image’s size in pixels does not match it’s bounds size in pixels, e.g.
 
@@ -49,7 +49,7 @@ In the screenshot below of an app with this debug feature enabled, you can see t
 
 ![screen shot 2016-03-25 at 4 04 59 pm](https://cloud.githubusercontent.com/assets/3419380/14056994/15561daa-f2b1-11e5-9606-59d54d2b5354.png)
 
-## Usage
+## Usage <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 In your `AppDelegate.m` file, 
 <ul>
@@ -58,3 +58,5 @@ In your `AppDelegate.m` file,
 </ul>
 
 **Make sure to call this method before initializing any ASImageNodes.**
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

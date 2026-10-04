@@ -40,15 +40,15 @@ NSError *error = nil;
 
 <a id="jobs-architecture"></a>
 
-## 三、架构脉络与关键设计
+## 三、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 3.1、设计目的与职责划分
+### 3.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 在 SocketRocket 上组织连接状态、心跳、退避重连和主线程事件回调。客户端只负责传输生命周期，不定义业务鉴权、消息模型或应答协议。
 
-### 3.2、运行脉络
+### 3.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 connect → 建立连接并启动心跳 → 收发消息 → 异常断开后按策略退避重连；主动 disconnect 终止心跳和待重连。
 
@@ -67,13 +67,13 @@ flowchart TD
     H["主动 disconnect"] --> I["停止心跳并取消重连"]
 ```
 
-### 3.3、关键设计与边界
+### 3.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 默认心跳 30 秒、自动重连开启，原文给出 1/2/4/8/16 秒和最多 5 次的默认重连策略。
 - 主动断开与异常断开不同，退出页面后不应再被自动重连唤醒。
 - 状态、消息和重连通知回到主线程，传输成功仍不等于业务应答成功。
 
-### 3.4、阅读与重建顺序
+### 3.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看 State 与 delegate，再看 connect/disconnect、心跳和重连调度；最后连接业务编码层。
 

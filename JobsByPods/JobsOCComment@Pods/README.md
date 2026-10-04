@@ -118,7 +118,7 @@ pod install --no-repo-update
 - 当前组件只做展示，不包含发布评论、点赞、删除、举报或网络请求。
 - `Support` 内部 Cell 不作为公开 API 使用，外部只应通过 `JobsOCCommentView` 和模型配置。
 
-## 明暗主题契约
+## 明暗主题契约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
@@ -126,25 +126,25 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 十、架构脉络与关键设计
+## 十、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 10.1、设计目的与职责划分
+### 10.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 以评论模型、显示配置和评论视图拆分数据与表现。配置决定展示模式、设备/位置、回复入口和可见子回复数量，视图组织评论列表并通过回调把选择、回复、刷新和加载更多交给宿主。
 
-### 10.2、运行脉络
+### 10.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 提供评论模型和配置 → 渲染主评论/子回复 → 用户选择或触发刷新 → 宿主更新数据 → 列表重新展示。
 
-### 10.3、关键设计与边界
+### 10.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 评论点击与回复点击有独立回调，刷新和加载更多也需分别结束。
 - 可见子回复上限是展示策略，不等于服务器返回的数据总量。
 - 组件不负责真正提交评论或分页接口请求，网络结果应由宿主写回。
 
-### 10.4、阅读与重建顺序
+### 10.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先读 Model 和 Config，再看 View 如何展开子回复和接入 JobsOCRefresher；重建时先定义层级关系与事件。
 

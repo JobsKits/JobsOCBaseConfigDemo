@@ -19,7 +19,7 @@
 
 ## 一、它们到底是什么？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 1.1、`JobsOCBaseConfigDemoTests`
+### 1.1、`JobsOCBaseConfigDemoTests` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 `JobsOCBaseConfigDemoTests` 是 iOS 项目的单元测试 Target。它编译出来不是一个 App，而是一个测试 Bundle。
 
@@ -41,7 +41,7 @@
 | 依赖远端真实接口的完整流程 | 网络波动会让测试不稳定 |
 | 必须人工登录或输入验证码的流程 | 自动化成本高，容易误判 |
 
-### 1.2、`JobsOCBaseConfigDemoUITests`
+### 1.2、`JobsOCBaseConfigDemoUITests` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 `JobsOCBaseConfigDemoUITests` 是 UI 测试 Target。它会启动你的 App，然后通过 `XCUIApplication`、`XCUIElement` 去查找界面元素、点击、输入、断言。
 
@@ -57,7 +57,7 @@
 
 它不适合拿来替代人工验收。UI 测试很适合守住“关键路径不崩”，但复杂视觉效果、动画手感、业务体验仍然需要人工看。
 
-### 1.3、两个 Target 和 App Target 的关系
+### 1.3、两个 Target 和 App Target 的关系 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```mermaid
 flowchart LR
@@ -72,7 +72,7 @@ flowchart LR
 
 ## 二、新工程当前补齐了什么？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 2.1、目录结构
+### 2.1、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 新工程根目录现在补齐了两个测试目录：
 
@@ -89,7 +89,7 @@ JobsOCBaseConfigDemo@ByPods
 └── iOS测试Target入门与使用指南.md
 ```
 
-### 2.2、Xcode Target
+### 2.2、Xcode Target <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 新工程的 `JobsOCBaseConfigDemo.xcodeproj` 里补了两个 Target：
 
@@ -106,7 +106,7 @@ JobsOCBaseConfigDemoTests
 JobsOCBaseConfigDemoUITests
 ```
 
-### 2.3、当前自带的入门用例
+### 2.3、当前自带的入门用例 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 `JobsOCBaseConfigDemoTests.m` 里有三个入门用例：
 
@@ -131,7 +131,7 @@ JobsOCBaseConfigDemoUITests
 
 ## 三、怎么运行？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 3.1、先打开 Workspace
+### 3.1、先打开 Workspace <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 这个工程用了 [**CocoaPods**](https://cocoapods.org/)，所以优先打开：
 
@@ -147,7 +147,7 @@ JobsOCBaseConfigDemo.xcodeproj
 
 原因很简单：`.xcworkspace` 会同时带上 App 工程和 Pods 工程；`.xcodeproj` 只看主工程，依赖可能不完整。
 
-### 3.2、在 Xcode 里跑全部测试
+### 3.2、在 Xcode 里跑全部测试 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 操作路径：
 
@@ -159,7 +159,7 @@ Xcode 顶部 Scheme 选择 JobsOCBaseConfigDemo
 
 `Command + U` 会执行当前 Scheme 的 Test Action。正常情况下，它会编译 App，再跑测试。
 
-### 3.3、只跑某一个测试文件
+### 3.3、只跑某一个测试文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 在 Xcode 左侧打开测试文件，找到方法左边的小菱形按钮：
 
@@ -173,7 +173,7 @@ Xcode 顶部 Scheme 选择 JobsOCBaseConfigDemo
 
 点击方法左边的小菱形，只跑这一个方法。
 
-### 3.4、只跑 Unit Test Target
+### 3.4、只跑 Unit Test Target <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 操作路径：
 
@@ -185,7 +185,7 @@ Test Plan / Test
 
 如果 Xcode 左侧 Test Navigator 已经显示测试列表，也可以只点 `JobsOCBaseConfigDemoTests` 下面的测试方法。
 
-### 3.5、只跑 UI Test Target
+### 3.5、只跑 UI Test Target <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 UI 测试会真实启动模拟器里的 App。第一次跑可能慢一点，这是正常的。
 
@@ -199,7 +199,7 @@ UI 测试会真实启动模拟器里的 App。第一次跑可能慢一点，这�
 
 ## 四、怎么写单元测试？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 4.1、单元测试基本结构
+### 4.1、单元测试基本结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 单元测试文件通常长这样：
 
@@ -245,7 +245,7 @@ UI 测试会真实启动模拟器里的 App。第一次跑可能慢一点，这�
 -(void)buttonModelDefaultState;
 ```
 
-### 4.2、常用断言
+### 4.2、常用断言 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 断言就是“我期望这个结果必须成立”。不成立，测试失败。
 
@@ -270,7 +270,7 @@ UI 测试会真实启动模拟器里的 App。第一次跑可能慢一点，这�
 }
 ```
 
-### 4.3、测试 Model
+### 4.3、测试 Model <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 假设有一个 `JobsUserModel`：
 
@@ -291,7 +291,7 @@ UI 测试会真实启动模拟器里的 App。第一次跑可能慢一点，这�
 | 类在本地 Pod 里 | 优先 import 对应 Pod 的聚合头 |
 | Pod 依赖没有刷新 | 需要重新 `pod install --no-repo-update` |
 
-### 4.4、测试工具方法
+### 4.4、测试工具方法 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 例如测试字符串工具：
 
@@ -305,7 +305,7 @@ UI 测试会真实启动模拟器里的 App。第一次跑可能慢一点，这�
 
 单元测试最适合从这种小函数开始。它不依赖 UI，不依赖网络，稳定、快、失败原因清楚。
 
-### 4.5、测试异步回调
+### 4.5、测试异步回调 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 异步测试要用 `XCTestExpectation`：
 
@@ -328,7 +328,7 @@ UI 测试会真实启动模拟器里的 App。第一次跑可能慢一点，这�
 - 异步任务完成后必须调用 `fulfill`。
 - 如果测试网络，优先 mock 数据，不要依赖真实接口。
 
-### 4.6、测试性能
+### 4.6、测试性能 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 性能测试用 `measureBlock`：
 
@@ -345,7 +345,7 @@ UI 测试会真实启动模拟器里的 App。第一次跑可能慢一点，这�
 
 ## 五、怎么写 UI 测试？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 5.1、UI 测试基本结构
+### 5.1、UI 测试基本结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 -(void)testAppCanLaunch {
@@ -357,7 +357,7 @@ UI 测试会真实启动模拟器里的 App。第一次跑可能慢一点，这�
 
 UI 测试不是直接调你的 ViewController 方法，而是通过可访问性树找界面元素。
 
-### 5.2、给控件加 `accessibilityIdentifier`
+### 5.2、给控件加 `accessibilityIdentifier` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 UI 测试最怕“找不到控件”。最稳的办法是给控件设置 `accessibilityIdentifier`。
 
@@ -387,7 +387,7 @@ self.passwordTextField.accessibilityIdentifier = @"password_text_field";
 - `accessibilityLabel` 更偏给辅助功能读屏使用。
 - 写 UI 测试时，优先用 `accessibilityIdentifier`，不要靠中文文案硬找。
 
-### 5.3、点击按钮
+### 5.3、点击按钮 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 -(void)testTapLoginButton {
@@ -400,7 +400,7 @@ self.passwordTextField.accessibilityIdentifier = @"password_text_field";
 }
 ```
 
-### 5.4、输入文字
+### 5.4、输入文字 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 -(void)testInputAccount {
@@ -423,7 +423,7 @@ Keyboard
 Connect Hardware Keyboard
 ```
 
-### 5.5、等待页面出现
+### 5.5、等待页面出现 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 UI 加载经常不是瞬间完成，所以不要马上断言：
 
@@ -438,7 +438,7 @@ XCTAssertTrue([target waitForExistenceWithTimeout:5]);
 XCTAssertTrue(app.staticTexts[@"home_title"].exists);
 ```
 
-### 5.6、截图留档
+### 5.6、截图留档 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 XCTAttachment *attachment = [XCTAttachment attachmentWithScreenshot:XCUIScreen.mainScreen.screenshot];
@@ -451,7 +451,7 @@ attachment.lifetime = XCTAttachmentLifetimeKeepAlways;
 
 ## 六、怎么在命令行跑？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 6.1、列出 Scheme
+### 6.1、列出 Scheme <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 在工程根目录执行：
 
@@ -461,7 +461,7 @@ xcodebuild \
   -list
 ```
 
-### 6.2、跑全部测试
+### 6.2、跑全部测试 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 xcodebuild test \
@@ -471,7 +471,7 @@ xcodebuild test \
   -destination 'platform=iOS Simulator,name=iPhone 16'
 ```
 
-### 6.3、只跑单元测试
+### 6.3、只跑单元测试 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 xcodebuild test \
@@ -482,7 +482,7 @@ xcodebuild test \
   -only-testing:JobsOCBaseConfigDemoTests
 ```
 
-### 6.4、只跑 UI 测试
+### 6.4、只跑 UI 测试 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 xcodebuild test \
@@ -493,7 +493,7 @@ xcodebuild test \
   -only-testing:JobsOCBaseConfigDemoUITests
 ```
 
-### 6.5、只跑一个测试方法
+### 6.5、只跑一个测试方法 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 xcodebuild test \
@@ -512,7 +512,7 @@ xcodebuild test \
 
 ## 七、怎么把现有代码变成可测试？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 7.1、先从纯逻辑开始
+### 7.1、先从纯逻辑开始 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 新手最推荐先测这些：
 
@@ -524,7 +524,7 @@ xcodebuild test \
 | 中 | DSL 设置属性 | 能防止链式方法改坏 |
 | 低 | 完整页面跳转 | UI 测试成本更高 |
 
-### 7.2、让方法更容易测
+### 7.2、让方法更容易测 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 不好测的代码通常长这样：
 
@@ -558,7 +558,7 @@ xcodebuild test \
 }
 ```
 
-### 7.3、测试本地 Pod 代码
+### 7.3、测试本地 Pod 代码 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 新工程是本地 Pods 形态，测试时要注意边界：
 
@@ -569,7 +569,7 @@ xcodebuild test \
 
 ## 八、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 8.1、为什么我按 `Command + U` 没反应？
+### 8.1、为什么我按 `Command + U` 没反应？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 检查这几个点：
 
@@ -580,7 +580,7 @@ xcodebuild test \
 | 测试方法是否以 `test` 开头 | 不以 `test` 开头不会被发现 |
 | 文件是否加入测试 Target | 看右侧 Target Membership |
 
-### 8.2、为什么测试文件 import 不到业务类？
+### 8.2、为什么测试文件 import 不到业务类？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 常见原因：
 
@@ -598,7 +598,7 @@ xcodebuild test \
 最后再看 Pod 依赖
 ```
 
-### 8.3、为什么 UI 测试找不到按钮？
+### 8.3、为什么 UI 测试找不到按钮？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 优先检查控件是否设置了 `accessibilityIdentifier`。
 
@@ -617,7 +617,7 @@ XCTAssertTrue([button waitForExistenceWithTimeout:5]);
 
 如果按钮在滚动列表里，还要先滚动到它可见。
 
-### 8.4、为什么 UI 测试有时候成功、有时候失败？
+### 8.4、为什么 UI 测试有时候成功、有时候失败？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 这叫不稳定测试，常见原因：
 
@@ -628,7 +628,7 @@ XCTAssertTrue([button waitForExistenceWithTimeout:5]);
 | 依赖上一次 App 状态 | `setUp` 里清理状态或设置启动参数 |
 | 动画未结束 | 等待目标元素出现，不要固定 sleep |
 
-### 8.5、什么时候应该删测试？
+### 8.5、什么时候应该删测试？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 不是所有测试都值得留。
 
@@ -646,7 +646,7 @@ XCTAssertTrue([button waitForExistenceWithTimeout:5]);
 
 ## 九、建议使用路线 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 9.1、第一阶段：会跑
+### 9.1、第一阶段：会跑 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 目标：
 
@@ -655,7 +655,7 @@ XCTAssertTrue([button waitForExistenceWithTimeout:5]);
 - 能看懂绿色成功、红色失败。
 - 能单独跑某一个测试方法。
 
-### 9.2、第二阶段：会写
+### 9.2、第二阶段：会写 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 目标：
 
@@ -664,7 +664,7 @@ XCTAssertTrue([button waitForExistenceWithTimeout:5]);
 - 能测试一个纯逻辑方法。
 - 能看懂失败信息。
 
-### 9.3、第三阶段：会测业务
+### 9.3、第三阶段：会测业务 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 目标：
 
@@ -673,7 +673,7 @@ XCTAssertTrue([button waitForExistenceWithTimeout:5]);
 - 写一个简单点击路径。
 - 给线上 bug 补一个回归测试。
 
-### 9.4、第四阶段：接入日常开发
+### 9.4、第四阶段：接入日常开发 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 建议：
 
@@ -684,7 +684,7 @@ XCTAssertTrue([button waitForExistenceWithTimeout:5]);
 
 ## 十、最小可复制模板 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 10.1、单元测试模板
+### 10.1、单元测试模板 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 -(void)testSomething {
@@ -693,7 +693,7 @@ XCTAssertTrue([button waitForExistenceWithTimeout:5]);
 }
 ```
 
-### 10.2、UI 测试模板
+### 10.2、UI 测试模板 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 -(void)testSomethingOnScreen {
@@ -706,7 +706,7 @@ XCTAssertTrue([button waitForExistenceWithTimeout:5]);
 }
 ```
 
-### 10.3、异步测试模板
+### 10.3、异步测试模板 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 -(void)testAsyncSomething {
@@ -723,19 +723,19 @@ XCTAssertTrue([button waitForExistenceWithTimeout:5]);
 
 ## 十一、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 11.1、测试代码也会参与编译
+### 11.1、测试代码也会参与编译 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 测试 Target 里的代码虽然不会进正式 App 包，但它会参与测试编译。测试代码写错，`Command + U` 一样会失败。
 
-### 11.2、UI 测试会启动 App
+### 11.2、UI 测试会启动 App <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 UI 测试可能触发真实页面逻辑。不要在 UI 测试里随便点支付、提交、删除、发短信这类有副作用的按钮。
 
-### 11.3、命令行测试可能很慢
+### 11.3、命令行测试可能很慢 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 第一次跑 `xcodebuild test` 可能要编译 App、Pods、测试 Bundle，还要启动模拟器。慢不代表错，失败日志才是关键。
 
-### 11.4、本次未主动跑完整编译
+### 11.4、本次未主动跑完整编译 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 `xcodebuild`、`pod install` 属于本机重型命令。本次只补测试 Target、测试文件和文档，不主动触发完整编译。需要最终确认时，再手动或按需执行：
 

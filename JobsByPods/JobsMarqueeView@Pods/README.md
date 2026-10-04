@@ -104,25 +104,25 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 八、架构脉络与关键设计
+## 八、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 8.1、设计目的与职责划分
+### 8.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 把一组内容组织成可配置方向、滚动模式和尺寸策略的跑马灯容器。计时管理器驱动滚动，页面指示器表达当前位置，容器负责内容布局与用户交互的协调。
 
-### 8.2、运行脉络
+### 8.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 配置内容与方向/模式 → 计算单元尺寸 → 驱动滚动 → 更新当前页和交互状态 → 停止或重配。
 
-### 8.3、关键设计与边界
+### 8.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 连续滚动与按页切换需要分别理解，速度和时间间隔不能简单互换。
 - 内容尺寸策略和分页指示器位置独立配置。
 - 内容不足一屏、数量变化与布局变化都可能影响循环边界，重建时不能只验证多项等宽内容。
 
-### 8.4、阅读与重建顺序
+### 8.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看方向/模式/尺寸枚举与公开配置，再追踪计时驱动和位置更新；原文中的详细参数继续作为深入阅读入口。
 

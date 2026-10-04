@@ -6,7 +6,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 `【MacOS】⚙️双击安装Cocoapods.command` 是一个可双击运行的 macOS `.command` 脚本。
 
@@ -93,15 +93,15 @@ flowchart TD
 
 ## 九、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 1. 为什么优先 Homebrew 安装 CocoaPods？
+### 1. 为什么优先 Homebrew 安装 CocoaPods？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 脚本目标是避开系统 Ruby 权限和版本问题，优先使用 Homebrew 管理依赖。
 
-### 2. 已经安装 CocoaPods 还会重装吗？
+### 2. 已经安装 CocoaPods 还会重装吗？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 脚本检测到 `pod` 后会输出已安装版本并返回，不会继续安装。
 
-### 3. 安装失败先看哪里？
+### 3. 安装失败先看哪里？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看 `$TMPDIR/【MacOS】⚙️双击安装Cocoapods.log`，再看 Homebrew / Gem 的具体错误。
 ## 十、未执行声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

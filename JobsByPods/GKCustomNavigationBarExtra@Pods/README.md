@@ -15,7 +15,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 > 这份自述用于记录 `GKCustomNavigationBarExtra` 在 Jobs 本地 [**CocoaPods**](https://cocoapods.org/) 体系里的职责边界、目录结构、依赖关系和验证方式。
 
@@ -67,12 +67,12 @@ GKCustomNavigationBarExtra@Pods/
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 5.1、公开头文件
+### 5.1、公开头文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `GKCustomNavigationBarExtra.h`
 - `Core/**/*.h`
 
-### 5.2、公开 API
+### 5.2、公开 API <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `gk_navTitleBtnBy(UIButtonModel *)`：创建并配置导航栏标题按钮。
 - `gk_navTitleViewBy(UIViewModel *)`：以 `textModel` 作为主标题、`subTextModel` 作为副标题，创建上下结构的 `titleView` 并同步写入 `gk_navTitleView`。
@@ -96,24 +96,24 @@ self.gk_navTitleViewBy(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable data
 
 `JobsByOCPods` 的统一页面跳转链路会测量来自 `UIViewModel.textModel` 的 Demo 标题：短标题保持 GK 单行标题；长标题优先按 `｜`、`：`、`@`、括号、有效空格等语义边界拆成上下两层，其次选择靠近中点的语言词边界，最后才按完整字符居中拆分。页面已经设置自定义 `titleView` 时不会覆盖。
 
-### 5.3、源码入口
+### 5.3、源码入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `GKCustomNavigationBarExtra.h`
 - `Core/**/*.{h,m,mm}`
 
-### 5.4、默认安装边界
+### 5.4、默认安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
 - `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 
-### 5.5、系统框架
+### 5.5、系统框架 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `AudioToolbox`
 - `CoreText`
 - `Foundation`
 - `UIKit`
 
-### 5.6、Pod 依赖
+### 5.6、Pod 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Masonry`
 - `GKNavigationBar`
@@ -185,7 +185,7 @@ pod install --no-repo-update
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
 
-## 明暗主题契约
+## 明暗主题契约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
@@ -193,25 +193,25 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 十、架构脉络与关键设计
+## 十、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 10.1、设计目的与职责划分
+### 10.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 在 GKNavigationBar 的 titleView 接口之上组织 Jobs 标题按钮和主副标题组合。UIViewController 分类保存相关模型与视图，将 UIButtonModel 或 UIViewModel 翻译为导航栏标题区域。
 
-### 10.2、运行脉络
+### 10.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 提供标题模型 → 创建/更新标题按钮或双 Label 视图 → 写入 gk_navTitleView → 由导航栏承载展示。
 
-### 10.3、关键设计与边界
+### 10.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 主标题来自 textModel，副标题来自 subTextModel；不能把两者压成一个无法分别配置的字符串。
 - 标题按钮的布局依赖实际承载关系，源码特别区分了父控件与 gk_navigationBar，修改时需要保留这层关系。
 - 本库负责标题区域，不能把整个导航控制器、转场或业务路由职责并入。
 
-### 10.4、阅读与重建顺序
+### 10.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 从 gk_navTitleBtnBy、gk_navTitleViewBy 进入，再看关联视图和模型的 getter/setter；先重建模型到标题视图的映射，再处理布局。
 

@@ -5,7 +5,7 @@ permalink: /development/collection-asynchronous-updates.html
 prevPage: layout-specs.html
 ---
 
-# At a glance
+# <span id="前言">At a glance</span>
 
 This document describes the internal workings of ASCollectionNode, ASPagerNode, and ASTableNode, specifically how they handle asynchronous batch updates and then forward them to their backing UICollectionView or UITableView.
 
@@ -27,7 +27,7 @@ ASDataController doesn't accept nor process individual edit operations. In fact,
 
 The pipeline starts processing a change set on the main thread then switches to a background thread to perform expensive operations like allocating and measuring new items, and finally gets back to main thread to forward the result to the backing UICollectionView.
 
-## Internal queues and data sets
+## Internal queues and data sets <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Since the pipeline operates on multiple threads, every change set needs to go through the pipeline to ensure data consistency, not only with the data source but also with the backing view. Internally, ASDataController uses two queues and two data sets to facilitate the pipeline.
 
@@ -37,13 +37,13 @@ The two data sets of ASDataController are `pendingMap` and `visibleMap`. Each of
 
 Each ASCollectionElement represents an item or supplementary view in the collection view. It has enough information for ASDataController to allocate and measure the backing ASCellNode and most importantly a `nodeBlock`. The block is the one returned by the data source at the beginning of the process (more on this later) and retained by the element until it's executed. The block is executed the first time `-[ASCollectionElement node]` is called. Once executed, the result -- an ASCellNode -- is strongly retained by the element and the block is released. That means at any given time, an element either has a node block or a node instance, and never both. In case a caller wants to get the node but only if it's already allocated, the caller should call `-nodeIfAllocated` instead.
 
-## Data source index space vs UIKit index space
+## Data source index space vs UIKit index space <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Because each change set is processed asynchronously and it might take the backing UICollectionView multiple main thread run loops to fully consume the change set (especially if the view is busy responding to user events such as scrolling), there is a time window in which the data source has a different, more recent "view" of the data than the backing UICollectionView. This includes, for example, numbers of items and sections in the collection, as well as the index path of any particular item. As a result, it's useful to think in terms of the data source's index space and UIKit index space. There are certain operations that rely on the knowledge of the data source and so they must be operating in the data source index space. On the other hand, any operations related to or originated from UIKit must be operating in the UIKit index space. Failing to do so can cause exceptions and/or crashes, including ones thrown by UICollectionView.
 
 At any given time, ASDataController's `pendingMap` is the latest map fetched from the data source and thus it is in the data source index space. `visibleMap`, on the other hand, is the collection of elements currently being displayed by the UICollectionView. As a result, it is in the UIKit index space.
 
-## Five steps of the pipeline
+## Five steps of the pipeline <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Each change set is processed in 5 steps:
 1. The process starts on the main thread. At this point, `pendingMap` and `visibleMap` are the same. A mutable copy of `pendingMap` is made and then updated according to the change set. This includes removing old items and asking the data source for information regarding newly inserted items, such as node block and constrained size. At the end of this step, `pendingMap` is updated to reflect the data source's world view.
@@ -63,3 +63,5 @@ The animation flag of the batch update is stored in the change set (or in each c
 # Move updates
 
 Moves are currently not supported. When clients submit a move operation to the change set, the move is split into a pair of delete and insert operations. More information on how move operation should be implemented can be found [here](https://github.com/facebookarchive/AsyncDisplayKit/pull/3169).
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

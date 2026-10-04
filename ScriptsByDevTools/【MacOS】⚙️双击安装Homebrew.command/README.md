@@ -6,7 +6,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 `【MacOS】⚙️双击安装Homebrew.command` 是一个可双击运行的 macOS `.command` 脚本。
 
@@ -80,11 +80,11 @@ flowchart TD
 
 ## 九、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 1. 和 CocoaPods 安装脚本有什么区别？
+### 1. 和 CocoaPods 安装脚本有什么区别？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 当前脚本是粗粒度工具链安装；`【MacOS】⚙️双击安装Cocoapods.command` 更精细，带检测、日志和回退。
 
-### 2. 适合直接双击吗？
+### 2. 适合直接双击吗？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 不建议盲目双击。先确认你确实要安装整套依赖。
 ## 十、未执行声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

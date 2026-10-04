@@ -15,7 +15,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 > 这份自述用于记录 `JobsOCTimer` 在 Jobs 本地 [**CocoaPods**](https://cocoapods.org/) 体系里的职责边界、目录结构、依赖关系和验证方式。
 补充描述：JobsOCTimer provides timer utilities and related helpers.
@@ -69,27 +69,27 @@ JobsOCTimer@Pods/
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 5.1、公开头文件
+### 5.1、公开头文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsOCTimer.h`
 - `Core/**/*.h`
 
-### 5.2、源码入口
+### 5.2、源码入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsOCTimer.h`
 - `Core/**/*.{h,m,mm}`
 
-### 5.3、默认安装边界
+### 5.3、默认安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
 - `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 
-### 5.4、系统框架
+### 5.4、系统框架 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Foundation`
 - `UIKit`
 
-### 5.5、Pod 依赖
+### 5.5、Pod 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `WHToast`
 - `SDWebImage`
@@ -116,7 +116,7 @@ JobsOCTimer@Pods/
 - 自建 Pod 对外优先引用公共入口头，不要绕开聚合头直接引用 `Support` 内部子头。
 - `JobsOCTimer.h` 是统一公开入口；调用方不绕开聚合头引用 `Core` 内部子头。
 
-### 6.1、基础用法
+### 6.1、基础用法 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 @jobs_weakify(self)
@@ -185,7 +185,7 @@ pod install --no-repo-update
 
 ## 十、系统计时机制对比与选型 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 10.1、先统一概念
+### 10.1、先统一概念 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 日常所说的“iOS 系统 Timer”并不都属于 UIKit：
 
@@ -196,7 +196,7 @@ pod install --no-repo-update
 
 四套 API 对应四种调度模型。它们都不是硬实时机制，也都不会赋予 App 后台保活能力。
 
-### 10.2、四种内核怎么选
+### 10.2、四种内核怎么选 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 | 系统机制 | 调度模型 | 优势 | 代价与风险 | 推荐场景 | `JobsTimerType` |
 | ---- | ---- | ---- | ---- | ---- | ---- |
@@ -205,7 +205,7 @@ pod install --no-repo-update
 | `CADisplayLink` | 跟随显示刷新周期回调 | 与屏幕刷新协调；提供时间戳；适配高刷屏 | 实际帧率会受硬件、低电量、温控和主线程负载影响；不适合业务倒计时 | 逐帧动画、进度绘制、视觉插值 | `JobsTimerTypeDisplayLink` |
 | `CFRunLoopTimerRef` | Core Foundation 级 RunLoop Timer | 可显式控制 RunLoop、Mode、下一次触发时间与上下文 | C API 更冗长；所有权与线程亲和更容易出错；仍受 RunLoop 延迟 | 基础设施、精细 RunLoop 集成或 C/CF 互操作 | `JobsTimerTypeRunLoop` |
 
-### 10.3、经常被误当成 Timer 的 API
+### 10.3、经常被误当成 Timer 的 API <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 | API | 适合 | 不适合 |
 | ---- | ---- | ---- |
@@ -213,7 +213,7 @@ pod install --no-repo-update
 | `performSelector:withObject:afterDelay:` | 当前 RunLoop 上的一次性延迟消息 | 跨队列调度、重复任务、复杂取消治理 |
 | `BGTaskScheduler` | 由系统择机执行后台刷新或维护任务 | 秒级准点触发、常驻后台 Timer |
 
-### 10.4、场景决策顺序
+### 10.4、场景决策顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 1. 回调必须跟屏幕刷新同步，选择 `JobsTimerTypeDisplayLink`。
 2. 必须脱离 RunLoop，或需要在工作队列执行，选择 `JobsTimerTypeGCD`。
@@ -222,7 +222,7 @@ pod install --no-repo-update
 5. 只有一次延迟动作，使用 `dispatch_after` 等一次性 API，不创建重复 Timer。
 6. App 被系统挂起后仍需工作，改用匹配业务资格的后台系统机制；四种 Timer 都不是后台保活方案。
 
-### 10.5、正确性底线
+### 10.5、正确性底线 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - GCD Timer 只是避开 RunLoop Mode 影响，不等于硬实时；队列阻塞、QoS、系统负载和 leeway 都可能带来延迟。
 - 倒计时以绝对 `endAt` 为时间真值，每次 tick 重新计算剩余时间，不把 tick 次数当时间。
@@ -232,15 +232,15 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 十一、架构脉络与关键设计
+## 十一、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 11.1、设计目的与职责划分
+### 11.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 以统一 JobsTimer/TimerProtocol 管理不同计时内核，提供间隔、倒计时、队列、RunLoop 模式、tick/finish 和前后台策略。系统内核负责调度，封装负责状态、时间参数与生命周期。
 
-### 11.2、运行脉络
+### 11.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 选择内核和计时方式 → 配置回调/时间参数 → start → tick 或暂停/恢复 → finish/stop 清理底层对象。
 
@@ -261,13 +261,13 @@ stateDiagram-v2
     end note
 ```
 
-### 11.3、关键设计与边界
+### 11.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - GCD Timer 不受 RunLoop Mode 影响，但仍受队列阻塞和系统调度影响，不是硬实时或后台保活。
 - 倒计时应以绝对结束时间计算剩余量，动画按真实时间推进，不能把 tick 次数当时间真值。
 - 手动暂停与系统前后台自动暂停需要区分，避免恢复时错误唤醒本来手动暂停的任务。
 
-### 11.4、阅读与重建顺序
+### 11.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看状态/内核和公开配置，再看各内核创建、暂停、恢复、停止与代理清理；需要多任务治理时再进入 Manager。
 

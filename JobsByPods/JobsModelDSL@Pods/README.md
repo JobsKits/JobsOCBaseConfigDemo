@@ -14,7 +14,7 @@
 
 `UIButtonModel+DSL` 统一维护在 `Core/UIButtonModel/UIButtonModel+DSL/`，包含原 `JobsModel/Core/JobsModel+DSL/UIButtonModel/` 的链式能力。
 
-## 一、适用场景
+## 一、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 对 `JobsModel` 子模型进行链式赋值。
 - 复用协议属性时保持和普通模型属性一致的 DSL 写法。
@@ -25,11 +25,11 @@
 - `JobsCorModel+DSL.byAlpha(...)` 直接写入模型的 `alpha`，不得回调自身形成递归；`jobsMakeCor` / `jobsMakeCor2` 可安全用它配置透明度。
 - 保持 DSL 能力独立于 `JobsModel` 本体，避免模型 Pod 直接膨胀。
 
-## 二、依赖关系
+## 二、依赖关系 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 `JobsModelDSL` 依赖：`JobsModel`、`JobsBlock`、`JobsOCProtocols`、`JobsOCDefs`。
 
-## 三、引用方式
+## 三、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 #if __has_include(<JobsModelDSL/JobsModelDSL.h>)
@@ -39,7 +39,7 @@
 #endif
 ```
 
-## 四、验证方式
+## 四、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 pod install
@@ -48,25 +48,25 @@ xcodebuild -workspace JobsOCBaseConfigDemo.xcworkspace -scheme JobsOCBaseConfigD
 
 <a id="jobs-architecture"></a>
 
-## 五、架构脉络与关键设计
+## 五、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 5.1、设计目的与职责划分
+### 5.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 为 JobsModel 中的具体模型提供类型化链式赋值分类。它不重新定义模型字段，而是将模型已有属性整理成 byXxx 入口，供视图、请求和配置代码连续构造。
 
-### 5.2、运行脉络
+### 5.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 创建具体模型 → 按字段调用 byXxx → 保持当前模型类型继续链式配置 → 交给消费方。
 
-### 5.3、关键设计与边界
+### 5.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 属性含义与默认值由 JobsModel 决定，DSL 不应复制另一套模型定义。
 - 旧字段别名与新字段名称需要核对实际映射，例如选择器的文件名、列数等兼容项。
 - 嵌套模型与回调字段要保留原类型，不能用泛型字典替代全部强类型配置。
 
-### 5.4、阅读与重建顺序
+### 5.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先读目标模型，再对照其同名 DSL 分类；重建顺序是模型契约在前、链式门面在后。
 

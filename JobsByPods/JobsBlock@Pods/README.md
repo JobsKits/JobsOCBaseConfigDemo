@@ -15,7 +15,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 > 这份自述用于记录 `JobsBlock` 在 Jobs 本地 [**CocoaPods**](https://cocoapods.org/) 体系里的职责边界、目录结构、依赖关系和验证方式。
 补充描述：JobsBlock is a header-only Objective-C definitions library containing common block typedefs, business block typedefs, and parameterized block macro helpers used across Jobs projects.
@@ -66,7 +66,7 @@ JobsBlock@Pods/
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 5.1、公开头文件
+### 5.1、公开头文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Core/**/*.h`
 
@@ -101,16 +101,16 @@ JobsBlock@Pods/
 - `dealloc` 不调用会创建弱引用的 Block 门面；析构清理保留传统入口。可能为 `nil` 的接收者必须先守卫，不能直接执行其返回的 Block。
 - Block getter 的返回类型必须显式 `_Nonnull`；新增 Model、控制器或业务对象 DSL 时，先按签名复用本模块 typedef，缺失才在这里补齐。应用层不直接赋值：在属性真实宿主提供返回该具体类型的 Block，子模型配置结束后继续返回主对象，保证整段调用一链到底。
 
-### 5.2、源码入口
+### 5.2、源码入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Core/**/*.{h,m,mm}`
 
-### 5.3、默认安装边界
+### 5.3、默认安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
 - `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 
-### 5.4、系统框架
+### 5.4、系统框架 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Foundation`
 - `UIKit`
@@ -119,7 +119,7 @@ JobsBlock@Pods/
 - `QuartzCore`
 - `Metal`
 
-### 5.5、Pod 依赖
+### 5.5、Pod 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `SDWebImage`
 - `JobsOCDefs`
@@ -179,25 +179,25 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 十、架构脉络与关键设计
+## 十、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 10.1、设计目的与职责划分
+### 10.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 为 OC 各模块提供共享的 Block 类型语言。按有/无返回值、确定/不定参数及业务类型分组，NSObject 的回调属性工具负责挂载回调，类型声明本身不执行业务。
 
-### 10.2、运行脉络
+### 10.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 定义匹配输入/输出的 Block 类型 → 接口使用该类型 → 对象保存回调 → 业务时机触发。
 
-### 10.3、关键设计与边界
+### 10.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 回调参数、可空性和返回对象类型是调用契约，不能只按名称生成 void Block。
 - 类型别名、回调存储和回调执行分属不同职责；存入 Block 不等于立即调用。
 - 底层类型层应控制依赖方向，避免为某个业务类型引入整套上层实现。
 
-### 10.4、阅读与重建顺序
+### 10.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看聚合头和基础返回/参数类型，再进入业务类型与 NSObject 回调存储；重建依赖模块前先建立最小公共类型集。
 

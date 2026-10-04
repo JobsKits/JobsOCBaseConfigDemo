@@ -10,7 +10,7 @@ nextPage: scroll-node.html
 
 This fact is especially useful when it comes to image and text nodes.  Having the ability to add target-action pairs means that you can use any text or image node as a button without having to rely on creating gesture recognizers, as you would with text in UIKit, or creating extraneous views as you might when using `UIButton`.
 
-### Control State
+### <span id="前言">Control State <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 Like `UIControl`, `ASControlNode` has a state which defines its appearance and ability to support user interactions.  Its state can be one of any state defined by `ASControlState`.
 
@@ -37,7 +37,7 @@ public struct ASControlState : OptionSet {
 </div>
 </div>
 
-### Target-Action Mechanism
+### Target-Action Mechanism <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Also similarly to `UIControl`, `ASControlNode`'s have a set of events defined which you can react to by assigning a target-action pair.  
 
@@ -93,7 +93,7 @@ public struct ASControlNodeEvent : OptionSet {
 
 Assigning a target and action for these events is done with the same methods as a `UIControl`, namely using `–addTarget:action:forControlEvents:`.
 
-### Hit Test Slop
+### Hit Test Slop <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 While all node's have a `hitTestSlop` property, this is usually most useful when dealing with controls.  Instead of needing to make your control bigger, or needing to override `-hitTest:withEvent:` you can just assign a `UIEdgeInsets` to your control and its boundaries will be expanded accordingly.
 
@@ -117,6 +117,8 @@ playButton.hitTestSlop = UIEdgeInsets(top: -verticalDiff, left: -horizontalDiff,
 
 Remember that, since the property is an inset, you'll need to use negative values in order to expand the size of your tappable region.
 
-### Hit Test Visualization
+### Hit Test Visualization <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 The <a href = "/docs/debug-tool-hit-test-visualization.html">hit test visualization tool</a> is an option to enable highlighting of the tappable areas of your nodes.  To enable it, include `[ASControlNode setEnableHitTestDebug:YES]` in your app delegate in `-application:didFinishLaunchingWithOptions:`.
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

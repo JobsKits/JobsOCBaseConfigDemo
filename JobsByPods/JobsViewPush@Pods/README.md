@@ -100,25 +100,25 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 九、架构脉络与关键设计
+## 九、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 9.1、设计目的与职责划分
+### 9.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 提供 UIView 的推出覆盖层与可配置侧边抽屉。SideDrawer 保存宿主、内容、方向和比例，并协调遮罩与交互进度；视图分类提供推出/退出便利入口。
 
-### 9.2、运行脉络
+### 9.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 挂载宿主与内容 → 计算打开位置 → 动画或拖动推进 → 点击背景/调用关闭 → 清理过渡层并恢复。
 
-### 9.3、关键设计与边界
+### 9.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 同一源 View 再次推出时先无动画退出当前内容，避免叠加旧覆盖层。
 - 背景点击由过渡层消费，不继续穿透到底层业务控件。
 - 推出、拖动和退出要求主线程；位移实现与布局基准不能混用 transform 造成退出跳位。
 
-### 9.4、阅读与重建顺序
+### 9.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先读 SideDrawer 配置与 open/close/invalidate，再看 UIView 分类的重入处理；重建时先固定坐标基准与遮罩归属。
 

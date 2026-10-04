@@ -8,7 +8,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 > `JobsOCOpen` 是 `JobsSwiftOpen` 的 Objective-C 侧平移 Pod，统一管理应用内网页、系统外部打开、拨号和邮件调起能力。
 
@@ -71,7 +71,7 @@ JobsOCOpen@Pods/
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 5.1、公开能力
+### 5.1、公开能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsOCOpenConfiguration`：配置 URL、打开模式、标题、动画和打开动作 completion。
 - `JobsOCOpener`：按 `.inApp` 或 `.externalBrowser` 打开 URL。
@@ -79,14 +79,14 @@ JobsOCOpen@Pods/
 - `NSObject (JobsOCOpen)`：融合旧 `NSObject+OpenURL` 的对象侧邮件、拨号、系统设置和 URL 打开能力，使用 `jobs_oc` 前缀避免与旧分类 selector 冲突。
 - `NSString (JobsOCOpen)`：提供 `jobs_open`、`jobs_call`、`jobs_mail` 便捷入口。
 
-### 5.2、系统框架
+### 5.2、系统框架 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Foundation`
 - `UIKit`
 - `WebKit`
 - `MessageUI`
 
-### 5.3、Pod 依赖
+### 5.3、Pod 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsBaseUI`
 - `JobsBlock`
@@ -148,25 +148,25 @@ ruby -rxcodeproj -e 'p = Xcodeproj::Project.open("Pods/Pods.xcodeproj"); puts [p
 
 <a id="jobs-architecture"></a>
 
-## 十、架构脉络与关键设计
+## 十、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 10.1、设计目的与职责划分
+### 10.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 把 URL、网页、拨号、邮件及外部应用打开请求集中到 Opener。Configuration 表达目标和模式，应用内网页控制器负责浏览，NSObject/NSString 分类提供调用便利。
 
-### 10.2、运行脉络
+### 10.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 构造 URL 与打开模式 → 判断可用路径 → 应用内展示或转交系统 → 返回打开动作结果。
 
-### 10.3、关键设计与边界
+### 10.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - completion 表示打开动作是否触发成功，不代表网页已加载成功。
 - 邮件优先系统编辑器，不可用时可走 mailto；拨号与第三方 scheme 有各自接入条件。
 - 宿主负责需要的 scheme 白名单，不能只重建 opener 就认为所有外部应用都能打开。
 
-### 10.4、阅读与重建顺序
+### 10.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看 Configuration 的模式/结果，再看 Opener 分流和 WebView 生命周期，最后看便捷分类。
 

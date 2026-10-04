@@ -7,21 +7,21 @@ nextPage: faq.html
 ---
 The most important distinction when creating a subclass is whether you writing an ASDKViewController or an ASDisplayNode. This sounds obvious, but because some of these differences are subtle, it is important to keep this top of mind. 
 
-## ASDisplayNode
+## <span id="前言">ASDisplayNode <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 <br>
 While subclassing nodes is similar to writing a UIView subclass, there are a few guidelines to follow to ensure that both that you're utilizing the framework to its full potential and that your nodes behave as expected.
 
-### `-init`
+### `-init` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 This method is called on a **background thread** when using nodeBlocks. However, because no other method can run until -init is finished, it should never be necessary to have a lock in this method. 
 
 The most important thing to remember is that your init method must be capable of being called on any queue. Most notably, this means you should never initialize any UIKit objects, touch the view or layer of a node (e.g. `node.layer.X` or `node.view.X`) or add any gesture recognizers in your initializer. Instead, do these things in `-didLoad`. 
 
-### `-didLoad`
+### `-didLoad` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 This method is conceptually similar to UIViewController's `-viewDidLoad` method; it’s called once and is the point where the backing view has been loaded.  It is guaranteed to be called on the **main thread** and is the appropriate place to do any UIKit things (such as adding gesture recognizers, touching the view / layer, initializing UIKit objects). 
 
-### `-layoutSpecThatFits:`
+### `-layoutSpecThatFits:` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 This method defines the layout and does the heavy calculation on a **background thread**. This method is where you build out a layout spec object that will produce the size of the node, as well as the size and position of all subnodes.  This is where you will put the majority of your layout code. 
 
@@ -29,7 +29,7 @@ The layout spec object that you create is malleable up until the point that it i
 
 Because it is run on a background thread, you should not set any `node.view` or `node.layer` properties here. Also, unless you know what you are doing, do not create any nodes in this method. Additionally, it is not necessary to begin this method with a call to super, unlike other method overrides. 
 
-### `-layout`  
+### `-layout` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>  
 
 The call to super in this method is where the results of the layoutSpec are applied; Right after the call to super in this method, the layout spec will have been calculated and all subnodes will have been measured and positioned. 
 
@@ -45,11 +45,11 @@ subnode.frame = self.bounds;
 
 If you desire the same effect in a ASDKViewController, you can do the same thing in -viewWillLayoutSubviews, unless your node is the node in initWithNode: and in that case it will do this automatically.
 
-## ASDKViewController
+## ASDKViewController <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 An `ASDKViewController` is a regular `UIViewController` subclass that has special features to manage nodes. Since it is a UIViewController subclass, all methods are called on the **main thread** (and you should always create an ASDKViewController on the main thread). 
 
-### `-init` 
+### `-init` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a> 
 
 This method is called once, at the very beginning of an ASDKViewController's lifecycle. As with UIViewController initialization, it is best practice to **never access** `self.view` or `self.node.view` in this method as it will force the view to be created early. Instead, do any view access in -viewDidLoad. 
 
@@ -87,24 +87,26 @@ init() {
 </div>
 </div>
        
-### `-loadView`
+### `-loadView` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 We recommend that you do not use this method because it is has no particular advantages over `-viewDidLoad` and has some disadvantages. However, it is safe to use as long as you do not set the `self.view` property to a different value. The call to [super loadView] will set it to the `node.view` for you.
 
-### `-viewDidLoad`  
+### `-viewDidLoad` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>  
 
 This method is called once in a ASDKViewController's lifecycle, immediately after `-loadView`. This is the earliest time at which you should access the node's view. It is a great spot to put any **setup code that should only be run once and requires access to the view/layer**, such as adding a gesture recognizer. 
 
 Layout code should never be put in this method, because it will not be called again when geometry changes. Note this is equally true for UIViewController; it is bad practice to put layout code in this method even if you don't currently expect geometry changes. 
 
-### `-viewWillLayoutSubviews`  
+### `-viewWillLayoutSubviews` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>  
 
 This method is called at the exact same time as a node's `-layout` method and it may be called multiple times in a ASDKViewController's lifecycle; it will be called whenever the bounds of the ASDKViewController's node are changed (including rotation, split screen, keyboard presentation) as well as when there are changes to the hierarchy (children being added, removed, or changed in size). 
 
 For consistency, it is best practice to put all layout code in this method. Because it is not called very frequently, even code that does not directly depend on the size belongs here.  
 
-### `-viewWillAppear:` / `-viewDidDisappear:`
+### `-viewWillAppear:` / `-viewDidDisappear:` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 These methods are called just before the ASDKViewController's node appears on screen (the earliest time that it is visible) and just after it is removed from the view hierarchy (the earliest time that it is no longer visible). These methods provide a good opportunity to start or stop animations related to the presentation or dismissal of your controller. This is also a good place to make a log of a user action.
 
 Although these methods may be called multiple times and geometry information is available, they are not called for all geometry changes and so should not be used for core layout code (beyond setup required for specific animations). 
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

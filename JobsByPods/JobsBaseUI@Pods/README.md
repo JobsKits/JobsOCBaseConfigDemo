@@ -17,7 +17,7 @@ Demo 主题入口调用 `JobsThemeCenter.toggle`；`JobsOCDefs` 根据主工程 
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 > 这份自述用于记录 `JobsBaseUI` 在 Jobs 本地 [**CocoaPods**](https://cocoapods.org/) 体系里的职责边界、目录结构、依赖关系和验证方式。
 补充描述：JobsBaseUI is a local Objective-C UI component library used in Jobs projects. It contains base views, view controllers, table and collection view cells, text fields, buttons, labels, navigation components, layouts, helper objects, UIKit categories, model helpers, and related resource files.
@@ -74,31 +74,31 @@ JobsBaseUI@Pods/
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 5.1、公开头文件
+### 5.1、公开头文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsBaseUI.h`
 - `Core/**/*.h`
 
-### 5.2、源码入口
+### 5.2、源码入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsBaseUI.h`
 - `Core/**/*.{h,m,mm}`
 
-### 5.3、默认安装边界
+### 5.3、默认安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
 - `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 - `TMSCollectionViewLayout` 提供 UICollectionView 卡包式重叠布局，公开 `itemHeight`、`overlapRatio` 和 `expandedItemSpacing`，默认收起时相邻 Cell 盖住 50%，调用 `didClickWithIndexPath:isExpand:` 可展开或收起被点击的 Cell。
 - `ZYTextField` 继承系统 `UITextField.text` 的读写实现，不重复合成同名属性，保证 UIKit 实际输入、`text` 取值和 `rac_textSignal` 始终来自同一份文本状态。
 
-### 5.4、系统框架
+### 5.4、系统框架 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `AudioToolbox`
 - `Foundation`
 - `UIKit`
 - `WebKit`
 
-### 5.5、Pod 依赖
+### 5.5、Pod 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Masonry`
 - `MJRefresh`
@@ -184,7 +184,7 @@ pod install --no-repo-update
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
 
-## 明暗主题契约
+## 明暗主题契约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - BaseVC 的页面根背景不展示固定底色或底图；业务图片必须下沉到内容子视图，避免覆盖全局明暗主题。
@@ -193,25 +193,25 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 十、架构脉络与关键设计
+## 十、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 10.1、设计目的与职责划分
+### 10.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 这是按控件类型组织的 UI 基础组件集合，包含基础 View、Button、Cell、列表布局和多种输入框。公共模型/协议提供统一表达，各具体控件实现自己的布局、渲染和交互；Support 承接局部支撑。
 
-### 10.2、运行脉络
+### 10.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 选择具体基础控件 → 注入模型和配置 → 组装子视图/约束 → 接收交互并回传 → 在复用或状态变化时更新。
 
-### 10.3、关键设计与边界
+### 10.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 同一库包含多种控件，不存在一条适用于全部组件的统一业务状态机。
 - Cell 复用、输入框占位动画和按钮点击具有不同生命周期，应按类型阅读。
 - 自维护代码与历史引入组件要保留来源边界，不能把目录内所有实现都视为需要重新生成的自研内核。
 
-### 10.4、阅读与重建顺序
+### 10.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先选业务需要的 BaseView/BaseButton/BaseCell 或输入框分支，再沿模型、协议、实现追踪；不要从所有文件列表开始整体重写。
 

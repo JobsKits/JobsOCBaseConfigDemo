@@ -6,7 +6,7 @@ prevPage: intelligent-preloading.html
 nextPage: node-overview.html
 ---
 
-### Use Nodes in Node Containers
+### <span id="前言">Use Nodes in Node Containers <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 It is highly recommended that you use Texture's nodes within a node container. Texture offers the following node containers.
 
 <table style="width:100%" class = "paddingBetweenCols">
@@ -45,8 +45,10 @@ Example code and specific sample projects are highlighted in the documentation f
 
 <!-- For a detailed description on porting an existing UIKit app to Texture, read the <a href = "porting-guide.html">porting guide</a>. -->
 
-### What do I Gain by Using a Node Container?
+### What do I Gain by Using a Node Container? <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 A node container automatically manages the <a href = "intelligent-preloading.html">intelligent preloading</a> of its nodes. This means that all of the node's layout measurement, data fetching, decoding and rendering will be done asynchronously. Among other conveniences, this is why it is recommended to use nodes within a container node.
 
 Note that while it _is_ possible to use nodes directly (without a Texture node container), unless you add additional calls, they will only start displaying once they come onscreen (as UIKit does). This can lead to performance degradation and flashing of content.
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

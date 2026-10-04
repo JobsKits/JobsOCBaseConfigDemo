@@ -14,7 +14,7 @@ The **child(ren) of a layoutSpec may be a node, a layoutSpec or a combination of
 
 Both nodes and layoutSpecs conform to the `<ASLayoutable>` protocol.  Any `ASLayoutable` object may be the child of a layoutSpec. <a href = "automatic-layout-containers.html#aslayoutable-properties">ASLayoutable properties</a> may be applied to `ASLayoutable` objects to create complex UI designs. 
 
-### Single Child layoutSpecs
+### <span id="前言">Single Child layoutSpecs <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 <table style="width:100%" class="paddingBetweenCols">
   <tr>
@@ -51,7 +51,7 @@ Both nodes and layoutSpecs conform to the `<ASLayoutable>` protocol.  Any `ASLay
   </tr>
 </table> 
 
-### Multiple Child(ren) layoutSpecs
+### Multiple Child(ren) layoutSpecs <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 The following layoutSpecs may contain one or more children. 
 
@@ -70,11 +70,11 @@ The following layoutSpecs may contain one or more children.
   </tr>
 </table>
 
-### ASLayoutable Properties
+### ASLayoutable Properties <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 The following properties can be applied to both nodes _and_ `layoutSpec`s; both conform to the `ASLayoutable` protocol. 
 
-### ASStackLayoutable Properties
+### ASStackLayoutable Properties <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 The following properties may be set on any node or `layoutSpec`s, but will only apply to those who are a **child of a stack** `layoutSpec`.
 
@@ -117,7 +117,7 @@ The following properties may be set on any node or `layoutSpec`s, but will only 
   </tr>
 </table> 
 
-### ASStaticLayoutable Properties
+### ASStaticLayoutable Properties <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 The following properties may be set on any node or `layoutSpec`s, but will only apply to those who are a **child of a static** `layoutSpec`.
 
@@ -136,7 +136,7 @@ The following properties may be set on any node or `layoutSpec`s, but will only 
   </tr>
 </table>
 
-### Providing Intrinsic Sizes for Leaf Nodes
+### Providing Intrinsic Sizes for Leaf Nodes <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Texture's layout is recursive, starting at the layoutSpec returned from `layoutSpecThatFits:` and proceeding down until it reaches the leaf nodes included in any nested `layoutSpec`s. 
 
@@ -158,7 +158,7 @@ To provide an intrinisc size for these nodes, you can set one of the following:
 
 Note that `.preferredFrameSize` is not considered by `ASTextNodes`. Also, setting .sizeRange on a node will override the node's intrinisic size provided by `calculateSizeThatFits:`. 
 
-### Common Confusions
+### Common Confusions <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 There are two main confusions that developers have when using layoutSpecs
 
@@ -166,7 +166,7 @@ There are two main confusions that developers have when using layoutSpecs
   2. Have I set an intrinsic size for all of my leaf nodes?
 
 
-#### I set `.flexGrow` on my node, but it doesn't grow?
+#### I set `.flexGrow` on my node, but it doesn't grow? <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Upward propogation of `ASLayoutable` properties is currently disabled. Thus, in certain situations, the `.flexGrow` property must be manually applied to the containers. Two common examples of this that we see include:
 
@@ -174,11 +174,11 @@ Upward propogation of `ASLayoutable` properties is currently disabled. Thus, in 
 - a node (with `flexGrow` enabled) is wrapped in an inset spec. **solution**: enable `flexGrow` on the inset spec as well.
 
 
-#### I want to provide a size for my image, but I don't want to hard code the size.
+#### I want to provide a size for my image, but I don't want to hard code the size. <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-#### Why won't my stack spec span the full width? 
+#### Why won't my stack spec span the full width? <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a> 
 
-#### Difference between `ASInsetLayoutSpec` and `ASOverlayLayoutSpec`
+#### Difference between `ASInsetLayoutSpec` and `ASOverlayLayoutSpec` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 An overlay spec requires the underlay object (object to which the overlay item will be applied) to have an intrinsic size. It will center the overlay object in the middle of this area. 
 
@@ -186,7 +186,9 @@ An inset spec requires its object to have an intrinsic size. It adds the inset p
 
 <img src="http://texturegroup.org/static/images/overlay-vs-inset-spec.png">
 
-### Best Practices
+### Best Practices <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
   - Texture layout is called on a background thread. Do not access the device screen bounds, or any other UIKit methods in `layoutSpecThatFits:`.
   - don't wrap everything in a staticLayoutSpec?
   - avoid using preferred frame size for everything - won't respond nicely to device rotation or device sizing differences?
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

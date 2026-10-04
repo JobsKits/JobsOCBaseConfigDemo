@@ -1,6 +1,6 @@
-## TABAnimated对于iOS14的适配说明
+## <span id="前言">TABAnimated对于iOS14的适配说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
-## 背景
+## 背景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 `TABAnimated`是一个自动化生成骨架屏的工具。  
 骨架屏是一个定制化程度较高的需求。而`TABAnimated`的自动生成策略和开发者的自定制需求天然地存在冲突。  
@@ -13,7 +13,7 @@
 
 因为涉及到新的处理策略，旧的错误说明，所以本文特地做一个简要说明。
 
-## iOS14系统变化
+## iOS14系统变化 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 iOS14对`UITableViewCell`，`UITableViewHeaderFooterView`等类型视图做了调整。  
 以`UITableViewCell`为例，其增加了一个与`UITableViewCellContentView`同级的view，其class类型为`_UISystemBackgroundView`。
@@ -22,7 +22,7 @@ iOS14对`UITableViewCell`，`UITableViewHeaderFooterView`等类型视图做了�
 
 ![cell结构图.png](https://upload-images.jianshu.io/upload_images/5632003-88dfa4d807289cb0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-## 隐藏问题和初步适配策略
+## 隐藏问题和初步适配策略 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 因为`_UISystemBackgroundView`的class类型是特殊的，所以可以通过className过滤掉。还需要把`_UISystemBackgroundView`上的UIView移除掉，才能完全解决这个问题。    
 这个view它主要有两种特征，一个是大小和`_UISystemBackgroundView`一致，另一个是位于`_UISystemBackgroundView`的subViews栈底。  
@@ -43,7 +43,7 @@ if ((CGRectEqualToRect(view.bounds, rootView.bounds)
 }
 ```
 
-## TABAnimated的旧错误及兼容策略
+## TABAnimated的旧错误及兼容策略 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 **背景：**在自动化生成的策略中，当视图的组件很多（包含隐藏组件），大概率存在动画元素局部覆盖，同时有很多元素不会被开发者用到，所以增加了筛选策略，对于宽高小于3pt的动画元素进行自动过滤，同时支持过滤条件自定制。  
 
@@ -74,4 +74,6 @@ if ([view isKindOfClass:[NSClassFromString(@"_UITableViewCellSeparatorView") cla
 }
 ```
 
-#### 所以，此处的逻辑有些怪异，这都是为了弥补过去不合理的逻辑造成的，但是我们又必须向下兼容。希望后续的朋友看到此处代码，不要太无语。
+#### 所以，此处的逻辑有些怪异，这都是为了弥补过去不合理的逻辑造成的，但是我们又必须向下兼容。希望后续的朋友看到此处代码，不要太无语。 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

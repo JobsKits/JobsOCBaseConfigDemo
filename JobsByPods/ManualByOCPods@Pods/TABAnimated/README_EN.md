@@ -17,16 +17,16 @@
     </a>
 </p>
 
-## What is the skeleton screen?
+## <span id="前言">What is the skeleton screen? <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 Find the comrades here, and more or less have an understanding of the skeleton screen. Skeleton Screen is a solution to optimize the user's weak network experience, which can effectively alleviate the anxiety of users waiting.
 
-## What is TABAnimated?
+## What is TABAnimated? <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 TABAnimated is a solution for iOS developers to automatically generate skeleton screens. Developers can configure the already developed views to configure some global/local parameters through TABAnimated to automatically generate a skeleton screen that is consistent with their length.  
 Of course, TABAnimated will help you manage the lifecycle of the skeleton screen.
 
-## Catalog
+## Catalog <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 * [Integration Advantage] (# Integration Advantage)
 * [Effect display] (# effect display)
@@ -35,7 +35,7 @@ Of course, TABAnimated will help you manage the lifecycle of the skeleton screen
 * [Question Search] (# Question Search)
 * [Last emphasis] (# last emphasis)
 
-## Features
+## Features <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - Highly automated
 - Low coupling
@@ -43,7 +43,7 @@ Of course, TABAnimated will help you manage the lifecycle of the skeleton screen
 - Suitable for various scenarios
 - High degree of customization
 
-## Preview
+## Preview <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 | Dynamic Animation | Card View | Bin Animation |
 | ------ | ------ | ------ |
@@ -59,7 +59,7 @@ Of course, TABAnimated will help you manage the lifecycle of the skeleton screen
 | ------ | ------ |
 | ![工具箱切换.gif](https://upload-images.jianshu.io/upload_images/5632003-cf5c4f50eac6fe6c.gif?imageMogr2/auto-orient/strip) | ![setting设置切换.gif](https://upload-images.jianshu.io/upload_images/5632003-2d1fb96ec07d6bca.gif?imageMogr2/auto-orient/strip) | 
 
-## Installation
+## Installation <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - CocoaPods
 
@@ -77,9 +77,9 @@ Github "tigerAndBull/TABAnimated"
 
 **Note: The demo demo downloaded on github, in order to simulate the real application scenario well, uses some familiar third parties, but TABAnimated does not depend on them.**
 
-## Usage
+## Usage <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### I. global parameter initialization
+### I. global parameter initialization <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Initialize `TABAimated` in `didFinishLaunchingWithOptions`
 
@@ -90,7 +90,7 @@ Initialize `TABAimated` in `didFinishLaunchingWithOptions`
 
 **Note: There are other animation types, global properties, and comments in the framework.**
 
-### II. Control view initialization
+### II. Control view initialization <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 **Control view: If it is a list view, then it is UITableView/UICollectionView, there are documents to explain.**
 
@@ -107,7 +107,7 @@ cellSize:[NewsCollectionViewCell cellSize]];
 - **There are other initialization methods, such as a variety of common cells, there are comments in the framework**
 - **There are local properties for this control view, there are comments in the framework**
 
-### III. Control skeleton screen switch
+### III. Control skeleton screen switch <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Open animation
 
@@ -121,7 +121,7 @@ Open animation
 [self.collectionView tab_endAnimation];
 ```
 
-### VI. Just said, how to use pre-processing callback + chain syntax?
+### VI. Just said, how to use pre-processing callback + chain syntax? <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```
 _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
@@ -131,19 +131,19 @@ _tableView.tabAnimated.adjustBlock = ^(TABComponentManager * _Nonnull manager) {
 };
 ```
 
-#### 1. Some people see the above, they may be scared at once, is integration so complicated?
+#### 1. Some people see the above, they may be scared at once, is integration so complicated? <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 A: It does not need to be adjusted asynchronously. It needs to be adjusted to what extent, and it is related to your own constraints and product requirements. Therefore, it does not automatically generate the effect that any product, anyone is completely satisfied immediately.
 You can rest assured that launching this feature will help developers adjust the results they want more quickly.**
 
-#### 2. `manager.animation(x)`, what is x?
+#### 2. `manager.animation(x)`, what is x? <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 A: In the appDelegate set TABAnimated's `openAnimationTag` attribute to YES, the framework will automatically indicate for you, what is x?
 ```
 [TABAnimated sharedAnimated].openAnimationTag = YES;
 ```
 
-#### 3. Learn a few examples (pre-processing callback + chain syntax)
+#### 3. Learn a few examples (pre-processing callback + chain syntax) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - If the height and width of the 0th element are not appropriate
 ```
@@ -164,7 +164,7 @@ manager.animationWithIndexs(1,5,7).down(5);
 
 ![Subscript diagram.png](https://upload-images.jianshu.io/upload_images/5632003-2842bd54e80dd9ef.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
 
-#### Form integration must see
+#### Form integration must see <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 (1) Before you integrate the table view, be sure to clarify your own view structure:
 
@@ -181,23 +181,23 @@ Divided into the following three
 
 (3) Finally, find the corresponding initialization method and start the animation method in the framework!
 
-## Demonstration process
+## Demonstration process <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Let's take a closer look at TABAnimated with a small example.
 
-#### 1. Tom and Jack have a view like this, which needs to integrate the skeleton screen.
+#### 1. Tom and Jack have a view like this, which needs to integrate the skeleton screen. <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ![Requirements.png](https://upload-images.jianshu.io/upload_images/5632003-8bb0895de7690f79.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
 
-#### 2. The following is the effect generated by TABAnimated automation.
+#### 2. The following is the effect generated by TABAnimated automation. <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ![自动化生成.png](https://upload-images.jianshu.io/upload_images/5632003-f10c2427f8b149ba.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
 
-#### 3. Jack is doing this demand, I am very satisfied with this effect, then Jack’s work is over. But Tom said, I feel that the length and height are similar to the original view, but I am not satisfied with the animation effect, not refined enough. So, he quickly made the following adjustments through (pre-processing callback + chain syntax).
+#### 3. Jack is doing this demand, I am very satisfied with this effect, then Jack’s work is over. But Tom said, I feel that the length and height are similar to the original view, but I am not satisfied with the animation effect, not refined enough. So, he quickly made the following adjustments through (pre-processing callback + chain syntax). <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ![Adjusted effect.png](https://upload-images.jianshu.io/upload_images/5632003-0affe19065135d31.png?imageMogr2/auto-orient/strip%7CimageView2/3/w/300)
 
-## Q&A
+## Q&A <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 **Of course, in practical applications, we also have a variety of views, TABAnimated has experienced many products, all can be dealt with.
 But the above knowledge is certainly not enough. The following is a more detailed description of the document.**
@@ -220,7 +220,7 @@ But the above knowledge is certainly not enough. The following is a more detaile
 
 **If you still can't solve the problem, you can contact me as soon as possible, I believe TABAnimated can solve 99% of the demand**
 
-## License
+## License <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 MIT License
 
@@ -243,3 +243,5 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

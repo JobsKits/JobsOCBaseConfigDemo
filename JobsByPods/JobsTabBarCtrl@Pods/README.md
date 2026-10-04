@@ -8,7 +8,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 > 这份自述用于记录 `JobsTabBarCtrl` 在 Jobs 本地 [**CocoaPods**](https://cocoapods.org/) 体系里的职责边界、公开能力、依赖关系和验证方式。
 
@@ -59,22 +59,22 @@ JobsTabBarCtrl@Pods/
 
 ## 四、公开边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 4.1、公开头文件
+### 4.1、公开头文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsTabBarCtrlHeader.h`
 - `Core/**/*.h`
 
-### 4.2、源码入口
+### 4.2、源码入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsTabBarCtrlHeader.h`
 - `Core/**/*.{h,m,mm}`
 
-### 4.3、系统框架
+### 4.3、系统框架 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Foundation`
 - `UIKit`
 
-### 4.4、Pod 依赖
+### 4.4、Pod 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsBlock`
 - `JobsMakes`
@@ -128,7 +128,7 @@ ruby -rxcodeproj -e 'p = Xcodeproj::Project.open("Pods/Pods.xcodeproj"); puts [p
 - `jobsMakeTabBarCtrl`、链式 Block 类型、属性宏、颜色宏和滚动 / 按钮 DSL 分别来自 `JobsMakes`、`JobsBlock`、`JobsOCDefs`、`JobsOCDSL` 和 `JobsByOCPods`。
 - 当前 Pod 不反向依赖 `JobsOCTools`，避免形成循环引用；其它模块需要使用时应直接依赖 `JobsTabBarCtrl`。
 
-## 明暗主题契约
+## 明暗主题契约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
@@ -136,25 +136,25 @@ ruby -rxcodeproj -e 'p = Xcodeproj::Project.open("Pods/Pods.xcodeproj"); puts [p
 
 <a id="jobs-architecture"></a>
 
-## 九、架构脉络与关键设计
+## 九、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 9.1、设计目的与职责划分
+### 9.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 用按钮数组与子控制器数组组成可横向翻页的 Tab 容器。TabBar 负责选择表现，内容滚动视图负责页面切换，控制器协调选中 index 与子页面关系。
 
-### 9.2、运行脉络
+### 9.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 提供按钮和子控制器 → 建立一一映射 → 布局 TabBar/内容页 → 点击或滑动切换 → 尺寸变化时重新布局。
 
-### 9.3、关键设计与边界
+### 9.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 首次构建回调与每次布局回调不同，不能在旋转时重复执行仅一次的初始化业务。
 - 按钮数量超过等分范围时有独立宽度策略，不应始终硬编码五等分。
 - 是否禁止子页纵向滚动是可选策略，不能默认破坏子页面自身滚动。
 
-### 9.4、阅读与重建顺序
+### 9.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看数据源与 selectedIndex，再看点击/滑动同步，最后看安全区、按钮宽度和重排回调。
 

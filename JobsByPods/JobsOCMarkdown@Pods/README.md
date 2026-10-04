@@ -1,4 +1,4 @@
-# JobsOCMarkdown
+# <span id="前言">JobsOCMarkdown</span>
 
 [toc]
 
@@ -6,7 +6,7 @@
 
 ---
 
-## 一、能力
+## 一、能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 `JobsOCMarkdown` 是面向 Jobs Objective-C 新工程的本地 Markdown 渲染 Pod。
 它使用 `WKWebView` 承载成熟的 Web 解析内核，支持：
@@ -20,7 +20,7 @@
 - UTF-8 文本在原生层与 JavaScript 运行时之间安全传输；
 - 构建期文档清单，以及 Markdown 文件之间的链接。
 
-## 二、接入
+## 二、接入 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```ruby
 pod 'JobsOCMarkdown', :path => './JobsByPods/JobsOCMarkdown@Pods'
@@ -33,7 +33,7 @@ Markdown 和被引用的本地资源写入 App 内的 `JobsMarkdownDocuments.bun
 OC 老工程不依赖本 Pod，而是把同一组 Objective-C 源码、资源和打包器直接集成
 进主工程。
 
-## 三、读取与渲染
+## 三、读取与渲染 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objective-c
 NSError *error = nil;
@@ -45,7 +45,7 @@ JobsOCMarkdownDocument *document = catalog.documents.firstObject;
 文档列表属于宿主 Demo；Pod 只负责清单模型、文件读取与渲染。宿主 Demo 的
 详情导航标题跟随当前文档标题，列表点按态使用主题语义背景色。
 
-## 四、第三方内核
+## 四、第三方内核 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 资源包内原样包含 `markdown-it`、`highlight.js`、`Mermaid`、`KaTeX` 和
 `DOMPurify` 的浏览器发行文件。版本与许可证见 `ThirdPartyLicenses`，Jobs 自有
@@ -53,15 +53,15 @@ JobsOCMarkdownDocument *document = catalog.documents.firstObject;
 
 <a id="jobs-architecture"></a>
 
-## 五、架构脉络与关键设计
+## 五、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 5.1、设计目的与职责划分
+### 5.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 用 Catalog/Document 管理文档清单与文件定位，Configuration 控制渲染选项，MarkdownView 承载网页渲染。资源包提供 markdown-it、代码高亮、图表、公式和净化库，文档列表属于宿主。
 
-### 5.2、运行脉络
+### 5.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 选择清单中的文档 → 定位并读取文件 → 载入渲染资源和配置 → 网页视图展示 → 处理链接或外部资源。
 
@@ -77,13 +77,13 @@ flowchart LR
     E --> G["链接请求交给宿主"]
 ```
 
-### 5.3、关键设计与边界
+### 5.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 文档读取、[**Markdown**](https://markdown.cn) 转换和 WebView 展示是不同阶段，错误要能定位到对应阶段。
 - 离线浏览依赖完整资源包，不能只复制原生视图类。
 - 第三方浏览器发行文件及许可证原样保留，不属于自研重建范围。
 
-### 5.4、阅读与重建顺序
+### 5.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看 Catalog/Document 的路径约定，再看 Configuration 与 View 的加载流程，最后核对资源包和远程访问边界。
 
@@ -96,3 +96,5 @@ flowchart LR
 - [Core/JobsOCMarkdownDocument.h](<./Core/JobsOCMarkdownDocument.h>)
 
 依赖与编译入口：[JobsOCMarkdown.podspec](<./JobsOCMarkdown.podspec>)。其中显式依赖声明包括 `JobsMakes`、`JobsOCDSL`、`JobsOCDefs`、`JobsBlock`、`Masonry`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

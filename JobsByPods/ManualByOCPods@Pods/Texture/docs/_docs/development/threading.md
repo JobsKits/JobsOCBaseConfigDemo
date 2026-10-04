@@ -6,7 +6,7 @@ prevPage: how-to-debug.html
 nextPage: node-lifecycle.html
 ---
 
-## At a glance
+## <span id="前言">At a glance <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 The Texture philosophy is about efficient utilization of resources in order to provide a high frame rate user experience. In other words, an almost scientific approach to distributing work amongst threads keeps the Default Run Loop lean to allow user input events and to consume work scheduled on the main dispatch queue.
 
@@ -15,7 +15,7 @@ There are a few conventions to follow:
 1. Invocations of the UIKit API must happen on the main thread via either `dispatch_get_main_queue()` or with `ASPerformBlockOnMainThread()`
 2. Anything else should generally happen on a background thread, with prioritization
 
-## Run Loop, Threads, and Queues
+## Run Loop, Threads, and Queues <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 A thread is managed by the kernel to execute code. A `dispatch_queue_t` describes a context for an ordered list of blocks to be executed. A queue may utilize specific thread for execution determined by GCD and the kernel.
 
@@ -165,7 +165,7 @@ Looking at the logs, we can see how GCD reaches a maximum background thread coun
 10 ms block 64
 ```
 
-## ASMainSerialQueue
+## ASMainSerialQueue <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 The `ASMainSerialQueue` ensures that work can be performed serially on the main thread without being interrupted. The key difference between this and purely using `dispatch_async(dispatch_get_main_queue, block)` is that the main thread can be interrupted between execution of blocks in its queue, where as this interface will execute everything possible in its queue on the main thread before returning control back to the OS.
 
@@ -175,7 +175,7 @@ This should also be used a synchronization mechanism. Since the `ASMainSerialQue
 
 This is really just a buffer to the main dispatch queue. It behaves the same, except this offers some more visibility onto how much work is scheduled. This interface guarantees that everything scheduled will execute in one operation serially on the main thread.
 
-## ASRunLoopQueue
+## ASRunLoopQueue <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Even deallocation of UIKit objects on the main thread are optimized in Texture. Usually, synchronously, objects are retain counted and freed from memory when appropriate. This just isnt't good enough for a performant framework like Texture. So instead, for each run loop iteration on the main thread, a maximum set of objects can be designated to be freed. This is done by calling `void ASPerformMainThreadDeallocation(id _Nullable __strong * _Nonnull objectPtr)`. Behind the scenes, this is using `ASRunLoopQueue` ensuring that only a maximum amount of objects are deallocated, and that this occurs at the least demanding time on the run loop. Let's break down its initializer:
 
@@ -220,7 +220,7 @@ if (!isQueueDrained) {
 }
 ```
 
-## Locks and Safety
+## Locks and Safety <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Carrying on from our last example, we have to make sure that during our processing of the queue for objects that need to be deallocated remains untampered to avoid bounds errors. The execution of this function must be synchronous. In this particular example, we can guarantee that the execution of this will always happen on a designated run loop's single thread, and therefore synchronously. However, we want to design robust software that won't deadlock or crash.
 
@@ -275,7 +275,7 @@ Usage example
 }
 ```
 
-## Thread Contention
+## Thread Contention <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Although locks are critical to guaranteeing safer multithreading synchronization, they must be used with some caution, as threads are slept if they can not hold the lock immediately. In order to sleep/wake a thread, many CPU cycles are consumed. Some `std::mutex` implementations are able to spinlock for a bit at first to combat the overhead of sleeping and waking a thread for failed lock holds. However, the performance loss here is a necessary sacrifice in order to attain thread safety. In order to make up for the potential loss in performance, the programmer should design as little opportunity for contention as possible, and to lock only the smallest amount of work.
 
@@ -283,7 +283,7 @@ An interesting investigation can be found [here](https://stackoverflow.com/a/497
 
 > Bottom line, a mutex is implemented with atomics. To synchronize atomics between cores an internal bus must be locked which freezes the corresponding cache line for several hundred clock cycles.
 
-## Other Threading Practices in Texture
+## Other Threading Practices in Texture <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 __Main Thread/ UIKit API__
 
@@ -295,7 +295,7 @@ API | Description |
 `ASPerformBlockOnBackgroundThread(block)` | Perform work on background
 
 
-## Threading by example
+## Threading by example <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Let's take a look at collection view. UIKit calls (such as batch updates) can be invoked from the background due to network calls returning with fresh models. These models are then used to calculate a change set used by the collection view to perform a batch update. This batch update calls into UIKit API for insertions, deletions, and moves in one continuous operation that modifies the view hierarchy. As we know, all UIKit operations must occur on the main thread. How can we design the interface to get the most efficient distribution of work?
 
@@ -338,3 +338,5 @@ The reason we must design the work to consume the editing transaction queue seri
 
 One small note is these diagrams are missing a representation of the main dispatch queue. Remember this is separate from the main thread. It is a data structure operated by GCD similarly to ASMainSerialQueue which handles execution to the main thread. All the work that goes from the background threads to the main thread is first put onto the main dispatch queue when using `dispatch_async(dispatch_get_main_queue())`.
 .
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

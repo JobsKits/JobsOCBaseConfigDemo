@@ -15,7 +15,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 > 这份自述用于记录 `ZFPlayerExtra` 在 Jobs 本地 [**CocoaPods**](https://cocoapods.org/) 体系里的职责边界、目录结构、依赖关系和验证方式。
 
@@ -64,7 +64,7 @@ ZFPlayerExtra@Pods/
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 5.1、公开头文件
+### 5.1、公开头文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `ZFPlayerExtra.h`
 - `Core/ZFDouYinControlView/ZFDouYinControlView/ZFDouYinControlView.h`
@@ -74,29 +74,29 @@ ZFPlayerExtra@Pods/
 
 `Core/ZFPlayerExtra/ZFPlayerExtra.h` 只作为 private header 参与内部编译，避免和根入口头 `ZFPlayerExtra.h` 同名抢占 framework public `Headers`。
 
-### 5.2、源码入口
+### 5.2、源码入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `ZFPlayerExtra.h`
 - `Core/**/*.{h,m,mm}`
 
-### 5.2.1、DSL 补充能力
+### 5.2.1、DSL 补充能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `ZFAVPlayerManager+ZFPlayerExtraDSL`：补齐 `assetURL`、`view`、`shouldAutoPlay`、音量 / 静音 / 速率 / seek / scaling / presentationSize、播放动作、缩略图回调和播放状态回调链式入口。
 - `ZFIJKPlayerManager+ZFPlayerExtraDSL`：在非模拟器且 `IJKMediaFramework` 可用时，按同一标准补齐 IJK manager 的链式入口。
 - `ZFDouYinControlView+DSL`：补齐 `player`、`resetControlView`、`showCoverViewWithUrl:` 的链式入口。
 - `ZFAVPlayerManager` 已由 `JobsOCDSL` 提供的 `byTimeRefreshInterval`、`byRequestHeader` 不在本 Pod 重复实现，避免同一类同名 category 抢实现。
 
-### 5.3、默认安装边界
+### 5.3、默认安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
 - `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 
-### 5.4、系统框架
+### 5.4、系统框架 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Foundation`
 - `UIKit`
 
-### 5.5、Pod 依赖
+### 5.5、Pod 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `ZFPlayer`
 - `ZFPlayer/AVPlayer`
@@ -157,25 +157,25 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 十、架构脉络与关键设计
+## 十、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 10.1、设计目的与职责划分
+### 10.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 围绕 ZFPlayer 的播放器管理器和控制视图提供 Jobs 的配置链。AVPlayer 与 IJK 管理器负责媒体播放，ZFDouYinControlView 负责短视频场景交互，DSL 连接地址、播放状态和回调。
 
-### 10.2、运行脉络
+### 10.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 选择播放管理器 → 配置媒体地址及承载视图 → 绑定控制视图与状态回调 → 准备/播放/暂停/停止。
 
-### 10.3、关键设计与边界
+### 10.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 管理器与控制视图分层，替换控制界面不应重新实现解码内核。
 - 准备播放、播放、重播、停止以及音量/静音属于不同操作；进度、缓冲和错误回调也不能合并。
 - podspec 声明了多个上游 subspec，重建时应核对实际可用的播放后端，不把所有后端当作系统自带。
 
-### 10.4、阅读与重建顺序
+### 10.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看管理器 DSL，再看控制视图与其 DSL；先打通一个媒体地址的生命周期，再扩展列表场景。
 

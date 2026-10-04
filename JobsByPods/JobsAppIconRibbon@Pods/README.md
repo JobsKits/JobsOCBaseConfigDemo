@@ -142,15 +142,15 @@ zsh './JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbon.sh'
 
 <a id="jobs-architecture"></a>
 
-## 九、架构脉络与关键设计
+## 九、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 9.1、设计目的与职责划分
+### 9.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 这是构建期图标派生工具，不是运行时 UI 控件。构建配置与样式参数交给 [**Swift**](https://www.swift.org/) 生成器，生成器在原始 AppIcon 图片上绘制环境绶带，输出独立的派生 appiconset 供当前构建使用。
 
-### 9.2、运行脉络
+### 9.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 读取原始 AppIcon 与环境配置 → 解析颜色/字体/文案 → 对图标绘制绶带 → 输出派生资源集 → 构建使用派生图标名。
 
@@ -166,13 +166,13 @@ flowchart LR
     D --> E[Xcode 编译 AppIcon]
 ```
 
-### 9.3、关键设计与边界
+### 9.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 原始图标不被覆盖；SOURCE_APPICONSET 不应指回已派生目录，否则可能重复叠加。
 - 构建环境与运行时环境不同，修改图标后需要重新构建才能体现在桌面。
 - 字体不可用时存在回退，派生目录属于构建产物；是否给正式包加绶带由项目配置决定。
 
-### 9.4、阅读与重建顺序
+### 9.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看 podspec/构建入口与配置参数，再看 Scripts 中的 options、configuration、render；无需重建一套 App 内图标切换界面。
 

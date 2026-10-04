@@ -6,11 +6,11 @@ prevPage: getting-started.html
 nextPage: installation.html
 ---
 
-### Slack
+### <span id="前言">Slack <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 Join 700+ Texture developers and the Texture <a href="team.html">core team</a> on Slack for real-time debugging, the latest updates, and asynchronous banter. Signup <a href="/slack.html">here</a>.
 
-### Examples
+### Examples <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 Browse through our many <a href="https://github.com/texturegroup/texture/tree/master/examples">example projects</a>. 
 
 If you are new to Texture, we recommend that you start with the <a href="https://github.com/texturegroup/texture/tree/master/examples/ASDKgram">ASDKgram</a> example app which compares a photo feed implemented with UIKit to an identical feed implemented with Texture. The app features:
@@ -19,7 +19,7 @@ If you are new to Texture, we recommend that you start with the <a href="https:/
 	<li>A significantly sized code base to demonstrate how much less code it takes to design apps using Texture.</li>
 </ol>
 
-### Videos
+### Videos <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <ul>
   <li><a href = "https://www.youtube.com/watch?v=XA_NkUbu9WA">Building smooth and responsive UI with Texture</a> <b>[CocoaHeadsNL 2017]</b></li>
   <li><a href = "https://www.youtube.com/watch?v=64Wgt_Uf50o">AsyncDisplayKit 2.0: Defining the 7th Abstraction Layer</a> <b>[Pinterest HQ 2016]</b></li>
@@ -31,7 +31,7 @@ If you are new to Texture, we recommend that you start with the <a href="https:/
   <li><a href = "https://www.youtube.com/watch?v=h4QDbgB7RLo">Asynchronous UI</a> <b>[NSLondon 2014]</b></li>
 </ul> 
 
-### Tutorials / Articles
+### Tutorials / Articles <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <ul>  
 <li><a href = "http://www.appcoda.com/introduction-asyncdisplaykit-2-0/">Using AsyncDisplayKit to Develop Responsive UIs in iOS</a> <b>[Ziad Tamim, 12.29.2016]</b></li>
 <li><a href = "https://www.raywenderlich.com/124696/asyncdisplaykit-2-0-tutorial-automatic-layout">AsyncDisplayKit 2.0 Tutorial: Automatic Layout</a> <b>[Luke Parham, 12.19.2016]</b></li>
@@ -41,10 +41,12 @@ Smooth Scrolling in Buffer for iOS: How (and Why) We Implemented AsyncDisplayKit
 </ul> 
 
 
-### Layout Resources
+### Layout Resources <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 Texture's powerful layout system is based on the CSS FlexBox model. These sites are useful for learning the basics of this system. 
 <ul>
   <li><a href = "http://nguyenhuy.github.io/froggy-asdk-layout/">ASStackLayout Game</a></li>
   <li><a href = "https://demos.scotch.io/visual-guide-to-css3-flexbox-flexbox-playground/demos/">Visual Guide to CSS3 Flexbox</a></li>
   <li><a href = "http://www.flexboxpatterns.com/home">FlexBox Patterns</a></li>
 </ul>
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

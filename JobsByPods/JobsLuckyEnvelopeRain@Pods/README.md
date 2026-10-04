@@ -68,25 +68,25 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 六、架构脉络与关键设计
+## 六、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 6.1、设计目的与职责划分
+### 6.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 由红包雨配置和展示视图组成。配置负责生成间隔、下落时长范围、尺寸、并发上限与点击开关，视图负责生成红包、执行下落及消费点击，计时模块提供生成节拍。
 
-### 6.2、运行脉络
+### 6.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 配置生成规则 → 周期生成红包 → 在容量上限内下落 → 点击或动画结束 → 移除对应红包。
 
-### 6.3、关键设计与边界
+### 6.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 生成频率与每个红包的下落时长不同，二者共同决定屏幕负载。
 - 最大并发数量限制的是在场红包，不应被忽略。
 - 红包点击只是视觉交互事件，奖励计算和发放应由业务层决定。
 
-### 6.4、阅读与重建顺序
+### 6.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看 Config 的约束，再看 View 的生成、点击、移除与停止；重建时先保证对象清理，再扩展视觉效果。
 

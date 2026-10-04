@@ -79,7 +79,7 @@ pod install --no-repo-update
 
 跳过 / 倒计时按钮的点按使用 `onClickBy` Block 链式入口，其它触摸阶段继续使用 `onJobsEvent` 表达。
 
-## 明暗主题契约
+## 明暗主题契约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
@@ -87,15 +87,15 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 六、架构脉络与关键设计
+## 六、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 6.1、设计目的与职责划分
+### 6.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 将开屏拆为配置、媒体展示、Action、Presenter、缓存、GIF 解码和本地化。Presenter 把开屏作为宿主内容页上的子控制器覆盖层，媒体缓存独立管理下载，倒计时与手动跳过汇入结束路径。
 
-### 6.2、运行脉络
+### 6.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 读取开屏配置 → 选择本地媒体或完整缓存 → 挂载覆盖层并暂停宿主手势 → 倒计时/点击/跳过 → 移除覆盖层并恢复原状态。
 
@@ -114,14 +114,14 @@ flowchart TD
     G -.-> B
 ```
 
-### 6.3、关键设计与边界
+### 6.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 开屏没有导航栏和返回键；不要用 push/pop 实现覆盖层退出。
 - 未缓存的远程视频走本地视频兜底，预加载由缓存单例持有，不随开屏退出取消。
 - 倒计时期间跳过按钮应可用，手动与自动结束需要避免重复移除。
 - Action 表达打开 URL 或自定义动作，媒体播放和业务动作不能混为一体。
 
-### 6.4、阅读与重建顺序
+### 6.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看 Configuration 与 Presenter，再看控制器结束路径、MediaCache 和 Action；重建时先明确展示生命周期与下载生命周期分离。
 

@@ -69,25 +69,25 @@ pod lib lint UIBaseTextFieldDSL.podspec --allow-warnings --verbose
 
 <a id="jobs-architecture"></a>
 
-## 八、架构脉络与关键设计
+## 八、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 8.1、设计目的与职责划分
+### 8.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 将 JobsBaseUI 的具体输入框 DSL 从通用 JobsOCDSL 中分离。CJTextField、HQTextField、ZYTextField、JobsMagicTextField 各有专属配置，分类把这些配置接回对应输入框类型。
 
-### 8.2、运行脉络
+### 8.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 创建具体输入框 → 配置该类型的专属能力 → 接续通用视图配置 → 挂载与接收输入。
 
-### 8.3、关键设计与边界
+### 8.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 独立 Pod 是为了隔离对 JobsBaseUI 的依赖，不应为了复用而反向把具体输入框类型拉回通用 DSL。
 - 删除代理、警告显示、清除按钮、文字/占位区域和占位动画是不同输入框的能力，不能假设每个子类都支持全部入口。
 - 返回类型应保留具体输入框，避免链式调用中途失去子类能力。
 
-### 8.4、阅读与重建顺序
+### 8.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先按分类所属类型阅读，再核对对应 JobsBaseUI 实现；重建时先有具体输入框，再添加 DSL 门面。
 

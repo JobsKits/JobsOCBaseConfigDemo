@@ -6,7 +6,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 `【MacOS】💉修复新版本Xcode缺失 libarclite.command` 是一个可双击运行的 macOS `.command` 脚本。
 
@@ -89,15 +89,15 @@ flowchart TD
 
 ## 九、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 1. 什么时候需要它？
+### 1. 什么时候需要它？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 只有遇到 `libarclite` 缺失导致的链接错误时才需要，不建议无故执行。
 
-### 2. 复制到哪里？
+### 2. 复制到哪里？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 复制到 `$(xcode-select -p)/Toolchains/XcodeDefault.xctoolchain$SYSTEM_USR_DIR/lib/arc`。
 
-### 3. 失败先看哪里？
+### 3. 失败先看哪里？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 看终端中 `git clone`、`xcode-select -p`、`sudo install` 的具体错误。
 ## 十、未执行声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

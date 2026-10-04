@@ -1,4 +1,4 @@
-# `JobsOCExcel`
+# <span id="前言">`JobsOCExcel`</span>
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
@@ -8,7 +8,7 @@
 
 ---
 
-## 定位
+## 定位 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 `JobsOCExcel` 是通用 Excel 风格 UI 组件，不负责 `.xlsx` 文件解析。它可以放进普通 View、`UITableViewCell` 或 `UICollectionViewCell`。
 
@@ -17,7 +17,7 @@
 - 未冻结列由内部 `UIScrollView` 横向滚动，外层列表继续负责纵向滚动。
 - 每个表头和数据格都能独立使用 `JobsLabelTextDisplayMode` 的四种文字策略。
 
-## 使用
+## 使用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 #import <JobsOCExcel/JobsOCExcel.h>
@@ -44,25 +44,25 @@ NSArray<JobsOCExcelRow *> *rows = @[
 
 <a id="jobs-architecture"></a>
 
-## 一、架构脉络与关键设计
+## 一、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 1.1、设计目的与职责划分
+### 1.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 用 Column、Row、Cell 和 Style 表达表格，再由 ExcelView 组织表头、冻结列及可横向滚动区域。CellContext 将点击定位为行、列和值，文字显示策略由 UILabelScrolling 协作。
 
-### 1.2、运行脉络
+### 1.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 提供列/行/单元模型 → 分离冻结区与滚动区 → 计算所需高度 → 展示表头/数据 → 将单元交互按坐标回传。
 
-### 1.3、关键设计与边界
+### 1.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - freezeThroughColumn=N 表示冻结 0 到 N 列，NSNotFound 表示不冻结。
 - 组件内部负责横向滚动，外部列表可继续负责纵向滚动，不能形成两套互相争抢的滚动容器。
 - 表头高、行高与行数决定 requiredHeight；单元文字策略可以分别配置。
 
-### 1.4、阅读与重建顺序
+### 1.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看 Column/Row/Cell 数据关系，再看冻结分区与高度计算，最后看滚动偏移和 CellContext。
 
@@ -75,3 +75,5 @@ NSArray<JobsOCExcelRow *> *rows = @[
 - [Core/JobsOCExcelColumn/JobsOCExcelColumn.h](<./Core/JobsOCExcelColumn/JobsOCExcelColumn.h>)
 
 依赖与编译入口：[JobsOCExcel.podspec](<./JobsOCExcel.podspec>)。其中显式依赖声明包括 `JobsMakes`、`JobsOCDSL`、`JobsOCDefs`、`JobsBlock`、`JobsOCUILabelScrolling`、`Masonry`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

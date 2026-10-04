@@ -16,7 +16,7 @@
 
 ## 一、Framework、XCFramework 与链接方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 1.1、Framework 只代表一个平台变体
+### 1.1、Framework 只代表一个平台变体 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 同名的 `JobsRandomUtils.framework` 可以分别来自：
 
@@ -25,7 +25,7 @@
 
 它们的模块名相同，但二进制目标平台不同，不能互换。
 
-### 1.2、XCFramework 负责选对变体
+### 1.2、XCFramework 负责选对变体 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```mermaid
 flowchart LR
@@ -38,7 +38,7 @@ flowchart LR
 
 `.xcframework` 是变体容器，不改变内部二进制原本的静态或动态链接方式。
 
-### 1.3、当前 Demo 是静态 Framework
+### 1.3、当前 Demo 是静态 Framework <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 当前 OC 新工程使用 `use_frameworks! :linkage => :static`：
 
@@ -71,7 +71,7 @@ flowchart LR
 
 ## 三、最小 Demo 基线 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 3.1、样板模块
+### 3.1、样板模块 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 | 项目 | 内容 |
 | --- | --- |
@@ -84,7 +84,7 @@ flowchart LR
 | 系统 Framework | `Foundation`、`UIKit` |
 | 链接形态 | 静态 Framework |
 
-### 3.2、Demo 目录
+### 3.2、Demo 目录 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```text
 iOS Framework 与 XCFramework 打包指南.md/
@@ -100,14 +100,14 @@ iOS Framework 与 XCFramework 打包指南.md/
 
 ## 四、一条命令生成 XCFramework <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 4.1、确认 Scheme
+### 4.1、确认 Scheme <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 cd "/Users/jobs/Documents/Github/JobsOCBaseConfigDemo@ByPods"
 xcodebuild -workspace JobsOCBaseConfigDemo.xcworkspace -list | rg "JobsRandomUtils"
 ```
 
-### 4.2、执行 Demo
+### 4.2、执行 Demo <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 zsh "OCDoc.md/iOS Framework 与 XCFramework 打包指南.md/Demo/【MacOS】📦生成JobsRandomUtils.xcframework.command"
@@ -122,7 +122,7 @@ zsh "OCDoc.md/iOS Framework 与 XCFramework 打包指南.md/Demo/【MacOS】📦
   "/目标输出目录"
 ```
 
-### 4.3、输出结构
+### 4.3、输出结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```text
 build/XCFrameworkDemo/JobsRandomUtils/时间戳/
@@ -136,7 +136,7 @@ build/XCFrameworkDemo/JobsRandomUtils/时间戳/
 
 ## 五、核心命令拆解 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 5.1、iOS 真机 Archive
+### 5.1、iOS 真机 Archive <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 xcodebuild archive \
@@ -151,7 +151,7 @@ xcodebuild archive \
   ONLY_ACTIVE_ARCH=NO
 ```
 
-### 5.2、iOS Simulator Archive
+### 5.2、iOS Simulator Archive <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 xcodebuild archive \
@@ -166,7 +166,7 @@ xcodebuild archive \
   ONLY_ACTIVE_ARCH=NO
 ```
 
-### 5.3、组合变体
+### 5.3、组合变体 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 xcodebuild -create-xcframework \
@@ -211,14 +211,14 @@ int value = JobsRandomNumber(1, 10);
 
 ## 七、消费者接入方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 7.1、手工接入
+### 7.1、手工接入 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 1. 把 `JobsRandomUtils.xcframework` 拖入消费者工程。
 2. 在 App target 中确认已链接。
 3. 当前是静态 Framework，选择 `Do Not Embed`。
 4. 通过公开聚合头调用，不添加指向源码 Pod 的 Header Search Paths。
 
-### 7.2、二进制 CocoaPods
+### 7.2、二进制 CocoaPods <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```ruby
 Pod::Spec.new do |spec|
@@ -233,7 +233,7 @@ end
 
 源码 Pod 与二进制 Pod 不要同时向同一 target 提供 `JobsRandomUtils` 模块。
 
-### 7.3、Swift Package 二进制 Target
+### 7.3、Swift Package 二进制 Target <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 如需让 Swift 工程消费 OC 二进制，仍可以按照 Apple 的[**二进制 Framework Swift Package 分发文档**](https://developer.apple.com/documentation/xcode/distributing-binary-frameworks-as-swift-packages)包装：
 
@@ -247,7 +247,7 @@ end
 
 ## 八、从其它本地 Pod 继续下沉 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 8.1、先验证独立性
+### 8.1、先验证独立性 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 xcodebuild \
@@ -267,7 +267,7 @@ xcodebuild \
 - `-ObjC`、C++、系统 Framework 与链接库。
 - Resource Bundle、隐私清单和本地化。
 
-### 8.2、替换 Demo 常量
+### 8.2、替换 Demo 常量 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 readonly WORKSPACE_PATH="目标.xcworkspace"
@@ -275,7 +275,7 @@ readonly SCHEME_NAME="目标Pod名"
 readonly PRODUCT_NAME="目标Product名"
 ```
 
-### 8.3、依赖怎么发
+### 8.3、依赖怎么发 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 优先保持模块边界：每个独立 Pod 分别产出 XCFramework，再通过二进制 podspec 或 Package 声明依赖。
 
@@ -290,14 +290,14 @@ readonly PRODUCT_NAME="目标Product名"
 
 ## 九、资源与签名 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 9.1、资源
+### 9.1、资源 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsRandomUtils` 当前没有资源，因此 Demo 只打代码。
 - 有资源的 Pod 继续使用 `Resource` 真实目录和独立 Bundle；二进制交付时把 Bundle 与 XCFramework 一起声明。
 - Framework 内部不要使用宿主 `mainBundle` 定位组件资源。
 - `PrivacyInfo.xcprivacy`、字体注册、本地化和图片命名冲突都要进入消费者验收。
 
-### 9.2、签名
+### 9.2、签名 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 当前静态 Framework Demo 归档时关闭代码签名，最终消费者 App 按自己的发布配置签名。
 - 动态 Framework 必须正确 Embed，并由最终 App 的签名流程处理嵌入内容。
@@ -305,7 +305,7 @@ readonly PRODUCT_NAME="目标Product名"
 
 ## 十、验证清单 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 10.1、结构
+### 10.1、结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 plutil -lint JobsRandomUtils.xcframework/Info.plist
@@ -314,7 +314,7 @@ find JobsRandomUtils.xcframework -type f -path "*/Headers/*" -print
 find JobsRandomUtils.xcframework -type f -path "*/Modules/*" -print
 ```
 
-### 10.2、消费者
+### 10.2、消费者 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Demo 脚本会使用模拟器 SDK 和 `-F` 指向刚生成的 Framework 变体，对 `JobsRandomUtilsConsumerDemo.m` 执行 `clang -fsyntax-only`。这能证明公开头和模块可以被独立消费者读取。
 

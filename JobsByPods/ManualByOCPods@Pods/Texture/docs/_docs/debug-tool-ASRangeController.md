@@ -6,7 +6,7 @@ prevPage: debug-tool-pixel-scaling.html
 nextPage: asvisibility.html
 ---
 
-## Visualize ASRangeController tuning parameters <a href="https://github.com/facebook/AsyncDisplayKit/pull/1390">(PR #1390)</a> 
+## <span id="前言">Visualize ASRangeController tuning parameters <a href="https://github.com/facebook/AsyncDisplayKit/pull/1390">(PR #1390)</a> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span> 
 <br>
 This debug feature adds a semi-transparent subview in the bottom right hand corner of the sharedApplication keyWindow that visualizes the ASRangeTuningParameters per each ASLayoutRangeType for each visible (on-screen) instance of ASRangeController. 
 
@@ -26,13 +26,13 @@ The <a href="https://github.com/texturegroup/texture/tree/master/examples/Vertic
 - In the <a href="https://drive.google.com/file/d/0B1BArZ05bNhzVy1jSW9FeEVXUjg/view">video demo</a>, you can see as the user scrolls between pages, that new ASTableView rangeControllers are created and removed in the overlay view. 
 ![bc0b98f0-ebb8-11e5-8f50-421cb0f320c2](https://cloud.githubusercontent.com/assets/3419380/14057072/ef7f63a0-f2b2-11e5-92a5-f65b2d207e63.png)
 
-## Limitations
+## Limitations <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <ul>
   <li>only shows onscreen ASRangeControllers</li>
   <li>currently the ratio of red (fetch data), yellow (display) and green (visible) are relative to each other, but not between each bar view. So you cannot compare individual bars to eachother</li>
 </ul>
 
-## Usage
+## Usage <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 In your `AppDelegate.m` file, 
 <ul>
   <li>import <code>AsyncDisplayKit+Debug.h</code></li>
@@ -40,3 +40,5 @@ In your `AppDelegate.m` file,
 </ul>
 
 **Make sure to call this method before initializing any component that uses an ASRangeControllers (ASTableView, ASCollectionView).**
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

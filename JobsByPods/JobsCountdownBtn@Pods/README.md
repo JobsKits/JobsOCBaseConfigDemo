@@ -48,25 +48,25 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 四、架构脉络与关键设计
+## 四、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 4.1、设计目的与职责划分
+### 4.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 把验证码按钮的普通标题、倒计时标题、点击回调与计时生命周期封装在 UIButton 子类。JobsOCTimer 驱动倒计时，JobsLanMgr 提供文字表达，按钮不负责发送短信请求。
 
-### 4.2、运行脉络
+### 4.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 配置普通标题与时长 → 业务决定启动倒计时 → 定时更新剩余时间和按钮状态 → 结束后恢复普通标题。
 
-### 4.3、关键设计与边界
+### 4.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 点击业务回调与开始计时有独立入口，重建时需明确验证码请求成功/失败与计时启动的关系。
 - 重复开始、重新配置时长和恢复标题要分别处理，不能只追加另一个 timer。
 - 代码创建与 nib 唤醒最终都需要建立一致的默认配置。
 
-### 4.4、阅读与重建顺序
+### 4.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看验证码按钮工厂和默认值，再看 jobsStartCountdown、标题生成与重置；外部请求留给宿主。
 

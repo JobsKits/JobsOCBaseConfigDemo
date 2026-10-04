@@ -6,7 +6,7 @@ prevPage: subclassing.html
 nextPage: layout2-quickstart.html
 ---
 
-### Common Developer Mistakes
+### <span id="前言">Common Developer Mistakes <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 <ul>
 <li><a href = "faq.html#accessing-the-nodes-view-before-it-is-loaded">Do not access a node's view in <code>-init:</code>.</a></li>
@@ -14,7 +14,7 @@ nextPage: layout2-quickstart.html
 <li><a href = "faq.html#take-steps-to-avoid-a-retain-cycle-in-viewblocks">Take steps to avoid a retain cycle in <code>viewBlocks</code>.</a></li>
 </ul>
 
-### Common Conceptual Misunderstandings
+### Common Conceptual Misunderstandings <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 <ul>
 <li><a href = "faq.html#ascellnode-reusability"><code>ASCellNodes</code> are not reusable.</a></li>
@@ -23,7 +23,7 @@ nextPage: layout2-quickstart.html
 
 </ul>
 
-### Common Questions
+### Common Questions <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <ul>
 <li><a href = "faq.html#calayers-cornerradius-property-kills-performance">If you care about performance, do not use <code>CALayer</code>'s <code>.cornerRadius</code> property (or shadowPath, border or mask).</a></li>
 <li><a href = "faq.html#texture-does-not-support-uikit-auto-layout-or-interfacebuilder">Texture does not support UIKit Auto Layout.</a></li>
@@ -32,21 +32,21 @@ nextPage: layout2-quickstart.html
 </ul>
 
 
-### Accessing the node's view before it is loaded
+### Accessing the node's view before it is loaded <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 Node `-init` methods are often called off the main thread, therefore it is imperative that no UIKit objects are accessed.  Examples of common errors include accessing the node's view or creating a gesture recognizer. Instead, these operations are ideal to perform in `-didLoad`.  
 
 Interacting with UIKit in `-init` can cause crashes and performance problems.
 <br>
 
-### Make sure you access your data source outside the node block
+### Make sure you access your data source outside the node block <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 The `indexPath` parameter is only valid _outside_ the node block returned in `nodeBlockForItemAtIndexPath:` or `nodeBlockForRowAtIndexPath:`. Because these blocks are executed on a background thread, the `indexPath` may be invalid by execution time, due to additional changes in the data source.
 
 See an example of how to correctly code a node block in the <a href = "containers-astablenode.html#node-block-thread-safety-warning">ASTableNode</a> page.  Just as with UIKit, it will cause an exception if Nil is returned from the block for any `ASCellNode`.
 <br>
 
-### Take steps to avoid a retain cycle in viewBlocks
+### Take steps to avoid a retain cycle in viewBlocks <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 When using `initWithViewBlock:` it is important to prevent a retain cycle by capturing a strong reference to self. The two ways that a cycle can be created are by using any instance variable inside the block or directly referencing self without using a weak pointer.
 
@@ -57,22 +57,22 @@ Because viewBlocks are always executed on the main thread, it is safe to preform
 Although the block is destroyed after the view is created, in the event that the block is never run and the view is never created, then a cycle can persist preventing memory from being released.
 <br>
 
-### ASCellNode Reusability
+### ASCellNode Reusability <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 Texture does not use cell reuse, for a number of specific reasons, one side effect of this is that it eliminates the large class of bugs associated with cell reuse.
 <br>
 
-### LayoutSpecs Are Regenerated
+### LayoutSpecs Are Regenerated <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 A node's layoutSpec gets regenerated every time its `layoutThatFits:` method is called.
 <br>
 
-### Layout API Sizing
+### Layout API Sizing <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 If you're confused by `ASRelativeDimension`, `ASRelativeSize`, `ASRelativeSizeRange` and `ASSizeRange`, check out our <a href = "layout-api-sizing.html">Layout API Sizing guide</a>.
 <br>
 
-### CALayer's .cornerRadius Property Kills Performance
+### CALayer's .cornerRadius Property Kills Performance <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 CALayer's' .cornerRadius property is a disastrously expensive property that should only be used when there is no alternative. It is one of the least efficient, most render-intensive properties on CALayer (alongside shadowPath, masking, borders, etc). These properties trigger offscreen rendering to perform the clipping operation on every frame — 60FPS during scrolling! — even if the content in that area isn't changing.
 
@@ -81,14 +81,14 @@ Using `.cornerRadius` will visually degraded performance on iPhone 4, 4S, and 5 
 For a longer discussion and easy alternative corner rounding solutions, please read our comprehensive <a href = "corner-rounding.html">corner rounding guide</a>.
 <br>
 
-### Texture does not support UIKit Auto Layout or InterfaceBuilder
+### Texture does not support UIKit Auto Layout or InterfaceBuilder <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 <br>
 UIKit Auto Layout and InterfaceBuilder are not supported by Texture.
 
 However, Texture's <a href = "automatic-layout-basics.html">Layout API</a> provides a variety of <a href = "automatic-layout-containers.html">ASLayoutSpec objects</a> that allow implementing automatic layout which is more efficient (multithreaded, off the main thread), often easier to debug (can step into the code and see where all values come from, as it is open source), and reusable (you can build composable layouts that can be shared with different parts of the UI).
 <br>
 
-### ASDisplayNode keep alive reference
+### ASDisplayNode keep alive reference <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 <div class = "highlight-group">
 <div class = "code">
@@ -116,10 +116,12 @@ For the same reason, if the node's view is a descendant of a window, but there i
 Good application design should not rely on this behavior, because a strong reference to the node should be maintained by the subnodes array or by an instance variable. However, this condition occasionally occurs, for example when using a UIView animation API. This cycle should never create a leak or even extend the lifecycle of a node any longer than it is absolutely necessary.
 <br>
 
-### UICollectionViewCell Compatibility
+### UICollectionViewCell Compatibility <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Texture supports using <code>UICollectionViewCells</code> alongside native <code>ASCellNodes</code>.
 
 Note that these UIKit cells will **not** have the performance benefits of `ASCellNodes` (like preloading, async layout, and async drawing), even when mixed within the same `ASCollectionNode`.
 
 However, this interoperability allows developers the flexibility to test out the framework without needing to convert all of their cells at once. Read more <a href="uicollectionviewinterop.html">here</a>.
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

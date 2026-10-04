@@ -10,7 +10,7 @@
 
 本文件用于排查 `codegraph.db` 的表结构，不直接作为架构文档阅读。
 
-## 一、数据表
+## 一、数据表 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```text
 edges               nodes               nodes_fts_data      project_metadata  
@@ -18,7 +18,7 @@ files               nodes_fts           nodes_fts_docsize   schema_versions
 name_segment_vocab  nodes_fts_config    nodes_fts_idx       unresolved_refs   
 ```
 
-## 二、Schema
+## 二、Schema <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```sql
 CREATE UNIQUE INDEX idx_edges_identity

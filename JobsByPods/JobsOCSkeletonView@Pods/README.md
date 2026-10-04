@@ -8,7 +8,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 > `JobsOCSkeletonView` 是 Jobs 本地 [**CocoaPods**](https://cocoapods.org/) 体系里的 OC 骨架屏 Pod，对齐 Swift 侧 `JobsByUIKit` 里的自研 shimmer 和 `SkeletonView` DSL，用纯 UIKit / CoreAnimation 提供扫光、脉冲和图片加载占位能力。
 
@@ -102,25 +102,25 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 八、架构脉络与关键设计
+## 八、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 8.1、设计目的与职责划分
+### 8.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 以 Config 定义 shimmer/pulse 的颜色、时长、高光宽度和圆角，通过 UIView/UIImageView 分类挂载骨架效果。图层动画负责占位表现，图片视图分支还需管理原图恢复。
 
-### 8.2、运行脉络
+### 8.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 配置骨架样式 → 挂载占位层 → 播放呼吸/扫光 → 内容就绪时停止并移除 → 恢复真实图片或视图内容。
 
-### 8.3、关键设计与边界
+### 8.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 当前使用 UIKit/CoreAnimation，不直接对外暴露 TABAnimated 或 Shimmer API。
 - 停止动画与恢复内容是两个必要动作，不能只把图层隐藏。
 - 占位尺寸与原视图布局同步，主题改变后图层颜色也需要重新解析。
 
-### 8.4、阅读与重建顺序
+### 8.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看 Config，再分别看 UIView 和 UIImageView 的挂载/恢复路径；重建时先打通一次开始到清理的闭环。
 

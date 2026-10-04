@@ -1,6 +1,6 @@
-# Changelog
+# <span id="前言">Changelog</span>
 
-## [3.2.0](https://github.com/TextureGroup/Texture/tree/3.2.0) (2024-05-21)
+## [3.2.0](https://github.com/TextureGroup/Texture/tree/3.2.0) (2024-05-21) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 [Full Changelog](https://github.com/TextureGroup/Texture/compare/3.1.0...3.2.0)
 
@@ -19,7 +19,7 @@
 - Try to fix the CI [\#2047](https://github.com/TextureGroup/Texture/pull/2047) ([rcancro](https://github.com/rcancro))
 - Xcode 13 ASLoadFrameworkInitializer dead lock fix on running unit test [\#2032](https://github.com/TextureGroup/Texture/pull/2032) ([GeekTree0101](https://github.com/GeekTree0101))
 
-## [3.1.0](https://github.com/TextureGroup/Texture/tree/3.1.0) (2021-09-09)
+## [3.1.0](https://github.com/TextureGroup/Texture/tree/3.1.0) (2021-09-09) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 [Full Changelog](https://github.com/TextureGroup/Texture/compare/3.0.0...3.1.0)
 
@@ -58,7 +58,7 @@
 - Remove background deallocation helper code [\#1890](https://github.com/TextureGroup/Texture/pull/1890) ([bolsinga](https://github.com/bolsinga))
 - \[Accessibility\] Ship ASExperimentalDoNotCacheAccessibilityElements [\#1888](https://github.com/TextureGroup/Texture/pull/1888) ([rcancro](https://github.com/rcancro))
 
-## [3.0.0](https://github.com/TextureGroup/Texture/tree/3.0.0) (2020-07-15)
+## [3.0.0](https://github.com/TextureGroup/Texture/tree/3.0.0) (2020-07-15) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 [Full Changelog](https://github.com/TextureGroup/Texture/compare/3.0.0-rc.2...3.0.0)
 
@@ -69,7 +69,7 @@
 - Renames AS\_EXTERN and ASViewController [\#1876](https://github.com/TextureGroup/Texture/pull/1876) ([garrettmoon](https://github.com/garrettmoon))
 - Add a 3.0 migration guide [\#1875](https://github.com/TextureGroup/Texture/pull/1875) ([garrettmoon](https://github.com/garrettmoon))
 
-## [3.0.0-rc.2](https://github.com/TextureGroup/Texture/tree/3.0.0-rc.2) (2020-06-25)
+## [3.0.0-rc.2](https://github.com/TextureGroup/Texture/tree/3.0.0-rc.2) (2020-06-25) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 [Full Changelog](https://github.com/TextureGroup/Texture/compare/3.0.0-rc.1...3.0.0-rc.2)
 
@@ -79,7 +79,7 @@
 - Prepare for 3.0.0-rc.1 release [\#1870](https://github.com/TextureGroup/Texture/pull/1870) ([garrettmoon](https://github.com/garrettmoon))
 - -\[ASNetworkImageNode setURL:resetToDefault:\] forget to reset animatedImage [\#1861](https://github.com/TextureGroup/Texture/pull/1861) ([IvanChan](https://github.com/IvanChan))
 
-## [3.0.0-rc.1](https://github.com/TextureGroup/Texture/tree/3.0.0-rc.1) (2020-06-19)
+## [3.0.0-rc.1](https://github.com/TextureGroup/Texture/tree/3.0.0-rc.1) (2020-06-19) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 [Full Changelog](https://github.com/TextureGroup/Texture/compare/sync-base-08-29-19...3.0.0-rc.1)
 
@@ -167,7 +167,7 @@
 - Adds support for new iOS 13 traits [\#1568](https://github.com/TextureGroup/Texture/pull/1568) ([ay8s](https://github.com/ay8s))
 - \[IGListKit\] Extended IGListKit support for displaying delegates [\#1011](https://github.com/TextureGroup/Texture/pull/1011) ([hebertialmeida](https://github.com/hebertialmeida))
 
-## [sync-base-08-29-19](https://github.com/TextureGroup/Texture/tree/sync-base-08-29-19) (2019-08-28)
+## [sync-base-08-29-19](https://github.com/TextureGroup/Texture/tree/sync-base-08-29-19) (2019-08-28) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 [Full Changelog](https://github.com/TextureGroup/Texture/compare/sync-base-05-09-19...sync-base-08-29-19)
 
@@ -259,7 +259,7 @@
 - NetworkingImageNode: update URL if we found image in assets [\#1473](https://github.com/TextureGroup/Texture/pull/1473) ([zhongwuzw](https://github.com/zhongwuzw))
 - \[Dev docs\] Debugging documentation [\#1328](https://github.com/TextureGroup/Texture/pull/1328) ([mikezucc](https://github.com/mikezucc))
 
-## [sync-base-05-09-19](https://github.com/TextureGroup/Texture/tree/sync-base-05-09-19) (2019-05-09)
+## [sync-base-05-09-19](https://github.com/TextureGroup/Texture/tree/sync-base-05-09-19) (2019-05-09) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 [Full Changelog](https://github.com/TextureGroup/Texture/compare/2.8.1...sync-base-05-09-19)
 
@@ -343,7 +343,7 @@
 - Dev docs for threading in Texture [\#1319](https://github.com/TextureGroup/Texture/pull/1319) ([mikezucc](https://github.com/mikezucc))
 - \[ASImageNode\]fix incorrect backing size calculation [\#1189](https://github.com/TextureGroup/Texture/pull/1189) ([junjielu](https://github.com/junjielu))
 
-## [2.8.1](https://github.com/TextureGroup/Texture/tree/2.8.1) (2019-05-05)
+## [2.8.1](https://github.com/TextureGroup/Texture/tree/2.8.1) (2019-05-05) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 [Full Changelog](https://github.com/TextureGroup/Texture/compare/2.8...2.8.1)
 
 **Merged pull requests:**
@@ -351,7 +351,7 @@
 - Update for 9.4.1 CI [\#1392](https://github.com/TextureGroup/Texture/pull/1392) ([garrettmoon](https://github.com/garrettmoon))
 - Disable ASAssertLocked and ASAssertUnlocked [\#1412](https://github.com/TextureGroup/Texture/pull/1412) ([nguyenhuy](https://github.com/nguyenhuy))
 
-## [2.8](https://github.com/TextureGroup/Texture/tree/2.8) (2019-02-12)
+## [2.8](https://github.com/TextureGroup/Texture/tree/2.8) (2019-02-12) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 [Full Changelog](https://github.com/TextureGroup/Texture/compare/2.7...2.8)
 
 **Merged pull requests:**
@@ -571,7 +571,7 @@
 - Assert node did load before did enter visible way 1 [\#886](https://github.com/TextureGroup/Texture/pull/886) ([wsdwsd0829](https://github.com/wsdwsd0829))
 - Renew supplementary node on relayout [\#842](https://github.com/TextureGroup/Texture/pull/842) ([wsdwsd0829](https://github.com/wsdwsd0829))
 
-## [2.7](https://github.com/TextureGroup/Texture/tree/2.7) (2018-05-29)
+## [2.7](https://github.com/TextureGroup/Texture/tree/2.7) (2018-05-29) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 [Full Changelog](https://github.com/TextureGroup/Texture/compare/2.6...2.7)
 
 **Merged pull requests:**
@@ -685,7 +685,7 @@
 - \[ASDisplayNode\] Provide safeAreaInsets and layoutMargins bridge [\#685](https://github.com/TextureGroup/Texture/pull/685) ([ypogribnyi](https://github.com/ypogribnyi))
 - \[ASTraitCollection\] Add missing properties to ASTraitCollection [\#625](https://github.com/TextureGroup/Texture/pull/625) ([ypogribnyi](https://github.com/ypogribnyi))
 
-## [2.6](https://github.com/TextureGroup/Texture/tree/2.6) (2018-01-12)
+## [2.6](https://github.com/TextureGroup/Texture/tree/2.6) (2018-01-12) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 [Full Changelog](https://github.com/TextureGroup/Texture/compare/2.5.1...2.6)
 
 **Merged pull requests:**
@@ -730,7 +730,7 @@
 - \[ASCollectionView\] Call -invalidateFlowLayoutDelegateMetrics when rotating. \#trivial [\#616](https://github.com/TextureGroup/Texture/pull/616) ([appleguy](https://github.com/appleguy))
 - Add unit tests for the layout engine [\#424](https://github.com/TextureGroup/Texture/pull/424) ([Adlai-Holler](https://github.com/Adlai-Holler))
 
-## [2.5.1](https://github.com/TextureGroup/Texture/tree/2.5.1) (2017-10-24)
+## [2.5.1](https://github.com/TextureGroup/Texture/tree/2.5.1) (2017-10-24) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 [Full Changelog](https://github.com/TextureGroup/Texture/compare/2.5...2.5.1)
 
 **Merged pull requests:**
@@ -761,7 +761,7 @@
 - \[ASCollectionView\] Fix index space translation of Flow Layout Delegate methods. [\#467](https://github.com/TextureGroup/Texture/pull/467) ([appleguy](https://github.com/appleguy))
 - \[ASCollectionView\] Improve performance and behavior of rotation / bounds changes. [\#431](https://github.com/TextureGroup/Texture/pull/431) ([appleguy](https://github.com/appleguy))
 
-## [2.5](https://github.com/TextureGroup/Texture/tree/2.5) (2017-09-26)
+## [2.5](https://github.com/TextureGroup/Texture/tree/2.5) (2017-09-26) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 [Full Changelog](https://github.com/TextureGroup/Texture/compare/v2.5...2.5)
 
 **Merged pull requests:**
@@ -774,7 +774,7 @@
 - \[ASCornerRounding\] Introduce .cornerRoundingType: CALayer, Precomposited, or Clip Corners. [\#465](https://github.com/TextureGroup/Texture/pull/465) ([appleguy](https://github.com/appleguy))
 - \[ASElementMap\] Fix indexPath's section or item is actually negative \#trivial [\#457](https://github.com/TextureGroup/Texture/pull/457) ([Anyewuya](https://github.com/Anyewuya))
 
-## [v2.5](https://github.com/TextureGroup/Texture/tree/v2.5) (2017-09-14)
+## [v2.5](https://github.com/TextureGroup/Texture/tree/v2.5) (2017-09-14) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 [Full Changelog](https://github.com/TextureGroup/Texture/compare/2.4...v2.5)
 
 **Merged pull requests:**
@@ -803,7 +803,7 @@
 - \[Accessibility\] Add .isAccessibilityContainer property, allowing automatic aggregation of children's a11y labels. [\#468](https://github.com/TextureGroup/Texture/pull/468) ([appleguy](https://github.com/appleguy))
 - \[ASImageNode\] Enable .clipsToBounds by default \(fix .cornerRadius, GIFs overflow\). [\#466](https://github.com/TextureGroup/Texture/pull/466) ([appleguy](https://github.com/appleguy))
 
-## [2.4](https://github.com/TextureGroup/Texture/tree/2.4) (2017-08-15)
+## [2.4](https://github.com/TextureGroup/Texture/tree/2.4) (2017-08-15) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 [Full Changelog](https://github.com/TextureGroup/Texture/compare/2.3.4...2.4)
 
 **Merged pull requests:**
@@ -860,7 +860,7 @@
 - \[ASTextNode2\] Add initial implementation for link handling. [\#396](https://github.com/TextureGroup/Texture/pull/396) ([appleguy](https://github.com/appleguy))
 - Introduce ASCollectionGalleryLayoutDelegate [\#76](https://github.com/TextureGroup/Texture/pull/76) ([nguyenhuy](https://github.com/nguyenhuy))
 
-## [2.3.4](https://github.com/TextureGroup/Texture/tree/2.3.4) (2017-06-30)
+## [2.3.4](https://github.com/TextureGroup/Texture/tree/2.3.4) (2017-06-30) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 [Full Changelog](https://github.com/TextureGroup/Texture/compare/2.3.3...2.3.4)
 
 **Merged pull requests:**
@@ -907,7 +907,7 @@
 - \[Yoga\] Refer to proper path name and use module import [\#306](https://github.com/TextureGroup/Texture/pull/306) ([weibel](https://github.com/weibel))
 - \[ASImageNode\] Add documentation for image effects \#trivial [\#263](https://github.com/TextureGroup/Texture/pull/263) ([maicki](https://github.com/maicki))
 
-## [2.3.3](https://github.com/TextureGroup/Texture/tree/2.3.3) (2017-06-06)
+## [2.3.3](https://github.com/TextureGroup/Texture/tree/2.3.3) (2017-06-06) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 [Full Changelog](https://github.com/TextureGroup/Texture/compare/2.3.2...2.3.3)
 
 **Merged pull requests:**
@@ -956,7 +956,7 @@
 - \[Yoga\] Increment Yoga version to current, 1.5.0. [\#91](https://github.com/TextureGroup/Texture/pull/91) ([appleguy](https://github.com/appleguy))
 - \[example/CustomCollectionView\] Implement MosaicCollectionLayoutDelegate [\#28](https://github.com/TextureGroup/Texture/pull/28) ([nguyenhuy](https://github.com/nguyenhuy))
 
-## [2.3.2](https://github.com/TextureGroup/Texture/tree/2.3.2) (2017-05-09)
+## [2.3.2](https://github.com/TextureGroup/Texture/tree/2.3.2) (2017-05-09) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 [Full Changelog](https://github.com/TextureGroup/Texture/compare/2.3.1...2.3.2)
 
 **Merged pull requests:**
@@ -990,7 +990,7 @@
 - Fix CustomCollectionView-Swift sample [\#22](https://github.com/TextureGroup/Texture/pull/22) ([george-gw](https://github.com/george-gw))
 - Automatically resume ASVideoNode after returning from background [\#13](https://github.com/TextureGroup/Texture/pull/13) ([plarson](https://github.com/plarson))
 
-## [2.3.1](https://github.com/TextureGroup/Texture/tree/2.3.1) (2017-04-27)
+## [2.3.1](https://github.com/TextureGroup/Texture/tree/2.3.1) (2017-04-27) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 [Full Changelog](https://github.com/TextureGroup/Texture/compare/2.2.1...2.3.1)
 
 **Merged pull requests:**
@@ -1024,7 +1024,7 @@
 - Fix Case where Network Image Node Stays Locked [\#17](https://github.com/TextureGroup/Texture/pull/17) ([Adlai-Holler](https://github.com/Adlai-Holler))
 - Update the homepage URL [\#10](https://github.com/TextureGroup/Texture/pull/10) ([garrettmoon](https://github.com/garrettmoon))
 
-## [2.2.1](https://github.com/TextureGroup/Texture/tree/2.2.1) (2017-04-14)
+## [2.2.1](https://github.com/TextureGroup/Texture/tree/2.2.1) (2017-04-14) <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 [Full Changelog](https://github.com/TextureGroup/Texture/compare/2.3...2.2.1)
 
 **Merged pull requests:**
@@ -1034,3 +1034,5 @@
 
 
 \* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

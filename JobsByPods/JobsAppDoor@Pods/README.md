@@ -8,7 +8,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 > `JobsAppDoor` 将 `JobsAppDoorVC` 和 `JobsAppDoorVC_Style2` 两套注册、登录、忘记密码模板收口为独立 Pod。外部只需选择页面风格并传入 `JobsAppDoorConfig`，不再直接组装内部视图。
 
@@ -158,7 +158,7 @@ pod install --no-repo-update
 xcodebuild -workspace JobsOCBaseConfigDemo.xcworkspace -scheme JobsAppDoor -sdk iphonesimulator build
 ```
 
-## 明暗主题契约
+## 明暗主题契约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
@@ -166,15 +166,15 @@ xcodebuild -workspace JobsOCBaseConfigDemo.xcworkspace -scheme JobsAppDoor -sdk 
 
 <a id="jobs-architecture"></a>
 
-## 十一、架构脉络与关键设计
+## 十一、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 11.1、设计目的与职责划分
+### 11.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 将登录、注册、忘记密码及公共输入件分层，Style1 采用侧栏/面板切换，Style2 采用独立卡片横滑。公共层提供配置、资源与输入组件，验证码、倒计时、键盘和国家代码由独立 Pod 组合。
 
-### 11.2、运行脉络
+### 11.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 选择样式并注入配置 → 构建登录/注册输入内容 → 用户切换页面状态 → 校验并回调业务 → 根据结果更新界面。
 
@@ -191,14 +191,14 @@ flowchart LR
     F --> G["宿主执行认证业务"]
 ```
 
-### 11.3、关键设计与边界
+### 11.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 两套样式共享公共能力，但切换布局与运动方式不同，不能只换颜色。
 - 认证页面只收集输入并分发业务动作，真实账号认证仍需宿主接入。
 - 资源统一放在 JobsAppDoorResources.bundle；键盘跟随与页面切换需要协调，不能让旧状态继续驱动新卡片。
 - Style2 的 Logo 只属于初始登录态，注册/忘记密码和返回首页的行为需按原文保持。
 
-### 11.4、阅读与重建顺序
+### 11.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先读配置和公共输入件，再分别跟踪 Style1/Style2 的切换，最后组合验证码、倒计时、键盘与业务回调。
 

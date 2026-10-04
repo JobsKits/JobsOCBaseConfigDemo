@@ -6,7 +6,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 `【MacOS】⏬双击下载Jobs@Info.plist.command` 是一个可双击运行的 macOS `.command` 脚本。
 
@@ -78,11 +78,11 @@ flowchart TD
 
 ## 九、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 1. 为什么克隆提示里出现 SourceTree？
+### 1. 为什么克隆提示里出现 SourceTree？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 这是脚本内部提示文案复用旧字符串，不影响实际拉取的仓库地址。
 
-### 2. 下载目录在哪里？
+### 2. 下载目录在哪里？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 在该 `.command` 文件所在目录下的 `Info.plist` 文件夹。
 ## 十、未执行声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

@@ -6,7 +6,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 `【MacOS】⏬双击下载SourceTree效率脚本.command` 是一个可双击运行的 macOS `.command` 脚本。
 
@@ -81,11 +81,11 @@ flowchart TD
 
 ## 九、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 1. 下载到哪里？
+### 1. 下载到哪里？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 固定下载到当前用户主目录下的 `$HOME/SourceTree.sh`。
 
-### 2. 为什么要 chmod？
+### 2. 为什么要 chmod？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 为了让下载仓库里的 `.sh` / `.command` 能直接运行。
 ## 十、未执行声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

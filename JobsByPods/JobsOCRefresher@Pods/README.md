@@ -61,7 +61,7 @@ JobsOCRefresher@Pods
 
 ## 四、使用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 4.1、纵向刷新 / 加载更多
+### 4.1、纵向刷新 / 加载更多 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 [tableView jobs_byRefreshHeaderWithAction:^{
@@ -77,7 +77,7 @@ JobsOCRefresher@Pods
 }];
 ```
 
-### 4.2、横向刷新 / 加载更多
+### 4.2、横向刷新 / 加载更多 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 [collectionView jobs_setHorizontalRefreshMode:JobsOCRefreshHorizontalModeRefreshRightLoadLeft];
@@ -97,7 +97,7 @@ JobsOCRefresher@Pods
 }];
 ```
 
-### 4.3、震动 / 声音反馈
+### 4.3、震动 / 声音反馈 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 JobsOCRefreshConfig *config = JobsOCRefreshConfig.defaultHeaderConfig;
@@ -113,7 +113,7 @@ config.soundName = @"refresh.wav";
 [[tableView jobs_enableRefreshHaptics:YES] jobs_setRefreshSound:@"refresh.wav"];
 ```
 
-### 4.4、动画插件与热替换
+### 4.4、动画插件与热替换 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 JobsOCRefreshConfig *config = JobsOCRefreshConfig.defaultHeaderConfig;
@@ -161,7 +161,7 @@ config.animator = [[JobsLottieRefreshView alloc] initWithAnimationNamed:@"refres
 - 协议替换发生在当前刷新槽位中；正在刷新时替换，新插件会立即接收当前 `refreshing` 阶段。
 - 修改 `podspec` 后建议执行 `pod install --no-repo-update`，并检查 `Pods/Pods.xcodeproj` 是否能正常展开 `Development Pods > JobsOCRefresher`。
 
-## 明暗主题契约
+## 明暗主题契约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
@@ -169,15 +169,15 @@ config.animator = [[JobsLottieRefreshView alloc] initWithAnimationNamed:@"refres
 
 <a id="jobs-architecture"></a>
 
-## 七、架构脉络与关键设计
+## 七、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 7.1、设计目的与职责划分
+### 7.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 由滚动视图分类托管刷新挂载与状态，Config 定义触发位置和策略，Component 展示文案、时间与动画。动画通过统一协议接入 JobsFuseAnimation，刷新治理与表现分离。
 
-### 7.2、运行脉络
+### 7.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 挂载刷新组件 → 滚动产生拉动进度 → 到达条件触发刷新 → 业务完成后结束 → 更新状态/时间并恢复布局。
 
@@ -197,13 +197,13 @@ flowchart TD
     D -.-> I["动画插件消费当前阶段"]
 ```
 
-### 7.3、关键设计与边界
+### 7.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 上下左右位置影响布局与触发距离，不能假定只有竖向下拉。
 - replaceAnimator 支持原位替换表现，不能因此丢失当前进度和刷新状态。
 - 刷新回调只表示触发，业务需要明确结束或无更多数据状态。
 
-### 7.4、阅读与重建顺序
+### 7.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先读 Defines/Config，再追踪 UIScrollView 分类的状态推进，最后看 Component 到动画协议的映射。
 

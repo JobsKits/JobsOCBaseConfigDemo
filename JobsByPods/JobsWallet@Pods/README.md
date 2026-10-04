@@ -1,10 +1,10 @@
-# JobsWallet
+# <span id="前言">JobsWallet</span>
 
 > 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
 
 `JobsWallet` 是银行卡卡包 UI 的本地 Pod。外部只需要传入 `NSArray<JobsWalletCardModel *>`，组件内部负责卡片渲染、重叠布局和开合动画。
 
-## 公开能力
+## 公开能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsWalletCardView`：银行卡卡片列表视图。
 - `JobsWalletCollectionViewLayout`：卡片重叠布局，支持两种动画风格。
@@ -12,7 +12,7 @@
 - `JobsWalletCardExpandStyleKeepOpened`：每张卡片独立开合，不主动收回其他已展开卡片。
 - `expandAllCards` / `collapseAllCards`：外部可一键完全展开或完全收起全部卡片。
 
-## 数据模型
+## 数据模型 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 卡片最小渲染单元由 `JobsModel` 的 `JobsWalletCardModel` 承接：
 
@@ -24,11 +24,11 @@
 - `cvc`：CVC，可不传。
 - `expirationDate`：到期时间，可不传。
 
-## 依赖
+## 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 `JobsWallet` 依赖 `JobsModel`、`JobsBaseUI`、`JobsOCDSL`、`JobsOCDefs`、`JobsOCProtocols`、`JobsBlock`、`JobsMakes`、`Masonry` 和 `XYColorOC`。
 
-## 验证
+## 验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 修改本 Pod 后至少执行：
 
@@ -42,7 +42,7 @@ ruby -c JobsWallet.podspec
 pod install --no-repo-update
 ```
 
-## 明暗主题契约
+## 明暗主题契约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
@@ -50,25 +50,25 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 一、架构脉络与关键设计
+## 一、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 1.1、设计目的与职责划分
+### 1.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 由钱包卡片视图、CollectionView Cell 和定制布局组成卡片展示组件。卡片模型提供银行、卡号、有效期等内容，Cell 渲染单卡，Layout 决定多卡排列与层叠表现。
 
-### 1.2、运行脉络
+### 1.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 提供卡片模型 → CollectionView 配置 Cell → Layout 排列卡片 → 用户交互 → 复用时按新模型刷新。
 
-### 1.3、关键设计与边界
+### 1.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 展示卡片不代表具备支付、发卡或账户交易能力。
 - Cell 的 prepareForReuse 与模型更新需要配合，避免把上一张卡的信息带到下一张。
 - 卡号、有效期等内容应按业务要求处理显示和敏感信息边界。
 
-### 1.4、阅读与重建顺序
+### 1.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看卡片模型与 Cell 渲染，再看 Layout，最后看外层 CardView 的数据和交互入口。
 
@@ -80,3 +80,5 @@ pod install --no-repo-update
 - [JobsWalletHeader.h](<./JobsWalletHeader.h>)
 
 依赖与编译入口：[JobsWallet.podspec](<./JobsWallet.podspec>)。其中显式依赖声明包括 `Masonry`、`XYColorOC`、`JobsBaseUI`、`JobsBlock`、`JobsMakes`、`JobsModel`、`JobsOCDSL`、`JobsOCDefs`、`JobsOCProtocols`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

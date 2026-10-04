@@ -10,7 +10,7 @@ nextPage: layout2-api-sizing.html
 - <a href="layout2-layout-element-properties.html#asabsolutelayoutelement-properties">ASAbsoluteLayoutElement Properties</a> - will only take effect on a node or layout spec that is the child of a <b>absolute</b> spec
 - <a href="layout2-layout-element-properties.html#aslayoutelement-properties">ASLayoutElement Properties</a> - applies to all nodes & layout specs
 
-## ASStackLayoutElement Properties
+## <span id="前言">ASStackLayoutElement Properties <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 <div class = "note">
 <b>Please note that the following properties will only take effect if set on the child of an <a href="layout2-layoutspec-types.html#asstacklayoutspec-flexbox-container">STACK</a> layout spec.</b>
@@ -63,7 +63,7 @@ nextPage: layout2-api-sizing.html
 </table> 
 
 
-## ASAbsoluteLayoutElement Properties
+## ASAbsoluteLayoutElement Properties <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 <div class = "note">
 <b>Please note that the following properties will only take effect if set on the child of an <a href="layout2-layoutspec-types.html#asabsolutelayoutspec">ABSOLUTE</a> layout spec.</b>
@@ -80,7 +80,7 @@ nextPage: layout2-api-sizing.html
   </tr>
 </table>
 
-## ASLayoutElement Properties
+## ASLayoutElement Properties <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 <div class = "note">
 <b>Please note that the following properties apply to <b>ALL</b> layout elements.</b>
@@ -144,3 +144,5 @@ nextPage: layout2-api-sizing.html
     <td>An optional property that provides a maximum RELATIVE size bound for a layout element. If provided, this restriction will always be enforced. If a parent layout element’s maximum relative size is smaller than its child’s maximum relative size, the child’s maximum relative size will be enforced and its size will extend out of the layout spec’s.</td> 
   </tr>
 </table> 
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

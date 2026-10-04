@@ -12,7 +12,7 @@
 
 `JobsOCDSL` 用来集中管理 Objective-C 项目里的点语法 DSL 分类，只放 `+DSL` 分类本身，不承接按钮辅助、布局工具、业务 UI 或其它非 DSL 支撑文件。本版本开始同时承接“属性 DSL”和“方法型 DSL”：凡是适合链式表达的单参数 / 无参数实例方法，也可以包装成 `byXxx(...)`。
 
-## 一、适用场景
+## 一、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 对系统类或少量第三方 UI 类的方法做链式封装，例如 `UIView`、`UITableView`、`UITextField`、`UITextView`、`UIBackgroundConfiguration`、`UIControl`、`ASButtonNode`。
 - `CMMotionManager+DSL` 覆盖加速度计、陀螺仪、磁力计与设备姿态的更新频率、启动、停止、队列回调及参考坐标系配置；调用方可从 `CMMotionManager.byMotionManager()` 开始一链完成配置和监听。
@@ -23,7 +23,7 @@
 - 对照 Swift 侧 `JobsSwiftDSL` 的 [**SnapKit**](https://github.com/SnapKit/SnapKit) 链式封装，OC 侧通过 [**Masonry**](https://github.com/SnapKit/Masonry) 补齐 `byAddTo`、`byMakeConstraints`、`byUpdateConstraints`、`byRemake`。
 - 对照 Swift 侧 `BMPlayer+DSL`、`GKNavigationBarSwift+DSL`、`YTKNetwork+DSL`，OC 侧分别补齐当前工程实际使用的 `ZFPlayer`、`GKNavigationBar`、`YTKNetwork` 链式入口；其中 `GKNavigationBar` 的手势配置在 OC 版里属于 `GKGestureHandleConfigure`。
 
-## 二、目录结构
+## 二、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```text
 JobsOCDSL@Pods/
@@ -83,7 +83,7 @@ JobsOCDSL@Pods/
 └── JobsPodspecKit.rb
 ```
 
-## 方法型 DSL 补充
+## 方法型 DSL 补充 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 系统类创建分为两类：无参初始化交给 `JobsMakes` 的 `jobsMakeType(config Block)`；带参初始化由真实类型提供类级 Block DSL。`NSUserActivity.initByActivityType(activityType)` 是后者的标准示例，原生 `initWithActivityType:` 只存在于分类实现内部。
 - `NSUserActivity+DSL` 收口标题、`userInfo`、required keys、URL、日期、关键词、delegate、handoff / search / prediction 开关，以及 `byBecomeCurrent()`、`byResignCurrent()`、`byInvalidate()`；实例创建后不再散落系统属性赋值和 0 / 1 参数方法调用。
@@ -108,7 +108,7 @@ JobsOCDSL@Pods/
 - `NSMutableParagraphStyle+DSL` 覆盖段落样式常用字段，包括 `byAlignment(...)`、`byParagraphSpacing(...)`、`byParagraphSpacingBefore(...)`、`byFirstLineHeadIndent(...)`、`byHeadIndent(...)`、`byLineSpacing(...)`、`byLineBreakMode(...)`、`byBaseWritingDirection(...)`，供 `jobsMakeParagraphStyle` 闭包内保持点语法链式配置。
 - `FSCalendar+DSL` 对 `appearance`、`calendarHeaderView`、`swipeToChooseGesture` 这类子对象提供 block 配置入口，回调内部配置子对象后继续返回主 `FSCalendar`，方便调用方保持一个 `calendar` 中心链。
 
-## 三、引用方式
+## 三、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 #if __has_include(<JobsOCDSL/JobsOCDSL.h>)
@@ -118,7 +118,7 @@ JobsOCDSL@Pods/
 #endif
 ```
 
-## 四、依赖关系
+## 四、依赖关系 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `CoreMotion`：提供 `CMMotionManager`、传感器数据模型与更新回调类型。
 - `JobsBlock`：集中提供 OC Block 类型别名。
@@ -138,7 +138,7 @@ JobsOCDSL@Pods/
 - `SDWebImage`：服务 `UIButton`、`UIImageView` 的网络图片链式加载 DSL。
 - `JobsModelDSL`：服务 `SDWebImageModel` 等模型对象的链式配置。
 
-## 五、Masonry 链式约束
+## 五、Masonry 链式约束 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `UIView+MasonryDSL` 只做公共链式入口，不承接旧 Pod 私有的网格算法、约束动画和 `masonryBlock` 存储。
 - `UIView.byRemove()` 只归 `UIView+DSL` 管理并表示移出父视图；Masonry 清空约束使用 `byClearConstraints()`，避免不同 Category 复用同一个 Selector。
@@ -156,7 +156,7 @@ JobsOCDSL@Pods/
       });
   ```
 
-## 六、第三方 DSL 对照
+## 六、第三方 DSL 对照 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 | Swift DSL | OC 侧 DSL | 说明 |
 | --- | --- | --- |
@@ -169,7 +169,7 @@ JobsOCDSL@Pods/
 - `YTKNetwork`、`GKNavigationBar`、`ZFPlayer`、`Texture` 这些第三方 DSL 所需 Block 类型统一从 `JobsBlock` 取；新增同类 DSL 时先补 `JobsBlock`，再在 `JobsOCDSL` 分类里使用。
 - Swift 可以通过参数重载复用 `byBack(...)` 这类方法名；OC 侧不能只靠 Block 返回类型重载，所以图片别名使用 `byBack`，返回样式继续使用 `byBackStyle`，组合式配置使用 `byBackPreset`。
 
-## 七、列表 Block 化
+## 七、列表 Block 化 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `UITableView+DSL` 已补齐 `byTarget`、`byNumberOfSections`、`byNumberOfRowsInSection`、`cellForRowAt`、`didSelectRowAt`。
 - `UICollectionView+DSL` 已补齐 `byTarget`、`byNumberOfSections`、`byNumberOfItemsInSection`、`cellForItemAt`、`didSelectItemAt`。
@@ -195,7 +195,7 @@ JobsOCDSL@Pods/
   });
   ```
 
-## 八、文本视图 DSL
+## 八、文本视图 DSL <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `UITextField+DSL` 继续覆盖单行输入框的文本、占位符、左右视图、键盘和输入视图配置。
 - `UITextView+DSL` 覆盖多行输入框的文本、富文本、颜色、字体、对齐、选区、编辑态、数据识别、键盘特征、输入视图和文本容器配置。
@@ -220,7 +220,7 @@ JobsOCDSL@Pods/
   });
   ```
 
-## 九、背景配置 DSL
+## 九、背景配置 DSL <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `UIBackgroundConfiguration+DSL` 覆盖 iOS 14+ 背景配置的自定义视图、背景色、颜色转换器、毛玻璃效果、圆角、边距、描边和图片配置。
 - Block 类型统一复用 `JobsBlock` 里已有的 `JobsRetBackgroundConfig...`，不在 `JobsOCDSL` 本地重复声明。
@@ -234,7 +234,7 @@ JobsOCDSL@Pods/
       .byStrokeWidth(0);
   ```
 
-## 十、按钮配置 DSL
+## 十、按钮配置 DSL <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `UIButtonConfiguration+DSL` 覆盖按钮配置的背景、主副标题、图片、指示器与布局属性。
 - 配合 `UIButton+UIButtonConfiguration` 新增的 `jobsUpdateButtonConfigurationBy`，可以在按钮链式调用中一次性修改配置对象，外层继续返回 `UIButton`。
@@ -250,14 +250,14 @@ JobsOCDSL@Pods/
   });
   ```
 
-## 十一、SDWebImage 链式 DSL
+## 十一、SDWebImage 链式 DSL <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `3rd/SDWebImage+DSL` 统一承接 `UIButton+SDWebImage` 和 `UIImageView+SDWebImage` 的链式封装。
 - 原来散落在 `JobsBaseUI`、`JobsByOCPods` 里的同名文件只保留兼容 import，不再保留 category 实现，避免 duplicate category 和实现重复。
 - `UIButton` 支持 `imageURL(...)`、`placeholderImage(...)`、`options(...)`、`completed(...)`、`progress(...)` 以及普通图片 / 背景图片的状态加载入口。
 - `UIImageView` 支持 `imageURL(...)`、`placeholderImage(...)`、`options(...)`、`completed(...)`、`load()`，Block 类型统一由 `JobsBlock+SDWebImage` 管理。
 
-## 十二、风险说明
+## 十二、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `UIControl` 事件优先使用 `onJobsTap` / `onJobsChange` / `onJobsEvent`；需要解绑时使用 `offJobsEvent`。`byAddTarget` 仅作 Target-Action 兼容入口保留，不作为调用方新增写法。
 - 不把非 DSL 辅助文件迁入本 Pod；如果某个旧 `+DSL` 文件混入了业务辅助能力，需要先拆干净再迁入。
@@ -265,26 +265,26 @@ JobsOCDSL@Pods/
 
 <a id="jobs-architecture"></a>
 
-## 十三、架构脉络与关键设计
+## 十三、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 13.1、设计目的与职责划分
+### 13.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 把系统与部分第三方对象的属性配置、对象内子配置和事件绑定组织为类型化 Block 链。它负责实例侧表达，JobsMakes 负责创建，JobsModelDSL 负责模型，具体业务组件仍各自维护行为。
 
-### 13.2、运行脉络
+### 13.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 创建具体对象 → 使用该类型的 byXxx 配置 → 经宿主级 Block 配置子对象并回到主链 → 绑定事件或执行终止动作。
 
-### 13.3、关键设计与边界
+### 13.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 配置返回值应保持可继续调用的具体对象类型；查询和终止动作需要按真实语义区别处理。
 - 按钮替换事件、追加事件、长按以及解绑并不等价，重建时必须保留语义。
 - 同名分类在不同 Pod 重复实现会造成冲突，先核对真实类型与所属模块。
 - 通用 DSL 不应吸收所有业务控件，UIBaseTextFieldDSL 等专用层已有独立依赖边界。
 
-### 13.4、阅读与重建顺序
+### 13.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先选一个实际对象追踪创建、配置和事件，再扩展其他类型；从接口签名与返回类型开始重建，不按名称批量猜实现。
 

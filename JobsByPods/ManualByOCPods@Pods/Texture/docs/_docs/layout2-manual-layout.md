@@ -4,10 +4,10 @@ layout: docs
 permalink: /docs/layout2-manual-layout.html
 ---
 
-## Manual Layout
+## <span id="前言">Manual Layout <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 After diving in to the automatic way for layout in Texture there is still the _old_ way to layout manually available. For the sake of completness here is a short description how to accomplish that within Texture.
 
-### Manual Layout UIKit
+### Manual Layout UIKit <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Sizing and layout of custom view hierarchies are typically done all at once on the main thread.  For example, a custom UIView that minimally encloses a text view and an image view might look like this:
 
@@ -68,11 +68,11 @@ Further, even with a cache, we'll still be blocking the main thread on sizing *s
 
 This is a pretty deep rabbit hole.  We could attempt to work around the fact that UILabels and UITextViews cannot safely be sized on background threads by manually creating a TextKit stack and sizing the text ourselves... but that's a laborious duplication of work.  Further, if UITextView's layout behaviour changes in an iOS update, our sizing code will break.  (And did we mention that TextKit isn't thread-safe either?)
 
-### Manual Layout Texture
+### Manual Layout Texture <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Manual layout within Texture are realized within two methods:
 
-#### `calculateSizeThatFits` and `layout`
+#### `calculateSizeThatFits` and `layout` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Within `calculateSizeThatFits:` you should provide a intrinsic content size for the node based on the given `constrainedSize`. This method is called on a background thread so perform expensive sizing operations within it.
 
@@ -110,7 +110,7 @@ After measurement and layout pass happens further layout can be done in `layout`
 </div>
 </div>
 
-#### Example
+#### Example <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 Our custom node looks like this:
 
 <div class = "highlight-group">
@@ -172,3 +172,5 @@ As you can see, node hierarchies are sized and laid out in much the same way as 
 * Nodes should call `[self invalidateCalculatedSize]` when necessary.  For example, `ASTextNode` invalidates its calculated size when its `attributedString` property is changed.
 
 As already mentioned, automatic layout is preferred over manual layout and should be the way to go in most cases.
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

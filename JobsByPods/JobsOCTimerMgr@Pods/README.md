@@ -15,7 +15,7 @@
 
 ---
 
-## 🔥 <font id=前言>前言</font> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 🔥 <font id=前言>前言</font>
 
 > 这份自述用于记录 `JobsOCTimerMgr` 在 Jobs 本地 [**CocoaPods**](https://cocoapods.org/) 体系里的职责边界、目录结构、依赖关系和验证方式。
 补充描述：JobsOCTimerMgr is a local Objective-C component library that provides centralized timer creation, lifecycle management, callback management, and foreground/background policy handling for Jobs projects.
@@ -68,27 +68,27 @@ JobsOCTimerMgr@Pods/
 
 ## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 5.1、公开头文件
+### 5.1、公开头文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsOCTimerMgr.h`
 - `Core/**/*.h`
 
-### 5.2、源码入口
+### 5.2、源码入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsOCTimerMgr.h`
 - `Core/**/*.{h,m,mm}`
 
-### 5.3、默认安装边界
+### 5.3、默认安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
 - `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 
-### 5.4、系统框架
+### 5.4、系统框架 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Foundation`
 - `UIKit`
 
-### 5.5、Pod 依赖
+### 5.5、Pod 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsMakes`
 - `JobsBlock`
@@ -111,7 +111,7 @@ JobsOCTimerMgr@Pods/
 - 自建 Pod 对外优先引用公共入口头，不要绕开聚合头直接引用 `Support` 内部子头。
 - `JobsOCTimerMgr.h` 聚合计时管理器与 DSL，是调用方统一入口。
 
-### 6.1、推荐 DSL
+### 6.1、推荐 DSL <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 NSString *identifier = @"home.countdown";
@@ -185,7 +185,7 @@ pod install --no-repo-update
 
 ## 十、系统计时机制对比与 Manager 选型 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 10.1、Manager 不替代内核选择
+### 10.1、Manager 不替代内核选择 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 `JobsOCTimerMgr` 解决的是“谁拥有 Timer、如何查找、去重、暂停、恢复和清理”，不是把所有系统计时机制抹成同一种行为。四种底层机制分属不同框架：
 
@@ -196,7 +196,7 @@ pod install --no-repo-update
 
 它们都不是硬实时机制，也都不会赋予 App 后台保活能力。Manager upsert 时仍要先按场景选择 `timerType`。
 
-### 10.2、四种内核怎么选
+### 10.2、四种内核怎么选 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 | 系统机制 | 调度模型 | 优势 | 代价与风险 | 推荐场景 | `JobsTimerType` |
 | ---- | ---- | ---- | ---- | ---- | ---- |
@@ -205,7 +205,7 @@ pod install --no-repo-update
 | `CADisplayLink` | 跟随显示刷新周期回调 | 与屏幕刷新协调；提供时间戳；适配高刷屏 | 实际帧率会变化；主线程繁忙会掉帧；不适合业务倒计时 | 逐帧动画、进度绘制、视觉插值 | `JobsTimerTypeDisplayLink` |
 | `CFRunLoopTimerRef` | Core Foundation 级 RunLoop Timer | 可控制 RunLoop、Mode、下一次触发时间与上下文 | C API 冗长；所有权和线程亲和复杂；仍受 RunLoop 延迟 | 基础设施、精细 RunLoop 集成或 C/CF 互操作 | `JobsTimerTypeRunLoop` |
 
-### 10.3、邻近 API 的边界
+### 10.3、邻近 API 的边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 | API | 适合 | 不适合 |
 | ---- | ---- | ---- |
@@ -213,7 +213,7 @@ pod install --no-repo-update
 | `performSelector:withObject:afterDelay:` | 当前 RunLoop 上的一次性延迟消息 | 跨队列调度、重复任务、复杂取消治理 |
 | `BGTaskScheduler` | 系统择机执行后台刷新或维护任务 | 秒级准点触发、常驻后台 Timer |
 
-### 10.4、场景决策顺序
+### 10.4、场景决策顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 1. 屏幕逐帧刷新选择 `JobsTimerTypeDisplayLink`。
 2. 非 UI 工作队列、心跳或轮询选择 `JobsTimerTypeGCD`。
@@ -222,7 +222,7 @@ pod install --no-repo-update
 5. 只有一次延迟动作时使用 `dispatch_after` 等一次性 API，不创建受管重复 Timer。
 6. App 被系统挂起后需要执行工作时，改用匹配业务资格的后台系统机制。
 
-### 10.5、什么时候必须上 Manager
+### 10.5、什么时候必须上 Manager <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 单个对象私有、生命周期清楚、无需跨对象查找时，直接使用 `JobsTimer`。
 - 同一业务可能重复创建 Timer 时，用 identifier 管理。
@@ -233,15 +233,15 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 十一、架构脉络与关键设计
+## 十一、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 11.1、设计目的与职责划分
+### 11.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 在 JobsTimer 之上按稳定 identifier 注册任务，管理多回调、前后台策略、精准取消和 Scope 生命周期。Model 持有业务时间语义，Manager 持有物理 Timer，页面只需持有相应 Scope。
 
-### 11.2、运行脉络
+### 11.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 以标识创建/替换任务 → 注册 tick/finish 回调 → 按策略启动 → 根据标识或 Scope 控制 → 校验期望 Timer 后精准移除。
 
@@ -260,13 +260,13 @@ flowchart TD
     H --> I["停止并移除对应项"]
 ```
 
-### 11.3、关键设计与边界
+### 11.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 同标识替换先原子更新注册项，再在锁外停止旧 Timer，避免外部回调进入锁内。
 - 列表复用通过 expectedTimer 区分新旧实例，旧 Cell 的清理不能误删同标识的新 Timer。
 - 追加回调、任务本体和 Scope 所有权分开；Manager 不改变底层精度，也不替业务维护 endAt。
 
-### 11.4、阅读与重建顺序
+### 11.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先读标识协议和后台策略，再看 upsert、回调注册、expectedTimer 取消和 Scope；用一次列表复用场景串联职责。
 

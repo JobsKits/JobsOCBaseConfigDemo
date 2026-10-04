@@ -1,15 +1,15 @@
-# JobsCallBackBlockDSL
+# <span id="前言">JobsCallBackBlockDSL</span>
 
 > 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
 
 `JobsCallBackBlockDSL` 是 `JobsBlock/NSObject+CallBackInfoByBlock` 的链式语法二次封装。
 
-## 用途
+## 用途 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsBlock` 继续负责 Block typedef、关联对象属性和 `actionXxxBlock:` 存取逻辑。
 - `JobsCallBackBlockDSL` 只负责 `byXxxBlock(...)` 点语法链式调用，让 callback 配置可以并入 Jobs DSL 的“一链到底”风格。
 
-## 使用
+## 使用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 #import <JobsCallBackBlockDSL/JobsCallBackBlockDSL.h>
@@ -23,42 +23,42 @@ object
     });
 ```
 
-## 目录
+## 目录 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsCallBackBlockDSL.h`：聚合入口。
 - `Core/NSObject+CallBackInfoByBlock+DSL`：`NSObject` callback block DSL 分类。
 
-## 依赖
+## 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsBlock`
 - `JobsOCDefs`
 
-## 约束
+## 约束 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - DSL Block 必须返回当前 `NSObject`，保证链式语法可以继续。
 - 不在本 Pod 内重复定义 Block 类型；新增可复用 typedef 统一放入 `JobsBlock`。
 
 <a id="jobs-architecture"></a>
 
-## 一、架构脉络与关键设计
+## 一、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 1.1、设计目的与职责划分
+### 1.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 为 JobsBlock 中 NSObject 的回调属性增加链式设置入口。byVoidBlock、byObjBlock、byStringBlock 及基本类型回调负责保存不同签名的回调，事件触发仍由对象或业务流程负责。
 
-### 1.2、运行脉络
+### 1.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 选定回调签名 → 通过 byXxxBlock 设置 → 返回当前对象继续配置 → 在真实事件发生时调用保存的回调。
 
-### 1.3、关键设计与边界
+### 1.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 设置回调和触发回调必须分开；不能把配置方法写成马上执行闭包。
 - 参数和返回类型必须与底层回调属性一致，数字类型不能随意全部折叠为 id。
 - 被保存的回调仍需要由使用方明确捕获对象的策略。
 
-### 1.4、阅读与重建顺序
+### 1.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先读底层回调属性，再对照本库同名 DSL 的赋值与返回；重建时先有回调存储，再加配置层。
 
@@ -68,3 +68,5 @@ object
 - [Core/NSObject+CallBackInfoByBlock+DSL/NSObject+CallBackInfoByBlock+DSL.h](<./Core/NSObject+CallBackInfoByBlock+DSL/NSObject+CallBackInfoByBlock+DSL.h>)
 
 依赖与编译入口：[JobsCallBackBlockDSL.podspec](<./JobsCallBackBlockDSL.podspec>)。其中显式依赖声明包括 `JobsBlock`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

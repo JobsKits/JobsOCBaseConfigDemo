@@ -8,7 +8,7 @@ nextPage: image-node.html
 
 `ASTextNode` is Texture's main text node and can be used any time you would normally use a `UILabel`.  It includes full rich text support and is a subclass of `ASControlNode` meaning it can be used any time you would normally create a UIButton with just its titleLabel set.
 
-### Basic Usage
+### <span id="前言">Basic Usage <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 `ASTextNode`'s interface should be familiar to anyone who's used a `UILabel`.   The first difference you may notice, is that text node's only use attributed strings instead of having the option of using a plain string.
 
 <div class = "highlight-group">
@@ -35,7 +35,7 @@ node.attributedText = string
 
 As you can see, to create a basic text node, all you need to do is use a standard alloc-init and then set up the attributed string for the text you wish to display.
 
-### Truncation
+### Truncation <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 In any case where you need your text node to fit into a space that is smaller than what would be necessary to display all the text it contains, as much as possible will be shown, and whatever is cut off will be replaced with a truncation string.
 
@@ -66,7 +66,7 @@ This results in something like:
 By default, the truncation string will be "…" so you don't need to set it if that's all you need.
 
 
-### Link Attributes
+### Link Attributes <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 In order to designate chunks of your text as a link, you first need to set the `linkAttributes` array to an array of strings which will be used as keys of links in your attributed string.  Then, when setting up the attributes of your string, you can use these keys to point to appropriate `NSURL`s.
 
@@ -114,7 +114,7 @@ Which results in a light gray link with a dash-dot style underline!
 
 As you can see, it's relatively convenient to apply various styles to each link given its range in the attributed string.
 
-### ASTextNodeDelegate
+### ASTextNodeDelegate <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Conforming to `ASTextNodeDelegate` allows your class to react to various events associated with a text node.  For example, if you want to react to one of your links being tapped:
 
@@ -150,7 +150,7 @@ In a similar way, you can react to long presses and highlighting with the follow
 `– textNode:shouldLongPressLinkAttribute:value:atPoint:`
 
 
-### Incorrect maximum number of lines with line spacing
+### Incorrect maximum number of lines with line spacing <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Using a `NSParagraphStyle` with a non-default `lineSpacing` can cause problems if multiline text with a maximum number of lines is wanted. For example see the following code:
 
@@ -226,3 +226,5 @@ textNode.attributedText = NSAttributedString(string: someLongString, attributes:
 </div>
 </div>
 ```
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

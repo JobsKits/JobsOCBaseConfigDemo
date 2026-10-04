@@ -14,7 +14,7 @@
 
 ## 一、职责边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 1.1、核心对象
+### 1.1、核心对象 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsOCKeyboardConfig`：描述目标视图、触发输入控件、触发查找范围、容器、附属视图、输入流和生命周期 owner。
 - `jobsMakeOCKeyboardConfig`：定义在 `Core/JobsOCKeyboardConfig` 并由本 Pod 聚合头导出，不再借道 `JobsMakes`。
@@ -22,7 +22,7 @@
 - `JobsOCKeyboardResult`：承接计算结果，业务可通过 `resultBlock` 自定义处理。
 - `JobsOCKeyboardMgr`：监听键盘通知，缓存最新键盘 frame，应用 transform 位移，处理可选的回车流转和空白收键盘。
 
-### 1.2、目录结构
+### 1.2、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```text
 JobsOCKeyboardMgr@Pods/
@@ -38,7 +38,7 @@ JobsOCKeyboardMgr@Pods/
 
 ## 二、推荐写法 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 2.1、页面配置
+### 2.1、页面配置 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objc
 JobsOCKeyboardMgr.shared
@@ -56,7 +56,7 @@ JobsOCKeyboardMgr.shared
     }));
 ```
 
-### 2.2、页面清理
+### 2.2、页面清理 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 页面退出时按 owner 清理，避免旧页面误清掉新页面配置：
 
@@ -72,7 +72,7 @@ JobsOCKeyboardMgr.shared.start();
 
 ## 三、配置说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 3.1、视图与生命周期
+### 3.1、视图与生命周期 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `byOwner`：当前配置归属对象。多页面快速切换时，`clearConfigByOwner:` 只清理同一 owner 的配置。
 - `byTargetView`：必填，真正要被移动的小窗、表单卡片或父视图。
@@ -81,7 +81,7 @@ JobsOCKeyboardMgr.shared.start();
 - `byContainerView`：可选，键盘 frame 坐标转换容器；不传时优先用 `targetView.window`。
 - `byFollowViews`：跟随目标视图一起位移的视图，例如 logo、客服按钮。
 
-### 3.2、输入流与附属视图
+### 3.2、输入流与附属视图 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `byInputFields`：按顺序声明输入框，用于软键盘 Return 跳转下一个输入框。
 - `byShouldFlowByReturnKey`：开启后通过 `UIControlEventEditingDidEndOnExit` 做输入框流转，不抢业务 delegate。
@@ -91,28 +91,28 @@ JobsOCKeyboardMgr.shared.start();
 
 ## 四、设计边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 4.1、当前默认策略
+### 4.1、当前默认策略 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 默认位移方式是 `transform`，适合表单卡片、小窗、登录注册面板。
 - 框架会在键盘隐藏、无需位移或 restore 后清理 transform 基准缓存，降低业务后续动画被旧基准覆盖的风险。
 - 键盘通知到达时会先缓存最新键盘 frame；即使 config 稍后才设置，也能基于最新键盘状态重新计算。
 - 本 Pod 直接依赖 `JobsBlock`、`JobsOCDSL`、`JobsOCDefs`；输入框回车流转的 target / action 通过 `byRemoveTarget` / `byAddTarget` 收口。
 
-### 4.2、后续扩展方向
+### 4.2、后续扩展方向 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `UIScrollView` 的 `contentInset` / `scrollRectToVisible` 不是当前默认模式；这类场景可先用 `resultBlock` 自定义，后续再扩展新的 `applyMode`。
 - 如果输入控件被更深层业务组件包裹，优先由业务组件暴露真实 `UITextField` 后再传入 `byInputFields`。
 
 ## 五、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-### 5.1、轻量验证
+### 5.1、轻量验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```bash
 git diff --check -- JobsByPods/JobsOCKeyboardMgr@Pods
 rg -n -U "\\}\\n\\s*return\\b|\\}return\\b" JobsByPods/JobsOCKeyboardMgr@Pods --glob "*.m" --glob "*.mm"
 ```
 
-### 5.2、工程验证
+### 5.2、工程验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 输入框回车流转事件使用 `offJobsEvent(...).onJobsEvent(...)` 成对重绑，销毁或切换配置时用 `offJobsEvent(...)` 解绑，避免重复回调。
 
@@ -120,25 +120,25 @@ rg -n -U "\\}\\n\\s*return\\b|\\}return\\b" JobsByPods/JobsOCKeyboardMgr@Pods --
 
 <a id="jobs-architecture"></a>
 
-## 六、架构脉络与关键设计
+## 六、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 6.1、设计目的与职责划分
+### 6.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 将键盘跟随拆成 Config、Calculator、Result 和 Manager。配置指定 owner、跟随视图与输入框，计算器根据键盘/视图位置得到结果，管理器观察事件并应用布局或通知调用方。
 
-### 6.2、运行脉络
+### 6.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 绑定配置与输入框 → 接收键盘通知 → 统一坐标计算遮挡 → 生成位移结果 → 应用跟随或交给回调 → 隐藏/解绑时恢复。
 
-### 6.3、关键设计与边界
+### 6.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 真实 UITextField 需要被明确传入，深层业务包装不能只传外壳视图。
 - 计算结果与直接修改界面是不同模式，应按 applyMode 理解。
 - 回车流转使用成对解绑/重绑，重复配置不能叠加相同回调。
 
-### 6.4、阅读与重建顺序
+### 6.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看 Config，再看 Calculator 的坐标与相交计算，最后看 Manager 的通知、应用与清理路径。
 

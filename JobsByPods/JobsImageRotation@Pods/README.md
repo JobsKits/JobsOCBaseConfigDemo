@@ -1,12 +1,12 @@
-# JobsImageRotation
+# <span id="前言">JobsImageRotation</span>
 
 > 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
 
-## 定位
+## 定位 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 `JobsImageRotation` 是基于 `JobsOCTimer` 的轻量旋转 Pod。它既能绑定任意 `UIView`，也提供只输出图形的 `JobsClockIconView`；组件不接管按钮标题、外层布局或业务倒计时。
 
-## 目录
+## 目录 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```text
 JobsImageRotation@Pods/
@@ -21,7 +21,7 @@ JobsImageRotation@Pods/
 
 当前没有资源，不创建空 `Resource`。
 
-## 公开能力
+## 公开能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsImageRotationDirectionClockwise` 与 `JobsImageRotationDirectionCounterclockwise`，默认顺时针。
 - `JobsImageRotationDefaultInterval`：默认 `1.0 / 60.0` 秒。
@@ -45,7 +45,7 @@ JobsClockIconView *clockIcon =
 [clockIcon start];
 ```
 
-## 依赖与边界
+## 依赖与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 直接依赖 `JobsOCTimer` 与 `JobsOCDefs`。
 - 每个 tick 固定旋转 `6°`，因此 `interval` 越小旋转越快。
@@ -54,7 +54,7 @@ JobsClockIconView *clockIcon =
 - 生命周期和 UI 更新必须从主线程调用。
 - `stop` 默认恢复绑定视图创建组件时的 transform。
 
-## 验证
+## 验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```shell
 ruby -c JobsImageRotation.podspec
@@ -64,25 +64,25 @@ xcodebuild -workspace JobsOCBaseConfigDemo.xcworkspace -scheme JobsImageRotation
 
 <a id="jobs-architecture"></a>
 
-## 一、架构脉络与关键设计
+## 一、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 1.1、设计目的与职责划分
+### 1.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 将图像旋转控制与时钟图标表现分开。Rotator 负责方向、节奏和旋转进程，ClockIconView 组合表盘/指针并暴露启动、暂停、恢复、停止等入口，底层节拍来自计时模块。
 
-### 1.2、运行脉络
+### 1.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 配置方向与间隔 → 启动旋转 → 暂停或恢复 → 停止并按选择保留/重置角度。
 
-### 1.3、关键设计与边界
+### 1.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 暂停/恢复与停止重置有不同状态语义，不能统一变成移除全部动画。
 - hasStarted 与 running 分别表达历史启动和当前运行状态。
 - 色彩和布局更新不应无意重新开始计时。
 
-### 1.4、阅读与重建顺序
+### 1.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看 Rotator 的状态与角度更新，再看 ClockIconView 的组合；重建时把控制状态与绘制图层分离。
 
@@ -93,3 +93,5 @@ xcodebuild -workspace JobsOCBaseConfigDemo.xcworkspace -scheme JobsImageRotation
 - [Core/JobsImageRotator/JobsImageRotator.h](<./Core/JobsImageRotator/JobsImageRotator.h>)
 
 依赖与编译入口：[JobsImageRotation.podspec](<./JobsImageRotation.podspec>)。其中显式依赖声明包括 `JobsOCTimer`、`JobsOCDSL`、`JobsOCDefs`、`JobsBlock`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

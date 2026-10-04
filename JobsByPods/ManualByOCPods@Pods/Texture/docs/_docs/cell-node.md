@@ -8,11 +8,11 @@ nextPage: button-node.html
 
 `ASCellNode`, as you may have guessed, is the cell class of Texture.  Unlike the various cells in UIKit, `ASCellNode` can be used with `ASTableNodes`, `ASCollectionNodes` and `ASPagerNodes`, making it incredibly flexible.
 
-### 3 Ways to Party
+### <span id="前言">3 Ways to Party <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span>
 
 There are three ways in which you can implement the cells you'll use in your Texture app: subclassing `ASCellNode`, initializing with an existing `ASDKViewController` or using an existing UIView or `CALayer`.
 
-#### Subclassing
+#### Subclassing <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Subclassing an `ASCellNode` is pretty much the same as <a href = "/docs/subclassing.html">subclassing</a> a regular `ASDisplayNode`.  
 
@@ -24,7 +24,7 @@ Most likely, you'll write a few of the following:
 - `-layout` -- Also called on the main thread.  Layout is complete after the call to super which means you can do any extra tweaking you need to do.
 
 
-#### Initializing with an `ASDKViewController`
+#### Initializing with an `ASDKViewController` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Say you already have some type of view controller written to display a view in your app.  If you want to take that view controller and drop its view in as a cell in one of the scrolling nodes or a pager node its no problem.
 
@@ -70,7 +70,7 @@ Notice that you need to set the <code>.style.preferredSize</code> of a node crea
 </div>
 
 
-#### Initializing with a `UIView` or `CALayer`
+#### Initializing with a `UIView` or `CALayer` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Alternatively, if you already have a `UIView` or `CALayer` subclass that you'd like to drop in as cell you can do that instead.
 
@@ -109,7 +109,7 @@ func pagerNode(_ pagerNode: ASPagerNode, nodeAt index: Int) -> ASCellNode {
 
 As you can see, its roughly the same idea.  That being said, if you're doing this, you may consider converting the existing `UIView` subclass to be an `ASCellNode` subclass in order to gain the advantage of asynchronous display.
 
-### Never Show Placeholders
+### Never Show Placeholders <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 Usually, if a cell hasn't finished its display pass before it has reached the screen it will show placeholders until it has completed drawing its content.
 
@@ -133,10 +133,12 @@ With this property set to `YES`, the main thread will be blocked until display h
 Using this option does not eliminate all of the performance advantages of Texture. Normally, a cell has been preloading and is almost done when it reaches the screen, so the blocking time is very short.  Even if the <code>rangeTuningParameters</code> are set to 0 this option outperforms UIKit.  While the main thread is waiting, subnode display executes concurrently.
 </div>
 
-### `UITableViewCell` specific propertys
+### `UITableViewCell` specific propertys <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 <code>UITableViewCell</code> has properties like <code>selectionStyle</code>, <code>accessoryType</code> and <code>seperatorInset</code> that many of us use sometimes to give the Cell more detail. For this case <code>ASCellNode</code> has the same (passthrough) properties that can be used. 
 
 <div class = "note">
 UIKits <code>UITableViewCell</code> contains <code>ASCellNode</code> as a subview. Depending how your <code>ASLayoutSpec</code> is defined it may occur that your Layout overlays the <code>UITableViewCell.accessoryView</code> and therefore is not visible. Make sure that your Layout doesn't overlay any of <code>UITableViewCell</code>'s specific properties.
 </div>
+
+<a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>
