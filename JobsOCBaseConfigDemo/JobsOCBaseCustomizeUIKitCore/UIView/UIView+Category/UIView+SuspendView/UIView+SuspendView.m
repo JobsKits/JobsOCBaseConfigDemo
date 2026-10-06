@@ -41,14 +41,14 @@ static CGPoint JobsSuspendClampedOrigin(CGPoint origin, CGSize size, CGRect boun
 JobsKey(_vc)
 @dynamic vc;
 -(UIViewController *)vc{
-    UIViewController *VC = Jobs_getAssociatedObject(_vc);
+    UIViewController *VC = JobsGetAssociatedWeakObject(self, _vc);
     if (!VC) {
         JobsLog(@"VC 不能为空");
     };return VC;
 }
 
 -(void)setVc:(UIViewController *)vc{
-    Jobs_setAssociatedRETAIN_NONATOMIC(_vc, vc)
+    JobsSetAssociatedWeakObject(self, _vc, vc);
 }
 -(JobsRetViewByIDBlock _Nonnull)byVc{
     @jobs_weakify(self)

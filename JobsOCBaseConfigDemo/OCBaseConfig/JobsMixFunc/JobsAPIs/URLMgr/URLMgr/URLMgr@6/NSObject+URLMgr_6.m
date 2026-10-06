@@ -12,7 +12,7 @@
 @implementation NSObject (URLMgr_6)
 #pragma mark —— C2C-充提黑名单
 /// 新增C2C充提黑名单@POST
--(URLManagerModel *_Nullable)post_fund_c2c_dw_blackList_add{
+-(URLManagerModel *_Nonnull)post_fund_c2c_dw_blackList_add{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_c2c_dw_blackList_add)))(self, @selector(jobs_post_fund_c2c_dw_blackList_add)))();
 }
 
@@ -26,7 +26,7 @@
     };
 }
 /// 修改C2C充提黑名单状态@PUT
--(URLManagerModel *_Nullable)put_fund_c2c_dw_blackList_change_status{
+-(URLManagerModel *_Nonnull)put_fund_c2c_dw_blackList_change_status{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_fund_c2c_dw_blackList_change_status)))(self, @selector(jobs_put_fund_c2c_dw_blackList_change_status)))();
 }
 
@@ -47,7 +47,7 @@
     };
 }
 /// 查询C2C充提黑名单列表@GET
--(URLManagerModel *_Nullable)get_fund_c2c_dw_blackList_list{
+-(URLManagerModel *_Nonnull)get_fund_c2c_dw_blackList_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_fund_c2c_dw_blackList_list)))(self, @selector(jobs_get_fund_c2c_dw_blackList_list)))();
 }
 
@@ -62,7 +62,7 @@
 }
 #pragma mark —— C2C-存取款占比
 /// 新增C2C存取款占比配置@POST
--(URLManagerModel *_Nullable)post_fund_c2c_dwRatio_add{
+-(URLManagerModel *_Nonnull)post_fund_c2c_dwRatio_add{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_c2c_dwRatio_add)))(self, @selector(jobs_post_fund_c2c_dwRatio_add)))();
 }
 
@@ -83,7 +83,7 @@
     };
 }
 /// 修改C2C存取款占比配置@PUT
--(URLManagerModel *_Nullable)put_fund_c2c_dwRatio_edit{
+-(URLManagerModel *_Nonnull)put_fund_c2c_dwRatio_edit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_fund_c2c_dwRatio_edit)))(self, @selector(jobs_put_fund_c2c_dwRatio_edit)))();
 }
 
@@ -104,7 +104,7 @@
     };
 }
 /// 查询C2C存取款占比配置列表@GET
--(URLManagerModel *_Nullable)get_fund_c2c_dwRatio_list{
+-(URLManagerModel *_Nonnull)get_fund_c2c_dwRatio_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_fund_c2c_dwRatio_list)))(self, @selector(jobs_get_fund_c2c_dwRatio_list)))();
 }
 
@@ -119,7 +119,7 @@
 }
 #pragma mark —— C2C-提款搁置列表
 /// 批量操作搁置订单@POST
--(URLManagerModel *_Nullable)post_fund_c2c_withdraw_hold_batch_update{
+-(URLManagerModel *_Nonnull)post_fund_c2c_withdraw_hold_batch_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_c2c_withdraw_hold_batch_update)))(self, @selector(jobs_post_fund_c2c_withdraw_hold_batch_update)))();
 }
 
@@ -133,7 +133,7 @@
     };
 }
 /// 查询C2C提款搁置列表@GET
--(URLManagerModel *_Nullable)get_fund_c2c_withdraw_hold_list{
+-(URLManagerModel *_Nonnull)get_fund_c2c_withdraw_hold_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_fund_c2c_withdraw_hold_list)))(self, @selector(jobs_get_fund_c2c_withdraw_hold_list)))();
 }
 
@@ -148,7 +148,7 @@
 }
 #pragma mark —— C2C-提款搁置设置
 /// 修改C2C提现风控配置@PUT
--(URLManagerModel *_Nullable)put_fund_c2c_risk_config_edit{
+-(URLManagerModel *_Nonnull)put_fund_c2c_risk_config_edit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_fund_c2c_risk_config_edit)))(self, @selector(jobs_put_fund_c2c_risk_config_edit)))();
 }
 
@@ -162,7 +162,7 @@
     };
 }
 /// 获取C2C提现风控配置信息@GET
--(URLManagerModel *_Nullable)get_fund_c2c_risk_config_getInfo{
+-(URLManagerModel *_Nonnull)get_fund_c2c_risk_config_getInfo{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_fund_c2c_risk_config_getInfo)))(self, @selector(jobs_get_fund_c2c_risk_config_getInfo)))();
 }
 
@@ -177,7 +177,7 @@
 }
 #pragma mark —— C2C-提现拆单开关设置
 /// 拆单开关状态修改@PUT
--(URLManagerModel *_Nullable)put_fund_c2c_split_switch_edit{
+-(URLManagerModel *_Nonnull)put_fund_c2c_split_switch_edit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_fund_c2c_split_switch_edit)))(self, @selector(jobs_put_fund_c2c_split_switch_edit)))();
 }
 
@@ -191,7 +191,7 @@
     };
 }
 /// 查询拆单开关状态@GET
--(URLManagerModel *_Nullable)get_fund_c2c_split_switch_status{
+-(URLManagerModel *_Nonnull)get_fund_c2c_split_switch_status{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_fund_c2c_split_switch_status)))(self, @selector(jobs_get_fund_c2c_split_switch_status)))();
 }
 
@@ -206,7 +206,7 @@
 }
 #pragma mark —— C2C-提现拆单配置
 /// 新增C2C提现拆单规则配置@POST
--(URLManagerModel *_Nullable)post_fund_c2c_split_rule_add{
+-(URLManagerModel *_Nonnull)post_fund_c2c_split_rule_add{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_c2c_split_rule_add)))(self, @selector(jobs_post_fund_c2c_split_rule_add)))();
 }
 
@@ -227,7 +227,7 @@
     };
 }
 /// 修改C2C提现拆单规则配置@PUT
--(URLManagerModel *_Nullable)put_fund_c2c_split_switch_status{
+-(URLManagerModel *_Nonnull)put_fund_c2c_split_switch_status{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_fund_c2c_split_switch_status)))(self, @selector(jobs_put_fund_c2c_split_switch_status)))();
 }
 
@@ -241,7 +241,7 @@
     };
 }
 /// 查询C2C提现拆单规则配置列表@GET
--(URLManagerModel *_Nullable)get_fund_c2c_split_rule_list{
+-(URLManagerModel *_Nonnull)get_fund_c2c_split_rule_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_fund_c2c_split_rule_list)))(self, @selector(jobs_get_fund_c2c_split_rule_list)))();
 }
 
@@ -256,7 +256,7 @@
 }
 #pragma mark —— C2C-提现风控配置日志
 /// 查询C2C提现风控配置日志列表@GET
--(URLManagerModel *_Nullable)get_fund_c2c_risk_config_log_list{
+-(URLManagerModel *_Nonnull)get_fund_c2c_risk_config_log_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_fund_c2c_risk_config_log_list)))(self, @selector(jobs_get_fund_c2c_risk_config_log_list)))();
 }
 
@@ -271,7 +271,7 @@
 }
 #pragma mark —— PH_AGT-代理转账审核接口
 /// 保存代理转账@POST
--(URLManagerModel *_Nullable)post_agent_agentTransferAudit_agentTransferSave{
+-(URLManagerModel *_Nonnull)post_agent_agentTransferAudit_agentTransferSave{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_agentTransferAudit_agentTransferSave)))(self, @selector(jobs_post_agent_agentTransferAudit_agentTransferSave)))();
 }
 
@@ -285,7 +285,7 @@
     };
 }
 /// 代理转账一审核通过或拒绝@POST
--(URLManagerModel *_Nullable)post_agent_agentTransferAudit_firstPassOrRejection{
+-(URLManagerModel *_Nonnull)post_agent_agentTransferAudit_firstPassOrRejection{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_agentTransferAudit_firstPassOrRejection)))(self, @selector(jobs_post_agent_agentTransferAudit_firstPassOrRejection)))();
 }
 
@@ -299,7 +299,7 @@
     };
 }
 /// 查询代理转账审核列表@POST
--(URLManagerModel *_Nullable)post_agent_agentTransferAudit_getAgentTransferAuditList{
+-(URLManagerModel *_Nonnull)post_agent_agentTransferAudit_getAgentTransferAuditList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_agentTransferAudit_getAgentTransferAuditList)))(self, @selector(jobs_post_agent_agentTransferAudit_getAgentTransferAuditList)))();
 }
 
@@ -313,7 +313,7 @@
     };
 }
 /// 代理转账二审审核通过或拒绝@POST
--(URLManagerModel *_Nullable)post_agent_agentTransferAudit_secondPassOrRejection{
+-(URLManagerModel *_Nonnull)post_agent_agentTransferAudit_secondPassOrRejection{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_agentTransferAudit_secondPassOrRejection)))(self, @selector(jobs_post_agent_agentTransferAudit_secondPassOrRejection)))();
 }
 
@@ -328,7 +328,7 @@
 }
 #pragma mark —— PH_AGT-配置中心_代存转账配置
 /// 代存转账配置-查询@POST
--(URLManagerModel *_Nullable)post_configs_deposit_list{
+-(URLManagerModel *_Nonnull)post_configs_deposit_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_configs_deposit_list)))(self, @selector(jobs_post_configs_deposit_list)))();
 }
 
@@ -342,7 +342,7 @@
     };
 }
 /// 代存转账配置-编辑@PUT
--(URLManagerModel *_Nullable)put_configs_deposit_saveOrUpdate{
+-(URLManagerModel *_Nonnull)put_configs_deposit_saveOrUpdate{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_configs_deposit_saveOrUpdate)))(self, @selector(jobs_put_configs_deposit_saveOrUpdate)))();
 }
 
@@ -357,7 +357,7 @@
 }
 #pragma mark —— PH_AGT-配置中心_帮助中心(内容)
 /// 帮助中心-查询问题分类@POST
--(URLManagerModel *_Nullable)post_config_help_center_classify_lists{
+-(URLManagerModel *_Nonnull)post_config_help_center_classify_lists{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_config_help_center_classify_lists)))(self, @selector(jobs_post_config_help_center_classify_lists)))();
 }
 
@@ -378,7 +378,7 @@
     };
 }
 /// 帮助中心-查询@POST
--(URLManagerModel *_Nullable)post_config_help_center_list{
+-(URLManagerModel *_Nonnull)post_config_help_center_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_config_help_center_list)))(self, @selector(jobs_post_config_help_center_list)))();
 }
 
@@ -392,7 +392,7 @@
     };
 }
 /// 帮助中心-新增@POST
--(URLManagerModel *_Nullable)post_config_help_center_save{
+-(URLManagerModel *_Nonnull)post_config_help_center_save{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_config_help_center_save)))(self, @selector(jobs_post_config_help_center_save)))();
 }
 
@@ -406,7 +406,7 @@
     };
 }
 /// 帮助中心-编辑@POST
--(URLManagerModel *_Nullable)post_config_help_center_update{
+-(URLManagerModel *_Nonnull)post_config_help_center_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_config_help_center_update)))(self, @selector(jobs_post_config_help_center_update)))();
 }
 
@@ -428,7 +428,7 @@
     };
 }
 /// 帮助中心分类问题-查询@POST
--(URLManagerModel *_Nullable)post_config_help_center_classify_list{
+-(URLManagerModel *_Nonnull)post_config_help_center_classify_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_config_help_center_classify_list)))(self, @selector(jobs_post_config_help_center_classify_list)))();
 }
 
@@ -442,7 +442,7 @@
     };
 }
 /// 帮助中心分类问题-新增@POST
--(URLManagerModel *_Nullable)post_config_help_center_classify_save{
+-(URLManagerModel *_Nonnull)post_config_help_center_classify_save{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_config_help_center_classify_save)))(self, @selector(jobs_post_config_help_center_classify_save)))();
 }
 
@@ -456,7 +456,7 @@
     };
 }
 /// 帮助中心分类问题-编辑@POST
--(URLManagerModel *_Nullable)post_config_help_center_classify_update{
+-(URLManagerModel *_Nonnull)post_config_help_center_classify_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_config_help_center_classify_update)))(self, @selector(jobs_post_config_help_center_classify_update)))();
 }
 
@@ -471,7 +471,7 @@
 }
 #pragma mark —— PH_AGT-配置中心_提现配置
 /// 提款配置-查询@POST
--(URLManagerModel *_Nullable)post_configs_withdrawal_list{
+-(URLManagerModel *_Nonnull)post_configs_withdrawal_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_configs_withdrawal_list)))(self, @selector(jobs_post_configs_withdrawal_list)))();
 }
 
@@ -485,7 +485,7 @@
     };
 }
 /// 提款配置-编辑@PUT
--(URLManagerModel *_Nullable)put_configs_withdrawal_saveOrUpdate{
+-(URLManagerModel *_Nonnull)put_configs_withdrawal_saveOrUpdate{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_configs_withdrawal_saveOrUpdate)))(self, @selector(jobs_put_configs_withdrawal_saveOrUpdate)))();
 }
 
@@ -500,7 +500,7 @@
 }
 #pragma mark —— PH_AGT-配置中心_标签关系配置
 /// 新增代理标签关系@POST
--(URLManagerModel *_Nullable)post_configs_tags_ref_add{
+-(URLManagerModel *_Nonnull)post_configs_tags_ref_add{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_configs_tags_ref_add)))(self, @selector(jobs_post_configs_tags_ref_add)))();
 }
 
@@ -528,7 +528,7 @@
     };
 }
 /// 获取代理所有标签信息@GET
--(URLManagerModel *_Nullable)get_configs_tags_ref_getAllTagList{
+-(URLManagerModel *_Nonnull)get_configs_tags_ref_getAllTagList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_configs_tags_ref_getAllTagList)))(self, @selector(jobs_get_configs_tags_ref_getAllTagList)))();
 }
 
@@ -550,7 +550,7 @@
     };
 }
 /// 查询标签用户数列表@POST
--(URLManagerModel *_Nullable)post_configs_tags_getTagAgentList{
+-(URLManagerModel *_Nonnull)post_configs_tags_getTagAgentList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_configs_tags_getTagAgentList)))(self, @selector(jobs_post_configs_tags_getTagAgentList)))();
 }
 
@@ -564,7 +564,7 @@
     };
 }
 /// 查询标签列表@POST
--(URLManagerModel *_Nullable)post_configs_tags_getTagList{
+-(URLManagerModel *_Nonnull)post_configs_tags_getTagList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_configs_tags_getTagList)))(self, @selector(jobs_post_configs_tags_getTagList)))();
 }
 
@@ -578,7 +578,7 @@
     };
 }
 /// 新增标签@POST
--(URLManagerModel *_Nullable)post_configs_tags_save{
+-(URLManagerModel *_Nonnull)post_configs_tags_save{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_configs_tags_save)))(self, @selector(jobs_post_configs_tags_save)))();
 }
 
@@ -592,7 +592,7 @@
     };
 }
 /// 修改标签@POST
--(URLManagerModel *_Nullable)post_configs_tags_update{
+-(URLManagerModel *_Nonnull)post_configs_tags_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_configs_tags_update)))(self, @selector(jobs_post_configs_tags_update)))();
 }
 
@@ -607,7 +607,7 @@
 }
 #pragma mark —— PH_AGT-配置中心_联系方式配置
 /// 代理后台帮助中心联系方式查询@POST
--(URLManagerModel *_Nullable)post_configs_contact_getContactListForHelp{
+-(URLManagerModel *_Nonnull)post_configs_contact_getContactListForHelp{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_configs_contact_getContactListForHelp)))(self, @selector(jobs_post_configs_contact_getContactListForHelp)))();
 }
 
@@ -621,7 +621,7 @@
     };
 }
 /// 联系方式配置-查询@POST
--(URLManagerModel *_Nullable)post_configs_contact_list{
+-(URLManagerModel *_Nonnull)post_configs_contact_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_configs_contact_list)))(self, @selector(jobs_post_configs_contact_list)))();
 }
 
@@ -635,7 +635,7 @@
     };
 }
 /// 联系方式配置-查询@POST
--(URLManagerModel *_Nullable)post_configs_contact_list_noLogin{
+-(URLManagerModel *_Nonnull)post_configs_contact_list_noLogin{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_configs_contact_list_noLogin)))(self, @selector(jobs_post_configs_contact_list_noLogin)))();
 }
 
@@ -649,7 +649,7 @@
     };
 }
 /// 联系方式配置-查询@POST
--(URLManagerModel *_Nullable)post_configs_contact_saveOrUpdate{
+-(URLManagerModel *_Nonnull)post_configs_contact_saveOrUpdate{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_configs_contact_saveOrUpdate)))(self, @selector(jobs_post_configs_contact_saveOrUpdate)))();
 }
 
@@ -671,7 +671,7 @@
     };
 }
 /// 查询门店设备列表@POST
--(URLManagerModel *_Nullable)post_store_device_info_getStoreDeviceInfoList{
+-(URLManagerModel *_Nonnull)post_store_device_info_getStoreDeviceInfoList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_store_device_info_getStoreDeviceInfoList)))(self, @selector(jobs_post_store_device_info_getStoreDeviceInfoList)))();
 }
 
@@ -685,7 +685,7 @@
     };
 }
 /// 新增门店设备@POST
--(URLManagerModel *_Nullable)post_store_device_info_save{
+-(URLManagerModel *_Nonnull)post_store_device_info_save{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_store_device_info_save)))(self, @selector(jobs_post_store_device_info_save)))();
 }
 
@@ -699,7 +699,7 @@
     };
 }
 /// 修改门店设备@PUT
--(URLManagerModel *_Nullable)put_store_device_info_update{
+-(URLManagerModel *_Nonnull)put_store_device_info_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_store_device_info_update)))(self, @selector(jobs_put_store_device_info_update)))();
 }
 
@@ -714,7 +714,7 @@
 }
 #pragma mark —— PH_AGT-门店资讯接口
 /// 查询ip所属区域名称@POST
--(URLManagerModel *_Nullable)post_ip_region_getRegion{
+-(URLManagerModel *_Nonnull)post_ip_region_getRegion{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_ip_region_getRegion)))(self, @selector(jobs_post_ip_region_getRegion)))();
 }
 
@@ -735,7 +735,7 @@
     };
 }
 /// 查询门店列表@POST
--(URLManagerModel *_Nullable)post_store_info_getStoreIfoByStoreId{
+-(URLManagerModel *_Nonnull)post_store_info_getStoreIfoByStoreId{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_store_info_getStoreIfoByStoreId)))(self, @selector(jobs_post_store_info_getStoreIfoByStoreId)))();
 }
 
@@ -749,7 +749,7 @@
     };
 }
 /// 查询门店列表@POST
--(URLManagerModel *_Nullable)post_store_info_getStoreIfoList{
+-(URLManagerModel *_Nonnull)post_store_info_getStoreIfoList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_store_info_getStoreIfoList)))(self, @selector(jobs_post_store_info_getStoreIfoList)))();
 }
 
@@ -763,7 +763,7 @@
     };
 }
 /// 新增门店@POST
--(URLManagerModel *_Nullable)post_store_info_save{
+-(URLManagerModel *_Nonnull)post_store_info_save{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_store_info_save)))(self, @selector(jobs_post_store_info_save)))();
 }
 
@@ -777,7 +777,7 @@
     };
 }
 /// 修改门店@PUT
--(URLManagerModel *_Nullable)put_store_info_update{
+-(URLManagerModel *_Nonnull)put_store_info_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_store_info_update)))(self, @selector(jobs_put_store_info_update)))();
 }
 
@@ -791,7 +791,7 @@
     };
 }
 /// 修改门店为停业@PUT
--(URLManagerModel *_Nullable)put_store_info_update_forstop{
+-(URLManagerModel *_Nonnull)put_store_info_update_forstop{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_store_info_update_forstop)))(self, @selector(jobs_put_store_info_update_forstop)))();
 }
 
@@ -806,7 +806,7 @@
 }
 #pragma mark —— VIP变更记录接口
 /// 会员VIP等级自动降级--后台任务测试用@GET
--(URLManagerModel *_Nullable)get_member_vipLog_dwMemberVipLevel{
+-(URLManagerModel *_Nonnull)get_member_vipLog_dwMemberVipLevel{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_vipLog_dwMemberVipLevel)))(self, @selector(jobs_get_member_vipLog_dwMemberVipLevel)))();
 }
 
@@ -820,7 +820,7 @@
     };
 }
 /// 查询会员VIP变更列表@GET
--(URLManagerModel *_Nullable)get_member_vipLog_list{
+-(URLManagerModel *_Nonnull)get_member_vipLog_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_vipLog_list)))(self, @selector(jobs_get_member_vipLog_list)))();
 }
 
@@ -834,7 +834,7 @@
     };
 }
 /// 查询某一个会员VIP变更列表@GET
--(URLManagerModel *_Nullable)get_member_vipLog_memberList{
+-(URLManagerModel *_Nonnull)get_member_vipLog_memberList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_vipLog_memberList)))(self, @selector(jobs_get_member_vipLog_memberList)))();
 }
 
@@ -848,7 +848,7 @@
     };
 }
 /// 会员VIP等级自动升级--后台任务测试用@GET
--(URLManagerModel *_Nullable)get_member_vipLog_upMemberVipLevel{
+-(URLManagerModel *_Nonnull)get_member_vipLog_upMemberVipLevel{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_vipLog_upMemberVipLevel)))(self, @selector(jobs_get_member_vipLog_upMemberVipLevel)))();
 }
 
@@ -862,7 +862,7 @@
     };
 }
 /// upMemberVipZero@POST
--(URLManagerModel *_Nullable)post_member_vipLog_upMemberVipZero{
+-(URLManagerModel *_Nonnull)post_member_vipLog_upMemberVipZero{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_vipLog_upMemberVipZero)))(self, @selector(jobs_post_member_vipLog_upMemberVipZero)))();
 }
 
@@ -877,7 +877,7 @@
 }
 #pragma mark —— VIP权益配置接口
 /// 查询VIP权益配置列表@GET
--(URLManagerModel *_Nullable)get_vipRights_list{
+-(URLManagerModel *_Nonnull)get_vipRights_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_vipRights_list)))(self, @selector(jobs_get_vipRights_list)))();
 }
 
@@ -891,7 +891,7 @@
     };
 }
 /// 查询vip开关配置---对外提供的接口@GET
--(URLManagerModel *_Nullable)get_vipRights_queryVipSwitchConfig{
+-(URLManagerModel *_Nonnull)get_vipRights_queryVipSwitchConfig{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_vipRights_queryVipSwitchConfig)))(self, @selector(jobs_get_vipRights_queryVipSwitchConfig)))();
 }
 
@@ -905,7 +905,7 @@
     };
 }
 /// 查询VIP权益配置列表--对外提供的接口@POST
--(URLManagerModel *_Nullable)post_vipRights_rightsList{
+-(URLManagerModel *_Nonnull)post_vipRights_rightsList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_vipRights_rightsList)))(self, @selector(jobs_post_vipRights_rightsList)))();
 }
 
@@ -919,7 +919,7 @@
     };
 }
 /// 保存VIP权益配置@PUT
--(URLManagerModel *_Nullable)put_vipRights_save{
+-(URLManagerModel *_Nonnull)put_vipRights_save{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_vipRights_save)))(self, @selector(jobs_put_vipRights_save)))();
 }
 
@@ -933,7 +933,7 @@
     };
 }
 /// 修改权益开关状态@PUT
--(URLManagerModel *_Nullable)put_vipRights_update_status{
+-(URLManagerModel *_Nonnull)put_vipRights_update_status{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_vipRights_update_status)))(self, @selector(jobs_put_vipRights_update_status)))();
 }
 
@@ -954,7 +954,7 @@
 }
 #pragma mark —— VIP等级配置接口
 /// 保存VIP等级配置@PUT
--(URLManagerModel *_Nullable)put_member_vipLevel_edit{
+-(URLManagerModel *_Nonnull)put_member_vipLevel_edit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_member_vipLevel_edit)))(self, @selector(jobs_put_member_vipLevel_edit)))();
 }
 
@@ -968,7 +968,7 @@
     };
 }
 /// 查询VIP等级配置列表--对外接口@POST
--(URLManagerModel *_Nullable)post_member_vipLevel_levelList{
+-(URLManagerModel *_Nonnull)post_member_vipLevel_levelList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_vipLevel_levelList)))(self, @selector(jobs_post_member_vipLevel_levelList)))();
 }
 
@@ -982,7 +982,7 @@
     };
 }
 /// 查询VIP等级配置列表@GET
--(URLManagerModel *_Nullable)get_member_vipLevel_list{
+-(URLManagerModel *_Nonnull)get_member_vipLevel_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_vipLevel_list)))(self, @selector(jobs_get_member_vipLevel_list)))();
 }
 
@@ -996,7 +996,7 @@
     };
 }
 /// 查询所有VIP等级@GET
--(URLManagerModel *_Nullable)get_member_vipLevel_selectAll{
+-(URLManagerModel *_Nonnull)get_member_vipLevel_selectAll{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_vipLevel_selectAll)))(self, @selector(jobs_get_member_vipLevel_selectAll)))();
 }
 
@@ -1011,7 +1011,7 @@
 }
 #pragma mark —— VIP返水配置接口
 /// 根据等级获取VIP返水子项配置--代理服务用@POST
--(URLManagerModel *_Nullable)post_vipRebate_getConfigByLevel{
+-(URLManagerModel *_Nonnull)post_vipRebate_getConfigByLevel{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_vipRebate_getConfigByLevel)))(self, @selector(jobs_post_vipRebate_getConfigByLevel)))();
 }
 
@@ -1025,7 +1025,7 @@
     };
 }
 /// 查询VIP返水配置列表@GET
--(URLManagerModel *_Nullable)get_vipRebate_list{
+-(URLManagerModel *_Nonnull)get_vipRebate_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_vipRebate_list)))(self, @selector(jobs_get_vipRebate_list)))();
 }
 
@@ -1046,7 +1046,7 @@
     };
 }
 /// 查询VIP返水配置列表--对外提供的接口@POST
--(URLManagerModel *_Nullable)post_vipRebate_rebateList{
+-(URLManagerModel *_Nonnull)post_vipRebate_rebateList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_vipRebate_rebateList)))(self, @selector(jobs_post_vipRebate_rebateList)))();
 }
 
@@ -1060,7 +1060,7 @@
     };
 }
 /// 修改VIP返水配置@PUT
--(URLManagerModel *_Nullable)put_vipRebate_save{
+-(URLManagerModel *_Nonnull)put_vipRebate_save{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_vipRebate_save)))(self, @selector(jobs_put_vipRebate_save)))();
 }
 
@@ -1074,7 +1074,7 @@
     };
 }
 /// 保存VIP返水配置子项@POST
--(URLManagerModel *_Nullable)post_vipRebate_saveConfigItem{
+-(URLManagerModel *_Nonnull)post_vipRebate_saveConfigItem{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_vipRebate_saveConfigItem)))(self, @selector(jobs_post_vipRebate_saveConfigItem)))();
 }
 
@@ -1088,7 +1088,7 @@
     };
 }
 /// 修改返水开关状态@PUT
--(URLManagerModel *_Nullable)put_vipRebate_update_status{
+-(URLManagerModel *_Nonnull)put_vipRebate_update_status{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_vipRebate_update_status)))(self, @selector(jobs_put_vipRebate_update_status)))();
 }
 
@@ -1102,7 +1102,7 @@
     };
 }
 /// 修改返水提款流水倍数@PUT
--(URLManagerModel *_Nullable)put_vipRebate_updateRebateMultiple{
+-(URLManagerModel *_Nonnull)put_vipRebate_updateRebateMultiple{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_vipRebate_updateRebateMultiple)))(self, @selector(jobs_put_vipRebate_updateRebateMultiple)))();
 }
 
@@ -1117,7 +1117,7 @@
 }
 #pragma mark —— activity-report-controller
 /// 查询新手大礼包记录@POST
--(URLManagerModel *_Nullable)post_activity_newbie_gift_record_list{
+-(URLManagerModel *_Nonnull)post_activity_newbie_gift_record_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_activity_newbie_gift_record_list)))(self, @selector(jobs_post_activity_newbie_gift_record_list)))();
 }
 
@@ -1131,7 +1131,7 @@
     };
 }
 /// 导出新手大礼包记录@POST
--(URLManagerModel *_Nullable)post_activity_newbie_gift_record_list_export{
+-(URLManagerModel *_Nonnull)post_activity_newbie_gift_record_list_export{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_activity_newbie_gift_record_list_export)))(self, @selector(jobs_post_activity_newbie_gift_record_list_export)))();
 }
 
@@ -1145,7 +1145,7 @@
     };
 }
 /// 查询新手活动总详情@POST
--(URLManagerModel *_Nullable)post_activity_newbie_record_list{
+-(URLManagerModel *_Nonnull)post_activity_newbie_record_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_activity_newbie_record_list)))(self, @selector(jobs_post_activity_newbie_record_list)))();
 }
 
@@ -1159,7 +1159,7 @@
     };
 }
 /// 导出活动总详情@POST
--(URLManagerModel *_Nullable)post_activity_newbie_record_list_export{
+-(URLManagerModel *_Nonnull)post_activity_newbie_record_list_export{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_activity_newbie_record_list_export)))(self, @selector(jobs_post_activity_newbie_record_list_export)))();
 }
 
@@ -1173,7 +1173,7 @@
     };
 }
 /// 导出活动总详情@POST
--(URLManagerModel *_Nullable)post_activity_newbie_report_export{
+-(URLManagerModel *_Nonnull)post_activity_newbie_report_export{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_activity_newbie_report_export)))(self, @selector(jobs_post_activity_newbie_report_export)))();
 }
 
@@ -1187,7 +1187,7 @@
     };
 }
 /// 查询新手活动统计报表@POST
--(URLManagerModel *_Nullable)post_activity_newbie_report_list{
+-(URLManagerModel *_Nonnull)post_activity_newbie_report_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_activity_newbie_report_list)))(self, @selector(jobs_post_activity_newbie_report_list)))();
 }
 
@@ -1201,7 +1201,7 @@
     };
 }
 /// 查询复活大礼包记录@POST
--(URLManagerModel *_Nullable)post_activity_resurrection_gift_record_list{
+-(URLManagerModel *_Nonnull)post_activity_resurrection_gift_record_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_activity_resurrection_gift_record_list)))(self, @selector(jobs_post_activity_resurrection_gift_record_list)))();
 }
 
@@ -1215,7 +1215,7 @@
     };
 }
 /// 导出复活大礼包记录@POST
--(URLManagerModel *_Nullable)post_activity_resurrection_gift_record_list_export{
+-(URLManagerModel *_Nonnull)post_activity_resurrection_gift_record_list_export{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_activity_resurrection_gift_record_list_export)))(self, @selector(jobs_post_activity_resurrection_gift_record_list_export)))();
 }
 
@@ -1229,7 +1229,7 @@
     };
 }
 /// 查询签到大礼包记录@POST
--(URLManagerModel *_Nullable)post_activity_sign_gift_record_list{
+-(URLManagerModel *_Nonnull)post_activity_sign_gift_record_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_activity_sign_gift_record_list)))(self, @selector(jobs_post_activity_sign_gift_record_list)))();
 }
 
@@ -1243,7 +1243,7 @@
     };
 }
 /// 导出签到大礼包记录@POST
--(URLManagerModel *_Nullable)post_activity_sign_gift_record_list_export{
+-(URLManagerModel *_Nonnull)post_activity_sign_gift_record_list_export{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_activity_sign_gift_record_list_export)))(self, @selector(jobs_post_activity_sign_gift_record_list_export)))();
 }
 
@@ -1257,7 +1257,7 @@
     };
 }
 /// 查询签到记录@POST
--(URLManagerModel *_Nullable)post_activity_sign_record_list{
+-(URLManagerModel *_Nonnull)post_activity_sign_record_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_activity_sign_record_list)))(self, @selector(jobs_post_activity_sign_record_list)))();
 }
 
@@ -1271,7 +1271,7 @@
     };
 }
 /// 导出签到记录@POST
--(URLManagerModel *_Nullable)post_activity_sign_record_list_export{
+-(URLManagerModel *_Nonnull)post_activity_sign_record_list_export{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_activity_sign_record_list_export)))(self, @selector(jobs_post_activity_sign_record_list_export)))();
 }
 
@@ -1286,7 +1286,7 @@
 }
 #pragma mark —— agent-auto-package-controller
 /// 保存自动打包信息@POST
--(URLManagerModel *_Nullable)post_agent_autoPackage_saveAutoPackageInfo{
+-(URLManagerModel *_Nonnull)post_agent_autoPackage_saveAutoPackageInfo{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_autoPackage_saveAutoPackageInfo)))(self, @selector(jobs_post_agent_autoPackage_saveAutoPackageInfo)))();
 }
 
@@ -1301,7 +1301,7 @@
 }
 #pragma mark —— member-kyc-controller
 /// 查询用户KYC认证信息详情@GET
--(URLManagerModel *_Nullable)get_member_kyc_detail{
+-(URLManagerModel *_Nonnull)get_member_kyc_detail{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_kyc_detail)))(self, @selector(jobs_get_member_kyc_detail)))();
 }
 
@@ -1315,7 +1315,7 @@
     };
 }
 /// 用户KYC认证信息编辑@POST
--(URLManagerModel *_Nullable)post_member_kyc_edit{
+-(URLManagerModel *_Nonnull)post_member_kyc_edit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_kyc_edit)))(self, @selector(jobs_post_member_kyc_edit)))();
 }
 
@@ -1329,7 +1329,7 @@
     };
 }
 /// 查询KYC列表@POST
--(URLManagerModel *_Nullable)post_member_kyc_page_list{
+-(URLManagerModel *_Nonnull)post_member_kyc_page_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_kyc_page_list)))(self, @selector(jobs_post_member_kyc_page_list)))();
 }
 
@@ -1343,7 +1343,7 @@
     };
 }
 /// 用户KYC认证信息重置@GET
--(URLManagerModel *_Nullable)get_member_kyc_reset{
+-(URLManagerModel *_Nonnull)get_member_kyc_reset{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_kyc_reset)))(self, @selector(jobs_get_member_kyc_reset)))();
 }
 
@@ -1357,7 +1357,7 @@
     };
 }
 /// 查询KYC审核记录@GET
--(URLManagerModel *_Nullable)get_member_kyc_review_list{
+-(URLManagerModel *_Nonnull)get_member_kyc_review_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_kyc_review_list)))(self, @selector(jobs_get_member_kyc_review_list)))();
 }
 
@@ -1371,7 +1371,7 @@
     };
 }
 /// 用户KYC认证信息审批@POST
--(URLManagerModel *_Nullable)post_member_kyc_review_option{
+-(URLManagerModel *_Nonnull)post_member_kyc_review_option{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_kyc_review_option)))(self, @selector(jobs_post_member_kyc_review_option)))();
 }
 
@@ -1385,7 +1385,7 @@
     };
 }
 #pragma mark —— report-user-controller
--(URLManagerModel *_Nullable)get_oms_report_user_heartBeatSaveLogin{
+-(URLManagerModel *_Nonnull)get_oms_report_user_heartBeatSaveLogin{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_oms_report_user_heartBeatSaveLogin)))(self, @selector(jobs_get_oms_report_user_heartBeatSaveLogin)))();
 }
 
@@ -1414,7 +1414,7 @@
     };
 }
 /// 查询专家信息列表@GET
--(URLManagerModel *_Nullable)get_expert_info_list{
+-(URLManagerModel *_Nonnull)get_expert_info_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_expert_info_list)))(self, @selector(jobs_get_expert_info_list)))();
 }
 
@@ -1428,7 +1428,7 @@
     };
 }
 /// 新增专家信息@POST
--(URLManagerModel *_Nullable)post_expert_info_save{
+-(URLManagerModel *_Nonnull)post_expert_info_save{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_expert_info_save)))(self, @selector(jobs_post_expert_info_save)))();
 }
 
@@ -1442,7 +1442,7 @@
     };
 }
 /// 修改专家信息@PUT
--(URLManagerModel *_Nullable)put_expert_info_update{
+-(URLManagerModel *_Nonnull)put_expert_info_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_expert_info_update)))(self, @selector(jobs_put_expert_info_update)))();
 }
 
@@ -1470,7 +1470,7 @@
     };
 }
 /// 查询专家爆料方案信息列表@GET
--(URLManagerModel *_Nullable)get_expert_plan_list{
+-(URLManagerModel *_Nonnull)get_expert_plan_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_expert_plan_list)))(self, @selector(jobs_get_expert_plan_list)))();
 }
 
@@ -1484,7 +1484,7 @@
     };
 }
 /// 新增专家爆料方案信息@POST
--(URLManagerModel *_Nullable)post_expert_plan_save{
+-(URLManagerModel *_Nonnull)post_expert_plan_save{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_expert_plan_save)))(self, @selector(jobs_post_expert_plan_save)))();
 }
 
@@ -1498,7 +1498,7 @@
     };
 }
 /// 修改专家爆料方案信息@PUT
--(URLManagerModel *_Nullable)put_expert_plan_update{
+-(URLManagerModel *_Nonnull)put_expert_plan_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_expert_plan_update)))(self, @selector(jobs_put_expert_plan_update)))();
 }
 
@@ -1513,7 +1513,7 @@
 }
 #pragma mark —— 业务字典国际化管理
 /// 创建字典类型@POST
--(URLManagerModel *_Nullable)post_oms_dict_bussiness_add{
+-(URLManagerModel *_Nonnull)post_oms_dict_bussiness_add{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_oms_dict_bussiness_add)))(self, @selector(jobs_post_oms_dict_bussiness_add)))();
 }
 
@@ -1527,7 +1527,7 @@
     };
 }
 /// 删除业务字典类型@GET
--(URLManagerModel *_Nullable)get_oms_dict_bussiness_delete{
+-(URLManagerModel *_Nonnull)get_oms_dict_bussiness_delete{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_oms_dict_bussiness_delete)))(self, @selector(jobs_get_oms_dict_bussiness_delete)))();
 }
 
@@ -1541,7 +1541,7 @@
     };
 }
 /// 修改业务字典类型@POST
--(URLManagerModel *_Nullable)post_oms_dict_bussiness_edit{
+-(URLManagerModel *_Nonnull)post_oms_dict_bussiness_edit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_oms_dict_bussiness_edit)))(self, @selector(jobs_post_oms_dict_bussiness_edit)))();
 }
 
@@ -1555,7 +1555,7 @@
     };
 }
 /// 获得字典类型的分页列表@GET
--(URLManagerModel *_Nullable)get_oms_dict_bussiness_list{
+-(URLManagerModel *_Nonnull)get_oms_dict_bussiness_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_oms_dict_bussiness_list)))(self, @selector(jobs_get_oms_dict_bussiness_list)))();
 }
 
@@ -1570,7 +1570,7 @@
 }
 #pragma mark —— 个人中心接口
 /// 获取个人信息@GET
--(URLManagerModel *_Nullable)get_user_profile{
+-(URLManagerModel *_Nonnull)get_user_profile{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_user_profile)))(self, @selector(jobs_get_user_profile)))();
 }
 
@@ -1584,7 +1584,7 @@
     };
 }
 /// 修改个人信息@PUT
--(URLManagerModel *_Nullable)put_user_profile{
+-(URLManagerModel *_Nonnull)put_user_profile{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_user_profile)))(self, @selector(jobs_put_user_profile)))();
 }
 
@@ -1598,7 +1598,7 @@
     };
 }
 /// 修改用户头像@POST
--(URLManagerModel *_Nullable)post_user_profile_avatar{
+-(URLManagerModel *_Nonnull)post_user_profile_avatar{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_profile_avatar)))(self, @selector(jobs_post_user_profile_avatar)))();
 }
 
@@ -1612,7 +1612,7 @@
     };
 }
 /// 修改密码@PUT
--(URLManagerModel *_Nullable)put_user_profile_updatePwd{
+-(URLManagerModel *_Nonnull)put_user_profile_updatePwd{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_user_profile_updatePwd)))(self, @selector(jobs_put_user_profile_updatePwd)))();
 }
 
@@ -1641,7 +1641,7 @@
     };
 }
 /// 转入@POST
--(URLManagerModel *_Nullable)post_fund_wallet_transferIn{
+-(URLManagerModel *_Nonnull)post_fund_wallet_transferIn{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_wallet_transferIn)))(self, @selector(jobs_post_fund_wallet_transferIn)))();
 }
 
@@ -1670,7 +1670,7 @@
     };
 }
 /// 查询主播动态列表@GET
--(URLManagerModel *_Nullable)get_presenter_dynamics_list{
+-(URLManagerModel *_Nonnull)get_presenter_dynamics_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_presenter_dynamics_list)))(self, @selector(jobs_get_presenter_dynamics_list)))();
 }
 
@@ -1684,7 +1684,7 @@
     };
 }
 /// 新增主播动态@POST
--(URLManagerModel *_Nullable)post_presenter_dynamics_save{
+-(URLManagerModel *_Nonnull)post_presenter_dynamics_save{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_presenter_dynamics_save)))(self, @selector(jobs_post_presenter_dynamics_save)))();
 }
 
@@ -1698,7 +1698,7 @@
     };
 }
 /// 修改主播动态@PUT
--(URLManagerModel *_Nullable)put_presenter_dynamics_update{
+-(URLManagerModel *_Nonnull)put_presenter_dynamics_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_presenter_dynamics_update)))(self, @selector(jobs_put_presenter_dynamics_update)))();
 }
 
@@ -1720,7 +1720,7 @@
     };
 }
 /// 导出超管信息列表@POST
--(URLManagerModel *_Nullable)post_manager_export{
+-(URLManagerModel *_Nonnull)post_manager_export{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_manager_export)))(self, @selector(jobs_post_manager_export)))();
 }
 
@@ -1741,7 +1741,7 @@
     };
 }
 /// 查询超管信息列表@GET
--(URLManagerModel *_Nullable)get_manager_list{
+-(URLManagerModel *_Nonnull)get_manager_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_manager_list)))(self, @selector(jobs_get_manager_list)))();
 }
 
@@ -1755,7 +1755,7 @@
     };
 }
 /// 新增超管信息@POST
--(URLManagerModel *_Nullable)post_manager_save{
+-(URLManagerModel *_Nonnull)post_manager_save{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_manager_save)))(self, @selector(jobs_post_manager_save)))();
 }
 
@@ -1769,7 +1769,7 @@
     };
 }
 /// 修改超管信息@PUT
--(URLManagerModel *_Nullable)put_manager_update{
+-(URLManagerModel *_Nonnull)put_manager_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_manager_update)))(self, @selector(jobs_put_manager_update)))();
 }
 
@@ -1790,7 +1790,7 @@
     };
 }
 /// 导出主播信息列表@POST
--(URLManagerModel *_Nullable)post_presenter_export{
+-(URLManagerModel *_Nonnull)post_presenter_export{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_presenter_export)))(self, @selector(jobs_post_presenter_export)))();
 }
 
@@ -1811,7 +1811,7 @@
     };
 }
 /// 查询主播信息列表@GET
--(URLManagerModel *_Nullable)get_presenter_list{
+-(URLManagerModel *_Nonnull)get_presenter_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_presenter_list)))(self, @selector(jobs_get_presenter_list)))();
 }
 
@@ -1825,7 +1825,7 @@
     };
 }
 /// 新增主播信息@POST
--(URLManagerModel *_Nullable)post_presenter_save{
+-(URLManagerModel *_Nonnull)post_presenter_save{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_presenter_save)))(self, @selector(jobs_post_presenter_save)))();
 }
 
@@ -1839,7 +1839,7 @@
     };
 }
 /// 修改主播信息@PUT
--(URLManagerModel *_Nullable)put_presenter_update{
+-(URLManagerModel *_Nonnull)put_presenter_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_presenter_update_6)))(self, @selector(jobs_put_presenter_update_6)))();
 }
 
@@ -1854,7 +1854,7 @@
 }
 #pragma mark —— 代理-代理配置-所有接口
 /// 银行管理 禁用或者开启【 0、禁用】【1、开启】@PUT
--(URLManagerModel *_Nullable)put_agent_config_bank_ban{
+-(URLManagerModel *_Nonnull)put_agent_config_bank_ban{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_agent_config_bank_ban)))(self, @selector(jobs_put_agent_config_bank_ban)))();
 }
 
@@ -1875,7 +1875,7 @@
     };
 }
 /// 银行管理-查询@POST
--(URLManagerModel *_Nullable)post_agent_config_bank_list{
+-(URLManagerModel *_Nonnull)post_agent_config_bank_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_config_bank_list)))(self, @selector(jobs_post_agent_config_bank_list)))();
 }
 
@@ -1889,7 +1889,7 @@
     };
 }
 /// 银行管理-新增@POST
--(URLManagerModel *_Nullable)post_agent_config_bank_save{
+-(URLManagerModel *_Nonnull)post_agent_config_bank_save{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_config_bank_save)))(self, @selector(jobs_post_agent_config_bank_save)))();
 }
 
@@ -1903,7 +1903,7 @@
     };
 }
 /// 银行管理-编辑@PUT
--(URLManagerModel *_Nullable)put_agent_config_bank_update{
+-(URLManagerModel *_Nonnull)put_agent_config_bank_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_agent_config_bank_update)))(self, @selector(jobs_put_agent_config_bank_update)))();
 }
 
@@ -1924,7 +1924,7 @@
     };
 }
 /// 帮助中心分类问题-查询@POST
--(URLManagerModel *_Nullable)post_agent_config_classify_list{
+-(URLManagerModel *_Nonnull)post_agent_config_classify_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_config_classify_list)))(self, @selector(jobs_post_agent_config_classify_list)))();
 }
 
@@ -1938,7 +1938,7 @@
     };
 }
 /// 帮助中心分类问题-新增@POST
--(URLManagerModel *_Nullable)post_agent_config_classify_save{
+-(URLManagerModel *_Nonnull)post_agent_config_classify_save{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_config_classify_save)))(self, @selector(jobs_post_agent_config_classify_save)))();
 }
 
@@ -1952,7 +1952,7 @@
     };
 }
 /// 帮助中心分类问题-编辑@PUT
--(URLManagerModel *_Nullable)put_agent_config_classify_update{
+-(URLManagerModel *_Nonnull)put_agent_config_classify_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_agent_config_classify_update)))(self, @selector(jobs_put_agent_config_classify_update)))();
 }
 
@@ -1973,7 +1973,7 @@
     };
 }
 /// 佣金配置-新增初始化@POST
--(URLManagerModel *_Nullable)post_agent_config_commission_init{
+-(URLManagerModel *_Nonnull)post_agent_config_commission_init{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_config_commission_init)))(self, @selector(jobs_post_agent_config_commission_init)))();
 }
 
@@ -1987,7 +1987,7 @@
     };
 }
 /// 佣金配置-查询@GET
--(URLManagerModel *_Nullable)get_agent_config_commission_init{
+-(URLManagerModel *_Nonnull)get_agent_config_commission_init{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_config_commission_init)))(self, @selector(jobs_get_agent_config_commission_init)))();
 }
 
@@ -2001,7 +2001,7 @@
     };
 }
 /// 佣金算法配置-查询@GET
--(URLManagerModel *_Nullable)get_agent_config_commission_math_list{
+-(URLManagerModel *_Nonnull)get_agent_config_commission_math_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_config_commission_math_list)))(self, @selector(jobs_get_agent_config_commission_math_list)))();
 }
 
@@ -2015,7 +2015,7 @@
     };
 }
 /// 佣金算法配置-编辑@PUT
--(URLManagerModel *_Nullable)put_agent_config_commission_math_update{
+-(URLManagerModel *_Nonnull)put_agent_config_commission_math_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_agent_config_commission_math_update)))(self, @selector(jobs_put_agent_config_commission_math_update)))();
 }
 
@@ -2029,7 +2029,7 @@
     };
 }
 /// 佣金配置-新增@POST
--(URLManagerModel *_Nullable)post_agent_config_commission_save{
+-(URLManagerModel *_Nonnull)post_agent_config_commission_save{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_config_commission_save)))(self, @selector(jobs_post_agent_config_commission_save)))();
 }
 
@@ -2043,7 +2043,7 @@
     };
 }
 /// 佣金配置-编辑-不含场馆费率@PUT
--(URLManagerModel *_Nullable)put_agent_config_commission_update{
+-(URLManagerModel *_Nonnull)put_agent_config_commission_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_agent_config_commission_update)))(self, @selector(jobs_put_agent_config_commission_update)))();
 }
 
@@ -2057,7 +2057,7 @@
     };
 }
 /// 佣金配置-编辑-场馆费率@PUT
--(URLManagerModel *_Nullable)put_agent_config_commission_update_venue{
+-(URLManagerModel *_Nonnull)put_agent_config_commission_update_venue{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_agent_config_commission_update_venue)))(self, @selector(jobs_put_agent_config_commission_update_venue)))();
 }
 
@@ -2071,7 +2071,7 @@
     };
 }
 /// 代存配置-查询@GET
--(URLManagerModel *_Nullable)get_agent_config_common_deposit_list{
+-(URLManagerModel *_Nonnull)get_agent_config_common_deposit_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_config_common_deposit_list)))(self, @selector(jobs_get_agent_config_common_deposit_list)))();
 }
 
@@ -2085,7 +2085,7 @@
     };
 }
 /// 代存配置-编辑@PUT
--(URLManagerModel *_Nullable)put_agent_config_common_deposit_update{
+-(URLManagerModel *_Nonnull)put_agent_config_common_deposit_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_agent_config_common_deposit_update)))(self, @selector(jobs_put_agent_config_common_deposit_update)))();
 }
 
@@ -2099,7 +2099,7 @@
     };
 }
 /// 提现汇率配置-查询@GET
--(URLManagerModel *_Nullable)get_agent_config_common_rate_list{
+-(URLManagerModel *_Nonnull)get_agent_config_common_rate_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_config_common_rate_list)))(self, @selector(jobs_get_agent_config_common_rate_list)))();
 }
 
@@ -2113,7 +2113,7 @@
     };
 }
 /// 提现汇率配置-编辑@PUT
--(URLManagerModel *_Nullable)put_agent_config_common_rate_update{
+-(URLManagerModel *_Nonnull)put_agent_config_common_rate_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_agent_config_common_rate_update)))(self, @selector(jobs_put_agent_config_common_rate_update)))();
 }
 
@@ -2127,7 +2127,7 @@
     };
 }
 /// 代理相关配置-查询@GET
--(URLManagerModel *_Nullable)get_agent_config_common_relation_list{
+-(URLManagerModel *_Nonnull)get_agent_config_common_relation_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_config_common_relation_list)))(self, @selector(jobs_get_agent_config_common_relation_list)))();
 }
 
@@ -2141,7 +2141,7 @@
     };
 }
 /// 代理相关配置-编辑@PUT
--(URLManagerModel *_Nullable)put_agent_config_common_relation_update{
+-(URLManagerModel *_Nonnull)put_agent_config_common_relation_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_agent_config_common_relation_update)))(self, @selector(jobs_put_agent_config_common_relation_update)))();
 }
 
@@ -2155,7 +2155,7 @@
     };
 }
 /// 提现方式配置-查询@GET
--(URLManagerModel *_Nullable)get_agent_config_common_type_list{
+-(URLManagerModel *_Nonnull)get_agent_config_common_type_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_config_common_type_list)))(self, @selector(jobs_get_agent_config_common_type_list)))();
 }
 
@@ -2169,7 +2169,7 @@
     };
 }
 /// 提现方式配置-编辑@PUT
--(URLManagerModel *_Nullable)put_agent_config_common_type_update{
+-(URLManagerModel *_Nonnull)put_agent_config_common_type_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_agent_config_common_type_update)))(self, @selector(jobs_put_agent_config_common_type_update)))();
 }
 
@@ -2183,7 +2183,7 @@
     };
 }
 /// 佣金配置-场馆费列表@GET
--(URLManagerModel *_Nullable)get_agent_config_getGameLobbyList{
+-(URLManagerModel *_Nonnull)get_agent_config_getGameLobbyList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_config_getGameLobbyList)))(self, @selector(jobs_get_agent_config_getGameLobbyList)))();
 }
 
@@ -2197,7 +2197,7 @@
     };
 }
 /// 帮助中心-查询问题分类@POST
--(URLManagerModel *_Nullable)post_agent_config_help_classify_list{
+-(URLManagerModel *_Nonnull)post_agent_config_help_classify_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_config_help_classify_list)))(self, @selector(jobs_post_agent_config_help_classify_list)))();
 }
 
@@ -2218,7 +2218,7 @@
     };
 }
 /// 帮助中心-查询@POST
--(URLManagerModel *_Nullable)post_agent_config_help_list{
+-(URLManagerModel *_Nonnull)post_agent_config_help_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_config_help_list)))(self, @selector(jobs_post_agent_config_help_list)))();
 }
 
@@ -2232,7 +2232,7 @@
     };
 }
 /// 帮助中心-新增@POST
--(URLManagerModel *_Nullable)post_agent_config_help_save{
+-(URLManagerModel *_Nonnull)post_agent_config_help_save{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_config_help_save)))(self, @selector(jobs_post_agent_config_help_save)))();
 }
 
@@ -2246,7 +2246,7 @@
     };
 }
 /// 帮助中心-编辑@PUT
--(URLManagerModel *_Nullable)put_agent_config_help_update{
+-(URLManagerModel *_Nonnull)put_agent_config_help_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_agent_config_help_update)))(self, @selector(jobs_put_agent_config_help_update)))();
 }
 
@@ -2260,7 +2260,7 @@
     };
 }
 /// 出款通道-禁用或者开启@PUT
--(URLManagerModel *_Nullable)put_agent_config_outward_ban{
+-(URLManagerModel *_Nonnull)put_agent_config_outward_ban{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_agent_config_outward_ban)))(self, @selector(jobs_put_agent_config_outward_ban)))();
 }
 
@@ -2281,7 +2281,7 @@
     };
 }
 /// 出款通道-查询@POST
--(URLManagerModel *_Nullable)post_agent_config_outward_list{
+-(URLManagerModel *_Nonnull)post_agent_config_outward_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_config_outward_list)))(self, @selector(jobs_post_agent_config_outward_list)))();
 }
 
@@ -2295,7 +2295,7 @@
     };
 }
 /// 出款通道-新增@POST
--(URLManagerModel *_Nullable)post_agent_config_outward_save{
+-(URLManagerModel *_Nonnull)post_agent_config_outward_save{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_config_outward_save)))(self, @selector(jobs_post_agent_config_outward_save)))();
 }
 
@@ -2309,7 +2309,7 @@
     };
 }
 /// 出款通道-编辑@PUT
--(URLManagerModel *_Nullable)put_agent_config_outward_update{
+-(URLManagerModel *_Nonnull)put_agent_config_outward_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_agent_config_outward_update)))(self, @selector(jobs_put_agent_config_outward_update)))();
 }
 
@@ -2323,7 +2323,7 @@
     };
 }
 /// 佣金配置-同步场馆费@POST
--(URLManagerModel *_Nullable)post_agent_config_synchronizeVenueRate{
+-(URLManagerModel *_Nonnull)post_agent_config_synchronizeVenueRate{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_config_synchronizeVenueRate)))(self, @selector(jobs_post_agent_config_synchronizeVenueRate)))();
 }
 
@@ -2338,7 +2338,7 @@
 }
 #pragma mark —— 代理代存记录接口
 /// 查询代理存款记录@POST
--(URLManagerModel *_Nullable)post_agent_depositRecord_getDepositRecord{
+-(URLManagerModel *_Nonnull)post_agent_depositRecord_getDepositRecord{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_depositRecord_getDepositRecord)))(self, @selector(jobs_post_agent_depositRecord_getDepositRecord)))();
 }
 
@@ -2352,7 +2352,7 @@
     };
 }
 /// 查询代存记录列表@POST
--(URLManagerModel *_Nullable)post_agent_depositRecord_getDepositRecordList{
+-(URLManagerModel *_Nonnull)post_agent_depositRecord_getDepositRecordList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_depositRecord_getDepositRecordList)))(self, @selector(jobs_post_agent_depositRecord_getDepositRecordList)))();
 }
 
@@ -2366,7 +2366,7 @@
     };
 }
 /// 更新代理存款记录状态@POST
--(URLManagerModel *_Nullable)post_agent_depositRecord_updateDepositRecordStatus{
+-(URLManagerModel *_Nonnull)post_agent_depositRecord_updateDepositRecordStatus{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_depositRecord_updateDepositRecordStatus)))(self, @selector(jobs_post_agent_depositRecord_updateDepositRecordStatus)))();
 }
 
@@ -2381,7 +2381,7 @@
 }
 #pragma mark —— 代理代理接口
 /// 查询代理树形列表@GET
--(URLManagerModel *_Nullable)get_agent_agentProxy_getCommissionAuditAgentProxyList{
+-(URLManagerModel *_Nonnull)get_agent_agentProxy_getCommissionAuditAgentProxyList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_agentProxy_getCommissionAuditAgentProxyList)))(self, @selector(jobs_get_agent_agentProxy_getCommissionAuditAgentProxyList)))();
 }
 
@@ -2395,7 +2395,7 @@
     };
 }
 /// 查询代理代理列表@GET
--(URLManagerModel *_Nullable)get_agent_agentProxy_getSuperiorAgentProxyList{
+-(URLManagerModel *_Nonnull)get_agent_agentProxy_getSuperiorAgentProxyList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_agentProxy_getSuperiorAgentProxyList)))(self, @selector(jobs_get_agent_agentProxy_getSuperiorAgentProxyList)))();
 }
 
@@ -2409,7 +2409,7 @@
     };
 }
 /// 根据佣金审核id查询代理@GET
--(URLManagerModel *_Nullable)get_agent_agentProxy_queryByAuditId{
+-(URLManagerModel *_Nonnull)get_agent_agentProxy_queryByAuditId{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_agentProxy_queryByAuditId)))(self, @selector(jobs_get_agent_agentProxy_queryByAuditId)))();
 }
 
@@ -2423,7 +2423,7 @@
     };
 }
 /// 根据代理id获取下级代理数据@GET
--(URLManagerModel *_Nullable)get_agent_agentProxy_querySubAgentByAgentId{
+-(URLManagerModel *_Nonnull)get_agent_agentProxy_querySubAgentByAgentId{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_agentProxy_querySubAgentByAgentId)))(self, @selector(jobs_get_agent_agentProxy_querySubAgentByAgentId)))();
 }
 
@@ -2438,7 +2438,7 @@
 }
 #pragma mark —— 代理佣金审核接口
 /// 佣金一审审核通过或拒绝@POST
--(URLManagerModel *_Nullable)post_agent_commissionRecordAudit_firstPassOrRejection{
+-(URLManagerModel *_Nonnull)post_agent_commissionRecordAudit_firstPassOrRejection{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_commissionRecordAudit_firstPassOrRejection)))(self, @selector(jobs_post_agent_commissionRecordAudit_firstPassOrRejection)))();
 }
 
@@ -2459,7 +2459,7 @@
     };
 }
 /// 查询佣金审核列表@POST
--(URLManagerModel *_Nullable)post_agent_commissionRecordAudit_getCommissionRecordAuditList{
+-(URLManagerModel *_Nonnull)post_agent_commissionRecordAudit_getCommissionRecordAuditList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_commissionRecordAudit_getCommissionRecordAuditList)))(self, @selector(jobs_post_agent_commissionRecordAudit_getCommissionRecordAuditList)))();
 }
 
@@ -2473,7 +2473,7 @@
     };
 }
 /// 查询佣金场馆费列表@POST
--(URLManagerModel *_Nullable)post_agent_commissionRecordAudit_getCommissionVenueRateList{
+-(URLManagerModel *_Nonnull)post_agent_commissionRecordAudit_getCommissionVenueRateList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_commissionRecordAudit_getCommissionVenueRateList)))(self, @selector(jobs_post_agent_commissionRecordAudit_getCommissionVenueRateList)))();
 }
 
@@ -2487,7 +2487,7 @@
     };
 }
 /// 查询公司输赢调整列表@GET
--(URLManagerModel *_Nullable)get_agent_commissionRecordAudit_getCompanyProfitAndLossAdjustRecordList{
+-(URLManagerModel *_Nonnull)get_agent_commissionRecordAudit_getCompanyProfitAndLossAdjustRecordList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_commissionRecordAudit_getCompanyProfitAndLossAdjustRecordList)))(self, @selector(jobs_get_agent_commissionRecordAudit_getCompanyProfitAndLossAdjustRecordList)))();
 }
 
@@ -2508,7 +2508,7 @@
     };
 }
 /// 查询下级代理佣金记录列表@POST
--(URLManagerModel *_Nullable)post_agent_commissionRecordAudit_getSubProxyCommissionDetailList{
+-(URLManagerModel *_Nonnull)post_agent_commissionRecordAudit_getSubProxyCommissionDetailList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_commissionRecordAudit_getSubProxyCommissionDetailList)))(self, @selector(jobs_post_agent_commissionRecordAudit_getSubProxyCommissionDetailList)))();
 }
 
@@ -2522,7 +2522,7 @@
     };
 }
 /// 佣金二审审核通过或拒绝@POST
--(URLManagerModel *_Nullable)post_agent_commissionRecordAudit_secondPassOrRejection{
+-(URLManagerModel *_Nonnull)post_agent_commissionRecordAudit_secondPassOrRejection{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_commissionRecordAudit_secondPassOrRejection)))(self, @selector(jobs_post_agent_commissionRecordAudit_secondPassOrRejection)))();
 }
 
@@ -2537,7 +2537,7 @@
 }
 #pragma mark —— 代理佣金记录明细接口
 /// 查询佣金记录列表@POST
--(URLManagerModel *_Nullable)post_agent_commissionDetail_getCommissionDetailList{
+-(URLManagerModel *_Nonnull)post_agent_commissionDetail_getCommissionDetailList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_commissionDetail_getCommissionDetailList)))(self, @selector(jobs_post_agent_commissionDetail_getCommissionDetailList)))();
 }
 
@@ -2551,7 +2551,7 @@
     };
 }
 /// 查询场馆费明细列表@POST
--(URLManagerModel *_Nullable)post_agent_commissionDetail_getVenueFeeDetail{
+-(URLManagerModel *_Nonnull)post_agent_commissionDetail_getVenueFeeDetail{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_commissionDetail_getVenueFeeDetail)))(self, @selector(jobs_post_agent_commissionDetail_getVenueFeeDetail)))();
 }
 
@@ -2566,7 +2566,7 @@
 }
 #pragma mark —— 代理佣金调加减录接口
 /// 新增佣金加减记录@POST
--(URLManagerModel *_Nullable)post_agent_commissionAddSubRecord_add{
+-(URLManagerModel *_Nonnull)post_agent_commissionAddSubRecord_add{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_commissionAddSubRecord_add)))(self, @selector(jobs_post_agent_commissionAddSubRecord_add)))();
 }
 
@@ -2580,7 +2580,7 @@
     };
 }
 /// 查询佣金加减记录列表@POST
--(URLManagerModel *_Nullable)post_agent_commissionAddSubRecord_getCommissionAddSubRecordList{
+-(URLManagerModel *_Nonnull)post_agent_commissionAddSubRecord_getCommissionAddSubRecordList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_commissionAddSubRecord_getCommissionAddSubRecordList)))(self, @selector(jobs_post_agent_commissionAddSubRecord_getCommissionAddSubRecordList)))();
 }
 
@@ -2595,7 +2595,7 @@
 }
 #pragma mark —— 代理信息调整审核接口
 /// 代理信息调整审核通过或拒绝@POST
--(URLManagerModel *_Nullable)post_agent_agentInfoAdjustAudit_auditPassOrRejection{
+-(URLManagerModel *_Nonnull)post_agent_agentInfoAdjustAudit_auditPassOrRejection{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_agentInfoAdjustAudit_auditPassOrRejection)))(self, @selector(jobs_post_agent_agentInfoAdjustAudit_auditPassOrRejection)))();
 }
 
@@ -2609,7 +2609,7 @@
     };
 }
 /// 查询佣金加减记录列表@POST
--(URLManagerModel *_Nullable)post_agent_agentInfoAdjustAudit_getAgentInfoAdjustAuditList{
+-(URLManagerModel *_Nonnull)post_agent_agentInfoAdjustAudit_getAgentInfoAdjustAuditList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_agentInfoAdjustAudit_getAgentInfoAdjustAuditList)))(self, @selector(jobs_post_agent_agentInfoAdjustAudit_getAgentInfoAdjustAuditList)))();
 }
 
@@ -2645,7 +2645,7 @@
     };
 }
 /// 查询代理公告列表@POST
--(URLManagerModel *_Nullable)post_agent_notice_config_getNoticeList{
+-(URLManagerModel *_Nonnull)post_agent_notice_config_getNoticeList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_notice_config_getNoticeList)))(self, @selector(jobs_post_agent_notice_config_getNoticeList)))();
 }
 
@@ -2659,7 +2659,7 @@
     };
 }
 /// 新增代理公告@POST
--(URLManagerModel *_Nullable)post_agent_notice_config_save{
+-(URLManagerModel *_Nonnull)post_agent_notice_config_save{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_notice_config_save)))(self, @selector(jobs_post_agent_notice_config_save)))();
 }
 
@@ -2680,7 +2680,7 @@
     };
 }
 /// 修改代理公告@PUT
--(URLManagerModel *_Nullable)put_agent_notice_config_update{
+-(URLManagerModel *_Nonnull)put_agent_notice_config_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_agent_notice_config_update)))(self, @selector(jobs_put_agent_notice_config_update)))();
 }
 
@@ -2695,7 +2695,7 @@
 }
 #pragma mark —— 代理备注接口
 /// 新增代理备注@POST
--(URLManagerModel *_Nullable)post_agent_agentRemark_add{
+-(URLManagerModel *_Nonnull)post_agent_agentRemark_add{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_agentRemark_add)))(self, @selector(jobs_post_agent_agentRemark_add)))();
 }
 
@@ -2709,7 +2709,7 @@
     };
 }
 /// 查询代理备注列表@POST
--(URLManagerModel *_Nullable)post_agent_agentRemark_getAgentRemarkList{
+-(URLManagerModel *_Nonnull)post_agent_agentRemark_getAgentRemarkList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_agentRemark_getAgentRemarkList)))(self, @selector(jobs_post_agent_agentRemark_getAgentRemarkList)))();
 }
 
@@ -2724,7 +2724,7 @@
 }
 #pragma mark —— 代理提款风控审核接口-NEW
 /// 提现审核通过或拒绝或搁置@POST
--(URLManagerModel *_Nullable)post_agent_withdrawalAudit_auditPassOrRejectionOrShunt{
+-(URLManagerModel *_Nonnull)post_agent_withdrawalAudit_auditPassOrRejectionOrShunt{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_withdrawalAudit_auditPassOrRejectionOrShunt)))(self, @selector(jobs_post_agent_withdrawalAudit_auditPassOrRejectionOrShunt)))();
 }
 
@@ -2745,7 +2745,7 @@
     };
 }
 /// 查询提款审核列表@POST
--(URLManagerModel *_Nullable)post_agent_withdrawalAudit_getWithdrawalAuditList{
+-(URLManagerModel *_Nonnull)post_agent_withdrawalAudit_getWithdrawalAuditList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_withdrawalAudit_getWithdrawalAuditList)))(self, @selector(jobs_post_agent_withdrawalAudit_getWithdrawalAuditList)))();
 }
 
@@ -2760,7 +2760,7 @@
 }
 #pragma mark —— 代理新增审核接口
 /// 代理新增审核通过或拒绝@POST
--(URLManagerModel *_Nullable)post_agent_agentAddAudit_auditPassOrRejection{
+-(URLManagerModel *_Nonnull)post_agent_agentAddAudit_auditPassOrRejection{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_agentAddAudit_auditPassOrRejection)))(self, @selector(jobs_post_agent_agentAddAudit_auditPassOrRejection)))();
 }
 
@@ -2774,7 +2774,7 @@
     };
 }
 /// 查询代理新增审核列表@POST
--(URLManagerModel *_Nullable)post_agent_agentAddAudit_getAgentAddAuditList{
+-(URLManagerModel *_Nonnull)post_agent_agentAddAudit_getAgentAddAuditList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_agentAddAudit_getAgentAddAuditList)))(self, @selector(jobs_post_agent_agentAddAudit_getAgentAddAuditList)))();
 }
 
@@ -2796,7 +2796,7 @@
 }
 #pragma mark —— 代理新增接口
 /// 新增代理(运营后台)@POST
--(URLManagerModel *_Nullable)post_agent_agentAdd_add{
+-(URLManagerModel *_Nonnull)post_agent_agentAdd_add{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_agentAdd_add)))(self, @selector(jobs_post_agent_agentAdd_add)))();
 }
 
@@ -2810,7 +2810,7 @@
     };
 }
 /// 新增代理(会员pc)@POST
--(URLManagerModel *_Nullable)post_agent_agentAdd_add_noLogin{
+-(URLManagerModel *_Nonnull)post_agent_agentAdd_add_noLogin{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_agentAdd_add_noLogin)))(self, @selector(jobs_post_agent_agentAdd_add_noLogin)))();
 }
 
@@ -2824,7 +2824,7 @@
     };
 }
 /// 查询佣金方案列表@GET
--(URLManagerModel *_Nullable)get_agent_agentAdd_getCommissionRebateConfigList{
+-(URLManagerModel *_Nonnull)get_agent_agentAdd_getCommissionRebateConfigList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_agentAdd_getCommissionRebateConfigList)))(self, @selector(jobs_get_agent_agentAdd_getCommissionRebateConfigList)))();
 }
 
@@ -2838,7 +2838,7 @@
     };
 }
 /// 查询上级代理账号@GET
--(URLManagerModel *_Nullable)get_agent_agentAdd_queryAgentUsername{
+-(URLManagerModel *_Nonnull)get_agent_agentAdd_queryAgentUsername{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_agentAdd_queryAgentUsername)))(self, @selector(jobs_get_agent_agentAdd_queryAgentUsername)))();
 }
 
@@ -2852,7 +2852,7 @@
     };
 }
 /// 查询会员账号@GET
--(URLManagerModel *_Nullable)get_agent_agentAdd_queryMemberByUsername{
+-(URLManagerModel *_Nonnull)get_agent_agentAdd_queryMemberByUsername{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_agentAdd_queryMemberByUsername)))(self, @selector(jobs_get_agent_agentAdd_queryMemberByUsername)))();
 }
 
@@ -2867,7 +2867,7 @@
 }
 #pragma mark —— 代理管理接口
 /// 查询代理列表@POST
--(URLManagerModel *_Nullable)post_agent_manage_agentList{
+-(URLManagerModel *_Nonnull)post_agent_manage_agentList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_manage_agentList)))(self, @selector(jobs_post_agent_manage_agentList)))();
 }
 
@@ -2881,7 +2881,7 @@
     };
 }
 /// 查询代理直属活跃会员列表@POST
--(URLManagerModel *_Nullable)post_agent_manage_agentSubActiveMemberList{
+-(URLManagerModel *_Nonnull)post_agent_manage_agentSubActiveMemberList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_manage_agentSubActiveMemberList)))(self, @selector(jobs_post_agent_manage_agentSubActiveMemberList)))();
 }
 
@@ -2895,7 +2895,7 @@
     };
 }
 /// 查询代理直属下级列表@POST
--(URLManagerModel *_Nullable)post_agent_manage_agentSubList{
+-(URLManagerModel *_Nonnull)post_agent_manage_agentSubList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_manage_agentSubList)))(self, @selector(jobs_post_agent_manage_agentSubList)))();
 }
 
@@ -2909,7 +2909,7 @@
     };
 }
 /// 查询代理直属会员列表@POST
--(URLManagerModel *_Nullable)post_agent_manage_agentSubMemberList{
+-(URLManagerModel *_Nonnull)post_agent_manage_agentSubMemberList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_manage_agentSubMemberList)))(self, @selector(jobs_post_agent_manage_agentSubMemberList)))();
 }
 
@@ -2923,7 +2923,7 @@
     };
 }
 /// 根据代理名模糊搜索@POST
--(URLManagerModel *_Nullable)post_agent_manage_list{
+-(URLManagerModel *_Nonnull)post_agent_manage_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_manage_list)))(self, @selector(jobs_post_agent_manage_list)))();
 }
 
@@ -2937,7 +2937,7 @@
     };
 }
 /// 获取代理信息查询下级所有@GET
--(URLManagerModel *_Nullable)get_agent_manage_queryActiveAgentInfo{
+-(URLManagerModel *_Nonnull)get_agent_manage_queryActiveAgentInfo{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_manage_queryActiveAgentInfo)))(self, @selector(jobs_get_agent_manage_queryActiveAgentInfo)))();
 }
 
@@ -2951,7 +2951,7 @@
     };
 }
 /// 获取代理信息@GET
--(URLManagerModel *_Nullable)get_agent_manage_queryAgentInfo{
+-(URLManagerModel *_Nonnull)get_agent_manage_queryAgentInfo{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_manage_queryAgentInfo)))(self, @selector(jobs_get_agent_manage_queryAgentInfo)))();
 }
 
@@ -2966,7 +2966,7 @@
 }
 #pragma mark —— 代理记录-提款记录接口-NEW
 /// 强制成功@PUT
--(URLManagerModel *_Nullable)put_agent_withdrawalRecord_forcedSuccess{
+-(URLManagerModel *_Nonnull)put_agent_withdrawalRecord_forcedSuccess{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_agent_withdrawalRecord_forcedSuccess)))(self, @selector(jobs_put_agent_withdrawalRecord_forcedSuccess)))();
 }
 
@@ -2980,7 +2980,7 @@
     };
 }
 /// 查询提现订单日志列表@POST
--(URLManagerModel *_Nullable)post_agent_withdrawalRecord_getWithdrawalOrderLogList{
+-(URLManagerModel *_Nonnull)post_agent_withdrawalRecord_getWithdrawalOrderLogList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_withdrawalRecord_getWithdrawalOrderLogList)))(self, @selector(jobs_post_agent_withdrawalRecord_getWithdrawalOrderLogList)))();
 }
 
@@ -2994,7 +2994,7 @@
     };
 }
 /// 查询代理取款记录@POST
--(URLManagerModel *_Nullable)post_agent_withdrawalRecord_getWithdrawalRecord{
+-(URLManagerModel *_Nonnull)post_agent_withdrawalRecord_getWithdrawalRecord{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_withdrawalRecord_getWithdrawalRecord)))(self, @selector(jobs_post_agent_withdrawalRecord_getWithdrawalRecord)))();
 }
 
@@ -3015,7 +3015,7 @@
     };
 }
 /// 获取代理提现订单信息@GET
--(URLManagerModel *_Nullable)get_agent_withdrawalRecord_getWithdrawalRecordDetailByOrderNo{
+-(URLManagerModel *_Nonnull)get_agent_withdrawalRecord_getWithdrawalRecordDetailByOrderNo{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_withdrawalRecord_getWithdrawalRecordDetailByOrderNo)))(self, @selector(jobs_get_agent_withdrawalRecord_getWithdrawalRecordDetailByOrderNo)))();
 }
 
@@ -3029,7 +3029,7 @@
     };
 }
 /// 查询提款记录列表@POST
--(URLManagerModel *_Nullable)post_agent_withdrawalRecord_getWithdrawalRecordList{
+-(URLManagerModel *_Nonnull)post_agent_withdrawalRecord_getWithdrawalRecordList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_withdrawalRecord_getWithdrawalRecordList)))(self, @selector(jobs_post_agent_withdrawalRecord_getWithdrawalRecordList)))();
 }
 
@@ -3043,7 +3043,7 @@
     };
 }
 /// 人工出款@PUT
--(URLManagerModel *_Nullable)put_agent_withdrawalRecord_manualPayout{
+-(URLManagerModel *_Nonnull)put_agent_withdrawalRecord_manualPayout{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_agent_withdrawalRecord_manualPayout)))(self, @selector(jobs_put_agent_withdrawalRecord_manualPayout)))();
 }
 
@@ -3057,7 +3057,7 @@
     };
 }
 /// 拒绝出款@PUT
--(URLManagerModel *_Nullable)put_agent_withdrawalRecord_paymentReject{
+-(URLManagerModel *_Nonnull)put_agent_withdrawalRecord_paymentReject{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_agent_withdrawalRecord_paymentReject)))(self, @selector(jobs_put_agent_withdrawalRecord_paymentReject)))();
 }
 
@@ -3071,7 +3071,7 @@
     };
 }
 /// 代理三方出款回调通知@POST
--(URLManagerModel *_Nullable)post_agent_withdrawalRecord_thirdCallBackNotify{
+-(URLManagerModel *_Nonnull)post_agent_withdrawalRecord_thirdCallBackNotify{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_withdrawalRecord_thirdCallBackNotify)))(self, @selector(jobs_post_agent_withdrawalRecord_thirdCallBackNotify)))();
 }
 
@@ -3085,7 +3085,7 @@
     };
 }
 /// 通过出款@PUT
--(URLManagerModel *_Nullable)put_agent_withdrawalRecord_thirdPayout{
+-(URLManagerModel *_Nonnull)put_agent_withdrawalRecord_thirdPayout{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_agent_withdrawalRecord_thirdPayout)))(self, @selector(jobs_put_agent_withdrawalRecord_thirdPayout)))();
 }
 
@@ -3099,7 +3099,7 @@
     };
 }
 /// 三方出款失败@PUT
--(URLManagerModel *_Nullable)put_agent_withdrawalRecord_thirdPayoutFail{
+-(URLManagerModel *_Nonnull)put_agent_withdrawalRecord_thirdPayoutFail{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_agent_withdrawalRecord_thirdPayoutFail)))(self, @selector(jobs_put_agent_withdrawalRecord_thirdPayoutFail)))();
 }
 
@@ -3113,7 +3113,7 @@
     };
 }
 /// 更新代理取款记录状态@POST
--(URLManagerModel *_Nullable)post_agent_withdrawalRecord_updateWithdrawalRecordStatus{
+-(URLManagerModel *_Nonnull)post_agent_withdrawalRecord_updateWithdrawalRecordStatus{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_withdrawalRecord_updateWithdrawalRecordStatus)))(self, @selector(jobs_post_agent_withdrawalRecord_updateWithdrawalRecordStatus)))();
 }
 
@@ -3128,7 +3128,7 @@
 }
 #pragma mark —— 代理详情接口
 /// 修改代理信息@POST
--(URLManagerModel *_Nullable)post_agent_agentDetail_agentUpdateStatus{
+-(URLManagerModel *_Nonnull)post_agent_agentDetail_agentUpdateStatus{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_agentDetail_agentUpdateStatus)))(self, @selector(jobs_post_agent_agentDetail_agentUpdateStatus)))();
 }
 
@@ -3156,7 +3156,7 @@
     };
 }
 /// 获取代理详细信息根据代理账号@GET
--(URLManagerModel *_Nullable)get_agent_agentDetail_getAgentDetailByAgentUserName{
+-(URLManagerModel *_Nonnull)get_agent_agentDetail_getAgentDetailByAgentUserName{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_agentDetail_getAgentDetailByAgentUserName)))(self, @selector(jobs_get_agent_agentDetail_getAgentDetailByAgentUserName)))();
 }
 
@@ -3177,7 +3177,7 @@
     };
 }
 /// 查询代理登录列表@POST
--(URLManagerModel *_Nullable)post_agent_agentDetail_getAgentLoginList{
+-(URLManagerModel *_Nonnull)post_agent_agentDetail_getAgentLoginList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_agentDetail_getAgentLoginList)))(self, @selector(jobs_post_agent_agentDetail_getAgentLoginList)))();
 }
 
@@ -3191,7 +3191,7 @@
     };
 }
 /// 获取代理团队信息@POST
--(URLManagerModel *_Nullable)post_agent_agentDetail_getAgentTeamInfo{
+-(URLManagerModel *_Nonnull)post_agent_agentDetail_getAgentTeamInfo{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_agentDetail_getAgentTeamInfo)))(self, @selector(jobs_post_agent_agentDetail_getAgentTeamInfo)))();
 }
 
@@ -3206,7 +3206,7 @@
 }
 #pragma mark —— 代理账变记录接口
 /// 代理账变记录@POST
--(URLManagerModel *_Nullable)post_agent_wallet_operatorWalletRecord{
+-(URLManagerModel *_Nonnull)post_agent_wallet_operatorWalletRecord{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_wallet_operatorWalletRecord)))(self, @selector(jobs_post_agent_wallet_operatorWalletRecord)))();
 }
 
@@ -3220,7 +3220,7 @@
     };
 }
 /// 查询账变记录列表@POST
--(URLManagerModel *_Nullable)post_agent_walletRecord_getWalletRecordList{
+-(URLManagerModel *_Nonnull)post_agent_walletRecord_getWalletRecordList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_walletRecord_getWalletRecordList)))(self, @selector(jobs_post_agent_walletRecord_getWalletRecordList)))();
 }
 
@@ -3235,7 +3235,7 @@
 }
 #pragma mark —— 代理资金调整审核接口
 /// 资金调整一审审核通过或拒绝@POST
--(URLManagerModel *_Nullable)post_agent_fundAdjustAudit_firstPassOrRejection{
+-(URLManagerModel *_Nonnull)post_agent_fundAdjustAudit_firstPassOrRejection{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_fundAdjustAudit_firstPassOrRejection)))(self, @selector(jobs_post_agent_fundAdjustAudit_firstPassOrRejection)))();
 }
 
@@ -3249,7 +3249,7 @@
     };
 }
 /// 查询资金调整审核列表@POST
--(URLManagerModel *_Nullable)post_agent_fundAdjustAudit_getFundAdjustAuditList{
+-(URLManagerModel *_Nonnull)post_agent_fundAdjustAudit_getFundAdjustAuditList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_fundAdjustAudit_getFundAdjustAuditList)))(self, @selector(jobs_post_agent_fundAdjustAudit_getFundAdjustAuditList)))();
 }
 
@@ -3263,7 +3263,7 @@
     };
 }
 /// 资金调整二审审核通过或拒绝@POST
--(URLManagerModel *_Nullable)post_agent_fundAdjustAudit_secondPassOrRejection{
+-(URLManagerModel *_Nonnull)post_agent_fundAdjustAudit_secondPassOrRejection{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_fundAdjustAudit_secondPassOrRejection)))(self, @selector(jobs_post_agent_fundAdjustAudit_secondPassOrRejection)))();
 }
 
@@ -3278,7 +3278,7 @@
 }
 #pragma mark —— 代理资金调整接口
 /// 保存资金调整@POST
--(URLManagerModel *_Nullable)post_agent_fundAdjust_fundAdjustSave{
+-(URLManagerModel *_Nonnull)post_agent_fundAdjust_fundAdjustSave{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_fundAdjust_fundAdjustSave)))(self, @selector(jobs_post_agent_fundAdjust_fundAdjustSave)))();
 }
 
@@ -3292,7 +3292,7 @@
     };
 }
 /// 保存资金调整@POST
--(URLManagerModel *_Nullable)post_agent_fundAdjust_getCreditWalletStatus{
+-(URLManagerModel *_Nonnull)post_agent_fundAdjust_getCreditWalletStatus{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_fundAdjust_getCreditWalletStatus)))(self, @selector(jobs_post_agent_fundAdjust_getCreditWalletStatus)))();
 }
 
@@ -3306,7 +3306,7 @@
     };
 }
 /// 保存资金调整@POST
--(URLManagerModel *_Nullable)post_agent_fundAdjust_getFundAdjustWalletBalance{
+-(URLManagerModel *_Nonnull)post_agent_fundAdjust_getFundAdjustWalletBalance{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_fundAdjust_getFundAdjustWalletBalance)))(self, @selector(jobs_post_agent_fundAdjust_getFundAdjustWalletBalance)))();
 }
 
@@ -3320,7 +3320,7 @@
     };
 }
 /// 保存资金调整@POST
--(URLManagerModel *_Nullable)post_agent_fundAdjust_getTransferWalletBalance{
+-(URLManagerModel *_Nonnull)post_agent_fundAdjust_getTransferWalletBalance{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_fundAdjust_getTransferWalletBalance)))(self, @selector(jobs_post_agent_fundAdjust_getTransferWalletBalance)))();
 }
 
@@ -3335,7 +3335,7 @@
 }
 #pragma mark —— 代理转代审核接口
 /// 代理转代申请@POST
--(URLManagerModel *_Nullable)post_agent_agentTransformAudit_agentTransformAuditSave{
+-(URLManagerModel *_Nonnull)post_agent_agentTransformAudit_agentTransformAuditSave{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_agentTransformAudit_agentTransformAuditSave)))(self, @selector(jobs_post_agent_agentTransformAudit_agentTransformAuditSave)))();
 }
 
@@ -3349,7 +3349,7 @@
     };
 }
 /// 代理转代一审审核通过或拒绝@POST
--(URLManagerModel *_Nullable)post_agent_agentTransformAudit_firstPassOrRejection{
+-(URLManagerModel *_Nonnull)post_agent_agentTransformAudit_firstPassOrRejection{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_agentTransformAudit_firstPassOrRejection)))(self, @selector(jobs_post_agent_agentTransformAudit_firstPassOrRejection)))();
 }
 
@@ -3370,7 +3370,7 @@
     };
 }
 /// 查询代理转代审核列表@POST
--(URLManagerModel *_Nullable)post_agent_agentTransformAudit_getAgentTransformAuditList{
+-(URLManagerModel *_Nonnull)post_agent_agentTransformAudit_getAgentTransformAuditList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_agentTransformAudit_getAgentTransformAuditList)))(self, @selector(jobs_post_agent_agentTransformAudit_getAgentTransformAuditList)))();
 }
 
@@ -3384,7 +3384,7 @@
     };
 }
 /// 获取当前会员的代理信息@POST
--(URLManagerModel *_Nullable)post_agent_agentTransformAudit_getMemberAgent{
+-(URLManagerModel *_Nonnull)post_agent_agentTransformAudit_getMemberAgent{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_agentTransformAudit_getMemberAgent)))(self, @selector(jobs_post_agent_agentTransformAudit_getMemberAgent)))();
 }
 
@@ -3398,7 +3398,7 @@
     };
 }
 /// 获取会员上级代理@POST
--(URLManagerModel *_Nullable)post_agent_agentTransformAudit_getMemberSuperiorAgentName{
+-(URLManagerModel *_Nonnull)post_agent_agentTransformAudit_getMemberSuperiorAgentName{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_agentTransformAudit_getMemberSuperiorAgentName)))(self, @selector(jobs_post_agent_agentTransformAudit_getMemberSuperiorAgentName)))();
 }
 
@@ -3412,7 +3412,7 @@
     };
 }
 /// 代理转代二审审核通过或拒绝@POST
--(URLManagerModel *_Nullable)post_agent_agentTransformAudit_secondPassOrRejection{
+-(URLManagerModel *_Nonnull)post_agent_agentTransformAudit_secondPassOrRejection{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_agentTransformAudit_secondPassOrRejection)))(self, @selector(jobs_post_agent_agentTransformAudit_secondPassOrRejection)))();
 }
 
@@ -3427,7 +3427,7 @@
 }
 #pragma mark —— 代理转账记录接口
 /// 查询转账记录列表@POST
--(URLManagerModel *_Nullable)post_agent_transferRecord_getTransferRecordList{
+-(URLManagerModel *_Nonnull)post_agent_transferRecord_getTransferRecordList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_agent_transferRecord_getTransferRecordList)))(self, @selector(jobs_post_agent_transferRecord_getTransferRecordList)))();
 }
 
@@ -3442,7 +3442,7 @@
 }
 #pragma mark —— 会员信息接口
 /// 同存款USDT查询@GET
--(URLManagerModel *_Nullable)get_member_user_OrderSameUSDT{
+-(URLManagerModel *_Nonnull)get_member_user_OrderSameUSDT{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_user_OrderSameUSDT)))(self, @selector(jobs_get_member_user_OrderSameUSDT)))();
 }
 
@@ -3456,7 +3456,7 @@
     };
 }
 /// 批量删除会员标签@POST
--(URLManagerModel *_Nullable)post_member_user_batchDeleteMemberLabel{
+-(URLManagerModel *_Nonnull)post_member_user_batchDeleteMemberLabel{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_user_batchDeleteMemberLabel)))(self, @selector(jobs_post_member_user_batchDeleteMemberLabel)))();
 }
 
@@ -3470,7 +3470,7 @@
     };
 }
 /// 获取会员信息详细修改项集合@POST
--(URLManagerModel *_Nullable)post_member_user_changeItem{
+-(URLManagerModel *_Nonnull)post_member_user_changeItem{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_user_changeItem)))(self, @selector(jobs_post_member_user_changeItem)))();
 }
 
@@ -3484,7 +3484,7 @@
     };
 }
 /// 查询代理所有会员@POST
--(URLManagerModel *_Nullable)post_member_user_count{
+-(URLManagerModel *_Nonnull)post_member_user_count{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_user_count)))(self, @selector(jobs_post_member_user_count)))();
 }
 
@@ -3498,7 +3498,7 @@
     };
 }
 /// 修改会员信息@POST
--(URLManagerModel *_Nullable)post_member_user_edit{
+-(URLManagerModel *_Nonnull)post_member_user_edit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_user_edit)))(self, @selector(jobs_post_member_user_edit)))();
 }
 
@@ -3512,7 +3512,7 @@
     };
 }
 /// 导出会员信息列表@POST
--(URLManagerModel *_Nullable)post_member_user_export{
+-(URLManagerModel *_Nonnull)post_member_user_export{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_user_export)))(self, @selector(jobs_post_member_user_export)))();
 }
 
@@ -3526,7 +3526,7 @@
     };
 }
 /// 提交编辑会员指定字段信息申请@POST
--(URLManagerModel *_Nullable)post_member_user_field{
+-(URLManagerModel *_Nonnull)post_member_user_field{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_user_field)))(self, @selector(jobs_post_member_user_field)))();
 }
 
@@ -3540,7 +3540,7 @@
     };
 }
 /// 查询会员审核中的基本信息字段@POST
--(URLManagerModel *_Nullable)post_member_user_field_listStatus{
+-(URLManagerModel *_Nonnull)post_member_user_field_listStatus{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_user_field_listStatus)))(self, @selector(jobs_post_member_user_field_listStatus)))();
 }
 
@@ -3554,7 +3554,7 @@
     };
 }
 /// getMemberListByConditions@POST
--(URLManagerModel *_Nullable)post_member_user_get_list{
+-(URLManagerModel *_Nonnull)post_member_user_get_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_user_get_list)))(self, @selector(jobs_post_member_user_get_list)))();
 }
 
@@ -3568,7 +3568,7 @@
     };
 }
 /// 获取会员信息详细信息@POST
--(URLManagerModel *_Nullable)post_member_user_getInfo{
+-(URLManagerModel *_Nonnull)post_member_user_getInfo{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_user_getInfo)))(self, @selector(jobs_post_member_user_getInfo)))();
 }
 
@@ -3582,7 +3582,7 @@
     };
 }
 /// 获取会员门店id@POST
--(URLManagerModel *_Nullable)post_member_user_getUser{
+-(URLManagerModel *_Nonnull)post_member_user_getUser{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_user_getUser)))(self, @selector(jobs_post_member_user_getUser)))();
 }
 
@@ -3596,7 +3596,7 @@
     };
 }
 /// 后台会员踢下线@GET
--(URLManagerModel *_Nullable)get_member_user_kickOffline{
+-(URLManagerModel *_Nonnull)get_member_user_kickOffline{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_user_kickOffline)))(self, @selector(jobs_get_member_user_kickOffline)))();
 }
 
@@ -3610,7 +3610,7 @@
     };
 }
 /// 查询会员列表@GET
--(URLManagerModel *_Nullable)get_member_user_list{
+-(URLManagerModel *_Nonnull)get_member_user_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_user_list)))(self, @selector(jobs_get_member_user_list)))();
 }
 
@@ -3624,7 +3624,7 @@
     };
 }
 /// 手机号码修改@POST
--(URLManagerModel *_Nullable)post_member_user_mobile_modify{
+-(URLManagerModel *_Nonnull)post_member_user_mobile_modify{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_user_mobile_modify)))(self, @selector(jobs_post_member_user_mobile_modify)))();
 }
 
@@ -3638,7 +3638,7 @@
     };
 }
 /// 查询在线会员列表@GET
--(URLManagerModel *_Nullable)get_member_user_onlineList{
+-(URLManagerModel *_Nonnull)get_member_user_onlineList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_user_onlineList)))(self, @selector(jobs_get_member_user_onlineList)))();
 }
 
@@ -3652,7 +3652,7 @@
     };
 }
 /// 套利分析-同存款ip查询-上部分@GET
--(URLManagerModel *_Nullable)get_member_user_orderSameIp{
+-(URLManagerModel *_Nonnull)get_member_user_orderSameIp{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_user_orderSameIp)))(self, @selector(jobs_get_member_user_orderSameIp)))();
 }
 
@@ -3666,7 +3666,7 @@
     };
 }
 /// queryLoginUserByIp@GET
--(URLManagerModel *_Nullable)get_member_user_queryLoginUserByIp{
+-(URLManagerModel *_Nonnull)get_member_user_queryLoginUserByIp{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_user_queryLoginUserByIp)))(self, @selector(jobs_get_member_user_queryLoginUserByIp)))();
 }
 
@@ -3680,7 +3680,7 @@
     };
 }
 /// 同存款ip查询@GET
--(URLManagerModel *_Nullable)get_member_user_queryOrderByOrderIp{
+-(URLManagerModel *_Nonnull)get_member_user_queryOrderByOrderIp{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_user_queryOrderByOrderIp)))(self, @selector(jobs_get_member_user_queryOrderByOrderIp)))();
 }
 
@@ -3701,7 +3701,7 @@
     };
 }
 /// queryLoginUserByIp@GET
--(URLManagerModel *_Nullable)get_member_user_sameIp{
+-(URLManagerModel *_Nonnull)get_member_user_sameIp{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_user_sameIp)))(self, @selector(jobs_get_member_user_sameIp)))();
 }
 
@@ -3715,7 +3715,7 @@
     };
 }
 /// 修改详情会员标签集合@POST
--(URLManagerModel *_Nullable)post_member_user_updateLabel{
+-(URLManagerModel *_Nonnull)post_member_user_updateLabel{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_user_updateLabel)))(self, @selector(jobs_post_member_user_updateLabel)))();
 }
 
@@ -3729,7 +3729,7 @@
     };
 }
 /// 会员状态更新@POST
--(URLManagerModel *_Nullable)post_member_user_updateStatus{
+-(URLManagerModel *_Nonnull)post_member_user_updateStatus{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_user_updateStatus)))(self, @selector(jobs_post_member_user_updateStatus)))();
 }
 
@@ -3744,7 +3744,7 @@
 }
 #pragma mark —— 会员后台操作记录接口
 /// 查询会员账号变更记录列表@GET
--(URLManagerModel *_Nullable)get_member_backendlog_changeList{
+-(URLManagerModel *_Nonnull)get_member_backendlog_changeList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_backendlog_changeList)))(self, @selector(jobs_get_member_backendlog_changeList)))();
 }
 
@@ -3758,7 +3758,7 @@
     };
 }
 /// 查询会员账号详情变更记录列表@GET
--(URLManagerModel *_Nullable)get_member_backendlog_changeListByName{
+-(URLManagerModel *_Nonnull)get_member_backendlog_changeListByName{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_backendlog_changeListByName)))(self, @selector(jobs_get_member_backendlog_changeListByName)))();
 }
 
@@ -3772,7 +3772,7 @@
     };
 }
 /// 会员一审核状态修改@PUT
--(URLManagerModel *_Nullable)put_member_backendlog_editState{
+-(URLManagerModel *_Nonnull)put_member_backendlog_editState{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_member_backendlog_editState)))(self, @selector(jobs_put_member_backendlog_editState)))();
 }
 
@@ -3786,7 +3786,7 @@
     };
 }
 /// 会员二审核状态修改@PUT
--(URLManagerModel *_Nullable)put_member_backendlog_editStateSecond{
+-(URLManagerModel *_Nonnull)put_member_backendlog_editStateSecond{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_member_backendlog_editStateSecond)))(self, @selector(jobs_put_member_backendlog_editStateSecond)))();
 }
 
@@ -3807,7 +3807,7 @@
     };
 }
 /// 查询会员账号修改审核列表一审@GET
--(URLManagerModel *_Nullable)get_member_backendlog_list{
+-(URLManagerModel *_Nonnull)get_member_backendlog_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_backendlog_list)))(self, @selector(jobs_get_member_backendlog_list)))();
 }
 
@@ -3821,7 +3821,7 @@
     };
 }
 /// 查询会员账号修改审核列表结果单@GET
--(URLManagerModel *_Nullable)get_member_backendlog_listFinal{
+-(URLManagerModel *_Nonnull)get_member_backendlog_listFinal{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_backendlog_listFinal)))(self, @selector(jobs_get_member_backendlog_listFinal)))();
 }
 
@@ -3835,7 +3835,7 @@
     };
 }
 /// 查询会员账号修改审核列表结果单@GET
--(URLManagerModel *_Nullable)get_member_backendlog_listSecond{
+-(URLManagerModel *_Nonnull)get_member_backendlog_listSecond{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_backendlog_listSecond)))(self, @selector(jobs_get_member_backendlog_listSecond)))();
 }
 
@@ -3849,7 +3849,7 @@
     };
 }
 /// 查询会员账号修改审核列表结果单@GET
--(URLManagerModel *_Nullable)get_member_backendlog_queryBackendLogTypes{
+-(URLManagerModel *_Nonnull)get_member_backendlog_queryBackendLogTypes{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_backendlog_queryBackendLogTypes)))(self, @selector(jobs_get_member_backendlog_queryBackendLogTypes)))();
 }
 
@@ -3863,7 +3863,7 @@
     };
 }
 /// 查询会员账号详情变更前端操作项目类型集合@GET
--(URLManagerModel *_Nullable)get_member_backendlog_queryWebLogTypes{
+-(URLManagerModel *_Nonnull)get_member_backendlog_queryWebLogTypes{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_backendlog_queryWebLogTypes)))(self, @selector(jobs_get_member_backendlog_queryWebLogTypes)))();
 }
 
@@ -3878,7 +3878,7 @@
 }
 #pragma mark —— 会员备注接口
 /// 新增会员备注信息@POST
--(URLManagerModel *_Nullable)post_member_remark_add{
+-(URLManagerModel *_Nonnull)post_member_remark_add{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_remark_add)))(self, @selector(jobs_post_member_remark_add)))();
 }
 
@@ -3892,7 +3892,7 @@
     };
 }
 /// 查询会员备注列表@POST
--(URLManagerModel *_Nullable)post_member_remark_list{
+-(URLManagerModel *_Nonnull)post_member_remark_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_remark_list)))(self, @selector(jobs_post_member_remark_list)))();
 }
 
@@ -3907,7 +3907,7 @@
 }
 #pragma mark —— 会员异常记录接口
 /// 查询会员备注列表@POST
--(URLManagerModel *_Nullable)post_member_excelog_list{
+-(URLManagerModel *_Nonnull)post_member_excelog_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_excelog_list)))(self, @selector(jobs_post_member_excelog_list)))();
 }
 
@@ -3922,7 +3922,7 @@
 }
 #pragma mark —— 会员操作日志接口
 /// 查询会员备注列表@POST
--(URLManagerModel *_Nullable)get_member_operlog_list{
+-(URLManagerModel *_Nonnull)get_member_operlog_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_operlog_list)))(self, @selector(jobs_get_member_operlog_list)))();
 }
 
@@ -3937,7 +3937,7 @@
 }
 #pragma mark —— 会员标签接口
 /// 新增会员标签@POST
--(URLManagerModel *_Nullable)post_label_add{
+-(URLManagerModel *_Nonnull)post_label_add{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_label_add)))(self, @selector(jobs_post_label_add)))();
 }
 
@@ -3951,7 +3951,7 @@
     };
 }
 /// 查询会员备注列表@PUT
--(URLManagerModel *_Nullable)put_label_edit{
+-(URLManagerModel *_Nonnull)put_label_edit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_label_edit)))(self, @selector(jobs_put_label_edit)))();
 }
 
@@ -3972,7 +3972,7 @@
     };
 }
 /// 查询会员标签列表@GET
--(URLManagerModel *_Nullable)get_label_list{
+-(URLManagerModel *_Nonnull)get_label_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_label_list)))(self, @selector(jobs_get_label_list)))();
 }
 
@@ -3986,7 +3986,7 @@
     };
 }
 /// 获取标签选择框列表@GET
--(URLManagerModel *_Nullable)get_label_member_optionSelect{
+-(URLManagerModel *_Nonnull)get_label_member_optionSelect{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_label_member_optionSelect)))(self, @selector(jobs_get_label_member_optionSelect)))();
 }
 
@@ -4014,7 +4014,7 @@
     };
 }
 /// 查询标签的所有会员@POST
--(URLManagerModel *_Nullable)post_label_selectMemberByLabelId{
+-(URLManagerModel *_Nonnull)post_label_selectMemberByLabelId{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_label_selectMemberByLabelId)))(self, @selector(jobs_post_label_selectMemberByLabelId)))();
 }
 
@@ -4028,7 +4028,7 @@
     };
 }
 /// 标签启用禁用@POST
--(URLManagerModel *_Nullable)post_label_updateStatus{
+-(URLManagerModel *_Nonnull)post_label_updateStatus{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_label_updateStatus)))(self, @selector(jobs_post_label_updateStatus)))();
 }
 
@@ -4043,7 +4043,7 @@
 }
 #pragma mark —— 会员登录日志接口
 /// 查询会员登录日志列表@GET
--(URLManagerModel *_Nullable)get_member_loginlog_list{
+-(URLManagerModel *_Nonnull)get_member_loginlog_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_loginlog_list)))(self, @selector(jobs_get_member_loginlog_list)))();
 }
 
@@ -4058,7 +4058,7 @@
 }
 #pragma mark —— 会员短信验证码记录接口
 /// 分页查询会员短信验证码记录
--(URLManagerModel *_Nullable)post_vercodelog_list{
+-(URLManagerModel *_Nonnull)post_vercodelog_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_vercodelog_list)))(self, @selector(jobs_post_vercodelog_list)))();
 }
 
@@ -4073,7 +4073,7 @@
 }
 #pragma mark —— 会员禁言记录接口
 /// 批量解禁@POST
--(URLManagerModel *_Nullable)post_member_banLog_batchUntie{
+-(URLManagerModel *_Nonnull)post_member_banLog_batchUntie{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_banLog_batchUntie)))(self, @selector(jobs_post_member_banLog_batchUntie)))();
 }
 
@@ -4094,7 +4094,7 @@
     };
 }
 /// 查询会员禁言记录列表@POST
--(URLManagerModel *_Nullable)post_member_banLog_list{
+-(URLManagerModel *_Nonnull)post_member_banLog_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_banLog_list)))(self, @selector(jobs_post_member_banLog_list)))();
 }
 
@@ -4108,7 +4108,7 @@
     };
 }
 /// 查询某个会员禁言记录列表@POST
--(URLManagerModel *_Nullable)post_member_banLog_memberList{
+-(URLManagerModel *_Nonnull)post_member_banLog_memberList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_banLog_memberList)))(self, @selector(jobs_post_member_banLog_memberList)))();
 }
 
@@ -4122,7 +4122,7 @@
     };
 }
 /// 修改会员禁言记录@PUT
--(URLManagerModel *_Nullable)put_member_banLog_update{
+-(URLManagerModel *_Nonnull)put_member_banLog_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_member_banLog_update)))(self, @selector(jobs_put_member_banLog_update)))();
 }
 
@@ -4137,7 +4137,7 @@
 }
 #pragma mark —— 会员称号记录接口
 /// 查询会员称号记录列表
--(URLManagerModel *_Nullable)get_member_titlelog_list{
+-(URLManagerModel *_Nonnull)get_member_titlelog_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_titlelog_list)))(self, @selector(jobs_get_member_titlelog_list)))();
 }
 
@@ -4167,7 +4167,7 @@
 }
 #pragma mark —— 会员虚拟货币账号接口
 /// 新增会员虚拟货币账号@POST
--(URLManagerModel *_Nullable)post_member_cryptocy_add{
+-(URLManagerModel *_Nonnull)post_member_cryptocy_add{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_cryptocy_add)))(self, @selector(jobs_post_member_cryptocy_add)))();
 }
 
@@ -4181,7 +4181,7 @@
     };
 }
 /// 新增会员EB币钱包@POST
--(URLManagerModel *_Nullable)post_member_cryptocy_eb_add{
+-(URLManagerModel *_Nonnull)post_member_cryptocy_eb_add{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_cryptocy_eb_add)))(self, @selector(jobs_post_member_cryptocy_eb_add)))();
 }
 
@@ -4195,7 +4195,7 @@
     };
 }
 /// 查询会员EB币钱包列表@POST
--(URLManagerModel *_Nullable)post_member_cryptocy_eb_list{
+-(URLManagerModel *_Nonnull)post_member_cryptocy_eb_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_cryptocy_eb_list)))(self, @selector(jobs_post_member_cryptocy_eb_list)))();
 }
 
@@ -4209,7 +4209,7 @@
     };
 }
 /// 删除会员EB币钱包@POST
--(URLManagerModel *_Nullable)post_member_cryptocy_eb_remove{
+-(URLManagerModel *_Nonnull)post_member_cryptocy_eb_remove{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_cryptocy_eb_remove)))(self, @selector(jobs_post_member_cryptocy_eb_remove)))();
 }
 
@@ -4223,7 +4223,7 @@
     };
 }
 /// 启用禁用会员EB币钱包@PUT
--(URLManagerModel *_Nullable)put_member_cryptocy_eb_status{
+-(URLManagerModel *_Nonnull)put_member_cryptocy_eb_status{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_member_cryptocy_eb_status)))(self, @selector(jobs_put_member_cryptocy_eb_status)))();
 }
 
@@ -4237,7 +4237,7 @@
     };
 }
 /// 查询会员虚拟货币账号列表@GET
--(URLManagerModel *_Nullable)get_member_cryptocy_list{
+-(URLManagerModel *_Nonnull)get_member_cryptocy_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_cryptocy_list)))(self, @selector(jobs_get_member_cryptocy_list)))();
 }
 
@@ -4251,7 +4251,7 @@
     };
 }
 /// 删除会员虚拟货币账号@POST
--(URLManagerModel *_Nullable)post_member_cryptocy_remove{
+-(URLManagerModel *_Nonnull)post_member_cryptocy_remove{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_cryptocy_remove)))(self, @selector(jobs_post_member_cryptocy_remove)))();
 }
 
@@ -4265,7 +4265,7 @@
     };
 }
 /// 启用禁用会员虚拟货币账号@PUT
--(URLManagerModel *_Nullable)put_member_cryptocy_status{
+-(URLManagerModel *_Nonnull)put_member_cryptocy_status{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_member_cryptocy_status)))(self, @selector(jobs_put_member_cryptocy_status)))();
 }
 
@@ -4280,7 +4280,7 @@
 }
 #pragma mark —— 会员虚拟货币账号操作记录接口
 /// 查询员EB币钱包操作记录列表@GET
--(URLManagerModel *_Nullable)get_member_cryptolog_eb_list{
+-(URLManagerModel *_Nonnull)get_member_cryptolog_eb_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_cryptolog_eb_list)))(self, @selector(jobs_get_member_cryptolog_eb_list)))();
 }
 
@@ -4294,7 +4294,7 @@
     };
 }
 /// 查询员虚拟货币账号操作记录列表@GET
--(URLManagerModel *_Nullable)get_member_cryptolog_list{
+-(URLManagerModel *_Nonnull)get_member_cryptolog_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_cryptolog_list)))(self, @selector(jobs_get_member_cryptolog_list)))();
 }
 
@@ -4309,7 +4309,7 @@
 }
 #pragma mark —— 会员跟单信息接口
 /// 查询会员跟单信息列表@GET
--(URLManagerModel *_Nullable)get_follow_order_list{
+-(URLManagerModel *_Nonnull)get_follow_order_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_follow_order_list)))(self, @selector(jobs_get_follow_order_list)))();
 }
 
@@ -4324,7 +4324,7 @@
 }
 #pragma mark —— 会员银行卡接口
 /// 新增会员银行卡@POST
--(URLManagerModel *_Nullable)post_member_bankcard_add{
+-(URLManagerModel *_Nonnull)post_member_bankcard_add{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_bankcard_add)))(self, @selector(jobs_post_member_bankcard_add)))();
 }
 
@@ -4338,7 +4338,7 @@
     };
 }
 /// 删除会员银行卡@POST
--(URLManagerModel *_Nullable)get_member_bankcard_delete{
+-(URLManagerModel *_Nonnull)get_member_bankcard_delete{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_bankcard_delete)))(self, @selector(jobs_get_member_bankcard_delete)))();
 }
 
@@ -4352,7 +4352,7 @@
     };
 }
 /// 查询会员跟单信息列表@GET
--(URLManagerModel *_Nullable)get_member_bankcard_list{
+-(URLManagerModel *_Nonnull)get_member_bankcard_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_bankcard_list)))(self, @selector(jobs_get_member_bankcard_list)))();
 }
 
@@ -4366,7 +4366,7 @@
     };
 }
 /// 查询会员跟单信息列表@GET
--(URLManagerModel *_Nullable)get_member_bankcard_status{
+-(URLManagerModel *_Nonnull)get_member_bankcard_status{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_bankcard_status)))(self, @selector(jobs_get_member_bankcard_status)))();
 }
 
@@ -4381,7 +4381,7 @@
 }
 #pragma mark —— 会员银行卡操作记录接口
 /// 查询会员银行卡操作记录列表@GET
--(URLManagerModel *_Nullable)get_member_bankcardlog_list{
+-(URLManagerModel *_Nonnull)get_member_bankcardlog_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_bankcardlog_list)))(self, @selector(jobs_get_member_bankcardlog_list)))();
 }
 
@@ -4396,7 +4396,7 @@
 }
 #pragma mark —— 会员限制记录接口
 /// 查询会员限制记录日志列表@GET
--(URLManagerModel *_Nullable)get_member_blocklog_list{
+-(URLManagerModel *_Nonnull)get_member_blocklog_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_blocklog_list)))(self, @selector(jobs_get_member_blocklog_list)))();
 }
 
@@ -4417,7 +4417,7 @@
     };
 }
 /// 批量解除会员限制@POST
--(URLManagerModel *_Nullable)post_member_blocklog_updateStatusBatch{
+-(URLManagerModel *_Nonnull)post_member_blocklog_updateStatusBatch{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_blocklog_updateStatusBatch)))(self, @selector(jobs_post_member_blocklog_updateStatusBatch)))();
 }
 
@@ -4432,7 +4432,7 @@
 }
 #pragma mark —— 佣金档位接口
 /// 根据佣金审核记录id查询佣金档位@GET
--(URLManagerModel *_Nullable)get_agent_manage_queryByCommissionAuditId{
+-(URLManagerModel *_Nonnull)get_agent_manage_queryByCommissionAuditId{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_manage_queryByCommissionAuditId)))(self, @selector(jobs_get_agent_manage_queryByCommissionAuditId)))();
 }
 
@@ -4447,7 +4447,7 @@
 }
 #pragma mark —— 参数配置接口
 /// 新增参数配置@POST
--(URLManagerModel *_Nullable)post_config{
+-(URLManagerModel *_Nonnull)post_config{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_config)))(self, @selector(jobs_post_config)))();
 }
 
@@ -4461,7 +4461,7 @@
     };
 }
 /// 修改参数配置@PUT
--(URLManagerModel *_Nullable)put_config{
+-(URLManagerModel *_Nonnull)put_config{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_config)))(self, @selector(jobs_put_config)))();
 }
 
@@ -4482,7 +4482,7 @@
     };
 }
 /// 导出参数配置@POST
--(URLManagerModel *_Nullable)post_config_export{
+-(URLManagerModel *_Nonnull)post_config_export{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_config_export)))(self, @selector(jobs_post_config_export)))();
 }
 
@@ -4496,7 +4496,7 @@
     };
 }
 /// 获取参数配置分页列表@GET
--(URLManagerModel *_Nullable)get_config_list{
+-(URLManagerModel *_Nonnull)get_config_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_config_list)))(self, @selector(jobs_get_config_list)))();
 }
 
@@ -4510,7 +4510,7 @@
     };
 }
 /// 地址动态关联查询@POST
--(URLManagerModel *_Nullable)post_config_province{
+-(URLManagerModel *_Nonnull)post_config_province{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_config_province)))(self, @selector(jobs_post_config_province)))();
 }
 
@@ -4524,7 +4524,7 @@
     };
 }
 /// 刷新参数缓存@DELETE
--(URLManagerModel *_Nullable)delete_config_refreshCache{
+-(URLManagerModel *_Nonnull)delete_config_refreshCache{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_delete_config_refreshCache)))(self, @selector(jobs_delete_config_refreshCache)))();
 }
 
@@ -4552,7 +4552,7 @@
     };
 }
 /// add@POST
--(URLManagerModel *_Nullable)post_notice{
+-(URLManagerModel *_Nonnull)post_notice{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_notice)))(self, @selector(jobs_post_notice)))();
 }
 
@@ -4566,7 +4566,7 @@
     };
 }
 /// edit@PUT
--(URLManagerModel *_Nullable)put_notice{
+-(URLManagerModel *_Nonnull)put_notice{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_notice)))(self, @selector(jobs_put_notice)))();
 }
 
@@ -4580,7 +4580,7 @@
     };
 }
 /// list@GET
--(URLManagerModel *_Nullable)put_notice_list{
+-(URLManagerModel *_Nonnull)put_notice_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_notice_list)))(self, @selector(jobs_put_notice_list)))();
 }
 
@@ -4609,7 +4609,7 @@
 }
 #pragma mark —— 国家-区号-编码-语言信息接口
 /// 新增（国家-区号-编码-语言）信息@POST
--(URLManagerModel *_Nullable)post_countrycode_add{
+-(URLManagerModel *_Nonnull)post_countrycode_add{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_countrycode_add)))(self, @selector(jobs_post_countrycode_add)))();
 }
 
@@ -4623,7 +4623,7 @@
     };
 }
 /// 修改（国家-区号-编码-语言）状态@PUT
--(URLManagerModel *_Nullable)put_countrycode_changeStatus{
+-(URLManagerModel *_Nonnull)put_countrycode_changeStatus{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_countrycode_changeStatus)))(self, @selector(jobs_put_countrycode_changeStatus)))();
 }
 
@@ -4637,7 +4637,7 @@
     };
 }
 /// 修改（国家-区号-编码-语言）信息@PUT
--(URLManagerModel *_Nullable)put_countrycode_edit{
+-(URLManagerModel *_Nonnull)put_countrycode_edit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_countrycode_edit)))(self, @selector(jobs_put_countrycode_edit)))();
 }
 
@@ -4658,7 +4658,7 @@
     };
 }
 /// 查询（国家-区号-编码-语言）列表@GET
--(URLManagerModel *_Nullable)get_countrycode_list{
+-(URLManagerModel *_Nonnull)get_countrycode_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_countrycode_list)))(self, @selector(jobs_get_countrycode_list)))();
 }
 
@@ -4673,7 +4673,7 @@
 }
 #pragma mark —— 国家编码服务接口
 /// 获取单个国家编码详细信息@POST
--(URLManagerModel *_Nullable)post_countrycode_getInfo{
+-(URLManagerModel *_Nonnull)post_countrycode_getInfo{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_countrycode_getInfo)))(self, @selector(jobs_post_countrycode_getInfo)))();
 }
 
@@ -4687,7 +4687,7 @@
     };
 }
 /// 获取国家编码信息列表@GET
--(URLManagerModel *_Nullable)get_countrycode_listInfo{
+-(URLManagerModel *_Nonnull)get_countrycode_listInfo{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_countrycode_listInfo)))(self, @selector(jobs_get_countrycode_listInfo)))();
 }
 
@@ -4702,7 +4702,7 @@
 }
 #pragma mark —— 场馆费管理
 /// 场馆费率查询@GET
--(URLManagerModel *_Nullable)get_agent_manage_queryVenueRateConfigByCommissionAudit{
+-(URLManagerModel *_Nonnull)get_agent_manage_queryVenueRateConfigByCommissionAudit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_manage_queryVenueRateConfigByCommissionAudit)))(self, @selector(jobs_get_agent_manage_queryVenueRateConfigByCommissionAudit)))();
 }
 
@@ -4716,7 +4716,7 @@
     };
 }
 /// 场馆费查询@GET
--(URLManagerModel *_Nullable)get_agent_manage_queryVenueRateConfigFeeByCommissionAudit{
+-(URLManagerModel *_Nonnull)get_agent_manage_queryVenueRateConfigFeeByCommissionAudit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agent_manage_queryVenueRateConfigFeeByCommissionAudit)))(self, @selector(jobs_get_agent_manage_queryVenueRateConfigFeeByCommissionAudit)))();
 }
 
@@ -4731,7 +4731,7 @@
 }
 #pragma mark —— 场馆转入转出记录相关接口
 /// 场馆转入转出记录列表@POST
--(URLManagerModel *_Nullable)post_api_game_pay_pageList{
+-(URLManagerModel *_Nonnull)post_api_game_pay_pageList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_api_game_pay_pageList)))(self, @selector(jobs_post_api_game_pay_pageList)))();
 }
 
@@ -4746,7 +4746,7 @@
 }
 #pragma mark —— 媒体配置接口
 /// 新增媒体配置@POST
--(URLManagerModel *_Nullable)post_media_add{
+-(URLManagerModel *_Nonnull)post_media_add{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_media_add)))(self, @selector(jobs_post_media_add)))();
 }
 
@@ -4760,7 +4760,7 @@
     };
 }
 /// 删除媒体配置@POST
--(URLManagerModel *_Nullable)post_media_del{
+-(URLManagerModel *_Nonnull)post_media_del{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_media_del)))(self, @selector(jobs_post_media_del)))();
 }
 
@@ -4774,7 +4774,7 @@
     };
 }
 /// 应用端媒体配置查询 - 用于 web,h5,ios,android 调用@POST
--(URLManagerModel *_Nullable)post_media_list{
+-(URLManagerModel *_Nonnull)post_media_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_media_list)))(self, @selector(jobs_post_media_list)))();
 }
 
@@ -4788,7 +4788,7 @@
     };
 }
 /// 媒体配置查询@POST
--(URLManagerModel *_Nullable)post_media_query{
+-(URLManagerModel *_Nonnull)post_media_query{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_media_query)))(self, @selector(jobs_post_media_query)))();
 }
 
@@ -4802,7 +4802,7 @@
     };
 }
 /// 修改媒体配置@POST
--(URLManagerModel *_Nullable)post_media_update{
+-(URLManagerModel *_Nonnull)post_media_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_media_update)))(self, @selector(jobs_post_media_update)))();
 }
 
@@ -4817,7 +4817,7 @@
 }
 #pragma mark —— 字典数据管理接口
 /// 新增字典数据@POST
--(URLManagerModel *_Nullable)post_dict_data{
+-(URLManagerModel *_Nonnull)post_dict_data{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_dict_data)))(self, @selector(jobs_post_dict_data)))();
 }
 
@@ -4831,7 +4831,7 @@
     };
 }
 /// 修改字典数据@PUT
--(URLManagerModel *_Nullable)put_dict_data{
+-(URLManagerModel *_Nonnull)put_dict_data{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_dict_data)))(self, @selector(jobs_put_dict_data)))();
 }
 
@@ -4845,7 +4845,7 @@
     };
 }
 /// 导出字典数据@POST
--(URLManagerModel *_Nullable)post_dict_data_export{
+-(URLManagerModel *_Nonnull)post_dict_data_export{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_dict_data_export)))(self, @selector(jobs_post_dict_data_export)))();
 }
 
@@ -4859,7 +4859,7 @@
     };
 }
 /// 获得字典数据的分页列表@GET
--(URLManagerModel *_Nullable)get_dict_data_list{
+-(URLManagerModel *_Nonnull)get_dict_data_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_dict_data_list)))(self, @selector(jobs_get_dict_data_list)))();
 }
 
@@ -4895,7 +4895,7 @@
 }
 #pragma mark —— 字典类型管理接口
 /// 创建字典类型@POST
--(URLManagerModel *_Nullable)post_dict_type{
+-(URLManagerModel *_Nonnull)post_dict_type{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_dict_type)))(self, @selector(jobs_post_dict_type)))();
 }
 
@@ -4909,7 +4909,7 @@
     };
 }
 /// 修改字典类型@PUT
--(URLManagerModel *_Nullable)put_dict_type{
+-(URLManagerModel *_Nonnull)put_dict_type{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_dict_type)))(self, @selector(jobs_put_dict_type)))();
 }
 
@@ -4923,7 +4923,7 @@
     };
 }
 /// 导出字典类型数据@POST
--(URLManagerModel *_Nullable)post_dict_type_export{
+-(URLManagerModel *_Nonnull)post_dict_type_export{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_dict_type_export)))(self, @selector(jobs_post_dict_type_export)))();
 }
 
@@ -4937,7 +4937,7 @@
     };
 }
 /// 获得字典类型的分页列表@GET
--(URLManagerModel *_Nullable)get_dict_type_list{
+-(URLManagerModel *_Nonnull)get_dict_type_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_dict_type_list)))(self, @selector(jobs_get_dict_type_list)))();
 }
 
@@ -4951,7 +4951,7 @@
     };
 }
 /// 获取字典选择框列表@GET
--(URLManagerModel *_Nullable)get_dict_type_optionselect{
+-(URLManagerModel *_Nonnull)get_dict_type_optionselect{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_dict_type_optionselect)))(self, @selector(jobs_get_dict_type_optionselect)))();
 }
 
@@ -4965,7 +4965,7 @@
     };
 }
 /// 刷新字典缓存@DELETE
--(URLManagerModel *_Nullable)delete_dict_type_refreshCache{
+-(URLManagerModel *_Nonnull)delete_dict_type_refreshCache{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_delete_dict_type_refreshCache)))(self, @selector(jobs_delete_dict_type_refreshCache)))();
 }
 
@@ -5008,7 +5008,7 @@
     };
 }
 /// 查询封面标签信息列表@GET
--(URLManagerModel *_Nullable)get_front_cover_tag_list{
+-(URLManagerModel *_Nonnull)get_front_cover_tag_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_front_cover_tag_list)))(self, @selector(jobs_get_front_cover_tag_list)))();
 }
 
@@ -5022,7 +5022,7 @@
     };
 }
 /// 新增封面标签信息@GET
--(URLManagerModel *_Nullable)get_front_cover_tag_save{
+-(URLManagerModel *_Nonnull)get_front_cover_tag_save{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_front_cover_tag_save)))(self, @selector(jobs_get_front_cover_tag_save)))();
 }
 
@@ -5036,7 +5036,7 @@
     };
 }
 /// 修改封面标签信息@PUT
--(URLManagerModel *_Nullable)put_front_cover_tag_update{
+-(URLManagerModel *_Nonnull)put_front_cover_tag_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_front_cover_tag_update)))(self, @selector(jobs_put_front_cover_tag_update)))();
 }
 
@@ -5051,7 +5051,7 @@
 }
 #pragma mark —— 岗位管理接口
 /// 创建岗位@POST
--(URLManagerModel *_Nullable)post_post{
+-(URLManagerModel *_Nonnull)post_post{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_post)))(self, @selector(jobs_post_post)))();
 }
 
@@ -5065,7 +5065,7 @@
     };
 }
 /// 修改岗位细信息@PUT
--(URLManagerModel *_Nullable)put_post{
+-(URLManagerModel *_Nonnull)put_post{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_post)))(self, @selector(jobs_put_post)))();
 }
 
@@ -5079,7 +5079,7 @@
     };
 }
 /// 导出岗位列表@POST
--(URLManagerModel *_Nullable)post_post_export{
+-(URLManagerModel *_Nonnull)post_post_export{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_post_export)))(self, @selector(jobs_post_post_export)))();
 }
 
@@ -5093,7 +5093,7 @@
     };
 }
 /// 获取岗位分页列表@GET
--(URLManagerModel *_Nullable)get_post_list{
+-(URLManagerModel *_Nonnull)get_post_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_post_list)))(self, @selector(jobs_get_post_list)))();
 }
 
@@ -5107,7 +5107,7 @@
     };
 }
 /// 获取平台的所有岗位@GET
--(URLManagerModel *_Nullable)get_post_optionselect{
+-(URLManagerModel *_Nonnull)get_post_optionselect{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_post_optionselect)))(self, @selector(jobs_get_post_optionselect)))();
 }
 
@@ -5136,7 +5136,7 @@
 }
 #pragma mark —— 平台管理接口
 ///新增平台@POST
--(URLManagerModel *_Nullable)post_tenant_add{
+-(URLManagerModel *_Nonnull)post_tenant_add{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_tenant_add)))(self, @selector(jobs_post_tenant_add)))();
 }
 
@@ -5150,7 +5150,7 @@
     };
 }
 /// 修改平台状态@PUT
--(URLManagerModel *_Nullable)put_tenant_changeStatus{
+-(URLManagerModel *_Nonnull)put_tenant_changeStatus{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_tenant_changeStatus)))(self, @selector(jobs_put_tenant_changeStatus)))();
 }
 
@@ -5164,7 +5164,7 @@
     };
 }
 /// 修改平台@PUT
--(URLManagerModel *_Nullable)put_tenant_edit{
+-(URLManagerModel *_Nonnull)put_tenant_edit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_tenant_edit)))(self, @selector(jobs_put_tenant_edit)))();
 }
 
@@ -5185,7 +5185,7 @@
     };
 }
 /// 查询平台列表@GET
--(URLManagerModel *_Nullable)get_tenant_list{
+-(URLManagerModel *_Nonnull)get_tenant_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_tenant_list)))(self, @selector(jobs_get_tenant_list)))();
 }
 
@@ -5200,7 +5200,7 @@
 }
 #pragma mark —— 廣告管理接口
 /// 新增廣告@POST
--(URLManagerModel *_Nullable)post_advertise_manage_add{
+-(URLManagerModel *_Nonnull)post_advertise_manage_add{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_advertise_manage_add)))(self, @selector(jobs_post_advertise_manage_add)))();
 }
 
@@ -5214,7 +5214,7 @@
     };
 }
 /// 刪除廣告@POST
--(URLManagerModel *_Nullable)post_advertise_manage_delete{
+-(URLManagerModel *_Nonnull)post_advertise_manage_delete{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_advertise_manage_delete)))(self, @selector(jobs_post_advertise_manage_delete)))();
 }
 
@@ -5228,7 +5228,7 @@
     };
 }
 /// 後端內部調用前台廣告列表@POST
--(URLManagerModel *_Nullable)post_advertise_manage_getAdvertiseList{
+-(URLManagerModel *_Nonnull)post_advertise_manage_getAdvertiseList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_advertise_manage_getAdvertiseList)))(self, @selector(jobs_post_advertise_manage_getAdvertiseList)))();
 }
 
@@ -5242,7 +5242,7 @@
     };
 }
 /// 取得廣告列表@POST
--(URLManagerModel *_Nullable)post_advertise_manage_list{
+-(URLManagerModel *_Nonnull)post_advertise_manage_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_advertise_manage_list)))(self, @selector(jobs_post_advertise_manage_list)))();
 }
 
@@ -5256,7 +5256,7 @@
     };
 }
 /// 禁用廣告@POST
--(URLManagerModel *_Nullable)post_advertise_manage_stop{
+-(URLManagerModel *_Nonnull)post_advertise_manage_stop{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_advertise_manage_stop)))(self, @selector(jobs_post_advertise_manage_stop)))();
 }
 
@@ -5270,7 +5270,7 @@
     };
 }
 /// 禁用廣告@POST
--(URLManagerModel *_Nullable)post_advertise_manage_update{
+-(URLManagerModel *_Nonnull)post_advertise_manage_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_advertise_manage_update)))(self, @selector(jobs_post_advertise_manage_update)))();
 }
 

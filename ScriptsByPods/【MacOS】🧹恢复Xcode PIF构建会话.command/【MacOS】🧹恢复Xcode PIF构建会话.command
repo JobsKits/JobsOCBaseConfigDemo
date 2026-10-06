@@ -6,6 +6,29 @@
 # - 影响范围：仅当前用户的空闲 SWBBuildService / XCBBuildService；不关闭 Xcode，不删除 DerivedData。
 # - 运行提示：Podfile 钩子无交互运行；终端独立运行需输入 YES；--check-only 只诊断不修改进程。
 
+# 仅渲染自述：标题红色加粗，编号正文蓝色常规字重；非彩色终端输出纯文本。
+jobs_intro_style() {
+  local intro_color=0
+  if [ -t 1 ] && [ -n "${TERM:-}" ] && [ "${TERM:-}" != dumb ] &&
+     [ -z "${NO_COLOR+x}" ] && [ "${PLAIN_OUTPUT:-0}" != 1 ] &&
+     [ "${IS_SOURCETREE_RUNTIME:-0}" != 1 ]; then
+    intro_color=1
+  fi
+  /usr/bin/awk -v color="$intro_color" -v role="${1:-body}" '
+    BEGIN { esc = sprintf("%c", 27) }
+    {
+      gsub(esc "\\[[0-9;]*m", "")
+      gsub(/\\(033|e|x1[bB])\[[0-9;]*m/, "")
+      if (!color || $0 ~ /^[[:space:]]*$/) { print; next }
+      numbered = ($0 ~ /^[[:space:]➤ℹ🔹✔⚠]*([0-9]+[、.)）]|[0-9]+️⃣|[-•])/)
+      heading = ($0 ~ /^[[:space:]]*#{1,6}[[:space:]]/ || $0 ~ /[：:][[:space:]]*$/ || $0 ~ /^[[:space:]]*[=━─-]{3}/)
+      title = (!numbered && (role == "title" || heading))
+      if (role == "auto" && !seen && !numbered) title = 1
+      if ($0 !~ /^[[:space:]]*[=━─-]+[[:space:]]*$/) seen = 1
+      printf "%s%s%s\n", esc (title ? "[1;31m" : "[0;34m"), $0, esc "[0m"
+    }
+  '
+}
 SCRIPT_PATH="${0:A}"
 SCRIPT_DIR="${SCRIPT_PATH:h}"
 SCRIPT_BASENAME="${SCRIPT_PATH:t:r}"
@@ -49,27 +72,27 @@ has_argument() {
 
 # 第一屏说明风险边界，并在独立修复模式下要求明确确认。
 show_script_intro_and_wait() {
-  print -r -- ""
-  print -r -- "【恢复 Xcode PIF 构建会话】"
-  print -r -- "用途：处理 unable to initiate PIF transfer session (operation in progress?)。"
-  print -r -- "边界：不关闭 Xcode、不删除 DerivedData、不打断可识别的活动构建。"
+  print -r -- "" | jobs_intro_style body
+  print -r -- "【恢复 Xcode PIF 构建会话】" | jobs_intro_style body
+  print -r -- "用途：处理 unable to initiate PIF transfer session (operation in progress?)。" | jobs_intro_style body
+  print -r -- "边界：不关闭 Xcode、不删除 DerivedData、不打断可识别的活动构建。" | jobs_intro_style body
 
   if is_truthy "${JOBS_POD_INSTALL_HOOK:-}" || is_truthy "${JOBS_SKIP_README:-}"; then
-    print -r -- "模式：pod install 后置钩子，无交互执行。"
+    print -r -- "模式：pod install 后置钩子，无交互执行。" | jobs_intro_style body
     return 0
   fi
 
   if has_argument "--check-only" "$@"; then
-    print -r -- "模式：只读诊断，不修改进程。"
+    print -r -- "模式：只读诊断，不修改进程。" | jobs_intro_style body
     return 0
   fi
 
-  print -r -- "即将仅向当前用户的空闲 Xcode 构建服务发送 TERM。"
+  print -r -- "即将仅向当前用户的空闲 Xcode 构建服务发送 TERM。" | jobs_intro_style body
   print -n -r -- "输入 YES 继续："
   local answer=""
   read -r answer
   if [[ "${answer}" != "YES" ]]; then
-    print -r -- "已取消，未修改任何进程。"
+    print -r -- "已取消，未修改任何进程。" | jobs_intro_style body
     exit 0
   fi
 }

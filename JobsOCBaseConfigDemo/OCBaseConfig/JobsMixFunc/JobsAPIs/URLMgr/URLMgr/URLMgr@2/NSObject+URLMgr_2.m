@@ -12,7 +12,7 @@
 @implementation NSObject (URLMgr_2)
 #pragma mark —— feign-support-controller
 /// 查看是否有流水卷或者存送卷@POST
--(URLManagerModel *_Nullable)post_promotion_feign_rolls_list{
+-(URLManagerModel *_Nonnull)post_promotion_feign_rolls_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_promotion_feign_rolls_list)))(self, @selector(jobs_post_promotion_feign_rolls_list)))();
 }
 
@@ -25,7 +25,7 @@
     };
 }
 /// 批量使用流水卷或者存送卷@POST
--(URLManagerModel *_Nullable)post_promotion_feign_rolls_use{
+-(URLManagerModel *_Nonnull)post_promotion_feign_rolls_use{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_promotion_feign_rolls_use)))(self, @selector(jobs_post_promotion_feign_rolls_use)))();
 }
 
@@ -39,7 +39,7 @@
 }
 #pragma mark —— health-controller
 /// hearbeat@GET
--(URLManagerModel *_Nullable)get_promotion_heartbeat{
+-(URLManagerModel *_Nonnull)get_promotion_heartbeat{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_heartbeat)))(self, @selector(jobs_get_promotion_heartbeat)))();
 }
 
@@ -53,7 +53,7 @@
 }
 #pragma mark —— 大转盘
 /// 查询大转盘活动参数配置@GET
--(URLManagerModel *_Nullable)get_promotion_activity_turntable_detail{
+-(URLManagerModel *_Nonnull)get_promotion_activity_turntable_detail{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_activity_turntable_detail)))(self, @selector(jobs_get_promotion_activity_turntable_detail)))();
 }
 
@@ -66,7 +66,7 @@
     };
 }
 /// 大转盘抽奖@GET
--(URLManagerModel *_Nullable)get_promotion_activity_turntable_prize_get{
+-(URLManagerModel *_Nonnull)get_promotion_activity_turntable_prize_get{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_activity_turntable_prize_get)))(self, @selector(jobs_get_promotion_activity_turntable_prize_get)))();
 }
 
@@ -79,7 +79,7 @@
     };
 }
 /// 分页查询大转盘活动抽奖记录@POST
--(URLManagerModel *_Nullable)post_promotion_activity_turntable_record{
+-(URLManagerModel *_Nonnull)post_promotion_activity_turntable_record{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_promotion_activity_turntable_record)))(self, @selector(jobs_post_promotion_activity_turntable_record)))();
 }
 
@@ -92,7 +92,7 @@
     };
 }
 /// 查询用户大转盘抽奖次数@GET
--(URLManagerModel *_Nullable)get_promotion_activity_turntable_user_num{
+-(URLManagerModel *_Nonnull)get_promotion_activity_turntable_user_num{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_activity_turntable_user_num)))(self, @selector(jobs_get_promotion_activity_turntable_user_num)))();
 }
 
@@ -105,7 +105,7 @@
     };
 }
 /// 查询用户大转盘活动抽奖记录@GET
--(URLManagerModel *_Nullable)get_promotion_activity_turntable_user_record{
+-(URLManagerModel *_Nonnull)get_promotion_activity_turntable_user_record{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_activity_turntable_user_record)))(self, @selector(jobs_get_promotion_activity_turntable_user_record)))();
 }
 
@@ -119,7 +119,7 @@
 }
 #pragma mark —— 广告配置所有接口
 /// 查询广告列表-支持游客:活动推广专区@GET
--(URLManagerModel *_Nullable)get_promotion_advertise_info_list_activity{
+-(URLManagerModel *_Nonnull)get_promotion_advertise_info_list_activity{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_advertise_info_list_activity)))(self, @selector(jobs_get_promotion_advertise_info_list_activity)))();
 }
 
@@ -132,7 +132,7 @@
     };
 }
 /// 查询广告列表-支持游客:APP首页右下3Banner@GET
--(URLManagerModel *_Nullable)get_promotion_advertise_infoP_list_appIndex{
+-(URLManagerModel *_Nonnull)get_promotion_advertise_infoP_list_appIndex{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_advertise_infoP_list_appIndex)))(self, @selector(jobs_get_promotion_advertise_infoP_list_appIndex)))();
 }
 
@@ -145,7 +145,7 @@
     };
 }
 /// 查询广告列表-支持游客:APP会员中心@GET
--(URLManagerModel *_Nullable)get_promotion_advertise_info_list_appMember{
+-(URLManagerModel *_Nonnull)get_promotion_advertise_info_list_appMember{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_advertise_info_list_appMember)))(self, @selector(jobs_get_promotion_advertise_info_list_appMember)))();
 }
 
@@ -158,7 +158,7 @@
     };
 }
 /// 查询广告列表-支持游客:首页天顶轮播大Banner@GET
--(URLManagerModel *_Nullable)get_promotion_advertise_info_list_index{
+-(URLManagerModel *_Nonnull)get_promotion_advertise_info_list_index{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_advertise_info_list_index)))(self, @selector(jobs_get_promotion_advertise_info_list_index)))();
 }
 
@@ -171,7 +171,7 @@
     };
 }
 /// 查询广告列表-支持游客:导航栏4小Banner@GET
--(URLManagerModel *_Nullable)get_promotion_advertise_info_list_navigationBar{
+-(URLManagerModel *_Nonnull)get_promotion_advertise_info_list_navigationBar{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_advertise_info_list_navigationBar)))(self, @selector(jobs_get_promotion_advertise_info_list_navigationBar)))();
 }
 
@@ -185,7 +185,7 @@
 }
 #pragma mark —— 新手活动
 /// 查询新手活动参数配置@GET
--(URLManagerModel *_Nullable)get_promotion_activity_newbie_detail{
+-(URLManagerModel *_Nonnull)get_promotion_activity_newbie_detail{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_activity_newbie_detail)))(self, @selector(jobs_get_promotion_activity_newbie_detail)))();
 }
 
@@ -198,7 +198,7 @@
     };
 }
 /// 查询登录用户新手大礼包完成情况@GET
--(URLManagerModel *_Nullable)get_promotion_get_user_newbie_gift_detail{
+-(URLManagerModel *_Nonnull)get_promotion_get_user_newbie_gift_detail{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_get_user_newbie_gift_detail)))(self, @selector(jobs_get_promotion_get_user_newbie_gift_detail)))();
 }
 
@@ -211,7 +211,7 @@
     };
 }
 /// 查询登录用户参加新手活动资格@GET
--(URLManagerModel *_Nullable)get_promotion_get_user_newbie_qualifications{
+-(URLManagerModel *_Nonnull)get_promotion_get_user_newbie_qualifications{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_get_user_newbie_qualifications)))(self, @selector(jobs_get_promotion_get_user_newbie_qualifications)))();
 }
 
@@ -224,7 +224,7 @@
     };
 }
 /// 查询登录用户签到完成情况@GET
--(URLManagerModel *_Nullable)get_promotion_get_user_sign_gift_detail{
+-(URLManagerModel *_Nonnull)get_promotion_get_user_sign_gift_detail{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_get_user_sign_gift_detail)))(self, @selector(jobs_get_promotion_get_user_sign_gift_detail)))();
 }
 
@@ -237,7 +237,7 @@
     };
 }
 /// 新手活动复活大礼包用户领取@GET
--(URLManagerModel *_Nullable)get_promotion_newbie_user_resurrection_receive{
+-(URLManagerModel *_Nonnull)get_promotion_newbie_user_resurrection_receive{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_newbie_user_resurrection_receive)))(self, @selector(jobs_get_promotion_newbie_user_resurrection_receive)))();
 }
 
@@ -250,7 +250,7 @@
     };
 }
 /// 新手活动用户复活大礼包状态查询@GET
--(URLManagerModel *_Nullable)get_promotion_newbie_user_resurrection_statusGet{
+-(URLManagerModel *_Nonnull)get_promotion_newbie_user_resurrection_statusGet{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_newbie_user_resurrection_statusGet)))(self, @selector(jobs_get_promotion_newbie_user_resurrection_statusGet)))();
 }
 
@@ -263,7 +263,7 @@
     };
 }
 /// 新手活动签到大礼包用户签到@GET
--(URLManagerModel *_Nullable)get_promotion_newbie_user_sign{
+-(URLManagerModel *_Nonnull)get_promotion_newbie_user_sign{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_newbie_user_sign)))(self, @selector(jobs_get_promotion_newbie_user_sign)))();
 }
 
@@ -277,7 +277,7 @@
 }
 #pragma mark —— 活动相关接口
 /// 存款优惠活动信息@POST
--(URLManagerModel *_Nullable)post_promotion_api_client_activity_getActivity{
+-(URLManagerModel *_Nonnull)post_promotion_api_client_activity_getActivity{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_promotion_api_client_activity_getActivity)))(self, @selector(jobs_post_promotion_api_client_activity_getActivity)))();
 }
 
@@ -290,7 +290,7 @@
     };
 }
 /// 存款优惠活动信息@POST
--(URLManagerModel *_Nullable)post_promotion_api_client_activity_getDepositDiscountActivityRecord{
+-(URLManagerModel *_Nonnull)post_promotion_api_client_activity_getDepositDiscountActivityRecord{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_promotion_api_client_activity_getDepositDiscountActivityRecord)))(self, @selector(jobs_post_promotion_api_client_activity_getDepositDiscountActivityRecord)))();
 }
 
@@ -303,7 +303,7 @@
     };
 }
 /// 会员签到活动信息@POST
--(URLManagerModel *_Nullable)post_promotion_api_client_activity_getMemberSignActivityRecord{
+-(URLManagerModel *_Nonnull)post_promotion_api_client_activity_getMemberSignActivityRecord{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_promotion_api_client_activity_getMemberSignActivityRecord)))(self, @selector(jobs_post_promotion_api_client_activity_getMemberSignActivityRecord)))();
 }
 
@@ -316,7 +316,7 @@
     };
 }
 /// 获取存款金额奖励@GET
--(URLManagerModel *_Nullable)get_promotion_api_client_activity_getObtainDepositBonus{
+-(URLManagerModel *_Nonnull)get_promotion_api_client_activity_getObtainDepositBonus{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_api_client_activity_getObtainDepositBonus)))(self, @selector(jobs_get_promotion_api_client_activity_getObtainDepositBonus)))();
 }
 
@@ -329,7 +329,7 @@
     };
 }
 /// 查询活动信息@GET
--(URLManagerModel *_Nullable)get_promotion_api_client_activity_queryActivityInfo{
+-(URLManagerModel *_Nonnull)get_promotion_api_client_activity_queryActivityInfo{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_api_client_activity_queryActivityInfo)))(self, @selector(jobs_get_promotion_api_client_activity_queryActivityInfo)))();
 }
 
@@ -342,7 +342,7 @@
     };
 }
 /// 查询用户123存款活动的在途订单数量@GET
--(URLManagerModel *_Nullable)get_promotion_api_client_activity_queryInTransit123DepositOrdersCount{
+-(URLManagerModel *_Nonnull)get_promotion_api_client_activity_queryInTransit123DepositOrdersCount{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_api_client_activity_queryInTransit123DepositOrdersCount)))(self, @selector(jobs_get_promotion_api_client_activity_queryInTransit123DepositOrdersCount)))();
 }
 
@@ -355,7 +355,7 @@
     };
 }
 /// 会员签到@GET
--(URLManagerModel *_Nullable)get_promotion_api_client_activity_sign{
+-(URLManagerModel *_Nonnull)get_promotion_api_client_activity_sign{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_api_client_activity_sign)))(self, @selector(jobs_get_promotion_api_client_activity_sign)))();
 }
 
@@ -368,7 +368,7 @@
     };
 }
 /// 首存活动-查询累计流水@GET
--(URLManagerModel *_Nullable)get_promotion_event_activity_bet_total{
+-(URLManagerModel *_Nonnull)get_promotion_event_activity_bet_total{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_event_activity_bet_total)))(self, @selector(jobs_get_promotion_event_activity_bet_total)))();
 }
 
@@ -381,7 +381,7 @@
     };
 }
 /// 活动领取-传返回记录的id@POST
--(URLManagerModel *_Nullable)post_promotion_event_activity_claimp{
+-(URLManagerModel *_Nonnull)post_promotion_event_activity_claimp{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_promotion_event_activity_claimp)))(self, @selector(jobs_post_promotion_event_activity_claimp)))();
 }
 
@@ -394,7 +394,7 @@
     };
 }
 /// 查询首存活动记录@GET
--(URLManagerModel *_Nullable)get_promotion_event_activity_record{
+-(URLManagerModel *_Nonnull)get_promotion_event_activity_record{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_event_activity_record)))(self, @selector(jobs_get_promotion_event_activity_record)))();
 }
 
@@ -407,7 +407,7 @@
     };
 }
 /// 会员签到@POST
--(URLManagerModel *_Nullable)post_promotion_event_memberSign{
+-(URLManagerModel *_Nonnull)post_promotion_event_memberSign{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_promotion_event_memberSign)))(self, @selector(jobs_post_promotion_event_memberSign)))();
 }
 
@@ -420,7 +420,7 @@
     };
 }
 /// 会员签到活动信息@POST
--(URLManagerModel *_Nullable)post_promotion_event_memberSignEvent{
+-(URLManagerModel *_Nonnull)post_promotion_event_memberSignEvent{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_promotion_event_memberSignEvent)))(self, @selector(jobs_post_promotion_event_memberSignEvent)))();
 }
 
@@ -434,7 +434,7 @@
 }
 #pragma mark —— 福利中心所有接口
 /// 福利领取 ，目前只限2现金券 3存送卷 4流水卷@GET
--(URLManagerModel *_Nullable)get_promotion_welfare_claim{
+-(URLManagerModel *_Nonnull)get_promotion_welfare_claim{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_welfare_claim)))(self, @selector(jobs_get_promotion_welfare_claim)))();
 }
 
@@ -447,7 +447,7 @@
     };
 }
 /// 用户查询福利中心列表@POST
--(URLManagerModel *_Nullable)post_promotion_welfare_list{
+-(URLManagerModel *_Nonnull)post_promotion_welfare_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_promotion_welfare_list)))(self, @selector(jobs_post_promotion_welfare_list)))();
 }
 
@@ -460,7 +460,7 @@
     };
 }
 /// 用户福利中心统计@GET
--(URLManagerModel *_Nullable)get_promotion_welfare_statistic{
+-(URLManagerModel *_Nonnull)get_promotion_welfare_statistic{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_promotion_welfare_statistic)))(self, @selector(jobs_get_promotion_welfare_statistic)))();
 }
 
@@ -473,7 +473,7 @@
     };
 }
 /// vip模块领取福利@POST
--(URLManagerModel *_Nullable)post_promotion_welfare_vip_claim{
+-(URLManagerModel *_Nonnull)post_promotion_welfare_vip_claim{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_promotion_welfare_vip_claim)))(self, @selector(jobs_post_promotion_welfare_vip_claim)))();
 }
 

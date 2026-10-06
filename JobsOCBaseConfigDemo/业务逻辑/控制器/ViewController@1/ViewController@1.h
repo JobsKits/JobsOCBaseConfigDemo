@@ -9,6 +9,10 @@
 #import "Demos.h"
 #import "JobsOCRootFoldTableCell.h"
 
+#if DEBUG
+#import "JobsDebugPanelDemoVC.h"
+#endif
+
 #if __has_include(<JobsSuspend/JobsSuspend.h>)
 #import <JobsSuspend/JobsSuspend.h>
 #else

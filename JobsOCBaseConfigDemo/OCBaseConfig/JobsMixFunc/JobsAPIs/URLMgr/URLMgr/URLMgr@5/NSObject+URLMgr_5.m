@@ -12,7 +12,7 @@
 @implementation NSObject (URLMgr_5)
 #pragma mark —— adjust-order-controller
 /// 资金调整@POST
--(URLManagerModel *_Nullable)post_fund_adjust_adjustOrder{
+-(URLManagerModel *_Nonnull)post_fund_adjust_adjustOrder{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_adjust_adjustOrder)))(self, @selector(jobs_post_fund_adjust_adjustOrder)))();
 }
 
@@ -25,7 +25,7 @@
     };
 }
 /// 资金调整审核@POST
--(URLManagerModel *_Nullable)post_fund_adjust_auditFundAdjust{
+-(URLManagerModel *_Nonnull)post_fund_adjust_auditFundAdjust{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_adjust_auditFundAdjust)))(self, @selector(jobs_post_fund_adjust_auditFundAdjust)))();
 }
 
@@ -38,7 +38,7 @@
     };
 }
 /// 批量资金调整@POST
--(URLManagerModel *_Nullable)post_fund_adjust_batchAdjustOrderList{
+-(URLManagerModel *_Nonnull)post_fund_adjust_batchAdjustOrderList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_adjust_batchAdjustOrderList)))(self, @selector(jobs_post_fund_adjust_batchAdjustOrderList)))();
 }
 
@@ -52,7 +52,7 @@
 }
 #pragma mark —— ai-pay-controller
 /// MantaPayGcash支付订单回调@POST
--(URLManagerModel *_Nullable)post_fund_deposit_aipay_callback{
+-(URLManagerModel *_Nonnull)post_fund_deposit_aipay_callback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_deposit_aipay_callback)))(self, @selector(jobs_post_fund_deposit_aipay_callback)))();
 }
 
@@ -65,7 +65,7 @@
     };
 }
 /// MantaPayGcash提现订单回调@POST
--(URLManagerModel *_Nullable)post_fund_payment_aipay_callback{
+-(URLManagerModel *_Nonnull)post_fund_payment_aipay_callback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_payment_aipay_callback)))(self, @selector(jobs_post_fund_payment_aipay_callback)))();
 }
 
@@ -79,7 +79,7 @@
 }
 #pragma mark —— bbpay-controller
 /// BB支付-充值回调@POST
--(URLManagerModel *_Nullable)post_fund_callback_bbpay_depositCallback{
+-(URLManagerModel *_Nonnull)post_fund_callback_bbpay_depositCallback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_callback_bbpay_depositCallback)))(self, @selector(jobs_post_fund_callback_bbpay_depositCallback)))();
 }
 
@@ -93,7 +93,7 @@
 }
 #pragma mark —— cb-pay-controller
 /// 九五支付订单回调@POST
--(URLManagerModel *_Nullable)post_fund_deposit_jwpay_callback{
+-(URLManagerModel *_Nonnull)post_fund_deposit_jwpay_callback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_deposit_jwpay_callback)))(self, @selector(jobs_post_fund_deposit_jwpay_callback)))();
 }
 
@@ -107,7 +107,7 @@
 }
 #pragma mark —— da-xin-yu-pay-controller
 /// 大信誉支付充值订单回调@POST
--(URLManagerModel *_Nullable)post_fund_callback_daxinyupay_depositCallbac{
+-(URLManagerModel *_Nonnull)post_fund_callback_daxinyupay_depositCallbac{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_callback_daxinyupay_depositCallbac)))(self, @selector(jobs_post_fund_callback_daxinyupay_depositCallbac)))();
 }
 
@@ -121,7 +121,7 @@
 }
 #pragma mark —— gt-pay-ph-controller
 /// GTpayPH支付订单回调@POST
--(URLManagerModel *_Nullable)post_fund_deposit_gtpay_ph_callback{
+-(URLManagerModel *_Nonnull)post_fund_deposit_gtpay_ph_callback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_deposit_gtpay_ph_callback)))(self, @selector(jobs_post_fund_deposit_gtpay_ph_callback)))();
 }
 
@@ -134,7 +134,7 @@
     };
 }
 /// GTpayPH提现订单回调@POST
--(URLManagerModel *_Nullable)post_fund_payment_gtpay_ph_callback{
+-(URLManagerModel *_Nonnull)post_fund_payment_gtpay_ph_callback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_payment_gtpay_ph_callback)))(self, @selector(jobs_post_fund_payment_gtpay_ph_callback)))();
 }
 
@@ -148,7 +148,7 @@
 }
 #pragma mark —— gtpay-controller
 /// GT支付充值订单回调@POST
--(URLManagerModel *_Nullable)post_fund_callback_gtpay_depositCallback{
+-(URLManagerModel *_Nonnull)post_fund_callback_gtpay_depositCallback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_callback_gtpay_depositCallback)))(self, @selector(jobs_post_fund_callback_gtpay_depositCallback)))();
 }
 
@@ -162,7 +162,7 @@
 }
 #pragma mark —— hsct-pay-controller
 /// 合胜财通支付订单回调@POST
--(URLManagerModel *_Nullable)post_fund_callback_hsCtPay_depositCallback{
+-(URLManagerModel *_Nonnull)post_fund_callback_hsCtPay_depositCallback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_callback_hsCtPay_depositCallback)))(self, @selector(jobs_post_fund_callback_hsCtPay_depositCallback)))();
 }
 
@@ -176,7 +176,7 @@
 }
 #pragma mark —— joy-pay-service
 /// depositCallBack@POST
--(URLManagerModel *_Nullable)post_fund_gcash_deposit_joypay_callback{
+-(URLManagerModel *_Nonnull)post_fund_gcash_deposit_joypay_callback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_gcash_deposit_joypay_callback)))(self, @selector(jobs_post_fund_gcash_deposit_joypay_callback)))();
 }
 
@@ -190,7 +190,7 @@
 }
 #pragma mark —— lh-pay-controller
 /// 领航支付订单回调@POST
--(URLManagerModel *_Nullable)post_fund_deposit_lhpay_callback{
+-(URLManagerModel *_Nonnull)post_fund_deposit_lhpay_callback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_deposit_lhpay_callback)))(self, @selector(jobs_post_fund_deposit_lhpay_callback)))();
 }
 
@@ -204,7 +204,7 @@
 }
 #pragma mark —— lubupay-controller
 /// 吕布支付充值订单回调@POST
--(URLManagerModel *_Nullable)post_fund_callback_lubupay_depositCallback{
+-(URLManagerModel *_Nonnull)post_fund_callback_lubupay_depositCallback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_callback_lubupay_depositCallback)))(self, @selector(jobs_post_fund_callback_lubupay_depositCallback)))();
 }
 
@@ -218,7 +218,7 @@
 }
 #pragma mark —— manta-pay-controller
 /// MantaPayGcash支付订单回调@GET
--(URLManagerModel *_Nullable)get_fund_deposit_mantapay_gcash_callback{
+-(URLManagerModel *_Nonnull)get_fund_deposit_mantapay_gcash_callback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_fund_deposit_mantapay_gcash_callback)))(self, @selector(jobs_get_fund_deposit_mantapay_gcash_callback)))();
 }
 
@@ -231,7 +231,7 @@
     };
 }
 /// MantaPayMaya支付订单回调@POST
--(URLManagerModel *_Nullable)post_fund_deposit_mantapay_maya_callback{
+-(URLManagerModel *_Nonnull)post_fund_deposit_mantapay_maya_callback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_deposit_mantapay_maya_callback)))(self, @selector(jobs_post_fund_deposit_mantapay_maya_callback)))();
 }
 
@@ -244,7 +244,7 @@
     };
 }
 /// MantaPayGcash提现订单回调@GET
--(URLManagerModel *_Nullable)get_fund_payment_mantapay_gcash_callback{
+-(URLManagerModel *_Nonnull)get_fund_payment_mantapay_gcash_callback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_fund_payment_mantapay_gcash_callback)))(self, @selector(jobs_get_fund_payment_mantapay_gcash_callback)))();
 }
 
@@ -257,7 +257,7 @@
     };
 }
 /// MantaPayMaya提现订单回调@POST
--(URLManagerModel *_Nullable)post_fund_payment_mantapay_maya_callback{
+-(URLManagerModel *_Nonnull)post_fund_payment_mantapay_maya_callback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_payment_mantapay_maya_callback)))(self, @selector(jobs_post_fund_payment_mantapay_maya_callback)))();
 }
 
@@ -271,7 +271,7 @@
 }
 #pragma mark —— ptsg-cash-service
 /// depositCallBack@POST
--(URLManagerModel *_Nullable)post_fund_gcash_deposit_pts_callback{
+-(URLManagerModel *_Nonnull)post_fund_gcash_deposit_pts_callback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_gcash_deposit_pts_callback)))(self, @selector(jobs_post_fund_gcash_deposit_pts_callback)))();
 }
 
@@ -284,7 +284,7 @@
     };
 }
 /// paymentCallBack@POST
--(URLManagerModel *_Nullable)post_fund_gcash_payment_pts_callback{
+-(URLManagerModel *_Nonnull)post_fund_gcash_payment_pts_callback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_gcash_payment_pts_callback)))(self, @selector(jobs_post_fund_gcash_payment_pts_callback)))();
 }
 
@@ -297,7 +297,7 @@
     };
 }
 /// withdrawConfirmation@POST
--(URLManagerModel *_Nullable)post_fund_gcash_pts_withdraw_confirmation{
+-(URLManagerModel *_Nonnull)post_fund_gcash_pts_withdraw_confirmation{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_gcash_pts_withdraw_confirmation)))(self, @selector(jobs_post_fund_gcash_pts_withdraw_confirmation)))();
 }
 
@@ -311,7 +311,7 @@
 }
 #pragma mark —— ttpay-controller
 /// TT支付充值订单回调@POST
--(URLManagerModel *_Nullable)post_fund_callback_ttpay_depositCallbackn{
+-(URLManagerModel *_Nonnull)post_fund_callback_ttpay_depositCallbackn{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_callback_ttpay_depositCallbackn)))(self, @selector(jobs_post_fund_callback_ttpay_depositCallbackn)))();
 }
 
@@ -325,7 +325,7 @@
 }
 #pragma mark —— wuyoupay-controller
 /// TT支付充值订单回调@POST
--(URLManagerModel *_Nullable)post_fund_callback_ttpay_depositCallback{
+-(URLManagerModel *_Nonnull)post_fund_callback_ttpay_depositCallback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_callback_ttpay_depositCallback)))(self, @selector(jobs_post_fund_callback_ttpay_depositCallback)))();
 }
 
@@ -339,7 +339,7 @@
 }
 #pragma mark —— wy-pay-controller
 /// WYPay支付订单回调@POST
--(URLManagerModel *_Nullable)post_fund_deposit_wypay_callback{
+-(URLManagerModel *_Nonnull)post_fund_deposit_wypay_callback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_deposit_wypay_callback)))(self, @selector(jobs_post_fund_deposit_wypay_callback)))();
 }
 
@@ -353,7 +353,7 @@
 }
 #pragma mark —— xh-pay-controller
 /// 幸汇支付订单回调@POST
--(URLManagerModel *_Nullable)post_fund_deposit_xhPay_callback{
+-(URLManagerModel *_Nonnull)post_fund_deposit_xhPay_callback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_deposit_xhPay_callback)))(self, @selector(jobs_post_fund_deposit_xhPay_callback)))();
 }
 
@@ -367,7 +367,7 @@
 }
 #pragma mark —— yf-pay-controller
 /// 远方支付订单回调@POST
--(URLManagerModel *_Nullable)post_fund_deposit_yfpay_callback{
+-(URLManagerModel *_Nonnull)post_fund_deposit_yfpay_callback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_deposit_yfpay_callback)))(self, @selector(jobs_post_fund_deposit_yfpay_callback)))();
 }
 
@@ -381,7 +381,7 @@
 }
 #pragma mark —— yh-pay-controller
 /// 123pay支付订单回调@POST
--(URLManagerModel *_Nullable)post_fund_deposit_yhpay_callback{
+-(URLManagerModel *_Nonnull)post_fund_deposit_yhpay_callback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_deposit_yhpay_callback)))(self, @selector(jobs_post_fund_deposit_yhpay_callback)))();
 }
 
@@ -394,7 +394,7 @@
     };
 }
 /// 123pay提现订单回调@POST
--(URLManagerModel *_Nullable)post_fund_payment_yhpay_callback{
+-(URLManagerModel *_Nonnull)post_fund_payment_yhpay_callback{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_payment_yhpay_callback)))(self, @selector(jobs_post_fund_payment_yhpay_callback)))();
 }
 
@@ -408,7 +408,7 @@
 }
 #pragma mark —— 资金明细接口
 /// 查询会员资金明细@POST
--(URLManagerModel *_Nullable)post_fund_report_trade_page{
+-(URLManagerModel *_Nonnull)post_fund_report_trade_page{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_report_trade_page)))(self, @selector(jobs_post_fund_report_trade_page)))();
 }
 
@@ -429,7 +429,7 @@
     };
 }
 /// 会员电子钱包出款下单@POST
--(URLManagerModel *_Nullable)post_fund_eWallet_payment_fiat{
+-(URLManagerModel *_Nonnull)post_fund_eWallet_payment_fiat{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_eWallet_payment_fiat)))(self, @selector(jobs_post_fund_eWallet_payment_fiat)))();
 }
 
@@ -442,7 +442,7 @@
     };
 }
 /// 代理法币出款下单@POST
--(URLManagerModel *_Nullable)post_fund_merchantBiz_agentPayment_fiat{
+-(URLManagerModel *_Nonnull)post_fund_merchantBiz_agentPayment_fiat{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_merchantBiz_agentPayment_fiat)))(self, @selector(jobs_post_fund_merchantBiz_agentPayment_fiat)))();
 }
 
@@ -455,7 +455,7 @@
     };
 }
 /// 代理USDT出款下单@POST
--(URLManagerModel *_Nullable)post_fund_merchantBiz_agentPayment_usdt{
+-(URLManagerModel *_Nonnull)post_fund_merchantBiz_agentPayment_usdt{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_merchantBiz_agentPayment_usdt)))(self, @selector(jobs_post_fund_merchantBiz_agentPayment_usdt)))();
 }
 
@@ -482,7 +482,7 @@
     };
 }
 /// 会员法币充值创建订单@POST`
--(URLManagerModel *_Nullable)post_fund_merchantBiz_deposit_fiat{
+-(URLManagerModel *_Nonnull)post_fund_merchantBiz_deposit_fiat{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_merchantBiz_deposit_fiat)))(self, @selector(jobs_post_fund_merchantBiz_deposit_fiat)))();
 }
 
@@ -495,7 +495,7 @@
     };
 }
 /// 会员USDT充值创建订单@POST
--(URLManagerModel *_Nullable)post_fund_merchantBiz_deposit_usdt{
+-(URLManagerModel *_Nonnull)post_fund_merchantBiz_deposit_usdt{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_merchantBiz_deposit_usdt)))(self, @selector(jobs_post_fund_merchantBiz_deposit_usdt)))();
 }
 
@@ -508,7 +508,7 @@
     };
 }
 /// 会员法币出款下单@POST
--(URLManagerModel *_Nullable)post_fund_merchantBiz_payment_fiat{
+-(URLManagerModel *_Nonnull)post_fund_merchantBiz_payment_fiat{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_merchantBiz_payment_fiat)))(self, @selector(jobs_post_fund_merchantBiz_payment_fiat)))();
 }
 
@@ -521,7 +521,7 @@
     };
 }
 /// 会员USDT出款下单@POST
--(URLManagerModel *_Nullable)post_fund_merchantBiz_payment_usdt{
+-(URLManagerModel *_Nonnull)post_fund_merchantBiz_payment_usdt{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_merchantBiz_payment_usdt)))(self, @selector(jobs_post_fund_merchantBiz_payment_usdt)))();
 }
 
@@ -535,7 +535,7 @@
 }
 #pragma mark —— 资金模块-提现接口
 /// 提现拆单的子单进行状态确认-确认收款@POST
--(URLManagerModel *_Nullable)post_fund_withdraw_confirmOrder{
+-(URLManagerModel *_Nonnull)post_fund_withdraw_confirmOrder{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_withdraw_confirmOrder)))(self, @selector(jobs_post_fund_withdraw_confirmOrder)))();
 }
 
@@ -548,7 +548,7 @@
     };
 }
 /// eWallet提现下单@POST
--(URLManagerModel *_Nullable)post_fund_withdraw_eWallet_order{
+-(URLManagerModel *_Nonnull)post_fund_withdraw_eWallet_order{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_withdraw_eWallet_order)))(self, @selector(jobs_post_fund_withdraw_eWallet_order)))();
 }
 
@@ -561,7 +561,7 @@
     };
 }
 /// EB币提现下单@POST
--(URLManagerModel *_Nullable)post_fund_withdraw_ebpay_order{
+-(URLManagerModel *_Nonnull)post_fund_withdraw_ebpay_order{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_withdraw_ebpay_order)))(self, @selector(jobs_post_fund_withdraw_ebpay_order)))();
 }
 
@@ -581,7 +581,7 @@
     };
 }
 /// 查询正在进行中的提现订单的收银台详情@POST
--(URLManagerModel *_Nullable)post_fund_withdraw_getOrder{
+-(URLManagerModel *_Nonnull)post_fund_withdraw_getOrder{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_withdraw_getOrder)))(self, @selector(jobs_post_fund_withdraw_getOrder)))();
 }
 
@@ -594,7 +594,7 @@
     };
 }
 /// 法币提现下单@POST
--(URLManagerModel *_Nullable)post_fund_withdraw_order{
+-(URLManagerModel *_Nonnull)post_fund_withdraw_order{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_withdraw_order)))(self, @selector(jobs_post_fund_withdraw_order)))();
 }
 
@@ -607,7 +607,7 @@
     };
 }
 /// 虚拟币提现下单@POST
--(URLManagerModel *_Nullable)post_fund_withdraw_usdtOrder{
+-(URLManagerModel *_Nonnull)post_fund_withdraw_usdtOrder{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_withdraw_usdtOrder)))(self, @selector(jobs_post_fund_withdraw_usdtOrder)))();
 }
 
@@ -627,7 +627,7 @@
 }
 #pragma mark —— 资金管理-充值接口
 /// 代理充值@POST
--(URLManagerModel *_Nullable)post_fund_deposit_agentDepositRecor{
+-(URLManagerModel *_Nonnull)post_fund_deposit_agentDepositRecor{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_deposit_agentDepositRecor)))(self, @selector(jobs_post_fund_deposit_agentDepositRecor)))();
 }
 
@@ -640,7 +640,7 @@
     };
 }
 /// C2C银行转账充值@POST
--(URLManagerModel *_Nullable)post_fund_deposit_c2cOrder{
+-(URLManagerModel *_Nonnull)post_fund_deposit_c2cOrder{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_deposit_c2cOrder)))(self, @selector(jobs_post_fund_deposit_c2cOrder)))();
 }
 
@@ -653,7 +653,7 @@
     };
 }
 /// 用户撤销充值订单@PUT
--(URLManagerModel *_Nullable)put_fund_deposit_cancel_order{
+-(URLManagerModel *_Nonnull)put_fund_deposit_cancel_order{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_fund_deposit_cancel_order)))(self, @selector(jobs_put_fund_deposit_cancel_order)))();
 }
 
@@ -666,7 +666,7 @@
     };
 }
 /// 查询用户充值加送剩余额度@GET
--(URLManagerModel *_Nullable)get_fund_deposit_getChanelDeposit_Limit{
+-(URLManagerModel *_Nonnull)get_fund_deposit_getChanelDeposit_Limit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_fund_deposit_getChanelDeposit_Limit)))(self, @selector(jobs_get_fund_deposit_getChanelDeposit_Limit)))();
 }
 
@@ -679,7 +679,7 @@
     };
 }
 /// 查询用户充值加送剩余额度@GET
--(URLManagerModel *_Nullable)get_fund_deposit_getDeposit_gift{
+-(URLManagerModel *_Nonnull)get_fund_deposit_getDeposit_gift{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_fund_deposit_getDeposit_gift)))(self, @selector(jobs_get_fund_deposit_getDeposit_gift)))();
 }
 
@@ -699,7 +699,7 @@
     };
 }
 /// 查询用户充值当日已加送额度@POST
--(URLManagerModel *_Nullable)post_fund_deposit_getChannelDepositGift{
+-(URLManagerModel *_Nonnull)post_fund_deposit_getChannelDepositGift{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_deposit_getChannelDepositGift)))(self, @selector(jobs_post_fund_deposit_getChannelDepositGift)))();
 }
 
@@ -713,7 +713,7 @@
     };
 }
 /// 获取系统当前时间@POST
--(URLManagerModel *_Nullable)post_fund_deposit_getCurrentDate{
+-(URLManagerModel *_Nonnull)post_fund_deposit_getCurrentDate{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_deposit_getCurrentDate)))(self, @selector(jobs_post_fund_deposit_getCurrentDate)))();
 }
 
@@ -727,7 +727,7 @@
     };
 }
 /// 查询正在进行中的充值订单的收银台详情@POST
--(URLManagerModel *_Nullable)post_fund_deposit_getOrder{
+-(URLManagerModel *_Nonnull)post_fund_deposit_getOrder{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_deposit_getOrder)))(self, @selector(jobs_post_fund_deposit_getOrder)))();
 }
 
@@ -741,7 +741,7 @@
     };
 }
 /// 普通充值@POST
--(URLManagerModel *_Nullable)post_fund_deposit_order{
+-(URLManagerModel *_Nonnull)post_fund_deposit_order{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_deposit_order)))(self, @selector(jobs_post_fund_deposit_order)))();
 }
 
@@ -755,7 +755,7 @@
     };
 }
 /// 上传支付凭证@POST
--(URLManagerModel *_Nullable)post_fund_deposit_upload{
+-(URLManagerModel *_Nonnull)post_fund_deposit_upload{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_deposit_upload)))(self, @selector(jobs_post_fund_deposit_upload)))();
 }
 
@@ -769,7 +769,7 @@
     };
 }
 /// USDT充值@POST
--(URLManagerModel *_Nullable)post_fund_deposit_usdtOrder{
+-(URLManagerModel *_Nonnull)post_fund_deposit_usdtOrder{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fund_deposit_usdtOrder)))(self, @selector(jobs_post_fund_deposit_usdtOrder)))();
 }
 
@@ -784,7 +784,7 @@
 }
 #pragma mark —— 资金管理-充值通道列表接口
 /// 查询代理可用的充值通道@GET
--(URLManagerModel *_Nullable)get_fund_dpChannel_agentDepositChannelList{
+-(URLManagerModel *_Nonnull)get_fund_dpChannel_agentDepositChannelList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_fund_dpChannel_agentDepositChannelList)))(self, @selector(jobs_get_fund_dpChannel_agentDepositChannelList)))();
 }
 
@@ -805,7 +805,7 @@
     };
 }
 /// 拉取会员可用的充值通道列表@GET
--(URLManagerModel *_Nullable)get_fund_dpChannel_list{
+-(URLManagerModel *_Nonnull)get_fund_dpChannel_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_fund_dpChannel_list)))(self, @selector(jobs_get_fund_dpChannel_list)))();
 }
 
@@ -820,7 +820,7 @@
 }
 #pragma mark —— 资金管理-提现类型列表接口
 /// 拉取提现页面提示文案@GET
--(URLManagerModel *_Nullable)get_fund_wdChannel_content{
+-(URLManagerModel *_Nonnull)get_fund_wdChannel_content{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_fund_wdChannel_content)))(self, @selector(jobs_get_fund_wdChannel_content)))();
 }
 
@@ -834,7 +834,7 @@
     };
 }
 /// 拉取大额提现规则信息@GET
--(URLManagerModel *_Nullable)get_fund_wdChannel_largeWithdrawLimit{
+-(URLManagerModel *_Nonnull)get_fund_wdChannel_largeWithdrawLimit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_fund_wdChannel_largeWithdrawLimit)))(self, @selector(jobs_get_fund_wdChannel_largeWithdrawLimit)))();
 }
 
@@ -848,7 +848,7 @@
     };
 }
 /// 拉取会员可用的提现通道列表@GET
--(URLManagerModel *_Nullable)get_fund_wdChannel_list{
+-(URLManagerModel *_Nonnull)get_fund_wdChannel_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_fund_wdChannel_list)))(self, @selector(jobs_get_fund_wdChannel_list)))();
 }
 
@@ -863,7 +863,7 @@
 }
 #pragma mark —— 资金管理-银行管理接口
 /// 查询平台所支持的银行@GET
--(URLManagerModel *_Nullable)get_fund_bank_list_support{
+-(URLManagerModel *_Nonnull)get_fund_bank_list_support{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_fund_bank_list_support)))(self, @selector(jobs_get_fund_bank_list_support)))();
 }
 
@@ -877,7 +877,7 @@
     };
 }
 /// 查询平台可用的银行列表（C2C提现）@GET
--(URLManagerModel *_Nullable)get_fund_bank_list_c2c{
+-(URLManagerModel *_Nonnull)get_fund_bank_list_c2c{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_fund_bank_list_c2c)))(self, @selector(jobs_get_fund_bank_list_c2c)))();
 }
 

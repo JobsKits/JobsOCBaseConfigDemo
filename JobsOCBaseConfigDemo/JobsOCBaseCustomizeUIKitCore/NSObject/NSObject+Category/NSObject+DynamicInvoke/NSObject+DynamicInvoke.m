@@ -11,145 +11,325 @@
 #import "NSObject+Algorithm.h"
 #import "NSString+Extra.h"
 
+static const char *JobsInvocationType(const char *type) {
+    while (type && *type && strchr("rnNoORV", *type)) {
+        type++;
+    }
+    return type ?: "";
+}
+
+static BOOL JobsInvocationFailure(NSError **error, NSString *message) {
+    if (error) {
+        *error = [NSError errorWithDomain:@"JobsDynamicInvoke" code:1 userInfo:@{NSLocalizedDescriptionKey: message}];
+    }
+    return NO;
+}
+
+static BOOL JobsInvocationSupported(const char *type) {
+    type = JobsInvocationType(type);
+    return *type && (strchr("v@#:cCsSiIlLqQfdB", *type) || *type == '{');
+}
+
+static BOOL JobsInvocationSetArgument(NSInvocation *invocation, NSUInteger index, id value, NSError **error) {
+    const char *type = JobsInvocationType([invocation.methodSignature getArgumentTypeAtIndex:index]);
+    if (*type == '@') {
+        if (type[1] == '?') {
+            return JobsInvocationFailure(error, @"Block arguments require a typed API");
+        }
+        __unsafe_unretained id object = value == NSNull.null ? nil : value;
+        [invocation setArgument:&object atIndex:index];
+        return YES;
+    }
+    if (*type == '#') {
+        if (value != NSNull.null && !object_isClass(value)) {
+            return JobsInvocationFailure(error, @"Expected Class argument");
+        }
+        Class cls = value == NSNull.null ? Nil : value;
+        [invocation setArgument:&cls atIndex:index];
+        return YES;
+    }
+    if (*type == ':') {
+        if (![value isKindOfClass:NSString.class] || ![value length]) {
+            return JobsInvocationFailure(error, @"Expected selector name");
+        }
+        SEL selector = NSSelectorFromString(value);
+        [invocation setArgument:&selector atIndex:index];
+        return YES;
+    }
+    if (*type == '{') {
+        if (![value isKindOfClass:NSValue.class] || strcmp([value objCType], type)) {
+            return JobsInvocationFailure(error, @"Expected NSValue with matching structure encoding");
+        }
+        NSUInteger size = 0;
+        NSGetSizeAndAlignment(type, &size, NULL);
+        NSMutableData *storage = [NSMutableData dataWithLength:size];
+        [value getValue:storage.mutableBytes size:size];
+        [invocation setArgument:storage.mutableBytes atIndex:index];
+        return YES;
+    }
+    if (![value isKindOfClass:NSNumber.class]) {
+        return JobsInvocationFailure(error, @"Expected NSNumber for scalar argument");
+    }
+    switch (*type) {
+        /// 有符号 8 位整数
+        case 'c': {
+            char data = [value charValue];
+            [invocation setArgument:&data atIndex:index];
+            break;
+        }
+        /// 无符号 8 位整数
+        case 'C': {
+            unsigned char data = [value unsignedCharValue];
+            [invocation setArgument:&data atIndex:index];
+            break;
+        }
+        /// 有符号 short
+        case 's': {
+            short data = [value shortValue];
+            [invocation setArgument:&data atIndex:index];
+            break;
+        }
+        /// 无符号 short
+        case 'S': {
+            unsigned short data = [value unsignedShortValue];
+            [invocation setArgument:&data atIndex:index];
+            break;
+        }
+        /// 有符号 int
+        case 'i': {
+            int data = [value intValue];
+            [invocation setArgument:&data atIndex:index];
+            break;
+        }
+        /// 无符号 int
+        case 'I': {
+            unsigned int data = [value unsignedIntValue];
+            [invocation setArgument:&data atIndex:index];
+            break;
+        }
+        /// 有符号 long
+        case 'l': {
+            long data = [value longValue];
+            [invocation setArgument:&data atIndex:index];
+            break;
+        }
+        /// 无符号 long
+        case 'L': {
+            unsigned long data = [value unsignedLongValue];
+            [invocation setArgument:&data atIndex:index];
+            break;
+        }
+        /// 有符号 64 位整数
+        case 'q': {
+            long long data = [value longLongValue];
+            [invocation setArgument:&data atIndex:index];
+            break;
+        }
+        /// 无符号 64 位整数
+        case 'Q': {
+            unsigned long long data = [value unsignedLongLongValue];
+            [invocation setArgument:&data atIndex:index];
+            break;
+        }
+        /// 单精度浮点
+        case 'f': {
+            float data = [value floatValue];
+            [invocation setArgument:&data atIndex:index];
+            break;
+        }
+        /// 双精度浮点
+        case 'd': {
+            double data = [value doubleValue];
+            [invocation setArgument:&data atIndex:index];
+            break;
+        }
+        /// C / Objective-C 布尔值
+        case 'B': {
+            BOOL data = [value boolValue];
+            [invocation setArgument:&data atIndex:index];
+            break;
+        }
+        /// 未支持的 ABI 不能按 id 猜测
+        default: {
+            return JobsInvocationFailure(error, @"Unsupported argument encoding");
+        }
+    }
+    return YES;
+}
+
+static const char JobsInvocationOnceKey = 0;
+
 @implementation NSObject (DynamicInvoke)
 #pragma mark —— 参数 和 相关调用
 /// 如果某个实例对象存在某个【不带参数的方法】，则对其调用执行
 /// @param targetObj 靶点，方法在哪里
 /// @param methodName 不带参数的方法名
 +(void)targetObj:(NSObject *_Nonnull)targetObj
-callingMethodWithName:(NSString *_Nullable)methodName{
-    if ([NSObject judgementObj:targetObj existMethodWithName:methodName]) {
-        SuppressWarcPerformSelectorLeaksWarning([targetObj performSelector:NSSelectorFromString(methodName)]);
-    }else{
-        JobsLog(@"目标类：%@,不存在此方法：%@,请检查",targetObj.class,methodName);
-    }
+callingMethodWithName:(NSString *_Nullable)methodName {
+    [NSObject methodName:methodName targetObj:targetObj paramarrays:nil error:nil];
 }
-/// 如果某个实例对象存在某个【不带参数的方法】，则对其调用执行
--(jobsByStrBlock _Nonnull)callingMethodWithName{
+
+-(jobsByStrBlock _Nonnull)callingMethodWithName {
     @jobs_weakify(self)
-    return ^(NSString *_Nullable data){
+    return ^(NSString * _Nullable name) {
         @jobs_strongify(self)
-        if ([NSObject judgementObj:self existMethodWithName:data]) {
-            SuppressWarcPerformSelectorLeaksWarning([self performSelector:NSSelectorFromString(data)]);
-        }else{
-            JobsLog(@"目标类：%@,不存在此方法：%@,请检查",self.class,data);
+        if (!self) {
+            return;
         }
+        [NSObject methodName:name targetObj:self paramarrays:nil error:nil];
     };
 }
-/// 使用 dispatch_once 来执行只需运行一次的线程安全代码
--(jobsByStrBlock _Nonnull)dispatchOnceInvokingWithMethodName{
+
+/// 同一实例、同一 selector 成功执行一次；无效调用不消耗执行机会。
+-(jobsByStrBlock _Nonnull)dispatchOnceInvokingWithMethodName {
     @jobs_weakify(self)
-    return ^(NSString *_Nullable data){
-        static dispatch_once_t NSObjectDispatchOnce;
-        dispatch_once(&NSObjectDispatchOnce, ^{
-            @jobs_strongify(self)
-            self.callingMethodWithName(data);/// 需要执行的方法的方法名（不带参数）
-        });
+    return ^(NSString * _Nullable name) {
+        @jobs_strongify(self)
+        if (!self || ![name isKindOfClass:NSString.class] || !name.length) {
+            return;
+        }
+        @synchronized (self) {
+            NSMutableSet *completed = objc_getAssociatedObject(self, &JobsInvocationOnceKey);
+            if (!completed) {
+                completed = [NSMutableSet set];
+                objc_setAssociatedObject(self, &JobsInvocationOnceKey, completed, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            }
+            if ([completed containsObject:name]) {
+                return;
+            }
+            [completed addObject:name];
+            NSError *error = nil;
+            [NSObject methodName:name targetObj:self paramarrays:nil error:&error];
+            if (error) {
+                [completed removeObject:name];
+            }
+        }
     };
 }
 /// NSInvocation的使用，方法多参数传递
 /// @param methodName 方法名
 /// @param targetObj 靶点，方法在哪里
 /// @param paramarrays 参数数组
-+(id)methodName:(NSString *_Nonnull)methodName
-      targetObj:(id _Nonnull)targetObj
-    paramarrays:(NSArray *_Nullable)paramarrays{
-    SEL selector = NSSelectorFromString(methodName);
-    /*
-     NSMethodSignature有两个常用的只读属性
-     a. numberOfArguments:方法参数的个数
-     b. methodReturnLength:方法返回值类型的长度，大于0表示有返回值
-     **/
-    NSMethodSignature *signature = [targetObj methodSignatureForSelector:selector];
-    //或使用下面这种方式
-    //NSMethodSignature *signature = [[target class] instanceMethodSignatureForSelector:selector];
-    if (!signature) {
-        // 处理方式一：
-        {
-            self.jobsToastErrMsg(@"方法不存在,请检查参数".jobsTr());
++(id)methodName:(NSString *)methodName targetObj:(id)targetObj paramarrays:(NSArray *)arguments {
+    return [self methodName:methodName targetObj:targetObj paramarrays:arguments error:nil];
+}
+
++(id)methodName:(NSString *)name targetObj:(id)target paramarrays:(NSArray *)arguments error:(NSError **)error {
+    if (error) {
+        *error = nil;
+    }
+    if (!target || ![name isKindOfClass:NSString.class] || !name.length) {
+        JobsInvocationFailure(error, @"Missing target or selector");
+        return nil;
+    }
+    for (NSString *family in @[@"alloc", @"new", @"copy", @"mutableCopy", @"init"]) {
+        if ([name hasPrefix:family] && (name.length == family.length ||
+            ![[NSCharacterSet lowercaseLetterCharacterSet] characterIsMember:[name characterAtIndex:family.length]])) {
+            JobsInvocationFailure(error, @"Ownership method families require a typed API");
             return nil;
         }
-        // 处理方式二：【经常崩溃损伤硬件】
-//        {
-//            //传入的方法不存在 就抛异常
-//            NSString *info = toStringByID(self.class)
-//                                .add(@":")
-//                                .add(toStringByID(NSStringFromSelector(selector)))
-//                                .add(@"unrecognized selector sent to instance".jobsTr());
-//            @throw [NSException.alloc initWithName:@"方法不存在".jobsTr()
-//                                              reason:info
-//                                            userInfo:nil];
-//        }
     }
-    /// 只能使用该方法来创建，不能使用alloc init
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
-    invocation.byTarget(targetObj);
-    invocation.bySelector(selector);
-    /// 【防崩溃】如果传的不是数组，则封装成数组进行处理
-    if (![paramarrays isKindOfClass:NSArray.class] && paramarrays) {
-        paramarrays = @[paramarrays];
+    SEL selector = NSSelectorFromString(name);
+    NSMethodSignature *signature = [target methodSignatureForSelector:selector];
+    NSArray *values = !arguments ? @[] : ([arguments isKindOfClass:NSArray.class] ? arguments : @[arguments]);
+    if (!signature || signature.numberOfArguments != values.count + 2 || !JobsInvocationSupported(signature.methodReturnType)) {
+        JobsInvocationFailure(error, @"Missing method, incorrect argument count, or unsupported return encoding");
+        return nil;
     }
-    /*
-     注意:
-     1、下标从2开始，因为0、1已经被target与selector占用
-     2、设置参数，必须传递参数的地址，不能直接传值
-     **/
-    for (int i = 2; i < paramarrays.count + 2; i++) {
-        JobsLog(@"i = %d",i);
-        id d = paramarrays[i - 2];
-        [invocation setArgument:&d atIndex:i];
+    @try {
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+        [invocation setTarget:target];
+        [invocation setSelector:selector];
+        for (NSUInteger index = 0; index < values.count; index++) {
+            if (!JobsInvocationSetArgument(invocation, index + 2, values[index], error)) {
+                return nil;
+            }
+        }
+        [invocation retainArguments];
+        [invocation invoke];
+        return [self getMethodReturnValueWithInv:invocation sig:signature];
+    } @catch (NSException *exception) {
+        JobsInvocationFailure(error, exception.reason ?: @"Invocation failed");
+        return nil;
     }
-    // 执行方法
-    [invocation invoke];
-    return [self getMethodReturnValueWithInv:invocation sig:signature];
 }
+
 /// 获取方法返回值
 /// @param inv inv
 /// @param sig 方法签名
-+(id)getMethodReturnValueWithInv:(NSInvocation *)inv sig:(NSMethodSignature *)sig{
-    const char *returnType = sig.methodReturnType;
-    __autoreleasing id returnValue = nil;
-    if(strcmp(returnType, @encode(void)) == 0){
-        returnValue = nil;
-    }else if (strcmp(returnType, @encode(id)) == 0){
-        [inv getReturnValue:&returnValue];
-    }else{
-        NSUInteger length = sig.methodReturnLength;
-        void *buffer = (void *)malloc(length);
-        [inv getReturnValue:buffer];
-        if( !strcmp(returnType, @encode(BOOL)) ) {
-            returnValue = [NSNumber numberWithBool:*((BOOL*)buffer)];
-        }else if( !strcmp(returnType, @encode(NSInteger)) ){
-            returnValue = [NSNumber numberWithInteger:*((NSInteger*)buffer)];
-        }else if( !strcmp(returnType, @encode(char)) ){
-            returnValue = [NSNumber numberWithChar:*((char*)buffer)];
-        }else if( !strcmp(returnType, @encode(unsigned char)) ){
-            returnValue = [NSNumber numberWithUnsignedChar:*((unsigned char*)buffer)];
-        }else if( !strcmp(returnType, @encode(short)) ){
-            returnValue = [NSNumber numberWithShort:*((short*)buffer)];
-        }else if( !strcmp(returnType, @encode(unsigned short)) ){
-            returnValue = [NSNumber numberWithUnsignedShort:*((unsigned short*)buffer)];
-        }else if( !strcmp(returnType, @encode(int)) ){
-            returnValue = [NSNumber numberWithInt:*((int*)buffer)];
-        }else if( !strcmp(returnType, @encode(unsigned int)) ){
-            returnValue = [NSNumber numberWithUnsignedInt:*((unsigned int*)buffer)];
-        }else if( !strcmp(returnType, @encode(long)) ){
-            returnValue = [NSNumber numberWithLong:*((long*)buffer)];
-        }else if( !strcmp(returnType, @encode(unsigned long)) ){
-            returnValue = [NSNumber numberWithUnsignedLong:*((unsigned long*)buffer)];
-        }else if( !strcmp(returnType, @encode(long long)) ){
-            returnValue = [NSNumber numberWithLongLong:*((long long*)buffer)];
-        }else if( !strcmp(returnType, @encode(unsigned long long)) ){
-            returnValue = [NSNumber numberWithUnsignedLongLong:*((unsigned long long*)buffer)];
-        }else if( !strcmp(returnType, @encode(float)) ){
-            returnValue = [NSNumber numberWithFloat:*((float*)buffer)];
-        }else if( !strcmp(returnType, @encode(double)) ){
-            returnValue = [NSNumber numberWithDouble:*((double*)buffer)];
-        }else if( !strcmp(returnType, @encode(NSUInteger)) ){
-            returnValue = [NSNumber numberWithUnsignedInteger:*((NSUInteger*)buffer)];
-        }else returnValue = [NSValue valueWithBytes:buffer objCType:returnType];
-    };return returnValue;
++(id)getMethodReturnValueWithInv:(NSInvocation *)inv sig:(NSMethodSignature *)sig {
+    const char *type = JobsInvocationType(sig.methodReturnType);
+    if (!sig.methodReturnLength || *type == 'v' || !JobsInvocationSupported(type)) {
+        return nil;
+    }
+    if (*type == '@' || *type == '#') {
+        __unsafe_unretained id object = nil;
+        [inv getReturnValue:&object];
+        return object;
+    }
+    NSMutableData *storage = [NSMutableData dataWithLength:sig.methodReturnLength];
+    void *buffer = storage.mutableBytes;
+    [inv getReturnValue:buffer];
+    switch (*type) {
+        /// 有符号 8 位整数
+        case 'c': {
+            return @(*(char *)buffer);
+        }
+        /// 无符号 8 位整数
+        case 'C': {
+            return @(*(unsigned char *)buffer);
+        }
+        /// 有符号 short
+        case 's': {
+            return @(*(short *)buffer);
+        }
+        /// 无符号 short
+        case 'S': {
+            return @(*(unsigned short *)buffer);
+        }
+        /// 有符号 int
+        case 'i': {
+            return @(*(int *)buffer);
+        }
+        /// 无符号 int
+        case 'I': {
+            return @(*(unsigned int *)buffer);
+        }
+        /// 有符号 long
+        case 'l': {
+            return @(*(long *)buffer);
+        }
+        /// 无符号 long
+        case 'L': {
+            return @(*(unsigned long *)buffer);
+        }
+        /// 有符号 64 位整数
+        case 'q': {
+            return @(*(long long *)buffer);
+        }
+        /// 无符号 64 位整数
+        case 'Q': {
+            return @(*(unsigned long long *)buffer);
+        }
+        /// 单精度浮点
+        case 'f': {
+            return @(*(float *)buffer);
+        }
+        /// 双精度浮点
+        case 'd': {
+            return @(*(double *)buffer);
+        }
+        /// C / Objective-C 布尔值
+        case 'B': {
+            return @(*(BOOL *)buffer);
+        }
+        /// 结构体 / selector 保留其真实编码
+        default: {
+            return [NSValue valueWithBytes:buffer objCType:type];
+        }
+    }
 }
+
 /// 判断本程序是否存在某个类
 +(JobsRetBOOLByStrBlock _Nonnull)judgementAppExistClassWithName{
     return ^BOOL(NSString *_Nullable data){
@@ -171,7 +351,9 @@ existMethodWithName:(NSString *_Nullable)methodName{
     @jobs_weakify(self)
     return ^SEL _Nullable(JobsRetIDByTwoIDBlock _Nullable selectorBlock){
         @jobs_strongify(self)
-        if (!self) return (SEL _Nullable){0};
+        if (!self) {
+            return NULL;
+        }
         return selectorBlocks(selectorBlock, nil, self);
     };
 }
@@ -284,33 +466,25 @@ JobsKey(_methodCache)
 /// 是否存在这样的属性，有则返回
 -(JobsRetIDByStrBlock _Nonnull)property {
     @jobs_weakify(self)
-    return ^id _Nullable(NSString *_Nullable data) {
+    return ^id(NSString *name) {
         @jobs_strongify(self)
-        SEL selector = NSSelectorFromString(data);
-        // 检查是否响应选择器
-        if ([self respondsToSelector:selector]) {
-            NSMethodSignature *signature = [self methodSignatureForSelector:selector];
-            NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
-            [invocation setSelector:selector];
-            [invocation setTarget:self];
-            // 调用选择器
-            [invocation invoke];
-            // 获取返回值
-            if (signature.methodReturnLength) {
-                id __unsafe_unretained returnValue = nil; // 使用 unsafe_unretained 避免内存泄漏
-                [invocation getReturnValue:&returnValue];
-                return returnValue; // 返回调用的结果
-            }
-        };return nil; // 如果对象不响应该属性，返回 nil
+        if (!self) {
+            return nil;
+        }
+        return [NSObject methodName:name targetObj:self paramarrays:nil error:nil];
     };
 }
+
 /// 是否遵从这样的协议？
 -(JobsRetBOOLByStrBlock _Nonnull)protocol{
     @jobs_weakify(self)
     return ^BOOL(NSString *_Nullable data){
         @jobs_strongify(self)
+        if (!self || ![data isKindOfClass:NSString.class] || !data.length) {
+            return NO;
+        }
         Protocol *protocol = NSProtocolFromString(data);
-        return [self conformsToProtocol:protocol];
+        return protocol && [self conformsToProtocol:protocol];
     };
 }
 

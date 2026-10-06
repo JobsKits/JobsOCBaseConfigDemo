@@ -10,33 +10,46 @@
 @interface JobsBitsMonitorSuspendLab ()
 /// Data
 Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
+Prop_strong()JobsNetworkTrafficMonitor *trafficMonitor;
 
 @end
 
 @implementation JobsBitsMonitorSuspendLab
 -(void)dealloc{
+    if (_trafficMonitor) {
+        _trafficMonitor.byStop();
+    }
     JobsRemoveNotification(self);
 }
 
 -(instancetype)initBy:(JobsBitsMonitorDisplayStyle)style{
     if (self = [super init]) {
+        _trafficMonitor = [JobsNetworkTrafficMonitor new];
+        @jobs_weakify(self)
         if(style == JobsBitsMonitorDisplayStylePlainText)        {
-            ((JobsNetworkTrafficMonitor *)JobsNetworkTrafficMonitor.shared()).onUpdateBy(^(JobsNetworkSource *source,
+            _trafficMonitor.onUpdateBy(^(JobsNetworkSource *source,
                                                           uint64_t uploadBytesPerSec,
                                                           uint64_t downloadBytesPerSec){
+                @jobs_strongify(self)
+                if (!self) {
+                    return;
+                }
                 NSString *upStr   = JobsFormatSpeed(uploadBytesPerSec);
                 NSString *downStr = JobsFormatSpeed(downloadBytesPerSec);
                 NSString *text = source.displayName.add(JobsNewline).add(@"⬆︎").add(upStr).add(JobsSpace).add(@"⬆︎").add(downStr);
                 @jobs_weakify(self)
                 dispatch_async(dispatch_get_main_queue(), ^{
                     @jobs_strongify(self)
+                    if (!self) return;
                     self.byText(text);
                 });
             }).byStartWithInterval(1.0);
         }else{
-            ((JobsNetworkTrafficMonitor *)JobsNetworkTrafficMonitor.shared()).onUpdateBy(^(JobsNetworkSource *source,
+            _trafficMonitor.onUpdateBy(^(JobsNetworkSource *source,
                                                           uint64_t uploadBytesPerSec,
                                                           uint64_t downloadBytesPerSec){
+                @jobs_strongify(self)
+                if (!self) return;
                 NSString *upStr   = JobsFormatSpeed(uploadBytesPerSec);
                 NSString *downStr = JobsFormatSpeed(downloadBytesPerSec);
                 /// 公共段落样式：居中 + 行距 2
@@ -49,14 +62,14 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
                 self.richTextWithDataConfigMutArr(jobsMakeMutArr(^(__kindof NSMutableArray<JobsRichTextConfig *> * _Nullable data) {
                     /// "源: "
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.byFont([UIFont systemFontOfSize:10 weight:UIFontWeightMedium])
+                        cfg.byFont(UIFontWeightMediumSize(10))
                            .byTextCor(UIColor.secondaryLabelColor)
                            .byTargetString(@"源: ")
                            .byParagraphStyle(ps);
                     }));
                     /// 源名称
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.byFont([UIFont systemFontOfSize:11 weight:UIFontWeightSemibold])
+                        cfg.byFont(UIFontWeightSemiboldSize(11))
                            .byTextCor(UIColor.whiteColor)
                            .byTargetString(source.displayName)
                            .byParagraphStyle(ps);
@@ -68,28 +81,28 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
                     }));
                     /// 上行 "⬆︎ "
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.byFont([UIFont systemFontOfSize:11])
+                        cfg.byFont(UIFontSystemFontOfSize(11))
                            .byTextCor(UIColor.systemGreenColor)
                            .byTargetString(@"⬆︎ ")
                            .byParagraphStyle(ps);
                     }));
                     /// 上行数值（带两个空格）
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.byFont([UIFont monospacedDigitSystemFontOfSize:11 weight:UIFontWeightMedium])
+                        cfg.byFont(UIFontMonospacedDigitSystemWeightMediumSize(11))
                            .byTextCor(UIColor.whiteColor)
                            .byTargetString(upStr.add(@"  "))
                            .byParagraphStyle(ps);
                     }));
                     /// 下行 "⬇︎ "
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.byFont([UIFont systemFontOfSize:11])
+                        cfg.byFont(UIFontSystemFontOfSize(11))
                            .byTextCor(UIColor.systemRedColor)
                            .byTargetString(@"⬇︎ ")
                            .byParagraphStyle(ps);
                     }));
                     /// 下行数值
                     data.add(jobsMakeRichTextConfig(^(__kindof JobsRichTextConfig * _Nullable cfg) {
-                        cfg.byFont([UIFont monospacedDigitSystemFontOfSize:11 weight:UIFontWeightMedium])
+                        cfg.byFont(UIFontMonospacedDigitSystemWeightMediumSize(11))
                            .byTextCor(UIColor.whiteColor)
                            .byTargetString(downStr)
                            .byParagraphStyle(ps);
@@ -98,6 +111,7 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
                 @jobs_weakify(self)
                 dispatch_async(dispatch_get_main_queue(), ^{
                     @jobs_strongify(self)
+                    if (!self) return;
                     self.byAttributedString(attr);
                 });
             }).byStartWithInterval(1.0);
@@ -109,21 +123,40 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
             self.byAllowableMovement(1);
             self.byUserInteractionEnabled(YES);
             @jobs_weakify(self)
-            self.byWeak_target(weak_self);
             self.tapGR_SelImp.selector = self.jobsSelectorBlock(^id _Nullable(id _Nullable target,
                                                                                UITapGestureRecognizer *_Nullable arg) {
                 @jobs_strongify(self)
+                if (!self) {
+                    return nil;
+                }
                 ZWPullMenuView *menuView = [ZWPullMenuView pullMenuAnchorView:self titleArray:self.operationEnvironMutArr];
                 @jobs_weakify(self)
                 menuView.blockSelectedMenu = ^(NSInteger menuRow) {
                     @jobs_strongify(self)
+                    if (!self) {
+                        return;
+                    }
                     JobsLog(@"action----->%ld",(long)menuRow);
                     networkingEnvir(menuRow);
                     if (menuRow + 1 <= self.operationEnvironMutArr.count) {
                         @"当前环境".jobsTr().add(self.operationEnvironMutArr[menuRow]).toast();
                     }else self.jobsToastErrMsg(@"切换环境出现错误".jobsTr());
                 };return nil;
-            });self.tapGR.enabled = YES;/// 必须在设置完Target和selector以后方可开启执行
+            });
+            // UIKit 的原生 target/action 不持有 Label，避免关联 target 形成自持有环。
+            UITapGestureRecognizer *tapGesture = jobsMakeTapGesture(^(UITapGestureRecognizer * _Nullable gesture) {
+                @jobs_strongify(self)
+                if (!self) {
+                    return;
+                }
+                gesture.numberOfTouchesRequired = self.numberOfTouchesRequired;
+                gesture.numberOfTapsRequired = self.numberOfTapsRequired;
+                gesture.delegate = (id<UIGestureRecognizerDelegate>)self;
+                [gesture addTarget:self action:self.tapGR_SelImp.selector];
+                gesture.enabled = YES;
+            });
+            self.tapGR = tapGesture;
+            self.addGesture(tapGesture);
         };self.commonInit_JobsBitsMonitorSuspendLab();
     };return self;
 }
@@ -136,12 +169,12 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
         /// 👉 基础外观
         self.byNumberOfLines(0);
         self.byTextAlignment(NSTextAlignmentCenter);
+        self
+            .byTextCor(UIColor.whiteColor)
+            .byFont(UIFontMonospacedDigitSystemWeightMediumSize(11));
         self.layer.byCornerRadius(8.0);
         self.layer.byMasksToBounds(YES);
         self.byBgColor([UIColor.blackColor colorWithAlphaComponent:0.7]);
-        /// 默认字体 & 颜色
-        self.byTextColor(UIColor.whiteColor);
-        self.byFont([UIFont monospacedDigitSystemFontOfSize:11 weight:UIFontWeightMedium]);
     };
 }
 
@@ -152,7 +185,7 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
         self.byAttributedText(nil);
         self.text           = text;
         /// 普通文本可以稍微简单一点
-        self.byFont([UIFont systemFontOfSize:11 weight:UIFontWeightRegular]);
+        self.byFont(UIFontWeightRegularSize(11));
         self.byTextColor(UIColor.whiteColor);
         return self;
     };

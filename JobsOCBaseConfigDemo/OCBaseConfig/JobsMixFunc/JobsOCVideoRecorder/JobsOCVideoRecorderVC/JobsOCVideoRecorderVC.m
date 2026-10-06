@@ -44,6 +44,7 @@ Prop_assign() BOOL originSetupNavigationBarHidden;
 Prop_assign() BOOL originGKNavigationBarHidden;
 Prop_assign() CGFloat originGKNavigationBarAlpha;
 Prop_assign() NSUInteger filterIndex;
+Prop_assign() NSTimeInterval recordingStartedUptime;
 Prop_weak(nullable) UIView *originGKNavigationBar;
 
 -(JobsRetJobsOCVideoRecorderVCByBOOLBlock _Nonnull)byCaptureSuspended;
@@ -117,12 +118,17 @@ JobsOCVideoRecorderVCPropertyDSL(JobsRetJobsOCVideoRecorderVCByBOOLBlock, BOOL, 
 
 -(void)dealloc{
     JobsRemoveNotification(self);
-    [self.recordTimer invalidate];
+    [_recordTimer invalidate];
     [UIDevice.currentDevice endGeneratingDeviceOrientationNotifications];
-    [self.captureManager stopRunning];
-    [self.assetWriter cancelWriting];
-    if (self.previewView) self.previewView.jobsStop();
-    self.clearFormatDescriptions();
+    if (_captureManager) {
+        _captureManager.stopRunning();
+    }
+    [_assetWriter cancelWriting];
+    if (_previewView) _previewView.jobsStop();
+    if (_latestVideoFormatDescription) CFRelease(_latestVideoFormatDescription);
+    if (_latestAudioFormatDescription) CFRelease(_latestAudioFormatDescription);
+    _latestVideoFormatDescription = nil;
+    _latestAudioFormatDescription = nil;
 }
 
 -(void)viewDidLoad{
@@ -233,14 +239,13 @@ JobsOCVideoRecorderVCPropertyDSL(JobsRetJobsOCVideoRecorderVCByBOOLBlock, BOOL, 
         if (!self) return;
         [super viewDidDisappear:animated];
         self.byCaptureSuspended(YES);
-        [self.captureManager stopRunning];
+        self.captureManager.stopRunning();
         self.jobs_discardActiveRecording();
     };
 }
 
 -(BOOL)canBecomeFirstResponder{
-    JobsRetBOOLByVoidBlock action = ((JobsRetBOOLByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCVideoRecorderVC.class, @selector(jobsCanBecomeFirstResponder)))(self, @selector(jobsCanBecomeFirstResponder));
-    return action ? action() : (BOOL){0};
+    return (((JobsRetBOOLByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCVideoRecorderVC.class, @selector(jobsCanBecomeFirstResponder)))(self, @selector(jobsCanBecomeFirstResponder)))();
 }
 
 -(JobsRetBOOLByVoidBlock _Nonnull)jobsCanBecomeFirstResponder{
@@ -298,24 +303,22 @@ JobsOCVideoRecorderVCPropertyDSL(JobsRetJobsOCVideoRecorderVCByBOOLBlock, BOOL, 
                         return;
                     }
                     self.byPermissionReady(YES);
-                    [self.captureManager startRunning];
+                    if (!self.captureSuspended && self.view.window &&
+                        UIApplication.sharedApplication.applicationState == UIApplicationStateActive) {
+                        [self.captureManager startRunning];
+                    }
                 }];
             }];
         }];
     };
 }
 
--(void)backAction:(UIButton *)sender{
-    jobsByBtnBlock action = ((jobsByBtnBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCVideoRecorderVC.class, @selector(jobsBackAction)))(self, @selector(jobsBackAction));
-    if (action) action(sender);
-}
-
--(jobsByBtnBlock _Nonnull)jobsBackAction{
+-(jobsByBtnBlock _Nonnull)backAction{
     @jobs_weakify(self)
     return ^(UIButton * sender){
         @jobs_strongify(self)
         if (!self) return;
-        if (self.recording) return;
+        if (self.recording || self.finishingRecord) return;
         if (self.previewView) {
             self.promptCancelCurrentVideoAndClosePage(YES);
             return;
@@ -324,12 +327,7 @@ JobsOCVideoRecorderVCPropertyDSL(JobsRetJobsOCVideoRecorderVCByBOOLBlock, BOOL, 
     };
 }
 
--(void)switchCameraAction:(UIButton *)sender{
-    jobsByBtnBlock action = ((jobsByBtnBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCVideoRecorderVC.class, @selector(jobsSwitchCameraAction)))(self, @selector(jobsSwitchCameraAction));
-    if (action) action(sender);
-}
-
--(jobsByBtnBlock _Nonnull)jobsSwitchCameraAction{
+-(jobsByBtnBlock _Nonnull)switchCameraAction{
     @jobs_weakify(self)
     return ^(UIButton * sender){
         @jobs_strongify(self)
@@ -351,12 +349,7 @@ JobsOCVideoRecorderVCPropertyDSL(JobsRetJobsOCVideoRecorderVCByBOOLBlock, BOOL, 
     };
 }
 
--(void)filterAction:(UIButton *)sender{
-    jobsByBtnBlock action = ((jobsByBtnBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCVideoRecorderVC.class, @selector(jobsFilterAction)))(self, @selector(jobsFilterAction));
-    if (action) action(sender);
-}
-
--(jobsByBtnBlock _Nonnull)jobsFilterAction{
+-(jobsByBtnBlock _Nonnull)filterAction{
     @jobs_weakify(self)
     return ^(UIButton * sender){
         @jobs_strongify(self)
@@ -409,34 +402,37 @@ JobsOCVideoRecorderVCPropertyDSL(JobsRetJobsOCVideoRecorderVCByBOOLBlock, BOOL, 
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        if (!self.permissionReady) {
-            @"权限校验中，请稍后".jobsTr().toast();
-            return;
+        @synchronized (self) {
+            if (!self.permissionReady) {
+                @"权限校验中，请稍后".jobsTr().toast();
+                return;
+            }
+            if (self.previewView) {
+                @"请先保存或取消当前视频".jobsTr().toast();
+                return;
+            }
+            if (self.recording || self.finishingRecord || self.captureSuspended) return;
+            self.byRecording(YES);
+            self.byFinishingRecord(NO);
+            self.byWriterStarted(NO);
+            self.byRecordStartDate(NSDate.date);
+            self.recordingStartedUptime = NSProcessInfo.processInfo.systemUptime;
+            self.byRecordingOrientation(self.effectiveDeviceOrientation());
+            self.byCurrentOutputURL(self.makeTemporaryVideoURL());
+            self.byAssetWriter([JobsOCVideoRecorderAssetWriter.alloc initWithConfig:self.config]);
+            self.clearFormatDescriptions();
+            if (self.backBtn) self.backBtn.byEnabled(NO);
+            self.backBtn.byAlpha(0.35);
+            if (self.filterBtn) self.filterBtn.byEnabled(NO);
+            self.filterBtn.byAlpha(0.35);
+            if (self.canSwitchCamera()) {
+                if (self.switchCameraBtn) self.switchCameraBtn.byEnabled(NO);
+                self.switchCameraBtn.byAlpha(0.35);
+            }
+            self.showRecordDurationLabel();
+            self.recordBtn.startProgressWithDuration(self.config.maxDuration);
+            self.startRecordTimer();
         }
-        if (self.previewView) {
-            @"请先保存或取消当前视频".jobsTr().toast();
-            return;
-        }
-        if (self.recording) return;
-        self.byRecording(YES);
-        self.byFinishingRecord(NO);
-        self.byWriterStarted(NO);
-        self.byRecordStartDate(NSDate.date);
-        self.byRecordingOrientation(self.effectiveDeviceOrientation());
-        self.byCurrentOutputURL(self.makeTemporaryVideoURL());
-        self.byAssetWriter([JobsOCVideoRecorderAssetWriter.alloc initWithConfig:self.config]);
-        self.clearFormatDescriptions();
-        if (self.backBtn) self.backBtn.byEnabled(NO);
-        self.backBtn.byAlpha(0.35);
-        if (self.filterBtn) self.filterBtn.byEnabled(NO);
-        self.filterBtn.byAlpha(0.35);
-        if (self.canSwitchCamera()) {
-            if (self.switchCameraBtn) self.switchCameraBtn.byEnabled(NO);
-            self.switchCameraBtn.byAlpha(0.35);
-        }
-        self.showRecordDurationLabel();
-        self.recordBtn.startProgressWithDuration(self.config.maxDuration);
-        self.startRecordTimer();
     };
 }
 
@@ -445,57 +441,70 @@ JobsOCVideoRecorderVCPropertyDSL(JobsRetJobsOCVideoRecorderVCByBOOLBlock, BOOL, 
     return ^(BOOL userAction){
         @jobs_strongify(self)
         if (!self) return;
-        if (!self.recording || self.finishingRecord) return;
-        self.byRecording(NO);
-        self.byFinishingRecord(YES);
-        [self.recordTimer invalidate];
-        self.byRecordTimer(nil);
-        self.recordBtn.stopProgress();
-        if (self.backBtn) self.backBtn.byEnabled(YES);
-        self.backBtn.byAlpha(1);
-        if (self.filterBtn) self.filterBtn.byEnabled(YES);
-        self.filterBtn.byAlpha(1);
-        if (self.canSwitchCamera()) {
-            if (self.switchCameraBtn) self.switchCameraBtn.byEnabled(YES);
-            self.switchCameraBtn.byAlpha(1);
-        }
-        NSTimeInterval elapsed = [NSDate.date timeIntervalSinceDate:self.recordStartDate ?: NSDate.date];
-        self.hideRecordDurationLabel();
-        if (elapsed < self.config.minDuration) {
-            [self.assetWriter cancelWriting];
-            self.removeCurrentOutputFile();
-            self.recordBtn.resetProgress();
-            self.byFinishingRecord(NO);
-            @"录制时间不能少于 3 秒".jobsTr().toast();
-            return;
-        }
-        if (!self.writerStarted) {
-            [self.assetWriter cancelWriting];
-            self.removeCurrentOutputFile();
-            self.recordBtn.resetProgress();
-            self.byFinishingRecord(NO);
-            @"录制失败，请重试".jobsTr().toast();
-            return;
-        }
-        @jobs_weakify(self)
-        self.assetWriter.finishWritingWithCompletion(^(NSURL * _Nullable fileURL, CMTime duration, NSError * _Nullable error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                @jobs_strongify(self)
-                self.byFinishingRecord(NO);
+        @synchronized (self) {
+            if (!self.recording || self.finishingRecord) return;
+            self.byRecording(NO);
+            self.byFinishingRecord(YES);
+            self.recordTimer.invalidate;
+            self.byRecordTimer(nil);
+            self.recordBtn.stopProgress();
+            if (self.backBtn) self.backBtn.byEnabled(YES);
+            self.backBtn.byAlpha(1);
+            if (self.filterBtn) self.filterBtn.byEnabled(YES);
+            self.filterBtn.byAlpha(1);
+            if (self.canSwitchCamera()) {
+                if (self.switchCameraBtn) self.switchCameraBtn.byEnabled(YES);
+                self.switchCameraBtn.byAlpha(1);
+            }
+            NSTimeInterval elapsed = MAX(0, NSProcessInfo.processInfo.systemUptime - self.recordingStartedUptime);
+            self.hideRecordDurationLabel();
+            if (elapsed < self.config.minDuration) {
+                [self.assetWriter cancelWriting];
+                self.removeCurrentOutputFile();
                 self.recordBtn.resetProgress();
-                if (self.captureSuspended) {
-                    if (fileURL) [NSFileManager.defaultManager removeItemAtURL:fileURL error:nil];
-                    return;
-                }
-                if (error || !fileURL) {
-                    (error.localizedDescription ?: @"录制失败，请重试".jobsTr()).toast();
-                    self.removeCurrentOutputFile();
-                    return;
-                }
-                self.byCurrentResult([JobsOCVideoRecorderResult resultWithFileURL:fileURL duration:duration]);
-                self.showPreviewWithURL(fileURL);
+                self.byFinishingRecord(NO);
+                @"录制时间不能少于 3 秒".jobsTr().toast();
+                return;
+            }
+            if (!self.writerStarted) {
+                [self.assetWriter cancelWriting];
+                self.removeCurrentOutputFile();
+                self.recordBtn.resetProgress();
+                self.byFinishingRecord(NO);
+                @"录制失败，请重试".jobsTr().toast();
+                return;
+            }
+            @jobs_weakify(self)
+            JobsOCVideoRecorderAssetWriter *finishingWriter = self.assetWriter;
+            finishingWriter.finishWritingWithCompletion(^(NSURL * _Nullable fileURL, CMTime duration, NSError * _Nullable error) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    @jobs_strongify(self)
+                    if (!self) {
+                        if (fileURL) [NSFileManager.defaultManager removeItemAtURL:fileURL error:nil];
+                        return;
+                    }
+                    @synchronized (self) {
+                    if (self.assetWriter != finishingWriter) {
+                        if (fileURL) [NSFileManager.defaultManager removeItemAtURL:fileURL error:nil];
+                        return;
+                    }
+                    self.byFinishingRecord(NO);
+                    self.recordBtn.resetProgress();
+                    if (self.captureSuspended) {
+                        if (fileURL) [NSFileManager.defaultManager removeItemAtURL:fileURL error:nil];
+                        return;
+                    }
+                    if (error || !fileURL) {
+                        (error.localizedDescription ?: @"录制失败，请重试".jobsTr()).toast();
+                        self.removeCurrentOutputFile();
+                        return;
+                    }
+                    self.byCurrentResult([JobsOCVideoRecorderResult resultWithFileURL:fileURL duration:duration]);
+                    self.showPreviewWithURL(fileURL);
+                    }
+                });
             });
-        });
+        }
     };
 }
 
@@ -527,7 +536,7 @@ JobsOCVideoRecorderVCPropertyDSL(JobsRetJobsOCVideoRecorderVCByBOOLBlock, BOOL, 
         if (!self) return;
         (void)notification;
         self.byCaptureSuspended(YES);
-        [self.captureManager stopRunning];
+        self.captureManager.stopRunning();
         if (self.previewView) self.previewView.jobsStop();
         self.jobs_discardActiveRecording();
     };
@@ -555,26 +564,28 @@ JobsOCVideoRecorderVCPropertyDSL(JobsRetJobsOCVideoRecorderVCByBOOLBlock, BOOL, 
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        if (!self.recording && !self.finishingRecord) return;
-        self.byRecording(NO);
-        self.byFinishingRecord(NO);
-        self.byWriterStarted(NO);
-        [self.recordTimer invalidate];
-        self.byRecordTimer(nil);
-        self.recordBtn.stopProgress();
-        self.recordBtn.resetProgress();
-        self.hideRecordDurationLabel();
-        if (self.backBtn) self.backBtn.byEnabled(YES);
-        self.backBtn.byAlpha(1);
-        if (self.filterBtn) self.filterBtn.byEnabled(YES);
-        self.filterBtn.byAlpha(1);
-        if (self.canSwitchCamera()) {
-            if (self.switchCameraBtn) self.switchCameraBtn.byEnabled(YES);
-            self.switchCameraBtn.byAlpha(1);
+        @synchronized (self) {
+            if (!self.recording && !self.finishingRecord) return;
+            self.byRecording(NO);
+            self.byFinishingRecord(NO);
+            self.byWriterStarted(NO);
+            self.recordTimer.invalidate;
+            self.byRecordTimer(nil);
+            self.recordBtn.stopProgress();
+            self.recordBtn.resetProgress();
+            self.hideRecordDurationLabel();
+            if (self.backBtn) self.backBtn.byEnabled(YES);
+            self.backBtn.byAlpha(1);
+            if (self.filterBtn) self.filterBtn.byEnabled(YES);
+            self.filterBtn.byAlpha(1);
+            if (self.canSwitchCamera()) {
+                if (self.switchCameraBtn) self.switchCameraBtn.byEnabled(YES);
+                self.switchCameraBtn.byAlpha(1);
+            }
+            [self.assetWriter cancelWriting];
+            self.removeCurrentOutputFile();
+            self.clearFormatDescriptions();
         }
-        [self.assetWriter cancelWriting];
-        self.removeCurrentOutputFile();
-        self.clearFormatDescriptions();
     };
 }
 
@@ -583,7 +594,7 @@ JobsOCVideoRecorderVCPropertyDSL(JobsRetJobsOCVideoRecorderVCByBOOLBlock, BOOL, 
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        [self.recordTimer invalidate];
+        self.recordTimer.invalidate;
         @jobs_weakify(self)
         self.recordTimer = [NSTimer scheduledTimerWithTimeInterval:0.05 repeats:YES block:^(NSTimer * _Nonnull timer) {
             @jobs_strongify(self)
@@ -616,7 +627,7 @@ JobsOCVideoRecorderVCPropertyDSL(JobsRetJobsOCVideoRecorderVCByBOOLBlock, BOOL, 
             @jobs_strongify(self)
             self.saveCurrentVideo();
         };
-        [self.view addSubview:self.previewView];
+        self.previewView.addOn(self.view);
         [self.previewView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.view).offset(-JobsWidth(16));
             make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(JobsWidth(72));
@@ -697,18 +708,22 @@ JobsOCVideoRecorderVCPropertyDSL(JobsRetJobsOCVideoRecorderVCByBOOLBlock, BOOL, 
 
 -(void)captureManager:(JobsOCVideoRecorderCaptureManager *)captureManager
 didOutputVideoSampleBuffer:(CMSampleBufferRef)sampleBuffer{
-    if (!self.recording || self.finishingRecord) return;
-    self.updateVideoFormatDescription(CMSampleBufferGetFormatDescription(sampleBuffer));
-    self.startWriterIfNeeded();
-    if (self.writerStarted) self.assetWriter.appendVideoSampleBuffer(sampleBuffer);
+    @synchronized (self) {
+        if (!self.recording || self.finishingRecord) return;
+        self.updateVideoFormatDescription(CMSampleBufferGetFormatDescription(sampleBuffer));
+        self.startWriterIfNeeded();
+        if (self.writerStarted) self.assetWriter.appendVideoSampleBuffer(sampleBuffer);
+    }
 }
 
 -(void)captureManager:(JobsOCVideoRecorderCaptureManager *)captureManager
 didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
-    if (!self.recording || self.finishingRecord) return;
-    self.updateAudioFormatDescription(CMSampleBufferGetFormatDescription(sampleBuffer));
-    self.startWriterIfNeeded();
-    if (self.writerStarted) self.assetWriter.appendAudioSampleBuffer(sampleBuffer);
+    @synchronized (self) {
+        if (!self.recording || self.finishingRecord) return;
+        self.updateAudioFormatDescription(CMSampleBufferGetFormatDescription(sampleBuffer));
+        self.startWriterIfNeeded();
+        if (self.writerStarted) self.assetWriter.appendAudioSampleBuffer(sampleBuffer);
+    }
 }
 
 -(void)captureManager:(JobsOCVideoRecorderCaptureManager *)captureManager
@@ -783,9 +798,11 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        if (self.currentOutputURL) [NSFileManager.defaultManager removeItemAtURL:self.currentOutputURL error:nil];
-        self.byCurrentOutputURL(nil);
-        self.byAssetWriter(nil);
+        @synchronized (self) {
+            if (self.currentOutputURL) [NSFileManager.defaultManager removeItemAtURL:self.currentOutputURL error:nil];
+            self.byCurrentOutputURL(nil);
+            self.byAssetWriter(nil);
+        }
     };
 }
 
@@ -794,9 +811,11 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
     return ^(CMFormatDescriptionRef formatDescription){
         @jobs_strongify(self)
         if (!self) return;
-        if (!formatDescription || _latestVideoFormatDescription == formatDescription) return;
-        if (_latestVideoFormatDescription) CFRelease(_latestVideoFormatDescription);
-        _latestVideoFormatDescription = (CMFormatDescriptionRef)CFRetain(formatDescription);
+        @synchronized (self) {
+            if (!formatDescription || _latestVideoFormatDescription == formatDescription) return;
+            if (_latestVideoFormatDescription) CFRelease(_latestVideoFormatDescription);
+            _latestVideoFormatDescription = (CMFormatDescriptionRef)CFRetain(formatDescription);
+        }
     };
 }
 
@@ -805,9 +824,11 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
     return ^(CMFormatDescriptionRef formatDescription){
         @jobs_strongify(self)
         if (!self) return;
-        if (!formatDescription || _latestAudioFormatDescription == formatDescription) return;
-        if (_latestAudioFormatDescription) CFRelease(_latestAudioFormatDescription);
-        _latestAudioFormatDescription = (CMFormatDescriptionRef)CFRetain(formatDescription);
+        @synchronized (self) {
+            if (!formatDescription || _latestAudioFormatDescription == formatDescription) return;
+            if (_latestAudioFormatDescription) CFRelease(_latestAudioFormatDescription);
+            _latestAudioFormatDescription = (CMFormatDescriptionRef)CFRetain(formatDescription);
+        }
     };
 }
 
@@ -816,13 +837,15 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        if (_latestVideoFormatDescription) {
-            CFRelease(_latestVideoFormatDescription);
-            _latestVideoFormatDescription = nil;
-        }
-        if (_latestAudioFormatDescription) {
-            CFRelease(_latestAudioFormatDescription);
-            _latestAudioFormatDescription = nil;
+        @synchronized (self) {
+            if (_latestVideoFormatDescription) {
+                CFRelease(_latestVideoFormatDescription);
+                _latestVideoFormatDescription = nil;
+            }
+            if (_latestAudioFormatDescription) {
+                CFRelease(_latestAudioFormatDescription);
+                _latestAudioFormatDescription = nil;
+            }
         }
     };
 }
@@ -970,13 +993,16 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
 
 -(UIButton *)backBtn{
     if (!_backBtn) {
+        @jobs_weakify(self)
         _backBtn = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
             btn.jobsResetBtnTitle(@"‹")
                .jobsResetBtnTitleFont(UIFontWeightRegularSize(34))
                .jobsResetBtnTitleCor(UIColor.whiteColor)
                .byBgColor(UIColor.blackColor.colorWithAlphaComponentBy(0.25));
             btn.layer.byCornerRadius(JobsWidth(18));
-            [btn addTarget:self action:@selector(backAction:) forControlEvents:UIControlEventTouchUpInside];
+            btn.onClickBy(^(__kindof UIButton * _Nullable button) {
+                weak_self.backAction(button);
+            });
         });
         _backBtn.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.left.equalTo(self.view).offset(JobsWidth(16));
@@ -1008,13 +1034,16 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
 
 -(UIButton *)switchCameraBtn{
     if (!_switchCameraBtn) {
+        @jobs_weakify(self)
         _switchCameraBtn = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
             btn.jobsResetBtnTitle(@"切换".jobsTr())
                .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
                .jobsResetBtnTitleCor(UIColor.whiteColor)
                .byBgColor(UIColor.blackColor.colorWithAlphaComponentBy(0.25));
             btn.layer.byCornerRadius(JobsWidth(18));
-            [btn addTarget:self action:@selector(switchCameraAction:) forControlEvents:UIControlEventTouchUpInside];
+            btn.onClickBy(^(__kindof UIButton * _Nullable button) {
+                weak_self.switchCameraAction(button);
+            });
         });
         _switchCameraBtn.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.right.equalTo(self.filterBtn.mas_left).offset(-JobsWidth(8));
@@ -1026,13 +1055,16 @@ didOutputAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer{
 
 -(UIButton *)filterBtn{
     if (!_filterBtn) {
+        @jobs_weakify(self)
         _filterBtn = jobsMakeButton(^(__kindof UIButton * _Nullable btn) {
             btn.jobsResetBtnTitle(@"滤镜".jobsTr())
                .jobsResetBtnTitleFont(UIFontWeightRegularSize(14))
                .jobsResetBtnTitleCor(UIColor.whiteColor)
                .byBgColor(UIColor.blackColor.colorWithAlphaComponentBy(0.25));
             btn.layer.byCornerRadius(JobsWidth(18));
-            [btn addTarget:self action:@selector(filterAction:) forControlEvents:UIControlEventTouchUpInside];
+            btn.onClickBy(^(__kindof UIButton * _Nullable button) {
+                weak_self.filterAction(button);
+            });
         });
         _filterBtn.addOn(self.view).byAdd(^(MASConstraintMaker *make) {
             make.right.equalTo(self.view).offset(-JobsWidth(16));

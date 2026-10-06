@@ -523,6 +523,19 @@ jobsMakeBarButtonItemByTitle(NSString *_Nullable title,
     return data;
 }
 
+NS_INLINE __kindof UIBarButtonItem *_Nonnull
+jobsMakeBarButtonItemBySystemItem(UIBarButtonSystemItem systemItem,
+                                  id _Nullable target,
+                                  SEL _Nullable action,
+                                  jobsByBarButtonItemBlock _Nullable block) API_AVAILABLE(ios(2.0)) API_UNAVAILABLE(watchos){
+    UIBarButtonItem *data = [UIBarButtonItem.alloc initWithBarButtonSystemItem:systemItem
+                                                                       target:target
+                                                                       action:action];
+    if (block) block(data);
+    return data;
+}
+
+
 NS_INLINE __kindof UISearchBar *_Nonnull
 jobsMakeUISearchBar(jobsByUISearchBarBlock _Nonnull block){
     UISearchBar *data = UISearchBar.alloc.init;

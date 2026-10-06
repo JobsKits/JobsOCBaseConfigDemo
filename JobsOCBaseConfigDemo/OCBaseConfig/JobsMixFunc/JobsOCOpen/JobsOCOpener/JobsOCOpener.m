@@ -6,7 +6,6 @@
 //
 
 #import "JobsOCOpener.h"
-
 #import "JobsOCOpenWebViewController.h"
 
 @implementation JobsOCOpener
@@ -31,6 +30,12 @@
 
 -(void)open:(JobsOCOpenConfiguration *_Nullable)configuration
        from:(UIViewController *_Nullable)sourceViewController{
+    if (!NSThread.isMainThread) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self open:configuration from:sourceViewController];
+        });
+        return;
+    }
     JobsOCOpenConfiguration *config = configuration ?: JobsOCOpenConfiguration.config();
     if (!config.url) {
         if (config.completion) config.completion(NO);
@@ -51,7 +56,7 @@
 -(void)openInsideApp:(JobsOCOpenConfiguration *)configuration
                 from:(UIViewController *_Nullable)sourceViewController{
     UIViewController *source = sourceViewController ?: self.jobsTopViewController();
-    if (!source) {
+    if (!source || !source.view.window || source.isBeingDismissed || source.presentedViewController) {
         if (configuration.completion) configuration.completion(NO);
         return;
     }
@@ -62,7 +67,10 @@
     }else{
         UINavigationController *navigationController = [UINavigationController.alloc initWithRootViewController:webVC];
         navigationController.byModalPresentationStyle(UIModalPresentationFullScreen);
-        [source presentViewController:navigationController animated:configuration.animated completion:nil];
+        [source presentViewController:navigationController animated:configuration.animated completion:^{
+            if (configuration.completion) configuration.completion(YES);
+        }];
+        return;
     }
     if (configuration.completion) configuration.completion(YES);
 }

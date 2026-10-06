@@ -111,9 +111,9 @@
     return ^NSString *_Nullable{
         @jobs_strongify(self)
         if (!self) return nil;
-        if(!This.BaseUrl_Image() || !This.jobsBaseUrl()) return self;
+        if(!This.jobsBaseUrl_Image() || !This.jobsBaseUrl()) return self;
         if(!self.containsString(HTTP) && isValue(self)){
-            return (isValue(This.BaseUrl_Image()) ? This.BaseUrl_Image() : This.jobsBaseUrl()).add(self);
+            return (isValue(This.jobsBaseUrl_Image()) ? This.jobsBaseUrl_Image() : This.jobsBaseUrl()).add(self);
         }else return self;
     };
 }
@@ -123,9 +123,9 @@
     return ^NSString *_Nullable{
         @jobs_strongify(self)
         if (!self) return nil;
-        if(!This.BaseUrl_Image()) return self;
+        if(!This.jobsBaseUrl_Image()) return self;
         if(!self.containsString(HTTP) && isValue(self)){
-            return This.BaseUrl_Image().add(self);
+            return This.jobsBaseUrl_Image().add(self);
         }else return self;
     };
 }

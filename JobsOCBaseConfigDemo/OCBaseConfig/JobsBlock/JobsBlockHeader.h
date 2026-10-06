@@ -17,6 +17,10 @@
 #ifndef JobsBlockHeader_h
 #define JobsBlockHeader_h
 
+@class JobsDebugEnvironment;
+@class JobsDebugAction;
+@class JobsDebugPanelManager;
+
 #pragma mark —— Jobs Enum Forward Declarations
 typedef NS_ENUM(NSInteger, AppLanguage);
 typedef NS_ENUM(NSInteger, BRTextPickerMode);
@@ -592,6 +596,7 @@ typedef struct {
 @class JobsAppDoorVC;
 @class JobsAppDoorVC_Style2;
 @class JobsAppTools;
+@class JobsBaseApi;
 @class JobsBaseDataSettingVC;
 @class JobsBaseTableViewCell;
 @class JobsBluetoothManager;

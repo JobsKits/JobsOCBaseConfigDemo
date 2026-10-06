@@ -1,6 +1,6 @@
 //
 //  JobsLabelScrollConfiguration.m
-//  JobsOCBaseConfigDemo
+//  JobsOCUILabelScrolling
 //
 //  Created by Jobs on 2026年7月17日，星期五.
 //
@@ -39,19 +39,19 @@
 }
 
 -(void)setSpeed:(CGFloat)speed{
-    _speed = MAX(0, speed);
+    _speed = isfinite(speed) ? MAX(0, speed) : 0;
 }
 
 -(void)setSpacing:(CGFloat)spacing{
-    _spacing = MAX(0, spacing);
+    _spacing = isfinite(spacing) ? MAX(0, spacing) : 0;
 }
 
 -(void)setStartDelay:(NSTimeInterval)startDelay{
-    _startDelay = MAX(0, startDelay);
+    _startDelay = isfinite(startDelay) ? MAX(0, startDelay) : 0;
 }
 
 -(void)setEdgePause:(NSTimeInterval)edgePause{
-    _edgePause = MAX(0, edgePause);
+    _edgePause = isfinite(edgePause) ? MAX(0, edgePause) : 0;
 }
 
 -(void)setFramesPerSecond:(NSInteger)framesPerSecond{

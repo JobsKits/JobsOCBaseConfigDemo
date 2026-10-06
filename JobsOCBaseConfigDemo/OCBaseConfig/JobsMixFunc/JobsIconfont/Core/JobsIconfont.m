@@ -18,30 +18,15 @@ JobsIconfontRemoteAsset const JobsIconfontRemoteAssetInvalidURL = @"invalidURL";
 
 static const void *JobsIconfontRepresentedAssetKey = &JobsIconfontRepresentedAssetKey;
 static const void *JobsIconfontLoadTokenKey = &JobsIconfontLoadTokenKey;
+static const void *JobsIconfontRequestIdentityKey = &JobsIconfontRequestIdentityKey;
 
 @interface UIGraphicsImageRendererFormat (JobsIconfontDSL)
 -(JobsRetIDByCGFloatBlock _Nonnull)byScale;
 -(JobsRetIDByBOOLBlock _Nonnull)byOpaque;
 @end
 
-@implementation UIGraphicsImageRendererFormat (JobsIconfontDSL)
--(JobsRetIDByCGFloatBlock _Nonnull)byScale{
-    @jobs_weakify(self)
-    return ^id _Nullable(CGFloat data){
-        @jobs_strongify(self)
-        if (!self) return nil;
-        self.scale = data;
-        return self;
-    };
-}
-
-@end
-
 @interface UIImageView (JobsIconfontDSL)
--(JobsRetIDByImageBlock _Nonnull)byImage;
-@end
 
-@implementation UIImageView (JobsIconfontDSL)
 @end
 
 @interface JobsIconfontBundleToken : NSObject
@@ -117,10 +102,12 @@ static const void *JobsIconfontLoadTokenKey = &JobsIconfontLoadTokenKey;
 
 -(instancetype)initWithCancellation:(nullable dispatch_block_t)cancellation;
 
+-(void)cancelInternal;
+
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsIconfontLoadToken
-@interface JobsIconfontLoadToken (JobsPropertyDSLSetterAutogen_df84d965c4)
+@interface JobsIconfontLoadToken (JobsPropertyDSLSetterAutogen_6d322dde54)
 -(void)setCancellation:(dispatch_block_t)data;
 -(void)setCancelled:(BOOL)data;
 @end
@@ -134,24 +121,37 @@ static const void *JobsIconfontLoadTokenKey = &JobsIconfontLoadTokenKey;
 }
 
 -(void)cancel{
-    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsIconfontLoadToken.class, @selector(jobsCancel)))(self, @selector(jobsCancel));
-    if (action) action();
+    [self cancelInternal];
+}
+
+-(void)cancelInternal{
+    dispatch_block_t action;
+    @synchronized (self) {
+        if (_cancelled) {
+            return;
+        }
+        _cancelled = YES;
+        action = _cancellation;
+        _cancellation = nil;
+    }
+    if (action) {
+        action();
+    }
 }
 
 -(jobsByVoidBlock _Nonnull)jobsCancel{
     @jobs_weakify(self)
     return ^{
         @jobs_strongify(self)
-        if (!self) return;
-        if (self.isCancelled) return;
-        self.byCancelled(YES);
-        if (self.cancellation) self.cancellation();
-        self.byCancellation(nil);
+        if (!self) {
+            return;
+        }
+        [self cancelInternal];
     };
 }
 
 -(void)dealloc{
-    (((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsIconfontLoadToken.class, @selector(cancel)))(self, @selector(cancel)))();
+    [self cancelInternal];
 }
 
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsIconfontLoadToken
@@ -340,7 +340,25 @@ static const void *JobsIconfontLoadTokenKey = &JobsIconfontLoadTokenKey;
                          completion:(JobsIconfontLoadCompletion)completion{
     JobsIconfontLoadToken *oldToken = objc_getAssociatedObject(imageView,
                                                                 JobsIconfontLoadTokenKey);
-    oldToken.jobsCancel();
+    if (oldToken) {
+        oldToken.jobsCancel();
+    }
+    NSString *requestIdentity = NSUUID.UUID.UUIDString;
+    __weak UIImageView *weakImageView = imageView;
+    JobsIconfontLoadToken *token = [JobsIconfontLoadToken.alloc initWithCancellation:^{
+        UIImageView *currentImageView = weakImageView;
+        if (!currentImageView) {
+            return;
+        }
+        NSString *currentIdentity = objc_getAssociatedObject(currentImageView, JobsIconfontRequestIdentityKey);
+        if (![currentIdentity isEqualToString:requestIdentity]) {
+            return;
+        }
+        objc_setAssociatedObject(currentImageView, JobsIconfontRequestIdentityKey, nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
+        [currentImageView sd_cancelCurrentImageLoad];
+    }];
+    objc_setAssociatedObject(imageView, JobsIconfontRequestIdentityKey, requestIdentity, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(imageView, JobsIconfontLoadTokenKey, token, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     CGSize resolvedSize = targetSize.width > 1 && targetSize.height > 1
         ? targetSize
         : CGSizeMake(96, 96);
@@ -357,11 +375,14 @@ static const void *JobsIconfontLoadTokenKey = &JobsIconfontLoadTokenKey;
                                  cacheHit:NO
                                     error:nil]);
     }
+    /// 占位回调可以重入加载；旧请求不能在回调之后重新启动。
+    if (![objc_getAssociatedObject(imageView, JobsIconfontRequestIdentityKey) isEqualToString:requestIdentity]) {
+        return token;
+    }
     SDWebImageOptions options = SDWebImageRetryFailed |
                                 SDWebImageHighPriority |
                                 SDWebImageScaleDownLargeImages;
     if (forceRefresh) options |= SDWebImageRefreshCached;
-    __weak UIImageView *weakImageView = imageView;
     [imageView sd_setImageWithURL:self.remoteURLForAsset(asset)
                  placeholderImage:placeholder
                           options:options
@@ -371,6 +392,10 @@ static const void *JobsIconfontLoadTokenKey = &JobsIconfontLoadTokenKey;
                                     NSURL * _Nullable imageURL) {
         UIImageView *strongImageView = weakImageView;
         if (!strongImageView) return;
+        NSString *currentIdentity = objc_getAssociatedObject(strongImageView, JobsIconfontRequestIdentityKey);
+        if (![currentIdentity isEqualToString:requestIdentity]) {
+            return;
+        }
         NSString *representedAsset = objc_getAssociatedObject(strongImageView,
                                                                JobsIconfontRepresentedAssetKey);
         if (![representedAsset isEqualToString:asset]) return;
@@ -392,14 +417,6 @@ static const void *JobsIconfontLoadTokenKey = &JobsIconfontLoadTokenKey;
             }
         }
     }];
-    __weak UIImageView *cancellableImageView = imageView;
-    JobsIconfontLoadToken *token = [JobsIconfontLoadToken.alloc initWithCancellation:^{
-        [cancellableImageView sd_cancelCurrentImageLoad];
-    }];
-    objc_setAssociatedObject(imageView,
-                             JobsIconfontLoadTokenKey,
-                             token,
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     return token;
 }
 
@@ -407,10 +424,13 @@ static const void *JobsIconfontLoadTokenKey = &JobsIconfontLoadTokenKey;
     @jobs_weakify(self)
     return ^(UIImageView * imageView){
         @jobs_strongify(self)
-        if (!self) return;
+        if (!self || !imageView) return;
         JobsIconfontLoadToken *token = objc_getAssociatedObject(imageView,
                                                                 JobsIconfontLoadTokenKey);
-        token.jobsCancel();
+        if (token) {
+            token.jobsCancel();
+        }
+        objc_setAssociatedObject(imageView, JobsIconfontRequestIdentityKey, nil, OBJC_ASSOCIATION_COPY_NONATOMIC);
         objc_setAssociatedObject(imageView,
                                  JobsIconfontLoadTokenKey,
                                  nil,

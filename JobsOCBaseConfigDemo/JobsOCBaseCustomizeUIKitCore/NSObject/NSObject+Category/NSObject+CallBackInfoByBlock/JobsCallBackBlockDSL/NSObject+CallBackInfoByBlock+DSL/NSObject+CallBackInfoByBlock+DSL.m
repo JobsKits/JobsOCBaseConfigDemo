@@ -13,6 +13,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(jobsByVoidBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionVoidBlock(block);
         return self;
     };
@@ -22,6 +25,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(jobsByGestureRecognizerBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionGestureRecognizerBlock(block);
         return self;
     };
@@ -31,6 +37,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(jobsBySELBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionSelBlock(block);
         return self;
     };
@@ -40,6 +49,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(jobsByStrBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionStringBlock(block);
         return self;
     };
@@ -49,6 +61,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(jobsByNSIntegerBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionIntegerBlock(block);
         return self;
     };
@@ -58,6 +73,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(jobsByNSUIntegerBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionUIntegerBlock(block);
         return self;
     };
@@ -67,6 +85,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(jobsByCGFloatBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionCGFloatBlock(block);
         return self;
     };
@@ -76,6 +97,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(jobsByBOOLBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionBOOLBlock(block);
         return self;
     };
@@ -85,6 +109,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(jobsByIntBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionIntBlock(block);
         return self;
     };
@@ -94,6 +121,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(jobsByUnsignedIntBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionUnsignedIntBlock(block);
         return self;
     };
@@ -103,6 +133,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(jobsByFloatBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionFloatBlock(block);
         return self;
     };
@@ -112,6 +145,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(jobsByDoubleBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionDoubleBlock(block);
         return self;
     };
@@ -121,6 +157,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(jobsByCharBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionCharBlock(block);
         return self;
     };
@@ -130,6 +169,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(jobsByUnsignedCharBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionUnsignedCharBlock(block);
         return self;
     };
@@ -139,6 +181,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(jobsByShortBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionShortBlock(block);
         return self;
     };
@@ -148,6 +193,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(jobsByUnsignedShortBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionUnsignedShortBlock(block);
         return self;
     };
@@ -157,6 +205,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(jobsByLongBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionLongBlock(block);
         return self;
     };
@@ -166,6 +217,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(jobsByUnsignedLongBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionUnsignedLongBlock(block);
         return self;
     };
@@ -175,6 +229,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(jobsByUnsignedLongLongBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionUnsignedLongLongBlock(block);
         return self;
     };
@@ -184,6 +241,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(jobsByTwoIDBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionSelectorBlock(block);
         return self;
     };
@@ -193,6 +253,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetIDByVoidBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetIDByVoidBlock(block);
         return self;
     };
@@ -202,6 +265,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetIDByGestureBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetIDByGestureRecognizerBlock(block);
         return self;
     };
@@ -211,6 +277,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetIDBySELBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetIDBySELBlock(block);
         return self;
     };
@@ -220,6 +289,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetIDByStrBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetIDByStringBlock(block);
         return self;
     };
@@ -229,6 +301,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetNSIntegerByIDBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetIntegerByIDBlock(block);
         return self;
     };
@@ -238,6 +313,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetNSUIntegerByIDBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetUIntegerByIDBlock(block);
         return self;
     };
@@ -247,6 +325,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetCGFloatByIDBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetCGFloatByIDBlock(block);
         return self;
     };
@@ -256,6 +337,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetBOOLByIDBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetBoolByIDBlock(block);
         return self;
     };
@@ -265,6 +349,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetIntByIDBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetIntByIDBlock(block);
         return self;
     };
@@ -274,6 +361,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetUnsignedIntByIDBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetUnsignedIntByIDBlock(block);
         return self;
     };
@@ -283,6 +373,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetFloatByIDBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetFloatByIDBlock(block);
         return self;
     };
@@ -292,6 +385,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetDoubleByIDBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetDoubleByIDBlock(block);
         return self;
     };
@@ -301,6 +397,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetCharByIDBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetCharByIDBlock(block);
         return self;
     };
@@ -310,6 +409,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetUnsignedCharByIDBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetUnsignedCharByIDBlock(block);
         return self;
     };
@@ -319,6 +421,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetShortByIDBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetShortByIDBlock(block);
         return self;
     };
@@ -328,6 +433,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetUnsignedShortByIDBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetUnsignedShortByIDBlock(block);
         return self;
     };
@@ -337,6 +445,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetLongByIDBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetLongByIDBlock(block);
         return self;
     };
@@ -346,6 +457,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetUnsignedLongByIDBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetUnsignedLongByIDBlock(block);
         return self;
     };
@@ -355,6 +469,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetUnsignedLongLongByIDBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetUnsignedLongLongByIDBlock(block);
         return self;
     };
@@ -364,6 +481,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetIDByIDBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetObjBlock(block);
         return self;
     };
@@ -373,6 +493,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetByNSIntegerBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetIntegerBlock(block);
         return self;
     };
@@ -382,6 +505,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetByNSUIntegerBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetUIntegerBlock(block);
         return self;
     };
@@ -391,6 +517,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetCGFloatByCGFloatBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetCGFloatBlock(block);
         return self;
     };
@@ -400,6 +529,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetBOOLByBOOLBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetBoolBlock(block);
         return self;
     };
@@ -409,6 +541,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetBOOLByNSUIntegerBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetBoolByUIntegerBlock(block);
         return self;
     };
@@ -418,6 +553,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetIntByIntBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetIntBlock(block);
         return self;
     };
@@ -427,6 +565,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetByUnsignedIntBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetUnsignedIntBlock(block);
         return self;
     };
@@ -436,6 +577,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetByFloatBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetFloatBlock(block);
         return self;
     };
@@ -445,6 +589,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetByDoubleBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetDoubleBlock(block);
         return self;
     };
@@ -454,6 +601,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetByCharBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetCharBlock(block);
         return self;
     };
@@ -463,6 +613,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetByUnsignedCharBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetUnsignedCharBlock(block);
         return self;
     };
@@ -472,6 +625,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetByShortBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetShortBlock(block);
         return self;
     };
@@ -481,6 +637,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetByUnsignedShortBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetUnsignedShortBlock(block);
         return self;
     };
@@ -490,6 +649,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetByLongBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetLongBlock(block);
         return self;
     };
@@ -499,6 +661,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetByUnsignedLongBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetUnsignedLongBlock(block);
         return self;
     };
@@ -508,6 +673,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetByUnsignedLongLongBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetUnsignedLongLongBlock(block);
         return self;
     };
@@ -517,6 +685,9 @@
     @jobs_weakify(self)
     return ^__kindof NSObject *_Nullable(JobsRetIDByTwoIDBlock _Nullable block) {
         @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
         self.actionRetIDBySelectorBlock(block);
         return self;
     };

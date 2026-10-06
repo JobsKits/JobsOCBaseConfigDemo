@@ -8,14 +8,14 @@
 #import "FileFolderHandleTool.h"
 
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN PHFetchOptions
-@interface PHFetchOptions (JobsLocalPropertyDSLAutogen_dc4aef27d8)
+@interface PHFetchOptions (JobsLocalPropertyDSLAutogen_5125e66cc0)
 -(JobsRetPHFetchOptionsByNSArrayNSSortDescriptorBlock _Nonnull)bySortDescriptors;
 -(void)setSortDescriptors:(NSArray<NSSortDescriptor *> * _Nullable)data;
 @end
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END PHFetchOptions
 
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN PHImageRequestOptions
-@interface PHImageRequestOptions (JobsLocalPropertyDSLAutogen_dc4aef27d8)
+@interface PHImageRequestOptions (JobsLocalPropertyDSLAutogen_5125e66cc0)
 -(JobsRetPHImageRequestOptionsByBOOLBlock _Nonnull)bySynchronous;
 -(JobsRetPHImageRequestOptionsByPHImageRequestOptionsDeliveryModeBlock _Nonnull)byDeliveryMode;
 -(void)setDeliveryMode:(PHImageRequestOptionsDeliveryMode)data;
@@ -24,7 +24,7 @@
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END PHImageRequestOptions
 
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN PHVideoRequestOptions
-@interface PHVideoRequestOptions (JobsLocalPropertyDSLAutogen_dc4aef27d8)
+@interface PHVideoRequestOptions (JobsLocalPropertyDSLAutogen_5125e66cc0)
 -(JobsRetPHVideoRequestOptionsByPHVideoRequestOptionsDeliveryModeBlock _Nonnull)byDeliveryMode;
 -(JobsRetPHVideoRequestOptionsByPHVideoRequestOptionsVersionBlock _Nonnull)byVersion;
 -(void)setDeliveryMode:(PHVideoRequestOptionsDeliveryMode)data;
@@ -94,27 +94,18 @@
                      contentsData:(NSData *_Nullable)contentsData
                         overwrite:(BOOL)overwrite
                             error:(NSError *__autoreleasing *)error{
-/// 先讨论是否存在此路径的文件夹？
-/// file_url是文件的全路径。外层拼接好，如果返回YES则file_url可用
-    if ([FileFolderHandleTool createFolderByFileUrl:path error:error]){
-        ///下面是对文件夹存在的情况进行说明
-        // 如果文件存在，并不想覆盖，那么直接返回YES。
-        if (!overwrite){
-#warning 这里可能有点疑问
-            return YES;
-        }else{
-            /*创建文件
-             *参数1：创建文件的路径
-             *参数2：创建文件的内容（NSData类型）
-             *参数3：文件相关属性
-             
-             返回 创建文件是(YES)否(NO)成功？
-             */
-             return [NSFileManager.defaultManager createFileAtPath:path /// 文件的路径
-                                                          contents:contentsData /// 文件的二进制内容（NSData）
-                                                        attributes:nil]; /// 文件的属性
-        }
-    };return NO;
+    if (![FileFolderHandleTool createFolderByFileUrl:path error:error]) {
+        return NO;
+    }
+    BOOL isDirectory = NO;
+    BOOL exists = [NSFileManager.defaultManager fileExistsAtPath:path isDirectory:&isDirectory];
+    if (exists && !isDirectory && !overwrite) {
+        return YES;
+    }
+    return [(contentsData ?: NSData.data) writeToFile:path
+                                             options:overwrite ? NSDataWritingAtomic : NSDataWritingWithoutOverwriting
+                                               error:error];
+
 }
 /* 硬性创建文件夹
  * 给定一个具体的精确到文件📃的路径地址
@@ -137,12 +128,16 @@
 */
 +(BOOL)createFoldByFolderUrl:(NSString *)folder_url
                        error:(NSError *__autoreleasing *)error{
-    /// 创建目录
-    /// 如果文件夹路径不存在，那么先创建文件夹
-    if (!FileFolderHandleTool.isExistsAtPath(folder_url)){
-        /// 创建文件夹，返回文件夹是否创建成功：先有文件夹再有文件，没有文件夹就没有文件
-        return [FileFolderHandleTool createDirectoryAtPath:folder_url error:error];
-    };return YES;
+    BOOL isDirectory = NO;
+    if ([NSFileManager.defaultManager fileExistsAtPath:folder_url isDirectory:&isDirectory]) {
+        if (!isDirectory && error) {
+            *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteFileExistsError
+                                    userInfo:@{NSLocalizedDescriptionKey: @"父路径已存在且不是目录"}];
+        }
+        return isDirectory;
+    }
+    return [FileFolderHandleTool createDirectoryAtPath:folder_url error:error];
+
 }
 /// 获取文件创建的时间
 +(NSDate *)creationDateOfItemAtPath:(NSString *)path
@@ -183,29 +178,23 @@
         return nil;
     }else{
         switch (fileType){
-            /// 处理 FileType_TXT 分支
             case FileType_TXT:{
                 return NSString.initByContentsOfFile(filePath);;
             }break;
-            /// 处理 FileType_IMAGE 分支
             case FileType_IMAGE:{
                 return UIImage.imageWithContentsOfFile(filePath);
             }break;
-            /// 处理 FileType_VIDEO 分支
             case FileType_VIDEO:{
                 return NSData.dataByContentsOfFile(filePath);;
             }break;
-            /// 处理 FileType_SOUND 分支
             case FileType_SOUND:{
                 AVURLAsset *mp3Asset = [AVURLAsset URLAssetWithURL:filePath.jobsFileUrl() options:nil];
                 return NSData.initByURL(mp3Asset.URL);
             }break;
-            /// 处理 FileType_PLIST 分支
             case FileType_PLIST:{
                 NSDictionary *dic = NSDictionary.initByContentsOfFile(filePath);
                 return dic;
             }break;
-            /// 未匹配已知分支时执行兜底处理
             default:
                 return nil;
                 break;
@@ -839,7 +828,7 @@ didFinishSavingWithError:(NSError *)error
 @end
 
 // JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN PHFetchOptions
-@implementation PHFetchOptions (JobsLocalPropertyDSLAutogen_dc4aef27d8)
+@implementation PHFetchOptions (JobsLocalPropertyDSLAutogen_5125e66cc0)
 -(JobsRetPHFetchOptionsByNSArrayNSSortDescriptorBlock _Nonnull)bySortDescriptors{
     @jobs_weakify(self)
     return ^__kindof PHFetchOptions * _Nullable(NSArray<NSSortDescriptor *> * _Nullable data){
@@ -852,7 +841,7 @@ didFinishSavingWithError:(NSError *)error
 // JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END PHFetchOptions
 
 // JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN PHImageRequestOptions
-@implementation PHImageRequestOptions (JobsLocalPropertyDSLAutogen_dc4aef27d8)
+@implementation PHImageRequestOptions (JobsLocalPropertyDSLAutogen_5125e66cc0)
 -(JobsRetPHImageRequestOptionsByBOOLBlock _Nonnull)bySynchronous{
     @jobs_weakify(self)
     return ^__kindof PHImageRequestOptions * _Nullable(BOOL data){
@@ -874,7 +863,7 @@ didFinishSavingWithError:(NSError *)error
 // JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END PHImageRequestOptions
 
 // JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN PHVideoRequestOptions
-@implementation PHVideoRequestOptions (JobsLocalPropertyDSLAutogen_dc4aef27d8)
+@implementation PHVideoRequestOptions (JobsLocalPropertyDSLAutogen_5125e66cc0)
 -(JobsRetPHVideoRequestOptionsByPHVideoRequestOptionsDeliveryModeBlock _Nonnull)byDeliveryMode{
     @jobs_weakify(self)
     return ^__kindof PHVideoRequestOptions * _Nullable(PHVideoRequestOptionsDeliveryMode data){

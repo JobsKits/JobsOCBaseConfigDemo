@@ -49,7 +49,7 @@ Prop_copy()NSString *timerIdentifier;
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsMarqueeView
-@interface JobsMarqueeView (JobsPropertyDSLSetterAutogen_5dc448a929)
+@interface JobsMarqueeView (JobsPropertyDSLSetterAutogen_7b50d6fd1f)
 -(void)setContinuousSpeed:(CGFloat)data;
 -(void)setFrequencyInterval:(NSTimeInterval)data;
 -(void)setLastBoundsSize:(CGSize)data;
@@ -61,7 +61,9 @@ Prop_copy()NSString *timerIdentifier;
 
 @implementation JobsMarqueeView
 -(void)dealloc{
-    (((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMarqueeView.class, @selector(jobsStop)))(self, @selector(jobsStop)))();
+    if (_timerIdentifier.length) {
+        JobsTimerMgr.shared().stopAndRemove(_timerIdentifier);
+    }
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{
@@ -108,7 +110,7 @@ Prop_copy()NSString *timerIdentifier;
         _pageControl = jobsMakePageControl(^(UIPageControl *object){});
         _pageControl.byHidden(YES);
         _pageControl.byUserInteractionEnabled(NO);
-        [self addSubview:_pageControl];
+        _pageControl.addOn(self);
     };return _pageControl;
 }
 #pragma mark —— Public Controls
@@ -346,15 +348,17 @@ Prop_copy()NSString *timerIdentifier;
         _minButtonSize = self.computeMinButtonSize();
         _timerIdentifier = [NSString stringWithFormat:@"%@.%p", JobsMarqueeTimerIdentifierPrefix, self];
         _internalButtons = NSMutableArray.array;
-        _scrollView = jobsMakeScrollView(^(UIScrollView *object){});
-        _scrollView.byShowsHorizontalScrollIndicator(NO);
-        _scrollView.byShowsVerticalScrollIndicator(NO);
-        _scrollView.byBounces(NO);
-        _scrollView.byPagingEnabled(NO);
-        _scrollView.byScrollEnabled(NO);
-        _scrollView.byScrollsToTop(NO);
-        _scrollView.byDelegate(self);
-        [self addSubview:_scrollView];
+        _scrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
+            scrollView
+                .byDelegate(self)
+                .byShowsHorizontalScrollIndicator(NO)
+                .byShowsVerticalScrollIndicator(NO)
+                .byBounces(NO)
+                .byPagingEnabled(NO)
+                .byScrollEnabled(NO)
+                .byScrollsToTop(NO)
+                .addOn(self);
+        });
         self.applyManualScrollConfig();
     };
 }
@@ -408,7 +412,7 @@ Prop_copy()NSString *timerIdentifier;
                     size.width = CGRectGetWidth(self.bounds);
                 }
                 button.byFrame(CGRectMake(x, 0, size.width, size.height));
-                [self.scrollView addSubview:button];
+                button.addOn(self.scrollView);
                 x += size.width;
             }
             contentWidth = MAX(CGRectGetWidth(self.bounds), x);
@@ -424,7 +428,7 @@ Prop_copy()NSString *timerIdentifier;
                     size.height = CGRectGetHeight(self.bounds);
                 }
                 button.byFrame(CGRectMake(0, y, size.width, size.height));
-                [self.scrollView addSubview:button];
+                button.addOn(self.scrollView);
                 y += size.height;
             }
             contentHeight = MAX(CGRectGetHeight(self.bounds), y);
@@ -706,7 +710,7 @@ Prop_copy()NSString *timerIdentifier;
     return ^CGSize{
         @jobs_strongify(self)
         if (!self) return (CGSize){0};
-        UIFont *font = [UIFont systemFontOfSize:UIFont.buttonFontSize];
+        UIFont *font = UIFontSystemFontOfSize(UIFont.buttonFontSize);
         return [@"A" sizeWithAttributes:@{NSFontAttributeName:font}];
     };
 }
@@ -728,18 +732,20 @@ Prop_copy()NSString *timerIdentifier;
     return ^UIButton *(UIButton * source){
         @jobs_strongify(self)
         if (!self) return nil;
-        UIButton *button = jobsMakeButton(^(__kindof UIButton *_Nullable button) {
+        UIButton *button = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
             button.byTag(source.tag);
         });
         if (@available(iOS 15.0, *)) {
-            button.byConfiguration(source.configuration);
-            button.byAutomaticallyUpdatesConfiguration(source.automaticallyUpdatesConfiguration);
+            button
+                .byConfiguration(source.configuration)
+                .byAutomaticallyUpdatesConfiguration(source.automaticallyUpdatesConfiguration);
         }else{
     #pragma clang diagnostic push
     #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-            button.byContentEdgeInsets(source.contentEdgeInsets);
-            button.byTitleEdgeInsets(source.titleEdgeInsets);
-            button.byImageEdgeInsets(source.imageEdgeInsets);
+            button
+                .byContentEdgeInsets(source.contentEdgeInsets)
+                .byTitleEdgeInsets(source.titleEdgeInsets)
+                .byImageEdgeInsets(source.imageEdgeInsets);
     #pragma clang diagnostic pop
         }
         UIControlState states[] = {
@@ -750,21 +756,28 @@ Prop_copy()NSString *timerIdentifier;
         };
         for (NSUInteger i = 0; i < sizeof(states) / sizeof(UIControlState); i++) {
             UIControlState state = states[i];
-            [button setTitle:[source titleForState:state] forState:state];
+            [button setTitle:source.titleByState(state)
+                    forState:state];
             if (@available(iOS 15.0, *)) {
                 if (!source.configuration) {
-                    [button setAttributedTitle:[source attributedTitleForState:state] forState:state];
+                    [button setAttributedTitle:source.attributedTitleByState(state)
+                                      forState:state];
                 }
             }else{
-                [button setAttributedTitle:[source attributedTitleForState:state] forState:state];
+                [button setAttributedTitle:source.attributedTitleByState(state)
+                                  forState:state];
             }
-            [button setTitleColor:[source titleColorForState:state] forState:state];
-            [button setTitleShadowColor:[source titleShadowColorForState:state] forState:state];
-            [button setImage:[source imageForState:state] forState:state];
-            [button setBackgroundImage:[source backgroundImageForState:state] forState:state];
+            button.titleColorForStateBy(source.titleColorByState(state), state);
+            [button setTitleShadowColor:[source titleShadowColorForState:state]
+                               forState:state];
+            button.imageForStateBy(source.imageByState(state), state)
+                .backgroundImageForStateBy(source.backgroundImageByState(state), state);
             if (@available(iOS 13.0, *)) {
                 UIImageSymbolConfiguration *configuration = [source preferredSymbolConfigurationForImageInState:state];
-                if (configuration) [button setPreferredSymbolConfiguration:configuration forImageInState:state];
+                if (configuration) {
+                    [button setPreferredSymbolConfiguration:configuration
+                                            forImageInState:state];
+                }
             }
         }
         button
@@ -799,7 +812,15 @@ Prop_copy()NSString *timerIdentifier;
                 UIControlEvents event = eventNumber.unsignedIntegerValue;
                 NSArray<NSString *> *actions = [source actionsForTarget:target forControlEvent:event];
                 for (NSString *actionName in actions) {
-                    [button addTarget:target action:NSSelectorFromString(actionName) forControlEvents:event];
+                    __weak id weakTarget = target;
+                    SEL action = NSSelectorFromString(actionName);
+                    button.onJobsEvent(event, ^(__kindof UIControl * _Nullable control) {
+                        id strongTarget = weakTarget;
+                        if (!strongTarget) return;
+                        [control sendAction:action
+                                         to:strongTarget
+                                   forEvent:nil];
+                    });
                     if (event == UIControlEventTouchUpInside) hasTapTarget = YES;
                 }
             }
@@ -822,14 +843,17 @@ Prop_copy()NSString *timerIdentifier;
         if (@available(iOS 14.0, *)) {
             if (!hasTapTarget) {
                 __weak UIButton *weakSource = source;
-                [button addAction:[UIAction actionWithHandler:^(__unused UIAction * _Nonnull action) {
-                    [weakSource sendActionsForControlEvents:UIControlEventTouchUpInside];
-                }] forControlEvents:UIControlEventTouchUpInside];
+                button.byOnAction(UIControlEventTouchUpInside,
+                                  nil,
+                                  ^(__unused UIAction *_Nonnull action) {
+                    weakSource.bySendActionsForControlEvents(UIControlEventTouchUpInside);
+                });
             }
         }
         if (@available(iOS 15.0, *)) {
-            [button setNeedsUpdateConfiguration];
-            [button updateConfiguration];
+            button
+                .bySetNeedsUpdateConfiguration()
+                .byUpdateConfiguration();
         };return button;
     };
 }

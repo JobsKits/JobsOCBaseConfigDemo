@@ -3,6 +3,7 @@ ENV['COCOAPODS_DISABLE_STATS'] = 'true'
 
 require 'fileutils'
 require 'pathname'
+require 'securerandom'
 
 jobs_pod_install_guard_path = File.join(
   __dir__,
@@ -20,7 +21,8 @@ source 'https://cdn.cocoapods.org/'
 
 install! 'cocoapods',
   :deterministic_uuids => false,
-  :disable_input_output_paths => true
+  :disable_input_output_paths => true,
+  :warn_for_unused_master_specs_repo => false
 
 use_frameworks! :linkage => :static
 inhibit_all_warnings!
@@ -36,8 +38,26 @@ def scripts_by_pods_script_path(script_name)
   File.expand_path(File.join(__dir__, 'ScriptsByPods', script_name, script_name))
 end
 
-# 统一执行 pod install 后置脚本；子脚本失败只警告，不改变安装结果。
+def jobs_pod_install_pure_mode?
+  %w[
+    JOBS_POD_INSTALL_PURE
+    JOBS_POD_INSTALL_SKIP_EXTERNAL_SCRIPTS
+  ].any? do |key|
+    %w[1 true yes y on].include?(ENV.fetch(key, '').to_s.strip.downcase)
+  end
+end
+
+def skip_optional_podfile_enhancement(label)
+  return false unless jobs_pod_install_pure_mode?
+
+  Pod::UI.puts "[#{label}] pure mode skip optional enhancement" if defined?(Pod::UI)
+  true
+end
+
+# 统一执行 pod install 后置脚本；纯净模式和子脚本失败都不阻断安装结果。
 def run_pod_install_post_scripts
+  return if skip_optional_podfile_enhancement('PodInstallPostScripts')
+
   script_name = '【MacOS】📦Pod Install离线保护.command'
   script_path = scripts_by_pods_script_path(script_name)
   unless File.file?(script_path)
@@ -73,39 +93,68 @@ def configure_podfile_text_reference(file_ref, name, path)
   file_ref.indent_width = '2'
 end
 
+# 集成完成后从磁盘重开，避免复用 CocoaPods 的顺序 UUID 分配器。
 def patch_pods_project_podfile_references(installer)
-  pods_project = installer.pods_project
+  project_path = installer.pods_project.path
+  project_file = File.join(project_path, 'project.pbxproj')
+  backup_path = "#{project_file}.repair-backup-#{SecureRandom.hex(8)}"
+  FileUtils.cp(project_file, backup_path)
+
+  pods_project = Xcodeproj::Project.open(project_path)
+  root_uuid = pods_project.root_object.uuid
   root_group = pods_project.main_group
   wanted_files = {
     'Podfile' => '../Podfile',
     'Podfile.deps' => '../Podfile.deps'
   }
 
-  wanted_files.each do |name, path|
+  wanted_files.each_with_index do |(name, path), index|
+    expected_path = File.expand_path(path, project_path.dirname)
+    raise "#{name} 文件不存在" unless File.file?(expected_path)
+
     existing_refs = pods_project.files.select do |ref|
       ref.path == path || ref.name == name
     end
+    raise "#{name} 存在重复引用" if existing_refs.length > 1
 
-    root_refs = root_group.children.grep(Xcodeproj::Project::Object::PBXFileReference)
-    file_ref = root_refs.find { |ref| ref.path == path || ref.name == name }
-    file_ref ||= root_group.new_file(path)
-
-    configure_podfile_text_reference(file_ref, name, path)
-
-    existing_refs.each do |ref|
-      next if ref == file_ref
-
-      ref.remove_from_project
+    file_ref = existing_refs.first
+    if file_ref && !root_group.files.include?(file_ref)
+      raise "#{name} 引用不在 Pods 根组"
     end
-
+    file_ref ||= root_group.new_file(path)
+    configure_podfile_text_reference(file_ref, name, path)
     root_group.children.delete(file_ref)
-    insert_index = name == 'Podfile' ? 0 : 1
-    root_group.children.insert(insert_index, file_ref)
+    root_group.children.insert(index, file_ref)
   end
 
   pods_project.save
-rescue => e
-  Pod::UI.puts "[PodfileRefs] skip: #{e}" if defined?(Pod::UI)
+  reopened = Xcodeproj::Project.open(project_path)
+  unless reopened.root_object.isa == 'PBXProject' && reopened.root_object.uuid == root_uuid
+    raise 'Pods 工程根对象核验失败'
+  end
+
+  build_phase_refs = reopened.targets.flat_map(&:build_phases).flat_map do |phase|
+    phase.respond_to?(:files_references) ? phase.files_references : []
+  end
+  wanted_files.each_with_index do |(name, path), index|
+    refs = reopened.files.select { |ref| ref.path == path || ref.name == name }
+    file_ref = refs.first
+    reference_valid = refs.length == 1 &&
+      reopened.main_group.children[index] == file_ref &&
+      file_ref.explicit_file_type == 'text.script.ruby' &&
+      file_ref.real_path.to_s == File.expand_path(path, project_path.dirname) &&
+      !build_phase_refs.include?(file_ref)
+    raise "#{name} 展示引用核验失败" unless reference_valid
+  end
+rescue StandardError => error
+  begin
+    FileUtils.cp(backup_path, project_file) if backup_path && File.file?(backup_path)
+  rescue StandardError => restore_error
+    warn "[PodfileRefs] Pods 工程恢复失败：#{restore_error.message}"
+  end
+  warn "[PodfileRefs] Xcode 展示引用维护失败，已跳过：#{error.message}"
+ensure
+  FileUtils.rm_f(backup_path) if backup_path
 end
 
 def strip_ijk_media_framework_ldflags(ldflags)
@@ -197,6 +246,12 @@ def patch_reactiveobjc_metamacros_header(installer)
     File.write(path, new_text)
   end
 
+  configure_reactiveobjc_header_copy_phase(installer)
+
+end
+
+# CocoaPods 生成配置修正，不改写任何供应商源码。
+def configure_reactiveobjc_header_copy_phase(installer)
   reactive_objc_target = installer.pods_project.targets.find { |target| target.name == 'ReactiveObjC' }
   return unless reactive_objc_target&.headers_build_phase
 
@@ -205,6 +260,12 @@ def patch_reactiveobjc_metamacros_header(installer)
     file_ref && File.basename(file_ref.path.to_s) == 'RACmetamacros.h'
   end
   return unless racmetamacros_build_files.size > 1
+
+  # 已有兼容副本只调整生成的复制阶段；内容不同则拒绝静默选择。
+  source_paths = racmetamacros_build_files.map { |file| file.file_ref.real_path.to_s }
+  unless source_paths.all? { |path| File.file?(path) } && source_paths.map { |path| File.binread(path) }.uniq.size == 1
+    raise 'ReactiveObjC RACmetamacros.h 输出冲突且内容不同，请核对实际依赖，不能自动覆盖'
+  end
 
   keep_build_file = racmetamacros_build_files.find do |build_file|
     build_file.file_ref&.path.to_s.include?('/extobjc/')
@@ -344,9 +405,12 @@ post_install do |installer|
     end
   end
 
-  patch_zfplayer_ijkplayer_for_simulator if needs_ijk_simulator_arch_workaround
-  patch_zfplayer_netinet6_private_header
-  patch_reactiveobjc_metamacros_header(installer)
+  unless ENV['JOBS_POD_INSTALL_SKIP_VENDOR_PATCHES'] == '1'
+    patch_zfplayer_ijkplayer_for_simulator if needs_ijk_simulator_arch_workaround
+    patch_zfplayer_netinet6_private_header
+    patch_reactiveobjc_metamacros_header(installer)
+  end
+  configure_reactiveobjc_header_copy_phase(installer)
   patch_cocoapods_realpath_on_error_scripts
   patch_xcframework_shell_script_invocations(installer)
 
@@ -354,7 +418,32 @@ post_install do |installer|
 
 end
 
+# 宿主声明由主工程负责；第三方同名裸资源复制后恢复 Jobs 自有声明。
+def protect_jobs_host_privacy_manifest
+  script_path = File.join(__dir__, 'Pods', 'Target Support Files', 'Pods-JobsOCBaseConfigDemo', 'Pods-JobsOCBaseConfigDemo-resources.sh')
+  return unless File.file?(script_path)
+  manifest_path = File.join(__dir__, 'JobsOCBaseConfigDemo', '启动配置', 'JobsPrivacy', 'PrivacyInfo.xcprivacy')
+  raise "宿主隐私声明不存在: #{manifest_path}" unless File.file?(manifest_path)
+  text = File.read(script_path).sub(/\n# JOBS_HOST_PRIVACY_BEGIN\n.*?# JOBS_HOST_PRIVACY_END\n?/m, '')
+  text += <<~'SCRIPT'
+
+    # JOBS_HOST_PRIVACY_BEGIN
+    jobs_host_privacy_source="${PODS_ROOT}/../JobsOCBaseConfigDemo/启动配置/JobsPrivacy/PrivacyInfo.xcprivacy"
+    if [ ! -f "$jobs_host_privacy_source" ]; then
+      echo "error: Jobs host PrivacyInfo.xcprivacy is missing: $jobs_host_privacy_source"
+      exit 1
+    fi
+    /bin/cp -f "$jobs_host_privacy_source" "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PrivacyInfo.xcprivacy"
+    if [[ "${ACTION}" == "install" ]] && [[ "${SKIP_INSTALL}" == "NO" ]]; then
+      /bin/cp -f "$jobs_host_privacy_source" "${INSTALL_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PrivacyInfo.xcprivacy"
+    fi
+    # JOBS_HOST_PRIVACY_END
+  SCRIPT
+  File.write(script_path, text) if text != File.read(script_path)
+end
+
 post_integrate do |installer|
+  protect_jobs_host_privacy_manifest
   patch_pods_project_podfile_references(installer)
   run_pod_install_post_scripts
 end

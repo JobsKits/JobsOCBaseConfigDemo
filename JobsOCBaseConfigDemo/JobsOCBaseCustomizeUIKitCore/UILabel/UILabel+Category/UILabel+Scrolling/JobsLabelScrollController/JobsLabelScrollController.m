@@ -1,6 +1,6 @@
 //
 //  JobsLabelScrollController.m
-//  JobsOCBaseConfigDemo
+//  JobsOCUILabelScrolling
 //
 //  Created by Jobs on 2026年7月17日，星期五.
 //
@@ -59,7 +59,7 @@ Prop_assign()NSTimeInterval delayRemaining;
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsLabelScrollController
-@interface JobsLabelScrollController (JobsPropertyDSLSetterAutogen_6bf287a3e6)
+@interface JobsLabelScrollController (JobsPropertyDSLSetterAutogen_fd33e32859)
 -(void)setConcealed:(BOOL)data;
 -(void)setConcealedAttributedText:(NSAttributedString * _Nullable)data;
 -(void)setDelayRemaining:(NSTimeInterval)data;
@@ -186,12 +186,7 @@ Prop_assign()NSTimeInterval delayRemaining;
     };
 }
 
--(void)reload{
-    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsLabelScrollController.class, @selector(jobsReload)))(self, @selector(jobsReload));
-    if (action) action();
-}
-
--(jobsByVoidBlock _Nonnull)jobsReload{
+-(jobsByVoidBlock _Nonnull)reload{
     @jobs_weakify(self)
     return ^{
         @jobs_strongify(self)
@@ -364,9 +359,10 @@ Prop_assign()NSTimeInterval delayRemaining;
 
         if (self.configuration.mode == JobsLabelScrollModeContinuous) {
             CGFloat cycleWidth = self.textLayer.textWidth + self.configuration.spacing;
-            if (cycleWidth <= 0) return;
-            self.offsetX += self.configuration.speed * elapsed;
-            while (self.offsetX >= cycleWidth) self.offsetX -= cycleWidth;
+            if (!isfinite(cycleWidth) || cycleWidth <= 0) return;
+            CGFloat displacement = self.configuration.speed * elapsed;
+            CGFloat nextOffset = self.offsetX + displacement;
+            self.byOffsetX(isfinite(nextOffset) ? fmod(nextOffset, cycleWidth) : 0);
         }else{
             CGFloat maximumOffset = MAX(0, self.textLayer.textWidth - CGRectGetWidth(label.bounds));
             if (maximumOffset <= 0) return;

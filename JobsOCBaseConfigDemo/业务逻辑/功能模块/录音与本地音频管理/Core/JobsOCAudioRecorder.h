@@ -5,6 +5,7 @@
 //  Created by Jobs on 2026年7月14日，星期二.
 //
 
+#import <math.h>
 #import <AVFoundation/AVFoundation.h>
 
 #if __has_include(<JobsOCTimer/JobsOCTimer.h>)

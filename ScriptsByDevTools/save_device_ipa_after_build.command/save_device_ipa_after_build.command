@@ -1,28 +1,56 @@
-#!/usr/bin/env zsh
+#!/bin/zsh
+# 脚本自述：
+# - 脚本名称：save_device_ipa_after_build.command
+# - 核心用途：为主 App 的真机 / 模拟器构建生成对应 IPA。
+# - 影响范围：打包成功后清空工程 build/ 全部内容，仅保留本次产物。
+# - 运行提示：Xcode 构建阶段自动执行；终端先回车，再输入 YES 确认清理，Ctrl+C 取消。
 # shell: zsh
-# 脚本自述：主 App 的真机 / 模拟器构建自动生成真机.ipa / 模拟器.ipa；打包成功后清空工程 build/ 全部内容，只放入本次产物。
-# 运行提示：Xcode Build Phase 无交互执行；终端手动运行先确认。build/ 仅存放一次性产物，不能兼作 DerivedData。
 
 typeset -g SCRIPT_PATH="${${(%):-%x}:A}"
+typeset -g SCRIPT_DIR="${SCRIPT_PATH:h}"
 typeset -g SCRIPT_BASENAME="${SCRIPT_PATH:t:r}"
 typeset -g LOG_FILE=""
 typeset -g STAGING_ROOT=""
 typeset -g BUILD_KIND=""
 
-# 展示清理范围；Xcode 自动执行，终端手动入口保留确认。
+# 自述标题红色加粗、正文蓝色常规；无彩色终端时输出纯文本。
+print_intro_line() {
+  if [[ -t 1 && -n "${TERM:-}" && "${TERM:-}" != dumb && -z "${NO_COLOR+x}" && "${PLAIN_OUTPUT:-0}" != 1 && "${IS_SOURCETREE_RUNTIME:-0}" != 1 ]]; then
+    if [[ "$1" == title ]]; then
+      printf '\033[1;31m%s\033[0m\n' "$2"
+    else
+      printf '\033[0;34m%s\033[0m\n' "$2"
+    fi
+  else
+    printf '%s\n' "$2"
+  fi
+}
+# 展示清理范围；Xcode 自动执行，终端确认后才能进入业务。
 show_script_intro_and_wait() {
-  print -r -- "ℹ 脚本：${SCRIPT_PATH:t}；真机 / 模拟器 App → Payload → 真机.ipa / 模拟器.ipa。"
-  print -r -- "ℹ 影响范围：打包成功后清空工程 build/（含隐藏文件、子目录和旧平台包），仅保留本次 IPA。"
-  print -r -- "ℹ 模拟器 IPA 是模拟器 App 快照，不能安装到真机；日志在系统临时目录的 ${SCRIPT_BASENAME}.log。"
+  print_intro_line title "📦 ${SCRIPT_PATH:t}"
+  print_intro_line body '1、用途：真机 / 模拟器 App → Payload → 真机.ipa / 模拟器.ipa。'
+  print_intro_line body '2、影响范围：打包成功后清空工程 build/（含隐藏文件、子目录和旧平台包），仅保留本次 IPA。'
+  print_intro_line body "3、模拟器 IPA 不能安装到真机；日志在系统临时目录的 ${SCRIPT_BASENAME}.log（确认后写入）。"
   if [[ -n "${XCODE_VERSION_ACTUAL:-}" && -n "${TARGET_BUILD_DIR:-}" ]]; then
-    print -r -- "ℹ Xcode 构建阶段无交互执行；可取消当前构建。"
+    print_intro_line body '4、Xcode 构建阶段无交互执行；取消当前构建可终止脚本。'
     return 0
   fi
-  [[ -t 0 ]] || {
-    print -r -- "✖ 未识别为 Xcode 构建环境且没有可交互输入，请从 Xcode 或终端运行。"
-    return 1
-  }
-  read -r "?👉 已了解用途和清理范围，按回车继续；按 Ctrl+C 取消：" _
+  print_intro_line body '4、终端先按回车，再输入 YES 授权清理；Ctrl+C 随时取消。'
+  if [[ ! -t 0 ]]; then
+    print -r -- '✖ 未识别为 Xcode 构建环境且没有可交互输入，请从 Xcode 或终端运行。' >&2
+    exit 1
+  fi
+  if ! read -r '?👉 已了解用途和清理范围，按回车继续；按 Ctrl+C 取消：' _; then
+    exit 130
+  fi
+  typeset cleanup_confirmation=''
+  if ! read -r '?⚠ 打包成功将清空 build/ 全部内容；输入 YES 继续，其它输入取消：' cleanup_confirmation; then
+    exit 130
+  fi
+  if [[ "$cleanup_confirmation" != YES ]]; then
+    print -r -- 'ℹ 未授权清理，已取消；未初始化日志或执行打包。'
+    exit 0
+  fi
 }
 # 初始化日志和 Shell 的运行策略。
 initialize_runtime() {

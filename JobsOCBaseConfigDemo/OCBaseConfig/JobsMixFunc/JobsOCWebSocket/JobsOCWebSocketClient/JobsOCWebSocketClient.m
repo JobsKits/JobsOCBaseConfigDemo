@@ -34,18 +34,19 @@ static void *JobsOCWebSocketQueueKey = &JobsOCWebSocketQueueKey;
 @interface JobsOCWebSocketClient () <SRWebSocketDelegate>
 
 @property(atomic, assign, readwrite)JobsOCWebSocketState state;
-@property(nonatomic, strong, readwrite, nullable)NSURL *URL;
+@property(atomic, strong, readwrite, nullable)NSURL *URL;
 @property(nonatomic, strong)dispatch_queue_t workQueue;
 @property(nonatomic, strong, nullable)SRWebSocket *socket;
 @property(nonatomic, strong, nullable)dispatch_source_t heartbeatTimer;
 @property(nonatomic, copy, nullable)dispatch_block_t reconnectWorkItem;
 @property(nonatomic, assign)NSInteger reconnectAttempt;
 @property(nonatomic, assign)BOOL manuallyDisconnected;
+@property(nonatomic, copy, nullable)NSData *pendingPing;
 
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCWebSocketClient
-@interface JobsOCWebSocketClient (JobsPropertyDSLSetterAutogen_e2e2b28edb)
+@interface JobsOCWebSocketClient (JobsPropertyDSLSetterAutogen_a841d4fcb7)
 -(void)setHeartbeatTimer:(dispatch_source_t)data;
 -(void)setManuallyDisconnected:(BOOL)data;
 -(void)setReconnectAttempt:(NSInteger)data;
@@ -87,9 +88,11 @@ static void *JobsOCWebSocketQueueKey = &JobsOCWebSocketQueueKey;
     if (self.heartbeatTimer) {
         dispatch_source_cancel(self.heartbeatTimer);
     }
-    self.socket.byDelegate(nil);
-    [self.socket closeWithCode:SRStatusCodeGoingAway
-                       reason:nil];
+    SRWebSocket *socket = _socket;
+    if (socket) {
+        socket.byDelegate(nil);
+        [socket closeWithCode:SRStatusCodeGoingAway reason:nil];
+    }
 }
 
 -(jobsByVoidBlock _Nonnull)connect{
@@ -120,8 +123,18 @@ static void *JobsOCWebSocketQueueKey = &JobsOCWebSocketQueueKey;
     return ^(NSURL * URL){
         @jobs_strongify(self)
         if (!self) return;
-        self.byURL(URL);
-        [self connect]();
+        dispatch_async(self.workQueue, ^{
+            self.byURL(URL);
+            self.byManuallyDisconnected(NO);
+            self.byReconnectAttempt(0);
+            self.cancelReconnect();
+            self.invalidateCurrentSocket();
+            if (!self.URL) {
+                [self publishState:JobsOCWebSocketStateFailed error:self.errorWithDescription(@"WebSocket 地址不能为空")];
+                return;
+            }
+            self.startConnectionWithURL(self.URL);
+        });
     };
 }
 
@@ -218,8 +231,9 @@ static void *JobsOCWebSocketQueueKey = &JobsOCWebSocketQueueKey;
              index++) {
             delay *= 2;
         }
-        delay = MIN(delay, self.maximumReconnectDelay);
-        delay = MAX(0, delay);
+        NSTimeInterval maximumDelay = self.maximumReconnectDelay;
+        maximumDelay = isfinite(maximumDelay) && maximumDelay > 0 ? MIN(maximumDelay, 86400) : 16;
+        delay = isfinite(delay) && delay > 0 ? MIN(delay, maximumDelay) : MIN(1, maximumDelay);
         [self publishState:JobsOCWebSocketStateReconnecting
                      error:lastError];
         [self publishReconnectAttempt:self.reconnectAttempt
@@ -251,9 +265,10 @@ static void *JobsOCWebSocketQueueKey = &JobsOCWebSocketQueueKey;
         self.stopHeartbeat();
         SRWebSocket *socket = self.socket;
         self.socket = nil;
-        socket.byDelegate(nil);
-        [socket closeWithCode:SRStatusCodeGoingAway
-                       reason:nil];
+        if (socket) {
+            socket.byDelegate(nil);
+            [socket closeWithCode:SRStatusCodeGoingAway reason:nil];
+        }
     };
 }
 #pragma mark —— Heartbeat
@@ -263,14 +278,14 @@ static void *JobsOCWebSocketQueueKey = &JobsOCWebSocketQueueKey;
         @jobs_strongify(self)
         if (!self) return;
         self.stopHeartbeat();
-        if (self.heartbeatInterval <= 0) return;
+        if (!isfinite(self.heartbeatInterval) || self.heartbeatInterval <= 0) return;
         dispatch_source_t timer = dispatch_source_create(
             DISPATCH_SOURCE_TYPE_TIMER,
             0,
             0,
             self.workQueue
         );
-        uint64_t interval = (uint64_t)(self.heartbeatInterval * NSEC_PER_SEC);
+        uint64_t interval = (uint64_t)(MAX(0.1, MIN(self.heartbeatInterval, 86400)) * NSEC_PER_SEC);
         dispatch_source_set_timer(
             timer,
             dispatch_time(DISPATCH_TIME_NOW, interval),
@@ -283,8 +298,13 @@ static void *JobsOCWebSocketQueueKey = &JobsOCWebSocketQueueKey;
             if (!self ||
                 self.state != JobsOCWebSocketStateConnected ||
                 self.socket.readyState != SR_OPEN) return;
+            if (self.pendingPing) {
+                self.handleConnectionEndWithError(self.errorWithDescription(@"WebSocket 心跳 pong 超时"));
+                return;
+            }
+            self.pendingPing = [NSUUID.UUID.UUIDString dataUsingEncoding:NSUTF8StringEncoding];
             NSError *error = nil;
-            if (![self.socket sendPing:nil error:&error]) {
+            if (![self.socket sendPing:self.pendingPing error:&error]) {
                 self.handleConnectionEndWithError(error);
             }
         });
@@ -298,6 +318,7 @@ static void *JobsOCWebSocketQueueKey = &JobsOCWebSocketQueueKey;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
+        self.pendingPing = nil;
         if (!self.heartbeatTimer) return;
         dispatch_source_cancel(self.heartbeatTimer);
         self.byHeartbeatTimer(nil);
@@ -322,7 +343,7 @@ static void *JobsOCWebSocketQueueKey = &JobsOCWebSocketQueueKey;
         dispatch_queue_set_specific(
             _workQueue,
             JobsOCWebSocketQueueKey,
-            JobsOCWebSocketQueueKey,
+            (__bridge void *)self,
             NULL
         );
     };
@@ -425,7 +446,7 @@ static void *JobsOCWebSocketQueueKey = &JobsOCWebSocketQueueKey;
         }
         sent = sendBlock(self.socket, &sendError);
     };
-    if (dispatch_get_specific(JobsOCWebSocketQueueKey)) {
+    if (dispatch_get_specific(JobsOCWebSocketQueueKey) == (__bridge void *)self) {
         work();
     } else {
         dispatch_sync(self.workQueue, work);
@@ -445,6 +466,12 @@ static void *JobsOCWebSocketQueueKey = &JobsOCWebSocketQueueKey;
     };
 }
 #pragma mark —— SRWebSocketDelegate
+-(void)webSocket:(SRWebSocket *)webSocket didReceivePong:(NSData *)pongData{
+    if (self.socket == webSocket && [self.pendingPing isEqualToData:pongData]) {
+        self.pendingPing = nil;
+    }
+}
+
 -(jobsBySRWebSocketBlock _Nonnull)webSocketDidOpen{
     @jobs_weakify(self)
     return ^(SRWebSocket * webSocket){

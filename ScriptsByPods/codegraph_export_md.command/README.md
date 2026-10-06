@@ -8,6 +8,8 @@
 
 ## 🔥 <font id=前言>前言</font>
 
+本目录中可独立运行的 `.command` 入口先显示内置自述：标题红色加粗，编号正文蓝色且不加粗；在终端按回车确认后才进入原有流程，按 `Ctrl+C` 取消。非彩色终端显示纯文本；没有可交互输入时停止，避免确认缺失后继续执行。 已明确设置 `CODEGRAPH_AUTO_INIT=1` 的自动流程保持原有策略；已确认的初始化入口调用导出脚本时透传确认状态，不重复阻塞后台导出。
+
 `codegraph_export_md.command` 用于从 `.codegraph/codegraph.db` 导出真正有阅读价值的 [**Markdown**](https://markdown.cn) / [**Mermaid**](https://mermaid.js.org) 图谱文档。
 
 它不再硬猜 `calls,extends,implements` 一定存在，而是先统计 `edges.kind` 的实际分布，再按当前数据库真实存在的关系生成模块关联、核心符号、边明细和拆分图。

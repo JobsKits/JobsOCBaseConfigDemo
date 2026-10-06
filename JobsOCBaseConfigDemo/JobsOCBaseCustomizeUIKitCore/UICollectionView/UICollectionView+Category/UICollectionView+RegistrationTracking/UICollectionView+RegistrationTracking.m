@@ -20,23 +20,29 @@ static NSString *JobsCollectionViewSupplementaryRegistrationKey(NSString *elemen
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
 #pragma mark —— registerClass:forCellWithReuseIdentifier:
-        Method originalMethod = class_getInstanceMethod(self,
+        Method originalMethod = class_getInstanceMethod(UICollectionView.class,
             @selector(registerClass:forCellWithReuseIdentifier:));
-        Method swizzledMethod = class_getInstanceMethod(self,
+        Method swizzledMethod = class_getInstanceMethod(UICollectionView.class,
             @selector(swizzled_registerClass:forCellWithReuseIdentifier:));
-        method_exchangeImplementations(originalMethod, swizzledMethod);
+        if (originalMethod && swizzledMethod) {
+            method_exchangeImplementations(originalMethod, swizzledMethod);
+        }
 #pragma mark —— registerClass:forSupplementaryViewOfKind:withReuseIdentifier:
-        Method originalSupplementaryMethod = class_getInstanceMethod(self, @selector(registerClass:forSupplementaryViewOfKind:withReuseIdentifier:));
-        Method swizzledSupplementaryMethod = class_getInstanceMethod(self, @selector(swizzled_registerClass:forSupplementaryViewOfKind:withReuseIdentifier:));
-        method_exchangeImplementations(originalSupplementaryMethod, swizzledSupplementaryMethod);
-#pragma mark —— dequeueReusableCellWithReuseIdentifier:forIndexPath:
-        Method originalMethod1 = class_getInstanceMethod(self.class, @selector(dequeueReusableCellWithReuseIdentifier:forIndexPath:));
-        Method swizzledMethod1 = class_getInstanceMethod(self.class, @selector(swizzled_dequeueReusableCellWithReuseIdentifier:forIndexPath:));
-        method_exchangeImplementations(originalMethod1, swizzledMethod1);
-#pragma mark —— dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:
-        Method originalMethod2 = class_getInstanceMethod(self.class, @selector(dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:));
-        Method swizzledMethod2 = class_getInstanceMethod(self.class, @selector(swizzled_dequeueReusableSupplementaryViewOfKind:withReuseIdentifier:forIndexPath:));
-        method_exchangeImplementations(originalMethod2, swizzledMethod2);
+        Method originalSupplementaryMethod = class_getInstanceMethod(UICollectionView.class, @selector(registerClass:forSupplementaryViewOfKind:withReuseIdentifier:));
+        Method swizzledSupplementaryMethod = class_getInstanceMethod(UICollectionView.class, @selector(swizzled_registerClass:forSupplementaryViewOfKind:withReuseIdentifier:));
+        if (originalSupplementaryMethod && swizzledSupplementaryMethod) {
+            method_exchangeImplementations(originalSupplementaryMethod, swizzledSupplementaryMethod);
+        }
+        Method originalNib = class_getInstanceMethod(UICollectionView.class, @selector(registerNib:forCellWithReuseIdentifier:));
+        Method trackedNib = class_getInstanceMethod(UICollectionView.class, @selector(jobsTracked_registerNib:forCellWithReuseIdentifier:));
+        if (originalNib && trackedNib) {
+            method_exchangeImplementations(originalNib, trackedNib);
+        }
+        Method originalSupplementaryNib = class_getInstanceMethod(UICollectionView.class, @selector(registerNib:forSupplementaryViewOfKind:withReuseIdentifier:));
+        Method trackedSupplementaryNib = class_getInstanceMethod(UICollectionView.class, @selector(jobsTracked_registerNib:forSupplementaryViewOfKind:withReuseIdentifier:));
+        if (originalSupplementaryNib && trackedSupplementaryNib) {
+            method_exchangeImplementations(originalSupplementaryNib, trackedSupplementaryNib);
+        }
     });
 }
 
@@ -44,7 +50,7 @@ static NSString *JobsCollectionViewSupplementaryRegistrationKey(NSString *elemen
     forCellWithReuseIdentifier:(NSString *)identifier {
     [self swizzled_registerClass:cellClass
       forCellWithReuseIdentifier:identifier];
-    self.registeredIdentifiers.add(JobsCollectionViewCellRegistrationKey(identifier));
+    [self jobsTrackRegistrationKey:JobsCollectionViewCellRegistrationKey(identifier) registered:cellClass != Nil];
 }
 
 - (void)swizzled_registerClass:(Class)viewClass
@@ -53,45 +59,44 @@ static NSString *JobsCollectionViewSupplementaryRegistrationKey(NSString *elemen
     [self swizzled_registerClass:viewClass
       forSupplementaryViewOfKind:elementKind
              withReuseIdentifier:identifier];
-    self.registeredIdentifiers.add(JobsCollectionViewSupplementaryRegistrationKey(elementKind, identifier));
+    [self jobsTrackRegistrationKey:JobsCollectionViewSupplementaryRegistrationKey(elementKind, identifier) registered:viewClass != Nil];
 }
 
-- (UICollectionViewCell *)swizzled_dequeueReusableCellWithReuseIdentifier:(NSString *)identifier
-                                                             forIndexPath:(NSIndexPath *)indexPath {
-    NSString *registrationKey = JobsCollectionViewCellRegistrationKey(identifier);
-    if (![self.registeredIdentifiers containsObject:registrationKey]) {
-        /// 如果未注册，则进行注册
-        [self registerClass:NSClassFromString(identifier) forCellWithReuseIdentifier:identifier];
-        self.registeredIdentifiers.add(registrationKey);
-    };return [self swizzled_dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath]; // 调用原方法
+-(void)jobsTracked_registerNib:(UINib *)nib forCellWithReuseIdentifier:(NSString *)identifier {
+    [self jobsTracked_registerNib:nib forCellWithReuseIdentifier:identifier];
+    [self jobsTrackRegistrationKey:JobsCollectionViewCellRegistrationKey(identifier) registered:nib != nil];
 }
 
-- (UICollectionReusableView *)swizzled_dequeueReusableSupplementaryViewOfKind:(NSString *)elementKind
-                                                          withReuseIdentifier:(NSString *)identifier
-                                                                 forIndexPath:(NSIndexPath *)indexPath {
-    if(!identifier || [identifier isEqualToString:@"_UIEditMenuListViewSeparator"]){
-        return [self swizzled_dequeueReusableSupplementaryViewOfKind:elementKind withReuseIdentifier:identifier forIndexPath:indexPath];
+-(void)jobsTracked_registerNib:(UINib *)nib
+    forSupplementaryViewOfKind:(NSString *)kind
+           withReuseIdentifier:(NSString *)identifier {
+    [self jobsTracked_registerNib:nib forSupplementaryViewOfKind:kind withReuseIdentifier:identifier];
+    [self jobsTrackRegistrationKey:JobsCollectionViewSupplementaryRegistrationKey(kind, identifier) registered:nib != nil];
+}
+
+-(void)jobsTrackRegistrationKey:(NSString *)key registered:(BOOL)registered {
+    @synchronized (self) {
+        if (registered) {
+            [self.registeredIdentifiers addObject:key];
+        } else {
+            [self.registeredIdentifiers removeObject:key];
+        }
     }
-    NSString *registrationKey = JobsCollectionViewSupplementaryRegistrationKey(elementKind, identifier);
-    if (![self.registeredIdentifiers containsObject:registrationKey]) {
-        // 如果未注册，则进行注册
-        [self registerClass:NSClassFromString(identifier)
- forSupplementaryViewOfKind:elementKind
-        withReuseIdentifier:identifier];
-        self.registeredIdentifiers.add(registrationKey);
-    };return [self swizzled_dequeueReusableSupplementaryViewOfKind:elementKind
-                                              withReuseIdentifier:identifier
-                                                     forIndexPath:indexPath]; // 调用原方法
 }
-/// 检查某个 reuseIdentifier 是否已注册
+
 -(JobsRetBOOLByStrBlock _Nonnull)isRegisteredForReuseIdentifier{
     @jobs_weakify(self)
     return ^BOOL(NSString * _Nullable reuseIdentifier) {
         @jobs_strongify(self)
-        return [self.registeredIdentifiers containsObject:reuseIdentifier] ||
-            [self.registeredIdentifiers containsObject:JobsCollectionViewCellRegistrationKey(reuseIdentifier)] ||
-            [self.registeredIdentifiers containsObject:JobsCollectionViewSupplementaryRegistrationKey(UICollectionElementKindSectionHeader, reuseIdentifier)] ||
-            [self.registeredIdentifiers containsObject:JobsCollectionViewSupplementaryRegistrationKey(UICollectionElementKindSectionFooter, reuseIdentifier)];
+        if (!self || !reuseIdentifier.length) {
+            return NO;
+        }
+        @synchronized (self) {
+            return [self.registeredIdentifiers containsObject:reuseIdentifier] ||
+                [self.registeredIdentifiers containsObject:JobsCollectionViewCellRegistrationKey(reuseIdentifier)] ||
+                [self.registeredIdentifiers containsObject:JobsCollectionViewSupplementaryRegistrationKey(UICollectionElementKindSectionHeader, reuseIdentifier)] ||
+                [self.registeredIdentifiers containsObject:JobsCollectionViewSupplementaryRegistrationKey(UICollectionElementKindSectionFooter, reuseIdentifier)];
+        }
     };
 }
 #pragma mark —— Prop_strong()NSMutableSet *registeredIdentifiers;/// 自定义标志位

@@ -8,6 +8,10 @@
 #ifndef JobsOCSplashMediaCache_h
 #define JobsOCSplashMediaCache_h
 
+#import "JobsOCSplashMediaDownloadToken.h"
+#import <ImageIO/ImageIO.h>
+#import <stdio.h>
+#import <errno.h>
 #import <Foundation/Foundation.h>
 #import "JobsBlock.h"
 #import "JobsDefines.h"
@@ -21,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetURLByURLBlock _Nonnull)cachedFileURLForRemoteURL;
 -(nullable NSURLSessionDownloadTask *)download:(NSURL *)remoteURL completion:(JobsOCSplashMediaCacheCompletion)completion;
 -(void)preloadVideo:(NSURL *)remoteURL completion:(jobsByURLBlock _Nullable)completion;
+
+-(nullable JobsOCSplashMediaDownloadToken *)downloadImage:(NSURL *)remoteURL completion:(JobsOCSplashMediaCacheCompletion)completion;
 
 @end
 

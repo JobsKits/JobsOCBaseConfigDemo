@@ -30,6 +30,9 @@ NS_ASSUME_NONNULL_BEGIN
 -(jobsByVoidBlock _Nonnull)deleteDeviceID;
 -(JobsRetStrByVoidBlock _Nonnull)deviceID;
 
+/// 只返回已读取或成功持久化的标识；Keychain暂不可用不生成替代身份。
+-(NSString * _Nullable)jobsDeviceIDWithError:(NSError * _Nullable __autoreleasing * _Nullable)error;
+
 @end
 
 NS_ASSUME_NONNULL_END

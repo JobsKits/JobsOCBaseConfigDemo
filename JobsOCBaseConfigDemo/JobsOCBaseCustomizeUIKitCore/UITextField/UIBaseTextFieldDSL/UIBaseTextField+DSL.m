@@ -1,6 +1,6 @@
 //
 //  UIBaseTextField+DSL.m
-//  JobsOCBaseConfigDemo
+//  JobsOCDSL
 //
 //  Created by Jobs on 2026年6月11日，星期四。
 //
@@ -24,6 +24,7 @@
     @jobs_weakify(self)
     return ^__kindof HQTextField *_Nullable(void){
         @jobs_strongify(self)
+        if (!self) return nil;
         self.showWarn();
         return self;
     };
@@ -224,6 +225,15 @@
 @end
 
 @implementation JobsMagicTextField (JobsUIBaseTextFieldDSL)
+-(JobsRetMagicTextFieldByBOOLBlock _Nonnull)byPlaceholdAnimationable{
+    @jobs_weakify(self)
+    return ^__kindof JobsMagicTextField *_Nullable(BOOL data){
+        @jobs_strongify(self)
+        self.placeholdAnimationable = data;
+        return self;
+    };
+}
+
 -(JobsRetMagicTextFieldByCorBlock _Nonnull)byAnimationColor{
     @jobs_weakify(self)
     return ^__kindof JobsMagicTextField *_Nullable(UIColor *_Nullable cor){

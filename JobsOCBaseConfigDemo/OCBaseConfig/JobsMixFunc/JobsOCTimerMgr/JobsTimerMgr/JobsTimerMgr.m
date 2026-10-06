@@ -6,96 +6,7 @@
 //
 
 #import "JobsTimerMgr.h"
-
-@interface _JobsTimerMgrEntry : NSObject
-
-Prop_strong()JobsTimer<TimerProtocol> *timer;
-Prop_copy(nullable)NSString *scopeIdentifier;
-Prop_assign()JobsTimerBackgroundPolicy policy;
-Prop_assign()_JobsTimerPauseState pauseState;
-Prop_strong()NSMutableArray<jobsByCGFloatBlock> *tickBlocks;
-Prop_strong()NSMutableArray<JobsTimerBlock> *finishBlocks;
-
-@end
-
-@interface _JobsTimerMgrEntry (DSL)
-
--(JobsRetJobsTimerMgrEntryByJobsTimerBlock _Nonnull)byTimer;
--(JobsRetJobsTimerMgrEntryByStringBlock _Nonnull)byScopeIdentifier;
--(JobsRetJobsTimerMgrEntryByNSUIntegerBlock _Nonnull)byPolicy;
--(JobsRetJobsTimerMgrEntryByNSUIntegerBlock _Nonnull)byPauseState;
--(JobsRetJobsTimerMgrEntryByJobsByCGFloatBlockBlock _Nonnull)byTickBlock;
--(JobsRetJobsTimerMgrEntryByJobsTimerBlockBlock _Nonnull)byFinishBlock;
-
-@end
-
-@implementation _JobsTimerMgrEntry
-- (instancetype)init {
-    if (self = [super init]) {
-        _pauseState = _JobsTimerPauseStateRunning;
-    };return self;
-}
-
--(NSMutableArray<jobsByCGFloatBlock> * _Nonnull)tickBlocks{
-    if(!_tickBlocks){
-        _tickBlocks = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
-        });
-    };return _tickBlocks;
-}
-
--(NSMutableArray<JobsTimerBlock> * _Nonnull)finishBlocks{
-    if(!_finishBlocks){
-        _finishBlocks = jobsMakeMutArr(^(__kindof NSMutableArray<NSObject *> * _Nullable arr) {
-        });
-    };return _finishBlocks;
-}
-
-@end
-
-@implementation _JobsTimerMgrEntry (DSL)
--(JobsRetJobsTimerMgrEntryByJobsTimerBlock _Nonnull)byTimer{
-    return ^__kindof _JobsTimerMgrEntry *_Nullable(JobsTimer<TimerProtocol> *_Nullable timer) {
-        self.timer = timer;
-        return self;
-    };
-}
-
--(JobsRetJobsTimerMgrEntryByStringBlock _Nonnull)byScopeIdentifier{
-    return ^__kindof _JobsTimerMgrEntry *_Nullable(NSString *_Nullable data) {
-        self.scopeIdentifier = data;
-        return self;
-    };
-}
-
--(JobsRetJobsTimerMgrEntryByNSUIntegerBlock _Nonnull)byPolicy{
-    return ^__kindof _JobsTimerMgrEntry *_Nullable(NSUInteger data) {
-        self.policy = (JobsTimerBackgroundPolicy)data;
-        return self;
-    };
-}
-
--(JobsRetJobsTimerMgrEntryByNSUIntegerBlock _Nonnull)byPauseState{
-    return ^__kindof _JobsTimerMgrEntry *_Nullable(NSUInteger data) {
-        self.pauseState = (_JobsTimerPauseState)data;
-        return self;
-    };
-}
-
--(JobsRetJobsTimerMgrEntryByJobsByCGFloatBlockBlock _Nonnull)byTickBlock{
-    return ^__kindof _JobsTimerMgrEntry *_Nullable(jobsByCGFloatBlock _Nullable block) {
-        if (block) [self.tickBlocks addObject:[block copy]];
-        return self;
-    };
-}
-
--(JobsRetJobsTimerMgrEntryByJobsTimerBlockBlock _Nonnull)byFinishBlock{
-    return ^__kindof _JobsTimerMgrEntry *_Nullable(JobsTimerBlock _Nullable block) {
-        if (block) [self.finishBlocks addObject:[block copy]];
-        return self;
-    };
-}
-
-@end
+#import "_JobsTimerMgrEntry.h"
 
 static inline void jobs_runOnMainSyncIfNeeded(dispatch_block_t block) {
     if ([NSThread isMainThread]) { block(); return; }
@@ -133,8 +44,23 @@ Prop_strong(nullable)id didBecomeActiveToken;
 
 @implementation JobsTimerMgr
 - (void)dealloc {
-    self.teardownAppStateObservers();
-    self.stopAndRemoveAll();
+    [self jobsTeardownAppStateObserversInternal];
+    // 此时所有外部强引用已释放，直接取现有 ivar，避免创建 weak self 或重新唤醒懒加载。
+    NSArray<_JobsTimerMgrEntry *> *entries = [_entries.allValues copy];
+    [_entries removeAllObjects];
+    [_pausedScopeIdentifiers removeAllObjects];
+    dispatch_block_t stopTimers = ^{
+        for (_JobsTimerMgrEntry *entry in entries) {
+            entry.timer.onTick = nil;
+            entry.timer.onFinish = nil;
+            entry.timer.jobsStop();
+        }
+    };
+    if (NSThread.isMainThread) {
+        stopTimers();
+    } else {
+        dispatch_async(dispatch_get_main_queue(), stopTimers);
+    }
 }
 
 + (JobsRetJobsTimerMgrByVoidBlock _Nonnull)shared {
@@ -295,6 +221,9 @@ Prop_strong(nullable)id didBecomeActiveToken;
             dispatch_sync(self.isolationQueue, ^{
                 if (self.entries[identifier] != entry) return;
                 entry.byPauseState(_JobsTimerPauseStateRunning);
+                if (!entry.timer.isRunning) {
+                    entry.finishDelivered = NO;
+                }
                 performed = YES;
             });
             if (!performed) return;
@@ -366,29 +295,43 @@ Prop_strong(nullable)id didBecomeActiveToken;
 
 -(JobsRetBOOLByStrBlock _Nonnull)fireOnceAndRemove{
     @jobs_weakify(self)
-    return ^BOOL(NSString * identifier){
+    return ^BOOL(NSString *identifier) {
         @jobs_strongify(self)
-        if (!self) return (BOOL){0};
-        __block _JobsTimerMgrEntry *entry = nil;
-        __block JobsTimer *timer = nil;
-        __block BOOL ok = NO;
-        dispatch_sync(self.isolationQueue, ^{
-            entry = self.entries[identifier];
-            if (!entry) return;
-            timer = entry.timer;
-            ok = YES;
-        });
-        if (!ok || !timer) return NO;
+        if (!self || identifier.length == 0) {
+            return NO;
+        }
         __block BOOL performed = NO;
         jobs_runOnMainSyncIfNeeded(^{
+            __block JobsTimer *timer = nil;
+            __block NSArray<JobsTimerBlock> *finishBlocks = nil;
             dispatch_sync(self.isolationQueue, ^{
-                if (self.entries[identifier] != entry) return;
+                _JobsTimerMgrEntry *entry = self.entries[identifier];
+                if (!entry || !entry.timer) {
+                    return;
+                }
+                timer = entry.timer;
+                if (!entry.finishDelivered) {
+                    entry.finishDelivered = YES;
+                    finishBlocks = [entry.finishBlocks copy];
+                }
                 [self.entries removeObjectForKey:identifier];
                 performed = YES;
             });
-            if (!performed) return;
+            if (!performed) {
+                return;
+            }
+            // 终态快照独立于注册表；旧 entry 的迟到回调仍走身份过滤。
+            timer.onFinish = nil;
             timer.fireOnce();
-        });return performed;
+            if (finishBlocks.count > 0) {
+                dispatch_async(timer.queue ?: dispatch_get_main_queue(), ^{
+                    for (JobsTimerBlock block in finishBlocks) {
+                        block(timer);
+                    }
+                });
+            }
+        });
+        return performed;
     };
 }
 
@@ -611,7 +554,12 @@ Prop_strong(nullable)id didBecomeActiveToken;
     __block NSArray<JobsTimerBlock> *blocks = nil;
     dispatch_sync(self.isolationQueue, ^{
         _JobsTimerMgrEntry *entry = self.entries[identifier];
-        blocks = (entry == expectedEntry) ? [entry.finishBlocks copy] : @[];
+        if (entry == expectedEntry && !entry.finishDelivered) {
+            entry.finishDelivered = YES;
+            blocks = [entry.finishBlocks copy];
+        } else {
+            blocks = @[];
+        }
     });
     for (JobsTimerBlock b in blocks) {
         if (b) b(timer);
@@ -630,6 +578,9 @@ Prop_strong(nullable)id didBecomeActiveToken;
                                                          queue:NSOperationQueue.mainQueue
                                                     usingBlock:^(__unused NSNotification *note) {
             @jobs_strongify(self)
+            if (!self) {
+                return;
+            }
             self.handleInactiveState(NO);
         }];
         self.didEnterBGToken =
@@ -638,6 +589,9 @@ Prop_strong(nullable)id didBecomeActiveToken;
                                                          queue:NSOperationQueue.mainQueue
                                                     usingBlock:^(__unused NSNotification *note) {
             @jobs_strongify(self)
+            if (!self) {
+                return;
+            }
             self.handleInactiveState(YES);
         }];
         self.didBecomeActiveToken =
@@ -646,6 +600,9 @@ Prop_strong(nullable)id didBecomeActiveToken;
                                                          queue:NSOperationQueue.mainQueue
                                                     usingBlock:^(__unused NSNotification *note) {
             @jobs_strongify(self)
+            if (!self) {
+                return;
+            }
             self.handleDidBecomeActive();
         }];
     };
@@ -655,20 +612,26 @@ Prop_strong(nullable)id didBecomeActiveToken;
     @jobs_weakify(self)
     return ^{
         @jobs_strongify(self)
-        if (!self) return;
-        if (self.willResignActiveToken) {
-            [NSNotificationCenter.defaultCenter removeObserver:self.willResignActiveToken];
-            self.willResignActiveToken = nil;
-        }
-        if (self.didEnterBGToken) {
-            [NSNotificationCenter.defaultCenter removeObserver:self.didEnterBGToken];
-            self.didEnterBGToken = nil;
-        }
-        if (self.didBecomeActiveToken) {
-            [NSNotificationCenter.defaultCenter removeObserver:self.didBecomeActiveToken];
-            self.didBecomeActiveToken = nil;
+        if (self) {
+            [self jobsTeardownAppStateObserversInternal];
         }
     };
+}
+
+- (void)jobsTeardownAppStateObserversInternal {
+    NSNotificationCenter *center = NSNotificationCenter.defaultCenter;
+    if (_willResignActiveToken) {
+        [center removeObserver:_willResignActiveToken];
+        _willResignActiveToken = nil;
+    }
+    if (_didEnterBGToken) {
+        [center removeObserver:_didEnterBGToken];
+        _didEnterBGToken = nil;
+    }
+    if (_didBecomeActiveToken) {
+        [center removeObserver:_didBecomeActiveToken];
+        _didBecomeActiveToken = nil;
+    }
 }
 
 - (void)syncEntryWithCurrentAppStateForIdentifier:(NSString *)identifier

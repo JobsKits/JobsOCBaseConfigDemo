@@ -7,7 +7,6 @@
 //
 
 #import "JobsOCMarkdownView.h"
-
 #import "JobsOCMarkdownResourceLocator.h"
 
 
@@ -49,14 +48,14 @@ Prop_weak(nullable)id<WKScriptMessageHandler> target;
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCMarkdownView
-@interface JobsOCMarkdownView (JobsPropertyDSLSetterAutogen_899addcbd6)
+@interface JobsOCMarkdownView (JobsPropertyDSLSetterAutogen_45eafab8f8)
 -(void)setMarkdownConfiguration:(JobsOCMarkdownConfiguration * _Nullable)data;
 -(void)setRuntimeReady:(BOOL)data;
 @end
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCMarkdownView
 
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN WKFindConfiguration
-@interface WKFindConfiguration (JobsLocalPropertyDSLAutogen_899addcbd6)
+@interface WKFindConfiguration (JobsLocalPropertyDSLAutogen_45eafab8f8)
 -(JobsRetWKFindConfigurationByBOOLBlock _Nonnull)byBackwards;
 -(JobsRetWKFindConfigurationByBOOLBlock _Nonnull)byWraps;
 -(void)setBackwards:(BOOL)data;
@@ -89,8 +88,9 @@ Prop_weak(nullable)id<WKScriptMessageHandler> target;
 }
 
 -(void)dealloc{
-    [self.webView.configuration.userContentController removeScriptMessageHandlerForName:@"jobsMarkdown"];
-    [self.webView stopLoading];
+    // 析构期间只使用已创建的对象，避免懒加载 getter 注册 weak self。
+    [_webView.configuration.userContentController removeScriptMessageHandlerForName:@"jobsMarkdown"];
+    [_webView stopLoading];
 }
 
 -(JobsRetIDByJobsOCMarkdownConfigurationBlock _Nonnull)byConfiguration{
@@ -124,7 +124,7 @@ Prop_weak(nullable)id<WKScriptMessageHandler> target;
 
 -(void)loadDocument:(JobsOCMarkdownDocument *)document
       configuration:(JobsOCMarkdownConfiguration *)configuration{
-    self.byDocument(document);
+    _document = document;
     if (configuration) self.markdownConfiguration = configuration.copy;
     NSError *error = nil;
     NSString *markdown = [NSString stringWithContentsOfURL:document.fileURL
@@ -328,6 +328,7 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler{
         [self.webView evaluateJavaScript:script
                        completionHandler:^(id _Nullable result, NSError * _Nullable error) {
             @jobs_strongify(self)
+            if (!self) return;
             if (error) self.jobsFail(error);
         }];
     };
@@ -445,7 +446,7 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler{
 @end
 
 // JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN WKFindConfiguration
-@implementation WKFindConfiguration (JobsLocalPropertyDSLAutogen_899addcbd6)
+@implementation WKFindConfiguration (JobsLocalPropertyDSLAutogen_45eafab8f8)
 -(JobsRetWKFindConfigurationByBOOLBlock _Nonnull)byBackwards{
     @jobs_weakify(self)
     return ^__kindof WKFindConfiguration * _Nullable(BOOL data){

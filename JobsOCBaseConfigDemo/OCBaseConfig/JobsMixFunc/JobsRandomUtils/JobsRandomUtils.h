@@ -24,9 +24,9 @@
      4、我们通常通过为随机数生成器提供一粒新的随机种子。函数 srand()(来自stdlib.h)可以为随机数生成器播散种子。只要种子不同rand()函数就会产生不同的随机数序列
      5、srand()称为随机数生成器的初始化器
 
-     arc4random() 是一个真正的伪随机算法，不需要生成随机种子。
+     arc4random() 由系统管理随机源，不需要调用方设置种子。
      1、因为第一次调用的时候就会自动生成。而且范围是rand()的两倍
-     2、在iPhone中，RAND_MAX是0x7fffffff (2147483647)，而arc4random()返回的最大值则是 0x100000000 (4294967296)
+     2、arc4random() 返回 uint32_t，最大值为 0xffffffff (4294967295)。
 
      精确度比较：arc4random() > random() > rand()
  */
@@ -41,7 +41,7 @@ FOUNDATION_EXPORT int JobsBaseRandomOffsetValueWithNoContainBorderValue(int offs
 FOUNDATION_EXPORT int JobsBaseRandomOffsetValueWithContainBorderValue(int offsetValue, int borderValue);
 /// ❤️获取一个随机整数，范围在【from、to】：包括from，包括to❤️
 FOUNDATION_EXPORT int JobsRandomNumber(int from, int to);
-/// ❤️用rand()随机生成在[x,y]内的整数。rand()%a的结果最大为a-1❤️
+/// 无偏闭区间随机数，自动归一化反序端点，支持完整 int 范围。
 FOUNDATION_EXPORT int JobsRandomXY(int x, int y);
 /// 示例：获取一个随机整数范围在【0、100）：包括0、不包括100
 FOUNDATION_EXPORT int JobsRandom0_100(void);

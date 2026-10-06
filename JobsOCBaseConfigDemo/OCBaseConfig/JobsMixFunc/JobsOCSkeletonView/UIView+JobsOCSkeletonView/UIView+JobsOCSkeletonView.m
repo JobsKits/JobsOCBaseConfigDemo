@@ -6,8 +6,6 @@
 //
 
 #import "UIView+JobsOCSkeletonView.h"
-#import "CAAnimation+DSL.h"
-#import "CABasicAnimation+DSL.h"
 
 static NSString *const JobsOCSkeletonAnimationKey = @"jobs.oc.skeleton.animation";
 
@@ -180,7 +178,8 @@ static void jobs_ocSkeletonExchangeInstanceMethod(Class cls, SEL originalSel, SE
     return ^(CALayer * maskLayer){
         @jobs_strongify(self)
         if (!self) return;
-        self.jobs_ocSkeletonLayer.byMask(maskLayer);
+        CAGradientLayer *layer = self.jobs_ocSkeletonLayer;
+        if (layer) layer.byMask(maskLayer);
     };
 }
 
@@ -188,6 +187,7 @@ static void jobs_ocSkeletonExchangeInstanceMethod(Class cls, SEL originalSel, SE
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(BOOL data) {
         @jobs_strongify(self)
+        if (!self) return nil;
         self.jobs_applySkeletonable(data);
         return self;
     };
@@ -208,6 +208,7 @@ static void jobs_ocSkeletonExchangeInstanceMethod(Class cls, SEL originalSel, SE
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(CGFloat data) {
         @jobs_strongify(self)
+        if (!self) return nil;
         self.jobs_applySkeletonCornerRadius(data);
         return self;
     };
@@ -218,6 +219,7 @@ static void jobs_ocSkeletonExchangeInstanceMethod(Class cls, SEL originalSel, SE
     return ^id(CGFloat cornerRadius){
         @jobs_strongify(self)
         if (!self) return nil;
+        cornerRadius = isfinite(cornerRadius) && cornerRadius >= 0 ? cornerRadius : 0;
         self.byJobs_ocSkeletonCornerRadiusValue(@(cornerRadius));
         JobsOCSkeletonConfig *config = (self.jobs_ocSkeletonConfig ?: JobsOCSkeletonConfig.defaultConfig()).copy;
         config.byCornerRadius(cornerRadius);
@@ -238,6 +240,7 @@ static void jobs_ocSkeletonExchangeInstanceMethod(Class cls, SEL originalSel, SE
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable() {
         @jobs_strongify(self)
+        if (!self) return nil;
         self.jobs_startSkeletonWithConfig(JobsOCSkeletonConfig.shimmerConfig());
         return self;
     };
@@ -255,6 +258,7 @@ static void jobs_ocSkeletonExchangeInstanceMethod(Class cls, SEL originalSel, SE
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable() {
         @jobs_strongify(self)
+        if (!self) return nil;
         self.jobs_startSkeletonWithConfig(JobsOCSkeletonConfig.pulseConfig());
         return self;
     };
@@ -272,6 +276,7 @@ static void jobs_ocSkeletonExchangeInstanceMethod(Class cls, SEL originalSel, SE
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable() {
         @jobs_strongify(self)
+        if (!self) return nil;
         self.jobs_stopSkeleton();
         return self;
     };
@@ -333,8 +338,8 @@ static void jobs_ocSkeletonExchangeInstanceMethod(Class cls, SEL originalSel, SE
         CAGradientLayer *layer = self.jobs_ocSkeletonLayer;
         if (!layer) return;
         JobsOCSkeletonConfig *config = self.jobs_ocSkeletonConfig ?: JobsOCSkeletonConfig.defaultConfig();
-        UIColor *baseColor = config.baseColor ?: [UIColor colorWithWhite:0.90 alpha:1];
-        UIColor *highlightColor = config.highlightColor ?: [UIColor colorWithWhite:1 alpha:0.92];
+        UIColor *baseColor = config.baseColor ?: RGBA_SAMECOLOR(0.90 * 255.0, 1);
+        UIColor *highlightColor = config.highlightColor ?: RGBA_SAMECOLOR(1 * 255.0, 0.92);
         if (@available(iOS 13.0, *)) {
             baseColor = [baseColor resolvedColorWithTraitCollection:self.traitCollection];
             highlightColor = [highlightColor resolvedColorWithTraitCollection:self.traitCollection];
@@ -509,6 +514,7 @@ static char JobsOCSkeletonLastAnimationWidthKey;
     @jobs_weakify(self)
     return ^__kindof UITableView *_Nullable() {
         @jobs_strongify(self)
+        if (!self) return nil;
         self.jobs_stopSkeleton();
         [self reloadData];
         return self;
@@ -522,6 +528,7 @@ static char JobsOCSkeletonLastAnimationWidthKey;
     @jobs_weakify(self)
     return ^__kindof UICollectionView *_Nullable() {
         @jobs_strongify(self)
+        if (!self) return nil;
         self.jobs_stopSkeleton();
         [self reloadData];
         return self;
@@ -535,6 +542,7 @@ static char JobsOCSkeletonLastAnimationWidthKey;
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(NSInteger data) {
         @jobs_strongify(self)
+        if (!self) return nil;
         self.jobs_ocSkeletonLineCornerRadiusValue = @(MAX(data, 0));
         self.jobs_updateSkeletonLayout();
         return self;

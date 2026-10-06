@@ -587,6 +587,17 @@ JobsClockIconView *clockIcon =
 
 页面消失、Cell 离屏或关闭分组时停止 Timer；系统开启“减弱动态效果”时不主动播放入口动画。
 
+### 8.6、Debug 调试面板 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+- `JobsDebugPanel` 直接集成于 `OCBaseConfig/JobsMixFunc/JobsDebugPanel`；公开入口为 `JobsDebugPanel.h`，不新增本地 Pod 依赖。根列表提供独立 `JobsDebugPanelDemoVC` 入口。[**SwiftUI**](https://developer.apple.com/xcode/swiftui/) 工程另以独立 `JobsSwiftUIDebugPanel` 本地 Pod 实现 `Button`、`List` 和 `NavigationStack` 界面。
+- `AppDelegate` 在网络配置完成后，通过 `JobsDebugPanelManager.sharedPanel` 统一配置网络环境与自定义功能，再调用 `start()`。框架只在 Debug 运行；Release 的初始化和展示入口不执行调试行为。
+- 每个前台 Scene 各自持有位于最前的透明悬浮窗口，只有圆形 UIButton 区域接收触摸。点击后在当前 Scene 的导航栈 push `UITableView` 功能表；环境行再 push 网络环境二级表。
+- `JobsDebugEnvironment` 以 `byIdentifier`、`byTitle`、`byBaseURL` 收口环境数据；选择项持久化在 Debug 专属键，启动恢复时触发环境回调。宿主通过 `JobsSetDebugBaseURL` 与 YTKNetworkConfig 更新后续 API 域名。
+- `JobsDebugAction` 以 `byTitle`、`byImage`、`byAction` 收口标题、可选图片和点击行为；`byActions` 保留数组配置顺序，业务动作继续在宿主配置。
+- Demo 向当前环境的 `/get` 发起真实请求；3 秒超时、失败或无法解析时显示本地样例，后续成功请求自动恢复服务端数据。示例 URL 与中文备注由 `AppDelegate` 配置，业务请求在发起时读取当前环境。
+- 长按圆形按钮立即隐藏本次进程的所有调试入口，不保存隐藏状态；重新启动 App 后恢复展示。
+- 弱网使用设备开发者设置的 [**Network Link Conditioner**](https://developer.apple.com/videos/play/tech-talks/111378/)；框架不声称可以限制整个 App 的网络。URLProtocol 仅覆盖采用该协议的请求，不能统一控制所有网络库、WebView 与底层连接，因此默认功能表不加入弱网开关。
+
 ## 九、主工程集成与外部依赖治理 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ### 9.1、直接集成标准 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

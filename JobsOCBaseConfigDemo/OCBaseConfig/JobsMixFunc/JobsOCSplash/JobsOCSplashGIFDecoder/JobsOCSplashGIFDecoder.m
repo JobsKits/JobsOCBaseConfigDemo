@@ -13,9 +13,25 @@
 }
 +(JobsRetImageByDataBlock _Nonnull)imageWithData{
     return ^UIImage *(NSData * data){
+        if (!data.length || data.length > 16 * 1024 * 1024) return nil;
         CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)data, nil);
         if (!source) return nil;
         size_t frameCount = CGImageSourceGetCount(source);
+        uint64_t pixelBudget = 0;
+        if (!frameCount || frameCount > 120) {
+            CFRelease(source);
+            return nil;
+        }
+        for (size_t index = 0; index < frameCount; index++) {
+            NSDictionary *properties = CFBridgingRelease(CGImageSourceCopyPropertiesAtIndex(source, index, nil));
+            uint64_t width = [properties[(NSString *)kCGImagePropertyPixelWidth] unsignedLongLongValue];
+            uint64_t height = [properties[(NSString *)kCGImagePropertyPixelHeight] unsignedLongLongValue];
+            if (!width || !height || width > 8192 || height > 8192 || width * height > 24 * 1024 * 1024 - pixelBudget) {
+                CFRelease(source);
+                return nil;
+            }
+            pixelBudget += width * height;
+        }
         if (frameCount <= 1) {
             CGImageRef imageRef = CGImageSourceCreateImageAtIndex(source, 0, nil);
             UIImage *image = imageRef ? [UIImage imageWithCGImage:imageRef] : nil;

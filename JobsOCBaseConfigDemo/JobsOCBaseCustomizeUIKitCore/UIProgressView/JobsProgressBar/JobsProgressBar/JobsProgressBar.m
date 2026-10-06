@@ -6,6 +6,7 @@
 //
 
 #import "JobsProgressBar.h"
+#import "JobsProgressBarDisplayLinkTarget.h"
 
 @interface JobsProgressBar ()
 
@@ -24,7 +25,7 @@ Prop_assign()BOOL userDragging;
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsProgressBar
-@interface JobsProgressBar (JobsPropertyDSLSetterAutogen_da758ae0d5)
+@interface JobsProgressBar (JobsPropertyDSLSetterAutogen_8c87c67db3)
 -(void)setAutoAnimated:(BOOL)data;
 -(void)setAutoDisplayLink:(CADisplayLink * _Nullable)data;
 -(void)setAutoInterval:(NSTimeInterval)data;
@@ -50,7 +51,7 @@ Prop_assign()BOOL userDragging;
 }
 
 - (void)dealloc {
-    (((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsProgressBar.class, @selector(stopAutoProgress)))(self, @selector(stopAutoProgress)))();
+    [_autoDisplayLink invalidate];
 }
 
 - (void)layoutSubviews {
@@ -94,12 +95,22 @@ Prop_assign()BOOL userDragging;
                                 interval:(NSTimeInterval)interval
                                 animated:(BOOL)animated {
     self.stopAutoProgress();
-    self.byAutoStep(fabs(step) <= 0 ? 0.01 : fabs(step));
-    self.byAutoInterval(MAX(interval, 1.0 / 60.0));
+    self.byAutoStep(isfinite(step) && fabs(step) > 0 ? MIN(fabs(step), 1.0) : 0.01);
+    self.byAutoInterval(isfinite(interval) && interval > 0 ? MAX(interval, 1.0 / 60.0) : 1.0 / 60.0);
     self.byAutoAnimated(animated);
     self.byAutoLastTick(0);
     if (fromZero) [self jobs_setProgress:0 animated:NO duration:0 notify:YES external:NO];
-    self.byAutoDisplayLink([CADisplayLink displayLinkWithTarget:self selector:@selector(jobs_autoProgressTick:)]);
+    @jobs_weakify(self)
+    JobsProgressBarDisplayLinkTarget *target = JobsProgressBarDisplayLinkTarget.new;
+    target.byAction(^(CADisplayLink *displayLink) {
+        @jobs_strongify(self)
+        if (!self) {
+            [displayLink invalidate];
+            return;
+        }
+        [self jobs_autoProgressTick:displayLink];
+    });
+    self.byAutoDisplayLink([CADisplayLink displayLinkWithTarget:target selector:@selector(tick:)]);
     [self.autoDisplayLink addToRunLoop:NSRunLoop.mainRunLoop forMode:NSRunLoopCommonModes];
     return self;
 }
@@ -109,7 +120,7 @@ Prop_assign()BOOL userDragging;
     return ^id{
         @jobs_strongify(self)
         if (!self) return nil;
-        [self.autoDisplayLink invalidate];
+        self.autoDisplayLink.invalidate;
         self.byAutoDisplayLink(nil);
         self.byAutoLastTick(0);
         [self jobs_setThumbDragging:NO animated:YES];
@@ -126,12 +137,12 @@ Prop_assign()BOOL userDragging;
         if (!self) return;
         self.byBgColor(UIColor.clearColor);
         self.byClipsToBounds(NO);
-        UIColor *defaultGreen = [UIColor colorWithRed:0.0 green:0.78 blue:0.32 alpha:1.0];
+        UIColor *defaultGreen = RGBA_COLOR(0.0 * 255.0, 0.78 * 255.0, 0.32 * 255.0, 1.0);
         self.byDirection(JobsProgressBarDirectionLeftToRight);
         self.byValueMode(JobsProgressBarValueModeCountUp);
         self.byAutoStopOnExternalChange(YES);
         self.byProgress(0);
-        self.byTrackTintColor([UIColor colorWithWhite:0.86 alpha:1.0]);
+        self.byTrackTintColor(RGBA_SAMECOLOR(0.86 * 255.0, 1.0));
         self.byProgressTintColor(defaultGreen);
         self.byTrackThickness(12);
         self.byTrackHorizontalInset(0);
@@ -155,11 +166,11 @@ Prop_assign()BOOL userDragging;
         self.byDraggable(NO);
         self.byDragThumbScales(YES);
         self.byDragThumbScale(1.14);
-        [self addSubview:self.trackView];
-        [self.trackView addSubview:self.fillView];
-        [self addSubview:self.thumbImageView];
-        [self addSubview:self.progressLabel];
-        [self addGestureRecognizer:self.panGesture];
+        self.trackView.addOn(self);
+        self.fillView.addOn(self.trackView);
+        self.thumbImageView.addOn(self);
+        self.progressLabel.addOn(self);
+        self.byAddGestureRecognizer(self.panGesture);
         self.jobs_applyThumbStyle();
     };
 }
@@ -169,7 +180,7 @@ Prop_assign()BOOL userDragging;
     return ^CGFloat(CGFloat value){
         @jobs_strongify(self)
         if (!self) return (CGFloat){0};
-        return MIN(MAX(value, 0), 1);
+        return isfinite(value) ? MIN(MAX(value, 0), 1) : 0;
     };
 }
 
@@ -299,7 +310,7 @@ Prop_assign()BOOL userDragging;
         BOOL hidden = self.progressLabelPlacement == JobsProgressBarLabelPlacementHidden || (self.autoHideLabel && CGRectGetHeight(self.bounds) < self.labelMinVisibleHeight);
         self.progressLabel.byHidden(hidden);
         if (hidden) return;
-        self.progressLabel.byText([NSString stringWithFormat:@"%.0f%%",self.jobs_displayProgress() * 100.0]);
+        self.progressLabel.byText([NSString stringWithFormat:@"%.0f%%", self.jobs_displayProgress() * 100.0]);
         CGFloat height = MAX(self.labelMinVisibleHeight, 1);
         CGFloat width = CGRectGetWidth(self.bounds);
         CGFloat y = 0;
@@ -338,7 +349,7 @@ Prop_assign()BOOL userDragging;
         self.thumbImageView.layer.byShadowOffset(self.thumbShadowOffset);
         self.thumbImageView.layer.byShadowColor(self.thumbShadowColor.CGColor);
         self.thumbImageView.byClipsToBounds(self.thumbShadowOpacity <= 0);
-        self.progressLabel.byTextColor(self.progressTintColor);
+        self.progressLabel.byTextCor(self.progressTintColor);
     };
 }
 
@@ -354,7 +365,7 @@ Prop_assign()BOOL userDragging;
     void (^layoutBlock)(void) = ^{
         self.jobs_layoutForCurrentState();
     };
-    if (animated && duration > 0) {
+    if (animated && isfinite(duration) && duration > 0) {
         [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut animations:layoutBlock completion:nil];
     } else {
         layoutBlock();
@@ -459,30 +470,35 @@ Prop_assign()BOOL userDragging;
 
 - (UIView *)trackView {
     if (!_trackView) {
-        _trackView = jobsMakeView(^(UIView *object){});
-        _trackView.byClipsToBounds(YES);
+        _trackView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byClipsToBounds(YES);
+        });
     };return _trackView;
 }
 
 - (UIView *)fillView {
     if (!_fillView) {
-        _fillView = jobsMakeView(^(UIView *object){});
-        _fillView.byClipsToBounds(YES);
+        _fillView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byClipsToBounds(YES);
+        });
     };return _fillView;
 }
 
 - (UIImageView *)thumbImageView {
     if (!_thumbImageView) {
-        _thumbImageView = jobsMakeImageView(^(UIImageView *object){});
-        _thumbImageView.byUserInteractionEnabled(NO);
+        _thumbImageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
+            imageView.byUserInteractionEnabled(NO);
+        });
     };return _thumbImageView;
 }
 
 - (UILabel *)progressLabel {
     if (!_progressLabel) {
-        _progressLabel = jobsMakeLabel(^(UILabel *object){});
-        _progressLabel.byTextAlignment(NSTextAlignmentCenter);
-        _progressLabel.byFont([UIFont systemFontOfSize:13 weight:UIFontWeightSemibold]);
+        _progressLabel = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label
+                .byFont(UIFontWeightSemiboldSize(13))
+                .byTextAlignment(NSTextAlignmentCenter);
+        });
     };return _progressLabel;
 }
 
@@ -526,7 +542,7 @@ Prop_assign()BOOL userDragging;
 
 - (JobsRetJobsProgressBarByUIColorBlock _Nonnull)byTrackTintColor {
     return ^JobsProgressBar *(UIColor *data) {
-        self.trackTintColor = data ?: [UIColor colorWithWhite:0.86 alpha:1.0];
+        self.trackTintColor = data ?: RGBA_SAMECOLOR(0.86 * 255.0, 1.0);
         self.jobs_applyThumbStyle();
         return self;
     };
@@ -534,7 +550,7 @@ Prop_assign()BOOL userDragging;
 
 - (JobsRetJobsProgressBarByUIColorBlock _Nonnull)byProgressTintColor {
     return ^JobsProgressBar *(UIColor *data) {
-        self.progressTintColor = data ?: [UIColor colorWithRed:0.0 green:0.78 blue:0.32 alpha:1.0];
+        self.progressTintColor = data ?: RGBA_COLOR(0.0 * 255.0, 0.78 * 255.0, 0.32 * 255.0, 1.0);
         self.jobs_applyThumbStyle();
         return self;
     };

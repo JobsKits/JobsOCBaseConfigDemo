@@ -24,7 +24,7 @@ Prop_assign()CGFloat currentAngle;
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsImageRotator
-@interface JobsImageRotator (JobsPropertyDSLSetterAutogen_7f23908c2e)
+@interface JobsImageRotator (JobsPropertyDSLSetterAutogen_d6a2444f31)
 -(void)setCurrentAngle:(CGFloat)data;
 @end
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsImageRotator
@@ -81,6 +81,10 @@ Prop_assign()CGFloat currentAngle;
         if (!self) return nil;
         NSAssert(NSThread.isMainThread, @"JobsImageRotator.start 必须在主线程调用");
         if (self.timer) self.timer.jobsStop();
+        if (!self.targetView) {
+            self.byTimer(nil);
+            return self;
+        }
         @jobs_weakify(self)
         self.byTimer(jobsMakeTimer(^(__kindof JobsTimer * _Nullable timer) {
             @jobs_strongify(self)
@@ -93,6 +97,7 @@ Prop_assign()CGFloat currentAngle;
                 .byAutoManageAppState(YES)
                 .byOnTick(^(CGFloat time) {
                     @jobs_strongify(self)
+                    if (!self) return;
                     self.rotateOneTick();
                 });
         }));
@@ -142,7 +147,8 @@ Prop_assign()CGFloat currentAngle;
         self.byTimer(nil);
         if (reset) {
             self.byCurrentAngle(0);
-            self.targetView.byTransform(self.baseTransform);
+            UIView *target = self.targetView;
+            if (target) target.byTransform(self.baseTransform);
         };return self;
     };
 }
@@ -153,6 +159,10 @@ Prop_assign()CGFloat currentAngle;
         @jobs_strongify(self)
         if (!self) return;
         NSAssert(NSThread.isMainThread, @"JobsImageRotator tick 必须在主线程执行");
+        if (!self.targetView) {
+            self.stopAndReset(NO);
+            return;
+        }
         CGFloat multiplier = self.direction == JobsImageRotationDirectionClockwise ? 1 : -1;
         self.currentAngle += multiplier * JobsImageRotationRadiansPerTick;
         self.byCurrentAngle(fmod(self.currentAngle, M_PI * 2.0));

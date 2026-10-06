@@ -8,6 +8,9 @@
 #ifndef JOBS_HEADER_GUARD_NSSTRING_TIME_A4B077740A
 #define JOBS_HEADER_GUARD_NSSTRING_TIME_A4B077740A
 
+#import <stdlib.h>
+#import <math.h>
+#import <errno.h>
 #import <Foundation/Foundation.h>
 #import "JobsStringUtilsHeader.h"
 #import "JobsMakes.h"

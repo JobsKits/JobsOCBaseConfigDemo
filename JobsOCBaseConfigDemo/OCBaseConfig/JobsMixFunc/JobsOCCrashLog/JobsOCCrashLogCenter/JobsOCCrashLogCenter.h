@@ -5,7 +5,10 @@
 //  Created by Jobs on 2026年7月19日，星期日.
 //
 
+#import <errno.h>
 #import <fcntl.h>
+#import <limits.h>
+#import <string.h>
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>

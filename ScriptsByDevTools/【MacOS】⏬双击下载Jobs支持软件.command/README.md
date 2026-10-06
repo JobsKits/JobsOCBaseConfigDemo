@@ -8,6 +8,8 @@
 
 ## 🔥 <font id=前言>前言</font>
 
+本目录中可独立运行的 `.command` 入口先显示内置自述：标题红色加粗，编号正文蓝色且不加粗；在终端按回车确认后才进入原有流程，按 `Ctrl+C` 取消。非彩色终端显示纯文本；没有可交互输入时停止，避免确认缺失后继续执行。
+
 `【MacOS】⏬双击下载Jobs支持软件.command` 是一个可双击运行的 macOS `.command` 脚本。
 
 它会从 [**GitHub**](https://github.com) 的 [**JobsKits**](https://github.com/JobsKits) 拉取 `JobsSoftware.MacOS` 支持软件仓库，下载到脚本同目录下的 `JobsSoftware.MacOS`。

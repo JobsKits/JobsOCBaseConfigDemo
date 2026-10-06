@@ -24,24 +24,35 @@ static AppLanguage _language = AppLanguageBySys;
 }
 /// 获取当前语言
 +(AppLanguage)language{
-    return _language;
+    @synchronized (LanMgr.class) {
+        return _language;
+    }
 }
 /// 设置当前语言
 +(void)setLanguage:(AppLanguage)language{
-    _language = language;
-    NSString *languageCode = self.languageCodeByAppLanguage(language);
-    NSString *path = languageCode.add(@".lproj").jobsPathForResourceWithFullName();
-    bundle = isValue(path) ? NSBundle.initByPath(path) : NSBundle.mainBundle;
-    /// 存储当前语言设置
-    JobsSetUserDefaultKeyWithInteger(JobsLanguageKey, language);
-    JobsUserDefaultSynchronize;
+    @synchronized (LanMgr.class) {
+        NSString *requested = self.languageCodeByAppLanguage(language);
+        NSArray *preferences = requested.length ? @[requested] : NSLocale.preferredLanguages;
+        NSString *matched = [NSBundle preferredLocalizationsFromArray:NSBundle.mainBundle.localizations
+                                                       forPreferences:preferences].firstObject;
+        NSString *path = [NSBundle.mainBundle pathForResource:matched ofType:@"lproj"];
+        NSBundle *resolved = path.length ? NSBundle.initByPath(path) : NSBundle.mainBundle;
+        _language = language;
+        bundle = resolved ?: NSBundle.mainBundle;
+        JobsSetUserDefaultKeyWithInteger(JobsLanguageKey, language);
+    }
+
 }
 /// 语言包路径
 +(JobsRetNSBundleByVoidBlock _Nonnull)bundle{
     return ^NSBundle *_Nullable{
-        if (!bundle) {
-            [self setLanguage:JobsGetUserDefaultIntegerForKey(JobsLanguageKey)];
-        };return bundle;
+        @synchronized (LanMgr.class) {
+            if (!bundle) {
+                [self setLanguage:JobsGetUserDefaultIntegerForKey(JobsLanguageKey)];
+            }
+            return bundle;
+        }
+
     };
 }
 /// 通过key取值对应的语言

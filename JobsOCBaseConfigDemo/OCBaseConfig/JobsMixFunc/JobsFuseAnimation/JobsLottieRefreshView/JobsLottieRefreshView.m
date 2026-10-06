@@ -104,7 +104,7 @@ Prop_assign()BOOL wantsAnimating;
         self.wantsAnimating = YES;
         self.byHidden(NO);
         if (UIAccessibilityIsReduceMotionEnabled()) {
-            self.lottieView.stop;
+            [self.lottieView stop];
             self.lottieView.animationProgress = 1;
         } else {
             self.lottieView.loopAnimation = YES;
@@ -139,7 +139,7 @@ Prop_assign()BOOL wantsAnimating;
         @jobs_strongify(self)
         if (!self) return nil;
         self.wantsAnimating = NO;
-        self.lottieView.stop;
+        [self.lottieView stop];
         self.lottieView.animationProgress = 0;
         return self;
     };

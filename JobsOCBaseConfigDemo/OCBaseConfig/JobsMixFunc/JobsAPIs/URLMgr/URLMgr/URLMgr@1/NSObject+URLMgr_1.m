@@ -26,7 +26,7 @@
     };
 }
 /// 查询主播信息列表@POST
--(URLManagerModel *_Nullable)post_presenter_list{
+-(URLManagerModel *_Nonnull)post_presenter_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_presenter_list)))(self, @selector(jobs_post_presenter_list)))();
 }
 
@@ -39,7 +39,7 @@
     };
 }
 /// 修改主播信息@PUT
--(URLManagerModel *_Nullable)put_presenter_update{
+-(URLManagerModel *_Nonnull)put_presenter_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_presenter_update_1)))(self, @selector(jobs_put_presenter_update_1)))();
 }
 
@@ -53,7 +53,7 @@
 }
 #pragma mark —— 代理会员打包相关
 /// 获取专属域名校验@GET
--(URLManagerModel *_Nullable)get_agentPackage_getCheckExclusiveDomain{
+-(URLManagerModel *_Nonnull)get_agentPackage_getCheckExclusiveDomain{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agentPackage_getCheckExclusiveDomain)))(self, @selector(jobs_get_agentPackage_getCheckExclusiveDomain)))();
 }
 
@@ -66,7 +66,7 @@
     };
 }
 /// 获取打包信息@GET
--(URLManagerModel *_Nullable)get_agentPackage_getPackageInfo{
+-(URLManagerModel *_Nonnull)get_agentPackage_getPackageInfo{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_agentPackage_getPackageInfo)))(self, @selector(jobs_get_agentPackage_getPackageInfo)))();
 }
 
@@ -80,7 +80,7 @@
 }
 #pragma mark —— 会员KYC相关
 /// 获取会员KYC信息@GET
--(URLManagerModel *_Nullable)get_kyc_info{
+-(URLManagerModel *_Nonnull)get_kyc_info{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_kyc_info)))(self, @selector(jobs_get_kyc_info)))();
 }
 
@@ -93,7 +93,7 @@
     };
 }
 /// 获取会员KYC信息@GET（废弃掉）
--(URLManagerModel *_Nullable)get_kyc_info_getByUid{
+-(URLManagerModel *_Nonnull)get_kyc_info_getByUid{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_kyc_info_getByUid)))(self, @selector(jobs_get_kyc_info_getByUid)))();
 }
 
@@ -106,7 +106,7 @@
     };
 }
 /// 用户提交KYC认证@POST
--(URLManagerModel *_Nullable)post_kyc_submit{
+-(URLManagerModel *_Nonnull)post_kyc_submit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_kyc_submit)))(self, @selector(jobs_post_kyc_submit)))();
 }
 
@@ -126,7 +126,7 @@
     };
 }
 /// 用户提交个人信息@POST
--(URLManagerModel *_Nullable)post_personal_information_submit{
+-(URLManagerModel *_Nonnull)post_personal_information_submit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_personal_information_submit)))(self, @selector(jobs_post_personal_information_submit)))();
 }
 
@@ -140,7 +140,7 @@
 }
 #pragma mark —— 会员vip
 /// vip特权领取@POST
--(URLManagerModel *_Nullable)post_vip_getCoupon{
+-(URLManagerModel *_Nonnull)post_vip_getCoupon{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_vip_getCoupon)))(self, @selector(jobs_post_vip_getCoupon)))();
 }
 
@@ -153,7 +153,7 @@
     };
 }
 /// 查询VIP特权专享@GET
--(URLManagerModel *_Nullable)get_vip_queryMemberRight_vipLevel{
+-(URLManagerModel *_Nonnull)get_vip_queryMemberRight_vipLevel{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_vip_queryMemberRight_vipLevel)))(self, @selector(jobs_get_vip_queryMemberRight_vipLevel)))();
 }
 
@@ -166,7 +166,7 @@
     };
 }
 /// 查询VIP信息@GET
--(URLManagerModel *_Nullable)get_vip_queryMemberVip{
+-(URLManagerModel *_Nonnull)get_vip_queryMemberVip{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_vip_queryMemberVip)))(self, @selector(jobs_get_vip_queryMemberVip)))();
 }
 
@@ -179,7 +179,7 @@
     };
 }
 /// 查询VIP信息详情@GET
--(URLManagerModel *_Nullable)get_vip_queryMemberVipDetail{
+-(URLManagerModel *_Nonnull)get_vip_queryMemberVipDetail{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_vip_queryMemberVipDetail)))(self, @selector(jobs_get_vip_queryMemberVipDetail)))();
 }
 
@@ -192,7 +192,7 @@
     };
 }
 /// 查询VIP所有等级@GET
--(URLManagerModel *_Nullable)get_vip_queryMemberVipLevels{
+-(URLManagerModel *_Nonnull)get_vip_queryMemberVipLevels{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_vip_queryMemberVipLevels)))(self, @selector(jobs_get_vip_queryMemberVipLevels)))();
 }
 
@@ -205,7 +205,7 @@
     };
 }
 /// 查询VIP所有优惠@GET
--(URLManagerModel *_Nullable)get_vip_queryMemberVipRebates{
+-(URLManagerModel *_Nonnull)get_vip_queryMemberVipRebates{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_vip_queryMemberVipRebates)))(self, @selector(jobs_get_vip_queryMemberVipRebates)))();
 }
 
@@ -218,7 +218,7 @@
     };
 }
 /// 查询VIP所有权益@GET
--(URLManagerModel *_Nullable)get_vip_queryMemberVipRights{
+-(URLManagerModel *_Nonnull)get_vip_queryMemberVipRights{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_vip_queryMemberVipRights)))(self, @selector(jobs_get_vip_queryMemberVipRights)))();
 }
 
@@ -231,7 +231,7 @@
     };
 }
 /// 查询VIP权益开启关闭配置@GET
--(URLManagerModel *_Nullable)get_vip_queryVipSwitchConfig{
+-(URLManagerModel *_Nonnull)get_vip_queryVipSwitchConfig{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_vip_queryVipSwitchConfig)))(self, @selector(jobs_get_vip_queryVipSwitchConfig)))();
 }
 
@@ -259,7 +259,7 @@
     };
 }
 /// 会员收货地址查询@GET
--(URLManagerModel *_Nullable)get_address_list{
+-(URLManagerModel *_Nonnull)get_address_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_address_list)))(self, @selector(jobs_get_address_list)))();
 }
 
@@ -272,7 +272,7 @@
     };
 }
 /// 会员收货地址保存@POST
--(URLManagerModel *_Nullable)post_address_save{
+-(URLManagerModel *_Nonnull)post_address_save{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_address_save)))(self, @selector(jobs_post_address_save)))();
 }
 
@@ -285,7 +285,7 @@
     };
 }
 /// 会员收货地址修改@POST
--(URLManagerModel *_Nullable)post_address_update{
+-(URLManagerModel *_Nonnull)post_address_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_address_update)))(self, @selector(jobs_post_address_update)))();
 }
 
@@ -299,7 +299,7 @@
 }
 #pragma mark —— 会员用户信息
 /// 绑定邮箱@PUT
--(URLManagerModel *_Nullable)put_member_bindEmail{
+-(URLManagerModel *_Nonnull)put_member_bindEmail{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_member_bindEmail)))(self, @selector(jobs_put_member_bindEmail)))();
 }
 
@@ -312,7 +312,7 @@
     };
 }
 /// 绑定手机号@PUT
--(URLManagerModel *_Nullable)member_bindMobile_put{
+-(URLManagerModel *_Nonnull)member_bindMobile_put{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_member_bindMobile_put)))(self, @selector(jobs_member_bindMobile_put)))();
 }
 
@@ -325,7 +325,7 @@
     };
 }
 /// 获取会员个人信息@GET
--(URLManagerModel *_Nullable)get_member_get{
+-(URLManagerModel *_Nonnull)get_member_get{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_get)))(self, @selector(jobs_get_member_get)))();
 }
 
@@ -338,7 +338,7 @@
     };
 }
 /// 获取会员个人信息@GET
--(URLManagerModel *_Nullable)get_member_getByMemberId{
+-(URLManagerModel *_Nonnull)get_member_getByMemberId{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_getByMemberId)))(self, @selector(jobs_get_member_getByMemberId)))();
 }
 
@@ -351,7 +351,7 @@
     };
 }
 /// 更新会员信息@PUT
--(URLManagerModel *_Nullable)put_member_memberUpdateLock{
+-(URLManagerModel *_Nonnull)put_member_memberUpdateLock{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_member_memberUpdateLock)))(self, @selector(jobs_put_member_memberUpdateLock)))();
 }
 
@@ -364,7 +364,7 @@
     };
 }
 /// 获取会员门店id@GET
--(URLManagerModel *_Nullable)get_member_queryMemberStoreId{
+-(URLManagerModel *_Nonnull)get_member_queryMemberStoreId{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_queryMemberStoreId)))(self, @selector(jobs_get_member_queryMemberStoreId)))();
 }
 
@@ -377,7 +377,7 @@
     };
 }
 /// 刷新识别码@GET
--(URLManagerModel *_Nullable)get_member_refreshIdentityCode{
+-(URLManagerModel *_Nonnull)get_member_refreshIdentityCode{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_refreshIdentityCode)))(self, @selector(jobs_get_member_refreshIdentityCode)))();
 }
 
@@ -390,7 +390,7 @@
     };
 }
 /// 修改会员头像@PUT
--(URLManagerModel *_Nullable)put_member_updateAvatar{
+-(URLManagerModel *_Nonnull)put_member_updateAvatar{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_member_updateAvatar)))(self, @selector(jobs_put_member_updateAvatar)))();
 }
 
@@ -403,7 +403,7 @@
     };
 }
 /// 修改会员生日@PUT
--(URLManagerModel *_Nullable)put_member_updateBirthday{
+-(URLManagerModel *_Nonnull)put_member_updateBirthday{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_member_updateBirthday)))(self, @selector(jobs_put_member_updateBirthday)))();
 }
 
@@ -416,7 +416,7 @@
     };
 }
 /// 修改会员昵称@PUT
--(URLManagerModel *_Nullable)put_member_updateNickname{
+-(URLManagerModel *_Nonnull)put_member_updateNickname{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_member_updateNickname)))(self, @selector(jobs_put_member_updateNickname)))();
 }
 
@@ -429,7 +429,7 @@
     };
 }
 /// 修改会员密码@PUT
--(URLManagerModel *_Nullable)put_member_updatePassword{
+-(URLManagerModel *_Nonnull)put_member_updatePassword{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_member_updatePassword)))(self, @selector(jobs_put_member_updatePassword)))();
 }
 
@@ -442,7 +442,7 @@
     };
 }
 /// 修改会员性别@PUT
--(URLManagerModel *_Nullable)put_member_updateSex{
+-(URLManagerModel *_Nonnull)put_member_updateSex{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_member_updateSex)))(self, @selector(jobs_put_member_updateSex)))();
 }
 
@@ -455,7 +455,7 @@
     };
 }
 /// 更新会员信息@PUT
--(URLManagerModel *_Nullable)put_member_updateMemberInfo{
+-(URLManagerModel *_Nonnull)put_member_updateMemberInfo{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_member_updateMemberInfo)))(self, @selector(jobs_put_member_updateMemberInfo)))();
 }
 
@@ -468,7 +468,7 @@
     };
 }
 /// 更新当前会员识别码@PUT
--(URLManagerModel *_Nullable)put_member_updateRandomIdentifiert{
+-(URLManagerModel *_Nonnull)put_member_updateRandomIdentifiert{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_member_updateRandomIdentifiert)))(self, @selector(jobs_put_member_updateRandomIdentifiert)))();
 }
 
@@ -482,7 +482,7 @@
 }
 #pragma mark —— 会员用户认证
 /// 账号密码登录@POST
--(URLManagerModel *_Nullable)post_user_auth_accountLogin{
+-(URLManagerModel *_Nonnull)post_user_auth_accountLogin{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_auth_accountLogin)))(self, @selector(jobs_post_user_auth_accountLogin)))();
 }
 
@@ -495,7 +495,7 @@
     };
 }
 /// 账号密码注册@POST
--(URLManagerModel *_Nullable)post_user_auth_accountRegister{
+-(URLManagerModel *_Nonnull)post_user_auth_accountRegister{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_auth_accountRegister)))(self, @selector(jobs_post_user_auth_accountRegister)))();
 }
 
@@ -508,7 +508,7 @@
     };
 }
 /// 校验登录校验码@POST
--(URLManagerModel *_Nullable)post_user_auth_check_login_verification{
+-(URLManagerModel *_Nonnull)post_user_auth_check_login_verification{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_auth_check_login_verification)))(self, @selector(jobs_post_user_auth_check_login_verification)))();
 }
 
@@ -521,7 +521,7 @@
     };
 }
 /// 校验图片验证码@GET
--(URLManagerModel *_Nullable)get_user_auth_check_verification_result{
+-(URLManagerModel *_Nonnull)get_user_auth_check_verification_result{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_user_auth_check_verification_result)))(self, @selector(jobs_get_user_auth_check_verification_result)))();
 }
 
@@ -534,7 +534,7 @@
     };
 }
 /// 获取访问图形校验码的站点类型（1为国外地址校验，2为国内地址校验）@GET
--(URLManagerModel *_Nullable)get_user_auth_get_verification_domainType{
+-(URLManagerModel *_Nonnull)get_user_auth_get_verification_domainType{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_user_auth_get_verification_domainType)))(self, @selector(jobs_get_user_auth_get_verification_domainType)))();
 }
 
@@ -547,7 +547,7 @@
     };
 }
 /// 获取图片验证码@GET
--(URLManagerModel *_Nullable)get_user_auth_get_verification_image{
+-(URLManagerModel *_Nonnull)get_user_auth_get_verification_image{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_user_auth_get_verification_image)))(self, @selector(jobs_get_user_auth_get_verification_image)))();
 }
 
@@ -560,7 +560,7 @@
     };
 }
 /// 玩家登录心跳@GET
--(URLManagerModel *_Nullable)get_user_auth_heartbeat{
+-(URLManagerModel *_Nonnull)get_user_auth_heartbeat{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_user_auth_heartbeat)))(self, @selector(jobs_get_user_auth_heartbeat)))();
 }
 
@@ -573,7 +573,7 @@
     };
 }
 /// 用户登出@POST
--(URLManagerModel *_Nullable)post_user_auth_logout{
+-(URLManagerModel *_Nonnull)post_user_auth_logout{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_auth_logout)))(self, @selector(jobs_post_user_auth_logout)))();
 }
 
@@ -586,7 +586,7 @@
     };
 }
 /// 手机登录@POST
--(URLManagerModel *_Nullable)post_user_auth_mobileLogin{
+-(URLManagerModel *_Nonnull)post_user_auth_mobileLogin{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_auth_mobileLogin)))(self, @selector(jobs_post_user_auth_mobileLogin)))();
 }
 
@@ -617,7 +617,7 @@
     return JobsURL(url);
 }
 /// 使用手机号注册@POST
--(URLManagerModel *_Nullable)post_user_auth_mobileRegister{
+-(URLManagerModel *_Nonnull)post_user_auth_mobileRegister{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_auth_mobileRegister)))(self, @selector(jobs_post_user_auth_mobileRegister)))();
 }
 
@@ -648,7 +648,7 @@
     return JobsURL(url);
 }
 /// 手机号注册--自动生成账号@GET
--(URLManagerModel *_Nullable)get_user_auth_mobileRegisterCreatName{
+-(URLManagerModel *_Nonnull)get_user_auth_mobileRegisterCreatName{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_user_auth_mobileRegisterCreatName)))(self, @selector(jobs_get_user_auth_mobileRegisterCreatName)))();
 }
 
@@ -661,7 +661,7 @@
     };
 }
 /// 会员注册@POST
--(URLManagerModel *_Nullable)post_user_auth_ph_register_v1{
+-(URLManagerModel *_Nonnull)post_user_auth_ph_register_v1{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_auth_ph_register_v1)))(self, @selector(jobs_post_user_auth_ph_register_v1)))();
 }
 
@@ -674,7 +674,7 @@
     };
 }
 /// 找回密码-三步走-[step 1.] check-account@POST
--(URLManagerModel *_Nullable)post_user_auth_resetPassword_checkAccount{
+-(URLManagerModel *_Nonnull)post_user_auth_resetPassword_checkAccount{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_auth_resetPassword_checkAccount)))(self, @selector(jobs_post_user_auth_resetPassword_checkAccount)))();
 }
 
@@ -687,7 +687,7 @@
     };
 }
 /// 找回密码-三步走-[step 2.] check-mobile@POST
--(URLManagerModel *_Nullable)post_user_auth_resetPassword_checkMobile{
+-(URLManagerModel *_Nonnull)post_user_auth_resetPassword_checkMobile{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_auth_resetPassword_checkMobile)))(self, @selector(jobs_post_user_auth_resetPassword_checkMobile)))();
 }
 
@@ -701,7 +701,7 @@
 }
 /// 在未登录的情况下进行密码重置@POST
 /// 1、在未登录的情况下，获取手机验证码成功以后取得一个临时的修改密码专属的用户Token，再进行下一步操作
--(URLManagerModel *_Nullable)post_user_auth_resetPassword_checkPasswordMobile{
+-(URLManagerModel *_Nonnull)post_user_auth_resetPassword_checkPasswordMobile{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_auth_resetPassword_checkPasswordMobile)))(self, @selector(jobs_post_user_auth_resetPassword_checkPasswordMobile)))();
 }
 
@@ -715,7 +715,7 @@
 }
 /// 在未登录的情况下进行密码重置@POST
 /// 2、在上一步操作成功（取得一个临时的修改密码专属的用户Token）以后，此时加入最新修改的密码进行修改
--(URLManagerModel *_Nullable)post_user_auth_resetPassword_setPassword{
+-(URLManagerModel *_Nonnull)post_user_auth_resetPassword_setPassword{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_auth_resetPassword_setPassword)))(self, @selector(jobs_post_user_auth_resetPassword_setPassword)))();
 }
 
@@ -729,7 +729,7 @@
 }
 /// 在登录的情况下进行密码重置@POST
 /// 找回密码-三步走-[step 3.] update-password@POST
--(URLManagerModel *_Nullable)post_user_auth_resetPassword_updatePassword{
+-(URLManagerModel *_Nonnull)post_user_auth_resetPassword_updatePassword{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_auth_resetPassword_updatePassword)))(self, @selector(jobs_post_user_auth_resetPassword_updatePassword)))();
 }
 
@@ -742,7 +742,7 @@
     };
 }
 /// 刷新Token@POST
--(URLManagerModel *_Nullable)post_user_auth_tokenRefresh{
+-(URLManagerModel *_Nonnull)post_user_auth_tokenRefresh{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_auth_tokenRefresh)))(self, @selector(jobs_post_user_auth_tokenRefresh)))();
 }
 
@@ -756,7 +756,7 @@
 }
 #pragma mark —— 会员的虚拟币钱包地址管理
 /// 已绑定手机号时绑定虚拟币钱包地址@POST
--(URLManagerModel *_Nullable)post_user_cryptocy_bind{
+-(URLManagerModel *_Nonnull)post_user_cryptocy_bind{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_cryptocy_bind)))(self, @selector(jobs_post_user_cryptocy_bind)))();
 }
 
@@ -769,7 +769,7 @@
     };
 }
 /// 未绑定手机号时绑定虚拟币钱包地址@POST
--(URLManagerModel *_Nullable)post_user_cryptocy_bindWithPhone{
+-(URLManagerModel *_Nonnull)post_user_cryptocy_bindWithPhone{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_cryptocy_bindWithPhone)))(self, @selector(jobs_post_user_cryptocy_bindWithPhone)))();
 }
 
@@ -782,7 +782,7 @@
     };
 }
 /// 检查会员是否绑定手机号@GET
--(URLManagerModel *_Nullable)get_user_cryptocy_checkMobile{
+-(URLManagerModel *_Nonnull)get_user_cryptocy_checkMobile{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_user_cryptocy_checkMobile)))(self, @selector(jobs_get_user_cryptocy_checkMobile)))();
 }
 
@@ -795,7 +795,7 @@
     };
 }
 /// 删除虚拟币地址@DELETE
--(URLManagerModel *_Nullable)delete_user_cryptocy{
+-(URLManagerModel *_Nonnull)delete_user_cryptocy{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_delete_user_cryptocy)))(self, @selector(jobs_delete_user_cryptocy)))();
 }
 
@@ -808,7 +808,7 @@
     };
 }
 /// 获取会员虚拟币钱包地址列表@GET
--(URLManagerModel *_Nullable)get_user_cryptocy_list{
+-(URLManagerModel *_Nonnull)get_user_cryptocy_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_user_cryptocy_list)))(self, @selector(jobs_get_user_cryptocy_list)))();
 }
 
@@ -821,7 +821,7 @@
     };
 }
 /// 获取支持的虚拟币列表@GET
--(URLManagerModel *_Nullable)get_user_cryptocy_list_support{
+-(URLManagerModel *_Nonnull)get_user_cryptocy_list_support{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_user_cryptocy_list_support)))(self, @selector(jobs_get_user_cryptocy_list_support)))();
 }
 
@@ -847,7 +847,7 @@
     };
 }
 /// 查询会员禁言详情@POST
--(URLManagerModel *_Nullable)post_user_banLog_banInfo{
+-(URLManagerModel *_Nonnull)post_user_banLog_banInfo{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_banLog_banInfo)))(self, @selector(jobs_post_user_banLog_banInfo)))();
 }
 
@@ -860,7 +860,7 @@
     };
 }
 /// 批量解禁@POST
--(URLManagerModel *_Nullable)post_user_banLog_batchUntie{
+-(URLManagerModel *_Nonnull)post_user_banLog_batchUntie{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_banLog_batchUntie)))(self, @selector(jobs_post_user_banLog_batchUntie)))();
 }
 
@@ -873,7 +873,7 @@
     };
 }
 /// 查询会员禁言记录列表@POST
--(URLManagerModel *_Nullable)post_user_banLog_list{
+-(URLManagerModel *_Nonnull)post_user_banLog_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_banLog_list)))(self, @selector(jobs_post_user_banLog_list)))();
 }
 
@@ -886,7 +886,7 @@
     };
 }
 /// 新增会员禁言记录@POST
--(URLManagerModel *_Nullable)post_user_banLog_save{
+-(URLManagerModel *_Nonnull)post_user_banLog_save{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_banLog_save)))(self, @selector(jobs_post_user_banLog_save)))();
 }
 
@@ -899,7 +899,7 @@
     };
 }
 /// 修改会员禁言记录@PUT
--(URLManagerModel *_Nullable)put_user_banLog_update{
+-(URLManagerModel *_Nonnull)put_user_banLog_update{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_user_banLog_update)))(self, @selector(jobs_put_user_banLog_update)))();
 }
 
@@ -913,7 +913,7 @@
 }
 #pragma mark —— 会员页面
 /// 获取联系方式数据@GET
--(URLManagerModel *_Nullable)get_user_member_contact_info{
+-(URLManagerModel *_Nonnull)get_user_member_contact_info{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_user_member_contact_info)))(self, @selector(jobs_get_user_member_contact_info)))();
 }
 
@@ -926,7 +926,7 @@
     };
 }
 /// 申请代理@POST
--(URLManagerModel *_Nullable)post_user_member_joinUs_create{
+-(URLManagerModel *_Nonnull)post_user_member_joinUs_create{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_member_joinUs_create)))(self, @selector(jobs_post_user_member_joinUs_create)))();
 }
 
@@ -939,7 +939,7 @@
     };
 }
 /// 三方登录@POST
--(URLManagerModel *_Nullable)post_user_member_joinUs_createProxy{
+-(URLManagerModel *_Nonnull)post_user_member_joinUs_createProxy{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_member_joinUs_createProxy)))(self, @selector(jobs_post_user_member_joinUs_createProxy)))();
 }
 
@@ -952,7 +952,7 @@
     };
 }
 /// 获取登录信息@POST
--(URLManagerModel *_Nullable)post_user_member_joinUs_get_login_info{
+-(URLManagerModel *_Nonnull)post_user_member_joinUs_get_login_info{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_member_joinUs_get_login_info)))(self, @selector(jobs_post_user_member_joinUs_get_login_info)))();
 }
 
@@ -965,7 +965,7 @@
     };
 }
 /// 获取代理待审核数据@GET
--(URLManagerModel *_Nullable)get_user_member_joinUs_info{
+-(URLManagerModel *_Nonnull)get_user_member_joinUs_info{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_user_member_joinUs_info)))(self, @selector(jobs_get_user_member_joinUs_info)))();
 }
 
@@ -978,7 +978,7 @@
     };
 }
 /// 清理登录@POST
--(URLManagerModel *_Nullable)post_user_member_joinUs_login_clean{
+-(URLManagerModel *_Nonnull)post_user_member_joinUs_login_clean{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_member_joinUs_login_clean)))(self, @selector(jobs_post_user_member_joinUs_login_clean)))();
 }
 
@@ -991,7 +991,7 @@
     };
 }
 /// 获取首页登录状态joinus展示情况@GET
--(URLManagerModel *_Nullable)get_user_member_joinUs_status{
+-(URLManagerModel *_Nonnull)get_user_member_joinUs_status{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_user_member_joinUs_status)))(self, @selector(jobs_get_user_member_joinUs_status)))();
 }
 
@@ -1005,7 +1005,7 @@
 }
 #pragma mark —— 国家编码信息管理
 /// 获取国家编码信息列表@GET
--(URLManagerModel *_Nullable)get_user_countrycode_list{
+-(URLManagerModel *_Nonnull)get_user_countrycode_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_user_countrycode_list)))(self, @selector(jobs_get_user_countrycode_list)))();
 }
 
@@ -1019,7 +1019,7 @@
 }
 #pragma mark —— 提供给游戏服务的Feign接口
 /// 查询会员信息-根据memberId@GET
--(URLManagerModel *_Nullable)get_user_userforgame_memberinfo{
+-(URLManagerModel *_Nonnull)get_user_userforgame_memberinfo{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_user_userforgame_memberinfo)))(self, @selector(jobs_get_user_userforgame_memberinfo)))();
 }
 
@@ -1032,7 +1032,7 @@
     };
 }
 /// 查询会员信息-根据memberName@GET
--(URLManagerModel *_Nullable)get_user_userforgame_memberinfoByName{
+-(URLManagerModel *_Nonnull)get_user_userforgame_memberinfoByName{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_user_userforgame_memberinfoByName)))(self, @selector(jobs_get_user_userforgame_memberinfoByName)))();
 }
 
@@ -1045,7 +1045,7 @@
     };
 }
 /// 批量查询会员信息-根据memberNames@GET
--(URLManagerModel *_Nullable)get_user_userforgame_memberinfoByNames{
+-(URLManagerModel *_Nonnull)get_user_userforgame_memberinfoByNames{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_user_userforgame_memberinfoByNames)))(self, @selector(jobs_get_user_userforgame_memberinfoByNames)))();
 }
 
@@ -1058,7 +1058,7 @@
     };
 }
 /// updateMemberInfo@POST
--(URLManagerModel *_Nullable)post_user_userforgame_memberinfoUpdate{
+-(URLManagerModel *_Nonnull)post_user_userforgame_memberinfoUpdate{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_userforgame_memberinfoUpdate)))(self, @selector(jobs_post_user_userforgame_memberinfoUpdate)))();
 }
 
@@ -1072,7 +1072,7 @@
 }
 #pragma mark —— 电子钱包管理
 /// 绑定电子钱包@POST
--(URLManagerModel *_Nullable)post_user_eWallets_bind{
+-(URLManagerModel *_Nonnull)post_user_eWallets_bind{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_eWallets_bind)))(self, @selector(jobs_post_user_eWallets_bind)))();
 }
 
@@ -1085,7 +1085,7 @@
     };
 }
 /// 删除电子钱包@GET
--(URLManagerModel *_Nullable)get_user_eWallets_delete{
+-(URLManagerModel *_Nonnull)get_user_eWallets_delete{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_user_eWallets_delete)))(self, @selector(jobs_get_user_eWallets_delete)))();
 }
 
@@ -1098,7 +1098,7 @@
     };
 }
 /// 获取会员电子钱包列表@GET
--(URLManagerModel *_Nullable)get_user_eWallets_list{
+-(URLManagerModel *_Nonnull)get_user_eWallets_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_user_eWallets_list)))(self, @selector(jobs_get_user_eWallets_list)))();
 }
 
@@ -1112,7 +1112,7 @@
 }
 #pragma mark —— 短信验证码接口
 /// 校验短信验证码@POST
--(URLManagerModel *_Nullable)post_user_verCode_check{
+-(URLManagerModel *_Nonnull)post_user_verCode_check{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_verCode_check)))(self, @selector(jobs_post_user_verCode_check)))();
 }
 
@@ -1125,7 +1125,7 @@
     };
 }
 /// 检查验证码@POST
--(URLManagerModel *_Nullable)post_user_verCode_checkCodeEmail{
+-(URLManagerModel *_Nonnull)post_user_verCode_checkCodeEmail{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_verCode_checkCodeEmail)))(self, @selector(jobs_post_user_verCode_checkCodeEmail)))();
 }
 
@@ -1138,7 +1138,7 @@
     };
 }
 /// 检查手机验证码@POST
--(URLManagerModel *_Nullable)post_user_verCode_checkCodeMobile{
+-(URLManagerModel *_Nonnull)post_user_verCode_checkCodeMobile{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_verCode_checkCodeMobile)))(self, @selector(jobs_post_user_verCode_checkCodeMobile)))();
 }
 
@@ -1152,7 +1152,7 @@
 }
 /// 发送短信验证码@POST
 /// ❤️可以用于：注册、修改密码...❤️
--(URLManagerModel *_Nullable)post_user_verCode_sendSms{
+-(URLManagerModel *_Nonnull)post_user_verCode_sendSms{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_verCode_sendSms)))(self, @selector(jobs_post_user_verCode_sendSms)))();
 }
 
@@ -1173,7 +1173,7 @@
 }
 /// 发送短信验证码@POST
 /// ❤️只能用于登录❤️
--(URLManagerModel *_Nullable)post_user_verCode_sendSms_login{
+-(URLManagerModel *_Nonnull)post_user_verCode_sendSms_login{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_verCode_sendSms_login)))(self, @selector(jobs_post_user_verCode_sendSms_login)))();
 }
 
@@ -1187,7 +1187,7 @@
 }
 #pragma mark —— 邀请好友
 /// 领取奖励@POST
--(URLManagerModel *_Nullable)post_member_invite_drawAward{
+-(URLManagerModel *_Nonnull)post_member_invite_drawAward{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_member_invite_drawAward)))(self, @selector(jobs_post_member_invite_drawAward)))();
 }
 
@@ -1200,7 +1200,7 @@
     };
 }
 /// 生成邀请码@GET
--(URLManagerModel *_Nullable)get_member_invite_generateReferralCode{
+-(URLManagerModel *_Nonnull)get_member_invite_generateReferralCode{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_invite_generateReferralCode)))(self, @selector(jobs_get_member_invite_generateReferralCode)))();
 }
 
@@ -1213,7 +1213,7 @@
     };
 }
 /// 跑马灯@GET
--(URLManagerModel *_Nullable)get_member_invite_queryHorseRing{
+-(URLManagerModel *_Nonnull)get_member_invite_queryHorseRing{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_invite_queryHorseRing)))(self, @selector(jobs_get_member_invite_queryHorseRing)))();
 }
 
@@ -1226,7 +1226,7 @@
     };
 }
 /// 邀请详情流水分成奖励列表@GET
--(URLManagerModel *_Nullable)get_member_invite_queryInviteBetAwardList{
+-(URLManagerModel *_Nonnull)get_member_invite_queryInviteBetAwardList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_invite_queryInviteBetAwardList)))(self, @selector(jobs_get_member_invite_queryInviteBetAwardList)))();
 }
 
@@ -1239,7 +1239,7 @@
     };
 }
 /// 查询邀请好友流水奖励配置@GET
--(URLManagerModel *_Nullable)get_member_invite_queryInviteBetConfig{
+-(URLManagerModel *_Nonnull)get_member_invite_queryInviteBetConfig{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_invite_queryInviteBetConfig)))(self, @selector(jobs_get_member_invite_queryInviteBetConfig)))();
 }
 
@@ -1252,7 +1252,7 @@
     };
 }
 /// 邀请详情首存奖励列表@GET
--(URLManagerModel *_Nullable)get_member_invite_queryInviteDepAward{
+-(URLManagerModel *_Nonnull)get_member_invite_queryInviteDepAward{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_invite_queryInviteDepAward)))(self, @selector(jobs_get_member_invite_queryInviteDepAward)))();
 }
 
@@ -1269,7 +1269,7 @@
 //    return JobsURL(@"/api/member/invite/queryInviteDepConfig");
 //}
 /// 邀请信息@GET
--(URLManagerModel *_Nullable)get_member_invite_queryInviteInfo{
+-(URLManagerModel *_Nonnull)get_member_invite_queryInviteInfo{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_invite_queryInviteInfo)))(self, @selector(jobs_get_member_invite_queryInviteInfo)))();
 }
 
@@ -1282,7 +1282,7 @@
     };
 }
 /// 邀请详情累计发放金额和邀请人数@GET
--(URLManagerModel *_Nullable)get_member_invite_queryInviteInfoTotalAward{
+-(URLManagerModel *_Nonnull)get_member_invite_queryInviteInfoTotalAward{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_invite_queryInviteInfoTotalAward)))(self, @selector(jobs_get_member_invite_queryInviteInfoTotalAward)))();
 }
 
@@ -1295,7 +1295,7 @@
     };
 }
 /// 查询邀请好友vip奖励配置@GET
--(URLManagerModel *_Nullable)get_member_invite_queryInviteVipConfig{
+-(URLManagerModel *_Nonnull)get_member_invite_queryInviteVipConfig{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_member_invite_queryInviteVipConfig)))(self, @selector(jobs_get_member_invite_queryInviteVipConfig)))();
 }
 
@@ -1309,7 +1309,7 @@
 }
 #pragma mark —— 邮箱验证码接口
 /// 发送邮箱验证码@POST
--(URLManagerModel *_Nullable)post_user_verify_sendEmail{
+-(URLManagerModel *_Nonnull)post_user_verify_sendEmail{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_verify_sendEmail)))(self, @selector(jobs_post_user_verify_sendEmail)))();
 }
 
@@ -1323,7 +1323,7 @@
 }
 #pragma mark —— 银行信息管理
 /// 已绑定手机号时绑定银行卡@POST
--(URLManagerModel *_Nullable)post_user_bankcard_bind{
+-(URLManagerModel *_Nonnull)post_user_bankcard_bind{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_bankcard_bind)))(self, @selector(jobs_post_user_bankcard_bind)))();
 }
 
@@ -1336,7 +1336,7 @@
     };
 }
 /// 未绑定手机号时绑定银行卡@POST
--(URLManagerModel *_Nullable)post_user_bankcard_bindWithPhone{
+-(URLManagerModel *_Nonnull)post_user_bankcard_bindWithPhone{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_bankcard_bindWithPhone)))(self, @selector(jobs_post_user_bankcard_bindWithPhone)))();
 }
 
@@ -1349,7 +1349,7 @@
     };
 }
 /// 获取会员卡数量@GET
--(URLManagerModel *_Nullable)get_user_bankcard_cardTotal{
+-(URLManagerModel *_Nonnull)get_user_bankcard_cardTotal{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_user_bankcard_cardTotal)))(self, @selector(jobs_get_user_bankcard_cardTotal)))();
 }
 
@@ -1362,7 +1362,7 @@
     };
 }
 /// 绑卡前检查会员是否绑定手机号@GET
--(URLManagerModel *_Nullable)get_user_bankcard_checkMobile{
+-(URLManagerModel *_Nonnull)get_user_bankcard_checkMobile{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_user_bankcard_checkMobile)))(self, @selector(jobs_get_user_bankcard_checkMobile)))();
 }
 
@@ -1375,7 +1375,7 @@
     };
 }
 /// 银行卡二要素校验@POST
--(URLManagerModel *_Nullable)post_user_bankcard_checkBankCardTripartiteHttp{
+-(URLManagerModel *_Nonnull)post_user_bankcard_checkBankCardTripartiteHttp{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_bankcard_checkBankCardTripartiteHttp)))(self, @selector(jobs_post_user_bankcard_checkBankCardTripartiteHttp)))();
 }
 
@@ -1388,7 +1388,7 @@
     };
 }
 /// 删除银行卡@DELETE
--(URLManagerModel *_Nullable)delete_user_bankcard{
+-(URLManagerModel *_Nonnull)delete_user_bankcard{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_delete_user_bankcard)))(self, @selector(jobs_delete_user_bankcard)))();
 }
 
@@ -1401,7 +1401,7 @@
     };
 }
 /// 获取会员的银行卡列表@GET
--(URLManagerModel *_Nullable)get_user_bankcard_list{
+-(URLManagerModel *_Nonnull)get_user_bankcard_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_user_bankcard_list)))(self, @selector(jobs_get_user_bankcard_list)))();
 }
 
@@ -1414,7 +1414,7 @@
     };
 }
 /// 绑定银行卡@POST
--(URLManagerModel *_Nullable)post_user_bankcard_ph_bind{
+-(URLManagerModel *_Nonnull)post_user_bankcard_ph_bind{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_user_bankcard_ph_bind)))(self, @selector(jobs_post_user_bankcard_ph_bind)))();
 }
 

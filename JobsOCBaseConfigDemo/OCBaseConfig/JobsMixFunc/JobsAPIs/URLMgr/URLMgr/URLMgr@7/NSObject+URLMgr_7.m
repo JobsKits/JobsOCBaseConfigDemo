@@ -12,7 +12,7 @@
 @implementation NSObject (URLMgr_7)
 #pragma mark —— 其他
 /// 获取客服
--(URLManagerModel *_Nullable)post_operation_advice_config_serviceLines{
+-(URLManagerModel *_Nonnull)post_operation_advice_config_serviceLines{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_operation_advice_config_serviceLines)))(self, @selector(jobs_post_operation_advice_config_serviceLines)))();
 }
 
@@ -25,7 +25,7 @@
     };
 }
 /// kyc 身份证上传
--(URLManagerModel *_Nullable)post_kyc_image_upload{
+-(URLManagerModel *_Nonnull)post_kyc_image_upload{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_kyc_image_upload)))(self, @selector(jobs_post_kyc_image_upload)))();
 }
 

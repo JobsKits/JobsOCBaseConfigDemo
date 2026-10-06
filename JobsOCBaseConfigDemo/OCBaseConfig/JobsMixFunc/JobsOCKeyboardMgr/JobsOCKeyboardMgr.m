@@ -6,7 +6,6 @@
 //
 
 #import "JobsOCKeyboardMgr.h"
-#import "UIGestureRecognizer+DSL.h"
 
 @interface JobsOCKeyboardMgr ()<UIGestureRecognizerDelegate>
 
@@ -22,7 +21,7 @@ Prop_copy(nullable, readwrite) NSDictionary *latestKeyboardUserInfo;
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCKeyboardMgr
-@interface JobsOCKeyboardMgr (JobsPropertyDSLSetterAutogen_c8a6c3b558)
+@interface JobsOCKeyboardMgr (JobsPropertyDSLSetterAutogen_d79ec97175)
 -(void)setCurrentConfig:(__kindof JobsOCKeyboardConfig * _Nullable)data;
 -(void)setEndEditingTapGR:(UITapGestureRecognizer * _Nullable)data;
 -(void)setEndEditingTapHostView:(__kindof UIView * _Nullable)data;
@@ -70,6 +69,7 @@ Prop_copy(nullable, readwrite) NSDictionary *latestKeyboardUserInfo;
     @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardMgr *_Nullable(void) {
         @jobs_strongify(self)
+        if (!self) return nil;
         self.jobs_startListening();
         return self;
     };
@@ -79,6 +79,7 @@ Prop_copy(nullable, readwrite) NSDictionary *latestKeyboardUserInfo;
     @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardMgr *_Nullable(void) {
         @jobs_strongify(self)
+        if (!self) return nil;
         self.jobs_stopListening();
         return self;
     };
@@ -99,6 +100,7 @@ Prop_copy(nullable, readwrite) NSDictionary *latestKeyboardUserInfo;
     @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardMgr *_Nullable(__kindof JobsOCKeyboardConfig *_Nullable data) {
         @jobs_strongify(self)
+        if (!self) return nil;
         self.jobs_updateConfig(data);
         return self;
     };
@@ -320,14 +322,14 @@ sharesMovingViewsWithConfig:(__kindof JobsOCKeyboardConfig *)right{
         @jobs_strongify(self)
         if (!self) return;
         if (!config || !config.shouldFlowByReturnKey) return;
+        @jobs_weakify(self)
         NSArray <__kindof UITextField *>*inputFields = config.inputFields();
         for (UITextField *textField in inputFields) {
-            [textField removeTarget:self
-                              action:@selector(jobs_inputFieldDidEndOnExit:)
-                    forControlEvents:UIControlEventEditingDidEndOnExit];
-            [textField addTarget:self
-                          action:@selector(jobs_inputFieldDidEndOnExit:)
-                forControlEvents:UIControlEventEditingDidEndOnExit];
+            textField
+                .offJobsEvent(UIControlEventEditingDidEndOnExit)
+                .onJobsEvent(UIControlEventEditingDidEndOnExit, ^(__kindof UIControl * _Nullable control) {
+                    weak_self.jobs_inputFieldDidEndOnExit((UITextField *)control);
+                });
         }
     };
 }
@@ -339,9 +341,7 @@ sharesMovingViewsWithConfig:(__kindof JobsOCKeyboardConfig *)right{
         if (!self) return;
         if (!config) return;
         for (UITextField *textField in config.inputFields()) {
-            [textField removeTarget:self
-                              action:@selector(jobs_inputFieldDidEndOnExit:)
-                    forControlEvents:UIControlEventEditingDidEndOnExit];
+            textField.offJobsEvent(UIControlEventEditingDidEndOnExit);
         }
     };
 }
@@ -354,7 +354,7 @@ sharesMovingViewsWithConfig:(__kindof JobsOCKeyboardConfig *)right{
     if (index == NSNotFound) return nil;
     for (NSUInteger i = index + 1; i < inputFields.count; i++) {
         UITextField *nextTextField = inputFields[i];
-        if (nextTextField.enabled &&
+        if (nextTextField.jobs_isEnabled &&
             nextTextField.userInteractionEnabled &&
             !nextTextField.hidden &&
             nextTextField.alpha > 0.01f) {
@@ -363,12 +363,7 @@ sharesMovingViewsWithConfig:(__kindof JobsOCKeyboardConfig *)right{
     };return nil;
 }
 
--(void)jobs_inputFieldDidEndOnExit:(__kindof UITextField *)textField{
-    jobsByTextFieldBlock action = ((jobsByTextFieldBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCKeyboardMgr.class, @selector(jobsJobs_inputFieldDidEndOnExit)))(self, @selector(jobsJobs_inputFieldDidEndOnExit));
-    if (action) action(textField);
-}
-
--(jobsByTextFieldBlock _Nonnull)jobsJobs_inputFieldDidEndOnExit{
+-(jobsByTextFieldBlock _Nonnull)jobs_inputFieldDidEndOnExit{
     @jobs_weakify(self)
     return ^(__kindof UITextField * textField){
         @jobs_strongify(self)
@@ -379,7 +374,7 @@ sharesMovingViewsWithConfig:(__kindof JobsOCKeyboardConfig *)right{
         if (nextTextField) {
             [nextTextField becomeFirstResponder];
         }else{
-            [textField resignFirstResponder];
+            textField.resignFirstResponder;
         }
     };
 }

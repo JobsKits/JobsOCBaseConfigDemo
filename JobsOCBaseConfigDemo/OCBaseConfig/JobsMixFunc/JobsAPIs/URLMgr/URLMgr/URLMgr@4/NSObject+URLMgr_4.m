@@ -12,7 +12,7 @@
 @implementation NSObject (URLMgr_4)
 #pragma mark —— 信息配置
 /// 跑马灯信息查询【建议前端每20s-30s可以刷新请求一次】@GET
--(URLManagerModel *_Nullable)get_operation_announce_config_queryAnnByMember{
+-(URLManagerModel *_Nonnull)get_operation_announce_config_queryAnnByMember{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_operation_announce_config_queryAnnByMember)))(self, @selector(jobs_get_operation_announce_config_queryAnnByMember)))();
 }
 
@@ -25,7 +25,7 @@
     };
 }
 /// 站内信全部变为已读【建议前端每5s刷新一次】@PUT
--(URLManagerModel *_Nullable)put_operation_letter_config_allReadStatus{
+-(URLManagerModel *_Nonnull)put_operation_letter_config_allReadStatus{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_operation_letter_config_allReadStatus)))(self, @selector(jobs_put_operation_letter_config_allReadStatus)))();
 }
 
@@ -38,7 +38,7 @@
     };
 }
 /// 站内信全部删除@PUT
--(URLManagerModel *_Nullable)put_operation_letter_config_deleteAll{
+-(URLManagerModel *_Nonnull)put_operation_letter_config_deleteAll{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_operation_letter_config_deleteAll)))(self, @selector(jobs_put_operation_letter_config_deleteAll)))();
 }
 
@@ -51,7 +51,7 @@
     };
 }
 /// 站内信删除@PUT
--(URLManagerModel *_Nullable)put_operation_letter_config_deleteLetter{
+-(URLManagerModel *_Nonnull)put_operation_letter_config_deleteLetter{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_operation_letter_config_deleteLetter)))(self, @selector(jobs_put_operation_letter_config_deleteLetter)))();
 }
 
@@ -64,7 +64,7 @@
     };
 }
 /// 是否有未读站内信【建议前端每5s刷新一次】@POST
--(URLManagerModel *_Nullable)post_operation_letter_config_hasUnRead{
+-(URLManagerModel *_Nonnull)post_operation_letter_config_hasUnRead{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_operation_letter_config_hasUnRead)))(self, @selector(jobs_post_operation_letter_config_hasUnRead)))();
 }
 
@@ -77,7 +77,7 @@
     };
 }
 /// 站内信记录查询@POST
--(URLManagerModel *_Nullable)post_operation_letter_config_queryLetterConfigSendList{
+-(URLManagerModel *_Nonnull)post_operation_letter_config_queryLetterConfigSendList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_operation_letter_config_queryLetterConfigSendList)))(self, @selector(jobs_post_operation_letter_config_queryLetterConfigSendList)))();
 }
 
@@ -90,7 +90,7 @@
     };
 }
 /// 站内信变为已读@PUT
--(URLManagerModel *_Nullable)put_operation_letter_config_toReadStatus{
+-(URLManagerModel *_Nonnull)put_operation_letter_config_toReadStatus{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_operation_letter_config_toReadStatus)))(self, @selector(jobs_put_operation_letter_config_toReadStatus)))();
 }
 
@@ -104,7 +104,7 @@
 }
 #pragma mark —— 全站维护
 /// 全站维护@POST
--(URLManagerModel *_Nullable)post_operation_siteMain_queryDetail{
+-(URLManagerModel *_Nonnull)post_operation_siteMain_queryDetail{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_operation_siteMain_queryDetail)))(self, @selector(jobs_post_operation_siteMain_queryDetail)))();
 }
 
@@ -118,7 +118,7 @@
 }
 #pragma mark —— 公共资源
 /// 教程子项详情@POST
--(URLManagerModel *_Nullable)post_operation_tutorial_config_detailItem{
+-(URLManagerModel *_Nonnull)post_operation_tutorial_config_detailItem{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_operation_tutorial_config_detailItem)))(self, @selector(jobs_post_operation_tutorial_config_detailItem)))();
 }
 
@@ -131,7 +131,7 @@
     };
 }
 /// 教程列表@POST
--(URLManagerModel *_Nullable)post_api_operation_tutorial_config_list{
+-(URLManagerModel *_Nonnull)post_api_operation_tutorial_config_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_api_operation_tutorial_config_list)))(self, @selector(jobs_post_api_operation_tutorial_config_list)))();
 }
 
@@ -144,7 +144,7 @@
     };
 }
 /// 教程子项列表@POST
--(URLManagerModel *_Nullable)post_operation_tutorial_config_listItem{
+-(URLManagerModel *_Nonnull)post_operation_tutorial_config_listItem{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_operation_tutorial_config_listItem)))(self, @selector(jobs_post_operation_tutorial_config_listItem)))();
 }
 
@@ -158,7 +158,7 @@
 }
 #pragma mark —— 资源配置
 /// 意见保存@POST
--(URLManagerModel *_Nullable)post_operation_advice_config_saveAdviceConfig{
+-(URLManagerModel *_Nonnull)post_operation_advice_config_saveAdviceConfig{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_operation_advice_config_saveAdviceConfig)))(self, @selector(jobs_post_operation_advice_config_saveAdviceConfig)))();
 }
 
@@ -172,7 +172,7 @@
 }
 #pragma mark —— 赞助模块
 /// 查询赞助集锦列表@GET
--(URLManagerModel *_Nullable)get_operation_sponsor_high_list{
+-(URLManagerModel *_Nonnull)get_operation_sponsor_high_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_operation_sponsor_high_list)))(self, @selector(jobs_get_operation_sponsor_high_list)))();
 }
 
@@ -185,7 +185,7 @@
     };
 }
 /// 查询赞助图集列表@GET
--(URLManagerModel *_Nullable)get_operation_sponsor_list{
+-(URLManagerModel *_Nonnull)get_operation_sponsor_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_operation_sponsor_list)))(self, @selector(jobs_get_operation_sponsor_list)))();
 }
 
@@ -199,7 +199,7 @@
 }
 #pragma mark —— 接口文档里面没有的
 /// 获取好友邀请规则（邀请人数）@GET
--(URLManagerModel *_Nullable)get_invite_getInviteTerms{
+-(URLManagerModel *_Nonnull)get_invite_getInviteTerms{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_invite_getInviteTerms)))(self, @selector(jobs_get_invite_getInviteTerms)))();
 }
 
@@ -212,7 +212,7 @@
     };
 }
 /// 收益统计@POST
--(URLManagerModel *_Nullable)post_invite_inviteBetAwardStatistic{
+-(URLManagerModel *_Nonnull)post_invite_inviteBetAwardStatistic{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_invite_inviteBetAwardStatistic)))(self, @selector(jobs_post_invite_inviteBetAwardStatistic)))();
 }
 
@@ -225,7 +225,7 @@
     };
 }
 /// 邀请好友链接@GET
--(URLManagerModel *_Nullable)get_getReferralCode{
+-(URLManagerModel *_Nonnull)get_getReferralCode{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_getReferralCode)))(self, @selector(jobs_get_getReferralCode)))();
 }
 
@@ -238,7 +238,7 @@
     };
 }
 /// 银行-Deposit 提交@POST
--(URLManagerModel *_Nullable)post_fundDepositOrder{
+-(URLManagerModel *_Nonnull)post_fundDepositOrder{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_fundDepositOrder)))(self, @selector(jobs_post_fundDepositOrder)))();
 }
 

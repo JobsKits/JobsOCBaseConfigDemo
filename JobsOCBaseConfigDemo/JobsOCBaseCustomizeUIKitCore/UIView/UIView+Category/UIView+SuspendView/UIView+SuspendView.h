@@ -10,9 +10,26 @@
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
+
+#if __has_include(<JobsOCDSL/JobsOCDSL.h>)
+#import <JobsOCDSL/JobsOCDSL.h>
+#else
 #import "JobsOCDSL.h"
+#endif
+
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import <JobsBlock/JobsBlock.h>
+#else
 #import "JobsBlock.h"
+#endif
+
+#if __has_include(<JobsOCDefs/JobsDefines.h>)
+#import <JobsOCDefs/JobsDefines.h>
+#else
 #import "JobsDefines.h"
+#endif
+
+#import "JobsWeakAssociation.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

@@ -2,20 +2,38 @@
 //  UIView+Gesture.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2021/1/4.
+//  Created by Jobs on 2021年1月4日，星期一.
 //
 
 #import "UIView+Gesture.h"
+#import "JobsWeakAssociation.h"
 
 #warning —— 本类不实现UIGestureRecognizerDelegate的原因说明:覆盖了 UISCrollView 里面对应的方法
+
+// 工厂仅绑定 UIKit 原生弱 target/action，避免外部 owner 与 view 的持有环。
+static id JobsViewGestureTarget(UIView *view) {
+    return JobsGetAssociatedWeakObject(view, @selector(weak_target)) ?: view;
+}
+
+static void JobsConfigureViewGestureTarget(UIView *view,
+                                          UIGestureRecognizer *gesture,
+                                          SEL action) {
+    if (!view || !gesture) {
+        return;
+    }
+    id target = JobsViewGestureTarget(view);
+    gesture.delegate = (id<UIGestureRecognizerDelegate>)target;
+    if (action) {
+        [gesture addTarget:target action:action];
+    }
+}
 
 @implementation UIView (Gesture)
 #pragma mark —— 一些私有方法
 -(void)gesture:(UIGestureRecognizer *_Nullable)gesture
         action:(SEL _Nullable)action{
     if (gesture) {
-        gesture.byTarget(self.weak_target);
-        gesture.removeAction(action);
+        [gesture removeTarget:JobsViewGestureTarget(self) action:action];
     }
 }
 
@@ -47,20 +65,16 @@ JobsKey(_longPressGR)
 @dynamic longPressGR;
 -(UILongPressGestureRecognizer *)longPressGR{
     UILongPressGestureRecognizer *LongPressGR = Jobs_getAssociatedObject(_longPressGR);
-    JobsLog(@"self.weak_target = %@",self.weak_target);
+    JobsLog(@"self.weak_target = %@",JobsGetAssociatedWeakObject(self, @selector(weak_target)));
     if (!LongPressGR) {
         @jobs_weakify(self)
         LongPressGR = jobsMakeLongPressGesture(^(__kindof UILongPressGestureRecognizer * _Nullable gesture) {
             @jobs_strongify(self)
-            gesture
-                .byDelegate(self.weak_target)
-                .byTarget(self.weak_target);
             if (self.minimumPressDuration)  gesture.minimumPressDuration = self.minimumPressDuration;// longPressGR最小长按时间,默认0.5
             if (self.numberOfTouchesRequired) gesture.numberOfTouchesRequired = self.numberOfTouchesRequired;// 设置手指字数,默认1
             if (self.allowableMovement) gesture.allowableMovement = self.allowableMovement;// 手势失败前允许的最大像素移动,默认10
-            if (self.longPressGR_SelImp.selector) {
-                gesture.addAction(self.longPressGR_SelImp.selector);
-            }self.addGesture(gesture);
+            JobsConfigureViewGestureTarget(self, gesture, self.longPressGR_SelImp.selector);
+            self.addGesture(gesture);
             [self setLongPressGR:gesture];
         });
     };return LongPressGR;
@@ -74,17 +88,14 @@ JobsKey(_tapGR)
 @dynamic tapGR;
 -(UITapGestureRecognizer *)tapGR{
     UITapGestureRecognizer *TapGR = Jobs_getAssociatedObject(_tapGR);
-    JobsLog(@"self.weak_target = %@",self.weak_target);
+    JobsLog(@"self.weak_target = %@",JobsGetAssociatedWeakObject(self, @selector(weak_target)));
     if (!TapGR) {
         @jobs_weakify(self)
         TapGR = jobsMakeTapGesture(^(__kindof UITapGestureRecognizer * _Nullable gesture) {
             @jobs_strongify(self)
-            gesture
-                .byDelegate(self.weak_target)
-                .byTarget(self.weak_target);
             if (self.numberOfTapsRequired) gesture.numberOfTapsRequired = self.numberOfTapsRequired;// 设置轻拍次数,默认0
             if (self.numberOfTouchesRequired) gesture.numberOfTouchesRequired = self.numberOfTouchesRequired;// 设置手指字数,默认1
-            if (self.tapGR_SelImp.selector) gesture.addAction(self.tapGR_SelImp.selector);
+            JobsConfigureViewGestureTarget(self, gesture, self.tapGR_SelImp.selector);
             self.addGesture(gesture);
             [self setTapGR:gesture];
         });
@@ -99,17 +110,15 @@ JobsKey(_doubleTapGR)
 @dynamic doubleTapGR;
 -(UITapGestureRecognizer *)doubleTapGR{
     UITapGestureRecognizer *DoubleTapGR = Jobs_getAssociatedObject(_doubleTapGR);
-    JobsLog(@"self.weak_target = %@",self.weak_target);
+    JobsLog(@"self.weak_target = %@",JobsGetAssociatedWeakObject(self, @selector(weak_target)));
     if (!DoubleTapGR) {
         @jobs_weakify(self)
         DoubleTapGR = jobsMakeTapGesture(^(__kindof UITapGestureRecognizer * _Nullable gesture) {
             @jobs_strongify(self)
             gesture
                 .byNumberOfTapsRequired(2)
-                .byNumberOfTouchesRequired(self.numberOfTouchesRequired ? self.numberOfTouchesRequired : 1)
-                .byDelegate(self.weak_target)
-                .byTarget(self.weak_target);
-            if (self.doubleTapGR_SelImp.selector) gesture.addAction(self.doubleTapGR_SelImp.selector);
+                .byNumberOfTouchesRequired(self.numberOfTouchesRequired ? self.numberOfTouchesRequired : 1);
+            JobsConfigureViewGestureTarget(self, gesture, self.doubleTapGR_SelImp.selector);
             self.addGesture(gesture);
             [self setDoubleTapGR:gesture];
         });
@@ -124,17 +133,15 @@ JobsKey(_swipeGR)
 @dynamic swipeGR;
 -(UISwipeGestureRecognizer *)swipeGR{
     UISwipeGestureRecognizer *SwipeGR = Jobs_getAssociatedObject(_swipeGR);
-    JobsLog(@"self.weak_target = %@",self.weak_target);
+    JobsLog(@"self.weak_target = %@",JobsGetAssociatedWeakObject(self, @selector(weak_target)));
     if (!SwipeGR) {
         @jobs_weakify(self)
         SwipeGR = jobsMakeSwipeGesture(^(__kindof UISwipeGestureRecognizer * _Nullable gesture) {
             @jobs_strongify(self)
             gesture
                 .byDirection(self.swipeGRDirection)
-                .byNumberOfTouchesRequired(self.numberOfTouchesRequired)
-                .byDelegate(self.weak_target)
-                .byTarget(self.weak_target);
-            if (self.swipeGR_SelImp.selector) gesture.addAction(self.swipeGR_SelImp.selector);
+                .byNumberOfTouchesRequired(self.numberOfTouchesRequired);
+            JobsConfigureViewGestureTarget(self, gesture, self.swipeGR_SelImp.selector);
             self.addGesture(gesture);
             [self setSwipeGR:gesture];
         });
@@ -149,17 +156,15 @@ JobsKey(_panGR)
 @dynamic panGR;
 -(UIPanGestureRecognizer *)panGR{
     UIPanGestureRecognizer *PanGR = Jobs_getAssociatedObject(_panGR);
-    JobsLog(@"self.weak_target = %@",self.weak_target);
+    JobsLog(@"self.weak_target = %@",JobsGetAssociatedWeakObject(self, @selector(weak_target)));
     if (!PanGR) {
         @jobs_weakify(self)
         PanGR = jobsMakePanGesture(^(__kindof UIPanGestureRecognizer * _Nullable gesture) {
             @jobs_strongify(self)
             gesture
-                .byMinimumNumberOfTouches(self.minimumNumberOfTouches)
-                .byDelegate(self.weak_target)
-                .byTarget(self.weak_target);
+                .byMinimumNumberOfTouches(self.minimumNumberOfTouches);
             if (@available(iOS 13.4, *)) gesture.allowedScrollTypesMask = self.allowedScrollTypesMask;
-            if (self.panGR_SelImp.selector) gesture.addAction(self.panGR_SelImp.selector);
+            JobsConfigureViewGestureTarget(self, gesture, self.panGR_SelImp.selector);
             self.addGesture(gesture);
             [self setPanGR:gesture];
         });
@@ -174,16 +179,14 @@ JobsKey(_pinchGR)
 @dynamic pinchGR;
 -(UIPinchGestureRecognizer *)pinchGR{
     UIPinchGestureRecognizer *PinchGR = Jobs_getAssociatedObject(_pinchGR);
-    JobsLog(@"self.weak_target = %@",self.weak_target);
+    JobsLog(@"self.weak_target = %@",JobsGetAssociatedWeakObject(self, @selector(weak_target)));
     if (!PinchGR) {
         @jobs_weakify(self)
         PinchGR = jobsMakePinchGesture(^(__kindof UIPinchGestureRecognizer * _Nullable gesture) {
             @jobs_strongify(self)
             gesture
-                .byScale(self.scale)
-                .byDelegate(self.weak_target)
-                .byTarget(self.weak_target);
-            if (self.pinchGR_SelImp.selector) gesture.addAction(self.pinchGR_SelImp.selector);
+                .byScale(self.scale);
+            JobsConfigureViewGestureTarget(self, gesture, self.pinchGR_SelImp.selector);
             self.addGesture(gesture);
             [self setPinchGR:gesture];
         });
@@ -198,16 +201,14 @@ JobsKey(_rotationGR)
 @dynamic rotationGR;
 -(UIRotationGestureRecognizer *)rotationGR{
     UIRotationGestureRecognizer *RotationGR = Jobs_getAssociatedObject(_rotationGR);
-    JobsLog(@"self.weak_target = %@",self.weak_target);
+    JobsLog(@"self.weak_target = %@",JobsGetAssociatedWeakObject(self, @selector(weak_target)));
     if (!RotationGR) {
         @jobs_weakify(self)
         RotationGR = jobsMakeRotationGesture(^(__kindof UIRotationGestureRecognizer * _Nullable gesture) {
             @jobs_strongify(self)
             gesture
-                .byRotation(self.rotate)
-                .byDelegate(self.weak_target)
-                .byTarget(self.weak_target);
-            if (self.rotationGR_SelImp.selector) gesture.addAction(self.rotationGR_SelImp.selector);
+                .byRotation(self.rotate);
+            JobsConfigureViewGestureTarget(self, gesture, self.rotationGR_SelImp.selector);
             self.addGesture(gesture);
             [self setRotationGR:gesture];
         });
@@ -222,15 +223,12 @@ JobsKey(_screenEdgePanGR)
 @dynamic screenEdgePanGR;
 -(UIScreenEdgePanGestureRecognizer *)screenEdgePanGR{
     UIScreenEdgePanGestureRecognizer *ScreenEdgePanGR = Jobs_getAssociatedObject(_screenEdgePanGR);
-    JobsLog(@"self.weak_target = %@",self.weak_target);
+    JobsLog(@"self.weak_target = %@",JobsGetAssociatedWeakObject(self, @selector(weak_target)));
     if (!ScreenEdgePanGR) {
         @jobs_weakify(self)
         ScreenEdgePanGR = jobsMakeScreenEdgePanGestureRecognizer(^(__kindof UIScreenEdgePanGestureRecognizer * _Nullable gesture) {
             @jobs_strongify(self)
-            gesture
-                .byDelegate(self.weak_target)
-                .byTarget(self.weak_target);
-            if (self.screenEdgePanGR_SelImp.selector) gesture.addAction(self.screenEdgePanGR_SelImp.selector);
+            JobsConfigureViewGestureTarget(self, gesture, self.screenEdgePanGR_SelImp.selector);
             self.addGesture(gesture);
             [self setScreenEdgePanGR:gesture];
         });

@@ -14,7 +14,7 @@ Prop_strong()NSArray <UIImage *>*dataMutArr;
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsImageNumberView
-@interface JobsImageNumberView (JobsPropertyDSLSetterAutogen_b4ba93cf98)
+@interface JobsImageNumberView (JobsPropertyDSLSetterAutogen_4e1ca3ead1)
 -(void)setDataMutArr:(NSArray <UIImage *>* _Nullable)data;
 @end
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsImageNumberView
@@ -44,6 +44,7 @@ Prop_strong()NSArray <UIImage *>*dataMutArr;
     @jobs_weakify(self)
     return ^(NSArray <UIImage *>*_Nullable model) {
         @jobs_strongify(self)
+        if (!self) return;
         self.byDataMutArr(model);
         self.collectionView.byShow(self);
     };
@@ -147,12 +148,11 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     if (!_collectionView) {
         @jobs_weakify(self)
         _collectionView = BaseCollectionView.initByLayout(self.verticalLayout);
-        _collectionView
-            .dataLink(self)
-            .registerCollectionViewClass()
-            .byShowsVerticalScrollIndicator(NO)
-            .byBgColor(JobsClearColor)
-            .addOn(self);
+        _collectionView.dataLink(self);
+        _collectionView.registerCollectionViewClass();
+        _collectionView.byShowsVerticalScrollIndicator(NO);
+        _collectionView.byBgColor(JobsClearColor);
+        _collectionView.addOn(self);
         [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
             @jobs_strongify(self)
             make.edges.equalTo(self);

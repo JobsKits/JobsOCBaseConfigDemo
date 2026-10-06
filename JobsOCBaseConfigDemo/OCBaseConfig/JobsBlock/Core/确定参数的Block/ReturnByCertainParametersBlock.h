@@ -1692,6 +1692,8 @@ typedef __kindof JobsAppDoorVC_Style2 * _Nullable(^JobsRetJobsAppDoorVC_Style2By
 typedef __kindof JobsAppTools * _Nullable(^JobsRetJobsAppToolsByDeviceOrientationBlock)(DeviceOrientation data);
 typedef __kindof JobsAppTools * _Nullable(^JobsRetJobsAppToolsByUIInterfaceOrientationBlock)(UIInterfaceOrientation data);
 typedef __kindof JobsAppTools * _Nullable(^JobsRetJobsAppToolsByUIInterfaceOrientationMaskBlock)(UIInterfaceOrientationMask data);
+typedef __kindof JobsBaseApi * _Nullable(^JobsRetJobsBaseApiByNSStringBlock)(NSString * _Nullable data);
+typedef __kindof JobsBaseApi * _Nullable(^JobsRetJobsBaseApiByUIViewBlock)(UIView * _Nullable data);
 typedef __kindof JobsBaseDataSettingVC * _Nullable(^JobsRetJobsBaseDataSettingVCByBOOLBlock)(BOOL data);
 typedef __kindof JobsBaseTableViewCell * _Nullable(^JobsRetJobsBaseTableViewCellByBOOLBlock)(BOOL data);
 typedef __kindof JobsBluetoothManager * _Nullable(^JobsRetJobsBluetoothManagerByCBPeripheralBlock)(CBPeripheral * _Nullable data);
@@ -1899,6 +1901,7 @@ typedef __kindof JobsOCSplashConfiguration * _Nullable(^JobsRetJobsOCSplashConfi
 typedef __kindof JobsOCSplashVC * _Nullable(^JobsRetJobsOCSplashVCByAVPlayerLayerBlock)(AVPlayerLayer * _Nullable data);
 typedef __kindof JobsOCSplashVC * _Nullable(^JobsRetJobsOCSplashVCByBOOLBlock)(BOOL data);
 typedef __kindof JobsOCSplashVC * _Nullable(^JobsRetJobsOCSplashVCByNSIntegerBlock)(NSInteger data);
+typedef __kindof JobsOCSplashVC * _Nullable(^JobsRetJobsOCSplashVCByjobsByVoidBlockBlock)(jobsByVoidBlock data);
 typedef __kindof JobsOCVideoRecorderAssetWriter * _Nullable(^JobsRetJobsOCVideoRecorderAssetWriterByBOOLBlock)(BOOL data);
 typedef __kindof JobsOCVideoRecorderAssetWriter * _Nullable(^JobsRetJobsOCVideoRecorderAssetWriterByCMTimeBlock)(CMTime data);
 typedef __kindof JobsOCVideoRecorderAssetWriter * _Nullable(^JobsRetJobsOCVideoRecorderAssetWriterByNSURLBlock)(NSURL * _Nullable data);

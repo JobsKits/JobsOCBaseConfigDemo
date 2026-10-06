@@ -125,14 +125,19 @@ Prop_copy()jobsByIDBlock imageCodeViewBlock;
         [super drawRect:rect];
         CGSize cSize = [@"A" sizeWithAttributes:@{NSFontAttributeName:self.font,
                                                   NSForegroundColorAttributeName:self.color}];//计算单个字所需空间
-        int width = rect.size.width / self.CodeStr.length - cSize.width;//间距
-        int height = rect.size.height - cSize.height;//可浮动高度
+        if (!isfinite(rect.size.width) || !isfinite(rect.size.height) ||
+            rect.size.width <= 0 || rect.size.height <= 0 || self.CodeStr.length == 0) {
+            return;
+        }
+        CGFloat slotWidth = rect.size.width / self.CodeStr.length;
+        CGFloat width = MAX(0, slotWidth - cSize.width);
+        CGFloat height = MAX(0, rect.size.height - cSize.height);
         CGPoint point;
         /// 绘码
         float pX, pY;
         for (int i = 0; i < self.CodeStr.length; i++){
-            pX = arc4random() % width + rect.size.width / self.CodeStr.length * i;
-            pY = arc4random() % height;
+            pX = ((double)arc4random() / UINT32_MAX) * width + slotWidth * i;
+            pY = ((double)arc4random() / UINT32_MAX) * height;
             point = CGPointMake(pX, pY);
             unichar c = [self.CodeStr characterAtIndex:i];
             NSString *textC = [NSString stringWithFormat:@"%C", c];
@@ -145,11 +150,11 @@ Prop_copy()jobsByIDBlock imageCodeViewBlock;
         CGContextSetLineWidth(context, 1.0);
         for(int cout = 0; cout < 10; cout++){
             CGContextSetStrokeColorWithColor(context, JobsRandomColor.CGColor);
-            pX = arc4random() % (int)rect.size.width;
-            pY = arc4random() % (int)rect.size.height;
+            pX = ((double)arc4random() / UINT32_MAX) * rect.size.width;
+            pY = ((double)arc4random() / UINT32_MAX) * rect.size.height;
             CGContextMoveToPoint(context, pX, pY);
-            pX = arc4random() % (int)rect.size.width;
-            pY = arc4random() % (int)rect.size.height;
+            pX = ((double)arc4random() / UINT32_MAX) * rect.size.width;
+            pY = ((double)arc4random() / UINT32_MAX) * rect.size.height;
             CGContextAddLineToPoint(context, pX, pY);
             CGContextStrokePath(context);
         }
@@ -172,7 +177,9 @@ Prop_copy()jobsByIDBlock imageCodeViewBlock;
 
 -(void)setBgColor:(UIColor *)bgColor{
     _bgColor = bgColor;
-    self.byBgColor(_bgColor);
+    // DSL 的属性内核直接落到 UIKit，避免再次分派到本类 byBgColor。
+    [super setBackgroundColor:_bgColor];
+    [self setNeedsDisplay];
 }
 #pragma mark —— lazyLoad
 @synthesize CodeStr = _CodeStr;

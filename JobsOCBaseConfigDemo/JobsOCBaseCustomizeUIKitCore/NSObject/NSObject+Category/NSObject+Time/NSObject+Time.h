@@ -144,6 +144,13 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSString *)getMMSSFromStr:(NSString *_Nonnull)totalTime
                  formatTime:(JobsTimeModel *_Nullable)formatTime;
 
+/// 明确区分解析失败与时间差为零；输出单位为秒。
+-(BOOL)jobsTimeIntervalFrom:(NSString *)startTime
+                        to:(NSString * _Nullable)endTime
+                    format:(NSString * _Nullable)format
+                  interval:(NSTimeInterval *)interval
+                     error:(NSError * _Nullable __autoreleasing * _Nullable)error;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -69,6 +69,7 @@ JobsBlock@Pods/
 - `Core/**/*.h`
 
 - `Core/确定参数的Block/ReturnByCertainParametersBlock.h` 集中维护带返回值的确定参数 Block，`UITextView`、`UIBezierPath / CALayer / UIView` 方法型 DSL 相关返回类型统一从这里暴露。
+- 开屏宿主手势恢复的 `JobsRetJobsOCSplashVCByjobsByVoidBlockBlock` 同样在该共享头声明；`byHostGestureRestoration` 保存恢复回调并返回当前开屏控制器。旧工程使用既有集成源码，不为这条声明新增 Pod 依赖。
 - `JobsTimerMgr` 的 Scope upsert、实例安全取消与 Scope 生命周期 DSL 返回型 Block 统一由 `JobsBlock.h` 暴露。
 - `JobsBlockHeader.h` 集中维护向前声明，避免 `@class` / `@protocol` 分散在业务头文件中。
 - OC 新工程自建 Pod、应用 / Demo 与 OC 老工程中 Jobs 自维护的 0 / 1 入参功能方法统一使用本模块的 Block typedef；类型只按“返回类型 + 入参类型”去重，不在业务头文件重复声明。

@@ -12,7 +12,7 @@
 @implementation NSObject (URLMgr_3)
 #pragma mark —— APP游戏首页娱乐城
 /// 菲站APP首页- 受欢迎的游戏列表查询@POST
--(URLManagerModel *_Nullable)post_game_home_queryTopGamesList{
+-(URLManagerModel *_Nonnull)post_game_home_queryTopGamesList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_home_queryTopGamesList)))(self, @selector(jobs_post_game_home_queryTopGamesList)))();
 }
 
@@ -40,7 +40,7 @@
     };
 }
 /// bet@POST
--(URLManagerModel *_Nullable)post_CQ9_bet{
+-(URLManagerModel *_Nonnull)post_CQ9_bet{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_CQ9_bet)))(self, @selector(jobs_post_CQ9_bet)))();
 }
 
@@ -53,7 +53,7 @@
     };
 }
 /// credit@POST
--(URLManagerModel *_Nullable)post_CQ9_credit{
+-(URLManagerModel *_Nonnull)post_CQ9_credit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_CQ9_credit)))(self, @selector(jobs_post_CQ9_credit)))();
 }
 
@@ -66,7 +66,7 @@
     };
 }
 /// debit@POST
--(URLManagerModel *_Nullable)post_CQ9_debit{
+-(URLManagerModel *_Nonnull)post_CQ9_debit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_CQ9_debit)))(self, @selector(jobs_post_CQ9_debit)))();
 }
 
@@ -79,7 +79,7 @@
     };
 }
 /// EndRound@POST
--(URLManagerModel *_Nullable)post_CQ9_EndRound{
+-(URLManagerModel *_Nonnull)post_CQ9_EndRound{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_CQ9_EndRound)))(self, @selector(jobs_post_CQ9_EndRound)))();
 }
 
@@ -92,7 +92,7 @@
     };
 }
 /// refund@POST
--(URLManagerModel *_Nullable)post_CQ9_refund{
+-(URLManagerModel *_Nonnull)post_CQ9_refund{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_CQ9_refund)))(self, @selector(jobs_post_CQ9_refund)))();
 }
 
@@ -105,7 +105,7 @@
     };
 }
 /// rollin@POST
--(URLManagerModel *_Nullable)post_CQ9_rollin{
+-(URLManagerModel *_Nonnull)post_CQ9_rollin{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_CQ9_rollin)))(self, @selector(jobs_post_CQ9_rollin)))();
 }
 
@@ -118,7 +118,7 @@
     };
 }
 /// rollOut@POST
--(URLManagerModel *_Nullable)post_CQ9_rollOut{
+-(URLManagerModel *_Nonnull)post_CQ9_rollOut{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_CQ9_rollOut)))(self, @selector(jobs_post_CQ9_rollOut)))();
 }
 
@@ -131,7 +131,7 @@
     };
 }
 /// takeAll@POST
--(URLManagerModel *_Nullable)post_CQ9_takeAll{
+-(URLManagerModel *_Nonnull)post_CQ9_takeAll{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_CQ9_takeAll)))(self, @selector(jobs_post_CQ9_takeAll)))();
 }
 
@@ -151,7 +151,7 @@
     };
 }
 /// payoff@POST
--(URLManagerModel *_Nullable)post_CQ9_payoff{
+-(URLManagerModel *_Nonnull)post_CQ9_payoff{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_CQ9_payoff)))(self, @selector(jobs_post_CQ9_payoff)))();
 }
 
@@ -164,7 +164,7 @@
     };
 }
 /// errorHtml@GET
--(URLManagerModel *_Nullable)get_CQ9_errorHtml{
+-(URLManagerModel *_Nonnull)get_CQ9_errorHtml{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_CQ9_errorHtml)))(self, @selector(jobs_get_CQ9_errorHtml)))();
 }
 
@@ -177,7 +177,7 @@
     };
 }
 /// errorHtml@POST
--(URLManagerModel *_Nullable)post_CQ9_errorHtml{
+-(URLManagerModel *_Nonnull)post_CQ9_errorHtml{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_CQ9_errorHtml)))(self, @selector(jobs_post_CQ9_errorHtml)))();
 }
 
@@ -190,7 +190,7 @@
     };
 }
 /// errorHtml@PUT
--(URLManagerModel *_Nullable)put_CQ9_errorHtml{
+-(URLManagerModel *_Nonnull)put_CQ9_errorHtml{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_put_CQ9_errorHtml)))(self, @selector(jobs_put_CQ9_errorHtml)))();
 }
 
@@ -203,7 +203,7 @@
     };
 }
 /// errorHtml@DELETE
--(URLManagerModel *_Nullable)delete_CQ9_errorHtml{
+-(URLManagerModel *_Nonnull)delete_CQ9_errorHtml{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_delete_CQ9_errorHtml)))(self, @selector(jobs_delete_CQ9_errorHtml)))();
 }
 
@@ -217,7 +217,7 @@
 }
 #pragma mark —— EVO真人游戏接口
 /// balance@POST
--(URLManagerModel *_Nullable)post_EVO_balance{
+-(URLManagerModel *_Nonnull)post_EVO_balance{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_EVO_balance)))(self, @selector(jobs_post_EVO_balance)))();
 }
 
@@ -230,7 +230,7 @@
     };
 }
 /// cancel@POST
--(URLManagerModel *_Nullable)post_EVO_cancel{
+-(URLManagerModel *_Nonnull)post_EVO_cancel{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_EVO_cancel)))(self, @selector(jobs_post_EVO_cancel)))();
 }
 
@@ -243,7 +243,7 @@
     };
 }
 /// check@POST
--(URLManagerModel *_Nullable)post_EVO_check{
+-(URLManagerModel *_Nonnull)post_EVO_check{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_EVO_check)))(self, @selector(jobs_post_EVO_check)))();
 }
 
@@ -256,7 +256,7 @@
     };
 }
 /// credit@POST
--(URLManagerModel *_Nullable)post_EVO_credit{
+-(URLManagerModel *_Nonnull)post_EVO_credit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_EVO_credit)))(self, @selector(jobs_post_EVO_credit)))();
 }
 
@@ -269,7 +269,7 @@
     };
 }
 /// debit@POST
--(URLManagerModel *_Nullable)post_EVO_debit{
+-(URLManagerModel *_Nonnull)post_EVO_debit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_EVO_debit)))(self, @selector(jobs_post_EVO_debit)))();
 }
 
@@ -282,7 +282,7 @@
     };
 }
 /// promo_payout@POST
--(URLManagerModel *_Nullable)post_EVO_promo_payout{
+-(URLManagerModel *_Nonnull)post_EVO_promo_payout{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_EVO_promo_payout)))(self, @selector(jobs_post_EVO_promo_payout)))();
 }
 
@@ -295,7 +295,7 @@
     };
 }
 /// sid@POST
--(URLManagerModel *_Nullable)post_EVO_sid{
+-(URLManagerModel *_Nonnull)post_EVO_sid{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_EVO_sid)))(self, @selector(jobs_post_EVO_sid)))();
 }
 
@@ -309,7 +309,7 @@
 }
 #pragma mark —— FC电子游戏接口
 /// activityReward@POST
--(URLManagerModel *_Nullable)post_FC_activityReward{
+-(URLManagerModel *_Nonnull)post_FC_activityReward{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_FC_activityReward)))(self, @selector(jobs_post_FC_activityReward)))();
 }
 
@@ -322,7 +322,7 @@
     };
 }
 /// bet@POST
--(URLManagerModel *_Nullable)post_FC_bet{
+-(URLManagerModel *_Nonnull)post_FC_bet{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_FC_bet)))(self, @selector(jobs_post_FC_bet)))();
 }
 
@@ -335,7 +335,7 @@
     };
 }
 /// betCancel@POST
--(URLManagerModel *_Nullable)post_FC_betCancel{
+-(URLManagerModel *_Nonnull)post_FC_betCancel{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_FC_betCancel)))(self, @selector(jobs_post_FC_betCancel)))();
 }
 
@@ -348,7 +348,7 @@
     };
 }
 /// BetNInfo@POST
--(URLManagerModel *_Nullable)post_FC_betNInfo{
+-(URLManagerModel *_Nonnull)post_FC_betNInfo{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_FC_betNInfo)))(self, @selector(jobs_post_FC_betNInfo)))();
 }
 
@@ -361,7 +361,7 @@
     };
 }
 /// CancelBetNInfo@POST
--(URLManagerModel *_Nullable)post_FC_cancelBetNInfo{
+-(URLManagerModel *_Nonnull)post_FC_cancelBetNInfo{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_FC_cancelBetNInfo)))(self, @selector(jobs_post_FC_cancelBetNInfo)))();
 }
 
@@ -374,7 +374,7 @@
     };
 }
 /// 余额回调@POST
--(URLManagerModel *_Nullable)post_FC_getBalance{
+-(URLManagerModel *_Nonnull)post_FC_getBalance{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_FC_getBalance)))(self, @selector(jobs_post_FC_getBalance)))();
 }
 
@@ -387,7 +387,7 @@
     };
 }
 /// settle@POST
--(URLManagerModel *_Nullable)post_FC_settle{
+-(URLManagerModel *_Nonnull)post_FC_settle{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_FC_settle)))(self, @selector(jobs_post_FC_settle)))();
 }
 
@@ -401,7 +401,7 @@
 }
 #pragma mark —— JDB
 /// 捕鱼游戏接口@POST
--(URLManagerModel *_Nullable)post_JDB_fish{
+-(URLManagerModel *_Nonnull)post_JDB_fish{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_JDB_fish)))(self, @selector(jobs_post_JDB_fish)))();
 }
 
@@ -414,7 +414,7 @@
     };
 }
 /// 棋牌游戏接口@POST
--(URLManagerModel *_Nullable)post_JDB_poker{
+-(URLManagerModel *_Nonnull)post_JDB_poker{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_JDB_poker)))(self, @selector(jobs_post_JDB_poker)))();
 }
 
@@ -427,7 +427,7 @@
     };
 }
 /// 电子接口@POST
--(URLManagerModel *_Nullable)post_JDB_{
+-(URLManagerModel *_Nonnull)post_JDB_{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_JDB_)))(self, @selector(jobs_post_JDB_)))();
 }
 
@@ -440,7 +440,7 @@
     };
 }
 /// 电子游戏接口@POST
--(URLManagerModel *_Nullable)post_JDB_slot{
+-(URLManagerModel *_Nonnull)post_JDB_slot{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_JDB_slot)))(self, @selector(jobs_post_JDB_slot)))();
 }
 
@@ -454,7 +454,7 @@
 }
 #pragma mark —— JiLi
 /// slot_auth@POST
--(URLManagerModel *_Nullable)post_JiLi_slot_auth{
+-(URLManagerModel *_Nonnull)post_JiLi_slot_auth{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_JiLi_slot_auth)))(self, @selector(jobs_post_JiLi_slot_auth)))();
 }
 
@@ -467,7 +467,7 @@
     };
 }
 /// slot_bet@POST
--(URLManagerModel *_Nullable)post_JiLi_slot_bet{
+-(URLManagerModel *_Nonnull)post_JiLi_slot_bet{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_JiLi_slot_bet)))(self, @selector(jobs_post_JiLi_slot_bet)))();
 }
 
@@ -480,7 +480,7 @@
     };
 }
 /// slot_cancelBet@POST
--(URLManagerModel *_Nullable)post_JiLi_slot_cancelBet{
+-(URLManagerModel *_Nonnull)post_JiLi_slot_cancelBet{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_JiLi_slot_cancelBet)))(self, @selector(jobs_post_JiLi_slot_cancelBet)))();
 }
 
@@ -493,7 +493,7 @@
     };
 }
 /// slot_cancelSessionBet@POST
--(URLManagerModel *_Nullable)post_JiLi_slot_cancelSessionBet{
+-(URLManagerModel *_Nonnull)post_JiLi_slot_cancelSessionBet{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_JiLi_slot_cancelSessionBet)))(self, @selector(jobs_post_JiLi_slot_cancelSessionBet)))();
 }
 
@@ -506,7 +506,7 @@
     };
 }
 /// slot_sessionBet@POST
--(URLManagerModel *_Nullable)post_JiLi_slot_sessionBet{
+-(URLManagerModel *_Nonnull)post_JiLi_slot_sessionBet{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_JiLi_slot_sessionBet)))(self, @selector(jobs_post_JiLi_slot_sessionBet)))();
 }
 
@@ -520,7 +520,7 @@
 }
 #pragma mark —— KA电子游戏接口
 /// balance@POST
--(URLManagerModel *_Nullable)post_KA_balance{
+-(URLManagerModel *_Nonnull)post_KA_balance{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_KA_balance)))(self, @selector(jobs_post_KA_balance)))();
 }
 
@@ -533,7 +533,7 @@
     };
 }
 /// credit@POST
--(URLManagerModel *_Nullable)post_KA_credit{
+-(URLManagerModel *_Nonnull)post_KA_credit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_KA_credit)))(self, @selector(jobs_post_KA_credit)))();
 }
 
@@ -546,7 +546,7 @@
     };
 }
 /// end@POST
--(URLManagerModel *_Nullable)post_KA_end{
+-(URLManagerModel *_Nonnull)post_KA_end{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_KA_end)))(self, @selector(jobs_post_KA_end)))();
 }
 
@@ -559,7 +559,7 @@
     };
 }
 /// play@POST
--(URLManagerModel *_Nullable)post_KA_play{
+-(URLManagerModel *_Nonnull)post_KA_play{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_KA_play)))(self, @selector(jobs_post_KA_play)))();
 }
 
@@ -572,7 +572,7 @@
     };
 }
 /// revoke@POST
--(URLManagerModel *_Nullable)post_KA_revoke{
+-(URLManagerModel *_Nonnull)post_KA_revoke{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_KA_revoke)))(self, @selector(jobs_post_KA_revoke)))();
 }
 
@@ -585,7 +585,7 @@
     };
 }
 /// start@POST
--(URLManagerModel *_Nullable)post_KA_start{
+-(URLManagerModel *_Nonnull)post_KA_start{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_KA_start)))(self, @selector(jobs_post_KA_start)))();
 }
 
@@ -599,7 +599,7 @@
 }
 #pragma mark —— PB体育游戏接口
 /// ping@POST
--(URLManagerModel *_Nullable)post_PB_ping{
+-(URLManagerModel *_Nonnull)post_PB_ping{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_PB_ping)))(self, @selector(jobs_post_PB_ping)))();
 }
 
@@ -612,7 +612,7 @@
     };
 }
 /// wagering⚠️@POST
--(URLManagerModel *_Nullable)post_PB_wagering{
+-(URLManagerModel *_Nonnull)post_PB_wagering{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_PB_wagering)))(self, @selector(jobs_post_PB_wagering)))();
 }
 
@@ -626,7 +626,7 @@
 }
 #pragma mark —— PG电子游戏接口
 /// cashAdjustment@POST
--(URLManagerModel *_Nullable)post_PG_cashAdjustment{
+-(URLManagerModel *_Nonnull)post_PG_cashAdjustment{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_PG_cashAdjustment)))(self, @selector(jobs_post_PG_cashAdjustment)))();
 }
 
@@ -639,7 +639,7 @@
     };
 }
 /// cashGet@POST
--(URLManagerModel *_Nullable)post_PG_cashGet{
+-(URLManagerModel *_Nonnull)post_PG_cashGet{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_PG_cashGet)))(self, @selector(jobs_post_PG_cashGet)))();
 }
 
@@ -652,7 +652,7 @@
     };
 }
 /// cashTransferInOut@POST
--(URLManagerModel *_Nullable)post_PG_cashTransferInOut{
+-(URLManagerModel *_Nonnull)post_PG_cashTransferInOut{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_PG_cashTransferInOut)))(self, @selector(jobs_post_PG_cashTransferInOut)))();
 }
 
@@ -665,7 +665,7 @@
     };
 }
 /// verifySession@POST
--(URLManagerModel *_Nullable)post_PG_verifySession{
+-(URLManagerModel *_Nonnull)post_PG_verifySession{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_PG_verifySession)))(self, @selector(jobs_post_PG_verifySession)))();
 }
 
@@ -679,7 +679,7 @@
 }
 #pragma mark —— 个人中心
 /// 一键回收 返回中心钱包余额@POST
--(URLManagerModel *_Nullable)post_game_fund_collect{
+-(URLManagerModel *_Nonnull)post_game_fund_collect{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_fund_collect)))(self, @selector(jobs_post_game_fund_collect)))();
 }
 
@@ -692,7 +692,7 @@
     };
 }
 /// 转入@POST
--(URLManagerModel *_Nullable)post_game_fund_transferIn{
+-(URLManagerModel *_Nonnull)post_game_fund_transferIn{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_fund_transferIn)))(self, @selector(jobs_post_game_fund_transferIn)))();
 }
 
@@ -705,7 +705,7 @@
     };
 }
 /// 获取会员与转账场馆余额：缓存3秒@POST
--(URLManagerModel *_Nullable)post_game_fund_wallet{
+-(URLManagerModel *_Nonnull)post_game_fund_wallet{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_fund_wallet)))(self, @selector(jobs_post_game_fund_wallet)))();
 }
 
@@ -719,7 +719,7 @@
 }
 #pragma mark —— 全平台投注记录相关接口
 /// 跟单记录@POST
--(URLManagerModel *_Nullable)post_game_bet_followList{
+-(URLManagerModel *_Nonnull)post_game_bet_followList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_bet_followList)))(self, @selector(jobs_post_game_bet_followList)))();
 }
 
@@ -732,7 +732,7 @@
     };
 }
 /// mageXcess审计@GET
--(URLManagerModel *_Nullable)get_game_bet_mageXcess_queryRecord{
+-(URLManagerModel *_Nonnull)get_game_bet_mageXcess_queryRecord{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_game_bet_mageXcess_queryRecord)))(self, @selector(jobs_get_game_bet_mageXcess_queryRecord)))();
 }
 
@@ -745,7 +745,7 @@
     };
 }
 /// 根据传入的天数计算，返回超过days天数未登录的用户idlist@POST
--(URLManagerModel *_Nullable)post_game_bet_noLoginMemberIdList{
+-(URLManagerModel *_Nonnull)post_game_bet_noLoginMemberIdList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_bet_noLoginMemberIdList)))(self, @selector(jobs_post_game_bet_noLoginMemberIdList)))();
 }
 
@@ -758,7 +758,7 @@
     };
 }
 /// 按时间范围查询注单@POST
--(URLManagerModel *_Nullable)post_game_bet_orders{
+-(URLManagerModel *_Nonnull)post_game_bet_orders{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_bet_orders)))(self, @selector(jobs_post_game_bet_orders)))();
 }
 
@@ -771,7 +771,7 @@
     };
 }
 /// 全平台投注记录列表@POST
--(URLManagerModel *_Nullable)post_game_bet_pageList{
+-(URLManagerModel *_Nonnull)post_game_bet_pageList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_bet_pageList)))(self, @selector(jobs_post_game_bet_pageList)))();
 }
 
@@ -785,7 +785,7 @@
 }
 #pragma mark —— 场馆转入转出记录列表
 /// 场馆转入转出记录列表@POST
--(URLManagerModel *_Nullable)post_game_pay_pageList{
+-(URLManagerModel *_Nonnull)post_game_pay_pageList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_pay_pageList)))(self, @selector(jobs_post_game_pay_pageList)))();
 }
 
@@ -799,7 +799,7 @@
 }
 #pragma mark —— 子游戏数据导入测试
 /// 游戏gameLobby数据导入@GET
--(URLManagerModel *_Nullable)get_game_pagcor_gameLobbyImport{
+-(URLManagerModel *_Nonnull)get_game_pagcor_gameLobbyImport{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_game_pagcor_gameLobbyImport)))(self, @selector(jobs_get_game_pagcor_gameLobbyImport)))();
 }
 
@@ -813,7 +813,7 @@
 }
 #pragma mark —— 对接PAGCOR的API
 /// 游戏gameLobby数据导入@GET
--(URLManagerModel *_Nullable)get_game_pagcor_order_list{
+-(URLManagerModel *_Nonnull)get_game_pagcor_order_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_game_pagcor_order_list)))(self, @selector(jobs_get_game_pagcor_order_list)))();
 }
 
@@ -827,7 +827,7 @@
 }
 #pragma mark —— 数据同步相关
 /// 同步厅方订单数据@POST
--(URLManagerModel *_Nullable)post_game_job_fetchBetOrders{
+-(URLManagerModel *_Nonnull)post_game_job_fetchBetOrders{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_job_fetchBetOrders)))(self, @selector(jobs_post_game_job_fetchBetOrders)))();
 }
 
@@ -840,7 +840,7 @@
     };
 }
 /// 查询是否已经生成用户钱包@POST
--(URLManagerModel *_Nullable)post_game_syncData_checkExistWallet{
+-(URLManagerModel *_Nonnull)post_game_syncData_checkExistWallet{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_syncData_checkExistWallet)))(self, @selector(jobs_post_game_syncData_checkExistWallet)))();
 }
 
@@ -853,7 +853,7 @@
     };
 }
 /// 同步用户钱包数据@POST
--(URLManagerModel *_Nullable)post_game_syncData_syncFundWallet{
+-(URLManagerModel *_Nonnull)post_game_syncData_syncFundWallet{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_syncData_syncFundWallet)))(self, @selector(jobs_post_game_syncData_syncFundWallet)))();
 }
 
@@ -867,7 +867,7 @@
 }
 #pragma mark —— 游戏数据统计
 /// 统计注单流水稽核金额@POST
--(URLManagerModel *_Nullable)post_game_statis_queryAuditAmount{
+-(URLManagerModel *_Nonnull)post_game_statis_queryAuditAmount{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_statis_queryAuditAmount)))(self, @selector(jobs_post_game_statis_queryAuditAmount)))();
 }
 
@@ -880,7 +880,7 @@
     };
 }
 /// 查询会员投注记录统计@POST
--(URLManagerModel *_Nullable)post_game_statis_queryBetByLobbyName{
+-(URLManagerModel *_Nonnull)post_game_statis_queryBetByLobbyName{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_statis_queryBetByLobbyName)))(self, @selector(jobs_post_game_statis_queryBetByLobbyName)))();
 }
 
@@ -893,7 +893,7 @@
     };
 }
 /// 统计下注会员数&投注金额@POST
--(URLManagerModel *_Nullable)post_game_statis_queryBetInfoByAgent{
+-(URLManagerModel *_Nonnull)post_game_statis_queryBetInfoByAgent{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_statis_queryBetInfoByAgent)))(self, @selector(jobs_post_game_statis_queryBetInfoByAgent)))();
 }
 
@@ -906,7 +906,7 @@
     };
 }
 /// 查询游戏投注记录@POST
--(URLManagerModel *_Nullable)post_game_statis_queryBetListByPage{
+-(URLManagerModel *_Nonnull)post_game_statis_queryBetListByPage{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_statis_queryBetListByPage)))(self, @selector(jobs_post_game_statis_queryBetListByPage)))();
 }
 
@@ -919,7 +919,7 @@
     };
 }
 /// 查询投注会员详情@POST
--(URLManagerModel *_Nullable)post_game_statis_queryGameOrderBetByPage{
+-(URLManagerModel *_Nonnull)post_game_statis_queryGameOrderBetByPage{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_statis_queryGameOrderBetByPage)))(self, @selector(jobs_post_game_statis_queryGameOrderBetByPage)))();
 }
 
@@ -932,7 +932,7 @@
     };
 }
 /// 统计会员输赢@POST
--(URLManagerModel *_Nullable)post_game_statis_queryProfit{
+-(URLManagerModel *_Nonnull)post_game_statis_queryProfit{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_statis_queryProfit)))(self, @selector(jobs_post_game_statis_queryProfit)))();
 }
 
@@ -945,7 +945,7 @@
     };
 }
 /// 查询会员总输赢@POST
--(URLManagerModel *_Nullable)post_game_statis_queryUserProfitLoss{
+-(URLManagerModel *_Nonnull)post_game_statis_queryUserProfitLoss{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_statis_queryUserProfitLoss)))(self, @selector(jobs_post_game_statis_queryUserProfitLoss)))();
 }
 
@@ -958,7 +958,7 @@
     };
 }
 /// 统计游戏有效投注额@POST
--(URLManagerModel *_Nullable)post_game_statis_queryValidBet{
+-(URLManagerModel *_Nonnull)post_game_statis_queryValidBet{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_statis_queryValidBet)))(self, @selector(jobs_post_game_statis_queryValidBet)))();
 }
 
@@ -971,7 +971,7 @@
     };
 }
 /// 统计游戏有效投注额@POST
--(URLManagerModel *_Nullable)post_game_statis_queryValidBet2{
+-(URLManagerModel *_Nonnull)post_game_statis_queryValidBet2{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_statis_queryValidBet2)))(self, @selector(jobs_post_game_statis_queryValidBet2)))();
 }
 
@@ -985,7 +985,7 @@
 }
 #pragma mark —— 游戏配置模块
 /// 获取游戏场馆大类信息@GET
--(URLManagerModel *_Nullable)get_game_lobby_getTopGameLobbyList{
+-(URLManagerModel *_Nonnull)get_game_lobby_getTopGameLobbyList{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_game_lobby_getTopGameLobbyList)))(self, @selector(jobs_get_game_lobby_getTopGameLobbyList)))();
 }
 
@@ -999,7 +999,7 @@
 }
 #pragma mark —— 游戏首页娱乐城
 /// 游戏导航列表：缓存1分钟@GET(仅适用于PC端)
--(URLManagerModel *_Nullable)get_game_home_bar_list{
+-(URLManagerModel *_Nonnull)get_game_home_bar_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_game_home_bar_list)))(self, @selector(jobs_get_game_home_bar_list)))();
 }
 
@@ -1012,7 +1012,7 @@
     };
 }
 /// H5/APP 游戏导航列表：缓存10分钟 (仅适用于H5、App端)@GET
--(URLManagerModel *_Nullable)get_api_game_home_bar_mobile{
+-(URLManagerModel *_Nonnull)get_api_game_home_bar_mobile{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_get_api_game_home_bar_mobile)))(self, @selector(jobs_get_api_game_home_bar_mobile)))();
 }
 
@@ -1025,7 +1025,7 @@
     };
 }
 /// 游戏大厅喜爱的游戏-添加@POST
--(URLManagerModel *_Nullable)post_game_home_favoriteGames_add{
+-(URLManagerModel *_Nonnull)post_game_home_favoriteGames_add{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_home_favoriteGames_add)))(self, @selector(jobs_post_game_home_favoriteGames_add)))();
 }
 
@@ -1038,7 +1038,7 @@
     };
 }
 /// 菲站首页- 查询游戏收藏列表 仅适用于app端@POST
--(URLManagerModel *_Nullable)post_game_home_favoriteGames_app{
+-(URLManagerModel *_Nonnull)post_game_home_favoriteGames_app{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_home_favoriteGames_app)))(self, @selector(jobs_post_game_home_favoriteGames_app)))();
 }
 
@@ -1051,7 +1051,7 @@
     };
 }
 /// 游戏大厅喜爱的游戏-删除@DELETE
--(URLManagerModel *_Nullable)delete_game_home_favoriteGames_delete{
+-(URLManagerModel *_Nonnull)delete_game_home_favoriteGames_delete{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_delete_game_home_favoriteGames_delete)))(self, @selector(jobs_delete_game_home_favoriteGames_delete)))();
 }
 
@@ -1064,7 +1064,7 @@
     };
 }
 /// 菲站首页- 查询游戏收藏列表 仅适用于H5端@POST
--(URLManagerModel *_Nullable)post_game_home_favoriteGames_h5{
+-(URLManagerModel *_Nonnull)post_game_home_favoriteGames_h5{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_home_favoriteGames_h5)))(self, @selector(jobs_post_game_home_favoriteGames_h5)))();
 }
 
@@ -1077,7 +1077,7 @@
     };
 }
 /// 菲站首页- 查询所有厂商提供的老虎机游戏收藏列表@POST
--(URLManagerModel *_Nullable)post_game_home_favoriteGames_query{
+-(URLManagerModel *_Nonnull)post_game_home_favoriteGames_query{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_home_favoriteGames_query)))(self, @selector(jobs_post_game_home_favoriteGames_query)))();
 }
 
@@ -1090,7 +1090,7 @@
     };
 }
 /// 菲站游戏大厅-模糊查询@POST
--(URLManagerModel *_Nullable)post_game_home_gameZone_fuzzyQuery{
+-(URLManagerModel *_Nonnull)post_game_home_gameZone_fuzzyQuery{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_home_gameZone_fuzzyQuery)))(self, @selector(jobs_post_game_home_gameZone_fuzzyQuery)))();
 }
 
@@ -1103,7 +1103,7 @@
     };
 }
 /// 菲站首页大厅场馆对应游戏列表-查询@POST
--(URLManagerModel *_Nullable)post_game_home_homeLobbyGame_query{
+-(URLManagerModel *_Nonnull)post_game_home_homeLobbyGame_query{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_home_homeLobbyGame_query)))(self, @selector(jobs_post_game_home_homeLobbyGame_query)))();
 }
 
@@ -1116,7 +1116,7 @@
     };
 }
 /// 菲站首页大厅场馆对应累加资金-查询@POST
--(URLManagerModel *_Nullable)post_game_home_jackpotsGamesFunds_query{
+-(URLManagerModel *_Nonnull)post_game_home_jackpotsGamesFunds_query{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_home_jackpotsGamesFunds_query)))(self, @selector(jobs_post_game_home_jackpotsGamesFunds_query)))();
 }
 
@@ -1129,7 +1129,7 @@
     };
 }
 /// 菲站热门游戏/百家乐/轮盘/21点-查询@POST
--(URLManagerModel *_Nullable)post_game_home_liveCasino_quer{
+-(URLManagerModel *_Nonnull)post_game_home_liveCasino_quer{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_home_liveCasino_quer)))(self, @selector(jobs_post_game_home_liveCasino_quer)))();
 }
 
@@ -1142,7 +1142,7 @@
     };
 }
 /// 菲站首页- 受欢迎的游戏列表查询@POST
--(URLManagerModel *_Nullable)post_game_home_popularGames_query{
+-(URLManagerModel *_Nonnull)post_game_home_popularGames_query{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_home_popularGames_query)))(self, @selector(jobs_post_game_home_popularGames_query)))();
 }
 
@@ -1155,7 +1155,7 @@
     };
 }
 /// 菲站电子游戏页面/热门游戏及最新游戏-查询@POST
--(URLManagerModel *_Nullable)post_game_home_slot_query{
+-(URLManagerModel *_Nonnull)post_game_home_slot_query{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_home_slot_query)))(self, @selector(jobs_post_game_home_slot_query)))();
 }
 
@@ -1168,7 +1168,7 @@
     };
 }
 /// 前端- 查询所有厂商提供的老虎机游戏列表@POST
--(URLManagerModel *_Nullable)post_game_home_sub_list{
+-(URLManagerModel *_Nonnull)post_game_home_sub_list{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_home_sub_list)))(self, @selector(jobs_post_game_home_sub_list)))();
 }
 
@@ -1181,7 +1181,7 @@
     };
 }
 /// 前端- 查询所有场馆提供的游戏列表 (仅适用于H5、App端)@POST
--(URLManagerModel *_Nullable)post_api_game_home_sub_mobile{
+-(URLManagerModel *_Nonnull)post_api_game_home_sub_mobile{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_api_game_home_sub_mobile)))(self, @selector(jobs_post_api_game_home_sub_mobile)))();
 }
 
@@ -1195,7 +1195,7 @@
 }
 #pragma mark —— 进出游戏相关接口
 /// 查询我的游戏注单详情@POST
--(URLManagerModel *_Nullable)post_game_bet_order_mybet_detail{
+-(URLManagerModel *_Nonnull)post_game_bet_order_mybet_detail{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_bet_order_mybet_detail)))(self, @selector(jobs_post_game_bet_order_mybet_detail)))();
 }
 
@@ -1208,7 +1208,7 @@
     };
 }
 /// 查询我的游戏注单@POST
--(URLManagerModel *_Nullable)post_game_bet_order_mybet_sum{
+-(URLManagerModel *_Nonnull)post_game_bet_order_mybet_sum{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_bet_order_mybet_sum)))(self, @selector(jobs_post_game_bet_order_mybet_sum)))();
 }
 
@@ -1221,7 +1221,7 @@
     };
 }
 /// 获取游戏url@POST
--(URLManagerModel *_Nullable)post_game_bet_single_wallet_jump{
+-(URLManagerModel *_Nonnull)post_game_bet_single_wallet_jump{
     return (((JobsRetURLManagerModelByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobs_post_game_bet_single_wallet_jump)))(self, @selector(jobs_post_game_bet_single_wallet_jump)))();
 }
 

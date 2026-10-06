@@ -26,7 +26,6 @@ JobsKey(JobsOCDSLGestureRecognizerBlockKey)
     return ^__kindof UIGestureRecognizer *(jobsByVoidBlock _Nonnull block){
         @jobs_strongify(self)
         if (!self) return nil;
-        self.byTarget(self);
         Jobs_setAssociatedCOPY_NONATOMIC(JobsOCDSLGestureVoidBlockKey, block)
         [self addTarget:self action:@selector(jobs_ocdsl_handleGestureAction:)];
         return self;
@@ -42,7 +41,6 @@ JobsKey(JobsOCDSLGestureRecognizerBlockKey)
     return ^__kindof UIGestureRecognizer *(jobsByGestureRecognizerBlock _Nonnull block){
         @jobs_strongify(self)
         if (!self) return nil;
-        self.byTarget(self);
         Jobs_setAssociatedCOPY_NONATOMIC(JobsOCDSLGestureRecognizerBlockKey, block)
         [self addTarget:self action:@selector(jobs_ocdsl_handleGestureAction:)];
         return self;

@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 获取 NSAttributedString.文本字体
 -(JobsRetFontByVoidBlock _Nonnull)attributedStringFont;
 /// 获取 NSAttributedString.文本颜色
--(JobsRetFontByVoidBlock _Nonnull)attributedStringTextCor;
+-(JobsRetCorByVoidBlock _Nonnull)attributedStringTextCor;
 /// 获取 NSAttributedString.段落信息
 -(JobsRetParagraphStyleByVoidBlock _Nonnull)attributedStringParagraphStyle;
 /// 将富文本的颜色统一进行设置

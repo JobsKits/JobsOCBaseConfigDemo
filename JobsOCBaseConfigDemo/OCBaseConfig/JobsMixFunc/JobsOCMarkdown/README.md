@@ -28,6 +28,12 @@ Markdown 和被引用的本地资源写入 App 内的 `JobsMarkdownDocuments.bun
 打包器会主动把 Xcode 非交互 Shell 返回的文件系统路径规范为 UTF-8，中文目录
 不会因为构建进程缺少 `LANG` / `LC_ALL` 而导致清单 JSON 生成失败。
 
+打包器固定排除 `Products`、`Intermediates`、自有验证树
+`work/JobsPodsStability/full`，以及任意位置的 `JobsMarkdownDocuments.bundle`
+组件，避免旧构建文档再次进入清单。文档扫描和本地引用资源共用这组静态规则；
+普通 `worknotes` / `work/notes` 文档及构建树外的 proof JSON 仍按原规则复制，
+不整体排除 `work`。新旧主工程沿用三个构建参数，无须临时环境变量。
+
 ## 三、读取与渲染 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ```objective-c

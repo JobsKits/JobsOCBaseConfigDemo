@@ -6,6 +6,10 @@
 //
 
 #import "AppDelegate.h"
+#if DEBUG
+#import "JobsDebugPanel.h"
+#import "JobsDebugPanelDemoVC.h"
+#endif
 //#import "SceneDelegate.h"
 #import "NSObject+UserInfo.h"
 @import CocoaLumberjack;
@@ -74,6 +78,8 @@ UNUserNotificationCenterDelegate
 -(jobsByVoidBlock _Nonnull)makeJobsLaunchAdConfig;
 #pragma mark —— YTKNetworkConfig
 -(jobsByVoidBlock _Nonnull)YTKNetworkConfig;
+#pragma mark —— Debug 调试面板
+-(jobsByVoidBlock _Nonnull)makeJobsDebugPanelConfig;
 #pragma mark —— 欢迎引导页面
 -(jobsByVoidBlock _Nonnull)guide;
 #pragma mark —— 存取用户信息Demo

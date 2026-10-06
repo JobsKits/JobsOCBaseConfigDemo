@@ -7,8 +7,6 @@
 
 #import "UILabel+DSL.h"
 
-#import "JobsOCTimer.h"
-
 static NSString *JobsOCDSLLabelLayerText(UILabel *label){
     if (label.attributedText.string.length) return label.attributedText.string;
     return label.text ?: @"";
@@ -105,6 +103,7 @@ Prop_assign()double targetValue;
 Prop_assign()double currentValue;
 Prop_assign()double deltaPerTick;
 Prop_assign()NSInteger decimals;
+Prop_assign()NSUInteger generation;
 Prop_copy()NSString *originalText;
 
 -(JobsRetIDByIDBlock _Nonnull)byStart;
@@ -118,7 +117,7 @@ Prop_copy()NSString *originalText;
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCDSLAnimatedNumberStore
-@interface JobsOCDSLAnimatedNumberStore (JobsPropertyDSLSetterAutogen_5cf2181de2)
+@interface JobsOCDSLAnimatedNumberStore (JobsPropertyDSLSetterAutogen_5605ba6375)
 -(void)setCurrentValue:(double)data;
 @end
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCDSLAnimatedNumberStore
@@ -188,7 +187,7 @@ static NSNumber *JobsOCDSLAnimatedNumberValue(NSString *text){
     NSScanner *scanner = [NSScanner scannerWithString:trimmed];
     double value = 0;
     if (![scanner scanDouble:&value]) return nil;
-    if (!scanner.isAtEnd) return nil;
+    if (!scanner.isAtEnd || !isfinite(value)) return nil;
     return @(value);
 }
 
@@ -201,11 +200,11 @@ static NSInteger JobsOCDSLAnimatedNumberDecimals(NSString *text){
         unichar ch = [fraction characterAtIndex:idx];
         if (![[NSCharacterSet decimalDigitCharacterSet] characterIsMember:ch]) break;
         count += 1;
-    };return count;
+    };return MIN(count, 16);
 }
 
 static NSString *JobsOCDSLAnimatedNumberText(double value, NSInteger decimals){
-    if (decimals <= 0) return [NSString stringWithFormat:@"%lld", (long long)llround(value)];
+    if (decimals <= 0) return [NSString stringWithFormat:@"%.0f", value];
     return [NSString stringWithFormat:@"%.*f", (int)decimals, value];
 }
 
@@ -216,12 +215,6 @@ static NSString *JobsOCDSLAnimatedNumberText(double value, NSInteger decimals){
 -(jobsByVoidBlock _Nonnull)jobs_ocdslTickAnimatedNumber;
 
 @end
-
-// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN UILabel
-@interface UILabel (JobsPropertyDSLSetterAutogen_5cf2181de2)
--(void)setMj_w:(CGFloat)data;
-@end
-// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UILabel
 
 @implementation UILabel (DSL)
 -(JobsRetNSMutableAttributedStringByVoidBlock _Nonnull)makeAttributedStringBySelfText{
@@ -242,6 +235,7 @@ static NSString *JobsOCDSLAnimatedNumberText(double value, NSInteger decimals){
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(NSInteger directionType){
         @jobs_strongify(self)
+        if (!self) return nil;
         self.byTransformLayerDirectionType((JobsDirectionType)directionType);
         UIColor *displayColor = self.textColor ?: UIColor.clearColor;
         [self.superview layoutIfNeeded];
@@ -257,6 +251,7 @@ static NSString *JobsOCDSLAnimatedNumberText(double value, NSInteger decimals){
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(UIImage *_Nullable image){
         @jobs_strongify(self)
+        if (!self) return nil;
         self.byBackgroundColor(image ? [UIColor colorWithPatternImage:image] : UIColor.clearColor);
         return self;
     };
@@ -275,6 +270,7 @@ static NSString *JobsOCDSLAnimatedNumberText(double value, NSInteger decimals){
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(UILabelShowingType labelShowingType){
         @jobs_strongify(self)
+        if (!self) return nil;
         [self.superview layoutIfNeeded];
         self.byLabelShowingType(labelShowingType);
         CGFloat width = CGRectGetWidth(self.bounds);
@@ -341,6 +337,7 @@ static NSString *JobsOCDSLAnimatedNumberText(double value, NSInteger decimals){
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(__kindof NSString *_Nullable str){
         @jobs_strongify(self)
+        if (!self) return nil;
         self.byText([(self.text ?: @"") stringByAppendingString:(str ?: @"")]);
         return self;
     };
@@ -350,6 +347,7 @@ static NSString *JobsOCDSLAnimatedNumberText(double value, NSInteger decimals){
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(__kindof NSAttributedString *_Nullable attributedString){
         @jobs_strongify(self)
+        if (!self) return nil;
         NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:self.text ?: @""];
         if (attributedString) [text appendAttributedString:attributedString];
         self.byAttributedString(text);
@@ -361,6 +359,7 @@ static NSString *JobsOCDSLAnimatedNumberText(double value, NSInteger decimals){
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(__kindof NSAttributedString *_Nullable attributedString){
         @jobs_strongify(self)
+        if (!self) return nil;
         NSMutableAttributedString *text = self.makeAttributedStringBySelfText();
         if (attributedString) [text appendAttributedString:attributedString];
         self.byAttributedString(text);
@@ -527,10 +526,10 @@ static NSString *JobsOCDSLAnimatedNumberText(double value, NSInteger decimals){
                      minimumInterval:(NSTimeInterval)minimumInterval
                           completion:(jobsByVoidBlock)completion{
     JobsOCDSLAnimatedNumberStore *store = self.jobs_ocdslAnimatedNumberStore();
-    store.byStart(start);
-    store.step = step;
-    store.byDuration(MAX(0, duration));
-    store.minimumInterval = MAX(0.000001, minimumInterval);
+    store.byStart(start && isfinite(start.doubleValue) ? start : nil);
+    store.step = step && isfinite(step.doubleValue) ? step : nil;
+    store.byDuration(isfinite(duration) && duration > 0 ? duration : 0);
+    store.minimumInterval = isfinite(minimumInterval) && minimumInterval > 0 ? MAX(0.000001, minimumInterval) : 1.0 / 60.0;
     store.byCompletion(completion);
     return self;
 }
@@ -539,6 +538,7 @@ static NSString *JobsOCDSLAnimatedNumberText(double value, NSInteger decimals){
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(__kindof NSString *_Nullable text){
         @jobs_strongify(self)
+        if (!self) return nil;
         JobsOCDSLAnimatedNumberStore *store = self.jobs_ocdslAnimatedNumberStore();
         self.jobs_ocdslStopAnimatedNumberTimer();
         NSString *targetText = [text ?: @"" stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
@@ -551,14 +551,15 @@ static NSString *JobsOCDSLAnimatedNumberText(double value, NSInteger decimals){
         NSNumber *fromNumber = store.start ?: JobsOCDSLAnimatedNumberValue(self.text ?: @"") ?: @0;
         double from = fromNumber.doubleValue;
         double target = targetNumber.doubleValue;
-        if (fabs(from - target) < 0.0000001) {
+        if (fabs(from - target) < 0.0000001 || !isfinite(target - from) || store.duration <= 0) {
             self.byText(text);
             if (store.completion) store.completion();
             return self;
         }
         NSInteger decimals = JobsOCDSLAnimatedNumberDecimals(targetText);
         NSTimeInterval interval = MAX(0.000001, store.minimumInterval);
-        NSInteger ticks = MAX(1, (NSInteger)llround(store.duration / interval));
+        double requestedTicks = store.duration / interval;
+        NSInteger ticks = requestedTicks >= (double)NSIntegerMax || !isfinite(requestedTicks) ? NSIntegerMax : MAX(1, (NSInteger)llround(requestedTicks));
         double delta = target - from;
         double perTick = 0;
         if (store.step && fabs(store.step.doubleValue) > 0.0000001) {
@@ -571,6 +572,7 @@ static NSString *JobsOCDSLAnimatedNumberText(double value, NSInteger decimals){
         store.decimals = decimals;
         store.originalText = text ?: @"";
         self.byText(JobsOCDSLAnimatedNumberText(from, decimals));
+        NSUInteger generation = ++store.generation;
         @jobs_weakify(self)
         JobsTimer *timer = jobsMakeTimer(^(__kindof JobsTimer * _Nullable timer) {
             timer.byTimerType(JobsTimerTypeGCD)
@@ -581,6 +583,8 @@ static NSString *JobsOCDSLAnimatedNumberText(double value, NSInteger decimals){
                 .byQueue(dispatch_get_main_queue())
                 .byOnTick(^(CGFloat time) {
                     @jobs_strongify(self)
+                    if (!self) return;
+                    if (self.jobs_ocdslAnimatedNumberStore().generation != generation) return;
                     self.jobs_ocdslTickAnimatedNumber();
                 });
         });
@@ -594,6 +598,7 @@ static NSString *JobsOCDSLAnimatedNumberText(double value, NSInteger decimals){
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(void){
         @jobs_strongify(self)
+        if (!self) return nil;
         self.jobs_ocdslStopAnimatedNumberTimer();
         return self;
     };
@@ -603,6 +608,7 @@ static NSString *JobsOCDSLAnimatedNumberText(double value, NSInteger decimals){
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(void){
         @jobs_strongify(self)
+        if (!self) return nil;
         self.byAdjustsFontSizeToFitWidth(YES);
         return self;
     };
@@ -688,16 +694,6 @@ JobsKey(_transformLayerDirectionType)
     Jobs_setAssociatedRETAIN_NONATOMIC(_transformLayerDirectionType, @(transformLayerDirectionType))
 }
 
-// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN UILabel
--(JobsRetUILabelByCGFloatBlock _Nonnull)byMj_w{
-    @jobs_weakify(self)
-    return ^__kindof UILabel * _Nullable(CGFloat data){
-        @jobs_strongify(self)
-        [self setMj_w:data];
-        return self;
-    };
-}
-// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UILabel
 @end
 
 @implementation UILabel (JobsOCDSLAnimatedNumber)
@@ -720,7 +716,9 @@ JobsKey(_transformLayerDirectionType)
         @jobs_strongify(self)
         if (!self) return;
         JobsOCDSLAnimatedNumberStore *store = self.jobs_ocdslAnimatedNumberStore();
-        store.timer.jobsStop();
+        ++store.generation;
+        JobsTimer *timer = store.timer;
+        if (timer) timer.jobsStop();
         store.byTimer(nil);
     };
 }

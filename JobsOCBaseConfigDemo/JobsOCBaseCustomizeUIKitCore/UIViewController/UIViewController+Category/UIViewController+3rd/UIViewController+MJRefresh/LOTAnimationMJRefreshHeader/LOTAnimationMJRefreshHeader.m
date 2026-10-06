@@ -44,6 +44,9 @@ Prop_assign()CGSize lOTAnimationViewSize;
     @jobs_weakify(self)
     self.endRefreshingCompletionBlock = ^{
         @jobs_strongify(self)
+        if (!self) {
+            return;
+        }
         self.updateStateLabelText();
     };
     self.stateLabel.byFont(UIFontWeightRegularSize(14));
@@ -141,6 +144,9 @@ Prop_assign()CGSize lOTAnimationViewSize;
     @jobs_weakify(self)
     return ^LOTAnimationMJRefreshHeader *_Nonnull(MJRefreshConfigModel *_Nonnull model){
         @jobs_strongify(self)
+        if (!self) {
+            return self;
+        }
         self.refreshConfigModel = model;
         self.updateStateLabelText();
         return self;
@@ -176,8 +182,11 @@ Prop_assign()CGSize lOTAnimationViewSize;
                                                    @"JsonRes",
                                                    nil,
                                                    @"下拉刷新1.json");
-        _animationView = [LOTAnimationView animationWithFilePath:filePaths];
-        _animationView.byLoopAnimation(YES);
+        _animationView = filePaths.length ? [LOTAnimationView animationWithFilePath:filePaths] : nil;
+        if (!_animationView) {
+            _animationView = LOTAnimationView.new;
+        }
+        _animationView.loopAnimation = YES;
         _animationView.bySizer(self.lOTAnimationViewSize);
         self.addSubview(_animationView);
     };return _animationView;

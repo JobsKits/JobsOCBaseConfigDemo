@@ -728,6 +728,9 @@ Prop_assign()NSInteger chargingProgressPhase;
                 @"JobsBluetoothDemoVC": @"antenna.radiowaves.left.and.right",
                 @"JobsCoreMotionDemoVC": @"gyroscope",
                 @"JobsOCSceneDelegateDemoVC": @"macwindow.on.rectangle",
+#if DEBUG
+                @"JobsDebugPanelDemoVC": @"ladybug.fill",
+#endif
                 @"JobsScreenshotTipsDemoVC": @"camera.viewfinder",
                 @"JobsScreenshotProtectionDemoVC": @"eye.slash",
                 @"JobsAnimatedNumberLabelDemoVC": @"textformat.123",

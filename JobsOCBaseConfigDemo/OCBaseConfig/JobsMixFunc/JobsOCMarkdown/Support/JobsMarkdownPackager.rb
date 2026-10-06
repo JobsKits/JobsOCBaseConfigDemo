@@ -22,13 +22,17 @@ class JobsMarkdownPackager
     'node_modules',
     'build',
     'DerivedData',
+    'Products',
+    'Intermediates',
+    'JobsMarkdownDocuments.bundle',
     'PodspecDependencyReport',
     'Unity'
   ].freeze
   EXCLUDED_PREFIXES = [
     'JobsByPods/ManualByOCPods@Pods',
     'JobsByPods/ManualBySwiftPods@Pods',
-    'JobsByPods/PodsManual'
+    'JobsByPods/PodsManual',
+    'work/JobsPodsStability/full'
   ].freeze
 
   def initialize(project_root, output_bundle, project_name)

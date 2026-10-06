@@ -215,10 +215,11 @@ JobsKey(_viewTransitionInProgress)
     return ^(BOOL animated){
         @jobs_strongify(self)
         if (!self) return;
-        if (!animated) {
-            NSArray *list = @[self.childViewControllers.firstObject];
-            [self setViewControllers:list animated:animated];
-        }else self.ty_popToRootViewControllerBySetControllersAnimated(animated);
+        UIViewController *rootViewController = self.viewControllers.firstObject;
+        if (!rootViewController || self.viewControllers.count == 1) {
+            return;
+        }
+        [self setViewControllers:@[rootViewController] animated:animated];
     };
 }
 

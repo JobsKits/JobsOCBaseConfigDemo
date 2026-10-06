@@ -26,7 +26,6 @@ Prop_strong()UIWindow *sceneDelegateWindow;
 @implementation JobsAppTools
 #pragma mark —— 初始化方法
 static JobsAppTools *JobsAppToolsInstance = nil;
-static dispatch_once_t JobsAppToolsOnceToken;
 +(instancetype)sharedManager{
     JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsAppTools.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
     return action ? action() : nil;
@@ -34,9 +33,12 @@ static dispatch_once_t JobsAppToolsOnceToken;
 
 +(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
     return ^id{
-        dispatch_once(&JobsAppToolsOnceToken, ^{
-            JobsAppToolsInstance = [super allocWithZone:NULL].init;
-        });return JobsAppToolsInstance;
+        @synchronized (JobsAppTools.class) {
+            if (!JobsAppToolsInstance) {
+                JobsAppToolsInstance = [super allocWithZone:NULL].init;
+            }
+            return JobsAppToolsInstance;
+        }
     };
 }
 /// 单例的销毁
@@ -47,8 +49,9 @@ static dispatch_once_t JobsAppToolsOnceToken;
 
 +(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
     return ^{
-        JobsAppToolsOnceToken = 0;
-        JobsAppToolsInstance = nil;
+        @synchronized (JobsAppTools.class) {
+            JobsAppToolsInstance = nil;
+        }
     };
 }
 /// 防止外部使用 alloc/init 等创建新实例

@@ -20,7 +20,7 @@ Prop_assign(readwrite,getter=isProtectionAvailable)BOOL protectionAvailable;
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsScreenshotProtectionView
-@interface JobsScreenshotProtectionView (JobsPropertyDSLSetterAutogen_2e31597917)
+@interface JobsScreenshotProtectionView (JobsPropertyDSLSetterAutogen_f454c0f9b7)
 -(void)setProtectionAvailable:(BOOL)data;
 -(void)setProtectionEnabled:(BOOL)data;
 @end
@@ -108,7 +108,8 @@ Prop_assign(readwrite,getter=isProtectionAvailable)BOOL protectionAvailable;
         if (!self) return nil;
         for (UIView *subview in self.secureTextField.subviews) {
             if ([NSStringFromClass(subview.class) containsString:@"CanvasView"]) return subview;
-        };return self.secureTextField.subviews.firstObject;
+        }
+        return nil;
     };
 }
 

@@ -117,6 +117,7 @@ Jobs 自维护的应用、Demo 与本地 Pod 统一执行同一套 [**Objective-
 | 刷新与动画 | `JobsOCRefresher` + `JobsFuseAnimation` | 上下左右四向刷新、统一状态机、触感 / 声音；系统、图片、GIF、Lottie、今日头条、抖音动画可在挂载后原位热替换。 |
 | 表格与长文字 | `JobsOCExcel` + `JobsOCUILabelScrolling` | Office 式冻结 `0...N` 列；单元格支持缩放、单行省略、多行省略和 CoreText 完整滚动。 |
 | 截屏 | `JobsScreenCapture` | 主动渲染并保存相册、系统截屏观察、敏感区域截图保护三条能力独立组合。 |
+| 调试工具 | `JobsDebugPanel` | 仅 Debug 显示最前圆形 UIButton；安全区内拖动、旋转后重新钳制，首次点击 push 调试列表，再次点击退出整个调试流程并返回原页面，长按隐藏至下次 App 启动；Demo、菜单、环境页和弹窗跟随宿主主题并即时刷新。默认首行 App 环境切换，URL / 备注 / 默认环境和有序自定义动作均经 Model DSL 配置。 |
 | 音视频与硬件 | `JobsOCAudioRecorder`、`JobsOCVideoRecorder`、`JobsBluetooth`、`JobsBioKit` | 录音与本地音频管理、视频录制、多设备 BLE 扫描 / 连接 / 读写 / Mock、生物识别；蓝牙 Demo 列表的 Cell 背景与主副标题绑定项目主题，切换明暗主题时原位更新；录音与视频录制快门统一使用白色内圆、留白间隔和白色外圈，红色仅承担录制进度提示；视频写入采用单帧背压并丢弃迟到帧，录制页和直播采集进入后台时立即停止采集，回前台只恢复预览。 |
 | UI 状态与交互 | `JobsOCSkeletonView`、`JobsOCGraphicCaptcha`、`JobsOCNumberStepper`、`JobsOCKeyboardMgr`、`JobsSuspend` | 骨架屏、按英文大写 / 小写 / 数字 / 简体 / 繁体五类独立生成单个至五类组合的图形验证码、边界数字步进输入、键盘避让、悬浮控件均提供可复用组件和独立 Demo。 |
 | 抽奖轮盘 | `LuckyWheelView`、`LuckyWheelDemoVC` | 中心按钮在旋转中保持可点；每次点按都按当前配置重置初始角速度并视为新一轮抽奖，复用同一个 `CADisplayLink`，只在最终自然停止时结算。 |
@@ -127,6 +128,9 @@ Jobs 自维护的应用、Demo 与本地 Pod 统一执行同一套 [**Objective-
 | Runtime 与安全 | `JobsOCRuntimeKits`、`JobsOCPatch`、`JobsCryptography`、`JobsOCOpen` | Runtime 查询 / 动态注册、受控 payload 补丁、摘要 / 编解码 / 加密、URL 打开兼容封装。 |
 | 业务组件 | `JobsOCSearcher`、`JobsOCComment`、`JobsOCCalendar`、`JobsWallet`、`JobsLuckyEnvelopeRain` | 搜索、评论、日历、卡包、红包雨等能力均可单独复用。 |
 | 工程化 | 本地能力模块、`Extra` 适配层、依赖报告、Xcode CodeSnippets、`.command` | 不改上游源码地扩展第三方能力；公开头、资源、依赖、Demo、README 与代码块一起维护。 |
+
+调试能力见 [JobsDebugPanel 使用说明](JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsDebugPanel/README.md)。它在 `AppDelegate` 进行进程级配置，按 Scene 显示独立透明浮层，只截获圆形按钮区域；入口可拖动，长按 `0.8` 秒仅隐藏本次启动，重新启动恢复，拖动不触发点击或长按。圆形按钮再次点按会收起环境页、自定义动作页及弹窗，返回打开前的页面，返回后可重新打开。Demo 的表格、Cell、选中态、页脚与已打开的调试页、环境页、导航和弹窗即时跟随 `JobsThemeCenter` 的有效主题，系统与 App 自选主题不一致时以 App 为准。调试环境 identifier 持久化，示例请求按当前 URL 请求 `/get`，3 秒失败后保留本地演示结果；模块源码直接集成主工程，不增加新 Pod 依赖。
+
 
 ### 2.4、代表性能力 Demo <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -191,6 +195,35 @@ NSArray<JobsOCExcelRow *> *rows = @[
 self.protectionView.protectionEnabled = YES;
 ```
 
+Debug 工具入口在 `AppDelegate` 通过环境 Model、动作 Model 和同一条链完成配置；宿主回调更新自己的网络层，后续请求读取当前环境：
+
+```objc
+#if DEBUG
+JobsDebugPanelManager.sharedPanel
+    .byEnvironments(@[
+        JobsDebugEnvironment.new
+            .byIdentifier(@"local")
+            .byTitle(@"本地 Mock")
+            .byBaseURL(@"http://127.0.0.1:18080")
+    ])
+    .byDefaultEnvironmentIdentifier(@"local")
+    .byEnvironmentChanged(^(JobsDebugEnvironment *environment) {
+        JobsSetDebugBaseURL(environment.baseURL);
+        YTKNetworkConfig.sharedConfig.byBaseUrl(environment.baseURL);
+    })
+    .byActions(@[
+        JobsDebugAction.new
+            .byTitle(@"记录当前环境")
+            .byAction(^(UIViewController *source) {
+                JobsLog(@"%@", JobsDebugPanelManager.sharedPanel.currentEnvironment.baseURL);
+            })
+    ])
+    .start();
+#endif
+```
+
+Demo 配置本地 `18080`、[**HTTPBin**](https://httpbin.org/)、[**Postman**](https://postman-echo.com/) 三个环境，使用当前 URL 请求 `/get`，超时 `3` 秒；失败时展示本地示例并可重试，成功后自动使用真实响应。浮层按 Scene 绑定当前业务 Window，按钮以外触摸继续传给业务页面。无导航容器时用带关闭入口的导航容器模态展示；默认菜单不包含全 App 弱网开关，真实网络条件使用 [**Apple Network Link Conditioner**](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/On_Demand_Resources_Guide/TestingPerformance.html)。完整集成、资源许可和中文架构说明见 [JobsDebugPanel README](./JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsDebugPanel/README.md)。
+
 JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均由框架内部管理：
 
 ```objc
@@ -218,7 +251,7 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
 | 基础 / DSL / Model | `This`、`JobsClass`、`JobsOCDefs`、`JobsBlock`、`JobsOCProtocols`、`JobsModel`、`JobsMakes`、`JobsOCDSL`、`JobsModelDSL`、`JobsCallBackBlockDSL`、`UIBaseTextFieldDSL`、`JobsByOCPods`、`JobsBaseUI`、`JobsGetWindow`、`JobsLocker` |
 | UI / 导航 / 交互 | `JobsNavBar`、`JobsTabBarCtrl`、`JobsViewNavigator`、`JobsViewPush`、`FDFullscreenPopGesture`、`JobsNavigationTransitionMgr`、`JobsPresentTransitionMgr`、`JobsSuspend`、`JobsBasePopupView`、`JobsCustomView`、`JobsMenuView`、`JobsDropDownListView`、`JobsFiltrationView`、`JobsLinkageMenuView`、`JobsWallet`、`JobsHotLabel`、`JobsImageNumberView`、`JobsOCNumberStepper`、`JobsClockView`、`JobsImageRotation`、`JobsMarqueeView`、`JobsProgressBar`、`JobsUploadingProgressView`、`JobsLoadingImage`、`JobsIconfont`、`JobsLuckyEnvelopeRain`、`JobsGestureLock`、`JobsCountdownBtn` |
 | 业务 / 媒体 / 系统能力 | `JobsAppDoor`、`JobsOCSplash`、`JobsOCRefresher`、`JobsFuseAnimation`、`JobsOCExcel`、`JobsOCMarkdown`、`JobsOCUILabelScrolling`、`JobsScreenCapture`、`JobsOCAudioRecorder`、`JobsOCVideoRecorder`、`JobsBluetooth`、`JobsOCGraphicCaptcha`、`JobsOCSkeletonView`、`JobsOCKeyboardMgr`、`JobsOCCalendar`、`JobsOCCountryCodeCtrl`、`JobsOCSearcher`、`JobsOCComment`、`JobsBioKit` |
-| 数据 / 服务 / 工程工具 | `JobsAPIs`、`JobsNetWorkTools`、`JobsMonitorNetwoking`、`JobsBitsMonitor`、`JobsOCWebSocket`、`JobsCryptography`、`JobsOCRuntimeKits`、`JobsOCPatch`、`JobsOCOpen`、`JobsOCSnowflake`、`JobsOCTimer`、`JobsOCTimerMgr`、`JobsTimeUtils`、`JobsRandomUtils`、`JobsStringUtils`、`JobsRichTextUtils`、`FileFolderHandleTool`、`JobsDeviceInfo`、`JobsLanMgr`、`JobsAppTools`、`JobsOCTools`、`JobsDebug`、`JobsAppIconRibbon` |
+| 数据 / 服务 / 工程工具 | `JobsAPIs`、`JobsNetWorkTools`、`JobsMonitorNetwoking`、`JobsBitsMonitor`、`JobsOCWebSocket`、`JobsCryptography`、`JobsOCRuntimeKits`、`JobsOCPatch`、`JobsOCOpen`、`JobsOCSnowflake`、`JobsOCTimer`、`JobsOCTimerMgr`、`JobsTimeUtils`、`JobsRandomUtils`、`JobsStringUtils`、`JobsRichTextUtils`、`FileFolderHandleTool`、`JobsDeviceInfo`、`JobsLanMgr`、`JobsAppTools`、`JobsOCTools`、`JobsDebug`、`JobsDebugPanel`、`JobsAppIconRibbon` |
 | 第三方增量适配层 | `AFSecurityPolicyExtra`、`BRPickerViewExtra`、`FMDatabaseExtra`、`FSCalendarExtra`、`GKCustomNavigationBarExtra`、`HTMLDocumentExtra`、`HXPhotoManagerExtra`、`HXPhotoViewExtra`、`IQKeyboardManagerExtra`、`JXCategoryViewExtra`、`LMJDropdownMenuExtra`、`MGSwipeTableCellExtra`、`MJRefreshExtra`、`RACExtra`、`ReachabilityExtra`、`SRWebSocketExtra`、`SYSAlertControllerExtra`、`SZTextViewExtra`、`TFPopupExtra`、`WHToastExtra`、`YTKNetworkExtra`、`ZFPlayerExtra`、`ZMJCellExtra` |
 
 - `JobsGestureLock` 由本地 Pod 管理；现成控制器以 `BaseViewController` 为页面基座，`JobsSettingGestureVC` 直接复用统一的 `viewModel`、导航与主题契约，并以“手势解锁”为标题提供与 Swift 一致的设置 / 验证切换、56pt 语义色九宫格、跨点补点、状态反馈和清除重来入口。
@@ -248,9 +281,9 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
 
 前置任务强制离线，只复用已有工具，不自动安装工具链；失败不覆盖 CocoaPods 自身结果。PIF 收尾脚本缺失、失败或异常时记录警告，不把已完成的依赖安装改判为失败。该恢复流程不删除 `Pods`、锁文件、工作空间或 `DerivedData`。
 
-`post_install` 还会执行 Podfile 内的构建配置与兼容性修补；`post_integrate` 同时维护 Pods 工程中的 `Podfile` / `Podfile.deps` 引用。这些是 Podfile 内联逻辑，外置收尾脚本的实际调用点是 `post_integrate`。
+`post_install` 还会执行 Podfile 内的构建配置与兼容性修补；`post_integrate` 同步维护 Pods 工程根组中的 [Podfile](./Podfile) / [Podfile.deps](./Podfile.deps) 引用，两者相邻置顶，以 [**Ruby**](https://www.ruby-lang.org) 红钻图标及文件引用标识显示并打开真实文件，不加入任何 Build Phase。引用维护使用 `xcodeproj` 重开已保存工程、查重并分配唯一 UUID；写入前临时备份 `project.pbxproj`，保存后立即重开检查根对象、根 UUID、唯一引用、排列及真实路径，失败恢复备份并在安装输出中告警，结束后清理临时备份，不生成额外报告。这是 Podfile 内联同步逻辑，迁移时保留工程根目录的两份文件与 `Pods/Pods.xcodeproj` 的相对层级。
 
-OC 新工程设置 `JOBS_POD_INSTALL_PURE=1` 或 `JOBS_POD_INSTALL_SKIP_EXTERNAL_SCRIPTS=1` 时，会跳过可选的集成后增强及后置脚本；顶部异步前置入口没有使用这两个开关，不能据此认为所有脚本都已关闭。
+设置 `JOBS_POD_INSTALL_PURE=1` 或 `JOBS_POD_INSTALL_SKIP_EXTERNAL_SCRIPTS=1` 时仍维护这两条展示引用，重复安装不会增加重复项；两个开关只跳过可选后置脚本，外置收尾脚本的实际调用点是 `post_integrate`。顶部异步前置入口没有使用这两个开关，不能据此认为所有脚本都已关闭。
 
 **构建阶段与构建后动作**
 
@@ -260,10 +293,10 @@ OC 新工程设置 `JOBS_POD_INSTALL_PURE=1` 或 `JOBS_POD_INSTALL_SKIP_EXTERNAL
 | --- | --- | --- |
 | 构建中：`Package Markdown Documents` | [JobsMarkdownPackager.rb](./JobsByPods/JobsOCMarkdown@Pods/Support/JobsMarkdownPackager.rb) | 将项目文档与相对资源打入 App 内的 `JobsMarkdownDocuments.bundle`，供 Markdown Demo 离线阅读 |
 | 本地 Pod 编译前：`Generate AppIcon Environment Ribbon` | [JobsAppIconRibbon.podspec](./JobsByPods/JobsAppIconRibbon@Pods/JobsAppIconRibbon.podspec) → `Scripts/JobsAppIconRibbon.sh` | 由 podspec 的 `script_phase` 挂载图标环境绶带生成器 |
-| 主 App 最后一个 Build Phase：`Save Build IPA` | [save_device_ipa_after_build.sh](./ScriptsByDevTools/save_device_ipa_after_build.sh) | 真机生成 `./build/真机.ipa`，模拟器生成 `./build/模拟器.ipa`；打包成功后先清空 build 全部内容，只保留本次包 |
+| 主 App 最后一个 Build Phase：`Save Build IPA` | [save_device_ipa_after_build.command](./ScriptsByDevTools/save_device_ipa_after_build.command/save_device_ipa_after_build.command) · [使用说明](./ScriptsByDevTools/save_device_ipa_after_build.command/README.md) | 真机生成 `./build/真机.ipa`，模拟器生成 `./build/模拟器.ipa`；打包成功后先清空 build 全部内容，只保留本次包 |
 | Scheme Build 开始 / 结束 | `XBT Build Timer Start / End` → 外部 `xbt-build-hook.sh start / end` | 记录开始、结束时间和耗时；写入用户目录下的 `.xcode-build-timer/state/` 状态及历史日志 |
 
-主 App 最后一个 Build Phase `Save Build IPA` 调用 [save_device_ipa_after_build.sh](./ScriptsByDevTools/save_device_ipa_after_build.sh)，每次 iOS App 构建都会执行，Xcode 内无须手动确认。按设备平台保存以下产物：
+主 App 最后一个 Build Phase `Save Build IPA` 调用 [save_device_ipa_after_build.command](./ScriptsByDevTools/save_device_ipa_after_build.command/save_device_ipa_after_build.command)，脚本和 [README.md](./ScriptsByDevTools/save_device_ipa_after_build.command/README.md) 同置于完整同名目录，每次 iOS App 构建都会执行，Xcode 内无须手动确认。按设备平台保存以下产物：
 
 | 构建平台 | 本次唯一产物 |
 | --- | --- |
@@ -284,7 +317,7 @@ OC 新工程设置 `JOBS_POD_INSTALL_PURE=1` 或 `JOBS_POD_INSTALL_SKIP_EXTERNAL
 
 `clean`、非 iOS 平台、Tests / Widget 构建不独立输出 IPA；该阶段只挂在主 App，测试触发主 App 重建时仍会更新产物。Build Phase 发生在 Scheme 后置动作之前，产物存在不代表整个 workspace 或测试已成功完成。输入只声明脚本文件，不把整个 App 目录列为输入，避免签名、扩展和测试包造成依赖循环；输出声明 `./build/` 目录，以覆盖平台切换及全部内容清理。
 
-日志同步输出到 Xcode 构建日志与系统临时目录中的 `save_device_ipa_after_build.log`。终端手动运行会先展示内置自述并等待回车，仍需提供 Xcode 构建环境变量。
+日志同步输出到 Xcode 构建日志与系统临时目录中的 `save_device_ipa_after_build.log`。终端手动运行会先展示内置自述并等待回车，再要求输入 `YES` 确认打包成功后的 `./build/` 全量清理；仍需提供构建环境变量。仅同时存在 `XCODE_VERSION_ACTUAL` 与 `TARGET_BUILD_DIR` 时按 Xcode 构建阶段无交互执行；普通非交互入口会退出，不写日志或清理产物。
 
 XBT 是仓库外的本机依赖，当前共享 Scheme 使用固定用户绝对路径调用，并未检测脚本是否存在；迁移机器时需在 Scheme 的 Build Pre-actions / Post-actions 中核对路径。状态目录中的 `latest.env`、`builds/*.env` 与 `history.log` 用于计时；`finished` 仅表示结束钩子执行，不是编译成功判据。
 
@@ -296,6 +329,30 @@ CocoaPods 生成的 `[CP] Check Pods Manifest.lock`、`[CP] Embed Pods Framework
 - 调度汇总与索引日志：系统临时目录中的 `【MacOS】📦Pod Install离线保护.<工程摘要>.log`、`codegraph_init.<工程摘要>.async.log`；PIF 与依赖报告脚本另有各自日志。
 - IPA 留存：Xcode 构建日志与系统临时目录中的 `save_device_ipa_after_build.log`。
 - 排查时先确认触发入口，再检查对应日志；目录中存在脚本，不代表它已被当前 Podfile、target 或 Scheme 挂载。
+
+### 2.7、Xcode 手动运行 Pod Install <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+[手动安装脚本](<./ScriptsByPods/【MacOS@Xcode】🫘打开终端运行Pod Install.command/【MacOS@Xcode】🫘打开终端运行Pod Install.command>)与[使用说明](<./ScriptsByPods/【MacOS@Xcode】🫘打开终端运行Pod Install.command/README.md>)位于 `ScriptsByPods`。主工程的 `ScriptsByPods → 【MacOS@Xcode】🫘打开终端运行Pod Install.command` 分组只保存脚本和说明文件的相对引用，不属于 App target，也没有 Build Phase 或 Scheme 自动触发动作。
+
+当前用户通过 `Xcode → Behaviors → 🫘OC 老工程 · Pod Install` 随时运行；无交互终端时由系统 `open` 命令打开 Terminal，在终端显示内置自述和实际项目目录，**回车执行，Ctrl+C 取消**。也可在 Finder 双击脚本；无需 Sourcetree 参数或 AppleScript 自动化授权。
+
+脚本按自身目录的 `../..` 定位工程根目录，不依赖 Xcode 启动工作目录。确认后检查 `Podfile` 和 `pod --version`，只使用已有 CocoaPods / Ruby 环境，不自动安装或升级工具链。`pod install` 会按现有 Podfile 更新 `Pods/`、锁文件和工作空间，并执行已有安装钩子；安装输出实时显示，安装命令的失败退出码原样返回，完整输出同步写入系统临时目录中的 `jobs-oc-old-pod-install.log`，每次确认后覆盖此日志。打开 Terminal 成功只表示入口已启动，依赖安装结果以终端和日志为准。
+
+Behaviors 属于 Xcode 当前用户设置，工程引用不会自动建立其它电脑上的菜单。迁移整个项目时保留脚本包层级，并在 `Xcode → Behaviors → Edit Behaviors… → Custom` 重新选择脚本文件；快捷键可按个人习惯设置。本入口独立于上节的自动挂载，语法与隔离假命令验证不执行真实依赖安装或构建。
+
+### 2.8、Jobs 自维护组件稳定性升级 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+与 OC 本地 Pods 工程保持对应自维护功能同步，本轮涵盖对象生命周期、运行时调用、定时器终态、唯一 ID、事务与文件写入、音频失败清理、开屏缓存、刷新和组件状态边界。详细行为、兼容迁移及实际编译证据见[升级实施与编译验证](../../JobsOCBaseConfigDemo@ByPods/JobsByPods升级实施与编译验证.md)。旧工程继续直接集成源码和资源，不新增同名 Pod 依赖；`Manual`、`PodsManual`、供应商及非 Jobs 作者源码保持所有权排除。
+
+私有 weak 关联、认证加密、display link target、TimerMgr entry、纯 C signal recorder 和开屏取消 token 通过主 target 的 Sources 挂载。预编译头用 `__OBJC__` 隔离 OC 框架，纯 C 信号记录器自行包含系统头；信号上下文只写固定二进制记录，正常启动再导入日志。音频失败保留原错误、清理本次 partial 文件并归还会话，旧播放器晚到的完成不能结束新播放器。
+
+本轮手势生命周期修复中，Jobs 自有 `weak_target` / `byWeak_target` 使用零化弱关联容器，外部 owner 释放后返回 `nil`；`UIView` 工厂以该弱目标或当前 view 安装原生 target/action，不自动写入手势的 `target` 关联元数据。`gestureActionBy:` / `GestureActionBy` 复制回调并安装既有原生 handler，不再把手势写为自身的关联 target；九个 `addGR` / `addXxxGR` 闭包在 view 已释放时安全返回 `nil`。显式 `byTarget` 元数据 API 保留原兼容语义；业务回调仍应弱捕获外部 owner。
+
+刷新与 TabBar 动画停止统一显式调用 `[animationView stop]`，避免公共 `stop` 布尔属性的 `getter=isStop` 让点式表达式误发 `isStop`；保留原生 `pause`、Timer、Header / Footer 和动画状态切换合同。保存的 TabBar 动画切换闭包在 owner 已释放时直接返回。
+
+宿主的 [PrivacyInfo.xcprivacy](./JobsOCBaseConfigDemo/启动配置/JobsPrivacy/PrivacyInfo.xcprivacy) 按直接集成形态声明自身偏好 `CA92.1`、自有容器文件时间 `C617.1` 和经过时间测量 `35F9.1`，通过主 App Resources 编译阶段打包。它不替代第三方声明或其它产品对真实数据用途的核验。当前编译仍在执行，只有报告中的最终真实退出码与产物检查齐全后才标为验收通过。
+
+本轮验证安装设置 `JOBS_POD_INSTALL_PURE=1` 跳过可选后置增强，并设置 `JOBS_POD_INSTALL_SKIP_VENDOR_PATCHES=1` 跳过供应商源码补丁；正常安装默认行为保留。纯安装仍修正实际生成目标中同名 header copy 的重复输入，并在宿主 `[CP] Copy Pods Resources` 完成后恢复上述自有隐私清单完整字节，避免裸第三方同名资源覆盖宿主声明；没有修改第三方源文件或 bundle。实际安装 exit0，62 个依赖 / 66 个 Pod 保持原组成，锁文件仅 Podfile checksum 变化，供应商源码与声明内容校验无变化；Debug / Release 最终实际构建仍待完成。
 
 ## 三、🧨开发支持 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -6383,7 +6440,7 @@ vc.navCtrl
   
 * 封装方式3：
 
-  因为手势传递是在view层。所以对其进行了一次封装。关注实现类：[**@interface UIView (Gesture)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIView/UIView%2BCategory/UIView%2BGesture)
+  下列 `target + jobsSelectorBlock` 是旧版 selector 路由示例；当前弱目标工厂与 ActionBy 生命周期合同见 2.8 节。因为手势传递是在view层。所以对其进行了一次封装。关注实现类：[**@interface UIView (Gesture)**](https://github.com/JobsKits/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIView/UIView%2BCategory/UIView%2BGesture)
 
   ```objective-c
   {
@@ -6393,7 +6450,7 @@ vc.navCtrl
       _adView.numberOfTouchesRequired = 1;
       _adView.allowableMovement = 1;
       _adView.userInteractionEnabled = YES;
-      _adView.target = self;/// ⚠️注意：任何手势这一句都要写
+      _adView.target = self;/// 旧版显式 target / selector 路由配置
   
       {
           _adView.longPressGR_SelImp.selector = [self jobsSelectorBlock:^id _Nullable(id  _Nullable weakSelf,

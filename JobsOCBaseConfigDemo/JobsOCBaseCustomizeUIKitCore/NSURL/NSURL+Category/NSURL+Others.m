@@ -2,7 +2,7 @@
 //  NSURL+Others.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs Hi on 2024/7/6.
+//  Created by Jobs on 2024年7月6日，星期六.
 //
 
 #import "NSURL+Others.h"
@@ -32,9 +32,9 @@
     return ^NSURL *_Nullable{
         @jobs_strongify(self)
         if (!self) return nil;
-        if(!This.BaseUrl_Image() || !This.jobsBaseUrl()) return self;
+        if(!This.jobsBaseUrl_Image() || !This.jobsBaseUrl()) return self;
         if(!self.absoluteString.containsString(HTTP) && isValue(self.absoluteString)){
-            return (isValue(This.BaseUrl_Image()) ? This.BaseUrl_Image() : This.jobsBaseUrl()).add(self.absoluteString).jobsURL();
+            return (isValue(This.jobsBaseUrl_Image()) ? This.jobsBaseUrl_Image() : This.jobsBaseUrl()).add(self.absoluteString).jobsURL();
         }else return self;
     };
 }
@@ -44,9 +44,9 @@
     return ^NSURL *_Nullable{
         @jobs_strongify(self)
         if (!self) return nil;
-        if(!This.BaseUrl_Image()) return self;
+        if(!This.jobsBaseUrl_Image()) return self;
         if(!self.absoluteString.containsString(HTTP) && isValue(self.absoluteString)){
-            return This.BaseUrl_Image().add(self.absoluteString).jobsURL();
+            return This.jobsBaseUrl_Image().add(self.absoluteString).jobsURL();
         }else return self;
     };
 }

@@ -6,6 +6,29 @@
 # - 影响范围：依赖报告、CodeGraph 后台任务、Xcode PIF 安全检查；不安装或删除 Pods。
 # - 运行提示：Podfile 钩子无交互运行；终端独立运行需输入 YES；--check-only 只检查不生成产物。
 
+# 仅渲染自述：标题红色加粗，编号正文蓝色常规字重；非彩色终端输出纯文本。
+jobs_intro_style() {
+  local intro_color=0
+  if [ -t 1 ] && [ -n "${TERM:-}" ] && [ "${TERM:-}" != dumb ] &&
+     [ -z "${NO_COLOR+x}" ] && [ "${PLAIN_OUTPUT:-0}" != 1 ] &&
+     [ "${IS_SOURCETREE_RUNTIME:-0}" != 1 ]; then
+    intro_color=1
+  fi
+  /usr/bin/awk -v color="$intro_color" -v role="${1:-body}" '
+    BEGIN { esc = sprintf("%c", 27) }
+    {
+      gsub(esc "\\[[0-9;]*m", "")
+      gsub(/\\(033|e|x1[bB])\[[0-9;]*m/, "")
+      if (!color || $0 ~ /^[[:space:]]*$/) { print; next }
+      numbered = ($0 ~ /^[[:space:]➤ℹ🔹✔⚠]*([0-9]+[、.)）]|[0-9]+️⃣|[-•])/)
+      heading = ($0 ~ /^[[:space:]]*#{1,6}[[:space:]]/ || $0 ~ /[：:][[:space:]]*$/ || $0 ~ /^[[:space:]]*[=━─-]{3}/)
+      title = (!numbered && (role == "title" || heading))
+      if (role == "auto" && !seen && !numbered) title = 1
+      if ($0 !~ /^[[:space:]]*[=━─-]+[[:space:]]*$/) seen = 1
+      printf "%s%s%s\n", esc (title ? "[1;31m" : "[0;34m"), $0, esc "[0m"
+    }
+  '
+}
 SCRIPT_PATH="${0:A}"
 SCRIPT_DIR="${SCRIPT_PATH:h}"
 SCRIPT_BASENAME="${SCRIPT_PATH:t:r}"
@@ -96,17 +119,17 @@ initialize_runtime() {
 
 # 第一屏说明行为边界，并在独立执行时要求明确确认。
 show_script_intro_and_wait() {
-  print -r -- ""
-  print -r -- "【Pod Install 本地脚本保护】"
-  print -r -- "用途：前置本地任务不等待 CocoaPods 网络；安装完成后单独检查 Xcode PIF 会话。"
-  print -r -- "边界：不探测网络，不跳过 pod install，不删除 Pods、Podfile.lock、xcworkspace 或 DerivedData。"
+  print -r -- "" | jobs_intro_style body
+  print -r -- "【Pod Install 本地脚本保护】" | jobs_intro_style body
+  print -r -- "用途：前置本地任务不等待 CocoaPods 网络；安装完成后单独检查 Xcode PIF 会话。" | jobs_intro_style body
+  print -r -- "边界：不探测网络，不跳过 pod install，不删除 Pods、Podfile.lock、xcworkspace 或 DerivedData。" | jobs_intro_style body
 
   if is_truthy "${JOBS_POD_INSTALL_HOOK:-}"; then
-    print -r -- "模式：Podfile 自动钩子，无交互执行。"
+    print -r -- "模式：Podfile 自动钩子，无交互执行。" | jobs_intro_style body
     return 0
   fi
   if (( CHECK_ONLY == 1 )); then
-    print -r -- "模式：只读检查，不生成报告、不启动后台任务。"
+    print -r -- "模式：只读检查，不生成报告、不启动后台任务。" | jobs_intro_style body
     return 0
   fi
 
@@ -114,7 +137,7 @@ show_script_intro_and_wait() {
   local answer=""
   read -r answer
   if [[ "${answer}" != "YES" ]]; then
-    print -r -- "已取消，未执行本地脚本。"
+    print -r -- "已取消，未执行本地脚本。" | jobs_intro_style body
     exit 0
   fi
 }

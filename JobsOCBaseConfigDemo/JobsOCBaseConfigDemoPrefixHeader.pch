@@ -7,6 +7,8 @@
 
 #ifndef JobsOCBaseConfigPrefixHeader_pch
 #define JobsOCBaseConfigPrefixHeader_pch
+
+#ifdef __OBJC__
 #pragma mark —— 系统SDK
 #import <pthread.h>                               ///
 #import <os/lock.h>                               ///
@@ -78,5 +80,7 @@
 #import "JobsModel.h"
 #pragma mark —— 网络请求
 #import "JobsNetworkingHeader.h"
+
+#endif /* __OBJC__ */
 
 #endif /* JobsOCBaseConfigPrefixHeader_pch */
