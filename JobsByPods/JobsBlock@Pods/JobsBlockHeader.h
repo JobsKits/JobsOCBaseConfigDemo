@@ -17,6 +17,8 @@
 #ifndef JobsBlockHeader_h
 #define JobsBlockHeader_h
 
+@class JobsDebugEnvironment, JobsDebugAction, JobsDebugPanelManager;
+
 #pragma mark —— Jobs Enum Forward Declarations
 typedef NS_ENUM(NSInteger, AppLanguage);
 typedef NS_ENUM(NSInteger, BRTextPickerMode);

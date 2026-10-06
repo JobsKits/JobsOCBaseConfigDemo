@@ -18,7 +18,7 @@ concurrency:
 jobs:
   build-simulator-app:
     runs-on: macos-15
-    timeout-minutes: 90
+    timeout-minutes: 180
     permissions:
       actions: write
       contents: read
@@ -65,7 +65,7 @@ jobs:
 
       - name: Install CocoaPods dependencies
         run: |
-          pod install --no-repo-update || pod install --repo-update
+          JOBS_POD_INSTALL_PURE=1 JOBS_POD_INSTALL_SKIP_VENDOR_PATCHES=1 pod install --no-repo-update || JOBS_POD_INSTALL_PURE=1 JOBS_POD_INSTALL_SKIP_VENDOR_PATCHES=1 pod install --repo-update
 
       - name: Skip Jobs local Xcode build timer hook in CI
         run: |
@@ -77,35 +77,45 @@ jobs:
           SCRIPT
           sudo chmod +x /Users/jobs/.xcode-build-timer/xbt-build-hook.sh
 
+      - name: Build every Jobs Pod in Debug and Release
+        run: |
+          ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+            --phase pods --output "${RUNNER_TEMP}/JobsOCStability"
+
+      - name: Verify configuration and result guards
+        run: |
+          ruby ScriptsByPods/jobs_pods_stability_audit.rb/Tests/run_regression.rb
+          ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/readme_results_regression.rb
+          ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/command_timeout_regression.rb
+          ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/host_entitlements_regression.rb
+
+      - name: Run each Pod regression suite
+        run: |
+          simulator_id="$(xcrun simctl list devices available -j | ruby -r json -e '
+            devices = JSON.parse(STDIN.read).fetch("devices").select { |runtime, _| runtime.include?("iOS") }.values.flatten
+            device = devices.find { |row| row["state"] == "Booted" } || devices.first
+            abort "No iOS Simulator available" unless device
+            puts device.fetch("udid")
+          ')"
+          xcrun simctl boot "${simulator_id}" || true
+          xcrun simctl bootstatus "${simulator_id}" -b
+          ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+            --phase tests --simulator "${simulator_id}" --output "${RUNNER_TEMP}/JobsOCStability"
+
       - name: Build Simulator app
         run: |
-          derived_data_path="${RUNNER_TEMP}/DerivedData"
-
-          xcodebuild \
-            -quiet \
-            -workspace "${WORKSPACE}" \
-            -scheme "${SCHEME}" \
-            -configuration "${CONFIGURATION}" \
-            -sdk "${SDK}" \
-            -destination "${DESTINATION}" \
-            -derivedDataPath "${derived_data_path}" \
-            CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGN_IDENTITY="" \
-            ONLY_ACTIVE_ARCH=NO \
-            build
+          ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+            --phase app --output "${RUNNER_TEMP}/JobsOCStability"
 
       - name: Package Simulator app
         id: package
         run: |
-          derived_data_path="${RUNNER_TEMP}/DerivedData"
           app_output_dir="${RUNNER_TEMP}/SimulatorApp"
-          products_dir="${derived_data_path}/Build/Products/${CONFIGURATION}-iphonesimulator"
-          app_path="$(find "${products_dir}" -maxdepth 1 -type d -name '*.app' -print -quit)"
+          products_dir="${RUNNER_TEMP}/JobsOCStability/Products/${CONFIGURATION}-iphonesimulator"
+          app_path="${products_dir}/${SCHEME}.app"
 
-          if [[ -z "${app_path}" ]]; then
-            echo "::error::No .app product found in ${products_dir}"
-            find "${derived_data_path}/Build/Products" -type d -name '*.app' -print || true
+          if [[ ! -d "${app_path}" || ! -f "${app_path}/Info.plist" ]]; then
+            echo "::error::Main app product not found: ${app_path}"
             exit 1
           fi
 
@@ -149,4 +159,16 @@ jobs:
           name: ${{ steps.package.outputs.artifact_name }}
           path: ${{ steps.package.outputs.artifact_zip }}
           if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload Pod validation records
+        if: always()
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: JobsPods-validation-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/JobsOCStability/results.json
+            ${{ runner.temp }}/JobsOCStability/*.log
+            ${{ runner.temp }}/JobsOCStability/*.xcresult
+          if-no-files-found: warn
           retention-days: 14

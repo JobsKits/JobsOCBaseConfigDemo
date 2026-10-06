@@ -67,3 +67,6 @@ graphify-out/
 
 # Build-time AppIcon variants generated from the original asset catalog.
 **/JobsAppIconRibbon-*.appiconset/
+
+# Jobs Pod 稳定性校验的本地日志与 xcresult
+/work/JobsPodsStability/

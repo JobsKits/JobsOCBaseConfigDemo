@@ -52,9 +52,10 @@ JobsOCDefs@Pods/
 ├── JobsOCDefs.podspec  # Pod 描述文件
 ├── README.md  # 当前自述
 ├── JobsPodspecKit.rb  # 本地 podspec 基座
-├── Core/  # 公开 API 与核心实现，62 个文件
-├── Support/  # 内部支撑层，4 个文件
-└── LICENSE  # 许可证文件
+├── Core/  # 公开入口与核心实现，62 个文件
+├── Support/  # 内部支援，4 个文件
+├── LICENSE  # 许可证文件
+└── Resource/  # 非代码资源，4 个文件
 ```
 
 - `JobsOCDefs.podspec` 是当前 Pod 的 [**CocoaPods**](https://cocoapods.org/) 描述入口。
@@ -63,7 +64,7 @@ JobsOCDefs@Pods/
 
 ## 四、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 当前包含 62 个文件，其中源码 / 头文件 59 个；按 Jobs 规范，它是 `JobsOCDefs` 对外公开 API 和核心实现的边界。
+- `Core` 当前包含 62 个文件，其中源码 / 头文件 62 个；按 Jobs 规范，它是 `JobsOCDefs` 对外公开 API 和核心实现的边界。
 - `Support` 当前包含 4 个文件，其中源码 / 头文件 4 个；它只服务当前 Pod 内部实现，不建议被 App 层或其它 Pod 直接引用。
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
@@ -97,6 +98,7 @@ JobsOCDefs@Pods/
 - `XYColorOC`
 - `YTKNetwork`
 - `GKNavigationBar`
+- `JobsBlock`
 - `JobsStringUtils`
 - `JobsGetWindow`
 
@@ -117,7 +119,7 @@ JobsOCDefs@Pods/
 
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 当前目录扫描到资源类文件 3 个，`Resource` 目录文件 0 个。
+- 当前目录扫描到资源类文件 4 个，`Resource` 目录文件 4 个。
 - podspec 资源声明如下：
 
 - `Core/**/*.{png,jpg,jpeg,gif,webp,xcassets,bundle,json,plist}`
@@ -143,7 +145,7 @@ pod install --no-repo-update
 
 ## 九、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 头文件会进入公开 API 边界，新增 import 时要确认不会把内部实现细节暴露给外部。
+- 只有 podspec 指定的公开头进入外部 API 边界；新增 import 时要确认不会把私有实现细节暴露给外部。
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
@@ -180,6 +182,51 @@ pod install --no-repo-update
 - [Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineBaseButtonProtocol/JobsDefineBaseButtonProtocol.h](<./Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineBaseButtonProtocol/JobsDefineBaseButtonProtocol.h>)
 - [Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineBaseLayerProtocol/JobsDefineBaseLayerProtocol.h](<./Core/JobsDefines/JobsDefinesOCProtocol/JobsDefineBaseLayerProtocol/JobsDefineBaseLayerProtocol.h>)
 
-依赖与编译入口：[JobsOCDefs.podspec](<./JobsOCDefs.podspec>)。其中显式依赖声明包括 `XYColorOC`、`YTKNetwork`、`GKNavigationBar`、`JobsBlock`、`JobsStringUtils`、`JobsGetWindow`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+依赖与编译入口：[JobsOCDefs.podspec](<./JobsOCDefs.podspec>)。其中根级依赖声明包括 `XYColorOC`、`YTKNetwork`、`GKNavigationBar`、`JobsBlock`、`JobsStringUtils`、`JobsGetWindow`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+
+## 十一、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+计数递归扫描当前目录内的普通文件，排除 `.DS_Store` / `._*`；源码与头文件计入 `.h`、`.m`、`.mm`、`.c`、`.cc`、`.cpp`、`.hpp`、`.swift`。资源目录中的目录、资源编译结果和文件大小不计入文件数，文件存在不代表必然打包。
+
+| 目录 | 实际文件 | 源码 / 头文件 | 安装边界 |
+| --- | --- | --- | --- |
+| `Core/` | 62 | 62 | 公共入口与核心实现；公开 / 私有头由 podspec 指定 |
+| `Support/` | 4 | 4 | 仅供当前 Pod 内部实现，按实际 subspec / private header 映射 |
+| `Resource/` | 4 | 0 | 非代码资源；按 resources / resource_bundles 和排除规则安装 |
+| `Tests/`（无目录） | 0 | 0 | 只由独立测试目标或回归 harness 使用，不进入生产 source_files |
+
+`Core` 的物理目录不等于所有头文件均公开；`Support` 和测试 fixture 不作为 App 或其它 Pod 的稳定消费入口。根聚合头与 `public_header_files` 是外部引用依据。
+
+根级资源直接复制映射：`Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}`。
+
+根级命名资源 bundle：`JobsOCDefsPrivacy.bundle`；已有运行资源保持各自 bundle 查找合同。
+
+隐私声明入口：[Resource/PrivacyInfo.xcprivacy](<./Resource/PrivacyInfo.xcprivacy>)，通过 `JobsOCDefsPrivacy.bundle` 安装。声明类别与理由按该文件记录：
+
+| API 类别 | 理由标识 | 当前代码用途 |
+| --- | --- | --- | --- |
+| `NSPrivacyAccessedAPICategoryUserDefaults` | `CA92.1` | 本应用本地偏好或状态的读取与保存 |
+
+理由使用合同：`CA92.1`：仅供本 App 访问自身偏好。范围依据 [Apple 理由定义](https://developer.apple.com/documentation/bundleresources/app-privacy-configuration/nsprivacyaccessedapitypes/nsprivacyaccessedapitypereasons)。
+
+该文件记录当前 Pod 使用的 API 类别；宿主仍需按自身实际调用和数据行为维护自己的声明。最终产物是否包含该命名 bundle，随独立 Pod 与主工程资源验收一起核对。
+
+## 十二、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+当前结果：**Debug / Release 单 Pod 编译已完成；本 Pod 无独立 Stability 回归；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+
+该 Pod 维持既有内核，纳入统一逐 Pod 和主工程编译；没有以新增代码数量作为升级验收依据。
+
+从本 README 所在目录回到工程根目录，再运行该 Pod 的 Debug / Release 单元编译：
+
+```shell
+cd ../..
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+  --phase pods --pod JobsOCDefs
+```
+
+当前没有 `Stability` test_spec；单独 Pod 的编译覆盖不能等同于行为测试通过，集成场景由宿主验收。
+
+运行前应已安装工程依赖；runner 的 `--phase pods` 默认分别编译 Debug / Release，`--phase tests` 默认运行 Debug（JobsOCSnowflake 默认 Debug / Release），并将命令、源码指纹、日志和退出码保存到工程 `work/JobsPodsStability/`。如需固定输出目录，使用 runner 的 `--output`。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

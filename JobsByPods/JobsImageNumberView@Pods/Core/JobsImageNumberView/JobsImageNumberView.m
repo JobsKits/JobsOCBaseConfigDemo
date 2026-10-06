@@ -44,6 +44,7 @@ Prop_strong()NSArray <UIImage *>*dataMutArr;
     @jobs_weakify(self)
     return ^(NSArray <UIImage *>*_Nullable model) {
         @jobs_strongify(self)
+        if (!self) return;
         self.byDataMutArr(model);
         self.collectionView.byShow(self);
     };

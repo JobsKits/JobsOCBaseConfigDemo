@@ -47,7 +47,7 @@ ZFPlayerExtra@Pods/
 ├── ZFPlayerExtra.podspec  # Pod 描述文件
 ├── README.md  # 当前自述
 ├── ZFPlayerExtra.h  # 根入口头文件
-├── Core/  # 公开 API 与核心实现，含 ZFAV / ZFIJK / DouYin DSL 分类
+├── Core/  # 公开入口与核心实现，11 个文件
 └── LICENSE  # 许可证文件
 ```
 
@@ -67,10 +67,7 @@ ZFPlayerExtra@Pods/
 ### 5.1、公开头文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `ZFPlayerExtra.h`
-- `Core/ZFDouYinControlView/ZFDouYinControlView/ZFDouYinControlView.h`
-- `Core/ZFDouYinControlView/ZFDouYinControlView+DSL/ZFDouYinControlView+DSL.h`
-- `Core/ZFAVPlayerManager/ZFAVPlayerManager+ZFPlayerExtraDSL/ZFAVPlayerManager+ZFPlayerExtraDSL.h`
-- `Core/ZFIJKPlayerManager/ZFIJKPlayerManager+ZFPlayerExtraDSL/ZFIJKPlayerManager+ZFPlayerExtraDSL.h`
+- `Core/**/*.h`
 
 `Core/ZFPlayerExtra/ZFPlayerExtra.h` 只作为 private header 参与内部编译，避免和根入口头 `ZFPlayerExtra.h` 同名抢占 framework public `Headers`。
 
@@ -79,24 +76,24 @@ ZFPlayerExtra@Pods/
 - `ZFPlayerExtra.h`
 - `Core/**/*.{h,m,mm}`
 
-### 5.2.1、DSL 补充能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 5.3、DSL 补充能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `ZFAVPlayerManager+ZFPlayerExtraDSL`：补齐 `assetURL`、`view`、`shouldAutoPlay`、音量 / 静音 / 速率 / seek / scaling / presentationSize、播放动作、缩略图回调和播放状态回调链式入口。
 - `ZFIJKPlayerManager+ZFPlayerExtraDSL`：在非模拟器且 `IJKMediaFramework` 可用时，按同一标准补齐 IJK manager 的链式入口。
 - `ZFDouYinControlView+DSL`：补齐 `player`、`resetControlView`、`showCoverViewWithUrl:` 的链式入口。
 - `ZFAVPlayerManager` 已由 `JobsOCDSL` 提供的 `byTimeRefreshInterval`、`byRequestHeader` 不在本 Pod 重复实现，避免同一类同名 category 抢实现。
 
-### 5.3、默认安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 5.4、默认安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
 - `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 
-### 5.4、系统框架 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 5.5、系统框架 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `Foundation`
 - `UIKit`
 
-### 5.5、Pod 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 5.6、Pod 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `ZFPlayer`
 - `ZFPlayer/AVPlayer`
@@ -105,6 +102,7 @@ ZFPlayerExtra@Pods/
 - `JobsBlock`
 - `JobsOCDefs`
 - `JobsOCDSL`
+- `JobsBaseUI`
 - `JobsBaseUI`（通过公开聚合头提供 `jobsMakeBaseButton` 按钮创建入口）
 
 ## 六、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -150,7 +148,7 @@ pod install --no-repo-update
 
 ## 九、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 头文件会进入公开 API 边界，新增 import 时要确认不会把内部实现细节暴露给外部。
+- 只有 podspec 指定的公开头进入外部 API 边界；新增 import 时要确认不会把私有实现细节暴露给外部。
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
@@ -187,6 +185,39 @@ pod install --no-repo-update
 - [Core/ZFDouYinControlView/ZFDouYinControlView+DSL/ZFDouYinControlView+DSL.h](<./Core/ZFDouYinControlView/ZFDouYinControlView+DSL/ZFDouYinControlView+DSL.h>)
 - [Core/ZFDouYinControlView/ZFDouYinControlView/ZFDouYinControlView.h](<./Core/ZFDouYinControlView/ZFDouYinControlView/ZFDouYinControlView.h>)
 
-依赖与编译入口：[ZFPlayerExtra.podspec](<./ZFPlayerExtra.podspec>)。其中显式依赖声明包括 `ZFPlayer`、`ZFPlayer/AVPlayer`、`ZFPlayer/ControlView`、`ZFPlayer/ijkplayer`、`JobsBlock`、`JobsOCDefs`、`JobsOCDSL`、`JobsBaseUI`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+依赖与编译入口：[ZFPlayerExtra.podspec](<./ZFPlayerExtra.podspec>)。其中根级依赖声明包括 `ZFPlayer`、`ZFPlayer/AVPlayer`、`ZFPlayer/ControlView`、`ZFPlayer/ijkplayer`、`JobsBlock`、`JobsOCDefs`、`JobsOCDSL`、`JobsBaseUI`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+
+## 十一、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+计数递归扫描当前目录内的普通文件，排除 `.DS_Store` / `._*`；源码与头文件计入 `.h`、`.m`、`.mm`、`.c`、`.cc`、`.cpp`、`.hpp`、`.swift`。资源目录中的目录、资源编译结果和文件大小不计入文件数，文件存在不代表必然打包。
+
+| 目录 | 实际文件 | 源码 / 头文件 | 安装边界 |
+| --- | --- | --- | --- |
+| `Core/` | 11 | 10 | 公共入口与核心实现；公开 / 私有头由 podspec 指定 |
+| `Support/`（无目录） | 0 | 0 | 仅供当前 Pod 内部实现，按实际 subspec / private header 映射 |
+| `Resource/`（无目录） | 0 | 0 | 非代码资源；按 resources / resource_bundles 和排除规则安装 |
+| `Tests/`（无目录） | 0 | 0 | 只由独立测试目标或回归 harness 使用，不进入生产 source_files |
+
+`Core` 的物理目录不等于所有头文件均公开；`Support` 和测试 fixture 不作为 App 或其它 Pod 的稳定消费入口。根聚合头与 `public_header_files` 是外部引用依据。
+
+根级私有头模式：`Core/ZFPlayerExtra/ZFPlayerExtra.h`；相应实现照常编译，头文件不从公共聚合入口消费。
+
+## 十二、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+当前结果：**Debug / Release 单 Pod 编译已完成；本 Pod 无独立 Stability 回归；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+
+该 Pod 维持既有内核，纳入统一逐 Pod 和主工程编译；没有以新增代码数量作为升级验收依据。
+
+从本 README 所在目录回到工程根目录，再运行该 Pod 的 Debug / Release 单元编译：
+
+```shell
+cd ../..
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+  --phase pods --pod ZFPlayerExtra
+```
+
+当前没有 `Stability` test_spec；单独 Pod 的编译覆盖不能等同于行为测试通过，集成场景由宿主验收。
+
+运行前应已安装工程依赖；runner 的 `--phase pods` 默认分别编译 Debug / Release，`--phase tests` 默认运行 Debug（JobsOCSnowflake 默认 Debug / Release），并将命令、源码指纹、日志和退出码保存到工程 `work/JobsPodsStability/`。如需固定输出目录，使用 runner 的 `--output`。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -48,6 +48,7 @@ Prop_strong()LOTAnimationView *animationView;
         @jobs_weakify(self)
         self.endRefreshingCompletionBlock = ^{
             @jobs_strongify(self)
+            if (!self) return;
             self.updateStateLabelText();
         };
         self.stateLabel.byFont(UIFontWeightRegularSize(14));
@@ -108,7 +109,7 @@ Prop_strong()LOTAnimationView *animationView;
         MJRefreshCheckState;
         switch (state) {
             case MJRefreshStateIdle: // 刷新完毕
-                self.animationView.stop;
+                [self.animationView stop];
                 break;
             case MJRefreshStatePulling: // 下拉达到可触发刷新
                 [self.animationView play];
@@ -158,8 +159,11 @@ Prop_strong()LOTAnimationView *animationView;
                                                    @"JsonRes",
                                                    nil,
                                                    @"下拉刷新.json");
-        _animationView = [LOTAnimationView animationWithFilePath:filePaths];
-        _animationView.byLoopAnimation(YES);
+        _animationView = filePaths.length ? [LOTAnimationView animationWithFilePath:filePaths] : nil;
+        if (!_animationView) {
+            _animationView = LOTAnimationView.new;
+        }
+        _animationView.loopAnimation = YES;
         _animationView.bySizer(self.lOTAnimationViewSize);
         _animationView.addOn(self);
     };return _animationView;

@@ -8,18 +8,17 @@
 //
 
 #import "NSObject+Extra.h"
+#import <JobsOCRuntimeKits/JobsWeakAssociation.h>
 
-JobsKey(JobsOCDSLNSObjectWeakTargetKey)
 @implementation NSObject (Extra)
 @dynamic weak_target;
 
 -(id)weak_target{
-    id target = Jobs_getAssociatedObject(JobsOCDSLNSObjectWeakTargetKey);
-    return target ?: self;
+    return JobsGetAssociatedWeakObject(self, @selector(weak_target));
 }
 
 -(void)setWeak_target:(id)weak_target{
-    Jobs_setAssociatedASSIGN(JobsOCDSLNSObjectWeakTargetKey, weak_target)
+    JobsSetAssociatedWeakObject(self, @selector(weak_target), weak_target);
 }
 
 -(JobsRetIDByIDBlock _Nonnull)byWeak_target{

@@ -10,6 +10,8 @@
 #import <YTKNetworkExtra/NSURL+Extra.h>
 #import <YTKNetworkExtra/NSObject+Extra.h>
 
+static char JobsYTKResponseSourceKey;
+
 @implementation YTKBaseRequest (Extra)
 -(JobsRetNSMutableURLRequestByjobsByMutableURLRequestBlockBlock _Nonnull)jobsMakeRequestByBlock{
     @jobs_weakify(self)
@@ -17,9 +19,12 @@
         @jobs_strongify(self)
         if (!self) return nil;
         if (self.requestUrl.length < 1) return nil;
-        NSURL *url = [NSURL URLWithString:self.requestUrl];
+        NSURL *url = [NSURL URLWithString:[YTKNetworkAgent.sharedAgent buildRequestUrl:self]];
         if (!url) return nil;
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                              cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                          timeoutInterval:self.requestTimeoutInterval];
+        request.allowsCellularAccess = self.allowsCellularAccess;
         if (block) block(request);
         return request;
     };
@@ -80,8 +85,11 @@
     @jobs_weakify(self)
     return ^__kindof YTKBaseRequest *_Nonnull(NSDictionary *_Nullable data){
         @jobs_strongify(self)
-        [self.customHTTPHeader addEntriesFromDictionary:data];
-        JobsLog(@"请求头: %@", self.requestHeaderFieldValueDictionary);
+        if ([data isKindOfClass:NSDictionary.class]) {
+            NSMutableDictionary *headers = self.customHTTPHeader ?: jobsMakeMutDic(nil);
+            [headers addEntriesFromDictionary:data];
+            self.customHTTPHeader = headers;
+        }
         return self;
     };
 }
@@ -90,16 +98,19 @@ JobsKey(_responseModel)
 @dynamic responseModel;
 -(JobsResponseModel *)responseModel{
     JobsResponseModel *ResponseModel = Jobs_getAssociatedObject(_responseModel);
-    if(!ResponseModel){
-        if(self.responseObject){
-            ResponseModel = JobsResponseModel.byData(self.responseObject);
+    id response = self.responseObject;
+    id previous = objc_getAssociatedObject(self, &JobsYTKResponseSourceKey);
+    if (response != previous || (!ResponseModel && response)) {
+        ResponseModel = response ? JobsResponseModel.byData(response) : nil;
             Jobs_setAssociatedRETAIN_NONATOMIC(_responseModel, ResponseModel);
-        }
-    };return ResponseModel;
+        objc_setAssociatedObject(self, &JobsYTKResponseSourceKey, response, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    return ResponseModel;
 }
 
 -(void)setResponseModel:(JobsResponseModel *)responseModel{
     Jobs_setAssociatedRETAIN_NONATOMIC(_responseModel, responseModel)
+    objc_setAssociatedObject(self, &JobsYTKResponseSourceKey, self.responseObject, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 #pragma mark —— @property(nonatomic,strong,nullable)id urlParameters;
@@ -120,7 +131,7 @@ JobsKey(_parameters)
 }
 
 -(void)setParameters:(NSMutableDictionary *)parameters{
-    Jobs_setAssociatedCOPY_NONATOMIC(_parameters, parameters)
+    Jobs_setAssociatedRETAIN_NONATOMIC(_parameters, parameters.mutableCopy)
 }
 
 #pragma mark —— @property(nonatomic,copy,nullable)NSMutableDictionary *customHTTPHeader;
@@ -131,7 +142,7 @@ JobsKey(_customHTTPHeader)
 }
 
 -(void)setCustomHTTPHeader:(NSMutableDictionary *)customHTTPHeader{
-    Jobs_setAssociatedCOPY_NONATOMIC(_customHTTPHeader, customHTTPHeader)
+    Jobs_setAssociatedRETAIN_NONATOMIC(_customHTTPHeader, customHTTPHeader.mutableCopy)
 }
 
 @end

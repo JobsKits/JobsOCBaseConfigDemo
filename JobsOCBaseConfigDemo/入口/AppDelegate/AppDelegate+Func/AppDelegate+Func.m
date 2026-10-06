@@ -123,6 +123,42 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
         if (JobsOCSplashEnabled()) self.makeJobsLaunchAdConfig();/// 开屏广告
         self.makeReachabilityConfig();/// 网络环境监测
         self.YTKNetworkConfig();/// YTK网络框架的配置
+#if DEBUG
+        JobsDebugPanelManager.sharedPanel
+            .byEnvironments(@[
+                JobsDebugEnvironment.new
+                    .byIdentifier(@"local")
+                    .byTitle(@"本地 Mock")
+                    .byBaseURL(@"http://127.0.0.1:18080"),
+                JobsDebugEnvironment.new
+                    .byIdentifier(@"httpbin")
+                    .byTitle(@"公共测试")
+                    .byBaseURL(@"https://httpbin.org"),
+                JobsDebugEnvironment.new
+                    .byIdentifier(@"postman")
+                    .byTitle(@"联调测试")
+                    .byBaseURL(@"https://postman-echo.com")
+            ])
+            .byDefaultEnvironmentIdentifier(@"local")
+            .byEnvironmentChanged(^(JobsDebugEnvironment *environment) {
+                JobsSetDebugBaseURL(environment.baseURL);
+                YTKNetworkConfig.sharedConfig.byBaseUrl(environment.baseURL);
+            })
+            .byActions(@[
+                JobsDebugAction.new
+                    .byTitle(@"环境切换与网络请求 Demo")
+                    .byAction(^(UIViewController *source) {
+                        [source.navigationController pushViewController:JobsDebugPanelDemoVC.new animated:YES];
+                    }),
+                JobsDebugAction.new
+                    .byTitle(@"复制当前环境 URL")
+                    .byAction(^(UIViewController *source) {
+                        UIPasteboard.generalPasteboard.byString(JobsDebugPanelManager.sharedPanel.currentEnvironment.baseURL);
+                        toastBy(@"已复制当前环境 URL");
+                    })
+            ])
+            .start();
+#endif
         self.KTVHTTP();/// KTVHTTPCache
     };
 }

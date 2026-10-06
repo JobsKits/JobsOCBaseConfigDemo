@@ -10,6 +10,7 @@
 
 #import <Foundation/Foundation.h>
 #import <JobsAPIs/URLMgr.h>
+#import <JobsAPIs/NSString+URL.h>
 
 #if __has_include(<This/ThisHeader.h>)
 #import <This/ThisHeader.h>
@@ -34,6 +35,8 @@
 #else
 #import "JobsDefines.h"
 #endif
+
+FOUNDATION_EXPORT void JobsSetDebugBaseURL(NSString * _Nullable baseURL);
 
 NS_ASSUME_NONNULL_BEGIN
 /// 域名列表

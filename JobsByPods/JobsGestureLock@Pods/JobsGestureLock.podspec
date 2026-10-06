@@ -36,7 +36,7 @@ and an optional ready-to-use view controller for create/validate flows.
     'Core/**/*.h'
   ]
   spec.header_dir = 'JobsGestureLock'
-  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}'
+  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff}'
 
 
   spec.dependency 'JobsOCDefs'
@@ -46,5 +46,7 @@ and an optional ready-to-use view controller for create/validate flows.
   spec.dependency 'JobsOCDSL'
 
   JobsPodspecKitForJobsGestureLock.apply_standard_xcconfig(spec)
+
+  spec.resource_bundles = (spec.attributes_hash['resource_bundles'] || {}).merge('JobsGestureLockPrivacy' => ['Resource/PrivacyInfo.xcprivacy'])
 
 end

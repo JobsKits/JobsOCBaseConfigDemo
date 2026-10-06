@@ -64,7 +64,7 @@ NSString *_Nonnull toStringByFloatDecimalPlaces(float i, NSUInteger decimalPlace
 }
 
 NSString *_Nonnull StringWithUTF8String(const char * _Nullable value) {
-    return value ? [NSString stringWithUTF8String:value] : @"";
+    return value ? ([NSString stringWithUTF8String:value] ?: @"") : @"";
 }
 
 NSString *_Nonnull JobsFormattedString(NSString *format, ...) {
@@ -92,11 +92,11 @@ NSString *_Nonnull toStringByDouble(double i) {
 }
 
 NSString *_Nonnull toStringByShort(short i) {
-    return FORMAT_STRING(@"%c", i);
+    return FORMAT_STRING(@"%hd", i);
 }
 
 NSString *_Nonnull toStringByUnsignedShort(unsigned short i) {
-    return FORMAT_STRING(@"%c", i);
+    return FORMAT_STRING(@"%hu", i);
 }
 
 NSString *_Nonnull toStringByNSInteger(NSInteger i) {

@@ -61,7 +61,9 @@ Prop_copy()NSString *timerIdentifier;
 
 @implementation JobsMarqueeView
 -(void)dealloc{
-    (((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMarqueeView.class, @selector(jobsStop)))(self, @selector(jobsStop)))();
+    if (_timerIdentifier.length) {
+        JobsTimerMgr.shared().stopAndRemove(_timerIdentifier);
+    }
 }
 
 -(instancetype)initWithFrame:(CGRect)frame{

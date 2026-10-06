@@ -7,6 +7,29 @@
 # 日志：通过内置自述后，终端输出同步写入系统临时目录中的同名 .log 文件。
 # ==============================================================================
 
+# 仅渲染自述：标题红色加粗，编号正文蓝色常规字重；非彩色终端输出纯文本。
+jobs_intro_style() {
+  local intro_color=0
+  if [ -t 1 ] && [ -n "${TERM:-}" ] && [ "${TERM:-}" != dumb ] &&
+     [ -z "${NO_COLOR+x}" ] && [ "${PLAIN_OUTPUT:-0}" != 1 ] &&
+     [ "${IS_SOURCETREE_RUNTIME:-0}" != 1 ]; then
+    intro_color=1
+  fi
+  /usr/bin/awk -v color="$intro_color" -v role="${1:-body}" '
+    BEGIN { esc = sprintf("%c", 27) }
+    {
+      gsub(esc "\\[[0-9;]*m", "")
+      gsub(/\\(033|e|x1[bB])\[[0-9;]*m/, "")
+      if (!color || $0 ~ /^[[:space:]]*$/) { print; next }
+      numbered = ($0 ~ /^[[:space:]➤ℹ🔹✔⚠]*([0-9]+[、.)）]|[0-9]+️⃣|[-•])/)
+      heading = ($0 ~ /^[[:space:]]*#{1,6}[[:space:]]/ || $0 ~ /[：:][[:space:]]*$/ || $0 ~ /^[[:space:]]*[=━─-]{3}/)
+      title = (!numbered && (role == "title" || heading))
+      if (role == "auto" && !seen && !numbered) title = 1
+      if ($0 !~ /^[[:space:]]*[=━─-]+[[:space:]]*$/) seen = 1
+      printf "%s%s%s\n", esc (title ? "[1;31m" : "[0;34m"), $0, esc "[0m"
+    }
+  '
+}
 APP_NAME="CodeX + Understand Anything"
 UA_REPO="$HOME/.understand-anything/repo"
 UA_INSTALL_URL="https://raw.githubusercontent.com/Lum1104/Understand-Anything/main/install.sh"
@@ -21,15 +44,15 @@ typeset -ga XCODE_ITEMS=()
 
 # 在任何落盘或联网动作前说明用途、影响和取消方式，避免双击误触。
 show_script_intro_and_wait() {
-  print -r -- "============================== 脚本内置自述 =============================="
-  print -r -- "脚本名称：${SCRIPT_BASENAME}"
-  print -r -- "核心用途：体检 Codex 与 Understand Anything，并为指定 Xcode/iOS 工程准备代码图谱命令。"
-  print -r -- "默认行为：不会自动安装、升级、生成图谱或启动 Codex；相关动作都会再次询问。"
-  print -r -- "可能影响：用户确认后，可能下载官方安装脚本并更新用户级 Understand Anything Skills。"
-  print -r -- "额度提醒：真正执行 /understand 时会消耗 Codex/AI 额度，本脚本不把它挂到 pod install。"
-  print -r -- "日志位置：确认继续后，输出写入系统临时目录中的 ${SCRIPT_BASENAME}.log。"
-  print -r -- "取消方式：此时按 Ctrl+C 终止，不会进入后续业务。"
-  print -r -- "============================================================================"
+  print -r -- "============================== 脚本内置自述 ==============================" | jobs_intro_style title
+  print -r -- "脚本名称：${SCRIPT_BASENAME}" | jobs_intro_style title
+  print -r -- "核心用途：体检 Codex 与 Understand Anything，并为指定 Xcode/iOS 工程准备代码图谱命令。" | jobs_intro_style body
+  print -r -- "默认行为：不会自动安装、升级、生成图谱或启动 Codex；相关动作都会再次询问。" | jobs_intro_style body
+  print -r -- "可能影响：用户确认后，可能下载官方安装脚本并更新用户级 Understand Anything Skills。" | jobs_intro_style body
+  print -r -- "额度提醒：真正执行 /understand 时会消耗 Codex/AI 额度，本脚本不把它挂到 pod install。" | jobs_intro_style body
+  print -r -- "日志位置：确认继续后，输出写入系统临时目录中的 ${SCRIPT_BASENAME}.log。" | jobs_intro_style body
+  print -r -- "取消方式：此时按 Ctrl+C 终止，不会进入后续业务。" | jobs_intro_style body
+  print -r -- "============================================================================" | jobs_intro_style title
   if [[ ! -t 0 ]]; then
     print -u2 -r -- "当前没有可交互终端，请双击脚本或在 Terminal 中运行。"
     exit 1

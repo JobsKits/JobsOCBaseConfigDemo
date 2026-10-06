@@ -135,20 +135,34 @@ Prop_strong()UIStackView *contentStackView;
     return self;
 }
 
+-(void)setValue:(NSInteger)value{
+    [self setValue:value sendActions:NO];
+}
+
+-(void)setMinimumValue:(NSNumber *)minimumValue{
+    [self setBoundsWithMinimumValue:minimumValue maximumValue:_maximumValue];
+}
+
+-(void)setMaximumValue:(NSNumber *)maximumValue{
+    [self setBoundsWithMinimumValue:_minimumValue maximumValue:maximumValue];
+}
+
+-(void)setStepValue:(NSInteger)stepValue{
+    _stepValue = stepValue > 0 ? stepValue : 1;
+    self.refreshAvailability();
+}
+
 -(void)setBoundsWithMinimumValue:(NSNumber *)minimumValue
                    maximumValue:(NSNumber *)maximumValue{
-    if (minimumValue && maximumValue) {
-        self
-            .byMinimumValue(minimumValue.integerValue <= maximumValue.integerValue
-                ? minimumValue
-                : maximumValue)
-            .byMaximumValue(minimumValue.integerValue <= maximumValue.integerValue
-                ? maximumValue
-                : minimumValue);
-    } else {
-        self.byMinimumValue(minimumValue);
-        self.byMaximumValue(maximumValue);
+    NSNumber *minimum = minimumValue && isfinite(minimumValue.doubleValue) ? @(minimumValue.integerValue) : nil;
+    NSNumber *maximum = maximumValue && isfinite(maximumValue.doubleValue) ? @(maximumValue.integerValue) : nil;
+    if (minimum && maximum && minimum.integerValue > maximum.integerValue) {
+        NSNumber *temporary = minimum;
+        minimum = maximum;
+        maximum = temporary;
     }
+    _minimumValue = minimum;
+    _maximumValue = maximum;
     self.refreshKeyboardType();
     [self setValue:self.value sendActions:NO];
 }
@@ -156,7 +170,7 @@ Prop_strong()UIStackView *contentStackView;
 -(void)setValue:(NSInteger)value sendActions:(BOOL)sendActions{
     NSInteger boundedValue = self.boundedValue(value);
     BOOL changed = self.value != boundedValue;
-    self.byValue(boundedValue);
+    _value = boundedValue;
     self.syncText();
     self.refreshAvailability();
     if (sendActions && changed) {
@@ -362,7 +376,9 @@ Prop_strong()UIStackView *contentStackView;
 -(BOOL)textField:(UITextField *)textField
 shouldChangeCharactersInRange:(NSRange)range
 replacementString:(NSString *)string{
-    NSString *candidate = [textField.text stringByReplacingCharactersInRange:range
+    NSString *text = textField.text ?: @"";
+    if (range.location > text.length || range.length > text.length - range.location) return NO;
+    NSString *candidate = [text stringByReplacingCharactersInRange:range
                                                                   withString:string];
     return self.isValidIntegerText(candidate);
 }
@@ -396,6 +412,7 @@ replacementString:(NSString *)string{
                                accessibilityLabel:@"减少"
                                            action:^(__kindof UIButton * _Nullable button) {
             @jobs_strongify(self)
+            if (!self) return;
             self.decrease();
         }];
     };return _decreaseButton;
@@ -418,6 +435,7 @@ replacementString:(NSString *)string{
                 .byDelegate(self)
                 .onJobsChange(^(__kindof UITextField * _Nullable textField) {
                     @jobs_strongify(self)
+                    if (!self) return;
                     self.handleTextChanged(textField);
                 })
                 .byBgColor(JobsSecondarySystemBackgroundColor)
@@ -437,6 +455,7 @@ replacementString:(NSString *)string{
                                accessibilityLabel:@"增加"
                                            action:^(__kindof UIButton * _Nullable button) {
             @jobs_strongify(self)
+            if (!self) return;
             self.increase();
         }];
     };return _increaseButton;

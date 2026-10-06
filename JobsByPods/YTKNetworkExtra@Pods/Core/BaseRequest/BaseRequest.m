@@ -38,8 +38,9 @@ YTKCustomBaseRequestProtocol_synthesize
     @jobs_weakify(self)
     return ^__kindof YTKBaseRequest *_Nonnull(NSDictionary *_Nullable data){
         @jobs_strongify(self)
-        self.customHTTPHeader.addByDic(data);
-        JobsLog(@"请求头: %@", self.requestHeaderFieldValueDictionary);
+        if ([data isKindOfClass:NSDictionary.class]) {
+            self.customHTTPHeader.addByDic(data);
+        }
         return self;
     };
 }
@@ -140,7 +141,7 @@ YTKCustomBaseRequestProtocol_synthesize
     return ^NSInteger{
         @jobs_strongify(self)
         if (!self) return (NSInteger){0};
-        return 60 * 3;
+        return -1;
     };
 }
 
@@ -162,20 +163,6 @@ YTKCustomBaseRequestProtocol_synthesize
                 /// 设置 Content-Type
                 [headers setValue:APP_JSON
                            forKey:ContentType];
-                /// 设置 Authorization
-                id doorModel = nil;
-                @try {
-                    doorModel = [self valueForKey:@"doorModel"];
-                } @catch (__unused NSException *exception) {}
-                NSString *token = nil;
-                if (doorModel) {
-                    @try {
-                        token = [doorModel valueForKey:@"token"];
-                    } @catch (__unused NSException *exception) {}
-                }
-                if (token.length > 0) {
-                    [headers setValue:token forKey:Authorization];
-                }
                 /// 请求的语言环境
         //        switch (self.currentLanguageType) {
         //            case HTTPRequestHeaderLanguageEn:{
@@ -207,7 +194,20 @@ YTKCustomBaseRequestProtocol_synthesize
     return ^NSMutableDictionary *{
         @jobs_strongify(self)
         if (!self) return nil;
-        return self.customHTTPHeader;
+        NSMutableDictionary *headers = self.customHTTPHeader.mutableCopy;
+        if (!headers[Authorization]) {
+            id doorModel = nil;
+            NSString *token = nil;
+            @try {
+                doorModel = [self valueForKey:@"doorModel"];
+                token = [doorModel valueForKey:@"token"];
+            } @catch (__unused NSException *exception) {}
+            if ([token isKindOfClass:NSString.class] && token.length) {
+                headers[Authorization] = token;
+            }
+        }
+        return headers;
+
     };
 }
 /// 具体子类实现请求Api
@@ -246,6 +246,14 @@ YTKCustomBaseRequestProtocol_synthesize
 //    return request;
 //}
 #pragma mark —— LazyLoad
+-(void)setParameters:(NSMutableDictionary *)parameters{
+    _parameters = parameters.mutableCopy;
+}
+
+-(void)setCustomHTTPHeader:(NSMutableDictionary *)customHTTPHeader{
+    _customHTTPHeader = customHTTPHeader.mutableCopy;
+}
+
 -(NSMutableDictionary *)parameters{
     JobsRetMutableDicByVoidBlock action = ((JobsRetMutableDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseRequest.class, @selector(jobsParameters)))(self, @selector(jobsParameters));
     return action ? action() : nil;

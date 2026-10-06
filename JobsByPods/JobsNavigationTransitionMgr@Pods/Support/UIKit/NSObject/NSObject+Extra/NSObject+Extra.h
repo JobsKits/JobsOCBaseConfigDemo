@@ -35,7 +35,6 @@
 #import <JobsNavigationTransitionMgr/UIButton+UI.h>
 #import <JobsNavigationTransitionMgr/UIImage+Extra.h>
 #import <JobsNavigationTransitionMgr/UIImpactFeedbackGenerator+Extra.h>
-#import <JobsNavigationTransitionMgr/FileFolderHandleTool.h>
 
 #if __has_include(<WHToast/WHToast.h>)
 #import <WHToast/WHToast.h>

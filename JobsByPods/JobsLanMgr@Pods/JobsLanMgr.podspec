@@ -116,4 +116,6 @@ including NSString, NSBundle, NSObject categories, and other support classes.
     }
   )
 
+  spec.resource_bundles = (spec.attributes_hash['resource_bundles'] || {}).merge('JobsLanMgrPrivacy' => ['Resource/PrivacyInfo.xcprivacy'])
+
 end

@@ -10,12 +10,29 @@
 @interface JobsNetworkTrafficMonitor ()
 
 Prop_copy()JobsNetworkUpdateBlock onUpdate;
+@property(nonatomic, assign)uint64_t lastDownload;
+@property(nonatomic, assign)uint64_t lastUpload;
+@property(nonatomic, assign)NSTimeInterval lastSampleTime;
 -(JobsRetIDByDoubleBlock _Nonnull)byTimeInterval;
 -(JobsRetIDByIDBlock _Nonnull)byTimer;
 
 @end
 
 @implementation JobsNetworkTrafficMonitor
+
+-(void)dealloc{
+    JobsTimer *timer = _timer;
+    if (!timer) {
+        return;
+    }
+    if (NSThread.isMainThread) {
+        timer.jobsStop();
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            timer.jobsStop();
+        });
+    }
+}
 
 -(JobsRetIDByDoubleBlock _Nonnull)byTimeInterval{
     @jobs_weakify(self)
@@ -70,7 +87,19 @@ static JobsNetworkTrafficMonitor *_sharedInstance = nil;
     @jobs_weakify(self)
     return ^(NSTimeInterval interval){
         @jobs_strongify(self)
-        self.byTimeInterval(interval);
+        if (!self) return;
+        if (!NSThread.isMainThread) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.byStartWithInterval(interval);
+            });
+            return;
+        }
+        self.byStop();
+        self.byTimeInterval(isfinite(interval) && interval > 0 ? MAX(0.1, MIN(interval, 3600)) : 1.0);
+        JobsNetworkBytes baseline = JobsCurrentNetworkBytes();
+        self.lastDownload = baseline.download;
+        self.lastUpload = baseline.upload;
+        self.lastSampleTime = NSProcessInfo.processInfo.systemUptime;
         self.timer.start();
     };
 }
@@ -79,8 +108,16 @@ static JobsNetworkTrafficMonitor *_sharedInstance = nil;
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
-        if (self.timer) self.timer.jobsStop();
+        if (!self) return;
+        if (!NSThread.isMainThread) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.byStop();
+            });
+            return;
+        }
+        if (_timer) _timer.jobsStop();
         self.byTimer(nil);
+        self.lastSampleTime = 0;
     };
 }
 @synthesize timer = _timer;
@@ -90,7 +127,7 @@ static JobsNetworkTrafficMonitor *_sharedInstance = nil;
         _timer = jobsMakeTimer(^(JobsTimer * _Nullable timer) {
             timer.byTimerType(JobsTimerTypeNSTimer)
             .byTimerStyle(TimerStyle_clockwise) // 倒计时模式
-            .byTimeInterval(1)
+            .byTimeInterval(self.timeInterval)
             .byTimeSecIntervalSinceDate(0)
             .byQueue(dispatch_get_main_queue())
             .byTimerState(JobsTimerStateIdle)
@@ -98,42 +135,23 @@ static JobsNetworkTrafficMonitor *_sharedInstance = nil;
             .byTime(0)
             .byOnTick(^(CGFloat time){
                 @jobs_strongify(self)
-                /// ========= 统计当前总字节 & 计算网速 =========
-                /// 用静态变量在多次 tick 之间记住上一次的取样
-                static BOOL     s_hasLastSample   = NO;
-                static uint64_t s_lastDownload    = 0;
-                static uint64_t s_lastUpload      = 0;
+                if (!self) return;
                 JobsNetworkBytes now = JobsCurrentNetworkBytes();
-                if (!s_hasLastSample) {
-                    // 第一次取样，只记录基准值，不回调网速（否则第一下是乱的）
-                    s_lastDownload  = now.download;
-                    s_lastUpload    = now.upload;
-                    s_hasLastSample = YES;
-                    return;
-                }
-                /// 处理可能的计数回绕，防止出现负数
-                uint64_t deltaDown = 0;
-                uint64_t deltaUp   = 0;
-                if (now.download >= s_lastDownload) {
-                    deltaDown = now.download - s_lastDownload;
-                } else {
-                    deltaDown = 0;// 计数回绕，直接视为 0，避免乱跳
-                }
-                if (now.upload >= s_lastUpload) {
-                    deltaUp = now.upload - s_lastUpload;
-                } else {
-                    deltaUp = 0;
-                }
-                /// 更新基准值，留给下一次 tick 用
-                s_lastDownload = now.download;
-                s_lastUpload   = now.upload;
-                /// 按 interval 换算成 Bytes/s
-                uint64_t downloadBps = (uint64_t)((double)deltaDown / self.timeInterval);
-                uint64_t uploadBps   = (uint64_t)((double)deltaUp   / self.timeInterval);
+                NSTimeInterval sampledAt = NSProcessInfo.processInfo.systemUptime;
+                NSTimeInterval elapsed = sampledAt - self.lastSampleTime;
+                uint64_t deltaDown = now.download >= self.lastDownload ? now.download - self.lastDownload : 0;
+                uint64_t deltaUp = now.upload >= self.lastUpload ? now.upload - self.lastUpload : 0;
+                self.lastDownload = now.download;
+                self.lastUpload = now.upload;
+                self.lastSampleTime = sampledAt;
+                if (!isfinite(elapsed) || elapsed <= 0) return;
+                long double downRate = (long double)deltaDown / elapsed;
+                long double upRate = (long double)deltaUp / elapsed;
+                uint64_t downloadBps = downRate >= UINT64_MAX ? UINT64_MAX : (uint64_t)downRate;
+                uint64_t uploadBps = upRate >= UINT64_MAX ? UINT64_MAX : (uint64_t)upRate;
                 if (self.onUpdate) self.onUpdate(jobsMakeNetworkSource(^(__kindof JobsNetworkSource * _Nullable source) {
-                    source.byType(JobsNetworkSourceTypeWiFi)  // TODO: 根据实际网络类型改
-                          .byDisplayName(@"Wi-Fi");
-                   // 或 @"蜂窝数据" 等
+                    source.byType(JobsNetworkSourceTypeUnknown)
+                          .byDisplayName(@"设备总流量");
                 }), uploadBps, downloadBps);
             })
             .byOnFinish(^(JobsTimer *_Nullable timer){

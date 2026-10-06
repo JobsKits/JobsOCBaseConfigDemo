@@ -10,29 +10,32 @@
 
 本文件用于排查 `codegraph.db` 的表结构，不直接作为架构文档阅读。
 
-## 一、数据表 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 一、数据表
 
 ```text
-edges               nodes               nodes_fts_data      project_metadata  
-files               nodes_fts           nodes_fts_docsize   schema_versions   
-name_segment_vocab  nodes_fts_config    nodes_fts_idx       unresolved_refs   
+edges                 nodes_fts            nodes_fts_idx       unresolved_refs
+files                 nodes_fts_config     project_metadata
+name_segment_vocab    nodes_fts_data       schema_versions
+nodes                 nodes_fts_docsize    synthesis_inputs
 ```
 
-## 二、Schema <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 二、Schema
 
 ```sql
 CREATE UNIQUE INDEX idx_edges_identity
-          ON edges(source, target, kind, IFNULL(line, -1), IFNULL(col, -1))
+  ON edges(source, target, kind, IFNULL(line, -1), IFNULL(col, -1))
 CREATE INDEX idx_edges_kind ON edges(kind)
 CREATE INDEX idx_edges_provenance ON edges(provenance)
 CREATE INDEX idx_edges_source_kind ON edges(source, kind)
+CREATE INDEX idx_edges_synthesis_site ON edges(CASE WHEN json_valid(metadata) THEN json_extract(metadata, '$.registeredAt') END)
+    WHERE CASE WHEN json_valid(metadata) THEN json_extract(metadata, '$.synthesizedBy') END IS NOT NULL
 CREATE INDEX idx_edges_target_kind ON edges(target, kind)
 CREATE INDEX idx_files_generated ON files(path) WHERE generated = 1
 CREATE INDEX idx_files_language ON files(language)
 CREATE INDEX idx_files_modified_at ON files(modified_at)
 CREATE INDEX idx_nodes_file_line ON nodes(file_path, start_line)
 CREATE INDEX idx_nodes_file_path ON nodes(file_path)
-CREATE INDEX idx_nodes_kind ON nodes(kind)
+CREATE INDEX idx_nodes_kind ON nodes(kind, file_path, start_line, id)
 CREATE INDEX idx_nodes_language ON nodes(language)
 CREATE INDEX idx_nodes_lower_name ON nodes(lower(name))
 CREATE INDEX idx_nodes_name ON nodes(name)
@@ -63,13 +66,14 @@ CREATE TABLE files (
     modified_at INTEGER NOT NULL,
     indexed_at INTEGER NOT NULL,
     node_count INTEGER DEFAULT 0,
-    errors TEXT -- JSON array
-, generated INTEGER NOT NULL DEFAULT 0)
+    errors TEXT, -- JSON array
+    generated INTEGER NOT NULL DEFAULT 0
+)
 CREATE TABLE name_segment_vocab (
-          segment TEXT NOT NULL,
-          name TEXT NOT NULL,
-          PRIMARY KEY (segment, name)
-        ) WITHOUT ROWID
+    segment TEXT NOT NULL,
+    name TEXT NOT NULL,
+    PRIMARY KEY (segment, name)
+) WITHOUT ROWID
 CREATE TABLE nodes (
     id TEXT PRIMARY KEY,
     kind TEXT NOT NULL,
@@ -90,8 +94,9 @@ CREATE TABLE nodes (
     is_abstract INTEGER DEFAULT 0,
     decorators TEXT, -- JSON array
     type_parameters TEXT, -- JSON array
+    return_type TEXT, -- normalized return/result type name (e.g. C++ method return, for receiver-type inference)
     updated_at INTEGER NOT NULL
-, return_type TEXT)
+)
 CREATE VIRTUAL TABLE nodes_fts USING fts5(
     id,
     name,
@@ -117,6 +122,9 @@ CREATE TABLE schema_versions (
 )
 CREATE TABLE sqlite_sequence(name,seq)
 CREATE TABLE sqlite_stat1(tbl,idx,stat)
+CREATE TABLE synthesis_inputs (
+    file_path TEXT PRIMARY KEY REFERENCES files(path) ON DELETE CASCADE
+)
 CREATE TABLE unresolved_refs (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     from_node_id TEXT NOT NULL,
@@ -126,7 +134,9 @@ CREATE TABLE unresolved_refs (
     col INTEGER NOT NULL,
     candidates TEXT, -- JSON array
     file_path TEXT NOT NULL DEFAULT '',
-    language TEXT NOT NULL DEFAULT 'unknown', status TEXT NOT NULL DEFAULT 'pending', name_tail TEXT NOT NULL DEFAULT '',
+    language TEXT NOT NULL DEFAULT 'unknown',
+    status TEXT NOT NULL DEFAULT 'pending',
+    name_tail TEXT NOT NULL DEFAULT '',
     FOREIGN KEY (from_node_id) REFERENCES nodes(id) ON DELETE CASCADE
 )
 CREATE TRIGGER nodes_ad AFTER DELETE ON nodes BEGIN

@@ -48,17 +48,24 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
 
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        static_uploadingProgressView = self;
-        self.addOn(jobsGetMainWindow());
-        [jobsGetMainWindow() bringSubviewToFront:self];
+
         self.imge = @"icon_upload_imge".img;
-        self.byStrokeColor(self.byPatternImage(@"gradualColor".img.imageResize(CGSizeMake(50, 25))));
+        self.byStrokeColor(self.tintColor ?: JobsSystemBlueColor);
+        // 宿主可选图片缺失时仍显示描边，避免调用 nil 图片的 Block。
+        UIImage *patternImage = @"gradualColor".img;
+        if (patternImage) {
+            UIImage *resizedImage = patternImage.imageResize(CGSizeMake(50, 25));
+            if (resizedImage) {
+                self.byStrokeColor(self.byPatternImage(resizedImage));
+            }
+        }
         self.radius = 34;
         self.byHidden(YES);
         self.byBgColor(JobsSecondarySystemBackgroundColor.colorWithAlphaComponentBy(.9f));
         self.layer.byCornerRadius(10);
         self.byClipsToBounds(YES);
-    };return self;
+    }
+    return self;
 }
 
 -(JobsRetJobsUploadingProgressViewByCorBlock _Nonnull)byStrokeColor{
@@ -70,14 +77,35 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
         return self;
     };
 }
+-(JobsRetIDByIDBlock _Nonnull)byHostView{
+    @jobs_weakify(self)
+    return ^id(UIView *hostView) {
+        @jobs_strongify(self)
+        self.hostView = hostView;
+        return self;
+    };
+}
+
+-(void)dealloc{
+    [_shapLayer removeAnimationForKey:@"CLAnimation"];
+    if (_timer) _timer.jobsStop();
+}
+
 #pragma mark —— 一些公有方法
 -(jobsByStrBlock _Nonnull)updateProgressText{
     @jobs_weakify(self)
     return ^(NSString * progressText){
         @jobs_strongify(self)
         if (!self) return;
+        UIView *host = self.hostView ?: jobsGetMainWindow();
+        if (!host) return;
+        if (self.superview != host) self.addOn(host);
+        [host bringSubviewToFront:self];
         self.byHidden(NO);
-        self.backView.byHidden(NO);
+        UIView *backView = self.backView;
+        if (backView) {
+            backView.byHidden(NO);
+        }
         self.subrefreshLabel.byText(progressText);
         self.starAnimation();
     };
@@ -90,6 +118,9 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
         @jobs_strongify(self)
         if (!self) return;
         self.shapLayer.byHidden(NO);
+        if (![self.shapLayer animationForKey:@"CLAnimation"]) {
+            self.shapLayer.byAddAnimation(self.anim, @"CLAnimation");
+        }
         self.imgeV.byAlpha(1);
     };
 }
@@ -105,9 +136,14 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
         @jobs_strongify(self)
         if (!self) return;
         self.byHidden(YES);
-        self.backView.byHidden(YES);
-        [self.shapLayer removeAnimationForKey:@"CLAnimation"];
-        if (self.timer) self.timer.jobsStop();
+        UIView *backView = self.backView;
+        if (backView) {
+            backView.byHidden(YES);
+        }
+        [self->_shapLayer removeAnimationForKey:@"CLAnimation"];
+        if (self->_timer) {
+            self->_timer.jobsStop();
+        }
         self.byAnim(nil);
     };
 }
@@ -127,8 +163,9 @@ static JobsUploadingProgressView *static_uploadingProgressView = nil;
             .byTime(0)
             .byOnTick(^(CGFloat time){
                 @jobs_strongify(self)
+                if (!self) return;
                 self.refreshLabel.byText(@"正在上传...".jobsTr());
-                if (self.objBlock) self.objBlock(timer);
+                if (self.objBlock) self.objBlock(self->_timer);
             })
             .byOnFinish(^(JobsTimer *_Nullable timer){
                 @jobs_strongify(self)

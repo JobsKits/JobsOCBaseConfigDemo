@@ -7,187 +7,251 @@
 
 #import "DebugLogDescription.h"
 
-#import <JobsDebug/NSObject+Extra.h>
-#import <JobsDebug/NSString+Extra.h>
-#import <JobsDebug/NSData+Extra.h>
+#if DEBUG
 
-#ifdef DEBUG
-#pragma mark —— 打印model的内部属性内容
+static BOOL JobsDebugJSONIsSafe(id object, NSHashTable *ancestors, NSUInteger depth) {
+    if (depth > 64) {
+        return NO;
+    }
+    if ([object isKindOfClass:NSString.class] ||
+        [object isKindOfClass:NSNumber.class] ||
+        object == NSNull.null) {
+        return YES;
+    }
+    BOOL dictionary = [object isKindOfClass:NSDictionary.class];
+    if (!dictionary && ![object isKindOfClass:NSArray.class]) {
+        return NO;
+    }
+    if ([ancestors containsObject:object]) {
+        return NO;
+    }
+    [ancestors addObject:object];
+    BOOL valid = YES;
+    for (id keyOrValue in object) {
+        id value = keyOrValue;
+        if (dictionary) {
+            if (![keyOrValue isKindOfClass:NSString.class]) {
+                valid = NO;
+                break;
+            }
+            value = [object objectForKey:keyOrValue];
+        }
+        if (!JobsDebugJSONIsSafe(value, ancestors, depth + 1)) {
+            valid = NO;
+            break;
+        }
+    }
+    [ancestors removeObject:object];
+    return valid;
+}
+
 @implementation NSObject (DebugDescription)
-+(jobsByVoidBlock _Nonnull)redirectNSlogToDocumentFolder{
+
++(jobsByVoidBlock _Nonnull)redirectNSlogToDocumentFolder {
     return ^{
-        //如果已经连接Xcode调试则不输出到文件
-        if(isatty(STDOUT_FILENO)) return;
-        NSString *logFilePath = [self.documentsDir() stringByAppendingPathComponent:JobsFormattedString(@"%@.log",[jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable data) {
-            data.byDateFormat(@"yyyy-MM-dd HH:mm:ss");
-        }) stringFromDate:NSDate.date])];
-        // 先删除已经存在的文件
-        [NSFileManager.defaultManager removeItemAtPath:logFilePath error:nil];
-        // 将log输入到文件
-        freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stdout);
-        freopen([logFilePath cStringUsingEncoding:NSASCIIStringEncoding], "a+", stderr);
+        if (isatty(STDOUT_FILENO)) {
+            return;
+        }
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            NSString *directory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
+            if (!directory.length) {
+                return;
+            }
+            NSDateFormatter *formatter = NSDateFormatter.new;
+            formatter.locale = [NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"];
+            formatter.dateFormat = @"yyyy-MM-dd HH-mm-ss";
+            NSString *name = [[formatter stringFromDate:NSDate.date] stringByAppendingPathExtension:@"log"];
+            NSString *path = [directory stringByAppendingPathComponent:name];
+            const char *filePath = path.fileSystemRepresentation;
+            if (!filePath) {
+                return;
+            }
+            int file = open(filePath, O_CREAT | O_WRONLY | O_APPEND, 0600);
+            if (file < 0) {
+                return;
+            }
+            fflush(stdout);
+            fflush(stderr);
+            if (dup2(file, STDOUT_FILENO) >= 0) {
+                dup2(file, STDERR_FILENO);
+            }
+            close(file);
+        });
     };
 }
-/// debugDescription方法只会在调试po的时候调用，而在代码中打印不会调用
-//- (NSString *)debugDescription {
-//    //判断是否时NSArray 或者NSDictionary NSNumber 如果是的话直接返回 debugDescription
-//    if ([self isKindOfClass:NSArray.class] ||
-//        [self isKindOfClass:NSDictionary.class] ||
-//        [self isKindOfClass:NSString.class] ||
-//        [self isKindOfClass:NSNumber.class]) {
-//        return [self debugDescription];
-//    }
-//    //声明一个字典
-//    NSMutableDictionary *dictionary = NSMutableDictionary.dictionary;
-//    //得到当前class的所有属性
-//    uint count;
-//    objc_property_t *properties = class_copyPropertyList(self.class, &count);
-//    //循环并用KVC得到每个属性的值
-//    for (int i = 0; i<count; i++) {
-//        objc_property_t property = properties[i];
-//        NSString *name = @(property_getName(property));
-//        id value = @"nil";
-//        @try {
-//            value = self.valueForKey(name) ?: @"nil"; //默认值为nil字符串
-//        }
-//        @catch (NSException *exception) {
-//            JobsLog(@"Exception: %@", exception);
-//            value = @"nil"; // or handle the exception as needed
-//        }
-//        [dictionary setObject:value forKey:name];//装载到字典里
-//    }
-//    //释放
-//    free(properties);
-//    //return
-//    return [NSString stringWithFormat:@"<%@: %p> -- %@",self.class,self,dictionary];
-//}
-/// 将obj转换成json字符串。如果失败则返回nil.
+
 -(JobsRetStrByVoidBlock _Nonnull)convertToJsonString {
     @jobs_weakify(self)
-    return ^NSString *_Nullable{
+    return ^NSString * _Nullable {
         @jobs_strongify(self)
-        if (!self) return nil;
-        //先判断是否能转化为JSON格式
-        if (![NSJSONSerialization isValidJSONObject:self]) return nil;
-        NSError *error = nil;
-        NSJSONWritingOptions jsonOptions = NSJSONWritingPrettyPrinted;
-        if (@available(iOS 11.0, *)) {
-            //11.0之后，可以将JSON按照key排列后输出，看起来会更舒服
-            jsonOptions = NSJSONWritingPrettyPrinted | NSJSONWritingSortedKeys;
-        }
-        //核心代码，字典转化为有格式输出的JSON字符串
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self
-                                                           options:NSJSONWritingPrettyPrinted
-                                                             error:&error];
-        if(error) {
-            JobsLog(@"error = %@",error.description);
-            if (!jsonData) return nil;
+        if (!self || (![self isKindOfClass:NSArray.class] && ![self isKindOfClass:NSDictionary.class])) {
             return nil;
-        }NSString *jsonString = jsonData.jobsStringByUTF8Encoding();
-        return jsonString;
+        }
+        @try {
+            NSHashTable *ancestors = [NSHashTable hashTableWithOptions:NSPointerFunctionsObjectPointerPersonality];
+            if (!JobsDebugJSONIsSafe(self, ancestors, 0) || ![NSJSONSerialization isValidJSONObject:self]) {
+                return nil;
+            }
+            NSJSONWritingOptions options = NSJSONWritingPrettyPrinted;
+            if (@available(iOS 11.0, *)) {
+                options |= NSJSONWritingSortedKeys;
+            }
+            NSError *error = nil;
+            NSData *data = [NSJSONSerialization dataWithJSONObject:self options:options error:&error];
+            if (!data || error) {
+                return nil;
+            }
+            return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        } @catch (NSException *exception) {
+            return nil;
+        }
     };
 }
 
 @end
-#pragma mark —— 打印NSDictionary相关子类的内容
+
 @implementation NSDictionary (DebugDescription)
-//用此方法交换系统的 descriptionWithLocale: 方法。该方法在代码打印的时候调用。
-- (NSString *)printlog_descriptionWithLocale:(id)locale{
-    JobsRetStrByIDBlock action = ((JobsRetStrByIDBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSDictionary.class, @selector(jobsPrintlog_descriptionWithLocale)))(self, @selector(jobsPrintlog_descriptionWithLocale));
-    return action ? action(locale) : nil;
-}
 
--(JobsRetStrByIDBlock _Nonnull)jobsPrintlog_descriptionWithLocale{
-    @jobs_weakify(self)
-    return ^NSString *(id locale){
-        @jobs_strongify(self)
-        if (!self) return nil;
-        return self.convertToJsonString() ? : [self printlog_descriptionWithLocale:locale];/// 转换成JSON格式字符串，如果无法转换，就使用原先的格式;
-    };
-}
-//用此方法交换系统的 descriptionWithLocale:indent:方法。功能同上。
-- (NSString *)printlog_descriptionWithLocale:(id)locale indent:(NSUInteger)level {
-    return self.convertToJsonString() ? : [self printlog_descriptionWithLocale:locale indent:level];/// 转换成JSON格式字符串，如果无法转换，就使用原先的格式;
-}
-//用此方法交换系统的 debugDescription 方法。该方法在控制台使用po打印的时候调用。
-- (NSString *)printlog_debugDescription{
-    JobsRetStrByVoidBlock action = ((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSDictionary.class, @selector(jobsPrintlog_debugDescription)))(self, @selector(jobsPrintlog_debugDescription));
-    return action ? action() : nil;
-}
-
--(JobsRetStrByVoidBlock _Nonnull)jobsPrintlog_debugDescription{
-    @jobs_weakify(self)
-    return ^NSString *{
-        @jobs_strongify(self)
-        if (!self) return nil;
-        return self.convertToJsonString() ? : self.printlog_debugDescription;/// 转换成JSON格式字符串，如果无法转换，就使用原先的格式;
-    };
-}
-//在load方法中完成方法交换
-+ (void)load {
-    //方法交换
++(void)load {
+#if JOBS_ENABLE_COLLECTION_LOG_SWIZZLE
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        JobsDebugMethodSwizzle(self.class,
-                               @selector(descriptionWithLocale:),
-                               @selector(printlog_descriptionWithLocale:));
-        JobsDebugMethodSwizzle(self.class,
-                               @selector(descriptionWithLocale:indent:),
-                               @selector(printlog_descriptionWithLocale:indent:));
-        JobsDebugMethodSwizzle(self.class,
-                               @selector(debugDescription),
-                               @selector(printlog_debugDescription));
+        JobsDebugMethodSwizzle(NSDictionary.class, @selector(descriptionWithLocale:), @selector(printlog_descriptionWithLocale:));
+        JobsDebugMethodSwizzle(NSDictionary.class, @selector(descriptionWithLocale:indent:), @selector(printlog_descriptionWithLocale:indent:));
+        JobsDebugMethodSwizzle(NSDictionary.class, @selector(debugDescription), @selector(printlog_debugDescription));
     });
+#endif
+}
+
+-(NSString *)printlog_descriptionWithLocale:(id)locale {
+    NSString *json = self.convertToJsonString();
+    if (json) {
+        return json;
+    }
+#if JOBS_ENABLE_COLLECTION_LOG_SWIZZLE
+    return [self printlog_descriptionWithLocale:locale];
+#else
+    return [self descriptionWithLocale:locale];
+#endif
+}
+
+-(NSString *)printlog_descriptionWithLocale:(id)locale indent:(NSUInteger)level {
+    NSString *json = self.convertToJsonString();
+    if (json) {
+        return json;
+    }
+#if JOBS_ENABLE_COLLECTION_LOG_SWIZZLE
+    return [self printlog_descriptionWithLocale:locale indent:level];
+#else
+    return [self descriptionWithLocale:locale indent:level];
+#endif
+}
+
+-(NSString *)printlog_debugDescription {
+    NSString *json = self.convertToJsonString();
+    if (json) {
+        return json;
+    }
+#if JOBS_ENABLE_COLLECTION_LOG_SWIZZLE
+    return [self printlog_debugDescription];
+#else
+    return self.debugDescription;
+#endif
+}
+
+-(JobsRetStrByIDBlock _Nonnull)jobsPrintlog_descriptionWithLocale {
+    @jobs_weakify(self)
+    return ^NSString * _Nullable(id locale) {
+        @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
+        return [self printlog_descriptionWithLocale:locale];
+    };
+}
+
+-(JobsRetStrByVoidBlock _Nonnull)jobsPrintlog_debugDescription {
+    @jobs_weakify(self)
+    return ^NSString * _Nullable {
+        @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
+        return [self printlog_debugDescription];
+    };
 }
 
 @end
-#pragma mark —— 打印NSArray相关子类的内容
+
 @implementation NSArray (DebugDescription)
-//在load方法中完成方法交换
-+ (void)load {
+
++(void)load {
+#if JOBS_ENABLE_COLLECTION_LOG_SWIZZLE
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        JobsDebugMethodSwizzle(self.class,
-                               @selector(descriptionWithLocale:),
-                               @selector(printlog_descriptionWithLocale:));
-        JobsDebugMethodSwizzle(self.class,
-                               @selector(descriptionWithLocale:indent:),
-                               @selector(printlog_descriptionWithLocale:indent:));
-        JobsDebugMethodSwizzle(self.class,
-                               @selector(debugDescription),
-                               @selector(printlog_debugDescription));
+        JobsDebugMethodSwizzle(NSArray.class, @selector(descriptionWithLocale:), @selector(printlog_descriptionWithLocale:));
+        JobsDebugMethodSwizzle(NSArray.class, @selector(descriptionWithLocale:indent:), @selector(printlog_descriptionWithLocale:indent:));
+        JobsDebugMethodSwizzle(NSArray.class, @selector(debugDescription), @selector(printlog_debugDescription));
     });
-}
-//用此方法交换系统的 descriptionWithLocale: 方法。该方法在代码打印的时候调用。
-- (NSString *)printlog_descriptionWithLocale:(id)locale{
-    JobsRetStrByIDBlock action = ((JobsRetStrByIDBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSArray.class, @selector(jobsPrintlog_descriptionWithLocale)))(self, @selector(jobsPrintlog_descriptionWithLocale));
-    return action ? action(locale) : nil;
+#endif
 }
 
--(JobsRetStrByIDBlock _Nonnull)jobsPrintlog_descriptionWithLocale{
+-(NSString *)printlog_descriptionWithLocale:(id)locale {
+    NSString *json = self.convertToJsonString();
+    if (json) {
+        return json;
+    }
+#if JOBS_ENABLE_COLLECTION_LOG_SWIZZLE
+    return [self printlog_descriptionWithLocale:locale];
+#else
+    return [self descriptionWithLocale:locale];
+#endif
+}
+
+-(NSString *)printlog_descriptionWithLocale:(id)locale indent:(NSUInteger)level {
+    NSString *json = self.convertToJsonString();
+    if (json) {
+        return json;
+    }
+#if JOBS_ENABLE_COLLECTION_LOG_SWIZZLE
+    return [self printlog_descriptionWithLocale:locale indent:level];
+#else
+    return [self descriptionWithLocale:locale indent:level];
+#endif
+}
+
+-(NSString *)printlog_debugDescription {
+    NSString *json = self.convertToJsonString();
+    if (json) {
+        return json;
+    }
+#if JOBS_ENABLE_COLLECTION_LOG_SWIZZLE
+    return [self printlog_debugDescription];
+#else
+    return self.debugDescription;
+#endif
+}
+
+-(JobsRetStrByIDBlock _Nonnull)jobsPrintlog_descriptionWithLocale {
     @jobs_weakify(self)
-    return ^NSString *(id locale){
+    return ^NSString * _Nullable(id locale) {
         @jobs_strongify(self)
-        if (!self) return nil;
-        return self.convertToJsonString() ? : [self printlog_descriptionWithLocale:locale];/// 转换成JSON格式字符串，如果无法转换，就使用原先的格式;
+        if (!self) {
+            return nil;
+        }
+        return [self printlog_descriptionWithLocale:locale];
     };
 }
-//用此方法交换系统的 descriptionWithLocale:indent:方法。功能同上。
-- (NSString *)printlog_descriptionWithLocale:(id)locale indent:(NSUInteger)level {
-    return self.convertToJsonString() ? : [self printlog_descriptionWithLocale:locale indent:level];/// 转换成JSON格式字符串，如果无法转换，就使用原先的格式;
-}
-//用此方法交换系统的 debugDescription 方法。该方法在控制台使用po打印的时候调用。
-- (NSString *)printlog_debugDescription{
-    JobsRetStrByVoidBlock action = ((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSArray.class, @selector(jobsPrintlog_debugDescription)))(self, @selector(jobsPrintlog_debugDescription));
-    return action ? action() : nil;
-}
 
--(JobsRetStrByVoidBlock _Nonnull)jobsPrintlog_debugDescription{
+-(JobsRetStrByVoidBlock _Nonnull)jobsPrintlog_debugDescription {
     @jobs_weakify(self)
-    return ^NSString *{
+    return ^NSString * _Nullable {
         @jobs_strongify(self)
-        if (!self) return nil;
-        return self.convertToJsonString() ? : self.printlog_debugDescription;
+        if (!self) {
+            return nil;
+        }
+        return [self printlog_debugDescription];
     };
 }
 

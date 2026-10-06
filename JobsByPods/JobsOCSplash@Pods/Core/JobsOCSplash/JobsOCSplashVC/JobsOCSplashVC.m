@@ -17,7 +17,7 @@ Prop_strong()JobsOCSplashConfiguration *configuration;
 Prop_strong()UIImageView *imageView;
 Prop_strong()UILabel *remoteVideoDownloadNoticeLabel;
 Prop_strong()UIButton *countdownBtn;
-Prop_strong(nullable)NSURLSessionTask *mediaTask;
+Prop_strong(nullable)JobsOCSplashMediaDownloadToken *mediaTask;
 Prop_strong(nullable)AVPlayer *player;
 Prop_strong(nullable)AVPlayerLayer *playerLayer;
 -(JobsRetJobsOCSplashVCByAVPlayerBlock _Nonnull)byPlayer;
@@ -149,7 +149,7 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
 -(void)dealloc {
     [self restoreHostGesturesIfNeeded];
     if (_countdownBtn) _countdownBtn.timerDestroy();
-    [_mediaTask cancel];
+    if (_mediaTask) _mediaTask.cancel();
     [_player pause];
 }
 
@@ -310,7 +310,7 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
         self.byIsCountdownTime(NO);
         self.byCountdownTime(0);
         self.countdownBtn.timerDestroy();
-        self.mediaTask.cancel;
+        if (self.mediaTask) self.mediaTask.cancel();
         self.player.pause;
         self.jobsRestoreHostGesturesIfNeeded();
         if (self.configuration.onSkip) self.configuration.onSkip(self);
@@ -361,8 +361,15 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
             /// 处理 JobsOCSplashContentTypeLocalGIF 分支
             case JobsOCSplashContentTypeLocalGIF: {
                 NSURL *url = [self resourceURLWithName:self.configuration.resourceName defaultExtension:@"gif" bundle:self.configuration.bundle];
-                NSData *data = url ? [NSData dataWithContentsOfURL:url] : nil;
-                self.imageView.byImage(data ? JobsOCSplashGIFDecoder.imageWithData(data) : nil);
+                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+                    NSData *data = url ? [NSData dataWithContentsOfURL:url] : nil;
+                    UIImage *image = data ? JobsOCSplashGIFDecoder.imageWithData(data) : nil;
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        @jobs_strongify(self)
+                        if (!self || self.hasFinished) return;
+                        self.imageView.byImage(image);
+                    });
+                });
             } break;
             /// 处理 JobsOCSplashContentTypeRemoteImage 分支
             case JobsOCSplashContentTypeRemoteImage:
@@ -387,19 +394,38 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
         @jobs_strongify(self)
         if (!self) return;
         if (!url) return;
-        NSURL *cachedURL = ((JobsOCSplashMediaCache *)JobsOCSplashMediaCache.shared()).cachedFileURLForRemoteURL(url);
-        if (cachedURL) {
-            NSData *data = [NSData dataWithContentsOfURL:cachedURL];
-            self.imageView.byImage([self imageWithData:data URL:url]);
-            return;
+        if (self.configuration.resourceName.length) {
+            self.imageView.byImage([UIImage imageNamed:self.configuration.resourceName inBundle:self.configuration.bundle compatibleWithTraitCollection:nil]);
         }
         @jobs_weakify(self)
-        self.mediaTask = [((JobsOCSplashMediaCache *)JobsOCSplashMediaCache.shared()) download:url completion:^(NSURL *fileURL, NSError *error) {
-            @jobs_strongify(self)
-            if (!self || !fileURL || error) return;
-            NSData *data = [NSData dataWithContentsOfURL:fileURL];
-            self.imageView.byImage([self imageWithData:data URL:url]);
-        }];
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+            JobsOCSplashMediaCache *cache = JobsOCSplashMediaCache.shared();
+            NSURL *cachedURL = cache.cachedFileURLForRemoteURL(url);
+            UIImage *image = cachedURL ? JobsOCSplashGIFDecoder.imageWithData([NSData dataWithContentsOfURL:cachedURL]) : nil;
+            if (cachedURL && !image) {
+                [NSFileManager.defaultManager removeItemAtURL:cachedURL error:nil];
+            }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                @jobs_strongify(self)
+                if (!self || self.hasFinished) return;
+                if (image) {
+                    self.imageView.byImage(image);
+                    return;
+                }
+                @jobs_weakify(self)
+                self.mediaTask = [cache downloadImage:url completion:^(NSURL *fileURL, NSError *error) {
+                    if (!fileURL || error) return;
+                    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+                        UIImage *downloadedImage = JobsOCSplashGIFDecoder.imageWithData([NSData dataWithContentsOfURL:fileURL]);
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            @jobs_strongify(self)
+                            if (!self || self.hasFinished) return;
+                            self.imageView.byImage(downloadedImage);
+                        });
+                    });
+                }];
+            });
+        });
     };
 }
 
@@ -423,7 +449,7 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
         @jobs_weakify(self)
         [((JobsOCSplashMediaCache *)JobsOCSplashMediaCache.shared()) preloadVideo:url completion:^(NSURL *fileURL) {
             @jobs_strongify(self)
-            if (!self || self.hasFinished) return;
+            if (!self || self.hasFinished || !fileURL) return;
             self.remoteVideoDownloadNoticeLabel.byHidden(YES);
         }];
     };

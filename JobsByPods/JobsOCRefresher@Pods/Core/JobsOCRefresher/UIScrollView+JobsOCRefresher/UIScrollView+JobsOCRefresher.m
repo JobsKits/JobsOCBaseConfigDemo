@@ -15,6 +15,8 @@ Prop_assign() JobsOCRefreshPosition position;
 Prop_assign() JobsOCRefreshRole role;
 Prop_assign() CGFloat trigger;
 Prop_assign() BOOL ending;
+Prop_assign() CGFloat insetContribution;
+Prop_assign() NSUInteger transitionGeneration;
 Prop_weak() UIScrollView *scrollView;
 Prop_strong() JobsOCRefreshComponent *component;
 Prop_copy() JobsOCRefreshActionBlock action;
@@ -25,6 +27,7 @@ Prop_copy() JobsOCRefreshActionBlock action;
                            action:(JobsOCRefreshActionBlock)action;
 -(jobsByScrollViewBlock _Nonnull)attachToScrollView;
 - (jobsByVoidBlock _Nonnull)detach;
+- (jobsByVoidBlock _Nonnull)restoreInsetContribution;
 -(jobsByScrollViewBlock _Nonnull)layoutInScrollView;
 -(jobsByScrollViewBlock _Nonnull)handleWithScrollView;
 -(JobsRetIDByIDBlock _Nonnull)byScrollView;
@@ -43,6 +46,7 @@ Prop_copy() JobsOCRefreshActionBlock action;
 
 Prop_weak() UIScrollView *scrollView;
 Prop_assign() BOOL observing;
+Prop_weak() UIPanGestureRecognizer *observedPanGesture;
 Prop_assign() BOOL enablesHaptics;
 Prop_assign() BOOL usesCustomHapticsSetting;
 Prop_assign() JobsOCRefreshHorizontalMode horizontalMode;
@@ -88,7 +92,7 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
     if (self = super.init) {
         _position = position;
         _role = role;
-        _trigger = config.triggerDistance > 0 ? config.triggerDistance : 60;
+        _trigger = isfinite(config.triggerDistance) && config.triggerDistance > 0 ? config.triggerDistance : 60;
         _component = [[JobsOCRefreshComponent alloc] initWithPosition:position role:role config:config];
         _component.byHidden(!config.showsInfo);
         _action = action;
@@ -113,6 +117,9 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
+        ++self->_transitionGeneration;
+        self.restoreInsetContribution();
+        self.byEnding(NO);
         self.component.byRemoveFromSuperview();
         [self.component applyState:JobsOCRefreshStateRemoved progress:0];
     };
@@ -125,18 +132,23 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
         if (!self) return;
         CGFloat length = self.component.refreshLength();
         UIEdgeInsets baseInset = scrollView.contentInset;
-        if (self.component.state == JobsOCRefreshStateRefreshing ||
-            self.component.state == JobsOCRefreshStateEnding) {
-            switch (self.position) {
-                /// 处理 JobsOCRefreshPositionHeader 分支
-                case JobsOCRefreshPositionHeader: baseInset.top = MAX(0, baseInset.top - length); break;
-                /// 处理 JobsOCRefreshPositionFooter 分支
-                case JobsOCRefreshPositionFooter: baseInset.bottom = MAX(0, baseInset.bottom - length); break;
-                /// 处理 JobsOCRefreshPositionLeft 分支
-                case JobsOCRefreshPositionLeft: baseInset.left = MAX(0, baseInset.left - length); break;
-                /// 处理 JobsOCRefreshPositionRight 分支
-                case JobsOCRefreshPositionRight: baseInset.right = MAX(0, baseInset.right - length); break;
-            }
+        switch (self.position) {
+            /// 去除 header 自己追加的 inset，保留宿主的正负 inset
+            case JobsOCRefreshPositionHeader:
+                baseInset.top -= self.insetContribution;
+                break;
+            /// 去除 footer 自己追加的 inset
+            case JobsOCRefreshPositionFooter:
+                baseInset.bottom -= self.insetContribution;
+                break;
+            /// 去除左侧自己追加的 inset
+            case JobsOCRefreshPositionLeft:
+                baseInset.left -= self.insetContribution;
+                break;
+            /// 去除右侧自己追加的 inset
+            case JobsOCRefreshPositionRight:
+                baseInset.right -= self.insetContribution;
+                break;
         }
         CGSize boundsSize = scrollView.bounds.size;
         switch (self.position) {
@@ -175,7 +187,8 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
             self.component.state == JobsOCRefreshStateRemoved ||
             self.component.state == JobsOCRefreshStateDisabled ||
             self.component.state == JobsOCRefreshStateRefreshing ||
-            self.component.state == JobsOCRefreshStateNoMoreData) return;
+            self.component.state == JobsOCRefreshStateNoMoreData ||
+            self.component.state == JobsOCRefreshStateEnding) return;
         self.layoutInScrollView(scrollView);
         UIEdgeInsets inset = scrollView.adjustedContentInset;
         CGPoint offset = scrollView.contentOffset;
@@ -225,10 +238,16 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
         if (!scrollView ||
             self.component.state == JobsOCRefreshStateRefreshing ||
             self.component.state == JobsOCRefreshStateDisabled ||
-            self.component.state == JobsOCRefreshStateNoMoreData) return;
-        ((JobsOCRefreshProxy *)Jobs_getAssociatedObjectByTarget(scrollView, JobsOCRefreshProxyKey)).playFeedbackForPosition(self.position);
+            self.component.state == JobsOCRefreshStateNoMoreData ||
+            self.component.state == JobsOCRefreshStateRemoved ||
+            self.component.state == JobsOCRefreshStateEnding) return;
+        JobsOCRefreshProxy *proxy = Jobs_getAssociatedObjectByTarget(scrollView, JobsOCRefreshProxyKey);
+        if (proxy) proxy.playFeedbackForPosition(self.position);
+        ++self->_transitionGeneration;
         [self.component applyState:JobsOCRefreshStateRefreshing progress:1];
-        CGFloat length = self.component.refreshLength();
+        CGFloat rawLength = self.component.refreshLength();
+        CGFloat length = isfinite(rawLength) && rawLength > 0 ? rawLength : self.trigger;
+        self.insetContribution = length;
         UIEdgeInsets oldAdjusted = scrollView.adjustedContentInset;
         UIEdgeInsets inset = scrollView.contentInset;
         CGPoint targetOffset = scrollView.contentOffset;
@@ -282,24 +301,14 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
         if (self.role == JobsOCRefreshRoleRefresh) {
             self.component.markRefreshedAt(NSDate.date);
         }
-        UIEdgeInsets inset = scrollView.contentInset;
-        CGFloat length = self.component.refreshLength();
-        switch (self.position) {
-            /// 处理 JobsOCRefreshPositionHeader 分支
-            case JobsOCRefreshPositionHeader: inset.top -= length; break;
-            /// 处理 JobsOCRefreshPositionFooter 分支
-            case JobsOCRefreshPositionFooter: inset.bottom -= length; break;
-            /// 处理 JobsOCRefreshPositionLeft 分支
-            case JobsOCRefreshPositionLeft: inset.left -= length; break;
-            /// 处理 JobsOCRefreshPositionRight 分支
-            case JobsOCRefreshPositionRight: inset.right -= length; break;
-        }
+        NSUInteger generation = ++self->_transitionGeneration;
         self.byEnding(YES);
         [self.component applyState:JobsOCRefreshStateEnding progress:0];
         [UIView animateWithDuration:0.25 animations:^{
-            scrollView.byContentInset(inset);
+            self.restoreInsetContribution();
             self.layoutInScrollView(scrollView);
         } completion:^(__unused BOOL finished) {
+            if (self.transitionGeneration != generation || self.component.state != JobsOCRefreshStateEnding) return;
             self.byEnding(NO);
             self.layoutInScrollView(scrollView);
             [self.component applyState:finalState progress:0];
@@ -315,6 +324,9 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
         if (self.component.state == JobsOCRefreshStateRefreshing) {
             self.endWithFinalState(JobsOCRefreshStateIdle);
         } else {
+            ++self->_transitionGeneration;
+            self.byEnding(NO);
+            self.restoreInsetContribution();
             [self.component applyState:JobsOCRefreshStateIdle progress:0];
         }
     };
@@ -328,6 +340,9 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
         if (self.component.state == JobsOCRefreshStateRefreshing) {
             self.endWithFinalState(JobsOCRefreshStateFailed);
         } else {
+            ++self->_transitionGeneration;
+            self.byEnding(NO);
+            self.restoreInsetContribution();
             [self.component applyState:JobsOCRefreshStateFailed progress:0];
         }
     };
@@ -341,6 +356,9 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
         if (self.component.state == JobsOCRefreshStateRefreshing) {
             self.endWithFinalState(JobsOCRefreshStateDisabled);
         } else {
+            ++self->_transitionGeneration;
+            self.byEnding(NO);
+            self.restoreInsetContribution();
             [self.component applyState:JobsOCRefreshStateDisabled progress:0];
         }
     };
@@ -352,7 +370,47 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
         @jobs_strongify(self)
         if (!self) return;
         if (self.role != JobsOCRefreshRoleLoadMore) return;
-        [self.component applyState:JobsOCRefreshStateNoMoreData progress:0];
+        if (self.component.state == JobsOCRefreshStateRefreshing) {
+            self.endWithFinalState(JobsOCRefreshStateNoMoreData);
+        } else {
+            ++self->_transitionGeneration;
+            self.byEnding(NO);
+            self.restoreInsetContribution();
+            [self.component applyState:JobsOCRefreshStateNoMoreData progress:0];
+        }
+    };
+}
+
+// 每个槽位只撤销自己追加的长度；动画器替换或宿主修改 inset 都不会重复扣减。
+-(jobsByVoidBlock _Nonnull)restoreInsetContribution{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        CGFloat length = self.insetContribution;
+        self.insetContribution = 0;
+        UIScrollView *scrollView = self.scrollView;
+        if (!scrollView || length == 0) return;
+        UIEdgeInsets inset = scrollView.contentInset;
+        switch (self.position) {
+            /// 归还 header 长度
+            case JobsOCRefreshPositionHeader:
+                inset.top -= length;
+                break;
+            /// 归还 footer 长度
+            case JobsOCRefreshPositionFooter:
+                inset.bottom -= length;
+                break;
+            /// 归还左侧长度
+            case JobsOCRefreshPositionLeft:
+                inset.left -= length;
+                break;
+            /// 归还右侧长度
+            case JobsOCRefreshPositionRight:
+                inset.right -= length;
+                break;
+        }
+        scrollView.byContentInset(inset);
     };
 }
 
@@ -384,7 +442,10 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
 }
 
 - (void)dealloc {
-    [self removeObservers]();
+    if (_observing) {
+        [_scrollView removeObserver:self forKeyPath:@"contentOffset" context:JobsOCRefreshKVOContext];
+        [_observedPanGesture removeObserver:self forKeyPath:@"state" context:JobsOCRefreshKVOContext];
+    }
 }
 
 - (jobsByVoidBlock _Nonnull)addObservers {
@@ -397,7 +458,8 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
                           forKeyPath:@"contentOffset"
                              options:NSKeyValueObservingOptionNew
                              context:JobsOCRefreshKVOContext];
-        [self.scrollView.panGestureRecognizer addObserver:self
+        self.observedPanGesture = self.scrollView.panGestureRecognizer;
+        [self.observedPanGesture addObserver:self
                                                forKeyPath:@"state"
                                                   options:NSKeyValueObservingOptionNew
                                                   context:JobsOCRefreshKVOContext];
@@ -412,7 +474,7 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
         if (!self) return;
         if (!self.observing || !self.scrollView) return;
         [self.scrollView removeObserver:self forKeyPath:@"contentOffset" context:JobsOCRefreshKVOContext];
-        [self.scrollView.panGestureRecognizer removeObserver:self forKeyPath:@"state" context:JobsOCRefreshKVOContext];
+        [self.observedPanGesture removeObserver:self forKeyPath:@"state" context:JobsOCRefreshKVOContext];
         self.byObserving(NO);
     };
 }
@@ -445,10 +507,13 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
             /// 处理 JobsOCRefreshPositionRight 分支
             case JobsOCRefreshPositionRight: return self.right;
         }
+        return nil;
     };
 }
 
 - (void)setSlot:(JobsOCRefreshSlot *)slot position:(JobsOCRefreshPosition)position {
+    JobsOCRefreshSlot *oldSlot = self.slotForPosition(position);
+    if (oldSlot && oldSlot != slot) oldSlot.detach();
     switch (position) {
         /// 处理 JobsOCRefreshPositionHeader 分支
         case JobsOCRefreshPositionHeader: self.header = slot; break;
@@ -468,10 +533,10 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
         if (!self) return;
         UIScrollView *scrollView = self.scrollView;
         if (!scrollView) return;
-        self.header.handleWithScrollView(scrollView);
-        self.footer.handleWithScrollView(scrollView);
-        self.left.handleWithScrollView(scrollView);
-        self.right.handleWithScrollView(scrollView);
+        if (self.header) self.header.handleWithScrollView(scrollView);
+        if (self.footer) self.footer.handleWithScrollView(scrollView);
+        if (self.left) self.left.handleWithScrollView(scrollView);
+        if (self.right) self.right.handleWithScrollView(scrollView);
     };
 }
 
@@ -676,7 +741,7 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
         /// 处理 JobsOCRefreshStateIdle 分支
         case JobsOCRefreshStateIdle: slot.reset(); break;
         /// 处理 JobsOCRefreshStateFailed 分支
-        case JobsOCRefreshStateFailed: [slot fail]; break;
+        case JobsOCRefreshStateFailed: slot.fail(); break;
         /// 处理 JobsOCRefreshStateDisabled 分支
         case JobsOCRefreshStateDisabled: slot.disable(); break;
         /// 处理 JobsOCRefreshStateNoMoreData 分支
@@ -709,7 +774,7 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
         @jobs_strongify(self)
         if (!self) return nil;
         JobsOCRefreshSlot *slot = (self.jobs_refreshProxy()).slotForPosition(position);
-        slot.detach();
+        if (slot) slot.detach();
         [self.jobs_refreshProxy() setSlot:nil position:position];
         return self;
     };

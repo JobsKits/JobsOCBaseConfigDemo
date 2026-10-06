@@ -12,114 +12,113 @@
 
 ```mermaid
 flowchart LR
-  M1["App/JobsOCBaseConfigDemo"]
-  M2["JobsByPods/ManualByOCPods@Pods"]
-  M3["JobsByPods/JobsModelDSL@Pods"]
-  M4["JobsByPods/JobsOCDefs@Pods"]
-  M5["JobsByPods/JobsBlock@Pods"]
-  M6["JobsByPods/JobsAPIs@Pods"]
+  M1["JobsByPods/JobsBlock@Pods"]
+  M2["JobsByPods/JobsBluetooth@Pods"]
+  M3["JobsByPods/JobsAPIs@Pods"]
+  M4["JobsByPods/JobsAppDoor@Pods"]
+  M5["JobsByPods/JobsModelDSL@Pods"]
+  M6["JobsByPods/JobsOCDefs@Pods"]
   M7["JobsByPods/JobsBaseUI@Pods"]
-  M8["JobsByPods/JobsOCProtocols@Pods"]
-  M9["JobsByPods/JobsModel@Pods"]
-  M10["JobsByPods/JobsOCDSL@Pods"]
-  M11["JobsByPods/GKCustomNavigationBarExtra@Pods"]
-  M12["JobsByPods/JobsByOCPods@Pods"]
-  M13["JobsByPods/JobsNavigationTransitionMgr@Pods"]
-  M14["JobsByPods/JobsCryptography@Pods"]
-  M15["JobsByPods/MJRefreshExtra@Pods"]
-  M16["JobsByPods/JobsBasePopupView@Pods"]
-  M17["JobsByPods/JobsOCTools@Pods"]
+  M8["JobsByPods/JobsOCDSL@Pods"]
+  M9["JobsByPods/JobsByOCPods@Pods"]
+  M10["JobsByPods/GKCustomNavigationBarExtra@Pods"]
+  M11["JobsByPods/ManualByOCPods@Pods"]
+  M12["JobsByPods/JobsFuseAnimation@Pods"]
+  M13["JobsByPods/JobsMakes@Pods"]
+  M14["JobsByPods/JobsLinkageMenuView@Pods"]
+  M15["JobsByPods/JobsDropDownListView@Pods"]
+  M16["JobsByPods/JobsCustomView@Pods"]
+  M17["JobsByPods/JobsNavigationTransitionMgr@Pods"]
   M18["JobsByPods/JobsStringUtils@Pods"]
-  M19["JobsByPods/JobsCustomView@Pods"]
-  M20["JobsByPods/JobsNavBar@Pods"]
-  M21["JobsByPods/JobsLinkageMenuView@Pods"]
-  M22["JobsByPods/YTKNetworkExtra@Pods"]
-  M23["JobsByPods/JobsSuspend@Pods"]
-  M24["JobsByPods/JobsRichTextUtils@Pods"]
-  M25["JobsByPods/JobsOCSplash@Pods"]
-  M26["JobsByPods/WHToastExtra@Pods"]
-  M27["JobsByPods/JobsHotLabel@Pods"]
-  M28["JobsByPods/JobsDeviceInfo@Pods"]
-  M1 -->|calls:840| M2
-  M1 -->|calls:724| M3
-  M1 -->|calls:608| M4
-  M1 -->|calls:246| M5
-  M6 -->|calls:227| M5
-  M7 -->|calls:178| M2
-  M8 -->|calls:178| M9
-  M1 -->|calls:165| M10
-  M1 -->|calls:135| M9
-  M1 -->|calls:115| M11
-  M7 -->|calls:98| M5
-  M12 -->|calls:92| M2
-  M10 -->|calls:74| M2
-  M1 -->|calls:61| M7
-  M13 -->|calls:61| M2
-  M7 -->|calls:59| M4
-  M12 -->|calls:59| M9
-  M11 -->|calls:58| M2
-  M7 -->|calls:54| M9
-  M14 -->|calls:53| M2
-  M15 -->|calls:51| M2
-  M16 -->|calls:50| M2
-  M17 -->|calls:44| M2
-  M12 -->|calls:43| M5
-  M1 -->|calls:42| M12
-  M1 -->|calls:41| M18
-  M12 -->|calls:41| M18
-  M9 -->|calls:40| M2
-  M19 -->|calls:39| M2
-  M11 -->|calls:37| M9
-  M20 -->|calls:37| M2
-  M15 -->|calls:37| M9
-  M21 -->|calls:36| M2
-  M13 -->|calls:36| M9
-  M13 -->|calls:35| M18
-  M1 -->|calls:34| M22
-  M19 -->|calls:32| M9
-  M21 -->|calls:32| M9
-  M20 -->|calls:32| M9
-  M7 -->|calls:31| M3
-  M7 -->|calls:29| M18
-  M15 -->|calls:26| M18
-  M19 -->|calls:25| M18
-  M11 -->|calls:24| M18
-  M21 -->|calls:24| M18
-  M4 -->|calls:24| M12
-  M12 -->|calls:23| M3
-  M14 -->|calls:22| M11
-  M6 -->|calls:21| M2
-  M16 -->|calls:21| M4
-  M16 -->|calls:21| M18
-  M17 -->|calls:21| M4
-  M2 -->|calls:21| M7
-  M20 -->|calls:20| M18
-  M11 -->|calls:19| M3
-  M16 -->|calls:19| M9
-  M17 -->|calls:19| M5
-  M15 -->|calls:19| M3
-  M6 -->|calls:18| M18
-  M23 -->|calls:18| M9
-  M23 -->|calls:18| M2
-  M13 -->|calls:17| M4
-  M10 -->|calls:17| M9
-  M24 -->|calls:17| M2
-  M22 -->|calls:17| M2
-  M12 -->|calls:16| M4
-  M25 -->|calls:16| M2
-  M2 -->|calls:16| M11
-  M1 -->|calls:15| M26
-  M7 -->|calls:15| M10
-  M12 -->|calls:15| M11
-  M19 -->|calls:15| M4
-  M16 -->|calls:14| M5
-  M27 -->|calls:14| M3
-  M15 -->|calls:14| M5
-  M11 -->|calls:13| M4
-  M16 -->|calls:13| M3
-  M28 -->|calls:13| M5
-  M13 -->|calls:13| M5
-  M6 -->|calls:12| M22
+  M19["JobsByPods/JobsBasePopupView@Pods"]
+  M20["JobsByPods/JobsModel@Pods"]
+  M21["JobsByPods/JobsCryptography@Pods"]
+  M22["JobsByPods/JobsMenuView@Pods"]
+  M23["JobsByPods/JobsGestureLock@Pods"]
+  M24["JobsByPods/MJRefreshExtra@Pods"]
+  M25["JobsByPods/JobsBitsMonitor@Pods"]
+  M26["JobsByPods/BRPickerViewExtra@Pods"]
+  M27["JobsByPods/JobsMarqueeView@Pods"]
+  M1 -->|calls:3264| M2
+  M3 -->|calls:682| M1
+  M4 -->|calls:397| M5
+  M4 -->|calls:385| M6
+  M7 -->|calls:342| M8
+  M9 -->|calls:323| M8
+  M7 -->|calls:293| M1
+  M4 -->|calls:278| M10
+  M4 -->|calls:274| M8
+  M7 -->|calls:255| M5
+  M7 -->|calls:219| M6
+  M7 -->|calls:182| M10
+  M7 -->|calls:172| M11
+  M4 -->|calls:170| M11
+  M9 -->|calls:164| M10
+  M9 -->|calls:158| M5
+  M4 -->|calls:154| M7
+  M12 -->|calls:148| M8
+  M9 -->|calls:144| M13
+  M4 -->|calls:137| M1
+  M14 -->|calls:137| M10
+  M9 -->|calls:132| M6
+  M7 -->|calls:109| M9
+  M9 -->|calls:102| M1
+  M9 -->|calls:97| M11
+  M13 -->|calls:97| M8
+  M7 -->|calls:96| M13
+  M15 -->|calls:88| M8
+  M16 -->|calls:87| M10
+  M4 -->|calls:77| M17
+  M4 -->|calls:76| M9
+  M16 -->|calls:73| M6
+  M9 -->|calls:70| M18
+  M19 -->|calls:67| M10
+  M7 -->|calls:64| M18
+  M7 -->|calls:62| M20
+  M10 -->|calls:57| M5
+  M19 -->|calls:53| M5
+  M16 -->|calls:52| M8
+  M14 -->|calls:50| M6
+  M19 -->|calls:48| M8
+  M9 -->|calls:48| M7
+  M14 -->|calls:48| M8
+  M16 -->|calls:47| M11
+  M19 -->|calls:46| M18
+  M21 -->|calls:46| M10
+  M10 -->|calls:45| M8
+  M9 -->|calls:45| M20
+  M10 -->|calls:44| M18
+  M15 -->|calls:43| M6
+  M9 -->|calls:41| M22
+  M19 -->|calls:40| M1
+  M3 -->|calls:39| M18
+  M4 -->|calls:39| M20
+  M7 -->|calls:39| M17
+  M16 -->|calls:39| M13
+  M16 -->|calls:39| M18
+  M10 -->|calls:37| M6
+  M7 -->|calls:37| M22
+  M14 -->|calls:37| M18
+  M10 -->|calls:36| M11
+  M14 -->|calls:35| M13
+  M23 -->|calls:34| M8
+  M10 -->|calls:33| M24
+  M7 -->|calls:33| M25
+  M7 -->|calls:33| M24
+  M9 -->|calls:33| M26
+  M9 -->|calls:33| M24
+  M16 -->|calls:33| M24
+  M14 -->|calls:33| M24
+  M27 -->|calls:33| M10
+  M19 -->|calls:32| M6
+  M14 -->|calls:32| M5
+  M10 -->|calls:30| M13
+  M16 -->|calls:30| M5
+  M12 -->|calls:30| M5
+  M10 -->|calls:29| M20
+  M4 -->|calls:29| M13
+  M23 -->|calls:29| M10
+  M14 -->|calls:29| M7
 ```
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

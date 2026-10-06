@@ -8,6 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_JOBSMONITORNETWOKING_68CC31D484
 #define JOBS_HEADER_GUARD_JOBSMONITORNETWOKING_68CC31D484
 
+#import <limits.h>
+#import <net/if_var.h>
 #import <Foundation/Foundation.h>
 
 #include <ifaddrs.h>

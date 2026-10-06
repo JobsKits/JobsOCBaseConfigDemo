@@ -60,5 +60,27 @@
 /// 删除已有数据
 +(JobsRetBOOLByStrBlock _Nonnull)deleteAccountInfoByService;
 
+/// 带错误的接口以 service + account 隔离身份；保存失败保留原条目。
++(BOOL)saveAccount:(NSString *_Nullable)account
+          password:(NSString *_Nullable)password
+        forService:(NSString *_Nullable)service
+             error:(NSError *_Nullable *_Nullable)error;
++(NSString *_Nullable)getPasswordByService:(NSString *_Nullable)service
+                                  account:(NSString *_Nullable)account
+                                    error:(NSError *_Nullable *_Nullable)error;
++(BOOL)deleteAccount:(NSString *_Nullable)account
+         forService:(NSString *_Nullable)service
+              error:(NSError *_Nullable *_Nullable)error;
++(BOOL)save:(NSString *_Nullable)service
+       data:(id<NSSecureCoding> _Nullable)data
+      error:(NSError *_Nullable *_Nullable)error;
++(id _Nullable)loadService:(NSString *_Nullable)service
+           allowedClasses:(NSSet<Class> *_Nullable)allowedClasses
+                    error:(NSError *_Nullable *_Nullable)error;
+/// 旧版本把 account 写成 service；只在调用方确认归属后显式迁移，不自动猜测账户。
++(BOOL)migrateLegacyPasswordForService:(NSString *_Nullable)service
+                           toAccount:(NSString *_Nullable)account
+                               error:(NSError *_Nullable *_Nullable)error;
+
 @end
 #endif /* JOBS_HEADER_GUARD_JOBSKEYCHAINHELPER_31B5174A44 */

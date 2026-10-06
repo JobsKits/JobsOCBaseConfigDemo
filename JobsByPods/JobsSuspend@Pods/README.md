@@ -50,9 +50,11 @@ JobsSuspend@Pods/
 ├── README.md  # 当前自述
 ├── JobsSuspend.h  # 根入口头文件
 ├── JobsPodspecKit.rb  # 本地 podspec 基座
-├── Core/  # 公开 API 与核心实现，11 个文件
-├── Support/  # 内部支撑层，46 个文件
-└── LICENSE  # 许可证文件
+├── Core/  # 公开入口与核心实现，10 个文件
+├── Support/  # 内部支援，44 个文件
+├── LICENSE  # 许可证文件
+├── Resource/  # 非代码资源，1 个文件
+└── Tests/  # 独立回归，2 个文件
 ```
 
 - `JobsSuspend.podspec` 是当前 Pod 的 [**CocoaPods**](https://cocoapods.org/) 描述入口。
@@ -61,8 +63,8 @@ JobsSuspend@Pods/
 
 ## 四、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 当前包含 11 个文件，其中源码 / 头文件 10 个；按 Jobs 规范，它是 `JobsSuspend` 对外公开 API 和核心实现的边界。
-- `Support` 当前包含 46 个文件，其中源码 / 头文件 46 个；它只服务当前 Pod 内部实现，不建议被 App 层或其它 Pod 直接引用。
+- `Core` 当前包含 10 个文件，其中源码 / 头文件 10 个；按 Jobs 规范，它是 `JobsSuspend` 对外公开 API 和核心实现的边界。
+- `Support` 当前包含 44 个文件，其中源码 / 头文件 44 个；它只服务当前 Pod 内部实现，不建议被 App 层或其它 Pod 直接引用。
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
 - `JobsSuspendBtn.byAllowDrag(BOOL)` 统一开关拖拽；`UIView+SuspendView` 提供 safeArea 内起点、拖动范围和吸边震感配置。拖动结束按上下左右最近边吸附，并只放行 Pan 与 LongPress 同时识别。
@@ -93,14 +95,16 @@ JobsSuspend@Pods/
 
 - `ReactiveObjC`
 - `XYColorOC`
-- `JobsModel`
+- `JobsModelDSL`
 - `JobsBlock`
+- `JobsOCDSL`
+- `JobsLanMgr`
 - `JobsOCDefs`
+- `JobsBaseUI`
 - `JobsDeviceInfo`
 - `JobsLoadingImage`
 - `JobsOCRuntimeKits`
 - `JobsRichTextUtils`
-- `JobsLanMgr`
 
 ## 六、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -119,7 +123,7 @@ JobsSuspend@Pods/
 
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 当前目录扫描到资源类文件 1 个，`Resource` 目录文件 0 个。
+- 当前目录扫描到资源类文件 1 个，`Resource` 目录文件 1 个。
 - podspec 资源声明如下：
 
 - `Core/**/*.{png,jpg,jpeg,gif,webp,pdf,xcassets,bundle}`
@@ -145,7 +149,7 @@ pod install --no-repo-update
 
 ## 九、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 头文件会进入公开 API 边界，新增 import 时要确认不会把内部实现细节暴露给外部。
+- 只有 podspec 指定的公开头进入外部 API 边界；新增 import 时要确认不会把私有实现细节暴露给外部。
 - `panRcognize` 是懒加载手势，getter 首次创建后必须返回新实例；若返回 `nil`，继续调用 `byEnabled(...)` 这类 Block DSL 会触发空 Block 调用并产生 `EXC_BAD_ACCESS`。
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
@@ -183,6 +187,54 @@ pod install --no-repo-update
 - [Core/UIViewController+SuspendBtn/UIViewController+SuspendBtn.h](<./Core/UIViewController+SuspendBtn/UIViewController+SuspendBtn.h>)
 - [Core/JobsSuspendBtn/JobsSuspendBtn.h](<./Core/JobsSuspendBtn/JobsSuspendBtn.h>)
 
-依赖与编译入口：[JobsSuspend.podspec](<./JobsSuspend.podspec>)。其中显式依赖声明包括 `ReactiveObjC`、`XYColorOC`、`JobsModelDSL`、`JobsBlock`、`JobsOCDSL`、`JobsLanMgr`、`JobsOCDefs`、`JobsBaseUI`、`JobsDeviceInfo`、`JobsLoadingImage`、`JobsOCRuntimeKits`、`JobsRichTextUtils`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+依赖与编译入口：[JobsSuspend.podspec](<./JobsSuspend.podspec>)。其中根级依赖声明包括 `ReactiveObjC`、`XYColorOC`、`JobsModelDSL`、`JobsBlock`、`JobsOCDSL`、`JobsLanMgr`、`JobsOCDefs`、`JobsBaseUI`、`JobsDeviceInfo`、`JobsLoadingImage`、`JobsOCRuntimeKits`、`JobsRichTextUtils`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+
+## 十一、控制器引用与生命周期 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+`vc` 的关联存储使用 `JobsOCRuntimeKits` 的 `JobsSetAssociatedWeakObject` / `JobsGetAssociatedWeakObject`。关联容器被视图持有，控制器本身保持 weak，释放后读取为 nil；不以 ASSIGN 裸指针模拟 weak，也不替换对象的 isa/dealloc。悬浮视图可以由控制器持有而不形成回环。
+
+拖动与吸附以真实父视图 safeArea 为边界；退出宿主时移除悬浮视图，避免把已经结束的会话继续展示。
+
+回归测试位于 `Tests/JobsSuspendStabilityTests/`。在包含该 Pod 的 XCTest 宿主中运行，覆盖以上生命周期和边界合同；源码编译通过不能替代这些行为断言。
+
+`weak_target` 使用既有 Jobs 零化弱关联容器；getter / setter 共用全局 selector key，四个 owned provider 保持相同 ABI，不依赖 category 加载顺序。设为外部目标不会延长其生命，目标释放后 getter 返回 nil；设为自身不形成自持有环，也不再通过 getter 自动关联自身。泛用手势 `byTarget` / `target` 的既有 API 保持。UIView 的 8 类懒加载手势从共享零化弱 key 取显式目标，未设置时默认绑定自身；自身与外部目标均只交给 UIKit 原生 target/action 和弱 delegate，工厂不再自动写入泛用 `target` metadata。控制器强持 view 再把控制器设为弱目标时，不应通过手势反向保活控制器；需要独立 metadata 的调用方仍可显式使用泛用 `byTarget`。既有 UIKit suite 保留默认自身释放及 weak_target 零化断言，并以真实 controller / view 的 tap、pan 各 100 次循环验证 owner、view 与手势释放、真实公共 `GestureActionBy` 安装链与已编译 OCDSL native provider 的两类保存回调、原生 handler 执行及迟到回调无额外事件。OCDSL native ActionBy 不再把手势自身写入 metadata，既有显式 `byTarget` 不被覆盖；泛用 getter / setter / addAction / removeAction 的 ABI 保持。UIView 的 `addGR` 及 8 个 `addXxxGR` 保存动作在 view 释放后返回 nil，不调用 nil DSL Block；同一真实 UIKit suite 覆盖 9 个迟到 getter、owner 释放与回调次数为零。Bits 菜单同样采用原生 target/action 消除持有环。相关真实断言在 JobsByOCPods 既有 UIKit suite；验证结果见本 README 统一验收记录。
+
+## 十二、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+计数递归扫描当前目录内的普通文件，排除 `.DS_Store` / `._*`；源码与头文件计入 `.h`、`.m`、`.mm`、`.c`、`.cc`、`.cpp`、`.hpp`、`.swift`。资源目录中的目录、资源编译结果和文件大小不计入文件数，文件存在不代表必然打包。
+
+| 目录 | 实际文件 | 源码 / 头文件 | 安装边界 |
+| --- | --- | --- | --- |
+| `Core/` | 10 | 10 | 公共入口与核心实现；公开 / 私有头由 podspec 指定 |
+| `Support/` | 44 | 44 | 仅供当前 Pod 内部实现，按实际 subspec / private header 映射 |
+| `Resource/` | 1 | 0 | 非代码资源；按 resources / resource_bundles 和排除规则安装 |
+| `Tests/` | 2 | 2 | 只由独立测试目标或回归 harness 使用，不进入生产 source_files |
+
+`Core` 的物理目录不等于所有头文件均公开；`Support` 和测试 fixture 不作为 App 或其它 Pod 的稳定消费入口。根聚合头与 `public_header_files` 是外部引用依据。
+
+根级资源直接复制映射：`Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}`。
+
+## 十三、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+
+生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
+
+从本 README 所在目录回到工程根目录，再运行该 Pod 的 Debug / Release 单元编译：
+
+```shell
+cd ../..
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+  --phase pods --pod JobsSuspend
+```
+
+当前 podspec 显式提供 `Stability` test_spec。`Tests/` 与测试 fixture 只进入测试目标；真实行为断言通过后再回填结果。指定可用模拟器 UDID：
+
+```shell
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+  --phase tests --pod JobsSuspend --simulator '<UDID>'
+```
+
+运行前应已安装工程依赖；runner 的 `--phase pods` 默认分别编译 Debug / Release，`--phase tests` 默认运行 Debug（JobsOCSnowflake 默认 Debug / Release），并将命令、源码指纹、日志和退出码保存到工程 `work/JobsPodsStability/`。如需固定输出目录，使用 runner 的 `--output`。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

@@ -11,7 +11,7 @@
 /// 对系统方法 initWithString 的二次封装
 +(JobsRetAttributedStringByStrBlock _Nonnull)initByString{
     return ^__kindof NSAttributedString *_Nullable(NSString *_Nullable data){
-        return [NSAttributedString.alloc initWithString:data];
+        return [NSAttributedString.alloc initWithString:data ?: @""];
     };
 }
 /// 获取 NSAttributedString.文本字体
@@ -19,14 +19,16 @@
     @jobs_weakify(self)
     return ^UIFont * _Nullable() {
         @jobs_strongify(self)
+        if (!self.length) return nil;
         return [self attribute:NSFontAttributeName atIndex:0 effectiveRange:NULL];
     };
 }
 /// 获取 NSAttributedString.文本颜色
--(JobsRetFontByVoidBlock _Nonnull)attributedStringTextCor{
+-(JobsRetCorByVoidBlock _Nonnull)attributedStringTextCor{
     @jobs_weakify(self)
-    return ^UIFont * _Nullable() {
+    return ^UIColor * _Nullable() {
         @jobs_strongify(self)
+        if (!self.length) return nil;
         return [self attribute:NSForegroundColorAttributeName atIndex:0 effectiveRange:NULL];
     };
 }
@@ -35,6 +37,7 @@
     @jobs_weakify(self)
     return ^NSParagraphStyle * _Nullable() {
         @jobs_strongify(self)
+        if (!self.length) return nil;
         NSRange range = NSMakeRange(0, self.length);
         NSDictionary *attributes = [self attributesAtIndex:0 effectiveRange:&range];
         NSParagraphStyle *paragraphStyle = attributes[NSParagraphStyleAttributeName];

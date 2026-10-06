@@ -158,48 +158,25 @@
             /// 处理 LAErrorPasscodeNotSet 分支
             case LAErrorPasscodeNotSet:
                 return JobsBioKitResultPasscodeNotSet;
-    #if defined(LAErrorBiometryNotAvailable)
-            /// 处理 LAErrorBiometryNotAvailable 分支
+            /// 设备不支持或当前无法使用生物识别
             case LAErrorBiometryNotAvailable:
                 return JobsBioKitResultBiometryNotAvailable;
-    #endif
-    #if defined(LAErrorTouchIDNotAvailable)
-            /// 处理 LAErrorTouchIDNotAvailable 分支
-            case LAErrorTouchIDNotAvailable:
-                return JobsBioKitResultBiometryNotAvailable;
-    #endif
-    #if defined(LAErrorBiometryNotEnrolled)
-            /// 处理 LAErrorBiometryNotEnrolled 分支
+            /// 尚未录入生物识别数据
             case LAErrorBiometryNotEnrolled:
                 return JobsBioKitResultBiometryNotEnrolled;
-    #endif
-    #if defined(LAErrorTouchIDNotEnrolled)
-            /// 处理 LAErrorTouchIDNotEnrolled 分支
-            case LAErrorTouchIDNotEnrolled:
-                return JobsBioKitResultBiometryNotEnrolled;
-    #endif
-    #if defined(LAErrorBiometryLockout)
-            /// 处理 LAErrorBiometryLockout 分支
+            /// 生物识别因失败次数过多而锁定
             case LAErrorBiometryLockout:
                 return JobsBioKitResultBiometryLockout;
-    #endif
-    #if defined(LAErrorTouchIDLockout)
-            /// 处理 LAErrorTouchIDLockout 分支
-            case LAErrorTouchIDLockout:
-                return JobsBioKitResultBiometryLockout;
-    #endif
             /// 处理 LAErrorAppCancel 分支
             case LAErrorAppCancel:
                 return JobsBioKitResultAppCancel;
             /// 处理 LAErrorInvalidContext 分支
             case LAErrorInvalidContext:
                 return JobsBioKitResultInvalidContext;
-    #if defined(LAErrorNotInteractive)
             /// 处理 LAErrorNotInteractive 分支
             case LAErrorNotInteractive:
                 return JobsBioKitResultNotInteractive;
-    #endif
-    #if defined(LAErrorCompanionNotAvailable)
+    #if defined(__IPHONE_18_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_18_0
             /// 处理 LAErrorCompanionNotAvailable 分支
             case LAErrorCompanionNotAvailable:
                 return JobsBioKitResultCompanionNotAvailable;

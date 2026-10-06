@@ -1,0 +1,36 @@
+JobsDebugPanelButton-round.png 来源记录（项目内可统一改名 JobsDebugPanelButton.png）
+核验日期：2026-10-05（Asia/Shanghai）
+
+先按用户规则检索 iconfont：
+https://www.iconfont.cn/search/index?searchType=icon&q=debug
+https://www.iconfont.cn/api/icon/search.json?q=debug&page=1&pageSize=10
+检索未提供可核实具体作者许可的图标；前者读取失败，后者仅返回动态网页空壳，未采用平台上来源或许可不明的图片。
+Google 官方图标来源检索：https://www.google.com/search?q=Ant+Design+icons+bug+filled+MIT+license（工具无法读取 Google 搜索页）
+通过网络搜索核实并直接读取官方 Ant Design 图标仓库后采用：
+https://github.com/ant-design/ant-design-icons/blob/master/packages/icons-svg/svg/filled/bug.svg
+原文件下载地址：https://raw.githubusercontent.com/ant-design/ant-design-icons/master/packages/icons-svg/svg/filled/bug.svg
+
+图标主体：调试用 bug（黑色实体虫形），用于圆形调试 UIButton 的本地背景图；最终采用淡金黄圆底、圆外透明的完整按钮背景，图中不含文字。
+原始矢量：ant-design-bug-filled.svg，未修改路径内容。
+最终源：JobsDebugPanelButton-round.svg，原 bug 路径逐字复用，嵌入 240×240 SVG 画布，自建圆底与黄金色渐变（不是纯色占位图）。
+许可：MIT；Copyright (c) 2018-present Ant UED, https://xtech.antfin.com/
+完整许可：AntDesignIcons-LICENSE（应随使用该图标的源码资源一起保留）。
+许可来源：https://github.com/ant-design/ant-design-icons/blob/master/LICENSE
+渲染：librsvg rsvg-convert，源图主体 168×168，输出画布 240×240，圆心120×120、半径118，图标布局四周各36边距。
+最终转换命令：rsvg-convert --output JobsDebugPanelButton-round.png JobsDebugPanelButton-round.svg
+不在运行时引用网络图片。
+
+弱网调研：
+https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/On_Demand_Resources_Guide/TestingPerformance.html
+Apple 文档有独立 Network Link Conditioner 章节，明确开发设备从 Settings > Developer 进入、可开关和配置网络profile，附设备设置截图。
+补充：https://developer.apple.com/videos/play/wwdc2021/10239/ 的英文完整Transcript包含 Network Link Conditioner；主标题为网络延迟优化，不如上述独立文档直观。
+https://developer.apple.com/documentation/foundation/urlsessionconfiguration/protocolclasses
+Apple 明确 custom URLProtocol 不能用于 background URLSession；URLProtocol 是 URLSession 请求协议处理扩展，无法覆盖全部 WebKit/底层 Socket/设备系统流量。
+实现判断：普通 UIKit 调试 Pod 不承诺模拟全 App 真实带宽和丢包；此次按用户“不可行就不写”省略默认功能二，用开发者设置的 Network Link Conditioner 执行真弱网测试。
+
+Debug-only 参考：
+https://guides.cocoapods.org/syntax/podfile.html#pod
+Podfile :configurations => ['Debug']；传递依赖默认全配置，需逐项核验。
+https://developer.apple.com/documentation/xcode/adding-a-build-configuration-file-to-your-project
+xcconfig 支持 config=Debug 条件。
+保持 DEBUG 宏/Swift DEBUG 编译条件只属于 Debug 配置，避免 Release 被手工宏开启。

@@ -8,6 +8,8 @@
 
 ## 🔥 <font id=前言>前言</font>
 
+本目录中可独立运行的 `.command` 入口先显示内置自述：标题红色加粗，编号正文蓝色且不加粗；在终端按回车确认后才进入原有流程，按 `Ctrl+C` 取消。非彩色终端显示纯文本；没有可交互输入时停止，避免确认缺失后继续执行。
+
 `【MacOS】⚙️双击安装Cocoapods.command` 是一个可双击运行的 macOS `.command` 脚本。
 
 它是 [**CocoaPods**](https://cocoapods.org/) 安装助手：检查 Xcode Command Line Tools，准备 [**Homebrew**](https://brew.sh/)、[**fzf**](https://formulae.brew.sh/formula/fzf)、[**Ruby**](https://www.ruby-lang.org) / [**Gem**](https://rubygems.org/) 环境，并优先通过 Homebrew 安装 CocoaPods，失败时回退到 `gem install cocoapods -N`。

@@ -69,6 +69,7 @@ Prop_copy(nullable, readwrite) NSDictionary *latestKeyboardUserInfo;
     @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardMgr *_Nullable(void) {
         @jobs_strongify(self)
+        if (!self) return nil;
         self.jobs_startListening();
         return self;
     };
@@ -78,6 +79,7 @@ Prop_copy(nullable, readwrite) NSDictionary *latestKeyboardUserInfo;
     @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardMgr *_Nullable(void) {
         @jobs_strongify(self)
+        if (!self) return nil;
         self.jobs_stopListening();
         return self;
     };
@@ -98,6 +100,7 @@ Prop_copy(nullable, readwrite) NSDictionary *latestKeyboardUserInfo;
     @jobs_weakify(self)
     return ^__kindof JobsOCKeyboardMgr *_Nullable(__kindof JobsOCKeyboardConfig *_Nullable data) {
         @jobs_strongify(self)
+        if (!self) return nil;
         self.jobs_updateConfig(data);
         return self;
     };

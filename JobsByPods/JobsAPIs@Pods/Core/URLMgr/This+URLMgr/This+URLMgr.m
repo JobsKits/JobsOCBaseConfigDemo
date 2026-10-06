@@ -6,7 +6,18 @@
 //
 
 #import "This+URLMgr.h"
-#import <JobsAPIs/NSString+URL.h>
+
+#if DEBUG
+static NSString *JobsDebugBaseURL;
+#endif
+
+void JobsSetDebugBaseURL(NSString * _Nullable baseURL) {
+#if DEBUG
+    @synchronized(This.class) {
+        JobsDebugBaseURL = baseURL.copy;
+    }
+#endif
+}
 
 @implementation This (URLMgr)
 #pragma mark —— BaseURL
@@ -16,6 +27,13 @@
 
 +(JobsRetStrByVoidBlock _Nonnull)jobsBaseUrl{
     return ^NSString *_Nullable{
+#if DEBUG
+        @synchronized(This.class) {
+            if (JobsDebugBaseURL.length) {
+                return JobsDebugBaseURL;
+            }
+        }
+#endif
         switch (NetworkingEnvir()) {
             /// 处理 JobsNetworkingEnvir_Dev 分支
             case JobsNetworkingEnvir_Dev:{

@@ -3657,6 +3657,13 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                                                             color:UIColor.systemBlueColor]
                 )
             )
+#if DEBUG
+            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                model.byTitle(@"调试工具与环境切换".jobsTr())
+                     .bySubTitle(@"Debug 浮层、URL 环境、按配置顺序展示的自定义动作与真实请求".jobsTr())
+                     .byCls(JobsDebugPanelDemoVC.class);
+            })).byImage(@"jobs_debug_panel_demo".img))
+#endif
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"截屏后 Tips 提示".jobsTr())
                      .bySubTitle(@"截屏完成后更新页面状态并弹出提示".jobsTr())

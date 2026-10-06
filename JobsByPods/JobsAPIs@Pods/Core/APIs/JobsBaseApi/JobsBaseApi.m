@@ -37,21 +37,13 @@
     return ^__kindof NSURLRequest *{
         @jobs_strongify(self)
         if (!self) return nil;
-        @jobs_weakify(self)
-        return self.jobsMakeRequestByBlock(^(__kindof NSMutableURLRequest * _Nullable request) {
-            @jobs_strongify(self)
-            /// 请求头
-            for (NSString *key in self.requestHeaderFieldValueDictionary) {
-                [request setValue:self.requestHeaderFieldValueDictionary[key] forHTTPHeaderField:key];
-            }
-            /// 请求方法
-            request.byHTTPMethod(httpMethod(self.requestMethod));
-            /// 请求的（Body）参数
-            if(self.requestMethod != YTKRequestMethodGET){
-                request.byHTTPBody(self.dataByJSONObject(self.parameters));
-            }self.printRequestMessage(request);// 打印URLRequest
-        });
+        // nil 交给 YTK 标准序列化，保留 multipart、GET query、超时和 URL 过滤器。
+        return nil;
     };
+}
+
+-(YTKRequestSerializerType)requestSerializerType{
+    return YTKRequestSerializerTypeJSON;
 }
 #pragma mark —— （本类）父类实现的
 /// Body 参数
@@ -93,7 +85,7 @@
     return ^NSInteger{
         @jobs_strongify(self)
         if (!self) return (NSInteger){0};
-        return 60 * 3;
+        return -1;
     };
 }
 #pragma mark —— 以下需要在很具体子类进行实现的

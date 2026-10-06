@@ -7,6 +7,8 @@
 
 #import "FMDatabase+Manager.h"
 
+static char JobsFMTransactionErrorKey;
+
 @implementation FMDatabase (Manager)
 /// 依据路径创建数据库
 -(JobsRetFMDatabaseByNSStringBlock _Nonnull)createDataBaseWithPath{
@@ -29,12 +31,80 @@
 /// 实际对数据库有变动的操作
 -(BOOL)handleExecuteUpdate:(NSString *)executeUpdate
       withArgumentsInArray:(NSArray *_Nullable)argumentsInArray{
-    if ([self open]) {
-        BOOL result = [self executeUpdate:executeUpdate
-                     withArgumentsInArray:argumentsInArray];
+    BOOL openedHere = !self.isOpen;
+    if (openedHere && ![self open]) {
+        return NO;
+    }
+    BOOL result = [self executeUpdate:executeUpdate withArgumentsInArray:argumentsInArray];
+    if (!result && self.isInTransaction) {
+        objc_setAssociatedObject(self, &JobsFMTransactionErrorKey, self.lastError, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
+    if (openedHere) {
         [self close];
-        return result;
-    };return NO;
+    }
+    return result;
+}
+
+-(BOOL)jobsPerformTransaction:(JobsRetBOOLByIDBlock)transaction
+                       error:(NSError *__autoreleasing *)error{
+    if (error) {
+        *error = nil;
+    }
+    @synchronized (self) {
+        if (!transaction || self.isInTransaction) {
+            if (error) {
+                *error = [NSError errorWithDomain:@"JobsFMDatabaseError" code:1
+                                        userInfo:@{NSLocalizedDescriptionKey: @"事务体不能为空，且不支持嵌套事务"}];
+            }
+            return NO;
+        }
+        BOOL openedHere = !self.isOpen;
+        if ((openedHere && ![self open]) || ![self beginTransaction]) {
+            if (error) {
+                *error = self.lastError;
+            }
+            if (openedHere) {
+                [self close];
+            }
+            return NO;
+        }
+        objc_setAssociatedObject(self, &JobsFMTransactionErrorKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        BOOL committed = NO;
+        NSError *failure = nil;
+        @try {
+            BOOL succeeded = transaction(self);
+            failure = objc_getAssociatedObject(self, &JobsFMTransactionErrorKey);
+            if (!failure && [self hadError]) {
+                failure = self.lastError;
+            }
+            if (succeeded && !failure) {
+                committed = [self commit];
+                if (!committed) {
+                    failure = self.lastError;
+                }
+            } else if (!failure) {
+                failure = [NSError errorWithDomain:@"JobsFMDatabaseError" code:2
+                                          userInfo:@{NSLocalizedDescriptionKey: @"事务体返回失败"}];
+            }
+        } @catch (NSException *exception) {
+            failure = [NSError errorWithDomain:@"JobsFMDatabaseError" code:3
+                                      userInfo:@{NSLocalizedDescriptionKey: exception.reason ?: @"事务异常"}];
+        } @finally {
+            if (!committed && self.isInTransaction) {
+                if (![self rollback] && !failure) {
+                    failure = self.lastError;
+                }
+            }
+            objc_setAssociatedObject(self, &JobsFMTransactionErrorKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            if (openedHere) {
+                [self close];
+            }
+        }
+        if (error) {
+            *error = failure;
+        }
+        return committed;
+    }
 }
 #pragma mark —— 增删改查中 除了查询（executeQuery），其余操作都用（executeUpdate）
 -(JobsRetBOOLByVoidBlock _Nonnull)handleInsert{
@@ -81,41 +151,61 @@
 /// @param methodName 开启的事务提取出来封装成一个不带参方法
 -(BOOL)handleTargetObj:(nonnull NSObject *)targetObj
            transaction:(nullable NSString *)methodName{
-    if ([self open]) {
-        // 开启事务
-        NSDate *begin = NSDate.date;
-        [self beginTransaction];
-        BOOL rollBack = NO;
-        @try {
-            [NSObject targetObj:targetObj callingMethodWithName:methodName];
-        }@catch(NSException *exception) {
-            // 在事务中执行任务失败，退回开启事务之前的状态
-            [self rollback];
-            return rollBack = YES;
-        }@finally {
-            // 在事务中执行任务成功之后
-            [self commit];
-            [self close];
-            NSDate *end = NSDate.date;
-            NSTimeInterval time = [end timeIntervalSinceDate:begin];
-            NSLog(@"事务耗时 = %f",time);
-            return rollBack = NO;
-        }
-    }else{
-        NSLog(@"打开数据库失败");
-        return NO;
+    SEL selector = NSSelectorFromString(methodName ?: @"");
+    NSMethodSignature *signature = [targetObj methodSignatureForSelector:selector];
+    if (!signature || signature.numberOfArguments != 2) {
+        return YES;
     }
+    return ![self jobsPerformTransaction:^BOOL(id database) {
+        [NSObject targetObj:targetObj callingMethodWithName:methodName];
+        return ![(FMDatabase *)database hadError];
+    } error:nil];
 }
 /// 多线程保护使用FMDB数据库
 /// @param dbPath 依据路径索引到数据库文件
 /// @param doWithBlock 具体做的事情
 -(void)handleMultiThreadedProtectionDB:(NSString *_Nullable)dbPath
                                 doWith:(jobsByIDBlock)doWithBlock{
-    FMDatabaseQueue *dbQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
-    if ([self.createDataBaseWithPath(dbPath) open]) {
-        [dbQueue inDatabase:^(FMDatabase * _Nonnull db) {
-            if (doWithBlock) doWithBlock(db);
+    if (!doWithBlock) {
+        return;
+    }
+    NSString *path = dbPath.length ? dbPath.stringByStandardizingPath.stringByResolvingSymlinksInPath :
+        [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject
+         stringByAppendingPathComponent:@"test.db"];
+    static NSMutableDictionary<NSString *, NSMutableDictionary *> *queues;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        queues = [NSMutableDictionary dictionary];
+    });
+    FMDatabaseQueue *queue;
+    NSMutableDictionary *entry;
+    @synchronized (queues) {
+        entry = queues[path];
+        if (!entry) {
+            queue = [FMDatabaseQueue databaseQueueWithPath:path];
+            if (queue) {
+                entry = [@{@"queue":queue, @"leases":@0} mutableCopy];
+                queues[path] = entry;
+            }
+        }
+        queue = entry[@"queue"];
+        entry[@"leases"] = @([entry[@"leases"] unsignedIntegerValue] + 1);
+    }
+    if (!queue) {
+        return;
+    }
+    @try {
+        [queue inDatabase:^(FMDatabase *db) {
+            doWithBlock(db);
         }];
+    } @finally {
+        @synchronized (queues) {
+            NSUInteger remaining = [entry[@"leases"] unsignedIntegerValue] - 1;
+            entry[@"leases"] = @(remaining);
+            if (!remaining && queues[path] == entry) {
+                [queues removeObjectForKey:path];
+            }
+        }
     }
 }
 

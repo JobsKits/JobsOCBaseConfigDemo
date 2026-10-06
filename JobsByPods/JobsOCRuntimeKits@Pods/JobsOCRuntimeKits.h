@@ -21,6 +21,7 @@
 #import <JobsOCRuntimeKits/NSObject+DynamicInvoke.h>
 #import <JobsOCRuntimeKits/NSObject+RunrtimeGet.h>
 #import <JobsOCRuntimeKits/NSObject+Swizzling.h>
+#import <JobsOCRuntimeKits/JobsWeakAssociation.h>
 
 #endif /* JobsOCRuntimeKits_h */
 

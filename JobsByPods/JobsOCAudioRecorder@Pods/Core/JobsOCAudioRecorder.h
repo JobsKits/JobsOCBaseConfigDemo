@@ -18,6 +18,7 @@
 #else
 #import "JobsOCDSL.h"
 #endif
+#import <math.h>
 #import <UIKit/UIKit.h>
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)

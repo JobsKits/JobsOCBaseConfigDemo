@@ -9,6 +9,8 @@
 
 #import <JobsOCOpen/NSString+Sys.h>
 
+static char JobsOCOpenMailProxyKey;
+
 @interface _JobsOCOpenMailProxy : NSObject <MFMailComposeViewControllerDelegate>
 
 Prop_copy(nullable) void (^completion)(JobsOCOpenResult result);
@@ -44,6 +46,8 @@ Prop_copy(nullable) void (^completion)(JobsOCOpenResult result);
         if (completion) completion(JobsOCOpenResultOpened);
     }];
     self.byCompletion(nil);
+    controller.byMailComposeDelegate(nil);
+    objc_setAssociatedObject(controller, &JobsOCOpenMailProxyKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end
@@ -60,6 +64,12 @@ Prop_copy(nullable) void (^completion)(JobsOCOpenResult result);
 
 -(JobsOCOpenResult)jobs_openWithOptions:(NSDictionary<UIApplicationOpenExternalURLOptionsKey,id> *_Nullable)options
                              completion:(void (^_Nullable)(JobsOCOpenResult))completion{
+    if (!NSThread.isMainThread) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self jobs_openWithOptions:options completion:completion];
+        });
+        return JobsOCOpenResultOpened;
+    }
     NSURL *url = JobsOCOpenConfiguration.jobsURLWithString(self);
     if (!url) {
         if (completion) completion(JobsOCOpenResultInvalidInput);
@@ -87,6 +97,12 @@ Prop_copy(nullable) void (^completion)(JobsOCOpenResult result);
 
 -(JobsOCOpenResult)jobs_callUsePrompt:(BOOL)usePrompt
                            completion:(void (^_Nullable)(JobsOCOpenResult))completion{
+    if (!NSThread.isMainThread) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self jobs_callUsePrompt:usePrompt completion:completion];
+        });
+        return JobsOCOpenResultOpened;
+    }
 #if TARGET_OS_SIMULATOR
     if (completion) completion(JobsOCOpenResultCannotOpen);
     return JobsOCOpenResultCannotOpen;
@@ -132,6 +148,12 @@ Prop_copy(nullable) void (^completion)(JobsOCOpenResult result);
                                     bcc:(NSArray<NSString *> *_Nullable)bcc
                             presentFrom:(UIViewController *_Nullable)presentFrom
                              completion:(void (^_Nullable)(JobsOCOpenResult))completion{
+    if (!NSThread.isMainThread) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self jobs_mailWithSubject:subject body:body isHTML:isHTML cc:cc bcc:bcc presentFrom:presentFrom completion:completion];
+        });
+        return JobsOCOpenResultOpened;
+    }
     NSArray<NSString *> *tos = self.jobs_parseEmails(self);
     if (!tos.count) {
         if (completion) completion(JobsOCOpenResultInvalidInput);
@@ -144,10 +166,12 @@ Prop_copy(nullable) void (^completion)(JobsOCOpenResult result);
         if (body.length) [mailVC setMessageBody:body isHTML:isHTML];
         if (cc.count) [mailVC setCcRecipients:self.jobs_parseEmails([cc componentsJoinedByString:@","])];
         if (bcc.count) [mailVC setBccRecipients:self.jobs_parseEmails([bcc componentsJoinedByString:@","])];
-        ((_JobsOCOpenMailProxy *)_JobsOCOpenMailProxy.shared()).byCompletion(completion);
-        mailVC.byMailComposeDelegate(((_JobsOCOpenMailProxy *)_JobsOCOpenMailProxy.shared()));
+        _JobsOCOpenMailProxy *proxy = _JobsOCOpenMailProxy.new;
+        proxy.byCompletion(completion);
+        objc_setAssociatedObject(mailVC, &JobsOCOpenMailProxyKey, proxy, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        mailVC.byMailComposeDelegate(proxy);
         UIViewController *host = presentFrom ?: self.jobs_topViewController();
-        if (!host) {
+        if (!host || !host.view.window || host.isBeingDismissed || host.presentedViewController) {
             if (completion) completion(JobsOCOpenResultCannotOpen);
             return JobsOCOpenResultCannotOpen;
         }

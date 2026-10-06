@@ -43,7 +43,7 @@ JobsOCOpen@Pods/
 ├── JobsPodspecKit.rb
 ├── LICENSE
 ├── README.md
-├── Core/
+├── Core/  # 公开入口与核心实现，10 个文件
     ├── JobsOCOpener.h
     ├── JobsOCOpener.m
     ├── JobsOCOpenConfiguration.h
@@ -54,7 +54,7 @@ JobsOCOpen@Pods/
     ├── NSObject+JobsOCOpen.m
     ├── NSString+JobsOCOpen.h
     └── NSString+JobsOCOpen.m
-└── Support/
+└── Support/  # 内部支援，2 个文件
     └── UIKit/
         └── NSString/
             └── NSString+Sys/
@@ -178,6 +178,43 @@ ruby -rxcodeproj -e 'p = Xcodeproj::Project.open("Pods/Pods.xcodeproj"); puts [p
 - [Core/JobsOCOpener/JobsOCOpener.h](<./Core/JobsOCOpener/JobsOCOpener.h>)
 - [Core/NSObject+JobsOCOpen/NSObject+JobsOCOpen.h](<./Core/NSObject+JobsOCOpen/NSObject+JobsOCOpen.h>)
 
-依赖与编译入口：[JobsOCOpen.podspec](<./JobsOCOpen.podspec>)。其中显式依赖声明包括 `JobsBaseUI`、`JobsBlock`、`JobsGetWindow`、`JobsOCDefs`、`JobsOCDSL`、`JobsStringUtils`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+依赖与编译入口：[JobsOCOpen.podspec](<./JobsOCOpen.podspec>)。其中根级依赖声明包括 `JobsBaseUI`、`JobsBlock`、`JobsGetWindow`、`JobsOCDefs`、`JobsOCDSL`、`JobsStringUtils`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+
+## 十一、运行合同与失败边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+- 所有 UIKit 入口调度到主线程；自建打开器只有宿主在窗口中且没有正在 dismiss/已 present 页面才发起展示，模态 completion 在实际展示 completion 后触发。
+- 邮件代理绑定当前 MFMailComposeViewController，每次展示独立保存 completion，关闭后解除关联；不能用单例覆盖另一封邮件的回调。
+- 字符串便捷入口从后台调用时返回 Opened 表示已提交主线程操作，不表示外部应用或邮件已经完成；最终打开结果请使用 completion。
+
+## 十二、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+计数递归扫描当前目录内的普通文件，排除 `.DS_Store` / `._*`；源码与头文件计入 `.h`、`.m`、`.mm`、`.c`、`.cc`、`.cpp`、`.hpp`、`.swift`。资源目录中的目录、资源编译结果和文件大小不计入文件数，文件存在不代表必然打包。
+
+| 目录 | 实际文件 | 源码 / 头文件 | 安装边界 |
+| --- | --- | --- | --- |
+| `Core/` | 10 | 10 | 公共入口与核心实现；公开 / 私有头由 podspec 指定 |
+| `Support/` | 2 | 2 | 仅供当前 Pod 内部实现，按实际 subspec / private header 映射 |
+| `Resource/`（无目录） | 0 | 0 | 非代码资源；按 resources / resource_bundles 和排除规则安装 |
+| `Tests/`（无目录） | 0 | 0 | 只由独立测试目标或回归 harness 使用，不进入生产 source_files |
+
+`Core` 的物理目录不等于所有头文件均公开；`Support` 和测试 fixture 不作为 App 或其它 Pod 的稳定消费入口。根聚合头与 `public_header_files` 是外部引用依据。
+
+## 十三、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+当前结果：**Debug / Release 单 Pod 编译已完成；本 Pod 无独立 Stability 回归；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+
+生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
+
+从本 README 所在目录回到工程根目录，再运行该 Pod 的 Debug / Release 单元编译：
+
+```shell
+cd ../..
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+  --phase pods --pod JobsOCOpen
+```
+
+当前没有 `Stability` test_spec；单独 Pod 的编译覆盖不能等同于行为测试通过，集成场景由宿主验收。
+
+运行前应已安装工程依赖；runner 的 `--phase pods` 默认分别编译 Debug / Release，`--phase tests` 默认运行 Debug（JobsOCSnowflake 默认 Debug / Release），并将命令、源码指纹、日志和退出码保存到工程 `work/JobsPodsStability/`。如需固定输出目录，使用 runner 的 `--output`。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

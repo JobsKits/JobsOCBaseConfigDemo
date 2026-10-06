@@ -108,7 +108,8 @@ Prop_assign(readwrite,getter=isProtectionAvailable)BOOL protectionAvailable;
         if (!self) return nil;
         for (UIView *subview in self.secureTextField.subviews) {
             if ([NSStringFromClass(subview.class) containsString:@"CanvasView"]) return subview;
-        };return self.secureTextField.subviews.firstObject;
+        }
+        return nil;
     };
 }
 

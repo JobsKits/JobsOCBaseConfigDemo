@@ -9,6 +9,10 @@
 #import "Demos.h"
 #import "JobsOCRootFoldTableCell.h"
 
+#if DEBUG
+#import "JobsDebugPanelDemoVC.h"
+#endif
+
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)
 #import <JobsBaseUI/JobsBaseUI.h>
 #else

@@ -81,7 +81,7 @@ JOBS_AUDIO_RECORDING_DSL(byFileSize, JobsRetJobsOCAudioRecordingByLongLongBlock,
         if (!self) return nil;
         NSDateFormatter *formatter = jobsMakeDateFormatter(^(NSDateFormatter *object){});
         formatter.byDateFormat(@"yyyyMMdd_HHmmss_SSS");
-        NSString *name = [NSString stringWithFormat:@"%@_%@.m4a",mode == JobsOCAudioRecordingModeLong ? @"long" : @"short",[formatter stringFromDate:NSDate.date]];
+        NSString *name = [NSString stringWithFormat:@"%@_%@.m4a",mode == JobsOCAudioRecordingModeLong ? @"long" : @"short",NSUUID.UUID.UUIDString];
         return [self.directoryURL URLByAppendingPathComponent:name];
     };
 }
@@ -119,6 +119,10 @@ JOBS_AUDIO_RECORDING_DSL(byFileSize, JobsRetJobsOCAudioRecordingByLongLongBlock,
 @property(nonatomic,strong)NSURL *currentURL;
 @property(nonatomic,assign,readwrite)JobsOCAudioRecordingMode mode;
 @property(nonatomic,assign)BOOL keepFile;
+@property(nonatomic,assign)BOOL stopping;
+-(BOOL)activateRecordingSession:(AVAudioSession **)session error:(NSError **)error;
+-(nullable AVAudioRecorder *)recorderWithURL:(NSURL *)URL settings:(NSDictionary *)settings error:(NSError **)error;
+-(JobsRetNSURLByJobsOCAudioRecordingModeBlock _Nonnull)recordingURLForMode;
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCAudioRecorderEngine
@@ -131,6 +135,33 @@ JOBS_AUDIO_RECORDING_DSL(byFileSize, JobsRetJobsOCAudioRecordingByLongLongBlock,
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCAudioRecorderEngine
 
 @implementation JobsOCAudioRecorderEngine
+-(instancetype)init{
+    if (self = [super init]) {
+        [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(recordingInterrupted:)
+                                                  name:AVAudioSessionInterruptionNotification object:nil];
+    }
+    return self;
+}
+
+-(void)dealloc{
+    [NSNotificationCenter.defaultCenter removeObserver:self];
+    _recorder.delegate = nil;
+    [_recorder stop];
+}
+
+-(void)recordingInterrupted:(NSNotification *)notification{
+    if ([notification.userInfo[AVAudioSessionInterruptionTypeKey] unsignedIntegerValue] != AVAudioSessionInterruptionTypeBegan) return;
+    @synchronized (self) {
+        AVAudioRecorder *recorder = self.recorder;
+        if (!recorder) return;
+        recorder.byDelegate(nil);
+        [recorder stop];
+        NSError *error = [NSError errorWithDomain:@"JobsOCAudioRecorder" code:5
+                                         userInfo:@{NSLocalizedDescriptionKey:@"音频会话中断，当前录音已取消"}];
+        [self finishRecorder:recorder successfully:NO error:error];
+    }
+}
+
 +(JobsRetIDByVoidBlock _Nonnull)shared{
     return ^id{
         static JobsOCAudioRecorderEngine *engine;
@@ -138,8 +169,16 @@ JOBS_AUDIO_RECORDING_DSL(byFileSize, JobsRetJobsOCAudioRecordingByLongLongBlock,
         dispatch_once(&onceToken, ^{ engine = JobsOCAudioRecorderEngine.new; });return engine;
     };
 }
--(BOOL)isRecording{return self.recorder.isRecording;}
--(NSTimeInterval)currentTime{return self.recorder.currentTime;}
+-(BOOL)isRecording{
+    @synchronized (self) {
+        return self.recorder.isRecording;
+    }
+}
+-(NSTimeInterval)currentTime{
+    @synchronized (self) {
+        return self.recorder.currentTime;
+    }
+}
 -(jobsByvoidBOOLBlock _Nonnull)requestPermission{
     @jobs_weakify(self)
     return ^(void (^completion)(BOOL)){
@@ -149,33 +188,87 @@ JOBS_AUDIO_RECORDING_DSL(byFileSize, JobsRetJobsOCAudioRecordingByLongLongBlock,
     };
 }
 -(BOOL)startWithMode:(JobsOCAudioRecordingMode)mode maximumDuration:(NSTimeInterval)duration error:(NSError **)error{
-    if (self.isRecording) {
-        if (error) *error = [NSError errorWithDomain:@"JobsOCAudioRecorder" code:1 userInfo:@{NSLocalizedDescriptionKey:@"已有录音正在进行"}];
+    @synchronized (self) {
+        if (error) *error = nil;
+        if (self.recorder || self.stopping) {
+            if (error) *error = [NSError errorWithDomain:@"JobsOCAudioRecorder" code:1
+                                               userInfo:@{NSLocalizedDescriptionKey:@"已有录音正在进行或收尾"}];
+            return NO;
+        }
+        AVAudioSession *session = nil;
+        if (![self activateRecordingSession:&session error:error]) {
+            return NO;
+        }
+        NSURL *url = self.recordingURLForMode(mode);
+        NSDictionary *settings = @{AVFormatIDKey:@(kAudioFormatMPEG4AAC), AVSampleRateKey:@44100,
+                                   AVNumberOfChannelsKey:@1, AVEncoderAudioQualityKey:@(AVAudioQualityHigh)};
+        AVAudioRecorder *recorder = url ? [self recorderWithURL:url settings:settings error:error] : nil;
+        if (recorder) recorder.byDelegate(self);
+        BOOL prepared = recorder && [recorder prepareToRecord];
+        BOOL started = prepared && (duration > 0 && isfinite(duration) ? [recorder recordForDuration:duration] : [recorder record]);
+        if (!started) {
+            if (recorder) {
+                recorder.byDelegate(nil);
+                [recorder stop];
+            }
+            if (url) [NSFileManager.defaultManager removeItemAtURL:url error:nil];
+            [session setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+            if (error && !*error) *error = [NSError errorWithDomain:@"JobsOCAudioRecorder" code:4
+                                                         userInfo:@{NSLocalizedDescriptionKey:@"录音设备未能启动"}];
+            return NO;
+        }
+        self.byMode(mode)
+            .byKeepFile(YES)
+            .byCurrentURL(url)
+            .byRecorder(recorder);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            @synchronized (self) {
+                if (self.recorder != recorder || self.stopping) return;
+            }
+            if ([self.delegate respondsToSelector:@selector(audioRecorderEngineDidStart:)]) {
+                [self.delegate audioRecorderEngineDidStart:self];
+            }
+        });
+        return YES;
+    }
+}
+
+-(BOOL)activateRecordingSession:(AVAudioSession **)activatedSession error:(NSError **)error{
+    AVAudioSession *session = AVAudioSession.sharedInstance;
+    if (session.recordPermission != AVAudioSessionRecordPermissionGranted) {
+        if (error) *error = [NSError errorWithDomain:@"JobsOCAudioRecorder" code:3
+                                           userInfo:@{NSLocalizedDescriptionKey:@"请先申请并取得麦克风权限"}];
         return NO;
     }
-    AVAudioSession *session = AVAudioSession.sharedInstance;
-    if (![session setCategory:AVAudioSessionCategoryPlayAndRecord mode:AVAudioSessionModeDefault options:AVAudioSessionCategoryOptionDefaultToSpeaker | AVAudioSessionCategoryOptionAllowBluetooth error:error]) return NO;
-    if (![session setActive:YES error:error]) return NO;
-    NSURL *url = (((JobsOCAudioRecordingStore *)JobsOCAudioRecordingStore.shared())).makeURLWithMode(mode);
-    NSDictionary *settings = @{AVFormatIDKey:@(kAudioFormatMPEG4AAC),AVSampleRateKey:@44100,AVNumberOfChannelsKey:@1,AVEncoderAudioQualityKey:@(AVAudioQualityHigh)};
-    AVAudioRecorder *recorder = [AVAudioRecorder.alloc initWithURL:url settings:settings error:error];
-    if (!recorder || ![recorder prepareToRecord]) return NO;
-    self.byMode(mode);
-    self.byKeepFile(YES);
-    self.byCurrentURL(url);
-    self.byRecorder(recorder);
-    recorder.byDelegate(self);
-    duration > 0 ? [recorder recordForDuration:duration] : [recorder record];
-    if ([self.delegate respondsToSelector:@selector(audioRecorderEngineDidStart:)]) [self.delegate audioRecorderEngineDidStart:self];
+    if (![session setCategory:AVAudioSessionCategoryPlayAndRecord mode:AVAudioSessionModeDefault
+                      options:AVAudioSessionCategoryOptionDefaultToSpeaker | AVAudioSessionCategoryOptionAllowBluetooth error:error] ||
+        ![session setActive:YES error:error]) {
+        return NO;
+    }
+    if (activatedSession) *activatedSession = session;
     return YES;
+}
+
+-(AVAudioRecorder *)recorderWithURL:(NSURL *)URL settings:(NSDictionary *)settings error:(NSError **)error{
+    return [AVAudioRecorder.alloc initWithURL:URL settings:settings error:error];
+}
+
+-(JobsRetNSURLByJobsOCAudioRecordingModeBlock _Nonnull)recordingURLForMode{
+    return ^NSURL *(JobsOCAudioRecordingMode mode) {
+        return ((JobsOCAudioRecordingStore *)JobsOCAudioRecordingStore.shared()).makeURLWithMode(mode);
+    };
 }
 -(jobsByVoidBlock _Nonnull)stopAndSave{
     @jobs_weakify(self)
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        self.byKeepFile(YES);
-        self.recorder.stop;
+        @synchronized (self) {
+            if (!self.recorder || self.stopping) return;
+            self.stopping = YES;
+            self.byKeepFile(YES);
+            [self.recorder stop];
+        }
     };
 }
 -(void)cancel{
@@ -188,19 +281,42 @@ JOBS_AUDIO_RECORDING_DSL(byFileSize, JobsRetJobsOCAudioRecordingByLongLongBlock,
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        self.byKeepFile(NO);
-        self.recorder.stop;
+        @synchronized (self) {
+            if (!self.recorder || self.stopping) return;
+            self.stopping = YES;
+            self.byKeepFile(NO);
+            [self.recorder stop];
+        }
     };
 }
 -(void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)flag{
-    NSURL *url = self.currentURL;
-    if (!self.keepFile || !flag) [NSFileManager.defaultManager removeItemAtURL:url error:nil];
-    self.byRecorder(nil);
-    self.byCurrentURL(nil);
-    [AVAudioSession.sharedInstance setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
-    NSError *error = flag ? nil : [NSError errorWithDomain:@"JobsOCAudioRecorder" code:2 userInfo:@{NSLocalizedDescriptionKey:@"录音未正常完成"}];
-    if ([self.delegate respondsToSelector:@selector(audioRecorderEngine:didFinishAtURL:error:)]) [self.delegate audioRecorderEngine:self didFinishAtURL:self.keepFile && flag ? url : nil error:error];
+    [self finishRecorder:recorder successfully:flag error:nil];
 }
+
+-(void)audioRecorderEncodeErrorDidOccur:(AVAudioRecorder *)recorder error:(NSError *)error{
+    [self finishRecorder:recorder successfully:NO error:error];
+}
+
+-(void)finishRecorder:(AVAudioRecorder *)recorder successfully:(BOOL)flag error:(NSError *)encodingError{
+    @synchronized (self) {
+        if (!recorder || self.recorder != recorder) return;
+        NSURL *url = self.currentURL;
+        BOOL keep = self.keepFile && flag && !encodingError;
+        recorder.byDelegate(nil);
+        if (!keep && url) [NSFileManager.defaultManager removeItemAtURL:url error:nil];
+        self.byRecorder(nil).byCurrentURL(nil);
+        self.stopping = NO;
+        [AVAudioSession.sharedInstance setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+        NSError *failure = encodingError ?: (flag ? nil : [NSError errorWithDomain:@"JobsOCAudioRecorder" code:2
+                                                                         userInfo:@{NSLocalizedDescriptionKey:@"录音未正常完成"}]);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([self.delegate respondsToSelector:@selector(audioRecorderEngine:didFinishAtURL:error:)]) {
+                [self.delegate audioRecorderEngine:self didFinishAtURL:keep ? url : nil error:failure];
+            }
+        });
+    }
+}
+
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsOCAudioRecorderEngine
 -(JobsRetJobsOCAudioRecorderEngineByAVAudioRecorderBlock _Nonnull)byRecorder{
     @jobs_weakify(self)
@@ -244,6 +360,8 @@ JOBS_AUDIO_RECORDING_DSL(byFileSize, JobsRetJobsOCAudioRecordingByLongLongBlock,
 @property(nonatomic,strong)AVAudioPlayer *player;
 @property(nonatomic,strong,readwrite)NSURL *playingURL;
 -(JobsRetIDByIDBlock _Nonnull)byPlayer;
+-(BOOL)activatePlaybackSession:(AVAudioSession **)session error:(NSError **)error;
+-(nullable AVAudioPlayer *)playerWithURL:(NSURL *)URL error:(NSError **)error;
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCAudioPlayerEngine
@@ -269,13 +387,47 @@ JOBS_AUDIO_RECORDING_DSL(byFileSize, JobsRetJobsOCAudioRecordingByLongLongBlock,
     };
 }
 -(BOOL)toggleURL:(NSURL *)url error:(NSError **)error{
+    if (((JobsOCAudioRecorderEngine *)JobsOCAudioRecorderEngine.shared()).currentURL) {
+        if (error) *error = [NSError errorWithDomain:@"JobsOCAudioRecorder" code:6
+                                           userInfo:@{NSLocalizedDescriptionKey:@"录音或收尾期间不能切换播放会话"}];
+        return NO;
+    }
     if ([self.playingURL isEqual:url] && self.player.isPlaying) {self.jobsStop();return NO;}
-    [AVAudioSession.sharedInstance setCategory:AVAudioSessionCategoryPlayback error:error];
-    if (![AVAudioSession.sharedInstance setActive:YES error:error]) return NO;
-    self.byPlayer([AVAudioPlayer.alloc initWithContentsOfURL:url error:error]);
-    self.player.byDelegate(self);
+    if (error) *error = nil;
+    AVAudioSession *session = nil;
+    if (![self activatePlaybackSession:&session error:error]) return NO;
+    AVAudioPlayer *player = [self playerWithURL:url error:error];
+    if (player) player.byDelegate(self);
+    BOOL playing = player && [player play];
+    if (!playing) {
+        if (player) {
+            player.byDelegate(nil);
+            [player stop];
+        }
+        [self.player stop];
+        self.byPlayer(nil);
+        self.byPlayingURL(nil);
+        [session setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+        if (error && !*error) *error = [NSError errorWithDomain:@"JobsOCAudioRecorder" code:7
+                                                     userInfo:@{NSLocalizedDescriptionKey:@"音频文件不能播放"}];
+        return NO;
+    }
+    [self.player stop];
+    self.byPlayer(player);
     self.byPlayingURL(url);
-    return [self.player play];
+    return playing;
+}
+
+-(BOOL)activatePlaybackSession:(AVAudioSession **)activatedSession error:(NSError **)error{
+    AVAudioSession *session = AVAudioSession.sharedInstance;
+    if (![session setCategory:AVAudioSessionCategoryPlayback error:error] ||
+        ![session setActive:YES error:error]) return NO;
+    if (activatedSession) *activatedSession = session;
+    return YES;
+}
+
+-(AVAudioPlayer *)playerWithURL:(NSURL *)URL error:(NSError **)error{
+    return [AVAudioPlayer.alloc initWithContentsOfURL:URL error:error];
 }
 -(jobsByVoidBlock _Nonnull)jobsStop{
     @jobs_weakify(self)
@@ -285,7 +437,10 @@ JOBS_AUDIO_RECORDING_DSL(byFileSize, JobsRetJobsOCAudioRecordingByLongLongBlock,
     self.player.stop;self.player = nil;self.playingURL = nil;[AVAudioSession.sharedInstance setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
     };
 }
--(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{(((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCAudioPlayerEngine.class, @selector(jobsStop)))(self, @selector(jobsStop)))();}
+-(void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
+    if (!player || self.player != player) return;
+    self.jobsStop();
+}
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsOCAudioPlayerEngine
 -(JobsRetJobsOCAudioPlayerEngineByNSURLBlock _Nonnull)byPlayingURL{
     @jobs_weakify(self)

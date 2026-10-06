@@ -573,6 +573,54 @@ JobsClockIconView *clockIcon =
 
 页面消失、Cell 离屏或关闭分组时停止 Timer；系统开启“减弱动态效果”时不主动播放入口动画。
 
+### 8.6、Debug 调试面板与环境配置 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+`JobsDebugPanel` 在 OC 新工程通过本地 Pod 交付，OC 老工程直接集成主工程功能目录。公开 API 为 `JobsDebugEnvironment`、`JobsDebugAction`、`JobsDebugPanelManager` 和 `JobsDebugPanelVC`；二级页面、Cell、模态导航与 Overlay Window 是内部实现。完整说明见 [JobsDebugPanel README](../../JobsByPods/JobsDebugPanel@Pods/README.md)。[**SwiftUI**](https://developer.apple.com/xcode/swiftui/) 工程单独使用 `JobsSwiftUIDebugPanel` 本地 Pod，配置思想与行为一致，界面及导航使用 SwiftUI。
+
+`Podfile.deps` 使用 `:configurations => ['Debug']`；`Podfile` 仅在该 Pod target 的 `Debug` 配置补 `DEBUG=1`。`AppDelegate.h` 的公开聚合头导入以及启动方法中的配置调用同时包裹 `#if DEBUG`，Release 不创建入口，也不链接此调试 Pod。
+
+```objc
+#if DEBUG
+JobsDebugPanelManager.sharedPanel
+    .byEnvironments(@[
+        JobsDebugEnvironment.new
+            .byIdentifier(@"local")
+            .byTitle(@"本地开发 · 18080")
+            .byBaseURL(@"http://127.0.0.1:18080"),
+        JobsDebugEnvironment.new
+            .byIdentifier(@"httpbin")
+            .byTitle(@"HTTPBin 回显环境")
+            .byBaseURL(@"https://httpbin.org"),
+        JobsDebugEnvironment.new
+            .byIdentifier(@"postman")
+            .byTitle(@"Postman 回显环境")
+            .byBaseURL(@"https://postman-echo.com")
+    ])
+    .byDefaultEnvironmentIdentifier(@"local")
+    .byEnvironmentChanged(^(JobsDebugEnvironment *environment) {
+        // 宿主网络层在此接收 URL，后续请求使用这个环境。
+        JobsLog(@"环境：%@ · %@", environment.title, environment.baseURL);
+    })
+    .byActions(@[
+        JobsDebugAction.new
+            .byTitle(@"记录当前环境")
+            .byImage(nil)
+            .byAction(^(UIViewController *source) {
+                JobsLog(@"%@", JobsDebugPanelManager.sharedPanel.currentEnvironment.baseURL);
+            })
+    ])
+    .start();
+#endif
+```
+
+- 配置链在主线程调用，`start()` 放在末尾；默认首行是环境切换，自定义有效动作按数组先后显示，图片可选。
+- 环境备注、URL 与稳定 identifier 一起配置。只接受有 host 的 HTTP / HTTPS URL，相同 identifier 保留首项；当前选择的 identifier 存在 `NSUserDefaults`，启动按“有效旧值 → 默认值 → 首个有效值”恢复。
+- 恢复与选择都通过 `byEnvironmentChanged` 和 `JobsDebugEnvironmentDidChangeNotification` 通知宿主；网络单例、鉴权与请求重放由宿主自行处理。
+- 浮层按 Scene session identifier 管理前台业务 Window，旧式无 Scene 生命周期保留 Window 回退；业务根窗口变化时重新绑定。浮层不抢 keyWindow，只有按钮区域拦截触摸。
+- 点按从所属业务 Window 的当前页面 push；没有导航容器时，用带关闭入口的导航容器模态展示。长按隐藏当前进程全部 Scene 的入口，退后台再回来仍隐藏，重新启动才恢复；环境选择继续保留。
+- `JobsDebugPanelDemoVC` 请求当前 `baseURL + /get`，超时 `3` 秒；失败、超时或无法解析时继续展示本地结果并可重试，后续成功响应自动覆盖。真机的 `127.0.0.1` 指设备本身，访问开发机须配置设备可达地址。
+- 默认未加入全 App 弱网开关。开发设备可使用 [**Apple Network Link Conditioner**](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/On_Demand_Resources_Guide/TestingPerformance.html) 的 `Settings > Developer` profile；应用内局部延迟模拟无法代替全网络带宽与丢包控制，[后台 Session 也不支持自定义 URLProtocol](https://developer.apple.com/documentation/foundation/urlsessionconfiguration/protocolclasses)。
+
 ## 九、本地 Pod 与依赖治理 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 ### 9.1、标准本地 Pod 目录 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

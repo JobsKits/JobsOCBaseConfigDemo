@@ -49,8 +49,9 @@ JobsBlock@Pods/
 ├── JobsBlock.podspec  # Pod 描述文件
 ├── README.md  # 当前自述
 ├── JobsPodspecKit.rb  # 本地 podspec 基座
-├── Core/  # 公开 API 与核心实现，10 个文件
-└── LICENSE  # 许可证文件
+├── Core/  # 公开入口与核心实现，8 个文件
+├── LICENSE  # 许可证文件
+└── Resource/  # 非代码资源，1 个文件
 ```
 
 - `JobsBlock.podspec` 是当前 Pod 的 [**CocoaPods**](https://cocoapods.org/) 描述入口。
@@ -59,7 +60,7 @@ JobsBlock@Pods/
 
 ## 四、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 当前包含 10 个文件，其中源码 / 头文件 10 个；按 Jobs 规范，它是 `JobsBlock` 对外公开 API 和核心实现的边界。
+- `Core` 当前包含 8 个文件，其中源码 / 头文件 8 个；按 Jobs 规范，它是 `JobsBlock` 对外公开 API 和核心实现的边界。
 - 当前目录没有 `Support` 文件夹；如后续补内部兼容代码，优先放入 `Support` 并让 podspec 动态映射。
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
@@ -68,6 +69,9 @@ JobsBlock@Pods/
 
 ### 5.1、公开头文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
+- `JobsBlock.h`
+- `JobsBlockDef.h`
+- `JobsBlockHeader.h`
 - `Core/**/*.h`
 
 - `Core/确定参数的Block/ReturnByCertainParametersBlock.h` 集中维护带返回值的确定参数 Block，`UITextView`、`UIBezierPath / CALayer / UIView` 方法型 DSL 相关返回类型统一从这里暴露。
@@ -103,6 +107,9 @@ JobsBlock@Pods/
 
 ### 5.2、源码入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
+- `JobsBlock.h`
+- `JobsBlockDef.h`
+- `JobsBlockHeader.h`
 - `Core/**/*.{h,m,mm}`
 
 ### 5.3、默认安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -122,7 +129,6 @@ JobsBlock@Pods/
 ### 5.5、Pod 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `SDWebImage`
-- `JobsOCDefs`
 
 ## 六、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -141,10 +147,10 @@ JobsBlock@Pods/
 
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 当前目录扫描到资源类文件 0 个，`Resource` 目录文件 0 个。
+- 当前目录扫描到资源类文件 1 个，`Resource` 目录文件 1 个。
 - podspec 资源声明如下：
 
-- podspec 未显式声明 `resources`，如新增图片、xib、bundle、json、plist 等资源，需要同步补齐。
+- 资源通过当前 podspec 的 `resources` / `resource_bundles` 映射；物理文件计数与运行时复制范围分别核对。
 
 ## 八、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -167,11 +173,46 @@ pod install --no-repo-update
 
 ## 九、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 头文件会进入公开 API 边界，新增 import 时要确认不会把内部实现细节暴露给外部。
+- 只有 podspec 指定的公开头进入外部 API 边界；新增 import 时要确认不会把私有实现细节暴露给外部。
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 第三方 DSL Block typedef 只在对应第三方头文件可见时启用；调用方应由 `JobsOCDSL` 这类上层 Pod 持有第三方依赖，不要反向要求 `JobsBlock` 兜底安装所有第三方 Pod。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
+
+## 十、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+计数递归扫描当前目录内的普通文件，排除 `.DS_Store` / `._*`；源码与头文件计入 `.h`、`.m`、`.mm`、`.c`、`.cc`、`.cpp`、`.hpp`、`.swift`。资源目录中的目录、资源编译结果和文件大小不计入文件数，文件存在不代表必然打包。
+
+| 目录 | 实际文件 | 源码 / 头文件 | 安装边界 |
+| --- | --- | --- | --- |
+| `Core/` | 8 | 8 | 公共入口与核心实现；公开 / 私有头由 podspec 指定 |
+| `Support/`（无目录） | 0 | 0 | 仅供当前 Pod 内部实现，按实际 subspec / private header 映射 |
+| `Resource/` | 1 | 0 | 非代码资源；按 resources / resource_bundles 和排除规则安装 |
+| `Tests/`（无目录） | 0 | 0 | 只由独立测试目标或回归 harness 使用，不进入生产 source_files |
+
+`Core` 的物理目录不等于所有头文件均公开；`Support` 和测试 fixture 不作为 App 或其它 Pod 的稳定消费入口。根聚合头与 `public_header_files` 是外部引用依据。
+
+根级资源直接复制映射：`Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff}`。
+
+`Resource/icon.png` 用于文档展示，podspec 通过 `exclude_files` 排除运行时资源复制，同时 `preserve_paths` 保留文件以供文档使用。这样避免通用 `icon.png` 名称在宿主资源中发生冲突；已有业务图片 / bundle 的查找位置沿用原合同。
+
+## 十一、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+当前结果：**Debug / Release 单 Pod 编译已完成；本 Pod 无独立 Stability 回归；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+
+生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
+
+从本 README 所在目录回到工程根目录，再运行该 Pod 的 Debug / Release 单元编译：
+
+```shell
+cd ../..
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+  --phase pods --pod JobsBlock
+```
+
+当前没有 `Stability` test_spec；单独 Pod 的编译覆盖不能等同于行为测试通过，集成场景由宿主验收。
+
+运行前应已安装工程依赖；runner 的 `--phase pods` 默认分别编译 Debug / Release，`--phase tests` 默认运行 Debug（JobsOCSnowflake 默认 Debug / Release），并将命令、源码指纹、日志和退出码保存到工程 `work/JobsPodsStability/`。如需固定输出目录，使用 runner 的 `--output`。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>
 
@@ -179,25 +220,25 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 十、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 十二、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 10.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 12.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 为 OC 各模块提供共享的 Block 类型语言。按有/无返回值、确定/不定参数及业务类型分组，NSObject 的回调属性工具负责挂载回调，类型声明本身不执行业务。
 
-### 10.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 12.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 定义匹配输入/输出的 Block 类型 → 接口使用该类型 → 对象保存回调 → 业务时机触发。
 
-### 10.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 12.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 回调参数、可空性和返回对象类型是调用契约，不能只按名称生成 void Block。
 - 类型别名、回调存储和回调执行分属不同职责；存入 Block 不等于立即调用。
 - 底层类型层应控制依赖方向，避免为某个业务类型引入整套上层实现。
 
-### 10.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 12.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先看聚合头和基础返回/参数类型，再进入业务类型与 NSObject 回调存储；重建依赖模块前先建立最小公共类型集。
 
@@ -209,4 +250,4 @@ pod install --no-repo-update
 - [Core/JobsBizBlock/JobsBizBlock.h](<./Core/JobsBizBlock/JobsBizBlock.h>)
 - [Core/Tools/NSObject+CallBackInfoByBlock/NSObject+CallBackInfoByBlock.h](<./Core/Tools/NSObject+CallBackInfoByBlock/NSObject+CallBackInfoByBlock.h>)
 
-依赖与编译入口：[JobsBlock.podspec](<./JobsBlock.podspec>)。其中显式依赖声明包括 `SDWebImage`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+依赖与编译入口：[JobsBlock.podspec](<./JobsBlock.podspec>)。其中根级依赖声明包括 `SDWebImage`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。

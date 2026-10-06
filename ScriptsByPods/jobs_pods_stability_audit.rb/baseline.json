@@ -1,0 +1,847 @@
+{
+  "schema": 1,
+  "reviewed_at": "2026-10-05",
+  "expected_pods": [
+    "AFSecurityPolicyExtra",
+    "BRPickerViewExtra",
+    "FDFullscreenPopGesture",
+    "FMDatabaseExtra",
+    "FSCalendarExtra",
+    "FileFolderHandleTool",
+    "GKCustomNavigationBarExtra",
+    "HTMLDocumentExtra",
+    "HXPhotoManagerExtra",
+    "HXPhotoViewExtra",
+    "IQKeyboardManagerExtra",
+    "JXCategoryViewExtra",
+    "JobsAPIs",
+    "JobsAppDoor",
+    "JobsAppIconRibbon",
+    "JobsAppTools",
+    "JobsBasePopupView",
+    "JobsBaseUI",
+    "JobsBioKit",
+    "JobsBitsMonitor",
+    "JobsBlock",
+    "JobsBluetooth",
+    "JobsByOCPods",
+    "JobsCallBackBlockDSL",
+    "JobsClass",
+    "JobsClockView",
+    "JobsCountdownBtn",
+    "JobsCryptography",
+    "JobsCustomView",
+    "JobsDebug",
+    "JobsDebugPanel",
+    "JobsDeviceInfo",
+    "JobsDropDownListView",
+    "JobsFiltrationView",
+    "JobsFuseAnimation",
+    "JobsGestureLock",
+    "JobsGetWindow",
+    "JobsHotLabel",
+    "JobsIconfont",
+    "JobsImageNumberView",
+    "JobsImageRotation",
+    "JobsLanMgr",
+    "JobsLinkageMenuView",
+    "JobsLoadingImage",
+    "JobsLocker",
+    "JobsLuckyEnvelopeRain",
+    "JobsMakes",
+    "JobsMarqueeView",
+    "JobsMenuView",
+    "JobsModel",
+    "JobsModelDSL",
+    "JobsMonitorNetwoking",
+    "JobsNavBar",
+    "JobsNavigationTransitionMgr",
+    "JobsNetWorkTools",
+    "JobsOCAudioRecorder",
+    "JobsOCCalendar",
+    "JobsOCComment",
+    "JobsOCCountryCodeCtrl",
+    "JobsOCDSL",
+    "JobsOCDefs",
+    "JobsOCExcel",
+    "JobsOCGraphicCaptcha",
+    "JobsOCKeyboardMgr",
+    "JobsOCMarkdown",
+    "JobsOCNumberStepper",
+    "JobsOCOpen",
+    "JobsOCPatch",
+    "JobsOCProtocols",
+    "JobsOCRefresher",
+    "JobsOCRuntimeKits",
+    "JobsOCSearcher",
+    "JobsOCSkeletonView",
+    "JobsOCSnowflake",
+    "JobsOCSplash",
+    "JobsOCTimer",
+    "JobsOCTimerMgr",
+    "JobsOCTools",
+    "JobsOCUILabelScrolling",
+    "JobsOCVideoRecorder",
+    "JobsOCWebSocket",
+    "JobsPresentTransitionMgr",
+    "JobsProgressBar",
+    "JobsRandomUtils",
+    "JobsRichTextUtils",
+    "JobsScreenCapture",
+    "JobsStringUtils",
+    "JobsSuspend",
+    "JobsTabBarCtrl",
+    "JobsTimeUtils",
+    "JobsUploadingProgressView",
+    "JobsViewNavigator",
+    "JobsViewPush",
+    "JobsWallet",
+    "LMJDropdownMenuExtra",
+    "MGSwipeTableCellExtra",
+    "MJRefreshExtra",
+    "RACExtra",
+    "ReachabilityExtra",
+    "SRWebSocketExtra",
+    "SYSAlertControllerExtra",
+    "SZTextViewExtra",
+    "TFPopupExtra",
+    "This",
+    "UIBaseTextFieldDSL",
+    "WHToastExtra",
+    "YTKNetworkExtra",
+    "ZFPlayerExtra",
+    "ZMJCellExtra"
+  ],
+  "helpers": {
+    "JobsByPods/AFSecurityPolicyExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "eea1b38cd7a156eda6ae277254774ce5218ab4920d157ec0d52bed1fca8a1aae",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/BRPickerViewExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "df1496a54dab1eea6ece24705dff76ce5cdcb07116f32be174c820cb902f6119",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/FDFullscreenPopGesture@Pods/JobsPodspecKit.rb": {
+      "sha256": "36f02d388034bb5c131c004863cfd9ec3afc43a567e394f41d4e240fe74a6dd6",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/FMDatabaseExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "f88f3a27082b69caac37677a08de0795c45233cce253e7c4dbd7fd7f9db83743",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/FSCalendarExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "2144cd1db9b4c89976eca9d6163cefe2a39c9d9f72bb755848fa1fcff799e74f",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/FileFolderHandleTool@Pods/JobsPodspecKit.rb": {
+      "sha256": "a66b6bb4e722b7abdcf4605cef6f663166bec65c58495486c82522660135fe58",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/GKCustomNavigationBarExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "73df74d0329d6cad8411e5e3799199229b9aa578081976f511515d4755e74c4f",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/HTMLDocumentExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "7b37f7a2d0cd1e717085649b6de502eb967377479323834d3fe74a80a44508de",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/HXPhotoManagerExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "a9594d2ef5522c2ddf7e14f5cca653d84abaca92801d3346a21e38b214762cb1",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/HXPhotoViewExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "38cca7131b5c722b5cca26b5b5acacb11a979a24c514915c4b22e2bf529f8b73",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/IQKeyboardManagerExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "71b23df6e1dcdac4337852a3a001e8a13f1b51f1590202f3448f09cc89ce112a",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JXCategoryViewExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "25bf9e7ec4e5de639a61b29a46a17c55b89c0e80f4a355b55fa12c7bab983a87",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsAPIs@Pods/JobsPodspecKit.rb": {
+      "sha256": "09ed3ab07717f0be4968a75959945f7efa037b889261b97977c14e029155f19e",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsAppDoor@Pods/JobsPodspecKit.rb": {
+      "sha256": "545652d59de695a697463678b96ca77805d8ca00574b1016f1c2826e58930ce7",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsAppIconRibbon@Pods/JobsPodspecKit.rb": {
+      "sha256": "5edc3caf162bed9e716006cbbc08a5de77fd385645153e7ec319536af0323e9d",
+      "normalized_sha256": "dce041577d08a385218a390dbc761c4dc0ce992ec7d34c6177f228bd339b1a9f",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsAppTools@Pods/JobsPodspecKit.rb": {
+      "sha256": "0f3a70241af1d74645fbd5d5b2474e137c222dd47f6a667be78947f00232d9dd",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsBasePopupView@Pods/JobsPodspecKit.rb": {
+      "sha256": "d74a99afbb75fe689d71c468259fc294c715a07afe3c2bc75fc85eab153ec31d",
+      "normalized_sha256": "709d73d289a535bd75157b5eb4f54ca537cce62cf26538d0c7dd9fcc5e61224a",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsBaseUI@Pods/JobsPodspecKit.rb": {
+      "sha256": "a664d6aea5a91a728dc728383d860f1cd7756b71d57a0e921422d76e25ff0644",
+      "normalized_sha256": "f6d52d647d55268f2c62284a47394b50cf024e523edb07aad2813508bd804cac",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsBioKit@Pods/JobsPodspecKit.rb": {
+      "sha256": "bd7b7abb3fa477d0fee21887cc5d01d59c9223f5ed009fa0f8ed449bc6ac1c79",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsBitsMonitor@Pods/JobsPodspecKit.rb": {
+      "sha256": "894fec77519c768add291fdee08324ceb75cc91140025a8d0ce0c29e57065b7b",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsBlock@Pods/JobsPodspecKit.rb": {
+      "sha256": "fd610c4445420ba8f7d0f5b125f5ebe356ba8ad22d96602e0717df4ca78afffc",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsBluetooth@Pods/JobsPodspecKit.rb": {
+      "sha256": "bcec249a2153ead9fd80ecee8fb97a20bf331b5dbc7cc7949ee230f4d8c26bf9",
+      "normalized_sha256": "f04c67ba9f321b1ce56ea6d59dd434e2e53abad595e2164be829761976ef5f94",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsByOCPods@Pods/JobsPodspecKit.rb": {
+      "sha256": "521665b9acb9b1f4653f240b259edf85c01754c22600ebb42b037edff7eea74f",
+      "normalized_sha256": "709d73d289a535bd75157b5eb4f54ca537cce62cf26538d0c7dd9fcc5e61224a",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsCallBackBlockDSL@Pods/JobsPodspecKit.rb": {
+      "sha256": "0860cfe3e9d70ea6c4c5087c7d3aada8b5f374753588d6c853f1dac110e08086",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsClass@Pods/JobsPodspecKit.rb": {
+      "sha256": "a84844db3dad6d3281a0548900af3bad38e445422ed7a292b82be8381e07dd33",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsClockView@Pods/JobsPodspecKit.rb": {
+      "sha256": "2f960e27f3f56dc00927e5292a74da0b72012bd37b04092f3f176c4c75fa71c7",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsCountdownBtn@Pods/JobsPodspecKit.rb": {
+      "sha256": "25c06ae6172ee6f3522e5c1050677bc39092fe569e8952e0e5053e4d1f879d31",
+      "normalized_sha256": "ec1ec388a8c4ffe5345f35cd3f4ffd857e48339b377f4f39ef1513f44325b7d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsCryptography@Pods/JobsPodspecKit.rb": {
+      "sha256": "a0f95ea0ca5f4fc20c482e4348580b7319698664ffa4cd9a072d439753a1465d",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsCustomView@Pods/JobsPodspecKit.rb": {
+      "sha256": "b4cad5cc6226cba3e8623ac1a4f718a12c0d80bcbd7428c6f4b15d410b1b7c84",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsDebug@Pods/JobsPodspecKit.rb": {
+      "sha256": "b26a102872bbe190c40b662bd18d7e78b3c9c0676d2af35293d7bbc0554b2aab",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsDebugPanel@Pods/JobsPodspecKit.rb": {
+      "sha256": "182c0f365f4f3a9b4c29acf6ead58119ba9127026b44f8ebeae7a81e7652a9fa",
+      "normalized_sha256": "77a43e8298157b9be3b2c2f5646e5dcf0451360a595ea2fecb57ac8d69c48d37",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsDeviceInfo@Pods/JobsPodspecKit.rb": {
+      "sha256": "b47be599e1cbc7a548d0d47376205c4d97b828e363ca29db5b3066c93fe9abcd",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsDropDownListView@Pods/JobsPodspecKit.rb": {
+      "sha256": "d2594c80fde331e32846f11768985061daa7a2e0c4fe0d2b07d42093798ccb89",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsFiltrationView@Pods/JobsPodspecKit.rb": {
+      "sha256": "fe8258c63e468addf302f4e8f500fed1feb459f47b0f6d9f793aaad57f8a3721",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsFuseAnimation@Pods/JobsPodspecKit.rb": {
+      "sha256": "5d72aba802ce61a52820114e35efb27a10043165df89595ae81278dfa6afadc3",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsGestureLock@Pods/JobsPodspecKit.rb": {
+      "sha256": "9cd621cfc1ad07c6e15a5e2340a347118aeed6080a51cfa6bf4923493e29947e",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsGetWindow@Pods/JobsPodspecKit.rb": {
+      "sha256": "2fc1b1bba360bbd6305c982b0601bedda9024265e896c3c110abbe1ff148426c",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsHotLabel@Pods/JobsPodspecKit.rb": {
+      "sha256": "cd9e7a8fed08826d482fbcf7154b23b8a90108b5d6bbe9988736684617af11a1",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsImageNumberView@Pods/JobsPodspecKit.rb": {
+      "sha256": "2bc8bb6e19ff14c19d532e136391d522d793400207db304bab023b60e49aadc7",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsImageRotation@Pods/JobsPodspecKit.rb": {
+      "sha256": "3bdb710fbd51ef3681ffa097fa63af481a76b4dcc72115f4f8fd5374dee07b0c",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsLanMgr@Pods/JobsPodspecKit.rb": {
+      "sha256": "036b8dd55214c0986e62f67a1ab63d90b2cd451ae3f5708de5abd50e37231cd6",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsLinkageMenuView@Pods/JobsPodspecKit.rb": {
+      "sha256": "a40fa8badaa1e5ab31e808b46eba77c1d8e6c7c43450e6da069ace9b5a91d2f8",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsLoadingImage@Pods/JobsPodspecKit.rb": {
+      "sha256": "948e5188b7d982767bae5d569285440ffabbf3eba26af4b5eb0ab6514f79086c",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsLocker@Pods/JobsPodspecKit.rb": {
+      "sha256": "b2eeabe316d30c5f4c42d3a3af54be06f95b1fbc6269a655c58baccb82cb97e5",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsLuckyEnvelopeRain@Pods/JobsPodspecKit.rb": {
+      "sha256": "7394339d98795e87676a6525ae87d40f993018c3fe6b472fef497d407d983f0d",
+      "normalized_sha256": "ec1ec388a8c4ffe5345f35cd3f4ffd857e48339b377f4f39ef1513f44325b7d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsMakes@Pods/JobsPodspecKit.rb": {
+      "sha256": "57a255a1b28cee2a375dfe3a21200a3a8a3a92a027210603672f5592d73772f3",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsMarqueeView@Pods/JobsPodspecKit.rb": {
+      "sha256": "03aa41a062d95648f5a128da898fe573e0b1b7d3103fb369287447d8c2dd77c4",
+      "normalized_sha256": "5694e1a075dc362f324ddd7af7bb38f2ca0bbd63785e4cc9acc0f091373f6627",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsMenuView@Pods/JobsPodspecKit.rb": {
+      "sha256": "93001c1630ba5a3bf17fc93b08c3b48cf5465aa5141c9a944907f44d83fbadd2",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsModel@Pods/JobsPodspecKit.rb": {
+      "sha256": "1b63ea41b7b58ee96ad62ff1f016c136a003b24d5fcb91e4dcf1912c1af3cde0",
+      "normalized_sha256": "2083d8e08181696362a57221c3966a80054d9763cf239d37332f3cf05c46a1b6",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsModelDSL@Pods/JobsPodspecKit.rb": {
+      "sha256": "827f3bea86f7dfc433d452ede2406cd735453e9b0524d0ab94298ca03d717304",
+      "normalized_sha256": "2083d8e08181696362a57221c3966a80054d9763cf239d37332f3cf05c46a1b6",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsMonitorNetwoking@Pods/JobsPodspecKit.rb": {
+      "sha256": "df681ba58416318d6f216a2d0c0eafa046b516b60d2e772334c28e789cc45c36",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsNavBar@Pods/JobsPodspecKit.rb": {
+      "sha256": "9261bbd5522cbac339018f8c56b6e23eb1832bdbdbd5144aa0e40806e7464902",
+      "normalized_sha256": "709d73d289a535bd75157b5eb4f54ca537cce62cf26538d0c7dd9fcc5e61224a",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsNavigationTransitionMgr@Pods/JobsPodspecKit.rb": {
+      "sha256": "e4d9557ddd3a97a65cc5ab8620c7e621a3e28aa615d1396ff903afa84afce697",
+      "normalized_sha256": "709d73d289a535bd75157b5eb4f54ca537cce62cf26538d0c7dd9fcc5e61224a",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsNetWorkTools@Pods/JobsPodspecKit.rb": {
+      "sha256": "8eaae61463b4ed092ef15588cdeef6d26f7bb872ab9c0df4d3772d4d495bd607",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCAudioRecorder@Pods/JobsPodspecKit.rb": {
+      "sha256": "e4688d2b112a50e2954c24fc0d235388da10108f873cc26a33631f623d4438f5",
+      "normalized_sha256": "37a434b25073a9cd8c29401feaeabe16d3fe2bc1dc9538b2bbbee38f6e28c420",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCCalendar@Pods/JobsPodspecKit.rb": {
+      "sha256": "7c9cad158521a624260a3523c2a41fe901475ca437e9238939aefa5f043d0cfb",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCComment@Pods/JobsPodspecKit.rb": {
+      "sha256": "3cf0420a0a3df44f9e3340bdf0eb97ce5b71bf593f91aab2681db9648f8d0c73",
+      "normalized_sha256": "56a46259d75a3e6dead8aeb181a225077f22898bb708b17f4c14d65f4419a27e",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCCountryCodeCtrl@Pods/JobsPodspecKit.rb": {
+      "sha256": "b37c965bcf1eae21c0e01bc0b80855941d123d8b2dcf5d730b64757a8dbe1ae7",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCDSL@Pods/JobsPodspecKit.rb": {
+      "sha256": "eb15c9b009f303f69d9da1523e5e083961734cf6b3cfc0639b2f9410e5233339",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCDefs@Pods/JobsPodspecKit.rb": {
+      "sha256": "b3a27c6cec783f6d7b9809af0df99ceb7aa037b3548e07411eda73164bb5a638",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCExcel@Pods/JobsPodspecKit.rb": {
+      "sha256": "2340b69b7c2d89ef23ff245435f1c5a30bf33f7b6d545a7580efd865ae4be896",
+      "normalized_sha256": "fa726947147d933725b9c6c27f8beea5e4bae89572c9234de638897f054541e1",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCGraphicCaptcha@Pods/JobsPodspecKit.rb": {
+      "sha256": "8ca4aaf58ac309d7aa29f70daf451eef9e7d5457456268796a649491d33077bc",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCKeyboardMgr@Pods/JobsPodspecKit.rb": {
+      "sha256": "4d7e49c756661cf790d30f7502165ba4ed71147e7d1f1e4e43d8a159942d3546",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCMarkdown@Pods/JobsPodspecKit.rb": {
+      "sha256": "9fc81d80eff4065df2c87b95d91017b0319f281251ef28c67bc37e9fcc241ae2",
+      "normalized_sha256": "a34eb52350a6a74f8854071f4510e670548d30cd6f4d2de94f0343ae6674cd41",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCNumberStepper@Pods/JobsPodspecKit.rb": {
+      "sha256": "e8b357536d83c793261ee65f323143cf3028263dba9c50d67e1f25d190351393",
+      "normalized_sha256": "e388eeedd4614316ce73636dd7a3ce69b08f738252ac97aa2cb054358a018997",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCOpen@Pods/JobsPodspecKit.rb": {
+      "sha256": "fb437b54e2cc8499820e4e9a2fdcc2728aee99a8b2c86242c766faae5123e32f",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCPatch@Pods/JobsPodspecKit.rb": {
+      "sha256": "071d4eeb3730e11669d3d1189a8860de43202e140f9b64869470e142f4c45927",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCProtocols@Pods/JobsPodspecKit.rb": {
+      "sha256": "7e38b9e0ba39b8362de977d280ca0dc2480a8b88170059948ad03a244597bc61",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCRefresher@Pods/JobsPodspecKit.rb": {
+      "sha256": "8d016489274663f04bc3bd54cc418bcf07034d9d7c9897a6a9523b32d44f824c",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCRuntimeKits@Pods/JobsPodspecKit.rb": {
+      "sha256": "68526cbd59e106c7e97132b86713e0774f1d32ab89b7fca12962bb81f2b62fdb",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCSearcher@Pods/JobsPodspecKit.rb": {
+      "sha256": "83437b121ed65d87af651bfcd63880de1922414a6c48fccffbb95f1ac2cd358d",
+      "normalized_sha256": "56a46259d75a3e6dead8aeb181a225077f22898bb708b17f4c14d65f4419a27e",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCSkeletonView@Pods/JobsPodspecKit.rb": {
+      "sha256": "ed5ea710319f8aa5c3b3c94a11cd3f6e6c41376b3e212393f9ad4af7b43abcea",
+      "normalized_sha256": "662f7c7a9bde4cccfddf71e981aef057c13cc3e356685f076bebe21ef7c92f38",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCSnowflake@Pods/JobsPodspecKit.rb": {
+      "sha256": "fc80d514f138cd6416bc0f6bea5b920112b1d14022df23d6bad8a812af77246b",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCSplash@Pods/JobsPodspecKit.rb": {
+      "sha256": "2b4cd95d91c3bbf5086109c5275d62b0347c0222a71938a77e8f5e3720860276",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCTimer@Pods/JobsPodspecKit.rb": {
+      "sha256": "34a34e287994495fb878bff7d7becd3f2af1cd9c53caecb180de833636acf975",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCTimerMgr@Pods/JobsPodspecKit.rb": {
+      "sha256": "b2cee0f5afca363c1ec351ccc00849fa8133ecfa98f03fca1d04d17235b9e969",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCTools@Pods/JobsPodspecKit.rb": {
+      "sha256": "2ad2e7f3ccfe71ea51127886e5110fb1a15fe69c5b38e271451cd76a05c6e994",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCUILabelScrolling@Pods/JobsPodspecKit.rb": {
+      "sha256": "d8e90e55be8b63f8cfada3e7705dcc2ab92d2215d71034f7d748bfb815fdead0",
+      "normalized_sha256": "3914f13df5991c940e2fb74fdcc1a40f1d0434018a92148e23abb58d30e02061",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCVideoRecorder@Pods/JobsPodspecKit.rb": {
+      "sha256": "58a6c8f3b14d865cb9215986799fe494d6dbb730c5d9a813bd76dc9af7143aea",
+      "normalized_sha256": "2a05541e8372077e2046d6e0df1a50653e9522a6bd6e1d4ca5301cf96823e2c8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCWebSocket@Pods/JobsPodspecKit.rb": {
+      "sha256": "2b31e37928fd65dc6dcf65884b4cda6f8cb8b90e4294c68722ef74103494dc71",
+      "normalized_sha256": "77a43e8298157b9be3b2c2f5646e5dcf0451360a595ea2fecb57ac8d69c48d37",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsPresentTransitionMgr@Pods/JobsPodspecKit.rb": {
+      "sha256": "2081fd5ed061af75a066a79cf934745e058b98dcb7848bdc94e4051ae1d62bb1",
+      "normalized_sha256": "709d73d289a535bd75157b5eb4f54ca537cce62cf26538d0c7dd9fcc5e61224a",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsProgressBar@Pods/JobsPodspecKit.rb": {
+      "sha256": "40d22d93b60acfcf8cb97ffd1ad54a9164363efd7c285bcf5a324ea542ad840e",
+      "normalized_sha256": "1ad77228dfa024e5f8c7c9daa95bb10cf5bb8f33c2d12cb13d1701dee8fb52fe",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsRandomUtils@Pods/JobsPodspecKit.rb": {
+      "sha256": "aab8b79ce786f879b959d6ac05b26f1f59c1d2dbb96cceb66079e5398b134906",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsRichTextUtils@Pods/JobsPodspecKit.rb": {
+      "sha256": "f280e1072bd74adcbc6515a5d485dbb2e0648cf41fd235af39f2d0b78111a603",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsScreenCapture@Pods/JobsPodspecKit.rb": {
+      "sha256": "adeb92ae287e92057dc07d4ea318c6d02ef42ea416f357c73a83b8d400207a51",
+      "normalized_sha256": "77a43e8298157b9be3b2c2f5646e5dcf0451360a595ea2fecb57ac8d69c48d37",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsStringUtils@Pods/JobsPodspecKit.rb": {
+      "sha256": "3253103070ecc4bf064f569ae8bb2abd56496618069897674a4ee3c205c6fa3e",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsSuspend@Pods/JobsPodspecKit.rb": {
+      "sha256": "5a66633aa16be3df06468db0de2d98f1ff3c99f9836d1953677a05b4db0776b0",
+      "normalized_sha256": "709d73d289a535bd75157b5eb4f54ca537cce62cf26538d0c7dd9fcc5e61224a",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsTabBarCtrl@Pods/JobsPodspecKit.rb": {
+      "sha256": "96139f633bc060b8dca9c383f8552f9dc2f973ef0f6109a95a7ce8b6f8f0aa7d",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsTimeUtils@Pods/JobsPodspecKit.rb": {
+      "sha256": "d6a911fd02545f31176abb75a9d37d8a0f9628347c5ef06aba53734061e503bc",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsUploadingProgressView@Pods/JobsPodspecKit.rb": {
+      "sha256": "d2764dc414a06c597bd542c16668e544d5eec6329477c89740d247a771c6dac6",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsViewNavigator@Pods/JobsPodspecKit.rb": {
+      "sha256": "d8c7d18f21c07d83c393563c7b79e459f86fb99cb72b3ff72976b102a006cbd6",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsViewPush@Pods/JobsPodspecKit.rb": {
+      "sha256": "fd6cf0bb20163edc5df95d59a25883e4320ee992fadeeeaa614fce771ff65260",
+      "normalized_sha256": "5694e1a075dc362f324ddd7af7bb38f2ca0bbd63785e4cc9acc0f091373f6627",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsWallet@Pods/JobsPodspecKit.rb": {
+      "sha256": "767ff9b52be065f71739300b349e80e55e038ae20e94fe8dadcc15a6a0330f18",
+      "normalized_sha256": "e82dfb1c143650e9040296cac0d0c90acb247e62a6cd67173b419ce72e65bcad",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/LMJDropdownMenuExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "f120aecbd00004ba9e4109ed06b654cc97739acfc8be209f2fe899664ac53435",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/MGSwipeTableCellExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "900b609cbf32bccfbf60c59d91209041b09a505a187a3753394a4b3489d6695e",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/MJRefreshExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "4a22ccf20a738dc7f672957630528979a607ed72fff828a4ebab528ec142992e",
+      "normalized_sha256": "709d73d289a535bd75157b5eb4f54ca537cce62cf26538d0c7dd9fcc5e61224a",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/RACExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "d2a56a90f442e59a878b9ea2e6107b8f9c7e9a0d0f214550742e00f6d0831364",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/ReachabilityExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "0c11b6adcad1ab7e4089d5c617d16168f124b3b74a43eca8f1f3f461b5df966d",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/SRWebSocketExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "4402edfb2111b08639f3519e82bfa2391085a1794f6263fd0734f166a2067358",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/SYSAlertControllerExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "7919dec3016d843bc853529e636773882e4f3ed43c79f73d1bd9cccb573715d3",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/SZTextViewExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "aa37cd1192dcc42a73251e49c6b7b7aec173fe5f0be178bb0c2c05a9f4e295ea",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/TFPopupExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "60f36efbbed1682636a131fec30ea329b6a1de1dc0b80f39ba476554a7819114",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/This@Pods/JobsPodspecKit.rb": {
+      "sha256": "4b986f9de17a99d0a166188abc9918721011e7b24e2c09f3ddf04ee1f42494f5",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/UIBaseTextFieldDSL@Pods/JobsPodspecKit.rb": {
+      "sha256": "39908cd4abc6dc5dc534870157e80ddf8ac6436a03334ce829344849204ebc66",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/WHToastExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "9d838607513cccda47e637fb1b2ac440af9bd700db5bdfcbaf1d3e5dcd715a8e",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/YTKNetworkExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "efdf3ebabc7a2e89d4368976930525e97ae4e01629185ca188da2e78cf222596",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/ZFPlayerExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "84197b7a31e75178541a7d24f669fe212e377b1d2fe61d63b0b984aee2df63f2",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/ZMJCellExtra@Pods/JobsPodspecKit.rb": {
+      "sha256": "4b75fbd80093b291bc4269344140b27503488b2f0138c949fb4b3f626b3d8185",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    }
+  },
+  "exceptions": {
+    "H02:066cd8e883165288824f": {
+      "key": "JobsByPods/JobsAPIs@Pods/Core/URLMgr/This+URLMgr/This+URLMgr.h|JobsByPods/JobsAPIs@Pods/Support/UIKit/NSString/NSString+URL/NSString+URL.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:08f11026f0f733af11d4": {
+      "key": "JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr.h|JobsByPods/JobsAPIs@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:135f986566de5601ed5a": {
+      "key": "JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr.h|JobsByPods/JobsAPIs@Pods/Support/UIKit/NSString/NSString+Extra/NSString+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:bd85e395d76560b4b6ce": {
+      "key": "JobsByPods/JobsBasePopupView@Pods/Core/JobsBasePopupView/JobsBasePopupView.h|JobsByPods/JobsBasePopupView@Pods/Support/BaseUI/BaseView/BaseView.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:745ce14bd094d187f7b4": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseButtoms/RBCLikeButton/RBCLikeButton.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:965f334c57607c6ea4bb": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseCollectionReusableView/BaseCollectionReusableView/BaseCollectionReusableView.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:4f080816bc05d48c7aaa": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseCollectionViewCell/JobsBtnTextViewStyleCVCell/JobsBtnTextViewStyleCVCell.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:1759e8db048921884d41": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseCollectionViewCell/JobsImageViewStyleCVCell/JobsImageViewStyleCVCell.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:7e53422f4ef4999c156d": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseCollectionViewCell/JobsTextFieldStyleCVCell/JobsTextFieldStyleCVCell.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:40627fe3b39893802df2": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseCollectionViewCell/JobsTextLabStyleCVCell/JobsTextLabStyleCVCell.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:b56e22499bf6103ee330": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseCollectionViewCell/JobsTextViewStyleCVCell/JobsTextViewStyleCVCell.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:1d6c08ba1720282b5afd": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseCollectionViewCell/TMSWalletCollectionViewCell/TMSWalletCollectionViewCell.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:34ea9284f76eee9961c9": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseLabel/JobsBaseLabel/JobsBaseLabel.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:09aca93377954fcec9ef": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseLabel/PointLabView/PointLabBaseView/PointLabBaseView.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:6bee8c6dbb26fc3005cd": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseTableViewCell/JobsBtnTextViewStyleTBVCell/JobsBtnTextViewStyleTBVCell.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:c4f7f2a8f32091a9d8a8": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseTableViewCell/JobsBtnsStyleTBVCell/JobsBtnsStyleTBVCell.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:0d989facee913dde2b4c": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseTableViewCell/JobsDetailsInfoStyleTBVCell/JobsDetailsInfoStyleTBVCell.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:3a2d92e988f63dafd2f2": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseTableViewCell/JobsImageStyleTBVCell/JobsImageStyleTBVCell.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:a771a871e83e859ef194": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseTableViewCell/JobsTextLabStyleTBVCell/JobsTextLabStyleTBVCell.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:d3337f1b22cc098943ee": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseTableViewCell/JobsTextViewStyleTBVCell/JobsTextViewStyleTBVCell.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:f8def675feadedf68b75": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsMagicTextField/JobsMagicTextField.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:4d27b5a57275b95f3c54": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextField/JobsTextField/JobsTextField.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:812b541e1a7045eeb169": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextView/JobsTextView/JobsTextView.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:2e63eb0d0f247d3738c6": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseVC/DebugBaseVC/JobsShowObjInfoVC/JobsShowObjInfoVC.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:7c6605c0f549502057c8": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseVC/DebugBaseVC/JobsShowObjInfoVC/JobsShowObjInfoVC.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITableView/UITableView+Extra/UITableView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:cc67d1d2d3527a81da63": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseVC/DebugBaseVC/JobsShowObjInfoVC/JobsShowObjInfoVC.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:3f8efcd812a19ca69a2a": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseVC/DebugBaseVC/JobsShowObjInfoVC/JobsShowObjInfoVC.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/NSString/NSString+Toast/NSString+Toast.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:72d0868f48243831d4a6": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseVC/DebugBaseVC/JobsShowObjInfoVC/JobsShowObjInfoVC.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIViewController/UIViewController+MJRefresh/UIViewController+MJRefresh.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:139ac488f41dc3e14880": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseVC/JobsWebVC/JobsBaseWebVC/JobsBaseWebVC.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:7b977855db952bb9999c": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseVC/JobsWebVC/JobsNavBarWebVC/JobsNavBarWebVC.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:f57ac72e9c42725b4014": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseVC/JobsWebVC/JobsNavBarWebVC/JobsNavBarWebVC.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Masonry/UIView+Masonry.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:364dc94a0ba177703507": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseVC/JobsWebViewController/JobsWebViewController.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:d6c7121bfd21a73b44c0": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UIBaseView/UICollectionHeaderFooterView/UICollectionHeaderFooterView.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:78bb187b814e5583449b": {
+      "key": "JobsByPods/JobsBaseUI@Pods/Core/UITableViewBaseHeaderFooterView/JobsTBVHeaderFooterView/JobsTBVHeaderFooterView.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:e9f91fa559e176a22e26": {
+      "key": "JobsByPods/JobsDebug@Pods/Core/DebugLogDescription/DebugLogDescription.h|JobsByPods/JobsDebug@Pods/Support/UIKit/NSObject/NSObject+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:2fb69ed283e90e683780": {
+      "key": "JobsByPods/JobsLanMgr@Pods/Core/NSString+JobsLanMgr/NSString+JobsLanMgr.h|JobsByPods/JobsLanMgr@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:0b86eea8c378d7e98d7b": {
+      "key": "JobsByPods/JobsMenuView@Pods/Core/JobsMenuSubViews/JobsMenuSubView@1/JobsMenuSubView@1.h|JobsByPods/JobsMenuView@Pods/Support/UIKit/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:a86b3d36fc555131bfaf": {
+      "key": "JobsByPods/JobsMenuView@Pods/Core/JobsMenuSubViews/JobsMenuSubView@2/JobsMenuSubView@2.h|JobsByPods/JobsMenuView@Pods/Support/UIKit/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:5e037a003816412011f2": {
+      "key": "JobsByPods/JobsMenuView@Pods/Core/JobsMenuSubViews/JobsMenuSubView@3/JobsMenuSubView@3.h|JobsByPods/JobsMenuView@Pods/Support/UIKit/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:ef91933b75ce1d1fb885": {
+      "key": "JobsByPods/JobsMenuView@Pods/Core/JobsMenuSubViews/JobsMenuSubView@4/JobsMenuSubView@4.h|JobsByPods/JobsMenuView@Pods/Support/UIKit/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:492e78fa798fdc581343": {
+      "key": "JobsByPods/JobsMenuView@Pods/Core/JobsMenuView/JobsMenuView.h|JobsByPods/JobsMenuView@Pods/Support/UIKit/UIView+Extra/UIView+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:c2396bf6b8b761dae9eb": {
+      "key": "JobsByPods/JobsOCDSL@Pods/Core/UIKit/UIView+DSLs/UIView+DSL/UIView+DSL.h|JobsByPods/JobsOCDSL@Pods/Support/UIKit/NSObject/NSObject+Measure/NSObject+Measure.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:40477f61928cfb5c02d4": {
+      "key": "JobsByPods/JobsOCDSL@Pods/Core/UIKit/UIView+DSLs/UIView+DSL/UIView+DSL.h|JobsByPods/JobsOCDSL@Pods/Support/UIKit/NSValue/NSValue+Extra/NSValue+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:f22c19af90f2cad1af6e": {
+      "key": "JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size/MacroDef_Size.h|JobsByPods/JobsOCDefs@Pods/Support/UIKit/UIDevice/UIDevice+XMUtils/UIDevice+XMUtils.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:0b696aed30b55bbc6d16": {
+      "key": "JobsByPods/SYSAlertControllerExtra@Pods/Core/NSObject+SYSAlertController/NSObject+SYSAlertController.h|JobsByPods/SYSAlertControllerExtra@Pods/Support/UIKit/NSMutableArray/NSMutableArray+Extra/NSMutableArray+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:6dcf2742af911cf7cfaf": {
+      "key": "JobsByPods/YTKNetworkExtra@Pods/Core/NSObject+YTKNetwork/NSObject+YTKNetwork.h|JobsByPods/YTKNetworkExtra@Pods/Support/UIKit/NSData/NSData+Extra/NSData+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    },
+    "H02:50a248a9cc2b07d2b0b5": {
+      "key": "JobsByPods/YTKNetworkExtra@Pods/Core/NSObject+YTKNetwork/NSObject+YTKNetwork.h|JobsByPods/YTKNetworkExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.h",
+      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
+    }
+  }
+}

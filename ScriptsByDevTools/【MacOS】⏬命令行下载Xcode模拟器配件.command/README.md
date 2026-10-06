@@ -8,6 +8,8 @@
 
 ## 🔥 <font id=前言>前言</font>
 
+本目录中可独立运行的 `.command` 入口先显示内置自述：标题红色加粗，编号正文蓝色且不加粗；在终端按回车确认后才进入原有流程，按 `Ctrl+C` 取消。非彩色终端显示纯文本；没有可交互输入时停止，避免确认缺失后继续执行。
+
 `【MacOS】⏬命令行下载Xcode模拟器配件.command` 是一个可双击运行的 macOS `.command` 脚本。
 
 它会清理部分 [**Xcode**](https://developer.apple.com/xcode) 缓存，然后通过 `xcodebuild -downloadPlatform iOS -verbose` 下载 iOS 模拟器平台配件。
@@ -73,7 +75,7 @@ flowchart TD
 ## 八、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 会删除当前用户下的 Xcode / CoreSimulator 缓存，缓存会在后续使用中重建。
-- 脚本没有二次确认，双击后会直接执行。
+- 双击后先阅读内置自述，按回车确认才执行；按 `Ctrl+C` 取消。
 - 下载体积可能较大，受 Xcode 版本、网络和 Apple 服务状态影响。
 - 脚本没有独立日志文件，终端输出是主要排查依据。
 

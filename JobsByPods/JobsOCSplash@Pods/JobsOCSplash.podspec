@@ -47,4 +47,15 @@ JobsOCSplash displays local or remote images, GIFs and videos with skip, countdo
 
   JobsPodspecKitForJobsOCSplash.apply_standard_exclude_files(spec)
   JobsPodspecKitForJobsOCSplash.apply_standard_xcconfig(spec)
+  spec.resource_bundles = (spec.attributes_hash['resource_bundles'] || {}).merge('JobsOCSplashPrivacy' => ['Resource/PrivacyInfo.xcprivacy'])
+
+
+  # 测试单独进入 Stability target，生产包不包含 Tests。
+  spec.exclude_files = Array(spec.attributes_hash['exclude_files']).reject { |path| path.start_with?('Test/', 'Tests/', 'UnitTests/', 'UITests/') }
+  spec.test_spec 'Stability' do |test_spec|
+    test_spec.source_files = 'Tests/**/*.{h,m,mm}'
+    test_spec.resources = 'Tests/**/*.{xib,storyboard,json,plist}'
+    test_spec.frameworks = 'XCTest'
+    test_spec.requires_app_host = true
+  end
 end

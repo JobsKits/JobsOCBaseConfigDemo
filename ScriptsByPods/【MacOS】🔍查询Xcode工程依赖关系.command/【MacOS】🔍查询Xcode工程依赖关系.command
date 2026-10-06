@@ -1,5 +1,28 @@
 #!/bin/zsh
 
+# 仅渲染自述：标题红色加粗，编号正文蓝色常规字重；非彩色终端输出纯文本。
+jobs_intro_style() {
+  local intro_color=0
+  if [ -t 1 ] && [ -n "${TERM:-}" ] && [ "${TERM:-}" != dumb ] &&
+     [ -z "${NO_COLOR+x}" ] && [ "${PLAIN_OUTPUT:-0}" != 1 ] &&
+     [ "${IS_SOURCETREE_RUNTIME:-0}" != 1 ]; then
+    intro_color=1
+  fi
+  /usr/bin/awk -v color="$intro_color" -v role="${1:-body}" '
+    BEGIN { esc = sprintf("%c", 27) }
+    {
+      gsub(esc "\\[[0-9;]*m", "")
+      gsub(/\\(033|e|x1[bB])\[[0-9;]*m/, "")
+      if (!color || $0 ~ /^[[:space:]]*$/) { print; next }
+      numbered = ($0 ~ /^[[:space:]➤ℹ🔹✔⚠]*([0-9]+[、.)）]|[0-9]+️⃣|[-•])/)
+      heading = ($0 ~ /^[[:space:]]*#{1,6}[[:space:]]/ || $0 ~ /[：:][[:space:]]*$/ || $0 ~ /^[[:space:]]*[=━─-]{3}/)
+      title = (!numbered && (role == "title" || heading))
+      if (role == "auto" && !seen && !numbered) title = 1
+      if ($0 !~ /^[[:space:]]*[=━─-]+[[:space:]]*$/) seen = 1
+      printf "%s%s%s\n", esc (title ? "[1;31m" : "[0;34m"), $0, esc "[0m"
+    }
+  '
+}
 set -u
 
 # ✅ 日志输出函数
@@ -31,9 +54,9 @@ is_truthy() {
 
 # ✅ 自述信息
 print_banner() {
-  highlight_echo "═════════════════════════════════════════════════════════════════════"
-  highlight_echo "🔍 Podspec 依赖分析器 - 查询 Xcode / CocoaPods 工程依赖关系"
-  highlight_echo "═════════════════════════════════════════════════════════════════════"
+  highlight_echo "═════════════════════════════════════════════════════════════════════" | jobs_intro_style title
+  highlight_echo "🔍 Podspec 依赖分析器 - 查询 Xcode / CocoaPods 工程依赖关系" | jobs_intro_style title
+  highlight_echo "═════════════════════════════════════════════════════════════════════" | jobs_intro_style title
 }
 
 # ✅ 打印脚本说明
@@ -42,22 +65,22 @@ print_banner() {
 print_readme() {
   local wait_mode="${1:-wait}"
 
-  note_echo "功能说明："
-  color_echo "1. 优先检测脚本所在目录和上一层目录；若包含 Podfile，则直接作为分析目录。"
-  color_echo "2. 若自动检测不到，再让你拖入一个包含 Podfile 的目录。支持普通文件夹、Unix symlink、Finder 替身。"
-  color_echo "3. 递归查找所有 *.podspec，并生成 Markdown 依赖报告，包含总览、0 上游依赖 Pod、外部依赖引用关系、双向明细和 Mermaid 图。"
-  color_echo "4. 生成可搜索、可缩放、可拖拽的动态 HTML 依赖图，并内置 2D / 3D 视图切换。"
-  color_echo "5. 会先自检 Homebrew；未安装时按芯片架构安装，再安装 Graphviz；已安装 Graphviz 时可选择是否升级，并尝试生成 PNG 图。"
-  warm_echo ""
-  warm_echo "输出目录会创建在工程目录下：PodspecDependencyReport，新报告会覆盖旧数据。"
-  info_echo "日志文件：$LOG_FILE"
-  warm_echo ""
+  note_echo "功能说明：" | jobs_intro_style title
+  color_echo "1. 优先检测脚本所在目录和上一层目录；若包含 Podfile，则直接作为分析目录。" | jobs_intro_style body
+  color_echo "2. 若自动检测不到，再让你拖入一个包含 Podfile 的目录。支持普通文件夹、Unix symlink、Finder 替身。" | jobs_intro_style body
+  color_echo "3. 递归查找所有 *.podspec，并生成 Markdown 依赖报告，包含总览、0 上游依赖 Pod、外部依赖引用关系、双向明细和 Mermaid 图。" | jobs_intro_style body
+  color_echo "4. 生成可搜索、可缩放、可拖拽的动态 HTML 依赖图，并内置 2D / 3D 视图切换。" | jobs_intro_style body
+  color_echo "5. 会先自检 Homebrew；未安装时按芯片架构安装，再安装 Graphviz；已安装 Graphviz 时可选择是否升级，并尝试生成 PNG 图。" | jobs_intro_style body
+  warm_echo "" | jobs_intro_style body
+  warm_echo "输出目录会创建在工程目录下：PodspecDependencyReport，新报告会覆盖旧数据。" | jobs_intro_style body
+  info_echo "日志文件：$LOG_FILE" | jobs_intro_style body
+  warm_echo "" | jobs_intro_style body
 
   if [[ "$wait_mode" == "wait" ]]; then
-    bold_echo "准备好后按 Enter 继续..."
+    bold_echo "准备好后按 Enter 继续..." | jobs_intro_style body
     IFS= read -r _
   else
-    success_echo "已自动识别工程目录，跳过回车确认，直接执行。"
+    success_echo "已自动识别工程目录，跳过回车确认，直接执行。" | jobs_intro_style body
   fi
 }
 

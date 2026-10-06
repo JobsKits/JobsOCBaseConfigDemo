@@ -45,4 +45,12 @@ bits monitor related functionality for Jobs projects.
 
   JobsPodspecKitForJobsBitsMonitor.apply_standard_xcconfig(spec)
 
+  # 测试 fixture 只进入显式 Stability 目标，不进入生产 source_files。
+  spec.exclude_files = Array(spec.attributes_hash['exclude_files']).reject { |path| path.start_with?('Test/', 'Tests/', 'UnitTests/', 'UITests/') }
+  spec.test_spec 'Stability' do |test_spec|
+    test_spec.source_files = 'Tests/**/*.{h,m,mm}'
+    test_spec.frameworks = 'XCTest'
+    test_spec.requires_app_host = true
+  end
+
 end

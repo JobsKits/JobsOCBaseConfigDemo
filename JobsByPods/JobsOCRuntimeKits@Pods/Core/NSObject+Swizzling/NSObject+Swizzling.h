@@ -10,6 +10,7 @@
 
 #import <objc/runtime.h>
 #import <Foundation/Foundation.h>
+#import "JobsWeakAssociation.h"
 
 /// 参考资料：https://juejin.cn/post/6869670856705081358
 @interface NSObject (Swizzling)
@@ -40,4 +41,6 @@ void objc_setAssociatedObject_weak(id _Nonnull object,
                               const void * _Nonnull key,
                               id _Nullable value,
                               objc_AssociationPolicy associationPolicy);
+/// 旧 setter 的 associationPolicy 仅保留 ABI；值始终 weak，读取必须使用本 getter。
+id _Nullable objc_getAssociatedObject_weak(id _Nullable object, const void *_Nullable key);
 #endif /* JOBS_HEADER_GUARD_NSOBJECT_SWIZZLING_9AFB64F218 */

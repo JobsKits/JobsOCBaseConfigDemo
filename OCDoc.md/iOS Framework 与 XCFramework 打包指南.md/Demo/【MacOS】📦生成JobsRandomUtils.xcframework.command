@@ -5,6 +5,29 @@
 # - 影响范围：只写入仓库 build/XCFrameworkDemo 忽略目录和系统临时日志，不修改源码、Podfile、Pods 工程或签名配置。
 # - 运行提示：运行后会先打印内置自述；按回车确认后才开始归档，可按 Ctrl+C 取消。
 
+# 仅渲染自述：标题红色加粗，编号正文蓝色常规字重；非彩色终端输出纯文本。
+jobs_intro_style() {
+  local intro_color=0
+  if [ -t 1 ] && [ -n "${TERM:-}" ] && [ "${TERM:-}" != dumb ] &&
+     [ -z "${NO_COLOR+x}" ] && [ "${PLAIN_OUTPUT:-0}" != 1 ] &&
+     [ "${IS_SOURCETREE_RUNTIME:-0}" != 1 ]; then
+    intro_color=1
+  fi
+  /usr/bin/awk -v color="$intro_color" -v role="${1:-body}" '
+    BEGIN { esc = sprintf("%c", 27) }
+    {
+      gsub(esc "\\[[0-9;]*m", "")
+      gsub(/\\(033|e|x1[bB])\[[0-9;]*m/, "")
+      if (!color || $0 ~ /^[[:space:]]*$/) { print; next }
+      numbered = ($0 ~ /^[[:space:]➤ℹ🔹✔⚠]*([0-9]+[、.)）]|[0-9]+️⃣|[-•])/)
+      heading = ($0 ~ /^[[:space:]]*#{1,6}[[:space:]]/ || $0 ~ /[：:][[:space:]]*$/ || $0 ~ /^[[:space:]]*[=━─-]{3}/)
+      title = (!numbered && (role == "title" || heading))
+      if (role == "auto" && !seen && !numbered) title = 1
+      if ($0 !~ /^[[:space:]]*[=━─-]+[[:space:]]*$/) seen = 1
+      printf "%s%s%s\n", esc (title ? "[1;31m" : "[0;34m"), $0, esc "[0m"
+    }
+  '
+}
 readonly SCRIPT_DIR="${0:A:h}"
 readonly SCRIPT_PATH="${0:A}"
 readonly SCRIPT_BASENAME="${0:t:r}"
@@ -59,15 +82,15 @@ strip_outer_quotes() {
 }
 # 打印运行时内置自述，并等待用户确认。
 show_script_intro_and_wait() {
-  print -r -- "============================== 脚本自述 =============================="
-  print -r -- "当前脚本：${SCRIPT_PATH}"
-  print -r -- "核心用途：归档 JobsRandomUtils 的 iOS 真机与模拟器切片，并生成 XCFramework、ZIP 和 SHA-256。"
-  print -r -- "影响范围：只写入仓库 build/XCFrameworkDemo 忽略目录，不修改工程配置或源码。"
-  print -r -- "日志位置：${LOG_FILE}"
-  print -r -- "取消方式：按 Ctrl+C 终止；确认前不会执行归档或写入构建目录。"
-  print -r -- "======================================================================="
+  print -r -- "============================== 脚本自述 ==============================" | jobs_intro_style title
+  print -r -- "当前脚本：${SCRIPT_PATH}" | jobs_intro_style body
+  print -r -- "核心用途：归档 JobsRandomUtils 的 iOS 真机与模拟器切片，并生成 XCFramework、ZIP 和 SHA-256。" | jobs_intro_style body
+  print -r -- "影响范围：只写入仓库 build/XCFrameworkDemo 忽略目录，不修改工程配置或源码。" | jobs_intro_style body
+  print -r -- "日志位置：${LOG_FILE}" | jobs_intro_style body
+  print -r -- "取消方式：按 Ctrl+C 终止；确认前不会执行归档或写入构建目录。" | jobs_intro_style body
+  print -r -- "=======================================================================" | jobs_intro_style title
   if [[ ! -t 0 ]]; then
-    print -r -- "✖ 当前没有可交互输入，请在终端中运行本脚本。"
+    print -r -- "✖ 当前没有可交互输入，请在终端中运行本脚本。" | jobs_intro_style body
     return 1
   fi
   read -r "?👉 已了解脚本用途与影响，按回车继续；按 Ctrl+C 取消：" _

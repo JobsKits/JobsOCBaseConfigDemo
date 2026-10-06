@@ -13,6 +13,7 @@
 #import <MessageUI/MessageUI.h>
 #import <JobsBlock/JobsBlockDef.h>
 #import <JobsBlock/JobsBlockHeader.h> // 类型的向前申明
+#import <JobsBlock/JobsDebugPanelBlock.h>
 #import <JobsBlock/JobsBizBlock.h>    // 关于业务（不与JobsOCBaseConfigDemo同步）
 #import <JobsBlock/ReturnByCertainParametersBlock.h>
 #import <JobsBlock/VoidByCertainParametersBlock.h>

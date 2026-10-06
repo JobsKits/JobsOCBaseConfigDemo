@@ -7,6 +7,9 @@
 
 #import "JobsCustomTabBarVC.h"
 
+// 独立 Pod 默认使用第一个 tab，宿主的强定义优先。
+NSUInteger DefaultIndex __attribute__((weak)) = 0;
+
 static NSArray<__kindof UIViewController *> *JobsCustomTabBarVCViewControllers(void) {
     Class appDelegateClass = NSClassFromString(@"AppDelegate");
     if (!appDelegateClass) return @[];

@@ -47,4 +47,6 @@ deletion, and clear-history support for Jobs projects.
   JobsPodspecKitForJobsOCSearcher.apply_standard_exclude_files(spec)
   JobsPodspecKitForJobsOCSearcher.apply_standard_xcconfig(spec)
 
+  spec.resource_bundles = (spec.attributes_hash['resource_bundles'] || {}).merge('JobsOCSearcherPrivacy' => ['Resource/PrivacyInfo.xcprivacy'])
+
 end

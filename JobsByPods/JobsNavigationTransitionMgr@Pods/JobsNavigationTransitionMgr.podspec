@@ -97,11 +97,25 @@ pan gesture handling.
     'Core/**/*.h'
   ]
   spec.header_dir = 'JobsNavigationTransitionMgr'
-  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}'
+  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff}'
 
 
   JobsPodspecKitForJobsNavigationTransitionMgr.apply_standard_exclude_files(spec)
 
   JobsPodspecKitForJobsNavigationTransitionMgr.apply_standard_xcconfig(spec)
+
+  spec.resource_bundles = (spec.attributes_hash['resource_bundles'] || {}).merge('JobsNavigationTransitionMgrPrivacy' => ['Resource/PrivacyInfo.xcprivacy'])
+
+  spec.exclude_files = Array(spec.attributes_hash['exclude_files']) + ['Resource/icon.png']
+  spec.preserve_paths = Array(spec.attributes_hash['preserve_paths']) + ['Resource/icon.png']
+
+  # 生产 source_files 不包含 Tests；测试只由显式 Stability 测试目标编译。
+  spec.exclude_files = Array(spec.attributes_hash['exclude_files']).reject { |path| path.start_with?('Test/', 'Tests/', 'UnitTests/', 'UITests/') }
+  spec.test_spec 'Stability' do |test_spec|
+    test_spec.source_files = 'Tests/**/*.{h,m,mm}'
+    test_spec.resources = 'Tests/**/*.{xib,storyboard,json,plist}'
+    test_spec.frameworks = 'XCTest'
+    test_spec.requires_app_host = true
+  end
 
 end

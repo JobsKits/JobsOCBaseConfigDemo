@@ -7,8 +7,30 @@
 
 #import "UIButton+TextView.h"
 
+@interface UIButton (JobsMJRefreshOptionalTextView)
+-(Class _Nullable)jobs_mjRefreshTextViewClass;
+-(BaseTextView *_Nullable)jobs_mjRefreshCreateTextView;
+@end
+
 @implementation UIButton (TextView)
 #pragma mark —— 一些私有方法
+-(Class _Nullable)jobs_mjRefreshTextViewClass{
+    return NSClassFromString(@"BaseTextView");
+}
+
+-(BaseTextView *_Nullable)jobs_mjRefreshCreateTextView{
+    Class textViewClass = [self jobs_mjRefreshTextViewClass];
+    if (!textViewClass || ![textViewClass isSubclassOfClass:UITextView.class]) {
+        return nil;
+    }
+    BaseTextView *textView = [[textViewClass alloc] init];
+    if (![textView isKindOfClass:UITextView.class]) {
+        return nil;
+    }
+    textView.linkTextAttributes = NSObject.linkTextAttributes();
+    return textView;
+}
+
 -(jobsByTextViewBlock _Nonnull)configTextView{
     @jobs_weakify(self)
     return ^(__kindof UITextView *_Nullable textView){
@@ -41,17 +63,18 @@
 #pragma mark —— Prop_strong()BaseTextView *titleTextView;
 JobsKey(_titleTextView)
 @dynamic titleTextView;
--(BaseTextView *)titleTextView{
+-(BaseTextView *_Nullable)titleTextView{
     BaseTextView *textView = Jobs_getAssociatedObject(_titleTextView);
-    if(!textView){
-        @jobs_weakify(self)
-        textView = jobsMakeBaseTextView(^(__kindof BaseTextView * _Nullable textView) {
-            @jobs_strongify(self)
-            textView.byFrame(self.titleLabel.frame);
-//            textView.linkTextAttributes = self.makeLinkTextAttributes;
-            self.configTextView(textView);
-          });Jobs_setAssociatedRETAIN_NONATOMIC(_titleTextView, textView);
-    };return textView;
+    if (!textView) {
+        textView = [self jobs_mjRefreshCreateTextView];
+        if (!textView) {
+            return nil;
+        }
+        textView.byFrame(self.titleLabel.frame);
+        self.configTextView(textView);
+        Jobs_setAssociatedRETAIN_NONATOMIC(_titleTextView, textView);
+    }
+    return textView;
 }
 
 -(void)setTitleTextView:(UITextView *)titleTextView{
@@ -60,16 +83,18 @@ JobsKey(_titleTextView)
 #pragma mark —— Prop_strong()UITextView *subtitleTextView;
 JobsKey(_subtitleTextView)
 @dynamic subtitleTextView;
--(BaseTextView *)subtitleTextView{
+-(BaseTextView *_Nullable)subtitleTextView{
     BaseTextView *textView = Jobs_getAssociatedObject(_subtitleTextView);
-    if(!textView){
-        @jobs_weakify(self)
-        textView = jobsMakeBaseTextView(^(__kindof BaseTextView * _Nullable textView) {
-            @jobs_strongify(self)
-            textView.byFrame(self.titleLabel.frame);
-            self.configTextView(textView);
-          });Jobs_setAssociatedRETAIN_NONATOMIC(_subtitleTextView, textView);
-    };return textView;
+    if (!textView) {
+        textView = [self jobs_mjRefreshCreateTextView];
+        if (!textView) {
+            return nil;
+        }
+        textView.byFrame(self.titleLabel.frame);
+        self.configTextView(textView);
+        Jobs_setAssociatedRETAIN_NONATOMIC(_subtitleTextView, textView);
+    }
+    return textView;
 }
 
 -(void)setSubtitleTextView:(UITextView *)subtitleTextView{

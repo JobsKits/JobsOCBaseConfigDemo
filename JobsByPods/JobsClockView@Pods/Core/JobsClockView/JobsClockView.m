@@ -51,7 +51,7 @@ Prop_strong() JobsTimer *timer;
 }
 
 - (void)dealloc {
-    (((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsClockView.class, @selector(jobsStop)))(self, @selector(jobsStop)))();
+    [self jobsStopTimerInternal];
 }
 
 -(instancetype)init{
@@ -291,6 +291,9 @@ Prop_strong() JobsTimer *timer;
     @jobs_weakify(self)
     return ^(JobsTimerType timerType){
         @jobs_strongify(self)
+        if (!self) {
+            return;
+        }
         self.jobsStop();
         // 先对齐当前时间
         self.updateHandsAnimated(NO);
@@ -328,11 +331,17 @@ Prop_strong() JobsTimer *timer;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        if (self.timer) {
-            self.timer.jobsStop();
-            self.byTimer(nil);
-        }
+        [self jobsStopTimerInternal];
     };
+}
+
+/// Deallocation must not enter a getter that registers a new weak reference to self.
+-(void)jobsStopTimerInternal{
+    JobsTimer *timer = _timer;
+    _timer = nil;
+    if (timer) {
+        timer.jobsStop();
+    }
 }
 #pragma mark —— Private: 指针角度更新
 -(jobsByBOOLBlock _Nonnull)updateHandsAnimated{

@@ -1,6 +1,29 @@
 #!/bin/zsh
 
 # ✅ 全局变量定义
+# 仅渲染自述：标题红色加粗，编号正文蓝色常规字重；非彩色终端输出纯文本。
+jobs_intro_style() {
+  local intro_color=0
+  if [ -t 1 ] && [ -n "${TERM:-}" ] && [ "${TERM:-}" != dumb ] &&
+     [ -z "${NO_COLOR+x}" ] && [ "${PLAIN_OUTPUT:-0}" != 1 ] &&
+     [ "${IS_SOURCETREE_RUNTIME:-0}" != 1 ]; then
+    intro_color=1
+  fi
+  /usr/bin/awk -v color="$intro_color" -v role="${1:-body}" '
+    BEGIN { esc = sprintf("%c", 27) }
+    {
+      gsub(esc "\\[[0-9;]*m", "")
+      gsub(/\\(033|e|x1[bB])\[[0-9;]*m/, "")
+      if (!color || $0 ~ /^[[:space:]]*$/) { print; next }
+      numbered = ($0 ~ /^[[:space:]➤ℹ🔹✔⚠]*([0-9]+[、.)）]|[0-9]+️⃣|[-•])/)
+      heading = ($0 ~ /^[[:space:]]*#{1,6}[[:space:]]/ || $0 ~ /[：:][[:space:]]*$/ || $0 ~ /^[[:space:]]*[=━─-]{3}/)
+      title = (!numbered && (role == "title" || heading))
+      if (role == "auto" && !seen && !numbered) title = 1
+      if ($0 !~ /^[[:space:]]*[=━─-]+[[:space:]]*$/) seen = 1
+      printf "%s%s%s\n", esc (title ? "[1;31m" : "[0;34m"), $0, esc "[0m"
+    }
+  '
+}
 SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 PROJECT_DIR=""
 XCODEPROJ=""
@@ -27,13 +50,13 @@ underline_echo() { log "\033[4m$1\033[0m"; }           # 🔗 下划线
 
 # ✅ 自述信息
 print_description() {
-  echo ""
-  bold_echo "🛠️ Xcode 工程构建修复脚本"
-  info_echo "📌 功能说明："
-  note_echo "1️⃣ 自动识别 Flutter 或原生 iOS 工程"
-  note_echo "2️⃣ 自动定位 .xcodeproj 工程文件"
-  note_echo "3️⃣ 修改 ENABLE_USER_SCRIPT_SANDBOXING = NO"
-  echo ""
+  echo "" | jobs_intro_style body
+  bold_echo "🛠️ Xcode 工程构建修复脚本" | jobs_intro_style title
+  info_echo "📌 功能说明：" | jobs_intro_style title
+  note_echo "1️⃣ 自动识别 Flutter 或原生 iOS 工程" | jobs_intro_style body
+  note_echo "2️⃣ 自动定位 .xcodeproj 工程文件" | jobs_intro_style body
+  note_echo "3️⃣ 修改 ENABLE_USER_SCRIPT_SANDBOXING = NO" | jobs_intro_style body
+  echo "" | jobs_intro_style body
   read "?👉 按下回车继续执行，或按 Ctrl+C 取消..."
 }
 

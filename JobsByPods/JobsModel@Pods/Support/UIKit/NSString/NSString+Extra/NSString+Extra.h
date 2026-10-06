@@ -4,10 +4,12 @@
 //
 //  Created by Jobs on 2026年5月13日，星期三.
 //
+
 #ifndef NSString_Extra_h
 #define NSString_Extra_h
 
 #import <Foundation/Foundation.h>
+#import <JobsModel/NSString+JobsModelTime.h>
 #import <JobsModel/FileNameModel.h>
 #import <JobsModel/NSDate+Extra.h>
 #import <JobsModel/NSFormatter+Extra.h>
@@ -67,16 +69,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// 返回网址相关的NSURL *
 -(NSURL *)jobsUrl;
 -(JobsRetURLByVoidBlock _Nonnull)jobsURL;
-/// 格式化为中国时间
--(JobsRetStrByStrBlock _Nonnull)chinaTime;
-/// 时间戳（字符串）依据某一规范，格式化为能一目了然的时间（字符串）
-/// - Parameters:
-///   - timeFormatter: timeFormatter
-///   - timeZoneType: 时区
-///   - intervalStyle: IntervalStyle
--(NSString *)timeStampByTimeFormatter:(NSString *_Nullable)timeFormatter
-                         timeZoneType:(TimeZoneType)timeZoneType
-                        intervalStyle:(IntervalStyle)intervalStyle;
 /// 对系统方法 rangeOfString 的二次封装
 -(JobsRetRangeByStrBlock _Nonnull)rangeOfString;
 

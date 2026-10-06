@@ -17,5 +17,6 @@
 #import <CommonCrypto/CommonHMAC.h>
 #import "CommonCrypto/CommonDigest.h"
 #import <JobsCryptography/Cryptography.h>
+#import <JobsCryptography/JobsAuthenticatedCipher.h>
 
 #endif /* JobsCryptography_h */

@@ -8,6 +8,8 @@
 #ifndef JOBS_HEADER_GUARD_JOBSNETWORKTOOLS_A5554FC4D0
 #define JOBS_HEADER_GUARD_JOBSNETWORKTOOLS_A5554FC4D0
 
+#import <math.h>
+#import <sys/socket.h>
 #import <Foundation/Foundation.h>
 #import <ifaddrs.h>               // 提供网络接口地址遍历能力，可获取设备各网络接口的 IP 地址等信息。
 #import <net/if.h>                // 定义网络接口相关常量、结构体和操作接口。
@@ -55,11 +57,11 @@ static JobsNetworkBytes JobsCurrentNetworkBytes(void) {
     JobsNetworkBytes result = JobsNetworkBytesMake(0, 0);
     if (getifaddrs(&addrs) != 0 || !addrs) return result;
     for (struct ifaddrs *ifa = addrs; ifa != NULL; ifa = ifa->ifa_next) {
-        if (!ifa->ifa_data) {
+        if (!ifa->ifa_data || !ifa->ifa_addr || ifa->ifa_addr->sa_family != AF_LINK) {
             continue;
         }
         // 只算 UP 接口
-        if (!(ifa->ifa_flags & IFF_UP)) {
+        if (!(ifa->ifa_flags & IFF_UP) || (ifa->ifa_flags & IFF_LOOPBACK)) {
             continue;
         }
         struct if_data *data = (struct if_data *)ifa->ifa_data;
@@ -75,7 +77,7 @@ static JobsNetworkBytes JobsCurrentNetworkBytes(void) {
 }
 
 @interface JobsNetworkTrafficMonitor : NSObject <BaseProtocol,TimerProtocol>
-/// 可销毁单例
+/// 可销毁单例；独立展示组件可各自创建实例，避免覆盖彼此的 onUpdate。
 +(JobsRetIDByVoidBlock _Nonnull)shared;
 +(jobsByVoidBlock _Nonnull)destroyShared;
 /// 链式设置回调

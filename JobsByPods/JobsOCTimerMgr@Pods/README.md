@@ -50,8 +50,9 @@ JobsOCTimerMgr@Pods/
 ├── JobsOCTimerMgr.h  # 根聚合头文件
 ├── README.md  # 当前自述
 ├── JobsPodspecKit.rb  # 本地 podspec 基座
-├── Core/  # 公开 API 与核心实现，6 个文件
-└── LICENSE  # 许可证文件
+├── Core/  # 公开入口与核心实现，6 个文件
+├── LICENSE  # 许可证文件
+└── Tests/  # 独立回归，2 个文件
 ```
 
 - `JobsOCTimerMgr.podspec` 是当前 Pod 的 [**CocoaPods**](https://cocoapods.org/) 描述入口。
@@ -60,8 +61,8 @@ JobsOCTimerMgr@Pods/
 
 ## 四、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 当前包含 4 个文件，其中源码 / 头文件 4 个；按 Jobs 规范，它是 `JobsOCTimerMgr` 对外公开 API 和核心实现的边界。
-- `Core/JobsTimerMgr+DSL/` 维护 `JobsTimerMgr` 公开管理动作的链式入口；`_JobsTimerMgrEntry` 只保留在 `JobsTimerMgr.m` 内部，不进入公开头边界。
+- `Core` 当前包含 6 个文件，其中源码 / 头文件 6 个；按 Jobs 规范，它是 `JobsOCTimerMgr` 对外公开 API 和核心实现的边界。
+- `Core/JobsTimerMgr+DSL/` 维护 `JobsTimerMgr` 公开管理动作的链式入口；`_JobsTimerMgrEntry` 的 h/m 位于 `Core/_JobsTimerMgrEntry/`，头文件通过 `private_header_files` 标记为私有，不由根聚合头导出。
 - 当前目录没有 `Support` 文件夹；如后续补内部兼容代码，优先放入 `Support` 并让 podspec 动态映射。
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
@@ -71,7 +72,10 @@ JobsOCTimerMgr@Pods/
 ### 5.1、公开头文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsOCTimerMgr.h`
-- `Core/**/*.h`
+- `Core/JobsTimerMgr/*.h`
+- `Core/JobsTimerMgr+DSL/*.h`
+
+根聚合头同时导入 [JobsTimerMgr.h](<./Core/JobsTimerMgr/JobsTimerMgr.h>) 和 [JobsTimerMgr+DSL.h](<./Core/JobsTimerMgr+DSL/JobsTimerMgr+DSL.h>)，这两个兄弟目录都必须显式公开，保证宿主和其它 Pod 仅凭 `JobsOCTimerMgr.h` 即可消费。`Core/_JobsTimerMgrEntry/*.h` 继续为内部私有头；不向宿主开放私有搜索路径补偿公开头漏挂载。
 
 ### 5.2、源码入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -171,7 +175,7 @@ pod install --no-repo-update
 
 ## 九、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 头文件会进入公开 API 边界，新增 import 时要确认不会把内部实现细节暴露给外部。
+- 只有 podspec 指定的公开头进入外部 API 边界；新增 import 时要确认不会把私有实现细节暴露给外部。
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - DSL 相关 Block 统一收口到 `JobsBlock`，不要在 `JobsTimerMgr+DSL.h` 里私自新增 typedef。
 - 注册字典只在串行隔离队列中读写；停止旧 timer、批量停止以及回调执行都放在队列外，避免重入死锁。
@@ -276,6 +280,54 @@ flowchart TD
 - [Core/JobsTimerMgr+DSL/JobsTimerMgr+DSL.h](<./Core/JobsTimerMgr+DSL/JobsTimerMgr+DSL.h>)
 - [Core/JobsTimerMgr/JobsTimerMgr.h](<./Core/JobsTimerMgr/JobsTimerMgr.h>)
 
-依赖与编译入口：[JobsOCTimerMgr.podspec](<./JobsOCTimerMgr.podspec>)。其中显式依赖声明包括 `JobsMakes`、`JobsBlock`、`JobsOCDefs`、`JobsOCTimer`、`JobsOCProtocols`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+依赖与编译入口：[JobsOCTimerMgr.podspec](<./JobsOCTimerMgr.podspec>)。其中根级依赖声明包括 `JobsMakes`、`JobsBlock`、`JobsOCDefs`、`JobsOCTimer`、`JobsOCProtocols`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+
+## 十二、析构与强制终态契约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+`dealloc` 调用普通内部清理方法并直接读取已经存在的 ivar，撤销观察与清空注册状态；不通过 weak-self Block 门面重新获取对象，也不触发懒加载。现有 Timer 的回调会解绑，停止动作在主线程执行。
+
+`fireOnceAndRemove` 的强制终态在主线程领取当前注册项、完成回调快照并移除该项，然后在隔离队列外触发 Timer 终态。领取到的完成快照只向 `timer.queue`（未设时为主队列）异步派发一次；替换或已移除 Entry 的迟到普通完成仍需核对实例身份，不能投递到新注册项。
+
+[Core/_JobsTimerMgrEntry/](<./Core/_JobsTimerMgrEntry/>) 是私有注册状态辅助类，h/m 分别维护声明与实现，头文件标记为 `private_header_files`；不从聚合头导出为公共能力。[JobsTimerMgrStabilityTests](<./Tests/JobsTimerMgrStabilityTests/JobsTimerMgrStabilityTests.m>) 纳入独立 `Stability`，核验析构清理、强制结束完成队列、重复调用和替换后的迟到完成；验证结果见本 README 统一验收记录。
+
+## 十三、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+计数递归扫描当前目录内的普通文件，排除 `.DS_Store` / `._*`；源码与头文件计入 `.h`、`.m`、`.mm`、`.c`、`.cc`、`.cpp`、`.hpp`、`.swift`。资源目录中的目录、资源编译结果和文件大小不计入文件数，文件存在不代表必然打包。
+
+| 目录 | 实际文件 | 源码 / 头文件 | 安装边界 |
+| --- | --- | --- | --- |
+| `Core/` | 6 | 6 | 公共入口与核心实现；公开 / 私有头由 podspec 指定 |
+| `Support/`（无目录） | 0 | 0 | 仅供当前 Pod 内部实现，按实际 subspec / private header 映射 |
+| `Resource/`（无目录） | 0 | 0 | 非代码资源；按 resources / resource_bundles 和排除规则安装 |
+| `Tests/` | 2 | 2 | 只由独立测试目标或回归 harness 使用，不进入生产 source_files |
+
+`Core` 的物理目录不等于所有头文件均公开；`Support` 和测试 fixture 不作为 App 或其它 Pod 的稳定消费入口。根聚合头与 `public_header_files` 是外部引用依据。
+
+根级私有头模式：`Core/_JobsTimerMgrEntry/*.h`；相应实现照常编译，头文件不从公共聚合入口消费。
+
+`Core/_JobsTimerMgrEntry/` 是注册项私有状态，h/m 独立成同名目录；公共头仅导出 `JobsTimerMgr` 及管理动作。
+
+## 十四、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+
+生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
+
+从本 README 所在目录回到工程根目录，再运行该 Pod 的 Debug / Release 单元编译：
+
+```shell
+cd ../..
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+  --phase pods --pod JobsOCTimerMgr
+```
+
+当前 podspec 显式提供 `Stability` test_spec。`Tests/` 与测试 fixture 只进入测试目标；真实行为断言通过后再回填结果。指定可用模拟器 UDID：
+
+```shell
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+  --phase tests --pod JobsOCTimerMgr --simulator '<UDID>'
+```
+
+运行前应已安装工程依赖；runner 的 `--phase pods` 默认分别编译 Debug / Release，`--phase tests` 默认运行 Debug（JobsOCSnowflake 默认 Debug / Release），并将命令、源码指纹、日志和退出码保存到工程 `work/JobsPodsStability/`。如需固定输出目录，使用 runner 的 `--output`。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

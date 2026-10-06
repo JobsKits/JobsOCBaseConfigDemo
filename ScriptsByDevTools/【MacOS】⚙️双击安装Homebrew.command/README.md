@@ -8,6 +8,8 @@
 
 ## 🔥 <font id=前言>前言</font>
 
+本目录中可独立运行的 `.command` 入口先显示内置自述：标题红色加粗，编号正文蓝色且不加粗；在终端按回车确认后才进入原有流程，按 `Ctrl+C` 取消。非彩色终端显示纯文本；没有可交互输入时停止，避免确认缺失后继续执行。
+
 `【MacOS】⚙️双击安装Homebrew.command` 是一个可双击运行的 macOS `.command` 脚本。
 
 它会直接执行 [**Homebrew**](https://brew.sh/) 官方安装脚本，然后通过 `brew install` 安装一批常用开发依赖，包括 [**CocoaPods**](https://cocoapods.org/)、[**OpenJDK**](https://openjdk.org)、[**jenv**](https://www.jenv.be)、[**rbenv**](https://formulae.brew.sh/formula/rbenv)、[**Flutter**](https://flutter.dev/)、[**fvm**](https://fvm.app)、`git`、[**git-lfs**](https://git-lfs.com/)、`wget`、`jq`、`swiftlint`、`xcbeautify`。
@@ -44,7 +46,7 @@
 - 确认已安装或允许安装 Xcode Command Line Tools。
 - 确认网络可以访问 Homebrew 官方安装脚本和 Homebrew 源。
 - 确认可以接受一次性安装多项开发依赖。
-- 确认当前脚本没有交互防误触，双击后会直接执行。
+- 双击后先阅读内置自述，按回车确认才安装；按 `Ctrl+C` 取消。
 
 ## 五、脚本执行流程 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

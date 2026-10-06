@@ -50,9 +50,10 @@ JobsTimeUtils@Pods/
 ├── README.md  # 当前自述
 ├── JobsTimeUtils.h  # 根入口头文件
 ├── JobsPodspecKit.rb  # 本地 podspec 基座
-├── Core/  # 公开 API 与核心实现，4 个文件
-├── Support/  # 内部支撑层，16 个文件
-└── LICENSE  # 许可证文件
+├── Core/  # 公开入口与核心实现，4 个文件
+├── Support/  # 内部支援，16 个文件
+├── LICENSE  # 许可证文件
+└── Tests/  # 独立回归，2 个文件
 ```
 
 - `JobsTimeUtils.podspec` 是当前 Pod 的 [**CocoaPods**](https://cocoapods.org/) 描述入口。
@@ -90,10 +91,12 @@ JobsTimeUtils@Pods/
 ### 5.5、Pod 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - `JobsModel`
+- `JobsModelDSL`
 - `JobsMakes`
 - `JobsBlock`
 - `JobsClass`
 - `JobsOCDefs`
+- `JobsOCDSL`
 - `JobsStringUtils`
 - `WHToastExtra`
 
@@ -140,7 +143,7 @@ pod install --no-repo-update
 
 ## 九、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 头文件会进入公开 API 边界，新增 import 时要确认不会把内部实现细节暴露给外部。
+- 只有 podspec 指定的公开头进入外部 API 边界；新增 import 时要确认不会把私有实现细节暴露给外部。
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
@@ -175,6 +178,66 @@ pod install --no-repo-update
 - [Core/NSObject+Time/NSObject+Time.h](<./Core/NSObject+Time/NSObject+Time.h>)
 - [Core/NSString+Time/NSString+Time.h](<./Core/NSString+Time/NSString+Time.h>)
 
-依赖与编译入口：[JobsTimeUtils.podspec](<./JobsTimeUtils.podspec>)。其中显式依赖声明包括 `JobsModelDSL`、`JobsMakes`、`JobsBlock`、`JobsClass`、`JobsOCDefs`、`JobsOCDSL`、`JobsStringUtils`、`WHToastExtra`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+依赖与编译入口：[JobsTimeUtils.podspec](<./JobsTimeUtils.podspec>)。其中根级依赖声明包括 `JobsModel`、`JobsModelDSL`、`JobsMakes`、`JobsBlock`、`JobsClass`、`JobsOCDefs`、`JobsOCDSL`、`JobsStringUtils`、`WHToastExtra`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+
+## 十一、运行合同与失败边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+- 固定格式 formatter 使用 en_US_POSIX/Gregorian，时区默认本地；UI 的语言化日期请通过 NSDateFormatter 样式入口显式使用用户 locale。日期差遵守传入的 format。
+- `jobsTimeIntervalFrom:to:format:interval:error:` 以 BOOL+NSError 区分解析失败与合法零时间差；兼容旧入口失败仍为 0。
+- readableTime/isExpired 按 10 位秒、13 位毫秒识别；显式 intervalStyle 入口按指定单位解析完整有限非负数。非法过期值判已过期，空值保留 NO；业务不能把空值当有效 token。
+
+## 十二、时间分类兼容与共享解析 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+`Core/NSString+Time/NSString+Time.h` 保留旧 include 路径，并导出 JobsModel 的 `NSString+JobsModelTime.h`。`chinaTime` 与 `timeStampByTimeFormatter:timeZoneType:intervalStyle:` 的唯一 IMP 属于 `JobsModel/Core/Foundation/NSString+JobsModelTime`；本 Pod 不重复实现这两个 selector。
+
+`readableTimeByFormatter`、`isExpired` 与 `dataByDateFormatter` 继续由 `JobsTimeUtils` 实现；前两者调用 `JobsModelParseTimestamp` 共享严格数字解析。`readableTimeByFormatter` 保留 10 位秒 / 13 位毫秒及系统默认时区的兼容合同；`isExpired` 对空字符串返回 NO，对非空非法时间戳返回 YES。显式单位转换与中国时间入口遵循 JobsModel 的 POSIX / Gregorian 合同。
+
+底层 JobsModel 时间原语使用纯 Foundation formatter 内核，保留公开 Block 签名，不需要从 Model 回引 JobsOCDSL / TimeUtils 的 DSL。
+
+依赖方向为 `JobsTimeUtils → JobsModel`；JobsModel 的 Support 只转发本 Pod Core，不反向依赖 TimeUtils。通过当前公开聚合头消费，保留旧调用写法：
+
+```objc
+#import <JobsTimeUtils/JobsTimeUtils.h>
+
+NSString *china = @"0".chinaTime(@"yyyy-MM-dd HH:mm:ss");
+NSString *local = @"1700000000".readableTimeByFormatter(@"yyyy-MM-dd HH:mm:ss");
+BOOL expired = @"1700000000".isExpired();
+```
+
+## 十三、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+计数递归扫描当前目录内的普通文件，排除 `.DS_Store` / `._*`；源码与头文件计入 `.h`、`.m`、`.mm`、`.c`、`.cc`、`.cpp`、`.hpp`、`.swift`。资源目录中的目录、资源编译结果和文件大小不计入文件数，文件存在不代表必然打包。
+
+| 目录 | 实际文件 | 源码 / 头文件 | 安装边界 |
+| --- | --- | --- | --- |
+| `Core/` | 4 | 4 | 公共入口与核心实现；公开 / 私有头由 podspec 指定 |
+| `Support/` | 16 | 16 | 仅供当前 Pod 内部实现，按实际 subspec / private header 映射 |
+| `Resource/`（无目录） | 0 | 0 | 非代码资源；按 resources / resource_bundles 和排除规则安装 |
+| `Tests/` | 2 | 2 | 只由独立测试目标或回归 harness 使用，不进入生产 source_files |
+
+`Core` 的物理目录不等于所有头文件均公开；`Support` 和测试 fixture 不作为 App 或其它 Pod 的稳定消费入口。根聚合头与 `public_header_files` 是外部引用依据。
+
+## 十四、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+
+生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
+
+从本 README 所在目录回到工程根目录，再运行该 Pod 的 Debug / Release 单元编译：
+
+```shell
+cd ../..
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+  --phase pods --pod JobsTimeUtils
+```
+
+当前 podspec 显式提供 `Stability` test_spec。`Tests/` 与测试 fixture 只进入测试目标；真实行为断言通过后再回填结果。指定可用模拟器 UDID：
+
+```shell
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+  --phase tests --pod JobsTimeUtils --simulator '<UDID>'
+```
+
+运行前应已安装工程依赖；runner 的 `--phase pods` 默认分别编译 Debug / Release，`--phase tests` 默认运行 Debug（JobsOCSnowflake 默认 Debug / Release），并将命令、源码指纹、日志和退出码保存到工程 `work/JobsPodsStability/`。如需固定输出目录，使用 runner 的 `--output`。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

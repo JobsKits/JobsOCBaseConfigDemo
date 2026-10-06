@@ -6,6 +6,7 @@
 //
 
 #import "JobsProgressBar.h"
+#import "JobsProgressBarDisplayLinkTarget.h"
 
 @interface JobsProgressBar ()
 
@@ -50,7 +51,7 @@ Prop_assign()BOOL userDragging;
 }
 
 - (void)dealloc {
-    (((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsProgressBar.class, @selector(stopAutoProgress)))(self, @selector(stopAutoProgress)))();
+    [_autoDisplayLink invalidate];
 }
 
 - (void)layoutSubviews {
@@ -94,12 +95,22 @@ Prop_assign()BOOL userDragging;
                                 interval:(NSTimeInterval)interval
                                 animated:(BOOL)animated {
     self.stopAutoProgress();
-    self.byAutoStep(fabs(step) <= 0 ? 0.01 : fabs(step));
-    self.byAutoInterval(MAX(interval, 1.0 / 60.0));
+    self.byAutoStep(isfinite(step) && fabs(step) > 0 ? MIN(fabs(step), 1.0) : 0.01);
+    self.byAutoInterval(isfinite(interval) && interval > 0 ? MAX(interval, 1.0 / 60.0) : 1.0 / 60.0);
     self.byAutoAnimated(animated);
     self.byAutoLastTick(0);
     if (fromZero) [self jobs_setProgress:0 animated:NO duration:0 notify:YES external:NO];
-    self.byAutoDisplayLink([CADisplayLink displayLinkWithTarget:self selector:@selector(jobs_autoProgressTick:)]);
+    @jobs_weakify(self)
+    JobsProgressBarDisplayLinkTarget *target = JobsProgressBarDisplayLinkTarget.new;
+    target.byAction(^(CADisplayLink *displayLink) {
+        @jobs_strongify(self)
+        if (!self) {
+            [displayLink invalidate];
+            return;
+        }
+        [self jobs_autoProgressTick:displayLink];
+    });
+    self.byAutoDisplayLink([CADisplayLink displayLinkWithTarget:target selector:@selector(tick:)]);
     [self.autoDisplayLink addToRunLoop:NSRunLoop.mainRunLoop forMode:NSRunLoopCommonModes];
     return self;
 }
@@ -169,7 +180,7 @@ Prop_assign()BOOL userDragging;
     return ^CGFloat(CGFloat value){
         @jobs_strongify(self)
         if (!self) return (CGFloat){0};
-        return MIN(MAX(value, 0), 1);
+        return isfinite(value) ? MIN(MAX(value, 0), 1) : 0;
     };
 }
 
@@ -354,7 +365,7 @@ Prop_assign()BOOL userDragging;
     void (^layoutBlock)(void) = ^{
         self.jobs_layoutForCurrentState();
     };
-    if (animated && duration > 0) {
+    if (animated && isfinite(duration) && duration > 0) {
         [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut animations:layoutBlock completion:nil];
     } else {
         layoutBlock();

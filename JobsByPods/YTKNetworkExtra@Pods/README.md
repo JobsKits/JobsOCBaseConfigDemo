@@ -50,8 +50,8 @@ YTKNetworkExtra@Pods/
 ├── README.md  # 当前自述
 ├── YTKNetworkExtra.h  # 根入口头文件
 ├── JobsPodspecKit.rb  # 本地 podspec 基座
-├── Core/  # 公开 API 与核心实现，25 个文件
-├── Support/  # 内部支撑层，12 个文件
+├── Core/  # 公开入口与核心实现，25 个文件
+├── Support/  # 内部支援，12 个文件
 └── LICENSE  # 许可证文件
 ```
 
@@ -90,10 +90,11 @@ YTKNetworkExtra@Pods/
 
 ### 5.5、Pod 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `JobsModel`
+- `JobsModelDSL`
 - `JobsMakes`
 - `JobsBlock`
 - `JobsOCDefs`
+- `JobsOCDSL`
 - `YTKNetwork`
 - `MJExtension`
 - `AFNetworking`
@@ -146,7 +147,7 @@ pod install --no-repo-update
 
 ## 九、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 头文件会进入公开 API 边界，新增 import 时要确认不会把内部实现细节暴露给外部。
+- 只有 podspec 指定的公开头进入外部 API 边界；新增 import 时要确认不会把私有实现细节暴露给外部。
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
@@ -183,6 +184,44 @@ pod install --no-repo-update
 - [Core/BaseUploadFileRequest/BaseUploadFileRequest.h](<./Core/BaseUploadFileRequest/BaseUploadFileRequest.h>)
 - [Core/NSObject+YTKNetwork/NSObject+YTKNetwork.h](<./Core/NSObject+YTKNetwork/NSObject+YTKNetwork.h>)
 
-依赖与编译入口：[YTKNetworkExtra.podspec](<./YTKNetworkExtra.podspec>)。其中显式依赖声明包括 `JobsModelDSL`、`JobsMakes`、`JobsBlock`、`JobsOCDefs`、`JobsOCDSL`、`YTKNetwork`、`MJExtension`、`AFNetworking`、`WHToastExtra`、`JobsTimeUtils`、`JobsOCProtocols`、`JobsStringUtils`、`JobsLanMgr`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+依赖与编译入口：[YTKNetworkExtra.podspec](<./YTKNetworkExtra.podspec>)。其中根级依赖声明包括 `JobsModelDSL`、`JobsMakes`、`JobsBlock`、`JobsOCDefs`、`JobsOCDSL`、`YTKNetwork`、`MJExtension`、`AFNetworking`、`WHToastExtra`、`JobsTimeUtils`、`JobsOCProtocols`、`JobsStringUtils`、`JobsLanMgr`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+
+## 十一、运行合同与失败边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+- 原始请求 helper 使用 YTK 最终 URL、requestTimeoutInterval 与 allowsCellularAccess；配置 Block 可以继续显式覆写最终请求属性。请求参数和 header 保存为独立可变副本，避免 copy 将 NSMutableDictionary 变成不可变字典。
+- `responseModel` 绑定当前 `responseObject`，请求对象复用后重新生成；手动设置模型仅对当前响应有效。Header 日志不输出 Authorization 等完整内容。
+
+- BaseRequest 默认缓存关闭；每次构造 header 才读取当前 doorModel.token，显式 Authorization 优先，避免复用 request 后发送旧账户 token。
+
+## 十二、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+计数递归扫描当前目录内的普通文件，排除 `.DS_Store` / `._*`；源码与头文件计入 `.h`、`.m`、`.mm`、`.c`、`.cc`、`.cpp`、`.hpp`、`.swift`。资源目录中的目录、资源编译结果和文件大小不计入文件数，文件存在不代表必然打包。
+
+| 目录 | 实际文件 | 源码 / 头文件 | 安装边界 |
+| --- | --- | --- | --- |
+| `Core/` | 25 | 25 | 公共入口与核心实现；公开 / 私有头由 podspec 指定 |
+| `Support/` | 12 | 12 | 仅供当前 Pod 内部实现，按实际 subspec / private header 映射 |
+| `Resource/`（无目录） | 0 | 0 | 非代码资源；按 resources / resource_bundles 和排除规则安装 |
+| `Tests/`（无目录） | 0 | 0 | 只由独立测试目标或回归 harness 使用，不进入生产 source_files |
+
+`Core` 的物理目录不等于所有头文件均公开；`Support` 和测试 fixture 不作为 App 或其它 Pod 的稳定消费入口。根聚合头与 `public_header_files` 是外部引用依据。
+
+## 十三、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+当前结果：**Debug / Release 单 Pod 编译已完成；本 Pod 无独立 Stability 回归；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+
+生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
+
+从本 README 所在目录回到工程根目录，再运行该 Pod 的 Debug / Release 单元编译：
+
+```shell
+cd ../..
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+  --phase pods --pod YTKNetworkExtra
+```
+
+当前没有 `Stability` test_spec；单独 Pod 的编译覆盖不能等同于行为测试通过，集成场景由宿主验收。
+
+运行前应已安装工程依赖；runner 的 `--phase pods` 默认分别编译 Debug / Release，`--phase tests` 默认运行 Debug（JobsOCSnowflake 默认 Debug / Release），并将命令、源码指纹、日志和退出码保存到工程 `work/JobsPodsStability/`。如需固定输出目录，使用 runner 的 `--output`。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

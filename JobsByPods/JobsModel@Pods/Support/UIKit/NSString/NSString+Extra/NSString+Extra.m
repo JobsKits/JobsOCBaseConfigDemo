@@ -89,36 +89,6 @@
         return [NSURL URLWithString:encoded ?: s];
     };
 }
-/// 格式化为中国时间
--(JobsRetStrByStrBlock _Nonnull)chinaTime{
-    @jobs_weakify(self)
-    return ^NSString *_Nullable(NSString *_Nullable timeFormatter){
-        @jobs_strongify(self)
-        return [self timeStampByTimeFormatter:timeFormatter
-                                 timeZoneType:TimeZoneTypeCSTChina
-                                intervalStyle:intervalByMilliSec];
-    };
-}
-///（字符串）时间戳依据某一规范，格式化为能一目了然的时间（字符串）
-/// - Parameters:
-///   - timeFormatter: timeFormatter
-///   - timeZoneType: 时区
-///   - intervalStyle: IntervalStyle
--(NSString *)timeStampByTimeFormatter:(NSString *_Nullable)timeFormatter
-                         timeZoneType:(TimeZoneType)timeZoneType
-                        intervalStyle:(IntervalStyle)intervalStyle{
-    @jobs_weakify(self)
-    NSDate *date = nil;
-    if (intervalStyle == intervalBySec) {/// 秒级时间戳（10位）
-        date = NSDate.initDateBy(self.doubleValue);
-    }else if(intervalStyle == intervalByMilliSec){/// 毫秒级时间戳（13位）
-        date = NSDate.initDateBy(self.doubleValue / 1000.0);
-    };return jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable data) {
-        @jobs_strongify(self)
-        data.dateFormat = isNull(timeFormatter) ? @"yyyy-MM-dd HH:mm:ss" : timeFormatter;
-        data.timeZone = timeZone(timeZoneType);
-    }).date(date);
-}
 /// 对系统方法 rangeOfString 的二次封装
 -(JobsRetRangeByStrBlock _Nonnull)rangeOfString{
     @jobs_weakify(self)

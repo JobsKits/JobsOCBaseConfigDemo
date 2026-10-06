@@ -5,6 +5,7 @@
 //  Created by Jobs on 2026年7月24日，星期五.
 //
 
+#import <math.h>
 #import <Foundation/Foundation.h>
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -59,7 +60,7 @@ willReconnectAtAttempt:(NSInteger)attempt
 
 @property(nonatomic, weak, nullable)id<JobsOCWebSocketClientDelegate> delegate;
 @property(atomic, assign, readonly)JobsOCWebSocketState state;
-@property(nonatomic, strong, readonly, nullable)NSURL *URL;
+@property(atomic, strong, readonly, nullable)NSURL *URL;
 @property(atomic, assign)BOOL reconnectEnabled;
 @property(atomic, assign)NSTimeInterval heartbeatInterval;
 @property(atomic, assign)NSTimeInterval reconnectBaseDelay;

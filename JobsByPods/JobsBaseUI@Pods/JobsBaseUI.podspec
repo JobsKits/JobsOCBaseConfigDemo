@@ -46,7 +46,7 @@ UIKit categories, model helpers, and related resource files.
     'Core/**/*.h'
   ]
   spec.header_dir = 'JobsBaseUI'
-  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}'
+  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff}'
 
 
   JobsPodspecKitForJobsBaseUI.apply_standard_exclude_files(spec)
@@ -96,5 +96,16 @@ UIKit categories, model helpers, and related resource files.
       'HEADER_SEARCH_PATHS' => '$(inherited) "$(PODS_TARGET_SRCROOT)/**" "$(PODS_ROOT)/../JobsByPods/JobsNavBar@Pods/Core" "$(PODS_ROOT)/../JobsByPods/JobsNavBar@Pods/Core/JobsNavBarConfig"'
     )
   )
+
+  spec.resource_bundles = (spec.attributes_hash['resource_bundles'] || {}).merge('JobsBaseUIPrivacy' => ['Resource/PrivacyInfo.xcprivacy'])
+
+  # 生产 source_files 不包含 Tests；测试只由显式 Stability 测试目标编译。
+  spec.exclude_files = Array(spec.attributes_hash['exclude_files']).reject { |path| path.start_with?('Test/', 'Tests/', 'UnitTests/', 'UITests/') }
+  spec.test_spec 'Stability' do |test_spec|
+    test_spec.source_files = 'Tests/**/*.{h,m,mm}'
+    test_spec.resources = 'Tests/**/*.{xib,storyboard,json,plist}'
+    test_spec.frameworks = 'XCTest'
+    test_spec.requires_app_host = true
+  end
 
 end

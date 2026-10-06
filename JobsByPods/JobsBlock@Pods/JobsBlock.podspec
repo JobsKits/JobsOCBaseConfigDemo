@@ -78,4 +78,7 @@ UIKit maker callbacks and UIView animation / transition signatures are centraliz
     }
   )
 
+  spec.exclude_files = Array(spec.attributes_hash['exclude_files']) + ['Resource/icon.png']
+  spec.preserve_paths = Array(spec.attributes_hash['preserve_paths']) + ['Resource/icon.png']
+
 end

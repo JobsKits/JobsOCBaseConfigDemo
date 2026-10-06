@@ -173,103 +173,104 @@ def byJobsDo
   # 本地 Pods（统一挂载管理）
   pod 'JobsAppIconRibbon',              :path => './JobsByPods/JobsAppIconRibbon@Pods'
   pod 'This',                           :path => './JobsByPods/This@Pods'
-  pod 'JobsAPIs',                       :path => './JobsByPods/JobsAPIs@Pods'
+  pod 'JobsAPIs',                       :path => './JobsByPods/JobsAPIs@Pods', :testspecs => ['Stability']
   pod 'JobsMakes',                      :path => './JobsByPods/JobsMakes@Pods', :modular_headers => true
   pod 'JobsBlock',                      :path => './JobsByPods/JobsBlock@Pods'
-  pod 'JobsClass',                      :path => './JobsByPods/JobsClass@Pods'
-  pod 'JobsModel',                      :path => './JobsByPods/JobsModel@Pods'
-  pod 'JobsDebug',                      :path => './JobsByPods/JobsDebug@Pods'
+  pod 'JobsClass',                      :path => './JobsByPods/JobsClass@Pods', :testspecs => ['Stability']
+  pod 'JobsModel',                      :path => './JobsByPods/JobsModel@Pods', :testspecs => ['Stability']
+  pod 'JobsDebug',                      :path => './JobsByPods/JobsDebug@Pods', :testspecs => ['Stability']
+  pod 'JobsDebugPanel',                 :path => './JobsByPods/JobsDebugPanel@Pods', :configurations => ['Debug']
   pod 'JobsLanMgr',                     :path => './JobsByPods/JobsLanMgr@Pods'
-  pod 'JobsBaseUI',                     :path => './JobsByPods/JobsBaseUI@Pods'
+  pod 'JobsBaseUI',                     :path => './JobsByPods/JobsBaseUI@Pods', :testspecs => ['Stability']
   pod 'JobsLocker',                     :path => './JobsByPods/JobsLocker@Pods'
-  pod 'JobsBioKit',                     :path => './JobsByPods/JobsBioKit@Pods'
+  pod 'JobsBioKit',                     :path => './JobsByPods/JobsBioKit@Pods', :testspecs => ['Stability']
   pod 'JobsOCDefs',                     :path => './JobsByPods/JobsOCDefs@Pods'
   pod 'JobsNavBar',                     :path => './JobsByPods/JobsNavBar@Pods'
   pod 'JobsOCOpen',                     :path => './JobsByPods/JobsOCOpen@Pods'
   pod 'JobsWallet',                     :path => './JobsByPods/JobsWallet@Pods'
-  pod 'JobsSuspend',                    :path => './JobsByPods/JobsSuspend@Pods'
+  pod 'JobsSuspend',                    :path => './JobsByPods/JobsSuspend@Pods', :testspecs => ['Stability']
   pod 'JobsOCTimer',                    :path => './JobsByPods/JobsOCTimer@Pods'
-  pod 'JobsImageRotation',              :path => './JobsByPods/JobsImageRotation@Pods'
-  pod 'JobsOCUILabelScrolling',         :path => './JobsByPods/JobsOCUILabelScrolling@Pods'
-  pod 'JobsOCAudioRecorder',            :path => './JobsByPods/JobsOCAudioRecorder@Pods'
-  pod 'JobsOCPatch',                    :path => './JobsByPods/JobsOCPatch@Pods'
-  pod 'JobsByOCPods',                   :path => './JobsByPods/JobsByOCPods@Pods'
+  pod 'JobsImageRotation',              :path => './JobsByPods/JobsImageRotation@Pods', :testspecs => ['Stability']
+  pod 'JobsOCUILabelScrolling',         :path => './JobsByPods/JobsOCUILabelScrolling@Pods', :testspecs => ['Stability']
+  pod 'JobsOCAudioRecorder',            :path => './JobsByPods/JobsOCAudioRecorder@Pods', :testspecs => ['Stability']
+  pod 'JobsOCPatch',                    :path => './JobsByPods/JobsOCPatch@Pods', :testspecs => ['Stability']
+  pod 'JobsByOCPods',                   :path => './JobsByPods/JobsByOCPods@Pods', :testspecs => ['Stability']
   pod 'JobsHotLabel',                   :path => './JobsByPods/JobsHotLabel@Pods'
   pod 'JobsViewPush',                   :path => './JobsByPods/JobsViewPush@Pods'
-  pod 'JobsOCSplash',                   :path => './JobsByPods/JobsOCSplash@Pods'
+  pod 'JobsOCSplash',                   :path => './JobsByPods/JobsOCSplash@Pods', :testspecs => ['Stability']
   pod 'JobsOCComment',                  :path => './JobsByPods/JobsOCComment@Pods'
-  pod 'JobsGetWindow',                  :path => './JobsByPods/JobsGetWindow@Pods'
+  pod 'JobsGetWindow',                  :path => './JobsByPods/JobsGetWindow@Pods', :testspecs => ['Stability']
   pod 'JobsTabBarCtrl',                 :path => './JobsByPods/JobsTabBarCtrl@Pods'
   pod 'JobsOCSearcher',                 :path => './JobsByPods/JobsOCSearcher@Pods'
-  pod 'JobsOCMarkdown',                 :path => './JobsByPods/JobsOCMarkdown@Pods'
+  pod 'JobsOCMarkdown',                 :path => './JobsByPods/JobsOCMarkdown@Pods', :testspecs => ['Stability']
   pod 'JobsDeviceInfo',                 :path => './JobsByPods/JobsDeviceInfo@Pods'
-  pod 'JobsOCRefresher',                :path => './JobsByPods/JobsOCRefresher@Pods'
+  pod 'JobsOCRefresher',                :path => './JobsByPods/JobsOCRefresher@Pods', :testspecs => ['Stability']
   pod 'JobsGestureLock',                :path => './JobsByPods/JobsGestureLock@Pods'
-  pod 'JobsBitsMonitor',                :path => './JobsByPods/JobsBitsMonitor@Pods'
-  pod 'JobsOCSkeletonView',             :path => './JobsByPods/JobsOCSkeletonView@Pods'
+  pod 'JobsBitsMonitor',                :path => './JobsByPods/JobsBitsMonitor@Pods', :testspecs => ['Stability']
+  pod 'JobsOCSkeletonView',             :path => './JobsByPods/JobsOCSkeletonView@Pods', :testspecs => ['Stability']
   pod 'JobsOCProtocols',                :path => './JobsByPods/JobsOCProtocols@Pods'
-  pod 'JobsOCSnowflake',                :path => './JobsByPods/JobsOCSnowflake@Pods'
+  pod 'JobsOCSnowflake',                :path => './JobsByPods/JobsOCSnowflake@Pods', :testspecs => ['Stability']
   pod 'JobsCountdownBtn',               :path => './JobsByPods/JobsCountdownBtn@Pods'
   pod 'JobsLoadingImage',               :path => './JobsByPods/JobsLoadingImage@Pods'
-  pod 'JobsIconfont',                   :path => './JobsByPods/JobsIconfont@Pods'
-  pod 'JobsCryptography',               :path => './JobsByPods/JobsCryptography@Pods'
-  pod 'JobsOCKeyboardMgr',              :path => './JobsByPods/JobsOCKeyboardMgr@Pods'
+  pod 'JobsIconfont',                   :path => './JobsByPods/JobsIconfont@Pods', :testspecs => ['Stability']
+  pod 'JobsCryptography',               :path => './JobsByPods/JobsCryptography@Pods', :testspecs => ['Stability']
+  pod 'JobsOCKeyboardMgr',              :path => './JobsByPods/JobsOCKeyboardMgr@Pods', :testspecs => ['Stability']
   pod 'JobsViewNavigator',              :path => './JobsByPods/JobsViewNavigator@Pods'
-  pod 'JobsOCRuntimeKits',              :path => './JobsByPods/JobsOCRuntimeKits@Pods'
+  pod 'JobsOCRuntimeKits',              :path => './JobsByPods/JobsOCRuntimeKits@Pods', :testspecs => ['Stability']
   pod 'JobsFuseAnimation',              :path => './JobsByPods/JobsFuseAnimation@Pods'
-  pod 'JobsOCNumberStepper',             :path => './JobsByPods/JobsOCNumberStepper@Pods'
+  pod 'JobsOCNumberStepper',             :path => './JobsByPods/JobsOCNumberStepper@Pods', :testspecs => ['Stability']
   pod 'JobsOCGraphicCaptcha',             :path => './JobsByPods/JobsOCGraphicCaptcha@Pods'
   pod 'JobsAppDoor',                      :path => './JobsByPods/JobsAppDoor@Pods'
-  pod 'JobsOCVideoRecorder',            :path => './JobsByPods/JobsOCVideoRecorder@Pods'
+  pod 'JobsOCVideoRecorder',            :path => './JobsByPods/JobsOCVideoRecorder@Pods', :testspecs => ['Stability']
   pod 'JobsMonitorNetwoking',           :path => './JobsByPods/JobsMonitorNetwoking@Pods'
-  pod 'JobsBluetooth',                  :path => './JobsByPods/JobsBluetooth@Pods'
-  pod 'FileFolderHandleTool',           :path => './JobsByPods/FileFolderHandleTool@Pods'
+  pod 'JobsBluetooth',                  :path => './JobsByPods/JobsBluetooth@Pods', :testspecs => ['Stability']
+  pod 'FileFolderHandleTool',           :path => './JobsByPods/FileFolderHandleTool@Pods', :testspecs => ['Stability']
   pod 'JobsLuckyEnvelopeRain',          :path => './JobsByPods/JobsLuckyEnvelopeRain@Pods'
   pod 'JobsOCCountryCodeCtrl',          :path => './JobsByPods/JobsOCCountryCodeCtrl@Pods'
   pod 'FDFullscreenPopGesture',         :path => './JobsByPods/FDFullscreenPopGesture@Pods'
 
   pod 'JobsMenuView',                   :path => './JobsByPods/JobsMenuView@Pods'
-  pod 'JobsClockView',                  :path => './JobsByPods/JobsClockView@Pods'
+  pod 'JobsClockView',                  :path => './JobsByPods/JobsClockView@Pods', :testspecs => ['Stability']
   pod 'JobsScreenCapture',              :path => './JobsByPods/JobsScreenCapture@Pods'
-  pod 'JobsOCWebSocket',                :path => './JobsByPods/JobsOCWebSocket@Pods'
+  pod 'JobsOCWebSocket',                :path => './JobsByPods/JobsOCWebSocket@Pods', :testspecs => ['Stability']
   pod 'JobsCustomView',                 :path => './JobsByPods/JobsCustomView@Pods'
-  pod 'JobsMarqueeView',                :path => './JobsByPods/JobsMarqueeView@Pods'
+  pod 'JobsMarqueeView',                :path => './JobsByPods/JobsMarqueeView@Pods', :testspecs => ['Stability']
   pod 'JobsBasePopupView',              :path => './JobsByPods/JobsBasePopupView@Pods'
   pod 'JobsFiltrationView',             :path => './JobsByPods/JobsFiltrationView@Pods'
-  pod 'JobsImageNumberView',            :path => './JobsByPods/JobsImageNumberView@Pods'
+  pod 'JobsImageNumberView',            :path => './JobsByPods/JobsImageNumberView@Pods', :testspecs => ['Stability']
   pod 'JobsLinkageMenuView',            :path => './JobsByPods/JobsLinkageMenuView@Pods'
   pod 'JobsDropDownListView',           :path => './JobsByPods/JobsDropDownListView@Pods'
-  pod 'JobsProgressBar',                :path => './JobsByPods/JobsProgressBar@Pods'
-  pod 'JobsUploadingProgressView',      :path => './JobsByPods/JobsUploadingProgressView@Pods'
+  pod 'JobsProgressBar',                :path => './JobsByPods/JobsProgressBar@Pods', :testspecs => ['Stability']
+  pod 'JobsUploadingProgressView',      :path => './JobsByPods/JobsUploadingProgressView@Pods', :testspecs => ['Stability']
 
-  pod 'JobsOCDSL',                      :path => './JobsByPods/JobsOCDSL@Pods'
+  pod 'JobsOCDSL',                      :path => './JobsByPods/JobsOCDSL@Pods', :testspecs => ['Stability']
   pod 'JobsModelDSL',                   :path => './JobsByPods/JobsModelDSL@Pods'
-  pod 'UIBaseTextFieldDSL',             :path => './JobsByPods/UIBaseTextFieldDSL@Pods'
-  pod 'JobsCallBackBlockDSL',           :path => './JobsByPods/JobsCallBackBlockDSL@Pods'
+  pod 'UIBaseTextFieldDSL',             :path => './JobsByPods/UIBaseTextFieldDSL@Pods', :testspecs => ['Stability']
+  pod 'JobsCallBackBlockDSL',           :path => './JobsByPods/JobsCallBackBlockDSL@Pods', :testspecs => ['Stability']
 
-  pod 'JobsOCTools',                    :path => './JobsByPods/JobsOCTools@Pods'
-  pod 'JobsAppTools',                   :path => './JobsByPods/JobsAppTools@Pods'
-  pod 'JobsNetWorkTools',               :path => './JobsByPods/JobsNetWorkTools@Pods'
+  pod 'JobsOCTools',                    :path => './JobsByPods/JobsOCTools@Pods', :testspecs => ['Stability']
+  pod 'JobsAppTools',                   :path => './JobsByPods/JobsAppTools@Pods', :testspecs => ['Stability']
+  pod 'JobsNetWorkTools',               :path => './JobsByPods/JobsNetWorkTools@Pods', :testspecs => ['Stability']
 
-  pod 'JobsOCTimerMgr',                 :path => './JobsByPods/JobsOCTimerMgr@Pods'
+  pod 'JobsOCTimerMgr',                 :path => './JobsByPods/JobsOCTimerMgr@Pods', :testspecs => ['Stability']
   pod 'JobsPresentTransitionMgr',       :path => './JobsByPods/JobsPresentTransitionMgr@Pods'
-  pod 'JobsNavigationTransitionMgr',    :path => './JobsByPods/JobsNavigationTransitionMgr@Pods'
+  pod 'JobsNavigationTransitionMgr',    :path => './JobsByPods/JobsNavigationTransitionMgr@Pods', :testspecs => ['Stability']
 
-  pod 'JobsTimeUtils',                  :path => './JobsByPods/JobsTimeUtils@Pods'
-  pod 'JobsRandomUtils',                :path => './JobsByPods/JobsRandomUtils@Pods'
-  pod 'JobsStringUtils',                :path => './JobsByPods/JobsStringUtils@Pods'
-  pod 'JobsRichTextUtils',              :path => './JobsByPods/JobsRichTextUtils@Pods'
+  pod 'JobsTimeUtils',                  :path => './JobsByPods/JobsTimeUtils@Pods', :testspecs => ['Stability']
+  pod 'JobsRandomUtils',                :path => './JobsByPods/JobsRandomUtils@Pods', :testspecs => ['Stability']
+  pod 'JobsStringUtils',                :path => './JobsByPods/JobsStringUtils@Pods', :testspecs => ['Stability']
+  pod 'JobsRichTextUtils',              :path => './JobsByPods/JobsRichTextUtils@Pods', :testspecs => ['Stability']
 
   pod 'RACExtra',                       :path => './JobsByPods/RACExtra@Pods'
   pod 'WHToastExtra',                   :path => './JobsByPods/WHToastExtra@Pods'
   pod 'TFPopupExtra',                   :path => './JobsByPods/TFPopupExtra@Pods'
   pod 'JobsOCCalendar',                   :path => './JobsByPods/JobsOCCalendar@Pods'
-  pod 'JobsOCExcel',                      :path => './JobsByPods/JobsOCExcel@Pods'
+  pod 'JobsOCExcel',                      :path => './JobsByPods/JobsOCExcel@Pods', :testspecs => ['Stability']
   pod 'ZMJCellExtra',                   :path => './JobsByPods/ZMJCellExtra@Pods'
   pod 'ZFPlayerExtra',                  :path => './JobsByPods/ZFPlayerExtra@Pods'
-  pod 'MJRefreshExtra',                 :path => './JobsByPods/MJRefreshExtra@Pods'
+  pod 'MJRefreshExtra',                 :path => './JobsByPods/MJRefreshExtra@Pods', :testspecs => ['Stability']
   pod 'YTKNetworkExtra',                :path => './JobsByPods/YTKNetworkExtra@Pods'
-  pod 'FMDatabaseExtra',                :path => './JobsByPods/FMDatabaseExtra@Pods'
+  pod 'FMDatabaseExtra',                :path => './JobsByPods/FMDatabaseExtra@Pods', :testspecs => ['Stability']
   pod 'FSCalendarExtra',                :path => './JobsByPods/FSCalendarExtra@Pods'
   pod 'SZTextViewExtra',                :path => './JobsByPods/SZTextViewExtra@Pods'
   pod 'HXPhotoViewExtra',               :path => './JobsByPods/HXPhotoViewExtra@Pods'

@@ -11,6 +11,7 @@
 
 Prop_assign()long long int lastBytes;
 Prop_assign()BOOL isFirstRate;
+Prop_assign()NSTimeInterval lastSampleTime;
 
 @end
 
@@ -50,20 +51,23 @@ static JobsMonitorNetwoking *monitorNetwoking = nil;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        long long int rate = 0;
-        long long int currentBytes = self.getInterfaceBytes();
-        if(self.lastBytes) {
-            //用上当前的下行总流量减去上一秒的下行流量达到下行速录
-            rate = currentBytes - self.lastBytes;
-        }else{
-            self.byFirstRate(NO);
+        NSString *rateStr;
+        @synchronized (self) {
+            long long currentBytes = self.getInterfaceBytes();
+            NSTimeInterval now = NSProcessInfo.processInfo.systemUptime;
+            NSTimeInterval elapsed = now - self.lastSampleTime;
+            long long rate = 0;
+            if (self.lastSampleTime > 0 && elapsed > 0 && currentBytes >= self.lastBytes) {
+                long double bytesPerSecond = (long double)(currentBytes - self.lastBytes) / elapsed;
+                rate = bytesPerSecond >= LLONG_MAX ? LLONG_MAX : (long long)bytesPerSecond;
+            }
+            self.byLastBytes(currentBytes);
+            self.lastSampleTime = now;
+            rateStr = self.formatNetWork(rate);
         }
-        //保存上一秒的下行总流量
-        self.byLastBytes(self.getInterfaceBytes());
-        //格式化一下
-        NSString*rateStr = self.formatNetWork(rate);
-        JobsLog(@"当前网速%@",rateStr);
-        _rateLabel.byText(rateStr);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.rateLabel.byText(rateStr);
+        });
     //    JobsLog(@"hehe:%lld",hehe/1024/1024);
     };
 }
@@ -77,10 +81,10 @@ static JobsMonitorNetwoking *monitorNetwoking = nil;
         if (getifaddrs(&ifa_list) == -1){
             return 0;
         }
-        uint32_t iBytes = 0;//下行
-        uint32_t oBytes = 0;//上行
+        uint64_t iBytes = 0;//下行
+        uint64_t oBytes = 0;//上行
         for (ifa = ifa_list; ifa; ifa = ifa->ifa_next){
-            if (AF_LINK != ifa->ifa_addr->sa_family)
+            if (!ifa->ifa_addr || AF_LINK != ifa->ifa_addr->sa_family)
                 continue;
             if (!(ifa->ifa_flags & IFF_UP) && !(ifa->ifa_flags & IFF_RUNNING))
                 continue;
@@ -95,7 +99,7 @@ static JobsMonitorNetwoking *monitorNetwoking = nil;
         }
         freeifaddrs(ifa_list);
     //    JobsLog(@"\n[getInterfaceBytes-Total]%d,%d",iBytes,oBytes);
-        return iBytes;
+        return iBytes > LLONG_MAX ? LLONG_MAX : (long long)iBytes;
     };
 }
 
@@ -111,7 +115,7 @@ static JobsMonitorNetwoking *monitorNetwoking = nil;
         }else if(rate >= 1024 * 1024 && rate <1024 * 1024 * 1024){
             return [NSString stringWithFormat:@"%.2fMB/秒", (double)rate / (1024 * 1024)];
         }else{
-            return @"10Kb/秒";
+            return [NSString stringWithFormat:@"%.2fGB/秒", (double)MAX(0, rate) / (1024.0 * 1024.0 * 1024.0)];
         };
     };
 }

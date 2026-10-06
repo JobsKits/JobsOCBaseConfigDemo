@@ -6,6 +6,7 @@
 //
 
 #import "JobsOCCrashLogCenter.h"
+#import "JobsCrashSignalRecorder.h"
 
 static NSString *const JobsOCCrashLogFileName = @"jobs_crash.log";
 static NSString *const JobsOCCrashLogSafeExitKey = @"com.jobs.crashlog.safeExit";
@@ -17,7 +18,46 @@ static void *JobsOCCrashLogIOQueueSpecificKey = &JobsOCCrashLogIOQueueSpecificKe
 static NSUncaughtExceptionHandler *JobsOCPreviousUncaughtExceptionHandler = NULL;
 
 static void JobsOCHandleUncaughtException(NSException *exception);
-static void JobsOCHandleCrashSignal(int signo);
+
+// 仅普通 IO 队列使用；signal handler 保持独立纯 C 实现。
+static BOOL JobsOCCrashLogAppendDataToPath(NSData *data, NSString *path){
+    if (!data || !path.length) {
+        return NO;
+    }
+    int descriptor;
+    do {
+        descriptor = open(path.fileSystemRepresentation, O_CREAT | O_WRONLY | O_APPEND, 0644);
+    } while (descriptor < 0 && errno == EINTR);
+    if (descriptor < 0) {
+        return NO;
+    }
+    BOOL success = YES;
+    NSUInteger offset = 0;
+    while (offset < data.length) {
+        size_t requested = MIN(data.length - offset, (NSUInteger)SSIZE_MAX);
+        ssize_t written;
+        do {
+            written = write(descriptor, (const uint8_t *)data.bytes + offset, requested);
+        } while (written < 0 && errno == EINTR);
+        if (written <= 0 || (NSUInteger)written > requested) {
+            success = NO;
+            break;
+        }
+        offset += (NSUInteger)written;
+    }
+    if (success) {
+        int result;
+        do {
+            result = fsync(descriptor);
+        } while (result < 0 && errno == EINTR);
+        success = result == 0;
+    }
+    // close 失败后 fd 可能已释放；不重试，防止关闭复用后的其它 fd。
+    if (close(descriptor) != 0) {
+        success = NO;
+    }
+    return success;
+}
 
 @interface JobsOCCrashLogCenter ()
 
@@ -39,6 +79,8 @@ Prop_assign()BOOL hasStartedSession;
 -(jobsByVoidBlock _Nonnull)installCrashHandlers;
 -(jobsByVoidBlock _Nonnull)trimLogIfNeeded;
 -(jobsByStrBlock _Nonnull)writeStringSync;
+-(BOOL)jobsWriteData:(NSData *)data toPath:(NSString *)path;
+-(BOOL)jobsImportSignalJournalAtPath:(NSString *)signalPath logPath:(NSString *)logPath;
 -(JobsRetStrByVoidBlock _Nonnull)currentScreenName;
 -(JobsRetVCByVCBlock _Nonnull)visibleViewControllerFrom;
 -(JobsRetStrByVoidBlock _Nonnull)currentAppState;
@@ -79,7 +121,7 @@ Prop_assign()BOOL hasStartedSession;
         _ioQueue = dispatch_queue_create("com.jobs.crashlog.center.io", DISPATCH_QUEUE_SERIAL);
         dispatch_queue_set_specific(_ioQueue,
                                     JobsOCCrashLogIOQueueSpecificKey,
-                                    JobsOCCrashLogIOQueueSpecificKey,
+                                    (__bridge void *)self,
                                     NULL);
         _notificationTokens = NSMutableArray.array;
         _sessionID = @"";
@@ -327,11 +369,9 @@ Prop_assign()BOOL hasStartedSession;
         dispatch_once(&onceToken, ^{
             JobsOCPreviousUncaughtExceptionHandler = NSGetUncaughtExceptionHandler();
             NSSetUncaughtExceptionHandler(JobsOCHandleUncaughtException);
-            int signals[] = {SIGABRT, SIGILL, SIGSEGV, SIGFPE, SIGBUS, SIGPIPE};
-            size_t count = sizeof(signals) / sizeof(signals[0]);
-            for (size_t index = 0; index < count; index++) {
-                signal(signals[index], JobsOCHandleCrashSignal);
-            }
+            NSString *signalPath = [self.logPathHint() stringByAppendingString:@".signals"];
+            [self jobsImportSignalJournalAtPath:signalPath logPath:self.logPathHint()];
+            JobsInstallCrashSignalRecorder(signalPath.fileSystemRepresentation);
             NSString *banner = [NSString stringWithFormat:@"log: %@\n\n====== CrashCatcher Installed ======\ntime: %@\nlog: %@\ndidCrashLastRun: %@",
                                 self.logPathHint(),
                                 NSDate.date,
@@ -381,11 +421,7 @@ Prop_assign()BOOL hasStartedSession;
     return ^BOOL{
         @jobs_strongify(self)
         if (!self) return (BOOL){0};
-        NSString *path = self.logPathHint();
-        if ([NSFileManager.defaultManager fileExistsAtPath:path]) return YES;
-        return [NSData.data writeToFile:path
-                               options:NSDataWritingAtomic
-                                 error:nil];
+        return [self jobsWriteData:NSData.data toPath:self.logPathHint()];
     };
 }
 
@@ -397,7 +433,6 @@ Prop_assign()BOOL hasStartedSession;
         if (!text.length) return;
         NSString *content = text.copy;
         dispatch_async(self.ioQueue, ^{
-            [self ensureFileExists]();
             self.trimLogIfNeeded();
             self.writeStringSync(content);
         });
@@ -410,7 +445,6 @@ Prop_assign()BOOL hasStartedSession;
         @jobs_strongify(self)
         if (!self) return;
         if (!text.length) return;
-        [self ensureFileExists]();
         self.writeStringSync(text);
     };
 }
@@ -423,14 +457,65 @@ Prop_assign()BOOL hasStartedSession;
         NSString *line = [text hasSuffix:@"\n"] ? text : [text stringByAppendingString:@"\n"];
         NSData *data = [line dataUsingEncoding:NSUTF8StringEncoding];
         if (!data.length) return;
-        int fileDescriptor = open(self.logPathHint().fileSystemRepresentation,
-                                  O_CREAT | O_WRONLY | O_APPEND,
-                                  0644);
-        if (fileDescriptor < 0) return;
-        write(fileDescriptor, data.bytes, data.length);
-        fsync(fileDescriptor);
-        close(fileDescriptor);
+        [self jobsWriteData:data toPath:self.logPathHint()];
     };
+}
+
+-(BOOL)jobsWriteData:(NSData *)data toPath:(NSString *)path{
+    if (!self.ioQueue) {
+        return NO;
+    }
+    __block BOOL success = NO;
+    jobsByVoidBlock writeBlock = ^{
+        success = JobsOCCrashLogAppendDataToPath(data, path);
+    };
+    if (dispatch_get_specific(JobsOCCrashLogIOQueueSpecificKey) == (__bridge void *)self) {
+        writeBlock();
+    } else {
+        dispatch_sync(self.ioQueue, writeBlock);
+    }
+    return success;
+}
+
+-(BOOL)jobsImportSignalJournalAtPath:(NSString *)signalPath logPath:(NSString *)logPath{
+    if (!self.ioQueue || !signalPath.length || !logPath.length || [signalPath isEqualToString:logPath]) {
+        return NO;
+    }
+    __block BOOL success = NO;
+    jobsByVoidBlock importBlock = ^{
+        NSData *pending = [NSData dataWithContentsOfFile:signalPath];
+        if (!pending) {
+            success = ![NSFileManager.defaultManager fileExistsAtPath:signalPath];
+            return;
+        }
+        if (!pending.length) {
+            success = YES;
+            return;
+        }
+        if (pending.length % sizeof(JobsCrashSignalRecord) != 0) {
+            return;
+        }
+        NSMutableString *text = NSMutableString.string;
+        for (NSUInteger offset = 0; offset < pending.length; offset += sizeof(JobsCrashSignalRecord)) {
+            JobsCrashSignalRecord record = {0};
+            memcpy(&record, (const uint8_t *)pending.bytes + offset, sizeof(record));
+            if (record.magic != JOBS_CRASH_SIGNAL_MAGIC || record.version != 1) {
+                return;
+            }
+            [text appendFormat:@"[PREVIOUS_SIGNAL] signal=%d process=%d importedAt=%@\n",
+                               record.signalNumber, record.processID, NSDate.date];
+        }
+        if (![self jobsWriteData:[text dataUsingEncoding:NSUTF8StringEncoding] toPath:logPath]) {
+            return;
+        }
+        success = [NSData.data writeToFile:signalPath options:NSDataWritingAtomic error:nil];
+    };
+    if (dispatch_get_specific(JobsOCCrashLogIOQueueSpecificKey) == (__bridge void *)self) {
+        importBlock();
+    } else {
+        dispatch_sync(self.ioQueue, importBlock);
+    }
+    return success;
 }
 
 -(jobsByVoidBlock _Nonnull)trimLogIfNeeded{
@@ -507,7 +592,7 @@ Prop_assign()BOOL hasStartedSession;
                 ? [NSString stringWithFormat:@"✅ 已删除：%@",path]
                 : [NSString stringWithFormat:@"❌ 清理失败：%@\n%@",error.localizedDescription,path];
         };
-        if (dispatch_get_specific(JobsOCCrashLogIOQueueSpecificKey)) {
+        if (dispatch_get_specific(JobsOCCrashLogIOQueueSpecificKey) == (__bridge void *)self) {
             clearBlock();
         }else{
             dispatch_sync(self.ioQueue, clearBlock);
@@ -659,31 +744,4 @@ static void JobsOCHandleUncaughtException(NSException *exception){
                          [exception.callStackSymbols componentsJoinedByString:@"\n"]];
     ((JobsOCCrashLogCenter *)JobsOCCrashLogCenter.jobsSharedManager()).writeCrashSync(message);
     if (JobsOCPreviousUncaughtExceptionHandler) JobsOCPreviousUncaughtExceptionHandler(exception);
-}
-
-static void JobsOCHandleCrashSignal(int signo){
-    NSString *signalName = nil;
-    switch (signo) {
-        /// 处理 SIGABRT 分支
-        case SIGABRT:signalName = @"SIGABRT";break;
-        /// 处理 SIGILL 分支
-        case SIGILL:signalName = @"SIGILL";break;
-        /// 处理 SIGSEGV 分支
-        case SIGSEGV:signalName = @"SIGSEGV";break;
-        /// 处理 SIGFPE 分支
-        case SIGFPE:signalName = @"SIGFPE";break;
-        /// 处理 SIGBUS 分支
-        case SIGBUS:signalName = @"SIGBUS";break;
-        /// 处理 SIGPIPE 分支
-        case SIGPIPE:signalName = @"SIGPIPE";break;
-        /// 未匹配已知分支时执行兜底处理
-        default:signalName = [NSString stringWithFormat:@"SIG(%d)",signo];break;
-    }
-    NSString *message = [NSString stringWithFormat:@"\n==================== ❌ Signal Crash ====================\ntime: %@\nsignal: %d (%@)\n=========================================================",
-                         NSDate.date,
-                         signo,
-                         signalName];
-    ((JobsOCCrashLogCenter *)JobsOCCrashLogCenter.jobsSharedManager()).writeCrashSync(message);
-    signal(signo, SIG_DFL);
-    raise(signo);
 }

@@ -43,4 +43,5 @@ network traffic speed and displays it with JobsSuspendLab.
 
   JobsPodspecKitForJobsMonitorNetwoking.apply_standard_xcconfig(spec)
 
+  spec.resource_bundles = (spec.attributes_hash['resource_bundles'] || {}).merge('JobsMonitorNetwokingPrivacy' => ['Resource/PrivacyInfo.xcprivacy'])
 end

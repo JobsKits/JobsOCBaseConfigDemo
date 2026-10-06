@@ -1,4 +1,27 @@
 #!/bin/zsh
+# 仅渲染自述：标题红色加粗，编号正文蓝色常规字重；非彩色终端输出纯文本。
+jobs_intro_style() {
+  local intro_color=0
+  if [ -t 1 ] && [ -n "${TERM:-}" ] && [ "${TERM:-}" != dumb ] &&
+     [ -z "${NO_COLOR+x}" ] && [ "${PLAIN_OUTPUT:-0}" != 1 ] &&
+     [ "${IS_SOURCETREE_RUNTIME:-0}" != 1 ]; then
+    intro_color=1
+  fi
+  /usr/bin/awk -v color="$intro_color" -v role="${1:-body}" '
+    BEGIN { esc = sprintf("%c", 27) }
+    {
+      gsub(esc "\\[[0-9;]*m", "")
+      gsub(/\\(033|e|x1[bB])\[[0-9;]*m/, "")
+      if (!color || $0 ~ /^[[:space:]]*$/) { print; next }
+      numbered = ($0 ~ /^[[:space:]➤ℹ🔹✔⚠]*([0-9]+[、.)）]|[0-9]+️⃣|[-•])/)
+      heading = ($0 ~ /^[[:space:]]*#{1,6}[[:space:]]/ || $0 ~ /[：:][[:space:]]*$/ || $0 ~ /^[[:space:]]*[=━─-]{3}/)
+      title = (!numbered && (role == "title" || heading))
+      if (role == "auto" && !seen && !numbered) title = 1
+      if ($0 !~ /^[[:space:]]*[=━─-]+[[:space:]]*$/) seen = 1
+      printf "%s%s%s\n", esc (title ? "[1;31m" : "[0;34m"), $0, esc "[0m"
+    }
+  '
+}
 set -euo pipefail
 
 # ================================== 基础信息 ==================================
@@ -456,16 +479,16 @@ open_json_in_browser() {
 
 show_intro() {
   print_divider
-  bold_echo "本脚本将执行以下流程："
-  log "1. 自述说明，并等待你回车"
-  log "2. 检查 Homebrew：没有就安装，有就可选升级"
-  log "3. 检查 python3：没有就安装，有就可选升级"
-  log "4. 检查 fzf：没有就安装，有就可选升级"
-  log "5. 切换到脚本所在目录"
-  log "6. 启动本地服务：http://${HOST}:${PORT}"
-  log "7. 用 fzf 选择一个 json 文件"
-  log "8. 浏览器自动打开对应地址（已处理空格/中文等 URL 编码）"
-  log "9. 服务保持运行，按 Ctrl + C 结束"
+  bold_echo "本脚本将执行以下流程：" | jobs_intro_style title
+  log "1. 自述说明，并等待你回车" | jobs_intro_style body
+  log "2. 检查 Homebrew：没有就安装，有就可选升级" | jobs_intro_style body
+  log "3. 检查 python3：没有就安装，有就可选升级" | jobs_intro_style body
+  log "4. 检查 fzf：没有就安装，有就可选升级" | jobs_intro_style body
+  log "5. 切换到脚本所在目录" | jobs_intro_style body
+  log "6. 启动本地服务：http://${HOST}:${PORT}" | jobs_intro_style body
+  log "7. 用 fzf 选择一个 json 文件" | jobs_intro_style body
+  log "8. 浏览器自动打开对应地址（已处理空格/中文等 URL 编码）" | jobs_intro_style body
+  log "9. 服务保持运行，按 Ctrl + C 结束" | jobs_intro_style body
   print_divider
   pause_enter
 }

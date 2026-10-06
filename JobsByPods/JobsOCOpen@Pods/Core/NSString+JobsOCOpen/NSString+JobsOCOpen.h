@@ -8,6 +8,7 @@
 #ifndef JOBS_HEADER_GUARD_NSSTRING_JOBSOCOPEN_6787358AA7
 #define JOBS_HEADER_GUARD_NSSTRING_JOBSOCOPEN_6787358AA7
 
+#import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 
 #if __has_include(<JobsBlock/JobsBlock.h>)

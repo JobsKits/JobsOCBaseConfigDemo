@@ -8,6 +8,8 @@
 #ifndef JobsModel_h
 #define JobsModel_h
 
+#import <JobsModel/NSString+JobsModelTime.h>
+
 #pragma mark —— 万物Model
 #import <JobsModel/JobsBaseModel.h>
 

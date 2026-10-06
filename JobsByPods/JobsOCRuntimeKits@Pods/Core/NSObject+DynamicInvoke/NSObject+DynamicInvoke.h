@@ -10,6 +10,8 @@
 
 #import <objc/runtime.h>
 #import <Foundation/Foundation.h>
+#import <stdlib.h>
+#import <string.h>
 #import <JobsOCRuntimeKits/JobsSEL_IMP.h>
 
 #if __has_include(<JobsRandomUtils/JobsRandomUtilsHeader.h>)
@@ -64,6 +66,9 @@ Prop_copy()NSMutableDictionary <NSString *, NSValue *>*methodCache;/// 定义一
 +(id)methodName:(NSString *_Nonnull)methodName
       targetObj:(id _Nonnull)targetObj
     paramarrays:(NSArray *_Nullable)paramarrays;
+/// NSNumber 传标量、NSValue 传精确编码的结构体、NSNull 表示 nil 对象。
+/// 拒绝指针/union/方法族等无法安全表达的签名；void 成功返回 nil 且 error 为 nil。
++(id _Nullable)methodName:(NSString *)methodName targetObj:(id)targetObj paramarrays:(NSArray *_Nullable)paramarrays error:(NSError *_Nullable *_Nullable)error;
 /// 获取方法返回值
 /// @param inv inv
 /// @param sig 方法签名

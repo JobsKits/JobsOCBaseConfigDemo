@@ -191,9 +191,10 @@
     return ^NSDateFormatter *_Nullable(NSString *_Nullable dateFormat){
         if(isNull(dateFormat)) dateFormat = @"yyyy-MM-dd HH:mm:ss";
         return jobsMakeDateFormatter(^(__kindof NSDateFormatter * _Nullable data) {
-            data.dateFormat = dateFormat;/// 设置时间格式
-            data.byTimeZone(NSTimeZone.localTimeZone);
-            data.locale = NSLocale.currentLocale;
+            data.byDateFormat(dateFormat)
+                .byTimeZone(NSTimeZone.localTimeZone)
+                .byLocale([NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"])
+                .byCalendar([NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian]);
         });
     };
 }
@@ -259,21 +260,30 @@
 -(NSTimeInterval)timeIntervalstartDate:(NSString *_Nonnull)startTime
                                endDate:(NSString *_Nullable)endTime
                          timeFormatter:(NSString *_Nullable)timeFormatter{
-    /// 创建日期格式化器
-    NSDateFormatter *dateFormatter = self.dateFormatterBy(nil);
-    /// 将 startTime 转换为 NSDate
-    NSDate *startDate = dateFormatter.dateByString(startTime);
-    if (!startDate) {
-        JobsLog(@"开始时间格式不正确");
-        return 0;
-    }
-    /// 如果 endTime 未提供，则使用当前时间
-    NSDate *endDate = endTime ? dateFormatter.dateByString(endTime) : self.jobsCurrentDate();
-    if (!endDate) {
-        JobsLog(@"结束时间格式不正确");
-        return 0;
-    };return endDate.timeIntervalSinceDate(startDate);/// 计算两个日期之间的时间间隔
+    NSTimeInterval interval = 0;
+    [self jobsTimeIntervalFrom:startTime to:endTime format:timeFormatter interval:&interval error:nil];
+    return interval;
+
 }
+-(BOOL)jobsTimeIntervalFrom:(NSString *)startTime
+                        to:(NSString *)endTime
+                    format:(NSString *)format
+                  interval:(NSTimeInterval *)interval
+                     error:(NSError *__autoreleasing *)error{
+    if (error) *error = nil;
+    if (interval) *interval = 0;
+    NSDateFormatter *formatter = self.dateFormatterBy(format);
+    NSDate *startDate = [formatter dateFromString:startTime];
+    NSDate *endDate = endTime ? [formatter dateFromString:endTime] : self.jobsCurrentDate();
+    if (!startDate || !endDate || !interval) {
+        if (error) *error = [NSError errorWithDomain:@"JobsTimeUtils" code:1
+                                           userInfo:@{NSLocalizedDescriptionKey:@"日期不符合指定格式或缺少输出参数"}];
+        return NO;
+    }
+    *interval = [endDate timeIntervalSinceDate:startDate];
+    return YES;
+}
+
 /**
     iOS 获取 加上多少时间以后的时间A (NSDate *) = 基础时间（NSDate *） +  时间间隔（NSInteger）
     参考资料：

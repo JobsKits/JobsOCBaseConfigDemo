@@ -42,4 +42,13 @@ motion, preserves attributed text, and is driven by JobsOCTimer.
 
   JobsPodspecKitForJobsOCUILabelScrolling.apply_standard_exclude_files(spec)
   JobsPodspecKitForJobsOCUILabelScrolling.apply_standard_xcconfig(spec)
+
+  # 测试单独进入 Stability target，生产包不包含 Tests。
+  spec.exclude_files = Array(spec.attributes_hash['exclude_files']).reject { |path| path.start_with?('Test/', 'Tests/', 'UnitTests/', 'UITests/') }
+  spec.test_spec 'Stability' do |test_spec|
+    test_spec.source_files = 'Tests/**/*.{h,m,mm}'
+    test_spec.resources = 'Tests/**/*.{xib,storyboard,json,plist}'
+    test_spec.frameworks = 'XCTest'
+    test_spec.requires_app_host = true
+  end
 end

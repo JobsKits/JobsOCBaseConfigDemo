@@ -5,6 +5,15 @@
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#if DEBUG
+#import "JobsDebugPanelDemoVC.h"
+#if __has_include(<JobsDebugPanel/JobsDebugPanel.h>)
+#import <JobsDebugPanel/JobsDebugPanel.h>
+#else
+#import "JobsDebugPanel.h"
+#endif
+#endif
+
 #import "AppDelegate.h"
 //#import "SceneDelegate.h"
 #import "NSObject+UserInfo.h"

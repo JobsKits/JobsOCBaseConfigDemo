@@ -106,6 +106,12 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSTimeInterval)timeIntervalstartDate:(NSString *_Nonnull)startTime
                                endDate:(NSString *_Nullable)endTime
                          timeFormatter:(NSString *_Nullable)timeFormatter;
+/// 明确区分解析失败与时间差为零；输出单位为秒。
+-(BOOL)jobsTimeIntervalFrom:(NSString *)startTime
+                        to:(NSString * _Nullable)endTime
+                    format:(NSString * _Nullable)format
+                  interval:(NSTimeInterval *)interval
+                     error:(NSError * _Nullable __autoreleasing * _Nullable)error;
 /**
     iOS 获取 加上多少时间以后的时间A (NSDate *) = 基础时间（NSDate *） +  时间间隔（NSInteger）
     参考资料：

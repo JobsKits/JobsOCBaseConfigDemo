@@ -6,8 +6,7 @@
 //
 
 #import "NSObject+Extra.h"
-
-#import <JobsByOCPods/FileFolderHandleTool.h>
+#import <JobsOCRuntimeKits/JobsWeakAssociation.h>
 
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN PHAssetCreationRequest
 @interface PHAssetCreationRequest (JobsLocalPropertyDSLAutogen_95727b1c38)
@@ -1284,13 +1283,20 @@ UITextFieldProtocol_dynamic
 -(JobsRetDicByStringBlock _Nonnull)readLocalPlistWithFileName{
     /// fileName Plist文件名
     return ^__kindof NSDictionary *_Nullable(NSString * _Nullable fileName) {
+        if (![fileName isKindOfClass:NSString.class] || !fileName.length) {
+            return nil;
+        }
         NSString *filePath = JobsBundleResourcePath(nil,
                                                  fileName,
                                                  nil,
                                                  @"plist");
-        if (FileFolderHandleTool.isExistsAtPath(filePath)) {
-            return NSDictionary.initByContentsOfFile(filePath);
-        };return (NSDictionary *)nil;
+        BOOL isDirectory = NO;
+        if (![filePath isKindOfClass:NSString.class] || !filePath.length ||
+            ![NSFileManager.defaultManager fileExistsAtPath:filePath isDirectory:&isDirectory] ||
+            isDirectory) {
+            return nil;
+        }
+        return [NSDictionary dictionaryWithContentsOfFile:filePath];
     };
 }
 /// 监听程序被杀死前的时刻，进行一些需要异步的操作：磁盘读写、网络请求...
@@ -1790,18 +1796,13 @@ UITextFieldProtocol_dynamic
     }];
 }
 /// Prop_weak(nullable)id weak_target;/// 描述方法实现的位置
-JobsKey(_weak_target)
 @dynamic weak_target;
 -(id)weak_target{
-    id weakTarget = Jobs_getAssociatedObject(_weak_target);
-    if (!weakTarget) {
-        @jobs_weakify(self)
-        Jobs_setAssociatedRETAIN_NONATOMIC(_weak_target, weak_self)
-    };return weakTarget;
+    return JobsGetAssociatedWeakObject(self, @selector(weak_target));
 }
 
 -(void)setWeak_target:(id)weak_target{
-    Jobs_setAssociatedRETAIN_NONATOMIC(_weak_target, weak_target)
+    JobsSetAssociatedWeakObject(self, @selector(weak_target), weak_target);
 }
 /// Prop_assign()CGPoint lastPoint;
 PROP_CGPOINT(lastPoint, LastPoint)

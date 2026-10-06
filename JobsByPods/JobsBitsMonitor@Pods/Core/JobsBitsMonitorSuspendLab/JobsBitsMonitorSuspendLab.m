@@ -10,33 +10,46 @@
 @interface JobsBitsMonitorSuspendLab ()
 /// Data
 Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
+Prop_strong()JobsNetworkTrafficMonitor *trafficMonitor;
 
 @end
 
 @implementation JobsBitsMonitorSuspendLab
 -(void)dealloc{
+    if (_trafficMonitor) {
+        _trafficMonitor.byStop();
+    }
     JobsRemoveNotification(self);
 }
 
 -(instancetype)initBy:(JobsBitsMonitorDisplayStyle)style{
     if (self = [super init]) {
+        _trafficMonitor = [JobsNetworkTrafficMonitor new];
+        @jobs_weakify(self)
         if(style == JobsBitsMonitorDisplayStylePlainText)        {
-            ((JobsNetworkTrafficMonitor *)JobsNetworkTrafficMonitor.shared()).onUpdateBy(^(JobsNetworkSource *source,
+            _trafficMonitor.onUpdateBy(^(JobsNetworkSource *source,
                                                           uint64_t uploadBytesPerSec,
                                                           uint64_t downloadBytesPerSec){
+                @jobs_strongify(self)
+                if (!self) {
+                    return;
+                }
                 NSString *upStr   = JobsFormatSpeed(uploadBytesPerSec);
                 NSString *downStr = JobsFormatSpeed(downloadBytesPerSec);
                 NSString *text = source.displayName.add(JobsNewline).add(@"⬆︎").add(upStr).add(JobsSpace).add(@"⬆︎").add(downStr);
                 @jobs_weakify(self)
                 dispatch_async(dispatch_get_main_queue(), ^{
                     @jobs_strongify(self)
+                    if (!self) return;
                     self.byText(text);
                 });
             }).byStartWithInterval(1.0);
         }else{
-            ((JobsNetworkTrafficMonitor *)JobsNetworkTrafficMonitor.shared()).onUpdateBy(^(JobsNetworkSource *source,
+            _trafficMonitor.onUpdateBy(^(JobsNetworkSource *source,
                                                           uint64_t uploadBytesPerSec,
                                                           uint64_t downloadBytesPerSec){
+                @jobs_strongify(self)
+                if (!self) return;
                 NSString *upStr   = JobsFormatSpeed(uploadBytesPerSec);
                 NSString *downStr = JobsFormatSpeed(downloadBytesPerSec);
                 /// 公共段落样式：居中 + 行距 2
@@ -98,6 +111,7 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
                 @jobs_weakify(self)
                 dispatch_async(dispatch_get_main_queue(), ^{
                     @jobs_strongify(self)
+                    if (!self) return;
                     self.byAttributedString(attr);
                 });
             }).byStartWithInterval(1.0);
@@ -109,21 +123,40 @@ Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
             self.byAllowableMovement(1);
             self.byUserInteractionEnabled(YES);
             @jobs_weakify(self)
-            self.byWeak_target(weak_self);
             self.tapGR_SelImp.selector = self.jobsSelectorBlock(^id _Nullable(id _Nullable target,
                                                                                UITapGestureRecognizer *_Nullable arg) {
                 @jobs_strongify(self)
+                if (!self) {
+                    return nil;
+                }
                 ZWPullMenuView *menuView = [ZWPullMenuView pullMenuAnchorView:self titleArray:self.operationEnvironMutArr];
                 @jobs_weakify(self)
                 menuView.blockSelectedMenu = ^(NSInteger menuRow) {
                     @jobs_strongify(self)
+                    if (!self) {
+                        return;
+                    }
                     JobsLog(@"action----->%ld",(long)menuRow);
                     networkingEnvir(menuRow);
                     if (menuRow + 1 <= self.operationEnvironMutArr.count) {
                         @"当前环境".jobsTr().add(self.operationEnvironMutArr[menuRow]).toast();
                     }else self.jobsToastErrMsg(@"切换环境出现错误".jobsTr());
                 };return nil;
-            });if (self.tapGR) self.tapGR.byEnabled(YES);/// 必须在设置完Target和selector以后方可开启执行
+            });
+            // UIKit 的原生 target/action 不持有 Label，避免关联 target 形成自持有环。
+            UITapGestureRecognizer *tapGesture = jobsMakeTapGesture(^(UITapGestureRecognizer * _Nullable gesture) {
+                @jobs_strongify(self)
+                if (!self) {
+                    return;
+                }
+                gesture.numberOfTouchesRequired = self.numberOfTouchesRequired;
+                gesture.numberOfTapsRequired = self.numberOfTapsRequired;
+                gesture.delegate = (id<UIGestureRecognizerDelegate>)self;
+                [gesture addTarget:self action:self.tapGR_SelImp.selector];
+                gesture.enabled = YES;
+            });
+            self.tapGR = tapGesture;
+            self.addGesture(tapGesture);
         };self.commonInit_JobsBitsMonitorSuspendLab();
     };return self;
 }

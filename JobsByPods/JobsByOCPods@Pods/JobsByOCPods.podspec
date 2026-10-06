@@ -182,4 +182,18 @@ Pod::Spec.new do |spec|
 
   JobsPodspecKitForJobsByOCPods.apply_standard_xcconfig(spec)
 
+  spec.resource_bundles = (spec.attributes_hash['resource_bundles'] || {}).merge('JobsByOCPodsPrivacy' => ['Resource/PrivacyInfo.xcprivacy'])
+
+  spec.exclude_files = Array(spec.attributes_hash['exclude_files']) + ['Resource/icon.png']
+  spec.preserve_paths = Array(spec.attributes_hash['preserve_paths']) + ['Resource/icon.png']
+
+  # 生产 source_files 不包含 Tests；测试只由显式 Stability 测试目标编译。
+  spec.exclude_files = Array(spec.attributes_hash['exclude_files']).reject { |path| path.start_with?('Test/', 'Tests/', 'UnitTests/', 'UITests/') }
+  spec.test_spec 'Stability' do |test_spec|
+    test_spec.source_files = 'Tests/**/*.{h,m,mm}'
+    test_spec.resources = 'Tests/**/*.{xib,storyboard,json,plist}'
+    test_spec.frameworks = 'XCTest'
+    test_spec.requires_app_host = true
+  end
+
 end

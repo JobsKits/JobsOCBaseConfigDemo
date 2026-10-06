@@ -8,6 +8,8 @@
 
 ## 🔥 <font id=前言>前言</font>
 
+本目录中可独立运行的 `.command` 入口先显示内置自述：标题红色加粗，编号正文蓝色且不加粗；在终端按回车确认后才进入原有流程，按 `Ctrl+C` 取消。非彩色终端显示纯文本；没有可交互输入时停止，避免确认缺失后继续执行。 已明确设置 `CODEGRAPH_AUTO_INIT=1` 的自动流程保持原有策略；已确认的初始化入口调用导出脚本时透传确认状态，不重复阻塞后台导出。
+
 `codegraph_init.command` 用于在 `pod install` 收尾阶段完成 CodeGraph 初始化 / 同步，并调用 `codegraph_export_md.command` 导出深度 [**Markdown**](https://markdown.cn) / [**Mermaid**](https://mermaid.js.org) 项目关系图谱。
 
 这版重点解决三个问题：

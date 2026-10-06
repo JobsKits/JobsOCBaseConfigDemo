@@ -58,8 +58,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 以期望可以响应富文本的点击事件
 @interface UIButton (TextView)<UITextViewDelegate>
 
-Prop_strong()BaseTextView *titleTextView;
-Prop_strong()BaseTextView *subtitleTextView;
+/// 宿主未提供 BaseTextView 时返回 nil；调用方在主线程使用并先判空。
+Prop_strong(nullable)BaseTextView *titleTextView;
+Prop_strong(nullable)BaseTextView *subtitleTextView;
 
 @end
 

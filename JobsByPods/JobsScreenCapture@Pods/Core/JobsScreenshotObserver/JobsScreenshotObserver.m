@@ -24,7 +24,9 @@ Prop_copy()jobsByVoidBlock screenshotHandler;
 @implementation JobsScreenshotObserver
 
 -(void)dealloc{
-    (((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsScreenshotObserver.class, @selector(jobsStop)))(self, @selector(jobsStop)))();
+    if (_screenshotToken) {
+        [NSNotificationCenter.defaultCenter removeObserver:_screenshotToken];
+    }
 }
 
 -(JobsRetIDByVoidBlocks _Nonnull)startWithHandler{

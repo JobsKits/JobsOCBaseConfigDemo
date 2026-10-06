@@ -119,6 +119,7 @@ Jobs 自维护的应用、Demo 与本地 Pod 统一执行同一套 [**Objective-
 | 截屏 | `JobsScreenCapture` | 主动渲染并保存相册、系统截屏观察、敏感区域截图保护三条能力独立组合。 |
 | 音视频与硬件 | `JobsOCAudioRecorder`、`JobsOCVideoRecorder`、`JobsBluetooth`、`JobsBioKit` | 录音与本地音频管理、视频录制、多设备 BLE 扫描 / 连接 / 读写 / Mock、生物识别；蓝牙 Demo 列表的 Cell 背景与主副标题绑定项目主题，切换明暗主题时原位更新；录音与视频录制快门统一使用白色内圆、留白间隔和白色外圈，红色仅承担录制进度提示；视频写入采用单帧背压并丢弃迟到帧，录制页和直播采集进入后台时立即停止采集，回前台只恢复预览。 |
 | UI 状态与交互 | `JobsOCSkeletonView`、`JobsOCGraphicCaptcha`、`JobsOCNumberStepper`、`JobsOCKeyboardMgr`、`JobsSuspend` | 骨架屏、按英文大写 / 小写 / 数字 / 简体 / 繁体五类独立生成单个至五类组合的图形验证码、边界数字步进输入、键盘避让、悬浮控件均提供可复用组件和独立 Demo。 |
+| Debug 调试面板 | `JobsDebugPanel`、`JobsDebugPanelDemoVC` | Debug 才挂载位于业务页面上方的圆形按钮；安全区内拖动，旋转后重新钳制，首次点按进入工具表格，再次点按退出整个调试流程并返回原页面。Demo、菜单、环境页和弹窗跟随宿主主题并即时刷新；首行切换带备注的 URL 环境，自定义动作按配置顺序显示。长按隐藏本次启动的全部入口，重启恢复；环境标识单独持久化。 |
 | 抽奖轮盘 | `LuckyWheelView`、`LuckyWheelDemoVC` | 中心按钮在旋转中保持可点；每次点按都按当前配置重置初始角速度并视为新一轮抽奖，复用同一个 `CADisplayLink`，只在最终自然停止时结算。 |
 | 二维码与条形码 | `NSString+CIFilter`、`JobsQRCodeDemoVC` | 支持普通二维码、带中心 Logo 二维码和 Code128 条形码；点击生成图像会通过 Jobs 手势 DSL 将来源字符串复制到系统剪切板。 |
 | iconfont 资源门面 | `JobsIconfont` | 业务只使用语义资源与图标枚举；框架统一隐藏 URL、Unicode、字体名、SDWebImage、动态字体注册、占位兜底、缓存和复用防串图。 |
@@ -191,6 +192,34 @@ NSArray<JobsOCExcelRow *> *rows = @[
 self.protectionView.protectionEnabled = YES;
 ```
 
+Debug 工具入口在 `AppDelegate` 通过环境 Model、动作 Model 和同一条链完成配置；宿主回调更新自己的网络层，后续请求读取当前环境：
+
+```objc
+#if DEBUG
+JobsDebugPanelManager.sharedPanel
+    .byEnvironments(@[
+        JobsDebugEnvironment.new
+            .byIdentifier(@"local")
+            .byTitle(@"本地开发 · 18080")
+            .byBaseURL(@"http://127.0.0.1:18080")
+    ])
+    .byDefaultEnvironmentIdentifier(@"local")
+    .byEnvironmentChanged(^(JobsDebugEnvironment *environment) {
+        JobsLog(@"环境切换：%@ · %@", environment.title, environment.baseURL);
+    })
+    .byActions(@[
+        JobsDebugAction.new
+            .byTitle(@"记录当前环境")
+            .byAction(^(UIViewController *source) {
+                JobsLog(@"%@", JobsDebugPanelManager.sharedPanel.currentEnvironment.baseURL);
+            })
+    ])
+    .start();
+#endif
+```
+
+Demo 配置本地 `18080`、[**HTTPBin**](https://httpbin.org/)、[**Postman**](https://postman-echo.com/) 三个环境，使用当前 URL 请求 `/get`，超时 `3` 秒；失败时展示本地示例并可重试，成功后自动使用真实响应。浮层按 Scene 绑定当前业务 Window，按钮以外触摸继续传给业务页面；圆形入口可拖动，长按 `0.8` 秒隐藏至下次启动，拖动不触发点击或长按。圆形按钮再次点按会收起环境页、自定义动作页及弹窗，返回打开前的页面，返回后可重新打开。Demo 的表格、Cell、选中态、页脚与已打开的调试页、环境页、导航和弹窗即时跟随 `JobsThemeCenter` 的有效主题，系统与 App 自选主题不一致时以 App 为准。无导航容器时用带关闭入口的导航容器模态展示；默认菜单不包含全 App 弱网开关，真实网络条件使用 [**Apple Network Link Conditioner**](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/On_Demand_Resources_Guide/TestingPerformance.html)。完整集成、资源许可和中文架构说明见 [JobsDebugPanel README](./JobsByPods/JobsDebugPanel@Pods/README.md)。
+
 JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均由框架内部管理：
 
 ```objc
@@ -209,7 +238,7 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
 ### 2.5、完整能力模块清单 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 <details>
-<summary><b>展开查看 107 个本地能力模块</b></summary>
+<summary><b>展开查看 108 个本地能力模块</b></summary>
 
 > 清单覆盖 Jobs 核心能力与 `Extra` 适配层；手工托管的上游第三方源码不计入自主能力清单。
 
@@ -218,7 +247,7 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
 | 基础 / DSL / Model | `This`、`JobsClass`、`JobsOCDefs`、`JobsBlock`、`JobsOCProtocols`、`JobsModel`、`JobsMakes`、`JobsOCDSL`、`JobsModelDSL`、`JobsCallBackBlockDSL`、`UIBaseTextFieldDSL`、`JobsByOCPods`、`JobsBaseUI`、`JobsGetWindow`、`JobsLocker` |
 | UI / 导航 / 交互 | `JobsNavBar`、`JobsTabBarCtrl`、`JobsViewNavigator`、`JobsViewPush`、`FDFullscreenPopGesture`、`JobsNavigationTransitionMgr`、`JobsPresentTransitionMgr`、`JobsSuspend`、`JobsBasePopupView`、`JobsCustomView`、`JobsMenuView`、`JobsDropDownListView`、`JobsFiltrationView`、`JobsLinkageMenuView`、`JobsWallet`、`JobsHotLabel`、`JobsImageNumberView`、`JobsOCNumberStepper`、`JobsClockView`、`JobsImageRotation`、`JobsMarqueeView`、`JobsProgressBar`、`JobsUploadingProgressView`、`JobsLoadingImage`、`JobsIconfont`、`JobsLuckyEnvelopeRain`、`JobsGestureLock`、`JobsCountdownBtn` |
 | 业务 / 媒体 / 系统能力 | `JobsAppDoor`、`JobsOCSplash`、`JobsOCRefresher`、`JobsFuseAnimation`、`JobsOCExcel`、`JobsOCMarkdown`、`JobsOCUILabelScrolling`、`JobsScreenCapture`、`JobsOCAudioRecorder`、`JobsOCVideoRecorder`、`JobsBluetooth`、`JobsOCGraphicCaptcha`、`JobsOCSkeletonView`、`JobsOCKeyboardMgr`、`JobsOCCalendar`、`JobsOCCountryCodeCtrl`、`JobsOCSearcher`、`JobsOCComment`、`JobsBioKit` |
-| 数据 / 服务 / 工程工具 | `JobsAPIs`、`JobsNetWorkTools`、`JobsMonitorNetwoking`、`JobsBitsMonitor`、`JobsOCWebSocket`、`JobsCryptography`、`JobsOCRuntimeKits`、`JobsOCPatch`、`JobsOCOpen`、`JobsOCSnowflake`、`JobsOCTimer`、`JobsOCTimerMgr`、`JobsTimeUtils`、`JobsRandomUtils`、`JobsStringUtils`、`JobsRichTextUtils`、`FileFolderHandleTool`、`JobsDeviceInfo`、`JobsLanMgr`、`JobsAppTools`、`JobsOCTools`、`JobsDebug`、`JobsAppIconRibbon` |
+| 数据 / 服务 / 工程工具 | `JobsAPIs`、`JobsNetWorkTools`、`JobsMonitorNetwoking`、`JobsBitsMonitor`、`JobsOCWebSocket`、`JobsCryptography`、`JobsOCRuntimeKits`、`JobsOCPatch`、`JobsOCOpen`、`JobsOCSnowflake`、`JobsOCTimer`、`JobsOCTimerMgr`、`JobsTimeUtils`、`JobsRandomUtils`、`JobsStringUtils`、`JobsRichTextUtils`、`FileFolderHandleTool`、`JobsDeviceInfo`、`JobsLanMgr`、`JobsAppTools`、`JobsOCTools`、`JobsDebug`、`JobsDebugPanel`、`JobsAppIconRibbon` |
 | 第三方增量适配层 | `AFSecurityPolicyExtra`、`BRPickerViewExtra`、`FMDatabaseExtra`、`FSCalendarExtra`、`GKCustomNavigationBarExtra`、`HTMLDocumentExtra`、`HXPhotoManagerExtra`、`HXPhotoViewExtra`、`IQKeyboardManagerExtra`、`JXCategoryViewExtra`、`LMJDropdownMenuExtra`、`MGSwipeTableCellExtra`、`MJRefreshExtra`、`RACExtra`、`ReachabilityExtra`、`SRWebSocketExtra`、`SYSAlertControllerExtra`、`SZTextViewExtra`、`TFPopupExtra`、`WHToastExtra`、`YTKNetworkExtra`、`ZFPlayerExtra`、`ZMJCellExtra` |
 
 - `JobsGestureLock` 由本地 Pod 管理；现成控制器以 `BaseViewController` 为页面基座，`JobsSettingGestureVC` 直接复用统一的 `viewModel`、导航与主题契约，并以“手势解锁”为标题提供与 Swift 一致的设置 / 验证切换、56pt 语义色九宫格、跨点补点、状态反馈和清除重来入口。
@@ -248,9 +277,9 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
 
 前置任务强制离线，只复用已有工具，不自动安装工具链；失败不覆盖 CocoaPods 自身结果。PIF 收尾脚本缺失、失败或异常时记录警告，不把已完成的依赖安装改判为失败。该恢复流程不删除 `Pods`、锁文件、工作空间或 `DerivedData`。
 
-`post_install` 还会执行 Podfile 内的构建配置与兼容性修补；`post_integrate` 同时维护 Pods 工程中的 `Podfile` / `Podfile.deps` 引用。这些是 Podfile 内联逻辑，外置收尾脚本的实际调用点是 `post_integrate`。
+`post_install` 还会执行 Podfile 内的构建配置与兼容性修补；`post_integrate` 同步维护 Pods 工程根组中的 [Podfile](./Podfile) / [Podfile.deps](./Podfile.deps) 引用，两者相邻置顶，以 [**Ruby**](https://www.ruby-lang.org) 红钻图标及文件引用标识显示并打开真实文件，不加入任何 Build Phase。引用维护使用 `xcodeproj` 重开已保存工程、查重并分配唯一 UUID；写入前临时备份 `project.pbxproj`，保存后立即重开检查根对象、根 UUID、唯一引用、排列及真实路径，失败恢复备份并在安装输出中告警，结束后清理临时备份，不生成额外报告。这是 Podfile 内联同步逻辑，迁移时保留工程根目录的两份文件与 `Pods/Pods.xcodeproj` 的相对层级。
 
-OC 新工程设置 `JOBS_POD_INSTALL_PURE=1` 或 `JOBS_POD_INSTALL_SKIP_EXTERNAL_SCRIPTS=1` 时，会跳过可选的集成后增强及后置脚本；顶部异步前置入口没有使用这两个开关，不能据此认为所有脚本都已关闭。
+设置 `JOBS_POD_INSTALL_PURE=1` 或 `JOBS_POD_INSTALL_SKIP_EXTERNAL_SCRIPTS=1` 时仍维护这两条展示引用，重复安装不会增加重复项；两个开关只跳过可选后置脚本，外置收尾脚本的实际调用点是 `post_integrate`。顶部异步前置入口没有使用这两个开关，不能据此认为所有脚本都已关闭。
 
 **构建阶段与构建后动作**
 
@@ -260,10 +289,10 @@ OC 新工程设置 `JOBS_POD_INSTALL_PURE=1` 或 `JOBS_POD_INSTALL_SKIP_EXTERNAL
 | --- | --- | --- |
 | 构建中：`Package Markdown Documents` | [JobsMarkdownPackager.rb](./JobsByPods/JobsOCMarkdown@Pods/Support/JobsMarkdownPackager.rb) | 将项目文档与相对资源打入 App 内的 `JobsMarkdownDocuments.bundle`，供 Markdown Demo 离线阅读 |
 | 本地 Pod 编译前：`Generate AppIcon Environment Ribbon` | [JobsAppIconRibbon.podspec](./JobsByPods/JobsAppIconRibbon@Pods/JobsAppIconRibbon.podspec) → `Scripts/JobsAppIconRibbon.sh` | 由 podspec 的 `script_phase` 挂载图标环境绶带生成器 |
-| 主 App 最后一个 Build Phase：`Save Build IPA` | [save_device_ipa_after_build.sh](./ScriptsByDevTools/save_device_ipa_after_build.sh) | 真机生成 `./build/真机.ipa`，模拟器生成 `./build/模拟器.ipa`；打包成功后先清空 build 全部内容，只保留本次包 |
+| 主 App 最后一个 Build Phase：`Save Build IPA` | [save_device_ipa_after_build.command](./ScriptsByDevTools/save_device_ipa_after_build.command/save_device_ipa_after_build.command) / [使用说明](./ScriptsByDevTools/save_device_ipa_after_build.command/README.md) | 真机生成 `./build/真机.ipa`，模拟器生成 `./build/模拟器.ipa`；打包成功后先清空 build 全部内容，只保留本次包 |
 | Scheme Build 开始 / 结束 | `XBT Build Timer Start / End` → 外部 `xbt-build-hook.sh start / end` | 记录开始、结束时间和耗时；写入用户目录下的 `.xcode-build-timer/state/` 状态及历史日志 |
 
-主 App 最后一个 Build Phase `Save Build IPA` 调用 [save_device_ipa_after_build.sh](./ScriptsByDevTools/save_device_ipa_after_build.sh)，每次 iOS App 构建都会执行，Xcode 内无须手动确认。按设备平台保存以下产物：
+主 App 最后一个 Build Phase `Save Build IPA` 调用 [save_device_ipa_after_build.command](./ScriptsByDevTools/save_device_ipa_after_build.command/save_device_ipa_after_build.command)，脚本与 `README.md` 位于同名 `.command` 目录。每次 iOS App 构建都会执行，Xcode 内无须手动确认。按设备平台保存以下产物：
 
 | 构建平台 | 本次唯一产物 |
 | --- | --- |
@@ -284,7 +313,7 @@ OC 新工程设置 `JOBS_POD_INSTALL_PURE=1` 或 `JOBS_POD_INSTALL_SKIP_EXTERNAL
 
 `clean`、非 iOS 平台、Tests / Widget 构建不独立输出 IPA；该阶段只挂在主 App，测试触发主 App 重建时仍会更新产物。Build Phase 发生在 Scheme 后置动作之前，产物存在不代表整个 workspace 或测试已成功完成。输入只声明脚本文件，不把整个 App 目录列为输入，避免签名、扩展和测试包造成依赖循环；输出声明 `./build/` 目录，以覆盖平台切换及全部内容清理。
 
-日志同步输出到 Xcode 构建日志与系统临时目录中的 `save_device_ipa_after_build.log`。终端手动运行会先展示内置自述并等待回车，仍需提供 Xcode 构建环境变量。
+日志同步输出到 Xcode 构建日志与系统临时目录中的 `save_device_ipa_after_build.log`。终端手动运行先展示内置自述，回车后还需输入 `YES` 授权清空 `build/`；仍需提供构建产物环境变量。没有交互输入且未识别到 Xcode 构建环境时直接退出，确认前不初始化日志或执行打包。
 
 XBT 是仓库外的本机依赖，当前共享 Scheme 使用固定用户绝对路径调用，并未检测脚本是否存在；迁移机器时需在 Scheme 的 Build Pre-actions / Post-actions 中核对路径。状态目录中的 `latest.env`、`builds/*.env` 与 `history.log` 用于计时；`finished` 仅表示结束钩子执行，不是编译成功判据。
 
@@ -296,6 +325,24 @@ CocoaPods 生成的 `[CP] Check Pods Manifest.lock`、`[CP] Embed Pods Framework
 - 调度汇总与索引日志：系统临时目录中的 `【MacOS】📦Pod Install离线保护.<工程摘要>.log`、`codegraph_init.<工程摘要>.async.log`；PIF 与依赖报告脚本另有各自日志。
 - IPA 留存：Xcode 构建日志与系统临时目录中的 `save_device_ipa_after_build.log`。
 - 排查时先确认触发入口，再检查对应日志；目录中存在脚本，不代表它已被当前 Podfile、target 或 Scheme 挂载。
+
+### 2.7、自建 Pods 稳定性升级与编译门禁 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+本轮实施与真实验证记录见 [JobsByPods 升级实施与编译验证](./JobsByPods升级实施与编译验证.md)，升级前问题基线见 [稳定性评估报告](./JobsByPods自建Pod稳定性与升级评估报告.md)。109 个自建 Pod 按单元编译后再构建主工程；受影响 Pod 使用自有 `Stability` 测试目标。验证脚本保存源码指纹、完整命令、退出码与 XCTest 产物，详见 [编译与回归门禁](./ScriptsByPods/jobs_pods_stability_verify.rb/README.md)。
+
+当前收口范围为109 Pods×2配置、48个Stability / 49次iOS运行及10个Mac回归；原31编号与9条条件方向的实现和证据边界见[适用项对照](./JobsByPods升级实施与编译验证.md#original-requirement-completion)。新旧主工程及D0文档重建、实际App资源和冷启动已有同指纹真实证据；对应交付的最后封包与D1实测结果见[实施报告的最终验收记录](./JobsByPods升级实施与编译验证.md)和外部 `work/JobsPodsStability/final-proof-8218cf43/final-seal.json`。历史通过与局部门禁不代替其明确验收范围。T04采用渐进baseline，设备/网络集成与ASan/TSan限制在实施报告明确保留。
+
+本轮只在需要时升级有证据的内核；全部 Pod 同步模块结构与验证说明。验证安装使用 `JOBS_POD_INSTALL_SKIP_VENDOR_PATCHES=1` 跳过 Podfile 中供应商源码补丁；`JOBS_POD_INSTALL_PURE=1` 仅跳过可选后置增强，顶部异步离线前置任务仍运行。`post_install` 将 Jobs 自有 Scene delegate 和 manifest 挂到 CocoaPods 测试宿主，以支持新 SDK 的 Scene 生命周期要求。
+
+### 2.8、Xcode 手动运行 Pod Install <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+[手动安装脚本](<./ScriptsByPods/【MacOS@Xcode】🫘打开终端运行Pod Install.command/【MacOS@Xcode】🫘打开终端运行Pod Install.command>)与[使用说明](<./ScriptsByPods/【MacOS@Xcode】🫘打开终端运行Pod Install.command/README.md>)位于 `ScriptsByPods`。主工程的 `ScriptsByPods → 【MacOS@Xcode】🫘打开终端运行Pod Install.command` 分组只保存脚本和说明文件的相对引用，不属于 App target，也没有 Build Phase 或 Scheme 自动触发动作。
+
+当前用户通过 `Xcode → Behaviors → 🫘OC 新工程 · Pod Install` 随时运行；无交互终端时由系统 `open` 命令打开 Terminal，在终端显示内置自述和实际项目目录，**回车执行，Ctrl+C 取消**。也可在 Finder 双击脚本；无需 Sourcetree 参数或 AppleScript 自动化授权。
+
+脚本按自身目录的 `../..` 定位工程根目录，不依赖 Xcode 启动工作目录。确认后检查 `Podfile` 和 `pod --version`，只使用已有 CocoaPods / Ruby 环境，不自动安装或升级工具链。`pod install` 会按现有 Podfile 更新 `Pods/`、锁文件和工作空间，并执行已有安装钩子；安装输出实时显示，安装命令的失败退出码原样返回，完整输出同步写入系统临时目录中的 `jobs-oc-new-pod-install.log`，每次确认后覆盖此日志。打开 Terminal 成功只表示入口已启动，依赖安装结果以终端和日志为准。
+
+Behaviors 属于 Xcode 当前用户设置，工程引用不会自动建立其它电脑上的菜单。迁移整个项目时保留脚本包层级，并在 `Xcode → Behaviors → Edit Behaviors… → Custom` 重新选择脚本文件；快捷键可按个人习惯设置。本入口独立于上节的自动挂载，语法与隔离假命令验证不执行真实依赖安装或构建。
 
 ## 三、🧨开发支持 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

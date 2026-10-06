@@ -29,6 +29,12 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsOCRuntimeKits/JobsOCRuntimeKits.h>)
+#import <JobsOCRuntimeKits/JobsOCRuntimeKits.h>
+#else
+#import "JobsWeakAssociation.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (SuspendView)

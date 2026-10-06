@@ -50,9 +50,11 @@ It also centralizes system-font construction, including arbitrary UIFontWeight v
     'Core/**/*.h'
   ]
   spec.header_dir = 'JobsOCDefs'
-  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}'
+  spec.resources = 'Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff}'
 
 
   JobsPodspecKitForJobsOCDefs.apply_standard_xcconfig(spec)
+
+  spec.resource_bundles = (spec.attributes_hash['resource_bundles'] || {}).merge('JobsOCDefsPrivacy' => ['Resource/PrivacyInfo.xcprivacy'])
 
 end

@@ -24,6 +24,7 @@
     @jobs_weakify(self)
     return ^__kindof HQTextField *_Nullable(void){
         @jobs_strongify(self)
+        if (!self) return nil;
         self.showWarn();
         return self;
     };

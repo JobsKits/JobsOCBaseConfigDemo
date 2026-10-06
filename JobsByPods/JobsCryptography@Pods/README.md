@@ -50,8 +50,9 @@ JobsCryptography@Pods/
 ├── README.md  # 当前自述
 ├── JobsCryptography.h  # 根入口头文件
 ├── JobsPodspecKit.rb  # 本地 podspec 基座
-├── Core/  # 公开 API 与核心实现，84 个文件
-└── LICENSE  # 许可证文件
+├── Core/  # 公开入口与核心实现，86 个文件
+├── LICENSE  # 许可证文件
+└── Tests/  # 独立回归，3 个文件
 ```
 
 - `JobsCryptography.podspec` 是当前 Pod 的 [**CocoaPods**](https://cocoapods.org/) 描述入口。
@@ -60,7 +61,7 @@ JobsCryptography@Pods/
 
 ## 四、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 当前包含 84 个文件，其中源码 / 头文件 64 个；按 Jobs 规范，它是 `JobsCryptography` 对外公开 API 和核心实现的边界。
+- `Core` 当前包含 86 个文件，其中源码 / 头文件 66 个；按 Jobs 规范，它是 `JobsCryptography` 对外公开 API 和核心实现的边界。
 - 当前目录没有 `Support` 文件夹；如后续补内部兼容代码，优先放入 `Support` 并让 podspec 动态映射。
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
@@ -138,7 +139,7 @@ pod install --no-repo-update
 
 ## 九、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 头文件会进入公开 API 边界，新增 import 时要确认不会把内部实现细节暴露给外部。
+- 只有 podspec 指定的公开头进入外部 API 边界；新增 import 时要确认不会把私有实现细节暴露给外部。
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
@@ -175,6 +176,60 @@ pod install --no-repo-update
 - [Core/加密（编码）算法/DES/DES.h](<./Core/加密（编码）算法/DES/DES.h>)
 - [Core/加密（编码）算法/HexadecimalData/HexadecimalData.h](<./Core/加密（编码）算法/HexadecimalData/HexadecimalData.h>)
 
-依赖与编译入口：[JobsCryptography.podspec](<./JobsCryptography.podspec>)。其中显式依赖声明包括 `JobsBlock`、`JobsMakes`、`JobsOCDefs`、`JobsByOCPods`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+依赖与编译入口：[JobsCryptography.podspec](<./JobsCryptography.podspec>)。其中根级依赖声明包括 `JobsBlock`、`JobsMakes`、`JobsOCDefs`、`JobsByOCPods`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+
+## 十一、AES 格式和兼容迁移 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+新写入使用 `AES.encryptAuthenticated:password:error:` 或 [JobsAuthenticatedCipher](<./Core/JobsAuthenticatedCipher/JobsAuthenticatedCipher.h>)。文本格式为 `JobsAES2:` + 严格 Base64，二进制 envelope 包含 `JAE2`、大端 PBKDF2 轮数、16 字节 salt、16 字节 IV、AES256-CBC/PKCS7 密文及 32 字节 HMAC-SHA256。PBKDF2-HMAC-SHA256 默认 200000 轮，派生独立加密与认证密钥；每次生成随机 salt/IV，校验完整 envelope 后才解密。依赖系统 [**CommonCrypto**](https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man3/CCCrypt.3cc.html) 与 Security，兼容 iOS 12。
+
+单次明文最多 64 MiB；读取拒绝截断、错误版本、异常 KDF 轮数、错误密码、篡改和非 UTF-8 字符串。有效空明文返回 `@""`；失败返回 nil，并可通过 `error:` 区分原因。
+
+旧 `AES.encrypt:password:` 继续生成既有格式，`AES.decrypt:password:` / `decryptCompatible:password:error:` 同时读取既有密文和新版本。识别到 `JobsAES` 前缀的内容只走版本解析，未知版本或认证失败不会降级尝试旧格式。旧协议不能自动改写：先成功读取旧数据，再由调用方写入新格式。历史固定 IV 和无认证格式只用于兼容已有数据；不要把偶然成功解密当作旧数据真实性证明。`aesEncryptString` / `aesDecryptString` 的固定 IV 格式也保留，非法 key 长度或输入返回 nil。
+
+[兼容与认证回归](<./Tests/JobsCipherCompatibilityTests/JobsCipherCompatibilityTests.m>) 包含既有格式固定向量、空字符串、Unicode、随机性、错误密码、篡改和版本拒绝。`ruby Tests/run_regression.rb` 在 macOS 编译真实认证实现，检查上述新格式边界及 salt/IV/ciphertext/tag 篡改。
+
+OC 老工程手工第三方目录里的 AES/AESCipher 保持原实现；仅独立的 `JobsAuthenticatedCipher` 源码集成 JobsMixFunc，不覆盖或 runtime 替换手工第三方类。
+
+## 十二、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+计数递归扫描当前目录内的普通文件，排除 `.DS_Store` / `._*`；源码与头文件计入 `.h`、`.m`、`.mm`、`.c`、`.cc`、`.cpp`、`.hpp`、`.swift`。资源目录中的目录、资源编译结果和文件大小不计入文件数，文件存在不代表必然打包。
+
+| 目录 | 实际文件 | 源码 / 头文件 | 安装边界 |
+| --- | --- | --- | --- |
+| `Core/` | 86 | 66 | 公共入口与核心实现；公开 / 私有头由 podspec 指定 |
+| `Support/`（无目录） | 0 | 0 | 仅供当前 Pod 内部实现，按实际 subspec / private header 映射 |
+| `Resource/`（无目录） | 0 | 0 | 非代码资源；按 resources / resource_bundles 和排除规则安装 |
+| `Tests/` | 3 | 2 | 只由独立测试目标或回归 harness 使用，不进入生产 source_files |
+
+`Core` 的物理目录不等于所有头文件均公开；`Support` 和测试 fixture 不作为 App 或其它 Pod 的稳定消费入口。根聚合头与 `public_header_files` 是外部引用依据。
+
+## 十三、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归、macOS 生产实现回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+
+生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
+
+从本 README 所在目录回到工程根目录，再运行该 Pod 的 Debug / Release 单元编译：
+
+```shell
+cd ../..
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+  --phase pods --pod JobsCryptography
+```
+
+当前 podspec 显式提供 `Stability` test_spec。`Tests/` 与测试 fixture 只进入测试目标；真实行为断言通过后再回填结果。指定可用模拟器 UDID：
+
+```shell
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+  --phase tests --pod JobsCryptography --simulator '<UDID>'
+```
+
+本地生产实现回归 harness：
+
+```shell
+ruby JobsByPods/JobsCryptography@Pods/Tests/run_regression.rb
+```
+
+运行前应已安装工程依赖；runner 的 `--phase pods` 默认分别编译 Debug / Release，`--phase tests` 默认运行 Debug（JobsOCSnowflake 默认 Debug / Release），并将命令、源码指纹、日志和退出码保存到工程 `work/JobsPodsStability/`。如需固定输出目录，使用 runner 的 `--output`。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

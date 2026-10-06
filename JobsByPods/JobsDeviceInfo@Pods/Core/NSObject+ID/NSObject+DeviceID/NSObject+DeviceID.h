@@ -33,6 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
      但是刷机或重装系统后uuid还是会改变。
  */
 -(jobsByVoidBlock _Nonnull)deleteDeviceID;
+/// 只返回已读取或成功持久化的标识；Keychain暂不可用不生成替代身份。
+-(NSString * _Nullable)jobsDeviceIDWithError:(NSError * _Nullable __autoreleasing * _Nullable)error;
 -(JobsRetStrByVoidBlock _Nonnull)deviceID;
 
 @end

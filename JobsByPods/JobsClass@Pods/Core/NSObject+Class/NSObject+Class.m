@@ -86,17 +86,21 @@
 /// 4、要成为字典的Key，只需要遵循NSCopying协议
 -(JobsRetArrByVoidBlock _Nonnull)readModelPropertyValueByOrder{
     @jobs_weakify(self)
-    return ^__kindof NSMutableArray<__kindof NSDictionary *> *_Nullable(){
+    return ^__kindof NSArray *_Nullable(){
         @jobs_strongify(self)
-        NSMutableArray<NSString *> *propertyListMutArr = (NSMutableArray *)self.propertyList();//有序的，从上至下
+        if (!self) {
+            return nil;
+        }
+        NSArray<NSString *> *propertyListMutArr = self.propertyList();//有序的，从上至下
         NSMutableDictionary *mutDic = self.mj_keyValues;// 实际上需要操作的字典
         /// 对外返的数组
-        NSMutableArray<__kindof NSDictionary *> *data = NSMutableArray.array;
+        NSMutableArray<id> *data = NSMutableArray.array;
         for (NSString *property in propertyListMutArr) {
             if (mutDic[property] && [mutDic[property] isKindOfClass:NSObject.class]) {// 防崩溃:必须取到值，且值不能是数据类型
                 [data addObject:mutDic[property]];
             }
-        };return data;
+        }
+        return data;
     };
 }
 

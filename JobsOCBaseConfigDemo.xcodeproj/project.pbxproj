@@ -59,7 +59,9 @@
 		4A94D956954F8CD6B5606A2D /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.debug.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		7C0E452ACE57715495DB7004 /* Pods-JobsOCBaseConfigDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.release.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.release.xcconfig"; sourceTree = "<group>"; };
 		8BE608D790F4B9DDF11D6090 /* Pods_JobsOCBaseConfigDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JobsOCBaseConfigDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		919BABB0D5D1941F6DE6B852 /* 【MacOS@Xcode】🫘打开终端运行Pod Install.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "【MacOS@Xcode】🫘打开终端运行Pod Install.command"; sourceTree = "<group>"; };
 		93E2A01E9486C0D38D8D2CA2 /* JobsOCBaseConfigDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JobsOCBaseConfigDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B89D0E4143A84838782D4A4E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C50913B32F85D89000F261DA /* JobsOCBaseConfigDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JobsOCBaseConfigDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C920BD66667884C72A4E65C3 /* JobsOCBaseConfigDemoTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemoTests.m; sourceTree = "<group>"; };
 		F20000042F22000100C0DE01 /* JobsOCWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = JobsOCWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,6 +146,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		339D118F3B6C9408C88A7CA7 /* ScriptsByPods */ = {
+			isa = PBXGroup;
+			children = (
+				7B52EAE0C362A1A823596023 /* 【MacOS@Xcode】🫘打开终端运行Pod Install.command */,
+			);
+			path = ScriptsByPods;
+			sourceTree = "<group>";
+		};
+		7B52EAE0C362A1A823596023 /* 【MacOS@Xcode】🫘打开终端运行Pod Install.command */ = {
+			isa = PBXGroup;
+			children = (
+				919BABB0D5D1941F6DE6B852 /* 【MacOS@Xcode】🫘打开终端运行Pod Install.command */,
+				B89D0E4143A84838782D4A4E /* README.md */,
+			);
+			path = "【MacOS@Xcode】🫘打开终端运行Pod Install.command";
+			sourceTree = "<group>";
+		};
 		93091DF3A4BAECE6B7AEAD38 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,6 +183,7 @@
 		C50913AA2F85D89000F261DA = {
 			isa = PBXGroup;
 			children = (
+				339D118F3B6C9408C88A7CA7 /* ScriptsByPods */,
 				C50913B52F85D89000F261DA /* JobsOCBaseConfigDemo */,
 				F20000082F22000100C0DE01 /* JobsOCWidgetExtension */,
 				C50913B42F85D89000F261DA /* Products */,
@@ -387,7 +407,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/ScriptsByDevTools/save_device_ipa_after_build.sh",
+				"$(SRCROOT)/ScriptsByDevTools/save_device_ipa_after_build.command/save_device_ipa_after_build.command",
 			);
 			name = "Save Build IPA";
 			outputFileListPaths = (
@@ -397,7 +417,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "/bin/zsh \"${SRCROOT}/ScriptsByDevTools/save_device_ipa_after_build.sh\"\n";
+			shellScript = "/bin/zsh \"${SRCROOT}/ScriptsByDevTools/save_device_ipa_after_build.command/save_device_ipa_after_build.command\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B8C185EA73EE1F17275B1FA8 /* [CP] Check Pods Manifest.lock */ = {

@@ -5,6 +5,7 @@
 //  Created by Jobs on 2026年7月13日，星期一.
 //
 
+#import <math.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
@@ -25,7 +26,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/// 统一管理扫描、连接、服务发现、读写、通知、重连和命令队列。
+/// 主队列管理扫描、连接、服务发现、读写、通知和命令队列；自动重连策略由调用方决定。
 @interface JobsBluetoothManager : NSObject
 
 Prop_strong(readonly)dispatch_queue_t callbackQueue;
@@ -53,6 +54,8 @@ Prop_copy(readonly)JobsBluetoothManager *(^onLog)(void (^block)(NSString *messag
 -(jobsByVoidBlock _Nonnull)disconnect;
 -(jobsByVoidBlock _Nonnull)read;
 -(jobsByBOOLBlock _Nonnull)setNotifyEnabled;
+/// 单条在途命令，按优先级排队；matcher 存在时等待业务响应，否则完成只表示 GATT 写入被接受。
+/// retryCount 仅用于协议明确幂等的命令；ACK 超时断开以隔离迟到 ACK。
 -(void)sendCommand:(JobsBluetoothCommand *)command completion:(void (^)(NSData * _Nullable response, NSError * _Nullable error))completion;
 
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsBluetoothManager

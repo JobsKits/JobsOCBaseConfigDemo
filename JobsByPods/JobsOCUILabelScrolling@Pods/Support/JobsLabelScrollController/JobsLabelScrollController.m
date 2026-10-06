@@ -359,9 +359,10 @@ Prop_assign()NSTimeInterval delayRemaining;
 
         if (self.configuration.mode == JobsLabelScrollModeContinuous) {
             CGFloat cycleWidth = self.textLayer.textWidth + self.configuration.spacing;
-            if (cycleWidth <= 0) return;
-            self.offsetX += self.configuration.speed * elapsed;
-            while (self.offsetX >= cycleWidth) self.offsetX -= cycleWidth;
+            if (!isfinite(cycleWidth) || cycleWidth <= 0) return;
+            CGFloat displacement = self.configuration.speed * elapsed;
+            CGFloat nextOffset = self.offsetX + displacement;
+            self.byOffsetX(isfinite(nextOffset) ? fmod(nextOffset, cycleWidth) : 0);
         }else{
             CGFloat maximumOffset = MAX(0, self.textLayer.textWidth - CGRectGetWidth(label.bounds));
             if (maximumOffset <= 0) return;

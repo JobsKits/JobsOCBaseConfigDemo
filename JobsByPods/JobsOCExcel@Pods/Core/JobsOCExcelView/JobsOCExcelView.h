@@ -41,6 +41,12 @@
 #import "JobsDefines.h"
 #endif
 
+#if __has_include(<JobsBaseUI/JobsBaseUI.h>)
+#import <JobsBaseUI/JobsBaseUI.h>
+#else
+#import "JobsBaseUI.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class JobsOCExcelView;
@@ -63,6 +69,9 @@ Prop_assign(readonly)NSInteger freezeThroughColumn;
 Prop_strong(readonly)JobsOCExcelStyle *style;
 Prop_assign(readonly)CGFloat requiredHeight;
 Prop_assign(readonly)CGFloat horizontalContentOffset;
+/// 空表重新加载按钮交给宿主执行数据请求；未设置时只重绘当前模型。
+Prop_copy(nullable)jobsByVoidBlock onReloadRequested;
+-(JobsRetIDByIDBlock _Nonnull)byOnReloadRequested;
 
 -(JobsRetJobsOCExcelViewByIDBlock _Nonnull)byDelegate;
 -(void)configureWithColumns:(NSArray<JobsOCExcelColumn *> *)columns

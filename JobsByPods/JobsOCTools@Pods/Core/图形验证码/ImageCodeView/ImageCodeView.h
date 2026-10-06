@@ -9,6 +9,8 @@
 #define JOBS_HEADER_GUARD_IMAGECODEVIEW_ECA4A3D4BC
 
 #import <UIKit/UIKit.h>
+#import <math.h>
+#import <stdint.h>
 
 #if __has_include(<JobsMakes/JobsMakes.h>)
 #import <JobsMakes/JobsMakes.h>

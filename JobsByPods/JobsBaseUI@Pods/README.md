@@ -52,9 +52,11 @@ JobsBaseUI@Pods/
 ├── README.md  # 当前自述
 ├── JobsBaseUI.h  # 根入口头文件
 ├── JobsPodspecKit.rb  # 本地 podspec 基座
-├── Core/  # 公开 API 与核心实现，156 个文件
-├── Support/  # 内部支撑层，169 个文件
-└── LICENSE  # 许可证文件
+├── Core/  # 公开入口与核心实现，139 个文件
+├── Support/  # 内部支援，146 个文件
+├── LICENSE  # 许可证文件
+├── Resource/  # 非代码资源，18 个文件
+└── Tests/  # 独立回归，3 个文件
 ```
 
 - `JobsBaseUI.podspec` 是当前 Pod 的 [**CocoaPods**](https://cocoapods.org/) 描述入口。
@@ -63,8 +65,8 @@ JobsBaseUI@Pods/
 
 ## 四、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 当前包含 156 个文件，其中源码 / 头文件 133 个；按 Jobs 规范，它是 `JobsBaseUI` 对外公开 API 和核心实现的边界。
-- `Support` 当前包含 169 个文件，其中源码 / 头文件 164 个；它只服务当前 Pod 内部实现，不建议被 App 层或其它 Pod 直接引用。
+- `Core` 当前包含 139 个文件，其中源码 / 头文件 133 个；按 Jobs 规范，它是 `JobsBaseUI` 对外公开 API 和核心实现的边界。
+- `Support` 当前包含 146 个文件，其中源码 / 头文件 141 个；它只服务当前 Pod 内部实现，不建议被 App 层或其它 Pod 直接引用。
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
 - `Support/UIKit/UIButton/UIButton+SDWebImage` 只保留历史兼容入口，真实链式实现已下沉到 `JobsOCDSL/3rd/SDWebImage+DSL`。
@@ -102,9 +104,9 @@ JobsBaseUI@Pods/
 
 - `Masonry`
 - `MJRefresh`
-- `lottie-ios ~> 2.5.3`
+- `lottie-ios`
 - `XYColorOC`
-- `SZTextView`
+- `SZTextViewExtra`
 - `XZMRefresh`
 - `MJExtension`
 - `TABAnimated`
@@ -112,9 +114,10 @@ JobsBaseUI@Pods/
 - `GKNavigationBar`
 - `MJRefreshExtra`
 - `WHToastExtra`
-- `JobsModel`
+- `JobsModelDSL`
 - `JobsClass`
 - `JobsBlock`
+- `JobsOCDSL`
 - `JobsMakes`
 - `JobsNavBar`
 - `JobsOCDefs`
@@ -148,7 +151,7 @@ JobsBaseUI@Pods/
 
 ## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- 当前目录扫描到资源类文件 17 个，`Resource` 目录文件 0 个。
+- 当前目录扫描到资源类文件 18 个，`Resource` 目录文件 18 个。
 - podspec 资源声明如下：
 
 - `Core/**/*.{png,jpg,jpeg,webp,gif,wav,mp3,caf,json,plist,xib,storyboard,bundle}`
@@ -174,7 +177,7 @@ pod install --no-repo-update
 
 ## 九、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 头文件会进入公开 API 边界，新增 import 时要确认不会把内部实现细节暴露给外部。
+- 只有 podspec 指定的公开头进入外部 API 边界；新增 import 时要确认不会把私有实现细节暴露给外部。
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
 - `BaseLabel` 是 `UIView` 子类，可见性状态使用 `jobsVisible` / `byVisible`；`isVisible` 只属于 model 协议标记，不能直接发给视图对象。
 - `BaseLabel` / `BaseTextView` 的系统编辑菜单必须先交给 `super` 判断真实可执行动作；自定义菜单只放 Jobs 动态 selector，缺少对应实现的 `delete:` 这类动作落到 toast 兜底，不能用空字符串匹配或默认 `YES` 放出系统未知 action。
@@ -184,7 +187,7 @@ pod install --no-repo-update
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
 
-## 明暗主题契约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 十、明暗主题契约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - BaseVC 的页面根背景不展示固定底色或底图；业务图片必须下沉到内容子视图，避免覆盖全局明暗主题。
@@ -193,25 +196,25 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 十、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## 十一、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 10.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 11.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 这是按控件类型组织的 UI 基础组件集合，包含基础 View、Button、Cell、列表布局和多种输入框。公共模型/协议提供统一表达，各具体控件实现自己的布局、渲染和交互；Support 承接局部支撑。
 
-### 10.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 11.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 选择具体基础控件 → 注入模型和配置 → 组装子视图/约束 → 接收交互并回传 → 在复用或状态变化时更新。
 
-### 10.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 11.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 同一库包含多种控件，不存在一条适用于全部组件的统一业务状态机。
 - Cell 复用、输入框占位动画和按钮点击具有不同生命周期，应按类型阅读。
 - 自维护代码与历史引入组件要保留来源边界，不能把目录内所有实现都视为需要重新生成的自研内核。
 
-### 10.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 11.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 先选业务需要的 BaseView/BaseButton/BaseCell 或输入框分支，再沿模型、协议、实现追踪；不要从所有文件列表开始整体重写。
 
@@ -223,6 +226,74 @@ pod install --no-repo-update
 - [Core/UIBaseCollectionReusableView/BaseCollectionReusableView/BaseCollectionReusableView.h](<./Core/UIBaseCollectionReusableView/BaseCollectionReusableView/BaseCollectionReusableView.h>)
 - [Core/UIBaseCollectionReusableView/JobsHeaderFooterView/JobsHeaderFooterView.h](<./Core/UIBaseCollectionReusableView/JobsHeaderFooterView/JobsHeaderFooterView.h>)
 
-依赖与编译入口：[JobsBaseUI.podspec](<./JobsBaseUI.podspec>)。其中显式依赖声明包括 `Masonry`、`MJRefresh`、`lottie-ios`、`XYColorOC`、`SZTextViewExtra`、`XZMRefresh`、`MJExtension`、`TABAnimated`、`ReactiveObjC`、`GKNavigationBar`、`MJRefreshExtra`、`WHToastExtra`、`JobsModelDSL`、`JobsClass`、`JobsBlock`、`JobsOCDSL`、`JobsMakes`、`JobsNavBar`、`JobsOCDefs`、`JobsAppTools`、`JobsTimeUtils`、`JobsDeviceInfo`、`JobsStringUtils`、`JobsRandomUtils`、`JobsOCProtocols`、`JobsLoadingImage`、`JobsBasePopupView`、`JobsRichTextUtils`、`JobsOCRuntimeKits`、`JobsLanMgr`、`This`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+依赖与编译入口：[JobsBaseUI.podspec](<./JobsBaseUI.podspec>)。其中根级依赖声明包括 `Masonry`、`MJRefresh`、`lottie-ios`、`XYColorOC`、`SZTextViewExtra`、`XZMRefresh`、`MJExtension`、`TABAnimated`、`ReactiveObjC`、`GKNavigationBar`、`MJRefreshExtra`、`WHToastExtra`、`JobsModelDSL`、`JobsClass`、`JobsBlock`、`JobsOCDSL`、`JobsMakes`、`JobsNavBar`、`JobsOCDefs`、`JobsAppTools`、`JobsTimeUtils`、`JobsDeviceInfo`、`JobsStringUtils`、`JobsRandomUtils`、`JobsOCProtocols`、`JobsLoadingImage`、`JobsBasePopupView`、`JobsRichTextUtils`、`JobsOCRuntimeKits`、`JobsLanMgr`、`This`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
+
+## 十二、Keychain 身份、失败和迁移 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+[JobsKeychainHelper](<./Core/UIBaseObject/JobsKeychainHelper/JobsKeychainHelper.h>) 以 `service + account` 标识密码条目。保存先完成 UTF-8/secure archive 编码，再执行 update；只有条目不存在时 add，遇到并发 duplicate 时重试 update，不会先删掉原条目。空密码是有效值，读取失败是 nil；带 `error:` 接口返回系统 OSStatus 或编解码错误。
+
+带 `error:` 的六个入口显式标注空值：调用方可以不接收错误，也可以传入 nil 参数，由实现返回 `NO` / nil 和 `errSecParam`；空 service/account、nil password/data 或空允许类集合都不会写入或删除条目。成功时错误输出为 nil。
+
+`save:data:error:` 要求 `NSSecureCoding`。`loadService:allowedClasses:error:` 明确限定可解码类，旧 `jobsLoad` 仅允许基础 Foundation 值和容器；自建模型应显式传入允许类，不回退到不安全解档。`deleteAccount:forService:error:` 只删指定账户；旧 `deleteAccountInfoByService` 仍是有意删除该 service 全部账户的入口。
+
+`allowedClasses` 必须是非空 `NSSet`，每项为真正的非元类 `Class`，错误输入在访问 Keychain 前返回 `errSecParam`。Foundation 会自动放行部分基础类型，因此解档成功后仍显式检查根对象，以及数组、字典键和值、集合、有序集合中可观察的成员；每项都必须属于允许类或其子类，显式校验失败返回 nil 和 `errSecDecode`；Foundation 自身解档失败保留其解码错误，不会修改保存的数据。容器本身和成员类型都要列入，例如嵌套字典的数组需要 `NSArray`、`NSDictionary`、`NSString` 和对应数值类。自定义 `NSSecureCoding` 模型的内部字段由其 `initWithCoder:` 负责安全解码。
+
+旧实现曾把 account 写成 service。调用方确认条目归属后，显式执行 `migrateLegacyPasswordForService:toAccount:error:`；目标账户已存在时失败并保留双方数据，不自动猜测旧条目属于哪个业务账户。
+
+[Keychain 回归](<./Tests/JobsKeychainIdentityTests/JobsKeychainIdentityTests.m>) 验证账户隔离、空密码、定向删除、编码失败保留旧数据、允许类限制及迁移冲突。测试使用独立随机 service，结束后清理；测试环境 Keychain 不可用时明确 skip，跳过不能计为已验证。
+
+[Mac 解档内核回归](<./Tests/run_regression.rb>) 用 `ruby Tests/run_regression.rb` 直接编译原始生产 `.m`，验证基础类型、嵌套容器白名单和非法类集合；它不访问系统 Keychain，不替代上面的真实账户 smoke。真实 smoke 跳过时必须记为跳过，不能计为通过。
+
+本工程的 [统一验收入口](<../../ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb>) 为 JobsBaseUI Simulator 测试宿主使用 ad-hoc 签名和宿主自己的 Keychain access group；实际检查签名和展开后的 entitlement，要求所有用例通过且零跳过。直接使用无签名 XCTest 命令可能得到 `errSecMissingEntitlement`，请通过该入口执行本模块系统回归；生产 Helper 的 query 保持系统默认 access group。
+
+## 十三、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+计数递归扫描当前目录内的普通文件，排除 `.DS_Store` / `._*`；源码与头文件计入 `.h`、`.m`、`.mm`、`.c`、`.cc`、`.cpp`、`.hpp`、`.swift`。资源目录中的目录、资源编译结果和文件大小不计入文件数，文件存在不代表必然打包。
+
+| 目录 | 实际文件 | 源码 / 头文件 | 安装边界 |
+| --- | --- | --- | --- |
+| `Core/` | 139 | 133 | 公共入口与核心实现；公开 / 私有头由 podspec 指定 |
+| `Support/` | 146 | 141 | 仅供当前 Pod 内部实现，按实际 subspec / private header 映射 |
+| `Resource/` | 18 | 0 | 非代码资源；按 resources / resource_bundles 和排除规则安装 |
+| `Tests/` | 3 | 2 | 只由独立测试目标或回归 harness 使用，不进入生产 source_files |
+
+`Core` 的物理目录不等于所有头文件均公开；`Support` 和测试 fixture 不作为 App 或其它 Pod 的稳定消费入口。根聚合头与 `public_header_files` 是外部引用依据。
+
+根级资源直接复制映射：`Resource/**/*.{png,jpg,jpeg,gif,webp,svg,pdf,json,plist,bundle,xib,nib,storyboard,xcassets,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff,xcprivacy}`。
+
+根级命名资源 bundle：`JobsBaseUIPrivacy.bundle`；已有运行资源保持各自 bundle 查找合同。
+
+隐私声明入口：[Resource/PrivacyInfo.xcprivacy](<./Resource/PrivacyInfo.xcprivacy>)，通过 `JobsBaseUIPrivacy.bundle` 安装。声明类别与理由按该文件记录：
+
+| API 类别 | 理由标识 | 当前代码用途 |
+| --- | --- | --- | --- |
+| `NSPrivacyAccessedAPICategoryUserDefaults` | `CA92.1` | 本应用本地偏好或状态的读取与保存 |
+
+理由使用合同：`CA92.1`：仅供本 App 访问自身偏好。范围依据 [Apple 理由定义](https://developer.apple.com/documentation/bundleresources/app-privacy-configuration/nsprivacyaccessedapitypes/nsprivacyaccessedapitypereasons)。
+
+该文件记录当前 Pod 使用的 API 类别；宿主仍需按自身实际调用和数据行为维护自己的声明。最终产物是否包含该命名 bundle，随独立 Pod 与主工程资源验收一起核对。
+
+## 十四、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归、macOS 生产实现回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+
+生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
+
+从本 README 所在目录回到工程根目录，再运行该 Pod 的 Debug / Release 单元编译：
+
+```shell
+cd ../..
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+  --phase pods --pod JobsBaseUI
+```
+
+当前 podspec 显式提供 `Stability` test_spec。`Tests/` 与测试 fixture 只进入测试目标；真实行为断言通过后再回填结果。指定可用模拟器 UDID：
+
+```shell
+ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+  --phase tests --pod JobsBaseUI --simulator '<UDID>'
+```
+
+运行前应已安装工程依赖；runner 的 `--phase pods` 默认分别编译 Debug / Release，`--phase tests` 默认运行 Debug（JobsOCSnowflake 默认 Debug / Release），并将命令、源码指纹、日志和退出码保存到工程 `work/JobsPodsStability/`。如需固定输出目录，使用 runner 的 `--output`。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>

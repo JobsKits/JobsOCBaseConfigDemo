@@ -7,6 +7,8 @@
 
 #import "JobsOCExcelView.h"
 
+static void *JobsOCExcelViewportContext = &JobsOCExcelViewportContext;
+
 @interface JobsOCExcelView ()<UIScrollViewDelegate>
 
 Prop_copy(readwrite)NSArray<JobsOCExcelColumn *> *columns;
@@ -17,6 +19,17 @@ Prop_strong()UIView *frozenPaneView;
 Prop_strong()UIScrollView *horizontalScrollView;
 Prop_strong()UIView *scrollContentView;
 Prop_strong()NSMutableArray<UILabel *> *generatedLabels;
+Prop_strong()NSMutableDictionary<NSString *, UILabel *> *visibleLabels;
+Prop_strong()NSMutableArray<UILabel *> *reusableLabels;
+Prop_copy()NSArray<NSNumber *> *cachedWidths;
+Prop_copy()NSArray<NSNumber *> *cachedOffsets;
+Prop_assign()NSInteger cachedFrozenCount;
+Prop_strong()UIScrollView *verticalScrollView;
+Prop_strong()UIView *verticalContentView;
+Prop_weak()UIScrollView *observedAncestorScrollView;
+Prop_assign()BOOL reconcilingGrid;
+Prop_strong()UIView *emptyView;
+
 
 -(jobsByVoidBlock _Nonnull)jobsCommonInit;
 -(JobsRetLabelByVoidBlock _Nonnull)jobsMakeGridLabel;
@@ -100,7 +113,9 @@ Prop_strong()NSMutableArray<UILabel *> *generatedLabels;
 }
 
 -(CGFloat)requiredHeight{
-    return self.style.headerHeight + self.rows.count * self.style.rowHeight;
+    CGFloat header = isfinite(self.style.headerHeight) && self.style.headerHeight > 0 ? self.style.headerHeight : 44;
+    CGFloat row = isfinite(self.style.rowHeight) && self.style.rowHeight > 0 ? self.style.rowHeight : 44;
+    return self.columns.count && self.rows.count ? header + self.rows.count * row : MAX(header, 180);
 }
 
 -(CGFloat)horizontalContentOffset{
@@ -133,10 +148,25 @@ Prop_strong()NSMutableArray<UILabel *> *generatedLabels;
                 [self reloadData];
             });return;
         }
+        self.emptyView.byHidden(self.columns.count && self.rows.count);
         self.jobsRemoveGeneratedViews();
         self.jobsApplyStyle();
-        self.jobsBuildGrid();
+        self.style.headerHeight = isfinite(self.style.headerHeight) && self.style.headerHeight > 0 ? self.style.headerHeight : 44;
+        self.style.rowHeight = isfinite(self.style.rowHeight) && self.style.rowHeight > 0 ? self.style.rowHeight : 44;
+        self.cachedWidths = self.jobsResolvedColumnWidths();
+        self.cachedFrozenCount = self.jobsFrozenColumnCount();
+        NSMutableArray<NSNumber *> *offsets = NSMutableArray.array;
+        CGFloat frozenOffset = 0;
+        CGFloat scrollOffset = 0;
+        for (NSInteger index = 0; index < self.cachedWidths.count; ++index) {
+            BOOL frozen = index < self.cachedFrozenCount;
+            [offsets addObject:@(frozen ? frozenOffset : scrollOffset)];
+            if (frozen) frozenOffset += self.cachedWidths[index].doubleValue;
+            else scrollOffset += self.cachedWidths[index].doubleValue;
+        }
+        self.cachedOffsets = offsets;
         self.jobsUpdateConstraints();
+        self.jobsBuildGrid();
         [self invalidateIntrinsicContentSize];
         [self setNeedsLayout];
     };
@@ -146,7 +176,7 @@ Prop_strong()NSMutableArray<UILabel *> *generatedLabels;
                          animated:(BOOL)animated{
     [self layoutIfNeeded];
     CGFloat maximumOffset = MAX(0, self.horizontalScrollView.contentSize.width - CGRectGetWidth(self.horizontalScrollView.bounds));
-    [self.horizontalScrollView setContentOffset:CGPointMake(MIN(MAX(0, offset), maximumOffset), 0)
+    [self.horizontalScrollView setContentOffset:CGPointMake(isfinite(offset) ? MIN(MAX(0, offset), maximumOffset) : 0, 0)
                                        animated:animated];
 }
 
@@ -160,6 +190,8 @@ Prop_strong()NSMutableArray<UILabel *> *generatedLabels;
     return ^(UIScrollView * scrollView){
         @jobs_strongify(self)
         if (!self) return;
+            if (scrollView != self.horizontalScrollView && scrollView != self.verticalScrollView) return;
+            self.jobsBuildGrid();
             if (scrollView != self.horizontalScrollView) return;
             if ([self.delegate respondsToSelector:@selector(excelView:didScrollHorizontallyToOffset:)]) {
                 [self.delegate excelView:self
@@ -180,6 +212,9 @@ Prop_strong()NSMutableArray<UILabel *> *generatedLabels;
         self.byFreezeThroughColumn(NSNotFound);
         self.byStyle(JobsOCExcelStyle.new);
         self.byGeneratedLabels(NSMutableArray.array);
+        self.visibleLabels = NSMutableDictionary.dictionary;
+        self.reusableLabels = NSMutableArray.array;
+        self.verticalContentView.byAlpha(1);
         self.frozenPaneView.byAlpha(1);
         self.horizontalScrollView.byAlpha(1);
         self.scrollContentView.byAlpha(1);
@@ -209,7 +244,8 @@ Prop_strong()NSMutableArray<UILabel *> *generatedLabels;
         if (!self) return nil;
         NSMutableArray<NSNumber *> *widths = NSMutableArray.array;
         for (JobsOCExcelColumn *column in self.columns) {
-            [widths addObject:@(column.width > 0 ? column.width : self.style.defaultColumnWidth)];
+            CGFloat fallback = isfinite(self.style.defaultColumnWidth) && self.style.defaultColumnWidth > 0 ? self.style.defaultColumnWidth : 100;
+            [widths addObject:@(isfinite(column.width) && column.width > 0 ? column.width : fallback)];
         }return widths.copy;
     };
 }
@@ -219,8 +255,8 @@ Prop_strong()NSMutableArray<UILabel *> *generatedLabels;
     return ^NSInteger{
         @jobs_strongify(self)
         if (!self) return (NSInteger){0};
-        if (self.freezeThroughColumn == NSNotFound || !self.columns.count) return 0;
-        return MIN(MAX(0, self.freezeThroughColumn + 1), self.columns.count);
+        if (self.freezeThroughColumn == NSNotFound || self.freezeThroughColumn < 0 || !self.columns.count) return 0;
+        return self.freezeThroughColumn >= self.columns.count - 1 ? self.columns.count : self.freezeThroughColumn + 1;
     };
 }
 
@@ -232,8 +268,10 @@ Prop_strong()NSMutableArray<UILabel *> *generatedLabels;
         for (UILabel *label in self.generatedLabels) {
             label.byStopTextScroll();
             [label removeFromSuperview];
+            if (self.reusableLabels.count < 512) [self.reusableLabels addObject:label];
         }
         [self.generatedLabels removeAllObjects];
+        [self.visibleLabels removeAllObjects];
     };
 }
 
@@ -255,51 +293,65 @@ Prop_strong()NSMutableArray<UILabel *> *generatedLabels;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        NSArray<NSNumber *> *widths = self.jobsResolvedColumnWidths();
-        CGFloat frozenOffset = 0;
-        CGFloat scrollOffset = 0;
-        for (NSInteger columnIndex = 0; columnIndex < self.columns.count; columnIndex++) {
-            BOOL isFrozen = columnIndex < self.jobsFrozenColumnCount();
-            UIView *parentView = isFrozen ? self.frozenPaneView : self.scrollContentView;
-            CGFloat offset = isFrozen ? frozenOffset : scrollOffset;
-            CGFloat width = widths[columnIndex].doubleValue;
-            JobsOCExcelColumn *column = self.columns[columnIndex];
-            [self jobsAddLabelWithCell:column.header
-                                 font:self.style.headerFont
-                            textColor:isFrozen ? self.style.frozenHeaderTextColor : self.style.headerTextColor
-                      backgroundColor:isFrozen ? self.style.frozenHeaderBackgroundColor : self.style.headerBackgroundColor
-                           parentView:parentView
-                                  row:-1
-                               column:columnIndex
-                                  top:0
-                                 left:offset
-                                width:width
-                               height:self.style.headerHeight
-                           selectable:NO];
-            for (NSInteger rowIndex = 0; rowIndex < self.rows.count; rowIndex++) {
-                JobsOCExcelRow *row = self.rows[rowIndex];
-                JobsOCExcelCell *cell = columnIndex < row.cells.count
-                    ? row.cells[columnIndex]
-                    : JobsOCExcelCell.cellWithText(@"");
-                [self jobsAddLabelWithCell:cell
-                                     font:self.style.bodyFont
-                                textColor:isFrozen ? self.style.primaryTextColor : self.style.secondaryTextColor
-                          backgroundColor:isFrozen ? self.style.frozenColumnBackgroundColor : self.style.bodyBackgroundColor
-                               parentView:parentView
-                                      row:rowIndex
-                                   column:columnIndex
-                                      top:self.style.headerHeight + rowIndex * self.style.rowHeight
-                                     left:offset
-                                    width:width
-                                   height:self.style.rowHeight
-                               selectable:YES];
-            }
-            if (isFrozen) {
-                frozenOffset += width;
-            }else{
-                scrollOffset += width;
+        if (self.reconcilingGrid) return;
+        self.reconcilingGrid = YES;
+        CGRect viewport = self.bounds;
+        if (self.window) {
+            viewport = CGRectIntersection(viewport, [self convertRect:self.window.bounds fromView:self.window]);
+            for (UIView *ancestor = self.superview; ancestor && ancestor != self.window; ancestor = ancestor.superview) {
+                if (ancestor.clipsToBounds) viewport = CGRectIntersection(viewport, [self convertRect:ancestor.bounds fromView:ancestor]);
             }
         }
+        NSMutableSet<NSString *> *wanted = NSMutableSet.set;
+        if (!CGRectIsEmpty(viewport) && self.rows.count && self.cachedWidths.count == self.columns.count) {
+            CGFloat top = self.verticalScrollView.contentOffset.y + CGRectGetMinY(viewport);
+            CGFloat bottom = top + CGRectGetHeight(viewport);
+            NSInteger firstRow = MAX(0, (NSInteger)floor((top - self.style.headerHeight) / self.style.rowHeight) - 1);
+            NSInteger lastRow = MIN((NSInteger)self.rows.count, MAX(firstRow, (NSInteger)ceil((bottom - self.style.headerHeight) / self.style.rowHeight) + 1));
+            CGFloat horizontalOffset = self.horizontalScrollView.contentOffset.x;
+            CGFloat horizontalWidth = CGRectGetWidth(self.horizontalScrollView.bounds);
+            for (NSInteger columnIndex = 0; columnIndex < self.columns.count; ++columnIndex) {
+                BOOL frozen = columnIndex < self.cachedFrozenCount;
+                CGFloat left = self.cachedOffsets[columnIndex].doubleValue;
+                CGFloat width = self.cachedWidths[columnIndex].doubleValue;
+                CGFloat visibleLeft = frozen ? 0 : horizontalOffset;
+                CGFloat visibleRight = frozen ? CGRectGetWidth(self.frozenPaneView.bounds) : horizontalOffset + horizontalWidth;
+                if (left + width < visibleLeft || left > visibleRight) continue;
+                UIView *parent = frozen ? self.frozenPaneView : self.scrollContentView;
+                if (top <= self.style.headerHeight && bottom > 0) {
+                    NSString *key = [NSString stringWithFormat:@"-1:%ld", (long)columnIndex];
+                    [wanted addObject:key];
+                    [self jobsAddLabelWithCell:self.columns[columnIndex].header
+                                         font:self.style.headerFont
+                                    textColor:frozen ? self.style.frozenHeaderTextColor : self.style.headerTextColor
+                              backgroundColor:frozen ? self.style.frozenHeaderBackgroundColor : self.style.headerBackgroundColor
+                                   parentView:parent row:-1 column:columnIndex top:0 left:left width:width height:self.style.headerHeight selectable:NO];
+                }
+                for (NSInteger rowIndex = firstRow; rowIndex < lastRow; ++rowIndex) {
+                    NSString *key = [NSString stringWithFormat:@"%ld:%ld", (long)rowIndex, (long)columnIndex];
+                    [wanted addObject:key];
+                    JobsOCExcelRow *row = self.rows[rowIndex];
+                    JobsOCExcelCell *cell = columnIndex < row.cells.count ? row.cells[columnIndex] : JobsOCExcelCell.cellWithText(@"");
+                    [self jobsAddLabelWithCell:cell
+                                         font:self.style.bodyFont
+                                    textColor:frozen ? self.style.primaryTextColor : self.style.secondaryTextColor
+                              backgroundColor:frozen ? self.style.frozenColumnBackgroundColor : self.style.bodyBackgroundColor
+                                   parentView:parent row:rowIndex column:columnIndex
+                                          top:self.style.headerHeight + rowIndex * self.style.rowHeight
+                                         left:left width:width height:self.style.rowHeight selectable:YES];
+                }
+            }
+        }
+        for (NSString *key in self.visibleLabels.allKeys) {
+            if ([wanted containsObject:key]) continue;
+            UILabel *label = self.visibleLabels[key];
+            label.byStopTextScroll();
+            label.byRemoveFromSuperview();
+            [self.visibleLabels removeObjectForKey:key];
+            [self.generatedLabels removeObject:label];
+            if (self.reusableLabels.count < 512) [self.reusableLabels addObject:label];
+        }
+        self.reconcilingGrid = NO;
     };
 }
 
@@ -315,31 +367,40 @@ Prop_strong()NSMutableArray<UILabel *> *generatedLabels;
                       width:(CGFloat)width
                      height:(CGFloat)height
                  selectable:(BOOL)selectable{
-    UILabel *label = self.jobsMakeGridLabel();
-    label.byTag(selectable ? row * MAX(1, self.columns.count) + column : -1);
-    label.byText(cell.text)
-        .byTextCor(textColor)
-        .byFont(font)
-        .byBgColor(backgroundColor);
-    [label byTextDisplayMode:cell.textDisplayMode
-          minimumScaleFactor:cell.minimumScaleFactor
-        maximumNumberOfLines:cell.maximumNumberOfLines
-         scrollConfiguration:cell.scrollConfiguration];
-    if (selectable) {
-        @jobs_weakify(self)
-        label.addTapGR(^(__kindof UITapGestureRecognizer * _Nullable gesture) {
-            @jobs_strongify(self)
-            self.jobsHandleCellTap((UILabel *)gesture.view);
-        });
+    NSString *key = [NSString stringWithFormat:@"%ld:%ld", (long)row, (long)column];
+    UILabel *label = self.visibleLabels[key];
+    if (!label) {
+        label = self.reusableLabels.lastObject;
+        if (label) {
+            [self.reusableLabels removeLastObject];
+        } else {
+            label = self.jobsMakeGridLabel();
+            @jobs_weakify(self)
+            label.addTapGR(^(__kindof UITapGestureRecognizer * _Nullable gesture) {
+                @jobs_strongify(self)
+                if (!self) return;
+                UILabel *tapped = (UILabel *)gesture.view;
+                if (tapped.tag >= 0) self.jobsHandleCellTap(tapped);
+            });
+        }
+        label.byStopTextScroll();
+        label.byTag(selectable ? row * MAX(1, self.columns.count) + column : -1);
+        label.byText(cell.text)
+            .byTextCor(textColor)
+            .byFont(font)
+            .byBgColor(backgroundColor)
+            .byUserInteractionEnabled(selectable);
+        label.layer.byBorderWidth(self.style.gridLineWidth)
+            .byBorderColor(self.style.gridLineColor.CGColor);
+        [label byTextDisplayMode:cell.textDisplayMode
+              minimumScaleFactor:cell.minimumScaleFactor
+            maximumNumberOfLines:cell.maximumNumberOfLines
+             scrollConfiguration:cell.scrollConfiguration];
+        label.addOn(parentView);
+        self.visibleLabels[key] = label;
+        [self.generatedLabels addObject:label];
     }
-    label.addOn(parentView)
-        .byAdd(^(MASConstraintMaker *make) {
-            make.top.equalTo(parentView).offset(top);
-            make.left.equalTo(parentView).offset(left);
-            make.width.mas_equalTo(width);
-            make.height.mas_equalTo(height);
-        });
-    [self.generatedLabels addObject:label];
+    label.byFrame(CGRectMake(left, top, width, height));
 }
 
 -(jobsByVoidBlock _Nonnull)jobsUpdateConstraints{
@@ -358,13 +419,16 @@ Prop_strong()NSMutableArray<UILabel *> *generatedLabels;
                 scrollWidth += widths[index].doubleValue;
             }
         }
+        [self.verticalContentView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(MAX(1, self.requiredHeight));
+        }];
         [self.frozenPaneView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.left.bottom.equalTo(self);
+            make.top.left.bottom.equalTo(self.verticalContentView);
             make.width.mas_equalTo(frozenWidth).priorityHigh();
-            make.width.lessThanOrEqualTo(self);
+            make.width.lessThanOrEqualTo(self.verticalContentView);
         }];
         [self.horizontalScrollView mas_remakeConstraints:^(MASConstraintMaker *make) {
-            make.top.right.bottom.equalTo(self);
+            make.top.right.bottom.equalTo(self.verticalContentView);
             make.left.equalTo(self.frozenPaneView.mas_right);
         }];
         [self.scrollContentView mas_remakeConstraints:^(MASConstraintMaker *make) {
@@ -395,12 +459,135 @@ Prop_strong()NSMutableArray<UILabel *> *generatedLabels;
     };
 }
 
+-(void)layoutSubviews{
+    [super layoutSubviews];
+    UIScrollView *ancestorScrollView = nil;
+    for (UIView *ancestor = self.superview; ancestor; ancestor = ancestor.superview) {
+        if ([ancestor isKindOfClass:UIScrollView.class]) {
+            ancestorScrollView = (UIScrollView *)ancestor;
+            break;
+        }
+    }
+    if (_observedAncestorScrollView != ancestorScrollView) {
+        [_observedAncestorScrollView removeObserver:self forKeyPath:@"contentOffset" context:JobsOCExcelViewportContext];
+        _observedAncestorScrollView = ancestorScrollView;
+        [ancestorScrollView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:JobsOCExcelViewportContext];
+    }
+    self.jobsBuildGrid();
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath
+                   ofObject:(id)object
+                     change:(NSDictionary<NSKeyValueChangeKey, id> *)change
+                    context:(void *)context{
+    if (context == JobsOCExcelViewportContext) {
+        self.jobsBuildGrid();
+        return;
+    }
+    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+}
+
+-(void)dealloc{
+    [_observedAncestorScrollView removeObserver:self forKeyPath:@"contentOffset" context:JobsOCExcelViewportContext];
+}
+
+-(JobsRetIDByIDBlock _Nonnull)byOnReloadRequested{
+    @jobs_weakify(self)
+    return ^id(jobsByVoidBlock action) {
+        @jobs_strongify(self)
+        self.onReloadRequested = action;
+        return self;
+    };
+}
+
+-(UIView *)emptyView{
+    if (!_emptyView) {
+        _emptyView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.byBgColor(self.style.bodyBackgroundColor)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self);
+                });
+        });
+        UILabel *title = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label.byText(@"暂无表格数据")
+                .byFont(self.style.headerFont)
+                .byTextCor(self.style.primaryTextColor)
+                .byTextAlignment(NSTextAlignmentCenter)
+                .addOn(self->_emptyView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(self->_emptyView);
+                    make.centerY.equalTo(self->_emptyView).offset(-30);
+                });
+        });
+        jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            label.byText(@"数据载入后会显示在这里")
+                .byFont(self.style.bodyFont)
+                .byTextCor(self.style.secondaryTextColor)
+                .addOn(self->_emptyView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(title);
+                    make.top.equalTo(title.mas_bottom).offset(8);
+                });
+        });
+        @jobs_weakify(self)
+        jobsMakeBaseButton(^(__kindof UIButton * _Nullable button) {
+            button.jobsResetBtnTitle(@"重新加载")
+                .onJobsEvent(UIControlEventTouchUpInside, ^(__kindof UIControl * _Nullable sender) {
+                    @jobs_strongify(self)
+                    if (!self) return;
+                    if (self.onReloadRequested) self.onReloadRequested();
+                    else self.jobsReloadData();
+                })
+                .addOn(self->_emptyView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.centerX.equalTo(title);
+                    make.top.equalTo(title.mas_bottom).offset(44);
+                    make.width.mas_equalTo(120);
+                    make.height.mas_equalTo(44);
+                });
+        });
+    }
+    return _emptyView;
+}
+
 #pragma mark —— lazyLoad
+-(UIScrollView *)verticalScrollView{
+    if (!_verticalScrollView) {
+        _verticalScrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
+            scrollView.byDelegate(self)
+                .byShowsVerticalScrollIndicator(YES)
+                .byShowsHorizontalScrollIndicator(NO)
+                .byAlwaysBounceVertical(NO)
+                .byBounces(NO)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self);
+                });
+        });
+    }
+    return _verticalScrollView;
+}
+
+-(UIView *)verticalContentView{
+    if (!_verticalContentView) {
+        _verticalContentView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            view.addOn(self.verticalScrollView)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self.verticalScrollView);
+                    make.width.equalTo(self.verticalScrollView);
+                    make.height.mas_equalTo(MAX(1, self.requiredHeight));
+                });
+        });
+    }
+    return _verticalContentView;
+}
+
 -(UIView *)frozenPaneView{
     if (!_frozenPaneView) {
         _frozenPaneView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             view.byClipsToBounds(YES)
-                .addOn(self);
+                .addOn(self.verticalContentView);
         });
     };return _frozenPaneView;
 }
@@ -412,7 +599,7 @@ Prop_strong()NSMutableArray<UILabel *> *generatedLabels;
                 .byShowsVerticalScrollIndicator(NO)
                 .byAlwaysBounceVertical(NO)
                 .byDirectionalLockEnabled(YES)
-                .addOn(self);
+                .addOn(self.verticalContentView);
         });
     };return _horizontalScrollView;
 }

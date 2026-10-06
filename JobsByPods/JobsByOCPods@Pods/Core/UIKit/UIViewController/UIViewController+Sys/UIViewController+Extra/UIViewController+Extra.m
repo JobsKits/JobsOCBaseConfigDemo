@@ -53,9 +53,13 @@
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
-        self.navigationController.interactivePopGestureRecognizer
-            .byEnabled(NO)
-            .byDelegate(nil);
+        if (!self) {
+            return;
+        }
+        UIGestureRecognizer *gesture = self.navigationController.interactivePopGestureRecognizer;
+        if (gesture) {
+            gesture.byEnabled(NO).byDelegate(nil);
+        }
         self.byFdInteractivePopDisabled(YES);
     };
 }
@@ -64,9 +68,13 @@
     @jobs_weakify(self)
     return ^(id <UIGestureRecognizerDelegate>_Nullable data){
         @jobs_strongify(self)
-        self.navigationController.interactivePopGestureRecognizer
-            .byEnabled(YES)
-            .byDelegate(data);
+        if (!self) {
+            return;
+        }
+        UIGestureRecognizer *gesture = self.navigationController.interactivePopGestureRecognizer;
+        if (gesture) {
+            gesture.byEnabled(YES).byDelegate(data);
+        }
         self.byFdInteractivePopDisabled(NO);
     };
 }

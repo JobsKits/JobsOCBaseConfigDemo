@@ -58,10 +58,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 Prop_strong()UIColor *strokeColor; // 圆的线条颜色
 Prop_copy()NSString *titleStr; // 描述文字
-Prop_strong()UIImage *imge; // 圆内Logo
+Prop_strong(nullable)UIImage *imge; // 可选圆内Logo
 Prop_assign()CGFloat width; // 提示框 w
 Prop_assign()CGFloat height; // 提示框 h
 Prop_assign()CGFloat radius; // 圆半径
+/// 显式指定展示容器，适用于多窗口；未指定时使用当前主窗口。
+Prop_weak(nullable)UIView *hostView;
+-(JobsRetIDByIDBlock _Nonnull)byHostView;
 
 +(instancetype)sharedManager;
 +(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager;

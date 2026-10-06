@@ -18,28 +18,32 @@ static NSMutableDictionary *JobsDeviceIDKeychainQuery(NSString *service) {
     return query;
 }
 
-static NSString *JobsDeviceIDKeychainLoad(NSString *service) {
+static NSString *JobsDeviceIDKeychainLoad(NSString *service, OSStatus *statusOut) {
     NSMutableDictionary *query = JobsDeviceIDKeychainQuery(service);
     query[(__bridge id)kSecReturnData] = @YES;
     query[(__bridge id)kSecMatchLimit] = (__bridge id)kSecMatchLimitOne;
     CFTypeRef result = NULL;
     OSStatus status = SecItemCopyMatching((__bridge CFDictionaryRef)query, &result);
+    if (statusOut) *statusOut = status;
     if (status != errSecSuccess || !result) return nil;
     NSData *data = (__bridge_transfer NSData *)result;
     NSString *string = [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding];
-    if (string) return string;
+    if (string.length && ![string hasPrefix:@"bplist"]) return string;
     NSError *error = nil;
     id object = [NSKeyedUnarchiver unarchivedObjectOfClass:NSString.class
                                                   fromData:data
                                                      error:&error];
-    return [object isKindOfClass:NSString.class] ? object : nil;
+    if (![object isKindOfClass:NSString.class] || ![object length]) {
+        if (statusOut) *statusOut = errSecDecode;
+        return nil;
+    }
+    return object;
 }
 
-static BOOL JobsDeviceIDKeychainSave(NSString *service, NSString *data) {
+static OSStatus JobsDeviceIDKeychainSave(NSString *service, NSString *data) {
     NSMutableDictionary *query = JobsDeviceIDKeychainQuery(service);
-    SecItemDelete((__bridge CFDictionaryRef)query);
     query[(__bridge id)kSecValueData] = [data dataUsingEncoding:NSUTF8StringEncoding];
-    return SecItemAdd((__bridge CFDictionaryRef)query, NULL) == errSecSuccess;
+    return SecItemAdd((__bridge CFDictionaryRef)query, NULL);
 }
 
 static void JobsDeviceIDKeychainRemove(NSString *service) {
@@ -57,7 +61,9 @@ static void JobsDeviceIDKeychainRemove(NSString *service) {
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        JobsDeviceIDKeychainRemove(设备ID);
+        @synchronized (NSObject.class) {
+            JobsDeviceIDKeychainRemove(设备ID);
+        }
     };
 }
 
@@ -66,13 +72,33 @@ static void JobsDeviceIDKeychainRemove(NSString *service) {
     return ^NSString *_Nullable{
         @jobs_strongify(self)
         if (!self) return nil;
-        /// 读取keychain的缓存
-        NSString *deviceID = JobsDeviceIDKeychainLoad(设备ID);
-        if (deviceID.length == 0) {
-            deviceID = UIDevice.currentDevice.identifierForVendor.UUIDString;
-            JobsDeviceIDKeychainSave(设备ID, deviceID);
-        };return deviceID;
+        return [self jobsDeviceIDWithError:nil];
     };
+}
+
+-(NSString *)jobsDeviceIDWithError:(NSError *__autoreleasing *)error{
+    @synchronized (NSObject.class) {
+        if (error) *error = nil;
+        OSStatus status = errSecSuccess;
+        NSString *identifier = JobsDeviceIDKeychainLoad(设备ID, &status);
+        if (identifier.length) return identifier;
+        if (status == errSecItemNotFound) {
+            NSString *candidate = UIDevice.currentDevice.identifierForVendor.UUIDString;
+            if (!candidate.length) {
+                status = errSecNotAvailable;
+            } else {
+                status = JobsDeviceIDKeychainSave(设备ID, candidate);
+                if (status == errSecSuccess) return candidate;
+                if (status == errSecDuplicateItem) {
+                    identifier = JobsDeviceIDKeychainLoad(设备ID, &status);
+                    if (identifier.length) return identifier;
+                }
+            }
+        }
+        if (error) *error = [NSError errorWithDomain:NSOSStatusErrorDomain code:status
+                                           userInfo:@{NSLocalizedDescriptionKey:@"设备标识暂不可读或未能持久保存；请稍后重试"}];
+        return nil;
+    }
 }
 
 @end

@@ -8,14 +8,19 @@
 #ifndef JOBS_HEADER_GUARD_DEBUGLOGDESCRIPTION_4812D86079
 #define JOBS_HEADER_GUARD_DEBUGLOGDESCRIPTION_4812D86079
 
+#import <Foundation/Foundation.h>
 #import <objc/runtime.h>
+#import <stdio.h>
+#import <fcntl.h>
+#import <unistd.h>
+
+#import <JobsDebug/NSObject+Extra.h>
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
 #else
 #import "JobsBlock.h"
 #endif
-#import <Foundation/Foundation.h>
 
 #if __has_include(<JobsStringUtils/JobsStringUtilsHeader.h>)
 #import <JobsStringUtils/JobsStringUtilsHeader.h>
@@ -41,11 +46,17 @@
 #import "JobsOCDSL.h"
 #endif
 
-#ifdef DEBUG
+#ifndef JOBS_ENABLE_COLLECTION_LOG_SWIZZLE
+#define JOBS_ENABLE_COLLECTION_LOG_SWIZZLE 0
+#endif
+
+#if DEBUG
 
 @interface NSObject (DebugDescription)
 
 +(jobsByVoidBlock _Nonnull)redirectNSlogToDocumentFolder;
+/// 显式输出有序 JSON；非 JSON 对象、循环或过深容器返回 nil。
+-(JobsRetStrByVoidBlock _Nonnull)convertToJsonString;
 
 @end
 

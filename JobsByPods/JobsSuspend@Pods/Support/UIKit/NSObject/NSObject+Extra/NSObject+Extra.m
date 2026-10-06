@@ -6,17 +6,17 @@
 //
 
 #import "NSObject+Extra.h"
+#import <JobsOCRuntimeKits/JobsWeakAssociation.h>
 
 @implementation NSObject (Extra)
 #pragma mark —— Prop_weak(nullable)id weak_target;
-JobsKey(_weak_target)
 @dynamic weak_target;
 -(id)weak_target{
-    return Jobs_getAssociatedObject(_weak_target);
+    return JobsGetAssociatedWeakObject(self, @selector(weak_target));
 }
 
 -(void)setWeak_target:(id)weak_target{
-    Jobs_setAssociatedRETAIN_NONATOMIC(_weak_target, weak_target)
+    JobsSetAssociatedWeakObject(self, @selector(weak_target), weak_target);
 }
 
 @end

@@ -25,12 +25,14 @@ Pod::Spec.new do |spec|
   spec.platform     = :ios, '12.0'
   spec.requires_arc = true
   spec.prefix_header_contents = <<-PCH
+#ifdef __OBJC__
 #import <JobsOCDefs/JobsDefines.h>
 #import <JobsMakes/JobsMakes.h>
 #import <JobsStringUtils/JobsStringUtils.h>
 #import <JobsByOCPods/JobsByOCPods.h>
 #import <SRWebSocketExtra/SRWebSocketExtra.h>
 #import <XYColorOC/XYColorOC.h>
+#endif
   PCH
   spec.static_framework = true
   spec.module_name      = 'JobsOCTools'
@@ -45,12 +47,13 @@ Pod::Spec.new do |spec|
 
   spec.source_files = [
     'JobsOCTools.h',
-    'Core/**/*.{h,m,mm}'
+    'Core/**/*.{h,m,mm,c}'
   ]
   spec.public_header_files = [
     'JobsOCTools.h',
     'Core/**/*.h'
   ]
+  spec.private_header_files = 'Core/CrashLog/JobsCrashSignalRecorder/*.h'
   spec.header_dir = 'JobsOCTools'
   spec.resource_bundles = {
     'JobsOCToolsCore' => [
@@ -176,5 +179,16 @@ Pod::Spec.new do |spec|
   )
 
   JobsPodspecKitForJobsOCTools.apply_standard_xcconfig(spec)
+
+  spec.resource_bundles = (spec.attributes_hash['resource_bundles'] || {}).merge('JobsOCToolsPrivacy' => ['Resource/PrivacyInfo.xcprivacy'])
+
+  # 生产 source_files 不包含 Tests；测试只由显式 Stability 测试目标编译。
+  spec.exclude_files = Array(spec.attributes_hash['exclude_files']).reject { |path| path.start_with?('Test/', 'Tests/', 'UnitTests/', 'UITests/') }
+  spec.test_spec 'Stability' do |test_spec|
+    test_spec.source_files = 'Tests/**/*.{h,m,mm}'
+    test_spec.resources = 'Tests/**/*.{xib,storyboard,json,plist}'
+    test_spec.frameworks = 'XCTest'
+    test_spec.requires_app_host = true
+  end
 
 end

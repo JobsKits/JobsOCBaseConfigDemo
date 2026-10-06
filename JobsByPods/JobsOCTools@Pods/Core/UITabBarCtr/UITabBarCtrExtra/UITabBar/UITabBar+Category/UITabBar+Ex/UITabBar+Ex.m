@@ -39,6 +39,9 @@
     @jobs_weakify(self)
     return ^(NSInteger index){
         @jobs_strongify(self)
+        if (!self) {
+            return;
+        }
         self.stopAnimationAllLottieView();
         LOTAnimationView *lottieView = [self viewWithTag:888 + index];
         if (lottieView && [lottieView isKindOfClass:LOTAnimationView.class]) {
@@ -55,7 +58,7 @@
         for (int i = 0; i < self.items.count; i++) {
             LOTAnimationView *lottieView = [self viewWithTag:888 + i];
             if (lottieView && [lottieView isKindOfClass:LOTAnimationView.class]) {
-                lottieView.stop;
+                [lottieView stop];
             }
         }
     };
