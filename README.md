@@ -264,6 +264,10 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
 
 本工程通过 [**CocoaPods**](https://cocoapods.org/) 钩子、[**Xcode**](https://developer.apple.com/xcode) Build Phases 和共享 Scheme 挂载脚本。安装前置任务、安装收尾、目标构建阶段与整个 Scheme 的构建后动作分别触发，不能统一视为“编译成功后执行”。
 
+**GitHub / Gitee 提交策略**
+
+同一个工程目录中，`byPods` 向 GitHub 保留完整历史；本地 `codex/gitee-snapshot` 从首次快照建立零点，向 Gitee 的 `byPods` 推送当前已提交的全部文件。提交 hook 自动更新快照，推送 hook 拦截原历史误入 Gitee。Sourcetree 推 Gitee 时选择 `codex/gitee-snapshot → byPods`，取消其它分支与标签；新克隆须重新安装本地 Git 配置。入口、首次操作与容量清理边界见[双远端提交说明](./ScriptsByDevTools/gitee_snapshot.command/README.md)。
+
 **安装前后：入口与行为**
 
 [Podfile](./Podfile) 顶部加载 `./ScriptsByPods/【MacOS】📦Pod Install离线保护.command/jobs_pod_install_offline_guard.rb`；统一调度入口是同目录的 `【MacOS】📦Pod Install离线保护.command`。详见[本地脚本保护说明](<./ScriptsByPods/【MacOS】📦Pod Install离线保护.command/README.md>)。

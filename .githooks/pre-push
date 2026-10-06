@@ -1,0 +1,18 @@
+#!/bin/zsh
+# hook 自述：推送前核对目标与提交链，阻止向 Gitee 重新上传原始历史。
+
+# 保留 Git 传入的 ref 更新标准输入，校验后才允许原推送继续。
+run_snapshot_hook() {
+  local hook_project_root=""
+  hook_project_root="$(git rev-parse --show-toplevel)" || return 1
+  if [[ ! -f "$hook_project_root/ScriptsByDevTools/gitee_snapshot.command/gitee_snapshot.command" ]]; then
+    print -u2 -- '✖ 当前分支缺少快照检查脚本。请回到 byPods 后再推送；已停止推送。'
+    return 1
+  fi
+  /bin/zsh "$hook_project_root/ScriptsByDevTools/gitee_snapshot.command/gitee_snapshot.command" --hook pre-push "$@"
+}
+# 编排推送前的提交链检查。
+main() {
+  run_snapshot_hook "$@" # 校验快照来源、当前内容和远端目标。
+}
+main "$@"

@@ -1,0 +1,19 @@
+#!/bin/zsh
+# hook 自述：byPods amend / rebase 完成后更新 Gitee 快照；不推送，不改快照已有历史。
+
+# 从当前 Git 工作区定位项目工具，重新核对源分支最终文件树。
+run_snapshot_hook() {
+  local hook_project_root=""
+  hook_project_root="$(git rev-parse --show-toplevel)" || return 1
+  if [[ ! -f "$hook_project_root/ScriptsByDevTools/gitee_snapshot.command/gitee_snapshot.command" ]]; then
+    [[ "$(git symbolic-ref --quiet --short HEAD)" == byPods ]] || return 0
+    print -u2 -- '✖ byPods 缺少快照脚本；提交改写已完成，请恢复脚本后同步快照。'
+    return 1
+  fi
+  /bin/zsh "$hook_project_root/ScriptsByDevTools/gitee_snapshot.command/gitee_snapshot.command" --hook post-rewrite "$@"
+}
+# 编排历史重写后的快照更新。
+main() {
+  run_snapshot_hook "$@" # 从用户完成的源分支操作更新 Gitee 专用文件快照。
+}
+main "$@"
