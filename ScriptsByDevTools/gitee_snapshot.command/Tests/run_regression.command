@@ -12,7 +12,7 @@ TEST_ROOT=""
 FIXTURE=""
 ENGINE=""
 LOG_FILE=""
-SNAPSHOT="codex/gitee-snapshot"
+SNAPSHOT="gitee-snapshot"
 NULL_SHA="0000000000000000000000000000000000000000"
 
 # 展示固定用途与作用范围，再按显式入口确认执行。
@@ -133,6 +133,8 @@ create_fixture() {
     fixture_git config --unset core.hooksPath
     source "${ENGINE:h}/gitee_snapshot_setup.zsh"
     expect_success "安装实际配置并保留原配置备份" jobs_install_gitee_snapshot "$FIXTURE"
+    assert_equal "$SNAPSHOT" "$(fixture_git config --get jobs.giteeSnapshot.snapshotBranch)" "安装配置使用单层快照分支名"
+    assert_equal "refs/heads/${SNAPSHOT}:refs/heads/byPods" "$(fixture_git config --get remote.gitee.push)" "本地新快照名仍推送至远端 byPods"
 }
 # 验证独立根提交、递增父链与当前全部跟踪文件的精确树一致性。
 test_snapshot_history() {
@@ -144,6 +146,7 @@ test_snapshot_history() {
     fixture_git add Src/app.m
     expect_success "源提交 hook 自动建立首个快照" fixture_git commit -q -m "first snapshot"
     first="$(fixture_git rev-parse "$SNAPSHOT")"
+    assert_equal "" "$(fixture_git for-each-ref --format='%(refname)' refs/heads/codex/)" "首次快照不创建 codex 分组分支"
     assert_equal 1 "$(fixture_git rev-list --count "$first")" "首快照为单一独立根提交"
     assert_equal "$(fixture_git rev-parse 'byPods^{tree}')" "$(fixture_git rev-parse "$first^{tree}")" "首快照完整保留源码和两张当前报告图"
     expect_rejected "旧源提交不是快照祖先" fixture_git merge-base --is-ancestor "$old_source" "$first"
@@ -188,7 +191,7 @@ test_push_guards() {
     expect_success "在 fixture 暂停自动刷新并推进源码" fixture_git commit -q -m "stale snapshot"
     fixture_git config jobs.giteeSnapshot.enabled true
     expect_rejected "过期快照 --check 失败" /bin/zsh "$ENGINE" --check
-    expect_rejected "过期快照推送被拒绝" fixture_git push gitee "$SNAPSHOT:byPods"
+    expect_rejected "过期快照推送被拒绝" fixture_git push gitee "${SNAPSHOT}:byPods"
     expect_success "显式 hook 刷新过期快照" /bin/zsh "$ENGINE" --hook post-commit
     latest="$(fixture_git rev-parse "$SNAPSHOT")"
     source_tree="$(fixture_git rev-parse 'byPods^{tree}')"
@@ -196,12 +199,12 @@ test_push_guards() {
     fixture_git update-ref "refs/heads/$SNAPSHOT" "$corrupt" "$latest"
     expect_rejected "含源历史父节点的损坏快照 --check 失败" /bin/zsh "$ENGINE" --check
     expect_rejected "损坏快照刷新被拒绝" /bin/zsh "$ENGINE" --hook post-commit
-    expect_rejected "损坏快照强推仍被门禁拒绝" fixture_git push --force gitee "$SNAPSHOT:byPods"
+    expect_rejected "损坏快照强推仍被门禁拒绝" fixture_git push --force gitee "${SNAPSHOT}:byPods"
     fixture_git update-ref "refs/heads/$SNAPSHOT" "$latest" "$corrupt"
     expect_success "GitHub 正常推送完整源历史" fixture_git push origin byPods:byPods
     assert_equal "$(fixture_git rev-parse byPods)" "$(git --git-dir="$TEST_ROOT/github.git" rev-parse byPods)" "GitHub 接收原分支"
     expect_success "GitHub 保持原标签推送行为" fixture_git push origin --tags
-    expect_rejected "专用快照分支不误推 GitHub" fixture_git push origin "$SNAPSHOT:$SNAPSHOT"
+    expect_rejected "专用快照分支不误推 GitHub" fixture_git push origin "${SNAPSHOT}:$SNAPSHOT"
 }
 # 验证 Gitee 分支和标签可原生删除，错误混合推送仍整批拒绝。
 test_gitee_branch_deletion() {
@@ -256,7 +259,7 @@ test_github_reference_deletion() {
     expect_rejected "删除后 GitHub 标签引用确实不存在" github_fixture_git show-ref --verify --quiet refs/tags/fixture-old
 
     remote_before="$(github_fixture_git show-ref)"
-    expect_rejected "GitHub 分支删除混合错误快照推送时整批被拒绝" fixture_git push origin :refs/heads/byPods "refs/heads/$SNAPSHOT:refs/heads/fixture-snapshot-forbidden"
+    expect_rejected "GitHub 分支删除混合错误快照推送时整批被拒绝" fixture_git push origin :refs/heads/byPods "refs/heads/${SNAPSHOT}:refs/heads/fixture-snapshot-forbidden"
     assert_equal "$remote_before" "$(github_fixture_git show-ref)" "GitHub 混合推送被拒绝后全部引用保持"
 }
 # 验证缺少引擎时稳定 hook 仍放行纯删除，混合普通推送则保持拒绝。

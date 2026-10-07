@@ -11,7 +11,7 @@ LOG_FILE=''
 MODE='refresh'
 HOOK_NAME=''
 SOURCE_BRANCH='byPods'
-SNAPSHOT_BRANCH='codex/gitee-snapshot'
+SNAPSHOT_BRANCH='gitee-snapshot'
 TARGET_REMOTE='gitee'
 TARGET_BRANCH='byPods'
 ENABLED='false'
@@ -34,7 +34,7 @@ show_script_intro_and_wait() {
   esac
   local title='gitee_snapshot.command：Gitee 独立历史'
   [[ "$MODE" == hook ]] && return 0
-  local body="1、默认同步当前已提交文件；GitHub 原历史保留。\n2、仅更新本地 codex/gitee-snapshot，远端清理、源分支提交和推送由你操作。\n3、--install 安装本仓库钩子；--check 只读；Git 钩子自动执行。\n4、日志：$LOG_FILE；按 Ctrl+C 取消。"
+  local body="1、默认同步当前已提交文件；GitHub 原历史保留。\n2、仅更新本地 gitee-snapshot，远端清理、源分支提交和推送由你操作。\n3、--install 安装本仓库钩子；--check 只读；Git 钩子自动执行。\n4、日志：$LOG_FILE；按 Ctrl+C 取消。"
   if [[ "$MODE" != hook && -t 1 && -n "${TERM:-}" && "$TERM" != dumb && -z "${NO_COLOR+x}" ]]; then
     printf '\033[1;31m%s\033[0m\n' "$title"
     printf '\033[0;34m%b\033[0m\n' "$body"
@@ -72,7 +72,7 @@ check_environment() {
   [[ "$(repo_git rev-parse --is-inside-work-tree 2>/dev/null)" == true ]] || fail "项目目录不是 Git 工作区：$PROJECT_ROOT"
   ENABLED="$(repo_git config --local --bool --get jobs.giteeSnapshot.enabled 2>/dev/null || print false)"
   SOURCE_BRANCH="$(repo_git config --local --get jobs.giteeSnapshot.sourceBranch || print byPods)"
-  SNAPSHOT_BRANCH="$(repo_git config --local --get jobs.giteeSnapshot.snapshotBranch || print codex/gitee-snapshot)"
+  SNAPSHOT_BRANCH="$(repo_git config --local --get jobs.giteeSnapshot.snapshotBranch || print gitee-snapshot)"
   TARGET_REMOTE="$(repo_git config --local --get jobs.giteeSnapshot.remote || print gitee)"
   TARGET_BRANCH="$(repo_git config --local --get jobs.giteeSnapshot.targetBranch || print byPods)"
   local branch_name

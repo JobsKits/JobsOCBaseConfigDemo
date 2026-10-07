@@ -80,9 +80,9 @@ jobs_install_gitee_snapshot() {
     remote.pushDefault
     branch.byPods.pushRemote
     remote.gitee.push
-    branch.codex/gitee-snapshot.remote
-    branch.codex/gitee-snapshot.merge
-    branch.codex/gitee-snapshot.pushRemote
+    branch.gitee-snapshot.remote
+    branch.gitee-snapshot.merge
+    branch.gitee-snapshot.pushRemote
     jobs.giteeSnapshot.sourceBranch
     jobs.giteeSnapshot.snapshotBranch
     jobs.giteeSnapshot.remote
@@ -93,12 +93,12 @@ jobs_install_gitee_snapshot() {
     .githooks
     origin
     origin
-    refs/heads/codex/gitee-snapshot:refs/heads/byPods
+    refs/heads/gitee-snapshot:refs/heads/byPods
     gitee
     refs/heads/byPods
     gitee
     byPods
-    codex/gitee-snapshot
+    gitee-snapshot
     gitee
     byPods
     true
@@ -128,7 +128,7 @@ jobs_install_gitee_snapshot() {
     fi
   done
   print -r -- '✔ 已安装当前仓库的提交 hook 和防误推检查。'
-  print -r -- '✔ byPods 默认推送 origin；gitee 默认推送 codex/gitee-snapshot → byPods。'
+  print -r -- '✔ byPods 默认推送 origin；gitee 默认推送 gitee-snapshot → byPods。'
   print -r -- 'ℹ 安装不创建快照提交；快照在 byPods 提交后自动同步。'
   print -r -- "ℹ 已安装 hook：$setup_installed_hooks"
   print -r -- "ℹ 原配置备份：$setup_backup_dir/config"
