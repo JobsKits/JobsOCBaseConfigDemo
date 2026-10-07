@@ -8,7 +8,7 @@
 
 ## 前言
 
-本工程在同一个仓库文件夹中管理两条提交历史：[**GitHub**](https://github.com/) 使用原来的 `byPods`，保留全部已有历史；[**Gitee**](https://gitee.com/) 使用本地平铺分支 `gitee-snapshot`，首次从当前已提交内容建立无父提交的零点，之后继续积累新的历史。两条分支共用文件对象，不需要第二份工程目录。
+本工程在同一个仓库文件夹中管理两条提交历史：[**GitHub**](https://github.com/) 使用原来的 `byPods`，保留全部已有历史；[**Gitee**](https://gitee.com/) 使用本地快照分支 `Gitee@snapshot`，首次从当前已提交内容建立无父提交的零点，之后继续积累新的历史。两条分支共用文件对象，不需要第二份工程目录。
 
 快照包含 `byPods` 当前提交中的全部文件，包括 `PodspecDependencyReport` 的报告和 PNG；既有 `.gitignore` 保持原样。未提交、未跟踪和已忽略的文件不会进入快照。这里的“全跟踪”是保留工程现有跟踪范围，不会把 `Pods`、构建缓存等原本忽略的内容加入 Git。
 
@@ -26,20 +26,22 @@
 | 远端 | 本地源分支 | 远端目标分支 | 历史 |
 | --- | --- | --- | --- |
 | `origin`（GitHub） | `byPods` | `byPods` | 保留全部原历史 |
-| `gitee`（Gitee） | `gitee-snapshot` | `byPods` | 从首次快照开始的新历史 |
+| `gitee`（Gitee） | `Gitee@snapshot` | `byPods` | 从首次快照开始的新历史 |
 
 安装把 [`.githooks`](../../.githooks) 的四个入口复制到本仓库 Git 元数据目录的 `jobs-gitee-snapshot-hooks.*`，并将本地 `core.hooksPath` 指向该稳定目录。切换到旧分支也会保留推送检查；删除操作直接放行，不依赖工作区快照脚本。若缺少脚本且包含普通推送，操作会停止，回到 `byPods` 后再推送即可。修改 hook 入口后须重新执行 `--install`。
 
 其它配置只写入当前仓库的 `.git/config`：`byPods` 默认推送 `origin`，`gitee` 默认推送上述快照映射，`jobs.giteeSnapshot.*` 保存源分支、快照分支与目标。原配置备份保存在 Git 元数据目录中的 `jobs-gitee-snapshot-backups.*/config`。如果已有其它有效 hook 或其它 `core.hooksPath`，安装会停止并保留原配置。
 
+新安装默认使用 `Gitee@snapshot`；重新安装会沿用已配置或带有快照标记的分支名，不把自定义名称覆盖为默认名称。分支名的大小写和 `@` 保持原样；标记随本地分支改名保留，用于识别原快照链。
+
 ## 二、首次使用 <a href="#前言" style="font-size:17px; color:green;">🔼</a> <a href="#🔚" style="font-size:17px; color:green;">🔽</a>
 
 1、当前工程已安装本地配置；新克隆或迁移电脑后，在工程根目录执行以下命令，阅读内置自述后按回车安装。安装本身不创建提交。
 
-若已有旧版 `codex/gitee-snapshot`，先改名以保留原快照链，再执行安装；已使用 `gitee-snapshot` 或新克隆时跳过改名。
+若要把旧版快照分支改为 `Gitee@snapshot`，保持检出开发分支 `byPods`，把下方占位名称替换为现有快照分支名，先改名以保留原快照链，再执行安装更新推送映射。已经使用 `Gitee@snapshot` 或新克隆时跳过改名；保留其它自定义名称时也跳过改名，直接安装。
 
 ```zsh
-git branch -m codex/gitee-snapshot gitee-snapshot
+git branch -m '<现有快照分支名>' 'Gitee@snapshot'
 ```
 
 ```zsh
@@ -68,10 +70,10 @@ git push origin byPods
 git push gitee
 ```
 
-第二条命令读取已安装的 `remote.gitee.push`，实际推送 `gitee-snapshot` 到 Gitee 的 `byPods`。也可以明确写出映射：
+第二条命令读取已安装的 `remote.gitee.push`，本工程实际推送 `Gitee@snapshot` 到 Gitee 的 `byPods`。也可以明确写出映射：
 
 ```zsh
-git push gitee refs/heads/gitee-snapshot:refs/heads/byPods
+git push gitee refs/heads/Gitee@snapshot:refs/heads/byPods
 ```
 
 Gitee 旧分支、标签或其它引用仍可能保留旧历史；仅创建本地零点不会自动降低已有远端容量。处理旧引用后，按 [Gitee 仓库体积说明](https://help.gitee.com/repository/base/仓库体积过大，如何减小)检查仓库 GC 与容量。这个远端的 `main` 承载旧 OC 工程；远端记录的保留或删除由你决定，本地 hook 全部放行删除。仓库已因容量锁定时，新快照也不能保证立即获准推送。
@@ -80,16 +82,16 @@ Gitee 旧分支、标签或其它引用仍可能保留旧历史；仅创建本�
 
 在 [**Sourcetree**](https://www.sourcetreeapp.com/) 中继续检出并提交 `byPods`；提交 hook 会自动更新快照，不会切换当前分支，也不会修改暂存区或工作区。
 
-**开发、提交和拉取 GitHub 都保持检出 `byPods`。推送 Gitee 时，在推送窗口选择快照作为源分支，无须检出快照；删除 Gitee 远端分支同样无须切换本地分支。**
+**开发、提交和拉取 GitHub 都保持检出 `byPods`。推送 Gitee 时，在推送窗口选择本地 `Gitee@snapshot`，将远端分支填写为 `byPods`，关闭“推送所有标签”并取消其它分支，无须检出快照；删除 Gitee 远端分支同样无须切换本地分支。**
 
-GitHub 拉取窗口应显示 `origin`、远端分支 `byPods`、拉取到本地分支 `byPods`。如果本地分支显示 `gitee-snapshot`，先取消并切回 `byPods`，否则会出现 `refusing to merge unrelated histories`。快照与 GitHub 原历史故意独立，不能用 `--allow-unrelated-histories` 或 rebase 将两条历史合并。旧 Gitee 跟踪记录显示的待拉取计数不代表 GitHub 开发分支落后。
+GitHub 拉取窗口应显示 `origin`、远端分支 `byPods`、拉取到本地分支 `byPods`。如果本地分支显示 `Gitee@snapshot`，先取消并切回 `byPods`，否则会出现 `refusing to merge unrelated histories`。快照与 GitHub 原历史故意独立，不能用 `--allow-unrelated-histories` 或 rebase 将两条历史合并。旧 Gitee 跟踪记录显示的待拉取计数不代表 GitHub 开发分支落后。
 
 | 推送位置 | 推送窗口选择 |
 | --- | --- |
 | GitHub `origin` | 本地 `byPods` → 远端 `byPods` |
-| Gitee `gitee` | 本地 `gitee-snapshot` → 远端 `byPods`，取消其它分支与标签 |
+| Gitee `gitee` | 本地 `Gitee@snapshot` → 远端 `byPods`，关闭“推送所有标签”并取消其它分支 |
 
-首次提交后刷新分支列表，即可看到与 `byPods` 同级显示的 `gitee-snapshot`。Sourcetree 明确传入的 `byPods:byPods` 会覆盖 Git 默认映射，因此不能只选择 Gitee 后继续推送原分支；`pre-push` 会拦截这个操作并显示正确映射。
+首次提交后刷新分支列表，即可看到 `Gitee@snapshot`。Sourcetree 明确传入的分支映射会覆盖 Git 默认映射，推送前须核对源分支和远端目标；`Gitee@snapshot:byPods` 才是本工程的正确映射。目标填成 `Gitee@snapshot` 或选择原开发分支时，`pre-push` 会拦截并显示正确映射。勾选“推送所有标签”会加入 `--tags`，Gitee 推送须关闭此选项。
 
 现有通用动作“🚀逐层空白提交并Push（识别父Git）”会拉取、合并多个远端并推送当前 `HEAD`，不适用于本工程的两条独立历史。本工程使用上述原生推送窗口，或第二节的命令。
 

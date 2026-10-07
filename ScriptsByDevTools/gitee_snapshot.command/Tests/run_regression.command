@@ -12,7 +12,7 @@ TEST_ROOT=""
 FIXTURE=""
 ENGINE=""
 LOG_FILE=""
-SNAPSHOT="gitee-snapshot"
+SNAPSHOT="Gitee@snapshot"
 NULL_SHA="0000000000000000000000000000000000000000"
 
 # 展示固定用途与作用范围，再按显式入口确认执行。
@@ -158,6 +158,68 @@ test_snapshot_history() {
     assert_equal "$(fixture_git rev-parse 'byPods^{tree}')" "$(fixture_git rev-parse "$second^{tree}")" "第二快照树与当前源树相同"
     assert_equal 5 "$(fixture_git rev-list --count byPods)" "原分支完整保留五个源提交"
 }
+# 验证原生分支改名后重新安装会采用用户新名，并保留原快照提交链。
+test_snapshot_branch_rename() {
+    local previous_snapshot="$SNAPSHOT" renamed_snapshot="Gitee@user-renamed"
+    local snapshot_before="$(fixture_git rev-parse "$SNAPSHOT")" source_before="$(fixture_git rev-parse byPods)"
+    local chain_before="$(fixture_git rev-list --parents "$SNAPSHOT")"
+    expect_success "用户通过 git branch -m 改名本地快照" fixture_git branch -m "$previous_snapshot" "$renamed_snapshot"
+    expect_rejected "原生改名后旧快照引用确实不存在" fixture_git show-ref --verify --quiet "refs/heads/$previous_snapshot"
+    assert_equal "$previous_snapshot" "$(fixture_git config --get jobs.giteeSnapshot.snapshotBranch)" "原生改名不自动修改自定义快照配置"
+    expect_success "重新安装前引擎仍识别改名后的快照链" /bin/zsh "$ENGINE" --check
+    expect_success "重新安装前提交 hook 仍刷新用户当前快照名" /bin/zsh "$ENGINE" --hook post-commit
+    expect_rejected "改名后的提交 hook 不重新创建旧快照分支" fixture_git show-ref --verify --quiet "refs/heads/$previous_snapshot"
+    assert_equal "$snapshot_before" "$(fixture_git rev-parse "$renamed_snapshot")" "改名后相同源树刷新保持原快照提交"
+    expect_success "改名后重新安装识别用户当前快照分支" jobs_install_gitee_snapshot "$FIXTURE"
+    SNAPSHOT="$renamed_snapshot"
+    assert_equal "$SNAPSHOT" "$(fixture_git config --get jobs.giteeSnapshot.snapshotBranch)" "重新安装保留用户指定大小写与特殊字符"
+    assert_equal "refs/heads/${SNAPSHOT}:refs/heads/byPods" "$(fixture_git config --get remote.gitee.push)" "改名后推送映射仍以 byPods 为远端目标"
+    assert_equal "$snapshot_before" "$(fixture_git rev-parse "$SNAPSHOT")" "重新安装不重建快照提交"
+    assert_equal "$chain_before" "$(fixture_git rev-list --parents "$SNAPSHOT")" "改名并安装后完整快照链保持原值"
+    expect_success "再次安装不会恢复默认快照分支名" jobs_install_gitee_snapshot "$FIXTURE"
+    assert_equal "$SNAPSHOT" "$(fixture_git config --get jobs.giteeSnapshot.snapshotBranch)" "已有快照配置名在重复安装后保持"
+    assert_equal "$snapshot_before" "$(fixture_git rev-parse "$SNAPSHOT")" "重复安装仍保留原快照引用"
+    assert_equal "$source_before" "$(fixture_git rev-parse byPods)" "改名和安装均不修改源分支"
+    assert_equal byPods "$(fixture_git symbolic-ref --short HEAD)" "快照改名不切换开发分支"
+    expect_success "改名后的引擎只读检查仍通过" /bin/zsh "$ENGINE" --check
+}
+# 验证旧版仅有根提交标记时，失效的旧配置不会覆盖用户当前快照。
+test_legacy_snapshot_branch_detection() {
+    local snapshot_before="$(fixture_git rev-parse "$SNAPSHOT")" chain_before="$(fixture_git rev-list --parents "$SNAPSHOT")"
+    local refs_before="$(fixture_git show-ref)" config_before
+    fixture_git config --unset "branch.$SNAPSHOT.jobsGiteeSnapshot"
+    fixture_git config jobs.giteeSnapshot.snapshotBranch gitee-snapshot
+    fixture_git config remote.gitee.push refs/heads/gitee-snapshot:refs/heads/byPods
+    expect_rejected "旧版配置指向的旧快照名确实不存在" fixture_git show-ref --verify --quiet refs/heads/gitee-snapshot
+    config_before="$(cksum < "$FIXTURE/.git/config")"
+    expect_success "旧版无分支标记时只读检查可识别当前自定义快照" /bin/zsh "$ENGINE" --check
+    assert_equal "$config_before" "$(cksum < "$FIXTURE/.git/config")" "旧版只读识别不改写失效配置"
+    assert_equal "$refs_before" "$(fixture_git show-ref)" "旧版只读识别不创建或修改引用"
+    expect_success "旧版仅根标记的快照可重新安装恢复映射" jobs_install_gitee_snapshot "$FIXTURE"
+    assert_equal "$SNAPSHOT" "$(fixture_git config --get jobs.giteeSnapshot.snapshotBranch)" "旧版安装采用用户现有自定义名称"
+    assert_equal "refs/heads/${SNAPSHOT}:refs/heads/byPods" "$(fixture_git config --get remote.gitee.push)" "旧版安装修复失效的远端推送映射"
+    assert_equal true "$(fixture_git config --bool --get "branch.$SNAPSHOT.jobsGiteeSnapshot")" "旧版安装补齐用户当前分支标记"
+    assert_equal "$snapshot_before" "$(fixture_git rev-parse "$SNAPSHOT")" "旧版安装保留当前快照提交"
+    assert_equal "$chain_before" "$(fixture_git rev-list --parents "$SNAPSHOT")" "旧版安装保留完整快照链"
+    assert_equal "$refs_before" "$(fixture_git show-ref)" "旧版安装不重建任何旧引用"
+}
+# 验证多个分支标记时拒绝自动选择，失败前后配置和全部引用一致。
+test_ambiguous_snapshot_branch_markers() {
+    local ambiguous_branch="Gitee@ambiguous" config_before refs_before
+    local saved_config="$TEST_ROOT/before-marker-ambiguity.config"
+    cp -p "$FIXTURE/.git/config" "$saved_config"
+    fixture_git branch "$ambiguous_branch" "$SNAPSHOT"
+    fixture_git config "branch.$ambiguous_branch.jobsGiteeSnapshot" true
+    config_before="$(cksum < "$FIXTURE/.git/config")"
+    refs_before="$(fixture_git show-ref)"
+    expect_rejected "多个分支标记时只读检查拒绝自动选择" /bin/zsh "$ENGINE" --check
+    expect_rejected "多个分支标记时重新安装拒绝自动选择" jobs_install_gitee_snapshot "$FIXTURE"
+    assert_equal "$config_before" "$(cksum < "$FIXTURE/.git/config")" "多标记拒绝后配置逐字节保持"
+    assert_equal "$refs_before" "$(fixture_git show-ref)" "多标记拒绝后全部引用保持"
+    cp -p "$saved_config" "$FIXTURE/.git/config"
+    fixture_git update-ref -d "refs/heads/$ambiguous_branch"
+    expect_success "移除 fixture 歧义后原快照检查恢复" /bin/zsh "$ENGINE" --check
+}
 # 无交互 stdin 调用默认入口，验证它不能绕过终端确认。
 simulate_noninteractive_refresh() {
     /bin/zsh "$ENGINE" </dev/null
@@ -174,6 +236,7 @@ test_push_guards() {
     assert_equal "$first_push" "$(git --git-dir="$TEST_ROOT/gitee.git" rev-parse byPods)" "Gitee 接收正确快照"
     remote_before="$(git --git-dir="$TEST_ROOT/gitee.git" show-ref)"
     expect_rejected "显式 byPods:byPods 强推仍被门禁拒绝" fixture_git push --force gitee byPods:byPods
+    expect_rejected "快照推向同名远端分支仍被拒绝" fixture_git push gitee "refs/heads/${SNAPSHOT}:refs/heads/$SNAPSHOT"
     fixture_git tag fixture-old byPods~3
     expect_rejected "Gitee 标签推送被拒绝" fixture_git push gitee --tags
     expect_rejected "直接远端 URL 强推旧历史仍被门禁拒绝" fixture_git push --force "$TEST_ROOT/gitee.git" byPods:byPods
@@ -324,6 +387,9 @@ main() {
     initialize_test_environment # 将 Git 环境与日志隔离到临时目录。
     create_fixture # 构造旧历史、本地远端和实际项目 hooks。
     test_snapshot_history # 验证全量当前树与独立快照父链。
+    test_snapshot_branch_rename # 验证用户改名后重新安装保留分支名与快照链。
+    test_legacy_snapshot_branch_detection # 验证旧配置失效且缺少分支标记时保留现有快照。
+    test_ambiguous_snapshot_branch_markers # 验证多标记拒绝时配置与引用都不改变。
     test_push_guards # 验证推送成功路径及旧历史防误推门禁。
     test_gitee_branch_deletion # 验证 Gitee 删除、恢复与整批拒绝保护。
     test_github_reference_deletion # 验证其它远端分支与标签删除不受阻挡。

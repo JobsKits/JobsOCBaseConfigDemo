@@ -266,7 +266,7 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
 
 **GitHub / Gitee 提交策略**
 
-同一个工程目录中，`byPods` 向 GitHub 保留完整历史；本地平铺分支 `gitee-snapshot` 从首次快照建立零点，向 Gitee 的 `byPods` 推送当前已提交的全部文件。提交 hook 自动更新快照，推送 hook 拦截原历史误入 Gitee。Sourcetree 推 Gitee 时选择 `gitee-snapshot → byPods`，取消其它分支与标签；新克隆须重新安装本地 Git 配置。入口、首次操作与容量清理边界见[双远端提交说明](./ScriptsByDevTools/gitee_snapshot.command/README.md)。
+同一个工程目录中，`byPods` 向 GitHub 保留完整历史；本地快照分支 `Gitee@snapshot` 从首次快照建立零点，向 Gitee 的 `byPods` 推送当前已提交的全部文件。提交 hook 自动更新快照，推送 hook 拦截原历史误入 Gitee。Sourcetree 推 Gitee 时选择 `Gitee@snapshot → byPods`，关闭“推送所有标签”并取消其它分支；分支名保留大小写和 `@`，重新安装沿用现有快照分支名。新克隆须安装本地 Git 配置，旧快照改名后须重新安装以更新推送映射。入口、首次操作与容量清理边界见[双远端提交说明](./ScriptsByDevTools/gitee_snapshot.command/README.md)。
 
 **安装前后：入口与行为**
 
