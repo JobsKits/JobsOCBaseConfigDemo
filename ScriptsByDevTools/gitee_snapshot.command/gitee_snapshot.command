@@ -174,19 +174,23 @@ is_gitee_target() {
   done < <(repo_git remote get-url --all "$TARGET_REMOTE" 2>/dev/null; repo_git remote get-url --push --all "$TARGET_REMOTE" 2>/dev/null)
   return 1
 }
-# 原样检查 Git pre-push 输入，阻止旧历史、标签和错误目标进入 Gitee。
+# 放行所有远端删除；普通推送仍检查快照、历史和目标引用。
 check_push() {
   local push_is_gitee=0 local_ref local_oid remote_ref remote_oid extra
   is_gitee_target "$1" "$2" && push_is_gitee=1
   while IFS=' ' read -r local_ref local_oid remote_ref remote_oid extra; do
     [[ -z "$local_ref" && -z "$local_oid" ]] && continue
     [[ -n "$remote_ref" && -n "$remote_oid" && -z "$extra" ]] || fail 'pre-push 引用输入无效。'
+    if [[ "$local_ref" == '(delete)' && -n "$local_oid" && -z "${local_oid//0/}" ]]; then
+      log "通过检查：允许删除远端引用 $remote_ref。"
+      continue
+    fi
     if [[ "$push_is_gitee" == 0 ]]; then
       [[ "$local_ref" != "refs/heads/$SNAPSHOT_BRANCH" ]] || fail "快照分支只供 $TARGET_REMOTE 推送；GitHub 请推 $SOURCE_BRANCH。"
       continue
     fi
     [[ "$ENABLED" == true ]] || fail 'Gitee 快照保护尚未启用，请运行本脚本 --install。'
-    [[ "$local_ref" == "refs/heads/$SNAPSHOT_BRANCH" && "$remote_ref" == "refs/heads/$TARGET_BRANCH" && -n "${local_oid//0/}" ]] || fail "Gitee 只接受 $SNAPSHOT_BRANCH -> $TARGET_BRANCH；请取消标签推送，旧远端记录由你在网页处理。"
+    [[ "$local_ref" == "refs/heads/$SNAPSHOT_BRANCH" && "$remote_ref" == "refs/heads/$TARGET_BRANCH" && -n "${local_oid//0/}" ]] || fail "Gitee 普通推送只接受 $SNAPSHOT_BRANCH -> $TARGET_BRANCH；请取消其它分支与标签。"
     read_refs
     validate_snapshot_chain
     [[ -n "$SNAPSHOT_OID" && "$local_oid" == "$SNAPSHOT_OID" ]] || fail '待推送对象不是当前快照，请重新选择快照分支。'

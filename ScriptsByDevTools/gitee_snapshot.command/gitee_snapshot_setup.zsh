@@ -129,7 +129,7 @@ jobs_install_gitee_snapshot() {
   done
   print -r -- '✔ 已安装当前仓库的提交 hook 和防误推检查。'
   print -r -- '✔ byPods 默认推送 origin；gitee 默认推送 codex/gitee-snapshot → byPods。'
-  print -r -- 'ℹ 尚未创建快照提交。首次提交 byPods 后，hook 自动建立 Gitee 零点。'
+  print -r -- 'ℹ 安装不创建快照提交；快照在 byPods 提交后自动同步。'
   print -r -- "ℹ 已安装 hook：$setup_installed_hooks"
   print -r -- "ℹ 原配置备份：$setup_backup_dir/config"
 }

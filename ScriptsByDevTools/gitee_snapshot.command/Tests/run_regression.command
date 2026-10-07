@@ -71,6 +71,14 @@ fail_test() {
 fixture_git() {
     command git -C "$FIXTURE" "$@"
 }
+# 将远端引用断言和测试预置固定到临时 Gitee bare 仓库。
+gitee_fixture_git() {
+    command git --git-dir="$TEST_ROOT/gitee.git" "$@"
+}
+# 将 GitHub 删除断言固定到另一个临时 bare 仓库。
+github_fixture_git() {
+    command git --git-dir="$TEST_ROOT/github.git" "$@"
+}
 # 捕获预期成功命令的错误，避免静默中断。
 expect_success() {
     local label="$1"
@@ -195,6 +203,84 @@ test_push_guards() {
     expect_success "GitHub 保持原标签推送行为" fixture_git push origin --tags
     expect_rejected "专用快照分支不误推 GitHub" fixture_git push origin "$SNAPSHOT:$SNAPSHOT"
 }
+# 验证 Gitee 分支和标签可原生删除，错误混合推送仍整批拒绝。
+test_gitee_branch_deletion() {
+    local snapshot_oid="$(fixture_git rev-parse "$SNAPSHOT")" remote_before
+    expect_success "删除回归前推送最新正确快照" fixture_git push gitee
+    expect_success "在 bare fixture 预置 main 分支" gitee_fixture_git update-ref refs/heads/main "$snapshot_oid"
+    expect_success "在 bare fixture 预置自定义分支" gitee_fixture_git update-ref refs/heads/feature/fixture-cleanup "$snapshot_oid"
+    expect_success "在 bare fixture 预置旧 gitee 分支" gitee_fixture_git update-ref refs/heads/gitee "$snapshot_oid"
+    expect_success "在 bare fixture 预置多分支删除目标" gitee_fixture_git update-ref refs/heads/fixture-batch "$snapshot_oid"
+    expect_success "在 bare fixture 预置已有标签" gitee_fixture_git update-ref refs/tags/fixture-kept "$snapshot_oid"
+
+    expect_success "原生删除目标 byPods 被允许" fixture_git push gitee :refs/heads/byPods
+    expect_rejected "删除后 Gitee 目标引用确实不存在" gitee_fixture_git show-ref --verify --quiet refs/heads/byPods
+    expect_success "删除后正确快照可重新推送恢复目标" fixture_git push gitee
+    assert_equal "$snapshot_oid" "$(gitee_fixture_git rev-parse refs/heads/byPods)" "恢复后的目标仍是正确快照"
+
+    expect_success "main 分支原生删除被允许" fixture_git push gitee --delete main
+    expect_rejected "删除后 main 引用确实不存在" gitee_fixture_git show-ref --verify --quiet refs/heads/main
+    expect_success "自定义嵌套分支原生删除被允许" fixture_git push gitee :refs/heads/feature/fixture-cleanup
+    expect_rejected "删除后自定义分支引用确实不存在" gitee_fixture_git show-ref --verify --quiet refs/heads/feature/fixture-cleanup
+    expect_success "旧 gitee 与其它分支可在同批原生删除" fixture_git push gitee :refs/heads/gitee :refs/heads/fixture-batch
+    expect_rejected "同批删除后旧 gitee 引用确实不存在" gitee_fixture_git show-ref --verify --quiet refs/heads/gitee
+    expect_rejected "同批删除后其它分支引用确实不存在" gitee_fixture_git show-ref --verify --quiet refs/heads/fixture-batch
+
+    expect_success "已有 Gitee 标签原生删除被允许" fixture_git push gitee :refs/tags/fixture-kept
+    expect_rejected "删除后 Gitee 标签引用确实不存在" gitee_fixture_git show-ref --verify --quiet refs/tags/fixture-kept
+
+    expect_success "在 bare fixture 预置禁用模式删除目标" gitee_fixture_git update-ref refs/heads/fixture-disabled "$snapshot_oid"
+    fixture_git config jobs.giteeSnapshot.enabled false
+    expect_success "未启用快照时 Gitee 分支仍可删除" fixture_git push gitee --delete fixture-disabled
+    expect_rejected "禁用模式删除后目标引用确实不存在" gitee_fixture_git show-ref --verify --quiet refs/heads/fixture-disabled
+    fixture_git config jobs.giteeSnapshot.enabled true
+
+    expect_success "直接远端 URL 删除目标 byPods 被允许" fixture_git push "$TEST_ROOT/gitee.git" :refs/heads/byPods
+    expect_rejected "直接 URL 删除后目标引用确实不存在" gitee_fixture_git show-ref --verify --quiet refs/heads/byPods
+    expect_success "直接 URL 删除后正确快照仍可恢复目标" fixture_git push gitee
+    assert_equal "$snapshot_oid" "$(gitee_fixture_git rev-parse refs/heads/byPods)" "再次恢复后的目标仍是正确快照"
+
+    remote_before="$(gitee_fixture_git show-ref)"
+    expect_rejected "目标删除混合错误源码推送时整批被拒绝" fixture_git push gitee :refs/heads/byPods refs/heads/byPods:refs/heads/fixture-forbidden
+    assert_equal "$remote_before" "$(gitee_fixture_git show-ref)" "混合推送被拒绝后目标及其它远端引用完全保持"
+    assert_equal "$snapshot_oid" "$(gitee_fixture_git rev-parse refs/heads/byPods)" "混合推送失败没有提前删除目标"
+}
+# 验证非 Gitee 远端同样允许删除，但错误快照推送仍会阻止整批更新。
+test_github_reference_deletion() {
+    local source_oid="$(fixture_git rev-parse byPods)" remote_before
+    expect_success "GitHub 分支原生删除被允许" fixture_git push origin :refs/heads/byPods
+    expect_rejected "删除后 GitHub 分支引用确实不存在" github_fixture_git show-ref --verify --quiet refs/heads/byPods
+    expect_success "删除后 GitHub 完整源历史可重新推送" fixture_git push origin byPods:byPods
+    assert_equal "$source_oid" "$(github_fixture_git rev-parse refs/heads/byPods)" "GitHub 恢复后仍指向完整源历史"
+    expect_success "GitHub 标签原生删除被允许" fixture_git push origin :refs/tags/fixture-old
+    expect_rejected "删除后 GitHub 标签引用确实不存在" github_fixture_git show-ref --verify --quiet refs/tags/fixture-old
+
+    remote_before="$(github_fixture_git show-ref)"
+    expect_rejected "GitHub 分支删除混合错误快照推送时整批被拒绝" fixture_git push origin :refs/heads/byPods "refs/heads/$SNAPSHOT:refs/heads/fixture-snapshot-forbidden"
+    assert_equal "$remote_before" "$(github_fixture_git show-ref)" "GitHub 混合推送被拒绝后全部引用保持"
+}
+# 验证缺少引擎时稳定 hook 仍放行纯删除，混合普通推送则保持拒绝。
+test_missing_engine_deletion() {
+    local snapshot_oid="$1" source_oid="$2" remote_before
+    expect_success "缺引擎 fixture 预置 Gitee 分支" gitee_fixture_git update-ref refs/heads/fixture-without-engine "$snapshot_oid"
+    expect_success "缺引擎 fixture 预置 Gitee 标签" gitee_fixture_git update-ref refs/tags/fixture-without-engine "$snapshot_oid"
+    expect_success "缺引擎 fixture 预置 GitHub 分支" github_fixture_git update-ref refs/heads/fixture-without-engine "$source_oid"
+    expect_success "缺引擎 fixture 预置 GitHub 标签" github_fixture_git update-ref refs/tags/fixture-without-engine "$source_oid"
+
+    expect_success "缺少引擎时 Gitee 分支和标签仍可同批删除" fixture_git push gitee :refs/heads/fixture-without-engine :refs/tags/fixture-without-engine
+    expect_rejected "缺引擎删除后 Gitee 分支确实不存在" gitee_fixture_git show-ref --verify --quiet refs/heads/fixture-without-engine
+    expect_rejected "缺引擎删除后 Gitee 标签确实不存在" gitee_fixture_git show-ref --verify --quiet refs/tags/fixture-without-engine
+    expect_success "缺少引擎时 GitHub 分支和标签仍可同批删除" fixture_git push origin :refs/heads/fixture-without-engine :refs/tags/fixture-without-engine
+    expect_rejected "缺引擎删除后 GitHub 分支确实不存在" github_fixture_git show-ref --verify --quiet refs/heads/fixture-without-engine
+    expect_rejected "缺引擎删除后 GitHub 标签确实不存在" github_fixture_git show-ref --verify --quiet refs/tags/fixture-without-engine
+
+    remote_before="$(gitee_fixture_git show-ref)"
+    expect_rejected "缺引擎 Gitee 删除混合普通推送时整批被拒绝" fixture_git push gitee :refs/heads/byPods refs/heads/byPods:refs/heads/fixture-forbidden
+    assert_equal "$remote_before" "$(gitee_fixture_git show-ref)" "缺引擎 Gitee 混合推送失败后全部引用保持"
+    remote_before="$(github_fixture_git show-ref)"
+    expect_rejected "缺引擎 GitHub 删除混合普通推送时整批被拒绝" fixture_git push origin :refs/heads/byPods refs/heads/byPods:refs/heads/fixture-github-copy
+    assert_equal "$remote_before" "$(github_fixture_git show-ref)" "缺引擎 GitHub 混合推送失败后全部引用保持"
+}
 # 验证刷新不碰真实索引、未提交内容、未跟踪文件与无关分支。
 test_workspace_preservation() {
     local source_before="$(fixture_git rev-parse byPods)" snapshot_before="$(fixture_git rev-parse "$SNAPSHOT")" index_before status_before worktree_before
@@ -220,6 +306,7 @@ test_workspace_preservation() {
     assert_equal "$source_before" "$(fixture_git rev-parse byPods)" "非源分支提交不改源分支"
     mv "$ENGINE" "$TEST_ROOT/missing-engine.command"
     expect_rejected "工作区脚本缺失时稳定 hook 仍阻止 Gitee 强推" fixture_git push --force gitee byPods:byPods
+    test_missing_engine_deletion "$snapshot_before" "$source_before"
     expect_success "旧分支缺少脚本时源提交仍可完成" fixture_git commit -q --allow-empty -m "missing engine on topic"
     mv "$TEST_ROOT/missing-engine.command" "$ENGINE"
 }
@@ -235,6 +322,8 @@ main() {
     create_fixture # 构造旧历史、本地远端和实际项目 hooks。
     test_snapshot_history # 验证全量当前树与独立快照父链。
     test_push_guards # 验证推送成功路径及旧历史防误推门禁。
+    test_gitee_branch_deletion # 验证 Gitee 删除、恢复与整批拒绝保护。
+    test_github_reference_deletion # 验证其它远端分支与标签删除不受阻挡。
     test_workspace_preservation # 验证索引、工作区与其它分支均不受影响。
     report_test_result # 汇总通过结果并保留复现日志。
 }

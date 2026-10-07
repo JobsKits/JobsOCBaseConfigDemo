@@ -1,18 +1,32 @@
 #!/bin/zsh
 # hook 自述：推送前核对目标与提交链，阻止向 Gitee 重新上传原始历史。
 
-# 保留 Git 传入的 ref 更新标准输入，校验后才允许原推送继续。
+# 判断整个批次是否只有原生删除，删除不依赖工作区快照脚本。
+is_deletion_only_push() {
+  local local_ref="" local_oid="" remote_ref="" remote_oid="" extra=""
+  while IFS=' ' read -r local_ref local_oid remote_ref remote_oid extra; do
+    [[ -z "$local_ref" && -z "$local_oid" ]] && continue
+    [[ "$local_ref" == '(delete)' && -n "$local_oid" && -z "${local_oid//0/}" && -n "$remote_ref" && -n "$remote_oid" && -z "$extra" ]] || return 1
+  done <<< "$1"
+  return 0
+}
+# 缓存待推送引用；删除直接放行，普通推送按原始批次检查。
 run_snapshot_hook() {
   local hook_project_root=""
+  local hook_push_input=""
+  hook_push_input="$(cat)" || return 1
+  if is_deletion_only_push "$hook_push_input"; then
+    return 0
+  fi
   hook_project_root="$(git rev-parse --show-toplevel)" || return 1
   if [[ ! -f "$hook_project_root/ScriptsByDevTools/gitee_snapshot.command/gitee_snapshot.command" ]]; then
     print -u2 -- '✖ 当前分支缺少快照检查脚本。请回到 byPods 后再推送；已停止推送。'
     return 1
   fi
-  /bin/zsh "$hook_project_root/ScriptsByDevTools/gitee_snapshot.command/gitee_snapshot.command" --hook pre-push "$@"
+  print -r -- "$hook_push_input" | /bin/zsh "$hook_project_root/ScriptsByDevTools/gitee_snapshot.command/gitee_snapshot.command" --hook pre-push "$@"
 }
-# 编排推送前的提交链检查。
+# 放行远端删除，检查普通推送的提交链。
 main() {
-  run_snapshot_hook "$@" # 校验快照来源、当前内容和远端目标。
+  run_snapshot_hook "$@" # 放行删除并校验普通推送。
 }
 main "$@"
