@@ -62,7 +62,7 @@
 
 ## 二、🌈特色一览 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-> **工程形态**：本工程将 Jobs 自维护能力按职责拆分为本地 [**CocoaPods**](https://cocoapods.org/) 模块管理，通过公开聚合头和显式依赖组合业务；`Core`、`Support`、`Resource` 与依赖报告共同约束模块边界。
+> **工程形态**：OC 新旧工程共享同一套 Jobs 自维护能力与文档标准；新工程按职责拆分为本地 [**CocoaPods**](https://cocoapods.org/) 模块，旧工程将对应源码与资源直接集成到主工程。两种形态都以同一套公开 API、Demo、行为和数据库选型结论为准。
 
 本节只回答“项目最值得复用什么”。具体原理、完整参数和边界说明继续以对应源码、模块 `README.md` 与可运行 Demo 为准。
 
@@ -200,12 +200,13 @@ JobsDebugPanelManager.sharedPanel
     .byEnvironments(@[
         JobsDebugEnvironment.new
             .byIdentifier(@"local")
-            .byTitle(@"本地开发 · 18080")
+            .byTitle(@"本地 Mock")
             .byBaseURL(@"http://127.0.0.1:18080")
     ])
     .byDefaultEnvironmentIdentifier(@"local")
     .byEnvironmentChanged(^(JobsDebugEnvironment *environment) {
-        JobsLog(@"环境切换：%@ · %@", environment.title, environment.baseURL);
+        JobsSetDebugBaseURL(environment.baseURL);
+        YTKNetworkConfig.sharedConfig.byBaseUrl(environment.baseURL);
     })
     .byActions(@[
         JobsDebugAction.new
@@ -218,7 +219,7 @@ JobsDebugPanelManager.sharedPanel
 #endif
 ```
 
-Demo 配置本地 `18080`、[**HTTPBin**](https://httpbin.org/)、[**Postman**](https://postman-echo.com/) 三个环境，使用当前 URL 请求 `/get`，超时 `3` 秒；失败时展示本地示例并可重试，成功后自动使用真实响应。浮层按 Scene 绑定当前业务 Window，按钮以外触摸继续传给业务页面；圆形入口可拖动，长按 `0.8` 秒隐藏至下次启动，拖动不触发点击或长按。圆形按钮再次点按会收起环境页、自定义动作页及弹窗，返回打开前的页面，返回后可重新打开。Demo 的表格、Cell、选中态、页脚与已打开的调试页、环境页、导航和弹窗即时跟随 `JobsThemeCenter` 的有效主题，系统与 App 自选主题不一致时以 App 为准。无导航容器时用带关闭入口的导航容器模态展示；默认菜单不包含全 App 弱网开关，真实网络条件使用 [**Apple Network Link Conditioner**](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/On_Demand_Resources_Guide/TestingPerformance.html)。完整集成、资源许可和中文架构说明见 [JobsDebugPanel README](./JobsByPods/JobsDebugPanel@Pods/README.md)。
+Demo 配置本地 `18080`、[**HTTPBin**](https://httpbin.org/)、[**Postman**](https://postman-echo.com/) 三个环境，使用当前 URL 请求 `/get`，超时 `3` 秒；失败时展示本地示例并可重试，成功后自动使用真实响应。浮层按 Scene 绑定当前业务 Window，按钮以外触摸继续传给业务页面；圆形入口可拖动，长按 `0.8` 秒隐藏至下次启动，拖动不触发点击或长按。圆形按钮再次点按会收起环境页、自定义动作页及弹窗，返回打开前的页面，返回后可重新打开。Demo 的表格、Cell、选中态、页脚与已打开的调试页、环境页、导航和弹窗即时跟随 `JobsThemeCenter` 的有效主题，系统与 App 自选主题不一致时以 App 为准。无导航容器时用带关闭入口的导航容器模态展示；默认菜单不包含全 App 弱网开关，真实网络条件使用 [**Apple Network Link Conditioner**](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/On_Demand_Resources_Guide/TestingPerformance.html)。完整集成、资源许可和中文架构说明见对应形态的 JobsDebugPanel README。
 
 JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均由框架内部管理：
 
@@ -266,7 +267,7 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
 
 **GitHub / Gitee 提交策略**
 
-同一个工程目录中，`byPods` 向 GitHub 保留完整历史；本地快照分支 `Gitee@snapshot` 从首次快照建立零点，向 Gitee 的 `byPods` 推送当前已提交的全部文件。提交 hook 自动更新快照，推送 hook 拦截原历史误入 Gitee。Sourcetree 推 Gitee 时选择 `Gitee@snapshot → byPods`，关闭“推送所有标签”并取消其它分支；分支名保留大小写和 `@`，重新安装沿用现有快照分支名。新克隆须安装本地 Git 配置，旧快照改名后须重新安装以更新推送映射。入口、首次操作与容量清理边界见[双远端提交说明](./ScriptsByDevTools/gitee_snapshot.command/README.md)。
+若当前工程启用 GitHub / Gitee 双远端快照，则由 `byPods` 保留完整历史，由 `Gitee@snapshot` 从零点快照向 Gitee 推送当前提交；提交 / 推送 hook、Sourcetree 目标分支、标签边界和迁移入口以工程内双远端脚本 README 为准。未启用双远端时不新增该配置。
 
 **安装前后：入口与行为**
 
@@ -291,8 +292,8 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
 
 | 时机 / 阶段 | 脚本 / 配置入口 | 实际行为与产物 |
 | --- | --- | --- |
-| 构建中：`Package Markdown Documents` | [JobsMarkdownPackager.rb](./JobsByPods/JobsOCMarkdown@Pods/Support/JobsMarkdownPackager.rb) | 将项目文档与相对资源打入 App 内的 `JobsMarkdownDocuments.bundle`，供 Markdown Demo 离线阅读 |
-| 本地 Pod 编译前：`Generate AppIcon Environment Ribbon` | [JobsAppIconRibbon.podspec](./JobsByPods/JobsAppIconRibbon@Pods/JobsAppIconRibbon.podspec) → `Scripts/JobsAppIconRibbon.sh` | 由 podspec 的 `script_phase` 挂载图标环境绶带生成器 |
+| 构建中：`Package Markdown Documents` | 对应工程的 `JobsMarkdownPackager.rb` | 将项目文档与相对资源打入 App 内的 `JobsMarkdownDocuments.bundle`，供 Markdown Demo 离线阅读；本地 Pod 形态由 Pod 脚本挂载，直接集成形态由主工程 Build Phase 挂载 |
+| 环境绶带生成 | 对应工程的 `JobsAppIconRibbon` 脚本或 podspec | 本地 Pod 形态通过 `script_phase`，直接集成形态通过主工程 Build Phase 生成环境绶带 |
 | 主 App 最后一个 Build Phase：`Save Build IPA` | [save_device_ipa_after_build.command](./ScriptsByDevTools/save_device_ipa_after_build.command/save_device_ipa_after_build.command) / [使用说明](./ScriptsByDevTools/save_device_ipa_after_build.command/README.md) | 真机生成 `./build/真机.ipa`，模拟器生成 `./build/模拟器.ipa`；打包成功后先清空 build 全部内容，只保留本次包 |
 | Scheme Build 开始 / 结束 | `XBT Build Timer Start / End` → 外部 `xbt-build-hook.sh start / end` | 记录开始、结束时间和耗时；写入用户目录下的 `.xcode-build-timer/state/` 状态及历史日志 |
 
@@ -330,21 +331,21 @@ CocoaPods 生成的 `[CP] Check Pods Manifest.lock`、`[CP] Embed Pods Framework
 - IPA 留存：Xcode 构建日志与系统临时目录中的 `save_device_ipa_after_build.log`。
 - 排查时先确认触发入口，再检查对应日志；目录中存在脚本，不代表它已被当前 Podfile、target 或 Scheme 挂载。
 
-### 2.7、自建 Pods 稳定性升级与编译门禁 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### 2.7、Jobs 自维护组件稳定性与编译门禁 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-本轮实施与真实验证记录见 [JobsByPods 升级实施与编译验证](./JobsByPods升级实施与编译验证.md)，升级前问题基线见 [稳定性评估报告](./JobsByPods自建Pod稳定性与升级评估报告.md)。109 个自建 Pod 按单元编译后再构建主工程；受影响 Pod 使用自有 `Stability` 测试目标。验证脚本保存源码指纹、完整命令、退出码与 XCTest 产物，详见 [编译与回归门禁](./ScriptsByPods/jobs_pods_stability_verify.rb/README.md)。
+本地 Pods 形态按 Pod 单元编译后再构建主工程；直接集成形态按主工程源码、资源、Build Phases 与 target membership 验证。两种形态都要保留源码指纹、完整命令、退出码与 XCTest 产物，验证入口和报告以当前工程的 `ScriptsByPods`、稳定性报告和可运行 Demo 为准。
 
-当前收口范围为109 Pods×2配置、48个Stability / 49次iOS运行及10个Mac回归；原31编号与9条条件方向的实现和证据边界见[适用项对照](./JobsByPods升级实施与编译验证.md#original-requirement-completion)。新旧主工程及D0文档重建、实际App资源和冷启动已有同指纹真实证据；对应交付的最后封包与D1实测结果见[实施报告的最终验收记录](./JobsByPods升级实施与编译验证.md)和外部 `work/JobsPodsStability/final-proof-8218cf43/final-seal.json`。历史通过与局部门禁不代替其明确验收范围。T04采用渐进baseline，设备/网络集成与ASan/TSan限制在实施报告明确保留。
+对象生命周期、运行时调用、定时器终态、唯一 ID、事务与文件写入、音频失败清理、开屏缓存、刷新和组件状态都要覆盖；历史通过、局部门禁和基线报告不能代替当前形态的最终真实退出码与产物检查。
 
-本轮只在需要时升级有证据的内核；全部 Pod 同步模块结构与验证说明。验证安装使用 `JOBS_POD_INSTALL_SKIP_VENDOR_PATCHES=1` 跳过 Podfile 中供应商源码补丁；`JOBS_POD_INSTALL_PURE=1` 仅跳过可选后置增强，顶部异步离线前置任务仍运行。`post_install` 将 Jobs 自有 Scene delegate 和 manifest 挂到 CocoaPods 测试宿主，以支持新 SDK 的 Scene 生命周期要求。
+本轮只在需要时升级有证据的内核；本地 Pods 同步模块结构与验证说明，直接集成形态同步源码与工程引用。验证安装可使用 `JOBS_POD_INSTALL_SKIP_VENDOR_PATCHES=1` 和 `JOBS_POD_INSTALL_PURE=1` 跳过可选分支，但正常安装行为和供应商源码边界保持不变。
 
 ### 2.8、Xcode 手动运行 Pod Install <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 [手动安装脚本](<./ScriptsByPods/【MacOS@Xcode】🫘打开终端运行Pod Install.command/【MacOS@Xcode】🫘打开终端运行Pod Install.command>)与[使用说明](<./ScriptsByPods/【MacOS@Xcode】🫘打开终端运行Pod Install.command/README.md>)位于 `ScriptsByPods`。主工程的 `ScriptsByPods → 【MacOS@Xcode】🫘打开终端运行Pod Install.command` 分组只保存脚本和说明文件的相对引用，不属于 App target，也没有 Build Phase 或 Scheme 自动触发动作。
 
-当前用户通过 `Xcode → Behaviors → 🫘OC 新工程 · Pod Install` 随时运行；无交互终端时由系统 `open` 命令打开 Terminal，在终端显示内置自述和实际项目目录，**回车执行，Ctrl+C 取消**。也可在 Finder 双击脚本；无需 Sourcetree 参数或 AppleScript 自动化授权。
+当前用户通过 `Xcode → Behaviors → 对应 OC 工程 · Pod Install` 随时运行；无交互终端时由系统 `open` 命令打开 Terminal，在终端显示内置自述和实际项目目录，**回车执行，Ctrl+C 取消**。也可在 Finder 双击脚本；无需 Sourcetree 参数或 AppleScript 自动化授权。
 
-脚本按自身目录的 `../..` 定位工程根目录，不依赖 Xcode 启动工作目录。确认后检查 `Podfile` 和 `pod --version`，只使用已有 CocoaPods / Ruby 环境，不自动安装或升级工具链。`pod install` 会按现有 Podfile 更新 `Pods/`、锁文件和工作空间，并执行已有安装钩子；安装输出实时显示，安装命令的失败退出码原样返回，完整输出同步写入系统临时目录中的 `jobs-oc-new-pod-install.log`，每次确认后覆盖此日志。打开 Terminal 成功只表示入口已启动，依赖安装结果以终端和日志为准。
+脚本按自身目录的 `../..` 定位工程根目录，不依赖 Xcode 启动工作目录。确认后检查 `Podfile` 和 `pod --version`，只使用已有 CocoaPods / Ruby 环境，不自动安装或升级工具链；本地 Pods 形态执行 `pod install`，直接集成形态跳过该步骤。安装输出实时显示，失败退出码原样返回，日志写入系统临时目录中的 `jobs-oc-pod-install.log`。
 
 Behaviors 属于 Xcode 当前用户设置，工程引用不会自动建立其它电脑上的菜单。迁移整个项目时保留脚本包层级，并在 `Xcode → Behaviors → Edit Behaviors… → Custom` 重新选择脚本文件；快捷键可按个人习惯设置。本入口独立于上节的自动挂载，语法与隔离假命令验证不执行真实依赖安装或构建。
 
@@ -2671,7 +2672,7 @@ classDiagram
   * 展示 `supportsMultipleScenes`、`connectedScenes`、`openSessions`、会话 ID、角色和激活状态
   * 用每个 Scene 独立计数验证状态隔离，并由 `stateRestorationActivityForScene:` 恢复
   * 实时记录连接、前后台、活跃、失活、断开等 Scene 生命周期事件
-* `JobsOCSceneCoordinator` 按 `UISceneSession.persistentIdentifier` 管理 Demo 状态；当前工程保持主工程 Demo + 现有本地 Pods 基座。
+* `JobsOCSceneCoordinator` 按 `UISceneSession.persistentIdentifier` 管理 Demo 状态；OC 新旧工程都保持主工程 Demo，并按各自形态接入公共能力基座。
 * `NSUserActivity` 的带参构造统一由 `NSUserActivity.initByActivityType(activityType)` 唤起，标题、`userInfo`、handoff / prediction 开关和生命周期动作继续走实例 `byXxx(...)`；时间格式器由 `jobsMakeDateFormatter(config Block)` 创建并在 Block 内配置，调用方不再直接 `new` / `alloc-init`。
 * 已移除全局 `SceneDelegate *` 缓存。`AppDelegate` 仍只管理进程级能力；每个 `SceneDelegate` 持有自己的 `UIWindow`。
 * `UIApplicationSupportsMultipleScenes` 只是声明；运行时还要以 `UIApplication.sharedApplication.supportsMultipleScenes` 为准。建议在支持多窗口的 iPad 环境验证完整流程。
@@ -7341,6 +7342,46 @@ NSLog(@"%p %p %p %p" %p", m1, m2, m3, m4, m5);
   ```
 
 ### 53、🗄️ 数据库 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+#### 53.1、<font id=数据库高频IO对比>数据库抽象层与高频 I/O 对比</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+下面的方案大多可以完成普通增删改查，真正拉开差异的是连接 / Context 模型、事务边界、锁等待、对象物化、通知和迁移。表中的“高频 I/O”指消息、事件、缓存索引或同步任务持续读写同一份本地数据；没有统一设备、数据量、索引、事务大小和 Release 配置时，不把任何方案写成绝对速度冠军。
+
+| 方案 | 本质与语言 | 高频读取 | 高频写入 | 并发与事务 | 检索与模型 | 维护边界 |
+| --- | --- | --- | --- | --- | --- | --- |
+| [**SQLite**](https://sqlite.org/wal.html) | 关系型 C 引擎；iOS 系统自带，直接面向 SQL / 文件 | 建好索引、预编译语句和合理分页后开销可控；WAL 允许读者不阻塞普通写入 | 必须复用连接、分批提交事务；WAL 仍只有一个写者，长事务会放大锁等待 | WAL 支持并发读，但写入仍串行；显式设置 busy timeout、事务和同步级别 | 原生 JOIN、索引、FTS5、聚合和排序最完整 | 表结构、索引、迁移和线程调度由业务负责，文件格式便携 |
+| [**GRDB.swift**](https://github.com/groue/GRDB.swift) | Swift 的 SQLite 访问、Record、Query Interface 和迁移层，不是新引擎 | DatabasePool 以一个写连接配多个读连接；适合前台列表读与后台同步并行 | 用 writer 的 write 事务批量提交；DatabaseQueue 会把读写都串行化 | Pool 依赖 SQLite WAL，读者数量可配置；Queue 简单但长事务会挡住读 | SQL、类型安全查询、Record、FTS 和观察均可组合 | 迁移、SQL 和 schema 仍需维护；Swift 版本、Xcode 和 GRDB 版本要一起锁定 |
+| [**WCDB**](https://github.com/Tencent/wcdb) | 腾讯基于 SQLite / SQLCipher 的跨语言框架，提供 Swift / Objective-C ORM 与 WINQ | 连接池支持并发读，适合消息列表、索引表和后台同步同时工作 | 批量写入、事务和 SQLite 配置已做移动端封装；仍需控制事务大小 | 官方提供 read-read / read-write 并发连接池，并处理常见锁与性能场景 | ORM、WINQ、全文检索、多语言分词、索引和关系查询 | 依赖体积和学习成本较高；加密、修复、迁移能力强但要持续跟踪 SDK 版本 |
+| [**FMDB**](https://github.com/ccgus/FMDB) | Objective-C 对 SQLite 的薄封装，仍以 SQL 为中心 | FMDatabase 不能跨线程共享；FMDatabaseQueue 线程安全但用一个串行队列执行 | 通过 inTransaction 批量提交；每行一次 executeUpdate 会放大队列与提交开销 | FMDatabaseQueue 会阻塞并串行化读写，长查询会影响等待中的 UI 读取 | SQL、JOIN、FTS 等 SQLite 能力都在；没有对象图和自动迁移 | 连接、队列、迁移、映射和错误处理由业务维护 |
+| [**JQFMDB**](https://github.com/gaojunquan/JQFMDB) | FMDB 之上的 Objective-C model / dictionary 便捷层 | 方便但不要把“线程安全”当成并发读性能；实际仍取决于底层 FMDB queue 和版本实现 | 必须确认当前版本是否把多行操作包进同一事务；否则逐条封装会隐藏 I/O 成本 | 继承 FMDB 的单连接 / 串行队列约束，不能据包装 API 推断连接池能力 | 适合简单模型映射；复杂 JOIN、FTS 和索引仍回到 SQLite / FMDB | 仓库维护节奏较慢，必须锁定源码版本并审查迁移、事务和异常语义 |
+| [**Realm**](https://github.com/realm/realm-swift) | 面向对象的移动数据库；Swift / Objective-C 模型、托管结果和变更通知 | 查询结果可懒加载并持续观察，适合本地对象列表；跨线程不能直接传递托管对象 | 将一批对象放入同一个 write transaction；单写者和通知合并仍需考虑 | 对象、Results 和 Realm 实例有线程 / actor 隔离；用冻结对象或安全引用跨边界 | 对象查询、链接和通知方便；不以 SQL JOIN / FTS 为主要编程模型 | schema version、migration、文件加密和线程交接由应用负责 |
+| [**Core Data**](https://developer.apple.com/documentation/coredata) | Apple 对象图与持久化栈；SQLite 只是可选 persistent store | Context 的 fault、fetchBatchSize 和后台 Context 可降低内存与主线程压力 | NSBatchInsertRequest / NSBatchUpdateRequest / NSBatchDeleteRequest 适合大批量；普通逐对象 save 要分批 | 每个 NSManagedObjectContext 遵守自己的 queue；用 perform / performAndWait，不跨 Context 直接传对象 | NSPredicate、关系和对象图强；SQL 不是公开稳定接口 | model version、轻量迁移、合并策略、冲突和 context 生命周期复杂 |
+| [**SwiftData**](https://developer.apple.com/documentation/swiftdata) | Swift 原生 @Model、ModelContainer 和 ModelContext；iOS 17+ | FetchDescriptor、batchSize 和 Query 适合分批读取；SwiftUI 环境 Context 默认绑定 MainActor | 用后台 Context / actor 分批 insert、delete、save；避免把高频导入塞进 UI Context | ModelContext 受其 actor / queue 约束；模型实例不能随意跨隔离域传递 | 类型安全 predicate、关系和观察方便；不能依赖 raw SQL 或底层 SQLite 表结构 | schema migration、autosave、CloudKit 配置和系统版本门槛需要一起验证 |
+| [**ObjectBox Swift**](https://github.com/objectbox/objectbox-swift) | 生成代码的对象数据库；Swift 实体、Box、Query 和 observer | Query / relation / observer 面向对象，适合按实体和索引读取 | 批量 put 或显式异步事务明显优于每个对象一次隐式事务；导入任务应离开主线程 | 事务保证 ACID；Store、Box、Query 和 observer 的线程使用遵循当前 SDK API | 条件查询、关系和变更观察方便；不提供 SQLite 风格的任意 JOIN | 实体 ID、生成文件、模型 JSON 和 SDK 版本必须一起维护；本工程只落 Swift 生成链 |
+
+#### 53.2、<font id=数据库具体场景矩阵>具体高频 I/O 场景选型矩阵</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+| 具体场景 | 首选方案 | 可选方案 | 必须落实的 I/O 边界 |
+| --- | --- | --- | --- |
+| 后台同步持续写入，前台消息列表同时滚动读取 | GRDB DatabasePool、WCDB、原生 SQLite WAL | Core Data 后台 Context、Realm | 读写都放后台；写入合并成短事务；记录 busy / lock 等待；FMDatabaseQueue 不要包住长查询 |
+| 首次导入 1 万条以上消息、日志或缓存索引 | SQLite / GRDB / WCDB；Swift 项目也可评估 ObjectBox 批量写 | Realm、Core Data batch insert | 预编译、分块和单次事务；不要逐条 commit；导入期间关闭不必要的逐条 UI 通知 |
+| 多表 JOIN、全文搜索、排序统计、分页 | SQLite、GRDB、WCDB | FMDB / JQFMDB 直接使用 SQLite SQL | 先设计联合索引 / FTS；限制列和分页窗口；对象型方案不要强行模拟复杂 JOIN |
+| 需要对象图和列表自动感知增删改 | Realm、Core Data、SwiftData | ObjectBox observer | 观察回调做去抖和批量刷新；托管对象只在所属线程 / actor 使用 |
+| Objective-C 老业务只想快速接入本地 SQL | FMDB；已有 model 封装可用 JQFMDB | WCDB Objective-C、原生 SQLite | 统一 FMDatabaseQueue 或等价队列；所有批量写走 inTransaction；补齐 schema migration |
+| Swift model-first，尽量少写 SQL | ObjectBox、Realm | SwiftData、Core Data | 先确认最低 iOS、代码生成、实体 ID、线程 / actor 和观察语义；高频导入使用批量 API |
+| 需要本地加密、全文检索和损坏修复工具 | WCDB | Realm 文件加密；SQLite 自行组合 SQLCipher | 分开验证密钥生命周期、备份恢复、迁移耗时和灾备；不能只看 CRUD Demo |
+| Swift 与 Objective-C 共享同一份表结构 | SQLite、WCDB、Realm、Core Data | FMDB / GRDB 分别封装同一 SQLite 文件 | 固定 schema、迁移顺序和文件访问策略；SwiftData 与本工程 ObjectBox 生成链按 Swift 边界使用 |
+| 只有少量设置项、低频读写 | UserDefaults 或 Keychain | 任一数据库仅在已有数据层统一时使用 | 不要为低频键值读写引入对象图、连接池和迁移成本 |
+
+#### 53.3、<font id=数据库高频IO落地规则>高频 I/O 落地规则与实测口径</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+- SQLite 系列先决定 WAL、synchronous、busy timeout、连接数、事务大小和索引，再谈性能；GRDB 的 DatabasePool、WCDB 的连接池和 Core Data / SwiftData 的 Context / actor 都不能在主线程承载持续导入。
+- 每一类数据库都要把“单条写入”和“批量事务”分开测；至少记录写入吞吐、读取吞吐、p50 / p95 延迟、锁等待或 SQLITE_BUSY、峰值内存、数据库文件大小和耗电。
+- 基准固定同一设备、同一 Release 配置、同一数据集、同一索引、同一 payload、同一事务批量大小和同一查询结果数量；通知、日志和 UI 刷新必须单独计入或单独排除。
+- 任何托管对象、NSManagedObject、ModelContext 模型或 ObjectBox Query 都不能跨线程 / actor 直接传递；跨隔离域传主键、不可变快照或框架规定的安全引用。
+- 迁移、恢复、加密打开、首次建索引和冷启动都要单独记录；不能只用热缓存 CRUD 的结果代表真实 App 行为。
+
+官方资料： [**SQLite WAL**](https://sqlite.org/wal.html)、[**GRDB 并发与 DatabasePool**](https://github.com/groue/GRDB.swift/blob/master/Documentation/WhyAdoptGRDB.md)、[**WCDB 特性与连接池**](https://github.com/Tencent/wcdb)、[**FMDB 队列与线程安全**](https://github.com/ccgus/FMDB#using-fmdatabasequeue-and-thread-safety)、[**Realm Swift**](https://github.com/realm/realm-swift)、[**Core Data**](https://developer.apple.com/documentation/coredata)、[**SwiftData ModelContext**](https://developer.apple.com/documentation/swiftdata/modelcontext)、[**ObjectBox 事务**](https://docs.objectbox.io/transactions)。
 
 * [**FMDB**](https://github.com/ccgus/fmdb)
 
