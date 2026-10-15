@@ -48,8 +48,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MyAppTools : NSObject
 
 Prop_assign()FMLoginWork loginWork;
-/// 仅仅为了iOS 13 版本向下兼容而存在
+/// 仅供 iOS 12 及以下旧宿主使用；iOS 13+ 返回 nil。
 -(JobsRetWindowByVoidBlock _Nonnull)makeAppDelegateWindow;
+/// 兼容旧调用，固定返回 nil；当前窗口从 view.window 获取。
 -(JobsRetWindowByVoidBlock _Nonnull)makeSceneDelegateWindow;
 -(void)appDelegateWindowBlock:(jobsByWindowBlock _Nullable)appDelegateWindowBlock
      sceneDelegateWindowBlock:(jobsByWindowBlock _Nullable)sceneDelegateWindowBlock;
@@ -58,9 +59,11 @@ Prop_assign()FMLoginWork loginWork;
 
 NS_ASSUME_NONNULL_END
 
-NS_INLINE __kindof UIWindow *_Nonnull
+NS_INLINE __kindof UIWindow *_Nullable
 jobsMakeAppDelegateWindow(jobsByWindowBlock _Nonnull block){
     UIWindow *data = ((MyAppTools *)MyAppTools.jobsSharedManager()).makeAppDelegateWindow();
-    if (block) block(data);
+    if (data && block) {
+        block(data);
+    }
     return data;
 }

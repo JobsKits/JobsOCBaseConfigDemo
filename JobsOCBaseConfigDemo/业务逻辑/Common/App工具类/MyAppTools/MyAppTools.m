@@ -10,7 +10,6 @@
 @interface MyAppTools ()
 
 Prop_strong()UIWindow *appDelegateWindow;
-Prop_strong()UIWindow *sceneDelegateWindow;
 
 @end
 
@@ -68,19 +67,22 @@ static dispatch_once_t MyAppToolsOnceToken;
     @jobs_weakify(self)
     return ^UIWindow *{
         @jobs_strongify(self)
-        if (!self) return nil;
-        return self.sceneDelegateWindow;
+        // 单例不能代表任何一个 Scene 的窗口。
+        return nil;
     };
 }
 
 -(void)appDelegateWindowBlock:(jobsByWindowBlock _Nullable)appDelegateWindowBlock
      sceneDelegateWindowBlock:(jobsByWindowBlock _Nullable)sceneDelegateWindowBlock{
     if (appDelegateWindowBlock) appDelegateWindowBlock(self.appDelegateWindow);
-    if (sceneDelegateWindowBlock) sceneDelegateWindowBlock(self.sceneDelegateWindow);
+    if (sceneDelegateWindowBlock) sceneDelegateWindowBlock(nil);
 }
 #pragma mark —— lazyLoad
 /// 在使用sceneDelegate的情况下，仅仅为了iOS 13 版本向下兼容而存在
 -(UIWindow *)appDelegateWindow{
+    if (@available(iOS 13.0, *)) {
+        return nil;
+    }
     if(!_appDelegateWindow){
         @jobs_weakify(self)
         _appDelegateWindow = jobsMakeWindow(^(__kindof UIWindow * _Nullable data) {
@@ -89,18 +91,10 @@ static dispatch_once_t MyAppToolsOnceToken;
                 .byWindowFrame(UIScreen.mainScreen.bounds)
                 .byRootViewController(RootViewController)
                 .byMakeKeyAndVisible();
-        });AppDelegate.tabBarVC.ppBadge(YES);
-    };return _appDelegateWindow;
+        });
+        AppDelegate.tabBarVC.ppBadge(YES);
+    }
+    return _appDelegateWindow;
 }
-
-//-(UIWindow *)sceneDelegateWindow{
-//    if(!_sceneDelegateWindow){
-//        SceneDelegate *sceneDelegate = (SceneDelegate *)getSysSceneDelegate();
-//        _sceneDelegateWindow = UIWindow.initByScene(sceneDelegate.windowScene);
-//        _sceneDelegateWindow.frame = sceneDelegate.windowScene.coordinateSpace.bounds;
-//        _sceneDelegateWindow.rootViewController = self.rootViewControllerBy(FMHomeVC.new);;
-//        [_sceneDelegateWindow makeKeyAndVisible];
-//    };return _sceneDelegateWindow;
-//}
 
 @end

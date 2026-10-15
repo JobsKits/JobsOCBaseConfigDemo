@@ -52,6 +52,8 @@ UITabBarControllerDelegate
 ,BaseProtocol
 >
 
+/// Scene 宿主传入独立配置；不读 AppDelegate 的窗口和控制器缓存。
+-(instancetype)initWithConfiguration:(JobsCustomTabBarConfig *)configuration;
 -(jobsByNSUIntegerBlock _Nonnull)customSelectIndex;
 -(JobsRetJobsCustomTabBarVCByDelegateBlock _Nonnull)byDelegate;
 -(JobsCustomTabBar *)customTabBar;

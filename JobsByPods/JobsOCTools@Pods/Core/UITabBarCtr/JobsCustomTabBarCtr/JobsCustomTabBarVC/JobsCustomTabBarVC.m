@@ -51,6 +51,8 @@ static void JobsCustomTabBarVCBackTo(NSUInteger index) {
 @interface JobsCustomTabBarVC ()
 
 Prop_strong()JobsCustomTabBar *customTabBar;
+Prop_strong(nullable)JobsCustomTabBarConfig *sceneConfiguration;
+Prop_assign()BOOL didInstallInitialConfiguration;
 
 @end
 
@@ -62,6 +64,12 @@ Prop_strong()JobsCustomTabBar *customTabBar;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsCustomTabBarVC
 
 @implementation JobsCustomTabBarVC
+-(instancetype)initWithConfiguration:(JobsCustomTabBarConfig *)configuration{
+    if (self = [super init]) {
+        _sceneConfiguration = configuration;
+    }
+    return self;
+}
 -(JobsRetJobsCustomTabBarVCByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^__kindof JobsCustomTabBarVC *_Nullable(id<UITabBarControllerDelegate> _Nullable delegate){
@@ -99,10 +107,6 @@ static dispatch_once_t JobsCustomTabBarVCOnceToken;
         JobsCustomTabBarVCInstance = nil;
     };
 }
-/// 防止外部使用 alloc/init 等创建新实例
-+ (instancetype)allocWithZone:(struct _NSZone *)zone {
-    return (((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsCustomTabBarVC.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager)))();
-}
 /// 防止外部调用copy
 -(instancetype)copyWithZone:(NSZone *)zone{
     return self;
@@ -123,7 +127,6 @@ static dispatch_once_t JobsCustomTabBarVCOnceToken;
         @jobs_strongify(self)
         if (!self) return;
         [super loadView];
-        self.byViewControllers(JobsCustomTabBarVCViewControllers());
     };
 }
 
@@ -137,13 +140,9 @@ static dispatch_once_t JobsCustomTabBarVCOnceToken;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-            [super viewDidLoad];
-            self.tabBar.byHidden(YES);
-            self.byDelegate(self);
-        //    self.view.byBgColor(JobsGreenColor);
-            self.customTabBar.byAlpha(1);
-            extern NSUInteger DefaultIndex;
-            self.bySelectedIndex(DefaultIndex);
+        [super viewDidLoad];
+        self.tabBar.byHidden(YES);
+        self.byDelegate(self);
     };
 }
 
@@ -157,8 +156,22 @@ static dispatch_once_t JobsCustomTabBarVCOnceToken;
     return ^(BOOL animated){
         @jobs_strongify(self)
         if (!self) return;
+        // UIKit 初始化可能提前加载 view；首次外观传播前才安装已注入的配置。
+        if (!_didInstallInitialConfiguration) {
+            _didInstallInitialConfiguration = YES;
+            if (!self.viewControllers.count) {
+                self.byViewControllers(self.sceneConfiguration ? self.sceneConfiguration.viewControllers : JobsCustomTabBarVCViewControllers());
+            }
+            self.customTabBar.byAlpha(1);
+            extern NSUInteger DefaultIndex;
+            self.bySelectedIndex(self.sceneConfiguration ? 0 : DefaultIndex);
+        }
         [super viewWillAppear:animated];
-        JobsCustomTabBarVCBackTo(self.selectedIndex);
+        if (self.sceneConfiguration) {
+            self.customSelectIndex(self.selectedIndex);
+        } else {
+            JobsCustomTabBarVCBackTo(self.selectedIndex);
+        }
     };
 }
 
@@ -242,7 +255,13 @@ didSelectViewController:(UIViewController *)viewController{
     @jobs_weakify(self)
     return ^(NSUInteger index){
         @jobs_strongify(self)
+        if (index >= self.viewControllers.count) {
+            return;
+        }
         self.bySelectedIndex(index);
+        [self.sceneConfiguration.tabBarItems enumerateObjectsUsingBlock:^(__kindof UIButton *button, NSUInteger buttonIndex, BOOL *stop) {
+            button.bySelected(buttonIndex == index);
+        }];
         /// TODO 系统的 UITabBarController 的切换方法没有暴露出来，但是实际情况是最好监控这个方法的运行机制，所以期望有一个高仿系统 self.selectedIndex 切换的逻辑
         JobsLog(@"");
     };
@@ -250,7 +269,7 @@ didSelectViewController:(UIViewController *)viewController{
 #pragma mark —— LazyLoad
 -(JobsCustomTabBar *)customTabBar{
     if(!_customTabBar){
-        _customTabBar = jobsMakeCustomTabBar(^(__kindof JobsCustomTabBar * _Nullable customTabBar) {
+        _customTabBar = jobsMakeCustomTabBarWithConfiguration(self.sceneConfiguration, ^(__kindof JobsCustomTabBar * _Nullable customTabBar) {
             customTabBar
                 .configMasonryBy(self.view)
                 .byBgColor(JobsClearColor);

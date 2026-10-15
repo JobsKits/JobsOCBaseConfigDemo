@@ -20,9 +20,18 @@ static JobsCustomTabBarConfig *JobsCustomTabBarAppConfig(void) {
 
 @interface JobsCustomTabBar ()
 
+Prop_strong(nullable)JobsCustomTabBarConfig *sceneConfiguration;
+
 @end
 
 @implementation JobsCustomTabBar
+-(instancetype)initWithConfiguration:(JobsCustomTabBarConfig *)configuration{
+    if (self = [super initWithFrame:CGRectZero]) {
+        _sceneConfiguration = configuration;
+        self.setup();
+    }
+    return self;
+}
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         self.setup();
@@ -33,6 +42,25 @@ static JobsCustomTabBarConfig *JobsCustomTabBarAppConfig(void) {
     if (self = [super initWithCoder:coder]) {
         self.setup();
     };return self;
+}
+
+-(void)layoutSubviews{
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCustomTabBar.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) {
+        action();
+    }
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) {
+            return;
+        }
+        [super layoutSubviews];
+        self.setup();
+    };
 }
 
 -(void)setFrame:(CGRect)frame{
@@ -54,11 +82,14 @@ static JobsCustomTabBarConfig *JobsCustomTabBarAppConfig(void) {
     @jobs_weakify(self)
     return ^(){
         @jobs_strongify(self)
-        JobsCustomTabBarConfig *config = JobsCustomTabBarAppConfig();/// 此时还没有初始化 JobsCustomTabBarConfig.sharedManager;
+        if (!self.sceneConfiguration && !self.superview) {
+            return;
+        }
+        JobsCustomTabBarConfig *config = self.sceneConfiguration ?: JobsCustomTabBarAppConfig();/// 此时还没有初始化 JobsCustomTabBarConfig.sharedManager;
         self.byBgColor(config.tabBarBackgroundImage ? self.byPatternImage(config.tabBarBackgroundImage) :config.tabBarBackgroundColor);
         NSInteger itemCount = config.tabBarItems.count;
         if (!itemCount) return;
-        CGFloat itemWidth = (config.tabBarWidth ? : JobsRealWidth()) / itemCount;
+        CGFloat itemWidth = (config.tabBarWidth ?: CGRectGetWidth(self.bounds)) / itemCount;
         for (NSInteger index = 0; index < itemCount; index++) {
             UIView *item = config.tabBarItems[index];
             CGFloat xPosition = itemWidth * index;
@@ -74,7 +105,10 @@ static JobsCustomTabBarConfig *JobsCustomTabBarAppConfig(void) {
                 UIButton *btn = (UIButton *)item;
                 btn.byImageViewFrameOffsetY(config.imageViewFrameOffsetY);
                 btn.byTextLabelFrameOffsetY(config.textLabelFrameOffsetY);
-            }self.addSubview(item);
+            }
+            if (item.superview != self) {
+                self.addSubview(item);
+            }
         }
     };
 }
@@ -83,7 +117,7 @@ static JobsCustomTabBarConfig *JobsCustomTabBarAppConfig(void) {
     @jobs_weakify(self)
     return ^JobsCustomTabBar *_Nullable(__kindof UIView *_Nullable view){
         @jobs_strongify(self)
-        JobsCustomTabBarConfig *config = JobsCustomTabBarAppConfig();
+        JobsCustomTabBarConfig *config = self.sceneConfiguration ?: JobsCustomTabBarAppConfig();
         view.addSubview(self);
         if(!jobsZeroRectValue(config.tabBarFrame)){
             self.byFrame(config.tabBarFrame);
@@ -113,6 +147,8 @@ static JobsCustomTabBarConfig *JobsCustomTabBarAppConfig(void) {
                 if(config.tabBarWidth){
                     // 这里使用 JobsCustomTabBarConfig.sharedManager.tabBarWidth 会崩
                     make.width.mas_equalTo(config.tabBarWidth);
+                } else {
+                    make.width.equalTo(view);
                 }
             }];view.refresh();
         };return self;

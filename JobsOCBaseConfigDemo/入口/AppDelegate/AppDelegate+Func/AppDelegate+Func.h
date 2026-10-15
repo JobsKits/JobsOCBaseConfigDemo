@@ -127,7 +127,8 @@ UNUserNotificationCenterDelegate
 +(jobsByVoidBlock _Nonnull)launchFunc1;
 -(jobsByVoidBlock _Nonnull)launchFunc2;
 #pragma mark —— 开屏广告
--(jobsByVoidBlock _Nonnull)makeJobsLaunchAdConfig;
+/// 由 SceneDelegate 在当前窗口就绪后传入，不跨场景查找窗口。
+-(jobsByWindowBlock _Nonnull)makeJobsLaunchAdConfig;
 #pragma mark —— YTKNetworkConfig
 -(jobsByVoidBlock _Nonnull)YTKNetworkConfig;
 #pragma mark —— 欢迎引导页面

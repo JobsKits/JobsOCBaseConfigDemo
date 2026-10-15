@@ -100,15 +100,20 @@ static dispatch_once_t AppDelegateOnceToken;
     @jobs_weakify(self)
     return ^{
         @jobs_strongify(self)
-        if (!self) return;
-        NSManagedObjectContext *context = self.persistentContainer.viewContext;
-        NSError *error = nil;
-        if (context.hasChanges && ![context save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            JobsLog(@"Unresolved error %@, %@", error, error.userInfo);
-            abort();
+        if (!self) {
+            return;
         }
+        // 后台只保存已启用的数据库，不触发懒加载创建持久化容器。
+        NSManagedObjectContext *context = self->_persistentContainer.viewContext;
+        if (!context || !context.persistentStoreCoordinator.persistentStores.count) {
+            return;
+        }
+        [context performBlockAndWait:^{
+            NSError *error = nil;
+            if (context.hasChanges && ![context save:&error]) {
+                JobsLog(@"Core Data save failed: %@, %@", error, error.userInfo);
+            }
+        }];
     };
 }
 #pragma mark —— lazyLoad
@@ -117,16 +122,17 @@ static dispatch_once_t AppDelegateOnceToken;
 - (NSPersistentCloudKitContainer *)persistentContainer {
     @synchronized (self) {
         if (_persistentContainer == nil) {
-            _persistentContainer = [NSPersistentCloudKitContainer.alloc initWithName:self.appName()];
+            // 模型名固定匹配打包的 JobsOCBaseConfigDemo.momd，不使用可本地化的显示名。
+            _persistentContainer = [NSPersistentCloudKitContainer.alloc initWithName:@"JobsOCBaseConfigDemo"];
             [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *storeDescription,
                                                                               NSError *error) {
                 if (error) {
-                    JobsLog(@"Unresolved error %@, %@", error, error.userInfo);
-                    abort();
+                    JobsLog(@"Core Data load failed: %@, %@", error, error.userInfo);
                 }
             }];
         }
-    };return _persistentContainer;
+    }
+    return _persistentContainer;
 }
 
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN AppDelegate
@@ -139,6 +145,7 @@ static dispatch_once_t AppDelegateOnceToken;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END AppDelegate
+
 @end
 
 #pragma clang diagnostic pop

@@ -76,6 +76,8 @@ JobsOCTools@Pods/
 
 - `JobsOCTools.h`
 - `Core/**/*.h`
+- `JobsCustomTabBarVC.initWithConfiguration:` 与 `JobsCustomTabBar.initWithConfiguration:` 支持每个 Scene 独立的 `JobsCustomTabBarConfig`、按钮和控制器，不读取 AppDelegate 的全局 UI 缓存；子控制器、Bar 和初始选中项在首次 `viewWillAppear:` 安装，此时初始化传入的配置已就绪；Bar 通过 `jobsMakeCustomTabBarWithConfiguration(configuration, block)` 创建后随本实例布局更新。
+- `jobsMakeNormalCustomTabBarVC` / `jobsMakeNormalCustomTabBarConfig` 创建独立实例；`jobsSharedManager()` 与 Shared 工厂保留旧宿主显式共享语义。多窗口宿主为每个根创建独立配置和子控制器后，以 `initWithConfiguration:` 注入；按钮 Block 弱引用所属控制器，禁止用全局 AppDelegate 切换其它 Scene。
 
 ### 5.2、源码入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -86,6 +88,20 @@ JobsOCTools@Pods/
 - `Core/CrashLog` 提供 `JobsOCCrashLogCenter`、日志文件信息和内存快照模型；默认写入 `Documents/jobs_crash.log`，记录启动会话、前后台安全点、异常退出判定、Signal / NSException 和周期内存轨迹，日志超过 `1 MB` 时保留最近 `512 KB`。
 - `JobsAppDoor` 认证模块已下沉到独立 Pod；`JobsOCTools` 不再公开认证控制器、表单视图或认证配置。
 - `Core/XXTools` 的非标准 `UIFontWeight = -0.4` 通过 `JobsOCDefs` 的 `UIFontSystemFontOfSizeAndWeight` 工厂创建，不在上层直接调用系统 UIFont 工厂。
+
+多窗口配置示例（`controllers` / `buttons` 必须为当前窗口单独创建）：
+
+```objective-c
+JobsCustomTabBarConfig *configuration = jobsMakeNormalCustomTabBarConfig(^(JobsCustomTabBarConfig *config) {
+    config.byTabBarHeight(JobsWidth(60))
+        .byTabBarWidth(0)
+        .byViewControllers(controllers)
+        .byTabBarItems(buttons);
+});
+JobsCustomTabBarVC *tabBarController = [JobsCustomTabBarVC.alloc initWithConfiguration:configuration];
+```
+
+`tabBarWidth = 0` 让 Bar 使用所在容器宽度；窗口缩放时按自身 bounds 重排按钮，不读取主屏幕宽度。验证时分别创建两组 Normal 实例，确认根 / 导航 / 配置 / 按钮 / 子控制器身份均不同；同一 Shared 工厂多次调用仍返回同一实例。随后在两个窗口分别切换 Tab，另一个窗口的选择不应改变。
 
 ### 5.3、默认安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

@@ -44,19 +44,6 @@ API_AVAILABLE(ios(13.0))
     };
 }
 
--(instancetype)init{
-    if (self = [super init]) {
-        @jobs_weakify(self)
-        [self addNotificationName:UISceneWillConnectNotification
-                            block:^(id _Nullable weakSelf,
-                                    id _Nullable arg) {
-            @jobs_strongify(self)
-            NSNotification *notification = (NSNotification *)arg;
-            JobsLog(@"通知传递过来的 = %@",notification.object);
-            self.jobsSetWindowScene((UIWindowScene *)notification.object);
-        }];
-    };return self;
-}
 #pragma mark —— lazyLoad
 
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN SceneDelegate
@@ -78,6 +65,7 @@ API_AVAILABLE(ios(13.0))
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END SceneDelegate
+
 @end
 
 #pragma clang diagnostic pop

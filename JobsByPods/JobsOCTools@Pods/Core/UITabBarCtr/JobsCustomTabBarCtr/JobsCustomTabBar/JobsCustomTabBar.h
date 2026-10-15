@@ -45,6 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsCustomTabBar : BaseView
 
+-(instancetype)initWithConfiguration:(JobsCustomTabBarConfig * _Nullable)configuration;
 -(jobsByVoidBlock _Nonnull)setup;
 -(JobsRetCustomTabBarByViewBlock _Nonnull)configMasonryBy;
 
@@ -55,6 +56,16 @@ NS_ASSUME_NONNULL_END
 NS_INLINE __kindof JobsCustomTabBar *_Nonnull jobsMakeCustomTabBar(jobsByCustomTabBarBlock _Nonnull block){
     JobsCustomTabBar *data = JobsCustomTabBar.alloc.init;
     if (block) block(data);
+    return data;
+}
+
+NS_INLINE __kindof JobsCustomTabBar *_Nonnull
+jobsMakeCustomTabBarWithConfiguration(JobsCustomTabBarConfig *_Nullable configuration,
+                                     jobsByCustomTabBarBlock _Nonnull block){
+    JobsCustomTabBar *data = [JobsCustomTabBar.alloc initWithConfiguration:configuration];
+    if (block) {
+        block(data);
+    }
     return data;
 }
 #endif /* JOBS_HEADER_GUARD_JOBSCUSTOMTABBAR_D8DA3441E2 */

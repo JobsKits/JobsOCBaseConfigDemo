@@ -85,7 +85,6 @@
              self.modalPresentationCapturesStatusBarAppearance = YES;
          */
         self.updatePreferredContentSizeWithTraitCollection(self.traitCollection);
-        self.navigationController.interactivePopGestureRecognizer.byDelegate(self);
     };
 }
 
@@ -99,7 +98,12 @@
     return ^(BOOL animated){
         @jobs_strongify(self)
         if (!self) return;
-            [super viewWillAppear:animated];
+        [super viewWillAppear:animated];
+        // Tab 根的子控制器可能先加载，再加入导航容器。
+        UIGestureRecognizer *popGesture = self.navigationController.interactivePopGestureRecognizer;
+        if (popGesture) {
+            popGesture.byDelegate(self);
+        }
         //    self.updateStatusBarCor(JobsOrangeColor);/// 在具体子类实现，不要写在父类。父类只做提示
             JobsLog(@"%d",self.setupNavigationBarHidden);
             self.byHiddenNavigationBar(self.setupNavigationBarHidden);
