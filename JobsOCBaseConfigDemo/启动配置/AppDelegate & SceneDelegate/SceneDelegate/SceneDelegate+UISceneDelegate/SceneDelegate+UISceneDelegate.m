@@ -12,28 +12,26 @@
 - (void)scene:(UIScene *)scene
 willConnectToSession:(UISceneSession *)session
       options:(UISceneConnectionOptions *)connectionOptions {
-    self.jobsSetWindowScene((UIWindowScene *)scene);
+    if (![scene isKindOfClass:UIWindowScene.class]) {
+        return;
+    }
+    UIWindowScene *windowScene = (UIWindowScene *)scene;
+    self.jobsSetWindowScene(windowScene);
     NSUserActivity *restorationActivity =
         [JobsOCSceneCoordinator demoActivityFromConnectionOptions:connectionOptions
                                                           session:session];
-    @jobs_weakify(self)
-    [((MyAppTools *)MyAppTools.jobsSharedManager()) appDelegateWindowBlock:nil
-                            sceneDelegateWindowBlock:^(id _Nullable data) {
-        @jobs_strongify(self);
-        UIWindowScene *ws = (UIWindowScene *)scene;
-        // 窗口兜底
-        self.jobsSetWindow((UIWindow *)data ?: [UIWindow.alloc initWithWindowScene:ws]).window
-            .byWindowScene(ws)
-            .byWindowFrame(ws.coordinateSpace.bounds)
-            .byRootViewController(restorationActivity ?
-                [JobsOCSceneDelegateDemoVC.alloc
-                    initWithRestorationActivity:restorationActivity].navCtrl() :
-                JobsOCMakeAppRootViewController())
-            .byMakeKeyAndVisible();
-        [JobsOCSceneCoordinator recordEvent:@"willConnect：创建独立 UIWindow"
-                                 forSession:session];
-        AppDelegate.launchFunc1();
-    }];
+    self.jobsSetWindow(UIWindow.initByScene(windowScene)).window
+        .byWindowFrame(windowScene.coordinateSpace.bounds)
+        .byRootViewController(restorationActivity ?
+            [JobsOCSceneDelegateDemoVC.alloc
+                initWithRestorationActivity:restorationActivity].navCtrl() :
+            JobsOCMakeAppRootViewController())
+        .byMakeKeyAndVisible();
+    [JobsOCSceneCoordinator recordEvent:@"willConnect：创建独立 UIWindow"
+                             forSession:session];
+    if (!restorationActivity) {
+        ((AppDelegate *)UIApplication.sharedApplication.delegate).makeJobsLaunchAdConfig(self.window);
+    }
 }
 
 - (void)sceneDidDisconnect:(UIScene *)scene {
@@ -46,6 +44,8 @@ willConnectToSession:(UISceneSession *)session
         if (!self) return;
         [JobsOCSceneCoordinator recordEvent:@"didDisconnect：Scene 与会话暂时断开"
                                  forSession:scene.session];
+        self.jobsSetWindow(nil);
+        self.jobsSetWindowScene(nil);
     };
 }
 
@@ -99,8 +99,16 @@ willConnectToSession:(UISceneSession *)session
         if (!self) return;
         [JobsOCSceneCoordinator recordEvent:@"didEnterBackground：进入后台安全点"
                                  forSession:scene.session];
-        JobsLog(@"---applicationDidEnterBackground----"); //进入后台
         ((AppDelegate *)UIApplication.sharedApplication.delegate).saveContext();
+        // 单个窗口退后台不代表整个进程已退后台。
+        for (UIScene *connectedScene in UIApplication.sharedApplication.connectedScenes) {
+            if (connectedScene != scene &&
+                (connectedScene.activationState == UISceneActivationStateForegroundActive ||
+                 connectedScene.activationState == UISceneActivationStateForegroundInactive)) {
+                return;
+            }
+        }
+        JobsLog(@"---applicationDidEnterBackground----");
         JobsPostNotification(退到后台停止播放ZFPlayer, nil);
     };
 }
@@ -124,8 +132,26 @@ willConnectToSession:(UISceneSession *)session
 - (void)scene:(UIScene *)scene
 restoreInteractionStateWithUserActivity:(NSUserActivity *)stateRestorationActivity {
     if (!JobsOCSceneCoordinator.isDemoActivity(stateRestorationActivity)) return;
-    (self.jobs_sceneDemoViewController()).restoreSceneInteractionStateWithActivity(stateRestorationActivity);
+    JobsOCSceneDelegateDemoVC *demoVC = self.jobs_sceneDemoViewController();
+    if (demoVC) {
+        demoVC.restoreSceneInteractionStateWithActivity(stateRestorationActivity);
+    }
     [JobsOCSceneCoordinator recordEvent:@"restoreInteractionState：恢复 Scene 独立计数"
+                             forSession:scene.session];
+}
+
+- (void)scene:(UIScene *)scene continueUserActivity:(NSUserActivity *)userActivity {
+    if (scene != self.windowScene || !JobsOCSceneCoordinator.isDemoActivity(userActivity)) {
+        return;
+    }
+    JobsOCSceneDelegateDemoVC *demoVC = self.jobs_sceneDemoViewController();
+    if (demoVC) {
+        demoVC.restoreSceneInteractionStateWithActivity(userActivity);
+    } else {
+        self.window.byRootViewController([JobsOCSceneDelegateDemoVC.alloc
+            initWithRestorationActivity:userActivity].navCtrl());
+    }
+    [JobsOCSceneCoordinator recordEvent:@"continueUserActivity：恢复当前 Scene 独立计数"
                              forSession:scene.session];
 }
 
@@ -152,7 +178,6 @@ restoreInteractionStateWithUserActivity:(NSUserActivity *)stateRestorationActivi
             nil;
     };
 }
-
 // ✅ 横竖切换 / 尺寸变化时，随场景更新窗口 Frame（防止再次出现半屏）
 - (void)windowScene:(UIWindowScene *)windowScene
 didUpdateCoordinateSpace:(id<UICoordinateSpace>)previousCoordinateSpace

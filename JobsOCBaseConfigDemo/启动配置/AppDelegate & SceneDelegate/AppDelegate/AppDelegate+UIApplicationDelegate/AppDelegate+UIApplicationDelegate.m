@@ -2,7 +2,7 @@
 //  AppDelegate+UIApplicationDelegate.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2021/12/15.
+//  Created by Jobs on 2021年12月15日，星期三.
 //
 
 #import "AppDelegate+UIApplicationDelegate.h"
@@ -20,17 +20,9 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 //    JobsAppTool.jobsDeviceOrientation = DeviceOrientationLandscape;
     self.localNotifications();
     self.launchFunc2();
-    AppDelegate.launchFunc1();          // 如遇“重复副作用”，可改到 SceneDelegate，或在此加 @available 保护
-    if (@available(iOS 13.0, *)) {
-        // 👉 iOS 13+ 由 SceneDelegate 负责挂窗，这里不再创建 window
-        return YES;
-    }
-    // 👉 iOS 12 及以下，沿用原有逻辑创建 window
-    self.jobsSetWindow(jobsMakeAppDelegateWindow(^(__kindof UIWindow * _Nullable window) {
-        window
-            .byRootViewController(RootViewController)
-            .byMakeKeyAndVisible();
-    })); return YES;
+    AppDelegate.launchFunc1();
+    // 当前最低部署版本为 iOS 16.6，窗口统一交给 SceneDelegate。
+    return YES;
 }
 /// 一进入App就横屏 【此方法会执行多次】
 - (UIInterfaceOrientationMask)application:(UIApplication *)application

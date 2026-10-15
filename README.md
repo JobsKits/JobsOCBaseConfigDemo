@@ -123,6 +123,7 @@ Jobs 自维护的应用、Demo 与本地 Pod 统一执行同一套 [**Objective-
 | 抽奖轮盘 | `LuckyWheelView`、`LuckyWheelDemoVC` | 中心按钮在旋转中保持可点；每次点按都按当前配置重置初始角速度并视为新一轮抽奖，复用同一个 `CADisplayLink`，只在最终自然停止时结算。 |
 | 二维码与条形码 | `NSString+CIFilter`、`JobsQRCodeDemoVC` | 支持普通二维码、带中心 Logo 二维码和 Code128 条形码；点击生成图像会通过 Jobs 手势 DSL 将来源字符串复制到系统剪切板。 |
 | iconfont 资源门面 | `JobsIconfont` | 业务只使用语义资源与图标枚举；框架统一隐藏 URL、Unicode、字体名、SDWebImage、动态字体注册、占位兜底、缓存和复用防串图。 |
+| 场景生命周期 | `AppDelegate`、`SceneDelegate`、`JobsOCSceneCoordinator` | 进程初始化只执行一次；窗口由当前 `UIWindowScene` 独立创建，支持会话隔离、冷 / 热 `NSUserActivity` 恢复与多窗口验证。 |
 | 导航与转场 | `JobsNavBar`、`JobsTabBarCtrl`、`JobsViewNavigator`、`JobsViewPush`、`JobsSideDrawer` | 导航栏 / TabBar、UIView 栈式 push / pop、方向性交互转场、侧滑抽屉和防重复跳转。 |
 | 数据与网络 | `JobsAPIs`、`JobsNetWorkTools`、`JobsMonitorNetwoking`、`JobsBitsMonitor`、`JobsOCWebSocket`、`SRWebSocketExtra` | API 请求层、网络状态 / 速率 / 流量监控；实例化 WebSocket 客户端统一连接生命周期、30 秒心跳与退避重连。 |
 | Runtime 与安全 | `JobsOCRuntimeKits`、`JobsOCPatch`、`JobsCryptography`、`JobsOCOpen` | Runtime 查询 / 动态注册、受控 payload 补丁、摘要 / 编解码 / 加密、URL 打开兼容封装。 |
@@ -2311,12 +2312,8 @@ classDiagram
   * 获取 **keyWindowScene**<font color=blue>**iOS 13**</font>版本后可用
 
     ```objective-c
-    NS_INLINE UIWindowScene *_Nullable jobsGetkeyWindowScene(void) {
-        if(@available(iOS 13.0, *)){
-            UIWindowScene *keyWindowScene = (UIWindowScene *)UIApplication.sharedApplication.connectedScenes.allObjects.firstObject;
-            return keyWindowScene;
-        }else return nil;
-    }
+    // 在当前控制器已经挂窗后读取；没有上下文时不能猜测当前 Scene。
+    UIWindowScene *windowScene = self.view.window.windowScene;
     ```
     
 
@@ -2342,13 +2339,10 @@ classDiagram
 * 寻找**SceneDelegate**
 
   * ```objective-c
-    NS_INLINE id _Nullable getSysSceneDelegate(void){
-        id sceneDelegate = nil;
-        if (@available(iOS 13.0, *)) {
-            sceneDelegate = UIApplication.sharedApplication.connectedScenes.allObjects.firstObject.delegate;
-        }return sceneDelegate;
-    }
+    id<UIWindowSceneDelegate> sceneDelegate = self.view.window.windowScene.delegate;
     ```
+
+  * 历史无参 `getSysSceneDelegate()` 仍是兼容符号，不用于多窗口业务；显式传递当前 `UIWindowScene` / `UIWindow`。
   
 * <font color=red>**读写用户信息**</font>
 
@@ -2597,7 +2591,7 @@ classDiagram
 
 * 一个iOS应用程序App的生命周期里面，只有一个**`AppDelegate`**实例存在，但是可能有多个**`SceneDelegate`**实例存在
 
-  * **AppDelegate**：应用程序的委托对象。整个应用程序在其生命周期中只有一个`AppDelegate`实例，负责处理应用程序级别的事件，例如应用程序的启动、终止、后台和前台切换等
+  * **AppDelegate**：应用程序的委托对象。整个应用程序在其生命周期中只有一个`AppDelegate`实例，负责进程启动、终止、全局服务、推送注册和场景会话配置；窗口前后台与活跃状态交给 SceneDelegate
   * **SceneDelegate**：场景的委托对象。每个场景都有一个`SceneDelegate`实例，负责处理该场景级别的事件，例如场景的连接、断开、后台和前台切换等。在多窗口应用程序中，可能有多个`SceneDelegate`实例，每个实例对应一个场景
 
 * <font color=red>故，**AppDelegate** 可以设计成为单例</font>
@@ -2640,9 +2634,9 @@ classDiagram
 * 关于 **`UIWindow *`**
 
   * 每个`SceneDelegate`实例都有自己的`UIWindow`，而不再是通过`AppDelegate`共享一个单独的`UIWindow`实例
-  * 即便是单场景App， `SceneDelegate`和 `AppDelegate`都有各自的`UIWindow`
+  * 即便只开放一个场景，也只由该 `SceneDelegate` 持有业务 `UIWindow`；`AppDelegate.window` 不创建第二个窗口
   * `AppDelegate`中的`window`属性在多场景应用中实际上不再被使用。这是为了向后兼容一些现有代码，但在多场景环境下，`AppDelegate`不会处理任何具体的窗口
-  * 在多场景架构下，`SceneDelegate`中的`window`是实际显示和管理UI的窗口，而`AppDelegate`中的`window`只是为了兼容老的单窗口应用
+  * 当前 App 最低部署版本为 iOS 16.6，不再从 `AppDelegate` 走旧窗口启动分支；`MyAppTools` 的旧宿主兼容入口在 iOS 13+ 返回 `nil`，避免误建无 Scene 的窗口
 
 * 获取 **AppDelegate**
 
@@ -2657,12 +2651,11 @@ classDiagram
 * 获取 **SceneDelegate**
 
   * ```objective-c
-    if (@available(iOS 13.0, *)) {
-    	sceneDelegate = UIApplication.sharedApplication.connectedScenes.allObjects.firstObject.delegate;
-    }
+    UIWindowScene *windowScene = self.view.window.windowScene;
+    id<UIWindowSceneDelegate> sceneDelegate = windowScene.delegate;
     ```
 
-  * 上述 `firstObject` 只能作为旧单窗口示意，不能用于多场景业务。页面应从自己的 `view.window.windowScene` 获取当前 Scene，再使用该 Scene 的 `session` 和 `delegate`。
+  * 页面尚未进入窗口时 `view.window` 可以为空；延后到 `viewDidAppear:` 再读取。不能用 `connectedScenes.firstObject` 或全局缓存猜测当前 Scene。
 
 #### 15.1、SceneDelegate 多场景与窗口会话 Demo <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -4561,74 +4554,20 @@ static const uint32_t kSequenceBits = 12;
 
 ### 27、🪵架构相关 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-#### 27.1、[**不使用 Storyboard + 使用自定义的控制器（ViewController@1）**](#https://blog.csdn.net/htwhtw123/article/details/125348408) + **不使用多场景** <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+#### 27.1、<span id="scene-lifecycle-migration">纯代码窗口与 UIScene 生命周期</span> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-* 给`AppDelegate.h`添加属性，作为渲染的window
+[**Xcode**](https://developer.apple.com/xcode/) 27 对应的最新 SDK 构建的 App，在 iOS 27 及以后启动时要求采用 `UIScene` 生命周期；纯代码 UI 同样保留 Scene 配置，不删除 `SceneDelegate` 或 `UIApplicationSceneManifest`。单窗口产品也要采用 Scene 生命周期，是否开放多窗口由 `UIApplicationSupportsMultipleScenes` 单独决定。当前工程保留 `true`，供多窗口 Demo 使用。[Apple 生命周期迁移说明](https://developer.apple.com/documentation/uikit/transitioning-to-the-uikit-scene-based-life-cycle)
 
-  ```objective-c
-  #import <UIKit/UIKit.h>
-  #import "ViewController@1.h"
-  
-  @interface AppDelegate : UIResponder <UIApplicationDelegate>
-  Prop_strong()UIWindow *window;
-  @end
-  ```
-
-* `AppDelegate.m`
-
-  ```objective-c
-  - (BOOL)application:(UIApplication *)application
-  didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-      JXScaleSetup(375.0, 812.0);
-  //    JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationLandscapeLeft | UIInterfaceOrientationLandscapeRight;
-  //    JobsAppTool.currentDeviceOrientation = UIDeviceOrientationLandscapeLeft | UIDeviceOrientationLandscapeRight;
-  //    JobsAppTool.currentInterfaceOrientationMask = UIInterfaceOrientationMaskLandscapeRight;
-  //    JobsAppTool.jobsDeviceOrientation = DeviceOrientationLandscape;
-  
-      self.localNotifications();
-      self.launchFunc2();
-      AppDelegate.launchFunc1();          // 如遇“重复副作用”，可改到 SceneDelegate，或在此加 @available 保护
-  
-      if (@available(iOS 13.0, *)) {
-          // ➤ iOS 13+ 由 SceneDelegate 负责挂窗，这里不再创建 window
-          return YES;
-      }
-      // ➤ iOS 12 及以下，沿用原有逻辑创建 window
-      self.window = jobsMakeAppDelegateWindow(^(__kindof UIWindow * _Nullable window) {
-          window.rootViewController = RootViewController;
-          [window makeKeyAndVisible];
-      }); return YES;
-  }
-  ```
-
-* 删除以下`AppDelegate`里面对多场景的支持代码
-
-  ```objective-c
-  #pragma mark - UISceneSession lifecycle
-  - (UISceneConfiguration *)application:(UIApplication *)application
-  configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession
-                                options:(UISceneConnectionOptions *)options {
-      // Called when a new scene session is being created.
-      // Use this method to select a configuration to create the new scene with.
-      return [[UISceneConfiguration alloc] initWithName:@"Default Configuration" sessionRole:connectingSceneSession.role];
-  }
-  
-  
-  - (void)application:(UIApplication *)application
-  didDiscardSceneSessions:(NSSet<UISceneSession *> *)sceneSessions {
-      // Called when the user discards a scene session.
-      // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-      // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-  }
-  ```
-
-* 删除`Info.plist`中，关于多场景的键值对
+- `application:didFinishLaunchingWithOptions:` 仅初始化进程级服务，`launchFunc1` / `launchFunc2` 不在每次 Scene 连接时重复执行。
+- `application:configurationForConnectingSceneSession:options:` 返回匹配角色的 `Default Configuration` 并指定 `SceneDelegate`；会话丢弃继续清理 `JobsOCSceneCoordinator` 状态。
+- `scene:willConnectToSession:options:` 先确认参数是 `UIWindowScene`，再从该实例创建独立窗口；根页面由 `JobsOCMakeAppRootViewController()` 创建，恢复活动走已有 Demo 路由。
+- 纯代码 UI 不配置 `UISceneStoryboardFile`；保留以下 Manifest，配置名称和委托类名与实际实现一致：
 
   ```xml
   <key>UIApplicationSceneManifest</key>
   <dict>
     <key>UIApplicationSupportsMultipleScenes</key>
-    <false/>
+    <true/>
     <key>UISceneConfigurations</key>
     <dict>
       <key>UIWindowSceneSessionRoleApplication</key>
@@ -4638,27 +4577,36 @@ static const uint32_t kSequenceBits = 12;
           <string>Default Configuration</string>
           <key>UISceneDelegateClassName</key>
           <string>SceneDelegate</string>
-          <key>UISceneStoryboardFile</key>
-          <string>Main</string>
         </dict>
       </array>
     </dict>
   </dict>
   ```
 
-* 删除新建工程默认生成的`ViewController` (或者不包含进工程目录，防止进入编译期)
+当前窗口创建链复用已有 Jobs DSL：
 
-  <img src="./assets/image-20240715150036945.png" alt="image-20240715150036945" style="zoom:80%;" />
+```objective-c
+UIWindowScene *windowScene = (UIWindowScene *)scene;
+self.jobsSetWindowScene(windowScene);
+self.jobsSetWindow(UIWindow.initByScene(windowScene)).window
+    .byWindowFrame(windowScene.coordinateSpace.bounds)
+    .byRootViewController(JobsOCMakeAppRootViewController())
+    .byMakeKeyAndVisible();
+```
 
-* 删除`SceneDelegate.h`和 `SceneDelegate.m`   (或者不包含进工程目录，防止进入编译期)
+`SceneDelegate.windowScene` 只从自己的连接回调取得，不监听全局 `UISceneWillConnectNotification` 去覆盖归属；页面从 `view.window.windowScene` 获取上下文。某个窗口退后台时保存已创建的 Core Data Context，只有所有窗口都离开前台才触发全局停止播放。`saveContext` 读取 `_persistentContainer`，不会因后台回调额外初始化数据库；模型名匹配包内 `JobsOCBaseConfigDemo.momd`，加载或保存错误记录后交由业务处理。
 
-  <img src="./assets/image-20240715145437169.png" alt="image-20240715145437169" style="zoom:80%;" />
+`JobsOCMakeAppRootViewController()` 每次都创建新的根导航；TabBar 模式同时创建独立 `JobsCustomTabBarVC`、配置、按钮和五个子控制器，按钮只切换所属控制器。`initWithConfiguration:` 把实例配置传递到 `JobsCustomTabBar`，子控制器 / Bar / 初选在首次 `viewWillAppear:` 的外观传播前安装，并先设一次性标记避免重入；`jobsMakeNormalCustomTabBarVC` / `jobsMakeNormalCustomTabBarConfig` 创建独立对象，`sharedManager` / Shared 工厂仅供旧宿主显式复用。设置页改变入口后，对每个 Scene 的业务 Window 分别重建普通根，不替换 Scene Demo 或调试浮层；根尺寸由当前窗口决定，不使用主屏幕尺寸预设。Tab 子控制器允许先加载再进入导航容器，`JobsBaseDataSettingVC` 在 `viewWillAppear:` 中确认返回手势存在后才配置代理，避免对空接收者取得的 nil Block 直接调用。
 
-* [处理：**`Unknown class ViewController in Interface Builder file.`**](#Unknown_class_in_Interface_Builder_file)
+开屏由 `willConnect` 完成窗口展示后调用 `makeJobsLaunchAdConfig(self.window)`，只在传入窗口的根控制器上展示；恢复 Scene Demo 时跳过开屏。进程启动仅恢复媒体预加载，不通过全局择窗或延时重试寻找展示窗口。Scene 断开后释放本地窗口引用，重新连接再按会话恢复并重建。
 
-#### 27.2、iOS新建应用使用多场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+#### 27.2、Scene 事件迁移与验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-* TODO
+- 冷启动活动从 `connectionOptions.userActivities` / `session.stateRestorationActivity` 读取；热启动活动从 `scene:continueUserActivity:` 读取。现有 Scene Demo 两条入口均恢复到目标窗口，保留按会话 ID 隔离的计数。
+- 当前 App 没有入站 URL / 通用链接 / 快捷方式业务路由。后续接入 URL 时同时处理 `connectionOptions.URLContexts` 和 `scene:openURLContexts:`；通用链接走 `NSUserActivity`；快捷方式同时处理 `connectionOptions.shortcutItem` 和 `windowScene:performActionForShortcutItem:completionHandler:`，完成回调必须恰好执行一次。
+- 回归覆盖冷启动、退后台 / 回前台、旋转、第二窗口、关闭 / 恢复会话，以及活动发送到已连接窗口；确认每个窗口有独立根控制器，连接第二个窗口不会改写第一个窗口的 Scene。
+- 构建后检查 App 产物里的 `Info.plist`，并在 iOS 27 与最低支持系统分别启动；完整多窗口操作优先在支持多窗口的 iPad 验证。构建成功不等于运行时生命周期已经验证。
+- 完整可操作入口见 `JobsOCSceneDelegateDemoVC`；系统职责见 [Apple App 生命周期说明](https://developer.apple.com/documentation/uikit/managing-your-app-s-life-cycle)。
 
 ### 28、🔘 `UIButton` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

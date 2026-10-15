@@ -105,7 +105,6 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
         self.makeJobsOCKeyboardMgrConfig();/// 全局配置键盘
         self.makeGKNavigationBarConfig();/// 自定义导航栏
         ((JobsOCSplashMediaCache *)JobsOCSplashMediaCache.shared()).resumePendingVideoPreloads();
-        if (JobsOCSplashEnabled()) self.makeJobsLaunchAdConfig();/// 开屏广告
         self.makeReachabilityConfig();/// 网络环境监测
         self.YTKNetworkConfig();/// YTK网络框架的配置
         self.makeJobsDebugPanelConfig();
@@ -113,19 +112,16 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
     };
 }
 #pragma mark —— 开屏广告
--(jobsByVoidBlock _Nonnull)makeJobsLaunchAdConfig{
-    return ^() {
-        __block NSInteger retryCount = 0;
-        __block jobsByVoidBlock showSplash = nil;
-        showSplash = ^{
-            UIWindow *window = jobsGetMainWindow();
+-(jobsByWindowBlock _Nonnull)makeJobsLaunchAdConfig{
+    return ^(UIWindow *window) {
+        if (!window || !JobsOCSplashEnabled()) {
+            return;
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
             UIViewController *hostViewController = window.rootViewController;
-            if (!hostViewController) {
-                if (retryCount++ < 10) {
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)),
-                                   dispatch_get_main_queue(),
-                                   showSplash);
-                };return;
+            if (!hostViewController || !window.windowScene ||
+                window.windowScene.activationState == UISceneActivationStateUnattached) {
+                return;
             }
             JobsOCSplashConfiguration *configuration = JobsOCSplashConfigurationForNextLaunch();
             configuration
@@ -136,9 +132,7 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
                 .byShakeAction(JobsOCSplashAction.none());
             [JobsOCSplashPresenter showOver:hostViewController
                               configuration:configuration];
-            showSplash = nil;
-        };
-        dispatch_async(dispatch_get_main_queue(), showSplash);
+        });
     };
 }
 #pragma mark —— YTKNetworkConfig

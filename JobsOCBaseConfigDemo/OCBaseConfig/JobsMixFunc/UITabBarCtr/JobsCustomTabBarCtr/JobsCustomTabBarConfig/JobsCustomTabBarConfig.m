@@ -42,12 +42,6 @@ static dispatch_once_t JobsCustomTabBarConfigOnceToken;
         JobsCustomTabBarConfigInstance = nil;
     };
 }
-/// 防止外部使用 alloc/init 等创建新实例
-+(instancetype)allocWithZone:(struct _NSZone *)zone {
-    dispatch_once(&JobsCustomTabBarConfigOnceToken, ^{
-        JobsCustomTabBarConfigInstance = [super allocWithZone:zone];
-    });return JobsCustomTabBarConfigInstance;
-}
 /// 防止外部调用copy
 -(instancetype)copyWithZone:(NSZone *)zone {
     return self;

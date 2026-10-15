@@ -20,20 +20,83 @@ void JobsOCSetDemoListUsesTabBarEntry(BOOL usesTabBarEntry) {
 }
 
 __kindof UIViewController *JobsOCMakeAppRootViewController(void) {
-    UIViewController *rootViewController = nil;
-    if (JobsOCDemoListUsesTabBarEntry()) {
-        AppDelegate.jobsCustomTabBarVC.customSelectIndex(0);
-        rootViewController = AppDelegate.jobsCustomTabBarNavCtrl;
-    }else{
-        rootViewController = ViewController_1.new.navCtrl();
+    if (!JobsOCDemoListUsesTabBarEntry()) {
+        return ViewController_1.new.navCtrl();
     }
-    rootViewController.view.byFrame(UIScreen.mainScreen.bounds);
-    return rootViewController;
+    NSMutableArray<__kindof UIViewController *> *controllers = jobsMakeMutArr(^(NSMutableArray *data) {
+        data.add(ViewController_1.new)
+            .add(ViewController_2.new)
+            .add(ViewController_3.new)
+            .add(ViewController_4.new)
+            .add(ViewController_5.new);
+    });
+    NSMutableArray<__kindof UIButton *> *buttons = jobsMakeMutArr(^(NSMutableArray *data) {
+    });
+    JobsCustomTabBarConfig *configuration = jobsMakeNormalCustomTabBarConfig(^(JobsCustomTabBarConfig *config) {
+        config.byTabBarHeight(JobsWidth(60))
+            .byTabBarWidth(0)
+            .byTabBarBackgroundColor(JobsCyanColor)
+            .byTabBarItems(buttons)
+            .byViewControllers(controllers);
+    });
+    JobsCustomTabBarVC *tabBarController = [JobsCustomTabBarVC.alloc initWithConfiguration:configuration];
+    @jobs_weakify(tabBarController)
+    for (NSUInteger index = 0; index < controllers.count; index++) {
+        UIButton *button = BaseButton.initByButtonModel(jobsMakeButtonModel(^(UIButtonModel *model) {
+            model.byNormalImage(AppDelegate.imageUnSelectedMutArr[index])
+                .byTitle(AppDelegate.tabBarItemTitleMutArr[index])
+                .byTitleFont(bayonRegular(14))
+                .byTitleCor(@"#8A93A1".jobsCor())
+                .byImagePlacement(NSDirectionalRectEdgeTop)
+                .byTextAlignment(NSTextAlignmentCenter)
+                .bySubTextAlignment(NSTextAlignmentCenter)
+                .byImagePadding(JobsWidth(5))
+                .byBaseBackgroundColor(JobsClearColor)
+                .byBackgroundImage(@"TabBarItem选中的背景色（透明）".img);
+        }))
+            .selectedStateImageBy(AppDelegate.imageSelectedMutArr[index])
+            .selectedStateBackgroundImageBy(@"TabBarItem选中的背景色".img)
+            .selectedStateTitleColorBy(@"#C71B1B".jobsCor())
+            .onClickBy(^(__kindof UIButton *sender) {
+                @jobs_strongify(tabBarController)
+                if (!tabBarController) {
+                    return;
+                }
+                tabBarController.customSelectIndex(index);
+                if (index == 0) {
+                    ((MyAppTools *)MyAppTools.jobsSharedManager()).loginWork = FMLoginWork_MyFav;
+                } else if (index == 1) {
+                    ((MyAppTools *)MyAppTools.jobsSharedManager()).loginWork = FMLoginWork_MyBank;
+                } else if (index == 3) {
+                    ((MyAppTools *)MyAppTools.jobsSharedManager()).loginWork = FMLoginWork_Default;
+                }
+            })
+            .bySelected(index == 0);
+        [buttons addObject:button];
+    }
+    return tabBarController.navCtrl().byHidesBottomBarWhenPushed(YES);
 }
 
 void JobsOCApplyAppRootViewController(void) {
-    for (UIWindow *window in UIApplication.sharedApplication.windows) {
-        if (!window.windowScene || window.windowScene.activationState == UISceneActivationStateUnattached) continue;
+    for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
+        if (![scene isKindOfClass:UIWindowScene.class] ||
+            scene.activationState == UISceneActivationStateUnattached) {
+            continue;
+        }
+        id<UIWindowSceneDelegate> delegate = (id<UIWindowSceneDelegate>)scene.delegate;
+        if (![delegate respondsToSelector:@selector(window)]) {
+            continue;
+        }
+        UIWindow *window = delegate.window;
+        UIViewController *entry = window.rootViewController;
+        if ([entry isKindOfClass:UINavigationController.class]) {
+            entry = ((UINavigationController *)entry).viewControllers.firstObject;
+        }
+        if (window.windowScene != scene ||
+            (![entry isKindOfClass:ViewController_1.class] &&
+             ![entry isKindOfClass:JobsCustomTabBarVC.class])) {
+            continue;
+        }
         window
             .byRootViewController(JobsOCMakeAppRootViewController())
             .byMakeKeyAndVisible();

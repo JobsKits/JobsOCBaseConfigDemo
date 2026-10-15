@@ -472,6 +472,7 @@ flowchart TD
 
 ```mermaid
 sequenceDiagram
+    participant System as UIKit
     participant App as AppDelegate
     participant Scene as SceneDelegate
     participant Root as JobsOCMakeAppRootViewController
@@ -479,11 +480,14 @@ sequenceDiagram
     participant Splash as JobsOCSplash
 
     App->>App: 进程级配置与三方服务初始化
-    App->>Scene: 返回 UISceneConfiguration
+    App->>Splash: 恢复远程视频预加载
+    System->>App: 新会话请求场景配置
+    App-->>System: 返回 UISceneConfiguration
+    System->>Scene: willConnect 交付 UIWindowScene
+    Scene->>Window: 创建并绑定当前 UIWindowScene
     Scene->>Root: 创建根控制器
     Root-->>Scene: Navigation / 可选 TabBar 根容器
     Scene->>Window: rootViewController + makeKeyAndVisible
-    Scene->>Splash: 恢复远程视频预加载
     opt 配置允许展示开屏
         Scene->>Splash: 在根控制器之上展示
     end
@@ -492,6 +496,14 @@ sequenceDiagram
 - `AppDelegate` 负责进程级能力：日志、网络、键盘、导航、语言、比例尺、调试工具、播放器缓存和开屏预加载等统一初始化。
 - `SceneDelegate` 负责窗口级能力：创建 `UIWindow`、调用根控制器工厂、恢复 Scene 前后台状态和展示开屏覆盖层。
 - `JobsOCMakeAppRootViewController()` 是根页面权威入口；需要切换根结构时仍经这一入口编排。
+- 根工厂每次返回独立导航；TabBar 模式另外创建独立控制器、`jobsMakeNormalCustomTabBarConfig` 配置、按钮及子控制器，并通过 `initWithConfiguration:` 注入，子控制器 / Bar / 初始选中项延后到首次 `viewWillAppear:` 安装，避免 UIKit 初始化提前加载 view 时误读旧全局缓存。`sharedManager` / Shared 工厂保留显式复用语义，Scene 根不使用 AppDelegate 的静态 TabBar / 导航缓存。按钮回调只切所属控制器，Bar 随自身 bounds / layout 更新宽度。Tab 子控制器先加载时可能尚无导航容器；`JobsBaseDataSettingVC` 延后到 `viewWillAppear:` 且确认返回手势存在后再调用代理 DSL，避免 nil Block 调用。
+- 设置页切根仅遍历各 `UIWindowScene.delegate.window`，对普通列表 / TabBar 业务根分别调用根工厂，保留 Scene Demo 与其它浮层。根视图由当前窗口确定尺寸，不使用 `UIScreen.mainScreen.bounds`。
+- 开屏改由窗口连接后显式调用 `makeJobsLaunchAdConfig(self.window)`，展示到传入窗口的根控制器，恢复 Scene Demo 时跳过；App 启动只恢复预加载，不全局择窗重试。Scene 断开释放 Window / windowScene，重新连接时重建。
+- 使用最新 SDK 构建的 App，在 iOS 27 及以后启动时必须采用 `UIScene` 生命周期；纯代码 UI 也保留 `UIApplicationSceneManifest`、`Default Configuration` 和 `SceneDelegate`，不配置 Storyboard。Scene 生命周期与多窗口开关独立，本工程保留多窗口 Demo。[Apple 迁移说明](https://developer.apple.com/documentation/uikit/transitioning-to-the-uikit-scene-based-life-cycle)
+- `launchFunc1` / `launchFunc2` 仅由 App 启动执行；当前最低部署版本为 iOS 16.6，AppDelegate 不再创建兼容窗口，`MyAppTools` 在 iOS 13+ 也不会误建无 Scene 窗口。
+- 每个 `SceneDelegate` 从自身 `willConnect` 参数获取 `UIWindowScene`，通过 `UIWindow.initByScene(windowScene)` 建独立窗口；禁止用全局 Scene 连接通知覆盖归属。当前窗口从 `view.window.windowScene` 获取，不从 `connectedScenes.firstObject` 猜测。
+- Scene Demo 同时处理冷启动活动和 `scene:continueUserActivity:` 热活动恢复。当前无入站 URL / 快捷方式业务；新增时必须分别接入连接选项与 Scene 热回调，不能继续只放 AppDelegate。
+- 窗口退后台保存已创建的 Core Data Context；`saveContext` 读取 `_persistentContainer`，不会为了后台回调初始化数据库。模型名使用包内 `JobsOCBaseConfigDemo.momd` 的名称，加载或保存失败只记录错误。只有全部 Scene 离开前台才发送进程级停止播放通知。验证须覆盖冷启动、前后台、旋转、第二窗口与会话恢复，并检查构建产物中的 Scene Manifest。
 - 新初始化不要继续无边界堆进一个大方法；可复用能力放主工程对应基础目录，入口层只负责时序和开关。
 
 ### 8.2、根列表与导航 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>

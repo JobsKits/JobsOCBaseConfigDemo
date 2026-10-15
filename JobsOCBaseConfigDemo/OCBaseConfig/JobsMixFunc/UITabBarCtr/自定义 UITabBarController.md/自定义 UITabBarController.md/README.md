@@ -1,6 +1,10 @@
 # <span id="前言">自定义 UITabBarController</span>
 
+![Jobs出品，必属精品](https://picsum.photos/1500/400)
+
 [toc]
+
+> 本文后续旧单窗口代码用于理解历史实现。当前主 App 使用 Scene 生命周期，在 SceneDelegate 内创建窗口；不复制 `makeAppDelegateWindow` 或全局 TabBar 根到多窗口宿主。
 
 ## 一、<font id=相关目录结构>相关目录结构</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -390,7 +394,7 @@ Prop_assign()BOOL isNeedjump;/// 跳开处理，即不切控制器，而是做�
 
 * 将系统的 `UITabBarItem`替换为按钮（**UIButton**）更加符合国人思维习惯
 
-* （单例模式）配置文件`JobsCustomTabBarConfig`
+* `JobsCustomTabBarConfig` 支持 Normal 独立实例和显式 Shared 兼容实例。Scene 宿主为每个窗口创建独立配置，通过 `JobsCustomTabBarVC.initWithConfiguration:` 注入，不能把同一组控制器或按钮复用到两个窗口。Bar 使用 `jobsMakeCustomTabBarWithConfiguration(configuration, block)`，按钮只切换所属控制器；完整根入口见 `JobsOCMakeAppRootViewController()`。
 
 * 对于`UITabBarItem`的图文配置转而面对**UIButton**的子控件（包含1个主标题、1个附标题、1个图）的设置
 

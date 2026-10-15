@@ -10,6 +10,8 @@
 #import <CoreText/CoreText.h>
 #import <objc/runtime.h>
 
+#import "JobsSystemAPIDSLSupplement.h"
+
 
 JobsIconfontRemoteAsset const JobsIconfontRemoteAssetLogo = @"logo";
 JobsIconfontRemoteAsset const JobsIconfontRemoteAssetFontBanner = @"fontBanner";
@@ -22,7 +24,22 @@ static const void *JobsIconfontRequestIdentityKey = &JobsIconfontRequestIdentity
 
 @interface UIGraphicsImageRendererFormat (JobsIconfontDSL)
 -(JobsRetIDByCGFloatBlock _Nonnull)byScale;
--(JobsRetIDByBOOLBlock _Nonnull)byOpaque;
+@end
+
+@implementation UIGraphicsImageRendererFormat (JobsIconfontDSL)
+
+-(JobsRetIDByCGFloatBlock _Nonnull)byScale{
+    @jobs_weakify(self)
+    return ^id _Nullable(CGFloat data){
+        @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
+        self.scale = data;
+        return self;
+    };
+}
+
 @end
 
 @interface UIImageView (JobsIconfontDSL)
