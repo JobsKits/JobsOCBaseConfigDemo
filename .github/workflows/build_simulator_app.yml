@@ -18,7 +18,7 @@ concurrency:
 jobs:
   build-simulator-app:
     runs-on: macos-15
-    timeout-minutes: 90
+    timeout-minutes: 150
     permissions:
       actions: write
       contents: read
@@ -29,31 +29,37 @@ jobs:
       CONFIGURATION: Debug
       SDK: iphonesimulator
       DESTINATION: generic/platform=iOS Simulator
+      SIMULATOR_ARCH: arm64
+      LANG: en_US.UTF-8
+      LC_ALL: en_US.UTF-8
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      - name: Select Xcode 26 SDK when available
+      - name: Select Xcode 26 SDK
         run: |
           selected_developer_dir=""
 
           if [[ -n "${XCODE_26_DEVELOPER_DIR:-}" && -d "${XCODE_26_DEVELOPER_DIR}" ]]; then
             selected_developer_dir="${XCODE_26_DEVELOPER_DIR}"
           else
-            latest_xcode="$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort | tail -n 1 || true)"
+            latest_xcode="$(ruby -e 'puts Dir.glob("/Applications/Xcode_26*.app").max_by { |path| Gem::Version.new(File.basename(path)[/\d+(?:\.\d+)*/, 0]) }')"
             if [[ -n "${latest_xcode}" ]]; then
               selected_developer_dir="${latest_xcode}/Contents/Developer"
             fi
           fi
 
           if [[ -n "${selected_developer_dir}" ]]; then
-            sudo xcode-select -s "${selected_developer_dir}"
+            export DEVELOPER_DIR="${selected_developer_dir}"
+            echo "DEVELOPER_DIR=${DEVELOPER_DIR}" >> "${GITHUB_ENV}"
           else
-            echo "Xcode 26 is not available; using the runner default Xcode."
+            echo "::error::Xcode 26 is required by this project but is unavailable on the runner."
+            exit 1
           fi
 
-          xcodebuild -version
+          xcodebuild -version | tee "${RUNNER_TEMP}/xcode-version.txt"
+          grep -Eq '^Xcode 26([.]|$)' "${RUNNER_TEMP}/xcode-version.txt"
           xcode-select -p
 
       - name: Show build environment
@@ -64,26 +70,47 @@ jobs:
           pod --version
 
       - name: Install CocoaPods dependencies
+        timeout-minutes: 20
         run: |
-          pod install --no-repo-update || pod install --repo-update
+          set -o pipefail
+          mkdir -p "${RUNNER_TEMP}/BuildDiagnostics"
+          {
+            pod install --no-repo-update || pod install --repo-update
+          } 2>&1 | tee "${RUNNER_TEMP}/BuildDiagnostics/pod-install.log"
 
       - name: Build Simulator app
+        timeout-minutes: 120
         run: |
+          set -o pipefail
           derived_data_path="${RUNNER_TEMP}/DerivedData"
+          diagnostics_path="${RUNNER_TEMP}/BuildDiagnostics"
+          mkdir -p "${diagnostics_path}"
 
           xcodebuild \
-            -quiet \
             -workspace "${WORKSPACE}" \
             -scheme "${SCHEME}" \
             -configuration "${CONFIGURATION}" \
             -sdk "${SDK}" \
             -destination "${DESTINATION}" \
             -derivedDataPath "${derived_data_path}" \
+            -resultBundlePath "${diagnostics_path}/Build.xcresult" \
+            -showBuildTimingSummary \
+            -jobs 2 \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY="" \
-            ONLY_ACTIVE_ARCH=NO \
-            build
+            ONLY_ACTIVE_ARCH=YES \
+            ARCHS="${SIMULATOR_ARCH}" \
+            build 2>&1 | tee "${diagnostics_path}/xcodebuild.log"
+
+      - name: Upload build diagnostics
+        if: always()
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: ${{ env.SCHEME }}-Build-Logs-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/BuildDiagnostics
+          if-no-files-found: warn
+          retention-days: 14
 
       - name: Package Simulator app
         id: package
