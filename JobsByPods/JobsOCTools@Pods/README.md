@@ -51,7 +51,7 @@ JobsOCTools@Pods/
 ├── README.md  # 当前自述
 ├── JobsOCTools.h  # 根入口头文件
 ├── JobsPodspecKit.rb  # 本地 podspec 基座
-├── Core/  # 公开入口与核心实现，185 个文件
+├── Core/  # 公开入口与核心实现，183 个文件
 ├── Support/  # 内部支援，4 个文件
 ├── Resource/  # 非代码资源，75 个文件
 ├── LICENSE  # 许可证文件
@@ -64,7 +64,7 @@ JobsOCTools@Pods/
 
 ## 四、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 当前包含 185 个文件，其中源码 / 头文件 150 个；按 Jobs 规范，它是 `JobsOCTools` 对外公开 API 和核心实现的边界。
+- `Core` 当前包含 183 个文件，其中源码 / 头文件 148 个；按 Jobs 规范，它是 `JobsOCTools` 对外公开 API 和核心实现的边界。
 - `Support` 当前包含 4 个文件，其中源码 / 头文件 4 个；它只服务当前 Pod 内部实现，不建议被 App 层或其它 Pod 直接引用。
 - `Support/UIKit/NSString/NSString+Sys` 提供当前 Pod 内部使用的 `byTrimmingCharactersInSet` 字符串裁剪 DSL，不回引 `JobsByOCPods`。
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
@@ -232,7 +232,7 @@ pod install --no-repo-update
 
 ### 11.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-这是多个历史工具与 UI 能力的集合入口，包含崩溃日志、图标/通知、缩放、页面组合等分支，并依赖已拆出的独立 Pod。它不对应单一业务流程，阅读时应沿具体功能目录与聚合入口定位。
+这是多个历史工具与 UI 能力的集合入口，包含崩溃日志、图标 / 通知、缩放、页面组合等分支，并依赖已拆出的独立 Pod。它不对应单一业务流程，阅读时应沿具体功能目录与聚合入口定位。系统 VPN 的配置、凭据和连接不属于本库公开能力。
 
 ### 11.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -278,7 +278,7 @@ pod install --no-repo-update
 
 | 目录 | 实际文件 | 源码 / 头文件 | 安装边界 |
 | --- | --- | --- | --- |
-| `Core/` | 185 | 150 | 公共入口与核心实现；公开 / 私有头由 podspec 指定 |
+| `Core/` | 183 | 148 | 公共入口与核心实现；公开 / 私有头由 podspec 指定 |
 | `Support/` | 4 | 4 | 仅供当前 Pod 内部实现，按实际 subspec / private header 映射 |
 | `Resource/` | 75 | 0 | 非代码资源；按 resources / resource_bundles 和排除规则安装 |
 | `Tests/` | 6 | 5 | 只由独立测试目标或回归 harness 使用，不进入生产 source_files |
@@ -304,7 +304,7 @@ pod install --no-repo-update
 
 ## 十四、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归、macOS 生产实现回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+历史结果：**清理 VPN 示例之前的 Debug / Release 单 Pod 编译、Debug Stability 回归和 macOS 生产实现回归见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。源码或公开头变化后，旧指纹对应的记录不能作为当前编译结果，需刷新安装映射并重新验证。
 
 生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
 

@@ -254,6 +254,9 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
 
 - `JobsGestureLock` 由本地 Pod 管理；现成控制器以 `BaseViewController` 为页面基座，`JobsSettingGestureVC` 直接复用统一的 `viewModel`、导航与主题契约，并以“手势解锁”为标题提供与 Swift 一致的设置 / 验证切换、56pt 语义色九宫格、跨点补点、状态反馈和清除重来入口。
 - `JobsImageRotation` 由本地 Pod 管理；通用旋转器默认顺时针、Timer 间隔默认 `1/60` 秒，也可切换为逆时针并自定义速度；`JobsClockIconView` 额外提供无刻度、固定时针、仅分针旋转的纯图形组件，默认 `0.1` 秒一帧，方向与间隔由外界传入。
+- `YTKNetworkExtra` 提供普通、上传、批量与链式请求适配和响应解析；加载状态由调用页面管理，成功、失败和取消均须结束页面加载。
+- `JobsPostVC` 的“图文草稿编辑”Demo 提供文字编辑、相册选择、拖动删除和本地草稿保存 / 恢复，页面没有服务端发布入口。
+- `JobsOCTools` 的公开能力覆盖现有工具与组合视图，系统 VPN 配置、凭据和连接不属于其公开入口。
 - `JobsOCTimerMgr` 支持 `identifier + expectedTimer` 实例安全取消和页面 Scope 生命周期；时时彩 Demo 用绝对 `endAt` 作为 Model 时间真值，页面隐藏只暂停刷新，不延长倒计时。
 - `JobsOCNumberStepper` 由本地 Pod 管理；统一封装减号、整数输入框与加号，上下限可独立省略，到达已设置边界后自动禁用并置灰对应按钮。
 - `JobsOCWebSocket` 由本地 Pod 管理；它只承接连接、心跳、重连和主线程回调，业务协议与鉴权继续留在业务层。
@@ -272,16 +275,21 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
 
 **安装前后：入口与行为**
 
+公共 Specs 由 [CocoaPods 源自动选择模块](<./ScriptsByPods/【MacOS】🌐CocoaPods源自动选择.command/README.md>)单独管理。Podfile 顶部同步加载 `jobs_cocoapods_source.rb` 并在 `source` 声明前完成真实 podspec GET 与 Git 连接测试；`pod install` / `pod update` 均按当前网络选源。可用 `JOBS_SPECS_SOURCE=cdn` / `git` 固定本次来源，默认 `auto`；每条候选线路完整测试默认最多 8 秒，可用 `JOBS_SPECS_PROBE_TIMEOUT` 调整。
+
+适配器只在当前进程映射锁文件公共源，保留锁定版本、校验和及私有源；不删除 Pods / 锁文件，不自动升级或二次安装。两条线路均失败时尝试锁文件源、已有缓存或默认 CDN，脚本异常时告警并继续 CocoaPods 自身流程，不能保证离线安装成功。迁移时保留 `ScriptsByPods/【MacOS】🌐CocoaPods源自动选择.command/` 整包与 Podfile 的加载代码。
+
 [Podfile](./Podfile) 顶部加载 `./ScriptsByPods/【MacOS】📦Pod Install离线保护.command/jobs_pod_install_offline_guard.rb`；统一调度入口是同目录的 `【MacOS】📦Pod Install离线保护.command`。详见[本地脚本保护说明](<./ScriptsByPods/【MacOS】📦Pod Install离线保护.command/README.md>)。
 
 | 时机 | 挂载脚本 / 入口 | 实际行为与产物 |
 | --- | --- | --- |
+| `pod install` / `pod update` 读取 Podfile 时，`source` 声明前 | [CocoaPods 源自动选择](<./ScriptsByPods/【MacOS】🌐CocoaPods源自动选择.command/README.md>)同步测速 | 测试当前网络并决定本次公共 Specs 源；结果与理由写入系统临时日志 |
 | `pod install` 读取 Podfile 时，依赖解析前 | Ruby 入口异步启动 `--preflight` | 不等待依赖下载；下面的报告与索引任务独立运行，不阻塞安装主流程 |
 | 前置任务 | [查询工程依赖关系](<./ScriptsByPods/【MacOS】🔍查询Xcode工程依赖关系.command/README.md>) | 扫描本地 podspec，生成 `./PodspecDependencyReport/` 下的依赖报告与关系图 |
 | 前置任务 | [CodeGraph 初始化脚本](./ScriptsByPods/codegraph_init.command/codegraph_init.command) | 本机工具可用时后台建立 / 更新 [**CodeGraph**](https://github.com/colbymchenry/codegraph) 索引并导出 Markdown；通过 PID 避免重复启动 |
 | 工程集成完成后，`post_integrate` | 统一入口 `--post-integrate` → [恢复 PIF 构建会话](<./ScriptsByPods/【MacOS】🧹恢复Xcode PIF构建会话.command/README.md>) | 有活动构建则跳过；无活动构建时结束当前用户的空闲构建服务，再通过工作空间列表命令重建会话 |
 
-前置任务强制离线，只复用已有工具，不自动安装工具链；失败不覆盖 CocoaPods 自身结果。PIF 收尾脚本缺失、失败或异常时记录警告，不把已完成的依赖安装改判为失败。该恢复流程不删除 `Pods`、锁文件、工作空间或 `DerivedData`。
+报告与索引前置任务强制离线，只复用已有工具，不自动安装工具链；失败不覆盖 CocoaPods 自身结果。公共 Specs 选源单独同步执行网络测试，不加入这些异步任务。PIF 收尾脚本缺失、失败或异常时记录警告，不把已完成的依赖安装改判为失败。该恢复流程不删除 `Pods`、锁文件、工作空间或 `DerivedData`。
 
 `post_install` 还会执行 Podfile 内的构建配置与兼容性修补；`post_integrate` 同步维护 Pods 工程根组中的 [Podfile](./Podfile) / [Podfile.deps](./Podfile.deps) 引用，两者相邻置顶，以 [**Ruby**](https://www.ruby-lang.org) 红钻图标及文件引用标识显示并打开真实文件，不加入任何 Build Phase。引用维护使用 `xcodeproj` 重开已保存工程、查重并分配唯一 UUID；写入前临时备份 `project.pbxproj`，保存后立即重开检查根对象、根 UUID、唯一引用、排列及真实路径，失败恢复备份并在安装输出中告警，结束后清理临时备份，不生成额外报告。这是 Podfile 内联同步逻辑，迁移时保留工程根目录的两份文件与 `Pods/Pods.xcodeproj` 的相对层级。
 
@@ -327,6 +335,7 @@ CocoaPods 生成的 `[CP] Check Pods Manifest.lock`、`[CP] Embed Pods Framework
 
 **日志与定位**
 
+- 公共 Specs 选源：系统临时目录中的 `jobs-cocoapods-source-<工程路径摘要>.log`，具体路径随安装输出展示；记录网络测试结果、耗时与选择理由。
 - 安装前置总日志：系统临时目录中的 `jobs-pod-install-preflight-<工程摘要>.log`。
 - 调度汇总与索引日志：系统临时目录中的 `【MacOS】📦Pod Install离线保护.<工程摘要>.log`、`codegraph_init.<工程摘要>.async.log`；PIF 与依赖报告脚本另有各自日志。
 - IPA 留存：Xcode 构建日志与系统临时目录中的 `save_device_ipa_after_build.log`。
@@ -2400,9 +2409,6 @@ classDiagram
               NSLog(@"json = %@", json);
               // show cached data
           }
-  
-          api.animatingText = JobsInternationalization(@"正在登录");
-          api.animatingView = self;
   
           [api startWithCompletionBlockWithSuccess:^(YTKBaseRequest *request) {
               JobsResponseModel *responseModel = [JobsResponseModel mj_objectWithKeyValues:request.responseObject];

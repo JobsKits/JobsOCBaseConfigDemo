@@ -707,6 +707,8 @@ JobsByPods/FeatureName@Pods/
 ### 11.1、网络、数据、日志与生命周期 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - 网络经 `JobsNetWorkTools`、YTKNetwork / AFNetworking 适配层等稳定门面接入；页面至少区分加载、成功、空、可重试失败、不可恢复失败和取消。
+- `YTKNetworkExtra` 的普通、上传、批量与链式请求保留真实网络能力；页面管理加载状态，并在成功、失败和取消时收尾。
+- `JobsPostVC` 作为图文草稿编辑 Demo，只提供文字、相册选择与本地草稿保存 / 恢复，不承诺上传或服务端发布；`JobsOCTools` 公开入口不包含 VPN 配置样例。
 - 数据按业务选择 Realm、FMDB、文件、UserDefaults 或 Keychain；明确线程、迁移、加密、过期和清理策略。
 - CocoaLumberjack 等日志要结构化并脱敏；Debug 打印不能成为 Release 唯一观测手段。
 - 定时器、录音录像、WebSocket、视频帧队列、WebView、通知与观察者必须有停止、清理和前后台策略。

@@ -156,9 +156,5 @@ NS_INLINE BOOL KindOfCtrlCls(id _Nonnull data) {
 NS_INLINE BOOL KindOfTextItemCls(id _Nonnull data) {
     return KindOfClsFromStr(data, @"UITextItem");
 }
-/// YTKAnimatingRequestAccessory
-NS_INLINE BOOL KindOfYTKAnimatingRequestAccessoryCls(id _Nonnull data) {
-    return KindOfClsFromStr(data, @"YTKAnimatingRequestAccessory");
-}
 
 #endif /* MacroDef_SDK_h */

@@ -13,8 +13,8 @@ Pod::Spec.new do |spec|
   spec.summary          = 'YTKNetwork extra request helpers for Jobs projects.'
   spec.description      = <<-DESC
 YTKNetworkExtra is a local Objective-C extension library that provides base request
-classes, request parameter helpers, upload request support, response model mapping,
-and loading accessories on top of YTKNetwork.
+classes, request parameter helpers, upload request support, and response model mapping
+on top of YTKNetwork.
   DESC
 
   spec.homepage         = 'https://example.local/YTKNetworkExtra'

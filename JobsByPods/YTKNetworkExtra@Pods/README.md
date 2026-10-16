@@ -18,7 +18,7 @@
 ## 🔥 <font id=前言>前言</font>
 
 > 这份自述用于记录 `YTKNetworkExtra` 在 Jobs 本地 [**CocoaPods**](https://cocoapods.org/) 体系里的职责边界、目录结构、依赖关系和验证方式。
-补充描述：YTKNetworkExtra is a local Objective-C extension library that provides base request classes, request parameter helpers, upload request support, response model mapping, and loading accessories on top of YTKNetwork.
+补充描述：YTKNetworkExtra is a local Objective-C extension library that provides base request classes, request parameter helpers, upload request support, and response model mapping on top of YTKNetwork.
 
 
 ## 一、Pod 定位 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
@@ -50,7 +50,7 @@ YTKNetworkExtra@Pods/
 ├── README.md  # 当前自述
 ├── YTKNetworkExtra.h  # 根入口头文件
 ├── JobsPodspecKit.rb  # 本地 podspec 基座
-├── Core/  # 公开入口与核心实现，25 个文件
+├── Core/  # 公开入口与核心实现，17 个文件
 ├── Support/  # 内部支援，12 个文件
 └── LICENSE  # 许可证文件
 ```
@@ -61,7 +61,7 @@ YTKNetworkExtra@Pods/
 
 ## 四、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-- `Core` 当前包含 25 个文件，其中源码 / 头文件 25 个；按 Jobs 规范，它是 `YTKNetworkExtra` 对外公开 API 和核心实现的边界。
+- `Core` 当前包含 17 个文件，其中源码 / 头文件 17 个；按 Jobs 规范，它是 `YTKNetworkExtra` 对外公开 API 和核心实现的边界。
 - `Support` 当前包含 12 个文件，其中源码 / 头文件 12 个；它只服务当前 Pod 内部实现，不建议被 App 层或其它 Pod 直接引用。
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
@@ -160,21 +160,21 @@ pod install --no-repo-update
 
 ### 10.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-以 BaseRequest 和 BaseUploadFileRequest 为基础组织 Jobs 的网络适配。请求参数/请求头属于请求层，NSObject 分类负责标准响应解析，Accessory 连接加载动画，批量与链式请求由 YTKNetwork 协调。
+以 BaseRequest 和 BaseUploadFileRequest 为基础组织 Jobs 的网络适配。请求参数 / 请求头属于请求层，NSObject 分类负责标准响应解析，批量与链式请求由 YTKNetwork 协调。页面负责自身加载状态。
 
 ### 10.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-构造请求参数和请求头 → 发起普通/上传/批量请求 → 处理网络结果 → 解析 msg、code、data → 回调业务并结束附属动画。
+构造请求参数和请求头 → 发起普通 / 上传 / 批量请求 → 处理网络结果 → 解析 msg、code、data → 回调业务。
 
 ### 10.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
 - Body 参数与 URL 参数入口有明确区别，现有注释特别限制了两种初始化后的混接；重建时应按请求方法保留语义。
 - 网络成功与业务 code 成功不能混为一谈；响应模型转换与原始响应应有清晰边界。
-- 加载动画挂在请求生命周期上，批量/链式请求也有对应 Accessory，不能让失败路径遗留加载状态。
+- 普通、批量和链式请求均不提供自动加载动画附件；调用页面应在成功、失败和取消路径结束自身加载状态。
 
 ### 10.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-先重建 BaseRequest 的参数与响应约定，再做上传和响应模型转换，最后补动画附件与批量/链式适配。
+先重建 BaseRequest 的参数与响应约定，再做上传和响应模型转换，最后核对批量 / 链式适配。
 
 源码定位（路径以本 README 所在目录为基准；只带走 README 时，可把文件名作为职责定位线索）：
 
@@ -199,7 +199,7 @@ pod install --no-repo-update
 
 | 目录 | 实际文件 | 源码 / 头文件 | 安装边界 |
 | --- | --- | --- | --- |
-| `Core/` | 25 | 25 | 公共入口与核心实现；公开 / 私有头由 podspec 指定 |
+| `Core/` | 17 | 17 | 公共入口与核心实现；公开 / 私有头由 podspec 指定 |
 | `Support/` | 12 | 12 | 仅供当前 Pod 内部实现，按实际 subspec / private header 映射 |
 | `Resource/`（无目录） | 0 | 0 | 非代码资源；按 resources / resource_bundles 和排除规则安装 |
 | `Tests/`（无目录） | 0 | 0 | 只由独立测试目标或回归 harness 使用，不进入生产 source_files |
@@ -208,7 +208,7 @@ pod install --no-repo-update
 
 ## 十三、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-当前结果：**Debug / Release 单 Pod 编译已完成；本 Pod 无独立 Stability 回归；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
+历史结果：**清理动画附件之前的 Debug / Release 单 Pod 编译见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)；本 Pod 无独立 Stability 回归**。源码或公开头变化后，旧指纹对应的记录不能作为当前编译结果，需刷新安装映射并重新验证。
 
 生产行为与边界按上述核心契约验收；逐 Pod 编译与独立行为回归分别记录结果。
 

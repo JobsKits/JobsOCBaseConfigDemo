@@ -53,7 +53,6 @@
 #import <JobsOCTools/JobsUserHeaderDataView.h>
 #import <JobsOCTools/JobsUserHeaderDataViewForHeaderInSection.h>
 #import <JobsOCTools/JobsUserHeaderDataViewTBVCell.h>
-#import <JobsOCTools/JobsVPN.h>
 #import <JobsOCTools/JobsWelcomeVC.h>
 #import <JobsOCTools/LongPressToDeleteImageView.h>
 #import <JobsOCTools/LZTabBar.h>

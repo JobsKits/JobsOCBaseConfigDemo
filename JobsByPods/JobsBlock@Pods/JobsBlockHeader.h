@@ -1182,7 +1182,6 @@ typedef NS_ENUM(NSUInteger, JobsProgressBarValueMode);
 @class XLChannelControl;
 @class XLChannelHeader;
 @class XLChannelView;
-@class YTKAnimatingRequestAccessory;
 @class YTKBatchRequest;
 @class YTKChainRequest;
 @class YTKUrlArgumentsFilter;

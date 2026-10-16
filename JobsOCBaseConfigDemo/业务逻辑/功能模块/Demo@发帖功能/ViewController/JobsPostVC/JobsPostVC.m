@@ -14,7 +14,6 @@
 Prop_strong()HXPhotoView *postPhotoView; // 展示选择的图片
 Prop_strong()HXPhotoManager *photoManager; // 选取图片的数据管理类
 Prop_strong()JobsPostDelView *postDelView; // 长按拖动的删除区域
-Prop_strong()BaseButton *releaseBtn;
 Prop_strong()UILabel *tipsLab;
 /// Data
 Prop_copy()NSArray <HXPhotoModel *>*historyPhotoDataArr; // 与之相对应的是self.photoManager.afterSelectedArray
@@ -110,21 +109,11 @@ Prop_strong()UITextModel *postTextModel;
         if (!self) return;
             [super viewDidLoad];
             self.view.byBgColor(JobsSystemBackgroundColor);
-            @jobs_weakify(self)
-            self.byLeftBarButtonItems(jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
-        //        @jobs_strongify(self)
-        //        data.add(UIBarButtonItem.initBy(self.aboutBtn));
-            }))
-            .byRightBarButtonItems(jobsMakeMutArr(^(NSMutableArray <UIBarButtonItem *>* _Nullable data) {
-                @jobs_strongify(self)
-                data.add(UIBarButtonItem.initBy(self.releaseBtn));
-            }));
             self.makeNavByAlpha(1);
             self.jobsTextView.byAlpha(1);
             self.tipsLab.byAlpha(1);
             self.postPhotoView.byAlpha(1);
             self.postDelView.byAlpha(1);
-            [self releaseBtnState:self.historyPhotoDataArr inputDataString:self.inputDataHistoryString];
             self.byFd_interactivePopDisabled(YES);
     };
 }
@@ -227,27 +216,6 @@ Prop_strong()UITextModel *postTextModel;
     [self.view endEditing:YES];
 }
 #pragma mark —— 一些私有方法
-/// 帖子视频上传 POST
--(jobsByVoidBlock _Nonnull)networking_postuploadVideoPOST{
-    return ^(){
-    };
-}
-/// 帖子图片上传 POST
--(jobsByVoidBlock _Nonnull)networking_postUploadImagePOST{
-    return ^(){
-    };
-}
-/// 发帖 POST
--(jobsByVoidBlock _Nonnull)networking_postAddPostPOST{
-    return ^(){
-    };
-}
-/// 发帖权限检测
--(jobsByVoidBlock _Nonnull)networking_checkHadRoleGET{
-    return ^(){
-    };
-}
-
 -(void)保留文字{
     @jobs_weakify(self)
     if (isValue(self.inputDataString)) {
@@ -350,11 +318,6 @@ Prop_strong()UITextModel *postTextModel;
     };
 }
 
--(void)releaseBtnState:(NSArray *)photoDataArr
-       inputDataString:(NSString *)inputDataString{
-    if (self.releaseBtn) self.releaseBtn.byEnabled(photoDataArr.count || inputDataString.length);
-    self.releaseBtn.jobsResetBtnBgImage(self.releaseBtn.enabled ? @"发布".img : @"未发布".img);
-}
 #pragma mark —— HXPhotoViewDelegate
 /// 在这里获取到点选的资料
 - (void)photoView:(HXPhotoView *)photoView
@@ -380,8 +343,6 @@ Prop_strong()UITextModel *postTextModel;
             self.byPhotosImageMutArr(NSMutableArray.initBy(imageArray));
         }];
     }else{}
-    [self releaseBtnState:allList
-          inputDataString:self.inputDataString];
 }
 
 - (void)photoView:(HXPhotoView *)photoView
@@ -444,31 +405,6 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
     });
 }
 #pragma mark —— lazyLoad
--(BaseButton *)releaseBtn{
-    if (!_releaseBtn) {
-        @jobs_weakify(self)
-        _releaseBtn = BaseButton.jobsInit()
-            .bgColorBy(JobsWhiteColor)
-            .jobsResetBtnBgImage(@"未发布".img)
-            .jobsResetBtnTitleCor(JobsWhiteColor)
-            .jobsResetBtnTitleFont(UIFontWeightBoldSize(JobsWidth(12)))
-            .jobsResetBtnTitle(@"发布".jobsTr())
-            .jobsResetBtnCornerRadiusValue(JobsWidth(23 / 2))
-            .onClickBy(^(UIButton *x){
-                @jobs_strongify(self)
-                if (self.objBlock) self.objBlock(x);
-                [self.view endEditing:YES];
-                [self networking_checkHadRoleGET]();
-            })
-            .onLongPressGestureBy(^(id data){
-                JobsLog(@"");
-            })
-            .byEnabled(NO)
-            .byWidth(JobsWidth(38))
-            .byHeight(JobsWidth(23))
-            .addOn(self.view);
-    };return _releaseBtn;
-}
 @synthesize jobsTextView = _jobsTextView;
 -(__kindof JobsTextView *)jobsTextView{
     if (!_jobsTextView) {
@@ -482,8 +418,6 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
                     @jobs_strongify(self)
                     NSString *x = (NSString *)data;
                     self.byInputDataString(x);
-                    [self releaseBtnState:self.photoManager.afterSelectedArray
-                          inputDataString:self.inputDataString];
                 })
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
