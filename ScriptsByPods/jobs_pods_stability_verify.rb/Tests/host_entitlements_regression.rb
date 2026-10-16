@@ -1,10 +1,15 @@
 #!/usr/bin/env ruby
 # clang真正生成Simulator Mach-O，验证权限来自二进制全部架构；不启动iOS或xcodebuild。
+# 无参数运行独立 fixture；传入当次 AppHost executable 后额外验收该真实宿主。
 require 'fileutils'
 require 'json'
 require 'open3'
 require 'tmpdir'
 require_relative '../jobs_stability_host_entitlements'
+
+abort 'Usage: ruby host_entitlements_regression.rb [HOST_BINARY]' if ARGV.length > 1
+host_binary = File.expand_path(ARGV.first) if ARGV.first
+abort "指定的 AppHost executable 不存在：#{host_binary}" if host_binary && !File.file?(host_binary)
 
 # 失败立即退出，保留系统工具的真实诊断。
 def assert(condition, message)
@@ -129,14 +134,13 @@ Dir.mktmpdir('jobs-host-entitlements-regression-') do |folder|
   passed += 1
 end
 
-# 当前任务真正生成的signed宿主，两架构提取必须与Info.plist标识一致。
-root = File.expand_path('../../..', __dir__)
-app = File.join(root, 'work', 'JobsPodsStability', 'full', 'Products', 'Debug-iphonesimulator', 'AppHost-JobsBaseUI-Unit-Tests.app')
-binary = ARGV.first || File.join(app, 'AppHost-JobsBaseUI-Unit-Tests')
-bundle_identifier = run_tool('/usr/bin/plutil', '-extract', 'CFBundleIdentifier', 'raw', '-o', '-', File.join(File.dirname(binary), 'Info.plist'))
-actual = JobsStabilityHostEntitlements.audit(binary, bundle_identifier: bundle_identifier)
-assert_valid(actual, run_tool('/usr/bin/lipo', '-archs', binary).split)
-puts "PASS real task AppHost compiled permissions (#{actual['architectures'].map { |row| row['architecture'] }.join(',')})"
-passed += 1
-puts JSON.pretty_generate(actual)
+# 显式验收调用方当次构建的宿主，不依赖开发机残留的 work/Products 路径。
+if host_binary
+  bundle_identifier = run_tool('/usr/bin/plutil', '-extract', 'CFBundleIdentifier', 'raw', '-o', '-', File.join(File.dirname(host_binary), 'Info.plist'))
+  actual = JobsStabilityHostEntitlements.audit(host_binary, bundle_identifier: bundle_identifier)
+  assert_valid(actual, run_tool('/usr/bin/lipo', '-archs', host_binary).split)
+  puts "PASS real task AppHost compiled permissions (#{actual['architectures'].map { |row| row['architecture'] }.join(',')})"
+  passed += 1
+  puts JSON.pretty_generate(actual)
+end
 puts "#{passed} real-Mach-O scenarios passed; no Xcode build/install or iOS launch executed."

@@ -114,6 +114,12 @@ jobs:
           ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
             --phase tests --architecture arm64 --simulator "${simulator_id}" --output "${RUNNER_TEMP}/JobsOCStability"
 
+      - name: Audit built Keychain test host
+        timeout-minutes: 10
+        run: |
+          ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/host_entitlements_regression.rb \
+            "${RUNNER_TEMP}/JobsOCStability/Products/Debug-iphonesimulator/AppHost-JobsBaseUI-Unit-Tests.app/AppHost-JobsBaseUI-Unit-Tests"
+
       - name: Build Simulator app
         timeout-minutes: 30
         run: |

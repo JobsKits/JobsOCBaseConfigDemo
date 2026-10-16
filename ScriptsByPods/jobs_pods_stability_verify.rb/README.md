@@ -29,7 +29,7 @@ XCTest 还核验真实 `.xcresult` 摘要，记录执行、通过、失败与跳
 
 JobsBaseUI 的真实 Keychain 测试由独立 Simulator 宿主使用 ad-hoc `-` 签名；[测试 entitlement](../../Tests/JobsPodsStabilityHost/JobsBaseUIKeychain/JobsBaseUIKeychain.entitlements) 只使用该宿主自己的 bundle identifier，不配置业务 App 的共享组、个人证书或 provisioning profile。runner 仅为这组测试开启签名，并核验实际产物的签名、展开后的 application identifier 和 access group；Keychain 用例必须全部执行通过、零跳过。其余 Pod / App 构建保留原签名策略。签名策略写入结果缓存，entitlement 源文件纳入内容指纹。
 
-Xcode 可将 Simulator 权限放进实际宿主 Mach-O 的 `__TEXT,__entitlements`，同时代码签名内的 entitlement 为空。验收先验证代码签名，再由 [二进制权限审计](./jobs_stability_host_entitlements.rb) 读取每个实际架构的已编译段，核对宿主身份和权限，不以源 plist 或 `.xcent` 存在替代产物证明。[回归](./Tests/host_entitlements_regression.rb) 的 10 个真实 Mach-O 场景通过。
+Xcode 可将 Simulator 权限放进实际宿主 Mach-O 的 `__TEXT,__entitlements`，同时代码签名内的 entitlement 为空。验收先验证代码签名，再由 [二进制权限审计](./jobs_stability_host_entitlements.rb) 读取每个实际架构的已编译段，核对宿主身份和权限，不以源 plist 或 `.xcent` 存在替代产物证明。[回归](./Tests/host_entitlements_regression.rb) 无参数执行 9 个独立真实 Mach-O 场景，适用于尚未构建测试宿主的干净环境；显式传入当前宿主 executable 后追加第 10 个真实产物检查，指定路径缺失即失败。GitHub Actions 前置执行独立场景，Pod 测试成功后再传入当次 `JobsOCStability/Products/Debug-iphonesimulator` 内的 AppHost；不会读取本地历史 `work/JobsPodsStability/full` 产物。
 
 ## 二、定向复验 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

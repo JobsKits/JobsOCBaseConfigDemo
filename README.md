@@ -364,9 +364,9 @@ Behaviors 属于 Xcode 当前用户设置，工程引用不会自动建立其它
 
 [构建工作流](./.github/workflows/build_simulator_app.yml)在推送、拉取请求或手动触发时运行；自动触发范围为 `main`、`byPods`。使用 `macos-15` runner 和 Xcode 26，缺少所需 SDK 时立即失败；显式选择 runner 的 `arm64` 模拟器架构，避免在同一次 CI 中重复编译另一套架构。模拟器 App 不使用真机签名，只供对应架构的模拟器运行。
 
-`main` 安装依赖后构建 Debug 主 App；`byPods` 保留各 Jobs 本地 Pod 的 Debug / Release 编译、组件回归与主 App Debug / Release 编译。配置回归先于耗时构建执行；本地 Pod 门禁保留完整命令、退出码与源码冻结校验。冻结范围只排除 `JobsAppIconRibbon.config` 实际指定的 Debug / Release 派生 appiconset，原始 AppIcon、配置与生成器仍参加校验。
+`main` 安装依赖后构建 Debug 主 App；`byPods` 保留各 Jobs 本地 Pod 的 Debug / Release 编译、组件回归与主 App Debug / Release 编译。配置回归先于耗时构建执行；宿主权限审计先运行 9 个独立 Mach-O 场景，Pod 测试成功后再显式验收当次临时 Products 目录中的 AppHost，指定产物缺失即失败。本地 Pod 门禁保留完整命令、退出码与源码冻结校验。冻结范围只排除 `JobsAppIconRibbon.config` 实际指定的 Debug / Release 派生 appiconset，原始 AppIcon、配置与生成器仍参加校验。
 
-构建阶段保留实时日志和诊断产物，阶段超时早于整个任务超时，以便失败后仍有时间上传日志；`main` 的依赖安装 / 编译分别限时 20 / 120 分钟，整个任务限时 150 分钟。`byPods` 的依赖安装 / 配置守卫 / 各 Pod 编译 / 组件回归 / 主 App 编译分别限时 30 / 10 / 120 / 30 / 30 分钟，整个任务限时 240 分钟。成功后生成可下载的 `.app.zip`，排查失败时先下载对应运行的构建日志与 `.xcresult`；产物只代表该次运行实际完成的阶段，历史成功不能替代最新提交的构建结果。
+构建阶段保留实时日志和诊断产物，阶段超时早于整个任务超时，以便失败后仍有时间上传日志；`main` 的依赖安装 / 编译分别限时 20 / 120 分钟，整个任务限时 150 分钟。`byPods` 的依赖安装 / 配置守卫 / 各 Pod 编译 / 组件回归 / 宿主权限验收 / 主 App 编译分别限时 30 / 10 / 120 / 30 / 10 / 30 分钟，整个任务限时 240 分钟。成功后生成可下载的 `.app.zip`，排查失败时先下载对应运行的构建日志与 `.xcresult`；产物只代表该次运行实际完成的阶段，历史成功不能替代最新提交的构建结果。
 
 ## 三、🧨开发支持 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
