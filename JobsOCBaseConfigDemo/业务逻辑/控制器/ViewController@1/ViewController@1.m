@@ -3812,8 +3812,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JXCategoryViewVerticalShowVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
-                model.byTitle(@"发帖（图文）功能".jobsTr())
-                     .bySubTitle(@"相册获取资源+存/取未完成字符串".jobsTr())
+                model.byTitle(@"图文草稿编辑".jobsTr())
+                     .bySubTitle(@"文字、相册选择与本地草稿".jobsTr())
                      .byCls(JobsPostVC.class);
             })))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {

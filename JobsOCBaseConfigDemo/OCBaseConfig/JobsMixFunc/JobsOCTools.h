@@ -69,7 +69,6 @@
 #import "JobsUserHeaderDataView.h"
 #import "JobsUserHeaderDataViewForHeaderInSection.h"
 #import "JobsUserHeaderDataViewTBVCell.h"
-#import "JobsVPN.h"
 #import "JobsWelcomeVC.h"
 #import "LongPressToDeleteImageView.h"
 #import "LZTabBar.h"

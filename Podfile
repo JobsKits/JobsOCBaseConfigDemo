@@ -17,7 +17,25 @@ JobsPodInstallOfflineGuard.guard!(__dir__)
 # ⚠️ 与 post_install 保持一致
 platform :ios, '16.6'
 
-source 'https://cdn.cocoapods.org/'
+# 源选择必须同步完成，才能影响本次依赖解析。
+jobs_specs_source_path = File.join(
+  __dir__,
+  'ScriptsByPods',
+  '【MacOS】🌐CocoaPods源自动选择.command',
+  'jobs_cocoapods_source.rb'
+)
+begin
+  if File.file?(jobs_specs_source_path)
+    require jobs_specs_source_path
+    JobsCocoaPodsSource.apply!(self, project_root: __dir__)
+  else
+    warn '[SpecsSource] 选源模块缺失，使用官方 CDN。请迁移完整脚本包。'
+    source 'https://cdn.cocoapods.org/'
+  end
+rescue LoadError, SyntaxError, StandardError => error
+  warn "[SpecsSource] 选源模块异常，使用官方 CDN：#{error.message}"
+  source 'https://cdn.cocoapods.org/'
+end
 
 install! 'cocoapods',
   :deterministic_uuids => false,

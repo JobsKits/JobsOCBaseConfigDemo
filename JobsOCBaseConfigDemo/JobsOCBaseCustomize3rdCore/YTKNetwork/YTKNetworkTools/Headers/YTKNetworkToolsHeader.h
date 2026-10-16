@@ -31,11 +31,6 @@
 #import "YTKChainRequest+Extra.h"
 #pragma mark —— BaseRequest
 #import "BaseRequest.h"
-#pragma mark —— YTKNetworkAccessory
-#import "YTKChainRequest+AnimatingAccessory.h"
-#import "YTKBatchRequest+AnimatingAccessory.h"
-#import "YTKBaseRequest+AnimatingAccessory.h"
-#import "YTKAnimatingRequestAccessory.h"
 #pragma mark —— YTKUrlArgumentsFilter
 #import "YTKUrlArgumentsFilter.h"
 

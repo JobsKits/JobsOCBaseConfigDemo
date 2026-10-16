@@ -2715,7 +2715,6 @@ typedef User_Realm * _Nullable(^JobsRetUser_RealmByVoidBlock)(void);
 typedef __kindof User_Realm *_Nullable(^JobsRetUser_RealmByStrBlock)(NSString *_Nullable data);
 typedef __kindof User_Realm *_Nullable(^JobsRetUser_RealmByNSIntegerBlock)(NSInteger data);
 typedef XLChannelControl* _Nullable(^JobsRetXLChannelControlByVoidBlock)(void);
-typedef YTKAnimatingRequestAccessory * _Nullable(^JobsRetYTKAnimatingRequestAccessoryByVoidBlock)(void);
 typedef __kindof YTKBatchRequest * _Nullable(^JobsRetYTKBatchRequestByVoidBlock)(void);
 typedef __kindof YTKChainRequest * _Nullable(^JobsRetYTKChainRequestByVoidBlock)(void);
 typedef YTKRequestMethod(^JobsRetYTKRequestMethodByVoidBlock)(void);
