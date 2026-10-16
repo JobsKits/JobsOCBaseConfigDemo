@@ -122,7 +122,7 @@ def test_runner_timeout(folder, source_changes:, permission_failure: false)
   pod_dir = File.join(root, 'JobsByPods', 'Fixture@Pods')
   tools = File.join(root, 'fixture-bin')
   FileUtils.mkdir_p([scripts, pod_dir, tools, File.join(root, 'Pods', 'Pods.xcodeproj')])
-  %w[jobs_pods_stability_verify.rb jobs_stability_command.rb jobs_stability_host_entitlements.rb].each do |name|
+  %w[jobs_pods_stability_verify.rb jobs_stability_command.rb jobs_stability_host_entitlements.rb jobs_stability_sources.rb].each do |name|
     FileUtils.cp(File.expand_path('../' + name, __dir__), File.join(scripts, name))
   end
   spec = File.join(pod_dir, 'Fixture.podspec')

@@ -18,7 +18,7 @@ concurrency:
 jobs:
   build-simulator-app:
     runs-on: macos-15
-    timeout-minutes: 180
+    timeout-minutes: 240
     permissions:
       actions: write
       contents: read
@@ -34,36 +34,44 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      - name: Select Xcode 26 SDK when available
+      - name: Select Xcode 26 SDK
         run: |
           selected_developer_dir=""
 
           if [[ -n "${XCODE_26_DEVELOPER_DIR:-}" && -d "${XCODE_26_DEVELOPER_DIR}" ]]; then
             selected_developer_dir="${XCODE_26_DEVELOPER_DIR}"
           else
-            latest_xcode="$(ls -d /Applications/Xcode_26*.app 2>/dev/null | sort | tail -n 1 || true)"
+            latest_xcode="$(ruby -e 'puts Dir.glob("/Applications/Xcode_26*.app").max_by { |path| Gem::Version.new(File.basename(path)[/\d+(?:\.\d+)*/, 0]) }')"
             if [[ -n "${latest_xcode}" ]]; then
               selected_developer_dir="${latest_xcode}/Contents/Developer"
             fi
           fi
 
           if [[ -n "${selected_developer_dir}" ]]; then
-            sudo xcode-select -s "${selected_developer_dir}"
+            export DEVELOPER_DIR="${selected_developer_dir}"
+            echo "DEVELOPER_DIR=${DEVELOPER_DIR}" >> "${GITHUB_ENV}"
           else
-            echo "Xcode 26 is not available; using the runner default Xcode."
+            echo "::error::Xcode 26 is required by this project but is not installed on the runner."
+            exit 1
           fi
 
-          xcodebuild -version
-          xcode-select -p
+          xcode_version="$(xcodebuild -version)"
+          echo "${xcode_version}"
+          grep -Eq '^Xcode 26([.]|$)' <<< "${xcode_version}" || {
+            echo "::error::Selected developer directory does not provide Xcode 26: ${DEVELOPER_DIR}"
+            exit 1
+          }
+          echo "DEVELOPER_DIR=${DEVELOPER_DIR}"
 
       - name: Show build environment
         run: |
           sw_vers
           xcodebuild -version
-          xcode-select -p
+          echo "DEVELOPER_DIR=${DEVELOPER_DIR}"
           pod --version
 
       - name: Install CocoaPods dependencies
+        timeout-minutes: 30
         run: |
           JOBS_POD_INSTALL_PURE=1 JOBS_POD_INSTALL_SKIP_VENDOR_PATCHES=1 pod install --no-repo-update || JOBS_POD_INSTALL_PURE=1 JOBS_POD_INSTALL_SKIP_VENDOR_PATCHES=1 pod install --repo-update
 
@@ -77,19 +85,23 @@ jobs:
           SCRIPT
           sudo chmod +x /Users/jobs/.xcode-build-timer/xbt-build-hook.sh
 
-      - name: Build every Jobs Pod in Debug and Release
-        run: |
-          ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
-            --phase pods --output "${RUNNER_TEMP}/JobsOCStability"
-
       - name: Verify configuration and result guards
+        timeout-minutes: 10
         run: |
           ruby ScriptsByPods/jobs_pods_stability_audit.rb/Tests/run_regression.rb
+          ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/source_fingerprint_regression.rb
           ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/readme_results_regression.rb
           ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/command_timeout_regression.rb
           ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/host_entitlements_regression.rb
 
+      - name: Build every Jobs Pod in Debug and Release
+        timeout-minutes: 120
+        run: |
+          ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+            --phase pods --architecture arm64 --output "${RUNNER_TEMP}/JobsOCStability"
+
       - name: Run each Pod regression suite
+        timeout-minutes: 30
         run: |
           simulator_id="$(xcrun simctl list devices available -j | ruby -r json -e '
             devices = JSON.parse(STDIN.read).fetch("devices").select { |runtime, _| runtime.include?("iOS") }.values.flatten
@@ -100,12 +112,13 @@ jobs:
           xcrun simctl boot "${simulator_id}" || true
           xcrun simctl bootstatus "${simulator_id}" -b
           ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
-            --phase tests --simulator "${simulator_id}" --output "${RUNNER_TEMP}/JobsOCStability"
+            --phase tests --architecture arm64 --simulator "${simulator_id}" --output "${RUNNER_TEMP}/JobsOCStability"
 
       - name: Build Simulator app
+        timeout-minutes: 30
         run: |
           ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
-            --phase app --output "${RUNNER_TEMP}/JobsOCStability"
+            --phase app --architecture arm64 --output "${RUNNER_TEMP}/JobsOCStability"
 
       - name: Package Simulator app
         id: package
@@ -168,6 +181,7 @@ jobs:
           name: JobsPods-validation-${{ github.run_id }}
           path: |
             ${{ runner.temp }}/JobsOCStability/results.json
+            ${{ runner.temp }}/JobsOCStability/configuration-audit.json
             ${{ runner.temp }}/JobsOCStability/*.log
             ${{ runner.temp }}/JobsOCStability/*.xcresult
           if-no-files-found: warn

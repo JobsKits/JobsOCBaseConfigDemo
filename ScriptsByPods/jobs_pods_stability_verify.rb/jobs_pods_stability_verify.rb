@@ -8,6 +8,7 @@ require 'optparse'
 require 'time'
 require_relative 'jobs_stability_command'
 require_relative 'jobs_stability_host_entitlements'
+require_relative 'jobs_stability_sources'
 
 $stdout.sync = true
 
@@ -17,6 +18,7 @@ OptionParser.new do |parser|
   parser.banner = 'ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb [options]'
   parser.on('--phase PHASE', %w[all pods tests app], 'all / pods / tests / app') { |value| options[:phase] = value }
   parser.on('--configuration NAME', %w[Debug Release], '单独验证一个配置，默认两个') { |value| options[:configurations] = [value] }
+  parser.on('--architecture ARCH', %w[arm64 x86_64], '定向模拟器架构；省略时保留双架构') { |value| options[:architecture] = value }
   parser.on('--pod NAME', '定向重跑，可重复指定') { |value| options[:pods] << value }
   parser.on('--simulator UDID', '测试模拟器 UUID') { |value| options[:simulator] = value }
   parser.on('--output PATH', '日志与结果目录；成功且源码指纹一致的记录可复用') { |value| options[:output] = File.expand_path(value) }
@@ -37,29 +39,14 @@ raise "未知 Pod: #{unknown.join(', ')}" unless unknown.empty?
 pods = options[:pods].empty? ? all_pods : all_pods.select { |name, _| options[:pods].include?(name) }
 # README 不影响编译；每次重新枚举文件，新增源码同样会使成功记录失效。
 xcode_version = Open3.capture2('xcodebuild', '-version').first
-source_paths = lambda do
-  folders = Dir.glob(File.join(root, 'JobsByPods', '*@Pods')).reject { |path| File.basename(path).start_with?('ManualBy') }
-  folders += %w[JobsOCBaseConfigDemo Tests].map { |path| File.join(root, path) }
-  source_files = folders.flat_map { |folder| Dir.glob(File.join(folder, '**', '*.{h,m,mm,c,cc,cpp,hpp,swift,podspec,xcconfig,xcprivacy,xib,storyboard,rb,sh,json,plist,entitlements,png,jpg,jpeg,gif,webp,svg,pdf,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff}')) }
-  source_files += %w[Podfile Podfile.deps Podfile.lock JobsOCBaseConfigDemo.xcodeproj/project.pbxproj Pods/Pods.xcodeproj/project.pbxproj ScriptsByPods/jobs_pods_stability_audit.rb/baseline.json].map { |path| File.join(root, path) }
-  source_files += Dir.glob(File.join(root, 'ScriptsByPods', 'jobs_pods_stability_{verify,audit}.rb', '**', '*.rb'))
-  source_files += Dir.glob(File.join(root, 'Pods', 'Target Support Files', '**', '*.{xcconfig,pch,plist,sh,xcfilelist,modulemap,h,m}'))
-  source_files.uniq.sort.select { |path| File.file?(path) }
-end
+source_paths = -> { JobsStabilitySources.paths(root) }
 source_snapshot = lambda do
   source_paths.call.map do |path|
     stat = File.stat(path)
     [path, stat.ino, stat.size, stat.mtime.to_r, stat.ctime.to_r]
   end
 end
-source_fingerprint = lambda do
-  fingerprint = Digest::SHA256.new
-  source_paths.call.each do |path|
-    fingerprint << path.delete_prefix(root) << "\0" << File.binread(path)
-  end
-  fingerprint << xcode_version
-  fingerprint.hexdigest
-end
+source_fingerprint = -> { JobsStabilitySources.fingerprint(root, xcode_version, architecture: options[:architecture]) }
 source_metadata = source_snapshot.call
 revision = source_fingerprint.call
 raise '计算初始源码指纹期间文件发生变化，请冻结修改后重跑。' unless source_snapshot.call == source_metadata
@@ -83,6 +70,7 @@ record['source_fingerprint'] = revision
 record['root'] = root
 record['self_pod_count'] = all_pods.size
 record['xcode'] = xcode_version.strip
+record['architecture'] = options[:architecture]
 record['updated_at'] = Time.now.iso8601
 save = lambda do
   temporary = record_path + '.tmp'
@@ -197,7 +185,8 @@ end
 
 build_base = lambda do |configuration, signed_host = false|
   signing = signed_host ? ['CODE_SIGNING_ALLOWED=YES', 'CODE_SIGNING_REQUIRED=YES', 'CODE_SIGN_IDENTITY=-'] : ['CODE_SIGNING_ALLOWED=NO', 'CODE_SIGNING_REQUIRED=NO', 'CODE_SIGN_IDENTITY=']
-  [ '-configuration', configuration, '-sdk', 'iphonesimulator', '-derivedDataPath', File.join(options[:output], 'DerivedData'), "SYMROOT=#{File.join(options[:output], 'Products')}", "OBJROOT=#{File.join(options[:output], 'Intermediates')}", "BUILD_DIR=#{File.join(options[:output], 'Products')}", 'ONLY_ACTIVE_ARCH=NO' ] + signing
+  architecture = options[:architecture] ? ["ARCHS=#{options[:architecture]}", 'ONLY_ACTIVE_ARCH=YES'] : ['ONLY_ACTIVE_ARCH=NO']
+  [ '-configuration', configuration, '-sdk', 'iphonesimulator', '-derivedDataPath', File.join(options[:output], 'DerivedData'), "SYMROOT=#{File.join(options[:output], 'Products')}", "OBJROOT=#{File.join(options[:output], 'Intermediates')}", "BUILD_DIR=#{File.join(options[:output], 'Products')}" ] + architecture + signing
 end
 # 在构建前核验实际 podspec/资源/selector 所有权，失败不会进入主工程验收。
 audit_script = File.join(root, 'ScriptsByPods', 'jobs_pods_stability_audit.rb', 'jobs_pods_stability_audit.rb')

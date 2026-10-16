@@ -42,7 +42,7 @@ ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --output "$PWD/work/JobsPodsStability/full"
 ```
 
-`--phase` 可选 `pods`、`tests`、`app`、`all`；`--pod` 可重复指定。单独运行某阶段用于排错，不代表其它阶段通过。完整验收用 `all`。
+`--phase` 可选 `pods`、`tests`、`app`、`all`；`--pod` 可重复指定。单独运行某阶段用于排错，不代表其它阶段通过。完整验收用 `all`。默认保留双架构模拟器编译；`--architecture arm64` 或 `--architecture x86_64` 定向单架构，并同时设置 `ARCHS` 与 `ONLY_ACTIVE_ARCH=YES`。GitHub Actions 使用 `arm64`；架构加入结果指纹，不能混用单架构与默认双架构的成功缓存，README 回填会注明单架构范围。
 
 每次 Pod / App 构建默认最多等待 1800 秒，每次 XCTest 命令默认 600 秒；用 `--build-timeout SECONDS`、`--test-timeout SECONDS` 设置有限正数。冷依赖构建需要较长时间时提高构建上限；测试宿主连接异常不会无限挂住后续验收。
 
@@ -58,7 +58,9 @@ ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/command_timeout_regressio
 
 [命令超时回归](./Tests/command_timeout_regression.rb) 保留原 7 个真实进程场景：正常成功、非零退出、忽略 TERM 的父子组、组长先退但子进程继续运行、无关组隔离、124 / 75 优先级与部分结果包拒领。另加 4 个明确注入 EPERM 的边界场景，仍使用真实进程验证直接 child fallback、无法领取状态时有界返回、ensure 不遮盖原异常，以及 runner 的 124 / 75 与部分结果包拒领。EPERM 是测试注入，未声称系统真实产生 11 次权限故障。当前 11 场景重跑实际 exit0；[日志](../../work/JobsPodsStability/full/gate-timeout-eperm-final.log)。测试不执行 Xcode 构建或依赖安装；组权限被拒绝的 fixture 还确认后代可能仍活，不把发送 KILL 等同于完整清理或领取所有后代状态。
 
-同一输出目录保留 `results.json`、完整命令、退出状态、耗时、源码指纹和 XCTest `.xcresult`；只有相同源码指纹且成功的记录会复用。指纹包括生产 / 测试源码、资源、生成后的 Pods 工程及门禁实现。验证期间检查新增、删除和内容变化，发生变化时停止并列出文件；冻结修改后重跑。仅更新时间而内容相同的文件不使结果失效，结束时再核对完整内容指纹。构建串行使用独立 DerivedData、Products 和 Intermediates，避免其它任务争用数据库。
+同一输出目录保留 `results.json`、完整命令、退出状态、耗时、源码指纹和 XCTest `.xcresult`；只有相同源码指纹且成功的记录会复用。指纹包括生产 / 测试源码、原始资源、`JobsAppIconRibbon.config`、生成后的 Pods 工程及门禁实现。验证期间检查新增、删除和内容变化，发生变化时停止并列出文件；冻结修改后重跑。仅更新时间而内容相同的文件不使结果失效，结束时再核对完整内容指纹。构建串行使用独立 DerivedData、Products 和 Intermediates，避免其它任务争用数据库。
+
+[源码枚举](./jobs_stability_sources.rb)由 runner 与 README 回填工具共用。只排除 `JobsAppIconRibbon.config` 指定的原始 AppIcon 同目录下、当前输出前缀对应的 Debug / Release 派生 `appiconset`，避免 macOS / SDK 图像渲染差异触发源码漂移误报。原始 AppIcon、配置、生成器以及其它同名资源仍参与指纹；缺少有效配置时不排除任何图标。[指纹回归](./Tests/source_fingerprint_regression.rb)覆盖派生产物改写 / 增删与真实输入变更，GitHub Actions 在逐 Pod 构建前执行这些配置回归。
 
 ## 三、验收结果与 README 同步 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

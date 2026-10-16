@@ -6,27 +6,15 @@ require 'open3'
 require 'optparse'
 require 'pathname'
 require 'tempfile'
+require_relative 'jobs_stability_sources'
 
 DEFAULT_ROOT = File.expand_path('../..', __dir__).freeze
 RESULT_LINK = '[JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)'.freeze
 PENDING_PREFIX = "当前结果：**待最终全量验收，见根 #{RESULT_LINK}**。".freeze
-SOURCE_EXTENSIONS = 'h,m,mm,c,cc,cpp,hpp,swift,podspec,xcconfig,xcprivacy,xib,storyboard,rb,sh,json,plist,entitlements,png,jpg,jpeg,gif,webp,svg,pdf,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff'.freeze
 
 # 与 runner 相同的枚举与字节指纹，不执行构建、安装或其余 runner 副作用。
 def source_paths(root)
-  folders = Dir.glob(File.join(root, 'JobsByPods', '*@Pods')).reject do |path|
-    File.basename(path).start_with?('ManualBy')
-  end
-  folders += %w[JobsOCBaseConfigDemo Tests].map { |path| File.join(root, path) }
-  files = folders.flat_map do |folder|
-    Dir.glob(File.join(folder, '**', "*.{#{SOURCE_EXTENSIONS}}"))
-  end
-  files += %w[Podfile Podfile.deps Podfile.lock JobsOCBaseConfigDemo.xcodeproj/project.pbxproj Pods/Pods.xcodeproj/project.pbxproj ScriptsByPods/jobs_pods_stability_audit.rb/baseline.json].map do |path|
-    File.join(root, path)
-  end
-  files += Dir.glob(File.join(root, 'ScriptsByPods', 'jobs_pods_stability_{verify,audit}.rb', '**', '*.rb'))
-  files += Dir.glob(File.join(root, 'Pods', 'Target Support Files', '**', '*.{xcconfig,pch,plist,sh,xcfilelist,modulemap,h,m}'))
-  files.uniq.sort.select { |path| File.file?(path) }
+  JobsStabilitySources.paths(root)
 end
 
 def snapshot(root)
@@ -36,13 +24,8 @@ def snapshot(root)
   end
 end
 
-def source_fingerprint(root, xcode_version)
-  digest = Digest::SHA256.new
-  source_paths(root).each do |path|
-    digest << path.delete_prefix(root) << "\0" << File.binread(path)
-  end
-  digest << xcode_version
-  digest.hexdigest
+def source_fingerprint(root, xcode_version, architecture = nil)
+  JobsStabilitySources.fingerprint(root, xcode_version, architecture: architecture)
 end
 
 def latest_result(record, fingerprint, kind, name, configuration)
@@ -168,7 +151,7 @@ def main
   raise '无法只读查询 Xcode 版本' unless status.success?
   raise 'Xcode 版本与验收记录不一致' unless record['xcode'] == xcode_version.strip
   initial_snapshot = snapshot(root)
-  current = source_fingerprint(root, xcode_version)
+  current = source_fingerprint(root, xcode_version, record['architecture'])
   raise '磁盘源码/资源/配置指纹已改变；禁止领取旧结果' unless current == fingerprint
   raise '计算指纹期间源码发生变化' unless snapshot(root) == initial_snapshot
   errors = []
@@ -191,6 +174,7 @@ def main
   raise "拒绝回填，不写任何README：\n#{errors.join("\n")}" unless errors.empty?
   updates = pods.map do |name, spec|
     facts = ['Debug / Release 单 Pod 编译']
+    facts << "#{record['architecture']} 模拟器架构" if record['architecture']
     info = metadata.fetch(name)
     facts << "#{info[:tests].join(' / ')} Stability 回归" unless info[:tests].empty?
     facts << 'macOS 生产实现回归' if info[:harness]
