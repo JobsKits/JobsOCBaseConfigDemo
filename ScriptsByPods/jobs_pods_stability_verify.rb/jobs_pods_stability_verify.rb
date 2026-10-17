@@ -71,6 +71,7 @@ record['root'] = root
 record['self_pod_count'] = all_pods.size
 record['xcode'] = xcode_version.strip
 record['architecture'] = options[:architecture]
+record['installation_mode'] = JobsStabilitySources.installation_mode
 record['updated_at'] = Time.now.iso8601
 save = lambda do
   temporary = record_path + '.tmp'
@@ -178,7 +179,7 @@ execute = lambda do |kind, name, configuration, args|
   assert_current_source.call
   puts "#{row['exit_status'].zero? ? 'PASS' : 'FAIL'} #{kind} #{name} #{configuration} (#{row['seconds']}s) #{log}"
   unless row['exit_status'].zero?
-    File.readlines(log).select { |line| line.match?(/error:|failed|fatal error|BUILD FAILED|TEST FAILED/) }.last(12).each { |line| puts line.strip }
+    File.readlines(log).select { |line| line.match?(/ld:|Undefined symbols|symbol\(s\) not found|error:|failed|fatal error|BUILD FAILED|TEST FAILED/) }.last(16).each { |line| puts line.strip }
   end
   row['exit_status'].zero?
 end
@@ -223,13 +224,18 @@ if %w[all tests].include?(options[:phase]) && passed
       result_bundle = File.join(options[:output], "#{name}-#{configuration}-#{Time.now.strftime('%H%M%S%L')}.xcresult")
       # 头文件 Pod 的 aggregate scheme 没有 test action；显式执行 Stability 测试目标。
       test_scheme = "#{name}-Unit-Stability"
-      args = ['-project', 'Pods/Pods.xcodeproj', '-scheme', test_scheme, '-destination', "platform=iOS Simulator,id=#{options[:simulator]}", '-parallel-testing-enabled', 'NO', '-resultBundlePath', result_bundle] + build_base.call(configuration, name == 'JobsBaseUI') + ['test']
+      destination = "platform=iOS Simulator,id=#{options[:simulator]}"
+      destination += ",arch=#{options[:architecture]}" if options[:architecture]
+      args = ['-project', 'Pods/Pods.xcodeproj', '-scheme', test_scheme, '-destination', destination, '-parallel-testing-enabled', 'NO', '-resultBundlePath', result_bundle] + build_base.call(configuration, name == 'JobsBaseUI') + ['test']
       ok = execute.call('test', name, configuration, args)
       passed = false unless ok
+      break unless ok
     end
+    break unless passed
   end
   # macOS harness 编译真实生产实现，补充 fatal signal、SQLite 和构建期脚本等场景。
   pods.each do |name, spec|
+    break unless passed
     harness = File.join(File.dirname(spec), 'Tests', 'run_regression.rb')
     next unless File.file?(harness)
     assert_current_source.call

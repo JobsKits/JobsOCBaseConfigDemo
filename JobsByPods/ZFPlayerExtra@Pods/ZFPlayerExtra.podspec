@@ -16,7 +16,7 @@ Pod::Spec.new do |spec|
   spec.dependency 'ZFPlayer'
   spec.dependency 'ZFPlayer/AVPlayer'
   spec.dependency 'ZFPlayer/ControlView'
-  spec.dependency 'ZFPlayer/ijkplayer'
+  spec.dependency 'ZFPlayer/ijkplayer' unless ENV['JOBS_SIMULATOR_ONLY'] == '1'
   spec.dependency 'JobsBlock'
   spec.dependency 'JobsOCDefs'
   spec.dependency 'JobsOCDSL'

@@ -32,6 +32,15 @@ Dir.mktmpdir('jobs-stability-sources-') do |root|
   assert.call(inputs.include?(File.join(ordinary, 'icon.png')), 'unrelated resource was excluded by its name')
   assert.call(inputs.none? { |path| path.start_with?(debug + '/') || path.start_with?(release + '/') }, 'generated outputs leaked into fingerprint')
   baseline = source_fingerprint(root, 'fixture Xcode')
+  previous_mode = ENV['JOBS_SIMULATOR_ONLY']
+  begin
+    ENV['JOBS_SIMULATOR_ONLY'] = nil
+    regular_mode = source_fingerprint(root, 'fixture Xcode')
+    ENV['JOBS_SIMULATOR_ONLY'] = '1'
+    assert.call(source_fingerprint(root, 'fixture Xcode') != regular_mode, 'different dependency installation modes shared a fingerprint')
+  ensure
+    ENV['JOBS_SIMULATOR_ONLY'] = previous_mode
+  end
   assert.call(source_fingerprint(root, 'fixture Xcode', 'arm64') != baseline, 'single architecture reused the default fingerprint')
   assert.call(source_fingerprint(root, 'fixture Xcode', 'arm64') != source_fingerprint(root, 'fixture Xcode', 'x86_64'), 'different architectures shared a fingerprint')
   File.write(File.join(debug, 'icon.png'), 'runner-generated different pixels')

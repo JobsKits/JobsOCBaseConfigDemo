@@ -18,7 +18,7 @@ concurrency:
 jobs:
   build-simulator-app:
     runs-on: macos-15
-    timeout-minutes: 240
+    timeout-minutes: 320
     permissions:
       actions: write
       contents: read
@@ -29,6 +29,7 @@ jobs:
       CONFIGURATION: Debug
       SDK: iphonesimulator
       DESTINATION: generic/platform=iOS Simulator
+      JOBS_SIMULATOR_ONLY: '1'
 
     steps:
       - name: Checkout repository
@@ -70,10 +71,27 @@ jobs:
           echo "DEVELOPER_DIR=${DEVELOPER_DIR}"
           pod --version
 
+      - name: Prepare test Simulator
+        timeout-minutes: 10
+        run: |
+          ruby .github/tests/SimulatorRuntime/selection_regression.rb
+          xcrun --sdk iphonesimulator --show-sdk-version > "${RUNNER_TEMP}/simulator-sdk-version.txt"
+          xcrun simctl list runtimes -j > "${RUNNER_TEMP}/simulator-runtimes.json"
+          xcrun simctl list devices available -j > "${RUNNER_TEMP}/simulator-devices.json"
+          ruby .github/tests/SimulatorRuntime/select_simulator.rb \
+            "$(cat "${RUNNER_TEMP}/simulator-sdk-version.txt")" \
+            "${RUNNER_TEMP}/simulator-runtimes.json" \
+            "${RUNNER_TEMP}/simulator-devices.json" \
+            > "${RUNNER_TEMP}/simulator-selection.env"
+          cat "${RUNNER_TEMP}/simulator-selection.env" >> "${GITHUB_ENV}"
+          simulator_id="$(sed -n 's/^SIMULATOR_ID=//p' "${RUNNER_TEMP}/simulator-selection.env")"
+          xcrun simctl bootstatus "${simulator_id}" -b
+
       - name: Install CocoaPods dependencies
         timeout-minutes: 30
         run: |
           JOBS_POD_INSTALL_PURE=1 JOBS_POD_INSTALL_SKIP_VENDOR_PATCHES=1 pod install --no-repo-update || JOBS_POD_INSTALL_PURE=1 JOBS_POD_INSTALL_SKIP_VENDOR_PATCHES=1 pod install --repo-update
+          ruby .github/tests/SimulatorPods/dependency_regression.rb --installed-root "${GITHUB_WORKSPACE}"
 
       - name: Skip Jobs local Xcode build timer hook in CI
         run: |
@@ -90,6 +108,7 @@ jobs:
         run: |
           ruby ScriptsByPods/jobs_pods_stability_audit.rb/Tests/run_regression.rb
           ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/source_fingerprint_regression.rb
+          ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/test_phase_regression.rb
           ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/readme_results_regression.rb
           ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/command_timeout_regression.rb
           ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/host_entitlements_regression.rb
@@ -101,18 +120,10 @@ jobs:
             --phase pods --architecture arm64 --output "${RUNNER_TEMP}/JobsOCStability"
 
       - name: Run each Pod regression suite
-        timeout-minutes: 30
+        timeout-minutes: 90
         run: |
-          simulator_id="$(xcrun simctl list devices available -j | ruby -r json -e '
-            devices = JSON.parse(STDIN.read).fetch("devices").select { |runtime, _| runtime.include?("iOS") }.values.flatten
-            device = devices.find { |row| row["state"] == "Booted" } || devices.first
-            abort "No iOS Simulator available" unless device
-            puts device.fetch("udid")
-          ')"
-          xcrun simctl boot "${simulator_id}" || true
-          xcrun simctl bootstatus "${simulator_id}" -b
           ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
-            --phase tests --architecture arm64 --simulator "${simulator_id}" --output "${RUNNER_TEMP}/JobsOCStability"
+            --phase tests --architecture arm64 --simulator "${SIMULATOR_ID}" --output "${RUNNER_TEMP}/JobsOCStability"
 
       - name: Audit built Keychain test host
         timeout-minutes: 10
@@ -190,5 +201,9 @@ jobs:
             ${{ runner.temp }}/JobsOCStability/configuration-audit.json
             ${{ runner.temp }}/JobsOCStability/*.log
             ${{ runner.temp }}/JobsOCStability/*.xcresult
+            ${{ runner.temp }}/simulator-sdk-version.txt
+            ${{ runner.temp }}/simulator-runtimes.json
+            ${{ runner.temp }}/simulator-devices.json
+            ${{ runner.temp }}/simulator-selection.env
           if-no-files-found: warn
           retention-days: 14

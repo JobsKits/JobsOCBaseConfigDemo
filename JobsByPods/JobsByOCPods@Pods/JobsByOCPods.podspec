@@ -166,6 +166,9 @@ Pod::Spec.new do |spec|
     'This'
   ]
 
+  # 纯模拟器安装不引入只有真机 arm64 slice 的 IJK；正常安装保留真机播放能力。
+  common_dependencies.delete('ZFPlayer/ijkplayer') if ENV['JOBS_SIMULATOR_ONLY'] == '1'
+
   add_common_dependencies = lambda do |ss|
     common_dependencies.each do |dependency|
       if dependency.is_a?(Array)

@@ -87,6 +87,7 @@ ZFPlayerExtra@Pods/
 
 - `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
 - `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
+- 本地默认不设置 `JOBS_SIMULATOR_ONLY`，保留真机 IJK 播放依赖。仅模拟器 CI 设置 `JOBS_SIMULATOR_ONLY=1` 后重新执行 `pod install`，排除 `ZFPlayer/ijkplayer`，保留 AVPlayer / ControlView；IJK DSL 仍仅在非模拟器且真实库可用时编译。切换模式必须重新安装依赖，模拟器模式不用于真机构建或 IJK 功能验收。
 
 ### 5.5、系统框架 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -98,7 +99,7 @@ ZFPlayerExtra@Pods/
 - `ZFPlayer`
 - `ZFPlayer/AVPlayer`
 - `ZFPlayer/ControlView`
-- `ZFPlayer/ijkplayer`
+- `ZFPlayer/ijkplayer`（默认安装；`JOBS_SIMULATOR_ONLY=1` 时不引入）
 - `JobsBlock`
 - `JobsOCDefs`
 - `JobsOCDSL`

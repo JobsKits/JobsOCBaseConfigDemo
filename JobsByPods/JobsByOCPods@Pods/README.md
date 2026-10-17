@@ -96,6 +96,7 @@ JobsByOCPods@Pods/
 
 - `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
 - `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
+- 本地默认不设置 `JOBS_SIMULATOR_ONLY`，保留真机 IJK 播放依赖。仅构建模拟器的 CI 设置 `JOBS_SIMULATOR_ONLY=1` 后重新执行 `pod install`，不再引入 `ZFPlayer/ijkplayer`，继续保留 AVPlayer / ControlView；Jobs 的 IJK API 在模拟器本就不可用。模式切换必须重新安装依赖，该模式的验收只证明模拟器依赖图，不代表真机 IJK 验收。
 
 ### 5.4、系统框架 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

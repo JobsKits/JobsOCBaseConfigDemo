@@ -362,11 +362,13 @@ Behaviors 属于 Xcode 当前用户设置，工程引用不会自动建立其它
 
 ### 2.9、GitHub Actions 模拟器构建 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-[构建工作流](./.github/workflows/build_simulator_app.yml)在推送、拉取请求或手动触发时运行；自动触发范围为 `main`、`byPods`。使用 `macos-15` runner 和 Xcode 26，缺少所需 SDK 时立即失败；显式选择 runner 的 `arm64` 模拟器架构，避免在同一次 CI 中重复编译另一套架构。模拟器 App 不使用真机签名，只供对应架构的模拟器运行。
+[构建工作流](./.github/workflows/build_simulator_app.yml)在推送、拉取请求或手动触发时运行；自动触发范围为 `main`、`byPods`。使用 `macos-15` runner 和 Xcode 26，缺少所需 SDK 时立即失败；显式选择 runner 的 `arm64` 模拟器架构。`byPods` 在安装前只选择与当前 Simulator SDK 同主版本的可用 arm64 iPhone，不让旧系统的已启动设备抢占；没有匹配 runtime 时提前失败，不自动下载运行时。模拟器 App 不使用真机签名，只供对应架构的模拟器运行。
 
-`main` 安装依赖后构建 Debug 主 App；`byPods` 保留各 Jobs 本地 Pod 的 Debug / Release 编译、组件回归与主 App Debug / Release 编译。配置回归先于耗时构建执行；宿主权限审计先运行 9 个独立 Mach-O 场景，Pod 测试成功后再显式验收当次临时 Products 目录中的 AppHost，指定产物缺失即失败。本地 Pod 门禁保留完整命令、退出码与源码冻结校验。冻结范围只排除 `JobsAppIconRibbon.config` 实际指定的 Debug / Release 派生 appiconset，原始 AppIcon、配置与生成器仍参加校验。
+`main` 安装依赖后构建 Debug 主 App；`byPods` 保留各 Jobs 本地 Pod 的 Debug / Release 编译、48 个 Stability Pod 共 49 个配置的组件回归、macOS harness 与主 App Debug / Release 编译。整个 `byPods` job 使用 `JOBS_SIMULATOR_ONLY=1`：安装时排除只有真机 arm64 slice 的 IJK，保留模拟器原有 AVPlayer / ControlView，测试覆盖不删减。本地默认不设置此变量，切换模式必须重新 `pod install`；CI 结果仅证明模拟器依赖图，模式与架构均写入结果身份，不代表真机 IJK 验收。配置回归先于耗时构建执行；宿主权限审计先运行 9 个独立 Mach-O 场景，Pod 测试成功后再显式验收当次临时 Products 目录中的 AppHost，指定产物缺失即失败。测试首错停止后续测试与 harness，日志保留真实 `ld:` 原因。本地 Pod 门禁保留完整命令、退出码与源码冻结校验。冻结范围只排除 `JobsAppIconRibbon.config` 实际指定的 Debug / Release 派生 appiconset，原始 AppIcon、配置与生成器仍参加校验。
 
-构建阶段保留实时日志和诊断产物，阶段超时早于整个任务超时，以便失败后仍有时间上传日志；`main` 的依赖安装 / 编译分别限时 20 / 120 分钟，整个任务限时 150 分钟。`byPods` 的依赖安装 / 配置守卫 / 各 Pod 编译 / 组件回归 / 宿主权限验收 / 主 App 编译分别限时 30 / 10 / 120 / 30 / 10 / 30 分钟，整个任务限时 240 分钟。成功后生成可下载的 `.app.zip`，排查失败时先下载对应运行的构建日志与 `.xcresult`；产物只代表该次运行实际完成的阶段，历史成功不能替代最新提交的构建结果。
+`main` 主 App 的 Debug / Release 均启用 `GCC_PRECOMPILE_PREFIX_HEADER=YES`，让现有大型前缀头先生成 PCH，再供各源码文件复用，避免每个翻译单元重复解析同一套 Jobs / SDK 声明并重复输出头文件警告。配置保留原前缀头、依赖和编译覆盖；本地已验证两配置实际产生 Objective-C / C `ProcessPCH`，并完成代表性主工程 `CompileC`。这是局部编译验证，完整链接、产物打包及最新提交的云端 workflow 仍以真实运行结果为准。
+
+构建阶段保留实时日志和诊断产物，阶段超时早于整个任务超时，以便失败后仍有时间上传日志；`main` 的依赖安装 / 编译分别限时 20 / 120 分钟，整个任务限时 150 分钟。`byPods` 的模拟器准备 / 依赖安装 / 配置守卫 / 各 Pod 编译 / 组件回归 / 宿主权限验收 / 主 App 编译分别限时 10 / 30 / 10 / 120 / 90 / 10 / 30 分钟，整个任务限时 320 分钟。成功后生成可下载的 `.app.zip`，排查失败时先下载对应运行的构建日志与 `.xcresult`；产物只代表该次运行实际完成的阶段，历史成功不能替代最新提交的构建结果。
 
 ## 三、🧨开发支持 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

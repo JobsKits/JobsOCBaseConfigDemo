@@ -4,6 +4,11 @@ require 'digest'
 module JobsStabilitySources
   SOURCE_EXTENSIONS = 'h,m,mm,c,cc,cpp,hpp,swift,podspec,xcconfig,xcprivacy,xib,storyboard,rb,sh,json,plist,entitlements,png,jpg,jpeg,gif,webp,svg,pdf,strings,stringsdict,ttf,otf,mp3,mp4,wav,caf,aiff'.freeze
 
+  # 动态 podspec 的安装范围属于结果身份，避免两种依赖图共用成功记录。
+  def self.installation_mode
+    ENV['JOBS_SIMULATOR_ONLY'] == '1' ? 'simulator-only' : 'device-and-simulator'
+  end
+
   # 仅识别配置实际指定的 Debug / Release 派生目录；原始 AppIcon 始终保留。
   def self.generated_icon_sets(root)
     config = File.join(root, 'JobsAppIconRibbon.config')
@@ -62,6 +67,7 @@ module JobsStabilitySources
       digest << path.delete_prefix(root) << "\0" << File.binread(path)
     end
     digest << xcode_version << "\0architecture\0" << (architecture || 'all')
+    digest << "\0installation-mode\0" << installation_mode
     digest.hexdigest
   end
 end

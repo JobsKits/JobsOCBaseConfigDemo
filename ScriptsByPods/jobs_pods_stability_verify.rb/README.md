@@ -42,7 +42,11 @@ ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --output "$PWD/work/JobsPodsStability/full"
 ```
 
-`--phase` 可选 `pods`、`tests`、`app`、`all`；`--pod` 可重复指定。单独运行某阶段用于排错，不代表其它阶段通过。完整验收用 `all`。默认保留双架构模拟器编译；`--architecture arm64` 或 `--architecture x86_64` 定向单架构，并同时设置 `ARCHS` 与 `ONLY_ACTIVE_ARCH=YES`。GitHub Actions 使用 `arm64`；架构加入结果指纹，不能混用单架构与默认双架构的成功缓存，README 回填会注明单架构范围。
+`--phase` 可选 `pods`、`tests`、`app`、`all`；`--pod` 可重复指定。单独运行某阶段用于排错，不代表其它阶段通过。完整验收用 `all`。默认保留双架构模拟器编译；`--architecture arm64` 或 `--architecture x86_64` 定向单架构，并同时设置 `ARCHS` 与 `ONLY_ACTIVE_ARCH=YES`，测试 destination 也显式指定相同架构。GitHub Actions 使用 `arm64`；架构加入结果指纹，不能混用单架构与默认双架构的成功缓存，README 回填会注明单架构范围。
+
+本地默认不设置 `JOBS_SIMULATOR_ONLY`。仅模拟器 CI 在整个 job 设置 `JOBS_SIMULATOR_ONLY=1`，安装时排除只有真机 arm64 slice 的 IJK，保留 AVPlayer / ControlView；切换模式必须重新 `pod install`，所有后续审计和验证沿用相同环境。`installation_mode` 写入结果与源码指纹，回填会注明仅模拟器依赖图，不把此验收描述成真机 IJK 验收。安装后的[依赖图回归](../../.github/tests/SimulatorPods/dependency_regression.rb)检查真实锁文件、Pods targets、ZFPlayer 编译源码和生成 umbrella，提前拒绝 IJK 混入。
+
+CI 在安装前按当前 Simulator SDK 主版本选择可用 arm64 iPhone 并启动，不让旧系统的已启动设备抢占。完整保留 48 个 Stability Pod（Snowflake 两配置，共 49 配置）及各 macOS harness；测试阶段预算 90 分钟。任何 XCTest 失败、零执行或链接失败即停止后续测试与 harness，保留失败结果；成功路径仍执行完整矩阵。[首错与完整路径回归](./Tests/test_phase_regression.rb)验证这个边界，控制台失败摘要保留真实 `ld:` 原因。
 
 每次 Pod / App 构建默认最多等待 1800 秒，每次 XCTest 命令默认 600 秒；用 `--build-timeout SECONDS`、`--test-timeout SECONDS` 设置有限正数。冷依赖构建需要较长时间时提高构建上限；测试宿主连接异常不会无限挂住后续验收。
 

@@ -142,6 +142,7 @@ def main
   fingerprint = record['source_fingerprint']
   raise '顶层 source_fingerprint 非法' unless fingerprint.is_a?(String) && fingerprint.match?(/\A[0-9a-f]{64}\z/)
   raise 'results 必须是数组' unless record['results'].is_a?(Array)
+  raise '验收记录与当前依赖安装模式不一致' unless record['installation_mode'] == JobsStabilitySources.installation_mode
   raise 'results.root 与目标工程不一致' unless record['root'].is_a?(String) && File.realpath(record['root']) == File.realpath(root)
   pods = Dir.glob(File.join(root, 'JobsByPods', '*@Pods', '*.podspec')).reject do |path|
     path.include?('/ManualBy')
@@ -175,6 +176,7 @@ def main
   updates = pods.map do |name, spec|
     facts = ['Debug / Release 单 Pod 编译']
     facts << "#{record['architecture']} 模拟器架构" if record['architecture']
+    facts << '仅模拟器依赖图' if record['installation_mode'] == 'simulator-only'
     info = metadata.fetch(name)
     facts << "#{info[:tests].join(' / ')} Stability 回归" unless info[:tests].empty?
     facts << 'macOS 生产实现回归' if info[:harness]
