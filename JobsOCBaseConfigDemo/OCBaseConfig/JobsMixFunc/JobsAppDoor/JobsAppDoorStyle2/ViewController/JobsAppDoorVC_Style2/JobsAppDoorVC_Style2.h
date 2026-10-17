@@ -29,9 +29,9 @@
 #endif
 /// ZFPlayer@ijkplayer
 
-#if __has_include(<ZFPlayer/ZFIJKPlayerManager.h>)
+#if !TARGET_OS_SIMULATOR && __has_include(<ZFPlayer/ZFIJKPlayerManager.h>)
 #import <ZFPlayer/ZFIJKPlayerManager.h>
-#else
+#elif !TARGET_OS_SIMULATOR && __has_include("ZFIJKPlayerManager.h")
 #import "ZFIJKPlayerManager.h"
 #endif
 /// ZFPlayer@ControlView

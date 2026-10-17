@@ -2,7 +2,7 @@
 //  JobsPods.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2019/9/26.
+//  Created by Jobs on 2019年9月26日，星期四.
 //  Copyright © 2019 Corp. All rights reserved.
 //
 
@@ -335,9 +335,9 @@
 #endif
 //ijkplayer
 
-#if __has_include(<ZFPlayer/ZFIJKPlayerManager.h>)
+#if !TARGET_OS_SIMULATOR && __has_include(<ZFPlayer/ZFIJKPlayerManager.h>)
 #import <ZFPlayer/ZFIJKPlayerManager.h>
-#else
+#elif !TARGET_OS_SIMULATOR && __has_include("ZFIJKPlayerManager.h")
 #import "ZFIJKPlayerManager.h"
 #endif
 //ControlView

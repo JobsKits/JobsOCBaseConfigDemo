@@ -2519,6 +2519,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/JobsOCBaseConfigDemo/PodsManual/极验验证码",
 				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/$(PROJECT_NAME)PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = (
@@ -2621,6 +2622,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/JobsOCBaseConfigDemo/PodsManual/极验验证码",
 				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/$(PROJECT_NAME)/$(PROJECT_NAME)PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = (
