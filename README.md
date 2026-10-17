@@ -276,21 +276,26 @@ JobsIconfont 只暴露语义资源，远程地址、字体名称与 Unicode 均�
 
 **安装前后：入口与行为**
 
+[CocoaPods 网络适配包](<./ScriptsByPods/【MacOS】🌐CocoaPods网络适配.command/README.md>)在公共 Specs 选源前同步加载 `jobs_cocoapods_network.rb`：真实 `pod install` / `pod update` 优先验证明确指定的 `JOBS_POD_PROXY_URL`，否则测试当前 Git 链路；当前链路不可用时，再测试系统已启用的 HTTP / HTTPS / SOCKS 代理。通过验证的代理环境由本次 Specs 探测、Git / curl 与 CocoaPods 后续下载继承，进程退出恢复；不安装代理、不扫描端口、不修改全局 Git 或系统设置。默认单轮探测最多 6 秒，`JOBS_POD_NETWORK_ADAPT=0` 可关闭代理探测。
+
+同包的 `jobs_cocoapods_download_fallback.rb` 仅在真实安装入口注册已核验 `AMPopTip 4.12.0` 发布请求的官方 codeload 精确提交回退；原 Git 下载发生网络失败时才启用，不改版本、第三方 podspec 或锁文件。其他依赖保留原下载器并继承本次网络环境；未知仓库 / 版本、分支、认证或校验错误不使用归档回退，`JOBS_POD_GITHUB_ARCHIVE_FALLBACK=0` 可关闭。没有可用链路时只告警并继续原安装，不能据此视为下载成功。归档兼容验证基线为 CocoaPods 1.17.0 / downloader 2.1，其他内部 API 跳过该增强。摘要进入安装终端与手动安装入口日志；独立诊断摘要写入系统临时目录中的 `jobs-cocoapods-network.log`，不输出代理凭据。
+
 公共 Specs 由 [CocoaPods 源自动选择模块](<./ScriptsByPods/【MacOS】🌐CocoaPods源自动选择.command/README.md>)单独管理。Podfile 顶部同步加载 `jobs_cocoapods_source.rb` 并在 `source` 声明前完成真实 podspec GET 与 Git 连接测试；`pod install` / `pod update` 均按当前网络选源。可用 `JOBS_SPECS_SOURCE=cdn` / `git` 固定本次来源，默认 `auto`；每条候选线路完整测试默认最多 8 秒，可用 `JOBS_SPECS_PROBE_TIMEOUT` 调整。
 
-适配器只在当前进程映射锁文件公共源，保留锁定版本、校验和及私有源；不删除 Pods / 锁文件，不自动升级或二次安装。两条线路均失败时尝试锁文件源、已有缓存或默认 CDN，脚本异常时告警并继续 CocoaPods 自身流程，不能保证离线安装成功。迁移时保留 `ScriptsByPods/【MacOS】🌐CocoaPods源自动选择.command/` 整包与 Podfile 的加载代码。
+适配器只在当前进程映射锁文件公共源，保留锁定版本、校验和及私有源；不删除 Pods / 锁文件，不自动升级或二次安装。两条线路均失败时尝试锁文件源、已有缓存或默认 CDN，脚本异常时告警并继续 CocoaPods 自身流程，不能保证离线安装成功。迁移时保留 `ScriptsByPods/【MacOS】🌐CocoaPods网络适配.command/`、`ScriptsByPods/【MacOS】🌐CocoaPods源自动选择.command/` 两个整包与 Podfile 的加载代码。两个模块缺失或初始化异常均告警并继续，查询命令不触发网络适配或归档回退；未执行真实安装或构建，隔离验证不能替代受限网络下的最终安装验收。
 
 [Podfile](./Podfile) 顶部加载 `./ScriptsByPods/【MacOS】📦Pod Install离线保护.command/jobs_pod_install_offline_guard.rb`；统一调度入口是同目录的 `【MacOS】📦Pod Install离线保护.command`。详见[本地脚本保护说明](<./ScriptsByPods/【MacOS】📦Pod Install离线保护.command/README.md>)。
 
 | 时机 | 挂载脚本 / 入口 | 实际行为与产物 |
 | --- | --- | --- |
+| `pod install` / `pod update` 读取 Podfile 时，公共 Specs 选源前 | [CocoaPods 网络适配](<./ScriptsByPods/【MacOS】🌐CocoaPods网络适配.command/README.md>)同步探测并注册归档回退 | 当前链路与已有代理验证；选中环境供后续下载继承，仅已审 AMPopTip 发布请求可在 Git 网络失败后回退官方归档，无独立持久配置 |
 | `pod install` / `pod update` 读取 Podfile 时，`source` 声明前 | [CocoaPods 源自动选择](<./ScriptsByPods/【MacOS】🌐CocoaPods源自动选择.command/README.md>)同步测速 | 测试当前网络并决定本次公共 Specs 源；结果与理由写入系统临时日志 |
 | `pod install` 读取 Podfile 时，依赖解析前 | Ruby 入口异步启动 `--preflight` | 不等待依赖下载；下面的报告与索引任务独立运行，不阻塞安装主流程 |
 | 前置任务 | [查询工程依赖关系](<./ScriptsByPods/【MacOS】🔍查询Xcode工程依赖关系.command/README.md>) | 扫描本地 podspec，生成 `./PodspecDependencyReport/` 下的依赖报告与关系图 |
 | 前置任务 | [CodeGraph 初始化脚本](./ScriptsByPods/codegraph_init.command/codegraph_init.command) | 本机工具可用时后台建立 / 更新 [**CodeGraph**](https://github.com/colbymchenry/codegraph) 索引并导出 Markdown；通过 PID 避免重复启动 |
 | 工程集成完成后，`post_integrate` | 统一入口 `--post-integrate` → [恢复 PIF 构建会话](<./ScriptsByPods/【MacOS】🧹恢复Xcode PIF构建会话.command/README.md>) | 有活动构建则跳过；无活动构建时结束当前用户的空闲构建服务，再通过工作空间列表命令重建会话 |
 
-报告与索引前置任务强制离线，只复用已有工具，不自动安装工具链；失败不覆盖 CocoaPods 自身结果。公共 Specs 选源单独同步执行网络测试，不加入这些异步任务。PIF 收尾脚本缺失、失败或异常时记录警告，不把已完成的依赖安装改判为失败。该恢复流程不删除 `Pods`、锁文件、工作空间或 `DerivedData`。
+报告与索引前置任务强制离线，只复用已有工具，不自动安装工具链；失败不覆盖 CocoaPods 自身结果。网络适配与公共 Specs 选源按顺序同步执行网络测试，不加入这些异步任务。PIF 收尾脚本缺失、失败或异常时记录警告，不把已完成的依赖安装改判为失败。该恢复流程不删除 `Pods`、锁文件、工作空间或 `DerivedData`。
 
 `post_install` 还会执行 Podfile 内的构建配置与兼容性修补；`post_integrate` 同步维护 Pods 工程根组中的 [Podfile](./Podfile) / [Podfile.deps](./Podfile.deps) 引用，两者相邻置顶，以 [**Ruby**](https://www.ruby-lang.org) 红钻图标及文件引用标识显示并打开真实文件，不加入任何 Build Phase。引用维护使用 `xcodeproj` 重开已保存工程、查重并分配唯一 UUID；写入前临时备份 `project.pbxproj`，保存后立即重开检查根对象、根 UUID、唯一引用、排列及真实路径，失败恢复备份并在安装输出中告警，结束后清理临时备份，不生成额外报告。这是 Podfile 内联同步逻辑，迁移时保留工程根目录的两份文件与 `Pods/Pods.xcodeproj` 的相对层级。
 

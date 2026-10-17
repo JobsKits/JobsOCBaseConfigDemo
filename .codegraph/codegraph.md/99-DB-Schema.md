@@ -13,10 +13,10 @@
 ## 一、数据表
 
 ```text
-edges                 nodes_fts            nodes_fts_idx       unresolved_refs
-files                 nodes_fts_config     project_metadata
-name_segment_vocab    nodes_fts_data       schema_versions
-nodes                 nodes_fts_docsize    synthesis_inputs
+edges               nodes_fts           nodes_fts_idx       unresolved_refs   
+files               nodes_fts_config    project_metadata  
+name_segment_vocab  nodes_fts_data      schema_versions   
+nodes               nodes_fts_docsize   synthesis_inputs  
 ```
 
 ## 二、Schema

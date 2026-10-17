@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:HXPhotoManager::initByTypeVideo<br/>JobsByPods/HXPhotoManagerExtra@Pods/Core/HXPhotoManager+Extra/HXPhotoManager+Extra.m:21"]
-  T1["method:HXPhotoManager::initByType<br/>JobsByPods/HXPhotoManagerExtra@Pods/Core/HXPhotoManager+Extra/HXPhotoManager+Extra.m:11"]
+  S1["method:JXCategoryTimelineView::jobsRefreshDataSource<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineView/JXCategoryTimelineView.m:100"]
+  T1["method:JXCategoryTimelineView::byDataSource<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineView/JXCategoryTimelineView.m:55"]
   S1 -->|calls| T1
-  S2["method:HXPhotoManager::initByTypePhotoAndVideo<br/>JobsByPods/HXPhotoManagerExtra@Pods/Core/HXPhotoManager+Extra/HXPhotoManager+Extra.m:25"]
-  T2["method:HXPhotoManager::initByType<br/>JobsByPods/HXPhotoManagerExtra@Pods/Core/HXPhotoManager+Extra/HXPhotoManager+Extra.m:11"]
+  S2["method:JXCategoryTimelineView::refreshDataSource<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineView/JXCategoryTimelineView.m:113"]
+  T2["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S2 -->|calls| T2
-  S3["method:JobsPodspecKitForHXPhotoManagerExtra::apply_standard_user_target_xcconfig<br/>JobsByPods/HXPhotoManagerExtra@Pods/JobsPodspecKit.rb:277"]
-  T3["method:JobsPodspecKitForHXPhotoManagerExtra::standard_user_target_xcconfig<br/>JobsByPods/HXPhotoManagerExtra@Pods/JobsPodspecKit.rb:266"]
+  S3["method:JXCategoryTimelineView::refreshCellModel:index:<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineView/JXCategoryTimelineView.m:118"]
+  T3["method:JXCategoryTimelineCellModel::byTimeTitle<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineCellModel/JXCategoryTimelineCellModel.m:23"]
   S3 -->|calls| T3
-  S4["method:JobsPodspecKitForHXPhotoManagerExtra::apply_standard_xcconfig<br/>JobsByPods/HXPhotoManagerExtra@Pods/JobsPodspecKit.rb:281"]
-  T4["method:JobsPodspecKitForHXPhotoManagerExtra::apply_standard_pod_target_xcconfig<br/>JobsByPods/HXPhotoManagerExtra@Pods/JobsPodspecKit.rb:273"]
+  S4["method:JXCategoryTimelineView::refreshCellModel:index:<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineView/JXCategoryTimelineView.m:118"]
+  T4["method:JXCategoryTimelineCellModel::byTimeTitleNormalColor<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineCellModel/JXCategoryTimelineCellModel.m:32"]
   S4 -->|calls| T4
-  S5["method:JobsPodspecKitForHXPhotoManagerExtra::apply_standard_xcconfig<br/>JobsByPods/HXPhotoManagerExtra@Pods/JobsPodspecKit.rb:281"]
-  T5["method:JobsPodspecKitForHXPhotoManagerExtra::apply_standard_user_target_xcconfig<br/>JobsByPods/HXPhotoManagerExtra@Pods/JobsPodspecKit.rb:277"]
+  S5["method:JXCategoryTimelineView::refreshCellModel:index:<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineView/JXCategoryTimelineView.m:118"]
+  T5["method:JXCategoryTimelineCellModel::byTimeTitleSelectedColor<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineCellModel/JXCategoryTimelineCellModel.m:41"]
   S5 -->|calls| T5
-  S6["method:JobsPodspecKitForHXPhotoViewExtra::apply_standard_user_target_xcconfig<br/>JobsByPods/HXPhotoViewExtra@Pods/JobsPodspecKit.rb:277"]
-  T6["method:JobsPodspecKitForHXPhotoViewExtra::standard_user_target_xcconfig<br/>JobsByPods/HXPhotoViewExtra@Pods/JobsPodspecKit.rb:266"]
+  S6["method:JXCategoryTimelineView::refreshCellModel:index:<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineView/JXCategoryTimelineView.m:118"]
+  T6["method:JXCategoryTimelineCellModel::byTimeTitleFont<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineCellModel/JXCategoryTimelineCellModel.m:50"]
   S6 -->|calls| T6
-  S7["method:JobsPodspecKitForHXPhotoViewExtra::apply_standard_xcconfig<br/>JobsByPods/HXPhotoViewExtra@Pods/JobsPodspecKit.rb:281"]
-  T7["method:JobsPodspecKitForHXPhotoViewExtra::apply_standard_pod_target_xcconfig<br/>JobsByPods/HXPhotoViewExtra@Pods/JobsPodspecKit.rb:273"]
+  S7["method:JXCategoryTimelineView::refreshCellModel:index:<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineView/JXCategoryTimelineView.m:118"]
+  T7["method:JXCategoryTimelineCellModel::byTimeTitleSelectedFont<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineCellModel/JXCategoryTimelineCellModel.m:59"]
   S7 -->|calls| T7
-  S8["method:JobsPodspecKitForHXPhotoViewExtra::apply_standard_xcconfig<br/>JobsByPods/HXPhotoViewExtra@Pods/JobsPodspecKit.rb:281"]
-  T8["method:JobsPodspecKitForHXPhotoViewExtra::apply_standard_user_target_xcconfig<br/>JobsByPods/HXPhotoViewExtra@Pods/JobsPodspecKit.rb:277"]
+  S8["method:JXCategoryTitleBackgroundCell::jobsInitializeViews<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:24"]
+  T8["method:JXCategoryTitleBackgroundCell::byBgLayer<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:96"]
   S8 -->|calls| T8
-  S9["function:jobsMakeIQKeyboardManager<br/>JobsByPods/IQKeyboardManagerExtra@Pods/Core/IQKeyboardManager+Extra/IQKeyboardManager+Extra.h:46"]
-  T9["function:block<br/>JobsByPods/JobsOCDSL@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:45"]
+  S9["method:JXCategoryTitleBackgroundCell::initializeViews<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:35"]
+  T9["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S9 -->|calls| T9
-  S10["method:JobsPodspecKitForIQKeyboardManagerExtra::apply_standard_user_target_xcconfig<br/>JobsByPods/IQKeyboardManagerExtra@Pods/JobsPodspecKit.rb:277"]
-  T10["method:JobsPodspecKitForIQKeyboardManagerExtra::standard_user_target_xcconfig<br/>JobsByPods/IQKeyboardManagerExtra@Pods/JobsPodspecKit.rb:266"]
+  S10["method:JXCategoryTitleBackgroundCell::layoutSubviews<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:40"]
+  T10["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S10 -->|calls| T10
-  S11["method:JobsPodspecKitForIQKeyboardManagerExtra::apply_standard_xcconfig<br/>JobsByPods/IQKeyboardManagerExtra@Pods/JobsPodspecKit.rb:281"]
-  T11["method:JobsPodspecKitForIQKeyboardManagerExtra::apply_standard_pod_target_xcconfig<br/>JobsByPods/IQKeyboardManagerExtra@Pods/JobsPodspecKit.rb:273"]
+  S11["method:JXCategoryTitleBackgroundCell::jobsLayoutSubviews<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:45"]
+  T11["method:NSTextAttachment::byBounds<br/>JobsByPods/JobsOCDSL@Pods/Core/AutoSupplement/JobsSystemAPIDSLSupplement/JobsSystemAPIDSLSupplement.m:123"]
   S11 -->|calls| T11
-  S12["method:JobsPodspecKitForIQKeyboardManagerExtra::apply_standard_xcconfig<br/>JobsByPods/IQKeyboardManagerExtra@Pods/JobsPodspecKit.rb:281"]
-  T12["method:JobsPodspecKitForIQKeyboardManagerExtra::apply_standard_user_target_xcconfig<br/>JobsByPods/IQKeyboardManagerExtra@Pods/JobsPodspecKit.rb:277"]
+  S12["method:JXCategoryTitleBackgroundCell::jobsLayoutSubviews<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:45"]
+  T12["method:CALayer::byPosition<br/>JobsByPods/JobsOCDSL@Pods/Core/QuartzCore/CALayer+DSL/CALayer+DSL.m:56"]
   S12 -->|calls| T12
-  S13["method:JXCategoryTimelineCell::jobsInitializeViews<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineCell/JXCategoryTimelineCell.m:17"]
-  T13["method:FMBannerAdsModel::byAlpha<br/>JobsByPods/JobsModelDSL@Pods/Core/FMBannerAdsModel/FMBannerAdsModel+DSL/FMBannerAdsModel+DSL.m:1118"]
+  S13["method:JXCategoryTitleBackgroundCell::jobsReloadData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:68"]
+  T13["method:FMBannerAdsModel::byBorderWidth<br/>JobsByPods/JobsModelDSL@Pods/Core/FMBannerAdsModel/FMBannerAdsModel+DSL/FMBannerAdsModel+DSL.m:299"]
   S13 -->|calls| T13
-  S14["method:JXCategoryTimelineCell::initializeViews<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineCell/JXCategoryTimelineCell.m:27"]
-  T14["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
+  S14["method:JXCategoryTitleBackgroundCell::jobsReloadData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:68"]
+  T14["method:UIBackgroundConfiguration::byCornerRadius<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIBackgroundConfiguration/UIBackgroundConfiguration+Extra/UIBackgroundConfiguration+Extra.m:20"]
   S14 -->|calls| T14
-  S15["method:JXCategoryTimelineCell::jobsReloadData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineCell/JXCategoryTimelineCell.m:32"]
-  T15["method:JobsBitsMonitorSuspendLab::byText<br/>JobsByPods/JobsBitsMonitor@Pods/Core/JobsBitsMonitorSuspendLab/JobsBitsMonitorSuspendLab.m:160"]
+  S15["method:JXCategoryTitleBackgroundCell::jobsReloadData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:68"]
+  T15["method:UIBackgroundConfiguration::byBackgroundColor<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIBackgroundConfiguration/UIBackgroundConfiguration+Extra/UIBackgroundConfiguration+Extra.m:11"]
   S15 -->|calls| T15
-  S16["method:JXCategoryTimelineCell::jobsReloadData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineCell/JXCategoryTimelineCell.m:32"]
-  T16["method:JobsAnimationLabel::byTextCor<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseLabel/JobsAnimationLabel/JobsAnimationLabel.m:36"]
+  S16["method:JXCategoryTitleBackgroundCell::jobsReloadData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:68"]
+  T16["method:CALayer::byBorderColor<br/>JobsByPods/JobsOCDSL@Pods/Core/QuartzCore/CALayer+DSL/CALayer+DSL.m:485"]
   S16 -->|calls| T16
-  S17["method:JXCategoryTimelineCell::jobsReloadData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineCell/JXCategoryTimelineCell.m:32"]
-  T17["method:JobsTextView::byFont<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextView/JobsTextView/JobsTextView.m:74"]
+  S17["method:JXCategoryTitleBackgroundCell::jobsReloadData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:68"]
+  T17["method:UIBackgroundConfiguration::byBackgroundColor<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIBackgroundConfiguration/UIBackgroundConfiguration+Extra/UIBackgroundConfiguration+Extra.m:11"]
   S17 -->|calls| T17
-  S18["method:JXCategoryTimelineCell::jobsReloadData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineCell/JXCategoryTimelineCell.m:32"]
-  T18["method:JobsAnimationLabel::byTextCor<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseLabel/JobsAnimationLabel/JobsAnimationLabel.m:36"]
+  S18["method:JXCategoryTitleBackgroundCell::jobsReloadData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:68"]
+  T18["method:CALayer::byBorderColor<br/>JobsByPods/JobsOCDSL@Pods/Core/QuartzCore/CALayer+DSL/CALayer+DSL.m:485"]
   S18 -->|calls| T18
-  S19["method:JXCategoryTimelineCell::jobsReloadData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineCell/JXCategoryTimelineCell.m:32"]
-  T19["method:JobsTextView::byFont<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseTextView/JobsTextView/JobsTextView.m:74"]
+  S19["method:JXCategoryTitleBackgroundCell::reloadData:<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:90"]
+  T19["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S19 -->|calls| T19
-  S20["method:JXCategoryTimelineCell::reloadData:<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineCell/JXCategoryTimelineCell.m:50"]
-  T20["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
+  S20["method:JXCategoryTitleBackgroundView::jobsInitializeData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:41"]
+  T20["method:JXCategoryTitleBackgroundView::byCellWidthIncrement<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:187"]
   S20 -->|calls| T20
-  S21["method:JXCategoryTimelineCell::timeLabel<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineCell/JXCategoryTimelineCell.m:55"]
-  T21["function:jobsMakeTextView::jobsMakeLabel<br/>JobsByPods/JobsMakes@Pods/JobsMakes.h:441"]
+  S21["method:JXCategoryTitleBackgroundView::jobsInitializeData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:41"]
+  T21["method:JXCategoryTitleBackgroundView::byNormalBackgroundColor<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:152"]
   S21 -->|calls| T21
-  S22["method:JXCategoryTimelineCell::timeLabel<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineCell/JXCategoryTimelineCell.m:55"]
-  T22["method:UIView::byAdd<br/>JobsByPods/JobsOCDSL@Pods/Core/3rd/Masonry+DSL/UIView/UIView+MasonryDSL/UIView+MasonryDSL.m:80"]
+  S22["method:JXCategoryTitleBackgroundView::jobsInitializeData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:41"]
+  T22["method:JXCategoryTitleBackgroundView::byNormalBorderColor<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:161"]
   S22 -->|calls| T22
-  S23["method:JXCategoryTimelineCell::timeLabel<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineCell/JXCategoryTimelineCell.m:55"]
-  T23["method:UIView::addOn<br/>JobsByPods/JobsNavigationTransitionMgr@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.m:807"]
+  S23["method:JXCategoryTitleBackgroundView::jobsInitializeData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:41"]
+  T23["method:JXCategoryTitleBackgroundView::bySelectedBackgroundColor<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:170"]
   S23 -->|calls| T23
-  S24["method:JXCategoryTimelineCell::timeLabel<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineCell/JXCategoryTimelineCell.m:55"]
-  T24["method:UILabel::byTextAlignment<br/>JobsByPods/JobsOCDSL@Pods/Core/UIKit/UILabel+DSLs/UILabel+DSL/UILabel+DSL.m:397"]
+  S24["method:JXCategoryTitleBackgroundView::jobsInitializeData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:41"]
+  T24["method:JXCategoryTitleBackgroundView::bySelectedBorderColor<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:179"]
   S24 -->|calls| T24
-  S25["method:JXCategoryTimelineCell::timeLabel<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTimelineViews/JXCategoryTimelineCell/JXCategoryTimelineCell.m:55"]
-  T25["method:MASConstraint::equalTo<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASConstraint.m:27"]
+  S25["method:JXCategoryTitleBackgroundView::jobsInitializeData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:41"]
+  T25["method:JXCategoryTitleBackgroundView::byBorderLineWidth<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:143"]
   S25 -->|calls| T25
 ```
 

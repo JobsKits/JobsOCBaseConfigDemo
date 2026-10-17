@@ -12,79 +12,79 @@
 
 ```mermaid
 flowchart LR
-  S1["method:NSObject::post_KA_play<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:562"]
+  S1["method:NSObject::post_game_bet_order_mybet_detail<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:1198"]
   T1["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S1 -->|calls| T1
-  S2["method:NSObject::post_KA_revoke<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:575"]
+  S2["method:NSObject::post_game_bet_order_mybet_sum<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:1211"]
   T2["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S2 -->|calls| T2
-  S3["method:NSObject::post_KA_start<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:588"]
+  S3["method:NSObject::post_game_bet_single_wallet_jump<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:1224"]
   T3["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S3 -->|calls| T3
-  S4["method:NSObject::post_PB_ping<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:602"]
+  S4["method:NSObject::get_operation_announce_config_queryAnnByMember<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@4/NSObject+URLMgr_4/NSObject+URLMgr_4.m:15"]
   T4["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S4 -->|calls| T4
-  S5["method:NSObject::post_PB_wagering<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:615"]
+  S5["method:NSObject::put_operation_letter_config_allReadStatus<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@4/NSObject+URLMgr_4/NSObject+URLMgr_4.m:28"]
   T5["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S5 -->|calls| T5
-  S6["method:NSObject::post_PG_cashAdjustment<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:629"]
+  S6["method:NSObject::put_operation_letter_config_deleteAll<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@4/NSObject+URLMgr_4/NSObject+URLMgr_4.m:41"]
   T6["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S6 -->|calls| T6
-  S7["method:NSObject::post_PG_cashGet<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:642"]
+  S7["method:NSObject::put_operation_letter_config_deleteLetter<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@4/NSObject+URLMgr_4/NSObject+URLMgr_4.m:54"]
   T7["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S7 -->|calls| T7
-  S8["method:NSObject::post_PG_cashTransferInOut<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:655"]
+  S8["method:NSObject::post_operation_letter_config_hasUnRead<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@4/NSObject+URLMgr_4/NSObject+URLMgr_4.m:67"]
   T8["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S8 -->|calls| T8
-  S9["method:NSObject::post_PG_verifySession<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:668"]
+  S9["method:NSObject::post_operation_letter_config_queryLetterConfigSendList<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@4/NSObject+URLMgr_4/NSObject+URLMgr_4.m:80"]
   T9["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S9 -->|calls| T9
-  S10["method:NSObject::post_game_fund_collect<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:682"]
+  S10["method:NSObject::put_operation_letter_config_toReadStatus<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@4/NSObject+URLMgr_4/NSObject+URLMgr_4.m:93"]
   T10["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S10 -->|calls| T10
-  S11["method:NSObject::post_game_fund_transferIn<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:695"]
+  S11["method:NSObject::post_operation_siteMain_queryDetail<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@4/NSObject+URLMgr_4/NSObject+URLMgr_4.m:107"]
   T11["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S11 -->|calls| T11
-  S12["method:NSObject::post_game_fund_wallet<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:708"]
+  S12["method:NSObject::post_operation_tutorial_config_detailItem<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@4/NSObject+URLMgr_4/NSObject+URLMgr_4.m:121"]
   T12["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S12 -->|calls| T12
-  S13["method:NSObject::post_game_bet_followList<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:722"]
+  S13["method:NSObject::post_api_operation_tutorial_config_list<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@4/NSObject+URLMgr_4/NSObject+URLMgr_4.m:134"]
   T13["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S13 -->|calls| T13
-  S14["method:NSObject::get_game_bet_mageXcess_queryRecord<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:735"]
+  S14["method:NSObject::post_operation_tutorial_config_listItem<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@4/NSObject+URLMgr_4/NSObject+URLMgr_4.m:147"]
   T14["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S14 -->|calls| T14
-  S15["method:NSObject::post_game_bet_noLoginMemberIdList<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:748"]
+  S15["method:NSObject::post_operation_advice_config_saveAdviceConfig<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@4/NSObject+URLMgr_4/NSObject+URLMgr_4.m:161"]
   T15["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S15 -->|calls| T15
-  S16["method:NSObject::post_game_bet_orders<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:761"]
+  S16["method:NSObject::get_operation_sponsor_high_list<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@4/NSObject+URLMgr_4/NSObject+URLMgr_4.m:175"]
   T16["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S16 -->|calls| T16
-  S17["method:NSObject::post_game_bet_pageList<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:774"]
+  S17["method:NSObject::get_operation_sponsor_list<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@4/NSObject+URLMgr_4/NSObject+URLMgr_4.m:188"]
   T17["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S17 -->|calls| T17
-  S18["method:NSObject::post_game_pay_pageList<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:788"]
+  S18["method:NSObject::get_invite_getInviteTerms<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@4/NSObject+URLMgr_4/NSObject+URLMgr_4.m:202"]
   T18["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S18 -->|calls| T18
-  S19["method:NSObject::get_game_pagcor_gameLobbyImport<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:802"]
+  S19["method:NSObject::post_invite_inviteBetAwardStatistic<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@4/NSObject+URLMgr_4/NSObject+URLMgr_4.m:215"]
   T19["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S19 -->|calls| T19
-  S20["method:NSObject::get_game_pagcor_order_list<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:816"]
+  S20["method:NSObject::get_getReferralCode<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@4/NSObject+URLMgr_4/NSObject+URLMgr_4.m:228"]
   T20["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S20 -->|calls| T20
-  S21["method:NSObject::post_game_job_fetchBetOrders<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:830"]
+  S21["method:NSObject::post_fundDepositOrder<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@4/NSObject+URLMgr_4/NSObject+URLMgr_4.m:241"]
   T21["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S21 -->|calls| T21
-  S22["method:NSObject::post_game_syncData_checkExistWallet<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:843"]
+  S22["method:NSObject::post_fund_adjust_adjustOrder<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@5/NSObject+URLMgr_5/NSObject+URLMgr_5.m:15"]
   T22["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S22 -->|calls| T22
-  S23["method:NSObject::post_game_syncData_syncFundWallet<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:856"]
+  S23["method:NSObject::post_fund_adjust_auditFundAdjust<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@5/NSObject+URLMgr_5/NSObject+URLMgr_5.m:28"]
   T23["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S23 -->|calls| T23
-  S24["method:NSObject::post_game_statis_queryAuditAmount<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:870"]
+  S24["method:NSObject::post_fund_adjust_batchAdjustOrderList<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@5/NSObject+URLMgr_5/NSObject+URLMgr_5.m:41"]
   T24["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S24 -->|calls| T24
-  S25["method:NSObject::post_game_statis_queryBetByLobbyName<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@3/NSObject+URLMgr_3/NSObject+URLMgr_3.m:883"]
+  S25["method:NSObject::post_fund_deposit_aipay_callback<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/URLMgr/URLMgr@5/NSObject+URLMgr_5/NSObject+URLMgr_5.m:55"]
   T25["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S25 -->|calls| T25
 ```

@@ -66,14 +66,14 @@ flowchart LR
   S18["method:JobsPodspecKitForAFSecurityPolicyExtra::apply_standard_xcconfig<br/>JobsByPods/AFSecurityPolicyExtra@Pods/JobsPodspecKit.rb:281"]
   T18["method:JobsPodspecKitForAFSecurityPolicyExtra::apply_standard_user_target_xcconfig<br/>JobsByPods/AFSecurityPolicyExtra@Pods/JobsPodspecKit.rb:277"]
   S18 -->|calls| T18
-  S19["function:jobsMakeBRPickerStyle<br/>JobsByPods/BRPickerViewExtra@Pods/Core/BRPickerStyle/BRPickerStyle+DSL/BRPickerStyle+DSL.h:43"]
-  T19["function:block<br/>JobsByPods/JobsOCDSL@Pods/Support/UIKit/UIGestureRecognizer/UIGestureRecognizer+Extra/UIGestureRecognizer+Extra.m:45"]
+  S19["file:JobsByPods/BRPickerViewExtra@Pods/Core/BRTextPickerView/BRTextPickerView+Extra/BRTextPickerView+Extra.h<br/>JobsByPods/BRPickerViewExtra@Pods/Core/BRTextPickerView/BRTextPickerView+Extra/BRTextPickerView+Extra.h:1"]
+  T19["method:ASTextRange::end<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextInput.mm:74"]
   S19 -->|calls| T19
-  S20["file:JobsByPods/BRPickerViewExtra@Pods/Core/BRTextPickerView/BRTextPickerView+Extra/BRTextPickerView+Extra.h<br/>JobsByPods/BRPickerViewExtra@Pods/Core/BRTextPickerView/BRTextPickerView+Extra/BRTextPickerView+Extra.h:1"]
-  T20["method:ASTextRange::end<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/TextExperiment/Component/ASTextInput.mm:74"]
+  S20["method:BRTextPickerView::initBy<br/>JobsByPods/BRPickerViewExtra@Pods/Core/BRTextPickerView/BRTextPickerView+Extra/BRTextPickerView+Extra.m:12"]
+  T20["method:BRDatePickerView::initWithPickerMode:<br/>JobsByPods/ManualByOCPods@Pods/BRPickerView/Core/BRDatePicker/BRDatePickerView/BRDatePickerView.m:131"]
   S20 -->|calls| T20
-  S21["method:BRTextPickerView::initBy<br/>JobsByPods/BRPickerViewExtra@Pods/Core/BRTextPickerView/BRTextPickerView+Extra/BRTextPickerView+Extra.m:12"]
-  T21["method:BRDatePickerView::initWithPickerMode:<br/>JobsByPods/ManualByOCPods@Pods/BRPickerView/Core/BRDatePicker/BRDatePickerView/BRDatePickerView.m:131"]
+  S21["file:JobsByPods/BRPickerViewExtra@Pods/Core/NSObject+BRPickerView/NSObject+BRPickerView.h<br/>JobsByPods/BRPickerViewExtra@Pods/Core/NSObject+BRPickerView/NSObject+BRPickerView.h:1"]
+  T21["function:Prop_strong<br/>JobsByPods/JobsMenuView@Pods/Core/JobsMenuView/JobsMenuView.h:50"]
   S21 -->|calls| T21
   S22["file:JobsByPods/BRPickerViewExtra@Pods/Core/NSObject+BRPickerView/NSObject+BRPickerView.h<br/>JobsByPods/BRPickerViewExtra@Pods/Core/NSObject+BRPickerView/NSObject+BRPickerView.h:1"]
   T22["function:Prop_strong<br/>JobsByPods/JobsMenuView@Pods/Core/JobsMenuView/JobsMenuView.h:50"]
@@ -85,7 +85,7 @@ flowchart LR
   T24["function:Prop_strong<br/>JobsByPods/JobsMenuView@Pods/Core/JobsMenuView/JobsMenuView.h:50"]
   S24 -->|calls| T24
   S25["file:JobsByPods/BRPickerViewExtra@Pods/Core/NSObject+BRPickerView/NSObject+BRPickerView.h<br/>JobsByPods/BRPickerViewExtra@Pods/Core/NSObject+BRPickerView/NSObject+BRPickerView.h:1"]
-  T25["function:Prop_strong<br/>JobsByPods/JobsMenuView@Pods/Core/JobsMenuView/JobsMenuView.h:50"]
+  T25["function:Prop_assign<br/>JobsByPods/JobsLuckyEnvelopeRain@Pods/Core/JobsRedPacketRainConfig/JobsRedPacketRainConfig.h:22"]
   S25 -->|calls| T25
 ```
 

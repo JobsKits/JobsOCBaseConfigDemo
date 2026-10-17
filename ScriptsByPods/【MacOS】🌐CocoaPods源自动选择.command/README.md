@@ -10,7 +10,7 @@
 
 本模块在 [**CocoaPods**](https://cocoapods.org/) 解析依赖前测试当前网络，根据官方 CDN 与 [**GitHub**](https://github.com/) Specs 的实际访问结果选择公共规格源。<u>[**Swift**](https://www.swift.org/)</u>、[**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 新旧工程使用相同脚本包，统一放在各工程的 `ScriptsByPods` 中管理。
 
-测速只决定本次安装使用哪个公共 Specs 源；后续规格获取、源码下载和安装结果仍由 CocoaPods 处理。
+测速只决定本次安装使用哪个公共 Specs 源。Podfile 会先同步调用独立的 [CocoaPods 网络适配包](<../【MacOS】🌐CocoaPods网络适配.command/README.md>)，实测当前 Git 链路与已有代理，让本包的探测和后续源码下载继承同一本次环境；仅已核验的 AMPopTip 4.12.0 发布请求可在 Git 网络失败后回退官方归档。其余下载保留 CocoaPods 原行为，选源成功仍不代表所有依赖下载成功。
 
 ## 一、目录与挂载 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
@@ -103,7 +103,7 @@ JOBS_SPECS_SOURCE=cdn \
 
 两种入口都会显示实际日志位置。排查时同时检查选源日志和 CocoaPods 自身错误：规格源可用不代表所有源码仓库都可用。
 
-迁移到其它电脑时，保留本目录的 `.command`、Ruby 适配器、README 与 Tests，以及工程根目录 Podfile 的加载代码，维持本包相对工程根目录的 `ScriptsByPods/<同名脚本包>/` 层级。无需复制另一台电脑的临时日志或修改本机绝对路径。
+迁移到其它电脑时，保留本目录的 `.command`、Ruby 适配器、README 与 Tests，同时保留相邻网络适配包的完整目录与工程根目录 Podfile 的加载代码，维持两个包相对工程根目录的 `ScriptsByPods/<同名脚本包>/` 层级。无需复制另一台电脑的临时日志或修改本机绝对路径。
 
 隔离测试使用假的网络命令覆盖成功、失败、测速选源与锁文件迁移边界；真实网络测试仅检验当前机器当前线路，不执行依赖安装或构建。其它电脑上的完整 `pod install` 仍须在对应环境实际验证。
 

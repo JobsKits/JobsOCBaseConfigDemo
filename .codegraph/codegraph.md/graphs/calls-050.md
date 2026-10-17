@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:JXCategoryTitleBackgroundCell::initializeViews<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:35"]
+  S1["method:RegisterApi::requestMethod<br/>JobsByPods/JobsAPIs@Pods/Core/APIs/RegisterApi/RegisterApi.m:26"]
   T1["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S1 -->|calls| T1
-  S2["method:JXCategoryTitleBackgroundCell::layoutSubviews<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:40"]
-  T2["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
+  S2["method:UploadImageApi::initByImage<br/>JobsByPods/JobsAPIs@Pods/Core/APIs/UploadImageApi/UploadImageApi.m:20"]
+  T2["method:UploadImageApi::byImage<br/>JobsByPods/JobsAPIs@Pods/Core/APIs/UploadImageApi/UploadImageApi.m:29"]
   S2 -->|calls| T2
-  S3["method:JXCategoryTitleBackgroundCell::jobsLayoutSubviews<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:45"]
-  T3["method:NSTextAttachment::byBounds<br/>JobsByPods/JobsOCDSL@Pods/Core/AutoSupplement/JobsSystemAPIDSLSupplement/JobsSystemAPIDSLSupplement.m:123"]
+  S3["method:UploadImageApi::requestUrl<br/>JobsByPods/JobsAPIs@Pods/Core/APIs/UploadImageApi/UploadImageApi.m:38"]
+  T3["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S3 -->|calls| T3
-  S4["method:JXCategoryTitleBackgroundCell::jobsLayoutSubviews<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:45"]
-  T4["method:CALayer::byPosition<br/>JobsByPods/JobsOCDSL@Pods/Core/QuartzCore/CALayer+DSL/CALayer+DSL.m:56"]
+  S4["method:UploadImageApi::jobsRequestUrl<br/>JobsByPods/JobsAPIs@Pods/Core/APIs/UploadImageApi/UploadImageApi.m:43"]
+  T4["method:NSMutableArray::add<br/>JobsByPods/JobsAPIs@Pods/Support/UIKit/NSMutableArray/NSMutableArray+Extra/NSMutableArray+Extra.m:12"]
   S4 -->|calls| T4
-  S5["method:JXCategoryTitleBackgroundCell::jobsReloadData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:68"]
-  T5["method:FMBannerAdsModel::byBorderWidth<br/>JobsByPods/JobsModelDSL@Pods/Core/FMBannerAdsModel/FMBannerAdsModel+DSL/FMBannerAdsModel+DSL.m:299"]
+  S5["method:UploadImageApi::jobsRequestUrl<br/>JobsByPods/JobsAPIs@Pods/Core/APIs/UploadImageApi/UploadImageApi.m:43"]
+  T5["method:This::jobsBaseUrl<br/>JobsByPods/JobsAPIs@Pods/Core/URLMgr/This+URLMgr/This+URLMgr.m:28"]
   S5 -->|calls| T5
-  S6["method:JXCategoryTitleBackgroundCell::jobsReloadData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:68"]
-  T6["method:UIBackgroundConfiguration::byCornerRadius<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIBackgroundConfiguration/UIBackgroundConfiguration+Extra/UIBackgroundConfiguration+Extra.m:20"]
+  S6["method:UploadImageApi::requestMethod<br/>JobsByPods/JobsAPIs@Pods/Core/APIs/UploadImageApi/UploadImageApi.m:52"]
+  T6["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S6 -->|calls| T6
-  S7["method:JXCategoryTitleBackgroundCell::jobsReloadData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:68"]
-  T7["method:UIBackgroundConfiguration::byBackgroundColor<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIBackgroundConfiguration/UIBackgroundConfiguration+Extra/UIBackgroundConfiguration+Extra.m:11"]
+  S7["method:UploadImageApi::jsonValidator<br/>JobsByPods/JobsAPIs@Pods/Core/APIs/UploadImageApi/UploadImageApi.m:81"]
+  T7["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
   S7 -->|calls| T7
-  S8["method:JXCategoryTitleBackgroundCell::jobsReloadData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:68"]
-  T8["method:CALayer::byBorderColor<br/>JobsByPods/JobsOCDSL@Pods/Core/QuartzCore/CALayer+DSL/CALayer+DSL.m:485"]
+  S8["function:getLocalIPAddressBy<br/>JobsByPods/JobsAPIs@Pods/Core/DeviceIP/NSObject+DeviceIP/NSObject+DeviceIP.m:38"]
+  T8["function:getIPAddresses<br/>JobsByPods/JobsAPIs@Pods/Core/DeviceIP/NSObject+DeviceIP/NSObject+DeviceIP.m:91"]
   S8 -->|calls| T8
-  S9["method:JXCategoryTitleBackgroundCell::jobsReloadData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:68"]
-  T9["method:UIBackgroundConfiguration::byBackgroundColor<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIBackgroundConfiguration/UIBackgroundConfiguration+Extra/UIBackgroundConfiguration+Extra.m:11"]
+  S9["function:getLocalIPAddressBy<br/>JobsByPods/JobsAPIs@Pods/Core/DeviceIP/NSObject+DeviceIP/NSObject+DeviceIP.m:38"]
+  T9["function:isValidatIP<br/>JobsByPods/JobsAPIs@Pods/Core/DeviceIP/NSObject+DeviceIP/NSObject+DeviceIP.m:67"]
   S9 -->|calls| T9
-  S10["method:JXCategoryTitleBackgroundCell::jobsReloadData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:68"]
-  T10["method:CALayer::byBorderColor<br/>JobsByPods/JobsOCDSL@Pods/Core/QuartzCore/CALayer+DSL/CALayer+DSL.m:485"]
+  S10["function:getIpify<br/>JobsByPods/JobsAPIs@Pods/Core/DeviceIP/NSObject+DeviceIP/NSObject+DeviceIP.m:141"]
+  T10["method:BaseRequest::byHeaderParameters<br/>JobsByPods/YTKNetworkExtra@Pods/Core/BaseRequest/BaseRequest.m:37"]
   S10 -->|calls| T10
-  S11["method:JXCategoryTitleBackgroundCell::reloadData:<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCell/JXCategoryTitleBackgroundCell.m:90"]
-  T11["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
+  S11["function:getIpify<br/>JobsByPods/JobsAPIs@Pods/Core/DeviceIP/NSObject+DeviceIP/NSObject+DeviceIP.m:141"]
+  T11["method:BaseRequest::byBodyParameters<br/>JobsByPods/YTKNetworkExtra@Pods/Core/BaseRequest/BaseRequest.m:48"]
   S11 -->|calls| T11
-  S12["method:JXCategoryTitleBackgroundView::jobsInitializeData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:41"]
-  T12["method:JXCategoryTitleBackgroundView::byCellWidthIncrement<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:187"]
+  S12["function:getIpify<br/>JobsByPods/JobsAPIs@Pods/Core/DeviceIP/NSObject+DeviceIP/NSObject+DeviceIP.m:141"]
+  T12["method:BaseRequest::byURLParameters<br/>JobsByPods/YTKNetworkExtra@Pods/Core/BaseRequest/BaseRequest.m:57"]
   S12 -->|calls| T12
-  S13["method:JXCategoryTitleBackgroundView::jobsInitializeData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:41"]
-  T13["method:JXCategoryTitleBackgroundView::byNormalBackgroundColor<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:152"]
+  S13["function:getIpify<br/>JobsByPods/JobsAPIs@Pods/Core/DeviceIP/NSObject+DeviceIP/NSObject+DeviceIP.m:141"]
+  T13["variable:successBlock<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+BaseVC/UIViewController+BaseVC.h:142"]
   S13 -->|calls| T13
-  S14["method:JXCategoryTitleBackgroundView::jobsInitializeData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:41"]
-  T14["method:JXCategoryTitleBackgroundView::byNormalBorderColor<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:161"]
+  S14["function:getIP<br/>JobsByPods/JobsAPIs@Pods/Core/DeviceIP/NSObject+DeviceIP/NSObject+DeviceIP.m:161"]
+  T14["method:BaseRequest::byHeaderParameters<br/>JobsByPods/YTKNetworkExtra@Pods/Core/BaseRequest/BaseRequest.m:37"]
   S14 -->|calls| T14
-  S15["method:JXCategoryTitleBackgroundView::jobsInitializeData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:41"]
-  T15["method:JXCategoryTitleBackgroundView::bySelectedBackgroundColor<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:170"]
+  S15["function:getIP<br/>JobsByPods/JobsAPIs@Pods/Core/DeviceIP/NSObject+DeviceIP/NSObject+DeviceIP.m:161"]
+  T15["method:BaseRequest::byBodyParameters<br/>JobsByPods/YTKNetworkExtra@Pods/Core/BaseRequest/BaseRequest.m:48"]
   S15 -->|calls| T15
-  S16["method:JXCategoryTitleBackgroundView::jobsInitializeData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:41"]
-  T16["method:JXCategoryTitleBackgroundView::bySelectedBorderColor<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:179"]
+  S16["function:getIP<br/>JobsByPods/JobsAPIs@Pods/Core/DeviceIP/NSObject+DeviceIP/NSObject+DeviceIP.m:161"]
+  T16["method:BaseRequest::byURLParameters<br/>JobsByPods/YTKNetworkExtra@Pods/Core/BaseRequest/BaseRequest.m:57"]
   S16 -->|calls| T16
-  S17["method:JXCategoryTitleBackgroundView::jobsInitializeData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:41"]
-  T17["method:JXCategoryTitleBackgroundView::byBorderLineWidth<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:143"]
+  S17["function:getIP<br/>JobsByPods/JobsAPIs@Pods/Core/DeviceIP/NSObject+DeviceIP/NSObject+DeviceIP.m:161"]
+  T17["variable:successBlock<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+BaseVC/UIViewController+BaseVC.h:142"]
   S17 -->|calls| T17
-  S18["method:JXCategoryTitleBackgroundView::jobsInitializeData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:41"]
-  T18["method:JXCategoryTitleBackgroundView::byBackgroundCornerRadius<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:116"]
+  S18["function:getIPInfo<br/>JobsByPods/JobsAPIs@Pods/Core/DeviceIP/NSObject+DeviceIP/NSObject+DeviceIP.m:181"]
+  T18["method:BaseRequest::byHeaderParameters<br/>JobsByPods/YTKNetworkExtra@Pods/Core/BaseRequest/BaseRequest.m:37"]
   S18 -->|calls| T18
-  S19["method:JXCategoryTitleBackgroundView::jobsInitializeData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:41"]
-  T19["method:JXCategoryTitleBackgroundView::byBackgroundWidth<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:134"]
+  S19["function:getIPInfo<br/>JobsByPods/JobsAPIs@Pods/Core/DeviceIP/NSObject+DeviceIP/NSObject+DeviceIP.m:181"]
+  T19["method:BaseRequest::byBodyParameters<br/>JobsByPods/YTKNetworkExtra@Pods/Core/BaseRequest/BaseRequest.m:48"]
   S19 -->|calls| T19
-  S20["method:JXCategoryTitleBackgroundView::jobsInitializeData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:41"]
-  T20["method:JXCategoryTitleBackgroundView::byBackgroundHeight<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:125"]
+  S20["function:getIPInfo<br/>JobsByPods/JobsAPIs@Pods/Core/DeviceIP/NSObject+DeviceIP/NSObject+DeviceIP.m:181"]
+  T20["method:BaseRequest::byURLParameters<br/>JobsByPods/YTKNetworkExtra@Pods/Core/BaseRequest/BaseRequest.m:57"]
   S20 -->|calls| T20
-  S21["method:JXCategoryTitleBackgroundView::initializeData<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:59"]
-  T21["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
+  S21["function:getIPInfo<br/>JobsByPods/JobsAPIs@Pods/Core/DeviceIP/NSObject+DeviceIP/NSObject+DeviceIP.m:181"]
+  T21["variable:successBlock<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+BaseVC/UIViewController+BaseVC.h:142"]
   S21 -->|calls| T21
-  S22["method:JXCategoryTitleBackgroundView::preferredCellClass<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:73"]
-  T22["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
+  S22["function:getIPDataByKey:successBlock:<br/>JobsByPods/JobsAPIs@Pods/Core/DeviceIP/NSObject+DeviceIP/NSObject+DeviceIP.m:201"]
+  T22["method:BaseRequest::byHeaderParameters<br/>JobsByPods/YTKNetworkExtra@Pods/Core/BaseRequest/BaseRequest.m:37"]
   S22 -->|calls| T22
-  S23["method:JXCategoryTitleBackgroundView::jobsRefreshDataSource<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:78"]
-  T23["method:JXCategoryTitleBackgroundView::byDataSource<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:32"]
+  S23["function:getIPDataByKey:successBlock:<br/>JobsByPods/JobsAPIs@Pods/Core/DeviceIP/NSObject+DeviceIP/NSObject+DeviceIP.m:201"]
+  T23["method:BaseRequest::byBodyParameters<br/>JobsByPods/YTKNetworkExtra@Pods/Core/BaseRequest/BaseRequest.m:48"]
   S23 -->|calls| T23
-  S24["method:JXCategoryTitleBackgroundView::refreshDataSource<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:87"]
-  T24["function:JobsBlockInstanceMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:15"]
+  S24["function:getIPDataByKey:successBlock:<br/>JobsByPods/JobsAPIs@Pods/Core/DeviceIP/NSObject+DeviceIP/NSObject+DeviceIP.m:201"]
+  T24["method:BaseRequest::byURLParameters<br/>JobsByPods/YTKNetworkExtra@Pods/Core/BaseRequest/BaseRequest.m:57"]
   S24 -->|calls| T24
-  S25["method:JXCategoryTitleBackgroundView::refreshCellModel:index:<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundView/JXCategoryTitleBackgroundView.m:92"]
-  T25["method:JXCategoryTitleBackgroundCellModel::byNormalBackgroundColor<br/>JobsByPods/JXCategoryViewExtra@Pods/Core/JXCategoryTitleBackgroundViews/JXCategoryTitleBackgroundCellModel/JXCategoryTitleBackgroundCellModel.m:62"]
+  S25["function:getIPDataByKey:successBlock:<br/>JobsByPods/JobsAPIs@Pods/Core/DeviceIP/NSObject+DeviceIP/NSObject+DeviceIP.m:201"]
+  T25["variable:successBlock<br/>JobsByPods/JobsByOCPods@Pods/Core/UIKit/UIViewController/UIViewController+Sys/UIViewController+BaseVC/UIViewController+BaseVC.h:142"]
   S25 -->|calls| T25
 ```
 

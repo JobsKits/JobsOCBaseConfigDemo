@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:JobsAppDoorInputViewBaseStyle_9::countDownBtn<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m':162"]
-  T1["method:UIButton::onLongPressGestureBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:475"]
+  S1["struct:RibbonGeneratorOptions<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:49"]
+  T1["field:RibbonGeneratorOptions::values<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:58"]
   S1 -->|calls| T1
-  S2["method:JobsAppDoorInputViewBaseStyle_9::countDownBtn<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m':162"]
-  T2["method:UIButton::onClickBy<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:449"]
+  S2["struct:RibbonGeneratorOptions<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:49"]
+  T2["field:RibbonGeneratorOptions::values<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:58"]
   S2 -->|calls| T2
-  S3["method:JobsAppDoorInputViewBaseStyle_9::countDownBtn<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m':162"]
-  T3["method:UIButton::jobsInit<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButton/UIButton+SimplyMake/UIButton+SimplyMake.m:307"]
+  S3["struct:RibbonConfiguration<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:79"]
+  T3["field:RibbonConfiguration::values<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:92"]
   S3 -->|calls| T3
-  S4["method:JobsAppDoorInputViewBaseStyle_9::countDownBtn<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m':162"]
-  T4["variable:objBlock<br/>JobsByPods/JobsBlock@Pods/Core/Tools/NSObject+CallBackInfoByBlock/NSObject+CallBackInfoByBlock.h:44"]
+  S4["struct:RibbonConfiguration<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:79"]
+  T4["field:RibbonConfiguration::values<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:92"]
   S4 -->|calls| T4
-  S5["method:JobsAppDoorInputViewBaseStyle_9::countDownBtn<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m':162"]
-  T5["method:MASConstraint::offset<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASConstraint.m:116"]
+  S5["struct:RibbonConfiguration<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:79"]
+  T5["method:NSString::rangeOfString<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSString/NSString+Sys/NSString+Sys.m:65"]
   S5 -->|calls| T5
-  S6["method:JobsAppDoorInputViewBaseStyle_9::countDownBtn<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m':162"]
-  T6["method:MASConstraint::equalTo<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASConstraint.m:27"]
+  S6["struct:RibbonConfiguration<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:79"]
+  T6["field:RibbonConfiguration::values<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:92"]
   S6 -->|calls| T6
-  S7["method:JobsAppDoorInputViewBaseStyle_9::countDownBtn<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m':162"]
-  T7["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size/MacroDef_Size.h:345"]
+  S7["struct:RibbonConfiguration<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:79"]
+  T7["field:RibbonConfiguration::values<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:92"]
   S7 -->|calls| T7
-  S8["method:JobsAppDoorInputViewBaseStyle_9::countDownBtn<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m':162"]
-  T8["method:MASConstraint::offset<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASConstraint.m:116"]
+  S8["struct:RibbonConfiguration<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:79"]
+  T8["field:RibbonConfiguration::values<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:92"]
   S8 -->|calls| T8
-  S9["method:JobsAppDoorInputViewBaseStyle_9::countDownBtn<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m':162"]
-  T9["method:MASConstraint::equalTo<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASConstraint.m:27"]
+  S9["struct:RibbonConfiguration<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:79"]
+  T9["field:RibbonConfiguration::values<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:92"]
   S9 -->|calls| T9
-  S10["method:JobsAppDoorInputViewBaseStyle_9::countDownBtn<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m':162"]
-  T10["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size/MacroDef_Size.h:345"]
+  S10["struct:RibbonConfiguration<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:79"]
+  T10["method:UIColor::colorWithHexString:alpha:<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:63"]
   S10 -->|calls| T10
-  S11["method:JobsAppDoorInputViewBaseStyle_9::countDownBtn<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m':162"]
-  T11["method:MASConstraint::offset<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASConstraint.m:116"]
+  S11["struct:RibbonConfiguration<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:79"]
+  T11["field:RibbonConfiguration::values<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:92"]
   S11 -->|calls| T11
-  S12["method:JobsAppDoorInputViewBaseStyle_9::countDownBtn<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m':162"]
-  T12["method:MASConstraint::equalTo<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASConstraint.m:27"]
+  S12["struct:RibbonConfiguration<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:79"]
+  T12["method:UIColor::colorWithHexString:alpha:<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIColor/UIColor+Extra/UIColor+Extra.m:63"]
   S12 -->|calls| T12
-  S13["method:JobsAppDoorInputViewBaseStyle_9::countDownBtn<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m':162"]
-  T13["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size/MacroDef_Size.h:345"]
+  S13["struct:RibbonConfiguration<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:79"]
+  T13["field:RibbonConfiguration::values<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:92"]
   S13 -->|calls| T13
-  S14["method:JobsAppDoorInputViewBaseStyle_9::countDownBtn<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m':162"]
-  T14["method:MASConstraint::mas_equalTo<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASConstraint.m:33"]
+  S14["struct:RibbonConfiguration<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:79"]
+  T14["field:RibbonConfiguration::values<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:92"]
   S14 -->|calls| T14
-  S15["method:JobsAppDoorInputViewBaseStyle_9::zyTextField<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m':189"]
-  T15["method:UITextField::byDelegate<br/>JobsByPods/JobsBaseUI@Pods/Support/UIKit/UITextField/UITextField+Extra/UITextField+Extra.m:22"]
+  S15["struct:RibbonConfiguration<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:79"]
+  T15["field:RibbonConfiguration::values<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:92"]
   S15 -->|calls| T15
-  S16["method:JobsAppDoorInputViewBaseStyle_9::zyTextField<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m':189"]
-  T16["variable:BOOL<br/>JobsByPods/ManualByOCPods@Pods/Texture/Source/Private/Layout/ASStackUnpositionedLayout.mm:425"]
+  S16["method:RibbonConfiguration::parseConfiguration<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:143"]
+  T16["field:RibbonConfiguration::text<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:82"]
   S16 -->|calls| T16
-  S17["method:JobsAppDoorInputViewBaseStyle_9::zyTextField<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m':189"]
-  T17["variable:retBoolByIDBlock<br/>JobsByPods/JobsBlock@Pods/Core/Tools/NSObject+CallBackInfoByBlock/NSObject+CallBackInfoByBlock.h:118"]
+  S17["method:RibbonConfiguration::parseConfiguration<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:143"]
+  T17["field:RibbonConfiguration::text<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:82"]
   S17 -->|calls| T17
-  S18["method:JobsAppDoorInputViewBaseStyle_9::zyTextField<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m':189"]
-  T18["method:JobsAppDoorInputViewBaseStyle_9::block:value:<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m':86"]
+  S18["method:RibbonConfiguration::parseConfiguration<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:143"]
+  T18["method:BaseCollectionViewCell::setIndex:<br/>JobsByPods/JobsBaseUI@Pods/Core/UIBaseCollectionViewCell/BaseCollectionViewCell/BaseCollectionViewCell.m:106"]
   S18 -->|calls| T18
-  S19["method:JobsAppDoorInputViewBaseStyle_9::zyTextField<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m':189"]
-  T19["method:UIView::byAdd<br/>JobsByPods/JobsOCDSL@Pods/Core/3rd/Masonry+DSL/UIView/UIView+MasonryDSL/UIView+MasonryDSL.m:80"]
+  S19["method:JobsAppIconRibbonGenerator::run<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:183"]
+  T19["method:FileFolderHandleTool::createDirectoryAtPath:error:<br/>JobsByPods/FileFolderHandleTool@Pods/Core/FileFolderHandleTool/FileFolderHandleTool.m:71"]
   S19 -->|calls| T19
-  S20["method:JobsAppDoorInputViewBaseStyle_9::zyTextField<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/View/输入框样式/DoorInputView/输入框样式_9/JobsAppDoorInputViewBaseStyle_9/JobsAppDoorInputViewBaseStyle_9.m':189"]
-  T20["method:MASConstraint::equalTo<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimatedDemo/Third/Masonry/MASConstraint.m:27"]
+  S20["method:JobsAppIconRibbonGenerator::run<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:183"]
+  T20["method:FileFolderHandleTool::removeItemAtPath:error:<br/>JobsByPods/FileFolderHandleTool@Pods/Core/FileFolderHandleTool/FileFolderHandleTool.m:309"]
   S20 -->|calls| T20
-  S21["method:JobsAppDoorConfig::init<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':21"]
-  T21["method:JobsAppDoorRegisterConfig::basicConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorRegisterConfig/JobsAppDoorRegisterConfig.m':27"]
+  S21["method:JobsAppIconRibbonGenerator::run<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:183"]
+  T21["method:FileFolderHandleTool::copyItemAtPath:toPath:overwrite:error:<br/>JobsByPods/FileFolderHandleTool@Pods/Core/FileFolderHandleTool/FileFolderHandleTool.m:361"]
   S21 -->|calls| T21
-  S22["method:JobsAppDoorConfig::fullConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':37"]
-  T22["method:JobsAppDoorConfig::defaultConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':31"]
+  S22["method:JobsAppIconRibbonGenerator::run<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:183"]
+  T22["method:NSObject::imageByDataURL<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.m:88"]
   S22 -->|calls| T22
-  S23["method:JobsAppDoorConfig::fullConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':37"]
-  T23["method:JobsAppDoorConfig::byBackgroundType<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':87"]
+  S23["method:JobsAppIconRibbonGenerator::run<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:183"]
+  T23["method:OrderedDictionary::insert<br/>JobsByPods/ManualByOCPods@Pods/Texture/examples_extra/ASDKgram-Swift/ASDKgram-Swift/OrderedDictionary/OrderedDictionary.swift:314"]
   S23 -->|calls| T23
-  S24["method:JobsAppDoorConfig::fullConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':37"]
-  T24["method:JobsAppDoorConfig::byRegisterConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':96"]
+  S24["method:JobsAppIconRibbonGenerator::run<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:183"]
+  T24["method:JobsAppIconRibbonGenerator::render<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:228"]
   S24 -->|calls| T24
-  S25["method:JobsAppDoorConfig::fullConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':37"]
-  T25["method:JobsAppDoorRegisterConfig::fullConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorRegisterConfig/JobsAppDoorRegisterConfig.m':33"]
+  S25["method:JobsAppIconRibbonGenerator::run<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:183"]
+  T25["method:ZBCacheManager::fileExistsAtPath:<br/>JobsByPods/ManualByOCPods@Pods/ZBNetworking/Core/ZBCacheManager/ZBCacheManager.m:138"]
   S25 -->|calls| T25
 ```
 

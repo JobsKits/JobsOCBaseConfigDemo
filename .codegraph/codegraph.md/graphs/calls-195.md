@@ -12,80 +12,80 @@
 
 ```mermaid
 flowchart LR
-  S1["method:JobsAppDoorConfig::registerContentHeight<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':55"]
-  T1["method:JobsAppDoorConfig::registerFieldCount<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':46"]
+  S1["method:JobsAppIconRibbonGenerator::render<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:228"]
+  T1["method:JobsCoreTextScrollLayer::drawInContext:<br/>JobsByPods/JobsOCUILabelScrolling@Pods/Support/JobsCoreTextScrollLayer/JobsCoreTextScrollLayer.m:106"]
   S1 -->|calls| T1
-  S2["method:JobsAppDoorConfig::registerContentHeight<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':55"]
-  T2["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size/MacroDef_Size.h:345"]
+  S2["method:JobsAppIconRibbonGenerator::render<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:228"]
+  T2["method:JobsAppIconRibbonGenerator::drawRibbon<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:282"]
   S2 -->|calls| T2
-  S3["method:JobsAppDoorConfig::registerContentHeight<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':55"]
-  T3["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size/MacroDef_Size.h:345"]
+  S3["method:JobsAppIconRibbonGenerator::drawRibbon<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:282"]
+  T3["method:TABBaseComponent::lineWithMode<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Decorate/Chain/TABBaseComponent.m:356"]
   S3 -->|calls| T3
-  S4["method:JobsAppDoorConfig::registerContentHeight<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':55"]
-  T4["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size/MacroDef_Size.h:345"]
+  S4["method:JobsAppIconRibbonGenerator::drawRibbon<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:282"]
+  T4["method:TABBaseComponent::lineWithMode<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Decorate/Chain/TABBaseComponent.m:356"]
   S4 -->|calls| T4
-  S5["method:JobsAppDoorConfig::registerContentY<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':67"]
-  T5["function:JobsWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size/MacroDef_Size.h:345"]
+  S5["method:JobsAppIconRibbonGenerator::drawRibbon<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:282"]
+  T5["method:TABBaseComponent::lineWithMode<br/>JobsByPods/ManualByOCPods@Pods/TABAnimated/TABAnimatedDemo/TABAnimated/Decorate/Chain/TABBaseComponent.m:356"]
   S5 -->|calls| T5
-  S6["method:JobsAppDoorConfig::registerContentY<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':67"]
-  T6["function:JobsMainScreen_HEIGHT<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size/MacroDef_Size.h:308"]
+  S6["method:JobsAppIconRibbonGenerator::drawRibbon<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:282"]
+  T6["method:FileFolderHandleTool::sizeOfItemAtPath:error:<br/>JobsByPods/FileFolderHandleTool@Pods/Core/FileFolderHandleTool/FileFolderHandleTool.m:500"]
   S6 -->|calls| T6
-  S7["method:JobsAppDoorConfig::registerContentY<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':67"]
-  T7["method:JobsAppDoorConfig::registerContentHeight<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':55"]
+  S7["method:JobsAppIconRibbonGenerator::drawRibbon<br/>JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift:282"]
+  T7["method:UIImage::draw<br/>JobsByPods/ManualByOCPods@Pods/Texture/examples/LayoutSpecExamples-Swift/Sample/Utilities.swift:70"]
   S7 -->|calls| T7
-  S8["method:JobsAppDoorConfig::copyWithZone:<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':76"]
-  T8["method:JobsAppDoorConfig::init<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':21"]
+  S8["file:JobsByPods/JobsAppTools@Pods/Core/JobsAppTools/JobsAppTools.h<br/>JobsByPods/JobsAppTools@Pods/Core/JobsAppTools/JobsAppTools.h:1"]
+  T8["function:Prop_assign<br/>JobsByPods/JobsLuckyEnvelopeRain@Pods/Core/JobsRedPacketRainConfig/JobsRedPacketRainConfig.h:22"]
   S8 -->|calls| T8
-  S9["method:JobsAppDoorConfig::copyWithZone:<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':76"]
-  T9["method:JobsAppDoorConfig::byBackgroundType<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':87"]
+  S9["file:JobsByPods/JobsAppTools@Pods/Core/JobsAppTools/JobsAppTools.h<br/>JobsByPods/JobsAppTools@Pods/Core/JobsAppTools/JobsAppTools.h:1"]
+  T9["function:Prop_assign<br/>JobsByPods/JobsLuckyEnvelopeRain@Pods/Core/JobsRedPacketRainConfig/JobsRedPacketRainConfig.h:22"]
   S9 -->|calls| T9
-  S10["method:JobsAppDoorConfig::copyWithZone:<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':76"]
-  T10["method:JobsAppDoorConfig::byRegisterConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':96"]
+  S10["file:JobsByPods/JobsAppTools@Pods/Core/JobsAppTools/JobsAppTools.h<br/>JobsByPods/JobsAppTools@Pods/Core/JobsAppTools/JobsAppTools.h:1"]
+  T10["function:Prop_assign<br/>JobsByPods/JobsLuckyEnvelopeRain@Pods/Core/JobsRedPacketRainConfig/JobsRedPacketRainConfig.h:22"]
   S10 -->|calls| T10
-  S11["method:JobsAppDoorConfig::copyWithZone:<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':76"]
-  T11["method:JobsAppDoorConfig::byBackgroundImageName<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':105"]
+  S11["file:JobsByPods/JobsAppTools@Pods/Core/JobsAppTools/JobsAppTools.h<br/>JobsByPods/JobsAppTools@Pods/Core/JobsAppTools/JobsAppTools.h:1"]
+  T11["function:Prop_assign<br/>JobsByPods/JobsLuckyEnvelopeRain@Pods/Core/JobsRedPacketRainConfig/JobsRedPacketRainConfig.h:22"]
   S11 -->|calls| T11
-  S12["method:JobsAppDoorConfig::copyWithZone:<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':76"]
-  T12["method:JobsAppDoorConfig::byNotchVideoResourceName<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':123"]
+  S12["function:(void)<br/>JobsByPods/JobsAppTools@Pods/Core/JobsAppTools/JobsAppTools.h:68"]
+  T12["function:JobsDeviceRealWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size/MacroDef_Size.h:316"]
   S12 -->|calls| T12
-  S13["method:JobsAppDoorConfig::copyWithZone:<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':76"]
-  T13["method:JobsAppDoorConfig::byCompactVideoResourceName<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorConfig/JobsAppDoorConfig.m':114"]
+  S13["function:(void)<br/>JobsByPods/JobsAppTools@Pods/Core/JobsAppTools/JobsAppTools.h:68"]
+  T13["function:JobsDeviceRealHeight<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size/MacroDef_Size.h:312"]
   S13 -->|calls| T13
-  S14["method:JobsAppDoorGraphicCaptchaConfig::numberAndEnglishConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig/JobsAppDoorGraphicCaptchaConfig.m':52"]
-  T14["method:JobsAppDoorGraphicCaptchaConfig::defaultConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig/JobsAppDoorGraphicCaptchaConfig.m':46"]
+  S14["function:JobsRealWidth<br/>JobsByPods/JobsAppTools@Pods/Core/JobsAppTools/JobsAppTools.h:72"]
+  T14["function:JobsDeviceRealHeight<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size/MacroDef_Size.h:312"]
   S14 -->|calls| T14
-  S15["method:JobsAppDoorGraphicCaptchaConfig::numberAndChineseConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig/JobsAppDoorGraphicCaptchaConfig.m':58"]
-  T15["method:JobsAppDoorGraphicCaptchaConfig::defaultConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig/JobsAppDoorGraphicCaptchaConfig.m':46"]
+  S15["function:JobsRealWidth<br/>JobsByPods/JobsAppTools@Pods/Core/JobsAppTools/JobsAppTools.h:72"]
+  T15["function:JobsDeviceRealWidth<br/>JobsByPods/JobsOCDefs@Pods/Core/MacroDef_Others/MacroDef_Size/MacroDef_Size.h:316"]
   S15 -->|calls| T15
-  S16["method:JobsAppDoorGraphicCaptchaConfig::numberAndChineseConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig/JobsAppDoorGraphicCaptchaConfig.m':58"]
-  T16["method:JobsAppDoorGraphicCaptchaConfig::byCharacterTypes<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig/JobsAppDoorGraphicCaptchaConfig.m':29"]
+  S16["method:JobsAppTools::sharedManager<br/>JobsByPods/JobsAppTools@Pods/Core/JobsAppTools/JobsAppTools.m:21"]
+  T16["function:JobsBlockClassMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:20"]
   S16 -->|calls| T16
-  S17["method:JobsAppDoorGraphicCaptchaConfig::englishAndChineseConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig/JobsAppDoorGraphicCaptchaConfig.m':65"]
-  T17["method:JobsAppDoorGraphicCaptchaConfig::defaultConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig/JobsAppDoorGraphicCaptchaConfig.m':46"]
+  S17["method:JobsAppTools::destroySingleton<br/>JobsByPods/JobsAppTools@Pods/Core/JobsAppTools/JobsAppTools.m:37"]
+  T17["function:JobsBlockClassMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:20"]
   S17 -->|calls| T17
-  S18["method:JobsAppDoorGraphicCaptchaConfig::englishAndChineseConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig/JobsAppDoorGraphicCaptchaConfig.m':65"]
-  T18["method:JobsAppDoorGraphicCaptchaConfig::byCharacterTypes<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig/JobsAppDoorGraphicCaptchaConfig.m':29"]
+  S18["method:JobsAppTools::allocWithZone:<br/>JobsByPods/JobsAppTools@Pods/Core/JobsAppTools/JobsAppTools.m:50"]
+  T18["function:JobsBlockClassMethodIMP<br/>JobsByPods/JobsBlock@Pods/JobsBlockDef.h:20"]
   S18 -->|calls| T18
-  S19["method:JobsAppDoorGraphicCaptchaConfig::allCharactersConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig/JobsAppDoorGraphicCaptchaConfig.m':72"]
-  T19["method:JobsAppDoorGraphicCaptchaConfig::defaultConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig/JobsAppDoorGraphicCaptchaConfig.m':46"]
+  S19["method:JobsPodspecKitForJobsAppTools::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsAppTools@Pods/JobsPodspecKit.rb:277"]
+  T19["method:JobsPodspecKitForJobsAppTools::standard_user_target_xcconfig<br/>JobsByPods/JobsAppTools@Pods/JobsPodspecKit.rb:266"]
   S19 -->|calls| T19
-  S20["method:JobsAppDoorGraphicCaptchaConfig::allCharactersConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig/JobsAppDoorGraphicCaptchaConfig.m':72"]
-  T20["method:JobsAppDoorGraphicCaptchaConfig::byCharacterTypes<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig/JobsAppDoorGraphicCaptchaConfig.m':29"]
+  S20["method:JobsPodspecKitForJobsAppTools::apply_standard_xcconfig<br/>JobsByPods/JobsAppTools@Pods/JobsPodspecKit.rb:281"]
+  T20["method:JobsPodspecKitForJobsAppTools::apply_standard_pod_target_xcconfig<br/>JobsByPods/JobsAppTools@Pods/JobsPodspecKit.rb:273"]
   S20 -->|calls| T20
-  S21["method:JobsAppDoorGraphicCaptchaConfig::resolvedCaptchaConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig/JobsAppDoorGraphicCaptchaConfig.m':79"]
-  T21["method:JobsOCGraphicCaptchaGenerator::numberCharacters<br/>JobsByPods/JobsOCGraphicCaptcha@Pods/Core/JobsOCGraphicCaptchaGenerator/JobsOCGraphicCaptchaGenerator.m:17"]
+  S21["method:JobsPodspecKitForJobsAppTools::apply_standard_xcconfig<br/>JobsByPods/JobsAppTools@Pods/JobsPodspecKit.rb:281"]
+  T21["method:JobsPodspecKitForJobsAppTools::apply_standard_user_target_xcconfig<br/>JobsByPods/JobsAppTools@Pods/JobsPodspecKit.rb:277"]
   S21 -->|calls| T21
-  S22["method:JobsAppDoorGraphicCaptchaConfig::resolvedCaptchaConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig/JobsAppDoorGraphicCaptchaConfig.m':79"]
-  T22["method:JobsOCGraphicCaptchaGenerator::lowercaseLetterCharacters<br/>JobsByPods/JobsOCGraphicCaptcha@Pods/Core/JobsOCGraphicCaptchaGenerator/JobsOCGraphicCaptchaGenerator.m:27"]
+  S22["method:NSObject::jobsMakeBackBtnModel<br/>JobsByPods/JobsAppTools@Pods/Support/UIKit/NSObject/NSObject+AppTools/NSObject+AppTools.m:14"]
+  T22["function:jobsMakeButtonModel<br/>JobsByPods/JobsModel@Pods/Core/UIKit数据束/UIButtonModel/UIButtonModel.h:91"]
   S22 -->|calls| T22
-  S23["method:JobsAppDoorGraphicCaptchaConfig::resolvedCaptchaConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig/JobsAppDoorGraphicCaptchaConfig.m':79"]
-  T23["method:JobsOCGraphicCaptchaGenerator::uppercaseLetterCharacters<br/>JobsByPods/JobsOCGraphicCaptcha@Pods/Core/JobsOCGraphicCaptchaGenerator/JobsOCGraphicCaptchaGenerator.m:38"]
+  S23["method:NSObject::jobsMakeBackBtnModel<br/>JobsByPods/JobsAppTools@Pods/Support/UIKit/NSObject/NSObject+AppTools/NSObject+AppTools.m:14"]
+  T23["method:UIButtonConfiguration::byImagePadding<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButtonConfiguration/UIButtonConfiguration+Extra/UIButtonConfiguration+Extra.m:282"]
   S23 -->|calls| T23
-  S24["method:JobsAppDoorGraphicCaptchaConfig::resolvedCaptchaConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig/JobsAppDoorGraphicCaptchaConfig.m':79"]
-  T24["method:JobsOCGraphicCaptchaGenerator::chineseCharacters<br/>JobsByPods/JobsOCGraphicCaptcha@Pods/Core/JobsOCGraphicCaptchaGenerator/JobsOCGraphicCaptchaGenerator.m:69"]
+  S24["method:NSObject::jobsMakeBackBtnModel<br/>JobsByPods/JobsAppTools@Pods/Support/UIKit/NSObject/NSObject+AppTools/NSObject+AppTools.m:14"]
+  T24["method:UIButtonConfiguration::byImagePlacement<br/>JobsByPods/GKCustomNavigationBarExtra@Pods/Support/UIKit/UIButtonConfiguration/UIButtonConfiguration+Extra/UIButtonConfiguration+Extra.m:273"]
   S24 -->|calls| T24
-  S25["method:JobsAppDoorGraphicCaptchaConfig::resolvedCaptchaConfig<br/>'JobsByPods/JobsAppDoor@Pods/Core/登录注册模块公共件/配置文件/JobsAppDoorGraphicCaptchaConfig/JobsAppDoorGraphicCaptchaConfig.m':79"]
-  T25["method:JobsOCGraphicCaptchaConfig::defaultConfig<br/>JobsByPods/JobsOCGraphicCaptcha@Pods/Core/JobsOCGraphicCaptchaConfig/JobsOCGraphicCaptchaConfig.m:81"]
+  S25["method:NSObject::jobsMakeBackBtnModel<br/>JobsByPods/JobsAppTools@Pods/Support/UIKit/NSObject/NSObject+AppTools/NSObject+AppTools.m:14"]
+  T25["method:FMBannerAdsModel::byRoundingCorners<br/>JobsByPods/JobsModelDSL@Pods/Core/FMBannerAdsModel/FMBannerAdsModel+DSL/FMBannerAdsModel+DSL.m:272"]
   S25 -->|calls| T25
 ```
 
