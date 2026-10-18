@@ -369,6 +369,8 @@ Behaviors 属于 Xcode 当前用户设置，工程引用不会自动建立其它
 
 [构建工作流](./.github/workflows/build_simulator_app.yml)在推送、拉取请求或手动触发时运行；自动触发范围为 `main`、`byPods`。使用 `macos-15` runner 和 Xcode 26，缺少所需 SDK 时立即失败；显式选择 runner 的 `arm64` 模拟器架构。`byPods` 在安装前只选择与当前 Simulator SDK 同主版本的可用 arm64 iPhone，不让旧系统的已启动设备抢占；没有匹配 runtime 时提前失败，不自动下载运行时。模拟器 App 不使用真机签名，只供对应架构的模拟器运行。
 
+[Podfile](./Podfile) 在生成 Pods 工程时，为 [**ReactiveObjC**](https://github.com/ReactiveCocoa/ReactiveObjC) 的 Debug / Release 目标显式保留 `ReactiveObjC/extobjc` 头文件搜索目录，继承原有路径。`RACmetamacros.h` 使用上游既有文件，不复制宏头、不改写供应商源码，也不依赖前次编译产生的头映射；CI 关闭旧供应商补丁时仍执行该配置适配。缺头仍会阻断构建，不降低检查等级。
+
 `main` 安装依赖后构建 Debug 主 App；`byPods` 保留各 Jobs 本地 Pod 的 Debug / Release 编译、48 个 Stability Pod 共 49 个配置的组件回归、macOS harness 与主 App Debug / Release 编译。整个 `byPods` job 使用 `JOBS_SIMULATOR_ONLY=1`：安装时排除只有真机 arm64 slice 的 IJK，保留模拟器原有 AVPlayer / ControlView，测试覆盖不删减。本地默认不设置此变量，切换模式必须重新 `pod install`；CI 结果仅证明模拟器依赖图，模式与架构均写入结果身份，不代表真机 IJK 验收。配置回归先于耗时构建执行；宿主权限审计先运行 9 个独立 Mach-O 场景，Pod 测试成功后再显式验收当次临时 Products 目录中的 AppHost，指定产物缺失即失败。测试首错停止后续测试与 harness，日志保留真实 `ld:` 原因。本地 Pod 门禁保留完整命令、退出码与源码冻结校验。冻结范围只排除 `JobsAppIconRibbon.config` 实际指定的 Debug / Release 派生 appiconset，原始 AppIcon、配置与生成器仍参加校验。
 
 `byPods` 的 Pod 阶段通过[门禁脚本](./ScriptsByPods/jobs_pods_stability_verify.rb/README.md)的 `--batch-pods` 生成仅含 109 个自建 Pod target 的专用 workspace / Scheme，在 Debug、Release 各执行一次构建，由 Xcode 合并共享依赖；framework 与 aggregate / 头文件 target 保持原始语义，不使用 `-alltargets`，不改变资源依赖、测试宿主与主 App 的独立验收。CI 每配置最多 55 分钟，两个配置仍共用原有的 120 分钟步骤时限；本地未加开关时仍逐 Pod 构建。失败或超时停止后续配置，源码、安装模式与架构门禁继续生效。
