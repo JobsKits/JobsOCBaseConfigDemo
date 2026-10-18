@@ -119,13 +119,20 @@ jobs:
           derived_data_path="${RUNNER_TEMP}/DerivedData"
           app_output_dir="${RUNNER_TEMP}/SimulatorApp"
           products_dir="${derived_data_path}/Build/Products/${CONFIGURATION}-iphonesimulator"
-          app_path="$(find "${products_dir}" -maxdepth 1 -type d -name '*.app' -print -quit)"
+          app_path="${products_dir}/${SCHEME}.app"
 
-          if [[ -z "${app_path}" ]]; then
-            echo "::error::No .app product found in ${products_dir}"
-            find "${derived_data_path}/Build/Products" -type d -name '*.app' -print || true
+          if [[ ! -d "${app_path}" || ! -f "${app_path}/Info.plist" ]]; then
+            echo "::error::Main app product not found: ${app_path}"
             exit 1
           fi
+
+          app_bundle_id="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleIdentifier' "${app_path}/Info.plist")"
+          app_executable="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleExecutable' "${app_path}/Info.plist")"
+          if [[ -z "${app_bundle_id}" || "${app_bundle_id}" == *.xctrunner || "${app_executable}" != "${SCHEME}" || ! -f "${app_path}/${app_executable}" ]]; then
+            echo "::error::Invalid main app identity: ${app_bundle_id} / ${app_executable}"
+            exit 1
+          fi
+          echo "Packaging main app: ${app_path} (${app_bundle_id})"
 
           mkdir -p "${app_output_dir}"
           safe_ref="${GITHUB_REF_NAME//\//-}"

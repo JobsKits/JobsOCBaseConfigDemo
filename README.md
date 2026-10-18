@@ -375,6 +375,8 @@ Behaviors 属于 Xcode 当前用户设置，工程引用不会自动建立其它
 
 `main` 主 App 的 Debug / Release 均启用 `GCC_PRECOMPILE_PREFIX_HEADER=YES`，让现有大型前缀头先生成 PCH，再供各源码文件复用，避免每个翻译单元重复解析同一套 Jobs / SDK 声明并重复输出头文件警告。配置保留原前缀头、依赖和编译覆盖；本地已验证两配置实际产生 Objective-C / C `ProcessPCH`，并完成代表性主工程 `CompileC`。这是局部编译验证，完整链接、产物打包及最新提交的云端 workflow 仍以真实运行结果为准。
 
+打包固定选择 `${products_dir}/${SCHEME}.app`，并校验 `Info.plist`、非测试 Runner 的 Bundle ID、主可执行名称及文件存在，避免按目录枚举顺序误选其它 `.app`。主 App 缺失或身份不匹配时直接失败。
+
 构建阶段保留实时日志和诊断产物，阶段超时早于整个任务超时，以便失败后仍有时间上传日志；`main` 的依赖安装 / 编译分别限时 20 / 120 分钟，整个任务限时 150 分钟。`byPods` 的模拟器准备 / 依赖安装 / 配置守卫 / 各 Pod 编译 / 组件回归 / 宿主权限验收 / 主 App 编译分别限时 10 / 30 / 10 / 120 / 90 / 10 / 30 分钟，整个任务限时 320 分钟。成功后生成可下载的 `.app.zip`，排查失败时先下载对应运行的构建日志与 `.xcresult`；产物只代表该次运行实际完成的阶段，历史成功不能替代最新提交的构建结果。
 
 ## 三、🧨开发支持 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
