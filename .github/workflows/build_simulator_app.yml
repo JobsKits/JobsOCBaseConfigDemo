@@ -124,11 +124,19 @@ jobs:
             > "${diagnostics_dir}/Debug-build-settings.log" 2>&1
 
       - name: Build every Jobs Pod in Debug and Release
+        id: owned_pods_build
         timeout-minutes: 120
         run: |
           ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
             --phase pods --batch-pods --build-timeout 3300 \
             --architecture arm64 --output "${RUNNER_TEMP}/JobsOCStability"
+
+      - name: Record ReactiveObjC configuration after Pod builds
+        if: ${{ always() && (steps.owned_pods_build.outcome == 'success' || steps.owned_pods_build.outcome == 'failure') }}
+        timeout-minutes: 2
+        run: |
+          ruby .github/tests/SimulatorPods/record_reactiveobjc.rb \
+            "${GITHUB_WORKSPACE}" "${RUNNER_TEMP}/ReactiveObjCDiagnosticsAfterBuild"
 
       - name: Run each Pod regression suite
         timeout-minutes: 90
@@ -214,7 +222,10 @@ jobs:
             ${{ runner.temp }}/JobsOCStability/*.xcresult
             ${{ runner.temp }}/JobsOCStability/OwnedPodsBatch
             ${{ runner.temp }}/ReactiveObjCDiagnostics
+            ${{ runner.temp }}/ReactiveObjCDiagnosticsAfterBuild
             ${{ runner.temp }}/JobsOCStability/Intermediates/Pods.build/*/ReactiveObjC.build/Objects-normal/arm64/*.resp
+            ${{ runner.temp }}/JobsOCStability/Intermediates/Pods.build/*/ReactiveObjC.build/*.hmap
+            ${{ runner.temp }}/JobsOCStability/Intermediates/Pods.build/*/*VFS*/*.yaml
             ${{ runner.temp }}/simulator-sdk-version.txt
             ${{ runner.temp }}/simulator-runtimes.json
             ${{ runner.temp }}/simulator-devices.json

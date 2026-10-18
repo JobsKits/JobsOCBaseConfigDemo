@@ -377,7 +377,7 @@ Behaviors 属于 Xcode 当前用户设置，工程引用不会自动建立其它
 
 批次进程独立记录整批命令、退出状态和耗时；每 Pod 结果仅引用该批次的成员身份与共享日志，耗时为 null，不声称独立执行或独立耗时。`OwnedPodsBatch/` 的成员 manifest、Scheme 与 workspace 连同构建日志上传；缓存和 README 回填同时核对这些文件证据，组件 XCTest 结论仍来自独立真实测试结果。[批量夹具](./ScriptsByPods/jobs_pods_stability_verify.rb/Tests/pod_batch_regression.rb)不调用真实构建或安装，实际耗时与全流程通过结果以云端运行证据为准。
 
-Pod 编译前通过[只读诊断脚本](./.github/tests/SimulatorPods/record_reactiveobjc.rb)留存 runner 实际生成的 Pods 工程、ReactiveObjC 配置、宏头路径及指纹，并记录 Xcode 展开后的 Debug build settings；`ReactiveObjCDiagnostics/` 和该目标编译时产生的 response files 随验证记录上传，用于区分源码缺失、搜索路径和工程生成问题，不改写 Pods 或供应商文件。
+Pod 编译前后通过[只读诊断脚本](./.github/tests/SimulatorPods/record_reactiveobjc.rb)分别留存 runner 实际生成的 Pods 工程、ReactiveObjC 配置、宏头路径及指纹，编译前另记录 Xcode 展开后的 Debug build settings；两个诊断目录和该目标编译时产生的 response files、header maps、虚拟文件映射随验证记录上传，用于区分源码缺失、搜索路径、路径遮蔽和构建期间的文件变化，不改写 Pods 或供应商文件。
 
 `main` 主 App 的 Debug / Release 均启用 `GCC_PRECOMPILE_PREFIX_HEADER=YES`，让现有大型前缀头先生成 PCH，再供各源码文件复用，避免每个翻译单元重复解析同一套 Jobs / SDK 声明并重复输出头文件警告。配置保留原前缀头、依赖和编译覆盖；本地已验证两配置实际产生 Objective-C / C `ProcessPCH`，并完成代表性主工程 `CompileC`。这是局部编译验证，完整链接、产物打包及最新提交的云端 workflow 仍以真实运行结果为准。
 
