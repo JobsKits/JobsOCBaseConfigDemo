@@ -2,11 +2,31 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、目录结构](#jobs-toc-heading-2)
+- [二、适用场景](#jobs-toc-heading-3)
+- [三、运行方式](#jobs-toc-heading-4)
+- [四、执行前检查](#jobs-toc-heading-5)
+- [五、脚本执行流程](#jobs-toc-heading-6)
+- [六、核心动作](#jobs-toc-heading-7)
+- [七、日志文件](#jobs-toc-heading-8)
+- [八、风险说明](#jobs-toc-heading-9)
+- [九、常见问题](#jobs-toc-heading-10)
+  - [1. 执行后怎么确认？](#jobs-toc-heading-11)
+  - [2. Flutter 工程应该放哪里？](#jobs-toc-heading-12)
+- [十、未执行声明](#jobs-toc-heading-13)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 `【MacOS】⚙️双击禁用沙盒保证Cocoapods构建流程.command` 是一个可双击运行的 macOS `.command` 脚本。
 
@@ -14,7 +34,7 @@
 
 这份 `README.md` 用于在双击前把脚本用途、执行流程、风险点和排查方式说清楚。Jobs出品，必属精品，但危险动作也必须摊开讲明白。
 
-## 一、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```text
 【MacOS】⚙️双击禁用沙盒保证Cocoapods构建流程.command/
@@ -22,13 +42,13 @@
 └── README.md
 ```
 
-## 二、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - CocoaPods 构建阶段脚本被 Xcode 沙盒限制，导致构建失败。
 - Flutter iOS 子工程或原生 iOS 工程需要批量关闭 User Script Sandboxing。
 - 需要自动识别 `.xcodeproj` 并修改 `project.pbxproj`。
 
-## 三、运行方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、运行方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 方式一：在 [**Finder**](https://support.apple.com/guide/mac-help/welcome/mac) 里双击 `【MacOS】⚙️双击禁用沙盒保证Cocoapods构建流程.command`。
 - 方式二：在终端进入当前目录后执行：
@@ -39,14 +59,14 @@
   ```
 
 
-## 四、执行前检查 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-5" data-jobs-toc="v2">四、执行前检查 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 确认脚本放在 iOS 工程根目录，或 Flutter 工程根目录。
 - 确认工程已纳入 Git，修改前最好能用 `git diff` 回滚。
 - 确认 `.xcodeproj/project.pbxproj` 当前没有未备份的重要手动改动。
 - 如果自动找不到 `.xcodeproj`，准备手动拖入工程文件。
 
-## 五、脚本执行流程 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">五、脚本执行流程 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```mermaid
 flowchart TD
@@ -61,7 +81,7 @@ flowchart TD
   D --> E
 ```
 
-## 六、核心动作 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-7" data-jobs-toc="v2">六、核心动作 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 1. 显示脚本说明并等待回车。
 2. 如果当前目录有 `ios` 和 `lib`，按 Flutter 工程处理并进入 `ios`。
@@ -70,27 +90,27 @@ flowchart TD
 5. 定位 `project.pbxproj`。
 6. 将已有 `ENABLE_USER_SCRIPT_SANDBOXING` 替换为 `NO`，或在所有 `buildSettings` 中追加该设置。
 
-## 七、日志文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-8" data-jobs-toc="v2">七、日志文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 脚本会写入 `$TMPDIR/【MacOS】⚙️双击禁用沙盒保证Cocoapods构建流程.log`。
 
-## 八、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-9" data-jobs-toc="v2">八、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 会直接修改 `.xcodeproj/project.pbxproj`，这是工程配置文件。
 - 脚本没有自动备份，执行前建议先提交 Git 或手动备份。
 - 使用 macOS `sed -i ""` 语法，非 macOS 环境不要执行。
 - 如果工程有多个 `.xcodeproj`，自动取第一个，可能不是你想改的那个。
 
-## 九、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-10" data-jobs-toc="v2">九、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 1. 执行后怎么确认？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-11" data-jobs-toc="v2">1. 执行后怎么确认？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 运行 `git diff`，检查 `project.pbxproj` 里 `ENABLE_USER_SCRIPT_SANDBOXING = NO;` 是否符合预期。
 
-### 2. Flutter 工程应该放哪里？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-12" data-jobs-toc="v2">2. Flutter 工程应该放哪里？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 放在 Flutter 工程根目录，脚本会自动进入 `ios` 子目录。
-## 十、未执行声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-13" data-jobs-toc="v2">十、未执行声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 本次整理只读取脚本源码并生成 `README.md`，没有在 macOS 真机环境执行脚本。
 - 当前打包环境不提供 macOS 专属工具链，未执行 `【MacOS】⚙️双击禁用沙盒保证Cocoapods构建流程.command` 的真实安装、下载、构建或系统修改动作。

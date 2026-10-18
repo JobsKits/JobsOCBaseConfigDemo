@@ -4,17 +4,40 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、Pod 定位](#jobs-toc-heading-2)
+- [二、适用场景](#jobs-toc-heading-3)
+- [三、目录结构](#jobs-toc-heading-4)
+- [四、公开能力](#jobs-toc-heading-5)
+- [五、动画原则](#jobs-toc-heading-6)
+- [六、引用方式](#jobs-toc-heading-7)
+- [七、验证方式](#jobs-toc-heading-8)
+- [八、风险说明](#jobs-toc-heading-9)
+- [九、架构脉络与关键设计](#jobs-toc-heading-10)
+  - [9.1、设计目的与职责划分](#jobs-toc-heading-11)
+  - [9.2、运行脉络](#jobs-toc-heading-12)
+  - [9.3、关键设计与边界](#jobs-toc-heading-13)
+  - [9.4、阅读与重建顺序](#jobs-toc-heading-14)
+- [十、目录计数与安装边界](#jobs-toc-heading-15)
+- [十一、本轮单元验证](#jobs-toc-heading-16)
+
+</details>
+<!-- jobs-toc:end -->
 
 > 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 > `JobsViewPush` 是一个独立的 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 本地 Pod，让 `UIView` 可以像页面一样推入另一个 `UIView`。
 
-## 一、Pod 定位 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、Pod 定位 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 项目 | 内容 |
 | ---- | ---- |
@@ -24,14 +47,14 @@
 | 依赖 | `JobsBlock`、`JobsOCDefs`、`JobsOCDSL` |
 | 资源 | 无 |
 
-## 二、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 当前容器是 `UIView`，不适合通过 `UIViewController` 完成页面切换。
 - 需要从上、下、左、右任一边缘推入 View，并从进入方向原路退出。
 - 需要按比例覆盖底层 View，而不是强制全屏。
 - 需要拖动推出的 View 退出，或点击露出的底层区域退出。
 
-## 三、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```text
 JobsViewPush@Pods/
@@ -48,7 +71,7 @@ JobsViewPush@Pods/
 - `Core` 是公开 API 与核心动画实现边界。
 - 当前没有 `Support` 和资源目录；后续内部辅助能力优先进入 `Support`。
 
-## 四、公开能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-5" data-jobs-toc="v2">四、公开能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `JobsViewPushDirection`：控制 View 从哪个边缘进入。
 - `JobsViewPushConfiguration`：控制覆盖比例、动画时长、交互退出和背景点击退出。
@@ -56,14 +79,14 @@ JobsViewPush@Pods/
 - `UIView (JobsViewPush)`：View Push View 的调用入口。
 - `JobsViewPushCompletionBlock`：由 `JobsBlock` 统一提供的完成回调类型。
 
-## 五、动画原则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">五、动画原则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `TransitionView` 作为全屏过渡容器，负责承载推出 View、背景遮罩和空白区域点击退出。
 - 被推出的 View 使用明确的 `frame` 起止点：先放到对应边缘外，再动画到最终展示区域。
 - 退出是进入的逆操作：退出前先把 BView 归位到可见 `frame`，再沿原进入路径退回边缘外，动画结束后再移除 `TransitionView`。
 - 拖动退出同样只改变 `frame.origin`，不叠加 `transform`，避免退出时从中部或错误方向重新出现。
 
-## 六、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-7" data-jobs-toc="v2">六、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
 #if __has_include(<JobsViewPush/JobsViewPush.h>)
@@ -83,7 +106,7 @@ JobsViewPushConfiguration *configuration = [[JobsViewPushConfiguration.defaultCo
               completion:nil];
 ```
 
-## 七、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-8" data-jobs-toc="v2">七、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```shell
 ruby -c JobsViewPush.podspec
@@ -92,7 +115,7 @@ pod install --no-repo-update
 
 修改依赖后应检查 `PodspecDependencyReport`，确认没有循环依赖。
 
-## 八、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-9" data-jobs-toc="v2">八、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - Push、拖动和退出必须在主线程执行。
 - 同一个源 View 再次 Push 时，当前推出 View 会先无动画退出。
@@ -100,25 +123,25 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 九、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-10" data-jobs-toc="v2">九、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 9.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-11" data-jobs-toc="v2">9.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 提供 UIView 的推出覆盖层与可配置侧边抽屉。SideDrawer 保存宿主、内容、方向和比例，并协调遮罩与交互进度；视图分类提供推出/退出便利入口。
 
-### 9.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-12" data-jobs-toc="v2">9.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 挂载宿主与内容 → 计算打开位置 → 动画或拖动推进 → 点击背景/调用关闭 → 清理过渡层并恢复。
 
-### 9.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-13" data-jobs-toc="v2">9.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 同一源 View 再次推出时先无动画退出当前内容，避免叠加旧覆盖层。
 - 背景点击由过渡层消费，不继续穿透到底层业务控件。
 - 推出、拖动和退出要求主线程；位移实现与布局基准不能混用 transform 造成退出跳位。
 
-### 9.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-14" data-jobs-toc="v2">9.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 先读 SideDrawer 配置与 open/close/invalidate，再看 UIView 分类的重入处理；重建时先固定坐标基准与遮罩归属。
 
@@ -130,7 +153,7 @@ pod install --no-repo-update
 
 依赖与编译入口：[JobsViewPush.podspec](<./JobsViewPush.podspec>)。其中根级依赖声明包括 `JobsBlock`、`JobsOCDefs`、`JobsOCDSL`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
-## 十、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-15" data-jobs-toc="v2">十、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 计数递归扫描当前目录内的普通文件，排除 `.DS_Store` / `._*`；源码与头文件计入 `.h`、`.m`、`.mm`、`.c`、`.cc`、`.cpp`、`.hpp`、`.swift`。资源目录中的目录、资源编译结果和文件大小不计入文件数，文件存在不代表必然打包。
 
@@ -143,7 +166,7 @@ pod install --no-repo-update
 
 `Core` 的物理目录不等于所有头文件均公开；`Support` 和测试 fixture 不作为 App 或其它 Pod 的稳定消费入口。根聚合头与 `public_header_files` 是外部引用依据。
 
-## 十一、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-16" data-jobs-toc="v2">十一、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 当前结果：**Debug / Release 单 Pod 编译已完成；本 Pod 无独立 Stability 回归；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 

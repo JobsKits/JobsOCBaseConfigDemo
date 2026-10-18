@@ -2,7 +2,28 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [一、能力](#jobs-toc-heading-1)
+- [二、适用场景](#jobs-toc-heading-2)
+- [三、目录与职责](#jobs-toc-heading-3)
+- [四、依赖与引用](#jobs-toc-heading-4)
+- [五、最小使用](#jobs-toc-heading-5)
+- [六、验证与风险](#jobs-toc-heading-6)
+- [七、架构脉络与关键设计](#jobs-toc-heading-7)
+  - [7.1、设计目的与职责划分](#jobs-toc-heading-8)
+  - [7.2、运行脉络](#jobs-toc-heading-9)
+  - [7.3、关键设计与边界](#jobs-toc-heading-10)
+  - [7.4、阅读与重建顺序](#jobs-toc-heading-11)
+- [八、取消与复用契约](#jobs-toc-heading-12)
+- [九、目录计数与安装边界](#jobs-toc-heading-13)
+- [十、本轮单元验证](#jobs-toc-heading-14)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
@@ -10,7 +31,7 @@
 
 `JobsIconfont` 是面向 Objective-C iOS 业务层的 iconfont 全功能门面。业务代码只使用框架提供的资源常量或语义枚举，不直接维护 URL、Unicode、字体文件名、SDWebImage 配置和错误兜底。
 
-## 一、能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">一、能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 远程图片加载前立即显示本地 icon font 占位图，成功后替换，失败后保留兜底图。
 - `UIImageView` 复用时取消旧任务，并按每次请求 UUID 拦截过期回调。
@@ -18,13 +39,13 @@
 - CoreText 动态注册图标字体与阿里妈妈文字字体。
 - 统一输出 `UILabel`、`UIButton` 和 `UIImage`。
 
-## 二、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">二、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 项目需要把 iconfont 上选定的远程图片作为运行时资源，并保留本地首帧占位和错误兜底。
 - 多个页面共享同一套图标字体、文字字体和缓存策略。
 - 业务代码不希望持有 CDN 地址、Unicode、PostScript 名称或具体缓存实现。
 
-## 三、目录与职责 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">三、目录与职责 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```text
 JobsIconfont@Pods
@@ -40,13 +61,13 @@ JobsIconfont@Pods
 - `Resource` 只保存框架内置资源和治理清单，不由业务层直接读取。
 - URL、Unicode、字体内部名称、资源 bundle 查找和 SDWebImage 配置均为私有实现。
 
-## 四、依赖与引用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-4" data-jobs-toc="v2">四、依赖与引用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 直接依赖 `SDWebImage`，统一由 `JobsIconfontManager` 管理请求、缓存和取消。
 - 通过 `Podfile.deps` 的本地路径接入，安装后使用 `#import <JobsIconfont/JobsIconfontHeader.h>`。
 - Pod 内动态注册字体，无需在业务工程的 `Info.plist` 维护 `UIAppFonts`。
 
-## 五、最小使用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-5" data-jobs-toc="v2">五、最小使用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
 [self.iconView byJobsIconfontAsset:JobsIconfontRemoteAssetLogo
@@ -65,7 +86,7 @@ JobsIconfont@Pods
 
 内置资源的官方来源与字体转换记录见 `Resource/JobsIconfontCatalog.json`。框架不会在 App 运行时抓取 iconfont 网页，也不依赖登录态或未公开接口。
 
-## 六、验证与风险 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">六、验证与风险 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 修改 podspec 或资源后执行 `pod ipc spec JobsIconfont.podspec`、`pod install --no-repo-update`，并检查 `PodspecDependencyReport`。
 - 远程资源仍受网络与 CDN 可用性影响；框架保证失败时保留本地兜底，不保证第三方地址永久有效。
@@ -73,25 +94,25 @@ JobsIconfont@Pods
 
 <a id="jobs-architecture"></a>
 
-## 七、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-7" data-jobs-toc="v2">七、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 7.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-8" data-jobs-toc="v2">7.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 集中管理字体图标的语义枚举、字体获取与资源加载结果。Manager 负责资源访问，LoadResult 描述加载阶段、缓存命中和错误，LoadToken 提供取消入口，调用方消费字体或图像。
 
-### 7.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-9" data-jobs-toc="v2">7.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 按语义选择图标/资源 → 管理器加载或读取缓存 → 产生结果与阶段信息 → 更新使用方；不再需要时取消。
 
-### 7.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-10" data-jobs-toc="v2">7.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 图标语义、字形与字体文件必须对应，枚举名称正确不代表资源已注册。
 - 取消令牌属于某次加载，不能拿旧令牌控制另一项任务。
 - 缓存命中、成功和失败是不同信息；重建时要保留加载结果中的可观察状态。
 
-### 7.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-11" data-jobs-toc="v2">7.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 先看 Glyph/RemoteAsset 与资源映射，再看 Manager、LoadResult、LoadToken；最后连接 UI 使用点。
 
@@ -102,7 +123,7 @@ JobsIconfont@Pods
 
 依赖与编译入口：[JobsIconfont.podspec](<./JobsIconfont.podspec>)。其中根级依赖声明包括 `SDWebImage`、`JobsBlock`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
-## 八、取消与复用契约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-12" data-jobs-toc="v2">八、取消与复用契约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 `JobsIconfontLoadToken.cancel`、`jobsCancel()` 与释放清理共用一次性取消入口；并发取消最多领取一次回调，保存的取消 Block 在 token 释放后可安全调用。取消回调若用于 UI，调用方仍须在主线程执行。
 
@@ -110,7 +131,7 @@ JobsIconfont@Pods
 
 [生命周期回归](<./Tests/JobsIconfontLifecycleTests/JobsIconfontLifecycleTests.m>) 当前4项：主动/释放取消、并发取消、保存 Block 后释放 owner，以及实际 SDWebImage 管线中的首次加载、同资源替换、过期 token、取消后迟到完成和 imageView 释放。新增场景通过公开 optionsProcessor/SDImageLoader 控制图片 IO，保留真实 Jobs manager 和 SDK 分派/取消，不访问 CDN；结束时恢复 SDK 配置。UI 操作在主线程；创建、SDK 回调与取消的完整生命周期使用显式自动释放池，等待真实 imageView 析构后再断言弱引用及迟到完成。运行结果由本 README 的统一验收区块记录。真实 CDN、失败恢复和缓存仍需网络集成验证。
 
-## 九、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-13" data-jobs-toc="v2">九、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 计数递归扫描当前目录内的普通文件，排除 `.DS_Store` / `._*`；源码与头文件计入 `.h`、`.m`、`.mm`、`.c`、`.cc`、`.cpp`、`.hpp`、`.swift`。资源目录中的目录、资源编译结果和文件大小不计入文件数，文件存在不代表必然打包。
 
@@ -125,7 +146,7 @@ JobsIconfont@Pods
 
 根级命名资源 bundle：`JobsIconfontAssets.bundle`；已有运行资源保持各自 bundle 查找合同。
 
-## 十、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-14" data-jobs-toc="v2">十、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 

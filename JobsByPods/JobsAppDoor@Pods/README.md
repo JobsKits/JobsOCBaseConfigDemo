@@ -2,17 +2,43 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、Pod 定位](#jobs-toc-heading-2)
+- [二、默认注册规则](#jobs-toc-heading-3)
+- [三、引用与基础用法](#jobs-toc-heading-4)
+- [四、可选手机绑定](#jobs-toc-heading-5)
+- [五、图形验证码组合](#jobs-toc-heading-6)
+- [六、背景配置](#jobs-toc-heading-7)
+- [七、第一套面板的视觉规则](#jobs-toc-heading-8)
+- [八、第二套卡片视觉规则](#jobs-toc-heading-9)
+- [九、目录边界](#jobs-toc-heading-10)
+- [十、验证方式](#jobs-toc-heading-11)
+- [十一、明暗主题契约](#jobs-toc-heading-12)
+- [十二、架构脉络与关键设计](#jobs-toc-heading-13)
+  - [12.1、设计目的与职责划分](#jobs-toc-heading-14)
+  - [12.2、运行脉络](#jobs-toc-heading-15)
+  - [12.3、关键设计与边界](#jobs-toc-heading-16)
+  - [12.4、阅读与重建顺序](#jobs-toc-heading-17)
+- [十三、目录计数与安装边界](#jobs-toc-heading-18)
+- [十四、本轮单元验证](#jobs-toc-heading-19)
+
+</details>
+<!-- jobs-toc:end -->
 
 > 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 > `JobsAppDoor` 将 `JobsAppDoorVC` 和 `JobsAppDoorVC_Style2` 两套注册、登录、忘记密码模板收口为独立 Pod。外部只需选择页面风格并传入 `JobsAppDoorConfig`，不再直接组装内部视图。
 
-## 一、Pod 定位 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、Pod 定位 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 项目 | 内容 |
 | ---- | ---- |
@@ -25,7 +51,7 @@
 
 两套模板都是全屏认证页面，默认不安装系统或 GK 导航栏，也不显示导航标题和左上角返回按钮。
 
-## 二、默认注册规则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、默认注册规则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 `JobsAppDoorConfig.defaultConfig` 只展示注册的三个基础字段：
 
@@ -35,7 +61,7 @@
 
 手机号绑定与短信验证码、图形验证码都是可选能力，分别由 `showsMobileBinding` 和 `showsGraphicCaptcha` 控制。两套页面使用同一份配置语义，只保留动效和布局差异。
 
-## 三、引用与基础用法 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、引用与基础用法 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
 #if __has_include(<JobsAppDoor/JobsAppDoor.h>)
@@ -61,7 +87,7 @@ JobsAppDoorVC_Style2 *vc = [[JobsAppDoorVC_Style2 alloc] initWithConfiguration:c
 
 也可继续使用项目统一的 `requestParams`。控制器会识别 `JobsAppDoorConfig`，同时保留旧版 `JobsAppDoorBgType` 数值参数的兼容解析。
 
-## 四、可选手机绑定 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-5" data-jobs-toc="v2">四、可选手机绑定 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
 JobsAppDoorConfig *config = JobsAppDoorConfig.defaultConfig;
@@ -70,7 +96,7 @@ config.registerConfig.showsMobileBinding = YES;
 
 开启后会同时加入手机号与短信验证码两个字段，并自动重算注册容器高度和位置。
 
-## 五、图形验证码组合 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">五、图形验证码组合 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 认证模块将大写和小写字母统一视为“英文”一类。每个已选字符组都保证至少出现一次。
 
@@ -94,7 +120,7 @@ config.registerConfig.graphicCaptchaConfig.length = 6;
 config.registerConfig.graphicCaptchaConfig.caseSensitive = YES;
 ```
 
-## 六、背景配置 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-7" data-jobs-toc="v2">六、背景配置 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `backgroundType`：选择图片或视频背景。
 - `backgroundImageName`：图片资源名。
@@ -102,7 +128,7 @@ config.registerConfig.graphicCaptchaConfig.caseSensitive = YES;
 - `compactVideoResourceName`：非刘海屏视频资源名。
 - AppDoor-1、AppDoor-2 使用视频背景时，App 进入后台立即暂停播放；回到前台后，只恢复本次由后台切换自动暂停且仍处于可见窗口中的页面。
 
-## 七、第一套面板的视觉规则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-8" data-jobs-toc="v2">七、第一套面板的视觉规则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 输入框采用静态占位符；聚焦后由系统隐藏，不再叠加旧悬浮标签。
 - 占位符与真实输入文字保持相同字号，颜色比真实文字更暗，避免两种状态混淆。
@@ -116,7 +142,7 @@ config.registerConfig.graphicCaptchaConfig.caseSensitive = YES;
 - AppDoor-1、AppDoor-2 及共用忘记密码页的“在线客服”按钮统一使用同一枚耳麦客服头像前景图、双行文案和紧凑字号。
 - 忘记密码页的密码输入框先完成明文 / 密文按钮挂载与内部文本信号初始化，再绑定外部密码一致性校验回调；初始渲染不得在懒加载属性赋值前触发校验，避免 getter 同步重入和约束引擎崩溃。
 
-## 八、第二套卡片视觉规则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-9" data-jobs-toc="v2">八、第二套卡片视觉规则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 第二套卡片横滑风格遵守以下页面级规则：
 
@@ -125,7 +151,7 @@ config.registerConfig.graphicCaptchaConfig.caseSensitive = YES;
 - 登录卡片保留“返回首页”；注册卡片的提交按钮上移，并在其下方提供同样的“返回首页”。
 - 注册卡片按字段数使用 `12pt` 纵向间距动态计算高度；标题、输入文字、占位符、切换栏与提交按钮使用更紧凑的字号，完整六字段表单也不再被上下边缘挤压。
 
-## 九、目录边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-10" data-jobs-toc="v2">九、目录边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```text
 JobsAppDoor@Pods/
@@ -148,7 +174,7 @@ JobsAppDoor@Pods/
 - `Core/JobsAppDoorStyle2`：第二套登录、注册卡片横滑实现。
 - `Resource`：认证页面内部使用的图片和视频资源；Podspec 通过 `Resource` 分组映射真实目录，并由 `JobsAppDoorResource` 从 `JobsAppDoorResources.bundle` 统一读取，业务工程不需要再单独复制这批素材。
 
-## 十、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-11" data-jobs-toc="v2">十、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 分别进入 AppDoor-1 和 AppDoor-2，点击“忘记密码”，确认页面首帧不崩溃；连续输入、删除两次密码，确认“确认”按钮仅在内容相同且非空时启用。
 
@@ -158,7 +184,7 @@ pod install --no-repo-update
 xcodebuild -workspace JobsOCBaseConfigDemo.xcworkspace -scheme JobsAppDoor -sdk iphonesimulator build
 ```
 
-## 十一、明暗主题契约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-12" data-jobs-toc="v2">十一、明暗主题契约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
@@ -166,15 +192,15 @@ xcodebuild -workspace JobsOCBaseConfigDemo.xcworkspace -scheme JobsAppDoor -sdk 
 
 <a id="jobs-architecture"></a>
 
-## 十二、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-13" data-jobs-toc="v2">十二、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 12.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-14" data-jobs-toc="v2">12.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 将登录、注册、忘记密码及公共输入件分层，Style1 采用侧栏/面板切换，Style2 采用独立卡片横滑。公共层提供配置、资源与输入组件，验证码、倒计时、键盘和国家代码由独立 Pod 组合。
 
-### 12.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-15" data-jobs-toc="v2">12.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 选择样式并注入配置 → 构建登录/注册输入内容 → 用户切换页面状态 → 校验并回调业务 → 根据结果更新界面。
 
@@ -191,14 +217,14 @@ flowchart LR
     F --> G["宿主执行认证业务"]
 ```
 
-### 12.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-16" data-jobs-toc="v2">12.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 两套样式共享公共能力，但切换布局与运动方式不同，不能只换颜色。
 - 认证页面只收集输入并分发业务动作，真实账号认证仍需宿主接入。
 - 资源统一放在 JobsAppDoorResources.bundle；键盘跟随与页面切换需要协调，不能让旧状态继续驱动新卡片。
 - Style2 的 Logo 只属于初始登录态，注册/忘记密码和返回首页的行为需按原文保持。
 
-### 12.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-17" data-jobs-toc="v2">12.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 先读配置和公共输入件，再分别跟踪 Style1/Style2 的切换，最后组合验证码、倒计时、键盘与业务回调。
 
@@ -212,7 +238,7 @@ flowchart LR
 
 依赖与编译入口：[JobsAppDoor.podspec](<./JobsAppDoor.podspec>)。其中根级依赖声明包括 `Masonry`、`ReactiveObjC`、`ZFPlayer`、`JobsBlock`、`JobsMakes`、`JobsModel`、`JobsModelDSL`、`JobsOCDSL`、`JobsBaseUI`、`UIBaseTextFieldDSL`、`JobsOCDefs`、`JobsCountdownBtn`、`JobsOCGraphicCaptcha`、`JobsOCKeyboardMgr`、`JobsByOCPods`、`JobsOCTools`、`JobsHotLabel`、`JobsDeviceInfo`、`JobsOCProtocols`、`JobsLanMgr`、`JobsOCCountryCodeCtrl`、`JobsFuseAnimation`、`ZFPlayerExtra`、`XYColorOC`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
-## 十三、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-18" data-jobs-toc="v2">十三、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 计数递归扫描当前目录内的普通文件，排除 `.DS_Store` / `._*`；源码与头文件计入 `.h`、`.m`、`.mm`、`.c`、`.cc`、`.cpp`、`.hpp`、`.swift`。资源目录中的目录、资源编译结果和文件大小不计入文件数，文件存在不代表必然打包。
 
@@ -225,7 +251,7 @@ flowchart LR
 
 `Core` 的物理目录不等于所有头文件均公开；`Support` 和测试 fixture 不作为 App 或其它 Pod 的稳定消费入口。根聚合头与 `public_header_files` 是外部引用依据。
 
-## 十四、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-19" data-jobs-toc="v2">十四、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 当前结果：**Debug / Release 单 Pod 编译已完成；本 Pod 无独立 Stability 回归；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 

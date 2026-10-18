@@ -2,11 +2,63 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、范围、规模与判断标准](#jobs-toc-heading-2)
+  - [1.1、盘点结果](#jobs-toc-heading-3)
+  - [1.2、证据和优先级](#jobs-toc-heading-4)
+- [二、最值得先做的升级](#jobs-toc-heading-5)
+- [三、崩溃、运行时和全局影响面](#jobs-toc-heading-6)
+  - [3.1、R01｜P1：析构清理仍进入创建弱引用的 Block getter](#jobs-toc-heading-7)
+  - [3.2、R02｜P1：Markdown 的公开加载入口形成递归环](#jobs-toc-heading-8)
+  - [3.3、R03｜P1：Refresher 对未挂载位置执行 nil Block](#jobs-toc-heading-9)
+  - [3.4、R04｜P1：Iconfont 首次加载、取消与 token 析构](#jobs-toc-heading-10)
+  - [3.5、R05｜P1：全局 UICollectionView 自动注册会破坏有效 nib / storyboard](#jobs-toc-heading-11)
+  - [3.6、R06｜P1：DynamicInvoke 把任意返回值和参数当 id](#jobs-toc-heading-12)
+  - [3.7、R07｜P1：Patch 无序回滚可恢复已释放 IMP](#jobs-toc-heading-13)
+  - [3.8、R08｜P1：旧 ImageCodeView 初始化递归；CrashLog 的 signal 路径不安全](#jobs-toc-heading-14)
+  - [3.9、R09｜P2：尚未确认当前调用的运行时入口，也应在启用前修好](#jobs-toc-heading-15)
+- [四、数据完整性与失败真实性](#jobs-toc-heading-16)
+  - [4.1、D01｜P1：Snowflake 毫秒截断、序列回卷和节点边界](#jobs-toc-heading-17)
+  - [4.2、D02｜P1：Keychain 的 account 不参与身份，失败保存先删旧值](#jobs-toc-heading-18)
+  - [4.3、D03｜P1：FMDB 事务的 finally 改写结果，SQL 失败不触发回滚](#jobs-toc-heading-19)
+  - [4.4、D04｜P1：AppIcon 生成器条件性删除输入目录](#jobs-toc-heading-20)
+  - [4.5、D05｜P2：文件接口返回成功但没有创建目标；AES 失败先执行空 Block](#jobs-toc-heading-21)
+- [五、异步队列、会话隔离与完成合同](#jobs-toc-heading-22)
+  - [5.1、A01｜P1：蓝牙“命令成功”早于 ACK / 业务响应，旧特征未清理](#jobs-toc-heading-23)
+  - [5.2、A02｜P1：视频回调与主线程清理共享 CF 状态存在竞争窗口](#jobs-toc-heading-24)
+  - [5.3、A03｜P1：音频启动结果忽略，旧 recorder 完成可污染新录音](#jobs-toc-heading-25)
+  - [5.4、A04｜P1：图片上传继承自定义 JSON request，绕过 multipart](#jobs-toc-heading-26)
+  - [5.5、A05｜P2：TimerMgr force finish 先移除 entry，完成回调被自身过滤](#jobs-toc-heading-27)
+- [六、组件状态、资源恢复和边界输入](#jobs-toc-heading-28)
+  - [6.1、S01｜P2：Refresher 的 NoMoreData / remove / Failed 收尾不完整](#jobs-toc-heading-29)
+  - [6.2、S02｜P2：导航转场终止被方向门禁拦截，系统取消可能 finish](#jobs-toc-heading-30)
+  - [6.3、S03｜P2：weak 属性实际强持有；网速 Label 被单例回调保留](#jobs-toc-heading-31)
+  - [6.4、S04｜P2：NumberStepper 的公开 DSL 绕过归一化状态内核](#jobs-toc-heading-32)
+  - [6.5、S05｜P2：开屏图片错误响应成为长期有效缓存，接口恢复也不重载](#jobs-toc-heading-33)
+  - [6.6、S06｜P2：随机区间极值发生溢出/除零；网速按错误时间采样](#jobs-toc-heading-34)
+  - [6.7、S07｜P2：BioKit 把枚举当预处理宏，细分结果失效](#jobs-toc-heading-35)
+- [七、让升级长期有效的工程基线](#jobs-toc-heading-36)
+  - [7.1、T01｜先建立小而有价值的回归套件](#jobs-toc-heading-37)
+  - [7.2、T02｜资源用独立 bundle，文档图片不混入运行时](#jobs-toc-heading-38)
+  - [7.3、T03｜一个 class + selector 只归一个实现](#jobs-toc-heading-39)
+  - [7.4、T04｜依赖和配置用实际消费闭环，渐进收口](#jobs-toc-heading-40)
+  - [7.5、T05｜发布前补真实 required-reason API 声明并验证包内产物](#jobs-toc-heading-41)
+- [八、有升级空间，但应按需求决定](#jobs-toc-heading-42)
+- [九、实施路线与完成标准](#jobs-toc-heading-43)
+- [十、已执行验证与结论限制](#jobs-toc-heading-44)
+- [十一、109 个实际 Pod 的逐项覆盖与必要性](#jobs-toc-heading-45)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 **结论：有明确升级必要，优先修复崩溃、数据完整性和异步完成语义；现有模块划分、DSL 和大量已有防御应继续保留。** 此次发现的关键问题集中在少数高风险入口，并不支持将全部 Pod 推倒重写。
 
@@ -14,9 +66,9 @@
 
 这是一轮覆盖全体模块的配置盘点、入口扫描和高风险流程深读。它能给出可执行的升级清单；未逐行审完约 39 万行原始文本，也未进行整工程构建或真机验收。“没有列出缺陷”不能解释为已经证明安全。
 
-## 一、范围、规模与判断标准 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、范围、规模与判断标准 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 1.1、盘点结果 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-3" data-jobs-toc="v2">1.1、盘点结果 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 项目 | 结果 | 解释 |
 | --- | ---: | --- |
@@ -34,7 +86,7 @@
 
 原有 `PodspecDependencyReport` 统计包含 Manual 范围，与本报告 109 / 658 的统计口径不同。这里未用仓库总数替代自建范围。
 
-### 1.2、证据和优先级 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-4" data-jobs-toc="v2">1.2、证据和优先级 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - **P1｜优先修复**：常见入口崩溃、内存/ABI 风险、数据串值或丢失、全局侵入及关键异步合同失效。P1 不代表已经在线上观测到事故。
 - **P2｜应安排修复**：条件性公开 API 缺陷、状态不一致、资源泄漏、错误映射失效，或未发现当前调用但启用即会触发的问题。
@@ -45,7 +97,7 @@
 
 使用现有 CodeGraph 定位后回读当前源码。旧 `graphify-out` 生成于 2026-06-04，指向旧工程路径且包含第三方范围，未作为当前缺陷证据，也未重新初始化索引。`ManualByOCPods@Pods`、根 `Pods` 和保留他人版权的内嵌实现不作为默认改造对象；上游行为只用官方文档或对应版本源码核对。
 
-## 二、最值得先做的升级 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-5" data-jobs-toc="v2">二、最值得先做的升级 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 顺序 | 模块 / 问题 | 必要性 | 为什么先做 |
 | --- | --- | --- | --- |
@@ -60,9 +112,9 @@
 
 以上按失败影响和改造收益排序，不按 Pod 大小排序。基础层优先控制改动范围：`JobsBlock` 有 102 个自建直接消费者，`JobsOCDefs` 有 100 个，`JobsOCDSL` 有 60 个，`JobsMakes` 有 53 个；这些数字只统计本轮 109 个 Pod。小改动也应配调用方回归，避免批量改名或一次性调整全部链式接口。
 
-## 三、崩溃、运行时和全局影响面 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">三、崩溃、运行时和全局影响面 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 3.1、R01｜P1：析构清理仍进入创建弱引用的 Block getter <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-7" data-jobs-toc="v2">3.1、R01｜P1：析构清理仍进入创建弱引用的 Block getter <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 模块 | 当前源码证据 | 路径 |
 | --- | --- | --- |
@@ -79,7 +131,7 @@
 
 **验收：**未启动即释放、启动后释放、停后重复停、视图移除、仅挂单侧刷新、Markdown 未加载/已加载分别覆盖；weak sentinel 归 nil，观察者和计时源释放，没有 weak fatal。此项由源码与 Runtime 机制确认，尚未做 iOS 动态回归。
 
-### 3.2、R02｜P1：Markdown 的公开加载入口形成递归环 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-8" data-jobs-toc="v2">3.2、R02｜P1：Markdown 的公开加载入口形成递归环 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [JobsOCMarkdownView.m](./JobsByPods/JobsOCMarkdown@Pods/Core/JobsOCMarkdownView.m) L105–126：`byDocument` → `loadDocument` Block → 双参数加载方法 → 再次 `byDocument`。直接调用任一加载入口都可能进入同一环，真正读文件和渲染尚未到达就会栈溢出。
 
@@ -87,7 +139,7 @@
 
 **验收：**byDocument、loadDocument、双参数方法和 reloadDocument 对有效/不存在文件分别调用，读文件、渲染及错误回调各只发生应有次数，document 保持当前对象。
 
-### 3.3、R03｜P1：Refresher 对未挂载位置执行 nil Block <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-9" data-jobs-toc="v2">3.3、R03｜P1：Refresher 对未挂载位置执行 nil Block <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [UIScrollView+JobsOCRefresher.m](./JobsByPods/JobsOCRefresher@Pods/Core/JobsOCRefresher/UIScrollView+JobsOCRefresher/UIScrollView+JobsOCRefresher.m) L50–53 声明四侧 slot 可空；L464–475 的 tick 却无条件执行四个 `handleWithScrollView`。仅配置下拉头，KVO L420–426 触发 tick 后就会执行空 footer Block。L706–713 的 remove 对未挂载 slot 执行 `detach()` 也一样。
 
@@ -95,7 +147,7 @@ Objective-C 向 nil 发消息的语义不能保护“取出 nil Block 后执行�
 
 **建议/验收：**迭代非空 slot 快照；不存在位置的删除幂等。覆盖仅头、仅尾、仅左右、头尾、四侧及只配置全局触感而未挂组件的组合，反复滚动和 remove 均无崩溃。
 
-### 3.4、R04｜P1：Iconfont 首次加载、取消与 token 析构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-10" data-jobs-toc="v2">3.4、R04｜P1：Iconfont 首次加载、取消与 token 析构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [JobsIconfont.m](./JobsByPods/JobsIconfont@Pods/Core/JobsIconfont/JobsIconfont.m) L359–361 对全新 imageView 不存在的 oldToken 执行 `oldToken.jobsCancel()`；L429–431 的无 token 取消同样缺守卫。首次加载尚未到占位图/下载就进入空 Block 调用。
 
@@ -105,7 +157,7 @@ Objective-C 向 nil 发消息的语义不能保护“取出 nil Block 后执行�
 
 **验收：**首次加载、从未加载即取消、重复取消、连续更换资源、释放 imageView/token、取消后晚到完成；旧加载不能覆盖新资源。
 
-### 3.5、R05｜P1：全局 UICollectionView 自动注册会破坏有效 nib / storyboard <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-11" data-jobs-toc="v2">3.5、R05｜P1：全局 UICollectionView 自动注册会破坏有效 nib / storyboard <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [UICollectionView+RegistrationTracking.m](./JobsByPods/JobsByOCPods@Pods/Core/UIKit/UICollectionView/UICollectionView+RegistrationTracking/UICollectionView+RegistrationTracking.m) L19–40 在 `+load` 交换注册/出队。L43–56 只记录 registerClass；L59–84 对“未被本分类记录”的 identifier 自动用 `NSClassFromString` 注册 class，没有追踪 nib 或 storyboard。
 
@@ -115,7 +167,7 @@ Objective-C 向 nil 发消息的语义不能保护“取出 nil Block 后执行�
 
 **验收：**任意/同类名 reuse id 的 nib、IBOutlet、storyboard、supplementary、注销重注册及 CellRegistration，宿主和第三方行为保持正确。
 
-### 3.6、R06｜P1：DynamicInvoke 把任意返回值和参数当 id <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-12" data-jobs-toc="v2">3.6、R06｜P1：DynamicInvoke 把任意返回值和参数当 id <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [NSObject+DynamicInvoke.m](./JobsByPods/JobsOCRuntimeKits@Pods/Core/NSObject+DynamicInvoke/NSObject+DynamicInvoke.m) L285–305 的 property 在非零返回长度时只提供一个 id 缓冲区。arm64 的 CGRect 返回约 32 字节，会写入 8 字节局部量；count 等标量则被解释为对象地址。L97–100 也未按签名校验参数数量/编码，统一用 id 地址传参；L118–150 的 primitive buffer 未释放。
 
@@ -123,7 +175,7 @@ Objective-C 向 nil 发消息的语义不能保护“取出 nil Block 后执行�
 
 **验收：**对象、BOOL、NSInteger、double、CGRect、void，参数少/多/错型；ASan 查越界，循环标量调用查泄漏。未在本轮执行原 Pod 内存诊断。
 
-### 3.7、R07｜P1：Patch 无序回滚可恢复已释放 IMP <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-13" data-jobs-toc="v2">3.7、R07｜P1：Patch 无序回滚可恢复已释放 IMP <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [JobsOCPatchMgr.m](./JobsByPods/JobsOCPatch@Pods/Core/JobsOCPatchMgr/JobsOCPatchMgr.m) L97–149 只按 identifier 管补丁，回滚恢复 originalIMP 后 imp_removeBlock；rollbackAll 按字典 keys 顺序处理。
 
@@ -133,7 +185,7 @@ Objective-C 向 nil 发消息的语义不能保护“取出 nil Block 后执行�
 
 **验收：**A/B 任意顺序、rollbackAll、同 id 覆盖、继承/兄弟类隔离、拒绝不支持签名及明确的并发契约。
 
-### 3.8、R08｜P1：旧 ImageCodeView 初始化递归；CrashLog 的 signal 路径不安全 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-14" data-jobs-toc="v2">3.8、R08｜P1：旧 ImageCodeView 初始化递归；CrashLog 的 signal 路径不安全 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [ImageCodeView.m](./JobsByPods/JobsOCTools@Pods/Core/图形验证码/ImageCodeView/ImageCodeView.m) L68–94 → byBgColor L55–61 → setBgColor L173–176 → byBgColor，默认 init / nib setup 都会递归。修好后还需处理 L128–152 的整数尺寸取模，零/小尺寸可能出现除零。新 `JobsOCGraphicCaptcha` 已有字符和空 rect 防御，不能套用旧类的结论。
 
@@ -145,7 +197,7 @@ Objective-C 向 nil 发消息的语义不能保护“取出 nil Block 后执行�
 
 **验收：**在独立测试进程验证信号最小记录、系统 crash、高频分配和已有 handler 共存，不在普通主工程会话直接制造崩溃。
 
-### 3.9、R09｜P2：尚未确认当前调用的运行时入口，也应在启用前修好 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-15" data-jobs-toc="v2">3.9、R09｜P2：尚未确认当前调用的运行时入口，也应在启用前修好 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 入口与证据 | 条件和影响 | 建议 / 验收 |
 | --- | --- | --- |
@@ -156,9 +208,9 @@ Objective-C 向 nil 发消息的语义不能保护“取出 nil Block 后执行�
 
 这些入口的必要性来自具体实现，不代表当前页面已经运行失败。对 nil 的防线应放在执行 Block 的调用层和 getter 内适当位置；只在 Block 内判断 self，保护不了 nil receiver 根本返回不出 Block 的情况。
 
-## 四、数据完整性与失败真实性 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-16" data-jobs-toc="v2">四、数据完整性与失败真实性 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 4.1、D01｜P1：Snowflake 毫秒截断、序列回卷和节点边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-17" data-jobs-toc="v2">4.1、D01｜P1：Snowflake 毫秒截断、序列回卷和节点边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [JobsOCSnowflake.m](./JobsByPods/JobsOCSnowflake@Pods/Core/JobsOCSnowflake/JobsOCSnowflake.m) L60 先把秒 cast 成整数再乘 1,000，实际分辨率退化为秒。L67–72 的 12 位序列回卷只等待 1 ms，仍可能处于同一截断秒，产生重复 ID；L74–79 的时钟回退也未保证最终时间严格满足策略。
 
@@ -170,7 +222,7 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 **验收：**冻结/回退时钟、同时间单位超 4,096 次、边界节点、并发和编码解码。切勿直接修改位布局使旧 ID 无法兼容。
 
-### 4.2、D02｜P1：Keychain 的 account 不参与身份，失败保存先删旧值 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-18" data-jobs-toc="v2">4.2、D02｜P1：Keychain 的 account 不参与身份，失败保存先删旧值 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [JobsKeychainHelper.m](./JobsByPods/JobsBaseUI@Pods/Core/UIBaseObject/JobsKeychainHelper/JobsKeychainHelper.m) L80–101 保存/读取仅校验 account；基础 query L137–143 用 service 作为实际 kSecAttrAccount。相同 service 保存 A 后保存 B 会先删除 A，读取 A/B 都得到最后的 B。
 
@@ -180,7 +232,7 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 **验收：**双 account 保存/读取/删除互不影响，失败保留旧值，锁屏暂不可用不等于“账号不存在”，旧数据迁移可回退。
 
-### 4.3、D03｜P1：FMDB 事务的 finally 改写结果，SQL 失败不触发回滚 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-19" data-jobs-toc="v2">4.3、D03｜P1：FMDB 事务的 finally 改写结果，SQL 失败不触发回滚 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [FMDatabase+Manager.m](./JobsByPods/FMDatabaseExtra@Pods/Core/FMDatabase+Manager/FMDatabase+Manager.m) L82–103：catch 调 rollback 并准备返回 YES，finally 仍调用 commit，最后 return NO 覆盖之前返回；begin/commit/executeUpdate 的失败也未统一检查。`executeUpdate` 返回 NO 不等于抛异常，可能把前面部分成功写入提交。L30–37 的更新助手会关闭同一连接，若从事务 callback 使用也会破坏连接所有权。
 
@@ -190,7 +242,7 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 **验收：**第二条约束失败时第一条也不落库；正常提交、业务主动回滚、begin/commit 失败、嵌套/误用连接各有明确结果和一次清理。
 
-### 4.4、D04｜P1：AppIcon 生成器条件性删除输入目录 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-20" data-jobs-toc="v2">4.4、D04｜P1：AppIcon 生成器条件性删除输入目录 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [JobsAppIconRibbonGenerator.swift](./JobsByPods/JobsAppIconRibbon@Pods/Scripts/JobsAppIconRibbonGenerator.swift) L75–84 推导输入/输出；L143–158 先删除已有输出目录，再从输入拷贝 Contents.json。没有 source/output 相同检查。
 
@@ -200,7 +252,7 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 **验收：**相同路径立即错误且无写入；符号链接别名、无权限、输入缺图、渲染中断和输出已有有效图都保护原始资源。
 
-### 4.5、D05｜P2：文件接口返回成功但没有创建目标；AES 失败先执行空 Block <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-21" data-jobs-toc="v2">4.5、D05｜P2：文件接口返回成功但没有创建目标；AES 失败先执行空 Block <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [FileFolderHandleTool.m](./JobsByPods/FileFolderHandleTool@Pods/Core/FileFolderHandleTool/FileFolderHandleTool.m) L93–104：只保证父目录后，overwrite=NO 就直接返回 YES，目标不存在也未创建。
 
@@ -210,9 +262,9 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 **建议/验收：**先校验输入/data/error，再编码；成功空值与失败分离。覆盖 nil、故障注入、空串、错误密码、非法 Base64、截断/篡改和旧向量。保留第三方 CommonCrypto 实现版权与边界，先改 Jobs 包装层。
 
-## 五、异步队列、会话隔离与完成合同 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-22" data-jobs-toc="v2">五、异步队列、会话隔离与完成合同 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 5.1、A01｜P1：蓝牙“命令成功”早于 ACK / 业务响应，旧特征未清理 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-23" data-jobs-toc="v2">5.1、A01｜P1：蓝牙“命令成功”早于 ACK / 业务响应，旧特征未清理 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [JobsBluetoothManager.m](./JobsByPods/JobsBluetooth@Pods/Core/JobsBluetoothManager/JobsBluetoothManager.m) L155–160 写入后立即 completion(emptyData,nil)，没有实现 command 声明的 timeout/retry/priority/responseMatcher 闭环。L184 的 didDisconnectPeripheral 回调只清 peripheral，未清 characteristic；L187–194 还按首个服务发现宣布 ready，而非核对完整 profile。
 
@@ -220,7 +272,7 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 **验收：**A→B、重连、多服务乱序、无特征、ACK 错误、晚到响应、超时及大包；每个 completion 恰好一次，旧会话不能操作新状态。Mock 成功不能代替真实外设验收。
 
-### 5.2、A02｜P1：视频回调与主线程清理共享 CF 状态存在竞争窗口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-24" data-jobs-toc="v2">5.2、A02｜P1：视频回调与主线程清理共享 CF 状态存在竞争窗口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [CaptureManager.m](./JobsByPods/JobsOCVideoRecorder@Pods/Core/JobsOCVideoRecorderCaptureManager/JobsOCVideoRecorderCaptureManager.m) L88、L250–255 把 sample buffer 回调放采样队列；[JobsOCVideoRecorderVC.m](./JobsByPods/JobsOCVideoRecorder@Pods/Core/JobsOCVideoRecorderVC/JobsOCVideoRecorderVC.m) L682、L776–810 读写格式描述，而 UI 启停 L391–424 和后台/离开 L537–562 清理共享状态，没有一致的队列所有权。CF 对象 retain/release 成对不等于跨队列使用安全。
 
@@ -230,7 +282,7 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 已有 sessionQueue、writerQueue、单槽背压、相机切换回滚和后台停止基础值得保留，不需要重写完整录制系统。
 
-### 5.3、A03｜P1：音频启动结果忽略，旧 recorder 完成可污染新录音 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-25" data-jobs-toc="v2">5.3、A03｜P1：音频启动结果忽略，旧 recorder 完成可污染新录音 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [JobsOCAudioRecorder.m](./JobsByPods/JobsOCAudioRecorder@Pods/Core/JobsOCAudioRecorder.m) L151–170 忽略实际 record BOOL，发布开始后直接 YES。L195–202 delegate 未核对 recorder 身份，使用共享 currentURL/keepFile；stop A 后立即 start B，晚到 A 回调可能清空 B 状态、停用 AudioSession 或处理 B 文件。
 
@@ -238,7 +290,7 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 **验收：**record 返回 NO、拒绝权限、立即 stop→start、来电/设备切换和编码失败；旧回调不碰新文件，完成恰好一次。启动 BOOL 是确定缺口；晚到竞争未做硬件复现。
 
-### 5.4、A04｜P1：图片上传继承自定义 JSON request，绕过 multipart <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-26" data-jobs-toc="v2">5.4、A04｜P1：图片上传继承自定义 JSON request，绕过 multipart <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [JobsBaseApi.m](./JobsByPods/JobsAPIs@Pods/Core/APIs/JobsBaseApi/JobsBaseApi.m) L35–53 返回非空 custom request；[UploadImageApi.h](./JobsByPods/JobsAPIs@Pods/Core/APIs/UploadImageApi/UploadImageApi.h) L45 继承该实现，[UploadImageApi.m](./JobsByPods/JobsAPIs@Pods/Core/APIs/UploadImageApi/UploadImageApi.m) L52–66 返回 POST 并提供 constructingBodyBlock。默认参数为字典，custom body 会是 JSON，而非 JPEG multipart。
 
@@ -250,7 +302,7 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 **验收：**NSURLProtocol 拦截断言 boundary、JPEG part、参数、GET 编码、超时与蜂窝属性；单独验证取消/错误，不把上游已有取消和 HTTP 校验误报为缺失。
 
-### 5.5、A05｜P2：TimerMgr force finish 先移除 entry，完成回调被自身过滤 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-27" data-jobs-toc="v2">5.5、A05｜P2：TimerMgr force finish 先移除 entry，完成回调被自身过滤 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [JobsTimerMgr.m](./JobsByPods/JobsOCTimerMgr@Pods/Core/JobsTimerMgr/JobsTimerMgr.m) L367–391 的 fireOnceAndRemove 先从 entries 移除，再 fireOnce；L223–227 的 finish 依赖 weakEntry，L608–617 又要求 current entry 与 expected 相同。[JobsTimer.m](./JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/JobsTimer.m) L741–771 异步派发 onFinish。等回调执行，旧 entry 已不在字典，完成被丢弃，但方法此前返回 YES。
 
@@ -258,9 +310,9 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 **验收：**fireOnceAndRemove、正常到期、stop/remove、同名立即重建和 scope 取消；对各合同明确 finish 次数及线程，旧终态不触碰新 timer。timer 内核现有代次、弱代理及 GCD suspend 平衡继续保留。
 
-## 六、组件状态、资源恢复和边界输入 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-28" data-jobs-toc="v2">六、组件状态、资源恢复和边界输入 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 6.1、S01｜P2：Refresher 的 NoMoreData / remove / Failed 收尾不完整 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-29" data-jobs-toc="v2">6.1、S01｜P2：Refresher 的 NoMoreData / remove / Failed 收尾不完整 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 同 [Refresher 文件](./JobsByPods/JobsOCRefresher@Pods/Core/JobsOCRefresher/UIScrollView+JobsOCRefresher/UIScrollView+JobsOCRefresher.m) L219–306 正常 begin/end 成对增减 inset；L349–356 的 NoMoreData 直接改状态、L111–118 的 detach 直接移除，未归还刷新中的 inset；L679 的 Failed 仅取 `[slot fail]` Block 而未调用。
 
@@ -268,13 +320,13 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 **验收：**非零初始 inset，四侧分别 begin→Failed/remove；NoMoreData 覆盖 footer 及配置为 LoadMore 的横侧，不要求 Refresh 角色接受无更多状态。最终 inset 精确回到基线；快速重挂无累加、旧 view 或陈旧 completion。
 
-### 6.2、S02｜P2：导航转场终止被方向门禁拦截，系统取消可能 finish <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-30" data-jobs-toc="v2">6.2、S02｜P2：导航转场终止被方向门禁拦截，系统取消可能 finish <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [JobsNavigationTransitionMgr.m](./JobsByPods/JobsNavigationTransitionMgr@Pods/Core/JobsNavigationTransitionMgr/JobsNavigationTransitionMgr.m) L98–129 将所有手势状态放入实时方向判断内；起手正确后反向/斜向结束可能不进入终止分支，interactiveTransition 残留。Cancelled 又按 0.3 进度阈值决定 finish，混淆取消语义；L190–194 用 screen 尺寸代替 container。
 
 **建议/验收：**只在 Began 做准入；已开始的 session 必须处理全部终止，Cancelled/Failed 无条件 cancel+清理；横向用 x/width、纵向用 y/height 并按方向符号归一化和夹紧 progress，现 L101–104 所有方向都用 x/width；使用 container/finalFrame。四方向反拖、斜拖、系统取消、连续转场和分屏分别验收。未在本轮实跑“页面卡住”；当前 `JobsPresentTransitionMgr` 已有 container 与取消恢复，不套用此缺陷。
 
-### 6.3、S03｜P2：weak 属性实际强持有；网速 Label 被单例回调保留 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-31" data-jobs-toc="v2">6.3、S03｜P2：weak 属性实际强持有；网速 Label 被单例回调保留 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [UIView+SuspendView.h](./JobsByPods/JobsSuspend@Pods/Core/UIView+SuspendView/UIView+SuspendView.h) L36 的 vc 声明 weak，[实现](./JobsByPods/JobsSuspend@Pods/Core/UIView+SuspendView/UIView+SuspendView.m) L43–51 却 retain 关联。宿主持有 view 时构成 controller→view→controller 环；手写 setter 不会自动遵守头文件 weak。
 
@@ -284,7 +336,7 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 **验收：**push/pop、present/dismiss 100 次，weak sentinel 释放；两个 Label 独立订阅，移除一个不影响另一个，controller 提前释放返回 nil。
 
-### 6.4、S04｜P2：NumberStepper 的公开 DSL 绕过归一化状态内核 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-32" data-jobs-toc="v2">6.4、S04｜P2：NumberStepper 的公开 DSL 绕过归一化状态内核 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [JobsOCNumberStepper.m](./JobsByPods/JobsOCNumberStepper@Pods/Core/JobsOCNumberStepper/JobsOCNumberStepper.m) L27–60 的 byValue/min/max/step 只调合成 setter；L128–164 的 configure/setBounds/setValue:sendActions: 才做范围和 UI 同步。
 
@@ -292,7 +344,7 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 **建议/验收：**所有入口进入同一个状态内核，内部存储不反调 DSL；明确 valueChanged 语义。超界、上下界反序、零/负/极值 step，数据/文本/按钮及回调一致，无新 setter↔DSL 递归。
 
-### 6.5、S05｜P2：开屏图片错误响应成为长期有效缓存，接口恢复也不重载 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-33" data-jobs-toc="v2">6.5、S05｜P2：开屏图片错误响应成为长期有效缓存，接口恢复也不重载 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [JobsOCSplashMediaCache.m](./JobsByPods/JobsOCSplash@Pods/Core/JobsOCSplash/JobsOCSplashMediaCache/JobsOCSplashMediaCache.m) L92–135 只看 NSError/文件非空，忽略 HTTP response；[JobsOCSplashVC.m](./JobsByPods/JobsOCSplash@Pods/Core/JobsOCSplash/JobsOCSplashVC/JobsOCSplashVC.m) L390–404 缓存命中后 image 解码 nil 仍返回。404 HTML 可被落盘并长期命中。
 
@@ -300,7 +352,7 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 **验收：**404→200、200 HTML、空/截断文件及同 URL 并发，恢复后可自动显示；不能因为新下载失败删除最后的有效资源。
 
-### 6.6、S06｜P2：随机区间极值发生溢出/除零；网速按错误时间采样 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-34" data-jobs-toc="v2">6.6、S06｜P2：随机区间极值发生溢出/除零；网速按错误时间采样 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [JobsRandomUtils.m](./JobsByPods/JobsRandomUtils@Pods/Core/JobsRandomUtils/JobsRandomUtils.m) L38–57 用 int 相减和 `y-x+1` 取模；INT_MIN…INT_MAX 是合法输入却触发未定义行为。摘取原函数的 clang UBSan 检查已报告两处 signed overflow 和一处 division by zero。
 
@@ -310,15 +362,15 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 **建议/验收：**统一实例采样器，以单调时钟实际 elapsed 为分母、64 位累计、区分接口、重启重置；保留旧门面。验证 0/负/非默认 interval、长会话、重启和 Wi-Fi/蜂窝切换，不只看 Label 能更新。
 
-### 6.7、S07｜P2：BioKit 把枚举当预处理宏，细分结果失效 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-35" data-jobs-toc="v2">6.7、S07｜P2：BioKit 把枚举当预处理宏，细分结果失效 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [JobsBioKit.m](./JobsByPods/JobsBioKit@Pods/Core/JobsBioKit/JobsBioKit.m) L161–206 使用 `#if defined(LAErrorBiometry...)`；当前 SDK 的 LAError 是 enum，不是这些同名宏，case 被预处理删掉，未录入/锁定/不可用等落入通用 Failed。
 
 **建议/验收：**按 SDK 版本和运行时可用性处理，避免同值别名重复 case；人工构造各 LAErrorDomain/code 断言映射，再做真机提示流。已有前置 canEvaluatePolicy、两 policy 和主队列 reply 保留。
 
-## 七、让升级长期有效的工程基线 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-36" data-jobs-toc="v2">七、让升级长期有效的工程基线 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 7.1、T01｜先建立小而有价值的回归套件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-37" data-jobs-toc="v2">7.1、T01｜先建立小而有价值的回归套件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 本轮自建范围没有发现 XCTestCase、XCTest import 或 test_spec。现有 [build_simulator_app.yml](./.github/workflows/build_simulator_app.yml) 提供构建/打包流程，没有 test 或模拟器冷启动冒烟步骤；本轮未检查历史 CI 执行结果。
 
@@ -337,7 +389,7 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 修复一个问题就固化一个原失败路径，再进入下一批。构建通过之后仍需终态和释放断言，编译器不能发现“返回成功但没有做成”。
 
-### 7.2、T02｜资源用独立 bundle，文档图片不混入运行时 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-38" data-jobs-toc="v2">7.2、T02｜资源用独立 bundle，文档图片不混入运行时 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 本轮匹配到不同内容的 `Resource/icon.png`，分别位于 `JobsBlock`、`JobsByOCPods` 和 `JobsNavigationTransitionMgr`。当前生成的宿主 resources.sh 同时拷贝这些路径（Debug L140、L142、L205），存在落入主 bundle 同名文件的覆盖/冲突风险；三个文件 SHA-256 不同。本轮未执行完整打包，不能声称已确认最终覆盖赢家。
 
@@ -345,7 +397,7 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 验收同宿主集成、各 Pod 单独集成和资源缺失回退；检查实际 .app 内资源及加载结果，不能只看 glob 配置。这里读取根 Pods 的生成脚本只用于集成证据，没有审阅或改动第三方实现。
 
-### 7.3、T03｜一个 class + selector 只归一个实现 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-39" data-jobs-toc="v2">7.3、T03｜一个 class + selector 只归一个实现 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [JobsBlock 的 byObjBlock](./JobsByPods/JobsBlock@Pods/Core/Tools/NSObject+CallBackInfoByBlock/NSObject+CallBackInfoByBlock.m) L52–61 与 [JobsCallBackBlockDSL](./JobsByPods/JobsCallBackBlockDSL@Pods/Core/NSObject+CallBackInfoByBlock+DSL/NSObject+CallBackInfoByBlock+DSL.m) L21–30 同时实现 NSObject.byObjBlock，且 receiver 消失后的守卫不同。多个 category 同 selector 的加载结果不能作为稳定的兼容合同。
 
@@ -353,7 +405,7 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 当前每 Pod 内公开头 basename 检查为 0 碰撞，说明此前头文件边界整理已有成果；它不等价于全进程 selector 不冲突。
 
-### 7.4、T04｜依赖和配置用实际消费闭环，渐进收口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-40" data-jobs-toc="v2">7.4、T04｜依赖和配置用实际消费闭环，渐进收口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 内部根依赖无环是好的基础。大量共用基础层依赖不自动等于错误；应结合各 subspec 真实 import、链接符号和资源加载确认依赖是否必要，避免只按 graph 边数做“瘦身”。
 
@@ -363,7 +415,7 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 已有 broad HEADER_SEARCH_PATHS / non-modular 放宽应逐个验证最小集成后收口，先治理真实越界 import，避免一次移除兼容配置导致大面积构建断裂。只在计划独立发布时补 source/tag、homepage、版本和许可证闭环；本地 example.local 元数据不属于当前运行崩溃。
 
-### 7.5、T05｜发布前补真实 required-reason API 声明并验证包内产物 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-41" data-jobs-toc="v2">7.5、T05｜发布前补真实 required-reason API 声明并验证包内产物 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 自建范围只找到 [JobsBluetooth PrivacyInfo.xcprivacy](./JobsByPods/JobsBluetooth@Pods/Resource/PrivacyInfo.xcprivacy)，其 accessed APIs 数组为空；宿主源码与工程引用未发现对应隐私清单。与此同时，[JobsDebugPanelManager.m](./JobsByPods/JobsDebugPanel@Pods/Core/JobsDebugPanelManager/JobsDebugPanelManager.m) L132 / L207 使用 standardUserDefaults，[FileFolderHandleTool.m](./JobsByPods/FileFolderHandleTool@Pods/Core/FileFolderHandleTool/FileFolderHandleTool.m) L148 / L155 读取文件时间。
 
@@ -371,7 +423,7 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 验收以最终 archive 的 manifest、汇总报告和实际调用相符为准。本轮未生成 archive 或访问 App Store Connect，不能据此声称已遭拒审；发布门槛应在上线前复核。
 
-## 八、有升级空间，但应按需求决定 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-42" data-jobs-toc="v2">八、有升级空间，但应按需求决定 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 模块 / 方向 | 已见依据 | 升级边界与验收 |
 | --- | --- | --- |
@@ -387,7 +439,7 @@ L43–49 又允许节点值 32，再用 5 位 mask 变成 0；0 / 32 节点别�
 
 UI 组件的查询、网络和业务状态可归宿主，不能因组件自身没有 API 请求就认定违背前端回退规则。需要数据展示的实际 Demo/宿主流程再验收服务端优先、本地演示回退、完整空态和重载入口。
 
-## 九、实施路线与完成标准 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-43" data-jobs-toc="v2">九、实施路线与完成标准 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 阶段 | 工作范围 | 完成标准 |
 | --- | --- | --- |
@@ -400,7 +452,7 @@ UI 组件的查询、网络和业务状态可归宿主，不能因组件自身�
 
 本报告没有给出工时承诺：部分问题可以局部修复，蓝牙协议、密文迁移和 CF/硬件回归取决于真实使用场景。每批应以验收结果收口，不以“改了多少文件”收口。
 
-## 十、已执行验证与结论限制 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-44" data-jobs-toc="v2">十、已执行验证与结论限制 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 检查 | 已执行结果 | 能说明什么 / 不能说明什么 |
 | --- | --- | --- |
@@ -419,7 +471,7 @@ UI 组件的查询、网络和业务状态可归宿主，不能因组件自身�
 
 此前 AI 反复打磨已经带来明显基础：timer 代次/弱代理与 suspend 平衡、视频背压和切相机回滚、WebSocket 串行/旧连接过滤、GraphicCaptcha 空尺寸与字符防御、LoadingImage 本地 bundle fallback、Stepper 正常交互的夹紧/溢出守卫、PresentTransition 取消恢复，以及 DebugPanel 的 DEBUG/Scene 隔离。下一轮应围绕这些可靠内核补齐公开入口和失败终态，而不是抹掉既有成果。
 
-## 十一、109 个实际 Pod 的逐项覆盖与必要性 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-45" data-jobs-toc="v2">十一、109 个实际 Pod 的逐项覆盖与必要性 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 **覆盖标记：S = 配置/文档/入口扫描或少量抽查；D = 表中指定关键流程深读；E = 极小主体全文阅读。D/E 都不代表整个 Pod 的每个文件逐行审完。** 每个实际 Pod 均完成配置盘点；源码深度在下表单独列出。未发现独立高优先级问题的扫描项保留“续审”，不写成“已稳定”。
 

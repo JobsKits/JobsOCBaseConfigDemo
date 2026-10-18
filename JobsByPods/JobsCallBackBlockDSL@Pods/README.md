@@ -2,7 +2,27 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [一、用途](#jobs-toc-heading-1)
+- [二、使用](#jobs-toc-heading-2)
+- [三、目录](#jobs-toc-heading-3)
+- [四、依赖](#jobs-toc-heading-4)
+- [五、约束](#jobs-toc-heading-5)
+- [六、架构脉络与关键设计](#jobs-toc-heading-6)
+  - [6.1、设计目的与职责划分](#jobs-toc-heading-7)
+  - [6.2、运行脉络](#jobs-toc-heading-8)
+  - [6.3、关键设计与边界](#jobs-toc-heading-9)
+  - [6.4、阅读与重建顺序](#jobs-toc-heading-10)
+- [七、回调实现归属与生命周期](#jobs-toc-heading-11)
+- [八、目录计数与安装边界](#jobs-toc-heading-12)
+- [九、本轮单元验证](#jobs-toc-heading-13)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
@@ -10,12 +30,12 @@
 
 `JobsCallBackBlockDSL` 是 `JobsBlock/NSObject+CallBackInfoByBlock` 的链式语法二次封装。
 
-## 一、用途 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">一、用途 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `JobsBlock` 继续负责 Block typedef、关联对象属性和 `actionXxxBlock:` 存取逻辑。
 - `JobsCallBackBlockDSL` 只负责 `byXxxBlock(...)` 点语法链式调用，让 callback 配置可以并入 Jobs DSL 的“一链到底”风格。
 
-## 二、使用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">二、使用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
 #import <JobsCallBackBlockDSL/JobsCallBackBlockDSL.h>
@@ -29,42 +49,42 @@ object
     });
 ```
 
-## 三、目录 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">三、目录 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `JobsCallBackBlockDSL.h`：聚合入口。
 - `Core/NSObject+CallBackInfoByBlock+DSL`：`NSObject` callback block DSL 分类。
 
-## 四、依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-4" data-jobs-toc="v2">四、依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `JobsBlock`
 - `JobsOCDefs`
 
-## 五、约束 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-5" data-jobs-toc="v2">五、约束 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - DSL Block 必须返回当前 `NSObject`，保证链式语法可以继续。
 - 不在本 Pod 内重复定义 Block 类型；新增可复用 typedef 统一放入 `JobsBlock`。
 
 <a id="jobs-architecture"></a>
 
-## 六、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">六、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 6.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-7" data-jobs-toc="v2">6.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 为 JobsBlock 中 NSObject 的回调属性增加链式设置入口。byVoidBlock、byObjBlock、byStringBlock 及基本类型回调负责保存不同签名的回调，事件触发仍由对象或业务流程负责。
 
-### 6.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-8" data-jobs-toc="v2">6.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 选定回调签名 → 通过 byXxxBlock 设置 → 返回当前对象继续配置 → 在真实事件发生时调用保存的回调。
 
-### 6.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-9" data-jobs-toc="v2">6.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 设置回调和触发回调必须分开；不能把配置方法写成马上执行闭包。
 - 参数和返回类型必须与底层回调属性一致，数字类型不能随意全部折叠为 id。
 - 被保存的回调仍需要由使用方明确捕获对象的策略。
 
-### 6.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-10" data-jobs-toc="v2">6.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 先读底层回调属性，再对照本库同名 DSL 的赋值与返回；重建时先有回调存储，再加配置层。
 
@@ -75,13 +95,13 @@ object
 
 依赖与编译入口：[JobsCallBackBlockDSL.podspec](<./JobsCallBackBlockDSL.podspec>)。其中根级依赖声明包括 `JobsBlock`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
-## 七、回调实现归属与生命周期 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-11" data-jobs-toc="v2">七、回调实现归属与生命周期 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 `NSObject.byObjBlock` 的唯一声明与实现属于 `JobsBlock/NSObject+CallBackInfoByBlock`；本库通过依赖头继续提供该调用入口，不再重复实现同一 selector。其他回调 setter 保存 owner 的 weak 引用，owner 释放后返回 nil，不继续调用底层 Block getter。
 
 [生命周期与归属回归](<./Tests/JobsCallbackLifecycleTests/JobsCallbackLifecycleTests.m>) 验证保存 setter 后释放 owner，以及通过唯一 `byObjBlock` 写入并调用对象回调。回调本身仍由使用方决定捕获策略。
 
-## 八、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-12" data-jobs-toc="v2">八、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 计数递归扫描当前目录内的普通文件，排除 `.DS_Store` / `._*`；源码与头文件计入 `.h`、`.m`、`.mm`、`.c`、`.cc`、`.cpp`、`.hpp`、`.swift`。资源目录中的目录、资源编译结果和文件大小不计入文件数，文件存在不代表必然打包。
 
@@ -94,7 +114,7 @@ object
 
 `Core` 的物理目录不等于所有头文件均公开；`Support` 和测试 fixture 不作为 App 或其它 Pod 的稳定消费入口。根聚合头与 `public_header_files` 是外部引用依据。
 
-## 九、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-13" data-jobs-toc="v2">九、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 

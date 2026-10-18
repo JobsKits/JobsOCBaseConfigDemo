@@ -9,17 +9,49 @@
   allowfullscreen>
 </iframe>
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、Pod 定位](#jobs-toc-heading-2)
+- [二、适用场景](#jobs-toc-heading-3)
+- [三、目录结构](#jobs-toc-heading-4)
+- [四、Core / Support 边界](#jobs-toc-heading-5)
+- [五、公开能力与依赖](#jobs-toc-heading-6)
+  - [5.1、公开头文件](#jobs-toc-heading-7)
+  - [5.2、源码入口](#jobs-toc-heading-8)
+  - [5.3、默认安装边界](#jobs-toc-heading-9)
+  - [5.4、系统框架](#jobs-toc-heading-10)
+  - [5.5、Pod 依赖](#jobs-toc-heading-11)
+  - [5.6、UITableView 折叠能力](#jobs-toc-heading-12)
+- [六、引用方式](#jobs-toc-heading-13)
+- [七、资源说明](#jobs-toc-heading-14)
+- [八、验证方式](#jobs-toc-heading-15)
+- [九、风险说明](#jobs-toc-heading-16)
+- [十、明暗主题契约](#jobs-toc-heading-17)
+- [十一、架构脉络与关键设计](#jobs-toc-heading-18)
+  - [11.1、设计目的与职责划分](#jobs-toc-heading-19)
+  - [11.2、运行脉络](#jobs-toc-heading-20)
+  - [11.3、关键设计与边界](#jobs-toc-heading-21)
+  - [11.4、阅读与重建顺序](#jobs-toc-heading-22)
+- [十二、注册观察与导航边界](#jobs-toc-heading-23)
+- [十三、目录计数与安装边界](#jobs-toc-heading-24)
+- [十四、本轮单元验证](#jobs-toc-heading-25)
+
+</details>
+<!-- jobs-toc:end -->
 
 > 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 > 这份自述用于记录 `JobsByOCPods` 在 Jobs 本地 [**CocoaPods**](https://cocoapods.org/) 体系里的职责边界、目录结构、依赖关系和验证方式。
 
-## 一、Pod 定位 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、Pod 定位 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 项目 | 内容 |
 | ---- | ---- |
@@ -34,13 +66,13 @@
 | podspec | `JobsByPods/JobsByOCPods@Pods/JobsByOCPods.podspec` |
 | source | `{ :git => "file://#{__dir__}", :tag => spec.version.to_s }` |
 
-## 二、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 作为早期 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 本地 Pod 源头，后续缺文件、缺宏、缺分类时优先回到这里核对来源。
 - 当 `JobsByOCPods` 的 `Core`、`Support`、资源、依赖或公开头文件发生变化时，同步更新本 README，避免后续排查只看源码不看边界。
 - 参与本地 Pods 拆分时，先确认能力归属，再决定放入当前 Pod、迁移到 `Support`，还是下沉为更基础的公共 Pod。
 
-## 三、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```text
 JobsByOCPods@Pods/
@@ -59,7 +91,7 @@ JobsByOCPods@Pods/
 - `README.md` 是当前文件，负责说明用途、边界、依赖、资源和风险。
 - 若目录中存在 `JobsPodspecKit.rb`，说明该 Pod 使用 Jobs 本地 podspec 基座动态映射 `Support`。
 
-## 四、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-5" data-jobs-toc="v2">四、`Core` / `Support` 边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `Core` 当前包含 479 个文件，其中源码 / 头文件 470 个；按 Jobs 规范，它是 `JobsByOCPods` 对外公开 API 和核心实现的边界。
 - `Support` 当前包含 4 个文件，其中源码 / 头文件 4 个；它只服务当前 Pod 内部实现，不建议被 App 层或其它 Pod 直接引用。
@@ -78,27 +110,27 @@ JobsByOCPods@Pods/
 - 默认返回按钮使用 template 图标、主题主文字色和主题次级背景色，并通过 `jobsResetBtnBgCor` / `jobsResetBtnCornerRadiusValue` 同时覆盖 iOS 16+ Configuration 与旧按钮管线。
 - `Core/UIKit/UIViewController/.../UIViewController+XLBubbleTransition` 通过 `JobsOCDSL` 的 `UINavigationController.byDelegate(...)` 切换导航代理；根 podspec 已持有 `JobsOCDSL` 直接依赖，分类头保留保护性导入。
 
-## 五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 5.1、公开头文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-7" data-jobs-toc="v2">5.1、公开头文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `JobsByOCPods.h`
 - `Support/播放器控制层/ZFCustomControlView/ZFCustomControlView.h`
 - `Core/**/*.h`
 
-### 5.2、源码入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-8" data-jobs-toc="v2">5.2、源码入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `JobsByOCPods.h`
 - `Support/播放器控制层/ZFCustomControlView/ZFCustomControlView.h`
 - `Core/**/*.{h,m,mm}`
 
-### 5.3、默认安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-9" data-jobs-toc="v2">5.3、默认安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `Core` 通过 Pod 根级 `source_files` 直接映射真实磁盘目录，不再创建虚拟 `Core` subspec，避免 [**Xcode**](https://developer.apple.com/xcode) 的 Development Pods 出现 `Core/Core`。
 - `Support` 仅在真实目录存在时按 podspec 映射；`Resource` 与 `Core` 平级承载非代码资源。
 - 本地默认不设置 `JOBS_SIMULATOR_ONLY`，保留真机 IJK 播放依赖。仅构建模拟器的 CI 设置 `JOBS_SIMULATOR_ONLY=1` 后重新执行 `pod install`，不再引入 `ZFPlayer/ijkplayer`，继续保留 AVPlayer / ControlView；Jobs 的 IJK API 在模拟器本就不可用。模式切换必须重新安装依赖，该模式的验收只证明模拟器依赖图，不代表真机 IJK 验收。
 
-### 5.4、系统框架 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-10" data-jobs-toc="v2">5.4、系统框架 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `Foundation`
 - `QuartzCore`
@@ -108,14 +140,14 @@ JobsByOCPods@Pods/
 - `WebKit`
 - `UIKit`
 
-### 5.5、Pod 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-11" data-jobs-toc="v2">5.5、Pod 依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 
-### 5.6、UITableView 折叠能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-12" data-jobs-toc="v2">5.6、UITableView 折叠能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `Core/UIKit/UITableView/UITableView+WWFoldableTableView` 暴露 `ww_foldable` 属性，并提供 `byFoldable(BOOL)` 链式入口，业务侧优先写成 `tableView.byFoldable(YES)` / `tableView.byFoldable(NO)`。
 
-## 六、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-13" data-jobs-toc="v2">六、引用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 推荐在 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 代码里使用保护性引用，优先走 [**CocoaPods**](https://cocoapods.org/) 生成的公共头映射：
 
@@ -130,14 +162,14 @@ JobsByOCPods@Pods/
 - 自建 Pod 对外优先引用公共入口头，不要绕开聚合头直接引用 `Support` 内部子头。
 - 如果 `JobsByOCPods.h` 不是最终公开入口，请先修正 `JobsByOCPods.podspec` 的 `public_header_files` 和入口头设计，再修改调用方。
 
-## 七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-14" data-jobs-toc="v2">七、资源说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 当前目录扫描到资源类文件 14 个，`Resource` 目录文件 14 个。
 - podspec 资源声明如下：
 
 - 资源通过当前 podspec 的 `resources` / `resource_bundles` 映射；物理文件计数与运行时复制范围分别核对。
 
-## 八、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-15" data-jobs-toc="v2">八、验证方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 修改 `JobsByOCPods` 后，优先按风险从低到高验证：
 
@@ -156,7 +188,7 @@ pod install --no-repo-update
 - 如果本机 [**Ruby**](https://www.ruby-lang.org) / [**CocoaPods**](https://cocoapods.org/) 环境不适合实际执行，至少保留未执行声明，并检查 `PodspecDependencyReport` 里的依赖链路。
 - 增删依赖后重点排查循环引用、公开头暴露和 `Support` 泄漏。
 
-## 九、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-16" data-jobs-toc="v2">九、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 只有 podspec 指定的公开头进入外部 API 边界；新增 import 时要确认不会把私有实现细节暴露给外部。
 - `Support` 只服务当前 Pod；App 层或其它 Pod 不应依赖 `Support/**/*.h` 的搜索路径命中。
@@ -165,7 +197,7 @@ pod install --no-repo-update
 - 第三方手动托管 Pod 要保留上游来源信息，只做本地托管适配，不抹掉作者、homepage 和 license。
 - 执行 `pod install` 成功后，如生成了新的 `PodspecDependencyReport`，以报告为准继续校正上下依赖关系。
 
-## 十、明暗主题契约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-17" data-jobs-toc="v2">十、明暗主题契约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
@@ -173,25 +205,25 @@ pod install --no-repo-update
 
 <a id="jobs-architecture"></a>
 
-## 十一、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-18" data-jobs-toc="v2">十一、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 11.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-19" data-jobs-toc="v2">11.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 按 Apple 系统类组织工厂、分类和功能封装，是多种基础能力的汇集处。每个类目录对应自己的系统对象；实例配置 DSL、创建工具与功能型扩展可能由相邻 Pod 协作提供。
 
-### 11.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-20" data-jobs-toc="v2">11.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 按系统类型定位分类 → 创建或取得对象 → 应用 Jobs 功能入口 → 由系统对象完成实际操作。
 
-### 11.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-21" data-jobs-toc="v2">11.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 媒体预览、图层动画、通知、列表和按钮不能被理解为一条统一业务流程，应按系统类型切入。
 - 聚合头可见、源码纳入编译、依赖实际存在是三个独立条件。
 - 与 JobsOCDSL/JobsMakes 已拆分的能力应按真实入口归属理解，避免重建同名分类造成冲突。
 
-### 11.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-22" data-jobs-toc="v2">11.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 先从目标系统类的公开头切入，再读对应实现和实际 import；无需一开始复刻整个系统封装集合。
 
@@ -205,7 +237,7 @@ pod install --no-repo-update
 
 依赖与编译入口：[JobsByOCPods.podspec](<./JobsByOCPods.podspec>)。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
-## 十二、注册观察与导航边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-23" data-jobs-toc="v2">十二、注册观察与导航边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 退出确认入口 `logOutPopupView` 首次返回已经创建并缓存的弹窗，后续读取复用同一对象。弹窗回调弱持有 owner 和原弹窗，任一对象释放后回调直接结束；执行期间保活原弹窗，因此同步通知观察者替换缓存时也只隐藏本次弹窗。
 
@@ -227,7 +259,7 @@ pod install --no-repo-update
 
 `weak_target` 使用既有 Jobs 零化弱关联容器；getter / setter 共用全局 selector key，四个 owned provider 保持相同 ABI，不依赖 category 加载顺序。设为外部目标不会延长其生命，目标释放后 getter 返回 nil；设为自身不形成自持有环，也不再通过 getter 自动关联自身。泛用手势 `byTarget` / `target` 的既有 API 保持。UIView 的 8 类懒加载手势从共享零化弱 key 取显式目标，未设置时默认绑定自身；自身与外部目标均只交给 UIKit 原生 target/action 和弱 delegate，工厂不再自动写入泛用 `target` metadata。控制器强持 view 再把控制器设为弱目标时，不应通过手势反向保活控制器；需要独立 metadata 的调用方仍可显式使用泛用 `byTarget`。既有 UIKit suite 保留默认自身释放及 weak_target 零化断言，并以真实 controller / view 的 tap、pan 各 100 次循环验证 owner、view 与手势释放、真实公共 `GestureActionBy` 安装链与已编译 OCDSL native provider 的两类保存回调、原生 handler 执行及迟到回调无额外事件。OCDSL native ActionBy 不再把手势自身写入 metadata，既有显式 `byTarget` 不被覆盖；泛用 getter / setter / addAction / removeAction 的 ABI 保持。UIView 的 `addGR` 及 8 个 `addXxxGR` 保存动作在 view 释放后返回 nil，不调用 nil DSL Block；同一真实 UIKit suite 覆盖 9 个迟到 getter、owner 释放与回调次数为零。Bits 菜单同样采用原生 target/action 消除持有环。相关真实断言在 JobsByOCPods 既有 UIKit suite；验证结果见本 README 统一验收记录。
 
-## 十三、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-24" data-jobs-toc="v2">十三、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 计数递归扫描当前目录内的普通文件，排除 `.DS_Store` / `._*`；源码与头文件计入 `.h`、`.m`、`.mm`、`.c`、`.cc`、`.cpp`、`.hpp`、`.swift`。资源目录中的目录、资源编译结果和文件大小不计入文件数，文件存在不代表必然打包。
 
@@ -256,7 +288,7 @@ pod install --no-repo-update
 
 `Resource/icon.png` 用于文档展示，podspec 通过 `exclude_files` 排除运行时资源复制，同时 `preserve_paths` 保留文件以供文档使用。这样避免通用 `icon.png` 名称在宿主资源中发生冲突；已有业务图片 / bundle 的查找位置沿用原合同。
 
-## 十四、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-25" data-jobs-toc="v2">十四、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 

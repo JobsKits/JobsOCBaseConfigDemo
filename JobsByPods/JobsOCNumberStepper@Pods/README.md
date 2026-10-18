@@ -2,7 +2,24 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [一、能力](#jobs-toc-heading-1)
+- [二、使用](#jobs-toc-heading-2)
+- [三、架构脉络与关键设计](#jobs-toc-heading-3)
+  - [3.1、设计目的与职责划分](#jobs-toc-heading-4)
+  - [3.2、运行脉络](#jobs-toc-heading-5)
+  - [3.3、关键设计与边界](#jobs-toc-heading-6)
+  - [3.4、阅读与重建顺序](#jobs-toc-heading-7)
+- [四、链式配置与整数边界](#jobs-toc-heading-8)
+- [五、目录计数与安装边界](#jobs-toc-heading-9)
+- [六、本轮单元验证](#jobs-toc-heading-10)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
@@ -10,7 +27,7 @@
 
 `JobsOCNumberStepper` 是 Jobs Objective-C 工程使用的整数步进输入控件，统一封装“减号按钮 + 数字输入框 + 加号按钮”。
 
-## 一、能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">一、能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 输入框只接受合法整数。
 - 下限与上限均可独立省略。
@@ -19,7 +36,7 @@
 - 设置值与修改边界时会自动收敛到当前有效区间。
 - 减号、输入框、加号采用无间隙连体布局；输入框保留完整描边，仅减号左侧与加号右侧保留外圆角。
 
-## 二、使用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">二、使用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
 JobsOCNumberStepper *stepper = JobsOCNumberStepper.new;
@@ -35,25 +52,25 @@ stepper.onJobsChange(^(__kindof UIControl * _Nullable control) {
 
 <a id="jobs-architecture"></a>
 
-## 三、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">三、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 3.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-4" data-jobs-toc="v2">3.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 将减号、整数输入框和加号封装为一个 UIControl，统一管理当前值、可选上下界和步长。按钮点击与文本输入最终进入同一数值收敛和界面更新流程。
 
-### 3.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-5" data-jobs-toc="v2">3.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 点击加减或输入整数 → 校验并收敛到有效区间 → 更新文字与按钮禁用态 → 按要求发送 ValueChanged。
 
-### 3.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-6" data-jobs-toc="v2">3.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 上下界均可独立省略，不能把 nil 当成零。
 - 程序设置值可以选择是否发送事件，避免业务回写造成循环通知。
 - 达到边界后按钮禁用状态必须与当前值同步。
 
-### 3.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-7" data-jobs-toc="v2">3.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 先看 value/边界/步长，再看输入解析与 setValue:sendActions:；重建时先统一状态更新，再做连体外观。
 
@@ -64,7 +81,7 @@ stepper.onJobsChange(^(__kindof UIControl * _Nullable control) {
 
 依赖与编译入口：[JobsOCNumberStepper.podspec](<./JobsOCNumberStepper.podspec>)。其中根级依赖声明包括 `Masonry`、`JobsBaseUI`、`JobsMakes`、`JobsOCDSL`、`JobsOCDefs`、`JobsBlock`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
-## 四、链式配置与整数边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-8" data-jobs-toc="v2">四、链式配置与整数边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 `byValue`、`byMinimumValue`、`byMaximumValue`、`byStepValue` 与配置方法共用校验入口。设置数值同步文本与按钮可用状态，越界值夹紧；上下限颠倒时归一化为从小到大。非有限 NSNumber 边界视为未设置，步长小于等于 0 使用 1。
 
@@ -72,7 +89,7 @@ stepper.onJobsChange(^(__kindof UIControl * _Nullable control) {
 
 回归测试位于 `Tests/JobsOCNumberStepperStabilityTests/`。在包含该 Pod 的 XCTest 宿主中运行，覆盖以上生命周期和边界合同；源码编译通过不能替代这些行为断言。
 
-## 五、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-9" data-jobs-toc="v2">五、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 计数递归扫描当前目录内的普通文件，排除 `.DS_Store` / `._*`；源码与头文件计入 `.h`、`.m`、`.mm`、`.c`、`.cc`、`.cpp`、`.hpp`、`.swift`。资源目录中的目录、资源编译结果和文件大小不计入文件数，文件存在不代表必然打包。
 
@@ -85,7 +102,7 @@ stepper.onJobsChange(^(__kindof UIControl * _Nullable control) {
 
 `Core` 的物理目录不等于所有头文件均公开；`Support` 和测试 fixture 不作为 App 或其它 Pod 的稳定消费入口。根聚合头与 `public_header_files` 是外部引用依据。
 
-## 六、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-10" data-jobs-toc="v2">六、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 

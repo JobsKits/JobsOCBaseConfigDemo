@@ -2,11 +2,28 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、升级后的行为](#jobs-toc-heading-2)
+- [二、可复现验证](#jobs-toc-heading-3)
+  - [2.1、本轮冻结范围与最终回填](#jobs-toc-heading-4)
+  - [2.2、历史与局部验证证据](#jobs-toc-heading-5)
+  - [2.3、原报告适用项与验收边界](#jobs-toc-heading-6)
+- [三、模块结果矩阵](#jobs-toc-heading-7)
+- [四、兼容迁移与范围例外](#jobs-toc-heading-8)
+- [五、资源与隐私声明](#jobs-toc-heading-9)
+- [六、仍需环境集成验收的内容](#jobs-toc-heading-10)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 本文件承接 [稳定性与升级评估报告](./JobsByPods自建Pod稳定性与升级评估报告.md)，记录本轮实际修改和验证证据。评估报告保留升级前基线。本轮覆盖 109 个自建 Pod，排除 `ManualByOCPods@Pods`、供应商及他人作者源码。没有提交或推送。
 
@@ -14,7 +31,7 @@
 
 **验收记录：同指纹完整Pod、iOS、Mac及新旧主工程编译已核验；D0文档重建、实际App资源与冷启动已有独立实证。最后封包的文档字节与D1实测结论，以外部 `work/JobsPodsStability/final-proof-8218cf43/final-seal.json` 为准。**
 
-## 一、升级后的行为 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、升级后的行为 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 范围 | 实施结果 | 对应基线 |
 | --- | --- | --- |
@@ -34,9 +51,9 @@
 | 刷新组件的可选标题 provider | MJRefresh 核心刷新不依赖 BaseUI；可选按钮标题 / 副标题在主线程通过运行时查找已有 BaseTextView，验证 UITextView 子类与初始化结果，缺失或无效时返回 nil，两个属性明确 nullable。有效 provider 保留原链接属性、配置与缓存身份；没有反向依赖、替代控件或失败缓存 | 本轮实际 MJRefreshExtra 独立 link65 补强 |
 | 系统能力与失败边界 | DeviceID 仅 ItemNotFound 创建、写成功才返回，锁定/持久化失败返回 nil+NSError；Open 主线程展示与每封邮件独立代理；ScreenCapture 无安全 Canvas 时显式不可用并正常显示 | 条件项 |
 
-## 二、可复现验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、可复现验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 2.1、本轮冻结范围与最终回填 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-4" data-jobs-toc="v2">2.1、本轮冻结范围与最终回填 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 2026-10-05 21:53:26 的26文件收口按原SHA合入：网络组17文件与S03/S06/语言验证9文件；其中生产只补raw request蜂窝属性及蓝牙首次连接nil previous守卫，其余为必要fixture/声明、Bits自身Stability与README合同。新增测试源码10个h/m引用，当前范围为 **109 Pods×Debug/Release=218次、48个Stability、49次iOS配置运行（Snowflake额外Release）、10个Mac脚本、主工程Debug/Release**。[应用receipt](/tmp/jobs-oc-original-acceptance-applied-20261005T1351/receipt.json)。本批7个网络组测试m真实UIKit Clang syntax-only均exit0，[命令/日志](/tmp/jobs-network-uikit-front/results.json)；不据此认领链接或XCTest通过。
 
@@ -86,7 +103,7 @@
 
 当前验收版本为 `8218cf43acbefcfd911b375dea847ca9b0461944b08d2fbbcd6954cf47ce350f`。原f199全量通过与第一轮D0文档CAS仍保留为历史；随后D0 Debug构建进程实际exit0，但文档来源一致性核验exit75，发现构建产物中的Markdown被再次计入来源。Jobs-owned Packager现排除Products、Intermediates、固定JobsMarkdownDocuments.bundle及work/JobsPodsStability/full，保留其它合法work文档和证明JSON；新旧脚本SHA同为 `e635418f2a238302c1e62495196c63d05f4ee4a770b272c04a427ba784fb8236`。本表仅按本轮新指纹完整ALL及旧工程真实新Both重新回填，不移植f199通过结果。历史D0失败原件见固定证明目录history/D0-Debug75-original.json；最终文档仍需D0/D1重建、资源和冷启动独立验收。
 
-### 2.2、历史与局部验证证据 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-5" data-jobs-toc="v2">2.2、历史与局部验证证据 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 使用 [**Xcode**](https://developer.apple.com/xcode) 27.0 / iOS Simulator 27.0；[**CocoaPods**](https://cocoapods.org/) 1.17.0。最终逐项编译和回归结果见本文件的最终验收记录及模块矩阵；D0文档重建、资源与冷启动证据已独立归档，最后封包的文档字节与D1实测结论以外部 `work/JobsPodsStability/final-proof-8218cf43/final-seal.json` 为准。
 
@@ -163,7 +180,7 @@ ruby ScriptsByPods/jobs_pods_stability_verify.rb/update_readme_results.rb \
 新 SDK 的首轮测试宿主缺 Scene 生命周期，未计为通过；修复自有 Scene delegate、manifest 及源码引用后，Snowflake 测试真实通过。失败尝试与最后成功记录分别保留，不用产物存在替代构建退出状态。
 
 <a id="original-requirement-completion"></a>
-### 2.3、原报告适用项与验收边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-6" data-jobs-toc="v2">2.3、原报告适用项与验收边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 以下逐项对照原评估报告的31个编号与9个条件方向。行号指升级前基线；“实现”与“运行证明”分列，未覆盖情景仍保留，不把当前编译或代表fixture当完整验收。`C-*`仅为原条件表9行的对照标签，不是新增缺陷编号。
 
@@ -217,7 +234,7 @@ T04原题与L358–364明确要求渐进消费核查，并未要求盲目重写�
 
 硬件与诊断边界仍按本文第六节：真实BLE/麦克风/相机/生物识别、设备锁屏Keychain、网络/接口切换、多窗口和可见页面压力不能由Mock或编译代替。已跑的C UBSan和局部真实NSInvocation内核ASan不等于全量Pod/App ASan；本轮全量ASan/TSan及泄漏诊断均未完成。TSan在支持的模拟器/Mac目标使用，不能写“真机TSan已通过”。
 
-## 三、模块结果矩阵 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-7" data-jobs-toc="v2">三、模块结果矩阵 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 指纹：`8218cf43acbefcfd911b375dea847ca9b0461944b08d2fbbcd6954cf47ce350f`；状态：ALL_REQUIRED_RECEIPTS_VERIFIED。
 
@@ -337,7 +354,7 @@ T04原题与L358–364明确要求渐进消费核查，并未要求盲目重写�
 
 本表从完成 receipt 生成；缺项、超时、source drift、缺真实 process status、无完整 xcresult/最终 summary、失败或 skip 均不会被计为通过。
 
-## 四、兼容迁移与范围例外 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-8" data-jobs-toc="v2">四、兼容迁移与范围例外 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 认证加密使用新的 `JobsAES2:` envelope，旧 AES 解密兼容保留，认证失败不降级尝试旧格式；调用方主动迁移新写入。Keychain 按 service+account 分身份，旧身份迁移显式选择，失败不删原条目。蓝牙历史返回值只表示提交；需要硬件 ACK/业务响应时使用新明确完成合同。
 
@@ -347,7 +364,7 @@ T04原题与L358–364明确要求渐进消费核查，并未要求盲目重写�
 
 真实独立 [ByPods XCTest 链接日志](./work/JobsPodsStability/full/test-JobsByOCPods-Debug-140747.log) 随后指出 Navigation Support 的 plist 方法仍引用 `_OBJC_CLASS_$_FileFolderHandleTool`，因此仅修 Core 不足以闭合该链接边界。本轮同步升级 Jobs-owned Navigation Support 方法与头，并保留旧 Navigation Manual 排除。旧主工程 Debug 则实际因 `JobsOCWebSocketClient.m:9` 的 `<SRWebSocketExtra/SRWebSocket+Extra.h>` 无法找到而 compile65（[实际错误日志](/tmp/jobs-oc-old-stability-20261005/run-20261005T035930Z/final-20261005T044851Z/Debug.log:4654467)）：该路径属于新 Pod 形态，旧侧恢复 `#import "SRWebSocket+Extra.h"`，复用现有本地头和 Debug/Release 3rdCore 搜索路径。没有新增旧 Pod 依赖或改第三方；后续真实独立链接与旧App独立重编结果见最终验收记录和模块矩阵，[源码/内核/指纹记录](/tmp/jobs-pods-network-upgrade.md)。
 
-## 五、资源与隐私声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-9" data-jobs-toc="v2">五、资源与隐私声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 16 个实际使用 required-reason API 的 Pod 挂载独立 `<Pod>Privacy.bundle/PrivacyInfo.xcprivacy`，主 App 配置自身 manifest。UserDefaults 为自身 App 偏好 `CA92.1`，文件时间戳为自身沙盒缓存 `C617.1`，monotonic time 为经过时间 `35F9.1`。声明范围遵循 [**Apple API reasons**](https://developer.apple.com/documentation/bundleresources/app-privacy-configuration/nsprivacyaccessedapitypes/nsprivacyaccessedapitypereasons)。提供通用文件路径接口不代表调用方任意用途已获相同理由覆盖；最终产品必须按真实使用再次核验。
 
@@ -359,7 +376,7 @@ JobsBlock、JobsByOCPods、JobsNavigationTransitionMgr 的文档 `icon.png` 保�
 
 旧 OC 工程按直接集成形态，将三类自有使用理由合并到宿主 `启动配置/JobsPrivacy/PrivacyInfo.xcprivacy`，显式挂载主 App Resources；没有复制 Pod 目录或替换第三方声明。新旧产物都需在最终编译后核验实际打包内容。
 
-## 六、仍需环境集成验收的内容 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-10" data-jobs-toc="v2">六、仍需环境集成验收的内容 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 当前注入与 Mac 内核回归不访问真实麦克风、相机、蓝牙、Keychain 或外网。以下设备与宿主合同仍需实际集成验收：
 

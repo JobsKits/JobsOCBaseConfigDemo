@@ -2,17 +2,30 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [前言](#jobs-toc-heading-1)
+- [一、文件与配置](#jobs-toc-heading-2)
+- [二、首次使用](#jobs-toc-heading-3)
+- [三、Sourcetree 操作](#jobs-toc-heading-4)
+- [四、后续提交与检查](#jobs-toc-heading-5)
+- [五、验证与恢复](#jobs-toc-heading-6)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
-## 前言
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">前言</span><!-- jobs-toc:heading-end -->
 
 本工程在同一个仓库文件夹中管理两条提交历史：[**GitHub**](https://github.com/) 使用原来的 `byPods`，保留全部已有历史；[**Gitee**](https://gitee.com/) 使用本地快照分支 `Gitee@snapshot`，首次从当前已提交内容建立无父提交的零点，之后继续积累新的历史。两条分支共用文件对象，不需要第二份工程目录。
 
 快照包含 `byPods` 当前提交中的全部文件，包括 `PodspecDependencyReport` 的报告和 PNG；既有 `.gitignore` 保持原样。未提交、未跟踪和已忽略的文件不会进入快照。这里的“全跟踪”是保留工程现有跟踪范围，不会把 `Pods`、构建缓存等原本忽略的内容加入 Git。
 
-## 一、文件与配置 <a href="#前言" style="font-size:17px; color:green;">🔼</a> <a href="#🔚" style="font-size:17px; color:green;">🔽</a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、文件与配置 <a href="#前言" style="font-size:17px; color:green;">🔼</a> <a href="#🔚" style="font-size:17px; color:green;">🔽</a></span><!-- jobs-toc:heading-end -->
 
 | 文件 | 职责 |
 | --- | --- |
@@ -34,7 +47,7 @@
 
 新安装默认使用 `Gitee@snapshot`；重新安装会沿用已配置或带有快照标记的分支名，不把自定义名称覆盖为默认名称。分支名的大小写和 `@` 保持原样；标记随本地分支改名保留，用于识别原快照链。
 
-## 二、首次使用 <a href="#前言" style="font-size:17px; color:green;">🔼</a> <a href="#🔚" style="font-size:17px; color:green;">🔽</a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、首次使用 <a href="#前言" style="font-size:17px; color:green;">🔼</a> <a href="#🔚" style="font-size:17px; color:green;">🔽</a></span><!-- jobs-toc:heading-end -->
 
 1、当前工程已安装本地配置；新克隆或迁移电脑后，在工程根目录执行以下命令，阅读内置自述后按回车安装。安装本身不创建提交。
 
@@ -78,7 +91,7 @@ git push gitee refs/heads/Gitee@snapshot:refs/heads/byPods
 
 Gitee 旧分支、标签或其它引用仍可能保留旧历史；仅创建本地零点不会自动降低已有远端容量。处理旧引用后，按 [Gitee 仓库体积说明](https://help.gitee.com/repository/base/仓库体积过大，如何减小)检查仓库 GC 与容量。这个远端的 `main` 承载旧 OC 工程；远端记录的保留或删除由你决定，本地 hook 全部放行删除。仓库已因容量锁定时，新快照也不能保证立即获准推送。
 
-## 三、Sourcetree 操作 <a href="#前言" style="font-size:17px; color:green;">🔼</a> <a href="#🔚" style="font-size:17px; color:green;">🔽</a>
+## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、Sourcetree 操作 <a href="#前言" style="font-size:17px; color:green;">🔼</a> <a href="#🔚" style="font-size:17px; color:green;">🔽</a></span><!-- jobs-toc:heading-end -->
 
 在 [**Sourcetree**](https://www.sourcetreeapp.com/) 中继续检出并提交 `byPods`；提交 hook 会自动更新快照，不会切换当前分支，也不会修改暂存区或工作区。
 
@@ -95,7 +108,7 @@ GitHub 拉取窗口应显示 `origin`、远端分支 `byPods`、拉取到本地�
 
 现有通用动作“🚀逐层空白提交并Push（识别父Git）”会拉取、合并多个远端并推送当前 `HEAD`，不适用于本工程的两条独立历史。本工程使用上述原生推送窗口，或第二节的命令。
 
-## 四、后续提交与检查 <a href="#前言" style="font-size:17px; color:green;">🔼</a> <a href="#🔚" style="font-size:17px; color:green;">🔽</a>
+## <span id="jobs-toc-heading-5" data-jobs-toc="v2">四、后续提交与检查 <a href="#前言" style="font-size:17px; color:green;">🔼</a> <a href="#🔚" style="font-size:17px; color:green;">🔽</a></span><!-- jobs-toc:heading-end -->
 
 每次在 `byPods` 提交、合并或执行 amend / rebase 后，hook 会检查当前已提交文件树：内容变化时，创建以上一次快照为唯一父提交的新快照；内容相同时复用原快照，不新增快照提交。依赖图的字节未变化时，也不会产生新的 Git 文件对象。
 
@@ -117,7 +130,7 @@ GitHub 拉取窗口应显示 `origin`、远端分支 `byPods`、拉取到本地�
 
 所有远端的删除操作均放行，包括分支、标签及多引用删除。普通推送仍只允许正确快照进入 Gitee 的 `byPods`，拦截原历史、标签和其它目标分支。直接使用 `gitee.com` URL 推送也会检查；若同一批删除中混入校验失败的普通推送，整次操作都会停止。GitHub 的普通源分支与标签推送照常使用；快照分支直接推到其它远端会被拦截。不要使用 `--no-verify`、`--mirror`、`--all` 或把两条历史合并。
 
-## 五、验证与恢复 <a href="#前言" style="font-size:17px; color:green;">🔼</a> <a href="#🔚" style="font-size:17px; color:green;">🔽</a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">五、验证与恢复 <a href="#前言" style="font-size:17px; color:green;">🔼</a> <a href="#🔚" style="font-size:17px; color:green;">🔽</a></span><!-- jobs-toc:heading-end -->
 
 回归测试仅在系统临时目录创建源仓库和 bare 远端，不操作当前工程的提交或远端：
 

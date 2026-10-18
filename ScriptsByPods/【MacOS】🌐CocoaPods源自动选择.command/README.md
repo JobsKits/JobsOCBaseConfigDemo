@@ -2,17 +2,30 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、目录与挂载](#jobs-toc-heading-2)
+- [二、网络测试与选择规则](#jobs-toc-heading-3)
+- [三、运行方式与参数](#jobs-toc-heading-4)
+- [四、锁文件与失败边界](#jobs-toc-heading-5)
+- [五、日志、迁移与验证](#jobs-toc-heading-6)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 本模块在 [**CocoaPods**](https://cocoapods.org/) 解析依赖前测试当前网络，根据官方 CDN 与 [**GitHub**](https://github.com/) Specs 的实际访问结果选择公共规格源。<u>[**Swift**](https://www.swift.org/)</u>、[**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 新旧工程使用相同脚本包，统一放在各工程的 `ScriptsByPods` 中管理。
 
 测速只决定本次安装使用哪个公共 Specs 源。Podfile 会先同步调用独立的 [CocoaPods 网络适配包](<../【MacOS】🌐CocoaPods网络适配.command/README.md>)，实测当前 Git 链路与已有代理，让本包的探测和后续源码下载继承同一本次环境；仅已核验的 AMPopTip 4.12.0 发布请求可在 Git 网络失败后回退官方归档。其余下载保留 CocoaPods 原行为，选源成功仍不代表所有依赖下载成功。
 
-## 一、目录与挂载 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、目录与挂载 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 文件 | 职责 |
 | --- | --- |
@@ -24,7 +37,7 @@
 
 [**Xcode**](https://developer.apple.com/xcode) 的 `ScriptsByPods → 【MacOS】🌐CocoaPods源自动选择.command` 分组展示本包的脚本、适配器、说明与测试引用；这些文件没有 App target 成员关系，也不增加 Build Phase 或 Scheme 自动动作，实际调用入口是 Podfile。
 
-## 二、网络测试与选择规则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、网络测试与选择规则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 优先从 `Podfile.lock` 的公共 Specs 依赖中选择已锁定的 Pod 和版本，向两条线路请求同一份真实 podspec。没有可用锁定样本时使用模块内置的公开 podspec 样本。
 
@@ -44,7 +57,7 @@
 
 测试复用当前代理环境变量与 Git 配置，不修改全局代理或网络设置。curl 忽略 `.curlrc`，避免其中的请求方法、输出选项影响真实 GET 与耗时；只在 `.curlrc` 中配置的代理需通过本次进程环境传入。模块不安装工具、不克隆 Specs 仓库。`git ls-remote` 成功不代表完整 Specs 克隆一定成功，podspec 测试成功也不保证后续 Git 源码依赖或其它下载地址可达。
 
-## 三、运行方式与参数 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、运行方式与参数 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 在工程根目录正常安装，Podfile 自动执行测速：
 
@@ -84,7 +97,7 @@ JOBS_SPECS_SOURCE=cdn \
 
 `--no-repo-update` 不跳过选源测试，也不保证完全离线；缺少的 Specs 或源码仍可能需要网络。
 
-## 四、锁文件与失败边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-5" data-jobs-toc="v2">四、锁文件与失败边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 选源适配器仅在当前 CocoaPods 进程中，把 `Podfile.lock` 的公共 `SPEC REPOS` 别名映射到本次所选源，保留 Pod 版本、校验和与私有源。磁盘锁文件仍只由 CocoaPods 成功安装时正常写出；模块不主动删除 `Pods` 或 `Podfile.lock`，不自动执行 `pod update` 升级，也不自动换源启动第二次安装。
 
@@ -94,7 +107,7 @@ JOBS_SPECS_SOURCE=cdn \
 
 本机需要现有 zsh、curl、Git 及运行 CocoaPods 所用的 [**Ruby**](https://www.ruby-lang.org)。缺少工具只降低选源能力；模块不会自动安装或升级工具链。
 
-## 五、日志、迁移与验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">五、日志、迁移与验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 脚本标准输出只返回最终源 URL，测试耗时、失败原因与选择理由写入标准错误，并保存在系统临时目录中的工程独立日志：
 

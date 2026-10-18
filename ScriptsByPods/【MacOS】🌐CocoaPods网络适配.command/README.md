@@ -2,17 +2,30 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、目录与挂载](#jobs-toc-heading-2)
+- [二、已有链路与代理选择](#jobs-toc-heading-3)
+- [三、AMPopTip 官方归档回退](#jobs-toc-heading-4)
+- [四、运行方式与开关](#jobs-toc-heading-5)
+- [五、日志、迁移与验证](#jobs-toc-heading-6)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 本包处理 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 工程在受限网络中执行 [**CocoaPods**](https://cocoapods.org/) 安装时的源码下载链路。公共 Specs 选源与源码下载分别处理：CDN 能返回 podspec，并不代表 [**GitHub**](https://github.com/) 上该 Pod 的 Git 仓库可下载。
 
 实际安装仍执行 `pod install`，无需换日常命令；[Podfile](../../Podfile) 会先同步准备当前安装进程的网络环境，再执行原有公共源选择。脚本包缺失或初始化异常只告警，继续原 CocoaPods 流程。
 
-## 一、目录与挂载 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、目录与挂载 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 文件 | 职责 |
 | --- | --- |
@@ -23,7 +36,7 @@
 
 Podfile 在现有本地任务保护模块之后、公共 Specs 选择之前同步调用网络适配器，并在真实 `pod install` / `pod update` 时注册归档适配。`pod ipc` 等查询不发送该模块的网络请求、不注册归档回退。此顺序保证随后的源选择脚本和源码下载子进程能继承同一本次代理配置；它不是异步报告任务，也不放入 `post_install`。
 
-## 二、已有链路与代理选择 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、已有链路与代理选择 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 1、设置了 `JOBS_POD_PROXY_URL` 时，先验证这个明确的代理；未设置或不可用时，测试当前进程原有环境与 Git 配置。
 
@@ -35,7 +48,7 @@ Podfile 在现有本地任务保护模块之后、公共 Specs 选择之前同�
 
 Git 的临时代理配置限定 GitHub URL 范围；curl / CocoaPods 的环境代理作用于当前安装进程及其子进程，不能像 Git 配置一样按仓库精细限定。全部候选失败时，保留原环境并告警，继续归档回退及正常安装；这不表示网络已经恢复。
 
-## 三、AMPopTip 官方归档回退 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、AMPopTip 官方归档回退 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 当前回退白名单只覆盖日志中报错的 `AMPopTip 4.12.0`、官方仓库 `https://github.com/andreamazz/AMPopTip.git` 与已核验提交 `db495eea0747a3493ca8b3c737d037c0090973db`。先使用原 Git 下载；仅连接、超时或 TLS 等网络失败，才尝试 `codeload.github.com` 的官方归档链路。GitHub 主站 Git 不通而官方归档域名可达时，可继续获取同一已核验版本的源码。
 
@@ -45,7 +58,7 @@ Git 的临时代理配置限定 GitHub URL 范围；curl / CocoaPods 的环境�
 
 当前归档 API 验证基线为 CocoaPods `1.17.0` / `cocoapods-downloader 2.1`；下载器版本或内部签名不在已验证范围时告警并跳过归档适配，保留官方原行为。未配置可用代理、Git 与官方归档链路都受限时，仍需根据新电脑诊断结果处理实际网络。
 
-## 四、运行方式与开关 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-5" data-jobs-toc="v2">四、运行方式与开关 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 在工程根目录正常执行：
 
@@ -74,7 +87,7 @@ pod install
 
 普通安装无需设置上述变量。不要把带认证信息的代理 URL 写进 README、日志或 Git 仓库。
 
-## 五、日志、迁移与验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">五、日志、迁移与验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 自动挂载的网络摘要保留在 CocoaPods 终端输出；通过本工程手动安装入口运行时，也进入该入口自己的完整安装日志。独立 `.command` 的诊断摘要写入系统临时目录中的 `jobs-cocoapods-network.log`，确认后覆盖；不打印代理地址、认证信息或可能包含凭据的底层错误正文。
 

@@ -2,15 +2,26 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、运行方式](#jobs-toc-heading-2)
+- [二、实际检查与证据](#jobs-toc-heading-3)
+- [三、显式 baseline 与回归](#jobs-toc-heading-4)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 使用已安装 [**CocoaPods**](https://cocoapods.org/) 的 `Pod::Specification`、iOS consumer 和 `FileAccessor` 求值本地 podspec，展开真实源码、公开/私有头、资源和依赖。脚本不安装依赖，不编译、不重建索引，也不修改源码、podspec 或第三方；只写指定 JSON 报告。执行范围是可信的本工程本地 podspec，因为 podspec 本身是 Ruby 程序。
 
-## 一、运行方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、运行方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 在工程根目录执行：
 
@@ -24,7 +35,7 @@ ruby ScriptsByPods/jobs_pods_stability_audit.rb/Tests/run_regression.rb
 
 退出码 `0` 表示没有新的未接受失败；`1` 表示检查失败；`2` 表示依赖环境、baseline JSON 或报告 I/O 无法使用。每次构建阶段之前调用本脚本，非零即停止后续构建。
 
-## 二、实际检查与证据 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、实际检查与证据 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 |检查|行为与边界|
 |---|---|
@@ -38,7 +49,7 @@ ruby ScriptsByPods/jobs_pods_stability_audit.rb/Tests/run_regression.rb
 
 隐私理由范围按 2026-10-05 的 [**Apple required-reason API 官方说明**](https://developer.apple.com/documentation/bundleresources/describing-use-of-required-reason-api)记录在脚本 `REASONS`。SystemBootTime 候选仅包含 `systemUptime`、`mach_absolute_time`；`CACurrentMediaTime` 不据此判缺。清单格式和理由存在不等于用途合规证明；声明但词法未命中的类别在 JSON 保留，可人工判断是否来自宏、依赖或应删除。
 
-## 三、显式 baseline 与回归 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、显式 baseline 与回归 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 `baseline.json` 显式列出 109 个 Pod、108 个 helper 指纹和 47 对现有 Core 公开头引用本 Pod 私有 Support 的结构债务。保留这些精确引用对以延续集成工程兼容，不能据此宣称公开 API 的外部模块可见性已解决。新增引用对仍失败；后续处理这些边界后，删除相应 baseline，报告 `stale_baseline_ids` 辅助清理。
 

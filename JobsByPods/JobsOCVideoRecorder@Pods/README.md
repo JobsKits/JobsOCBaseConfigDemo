@@ -2,17 +2,41 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、适用场景](#jobs-toc-heading-2)
+- [二、目录结构](#jobs-toc-heading-3)
+- [三、核心能力](#jobs-toc-heading-4)
+- [四、使用方式](#jobs-toc-heading-5)
+- [五、滤镜接口](#jobs-toc-heading-6)
+- [六、依赖关系](#jobs-toc-heading-7)
+- [七、风险说明](#jobs-toc-heading-8)
+- [八、明暗主题契约](#jobs-toc-heading-9)
+- [九、架构脉络与关键设计](#jobs-toc-heading-10)
+  - [9.1、设计目的与职责划分](#jobs-toc-heading-11)
+  - [9.2、运行脉络](#jobs-toc-heading-12)
+  - [9.3、关键设计与边界](#jobs-toc-heading-13)
+  - [9.4、阅读与重建顺序](#jobs-toc-heading-14)
+- [十、运行合同与失败边界](#jobs-toc-heading-15)
+- [十一、目录计数与安装边界](#jobs-toc-heading-16)
+- [十二、本轮单元验证](#jobs-toc-heading-17)
+
+</details>
+<!-- jobs-toc:end -->
 
 > 中文架构入口：[架构脉络与关键设计](#jobs-architecture)。
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 > `JobsOCVideoRecorder` 是一个基于 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 的本地录制视频 Pod。它使用 `AVAssetWriter` 写入音视频，内置 CoreImage 滤镜处理器，并提供全屏摄像头预览、自绘顶部导航区、右上角镜头/滤镜切换、长按录制、录制秒数显示、可拖动画中画回放、摇一摇取消和自定义相册保存。
 
-## 一、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 需要在 App 内做短视频录制 Demo。
 - 需要右上角滤镜入口，支持原片、黑白、高反差、怀旧、鲜明、胶片、褪色等内置滤镜。
@@ -20,7 +44,7 @@
 - 需要保存到 App 自定义相册。
 - 需要把典型的视频采集、编码、预览和保存能力作为独立本地 Pod 复用。
 
-## 二、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```text
 JobsOCVideoRecorder@Pods
@@ -43,7 +67,7 @@ JobsOCVideoRecorder@Pods
 └── Tests/  # 独立回归，2 个文件
 ```
 
-## 三、核心能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、核心能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 模块 | 职责 |
 | --- | --- |
@@ -55,7 +79,7 @@ JobsOCVideoRecorder@Pods
 | `JobsOCVideoRecorderPreviewView` | 可拖动画中画回放、❌ 取消、✅ 保存 |
 | `JobsOCVideoRecorderAlbumSaver` | 创建或查找相册，并保存视频 |
 
-## 四、使用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-5" data-jobs-toc="v2">四、使用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
 #if __has_include(<JobsOCVideoRecorder/JobsOCVideoRecorder.h>)
@@ -73,7 +97,7 @@ JobsOCVideoRecorderVC *vc = [JobsOCVideoRecorderVC.alloc initWithConfig:config];
 [self.navigationController pushViewController:vc animated:YES];
 ```
 
-## 五、滤镜接口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">五、滤镜接口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
 @protocol JobsOCVideoRecorderFilterProtocol <NSObject>
@@ -90,14 +114,14 @@ JobsOCVideoRecorderVC *vc = [JobsOCVideoRecorderVC.alloc initWithConfig:config];
 - 后续滤镜、美颜、水印可以继续实现该协议，并赋值给 `config.filterProcessor`。
 - 当前全屏预览仍由 `AVCaptureVideoPreviewLayer` 承接，滤镜作用在录制产物；如果要实时预览也显示滤镜，需要把预览层改为 CoreImage 渲染视图。
 
-## 六、依赖关系 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-7" data-jobs-toc="v2">六、依赖关系 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - [**CocoaPods**](https://cocoapods.org/)：本地 Pod 管理。
 - [**Masonry**](https://github.com/SnapKit/Masonry)：页面控件布局。
 - `TKPermissionKit`：页面进入时请求相机、麦克风、相册权限。
 - `JobsByOCPods` / `JobsOCDSL` / `JobsMakes` / `JobsBlock` / `JobsOCDefs`：Jobs 自建 UI、DSL、Block 和宏基座。
 
-## 七、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-8" data-jobs-toc="v2">七、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `Info.plist` 必须配置相机、麦克风、相册权限文案。
 - 摄像头录制只支持 iPhone 真机。iOS 模拟器不会尝试桥接 Mac 摄像头，进入后会提示使用真机。
@@ -109,7 +133,7 @@ JobsOCVideoRecorderVC *vc = [JobsOCVideoRecorderVC.alloc initWithConfig:config];
 - 录制页和预览页按钮事件使用 `onClickBy` Block 链式入口，不在调用方新增 `byAddTarget`。
 - `pod install --no-repo-update` 后需要确认 `Development Pods > JobsOCVideoRecorder` 能展开真实 `Core` 目录。
 
-## 八、明暗主题契约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-9" data-jobs-toc="v2">八、明暗主题契约 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 页面、列表和弹框的普通承载面使用 `JobsSystemBackgroundColor` / `JobsSecondarySystemBackgroundColor`，正文、说明和占位文字使用 `JobsLabelColor` / `JobsSecondaryLabelColor` / `JobsPlaceholderTextColor`，确保白天浅底深字、黑夜深底浅字。
 - 品牌色、媒体画布、二维码、相机、视频、手写和马赛克内容保留业务色；颜色写入 `CGColor`、`CALayer`、CoreText 或自绘上下文时，需要在主题通知或 Trait 变化后重新解析和绘制。
@@ -117,25 +141,25 @@ JobsOCVideoRecorderVC *vc = [JobsOCVideoRecorderVC.alloc initWithConfig:config];
 
 <a id="jobs-architecture"></a>
 
-## 九、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-10" data-jobs-toc="v2">九、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 本节用于用中文快速理解组件，并为按框架重建提供入口；关注职责、运行关系和关键边界，不要求逐行复刻。
 
-### 9.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-11" data-jobs-toc="v2">9.1、设计目的与职责划分 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 将视频录制拆为 CaptureManager、AssetWriter、滤镜处理、配置和 AlbumSaver。采集层产生音视频样本，处理层改变视频图像，写入器负责文件完成，相册保存作为独立异步阶段。
 
-### 9.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-12" data-jobs-toc="v2">9.2、运行脉络 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 准备权限与采集配置 → 预览/采集音视频 → 可选滤镜处理 → 写入媒体文件 → 完成文件后按需保存相册。
 
-### 9.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-13" data-jobs-toc="v2">9.3、关键设计与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 预览已经显示不代表文件已经写入完成，writer finish 与相册 save 需要分别处理结果。
 - 视频滤镜与音频采集各有时间序列，重建时不能丢失音视频同步。
 - 取消、权限拒绝、写入失败和相册失败不能都报告为录制成功。
 
-### 9.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-14" data-jobs-toc="v2">9.4、阅读与重建顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 先看 Config/CaptureManager，再看样本到 AssetWriter 的路径与滤镜接口，最后看 AlbumSaver；UI 快门只是这些动作的入口。
 
@@ -149,13 +173,13 @@ JobsOCVideoRecorderVC *vc = [JobsOCVideoRecorderVC.alloc initWithConfig:config];
 
 依赖与编译入口：[JobsOCVideoRecorder.podspec](<./JobsOCVideoRecorder.podspec>)。其中根级依赖声明包括 `Masonry`、`TKPermissionKit`、`JobsByOCPods`、`JobsOCDSL`、`JobsMakes`、`JobsBlock`、`JobsOCDefs`。源码范围、资源及可选 subspec 以这里的声明为准；辅助脚本动态补充的依赖不在上述摘录中展开。
 
-## 十、运行合同与失败边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-15" data-jobs-toc="v2">十、运行合同与失败边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 录制状态与 CMFormatDescription retain/release 在同一同步域；开始、停止、丢弃和采样不能同时更换 writer 或释放 format。finishing 期间不能开始新录制。
 - 完成回调核对创建它的 writer；取消或切换后旧完成不能修改新会话。实际录制时长使用单调时钟，权限完成后只有页面在窗口且 App 活跃才启动采集。
 - 页面退出、进入后台会停止采集并丢弃在途录制；dealloc 直接释放 CF 资源。需真机完成快速开始/停止、后台、权限晚到和完成/取消竞争回归。
 
-## 十一、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-16" data-jobs-toc="v2">十一、目录计数与安装边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 计数递归扫描当前目录内的普通文件，排除 `.DS_Store` / `._*`；源码与头文件计入 `.h`、`.m`、`.mm`、`.c`、`.cc`、`.cpp`、`.hpp`、`.swift`。资源目录中的目录、资源编译结果和文件大小不计入文件数，文件存在不代表必然打包。
 
@@ -180,7 +204,7 @@ JobsOCVideoRecorderVC *vc = [JobsOCVideoRecorderVC.alloc initWithConfig:config];
 
 该文件记录当前 Pod 使用的 API 类别；宿主仍需按自身实际调用和数据行为维护自己的声明。最终产物是否包含该命名 bundle，随独立 Pod 与主工程资源验收一起核对。
 
-## 十二、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-17" data-jobs-toc="v2">十二、本轮单元验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 当前结果：**Debug / Release 单 Pod 编译、Debug Stability 回归已完成；整体验收记录见根 [JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)**。生产源码、测试源码、资源与工程配置的指纹一致且命令真实退出成功，才可复用对应验证记录。
 

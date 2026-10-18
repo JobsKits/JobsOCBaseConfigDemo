@@ -2,15 +2,27 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、运行方式](#jobs-toc-heading-2)
+- [二、定向复验](#jobs-toc-heading-3)
+- [三、验收结果与 README 同步](#jobs-toc-heading-4)
+- [四、验证边界](#jobs-toc-heading-5)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 按真实 [**Xcode**](https://developer.apple.com/xcode) scheme 验证 `JobsByPods` 中的自建模块，再执行 [**XCTest**](https://developer.apple.com/documentation/xctest) 和主工程构建。排除 `ManualBy*`，不修改供应商源码；日志留在 `work/JobsPodsStability`，不会被工程的 `build/` 打包清理。
 
-## 一、运行方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、运行方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 在仓库根目录先用现行 [**CocoaPods**](https://cocoapods.org/) 安装，再指定可用模拟器 UUID：
 
@@ -42,7 +54,7 @@ JobsBaseUI 的真实 Keychain 测试由独立 Simulator 宿主使用 ad-hoc `-` 
 
 Xcode 可将 Simulator 权限放进实际宿主 Mach-O 的 `__TEXT,__entitlements`，同时代码签名内的 entitlement 为空。验收先验证代码签名，再由 [二进制权限审计](./jobs_stability_host_entitlements.rb) 读取每个实际架构的已编译段，核对宿主身份和权限，不以源 plist 或 `.xcent` 存在替代产物证明。[回归](./Tests/host_entitlements_regression.rb) 无参数执行 9 个独立真实 Mach-O 场景，适用于尚未构建测试宿主的干净环境；显式传入当前宿主 executable 后追加第 10 个真实产物检查，指定路径缺失即失败。GitHub Actions 前置执行独立场景，Pod 测试成功后再传入当次 `JobsOCStability/Products/Debug-iphonesimulator` 内的 AppHost；不会读取本地历史 `work/JobsPodsStability/full` 产物。
 
-## 二、定向复验 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、定向复验 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```shell
 ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
@@ -79,7 +91,7 @@ ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/command_timeout_regressio
 
 [源码枚举](./jobs_stability_sources.rb)由 runner 与 README 回填工具共用。只排除 `JobsAppIconRibbon.config` 指定的原始 AppIcon 同目录下、当前输出前缀对应的 Debug / Release 派生 `appiconset`，避免 macOS / SDK 图像渲染差异触发源码漂移误报。原始 AppIcon、配置、生成器以及其它同名资源仍参与指纹；缺少有效配置时不排除任何图标。[指纹回归](./Tests/source_fingerprint_regression.rb)覆盖派生产物改写 / 增删与真实输入变更，GitHub Actions 在逐 Pod 构建前执行这些配置回归。
 
-## 三、验收结果与 README 同步 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、验收结果与 README 同步 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 [update_readme_results.rb](./update_readme_results.rb) 只领取当前源码指纹的完整结果，要求 109 个 Pod 两种配置、实际 Stability / macOS 回归和主 App 两种配置全部成功；缺日志、缺结果、旧指纹、零测试或后来的失败记录都会拒绝回填。默认预览，`--apply` 只替换各 README 独立验证章节的结果句，保留模块合同。它不执行安装或构建。
 
@@ -97,7 +109,7 @@ ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/readme_results_regression
 
 README 不在编译源码指纹内；主 App 文档浏览器保存构建时的 Markdown 快照。回填后若需随包文档同步，应再真实构建 App，并保留新的退出码，不能仅领取之前的 App 缓存记录。
 
-## 四、验证边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-5" data-jobs-toc="v2">四、验证边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 模拟器构建覆盖实际编译和链接。蓝牙外设 ACK、录音权限/硬件、相机、Keychain 签名权限和真机前后台体验仍按各模块 README 做集成验收；模拟器通过不能替代硬件结果。测试宿主由 Podfile 挂载 Jobs 自有 Scene delegate，避免新 SDK 对 Scene 生命周期的启动要求影响测试。
 

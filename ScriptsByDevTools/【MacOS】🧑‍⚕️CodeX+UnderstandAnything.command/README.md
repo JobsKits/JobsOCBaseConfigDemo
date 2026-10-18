@@ -2,19 +2,67 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、目录内容](#jobs-toc-heading-2)
+  - [1.1、文件结构](#jobs-toc-heading-3)
+  - [1.2、脚本不会做什么](#jobs-toc-heading-4)
+- [二、适用场景](#jobs-toc-heading-5)
+  - [2.1、适合使用](#jobs-toc-heading-6)
+  - [2.2、不适合使用](#jobs-toc-heading-7)
+- [三、执行前检查](#jobs-toc-heading-8)
+  - [3.1、必需条件](#jobs-toc-heading-9)
+  - [3.2、推荐检查](#jobs-toc-heading-10)
+- [四、运行方式](#jobs-toc-heading-11)
+  - [4.1、Finder 双击](#jobs-toc-heading-12)
+  - [4.2、Terminal 运行](#jobs-toc-heading-13)
+  - [4.3、工程定位规则](#jobs-toc-heading-14)
+- [五、交互规则](#jobs-toc-heading-15)
+  - [5.1、内置自述](#jobs-toc-heading-16)
+  - [5.2、安装与升级](#jobs-toc-heading-17)
+  - [5.3、启动 Codex](#jobs-toc-heading-18)
+- [六、完整流程](#jobs-toc-heading-19)
+- [七、Understand Anything 命令地图](#jobs-toc-heading-20)
+  - [7.1、生成与查看图谱](#jobs-toc-heading-21)
+  - [7.2、围绕图谱继续工作](#jobs-toc-heading-22)
+  - [7.3、大型工程建议](#jobs-toc-heading-23)
+- [八、安装位置与加载关系](#jobs-toc-heading-24)
+  - [8.1、仓库与 Skill 入口](#jobs-toc-heading-25)
+  - [8.2、为什么升级后要重启 Codex](#jobs-toc-heading-26)
+- [九、日志文件](#jobs-toc-heading-27)
+  - [9.1、位置与内容](#jobs-toc-heading-28)
+- [十、风险说明](#jobs-toc-heading-29)
+  - [10.1、AI 额度与源码边界](#jobs-toc-heading-30)
+  - [10.2、安装供应链](#jobs-toc-heading-31)
+  - [10.3、自动升级](#jobs-toc-heading-32)
+- [十一、常见问题](#jobs-toc-heading-33)
+  - [11.1、为什么找不到工程](#jobs-toc-heading-34)
+  - [11.2、为什么安装后没有 /understand](#jobs-toc-heading-35)
+  - [11.3、为什么 Dashboard 没打开](#jobs-toc-heading-36)
+  - [11.4、为什么图谱和源码不一致](#jobs-toc-heading-37)
+- [十二、验证声明](#jobs-toc-heading-38)
+  - [12.1、可安全执行的验证](#jobs-toc-heading-39)
+  - [12.2、未执行声明](#jobs-toc-heading-40)
+- [十三、官方资料](#jobs-toc-heading-41)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 > 本目录的 `.command` 用于体检 [**Codex**](https://openai.com/codex) 与 [**Understand Anything**](https://github.com/Lum1104/Understand-Anything)，定位一个 [**Xcode**](https://developer.apple.com/xcode/) / iOS 工程，并给出生成中文代码知识图谱的命令。脚本不会自动分析工程，也不会挂接 `pod install`；安装、升级和启动 Codex 都需要用户单独确认。
 
 Understand Anything 会把源码关系整理为持久化知识图谱，适合查看模块、调用关系、变更影响、领域流程和新成员入门。它不是编译器、静态检查器或代码质量评分器，图谱结论仍需回到源码和真实构建验证。
 
-## 一、目录内容 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、目录内容 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 1.1、文件结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-3" data-jobs-toc="v2">1.1、文件结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```text
 ./
@@ -25,7 +73,7 @@ Understand Anything 会把源码关系整理为持久化知识图谱，适合查
 - `.command`：可双击运行的 macOS zsh 入口。
 - `README.md`：运行前说明、交互、风险和排错手册。
 
-### 1.2、脚本不会做什么 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-4" data-jobs-toc="v2">1.2、脚本不会做什么 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 不自动执行 `/understand`，因此不会在用户不知情时消耗 AI 额度。
 - 不自动安装 Codex CLI，只在缺失时给出 OpenAI 官方文档入口。
@@ -33,9 +81,9 @@ Understand Anything 会把源码关系整理为持久化知识图谱，适合查
 - 不递归扫描整台电脑，只在脚本向上有限层级寻找工程，或使用用户明确输入的路径。
 - 不自动提交、推送或上传项目源码。
 
-## 二、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-5" data-jobs-toc="v2">二、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 2.1、适合使用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-6" data-jobs-toc="v2">2.1、适合使用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 第一次接手大型 iOS 工程，需要快速建立模块地图。
 - 代码仓库已经发生变化，需要用 `/understand-diff` 看影响面。
@@ -43,16 +91,16 @@ Understand Anything 会把源码关系整理为持久化知识图谱，适合查
 - 想提取业务领域关系或生成新成员 Onboarding 文档。
 - 本机 Understand Anything 已安装，需要可选升级和健康检查。
 
-### 2.2、不适合使用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-7" data-jobs-toc="v2">2.2、不适合使用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 只想搜索一个确定的符号；此时 `rg`、Xcode Find 或 CodeGraph 更直接。
 - 项目包含无权分析的第三方、客户或敏感源码。
 - 当前网络、账号或 AI 额度不允许生成图谱。
 - 想把图谱输出当作安全审计、编译结果或事实证明。
 
-## 三、执行前检查 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-8" data-jobs-toc="v2">三、执行前检查 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 3.1、必需条件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-9" data-jobs-toc="v2">3.1、必需条件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 条件 | 说明 |
 | --- | --- |
@@ -62,7 +110,7 @@ Understand Anything 会把源码关系整理为持久化知识图谱，适合查
 | 网络 | 首次安装或升级 Understand Anything 时需要 |
 | 授权 | 只分析 Jobs 自有、开源许可或明确授权源码 |
 
-### 3.2、推荐检查 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-10" data-jobs-toc="v2">3.2、推荐检查 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```shell
 codex --version
@@ -72,13 +120,13 @@ curl --version
 
 如果只使用现有安装且不升级，脚本不会主动下载内容。
 
-## 四、运行方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-11" data-jobs-toc="v2">四、运行方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 4.1、Finder 双击 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-12" data-jobs-toc="v2">4.1、Finder 双击 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 双击当前目录中的 `.command`。脚本会先显示内置自述；只有按回车确认后，才初始化日志并进入工程定位。
 
-### 4.2、Terminal 运行 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-13" data-jobs-toc="v2">4.2、Terminal 运行 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```shell
 ./当前脚本.command
@@ -92,7 +140,7 @@ curl --version
 
 `当前脚本.command` 只是文档占位名，实际执行时使用本目录真实文件名。
 
-### 4.3、工程定位规则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-14" data-jobs-toc="v2">4.3、工程定位规则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 脚本按以下顺序处理：
 
@@ -108,14 +156,14 @@ curl --version
 
 这样可以覆盖脚本放在 `ScriptsByDevTools/脚本目录/` 时，项目根目录位于上面两层或三层的常见结构。
 
-## 五、交互规则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-15" data-jobs-toc="v2">五、交互规则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 5.1、内置自述 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-16" data-jobs-toc="v2">5.1、内置自述 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 按回车：确认理解用途与影响，继续体检。
 - 按 `Ctrl+C`：立即取消，不创建日志、不联网、不安装。
 
-### 5.2、安装与升级 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-17" data-jobs-toc="v2">5.2、安装与升级 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 直接回车：跳过。
 - 输入任意字符后回车：执行。
@@ -126,14 +174,14 @@ curl --version
 bash ./install.sh --update
 ```
 
-### 5.3、启动 Codex <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-18" data-jobs-toc="v2">5.3、启动 Codex <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 直接回车：不启动，安全结束。
 - 输入任意字符后回车：进入已确认工程根目录并执行 `codex`。
 
 真正生成图谱仍需进入 Codex 后主动输入 `/understand`。
 
-## 六、完整流程 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-19" data-jobs-toc="v2">六、完整流程 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```mermaid
 flowchart TD
@@ -154,9 +202,9 @@ flowchart TD
     K -->|是| M[进入工程根目录启动 Codex]
 ```
 
-## 七、Understand Anything 命令地图 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-20" data-jobs-toc="v2">七、Understand Anything 命令地图 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 7.1、生成与查看图谱 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-21" data-jobs-toc="v2">7.1、生成与查看图谱 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```text
 /understand --language zh
@@ -173,7 +221,7 @@ flowchart TD
 .understand-anything/knowledge-graph.json
 ```
 
-### 7.2、围绕图谱继续工作 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-22" data-jobs-toc="v2">7.2、围绕图谱继续工作 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 命令 | 用途 |
 | --- | --- |
@@ -186,15 +234,15 @@ flowchart TD
 
 命令能力以当前安装版本的官方 Skill 文档为准；升级后若命令发生变化，应先重启 Codex 再检查。
 
-### 7.3、大型工程建议 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-23" data-jobs-toc="v2">7.3、大型工程建议 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 首次只指定 Jobs 自有源码目录，排除 `Pods`、生成代码和无权分析内容。
 - 先用 `/understand` 建立全景，再用 `/understand-explain` 深挖热点，不要反复全量生成。
 - 图谱是辅助索引；涉及构建、运行和安全结论时，必须回到真实源码、测试与工具输出。
 
-## 八、安装位置与加载关系 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-24" data-jobs-toc="v2">八、安装位置与加载关系 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 8.1、仓库与 Skill 入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-25" data-jobs-toc="v2">8.1、仓库与 Skill 入口 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 默认上游仓库位置：
 
@@ -210,13 +258,13 @@ Codex 用户级 Skill 入口位于：
 
 安装器通常通过符号链接把上游 Skill 暴露给 Codex。脚本会列出实际入口及其链接目标，便于确认当前加载来源。
 
-### 8.2、为什么升级后要重启 Codex <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-26" data-jobs-toc="v2">8.2、为什么升级后要重启 Codex <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 Codex 在会话启动时发现 Skills。安装或升级发生在当前会话之后时，旧会话未必重新加载 Skill 描述，因此应退出并从工程根目录启动新会话。
 
-## 九、日志文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-27" data-jobs-toc="v2">九、日志文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 9.1、位置与内容 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-28" data-jobs-toc="v2">9.1、位置与内容 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 日志位于系统临时目录，文件名为：
 
@@ -234,27 +282,27 @@ Codex 在会话启动时发现 Skills。安装或升级发生在当前会话之�
 
 内置自述确认前不创建或清空日志。
 
-## 十、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-29" data-jobs-toc="v2">十、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 10.1、AI 额度与源码边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-30" data-jobs-toc="v2">10.1、AI 额度与源码边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `/understand` 会读取目标源码并消耗 Codex/AI 额度。
 - 不要分析第三方、供应商、客户或所有权不明确的代码。
 - 图谱目录可能包含架构和业务关系，不应当作无敏感信息随意上传。
 
-### 10.2、安装供应链 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-31" data-jobs-toc="v2">10.2、安装供应链 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 安装来源固定为 Understand Anything 官方 [**GitHub**](https://github.com) 仓库的 HTTPS 地址。
 - 脚本记录下载内容哈希，但未内置官方发布签名或固定哈希；哈希记录用于审计，不等于上游身份的密码学证明。
 - 高安全环境应先人工审阅下载的 `install.sh` 和固定提交，再执行安装。
 
-### 10.3、自动升级 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-32" data-jobs-toc="v2">10.3、自动升级 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 脚本不自动升级。用户每次都可以直接回车跳过；执行升级前应确保上游仓库没有需要保留的本地修改。
 
-## 十一、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-33" data-jobs-toc="v2">十一、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 11.1、为什么找不到工程 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-34" data-jobs-toc="v2">11.1、为什么找不到工程 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 根目录第一层没有 `.xcworkspace` 或 `.xcodeproj`。
 - 传入的是源码子目录，不是工程根目录。
@@ -263,7 +311,7 @@ Codex 在会话启动时发现 Skills。安装或升级发生在当前会话之�
 
 可直接把正确工程包拖进终端。
 
-### 11.2、为什么安装后没有 `/understand` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-35" data-jobs-toc="v2">11.2、为什么安装后没有 `/understand` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 1、退出当前 Codex 会话。
 
@@ -273,22 +321,22 @@ Codex 在会话启动时发现 Skills。安装或升级发生在当前会话之�
 
 4、仍不可见时重新运行脚本，查看日志中的 Skill 入口验证。
 
-### 11.3、为什么 Dashboard 没打开 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-36" data-jobs-toc="v2">11.3、为什么 Dashboard 没打开 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 先确认 `/understand` 已成功生成图谱。
 - 检查 `.understand-anything/knowledge-graph.json` 是否存在。
 - 查看 Codex 输出的端口、依赖或浏览器错误。
 - 不要把旧仓库的 Dashboard 地址硬编码到当前项目。
 
-### 11.4、为什么图谱和源码不一致 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-37" data-jobs-toc="v2">11.4、为什么图谱和源码不一致 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 图谱可能基于旧提交或增量扫描范围不完整。
 - 生成代码、Pods 或动态派发关系可能被刻意排除或无法完全推断。
 - 更新图谱后仍要用源码搜索、CodeGraph、构建和运行验证关键结论。
 
-## 十二、验证声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-38" data-jobs-toc="v2">十二、验证声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 12.1、可安全执行的验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-39" data-jobs-toc="v2">12.1、可安全执行的验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 维护脚本后至少执行：
 
@@ -298,11 +346,11 @@ zsh -n ./当前脚本.command
 
 语法检查不会安装、升级、启动 Codex 或生成图谱。完整交互验证应在测试工程中人工执行，并分别覆盖：自动命中、手动拖入、跳过安装、跳过升级和不启动 Codex。
 
-### 12.2、未执行声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-40" data-jobs-toc="v2">12.2、未执行声明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 仅进行 `zsh -n` 时，应明确记录：没有执行安装器、没有升级上游仓库、没有生成知识图谱、没有消耗分析额度。
 
-## 十三、官方资料 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-41" data-jobs-toc="v2">十三、官方资料 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - [**Understand Anything 仓库**](https://github.com/Lum1104/Understand-Anything)
 - [**OpenAI Codex CLI**](https://developers.openai.com/codex/cli)
