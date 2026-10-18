@@ -2,24 +2,39 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、目录文件](#jobs-toc-heading-2)
+- [二、两阶段执行策略](#jobs-toc-heading-3)
+  - [2.1、依赖解析前：--preflight](#jobs-toc-heading-4)
+  - [2.2、集成完成后：--post-integrate](#jobs-toc-heading-5)
+- [三、安全边界](#jobs-toc-heading-6)
+- [四、独立运行](#jobs-toc-heading-7)
+- [五、日志](#jobs-toc-heading-8)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 本目录为 [**CocoaPods**](https://cocoapods.org/) 提供两阶段本地脚本入口，目标是让 Jobs 自定义脚本不被依赖下载、CDN 超时或网络失败阻塞，同时在成功集成后安全检查 Xcode PIF 构建会话。
 
 该机制不会探测网络、不会伪造成功、不会提前结束 `pod install`。CocoaPods 仍按原始语义完成依赖解析、下载与集成，并原样返回自己的成功或失败结果。
 
-## 一、目录文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、目录文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `./jobs_pod_install_offline_guard.rb`：由 `Podfile` 最前面加载，异步启动不依赖网络结果的本地前置任务。
 - `./【MacOS】📦Pod Install离线保护.command`：统一编排前置任务和 `post_integrate` 收尾任务。
 
-## 二、两阶段执行策略 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、两阶段执行策略 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 2.1、依赖解析前：`--preflight` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-4" data-jobs-toc="v2">2.1、依赖解析前：`--preflight` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 `Podfile` 被 `pod install` 加载后立即派生独立进程，然后 CocoaPods 继续自己的主流程：
 
@@ -28,7 +43,7 @@
 3. 强制向这些脚本传入离线标记，禁止安装 Homebrew、Graphviz、Node.js、npm 或 CodeGraph。
 4. 前置任务的耗时、失败或退出状态都不会阻塞、覆盖或短路 CocoaPods。
 
-### 2.2、集成完成后：`--post-integrate` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-5" data-jobs-toc="v2">2.2、集成完成后：`--post-integrate` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 只有 CocoaPods 已经完成工程集成并进入 `post_integrate`，才同步执行 Xcode PIF 构建会话检查：
 
@@ -37,7 +52,7 @@
 3. 无活动构建时终止空闲的 `SWBBuildService` / `XCBBuildService`，再用工作空间只读列表命令重建会话。
 4. 子脚本失败只记录警告，不篡改 CocoaPods 已经得出的安装结果。
 
-## 三、安全边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">三、安全边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 不删除或覆盖 `Pods`、`Podfile.lock`、`.xcworkspace`、`DerivedData`。
 - 不调用 `Kernel.exit(0)` 跳过 CocoaPods，也不使用空依赖 Podfile 重新集成工程。
@@ -45,7 +60,7 @@
 - 前置任务只使用本机已有工具；缺少工具时跳过对应增强。
 - PIF 脚本遵守活动构建保护、当前用户进程边界和跨工程互斥锁。
 
-## 四、独立运行 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-7" data-jobs-toc="v2">四、独立运行 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 只读检查所有脚本是否可用：
 
@@ -73,7 +88,7 @@
 - `--check-only`：只读检查，不生成报告、不启动 CodeGraph。
 - `--project-root 路径`：指定包含 `Podfile` 的工程根目录。
 
-## 五、日志 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-8" data-jobs-toc="v2">五、日志 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 日志位于系统临时目录，并使用工程路径摘要隔离三个 iOS 工程：
 

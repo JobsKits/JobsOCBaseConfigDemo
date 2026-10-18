@@ -1,8 +1,17 @@
 # <span id="前言">Fastlane</span>
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
 
-## 简介 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+- [简介](#jobs-toc-heading-1)
+- [快速入门](#jobs-toc-heading-2)
+
+</details>
+<!-- jobs-toc:end -->
+
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">简介 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * Fastlane 是一个广泛使用的自动化工具，用于简化 iOS 和 Android 应用程序的构建和发布流程。Fastlane 可以为你的 CI/CD 流程提供极大的帮助。
 
@@ -33,7 +42,7 @@
   * More information about _fastlane_ can be found on [fastlane.tools](https://fastlane.tools).
   * The documentation of _fastlane_ can be found on [docs.fastlane.tools](https://docs.fastlane.tools).
 
-## 快速入门 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">快速入门 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
   * Make sure you have the latest version of the Xcode command line tools installed
     

@@ -2,22 +2,38 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、能力边界](#jobs-toc-heading-2)
+- [二、架构](#jobs-toc-heading-3)
+- [三、DSL 快速开始](#jobs-toc-heading-4)
+- [四、线程与生命周期](#jobs-toc-heading-5)
+- [五、权限配置](#jobs-toc-heading-6)
+- [六、扩展设备协议](#jobs-toc-heading-7)
+- [七、Demo 覆盖](#jobs-toc-heading-8)
+- [JobsBluetooth 运行合同与失败边界](#jobs-toc-heading-9)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 > `JobsBluetooth` 是面向 [**iOS**](https://developer.apple.com/ios/) BLE 中央设备场景的通用基础设施。当前目录遵循 OC 老工程的主工程集成习惯，不使用本地 Pod；源码、聚合头和文档直接进入 App target。
 
-## 一、能力边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、能力边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 支持扫描、过滤、连接、断开、Service / Characteristic 发现、读取、写入和通知。
 - 支持设备 Profile、协议 Encoder / Decoder、命令模型、超时与重试参数预留。
 - 支持 Mock Transport；模拟器和无真机环境也能运行完整 Demo。
 - 本模块面向 BLE，不承诺任意经典蓝牙、蓝牙音频或未经 MFi 授权的 ExternalAccessory 能力。
 
-## 二、架构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、架构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```mermaid
 flowchart TD
@@ -28,7 +44,7 @@ flowchart TD
     D --> F["Mock Transport"]
 ```
 
-## 三、DSL 快速开始 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、DSL 快速开始 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
 JobsBluetoothProfile *profile = JobsBluetoothProfile.new
@@ -48,31 +64,31 @@ JobsBluetoothManager *manager = [JobsBluetoothManager.alloc initWithProfile:prof
 [manager startScan];
 ```
 
-## 四、线程与生命周期 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-5" data-jobs-toc="v2">四、线程与生命周期 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - [**CoreBluetooth**](https://developer.apple.com/documentation/corebluetooth) 回调由 Manager 收口，业务层不直接持有 `CBPeripheral`。
 - 业务回调默认投递到主队列，也可以通过 `byCallbackQueue` 指定。
 - 主动断开与异常断开拥有不同入口；自动重连策略应由 Profile 决定。
 - 配置 DSL 返回当前主对象；扫描、连接、发送等终止动作不伪造链式返回值。
 
-## 五、权限配置 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">五、权限配置 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - App 的 `Info.plist` 至少配置 `NSBluetoothAlwaysUsageDescription`。
 - 兼容旧系统时同时配置 `NSBluetoothPeripheralUsageDescription`。
 - 需要后台 BLE 时，由宿主 App 在 Background Modes 中启用 `bluetooth-central`，Pod 不替宿主偷偷开启。
 
-## 六、扩展设备协议 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-7" data-jobs-toc="v2">六、扩展设备协议 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - UUID 和连接策略写入 `JobsBluetoothProfile`。
 - 业务对象转字节写入 Encoder。
 - Notify 字节转业务对象写入 Decoder。
 - CRC、分包、加密和应答匹配作为独立策略注入，不写进 Manager。
 
-## 七、Demo 覆盖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-8" data-jobs-toc="v2">七、Demo 覆盖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 Demo 覆盖权限、扫描、过滤、RSSI、连接、多设备、服务发现、Read、Write、Notify、MTU、分包、命令队列、超时、重试、重连、前后台、Profile、Codec、校验、握手、Mock、录制回放、诊断、DSL、OTA 扩展和未知协议占位。
 
-## JobsBluetooth 运行合同与失败边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-9" data-jobs-toc="v2">JobsBluetooth 运行合同与失败边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 公共扫描/连接/读写入口收口到主队列；scan 与 connect timeout 按当前 generation 生效。服务发现等待全部所需特征和通知订阅完成后才进入 Ready；断开、失败、换外设清理特征并取消在途命令。
 - 命令快照按优先级进入有界队列（最多 128 等待项），单条在途；按最大 GATT 长度分包，withResponse 等待 ACK，withoutResponse 尊重发送流控。没有 responseMatcher 的完成仅表示写入被接受；有 matcher 则等待匹配业务响应。

@@ -2,11 +2,77 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、它们到底是什么？](#jobs-toc-heading-2)
+  - [1.1、JobsOCBaseConfigDemoTests](#jobs-toc-heading-3)
+  - [1.2、JobsOCBaseConfigDemoUITests](#jobs-toc-heading-4)
+  - [1.3、两个 Target 和 App Target 的关系](#jobs-toc-heading-5)
+- [二、新工程当前补齐了什么？](#jobs-toc-heading-6)
+  - [2.1、目录结构](#jobs-toc-heading-7)
+  - [2.2、Xcode Target](#jobs-toc-heading-8)
+  - [2.3、当前自带的入门用例](#jobs-toc-heading-9)
+- [三、怎么运行？](#jobs-toc-heading-10)
+  - [3.1、先打开 Workspace](#jobs-toc-heading-11)
+  - [3.2、在 Xcode 里跑全部测试](#jobs-toc-heading-12)
+  - [3.3、只跑某一个测试文件](#jobs-toc-heading-13)
+  - [3.4、只跑 Unit Test Target](#jobs-toc-heading-14)
+  - [3.5、只跑 UI Test Target](#jobs-toc-heading-15)
+- [四、怎么写单元测试？](#jobs-toc-heading-16)
+  - [4.1、单元测试基本结构](#jobs-toc-heading-17)
+  - [4.2、常用断言](#jobs-toc-heading-18)
+  - [4.3、测试 Model](#jobs-toc-heading-19)
+  - [4.4、测试工具方法](#jobs-toc-heading-20)
+  - [4.5、测试异步回调](#jobs-toc-heading-21)
+  - [4.6、测试性能](#jobs-toc-heading-22)
+- [五、怎么写 UI 测试？](#jobs-toc-heading-23)
+  - [5.1、UI 测试基本结构](#jobs-toc-heading-24)
+  - [5.2、给控件加 accessibilityIdentifier](#jobs-toc-heading-25)
+  - [5.3、点击按钮](#jobs-toc-heading-26)
+  - [5.4、输入文字](#jobs-toc-heading-27)
+  - [5.5、等待页面出现](#jobs-toc-heading-28)
+  - [5.6、截图留档](#jobs-toc-heading-29)
+- [六、怎么在命令行跑？](#jobs-toc-heading-30)
+  - [6.1、列出 Scheme](#jobs-toc-heading-31)
+  - [6.2、跑全部测试](#jobs-toc-heading-32)
+  - [6.3、只跑单元测试](#jobs-toc-heading-33)
+  - [6.4、只跑 UI 测试](#jobs-toc-heading-34)
+  - [6.5、只跑一个测试方法](#jobs-toc-heading-35)
+- [七、怎么把现有代码变成可测试？](#jobs-toc-heading-36)
+  - [7.1、先从纯逻辑开始](#jobs-toc-heading-37)
+  - [7.2、让方法更容易测](#jobs-toc-heading-38)
+  - [7.3、测试本地 Pod 代码](#jobs-toc-heading-39)
+- [八、常见问题](#jobs-toc-heading-40)
+  - [8.1、为什么我按 Command + U 没反应？](#jobs-toc-heading-41)
+  - [8.2、为什么测试文件 import 不到业务类？](#jobs-toc-heading-42)
+  - [8.3、为什么 UI 测试找不到按钮？](#jobs-toc-heading-43)
+  - [8.4、为什么 UI 测试有时候成功、有时候失败？](#jobs-toc-heading-44)
+  - [8.5、什么时候应该删测试？](#jobs-toc-heading-45)
+- [九、建议使用路线](#jobs-toc-heading-46)
+  - [9.1、第一阶段：会跑](#jobs-toc-heading-47)
+  - [9.2、第二阶段：会写](#jobs-toc-heading-48)
+  - [9.3、第三阶段：会测业务](#jobs-toc-heading-49)
+  - [9.4、第四阶段：接入日常开发](#jobs-toc-heading-50)
+- [十、最小可复制模板](#jobs-toc-heading-51)
+  - [10.1、单元测试模板](#jobs-toc-heading-52)
+  - [10.2、UI 测试模板](#jobs-toc-heading-53)
+  - [10.3、异步测试模板](#jobs-toc-heading-54)
+- [十一、风险说明](#jobs-toc-heading-55)
+  - [11.1、测试代码也会参与编译](#jobs-toc-heading-56)
+  - [11.2、UI 测试会启动 App](#jobs-toc-heading-57)
+  - [11.3、命令行测试可能很慢](#jobs-toc-heading-58)
+  - [11.4、本次未主动跑完整编译](#jobs-toc-heading-59)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 哥，这份文档专门解释 [**Xcode**](https://developer.apple.com/xcode) 里的 `JobsOCBaseConfigDemoTests` 和 `JobsOCBaseConfigDemoUITests` 是什么、怎么跑、怎么写、怎么排查。
 
@@ -17,9 +83,9 @@
 - 它们不是 App 本体，而是挂在 App 旁边的测试工程模块。
 - App 正常开发不强制写测试，但测试能帮你把“我改完感觉没问题”变成“Xcode 已经替我跑过一遍”。
 
-## 一、它们到底是什么？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、它们到底是什么？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 1.1、`JobsOCBaseConfigDemoTests` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-3" data-jobs-toc="v2">1.1、`JobsOCBaseConfigDemoTests` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 `JobsOCBaseConfigDemoTests` 是 iOS 项目的单元测试 Target。它编译出来不是一个 App，而是一个测试 Bundle。
 
@@ -41,7 +107,7 @@
 | 依赖远端真实接口的完整流程 | 网络波动会让测试不稳定 |
 | 必须人工登录或输入验证码的流程 | 自动化成本高，容易误判 |
 
-### 1.2、`JobsOCBaseConfigDemoUITests` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-4" data-jobs-toc="v2">1.2、`JobsOCBaseConfigDemoUITests` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 `JobsOCBaseConfigDemoUITests` 是 UI 测试 Target。它会启动你的 App，然后通过 `XCUIApplication`、`XCUIElement` 去查找界面元素、点击、输入、断言。
 
@@ -57,7 +123,7 @@
 
 它不适合拿来替代人工验收。UI 测试很适合守住“关键路径不崩”，但复杂视觉效果、动画手感、业务体验仍然需要人工看。
 
-### 1.3、两个 Target 和 App Target 的关系 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-5" data-jobs-toc="v2">1.3、两个 Target 和 App Target 的关系 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```mermaid
 flowchart LR
@@ -70,9 +136,9 @@ flowchart LR
 - UI 测试 Target 自己有一个 Runner，它负责启动和操作被测 App。
 - 你平时写业务代码还是写在 `JobsOCBaseConfigDemo` 或本地 Pods 里；测试代码写到这两个测试目录里。
 
-## 二、新工程当前补齐了什么？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">二、新工程当前补齐了什么？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 2.1、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-7" data-jobs-toc="v2">2.1、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 新工程根目录现在补齐了两个测试目录：
 
@@ -89,7 +155,7 @@ JobsOCBaseConfigDemo@ByPods
 └── iOS测试Target入门与使用指南.md
 ```
 
-### 2.2、Xcode Target <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-8" data-jobs-toc="v2">2.2、Xcode Target <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 新工程的 `JobsOCBaseConfigDemo.xcodeproj` 里补了两个 Target：
 
@@ -106,7 +172,7 @@ JobsOCBaseConfigDemoTests
 JobsOCBaseConfigDemoUITests
 ```
 
-### 2.3、当前自带的入门用例 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-9" data-jobs-toc="v2">2.3、当前自带的入门用例 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 `JobsOCBaseConfigDemoTests.m` 里有三个入门用例：
 
@@ -129,9 +195,9 @@ JobsOCBaseConfigDemoUITests
 | --- | --- |
 | `testLaunch` | 启动 App 后保存一张首屏截图 |
 
-## 三、怎么运行？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-10" data-jobs-toc="v2">三、怎么运行？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 3.1、先打开 Workspace <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-11" data-jobs-toc="v2">3.1、先打开 Workspace <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 这个工程用了 [**CocoaPods**](https://cocoapods.org/)，所以优先打开：
 
@@ -147,7 +213,7 @@ JobsOCBaseConfigDemo.xcodeproj
 
 原因很简单：`.xcworkspace` 会同时带上 App 工程和 Pods 工程；`.xcodeproj` 只看主工程，依赖可能不完整。
 
-### 3.2、在 Xcode 里跑全部测试 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-12" data-jobs-toc="v2">3.2、在 Xcode 里跑全部测试 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 操作路径：
 
@@ -159,7 +225,7 @@ Xcode 顶部 Scheme 选择 JobsOCBaseConfigDemo
 
 `Command + U` 会执行当前 Scheme 的 Test Action。正常情况下，它会编译 App，再跑测试。
 
-### 3.3、只跑某一个测试文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-13" data-jobs-toc="v2">3.3、只跑某一个测试文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 在 Xcode 左侧打开测试文件，找到方法左边的小菱形按钮：
 
@@ -173,7 +239,7 @@ Xcode 顶部 Scheme 选择 JobsOCBaseConfigDemo
 
 点击方法左边的小菱形，只跑这一个方法。
 
-### 3.4、只跑 Unit Test Target <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-14" data-jobs-toc="v2">3.4、只跑 Unit Test Target <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 操作路径：
 
@@ -185,7 +251,7 @@ Test Plan / Test
 
 如果 Xcode 左侧 Test Navigator 已经显示测试列表，也可以只点 `JobsOCBaseConfigDemoTests` 下面的测试方法。
 
-### 3.5、只跑 UI Test Target <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-15" data-jobs-toc="v2">3.5、只跑 UI Test Target <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 UI 测试会真实启动模拟器里的 App。第一次跑可能慢一点，这是正常的。
 
@@ -197,9 +263,9 @@ UI 测试会真实启动模拟器里的 App。第一次跑可能慢一点，这�
 点击某个测试方法左边的小菱形
 ```
 
-## 四、怎么写单元测试？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-16" data-jobs-toc="v2">四、怎么写单元测试？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 4.1、单元测试基本结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-17" data-jobs-toc="v2">4.1、单元测试基本结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 单元测试文件通常长这样：
 
@@ -245,7 +311,7 @@ UI 测试会真实启动模拟器里的 App。第一次跑可能慢一点，这�
 -(void)buttonModelDefaultState;
 ```
 
-### 4.2、常用断言 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-18" data-jobs-toc="v2">4.2、常用断言 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 断言就是“我期望这个结果必须成立”。不成立，测试失败。
 
@@ -270,7 +336,7 @@ UI 测试会真实启动模拟器里的 App。第一次跑可能慢一点，这�
 }
 ```
 
-### 4.3、测试 Model <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-19" data-jobs-toc="v2">4.3、测试 Model <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 假设有一个 `JobsUserModel`：
 
@@ -291,7 +357,7 @@ UI 测试会真实启动模拟器里的 App。第一次跑可能慢一点，这�
 | 类在本地 Pod 里 | 优先 import 对应 Pod 的聚合头 |
 | Pod 依赖没有刷新 | 需要重新 `pod install --no-repo-update` |
 
-### 4.4、测试工具方法 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-20" data-jobs-toc="v2">4.4、测试工具方法 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 例如测试字符串工具：
 
@@ -305,7 +371,7 @@ UI 测试会真实启动模拟器里的 App。第一次跑可能慢一点，这�
 
 单元测试最适合从这种小函数开始。它不依赖 UI，不依赖网络，稳定、快、失败原因清楚。
 
-### 4.5、测试异步回调 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-21" data-jobs-toc="v2">4.5、测试异步回调 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 异步测试要用 `XCTestExpectation`：
 
@@ -328,7 +394,7 @@ UI 测试会真实启动模拟器里的 App。第一次跑可能慢一点，这�
 - 异步任务完成后必须调用 `fulfill`。
 - 如果测试网络，优先 mock 数据，不要依赖真实接口。
 
-### 4.6、测试性能 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-22" data-jobs-toc="v2">4.6、测试性能 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 性能测试用 `measureBlock`：
 
@@ -343,9 +409,9 @@ UI 测试会真实启动模拟器里的 App。第一次跑可能慢一点，这�
 
 它会多次执行 block，然后统计耗时。适合比较某段代码修改前后的性能变化。
 
-## 五、怎么写 UI 测试？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-23" data-jobs-toc="v2">五、怎么写 UI 测试？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 5.1、UI 测试基本结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-24" data-jobs-toc="v2">5.1、UI 测试基本结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
 -(void)testAppCanLaunch {
@@ -357,7 +423,7 @@ UI 测试会真实启动模拟器里的 App。第一次跑可能慢一点，这�
 
 UI 测试不是直接调你的 ViewController 方法，而是通过可访问性树找界面元素。
 
-### 5.2、给控件加 `accessibilityIdentifier` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-25" data-jobs-toc="v2">5.2、给控件加 `accessibilityIdentifier` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 UI 测试最怕“找不到控件”。最稳的办法是给控件设置 `accessibilityIdentifier`。
 
@@ -387,7 +453,7 @@ self.passwordTextField.accessibilityIdentifier = @"password_text_field";
 - `accessibilityLabel` 更偏给辅助功能读屏使用。
 - 写 UI 测试时，优先用 `accessibilityIdentifier`，不要靠中文文案硬找。
 
-### 5.3、点击按钮 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-26" data-jobs-toc="v2">5.3、点击按钮 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
 -(void)testTapLoginButton {
@@ -400,7 +466,7 @@ self.passwordTextField.accessibilityIdentifier = @"password_text_field";
 }
 ```
 
-### 5.4、输入文字 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-27" data-jobs-toc="v2">5.4、输入文字 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
 -(void)testInputAccount {
@@ -423,7 +489,7 @@ Keyboard
 Connect Hardware Keyboard
 ```
 
-### 5.5、等待页面出现 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-28" data-jobs-toc="v2">5.5、等待页面出现 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 UI 加载经常不是瞬间完成，所以不要马上断言：
 
@@ -438,7 +504,7 @@ XCTAssertTrue([target waitForExistenceWithTimeout:5]);
 XCTAssertTrue(app.staticTexts[@"home_title"].exists);
 ```
 
-### 5.6、截图留档 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-29" data-jobs-toc="v2">5.6、截图留档 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
 XCTAttachment *attachment = [XCTAttachment attachmentWithScreenshot:XCUIScreen.mainScreen.screenshot];
@@ -449,9 +515,9 @@ attachment.lifetime = XCTAttachmentLifetimeKeepAlways;
 
 截图适合记录首屏、关键状态、失败现场。
 
-## 六、怎么在命令行跑？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-30" data-jobs-toc="v2">六、怎么在命令行跑？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 6.1、列出 Scheme <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-31" data-jobs-toc="v2">6.1、列出 Scheme <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 在工程根目录执行：
 
@@ -461,7 +527,7 @@ xcodebuild \
   -list
 ```
 
-### 6.2、跑全部测试 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-32" data-jobs-toc="v2">6.2、跑全部测试 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```shell
 xcodebuild test \
@@ -471,7 +537,7 @@ xcodebuild test \
   -destination 'platform=iOS Simulator,name=iPhone 16'
 ```
 
-### 6.3、只跑单元测试 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-33" data-jobs-toc="v2">6.3、只跑单元测试 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```shell
 xcodebuild test \
@@ -482,7 +548,7 @@ xcodebuild test \
   -only-testing:JobsOCBaseConfigDemoTests
 ```
 
-### 6.4、只跑 UI 测试 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-34" data-jobs-toc="v2">6.4、只跑 UI 测试 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```shell
 xcodebuild test \
@@ -493,7 +559,7 @@ xcodebuild test \
   -only-testing:JobsOCBaseConfigDemoUITests
 ```
 
-### 6.5、只跑一个测试方法 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-35" data-jobs-toc="v2">6.5、只跑一个测试方法 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```shell
 xcodebuild test \
@@ -510,9 +576,9 @@ xcodebuild test \
 -only-testing:Target名/测试类名/测试方法名
 ```
 
-## 七、怎么把现有代码变成可测试？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-36" data-jobs-toc="v2">七、怎么把现有代码变成可测试？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 7.1、先从纯逻辑开始 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-37" data-jobs-toc="v2">7.1、先从纯逻辑开始 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 新手最推荐先测这些：
 
@@ -524,7 +590,7 @@ xcodebuild test \
 | 中 | DSL 设置属性 | 能防止链式方法改坏 |
 | 低 | 完整页面跳转 | UI 测试成本更高 |
 
-### 7.2、让方法更容易测 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-38" data-jobs-toc="v2">7.2、让方法更容易测 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 不好测的代码通常长这样：
 
@@ -558,7 +624,7 @@ xcodebuild test \
 }
 ```
 
-### 7.3、测试本地 Pod 代码 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-39" data-jobs-toc="v2">7.3、测试本地 Pod 代码 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 新工程是本地 Pods 形态，测试时要注意边界：
 
@@ -567,9 +633,9 @@ xcodebuild test \
 - 不要为了测试直接 import Pod 内部 `Support` 私有文件。
 - 如果确实要测 Pod 内部实现，优先考虑给这个 Pod 单独建测试，或者把能力提升为公开 API。
 
-## 八、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-40" data-jobs-toc="v2">八、常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 8.1、为什么我按 `Command + U` 没反应？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-41" data-jobs-toc="v2">8.1、为什么我按 `Command + U` 没反应？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 检查这几个点：
 
@@ -580,7 +646,7 @@ xcodebuild test \
 | 测试方法是否以 `test` 开头 | 不以 `test` 开头不会被发现 |
 | 文件是否加入测试 Target | 看右侧 Target Membership |
 
-### 8.2、为什么测试文件 import 不到业务类？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-42" data-jobs-toc="v2">8.2、为什么测试文件 import 不到业务类？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 常见原因：
 
@@ -598,7 +664,7 @@ xcodebuild test \
 最后再看 Pod 依赖
 ```
 
-### 8.3、为什么 UI 测试找不到按钮？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-43" data-jobs-toc="v2">8.3、为什么 UI 测试找不到按钮？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 优先检查控件是否设置了 `accessibilityIdentifier`。
 
@@ -617,7 +683,7 @@ XCTAssertTrue([button waitForExistenceWithTimeout:5]);
 
 如果按钮在滚动列表里，还要先滚动到它可见。
 
-### 8.4、为什么 UI 测试有时候成功、有时候失败？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-44" data-jobs-toc="v2">8.4、为什么 UI 测试有时候成功、有时候失败？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 这叫不稳定测试，常见原因：
 
@@ -628,7 +694,7 @@ XCTAssertTrue([button waitForExistenceWithTimeout:5]);
 | 依赖上一次 App 状态 | `setUp` 里清理状态或设置启动参数 |
 | 动画未结束 | 等待目标元素出现，不要固定 sleep |
 
-### 8.5、什么时候应该删测试？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-45" data-jobs-toc="v2">8.5、什么时候应该删测试？ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 不是所有测试都值得留。
 
@@ -644,9 +710,9 @@ XCTAssertTrue([button waitForExistenceWithTimeout:5]);
 - 核心工具、核心 Model、核心流程测试。
 - 能稳定复现崩溃或边界问题的测试。
 
-## 九、建议使用路线 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-46" data-jobs-toc="v2">九、建议使用路线 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 9.1、第一阶段：会跑 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-47" data-jobs-toc="v2">9.1、第一阶段：会跑 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 目标：
 
@@ -655,7 +721,7 @@ XCTAssertTrue([button waitForExistenceWithTimeout:5]);
 - 能看懂绿色成功、红色失败。
 - 能单独跑某一个测试方法。
 
-### 9.2、第二阶段：会写 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-48" data-jobs-toc="v2">9.2、第二阶段：会写 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 目标：
 
@@ -664,7 +730,7 @@ XCTAssertTrue([button waitForExistenceWithTimeout:5]);
 - 能测试一个纯逻辑方法。
 - 能看懂失败信息。
 
-### 9.3、第三阶段：会测业务 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-49" data-jobs-toc="v2">9.3、第三阶段：会测业务 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 目标：
 
@@ -673,7 +739,7 @@ XCTAssertTrue([button waitForExistenceWithTimeout:5]);
 - 写一个简单点击路径。
 - 给线上 bug 补一个回归测试。
 
-### 9.4、第四阶段：接入日常开发 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-50" data-jobs-toc="v2">9.4、第四阶段：接入日常开发 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 建议：
 
@@ -682,9 +748,9 @@ XCTAssertTrue([button waitForExistenceWithTimeout:5]);
 - 改首页、登录、核心入口时，补 UI 冒烟测试。
 - 不追求一口气全覆盖，先守住最容易出问题的路径。
 
-## 十、最小可复制模板 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-51" data-jobs-toc="v2">十、最小可复制模板 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 10.1、单元测试模板 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-52" data-jobs-toc="v2">10.1、单元测试模板 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
 -(void)testSomething {
@@ -693,7 +759,7 @@ XCTAssertTrue([button waitForExistenceWithTimeout:5]);
 }
 ```
 
-### 10.2、UI 测试模板 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-53" data-jobs-toc="v2">10.2、UI 测试模板 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
 -(void)testSomethingOnScreen {
@@ -706,7 +772,7 @@ XCTAssertTrue([button waitForExistenceWithTimeout:5]);
 }
 ```
 
-### 10.3、异步测试模板 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-54" data-jobs-toc="v2">10.3、异步测试模板 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
 -(void)testAsyncSomething {
@@ -721,21 +787,21 @@ XCTAssertTrue([button waitForExistenceWithTimeout:5]);
 }
 ```
 
-## 十一、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-55" data-jobs-toc="v2">十一、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 11.1、测试代码也会参与编译 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-56" data-jobs-toc="v2">11.1、测试代码也会参与编译 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 测试 Target 里的代码虽然不会进正式 App 包，但它会参与测试编译。测试代码写错，`Command + U` 一样会失败。
 
-### 11.2、UI 测试会启动 App <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-57" data-jobs-toc="v2">11.2、UI 测试会启动 App <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 UI 测试可能触发真实页面逻辑。不要在 UI 测试里随便点支付、提交、删除、发短信这类有副作用的按钮。
 
-### 11.3、命令行测试可能很慢 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-58" data-jobs-toc="v2">11.3、命令行测试可能很慢 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 第一次跑 `xcodebuild test` 可能要编译 App、Pods、测试 Bundle，还要启动模拟器。慢不代表错，失败日志才是关键。
 
-### 11.4、本次未主动跑完整编译 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-59" data-jobs-toc="v2">11.4、本次未主动跑完整编译 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 `xcodebuild`、`pod install` 属于本机重型命令。本次只补测试 Target、测试文件和文档，不主动触发完整编译。需要最终确认时，再手动或按需执行：
 

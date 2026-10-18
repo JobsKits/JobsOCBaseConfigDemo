@@ -2,15 +2,28 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、目录与产物](#jobs-toc-heading-2)
+- [二、运行方式](#jobs-toc-heading-3)
+- [三、执行前检查与流程](#jobs-toc-heading-4)
+- [四、日志与常见问题](#jobs-toc-heading-5)
+- [五、验证范围](#jobs-toc-heading-6)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 把 [**Xcode**](https://developer.apple.com/xcode/) 已构建的主 App 复制为标准 `Payload/<App>.app` 快照，并压缩为真机或模拟器 IPA。脚本不负责源码构建、Archive 或正式分发导出。
 
-## 一、目录与产物 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、目录与产物 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```text
 save_device_ipa_after_build.command/
@@ -27,7 +40,7 @@ save_device_ipa_after_build.command/
 
 **打包成功后会清空 `../../build/` 的全部内容，包含隐藏文件、子目录、历史包和另一平台的包。该目录只能保存可丢弃产物。**
 
-## 二、运行方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、运行方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 默认由主 App 最后一个 Build Phase `Save Build IPA` 调用同目录的 [主脚本](./save_device_ipa_after_build.command)。该阶段始终执行，输入只声明脚本文件，输出声明工程 `build/`，不把整个 App 目录作为输入，避免签名、扩展和测试依赖循环。
 
@@ -41,7 +54,7 @@ save_device_ipa_after_build.command/
 
 3、普通入口没有可交互标准输入时直接退出。脚本没有命令行参数，需要已有构建的环境变量；双击并不会自动寻找或构建 App。
 
-## 三、执行前检查与流程 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、执行前检查与流程 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 使用系统 `/bin/zsh`、`ditto`、`mktemp` 和 `codesign`；不安装或升级依赖。
 
@@ -64,7 +77,7 @@ save_device_ipa_after_build.command/
 
 `Tests`、Widget 和其它平台不独立输出 IPA；测试触发主 App 重建时仍会更新产物。IPA 存在不代表整个工作空间或测试已通过。
 
-## 四、日志与常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-5" data-jobs-toc="v2">四、日志与常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 确认后初始化系统临时目录中的 `save_device_ipa_after_build.log`，每次覆盖，并同步显示业务日志；构建入口可在 Xcode 构建日志查看。
 - 自述标题红色加粗，正文蓝色不加粗；非彩色终端、`TERM=dumb`、`NO_COLOR` 或构建日志使用纯文本。
@@ -73,7 +86,7 @@ save_device_ipa_after_build.command/
 - 真机签名失败：检查签名身份、Team、描述文件与嵌套 App / Extension；脚本不能替代正式签名导出流程。
 - 非交互入口拒绝执行：使用 Xcode 构建阶段，或在可交互终端手动运行并完成确认。
 
-## 五、验证范围 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">五、验证范围 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 静态检查使用以下命令，不产生构建或安装：
 

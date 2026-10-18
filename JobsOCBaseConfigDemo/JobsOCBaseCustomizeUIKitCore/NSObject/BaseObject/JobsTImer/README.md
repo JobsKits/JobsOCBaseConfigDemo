@@ -2,19 +2,32 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、定位](#jobs-toc-heading-2)
+- [二、核心保证](#jobs-toc-heading-3)
+- [三、使用](#jobs-toc-heading-4)
+- [四、同步边界](#jobs-toc-heading-5)
+- [五、验证](#jobs-toc-heading-6)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 > 老工程继续按主工程集成方式维护 `JobsTimer`，只与新 OC Pod 对齐行为，不引入 Pod 结构。
 
-## 一、定位 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、定位 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 这里是 OC 老工程集成于主工程的定时器实现，与 OC 新工程 `JobsOCTimer` 本地 Pod 保持同一生命周期语义，但不引入新的 Pod 形态。
 
-## 二、核心保证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、核心保证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 统一支持 `NSTimer`、GCD、`CADisplayLink` 和 `CFRunLoopTimer`。
 - 非 GCD 内核必须在主线程创建与操作；GCD 内核支持跨线程生命周期调用。
@@ -25,7 +38,7 @@
 - 一次性和倒计时终态先失效引擎，再在同一队列依次执行 `tick`、`finish`。
 - 应用进入 inactive / background 时自动暂停，重新活跃只恢复自动暂停项；手动 `pause` 会撤销自动恢复资格，手动 `resume` 会复核当前应用状态。
 
-## 三、使用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、使用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
 JobsTimer *timer = jobsMakeTimer(^(JobsTimer * _Nullable timer) {
@@ -40,11 +53,11 @@ JobsTimer *timer = jobsMakeTimer(^(JobsTimer * _Nullable timer) {
 [timer start];
 ```
 
-## 四、同步边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-5" data-jobs-toc="v2">四、同步边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 功能升级需要与 OC 新工程 `JobsByPods/JobsOCTimer@Pods/Core/JobsTimer/` 对照；只平移源码语义，不把本地 Pod 结构或依赖带回老工程。
 
-## 五、验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">五、验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```shell
 xcodebuild -workspace JobsOCBaseConfigDemo.xcworkspace -scheme JobsOCBaseConfigDemo -configuration Debug -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build

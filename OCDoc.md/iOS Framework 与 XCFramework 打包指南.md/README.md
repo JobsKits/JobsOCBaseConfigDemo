@@ -2,11 +2,48 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、主工程源码下沉的完整路径](#jobs-toc-heading-2)
+- [二、样板源码与边界](#jobs-toc-heading-3)
+  - [2.1、当前样板](#jobs-toc-heading-4)
+  - [2.2、最小消费者](#jobs-toc-heading-5)
+- [三、先决定静态还是动态 Framework](#jobs-toc-heading-6)
+- [四、创建 Framework target](#jobs-toc-heading-7)
+  - [4.1、创建 target](#jobs-toc-heading-8)
+  - [4.2、Build Settings](#jobs-toc-heading-9)
+  - [4.3、Target Membership](#jobs-toc-heading-10)
+- [五、迁移期间避免重复符号](#jobs-toc-heading-11)
+  - [5.1、并行构建阶段](#jobs-toc-heading-12)
+  - [5.2、消费者验证阶段](#jobs-toc-heading-13)
+  - [5.3、正式切换阶段](#jobs-toc-heading-14)
+- [六、归档真机与模拟器](#jobs-toc-heading-15)
+  - [6.1、iOS 真机](#jobs-toc-heading-16)
+  - [6.2、iOS Simulator](#jobs-toc-heading-17)
+- [七、创建 XCFramework](#jobs-toc-heading-18)
+- [八、公开头、依赖与 Category](#jobs-toc-heading-19)
+  - [8.1、公开头](#jobs-toc-heading-20)
+  - [8.2、依赖](#jobs-toc-heading-21)
+  - [8.3、Category](#jobs-toc-heading-22)
+- [九、资源与 Bundle](#jobs-toc-heading-23)
+- [十、二进制接入方式](#jobs-toc-heading-24)
+  - [10.1、手工接入](#jobs-toc-heading-25)
+  - [10.2、CocoaPods 二进制 Pod](#jobs-toc-heading-26)
+  - [10.3、Swift Package 二进制 Target](#jobs-toc-heading-27)
+- [十一、验证层级](#jobs-toc-heading-28)
+- [十二、常见错误](#jobs-toc-heading-29)
+- [十三、发布边界](#jobs-toc-heading-30)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 > 本文以 `JobsOCBaseConfigDemo` 主工程中已经直接集成的 `JobsRandomUtils` 为最小样板，说明怎样把一组主工程源码提取到独立 Framework target，再归档为同时支持 iOS 真机与 iOS Simulator 的 `XCFramework`。
 
@@ -14,7 +51,7 @@
 - 主工程代码不能因为“准备二进制化”就直接删除或搬走。先创建独立 Framework target 并构建消费者，再在切换接入来源时移除 App target 对原 `.m` 的编译，避免重复符号。
 - Apple 推荐使用[**多平台二进制 Framework Bundle**](https://developer.apple.com/documentation/xcode/creating-a-multi-platform-binary-framework-bundle)组合不同平台变体，不使用 `lipo` 把 iOS 真机与 iOS Simulator 二进制塞进同一份旧式胖 Framework。
 
-## 一、主工程源码下沉的完整路径 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、主工程源码下沉的完整路径 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```mermaid
 flowchart LR
@@ -38,9 +75,9 @@ flowchart LR
 6. 干净消费者构建。
 7. App 从源码实现切换到二进制实现。
 
-## 二、样板源码与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、样板源码与边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 2.1、当前样板 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-4" data-jobs-toc="v2">2.1、当前样板 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 项目 | 内容 |
 | --- | --- |
@@ -53,7 +90,7 @@ flowchart LR
 
 这组代码职责单一、公开 API 小、没有资源和跨模块依赖，适合作为第一个 Framework target。
 
-### 2.2、最小消费者 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-5" data-jobs-toc="v2">2.2、最小消费者 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 本文目录提供：
 
@@ -76,7 +113,7 @@ iOS Framework 与 XCFramework 打包指南.md/
 int value = JobsRandomNumber(1, 10);
 ```
 
-## 三、先决定静态还是动态 Framework <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">三、先决定静态还是动态 Framework <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 维度 | 静态 Framework | 动态 Framework |
 | --- | --- | --- |
@@ -88,9 +125,9 @@ int value = JobsRandomNumber(1, 10);
 
 `JobsRandomUtils` 没有运行时动态加载需求，最小示范优先静态 Framework。Apple 的[**创建静态 Framework**](https://developer.apple.com/documentation/xcode/creating-a-static-framework)文档说明，Xcode 15 及以后可以让 Framework Bundle 的主二进制使用静态归档。
 
-## 四、创建 Framework target <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-7" data-jobs-toc="v2">四、创建 Framework target <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 4.1、创建 target <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-8" data-jobs-toc="v2">4.1、创建 target <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 在 [**Xcode**](https://developer.apple.com/xcode) 中执行：
 
@@ -100,7 +137,7 @@ int value = JobsRandomNumber(1, 10);
 4. Language 使用 `Objective-C`。
 5. 创建后把 Scheme 设为 Shared，保证命令行和 CI 可以看到。
 
-### 4.2、Build Settings <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-9" data-jobs-toc="v2">4.2、Build Settings <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 设置 | 建议值 | 说明 |
 | --- | --- | --- |
@@ -114,7 +151,7 @@ int value = JobsRandomNumber(1, 10);
 
 不要手写 `ARCHS=arm64`。使用 `generic/platform=iOS` 与 `generic/platform=iOS Simulator`，由 Xcode 按平台决定支持架构。
 
-### 4.3、Target Membership <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-10" data-jobs-toc="v2">4.3、Target Membership <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 把以下文件加入 `JobsRandomUtils` Framework target：
 
@@ -132,17 +169,17 @@ Headers Build Phase：
 
 当前工程使用文件系统同步组。通过 Xcode 调整 Target Membership 后，还要复核 `project.pbxproj` 中对应同步组例外与实际编译清单，不能只看文件已经出现在左侧导航。
 
-## 五、迁移期间避免重复符号 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-11" data-jobs-toc="v2">五、迁移期间避免重复符号 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 5.1、并行构建阶段 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-12" data-jobs-toc="v2">5.1、并行构建阶段 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 Framework target 可以与 App target 同时编译同一份源码，但 App 此时不要再链接这份 Framework。这个阶段只验证 Framework 自己能否独立构建和归档。
 
-### 5.2、消费者验证阶段 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-13" data-jobs-toc="v2">5.2、消费者验证阶段 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 用不包含 `JobsRandomUtils.m` 源码的独立消费者工程链接 XCFramework，验证公开头、模块和运行结果。
 
-### 5.3、正式切换阶段 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-14" data-jobs-toc="v2">5.3、正式切换阶段 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 当 App 决定使用二进制实现时：
 
@@ -153,7 +190,7 @@ Framework target 可以与 App target 同时编译同一份源码，但 App 此�
 
 禁止同时编译原 `.m` 并链接包含同一实现的静态 Framework，否则链接器会报 duplicate symbols。
 
-## 六、归档真机与模拟器 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-15" data-jobs-toc="v2">六、归档真机与模拟器 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 先确认 Scheme：
 
@@ -162,7 +199,7 @@ cd "/Users/jobs/Documents/Github/JobsBaseConfig/JobsBaseConfig@JobsOCBaseConfigD
 xcodebuild -workspace JobsOCBaseConfigDemo.xcworkspace -list | rg "JobsRandomUtils"
 ```
 
-### 6.1、iOS 真机 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-16" data-jobs-toc="v2">6.1、iOS 真机 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```shell
 xcodebuild archive \
@@ -177,7 +214,7 @@ xcodebuild archive \
   ONLY_ACTIVE_ARCH=NO
 ```
 
-### 6.2、iOS Simulator <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-17" data-jobs-toc="v2">6.2、iOS Simulator <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```shell
 xcodebuild archive \
@@ -198,7 +235,7 @@ xcodebuild archive \
 Products/Library/Frameworks/JobsRandomUtils.framework
 ```
 
-## 七、创建 XCFramework <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-18" data-jobs-toc="v2">七、创建 XCFramework <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```shell
 xcodebuild -create-xcframework \
@@ -223,22 +260,22 @@ find "build/XCFrameworkDemo/JobsRandomUtils.xcframework" \
   -print
 ```
 
-## 八、公开头、依赖与 Category <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-19" data-jobs-toc="v2">八、公开头、依赖与 Category <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 8.1、公开头 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-20" data-jobs-toc="v2">8.1、公开头 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 公开头只能引用消费者确实能获得的系统 Framework 或二进制模块。
 - 私有实现头留在 Framework target 内部，不通过 Header Search Paths 偶然泄漏。
 - 若模块变大，新增根聚合头统一导出公共 API，消费者不穿透内部目录。
 
-### 8.2、依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-21" data-jobs-toc="v2">8.2、依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 系统 Framework 在 Framework target 的 Link Binary 配置中声明。
 - 其它 Jobs 模块优先分别二进制化并显式声明依赖。
 - 公开 API 出现依赖模块类型时，消费者必须同时拿到该模块。
 - 不使用主 App PCH、宏集合或业务聚合头掩盖缺失的直接依赖。
 
-### 8.3、Category <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-22" data-jobs-toc="v2">8.3、Category <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 `JobsRandomUtils` 当前是 C 函数实现，不依赖 Category 装载。下沉其它含 Category 的模块时：
 
@@ -247,7 +284,7 @@ find "build/XCFrameworkDemo/JobsRandomUtils.xcframework" \
 - 不无脑使用 `-all_load` 或 `-force_load` 扩大符号装载。
 - 在消费者运行真实 Selector，不能只看编译通过。
 
-## 九、资源与 Bundle <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-23" data-jobs-toc="v2">九、资源与 Bundle <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 `JobsRandomUtils` 当前没有资源。其它模块有资源时：
 
@@ -256,16 +293,16 @@ find "build/XCFrameworkDemo/JobsRandomUtils.xcframework" \
 3. XCFramework、资源 Bundle、许可证和资源说明一起交付。
 4. 消费者同时验证 Debug、Release、真机和模拟器资源读取。
 
-## 十、二进制接入方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-24" data-jobs-toc="v2">十、二进制接入方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 10.1、手工接入 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-25" data-jobs-toc="v2">10.1、手工接入 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 把 `JobsRandomUtils.xcframework` 拖入消费者工程。
 - 静态 Framework 通常选择 `Do Not Embed`。
 - 动态 Framework 使用 `Embed & Sign`。
 - 不再额外加入原源码目录的 Header Search Paths。
 
-### 10.2、CocoaPods 二进制 Pod <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-26" data-jobs-toc="v2">10.2、CocoaPods 二进制 Pod <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```ruby
 Pod::Spec.new do |spec|
@@ -278,7 +315,7 @@ Pod::Spec.new do |spec|
 end
 ```
 
-### 10.3、Swift Package 二进制 Target <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-27" data-jobs-toc="v2">10.3、Swift Package 二进制 Target <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 Apple 的[**二进制 Framework Swift Package 分发文档**](https://developer.apple.com/documentation/xcode/distributing-binary-frameworks-as-swift-packages)要求远程 ZIP 提供 checksum：
 
@@ -294,7 +331,7 @@ swift package compute-checksum JobsRandomUtils.xcframework.zip
 )
 ```
 
-## 十一、验证层级 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-28" data-jobs-toc="v2">十一、验证层级 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 层级 | 证明什么 | 不能证明什么 |
 | --- | --- | --- |
@@ -315,7 +352,7 @@ swift package compute-checksum JobsRandomUtils.xcframework.zip
 - 随机数真实 Demo 页面运行。
 - ZIP、SHA-256、版本号、最低系统、许可证和必要 dSYM。
 
-## 十二、常见错误 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-29" data-jobs-toc="v2">十二、常见错误 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 错误 | 原因 | 处理 |
 | --- | --- | --- |
@@ -328,7 +365,7 @@ swift package compute-checksum JobsRandomUtils.xcframework.zip
 | `unrecognized selector` | Category 实现未进入 target 或静态链接未装载 | 检查 Target Membership、`-ObjC` 与真实运行调用。 |
 | 资源缺失 | 资源未形成独立 Bundle 或仍读取 `mainBundle` | 单独交付资源并从模块 Bundle 定位。 |
 
-## 十三、发布边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-30" data-jobs-toc="v2">十三、发布边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 公开 API 使用语义化版本；破坏兼容升级主版本。
 - 固定 Xcode、最低 iOS、链接方式、支持架构和依赖版本。

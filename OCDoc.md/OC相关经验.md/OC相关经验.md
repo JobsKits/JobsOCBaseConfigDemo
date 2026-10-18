@@ -2,11 +2,88 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、C 语言指针](#jobs-toc-heading-2)
+  - [1.1、int \*p = &a](#jobs-toc-heading-3)
+  - [1.2、数组指针与指针数组](#jobs-toc-heading-4)
+- [二、内存分布](#jobs-toc-heading-5)
+- [三、内存中的数据](#jobs-toc-heading-6)
+- [四、数据结构](#jobs-toc-heading-7)
+  - [4.1、数据结构总览](#jobs-toc-heading-8)
+  - [4.2、各个数据结构的介绍](#jobs-toc-heading-9)
+- [五、内存表示](#jobs-toc-heading-10)
+- [六、时间复杂度与空间复杂度](#jobs-toc-heading-11)
+- [七、内存对齐：结构体（struct）与联合体（union）](#jobs-toc-heading-12)
+- [八、atomic 与 nonatomic](#jobs-toc-heading-13)
+- [九、strong 与 copy](#jobs-toc-heading-14)
+- [十、Objective-C / C Block](#jobs-toc-heading-15)
+  - [10.1、类方法返回 Block 时的 self 与 weak/strong](#jobs-toc-heading-16)
+- [十一、固态硬盘可以替代内存进行工作吗？（不能完全替代）](#jobs-toc-heading-17)
+- [十二、常见锁](#jobs-toc-heading-18)
+- [十三、Objective-C 中的有序去重集合](#jobs-toc-heading-19)
+- [十四、属性、访问器与动态实现](#jobs-toc-heading-20)
+- [十五、Objective-C 的 copy](#jobs-toc-heading-21)
+- [十六、Objective-C 关联对象（Associated Objects）](#jobs-toc-heading-22)
+- [十七、UIViewController 视图生命周期](#jobs-toc-heading-23)
+- [十八、序列化 VS 反序列化](#jobs-toc-heading-24)
+- [十九、Objective-C 泛型与 KVC / KVO](#jobs-toc-heading-25)
+  - [19.1、\_\_covariant 与 \_\_contravariant](#jobs-toc-heading-26)
+  - [19.2、KVC（Key-Value Coding）：键值编码](#jobs-toc-heading-27)
+  - [19.3、KVO（Key-Value Observing）：属性观察](#jobs-toc-heading-28)
+  - [19.4、RAC](#jobs-toc-heading-29)
+    - [19.4.1、🧊冷信号](#jobs-toc-heading-30)
+    - [19.4.2、🔥 热信号](#jobs-toc-heading-31)
+  - [19.5、KVO相应的观察方法](#jobs-toc-heading-32)
+  - [19.6、KVC 与 KVO 的协作关系](#jobs-toc-heading-33)
+    - [19.6.1、使用 KVC 会触发 KVO 吗？](#jobs-toc-heading-34)
+    - [19.6.2、使用 KVO 必须主动调用 KVC 吗？](#jobs-toc-heading-35)
+- [二十、MVP](#jobs-toc-heading-36)
+- [二十一、雪花算法](#jobs-toc-heading-37)
+- [二十二、IPv6](#jobs-toc-heading-38)
+- [二十三、一个IP能有多少个端口（65,536）](#jobs-toc-heading-39)
+- [二十四、Objective-C 非正式协议](#jobs-toc-heading-40)
+- [二十五、Objective-C 与 JavaScript 交互](#jobs-toc-heading-41)
+- [二十六、Objective-C 依赖注入](#jobs-toc-heading-42)
+- [二十七、函数（方法）签名](#jobs-toc-heading-43)
+- [二十八、函数重载与 Objective-C Selector](#jobs-toc-heading-44)
+- [二十九、Objective-C 系统计时机制与 JobsOCTimer 选型](#jobs-toc-heading-45)
+  - [29.1、先分清：它们不是同一种 Timer](#jobs-toc-heading-46)
+  - [29.2、核心对比](#jobs-toc-heading-47)
+    - [29.2.1、NSTimer](#jobs-toc-heading-48)
+    - [29.2.2、GCD Timer](#jobs-toc-heading-49)
+    - [29.2.3、CADisplayLink](#jobs-toc-heading-50)
+    - [29.2.4、CFRunLoopTimerRef](#jobs-toc-heading-51)
+  - [29.3、非 Timer，但经常用于“等一会儿”](#jobs-toc-heading-52)
+  - [29.4、选型决策](#jobs-toc-heading-53)
+  - [29.5、原生最小代码：只用于理解系统差异](#jobs-toc-heading-54)
+  - [29.6、为什么还需要 JobsOCTimer / JobsOCTimerMgr](#jobs-toc-heading-55)
+- [三十、Objective-C 多线程](#jobs-toc-heading-56)
+  - [30.1、pthread](#jobs-toc-heading-57)
+  - [30.2、NSThread](#jobs-toc-heading-58)
+  - [30.3、GCD](#jobs-toc-heading-59)
+  - [30.4、NSOperation](#jobs-toc-heading-60)
+- [三十一、Objective-C Runtime 消息转发机制](#jobs-toc-heading-61)
+- [三十二、dylib](#jobs-toc-heading-62)
+- [三十三、+load 和 +initialize 的区别](#jobs-toc-heading-63)
+- [三十四、objc\_msgSend 方法调用流程](#jobs-toc-heading-64)
+- [三十五、Objective-C 数据持久化](#jobs-toc-heading-65)
+  - [35.1、SQLite](#jobs-toc-heading-66)
+  - [35.2、FMDB](#jobs-toc-heading-67)
+  - [35.3、Realm](#jobs-toc-heading-68)
+- [三十六、FAQ](#jobs-toc-heading-69)
+- [三十七、其他](#jobs-toc-heading-70)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 > 本文集中整理 C 语言基础、Objective-C 对象模型、内存管理、Runtime、并发、数据持久化、网络与 UIKit 工程经验。语言规则以 Apple 的 Objective-C 文档和当前 SDK 公开声明为准；涉及具体实现细节时，不把某个编译器版本或某个 CPU 架构的行为写成跨平台永久保证。
 
@@ -25,13 +102,13 @@
   - `atomic` 只保证单次访问器调用的原子性，不等于对象或业务逻辑整体线程安全。
   - KVC、KVO、Block、Run Loop 与 GCD 各自解决不同问题；文中会明确它们的协作关系，不把相关性写成强依赖。
 
-## 一、C 语言指针 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、C 语言指针 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ![IMAGE 2024-09-09 23:23:08](<./assets/IMAGE 2024-09-09 23:23:08.jpg>)
 
 ![IMAGE 2024-09-09 23:23:12](<./assets/IMAGE 2024-09-09 23:23:12.jpg>)
 
-### 1.1、`int *p = &a` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-3" data-jobs-toc="v2">1.1、`int *p = &a` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * 这行代码是在C或C++中声明了一个整数指针变量 `p`，并将其初始化为变量 `a` 的地址；
 * `&a` 表示取变量 `a` 的地址，然后将这个地址赋给指针变量 `p`；
@@ -39,7 +116,7 @@
 * `int *p` 表示 `p` 是一个整数指针，可以用来存储整数变量的地址；
 * 整数指针是指一个指针，其目标是整数类型的变量
 
-### 1.2、数组指针与指针数组 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-4" data-jobs-toc="v2">1.2、数组指针与指针数组 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * <font color=red>**数组指针（Pointer to Array）**</font>
 
@@ -96,7 +173,7 @@
     }
     ```
 
-## 二、内存分布 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-5" data-jobs-toc="v2">二、内存分布 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```lua
 低地址（常见虚拟地址布局示意，并非 C 语言或所有平台的固定承诺）
@@ -137,7 +214,7 @@
 >   * **BSS段（Block Started by Symbol）**：包含未初始化的全局变量和静态变量，也属于全局区。变量在程序启动时会自动初始化为零。
 >   * **常量区**：存储常量（如字面量字符串和编译期决定的只读变量）。在一些实现中，常量区也会和代码段合并，通常会归类到全局区的一部分。
 
-## 三、内存中的数据 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">三、内存中的数据 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * Apple 当前主流 CPU 使用小端序：多字节整数的**最低有效字节**放在最低内存地址。例如 `0x00123456` 的最低有效字节是 `0x56`。
 
@@ -162,9 +239,9 @@
 
   跨平台代码仍应使用 `sizeof(float)`、`sizeof(double)` 获取当前实现的真实大小。
 
-## 四、数据结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-7" data-jobs-toc="v2">四、数据结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 4.1、数据结构总览 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-8" data-jobs-toc="v2">4.1、数据结构总览 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * 一维线性结构
 
@@ -197,7 +274,7 @@
   | **跳表 (Skip List)**          | 类似多层链表，查找效率接近平衡树       | Redis 内部、排序结构 |
   | **位图 (BitMap)**             | 用一堆 0/1 表示状态                    | 去重、统计、压缩存储 |
 
-### 4.2、各个数据结构的介绍 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-9" data-jobs-toc="v2">4.2、各个数据结构的介绍 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * 树（Tree）
 
@@ -239,7 +316,7 @@
     * **灵活性**：哈希表适用于各种类型的数据，可以存储键值对、对象等各种形式的数据；
     * **空间效率**：尽管哈希表可能会消耗一定的内存空间，但在大多数情况下，哈希表的空间效率是很高的，尤其是在数据量较大时；
 
-## 五、内存表示 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-10" data-jobs-toc="v2">五、内存表示 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * <font color=red>内存只负责记录，实际释义是通过程序来的，通过不同的数据类型来展现其表达的真正含义</font>
 
@@ -281,7 +358,7 @@
     * 指数部分用于表示数的大小；
     * 尾数部分则包含数值的有效数字；
 
-## 六、时间复杂度与空间复杂度 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-11" data-jobs-toc="v2">六、时间复杂度与空间复杂度 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 > * 时间复杂度：做事要几步？
 > * 空间复杂度：占地要几张纸？
@@ -294,7 +371,7 @@ for (int i = 0; i < n; i++) {
 💾 空间复杂度是 O(1)，因为它没有开额外的内存（不管 n 是多少，都不需要更多空间）
 ```
 
-## 七、内存对齐：结构体（struct）与联合体（union） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-12" data-jobs-toc="v2">七、内存对齐：结构体（struct）与联合体（union） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 项目         | `struct`（结构体）                                | `union`（共用体）                   |
 | ------------ | ------------------------------------------------- | ----------------------------------- |
@@ -367,7 +444,7 @@ for (int i = 0; i < n; i++) {
         }s1; //12 = 4 * 3
     ```
 
-## 八、`atomic` 与 `nonatomic` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-13" data-jobs-toc="v2">八、`atomic` 与 `nonatomic` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * `atomic` / `nonatomic` 控制编译器合成访问器时是否提供**单次 getter 或 setter 调用的原子性**；未显式声明时，Objective-C 属性默认是 `atomic`。
 * `atomic` 不等于“属性线程安全”，更不等于对象或业务逻辑线程安全：
@@ -378,7 +455,7 @@ for (int i = 0; i < n; i++) {
 
 * `nonatomic` 不提供上述访问器级同步，开销更低，因此 UIKit 与大量业务属性通常使用 `nonatomic`；真正的共享可变状态仍需在更高层明确同步。
 
-## 九、`strong` 与 `copy` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-14" data-jobs-toc="v2">九、`strong` 与 `copy` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * `copy` 是向对象发送 `copyWithZone:`，具体复制深度由类型实现决定，不能概括为“不可变对象浅复制，其它对象深复制”：
 
@@ -427,7 +504,7 @@ for (int i = 0; i < n; i++) {
   使用 copy 则确保即使传入的是一个可变对象，属性也只会保留一个不可变的副本，从而避免了这种不确定性。
   ```
 
-## 十、[**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) / C Block <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-15" data-jobs-toc="v2">十、[**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) / C Block <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * ***Block* 的捕获变量：** 当一个 *Block* 被创建时，它会捕获在其内部使用的外部变量。
 
@@ -586,7 +663,7 @@ for (int i = 0; i < n; i++) {
       };
       ```
 
-### 10.1、类方法返回 Block 时的 `self` 与 `weak/strong`
+### <span id="jobs-toc-heading-16" data-jobs-toc="v2">10.1、类方法返回 Block 时的 `self` 与 `weak/strong`</span><!-- jobs-toc:heading-end -->
 
 > **核心结论：如果类方法返回的 Block 只捕获 `self` 这个类对象，通常不需要 `weak self / strong self`。**
 
@@ -657,7 +734,7 @@ typedef void(^jobsByNSSetUISceneSessionBlock)(NSSet<UISceneSession *> *);
       @end
       ```
 
-## 十一、固态硬盘可以替代内存进行工作吗？（不能完全替代） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-17" data-jobs-toc="v2">十一、固态硬盘可以替代内存进行工作吗？（不能完全替代） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * 结论
   * RAM 与 SSD 不是同一种闪存：主内存通常使用易失性的 DRAM，SSD 通常使用非易失性的 NAND Flash。
@@ -672,7 +749,7 @@ typedef void(^jobsByNSSetUISceneSessionBlock)(NSSet<UISceneSession *> *);
   * 由于SSD的速度比RAM慢得多，**使用虚拟内存会导致系统性能下降**
   * **SSD有写入寿命限制**，频繁使用虚拟内存可能会加速SSD的磨损
 
-## 十二、常见锁 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-18" data-jobs-toc="v2">十二、常见锁 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * 互斥锁（Mutex, Mutual Exclusion Lock）：
   * 互斥锁是一种基本的锁，用于确保一次只有一个线程可以访问某资源。
@@ -689,18 +766,18 @@ typedef void(^jobsByNSSetUISceneSessionBlock)(NSSet<UISceneSession *> *);
   * 自旋锁是轻量级锁，如果锁被占用，线程不会立即挂起，而是会不断尝试获取锁。
   * 自旋等待会持续占用 CPU，并可能受到抢占与优先级反转影响；只有在底层、临界区极短且能证明收益的场景才可能合适。业务代码通常优先使用系统提供的互斥、`os_unfair_lock`、串行队列或更高层同步原语。
 
-## 十三、Objective-C 中的有序去重集合 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-19" data-jobs-toc="v2">十三、Objective-C 中的有序去重集合 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * 在Objective-C中，没有直接类似于Java中*LinkedHashSet*的数据结构；
 * 但是，你可以使用*NSOrderedSet*，它是一个有序不可变集合，保留了元素的插入顺序；
 * 如果你需要可变版本，可以使用*NSMutableOrderedSet*。这不同于*LinkedHashSet*，但提供了一种有序且不包含重复元素的选择；
 
-## 十四、属性、访问器与动态实现 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-20" data-jobs-toc="v2">十四、属性、访问器与动态实现 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * `@dynamic` 告诉编译器不要自动合成访问器，访问器会由运行时或其它机制提供；Core Data 的动态属性是典型场景。它不是“属性没有 getter / setter”，而是 getter / setter 的实现不由当前编译单元静态生成。
 * Category 可以声明属性，但不会自动合成实例变量和访问器。使用关联对象保存值时，仍必须显式实现 getter / setter，或由其它动态机制提供实现。
 
-## 十五、Objective-C 的 `copy` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-21" data-jobs-toc="v2">十五、Objective-C 的 `copy` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * Foundation 可变容器执行 `copy` 时通常得到不可变容器；执行 `mutableCopy` 才得到新的可变容器。自定义类型的结果仍以其 `NSCopying` / `NSMutableCopying` 实现为准。
 
@@ -739,7 +816,7 @@ typedef void(^jobsByNSSetUISceneSessionBlock)(NSSet<UISceneSession *> *);
   }
   ```
 
-## 十六、Objective-C 关联对象（Associated Objects） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-22" data-jobs-toc="v2">十六、Objective-C 关联对象（Associated Objects） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * 关联对象是 Objective-C Runtime 能力。纯 Swift 类型没有对应的原生关联对象机制；继承自 `NSObject` 并参与 Objective-C Runtime 的 Swift 对象，可以在满足互操作边界时调用这些 C API。
 
@@ -919,7 +996,7 @@ static char BaseVC_BackBtn_backBtnCategoryItemKey;
   @end
   ```
 
-## 十七、`UIViewController` 视图生命周期 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-23" data-jobs-toc="v2">十七、`UIViewController` 视图生命周期 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 > 这不是固定“11 步、只执行一次”的线性流程。初始化路径取决于代码、Storyboard / Nib 和状态恢复；约束与布局回调可以在一次展示期间重复多次。
 
@@ -941,18 +1018,18 @@ static char BaseVC_BackBtn_backBtnCategoryItemKey;
   - `updateViewConstraints`、`viewWillLayoutSubviews`、`viewDidLayoutSubviews` 属于布局更新周期，可能因尺寸、约束、内容或安全区变化反复调用。
   - 不应假设它们只夹在某一次 `viewWillAppear:` 与 `viewDidAppear:` 之间，也不要在重复回调中不断叠加同一组约束。
 
-## 十八、序列化 VS 反序列化 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-24" data-jobs-toc="v2">十八、序列化 VS 反序列化 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * 序列化：将对象（如数组、字典、模型等）**转换为字节流（如 JSON、二进制、XML）**，用于持久化（保存到文件、磁盘）或传输（如网络）。
 * 反序列化：将字节流（JSON、XML、二进制等）**还原成原始对象（如数组、字典、模型）**。
 
-## 十九、Objective-C 泛型与 KVC / KVO <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-25" data-jobs-toc="v2">十九、Objective-C 泛型与 KVC / KVO <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 > 1、KVO 和 KVC 在实际开发中经常一起结合使用，以实现对对象属性的动态访问和监听；
 > 2、这两个特性能够使得代码更加灵活，同时也方便了数据模型和视图之间的通信；
 > 3、在实际应用中，需要注意使用 KVO 和 KVC 时的内存管理和性能问题，以确保应用的稳定性和性能优化；
 
-### 19.1、`__covariant` 与 `__contravariant`
+### <span id="jobs-toc-heading-26" data-jobs-toc="v2">19.1、`__covariant` 与 `__contravariant`</span><!-- jobs-toc:heading-end -->
 
 > * 在 Objective-C 中，`__covariant` 和 `__contravariant` 是用于 **泛型类型参数协变性（covariance）与逆变性（contravariance）** 的关键字。它们出现在泛型类的声明中，目的是为编译器提供**类型安全的协变/逆变检查**，尤其是在泛型和容器类型传递之间转换时更有用。
 > * 不使用时默认是**不变（invariant）**：默认情况下，泛型是**不变的**：`MyArray<NSString *>` 和 `MyArray<NSObject *>` 之间互相赋值会编译报错。
@@ -997,7 +1074,7 @@ static char BaseVC_BackBtn_backBtnCategoryItemKey;
   MyHandler<NSString *> *strHandler = objHandler; // ✅ 合法
   ```
 
-### 19.2、KVC（Key-Value Coding）：键值编码
+### <span id="jobs-toc-heading-27" data-jobs-toc="v2">19.2、KVC（Key-Value Coding）：键值编码</span><!-- jobs-toc:heading-end -->
 
 * KVC 是通过字符串 key / key path **间接访问对象属性**的机制，不是“绕过 getter / setter 直接读写”：
 
@@ -1010,7 +1087,7 @@ static char BaseVC_BackBtn_backBtnCategoryItemKey;
 * 标量和常见结构体可通过 KVC 访问，Foundation 会使用 `NSNumber` / `NSValue` 装箱或拆箱；给非对象标量设置 `nil` 时会进入 `setNilValueForKey:`。
 * KVC 常用于 Cocoa Bindings、Core Data、KVO 和动态映射，但字符串 key 缺少普通属性访问的编译期检查，应集中管理并避免拼写错误。
 
-### 19.3、KVO（Key-Value Observing）：属性观察
+### <span id="jobs-toc-heading-28" data-jobs-toc="v2">19.3、KVO（Key-Value Observing）：属性观察</span><!-- jobs-toc:heading-end -->
 
 * KVO 是一种**观察者模式**的实现，它允许观察者监听另一个对象的 KVO 合规属性；
 * KVO 不只由 `setValue:forKey:` 触发。使用合规 setter（包括点语法）或 KVC setter 时，`NSObject` 默认提供自动变更通知；也可以通过 `willChangeValueForKey:` / `didChangeValueForKey:` 手动发送通知；
@@ -1027,9 +1104,9 @@ static char BaseVC_BackBtn_backBtnCategoryItemKey;
   * 当被观察的属性值变化时，观察者对象的观察方法会被调用
 * 对于自定义类，按 Cocoa 命名约定声明并合成的普通属性通常自动 KVO 合规；依赖属性还需注册 dependent keys。
 
-### 19.4、[RAC](https://github.com/ReactiveCocoa/ReactiveObjC)
+### <span id="jobs-toc-heading-29" data-jobs-toc="v2">19.4、[RAC](https://github.com/ReactiveCocoa/ReactiveObjC)</span><!-- jobs-toc:heading-end -->
 
-#### 19.4.1、🧊冷信号
+#### <span id="jobs-toc-heading-30" data-jobs-toc="v2">19.4.1、🧊冷信号</span><!-- jobs-toc:heading-end -->
 
 * 特点：每个订阅都会独立触发一次 → “点播”
 
@@ -1050,7 +1127,7 @@ static char BaseVC_BackBtn_backBtnCategoryItemKey;
   [signal subscribeNext:...]; // 再播放一次
   ```
 
-#### 19.4.2、🔥 热信号
+#### <span id="jobs-toc-heading-31" data-jobs-toc="v2">19.4.2、🔥 热信号</span><!-- jobs-toc:heading-end -->
 
 * 特点：所有订阅共享一个事件源 → “直播”。
 
@@ -1071,7 +1148,7 @@ static char BaseVC_BackBtn_backBtnCategoryItemKey;
   // A 和 B 收到的事件完全相同，来自同一个输入框
   ```
 
-### 19.5、KVO相应的观察方法
+### <span id="jobs-toc-heading-32" data-jobs-toc="v2">19.5、KVO相应的观察方法</span><!-- jobs-toc:heading-end -->
 
 > **`observeValueForKeyPath:ofObject:change:context:`**
 
@@ -1139,15 +1216,15 @@ int main(int argc, const char * argv[]) {
 }
 ```
 
-### 19.6、KVC 与 KVO 的协作关系
+### <span id="jobs-toc-heading-33" data-jobs-toc="v2">19.6、KVC 与 KVO 的协作关系</span><!-- jobs-toc:heading-end -->
 
-#### 19.6.1、使用 KVC 会触发 KVO 吗？
+#### <span id="jobs-toc-heading-34" data-jobs-toc="v2">19.6.1、使用 KVC 会触发 KVO 吗？</span><!-- jobs-toc:heading-end -->
 
 * **可能触发，取决于该 key 是否启用自动通知。** `setValue:forKey:` 对 KVO 合规属性赋值时，默认会发出自动 KVO 通知；普通 setter / 点语法也同样可以触发。
 * 直接写实例变量通常不会触发自动 KVO；关闭 `+automaticallyNotifiesObserversForKey:` 后，也必须由实现方手动配对调用 `willChangeValueForKey:` / `didChangeValueForKey:`。
 * 读取操作 `valueForKey:` 本身不会产生“值已变化”的通知。
 
-#### 19.6.2、使用 KVO 必须主动调用 KVC 吗？
+#### <span id="jobs-toc-heading-35" data-jobs-toc="v2">19.6.2、使用 KVO 必须主动调用 KVC 吗？</span><!-- jobs-toc:heading-end -->
 
 * **不需要。** KVO 要求被观察属性保持 KVC 合规，并使用 key path 标识属性，但调用方可以通过普通 setter 改值，观察者也可以直接使用回调 `change` 字典中的新旧值。
 * KVC 是间接访问机制，KVO 是变更通知机制；二者共享 key / key path 约定并能协作，但不是“使用一个就必须显式调用另一个”。
@@ -1161,7 +1238,7 @@ int main(int argc, const char * argv[]) {
   object.propertyName = @"Jobs"; // 合规 setter 默认触发 KVO，无需调用 setValue:forKey:
   ```
 
-## 二十、MVP <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-36" data-jobs-toc="v2">二十、MVP <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * MVP（**M**odel-**V**iew-**P**resenter）模式是一种软件架构模式，用于设计和组织用户界面（UI）代码；
 * 它是**基于MVC**（**M**odel-**V**iew-**C**ontroller）模式的变种，***旨在解决 MVC 模式中 Controller 过于臃肿和难以测试的问题***；
@@ -1309,7 +1386,7 @@ ViewController.m       // 控制器，组合 View 和 Presenter
 @end
 ```
 
-## 二十一、雪花算法 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-37" data-jobs-toc="v2">二十一、雪花算法 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * 雪花算法（Snowflake）是一种分布式唯一ID生成算法；
 * 最初**由Twitter开发**用于**生成全局唯一的ID**；
@@ -1323,14 +1400,14 @@ ViewController.m       // 控制器，组合 View 和 Presenter
 * 经典 Twitter 方案常见分配是 `1 + 41 + 10 + 12` 位，因此 10 位节点字段最多表示 1024 个节点、12 位序列号每毫秒最多表示 4096 个序号。Snowflake 是一类方案，不同实现可以重新分配位宽，不能把 1024 写成所有实现的固定上限；
 * 工程实现必须处理机器 ID 分配冲突、时钟回拨、同毫秒序列耗尽和纪元溢出，否则仍可能重复或阻塞；
 
-## 二十二、IPv6 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-38" data-jobs-toc="v2">二十二、IPv6 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * IPv6地址空间更大，为128位，这使得有更多的地址组合。
 * IPv6中的端口号仍然是16位，因此有2^16（65536）个可能的端口号。
 * IPv6 同样存在不同作用域和保留范围，例如链路本地地址 `fe80::/10`、唯一本地地址 `fc00::/7`、组播地址和文档示例地址；“地址空间大”不等于所有地址都可全球路由，也不等于每台设备必然拥有稳定的全球唯一地址。
 * 理论上的 128 位地址空间乘以 16 位端口字段可以写成 2<sup>144</sup> 种比特组合，但其中包含保留地址、不可用端口及不同传输协议，不能当作实际可建立连接数量。
 
-## 二十三、一个IP能有多少个端口（65,536） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-39" data-jobs-toc="v2">二十三、一个IP能有多少个端口（65,536） <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * TCP / UDP 端口字段是 16 位，端口号范围是 `0...65535`，共有 **65,536 个编号**。端口 `0` 有保留 / 特殊语义，应用通常不把它当作普通监听端口；TCP 与 UDP 各自拥有独立端口空间。
   | 范围          | 个数  | 2 的次方表示   | 名称          |
@@ -1341,7 +1418,7 @@ ViewController.m       // 控制器，组合 View 和 Presenter
   | **总计**      | 65536 | 2¹⁶            | 全部端口空间  |
 * 端口的使用是通过网络协议来管理的。典型的例子是TCP和UDP；
 
-## 二十四、Objective-C 非正式协议 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-40" data-jobs-toc="v2">二十四、Objective-C 非正式协议 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 > 非正式协议是早期 Objective-C 的历史做法：通常在 `NSObject` Category 中集中声明一组可选方法，但没有 `@protocol` 带来的编译期类型检查和运行时协议对象。现代代码通常优先使用带 `@optional` 方法的正式协议。
 
@@ -1369,7 +1446,7 @@ ViewController.m       // 控制器，组合 View 和 Presenter
 
 * 新代码优先改成正式协议，获得 `id<ProtocolName>` 类型约束、`conformsToProtocol:` 检查以及 `@required` / `@optional` 语义。
 
-## 二十五、Objective-C 与 JavaScript 交互 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-41" data-jobs-toc="v2">二十五、Objective-C 与 JavaScript 交互 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * `WKWebView` 消息体可以是可桥接的 JSON 值（字符串、数字、数组、字典等），不只限于字符串。跨边界数据应保持可序列化，并对来源、结构和长度做校验。
 
@@ -1718,7 +1795,7 @@ ViewController.m       // 控制器，组合 View 和 Presenter
   @end
   ```
 
-## 二十六、Objective-C 依赖注入 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-42" data-jobs-toc="v2">二十六、Objective-C 依赖注入 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * <font color="red">**Objective-C 语言和 Cocoa 本身没有内置依赖注入容器，但可以通过构造器、属性或方法参数直接实现依赖注入；第三方容器只是可选的装配工具。**</font>
 
@@ -1781,7 +1858,7 @@ ViewController.m       // 控制器，组合 View 和 Presenter
     @end
     ```
 
-## 二十七、函数（方法）签名 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-43" data-jobs-toc="v2">二十七、函数（方法）签名 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 “签名”在不同语言里的含义并不完全相同，不能统一理解成“名称 + 参数名 + 返回值”：
 
@@ -1795,7 +1872,7 @@ ViewController.m       // 控制器，组合 View 和 Presenter
 
 上例的 Selector 是 `updateUserWithName:age:`。把 `name`、`age` 这两个局部形参改名，不会改变 Selector；调整 Selector 片段、冒号数量或顺序，则会得到另一个方法。
 
-## 二十八、函数重载与 Objective-C Selector <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-44" data-jobs-toc="v2">二十八、函数重载与 Objective-C Selector <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 > 方法重载（Overloading）通常是指：在同一作用域中声明多个同名方法，由编译器根据有序参数列表等信息选择具体实现。
 
@@ -1858,9 +1935,9 @@ ViewController.m       // 控制器，组合 View 和 Presenter
   }
   ```
 
-## 二十九、Objective-C 系统计时机制与 `JobsOCTimer` 选型 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-45" data-jobs-toc="v2">二十九、Objective-C 系统计时机制与 `JobsOCTimer` 选型 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 29.1、先分清：它们不是同一种 Timer
+### <span id="jobs-toc-heading-46" data-jobs-toc="v2">29.1、先分清：它们不是同一种 Timer</span><!-- jobs-toc:heading-end -->
 
 日常所说的“UIKit Timer”是 iOS 业务语境下的统称，严格来说这些 API 分属不同框架：
 
@@ -1871,7 +1948,7 @@ ViewController.m       // 控制器，组合 View 和 Presenter
 
 系统提供多种计时机制，是因为“UI 低频刷新、工作队列调度、逐帧渲染、RunLoop 基础设施”不是同一个问题。它们都不是硬实时机制，也都不会赋予 App 后台保活能力。
 
-### 29.2、核心对比
+### <span id="jobs-toc-heading-47" data-jobs-toc="v2">29.2、核心对比</span><!-- jobs-toc:heading-end -->
 
 | 机制 | 依赖与回调位置 | 优势 | 劣势 | 首选场景 | Jobs 映射 |
 | ---- | ---- | ---- | ---- | ---- | ---- |
@@ -1880,7 +1957,7 @@ ViewController.m       // 控制器，组合 View 和 Presenter
 | `CADisplayLink` | 挂到 RunLoop，回调与显示刷新周期协调 | 视觉节奏最匹配；提供 `timestamp`、`targetTimestamp` 与首选帧率 | 实际帧率会变化；主线程繁忙会掉帧；不适合业务计时 | 逐帧动画、进度绘制、交互视觉插值 | `JobsTimerTypeDisplayLink` |
 | `CFRunLoopTimerRef` | Core Foundation RunLoop + Mode | 可控制下一次触发时间、Mode、Context 和底层互操作 | C API 冗长；所有权、线程亲和与 Context 管理复杂；仍受 RunLoop 延迟 | RunLoop 基础设施、C/CF 互操作、特殊 Mode 调度 | `JobsTimerTypeRunLoop` |
 
-#### 29.2.1、`NSTimer`
+#### <span id="jobs-toc-heading-48" data-jobs-toc="v2">29.2.1、`NSTimer`</span><!-- jobs-toc:heading-end -->
 
 - Apple 明确说明它不是实时机制：RunLoop 无法及时处理时，实际回调可以明显晚于计划时间。
 - 重复 Timer 按原计划触发时间继续排期；错过多个周期时只回调一次，不会补发每个丢失 tick。
@@ -1888,27 +1965,27 @@ ViewController.m       // 控制器，组合 View 和 Presenter
 - `NSDefaultRunLoopMode` 下，滚动等 Mode 切换可能让回调暂时不被处理；需要滚动期间继续刷新时使用 `NSRunLoopCommonModes`。
 - target-selector 形态要处理 Timer、RunLoop、target 的持有关系；`JobsOCTimer` 使用弱代理收口这一风险。
 
-#### 29.2.2、GCD Timer
+#### <span id="jobs-toc-heading-49" data-jobs-toc="v2">29.2.2、GCD Timer</span><!-- jobs-toc:heading-end -->
 
 - `dispatch_time` 使用单调时间，适合“经过多久”的间隔调度；墙上时间调度受系统时间调整影响，语义不同。
 - leeway 是允许系统延后投递的窗口，用于功耗与及时性的折中。
 - 不依赖 RunLoop，不代表一定更准；目标队列阻塞、QoS 较低或系统繁忙时仍会延后。
 - 原生 Dispatch Source 在激活、挂起、恢复、取消之间有严格状态要求；`JobsOCTimer` 负责配平并用 generation token 拦截旧回调。
 
-#### 29.2.3、`CADisplayLink`
+#### <span id="jobs-toc-heading-50" data-jobs-toc="v2">29.2.3、`CADisplayLink`</span><!-- jobs-toc:heading-end -->
 
 - 它表达“下一帧应该更新视觉状态”，而不是“每隔固定毫秒执行业务”。
 - 首选帧率只是请求，系统会结合最大刷新率、低电量模式、温度和用户设置选择实际帧率。
 - 动画进度按时间戳或单调时钟计算；按回调次数累加会在掉帧、高刷或刷新率变化时产生速度漂移。
 - 回调中只做轻量状态更新与绘制准备，重计算会直接制造卡顿。
 
-#### 29.2.4、`CFRunLoopTimerRef`
+#### <span id="jobs-toc-heading-51" data-jobs-toc="v2">29.2.4、`CFRunLoopTimerRef`</span><!-- jobs-toc:heading-end -->
 
 - 它和 `NSTimer` 共享 RunLoop 计时语义，不是“天然更精准”的替代品。
 - 价值在于底层 C 接口：明确指定 RunLoop、Mode、Context、Order 与下一次触发时间。
 - 普通业务没有 Core Foundation 互操作需求时，优先使用 `NSTimer` 或 Jobs 封装。
 
-### 29.3、非 Timer，但经常用于“等一会儿”
+### <span id="jobs-toc-heading-52" data-jobs-toc="v2">29.3、非 Timer，但经常用于“等一会儿”</span><!-- jobs-toc:heading-end -->
 
 | API | 特点 | 应该使用的场景 | 不应替代的能力 |
 | ---- | ---- | ---- | ---- |
@@ -1918,7 +1995,7 @@ ViewController.m       // 控制器，组合 View 和 Presenter
 
 `dispatch_source_t` 使用后台队列，只代表回调不在主队列，不代表 App 获得了 iOS 后台执行资格。
 
-### 29.4、选型决策
+### <span id="jobs-toc-heading-53" data-jobs-toc="v2">29.4、选型决策</span><!-- jobs-toc:heading-end -->
 
 1. 需要和屏幕逐帧同步：选 `CADisplayLink` / `JobsTimerTypeDisplayLink`。
 2. 需要脱离 RunLoop，在工作队列做心跳、轮询或维护：选 GCD Timer / `JobsTimerTypeGCD`。
@@ -1927,7 +2004,7 @@ ViewController.m       // 控制器，组合 View 和 Presenter
 5. 只需要延迟一次：选 `dispatch_after` 等一次性延时 API。
 6. 需要系统挂起后执行：选符合业务资格的 Background Tasks、后台传输、定位或音频等机制，不选普通 Timer。
 
-### 29.5、原生最小代码：只用于理解系统差异
+### <span id="jobs-toc-heading-54" data-jobs-toc="v2">29.5、原生最小代码：只用于理解系统差异</span><!-- jobs-toc:heading-end -->
 
 Jobs 应用层生产代码优先使用 `JobsOCTimer` / `JobsOCTimerMgr`。下面的原生代码用于理解系统模型，不作为绕开 Jobs 封装的推荐写法。
 
@@ -1967,7 +2044,7 @@ Jobs 应用层生产代码优先使用 `JobsOCTimer` / `JobsOCTimerMgr`。下面
   self.sourceTimer = timer;
   ```
 
-### 29.6、为什么还需要 `JobsOCTimer` / `JobsOCTimerMgr`
+### <span id="jobs-toc-heading-55" data-jobs-toc="v2">29.6、为什么还需要 `JobsOCTimer` / `JobsOCTimerMgr`</span><!-- jobs-toc:heading-end -->
 
 - `JobsOCTimer` 用 `TimerProtocol` 统一四个内核的 `start/pause/resume/fireOnce/stop`、线程亲和、前后台策略、一次性完成顺序和回调防穿透。
 - `JobsOCTimerMgr` 在内核之上治理 identifier、回调组、Scope、前后台状态机、实例安全取消和批量清理。
@@ -1979,9 +2056,9 @@ Jobs 应用层生产代码优先使用 `JobsOCTimer` / `JobsOCTimerMgr`。下面
   NSTimeInterval remaining = MAX(0, [model.endAt timeIntervalSinceNow]);
   ```
 
-## 三十、Objective-C 多线程 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-56" data-jobs-toc="v2">三十、Objective-C 多线程 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 30.1、pthread
+### <span id="jobs-toc-heading-57" data-jobs-toc="v2">30.1、pthread</span><!-- jobs-toc:heading-end -->
 
 > *pthread（**P**OSIX **Thread**s）*是一套<font color="red">***C语言编写***</font>的**跨平台多线程API**，**使用难度大**，需要**手动管理线程生命周期**。（需要更加谨慎地处理线程的同步和互斥操作，以避免出现死锁、数据竞争等问题）
 >
@@ -2037,7 +2114,7 @@ int main(void) {
 gcc main.c -pthread -o demo
 ```
 
-### 30.2、NSThread
+### <span id="jobs-toc-heading-58" data-jobs-toc="v2">30.2、NSThread</span><!-- jobs-toc:heading-end -->
 
 > Cocoa 框架中的一部分<font color="red">***（较为底层）***</font>。面向对象操作线程，使用相对简单，需要手动管理线程生命周期；
 >
@@ -2066,7 +2143,7 @@ int main(int argc, const char * argv[]) {
 }
 ```
 
-### 30.3、GCD
+### <span id="jobs-toc-heading-59" data-jobs-toc="v2">30.3、GCD</span><!-- jobs-toc:heading-end -->
 
 * GCD（***G***rand ***C***entral ***D***ispatch）是苹果（Apple.Inc）多核编程解决方案（多线程处理技术），使用起来非常方便。需要自己实现如：限制并发数，任务间的依赖等功能。自动管理线程生命周期。
   * **队列（Dispatch Queues）**： GCD 使用队列来管理任务的执行。队列可以是串行队列（Serial Queue）或并发队列（Concurrent Queue）。串行队列中的任务按照 FIFO（先进先出）的顺序依次执行，而并发队列中的任务可以同时执行；
@@ -2189,7 +2266,7 @@ int main(int argc, const char * argv[]) {
     RunLoop.main.run()
     ```
 
-### 30.4、[**NSOperation**](https://developer.apple.com/documentation/foundation/nsoperation)
+### <span id="jobs-toc-heading-60" data-jobs-toc="v2">30.4、[**NSOperation**](https://developer.apple.com/documentation/foundation/nsoperation)</span><!-- jobs-toc:heading-end -->
 
 > `NSOperation`（Swift 中为 `Operation`）把工作单元建模为对象，支持依赖、取消、优先级和状态观察；`NSOperationQueue` 负责调度这些工作。实现细节可能使用线程或系统并发设施，不应简单等同为“GCD 的面向对象封装”。
 >
@@ -2279,7 +2356,7 @@ int main(int argc, const char * argv[]) {
   @end
   ```
 
-## 三十一、Objective-C Runtime 消息转发机制 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-61" data-jobs-toc="v2">三十一、Objective-C Runtime 消息转发机制 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 > Objective-C 中的消息转发机制是一种在***运行时动态处理未知消息***的机制：<font color="red">***当一个对象接收到一个它无法识别的消息时，Objective-C 运行时系统会通过一系列的步骤来处理这个未知消息，并尝试找到合适的接收者来处理该消息***</font>。
 
@@ -2293,7 +2370,7 @@ int main(int argc, const char * argv[]) {
    如果备用接收者也无法处理消息，运行时会先通过 `-methodSignatureForSelector:` 获取方法签名。只有返回了有效签名，才会创建 `NSInvocation` 并调用 `-forwardInvocation:`。对象可以转发调用或自行处理；没有提供签名或最终没有处理消息时，通常会走到 `doesNotRecognizeSelector:` 并抛出异常。
    通过这三个阶段，Objective-C 运行时可以实现动态消息处理的能力，使得对象能够在运行时动态地处理未知消息，从而增强了语言的灵活性和动态性；
 
-## 三十二、`dylib` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-62" data-jobs-toc="v2">三十二、`dylib` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - Windows 常见动态库扩展名为 `.dll`，Linux 常见为 `.so`，Apple 平台常见为 `.dylib` 或由 Framework 承载的动态 Mach-O；
 - `.dylib` 是动态库文件，`dyld` 才是 Apple 平台的动态链接加载器；不能把二者都称作“开源组件”。Apple 发布过 dyld 的开源代码，但系统中具体版本与实现仍以对应 OS 为准；
@@ -2301,7 +2378,7 @@ int main(int argc, const char * argv[]) {
 - Mach-O 的 load commands 记录依赖项和装载路径；实际装载顺序受依赖图、镜像初始化与系统实现影响，不能用 Xcode 的 `Link Binary With Libraries` 列表顺序作为稳定的运行时顺序保证；
 - 系统库可能由 dyld shared cache 统一承载。缓存路径和内部布局属于系统实现细节，不应在业务代码或文档中依赖固定目录。
 
-## 三十三、`+load` 和 `+initialize` 的区别 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-63" data-jobs-toc="v2">三十三、`+load` 和 `+initialize` 的区别 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 对比项 | `+load` | `+initialize` |
 | :--- | :--- | :--- |
@@ -2313,7 +2390,7 @@ int main(int argc, const char * argv[]) {
 
 系统自动调用 `+load` 与业务代码主动发送 `load` 消息不是同一件事。也不要通过 Runtime 私有源码函数名或分类编译顺序建立业务约束，这些并非稳定 API。
 
-## 三十四、`objc_msgSend` 方法调用流程 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-64" data-jobs-toc="v2">三十四、`objc_msgSend` 方法调用流程 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - Objective-C 消息表达式由编译器按目标架构 ABI 生成调用序列。普通消息的核心入口可以理解为 `objc_msgSend(receiver, selector, ...)`；
 - `super` 不是另一个接收者，而是要求从父类的方法列表开始查找；编译器会生成对应的 super 派发入口；
@@ -2321,9 +2398,9 @@ int main(int argc, const char * argv[]) {
 - 快速路径会根据对象的类、Selector 与方法缓存查找 IMP；找不到时才进入较慢的方法查找、动态解析和消息转发流程；
 - 直接把 `objc_msgSend` 当函数指针使用时，必须严格匹配真实方法 ABI；除 Runtime 工具代码外，优先使用正常 Objective-C 消息语法。
 
-## 三十五、Objective-C 数据持久化 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-65" data-jobs-toc="v2">三十五、Objective-C 数据持久化 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 35.1、[**SQLite**](https://sqlite.org/)
+### <span id="jobs-toc-heading-66" data-jobs-toc="v2">35.1、[**SQLite**](https://sqlite.org/)</span><!-- jobs-toc:heading-end -->
 
 > - 零配置、嵌入式的关系型数据库引擎；
 > - 提供 C API，跨平台，适用于移动端、本地缓存与中小型业务；
@@ -2381,7 +2458,7 @@ int main(int argc, const char * argv[]) {
   }
   ```
 
-### 35.2、[**FMDB**](https://github.com/ccgus/fmdb)
+### <span id="jobs-toc-heading-67" data-jobs-toc="v2">35.2、[**FMDB**](https://github.com/ccgus/fmdb)</span><!-- jobs-toc:heading-end -->
 
 > - FMDB 是 SQLite 的 Objective-C 封装，仍然需要理解 SQL、事务和索引；
 > - FMDB 不负责云端实时同步；同步协议、冲突处理和离线策略需要由业务或其他服务实现；
@@ -2444,7 +2521,7 @@ int main(int argc, const char * argv[]) {
 @end
 ```
 
-### 35.3、[**Realm**](https://github.com/realm)
+### <span id="jobs-toc-heading-68" data-jobs-toc="v2">35.3、[**Realm**](https://github.com/realm)</span><!-- jobs-toc:heading-end -->
 
 > - Realm 是对象数据库，常规 CRUD 不直接使用 SQL，但仍需理解数据建模、迁移、线程隔离和事务；
 > - Realm SDK 可用于本地持久化。原 [**Atlas Device Sync / App Services**](https://www.mongodb.com/docs/atlas/app-services/sync/configure/enable-sync/) 能力已进入停止服务流程，不能再把“内置实时同步”作为新项目选型结论；
@@ -2491,7 +2568,7 @@ int main(int argc, const char * argv[]) {
 }
 ```
 
-## 三十六、FAQ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-69" data-jobs-toc="v2">三十六、FAQ <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * <font color=red>**如何用`UITableView`来处理大数据灌入的业务场景**</font>
 
@@ -3007,7 +3084,7 @@ int main(int argc, const char * argv[]) {
     > - `POST` 响应在提供明确的新鲜度信息等条件时也可以被缓存，只是通用缓存支持较少；
     > - `PUT`、`PATCH`、`DELETE` 会影响相关缓存条目的有效性，具体行为由 HTTP 缓存规范和实现决定。
 
-## 三十七、其他 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-70" data-jobs-toc="v2">三十七、其他 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 动态库的基本概念见本文“`dylib`”章节；具体工程应以 Mach-O、签名、嵌入方式与 App Store 规则为准，不依赖非官方教程中的固定目录或装载顺序；
 

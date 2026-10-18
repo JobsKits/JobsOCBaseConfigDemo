@@ -2,22 +2,36 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、实现边界](#jobs-toc-heading-2)
+- [二、四种系统计时机制](#jobs-toc-heading-3)
+- [三、选型顺序](#jobs-toc-heading-4)
+- [四、Jobs 封装解决的痛点](#jobs-toc-heading-5)
+- [五、引用与使用](#jobs-toc-heading-6)
+- [六、验证](#jobs-toc-heading-7)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 > `JobsOCTimer` 是 OC 老工程的统一计时入口。老工程继续按主工程方式集成 `JobsTimer`，与 OC 新工程保持四内核和生命周期语义对齐，但不引入本地 Pod 结构。
 
-## 一、实现边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、实现边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 公开聚合入口：`./JobsOCTimer.h`。
 - 核心实现：`../../../JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsTImer/JobsTimer.h/.m`。
 - 行为对齐：支持 `NSTimer`、GCD Timer、`CADisplayLink`、`CFRunLoopTimerRef`。
 - 单个 Timer 的底层生命周期由 `JobsTimer` 负责；多 Timer、identifier、Scope 与批量治理使用同级 `JobsOCTimerMgr`。
 
-## 二、四种系统计时机制 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、四种系统计时机制 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 日常所说的“iOS 系统 Timer”并不都属于 UIKit：
 
@@ -35,7 +49,7 @@
 
 四种机制都不是硬实时 Timer，也不会赋予 App 后台保活能力。
 
-## 三、选型顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、选型顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 1. 跟屏幕逐帧同步：`JobsTimerTypeDisplayLink`。
 2. 脱离 RunLoop，在工作队列做心跳、轮询或维护：`JobsTimerTypeGCD`。
@@ -44,7 +58,7 @@
 5. 只有一次延迟动作：使用 `dispatch_after` 等一次性 API，不创建重复 Timer。
 6. App 被系统挂起后仍需工作：使用匹配业务资格的后台系统机制，不使用普通 Timer。
 
-## 四、Jobs 封装解决的痛点 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-5" data-jobs-toc="v2">四、Jobs 封装解决的痛点 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 统一四内核的 `start/pause/resume/fireOnce/stop` 和回调入口。
 - 非 GCD 内核统一主线程、主 RunLoop 亲和；GCD 内核允许跨线程生命周期调用。
@@ -53,7 +67,7 @@
 - 倒计时以绝对 `endAt` 为时间真值，每次 tick 重算剩余时间，不把 tick 次数当时间。
 - 需要 identifier 去重、Cell 复用安全、Scope 或前后台策略时升级到 `JobsOCTimerMgr`。
 
-## 五、引用与使用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">五、引用与使用 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
 #import "JobsOCTimer.h"
@@ -71,7 +85,7 @@ JobsTimer *timer = jobsMakeTimer(^(JobsTimer * _Nullable timer) {
 [timer start];
 ```
 
-## 六、验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-7" data-jobs-toc="v2">六、验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 对照 `JobsTimerType` 四个枚举与 `JobsTimer.m` 的 start/pause/resume/stop 分支。
 - 使用老工程主 scheme 和 `JobsOCBaseConfigDemoTests` 验证自动暂停恢复、手动暂停保护与回调防穿透。

@@ -2,17 +2,36 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、功能与操作](#jobs-toc-heading-2)
+- [二、目录与公开边界](#jobs-toc-heading-3)
+- [三、Debug 集成](#jobs-toc-heading-4)
+- [四、AppDelegate 链式配置](#jobs-toc-heading-5)
+- [五、环境与窗口状态](#jobs-toc-heading-6)
+- [六、Demo、离线与弱网边界](#jobs-toc-heading-7)
+- [七、资源来源与许可](#jobs-toc-heading-8)
+- [八、架构脉络与关键设计](#jobs-toc-heading-9)
+  - [8.1、职责与运行关系](#jobs-toc-heading-10)
+  - [8.2、设计边界与阅读顺序](#jobs-toc-heading-11)
+- [九、验证与迁移](#jobs-toc-heading-12)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 `JobsDebugPanel` 是 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 主工程功能模块。它在 `Debug` 构建中提供位于应用页面上方的圆形 `UIButton`、环境切换列表和有序自定义动作。声明、实现、初始化和 Demo 入口均受 `#if DEBUG` 保护，`Release` 不包含调试类和入口。
 
 公开调用统一从 [JobsDebugPanel.h](./JobsDebugPanel.h) 进入；中文架构见[架构脉络与关键设计](#jobs-architecture)。源码与资源直接集成于主工程，不增加调试面板的 Pod 依赖。[**SwiftUI**](https://developer.apple.com/xcode/swiftui/) 工程使用独立的 `JobsSwiftUIDebugPanel` 本地 Pod，以 `Button`、`List` 和 `NavigationStack` 实现对应界面与导航。
 
-## 一、功能与操作 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、功能与操作 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 1、启动 App 后，每个处于前台的业务 Scene 显示一个圆形按钮，按钮只使用随 App 打包的背景图。
 
@@ -28,7 +47,7 @@
 
 7、Demo、调试页、环境页、导航、表格和弹窗读取宿主 `JobsThemeCenter` 的有效主题；已打开页面在 `JobsThemeDidChangeNotification` 到达时立即刷新。宿主当前提供白天 / 黑夜两种主题；系统与 App 自选主题不一致时仍以 App 为准。
 
-## 二、目录与公开边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、目录与公开边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```text
 JobsDebugPanel/
@@ -50,7 +69,7 @@ JobsDebugPanel/
 
 公开契约只有环境 Model、动作 Model、Manager 和调试列表 VC。其余 `Core` 类型作为实现细节，调用方不直接依赖浮层、Cell 和二级页面。当前没有单独的支援代码，因此不建立空 `Support` 目录；`Resource` 与 `Core` 平级。
 
-## 三、Debug 集成 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、Debug 集成 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 模块放在主工程 `OCBaseConfig/JobsMixFunc/JobsDebugPanel` 下，Demo 放在 `业务逻辑/功能模块/Demo@JobsDebugPanel` 下。保持原有 Pod 依赖，不额外增加 `JobsDebugPanel` Pod。
 
@@ -67,7 +86,7 @@ JobsDebugPanel/
 
 主工程 target 加入九个 Core `.m`、两个 Demo `.m` 和按钮 PNG；头文件与 README 只用于工程阅读，不作为资源复制。模块复用主工程已有的 `JobsBaseUI`、`JobsByOCPods`、`JobsBlock`、`JobsDefines`、`JobsOCDSL`、`JobsMakes` 及既有 [**Masonry**](https://github.com/SnapKit/Masonry)、`XYColorOC` 能力。按钮 PNG 直接进入 App bundle，Demo 图标进入现有 Assets 目录。
 
-## 四、AppDelegate 链式配置 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-5" data-jobs-toc="v2">四、AppDelegate 链式配置 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 环境模型把稳定标识、备注和 URL 收口；动作模型把标题、可选图片和行为收口。请在主线程完成配置，并把 `start()` 放在完整配置链的末尾。
 
@@ -111,7 +130,7 @@ JobsDebugPanelManager.sharedPanel
 
 `JobsDebugAction` 的行为收到当前调试页面 `UIViewController`，可以继续使用它的导航容器打开自定义功能页面。`byActions` 按数组顺序覆盖当前自定义动作列表，默认环境入口始终在首行。
 
-## 五、环境与窗口状态 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">五、环境与窗口状态 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 | 状态 | 保存位置 | 行为 |
 | --- | --- | --- |
@@ -128,7 +147,7 @@ JobsDebugPanelManager.sharedPanel
 
 主题使用宿主语义颜色与主题通知，导航、Demo、系统弹窗同步有效明暗样式；表格、Cell 内容、选中态、分隔线和页脚同时刷新，原生视图 trait 跟随宿主主题，系统与 App 自选明暗不一致时也保持可读。浮动按钮的无障碍文案随打开 / 关闭状态显示下一次点击动作。面板不会自行持久化另一份主题选择；宿主将系统变化归入自身有效主题时，面板通过同一通知刷新。
 
-## 六、Demo、离线与弱网边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-7" data-jobs-toc="v2">六、Demo、离线与弱网边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 宿主 Demo 使用本地 `18080`、`https://httpbin.org` 和 `https://postman-echo.com` 三个环境；选择环境后，请求示例读取当前 `baseURL` 请求 `/get`，超时为 `3` 秒。网络失败、超时或响应不能解析时显示本地示例结果，保留重试入口；后续请求成功自动使用真实响应。环境选择与菜单本身不需要服务器，断网也可演示。
 
@@ -136,7 +155,7 @@ JobsDebugPanelManager.sharedPanel
 
 框架没有默认加入全 App 弱网开关。普通调试模块 的公开请求扩展无法覆盖全 App 的带宽、丢包和所有网络栈；[**Apple Network Link Conditioner**](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/On_Demand_Resources_Guide/TestingPerformance.html) 在开发设备的 `Settings > Developer` 中配置真实网络 profile。`URLProtocol` 仅是参与对应 Session 的协议处理扩展，Apple [明确说明后台 Session 不支持自定义 URLProtocol](https://developer.apple.com/documentation/foundation/urlsessionconfiguration/protocolclasses)。需要局部请求延迟或故障演示时，可通过自定义动作接入宿主自己的可控请求层，并明确其覆盖范围。
 
-## 七、资源来源与许可 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-8" data-jobs-toc="v2">七、资源来源与许可 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 按钮首先按规则检索 [**iconfont**](https://www.iconfont.cn/)；无法取得可核实具体作者许可的合适结果后，使用 [**Ant Design Icons**](https://github.com/ant-design/ant-design-icons) 官方 [`filled/bug.svg`](https://github.com/ant-design/ant-design-icons/blob/master/packages/icons-svg/svg/filled/bug.svg)。原始路径嵌入自建金黄色圆底矢量图，离线渲染成 `240 × 240` PNG，圆外透明、图中没有标题文字。
 
@@ -144,9 +163,9 @@ JobsDebugPanelManager.sharedPanel
 
 <a id="jobs-architecture"></a>
 
-## 八、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-9" data-jobs-toc="v2">八、架构脉络与关键设计 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 8.1、职责与运行关系 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-10" data-jobs-toc="v2">8.1、职责与运行关系 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 <table>
   <thead>
@@ -162,7 +181,7 @@ JobsDebugPanelManager.sharedPanel
   </tbody>
 </table>
 
-### 8.2、设计边界与阅读顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-11" data-jobs-toc="v2">8.2、设计边界与阅读顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 先读环境 / 动作 Model，再读 Manager，最后读菜单与浮层。环境和菜单是进程级配置，窗口和导航属于各自 Scene；两种生命周期分开管理。长按隐藏只结束本次进程的入口展示，不删除已保存的环境。
 
@@ -172,7 +191,7 @@ JobsDebugPanelManager.sharedPanel
 - [JobsDebugPanelVC.h](./Core/JobsDebugPanelVC/JobsDebugPanelVC.h)：表格页面契约。
 - [JobsDebugPanel.h](./JobsDebugPanel.h)：公开 API 聚合；内部类型不作为调用方契约。
 
-## 九、验证与迁移 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-12" data-jobs-toc="v2">九、验证与迁移 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 1、静态检查主工程 `project.pbxproj`，确认 Core / Demo 源码与按钮 PNG 的 target 引用完整，说明文档不进入 Copy Bundle Resources。
 

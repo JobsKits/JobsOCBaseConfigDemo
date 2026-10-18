@@ -1,10 +1,21 @@
 # <span id="前言">JobsOCMarkdown</span>
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [一、能力](#jobs-toc-heading-1)
+- [二、接入](#jobs-toc-heading-2)
+- [三、读取与渲染](#jobs-toc-heading-3)
+- [四、第三方内核](#jobs-toc-heading-4)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
-## 一、能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">一、能力 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 `JobsOCMarkdown` 是直接集成于 Jobs Objective-C 老工程主工程的本地 Markdown
 渲染组件。它使用 `WKWebView` 承载成熟的 Web 解析内核，支持：
@@ -18,7 +29,7 @@
 - UTF-8 文本在原生层与 JavaScript 运行时之间安全传输；
 - 构建期文档清单，以及 Markdown 文件之间的链接。
 
-## 二、接入 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">二、接入 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 源码位于 `OCBaseConfig/JobsMixFunc/JobsOCMarkdown`，并由 `JobsMixFunc.h` 对外
 暴露。老工程不新增 `JobsOCMarkdown` Pod 依赖。
@@ -34,7 +45,7 @@ Markdown 和被引用的本地资源写入 App 内的 `JobsMarkdownDocuments.bun
 普通 `worknotes` / `work/notes` 文档及构建树外的 proof JSON 仍按原规则复制，
 不整体排除 `work`。新旧主工程沿用三个构建参数，无须临时环境变量。
 
-## 三、读取与渲染 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">三、读取与渲染 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objective-c
 NSError *error = nil;
@@ -46,7 +57,7 @@ JobsOCMarkdownDocument *document = catalog.documents.firstObject;
 文档列表属于宿主 Demo；组件只负责清单模型、文件读取与渲染。宿主 Demo 的
 详情导航标题跟随当前文档标题，列表点按态使用主题语义背景色。
 
-## 四、第三方内核 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-4" data-jobs-toc="v2">四、第三方内核 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 资源包内原样包含 `markdown-it`、`highlight.js`、`Mermaid`、`KaTeX` 和
 `DOMPurify` 的浏览器发行文件。版本与许可证见 `ThirdPartyLicenses`，Jobs 自有

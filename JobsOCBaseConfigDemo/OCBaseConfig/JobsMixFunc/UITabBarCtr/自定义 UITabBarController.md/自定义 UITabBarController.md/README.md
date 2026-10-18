@@ -2,11 +2,36 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [一、相关目录结构](#jobs-toc-heading-1)
+- [二、拓展系统TabBarVC 回到顶部](#jobs-toc-heading-2)
+  - [1、JobsTabBarVC](#jobs-toc-heading-3)
+    - [1.1、对横屏的适配](#jobs-toc-heading-4)
+    - [1.2、对系统的 UITabBar 通过KVC的方式替换为自定义的 JobsTabBar](#jobs-toc-heading-5)
+    - [1.3、滑动手势切换子控制器](#jobs-toc-heading-6)
+    - [1.4、长按手势](#jobs-toc-heading-7)
+    - [1.5、支持PPBadgeView：TabBarItem计数小红点](#jobs-toc-heading-8)
+    - [1.6、至少在-(void)viewWillAppear:(BOOL)animated以后的生命周期，实现](#jobs-toc-heading-9)
+    - [1.7、防止多次加载UI的特殊处理](#jobs-toc-heading-10)
+    - [1.8、防止当子控制器为UIImagePickerController 引起的崩溃](#jobs-toc-heading-11)
+    - [1.9、强行自检跳转登录模块](#jobs-toc-heading-12)
+    - [1.10、支持Lottie动画](#jobs-toc-heading-13)
+  - [2、JobsTabBar](#jobs-toc-heading-14)
+- [三、高度自定义TabBarVC 回到顶部](#jobs-toc-heading-15)
+  - [1、JobsCustomTabBarVC](#jobs-toc-heading-16)
+  - [2、LZTabBarController](#jobs-toc-heading-17)
+- [四、其他 回到顶部](#jobs-toc-heading-18)
+
+</details>
+<!-- jobs-toc:end -->
 
 > 本文后续旧单窗口代码用于理解历史实现。当前主 App 使用 Scene 生命周期，在 SceneDelegate 内创建窗口；不复制 `makeAppDelegateWindow` 或全局 TabBar 根到多窗口宿主。
 
-## 一、<font id=相关目录结构>相关目录结构</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">一、<font id=相关目录结构>相关目录结构</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * <font color=red>`JobsTabBarVC`</font>：**`UITabBarController`**
   * `JobsTabBarItemConfig`：**`NSObject`**
@@ -26,9 +51,9 @@
   * `LZTabBarConfig` ：**`NSObject`**
   * `LZTabBarItem`：**`UIView`**
 
-## 二、拓展系统TabBarVC <a href="#相关目录结构" style="font-size:17px; color:green;"><b>回到顶部</b></a> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">二、拓展系统TabBarVC <a href="#相关目录结构" style="font-size:17px; color:green;"><b>回到顶部</b></a> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 1、<font color=red>`JobsTabBarVC`</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-3" data-jobs-toc="v2">1、<font color=red>`JobsTabBarVC`</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * 产生背景
   * 在极大的拥抱系统API的基础上进行拓展，使用系统优化好的控件，在后期可能会避免一些不必要的麻烦
@@ -42,7 +67,7 @@
     * 点击`UITabBarItem`支持自检跳转：检测跳转登录模块、自定义点击跳转行为（不一定非要切换根控制器，而是比如弹出一个提示语）
     * 对某个`UITabBarItem`的垂直距离自定义
   
-#### 1.1、对横屏的适配 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+#### <span id="jobs-toc-heading-4" data-jobs-toc="v2">1.1、对横屏的适配 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
   ```objective-c
   #pragma mark —— 在 UITabBarController 中适配横屏在 UITabBarController 中适配横屏
@@ -66,7 +91,7 @@
   }
   ```
 
-#### 1.2、<font color=red id=KVC.tabBar>对系统的 `UITabBar` 通过**KVC**的方式替换为自定义的 `JobsTabBar`</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+#### <span id="jobs-toc-heading-5" data-jobs-toc="v2">1.2、<font color=red id=KVC.tabBar>对系统的 `UITabBar` 通过**KVC**的方式替换为自定义的 `JobsTabBar`</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
   ```objective-c
   @property(nonatomic,strong,readonly)JobsTabBar *myTabBar;/// myTabBar.humpOffsetY 凸起的高度自定义，默认值30  offsetHeight
@@ -86,7 +111,7 @@
   }
   ```
 
-#### 1.3、滑动手势切换子控制器 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+#### <span id="jobs-toc-heading-6" data-jobs-toc="v2">1.3、滑动手势切换子控制器 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
   ```objective-c
   /// 关闭手势
@@ -128,7 +153,7 @@
   }
   ```
 
-#### 1.4、长按手势 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+#### <span id="jobs-toc-heading-7" data-jobs-toc="v2">1.4、长按手势 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
   ```objective-c
   -(void)添加长按手势{
@@ -179,7 +204,7 @@
   }
   ```
 
-#### 1.5、支持[**`PPBadgeView`**](https://github.com/jkpang/PPBadgeView)：`TabBarItem`计数小红点 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+#### <span id="jobs-toc-heading-8" data-jobs-toc="v2">1.5、支持[**`PPBadgeView`**](https://github.com/jkpang/PPBadgeView)：`TabBarItem`计数小红点 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```ruby
 pod 'PPBadgeView' # https://github.com/jkpang/PPBadgeView iOS自定义Badge组件, 支持UIView, UITabBarItem, UIBarButtonItem以及子类NO_SMP
@@ -215,7 +240,7 @@ if (self.isOpenPPBadge) {
  }
 ```
 
-#### 1.6、至少在`-(void)viewWillAppear:(BOOL)animated`以后的生命周期，实现 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+#### <span id="jobs-toc-heading-9" data-jobs-toc="v2">1.6、至少在`-(void)viewWillAppear:(BOOL)animated`以后的生命周期，实现 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
   ```objective-c
   if (config.humpOffsetY != 0) {
@@ -230,7 +255,7 @@ if (self.isOpenPPBadge) {
   }
   ```
 
-#### 1.7、防止多次加载UI的特殊处理 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+#### <span id="jobs-toc-heading-10" data-jobs-toc="v2">1.7、防止多次加载UI的特殊处理 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
   ```objective-c
   -(void)viewWillAppear:(BOOL)animated{
@@ -245,7 +270,7 @@ if (self.isOpenPPBadge) {
   }
   ```
 
-#### 1.8、防止当子控制器为`UIImagePickerController` 引起的崩溃 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+#### <span id="jobs-toc-heading-11" data-jobs-toc="v2">1.8、防止当子控制器为`UIImagePickerController` 引起的崩溃 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
   ```objective-c
   UIViewController *viewController = self.childVCMutArr[i];
@@ -256,7 +281,7 @@ if (self.isOpenPPBadge) {
   }
   ```
 
-#### 1.9、强行自检跳转登录模块 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+#### <span id="jobs-toc-heading-12" data-jobs-toc="v2">1.9、强行自检跳转登录模块 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objective-c
 /// 对单个的 TabBarItem 进行的配置。这个类不能用作单例
@@ -278,7 +303,7 @@ Prop_assign()BOOL isNeedjump;/// 跳开处理，即不切控制器，而是做�
 }
 ```
 
-#### 1.10、支持**`Lottie`**动画 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+#### <span id="jobs-toc-heading-13" data-jobs-toc="v2">1.10、支持**`Lottie`**动画 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * 关注实现类：[**@interface UIViewController (Lottie)**](https://github.com/295060456/JobsOCBaseConfigDemo/tree/main/JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIViewController/UIViewController+Category/UIViewController+Others/UIViewController+Lottie)
 
@@ -288,7 +313,7 @@ Prop_assign()BOOL isNeedjump;/// 跳开处理，即不切控制器，而是做�
   }
   ```
 
-### 2、`JobsTabBar` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-14" data-jobs-toc="v2">2、`JobsTabBar` <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * 对`UITabBarItem`上的图文位置有约束作用。在居中对齐的大前提下
 
@@ -384,13 +409,13 @@ Prop_assign()BOOL isNeedjump;/// 跳开处理，即不切控制器，而是做�
   }
   ```
 
-## 三、高度自定义TabBarVC <a href="#相关目录结构" style="font-size:17px; color:green;"><b>回到顶部</b></a> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-15" data-jobs-toc="v2">三、高度自定义TabBarVC <a href="#相关目录结构" style="font-size:17px; color:green;"><b>回到顶部</b></a> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * 产生背景：系统的Api会有一些反人类思维的做法，会极大影响我们对于一些UI的布控
   * `UITabBarItem`仅仅是针对`UITabBarController`的一个配置文件，而不是视图层。图片和文字是配置在`UITabBarItem`里面的
   * 当需要自定义 `UITabBarItem`中配置的图文位置，就相对比较吃力。特别是在横屏条件下，无法准确定位图文的生长周期，导致布局失败
 
-### 1、<font color =red>`JobsCustomTabBarVC`</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-16" data-jobs-toc="v2">1、<font color =red>`JobsCustomTabBarVC`</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * 将系统的 `UITabBarItem`替换为按钮（**UIButton**）更加符合国人思维习惯
 
@@ -451,14 +476,14 @@ Prop_assign()BOOL isNeedjump;/// 跳开处理，即不切控制器，而是做�
   }
   ```
 
-### 2、<font color=red>`LZTabBarController`</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-17" data-jobs-toc="v2">2、<font color=red>`LZTabBarController`</font> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * `@interface LZTabBarItem : UIView`
 * 配置文件：`LZTabBarConfig`
 * 将系统的 `UITabBarItem`替换为点击手势（**UITapGestureRecognizer**）更加符合国人思维习惯
 * **UITapGestureRecognizer**于`LZTabBarItem`
 
-## 四、其他 <a href="#相关目录结构" style="font-size:17px; color:green;"><b>回到顶部</b></a> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-18" data-jobs-toc="v2">四、其他 <a href="#相关目录结构" style="font-size:17px; color:green;"><b>回到顶部</b></a> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 * 生命周期
 

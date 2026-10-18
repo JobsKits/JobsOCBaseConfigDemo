@@ -2,17 +2,32 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、当前工程使用方式](#jobs-toc-heading-2)
+- [二、目录结构](#jobs-toc-heading-3)
+- [三、配置项](#jobs-toc-heading-4)
+- [四、新增构建环境](#jobs-toc-heading-5)
+- [五、移植到其它主工程](#jobs-toc-heading-6)
+- [六、生成流程](#jobs-toc-heading-7)
+- [七、常见问题与风险](#jobs-toc-heading-8)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 > 本目录为 OC 老工程直接集成的 App 图标环境绶带模块。它在构建期为原始 AppIcon 生成带 `DEBUG`、`RELEASE` 或自定义环境文案的派生图标，不依赖本地 Pod。
 
 该能力只参与 [**Xcode**](https://developer.apple.com/xcode) 构建，不包含 App 运行时代码，也不需要在 [**Objective-C**](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html) 中调用。
 
-## 一、当前工程使用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、当前工程使用方式 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 当前工程已经完成以下接入：
 
@@ -24,7 +39,7 @@
 
 正常使用只需打开配置文件修改样式，然后构建对应环境。
 
-## 二、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、目录结构 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```text
 JobsAppIconRibbon/
@@ -39,7 +54,7 @@ JobsAppIconRibbon/
 - `Scripts/JobsAppIconRibbon.sh`：适配 [**Xcode**](https://developer.apple.com/xcode) 环境并调用生成器。
 - `Scripts/JobsAppIconRibbonGenerator.swift`：读取原图并绘制右上角绶带。
 
-## 三、配置项 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、配置项 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```properties
 SOURCE_APPICONSET=JobsOCBaseConfigDemo/其他/资源文件管理/图片资源文件/xcassets/Assets.xcassets/AppIcon.appiconset
@@ -69,7 +84,7 @@ FONT_SIZE_RATIO=0.105
 
 颜色支持 `#RRGGBB` 和 `#RRGGBBAA`。字体不存在时自动回退到系统粗体。
 
-## 四、新增构建环境 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-5" data-jobs-toc="v2">四、新增构建环境 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 例如新增 `UAT` Configuration：
 
@@ -91,7 +106,7 @@ FONT_SIZE_RATIO=0.105
    JobsAppIconRibbon-$(CONFIGURATION).appiconset
    ```
 
-## 五、移植到其它主工程 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">五、移植到其它主工程 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 1. 将整个 `JobsAppIconRibbon` 目录复制到目标工程的启动配置目录。
 2. 修改 `JobsAppIconRibbon.config` 中的 `SOURCE_APPICONSET`。
@@ -110,7 +125,7 @@ JOBS_APP_ICON_RIBBON_CONFIG_PATH="${SRCROOT}/目标目录/JobsAppIconRibbon.conf
 /bin/zsh "${SRCROOT}/目标目录/Scripts/JobsAppIconRibbon.sh"
 ```
 
-## 六、生成流程 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-7" data-jobs-toc="v2">六、生成流程 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```mermaid
 flowchart LR
@@ -123,7 +138,7 @@ flowchart LR
 
 派生图标生成在原始 `.appiconset` 的相邻目录，原始图片和 `Contents.json` 不会被修改。
 
-## 七、常见问题与风险 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-8" data-jobs-toc="v2">七、常见问题与风险 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 找不到配置文件：检查 Build Phase 中的 `JOBS_APP_ICON_RIBBON_CONFIG_PATH`。
 - 找不到原始图标：检查 `SOURCE_APPICONSET` 是否相对于 `SRCROOT`，以及 `Contents.json` 是否存在。

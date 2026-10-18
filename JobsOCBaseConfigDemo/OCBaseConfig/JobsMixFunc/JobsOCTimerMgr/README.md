@@ -2,19 +2,35 @@
 
 ![Jobs出品，必属精品](https://picsum.photos/1500/400)
 
-[toc]
+<!-- jobs-toc:start -->
+<!-- jobs-toc:source {"v":2,"token":"[toc]"} -->
+<details>
+<summary>📚 目录（点击展开 / 收起）</summary>
+
+- [🔥 前言](#jobs-toc-heading-1)
+- [一、定位](#jobs-toc-heading-2)
+- [二、推荐 DSL](#jobs-toc-heading-3)
+- [三、并发保证](#jobs-toc-heading-4)
+- [四、验证](#jobs-toc-heading-5)
+- [五、系统计时机制对比与 Manager 选型](#jobs-toc-heading-6)
+  - [5.1、Manager 不替代内核选择](#jobs-toc-heading-7)
+  - [5.2、决策顺序](#jobs-toc-heading-8)
+  - [5.3、什么时候必须上 Manager](#jobs-toc-heading-9)
+
+</details>
+<!-- jobs-toc:end -->
 
 ---
 
-## 🔥 <font id=前言>前言</font>
+## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
 > 老工程的标准 Timer Manager 与新 OC `JobsOCTimerMgr` 保持同一状态机语义。
 
-## 一、定位 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、定位 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 `JobsTimerMgr` 是 OC 老工程的主计时管理器，按 identifier 管理 `JobsTimer`，提供原子覆盖、生命周期控制、回调叠加与前后台策略。实现与 OC 新工程 `JobsOCTimerMgr` 保持能力对齐，但继续集成在主工程目录中。
 
-## 二、推荐 DSL <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、推荐 DSL <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 ```objc
 NSString *identifier = @"home.countdown";
@@ -39,7 +55,7 @@ JobsTimerMgr.shared
 });
 ```
 
-## 三、并发保证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-4" data-jobs-toc="v2">三、并发保证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 同 identifier 先在串行隔离队列中原子替换，再在队列外停止旧 timer。
 - 回调执行前核对 Entry 身份，旧 timer 的残留事件不会命中新 timer 的回调组。
@@ -51,13 +67,13 @@ JobsTimerMgr.shared
 - `startImmediately`、`start:`、`resume:` 后同步当前应用状态；应用已经 inactive / background 时启动也不会绕过策略。
 - cancel 策略只在真实 background 时停止并移除，短暂 inactive 不会误取消。
 
-## 四、验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-5" data-jobs-toc="v2">四、验证 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 使用老工程主 scheme 完整编译，并编译 `JobsOCBaseConfigDemoTests`；测试覆盖实例安全取消和 Scope 生命周期。变更同步到新 OC 工程时只对齐行为，不复制 Pod 目录结构。
 
-## 五、系统计时机制对比与 Manager 选型 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+## <span id="jobs-toc-heading-6" data-jobs-toc="v2">五、系统计时机制对比与 Manager 选型 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-### 5.1、Manager 不替代内核选择 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-7" data-jobs-toc="v2">5.1、Manager 不替代内核选择 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 `JobsTimerMgr` 解决的是 Timer 的所有权、identifier、回调组、Scope 和批量生命周期，不替代底层 `timerType` 选择。
 
@@ -70,7 +86,7 @@ JobsTimerMgr.shared
 
 四种机制都不是硬实时 Timer，也都不是后台保活方案。
 
-### 5.2、决策顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-8" data-jobs-toc="v2">5.2、决策顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 1. 屏幕逐帧刷新选择 `JobsTimerTypeDisplayLink`。
 2. 非 UI 工作队列、心跳或轮询选择 `JobsTimerTypeGCD`。
@@ -79,7 +95,7 @@ JobsTimerMgr.shared
 5. 只有一次延迟动作时使用 `dispatch_after` 等一次性 API。
 6. App 被系统挂起后需要执行工作时，使用符合业务资格的后台系统机制。
 
-### 5.3、什么时候必须上 Manager <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+### <span id="jobs-toc-heading-9" data-jobs-toc="v2">5.3、什么时候必须上 Manager <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 同一业务可能重复创建 Timer 时，使用稳定 identifier。
 - Cell 复用时，使用 Model identifier + `expectedTimer` 精准解绑。
