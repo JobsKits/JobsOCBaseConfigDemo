@@ -28,6 +28,7 @@ jobs:
       SCHEME: JobsOCBaseConfigDemo
       CONFIGURATION: Debug
       SDK: iphonesimulator
+      JOBS_POD_INSTALL_SKIP_VENDOR_PATCHES: '1'
       DESTINATION: generic/platform=iOS Simulator
       SIMULATOR_ARCH: arm64
       LANG: en_US.UTF-8
