@@ -43,6 +43,7 @@ configurations = target.build_configurations.each_with_index.map do |configurati
   {
     'name' => configuration.name,
     'HEADER_SEARCH_PATHS' => configuration.build_settings['HEADER_SEARCH_PATHS'],
+    'USE_HEADERMAP' => configuration.build_settings['USE_HEADERMAP'],
     'base_configuration' => path, 'base_configuration_exists' => !!exists,
     'copied_xcconfig' => copied_name
   }

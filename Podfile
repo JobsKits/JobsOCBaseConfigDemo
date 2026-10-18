@@ -304,9 +304,10 @@ def configure_reactiveobjc_header_copy_phase(installer)
   reactive_objc_target = installer.pods_project.targets.find { |target| target.name == 'ReactiveObjC' }
   return unless reactive_objc_target&.headers_build_phase
 
-  # 上游将宏头保留在 extobjc，源码使用扁平名称；不依赖先前构建的头映射或供应商补丁副本。
+  # 用原始头目录编译，避免批量构建的框架前缀映射抢先改写裸宏头名称。
   extobjc_headers = '"$(PODS_TARGET_SRCROOT)/ReactiveObjC/extobjc"'
   reactive_objc_target.build_configurations.each do |configuration|
+    configuration.build_settings['USE_HEADERMAP'] = 'NO'
     paths = Array(configuration.build_settings['HEADER_SEARCH_PATHS'])
     configuration.build_settings['HEADER_SEARCH_PATHS'] = (['$(inherited)'] + paths + [extobjc_headers]).uniq
   end

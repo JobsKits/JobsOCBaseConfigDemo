@@ -42,6 +42,7 @@ fixture = lambda do |root|
   project.save
   mock = <<~'RUBY'
     #!RUBY_EXECUTABLE
+    sleep ENV.fetch('JOBS_BATCH_STARTUP_DELAY', '0').to_f
     require 'json'
     require 'rexml/document'
     if ARGV == ['-version']
@@ -128,25 +129,42 @@ Dir.mktmpdir('jobs batch（中文）-') do |folder|
   assert.call(status.success? && calls.size == 14, 'default individual mode did not run each Pod')
   assert.call(individual['results'].last(6).all? { |row| !row.key?('execution_mode') && row['seconds'].is_a?(Numeric) }, 'default individual receipt changed')
 
-  %w[failed timeout source-change].each do |scenario|
+  %w[failed timeout startup-timeout source-change].each do |scenario|
     test = fixture.call(File.join(folder, scenario))
     env = {}
     args = ['--batch-pods']
     case scenario
     when 'failed'
       env['JOBS_BATCH_EXIT'] = '65'
-    when 'timeout'
+    when 'timeout', 'startup-timeout'
       env['JOBS_BATCH_SLEEP'] = '2'
+      env['JOBS_BATCH_STARTUP_DELAY'] = '2' if scenario == 'startup-timeout'
       args += ['--build-timeout', '0.1']
     when 'source-change'
       env['JOBS_BATCH_MUTATE'] = File.join(test[:root], 'JobsByPods', 'NativeOwned@Pods', 'NativeOwned.podspec')
     end
     status, record, calls, message = run.call(test, args, env)
-    assert.call(!status.success? && calls.size == 1, "#{scenario} did not stop before Release")
-    batch = record['results'].find { |row| row['kind'] == 'pod_batch' }
-    expected = { 'failed' => 65, 'timeout' => 124, 'source-change' => 75 }.fetch(scenario)
-    assert.call(batch && batch['exit_status'] == expected, "#{scenario} exit status lost: #{message}")
-    assert.call(record['results'].none? { |row| row['kind'] == 'pod' && row['exit_status'] == 0 }, "#{scenario} fabricated a successful member")
+    timed_out = %w[timeout startup-timeout].include?(scenario)
+    details = "status=#{status.exitstatus.inspect} calls=#{calls.inspect}\n#{message}"
+    # 超时可能发生在 Ruby 写入替身日志前；实际尝试和停止边界以 runner 的进程结果为准。
+    expected_calls = timed_out ? calls.size <= 1 : calls.size == 1
+    debug_calls = calls.all? do |command|
+      index = command.index('-configuration')
+      index && command[index + 1] == 'Debug'
+    end
+    assert.call(!status.success? && expected_calls && debug_calls, "#{scenario} did not stop before Release: #{details}")
+    rows = record.fetch('results')
+    batches = rows.select { |row| row['kind'] == 'pod_batch' }
+    batch = batches.first
+    command = batch && batch['command']
+    debug_command = command.is_a?(Array) && command.include?('-configuration') && command[command.index('-configuration') + 1] == 'Debug'
+    assert.call(batches.size == 1 && rows.all? { |row| row['configuration'] == 'Debug' } && debug_command,
+                "#{scenario} runner attempted Release or lost the Debug command: #{details}")
+    expected = { 'failed' => 65, 'timeout' => 124, 'startup-timeout' => 124, 'source-change' => 75 }.fetch(scenario)
+    assert.call(batch['exit_status'] == expected && batch['process_status_collected'], "#{scenario} exit status lost: #{details}")
+    assert.call(batch['timed_out'] == true, "#{scenario} timeout evidence lost: #{details}") if timed_out
+    assert.call(calls.empty?, "startup-timeout reached the mock command log: #{details}") if scenario == 'startup-timeout'
+    assert.call(rows.none? { |row| row['kind'] == 'pod' && row['exit_status'] == 0 }, "#{scenario} fabricated a successful member: #{details}")
   end
 
   test = fixture.call(File.join(folder, 'evidence'))
