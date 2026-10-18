@@ -112,12 +112,14 @@ jobs:
           ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/readme_results_regression.rb
           ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/command_timeout_regression.rb
           ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/host_entitlements_regression.rb
+          ruby ScriptsByPods/jobs_pods_stability_verify.rb/Tests/pod_batch_regression.rb
 
       - name: Build every Jobs Pod in Debug and Release
         timeout-minutes: 120
         run: |
           ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
-            --phase pods --architecture arm64 --output "${RUNNER_TEMP}/JobsOCStability"
+            --phase pods --batch-pods --build-timeout 3300 \
+            --architecture arm64 --output "${RUNNER_TEMP}/JobsOCStability"
 
       - name: Run each Pod regression suite
         timeout-minutes: 90
@@ -201,6 +203,7 @@ jobs:
             ${{ runner.temp }}/JobsOCStability/configuration-audit.json
             ${{ runner.temp }}/JobsOCStability/*.log
             ${{ runner.temp }}/JobsOCStability/*.xcresult
+            ${{ runner.temp }}/JobsOCStability/OwnedPodsBatch
             ${{ runner.temp }}/simulator-sdk-version.txt
             ${{ runner.temp }}/simulator-runtimes.json
             ${{ runner.temp }}/simulator-devices.json

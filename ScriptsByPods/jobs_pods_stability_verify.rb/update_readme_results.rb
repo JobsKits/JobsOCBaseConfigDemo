@@ -7,6 +7,7 @@ require 'optparse'
 require 'pathname'
 require 'tempfile'
 require_relative 'jobs_stability_sources'
+require_relative 'jobs_stability_pod_batch'
 
 DEFAULT_ROOT = File.expand_path('../..', __dir__).freeze
 RESULT_LINK = '[JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)'.freeze
@@ -50,6 +51,11 @@ def require_result(errors, record, fingerprint, root, kind, name, configuration)
   errors << "指纹期间变更 #{label}" if row['source_consistent'] == false
   log = evidence_path(row['log'], root)
   errors << "日志不存在 #{label}" unless log && File.file?(log)
+  if kind == 'pod' && row['execution_mode'] == 'batch-member'
+    JobsStabilityPodBatch.member_errors(record, row, root).each do |message|
+      errors << "#{message} #{label}"
+    end
+  end
   row
 end
 
@@ -174,7 +180,11 @@ def main
   end
   raise "拒绝回填，不写任何README：\n#{errors.join("\n")}" unless errors.empty?
   updates = pods.map do |name, spec|
-    facts = ['Debug / Release 单 Pod 编译']
+    batch_coverage = %w[Debug Release].select do |configuration|
+      latest_result(record, fingerprint, 'pod', name, configuration)['execution_mode'] == 'batch-member'
+    end
+    facts = ['Debug / Release 自建 Pod target 编译']
+    facts << "#{batch_coverage.join(' / ')} 单图批量覆盖（共享批次证据）" unless batch_coverage.empty?
     facts << "#{record['architecture']} 模拟器架构" if record['architecture']
     facts << '仅模拟器依赖图' if record['installation_mode'] == 'simulator-only'
     info = metadata.fetch(name)

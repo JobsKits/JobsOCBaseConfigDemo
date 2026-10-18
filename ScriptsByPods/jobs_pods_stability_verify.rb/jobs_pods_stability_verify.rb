@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# Jobs 自建 Pod 构建门禁：逐 Pod → 回归 → 主工程，日志与结果保留在独立工作目录。
+# Jobs 自建 Pod 构建门禁：逐 Pod（CI 可选单图批量）→ 回归 → 主工程，保留真实执行证据。
 require 'digest'
 require 'fileutils'
 require 'json'
@@ -19,6 +19,7 @@ OptionParser.new do |parser|
   parser.on('--phase PHASE', %w[all pods tests app], 'all / pods / tests / app') { |value| options[:phase] = value }
   parser.on('--configuration NAME', %w[Debug Release], '单独验证一个配置，默认两个') { |value| options[:configurations] = [value] }
   parser.on('--architecture ARCH', %w[arm64 x86_64], '定向模拟器架构；省略时保留双架构') { |value| options[:architecture] = value }
+  parser.on('--batch-pods', '所选自建 Pod 每配置共用一次构建；默认仍逐 Pod') { options[:batch_pods] = true }
   parser.on('--pod NAME', '定向重跑，可重复指定') { |value| options[:pods] << value }
   parser.on('--simulator UDID', '测试模拟器 UUID') { |value| options[:simulator] = value }
   parser.on('--output PATH', '日志与结果目录；成功且源码指纹一致的记录可复用') { |value| options[:output] = File.expand_path(value) }
@@ -79,11 +80,15 @@ save = lambda do
   File.rename(temporary, record_path)
 end
 
-execute = lambda do |kind, name, configuration, args|
+execute = lambda do |kind, name, configuration, args, evidence = {}|
   assert_current_source.call
   signing_policy = kind == 'test' && name == 'JobsBaseUI' ? 'simulator-adhoc-keychain-v1' : 'unsigned'
   previous = record['results'].reverse.find { |row| row.values_at('kind', 'name', 'configuration', 'source_fingerprint') == [kind, name, configuration, revision] }
-  if previous && previous['exit_status'] == 0 && !previous['timed_out'] && previous['signing_policy'] == signing_policy && (kind != 'test' || previous['simulator'] == options[:simulator])
+  mode_matches = previous && previous.fetch('execution_mode', 'individual') == evidence.fetch('execution_mode', 'individual')
+  batch_cache_valid = kind != 'pod_batch' || (previous &&
+    evidence.all? { |key, value| previous[key] == value } &&
+    JobsStabilityPodBatch.evidence_errors(previous, root).empty?)
+  if previous && mode_matches && batch_cache_valid && previous['exit_status'] == 0 && !previous['timed_out'] && previous['signing_policy'] == signing_policy && (kind != 'test' || previous['simulator'] == options[:simulator])
     puts "PASS (cached) #{kind} #{name} #{configuration}"
     next true
   end
@@ -113,6 +118,15 @@ execute = lambda do |kind, name, configuration, args|
   verified_exit_status = command_result[:timed_out] ? 124 : process_exit_status
   row = { 'kind' => kind, 'name' => name, 'configuration' => configuration, 'source_fingerprint' => revision, 'source_consistent' => consistent, 'started_at' => started.iso8601, 'seconds' => command_result.fetch(:seconds).round(2), 'exit_status' => consistent ? verified_exit_status : 75, 'process_exit_status' => process_exit_status, 'process_signal' => status&.termsig, 'process_pid' => command_result.fetch(:pid), 'process_status_collected' => command_result.fetch(:status_collected), 'termination_diagnostics' => command_result.fetch(:termination_diagnostics), 'timed_out' => command_result.fetch(:timed_out), 'timeout_seconds' => timeout_seconds, 'termination_grace_seconds' => command_result.fetch(:grace_seconds), 'log' => log, 'command' => command, 'simulator' => options[:simulator] }
   row['signing_policy'] = signing_policy
+  row.merge!(evidence)
+  if kind == 'pod_batch'
+    proof_errors = JobsStabilityPodBatch.evidence_errors(row, root)
+    unless proof_errors.empty?
+      row['exit_status'] = 78 if consistent && verified_exit_status == 0
+      row['validation_error'] = proof_errors.join('；')
+      warn row['validation_error']
+    end
+  end
   if kind == 'test' && !command_result[:timed_out]
     row['result_bundle'] = args.fetch(args.index('-resultBundlePath') + 1)
     summary_text, summary_status = Open3.capture2e('xcrun', 'xcresulttool', 'get', 'test-results', 'summary', '--path', row['result_bundle'], '--compact')
@@ -207,10 +221,45 @@ end
 
 passed = true
 if %w[all pods].include?(options[:phase])
-  options[:configurations].each do |configuration|
-    pods.each_key do |name|
-      ok = execute.call('pod', name, configuration, ['-project', 'Pods/Pods.xcodeproj', '-scheme', name, '-destination', 'generic/platform=iOS Simulator'] + build_base.call(configuration) + ['build'])
-      passed = false unless ok
+  if options[:batch_pods]
+    require_relative 'jobs_stability_pod_batch'
+    plan = JobsStabilityPodBatch.prepare(root, pods.keys, options[:output])
+    assert_current_source.call
+    options[:configurations].each do |configuration|
+      batch_id = Digest::SHA256.hexdigest([revision, plan.fetch('membership_fingerprint'), configuration].join("\0"))
+      evidence = {
+        'execution_mode' => 'batch', 'batch_id' => batch_id,
+        'members' => plan.fetch('targets'), 'membership_fingerprint' => plan.fetch('membership_fingerprint'),
+        'batch_manifest' => plan.fetch('manifest'), 'batch_manifest_sha256' => plan.fetch('manifest_sha256')
+      }
+      args = ['-workspace', plan.fetch('workspace'), '-scheme', JobsStabilityPodBatch::NAME,
+              '-destination', 'generic/platform=iOS Simulator', '-jobs', '2'] + build_base.call(configuration) + ['build']
+      ok = execute.call('pod_batch', JobsStabilityPodBatch::NAME, configuration, args, evidence)
+      batch = record['results'].reverse.find { |row| row['kind'] == 'pod_batch' && row['batch_id'] == batch_id }
+      # 成员只领取同一批次的覆盖证据，不伪造独立进程、耗时或日志。
+      plan.fetch('targets').each do |target|
+        record['results'] << {
+          'kind' => 'pod', 'name' => target.fetch('name'), 'configuration' => configuration,
+          'source_fingerprint' => revision, 'source_consistent' => batch.fetch('source_consistent'),
+          'exit_status' => batch.fetch('exit_status'), 'log' => batch.fetch('log'), 'seconds' => nil,
+          'execution_mode' => 'batch-member', 'batch_id' => batch_id, 'target_uuid' => target.fetch('uuid'),
+          'membership_fingerprint' => plan.fetch('membership_fingerprint'), 'batch_manifest' => plan.fetch('manifest'),
+          'signing_policy' => 'unsigned'
+        }
+      end
+      save.call
+      assert_current_source.call
+      unless ok
+        passed = false
+        break
+      end
+    end
+  else
+    options[:configurations].each do |configuration|
+      pods.each_key do |name|
+        ok = execute.call('pod', name, configuration, ['-project', 'Pods/Pods.xcodeproj', '-scheme', name, '-destination', 'generic/platform=iOS Simulator'] + build_base.call(configuration) + ['build'])
+        passed = false unless ok
+      end
     end
   end
 end

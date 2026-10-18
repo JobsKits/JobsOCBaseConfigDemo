@@ -371,6 +371,10 @@ Behaviors 属于 Xcode 当前用户设置，工程引用不会自动建立其它
 
 `main` 安装依赖后构建 Debug 主 App；`byPods` 保留各 Jobs 本地 Pod 的 Debug / Release 编译、48 个 Stability Pod 共 49 个配置的组件回归、macOS harness 与主 App Debug / Release 编译。整个 `byPods` job 使用 `JOBS_SIMULATOR_ONLY=1`：安装时排除只有真机 arm64 slice 的 IJK，保留模拟器原有 AVPlayer / ControlView，测试覆盖不删减。本地默认不设置此变量，切换模式必须重新 `pod install`；CI 结果仅证明模拟器依赖图，模式与架构均写入结果身份，不代表真机 IJK 验收。配置回归先于耗时构建执行；宿主权限审计先运行 9 个独立 Mach-O 场景，Pod 测试成功后再显式验收当次临时 Products 目录中的 AppHost，指定产物缺失即失败。测试首错停止后续测试与 harness，日志保留真实 `ld:` 原因。本地 Pod 门禁保留完整命令、退出码与源码冻结校验。冻结范围只排除 `JobsAppIconRibbon.config` 实际指定的 Debug / Release 派生 appiconset，原始 AppIcon、配置与生成器仍参加校验。
 
+`byPods` 的 Pod 阶段通过[门禁脚本](./ScriptsByPods/jobs_pods_stability_verify.rb/README.md)的 `--batch-pods` 生成仅含 109 个自建 Pod target 的专用 workspace / Scheme，在 Debug、Release 各执行一次构建，由 Xcode 合并共享依赖；framework 与 aggregate / 头文件 target 保持原始语义，不使用 `-alltargets`，不改变资源依赖、测试宿主与主 App 的独立验收。CI 每配置最多 55 分钟，两个配置仍共用原有的 120 分钟步骤时限；本地未加开关时仍逐 Pod 构建。失败或超时停止后续配置，源码、安装模式与架构门禁继续生效。
+
+批次进程独立记录整批命令、退出状态和耗时；每 Pod 结果仅引用该批次的成员身份与共享日志，耗时为 null，不声称独立执行或独立耗时。`OwnedPodsBatch/` 的成员 manifest、Scheme 与 workspace 连同构建日志上传；缓存和 README 回填同时核对这些文件证据，组件 XCTest 结论仍来自独立真实测试结果。[批量夹具](./ScriptsByPods/jobs_pods_stability_verify.rb/Tests/pod_batch_regression.rb)不调用真实构建或安装，实际耗时与全流程通过结果以云端运行证据为准。
+
 `main` 主 App 的 Debug / Release 均启用 `GCC_PRECOMPILE_PREFIX_HEADER=YES`，让现有大型前缀头先生成 PCH，再供各源码文件复用，避免每个翻译单元重复解析同一套 Jobs / SDK 声明并重复输出头文件警告。配置保留原前缀头、依赖和编译覆盖；本地已验证两配置实际产生 Objective-C / C `ProcessPCH`，并完成代表性主工程 `CompileC`。这是局部编译验证，完整链接、产物打包及最新提交的云端 workflow 仍以真实运行结果为准。
 
 构建阶段保留实时日志和诊断产物，阶段超时早于整个任务超时，以便失败后仍有时间上传日志；`main` 的依赖安装 / 编译分别限时 20 / 120 分钟，整个任务限时 150 分钟。`byPods` 的模拟器准备 / 依赖安装 / 配置守卫 / 各 Pod 编译 / 组件回归 / 宿主权限验收 / 主 App 编译分别限时 10 / 30 / 10 / 120 / 90 / 10 / 30 分钟，整个任务限时 320 分钟。成功后生成可下载的 `.app.zip`，排查失败时先下载对应运行的构建日志与 `.xcresult`；产物只代表该次运行实际完成的阶段，历史成功不能替代最新提交的构建结果。
