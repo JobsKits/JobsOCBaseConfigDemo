@@ -1,10 +1,14 @@
 # **iOS@OC**<font color=red>靶场项目</font>蓝皮书📘
 
+> **项目定位**：面向 iOS 开发者的 Objective-C 工程母版、基础能力库与可运行 Demo 靶场；用于复用工程基座、验证交互和查阅实践。**状态**：持续维护与实验，维护者 **Jobs / JobsKits**；不代表全部示例已完成产品化验收。
+>
+> `main` 将基础能力集成主工程，`byPods` 将对应能力下沉本地 Pod；两种形态共用本文。2026-10-19 静态核验：首页具名路由目标 **111** 个、其它具名子目标 **14** 个，合并去重 **125** 个；源码行数、依赖数与 Git 历史按分支分别列出。入口映射口径、排除项和复核命令见[项目统计](#project-statistics)。
+
 <p align="left">
-  <a><img src="https://img.shields.io/badge/pod-1.15.2-brightgreen" alt="CocoaPods"/></a>
+  <a><img src="https://img.shields.io/badge/pod-1.17.0_snapshot-brightgreen" alt="CocoaPods"/></a>
   <a><img src="https://img.shields.io/badge/OC-orange" alt="Objective-C"/></a>
-  <a><img src="https://img.shields.io/badge/Xcode-15.4-blue" alt="Xcode"/></a>
-  <a><img src="https://img.shields.io/badge/iOS-17.5+-critical" alt="iOS"/></a>
+  <a><img src="https://img.shields.io/badge/Xcode-26_CI-blue" alt="Xcode"/></a>
+  <a><img src="https://img.shields.io/badge/iOS-16.6+-critical" alt="iOS"/></a>
   <a href="https://github.com/JobsKits/JobsOCBaseConfigDemo/actions/workflows/build_simulator_app.yml?query=branch%3Amain"><img src="https://img.shields.io/github/actions/workflow/status/JobsKits/JobsOCBaseConfigDemo/build_simulator_app.yml?branch=main&amp;label=build%20main" alt="Build main"/></a>
   <a href="https://github.com/JobsKits/JobsOCBaseConfigDemo/actions/workflows/build_simulator_app.yml?query=branch%3AbyPods"><img src="https://img.shields.io/github/actions/workflow/status/JobsKits/JobsOCBaseConfigDemo/build_simulator_app.yml?branch=byPods&amp;label=build%20byPods" alt="Build byPods"/></a>
   <a><img src="https://img.shields.io/github/languages/top/JobsKits/JobsOCBaseConfigDemo?color=blueviolet" alt="Top Language"/></a>
@@ -252,13 +256,24 @@
 - [六、TODO](#jobs-toc-heading-223)
   - [1、急需解决](#jobs-toc-heading-224)
   - [2、亟待解决](#jobs-toc-heading-225)
+- [七、项目统计与接手运行](#project-statistics)
+  - [7.1、工程形态、目录与统计基线](#jobs-toc-heading-227)
+  - [7.2、SDK、工具链与锁文件](#jobs-toc-heading-228)
+  - [7.3、建库与提交历史](#jobs-toc-heading-229)
+  - [7.4、页面、子页面与路由](#jobs-toc-heading-230)
+  - [7.5、后端规模与外部边界](#jobs-toc-heading-231)
+  - [7.6、模块依赖与核心流程](#jobs-toc-heading-232)
+  - [7.7、功能清单与实现证据](#jobs-toc-heading-233)
+  - [7.8、业务文件、测试与代码行数占比](#jobs-toc-heading-234)
+  - [7.9、直接依赖清单与许可](#jobs-toc-heading-235)
+  - [7.10、运行、构建、测试与常见问题](#jobs-toc-heading-236)
 
 </details>
 <!-- jobs-toc:end -->
 
 ## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
-> 当前总行数：12111 行
+> 文档物理行数：12840 行（2026-10-19，含代码示例、空行与图表源码；以 `wc -l README.md` 复核）。
 
 * 🔧**工欲善其事必先利其器**
 
@@ -601,9 +616,15 @@ Behaviors 属于 Xcode 当前用户设置，工程引用不会自动建立其它
 
 [构建工作流](./.github/workflows/build_simulator_app.yml)在推送、拉取请求或手动触发时运行；自动触发范围为 `main`、`byPods`。使用 `macos-15` runner 和 Xcode 26，缺少所需 SDK 时立即失败；显式选择 runner 的 `arm64` 模拟器架构。`byPods` 在安装前只选择与当前 Simulator SDK 同主版本的可用 arm64 iPhone，不让旧系统的已启动设备抢占；没有匹配 runtime 时提前失败，不自动下载运行时。模拟器 App 不使用真机签名，只供对应架构的模拟器运行。
 
-[Podfile](./Podfile) 在生成 Pods 工程时，为 [**ReactiveObjC**](https://github.com/ReactiveCocoa/ReactiveObjC) 的 Debug / Release 目标显式保留 `ReactiveObjC/extobjc` 头文件搜索目录，继承原有路径。`RACmetamacros.h` 使用上游既有文件，不复制宏头、不改写供应商源码，也不依赖前次编译产生的头映射；CI 显式设置 `JOBS_POD_INSTALL_SKIP_VENDOR_PATCHES=1` 关闭旧供应商补丁，仍执行该配置适配。缺头仍会阻断构建，不降低检查等级。
+[Podfile](./Podfile) 在生成 Pods 工程时，两种形态均为 [**ReactiveObjC**](https://github.com/ReactiveCocoa/ReactiveObjC) 的 Debug / Release 目标显式保留 `ReactiveObjC/extobjc` 头文件搜索目录并继承原有路径。`byPods` 额外仅为该目标关闭 [**USE_HEADERMAP**](https://developer.apple.com/documentation/xcode/build-settings-reference)，避免批量构建时裸宏头名先被映射为框架前缀路径；`main` 当前未设置这一 Header Map 覆盖。`RACmetamacros.h` 使用上游既有文件，不复制宏头、不改写供应商源码，也不依赖前次编译产生的头映射；原 public Headers phase、模块定义和消费者配置保留，CI 关闭旧供应商补丁时仍执行各自配置适配。缺头仍会阻断构建，不降低检查等级。
 
 `main` 安装依赖后构建 Debug 主 App；`byPods` 保留各 Jobs 本地 Pod 的 Debug / Release 编译、48 个 Stability Pod 共 49 个配置的组件回归、macOS harness 与主 App Debug / Release 编译。整个 `byPods` job 使用 `JOBS_SIMULATOR_ONLY=1`：安装时排除只有真机 arm64 slice 的 IJK，保留模拟器原有 AVPlayer / ControlView，测试覆盖不删减。本地默认不设置此变量，切换模式必须重新 `pod install`；CI 结果仅证明模拟器依赖图，模式与架构均写入结果身份，不代表真机 IJK 验收。配置回归先于耗时构建执行；宿主权限审计先运行 9 个独立 Mach-O 场景，Pod 测试成功后再显式验收当次临时 Products 目录中的 AppHost，指定产物缺失即失败。测试首错停止后续测试与 harness，日志保留真实 `ld:` 原因。本地 Pod 门禁保留完整命令、退出码与源码冻结校验。冻结范围只排除 `JobsAppIconRibbon.config` 实际指定的 Debug / Release 派生 appiconset，原始 AppIcon、配置与生成器仍参加校验。
+
+`byPods` 的 Pod 阶段通过[门禁脚本](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/byPods/ScriptsByPods/jobs_pods_stability_verify.rb/README.md)的 `--batch-pods` 生成仅含 109 个自建 Pod target 的专用 workspace / Scheme，在 Debug、Release 各执行一次构建，由 Xcode 合并共享依赖；framework 与 aggregate / 头文件 target 保持原始语义，不使用 `-alltargets`，不改变资源依赖、测试宿主与主 App 的独立验收。CI 每配置最多 55 分钟，两个配置仍共用原有的 120 分钟步骤时限；本地未加开关时仍逐 Pod 构建。失败或超时停止后续配置，源码、安装模式与架构门禁继续生效。
+
+批次进程独立记录整批命令、退出状态和耗时；每 Pod 结果仅引用该批次的成员身份与共享日志，耗时为 null，不声称独立执行或独立耗时。`OwnedPodsBatch/` 的成员 manifest、Scheme 与 workspace 连同构建日志上传；缓存和 README 回填同时核对这些文件证据，组件 XCTest 结论仍来自独立真实测试结果。[批量夹具](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/byPods/ScriptsByPods/jobs_pods_stability_verify.rb/Tests/pod_batch_regression.rb)不调用真实构建或安装，实际耗时与全流程通过结果以云端运行证据为准。
+
+Pod 编译前后通过[只读诊断脚本](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/byPods/.github/tests/SimulatorPods/record_reactiveobjc.rb)分别留存 runner 实际生成的 Pods 工程、ReactiveObjC 配置、宏头路径及指纹，编译前另记录 Xcode 展开后的 Debug build settings；两个诊断目录和该目标编译时产生的 response files、header maps、虚拟文件映射随验证记录上传，用于区分源码缺失、搜索路径、路径遮蔽和构建期间的文件变化，不改写 Pods 或供应商文件。
 
 `main` 主 App 的 Debug / Release 均启用 `GCC_PRECOMPILE_PREFIX_HEADER=YES`，让现有大型前缀头先生成 PCH，再供各源码文件复用，避免每个翻译单元重复解析同一套 Jobs / SDK 声明并重复输出头文件警告。配置保留原前缀头、依赖和编译覆盖；本地已验证两配置实际产生 Objective-C / C `ProcessPCH`，并完成代表性主工程 `CompileC`。这是局部编译验证，完整链接、产物打包及最新提交的云端 workflow 仍以真实运行结果为准。
 
@@ -12590,5 +12611,473 @@ cell.contentView.layerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel * _N
   * 将[**时间按照【年-月份】分组**](#时间按照【年-月份】分组)集成到靶场项目里
   * 完善 [**iOS功能：跳转其他App,如果本机不存在,则进行下载（需要补充）**](#iOS功能：跳转其他App,如果本机不存在,则进行下载)
 * DebugLogDescription 会崩溃：`id value = self.valueForKeyBlock(name) ? : @"nil";//默认值为nil字符串`
+
+
+## 七、<span id="project-statistics">项目统计与接手运行</span> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
+
+统计日期：**2026-10-19（Asia/Shanghai）**。源码指标来自两个已检出工作树的 `git ls-files -z` 对应当前文件内容；Git 历史来自各自 `HEAD`，不含未提交修改、不合并另一分支或 Gitee 快照发布链。依赖版本来自本地现存 `Podfile.lock`，不是重新解析或最新版本查询。以下各表与图均沿用本日期，代码变更影响口径时应重新取数。
+
+### <span id="jobs-toc-heading-227" data-jobs-toc="v2">7.1、工程形态、目录与统计基线 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+
+| 项目 | `main` 主工程集成 | `byPods` 本地 Pod 管理 |
+| --- | --- | --- |
+| 入口 | `JobsOCBaseConfigDemo/启动配置/AppDelegate & SceneDelegate/`；`main.m` 启动 | `JobsOCBaseConfigDemo/入口/main.m`、`AppDelegate/`、`SceneDelegate/` |
+| 演示与业务源码 | `JobsOCBaseConfigDemo/业务逻辑/` | `JobsOCBaseConfigDemo/业务逻辑/` |
+| 自研基座 | 主工程内 `OCBaseConfig/`、`JobsMakes/`、`JobsOCDSL/`、系统与第三方扩展等 | `JobsByPods/*@Pods/` 中的非 `ManualBy` 模块 |
+| 外部依赖 | `Pods/`、`PodsManual/`、手工第三方及 `JobsByPods/ManualByOCPods@Pods/` | `Pods/`、`JobsByPods/ManualByOCPods@Pods/` 及供应商源码 |
+| 工程与脚本 | `JobsOCBaseConfigDemo.xcworkspace`、`JobsOCBaseConfigDemo.xcodeproj/`、`ScriptsByPods/`、`ScriptsByDevTools/` | 同名工程与脚本目录；本地组件测试由独立门禁管理 |
+
+本项目的两种形态共用 [GitHub 仓库](https://github.com/JobsKits/JobsOCBaseConfigDemo)，分别使用 `main`、`byPods` 分支；[Gitee 仓库](https://gitee.com/JobsGo/JobsOCBaseConfigDemo) 使用同名远端分支。`byPods` 的 Gitee 发布源为既有 `Gitee@snapshot` 链，文件树对齐不要求提交号或历史相同，不能把快照提交数作为开发活跃度。当前 OC 根目录均无 `.gitmodules`，不为本地 Pod 虚构私有 Git 子库；外层 `JobsBaseConfig` 才将 `main` 工作树登记为子模块，登记路径与仓名是不同概念。
+
+### <span id="jobs-toc-heading-228" data-jobs-toc="v2">7.2、SDK、工具链与锁文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+
+以下为 **2026-10-19 配置声明 / 本地解析证据**；未执行编译器版本检测，不把徽章或历史安装记录当成强制工具链。
+
+| 类别 | 名称 / 配置 | 版本或边界 | 锁定与依据 |
+| --- | --- | --- | --- |
+| 语言 | Objective-C / 混编 <u>[**Swift**](https://www.swift.org/)</u> | Objective-C 无独立包版本；主 target `SWIFT_VERSION = 6.0` | [工程配置](./JobsOCBaseConfigDemo.xcodeproj/project.pbxproj)；这是语言模式，不等于本机编译器版本 |
+| 构建工具 | [**Xcode**](https://developer.apple.com/xcode/) / iOS SDK | CI 显式选择 Xcode **26**，SDK 跟随所选安装；具体小版本未固定 | [模拟器工作流](./.github/workflows/build_simulator_app.yml)；主工程 `SDKROOT = iphoneos` |
+| 最低系统 | 主 App / Podfile | 两边主 App target 均为 iOS **16.6**；工程级默认 `main` **17.2**、`byPods` **26.4**，其它 target 需独立核对覆盖值 | [Podfile](./Podfile) 与工程 target，不再以旧徽章 17.5 作为最低要求；最终以实际 target 展开值为准 |
+| 包管理 | [**CocoaPods**](https://cocoapods.org/) | 两边本地锁文件记录 **1.17.0** | `Podfile.lock` 在磁盘存在，但 `git ls-files Podfile.lock` 两边均为空，**未纳入当前索引** |
+| 脚本解释器 | [**Ruby**](https://www.ruby-lang.org/) / 系统 zsh | Podfile、Podspec 与门禁用 Ruby；版本未由 Gemfile.lock 统一固定；Shell 入口按文件解释器运行 | `Podfile`、`Podfile.deps`、`ScriptsByPods/`、`ScriptsByDevTools/` |
+| 跨端容器 | [**Flutter**](https://flutter.dev/) | 通过 `pod 'Flutter'` 接入；锁内 Pod 版本不等于 Flutter SDK 版本 | Flutter SDK 精确版本需核对实际容器工程 / 安装记录，当前 OC 统计不猜测 |
+
+### <span id="jobs-toc-heading-229" data-jobs-toc="v2">7.3、建库与提交历史 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+
+时间均保留 Git 记录的 `+08:00` 时区，快照取自 **2026-10-19**；两仓均非 shallow。首次托管平台建库时间未取得平台元数据，标为**未知**，不能用首次提交或文件头创建日代替。
+
+| 指标 | `main` | `byPods` |
+| --- | --- | --- |
+| 托管平台建库时间 | 未知 | 未知 |
+| 首次可追溯提交 | `2026-06-02T21:40:35+08:00 7592379c3fb607bd21d84b1e366839ff6ae2b498` | `2026-06-02T21:40:35+08:00 7592379c3fb607bd21d84b1e366839ff6ae2b498` |
+| 最近 HEAD 提交 | `2026-10-18T23:48:00+08:00 4c34ed21c1f556c1f04c9e4b22197f51ad2fe297` | `2026-10-18T23:49:57+08:00 1b0bf8538607d2b4e7ecc9e4d36c279af3700e8e` |
+| HEAD 可达提交数 | 56 | 75 |
+| 所有本地引用贡献者署名数 | 2 | 2 |
+
+提交数使用 `git rev-list --count HEAD`；贡献者按 `git shortlog -sn --all` 的署名去重，不等于经身份合并后的真实人数。取数只读：
+
+```shell
+git log --reverse \
+  --format='%aI %H' HEAD | head -1
+git log -1 \
+  --format='%aI %H'
+git rev-list --count HEAD
+git shortlog -sn --all
+git ls-files -- Podfile.lock
+```
+
+### <span id="jobs-toc-heading-230" data-jobs-toc="v2">7.4、页面、子页面与路由 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+
+计数单位选择**路由条目**，具体为业务目录 `.m` / `.mm` 中 `.byCls(具名类.class)` 的**目标类去重数**。相同目标的多个入口只算一项；`self.class`、变量 / 字符串动态解析、注释示例和未使用路由常量不算具名目标。根列表与子列表分别去重后求差，不把同一目标重复相加。所有数值均为 **2026-10-19 静态注册规模**，不是运行覆盖率。
+
+| 端 / 形态 | 具名页面目标合计 | 首页目标 | 额外子目标 | 具名路由目标 | 依据 |
+| --- | --- | --- | --- | --- | --- |
+| iOS `main` | **125** | **111** | **14** | **125** | `JobsOCBaseConfigDemo/业务逻辑/`；首页 `控制器/ViewController@1/ViewController@1.m` |
+| iOS `byPods` | **125** | **111** | **14** | **125** | 同名业务目录与首页文件；静态目标集合一致 |
+| Android / Web | 不适用 | 不适用 | 不适用 | 不适用 | 本仓交付 iOS 宿主；嵌入容器不等于独立端工程 |
+
+弹层、半屏、悬浮按钮与导航容器不按 UI 实例叠加；只有进入具名映射的控制器才计入。H5 / Flutter 容器若有独立具名入口则作为宿主目标计一次，不展开网页或 Dart 内部页面。直接 `push`、`present` 及组件内部动态子页没有统一注册清单，**未计入此项**，不得将 125 写成全量 UIViewController 数。额外子目标包括按钮图片方位、Excel / 甘特图、纵向菜单、转盘等子演示；同一控制器内部状态切换不另算一页。
+
+在当前工程根目录复核两级具名目标（只读）：
+
+```shell
+python3 - <<'PY'
+import pathlib, re, subprocess
+root = pathlib.Path('.')
+home = 'JobsOCBaseConfigDemo/业务逻辑/控制器/ViewController@1/ViewController@1.m'
+names, first = set(), set()
+for name in subprocess.check_output(['git', 'ls-files', '-z']).decode().split('\0'):
+    if not name.startswith('JobsOCBaseConfigDemo/业务逻辑/') or not name.endswith(('.m', '.mm')):
+        continue
+    text = (root / name).read_text(errors='replace')
+    text = re.sub(r'/\*.*?\*/|//[^\n]*', '', text, flags=re.S)
+    targets = set(re.findall(r'\.byCls\(\s*(\w+)\.class\s*\)', text)) - {'self', 'super'}
+    names |= targets
+    if name == home:
+        first |= targets
+print({'首页': len(first), '额外子目标': len(names - first), '合并目标': len(names)})
+PY
+```
+
+### <span id="jobs-toc-heading-231" data-jobs-toc="v2">7.5、后端规模与外部边界 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+
+本仓为客户端工程靶场，`JobsNetworkingAPI`、`JobsAPIs`、网络 Demo 是**调用端**；播放器缓存使用的嵌入式 HTTP 服务不计为面向业务用户的后端交付。**2026-10-19** 按受管目录、Podfile 与网络入口核对，未发现独立部署的业务后端，因此以下项目均不从客户端方法数推算。
+
+| 指标 | 统计结果 / 依据 |
+| --- | --- |
+| 对外接口：HTTP / RPC / MQ | 本仓不提供统一业务服务端，接口数不适用；客户端请求方法不计入 |
+| 服务模块 / 部署单元 | 不适用；本地 Pod 是客户端组件，不能当服务数量 |
+| 核心业务数据表 | 服务端不适用；本地 Core Data / Realm / SQLite Demo 不冒充服务端主表 |
+| 业务状态机 | 服务端不适用；登录 UI、播放器、计时任务的客户端状态不混入 |
+| 外部系统集成 | 涉及验证码、媒体 URL、通知 / 蓝牙等客户端 SDK 或系统服务；未提供可去重的生产外部系统台账，不填猜测总数 |
+| 定时 Job / 批处理 / 消费者 | 服务端不适用；客户端 Timer 不计为后端定时 Job |
+| Redis / MQ / Elasticsearch / 对象存储 | 未提供本仓独立后端部署依赖；外部服务内部实现未知 |
+| 峰值 QPS / 日增数据 / 存储量 | 未部署测量，未知；不以 Demo 测试或文件大小替代生产指标 |
+
+页面 / 接口比例不适用：此项目用同一客户端靶场演示大量独立能力，没有同规模的自带业务后端。
+
+### <span id="jobs-toc-heading-232" data-jobs-toc="v2">7.6、模块依赖与核心流程 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+
+依据既有 `.codegraph/` 定位 `AppDelegate`、`SceneDelegate` 与 `ViewController_1`，再对照当前源码、`Podfile.deps`；图中路径相对各自项目根。**2026-10-19**，两种形态共享逻辑调用，物理归属见 7.1。
+
+```mermaid
+flowchart TD
+    Entry["入口 main.m / AppDelegate"] --> Scene["SceneDelegate / SceneDelegate+UISceneDelegate.m"]
+    Scene --> Home["业务入口 ViewController@1.m"]
+    Home --> Demo["业务模块 Demo@* / Demos.h"]
+    Demo --> Base["跨模块边界：JobsMakes / JobsOCDSL / JobsModelDSL / JobsBaseUI"]
+    Base --> Main["main：主工程内基础源码"]
+    Base --> Pods["byPods：JobsByPods 自建 Pod"]
+    Demo --> Network["网络边界：JobsNetworkingAPI / JobsAPIs"]
+    Network --> Outside[["外部 API / 媒体与验证码服务"]]
+    Demo --> OS[["系统边界：UIKit / Photos / AVFoundation / CoreBluetooth"]]
+    Demo --> Store[("本地 Core Data / Realm / SQLite")]
+```
+
+```mermaid
+flowchart TD
+    Launch["main.m → AppDelegate 启动配置"] --> Root["SceneDelegate 建立窗口与根控制器"]
+    Root --> List["ViewController@1.m：分类 / 搜索 / 收藏"]
+    List --> Pick["具名 byCls 目标或二级 Demo 列表"]
+    Pick --> Screen["实例化目标并导航"]
+    Screen --> Local["组件交互 / 本地数据 / 权限请求"]
+    Screen --> Probe["可选网络 Demo / JobsDebugPanelDemoVC.m"]
+    Probe --> API[["外部服务边界"]]
+    API --> Result{"请求与解析成功？"}
+    Result -->|是| Data["展示服务端响应"]
+    Result -->|否| Fallback["调试面板示例保留本地演示数据"]
+    Local --> Back["返回 / 销毁 / 清理监听和任务"]
+    Data --> Back
+    Fallback --> Back
+```
+
+网络回退节点只描述已核实的调试面板示例；不能由此推定所有历史 Demo 都已统一离线回退。Scene 生命周期和窗口隔离必须以当前 `SceneDelegate` 配置为准，不能从任意全局 Window 推导当前页面。
+
+### <span id="jobs-toc-heading-233" data-jobs-toc="v2">7.7、功能清单与实现证据 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+
+以下为 **2026-10-19 源码 / 声明覆盖**；“涉及”表示有实现或演示入口，不等于商业发布、系统权限或第三方服务已全部验收。
+
+| 类目 / 功能 | 是否涉及 | 实现方式与定位证据 |
+| --- | --- | --- |
+| 统一创建、DSL 与模型装配 | 是 | `JobsMakes`、`JobsOCDSL`、`JobsModelDSL`；两种形态共用公开能力 |
+| 网络请求、接口加解密 | 是 / 各 Demo 分别核实 | `业务逻辑/Common/网络请求/`、AFNetworking / YTKNetwork / ZBNetworking 及 Jobs 包装；加解密能力不等于所有请求已启用 |
+| SSL Pinning / 证书绑定 | 有策略扩展，默认启用状态待核实 | `AFSecurityPolicyExtra` 或主工程对应扩展；证书资源、域名与环境应逐接口复核 |
+| 鉴权 / 密钥存储 | 有登录与 Keychain 能力；生产 OAuth / JWT 未统一声明 | JobsAppDoor、JobsKeychainHelper / JobsLocker；不公开 APIKey 文件内容 |
+| 本地持久化与数据库 | 是 | Core Data、Realm、FMDB / JQFMDB 演示；版本见依赖表；迁移策略按各数据库示例，不宣称统一生产迁移链 |
+| 图片 / 视频缓存 | 是 | SDWebImage、YYImage、播放器与缓存封装；缓存时效按对应模块配置 |
+| 蓝牙 / 通知 / 定位 | 是 / 以各 Demo 为边界 | `Demo@JobsBluetooth`、通知 Demo、系统定位相关封装；能力可见不代表硬件和推送证书验证通过 |
+| 相机相册 / 录音录像 | 是 | HXPhotoPickerObjC、JPImageresizerView、JobsOCVideoRecorder / JobsOCAudioRecorder 对应 Demo |
+| 生物识别 / 手势密码 / 扫码 | 是 | JobsBioKit、JobsGestureLock、相关权限与扫码 Demo；以具体硬件能力为准 |
+| NFC / 分享 / 支付 | 逐项待核实生产链路 | 存在系统 / 第三方 API 封装不等于已集成完整支付、分享回调或 NFC 业务；不能按包名承诺交付 |
+| 视频与跨端容器 | 是 | ZFPlayer / AVPlayer、H5 容器与 Flutter Pod；真机 IJK 和模拟器依赖图分别验收 |
+| 国际化 / 三态主题 / 空态 | 是 | JobsLanMgr、主题与 EmptyView 相关基础能力；动态列表逐 Demo 核查 |
+| 埋点、监控、崩溃收集 | 有工具 / 日志能力 | CocoaLumberjack、JobsDebugPanel、byPods JobsOCCrashLogCenter；完整生产埋点平台未统一声明 |
+| 热更新 | 未确认完整交付链 | 不能将动态路由、配置刷新或 Flutter 容器等同于热更新 |
+| CI/CD / 多环境 | 是 / 构建与调试配置 | `.github/workflows/build_simulator_app.yml`；Debug 环境面板与 Release 隔离；不代表已配置商店自动发布 |
+| 隐私清单与权限 | 是 / 发布审核待逐项核对 | `启动配置/JobsPrivacy/PrivacyInfo.xcprivacy`、`Info.plist` 及组件清单；不能仅凭文件存在判定合规完成 |
+| 数据 / 日志脱敏 | 部分帮助函数，覆盖率待核实 | 日志和用户信息相关封装；发布前核对敏感字段输出，不将 Debug 日志能力视为全链路脱敏 |
+| 后端幂等、限流、熔断、锁、事务、追踪、灰度、对账 | 后端不适用 | 本仓未交付独立后端；客户端节流、防抖和任务编排不替代这些机制 |
+
+### <span id="jobs-toc-heading-234" data-jobs-toc="v2">7.8、业务文件、测试与代码行数占比 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+
+**2026-10-19**，分母为“业务及自研基础代码 + 测试代码 + 配置与脚本”的物理行数，包含空行与注释；不是去注释 SLOC。自建 Pod 的 Jobs 源码属于分母，不能因管理位置改变就当作第三方。按各工作树 `git ls-files -z` 当前内容统计，不纳入未跟踪文件，剔除生成片段后计行。
+
+排除 `Pods`、`.git`、`node_modules`、`.dart_tool`、`build`、`DerivedData`、`.codegraph`、目录过滤器工具、资源、锁文件、文档；受管手工第三方与 `ManualBy*`、`PodsManual`、文件头显示其它作者的源码另列。生成文件按 `AutoSupplement` / `Generated` / `generated` / `Il2CppOutputProject` 路径或头部生成标识排除；保留文件内 `JOBS…AUTOGEN_BEGIN/END` 片段剔除后计行。测试按 `Test(s)` 目录 / 文件与 `.github/tests` 识别，不混入业务。
+
+**`main`（2026-10-19；占比分母 338,817 行）**
+
+| 类别 | 文件数 | 物理行数 | 分母内占比 |
+| --- | --- | --- | --- |
+| 业务及自研基础代码 | 2,411 | 323,701 | 95.54% |
+| 测试代码 | 7 | 1,490 | 0.44% |
+| 配置与脚本 | 41 | 13,626 | 4.02% |
+| 受管第三方候选（排除） | 1,782 | 241,862 | 排除 |
+| 受管生成代码（排除） | 4 | 4,588 | 排除 |
+
+```mermaid
+pie showData
+    title main 代码物理行数分布（2026-10-19）
+    "业务及自研基础代码" : 323701
+    "测试代码" : 1490
+    "配置与脚本" : 13626
+```
+
+**`byPods`（2026-10-19；占比分母 548,377 行）**
+
+| 类别 | 文件数 | 物理行数 | 分母内占比 |
+| --- | --- | --- | --- |
+| 业务及自研基础代码 | 3,790 | 489,899 | 89.34% |
+| 测试代码 | 157 | 10,614 | 1.94% |
+| 配置与脚本 | 268 | 47,864 | 8.73% |
+| 受管第三方候选（排除） | 1,650 | 214,199 | 排除 |
+| 受管生成代码（排除） | 5 | 5,245 | 排除 |
+
+```mermaid
+pie showData
+    title byPods 代码物理行数分布（2026-10-19）
+    "业务及自研基础代码" : 489899
+    "测试代码" : 10614
+    "配置与脚本" : 47864
+```
+
+
+两表的物理文件范围不同，反映组件拆分、测试和工程辅助代码的落位，不直接推断功能数量或代码质量。第三方“排除”行只统计**已受管候选源码 / 脚本**，磁盘 `Pods/` 等整目录已跳过，不能理解为全部下载依赖的体积。
+
+复核行数使用的源码扩展：`.h .m .mm .swift .c .cc .cpp .hpp .dart .js .jsx .ts .tsx`；配置脚本扩展：`.command .sh .zsh .rb .py .ps1 .bat .yml .yaml .xcconfig .pbxproj .podspec .entitlements`，另含 `Podfile`、`Podfile.deps`、`Gemfile`、`Makefile`、`Rakefile`。依上述排除顺序分类，避免把资源 JSON / plist 全量计入业务；不可与采用不同扩展和 SLOC 算法的项目直接比较。
+
+### <span id="jobs-toc-heading-235" data-jobs-toc="v2">7.9、直接依赖清单与许可 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+
+**2026-10-19**，以各本地 `Podfile.lock` 的 `DEPENDENCIES` 为已解析直接依赖依据，按 Pod **根名称**去重，subspec 与 `Stability` testspec 不重复加总；`PODS` 中仅传递依赖不计入总数。`main` **59** 个直接根依赖（本地手工目录 **3**、公共源 **56**）；`byPods` **178** 个（非 `ManualBy` 本地模块 **109**、手工第三方本地模块 **14**、公共源 **55**）。109 是工程模块归属口径，不表示其中每一行代码的原始版权都属于 Jobs；受管第三方原文继续排除自研 LOC。两种形态直接声明数不同，不代表新增了等量业务功能。`main` 的 `longConnection` 函数虽有 Socket.IO 声明，但目标中未调用，不能据函数文本把它计入 main 已解析依赖。
+
+版本列为 **main / byPods**，`—` 表示该形态不作为直接 Pod 根依赖接入，能力可能在主工程内；不表示能力不存在。来源列中“公共”表示公开发行源，“本地”表示相对目录集成，**不等于私有 Git 仓库**；未发现必须认证的私有包源。许可优先使用匹配版本的 Podspec `license`，其次本地安装生成的 acknowledgements；协议未标明完整版本或自定义条款的仍需阅读许可原文，不能由本表替代分发审核。
+
+使用状态为“声明 + 引用”或“声明，调用待核”：前者仅表示在自维护源码 import/include 中找到同名线索，包含兼容导入，不证明实际执行；后者不意味着可以删除。每行均为**直接依赖**。用途取当前匹配版本 Podspec 的 `summary`，缺少明确业务调用时按声明用途记录。
+
+| 直接依赖根名 | 版本 main / byPods | 来源 / 本地位置或完整公开地址 | 许可证 | 用途模块 / 使用状态 |
+| --- | --- | --- | --- | --- |
+| `AFNetworking` | 4.0.1 / 4.0.1 | 公共 [源码](https://github.com/AFNetworking/AFNetworking.git) | MIT | A delightful networking framework for Apple platforms.；声明 + 引用 |
+| `AFSecurityPolicyExtra` | — / 1.0.0 | 本地自建层 `./JobsByPods/AFSecurityPolicyExtra@Pods` | MIT | AFNetworking security policy helpers for Jobs.；声明，调用待核 |
+| `AYCheckVersion` | 1.3.5 / 1.3.5 | 公共 [源码](https://github.com/AYJk/AYCheckVersion.git) | MIT | Check version from AppStore；声明，调用待核 |
+| `BEMCheckBox` | 1.4.1 / 1.4.1 | 本地第三方 `./JobsByPods/ManualByOCPods@Pods/BEMCheckBox` | MIT | Tastefully crafted Checkbox for iOS.；声明 + 引用 |
+| `BMLongPressDragCellCollectionView` | 3.1.4 / 3.1.4 | 公共 [源码](https://github.com/liangdahong/BMLongPressDragCellCollectionView.git) | MIT | 🎉 iOS UICollectionView UICollectionViewCell long press to drag the reorder framework.；声明 + 引用 |
+| `BRPickerView` | 3.0.0 / 3.0.0 | 本地第三方 `./JobsByPods/ManualByOCPods@Pods/BRPickerView` | MIT | A custom picker view for iOS.；声明 + 引用 |
+| `BRPickerViewExtra` | — / 1.0.1 | 本地自建层 `./JobsByPods/BRPickerViewExtra@Pods` | MIT | BRPickerView category extensions for Jobs projects.；声明 + 引用 |
+| `CocoaLumberjack` | 3.9.1 / 3.9.1 | 公共 [源码](https://github.com/CocoaLumberjack/CocoaLumberjack.git) | BSD | A fast & simple, yet powerful & flexible logging framework for macOS, iOS, tvOS, watchOS and visionO；声明，调用待核 |
+| `DeviceKit` | — / 1.0.0 | 本地第三方 `./JobsByPods/ManualByOCPods@Pods/DeviceKit` | MIT | Objective-C port scaffold of DeviceKit.；声明，调用待核 |
+| `DeviceKitByObjc` | 1.0.0 / — | 本地第三方 `./JobsByPods/ManualByOCPods@Pods/DeviceKitByObjc` | MIT | Objective-C port scaffold of DeviceKit.；声明，调用待核 |
+| `FDFullscreenPopGesture` | — / 1.0.0 | 本地自建层 `./JobsByPods/FDFullscreenPopGesture@Pods` | MIT | Objective-C fullscreen pop gesture components for Jobs projects.；声明 + 引用 |
+| `FileFolderHandleTool` | — / 1.0.0 | 本地自建层 `./JobsByPods/FileFolderHandleTool@Pods` | MIT | Objective-C file and folder handle tool for Jobs projects.；声明 + 引用 |
+| `FLAnimatedImageView+RGWrapper` | 1.0.0 / 1.0.0 | 公共 [源码](https://github.com/RengeRenge/FLAnimatedImageView-RGWrapper.git) | MIT | This is a wrapper for FLAnimatedImageView；声明，调用待核 |
+| `Flutter` | 3.13.0 / 3.13.0 | 公共 [源码](https://storage.googleapis.com/flutter_infra_release/flutter/1ac611c64eadbd93c5f5aba5494b8fc3b35ee952/ios-release/artifacts.zip) | BSD | A UI toolkit for beautiful and fast apps.；声明 + 引用 |
+| `FMDatabaseExtra` | — / 1.0.0 | 本地自建层 `./JobsByPods/FMDatabaseExtra@Pods` | MIT | FMDB manager helpers for Jobs.；声明 + 引用 |
+| `FMDB` | 2.7.12 / 2.7.12 | 公共 [源码](https://github.com/ccgus/fmdb.git) | MIT | A Cocoa / Objective-C wrapper around SQLite.；声明 + 引用 |
+| `FSCalendar` | — / 2.8.4 | 本地第三方 `./JobsByPods/ManualByOCPods@Pods/FSCalendar` | MIT | A superior calendar for iOS with excellent performance.；声明 + 引用 |
+| `FSCalendarExtra` | — / 1.0.0 | 本地自建层 `./JobsByPods/FSCalendarExtra@Pods` | MIT | FSCalendar helpers for Jobs.；声明 + 引用 |
+| `FTroulette` | 0.1.0 / 0.1.0 | 公共 [源码](https://github.com/520coding/FTroulette.git) | MIT | ios轮盘，圆形指示器；声明，调用待核 |
+| `GBDeviceInfo` | 7.5.0 / 7.5.0 | 公共 [源码](https://github.com/lmirosevic/GBDeviceInfo.git) | Apache License, Version 2.0 | Detects the hardware, software and display of the current iOS or Mac OS X device at runtime.；声明，调用待核 |
+| `GKCustomNavigationBarExtra` | — / 1.0.0 | 本地自建层 `./JobsByPods/GKCustomNavigationBarExtra@Pods` | MIT | GKNavigationBar custom title helpers for Jobs.；声明 + 引用 |
+| `GKCycleScrollView` | 1.2.3 / 1.2.3 | 公共 [源码](https://github.com/QuintGao/GKCycleScrollView.git) | MIT | 一个轻量级的自定义轮播图组件；声明，调用待核 |
+| `GKNavigationBar` | 1.9.7 / 1.9.7 | 公共 [源码](https://github.com/QuintGao/GKNavigationBar.git) | MIT | 自定义导航栏--导航栏联动；声明 + 引用 |
+| `GKPhotoBrowser` | 3.2.8 / 3.2.8 | 公共 [源码](https://github.com/QuintGao/GKPhotoBrowser.git) | MIT | iOS可高度自定义的图片浏览器，支持图片浏览、视频播放等多种功能；声明 + 引用 |
+| `GTCaptcha4` | — / 1.8.8 | 本地第三方 `./JobsByPods/ManualByOCPods@Pods/GTCaptcha4` | MIT | GTCaptcha4 wrapper；声明 + 引用 |
+| `HTMLDocumentExtra` | — / 1.0.0 | 本地自建层 `./JobsByPods/HTMLDocumentExtra@Pods` | MIT | HTMLReader document helpers for Jobs.；声明，调用待核 |
+| `HTMLReader` | 2.2.1 / 2.2.1 | 公共 [源码](https://github.com/nolanw/HTMLReader.git) | Public domain | A WHATWG-compliant HTML parser in Objective-C.；声明 + 引用 |
+| `HXPhotoManagerExtra` | — / 1.0.0 | 本地自建层 `./JobsByPods/HXPhotoManagerExtra@Pods` | MIT | HXPhotoManager helpers for Jobs.；声明，调用待核 |
+| `HXPhotoPickerObjC` | 3.3.4 / 3.3.4 | 公共 [源码](https://github.com/SilenceLove/HXPhotoPickerObjC.git) | MIT | 照片/视频选择器 - 支持LivePhoto、GIF图片选择、自定义编辑照片/视频、3DTouch预览、浏览网络图片/网络视频 功能 - Imitation weibo photo/image pic；声明 + 引用 |
+| `HXPhotoViewExtra` | — / 1.0.0 | 本地自建层 `./JobsByPods/HXPhotoViewExtra@Pods` | MIT | HXPhotoView helpers for Jobs.；声明，调用待核 |
+| `HXRotationTool` | 0.4.0 / 0.4.0 | 公共 [源码](https://github.com/TheLittleBoy/HXRotationTool.git) | MIT | iOS 屏幕旋转工具类，兼容iOS 16，兼容Xcode 13和Xcode 14。；声明 + 引用 |
+| `IQKeyboardManager` | 6.5.19 / 6.5.19 | 公共 [源码](https://github.com/hackiftekhar/IQKeyboardManager.git) | MIT | Codeless drop-in universal library allows to prevent issues of keyboard sliding up and cover UITextF；声明 + 引用 |
+| `IQKeyboardManagerExtra` | — / 1.0.0 | 本地自建层 `./JobsByPods/IQKeyboardManagerExtra@Pods` | MIT | IQKeyboardManager helpers for Jobs.；声明 + 引用 |
+| `JobsAPIs` | — / 0.0.1 | 本地自建层 `./JobsByPods/JobsAPIs@Pods` | MIT | API request layer built on top of YTKNetwork.；声明 + 引用 |
+| `JobsAppDoor` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsAppDoor@Pods` | MIT | Configurable login, register, and password recovery templates for Jobs projects.；声明 + 引用 |
+| `JobsAppIconRibbon` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsAppIconRibbon@Pods` | MIT | Build-time AppIcon environment ribbon generator.；声明，调用待核 |
+| `JobsAppTools` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsAppTools@Pods` | MIT | App utility tools for Jobs projects.；声明 + 引用 |
+| `JobsBasePopupView` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsBasePopupView@Pods` | MIT | Base popup view component for Jobs projects.；声明 + 引用 |
+| `JobsBaseUI` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsBaseUI@Pods` | MIT | Base UI component library for Jobs projects.；声明 + 引用 |
+| `JobsBioKit` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsBioKit@Pods` | MIT | Objective-C biometric authentication wrapper for LocalAuthentication.；声明 + 引用 |
+| `JobsBitsMonitor` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsBitsMonitor@Pods` | MIT | Objective-C bits monitor components for Jobs projects.；声明 + 引用 |
+| `JobsBlock` | — / 1.0.4 | 本地自建层 `./JobsByPods/JobsBlock@Pods` | MIT | Objective-C block type definitions for Jobs projects.；声明 + 引用 |
+| `JobsBluetooth` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsBluetooth@Pods` | MIT | 面向多设备、多协议并支持 DSL 的通用 BLE 基础设施。；声明 + 引用 |
+| `JobsByOCPods` | — / 0.0.2 | 本地自建层 `./JobsByPods/JobsByOCPods@Pods` | MIT | Jobs OC Base Customize UIKit Core (local pod)；声明 + 引用 |
+| `JobsCallBackBlockDSL` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsCallBackBlockDSL@Pods` | MIT | Objective-C chain DSL categories for Jobs callback blocks.；声明 + 引用 |
+| `JobsClass` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsClass@Pods` | MIT | NSObject class/runtime helpers for Jobs.；声明 + 引用 |
+| `JobsClockView` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsClockView@Pods` | MIT | Analog clock view component for Jobs projects.；声明 + 引用 |
+| `JobsCountdownBtn` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsCountdownBtn@Pods` | MIT | Verification-code countdown button for Jobs Objective-C apps.；声明 + 引用 |
+| `JobsCryptography` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsCryptography@Pods` | MIT | Objective-C cryptography, digest, encoding, and data conversion helpers.；声明 + 引用 |
+| `JobsCustomView` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsCustomView@Pods` | MIT | Custom date picker view component for Jobs projects.；声明 + 引用 |
+| `JobsDebug` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsDebug@Pods` | MIT | Objective-C debug components for Jobs projects.；声明 + 引用 |
+| `JobsDebugPanel` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsDebugPanel@Pods` | MIT | Debug-only floating tools, environment selection, and ordered custom actions.；声明 + 引用 |
+| `JobsDeviceInfo` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsDeviceInfo@Pods` | MIT | Device information utilities for Jobs Objective-C projects.；声明 + 引用 |
+| `JobsDropDownListView` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsDropDownListView@Pods` | MIT | Anchor-based dropdown list view for Jobs projects.；声明 + 引用 |
+| `JobsFiltrationView` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsFiltrationView@Pods` | MIT | Filtration view component for Jobs projects.；声明 + 引用 |
+| `JobsFuseAnimation` | — / 1.1.0 | 本地自建层 `./JobsByPods/JobsFuseAnimation@Pods` | MIT | Reusable UIView animations and pluggable refresh renderers for Objective-C.；声明 + 引用 |
+| `JobsGestureLock` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsGestureLock@Pods` | MIT | Objective-C gesture lock components for iOS.；声明 + 引用 |
+| `JobsGetWindow` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsGetWindow@Pods` | MIT | Objective-C helpers for getting the current window.；声明 + 引用 |
+| `JobsHotLabel` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsHotLabel@Pods` | MIT | Hot label UI components for Jobs projects.；声明 + 引用 |
+| `JobsIconfont` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsIconfont@Pods` | MIT | A typed Objective-C facade for iconfont image and font assets.；声明 + 引用 |
+| `JobsImageNumberView` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsImageNumberView@Pods` | MIT | Jobs Image Number View；声明 + 引用 |
+| `JobsImageRotation` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsImageRotation@Pods` | MIT | Timer-driven view rotation and minimal animated clock icons for Jobs projects.；声明 + 引用 |
+| `JobsLanMgr` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsLanMgr@Pods` | MIT | Objective-C language utility and block helpers for Jobs projects.；声明 + 引用 |
+| `JobsLinkageMenuView` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsLinkageMenuView@Pods` | MIT | Linkage menu view component for Jobs projects.；声明 + 引用 |
+| `JobsLoadingImage` | — / 0.0.1 | 本地自建层 `./JobsByPods/JobsLoadingImage@Pods` | MIT | Bundle image loading helpers extracted into a standalone local pod.；声明 + 引用 |
+| `JobsLocker` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsLocker@Pods` | MIT | A lightweight Objective-C locking utility with a per-instance once extension.；声明 + 引用 |
+| `JobsLuckyEnvelopeRain` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsLuckyEnvelopeRain@Pods` | MIT | Red packet rain component powered by JobsOCTimer.；声明 + 引用 |
+| `JobsMakes` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsMakes@Pods` | MIT | Utility makers, categories and model helpers for Jobs projects.；声明 + 引用 |
+| `JobsMarqueeView` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsMarqueeView@Pods` | MIT | Objective-C marquee and carousel view powered by JobsOCTimerMgr.；声明 + 引用 |
+| `JobsMenuView` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsMenuView@Pods` | MIT | Menu view component for Jobs projects.；声明 + 引用 |
+| `JobsModel` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsModel@Pods` | MIT | Shared model aggregation library for Jobs projects.；声明 + 引用 |
+| `JobsModelDSL` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsModelDSL@Pods` | MIT | Objective-C chain DSL categories for JobsModel.；声明 + 引用 |
+| `JobsMonitorNetwoking` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsMonitorNetwoking@Pods` | MIT | Objective-C network speed monitoring component for Jobs projects.；声明 + 引用 |
+| `JobsNavBar` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsNavBar@Pods` | MIT | Objective-C navigation bar components for Jobs projects.；声明 + 引用 |
+| `JobsNavigationTransitionMgr` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsNavigationTransitionMgr@Pods` | MIT | Navigation transition manager for Jobs projects.；声明 + 引用 |
+| `JobsNetWorkTools` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsNetWorkTools@Pods` | MIT | Network traffic monitor tools for Jobs projects.；声明 + 引用 |
+| `JobsOCAudioRecorder` | — / 0.1.0 | 本地自建层 `./JobsByPods/JobsOCAudioRecorder@Pods` | MIT | Decoupled Objective-C audio recording and local audio management.；声明 + 引用 |
+| `JobsOCCalendar` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCCalendar@Pods` | MIT | Standalone calendar view for Jobs Objective-C projects.；声明 + 引用 |
+| `JobsOCComment` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCComment@Pods` | MIT | Comment list component for Jobs Objective-C projects.；声明 + 引用 |
+| `JobsOCCountryCodeCtrl` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCCountryCodeCtrl@Pods` | MIT | Country code selector controller for Jobs Objective-C projects.；声明 + 引用 |
+| `JobsOCDefs` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCDefs@Pods` | MIT | Common definitions for Jobs projects.；声明 + 引用 |
+| `JobsOCDSL` | — / 1.0.4 | 本地自建层 `./JobsByPods/JobsOCDSL@Pods` | MIT | Objective-C chain DSL categories for Jobs projects.；声明 + 引用 |
+| `JobsOCExcel` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCExcel@Pods` | MIT | Reusable spreadsheet UI with arbitrary frozen columns for Jobs Objective-C projects.；声明 + 引用 |
+| `JobsOCGraphicCaptcha` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCGraphicCaptcha@Pods` | MIT | Graphic captcha generator and view for Jobs projects.；声明 + 引用 |
+| `JobsOCKeyboardMgr` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCKeyboardMgr@Pods` | MIT | Keyboard avoidance manager for Jobs Objective-C projects.；声明 + 引用 |
+| `JobsOCMarkdown` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCMarkdown@Pods` | MIT | Full local Markdown rendering for Jobs Objective-C projects.；声明 + 引用 |
+| `JobsOCNumberStepper` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCNumberStepper@Pods` | MIT | Bounded integer stepper control for Jobs Objective-C projects.；声明 + 引用 |
+| `JobsOCOpen` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCOpen@Pods` | MIT | Objective-C URL opening component for Jobs projects.；声明 + 引用 |
+| `JobsOCPatch` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCPatch@Pods` | MIT | Runtime payload patch engine for Jobs Objective-C projects.；声明 + 引用 |
+| `JobsOCProtocols` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCProtocols@Pods` | MIT | Protocols definitions for Jobs.；声明 + 引用 |
+| `JobsOCRefresher` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCRefresher@Pods` | MIT | Objective-C refresh component library for Jobs projects.；声明 + 引用 |
+| `JobsOCRuntimeKits` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCRuntimeKits@Pods` | MIT | Objective-C runtime helper kits for Jobs projects.；声明 + 引用 |
+| `JobsOCSearcher` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCSearcher@Pods` | MIT | Search view component for Jobs Objective-C projects.；声明 + 引用 |
+| `JobsOCSkeletonView` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCSkeletonView@Pods` | MIT | Skeleton and shimmer placeholder view utilities for Jobs Objective-C projects.；声明 + 引用 |
+| `JobsOCSnowflake` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCSnowflake@Pods` | MIT | Snowflake ID generator for Jobs.；声明 + 引用 |
+| `JobsOCSplash` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCSplash@Pods` | MIT | Jobs Objective-C splash screen component.；声明 + 引用 |
+| `JobsOCTimer` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCTimer@Pods` | MIT | Timer utilities for Jobs.；声明 + 引用 |
+| `JobsOCTimerMgr` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCTimerMgr@Pods` | MIT | Objective-C timer manager component for Jobs projects.；声明 + 引用 |
+| `JobsOCTools` | — / 0.0.1 | 本地自建层 `./JobsByPods/JobsOCTools@Pods` | MIT | Objective-C UI and utility components by Jobspec.；声明 + 引用 |
+| `JobsOCUILabelScrolling` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCUILabelScrolling@Pods` | MIT | CoreText powered overflow scrolling for UILabel.；声明 + 引用 |
+| `JobsOCVideoRecorder` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCVideoRecorder@Pods` | MIT | Jobs Objective-C video recorder component.；声明 + 引用 |
+| `JobsOCWebSocket` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsOCWebSocket@Pods` | MIT | Lightweight WebSocket lifecycle client for Jobs Objective-C projects.；声明 + 引用 |
+| `JobsPresentTransitionMgr` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsPresentTransitionMgr@Pods` | MIT | Custom present transition manager for Jobs projects.；声明 + 引用 |
+| `JobsProgressBar` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsProgressBar@Pods` | MIT | Custom Objective-C progress bar with value labels, directions and dragging.；声明 + 引用 |
+| `JobsRandomUtils` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsRandomUtils@Pods` | MIT | Random utilities for Jobs.；声明 + 引用 |
+| `JobsRichTextUtils` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsRichTextUtils@Pods` | MIT | Rich text utilities for Jobs Objective-C projects.；声明 + 引用 |
+| `JobsScreenCapture` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsScreenCapture@Pods` | MIT | Screenshot capture, observation, saving, and sensitive-content protection for Jobs projects.；声明 + 引用 |
+| `JobsStringUtils` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsStringUtils@Pods` | MIT | String utilities for Jobs.；声明 + 引用 |
+| `JobsSuspend` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsSuspend@Pods` | MIT | Suspend UI components for Jobs.；声明 + 引用 |
+| `JobsTabBarCtrl` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsTabBarCtrl@Pods` | MIT | Custom tab bar controller component for Jobs projects.；声明 + 引用 |
+| `JobsTimeUtils` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsTimeUtils@Pods` | MIT | Time utilities for Jobs Objective-C projects.；声明 + 引用 |
+| `JobsUploadingProgressView` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsUploadingProgressView@Pods` | MIT | Uploading progress view for Jobs.；声明 + 引用 |
+| `JobsViewNavigator` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsViewNavigator@Pods` | MIT | A lightweight Objective-C view stack navigator for UIView transitions.；声明 + 引用 |
+| `JobsViewPush` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsViewPush@Pods` | MIT | UIView-level push transitions with directional interactive dismissal.；声明 + 引用 |
+| `JobsWallet` | — / 1.0.0 | 本地自建层 `./JobsByPods/JobsWallet@Pods` | MIT | Wallet card stack component for Jobs projects.；声明 + 引用 |
+| `JPImageresizerView` | 1.14.0 / 1.14.0 | 公共 [源码](https://github.com/Rogue24/JPImageresizerView.git) | MIT | 一个专门裁剪图片、GIF、视频的轮子😋简单易用、功能丰富☕️；声明 + 引用 |
+| `JQFMDB` | 1.1.6 / 1.1.6 | 公共 [源码](https://github.com/gaojunquan/JQFMDB.git) | MIT | FMDB的封装,操作简单,线程安全,扩展性强,直接操作model或dictionary；声明，调用待核 |
+| `JXCategoryView` | 1.6.8 / 1.6.8 | 公共 [源码](https://github.com/pujiaxin33/JXCategoryView.git) | MIT | A powerful and easy to use category view (segment view, segment control, page view, scroll viewcontr；声明 + 引用 |
+| `JXCategoryViewExtra` | — / 1.0.0 | 本地自建层 `./JobsByPods/JXCategoryViewExtra@Pods` | MIT | JXCategoryView helpers for Jobs.；声明 + 引用 |
+| `JXPagingView` | 2.1.3 / 2.1.3 | 公共 [源码](https://github.com/pujiaxin33/JXPagingView.git) | MIT | 类似微博主页、简书主页等效果。多页面嵌套，既可以上下滑动，也可以左右滑动切换页面。支持HeaderView悬浮、支持下拉刷新、上拉加载更多。；声明 + 引用 |
+| `KTVHTTPCache` | — / 3.1.0 | 公共 [源码](https://github.com/ChangbaDevs/KTVHTTPCache.git) | MIT | A powerful media cache framework.；声明 + 引用 |
+| `LMJDropdownMenu` | 3.0.4 / 3.0.4 | 公共 [源码](https://github.com/JerryLMJ/LMJDropdownMenu.git) | MIT | An easy way to use dropdown-nemu；声明 + 引用 |
+| `LMJDropdownMenuExtra` | — / 1.0.0 | 本地自建层 `./JobsByPods/LMJDropdownMenuExtra@Pods` | MIT | LMJDropdownMenu helpers for Jobs.；声明，调用待核 |
+| `LookinServer` | 1.2.8 / 1.2.8 | 公共 [源码](https://github.com/QMUI/LookinServer.git) | GPL-3.0（Podspec）；同 tag LICENSE 为 MIT，声明冲突待确认 | iOS 运行时 UI 调试；仅 Debug 声明，实际链接与调用待核 |
+| `lottie-ios` | 2.5.3 / 2.5.3 | 公共 [源码](https://github.com/airbnb/lottie-ios.git) | Apache | Used to natively render vector animations exported from After Effects.；声明 + 引用 |
+| `Masonry` | 1.1.0 / 1.1.0 | 公共 [源码](https://github.com/cloudkite/Masonry.git) | MIT | Harness the power of Auto Layout NSLayoutConstraints with a simplified, chainable and expressive syn；声明 + 引用 |
+| `MGSwipeTableCell` | 1.6.14 / 1.6.14 | 公共 [源码](https://github.com/MortimerGoro/MGSwipeTableCell.git) | MIT | An easy to use UITableViewCell subclass that allows to display swipeable buttons with a variety of t；声明 + 引用 |
+| `MGSwipeTableCellExtra` | — / 1.0.0 | 本地自建层 `./JobsByPods/MGSwipeTableCellExtra@Pods` | MIT | MGSwipeTableCell helpers for Jobs.；声明 + 引用 |
+| `MJExtension` | 3.4.2 / 3.4.2 | 公共 [源码](https://github.com/CoderMJLee/MJExtension.git) | MIT | A fast and convenient conversion between JSON and model；声明 + 引用 |
+| `MJRefresh` | 3.7.9 / 3.7.9 | 公共 [源码](https://github.com/CoderMJLee/MJRefresh.git) | MIT | An easy way to use pull-to-refresh；声明 + 引用 |
+| `MJRefreshExtra` | — / 0.0.1 | 本地自建层 `./JobsByPods/MJRefreshExtra@Pods` | MIT | MJRefresh extra categories and protocols.；声明 + 引用 |
+| `NTESVerifyCode` | 3.7.1 / 3.7.1 | 公共 [源码](https://github.com/yidun/NTESVerifyCode.git) | 待核实 | NTESVerifyCode.；声明 + 引用 |
+| `OpenUDID` | 1.1.0 / 1.1.0 | 公共 [源码](https://github.com/ReeFSpeK/OpenUDID.git) | Zlib | Open source initiative for a universal and persistent UDID solution for iOS.；声明 + 引用 |
+| `pop` | 1.0.12 / 1.0.12 | 公共 [源码](https://github.com/facebook/pop.git) | BSD | Extensible animation framework for iOS and OS X.；声明 + 引用 |
+| `PPBadgeView` | 3.1.0 / 3.1.0 | 公共 [源码](https://github.com/jkpang/PPBadgeView.git) | MIT | iOS Custom Badge, Support UIView, UITabBarItem, UIBarButtonItem. iOS自定义Badge控件, 支持UIView, UITabBarIt；声明 + 引用 |
+| `PromiseKit` | 8.2.0 / 8.2.0 | 公共 [源码](https://github.com/mxcl/PromiseKit.git) | MIT | Promises for Swift & ObjC.；声明，调用待核 |
+| `RACExtra` | — / 1.0.0 | 本地自建层 `./JobsByPods/RACExtra@Pods` | MIT | ReactiveCocoa extension macros for Jobs.；声明 + 引用 |
+| `Reachability` | 3.7.7 / 3.7.7 | 公共 [源码](https://github.com/tonymillion/Reachability.git) | BSD | ARC and GCD Compatible Reachability Class for iOS and OS X. Drop in replacement for Apple Reachabili；声明 + 引用 |
+| `ReachabilityExtra` | — / 1.0.0 | 本地自建层 `./JobsByPods/ReachabilityExtra@Pods` | MIT | Reachability helpers for Jobs.；声明 + 引用 |
+| `ReactiveObjC` | 3.1.1 / 3.1.1 | 公共 [源码](https://github.com/ReactiveCocoa/ReactiveObjC.git) | MIT | The 2.x ReactiveCocoa Objective-C API: Streams of values over time；声明 + 引用 |
+| `Realm` | 20.0.4 / 20.0.4 | 公共 [源码](https://github.com/realm/realm-swift.git) | Apache 2.0 | Realm is a modern data framework & database for iOS, macOS, tvOS & watchOS.；声明 + 引用 |
+| `RQShineLabel` | 1.0.0 / 1.0.0 | 公共 [源码](https://github.com/zipme/RQShineLabel.git) | MIT | A UILabel subclass that lets you animate text similar to Secret app.；声明，调用待核 |
+| `SDWebImage` | 5.21.7 / 5.21.7 | 公共 [源码](https://github.com/SDWebImage/SDWebImage.git) | MIT | Asynchronous image downloader with cache support with an UIImageView category.；声明 + 引用 |
+| `SDWebImageWebPCoder` | 0.15.0 / 0.15.0 | 公共 [源码](https://github.com/SDWebImage/SDWebImageWebPCoder.git) | MIT | WebP decoder/encoder for SDWebImage coder plugin.；声明，调用待核 |
+| `Shimmer` | 1.0.2 / 1.0.2 | 公共 [源码](https://github.com/facebook/Shimmer.git) | BSD | Simple shimmering effect.；声明 + 引用 |
+| `Socket.IO-Client-Swift` | — / 16.1.1 | 公共 [源码](https://github.com/socketio/socket.io-client-swift.git) | MIT | Socket.IO-client for iOS and OS X；声明，调用待核 |
+| `SocketRocket` | 0.7.1 / 0.7.1 | 公共 [源码](https://github.com/facebook/SocketRocket.git) | BSD | A conforming WebSocket (RFC 6455) client library for iOS, macOS and tvOS.；声明 + 引用 |
+| `SPAlertController` | 4.1.0 / 4.1.0 | 公共 [源码](https://github.com/SPStore/SPAlertController.git) | MIT | iOS 弹窗，提醒对话框，支持多种样式和自定义，适配深色模式；声明 + 引用 |
+| `SRWebSocketExtra` | — / 1.0.0 | 本地自建层 `./JobsByPods/SRWebSocketExtra@Pods` | MIT | SocketRocket helpers for Jobs.；声明 + 引用 |
+| `SYSAlertControllerExtra` | — / 1.0.0 | 本地自建层 `./JobsByPods/SYSAlertControllerExtra@Pods` | MIT | UIAlertController category extensions for Jobs projects.；声明 + 引用 |
+| `SZTextView` | 1.3.0 / 1.3.0 | 公共 [源码](https://github.com/glaszig/SZTextView.git) | MIT | A drop-in UITextView replacement which gives you a placeholder.；声明 + 引用 |
+| `SZTextViewExtra` | — / 1.0.0 | 本地自建层 `./JobsByPods/SZTextViewExtra@Pods` | MIT | SZTextView helpers for Jobs.；声明 + 引用 |
+| `TABAnimated` | 2.6.6 / 2.6.6 | 本地第三方 `./JobsByPods/ManualByOCPods@Pods/TABAnimated` | MIT | TABAnimated是一个ios平台上的网络过渡动画(骨架屏)的封装；声明 + 引用 |
+| `Texture` | 3.2.0 / 3.2.0 | 本地第三方 `./JobsByPods/ManualByOCPods@Pods/Texture` | Apache 2 | Smooth asynchronous user interfaces for iOS apps.；声明，调用待核 |
+| `TFPopup` | — / 1.4.4 | 本地第三方 `./JobsByPods/ManualByOCPods@Pods/TFPopup` | MIT | A powerful pop-up tool；声明 + 引用 |
+| `TFPopupExtra` | — / 1.0.0 | 本地自建层 `./JobsByPods/TFPopupExtra@Pods` | MIT | TFPopup category extensions for Jobs projects.；声明 + 引用 |
+| `This` | — / 1.0.0 | 本地自建层 `./JobsByPods/This@Pods` | MIT | This base object for Jobs Objective-C projects.；声明 + 引用 |
+| `TKPermissionKit` | — / 1.2.9 | 本地第三方 `./JobsByPods/ManualByOCPods@Pods/TKPermissionKit` | MIT | iOS权限管理工具；声明 + 引用 |
+| `TXFileOperation` | 1.0 / 1.0 | 公共 [源码](https://github.com/xtzPioneer/TXFileOperation.git) | MIT | iOS文件(夹)快速简单完成增、删、改、查、写系列文件操作；声明 + 引用 |
+| `UIBaseTextFieldDSL` | — / 1.0.0 | 本地自建层 `./JobsByPods/UIBaseTextFieldDSL@Pods` | MIT | Jobs chain DSL categories for JobsBaseUI text field classes.；声明 + 引用 |
+| `UITextView+Placeholder` | 1.4.0 / 1.4.0 | 公共 [源码](https://github.com/devxoul/UITextView-Placeholder.git) | MIT | A missing placeholder for UITextView.；声明 + 引用 |
+| `WHToast` | 0.1.0 / 0.1.0 | 公共 [源码](https://github.com/remember17/WHToast.git) | MIT | iOS Toast；声明 + 引用 |
+| `WHToastExtra` | — / 1.0.0 | 本地自建层 `./JobsByPods/WHToastExtra@Pods` | MIT | WHToast category extensions for Jobs.；声明 + 引用 |
+| `WMZCode` | — / 1.0.2 | 本地第三方 `./JobsByPods/ManualByOCPods@Pods/WMZCode` | MIT | 滑块验证；声明 + 引用 |
+| `XYColorOC` | 1.1.1 / 1.1.2 | 本地第三方 `./JobsByPods/ManualByOCPods@Pods/XYColorOC` | MIT | An Objective-C only dark mode color helper for UIKit and CALayer.；声明 + 引用 |
+| `XZMRefresh` | 1.1.3 / 1.1.3 | 公共 [源码](https://github.com/xiezhongmin/XZMRefresh.git) | MIT | The easiest way to use pull-to-The transverse refresh；声明 + 引用 |
+| `YBImageBrowser` | 3.0.9 / 3.0.9 | 公共 [源码](https://github.com/indulgeIn/YBImageBrowser.git) | MIT | iOS image browser / iOS 图片浏览器；声明，调用待核 |
+| `YQImageTool` | 1.0.1 / 1.0.1 | 公共 [源码](https://github.com/976431yang/YQImageTool.git) | MIT | An Image Tool for iOS.；声明，调用待核 |
+| `YTKNetwork` | 3.0.6 / 3.0.6 | 公共 [源码](https://github.com/yuantiku/YTKNetwork.git) | MIT | YTKNetwork is a high level request util based on AFNetworking.；声明 + 引用 |
+| `YTKNetworkExtra` | — / 1.0.0 | 本地自建层 `./JobsByPods/YTKNetworkExtra@Pods` | MIT | YTKNetwork extra request helpers for Jobs projects.；声明 + 引用 |
+| `YYImage` | 1.0.4 / 1.0.4 | 公共 [源码](https://github.com/ibireme/YYImage.git) | MIT | Image framework for iOS to display/encode/decode animated WebP, APNG, GIF, and more.；声明 + 引用 |
+| `YYKits` | — / 0.1.0 | 本地第三方 `./JobsByPods/ManualByOCPods@Pods/YYKits` | MIT | Local Objective-C pod that provides YYFPSLabel and YYWeakProxy.；声明，调用待核 |
+| `ZBNetworking` | — / 1.0.4 | 本地第三方 `./JobsByPods/ManualByOCPods@Pods/ZBNetworking` | MIT | The network request library adds caching policies.；声明 + 引用 |
+| `ZFPlayer` | 4.1.4 / 4.1.4 | 公共 [源码](https://github.com/renzifeng/ZFPlayer.git) | MIT | A good player made by renzifeng；声明 + 引用 |
+| `ZFPlayerExtra` | — / 1.0.0 | 本地自建层 `./JobsByPods/ZFPlayerExtra@Pods` | MIT | ZFPlayer helpers for Jobs.；声明 + 引用 |
+| `ZMJCellExtra` | — / 1.0.0 | 本地自建层 `./JobsByPods/ZMJCellExtra@Pods` | MIT | ZMJGanttChart cell helpers for Jobs.；声明，调用待核 |
+| `ZMJGanttChart` | 0.1.4 / 0.1.4 | 公共 [源码](https://github.com/keshiim/ZMJGanttChart.git) | MIT | Full configurable sheet view user interfaces for iOS applications. eg:GanttChart, Schedul, TimeAble ；声明 + 引用 |
+| `ZMJTipView` | 0.1.7 / 0.1.7 | 公共 [源码](https://github.com/keshiim/ZMJTipView.git) | MIT | Fully customisable tooltip view in Objective-C for iOS.；声明 + 引用 |
+| `ZWPullMenuView` | — / 0.1.0 | 本地第三方 `./JobsByPods/ManualByOCPods@Pods/ZWPullMenuView` | MIT | Pull menu view for iOS.；声明 + 引用 |
+
+依赖证据位置：`Podfile.deps`、本地 `Podfile.lock`、`Pods/Local Podspecs/*.podspec.json`、`Pods/Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo-acknowledgements.plist`，以及当前机器匹配锁定版本的 CocoaPods trunk Podspec 缓存；缓存未随仓库提交，接手时应在依赖安装结果上重核，而非把表内版本写回项目。
+
+| 风险项（核对日期 2026-10-19） | 事实与处置 |
+| --- | --- |
+| 未提交锁文件 / 浮动声明 | 两边磁盘虽有锁文件但未跟踪；除少数范围约束外，多数公共 `pod` 声明不固定版本。全新解析可能变化；发布前固定可复现解析基线，不把本地解析快照当仓库锁定 |
+| 已归档依赖 | [AFNetworking 官方仓库](https://github.com/AFNetworking/AFNetworking)标记 2023-01-17 归档 / 停止发布；[Shimmer 官方仓库](https://github.com/facebookarchive/Shimmer)标记 2021-02-03 归档。保留兼容 Demo，产品选型需评估替换与维护责任 |
+| LookinServer 1.2.8 许可冲突 | [同版本 Podspec](https://raw.githubusercontent.com/QMUI/LookinServer/1.2.8/LookinServer.podspec) 标 GPL-3.0，但 [同 tag LICENSE](https://raw.githubusercontent.com/QMUI/LookinServer/1.2.8/LICENSE) 及本地 acknowledgements 为 MIT。不能自行选择一项当作确定授权；先向上游确认。两边 `Podfile.deps` 限 Debug，发布前核对 Release 实际依赖图与产物是否链接该库，本文未执行产物验收 |
+| 许可缺口 / 特殊协议 | `NTESVerifyCode` 本地证据未明确许可，不能推定 MIT；`Realm`、第三方二进制及表中自定义 / 待核条款按实际版本许可原文复核。未由本表得到 GPL / AGPL 清零结论 |
+| 漏洞状态 | 未进行覆盖全部直接与传递依赖的实时漏洞审计，结果未知；没有在本表列出漏洞不表示无已知漏洞 |
+| 本地 Pod 的来源 | 自建 Pod 的 `source :path` 或 `example.local` 首页不是可拉取私库地址；源码随当前仓库提供，使用表内相对路径与当前分支复现 |
+
+### <span id="jobs-toc-heading-236" data-jobs-toc="v2">7.10、运行、构建、测试与常见问题 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
+
+在当前 OC 工程根目录运行；环境准备先安装符合 CI 基线的 Xcode 与其 iOS SDK、Ruby / CocoaPods，并按现有脚本自述检查网络及工具。先阅读 [Podfile](./Podfile) 和已有开发支持章节：依赖安装会联网、生成 Pods 工程并运行配置脚本，属于主动执行步骤，不是只读检查。
+
+```shell
+pod install
+open ./JobsOCBaseConfigDemo.xcworkspace
+```
+
+在 Xcode 选择 `JobsOCBaseConfigDemo` Scheme 和可用 iPhone Simulator，运行主 App。`main` 集成源码与 `byPods` 的本地组件目录应保留各自形态，不能把另一分支的 Pods 生成物直接覆盖当前工程。手动构建示例：
+
+```shell
+xcodebuild \
+  -workspace ./JobsOCBaseConfigDemo.xcworkspace \
+  -scheme JobsOCBaseConfigDemo \
+  -configuration Debug \
+  -sdk iphonesimulator \
+  -destination 'generic/platform=iOS Simulator' \
+  -derivedDataPath ./DerivedData/README-Debug \
+  CODE_SIGNING_ALLOWED=NO \
+  build
+```
+
+真实测试需要已安装的模拟器目的地；用 `xcodebuild -showdestinations -workspace ./JobsOCBaseConfigDemo.xcworkspace -scheme JobsOCBaseConfigDemo` 查可用设备后，在下面命令把 `SIMULATOR_UDID` 替换为真实 UUID。`byPods` 组件门禁须在该形态运行，不把 main 主 App 测试代替组件测试：
+
+```shell
+xcodebuild \
+  -workspace ./JobsOCBaseConfigDemo.xcworkspace \
+  -scheme JobsOCBaseConfigDemo \
+  -configuration Debug \
+  -destination 'platform=iOS Simulator,id=SIMULATOR_UDID' \
+  -derivedDataPath ./DerivedData/README-Tests \
+  CODE_SIGNING_ALLOWED=NO \
+  test
+
+# 仅 byPods，完整门禁会构建 Pod、执行回归并构建 App；细节先读该目录 README。
+ruby ./ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
+  --configuration Debug \
+  --architecture arm64 \
+  --simulator SIMULATOR_UDID
+```
+
+| 场景 | 配置 / 排查 |
+| --- | --- |
+| dev / test / prod | Debug 环境切换示例在 `Demo@JobsDebugPanel` 与 JobsDebugPanel 内；业务 URL 通过对应请求层配置。没有一份全仓统一生效的 dev/test/prod 服务端配置，逐个 Demo 核对，Release 不带调试切换入口 |
+| 无服务端 / 离线预览 | 组件和本地资源 Demo 可用于离线演示；调试面板请求失败保留本地演示数据。远程视频、验证码等仍受外部服务可用性影响，不宣称全仓离线完整可用 |
+| CocoaPods 无法拉取 | 先看 `ScriptsByPods/` 的源选择、网络适配与离线保护说明；不要删除现有 Pods / 锁快照试错，也不要修改供应商源码 |
+| 模拟器与真机媒体库 | `byPods` 的 CI 使用 `JOBS_SIMULATOR_ONLY=1` 排除仅真机切片的 IJK；模式变化需按既有说明重装依赖，模拟器结果不代表真机 IJK 可用 |
+| 缺权限、白屏或功能不可用 | 核对主 App / 扩展的 Info.plist、隐私清单、系统权限、模拟器硬件支持与外部服务配置；不能只看 Demo 列表有入口 |
+| `RACmetamacros.h` 等头文件问题 | 对照前文 ReactiveObjC 搜索路径 / Header Map 配置与 CI 诊断，不复制宏头覆盖第三方 |
+| 产物与日志 | 现有构建阶段会管理 `build/` 产物；临时 DerivedData 放 `./DerivedData/`，组件门禁输出 `work/JobsPodsStability/`，具体日志以脚本 README 与当次结果为准 |
+
+**验证范围**：文档统计与源码 / 配置静态核对、双 README 字节一致性、目录转换及新增图表语法验证；未因更新文档执行 `pod install`、Xcode 构建、设备运行或第三方生产服务测试。前文保留的历史构建记录有各自基线，不能替代当前源码全流程验收。
 
 <a id="🔚" href="#前言" style="font-size:17px; color:green; font-weight:bold;">我是有底线的➤点我回到首页</a>
