@@ -1,0 +1,8 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+:root{color-scheme:light dark;--paper:Canvas;--ink:CanvasText}:root[data-theme="light"]{color-scheme:light;--paper:#ffffff;--ink:#111115}:root[data-theme="dark"]{color-scheme:dark;--paper:#161618;--ink:#f5f5f7}body{font:16px -apple-system,sans-serif;margin:16px;background:var(--paper);color:var(--ink)}p{line-height:1.5}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px}button{background:#144d8e;color:white;border:0;padding:12px;border-radius:8px}
+</style></head><body><h3>独立业务包 · learning.bridge</h3><p>这是 HTML + JS。下面的原生按钮会让 JS 发起消息；结果经过 Native 白名单再回到这里。</p><pre id="result">等待调用宿主…</pre><script>
+let requestSequence=0;
+window.callHost=command=>{const id='request-'+(++requestSequence);document.querySelector('#result').textContent='JS → Native: '+command;window.webkit.messageHandlers.jobsMicro.postMessage({id,command});};
+window.jobsReceive=response=>{document.querySelector('#result').textContent=JSON.stringify(response,null,2);};
+</script></body></html>

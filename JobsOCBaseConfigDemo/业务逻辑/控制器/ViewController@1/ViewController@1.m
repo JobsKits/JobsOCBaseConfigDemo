@@ -519,6 +519,17 @@ Prop_assign()JobsOCDemoListCellTextDisplayStrategy appliedCellTextDisplayStrateg
         @jobs_strongify(self)
         if (!self) return;
             [super viewDidAppear:animated];
+#if DEBUG
+            static BOOL JobsMicroAppDemoLaunchHandled = NO;
+            NSString *learningRoute = [NSUserDefaults.standardUserDefaults stringForKey:@"JobsMicroAppDemo"];
+            NSDictionary *learningRoutes = @{@"microapp":JobsMicroAppDemoVC.class, @"session":JobsMicroSessionDemoVC.class, @"mpaas":JobsMicroPlatformDemoVC.class, @"sandbox":JobsMicroSandboxDemoVC.class, @"pwa":JobsMicroPWADemoVC.class};
+            Class learningClass = learningRoutes[learningRoute ?: @""];
+            if (!JobsMicroAppDemoLaunchHandled && learningClass) {
+                JobsMicroAppDemoLaunchHandled = YES;
+                [self.navigationController pushViewController:[learningClass new] animated:NO];
+            }
+#endif
+
             self.refreshSuspendTimeButtonVisibility();
             JobsTimerMgr.shared().byResume(JobsOCDemoSuspendSpinTimerIdentifier);
         //    UIDeviceOrientation f = UIDevice.currentDevice.orientation;
@@ -3547,6 +3558,41 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         _dataMutArr = jobsMakeMutArr(^(NSMutableArray * _Nullable data) {
             @jobs_strongify(self)
             data.add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                model.byTitle(@"微应用 / 微程序 Bridge".jobsTr())
+                     .bySubTitle(@"Native-JS 白名单、requestID 与可信页面".jobsTr())
+                     .byCls(JobsMicroAppDemoVC.class);
+            })).byImage([JobsIconfontManager.shared iconImageForGlyph:JobsIconfontGlyphComponent
+                                                                    size:CGSizeMake(JobsWidth(30), JobsWidth(30))
+                                                                   color:UIColor.systemBlueColor]))
+            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                model.byTitle(@"多账户与应用会话隔离".jobsTr())
+                     .bySubTitle(@"独立 Cookie 仓库与原生账户目录".jobsTr())
+                     .byCls(JobsMicroSessionDemoVC.class);
+            })).byImage([JobsIconfontManager.shared iconImageForGlyph:JobsIconfontGlyphSwitcher
+                                                                    size:CGSizeMake(JobsWidth(30), JobsWidth(30))
+                                                                   color:UIColor.systemBlueColor]))
+            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                model.byTitle(@"mPaaS 平台架构教学".jobsTr())
+                     .bySubTitle(@"平台协议、目录 API 与 appID 白名单路由".jobsTr())
+                     .byCls(JobsMicroPlatformDemoVC.class);
+            })).byImage([JobsIconfontManager.shared iconImageForGlyph:JobsIconfontGlyphLodging
+                                                                    size:CGSizeMake(JobsWidth(30), JobsWidth(30))
+                                                                   color:UIColor.systemBlueColor]))
+            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                model.byTitle(@"微应用沙箱运行环境".jobsTr())
+                     .bySubTitle(@"逻辑目录隔离、文件读写与越界拒绝".jobsTr())
+                     .byCls(JobsMicroSandboxDemoVC.class);
+            })).byImage([JobsIconfontManager.shared iconImageForGlyph:JobsIconfontGlyphVerified
+                                                                    size:CGSizeMake(JobsWidth(30), JobsWidth(30))
+                                                                   color:UIColor.systemBlueColor]))
+            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
+                model.byTitle(@"PWA 与离线资源".jobsTr())
+                     .bySubTitle(@"Native 离线包、HTTPS 与真实 SW / Cache 状态".jobsTr())
+                     .byCls(JobsMicroPWADemoVC.class);
+            })).byImage([JobsIconfontManager.shared iconImageForGlyph:JobsIconfontGlyphDirection
+                                                                    size:CGSizeMake(JobsWidth(30), JobsWidth(30))
+                                                                   color:UIColor.systemBlueColor]))
+            .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"朋友圈图文浏览与图片预览".jobsTr())
                      .bySubTitle(@"图文卡片与图片填充 / 适配预览".jobsTr())
                      .byCls(JobsSwiftParityMomentsPreviewDemoVC.class);

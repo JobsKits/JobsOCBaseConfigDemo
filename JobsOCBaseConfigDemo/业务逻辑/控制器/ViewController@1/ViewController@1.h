@@ -7,6 +7,11 @@
 
 #import <UIKit/UIKit.h>
 #import "Demos.h"
+#import "JobsMicroAppDemoVC.h"
+#import "JobsMicroSessionDemoVC.h"
+#import "JobsMicroPlatformDemoVC.h"
+#import "JobsMicroSandboxDemoVC.h"
+#import "JobsMicroPWADemoVC.h"
 #import "JobsOCRootFoldTableCell.h"
 
 #if DEBUG

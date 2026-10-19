@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#144d8e"><link rel="manifest" href="./manifest.webmanifest"><title>Jobs PWA 离线实验</title><style>
+:root{color-scheme:light dark;--paper:Canvas;--ink:CanvasText}:root[data-theme="light"]{color-scheme:light;--paper:#ffffff;--ink:#111115}:root[data-theme="dark"]{color-scheme:dark;--paper:#161618;--ink:#f5f5f7}body{font:16px -apple-system,sans-serif;margin:18px;background:var(--paper);color:var(--ink)}p{line-height:1.5}button{background:#144d8e;color:white;border:0;padding:12px;border-radius:8px;font-size:16px}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}
+</style></head><body><h3>Jobs 离线交互实验</h3><p id="mode"></p><button id="increment">离线计数 +1</button><p id="count">当前计数：0</p><pre id="state"></pre><script>
+const state=document.querySelector('#state');let count=0;
+try{count=Number(localStorage.getItem('jobs-pwa-counter')||0)}catch(e){}
+function render(){document.querySelector('#count').textContent='当前计数：'+count}
+render();document.querySelector('#increment').onclick=()=>{count++;try{localStorage.setItem('jobs-pwa-counter',String(count))}catch(e){}render()};
+(async()=>{
+ if(location.protocol==='file:'){document.querySelector('#mode').textContent='Native bundled 离线包：本地文件直接加载，无 Service Worker。';state.textContent='把本目录的 index.html、manifest.webmanifest、sw.js 部署到同一 HTTPS 目录，即可学习真实 SW。';return;}
+ document.querySelector('#mode').textContent='HTTP(S) PWA：首次在线安装 SW，重载后检查 controller，再断网普通重载。';
+ if(!('serviceWorker'in navigator)){state.textContent='当前环境未开放 Service Worker；WKWebView 请核对 App-Bound Domains。';return;}
+ try{const registration=await navigator.serviceWorker.register('./sw.js');await navigator.serviceWorker.ready;state.textContent='注册 scope: '+registration.scope+'\ncontroller: '+!!navigator.serviceWorker.controller+'\nCache: '+JSON.stringify(await caches.keys())}catch(e){state.textContent=String(e)}
+})();
+</script></body></html>

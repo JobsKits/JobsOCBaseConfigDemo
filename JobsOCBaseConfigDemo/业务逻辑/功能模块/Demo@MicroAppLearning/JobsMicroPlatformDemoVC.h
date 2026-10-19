@@ -1,0 +1,20 @@
+//
+//  JobsMicroPlatformDemoVC.h
+//  JobsMicroAppLearning
+//
+//  Created by Jobs on 2026年10月19日，星期一.
+//
+
+#import "JobsMicroLearningBaseVC.h"
+#import "JobsMicroPlatformProvider.h"
+#import "JobsMicroAppDemoVC.h"
+#import "JobsMicroSandboxDemoVC.h"
+#import "JobsMicroPWADemoVC.h"
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface JobsMicroPlatformDemoVC : JobsMicroLearningBaseVC
+
+@end
+
+NS_ASSUME_NONNULL_END
