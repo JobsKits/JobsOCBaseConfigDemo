@@ -54,7 +54,7 @@ Prop_assign()BOOL loadingNativeOffline;
             return;
         }
         NSURL *support = [NSFileManager.defaultManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask].firstObject;
-        self->_nativeOfflineDirectory = [[support URLByAppendingPathComponent:@"JobsMicroLearning" isDirectory:YES] URLByAppendingPathComponent:@"NativeOffline-v1" isDirectory:YES];
+        self->_nativeOfflineDirectory = [[support URLByAppendingPathComponent:@"JobsMicroLearning" isDirectory:YES] URLByAppendingPathComponent:@"NativeOffline-v2" isDirectory:YES];
         self->_pwaURL = [self learningFieldWithText:@"" placeholder:@"自有 HTTPS 地址，例如 https://your-domain/pwa/" identifier:@"lab.pwaURL"];
         self.appendLearningView(self.pwaURL);
         self.appendLearningView([self learningButtonWithTitle:@"加载 HTTPS PWA（先部署资源）" identifier:@"lab.pwaOnline" action:^(UIButton *sender) {
@@ -90,11 +90,12 @@ Prop_assign()BOOL loadingNativeOffline;
                                     apply:^(__kindof NSObject *object, JobsThemeCenter *center) {
             (void)center;
             ((WKWebView *)object).jobsMicroApplyHostTheme();
+            @jobs_strongify(self)
+            if (self) {
+                self.refreshLearningWebLayout();
+            }
         }];
-        self.appendLearningView(self.pwaWebView);
-        [self.pwaWebView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.height.mas_equalTo(300);
-        }];
+        self.appendLearningWebView(self.pwaWebView);
         self.loadNativeOfflinePackage();
     };
 }
@@ -121,8 +122,9 @@ Prop_assign()BOOL loadingNativeOffline;
             return;
         }
         self->_loadingNativeOffline = YES;
+        [self configureLearningWebView:self.pwaWebView localEntryURL:entry];
         [self.pwaWebView loadFileURL:entry allowingReadAccessToURL:self.nativeOfflineDirectory];
-        self.reportLearningStatus(@"Native 离线包 v1 已加载，无需联网。file:// 不提供 Service Worker 注册。网页计数可点击体验；查看状态可核对模式。");
+        self.reportLearningStatus(@"Native 离线包 v2 已加载，无需联网。file:// 不提供 Service Worker 注册。网页计数可点击体验；查看状态可核对模式。");
     };
 }
 
@@ -139,6 +141,7 @@ Prop_assign()BOOL loadingNativeOffline;
             return;
         }
         self->_loadingNativeOffline = NO;
+        [self configureLearningWebView:self.pwaWebView localEntryURL:nil];
         self.reportLearningStatus(@"正在加载 HTTPS 页面。失败后自动回退本地包；成功后点击查看真实 SW / Cache 状态。");
         [self.pwaWebView loadRequest:[NSURLRequest requestWithURL:URL cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:2]];
     };
@@ -172,6 +175,7 @@ Prop_assign()BOOL loadingNativeOffline;
 
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
     webView.jobsMicroApplyHostTheme();
+    self.refreshLearningWebLayout();
 }
 
 @end

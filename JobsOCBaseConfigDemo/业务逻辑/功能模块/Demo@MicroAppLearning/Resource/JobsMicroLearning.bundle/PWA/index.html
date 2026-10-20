@@ -1,7 +1,17 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#144d8e"><link rel="manifest" href="./manifest.webmanifest"><title>Jobs PWA 离线实验</title><style>
-:root{color-scheme:light dark;--paper:Canvas;--ink:CanvasText}:root[data-theme="light"]{color-scheme:light;--paper:#ffffff;--ink:#111115}:root[data-theme="dark"]{color-scheme:dark;--paper:#161618;--ink:#f5f5f7}body{font:16px -apple-system,sans-serif;margin:18px;background:var(--paper);color:var(--ink)}p{line-height:1.5}button{background:#144d8e;color:white;border:0;padding:12px;border-radius:8px;font-size:16px}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}
-</style></head><body><h3>Jobs 离线交互实验</h3><p id="mode"></p><button id="increment">离线计数 +1</button><p id="count">当前计数：0</p><pre id="state"></pre><script>
+:root{color-scheme:light dark;--paper:Canvas;--ink:CanvasText}
+:root[data-theme="light"]{color-scheme:light;--paper:#ffffff;--ink:#111115}
+:root[data-theme="dark"]{color-scheme:dark;--paper:#161618;--ink:#f5f5f7}
+*{box-sizing:border-box}
+body{font:16px/1.5 -apple-system,sans-serif;font:-apple-system-body;margin:0;padding:16px;background:var(--paper);color:var(--ink);overflow-wrap:anywhere}
+h3{margin:0 0 12px}
+p{line-height:1.5;margin:12px 0}
+/* 控件跟随字号伸高；按钮组可换行，避免窄屏把文字或触摸区域挤出页面。 */
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0}
+button{flex:1 1 12rem;max-width:100%;min-height:44px;background:#144d8e;color:white;border:0;padding:12px 16px;border-radius:8px;font:inherit;line-height:1.4;white-space:normal;overflow-wrap:anywhere}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:0.8125em/1.5 ui-monospace,monospace;margin:12px 0 0}
+</style></head><body><h3>Jobs 离线交互实验</h3><p id="mode"></p><div class="actions"><button id="increment">离线计数 +1</button></div><p id="count">当前计数：0</p><pre id="state"></pre><script>
 const state=document.querySelector('#state');let count=0;
 try{count=Number(localStorage.getItem('jobs-pwa-counter')||0)}catch(e){}
 function render(){document.querySelector('#count').textContent='当前计数：'+count}

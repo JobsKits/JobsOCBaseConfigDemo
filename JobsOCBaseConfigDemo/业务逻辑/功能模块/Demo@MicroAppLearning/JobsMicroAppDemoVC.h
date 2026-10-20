@@ -7,6 +7,7 @@
 
 #import "JobsMicroLearningBaseVC.h"
 #import "JobsMicroWeakScriptHandler.h"
+#import "JobsMicroSandboxStore.h"
 #import "WKWebView+JobsMicroFactory.h"
 
 NS_ASSUME_NONNULL_BEGIN
