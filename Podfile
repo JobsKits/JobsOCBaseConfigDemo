@@ -114,13 +114,14 @@ def run_pod_install_post_scripts
     return
   end
 
+  arguments = [script_path, '--post-integrate', '--project-root', __dir__]
+  if %w[1 true yes y on].include?(ENV.fetch('JOBS_POD_INSTALL_POST_SCRIPTS_CHECK_ONLY', '').strip.downcase)
+    arguments << '--check-only'
+  end
   succeeded = system(
     { 'JOBS_POD_INSTALL_HOOK' => '1', 'JOBS_SKIP_README' => '1' },
     '/bin/zsh',
-    script_path,
-    '--post-integrate',
-    '--project-root',
-    __dir__,
+    *arguments,
     chdir: __dir__
   )
   return if succeeded

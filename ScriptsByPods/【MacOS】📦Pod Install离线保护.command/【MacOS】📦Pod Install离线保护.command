@@ -2,7 +2,7 @@
 # shell: zsh
 # 脚本自述：
 # - 脚本名称：Pod Install 离线保护
-# - 核心用途：将 Jobs 本地任务与 CocoaPods 网络阶段解耦，并在集成完成后检查 Xcode PIF 会话。
+# - 核心用途：将本地报告与 CocoaPods 网络阶段解耦，集成完成后检查 PIF 并后台体检、更新 CodeGraph。
 # - 影响范围：依赖报告、CodeGraph 后台任务、Xcode PIF 安全检查；不安装或删除 Pods。
 # - 运行提示：Podfile 钩子无交互运行；终端独立运行需输入 YES；--check-only 只检查不生成产物。
 
@@ -33,7 +33,7 @@ SCRIPT_PATH="${0:A}"
 SCRIPT_DIR="${SCRIPT_PATH:h}"
 SCRIPT_BASENAME="${SCRIPT_PATH:t:r}"
 TEMP_ROOT="${TMPDIR:-/tmp}"
-DEFAULT_PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
+DEFAULT_PROJECT_ROOT="${SCRIPT_DIR}/../.."
 PROJECT_ROOT="${DEFAULT_PROJECT_ROOT}"
 PROJECT_LOG_TAG=""
 LOG_FILE=""
@@ -59,10 +59,8 @@ print_usage() {
   print -r -- "用法：$(basename "${(%):-%x}") [--preflight] [--post-integrate] [--offline] [--check-only] [--project-root 路径]"
 }
 
-# 解析运行阶段和工程路径，并初始化项目级日志。
-initialize_runtime() {
-  setopt NO_NOMATCH
-
+# 只解析参数和模式，不在确认前写文件或修改环境。
+parse_arguments() {
   while (( $# > 0 )); do
     case "$1" in
       --preflight)
@@ -106,8 +104,11 @@ initialize_runtime() {
     RUN_POST_INTEGRATE=1
   fi
   is_truthy "${JOBS_POD_INSTALL_OFFLINE:-}" && OFFLINE_MODE=1
-  (( RUN_PREFLIGHT == 1 )) && OFFLINE_MODE=1
+}
 
+# 用户确认或钩子允许执行后，再初始化项目级日志和运行环境。
+initialize_runtime() {
+  setopt NO_NOMATCH
   if [[ -d "${PROJECT_ROOT}" ]]; then
     PROJECT_ROOT="$(cd "${PROJECT_ROOT}" && pwd)"
   fi
@@ -121,8 +122,10 @@ initialize_runtime() {
 show_script_intro_and_wait() {
   print -r -- "" | jobs_intro_style body
   print -r -- "【Pod Install 本地脚本保护】" | jobs_intro_style body
-  print -r -- "用途：前置本地任务不等待 CocoaPods 网络；安装完成后单独检查 Xcode PIF 会话。" | jobs_intro_style body
-  print -r -- "边界：不探测网络，不跳过 pod install，不删除 Pods、Podfile.lock、xcworkspace 或 DerivedData。" | jobs_intro_style body
+  print -r -- "用途：前置离线生成本地报告；集成完成后检查 PIF，并后台体检、更新 CodeGraph。" | jobs_intro_style body
+  print -r -- "边界：CodeGraph 默认允许按需安装工具链；--offline 禁止安装；不删除 Pods、锁文件、工作空间或 DerivedData。" | jobs_intro_style body
+
+  parse_arguments "$@"
 
   if is_truthy "${JOBS_POD_INSTALL_HOOK:-}"; then
     print -r -- "模式：Podfile 自动钩子，无交互执行。" | jobs_intro_style body
@@ -219,57 +222,38 @@ run_dependency_report() {
   fi
 }
 
-# 判断记录的后台进程是否仍存在。
-process_is_alive() {
-  /bin/kill -0 "$1" 2>/dev/null
-}
-
-# 确认 CodeGraph 所需工具都已在本机安装，缺少时不触发联网安装。
-offline_codegraph_runtime_ready() {
-  local command_name
-  for command_name in brew npm codegraph; do
-    if ! command -v "${command_name}" >/dev/null 2>&1; then
-      skip_message "本机缺少 ${command_name}，不触发任何联网安装。"
-      return 1
-    fi
-  done
-  return 0
-}
-
-# 后台启动 CodeGraph，避免索引和导出阻塞 CocoaPods 网络阶段。
+# 集成成功后后台体检并更新 CodeGraph；互斥由子脚本的工程锁负责。
 start_codegraph_background() {
   local script_name="codegraph_init.command"
   local script_path="$(resolve_script_path "${script_name}")"
-  local pid_dir="${PROJECT_ROOT}/.codegraph"
-  local pid_path="${pid_dir}/codegraph_init.pid"
   local async_log="${TEMP_ROOT%/}/codegraph_init.${PROJECT_LOG_TAG}.async.log"
-  local existing_pid=""
   local child_pid=""
+  local allow_install="${CODEGRAPH_ALLOW_INSTALL:-1}"
+  if [[ "${JOBS_SKIP_CODEGRAPH:-0}" == 1 ]]; then
+    skip_message "JOBS_SKIP_CODEGRAPH=1，已跳过 CodeGraph。"
+    return 0
+  fi
   script_is_ready "CodeGraph" "${script_path}" || return 0
+  (( OFFLINE_MODE == 1 )) && allow_install=0
 
   if (( CHECK_ONLY == 1 )); then
-    log_message "检查通过：CodeGraph 脚本可用。"
-    return 0
-  fi
-  offline_codegraph_runtime_ready || return 0
-
-  if [[ -r "${pid_path}" ]]; then
-    read -r existing_pid < "${pid_path}"
-  fi
-  if [[ "${existing_pid}" == <-> ]] && process_is_alive "${existing_pid}"; then
-    skip_message "CodeGraph 后台同步已在运行，PID=${existing_pid}。"
+    log_message "执行：CodeGraph 工具链只读体检，不安装、不建图。"
+    CODEGRAPH_AUTO_INIT=1 CODEGRAPH_ALLOW_INSTALL=0 \
+    JOBS_CODEGRAPH_PROJECT_ROOT="${PROJECT_ROOT}" \
+      /bin/zsh "${script_path}" --check-only
+    local check_status=$?
+    (( check_status == 0 )) || warn_message "CodeGraph 体检退出码=${check_status}，不影响 pod install。"
     return 0
   fi
 
-  /bin/mkdir -p "${pid_dir}"
   JOBS_POD_INSTALL_HOOK=1 \
-  JOBS_POD_INSTALL_OFFLINE=1 \
   JOBS_SKIP_README=1 \
+  JOBS_CODEGRAPH_PROJECT_ROOT="${PROJECT_ROOT}" \
   CODEGRAPH_AUTO_INIT=1 \
+  CODEGRAPH_ALLOW_INSTALL="${allow_install}" \
   CODEGRAPH_EXPORT_ASYNC=0 \
-    /usr/bin/nohup /bin/zsh "${script_path}" > "${async_log}" 2>&1 &
+    /usr/bin/nohup /bin/zsh "${script_path}" >> "${async_log}" 2>&1 &
   child_pid=$!
-  print -r -- "${child_pid}" > "${pid_path}"
   STARTED_COUNT=$((STARTED_COUNT + 1))
   log_message "已后台启动：CodeGraph，PID=${child_pid}，日志=${async_log}"
 }
@@ -299,13 +283,13 @@ run_pif_session_recovery() {
 run_preflight_tasks() {
   (( RUN_PREFLIGHT == 1 )) || return 0
   run_dependency_report
-  start_codegraph_background
 }
 
-# 只在 CocoaPods 集成完成后执行 PIF 会话检查。
+# 只在 CocoaPods 集成完成后检查 PIF，并后台更新 CodeGraph。
 run_post_integrate_tasks() {
   (( RUN_POST_INTEGRATE == 1 )) || return 0
   run_pif_session_recovery
+  start_codegraph_background
 }
 
 # 汇总所有本地脚本结果并固定返回成功。
@@ -317,11 +301,11 @@ print_summary_and_succeed() {
 
 # 编排 Pod Install 本地脚本。
 main() {
-  initialize_runtime "$@" # 解析阶段、只读和工程路径参数。
-  show_script_intro_and_wait # 输出边界并处理独立执行确认。
+  show_script_intro_and_wait "$@" # 先显示用途，再解析模式并处理执行确认。
+  initialize_runtime # 确认后再初始化日志和运行环境。
   validate_environment # 校验工程根目录和 Podfile。
-  run_preflight_tasks # 异步钩子内执行本地报告与 CodeGraph 启动。
-  run_post_integrate_tasks # 安装完成后检查 Xcode PIF 会话。
+  run_preflight_tasks # 异步钩子内只生成本地依赖报告。
+  run_post_integrate_tasks # 安装完成后检查 PIF，并后台体检、更新地图。
   print_summary_and_succeed # 汇总并固定返回成功。
 }
 
