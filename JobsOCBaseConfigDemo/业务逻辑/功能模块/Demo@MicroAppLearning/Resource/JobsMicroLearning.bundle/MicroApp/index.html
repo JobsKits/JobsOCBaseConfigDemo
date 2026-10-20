@@ -1,8 +1,22 @@
 <!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>
-:root{color-scheme:light dark;--paper:Canvas;--ink:CanvasText}:root[data-theme="light"]{color-scheme:light;--paper:#ffffff;--ink:#111115}:root[data-theme="dark"]{color-scheme:dark;--paper:#161618;--ink:#f5f5f7}body{font:16px -apple-system,sans-serif;margin:16px;background:var(--paper);color:var(--ink)}p{line-height:1.5}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px}button{background:#144d8e;color:white;border:0;padding:12px;border-radius:8px}
-</style></head><body><h3>独立业务包 · learning.bridge</h3><p>这是 HTML + JS。下面的原生按钮会让 JS 发起消息；结果经过 Native 白名单再回到这里。</p><pre id="result">等待调用宿主…</pre><script>
+:root{color-scheme:light dark;--paper:Canvas;--ink:CanvasText}
+:root[data-theme="light"]{color-scheme:light;--paper:#ffffff;--ink:#111115}
+:root[data-theme="dark"]{color-scheme:dark;--paper:#161618;--ink:#f5f5f7}
+*{box-sizing:border-box}
+body{font:16px/1.5 -apple-system,sans-serif;font:-apple-system-body;margin:0;padding:16px;background:var(--paper);color:var(--ink);overflow-wrap:anywhere}
+h3{margin:0 0 12px}
+p{line-height:1.5;margin:12px 0}
+.draft-form{display:flex;flex-wrap:wrap;gap:12px;align-items:stretch;margin:16px 0}
+input,button{min-height:44px;max-width:100%;border:1px solid #888;border-radius:8px;padding:12px;font:inherit;line-height:1.4}
+input{flex:1 1 10rem;min-width:0;background:var(--paper);color:var(--ink)}
+button{flex:0 1 auto;background:#144d8e;color:white;white-space:normal;overflow-wrap:anywhere}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font:0.875em/1.5 ui-monospace,monospace;margin:12px 0 0}
+</style></head><body><h3>独立业务包 · learning.bridge</h3><p>网页渲染 UI，宿主只开放白名单能力。草稿保存后会由 Native 写入固定命名空间。</p>
+<form class="draft-form" onsubmit="event.preventDefault();callHost('saveDraft',{text:document.getElementById('draft').value})">
+<input id="draft" maxlength="140" value="来自微应用的草稿" aria-label="微应用草稿"><button type="submit">保存草稿</button>
+</form><pre id="result" role="status">等待调用宿主…</pre><script>
 let requestSequence=0;
-window.callHost=command=>{const id='request-'+(++requestSequence);document.querySelector('#result').textContent='JS → Native: '+command;window.webkit.messageHandlers.jobsMicro.postMessage({id,command});};
+window.callHost=(command,payload={})=>{const id='request-'+(++requestSequence);document.querySelector('#result').textContent='JS → Native: '+command;if(!window.webkit?.messageHandlers?.jobsMicro){document.querySelector('#result').textContent='需要 Jobs iOS 宿主';return;}window.webkit.messageHandlers.jobsMicro.postMessage({id,command,payload});};
 window.jobsReceive=response=>{document.querySelector('#result').textContent=JSON.stringify(response,null,2);};
 </script></body></html>

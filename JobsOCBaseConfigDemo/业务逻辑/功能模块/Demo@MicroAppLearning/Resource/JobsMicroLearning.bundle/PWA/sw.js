@@ -1,5 +1,5 @@
 /* 教学缓存只存本目录静态资源；版本升级改 CACHE，activate 只清理本实验自己的旧版本。 */
-const CACHE='jobs-pwa-learning-v1';
+const CACHE='jobs-pwa-learning-v2';
 const ROOT=new URL('./',self.location.href);
 const SHELL=['./','./index.html','./manifest.webmanifest'].map(path=>new URL(path,ROOT).href);
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting()))});
