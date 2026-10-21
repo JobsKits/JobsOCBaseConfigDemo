@@ -97,4 +97,21 @@ node ./MarkdownToc.mjs uninstall
 
 折叠语法依据 [**GitHub 官方文档**](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/organizing-information-with-collapsed-sections)及 [**GitLab 官方文档**](https://docs.gitlab.com/user/markdown/#collapsible-section)；[**Gitee**](https://gitee.com)和自建服务需按实际渲染效果验收，不能将本地预览当作所有平台已验证。
 
+<!-- jobs-markdown-toc:upgrade-2026-10:start -->
+> **目录处理标准（2026-10）：** 本地工作文件保留 `[toc]`；整文件暂存生成按标题层级缩进、默认收起的发布目录，正常提交推送后供远端展示。
+
+旧版说明中的安装与检查细节以本补充为准：以下命令在本目录执行。`install` 安全恢复当前文档并登记本仓驱动；`restore` 只还原当前工作文件，保留正文改动、原始暂存内容与用户 flags；两者只允许对 clean 后等于原有 OID 的普通路径刷新索引 stat 缓存。`verify` 严格只读核对本地标签形态及字节往返，`check` 独立检查清单内原始暂存版本。
+
+```shell
+node ./MarkdownToc.mjs install
+node ./MarkdownToc.mjs restore
+node ./MarkdownToc.mjs verify
+node ./MarkdownToc.mjs status
+node ./MarkdownToc.mjs check
+node ./MarkdownToc.mjs preview
+```
+
+已授权范围的本机条件注册由 Skills 的 `jobs-markdown-docs/scripts/register-markdown-toc.mjs` 基于审核清单执行；可信转换副本在用户数据目录，首次检出不运行下载仓库脚本。目标仓运行不依赖 Skills；未注册机器审查后运行本仓 `install`。机器注册与仓内安装分别撤回，`uninstall` 仅恢复仓内配置。`fetch` 或无更新的 `pull` 不重写旧文件；已有生成态使用 `restore`，不能用强制检出覆盖本地改动。
+<!-- jobs-markdown-toc:upgrade-2026-10:end -->
+
 <a id="🔚" href="#前言">我是有底线的➤点我回到首页</a>
