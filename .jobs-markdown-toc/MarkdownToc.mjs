@@ -361,6 +361,84 @@ function statePath() {
   return path.resolve(ROOT, git(['rev-parse', '--git-path', 'jobs-markdown-toc.json']).trim());
 }
 
+function sourceUpdates(files) {
+  return files.map(file => {
+    const before = readDocument(file);
+    const after = smudgeMarkdown(before);
+    if (!checkMarkdown(cleanMarkdown(after))) throw new Error(`文档没有有效 [toc]，未修改文件：${file}`);
+    return { file, before, after };
+  });
+}
+
+function refreshSourceStats(updates) {
+  const index = path.resolve(ROOT, git(['rev-parse', '--git-path', 'index']).trim());
+  if (!fs.existsSync(index)) return 0;
+  const lock = `${index}.lock`;
+  const temporary = `${index}.jobs-toc-${process.pid}-${Date.now()}`;
+  let descriptor;
+  let ownsLock = false;
+  try {
+    descriptor = fs.openSync(lock, 'wx', fs.statSync(index).mode & 0o777);
+    ownsLock = true;
+    const before = fs.readFileSync(index);
+    fs.writeFileSync(temporary, before, { flag: 'wx', mode: 0o600 });
+    const env = { ...process.env, GIT_INDEX_FILE: temporary };
+    const staged = git(['ls-files', '--stage', '-z'], { env });
+    const flags = git(['ls-files', '-v', '-z'], { env });
+    const fileMode = git(['config', '--type=bool', '--default', 'true', '--get', 'core.filemode'], { env }).trim() === 'true';
+    const normal = new Set(flags.split('\0').filter(value => value.startsWith('H ')).map(value => value.slice(2)));
+    const entries = staged.split('\0').filter(Boolean).map(value => value.match(/^(\d+) ([0-9a-f]+) (\d)\t([\s\S]*)$/));
+    const candidates = [];
+    for (const update of updates) {
+      const matches = entries.filter(entry => entry && entry[4] === update.file);
+      if (!normal.has(update.file) || matches.length !== 1 || matches[0][3] !== '0' || !/^100(?:644|755)$/.test(matches[0][1])) continue;
+      if (readDocument(update.file) !== update.after) throw new Error(`文档被并发修改：${update.file}`);
+      const executable = Boolean(fs.statSync(path.join(ROOT, update.file)).mode & 0o100);
+      if (fileMode && executable !== (matches[0][1] === '100755')) continue;
+      const oid = git(['hash-object', `--path=${update.file}`, '--stdin'], { env, input: update.after }).trim();
+      if (oid === matches[0][2]) candidates.push(update);
+    }
+    if (!candidates.length) return 0;
+    // Git's size shortcut can reject a freshly smudged file as dirty. Update a
+    // locked copy, then accept only stat changes; partial staging stays intact.
+    git(['-c', 'core.ignorestat=false', 'update-index', '-z', '--stdin'], {
+      env, input: candidates.map(update => update.file).join('\0') + '\0'
+    });
+    if (git(['ls-files', '--stage', '-z'], { env }) !== staged || git(['ls-files', '-v', '-z'], { env }) !== flags) {
+      throw new Error('索引内容、模式或标记发生变化，未写回真实索引。');
+    }
+    for (const update of candidates) {
+      if (readDocument(update.file) !== update.after) throw new Error(`文档被并发修改，未写回索引：${update.file}`);
+    }
+    if (!fs.readFileSync(index).equals(before)) throw new Error('索引被并发修改，未写回缓存。');
+    const refreshed = fs.readFileSync(temporary);
+    if (refreshed.equals(before)) return 0;
+    fs.writeFileSync(descriptor, refreshed);
+    fs.closeSync(descriptor);
+    descriptor = undefined;
+    fs.renameSync(lock, index);
+    ownsLock = false;
+    return candidates.length;
+  } catch (error) {
+    throw new Error(`文档已恢复，但索引状态缓存未刷新；暂存内容未替换。请结束其它 Git 操作并核实索引权限，再运行 node ${SCRIPT} restore：${error.message}`);
+  } finally {
+    if (descriptor !== undefined) fs.closeSync(descriptor);
+    if (ownsLock) fs.unlinkSync(lock);
+    if (fs.existsSync(temporary)) fs.unlinkSync(temporary);
+    if (fs.existsSync(`${temporary}.lock`)) fs.unlinkSync(`${temporary}.lock`);
+  }
+}
+
+function restore() {
+  requireRepository();
+  // Restore the current bytes, including local edits; never check out an older blob.
+  const updates = sourceUpdates(managedFiles());
+  replaceDocuments(updates);
+  const refreshed = refreshSourceStats(updates);
+  const count = updates.filter(update => update.before !== update.after).length;
+  console.log(`已将 ${count} 份文档恢复为本地 [toc]；其余 ${updates.length - count} 份保持原样，刷新 ${refreshed} 份匹配文档的索引状态缓存。正文、暂存内容和 Git 配置未替换。`);
+}
+
 function install() {
   requireRepository();
   const files = managedFiles();
@@ -378,12 +456,7 @@ function install() {
   if (state && (state.version !== 1 || JSON.stringify(current) !== JSON.stringify(state.installed))) {
     throw new Error('过滤器配置已被其他操作改动，保留现场并停止安装。');
   }
-  const updates = files.map(file => {
-    const before = readDocument(file);
-    const after = smudgeMarkdown(before);
-    if (!checkMarkdown(cleanMarkdown(after))) throw new Error(`文档没有有效 [toc]，未安装过滤器：${file}`);
-    return { file, before, after };
-  });
+  const updates = sourceUpdates(files);
   const installed = expectedConfiguration();
   const next = { version: 1, previous: state?.previous ?? current, installed };
   // Keep the recovery record before touching config; only this driver's keys are changed.
@@ -397,7 +470,8 @@ function install() {
     else fs.unlinkSync(stateFile);
     throw error;
   }
-  console.log(`已启用本仓 ${files.length} 份文档的过滤器：本地 [toc] → 暂存时生成折叠目录。未暂存、提交或推送。`);
+  refreshSourceStats(updates);
+  console.log(`已启用本仓 ${files.length} 份文档的双向过滤器：暂存时生成折叠目录，检出时还原 [toc]；现有本地目录已恢复。未暂存、提交或推送。`);
 }
 
 function uninstall() {
@@ -433,6 +507,8 @@ function main(args) {
     process.stdout.write(mode === 'clean' ? cleanMarkdown(source) : smudgeMarkdown(source));
   } else if (mode === 'install') {
     install();
+  } else if (mode === 'restore') {
+    restore();
   } else if (mode === 'uninstall') {
     uninstall();
   } else if (mode === 'check') {
@@ -451,15 +527,22 @@ function main(args) {
     const files = managedFiles();
     for (const file of files) {
       const source = readDocument(file);
+      if (source !== smudgeMarkdown(source)) {
+        throw new Error(`本地仍为生成目录形态：${file}；请运行 node ${SCRIPT} restore 后复查。`);
+      }
       const generated = cleanMarkdown(source);
       if (!inspectMarkdown(source).tocCount || smudgeMarkdown(generated) !== smudgeMarkdown(source) || cleanMarkdown(generated) !== generated) {
         throw new Error(`文档转换往返验证失败：${file}`);
       }
     }
-    console.log(`工作区 ${files.length} 份文档转换往返与幂等验证通过；未修改文件或暂存区。`);
+    console.log(`工作区 ${files.length} 份文档均为本地 [toc]，转换往返与幂等验证通过；未修改文件或暂存区。`);
   } else if (mode === 'status') {
     requireRepository();
-    for (const key of KEYS) console.log(`${key} = ${localValues(key).join(', ') || '(未配置)'}`);
+    for (const key of KEYS) {
+      const result = spawnSync('git', ['config', '--show-origin', '--get', key], { cwd: ROOT, encoding: 'utf8' });
+      if (result.status !== 0 && result.status !== 1) throw new Error(result.stderr || '无法读取有效过滤器配置。');
+      console.log(`${key} = ${result.status === 0 ? result.stdout.trim() : '(未配置)'}`);
+    }
     console.log(`受控文档：${managedFiles().length} 份；清单：${MANIFEST}`);
   } else if (mode === 'preview') {
     const files = managedFiles();
@@ -467,7 +550,7 @@ function main(args) {
     if (!files.includes(file)) throw new Error('preview 只能读取已登记的相对文档路径。');
     process.stdout.write(cleanMarkdown(readDocument(file)));
   } else if (!mode || mode === 'help') {
-    console.log(`用法：node ${SCRIPT} install | status | uninstall | check | verify | preview [相对文档路径]\nclean / smudge 仅供 Git 从标准输入调用；check 读取原始暂存区，verify 只读核对工作区，preview 不写文件。`);
+    console.log(`用法：node ${SCRIPT} install | restore | status | uninstall | check | verify | preview [相对文档路径]\nclean / smudge 仅供 Git 从标准输入调用；restore 仅还原当前工作文件，check 读取原始暂存区，verify 严格核对本地 [toc] 与转换，preview 不写文件。`);
   } else {
     throw new Error(`未知模式：${mode}`);
   }
