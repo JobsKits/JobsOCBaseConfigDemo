@@ -28,7 +28,8 @@
     //        self.view.backgroundColor = JobsLightGrayColor;
             LOTAnimationView *lottieView = [LOTAnimationView animationNamed:lottieImage];
             lottieView
-                .byFrame(UIScreen.mainScreen.bounds)
+                .byFrame(self.view.bounds)
+                .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)
                 .byContentMode(UIViewContentModeScaleAspectFit);
             lottieView.byLoopAnimation(YES);
             lottieView.byTag(100);

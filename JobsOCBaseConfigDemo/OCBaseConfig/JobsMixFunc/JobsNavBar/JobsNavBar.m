@@ -198,7 +198,8 @@ BaseViewProtocol_synthesize
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.center.equalTo(self);
-                    make.height.mas_equalTo(self.height);
+                    make.height.equalTo(self);
+                    make.width.lessThanOrEqualTo(self).multipliedBy(0.7);
                 });
             self.refresh();
         });

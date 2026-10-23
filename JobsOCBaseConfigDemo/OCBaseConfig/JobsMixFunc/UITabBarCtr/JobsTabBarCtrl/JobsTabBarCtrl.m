@@ -157,8 +157,13 @@ Prop_assign(readwrite)BOOL builtOnce;
         }
         NSInteger total = self.buttons.count;
         CGRect bounds = self.tabBar.bounds;
-        CGFloat availableW = MAX(0, bounds.size.width - self.contentInset.left - self.contentInset.right);
-        CGFloat h = MAX(0, bounds.size.height - self.contentInset.top - self.contentInset.bottom);
+        UIEdgeInsets safeInsets = self.tabBar.safeAreaInsets;
+        UIEdgeInsets buttonInsets = UIEdgeInsetsMake(self.contentInset.top + safeInsets.top,
+                                                    self.contentInset.left + safeInsets.left,
+                                                    self.contentInset.bottom + safeInsets.bottom,
+                                                    self.contentInset.right + safeInsets.right);
+        CGFloat availableW = MAX(0, bounds.size.width - buttonInsets.left - buttonInsets.right);
+        CGFloat h = MAX(0, bounds.size.height - buttonInsets.top - buttonInsets.bottom);
         NSMutableArray<NSValue *> *frames = [NSMutableArray arrayWithCapacity:total];
         for (NSInteger i = 0; i < total; i++) {
             [frames addObject:[NSValue valueWithCGRect:CGRectZero]];
@@ -170,24 +175,24 @@ Prop_assign(readwrite)BOOL builtOnce;
             NSInteger n2 = MAX(self.equalVisibleMin, 2);
             CGFloat refW = (availableW - (CGFloat)(n2 - 1) * self.equalSpacing) / (CGFloat)n2;
             CGFloat w = MAX(kMinItemWidth, MIN(ideal + 2 * 16.0, refW));
-            CGFloat x = self.contentInset.left + (availableW - w) * 0.5;
-            CGRect f = CGRectMake(x, self.contentInset.top, w, h);
+            CGFloat x = buttonInsets.left + (availableW - w) * 0.5;
+            CGRect f = CGRectMake(x, buttonInsets.top, w, h);
             frames[0] = [NSValue valueWithCGRect:f];
         } else if (total >= self.equalVisibleMin && total <= self.equalVisibleMax) {
             NSInteger n = total;
             CGFloat w = (availableW - (CGFloat)(n - 1) * self.equalSpacing) / (CGFloat)n;
-            CGFloat curX = self.contentInset.left;
+            CGFloat curX = buttonInsets.left;
             for (NSInteger i = 0; i < total; i++) {
-                CGRect f = CGRectMake(curX, self.contentInset.top, w, h);
+                CGRect f = CGRectMake(curX, buttonInsets.top, w, h);
                 frames[i] = [NSValue valueWithCGRect:f];
                 curX += w + self.equalSpacing;
             }
         } else {
             NSInteger nRef = MAX(self.equalVisibleMax, 2);
             CGFloat unitW = (availableW - (CGFloat)(nRef - 1) * self.equalSpacing) / (CGFloat)nRef;
-            CGFloat curX = self.contentInset.left;
+            CGFloat curX = buttonInsets.left;
             for (NSInteger i = 0; i < total; i++) {
-                CGRect f = CGRectMake(curX, self.contentInset.top, unitW, h);
+                CGRect f = CGRectMake(curX, buttonInsets.top, unitW, h);
                 frames[i] = [NSValue valueWithCGRect:f];
                 curX += unitW + self.equalSpacing;
             }
@@ -203,7 +208,7 @@ Prop_assign(readwrite)BOOL builtOnce;
             widthSum = bounds.size.width;
         } else {
             UIButton *last = self.buttons.lastObject;
-            widthSum = CGRectGetMaxX(last.frame) + self.contentInset.right;
+            widthSum = CGRectGetMaxX(last.frame) + buttonInsets.right;
         }self.tabBar.contentSize = CGSizeMake(widthSum, bounds.size.height);
     };
 }

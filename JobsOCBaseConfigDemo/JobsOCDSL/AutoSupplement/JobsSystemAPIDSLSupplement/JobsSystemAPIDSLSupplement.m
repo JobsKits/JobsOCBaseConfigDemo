@@ -166,6 +166,15 @@ JobsNSDateComponentsDSL(Second, second)
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UIViewController
 
 @implementation UIViewController (JobsSystemAPIDSLSupplement)
+-(JobsRetVCByUIEdgeInsetsBlock _Nonnull)byAdditionalSafeAreaInsets{
+    @jobs_weakify(self)
+    return ^__kindof UIViewController *_Nullable(UIEdgeInsets data){
+        @jobs_strongify(self)
+        self.additionalSafeAreaInsets = data;
+        return self;
+    };
+}
+
 -(JobsRetVCByBOOLBlock _Nonnull)byHidesBottomBarWhenPushed{
     @jobs_weakify(self)
     return ^__kindof UIViewController *_Nullable(BOOL data){

@@ -103,7 +103,7 @@
 
 -(CGFloat)popUpHeight{
     if (_popUpHeight <= 0) {
-        _popUpHeight = JobsMainScreen_HEIGHT() / 2;//默认弹出高度
+        _popUpHeight = CGRectGetHeight(self.view.bounds) / 2;//默认弹出高度
     };return _popUpHeight;
 }
 #pragma mark —— Private

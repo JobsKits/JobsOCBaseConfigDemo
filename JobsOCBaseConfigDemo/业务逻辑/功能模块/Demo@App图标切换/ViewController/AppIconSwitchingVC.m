@@ -381,9 +381,10 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     CGFloat sectionInset = JobsWidth(16);
     CGFloat interitemSpacing = JobsWidth(12);
     CGFloat collectionWidth = CGRectGetWidth(collectionView.bounds);
-    if (collectionWidth <= 0) collectionWidth = CGRectGetWidth(UIScreen.mainScreen.bounds) - JobsWidth(36);
-    CGFloat contentWidth = collectionWidth - sectionInset * 2 - interitemSpacing * 2;
-    CGFloat itemWidth = floor(contentWidth / 3);
+    UIEdgeInsets insets = collectionView.adjustedContentInset;
+    CGFloat contentWidth = MAX(0, collectionWidth - insets.left - insets.right - sectionInset * 2);
+    NSInteger columns = MAX(1, (NSInteger)floor((contentWidth + interitemSpacing) / (JobsWidth(104) + interitemSpacing)));
+    CGFloat itemWidth = MAX(0, floor((contentWidth - interitemSpacing * (columns - 1)) / columns));
     return CGSizeMake(itemWidth, JobsWidth(132));
 }
 #pragma mark —— lazyLoad

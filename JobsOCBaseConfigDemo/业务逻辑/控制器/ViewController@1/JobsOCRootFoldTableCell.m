@@ -202,7 +202,8 @@ Prop_assign()NSInteger chargingProgressPhase;
 
 +(JobsRetCGFloatByVoidBlock _Nonnull)sectionDescriptionEstimatedHeaderWidth{
     return ^CGFloat{
-        return MAX(200, JobsMainScreen_WIDTH() - 20);
+        // 没有容器的旧入口只提供估算；实际布局与行高计算传入当前 table 宽度。
+        return 200;
     };
 }
 
@@ -995,6 +996,7 @@ Prop_assign()NSInteger chargingProgressPhase;
         if (!self) return (CGFloat){0};
         CGFloat headerWidth = CGRectGetWidth(self.innerTableView.bounds);
         if (headerWidth <= 0) headerWidth = CGRectGetWidth(self.detailClipView.bounds);
+        if (headerWidth <= 0) headerWidth = CGRectGetWidth(self.contentView.bounds) - 20;
         if (headerWidth <= 0) headerWidth = JobsOCRootFoldTableCell.sectionDescriptionEstimatedHeaderWidth();
         return headerWidth;
     };

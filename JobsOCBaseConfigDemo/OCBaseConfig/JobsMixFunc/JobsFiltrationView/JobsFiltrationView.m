@@ -13,6 +13,7 @@
 @interface JobsFiltrationView ()
 /// UI
 Prop_strong()JobsHotLabelByMultiLine *hotLabel;
+Prop_strong()JobsHotLabelWithMultiLineModel *filtrationModel;
 
 @end
 
@@ -91,6 +92,12 @@ static dispatch_once_t static_filtrationViewOnceToken;
         @jobs_strongify(self)
         if (!self) return;
         [super layoutSubviews];
+        CGFloat width = CGRectGetWidth(self.bounds);
+        if (_hotLabel && width > 0 && _filtrationModel.headerViewModel.jobsSize.width != width) {
+            _filtrationModel.headerViewModel.byJobsSize(CGSizeMake(width, JobsWidth(20)));
+            _filtrationModel.footerViewModel.byJobsSize(CGSizeMake(width, JobsWidth(20)));
+            [_hotLabel.collectionView.collectionViewLayout invalidateLayout];
+        }
     };
 }
 #pragma mark —— BaseViewProtocol
@@ -114,6 +121,7 @@ static dispatch_once_t static_filtrationViewOnceToken;
 -(JobsHotLabelByMultiLine *)hotLabel{
     if (!_hotLabel) {
         JobsHotLabelWithMultiLineModel *model = JobsHotLabelWithMultiLineModel.new;
+        _filtrationModel = model;
         model.byBgCor(HEXCOLOR(0xFDFCF9));
         model.footerViewModel = jobsMakeHeaderFooterViewModel(^(JobsHeaderFooterViewModel * _Nullable data) {
             data.byUseFooterView(NO);
@@ -122,7 +130,7 @@ static dispatch_once_t static_filtrationViewOnceToken;
                           .byTextCor(JobsLabelColor)
                           .byFont(UIFontWeightBoldSize(14));
             data.byBgCor(HEXCOLOR(0xFDFCF9))
-                .byJobsSize(CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(20)));
+                .byJobsSize(CGSizeMake(CGRectGetWidth(self.bounds), JobsWidth(20)));
         });
         model.viewModels = jobsMakeMutArr(^(__kindof NSMutableArray<UIViewModel *> * _Nullable data) {
             for (NSString *str in jobsMakeMutArr(^(__kindof NSMutableArray<NSString *> * _Nullable arr) {
@@ -151,7 +159,7 @@ static dispatch_once_t static_filtrationViewOnceToken;
                           .byFont(UIFontWeightBoldSize(14))
                           .byTextAlignment(NSTextAlignmentLeft);
             data.byBgCor(HEXCOLOR(0xFDFCF9))
-                .byJobsSize(CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(20)));
+                .byJobsSize(CGSizeMake(CGRectGetWidth(self.bounds), JobsWidth(20)));
         });
         _hotLabel = JobsHotLabelByMultiLine.JobsRichViewByModel(model)
         .JobsBlock1(^(id _Nullable data) {;

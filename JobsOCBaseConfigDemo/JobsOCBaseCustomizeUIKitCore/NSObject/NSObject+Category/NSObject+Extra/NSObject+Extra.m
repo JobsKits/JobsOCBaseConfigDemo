@@ -1544,14 +1544,15 @@ UITextFieldProtocol_dynamic
         };return self.topDigit(((number - (number % 10)) / 10));
     };
 }
-#pragma mark —— 检测当前设备屏幕方向
+#pragma mark —— 当前宿主视图尺寸（旧入口兼容）
 //https://github.com/295060456/JobsOCBaseConfig/blob/main/%E6%96%87%E6%A1%A3%E5%92%8C%E8%B5%84%E6%96%99/%E6%A8%AA%E5%B1%8FUI%E5%88%87%E6%8D%A2.md/%E6%A8%AA%E5%B1%8FUI%E5%88%87%E6%8D%A2.md
 -(JobsRetCGFloatByVoidBlock _Nonnull)jobsMainScreen_HEIGHT{
     @jobs_weakify(self)
     return ^CGFloat{
         @jobs_strongify(self)
         if (!self) return (CGFloat){0};
-        return JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape ? JobsMainScreen_WIDTH() : JobsMainScreen_HEIGHT();
+        UIView *view = self.getView;
+        return view ? CGRectGetHeight(view.bounds) : 0;
     };
 }
 
@@ -1560,7 +1561,8 @@ UITextFieldProtocol_dynamic
     return ^CGFloat{
         @jobs_strongify(self)
         if (!self) return (CGFloat){0};
-        return JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape ? JobsMainScreen_HEIGHT() : JobsMainScreen_WIDTH();
+        UIView *view = self.getView;
+        return view ? CGRectGetWidth(view.bounds) : 0;
     };
 }
 

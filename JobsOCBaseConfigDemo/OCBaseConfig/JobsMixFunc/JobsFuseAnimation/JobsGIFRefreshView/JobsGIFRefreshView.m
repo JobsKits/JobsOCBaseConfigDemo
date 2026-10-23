@@ -13,6 +13,7 @@ Prop_strong()UIImageView *imageView;
 Prop_strong(nullable)UIImage *animatedImage;
 Prop_strong(nullable)UIImage *firstFrame;
 Prop_assign()BOOL wantsAnimating;
+Prop_copy()NSData *sourceGIFData;
 
 @end
 
@@ -48,9 +49,16 @@ Prop_assign()BOOL wantsAnimating;
 -(instancetype)initWithGIFData:(NSData *)data {
     if (self = [super initWithFrame:CGRectZero]) {
         _indicatorSize = CGSizeMake(20, 20);
+        _sourceGIFData = data.copy;
         self.byUserInteractionEnabled(NO);
         self.imageView.addOn(self);
         self.jobs_decodeGIFData(data);
+        if (@available(iOS 17.0, *)) {
+            [self registerForTraitChanges:@[UITraitDisplayScale.class] withHandler:^(JobsGIFRefreshView *view, UITraitCollection *previousTraits) {
+                view.jobs_decodeGIFData(view.sourceGIFData);
+                if (view.wantsAnimating) view.byResume();
+            }];
+        }
     };return self;
 }
 
@@ -221,7 +229,7 @@ Prop_assign()BOOL wantsAnimating;
             CGImageRef imageRef = CGImageSourceCreateImageAtIndex(source, index, nil);
             if (!imageRef) continue;
             UIImage *image = [UIImage imageWithCGImage:imageRef
-                                                scale:UIScreen.mainScreen.scale
+                                                scale:self.traitCollection.displayScale
                                           orientation:UIImageOrientationUp];
             [frames addObject:image];
             duration += [self jobs_delayAtIndex:index source:source];

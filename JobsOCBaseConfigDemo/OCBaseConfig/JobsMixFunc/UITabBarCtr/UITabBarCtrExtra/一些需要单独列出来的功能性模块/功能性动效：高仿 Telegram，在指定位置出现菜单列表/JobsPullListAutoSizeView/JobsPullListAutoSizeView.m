@@ -45,10 +45,11 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 
 + (instancetype)initWithTargetView:(UIView *__nonnull)targetView
                         dataMutArr:(NSArray <UIViewModel *>*__nonnull)dataMutArr{
-    /// 先检查jobsGetMainWindow()里面是否存在本类，如果存在即释放 保证只创建一次
+    /// 只在触发控件所属宿主查重，避免影响其它 Scene 的菜单。
     JobsPullListAutoSizeView *(^checkMainWindowExistSelf)(void) = ^(void){
         JobsPullListAutoSizeView *jobsPullListAutoSizeView = nil;
-        for (UIView *subview in jobsGetMainWindow().subviews) {
+        UIView *hostView = targetView.window ?: targetView.superview;
+        for (UIView *subview in hostView.subviews) {
             if ([subview isKindOfClass:JobsPullListAutoSizeView.class]) {
                 jobsPullListAutoSizeView = (JobsPullListAutoSizeView *)subview;
             }
@@ -79,10 +80,45 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
         if (!self) return;
         self.byBgColor(JobsBlackColor);
         self.byAlpha(0.32);
-        [jobsGetMainWindow() addSubview:self];
-        self.byFrame(jobsGetMainWindow().frame);
-        [jobsGetMainWindow() bringSubviewToFront:self];
+        UIView *hostView = self.targetView.window ?: self.targetView.superview;
+        if (!hostView) return;
+        self.byFrame(hostView.bounds)
+            .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)
+            .addOn(hostView);
+        [hostView bringSubviewToFront:self];
         self.tableView.byShow(self);
+        [self setNeedsLayout];
+    };
+}
+
+-(void)layoutSubviews{
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsPullListAutoSizeView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        if (!_tableView || !self.targetView) return;
+        CGRect available = UIEdgeInsetsInsetRect(self.bounds, self.safeAreaInsets);
+        CGRect anchor = [self.targetView convertRect:self.targetView.bounds toView:self];
+        CGFloat contentHeight = self.listTbVCellHeight * self.dataMutArr.count;
+        CGFloat spaceAbove = MAX(0, CGRectGetMinY(anchor) - self.listTbVOffset - CGRectGetMinY(available));
+        CGFloat spaceBelow = MAX(0, CGRectGetMaxY(available) - CGRectGetMaxY(anchor) - self.listTbVOffset);
+        BOOL showAbove = spaceAbove >= contentHeight || spaceAbove >= spaceBelow;
+        CGFloat width = MIN(self.listTbVWidth, MAX(0, CGRectGetWidth(available)));
+        CGFloat height = MIN(contentHeight, MIN(MAX(0, CGRectGetHeight(available)), showAbove ? spaceAbove : spaceBelow));
+        CGFloat x = CGRectGetMidX(anchor);
+        if (x + width > CGRectGetMaxX(available)) x -= width;
+        x = MIN(MAX(x, CGRectGetMinX(available)), CGRectGetMaxX(available) - width);
+        CGFloat y = showAbove ? CGRectGetMinY(anchor) - self.listTbVOffset - height
+                              : CGRectGetMaxY(anchor) + self.listTbVOffset;
+        y = MIN(MAX(y, CGRectGetMinY(available)), CGRectGetMaxY(available) - height);
+        self.tableView.byFrame(CGRectMake(x, y, width, height))
+            .byScrollEnabled(contentHeight > height);
     };
 }
 
@@ -125,17 +161,11 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         @jobs_weakify(self)
         _tableView = jobsMakeTableViewByPlain(^(__kindof UITableView * _Nullable tableView) {
             @jobs_strongify(self)
-            CGRect d = [self.targetView convertRect:self.targetView.bounds toView:jobsGetMainWindow()];
-            CGFloat tableviewHeight = self.listTbVCellHeight * self.dataMutArr.count;
-            CGFloat tableviewY = d.origin.y - tableviewHeight - self.listTbVOffset;
             tableView
                 .byScrollEnabled(NO)
                 .addOn(self)
                 .cornerCutToCircleWithCornerRadius(JobsWidth(3)) // 圆润
-                .byFrame(CGRectMake(self.targetView.centerX + self.listTbVWidth < UIScreen.mainScreen.bounds.size.width ? self.targetView.centerX : self.targetView.centerX - self.listTbVWidth,
-                                tableviewY < 0 ? tableviewY += tableviewHeight : tableviewY,
-                                self.listTbVWidth, // 相对固定
-                                    tableviewHeight));  // 相对固定
+                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
         });
     };return _tableView;
 }

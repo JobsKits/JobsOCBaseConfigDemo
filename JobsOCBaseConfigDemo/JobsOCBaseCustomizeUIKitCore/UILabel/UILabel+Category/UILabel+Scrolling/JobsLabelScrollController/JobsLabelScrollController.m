@@ -102,8 +102,9 @@ Prop_assign()NSTimeInterval delayRemaining;
         _label = label;
         _viewportLayer = CALayer.layer;
         _viewportLayer.byMasksToBounds(YES);
-        _viewportLayer.byContentsScale(UIScreen.mainScreen.scale);
+        _viewportLayer.byContentsScale(label.traitCollection.displayScale);
         _textLayer = JobsCoreTextScrollLayer.layer;
+        _textLayer.byContentsScale(label.traitCollection.displayScale);
         [_viewportLayer addSublayer:_textLayer];
         _configuration = JobsLabelScrollConfiguration.continuousConfiguration();
         _sourceTextColor = JobsLabelColor;
@@ -114,6 +115,16 @@ Prop_assign()NSTimeInterval delayRemaining;
                                                selector:@selector(globalThemeDidChange:)
                                                    name:JobsThemeDidChangeNotification
                                                  object:nil];
+        if (@available(iOS 17.0, *)) {
+            @jobs_weakify(self)
+            [label registerForTraitChanges:@[UITraitDisplayScale.class] withHandler:^(UILabel *changedLabel, UITraitCollection *previousTraits) {
+                @jobs_strongify(self)
+                if (!self) return;
+                self.viewportLayer.byContentsScale(changedLabel.traitCollection.displayScale);
+                self.textLayer.byContentsScale(changedLabel.traitCollection.displayScale);
+                if (self.startRequested) [self rebuild]();
+            }];
+        }
     };return self;
 }
 
@@ -224,6 +235,8 @@ Prop_assign()NSTimeInterval delayRemaining;
             return;
         }
         CGSize size = label.bounds.size;
+        self.viewportLayer.byContentsScale(label.traitCollection.displayScale);
+        self.textLayer.byContentsScale(label.traitCollection.displayScale);
         if (size.width <= 0 || size.height <= 0) {
             self.byNeedsRebuild(YES);
             self.createAndStartTimer();
@@ -339,7 +352,8 @@ Prop_assign()NSTimeInterval delayRemaining;
             [self rebuild]();
             return;
         }
-        if (self.needsRebuild || !CGSizeEqualToSize(label.bounds.size, self.lastBoundsSize)) {
+        if (self.needsRebuild || !CGSizeEqualToSize(label.bounds.size, self.lastBoundsSize) ||
+            self.viewportLayer.contentsScale != label.traitCollection.displayScale) {
             [self rebuild]();
             return;
         }

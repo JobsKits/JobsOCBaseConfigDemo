@@ -254,7 +254,7 @@ Prop_assign()CGFloat jobsDefaultPopUpHeight;
     return ^CGFloat{
         @jobs_strongify(self)
         if (!self) return (CGFloat){0};
-        return JobsMainScreen_HEIGHT();
+        return CGRectGetHeight(self.view.bounds);
     };
 }
 

@@ -18,6 +18,9 @@ Prop_strong()UIView *bgView;
 /// Data
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 Prop_assign()NSInteger selectedIndex;
+Prop_assign()CGSize gradientSize;
+Prop_assign()CGFloat gradientScale;
+Prop_assign()BOOL registeredGradientTraits;
 
 @end
 
@@ -62,6 +65,33 @@ static dispatch_once_t static_popupView10OnceToken;
     if (self = [super init]) {
         self.byBgColor(JobsClearColor);
     };return self;
+}
+
+-(void)layoutSubviews{
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjPopupView10.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        if (!_registeredGradientTraits) {
+            _registeredGradientTraits = YES;
+            if (@available(iOS 17.0, *)) {
+                [self registerForTraitChanges:@[UITraitDisplayScale.class] withHandler:^(BaiShaETProjPopupView10 *view, UITraitCollection *previousTraits) {
+                    [view setNeedsLayout];
+                }];
+            }
+        }
+        if (_titleLab && (_gradientScale != self.traitCollection.displayScale ||
+                          !CGSizeEqualToSize(_gradientSize, _titleLab.bounds.size))) {
+            _cor = nil;
+            _titleLab.byBgColor(self.cor);
+        }
+    };
 }
 
 -(void)drawRect:(CGRect)rect{
@@ -221,7 +251,7 @@ didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
 - (CGSize)collectionView:(__kindof UICollectionView *)collectionView
 layout:(UICollectionViewLayout *)collectionViewLayout
 referenceSizeForHeaderInSection:(NSInteger)section {
-    return CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(16 + 12 + 8));
+    return CGSizeMake(CGRectGetWidth(collectionView.bounds), JobsWidth(16 + 12 + 8));
 }
 
 - (CGSize)collectionView:(__kindof UICollectionView *)collectionView
@@ -500,6 +530,11 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
 
 -(UIColor *)cor{
     if (!_cor) {
+        CGSize size = _titleLab ? _titleLab.bounds.size : CGSizeZero;
+        if (size.width <= 0 || size.height <= 0) {
+            size = CGSizeMake(CGRectGetWidth(self.bounds), JobsWidth(44));
+        }
+        if (size.width <= 0 || size.height <= 0) return JobsClearColor;
         _cor = [UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             data.add(HEXCOLOR(0xFFEABA))
                 .add(HEXCOLOR(0xF2CD7A));
@@ -507,10 +542,10 @@ sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
                                    startPoint:CGPointZero
                                      endPoint:CGPointZero
                                        opaque:NO
-                               targetViewRect:CGRectMake(0,
-                                                         0,
-                                                         BaiShaETProjPopupView10.viewSizeByModel(nil).width,
-                                                         JobsWidth(44))];
+                               targetViewRect:(CGRect){CGPointZero, size}
+                              traitCollection:self.traitCollection];
+        _gradientSize = size;
+        _gradientScale = self.traitCollection.displayScale;
     };return _cor;
 }
 

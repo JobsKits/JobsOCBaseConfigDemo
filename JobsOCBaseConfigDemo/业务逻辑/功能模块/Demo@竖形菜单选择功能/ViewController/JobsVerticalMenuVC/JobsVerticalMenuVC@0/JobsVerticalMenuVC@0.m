@@ -275,7 +275,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     return ^CGFloat{
         @jobs_strongify(self)
         if (!self) return (CGFloat){0};
-        return JobsMainScreen_WIDTH() - JobsWidth(96) - JobsWidth(36) - JobsWidth(12) - JobsWidth(8);
+        return CGRectGetWidth(self.view.bounds) - JobsWidth(96) - JobsWidth(36) - JobsWidth(12) - JobsWidth(8);
     };
 }
 
@@ -341,7 +341,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 data.byJobsX(0)
                     .byJobsY(JobsTopSafeAreaHeight() + JobsStatusBarHeight() + self.gk_navigationBar.mj_h)
                     .byJobsWidth(TableViewWidth)
-                    .byJobsHeight(JobsMainScreen_HEIGHT() - JobsTopSafeAreaHeight() - JobsStatusBarHeight() - JobsTabBarHeight(AppDelegate.tabBarVC) - EditBtnHeight);
+                    .byJobsHeight(CGRectGetHeight(self.view.bounds) - JobsTopSafeAreaHeight() - JobsStatusBarHeight() - JobsTabBarHeight(AppDelegate.tabBarVC) - EditBtnHeight);
             }));
         }));
     };return _tableView;

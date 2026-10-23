@@ -17,6 +17,15 @@ Prop_strong()CABasicAnimation *opacityAnimation;
 @end
 
 @implementation HQTextField
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    if (!_warnLayer) return;
+    _warnLayer
+        .byFrame(self.bounds)
+        .byLineWidth(6.0 / MAX(1, self.traitCollection.displayScale))
+        .byPath([UIBezierPath bezierPathWithRect:self.bounds].CGPath);
+}
+
 #pragma mark —— 警示框
 - (jobsByVoidBlock _Nonnull)showWarn {
     @jobs_weakify(self)
@@ -87,15 +96,20 @@ Prop_strong()CABasicAnimation *opacityAnimation;
         @jobs_weakify(self)
         _warnLayer = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer *_Nullable data) {
             @jobs_strongify(self)
-            data.byPath([UIBezierPath bezierPathWithRoundedRect:self.warnLayer.bounds
+            data.byPath([UIBezierPath bezierPathWithRoundedRect:self.bounds
                                                    cornerRadius:0].CGPath)// 画线 非圆角
-                .byLineWidth(6. / UIScreen.mainScreen.scale)
+                .byLineWidth(6. / MAX(1, self.traitCollection.displayScale))
                 .byLineDashPattern(nil)
                 .byFillColor(JobsClearColor.CGColor)
                 .byStrokeColor(JobsRedColor.CGColor)
                 .byFrame(self.bounds);// 大小和文本框一致
             [data addAnimation:self.opacityAnimation forKey:@"opacity"];
         });
+        if (@available(iOS 17.0, *)) {
+            [self registerForTraitChanges:@[UITraitDisplayScale.class] withHandler:^(HQTextField *field, UITraitCollection *previousTraits) {
+                field->_warnLayer.byLineWidth(6.0 / MAX(1, field.traitCollection.displayScale));
+            }];
+        }
     };return _warnLayer;
 }
 

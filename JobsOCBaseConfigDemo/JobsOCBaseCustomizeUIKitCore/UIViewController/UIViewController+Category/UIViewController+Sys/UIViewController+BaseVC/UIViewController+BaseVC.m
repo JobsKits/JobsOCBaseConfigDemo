@@ -478,10 +478,6 @@ JobsKey(_navBar)
         @jobs_weakify(self)
         NavBar = jobsMakeNavBar(^(__kindof JobsNavBar * _Nullable data) {
             @jobs_strongify(self)
-            if(JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape){
-                self.navBarConfig.backBtnModel.byJobsOffsetX(self.navBarConfig.backBtnModel.jobsOffsetX ? : JobsWidth(40));
-                self.navBarConfig.closeBtnModel.byJobsOffsetX(self.navBarConfig.closeBtnModel.jobsOffsetX ? : JobsWidth(40));
-            }
 //            JobsLog(@"%f",self.navBarConfig.backBtnModel.jobsOffsetX);
 //            JobsLog(@"%f",self.navBarConfig.closeBtnModel.jobsOffsetX);
 //            if(!self.navBarConfig.title) self.navBarConfig.title = self.viewModel.textModel.text;
@@ -493,13 +489,10 @@ JobsKey(_navBar)
                                  }).JobsNavBarCloseBtnClickBlock(^(__kindof UIButton *_Nullable x){
                                  })).setMasonryBy(^(MASConstraintMaker *_Nonnull make){
                                      @jobs_strongify(self)
-                                     make.left.right.equalTo(self.view);
+                                     make.left.equalTo(self.view.mas_safeAreaLayoutGuideLeft);
+                                     make.right.equalTo(self.view.mas_safeAreaLayoutGuideRight);
                                      make.height.mas_equalTo(JobsWidth(40));
-                                     if(JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape){
-                                         make.top.equalTo(self.view);
-                                     }else{
-                                         make.top.equalTo(self.view).offset(JobsStatusBarHeight());
-                                     }
+                                     make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop);
                                  }).on();
         });
         Jobs_setAssociatedRETAIN_NONATOMIC(_navBar, NavBar)

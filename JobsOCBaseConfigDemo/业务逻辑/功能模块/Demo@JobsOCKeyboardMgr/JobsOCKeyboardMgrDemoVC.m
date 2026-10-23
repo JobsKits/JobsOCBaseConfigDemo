@@ -257,7 +257,7 @@ Prop_strong()UIButton *accessoryDoneBtn;
     if (!_accessoryBar) {
         _accessoryBar = jobsMakeView(^(__kindof UIView * _Nullable view) {
             view
-                .byFrame(CGRectMake(0, 0, JobsMainScreen_WIDTH(), JobsWidth(56)))
+                .byFrame(CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), JobsWidth(56)))
                 .byBgColor(HEXCOLOR(0x263342));
         });
         self.accessoryTitleLab.addOn(_accessoryBar).byAdd(^(MASConstraintMaker *make) {

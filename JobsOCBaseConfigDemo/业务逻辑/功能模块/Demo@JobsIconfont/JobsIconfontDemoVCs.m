@@ -92,6 +92,12 @@ Prop_strong()NSArray <NSDictionary *> *rows;
         if (!self) return;
         [super viewDidLoad];
         self.listView.byVisible(YES);
+        if (@available(iOS 17.0, *)) {
+            [self registerForTraitChanges:@[UITraitDisplayScale.class]
+                             withHandler:^(__kindof JobsIconfontDemoListVC *controller, UITraitCollection *previousTraits) {
+                controller.listView.reloadDatas();
+            }];
+        }
     };
 }
 
@@ -115,7 +121,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary *row = self.rows[indexPath.row];
     cell.imageView.image = [JobsIconfontManager.shared iconImageForGlyph:[row[@"glyph"] integerValue]
                                                                     size:CGSizeMake(34, 34)
-                                                                   color:UIColor.systemBlueColor];
+                                                                   color:UIColor.systemBlueColor
+                                                         traitCollection:cell.traitCollection];
     return cell
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
             label.byText(row[@"title"])
@@ -788,6 +795,12 @@ Prop_strong()UITableView *glyphTableView;
         if (!self) return;
         [super viewDidLoad];
         self.glyphTableView.byVisible(YES);
+        if (@available(iOS 17.0, *)) {
+            [self registerForTraitChanges:@[UITraitDisplayScale.class]
+                             withHandler:^(__kindof JobsIconfontGlyphDemoVC *controller, UITraitCollection *previousTraits) {
+                controller.glyphTableView.reloadDatas();
+            }];
+        }
     };
 }
 
@@ -811,7 +824,8 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     JobsIconfontGlyph glyph = (JobsIconfontGlyph)indexPath.row;
     cell.imageView.image = [JobsIconfontManager.shared iconImageForGlyph:glyph
                                                                     size:CGSizeMake(38, 38)
-                                                                   color:UIColor.systemIndigoColor];
+                                                                   color:UIColor.systemIndigoColor
+                                                         traitCollection:cell.traitCollection];
     return cell
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
             label.byText((JobsIconfontManager.shared).titleForGlyph(glyph))

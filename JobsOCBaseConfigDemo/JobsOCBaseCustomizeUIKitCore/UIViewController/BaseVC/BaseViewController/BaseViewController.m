@@ -292,10 +292,8 @@ BaseViewControllerProtocol_synthesize
                 .byImage(self.viewModel.bgImage)
                 .byAlpha(0)
                 .byUserInteractionEnabled(YES)
-                .byFrame(CGRectMake(self.view.x,
-                                    self.view.y,
-                                    JobsRealWidth(),
-                                    JobsRealHeight()));
+                .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)
+                .byFrame(self.view.bounds);
     //        self.view = _bgImageView; // 如果用UIImageView来替换原本的View，有时候会出现一些错误
             [self.view insertSubview:imageView atIndex:0];
         });

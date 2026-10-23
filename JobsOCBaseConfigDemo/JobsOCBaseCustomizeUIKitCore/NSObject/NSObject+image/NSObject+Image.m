@@ -46,15 +46,27 @@
     @jobs_weakify(self)
     return ^UIImage *_Nullable(__kindof NSString *_Nullable dataURL){
         @jobs_strongify(self)
-        if([self isKindOfClass:NSString.class]){
-            // 形如：data:image/png;base64,iVBORw0KGgo...
-            NSRange comma = [dataURL rangeOfString:@","];
-            if (comma.location == NSNotFound) { return nil; }
-            NSString *b64 = [dataURL substringFromIndex:comma.location + 1];
-            NSData *data = [NSData.alloc initWithBase64EncodedString:b64 options:NSDataBase64DecodingIgnoreUnknownCharacters];
-            if (!data) { return nil; };return [UIImage imageWithData:data scale:UIScreen.mainScreen.scale];
-        }else return nil;
+        return [self imageByDataURL:dataURL
+                   traitCollection:[UITraitCollection traitCollectionWithDisplayScale:UIScreen.mainScreen.scale]];
     };
+}
+
+-(UIImage *)imageByDataURL:(NSString *)dataURL
+          traitCollection:(UITraitCollection *)traitCollection{
+    if([self isKindOfClass:NSString.class]){
+        // 形如：data:image/png;base64,iVBORw0KGgo...
+        NSRange comma = [dataURL rangeOfString:@","];
+        if (comma.location == NSNotFound) {
+            return nil;
+        }
+        NSString *b64 = [dataURL substringFromIndex:comma.location + 1];
+        NSData *data = [NSData.alloc initWithBase64EncodedString:b64 options:NSDataBase64DecodingIgnoreUnknownCharacters];
+        if (!data) {
+            return nil;
+        }
+        return [UIImage imageWithData:data scale:MAX(traitCollection.displayScale, 1)];
+    }
+    return nil;
 }
 
 @end

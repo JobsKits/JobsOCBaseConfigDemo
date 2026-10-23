@@ -714,10 +714,9 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
         if (!self) return;
         if (!_volumeBtn) return;
         CGFloat buttonWH = JobsWidth(36);
-        CGFloat right = JobsWidth(18);
+        CGFloat right = self.view.safeAreaInsets.right + JobsWidth(18);
         CGFloat top = self.view.safeAreaInsets.top + JobsWidth(12);
-        if (top < JobsWidth(28)) top = JobsWidth(28);
-        CGFloat viewWidth = self.view.width > 0 ? self.view.width : JobsMainScreen_WIDTH();
+        CGFloat viewWidth = CGRectGetWidth(self.view.bounds);
         self.volumeBtn.byFrame(CGRectMake(viewWidth - right - buttonWH,
                                           top,
                                           buttonWH,
@@ -1017,7 +1016,7 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
 //                    .byMasksToBounds(YES);
 //            }))
             .addOn(self.view)
-            .byFrame(CGRectMake((JobsMainScreen_WIDTH() - customerBtnWidth) / 2,
+            .byFrame(CGRectMake((CGRectGetWidth(self.view.bounds) - customerBtnWidth) / 2,
                                 self.jobsAppDoorContentView.bottom + JobsWidth(8),
                                 customerBtnWidth,
                                 customerBtnHeight))

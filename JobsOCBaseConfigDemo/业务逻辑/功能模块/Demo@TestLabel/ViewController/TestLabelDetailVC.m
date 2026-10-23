@@ -225,7 +225,7 @@ Prop_assign()BOOL didApplyShowingType;
             }else if (self.demoModel.showingType == UILabelShowingType_03) {
                 make.height.mas_equalTo(JobsWidth(self.demoModel.controlType == TestLabelDemoControlTypeButtonTitle ? 32 : 20));
             }else if (self.demoModel.showingType == UILabelShowingType_05){
-                CGFloat width = self.demoModel.manualNewline || self.demoModel.richText ? JobsMainScreen_WIDTH() - JobsWidth(96) : JobsWidth(120);
+                CGFloat width = self.demoModel.manualNewline || self.demoModel.richText ? CGRectGetWidth(self.view.bounds) - JobsWidth(96) : JobsWidth(120);
                 if (self.demoModel.controlType == TestLabelDemoControlTypeButtonTitle) {
                     make.size.mas_equalTo(CGSizeMake(width, JobsWidth(76)));
                 }else{
@@ -384,7 +384,7 @@ Prop_assign()BOOL didApplyShowingType;
                 if (self.demoModel.showingType == UILabelShowingType_03) {
                     make.height.mas_equalTo(JobsWidth(32));
                 }else if (self.demoModel.showingType == UILabelShowingType_05){
-                    CGFloat width = self.demoModel.manualNewline || self.demoModel.richText ? JobsMainScreen_WIDTH() - JobsWidth(96) : JobsWidth(120);
+                    CGFloat width = self.demoModel.manualNewline || self.demoModel.richText ? CGRectGetWidth(self.view.bounds) - JobsWidth(96) : JobsWidth(120);
                     make.size.mas_equalTo(CGSizeMake(width, JobsWidth(76)));
                 }else{
                     make.size.mas_equalTo(CGSizeMake(JobsWidth(100), JobsWidth(20)));

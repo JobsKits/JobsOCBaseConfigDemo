@@ -2,7 +2,7 @@
 //  UIColor+Other.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs Hi on 9/16/23.
+//  Created by Jobs on 2023年9月16日，星期六.
 //
 
 #import "UIColor+Other.h"
@@ -71,6 +71,20 @@
                          endPoint:(CGPoint)endPoint
                            opaque:(BOOL)opaque
                    targetViewRect:(CGRect)targetViewRect{
+    return [self gradientCorDataMutArr:CorDataMutArr
+                            startPoint:startPoint
+                              endPoint:endPoint
+                                opaque:opaque
+                        targetViewRect:targetViewRect
+                       traitCollection:[UITraitCollection traitCollectionWithDisplayScale:UIScreen.mainScreen.scale]];
+}
+
++(UIColor *)gradientCorDataMutArr:(NSMutableArray <UIColor *>*_Nullable)CorDataMutArr
+                       startPoint:(CGPoint)startPoint
+                         endPoint:(CGPoint)endPoint
+                           opaque:(BOOL)opaque
+                   targetViewRect:(CGRect)targetViewRect
+                  traitCollection:(UITraitCollection *)traitCollection{
     /**
      该方法首先检查目标视图矩形的宽度和高度是否为零，如果是零，则会触发断言，表示宽度或高度为零将返回nil。
      接下来，它检查传入的颜色数组CorDataMutArr是否为nil，如果为nil，则创建一个包含默认红色和绿色的颜色数组。
@@ -96,7 +110,7 @@
     }
     UIGraphicsBeginImageContextWithOptions(targetViewRect.size,
                                            opaque,
-                                           UIScreen.mainScreen.scale);
+                                           MAX(traitCollection.displayScale, 1));
     CGContextRef context = UIGraphicsGetCurrentContext();
     //绘制渐变层
     CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();

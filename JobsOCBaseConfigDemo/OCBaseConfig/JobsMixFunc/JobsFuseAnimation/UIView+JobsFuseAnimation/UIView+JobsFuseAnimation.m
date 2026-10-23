@@ -20,6 +20,7 @@ JobsKey(JobsFuseDisplayModeKey)
 JobsKey(JobsFuseScaleOriginalTransformKey)
 JobsKey(JobsFuseScaleActiveKey)
 JobsKey(JobsFuseBubbleRunnerKey)
+JobsKey(JobsFuseDisplayScaleObservationKey)
 
 static NSURL *_Nullable JobsFuseSoundURL(NSString *fileFullName, NSBundle *bundle) {
     if (!fileFullName.length) return nil;
@@ -377,7 +378,7 @@ Prop_assign()NSInteger concurrentCount;
             if (currentConfig.trackColor) {
                 trackLayer = CAShapeLayer.layer;
                 trackLayer.byName(@"jobs.fuse.outerRing.track");
-                trackLayer.byContentsScale(UIScreen.mainScreen.scale);
+                trackLayer.byContentsScale(self.traitCollection.displayScale);
                 trackLayer.byFillColor(currentConfig.fillColor.CGColor);
                 trackLayer.byStrokeColor(currentConfig.trackColor.CGColor);
                 trackLayer.byLineWidth(currentConfig.lineWidth);
@@ -390,7 +391,7 @@ Prop_assign()NSInteger concurrentCount;
             }
             CAShapeLayer *ringLayer = CAShapeLayer.layer;
             ringLayer.byName(@"jobs.fuse.outerRing.progress");
-            ringLayer.byContentsScale(UIScreen.mainScreen.scale);
+            ringLayer.byContentsScale(self.traitCollection.displayScale);
             ringLayer.byFillColor(currentConfig.fillColor.CGColor);
             ringLayer.byStrokeColor(currentConfig.strokeColor.CGColor);
             ringLayer.byLineWidth(currentConfig.lineWidth);
@@ -402,6 +403,14 @@ Prop_assign()NSInteger concurrentCount;
             [self.layer addSublayer:ringLayer];
             Jobs_setAssociatedRETAIN_NONATOMIC(JobsFuseTrackLayerKey, trackLayer)
             Jobs_setAssociatedRETAIN_NONATOMIC(JobsFuseRingLayerKey, ringLayer)
+            if (@available(iOS 17.0, *)) {
+                if (!Jobs_getAssociatedObject(JobsFuseDisplayScaleObservationKey)) {
+                    [self registerForTraitChanges:@[UITraitDisplayScale.class] withHandler:^(UIView *view, UITraitCollection *previousTraits) {
+                        view.jobs_layoutFuseOuterRingLayers();
+                    }];
+                    Jobs_setAssociatedRETAIN_NONATOMIC(JobsFuseDisplayScaleObservationKey, @YES)
+                }
+            }
             self.jobs_layoutFuseOuterRingLayers();
             self.jobs_updateFuseOuterRingProgress(0.001);
             CADisplayLink *displayLink = [CADisplayLink displayLinkWithTarget:_JobsFuseDisplayLinkTarget.targetWithView(self) selector:@selector(tick:)];
@@ -664,6 +673,7 @@ Prop_assign()NSInteger concurrentCount;
         [CATransaction setDisableActions:YES];
         for (CAShapeLayer *layer in @[Jobs_getAssociatedObject(JobsFuseTrackLayerKey) ?: NSNull.null, ringLayer]) {
             if (![layer isKindOfClass:CAShapeLayer.class]) continue;
+            layer.byContentsScale(self.traitCollection.displayScale);
             layer.byFrame(self.bounds);
             layer.byPath(path.CGPath);
             layer.byLineWidth(config.lineWidth);

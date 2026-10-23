@@ -21,20 +21,28 @@
               textAlignment:(NSTextAlignment)textAlignment
             backGroundColor:(UIColor *)backGroundColor
                   textColor:(UIColor *)textColor{
+    return [self imageWithString:string
+                           font:font
+                          width:width
+                  textAlignment:textAlignment
+                backGroundColor:backGroundColor
+                      textColor:textColor
+                traitCollection:[UITraitCollection traitCollectionWithDisplayScale:UIScreen.mainScreen.scale]];
+}
+
++(UIImage *)imageWithString:(NSString *)string
+                       font:(UIFont *)font
+                      width:(CGFloat)width
+              textAlignment:(NSTextAlignment)textAlignment
+            backGroundColor:(UIColor *)backGroundColor
+                  textColor:(UIColor *)textColor
+            traitCollection:(UITraitCollection *)traitCollection{
     NSDictionary *attributeDic = @{NSFontAttributeName:font};
     CGSize size = [string boundingRectWithSize:CGSizeMake(width, 10000)
                                        options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingTruncatesLastVisibleLine
                                     attributes:attributeDic
                                        context:nil].size;
-    if ([UIScreen.mainScreen respondsToSelector:@selector(scale)]){
-        if (UIScreen.mainScreen.scale == 2.0){
-            UIGraphicsBeginImageContextWithOptions(size, NO, 1.0);
-        } else{
-            UIGraphicsBeginImageContext(size);
-        }
-    }else{
-        UIGraphicsBeginImageContext(size);
-    }
+    UIGraphicsBeginImageContextWithOptions(size, NO, MAX(traitCollection.displayScale, 1));
     CGContextRef context = UIGraphicsGetCurrentContext();
     [backGroundColor set];
     CGRect rect = CGRectMake(0,
@@ -103,7 +111,7 @@
 /// 对UIImage对象进行缩放，并返回一个指定尺寸的新图像
 -(JobsRetImageByCGSizeBlock _Nonnull)imageResize{
     return ^UIImage *_Nonnull(CGSize newSize){
-        CGFloat scale = UIScreen.mainScreen.scale;
+        CGFloat scale = self.scale;
         //UIGraphicsBeginImageContext(newSize);
         UIGraphicsBeginImageContextWithOptions(newSize, NO, scale);
         [self drawInRect:CGRectMake(0,
@@ -155,7 +163,7 @@
     return ^UIImage *_Nonnull(CGSize size){
         @jobs_strongify(self)
         CGRect rect = (CGRect){CGPointZero, size};
-        UIGraphicsBeginImageContextWithOptions(size, NO, UIScreen.mainScreen.scale);
+        UIGraphicsBeginImageContextWithOptions(size, NO, self.scale);
         [self drawInRect:rect];
         UIImage *resImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
@@ -207,7 +215,7 @@
             }break;
     }
     /// 开启上下文
-    UIGraphicsBeginImageContextWithOptions(boxBounds.size, NO, UIScreen.mainScreen.scale);
+    UIGraphicsBeginImageContextWithOptions(boxBounds.size, NO, self.scale);
     CGContextRef bitmap = UIGraphicsGetCurrentContext();
     /// 归零path
     UIBezierPath * newPath = path.copy;

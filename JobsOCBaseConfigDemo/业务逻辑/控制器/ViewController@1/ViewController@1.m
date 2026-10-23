@@ -431,6 +431,12 @@ Prop_assign()JobsOCDemoListCellTextDisplayStrategy appliedCellTextDisplayStrateg
         @jobs_strongify(self)
         if (!self) return;
             [super viewDidLoad];
+            if (@available(iOS 17.0, *)) {
+                [self registerForTraitChanges:@[UITraitDisplayScale.class] withHandler:^(ViewController_1 *controller, UITraitCollection *previousTraits) {
+                    controller.reloadLocalizedDemoListContent();
+                    controller.applyDemoListInterfaceStyle();
+                }];
+            }
             self.view.byBgColor(JobsSecondarySystemBackgroundColor);
             if (@available(iOS 11.0, *)) {
                 self.view.byBgColor(@"TextColor0".namedCor());
@@ -763,7 +769,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                         [self.expandedDemoSectionIndexSet containsIndex:indexPath.row];
     if (pinnedDemo || expandedDemo) {
         CGFloat innerTableWidth = CGRectGetWidth(tableView.bounds) - 20;
-        if (innerTableWidth <= 0) innerTableWidth = JobsMainScreen_WIDTH() - 20;
+        if (innerTableWidth <= 0) innerTableWidth = CGRectGetWidth(self.view.bounds) - 20;
         JobsOCDemoSectionModel *sectionModel = pinnedDemo
             ? self.pinnedDemoSectionModel()
             : self.visibleDemoSectionArr()[indexPath.row];
@@ -1155,7 +1161,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     return ^CGFloat{
         @jobs_strongify(self)
         if (!self) return (CGFloat){0};
-        return MIN(JobsWidth(320), JobsMainScreen_WIDTH() * 0.50);
+        return MIN(JobsWidth(320), CGRectGetWidth(self.view.bounds) * 0.50);
     };
 }
 
@@ -1164,7 +1170,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     return ^UIView *{
         @jobs_strongify(self)
         if (!self) return nil;
-        UIView *mainView = AppDelegate.jobsCustomTabBarNavCtrl.view;
+        UIView *mainView = self.tabBarController.navigationController.view;
         if (!mainView.window) mainView = self.navigationController.view;
         return mainView ?: self.view;
     };
@@ -1511,8 +1517,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .bySectionHeaderTopPadding(0)
                 .byShowsVerticalScrollIndicator(NO)
                 .byShowsHorizontalScrollIndicator(NO)
-                .byContentInset(UIEdgeInsetsMake(JobsTopSafeAreaHeight(), 0, JobsBottomSafeAreaHeight(), 0))
-                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
+                .byContentInset(UIEdgeInsetsZero)
+                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentAutomatic)
                 .byBgColor(JobsClearColor);
         });
     };return _demoSideMenuTableView;
@@ -2017,7 +2023,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         @jobs_weakify(self)
         _demoSearchHeaderView = jobsMakeView(^(__kindof UIView * _Nullable view) {
             @jobs_strongify(self)
-            CGFloat headerWidth = JobsMainScreen_WIDTH();
+            CGFloat headerWidth = CGRectGetWidth(self.view.bounds);
             view.byFrame(CGRectMake(0, 0, headerWidth, 56))
                 .byBgColor(JobsClearColor);
             self.demoSearchCancelBtn
@@ -2121,8 +2127,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byShowsVerticalScrollIndicator(NO)
                 .byShowsHorizontalScrollIndicator(NO)
                 .byScrollEnabled(YES)
-                .byContentInset(UIEdgeInsetsMake(JobsWidth(8), 0, JobsBottomSafeAreaHeight(), 0))
-                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
+                .byContentInset(UIEdgeInsetsMake(JobsWidth(8), 0, 0, 0))
+                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentAutomatic)
                 .byBgColor(JobsClearColor);
             [tableView addGestureRecognizer:self.demoSectionReorderLongPressGesture];
 //            {
@@ -3563,35 +3569,40 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                      .byCls(JobsMicroAppDemoVC.class);
             })).byImage([JobsIconfontManager.shared iconImageForGlyph:JobsIconfontGlyphComponent
                                                                     size:CGSizeMake(JobsWidth(30), JobsWidth(30))
-                                                                   color:UIColor.systemBlueColor]))
+                                                                   color:UIColor.systemBlueColor
+                                                       traitCollection:self.traitCollection]))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"多账户与应用会话隔离".jobsTr())
                      .bySubTitle(@"独立 Cookie 仓库与原生账户目录".jobsTr())
                      .byCls(JobsMicroSessionDemoVC.class);
             })).byImage([JobsIconfontManager.shared iconImageForGlyph:JobsIconfontGlyphSwitcher
                                                                     size:CGSizeMake(JobsWidth(30), JobsWidth(30))
-                                                                   color:UIColor.systemBlueColor]))
+                                                                   color:UIColor.systemBlueColor
+                                                       traitCollection:self.traitCollection]))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"mPaaS 平台架构教学".jobsTr())
                      .bySubTitle(@"平台协议、目录 API 与 appID 白名单路由".jobsTr())
                      .byCls(JobsMicroPlatformDemoVC.class);
             })).byImage([JobsIconfontManager.shared iconImageForGlyph:JobsIconfontGlyphLodging
                                                                     size:CGSizeMake(JobsWidth(30), JobsWidth(30))
-                                                                   color:UIColor.systemBlueColor]))
+                                                                   color:UIColor.systemBlueColor
+                                                       traitCollection:self.traitCollection]))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"微应用沙箱运行环境".jobsTr())
                      .bySubTitle(@"逻辑目录隔离、文件读写与越界拒绝".jobsTr())
                      .byCls(JobsMicroSandboxDemoVC.class);
             })).byImage([JobsIconfontManager.shared iconImageForGlyph:JobsIconfontGlyphVerified
                                                                     size:CGSizeMake(JobsWidth(30), JobsWidth(30))
-                                                                   color:UIColor.systemBlueColor]))
+                                                                   color:UIColor.systemBlueColor
+                                                       traitCollection:self.traitCollection]))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"PWA 与离线资源".jobsTr())
                      .bySubTitle(@"Native 离线包、HTTPS 与真实 SW / Cache 状态".jobsTr())
                      .byCls(JobsMicroPWADemoVC.class);
             })).byImage([JobsIconfontManager.shared iconImageForGlyph:JobsIconfontGlyphDirection
                                                                     size:CGSizeMake(JobsWidth(30), JobsWidth(30))
-                                                                   color:UIColor.systemBlueColor]))
+                                                                   color:UIColor.systemBlueColor
+                                                       traitCollection:self.traitCollection]))
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {
                 model.byTitle(@"朋友圈图文浏览与图片预览".jobsTr())
                      .bySubTitle(@"图文卡片与图片填充 / 适配预览".jobsTr())
@@ -3702,7 +3713,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 ).byImage(
                     [JobsIconfontManager.shared iconImageForGlyph:JobsIconfontGlyphSwitcher
                                                              size:CGSizeMake(JobsWidth(30),JobsWidth(30))
-                                                            color:UIColor.systemBlueColor]
+                                                            color:UIColor.systemBlueColor
+                                                       traitCollection:self.traitCollection]
                 )
             )
 #if DEBUG
@@ -3952,7 +3964,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 ).byImage(
                     [JobsIconfontManager.shared iconImageForGlyph:JobsIconfontGlyphComponent
                                                              size:CGSizeMake(JobsWidth(30),JobsWidth(30))
-                                                            color:UIColor.systemBlueColor]
+                                                            color:UIColor.systemBlueColor
+                                                       traitCollection:self.traitCollection]
                 )
             )
             .add(self.makeDatas(jobsMakeDecorationModel(^(__kindof JobsDecorationModel * _Nullable model) {

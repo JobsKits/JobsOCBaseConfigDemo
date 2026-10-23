@@ -22,9 +22,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImage (YBGIF)
 /// 根据NSData* 创建gif图片
-+(JobsRetImageByDataBlock _Nonnull)animatedGIFWithData;
++(JobsRetImageByDataBlock _Nonnull)animatedGIFWithData
+    __attribute__((deprecated("Use animatedGIFWithData:traitCollection:")));
++(nullable UIImage *)animatedGIFWithData:(nullable NSData *)data
+               traitCollection:(UITraitCollection *)traitCollection;
 /// 根据图片名字创建gif图片
-+(JobsRetImageByStrBlock _Nonnull)animatedGIFByName;
++(JobsRetImageByStrBlock _Nonnull)animatedGIFByName
+    __attribute__((deprecated("Use animatedGIFByName:traitCollection:")));
++(nullable UIImage *)animatedGIFByName:(nullable NSString *)name
+               traitCollection:(UITraitCollection *)traitCollection;
 /// 貌似废弃了，不管用，再研究
 /// 根据大小裁剪图片
 -(JobsRetImageByCGSizeBlock _Nonnull)animatedImageByScalingAndCroppingBySize;

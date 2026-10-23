@@ -142,6 +142,20 @@
                          endPoint:(CGPoint)endPoint
                            opaque:(BOOL)opaque
                    targetViewRect:(CGRect)targetViewRect{
+    return [self gradientCorDataMutArr:CorDataMutArr
+                            startPoint:startPoint
+                              endPoint:endPoint
+                                opaque:opaque
+                        targetViewRect:targetViewRect
+                       traitCollection:[UITraitCollection traitCollectionWithDisplayScale:UIScreen.mainScreen.scale]];
+}
+
++(UIColor *)gradientCorDataMutArr:(NSMutableArray <UIColor *>*_Nullable)CorDataMutArr
+                       startPoint:(CGPoint)startPoint
+                         endPoint:(CGPoint)endPoint
+                           opaque:(BOOL)opaque
+                   targetViewRect:(CGRect)targetViewRect
+                  traitCollection:(UITraitCollection *)traitCollection{
     /**
      
          该方法首先检查目标视图矩形的宽度和高度是否为零，如果是零，则会触发断言，表示宽度或高度为零将返回nil。
@@ -166,7 +180,7 @@
     }
     UIGraphicsBeginImageContextWithOptions(targetViewRect.size,
                                            opaque,
-                                           UIScreen.mainScreen.scale);
+                                           MAX(traitCollection.displayScale, 1));
     CGContextRef context = UIGraphicsGetCurrentContext();
     /// 绘制渐变层
     CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();

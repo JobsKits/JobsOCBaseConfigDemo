@@ -16,7 +16,7 @@
 
 +(JobsRetWindowByFrameBlock _Nonnull)initByFrame{
     return ^__kindof UIWindow *_Nullable(CGRect frame){
-        return [UIWindow.alloc initWithFrame:UIScreen.mainScreen.bounds];
+        return [UIWindow.alloc initWithFrame:frame];
     };
 }
 /// 横屏模式下Window的宽高互换

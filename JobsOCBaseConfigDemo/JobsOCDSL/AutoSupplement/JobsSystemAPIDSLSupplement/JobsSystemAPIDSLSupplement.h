@@ -290,6 +290,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 
 @interface UIViewController (JobsSystemAPIDSLSupplement)
+-(JobsRetVCByUIEdgeInsetsBlock _Nonnull)byAdditionalSafeAreaInsets;
 -(JobsRetVCByBOOLBlock _Nonnull)byHidesBottomBarWhenPushed;
 -(JobsRetUIViewControllerByUIModalPresentationStyleBlock _Nonnull)byModalPresentationStyle;
 -(JobsRetUIViewControllerByUITabBarItemBlock _Nonnull)byTabBarItem;

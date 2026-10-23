@@ -9,7 +9,6 @@
 
 #import "UIButton+UI.h"
 
-#define FULLVIEW_FOR6 667
 
 static id _Nullable JobsLinkageSafeObjectAtIndex(NSArray *_Nullable array, NSInteger index){
     if (![array isKindOfClass:NSArray.class]) return nil;
@@ -211,19 +210,12 @@ Prop_assign()CGFloat ANIMATION_TIME;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        if (JobsMainScreen_HEIGHT() < FULLVIEW_FOR6) {
-            self.byBtnHeight(43);
-            self.byDTScrollTag(5);
-        } else if (JobsMainScreen_HEIGHT() == FULLVIEW_FOR6) {
-            self.byBtnHeight(44);
-            self.byDTScrollTag(6);
-        } else {
-            self.byBtnHeight(42.7);
-            self.byDTScrollTag(7);
-        }
+        self.byBtnHeight(44);
         if (self.linkageMenuViewConfig.DEFAULT_MENU_ITEM_HEIGHT > 0) {
             self.byBtnHeight(self.linkageMenuViewConfig.DEFAULT_MENU_ITEM_HEIGHT);
         }
+        CGFloat availableHeight = CGRectGetHeight(UIEdgeInsetsInsetRect(self.bounds, self.safeAreaInsets));
+        self.byDTScrollTag(MAX(1, (NSInteger)floor(availableHeight / MAX(self.btnHeight, 1))));
         self.byTextSize(self.textSize > 0 ? self.textSize : 14.0);
         self.bySelectViewColor(self.selectViewColor ? : JobsWhiteColor);
         self.byTextColor(self.textColor ? : self.btnConfig.titleCor);
@@ -375,6 +367,7 @@ Prop_assign()CGFloat ANIMATION_TIME;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
+        self.prepareDefaults();
         CGFloat menuWidth = self.resolvedMenuWidth();
         CGFloat lineWidth = self.LINEVIEW_WIDTH;
         CGFloat height = CGRectGetHeight(self.bounds);

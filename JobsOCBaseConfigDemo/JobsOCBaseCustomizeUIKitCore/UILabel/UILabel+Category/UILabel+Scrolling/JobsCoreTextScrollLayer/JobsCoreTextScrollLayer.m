@@ -60,7 +60,7 @@ Prop_assign(readwrite)CGFloat textLayoutWidth;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        self.byContentsScale(UIScreen.mainScreen.scale);
+        self.byContentsScale(self.superlayer ? self.superlayer.contentsScale : self.contentsScale);
         self.byDrawsAsynchronously(YES);
         self.byNeedsDisplayOnBoundsChange(YES);
         self.byAnchorPoint(CGPointZero);

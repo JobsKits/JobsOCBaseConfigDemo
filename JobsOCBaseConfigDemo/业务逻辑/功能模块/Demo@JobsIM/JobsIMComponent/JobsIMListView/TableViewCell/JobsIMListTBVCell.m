@@ -318,8 +318,15 @@ UITextFieldProtocol_synthesize_part2
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.equalTo(self.titleLab);
                     make.right.bottom.equalTo(self.contentView);
-                    make.height.mas_equalTo(1.0f / UIScreen.mainScreen.scale);
+                    make.height.mas_equalTo(1.0f / MAX(1, self.traitCollection.displayScale));
                 });
+if (@available(iOS 17.0, *)) {
+    [view registerForTraitChanges:@[UITraitDisplayScale.class] withHandler:^(UIView *line, UITraitCollection *previousTraits) {
+        [line mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(1 / MAX(1, line.traitCollection.displayScale));
+        }];
+    }];
+}
         });
     };return _separatorLine;
 }

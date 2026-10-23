@@ -21,7 +21,6 @@ willConnectToSession:(UISceneSession *)session
         [JobsOCSceneCoordinator demoActivityFromConnectionOptions:connectionOptions
                                                           session:session];
     self.jobsSetWindow(UIWindow.initByScene(windowScene)).window
-        .byWindowFrame(windowScene.coordinateSpace.bounds)
         .byRootViewController(restorationActivity ?
             [JobsOCSceneDelegateDemoVC.alloc
                 initWithRestorationActivity:restorationActivity].navCtrl() :

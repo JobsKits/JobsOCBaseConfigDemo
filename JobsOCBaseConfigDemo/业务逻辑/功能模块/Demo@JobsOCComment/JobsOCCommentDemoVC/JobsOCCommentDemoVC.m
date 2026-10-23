@@ -139,7 +139,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         vc.byMode(mode);
         vc.byPopupStyle(YES);
         vc.byCommentArr(self.commentArr);
-        vc.byPopUpHeight(JobsMainScreen_HEIGHT() * 0.62);
+        vc.byPopUpHeight(CGRectGetHeight(self.view.bounds) * 0.62);
         vc.byPushOrPresent(ComingStyle_PRESENT);
         vc.byPreferredContentSize(CGSizeMake(JobsRealWidth(), vc.popUpHeight));
         self.presentationController = [JobsPresentationCtrl.alloc initWithPresentedViewController:vc

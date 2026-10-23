@@ -2,7 +2,7 @@
 //  UIColor+Other.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs Hi on 9/16/23.
+//  Created by Jobs on 2023年9月16日，星期六.
 //
 
 #import <UIKit/UIKit.h>
@@ -44,7 +44,14 @@ NS_ASSUME_NONNULL_BEGIN
                        startPoint:(CGPoint)startPoint
                          endPoint:(CGPoint)endPoint
                            opaque:(BOOL)opaque
-                   targetViewRect:(CGRect)targetViewRect;
+                   targetViewRect:(CGRect)targetViewRect
+    __attribute__((deprecated("Use gradientCorDataMutArr:startPoint:endPoint:opaque:targetViewRect:traitCollection:")));
++(UIColor *)gradientCorDataMutArr:(NSMutableArray <UIColor *>*_Nullable)CorDataMutArr
+                       startPoint:(CGPoint)startPoint
+                         endPoint:(CGPoint)endPoint
+                           opaque:(BOOL)opaque
+                   targetViewRect:(CGRect)targetViewRect
+                  traitCollection:(UITraitCollection *)traitCollection;
 #pragma mark —— 实例方法
 /// 将一个确定的UIColor子类，翻译成RGB格式的字符串值并对外输出【可能因为四舍五入的问题影响末位精度，误差在±1】
 /// 资料来源  https://blog.csdn.net/thanklife/article/details/25784879

@@ -396,7 +396,7 @@ Prop_assign()JobsOCCommentMode commentMode;
         viewController.byMode(self.commentMode);
         viewController.byPopupStyle(YES);
         viewController.byCommentArr(comments);
-        viewController.byPopUpHeight(JobsMainScreen_HEIGHT() * 0.62);
+        viewController.byPopUpHeight(CGRectGetHeight(self.view.bounds) * 0.62);
         viewController.byPushOrPresent(ComingStyle_PRESENT);
         viewController.byPreferredContentSize(CGSizeMake(JobsRealWidth(), viewController.popUpHeight));
         self.presentationController = [JobsPresentationCtrl.alloc initWithPresentedViewController:viewController

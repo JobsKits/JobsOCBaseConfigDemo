@@ -26,6 +26,10 @@ Prop_strong()BRDatePickerView *fromDatePickerView;
 Prop_strong()BRDatePickerView *toDatePickerView;
 Prop_strong()UILabel *segmentationLine;
 Prop_assign()CGSize btnSize;
+Prop_assign()CGSize cancelGradientSize;
+Prop_assign()CGSize sureGradientSize;
+Prop_assign()CGFloat gradientScale;
+Prop_assign()BOOL registeredGradientTraits;
 /// Data
 
 @end
@@ -111,7 +115,34 @@ static dispatch_once_t static_customViewOnceToken;
         @jobs_strongify(self)
         if (!self) return;
         [super layoutSubviews];
+        if (!_registeredGradientTraits) {
+            _registeredGradientTraits = YES;
+            if (@available(iOS 17.0, *)) {
+                [self registerForTraitChanges:@[UITraitDisplayScale.class] withHandler:^(JobsCustomView *view, UITraitCollection *previousTraits) {
+                    [view setNeedsLayout];
+                }];
+            }
+        }
+        CGFloat scale = self.traitCollection.displayScale;
+        if (scale != _gradientScale || !CGSizeEqualToSize(_cancelBtn.bounds.size, _cancelGradientSize) ||
+            !CGSizeEqualToSize(_sureBtn.bounds.size, _sureGradientSize)) {
+            [self refreshGradientForButton:_cancelBtn colors:@[HEXCOLOR(0xE7E7E7), HEXCOLOR(0xDDDADA)]];
+            [self refreshGradientForButton:_sureBtn colors:@[HEXCOLOR(0xF2E4A3), HEXCOLOR(0xF2CC78)]];
+            _gradientScale = scale;
+            _cancelGradientSize = _cancelBtn.bounds.size;
+            _sureGradientSize = _sureBtn.bounds.size;
+        }
     };
+}
+
+-(void)refreshGradientForButton:(UIButton *)button colors:(NSArray<UIColor *> *)colors{
+    if (!button || CGRectIsEmpty(button.bounds)) return;
+    button.jobsResetBtnBgCor([UIColor gradientCorDataMutArr:colors.mutableCopy
+                                               startPoint:CGPointZero
+                                                 endPoint:CGPointZero
+                                                   opaque:NO
+                                           targetViewRect:button.bounds
+                                          traitCollection:button.traitCollection]);
 }
 #pragma mark —— BaseViewProtocol
 /// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
@@ -252,7 +283,8 @@ static dispatch_once_t static_customViewOnceToken;
                                        targetViewRect:CGRectMake(0,
                                                                  0,
                                                                  self.btnSize.width,
-                                                                 self.btnSize.height)])
+                                                                 self.btnSize.height)
+                                      traitCollection:self.traitCollection])
             .jobsResetBtnTitle(@"取消".jobsTr())
             .jobsResetBtnTitleCor(JobsSecondaryLabelColor)
             .onClickBy(^(UIButton *x){
@@ -289,7 +321,8 @@ static dispatch_once_t static_customViewOnceToken;
                                        targetViewRect:CGRectMake(0,
                                                                  0,
                                                                  self.btnSize.width,
-                                                                 self.btnSize.height)])
+                                                                 self.btnSize.height)
+                                      traitCollection:self.traitCollection])
             .jobsResetBtnTitle(@"确定".jobsTr())
             .jobsResetBtnTitleCor(JobsSecondaryLabelColor)
             .onClickBy(^(UIButton *x){

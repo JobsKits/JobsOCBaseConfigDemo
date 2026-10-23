@@ -156,6 +156,19 @@ static dispatch_once_t static_choiceStadiumViewOnceToken;
         @jobs_strongify(self)
         if (!self) return;
         [super layoutSubviews];
+        if (_tableView) {
+            CGFloat width = CGRectGetWidth(_tableView.bounds);
+            if (_tbvHeaderView && width > 0 && CGRectGetWidth(_tbvHeaderView.bounds) != width) {
+                _tbvHeaderView.bySize(CGSizeMake(width, JobsWidth(46)));
+                _tableView.byTableHeaderView(_tbvHeaderView);
+            }
+            for (UITableViewCell *cell in _tableView.visibleCells) {
+                CGFloat imageOffset = MAX(0, CGRectGetWidth(cell.contentView.bounds) - JobsWidth(50));
+                if (fabs(cell.imageViewFrameOffsetX - imageOffset) > 0.5) {
+                    cell.byImageViewFrameOffsetX(imageOffset).bySetNeedsLayout();
+                }
+            }
+        }
     };
 }
 #pragma mark —— BaseViewProtocol
@@ -289,7 +302,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         .byContentViewBgCor(HEXCOLOR(0xFFFCF7))
         .byTextLabelTextCor(HEXCOLOR(0x757575))
         .byTextLabelFrameOffsetX(JobsWidth(16))
-        .byImageViewFrameOffsetX(JobsMainScreen_WIDTH() - JobsWidth(50))
+        .byImageViewFrameOffsetX(MAX(0, CGRectGetWidth(tableView.bounds) - JobsWidth(50)))
         .byTextLabelFont(UIFontWeightRegularSize(16))
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
         .byCellImageView(^(__kindof UIImageView * _Nullable imageView) {
@@ -327,15 +340,18 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 .byTableFooterView(jobsMakeView(^(__kindof UIView * _Nullable view) {
                 })) // 这里接入的就是一个UIView的派生类。只需要赋值Frame，不需要addSubview
                 .bySeparatorStyle(UITableViewCellSeparatorStyleSingleLine)
-                .byContentInset(UIEdgeInsetsMake(0, 0, JobsBottomSafeAreaHeight(), 0))
-                .byScrollEnabled(NO)
+                .byContentInset(UIEdgeInsetsZero)
+                .byScrollEnabled(YES)
                 .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
                 .byShowsVerticalScrollIndicator(NO)
                 .byBgColor(JobsSecondarySystemBackgroundColor)
                 .addOn(self)
                 .byAdd(^(MASConstraintMaker *make) {
                     @jobs_strongify(self)
-                    make.edges.equalTo(self);
+                    make.top.equalTo(self.mas_safeAreaLayoutGuideTop);
+                    make.bottom.equalTo(self.mas_safeAreaLayoutGuideBottom);
+                    make.left.equalTo(self.mas_safeAreaLayoutGuideLeft);
+                    make.right.equalTo(self.mas_safeAreaLayoutGuideRight);
                 });
             tableView.mj_footer.byHidden(NO);
         });

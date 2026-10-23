@@ -273,8 +273,8 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
         self.view.addSubview(_pagerView);
         _pagerView.frame = CGRectMake(0,
                                       JobsNavigationBarAndStatusBarHeight(nil) + self.getTopLineLabSize().height,
-                                      JobsMainScreen_WIDTH(),
-                                      JobsMainScreen_HEIGHT());
+                                      CGRectGetWidth(self.view.bounds),
+                                      CGRectGetHeight(self.view.bounds));
         _pagerView.byPinSectionHeaderVerticalOffset(JobsWidth(0));
     };return _pagerView;
 }

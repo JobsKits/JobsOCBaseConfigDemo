@@ -116,6 +116,14 @@ static dispatch_once_t static_scrollYViewOnceToken;
         @jobs_strongify(self)
         if (!self) return;
         [super layoutSubviews];
+        if (self.superview) {
+            CGSize containerSize = self.superview.bounds.size;
+            if (!CGSizeEqualToSize(self.bounds.size, containerSize)) self.bySizer(containerSize);
+            CGFloat bottomY = containerSize.height * 0.5;
+            CGFloat topY = MIN(bottomY, (CGFloat)终点位置);
+            CGFloat y = MIN(MAX(self.frame.origin.y, topY), bottomY);
+            if (fabs(self.frame.origin.y - y) > 0.5) self.byY(y);
+        }
     };
 }
 #pragma mark —— BaseViewProtocol
@@ -128,13 +136,17 @@ static dispatch_once_t static_scrollYViewOnceToken;
     @jobs_weakify(self)
     return ^(id _Nullable data) {
         @jobs_strongify(self)
+        self.byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
         self.setupGesture();
     };
 }
 /// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
 -(JobsRetCGSizeByIDBlock _Nonnull)viewSizeByModel{
+    @jobs_weakify(self)
     return ^CGSize(id _Nullable data){
-        return CGSizeMake(JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT());
+        @jobs_strongify(self)
+        if (!self) return CGSizeZero;
+        return self.superview ? self.superview.bounds.size : self.bounds.size;
     };
 }
 #pragma mark —— 一些私有方法
@@ -155,8 +167,9 @@ static dispatch_once_t static_scrollYViewOnceToken;
                 self.byInitialTouchPoint(self.center);
             }
             if (sender.state == UIGestureRecognizerStateChanged) {
-                CGFloat maxH = JobsMainScreen_HEIGHT() / 2 + 初始位置;
-                CGFloat minH = JobsMainScreen_HEIGHT() / 2 + 终点位置;
+                CGFloat containerHeight = CGRectGetHeight(self.superview.bounds);
+                CGFloat maxH = CGRectGetHeight(self.bounds) * 0.5 + containerHeight * 0.5;
+                CGFloat minH = MIN(maxH, CGRectGetHeight(self.bounds) * 0.5 + 终点位置);
                 // 计算新的位置
                 CGFloat newY = self.initialTouchPoint.y + translation.y;
                 // 限制在 minY 和 maxY 之间

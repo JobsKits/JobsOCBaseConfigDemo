@@ -9,9 +9,30 @@
 
 @interface TransparentRegionVC ()
 
+Prop_strong()CAShapeLayer *overlayMaskLayer;
+
 @end
 
 @implementation TransparentRegionVC
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    if (_scrollView) {
+        _scrollView.byContentSize(CGSizeMake(CGRectGetWidth(_scrollView.bounds), CGRectGetHeight(_scrollView.bounds) * 2));
+    }
+    if (!_overlayMaskLayer) return;
+    CGRect safeFrame = self.view.safeAreaLayoutGuide.layoutFrame;
+    CGFloat diameter = MIN(200, MAX(0, CGRectGetWidth(safeFrame) - 40));
+    CGRect hole = CGRectMake(CGRectGetMidX(safeFrame) - diameter / 2,
+                             CGRectGetMinY(safeFrame) + 20,
+                             diameter,
+                             diameter);
+    _overlayMaskLayer
+        .byFrame(self.view.bounds)
+        .byPath(UIBezierPath.byBezierPathWithRect(self.view.bounds)
+                            .byAppendPath(UIBezierPath.byBezierPathWithOvalInRect(hole))
+                            .byUsesEvenOddFillRule(YES).CGPath);
+}
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);
@@ -121,10 +142,10 @@
         @jobs_strongify(self)
         if (!self) return;
         CGFloat arcTop = self.jobsNavigationBarHeight + 20;
-        jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
+        _overlayMaskLayer = jobsMakeCAShapeLayer(^(__kindof CAShapeLayer * _Nullable layer) {
             layer
                 .byPath(UIBezierPath
-                        .byBezierPathWithRect(UIScreen.mainScreen.bounds)
+                        .byBezierPathWithRect(self.view.bounds)
                         .byAppendPath(UIBezierPath.byBezierPathWithOvalInRect(CGRectMake(100, arcTop, 200, 200)))// 中间镂空的矩形框
                         .byUsesEvenOddFillRule(YES).CGPath)
                 .byFillRule(kCAFillRuleEvenOdd)
@@ -143,7 +164,7 @@
         _scrollView = jobsMakeScrollView(^(__kindof UIScrollView * _Nullable scrollView) {
             @jobs_strongify(self)
             scrollView
-                .byContentSize(CGSizeMake(JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT() * 2))
+                .byContentSize(CGSizeMake(CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds) * 2))
                 .byBgColor(JobsRedColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {

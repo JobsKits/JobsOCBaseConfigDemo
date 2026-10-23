@@ -14,6 +14,8 @@ Prop_strong()UIImageView *logoView;
 Prop_strong()UILabel *titleLab;
 Prop_strong()UILabel *detailLab;
 
+-(void)jobs_applyGradientInRect:(CGRect)rect traitCollection:(UITraitCollection *)traitCollection;
+
 @end
 
 @implementation BaiShaETProjBankAccMgmtCVCell
@@ -39,7 +41,14 @@ Prop_strong()UILabel *detailLab;
                     .byBorderWidth(JobsWidth(1))
                     .byBorderColor(RGBA_COLOR(255, 255, 255, 0.86).CGColor);
             });
-    };return self;
+        if (@available(iOS 17.0, *)) {
+            [self registerForTraitChanges:@[UITraitDisplayScale.class]
+                             withHandler:^(__kindof BaiShaETProjBankAccMgmtCVCell *cell, UITraitCollection *previousTraits) {
+                [cell jobs_applyGradientInRect:cell.contentView.bounds traitCollection:cell.traitCollection];
+            }];
+        }
+    }
+    return self;
 }
 #pragma mark —— 复写父类相关方法和属性
 -(void)layoutSubviews{
@@ -61,6 +70,7 @@ Prop_strong()UILabel *detailLab;
             .byBorderColor(RGBA_COLOR(255, 255, 255, 0.86).CGColor);
         self.layer
             .byShadowPath(UIBezierPath.byBezierPathWithRoundedRect(self.contentView.frame, cornerRadius).CGPath);
+        [self jobs_applyGradientInRect:self.contentView.bounds traitCollection:self.traitCollection];
     };
 }
 #pragma mark —— BaseCellProtocol
@@ -81,58 +91,69 @@ Prop_strong()UILabel *detailLab;
         self.titleLab.byText(self.viewModel.textModel.text);
         self.detailLab.byText(self.viewModel.subTextModel.text);
         self.byBgColor(JobsClearColor);
-        CGRect gradientRect = self.bounds;
-        if (CGRectIsEmpty(gradientRect)) {
-            gradientRect = CGRectMake(0, 0, JobsMainScreen_WIDTH() - JobsWidth(30), JobsWidth(96));
-        }
-        switch (self.viewModel.item % 4) {
-            /// 处理 数值 0 分支
-            case 0:
-                self.contentView.byBgColor([UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-                    data.add(HEXCOLOR(0xD9EEFF))
-                        .add(HEXCOLOR(0xBFE2FF));
-                })
-                                            startPoint:CGPointZero
-                                              endPoint:CGPointMake(1, 1)
-                                                opaque:NO
-                                        targetViewRect:gradientRect]);
-                break;
-            /// 处理 数值 1 分支
-            case 1:
-                self.contentView.byBgColor([UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-                    data.add(HEXCOLOR(0xE8F7EF))
-                        .add(HEXCOLOR(0xCFEFDF));
-                })
-                                            startPoint:CGPointZero
-                                              endPoint:CGPointMake(1, 1)
-                                                opaque:NO
-                                        targetViewRect:gradientRect]);
-                break;
-            /// 处理 数值 2 分支
-            case 2:
-                self.contentView.byBgColor([UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-                    data.add(HEXCOLOR(0xFFF2D0))
-                        .add(HEXCOLOR(0xFFE2A8));
-                })
-                                            startPoint:CGPointZero
-                                              endPoint:CGPointMake(1, 1)
-                                                opaque:NO
-                                        targetViewRect:gradientRect]);
-                break;
-            /// 未匹配已知分支时执行兜底处理
-            default:
-                self.contentView.byBgColor([UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-                    data.add(HEXCOLOR(0xF0ECFF))
-                        .add(HEXCOLOR(0xDCD5FF));
-                })
-                                            startPoint:CGPointZero
-                                              endPoint:CGPointMake(1, 1)
-                                                opaque:NO
-                                        targetViewRect:gradientRect]);
-                break;
-        };return self;
+        [self jobs_applyGradientInRect:self.contentView.bounds traitCollection:self.traitCollection];
+        return self;
     };
 }
+
+-(void)jobs_applyGradientInRect:(CGRect)rect
+              traitCollection:(UITraitCollection *)traitCollection{
+    CGRect gradientRect = rect;
+    if (CGRectIsEmpty(gradientRect)) {
+        return;
+    }
+    switch (self.viewModel.item % 4) {
+        /// 处理 数值 0 分支
+        case 0:
+            self.contentView.byBgColor([UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
+                data.add(HEXCOLOR(0xD9EEFF))
+                    .add(HEXCOLOR(0xBFE2FF));
+            })
+                                        startPoint:CGPointZero
+                                          endPoint:CGPointMake(1, 1)
+                                            opaque:NO
+                                    targetViewRect:gradientRect
+                                   traitCollection:traitCollection]);
+            break;
+        /// 处理 数值 1 分支
+        case 1:
+            self.contentView.byBgColor([UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
+                data.add(HEXCOLOR(0xE8F7EF))
+                    .add(HEXCOLOR(0xCFEFDF));
+            })
+                                        startPoint:CGPointZero
+                                          endPoint:CGPointMake(1, 1)
+                                            opaque:NO
+                                    targetViewRect:gradientRect
+                                   traitCollection:traitCollection]);
+            break;
+        /// 处理 数值 2 分支
+        case 2:
+            self.contentView.byBgColor([UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
+                data.add(HEXCOLOR(0xFFF2D0))
+                    .add(HEXCOLOR(0xFFE2A8));
+            })
+                                        startPoint:CGPointZero
+                                          endPoint:CGPointMake(1, 1)
+                                            opaque:NO
+                                    targetViewRect:gradientRect
+                                   traitCollection:traitCollection]);
+            break;
+        /// 未匹配已知分支时执行兜底处理
+        default:
+            self.contentView.byBgColor([UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
+                data.add(HEXCOLOR(0xF0ECFF))
+                    .add(HEXCOLOR(0xDCD5FF));
+            })
+                                        startPoint:CGPointZero
+                                          endPoint:CGPointMake(1, 1)
+                                            opaque:NO
+                                    targetViewRect:gradientRect
+                                   traitCollection:traitCollection]);
+            break;
+    }
+}
+
 #pragma mark —— lazyLoad
 -(UIView *)logoContainerView{
     if (!_logoContainerView) {

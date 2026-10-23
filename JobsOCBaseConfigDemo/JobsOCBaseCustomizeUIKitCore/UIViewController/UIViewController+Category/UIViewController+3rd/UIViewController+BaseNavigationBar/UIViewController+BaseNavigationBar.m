@@ -569,8 +569,15 @@ JobsKey(_jobs_demoActionMenuOverlay)
                 .byAdd(^(MASConstraintMaker *make) {
                     make.left.equalTo(rowButton).offset(12);
                     make.right.bottom.equalTo(rowButton);
-                    make.height.mas_equalTo(1 / UIScreen.mainScreen.scale);
+                    make.height.mas_equalTo(1 / MAX(1, view.traitCollection.displayScale));
                 });
+if (@available(iOS 17.0, *)) {
+    [view registerForTraitChanges:@[UITraitDisplayScale.class] withHandler:^(UIView *line, UITraitCollection *previousTraits) {
+        [line mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.height.mas_equalTo(1 / MAX(1, line.traitCollection.displayScale));
+        }];
+    }];
+}
         });
     }
 }

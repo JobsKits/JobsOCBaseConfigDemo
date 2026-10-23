@@ -10,7 +10,7 @@
 
 #pragma once
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "NSString+Extra.h"
 #import "NSString+Sys.h"
 #import "JobsStringUtilsHeader.h"
@@ -27,7 +27,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface NSObject (Image)
 /// 获取本地普通图像
 Prop_strong(readonly,nullable)UIImage *img;    // -(nullable UIImage *)img;
--(JobsRetImageByStrBlock _Nonnull)imageByDataURL;
+-(JobsRetImageByStrBlock _Nonnull)imageByDataURL
+    __attribute__((deprecated("Use imageByDataURL:traitCollection:")));
+-(nullable UIImage *)imageByDataURL:(nullable NSString *)dataURL
+                  traitCollection:(UITraitCollection *)traitCollection;
 
 @end
 

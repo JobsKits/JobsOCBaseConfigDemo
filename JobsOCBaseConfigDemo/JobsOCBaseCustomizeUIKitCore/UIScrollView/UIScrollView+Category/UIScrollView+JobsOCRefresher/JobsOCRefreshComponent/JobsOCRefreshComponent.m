@@ -97,6 +97,11 @@ Prop_strong(nullable) JobsTimer *frameTimer;
         } else {
             [self applyState:JobsOCRefreshStateIdle progress:0];
         }
+        if (@available(iOS 17.0, *)) {
+            [self registerForTraitChanges:@[UITraitDisplayScale.class] withHandler:^(JobsOCRefreshComponent *component, UITraitCollection *previousTraits) {
+                if (component.config.gifName.length) component.applyGIF();
+            }];
+        }
     };return self;
 }
 
@@ -551,7 +556,7 @@ Prop_strong(nullable) JobsTimer *frameTimer;
             CGImageRef imageRef = CGImageSourceCreateImageAtIndex(source, index, nil);
             if (!imageRef) continue;
             duration += [self gifDelayAtIndex:index source:source];
-            [images addObject:[UIImage imageWithCGImage:imageRef scale:UIScreen.mainScreen.scale orientation:UIImageOrientationUp]];
+            [images addObject:[UIImage imageWithCGImage:imageRef scale:self.traitCollection.displayScale orientation:UIImageOrientationUp]];
             CGImageRelease(imageRef);
         }
         CFRelease(source);

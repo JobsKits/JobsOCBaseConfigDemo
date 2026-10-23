@@ -124,7 +124,7 @@ Prop_strong()JobsPresentationCtrl *presentationController;
         UIViewController *presentingVC = self.jobsGetCurrentViewControllerBlock() ? : self;
         if (presentingVC.presentedViewController) return;
         JobsCommentCoreVC *jobsCommentCoreVC = JobsCommentCoreVC.new;
-        CGFloat popUpHeight = JobsMainScreen_HEIGHT() / 2;
+        CGFloat popUpHeight = CGRectGetHeight(self.view.bounds) / 2;
         jobsCommentCoreVC.byPopUpHeight(popUpHeight);
         jobsCommentCoreVC.byPushOrPresent(ComingStyle_PRESENT);
         jobsCommentCoreVC.actionObjBlock(^(id data) {

@@ -717,20 +717,24 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
         return (data - self.height) / 2;
     };
 }
-/// 当控件相对于整个设备屏幕居中的时候，控件的X值
+/// 保留旧入口，按当前容器的可见范围计算居中位置。
 -(JobsRetCGFloatByVoidBlock _Nonnull)xWhenViewInScreenCenter{
     @jobs_weakify(self)
     return ^CGFloat(){
         @jobs_strongify(self)
-        return self.xWhenViewInViewCenterBy(JobsMainScreen_WIDTH());
+        UIView *container = self.superview ?: self.window;
+        if (!container) return 0;
+        return CGRectGetMidX(container.bounds) - CGRectGetWidth(self.bounds) * 0.5;
     };
 }
-/// 当控件相对于整个设备屏幕居中的时候，控件的Y值
+/// 保留旧入口，按当前容器的可见范围计算居中位置。
 -(JobsRetCGFloatByVoidBlock _Nonnull)yWhenViewInScreenCenter{
     @jobs_weakify(self)
     return ^CGFloat(){
         @jobs_strongify(self)
-        return self.yWhenViewInViewCenterBy(JobsMainScreen_HEIGHT());
+        UIView *container = self.superview ?: self.window;
+        if (!container) return 0;
+        return CGRectGetMidY(container.bounds) - CGRectGetHeight(self.bounds) * 0.5;
     };
 }
 #pragma mark —— 刷新UI

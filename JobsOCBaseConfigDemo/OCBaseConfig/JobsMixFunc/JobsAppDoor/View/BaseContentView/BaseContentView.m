@@ -91,8 +91,11 @@ Prop_assign()CGRect initialContentViewRect;// 登录框 初始frame值
                             options:UIViewAnimationOptionCurveEaseInOut
                          animations:^{
             @jobs_strongify(self)
+            CGRect availableRect = self.superview
+                ? UIEdgeInsetsInsetRect(self.superview.bounds, self.superview.safeAreaInsets)
+                : self.frame;
             self
-                .byCenterX(JobsMainScreen_WIDTH() / 2)
+                .byCenterX(CGRectGetMidX(availableRect))
                 .byCenterY(self.centerY - offsetY);
         } completion:^(BOOL finished) {
         }];

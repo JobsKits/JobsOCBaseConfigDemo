@@ -106,7 +106,7 @@ Prop_assign()JobsSettingGestureFlowState flowState;
     return ^CGSize{
         @jobs_strongify(self)
         if (!self) return (CGSize){0};
-        return CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(2));
+        return CGSizeMake(CGRectGetWidth(self.view.bounds), JobsWidth(2));
     };
 }
 #pragma mark —— 手势流程

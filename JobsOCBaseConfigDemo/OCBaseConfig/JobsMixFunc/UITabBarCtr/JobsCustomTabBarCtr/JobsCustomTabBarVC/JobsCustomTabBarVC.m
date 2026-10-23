@@ -50,6 +50,7 @@ static void JobsCustomTabBarVCBackTo(NSUInteger index) {
 Prop_strong()JobsCustomTabBar *customTabBar;
 Prop_strong(nullable)JobsCustomTabBarConfig *sceneConfiguration;
 Prop_assign()BOOL didInstallInitialConfiguration;
+Prop_strong()NSMapTable<UIViewController *, NSNumber *> *tabBarInsetContributions;
 
 @end
 
@@ -197,6 +198,26 @@ static dispatch_once_t JobsCustomTabBarVCOnceToken;
         @jobs_strongify(self)
         if (!self) return;
         [super viewDidLayoutSubviews];
+        JobsCustomTabBar *bar = _customTabBar;
+        if (!bar) return;
+        CGFloat coveredHeight = bar.hidden ? 0 : MAX(0, CGRectGetHeight(self.view.bounds) - CGRectGetMinY(bar.frame));
+        if (!_tabBarInsetContributions) {
+            _tabBarInsetContributions = NSMapTable.weakToStrongObjectsMapTable;
+        }
+        for (UIViewController *controller in self.viewControllers) {
+            UIEdgeInsets extraInsets = controller.additionalSafeAreaInsets;
+            CGFloat previousContribution = [[_tabBarInsetContributions objectForKey:controller] doubleValue];
+            UIView *childView = controller.viewIfLoaded;
+            CGFloat inheritedBottom = childView ? MAX(0, childView.safeAreaInsets.bottom - extraInsets.bottom)
+                                                : self.view.safeAreaInsets.bottom;
+            CGFloat contribution = MAX(0, coveredHeight - inheritedBottom);
+            CGFloat requiredBottom = MAX(0, extraInsets.bottom - previousContribution) + contribution;
+            if (fabs(extraInsets.bottom - requiredBottom) > 0.5) {
+                extraInsets.bottom = requiredBottom;
+                controller.byAdditionalSafeAreaInsets(extraInsets);
+            }
+            [_tabBarInsetContributions setObject:@(contribution) forKey:controller];
+        }
     };
 }
 
@@ -211,7 +232,7 @@ static dispatch_once_t JobsCustomTabBarVCOnceToken;
         @jobs_strongify(self)
         if (!self) return;
         [super viewDidAppear:animated];
-        self.resetSubVCViewHeight();
+        [self.view setNeedsLayout];
     };
 }
 
@@ -245,7 +266,7 @@ static dispatch_once_t JobsCustomTabBarVCOnceToken;
 #pragma mark —— UITabBarControllerDelegate
 -(void)tabBarController:(UITabBarController *)tabBarController
 didSelectViewController:(UIViewController *)viewController{
-    self.resetSubVCViewHeight();
+    [self.view setNeedsLayout];
 }
 #pragma mark —— 一些公有方法
 -(jobsByNSUIntegerBlock _Nonnull)customSelectIndex{

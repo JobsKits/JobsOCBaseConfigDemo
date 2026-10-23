@@ -89,18 +89,16 @@ Prop_strong(nullable)JobsCustomTabBarConfig *sceneConfiguration;
         self.byBgColor(config.tabBarBackgroundImage ? self.byPatternImage(config.tabBarBackgroundImage) :config.tabBarBackgroundColor);
         NSInteger itemCount = config.tabBarItems.count;
         if (!itemCount) return;
-        CGFloat itemWidth = (config.tabBarWidth ?: CGRectGetWidth(self.bounds)) / itemCount;
+        CGRect contentFrame = UIEdgeInsetsInsetRect(self.bounds, self.safeAreaInsets);
+        CGFloat itemWidth = MAX(0, CGRectGetWidth(contentFrame)) / itemCount;
         for (NSInteger index = 0; index < itemCount; index++) {
             UIView *item = config.tabBarItems[index];
-            CGFloat xPosition = itemWidth * index;
+            CGFloat xPosition = CGRectGetMinX(contentFrame) + itemWidth * index;
             CGFloat yOffset = (index < config.tabBarItemYOffsets.count) ? [config.tabBarItemYOffsets[index] floatValue] : 0;
-            CGFloat offset = 0;
-            if(JobsAppTool.jobsDeviceOrientation == DeviceOrientationPortrait &&
-               UIDevice.isBangScreen) offset = JobsBottomSafeAreaHeight();
-            item.frame = CGRectMake(xPosition,
-                                    yOffset,
+            item.byFrame(CGRectMake(xPosition,
+                                    CGRectGetMinY(contentFrame) + yOffset,
                                     itemWidth,
-                                    config.tabBarHeight + offset);
+                                    MAX(0, CGRectGetHeight(contentFrame) - yOffset)));
             if(item.isKindOfClass(UIButton.class)){
                 UIButton *btn = (UIButton *)item;
                 btn.byImageViewFrameOffsetY(config.imageViewFrameOffsetY);
@@ -121,6 +119,20 @@ Prop_strong(nullable)JobsCustomTabBarConfig *sceneConfiguration;
         view.addSubview(self);
         if(!jobsZeroRectValue(config.tabBarFrame)){
             self.byFrame(config.tabBarFrame);
+        }else if (!config.tabBarX && !config.tabBarY &&
+                  jobsZeroPointValue(config.tabBarOrigin) &&
+                  jobsZeroSizeValue(config.tabBarSize)) {
+            [self mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.bottom.equalTo(view);
+                make.top.equalTo(view.mas_safeAreaLayoutGuideBottom).offset(-config.tabBarHeight);
+                if (config.tabBarWidth) {
+                    make.centerX.equalTo(view);
+                    make.width.lessThanOrEqualTo(view);
+                    make.width.mas_equalTo(config.tabBarWidth).priorityHigh();
+                } else {
+                    make.left.right.equalTo(view);
+                }
+            }];
         }else{
             [self mas_makeConstraints:^(MASConstraintMaker *make) {
                 if(config.tabBarX){

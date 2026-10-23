@@ -85,6 +85,12 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
         @jobs_strongify(self)
         if (!self) return;
         [super viewDidLoad];
+        if (@available(iOS 17.0, *)) {
+            [self registerForTraitChanges:@[UITraitDisplayScale.class] withHandler:^(JobsDropDownListVC *controller, UITraitCollection *previousTraits) {
+                controller->_cor = nil;
+                controller.refreshDirectionUIWithOpened(controller->_dropDownListView.superview != nil);
+            }];
+        }
         self.view.byBgColor(JobsSystemBackgroundColor);
         self.setupRightItems();
         self.makeNavByAlpha(1);
@@ -399,7 +405,8 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
                                    startPoint:CGPointZero
                                      endPoint:CGPointZero
                                        opaque:NO
-                               targetViewRect:CGRectMake(0, 0, 51, 31)];
+                               targetViewRect:CGRectMake(0, 0, 51, 31)
+                              traitCollection:self.traitCollection];
     };return _cor;
 }
 

@@ -559,10 +559,9 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
         if (!self) return;
         if (!_volumeBtn) return;
         CGFloat buttonWH = JobsWidth(36);
-        CGFloat right = JobsWidth(18);
+        CGFloat right = self.view.safeAreaInsets.right + JobsWidth(18);
         CGFloat top = self.view.safeAreaInsets.top + JobsWidth(12);
-        if (top < JobsWidth(28)) top = JobsWidth(28);
-        CGFloat viewWidth = self.view.width > 0 ? self.view.width : JobsMainScreen_WIDTH();
+        CGFloat viewWidth = CGRectGetWidth(self.view.bounds);
         self.volumeBtn.byFrame(CGRectMake(viewWidth - right - buttonWH,
                                           top,
                                           buttonWH,
@@ -650,8 +649,8 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
         @jobs_weakify(self)
         _loginContentView = (JobsAppDoorLoginContentView *)JobsAppDoorLoginContentView.new
             .byFrame(CGRectMake(20,
-                                JobsMainScreen_HEIGHT() / 4,
-                                JobsMainScreen_WIDTH() - 40,
+                                CGRectGetHeight(self.view.bounds) / 4,
+                                CGRectGetWidth(self.view.bounds) - 40,
                                 JobsAppDoorContentViewLoginHeight))
             .addOn(self.view)
             .byViewBlock(^(__kindof UIView *view) {
@@ -714,9 +713,9 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
     if (!_registerContentView) {
         @jobs_weakify(self)
         _registerContentView = (JobsAppDoorRegisterContentView *)JobsAppDoorRegisterContentView.new
-            .byFrame(CGRectMake(JobsMainScreen_WIDTH() + 20,
+            .byFrame(CGRectMake(CGRectGetWidth(self.view.bounds) + 20,
                                 self.configuration.registerContentY(),
-                                JobsMainScreen_WIDTH() - 40,
+                                CGRectGetWidth(self.view.bounds) - 40,
                                 self.configuration.registerContentHeight()))
             .addOn(self.view)
             .byViewBlock(^(__kindof UIView *view) {
@@ -765,9 +764,9 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
     if (!_forgotCodeContentView) {
         @jobs_weakify(self)
         _forgotCodeContentView = (JobsAppDoorForgotCodeContentView *)JobsAppDoorForgotCodeContentView.new
-            .byFrame(CGRectMake(JobsMainScreen_WIDTH() + 20,
-                                JobsMainScreen_HEIGHT() / 4,
-                                JobsMainScreen_WIDTH() - 40,
+            .byFrame(CGRectMake(CGRectGetWidth(self.view.bounds) + 20,
+                                CGRectGetHeight(self.view.bounds) / 4,
+                                CGRectGetWidth(self.view.bounds) - 40,
                                 JobsAppDoorContentViewFindPasswordHeight))
             .addOn(self.view)
             .byViewBlock(^(__kindof UIView *view) {
@@ -863,7 +862,7 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
                 JobsLog(@"");
             })
             .addOn(self.view)
-            .byFrame(CGRectMake((JobsMainScreen_WIDTH() - customerBtnWidth) / 2,
+            .byFrame(CGRectMake((CGRectGetWidth(self.view.bounds) - customerBtnWidth) / 2,
                                 self.loginContentView.top + self.loginContentView.height + JobsWidth(8),
                                 customerBtnWidth,
                                 customerBtnHeight))

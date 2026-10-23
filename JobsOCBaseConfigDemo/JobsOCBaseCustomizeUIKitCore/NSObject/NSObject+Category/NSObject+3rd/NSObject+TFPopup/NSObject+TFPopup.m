@@ -7,6 +7,24 @@
 
 #import "NSObject+TFPopup.h"
 
+static UIView *JobsTFPopupContainer(NSObject *owner, UIView *popupView) {
+    if ([owner isKindOfClass:UIViewController.class]) {
+        return ((UIViewController *)owner).view;
+    }
+    if ([owner isKindOfClass:UIView.class]) {
+        return (UIView *)owner;
+    }
+    // 无 UI 上下文的旧调用仍保留原兼容入口。
+    return popupView.window ?: popupView.superview ?: jobsGetMainWindow();
+}
+
+static TFPopupParam *JobsTFPopupSlideParameter(CGFloat height, UIView *container) {
+    return TFPopupBaseParam()
+        .byBubbleDirection(PopupDirectionBottom)
+        .byPopupSize(CGSizeMake(CGRectGetWidth(container.bounds), height > 0 ? height : JobsWidth(300)))
+        .byDragEnable(YES);
+}
+
 @implementation TFPopupParam (JobsDSL)
 #define JobsTFPopupParamDSL(_name_, _blockType_, _dataType_, _property_) \
 -(_blockType_ _Nonnull)by##_name_{ \
@@ -48,8 +66,11 @@ JobsTFPopupParamDSL(BackgroundColor, JobsRetTFPopupParamByCorBlock, UIColor *_Nu
 }
 #pragma mark —— 弹出提示框
 -(jobsByStrBlock _Nonnull)toastMsg{
+    @jobs_weakify(self)
     return ^(NSString *_Nullable msg) {
-        [TFPopupToast tf_show:jobsGetMainWindow()
+        @jobs_strongify(self)
+        if (!self) return;
+        [TFPopupToast tf_show:JobsTFPopupContainer(self, nil)
                           msg:msg
                 animationType:TFAnimationTypeScale];
     };
@@ -73,7 +94,7 @@ JobsTFPopupParamDSL(BackgroundColor, JobsRetTFPopupParamByCorBlock, UIColor *_Nu
                             offset:CGPointZero
                         popupParam:self.popupParameter];
             }else{
-                [data tf_showNormal:jobsGetMainWindow()
+                [data tf_showNormal:JobsTFPopupContainer(self, data)
                            animated:YES];
             }
         }];
@@ -86,7 +107,7 @@ JobsTFPopupParamDSL(BackgroundColor, JobsRetTFPopupParamByCorBlock, UIColor *_Nu
     [self checkByView:data action:^{
         @jobs_strongify(self)
         if (popupParameter) {
-            [data tf_showNormal:jobsGetMainWindow() popupParam:popupParameter];
+            [data tf_showNormal:JobsTFPopupContainer(self, data) popupParam:popupParameter];
         }else{
             self.popupShowScaleWithView(data);
         }
@@ -99,8 +120,9 @@ JobsTFPopupParamDSL(BackgroundColor, JobsRetTFPopupParamByCorBlock, UIColor *_Nu
     return ^(__kindof UIView *_Nullable data) {
         @jobs_strongify(self)
         [self checkByView:data action:^{
-            TFPopupParam *popupParameter = makeSlidePopupParameterByViewHeight(data.sizer.height);
-            [data tf_showSlide:jobsGetMainWindow()
+            UIView *container = JobsTFPopupContainer(self, data);
+            TFPopupParam *popupParameter = JobsTFPopupSlideParameter(data.sizer.height, container);
+            [data tf_showSlide:container
                      direction:popupParameter.bubbleDirection
                     popupParam:popupParameter];
         }];
@@ -109,9 +131,10 @@ JobsTFPopupParamDSL(BackgroundColor, JobsRetTFPopupParamByCorBlock, UIColor *_Nu
 /// 有自定义popupParam（滑动模式）
 -(void)popupShowSlideWithView:(__kindof UIView *_Nonnull)data
                popupParameter:(TFPopupParam *_Nullable)popupParameter{
-    if(!popupParameter) popupParameter = makeSlidePopupParameterByViewHeight(data.height);
+    UIView *container = JobsTFPopupContainer(self, data);
+    if(!popupParameter) popupParameter = JobsTFPopupSlideParameter(data.height, container);
     [self checkByView:data action:^{
-        [data tf_showSlide:jobsGetMainWindow()
+        [data tf_showSlide:container
                  direction:popupParameter.bubbleDirection
                 popupParam:popupParameter];
     }];
@@ -125,7 +148,7 @@ JobsTFPopupParamDSL(BackgroundColor, JobsRetTFPopupParamByCorBlock, UIColor *_Nu
             .byDisuseBackgroundTouchHide(YES);// 禁止点击背景消失弹框
         [self checkByView:data action:^{
             @jobs_strongify(self)
-            [data tf_showSlide:jobsGetMainWindow()
+            [data tf_showSlide:JobsTFPopupContainer(self, data)
                      direction:PopupDirectionContainerCenter
                     popupParam:self.popupParameter];
         }];
@@ -141,7 +164,7 @@ JobsTFPopupParamDSL(BackgroundColor, JobsRetTFPopupParamByCorBlock, UIColor *_Nu
             .byDisuseBackgroundTouchHide(NO);// 允许点击背景消失弹框
         [self checkByView:data action:^{
             @jobs_strongify(self)
-            [data tf_showSlide:jobsGetMainWindow()
+            [data tf_showSlide:JobsTFPopupContainer(self, data)
                      direction:PopupDirectionContainerCenter
                     popupParam:self.popupParameter];
         }];
@@ -157,7 +180,7 @@ JobsTFPopupParamDSL(BackgroundColor, JobsRetTFPopupParamByCorBlock, UIColor *_Nu
             .byDisuseBackgroundTouchHide(NO);/// 允许点击背景消失弹框
         [self checkByView:data action:^{
             @jobs_strongify(self)
-            [data tf_showSlide:jobsGetMainWindow()
+            [data tf_showSlide:JobsTFPopupContainer(self, data)
                      direction:PopupDirectionBottom
                     popupParam:self.popupParameter];
         }];
@@ -170,7 +193,7 @@ JobsTFPopupParamDSL(BackgroundColor, JobsRetTFPopupParamByCorBlock, UIColor *_Nu
         @jobs_strongify(self)
         [self checkByView:data action:^{
             @jobs_strongify(self)
-            [data tf_showSlide:jobsGetMainWindow()
+            [data tf_showSlide:JobsTFPopupContainer(self, data)
                      direction:PopupDirectionContainerCenter
                     popupParam:self.tipsParameter];
         }];

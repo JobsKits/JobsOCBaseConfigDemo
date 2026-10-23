@@ -89,13 +89,28 @@ typedef void(^JobsIconfontLoadCompletion)(JobsIconfontLoadResult *result);
 
 -(UIImage *)iconImageForGlyph:(JobsIconfontGlyph)glyph
                         size:(CGSize)size
-                       color:(UIColor *)color;
+                       color:(UIColor *)color
+    __attribute__((deprecated("Use iconImageForGlyph:size:color:traitCollection:")));
 -(UIImage *)iconImageForGlyph:(JobsIconfontGlyph)glyph
                         size:(CGSize)size
                        color:(UIColor *)color
-             backgroundColor:(UIColor *)backgroundColor;
+             traitCollection:(UITraitCollection *)traitCollection;
+-(UIImage *)iconImageForGlyph:(JobsIconfontGlyph)glyph
+                        size:(CGSize)size
+                       color:(UIColor *)color
+             backgroundColor:(UIColor *)backgroundColor
+    __attribute__((deprecated("Use iconImageForGlyph:size:color:backgroundColor:traitCollection:")));
+-(UIImage *)iconImageForGlyph:(JobsIconfontGlyph)glyph
+                        size:(CGSize)size
+                       color:(UIColor *)color
+             backgroundColor:(UIColor *)backgroundColor
+             traitCollection:(UITraitCollection *)traitCollection;
 -(UIImage *)placeholderImageForAsset:(JobsIconfontRemoteAsset)asset
-                                size:(CGSize)size;
+                                size:(CGSize)size
+    __attribute__((deprecated("Use placeholderImageForAsset:size:traitCollection:")));
+-(UIImage *)placeholderImageForAsset:(JobsIconfontRemoteAsset)asset
+                                size:(CGSize)size
+                     traitCollection:(UITraitCollection *)traitCollection;
 
 -(JobsIconfontLoadToken *)loadAsset:(JobsIconfontRemoteAsset)asset
                       intoImageView:(UIImageView *)imageView

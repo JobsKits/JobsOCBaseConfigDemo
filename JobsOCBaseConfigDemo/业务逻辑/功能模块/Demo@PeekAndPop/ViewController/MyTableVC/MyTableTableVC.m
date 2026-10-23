@@ -304,7 +304,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         .byTextLabelTextCor(HEXCOLOR(0x757575))
         .byTextLabelFont(UIFontWeightRegularSize(16))
         .byTextLabelFrameOffsetX(JobsWidth(16))
-        .byImageViewFrameOffsetX(JobsMainScreen_WIDTH() - JobsWidth(50))
+        .byImageViewFrameOffsetX(CGRectGetWidth(self.view.bounds) - JobsWidth(50))
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row])
         .byCellImageView(^(__kindof UIImageView * _Nullable imageView) {
             imageView

@@ -116,15 +116,13 @@ static dispatch_once_t dispatchOnce;
         if (self.flowNum) {
             /// 单个节点的高度
     //        CGFloat singleElementH = self.mj_h;
-            /// 每个节点的宽度
-            CGFloat singleElementW = JobsMainScreen_WIDTH() / self.flowNum;
             for (int t = 0; t < self.flowNum; t++) {
                 FlowChartSingleElementView *singleElement = FlowChartSingleElementView.new;
                 singleElement.titleLab.byText(self.titleMutArr[t]);
                 singleElement.subTitleLab.byText(self.subTitleMutArr[t]);
                 [self changeState:singleElement index:t];
                 singleElement.addOn(self).byAdd(^(MASConstraintMaker *make) {
-                    make.width.mas_equalTo(singleElementW);
+                    make.width.equalTo(self).multipliedBy(1.0 / self.flowNum);
                     make.top.bottom.equalTo(self);
                     if (t == 0) {/// 第一个元素，从左边开始布局
                         make.left.equalTo(self);

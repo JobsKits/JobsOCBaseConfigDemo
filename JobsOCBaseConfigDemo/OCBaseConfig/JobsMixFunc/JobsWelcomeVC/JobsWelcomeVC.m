@@ -10,12 +10,30 @@
 @interface JobsWelcomeVC ()
 // UI
 Prop_strong()UIPageControl *pageControl;
+Prop_strong()NSMutableArray<UIImageView *> *pageImageViews;
 // Data
 Prop_strong()NSMutableArray <NSString *>*dataMutArr;
 
 @end
 
 @implementation JobsWelcomeVC
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    if (!_scrollView) return;
+    CGSize size = self.view.bounds.size;
+    if (size.width <= 0 || size.height <= 0) return;
+    NSInteger page = self.pageControl.currentPage;
+    self.scrollView
+        .byFrame(self.view.bounds)
+        .byContentSize(CGSizeMake(size.width * (self.dataMutArr.count + 1), size.height));
+    [self.pageImageViews enumerateObjectsUsingBlock:^(UIImageView *imageView, NSUInteger index, BOOL *stop) {
+        imageView.byFrame(CGRectMake(size.width * index, 0, size.width, size.height));
+    }];
+    if (!self.scrollView.dragging && !self.scrollView.decelerating) {
+        self.scrollView.byContentOffset(CGPointMake(size.width * page, 0));
+    }
+}
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);
@@ -126,9 +144,11 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
         for (NSUInteger i = 0; i < self.dataMutArr.count; i++) {
             UIImageView *imageView = jobsMakeImageView(^(__kindof UIImageView * _Nullable imageView) {
                 imageView
-                    .byFrame(CGRectMake(JobsMainScreen_WIDTH() * i, 0, JobsMainScreen_WIDTH(), JobsMainScreen_HEIGHT()))
+                    .byContentMode(UIViewContentModeScaleAspectFit)
+                    .byFrame(CGRectMake(CGRectGetWidth(self.view.bounds) * i, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)))
                     .addOn(self.scrollView);
             });
+            [self.pageImageViews addObject:imageView];
             /// 用SDWebImage下载图片
             NSString *imageName = @"".jobsTr();
             if (i < 10) {
@@ -151,7 +171,8 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
     return ^(UIScrollView * scrollView){
         @jobs_strongify(self)
         if (!self) return;
-        if (self.scrollView.contentOffset.x > JobsMainScreen_WIDTH() * 2.8){
+        CGFloat pageWidth = CGRectGetWidth(self.scrollView.bounds);
+        if (pageWidth > 0 && self.scrollView.contentOffset.x > pageWidth * (self.dataMutArr.count - 0.2)){
             if (self.objBlock) self.objBlock(@1);
         }
     };
@@ -167,17 +188,20 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
     return ^(UIScrollView * scrollView){
         @jobs_strongify(self)
         if (!self) return;
-        if (self.scrollView.contentOffset.x < JobsMainScreen_WIDTH() * 0.5) {
-            self.pageControl.byCurrentPage(0);
-        }else if(self.scrollView.contentOffset.x > JobsMainScreen_WIDTH() * 0.5 &&
-                 self.scrollView.contentOffset.x < JobsMainScreen_WIDTH() * 1.5){
-            self.pageControl.byCurrentPage(1);
-        }else if(self.scrollView.contentOffset.x > JobsMainScreen_WIDTH() * 1.5){
-            self.pageControl.byCurrentPage(2);
-        }else{}
+        CGFloat pageWidth = CGRectGetWidth(self.scrollView.bounds);
+        if (pageWidth <= 0 || !self.dataMutArr.count) return;
+        NSInteger page = lround(self.scrollView.contentOffset.x / pageWidth);
+        self.pageControl.byCurrentPage(MAX(0, MIN(page, (NSInteger)self.dataMutArr.count - 1)));
     };
 }
 #pragma mark —— lazyLoad
+-(NSMutableArray<UIImageView *> *)pageImageViews{
+    if (!_pageImageViews) {
+        _pageImageViews = NSMutableArray.array;
+    }
+    return _pageImageViews;
+}
+
 -(UIPageControl *)pageControl{
     if (!_pageControl) {
         _pageControl = jobsMakePageControl(^(UIPageControl * _Nullable pageControl) {
@@ -188,8 +212,10 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
                 .byPageIndicatorTintColor(JobsWhiteColor)
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
-                    make.centerX.offset(0);
-                    make.bottom.offset(-JobsWidth(60));
+                    make.centerX.equalTo([[MASViewAttribute alloc] initWithView:self.view
+                                                                         item:self.view.safeAreaLayoutGuide
+                                                              layoutAttribute:NSLayoutAttributeCenterX]);
+                    make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom).offset(-JobsWidth(26));
                 });
         });
     };return _pageControl;
@@ -204,12 +230,14 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
             scrollView
                 .byDelegate(self)
                 .byContentOffset(CGPointMake(0, 0))
-                .byContentSize(CGSizeMake(JobsMainScreen_WIDTH() * 4, JobsMainScreen_HEIGHT()))
+                .byContentSize(CGSizeMake(CGRectGetWidth(self.view.bounds) * 4, CGRectGetHeight(self.view.bounds)))
                 .byBounces(NO)
                 .byPagingEnabled(YES)
                 .byShowsHorizontalScrollIndicator(NO)
                 .byShowsVerticalScrollIndicator(NO)
-                .byFrame(UIScreen.mainScreen.bounds)
+                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
+                .byFrame(self.view.bounds)
+                .byAutoresizingMask(UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight)
                 .addOn(self.view);
         });
     };return _scrollView;

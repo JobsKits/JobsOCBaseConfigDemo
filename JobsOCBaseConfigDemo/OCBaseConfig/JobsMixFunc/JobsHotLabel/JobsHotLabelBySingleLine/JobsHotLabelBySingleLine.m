@@ -16,6 +16,8 @@ Prop_strong()NSMutableArray <UIButton *>*btnMutArr;
 /// Data
 Prop_copy()NSArray <UIViewModel *>*viewModelDataArr;// 数据源
 Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
+Prop_assign()CGRect lastLayoutRect;
+Prop_assign()NSUInteger lastLayoutButtonCount;
 
 @end
 
@@ -40,6 +42,8 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
     return ^__kindof JobsHotLabelBySingleLine *_Nullable(CGSize data){
         @jobs_strongify(self)
         self.elementDefaultSize = data;
+        _lastLayoutRect = CGRectZero;
+        [self setNeedsLayout];
         return self;
     };
 }
@@ -67,6 +71,46 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
         @jobs_strongify(self)
         if (!self) return;
         [super drawRect:rect];
+    };
+}
+
+-(void)layoutSubviews{
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsHotLabelBySingleLine.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        CGRect available = UIEdgeInsetsInsetRect(self.bounds, self.safeAreaInsets);
+        if (!_btnMutArr.count || CGRectGetWidth(available) <= 0 ||
+            (CGRectEqualToRect(_lastLayoutRect, available) && _lastLayoutButtonCount == _btnMutArr.count)) return;
+        _lastLayoutRect = available;
+        _lastLayoutButtonCount = _btnMutArr.count;
+        CGFloat itemWidth = self.elementDefaultSize.width > 0 ? self.elementDefaultSize.width
+            : MAX(JobsWidth(40), (CGRectGetWidth(available) - JobsWidth(15 * 5)) / 4);
+        CGFloat itemHeight = MAX(JobsWidth(30), self.elementDefaultSize.height);
+        for (NSNumber *height in _btnHeightMutArr) itemHeight = MAX(itemHeight, height.doubleValue);
+        self->btnSize = CGSizeMake(itemWidth, itemHeight);
+        for (UIButton *button in _btnMutArr) {
+            button.byRemake(^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(self->btnSize);
+            });
+        }
+        self.scrollView.byFrame(available);
+        CGFloat contentWidth = _btnMutArr.count * itemWidth + MAX(0, (NSInteger)_btnMutArr.count - 1) * self.stackView.spacing;
+        CGFloat stackWidth = _btnMutArr.count > 1 ? MAX(contentWidth, CGRectGetWidth(available)) : itemWidth;
+        self.scrollView.byContentSize(CGSizeMake(stackWidth, itemHeight));
+        self.stackView.byRemake(^(MASConstraintMaker *make) {
+            make.centerY.equalTo(self.scrollView);
+            make.height.mas_equalTo(itemHeight);
+            make.width.mas_equalTo(stackWidth);
+            if (contentWidth > CGRectGetWidth(available)) make.left.equalTo(self.scrollView);
+            else make.centerX.equalTo(self.scrollView);
+        });
     };
 }
 #pragma mark —— BaseViewProtocol
@@ -103,6 +147,8 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
                 self.btnMutArr.add(btn);
                 self.stackView.add(btn);
             }self.useHighestValue();/// 取最大的高度值使用
+            _lastLayoutRect = CGRectZero;
+            self.bySetNeedsLayout();
         }
     };
 }
@@ -154,7 +200,7 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
             })
             .makeBtnTitleByShowingType(self.labelShowingType)
             .bySelected(self.viewModel.jobsSelected)
-            .bySize(CGSizeMake((JobsMainScreen_WIDTH() - JobsWidth(15 * 5)) / 4, JobsWidth(30)))
+            .bySize(CGSizeMake(MAX(0, (CGRectGetWidth(self.bounds) - JobsWidth(15 * 5)) / 4), JobsWidth(30)))
             .byRequestParams(vm.requestParams)
             .JobsBlock1(^(id _Nullable data) {
                 @jobs_strongify(self)
@@ -256,6 +302,7 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
                 .byContentSize(CGSizeMake(self->width, self->btnSize.height))
                 .byShowsVerticalScrollIndicator(NO)
                 .byShowsHorizontalScrollIndicator(NO)
+                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever)
                 .byFrame(self.bounds)
                 .addOn(self);
         });

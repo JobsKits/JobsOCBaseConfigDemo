@@ -30,8 +30,8 @@ JobsKey(_suspendBtn)
                                               JobsLog(@"");
                                           })
                                           .cornerCutToCircleWithCornerRadius(SuspendBtn.width / 2)
-                                          .byFrame(CGRectMake(JobsMainScreen_WIDTH() - JobsWidth(50) - JobsWidth(5),
-                                                              JobsMainScreen_HEIGHT() - JobsTabBarHeightByBottomSafeArea(nil) - JobsWidth(100),
+                                          .byFrame(CGRectMake(CGRectGetWidth(self.view.bounds) - JobsWidth(50) - JobsWidth(5),
+                                                              CGRectGetHeight(self.view.bounds) - JobsTabBarHeightByBottomSafeArea(nil) - JobsWidth(100),
                                                               JobsWidth(50),
                                                               JobsWidth(50))));
         SuspendBtn.byAllowDrag(YES);

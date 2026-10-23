@@ -10,6 +10,7 @@
 @interface JobsOCSearcherBar ()
 
 Prop_strong()BaseButton *cancelBtn;
+Prop_assign()BOOL registeredDisplayScaleTraits;
 
 -(JobsRetImageByCorBlock _Nonnull)searchIconImageWithColor;
 -(JobsRetViewByVoidBlock _Nonnull)searchIconLeftView;
@@ -40,6 +41,45 @@ Prop_strong()BaseButton *cancelBtn;
         @jobs_strongify(self)
         if (!self) return;
         [super drawRect:rect];
+    };
+}
+
+-(void)layoutSubviews{
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCSearcherBar.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        if (!_registeredDisplayScaleTraits) {
+            _registeredDisplayScaleTraits = YES;
+            if (@available(iOS 17.0, *)) {
+                [self registerForTraitChanges:@[UITraitDisplayScale.class] withHandler:^(JobsOCSearcherBar *bar, UITraitCollection *previousTraits) {
+                    [bar setNeedsLayout];
+                }];
+            }
+        }
+        if (!_textField) return;
+        CGFloat fieldHeight = MIN(JobsWidth(40), MAX(JobsWidth(32), CGRectGetHeight(self.bounds) - JobsWidth(10)));
+        if (fabs(CGRectGetHeight(_textField.bounds) - fieldHeight) > 0.5) {
+            _textField.byUpdate(^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(fieldHeight);
+            });
+        }
+        UIView *accessory = _textField.inputAccessoryView;
+        CGFloat accessoryWidth = accessory.superview ? CGRectGetWidth(accessory.superview.bounds)
+            : (self.window ? CGRectGetWidth(self.window.bounds) : CGRectGetWidth(self.bounds));
+        if (accessory && accessoryWidth > 0) accessory.bySize(CGSizeMake(accessoryWidth, JobsWidth(34)));
+        if ([_textField.leftView isKindOfClass:UIImageView.class]) {
+            UIImageView *iconView = (UIImageView *)_textField.leftView;
+            if (iconView.image.scale != MAX(self.traitCollection.displayScale, 1)) {
+                iconView.byImage(self.searchIconImageWithColor(HEXCOLOR(0x8B6A2F)));
+            }
+        }
     };
 }
 #pragma mark —— BaseViewProtocol
@@ -105,7 +145,7 @@ Prop_strong()BaseButton *cancelBtn;
         @jobs_strongify(self)
         if (!self) return nil;
         CGSize size = CGSizeMake(16, 16);
-        UIGraphicsBeginImageContextWithOptions(size, NO, 0);
+        UIGraphicsBeginImageContextWithOptions(size, NO, MAX(self.traitCollection.displayScale, 1));
         [color setStroke];
         UIBezierPath *circlePath = UIBezierPath.byBezierPathWithOvalInRect(CGRectMake(2.2, 2.2, 8.8, 8.8));
         circlePath
@@ -230,7 +270,8 @@ Prop_strong()BaseButton *cancelBtn;
                         .byTextAlignment(NSTextAlignmentCenter)
                         .byFont(UIFontWeightRegularSize(JobsWidth(12)))
                         .byBgColor(HEXCOLOR(0xFFF7EA))
-                        .bySize(CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(34)));
+                        .byAutoresizingMask(UIViewAutoresizingFlexibleWidth)
+                        .bySize(CGSizeMake(CGRectGetWidth(self.bounds), JobsWidth(34)));
                 }))
                 .byLeftViewMode(UITextFieldViewModeAlways)
                 .byKeyboardAppearance(UIKeyboardAppearanceAlert)

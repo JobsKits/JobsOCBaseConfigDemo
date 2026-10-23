@@ -494,7 +494,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
     return ^CGFloat{
         @jobs_strongify(self)
         if (!self) return (CGFloat){0};
-        return JobsMainScreen_WIDTH() - JobsWidth(96) - JobsWidth(36) - JobsWidth(12) - JobsWidth(8);
+        return CGRectGetWidth(self.view.bounds) - JobsWidth(96) - JobsWidth(36) - JobsWidth(12) - JobsWidth(8);
     };
 }
 
@@ -557,7 +557,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
                 .byBounces(NO)
             .byBgColor(JobsClearColor)
             .byFrame(CGRectMake(0,JobsTopSafeAreaHeight() + JobsStatusBarHeight() + self.gk_navigationBar.mj_h,
-                                         TableViewWidth,JobsMainScreen_HEIGHT() - JobsTopSafeAreaHeight() - JobsStatusBarHeight() - JobsTabBarHeight(AppDelegate.tabBarVC) - EditBtnHeight));
+                                         TableViewWidth,CGRectGetHeight(self.view.bounds) - JobsTopSafeAreaHeight() - JobsStatusBarHeight() - JobsTabBarHeight(AppDelegate.tabBarVC) - EditBtnHeight));
         }));
     };return _tableView;
 }
@@ -573,7 +573,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
 //            .registerCollectionElementKindSectionFooterClass(UICollectionReusableView.class,@"")
             .byAlwaysBounceVertical(YES);
         _collectionView.byFrame(CGRectMake(self.tableView.right,self.tableView.top,
-                                           JobsMainScreen_WIDTH() - self.tableView.width,self.tableView.height + EditBtnHeight));
+                                           CGRectGetWidth(self.view.bounds) - self.tableView.width,self.tableView.height + EditBtnHeight));
         _collectionView
             .byBgColor(JobsSecondarySystemBackgroundColor)
             .addOn(self.view);

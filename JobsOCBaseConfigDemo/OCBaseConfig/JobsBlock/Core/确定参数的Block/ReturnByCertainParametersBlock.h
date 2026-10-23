@@ -909,6 +909,7 @@ typedef __kindof UISegmentedControl *_Nullable(^JobsRetSegmentedControlByColorBl
 /// UIViewController
 typedef __kindof UIViewController *_Nullable(^JobsRetVCByVoidBlock)(void);
 typedef __kindof UIViewController *_Nullable(^JobsRetVCByBOOLBlock)(BOOL data);
+typedef __kindof UIViewController *_Nullable(^JobsRetVCByUIEdgeInsetsBlock)(UIEdgeInsets data);
 typedef __kindof UIViewController *_Nullable(^JobsRetVCByIDBlock)(id _Nullable data);
 typedef __kindof UIViewController *_Nullable(^JobsRetVCByBarButtonItemsBlock)(NSArray<UIBarButtonItem *> *_Nullable data);
 typedef __kindof UINavigationItem *_Nullable(^JobsRetNavigationItemByBarButtonItemsBlock)(NSArray<UIBarButtonItem *> *_Nullable data);

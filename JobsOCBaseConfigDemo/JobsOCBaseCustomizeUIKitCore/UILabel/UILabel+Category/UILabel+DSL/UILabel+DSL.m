@@ -82,7 +82,7 @@ static BOOL JobsOCDSLRefreshLabelShapeLayer(UILabel *label,
                                    CGRectGetHeight(pathBounds));
     shapeLayer.position = CGPointMake(CGRectGetMidX(label.bounds),
                                       CGRectGetMidY(label.bounds));
-    shapeLayer.byContentsScale(UIScreen.mainScreen.scale);
+    shapeLayer.byContentsScale(label.traitCollection.displayScale);
     shapeLayer.byPath(path.CGPath);
     shapeLayer.byStrokeColor(displayColor.CGColor);
     shapeLayer.byFillColor(displayColor.CGColor);
@@ -673,9 +673,14 @@ JobsKey(_shapeLayer)
     if (!shapeLayer){
         shapeLayer = CAShapeLayer.layer;
         shapeLayer.byFrame(self.bounds);
-        shapeLayer.byContentsScale(UIScreen.mainScreen.scale);
+        shapeLayer.byContentsScale(self.traitCollection.displayScale);
         shapeLayer.byFillColor(self.textColor.CGColor);
         Jobs_setAssociatedRETAIN_NONATOMIC(_shapeLayer, shapeLayer)
+        if (@available(iOS 17.0, *)) {
+            [self registerForTraitChanges:@[UITraitDisplayScale.class] withHandler:^(UILabel *label, UITraitCollection *previousTraits) {
+                label.shapeLayer.byContentsScale(label.traitCollection.displayScale);
+            }];
+        }
     };return shapeLayer;
 }
 

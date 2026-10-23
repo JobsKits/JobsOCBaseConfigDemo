@@ -2,7 +2,7 @@
 //  UIImage+YBGIF.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2020/7/1.
+//  Created by Jobs on 2020年7月1日，星期三.
 //  Copyright © 2020 Jobs. All rights reserved.
 //
 
@@ -11,38 +11,49 @@
 @implementation UIImage (YBGIF)
 /// 根据NSData* 创建gif图片
 +(JobsRetImageByDataBlock _Nonnull)animatedGIFWithData{
-    @jobs_weakify(self)
-    return ^UIImage *(NSData * _Nullable data) {
-        @jobs_strongify(self)
-        if (!data) return nil;
-        CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
-        size_t count = CGImageSourceGetCount(source);
-        UIImage *animatedImage;
-        if (count <= 1) {
-            animatedImage = UIImage.initByData(data);
-        }else {
-            __block NSTimeInterval duration = 0.0f;
-            @jobs_weakify(self)
-            NSMutableArray *images = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
-                @jobs_strongify(self)
-                for (size_t i = 0; i < count; i++) {
-                    CGImageRef image = CGImageSourceCreateImageAtIndex(source, i, NULL);
-                    if (!image) {
-                        continue;
-                    }
-                    duration += [self frameDurationAtIndex:i source:source];
-                    data.add([UIImage imageWithCGImage:image
-                                                             scale:UIScreen.mainScreen.scale
-                                                       orientation:UIImageOrientationUp]);
-                    CGImageRelease(image);
-                }
-            });
-            if (!duration) duration = (1.0f / 10.0f) * count;
-            animatedImage = [UIImage animatedImageWithImages:images duration:duration];
-        }
-        CFRelease(source);
-        return animatedImage;
+    return ^UIImage *(NSData * _Nullable data){
+        return [self animatedGIFWithData:data
+                      traitCollection:[UITraitCollection traitCollectionWithDisplayScale:UIScreen.mainScreen.scale]];
     };
+}
+
++(UIImage *)animatedGIFWithData:(NSData *)data
+               traitCollection:(UITraitCollection *)traitCollection{
+    if (!data) {
+        return nil;
+    }
+    CGImageSourceRef source = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
+    if (!source) {
+        return nil;
+    }
+    size_t count = CGImageSourceGetCount(source);
+    UIImage *animatedImage;
+    if (count <= 1) {
+        animatedImage = [UIImage imageWithData:data scale:MAX(traitCollection.displayScale, 1)];
+    }else {
+        __block NSTimeInterval duration = 0.0f;
+        @jobs_weakify(self)
+        NSMutableArray *images = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
+            @jobs_strongify(self)
+            for (size_t i = 0; i < count; i++) {
+                CGImageRef image = CGImageSourceCreateImageAtIndex(source, i, NULL);
+                if (!image) {
+                    continue;
+                }
+                duration += [self frameDurationAtIndex:i source:source];
+                data.add([UIImage imageWithCGImage:image
+                                            scale:MAX(traitCollection.displayScale, 1)
+                                      orientation:UIImageOrientationUp]);
+                CGImageRelease(image);
+            }
+        });
+        if (!duration) {
+            duration = (1.0f / 10.0f) * count;
+        }
+        animatedImage = [UIImage animatedImageWithImages:images duration:duration];
+    }
+    CFRelease(source);
+    return animatedImage;
 }
 
 + (float)frameDurationAtIndex:(NSUInteger)index
@@ -70,24 +81,38 @@
 }
 /// 根据图片名字创建gif图片
 +(JobsRetImageByStrBlock _Nonnull)animatedGIFByName{
-    return ^UIImage *_Nullable(__kindof NSString *_Nullable name){
-        CGFloat scale = UIScreen.mainScreen.scale;
-        if (scale > 1.0f) {
-            NSString *retinaPath = name.add(@"@2x.gif").jobsPathForResourceWithFullName();
-            NSData *data = [NSData dataWithContentsOfFile:retinaPath];
-            if (data) return UIImage.animatedGIFWithData(data);
-            NSString *path = name.add(@".gif").jobsPathForResourceWithFullName();
-            data = [NSData dataWithContentsOfFile:path];
-            if (data) return UIImage.animatedGIFWithData(data);
-            return @"name".img;
-        }else {
-            NSString *path = name.add(@".gif").jobsPathForResourceWithFullName();
-            NSData *data = [NSData dataWithContentsOfFile:path];
-            if (data) {
-                return UIImage.animatedGIFWithData(data);
-            };return @"name".img;
-        }
+    return ^UIImage *(__kindof NSString *_Nullable name){
+        return [self animatedGIFByName:name
+                      traitCollection:[UITraitCollection traitCollectionWithDisplayScale:UIScreen.mainScreen.scale]];
     };
+}
+
++(UIImage *)animatedGIFByName:(NSString *)name
+               traitCollection:(UITraitCollection *)traitCollection{
+    if (!name.length) {
+        return nil;
+    }
+    CGFloat scale = traitCollection.displayScale;
+    if (scale > 1.0f) {
+        NSString *retinaPath = name.add(@"@2x.gif").jobsPathForResourceWithFullName();
+        NSData *data = [NSData dataWithContentsOfFile:retinaPath];
+        if (data) {
+            return [UIImage animatedGIFWithData:data traitCollection:traitCollection];
+        }
+        NSString *path = name.add(@".gif").jobsPathForResourceWithFullName();
+        data = [NSData dataWithContentsOfFile:path];
+        if (data) {
+            return [UIImage animatedGIFWithData:data traitCollection:traitCollection];
+        }
+        return [UIImage imageNamed:@"name" inBundle:nil compatibleWithTraitCollection:traitCollection];
+    }else {
+        NSString *path = name.add(@".gif").jobsPathForResourceWithFullName();
+        NSData *data = [NSData dataWithContentsOfFile:path];
+        if (data) {
+            return [UIImage animatedGIFWithData:data traitCollection:traitCollection];
+        }
+        return [UIImage imageNamed:@"name" inBundle:nil compatibleWithTraitCollection:traitCollection];
+    }
 }
 /// 根据大小裁剪图片
 -(JobsRetImageByCGSizeBlock _Nonnull)animatedImageByScalingAndCroppingBySize{

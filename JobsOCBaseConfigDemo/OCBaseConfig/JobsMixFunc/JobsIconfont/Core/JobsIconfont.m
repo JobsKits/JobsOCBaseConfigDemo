@@ -21,6 +21,10 @@ JobsIconfontRemoteAsset const JobsIconfontRemoteAssetInvalidURL = @"invalidURL";
 static const void *JobsIconfontRepresentedAssetKey = &JobsIconfontRepresentedAssetKey;
 static const void *JobsIconfontLoadTokenKey = &JobsIconfontLoadTokenKey;
 static const void *JobsIconfontRequestIdentityKey = &JobsIconfontRequestIdentityKey;
+static const void *JobsIconfontPlaceholderKey = &JobsIconfontPlaceholderKey;
+static const void *JobsIconfontPlaceholderSizeKey = &JobsIconfontPlaceholderSizeKey;
+static const void *JobsIconfontPlaceholderObserverKey = &JobsIconfontPlaceholderObserverKey;
+static const void *JobsIconfontButtonGlyphsKey = &JobsIconfontButtonGlyphsKey;
 
 @interface UIGraphicsImageRendererFormat (JobsIconfontDSL)
 -(JobsRetIDByCGFloatBlock _Nonnull)byScale;
@@ -319,8 +323,31 @@ static const void *JobsIconfontRequestIdentityKey = &JobsIconfontRequestIdentity
                         size:(CGSize)size
                        color:(UIColor *)color
              backgroundColor:(UIColor *)backgroundColor{
+    return [self iconImageForGlyph:glyph
+                             size:size
+                            color:color
+                  backgroundColor:backgroundColor
+                  traitCollection:[UITraitCollection traitCollectionWithDisplayScale:UIScreen.mainScreen.scale]];
+}
+
+-(UIImage *)iconImageForGlyph:(JobsIconfontGlyph)glyph
+                        size:(CGSize)size
+                       color:(UIColor *)color
+             traitCollection:(UITraitCollection *)traitCollection{
+    return [self iconImageForGlyph:glyph
+                             size:size
+                            color:color
+                  backgroundColor:UIColor.clearColor
+                  traitCollection:traitCollection];
+}
+
+-(UIImage *)iconImageForGlyph:(JobsIconfontGlyph)glyph
+                        size:(CGSize)size
+                       color:(UIColor *)color
+             backgroundColor:(UIColor *)backgroundColor
+             traitCollection:(UITraitCollection *)traitCollection{
     UIGraphicsImageRendererFormat *format = UIGraphicsImageRendererFormat.defaultFormat;
-    format.byScale(UIScreen.mainScreen.scale);
+    format.byScale(MAX(traitCollection.displayScale, 1));
     format.byOpaque(CGColorGetAlpha(backgroundColor.CGColor) >= 1);
     UIGraphicsImageRenderer *renderer = [UIGraphicsImageRenderer.alloc initWithSize:size
                                                                               format:format];
@@ -348,6 +375,15 @@ static const void *JobsIconfontRequestIdentityKey = &JobsIconfontRequestIdentity
     return [self iconImageForGlyph:self.fallbackGlyphForAsset(asset)
                              size:size
                             color:UIColor.systemGray3Color];
+}
+
+-(UIImage *)placeholderImageForAsset:(JobsIconfontRemoteAsset)asset
+                                size:(CGSize)size
+                     traitCollection:(UITraitCollection *)traitCollection{
+    return [self iconImageForGlyph:self.fallbackGlyphForAsset(asset)
+                             size:size
+                            color:UIColor.systemGray3Color
+                  traitCollection:traitCollection];
 }
 
 -(JobsIconfontLoadToken *)loadAsset:(JobsIconfontRemoteAsset)asset
@@ -380,7 +416,32 @@ static const void *JobsIconfontRequestIdentityKey = &JobsIconfontRequestIdentity
         ? targetSize
         : CGSizeMake(96, 96);
     UIImage *placeholder = [self placeholderImageForAsset:asset
-                                                     size:resolvedSize];
+                                                     size:resolvedSize
+                                          traitCollection:imageView.traitCollection];
+    objc_setAssociatedObject(imageView, JobsIconfontPlaceholderKey, placeholder, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(imageView, JobsIconfontPlaceholderSizeKey, [NSValue valueWithCGSize:resolvedSize], OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (@available(iOS 17.0, *)) {
+        if (!objc_getAssociatedObject(imageView, JobsIconfontPlaceholderObserverKey)) {
+            id observer = [imageView registerForTraitChanges:@[UITraitDisplayScale.class]
+                                                 withHandler:^(__kindof id<UITraitEnvironment> environment, UITraitCollection *previousTraits) {
+                UIImageView *currentView = (UIImageView *)environment;
+                UIImage *oldPlaceholder = objc_getAssociatedObject(currentView, JobsIconfontPlaceholderKey);
+                NSString *currentAsset = objc_getAssociatedObject(currentView, JobsIconfontRepresentedAssetKey);
+                NSValue *currentSize = objc_getAssociatedObject(currentView, JobsIconfontPlaceholderSizeKey);
+                if (!currentAsset || !currentSize) {
+                    return;
+                }
+                UIImage *updated = [JobsIconfontManager.shared placeholderImageForAsset:currentAsset
+                                                                                   size:currentSize.CGSizeValue
+                                                                        traitCollection:currentView.traitCollection];
+                objc_setAssociatedObject(currentView, JobsIconfontPlaceholderKey, updated, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                if (currentView.image == oldPlaceholder) {
+                    currentView.byImage(updated);
+                }
+            }];
+            objc_setAssociatedObject(imageView, JobsIconfontPlaceholderObserverKey, observer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+    }
     objc_setAssociatedObject(imageView,
                              JobsIconfontRepresentedAssetKey,
                              asset,
@@ -425,7 +486,7 @@ static const void *JobsIconfontRequestIdentityKey = &JobsIconfontRequestIdentity
                                             error:nil]);
             }
         } else {
-            strongImageView.byImage(placeholder);
+            strongImageView.byImage(objc_getAssociatedObject(strongImageView, JobsIconfontPlaceholderKey) ?: placeholder);
             if (completion) {
                 completion([self resultWithStage:JobsIconfontLoadStageFailure
                                       loaderName:@"SDWebImage"
@@ -605,10 +666,39 @@ static const void *JobsIconfontRequestIdentityKey = &JobsIconfontRequestIdentity
                          imageSize:(CGSize)imageSize
                              color:(UIColor *)color
                           forState:(UIControlState)state{
-    [self setImage:[JobsIconfontManager.shared iconImageForGlyph:glyph
-                                                           size:imageSize
-                                                          color:color]
-          forState:state];
+    NSMutableDictionary *glyphs = objc_getAssociatedObject(self, JobsIconfontButtonGlyphsKey);
+    if (!glyphs) {
+        glyphs = NSMutableDictionary.dictionary;
+        objc_setAssociatedObject(self, JobsIconfontButtonGlyphsKey, glyphs, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        if (@available(iOS 17.0, *)) {
+            [self registerForTraitChanges:@[UITraitDisplayScale.class]
+                             withHandler:^(__kindof id<UITraitEnvironment> environment, UITraitCollection *previousTraits) {
+                UIButton *button = (UIButton *)environment;
+                NSDictionary *currentGlyphs = [objc_getAssociatedObject(button, JobsIconfontButtonGlyphsKey) copy];
+                for (NSNumber *stateValue in currentGlyphs) {
+                    NSDictionary *configuration = currentGlyphs[stateValue];
+                    if ([button imageForState:stateValue.unsignedIntegerValue] != configuration[@"image"]) {
+                        continue;
+                    }
+                    UIImage *updated = [JobsIconfontManager.shared iconImageForGlyph:[configuration[@"glyph"] integerValue]
+                                                                                size:[configuration[@"size"] CGSizeValue]
+                                                                               color:configuration[@"color"]
+                                                                     traitCollection:button.traitCollection];
+                    [button setImage:updated forState:stateValue.unsignedIntegerValue];
+                    NSMutableDictionary *updatedConfiguration = configuration.mutableCopy;
+                    updatedConfiguration[@"image"] = updated;
+                    NSMutableDictionary *storedGlyphs = objc_getAssociatedObject(button, JobsIconfontButtonGlyphsKey);
+                    storedGlyphs[stateValue] = updatedConfiguration;
+                }
+            }];
+        }
+    }
+    UIImage *image = [JobsIconfontManager.shared iconImageForGlyph:glyph
+                                                             size:imageSize
+                                                            color:color
+                                                  traitCollection:self.traitCollection];
+    glyphs[@(state)] = @{@"glyph": @(glyph), @"size": [NSValue valueWithCGSize:imageSize], @"color": color, @"image": image};
+    [self setImage:image forState:state];
     return self;
 }
 

@@ -273,7 +273,7 @@ Prop_assign()NSInteger demoLoadMoreCount;
 
 -(CGFloat)popUpHeight{
     if (_popUpHeight <= 0) {
-        _popUpHeight = JobsMainScreen_HEIGHT() * 0.62;
+        _popUpHeight = CGRectGetHeight(self.view.bounds) * 0.62;
     };return _popUpHeight;
 }
 

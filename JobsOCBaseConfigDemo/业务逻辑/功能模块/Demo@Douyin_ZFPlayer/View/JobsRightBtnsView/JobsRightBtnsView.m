@@ -204,9 +204,9 @@ static dispatch_once_t static_rightBtnsViewOnceToken;
                     UIViewController *presentingVC = self.jobsGetCurrentViewControllerBlock();
                     if (!presentingVC || presentingVC.presentedViewController) return;
                     JobsCommentCoreVC *jobsCommentCoreVC = JobsCommentCoreVC.new;
-                    CGFloat popUpHeight = JobsMainScreen_HEIGHT() / 2;
+                    CGFloat popUpHeight = CGRectGetHeight(presentingVC.view.bounds) / 2;
                     jobsCommentCoreVC.byPopUpHeight(popUpHeight);
-                    jobsCommentCoreVC.byPreferredContentSize(CGSizeMake(JobsRealWidth(), popUpHeight));
+                    jobsCommentCoreVC.byPreferredContentSize(CGSizeMake(CGRectGetWidth(presentingVC.view.bounds), popUpHeight));
                     jobsCommentCoreVC.byPushOrPresent(ComingStyle_PRESENT);
                     self.commentPresentationController = [JobsPresentationCtrl.alloc initWithPresentedViewController:jobsCommentCoreVC
                                                                                              presentingViewController:presentingVC];
