@@ -621,7 +621,7 @@ Behaviors 属于 Xcode 当前用户设置，工程引用不会自动建立其它
 
 ### <span id="jobs-toc-heading-12" data-jobs-toc="v2">2.9、GitHub Actions 模拟器构建 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-[构建工作流](./.github/workflows/build_simulator_app.yml)在推送、拉取请求或手动触发时运行；自动触发范围为 `main`、`byPods`。使用 `macos-15` runner 和 Xcode 26，缺少所需 SDK 时立即失败；显式选择 runner 的 `arm64` 模拟器架构。`byPods` 在安装前只选择与当前 Simulator SDK 同主版本的可用 arm64 iPhone，不让旧系统的已启动设备抢占；没有匹配 runtime 时提前失败，不自动下载运行时。模拟器 App 不使用真机签名，只供对应架构的模拟器运行。
+[构建工作流](./.github/workflows/build_simulator_app.yml)在推送、拉取请求或手动触发时运行；自动触发范围为 `main`、`byPods`。当前 `main` 使用 `xcode-27` runner，显式选择 Xcode 27.1，并验证 iOS Simulator SDK 不低于 27.1；缺少所需工具链时立即失败。版本信息与实际 SDK 写入构建诊断，不接受 runner 默认的 Xcode 27.0 或更高版本的 beta 代替所选基线；显式选择 `arm64` 模拟器架构。`byPods` 在安装前只选择与当前 Simulator SDK 同主版本的可用 arm64 iPhone，不让旧系统的已启动设备抢占；没有匹配 runtime 时提前失败，不自动下载运行时。模拟器 App 不使用真机签名，只供对应架构的模拟器运行。
 
 [Podfile](./Podfile) 在生成 Pods 工程时，两种形态均为 [**ReactiveObjC**](https://github.com/ReactiveCocoa/ReactiveObjC) 的 Debug / Release 目标显式保留 `ReactiveObjC/extobjc` 头文件搜索目录并继承原有路径。`byPods` 额外仅为该目标关闭 [**USE_HEADERMAP**](https://developer.apple.com/documentation/xcode/build-settings-reference)，避免批量构建时裸宏头名先被映射为框架前缀路径；`main` 当前未设置这一 Header Map 覆盖。`RACmetamacros.h` 使用上游既有文件，不复制宏头、不改写供应商源码，也不依赖前次编译产生的头映射；原 public Headers phase、模块定义和消费者配置保留，CI 关闭旧供应商补丁时仍执行各自配置适配。缺头仍会阻断构建，不降低检查等级。
 

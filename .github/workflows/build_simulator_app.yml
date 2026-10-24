@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
   build-simulator-app:
-    runs-on: macos-15
+    runs-on: xcode-27
     timeout-minutes: 150
     permissions:
       actions: write
@@ -38,29 +38,22 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      - name: Select Xcode 26 SDK
+      - name: Select Xcode 27.1 SDK
         run: |
-          selected_developer_dir=""
-
-          if [[ -n "${XCODE_26_DEVELOPER_DIR:-}" && -d "${XCODE_26_DEVELOPER_DIR}" ]]; then
-            selected_developer_dir="${XCODE_26_DEVELOPER_DIR}"
-          else
-            latest_xcode="$(ruby -e 'puts Dir.glob("/Applications/Xcode_26*.app").max_by { |path| Gem::Version.new(File.basename(path)[/\d+(?:\.\d+)*/, 0]) }')"
-            if [[ -n "${latest_xcode}" ]]; then
-              selected_developer_dir="${latest_xcode}/Contents/Developer"
-            fi
-          fi
-
-          if [[ -n "${selected_developer_dir}" ]]; then
-            export DEVELOPER_DIR="${selected_developer_dir}"
-            echo "DEVELOPER_DIR=${DEVELOPER_DIR}" >> "${GITHUB_ENV}"
-          else
-            echo "::error::Xcode 26 is required by this project but is unavailable on the runner."
+          diagnostics_path="${RUNNER_TEMP}/BuildDiagnostics"
+          mkdir -p "${diagnostics_path}"
+          selected_developer_dir="${XCODE_27_1_DEVELOPER_DIR:-/Applications/Xcode_27.1.app/Contents/Developer}"
+          if [[ ! -d "${selected_developer_dir}" ]]; then
+            echo "::error::Xcode 27.1 is required but is unavailable on the runner: ${selected_developer_dir}"
             exit 1
           fi
-
-          xcodebuild -version | tee "${RUNNER_TEMP}/xcode-version.txt"
-          grep -Eq '^Xcode 26([.]|$)' "${RUNNER_TEMP}/xcode-version.txt"
+          export DEVELOPER_DIR="${selected_developer_dir}"
+          echo "DEVELOPER_DIR=${DEVELOPER_DIR}" >> "${GITHUB_ENV}"
+          xcodebuild -version | tee "${diagnostics_path}/xcode-version.txt"
+          grep -Eq '^Xcode 27[.]1([.]|$)' "${diagnostics_path}/xcode-version.txt"
+          simulator_sdk_version="$(xcrun --sdk iphonesimulator --show-sdk-version)"
+          echo "iOS Simulator SDK: ${simulator_sdk_version}" | tee "${diagnostics_path}/simulator-sdk-version.txt"
+          ruby -rrubygems -e 'abort "iOS Simulator SDK 27.1 or newer is required" if Gem::Version.new(ARGV.fetch(0)) < Gem::Version.new("27.1")' "${simulator_sdk_version}"
           xcode-select -p
 
       - name: Show build environment

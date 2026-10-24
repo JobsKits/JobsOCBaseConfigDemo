@@ -26,9 +26,8 @@ Prop_strong()CAShapeLayer *overlayMaskLayer;
                              CGRectGetMinY(safeFrame) + 20,
                              diameter,
                              diameter);
-    _overlayMaskLayer
-        .byFrame(self.view.bounds)
-        .byPath(UIBezierPath.byBezierPathWithRect(self.view.bounds)
+    _overlayMaskLayer.byFrame(self.view.bounds);
+    _overlayMaskLayer.byPath(UIBezierPath.byBezierPathWithRect(self.view.bounds)
                             .byAppendPath(UIBezierPath.byBezierPathWithOvalInRect(hole))
                             .byUsesEvenOddFillRule(YES).CGPath);
 }
