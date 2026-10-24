@@ -164,8 +164,8 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
             tableView
                 .byScrollEnabled(NO)
                 .addOn(self)
-                .cornerCutToCircleWithCornerRadius(JobsWidth(3)) // 圆润
-                .byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
+                .cornerCutToCircleWithCornerRadius(JobsWidth(3)); // 圆润
+            tableView.byContentInsetAdjustmentBehavior(UIScrollViewContentInsetAdjustmentNever);
         });
     };return _tableView;
 }
