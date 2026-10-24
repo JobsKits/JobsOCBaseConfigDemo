@@ -20,8 +20,8 @@ Prop_strong()CABasicAnimation *opacityAnimation;
 - (void)layoutSubviews {
     [super layoutSubviews];
     if (!_warnLayer) return;
+    _warnLayer.byFrame(self.bounds);
     _warnLayer
-        .byFrame(self.bounds)
         .byLineWidth(6.0 / MAX(1, self.traitCollection.displayScale))
         .byPath([UIBezierPath bezierPathWithRect:self.bounds].CGPath);
 }

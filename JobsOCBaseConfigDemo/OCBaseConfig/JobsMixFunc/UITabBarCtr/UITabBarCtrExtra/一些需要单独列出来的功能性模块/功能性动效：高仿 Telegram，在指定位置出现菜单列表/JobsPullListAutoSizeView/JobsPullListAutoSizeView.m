@@ -117,8 +117,8 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
         CGFloat y = showAbove ? CGRectGetMinY(anchor) - self.listTbVOffset - height
                               : CGRectGetMaxY(anchor) + self.listTbVOffset;
         y = MIN(MAX(y, CGRectGetMinY(available)), CGRectGetMaxY(available) - height);
-        self.tableView.byFrame(CGRectMake(x, y, width, height))
-            .byScrollEnabled(contentHeight > height);
+        self.tableView.byFrame(CGRectMake(x, y, width, height));
+        self.tableView.byScrollEnabled(contentHeight > height);
     };
 }
 

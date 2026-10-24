@@ -23,9 +23,8 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
     CGSize size = self.view.bounds.size;
     if (size.width <= 0 || size.height <= 0) return;
     NSInteger page = self.pageControl.currentPage;
-    self.scrollView
-        .byFrame(self.view.bounds)
-        .byContentSize(CGSizeMake(size.width * (self.dataMutArr.count + 1), size.height));
+    self.scrollView.byFrame(self.view.bounds);
+    self.scrollView.byContentSize(CGSizeMake(size.width * (self.dataMutArr.count + 1), size.height));
     [self.pageImageViews enumerateObjectsUsingBlock:^(UIImageView *imageView, NSUInteger index, BOOL *stop) {
         imageView.byFrame(CGRectMake(size.width * index, 0, size.width, size.height));
     }];
