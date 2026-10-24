@@ -433,6 +433,11 @@ post_install do |installer|
       config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = simulator_excluded_archs
       config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'.to_s] = simulator_excluded_archs
 
+      if target.name == 'ZFPlayer'
+        # 4.1.4 的 IPv6 头引用依赖文本包含顺序；只调整实现编译，保留公开 modulemap。
+        config.build_settings['CLANG_ENABLE_MODULES'] = 'NO'
+      end
+
       xcconfig_path = config.base_configuration_reference&.real_path
       next unless xcconfig_path && File.exist?(xcconfig_path)
 
