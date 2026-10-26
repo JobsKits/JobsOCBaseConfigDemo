@@ -2,9 +2,9 @@
 # shell: zsh
 # 脚本自述：
 # - 脚本名称：Pod Install 离线保护
-# - 核心用途：将本地报告与 CocoaPods 网络阶段解耦，集成完成后检查 PIF 并后台体检、更新 CodeGraph。
-# - 影响范围：依赖报告、CodeGraph 后台任务、Xcode PIF 安全检查；不安装或删除 Pods。
-# - 运行提示：Podfile 钩子无交互运行；终端独立运行需输入 YES；--check-only 只检查不生成产物。
+# - 核心用途：前台生成依赖报告，集成完成后逐项确认 PIF 恢复及 CodeGraph 更新。
+# - 影响范围：依赖报告、CodeGraph 工具链与地图、Xcode 空闲构建服务；不安装或删除 Pods。
+# - 运行提示：终端先阅读自述并回车，业务选择由各子脚本确认；--check-only 不生成产物。
 
 # 仅渲染自述：标题红色加粗，编号正文蓝色常规字重；非彩色终端输出纯文本。
 jobs_intro_style() {
@@ -45,6 +45,7 @@ MODE_SELECTED=0
 FAILURE_COUNT=0
 SKIPPED_COUNT=0
 STARTED_COUNT=0
+INTERACTION_MODE="interactive"
 
 # 判断环境变量是否表达启用状态。
 is_truthy() {
@@ -104,6 +105,21 @@ parse_arguments() {
     RUN_POST_INTEGRATE=1
   fi
   is_truthy "${JOBS_POD_INSTALL_OFFLINE:-}" && OFFLINE_MODE=1
+  INTERACTION_MODE="${JOBS_POD_INSTALL_INTERACTION:-interactive}"
+  is_truthy "${JOBS_POD_INSTALL_POST_SCRIPTS_CHECK_ONLY:-}" && CHECK_ONLY=1
+  case "${INTERACTION_MODE}" in
+    interactive) ;;
+    check-only) CHECK_ONLY=1 ;;
+    skip) print -r -- "已显式跳过辅助脚本。"; exit 0 ;;
+    *) print -r -- "错误：JOBS_POD_INSTALL_INTERACTION 仅支持 interactive、check-only、skip。"; exit 2 ;;
+  esac
+  if is_truthy "${JOBS_POD_INSTALL_PURE:-}" || is_truthy "${JOBS_POD_INSTALL_SKIP_EXTERNAL_SCRIPTS:-}"; then
+    print -r -- "纯净模式：已跳过前置和收尾辅助脚本。"
+    exit 0
+  fi
+  (( CHECK_ONLY == 1 )) && INTERACTION_MODE="check-only"
+  export JOBS_POD_INSTALL_INTERACTION="${INTERACTION_MODE}"
+  return 0
 }
 
 # 用户确认或钩子允许执行后，再初始化项目级日志和运行环境。
@@ -115,31 +131,32 @@ initialize_runtime() {
   PROJECT_LOG_TAG="$(print -rn -- "${PROJECT_ROOT}" | /usr/bin/cksum | /usr/bin/awk '{print $1}')"
   LOG_FILE="${TEMP_ROOT%/}/${SCRIPT_BASENAME}.${PROJECT_LOG_TAG}.log"
   export PATH="/opt/homebrew/bin:/usr/local/bin:${PATH}"
-  : > "${LOG_FILE}"
+  (( CHECK_ONLY == 1 )) || : > "${LOG_FILE}"
+  return 0
 }
 
 # 第一屏说明行为边界，并在独立执行时要求明确确认。
 show_script_intro_and_wait() {
   print -r -- "" | jobs_intro_style body
   print -r -- "【Pod Install 本地脚本保护】" | jobs_intro_style body
-  print -r -- "用途：前置离线生成本地报告；集成完成后检查 PIF，并后台体检、更新 CodeGraph。" | jobs_intro_style body
-  print -r -- "边界：CodeGraph 默认允许按需安装工具链；--offline 禁止安装；不删除 Pods、锁文件、工作空间或 DerivedData。" | jobs_intro_style body
+  print -r -- "用途：前台生成依赖报告；集成完成后逐项确认 PIF 恢复和 CodeGraph 更新。" | jobs_intro_style body
+  print -r -- "边界：安装、更新和恢复由各子脚本确认；--offline 禁止工具安装；不删除 Pods、锁文件、工作空间或 DerivedData。" | jobs_intro_style body
+  print -r -- "取消：按 Ctrl+C 退出；无终端时跳过，CI 请显式选择 check-only 或 skip。" | jobs_intro_style body
 
   parse_arguments "$@"
 
-  if is_truthy "${JOBS_POD_INSTALL_HOOK:-}"; then
-    print -r -- "模式：Podfile 自动钩子，无交互执行。" | jobs_intro_style body
-    return 0
-  fi
   if (( CHECK_ONLY == 1 )); then
     print -r -- "模式：只读检查，不生成报告、不启动后台任务。" | jobs_intro_style body
     return 0
   fi
 
-  print -n -r -- "输入 YES 继续执行本地脚本："
+  if [[ ! -t 0 ]]; then
+    print -r -- "当前无可交互终端，已跳过辅助任务；请在终端重新运行。"
+    exit 0
+  fi
+  print -n -r -- "已了解辅助脚本用途，按回车继续；输入其它内容取消："
   local answer=""
-  read -r answer
-  if [[ "${answer}" != "YES" ]]; then
+  if ! read -r answer || [[ -n "${answer}" ]]; then
     print -r -- "已取消，未执行本地脚本。" | jobs_intro_style body
     exit 0
   fi
@@ -147,7 +164,11 @@ show_script_intro_and_wait() {
 
 # 写入普通日志并同步显示到终端。
 log_message() {
-  print -r -- "[$(/bin/date '+%Y-%m-%d %H:%M:%S')] $1" | /usr/bin/tee -a "${LOG_FILE}"
+  if (( CHECK_ONLY == 1 )); then
+    print -r -- "[$(/bin/date '+%Y-%m-%d %H:%M:%S')] $1"
+  else
+    print -r -- "[$(/bin/date '+%Y-%m-%d %H:%M:%S')] $1" | /usr/bin/tee -a "${LOG_FILE}"
+  fi
 }
 
 # 写入警告并累计失败数，但不改变 pod install 结果。
@@ -196,7 +217,7 @@ script_is_ready() {
   return 0
 }
 
-# 生成本地 Podspec 依赖报告；Podfile 钩子禁止安装 Homebrew 或 Graphviz。
+# 生成本地依赖报告，保留自述、工具安装及升级选择。
 run_dependency_report() {
   local script_name="【MacOS】🔍查询Xcode工程依赖关系.command"
   local script_path="$(resolve_script_path "${script_name}")"
@@ -210,24 +231,21 @@ run_dependency_report() {
   log_message "执行：PodspecDependencyReport"
   JOBS_PROJECT_ROOT="${PROJECT_ROOT}" \
   JOBS_POD_INSTALL_HOOK=1 \
-  JOBS_POD_INSTALL_OFFLINE=1 \
-  JOBS_SKIP_README=1 \
+  JOBS_POD_INSTALL_OFFLINE="${OFFLINE_MODE}" \
     /bin/zsh "${script_path}"
   local report_status=$?
   if (( report_status == 0 )); then
     STARTED_COUNT=$((STARTED_COUNT + 1))
-    log_message "完成：PodspecDependencyReport"
+    log_message "依赖报告流程结束，生成或跳过结果见上方子脚本输出。"
   else
     warn_message "PodspecDependencyReport 退出码=${report_status}，不影响 pod install。"
   fi
 }
 
-# 集成成功后后台体检并更新 CodeGraph；互斥由子脚本的工程锁负责。
-start_codegraph_background() {
+# 集成成功后前台执行 CodeGraph，安装及地图操作由子脚本确认。
+run_codegraph_task() {
   local script_name="codegraph_init.command"
   local script_path="$(resolve_script_path "${script_name}")"
-  local async_log="${TEMP_ROOT%/}/codegraph_init.${PROJECT_LOG_TAG}.async.log"
-  local child_pid=""
   local allow_install="${CODEGRAPH_ALLOW_INSTALL:-1}"
   if [[ "${JOBS_SKIP_CODEGRAPH:-0}" == 1 ]]; then
     skip_message "JOBS_SKIP_CODEGRAPH=1，已跳过 CodeGraph。"
@@ -238,7 +256,7 @@ start_codegraph_background() {
 
   if (( CHECK_ONLY == 1 )); then
     log_message "执行：CodeGraph 工具链只读体检，不安装、不建图。"
-    CODEGRAPH_AUTO_INIT=1 CODEGRAPH_ALLOW_INSTALL=0 \
+    CODEGRAPH_ALLOW_INSTALL=0 \
     JOBS_CODEGRAPH_PROJECT_ROOT="${PROJECT_ROOT}" \
       /bin/zsh "${script_path}" --check-only
     local check_status=$?
@@ -247,15 +265,17 @@ start_codegraph_background() {
   fi
 
   JOBS_POD_INSTALL_HOOK=1 \
-  JOBS_SKIP_README=1 \
   JOBS_CODEGRAPH_PROJECT_ROOT="${PROJECT_ROOT}" \
-  CODEGRAPH_AUTO_INIT=1 \
   CODEGRAPH_ALLOW_INSTALL="${allow_install}" \
   CODEGRAPH_EXPORT_ASYNC=0 \
-    /usr/bin/nohup /bin/zsh "${script_path}" >> "${async_log}" 2>&1 &
-  child_pid=$!
-  STARTED_COUNT=$((STARTED_COUNT + 1))
-  log_message "已后台启动：CodeGraph，PID=${child_pid}，日志=${async_log}"
+    /bin/zsh "${script_path}"
+  local codegraph_status=$?
+  if (( codegraph_status == 0 )); then
+    STARTED_COUNT=$((STARTED_COUNT + 1))
+    log_message "CodeGraph 流程结束，执行或跳过结果见上方子脚本输出。"
+  else
+    warn_message "CodeGraph 退出码=${codegraph_status}，不影响 pod install。"
+  fi
 }
 
 # 执行 PIF 会话安全检查；只读模式向子脚本透传 --check-only。
@@ -269,11 +289,11 @@ run_pif_session_recovery() {
   (( CHECK_ONLY == 1 )) && arguments+=('--check-only')
 
   log_message "执行：XcodePIFSessionRecovery"
-  JOBS_POD_INSTALL_HOOK=1 JOBS_SKIP_README=1 /bin/zsh "${arguments[@]}"
+  JOBS_POD_INSTALL_HOOK=1 /bin/zsh "${arguments[@]}"
   local pif_status=$?
   if (( pif_status == 0 )); then
     STARTED_COUNT=$((STARTED_COUNT + 1))
-    log_message "完成：XcodePIFSessionRecovery"
+    log_message "PIF 流程结束，恢复或跳过结果见上方子脚本输出。"
   else
     warn_message "XcodePIFSessionRecovery 退出码=${pif_status}，不影响 pod install。"
   fi
@@ -285,18 +305,18 @@ run_preflight_tasks() {
   run_dependency_report
 }
 
-# 只在 CocoaPods 集成完成后检查 PIF，并后台更新 CodeGraph。
+# 只在 CocoaPods 集成完成后依次执行 PIF 和 CodeGraph。
 run_post_integrate_tasks() {
   (( RUN_POST_INTEGRATE == 1 )) || return 0
   run_pif_session_recovery
-  start_codegraph_background
+  run_codegraph_task
 }
 
-# 汇总所有本地脚本结果并固定返回成功。
-print_summary_and_succeed() {
-  log_message "汇总：已执行或启动=${STARTED_COUNT}，跳过=${SKIPPED_COUNT}，警告=${FAILURE_COUNT}。"
+# 汇总辅助任务真实状态，供 Podfile 告警而不覆盖安装结果。
+print_summary_and_return_status() {
+  log_message "汇总：已调用=${STARTED_COUNT}，跳过=${SKIPPED_COUNT}，警告=${FAILURE_COUNT}。"
   log_message "本地脚本采用非阻断策略，不改变 CocoaPods 自身的成功或失败结果。"
-  return 0
+  (( FAILURE_COUNT == 0 ))
 }
 
 # 编排 Pod Install 本地脚本。
@@ -304,9 +324,9 @@ main() {
   show_script_intro_and_wait "$@" # 先显示用途，再解析模式并处理执行确认。
   initialize_runtime # 确认后再初始化日志和运行环境。
   validate_environment # 校验工程根目录和 Podfile。
-  run_preflight_tasks # 异步钩子内只生成本地依赖报告。
-  run_post_integrate_tasks # 安装完成后检查 PIF，并后台体检、更新地图。
-  print_summary_and_succeed # 汇总并固定返回成功。
+  run_preflight_tasks # 前台生成本地依赖报告并保留工具选择。
+  run_post_integrate_tasks # 安装完成后依次确认 PIF 和地图操作。
+  print_summary_and_return_status # 返回辅助任务状态，由 Podfile 保留安装结果。
 }
 
 main "$@"

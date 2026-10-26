@@ -119,7 +119,7 @@ def run_pod_install_post_scripts
     arguments << '--check-only'
   end
   succeeded = system(
-    { 'JOBS_POD_INSTALL_HOOK' => '1', 'JOBS_SKIP_README' => '1' },
+    { 'JOBS_POD_INSTALL_HOOK' => '1', 'JOBS_POD_INSTALL_INTERACTION' => JobsPodInstallOfflineGuard.interaction_mode },
     '/bin/zsh',
     *arguments,
     chdir: __dir__

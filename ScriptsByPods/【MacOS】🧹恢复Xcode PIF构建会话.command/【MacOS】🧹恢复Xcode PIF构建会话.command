@@ -4,7 +4,7 @@
 # - 脚本名称：恢复 Xcode PIF 构建会话
 # - 核心用途：在 pod install 集成结束后，安全回收空闲的 Xcode 构建服务，并验证工作区依赖图可重新计算。
 # - 影响范围：仅当前用户的空闲 SWBBuildService / XCBBuildService；不关闭 Xcode，不删除 DerivedData。
-# - 运行提示：Podfile 钩子无交互运行；终端独立运行需输入 YES；--check-only 只诊断不修改进程。
+# - 运行提示：包括 Podfile 调用在内都需终端精确输入 YES；check-only 只诊断，不写日志、快照或锁。
 
 # 仅渲染自述：标题红色加粗，编号正文蓝色常规字重；非彩色终端输出纯文本。
 jobs_intro_style() {
@@ -33,10 +33,10 @@ SCRIPT_PATH="${0:A}"
 SCRIPT_DIR="${SCRIPT_PATH:h}"
 SCRIPT_BASENAME="${SCRIPT_PATH:t:r}"
 TEMP_ROOT="${TMPDIR:-/tmp}"
-DEFAULT_PROJECT_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
+DEFAULT_PROJECT_ROOT="${SCRIPT_DIR}/../.."
 LOG_FILE="${TEMP_ROOT%/}/${SCRIPT_BASENAME}.log"
 VERIFY_LOG="${TEMP_ROOT%/}/${SCRIPT_BASENAME}.xcodebuild-list.log"
-PROCESS_SNAPSHOT="${TEMP_ROOT%/}/${SCRIPT_BASENAME}.$$.processes"
+PROCESS_SNAPSHOT_CONTENT=""
 LOCK_FILE="${TEMP_ROOT%/}/jobs-xcode-pif-session-recovery.lock"
 PROJECT_ROOT="${DEFAULT_PROJECT_ROOT}"
 CURRENT_UID=""
@@ -50,6 +50,7 @@ RECOVERED_COUNT=0
 SKIPPED_COUNT=0
 FAILURE_COUNT=0
 LOCK_ACQUIRED=0
+RUNTIME_STARTED=0
 
 # 判断环境变量是否表达启用状态。
 is_truthy() {
@@ -77,21 +78,28 @@ show_script_intro_and_wait() {
   print -r -- "用途：处理 unable to initiate PIF transfer session (operation in progress?)。" | jobs_intro_style body
   print -r -- "边界：不关闭 Xcode、不删除 DerivedData、不打断可识别的活动构建。" | jobs_intro_style body
 
-  if is_truthy "${JOBS_POD_INSTALL_HOOK:-}" || is_truthy "${JOBS_SKIP_README:-}"; then
-    print -r -- "模式：pod install 后置钩子，无交互执行。" | jobs_intro_style body
-    return 0
-  fi
-
-  if has_argument "--check-only" "$@"; then
+  case "${JOBS_POD_INSTALL_INTERACTION:-interactive}" in
+    interactive) ;;
+    check-only) CHECK_ONLY=1 ;;
+    skip) print -r -- "已显式跳过 PIF 恢复。"; exit 0 ;;
+    *) print -r -- "错误：无效的 JOBS_POD_INSTALL_INTERACTION。"; exit 2 ;;
+  esac
+  if has_argument "--check-only" "$@" || (( CHECK_ONLY == 1 )); then
+    CHECK_ONLY=1
     print -r -- "模式：只读诊断，不修改进程。" | jobs_intro_style body
     return 0
   fi
-
+  if has_argument "--help" "$@" || has_argument "-h" "$@"; then
+    return 0
+  fi
+  if [[ ! -t 0 ]]; then
+    print -r -- "当前无可交互终端，已跳过 PIF 恢复；可显式选择 check-only 诊断。"
+    exit 0
+  fi
   print -r -- "即将仅向当前用户的空闲 Xcode 构建服务发送 TERM。" | jobs_intro_style body
   print -n -r -- "输入 YES 继续："
   local answer=""
-  read -r answer
-  if [[ "${answer}" != "YES" ]]; then
+  if ! read -r answer || [[ "${answer}" != "YES" ]]; then
     print -r -- "已取消，未修改任何进程。" | jobs_intro_style body
     exit 0
   fi
@@ -104,7 +112,6 @@ print_usage() {
 
 # 清理本脚本创建的进程快照和跨工程互斥锁。
 cleanup_runtime_artifacts() {
-  /bin/rm -f -- "${PROCESS_SNAPSHOT}"
   if (( LOCK_ACQUIRED == 1 )); then
     local owner_pid=""
     if [[ -r "${LOCK_FILE}" ]]; then
@@ -118,7 +125,11 @@ cleanup_runtime_artifacts() {
 
 # 在 zsh 全局退出阶段调用清理，避免函数局部 EXIT trap 提前失效。
 TRAPEXIT() {
-  cleanup_runtime_artifacts
+  local result=$?
+  if (( RUNTIME_STARTED == 1 && CHECK_ONLY == 0 )); then
+    cleanup_runtime_artifacts
+  fi
+  return "$result"
 }
 
 # 初始化参数、日志和临时文件清理动作。
@@ -154,10 +165,21 @@ initialize_runtime() {
     esac
     shift
   done
+  if (( CHECK_ONLY == 0 )); then
+    local runtime_path=""
+    for runtime_path in "$LOG_FILE" "$VERIFY_LOG" "$LOCK_FILE"; do
+      if [[ -L "$runtime_path" || ( -e "$runtime_path" && ! -f "$runtime_path" ) ]]; then
+        print -r -- "运行路径为链接或非普通文件，已停止：$runtime_path"
+        exit 1
+      fi
+    done
+  fi
+  RUNTIME_STARTED=1
 }
 
 # 获取三套 iOS 工程共用的恢复锁，避免多个 pod install 并行操作 PIF 会话。
 acquire_cross_project_lock() {
+  (( CHECK_ONLY == 1 )) && return 0
   local attempt=1
 
   while (( attempt <= 30 )); do
@@ -182,7 +204,11 @@ acquire_cross_project_lock() {
 
 # 写入普通日志并同步显示到终端。
 log_message() {
-  print -r -- "[$(/bin/date '+%Y-%m-%d %H:%M:%S')] $1" | /usr/bin/tee -a "${LOG_FILE}"
+  if (( CHECK_ONLY == 1 )); then
+    print -r -- "[$(/bin/date '+%Y-%m-%d %H:%M:%S')] $1"
+  else
+    print -r -- "[$(/bin/date '+%Y-%m-%d %H:%M:%S')] $1" | /usr/bin/tee -a "${LOG_FILE}"
+  fi
 }
 
 # 写入警告日志但不中断流程。
@@ -220,7 +246,7 @@ validate_environment() {
 
 # 采集一次进程快照，保证后续判断基于同一时刻的数据。
 capture_process_snapshot() {
-  if ! /bin/ps -axo pid=,ppid=,uid=,comm= > "${PROCESS_SNAPSHOT}"; then
+  if ! PROCESS_SNAPSHOT_CONTENT="$(/bin/ps -axo pid=,ppid=,uid=,comm=)"; then
     error_message "无法读取当前进程列表。"
     exit 1
   fi
@@ -233,7 +259,7 @@ process_is_alive() {
 
 # 判断快照中的指定进程是否拥有直接子进程。
 process_has_child() {
-  /usr/bin/awk -v parent_pid="$1" '$2 == parent_pid { found = 1 } END { exit found ? 0 : 1 }' "${PROCESS_SNAPSHOT}"
+  /usr/bin/awk -v parent_pid="$1" '$2 == parent_pid { found = 1 } END { exit found ? 0 : 1 }' <<< "$PROCESS_SNAPSHOT_CONTENT"
 }
 
 # 统计当前用户正在运行的 xcodebuild，作为活动构建保护信号。
@@ -241,14 +267,14 @@ count_active_xcodebuild() {
   /usr/bin/awk -v current_uid="${CURRENT_UID}" '
     $3 == current_uid && ($4 == "xcodebuild" || $4 ~ /\/xcodebuild$/) { count += 1 }
     END { print count + 0 }
-  ' "${PROCESS_SNAPSHOT}"
+  ' <<< "$PROCESS_SNAPSHOT_CONTENT"
 }
 
 # 输出当前用户的 Xcode 构建服务进程号。
 collect_build_service_pids() {
   /usr/bin/awk -v current_uid="${CURRENT_UID}" '
     $3 == current_uid && ($4 == "SWBBuildService" || $4 ~ /\/SWBBuildService$/ || $4 == "XCBBuildService" || $4 ~ /\/XCBBuildService$/) { print $1 }
-  ' "${PROCESS_SNAPSHOT}"
+  ' <<< "$PROCESS_SNAPSHOT_CONTENT"
 }
 
 # 在限定时间内等待指定进程退出。
@@ -419,7 +445,11 @@ verify_workspace_dependency_graph() {
 # 汇总结果、日志位置和最终退出码。
 print_run_summary() {
   log_message "汇总：发现服务 ${SERVICE_COUNT} 个，已恢复 ${RECOVERED_COUNT} 个，已跳过 ${SKIPPED_COUNT} 个，失败 ${FAILURE_COUNT} 项。"
-  log_message "运行日志：${LOG_FILE}"
+  if (( CHECK_ONLY == 1 )); then
+    log_message "只读诊断未创建日志、进程快照文件或恢复锁。"
+  else
+    log_message "运行日志：${LOG_FILE}"
+  fi
   if (( FAILURE_COUNT > 0 )); then
     exit 1
   fi
