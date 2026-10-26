@@ -30,7 +30,7 @@
 
 > 这个脚本用于扫描 [**Xcode**](https://developer.apple.com/xcode) / [**CocoaPods**](https://cocoapods.org/) 工程里的 `*.podspec`，输出依赖分析报告、[**Mermaid**](https://mermaid.js.org) 图源码、[**Graphviz**](https://graphviz.org/) 图源码和互动 HTML 图。
 
-本次升级的重点是：**保留原有 2D 互动图不动，在同一个 HTML 产物里新增 `3D 空间图` 视图**。
+同一个 HTML 产物提供稳定扫读的 `2D 关系图` 与可旋转的 `3D 空间图`，按需切换视图。
 
 ## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
@@ -69,9 +69,11 @@
 
 ### <span id="jobs-toc-heading-6" data-jobs-toc="v2">2.3、Podfile 自动钩子 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-- 自动钩子通过 `JOBS_PROJECT_ROOT` 直接传入工程根目录，不进入拖拽或回车流程。
-- 自动钩子生成报告后不会打开 Finder、浏览器或产物文件。
-- `JOBS_POD_INSTALL_OFFLINE=1` 时只复用本机已有的 `dot`，不会安装或升级 Homebrew / Graphviz。
+- 自动钩子通过 `JOBS_PROJECT_ROOT` 直接传入工程根目录，省去重复拖入路径；仍先显示自述并等待回车，自动定位不等于授权。
+- 生成报告后询问是否打开产物：直接回车保留文件但不打开，输入任意字符后才打开 HTML、Markdown 和已有 PNG。
+- 默认保留 Homebrew 自检 / 更新、Graphviz 安装 / 升级选择；普通安装和更新均为直接回车跳过、输入任意字符后回车执行。
+- 只有显式 `JOBS_POD_INSTALL_OFFLINE=1` 时才只复用本机已有的 `dot`，不安装或升级 Homebrew / Graphviz。
+- `JOBS_POD_INSTALL_INTERACTION=check-only` 只检查工程路径，不生成报告或安装工具；`skip` 跳过。默认交互模式在无 TTY 或输入结束时停止写任务。
 
 ## <span id="jobs-toc-heading-7" data-jobs-toc="v2">三、产物说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
@@ -110,10 +112,13 @@
 
 ```mermaid
 flowchart TD
-  A[双击脚本] --> B{自动识别 Podfile}
-  B -->|成功| C[扫描 podspec]
+  A[双击或 Podfile 调用] --> Q{终端阅读自述并回车}
+  Q -->|无终端或取消| X[跳过写任务]
+  Q -->|确认| B{自动识别 Podfile}
+  B -->|成功| T[工具自检与安装升级选择]
   B -->|失败| D[拖入工程目录]
-  D --> C
+  D --> T
+  T --> C[扫描 podspec]
   C --> E[解析依赖关系]
   E --> F[生成 Markdown 报告]
   E --> G[生成 Mermaid / DOT]
@@ -132,10 +137,11 @@ flowchart TD
 - 脚本会使用系统自带 [**Ruby**](https://www.ruby-lang.org/) 解析依赖。
 - 如果需要 PNG 图，脚本会检查 [**Homebrew**](https://brew.sh/) 和 `graphviz`。
 - 已安装 [**Homebrew**](https://brew.sh/) 时，脚本不会默认升级，只有你输入任意字符后回车才会执行更新和自检。
+- Homebrew 缺失时先询问是否安装；同意后精确输入 `YES` 选择系统标准目录，其它输入选择当前用户目录。官方安装器自行处理实际授权；仅在当前脚本激活环境，不写 shell profile。
 
 ## <span id="jobs-toc-heading-11" data-jobs-toc="v2">七、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-- 脚本会删除并重新生成工程目录下的旧报告目录：
+- 脚本会覆盖固定目录中的同名生成报告，并保留其它用户文件；目录为符号链接或非目录、或者同名生成产物为符号链接时拒绝写入：
 
   ```text
   PodspecDependencyReport/
@@ -143,8 +149,9 @@ flowchart TD
 
 - 脚本不会主动修改你的 `Podfile`、`*.podspec` 或业务源码。
 - [**Homebrew**](https://brew.sh/) / `graphviz` 相关操作会在终端中提示，不会静默执行升级。
-- Podfile 离线钩子不会安装或升级 [**Homebrew**](https://brew.sh/) / `graphviz`，缺少 `dot` 时直接跳过 PNG。
+- 显式离线模式不会安装或升级 [**Homebrew**](https://brew.sh/) / `graphviz`，缺少 `dot` 时直接跳过 PNG；Podfile 默认不强制进入离线模式。
 - 如果 `dot` 不存在，只影响 PNG 生成；`Markdown` 报告和互动 HTML 仍会生成。
+- 已有 `dot` 但转换失败，或报告生成器失败时，会明确告警并返回辅助任务失败状态；不能把已开始生成当作全部产物成功。
 
 ## <span id="jobs-toc-heading-12" data-jobs-toc="v2">八、日志文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 

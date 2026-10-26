@@ -35,17 +35,28 @@ show_script_intro_and_wait() {
   printf '%s\n' '2、影响范围：脚本指定文件或缓存的删除 / 清理；脚本所在工程或指定目标中的文件。' | jobs_intro_style body
   printf '%s\n' '3、运行策略：确认后执行原有流程；后续危险操作的确认保持原样。' | jobs_intro_style body
   printf '%s\n' '4、取消方式：按 Ctrl+C 终止；确认前不执行真实业务。' | jobs_intro_style body
-  if [ "${CODEGRAPH_AUTO_INIT:-0}" = 1 ] || [ "${JOBS_CODEGRAPH_INTRO_CONFIRMED:-0}" = 1 ]; then
-    export JOBS_CODEGRAPH_INTRO_CONFIRMED=1
-    return 0
+  case "${JOBS_POD_INSTALL_INTERACTION:-interactive}" in
+    interactive) ;;
+    check-only|skip)
+      printf '%s\n' '当前为只读 / 跳过模式，Markdown 导出会覆盖报告，本次不执行。'
+      exit 0
+      ;;
+    *) printf '%s\n' 'JOBS_POD_INSTALL_INTERACTION 仅支持 interactive、check-only、skip。' >&2; exit 2 ;;
+  esac
+  if (( $# > 0 )); then
+    if [[ $# == 2 && "$1" == --confirmed-by-init && "$2" == "$PPID" ]]; then
+      printf '%s\n' '已由直接父进程的初始化入口取得本次导出确认，继续执行并保留进度心跳。'
+      return 0
+    fi
+    printf '%s\n' '无效导出参数；请直接运行，或由初始化入口确认后调用。' >&2
+    exit 2
   fi
   if [ ! -t 0 ]; then
-    printf '%s\n' '当前没有可交互输入，请在终端中重新运行。' >&2
-    exit 1
+    printf '%s\n' '当前没有可交互输入，已跳过 Markdown 导出；请在终端中重新运行。' >&2
+    exit 0
   fi
   printf '%s' '已了解脚本用途与影响，按回车继续；按 Ctrl+C 取消：'
   IFS= read -r jobs_intro_answer || exit 1
-  export JOBS_CODEGRAPH_INTRO_CONFIRMED=1
 }
 # 确认后执行原有业务，保留原来的参数、交互和退出策略。
 jobs_run_original_script() {
@@ -858,7 +869,7 @@ main "$@"
 }
 # 编排自述确认与原有业务。
 main() {
-  show_script_intro_and_wait # 展示用途与影响，并等待回车确认。
+  show_script_intro_and_wait "$@" # 展示用途并确认，或核对直接父进程的本次导出授权。
   jobs_run_original_script "$@" # 继续执行原有脚本流程。
 }
 main "$@"

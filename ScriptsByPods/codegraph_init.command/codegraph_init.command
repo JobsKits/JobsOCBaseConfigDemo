@@ -4,7 +4,7 @@
 # - 脚本名称：codegraph_init.command。
 # - 核心用途：pod install 集成后体检工具链、补齐缺失组件、更新精确工程的代码地图并导出 Markdown。
 # - 影响范围：本工程 .codegraph；必要时经 Brew 准备 Node/npm，再安装官方 CodeGraph npm 包。
-# - 运行提示：终端回车确认；Podfile 已授权后台执行；--check-only / 离线模式禁止安装，不主动升级工具。
+# - 运行提示：终端回车确认，各项安装 / 更新回车跳过；check-only 禁止安装和索引写入。
 typeset SCRIPT_DIR="" PROJECT_ROOT="" CODEGRAPH_TARGET_DIRECTORY=""
 typeset CODEGRAPH_LOG_FILE="" CODEGRAPH_STATUS_JSON="" CODEGRAPH_BIN=""
 typeset CODEGRAPH_NODE_BIN="" CODEGRAPH_NPM_BIN=""
@@ -12,23 +12,40 @@ typeset CODEGRAPH_PREFIX="$HOME/.local/share/jobs-codegraph"
 typeset CODEGRAPH_NPM_REGISTRY="https://registry.npmjs.org/"
 typeset CHECK_ONLY=0 ALLOW_INSTALL=1 PROJECT_LOCK="" SAMPLE_DIR="" EXPORT_PID=""
 typeset TOOLCHAIN_LOCK="" TOOLCHAIN_LOCK_OWNED=0 PROJECT_LOCK_OWNED=0
+typeset INDEX_UPDATED=0 CODEGRAPH_INTERACTION="interactive"
 # 打印固定自述；独立终端确认前不创建日志或写入工程。
 show_script_intro_and_wait() {
   local answer="" argument=""
   codegraph_intro_line title '━━━━━━━━━━ CodeGraph 安装后代码地图 ━━━━━━━━━━'
   codegraph_intro_line body '1、完整体检：系统工具 / CLT → Homebrew → Node/npm → CodeGraph，以及 SQLite / JSON 和隔离样例建图。'
-  codegraph_intro_line body '2、已有地图 sync，失败回退 index；首次 init --yes，严格核对项目、产物路径和索引完整状态。'
+  codegraph_intro_line body '2、地图更新需选择执行；首次 init --yes，已有地图 sync；全量重建须精确输入 YES。'
   codegraph_intro_line body '3、缺失时 Brew 准备 node@24，再安装官方 @colbymchenry/codegraph；当前无该产品的 Brew formula。'
-  codegraph_intro_line body '4、仅补齐缺失或损坏组件，不主动升级健康工具；不修改 Shell 配置或代理，失败不影响 CocoaPods。'
+  codegraph_intro_line body '4、各项安装 / 更新直接回车跳过、任意非空输入执行；不修改 Shell 配置或代理，失败不影响 CocoaPods。'
   codegraph_intro_line body '5、--check-only 只检查、不安装、不建图；离线模式禁止安装。日志在系统临时目录 codegraph_init.<工程摘要>.log。'
-  if [[ "${CODEGRAPH_AUTO_INIT:-0}" == 1 || "${JOBS_CODEGRAPH_INTRO_CONFIRMED:-0}" == 1 ]]; then
+  CODEGRAPH_INTERACTION="${JOBS_POD_INSTALL_INTERACTION:-interactive}"
+  case "$CODEGRAPH_INTERACTION" in
+    interactive) ;;
+    check-only) CHECK_ONLY=1 ;;
+    skip) codegraph_intro_line body '已明确跳过 CodeGraph，未安装、更新索引或导出。'; exit 0 ;;
+    *) print -u2 -r -- 'JOBS_POD_INSTALL_INTERACTION 仅支持 interactive、check-only、skip。'; exit 2 ;;
+  esac
+  if (( CHECK_ONLY == 1 )); then
+    codegraph_intro_line body '自动化只读体检：不安装、不更新索引、不导出；此结果不代表地图已更新。'
     return 0
   fi
   for argument in "$@"; do
     case "$argument" in --check-only|--help|-h) return 0 ;; esac
   done
-  [[ -t 0 ]] || { print -u2 -r -- '没有可交互输入，请在终端重跑，或由 Podfile 自动入口执行。'; exit 1; }
+  [[ -t 0 ]] || { print -u2 -r -- '没有可交互输入，已跳过 CodeGraph 写任务；请在终端运行，或显式选择 check-only。'; exit 0; }
   IFS= read -r 'answer?👉 已了解用途与影响，按回车继续；Ctrl+C 取消：' || exit 1
+}
+# 普通安装和更新都由终端逐项选择，回车与输入结束均不授权。
+codegraph_ask_to_run() {
+  local answer=""
+  (( CHECK_ONLY == 0 )) && [[ "$CODEGRAPH_INTERACTION" == interactive && -t 0 ]] || return 1
+  print -n -r -- "$1（直接回车跳过；任意非空输入后回车执行）："
+  IFS= read -r answer || return 1
+  [[ -n "$answer" ]]
 }
 # 确认后解析参数、固定日志，并限定环境变量只作用于本进程。
 initialize_runtime() {
@@ -65,12 +82,12 @@ initialize_runtime() {
   export CODEGRAPH_DIR=.codegraph CODEGRAPH_TELEMETRY=0 DO_NOT_TRACK=1
   export CODEGRAPH_NO_DOWNLOAD=1 CODEGRAPH_NO_WATCH=0 NODE_DISABLE_COMPILE_CACHE=1
   export HOMEBREW_NO_AUTO_UPDATE=1 HOMEBREW_NO_INSTALL_CLEANUP=1 HOMEBREW_NO_ANALYTICS=1
-  export JOBS_CODEGRAPH_INTRO_CONFIRMED=1
   codegraph_log "ℹ 工程：$PROJECT_ROOT；check_only=$CHECK_ONLY；允许安装=$ALLOW_INSTALL；日志：$CODEGRAPH_LOG_FILE"
 }
 # 禁止只读及离线分支隐式安装或修复。
 require_installation() {
   [[ "$ALLOW_INSTALL" == 1 ]] || codegraph_stop "$1 缺失或损坏；当前只读 / 离线策略禁止安装，请在终端运行本入口完成配置"
+  codegraph_ask_to_run "$1 缺失或损坏，是否安装 / 修复" || codegraph_stop "已跳过 $1 安装 / 修复，本次地图任务未完成"
 }
 # 用原子目录锁避免同工程重复更新，僵死锁只移除已确认的自身标记。
 take_lock() {
@@ -185,6 +202,22 @@ ensure_brew() {
 ensure_node_npm() {
   codegraph_ensure_node_npm
 }
+# 只升级当前实际使用的 Brew Node 公式，不为健康的其它来源强装另一份。
+codegraph_offer_node_upgrade() {
+  local formula="" prefix="" candidate=""
+  [[ "$ALLOW_INSTALL" == 1 ]] || return 0
+  for formula in node@24 node node@22; do
+    prefix="$("$JOBS_HOMEBREW_BIN" --prefix "$formula" 2>> "$CODEGRAPH_LOG_FILE")" || continue
+    candidate="$prefix/bin/node"
+    [[ -x "$candidate" && "${candidate:A}" == "${CODEGRAPH_NODE_BIN:A}" ]] || continue
+    if codegraph_ask_to_run "是否通过 Homebrew 升级 $formula（包含 npm）"; then
+      codegraph_run_logged "$JOBS_HOMEBREW_BIN" upgrade "$formula" || codegraph_stop 'Node.js 升级失败'
+      codegraph_find_node_npm || codegraph_stop 'Node/npm 升级后复检失败'
+    fi
+    return 0
+  done
+  codegraph_log 'ℹ 当前 Node/npm 不属于可确认的 Brew 公式，保留现有来源；需要升级时请使用原安装渠道。'
+}
 # CLI 每个必需接口都能执行才允许继续。
 check_codegraph_cli() {
   codegraph_candidate_ok "$1"
@@ -193,6 +226,9 @@ check_codegraph_cli() {
 ensure_codegraph() {
   if codegraph_find_cli; then
     codegraph_log "✔ 复用 CodeGraph：$CODEGRAPH_BIN；版本：$("$CODEGRAPH_BIN" --version)"
+    if [[ "$ALLOW_INSTALL" == 1 ]] && codegraph_ask_to_run '是否从官方 npm Registry 更新 CodeGraph'; then
+      codegraph_install_cli approved
+    fi
     return 0
   fi
   codegraph_install_cli
@@ -216,20 +252,37 @@ check_codegraph_engine() {
   ) || codegraph_stop 'CodeGraph 解析引擎样例数据库复检失败'
   codegraph_log '✔ CodeGraph 隔离样例真实建图与数据库体检通过。'
 }
-# 已有地图先校验身份再同步；同步失败时保留数据库并尝试全量索引一次。
+# 全量重建会重建派生数据库并停止已验证的守护进程，必须精确确认。
+codegraph_rebuild_index() {
+  local answer=""
+  codegraph_log '⚠ 全量重建将重建本工程 CodeGraph 数据库；CLI 可能停止本工程地图守护进程，源码不变。'
+  [[ "$CODEGRAPH_INTERACTION" == interactive && -t 0 ]] || codegraph_stop '全量重建需要可交互终端，本次未执行'
+  print -n -r -- '输入精确大写 YES 重建；其它输入保留现有数据库并停止本次地图任务：'
+  IFS= read -r answer || codegraph_stop '未取得全量重建确认'
+  [[ "$answer" == YES ]] || codegraph_stop '已取消全量重建，未将旧索引视为完整成功'
+  codegraph_run_logged "$CODEGRAPH_BIN" index "$PROJECT_ROOT" || codegraph_stop 'CodeGraph 全量重建失败，未继续导出'
+}
+# 已有地图先校验身份和旧版本标记，不能把缺少完整标记的旧图当成功。
 run_codegraph_index() {
-  (( CHECK_ONLY == 0 )) || { codegraph_log '✔ 只读体检完成，未安装、建图或导出。'; return 0; }
-  local result=0
+  (( CHECK_ONLY == 0 )) || { codegraph_log '✔ 只读体检完成，未安装、建图或导出；地图更新未执行。'; return 0; }
+  local index_state="" reindex_recommended=""
+  codegraph_ask_to_run '是否初始化 / 更新当前工程代码地图' || { codegraph_log 'ℹ 已跳过地图更新和导出，现有地图保持原状。'; return 0; }
   if [[ -f "$PROJECT_ROOT/.codegraph/codegraph.db" ]]; then
     validate_index_status identity
-    if ! codegraph_run_logged "$CODEGRAPH_BIN" sync "$PROJECT_ROOT"; then
-      codegraph_log '⚠ 增量同步失败，尝试一次全量 index。'
-      codegraph_run_logged "$CODEGRAPH_BIN" index "$PROJECT_ROOT" || codegraph_stop 'CodeGraph sync / index 均失败'
+    index_state="$(codegraph_status_field index.state 2>/dev/null)"
+    reindex_recommended="$(codegraph_status_field index.reindexRecommended 2>/dev/null)"
+    if [[ "$reindex_recommended" == true || -z "$index_state" || "$index_state" == null || "$index_state" == partial || "$index_state" == failed || "$index_state" == indexing ]]; then
+      codegraph_log "⚠ 现有索引需核实 / 重建：state=${index_state:-缺失}，reindexRecommended=${reindex_recommended:-缺失}。"
+      codegraph_rebuild_index
+    elif ! codegraph_run_logged "$CODEGRAPH_BIN" sync "$PROJECT_ROOT"; then
+      codegraph_log '⚠ 增量同步失败，保留现有数据库，需再次确认才能全量重建。'
+      codegraph_rebuild_index
     fi
   else
     codegraph_run_logged "$CODEGRAPH_BIN" init --yes "$PROJECT_ROOT" || codegraph_stop 'CodeGraph 首次初始化失败'
   fi
   validate_index_status complete
+  INDEX_UPDATED=1
   codegraph_log "✔ 当前工程代码地图更新通过：$PROJECT_ROOT/.codegraph"
 }
 # 导出期间提供心跳，超时或失败如实告警；不把导出成功与索引成功混为一谈。
@@ -238,7 +291,7 @@ run_export_with_heartbeat() {
   local heartbeat="${CODEGRAPH_EXPORT_HEARTBEAT_SECONDS:-10}" timeout="${CODEGRAPH_EXPORT_TIMEOUT_SECONDS:-0}"
   [[ "$heartbeat" == <-> && "$heartbeat" -gt 0 ]] || heartbeat=10
   [[ "$timeout" == <-> ]] || timeout=0
-  /bin/zsh "$export_script" >> "$CODEGRAPH_LOG_FILE" 2>&1 &
+  /bin/zsh "$export_script" --confirmed-by-init "$$" >> "$CODEGRAPH_LOG_FILE" 2>&1 &
   child_pid=$!
   EXPORT_PID="$child_pid"
   while /bin/kill -0 "$child_pid" 2>/dev/null; do
@@ -260,16 +313,17 @@ run_export_with_heartbeat() {
   EXPORT_PID=""
   return "$result"
 }
-# 沿用既有导出参数与开关，在后台 hook 内同步等待，确保项目锁覆盖导出。
+# 导出前单独确认；心跳只负责显示进度，工程锁覆盖完整导出。
 export_codegraph_markdown() {
-  (( CHECK_ONLY == 0 )) || return 0
+  (( CHECK_ONLY == 0 && INDEX_UPDATED == 1 )) || return 0
   [[ "${CODEGRAPH_SKIP_EXPORT:-0}" != 1 ]] || { codegraph_log 'ℹ CODEGRAPH_SKIP_EXPORT=1，跳过 Markdown。'; return 0; }
   local export_script="$PROJECT_ROOT/ScriptsByPods/codegraph_export_md.command/codegraph_export_md.command" result=0
   [[ -f "$export_script" ]] || { codegraph_log "⚠ 导出脚本不存在，索引已完成：$export_script"; return 0; }
+  codegraph_ask_to_run '是否导出 CodeGraph Markdown / Mermaid 报告（覆盖既有导出文件）' || { codegraph_log 'ℹ 已跳过 Markdown 导出，索引更新结果保留。'; return 0; }
   export CODEGRAPH_MD_OUT_DIR="${CODEGRAPH_MD_OUT_DIR:-.codegraph/codegraph.md}"
   export CODEGRAPH_DB_PATH=.codegraph/codegraph.db
   if [[ "${CODEGRAPH_EXPORT_ASYNC:-0}" == 1 ]]; then
-    codegraph_log 'ℹ 已在安装后的后台任务中导出；为覆盖项目锁，本任务等待导出完成。'
+    codegraph_log 'ℹ CODEGRAPH_EXPORT_ASYNC 兼容参数不再切断交互；本任务等待导出完成。'
   fi
   run_export_with_heartbeat "$export_script" || result=$?
   (( result == 0 )) || codegraph_stop "索引已完成，Markdown 导出失败或超时，退出码=$result" "$result"
@@ -392,6 +446,9 @@ codegraph_ensure_homebrew() {
   if ! codegraph_run_logged "$JOBS_HOMEBREW_BIN" doctor; then
     codegraph_log '⚠ Homebrew doctor 有诊断提示；用户前缀或无关公式警告不等于本次依赖不可用，继续按实际 Node/npm 健康检查判断。'
   fi
+  if [[ "$ALLOW_INSTALL" == 1 ]] && codegraph_ask_to_run '是否更新 Homebrew 软件源'; then
+    codegraph_run_logged "$JOBS_HOMEBREW_BIN" update || codegraph_stop 'Homebrew 更新失败'
+  fi
 }
 # Node 执行 JS，npm 校验版本与只读配置。
 codegraph_node_npm_ok() {
@@ -426,6 +483,7 @@ codegraph_ensure_node_npm() {
   local node_prefix="" operation=install
   if codegraph_find_node_npm; then
     codegraph_log "✔ 复用健康 Node/npm：$CODEGRAPH_NODE_BIN / $CODEGRAPH_NPM_BIN"
+    codegraph_offer_node_upgrade
     return 0
   fi
   require_installation Node/npm
@@ -444,7 +502,7 @@ codegraph_ensure_node_npm() {
 }
 # 使用明确官方 Registry 与独立用户前缀安装正确产品。
 codegraph_install_cli() {
-  require_installation CodeGraph
+  [[ "${1:-}" == approved ]] || require_installation CodeGraph
   [[ ! -L "$CODEGRAPH_PREFIX" ]] || codegraph_stop "CodeGraph 安装前缀是符号链接：$CODEGRAPH_PREFIX"
   codegraph_log '━━━━━━━━━━ 来源｜CodeGraph ━━━━━━━━━━'
   codegraph_log '📦 包：@colbymchenry/codegraph@latest（官方 scoped npm 包）'
@@ -493,6 +551,7 @@ codegraph_validate_status() {
     last_indexed="$(codegraph_status_field lastIndexed)" || codegraph_stop 'JSON 缺少索引时间'
     index_state="$(codegraph_status_field index.state)" || codegraph_stop 'JSON 缺少索引完整状态'
     [[ -n "$last_indexed" && "$last_indexed" != null && "$index_state" == complete && -d "$CODEGRAPH_TARGET_DIRECTORY/.codegraph" ]] || codegraph_stop '地图索引未完成或产物不存在'
+    [[ "$(codegraph_status_field index.reindexRecommended 2>/dev/null)" != true ]] || codegraph_stop '当前引擎仍建议重建，未把旧索引当完整成功'
     for field in pendingChanges.added pendingChanges.modified pendingChanges.removed index.pendingRefs; do
       count="$(codegraph_status_field "$field")" || codegraph_stop "JSON 缺少索引核验字段：$field"
       [[ "$count" == 0 ]] || codegraph_stop "地图仍存在待处理变更或解析问题：$field=$count"

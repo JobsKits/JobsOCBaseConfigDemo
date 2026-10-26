@@ -38,7 +38,7 @@ MsgHandlingError(message: "unable to initiate PIF transfer session (operation in
 
 ## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、脚本行为 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-脚本按以下顺序执行：
+正常终端运行先展示内置自述，再要求精确输入大写 `YES` 授权恢复；取消或输入结束时不初始化日志、不采集进程或发送信号。确认后按以下顺序执行：
 
 1. 获取三个 iOS 工程共用的临时互斥锁，串行化并发的 `pod install` 收尾动作。
 2. 采集当前用户的 `xcodebuild`、`SWBBuildService` 和 `XCBBuildService` 进程快照。
@@ -60,7 +60,7 @@ MsgHandlingError(message: "unable to initiate PIF transfer session (operation in
 
 ### <span id="jobs-toc-heading-5" data-jobs-toc="v2">3.1 `pod install` 后自动运行 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-工程 `Podfile` 已在 `post_integrate` 最后调用本脚本。自动模式不要求终端输入，日志仍会保留。
+工程 `Podfile` 已在 `post_integrate` 调用本脚本，继承当前终端并保留 `YES` 确认。`JOBS_POD_INSTALL_HOOK=1` 和 `JOBS_SKIP_README=1` 不会绕过授权；没有可交互终端时跳过恢复，并提示在终端执行。
 
 ### <span id="jobs-toc-heading-6" data-jobs-toc="v2">3.2 只读诊断 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
@@ -76,7 +76,7 @@ MsgHandlingError(message: "unable to initiate PIF transfer session (operation in
 ./【MacOS】🧹恢复Xcode\ PIF构建会话.command
 ```
 
-独立恢复模式会先显示影响范围，只有输入完整大写 `YES` 才会继续。
+独立恢复与 Podfile 调用采用相同门禁：阅读影响范围后输入完整大写 `YES`；其它输入、直接回车或输入结束均跳过恢复。`JOBS_POD_INSTALL_INTERACTION=check-only` 等同于只读诊断，`skip` 明确跳过。
 
 可选参数：
 

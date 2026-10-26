@@ -3,7 +3,7 @@
 require 'digest'
 require 'tmpdir'
 
-# 在 CocoaPods 进入依赖解析前异步启动本地任务；绝不探测网络或短路 pod install。
+# 在依赖解析前同步执行辅助任务，保留终端输入及 CocoaPods 原始结果。
 module JobsPodInstallOfflineGuard
   POST_SCRIPTS_CHECK_ONLY_ENV = 'JOBS_POD_INSTALL_POST_SCRIPTS_CHECK_ONLY'
   TRUTHY_VALUES = %w[1 true yes y on].freeze
@@ -12,7 +12,7 @@ module JobsPodInstallOfflineGuard
 
   # 只处理真实的 pod install，不影响 pod update / pod ipc 等其它 CocoaPods 命令。
   def pod_install_command?
-    File.basename($PROGRAM_NAME) == 'pod' && ARGV.first == 'install'
+    File.basename($PROGRAM_NAME) == 'pod' && ARGV.find { |argument| !argument.start_with?('-') } == 'install'
   end
 
   # 统一输出到 CocoaPods UI；独立 Ruby 环境下降级为标准输出。
@@ -36,8 +36,34 @@ module JobsPodInstallOfflineGuard
     File.join(Dir.tmpdir, "jobs-pod-install-preflight-#{project_id}.log")
   end
 
-  # 本地任务脱离 CocoaPods 主进程运行；启动失败也不得改变依赖安装语义。
+  # 只接受明确的只读模式；无终端时不得默认授权辅助写操作。
+  def interaction_mode
+    mode = ENV.fetch('JOBS_POD_INSTALL_INTERACTION', 'interactive').strip.downcase
+    return mode if mode == 'skip'
+    return 'check-only' if TRUTHY_VALUES.include?(ENV.fetch(POST_SCRIPTS_CHECK_ONLY_ENV, '').strip.downcase)
+
+    mode
+  end
+
+  # 两阶段共用跳过规则，避免纯净模式仍偷偷生成前置报告。
+  def skip_scripts?
+    %w[JOBS_POD_INSTALL_PURE JOBS_POD_INSTALL_SKIP_EXTERNAL_SCRIPTS].any? do |key|
+      TRUTHY_VALUES.include?(ENV.fetch(key, '').strip.downcase)
+    end
+  end
+
+  # 前置任务继承真实键盘输入，不后台运行或强制离线。
   def start_preflight!(project_root)
+    return if skip_scripts? || interaction_mode == 'skip'
+    unless %w[interactive check-only].include?(interaction_mode)
+      log('[PodInstallOfflineGuard] ⚠️ 无效交互模式，跳过辅助任务。')
+      return
+    end
+    if interaction_mode == 'interactive' && !STDIN.tty?
+      log('[PodInstallOfflineGuard] 当前无可交互终端，跳过辅助任务；请在终端运行，或显式设置 JOBS_POD_INSTALL_INTERACTION=check-only。')
+      return
+    end
+
     script_path = post_scripts_path(project_root)
     unless File.file?(script_path)
       log("[PodInstallOfflineGuard] ⚠️ 本地前置脚本不存在，继续 pod install：#{script_path}")
@@ -45,32 +71,22 @@ module JobsPodInstallOfflineGuard
     end
 
     arguments = [script_path, '--preflight', '--project-root', project_root]
-    if TRUTHY_VALUES.include?(ENV.fetch(POST_SCRIPTS_CHECK_ONLY_ENV, '').to_s.strip.downcase)
+    if interaction_mode == 'check-only'
       arguments << '--check-only'
     end
 
-    log_path = preflight_log_path(project_root)
-    log_io = File.open(log_path, 'w')
-    process_id = Process.spawn(
+    succeeded = system(
       {
         'JOBS_POD_INSTALL_HOOK' => '1',
-        'JOBS_POD_INSTALL_OFFLINE' => '1',
-        'JOBS_SKIP_README' => '1'
+        'JOBS_POD_INSTALL_INTERACTION' => interaction_mode
       },
       '/bin/zsh',
       *arguments,
-      chdir: project_root,
-      in: File::NULL,
-      out: log_io,
-      err: log_io,
-      pgroup: true
+      chdir: project_root
     )
-    Process.detach(process_id)
-    log("[PodInstallOfflineGuard] ✅ 本地任务已异步启动，PID=#{process_id}，日志=#{log_path}")
+    log('[PodInstallOfflineGuard] ⚠️ 前置辅助任务失败，继续 CocoaPods 原流程。') unless succeeded
   rescue StandardError => error
     log("[PodInstallOfflineGuard] ⚠️ 本地任务启动失败，继续 pod install：#{error.message}")
-  ensure
-    log_io&.close
   end
 
   # Podfile 顶部调用入口。

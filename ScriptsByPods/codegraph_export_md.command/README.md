@@ -20,7 +20,7 @@
 
 ## <span id="jobs-toc-heading-1" data-jobs-toc="v2">🔥 <font id=前言>前言</font></span><!-- jobs-toc:heading-end -->
 
-本目录中可独立运行的 `.command` 入口先显示内置自述：标题红色加粗，编号正文蓝色且不加粗；在终端按回车确认后才进入原有流程，按 `Ctrl+C` 取消。非彩色终端显示纯文本；没有可交互输入时停止，避免确认缺失后继续执行。 已明确设置 `CODEGRAPH_AUTO_INIT=1` 的自动流程保持原有策略；已确认的初始化入口调用导出脚本时透传确认状态，不重复阻塞后台导出。
+入口先显示内置自述：标题红色加粗，编号正文蓝色且不加粗；独立运行时终端按回车后执行，按 `Ctrl+C` 取消。没有可交互输入时提示并跳过，不初始化日志或改写报告。`JOBS_POD_INSTALL_INTERACTION=check-only` / `skip` 均不导出；`CODEGRAPH_AUTO_INIT`、Hook 及旧确认环境变量不能授权写入。初始化脚本在当前终端取得本次导出选择后，内部以 `--confirmed-by-init <父进程PID>` 调用；导出器只接受与真实直接父进程匹配的交接，保留初始化入口的进度心跳，避免重复询问。独立导出继续保留自己的确认。
 
 `codegraph_export_md.command` 用于从 `.codegraph/codegraph.db` 导出真正有阅读价值的 [**Markdown**](https://markdown.cn) / [**Mermaid**](https://mermaid.js.org) 图谱文档。
 

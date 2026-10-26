@@ -1,4 +1,6 @@
 #!/bin/zsh
+# shell: zsh
+# 脚本自述：生成 Podspec 依赖报告和交互图，终端确认后才覆盖报告；工具安装及升级另行选择。
 
 # 仅渲染自述：标题红色加粗，编号正文蓝色常规字重；非彩色终端输出纯文本。
 jobs_intro_style() {
@@ -23,13 +25,19 @@ jobs_intro_style() {
     }
   '
 }
-set -u
-
 # ✅ 日志输出函数
 SCRIPT_BASENAME=$(basename "$0" | sed 's/\.[^.]*$//')   # 当前脚本名（去掉扩展名）
-LOG_FILE="/tmp/${SCRIPT_BASENAME}.log"                  # 设置对应的日志文件路径
+LOG_FILE="${TMPDIR:-/tmp}/${SCRIPT_BASENAME}.log"
+LOG_READY=0
 
-log()            { echo -e "$1" | tee -a "$LOG_FILE"; }
+# 确认前只显示说明，确认后才同步写日志。
+log() {
+  if (( LOG_READY == 1 )); then
+    print -- "$1" | /usr/bin/tee -a "$LOG_FILE"
+  else
+    print -- "$1"
+  fi
+}
 color_echo()     { log "\033[1;32m$1\033[0m"; }         # ✅ 正常绿色输出
 info_echo()      { log "\033[1;34mℹ $1\033[0m"; }       # ℹ 信息
 success_echo()   { log "\033[1;32m✔ $1\033[0m"; }       # ✔ 成功
@@ -61,7 +69,7 @@ print_banner() {
 
 # ✅ 打印脚本说明
 # wait：显示自述后等待用户回车
-# skip：显示自述后不等待，适合已自动识别工程目录
+# skip 仅供明确只读展示，自动识别目录不代表执行授权。
 print_readme() {
   local wait_mode="${1:-wait}"
 
@@ -70,7 +78,7 @@ print_readme() {
   color_echo "2. 若自动检测不到，再让你拖入一个包含 Podfile 的目录。支持普通文件夹、Unix symlink、Finder 替身。" | jobs_intro_style body
   color_echo "3. 递归查找所有 *.podspec，并生成 Markdown 依赖报告，包含总览、0 上游依赖 Pod、外部依赖引用关系、双向明细和 Mermaid 图。" | jobs_intro_style body
   color_echo "4. 生成可搜索、可缩放、可拖拽的动态 HTML 依赖图，并内置 2D / 3D 视图切换。" | jobs_intro_style body
-  color_echo "5. 会先自检 Homebrew；未安装时按芯片架构安装，再安装 Graphviz；已安装 Graphviz 时可选择是否升级，并尝试生成 PNG 图。" | jobs_intro_style body
+  color_echo "5. 先检查 Homebrew / Graphviz；安装或升级直接回车跳过、非空输入执行；Homebrew 安装位置另行选择，不修改 Shell profile。" | jobs_intro_style body
   warm_echo "" | jobs_intro_style body
   warm_echo "输出目录会创建在工程目录下：PodspecDependencyReport，新报告会覆盖旧数据。" | jobs_intro_style body
   info_echo "日志文件：$LOG_FILE" | jobs_intro_style body
@@ -78,9 +86,13 @@ print_readme() {
 
   if [[ "$wait_mode" == "wait" ]]; then
     bold_echo "准备好后按 Enter 继续..." | jobs_intro_style body
-    IFS= read -r _
+    local answer=""
+    if ! IFS= read -r answer || [[ -n "${answer}" ]]; then
+      print -r -- "已取消，未生成报告。"
+      exit 0
+    fi
   else
-    success_echo "已自动识别工程目录，跳过回车确认，直接执行。" | jobs_intro_style body
+    note_echo "只读模式：不生成报告，不安装或更新工具。" | jobs_intro_style body
   fi
 }
 
@@ -223,7 +235,10 @@ prompt_target_dir() {
   while true; do
     warm_echo ""
     bold_echo "请把要分析的工程文件夹拖到这里，然后按 Enter（该目录下必须包含 Podfile）："
-    IFS= read -r raw_path
+    if ! IFS= read -r raw_path; then
+      print -r -- "输入结束，已取消。"
+      exit 0
+    fi
 
     if [[ -z "${raw_path//[[:space:]]/}" ]]; then
       warn_echo "输入为空，请重新拖入文件夹。"
@@ -274,187 +289,304 @@ get_shell_profile_file() {
   esac
 }
 
-# ✅ 写入 Homebrew shellenv 到对应配置文件，并让当前终端立即生效
+# 兼容既有调用，仅激活当前脚本环境，不写入任何 Shell profile。
 inject_shellenv_block() {
-  local profile_file="$1"
-  local shellenv="$2"
-  local header="# >>> homebrew_env 环境变量 >>>"
-  local footer="# <<< homebrew_env 环境变量 <<<"
-  local tmp_file=""
-
-  if [[ -z "$profile_file" || -z "$shellenv" ]]; then
-    error_echo "缺少参数：inject_shellenv_block <profile_file> <shellenv>"
+  local shellenv="${2:-}"
+  if [[ -z "$shellenv" ]]; then
+    error_echo "缺少 Homebrew 当前进程环境。"
     return 1
   fi
-
-  mkdir -p "$(dirname "$profile_file")"
-  touch "$profile_file"
-
-  if grep -Fq "$shellenv" "$profile_file"; then
-    info_echo "Homebrew shellenv 已存在：$profile_file"
-  else
-    if grep -Fq "$header" "$profile_file"; then
-      warn_echo "检测到旧 Homebrew 环境变量块，将替换：$profile_file"
-      tmp_file="$(mktemp)"
-      /usr/bin/awk -v header="$header" -v footer="$footer" '
-        $0 == header { skip = 1; next }
-        $0 == footer { skip = 0; next }
-        skip != 1 { print }
-      ' "$profile_file" > "$tmp_file" && mv "$tmp_file" "$profile_file"
-    fi
-
-    {
-      echo ""
-      echo "$header"
-      echo "$shellenv"
-      echo "$footer"
-    } >> "$profile_file"
-
-    success_echo "已写入 Homebrew 环境变量：$profile_file"
-  fi
-
-  eval "$shellenv"
-  success_echo "Homebrew shellenv 已在当前终端生效"
+  eval "$shellenv" || return 1
+  rehash
+  success_echo "Homebrew 环境仅在当前进程生效，未修改 Shell profile。"
 }
-
-# ✅ Homebrew 自检
+# 普通安装和更新由终端逐项选择，输入结束立即取消后续写入。
+report_ask_to_run() {
+  local answer=""
+  if [[ ! -t 0 || "${JOBS_POD_INSTALL_INTERACTION:-interactive}" != interactive ]]; then
+    note_echo "当前没有可交互授权，已停止本次报告任务。"
+    exit 0
+  fi
+  print -n -r -- "$1（直接回车跳过；任意非空输入后回车执行）："
+  if ! IFS= read -r answer; then
+    note_echo "输入结束，已取消本次报告任务。"
+    exit 0
+  fi
+  [[ -n "$answer" ]]
+}
+# 保留业务命令与日志写入的真实退出码。
+report_run_logged() {
+  local -a results
+  "$@" 2>&1 | /usr/bin/tee -a "$LOG_FILE"
+  results=( "${pipestatus[@]}" )
+  if (( results[1] != 0 )); then
+    return "${results[1]}"
+  fi
+  return "${results[2]}"
+}
+# 输出安装诊断，避免混入返回的命令路径。
+jobs_brew_note() {
+  info_echo "$*" >&2
+}
+# 验证候选能够执行；共享安装只读不代表未安装。
+jobs_brew_candidate_ok() {
+  local candidate="$1" prefix
+  [[ -n "$candidate" && -x "$candidate" ]] || return 1
+  HOMEBREW_NO_AUTO_UPDATE=1 "$candidate" --version >/dev/null 2>&1 || return 1
+  prefix="$("$candidate" --prefix 2>/dev/null)" || return 1
+  [[ "$prefix" == /* && -d "$prefix" ]]
+}
+# 发现既有健康安装，不以目录可写性决定是否重新安装。
+jobs_brew_find() {
+  local candidate
+  local -a candidates
+  candidates=("${JOBS_HOMEBREW_BIN:-}" "$(command -v brew 2>/dev/null)" /opt/homebrew/bin/brew /usr/local/bin/brew
+    "${JOBS_HOMEBREW_INSTALL_PREFIX:-$HOME/.local/homebrew}/bin/brew" "$HOME/.homebrew/bin/brew")
+  for candidate in "${candidates[@]}"; do
+    if jobs_brew_candidate_ok "$candidate"; then
+      print -r -- "$candidate"
+      return 0
+    fi
+  done
+  return 1
+}
+# 计算官方系统目录；实际支持范围和授权交由官方安装器处理。
+jobs_brew_system_prefix() {
+  case "$(/usr/bin/uname -m)" in
+    arm64) print -r -- /opt/homebrew ;;
+    *) print -r -- /usr/local ;;
+  esac
+}
+# 缺失时强提示选择安装路径；YES 只表示选择系统目录，不验证密码或权限。
+jobs_brew_choose_installation() {
+  local answer="" system_prefix="$(jobs_brew_system_prefix)"
+  if [[ ! -t 0 || ! -t 2 || "${IS_SOURCETREE_RUNTIME:-0}" == 1 ]]; then
+    jobs_brew_note "缺少 Homebrew，需要人工选择安装路径；请在可交互终端重新运行，未执行安装。"
+    return 1
+  fi
+  print -u2 -r -- "⚠ Homebrew 尚未就绪，必须先选择安装路径："
+  print -u2 -r -- "1、输入精确大写 YES：选择系统标准目录 $system_prefix（Apple Silicon：/opt/homebrew；Intel：/usr/local）。"
+  print -u2 -r -- "   这表示你准备向系统目录安装；官方安装器可能随后要求管理员密码，并自行验证权限。"
+  print -u2 -r -- "2、其它输入或直接回车：选择用户目录 ${JOBS_HOMEBREW_INSTALL_PREFIX:-$HOME/.local/homebrew}，不使用 sudo；有管理员权限也可选此路径。"
+  print -u2 -r -- "本步骤只选择路径，不收集或验证密码；选定路径失败就停止，不自动切换。按 Ctrl+C 取消整个任务。"
+  print -u2 -n -r -- "➤ 安装路径选择："
+  if ! IFS= read -r answer; then
+    jobs_brew_note "输入已取消或结束，停止本次报告任务。"
+    exit 0
+  fi
+  if [[ "$answer" == YES ]]; then
+    typeset -g JOBS_HOMEBREW_INSTALL_MODE=system
+    jobs_brew_note "已选择系统安装目录：$system_prefix"
+  else
+    typeset -g JOBS_HOMEBREW_INSTALL_MODE=user
+    jobs_brew_note "已选择用户安装目录：${JOBS_HOMEBREW_INSTALL_PREFIX:-$HOME/.local/homebrew}"
+  fi
+}
+# 将官方系统安装器下载到临时文件后执行，失败不自动改装到用户目录。
+jobs_brew_install_system() {
+  local installer system_prefix="$(jobs_brew_system_prefix)" installer_result=0
+  if ! command -v curl >/dev/null 2>&1; then
+    jobs_brew_note "缺少 curl，无法获取官方安装器。"
+    return 1
+  fi
+  installer="$(mktemp "${TMPDIR:-/tmp}/jobs-homebrew-install.XXXXXX")" || return 1
+  if curl -fsSL --connect-timeout 10 --max-time 120 https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh -o "$installer"; then
+    report_run_logged /bin/bash "$installer" || installer_result=$?
+  else
+    installer_result=1
+  fi
+  rm -- "$installer"
+  if (( installer_result != 0 )); then
+    jobs_brew_note "系统目录安装失败（退出码 $installer_result）；停止，不自动切换安装路径。"
+    return 1
+  fi
+  typeset -g JOBS_HOMEBREW_BIN="$system_prefix/bin/brew"
+  if ! jobs_brew_candidate_ok "$JOBS_HOMEBREW_BIN"; then
+    jobs_brew_note "官方安装器结束后未找到健康 Homebrew：$JOBS_HOMEBREW_BIN"
+    return 1
+  fi
+}
+# 克隆官方稳定版本到用户目录；不覆盖非空目录，不调用 sudo。
+jobs_brew_install_user() {
+  local prefix="${JOBS_HOMEBREW_INSTALL_PREFIX:-$HOME/.local/homebrew}" stage release_tag git_bin
+  [[ "$prefix" == /* && "$prefix" != / && "$prefix" != *[[:space:]:]* ]] || {
+    jobs_brew_note "Homebrew 用户前缀须为不含空白或冒号的绝对目录：$prefix"
+    return 1
+  }
+  if [[ -L "$prefix" || ( -e "$prefix" && ! -d "$prefix" ) || ( -d "$prefix" && -n "$(ls -A "$prefix" 2>/dev/null)" ) ]]; then
+    jobs_brew_note "用户安装目标非空或不是普通目录，不覆盖：$prefix"
+    return 1
+  fi
+  git_bin="$(command -v git 2>/dev/null)"
+  if [[ -z "$git_bin" ]] || ! "$git_bin" --version >/dev/null 2>&1; then
+    jobs_brew_note "用户目录安装需要可用 Git；请先准备 Git / Command Line Tools。"
+    return 1
+  fi
+  if ! command -v curl >/dev/null 2>&1; then
+    jobs_brew_note "缺少 curl，无法获取官方稳定版本。"
+    return 1
+  fi
+  export HOMEBREW_NO_SUDO=1
+  mkdir -p "${prefix:h}" || return 1
+  stage="$(mktemp -d "${prefix:h}/.jobs-homebrew.XXXXXX")" || return 1
+  if ! curl -fsSL --connect-timeout 10 --max-time 60 https://api.github.com/repos/Homebrew/brew/releases/latest -o "$stage/release.json"; then
+    rm -r -- "$stage"
+    jobs_brew_note "获取官方稳定版本失败，停止安装。"
+    return 1
+  fi
+  release_tag="$(/usr/bin/plutil -extract tag_name raw -o - "$stage/release.json" 2>/dev/null)"
+  if [[ ! "$release_tag" =~ '^[0-9]+\.[0-9]+\.[0-9]+$' ]] ||
+     ! GIT_TERMINAL_PROMPT=0 report_run_logged "$git_bin" -c http.lowSpeedLimit=1 -c http.lowSpeedTime=60 clone --depth 1 --branch "$release_tag" --single-branch https://github.com/Homebrew/brew.git "$stage/brew" ||
+     ! "$git_bin" -C "$stage/brew" checkout -b stable ||
+     ! "$git_bin" -C "$stage/brew" config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*' ||
+     ! mkdir -p "$stage/brew/Cellar" "$stage/brew/Caskroom" "$stage/brew/etc" "$stage/brew/var"; then
+    rm -r -- "$stage"
+    jobs_brew_note "Homebrew 用户目录初始化失败，停止安装。"
+    return 1
+  fi
+  # 空目录也只在下载成功后移除，避免提前改动用户的目标目录。
+  if [[ -d "$prefix" ]] && ! rmdir -- "$prefix"; then
+    rm -r -- "$stage"
+    return 1
+  fi
+  if ! mv "$stage/brew" "$prefix"; then
+    rm -r -- "$stage"
+    return 1
+  fi
+  rm -r -- "$stage"
+  typeset -g JOBS_HOMEBREW_BIN="$prefix/bin/brew"
+  if ! jobs_brew_candidate_ok "$JOBS_HOMEBREW_BIN"; then
+    jobs_brew_note "用户目录安装后复检失败：$prefix"
+    return 1
+  fi
+}
+# 仅激活当前子进程，不持久化用户 Shell 或其它全局配置。
+jobs_brew_activate() {
+  local brew_env
+  brew_env="$("$JOBS_HOMEBREW_BIN" shellenv)" || return 1
+  eval "$brew_env" || return 1
+  typeset -g JOBS_HOMEBREW_PREFIX="$("$JOBS_HOMEBREW_BIN" --prefix)"
+  [[ "$JOBS_HOMEBREW_PREFIX" == /* && -d "$JOBS_HOMEBREW_PREFIX" ]] || return 1
+  export PATH="$JOBS_HOMEBREW_PREFIX/bin:$JOBS_HOMEBREW_PREFIX/sbin:$PATH"
+  rehash
+  HOMEBREW_NO_AUTO_UPDATE=1 "$JOBS_HOMEBREW_BIN" config >/dev/null || return 1
+}
+# Homebrew 先验证现有安装，缺失时由用户选择安装及系统 / 用户路径。
 install_homebrew() {
-  local arch="$(get_cpu_arch)"
-  local shell_path="${SHELL##*/}"
-  local profile_file="$(get_shell_profile_file)"
-  local brew_bin="$(get_brew_bin_by_arch "$arch")"
-  local shellenv_cmd=""
-  local confirm=""
-
-  warm_echo ""
-  info_echo "开始 Homebrew 自检..."
-  info_echo "当前架构：$arch；当前 Shell：$shell_path"
-
-  if ! command -v brew >/dev/null 2>&1 && [[ -x "$brew_bin" ]]; then
-    shellenv_cmd="eval \"\$(${brew_bin} shellenv)\""
-    info_echo "检测到 Homebrew 已安装但未进入 PATH，开始注入环境变量..."
-    inject_shellenv_block "$profile_file" "$shellenv_cmd" || return 1
-  fi
-
-  if ! command -v brew >/dev/null 2>&1; then
-    warn_echo "未检测到 Homebrew，正在安装中...（架构：$arch）"
-
-    if [[ "$arch" == "arm64" ]]; then
-      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" 2>&1 | tee -a "$LOG_FILE"
-      local install_exit_code=${pipestatus[1]}
-      if [[ $install_exit_code -ne 0 ]]; then
-        error_echo "Homebrew 安装失败（arm64），状态码：$install_exit_code"
-        return 1
-      fi
-      brew_bin="/opt/homebrew/bin/brew"
-    else
-      arch -x86_64 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" 2>&1 | tee -a "$LOG_FILE"
-      local install_exit_code=${pipestatus[1]}
-      if [[ $install_exit_code -ne 0 ]]; then
-        error_echo "Homebrew 安装失败（x86_64），状态码：$install_exit_code"
-        return 1
-      fi
-      brew_bin="/usr/local/bin/brew"
+  local installed_now=0
+  info_echo "开始 Homebrew 自检，环境只作用于当前脚本及子进程。"
+  if ! JOBS_HOMEBREW_BIN="$(jobs_brew_find)"; then
+    if ! report_ask_to_run "未发现健康 Homebrew，是否安装"; then
+      note_echo "已跳过 Homebrew 安装，仍可生成 Markdown 和 HTML。"
+      return 2
     fi
-
-    success_echo "Homebrew 安装成功"
-
-    shellenv_cmd="eval \"\$(${brew_bin} shellenv)\""
-    inject_shellenv_block "$profile_file" "$shellenv_cmd" || return 1
-  else
-    brew_bin="$(command -v brew)"
-    success_echo "Homebrew 已安装：$brew_bin"
-
-    info_echo "是否执行 Homebrew 更新与自检？"
-    warm_echo "直接按 Enter：跳过 Homebrew 更新，只执行 brew -v 轻量检查"
-    warm_echo "输入任意字符后回车：执行 brew update && brew upgrade && brew cleanup && brew doctor && brew -v"
-    IFS= read -r confirm
-
-    if [[ -z "$confirm" ]]; then
-      note_echo "已选择跳过 Homebrew 更新"
-      info_echo "执行轻量自检：brew -v"
-      brew -v 2>&1 | tee -a "$LOG_FILE" || warn_echo "打印 brew 版本失败，可忽略。"
-    else
-      info_echo "正在执行 brew update..."
-      brew update 2>&1 | tee -a "$LOG_FILE"
-      local update_exit_code=${pipestatus[1]}
-      [[ $update_exit_code -eq 0 ]] || { error_echo "brew update 失败，状态码：$update_exit_code"; return 1; }
-
-      info_echo "正在执行 brew upgrade..."
-      brew upgrade 2>&1 | tee -a "$LOG_FILE"
-      local upgrade_exit_code=${pipestatus[1]}
-      [[ $upgrade_exit_code -eq 0 ]] || { error_echo "brew upgrade 失败，状态码：$upgrade_exit_code"; return 1; }
-
-      info_echo "正在执行 brew cleanup..."
-      brew cleanup 2>&1 | tee -a "$LOG_FILE"
-      local cleanup_exit_code=${pipestatus[1]}
-      [[ $cleanup_exit_code -eq 0 ]] || { error_echo "brew cleanup 失败，状态码：$cleanup_exit_code"; return 1; }
-
-      info_echo "正在执行 brew doctor..."
-      brew doctor 2>&1 | tee -a "$LOG_FILE"
-      local doctor_exit_code=${pipestatus[1]}
-      [[ $doctor_exit_code -eq 0 ]] || warn_echo "brew doctor 有警告/错误，请按提示处理。"
-
-      brew -v 2>&1 | tee -a "$LOG_FILE" || warn_echo "打印 brew 版本失败，可忽略。"
-      success_echo "Homebrew 更新与自检完成"
-    fi
+    note_echo "来源：https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh；用户目录来源：https://github.com/Homebrew/brew.git"
+    jobs_brew_choose_installation || return 1
+    case "$JOBS_HOMEBREW_INSTALL_MODE" in
+      system)
+        jobs_brew_install_system || return 1
+        ;;
+      user)
+        jobs_brew_install_user || return 1
+        ;;
+      *)
+        error_echo "Homebrew 安装路径选择无效。"
+        return 1
+        ;;
+    esac
+    installed_now=1
   fi
+  jobs_brew_activate || return 1
+  report_run_logged "$JOBS_HOMEBREW_BIN" --version || return 1
+  success_echo "Homebrew 可用：$JOBS_HOMEBREW_BIN；未修改 Shell profile。"
+  if (( installed_now == 1 )); then
+    return 0
+  fi
+  if ! report_ask_to_run "是否执行 Homebrew update、全局 upgrade、cleanup 和 doctor"; then
+    note_echo "已跳过 Homebrew 更新，仅完成可用性检查。"
+    return 0
+  fi
+  report_run_logged "$JOBS_HOMEBREW_BIN" update || return 1
+  report_run_logged "$JOBS_HOMEBREW_BIN" upgrade || return 1
+  report_run_logged "$JOBS_HOMEBREW_BIN" cleanup || return 1
+  if ! report_run_logged "$JOBS_HOMEBREW_BIN" doctor; then
+    warn_echo "Homebrew doctor 有诊断提示，后续仍按 Graphviz 真实可用性判断。"
+  fi
+  report_run_logged "$JOBS_HOMEBREW_BIN" --version
 }
-
-# ✅ 检查 Graphviz
+# 检查可选 Graphviz，所有安装及更新保留逐项选择，不吞掉命令失败。
 ensure_graphviz() {
-  warm_echo ""
+  local operation="install"
+  local brew_status=0
   info_echo "检查 Graphviz..."
-
   if is_truthy "${JOBS_POD_INSTALL_OFFLINE:-}"; then
-    if command -v dot >/dev/null 2>&1; then
+    if command -v dot >/dev/null 2>&1 && report_run_logged dot -V; then
       success_echo "离线模式复用本机 Graphviz：$(command -v dot)"
     else
-      warn_echo "离线模式未检测到 dot；跳过 Homebrew / Graphviz 安装，仍会生成 Markdown 与 HTML。"
+      warn_echo "离线模式未发现健康 dot，不安装工具；仍可生成 Markdown 和 HTML。"
     fi
     return 0
   fi
-
-  install_homebrew || {
-    warn_echo "Homebrew 自检或安装失败。动态 HTML 图仍会生成；PNG 图可能无法生成。"
+  install_homebrew || brew_status=$?
+  if (( brew_status == 2 )); then
+    warn_echo "Homebrew 未就绪；不安装或升级 Graphviz，继续生成 Markdown 和 HTML。"
     return 0
-  }
-
-  if command -v brew >/dev/null 2>&1; then
-    if brew list --versions graphviz >/dev/null 2>&1; then
-      info_echo "检测到 Graphviz 已通过 Homebrew 安装，是否开始升级？回车跳过，任意输入开始升级"
-      IFS= read -r graphviz_upgrade_input
-
-      if [[ -n "$graphviz_upgrade_input" ]]; then
-        note_echo "开始升级 Graphviz..."
-        HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade graphviz 2>&1 | tee -a "$LOG_FILE" || true
-      else
-        note_echo "已跳过 Graphviz 升级"
-      fi
-    else
-      info_echo "未检测到 Homebrew 版 Graphviz，开始安装..."
-      HOMEBREW_NO_AUTO_UPDATE=1 brew install graphviz 2>&1 | tee -a "$LOG_FILE" || true
-    fi
   fi
-
-  if command -v dot >/dev/null 2>&1; then
+  if (( brew_status != 0 )); then
+    error_echo "Homebrew 安装或更新失败，Graphviz 步骤未完成。"
+    return "$brew_status"
+  fi
+  if "$JOBS_HOMEBREW_BIN" list --versions graphviz >/dev/null 2>&1; then
+    operation="upgrade"
+  fi
+  if report_ask_to_run "是否通过 Homebrew ${operation} Graphviz"; then
+    note_echo "来源：Homebrew 官方 graphviz 公式；下载地址由 Homebrew 解析。"
+    if ! HOMEBREW_NO_AUTO_UPDATE=1 report_run_logged "$JOBS_HOMEBREW_BIN" "$operation" graphviz; then
+      error_echo "Graphviz ${operation} 失败，未将工具安装视为成功。"
+      return 1
+    fi
+    if ! command -v dot >/dev/null 2>&1 || ! report_run_logged dot -V; then
+      error_echo "Graphviz ${operation} 后复检失败。"
+      return 1
+    fi
+  else
+    note_echo "已跳过 Graphviz ${operation}。"
+  fi
+  if command -v dot >/dev/null 2>&1 && report_run_logged dot -V; then
     success_echo "Graphviz 可用：$(command -v dot)"
   else
-    warn_echo "未检测到 dot 命令。动态 HTML 图仍会生成；PNG 图不会生成。"
+    warn_echo "未发现健康 dot，仍可生成 Markdown 和 HTML；PNG 图可能无法生成。"
   fi
 }
 
-# ✅ 创建报告输出目录：固定使用 PodspecDependencyReport，新的报告会覆盖旧数据
+# 创建固定报告目录，只覆盖生成文件，保留其它用户文件。
 prepare_report_dir() {
   local target_dir="$1"
-  local report_dir="$target_dir/PodspecDependencyReport"
-
-  if [[ -e "$report_dir" ]]; then
-    warn_echo "检测到旧报告目录，将删除并重新生成：$report_dir" >&2
-    rm -rf "$report_dir"
+  local report_dir="" generated_name="" generated_path=""
+  if ! is_valid_project_dir "$target_dir"; then
+    error_echo "目标不是包含 Podfile 的工程目录：$target_dir" >&2
+    return 1
   fi
+  target_dir="$(cd -P -- "$target_dir" && pwd)" || return 1
+  report_dir="$target_dir/PodspecDependencyReport"
 
-  mkdir -p "$report_dir"
+  if [[ -L "$report_dir" || ( -e "$report_dir" && ! -d "$report_dir" ) ]]; then
+    error_echo "报告目录为符号链接或非目录，拒绝覆盖：$report_dir" >&2
+    return 1
+  fi
+  if [[ -d "$report_dir" ]]; then
+    note_echo "将覆盖同名生成报告，保留目录中的其它文件：$report_dir" >&2
+  fi
+  for generated_name in .generate_podspec_dependency_report.rb PodspecDependencies.md PodspecDependencies_interactive.html \
+    PodspecDependencies_all.mmd PodspecDependencies_internal.mmd PodspecDependencies_all.dot \
+    PodspecDependencies_internal.dot PodspecDependencies_all.png PodspecDependencies_internal.png; do
+    generated_path="$report_dir/$generated_name"
+    if [[ -L "$generated_path" || ( -e "$generated_path" && ! -f "$generated_path" ) ]]; then
+      error_echo "生成目标为链接或非普通文件，拒绝覆盖：$generated_path" >&2
+      return 1
+    fi
+  done
+  mkdir -p "$report_dir" || return 1
   echo "$report_dir"
 }
 
@@ -2288,17 +2420,22 @@ run_generator() {
   local target_dir="$2"
   local report_dir="$3"
   local generator_exit_code=0
+  local -a generator_results
 
   info_echo "开始扫描并生成依赖报告..."
 
   /usr/bin/ruby "$generator" "$target_dir" "$report_dir" 2>&1 | tee -a "$LOG_FILE"
-  generator_exit_code=${pipestatus[1]}
+  generator_results=( "${pipestatus[@]}" )
+  generator_exit_code=${generator_results[1]}
+  if (( generator_exit_code == 0 && generator_results[2] != 0 )); then
+    generator_exit_code=${generator_results[2]}
+  fi
 
   rm -f "$generator"
 
   if [[ $generator_exit_code -ne 0 ]]; then
     error_echo "生成失败，状态码：$generator_exit_code"
-    exit $generator_exit_code
+    return "$generator_exit_code"
   fi
 
   success_echo "依赖报告生成完成。"
@@ -2314,8 +2451,14 @@ generate_graphviz_png() {
 
   if command -v dot >/dev/null 2>&1; then
     info_echo "开始生成 Graphviz PNG 图片..."
-    dot -Tpng "$dot_all" -o "$png_all" 2>&1 | tee -a "$LOG_FILE" || true
-    dot -Tpng "$dot_internal" -o "$png_internal" 2>&1 | tee -a "$LOG_FILE" || true
+    if ! report_run_logged dot -Tpng "$dot_all" -o "$png_all" || ! report_run_logged dot -Tpng "$dot_internal" -o "$png_internal"; then
+      error_echo "Graphviz PNG 生成失败；已生成的 Markdown / HTML 保留。"
+      return 1
+    fi
+    if [[ ! -s "$png_all" || ! -s "$png_internal" ]]; then
+      error_echo "Graphviz 未生成完整 PNG 产物；已生成的 Markdown / HTML 保留。"
+      return 1
+    fi
 
     warm_echo ""
     success_echo "已生成 Graphviz PNG："
@@ -2333,9 +2476,10 @@ open_outputs() {
   local html_file="$report_dir/PodspecDependencies_interactive.html"
   local png_internal="$report_dir/PodspecDependencies_internal.png"
 
-  if is_truthy "${JOBS_POD_INSTALL_HOOK:-}" || is_truthy "${JOBS_SKIP_README:-}"; then
-    success_echo "报告已生成：$report_dir"
-    note_echo "自动钩子模式不打开 Finder 或浏览器。"
+  local open_choice=""
+  print -n -r -- "是否打开生成的报告？直接回车跳过；输入任意字符打开："
+  if ! IFS= read -r open_choice || [[ -z "${open_choice}" ]]; then
+    note_echo "报告保留在：$report_dir"
     return 0
   fi
 
@@ -2350,36 +2494,62 @@ open_outputs() {
 }
 
 # ✅ 主流程
-main() {
-  : > "$LOG_FILE"
-
-  local target_dir=""
-  local report_dir=""
-  local generator=""
-
+# 先展示用途并确认，输入结束和无终端均不得开始写入。
+show_script_intro_and_wait() {
   print_banner
-
-  # 1. 最高优先级：先检测脚本所在目录和上一层目录是否包含 Podfile。
-  # 2. 自动检测成功时，不等待“准备好后按 Enter”，直接继续执行。
-  # 3. 自动检测失败时，显示自述并等待回车，然后进入手动拖入目录流程。
-  if detect_target_dir_from_script_location; then
-    print_readme "skip"
-  else
-    print_readme "wait"
+  case "${JOBS_POD_INSTALL_INTERACTION:-interactive}" in
+    skip) print -r -- "已显式跳过依赖报告。"; exit 0 ;;
+    check-only)
+      print_readme "skip"
+      detect_target_dir_from_script_location || exit 1
+      exit 0
+      ;;
+    interactive) ;;
+    *) print -r -- "错误：无效的 JOBS_POD_INSTALL_INTERACTION。"; exit 2 ;;
+  esac
+  if [[ ! -t 0 ]]; then
+    print -r -- "当前无可交互终端，已跳过报告生成；请在终端运行。"
+    exit 0
+  fi
+  print_readme "wait"
+}
+# 确认后初始化日志，并自动定位工程或接受用户拖入目录。
+initialize_report_runtime() {
+  setopt NO_NOMATCH
+  set -u
+  if [[ -L "$LOG_FILE" || ( -e "$LOG_FILE" && ! -f "$LOG_FILE" ) ]]; then
+    print -r -- "日志路径不是普通文件，已停止：$LOG_FILE"
+    exit 1
+  fi
+  : > "$LOG_FILE" || exit 1
+  LOG_READY=1
+  if ! detect_target_dir_from_script_location; then
     prompt_target_dir
   fi
-
-  target_dir="$SELECTED_TARGET_DIR"
-
-  ensure_graphviz
-
-  report_dir="$(prepare_report_dir "$target_dir")"
+}
+# 使用现有生成器更新 Markdown、HTML 及可选 PNG。
+generate_dependency_reports() {
+  local target_dir="$SELECTED_TARGET_DIR"
+  local report_dir=""
+  local generator=""
+  local tool_status=0
+  ensure_graphviz || tool_status=$?
+  if (( tool_status != 0 )); then
+    warn_echo "工具安装 / 更新未通过；仍尝试生成不依赖 Graphviz 的 Markdown 和 HTML。"
+  fi
+  report_dir="$(prepare_report_dir "$target_dir")" || return 1
   generator="$report_dir/.generate_podspec_dependency_report.rb"
-
-  write_generator_script "$generator"
-  run_generator "$generator" "$target_dir" "$report_dir"
-  generate_graphviz_png "$report_dir"
+  write_generator_script "$generator" || return 1
+  run_generator "$generator" "$target_dir" "$report_dir" || return 1
+  generate_graphviz_png "$report_dir" || return 1
   open_outputs "$report_dir"
+  return "$tool_status"
+}
+# 编排交互确认、运行准备和报告生成。
+main() {
+  show_script_intro_and_wait # 展示内置说明，无确认不写文件。
+  initialize_report_runtime # 确认后初始化日志并定位工程。
+  generate_dependency_reports # 保留工具选择，生成全部既有报告。
 }
 
 main "$@"
