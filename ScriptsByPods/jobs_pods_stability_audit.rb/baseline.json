@@ -63,6 +63,7 @@
     "JobsOCCountryCodeCtrl",
     "JobsOCDSL",
     "JobsOCDefs",
+    "JobsOCDeviceGuard",
     "JobsOCExcel",
     "JobsOCGraphicCaptcha",
     "JobsOCKeyboardMgr",
@@ -412,6 +413,11 @@
       "sha256": "b3a27c6cec783f6d7b9809af0df99ceb7aa037b3548e07411eda73164bb5a638",
       "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
       "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
+    },
+    "JobsByPods/JobsOCDeviceGuard@Pods/JobsPodspecKit.rb": {
+      "sha256": "d818aebe6a912811ac50ab4b1fc3a1712f1844369b53d2ef3c1cb27ada29b947",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "2026-10-29 已核对 JobsOCDeviceGuard helper：仅模块名不同，归一化后与已审 JobsOCDefs 等标准 helper 完全一致；新增 Pod 纳入完整构建及 Stability 测试，后续行为变化仍须复审。"
     },
     "JobsByPods/JobsOCExcel@Pods/JobsPodspecKit.rb": {
       "sha256": "2340b69b7c2d89ef23ff245435f1c5a30bf33f7b6d545a7580efd865ae4be896",
