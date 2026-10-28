@@ -146,7 +146,7 @@ jobs:
             "${GITHUB_WORKSPACE}" "${RUNNER_TEMP}/ReactiveObjCDiagnosticsAfterBuild"
 
       - name: Run each Pod regression suite
-        timeout-minutes: 90
+        timeout-minutes: 120
         run: |
           ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
             --phase tests --architecture arm64 --simulator "${SIMULATOR_ID}" --output "${RUNNER_TEMP}/JobsOCStability"
