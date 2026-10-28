@@ -128,6 +128,136 @@ Dir.mktmpdir('jobs-readme-evidence-tests-') do |folder|
   assert.call(latest_result({ 'results' => [stale] }, fingerprint, 'test', 'FixturePod', 'Debug').nil?, 'old hash accepted')
   failure = valid.merge('exit_status' => 1)
   assert.call(latest_result({ 'results' => [valid, failure] }, fingerprint, 'test', 'FixturePod', 'Debug')['exit_status'] == 1, 'latest failure was hidden by previous success')
+
+  preparation = {
+    'kind' => 'test_build', 'name' => 'FixturePod', 'configuration' => 'Debug',
+    'source_fingerprint' => fingerprint, 'execution_mode' => 'separate-test-build',
+    'signing_policy' => 'unsigned', 'started_at' => '2026-10-29T05:00:00+08:00',
+    'log' => log, 'command' => ['xcodebuild', '-scheme', 'FixturePod-Unit-Stability', 'build-for-testing'],
+    'exit_status' => 0, 'source_consistent' => true, 'timed_out' => false,
+    'process_status_collected' => true, 'process_exit_status' => 0, 'process_signal' => nil,
+    'process_pid' => 12345
+  }
+  split = Marshal.load(Marshal.dump(valid))
+  split.merge!('execution_mode' => 'test-without-building', 'signing_policy' => 'unsigned',
+    'test_build_record' => Marshal.load(Marshal.dump(preparation)))
+  errors = []
+  require_test(errors, { 'results' => [preparation, split] }, fingerprint, folder, 'FixturePod', 'Debug')
+  assert.call(errors.empty?, "valid split-test receipt rejected: #{errors.inspect}")
+  ['missing preparation', 'missing proof', 'mismatched proof', 'later failed preparation',
+   'later timed-out preparation', 'source changed in preparation', 'uncollected preparation status',
+   'nonzero actual preparation exit', 'signaled preparation', 'wrong preparation mode',
+   'wrong preparation signing', 'missing preparation log', 'missing preparation identity',
+   'preparation after test', 'wrong preparation fingerprint', 'wrong preparation action',
+   'unrecognized shared signing policy'].each do |scenario|
+    build = Marshal.load(Marshal.dump(preparation))
+    test = Marshal.load(Marshal.dump(split))
+    rows = [build, test]
+    case scenario
+    when 'missing preparation'
+      rows = [test]
+    when 'missing proof'
+      test.delete('test_build_record')
+    when 'mismatched proof'
+      test['test_build_record']['process_pid'] += 1
+    when 'later failed preparation'
+      rows << build.merge('exit_status' => 65, 'process_exit_status' => 65, 'process_pid' => 22345)
+    when 'later timed-out preparation'
+      rows << build.merge('exit_status' => 124, 'timed_out' => true, 'process_pid' => 22345)
+    when 'source changed in preparation'
+      build['source_consistent'] = false
+    when 'uncollected preparation status'
+      build['process_status_collected'] = false
+    when 'nonzero actual preparation exit'
+      build['process_exit_status'] = 65
+    when 'signaled preparation'
+      build['process_signal'] = 9
+    when 'wrong preparation mode'
+      build['execution_mode'] = 'individual'
+    when 'wrong preparation signing'
+      build['signing_policy'] = 'different-policy'
+    when 'missing preparation log'
+      build['log'] = File.join(folder, 'missing-build.log')
+    when 'missing preparation identity'
+      build.delete('process_pid')
+    when 'preparation after test'
+      rows = [test, build]
+    when 'wrong preparation fingerprint'
+      build['source_fingerprint'] = 'b' * 64
+    when 'wrong preparation action'
+      build['command'][-1] = 'test'
+    when 'unrecognized shared signing policy'
+      build['signing_policy'] = 'different-policy'
+      test['signing_policy'] = 'different-policy'
+    end
+    # 对状态与日志类负例保留完全匹配的内嵌证据，确保不是仅靠内容不等拒领。
+    matching_proof_cases = ['source changed in preparation', 'uncollected preparation status',
+      'nonzero actual preparation exit', 'signaled preparation', 'wrong preparation mode',
+      'wrong preparation signing', 'missing preparation log', 'missing preparation identity',
+      'wrong preparation action', 'unrecognized shared signing policy']
+    if matching_proof_cases.include?(scenario)
+      test['test_build_record'] = Marshal.load(Marshal.dump(build))
+    end
+    errors = []
+    require_test(errors, { 'results' => rows }, fingerprint, folder, 'FixturePod', 'Debug')
+    assert.call(!errors.empty?, "split #{scenario} was accepted")
+  end
+
+  baseline_folder = File.join(folder, 'ScriptsByPods', 'jobs_pods_stability_audit.rb')
+  FileUtils.mkdir_p(baseline_folder)
+  baseline_path = File.join(baseline_folder, 'baseline.json')
+  inventory = (1..109).map { |index| "FixturePod#{index}" } + ['JobsOCDeviceGuard']
+  File.write(baseline_path, JSON.generate('expected_pods' => inventory.take(109)))
+  accepted = validate_pod_inventory(folder, { 'self_pod_count' => 109 }, inventory.take(109))
+  assert.call(accepted.size == 109, 'existing reviewed inventory was rejected')
+  rejected = false
+  begin
+    validate_pod_inventory(folder, { 'self_pod_count' => 110 }, inventory)
+  rescue StandardError
+    rejected = true
+  end
+  assert.call(rejected, 'unreviewed 110th Pod was absorbed by the old inventory')
+  File.write(baseline_path, JSON.generate('expected_pods' => inventory))
+  actual = inventory.reverse
+  accepted = validate_pod_inventory(folder, { 'self_pod_count' => 110 }, actual)
+  assert.call(accepted == inventory, 'reviewed 110-Pod inventory was rejected or mutated')
+  ['missing baseline', 'empty baseline', 'duplicate baseline', 'blank baseline name',
+   'missing baseline field', 'wrong baseline field type', 'missing actual Pod', 'new actual Pod',
+   'wrong recorded count', 'noninteger recorded count'].each do |scenario|
+    expected = inventory.dup
+    names = inventory.dup
+    count = inventory.size
+    baseline = { 'expected_pods' => expected }
+    case scenario
+    when 'empty baseline'
+      baseline['expected_pods'] = []
+    when 'duplicate baseline'
+      expected << expected.first
+    when 'blank baseline name'
+      expected[-1] = ' '
+    when 'missing baseline field'
+      baseline = {}
+    when 'wrong baseline field type'
+      baseline['expected_pods'] = '110'
+    when 'missing actual Pod'
+      names.pop
+    when 'new actual Pod'
+      names[-1] = 'UnreviewedPod'
+    when 'wrong recorded count'
+      count -= 1
+    when 'noninteger recorded count'
+      count = count.to_f
+    end
+    File.write(baseline_path, JSON.generate(baseline))
+    File.delete(baseline_path) if scenario == 'missing baseline'
+    rejected = false
+    begin
+      validate_pod_inventory(folder, { 'self_pod_count' => count }, names)
+    rescue StandardError
+      rejected = true
+    end
+    assert.call(rejected, "inventory #{scenario} was accepted")
+  end
   readme = File.join(folder, 'README.md')
   original = "# Fixture\n\n## 一、合同\n\n合同保持。\n\n## 二、本轮单元验证\n\n#{PENDING_PREFIX}原指纹门禁保持。\n\n## 三、边界\n\n仍待真机。\n"
   File.write(readme, original)

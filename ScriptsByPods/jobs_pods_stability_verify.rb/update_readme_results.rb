@@ -12,6 +12,24 @@ require_relative 'jobs_stability_pod_batch'
 DEFAULT_ROOT = File.expand_path('../..', __dir__).freeze
 RESULT_LINK = '[JobsByPods升级实施与编译验证.md](<../../JobsByPods升级实施与编译验证.md>)'.freeze
 PENDING_PREFIX = "当前结果：**待最终全量验收，见根 #{RESULT_LINK}**。".freeze
+TEST_BUILD_IDENTITY_KEYS = %w[kind name configuration source_fingerprint execution_mode signing_policy started_at log command
+                              exit_status source_consistent timed_out process_status_collected process_exit_status process_signal process_pid].freeze
+
+# 复用人工审阅清单，新增、缺失或重复模块都不能靠旧固定数量蒙混过关。
+def validate_pod_inventory(root, record, actual_names)
+  baseline_path = File.join(root, 'ScriptsByPods', 'jobs_pods_stability_audit.rb', 'baseline.json')
+  baseline = JSON.parse(File.read(baseline_path))
+  expected = baseline.is_a?(Hash) ? baseline['expected_pods'] : nil
+  unless expected.is_a?(Array) && !expected.empty? &&
+      expected.all? { |name| name.is_a?(String) && !name.strip.empty? } && expected.uniq.size == expected.size
+    raise '已审 baseline.expected_pods 必须是非空、无重复的 Pod 名称清单'
+  end
+  unless actual_names.sort == expected.sort && record['self_pod_count'].is_a?(Integer) &&
+      record['self_pod_count'] == expected.size
+    raise "自建 Pod 清单与已审 baseline 不一致：缺少 #{(expected - actual_names).inspect}，新增 #{(actual_names - expected).inspect}，记录数量 #{record['self_pod_count'].inspect}，预期 #{expected.size}"
+  end
+  expected
+end
 
 # 与 runner 相同的枚举与字节指纹，不执行构建、安装或其余 runner 副作用。
 def source_paths(root)
@@ -63,6 +81,31 @@ def require_test(errors, record, fingerprint, root, name, configuration)
   row = require_result(errors, record, fingerprint, root, 'test', name, configuration)
   return nil unless row
   label = "test/#{name}/#{configuration}"
+  if row['execution_mode'] == 'test-without-building'
+    preparation = require_result(errors, record, fingerprint, root, 'test_build', name, configuration)
+    if preparation
+      expected_signing_policy = name == 'JobsBaseUI' ? 'simulator-adhoc-keychain-v1' : 'unsigned'
+      command = preparation['command']
+      valid_preparation = preparation['execution_mode'] == 'separate-test-build' &&
+        preparation['exit_status'] == 0 && preparation['timed_out'] == false &&
+        preparation['source_consistent'] == true && preparation['process_status_collected'] == true &&
+        preparation['process_exit_status'] == 0 && preparation['process_signal'].nil? &&
+        preparation['process_pid'].is_a?(Integer) && preparation['process_pid'].positive? &&
+        preparation['signing_policy'] == expected_signing_policy && row['signing_policy'] == expected_signing_policy &&
+        command.is_a?(Array) && command.first == 'xcodebuild' && command.last == 'build-for-testing'
+      errors << "测试构建证据未完整成功 #{label}" unless valid_preparation
+      identity = preparation.select { |key, _value| TEST_BUILD_IDENTITY_KEYS.include?(key) }
+      unless TEST_BUILD_IDENTITY_KEYS.all? { |key| preparation.key?(key) } && row['test_build_record'] == identity
+        errors << "测试与最新构建证据不匹配 #{label}"
+      end
+      rows = record.fetch('results')
+      preparation_index = rows.rindex { |item| item.equal?(preparation) }
+      test_index = rows.rindex { |item| item.equal?(row) }
+      unless preparation_index && test_index && preparation_index < test_index
+        errors << "最新测试构建发生在测试之后，旧测试结果不能覆盖它 #{label}"
+      end
+    end
+  end
   summary = row['test_summary']
   unless summary.is_a?(Hash)
     errors << "没有实际 XCTest summary #{label}"
@@ -153,7 +196,7 @@ def main
   pods = Dir.glob(File.join(root, 'JobsByPods', '*@Pods', '*.podspec')).reject do |path|
     path.include?('/ManualBy')
   end.sort.to_h { |path| [File.basename(path, '.podspec'), path] }
-  raise "不是本轮109自建Pod: #{pods.size}" unless pods.size == 109 && record['self_pod_count'] == 109
+  validate_pod_inventory(root, record, pods.keys)
   xcode_version, status = Open3.capture2('xcodebuild', '-version')
   raise '无法只读查询 Xcode 版本' unless status.success?
   raise 'Xcode 版本与验收记录不一致' unless record['xcode'] == xcode_version.strip

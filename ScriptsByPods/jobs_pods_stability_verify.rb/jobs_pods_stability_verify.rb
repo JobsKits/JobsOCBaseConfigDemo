@@ -20,6 +20,7 @@ OptionParser.new do |parser|
   parser.on('--configuration NAME', %w[Debug Release], '单独验证一个配置，默认两个') { |value| options[:configurations] = [value] }
   parser.on('--architecture ARCH', %w[arm64 x86_64], '定向模拟器架构；省略时保留双架构') { |value| options[:architecture] = value }
   parser.on('--batch-pods', '所选自建 Pod 每配置共用一次构建；默认仍逐 Pod') { options[:batch_pods] = true }
+  parser.on('--separate-test-builds', '逐套先构建测试包，再独立执行 XCTest；构建与运行分别限时') { options[:separate_test_builds] = true }
   parser.on('--pod NAME', '定向重跑，可重复指定') { |value| options[:pods] << value }
   parser.on('--simulator UDID', '测试模拟器 UUID') { |value| options[:simulator] = value }
   parser.on('--output PATH', '日志与结果目录；成功且源码指纹一致的记录可复用') { |value| options[:output] = File.expand_path(value) }
@@ -82,19 +83,24 @@ end
 
 execute = lambda do |kind, name, configuration, args, evidence = {}|
   assert_current_source.call
-  signing_policy = kind == 'test' && name == 'JobsBaseUI' ? 'simulator-adhoc-keychain-v1' : 'unsigned'
+  command = ['xcodebuild'] + (kind == 'test_build' ? [] : ['-quiet']) + args
+  signing_policy = %w[test test_build].include?(kind) && name == 'JobsBaseUI' ? 'simulator-adhoc-keychain-v1' : 'unsigned'
   previous = record['results'].reverse.find { |row| row.values_at('kind', 'name', 'configuration', 'source_fingerprint') == [kind, name, configuration, revision] }
   mode_matches = previous && previous.fetch('execution_mode', 'individual') == evidence.fetch('execution_mode', 'individual')
   batch_cache_valid = kind != 'pod_batch' || (previous &&
     evidence.all? { |key, value| previous[key] == value } &&
     JobsStabilityPodBatch.evidence_errors(previous, root).empty?)
-  if previous && mode_matches && batch_cache_valid && previous['exit_status'] == 0 && !previous['timed_out'] && previous['signing_policy'] == signing_policy && (kind != 'test' || previous['simulator'] == options[:simulator])
+  preparation_cache_valid = kind != 'test_build' || (previous && previous['source_consistent'] == true &&
+    previous['process_status_collected'] == true && previous['process_exit_status'] == 0 && previous['process_signal'].nil? &&
+    previous['command'] == command && previous['log'].is_a?(String) && File.file?(previous['log']))
+  test_cache_valid = evidence['execution_mode'] != 'test-without-building' || (previous &&
+    evidence.all? { |key, value| previous[key] == value })
+  if previous && mode_matches && batch_cache_valid && preparation_cache_valid && test_cache_valid && previous['exit_status'] == 0 && !previous['timed_out'] && previous['signing_policy'] == signing_policy && (!%w[test test_build].include?(kind) || previous['simulator'] == options[:simulator])
     puts "PASS (cached) #{kind} #{name} #{configuration}"
     next true
   end
   timestamp = Time.now.strftime('%H%M%S')
   log = File.join(options[:output], "#{kind}-#{name}-#{configuration}-#{timestamp}.log")
-  command = ['xcodebuild', '-quiet'] + args
   puts "RUN #{kind} #{name} #{configuration}"
   started = Time.now
   status = nil
@@ -275,8 +281,37 @@ if %w[all tests].include?(options[:phase]) && passed
       test_scheme = "#{name}-Unit-Stability"
       destination = "platform=iOS Simulator,id=#{options[:simulator]}"
       destination += ",arch=#{options[:architecture]}" if options[:architecture]
-      args = ['-project', 'Pods/Pods.xcodeproj', '-scheme', test_scheme, '-destination', destination, '-parallel-testing-enabled', 'NO', '-resultBundlePath', result_bundle] + build_base.call(configuration, name == 'JobsBaseUI') + ['test']
-      ok = execute.call('test', name, configuration, args)
+      common_args = ['-project', 'Pods/Pods.xcodeproj', '-scheme', test_scheme, '-destination', destination,
+                     '-parallel-testing-enabled', 'NO'] + build_base.call(configuration, name == 'JobsBaseUI')
+      evidence = {}
+      action = 'test'
+      if options[:separate_test_builds]
+        preparation_mode = { 'execution_mode' => 'separate-test-build' }
+        ok = execute.call('test_build', name, configuration,
+          common_args + ['-showBuildTimingSummary', 'build-for-testing'], preparation_mode)
+        unless ok
+          passed = false
+          break
+        end
+        preparation = record['results'].reverse.find do |row|
+          row.values_at('kind', 'name', 'configuration', 'source_fingerprint', 'execution_mode') ==
+            ['test_build', name, configuration, revision, preparation_mode.fetch('execution_mode')]
+        end
+        unless preparation && preparation['exit_status'] == 0 && !preparation['timed_out'] &&
+            preparation['source_consistent'] == true && preparation['process_status_collected'] == true &&
+            preparation['process_exit_status'] == 0 && preparation['process_signal'].nil? && File.file?(preparation.fetch('log'))
+          raise "#{name} #{configuration} 没有同一源码指纹的成功测试构建证据，不能执行已编译测试包。"
+        end
+        identity_keys = %w[kind name configuration source_fingerprint execution_mode signing_policy started_at log command
+                           exit_status source_consistent timed_out process_status_collected process_exit_status process_signal process_pid]
+        evidence = {
+          'execution_mode' => 'test-without-building',
+          'test_build_record' => preparation.select { |key, _value| identity_keys.include?(key) }
+        }
+        action = 'test-without-building'
+      end
+      args = common_args + ['-resultBundlePath', result_bundle, action]
+      ok = execute.call('test', name, configuration, args, evidence)
       passed = false unless ok
       break unless ok
     end

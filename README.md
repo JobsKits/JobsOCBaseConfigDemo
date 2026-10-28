@@ -649,9 +649,13 @@ Behaviors 属于 Xcode 当前用户设置，工程引用不会自动建立其它
 
 `main` 仅为 [**ZFPlayer**](https://github.com/renzifeng/ZFPlayer) 4.1.4、[**AFNetworking**](https://github.com/AFNetworking/AFNetworking) 4.0.1 的 Debug / Release target 设置 `CLANG_ENABLE_MODULES=NO`，使其旧 IPv6 头引用按文本包含顺序编译；公开 modulemap、`DEFINES_MODULE` 与宿主的模块编译继续保留。这项生成配置在 CI 跳过旧供应商源码补丁时同样生效。本地使用 Xcode 27.1 / SDK 27.1 验证了上游原版 Reachability / AFHTTPSessionManager 实现、两个完整 framework，以及启用模块并同时使用 `#import` / `@import` 的消费者编译和链接；主 App 整包结果仍以对应提交的云端工作流为准。
 
-`main` 安装依赖后构建 Debug 主 App；`byPods` 保留各 Jobs 本地 Pod 的 Debug / Release 编译、48 个 Stability Pod 共 49 个配置的组件回归、macOS harness 与主 App Debug / Release 编译。整个 `byPods` job 使用 `JOBS_SIMULATOR_ONLY=1`：安装时排除只有真机 arm64 slice 的 IJK，保留模拟器原有 AVPlayer / ControlView，测试覆盖不删减。本地默认不设置此变量，切换模式必须重新 `pod install`；CI 结果仅证明模拟器依赖图，模式与架构均写入结果身份，不代表真机 IJK 验收。配置回归先于耗时构建执行；宿主权限审计先运行 9 个独立 Mach-O 场景，Pod 测试成功后再显式验收当次临时 Products 目录中的 AppHost，指定产物缺失即失败。测试首错停止后续测试与 harness，日志保留真实 `ld:` 原因。本地 Pod 门禁保留完整命令、退出码与源码冻结校验。冻结范围只排除 `JobsAppIconRibbon.config` 实际指定的 Debug / Release 派生 appiconset，原始 AppIcon、配置与生成器仍参加校验。
+`main` 安装依赖后构建 Debug 主 App；`byPods` 保留各 Jobs 本地 Pod 的 Debug / Release 编译、49 个 Stability Pod 共 50 个配置的组件回归、macOS harness 与主 App Debug / Release 编译。整个 `byPods` job 使用 `JOBS_SIMULATOR_ONLY=1`：安装时排除只有真机 arm64 slice 的 IJK，保留模拟器原有 AVPlayer / ControlView，测试覆盖不删减。本地默认不设置此变量，切换模式必须重新 `pod install`；CI 结果仅证明模拟器依赖图，模式与架构均写入结果身份，不代表真机 IJK 验收。配置回归先于耗时构建执行；宿主权限审计先运行 9 个独立 Mach-O 场景，Pod 测试成功后再显式验收当次临时 Products 目录中的 AppHost，指定产物缺失即失败。测试首错停止后续测试与 harness，日志保留真实 `ld:` 原因。本地 Pod 门禁保留完整命令、退出码与源码冻结校验。冻结范围只排除 `JobsAppIconRibbon.config` 实际指定的 Debug / Release 派生 appiconset，原始 AppIcon、配置与生成器仍参加校验。
 
-`byPods` 的 Pod 阶段通过[门禁脚本](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/byPods/ScriptsByPods/jobs_pods_stability_verify.rb/README.md)的 `--batch-pods` 生成仅含 109 个自建 Pod target 的专用 workspace / Scheme，在 Debug、Release 各执行一次构建，由 Xcode 合并共享依赖；framework 与 aggregate / 头文件 target 保持原始语义，不使用 `-alltargets`，不改变资源依赖、测试宿主与主 App 的独立验收。CI 每配置最多 55 分钟，两个配置仍共用原有的 120 分钟步骤时限；本地未加开关时仍逐 Pod 构建。失败或超时停止后续配置，源码、安装模式与架构门禁继续生效。
+`byPods` 的组件回归显式启用 `--separate-test-builds`：每个 Stability scheme 先执行 `build-for-testing`，以 1800 秒构建预算准备依赖、测试 bundle 和宿主；准备成功后才执行同一 scheme、配置、模拟器及签名策略的 `test-without-building`，测试执行仍限时 600 秒。两阶段分别记录真实命令、退出码、耗时和日志，准备失败不运行测试，测试结果仍须由官方 `.xcresult` 核验；Keychain 宿主权限、Snowflake 双配置及各 macOS harness 全部保留。该开关分离构建和执行预算，不承诺缩短总耗时；默认本地模式仍使用原 `test` 动作。
+
+CI 安装步骤固定 `JOBS_SPECS_SOURCE=cdn`，避免失败重试转为克隆整个 Specs Git 仓库；只向当前安装进程及其子进程追加 Git 的 `http.version=HTTP/1.1`，保留已有进程配置，不改本机或系统全局设置。
+
+`byPods` 的 Pod 阶段通过[门禁脚本](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/byPods/ScriptsByPods/jobs_pods_stability_verify.rb/README.md)的 `--batch-pods` 生成仅含 110 个自建 Pod target 的专用 workspace / Scheme，在 Debug、Release 各执行一次构建，由 Xcode 合并共享依赖；framework 与 aggregate / 头文件 target 保持原始语义，不使用 `-alltargets`，不改变资源依赖、测试宿主与主 App 的独立验收。CI 每配置最多 55 分钟，两个配置仍共用原有的 120 分钟步骤时限；本地未加开关时仍逐 Pod 构建。失败或超时停止后续配置，源码、安装模式与架构门禁继续生效。
 
 批次进程独立记录整批命令、退出状态和耗时；每 Pod 结果仅引用该批次的成员身份与共享日志，耗时为 null，不声称独立执行或独立耗时。`OwnedPodsBatch/` 的成员 manifest、Scheme 与 workspace 连同构建日志上传；缓存和 README 回填同时核对这些文件证据，组件 XCTest 结论仍来自独立真实测试结果。[批量夹具](https://github.com/JobsKits/JobsOCBaseConfigDemo/blob/byPods/ScriptsByPods/jobs_pods_stability_verify.rb/Tests/pod_batch_regression.rb)不调用真实构建或安装，实际耗时与全流程通过结果以云端运行证据为准。
 
@@ -663,7 +667,7 @@ Pod 编译前后通过[只读诊断脚本](https://github.com/JobsKits/JobsOCBas
 
 打包固定选择 `${products_dir}/${SCHEME}.app`，并校验 `Info.plist`、非测试 Runner 的 Bundle ID、主可执行名称及文件存在，避免按目录枚举顺序误选其它 `.app`。主 App 缺失或身份不匹配时直接失败。
 
-构建阶段保留实时日志和诊断产物，阶段超时早于整个任务超时，以便失败后仍有时间上传日志；`main` 的依赖安装 / 编译分别限时 20 / 120 分钟，整个任务限时 150 分钟。`byPods` 的模拟器准备 / 依赖安装 / 配置守卫 / 各 Pod 编译 / 组件回归 / 宿主权限验收 / 主 App 编译分别限时 10 / 30 / 10 / 120 / 90 / 10 / 65 分钟，整个任务限时 320 分钟。成功后生成可下载的 `.app.zip`，排查失败时先下载对应运行的构建日志与 `.xcresult`；产物只代表该次运行实际完成的阶段，历史成功不能替代最新提交的构建结果。
+构建阶段保留实时日志和诊断产物，阶段超时早于整个任务超时，以便失败后仍有时间上传日志；`main` 的依赖安装 / 编译分别限时 20 / 120 分钟，整个任务限时 150 分钟。`byPods` 的模拟器准备 / 依赖安装 / 配置守卫 / 各 Pod 编译 / 组件回归 / 宿主权限验收 / 主 App 编译分别限时 10 / 30 / 10 / 120 / 120 / 10 / 65 分钟，整个任务限时 320 分钟。成功后生成可下载的 `.app.zip`，排查失败时先下载对应运行的构建日志与 `.xcresult`；产物只代表该次运行实际完成的阶段，历史成功不能替代最新提交的构建结果。
 
 ### 2.10、<span id="resizable-window-adaptation">iPhone Duo 与运行中窗口尺寸变化</span> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 

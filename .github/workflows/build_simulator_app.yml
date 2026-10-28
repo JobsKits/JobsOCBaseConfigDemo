@@ -149,7 +149,9 @@ jobs:
         timeout-minutes: 120
         run: |
           ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
-            --phase tests --architecture arm64 --simulator "${SIMULATOR_ID}" --output "${RUNNER_TEMP}/JobsOCStability"
+            --phase tests --separate-test-builds \
+            --build-timeout 1800 --test-timeout 600 \
+            --architecture arm64 --simulator "${SIMULATOR_ID}" --output "${RUNNER_TEMP}/JobsOCStability"
 
       - name: Audit built Keychain test host
         timeout-minutes: 10
