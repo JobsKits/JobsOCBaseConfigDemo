@@ -8,6 +8,7 @@
 #import "UIBarAppearance+DSL.h"
 
 @implementation UIBarAppearance (DSL)
+
 -(JobsRetBarAppearanceByVoidBlock _Nonnull)byConfigureWithDefaultBackground{
     @jobs_weakify(self)
     return ^__kindof UIBarAppearance *_Nullable(void){

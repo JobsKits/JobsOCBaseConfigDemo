@@ -14,6 +14,7 @@ Prop_strong()UIImageView *textIMGV;
 @end
 
 @implementation JobsImageNumberViewCVCell
+
 #pragma mark —— UICollectionViewCellProtocol
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{

@@ -21,6 +21,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImage (YBGIF)
+
 /// 根据NSData* 创建gif图片
 +(JobsRetImageByDataBlock _Nonnull)animatedGIFWithData
     __attribute__((deprecated("Use animatedGIFWithData:traitCollection:")));

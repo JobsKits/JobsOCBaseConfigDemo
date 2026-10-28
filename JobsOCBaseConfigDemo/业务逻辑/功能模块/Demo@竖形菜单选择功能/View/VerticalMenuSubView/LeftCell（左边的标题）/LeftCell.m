@@ -8,6 +8,7 @@
 #import "LeftCell.h"
 
 @interface LeftCell()
+
 /// UI
 Prop_strong()UIView *flagView;
 Prop_strong()UILabel *titleLabel;
@@ -15,6 +16,7 @@ Prop_strong()UILabel *titleLabel;
 @end
 
 @implementation LeftCell
+
 /// UITableViewCellProtoco
 UITableViewCellProtocol_Synthesize_part1
 UITableViewCellProtocol_Synthesize_part2

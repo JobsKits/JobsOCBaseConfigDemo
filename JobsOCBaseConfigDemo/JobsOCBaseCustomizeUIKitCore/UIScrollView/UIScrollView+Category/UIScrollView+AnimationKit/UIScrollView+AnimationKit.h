@@ -21,6 +21,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIScrollView (AnimationKit)
+
 -(void)moveAnimWithSortingType:(SortingType)sortingType
                 animationBlock:(jobsByVoidBlock _Nullable)animationBlock
                completionBlock:(jobsByIDBlock _Nullable)completionBlock;
@@ -63,6 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)roteAnimWithSortingType:(SortingType)sortingType
                 animationBlock:(jobsByVoidBlock _Nullable)animationBlock
                completionBlock:(jobsByIDBlock _Nullable)completionBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

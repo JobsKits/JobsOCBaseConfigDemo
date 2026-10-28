@@ -39,6 +39,7 @@ NS_INLINE BOOL isValue(id _Nonnull string){
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (Check)
+
 #pragma mark —— 字符串的 比较 & 判断
 /// 如果字符串为null 那么不走isEqualToString，无法比较都是空的情况
 +(BOOL)isEqualStrA:(NSString *)stringA strB:(NSString *)stringB;

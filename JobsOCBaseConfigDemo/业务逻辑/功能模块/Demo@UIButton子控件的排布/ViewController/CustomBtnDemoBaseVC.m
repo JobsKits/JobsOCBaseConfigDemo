@@ -17,6 +17,7 @@ Prop_strong()UIButton *demoBtn;
 @end
 
 @implementation CustomBtnDemoBaseVC
+
 @synthesize titleLab = _titleLab;
 @synthesize subTitleLab = _subTitleLab;
 @synthesize previewView = _previewView;

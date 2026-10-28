@@ -26,6 +26,7 @@ static TFPopupParam *JobsTFPopupSlideParameter(CGFloat height, UIView *container
 }
 
 @implementation TFPopupParam (JobsDSL)
+
 #define JobsTFPopupParamDSL(_name_, _blockType_, _dataType_, _property_) \
 -(_blockType_ _Nonnull)by##_name_{ \
     @jobs_weakify(self) \
@@ -45,9 +46,11 @@ JobsTFPopupParamDSL(AutoDissmissDuration, JobsRetTFPopupParamByCGFloatBlock, CGF
 JobsTFPopupParamDSL(DisuseBackgroundTouchHide, JobsRetTFPopupParamByBOOLBlock, BOOL, disuseBackgroundTouchHide)
 JobsTFPopupParamDSL(BackgroundColor, JobsRetTFPopupParamByCorBlock, UIColor *_Nullable, backgroundColor)
 #undef JobsTFPopupParamDSL
+
 @end
 
 @implementation NSObject (TFPopup)
+
 #pragma mark —— 保证弹窗一定是被初始化
 -(__kindof UIView *)checkByView:(UIView *)view action:(jobsByVoidBlock _Nullable)action {
     if (view) {

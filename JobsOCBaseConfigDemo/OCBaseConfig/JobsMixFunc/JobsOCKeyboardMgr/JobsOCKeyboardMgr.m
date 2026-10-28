@@ -33,6 +33,7 @@ Prop_copy(nullable, readwrite) NSDictionary *latestKeyboardUserInfo;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCKeyboardMgr
 
 @implementation JobsOCKeyboardMgr
+
 +(JobsRetIDByVoidBlock _Nonnull)shared{
     return ^id{
         static JobsOCKeyboardMgr *manager = nil;
@@ -640,4 +641,5 @@ horizontallyIntersectsRect:result.obstructionFrameInContainer]) {
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCKeyboardMgr
+
 @end

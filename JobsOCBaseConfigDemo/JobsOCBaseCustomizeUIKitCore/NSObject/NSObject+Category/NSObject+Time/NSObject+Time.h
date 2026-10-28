@@ -19,6 +19,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (Time)
+
 /// 获取当前时间
 -(NSDate *)currentDate;
 -(JobsRetDateByVoidBlock _Nonnull)jobsCurrentDate;

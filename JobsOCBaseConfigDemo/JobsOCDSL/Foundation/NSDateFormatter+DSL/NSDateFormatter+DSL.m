@@ -8,6 +8,7 @@
 #import "NSDateFormatter+DSL.h"
 
 @implementation NSDateFormatter (JobsChain)
+
 +(JobsRetDateFormatterByVoidBlock _Nonnull)byDateFormatter{
     return ^__kindof NSDateFormatter *_Nullable(void){
         return [[self alloc] init];

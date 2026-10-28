@@ -21,6 +21,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsPopUpVC
 
 @implementation JobsPopUpVC
+
 @synthesize popUpHeight = _popUpHeight;
 
 - (void)dealloc {
@@ -134,4 +135,5 @@
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsPopUpVC
+
 @end

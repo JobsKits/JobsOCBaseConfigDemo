@@ -63,6 +63,7 @@ Prop_assign()CGSize indicatorSize;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsLottieRefreshView
 -(JobsRetJobsLottieRefreshViewByBOOLBlock _Nonnull)byWantsAnimating;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsLottieRefreshView
+
 @end
 
 NS_ASSUME_NONNULL_END

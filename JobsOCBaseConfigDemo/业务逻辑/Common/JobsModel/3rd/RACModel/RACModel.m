@@ -8,6 +8,7 @@
 #import "RACModel.h"
 
 @implementation RACModel
+
 RACProtocol_synthesize
 
 @end

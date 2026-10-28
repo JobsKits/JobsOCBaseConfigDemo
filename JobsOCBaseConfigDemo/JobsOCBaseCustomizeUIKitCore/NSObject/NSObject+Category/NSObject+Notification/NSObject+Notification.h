@@ -29,6 +29,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (Notification)
+
 /// 在主线程上带参发通知
 -(jobsByKey_ValueBlock _Nonnull)JobsPost;
 /// 在主线程上带参发通知

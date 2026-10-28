@@ -8,6 +8,7 @@
 #import "IncomeSourceModel.h"
 
 @implementation IncomeSourceModel
+
 +(NSDictionary *)mj_replacedKeyFromPropertyName{
     return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(IncomeSourceModel.class, @selector(jobsMJReplacedKeyFromPropertyName)))(self, @selector(jobsMJReplacedKeyFromPropertyName)))();
 }

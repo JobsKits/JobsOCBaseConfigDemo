@@ -15,6 +15,7 @@
 #import "UIView+Extra.h"
 
 @interface JobsCustomView ()
+
 /// UI
 Prop_strong()UIImageView *indicatorIMGV;
 Prop_strong()UILabel *tipsLab;
@@ -41,6 +42,7 @@ Prop_assign()BOOL registeredGradientTraits;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsCustomView
 
 @implementation JobsCustomView
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 #pragma mark —— BaseProtocol
@@ -354,4 +356,5 @@ static dispatch_once_t static_customViewOnceToken;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsCustomView
+
 @end

@@ -82,6 +82,7 @@ Prop_assign()BOOL hasEdited;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsMosaicBaseDemoVC
 -(JobsRetJobsMosaicBaseDemoVCByUIImageBlock _Nonnull)byOriginalImage;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsMosaicBaseDemoVC
+
 @end
 
 NS_ASSUME_NONNULL_END

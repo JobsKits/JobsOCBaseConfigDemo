@@ -24,6 +24,7 @@ Prop_strong()UIWindow *sceneDelegateWindow;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppTools
 
 @implementation JobsAppTools
+
 #pragma mark —— 初始化方法
 static JobsAppTools *JobsAppToolsInstance = nil;
 +(instancetype)sharedManager{
@@ -115,4 +116,5 @@ static JobsAppTools *JobsAppToolsInstance = nil;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAppTools
+
 @end

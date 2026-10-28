@@ -40,6 +40,7 @@ UITabBarControllerDelegate
 -(void)setSelectedIndex:(NSUInteger)data;
 -(void)setViewControllers:(NSArray<__kindof UIViewController *> * _Nullable)data;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsCustomTabBarVC
+
 @end
 
 NS_ASSUME_NONNULL_END

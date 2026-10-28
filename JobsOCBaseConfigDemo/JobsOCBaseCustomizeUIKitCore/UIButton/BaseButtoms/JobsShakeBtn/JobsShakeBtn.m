@@ -15,6 +15,7 @@
 #import "NSObject+Extra.h"
 
 @interface JobsShakeBtn ()
+
 /// UI
 Prop_strong()UIView *coverView; // 遮盖，在抖动时出现
 Prop_strong()UITapGestureRecognizer *iconBtnTap;
@@ -29,6 +30,7 @@ Prop_strong()CAKeyframeAnimation *anim;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsShakeBtn
 
 @implementation JobsShakeBtn
+
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
 }
@@ -207,4 +209,5 @@ Prop_strong()CAKeyframeAnimation *anim;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsShakeBtn
+
 @end

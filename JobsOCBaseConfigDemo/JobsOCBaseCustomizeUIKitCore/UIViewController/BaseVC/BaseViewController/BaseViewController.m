@@ -410,4 +410,5 @@ BaseViewControllerProtocol_synthesize
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END BaseViewController
+
 @end

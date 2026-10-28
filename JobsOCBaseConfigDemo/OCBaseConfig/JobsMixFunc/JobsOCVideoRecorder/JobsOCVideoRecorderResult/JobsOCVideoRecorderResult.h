@@ -36,6 +36,7 @@ Prop_strong() NSDate *createdAt;
 -(JobsRetJobsOCVideoRecorderResultByCMTimeBlock _Nonnull)byDuration;
 -(JobsRetJobsOCVideoRecorderResultByURLBlock _Nonnull)byFileURL;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCVideoRecorderResult
+
 @end
 
 NS_ASSUME_NONNULL_END

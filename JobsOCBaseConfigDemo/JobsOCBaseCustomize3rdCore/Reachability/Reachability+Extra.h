@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetReachabilityByBOOLBlock _Nonnull)byReachableOnWWAN;
 -(void)setReachableOnWWAN:(BOOL)data;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END Reachability
+
 @end
 
 NS_ASSUME_NONNULL_END

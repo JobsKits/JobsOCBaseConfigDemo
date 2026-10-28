@@ -56,6 +56,7 @@ UITableViewDataSource
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCExcelDemoVC
 -(JobsRetJobsOCExcelDemoVCByCGFloatBlock _Nonnull)byFd_interactivePopMaxAllowedInitialDistanceToLeftEdge;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCExcelDemoVC
+
 @end
 
 NS_ASSUME_NONNULL_END

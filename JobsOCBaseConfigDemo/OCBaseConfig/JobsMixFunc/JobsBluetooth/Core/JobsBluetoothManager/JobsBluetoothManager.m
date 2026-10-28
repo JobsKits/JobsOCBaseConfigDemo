@@ -8,10 +8,13 @@
 #import "JobsBluetoothManager.h"
 
 @interface CBPeripheral (JobsBluetoothDSL)
+
 -(JobsRetIDByIDBlock _Nonnull)byDelegate;
+
 @end
 
 @implementation CBPeripheral (JobsBluetoothDSL)
+
 -(JobsRetIDByIDBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^id _Nullable(id<CBPeripheralDelegate> _Nullable data){
@@ -21,6 +24,7 @@
         return self;
     };
 }
+
 @end
 
 @interface JobsBluetoothManager () <CBCentralManagerDelegate, CBPeripheralDelegate>
@@ -52,6 +56,7 @@ Prop_assign()NSUInteger pendingServices;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsBluetoothManager
 
 @implementation JobsBluetoothManager
+
 -(instancetype)init{return [self initWithProfile:JobsBluetoothProfile.new];}
 
 -(instancetype)initWithProfile:(JobsBluetoothProfile *)profile{
@@ -530,4 +535,5 @@ Prop_assign()NSUInteger pendingServices;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsBluetoothManager
+
 @end

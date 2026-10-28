@@ -57,6 +57,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZFSliderView (JobsCustomControlDSL)
+
 -(JobsRetZFSliderViewByFloatBlock _Nonnull)byValue;
 -(JobsRetZFSliderViewByFloatBlock _Nonnull)byBufferValue;
 -(JobsRetZFSliderViewByCorBlock _Nonnull)byMaximumTrackTintColor;
@@ -70,19 +71,25 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetZFSliderViewByBOOLBlock _Nonnull)byIsdragging;
 -(JobsRetZFSliderViewByCGFloatBlock _Nonnull)byZf_centerY;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END ZFSliderView
+
 @end
 
 @interface ZFPlayerController (JobsCustomControlDSL)
+
 -(JobsRetZFPlayerControllerByBOOLBlock _Nonnull)byStatusBarHidden;
+
 @end
 
 @interface NSObject (JobsZFPlayerMediaPlaybackDSL)
+
 -(JobsRetZFPlayerMediaPlaybackByScalingModeBlock _Nonnull)byScalingMode;
 -(JobsRetZFPlayerMediaPlaybackByBOOLBlock _Nonnull)byMuted;
 -(JobsRetZFPlayerMediaPlaybackByFloatBlock _Nonnull)byVolume;
+
 @end
 
 @interface ZFCustomControlView : UIView <ZFPlayerMediaControl,ZFSliderViewDelegate>
+
 /// 控制层自动隐藏的时间，默认2.5秒
 Prop_assign()NSTimeInterval autoHiddenTimeInterval;
 /// 控制层显示、隐藏动画的时长，默认0.25秒
@@ -102,6 +109,7 @@ Prop_assign()NSTimeInterval autoFadeTimeInterval;
 -(JobsRetZFCustomControlViewByBOOLBlock _Nonnull)byControlViewAppeared;
 -(JobsRetZFCustomControlViewBydispatch_block_tBlock _Nonnull)byAfterBlock;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END ZFCustomControlView
+
 @end
 
 NS_ASSUME_NONNULL_END

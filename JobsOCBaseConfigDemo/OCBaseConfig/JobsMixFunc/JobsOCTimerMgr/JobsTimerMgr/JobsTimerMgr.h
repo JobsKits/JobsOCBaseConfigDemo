@@ -32,7 +32,9 @@ typedef NS_ENUM(NSUInteger, _JobsTimerPauseState) {
 #define JOBS_TIMER_IDENTIFIABLE_DEFINED
 @protocol JobsTimerIdentifiable <NSObject>
 Prop_copy(readonly)NSString *timerIdentifier;
+
 @end
+
 #endif /* JOBS_TIMER_IDENTIFIABLE_DEFINED */
 /// Swift 侧：JobsTimerBackgroundPolicy
 #ifndef JOBS_TIMER_BACKGROUND_POLICY_DEFINED

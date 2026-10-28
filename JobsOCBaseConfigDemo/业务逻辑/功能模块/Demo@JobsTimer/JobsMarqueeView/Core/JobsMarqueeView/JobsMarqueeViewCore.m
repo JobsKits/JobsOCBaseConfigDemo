@@ -60,6 +60,7 @@ Prop_copy()NSString *timerIdentifier;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsMarqueeView
 
 @implementation JobsMarqueeView
+
 -(void)dealloc{
     if (_timerIdentifier.length) {
         JobsTimerMgr.shared().stopAndRemove(_timerIdentifier);
@@ -1065,4 +1066,5 @@ Prop_copy()NSString *timerIdentifier;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsMarqueeView
+
 @end

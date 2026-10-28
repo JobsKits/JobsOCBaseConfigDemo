@@ -52,6 +52,7 @@ static JobsNetworkBytes JobsCurrentNetworkBytes(void) {
 }
 
 @interface JobsNetworkTrafficMonitor : NSObject <BaseProtocol,TimerProtocol>
+
 /// 可销毁单例
 +(JobsRetIDByVoidBlock _Nonnull)shared;
 +(jobsByVoidBlock _Nonnull)destroyShared;

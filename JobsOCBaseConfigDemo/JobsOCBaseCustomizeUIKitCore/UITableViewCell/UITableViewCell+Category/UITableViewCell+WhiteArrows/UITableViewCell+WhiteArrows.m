@@ -9,6 +9,7 @@
 #import "UITableViewCell+WhiteArrows.h"
 
 @implementation UITableViewCell (WhiteArrows)
+
 /// 必须 self.accessoryType = UITableViewCellAccessoryDisclosureIndicator; 打开后才可以启用
 -(jobsByjobsByIDBlockBlock _Nonnull)customAccessoryView{
     @jobs_weakify(self)

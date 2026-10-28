@@ -8,6 +8,7 @@
 #import "URLManagerModel+DSL.h"
 
 @implementation URLManagerModel (DSL)
+
 -(JobsRetURLManagerModelByStrBlock _Nonnull)byUrl{
     @jobs_weakify(self)
     return ^__kindof URLManagerModel *_Nullable(NSString * _Nullable data) {

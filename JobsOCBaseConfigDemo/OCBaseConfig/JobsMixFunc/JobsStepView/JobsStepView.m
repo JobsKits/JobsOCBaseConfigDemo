@@ -31,6 +31,7 @@ Prop_strong()NSMutableArray <__kindof UIButtonModel *>*btnModelMutArr;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsStepView
 
 @implementation JobsStepView
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 #pragma mark —— BaseProtocol
@@ -352,4 +353,5 @@ Prop_strong()NSMutableArray <__kindof UIButtonModel *>*btnModelMutArr;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsStepView
+
 @end

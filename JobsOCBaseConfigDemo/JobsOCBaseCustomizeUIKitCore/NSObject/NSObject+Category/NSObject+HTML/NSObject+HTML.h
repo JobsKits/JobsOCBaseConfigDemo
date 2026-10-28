@@ -19,6 +19,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (HTML)<WKScriptMessageHandler,WKNavigationDelegate>
+
 /// HTML 必要标签
 - (__kindof NSMutableArray<NSString *> *)requiredHTMLTags;
 /// HTML 标签

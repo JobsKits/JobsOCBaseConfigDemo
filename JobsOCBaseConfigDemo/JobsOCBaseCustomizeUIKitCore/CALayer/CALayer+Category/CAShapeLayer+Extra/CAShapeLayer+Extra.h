@@ -15,6 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CAShapeLayer (Extra)
+
 /// 迎合链式语法而做的封装
 -(JobsRetCAShapeLayerByCGFloatBlock _Nonnull)lineWidthBy;
 -(JobsRetCAShapeLayerByCorBlock _Nonnull)strokeColorBy;

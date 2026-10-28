@@ -56,6 +56,7 @@ Prop_assign()CGFloat popUpHeight;//默认弹出高度300
 -(JobsRetJobsPopUpVCByBOOLBlock _Nonnull)byHiddenNavigationBar;
 -(JobsRetJobsPopUpVCByCGSizeBlock _Nonnull)byPreferredContentSize;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsPopUpVC
+
 @end
 
 NS_ASSUME_NONNULL_END

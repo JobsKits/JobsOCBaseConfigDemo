@@ -8,6 +8,7 @@
 #import "NSMutableParagraphStyle+DSL.h"
 
 @implementation NSMutableParagraphStyle (DSL)
+
 #pragma mark —— CGFloat
 -(JobsRetMutableParagraphStyleByCGFloatBlock _Nonnull)byLineSpacing{
     @jobs_weakify(self)

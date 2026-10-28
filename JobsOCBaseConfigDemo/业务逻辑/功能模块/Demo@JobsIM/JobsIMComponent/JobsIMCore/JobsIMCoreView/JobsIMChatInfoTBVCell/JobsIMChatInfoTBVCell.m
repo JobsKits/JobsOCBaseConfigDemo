@@ -24,6 +24,7 @@ static CGFloat JobsIMChatBubbleHeight(NSString *text) {
 }
 
 @interface JobsIMChatInfoTBVCell ()
+
 /// UI
 Prop_strong()UIImageView *iconIMGV;/// 用户头像
 Prop_strong()UIImageView *chatBubbleIMGV;/// 聊天气泡

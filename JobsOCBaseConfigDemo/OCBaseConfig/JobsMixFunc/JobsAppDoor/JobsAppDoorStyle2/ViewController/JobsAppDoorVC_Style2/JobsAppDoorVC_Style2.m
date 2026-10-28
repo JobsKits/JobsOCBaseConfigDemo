@@ -8,6 +8,7 @@
 #import "JobsAppDoorVC_Style2.h"
 
 @interface JobsAppDoorVC_Style2 ()<UIGestureRecognizerDelegate>
+
 /// UI
 Prop_strong()UIImageView *bgImgV;
 Prop_strong()BaseButton *customerServiceBtn;
@@ -65,6 +66,7 @@ Prop_assign()BOOL videoPausedByApplicationState;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorVC_Style2
 
 @implementation JobsAppDoorVC_Style2
+
 -(JobsRetJobsAppDoorVCStyle2ByConfigBlock _Nonnull)byConfiguration{
     @jobs_weakify(self)
     return ^__kindof JobsAppDoorVC_Style2 *_Nullable(JobsAppDoorConfig *_Nullable config){
@@ -1187,4 +1189,5 @@ static dispatch_once_t static_jobsAppDoor_Style2OnceToken;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAppDoorVC_Style2
+
 @end

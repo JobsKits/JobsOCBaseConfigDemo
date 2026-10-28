@@ -31,12 +31,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsVerticalMenuSubView : BaseView
+
 /// 按左侧栏目下标刷新右侧内容
 -(jobsByNSUIntegerBlock _Nonnull)reloadContentByIndex;
 
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsVerticalMenuSubView
 -(JobsRetJobsVerticalMenuSubViewByNSUIntegerBlock _Nonnull)byThisIndex;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsVerticalMenuSubView
+
 @end
 
 NS_ASSUME_NONNULL_END

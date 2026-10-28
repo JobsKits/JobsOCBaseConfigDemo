@@ -32,5 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCAPropertyAnimationByCAValueFunctionBlock _Nonnull)byValueFunction;
 
 @end
+
 NS_ASSUME_NONNULL_END
 #endif

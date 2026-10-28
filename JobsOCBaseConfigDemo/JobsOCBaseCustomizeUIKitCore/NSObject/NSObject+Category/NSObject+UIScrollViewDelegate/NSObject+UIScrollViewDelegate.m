@@ -8,6 +8,7 @@
 #import "NSObject+UIScrollViewDelegate.h"
 
 @implementation NSObject (UIScrollViewDelegate)
+
 /// 滚动视图移动时回调
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     jobsByScrollViewBlock action = ((jobsByScrollViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobsScrollViewDidScroll)))(self, @selector(jobsScrollViewDidScroll));

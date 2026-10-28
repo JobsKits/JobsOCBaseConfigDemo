@@ -8,6 +8,7 @@
 #import "JobsImageNumberView.h"
 
 @interface JobsImageNumberView ()
+
 /// Data
 Prop_strong()NSArray <UIImage *>*dataMutArr;
 
@@ -20,6 +21,7 @@ Prop_strong()NSArray <UIImage *>*dataMutArr;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsImageNumberView
 
 @implementation JobsImageNumberView
+
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsClearColor);
@@ -170,4 +172,5 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsImageNumberView
+
 @end

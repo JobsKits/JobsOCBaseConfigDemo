@@ -9,6 +9,7 @@
 #import "BRTextPickerView+Extra.h"
 
 @implementation BRTextPickerView (Extra)
+
 +(BRPickerViewExtraRetTextPickerViewByPickerModeBlock)initBy {
     return ^BRTextPickerView *_Nonnull(BRTextPickerMode mode) {
         return [[BRTextPickerView alloc] initWithPickerMode:mode];
@@ -117,4 +118,5 @@
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END BRDatePickerView
+
 @end

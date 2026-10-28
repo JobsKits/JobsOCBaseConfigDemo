@@ -14,6 +14,7 @@ Prop_strong()JobsTabBarItemConfig *tabBarControllerConfig;
 @end
 
 @implementation JobsTabBarItem
+
 -(JobsRetJobsTabBarItemByImageBlock _Nonnull)byImage{
     @jobs_weakify(self)
     return ^__kindof JobsTabBarItem *_Nullable(UIImage *_Nullable image){

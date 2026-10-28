@@ -8,6 +8,7 @@
 #import "UILabel+Extra.h"
 
 @implementation UILabel (Extra)
+
 #pragma mark —— 一些公共方法
 /// 将label.text + label.textColor + label.font;包装成富文本
 /// UILabel文字旋转

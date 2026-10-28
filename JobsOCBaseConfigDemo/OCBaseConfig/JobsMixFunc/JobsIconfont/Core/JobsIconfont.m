@@ -27,7 +27,9 @@ static const void *JobsIconfontPlaceholderObserverKey = &JobsIconfontPlaceholder
 static const void *JobsIconfontButtonGlyphsKey = &JobsIconfontButtonGlyphsKey;
 
 @interface UIGraphicsImageRendererFormat (JobsIconfontDSL)
+
 -(JobsRetIDByCGFloatBlock _Nonnull)byScale;
+
 @end
 
 @implementation UIGraphicsImageRendererFormat (JobsIconfontDSL)
@@ -135,6 +137,7 @@ static const void *JobsIconfontButtonGlyphsKey = &JobsIconfontButtonGlyphsKey;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsIconfontLoadToken
 
 @implementation JobsIconfontLoadToken
+
 -(instancetype)initWithCancellation:(dispatch_block_t)cancellation{
     if (self = [super init]) {
         self.cancellation = cancellation;
@@ -194,6 +197,7 @@ static const void *JobsIconfontButtonGlyphsKey = &JobsIconfontButtonGlyphsKey;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsIconfontLoadToken
+
 @end
 
 @interface JobsIconfontManager ()
@@ -217,6 +221,7 @@ static const void *JobsIconfontButtonGlyphsKey = &JobsIconfontButtonGlyphsKey;
 @end
 
 @implementation JobsIconfontManager
+
 +(JobsIconfontManager *)shared{
     static JobsIconfontManager *manager;
     static dispatch_once_t onceToken;
@@ -615,6 +620,7 @@ static const void *JobsIconfontButtonGlyphsKey = &JobsIconfontButtonGlyphsKey;
 @end
 
 @implementation UIImageView (JobsIconfont)
+
 -(instancetype)byJobsIconfontAsset:(JobsIconfontRemoteAsset)asset
                         targetSize:(CGSize)targetSize
                       forceRefresh:(BOOL)forceRefresh
@@ -640,6 +646,7 @@ static const void *JobsIconfontButtonGlyphsKey = &JobsIconfontButtonGlyphsKey;
 @end
 
 @implementation UILabel (JobsIconfont)
+
 -(instancetype)byJobsIconfontGlyph:(JobsIconfontGlyph)glyph
                               size:(CGFloat)size
                              color:(UIColor *)color{
@@ -662,6 +669,7 @@ static const void *JobsIconfontButtonGlyphsKey = &JobsIconfontButtonGlyphsKey;
 @end
 
 @implementation UIButton (JobsIconfont)
+
 -(instancetype)byJobsIconfontGlyph:(JobsIconfontGlyph)glyph
                          imageSize:(CGSize)imageSize
                              color:(UIColor *)color

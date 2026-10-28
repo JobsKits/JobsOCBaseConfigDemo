@@ -14,6 +14,7 @@
 @end
 
 @implementation JobsTabBarSettingVC
+
 -(void)didReceiveMemoryWarning{
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTabBarSettingVC.class, @selector(jobsDidReceiveMemoryWarning)))(self, @selector(jobsDidReceiveMemoryWarning));
     if (action) action();

@@ -15,7 +15,9 @@ typedef __kindof UIViewController *_Nullable (^JobsDebugPanelControllerStyleBloc
 
 // 仅供调试框架使用，控制器 trait 与原生 presentation 一起跟随宿主有效主题。
 @interface UIViewController (JobsDebugPanelTheme)
+
 -(JobsDebugPanelControllerStyleBlock _Nonnull)byJobsDebugPanelInterfaceStyle;
+
 @end
 
 @implementation UIViewController (JobsDebugPanelTheme)
@@ -43,6 +45,7 @@ Prop_strong()UITableView *tableView;
 Prop_strong()UIButton *emptyButton;
 Prop_strong()UINavigationBarAppearance *panelNavigationAppearance API_AVAILABLE(ios(13.0));
 
+-(jobsByVoidBlock _Nonnull)preparePanelNavigation;
 -(jobsByVoidBlock _Nonnull)applyPanelTheme;
 
 @end
@@ -52,6 +55,7 @@ Prop_strong()UINavigationBarAppearance *panelNavigationAppearance API_AVAILABLE(
 -(instancetype)initWithPanel:(JobsDebugPanelManager *)panel {
     if (self = [super init]) {
         _panel = panel;
+        self.byTitle([self isKindOfClass:JobsDebugEnvironmentsVC.class] ? @"App 环境切换" : @"调试工具");
     }
     return self;
 }
@@ -69,12 +73,9 @@ Prop_strong()UINavigationBarAppearance *panelNavigationAppearance API_AVAILABLE(
             return;
         }
         [super viewDidLoad];
-        self.byTitle([self isKindOfClass:JobsDebugEnvironmentsVC.class] ? @"App 环境切换" : @"调试工具");
+        self.preparePanelNavigation();
         self.view.byBgColor(JobsSystemGroupedBackgroundColor);
         self.tableView.byHidden(NO);
-        if (self.navigationController.presentingViewController && self.navigationController.viewControllers.firstObject == self) {
-            self.navigationItem.byLeftBarButtonItem(jobsMakeBarButtonItemBySystemItem(UIBarButtonSystemItemClose, self, @selector(closePanel:), nil));
-        }
         [self addNotificationName:JobsThemeDidChangeNotification block:^(id weakSelf, id note) {
             @jobs_strongify(self)
             if (self) {
@@ -98,6 +99,7 @@ Prop_strong()UINavigationBarAppearance *panelNavigationAppearance API_AVAILABLE(
             return;
         }
         [super viewWillAppear:animated];
+        self.preparePanelNavigation();
         self.applyPanelTheme();
     };
 }
@@ -133,6 +135,31 @@ Prop_strong()UINavigationBarAppearance *panelNavigationAppearance API_AVAILABLE(
         }
         [super viewDidDisappear:animated];
         [NSNotificationCenter.defaultCenter postNotificationName:JobsDebugPanelVisibilityDidChangeNotification object:self];
+    };
+}
+
+// 转场开始前完成导航配置，避免依赖宿主在 viewDidAppear 后补装默认样式。
+-(jobsByVoidBlock _Nonnull)preparePanelNavigation {
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self || !self.navigationController) {
+            return;
+        }
+        UINavigationController *navigation = self.navigationController;
+        self
+            .byGKNavTitle(self.title)
+            .byGKNavBarAlpha(1);
+        if (navigation.presentingViewController && navigation.viewControllers.firstObject == self) {
+            UIBarButtonItem *closeItem = jobsMakeBarButtonItemBySystemItem(UIBarButtonSystemItemClose, self, @selector(closePanel:), nil);
+            self.navigationItem.byLeftBarButtonItem(closeItem);
+            self.byGKNavLeftBarButtonItem(closeItem);
+        } else if (navigation.viewControllers.firstObject != self) {
+            self.byGKNavLeftBarButtonItem(self.backBtnCategoryItem);
+        }
+        self.jobs_ensureDemoThemeButton();
+        self.gk_navigationBar.byHidden(NO);
+        navigation.byNavigationBarHidden(YES);
     };
 }
 
@@ -310,11 +337,6 @@ Prop_strong()UINavigationBarAppearance *panelNavigationAppearance API_AVAILABLE(
 
 -(UITableView *)tableView {
     if (!_tableView) {
-        // 宿主自绘导航栏不计入 UIKit safe area，需要单独留出标题栏高度。
-        CGFloat hiddenBarHeight = self.navigationController.navigationBarHidden ? CGRectGetHeight(self.navigationController.navigationBar.frame) : 0;
-        if (self.navigationController.navigationBarHidden && hiddenBarHeight <= 0) {
-            hiddenBarHeight = 44;
-        }
         _tableView = jobsMakeTableViewByInsetGrouped(^(UITableView *table) {
             table
                 .byDataSource(self)
@@ -325,7 +347,8 @@ Prop_strong()UINavigationBarAppearance *panelNavigationAppearance API_AVAILABLE(
                 .byAccessibilityIdentifier(@"JobsDebugPanelTable")
                 .addOn(self.view)
                 .byAdd(^(MASConstraintMaker *make) {
-                    make.top.equalTo(self.view.mas_safeAreaLayoutGuideTop).offset(hiddenBarHeight);
+                    // 直接跟随可见导航栏，避免安全区变化时重复补偿隐藏系统栏高度。
+                    make.top.equalTo(self.gk_navigationBar.mas_bottom);
                     make.left.right.equalTo(self.view);
                     make.bottom.equalTo(self.view.mas_safeAreaLayoutGuideBottom);
                 });
@@ -354,4 +377,5 @@ Prop_strong()UINavigationBarAppearance *panelNavigationAppearance API_AVAILABLE(
 }
 
 @end
+
 #endif

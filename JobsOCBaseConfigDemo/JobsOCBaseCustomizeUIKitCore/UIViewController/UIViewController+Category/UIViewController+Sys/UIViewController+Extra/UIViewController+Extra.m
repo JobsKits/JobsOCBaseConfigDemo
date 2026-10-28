@@ -8,6 +8,7 @@
 #import "UIViewController+Extra.h"
 
 @implementation UIViewController (Extra)
+
 -(JobsRetVCByBOOLBlock _Nonnull)byFdInteractivePopDisabled{
     @jobs_weakify(self)
     return ^__kindof UIViewController *_Nullable(BOOL data){

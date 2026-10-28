@@ -10,6 +10,7 @@
 #import "NSObject+Extra.h"
 
 @implementation NSObject (CurrentDevice)
+
 /// App发布的版本号
 -(JobsRetStrByVoidBlock _Nonnull)appVersion{
     @jobs_weakify(self)

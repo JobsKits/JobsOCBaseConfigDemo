@@ -8,6 +8,7 @@
 #import "UIWindow+JobsAppTools.h"
 
 @implementation UIWindow (JobsAppTools)
+
 /// 横屏模式下的Window（宽高互换）
 -(JobsRetWindowByVoidBlock _Nonnull)landscape{
     @jobs_weakify(self)

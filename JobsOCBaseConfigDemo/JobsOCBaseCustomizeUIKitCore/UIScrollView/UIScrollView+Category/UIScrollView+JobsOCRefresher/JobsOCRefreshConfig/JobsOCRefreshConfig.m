@@ -8,6 +8,7 @@
 #import "JobsOCRefreshConfig.h"
 
 @implementation JobsOCRefreshConfig
+
 #define JobsOCRefreshConfigDSL(_selector, _property, _blockType, _valueType) \
 - (_blockType _Nonnull)_selector { \
     @jobs_weakify(self) \

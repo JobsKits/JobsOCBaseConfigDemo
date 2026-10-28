@@ -135,6 +135,7 @@ Prop_copy(nullable)jobsByCGFloatBlock onDragEnded;
 -(JobsRetJobsProgressBarByNSTimeIntervalBlock _Nonnull)byAutoInterval;
 -(JobsRetJobsProgressBarByNSTimeIntervalBlock _Nonnull)byAutoLastTick;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsProgressBar
+
 @end
 
 NS_ASSUME_NONNULL_END

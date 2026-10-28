@@ -46,6 +46,7 @@ Prop_strong(null_resettable)NSMutableArray <__kindof NSNumber *>*tabBarItemYOffs
 -(void)setTabBarWidth:(CGFloat)data;
 -(void)setViewControllers:(NSMutableArray <__kindof UIViewController *>* _Nullable)data;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsCustomTabBarConfig
+
 @end
 
 NS_ASSUME_NONNULL_END

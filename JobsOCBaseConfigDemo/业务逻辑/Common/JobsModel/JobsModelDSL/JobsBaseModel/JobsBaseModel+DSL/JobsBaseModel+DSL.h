@@ -372,8 +372,10 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface JobsKeyValueModel (DSL)
+
 -(JobsRetJobsKeyValueModelByIDBlock _Nonnull)byKey;
 -(JobsRetJobsKeyValueModelByIDBlock _Nonnull)byValue;
+
 @end
 
 NS_ASSUME_NONNULL_END

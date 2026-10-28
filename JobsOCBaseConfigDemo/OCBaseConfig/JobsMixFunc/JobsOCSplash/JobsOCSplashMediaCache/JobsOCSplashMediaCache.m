@@ -39,6 +39,7 @@ Prop_strong() NSMutableSet<NSString *> *scheduledVideoRetries;
 @end
 
 @implementation JobsOCSplashMediaCache
+
 +(JobsRetIDByVoidBlock _Nonnull)shared {
     return ^id{
         static JobsOCSplashMediaCache *cache = nil;

@@ -85,6 +85,8 @@
   - App 与 Widget 当前部署目标均为 iOS 16.6；外部依赖仍由 CocoaPods 静态 framework 集成。
   - Jobs 能力直接集成在主工程；宿主同时承担基础层、启动编排、业务装配、Demo 入口和宿主资源。
 
+设备安全检测由 `JobsOCDeviceGuard` 承接，当前落位为 `JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCDeviceGuard`，直接加入主 target，不增加该 Pod 依赖。公开入口聚合头 `JobsOCDeviceGuard.h` 导出配置、检测器和只读报告；配置支持 `bySandboxWriteProbeEnabled`、`byMinimumDetectedCategories`，专有配置 Block 类型由 `JobsBlock` 前向声明，避免依赖倒置。检测器每次重新执行，异步完成回到主线程；Demo 单独展示证据并在敏感动作前复检，不接管安装过程或自动退出 App。特征路径通过 `access(F_OK)` 查询，镜像按当前进程已加载库文件名精确匹配，写探测默认关闭。零命中但检查失败返回 `indeterminate`；模拟器、Mac Catalyst 与 Mac 上运行的 iOS App 返回 `unsupported`。`shouldRestrict` 是仅 `noIndicators` 建议放行的保守数据值；宿主真实启动门禁由 `JobsOCDeviceGuardLaunchGate` 执行。`AppDelegate` 的首个启动步骤调用 `prepare()`，同步只读检测一次，默认仅 `report.isJailbroken` 命中时提前返回 `YES`，跳过后续显式业务初始化；Scene 在正常根页面与开屏创建前显示其独立全屏原生拦截页。`configurePolicy:blockedViewControllerFactory:` 预留策略和页面工厂，首次判定后冻结，`decision` 保存报告和 `blocked`。现有生命周期、活动恢复及异步开屏遵守该启动判定；其它结果按当前策略继续启动，登录、支付和每次请求未逐项接拦截器。
+
 OC 侧核心调用思想是：`JobsMake` 创建对象，`JobsOCDSL` / `JobsModelDSL` 配置属性，`UIView+DSL` / `Masonry+DSL` 完成父视图装配和约束，依赖真实 `frame` 的效果放到约束刷新之后。
 
 ## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、基础原则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
@@ -569,7 +571,7 @@ sequenceDiagram
 - 根列表统一承接搜索、设置、排序 / 折叠、Demo 路由、图标映射和悬浮入口；新增 Demo 要同步对账这些消费者。
 - 根切换仍按 Scene 生命周期处理；主题不参与 Window 遍历，只重放已登记的背景、文字与显式图片资源。
 - Jobs 自维护页面优先继承 `BaseViewController` 等当前页面基座；导航统一走基座默认导航流程、`byGKNav*` DSL 与 `jobs_ensureDemoThemeButton` 所在公共层。
-- Demo 公共导航层统一刷新返回按钮的 template 图标、主文字色和次级背景色，并把 GK / 系统导航的普通标题、富文本 titleView、双行主副标题分别收口到主题主 / 次文字色。
+- Demo 公共导航层统一刷新返回按钮的 template 图标、主文字色和透明背景；左右导航按钮在 iOS 26+ 隐藏系统共享底板，切换主题后继续保持透明，并把 GK / 系统导航的普通标题、富文本 titleView、双行主副标题分别收口到主题主 / 次文字色。
 - 公共层注入的主题入口按钮始终使用透明背景，不显示额外色块。
 - 页面原有业务右按钮先建立，再由公共导航层补主题入口；不能用主题按钮覆盖业务动作。
 - `UIAlertController` 是系统弹框，不参与 Demo 导航栏和主题按钮注入；直接 `presentViewController:` 即可。
@@ -579,7 +581,8 @@ sequenceDiagram
 ### <span id="jobs-toc-heading-28" data-jobs-toc="v2">8.3、全局主题与页面生命周期 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `JobsThemeCenter` 集成于主工程 `JobsOCDefs`，读取 `JobsThemeResources.json`、持久化状态、维护弱引用绑定并发布 `JobsThemeDidChangeNotification`。
-- `JobsLabelColor`、`JobsSecondaryLabelColor`、`JobsSystemBackgroundColor` 等背景 / 文字语义宏携带主题 Key；UIKit setter 自动登记，切换时不写 `overrideUserInterfaceStyle`，不遍历 Scene、Window 或控制器树。
+- `JobsLabelColor`、`JobsSecondaryLabelColor`、`JobsSystemBackgroundColor` 等背景 / 文字语义宏携带主题 Key；UIKit setter 自动登记，切换时不修改全局外观，不遍历 Scene、Window 或控制器树。
+- `UITableViewCell.byAccessoryType(...)` 与普通 / 编辑附件入口为系统 disclosure 箭头绑定 Cell 局部外观，跟随 App 当前主题；移除箭头或改用自定义附件后解除绑定并恢复原外观，保留调用方显式指定的外观，不修改 Window 或控制器树。
 - 绑定刷新先强持有当前弱键快照再执行回调；回调可同步解绑或释放对象，不直接修改正在遍历的 `NSMapTable`。
 - 数据包留在 App 资源目录；OC 老工程不新增 Pod。图片只有显式使用 `JobsThemeImage(...)` 时参与主题。
 - 自定义绘制、`CGColor`、`CALayer`、CoreText 和第三方容器使用 `bindObject:slot:apply:` 显式登记背景 / 文字资源。
@@ -659,12 +662,12 @@ JobsClockIconView *clockIcon =
 ### <span id="jobs-toc-heading-31" data-jobs-toc="v2">8.6、Debug 调试面板 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `JobsDebugPanel` 直接集成于 `OCBaseConfig/JobsMixFunc/JobsDebugPanel`；公开入口为 `JobsDebugPanel.h`，不新增本地 Pod 依赖。根列表提供独立 `JobsDebugPanelDemoVC` 入口。[**SwiftUI**](https://developer.apple.com/xcode/swiftui/) 工程另以独立 `JobsSwiftUIDebugPanel` 本地 Pod 实现 `Button`、`List` 和 `NavigationStack` 界面。
-- `AppDelegate` 在网络配置完成后，通过 `JobsDebugPanelManager.sharedPanel` 统一配置网络环境与自定义功能，再调用 `start()`。框架只在 Debug 运行；Release 的初始化和展示入口不执行调试行为。
-- 每个前台 Scene 各自持有位于最前的透明悬浮窗口，只有圆形 UIButton 区域接收触摸。点击后在当前 Scene 的导航栈 push `UITableView` 功能表；环境行再 push 网络环境二级表。
+- `AppDelegate` 在网络配置完成后，通过 `JobsDebugPanelManager.sharedPanel` 统一配置网络环境与自定义功能，再调用 `start()` 注册摇动与生命周期监听；启动默认隐藏悬浮入口，摇动手机后才显示。框架只在 Debug 运行；Release 的初始化和展示入口不执行调试行为。
+- 首次摇动后每个前台 Scene 各自持有位于最前的透明悬浮窗口，重复摇动复用已有浮层，只有圆形 UIButton 区域接收触摸。点击后在当前 Scene 的导航栈 push `UITableView` 功能表；环境行再 push 网络环境二级表。
 - `JobsDebugEnvironment` 以 `byIdentifier`、`byTitle`、`byBaseURL` 收口环境数据；选择项持久化在 Debug 专属键，启动恢复时触发环境回调。宿主通过 `JobsSetDebugBaseURL` 与 YTKNetworkConfig 更新后续 API 域名。
 - `JobsDebugAction` 以 `byTitle`、`byImage`、`byAction` 收口标题、可选图片和点击行为；`byActions` 保留数组配置顺序，业务动作继续在宿主配置。
 - Demo 向当前环境的 `/get` 发起真实请求；3 秒超时、失败或无法解析时显示本地样例，后续成功请求自动恢复服务端数据。示例 URL 与中文备注由 `AppDelegate` 配置，业务请求在发起时读取当前环境。
-- 长按圆形按钮立即隐藏本次进程的所有调试入口，不保存隐藏状态；重新启动 App 后恢复展示。
+- 长按圆形按钮隐藏所有悬浮入口，不弹出 deinit / dealloc 提示，不持久化显隐状态；再次摇动可恢复，退到后台再回来不自动解除隐藏，重新启动 App 后仍默认隐藏。
 - 弱网使用设备开发者设置的 [**Network Link Conditioner**](https://developer.apple.com/videos/play/tech-talks/111378/)；框架不声称可以限制整个 App 的网络。URLProtocol 仅覆盖采用该协议的请求，不能统一控制所有网络库、WebView 与底层连接，因此默认功能表不加入弱网开关。
 
 ## <span id="jobs-toc-heading-32" data-jobs-toc="v2">九、主工程集成与外部依赖治理 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->

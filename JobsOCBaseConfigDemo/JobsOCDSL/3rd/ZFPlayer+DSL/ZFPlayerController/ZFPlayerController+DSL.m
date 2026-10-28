@@ -25,6 +25,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END ZFPlayerController
 
 @implementation ZFPlayerController (DSL)
+
 -(JobsRetZFPlayerByViewBlock _Nonnull)byContainerView{
     @jobs_weakify(self)
     return ^__kindof ZFPlayerController *_Nullable(__kindof UIView *_Nullable data){
@@ -475,6 +476,7 @@
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END ZFPlayerController
+
 @end
 
 @implementation ZFOrientationObserver (DSL)

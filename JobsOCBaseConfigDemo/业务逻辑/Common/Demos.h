@@ -28,6 +28,7 @@
 #import "JobsTimerDemoListVC.h"
 #import "JobsBluetoothDemoVC.h"
 #import "JobsCoreMotionDemoVC.h"
+#import "JobsDeviceGuardDemoVC.h"
 #import "JobsOCSceneDelegateDemoVC.h"
 #import "JobsScreenshotTipsDemoVC.h"
 #import "JobsScreenshotProtectionDemoVC.h"

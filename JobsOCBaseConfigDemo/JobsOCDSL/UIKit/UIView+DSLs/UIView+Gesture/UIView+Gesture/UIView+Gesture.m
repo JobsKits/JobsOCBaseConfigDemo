@@ -33,6 +33,7 @@ static void JobsConfigureViewGestureTarget(UIView *view,
 }
 
 @implementation UIView (Gesture)
+
 #pragma mark —— 一些私有方法
 -(void)gesture:(UIGestureRecognizer *_Nullable)gesture
         action:(SEL _Nullable)action{

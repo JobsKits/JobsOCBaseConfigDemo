@@ -55,6 +55,7 @@ Prop_assign(readonly,getter=isRunning)BOOL running;
 -(JobsRetJobsClockIconViewByNSTimeIntervalBlock _Nonnull)byInterval;
 -(JobsRetJobsClockIconViewByUIViewBlock _Nonnull)byMinuteHandContainerView;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsClockIconView
+
 @end
 
 NS_ASSUME_NONNULL_END

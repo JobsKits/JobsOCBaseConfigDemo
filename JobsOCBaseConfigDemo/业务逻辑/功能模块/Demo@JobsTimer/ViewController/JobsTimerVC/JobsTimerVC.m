@@ -8,6 +8,7 @@
 #import "JobsTimerVC.h"
 
 @interface JobsTimerVC ()
+
 /// UI
 Prop_strong()UILabel *countUpTitleLab;
 Prop_strong()JobsCountdownView *countdownView;
@@ -39,6 +40,7 @@ Prop_assign()BOOL countUpTimerHasStarted;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsTimerVC
 
 @implementation JobsTimerVC
+
 - (void)dealloc{
     /// 定时器完全移除以后，才会走dealloc方法
     JobsLog(@"%@",JobsLocalFunc);
@@ -438,4 +440,5 @@ Prop_assign()BOOL countUpTimerHasStarted;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsTimerVC
+
 @end

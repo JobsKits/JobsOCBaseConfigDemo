@@ -8,6 +8,7 @@
 #import "JobsGestureLockResource.h"
 
 @implementation JobsGestureLockResource
+
 + (JobsRetNSBundleByVoidBlock _Nonnull)resourceBundle {
     return ^NSBundle *{
         NSBundle *classBundle = [NSBundle bundleForClass:self];

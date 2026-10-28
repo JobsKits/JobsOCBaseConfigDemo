@@ -15,6 +15,7 @@ Prop_strong()JobsPresentationCtrl *presentationController;
 @end
 
 @implementation JobsCommentVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);

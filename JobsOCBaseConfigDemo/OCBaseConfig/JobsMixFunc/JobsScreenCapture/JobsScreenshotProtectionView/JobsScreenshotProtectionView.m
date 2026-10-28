@@ -132,4 +132,5 @@ Prop_assign(readwrite,getter=isProtectionAvailable)BOOL protectionAvailable;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsScreenshotProtectionView
+
 @end

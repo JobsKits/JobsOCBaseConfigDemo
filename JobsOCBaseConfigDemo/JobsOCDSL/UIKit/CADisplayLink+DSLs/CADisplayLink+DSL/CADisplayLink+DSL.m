@@ -8,6 +8,7 @@
 #import "CADisplayLink+DSL.h"
 
 @implementation CADisplayLink (JobsChain)
+
 -(JobsRetCADisplayLinkByNSIntegerBlock _Nonnull)byFrameInterval{
     @jobs_weakify(self)
     return ^__kindof CADisplayLink *_Nullable(NSInteger data){

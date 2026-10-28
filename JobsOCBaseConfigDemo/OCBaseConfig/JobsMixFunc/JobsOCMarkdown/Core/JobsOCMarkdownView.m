@@ -38,6 +38,7 @@ Prop_assign()BOOL runtimeReady;
                      secondURL:(NSURL *)secondURL;
 
 @end
+
 @interface JobsOCMarkdownWeakMessageHandler : NSObject <WKScriptMessageHandler>
 
 Prop_weak(nullable)id<WKScriptMessageHandler> target;
@@ -417,6 +418,7 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler{
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCMarkdownView
+
 @end
 
 @implementation JobsOCMarkdownWeakMessageHandler

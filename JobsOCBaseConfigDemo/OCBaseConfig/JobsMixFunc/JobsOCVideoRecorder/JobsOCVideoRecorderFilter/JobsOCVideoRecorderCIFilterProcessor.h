@@ -41,6 +41,7 @@ Prop_assign() JobsOCVideoRecorderCIFilterType filterType;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCVideoRecorderCIFilterProcessor
 -(JobsRetJobsOCVideoRecorderCIFilterProcessorByJobsOCVideoRecorderCIFilterTypeBlock _Nonnull)byFilterType;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCVideoRecorderCIFilterProcessor
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -8,6 +8,7 @@
 #import "UIView+Extra.h"
 
 @implementation UIView (Extra)
+
 /// 调用方式：view.layerByBorderCor(@"#FFD8D8".jobsCor()).layerByBorderWidth(1);
 -(JobsRetViewByCorBlock _Nonnull)layerByBorderCor{
     @jobs_weakify(self)

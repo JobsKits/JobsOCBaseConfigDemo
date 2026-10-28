@@ -18,6 +18,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyleModel
 
 @implementation JobsAppDoorInputViewBaseStyleModel
+
 UIViewModelProtocol_synthesize
 - (instancetype)init{
     if (self = [super init]) {
@@ -59,4 +60,5 @@ UIViewModelProtocol_synthesize
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAppDoorInputViewBaseStyleModel
+
 @end

@@ -8,6 +8,7 @@
 #import "UIButtonConfiguration+Extra.h"
 
 @implementation UIButtonConfiguration (Extra)
+
 - (JobsRetBtnConfigByBtnConfigBlock _Nonnull)byButtonConfiguration API_AVAILABLE(ios(16.0)){
     @jobs_weakify(self)
     return ^UIButtonConfiguration *(UIButtonConfiguration *cfg) {
@@ -80,4 +81,5 @@
 #pragma mark —— Indicator (iOS 16+)
 #pragma mark —— Layout
 #pragma mark —— Auto update for selection
+
 @end

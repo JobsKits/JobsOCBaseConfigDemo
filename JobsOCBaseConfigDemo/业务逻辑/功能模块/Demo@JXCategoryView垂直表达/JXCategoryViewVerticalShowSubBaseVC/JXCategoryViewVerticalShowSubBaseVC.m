@@ -229,4 +229,5 @@ Prop_copy()NSString *currentTitleWritingLottieName;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JXCategoryViewVerticalShowSubBaseVC
+
 @end

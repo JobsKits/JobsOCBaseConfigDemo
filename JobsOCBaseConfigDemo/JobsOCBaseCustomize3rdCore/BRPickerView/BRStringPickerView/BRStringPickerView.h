@@ -23,6 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BRStringPickerView : BRTextPickerView
 
 @end
+
 #endif
 
 NS_ASSUME_NONNULL_END

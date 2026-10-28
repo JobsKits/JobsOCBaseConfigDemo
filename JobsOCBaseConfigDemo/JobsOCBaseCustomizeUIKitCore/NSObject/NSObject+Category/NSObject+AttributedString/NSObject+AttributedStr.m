@@ -8,6 +8,7 @@
 #import "NSObject+AttributedStr.h"
 
 @implementation NSObject (AttributedStr)
+
 +(JobsRetNSDictionaryNSAttributedStringKeyIDByVoidBlock _Nonnull)linkTextAttributes{
     return ^__kindof NSDictionary <NSAttributedStringKey,id>*{
         return @{

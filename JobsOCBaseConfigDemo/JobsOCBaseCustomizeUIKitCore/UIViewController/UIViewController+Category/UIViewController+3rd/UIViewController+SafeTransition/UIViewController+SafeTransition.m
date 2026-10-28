@@ -8,6 +8,7 @@
 #import "UIViewController+SafeTransition.h"
 
 @implementation UIViewController (SafeTransition)
+
 +(void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

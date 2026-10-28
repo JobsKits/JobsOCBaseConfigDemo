@@ -12,12 +12,14 @@
 #import "UIView+Refresh.h"
 
 @interface PointLabBaseView ()
+
 /// UI
 Prop_strong()UIView *pointView;
 
 @end
 
 @implementation PointLabBaseView
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 #pragma mark —— SysMethod

@@ -277,4 +277,5 @@ Prop_copy()NSData *sourceGIFData;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsGIFRefreshView
+
 @end

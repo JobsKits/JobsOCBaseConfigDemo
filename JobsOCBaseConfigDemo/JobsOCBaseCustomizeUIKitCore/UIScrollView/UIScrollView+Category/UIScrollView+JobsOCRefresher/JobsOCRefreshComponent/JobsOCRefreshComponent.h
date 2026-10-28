@@ -80,6 +80,7 @@ Prop_strong(readonly,nullable) id<JobsRefreshAnimatorProtocol> animator;
 -(JobsRetJobsOCRefreshComponentByNSUIntegerBlock _Nonnull)byFrameImageIndex;
 -(JobsRetJobsOCRefreshComponentByUIViewBlock _Nonnull)byAnimatorView;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCRefreshComponent
+
 @end
 
 NS_ASSUME_NONNULL_END

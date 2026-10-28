@@ -33,6 +33,7 @@ Prop_strong()PHCycleView *progressView;
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END PHCycleView
 
 @implementation JobsProgressVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);

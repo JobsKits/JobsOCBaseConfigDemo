@@ -8,6 +8,7 @@
 #import "UNNotificationRequest+Extra.h"
 
 @implementation UNNotificationRequest (Extra)
+
 +(JobsRetUNNotificationRequestByModelBlock _Nonnull)initBy{
     return ^__kindof UNNotificationRequest *_Nullable(UNNotificationRequestModel *_Nullable data){
         return [UNNotificationRequest requestWithIdentifier:data.identifier

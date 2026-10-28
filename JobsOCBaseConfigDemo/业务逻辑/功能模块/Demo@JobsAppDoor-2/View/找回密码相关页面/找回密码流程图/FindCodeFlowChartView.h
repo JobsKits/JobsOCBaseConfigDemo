@@ -48,6 +48,7 @@ Prop_strong()UILabel *subTitleLab;
 @end
 
 @interface FindCodeFlowChartView : BaseView
+
 ///一共几个流程节点
 Prop_assign()NSInteger flowNum;
 ///当前流程序号 从0开始

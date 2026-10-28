@@ -158,6 +158,7 @@ Prop_assign()CGFloat imageViewFrameOffsetHeight;/// 负值缩小，正值放大
                                       bounds:(CGRect)bounds
                        numberOfRowsInSection:(NSInteger)numberOfRowsInSection
                                  layerConfig:(JobsLocationModel *)layerConfig;
+
 @end
 
 NS_ASSUME_NONNULL_END

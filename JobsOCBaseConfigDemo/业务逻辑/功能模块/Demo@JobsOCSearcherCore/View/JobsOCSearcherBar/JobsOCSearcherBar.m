@@ -24,6 +24,7 @@ Prop_assign()BOOL registeredDisplayScaleTraits;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCSearcherBar
 
 @implementation JobsOCSearcherBar
+
 - (instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
@@ -317,4 +318,5 @@ Prop_assign()BOOL registeredDisplayScaleTraits;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCSearcherBar
+
 @end

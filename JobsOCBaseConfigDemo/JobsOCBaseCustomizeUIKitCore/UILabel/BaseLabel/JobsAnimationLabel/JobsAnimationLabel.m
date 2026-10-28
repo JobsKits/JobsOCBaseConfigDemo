@@ -33,6 +33,7 @@ Prop_copy()void (^complete)(UILabel *label, CGFloat value);
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAnimationLabel
 
 @implementation JobsAnimationLabel
+
 -(JobsRetJobsAnimationLabelByCorBlock _Nonnull)byTextCor{
     @jobs_weakify(self)
     return ^__kindof JobsAnimationLabel *_Nullable(UIColor *_Nullable color){
@@ -210,4 +211,5 @@ Prop_copy()void (^complete)(UILabel *label, CGFloat value);
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAnimationLabel
+
 @end

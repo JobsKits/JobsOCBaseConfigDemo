@@ -23,6 +23,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (JobsLanMgr)
+
 /// 国际化
 -(NSString *_Nullable)tr;
 /// JobsBlock 形态的国际化入口

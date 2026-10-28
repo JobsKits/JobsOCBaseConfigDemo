@@ -61,6 +61,7 @@ Prop_assign()BOOL bouncesHorizontally;
 -(JobsRetJobsOCExcelStyleByUIFontBlock _Nonnull)byBodyFont;
 -(JobsRetJobsOCExcelStyleByUIFontBlock _Nonnull)byHeaderFont;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCExcelStyle
+
 @end
 
 NS_ASSUME_NONNULL_END

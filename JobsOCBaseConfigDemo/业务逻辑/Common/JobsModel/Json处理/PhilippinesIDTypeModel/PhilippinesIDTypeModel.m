@@ -8,6 +8,7 @@
 #import "PhilippinesIDTypeModel.h"
 
 @implementation PhilippinesIDTypeModel
+
 +(NSDictionary *)mj_replacedKeyFromPropertyName{
     return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(PhilippinesIDTypeModel.class, @selector(jobsMJReplacedKeyFromPropertyName)))(self, @selector(jobsMJReplacedKeyFromPropertyName)))();
 }

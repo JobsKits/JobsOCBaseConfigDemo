@@ -26,4 +26,5 @@ Prop_retain()XLBubbleTransition *xl_presentTranstion;
 Prop_retain()XLBubbleTransition *xl_dismissTranstion;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_UIVIEWCONTROLLER_XLBUBBLETRANSITION_496AF3DA62 */

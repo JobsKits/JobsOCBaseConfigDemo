@@ -68,6 +68,7 @@ NS_ASSUME_NONNULL_BEGIN
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsLinkageMenuViewDemoVC
 -(JobsRetJobsLinkageMenuViewDemoVCByJobsLinkageMenuViewBlock _Nonnull)byLinkageView;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsLinkageMenuViewDemoVC
+
 @end
 
 NS_ASSUME_NONNULL_END

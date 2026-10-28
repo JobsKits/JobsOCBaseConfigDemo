@@ -646,4 +646,5 @@ Prop_strong()UIButton *closeSceneBtn;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCSceneDelegateDemoVC
+
 @end

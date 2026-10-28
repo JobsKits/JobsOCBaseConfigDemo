@@ -48,6 +48,7 @@ Prop_strong(readonly)UIView *eventDotView;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCCalendarDayCell
 -(JobsRetJobsOCCalendarDayCellByJobsOCCalendarMonthPositionBlock _Nonnull)byMonthPosition;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCCalendarDayCell
+
 @end
 
 NS_ASSUME_NONNULL_END

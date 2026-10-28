@@ -8,6 +8,7 @@
 #import "UIWindow+Extra.h"
 
 @implementation UIWindow (Extra)
+
 +(JobsRetWindowByWindowSceneBlock _Nonnull)initByScene{
     return ^__kindof UIWindow *_Nullable(UIWindowScene *_Nullable data){
         return [UIWindow.alloc initWithWindowScene:data];

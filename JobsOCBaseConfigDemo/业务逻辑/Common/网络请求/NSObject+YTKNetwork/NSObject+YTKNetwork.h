@@ -57,6 +57,7 @@ NS_INLINE JobsResponseModel *_Nullable JobsMapResponseModelBy(YTKBaseRequest *_N
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (YTKNetwork)<YTKNetworkProtocols,YTKChainRequestDelegate>
+
 #pragma mark —— 示例代码
 /// 普通的单个请求
 -(jobsByjobsByResponseModelBlockBlock _Nonnull)loadCacheData;
@@ -78,6 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN NSObject
 -(JobsRetNSObjectByJobsUserModelBlock _Nonnull)byDoorModel;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END NSObject
+
 @end
 
 NS_ASSUME_NONNULL_END

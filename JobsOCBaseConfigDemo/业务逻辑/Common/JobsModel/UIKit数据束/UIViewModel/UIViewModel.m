@@ -13,6 +13,7 @@
 #import "NSObject+Extra.h"
 
 @implementation UIViewModel
+
 /// UIViewModelOthersProtocol
 UIViewModelOthersProtocol_synthesize
 /// UIPictureAndBackGroundCorProtocol

@@ -58,6 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetJobsHandwritingDemoVCByBOOLBlock _Nonnull)byHasUnsavedChanges;
 -(JobsRetJobsHandwritingDemoVCByBOOLBlock _Nonnull)byLeaveAlertShowing;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsHandwritingDemoVC
+
 @end
 
 NS_ASSUME_NONNULL_END

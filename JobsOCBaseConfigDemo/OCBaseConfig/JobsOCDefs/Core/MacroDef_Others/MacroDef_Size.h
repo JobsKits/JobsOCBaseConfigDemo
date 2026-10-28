@@ -24,7 +24,9 @@
 #import "JobsGetWindow.h"
 
 @interface UIDevice (JobsFullScreenBlockDeclaration)
+
 + (JobsRetBOOLByVoidBlock _Nonnull)jobsIsFullScreen;
+
 @end
 
 /// 资料来源：

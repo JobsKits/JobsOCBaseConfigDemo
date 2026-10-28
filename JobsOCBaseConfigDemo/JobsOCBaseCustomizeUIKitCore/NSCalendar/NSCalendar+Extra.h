@@ -17,6 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSCalendar (Extra)
+
 /// 对系统方法 calendarWithIdentifier 的二次封装
 +(JobsRetCalendarByCalendarIdentifierBlock _Nonnull)initBy;
 /// 对系统方法 dateFromComponents 的二次封装
@@ -27,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN NSCalendar
 -(JobsRetNSCalendarByNSLocaleBlock _Nonnull)byLocale;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END NSCalendar
+
 @end
 
 NS_ASSUME_NONNULL_END

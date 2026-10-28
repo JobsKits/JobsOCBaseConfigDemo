@@ -23,6 +23,7 @@ Prop_copy()NSString *historyText;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCSearcherRecordCell
 
 @implementation JobsOCSearcherRecordCell
+
 +(JobsRetStrByVoidBlock _Nonnull)reuseIdentifier{
     return ^NSString *_Nullable{
         return NSStringFromClass(self);
@@ -144,4 +145,5 @@ Prop_copy()NSString *historyText;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCSearcherRecordCell
+
 @end

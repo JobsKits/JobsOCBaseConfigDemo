@@ -8,6 +8,7 @@
 #import "UIActivityIndicatorView+DSL.h"
 
 @implementation UIActivityIndicatorView (JobsChain)
+
 +(JobsRetActivityIndicatorViewByVoidBlock _Nonnull)byActivityIndicatorView{
     return ^__kindof UIActivityIndicatorView *_Nullable(void){
         return [[self alloc] init];

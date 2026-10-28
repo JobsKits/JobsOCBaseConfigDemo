@@ -34,6 +34,7 @@ Prop_assign()AlignmentType alignmentType;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsTabBar
 -(JobsRetJobsTabBarByAlignmentTypeBlock _Nonnull)byAlignmentType;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsTabBar
+
 @end
 
 NS_INLINE __kindof JobsTabBar *_Nonnull jobsMakeTabBar(jobsByTabBarBlock _Nullable block){

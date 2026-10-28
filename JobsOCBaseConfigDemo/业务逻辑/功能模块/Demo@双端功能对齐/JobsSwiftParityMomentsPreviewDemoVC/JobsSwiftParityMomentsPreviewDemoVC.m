@@ -750,4 +750,5 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsSwiftParityMomentsPreviewDemoVC
+
 @end

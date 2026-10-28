@@ -14,6 +14,7 @@ Prop_strong()UIActivityIndicatorView *indicatorView;
 @end
 
 @implementation JobsSystemRefreshView
+
 +(JobsRetJobsSystemRefreshViewByVoidBlock _Nonnull)refreshView {
     return ^__kindof JobsSystemRefreshView *{
         return JobsSystemRefreshView.alloc.init;

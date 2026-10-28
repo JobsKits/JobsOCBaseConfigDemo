@@ -334,6 +334,7 @@ Prop_copy()NSString *currentTitleWritingLottieName;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JXCategoryPopupSubVC
+
 @end
 
 // JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN LOTAnimationView

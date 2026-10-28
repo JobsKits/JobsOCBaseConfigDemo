@@ -77,6 +77,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsAppDoorInputViewBaseStyle_10 : JobsAppDoorInputViewBaseStyle
+
 /**
  
  * 其实并不建议用init方法,而是期望带参数初始化，比如对应BaseViewProtocol里面的 - (instancetype)initWithSize:(CGSize)thisViewSize
@@ -91,6 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorInputViewBaseStyle_10
 -(JobsRetJobsAppDoorInputViewBaseStyle_10ByJobsAppDoorInputViewBaseStyleModelBlock _Nonnull)byDoorInputViewBaseStyleModel;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_10
+
 @end
 
 NS_ASSUME_NONNULL_END

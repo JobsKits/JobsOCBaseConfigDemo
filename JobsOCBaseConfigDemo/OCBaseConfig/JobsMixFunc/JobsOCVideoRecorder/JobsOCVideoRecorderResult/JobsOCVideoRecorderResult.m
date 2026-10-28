@@ -17,6 +17,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCVideoRecorderResult
 
 @implementation JobsOCVideoRecorderResult
+
 +(instancetype)resultWithFileURL:(NSURL *)fileURL
                          duration:(CMTime)duration{
     return JobsOCVideoRecorderResult.new
@@ -68,4 +69,5 @@
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCVideoRecorderResult
+
 @end

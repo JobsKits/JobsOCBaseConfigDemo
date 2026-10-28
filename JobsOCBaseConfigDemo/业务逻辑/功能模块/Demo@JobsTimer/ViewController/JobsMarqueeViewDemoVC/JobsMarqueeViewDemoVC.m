@@ -8,6 +8,7 @@
 #import "JobsMarqueeViewDemoVC.h"
 
 @interface JobsMarqueeViewDemoVC (){
+
     UIScrollView *_demoScrollView;
 }
 
@@ -38,6 +39,7 @@ Prop_strong()UILabel *tipLab;
 @end
 
 @implementation JobsMarqueeViewDemoVC
+
 -(void)dealloc{
     (((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMarqueeViewDemoVC.class, @selector(stopAllMarquees)))(self, @selector(stopAllMarquees)))();
 }

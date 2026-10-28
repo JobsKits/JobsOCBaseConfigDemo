@@ -14,6 +14,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCExcelRow
 
 @implementation JobsOCExcelRow
+
 +(JobsRetIDByNSArrayJobsOCExcelCellBlock _Nonnull)rowWithCells{
     return ^id(NSArray<JobsOCExcelCell *> * cells){
         JobsOCExcelRow *row = JobsOCExcelRow.new;
@@ -48,4 +49,5 @@
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCExcelRow
+
 @end

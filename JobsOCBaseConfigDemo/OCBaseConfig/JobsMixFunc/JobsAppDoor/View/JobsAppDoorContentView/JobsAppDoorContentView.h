@@ -79,6 +79,7 @@ Prop_strong()JobsAppDoorConfig *configuration;
 -(JobsRetJobsAppDoorContentViewByRACCompoundDisposableBlock _Nonnull)bySendBtnEnableDisposable;
 -(JobsRetJobsAppDoorContentViewByRACDisposableBlock _Nonnull)byVerificationCodeBtnEnableDisposable;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorContentView
+
 @end
 
 NS_ASSUME_NONNULL_END

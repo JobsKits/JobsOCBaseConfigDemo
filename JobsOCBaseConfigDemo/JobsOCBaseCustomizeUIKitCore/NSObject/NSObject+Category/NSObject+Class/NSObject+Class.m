@@ -8,6 +8,7 @@
 #import "NSObject+Class.h"
 
 @implementation NSObject (Class)
+
 #pragma mark —— 返回并打印成员变量列表
 -(JobsRetArrByVoidBlock _Nonnull)printIvarList{
     @jobs_weakify(self)

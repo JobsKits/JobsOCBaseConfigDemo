@@ -8,6 +8,7 @@
 #import "JobsAppDoorLoginContentView.h"
 
 @interface JobsAppDoorLoginContentView ()
+
 /// UI
 Prop_strong()BaseButton *toRegisterBtn;/// 去注册
 Prop_strong()UILabel *titleLab;/// 标题
@@ -29,6 +30,7 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorLoginContentView
 
 @implementation JobsAppDoorLoginContentView
+
 - (void)dealloc {
     [self.sendBtnEnableDisposable dispose];
     JobsLog(@"%@",JobsLocalFunc);
@@ -576,4 +578,5 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAppDoorLoginContentView
+
 @end

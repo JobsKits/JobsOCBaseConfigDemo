@@ -62,6 +62,7 @@ Prop_strong()NSMapTable<UIViewController *, NSNumber *> *tabBarInsetContribution
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsCustomTabBarVC
 
 @implementation JobsCustomTabBarVC
+
 -(instancetype)initWithConfiguration:(JobsCustomTabBarConfig *)configuration{
     if (self = [super init]) {
         _sceneConfiguration = configuration;
@@ -314,4 +315,5 @@ didSelectViewController:(UIViewController *)viewController{
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsCustomTabBarVC
+
 @end

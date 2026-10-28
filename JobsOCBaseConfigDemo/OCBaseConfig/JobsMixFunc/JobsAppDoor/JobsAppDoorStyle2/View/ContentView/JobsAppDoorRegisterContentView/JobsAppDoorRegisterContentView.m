@@ -10,6 +10,7 @@
 @class JobsAppDoorDoorInputViewBaseStyle;
 
 @interface JobsAppDoorRegisterContentView ()
+
 /// UI
 Prop_strong()BaseButton *backToLoginBtn;// 返回登录
 Prop_strong()UILabel *titleLab;// 标题
@@ -29,6 +30,7 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorRegisterContentView
 
 @implementation JobsAppDoorRegisterContentView
+
 -(JobsRetJobsAppDoorRegisterContentViewByConfigBlock _Nonnull)byConfiguration{
     @jobs_weakify(self)
     return ^__kindof JobsAppDoorRegisterContentView *_Nullable(JobsAppDoorConfig *_Nullable data){
@@ -604,4 +606,5 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAppDoorRegisterContentView
+
 @end

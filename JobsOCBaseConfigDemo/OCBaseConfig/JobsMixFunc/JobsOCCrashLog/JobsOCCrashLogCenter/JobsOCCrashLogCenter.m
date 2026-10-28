@@ -734,6 +734,7 @@ Prop_assign()BOOL hasStartedSession;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCCrashLogCenter
+
 @end
 
 static void JobsOCHandleUncaughtException(NSException *exception){

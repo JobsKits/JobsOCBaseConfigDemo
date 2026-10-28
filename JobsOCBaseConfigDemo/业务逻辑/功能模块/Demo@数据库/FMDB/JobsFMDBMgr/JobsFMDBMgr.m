@@ -14,6 +14,7 @@ Prop_strong()FMDatabaseQueue *databaseQueue;
 @end
 
 @implementation JobsFMDBMgr
+
 static JobsFMDBMgr *JobsFMDBMgrInstance;
 static dispatch_once_t JobsFMDBMgrOnceToken;
 +(instancetype)sharedManager{

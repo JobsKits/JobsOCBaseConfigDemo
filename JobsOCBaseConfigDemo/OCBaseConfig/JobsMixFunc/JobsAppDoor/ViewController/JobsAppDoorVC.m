@@ -9,6 +9,7 @@
 
 //ZFPlayerController *ZFPlayer_DoorVC;
 @interface JobsAppDoorVC ()<UIGestureRecognizerDelegate>{
+
     NSInteger index;// 当前被激活的TextField的序号，从1开始
     UIButton *toRegisterBtn;
     UITextField *lastEditTextField;// 上一次处于编辑状态的TextField
@@ -62,6 +63,7 @@ Prop_strong()JobsAppDoorModel *appDoorModel;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorVC
 
 @implementation JobsAppDoorVC
+
 -(JobsRetJobsAppDoorVCByConfigBlock _Nonnull)byConfiguration{
     @jobs_weakify(self)
     return ^__kindof JobsAppDoorVC *_Nullable(JobsAppDoorConfig *_Nullable config){
@@ -1279,4 +1281,5 @@ static dispatch_once_t static_jobsAppDoorOnceToken;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAppDoorVC
+
 @end

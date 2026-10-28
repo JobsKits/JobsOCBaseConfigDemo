@@ -12,6 +12,7 @@
 @end
 
 @implementation MyFansTBVCell
+
 #pragma mark —— UITableViewCellProtocol
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {

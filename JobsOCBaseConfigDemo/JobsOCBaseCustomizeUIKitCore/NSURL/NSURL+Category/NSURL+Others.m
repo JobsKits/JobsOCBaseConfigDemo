@@ -8,6 +8,7 @@
 #import "NSURL+Others.h"
 
 @implementation NSURL (Others)
+
 /// 对系统方法 fileURLWithPath 的二次封装
 +(JobsRetURLByStrBlock _Nonnull)fileURLWithPath{
     return ^NSURL *_Nullable(__kindof NSString *_Nullable data){

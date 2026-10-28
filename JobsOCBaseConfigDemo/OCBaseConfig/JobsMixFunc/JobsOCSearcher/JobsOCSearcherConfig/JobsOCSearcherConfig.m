@@ -8,6 +8,7 @@
 #import "JobsOCSearcherConfig.h"
 
 @implementation JobsOCSearcherConfig
+
 +(JobsRetJobsOCSearcherConfigByVoidBlock _Nonnull)defaultConfig{
     return ^JobsOCSearcherConfig *{
         return JobsOCSearcherConfig.new

@@ -8,6 +8,7 @@
 #import "CustomBtnImageTopVC.h"
 
 @implementation CustomBtnImageTopVC
+
 -(JobsRetStrByVoidBlock _Nonnull)demoTitle{
     @jobs_weakify(self)
     return ^NSString *_Nullable{

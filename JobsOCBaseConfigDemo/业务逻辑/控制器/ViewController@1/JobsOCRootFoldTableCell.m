@@ -71,6 +71,7 @@ Prop_assign()NSInteger chargingProgressPhase;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCRootFoldTableCell
 
 @implementation JobsOCRootFoldTableCell{
+
     MASConstraint *_innerTableHeightConstraint;
     BOOL _expanded;
 }
@@ -728,6 +729,7 @@ Prop_assign()NSInteger chargingProgressPhase;
                 @"JobsOCAudioRecorderDemoVC": @"mic.fill",
                 @"JobsBluetoothDemoVC": @"antenna.radiowaves.left.and.right",
                 @"JobsCoreMotionDemoVC": @"gyroscope",
+                @"JobsDeviceGuardDemoVC": @"shield.lefthalf.filled",
                 @"JobsOCSceneDelegateDemoVC": @"macwindow.on.rectangle",
 #if DEBUG
                 @"JobsDebugPanelDemoVC": @"ladybug.fill",
@@ -1446,4 +1448,5 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCRootFoldTableCell
+
 @end

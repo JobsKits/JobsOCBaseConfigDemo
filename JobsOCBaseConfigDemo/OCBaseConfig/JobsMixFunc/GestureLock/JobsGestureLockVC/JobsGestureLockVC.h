@@ -45,6 +45,7 @@ Prop_copy(nullable)void (^otherAccountHandler)(void);
 -(JobsRetJobsGestureLockVCByNSIntegerBlock _Nonnull)byRemainingRetryCount;
 -(JobsRetJobsGestureLockVCByNSStringBlock _Nonnull)byFirstPattern;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsGestureLockVC
+
 @end
 
 NS_ASSUME_NONNULL_END

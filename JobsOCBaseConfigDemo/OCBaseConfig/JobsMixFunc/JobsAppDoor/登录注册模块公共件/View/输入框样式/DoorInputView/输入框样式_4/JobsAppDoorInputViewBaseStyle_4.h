@@ -81,6 +81,7 @@ Prop_strong()JobsOCGraphicCaptchaConfig *graphicCaptchaConfig;
 -(JobsRetJobsAppDoorInputViewBaseStyle_4ByJobsAppDoorInputViewBaseStyleModelBlock _Nonnull)byDoorInputViewBaseStyleModel;
 -(JobsRetJobsAppDoorInputViewBaseStyle_4ByJobsOCGraphicCaptchaConfigBlock _Nonnull)byGraphicCaptchaConfig;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_4
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 但是如果你尝试对 nil 对象调用分类中的方法，可能会导致问题。
 /// 这是因为 nil 对象并不会执行任何方法实现，分类中的方法也不会被调用。
 @interface NSObject (CallBackInfoByBlock)
+
 #pragma mark —— 单入参Block
 Prop_copy(nullable)jobsByVoidBlock voidBlock;/// 无入参，无返回值的回调
 -(void)actionVoidBlock:(jobsByVoidBlock _Nullable)voidBlock;

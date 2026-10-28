@@ -8,6 +8,7 @@
 #import "UITableView+RegisterClass.h"
 
 @implementation UITableView (RegisterClass)
+
 #pragma mark —— 注册
 -(jobsByVoidBlock _Nonnull)registerTableViewClass{
     @jobs_weakify(self)

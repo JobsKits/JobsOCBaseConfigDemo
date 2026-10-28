@@ -44,12 +44,14 @@ static void JobsUserHeaderDataViewInvokeCamera(id target) {
 }
 
 @interface JobsUserHeaderDataView ()
+
 /// Data
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 
 @end
 
 @implementation JobsUserHeaderDataView
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 #pragma mark —— BaseProtocol

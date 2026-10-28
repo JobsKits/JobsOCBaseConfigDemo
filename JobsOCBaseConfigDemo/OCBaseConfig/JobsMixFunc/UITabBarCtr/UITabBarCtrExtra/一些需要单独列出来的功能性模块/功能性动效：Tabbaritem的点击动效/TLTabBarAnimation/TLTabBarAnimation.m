@@ -110,6 +110,7 @@ void playFireworksAnimation(UIView *view,
 }
 #pragma mark —— TLBounceAnimation 弹性动画
 @implementation TLBounceAnimation
+
 - (void)playSelectAnimationWhitTabBarButton:(UIView *)button
                             buttonImageView:(UIImageView *)imageView
                             buttonTextLabel:(UILabel *)textLabel{
@@ -133,8 +134,10 @@ void playFireworksAnimation(UIView *view,
 }
 
 @end
+
 #pragma mark —— TLFumeAnimation 仿烟动画
 @implementation TLFumeAnimation
+
 - (void)playSelectAnimationWhitTabBarButton:(UIView *)button
                             buttonImageView:(UIImageView *)imageView
                             buttonTextLabel:(UILabel *)textLabel{
@@ -192,8 +195,10 @@ void playDeselectLabelAnimation(UILabel *textLabel) {
 }
 
 @end
+
 #pragma mark —— TLRotationAnimation 旋转动画
 @implementation TLRotationAnimation
+
 - (void)playSelectAnimationWhitTabBarButton:(UIView *)button
                             buttonImageView:(UIImageView *)imageView
                             buttonTextLabel:(UILabel *)textLabel{
@@ -210,8 +215,10 @@ void playDeselectLabelAnimation(UILabel *textLabel) {
 }
 
 @end
+
 #pragma mark —— TLFrameAnimation Frame动画
 @implementation TLFrameAnimation
+
 - (void)playSelectAnimationWhitTabBarButton:(UIView *)button
                             buttonImageView:(UIImageView *)imageView
                             buttonTextLabel:(UILabel *)textLabel{
@@ -236,8 +243,10 @@ void playDeselectLabelAnimation(UILabel *textLabel) {
 }
 
 @end
+
 #pragma mark —— TLTransitionAniamtion 翻转动画
 @implementation TLTransitionAniamtion
+
 - (void)playSelectAnimationWhitTabBarButton:(UIView *)button
                             buttonImageView:(UIImageView *)imageView
                             buttonTextLabel:(UILabel *)textLabel{

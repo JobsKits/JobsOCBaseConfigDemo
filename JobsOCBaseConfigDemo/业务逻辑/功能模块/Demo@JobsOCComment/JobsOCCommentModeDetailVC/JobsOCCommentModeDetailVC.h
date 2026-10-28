@@ -64,6 +64,7 @@ Prop_copy()NSArray <JobsOCCommentModel *>*commentArr;
 -(JobsRetJobsOCCommentModeDetailVCByIDUIViewControllerTransitioningDelegateBlock _Nonnull)byTransitioningDelegate;
 -(JobsRetJobsOCCommentModeDetailVCByUIModalPresentationStyleBlock _Nonnull)byModalPresentationStyle;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCCommentModeDetailVC
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -29,6 +29,7 @@ Prop_assign()BOOL autoRunning;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsProgressDemoVC
 
 @implementation JobsProgressDemoVC
+
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
     self.progressBar.stopAutoProgress();
@@ -500,4 +501,5 @@ Prop_assign()BOOL autoRunning;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsProgressDemoVC
+
 @end

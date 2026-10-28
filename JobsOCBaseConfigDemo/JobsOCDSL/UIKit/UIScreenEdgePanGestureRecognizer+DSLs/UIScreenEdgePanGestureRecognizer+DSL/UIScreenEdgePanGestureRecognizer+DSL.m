@@ -8,6 +8,7 @@
 #import "UIScreenEdgePanGestureRecognizer+DSL.h"
 
 @implementation UIScreenEdgePanGestureRecognizer (JobsChain)
+
 -(JobsRetScreenEdgePanGestureRecognizerByUIRectEdgeBlock _Nonnull)byEdges{
     @jobs_weakify(self)
     return ^__kindof UIScreenEdgePanGestureRecognizer *_Nullable(UIRectEdge data){

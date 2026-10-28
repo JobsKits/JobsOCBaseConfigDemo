@@ -10,6 +10,7 @@
 #import "NSObject+Extra.h"
 
 @implementation NSObject (SysInfo)
+
 /// 应用程序的发布版本号
 +(NSString *_Nullable)version{
     JobsRetStrByVoidBlock action = ((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(NSObject.class, @selector(jobsVersion)))(self, @selector(jobsVersion));

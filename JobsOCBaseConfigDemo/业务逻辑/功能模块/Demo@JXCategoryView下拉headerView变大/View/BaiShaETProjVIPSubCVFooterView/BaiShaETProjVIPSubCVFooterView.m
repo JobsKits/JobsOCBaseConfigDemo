@@ -14,6 +14,7 @@ Prop_strong()BaseLabel *titleLab;
 @end
 
 @implementation BaiShaETProjVIPSubCVFooterView
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 -(instancetype)initWithFrame:(CGRect)frame{

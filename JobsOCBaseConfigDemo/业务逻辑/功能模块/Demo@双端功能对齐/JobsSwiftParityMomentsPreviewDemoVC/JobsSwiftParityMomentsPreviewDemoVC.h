@@ -41,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetJobsSwiftParityMomentsPreviewDemoVCByJobsOCCommentModeBlock _Nonnull)byCommentMode;
 -(JobsRetJobsSwiftParityMomentsPreviewDemoVCByUIButtonBlock _Nonnull)byActiveLikeBtn;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsSwiftParityMomentsPreviewDemoVC
+
 @end
 
 NS_ASSUME_NONNULL_END

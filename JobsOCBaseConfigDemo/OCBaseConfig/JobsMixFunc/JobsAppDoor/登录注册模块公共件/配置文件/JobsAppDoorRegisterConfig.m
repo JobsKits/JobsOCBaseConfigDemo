@@ -16,6 +16,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorRegisterConfig
 
 @implementation JobsAppDoorRegisterConfig
+
 -(instancetype)init{
     if (self = [super init]) {
         _showsMobileBinding = NO;
@@ -76,4 +77,5 @@
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAppDoorRegisterConfig
+
 @end

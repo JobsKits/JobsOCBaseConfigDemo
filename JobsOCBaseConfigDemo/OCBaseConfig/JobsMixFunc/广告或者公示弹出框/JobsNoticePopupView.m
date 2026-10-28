@@ -14,6 +14,7 @@
 @end
 
 @implementation JobsNoticePopupView
+
 -(instancetype)init{
     if (self = [super init]) {
     };return self;

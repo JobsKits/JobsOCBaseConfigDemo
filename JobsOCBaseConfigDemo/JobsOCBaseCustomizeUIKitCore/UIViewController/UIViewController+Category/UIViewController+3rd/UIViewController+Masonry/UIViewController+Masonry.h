@@ -60,6 +60,7 @@ Prop_copy(nullable)jobsByMASConstraintMakerBlock masonryBlock;
 ///   - masonryAfterBlock: 希望变到的最后的约束
 -(void)jobsMasonryBeforeBlock:(jobsByMASConstraintMakerBlock _Nonnull)masonryBeforeBlock
             masonryAfterBlock:(jobsByMASConstraintMakerBlock _Nonnull)masonryAfterBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

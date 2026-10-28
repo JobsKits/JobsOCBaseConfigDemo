@@ -449,4 +449,5 @@ Prop_assign()BOOL permissionGranted;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCAudioRecorderDemoVC
+
 @end

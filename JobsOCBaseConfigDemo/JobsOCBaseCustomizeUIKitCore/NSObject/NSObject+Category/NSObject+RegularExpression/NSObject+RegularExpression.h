@@ -25,6 +25,7 @@ typedef NS_ENUM(NSInteger, JobsCNIDErrorCode) {
 FOUNDATION_EXPORT NSString * const JobsCNIDErrorDomain;
 
 @interface NSObject (RegularExpression)
+
 #pragma mark —— 校验只能输入n位的数字
 +(BOOL)checkingNumberWithLength:(NSString *)length number:(NSString *)number;
 #pragma mark —— 校验最少输入n位的数字

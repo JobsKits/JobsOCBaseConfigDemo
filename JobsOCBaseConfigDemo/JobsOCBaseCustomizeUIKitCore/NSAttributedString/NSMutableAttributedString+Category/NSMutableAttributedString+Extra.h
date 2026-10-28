@@ -18,6 +18,7 @@
 NS_ASSUME_NONNULL_BEGIN
 /// NSMutableAttributedString 用于设置段落样式，包括行间距、段间距、对齐方式等
 @interface NSMutableAttributedString (Extra)
+
 /// 对系统方法 initWithAttributedString 的二次封装
 +(JobsRetMutableAttributedStringByAttributedStringBlock _Nonnull)initByAttributedString;
 /// 对系统方法 initWithString 的二次封装

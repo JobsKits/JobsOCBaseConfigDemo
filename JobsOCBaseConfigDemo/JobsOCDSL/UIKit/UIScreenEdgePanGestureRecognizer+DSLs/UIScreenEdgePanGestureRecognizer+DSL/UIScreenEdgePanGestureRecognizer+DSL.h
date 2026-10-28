@@ -28,5 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetScreenEdgePanGestureRecognizerByUIRectEdgeBlock _Nonnull)byEdges;
 
 @end
+
 NS_ASSUME_NONNULL_END
 #endif

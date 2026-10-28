@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetJobsScreenshotObserverByIDNSObjectBlock _Nonnull)byScreenshotToken;
 -(JobsRetJobsScreenshotObserverByjobsByVoidBlockBlock _Nonnull)byScreenshotHandler;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsScreenshotObserver
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -40,6 +40,7 @@ static void * _##varName = &_##varName; \
 /// 但是如果你尝试对 nil 对象调用分类中的方法，可能会导致问题。
 /// 这是因为 nil 对象并不会执行任何方法实现，分类中的方法也不会被调用。
 @implementation NSObject (CallBackInfoByBlock)
+
 #pragma mark —— UIView
 -(JobsRetIDByVoidIDBlocks _Nonnull)byObjBlock{
     @jobs_weakify(self)

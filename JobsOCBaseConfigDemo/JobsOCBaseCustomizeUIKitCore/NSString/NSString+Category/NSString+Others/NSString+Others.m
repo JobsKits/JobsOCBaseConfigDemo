@@ -8,6 +8,7 @@
 #import "NSString+Others.h"
 
 @implementation NSString (Others)
+
 #pragma mark —— 动画相关
 /// 创建CABasicAnimation
 /// 创建CAKeyframeAnimation（关键帧动画）
@@ -191,4 +192,5 @@
 /// 对系统方法 stringWithCapacity 的二次封装
 /// 对系统方法 - (nullable instancetype)initWithContentsOfFile:(NSString *)path encoding:(NSStringEncoding)enc error:(NSError **)error; 的二次封装
 /// 对系统方法 - (nullable instancetype)initWithContentsOfURL:(NSURL *)url encoding:(NSStringEncoding)enc error:(NSError **)error; 的二次封装
+
 @end

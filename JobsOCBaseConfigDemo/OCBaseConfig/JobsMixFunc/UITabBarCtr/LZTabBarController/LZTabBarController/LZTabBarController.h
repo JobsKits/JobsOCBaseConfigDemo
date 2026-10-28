@@ -20,6 +20,7 @@ typedef LZTabBarConfig *_Nullable(^tabBarBlock)(LZTabBarConfig * _Nonnull config
 #import "JobsOCDSL.h"
 
 @interface LZTabBarController : UITabBarController<LZTabBarDelegate>
+
 /// 是否可用自动旋转屏幕
 Prop_assign()BOOL isAutoRotation;
 /// 创建tabBarController
@@ -39,6 +40,7 @@ Prop_assign()BOOL isAutoRotation;
 -(void)setSelectedIndex:(NSUInteger)data;
 -(void)setViewControllers:(NSArray<__kindof UIViewController *> * _Nullable)data;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END LZTabBarController
+
 @end
 
 #endif /* JOBS_HEADER_GUARD_LZTABBARCONTROLLER_51B5F2F465 */

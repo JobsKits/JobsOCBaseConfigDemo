@@ -8,6 +8,7 @@
 #import "UISlider+Extra.h"
 
 @implementation UISlider (Extra)
+
 -(JobsRetRACDisposableByRACNextBlock _Nonnull)jobsSliderAllTouchEventBlock{
     @jobs_weakify(self)
     return ^RACDisposable *(jobsByIDBlock subscribeNextBlock){

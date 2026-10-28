@@ -49,6 +49,7 @@ DataManager.sharedManager.tag = ReuseIdentifier.add(@"_").add(NSStringFromSelect
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsNetworkingAPI : NSObject
+
 #pragma mark —— 普通的网络请求
 /// 【只有Body参数、不需要错误回调】
 +(void)requestApi:(NSString *_Nonnull)requestApi

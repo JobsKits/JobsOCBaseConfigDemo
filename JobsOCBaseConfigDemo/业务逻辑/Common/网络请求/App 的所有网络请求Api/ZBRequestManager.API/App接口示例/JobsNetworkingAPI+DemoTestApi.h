@@ -22,6 +22,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ZBURLRequest (JobsNetworkingDSL)
+
 -(JobsRetZBURLRequestByStrBlock _Nonnull)byServer;
 -(JobsRetZBURLRequestByStrBlock _Nonnull)byUrl;
 -(JobsRetZBURLRequestByNSIntegerBlock _Nonnull)byMethodType;
@@ -30,9 +31,11 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetZBURLRequestByNSUIntegerBlock _Nonnull)byRetryCount;
 -(JobsRetZBURLRequestByTimeIntervalBlock _Nonnull)byTimeoutInterval;
 -(JobsRetZBURLRequestByIDBlock _Nonnull)byUserInfo;
+
 @end
 
 @interface JobsNetworkingAPI (DemoTestApi)
+
 /*
 
     ❤️这里选用通用性较强的 jobsByIDBlock 的目的，而不是直接对【typedef void(^jobsByIDBlock)(id data)】进行确定类型 JobsResponseModel 的原因：

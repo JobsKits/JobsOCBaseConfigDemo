@@ -48,6 +48,7 @@ Prop_assign(readonly)CGFloat textLayoutWidth;
 -(JobsRetJobsCoreTextScrollLayerByCTLineRefBlock _Nonnull)byTextLine;
 -(JobsRetJobsCoreTextScrollLayerByNSNumberBlock _Nonnull)byDuplicateOriginX;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsCoreTextScrollLayer
+
 @end
 
 NS_ASSUME_NONNULL_END

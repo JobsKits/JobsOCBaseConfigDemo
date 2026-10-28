@@ -32,6 +32,7 @@ UICollectionViewDataSource
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsHotLabelByMultiLine
 -(JobsRetJobsHotLabelByMultiLineByJobsHotLabelWithMultiLineModelBlock _Nonnull)byDataModel;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsHotLabelByMultiLine
+
 @end
 
 NS_ASSUME_NONNULL_END

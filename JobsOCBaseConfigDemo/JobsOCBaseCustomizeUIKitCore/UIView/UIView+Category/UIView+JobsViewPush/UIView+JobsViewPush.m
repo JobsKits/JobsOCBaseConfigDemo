@@ -16,6 +16,7 @@ Prop_weak()JobsViewPushPresentation *presentation;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsViewPushTransitionView
 -(JobsRetJobsViewPushTransitionViewByJobsViewPushPresentationBlock _Nonnull)byPresentation;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsViewPushTransitionView
+
 @end
 
 @interface JobsViewPushPresentation () <UIGestureRecognizerDelegate>
@@ -47,6 +48,7 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
 @end
 
 @implementation JobsViewPushConfiguration
+
 +(JobsRetJobsViewPushConfigurationByVoidBlock _Nonnull)defaultConfiguration{
     return ^JobsViewPushConfiguration *{
         return self.new;
@@ -146,6 +148,7 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsViewPushPresentation
 
 @implementation JobsViewPushPresentation
+
 -(instancetype)initWithSourceView:(UIView *)sourceView
                     presentedView:(UIView *)presentedView
                     configuration:(JobsViewPushConfiguration *)configuration{
@@ -537,6 +540,7 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsViewPushPresentation
+
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsViewPushTransitionView
@@ -546,6 +550,7 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsViewPushTransitionView
 
 @implementation JobsViewPushTransitionView
+
 -(void)layoutSubviews{
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsViewPushTransitionView.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
     if (action) action();
@@ -571,9 +576,11 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsViewPushTransitionView
+
 @end
 
 @implementation UIView (JobsViewPush)
+
 -(JobsRetJobsViewPushPresentationByUIViewBlock _Nonnull)jobsPushView{
     @jobs_weakify(self)
     return ^JobsViewPushPresentation *(UIView * presentedView){
@@ -607,6 +614,7 @@ Prop_strong(nullable)JobsViewPushPresentation *jobsViewPushPresentation;
 @end
 
 @implementation UIView (JobsViewPushPrivate)
+
 JobsKey(JobsViewPushPresentationKey)
 -(void)setJobsViewPushPresentation:(JobsViewPushPresentation *)jobsViewPushPresentation{
     Jobs_setAssociatedRETAIN_NONATOMIC(JobsViewPushPresentationKey, jobsViewPushPresentation)

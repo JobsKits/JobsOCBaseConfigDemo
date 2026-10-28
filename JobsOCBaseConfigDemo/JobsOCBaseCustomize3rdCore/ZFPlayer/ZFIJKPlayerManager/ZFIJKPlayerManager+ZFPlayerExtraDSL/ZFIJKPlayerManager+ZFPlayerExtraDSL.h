@@ -92,6 +92,7 @@ typedef __kindof ZFIJKPlayerManager *_Nullable(^JobsRetZFIJKPlayerManagerByTimeI
 -(JobsRetZFIJKPlayerManagerByvoidIDZFPlayerMediaPlaybackassetZFPlayerPlaybackStateplayStateBlock _Nonnull)byPlayerPlayStateChanged;
 -(JobsRetZFIJKPlayerManagerByvoidIDZFPlayerMediaPlaybackassetiderrorBlock _Nonnull)byPlayerPlayFailed;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END ZFIJKPlayerManager
+
 @end
 
 NS_ASSUME_NONNULL_END

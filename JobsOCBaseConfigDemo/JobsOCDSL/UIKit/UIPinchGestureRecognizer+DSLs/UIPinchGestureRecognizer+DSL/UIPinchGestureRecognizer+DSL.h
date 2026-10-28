@@ -28,5 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetPinchGestureRecognizerByCGFloatBlock _Nonnull)byScale;
 
 @end
+
 NS_ASSUME_NONNULL_END
 #endif

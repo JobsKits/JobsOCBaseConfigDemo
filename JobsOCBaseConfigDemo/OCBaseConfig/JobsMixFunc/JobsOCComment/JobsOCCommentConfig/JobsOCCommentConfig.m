@@ -8,6 +8,7 @@
 #import "JobsOCCommentConfig.h"
 
 @implementation JobsOCCommentConfig
+
 +(JobsRetJobsOCCommentConfigByVoidBlock _Nonnull)defaultConfig{
     return ^JobsOCCommentConfig *{
         return JobsOCCommentConfig.new

@@ -8,6 +8,7 @@
 #import "JobsDecorationModel.h"
 
 @implementation JobsDecorationModel
+
 /// 主标题
 -(NSString *)title{
     if(!_title){

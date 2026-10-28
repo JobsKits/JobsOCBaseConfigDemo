@@ -44,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBaseViewControllerByUIBarButtonItemBlock _Nonnull)byGk_navRightBarButtonItem;
 -(JobsRetBaseViewControllerByUIViewBlock _Nonnull)byGk_navTitleView;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END BaseViewController
+
 @end
 
 NS_ASSUME_NONNULL_END

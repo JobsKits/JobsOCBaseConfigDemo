@@ -125,6 +125,7 @@ Prop_assign(readonly,getter=isRunning)BOOL running;
 -(JobsRetJobsMarqueeViewByCGSizeBlock _Nonnull)byMinButtonSize;
 -(JobsRetJobsMarqueeViewByNSTimeIntervalBlock _Nonnull)byFrequencyInterval;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsMarqueeView
+
 @end
 
 NS_ASSUME_NONNULL_END

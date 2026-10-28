@@ -51,6 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN CasinoUpgradeContentView
 -(JobsRetCasinoUpgradeContentViewByJobsGetiOSNewestVersionModelBlock _Nonnull)byIOSNewestVersionModel;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END CasinoUpgradeContentView
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -32,6 +32,7 @@ UICollectionViewDataSource
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsImageNumberView
 -(JobsRetJobsImageNumberViewByNSArrayUIImageBlock _Nonnull)byDataMutArr;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsImageNumberView
+
 @end
 
 NS_ASSUME_NONNULL_END

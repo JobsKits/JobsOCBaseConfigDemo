@@ -75,6 +75,7 @@ typedef void (^JobsThemeBindingBlock)(__kindof NSObject *object,
 -(JobsRetJobsThemeCenterByNSBundleBlock _Nonnull)byResourceBundle;
 -(JobsRetJobsThemeCenterByNSDictionaryNSStringNSDictionaryBlock _Nonnull)byThemes;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsThemeCenter
+
 @end
 
 @interface UIColor (JobsTheme)
@@ -110,6 +111,7 @@ typedef void (^JobsThemeBindingBlock)(__kindof NSObject *object,
 -(JobsRetUIViewByIDTFPopupDelegateBlock _Nonnull)byPopupDelegate;
 -(JobsRetViewByCGFloatBlock _Nonnull)byZf_y;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UIView
+
 @end
 
 @interface UILabel (JobsThemeBinding)
@@ -121,6 +123,7 @@ typedef void (^JobsThemeBindingBlock)(__kindof NSObject *object,
 -(JobsRetUILabelByCGFloatBlock _Nonnull)byZf_centerY;
 -(JobsRetLabelByCorBlock _Nonnull)byBackgroundColor;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UILabel
+
 @end
 
 @interface UITextField (JobsThemeBinding)
@@ -131,6 +134,7 @@ typedef void (^JobsThemeBindingBlock)(__kindof NSObject *object,
 -(JobsRetTextFieldByStringBlock _Nonnull)byAccessibilityLabel;
 -(JobsRetTextFieldByStringBlock _Nonnull)byAccessibilityValue;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UITextField
+
 @end
 
 @interface UITextView (JobsThemeBinding)
@@ -142,6 +146,7 @@ typedef void (^JobsThemeBindingBlock)(__kindof NSObject *object,
 -(JobsRetTextViewByStringBlock _Nonnull)byReplacementText;
 -(JobsRetTextViewByStringBlock _Nonnull)byResStr;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UITextView
+
 @end
 
 @interface UIImageView (JobsThemeBinding)
@@ -151,6 +156,7 @@ typedef void (^JobsThemeBindingBlock)(__kindof NSObject *object,
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN UIImageView
 -(JobsRetImageViewByBOOLBlock _Nonnull)byAbleRespose;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UIImageView
+
 @end
 
 FOUNDATION_EXPORT UIColor *JobsThemeColor(JobsThemeColorKey key);

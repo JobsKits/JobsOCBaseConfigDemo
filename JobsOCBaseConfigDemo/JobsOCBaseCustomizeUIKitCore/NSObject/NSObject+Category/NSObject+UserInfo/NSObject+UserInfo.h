@@ -25,6 +25,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (UserInfo)
+
 /**
 
  【鉴别目前是否登录】

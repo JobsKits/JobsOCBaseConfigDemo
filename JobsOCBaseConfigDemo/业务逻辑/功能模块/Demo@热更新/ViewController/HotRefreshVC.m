@@ -8,6 +8,7 @@
 #import "HotRefreshVC.h"
 
 @interface HotRefreshVC ()
+
 /// UI
 Prop_strong()UILabel *titleLab;
 Prop_strong()UILabel *subTitleLab;
@@ -30,6 +31,7 @@ static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payloa
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END HotRefreshVC
 
 @implementation HotRefreshVC
+
 - (void)dealloc{
     self.restoreHotPatchIfNeeded();
     self.stopProgressTimer();
@@ -430,4 +432,5 @@ static NSString *const JobsHotRefreshPatchID = @"com.jobs.demo.hotrefresh.payloa
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END HotRefreshVC
+
 @end

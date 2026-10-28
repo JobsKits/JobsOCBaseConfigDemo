@@ -8,6 +8,7 @@
 #import "UIViewController+JXPagerViewListViewDelegate.h"
 
 @implementation UIViewController (JXPagerViewListViewDelegate)
+
 #pragma mark —— UIScrollViewDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if ([scrollView isKindOfClass:self.scrollViewClass]) {

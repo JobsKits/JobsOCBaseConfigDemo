@@ -8,6 +8,7 @@
 #import "JobsOCBaseConfigDemoUITests.h"
 
 @implementation JobsOCBaseConfigDemoUITests
+
 - (void)setUp {
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigDemoUITests.class, @selector(jobsSetUp)))(self, @selector(jobsSetUp));
     if (action) action();
@@ -85,4 +86,5 @@
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCBaseConfigDemoUITests
+
 @end

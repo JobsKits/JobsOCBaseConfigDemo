@@ -80,4 +80,5 @@ Prop_copy()jobsByVoidBlock screenshotHandler;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsScreenshotObserver
+
 @end

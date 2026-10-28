@@ -8,6 +8,7 @@
 #import "JobsInfoTBVCell.h"
 
 @interface JobsInfoTBVCell ()
+
 /// UI
 Prop_strong()RBCLikeButton *likeBtn;
 /// Data
@@ -18,6 +19,7 @@ Prop_strong()JobsChildCommentModel *childCommentModel;
 @end
 
 @implementation JobsInfoTBVCell
+
 #pragma mark —— UITableViewCellProtocol
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {

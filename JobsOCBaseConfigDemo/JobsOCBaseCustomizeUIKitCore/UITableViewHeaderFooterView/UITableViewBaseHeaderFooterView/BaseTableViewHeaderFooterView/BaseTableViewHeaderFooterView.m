@@ -16,6 +16,7 @@
 @end
 
 @implementation BaseTableViewHeaderFooterView
+
 -(JobsRetBaseTableViewHeaderFooterViewByViewBlock _Nonnull)byBackgroundView{
     @jobs_weakify(self)
     return ^__kindof BaseTableViewHeaderFooterView *_Nullable(__kindof UIView *_Nullable backgroundView){

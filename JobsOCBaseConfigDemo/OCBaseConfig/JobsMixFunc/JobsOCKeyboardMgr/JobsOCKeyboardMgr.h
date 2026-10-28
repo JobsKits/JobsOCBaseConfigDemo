@@ -53,6 +53,7 @@ Prop_assign(readonly, getter=isStarted) BOOL started;
 -(JobsRetJobsOCKeyboardMgrByUITapGestureRecognizerBlock _Nonnull)byEndEditingTapGR;
 -(JobsRetJobsOCKeyboardMgrByUIViewBlock _Nonnull)byEndEditingTapHostView;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCKeyboardMgr
+
 @end
 
 NS_ASSUME_NONNULL_END

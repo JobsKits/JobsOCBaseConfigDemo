@@ -41,6 +41,7 @@ Prop_strong()UIWindowScene *windowScene;
 -(JobsRetSceneDelegateByWindowBlock _Nonnull)byWindow;
 -(JobsRetSceneDelegateByWindowSceneBlock _Nonnull)byWindowScene;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END SceneDelegate
+
 @end
 
 #pragma clang diagnostic pop

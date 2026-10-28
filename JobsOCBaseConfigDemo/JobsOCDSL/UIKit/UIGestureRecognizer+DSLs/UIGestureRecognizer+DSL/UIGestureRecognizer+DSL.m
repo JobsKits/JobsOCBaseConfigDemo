@@ -8,6 +8,7 @@
 #import "UIGestureRecognizer+DSL.h"
 
 @implementation UIGestureRecognizer (JobsChain)
+
 +(JobsRetGestureByVoidBlock _Nonnull)byGestureRecognizer{
     return ^__kindof UIGestureRecognizer *_Nullable(void){
         return [[self alloc] init];

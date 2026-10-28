@@ -8,6 +8,7 @@
 #import "UIViewController+JXCategoryListContentViewDelegate.h"
 
 @implementation UIViewController (JXCategoryListContentViewDelegate)
+
 /**
  如果列表是VC，就返回VC.view
  如果列表是View，就返回View自己

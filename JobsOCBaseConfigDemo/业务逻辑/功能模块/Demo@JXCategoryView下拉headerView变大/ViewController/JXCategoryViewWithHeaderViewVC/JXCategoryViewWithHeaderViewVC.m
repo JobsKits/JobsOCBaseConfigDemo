@@ -8,6 +8,7 @@
 #import "JXCategoryViewWithHeaderViewVC.h"
 
 @interface JXCategoryViewWithHeaderViewVC ()
+
 /// UI
 Prop_strong()BaseButton *ruleBtn;
 Prop_strong()JXCategoryTitleView *categoryView;/// 文字
@@ -40,6 +41,7 @@ Prop_strong()NSMutableArray <__kindof UIViewController *>*childVCMutArr;
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END JXPagerView
 
 @implementation JXCategoryViewWithHeaderViewVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);

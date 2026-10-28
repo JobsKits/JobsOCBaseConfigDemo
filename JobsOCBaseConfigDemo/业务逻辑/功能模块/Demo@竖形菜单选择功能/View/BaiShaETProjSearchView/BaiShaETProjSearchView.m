@@ -12,6 +12,7 @@
 @end
 
 @implementation BaiShaETProjSearchView
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 #pragma mark —— BaseProtocol

@@ -14,6 +14,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsSideDrawer
 
 @implementation JobsSideDrawerConfiguration
+
 -(instancetype)init{
     if (self = [super init]) {
         _direction = JobsSideDrawerDirectionLeft;
@@ -103,6 +104,7 @@ Prop_assign(readwrite,getter=isOpen)BOOL open;
 @end
 
 @implementation JobsSideDrawer
+
 -(instancetype)initWithHostView:(UIView *)hostView
                      drawerView:(UIView *)drawerView
                     contentView:(UIView *)contentView
@@ -447,4 +449,5 @@ Prop_assign(readwrite,getter=isOpen)BOOL open;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsSideDrawer
+
 @end

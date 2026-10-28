@@ -64,6 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetJobsQRCodeDemoVCByNSStringBlock _Nonnull)byLogoQRContent;
 -(JobsRetJobsQRCodeDemoVCByNSStringBlock _Nonnull)byQrContent;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsQRCodeDemoVC
+
 @end
 
 NS_ASSUME_NONNULL_END

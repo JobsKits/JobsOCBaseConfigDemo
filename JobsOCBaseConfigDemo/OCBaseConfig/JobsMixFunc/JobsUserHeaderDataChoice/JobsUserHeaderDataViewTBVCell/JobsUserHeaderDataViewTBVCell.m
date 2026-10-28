@@ -14,6 +14,7 @@ Prop_strong()UILabel *titleLab;
 @end
 
 @implementation JobsUserHeaderDataViewTBVCell
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 #pragma mark —— UITableViewCellProtocol

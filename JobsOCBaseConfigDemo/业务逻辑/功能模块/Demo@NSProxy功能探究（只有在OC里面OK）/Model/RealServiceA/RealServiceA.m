@@ -8,6 +8,7 @@
 #import "RealServiceA.h"
 
 @implementation RealServiceA
+
 - (jobsByVoidBlock _Nonnull)doSomething {
     @jobs_weakify(self)
     return ^{

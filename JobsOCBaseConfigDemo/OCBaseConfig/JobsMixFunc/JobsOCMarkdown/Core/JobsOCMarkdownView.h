@@ -47,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
   didRequestOpenURL:(NSURL *)URL;
 -(void)markdownView:(JobsOCMarkdownView *)markdownView
    didFailWithError:(NSError *)error;
+
 @end
 
 @interface JobsOCMarkdownView : UIView
@@ -78,6 +79,7 @@ Prop_strong(readonly)JobsOCMarkdownConfiguration *markdownConfiguration;
 -(JobsRetJobsOCMarkdownViewByBOOLBlock _Nonnull)byRuntimeReady;
 -(JobsRetJobsOCMarkdownViewByJobsOCMarkdownConfigurationBlock _Nonnull)byMarkdownConfiguration;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCMarkdownView
+
 @end
 
 NS_ASSUME_NONNULL_END

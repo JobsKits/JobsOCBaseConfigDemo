@@ -245,5 +245,6 @@ Prop_copy()NSString *result;
 }
 
 @end
+
 #endif
 

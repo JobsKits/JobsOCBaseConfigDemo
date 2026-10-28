@@ -8,6 +8,7 @@
 #import "UIViewController+GifImageView.h"
 
 @implementation UIViewController (GifImageView)
+
 #pragma mark —— Prop_strong()UIImageView *gifImageView;
 JobsKey(_gifImageView)
 @dynamic gifImageView;

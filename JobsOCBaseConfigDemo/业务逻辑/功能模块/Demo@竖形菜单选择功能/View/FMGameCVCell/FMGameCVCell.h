@@ -46,6 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 +(JobsRetFMGameCVCellBySourceTypeBlock _Nonnull)bySourceType;
 +(void)setSourceType:(SourceType)data;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END FMGameCVCell
+
 @end
 
 NS_ASSUME_NONNULL_END

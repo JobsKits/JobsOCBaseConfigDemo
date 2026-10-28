@@ -27,6 +27,7 @@ void JobsSetControllerDeallocTipsEnabled(BOOL enabled) {
 @end
 
 @implementation JobsDebugVC
+
 -(void)didReceiveMemoryWarning{
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsDebugVC.class, @selector(jobsDidReceiveMemoryWarning)))(self, @selector(jobsDidReceiveMemoryWarning));
     if (action) action();

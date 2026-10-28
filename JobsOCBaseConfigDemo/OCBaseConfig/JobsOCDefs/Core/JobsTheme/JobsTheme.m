@@ -404,6 +404,7 @@ static void JobsThemeSwizzle(Class cls, SEL originalSelector, SEL swizzledSelect
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsThemeCenter
+
 @end
 
 @implementation UIColor (JobsTheme)
@@ -631,6 +632,7 @@ static void JobsThemeSwizzle(Class cls, SEL originalSelector, SEL swizzledSelect
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UIView
+
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN UILabel
@@ -700,6 +702,7 @@ static void JobsThemeSwizzle(Class cls, SEL originalSelector, SEL swizzledSelect
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UILabel
+
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN UITextField
@@ -761,6 +764,7 @@ static void JobsThemeSwizzle(Class cls, SEL originalSelector, SEL swizzledSelect
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UITextField
+
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN UITextView
@@ -832,6 +836,7 @@ static void JobsThemeSwizzle(Class cls, SEL originalSelector, SEL swizzledSelect
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UITextView
+
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN UIButton
@@ -911,6 +916,7 @@ static void JobsThemeSwizzle(Class cls, SEL originalSelector, SEL swizzledSelect
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UIButton
+
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN UIImageView
@@ -962,6 +968,7 @@ static void JobsThemeSwizzle(Class cls, SEL originalSelector, SEL swizzledSelect
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UIImageView
+
 @end
 
 UIColor *JobsThemeColor(JobsThemeColorKey key) {

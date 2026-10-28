@@ -59,6 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetJobsLiveStreamDemoVCByAVCaptureDevicePositionBlock _Nonnull)byCurrentPosition;
 -(JobsRetJobsLiveStreamDemoVCByBOOLBlock _Nonnull)byStreaming;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsLiveStreamDemoVC
+
 @end
 
 NS_ASSUME_NONNULL_END

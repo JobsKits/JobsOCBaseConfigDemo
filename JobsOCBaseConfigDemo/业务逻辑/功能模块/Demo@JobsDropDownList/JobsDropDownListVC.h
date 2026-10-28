@@ -56,6 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsDropDownListVC
 -(JobsRetJobsDropDownListVCByJobsDropDownListViewDirectionBlock _Nonnull)byDropDownListViewDirection;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsDropDownListVC
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -15,4 +15,5 @@
 @interface SoundBtn : UIButton
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_SOUNDBTN_85E94812AA */

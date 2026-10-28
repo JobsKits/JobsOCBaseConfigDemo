@@ -74,6 +74,7 @@ Prop_copy(nullable) jobsByOCKeyboardResultBlock resultBlock;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCKeyboardConfig
 -(JobsRetJobsOCKeyboardConfigByNSPointerArrayBlock _Nonnull)byInputFieldPointerArray;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCKeyboardConfig
+
 @end
 
 NS_ASSUME_NONNULL_END

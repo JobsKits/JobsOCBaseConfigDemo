@@ -24,5 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetIntegerByDateBlock _Nonnull)bySecondsFromGMTForDate;
 
 @end
+
 NS_ASSUME_NONNULL_END
 #endif

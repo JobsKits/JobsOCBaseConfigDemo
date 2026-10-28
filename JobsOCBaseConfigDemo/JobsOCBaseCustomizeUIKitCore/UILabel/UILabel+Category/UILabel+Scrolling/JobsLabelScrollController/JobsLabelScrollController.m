@@ -808,4 +808,5 @@ Prop_assign()NSTimeInterval delayRemaining;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsLabelScrollController
+
 @end

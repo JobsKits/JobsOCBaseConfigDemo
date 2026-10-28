@@ -26,6 +26,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (IDFA)
+
 /**
  全名：advertisingIdentifier
  

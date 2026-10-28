@@ -8,6 +8,7 @@
 #import "YTKBaseRequest+DSL.h"
 
 @implementation YTKBaseRequest (DSL)
+
 -(JobsRetYTKBaseRequestByNSIntegerBlock _Nonnull)byTag{
     @jobs_weakify(self)
     return ^__kindof YTKBaseRequest *_Nullable(NSInteger data){

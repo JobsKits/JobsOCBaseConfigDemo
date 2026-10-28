@@ -8,6 +8,7 @@
 #import "UITapGestureRecognizer+DSL.h"
 
 @implementation UITapGestureRecognizer (JobsChain)
+
 -(JobsRetTapGestureRecognizerByNSUIntegerBlock _Nonnull)byNumberOfTapsRequired{
     @jobs_weakify(self)
     return ^__kindof UITapGestureRecognizer *_Nullable(NSUInteger data){

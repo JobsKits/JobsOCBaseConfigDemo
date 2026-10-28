@@ -48,6 +48,7 @@ Prop_assign()NSTimeInterval interval;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsImageRotator
 -(JobsRetJobsImageRotatorByCGFloatBlock _Nonnull)byCurrentAngle;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsImageRotator
+
 @end
 
 NS_ASSUME_NONNULL_END

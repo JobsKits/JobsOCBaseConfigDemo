@@ -12,6 +12,7 @@
 #import "UIView+BackgroundImage.h"
 
 @interface JobsBasePopupView ()
+
 /// UI
 Prop_strong()UILabel *titleLab;
 Prop_strong()UILabel *subTitleLab;
@@ -22,6 +23,7 @@ Prop_strong()BaseButton *btn2;
 @end
 
 @implementation JobsBasePopupView
+
 -(instancetype)init{
     if (self = [super init]) {
     };return self;

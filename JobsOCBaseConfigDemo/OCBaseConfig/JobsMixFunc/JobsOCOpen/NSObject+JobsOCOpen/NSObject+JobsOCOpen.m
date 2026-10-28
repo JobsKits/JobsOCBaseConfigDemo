@@ -15,6 +15,7 @@ Prop_copy(nullable) jobsByVoidBlock completionHandlerBlock;
 @end
 
 @implementation _JobsOCOpenObjectMailProxy
+
 -(JobsRetIDByjobsByVoidBlockBlock _Nonnull)byCompletionHandlerBlock{
     @jobs_weakify(self)
     return ^id(jobsByVoidBlock _Nullable completionHandlerBlock){
@@ -45,6 +46,7 @@ Prop_copy(nullable) jobsByVoidBlock completionHandlerBlock;
 @end
 
 @implementation NSObject (JobsOCOpen)
+
 -(void)jobs_ocSendMailWithComposeVC:(MFMailComposeViewController *_Nullable)mailComposeVC
              completionHandlerBlock:(jobsByVoidBlock _Nullable)completionHandlerBlock{
     if (!MFMailComposeViewController.canSendMail) {

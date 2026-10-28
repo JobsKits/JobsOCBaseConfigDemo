@@ -42,6 +42,7 @@ static inline void UninstallAllConstraints(__kindof UIView *_Nullable view){
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UIViewController
 
 @implementation UIViewController (MasonryDSL)
+
 #pragma mark —— 不记录约束，直接修改/赋值
 /// 判断当前控制器 view 是否已经包含目标子视图
 -(JobsRetBOOLByViewBlock _Nonnull)containBy{
@@ -330,4 +331,5 @@ JobsKey(_masonryBlock)
 }
 
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UIViewController
+
 @end

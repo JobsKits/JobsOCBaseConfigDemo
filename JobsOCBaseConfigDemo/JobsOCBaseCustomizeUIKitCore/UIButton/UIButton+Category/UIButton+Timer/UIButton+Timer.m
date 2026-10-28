@@ -11,6 +11,7 @@
 #pragma clang diagnostic ignored "-Wobjc-designated-initializers"
 #pragma clang diagnostic ignored "-Wunguarded-availability"
 @implementation UIButton (Timer)
+
 BaseButtonProtocol_dynamic_part2
 TimerProtocol_dynamic
 #pragma mark —— TimerProtocol.timerStyle
@@ -349,4 +350,5 @@ JobsKey(_timerType)
 }
 
 @end
+
 #pragma clang diagnostic pop

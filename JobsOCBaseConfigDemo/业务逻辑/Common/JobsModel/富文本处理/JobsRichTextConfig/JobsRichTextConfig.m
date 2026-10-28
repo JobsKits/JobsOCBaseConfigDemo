@@ -8,6 +8,7 @@
 #import "JobsRichTextConfig.h"
 
 @implementation JobsRichTextConfig
+
 #pragma mark —— default
 -(NSMutableParagraphStyle *)paragraphStyle{
     if (!_paragraphStyle) {

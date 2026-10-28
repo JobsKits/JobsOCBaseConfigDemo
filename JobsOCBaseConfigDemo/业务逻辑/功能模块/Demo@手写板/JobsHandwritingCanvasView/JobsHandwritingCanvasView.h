@@ -45,6 +45,7 @@ Prop_assign(readonly)BOOL hasStrokes;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsHandwritingCanvasView
 -(JobsRetJobsHandwritingCanvasViewByCGSizeBlock _Nonnull)byLastLayoutSize;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsHandwritingCanvasView
+
 @end
 
 NS_ASSUME_NONNULL_END

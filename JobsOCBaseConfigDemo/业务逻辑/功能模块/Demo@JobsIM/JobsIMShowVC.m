@@ -14,6 +14,7 @@ Prop_strong()JobsIMListView *listView;
 @end
 
 @implementation JobsIMShowVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);

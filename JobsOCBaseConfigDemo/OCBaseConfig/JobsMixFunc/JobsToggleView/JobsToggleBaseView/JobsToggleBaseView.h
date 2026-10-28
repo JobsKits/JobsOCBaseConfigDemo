@@ -27,6 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 UIScrollViewDelegate,
 JobsToggleNavViewProtocol
 >
+
 /// UI
 Prop_strong(readonly)JobsToggleNavView *taggedNavView;
 Prop_strong(readonly)UIScrollView *bgScroll;
@@ -44,6 +45,7 @@ Prop_weak()__kindof UIButton *currentSelectedBtn;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsToggleBaseView
 -(JobsRetJobsToggleBaseViewByNSMutableArrayUIButtonModelBlock _Nonnull)byTaggedNavDatas;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsToggleBaseView
+
 @end
 
 NS_ASSUME_NONNULL_END

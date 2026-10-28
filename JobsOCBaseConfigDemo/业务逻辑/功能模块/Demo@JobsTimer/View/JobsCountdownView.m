@@ -8,6 +8,7 @@
 #import "JobsCountdownView.h"
 
 @interface JobsCountdownView ()
+
 /// UI
 Prop_strong()UILabel *titleLab;
 Prop_strong()UILabel *countdownTimeLab;
@@ -34,6 +35,7 @@ Prop_strong()NSMutableParagraphStyle *paragraphStyle;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsCountdownView
 
 @implementation JobsCountdownView
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 -(void)dealloc{
@@ -339,4 +341,5 @@ static dispatch_once_t static_countdownViewOnceToken;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsCountdownView
+
 @end

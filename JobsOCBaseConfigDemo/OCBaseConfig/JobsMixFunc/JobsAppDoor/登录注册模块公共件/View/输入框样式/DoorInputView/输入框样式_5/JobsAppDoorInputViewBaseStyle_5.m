@@ -8,6 +8,7 @@
 #import "JobsAppDoorInputViewBaseStyle_5.h"
 
 @interface JobsAppDoorInputViewBaseStyle_5 (){
+
     JobsDropDownListView *dropDownListView;
 }
 /// UI
@@ -30,6 +31,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_5
 
 @implementation JobsAppDoorInputViewBaseStyle_5
+
 @synthesize thisViewSize = _thisViewSize;
 -(void)dealloc{
     _authCodeBtn.stop;
@@ -429,4 +431,5 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_5
+
 @end

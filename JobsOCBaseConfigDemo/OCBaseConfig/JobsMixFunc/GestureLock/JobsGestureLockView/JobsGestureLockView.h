@@ -46,6 +46,7 @@ Prop_assign(readonly)JobsGestureLockValidationResult validationResult;
 -(JobsRetJobsGestureLockViewByJobsGestureLockValidationResultBlock _Nonnull)byValidationResult;
 -(JobsRetJobsGestureLockViewByUIPanGestureRecognizerBlock _Nonnull)byPanGesture;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsGestureLockView
+
 @end
 
 NS_ASSUME_NONNULL_END

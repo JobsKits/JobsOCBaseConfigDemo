@@ -28,5 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_assign(readonly)CGAffineTransform byCGAffineTransformValue;
 
 @end
+
 NS_ASSUME_NONNULL_END
 #endif

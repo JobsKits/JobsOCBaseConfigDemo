@@ -28,6 +28,7 @@
 #import "JobsDefines.h"
 
 @interface NSArray (Extra)
+
 /// 数组取值（无法关联数组的泛型）
 -(JobsRetIDByUIntegerBlock _Nonnull)objectAt;
 /// 数组取下标

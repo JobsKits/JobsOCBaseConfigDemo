@@ -14,6 +14,7 @@ Prop_strong()SlideToUnlockView *slideView;
 @end
 
 @implementation SlideToUnlockDemoVC
+
 - (void)viewDidLoad {
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(SlideToUnlockDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
     if (action) action();

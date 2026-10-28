@@ -65,6 +65,7 @@ Prop_copy(readonly)NSArray <NSString *>*historySearches;
 -(JobsRetJobsOCSearcherViewByNSArrayNSStringBlock _Nonnull)byHistorySearches;
 -(JobsRetJobsOCSearcherViewByNSArrayUIButtonBlock _Nonnull)byRecommendButtonArr;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCSearcherView
+
 @end
 
 NS_ASSUME_NONNULL_END

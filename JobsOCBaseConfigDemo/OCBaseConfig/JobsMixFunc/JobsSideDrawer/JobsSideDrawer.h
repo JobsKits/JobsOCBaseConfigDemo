@@ -75,6 +75,7 @@ Prop_copy(nullable)void (^stateChanged)(BOOL open);
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsSideDrawer
 -(JobsRetJobsSideDrawerByNSNumberBlock _Nonnull)byInteractiveProgress;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsSideDrawer
+
 @end
 
 NS_ASSUME_NONNULL_END

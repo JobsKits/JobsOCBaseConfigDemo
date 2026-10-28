@@ -10,6 +10,7 @@
 #import "UITextField+Extra.h"
 
 @implementation CJTextField
+
 -(void)deleteBackward{
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CJTextField.class, @selector(jobsDeleteBackward)))(self, @selector(jobsDeleteBackward));
     if (action) action();

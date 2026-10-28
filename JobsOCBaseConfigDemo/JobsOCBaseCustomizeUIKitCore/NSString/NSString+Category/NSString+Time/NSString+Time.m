@@ -89,6 +89,7 @@ static NSTimeZone *JobsModelTimestampTimeZone(TimeZoneType type) {
 }
 
 @implementation NSString (JobsTimeUtilsTime)
+
 /// 格式化为中国时间
 -(JobsRetStrByStrBlock _Nonnull)chinaTime{
     @jobs_weakify(self)

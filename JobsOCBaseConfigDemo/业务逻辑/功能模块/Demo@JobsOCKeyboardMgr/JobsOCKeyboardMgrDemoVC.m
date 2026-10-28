@@ -22,6 +22,7 @@ Prop_strong()UIButton *accessoryDoneBtn;
 @end
 
 @implementation JobsOCKeyboardMgrDemoVC
+
 - (void)dealloc{
     ((JobsOCKeyboardMgr *)JobsOCKeyboardMgr.shared()).clearConfigByOwner(self);
     JobsLog(@"%@",JobsLocalFunc);

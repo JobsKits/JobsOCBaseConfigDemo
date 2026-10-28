@@ -10,6 +10,7 @@
 #import "LanMgr.h"
 
 @implementation NSString (JobsLanMgr)
+
 /// 国际化
 -(NSString *_Nullable)tr{
     return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsTr)))(self, @selector(jobsTr)))();

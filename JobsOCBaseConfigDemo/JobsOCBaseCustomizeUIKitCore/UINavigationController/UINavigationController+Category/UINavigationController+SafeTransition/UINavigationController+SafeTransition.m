@@ -107,6 +107,7 @@ static void JobsInstallNavigationDefaults(UINavigationController *navigationCont
 @end
 
 @implementation UINavigationController (SafeTransition)
+
 + (void)load {
     TYFFSwizzleMethod(self.class,
                       @selector(pushViewController:animated:),
@@ -226,6 +227,7 @@ JobsKey(_viewTransitionInProgress)
 @end
 
 @implementation UIViewController (SafeTransitionLock)
+
 + (void)load {
     TYFFSwizzleMethod(self.class,
                       @selector(viewDidAppear:),

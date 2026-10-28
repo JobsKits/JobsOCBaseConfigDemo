@@ -36,6 +36,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (Debug)
+
 /// 该文字是否是Debug定义的文字
 -(JobsRetBOOLByVoidBlock _Nonnull)isDebugText;
 

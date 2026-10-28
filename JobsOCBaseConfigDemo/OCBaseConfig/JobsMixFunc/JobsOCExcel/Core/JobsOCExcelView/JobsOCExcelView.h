@@ -57,6 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
    didSelectCell:(JobsOCExcelCellContext *)context;
 -(void)excelView:(JobsOCExcelView *)excelView
 didScrollHorizontallyToOffset:(CGFloat)offset;
+
 @end
 
 @interface JobsOCExcelView : UIView
@@ -89,6 +90,7 @@ Prop_copy(nullable)jobsByVoidBlock onReloadRequested;
 -(JobsRetJobsOCExcelViewByNSIntegerBlock _Nonnull)byFreezeThroughColumn;
 -(JobsRetJobsOCExcelViewByNSMutableArrayUILabelBlock _Nonnull)byGeneratedLabels;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCExcelView
+
 @end
 
 NS_ASSUME_NONNULL_END

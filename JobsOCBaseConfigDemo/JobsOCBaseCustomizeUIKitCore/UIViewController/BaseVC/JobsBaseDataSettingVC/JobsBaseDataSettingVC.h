@@ -37,6 +37,7 @@ Prop_strong()UIButtonModel *backBtnModel;
 -(JobsRetJobsBaseDataSettingVCByBOOLBlock _Nonnull)byHiddenNavigationBar;
 -(JobsRetJobsBaseDataSettingVCByBOOLBlock _Nonnull)byModalInPresentation;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsBaseDataSettingVC
+
 @end
 
 NS_ASSUME_NONNULL_END

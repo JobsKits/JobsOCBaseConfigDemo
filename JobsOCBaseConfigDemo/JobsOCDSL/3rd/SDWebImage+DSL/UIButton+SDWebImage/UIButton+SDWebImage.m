@@ -8,6 +8,7 @@
 #import "UIButton+SDWebImage.h"
 
 @implementation UIButton (SDWebImage)
+
 #pragma mark —— 一些私有方法
 -(JobsRetSDWebImageModelByVoidBlock _Nonnull)makeSDWebImageModel{
     @jobs_weakify(self)

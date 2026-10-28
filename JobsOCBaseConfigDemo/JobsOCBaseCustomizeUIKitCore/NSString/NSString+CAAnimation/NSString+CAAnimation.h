@@ -22,6 +22,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (CAAnimation)
+
 /// 创建CABasicAnimation
 -(JobsRetCABasicAnimationByVoidBlock _Nonnull)basicAnimation;
 /// 创建CAKeyframeAnimation（关键帧动画）

@@ -10,6 +10,7 @@
 #import "JobsTimerMgr.h"
 
 @implementation JobsOCBaseConfigDemoTests
+
 -(void)testTimerResumesOnlyAfterAutomaticPause {
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigDemoTests.class, @selector(jobsTestTimerResumesOnlyAfterAutomaticPause)))(self, @selector(jobsTestTimerResumesOnlyAfterAutomaticPause));
     if (action) action();

@@ -13,6 +13,7 @@
 
 /// 参考资料：https://juejin.cn/post/6869670856705081358
 @interface NSObject (Swizzling)
+
 /**
  
      Method Swizzling
@@ -26,6 +27,7 @@
               swizzledSelector:(SEL _Nonnull)swizzledSelector;
 
 @end
+
 /// 不同类的方法交换
 void TYFFSwizzleMethod(Class _Nonnull originalCls,
                        SEL _Nonnull originalSelector,

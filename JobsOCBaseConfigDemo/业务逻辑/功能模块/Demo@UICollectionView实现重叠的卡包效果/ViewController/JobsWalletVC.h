@@ -82,6 +82,7 @@ UITableViewDataSource
 -(JobsRetJobsWalletVCByBOOLBlock _Nonnull)byWalletCardsExpanded;
 -(JobsRetJobsWalletVCByJobsWalletCardExpandStyleBlock _Nonnull)byWalletStyle;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsWalletVC
+
 @end
 
 NS_ASSUME_NONNULL_END

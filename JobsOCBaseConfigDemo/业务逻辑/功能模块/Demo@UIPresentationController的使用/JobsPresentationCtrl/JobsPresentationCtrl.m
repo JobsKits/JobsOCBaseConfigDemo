@@ -12,6 +12,7 @@
 #define CORNER_RADIUS   16.f
 
 @interface JobsPresentationCtrl ()
+
 /// UI
 Prop_strong()UIView *dimmingView;
 Prop_strong()UIView *presentationWrappingView;
@@ -39,6 +40,7 @@ Prop_strong()UIView *presentationWrappingView;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsPresentationCtrl
 
 @implementation JobsPresentationCtrl
+
 #pragma mark —— 覆写系统方法
 - (instancetype)initWithPresentedViewController:(UIViewController *)presentedViewController
                        presentingViewController:(UIViewController *)presentingViewController{
@@ -638,4 +640,5 @@ Prop_strong()UIView *presentationWrappingView;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsPresentationCtrl
+
 @end

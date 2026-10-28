@@ -43,6 +43,7 @@ Prop_assign() UIViewAnimationOptions animationOptions;
 -(JobsRetJobsOCKeyboardResultByCGRectBlock _Nonnull)byTriggerFrameInContainer;
 -(JobsRetJobsOCKeyboardResultByUIViewAnimationOptionsBlock _Nonnull)byAnimationOptions;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCKeyboardResult
+
 @end
 
 NS_ASSUME_NONNULL_END

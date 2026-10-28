@@ -53,6 +53,7 @@ Prop_assign(readonly, getter=isWriting) BOOL writing;
 -(JobsRetJobsOCVideoRecorderAssetWriterByCMTimeBlock _Nonnull)byLastPresentationTime;
 -(JobsRetJobsOCVideoRecorderAssetWriterByNSURLBlock _Nonnull)byOutputURL;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCVideoRecorderAssetWriter
+
 @end
 
 NS_ASSUME_NONNULL_END

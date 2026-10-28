@@ -8,6 +8,7 @@
 #import "JobsOCExcelCell.h"
 
 @implementation JobsOCExcelCell
+
 -(JobsRetJobsOCExcelCellByStrBlock _Nonnull)byText{
     @jobs_weakify(self)
     return ^JobsOCExcelCell *(NSString *text){

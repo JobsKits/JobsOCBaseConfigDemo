@@ -20,6 +20,7 @@
 NS_ASSUME_NONNULL_BEGIN
 /// 获取系统环境变量
 @interface NSObject (SysInfo)
+
 /// 应用程序的发布版本号
 +(NSString *_Nullable)version;
 +(JobsRetStrByVoidBlock _Nonnull)jobsVersion;

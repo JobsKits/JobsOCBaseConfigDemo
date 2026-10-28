@@ -34,4 +34,5 @@
 -(JobsRetRACSignalByVoidBlock _Nonnull)rac_signal;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_UIGESTURERECOGNIZER_REACTIVECOCOA_3D8FB27E61 */

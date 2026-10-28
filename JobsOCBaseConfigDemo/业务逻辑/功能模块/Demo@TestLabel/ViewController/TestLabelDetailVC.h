@@ -58,6 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetTestLabelDetailVCByRACDisposableBlock _Nonnull)byScrollDisposable;
 -(JobsRetTestLabelDetailVCByTestLabelDemoModelBlock _Nonnull)byDemoModel;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END TestLabelDetailVC
+
 @end
 
 NS_ASSUME_NONNULL_END

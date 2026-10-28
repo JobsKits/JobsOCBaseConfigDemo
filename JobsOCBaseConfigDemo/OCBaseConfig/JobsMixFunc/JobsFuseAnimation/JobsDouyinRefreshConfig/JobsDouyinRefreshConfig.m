@@ -10,6 +10,7 @@
 #import "JobsDouyinRefreshConfig.h"
 
 @implementation JobsDouyinRefreshConfig
+
 +(JobsRetJobsDouyinRefreshConfigByVoidBlock _Nonnull)config {
     return ^__kindof JobsDouyinRefreshConfig *{
         return JobsDouyinRefreshConfig.alloc.init;

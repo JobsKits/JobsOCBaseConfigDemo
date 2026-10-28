@@ -8,6 +8,7 @@
 #import "Douyin_ZFPlayerVC@2.h"
 
 @interface Douyin_ZFPlayerVC_2 ()
+
 /// UI
 Prop_strong()ZFPlayerController *player;
 Prop_strong()ZFDouYinControlView *controlView;

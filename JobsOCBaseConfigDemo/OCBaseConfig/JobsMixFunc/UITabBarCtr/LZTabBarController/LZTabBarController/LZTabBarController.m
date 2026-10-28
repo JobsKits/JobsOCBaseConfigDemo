@@ -22,6 +22,7 @@ Prop_strong()LZTabBarConfig *config;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END LZTabBarController
 
 @implementation LZTabBarController
+
 +(JobsRetIDByVoidBlock _Nonnull)defaultTabBarController{
     return ^id _Nonnull{
         return LZTabBarController.createTabBarController(nil);
@@ -308,4 +309,5 @@ didSelectItem:(LZTabBarItem *_Nonnull)item
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END LZTabBarController
+
 @end

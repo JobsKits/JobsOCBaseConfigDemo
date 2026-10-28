@@ -22,6 +22,7 @@
 @end
 
 @implementation MJRefreshAutoStateFooter (Extra)
+
 -(JobsRetIDByBOOLBlock _Nonnull)byAutomaticallyChangeAlpha{
     @jobs_weakify(self)
     return ^id(BOOL automaticallyChangeAlpha){

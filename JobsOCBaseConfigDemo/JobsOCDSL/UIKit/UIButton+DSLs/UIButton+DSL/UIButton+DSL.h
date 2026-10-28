@@ -92,6 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBtnByCGSizeBlock _Nonnull)bySizer;
 -(JobsRetBtnByStringBlock _Nonnull)byAccessibilityLabel;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UIButton
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -98,6 +98,7 @@ static BOOL JobsCNIDValidate18(NSString *id18, NSError **error) {
 }
 
 @implementation NSObject (RegularExpression)
+
 #pragma mark —— 一些私有方法
 /// 基本的验证方法：YES:成功 NO:失败
 /// - Parameters:

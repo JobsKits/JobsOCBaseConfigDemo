@@ -81,6 +81,7 @@ Prop_assign()BOOL jobsReloadDataAfterBoundsChange;
 -(JobsRetJobsOCCalendarByNSMutableArrayNSDateBlock _Nonnull)byJobsMutableSelectedDates;
 -(JobsRetJobsOCCalendarByNSMutableArrayUILabelBlock _Nonnull)byWeekdayLabels;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCCalendar
+
 @end
 
 NS_INLINE __kindof JobsOCCalendar *_Nonnull jobsMakeJobsOCCalendar(jobsByJobsOCCalendarBlock _Nullable block){

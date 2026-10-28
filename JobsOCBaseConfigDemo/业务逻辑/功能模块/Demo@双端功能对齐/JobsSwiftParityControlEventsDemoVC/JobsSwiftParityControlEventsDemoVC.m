@@ -128,4 +128,5 @@ Prop_assign()NSUInteger controlEventCount;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsSwiftParityControlEventsDemoVC
+
 @end

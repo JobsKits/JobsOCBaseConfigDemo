@@ -8,12 +8,14 @@
 #import "JobsShowObjInfoVC.h"
 
 @interface JobsShowObjInfoVC ()
+
 /// Data
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 
 @end
 
 @implementation JobsShowObjInfoVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);

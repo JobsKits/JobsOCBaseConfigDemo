@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetJobsMosaicBrushDemoVCByCGFloatBlock _Nonnull)byBrushDiameter;
 -(JobsRetJobsMosaicBrushDemoVCByUIImageBlock _Nonnull)byMosaicImage;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsMosaicBrushDemoVC
+
 @end
 
 NS_ASSUME_NONNULL_END

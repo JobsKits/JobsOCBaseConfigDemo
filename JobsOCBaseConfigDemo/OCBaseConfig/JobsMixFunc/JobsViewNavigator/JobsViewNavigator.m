@@ -17,6 +17,7 @@ Prop_strong()NSMutableArray<__kindof UIView *> *viewStack;
 @end
 
 @implementation JobsViewNavigator
+
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
     };return self;

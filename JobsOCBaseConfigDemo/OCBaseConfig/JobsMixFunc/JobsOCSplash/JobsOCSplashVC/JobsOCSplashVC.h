@@ -40,6 +40,7 @@ Prop_strong(readonly) JobsOCSplashConfiguration *configuration;
 -(JobsRetJobsOCSplashVCByBOOLBlock _Nonnull)byHasFinished;
 -(JobsRetJobsOCSplashVCByNSIntegerBlock _Nonnull)byCountdownTime;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCSplashVC
+
 @end
 
 NS_ASSUME_NONNULL_END

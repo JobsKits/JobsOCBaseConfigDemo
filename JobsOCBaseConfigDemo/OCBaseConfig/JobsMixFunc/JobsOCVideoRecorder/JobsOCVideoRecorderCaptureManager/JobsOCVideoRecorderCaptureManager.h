@@ -55,6 +55,7 @@ Prop_assign(readonly) AVCaptureDevicePosition currentPosition;
 -(JobsRetJobsOCVideoRecorderCaptureManagerByAVCaptureDevicePositionBlock _Nonnull)byCurrentPosition;
 -(JobsRetJobsOCVideoRecorderCaptureManagerByAVCaptureVideoDataOutputBlock _Nonnull)byVideoOutput;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCVideoRecorderCaptureManager
+
 @end
 
 NS_ASSUME_NONNULL_END

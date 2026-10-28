@@ -72,6 +72,7 @@ UITableViewDelegate
 -(JobsRetJobsVerticalMenuVC_2ByNSMutableArrayUIButtonModelBlock _Nonnull)byCellDataMutArr;
 -(JobsRetJobsVerticalMenuVC_2ByNSMutableArrayUIViewModelBlock _Nonnull)byTitleMutArr;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsVerticalMenuVC_2
+
 @end
 
 NS_ASSUME_NONNULL_END

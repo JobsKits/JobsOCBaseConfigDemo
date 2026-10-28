@@ -19,6 +19,7 @@ Prop_copy()NSString *URL;
 @end
 
 @implementation JobsNavBarWebVC
+
 -(JobsRetJobsNavBarWebVCByStrBlock _Nonnull)byURL{
     @jobs_weakify(self)
     return ^__kindof JobsNavBarWebVC *_Nullable(NSString *_Nullable URL){

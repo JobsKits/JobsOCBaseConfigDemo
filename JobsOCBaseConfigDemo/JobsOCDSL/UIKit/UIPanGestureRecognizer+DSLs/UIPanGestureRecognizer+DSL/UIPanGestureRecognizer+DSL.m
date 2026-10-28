@@ -8,6 +8,7 @@
 #import "UIPanGestureRecognizer+DSL.h"
 
 @implementation UIPanGestureRecognizer (JobsChain)
+
 -(JobsRetPanGestureRecognizerByNSUIntegerBlock _Nonnull)byMinimumNumberOfTouches{
     @jobs_weakify(self)
     return ^__kindof UIPanGestureRecognizer *_Nullable(NSUInteger data){

@@ -52,6 +52,7 @@ Prop_strong(nullable)UIImage *packetImage;
 -(JobsRetJobsRedPacketRainConfigByUIEdgeInsetsBlock _Nonnull)bySpawnInsets;
 -(JobsRetJobsRedPacketRainConfigByUIImageBlock _Nonnull)byPacketImage;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsRedPacketRainConfig
+
 @end
 
 NS_ASSUME_NONNULL_END

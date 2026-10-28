@@ -14,6 +14,7 @@ typedef NS_ENUM(NSInteger, JobsTimerDemoListSection) {
 };
 
 @interface JobsTimerDemoListVC (){
+
     UITableView *_jobsTimerTableView;
 }
 
@@ -27,6 +28,7 @@ Prop_strong()NSArray <NSArray <UIViewModel *>*>*demoGroupArr;
 @end
 
 @implementation JobsTimerDemoListVC
+
 -(void)loadView{
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTimerDemoListVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
     if (action) action();

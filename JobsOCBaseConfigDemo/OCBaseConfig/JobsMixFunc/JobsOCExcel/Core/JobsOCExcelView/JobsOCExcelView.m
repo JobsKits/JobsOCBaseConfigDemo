@@ -649,4 +649,5 @@ Prop_strong()UIView *emptyView;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCExcelView
+
 @end

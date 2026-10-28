@@ -31,5 +31,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetLongPressGestureRecognizerByCGFloatBlock _Nonnull)byAllowableMovement;
 
 @end
+
 NS_ASSUME_NONNULL_END
 #endif

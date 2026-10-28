@@ -48,6 +48,7 @@
 NS_ASSUME_NONNULL_BEGIN
 /// https://github.com/CoderMJLee/MJRefresh/issues/1495
 @interface UIView (Refresh)
+
 /// MJRefresh 作用于targetView
 Prop_weak()UIScrollView *mjRefreshTargetView;
 Prop_strong()MJRefreshConfigModel *refreshConfigHeader;//头部的配置信息

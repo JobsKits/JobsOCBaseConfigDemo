@@ -11,6 +11,7 @@
  * 错误在内部处理不向外抛出
  */
 @implementation JobsNetworkingAPI
+
 /// 【只有Body参数、不需要错误回调】
 +(void)requestApi:(NSString *_Nonnull)requestApi
        parameters:(id _Nullable)parameters

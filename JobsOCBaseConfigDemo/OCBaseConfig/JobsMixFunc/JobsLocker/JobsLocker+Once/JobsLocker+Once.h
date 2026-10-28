@@ -21,6 +21,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsLocker (Once)
+
 /// 基于当前 locker 实例执行一次。
 /// 同一个 locker 对象上，无论并发调用多少次，block 只会真正执行一次；
 /// 其他并发调用会等待首次执行完成，然后直接返回。

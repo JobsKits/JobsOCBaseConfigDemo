@@ -19,6 +19,7 @@ static NSString *const JobsMultiTimerWisdomTitleKey = @"title";
 static NSString *const JobsMultiTimerWisdomDetailKey = @"detail";
 
 @interface JobsMultiTimerTableDemoVC (){
+
     UITableView *_multiTimerTableView;
 }
 
@@ -49,6 +50,7 @@ Prop_assign()BOOL wisdomListVisible;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsMultiTimerTableDemoVC
 
 @implementation JobsMultiTimerTableDemoVC
+
 -(void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     self.stopAndRemoveTimerScope();
@@ -539,4 +541,5 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsMultiTimerTableDemoVC
+
 @end

@@ -53,6 +53,7 @@ Prop_copy()NSString *previewText;
 -(JobsRetPreviewVCByNSStringBlock _Nonnull)byPreviewText;
 -(JobsRetPreviewVCByCGSizeBlock _Nonnull)byPreferredContentSize;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END PreviewVC
+
 @end
 
 NS_ASSUME_NONNULL_END

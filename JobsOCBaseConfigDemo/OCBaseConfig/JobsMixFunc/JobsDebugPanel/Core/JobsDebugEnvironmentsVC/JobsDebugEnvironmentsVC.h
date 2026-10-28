@@ -10,6 +10,8 @@
 
 #if DEBUG
 @interface JobsDebugEnvironmentsVC : JobsDebugPanelVC
+
 @end
+
 #endif
 

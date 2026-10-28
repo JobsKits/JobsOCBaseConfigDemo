@@ -16,6 +16,7 @@ static NSInteger const JobsMsgCellReadLabelTag = 2026070606;
 static NSInteger const JobsMsgCellArrowLabelTag = 2026070607;
 
 @interface UITableViewCellEditorVC ()
+
 /// UI
 Prop_strong()BaseButton *editBtn;
 Prop_strong()MsgEditBoardView *msgEditBoardView;
@@ -26,6 +27,7 @@ Prop_strong()NSMutableArray <JobsMsgDataModel *>*selectedDataMutArr;
 @end
 
 @implementation UITableViewCellEditorVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);

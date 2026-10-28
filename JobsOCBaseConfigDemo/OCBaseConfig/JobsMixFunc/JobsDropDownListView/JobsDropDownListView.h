@@ -90,6 +90,7 @@ Prop_assign()JobsDropDownListViewDirection direction;
 -(JobsRetJobsDropDownListViewByNSMutableArrayUITableViewCellBlock _Nonnull)byTbvCellMutArr;
 -(JobsRetJobsDropDownListViewByNSMutableArrayUIViewModelBlock _Nonnull)byDataMutArr;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsDropDownListView
+
 @end
 
 NS_ASSUME_NONNULL_END

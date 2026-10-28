@@ -62,6 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetJobsOCSceneDelegateDemoVCByNSIntegerBlock _Nonnull)byCounter;
 -(JobsRetJobsOCSceneDelegateDemoVCByUIWindowSceneBlock _Nonnull)byCurrentScene;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCSceneDelegateDemoVC
+
 @end
 
 NS_ASSUME_NONNULL_END

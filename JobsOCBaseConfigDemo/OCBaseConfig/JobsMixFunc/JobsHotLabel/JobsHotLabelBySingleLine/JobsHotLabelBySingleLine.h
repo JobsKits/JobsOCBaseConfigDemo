@@ -35,6 +35,7 @@ Prop_assign()CGSize elementDefaultSize; // 内置元素Size的预设值
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsHotLabelBySingleLine
 -(JobsRetJobsHotLabelBySingleLineByNSArrayUIViewModelBlock _Nonnull)byViewModelDataArr;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsHotLabelBySingleLine
+
 @end
 
 NS_ASSUME_NONNULL_END

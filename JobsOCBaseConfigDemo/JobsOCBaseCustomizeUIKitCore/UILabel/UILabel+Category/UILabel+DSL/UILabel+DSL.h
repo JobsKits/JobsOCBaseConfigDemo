@@ -81,6 +81,7 @@ Prop_assign()JobsDirectionType transformLayerDirectionType;
 -(JobsRetUILabelByCGFloatBlock _Nonnull)byMj_w;
 -(void)setMj_w:(CGFloat)data;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UILabel
+
 @end
 
 NS_ASSUME_NONNULL_END

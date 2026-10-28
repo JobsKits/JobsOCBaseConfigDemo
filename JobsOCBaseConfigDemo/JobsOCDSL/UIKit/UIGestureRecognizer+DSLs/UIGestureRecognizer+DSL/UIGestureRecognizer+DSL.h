@@ -29,5 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCGPointByViewBlock _Nonnull)byLocationInView;
 
 @end
+
 NS_ASSUME_NONNULL_END
 #endif

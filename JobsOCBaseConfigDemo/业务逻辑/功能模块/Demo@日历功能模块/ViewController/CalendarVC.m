@@ -8,6 +8,7 @@
 #import "CalendarVC.h"
 
 @interface CalendarVC ()
+
 /// UI
 Prop_strong()JobsOCCalendar *calendar;
 Prop_strong()NSDateFormatter *calendarDayFormatter;
@@ -19,6 +20,7 @@ Prop_strong()NSDate *maximumCalendarDate;
 @end
 
 @implementation CalendarVC
+
 -(void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);

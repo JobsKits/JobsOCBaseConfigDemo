@@ -8,6 +8,7 @@
 #import "JobsOCBaseConfigTestPopupView.h"
 
 @interface JobsOCBaseConfigTestPopupView ()
+
 /// UI
 Prop_strong()BaseButton *containerView;
 Prop_strong()UIButton *testPopupViewSureBtn;
@@ -16,6 +17,7 @@ Prop_strong()UIButton *testPopupViewSureBtn;
 @end
 
 @implementation JobsOCBaseConfigTestPopupView
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 #pragma mark —— 单例化和销毁

@@ -8,6 +8,7 @@
 #import "IP_api.h"
 
 @implementation IP_api
+
 /// 请求的完整URL：提供丰富的地理位置信息@GET
 /// http://ip-api.com/json/
 -(NSString *)requestUrl{

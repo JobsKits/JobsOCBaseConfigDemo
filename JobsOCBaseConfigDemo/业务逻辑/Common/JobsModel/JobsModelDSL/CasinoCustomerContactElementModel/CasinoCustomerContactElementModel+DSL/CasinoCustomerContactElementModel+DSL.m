@@ -8,6 +8,7 @@
 #import "CasinoCustomerContactElementModel+DSL.h"
 
 @implementation CasinoCustomerContactElementModel (DSL)
+
 -(JobsRetCasinoCustomerContactElementModelByStrBlock _Nonnull)byAppIconUrl{
     @jobs_weakify(self)
     return ^__kindof CasinoCustomerContactElementModel *_Nullable(NSString * _Nullable data) {

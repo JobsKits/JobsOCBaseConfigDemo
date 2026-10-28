@@ -38,6 +38,7 @@ Prop_strong(nullable)NSMutableArray <WeakTarget *>*weakTargets;
 -(JobsRetMyProxyByNSMutableArrayBlock _Nonnull)byTargets;
 -(JobsRetMyProxyByNSMutableArrayWeakTargetBlock _Nonnull)byWeakTargets;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END MyProxy
+
 @end
 
 NS_ASSUME_NONNULL_END

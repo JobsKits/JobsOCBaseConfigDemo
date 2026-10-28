@@ -16,6 +16,7 @@ Prop_strong()WKWebView *webView;
 @end
 
 @implementation WebViewController
+
 - (instancetype)initWithURL:(NSString *)url title:(NSString *)title {
   self = [super init];
   if (self) {

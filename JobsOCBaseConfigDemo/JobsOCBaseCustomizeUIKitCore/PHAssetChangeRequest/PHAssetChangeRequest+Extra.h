@@ -15,6 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PHAssetChangeRequest (Extra)
+
 /// 对系统方法 creationRequestForAssetFromVideoAtFileURL 的二次封装
 +(JobsRetPHAssetChangeRequestByURLBlock _Nonnull)initByURL;
 

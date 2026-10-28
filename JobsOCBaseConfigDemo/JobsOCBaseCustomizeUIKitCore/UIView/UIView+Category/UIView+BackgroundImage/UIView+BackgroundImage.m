@@ -8,6 +8,7 @@
 #import "UIView+BackgroundImage.h"
 
 @implementation UIView (BackgroundImage)
+
 /**
  【特别指出】
  如果self 是 诸如UICollectionViewCell 或者UITableViewCell,即：

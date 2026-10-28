@@ -39,7 +39,9 @@ UIGestureRecognizerDelegate
 -(JobsRetJobsPresentationCtrlByUIViewBlock _Nonnull)byDimmingView;
 -(JobsRetJobsPresentationCtrlByUIViewBlock _Nonnull)byPresentationWrappingView;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsPresentationCtrl
+
 @end
+
 /**
  
      自定义高度的模态推送控制器使用示例

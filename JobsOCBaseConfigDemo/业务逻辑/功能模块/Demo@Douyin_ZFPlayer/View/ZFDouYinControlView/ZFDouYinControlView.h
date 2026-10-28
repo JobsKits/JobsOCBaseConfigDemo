@@ -45,4 +45,5 @@
 -(jobsByStrBlock _Nonnull)showCoverViewWithUrl;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_ZFDOUYINCONTROLVIEW_CA2F565BE2 */

@@ -8,6 +8,7 @@
 #import "UIImpactFeedbackGenerator+DSL.h"
 
 @implementation UIImpactFeedbackGenerator (DSL)
+
 -(JobsRetImpactFeedbackGeneratorByVoidBlock _Nonnull)byImpactOccurred{
     @jobs_weakify(self)
     return ^UIImpactFeedbackGenerator *_Nonnull(void){

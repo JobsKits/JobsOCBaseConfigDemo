@@ -17,6 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIButtonConfiguration (Extra)
+
 /// 从另一份 UIButtonConfiguration 复制属性到当前对象
 Prop_copy(readonly,nonnull) JobsRetBtnConfigByBtnConfigBlock byButtonConfiguration API_AVAILABLE(ios(16.0));
 /// 背景

@@ -8,6 +8,7 @@
 #import "MsgEditBoardView.h"
 
 @interface MsgEditBoardView ()
+
 /// UI
 Prop_strong()UIButton *allChooseBtn;
 Prop_strong()UIButton *markToReadBtn;
@@ -19,6 +20,7 @@ Prop_strong()UIButton *deleteBtn;
 @end
 
 @implementation MsgEditBoardView
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 #pragma mark —— BaseProtocol

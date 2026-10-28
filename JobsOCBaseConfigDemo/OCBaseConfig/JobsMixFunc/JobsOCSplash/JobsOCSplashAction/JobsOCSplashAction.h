@@ -37,6 +37,7 @@ Prop_assign() BOOL opensExternally;
 -(JobsRetJobsOCSplashActionByJobsOCSplashActionBlockBlock _Nonnull)byCustomBlock;
 -(JobsRetJobsOCSplashActionByBOOLBlock _Nonnull)byOpensExternally;
 -(JobsOCSplashActionBlock _Nonnull)performWithSplashVC;
+
 @end
 
 NS_ASSUME_NONNULL_END

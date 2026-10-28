@@ -16,6 +16,7 @@
 @end
 
 @implementation JobsImageViewStyleCVCell
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 - (instancetype)initWithFrame:(CGRect)frame{

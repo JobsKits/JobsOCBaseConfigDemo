@@ -8,6 +8,7 @@
 #import "NSObject+MyAppTools.h"
 
 @implementation NSObject (MyAppTools)
+
 #pragma mark —— 一些私有化方法
 -(JobsRetNSMutableArrayClassByVoidBlock _Nonnull)makeDataArr{
     @jobs_weakify(self)

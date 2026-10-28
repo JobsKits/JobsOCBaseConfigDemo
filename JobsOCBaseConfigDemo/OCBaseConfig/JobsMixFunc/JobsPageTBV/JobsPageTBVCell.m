@@ -14,6 +14,7 @@ Prop_strong()UILabel *textLab;
 @end
 
 @implementation JobsPageTBVCell
+
 #pragma mark —— UITableViewCellProtocol
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleSubtitleByTableView{
     return ^(UITableView * _Nonnull tableView) {

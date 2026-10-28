@@ -11,6 +11,7 @@
 #import "UIButton+SimplyMake.h"
 
 @interface JobsHeaderFooterView ()
+
 /// UI
 Prop_strong()BaseButton *titleBtn;
 Prop_strong()BaseButton *subTitleBtn;
@@ -20,6 +21,7 @@ Prop_strong()UIViewModel *subTitleModel;
 @end
 
 @implementation JobsHeaderFooterView
+
 @synthesize titleModel = _titleModel;
 -(JobsRetJobsHeaderFooterViewByViewModelBlock _Nonnull)byTitleModel{
     @jobs_weakify(self)

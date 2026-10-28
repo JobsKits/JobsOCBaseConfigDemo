@@ -8,6 +8,7 @@
 #import "JobsAppDoorInputViewBaseStyle_8.h"
 
 @interface JobsAppDoorInputViewBaseStyle_8 ()
+
 /// UI
 Prop_strong()BaseButton *securityModelBtn;
 Prop_strong()UILabel *titleLab;
@@ -23,6 +24,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_8
 
 @implementation JobsAppDoorInputViewBaseStyle_8
+
 -(instancetype)init{
     if (self = [super init]) {
     };return self;
@@ -241,4 +243,5 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_8
+
 @end

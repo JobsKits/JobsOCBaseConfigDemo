@@ -10,6 +10,7 @@
 static NSString * const RandomTestCellReuseIdentifier = @"RandomTestCellReuseIdentifier";
 
 @interface RandomTestVC ()<UITableViewDelegate,UITableViewDataSource>
+
 /// UI
 Prop_strong()UITableView *tableView;
 Prop_strong()BaseButton *refreshBtn;
@@ -29,6 +30,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 @end
 
 @implementation RandomTestVC
+
 @synthesize tableView = _tableView;
 @synthesize refreshBtn = _refreshBtn;
 @synthesize dataMutArr = _dataMutArr;

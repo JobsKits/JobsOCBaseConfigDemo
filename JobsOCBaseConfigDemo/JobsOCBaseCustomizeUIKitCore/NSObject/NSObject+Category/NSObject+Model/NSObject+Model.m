@@ -10,6 +10,7 @@
 #import "NSObject+UsrInfo.h"
 
 @implementation NSObject (Model)
+
 #pragma mark —— @property(nonatomic,strong,nullable)JobsUserModel *doorModel;
 JobsKey(_loginModel)
 @dynamic doorModel;

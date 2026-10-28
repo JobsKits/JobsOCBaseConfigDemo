@@ -10,6 +10,7 @@
 static NSString *const JobsMosaicDemoListCellReuseIdentifier = @"JobsMosaicDemoListCell";
 
 @interface JobsMosaicDemoListVC (){
+
     UITableView *_mosaicTableView;
 }
 
@@ -23,6 +24,7 @@ Prop_strong()NSArray <UIViewModel *>*demoArr;
 @end
 
 @implementation JobsMosaicDemoListVC
+
 -(void)loadView{
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMosaicDemoListVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
     if (action) action();

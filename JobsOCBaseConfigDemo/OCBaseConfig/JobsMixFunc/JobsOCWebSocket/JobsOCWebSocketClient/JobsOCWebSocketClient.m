@@ -575,4 +575,5 @@ didReceiveMessageWithData:(NSData *)data{
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCWebSocketClient
+
 @end

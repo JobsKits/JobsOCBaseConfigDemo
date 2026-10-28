@@ -8,6 +8,7 @@
 #import "JobsAppDoorInputViewBaseStyleModel+DSL.h"
 
 @implementation JobsAppDoorInputViewBaseStyleModel (DSL)
+
 -(JobsRetJobsAppDoorInputViewBaseStyleModelByImageBlock _Nonnull)byLeftViewIMG{
     @jobs_weakify(self)
     return ^__kindof JobsAppDoorInputViewBaseStyleModel *_Nullable(UIImage * _Nullable data) {

@@ -15,6 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 /// NSUserDefaults相关
 @interface NSString (NSUserDefaults)
+
 #pragma mark —— 存值
 /// 保存 BOOL 值
 -(jobsByBOOLBlock _Nonnull)userDefaultsByBOOL;

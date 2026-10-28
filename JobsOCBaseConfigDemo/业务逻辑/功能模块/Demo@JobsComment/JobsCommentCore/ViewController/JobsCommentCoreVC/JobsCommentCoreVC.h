@@ -102,6 +102,7 @@ UITableViewDelegate
 -(JobsRetJobsCommentCoreVCByCGSizeBlock _Nonnull)byPreferredContentSize;
 -(JobsRetJobsCommentCoreVCByIDUIViewControllerTransitioningDelegateBlock _Nonnull)byTransitioningDelegate;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsCommentCoreVC
+
 @end
 
 NS_ASSUME_NONNULL_END

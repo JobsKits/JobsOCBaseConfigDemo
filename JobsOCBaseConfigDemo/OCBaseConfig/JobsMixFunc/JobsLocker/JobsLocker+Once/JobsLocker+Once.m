@@ -45,6 +45,7 @@ Prop_assign()_JobsOnceStatus status;
 @end
 
 @implementation JobsLocker (Once)
+
 JobsKey(JobsLockerOnceStateKey)
 - (JobsRetJobsOnceStateByVoidBlock _Nonnull)jobs_onceState {
     @jobs_weakify(self)

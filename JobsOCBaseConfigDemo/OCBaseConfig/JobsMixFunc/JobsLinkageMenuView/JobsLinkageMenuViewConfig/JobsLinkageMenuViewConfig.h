@@ -43,6 +43,7 @@ Prop_copy(nullable)jobsByIDBlock noContentClickBlock; // 菜单无内容时回�
 -(JobsRetJobsLinkageMenuViewConfigByCGFloatBlock _Nonnull)byMENU_WIDTH;
 -(JobsRetJobsLinkageMenuViewConfigByNSDictionaryNSNumberNSNumberBlock _Nonnull)byMENU_ITEM_HEIGHT_MAP;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsLinkageMenuViewConfig
+
 @end
 
 NS_ASSUME_NONNULL_END

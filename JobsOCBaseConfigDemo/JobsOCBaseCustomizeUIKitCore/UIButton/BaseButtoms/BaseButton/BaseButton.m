@@ -20,6 +20,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END BaseButton
 
 @implementation BaseButton
+
 -(JobsRetBaseButtonByIDBlock _Nonnull)byData{
     @jobs_weakify(self)
     return ^__kindof BaseButton *_Nullable(id _Nullable data){
@@ -392,4 +393,5 @@ GestureProtocol_synthesize
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END BaseButton
+
 @end

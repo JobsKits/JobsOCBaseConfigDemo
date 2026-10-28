@@ -23,6 +23,7 @@
 +(jobsByVoidBlock _Nonnull)jobsDestroySingleton;
 
 @end
+
 /// 基于 dispatch_once 的单例宏
 #define DEFINE_SHARED_INSTANCE_USING_DISPATCH_ONCE \
     + (instancetype)sharedManager { \

@@ -31,6 +31,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (Others)
+
 #pragma mark —— 动画相关
 /// 创建CABasicAnimation
 -(JobsRetCABasicAnimationByVoidBlock _Nonnull)basicAnimation;

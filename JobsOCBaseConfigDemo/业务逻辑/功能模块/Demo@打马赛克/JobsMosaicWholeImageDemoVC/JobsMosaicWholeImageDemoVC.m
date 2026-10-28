@@ -26,6 +26,7 @@ Prop_assign()NSUInteger renderVersion;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsMosaicWholeImageDemoVC
 
 @implementation JobsMosaicWholeImageDemoVC
+
 -(JobsRetStrByVoidBlock _Nonnull)jobsPageTitle{
     @jobs_weakify(self)
     return ^NSString *_Nullable{
@@ -168,4 +169,5 @@ Prop_assign()NSUInteger renderVersion;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsMosaicWholeImageDemoVC
+
 @end

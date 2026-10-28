@@ -8,6 +8,7 @@
 #import "JobsPostVC.h"
 
 @interface JobsPostVC (){
+
     CGFloat JobsPostDelViewHeight;
     BOOL postDeleteVisible;
 }
@@ -48,6 +49,7 @@ Prop_strong()UITextModel *postTextModel;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsPostVC
 
 @implementation JobsPostVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -630,4 +632,5 @@ gestureRecognizerEnded:(UILongPressGestureRecognizer *)longPgr
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsPostVC
+
 @end

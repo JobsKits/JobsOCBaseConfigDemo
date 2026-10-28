@@ -11,6 +11,7 @@
 BOOL ISLogin __attribute__((weak)) = NO;
 
 @implementation NSObject (PopViewToLogOut)
+
 #pragma mark —— Prop_strong()UIViewModel *logOutPopupVM;
 JobsKey(_logOutPopupVM)
 @dynamic logOutPopupVM;

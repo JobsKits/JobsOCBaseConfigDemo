@@ -8,6 +8,7 @@
 #import "MJRefreshStateHeader+Extra.h"
 
 @implementation MJRefreshStateHeader (Extra)
+
 -(JobsRetIDByBOOLBlock _Nonnull)byAutomaticallyChangeAlpha{
     @jobs_weakify(self)
     return ^id(BOOL automaticallyChangeAlpha){

@@ -8,6 +8,7 @@
 #import "NSObject+DeviceIP.h"
 
 @implementation NSObject (DeviceIP)
+
 /// 获取ip地址
 -(JobsRetStrByVoidBlock _Nonnull)getIPaddress{
     @jobs_weakify(self)

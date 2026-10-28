@@ -14,6 +14,7 @@
 #import "UIView+Refresh.h"
 
 @interface JobsTextField ()
+
 /// Data
 Prop_assign()CGFloat leftViewByOutLineOffset; /// 这个值需要在leftView之前设置才有效
 Prop_assign()CGFloat leftViewByTextFieldOffset;
@@ -30,6 +31,7 @@ Prop_copy(nullable)JobsRetIDByIDBlock otherActionBlock;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsTextField
 
 @implementation JobsTextField
+
 /// BaseViewProtocol
 BaseViewProtocol_synthesize
 /// UITextFieldProtocol
@@ -375,4 +377,5 @@ willDismissEditMenuWithAnimator:(id<UIEditMenuInteractionAnimating>)animator{
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsTextField
+
 @end

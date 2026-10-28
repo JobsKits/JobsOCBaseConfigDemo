@@ -20,6 +20,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIButton (Animation)
+
 /// 点击按钮，按钮的imageView旋转360°
 -(JobsRetCABasicAnimationByVoidBlock _Nonnull)revolution;
 /// 停止旋转360s

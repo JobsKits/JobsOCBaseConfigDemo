@@ -11,12 +11,15 @@
 #import "UIViewController+BaseNavigationBar.h"
 
 @interface UIGestureRecognizer (JobsFDFullscreenPopGestureDSL)
+
 -(JobsRetIDByIDBlock _Nonnull)byDelegate;
 -(JobsRetIDByBOOLBlock _Nonnull)byEnabled;
 -(JobsRetIDByUIntegerBlock _Nonnull)byMaximumNumberOfTouches;
+
 @end
 
 @implementation UIGestureRecognizer (JobsFDFullscreenPopGestureDSL)
+
 -(JobsRetIDByUIntegerBlock _Nonnull)byMaximumNumberOfTouches{
     @jobs_weakify(self)
     return ^id _Nullable(NSUInteger data){
@@ -27,6 +30,7 @@
         };return self;
     };
 }
+
 @end
 
 @interface _FDFullscreenPopGestureRecognizerDelegate : NSObject<UIGestureRecognizerDelegate>
@@ -36,6 +40,7 @@ Prop_weak()UINavigationController *navigationController;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN _FDFullscreenPopGestureRecognizerDelegate
 -(JobsRetFDFullscreenPopGestureRecognizerDelegateByUINavigationControllerBlock _Nonnull)byNavigationController;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END _FDFullscreenPopGestureRecognizerDelegate
+
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN _FDFullscreenPopGestureRecognizerDelegate
@@ -45,6 +50,7 @@ Prop_weak()UINavigationController *navigationController;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END _FDFullscreenPopGestureRecognizerDelegate
 
 @implementation _FDFullscreenPopGestureRecognizerDelegate
+
 - (BOOL)gestureRecognizerShouldBegin:(UIPanGestureRecognizer *)gestureRecognizer{
     JobsRetBOOLByUIPanGestureRecognizerBlock action = ((JobsRetBOOLByUIPanGestureRecognizerBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(_FDFullscreenPopGestureRecognizerDelegate.class, @selector(jobsGestureRecognizerShouldBegin)))(self, @selector(jobsGestureRecognizerShouldBegin));
     return action ? action(gestureRecognizer) : NO;
@@ -84,6 +90,7 @@ Prop_weak()UINavigationController *navigationController;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END _FDFullscreenPopGestureRecognizerDelegate
+
 @end
 
 typedef void (^_FDViewControllerWillAppearInjectBlock)(UIViewController *viewController, BOOL animated);
@@ -94,6 +101,7 @@ Prop_copy()_FDViewControllerWillAppearInjectBlock fd_willAppearInjectBlock;
 @end
 
 @implementation UIViewController (FDFullscreenPopGesturePrivate)
+
 + (void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -158,6 +166,7 @@ JobsKey(_fd_willAppearInjectBlock)
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UINavigationController
 
 @implementation UINavigationController (FDFullscreenPopGesture)
+
 + (void)load{
     // Inject "-pushViewController:animated:"
     static dispatch_once_t onceToken;
@@ -292,9 +301,11 @@ PROP_STRONG_OBJECT_LAZY(UIPanGestureRecognizer,
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UINavigationController
+
 @end
 
 @implementation UIViewController (FDFullscreenPopGesture)
+
 /// BOOL —— 使用 PROP_BOOL
 PROP_BOOL(fd_interactivePopDisabled, Fd_interactivePopDisabled)
 /// CGFloat —— 使用 PROP_CGFloat

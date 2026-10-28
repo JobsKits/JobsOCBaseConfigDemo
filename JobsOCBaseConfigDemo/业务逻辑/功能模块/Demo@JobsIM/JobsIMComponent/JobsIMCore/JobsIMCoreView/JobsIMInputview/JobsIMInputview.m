@@ -8,6 +8,7 @@
 #import "JobsIMInputview.h"
 
 @interface JobsIMInputview ()
+
 /// UI
 Prop_strong()UIImageView *imgView;
 Prop_strong()UILabel *adNoticeLab;
@@ -17,6 +18,7 @@ Prop_strong()BaseButton *sendBtn;
 @end
 
 @implementation JobsIMInputview
+
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsSystemBackgroundColor);

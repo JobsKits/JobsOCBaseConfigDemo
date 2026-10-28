@@ -63,6 +63,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetUILabelScrollingDemoVCByBOOLBlock _Nonnull)byUsesAlternativeCopy;
 -(JobsRetUILabelScrollingDemoVCByNSArrayUIButtonBlock _Nonnull)byControlButtons;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UILabelScrollingDemoVC
+
 @end
 
 NS_ASSUME_NONNULL_END

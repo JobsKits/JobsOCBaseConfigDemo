@@ -30,6 +30,7 @@ Prop_strong()NSMutableArray<JobsTimerBlock> *finishBlocks;
 @end
 
 @implementation _JobsTimerManagerEntry
+
 - (instancetype)init {
     if (self = [super init]) {
         _pauseState = _JobsTimerPauseStateRunning;
@@ -53,6 +54,7 @@ Prop_strong()NSMutableArray<JobsTimerBlock> *finishBlocks;
 @end
 
 @implementation _JobsTimerManagerEntry (DSL)
+
 -(JobsRetJobsTimerManagerEntryByJobsTimerBlock _Nonnull)byTimer{
     return ^__kindof _JobsTimerManagerEntry *_Nullable(JobsTimer<TimerProtocol> *_Nullable timer) {
         self.timer = timer;
@@ -109,6 +111,7 @@ static inline void jobs_trySetBoolByKVC(id obj, NSString *key, BOOL value) {
 }
 
 @interface JobsTimerManager ()
+
 Prop()dispatch_queue_t isolationQueue;
 Prop_strong()NSMutableDictionary<NSString *, _JobsTimerManagerEntry *> *entries;
 Prop_strong()NSMutableSet<NSString *> *pausedScopeIdentifiers;
@@ -132,6 +135,7 @@ Prop_strong(nullable)id didBecomeActiveToken;
 @end
 
 @implementation JobsTimerManager
+
 - (void)dealloc {
     self.teardownAppStateObservers();
     self.stopAndRemoveAll();

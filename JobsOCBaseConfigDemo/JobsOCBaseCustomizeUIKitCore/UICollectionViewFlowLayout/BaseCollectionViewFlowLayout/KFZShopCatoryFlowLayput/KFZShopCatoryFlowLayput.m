@@ -16,6 +16,7 @@
 @end
 
 @implementation KFZShopCatorySectionWhiteBgView
+
 -(void)drawRect:(CGRect)rect{
     jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(KFZShopCatorySectionWhiteBgView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
     if (action) action(rect);
@@ -59,12 +60,14 @@
 
 /// 下面是自定义的layout
 @interface KFZShopCatoryFlowLayput  ()
+
 /// 存放新的layouttAttributes
 Prop_strong()NSMutableArray<UICollectionViewLayoutAttributes *> *decorationViewAttrs;
 
 @end
 
 @implementation KFZShopCatoryFlowLayput
+
 -(void)prepareLayout{
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(KFZShopCatoryFlowLayput.class, @selector(jobsPrepareLayout)))(self, @selector(jobsPrepareLayout));
     if (action) action();

@@ -126,6 +126,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (ZFPlayer)
+
 /// 友情提醒，注意代码规范，先配置后播放，否则可能出现各种错
 Prop_strong(nullable)ZFPlayerController *playerCtr;
 Prop_strong(nullable)ZFAVPlayerManager *avPlayerManager;/// 默认不支持FLV流视频格式的

@@ -105,6 +105,7 @@ Prop_assign()BOOL shouldApplyAppEntryAfterReturning;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCDemoListSettingsVC
 
 @implementation JobsOCDemoListSettingsVC
+
 @synthesize tableView = _tableView;
 
 -(void)loadView{
@@ -841,4 +842,5 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCDemoListSettingsVC
+
 @end

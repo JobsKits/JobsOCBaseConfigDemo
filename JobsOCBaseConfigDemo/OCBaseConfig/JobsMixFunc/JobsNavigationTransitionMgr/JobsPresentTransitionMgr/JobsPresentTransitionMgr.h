@@ -78,6 +78,7 @@ Prop_assign()CGFloat cornerRadius;
 -(JobsRetJobsPresentTransitionMgrByUIViewBlock _Nonnull)byPresentationWrappingView;
 -(JobsRetJobsPresentTransitionMgrByUIViewBlock _Nonnull)byPresentedViewControllerWrapperView;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsPresentTransitionMgr
+
 @end
 
 NS_ASSUME_NONNULL_END

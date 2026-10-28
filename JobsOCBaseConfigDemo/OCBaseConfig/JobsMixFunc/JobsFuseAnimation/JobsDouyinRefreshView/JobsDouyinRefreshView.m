@@ -49,6 +49,7 @@ Prop_assign()CGRect lastAnimationBounds;
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END CAAnimationGroup
 
 @implementation JobsDouyinRefreshView
+
 -(instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         _config = JobsDouyinRefreshConfig.config();
@@ -540,6 +541,7 @@ Prop_assign()CGRect lastAnimationBounds;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsDouyinRefreshView
+
 @end
 
 // JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN CAAnimationGroup

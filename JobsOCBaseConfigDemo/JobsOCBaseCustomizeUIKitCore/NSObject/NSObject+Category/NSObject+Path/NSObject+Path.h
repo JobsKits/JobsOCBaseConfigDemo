@@ -27,6 +27,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (Path)
+
 /// 获取bundle路径
 -(NSString *)bundlePath;
 /// 获取bundle路径的 Block 门面

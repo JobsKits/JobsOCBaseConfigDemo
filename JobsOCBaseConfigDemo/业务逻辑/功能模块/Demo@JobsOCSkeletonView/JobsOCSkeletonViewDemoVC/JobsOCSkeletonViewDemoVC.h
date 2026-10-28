@@ -67,6 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetJobsOCSkeletonViewDemoVCByNSArrayJobsOCSkeletonUserBlock _Nonnull)byUserDataArr;
 -(JobsRetJobsOCSkeletonViewDemoVCByNSUIntegerBlock _Nonnull)bySkeletonRowCount;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCSkeletonViewDemoVC
+
 @end
 
 NS_ASSUME_NONNULL_END

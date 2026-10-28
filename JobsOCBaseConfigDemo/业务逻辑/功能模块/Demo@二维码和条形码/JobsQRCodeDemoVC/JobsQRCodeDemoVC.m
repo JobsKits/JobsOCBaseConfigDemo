@@ -34,6 +34,7 @@ Prop_copy()NSString *barcodeContent;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsQRCodeDemoVC
 
 @implementation JobsQRCodeDemoVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -346,4 +347,5 @@ Prop_copy()NSString *barcodeContent;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsQRCodeDemoVC
+
 @end

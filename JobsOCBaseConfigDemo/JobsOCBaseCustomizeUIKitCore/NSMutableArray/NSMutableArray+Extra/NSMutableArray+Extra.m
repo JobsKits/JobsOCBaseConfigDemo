@@ -8,6 +8,7 @@
 #import "NSMutableArray+Extra.h"
 
 @implementation NSMutableArray (Extra)
+
 /// 通过数组创建可变数组
 +(JobsRetArrByArrBlock _Nonnull)initBy{
     return ^__kindof NSArray *_Nullable(__kindof NSArray *_Nullable data){

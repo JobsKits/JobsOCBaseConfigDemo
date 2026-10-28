@@ -8,6 +8,7 @@
 #import "UICollectionViewCell+BaseViewProtocol.h"
 
 @implementation UICollectionViewCell (BaseViewProtocol)
+
 /// 用于实例
 -(JobsRetCollectionViewCellByIDBlock _Nonnull)jobsRichElementsCollectionViewCellBy{
     @jobs_weakify(self)

@@ -8,6 +8,7 @@
 #import "NSObject+Queue.h"
 
 @implementation NSObject (Queue)
+
 /// 用于：UI刷新（高频需求）
 -(void)delayByMainQueue:(int64_t)time block:(jobsByVoidBlock)block{
     if(time < 0) time = 0;

@@ -31,6 +31,7 @@ Prop_assign()BOOL wantsAnimating;
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END LOTAnimationView
 
 @implementation JobsLottieRefreshView
+
 -(instancetype)initWithAnimationNamed:(NSString *)animationName {
     if (self = [super initWithFrame:CGRectZero]) {
         _animationName = animationName.copy ?: @"";
@@ -225,4 +226,5 @@ Prop_assign()BOOL wantsAnimating;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsLottieRefreshView
+
 @end

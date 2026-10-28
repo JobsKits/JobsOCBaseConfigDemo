@@ -58,6 +58,7 @@ Prop_assign(readonly,getter=isAnimating)BOOL animating;
 -(JobsRetJobsDouyinRefreshViewByBOOLBlock _Nonnull)byAccessibilityElement;
 -(JobsRetJobsDouyinRefreshViewByNSStringBlock _Nonnull)byAccessibilityLabel;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsDouyinRefreshView
+
 @end
 
 NS_ASSUME_NONNULL_END

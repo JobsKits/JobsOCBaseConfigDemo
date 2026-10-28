@@ -18,6 +18,7 @@ Prop_strong()UILabel *resultLab;
 @end
 
 @implementation JobsCNIDDemoVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

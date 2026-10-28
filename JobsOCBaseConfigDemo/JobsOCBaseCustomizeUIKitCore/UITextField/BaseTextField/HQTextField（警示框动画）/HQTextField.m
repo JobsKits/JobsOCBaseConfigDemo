@@ -17,6 +17,7 @@ Prop_strong()CABasicAnimation *opacityAnimation;
 @end
 
 @implementation HQTextField
+
 - (void)layoutSubviews {
     [super layoutSubviews];
     if (!_warnLayer) return;

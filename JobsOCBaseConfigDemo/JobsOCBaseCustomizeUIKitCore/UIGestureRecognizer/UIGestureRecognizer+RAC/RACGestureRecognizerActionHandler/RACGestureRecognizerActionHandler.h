@@ -27,4 +27,5 @@
 -(jobsByGestureRecognizerBlock _Nonnull)rac_handleGesture;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_RACGESTURERECOGNIZERACTIONHANDLER_D348A19E31 */

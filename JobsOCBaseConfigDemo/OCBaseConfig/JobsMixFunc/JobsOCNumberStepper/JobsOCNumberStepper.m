@@ -24,6 +24,7 @@ Prop_strong()UIStackView *contentStackView;
 @end
 
 @implementation JobsOCNumberStepper
+
 -(JobsRetJobsOCNumberStepperByNSIntegerBlock _Nonnull)byValue{
     @jobs_weakify(self)
     return ^__kindof JobsOCNumberStepper *_Nullable(NSInteger value){

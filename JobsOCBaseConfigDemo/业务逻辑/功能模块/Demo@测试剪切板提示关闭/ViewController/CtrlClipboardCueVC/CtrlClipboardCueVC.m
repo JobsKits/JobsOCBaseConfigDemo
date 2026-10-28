@@ -9,6 +9,7 @@
 #import "IQKeyboardManager+Extra.h"
 
 @interface CtrlClipboardCueVC ()
+
 /// UI
 Prop_strong()BaseLabel *label;
 /// Data
@@ -18,6 +19,7 @@ Prop_copy()NSString *textData2;// 来自于剪切板存储的数据
 @end
 
 @implementation CtrlClipboardCueVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

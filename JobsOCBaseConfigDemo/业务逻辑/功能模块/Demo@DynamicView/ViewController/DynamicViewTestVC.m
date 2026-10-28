@@ -15,6 +15,7 @@ Prop_copy()NSString *path;
 @end
 
 @implementation DynamicViewTestVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);

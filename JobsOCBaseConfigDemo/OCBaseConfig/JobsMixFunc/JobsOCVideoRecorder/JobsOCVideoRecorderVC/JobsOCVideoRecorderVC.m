@@ -11,6 +11,7 @@
 JobsOCVideoRecorderCaptureManagerDelegate,
 JobsOCVideoRecorderRecordButtonDelegate
 >{
+
     CMFormatDescriptionRef _latestVideoFormatDescription;
     CMFormatDescriptionRef _latestAudioFormatDescription;
 }
@@ -71,6 +72,7 @@ Prop_weak(nullable) UIView *originGKNavigationBar;
 @end
 
 @implementation JobsOCVideoRecorderVC
+
 #define JobsOCVideoRecorderVCPropertyDSL(BLOCK_TYPE, ARG_TYPE, SELECTOR, PROPERTY) \
 -(BLOCK_TYPE _Nonnull)SELECTOR{ \
     @jobs_weakify(self) \

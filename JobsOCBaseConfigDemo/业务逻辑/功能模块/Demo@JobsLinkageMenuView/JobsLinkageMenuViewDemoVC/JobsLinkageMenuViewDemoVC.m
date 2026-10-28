@@ -15,6 +15,7 @@
 @end
 
 @implementation JobsLinkageMenuDemoContentView{
+
     NSString *_sectionTitle;
     NSString *_menuTitle;
     NSMutableArray<UIView *> *_cards;
@@ -146,6 +147,7 @@ Prop_strong()NSArray<NSString *> *menuTitles;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsLinkageMenuViewDemoVC
 
 @implementation JobsLinkageMenuViewDemoVC
+
 -(void)dealloc{
     JobsRemoveNotification(self);
 }
@@ -367,4 +369,5 @@ Prop_strong()NSArray<NSString *> *menuTitles;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsLinkageMenuViewDemoVC
+
 @end

@@ -32,5 +32,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCAAnimationByCAMediaTimingFillModeBlock _Nonnull)byFillMode;
 
 @end
+
 NS_ASSUME_NONNULL_END
 #endif

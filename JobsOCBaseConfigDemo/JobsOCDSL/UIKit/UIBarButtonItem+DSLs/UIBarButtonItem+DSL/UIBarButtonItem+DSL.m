@@ -8,6 +8,7 @@
 #import "UIBarButtonItem+DSL.h"
 
 @implementation UIBarButtonItem (DSL)
+
 -(JobsRetBarButtonItemByStyleBlock _Nonnull)byStyle{
     @jobs_weakify(self)
     return ^__kindof UIBarButtonItem *_Nullable(UIBarButtonItemStyle data){

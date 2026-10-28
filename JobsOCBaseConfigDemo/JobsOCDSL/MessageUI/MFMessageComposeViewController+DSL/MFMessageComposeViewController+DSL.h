@@ -23,5 +23,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetMessageComposeVCByBOOLBlock _Nonnull)byDisableUserAttachments;
 
 @end
+
 NS_ASSUME_NONNULL_END
 #endif

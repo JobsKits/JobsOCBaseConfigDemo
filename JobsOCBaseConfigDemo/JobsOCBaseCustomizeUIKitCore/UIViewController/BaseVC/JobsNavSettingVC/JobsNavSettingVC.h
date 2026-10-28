@@ -39,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetJobsNavSettingVCByBOOLBlock _Nonnull)byHiddenNavigationBar;
 -(JobsRetJobsNavSettingVCByBOOLBlock _Nonnull)byExtendedLayoutIncludesOpaqueBars;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsNavSettingVC
+
 @end
 
 NS_ASSUME_NONNULL_END

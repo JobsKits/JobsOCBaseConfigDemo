@@ -47,4 +47,5 @@ Prop_copy()jobsByOCCountryCodeBlock countryCodeBlock;
                                                          textColor:(UIColor *)textColor;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_JOBSOC_COUNTRYCODECTRL_2F6A8C4B91 */

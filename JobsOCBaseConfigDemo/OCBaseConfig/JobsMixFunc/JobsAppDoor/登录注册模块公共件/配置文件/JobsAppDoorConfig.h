@@ -79,6 +79,7 @@ Prop_copy()NSString *compactVideoResourceName;
 -(JobsRetJobsAppDoorConfigByNSStringBlock _Nonnull)byCompactVideoResourceName;
 -(JobsRetJobsAppDoorConfigByNSStringBlock _Nonnull)byNotchVideoResourceName;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorConfig
+
 @end
 
 #define Cor1 JobsBlackColor.colorWithAlphaComponentBy(0.9007f)

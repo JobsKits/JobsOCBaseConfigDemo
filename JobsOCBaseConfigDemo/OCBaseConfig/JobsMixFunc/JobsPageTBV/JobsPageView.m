@@ -8,6 +8,7 @@
 #import "JobsPageView.h"
 
 @interface JobsPageView ()
+
 /// Data
 Prop_strong()NSArray <UIViewModel *>*dataArr;
 -(JobsRetJobsPageViewByCGFloatBlock _Nonnull)byCellHeight;
@@ -16,6 +17,7 @@ Prop_strong()NSArray <UIViewModel *>*dataArr;
 @end
 
 @implementation JobsPageView
+
 -(JobsRetJobsPageViewByCGFloatBlock _Nonnull)byCellHeight{
     @jobs_weakify(self)
     return ^__kindof JobsPageView *_Nullable(CGFloat height){

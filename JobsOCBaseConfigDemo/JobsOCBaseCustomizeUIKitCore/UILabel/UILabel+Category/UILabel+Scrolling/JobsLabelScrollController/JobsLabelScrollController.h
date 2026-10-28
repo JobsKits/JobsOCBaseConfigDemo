@@ -61,6 +61,7 @@ Prop_assign(readonly,getter=isRunning)BOOL running;
 -(JobsRetJobsLabelScrollControllerByNSTimeIntervalBlock _Nonnull)byDelayRemaining;
 -(JobsRetJobsLabelScrollControllerByUIFontBlock _Nonnull)bySourceFont;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsLabelScrollController
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -191,6 +191,7 @@ Prop_strong()JobsAppDoorConfig *configuration;
 -(JobsRetJobsAppDoorVC_Style2ByUIBarButtonItemBlock _Nonnull)byGk_navRightBarButtonItem;
 -(JobsRetJobsAppDoorVC_Style2ByUIViewBlock _Nonnull)byGk_navTitleView;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorVC_Style2
+
 @end
 
 NS_ASSUME_NONNULL_END

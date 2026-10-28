@@ -19,6 +19,7 @@
 NS_ASSUME_NONNULL_BEGIN
 // https://www.jianshu.com/p/564b5da57ea1
 @interface NSObject (Queue)
+
 /// 用于：UI刷新（高频需求）
 -(void)delayByMainQueue:(int64_t)time block:(jobsByVoidBlock)block;
 /// 用于：重计算 / IO

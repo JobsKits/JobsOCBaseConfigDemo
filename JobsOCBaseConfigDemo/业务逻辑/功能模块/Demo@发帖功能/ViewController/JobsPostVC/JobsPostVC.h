@@ -92,6 +92,7 @@ HXPhotoViewDelegate
 -(JobsRetJobsPostVCByNSMutableArrayUIImageBlock _Nonnull)byPhotosImageMutArr;
 -(JobsRetJobsPostVCByNSStringBlock _Nonnull)byInputDataString;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsPostVC
+
 @end
 
 NS_ASSUME_NONNULL_END

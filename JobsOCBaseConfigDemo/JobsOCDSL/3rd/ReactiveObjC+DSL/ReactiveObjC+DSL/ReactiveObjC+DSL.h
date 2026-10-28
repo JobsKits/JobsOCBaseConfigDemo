@@ -24,33 +24,42 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark —— NSObject.racDisposable
 @interface NSObject (JobsRACDisposableChain)
+
 /// 将 RACDisposable 绑定到对象的 racDisposable 属性，便于写成 obj.byRacDisposable(disposable)。
 -(JobsRetIDByRACDisposableBlock _Nonnull)byRacDisposable;
+
 @end
 
 #pragma mark —— RACDisposable
 @interface RACDisposable (JobsChain)
+
 +(JobsRetRACDisposableByVoidCallbackBlock _Nonnull)byDisposable;
 -(JobsRetBOOLByVoidBlock _Nonnull)byDisposed;
 -(JobsRetRACDisposableByVoidBlock _Nonnull)byDispose;
 -(JobsRetRACScopedDisposableByVoidBlock _Nonnull)byScopedDisposable;
+
 @end
 
 #pragma mark —— RACScopedDisposable
 @interface RACScopedDisposable (JobsChain)
+
 +(JobsRetRACScopedDisposableByRACDisposableBlock _Nonnull)byScopedDisposable;
+
 @end
 
 #pragma mark —— RACCompoundDisposable
 @interface RACCompoundDisposable (JobsChain)
+
 +(JobsRetRACCompoundDisposableByVoidBlock _Nonnull)byCompoundDisposable;
 +(JobsRetRACCompoundDisposableByArrBlock _Nonnull)byCompoundDisposableByDisposables;
 -(JobsRetRACCompoundDisposableByRACDisposableBlock _Nonnull)byAddDisposable;
 -(JobsRetRACCompoundDisposableByRACDisposableBlock _Nonnull)byRemoveDisposable;
+
 @end
 
 #pragma mark —— RACCommand
 @interface RACCommand (JobsChain)
+
 +(JobsRetRACCommandByRACSignalValueBlock _Nonnull)bySignalBlock;
 -(JobsRetRACSignalByVoidBlock _Nonnull)byExecutionSignals;
 -(JobsRetRACSignalByVoidBlock _Nonnull)byExecuting;
@@ -58,10 +67,12 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetRACSignalByVoidBlock _Nonnull)byErrors;
 -(JobsRetRACCommandByBOOLBlock _Nonnull)byAllowsConcurrentExecution;
 -(JobsRetRACSignalByIDBlock _Nonnull)byExecute;
+
 @end
 
 #pragma mark —— RACSignal
 @interface RACSignal (JobsChain)
+
 +(JobsRetRACSignalByIDBlock _Nonnull)byReturn;
 +(JobsRetRACSignalByNSErrorBlock _Nonnull)byError;
 +(JobsRetRACSignalByVoidBlock _Nonnull)byNever;
@@ -147,29 +158,37 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetRACSignalByRACBoolPredicateBlock _Nonnull)byAll;
 -(JobsRetRACSignalByNSIntegerBlock _Nonnull)byRetryCount;
 -(JobsRetRACSignalByRACSignalBlock _Nonnull)bySample;
+
 @end
 
 #pragma mark —— RACSubject / RACReplaySubject
 @interface RACSubject (JobsChain)
+
 +(JobsRetRACSubjectByVoidBlock _Nonnull)bySubject;
 -(JobsRetRACSubjectByIDBlock _Nonnull)bySendNext;
 -(JobsRetRACSubjectByNSErrorBlock _Nonnull)bySendError;
 -(JobsRetRACSubjectByVoidBlock _Nonnull)bySendCompleted;
+
 @end
 
 @interface RACReplaySubject (JobsChain)
+
 +(JobsRetRACReplaySubjectByNSUIntegerBlock _Nonnull)byReplaySubjectWithCapacity;
+
 @end
 
 #pragma mark —— RACMulticastConnection
 @interface RACMulticastConnection (JobsChain)
+
 -(JobsRetRACSignalByVoidBlock _Nonnull)bySignal;
 -(JobsRetRACDisposableByVoidBlock _Nonnull)byConnect;
 -(JobsRetRACSignalByVoidBlock _Nonnull)byAutoconnect;
+
 @end
 
 #pragma mark —— RACScheduler
 @interface RACScheduler (JobsChain)
+
 +(JobsRetRACSchedulerByVoidBlock _Nonnull)byImmediateScheduler;
 +(JobsRetRACSchedulerByVoidBlock _Nonnull)byMainThreadScheduler;
 +(JobsRetRACSchedulerByVoidBlock _Nonnull)byScheduler;
@@ -177,10 +196,12 @@ NS_ASSUME_NONNULL_BEGIN
 +(JobsRetRACSchedulerByNSIntegerBlock _Nonnull)bySchedulerWithPriority;
 -(JobsRetRACDisposableByVoidCallbackForSchedulerBlock _Nonnull)bySchedule;
 -(JobsRetRACDisposableBySchedulerRecursiveBlock _Nonnull)byScheduleRecursiveBlock;
+
 @end
 
 #pragma mark —— RACSequence
 @interface RACSequence (JobsChain)
+
 +(JobsRetRACSequenceByIDBlock _Nonnull)byReturn;
 +(JobsRetRACSequenceByVoidBlock _Nonnull)byEmpty;
 +(JobsRetRACSequenceByIDBlock _Nonnull)byZip;
@@ -215,10 +236,12 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBOOLByRACBoolPredicateBlock _Nonnull)byAny;
 -(JobsRetBOOLByRACBoolPredicateBlock _Nonnull)byAll;
 -(JobsRetIDByRACBoolPredicateBlock _Nonnull)byObjectPassingTest;
+
 @end
 
 #pragma mark —— RACTuple
 @interface RACTuple (JobsChain)
+
 +(JobsRetRACTupleByArrBlock _Nonnull)byTupleWithObjectsFromArray;
 -(JobsRetNSUIntegerByVoidBlock _Nonnull)byCount;
 -(JobsRetIDByVoidBlock _Nonnull)byFirst;
@@ -231,6 +254,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetArrByVoidBlock _Nonnull)byAllObjects;
 -(JobsRetRACTupleByIDBlock _Nonnull)byTupleByAddingObject;
 -(JobsRetRACSequenceByVoidBlock _Nonnull)byRacSequence;
+
 @end
 
 NS_ASSUME_NONNULL_END

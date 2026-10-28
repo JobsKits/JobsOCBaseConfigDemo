@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 平替 UIPickerView：https://github.com/agiapp/BRPickerView
 /// 适配说明：新版 BRPickerView 已移除 BRStringPickerView / BRAddressPickerView，统一迁移到 BRTextPickerView。
 @interface NSObject (BRPickerView)
+
 #pragma mark —— BRTextPickerView / BRDatePickerView
 /// UI
 Prop_strong()BRTextPickerView *textPickerView;

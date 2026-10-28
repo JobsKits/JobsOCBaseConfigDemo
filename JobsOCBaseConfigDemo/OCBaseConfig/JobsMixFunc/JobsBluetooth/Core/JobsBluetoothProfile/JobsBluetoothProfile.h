@@ -55,6 +55,7 @@ Prop_copy(readonly)JobsBluetoothProfile *(^byDecoder)(JobsBluetoothDecodeBlock d
 -(JobsRetJobsBluetoothProfileByCBUUIDBlock _Nonnull)byWriteCharacteristicUUID;
 -(JobsRetJobsBluetoothProfileByNSArrayCBUUIDBlock _Nonnull)byServiceUUIDs;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsBluetoothProfile
+
 @end
 
 NS_ASSUME_NONNULL_END

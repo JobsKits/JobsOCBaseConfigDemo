@@ -32,6 +32,7 @@ Prop_copy()NSString *rowTitle;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN MSCommentDetailModel
 -(JobsRetMSCommentDetailModelByNSStringBlock _Nonnull)byRowTitle;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END MSCommentDetailModel
+
 @end
 
 @interface MSCommentModel : BaseModel
@@ -44,6 +45,7 @@ Prop_strong()NSMutableArray <MSCommentDetailModel *>*commentDataMutArr;
 -(JobsRetMSCommentModelByNSStringBlock _Nonnull)bySectionSubTitle;
 -(JobsRetMSCommentModelByNSStringBlock _Nonnull)bySectionTitle;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END MSCommentModel
+
 @end
 
 NS_ASSUME_NONNULL_END

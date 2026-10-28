@@ -56,6 +56,7 @@ UITabBarControllerDelegate,
 UIGestureRecognizerDelegate,
 BaseProtocol
 >
+
 /// UI
 Prop_strong(readonly)JobsTabBar * _Nonnull myTabBar; // myTabBar.humpOffsetY 凸起的高度自定义，默认值30  offsetHeight
 /// Data
@@ -94,6 +95,7 @@ Prop_assign()BOOL isJumpToNextVC; // 当需要跳开的item,是否是需要直�
 -(void)setSelectedIndex:(NSUInteger)data;
 -(void)setViewControllers:(NSArray<__kindof UIViewController *> * _Nullable)data;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsTabBarVC
+
 @end
 
 NS_INLINE __kindof JobsTabBarVC *_Nonnull jobsMakeSharedManagerTabBarVC(jobsByTabBarVCBlock _Nonnull block){

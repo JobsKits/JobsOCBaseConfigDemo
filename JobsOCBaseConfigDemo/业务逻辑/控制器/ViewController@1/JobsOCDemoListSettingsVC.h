@@ -68,6 +68,7 @@ FOUNDATION_EXPORT void JobsOCSetDemoListCellTextDisplayStrategy(JobsOCDemoListCe
 -(JobsRetJobsOCDemoListSettingsVCByBOOLBlock _Nonnull)byShouldApplyAppEntryAfterReturning;
 -(JobsRetJobsOCDemoListSettingsVCByNSMutableIndexSetBlock _Nonnull)byExpandedSettingSectionIndexSet;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCDemoListSettingsVC
+
 @end
 
 NS_ASSUME_NONNULL_END

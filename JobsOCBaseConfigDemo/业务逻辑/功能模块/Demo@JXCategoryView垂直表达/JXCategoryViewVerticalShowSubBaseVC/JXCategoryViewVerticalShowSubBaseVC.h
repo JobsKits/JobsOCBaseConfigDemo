@@ -56,6 +56,7 @@ Prop_copy()NSString *pageTitle;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JXCategoryViewVerticalShowSubBaseVC
 -(JobsRetJXCategoryViewVerticalShowSubBaseVCByStrBlock _Nonnull)byCurrentTitleWritingLottieName;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JXCategoryViewVerticalShowSubBaseVC
+
 @end
 
 NS_ASSUME_NONNULL_END

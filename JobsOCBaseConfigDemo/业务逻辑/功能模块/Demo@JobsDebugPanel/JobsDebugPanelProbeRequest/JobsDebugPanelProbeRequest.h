@@ -22,6 +22,8 @@
 
 #if DEBUG
 @interface JobsDebugPanelProbeRequest : YTKRequest
+
 @end
+
 #endif
 

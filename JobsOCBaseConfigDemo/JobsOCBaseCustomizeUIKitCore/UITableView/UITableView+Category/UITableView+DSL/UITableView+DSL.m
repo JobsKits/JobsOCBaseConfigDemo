@@ -24,6 +24,7 @@ Prop_copy(nullable)jobsTableViewDidSelectRowAtBlock didSelectRowAtBlock;
 @end
 
 @implementation JobsTableViewBlocksProxy
+
 -(JobsRetIDByIDBlock _Nonnull)byTarget{
     @jobs_weakify(self)
     return ^id _Nullable(id _Nullable data){
@@ -81,6 +82,7 @@ Prop_weak(nullable)NSObject<UITableViewDataSource> *secondary;
 -(JobsRetJobsTableViewDataSourceMuxByNSObjectUITableViewDataSourceBlock _Nonnull)byPrimary;
 -(JobsRetJobsTableViewDataSourceMuxByNSObjectUITableViewDataSourceBlock _Nonnull)bySecondary;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsTableViewDataSourceMux
+
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsTableViewDataSourceMux
@@ -91,6 +93,7 @@ Prop_weak(nullable)NSObject<UITableViewDataSource> *secondary;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsTableViewDataSourceMux
 
 @implementation JobsTableViewDataSourceMux
+
 -(BOOL)respondsToSelector:(SEL)aSelector{
     JobsRetBOOLBySELBlock action = ((JobsRetBOOLBySELBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTableViewDataSourceMux.class, @selector(jobsRespondsToSelector)))(self, @selector(jobsRespondsToSelector));
     return action ? action(aSelector) : NO;
@@ -160,6 +163,7 @@ Prop_weak(nullable)NSObject<UITableViewDataSource> *secondary;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsTableViewDataSourceMux
+
 @end
 
 @interface JobsTableViewDelegateMux : NSObject <UITableViewDelegate, UIScrollViewDelegate>
@@ -171,6 +175,7 @@ Prop_weak(nullable)NSObject<UITableViewDelegate> *secondary;
 -(JobsRetJobsTableViewDelegateMuxByNSObjectUITableViewDelegateBlock _Nonnull)byPrimary;
 -(JobsRetJobsTableViewDelegateMuxByNSObjectUITableViewDelegateBlock _Nonnull)bySecondary;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsTableViewDelegateMux
+
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsTableViewDelegateMux
@@ -181,6 +186,7 @@ Prop_weak(nullable)NSObject<UITableViewDelegate> *secondary;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsTableViewDelegateMux
 
 @implementation JobsTableViewDelegateMux
+
 -(BOOL)respondsToSelector:(SEL)aSelector{
     JobsRetBOOLBySELBlock action = ((JobsRetBOOLBySELBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsTableViewDelegateMux.class, @selector(jobsRespondsToSelector)))(self, @selector(jobsRespondsToSelector));
     return action ? action(aSelector) : NO;
@@ -250,6 +256,7 @@ Prop_weak(nullable)NSObject<UITableViewDelegate> *secondary;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsTableViewDelegateMux
+
 @end
 
 static inline JobsTableViewBlocksProxy *jobs_tableViewBlocksProxy(UITableView *tableView, BOOL createIfNeeded){
@@ -299,6 +306,7 @@ static inline void jobs_installTableViewDelegateMux(UITableView *tableView){
 }
 
 @implementation UITableView (DSL)
+
 -(JobsRetTableViewByDataSourceBlock _Nonnull)byDataSource{
     @jobs_weakify(self)
     return ^__kindof UITableView * (id<UITableViewDataSource> _Nullable ds){

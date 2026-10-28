@@ -25,6 +25,7 @@ Prop_strong()CAShapeLayer *maskLayer;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END XLBubbleTransition
 
 @implementation XLBubbleTransition
+
 #pragma mark —— 初始化方法
 +(JobsRetIDByFrameBlock _Nonnull)transitionWithAnchorRect{
     return ^id(CGRect anchorRect){
@@ -245,4 +246,5 @@ Prop_strong()CAShapeLayer *maskLayer;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END XLBubbleTransition
+
 @end

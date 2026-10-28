@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN BaseNavigationBar
 -(JobsRetBaseNavigationBarByjobsByIDBlockBlock _Nonnull)byBaseNavigationBarBlock;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END BaseNavigationBar
+
 @end
 
 NS_ASSUME_NONNULL_END

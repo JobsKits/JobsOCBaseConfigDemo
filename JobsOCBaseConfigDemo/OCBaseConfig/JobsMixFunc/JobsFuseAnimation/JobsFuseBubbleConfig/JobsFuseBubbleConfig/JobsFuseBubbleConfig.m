@@ -8,6 +8,7 @@
 #import "JobsFuseBubbleConfig.h"
 
 @implementation JobsFuseBubbleConfig
+
 +(JobsRetJobsFuseBubbleConfigByVoidBlock _Nonnull)config {
     return ^__kindof JobsFuseBubbleConfig *{
         return JobsFuseBubbleConfig.alloc.init;

@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 UITextFieldDelegate
 ,UITextFieldProtocol
 >
+
 /// UI
 Prop_strong(nonnull) UITextField *realTextField;
 -(JobsRetUITextFieldByVoidBlock _Nonnull)jobsRealTextField;
@@ -53,6 +54,7 @@ Prop_strong(nonnull) UITextField *realTextField;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsTextField
 -(JobsRetJobsTextFieldByJobsRetIDByIDBlockBlock _Nonnull)byOtherActionBlock;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsTextField
+
 @end
 
 NS_ASSUME_NONNULL_END

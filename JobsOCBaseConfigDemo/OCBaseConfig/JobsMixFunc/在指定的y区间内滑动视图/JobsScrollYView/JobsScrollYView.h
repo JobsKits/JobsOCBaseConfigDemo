@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetJobsScrollYViewByCGPointBlock _Nonnull)byInitialTouchPoint;
 -(JobsRetJobsScrollYViewByCGSizeBlock _Nonnull)bySizer;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsScrollYView
+
 @end
 
 NS_ASSUME_NONNULL_END

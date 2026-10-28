@@ -8,6 +8,7 @@
 #import "HQCollectionViewFlowLayout.h"
 
 @implementation HQCollectionViewFlowLayout
+
 - (instancetype)init{
     if (self = [super init]){
         _naviHeight = 0.0f;

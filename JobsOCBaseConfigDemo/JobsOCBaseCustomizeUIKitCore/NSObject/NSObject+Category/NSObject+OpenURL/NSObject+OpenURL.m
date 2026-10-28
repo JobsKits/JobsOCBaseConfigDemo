@@ -8,6 +8,7 @@
 #import "NSObject+OpenURL.h"
 
 @implementation NSObject (OpenURL)
+
 #pragma mark —— 发送邮件
 /// @param mailComposeVC 外界自定义的发送邮件的VC，如传nil则用默认值
 -(void)jobsSendMailWithComposeVC:(MFMailComposeViewController *_Nullable)mailComposeVC

@@ -65,6 +65,7 @@ Prop_copy(nullable)JobsViewPushCompletionBlock onDismiss;
 -(JobsRetJobsViewPushPresentationByBOOLBlock _Nonnull)byPresented;
 -(JobsRetJobsViewPushPresentationByJobsViewPushTransitionViewBlock _Nonnull)byTransitionView;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsViewPushPresentation
+
 @end
 
 @interface UIView (JobsViewPush)

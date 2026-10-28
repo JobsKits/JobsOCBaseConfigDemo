@@ -17,6 +17,7 @@
 NS_ASSUME_NONNULL_BEGIN
 /// 来自 http://18.162.73.145:18100/api/promotion/doc.html#/default
 @interface NSObject (URLMgr_2)
+
 #pragma mark —— feign-support-controller
 /// 查看是否有流水卷或者存送卷@POST
 -(URLManagerModel *_Nonnull)post_promotion_feign_rolls_list;

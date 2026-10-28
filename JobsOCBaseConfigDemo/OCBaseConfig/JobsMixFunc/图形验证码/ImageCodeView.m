@@ -16,6 +16,7 @@ Prop_copy()jobsByIDBlock imageCodeViewBlock;
 @end
 
 @implementation ImageCodeView
+
 -(JobsRetImageCodeViewByArrBlock _Nonnull)byCodeArr{
     @jobs_weakify(self)
     return ^__kindof ImageCodeView *_Nullable(NSArray<NSString *> *_Nullable data){

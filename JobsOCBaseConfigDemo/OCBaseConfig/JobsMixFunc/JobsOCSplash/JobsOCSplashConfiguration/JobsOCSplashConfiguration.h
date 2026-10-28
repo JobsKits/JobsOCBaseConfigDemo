@@ -74,6 +74,7 @@ Prop_copy(nullable) JobsOCSplashSkipBlock onSkip;
 -(JobsRetJobsOCSplashConfigurationByNSStringBlock _Nonnull)byResourceName;
 -(JobsRetJobsOCSplashConfigurationByNSURLBlock _Nonnull)byRemoteURL;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCSplashConfiguration
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -8,6 +8,7 @@
 #import "NSNotificationKeyboardModel.h"
 
 @implementation NSNotificationKeyboardModel
+
 /**
  关于键盘弹起：
  1、建议用RAC进行键盘管理，因为过滤字符比如emoji字符会很难处理

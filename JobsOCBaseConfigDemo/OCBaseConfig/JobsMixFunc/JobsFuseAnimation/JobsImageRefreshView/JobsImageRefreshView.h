@@ -71,6 +71,7 @@ Prop_assign()CGSize indicatorSize;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsImageRefreshView
 -(JobsRetJobsImageRefreshViewByNSUIntegerBlock _Nonnull)byFrameIndex;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsImageRefreshView
+
 @end
 
 NS_ASSUME_NONNULL_END

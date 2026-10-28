@@ -28,6 +28,7 @@ Prop_strong()JobsClockView *clockView;
 @end
 
 @implementation JobsClockDemoVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

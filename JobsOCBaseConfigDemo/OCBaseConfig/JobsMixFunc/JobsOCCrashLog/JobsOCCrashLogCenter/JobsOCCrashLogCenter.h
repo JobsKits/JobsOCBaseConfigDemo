@@ -59,6 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetJobsOCCrashLogCenterByuint64_tBlock _Nonnull)byPeakFootprint;
 -(JobsRetJobsOCCrashLogCenterByuint64_tBlock _Nonnull)bySessionStartFootprint;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCCrashLogCenter
+
 @end
 
 NS_ASSUME_NONNULL_END

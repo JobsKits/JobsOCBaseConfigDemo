@@ -42,6 +42,7 @@ Prop_copy(nullable)jobsByStrBlock deleteBlock;
 -(JobsRetJobsOCSearcherRecordCellByNSStringBlock _Nonnull)byHistoryText;
 -(JobsRetJobsOCSearcherRecordCellByjobsByStrBlockBlock _Nonnull)byDeleteBlock;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCSearcherRecordCell
+
 @end
 
 NS_ASSUME_NONNULL_END

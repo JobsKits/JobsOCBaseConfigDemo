@@ -33,13 +33,13 @@
 
 ## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、功能与操作 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-1、启动 App 后，每个处于前台的业务 Scene 显示一个圆形按钮，按钮只使用随 App 打包的背景图。
+1、启动 App 后默认隐藏圆形按钮；摇动手机后，每个处于前台的业务 Scene 显示一个入口。重复摇动复用已有浮层，按钮只使用随 App 打包的背景图。
 
 2、首次点击按钮，从当前业务导航容器 `push` 出 `UITableView` 调试页面。当前页面没有导航容器时，以带关闭入口的导航容器模态展示调试页；其内部页面继续 `push`。再次点击同一圆形按钮会关闭调试流程并返回打开前的页面，之后可以重新打开。
 
 3、按钮可拖动，位置限制在业务窗口安全区内，旋转后重新钳制到可见范围。拖动不会触发点击或长按；每个 Scene 的位置只在当前浮层内保存，不持久化。
 
-4、长按按钮 `0.8` 秒隐藏本次 App 进程中的全部调试按钮。这个状态只在内存保存，重新启动 App 后恢复；退到后台再回前台不会恢复。
+4、长按按钮 `0.8` 秒隐藏全部悬浮入口；只隐藏窗口并保留控制器与拖动位置，不弹出 deinit / dealloc 提示。再次摇动手机即可恢复，退到后台再回前台不自动解除隐藏；重新启动 App 后仍默认隐藏。
 
 5、默认第一行是“App 环境切换”，点击后 `push` 二级环境列表，显示备注和完整 URL，当前环境用勾选标记。
 
@@ -88,7 +88,7 @@ JobsDebugPanel/
 
 ## <span id="jobs-toc-heading-5" data-jobs-toc="v2">四、AppDelegate 链式配置 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-环境模型把稳定标识、备注和 URL 收口；动作模型把标题、可选图片和行为收口。请在主线程完成配置，并把 `start()` 放在完整配置链的末尾。
+环境模型把稳定标识、备注和 URL 收口；动作模型把标题、可选图片和行为收口。请在主线程完成配置，并把 `start()` 放在完整配置链的末尾。`start()` 注册摇动事件与窗口生命周期监听，启动时不显示悬浮入口。
 
 ```objc
 #if DEBUG
@@ -137,9 +137,9 @@ JobsDebugPanelManager.sharedPanel
 | 环境配置 | Manager 的配置快照 | 只接受带有效 host 的 HTTP / HTTPS URL；相同 identifier 保留首次配置，无 identifier 时使用 URL。 |
 | 当前环境 | 当前进程与 `NSUserDefaults` | 持久化 identifier；启动优先恢复仍在配置内的旧值，再找默认 identifier，最后取首个有效环境。 |
 | 自定义动作 | Manager 的配置快照 | 标题、可选图片和行为一起复制，保持有效数组顺序。 |
-| 长按隐藏 | 当前进程的内存标志 | 覆盖全部 Scene，重新启动 App 后恢复，不与环境持久化混在一起。 |
+| 入口显隐 | 当前进程的内存标志 | 启动隐藏，摇动显示；长按隐藏全部 Scene 的入口，再次摇动恢复，不与环境持久化混在一起。 |
 | 入口位置 | 每个浮层的内存状态 | 安全区内拖动，按钮边缘与安全区留出 `8` 点距离；旋转重新钳制，浮层重建后恢复默认位置。 |
-| 浮层窗口 | 按 Scene session identifier 管理 | 每个前台 Scene 独立挂载；业务宿主 Window 更换时重建绑定，Scene 退出时清理。 |
+| 浮层窗口 | 按 Scene session identifier 管理 | 首次摇动后各前台 Scene 独立挂载；业务宿主 Window 更换时重建绑定，Scene 退出时清理。 |
 
 没有有效环境时，二级列表显示完整的按钮空态与重新加载入口。旧式 App 生命周期在没有 Scene 的情况下使用当前业务 Window，不能只按系统版本推断一定存在 Scene。
 
@@ -173,8 +173,8 @@ JobsDebugPanelManager.sharedPanel
   </thead>
   <tbody>
     <tr><td>宿主 AppDelegate</td><td>声明环境、默认标识、自定义动作与环境变化回调</td><td>环境 Model / 动作 Model → Manager 配置链 → start()</td></tr>
-    <tr><td>进程状态 Manager</td><td>校验快照、恢复环境、保存 identifier、管理本次启动隐藏状态</td><td>启动恢复 / 用户选择 → 当前环境 → 回调与通知 → 宿主后续请求</td></tr>
-    <tr><td>Scene 浮层</td><td>绑定当前业务 Window、创建透明高层窗口、只截获按钮触摸</td><td>Scene 生命周期 → 每个 Scene 的 OverlayWindow → 圆形 UIButton</td></tr>
+    <tr><td>进程状态 Manager</td><td>校验快照、恢复环境、保存 identifier、管理入口显隐状态</td><td>启动恢复 / 用户选择 → 当前环境 → 回调与通知 → 宿主后续请求</td></tr>
+    <tr><td>Scene 浮层</td><td>绑定当前业务 Window、创建透明高层窗口、只截获按钮触摸</td><td>摇动与 Scene 生命周期 → 每个 Scene 的 OverlayWindow → 圆形 UIButton</td></tr>
     <tr><td>调试菜单页面</td><td>首行环境入口、自定义动作、可复用 Cell</td><td>UIButton 点击 → 当前业务导航 push → UITableView → 对应动作</td></tr>
     <tr><td>二级环境页面</td><td>展示备注 / URL、标记当前值、处理空态与重新加载</td><td>选择配置项 → Manager.selectEnvironment → 持久化 → 列表更新</td></tr>
     <tr><td>宿主业务请求</td><td>消费当前 URL，处理成功响应、超时与本地演示回退</td><td>Demo 请求 /get → 真实结果或本地示例；请求策略留在宿主</td></tr>
@@ -183,7 +183,7 @@ JobsDebugPanelManager.sharedPanel
 
 ### <span id="jobs-toc-heading-11" data-jobs-toc="v2">8.2、设计边界与阅读顺序 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-先读环境 / 动作 Model，再读 Manager，最后读菜单与浮层。环境和菜单是进程级配置，窗口和导航属于各自 Scene；两种生命周期分开管理。长按隐藏只结束本次进程的入口展示，不删除已保存的环境。
+先读环境 / 动作 Model，再读 Manager，最后读菜单与浮层。环境和菜单是进程级配置，窗口和导航属于各自 Scene；两种生命周期分开管理。长按隐藏只改变当前入口显隐，不删除已保存的环境；再次摇动恢复。兼容入口 `hideForCurrentLaunch()` 当前语义为“隐藏至下次摇动”，不会改变全局控制器销毁提示开关。
 
 - [JobsDebugEnvironment.h](./Core/JobsDebugEnvironment/JobsDebugEnvironment.h)：稳定 identifier、备注和 URL。
 - [JobsDebugAction.h](./Core/JobsDebugAction/JobsDebugAction.h)：标题、可选图片与点击行为。
@@ -197,7 +197,7 @@ JobsDebugPanelManager.sharedPanel
 
 2、分别编译宿主 `Debug` 与 `Release`；Debug 核验按钮与两级页面，Release 核验二进制没有调试类，且不存在对应 Demo 入口。
 
-3、运行覆盖环境恢复、无有效环境、动作顺序、业务页面触摸穿透、长按后前后台切换、进程重启恢复、无导航容器展示和多 Scene 宿主 Window 更换。另需覆盖入口拖到四边、旋转后可见、拖动不打开菜单且不隐藏，以及菜单 / 环境页 / 自定义动作页 / 弹窗再次点圆按钮退出并重开，手动返回后按钮状态复原，Demo / 菜单 / 环境页 / 弹窗即时切换主题；分别验证系统黑夜 + App 白天、系统白天 + App 黑夜。仅编译通过不能代替这些运行时证据。
+3、运行覆盖环境恢复、无有效环境、动作顺序、业务页面触摸穿透、冷启动默认隐藏、摇动显示、重复摇动不叠加、长按隐藏且不弹 deinit / dealloc 提示、再次摇动恢复、长按后前后台切换仍隐藏、进程重启后仍隐藏、无导航容器展示和多 Scene 宿主 Window 更换。另需覆盖入口拖到四边、旋转后可见、拖动不打开菜单且不隐藏，以及菜单 / 环境页 / 自定义动作页 / 弹窗再次点圆按钮退出并重开，手动返回后按钮状态复原，Demo / 菜单 / 环境页 / 弹窗即时切换主题；分别验证系统黑夜 + App 白天、系统白天 + App 黑夜。仅编译通过不能代替这些运行时证据。
 
 此模块在老工程保持主工程集成形态，配置 API、交互和资源内容保持一致。
 

@@ -53,6 +53,7 @@ Prop_copy()NSString *customCSS;
 -(JobsRetJobsOCMarkdownConfigurationByJobsOCMarkdownAppearanceBlock _Nonnull)byAppearance;
 -(JobsRetJobsOCMarkdownConfigurationByNSStringBlock _Nonnull)byCustomCSS;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCMarkdownConfiguration
+
 @end
 
 NS_ASSUME_NONNULL_END

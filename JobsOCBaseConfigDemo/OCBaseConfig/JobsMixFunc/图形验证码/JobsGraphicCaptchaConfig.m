@@ -18,6 +18,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsGraphicCaptchaConfig
 
 @implementation JobsGraphicCaptchaConfig
+
 -(instancetype)init{
     if (self = [super init]) {
         _length = 4;
@@ -180,4 +181,5 @@
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsGraphicCaptchaConfig
+
 @end

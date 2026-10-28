@@ -14,6 +14,7 @@
 @end
 
 @implementation BaseCollectionView
+
 BaseViewProtocol_synthesize
 -(instancetype)init{
     if (self = [super init]) {

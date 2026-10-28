@@ -8,6 +8,7 @@
 #import "Ipinfo_api.h"
 
 @implementation Ipinfo_api
+
 /// 请求的完整URL：提供详细的IP信息@GET
 /// https://ipinfo.io/json
 -(NSString *)requestUrl{

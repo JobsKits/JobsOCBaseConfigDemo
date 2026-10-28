@@ -8,6 +8,7 @@
 #import "UITableViewCell+UITableViewCellProtocol.h"
 
 @implementation UITableViewCell (UITableViewCellProtocol)
+
 #pragma mark —— UITableViewCellProtocol
 UITableViewCellProtocol_dynamic
 +(JobsRetTableViewCellByCellStyleBlock _Nonnull)initTableViewCellWithStyle{

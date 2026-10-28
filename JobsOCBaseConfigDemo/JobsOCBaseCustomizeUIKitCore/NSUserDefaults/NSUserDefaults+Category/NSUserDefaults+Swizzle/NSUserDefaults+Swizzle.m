@@ -8,6 +8,7 @@
 #import "NSUserDefaults+Swizzle.h"
 
 @implementation NSUserDefaults (Swizzle)
+
 +(void)load{
     {// Object
         {// 存

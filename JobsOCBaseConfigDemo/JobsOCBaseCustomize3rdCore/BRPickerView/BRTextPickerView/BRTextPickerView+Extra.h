@@ -24,6 +24,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BRTextPickerView (Extra)
+
 /// 链式初始化：BRTextPickerView.initBy(BRTextPickerComponentSingle)
 +(BRPickerViewExtraRetTextPickerViewByPickerModeBlock)initBy;
 -(JobsRetBRTextPickerViewByPickerModeBlock _Nonnull)byPickerMode;
@@ -46,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetBRDatePickerViewByNSDateBlock _Nonnull)byMaxDate;
 -(void)setMaxDate:(NSDate * _Nullable)data;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END BRDatePickerView
+
 @end
 
 NS_ASSUME_NONNULL_END

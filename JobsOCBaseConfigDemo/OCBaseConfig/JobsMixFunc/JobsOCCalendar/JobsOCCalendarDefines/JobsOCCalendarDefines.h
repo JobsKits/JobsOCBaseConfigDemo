@@ -61,6 +61,7 @@ typedef NS_OPTIONS(NSUInteger, JobsOCCalendarCaseOptions) {
                               cellForDate:(NSDate *)date
                            atMonthPosition:(JobsOCCalendarMonthPosition)position;
 -(NSInteger)calendar:(JobsOCCalendar *)calendar numberOfEventsForDate:(NSDate *)date;
+
 @end
 
 @protocol JobsOCCalendarDelegate <NSObject>
@@ -86,6 +87,7 @@ willDisplayCell:(JobsOCCalendarDayCell *)cell
 atMonthPosition:(JobsOCCalendarMonthPosition)monthPosition;
 -(void)calendarCurrentPageDidChange:(JobsOCCalendar *)calendar;
 -(jobsByJobsOCCalendarBlock _Nonnull)jobsCalendarCurrentPageDidChange;
+
 @end
 
 @protocol JobsOCCalendarDelegateAppearance <NSObject>
@@ -102,6 +104,7 @@ subtitleDefaultColorForDate:(NSDate *)date;
 -(nullable UIColor *)calendar:(JobsOCCalendar *)calendar
                    appearance:(JobsOCCalendarAppearance *)appearance
 selectionColorForDate:(NSDate *)date;
+
 @end
 
 NS_ASSUME_NONNULL_END

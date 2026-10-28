@@ -16,6 +16,7 @@
 #import "UIView+Extra.h"
 
 @interface JobsBtnsStyleCVCell ()
+
 /// UI
 Prop_strong()BaseButton *leftBtn;
 Prop_strong()BaseButton *rightBtn;
@@ -26,6 +27,7 @@ Prop_strong()UIButtonModel *rightBtnVM;
 @end
 
 @implementation JobsBtnsStyleCVCell
+
 /// UIViewModelProtocol
 UIViewModelProtocol_synthesize_part1
 UIViewModelProtocol_synthesize_part2

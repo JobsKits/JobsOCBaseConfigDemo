@@ -14,5 +14,6 @@
 -(instancetype)initWithPanel:(JobsDebugPanelManager *)panel;
 
 @end
+
 #endif
 

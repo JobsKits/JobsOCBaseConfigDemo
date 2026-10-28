@@ -8,6 +8,7 @@
 #import "UIImage+JobsMosaicDemo.h"
 
 @implementation UIImage (JobsMosaicDemo)
+
 -(JobsRetImageByVoidBlock _Nonnull)jobs_mosaicNormalizedImage{
     @jobs_weakify(self)
     return ^UIImage *_Nullable{
@@ -99,6 +100,7 @@
 @end
 
 @implementation UIImageView (JobsMosaicDemo)
+
 -(JobsRetFrameByCGSizeBlock _Nonnull)jobs_mosaicImageFrameForImageSize{
     @jobs_weakify(self)
     return ^CGRect(CGSize imageSize){

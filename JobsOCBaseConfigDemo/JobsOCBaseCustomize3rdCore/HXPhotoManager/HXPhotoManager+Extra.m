@@ -8,6 +8,7 @@
 #import "HXPhotoManager+Extra.h"
 
 @implementation HXPhotoManager (Extra)
+
 +(JobsRetHXPhotoManagerByNSUIntegerBlock _Nonnull)initByType{
     return ^__kindof HXPhotoManager *_Nonnull(HXPhotoManagerSelectedType type){
         return [HXPhotoManager.alloc initWithType:type];

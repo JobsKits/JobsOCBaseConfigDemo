@@ -20,6 +20,7 @@ static inline void jobs_trySetBoolByKVC(id obj, NSString *key, BOOL value) {
 }
 
 @interface JobsTimerMgr ()
+
 Prop()dispatch_queue_t isolationQueue;
 Prop_strong()NSMutableDictionary<NSString *, _JobsTimerMgrEntry *> *entries;
 Prop_strong()NSMutableSet<NSString *> *pausedScopeIdentifiers;
@@ -43,6 +44,7 @@ Prop_strong(nullable)id didBecomeActiveToken;
 @end
 
 @implementation JobsTimerMgr
+
 - (void)dealloc {
     [self jobsTeardownAppStateObserversInternal];
     // 此时所有外部强引用已释放，直接取现有 ivar，避免创建 weak self 或重新唤醒懒加载。

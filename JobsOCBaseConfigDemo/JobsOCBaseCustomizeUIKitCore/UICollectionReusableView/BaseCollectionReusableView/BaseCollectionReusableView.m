@@ -14,6 +14,7 @@
 @end
 
 @implementation BaseCollectionReusableView
+
 /// UITextFieldProtocol
 UITextFieldProtocol_synthesize_part2
 /// UIPictureAndBackGroundCorProtocol

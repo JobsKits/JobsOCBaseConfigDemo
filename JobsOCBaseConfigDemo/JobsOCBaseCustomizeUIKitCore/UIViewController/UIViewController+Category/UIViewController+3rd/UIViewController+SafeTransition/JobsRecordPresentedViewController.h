@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_strong()NSMutableArray <__kindof UIViewController *>*presentedVCMutArr;
 
 @end
+
 #endif
 
 NS_ASSUME_NONNULL_END

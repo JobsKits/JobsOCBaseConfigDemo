@@ -23,6 +23,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @interface JobsAppDoorInputViewBaseStyleModel : UIViewModel
+
 #pragma mark —— 关于左右的标识图
 Prop_strong(nullable)UIImage *leftViewIMG;
 Prop_strong(nullable)UIImage *selectedSecurityBtnIMG;
@@ -78,6 +79,7 @@ Prop_assign()CGFloat moveDistance;///  移动距离,默认为field高度的一�
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsAppDoorInputViewBaseStyleModel
 -(JobsRetJobsAppDoorInputViewBaseStyleModelByBOOLBlock _Nonnull)byShowSecurityBtn;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyleModel
+
 @end
 
 NS_ASSUME_NONNULL_END

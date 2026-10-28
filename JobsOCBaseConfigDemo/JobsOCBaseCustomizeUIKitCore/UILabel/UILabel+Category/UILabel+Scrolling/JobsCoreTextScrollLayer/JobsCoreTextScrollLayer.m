@@ -185,4 +185,5 @@ Prop_assign(readwrite)CGFloat textLayoutWidth;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsCoreTextScrollLayer
+
 @end

@@ -47,6 +47,7 @@ Prop_copy(nullable) JobsOCVideoRecorderCompletionBlock completionBlock;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCVideoRecorderConfig
 -(JobsRetJobsOCVideoRecorderConfigByIDJobsOCVideoRecorderFilterProtocolBlock _Nonnull)byFilterProcessor;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCVideoRecorderConfig
+
 @end
 
 NS_ASSUME_NONNULL_END

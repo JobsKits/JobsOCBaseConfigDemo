@@ -61,6 +61,7 @@ Prop_assign(readonly)NSUInteger tappedCount;
 -(JobsRetJobsRedPacketRainViewByNSUIntegerBlock _Nonnull)byTappedCount;
 -(JobsRetJobsRedPacketRainViewByvoidJobsRedPacketRainViewrainViewNSUIntegertappedCountBlock _Nonnull)byTapCallback;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsRedPacketRainView
+
 @end
 
 NS_ASSUME_NONNULL_END

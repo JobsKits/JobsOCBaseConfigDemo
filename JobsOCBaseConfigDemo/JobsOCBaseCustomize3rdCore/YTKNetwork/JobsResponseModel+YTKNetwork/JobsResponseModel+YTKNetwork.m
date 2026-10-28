@@ -8,6 +8,7 @@
 #import "JobsResponseModel+YTKNetwork.h"
 
 @implementation JobsResponseModel (YTKNetwork)
+
 JobsKey(_code)
 @dynamic code;
 

@@ -27,6 +27,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UITextField (Animation)
+
 #pragma mark —— 一些动画
 /// 输入的和某个预设定值不一致的时候，抖动动画
 -(jobsByStrBlock _Nonnull)isValidate;

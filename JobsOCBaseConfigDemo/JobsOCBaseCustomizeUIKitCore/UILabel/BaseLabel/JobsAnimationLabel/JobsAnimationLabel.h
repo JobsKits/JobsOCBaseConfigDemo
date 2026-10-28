@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetJobsAnimationLabelByNSIntegerBlock _Nonnull)byDisplayPerSecond;
 -(JobsRetJobsAnimationLabelByvoidUILabellabelCGFloatvalueBlock _Nonnull)byComplete;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAnimationLabel
+
 @end
 
 NS_ASSUME_NONNULL_END

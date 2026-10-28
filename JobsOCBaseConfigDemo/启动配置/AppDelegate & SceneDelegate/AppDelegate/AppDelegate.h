@@ -38,6 +38,7 @@ UIApplicationDelegate,
 UNUserNotificationCenterDelegate,
 BaseProtocol
 >
+
 /// UI
 Prop_strong()UIWindow *window;/// 仅仅为了iOS 13 版本向下兼容而存在
 /// Data
@@ -54,6 +55,7 @@ Prop_assign()BOOL allowOrentitaionRotation;
 +(JobsRetAppDelegateByNSMutableArrayNSStringBlock _Nonnull)byTabBarItemTitleMutArr;
 +(void)setTabBarItemTitleMutArr:(NSMutableArray <__kindof NSString *>* _Nullable)data;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END AppDelegate
+
 @end
 
 #pragma clang diagnostic pop

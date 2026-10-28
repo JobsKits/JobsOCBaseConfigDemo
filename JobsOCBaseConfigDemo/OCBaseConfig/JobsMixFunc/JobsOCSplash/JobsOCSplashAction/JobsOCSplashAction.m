@@ -18,6 +18,7 @@ Prop_copy(nullable) JobsOCSplashActionBlock customBlock;
 @end
 
 @implementation JobsOCSplashAction
+
 -(JobsRetJobsOCSplashActionByActionTypeBlock _Nonnull)byType{
     @jobs_weakify(self)
     return ^__kindof JobsOCSplashAction *_Nullable(JobsOCSplashActionType data){

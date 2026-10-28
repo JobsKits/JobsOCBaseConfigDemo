@@ -15,6 +15,7 @@ Prop_strong()UIImageView *mainImgV;
 
 static dispatch_once_t JobsAppDoorLogoContentViewDispatchOnce;
 @implementation JobsAppDoorLogoContentView
+
 #pragma mark —— Lifecycle
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);

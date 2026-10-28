@@ -10,6 +10,7 @@
 #import "NSObject+Extra.h"
 /// 来自 http://18.162.73.145:18100/api/promotion/doc.html#/default
 @implementation NSObject (URLMgr_2)
+
 #pragma mark —— feign-support-controller
 /// 查看是否有流水卷或者存送卷@POST
 -(URLManagerModel *_Nonnull)post_promotion_feign_rolls_list{

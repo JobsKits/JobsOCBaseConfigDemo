@@ -47,6 +47,7 @@ Prop_strong()JobsAppDoorGraphicCaptchaConfig *graphicCaptchaConfig;
 -(JobsRetJobsAppDoorRegisterConfigByBOOLBlock _Nonnull)byShowsMobileBinding;
 -(JobsRetJobsAppDoorRegisterConfigByJobsAppDoorGraphicCaptchaConfigBlock _Nonnull)byGraphicCaptchaConfig;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorRegisterConfig
+
 @end
 
 NS_ASSUME_NONNULL_END

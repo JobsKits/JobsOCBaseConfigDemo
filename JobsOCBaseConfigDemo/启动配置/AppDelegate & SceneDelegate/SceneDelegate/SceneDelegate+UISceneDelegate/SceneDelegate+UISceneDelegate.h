@@ -15,6 +15,7 @@
 #import "JobsOCDSL.h"
 #import "JobsAppToolsHeader.h"
 #import "JobsDefines.h"
+#import "JobsOCDeviceGuardLaunchGate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

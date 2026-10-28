@@ -34,6 +34,7 @@ Prop_copy()jobsByIDBlock suspendViewBlock;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsSuspendView
 -(JobsRetJobsSuspendViewByjobsByIDBlockBlock _Nonnull)bySuspendViewBlock;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsSuspendView
+
 @end
 
 NS_ASSUME_NONNULL_END

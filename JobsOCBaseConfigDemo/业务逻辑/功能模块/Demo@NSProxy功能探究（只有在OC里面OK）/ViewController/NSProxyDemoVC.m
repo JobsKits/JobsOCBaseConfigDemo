@@ -12,6 +12,7 @@
 @end
 
 @implementation NSProxyDemoVC
+
 -(void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);

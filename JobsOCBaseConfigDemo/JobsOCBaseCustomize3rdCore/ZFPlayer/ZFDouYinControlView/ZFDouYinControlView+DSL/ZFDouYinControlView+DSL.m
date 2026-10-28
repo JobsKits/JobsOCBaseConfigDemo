@@ -8,6 +8,7 @@
 #import "ZFDouYinControlView+DSL.h"
 
 @implementation ZFDouYinControlView (DSL)
+
 -(JobsRetZFDouYinControlViewByPlayerBlock _Nonnull)byPlayer{
     @jobs_weakify(self)
     return ^__kindof ZFDouYinControlView *_Nullable(ZFPlayerController *_Nullable data){

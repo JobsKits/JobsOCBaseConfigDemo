@@ -26,6 +26,7 @@
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END NSMutableURLRequest
 
 @implementation JobsBaseApi
+
 #pragma mark —— 覆写 YTKBaseRequest 方法
 -(__kindof NSURLRequest *)buildCustomUrlRequest{
     JobsRetURLRequestByVoidBlock action = ((JobsRetURLRequestByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsBaseApi.class, @selector(jobsBuildCustomUrlRequest)))(self, @selector(jobsBuildCustomUrlRequest));
@@ -137,6 +138,7 @@
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsBaseApi
+
 @end
 
 // JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN NSMutableURLRequest

@@ -8,6 +8,7 @@
 #import "_JobsTimerMgrEntry.h"
 
 @implementation _JobsTimerMgrEntry
+
 - (instancetype)init {
     if (self = [super init]) {
         _pauseState = _JobsTimerPauseStateRunning;
@@ -34,6 +35,7 @@
 @end
 
 @implementation _JobsTimerMgrEntry (DSL)
+
 -(JobsRetJobsTimerMgrEntryByJobsTimerBlock _Nonnull)byTimer{
     return ^__kindof _JobsTimerMgrEntry *_Nullable(JobsTimer<TimerProtocol> *_Nullable timer) {
         self.timer = timer;

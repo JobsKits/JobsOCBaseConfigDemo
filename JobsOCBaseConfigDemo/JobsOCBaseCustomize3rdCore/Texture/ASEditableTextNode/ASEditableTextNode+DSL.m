@@ -14,6 +14,7 @@ JobsKey(kJobsETNBeginBlockKey)
 JobsKey(kJobsETNChangeBlockKey)
 JobsKey(kJobsETNEndBlockKey)
 @implementation ASEditableTextNode (DSL)
+
 -(JobsRetEditableTextNodeByBoolBlock _Nonnull)byScrollEnabled{
     @jobs_weakify(self)
     return ^ASEditableTextNode* (BOOL flag){

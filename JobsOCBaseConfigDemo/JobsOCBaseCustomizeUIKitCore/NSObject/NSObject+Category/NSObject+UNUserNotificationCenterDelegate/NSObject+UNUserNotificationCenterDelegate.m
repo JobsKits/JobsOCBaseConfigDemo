@@ -8,6 +8,7 @@
 #import "NSObject+UNUserNotificationCenterDelegate.h"
 
 @implementation NSObject (UNUserNotificationCenterDelegate)
+
 #pragma mark —— 一些私有方法
 -(jobsByNotificationResponseBlock _Nonnull)handleCalendarCategoryAction{
     return ^(UNNotificationResponse *_Nullable response){

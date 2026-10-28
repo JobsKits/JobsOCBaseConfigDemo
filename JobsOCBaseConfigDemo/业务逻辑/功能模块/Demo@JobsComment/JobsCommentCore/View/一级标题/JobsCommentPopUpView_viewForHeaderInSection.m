@@ -8,6 +8,7 @@
 #import "JobsCommentPopUpView_viewForHeaderInSection.h"
 
 @interface JobsCommentPopUpView_viewForHeaderInSection ()
+
 /// UI
 Prop_strong()BaseButton *userInfoBtn;
 Prop_strong()RBCLikeButton *likeBtn;
@@ -25,6 +26,7 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsCommentPopUpView_viewForHeaderInSection
 
 @implementation JobsCommentPopUpView_viewForHeaderInSection
+
 -(instancetype)init{
     if (self = [super init]) {
     };return self;
@@ -203,4 +205,5 @@ Prop_strong()JobsFirstCommentModel *firstCommentModel;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsCommentPopUpView_viewForHeaderInSection
+
 @end

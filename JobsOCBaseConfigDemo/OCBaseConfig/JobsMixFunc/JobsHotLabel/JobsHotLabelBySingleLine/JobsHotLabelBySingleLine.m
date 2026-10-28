@@ -8,6 +8,7 @@
 #import "JobsHotLabelBySingleLine.h"
 
 @interface JobsHotLabelBySingleLine (){
+
     CGSize btnSize;
     CGFloat width;
 }
@@ -28,6 +29,7 @@ Prop_assign()NSUInteger lastLayoutButtonCount;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsHotLabelBySingleLine
 
 @implementation JobsHotLabelBySingleLine
+
 -(JobsRetJobsHotLabelBySingleLineByUILabelShowingTypeBlock _Nonnull)byLabelShowingType{
     @jobs_weakify(self)
     return ^__kindof JobsHotLabelBySingleLine *_Nullable(UILabelShowingType data){
@@ -331,4 +333,5 @@ Prop_assign()NSUInteger lastLayoutButtonCount;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsHotLabelBySingleLine
+
 @end

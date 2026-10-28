@@ -18,6 +18,7 @@ Prop_copy()jobsByCtrlBlock handler;
 @end
 
 @implementation _JobsClosureWrapper
+
 -(instancetype)initWithHandler:(jobsByCtrlBlock)handler{
     if ( self = [super init]){
         _handler = [handler copy];
@@ -41,6 +42,7 @@ Prop_copy()jobsByCtrlBlock handler;
 }
 
 @end
+
 /// 辅助函数：注册事件 + Block
 static const void *JobsClosureWrappersKey = &JobsClosureWrappersKey;
 
@@ -94,6 +96,7 @@ static void JobsRemoveClosureActions(UIControl *control,
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UIControl
 
 @implementation UIControl (DSL)
+
 -(JobsRetControlByHandlerBlock _Nonnull)onJobsTap{
     @jobs_weakify(self)
     return ^__kindof UIControl * _Nullable (jobsByCtrlBlock handler){
@@ -405,4 +408,5 @@ static void JobsRemoveClosureActions(UIControl *control,
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UIControl
+
 @end

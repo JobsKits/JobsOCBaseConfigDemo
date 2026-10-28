@@ -9,6 +9,7 @@
 #import "UIImage+YBGIF.h"
 
 @implementation UIImage (YBGIF)
+
 /// 根据NSData* 创建gif图片
 +(JobsRetImageByDataBlock _Nonnull)animatedGIFWithData{
     return ^UIImage *(NSData * _Nullable data){

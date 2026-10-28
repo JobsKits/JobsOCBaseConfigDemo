@@ -86,6 +86,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (YTKNetworks)<YTKChainRequestDelegate>
+
 #pragma mark —— 示例代码
 /// 普通的单个请求
 -(jobsByjobsByResponseModelBlockBlock _Nonnull)loadCacheData;
@@ -103,6 +104,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 上传KYC的图片@POST
 -(void)uploadKYCImage:(NSData *)image
          successBlock:(jobsByResponseModelBlock _Nullable)successBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

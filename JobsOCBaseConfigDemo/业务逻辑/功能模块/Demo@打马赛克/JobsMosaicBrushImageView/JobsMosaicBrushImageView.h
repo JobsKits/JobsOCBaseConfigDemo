@@ -42,6 +42,7 @@ Prop_assign()BOOL brushEnabled;
 -(JobsRetJobsMosaicBrushImageViewByIDJobsMosaicBrushImageViewDelegateBlock _Nonnull)byBrushDelegate;
 -(void)setBrushDelegate:(id <JobsMosaicBrushImageViewDelegate> _Nullable)data;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsMosaicBrushImageView
+
 @end
 
 NS_ASSUME_NONNULL_END

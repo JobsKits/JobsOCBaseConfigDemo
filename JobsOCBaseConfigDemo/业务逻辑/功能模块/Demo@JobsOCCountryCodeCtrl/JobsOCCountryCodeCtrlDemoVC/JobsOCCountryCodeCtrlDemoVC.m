@@ -8,6 +8,7 @@
 #import "JobsOCCountryCodeCtrlDemoVC.h"
 
 @interface JobsOCCountryCodeCtrlDemoVC ()
+
 /// UI
 Prop_strong()UITextField *countryCodeTextField;
 Prop_strong()BaseButton *selectBtn;
@@ -15,6 +16,7 @@ Prop_strong()BaseButton *selectBtn;
 @end
 
 @implementation JobsOCCountryCodeCtrlDemoVC
+
 -(void)loadView{
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCCountryCodeCtrlDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
     if (action) action();

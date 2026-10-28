@@ -59,6 +59,7 @@ Prop_assign(readonly,getter=isAnimating)BOOL animating;
 -(JobsRetJobsTodayNewsRefreshViewByBOOLBlock _Nonnull)byAccessibilityElement;
 -(JobsRetJobsTodayNewsRefreshViewByNSStringBlock _Nonnull)byAccessibilityLabel;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsTodayNewsRefreshView
+
 @end
 
 NS_ASSUME_NONNULL_END

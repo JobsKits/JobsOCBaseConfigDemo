@@ -91,6 +91,7 @@ UITableViewDelegate
 -(JobsRetJobsOCRootFoldTableCellByjobsByNSIntegerBlockBlock _Nonnull)byPinBlock;
 -(JobsRetJobsOCRootFoldTableCellByjobsByNSIntegerBlockBlock _Nonnull)bySelectBlock;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCRootFoldTableCell
+
 @end
 
 NS_ASSUME_NONNULL_END

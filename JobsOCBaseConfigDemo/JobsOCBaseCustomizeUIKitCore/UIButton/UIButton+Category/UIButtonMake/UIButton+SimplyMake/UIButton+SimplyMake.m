@@ -8,6 +8,7 @@
 #import "UIButton+SimplyMake.h"
 
 @implementation UIButton (SimplyMake)
+
 #pragma mark —— 一些公共方法
 /// 数据挂载
 -(JobsRetBtnByIDBlock _Nonnull)modelDataBy{

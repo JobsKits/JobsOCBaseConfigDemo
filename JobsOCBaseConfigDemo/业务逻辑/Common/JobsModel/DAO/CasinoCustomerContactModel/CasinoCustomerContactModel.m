@@ -8,6 +8,7 @@
 #import "CasinoCustomerContactModel.h"
 
 @implementation CasinoCustomerContactElementModel
+
 +(NSDictionary *)mj_replacedKeyFromPropertyName{
     return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(CasinoCustomerContactElementModel.class, @selector(jobsMJReplacedKeyFromPropertyName)))(self, @selector(jobsMJReplacedKeyFromPropertyName)))();
 }
@@ -21,6 +22,7 @@
 @end
 
 @implementation CasinoCustomerContactModel
+
 +(NSDictionary *)mj_objectClassInArray{
     return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(CasinoCustomerContactModel.class, @selector(jobsMJObjectClassInArray)))(self, @selector(jobsMJObjectClassInArray)))();
 }

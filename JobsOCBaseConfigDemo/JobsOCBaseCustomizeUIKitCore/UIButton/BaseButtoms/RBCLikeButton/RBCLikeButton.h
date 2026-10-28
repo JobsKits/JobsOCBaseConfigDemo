@@ -47,5 +47,7 @@ Prop_assign()RBCLikeButtonStatus thumbStatus;/// 按钮状态
 -(JobsRetRBCLikeButtonByBOOLBlock _Nonnull)byNeedAnimation;
 -(JobsRetRBCLikeButtonByNSIntegerBlock _Nonnull)byThumpNum;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END RBCLikeButton
+
 @end
+
 #endif /* JOBS_HEADER_GUARD_RBCLIKEBUTTON_2909D184F3 */

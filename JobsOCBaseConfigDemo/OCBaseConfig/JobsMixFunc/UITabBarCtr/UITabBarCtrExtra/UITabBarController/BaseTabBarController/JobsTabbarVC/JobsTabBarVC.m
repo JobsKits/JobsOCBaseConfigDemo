@@ -46,6 +46,7 @@ static BOOL JobsTabBarVCIsLogin(id target) {
 }
 
 @interface JobsTabBarVC (){
+
     BOOL A;
 }
 /// UI
@@ -73,6 +74,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*pullListAutoSizeViewMutArr;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsTabBarVC
 
 @implementation JobsTabBarVC
+
 -(JobsRetJobsTabBarVCByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^__kindof JobsTabBarVC *_Nullable(id<UITabBarControllerDelegate> _Nullable delegate){
@@ -783,4 +785,5 @@ shouldSelectViewController:(UIViewController *)viewController {
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsTabBarVC
+
 @end

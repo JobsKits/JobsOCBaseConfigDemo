@@ -49,6 +49,7 @@ Prop_assign(getter=isProtectionEnabled)BOOL protectionEnabled;
 -(JobsRetJobsScreenshotProtectionViewByBOOLBlock _Nonnull)byProtectionAvailable;
 -(JobsRetJobsScreenshotProtectionViewByBOOLBlock _Nonnull)byProtectionEnabled;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsScreenshotProtectionView
+
 @end
 
 NS_ASSUME_NONNULL_END

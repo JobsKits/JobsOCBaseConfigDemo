@@ -24,6 +24,7 @@
 #endif /* CloseBtnModel */
 
 @interface JobsNavBar ()
+
 /// UI
 Prop_strong()BaseButton *backBtn;
 Prop_strong()UILabel *titleLab;
@@ -38,6 +39,7 @@ Prop_strong()BaseButton *closeBtn;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsNavBar
 
 @implementation JobsNavBar
+
 /// AppToolsProtocol
 #pragma mark —— BaseProtocol
 BaseProtocol_synthesize
@@ -246,4 +248,5 @@ BaseViewProtocol_synthesize
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsNavBar
+
 @end

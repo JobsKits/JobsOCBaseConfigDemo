@@ -78,6 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetZFPlayerControllerByvoidZFPlayerControllerplayerBOOLisFullScreenBlock _Nonnull)byOrientationDidChanged;
 -(JobsRetZFPlayerControllerByvoidZFPlayerControllerplayerBOOLisFullScreenBlock _Nonnull)byOrientationWillChange;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END ZFPlayerController
+
 @end
 
 @interface ZFOrientationObserver (DSL)

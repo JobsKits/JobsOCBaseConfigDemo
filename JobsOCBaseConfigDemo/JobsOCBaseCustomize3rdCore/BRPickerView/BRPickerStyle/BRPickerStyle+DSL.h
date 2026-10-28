@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)setPickerColor:(UIColor * _Nullable)data;
 -(void)setPickerTextColor:(UIColor * _Nullable)data;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END BRPickerStyle
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -8,6 +8,7 @@
 #import "JobsPullListAutoSizeView.h"
 
 @interface JobsPullListAutoSizeView ()
+
 /// UI
 Prop_strong()UIView *targetView;
 /// Data
@@ -18,6 +19,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 @end
 
 @implementation JobsPullListAutoSizeView
+
 -(JobsRetJobsPullListAutoSizeViewByViewBlock _Nonnull)byTargetView{
     @jobs_weakify(self)
     return ^__kindof JobsPullListAutoSizeView *_Nullable(UIView *_Nullable view){

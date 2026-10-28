@@ -68,6 +68,7 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END YTKNetworkConfig
 
 @implementation AppDelegate (Func)
+
 #pragma mark —— 启动调用功能
 +(jobsByVoidBlock _Nonnull)launchFunc1{
     @jobs_weakify(self)
@@ -114,10 +115,13 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
 #pragma mark —— 开屏广告
 -(jobsByWindowBlock _Nonnull)makeJobsLaunchAdConfig{
     return ^(UIWindow *window) {
-        if (!window || !JobsOCSplashEnabled()) {
+        if (!window || JobsOCDeviceGuardLaunchGate.decision.blocked || !JobsOCSplashEnabled()) {
             return;
         }
         dispatch_async(dispatch_get_main_queue(), ^{
+            if (JobsOCDeviceGuardLaunchGate.decision.blocked) {
+                return;
+            }
             UIViewController *hostViewController = window.rootViewController;
             if (!hostViewController || !window.windowScene ||
                 window.windowScene.activationState == UISceneActivationStateUnattached) {

@@ -8,6 +8,7 @@
 #import "JobsShareView.h"
 
 @interface JobsShareView ()
+
 /// UI
 Prop_strong()BaseButton *cancelBtn;
 /// Data
@@ -22,6 +23,7 @@ Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsShareView
 
 @implementation JobsShareView
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 #pragma mark —— BaseProtocol
@@ -344,4 +346,5 @@ insetForSectionAtIndex:(NSInteger)section {
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsShareView
+
 @end

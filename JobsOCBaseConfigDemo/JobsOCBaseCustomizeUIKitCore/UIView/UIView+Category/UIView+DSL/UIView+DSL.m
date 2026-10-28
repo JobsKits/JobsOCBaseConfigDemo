@@ -16,6 +16,7 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UIView
 
 @implementation UIView (DSL)
+
 #pragma mark —— Animation / Transition 终止动作
 +(jobsByUIViewAnimationBlock _Nonnull)jobsAnimate{
     return ^(NSTimeInterval duration, jobsByVoidBlock _Nonnull animations){
@@ -1494,4 +1495,5 @@ JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UIView
+
 @end

@@ -50,6 +50,7 @@ Prop_copy(nullable)jobsByIDBlock noContentClickBlock;
 -(JobsRetJobsLinkageMenuViewByNSIntegerBlock _Nonnull)byDTScrollTag;
 -(JobsRetJobsLinkageMenuViewByNSIntegerBlock _Nonnull)byNewChoseTag;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsLinkageMenuView
+
 @end
 
 NS_ASSUME_NONNULL_END

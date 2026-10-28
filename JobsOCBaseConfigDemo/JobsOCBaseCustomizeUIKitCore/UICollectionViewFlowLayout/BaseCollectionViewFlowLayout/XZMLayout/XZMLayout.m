@@ -8,6 +8,7 @@
 #import "XZMLayout.h"
 
 @implementation XZMLayout
+
 -(instancetype)init{
     if (self = [super init]) {
     };return self;

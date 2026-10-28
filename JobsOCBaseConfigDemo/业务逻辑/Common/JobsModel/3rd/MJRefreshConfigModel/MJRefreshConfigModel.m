@@ -12,6 +12,7 @@
 #import "JobsLanMgr.h"
 
 @implementation MJRefreshConfigModel
+
 #pragma mark —— lazyLoad 默认配置
 /// Font
 -(UIFont *)font{

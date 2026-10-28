@@ -8,6 +8,7 @@
 #import "ThreeClassCell.h"
 
 @interface ThreeClassCell()
+
 /// Data
 Prop_assign()CGFloat itemHeight; // 一个cell 的高度
 Prop_assign()NSInteger columns; // 一行有多少列
@@ -237,4 +238,5 @@ didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END ThreeClassCell
+
 @end

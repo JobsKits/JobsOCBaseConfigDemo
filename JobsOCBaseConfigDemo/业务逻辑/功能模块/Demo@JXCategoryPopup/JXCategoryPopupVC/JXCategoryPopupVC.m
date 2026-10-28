@@ -8,6 +8,7 @@
 #import "JXCategoryPopupVC.h"
 
 @interface JXCategoryPopupVC ()
+
 /// UI
 Prop_strong()JXCategoryTitleView *categoryView;
 Prop_strong()JXCategoryIndicatorLineView *lineView;/// 跟随的指示器
@@ -482,6 +483,7 @@ ratio:(CGFloat)ratio {
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JXCategoryPopupVC
+
 @end
 
 // JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JXCategoryIndicatorLineView

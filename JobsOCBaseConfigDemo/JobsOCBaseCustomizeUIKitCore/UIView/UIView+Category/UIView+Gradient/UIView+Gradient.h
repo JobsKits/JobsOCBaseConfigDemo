@@ -15,6 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (Gradient)
+
 /// 颜色渐变
 +(void)setView:(UIView *)view
          layer:(CALayer *)layer

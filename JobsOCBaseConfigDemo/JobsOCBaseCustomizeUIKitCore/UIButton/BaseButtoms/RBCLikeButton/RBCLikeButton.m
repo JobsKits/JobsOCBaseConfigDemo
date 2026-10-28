@@ -16,6 +16,7 @@
 #define leftTime 0.5
 
 @interface RBCLikeButton(){
+
     /// 记录初始"上升数字"label的Y值
     CGFloat _incOrginY;
 }
@@ -37,6 +38,7 @@ Prop_assign()BOOL isNeedAnimation;/// 选中/取消时是否需要动画
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END RBCLikeButton
 
 @implementation RBCLikeButton
+
 BaseButtonProtocol_synthesize
 -(instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
@@ -496,4 +498,5 @@ BaseButtonProtocol_synthesize
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END RBCLikeButton
+
 @end

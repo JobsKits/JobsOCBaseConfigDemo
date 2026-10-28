@@ -8,6 +8,7 @@
 #import "SYSAlertControllerConfig+DSL.h"
 
 @implementation SYSAlertControllerConfig (DSL)
+
 -(JobsRetSYSAlertControllerConfigByStrBlock _Nonnull)byTitle{
     @jobs_weakify(self)
     return ^__kindof SYSAlertControllerConfig *_Nullable(NSString * _Nullable data) {

@@ -34,6 +34,7 @@ Prop_copy()NSArray<JobsOCExcelCell *> *cells;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCExcelRow
 -(JobsRetJobsOCExcelRowByNSArrayJobsOCExcelCellBlock _Nonnull)byCells;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCExcelRow
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -41,6 +41,7 @@ Prop_assign(readwrite)NSUInteger tappedCount;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsRedPacketRainView
 
 @implementation JobsRedPacketRainView
+
 -(JobsRetJobsRedPacketRainViewByBOOLBlock _Nonnull)byRunning{
     @jobs_weakify(self)
     return ^__kindof JobsRedPacketRainView *_Nullable(BOOL running){
@@ -430,4 +431,5 @@ Prop_assign(readwrite)NSUInteger tappedCount;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsRedPacketRainView
+
 @end

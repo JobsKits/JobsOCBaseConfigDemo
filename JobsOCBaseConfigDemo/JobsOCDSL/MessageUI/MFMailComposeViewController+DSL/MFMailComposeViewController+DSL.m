@@ -8,6 +8,7 @@
 #import "MFMailComposeViewController+DSL.h"
 
 @implementation MFMailComposeViewController (JobsChain)
+
 +(JobsRetBOOLByVoidBlock _Nonnull)byCanSendMail{
     return ^BOOL(void){
         return [self canSendMail];

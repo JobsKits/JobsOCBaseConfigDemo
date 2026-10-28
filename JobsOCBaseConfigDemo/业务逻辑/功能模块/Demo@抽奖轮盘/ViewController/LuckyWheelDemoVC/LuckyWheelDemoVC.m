@@ -24,6 +24,7 @@ Prop_strong()NSMutableArray<LuckyWheelSegment *> *segments;
 @end
 
 @implementation LuckyWheelDemoVC
+
 - (void)dealloc{
     JobsNotificationCenter.remove(self);
     JobsLog(@"%@",JobsLocalFunc);

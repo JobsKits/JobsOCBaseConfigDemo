@@ -13,6 +13,7 @@
 #import "UITableView+RegisterClass.h"
 
 @interface JobsBaseTableViewCell ()
+
 /// Data
 Prop_assign()BOOL isSetTBVCellOffset;
 
@@ -25,6 +26,7 @@ Prop_assign()BOOL isSetTBVCellOffset;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsBaseTableViewCell
 
 @implementation JobsBaseTableViewCell
+
 /// UITableViewCellProtocol
 UITableViewCellProtocol_Synthesize_part2
 /// UIViewModelProtocol
@@ -333,4 +335,5 @@ AppToolsProtocol_synthesize
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsBaseTableViewCell
+
 @end

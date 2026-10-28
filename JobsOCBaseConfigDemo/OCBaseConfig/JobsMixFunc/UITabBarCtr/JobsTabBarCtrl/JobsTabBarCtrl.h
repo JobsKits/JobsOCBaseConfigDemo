@@ -49,6 +49,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsTabBarCtrl : BaseViewController <UIScrollViewDelegate>
+
 /// 是否允许内容区域左右滑动
 Prop_assign()BOOL swipeEnabled;
 /// 只允许横向翻页（默认 YES）
@@ -100,6 +101,7 @@ Prop_copy(nullable)jobsByArrBlock onButtonsLayouted;
 -(JobsRetTabBarCtrlByArrBlocks _Nonnull)byOnButtonsLayouted;
 -(JobsRetTabBarCtrlByBOOLBlock _Nonnull)byBuiltOnce;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsTabBarCtrl
+
 @end
 
 #pragma mark —— 链式配置（和 Swift 版保持风格）

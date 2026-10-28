@@ -385,4 +385,5 @@ Prop_assign()BOOL usesAlternativeCopy;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END UILabelScrollingDemoVC
+
 @end

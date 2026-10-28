@@ -8,6 +8,7 @@
 #import "BaseTableViewCell.h"
 
 @implementation BaseTableViewCell
+
 -(void)awakeFromNib{
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseTableViewCell.class, @selector(jobsAwakeFromNib)))(self, @selector(jobsAwakeFromNib));
     if (action) action();

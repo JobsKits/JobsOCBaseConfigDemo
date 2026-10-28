@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN CasinoCustomerServiceView
 -(JobsRetCasinoCustomerServiceViewByNSMutableArrayUIViewModelBlock _Nonnull)byHotLabelDataMutArr;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END CasinoCustomerServiceView
+
 @end
 
 NS_ASSUME_NONNULL_END

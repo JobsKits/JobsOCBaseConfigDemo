@@ -8,12 +8,14 @@
 #import "BaiShaETProjOrderDetailsCVCell.h"
 
 @interface BaiShaETProjOrderDetailsCVCell ()
+
 /// UI
 Prop_strong()UIButton *jobsCopyBtn;
 
 @end
 
 @implementation BaiShaETProjOrderDetailsCVCell
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 - (instancetype)initWithFrame:(CGRect)frame{

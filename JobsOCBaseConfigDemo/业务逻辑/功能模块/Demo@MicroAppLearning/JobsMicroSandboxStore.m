@@ -8,6 +8,7 @@
 #import "JobsMicroSandboxStore.h"
 
 @implementation JobsMicroSandboxStore {
+
     NSURL *_baseDirectory;
 }
 

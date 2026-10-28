@@ -8,6 +8,7 @@
 #import "JobsOCKeyboardCalculator.h"
 
 @implementation JobsOCKeyboardCalculator
+
 +(JobsRetUIViewByJobsOCKeyboardConfigBlock _Nonnull)containerViewByConfig{
     return ^__kindof UIView *(__kindof JobsOCKeyboardConfig * config){
         if (config.containerView) return config.containerView;

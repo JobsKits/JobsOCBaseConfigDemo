@@ -8,6 +8,7 @@
 #import "CAGradientLayer+DSL.h"
 
 @implementation CAGradientLayer (JobsChain)
+
 #pragma mark —— Inherited CALayer DSL
 #pragma mark —— Geometry
 #pragma mark —— Hierarchy

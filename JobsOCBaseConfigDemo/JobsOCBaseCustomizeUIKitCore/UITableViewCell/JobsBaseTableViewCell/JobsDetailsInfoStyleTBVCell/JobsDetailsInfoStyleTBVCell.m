@@ -17,6 +17,7 @@ Prop_strong()UIImageView *detailsInfoImageView;
 @end
 
 @implementation JobsDetailsInfoStyleTBVCell
+
 @synthesize viewModel = _viewModel;
 -(void)layoutSubviews{
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsDetailsInfoStyleTBVCell.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));

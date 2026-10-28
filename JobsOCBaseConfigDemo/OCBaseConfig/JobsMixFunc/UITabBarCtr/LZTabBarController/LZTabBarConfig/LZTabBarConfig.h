@@ -15,6 +15,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LZTabBarConfig : NSObject
+
 /// 控制器数组, 必须设置
 Prop_copy()NSArray *viewControllers;
 -(JobsRetLZTabBarConfigByArrBlock _Nonnull)byViewControllers;

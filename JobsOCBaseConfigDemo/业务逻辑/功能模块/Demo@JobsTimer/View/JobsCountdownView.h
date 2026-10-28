@@ -55,6 +55,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetJobsCountdownViewByNSStringBlock _Nonnull)byMinutesStr;
 -(JobsRetJobsCountdownViewByNSStringBlock _Nonnull)bySecondStr;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsCountdownView
+
 @end
 
 NS_ASSUME_NONNULL_END

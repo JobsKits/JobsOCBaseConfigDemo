@@ -58,6 +58,7 @@ UICollectionViewDataSource
 ,UICollectionViewDelegate
 ,UICollectionViewDelegateFlowLayout
 >
+
 #pragma mark —— 一些公有方法
 -(jobsByBOOLBlock _Nonnull)shakeCell;
 
@@ -65,6 +66,7 @@ UICollectionViewDataSource
 -(JobsRetBaiShaETProjPopupView10ByNSIntegerBlock _Nonnull)bySelectedIndex;
 -(JobsRetBaiShaETProjPopupView10ByNSMutableArrayUIViewModelBlock _Nonnull)byDataMutArr;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END BaiShaETProjPopupView10
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -580,4 +580,5 @@ Prop_strong(nullable, readonly)NSNumber *configuredRemainingSeconds;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCSplashVC
+
 @end

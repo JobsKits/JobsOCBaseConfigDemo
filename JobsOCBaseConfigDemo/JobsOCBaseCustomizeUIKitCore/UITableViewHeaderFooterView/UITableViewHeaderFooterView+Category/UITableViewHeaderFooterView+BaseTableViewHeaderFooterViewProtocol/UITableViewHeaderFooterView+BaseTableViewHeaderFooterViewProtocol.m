@@ -8,6 +8,7 @@
 #import "UITableViewHeaderFooterView+BaseTableViewHeaderFooterViewProtocol.h"
 
 @implementation UITableViewHeaderFooterView (BaseTableViewHeaderFooterViewProtocol)
+
 #pragma mark —— BaseViewProtocol
 +(JobsRetTableViewHeaderFooterViewByTableViewAndSaltBlock _Nonnull)initByReuseIdentifier{
     @jobs_weakify(self)

@@ -8,6 +8,7 @@
 #import "TransitionAnimation.h"
 
 @implementation TransitionAnimation
+
 - (instancetype)initWithTargetEdge:(UIRectEdge)targetEdge{
     if (self = [self init]) {
         _targetEdge = targetEdge;

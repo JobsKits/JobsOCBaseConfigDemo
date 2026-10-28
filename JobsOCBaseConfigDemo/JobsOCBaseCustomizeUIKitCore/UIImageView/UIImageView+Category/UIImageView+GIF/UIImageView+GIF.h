@@ -12,6 +12,7 @@
 #import <UIKit/UIKit.h>
 
 @interface UIImageView (GIF)
+
 /**
  *  输入路径，返回一个 UIImageView
  *
@@ -24,4 +25,5 @@
                                 frame:(CGRect)frame;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_UIIMAGEVIEW_GIF_E7B5D56465 */

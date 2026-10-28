@@ -8,6 +8,7 @@
 #import "JobsDropDownListVC.h"
 
 @interface JobsDropDownListVC ()
+
 /// UI
 Prop_strong()JobsDropDownListView *dropDownListView;
 Prop_strong()UIView *panelView;
@@ -31,6 +32,7 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsDropDownListVC
 
 @implementation JobsDropDownListVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);
@@ -441,4 +443,5 @@ Prop_assign()JobsDropDownListViewDirection dropDownListViewDirection;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsDropDownListVC
+
 @end

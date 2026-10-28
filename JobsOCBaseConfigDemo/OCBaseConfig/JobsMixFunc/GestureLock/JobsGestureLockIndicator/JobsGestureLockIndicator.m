@@ -16,6 +16,7 @@ Prop_strong()NSMutableArray<UIButton *> *nodeButtons;
 @end
 
 @implementation JobsGestureLockIndicator
+
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [self initWithConfiguration:nil];
     if (self) {

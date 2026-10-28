@@ -8,6 +8,7 @@
 #import "UIButtonModel+DSL.h"
 
 @implementation UIButtonModel (DSL)
+
 -(JobsRetUIButtonModelByCGFloatBlock _Nonnull)byLeftViewWidth{
     @jobs_weakify(self)
     return ^__kindof UIButtonModel *_Nullable(CGFloat data) {

@@ -25,9 +25,26 @@ Prop_assign()BOOL started;
 Prop_assign()BOOL hiddenForCurrentLaunch;
 
 -(jobsByVoidBlock _Nonnull)refreshWindows;
+-(JobsRetDebugPanelByVoidBlock _Nonnull)showFloatingEntry;
 -(JobsRetVCByVCBlock _Nonnull)openPanelFrom;
 
 @end
+
+// 在事件分发层观察摇动，不抢占输入控件或业务页面的 first responder。
+static void JobsDebugPanelInstallShakeObserver(void) {
+    static dispatch_once_t token;
+    dispatch_once(&token, ^{
+        Method method = class_getInstanceMethod(UIApplication.class, @selector(sendEvent:));
+        IMP original = method_getImplementation(method);
+        IMP observer = imp_implementationWithBlock(^(UIApplication *application, UIEvent *event) {
+            if (event.type == UIEventTypeMotion && event.subtype == UIEventSubtypeMotionShake) {
+                JobsDebugPanelManager.sharedPanel.showFloatingEntry();
+            }
+            ((void (*)(id, SEL, UIEvent *))original)(application, @selector(sendEvent:), event);
+        });
+        method_setImplementation(method, observer);
+    });
+}
 
 @implementation JobsDebugPanelManager
 
@@ -47,6 +64,7 @@ Prop_assign()BOOL hiddenForCurrentLaunch;
         _defaultEnvironmentIdentifier = @"";
         _overlayWindows = jobsMakeMutDic(nil);
         _observers = jobsMakeMutArr(nil);
+        _hiddenForCurrentLaunch = YES;
     }
     return self;
 }
@@ -131,6 +149,7 @@ Prop_assign()BOOL hiddenForCurrentLaunch;
             return self;
         }
         self->_started = YES;
+        JobsDebugPanelInstallShakeObserver();
         NSString *saved = [NSUserDefaults.standardUserDefaults stringForKey:JobsDebugEnvironmentDefaultsKey];
         JobsDebugEnvironment *selection = nil;
         for (JobsDebugEnvironment *value in self.environments) {
@@ -274,6 +293,19 @@ Prop_assign()BOOL hiddenForCurrentLaunch;
                 overlay.byHidden(self.hiddenForCurrentLaunch);
             }
         }
+    };
+}
+
+-(JobsRetDebugPanelByVoidBlock _Nonnull)showFloatingEntry {
+    @jobs_weakify(self)
+    return ^JobsDebugPanelManager *{
+        @jobs_strongify(self)
+        if (!self || !self.started || UIApplication.sharedApplication.applicationState != UIApplicationStateActive) {
+            return self;
+        }
+        self->_hiddenForCurrentLaunch = NO;
+        self.refreshWindows();
+        return self;
     };
 }
 
@@ -445,4 +477,5 @@ Prop_assign()BOOL hiddenForCurrentLaunch;
 }
 
 @end
+
 #endif

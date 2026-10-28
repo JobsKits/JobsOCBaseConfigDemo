@@ -44,6 +44,7 @@ Prop_assign()NSInteger isVip;
 Prop_assign()NSInteger toIsVip;
 
 @end
+
 /// 对应字段 list
 @interface JobsFirstCommentModel : BaseModel
 
@@ -63,6 +64,7 @@ Prop_assign()NSInteger isPraise;
 Prop_assign()BOOL isVip;
 
 @end
+
 /// 对应字段 data
 @interface JobsCommentModel : BaseModel
 
@@ -82,6 +84,7 @@ Prop_assign()NSInteger loadMoreDataNum;//加载更多数据,一次加载的个�
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsFirstCommentCustomCofigModel
 -(JobsRetJobsFirstCommentCustomCofigModelByNSArrayJobsChildCommentModelBlock _Nonnull)byChildDataArr;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsFirstCommentCustomCofigModel
+
 @end
 
 NS_ASSUME_NONNULL_END

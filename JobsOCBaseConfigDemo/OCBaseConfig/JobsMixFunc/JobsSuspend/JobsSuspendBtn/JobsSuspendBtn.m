@@ -15,6 +15,7 @@
 @end
 
 @implementation JobsSuspendBtn
+
 BaseViewProtocol_synthesize
 -(instancetype)init{
     if (self = [super init]) {

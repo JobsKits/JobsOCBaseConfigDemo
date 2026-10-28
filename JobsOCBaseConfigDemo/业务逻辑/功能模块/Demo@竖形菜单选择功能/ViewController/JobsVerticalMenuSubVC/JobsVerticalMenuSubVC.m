@@ -8,6 +8,7 @@
 #import "JobsVerticalMenuSubVC.h"
 
 @interface JobsVerticalMenuSubVC ()
+
 /// UI
 Prop_strong()JobsVerticalMenuSubView *contentView;
 Prop_assign()BOOL didReloadContentAfterLayout;
@@ -22,6 +23,7 @@ Prop_assign()BOOL didReloadContentAfterLayout;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsVerticalMenuSubVC
 
 @implementation JobsVerticalMenuSubVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);
@@ -165,4 +167,5 @@ Prop_assign()BOOL didReloadContentAfterLayout;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsVerticalMenuSubVC
+
 @end

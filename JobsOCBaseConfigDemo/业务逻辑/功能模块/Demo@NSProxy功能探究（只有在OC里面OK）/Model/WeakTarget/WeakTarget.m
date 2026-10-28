@@ -8,6 +8,7 @@
 #import "WeakTarget.h"
 
 @implementation WeakTarget
+
 +(JobsRetWeakTargetByIDBlock _Nonnull)byTarget{
     @jobs_weakify(self)
     return ^__kindof WeakTarget *_Nullable(id _Nullable data){

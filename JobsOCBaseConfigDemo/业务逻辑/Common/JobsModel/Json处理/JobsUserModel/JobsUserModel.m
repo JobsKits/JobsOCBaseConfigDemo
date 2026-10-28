@@ -12,6 +12,7 @@
 #import "NSMutableSet+Extra.h"
 
 @implementation JobsUserModel
+
 BaseProtocol_synthesize
 RACProtocol_synthesize
 #pragma mark —— MJKeyValue

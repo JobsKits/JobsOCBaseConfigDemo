@@ -2,7 +2,7 @@
 //  JobsMixFunc.h
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2021/12/10.
+//  Created by Jobs on 2021年12月10日，星期五.
 //
 
 #ifndef JobsMixFunc_h
@@ -32,6 +32,7 @@
 #import "JobsOCExcel.h"
 #import "JobsOCMarkdown.h"
 #import "JobsScreenCapture.h"
+#import "JobsOCDeviceGuard.h"
 #import "JobsOCWebSocket.h"
 #import "JobsOCNumberStepper/JobsOCNumberStepper.h"
 

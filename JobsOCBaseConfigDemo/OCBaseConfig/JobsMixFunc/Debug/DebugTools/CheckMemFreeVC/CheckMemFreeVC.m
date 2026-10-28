@@ -14,6 +14,7 @@
 @end
 
 @implementation CheckMemFreeVC
+
 -(void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     if (JobsControllerDeallocTipsEnabled()) {

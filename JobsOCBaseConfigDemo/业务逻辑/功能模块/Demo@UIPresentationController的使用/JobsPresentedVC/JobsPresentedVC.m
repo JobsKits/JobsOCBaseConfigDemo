@@ -12,6 +12,7 @@
 @end
 
 @implementation JobsPresentedVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     [self.view endEditing:YES];

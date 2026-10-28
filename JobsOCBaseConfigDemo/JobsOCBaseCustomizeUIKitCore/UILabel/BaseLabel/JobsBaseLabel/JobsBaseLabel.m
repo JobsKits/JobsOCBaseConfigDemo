@@ -11,6 +11,7 @@
 #import "UIView+Extra.h"
 
 @interface JobsBaseLabel ()
+
 /// UI
 Prop_strong()UIImageView *bgImageView;
 Prop_strong()BaseLabel *label;
@@ -20,6 +21,7 @@ Prop_assign()CGRect thisFrame;
 @end
 
 @implementation JobsBaseLabel
+
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{

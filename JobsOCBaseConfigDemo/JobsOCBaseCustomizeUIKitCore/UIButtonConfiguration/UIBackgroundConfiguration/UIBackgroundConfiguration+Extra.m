@@ -8,6 +8,7 @@
 #import "UIBackgroundConfiguration+Extra.h"
 
 @implementation UIBackgroundConfiguration (Extra)
+
 #if defined(__IPHONE_18_0) && (__IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_18_0)
 - (JobsRetBackgroundConfigByCGFloatBlock _Nonnull)byShadowOpacity
     API_AVAILABLE(ios(18.0), tvos(18.0), visionos(2.0)) API_UNAVAILABLE(watchos){

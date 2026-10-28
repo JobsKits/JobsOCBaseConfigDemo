@@ -63,6 +63,7 @@ Prop_strong(nullable) JobsTimer *frameTimer;
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END LOTAnimationView
 
 @implementation JobsOCRefreshComponent
+
 -(JobsRetIDByNSIntegerBlock _Nonnull)byState{
     @jobs_weakify(self)
     return ^id(NSInteger state){
@@ -847,6 +848,7 @@ Prop_strong(nullable) JobsTimer *frameTimer;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCRefreshComponent
+
 @end
 
 // JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN LOTAnimationView

@@ -8,6 +8,7 @@
 #import "UIButton+Animation.h"
 
 @implementation UIButton (Animation)
+
 /// 点击按钮，按钮的imageView旋转360°
 -(JobsRetCABasicAnimationByVoidBlock _Nonnull)revolution{
     @jobs_weakify(self)

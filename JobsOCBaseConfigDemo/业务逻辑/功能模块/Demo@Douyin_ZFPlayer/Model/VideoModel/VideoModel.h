@@ -26,6 +26,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface VideoModel_Core : NSObject
+
 #pragma mark —— Jobs的数据源
 Prop_copy()NSString *isPraise;/// 是否点赞
 Prop_copy()NSString *authorId;/// 视频作者ID

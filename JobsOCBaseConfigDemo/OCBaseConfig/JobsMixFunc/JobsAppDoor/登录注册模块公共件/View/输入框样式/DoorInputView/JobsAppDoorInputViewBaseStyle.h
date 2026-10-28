@@ -64,6 +64,7 @@ Prop_copy()NSString *PlaceHolder;
 -(JobsRetJobsAppDoorInputViewTFModelByNSStringBlock _Nonnull)byPlaceHolder;
 -(JobsRetJobsAppDoorInputViewTFModelByNSStringBlock _Nonnull)byResString;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorInputViewTFModel
+
 @end
 
 @interface JobsAppDoorInputViewBaseStyle : BaseView

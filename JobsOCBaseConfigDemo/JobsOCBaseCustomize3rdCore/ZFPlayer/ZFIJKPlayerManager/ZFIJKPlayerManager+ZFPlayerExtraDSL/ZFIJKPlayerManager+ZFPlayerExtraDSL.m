@@ -23,6 +23,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END ZFIJKPlayerManager
 
 @implementation ZFIJKPlayerManager (ZFPlayerExtraDSL)
+
 -(JobsRetZFIJKPlayerManagerByURLBlock _Nonnull)byAssetURL{
     @jobs_weakify(self)
     return ^__kindof ZFIJKPlayerManager *_Nullable(NSURL *_Nullable data){
@@ -342,5 +343,7 @@
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END ZFIJKPlayerManager
+
 @end
+
 #endif

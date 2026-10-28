@@ -8,6 +8,7 @@
 #import "UISearchBar+DSL.h"
 
 @implementation UISearchBar (DSL)
+
 #pragma mark —— 基础文本
 -(JobsRetSearchBarByStringBlock _Nonnull)byText{
     @jobs_weakify(self)

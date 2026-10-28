@@ -25,6 +25,7 @@ API_AVAILABLE(ios(13.0))
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END SceneDelegate
 
 @implementation SceneDelegate
+
 -(JobsRetSceneDelegateByWindowBlock _Nonnull)jobsSetWindow{
     @jobs_weakify(self)
     return ^SceneDelegate *_Nullable(UIWindow *_Nullable data){

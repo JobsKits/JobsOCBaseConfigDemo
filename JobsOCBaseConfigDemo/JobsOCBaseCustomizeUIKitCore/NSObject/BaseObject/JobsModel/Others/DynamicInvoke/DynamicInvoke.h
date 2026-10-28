@@ -24,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
  4、带参数的方法调用【不管是对（-）实例方法还是对(+)类方法】，paramarrays参数传数组，数组里面是各项参数名的统一数据结构的对象形式【因为数组里面的数据是要求必须是统一的结构】
  */
 @interface DynamicInvoke : NSObject
+
 #pragma mark —— 实例方法（不带返回值）
 -(jobsByVoidBlock _Nonnull)test1;
 -(jobsByVoidBlock _Nonnull)test2;

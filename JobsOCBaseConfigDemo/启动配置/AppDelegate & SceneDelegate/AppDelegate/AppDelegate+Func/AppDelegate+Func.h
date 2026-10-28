@@ -40,6 +40,7 @@
 #import "JobsDefines.h"
 #import "JobsNavBarHeader.h"
 #import "JobsOCSplash.h"
+#import "JobsOCDeviceGuardLaunchGate.h"
 
 #if __has_include(<GKNavigationBar/GKNavigationBar.h>)
 #import <GKNavigationBar/GKNavigationBar.h>
@@ -71,6 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 <
 UNUserNotificationCenterDelegate
 >
+
 #pragma mark —— 启动调用功能
 +(jobsByVoidBlock _Nonnull)launchFunc1;
 -(jobsByVoidBlock _Nonnull)launchFunc2;

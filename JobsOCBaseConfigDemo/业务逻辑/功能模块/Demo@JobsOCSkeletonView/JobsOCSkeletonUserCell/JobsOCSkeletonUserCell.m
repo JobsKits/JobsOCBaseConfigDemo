@@ -17,6 +17,7 @@ Prop_strong()UIView *subtitleShortLineView;
 @end
 
 @implementation JobsOCSkeletonUserCell
+
 +(JobsRetStrByVoidBlock _Nonnull)reuseIdentifier{
     return ^NSString *_Nullable{
         return NSStringFromClass(self);

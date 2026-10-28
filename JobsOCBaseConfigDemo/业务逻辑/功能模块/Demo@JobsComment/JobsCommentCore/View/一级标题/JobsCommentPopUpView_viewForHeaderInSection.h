@@ -46,6 +46,7 @@ NS_ASSUME_NONNULL_BEGIN
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsCommentPopUpView_viewForHeaderInSection
 -(JobsRetJobsCommentPopUpView_viewForHeaderInSectionByJobsFirstCommentModelBlock _Nonnull)byFirstCommentModel;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsCommentPopUpView_viewForHeaderInSection
+
 @end
 
 NS_ASSUME_NONNULL_END

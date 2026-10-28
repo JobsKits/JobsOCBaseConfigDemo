@@ -77,6 +77,7 @@ JXCategoryTitleViewDataSource
 -(JobsRetJXCategoryPopupVCByUIViewBlock _Nonnull)byPopUpCustomView;
 -(JobsRetJXCategoryPopupVCByUIViewBlock _Nonnull)byPopUpFiltrationView;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JXCategoryPopupVC
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -41,11 +41,14 @@ Prop_assign()BOOL fd_viewControllerBasedNavigationBarAppearanceEnabled;
 -(JobsRetUINavigationControllerByBOOLBlock _Nonnull)byViewTransitionInProgress;
 -(JobsRetUINavigationControllerByUIModalPresentationStyleBlock _Nonnull)byModalPresentationStyle;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UINavigationController
+
 @end
+
 /// Allows any view controller to disable interactive pop gesture, which might
 /// be necessary when the view controller itself handles pan gesture in some
 /// cases.
 @interface UIViewController (FDFullscreenPopGesture)
+
 /// Whether the interactive pop gesture is disabled when contained in a navigation
 /// stack.
 Prop_assign()BOOL fd_interactivePopDisabled;
@@ -54,4 +57,5 @@ Prop_assign()BOOL fd_interactivePopDisabled;
 Prop_assign()CGFloat fd_interactivePopMaxAllowedInitialDistanceToLeftEdge;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_UINAVIGATIONCONTROLLER_FDFULLSCREENPOPGESTURE_0E81449114 */

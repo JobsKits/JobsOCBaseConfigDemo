@@ -68,6 +68,7 @@ UITableViewDelegate
 -(JobsRetJobsVerticalMenuVC_1ByBOOLBlock _Nonnull)bySearchMode;
 -(JobsRetJobsVerticalMenuVC_1ByMASConstraintBlock _Nonnull)bySearchViewWidthConstraint;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsVerticalMenuVC_1
+
 @end
 
 NS_ASSUME_NONNULL_END

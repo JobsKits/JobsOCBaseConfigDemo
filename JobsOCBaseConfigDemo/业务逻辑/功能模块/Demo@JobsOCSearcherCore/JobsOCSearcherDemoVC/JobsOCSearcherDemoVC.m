@@ -29,6 +29,7 @@ Prop_strong()JobsOCSearcherView *searchView;
 @end
 
 @implementation JobsOCSearcherDemoVC
+
 -(void)loadView{
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCSearcherDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
     if (action) action();

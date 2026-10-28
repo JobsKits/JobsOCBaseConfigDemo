@@ -34,6 +34,7 @@ static void JobsGKConfigureNavigationTitleLabel(UILabel *label,
 }
 
 @implementation UIViewController (GKCustomNavigationBar)
+
 #pragma mark —— 一些公有方法
 -(JobsRetGKNavBarByButtonModelBlock _Nonnull)gk_navTitleBtnBy{
     @jobs_weakify(self)

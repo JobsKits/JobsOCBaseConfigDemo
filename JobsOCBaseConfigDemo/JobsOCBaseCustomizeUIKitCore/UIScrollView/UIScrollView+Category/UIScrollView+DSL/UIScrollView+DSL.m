@@ -8,6 +8,7 @@
 #import "UIScrollView+DSL.h"
 
 @implementation UIScrollView (DSL)
+
 #pragma mark —— UIScrollViewProtocol
 -(JobsRetScrollViewByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)

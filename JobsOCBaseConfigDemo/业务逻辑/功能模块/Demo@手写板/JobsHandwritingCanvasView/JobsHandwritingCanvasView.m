@@ -34,6 +34,7 @@ Prop_assign()CGSize lastLayoutSize;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsHandwritingCanvasView
 
 @implementation JobsHandwritingCanvasView
+
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.commonInit();
@@ -343,4 +344,5 @@ Prop_assign()CGSize lastLayoutSize;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsHandwritingCanvasView
+
 @end

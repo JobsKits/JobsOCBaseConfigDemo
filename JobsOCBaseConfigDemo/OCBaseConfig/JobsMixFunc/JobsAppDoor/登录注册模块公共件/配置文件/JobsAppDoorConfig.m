@@ -18,6 +18,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorConfig
 
 @implementation JobsAppDoorConfig
+
 -(instancetype)init{
     if (self = [super init]) {
         _backgroundType = JobsAppDoorBgType_Image;
@@ -129,4 +130,5 @@
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAppDoorConfig
+
 @end

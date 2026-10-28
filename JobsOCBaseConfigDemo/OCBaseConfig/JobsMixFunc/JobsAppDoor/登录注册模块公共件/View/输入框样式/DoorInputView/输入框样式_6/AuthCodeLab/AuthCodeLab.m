@@ -12,6 +12,7 @@
 @end
 
 @implementation AuthCodeLab
+
 - (instancetype)init{
     if (self = [super init]) {
         self.byUserInteractionEnabled(YES);

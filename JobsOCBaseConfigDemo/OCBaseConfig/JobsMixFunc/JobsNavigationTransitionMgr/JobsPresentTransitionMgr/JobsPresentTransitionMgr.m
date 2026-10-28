@@ -46,6 +46,7 @@ Prop_assign()BOOL hasCustomPresentedRatio;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsPresentTransitionMgr
 
 @implementation JobsPresentTransitionMgr
+
 @synthesize time = _time;
 @synthesize direction = _direction;
 @synthesize presentedRatio = _presentedRatio;
@@ -895,4 +896,5 @@ Prop_assign()BOOL hasCustomPresentedRatio;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsPresentTransitionMgr
+
 @end

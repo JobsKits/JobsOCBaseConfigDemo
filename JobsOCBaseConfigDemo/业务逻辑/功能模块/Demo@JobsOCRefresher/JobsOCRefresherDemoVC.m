@@ -72,6 +72,7 @@ Prop_assign()BOOL didAutoStart;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCRefresherDemoVC
 
 @implementation JobsOCRefresherDemoVC
+
 -(instancetype)init{
     if (self = [super init]) {
         _verticalRowCount = JobsOCRefresherDemoInitialVerticalRows;
@@ -816,4 +817,5 @@ Prop_assign()BOOL didAutoStart;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCRefresherDemoVC
+
 @end

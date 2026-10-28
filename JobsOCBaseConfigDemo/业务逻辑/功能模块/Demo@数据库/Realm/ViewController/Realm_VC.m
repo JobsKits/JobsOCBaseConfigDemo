@@ -8,6 +8,7 @@
 #import "Realm_VC.h"
 
 @interface Realm_VC ()
+
 /// Data
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 Prop_strong()NSMutableArray <User_Realm *>*userMutArr;
@@ -42,6 +43,7 @@ Prop_assign()NSInteger selectedUserIndex;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END Realm_VC
 
 @implementation Realm_VC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -602,4 +604,5 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END Realm_VC
+
 @end

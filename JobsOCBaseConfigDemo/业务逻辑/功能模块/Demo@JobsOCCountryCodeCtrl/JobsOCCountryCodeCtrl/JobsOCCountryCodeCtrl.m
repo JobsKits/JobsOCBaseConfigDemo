@@ -28,6 +28,7 @@ Prop_strong()NSMutableArray *results;
 @end
 
 @implementation JobsOCCountryCodeCtrl
+
 -(JobsRetJobsOCCountryCodeCtrlByCountryCodeBlock _Nonnull)byCountryCodeBlock{
     @jobs_weakify(self)
     return ^__kindof JobsOCCountryCodeCtrl *_Nullable(jobsByOCCountryCodeBlock _Nullable block){

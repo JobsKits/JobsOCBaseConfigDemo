@@ -8,12 +8,14 @@
 #import "MSCommentView.h"
 
 @interface MSCommentView ()
+
 /// Data
 Prop_strong()NSMutableArray <MSCommentModel *>*dataMutArr;
 
 @end
 
 @implementation MSCommentView
+
 /// BaseViewProtocol
 @synthesize tableView = _tableView;
 

@@ -86,6 +86,7 @@ willReconnectAtAttempt:(NSInteger)attempt
 -(JobsRetJobsOCWebSocketClientBydispatch_block_tBlock _Nonnull)byReconnectWorkItem;
 -(JobsRetJobsOCWebSocketClientBydispatch_source_tBlock _Nonnull)byHeartbeatTimer;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCWebSocketClient
+
 @end
 
 NS_ASSUME_NONNULL_END

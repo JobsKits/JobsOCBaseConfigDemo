@@ -64,6 +64,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetJobsOCMarkdownDocumentsDemoVCByNSArrayJobsOCMarkdownDocumentBlock _Nonnull)byVisibleDocuments;
 -(JobsRetJobsOCMarkdownDocumentsDemoVCByNSErrorBlock _Nonnull)byCatalogError;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCMarkdownDocumentsDemoVC
+
 @end
 
 NS_ASSUME_NONNULL_END

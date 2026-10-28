@@ -8,6 +8,7 @@
 #import "TreeClassItemCell.h"
 
 @interface TreeClassItemCell ()
+
 /// UI
 Prop_strong()UIImageView *logoImgView;
 Prop_strong()UILabel *nameLabel;
@@ -19,6 +20,7 @@ Prop_strong()GoodsClassModel *dataModel;
 @end
 
 @implementation TreeClassItemCell
+
 #pragma mark —— UILocationProtocol
 UILocationProtocol_synthesize
 #pragma mark —— BaseCellProtocol

@@ -23,6 +23,7 @@ Prop_assign()NSTimeInterval lastSampleTime;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsMonitorNetwoking
 
 @implementation JobsMonitorNetwoking
+
 static JobsMonitorNetwoking *monitorNetwoking = nil;
 +(instancetype)sharedManager{
     JobsRetJobsMonitorNetwokingByVoidBlock action = ((JobsRetJobsMonitorNetwokingByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsMonitorNetwoking.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
@@ -145,4 +146,5 @@ static JobsMonitorNetwoking *monitorNetwoking = nil;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsMonitorNetwoking
+
 @end

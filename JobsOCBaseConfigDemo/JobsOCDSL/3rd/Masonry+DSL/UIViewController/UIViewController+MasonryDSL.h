@@ -87,6 +87,7 @@ Prop_copy(nullable)jobsByMASConstraintMakerBlock masonryBlock;
 -(JobsRetGKNavVCByViewBlock _Nonnull)byGk_navTitleView;
 -(JobsRetUIViewControllerByUITabBarItemBlock _Nonnull)byTabBarItem;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UIViewController
+
 @end
 
 NS_ASSUME_NONNULL_END

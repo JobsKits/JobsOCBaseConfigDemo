@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 NSCoding,// 编码
 NSSecureCoding// 解码
 >
+
 #pragma mark —— MJExtension
 +(NSDictionary *)mj_replacedKeyFromPropertyName;
 +(JobsRetDicByVoidBlock _Nonnull)jobsMJReplacedKeyFromPropertyName;

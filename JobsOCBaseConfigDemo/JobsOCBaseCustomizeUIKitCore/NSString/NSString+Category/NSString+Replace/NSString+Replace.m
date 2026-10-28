@@ -8,6 +8,7 @@
 #import "NSString+Replace.h"
 
 @implementation NSString (Replace)
+
 #pragma mark —— 字符串加工
 /// 输入单词的首字母大写（适用于拼接set方法）
 /// 截取并返回一个字符串里面冒号前的值，并返回。如果没有冒号，则返回自身

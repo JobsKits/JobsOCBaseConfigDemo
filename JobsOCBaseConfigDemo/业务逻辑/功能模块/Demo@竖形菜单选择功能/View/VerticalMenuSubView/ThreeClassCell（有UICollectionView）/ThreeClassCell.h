@@ -67,6 +67,7 @@ Prop_strong()Class <UICollectionViewCellProtocol>cellCls;
 -(JobsRetThreeClassCellByNSIntegerBlock _Nonnull)byRowCount;
 -(JobsRetThreeClassCellByNSMutableArrayGoodsClassModelBlock _Nonnull)byDataArray;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END ThreeClassCell
+
 @end
 
 NS_ASSUME_NONNULL_END

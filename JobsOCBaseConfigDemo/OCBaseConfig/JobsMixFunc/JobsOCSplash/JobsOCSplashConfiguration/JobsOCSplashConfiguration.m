@@ -30,6 +30,7 @@ Prop_strong() NSBundle *bundle;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCSplashConfiguration
 
 @implementation JobsOCSplashConfiguration
+
 +(JobsRetJobsOCSplashConfigurationByNSStringBlock _Nonnull)localImage{
     return ^__kindof JobsOCSplashConfiguration *(NSString * name){
         return [self localImage:name bundle:NSBundle.mainBundle];
@@ -259,4 +260,5 @@ Prop_strong() NSBundle *bundle;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCSplashConfiguration
+
 @end

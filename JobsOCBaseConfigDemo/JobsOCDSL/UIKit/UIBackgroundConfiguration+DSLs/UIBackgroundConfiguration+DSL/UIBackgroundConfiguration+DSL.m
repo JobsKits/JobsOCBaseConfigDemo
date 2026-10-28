@@ -8,6 +8,7 @@
 #import "UIBackgroundConfiguration+DSL.h"
 
 @implementation UIBackgroundConfiguration (DSL)
+
 #pragma mark —— 自定义视图
 -(JobsRetBackgroundConfigByViewBlock _Nonnull)byCustomView{
     @jobs_weakify(self)

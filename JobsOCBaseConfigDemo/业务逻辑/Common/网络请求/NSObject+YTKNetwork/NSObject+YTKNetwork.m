@@ -23,6 +23,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END NSObject
 
 @implementation NSObject (YTKNetwork)
+
 #pragma mark —— 示例代码
 /// 普通的单个请求
 -(jobsByjobsByResponseModelBlockBlock _Nonnull)loadCacheData{
@@ -340,4 +341,5 @@
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END NSObject
+
 @end

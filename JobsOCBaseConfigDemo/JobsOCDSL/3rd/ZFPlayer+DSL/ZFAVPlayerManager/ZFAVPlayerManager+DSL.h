@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetZFAVPlayerManagerByvoidIDZFPlayerMediaPlaybackassetZFPlayerPlaybackStateplayStateBlock _Nonnull)byPlayerPlayStateChanged;
 -(JobsRetZFAVPlayerManagerByvoidIDZFPlayerMediaPlaybackassetiderrorBlock _Nonnull)byPlayerPlayFailed;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END ZFAVPlayerManager
+
 @end
 
 NS_ASSUME_NONNULL_END

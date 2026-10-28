@@ -47,4 +47,7 @@
 "/ScriptsByPods/\343\200\220MacOS\343\200\221\360\237\224\215\346\237\245\350\257\242Xcode\345\267\245\347\250\213\344\276\235\350\265\226\345\205\263\347\263\273.command/README.md" filter=jobs-markdown-toc
 "/ScriptsByPods/\343\200\220MacOS\343\200\221\360\237\247\271\346\201\242\345\244\215Xcode PIF\346\236\204\345\273\272\344\274\232\350\257\235.command/README.md" filter=jobs-markdown-toc
 "/fastlane/README.md" filter=jobs-markdown-toc
+"/JobsOCBaseConfigDemo/业务逻辑/功能模块/JobsDeviceDescription/README.md" filter=jobs-markdown-toc
+"/JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCDeviceGuard/README.md" filter=jobs-markdown-toc
+"/JobsOCBaseConfigDemo/入口/JobsDeviceGuardLaunch/README.md" filter=jobs-markdown-toc
 # jobs-markdown-toc:end

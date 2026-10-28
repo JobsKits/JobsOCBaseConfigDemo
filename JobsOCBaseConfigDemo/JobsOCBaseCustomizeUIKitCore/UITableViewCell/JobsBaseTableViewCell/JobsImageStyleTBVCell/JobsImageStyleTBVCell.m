@@ -11,6 +11,7 @@
 #import "UIView+Extra.h"
 
 @interface JobsImageStyleTBVCell ()
+
 /// UI
 Prop_strong()UIImageView *backgroudImageView;
 /// Data
@@ -18,6 +19,7 @@ Prop_strong()UIImageView *backgroudImageView;
 @end
 
 @implementation JobsImageStyleTBVCell
+
 /// UIViewModelProtocol
 UIViewModelProtocol_synthesize_part1
 UIViewModelProtocol_synthesize_part2

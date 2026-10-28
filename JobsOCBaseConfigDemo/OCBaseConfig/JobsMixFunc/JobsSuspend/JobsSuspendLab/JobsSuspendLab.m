@@ -18,6 +18,7 @@
 @end
 
 @implementation JobsSuspendLab
+
 -(JobsRetUILabelByBOOLBlock _Nonnull)byAllowDrag{
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(BOOL data){

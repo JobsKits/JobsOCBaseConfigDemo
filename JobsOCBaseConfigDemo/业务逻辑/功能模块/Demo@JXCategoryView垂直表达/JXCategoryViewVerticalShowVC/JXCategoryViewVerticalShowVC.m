@@ -8,6 +8,7 @@
 #import "JXCategoryViewVerticalShowVC.h"
 
 @interface JXCategoryViewVerticalShowVC ()
+
 /// UI
 Prop_strong()JXCategoryTitleView *categoryView;/// 文字
 Prop_strong()JXCategoryIndicatorLineView *lineView;/// 跟随的指示器
@@ -34,6 +35,7 @@ Prop_strong()NSMutableArray <NSString *>*titleMutArr;
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END JXCategoryIndicatorLineView
 
 @implementation JXCategoryViewVerticalShowVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsNotificationCenter.remove(self);

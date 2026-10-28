@@ -59,6 +59,7 @@ Prop_copy(readonly)JobsBluetoothManager *(^onLog)(void (^block)(NSString *messag
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsBluetoothManager
 -(JobsRetJobsBluetoothManagerByCBPeripheralBlock _Nonnull)byConnectedPeripheral;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsBluetoothManager
+
 @end
 
 NS_ASSUME_NONNULL_END

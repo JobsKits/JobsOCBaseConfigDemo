@@ -14,6 +14,7 @@ Prop_strong()UILabel *titleLab;
 @end
 
 @implementation JobsLoadMoreTBVCell
+
 #pragma mark —— BaseCellProtocol
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {

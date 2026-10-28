@@ -15,6 +15,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END MyProxy
 
 @implementation MyProxy
+
 +(JobsRetIDByVoidBlock _Nonnull)proxy {
     return ^id{
         MyProxy *proxy = MyProxy.alloc;
@@ -125,4 +126,5 @@
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END MyProxy
+
 @end

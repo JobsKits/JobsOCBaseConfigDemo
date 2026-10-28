@@ -11,6 +11,7 @@
 #import "UIView+Extra.h"
 
 @interface JobsFiltrationView ()
+
 /// UI
 Prop_strong()JobsHotLabelByMultiLine *hotLabel;
 Prop_strong()JobsHotLabelWithMultiLineModel *filtrationModel;
@@ -18,6 +19,7 @@ Prop_strong()JobsHotLabelWithMultiLineModel *filtrationModel;
 @end
 
 @implementation JobsFiltrationView
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 #pragma mark —— BaseProtocol

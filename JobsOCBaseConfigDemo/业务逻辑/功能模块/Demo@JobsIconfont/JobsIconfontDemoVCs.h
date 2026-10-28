@@ -70,6 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsIconfontCacheDemoVC
 -(JobsRetJobsIconfontCacheDemoVCByBOOLBlock _Nonnull)byAutomaticSecondLoadPending;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsIconfontCacheDemoVC
+
 @end
 
 @interface JobsIconfontGlyphDemoVC : JobsIconfontDemoBaseVC

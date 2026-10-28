@@ -8,12 +8,14 @@
 #import "FMMaintenanceView.h"
 
 @interface FMMaintenanceView ()
+
 /// UI
 Prop_strong()UILabel *timeLab;
 
 @end
 
 @implementation FMMaintenanceView
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 #pragma mark —— BaseProtocol

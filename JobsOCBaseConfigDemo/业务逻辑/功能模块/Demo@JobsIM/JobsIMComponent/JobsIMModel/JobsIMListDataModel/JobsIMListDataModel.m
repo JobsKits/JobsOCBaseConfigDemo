@@ -8,6 +8,7 @@
 #import "JobsIMListDataModel.h"
 
 @implementation JobsIMListDataModel
+
 #define JobsIMListStrDSL(method, setter) \
 -(JobsRetJobsIMListDataModelByStrBlock _Nonnull)method{ \
     @jobs_weakify(self) \

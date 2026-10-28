@@ -52,6 +52,7 @@ Prop_assign() BOOL mirrorFrontPreview;
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END AVCaptureVideoDataOutput
 
 @implementation JobsOCVideoRecorderCaptureManager
+
 -(JobsRetJobsOCVideoRecorderCaptureManagerByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^__kindof JobsOCVideoRecorderCaptureManager *_Nullable(id<JobsOCVideoRecorderCaptureManagerDelegate> _Nullable data){
@@ -421,6 +422,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCVideoRecorderCaptureManager
+
 @end
 
 // JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN AVCaptureConnection

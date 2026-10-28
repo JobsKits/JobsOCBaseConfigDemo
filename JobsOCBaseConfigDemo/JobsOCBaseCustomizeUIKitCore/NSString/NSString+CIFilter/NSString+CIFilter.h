@@ -28,6 +28,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (CIFilter)
+
 /// 根据字符串生成二维码图像
 -(JobsRetImageByVoidBlock _Nonnull)createQRcode;
 /// 生成指定宽度的高清二维码图像

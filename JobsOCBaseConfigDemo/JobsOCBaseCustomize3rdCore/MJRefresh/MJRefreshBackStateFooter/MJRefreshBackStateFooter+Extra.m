@@ -8,6 +8,7 @@
 #import "MJRefreshBackStateFooter+Extra.h"
 
 @implementation MJRefreshBackStateFooter (Extra)
+
 -(JobsRetIDByBOOLBlock _Nonnull)byAutomaticallyChangeAlpha{
     @jobs_weakify(self)
     return ^id(BOOL automaticallyChangeAlpha){

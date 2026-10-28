@@ -20,6 +20,7 @@ Prop_copy()NSArray <UIViewModel *>*dataArr;
 @end
 
 @implementation CustomBtnVC
+
 @synthesize tableView = _tableView;
 @synthesize dataArr = _dataArr;
 

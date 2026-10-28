@@ -18,7 +18,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UICollectionReusableView (JobsRegisterClassDSL)
+
 -(JobsRetCollectionReusableViewByIndexPathBlock _Nonnull)byIndexPath;
+
 @end
 
 @interface UICollectionView (JobsRegisterClass)<BaseCollectionViewProtocol>

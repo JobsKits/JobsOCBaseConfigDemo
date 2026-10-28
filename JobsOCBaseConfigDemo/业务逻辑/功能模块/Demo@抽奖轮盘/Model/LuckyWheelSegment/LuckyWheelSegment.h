@@ -28,6 +28,7 @@
 NS_ASSUME_NONNULL_BEGIN
 /// Segment 模型（对应 Swift: LuckyWheelSegment）
 @interface LuckyWheelSegment : NSObject
+
 /// 普通文本（如果有 attributedText，则优先用 attributedText）
 Prop_copy(nullable)NSString *text;
 Prop_strong(nullable)UIFont *textFont;
@@ -48,6 +49,7 @@ Prop_copy(nullable)NSString *imageURLString;
              backgroundColor:(UIColor *)backgroundColor
             placeholderImage:(nullable UIImage *)placeholderImage
               imageURLString:(nullable NSString *)imageURLString;
+
 @end
 
 NS_ASSUME_NONNULL_END

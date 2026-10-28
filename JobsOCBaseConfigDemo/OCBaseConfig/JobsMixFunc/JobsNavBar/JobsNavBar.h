@@ -50,6 +50,7 @@ Prop_strong(readonly)BaseButton *closeBtn;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsNavBar
 -(JobsRetJobsNavBarByJobsNavBarConfigBlock _Nonnull)byNavBarConfig;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsNavBar
+
 @end
 
 NS_ASSUME_NONNULL_END

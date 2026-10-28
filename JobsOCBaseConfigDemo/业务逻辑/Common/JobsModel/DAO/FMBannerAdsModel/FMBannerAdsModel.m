@@ -8,6 +8,7 @@
 #import "FMBannerAdsModel.h"
 
 @implementation FMBannerAdsModel
+
 /// UIViewModelProtocol
 UIViewModelProtocol_synthesize_part1
 UIViewModelProtocol_synthesize_part2

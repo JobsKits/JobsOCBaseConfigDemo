@@ -28,6 +28,7 @@ Prop_strong()UIButton *rightDirectionBtn;
 @end
 
 @implementation JobsPresentingVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

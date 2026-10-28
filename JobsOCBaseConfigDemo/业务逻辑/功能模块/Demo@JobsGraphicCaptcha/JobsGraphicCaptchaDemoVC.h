@@ -70,6 +70,7 @@ NS_ASSUME_NONNULL_BEGIN
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsGraphicCaptchaDemoVC
 -(JobsRetJobsGraphicCaptchaDemoVCByUIButtonBlock _Nonnull)bySelectedOptionBtn;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsGraphicCaptchaDemoVC
+
 @end
 
 NS_ASSUME_NONNULL_END

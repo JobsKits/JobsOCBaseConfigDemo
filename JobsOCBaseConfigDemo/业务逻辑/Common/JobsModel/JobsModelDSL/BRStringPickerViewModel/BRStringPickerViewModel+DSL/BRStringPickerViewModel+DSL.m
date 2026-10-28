@@ -8,6 +8,7 @@
 #import "BRStringPickerViewModel+DSL.h"
 
 @implementation BRStringPickerViewModel (DSL)
+
 -(JobsRetBRStringPickerViewModelByBRTextPickerModeBlock _Nonnull)byPickerMode{
     @jobs_weakify(self)
     return ^__kindof BRStringPickerViewModel *_Nullable(BRTextPickerMode data) {

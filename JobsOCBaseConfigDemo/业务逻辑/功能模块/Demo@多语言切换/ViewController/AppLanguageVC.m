@@ -8,12 +8,14 @@
 #import "AppLanguageVC.h"
 
 @interface AppLanguageVC ()
+
 /// Data
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 
 @end
 
 @implementation AppLanguageVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);

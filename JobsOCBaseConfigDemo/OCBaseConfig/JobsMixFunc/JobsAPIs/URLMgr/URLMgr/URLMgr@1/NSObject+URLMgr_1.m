@@ -10,6 +10,7 @@
 #import "NSString+Extra.h"
 /// 来自 http://18.162.73.145:18093/doc.html#/default
 @implementation NSObject (URLMgr_1)
+
 #pragma mark —— 主播管理接口
 /// 获取主播详细信息@GET
 -(JobsRetURLManagerModelByStrBlock _Nonnull)get_presenter_getInfo_ByID{

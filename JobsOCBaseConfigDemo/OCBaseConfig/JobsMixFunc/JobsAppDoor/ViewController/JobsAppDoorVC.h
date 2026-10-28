@@ -220,6 +220,7 @@ Prop_strong()JobsAppDoorConfig *configuration;
 -(JobsRetJobsAppDoorVCByNSIntegerBlock _Nonnull)byCurrentActivateTFIndex;
 -(JobsRetJobsAppDoorVCByNSIntegerBlock _Nonnull)byLastTimeActivateTFIndex;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorVC
+
 @end
 
 NS_ASSUME_NONNULL_END

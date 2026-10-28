@@ -8,6 +8,7 @@
 #import "JobsTodayNewsRefreshConfig.h"
 
 @implementation JobsTodayNewsRefreshConfig
+
 +(JobsRetJobsTodayNewsRefreshConfigByVoidBlock _Nonnull)config {
     return ^__kindof JobsTodayNewsRefreshConfig *{
         return JobsTodayNewsRefreshConfig.alloc.init;

@@ -8,6 +8,7 @@
 #import "JobsAppDoorInputViewBaseStyle_3.h"
 
 @interface JobsAppDoorInputViewBaseStyle_3 ()
+
 /// UI
 Prop_strong()UIButton *securityModeBtn;
 Prop_strong()UIImageView *leftIMGV;
@@ -23,6 +24,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_3
 
 @implementation JobsAppDoorInputViewBaseStyle_3
+
 @synthesize thisViewSize = _thisViewSize;
 - (instancetype)init{
     if (self = [super init]) {
@@ -289,4 +291,5 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_3
+
 @end

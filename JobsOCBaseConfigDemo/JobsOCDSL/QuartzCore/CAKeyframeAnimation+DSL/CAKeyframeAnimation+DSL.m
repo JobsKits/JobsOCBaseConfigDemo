@@ -8,6 +8,7 @@
 #import "CAKeyframeAnimation+DSL.h"
 
 @implementation CAKeyframeAnimation (JobsChain)
+
 -(JobsRetCAKeyframeAnimationByArrBlock _Nonnull)byValues{
     @jobs_weakify(self)
     return ^__kindof CAKeyframeAnimation *_Nullable(__kindof NSArray *_Nullable data){

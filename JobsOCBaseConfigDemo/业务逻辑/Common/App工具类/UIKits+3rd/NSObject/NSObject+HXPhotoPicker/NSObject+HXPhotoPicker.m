@@ -10,6 +10,7 @@
 static NSString * const JobsSystemCameraSimulatorToast = @"iOS 模拟器不支持调用系统相机，请使用真机";
 
 @implementation NSObject (HXPhotoPicker)
+
 #pragma mark —— 一些公有方法
 /// HXPhotoPicker 弹出系统相册选择页面
 -(void)hx_invokeSysPhotoAlbumSuccessBlock:(jobsByIDBlock _Nullable)successBlock

@@ -16,6 +16,7 @@
 @end
 
 @implementation ZYTextField
+
 UITextFieldProtocol_synthesize
 -(instancetype)init{
     if (self = [super init]) {

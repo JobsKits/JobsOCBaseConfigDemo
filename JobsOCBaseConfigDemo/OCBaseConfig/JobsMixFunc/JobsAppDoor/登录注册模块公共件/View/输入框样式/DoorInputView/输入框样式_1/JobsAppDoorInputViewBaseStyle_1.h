@@ -92,6 +92,7 @@ Prop_assign()CGFloat textFieldWidth;
 -(JobsRetJobsAppDoorInputViewBaseStyle_1ByNSStringBlock _Nonnull)byTitleStr_1;
 -(JobsRetJobsAppDoorInputViewBaseStyle_1ByNSStringBlock _Nonnull)byTitleStr_2;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_1
+
 @end
 
 NS_ASSUME_NONNULL_END

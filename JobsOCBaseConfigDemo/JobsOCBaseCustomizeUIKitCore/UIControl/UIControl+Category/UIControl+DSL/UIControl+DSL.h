@@ -58,6 +58,7 @@ Prop_copy(readonly)JobsRetControlByVoidBlock byPerformPrimaryAction API_AVAILABL
 -(JobsRetControlByBOOLBlock _Nonnull)byUxy_ignoreEvent;
 -(void)setUxy_ignoreEvent:(BOOL)data;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UIControl
+
 @end
 
 NS_ASSUME_NONNULL_END

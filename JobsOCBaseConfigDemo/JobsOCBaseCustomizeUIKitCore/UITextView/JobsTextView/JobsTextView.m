@@ -13,6 +13,7 @@
 #import "SZTextView+Extra.h"
 
 @interface JobsTextView()
+
 /// UI
 Prop_strong()UILabel *countLabel;
 /// Data
@@ -21,6 +22,7 @@ Prop_strong()UITextModel *textModel;
 @end
 
 @implementation JobsTextView
+
 @synthesize textModel = _textModel;
 -(JobsRetJobsTextViewByTextModelBlock _Nonnull)byTextModel{
     @jobs_weakify(self)

@@ -66,6 +66,7 @@ Prop_copy(nullable)NSArray<NSString *> *customCharacters;
 -(JobsRetJobsGraphicCaptchaConfigByNSArrayNSStringBlock _Nonnull)byCustomCharacters;
 -(JobsRetJobsGraphicCaptchaConfigByNSUIntegerBlock _Nonnull)byMixedGroupCount;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsGraphicCaptchaConfig
+
 @end
 
 NS_ASSUME_NONNULL_END

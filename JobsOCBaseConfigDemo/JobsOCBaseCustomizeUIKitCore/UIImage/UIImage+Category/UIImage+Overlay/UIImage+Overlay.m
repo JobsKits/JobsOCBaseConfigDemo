@@ -9,6 +9,7 @@
 #import "UIImage+Overlay.h"
 
 @implementation UIImage (Overlay)
+
 ///融合两个图片为一个新图
 +(UIImage *)addImage:(UIImage *)image1
            withImage:(UIImage *)image2

@@ -58,6 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetWidgetVCByJobsWidgetDemoFamilyBlock _Nonnull)byWidgetFamily;
 -(JobsRetWidgetVCByNSIntegerBlock _Nonnull)byCounter;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END WidgetVC
+
 @end
 
 NS_ASSUME_NONNULL_END

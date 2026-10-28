@@ -8,6 +8,7 @@
 #import "NSObject+YTKNetworks.h"
 
 @implementation NSObject (YTKNetworks)
+
 #pragma mark —— 示例代码
 /// 普通的单个请求
 /// 多请求の同步请求

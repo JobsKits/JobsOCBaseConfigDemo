@@ -8,6 +8,7 @@
 #import "MSCommentTableHeaderFooterView.h"
 
 @interface MSCommentTableHeaderFooterView ()
+
 /// UI
 Prop_strong()UIView *accentView;
 Prop_strong()UILabel *titleLab;
@@ -18,6 +19,7 @@ Prop_strong()UILabel *foldIconLab;
 @end
 
 @implementation MSCommentTableHeaderFooterView
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 -(instancetype)initWithFrame:(CGRect)frame{

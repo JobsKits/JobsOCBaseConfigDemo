@@ -50,6 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetJobsTimerByJobsTimerTargetProxyBlock _Nonnull)byNsTimerProxy;
 -(JobsRetJobsTimerBydispatch_source_tBlock _Nonnull)byGcdTimer;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsTimer
+
 @end
 
 NS_ASSUME_NONNULL_END

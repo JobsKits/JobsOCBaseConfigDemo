@@ -40,6 +40,7 @@ Prop_copy() JobsOCRefreshActionBlock action;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCRefreshSlot
 -(JobsRetJobsOCRefreshSlotByBOOLBlock _Nonnull)byEnding;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCRefreshSlot
+
 @end
 
 @interface JobsOCRefreshProxy : NSObject
@@ -68,6 +69,7 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCRefreshProxy
 -(JobsRetJobsOCRefreshProxyByBOOLBlock _Nonnull)byObserving;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCRefreshProxy
+
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCRefreshSlot
@@ -77,6 +79,7 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCRefreshSlot
 
 @implementation JobsOCRefreshSlot
+
 -(JobsRetIDByIDBlock _Nonnull)byScrollView{
     @jobs_weakify(self)
     return ^id(UIScrollView *scrollView){
@@ -424,6 +427,7 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCRefreshSlot
+
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCRefreshProxy
@@ -433,6 +437,7 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCRefreshProxy
 
 @implementation JobsOCRefreshProxy
+
 - (instancetype)initWithScrollView:(UIScrollView *)scrollView {
     if (self = super.init) {
         _scrollView = scrollView;
@@ -620,9 +625,11 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsOCRefreshProxy
+
 @end
 
 @implementation UIScrollView (JobsOCRefresher)
+
 - (JobsRetJobsOCRefreshProxyByVoidBlock _Nonnull)jobs_refreshProxy {
     @jobs_weakify(self)
     return ^JobsOCRefreshProxy *{

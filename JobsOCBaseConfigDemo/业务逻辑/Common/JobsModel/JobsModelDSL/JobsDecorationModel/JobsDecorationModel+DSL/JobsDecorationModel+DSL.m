@@ -8,6 +8,7 @@
 #import "JobsDecorationModel+DSL.h"
 
 @implementation JobsDecorationModel (DSL)
+
 -(JobsRetJobsDecorationModelByClsBlock _Nonnull)byCls{
     @jobs_weakify(self)
     return ^__kindof JobsDecorationModel *_Nullable(Class _Nullable data) {

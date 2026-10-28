@@ -39,6 +39,7 @@ static UIColor *JobsGraphicCaptchaRandomColor(CGFloat alpha) {
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsGraphicCaptchaView
 
 @implementation JobsGraphicCaptchaView
+
 @synthesize config = _config;
 
 -(instancetype)init{
@@ -316,4 +317,5 @@ static UIColor *JobsGraphicCaptchaRandomColor(CGFloat alpha) {
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsGraphicCaptchaView
+
 @end

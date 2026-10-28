@@ -19,6 +19,7 @@ Prop_strong()NSMutableArray <UILabel *>*protocolLabelMutArr;
 @end
 
 @implementation ProtocolKitVC
+
 - (instancetype)init{
     if (self = [super init]) {
     };return self;

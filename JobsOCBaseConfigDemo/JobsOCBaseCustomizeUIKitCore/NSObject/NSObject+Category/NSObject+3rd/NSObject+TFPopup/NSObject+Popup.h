@@ -28,6 +28,7 @@
 NS_ASSUME_NONNULL_BEGIN
 /// 弹出一个弹窗
 @interface NSObject (TFPopup)
+
 /// Data
 Prop_strong()TFPopupParam *popupParameter;
 #pragma mark —— 创建缩放模式的View

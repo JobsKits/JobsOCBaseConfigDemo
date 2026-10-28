@@ -17,6 +17,7 @@ Prop_strong()UILabel *titleLabel;
 @end
 
 @implementation LZTabBarItem
+
 #define JobsLZTabBarItemDSL(_name_, _blockType_, _dataType_, _property_) \
 -(_blockType_ _Nonnull)by##_name_{ \
     @jobs_weakify(self) \

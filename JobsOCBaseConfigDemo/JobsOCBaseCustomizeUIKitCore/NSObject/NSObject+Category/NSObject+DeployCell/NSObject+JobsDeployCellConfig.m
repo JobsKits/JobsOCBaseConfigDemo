@@ -8,6 +8,7 @@
 #import "NSObject+JobsDeployCellConfig.h"
 
 @implementation NSObject (JobsDeployCellConfig)
+
 #pragma mark —— UICollectionViewCell 和 UITableViewCell 的部署策略
 -(UICollectionViewCell *_Nullable)jobsCollectionViewCellPlanAtIndexPath:(NSIndexPath *_Nonnull)indexPath
                                                          collectionView:(UICollectionView *_Nonnull)collectionView

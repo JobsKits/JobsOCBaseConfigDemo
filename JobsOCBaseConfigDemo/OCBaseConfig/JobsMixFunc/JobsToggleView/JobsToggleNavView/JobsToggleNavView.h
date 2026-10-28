@@ -23,6 +23,7 @@
 #endif
 
 @interface JobsToggleNavView : BaseView<JobsToggleNavViewProtocol>
+
 /// UI
 Prop_copy(nullable)NSMutableArray <__kindof UIButton *>*buttonsArray;
 /// 选择某一个标签
@@ -31,6 +32,7 @@ Prop_copy(nullable)NSMutableArray <__kindof UIButton *>*buttonsArray;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsToggleNavView
 -(JobsRetJobsToggleNavViewByNSUIntegerBlock _Nonnull)byCurrent_index;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsToggleNavView
+
 @end
 
 NS_INLINE __kindof JobsToggleNavView *_Nonnull jobsMakeToggleNavView(jobsByToggleNavViewBlock _Nonnull block){

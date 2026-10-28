@@ -8,6 +8,7 @@
 #import "AppDelegate.h"
 #import "SceneDelegate.h"
 #import "JobsOCSceneCoordinator.h"
+#import "JobsOCDeviceGuardLaunchGate.h"
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)
 #import <JobsOCDefs/JobsDefines.h>

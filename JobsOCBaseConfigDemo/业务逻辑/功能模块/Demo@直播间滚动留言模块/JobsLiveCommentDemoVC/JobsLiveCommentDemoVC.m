@@ -21,6 +21,7 @@ Prop_strong()NSMutableArray <NSString *>*messageMutArr;
 @end
 
 @implementation JobsLiveCommentDemoVC
+
 -(void)dealloc{
     ((JobsOCKeyboardMgr *)JobsOCKeyboardMgr.shared()).clearConfigByOwner(self);
 }

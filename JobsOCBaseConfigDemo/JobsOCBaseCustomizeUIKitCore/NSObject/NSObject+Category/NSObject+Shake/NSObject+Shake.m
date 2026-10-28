@@ -9,6 +9,7 @@
 #import "NSObject+Shake.h"
 
 @implementation NSObject (Shake)
+
 -(jobsByVoidBlock _Nonnull)shake{
     @jobs_weakify(self)
     return ^{

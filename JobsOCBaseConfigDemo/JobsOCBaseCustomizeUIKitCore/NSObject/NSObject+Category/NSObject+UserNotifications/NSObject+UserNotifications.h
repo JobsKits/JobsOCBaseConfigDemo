@@ -19,6 +19,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (UserNotifications)
+
 /// 用户通知中心
 -(JobsRetUNUserNotificationCenterByVoidBlock _Nonnull)notificationCenter;
 /// 获取通知授权和设置

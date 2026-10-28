@@ -23,6 +23,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsLinkageMenuViewConfig
 
 @implementation JobsLinkageMenuViewConfig
+
 -(instancetype)init{
     if (self = [super init]) {
         _MENU_ITEM_CORNER_RADIUS = JobsWidth(8);
@@ -121,4 +122,5 @@
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsLinkageMenuViewConfig
+
 @end

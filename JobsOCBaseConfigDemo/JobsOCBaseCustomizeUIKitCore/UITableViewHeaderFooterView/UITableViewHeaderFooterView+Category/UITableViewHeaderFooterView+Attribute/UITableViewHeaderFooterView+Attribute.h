@@ -21,4 +21,5 @@ Prop_weak()UITableView *tbv;
 Prop_assign()NSUInteger section;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_UITABLEVIEWHEADERFOOTERVIEW_ATTRIBUTE_9A14B71FC9 */

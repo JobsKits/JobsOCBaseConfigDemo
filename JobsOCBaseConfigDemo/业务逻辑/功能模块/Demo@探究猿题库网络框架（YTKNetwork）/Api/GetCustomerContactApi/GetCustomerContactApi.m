@@ -8,6 +8,7 @@
 #import "GetCustomerContactApi.h"
 
 @implementation GetCustomerContactApi
+
 /// 请求Api
 -(NSString *)requestUrl{
     JobsRetStrByVoidBlock action = ((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(GetCustomerContactApi.class, @selector(jobsRequestUrl)))(self, @selector(jobsRequestUrl));

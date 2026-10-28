@@ -56,6 +56,7 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END AVCaptureVideoPreviewLayer
 
 @implementation JobsLiveStreamDemoVC
+
 -(void)dealloc{
     JobsRemoveNotification(self);
     self.stopCaptureSessionIfNeeded();
@@ -477,6 +478,7 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsLiveStreamDemoVC
+
 @end
 
 // JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN AVCaptureSession

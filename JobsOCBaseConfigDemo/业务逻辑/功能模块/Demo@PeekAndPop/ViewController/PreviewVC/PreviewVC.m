@@ -21,6 +21,7 @@ Prop_strong()UILabel *previewLabel;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END PreviewVC
 
 @implementation PreviewVC
+
 - (void)viewDidLoad {
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(PreviewVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
     if (action) action();
@@ -73,4 +74,5 @@ Prop_strong()UILabel *previewLabel;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END PreviewVC
+
 @end

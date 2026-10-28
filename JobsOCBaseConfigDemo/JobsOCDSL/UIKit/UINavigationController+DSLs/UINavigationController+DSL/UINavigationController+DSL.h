@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetUINavigationControllerByBOOLBlock _Nonnull)byNavigationBarHidden;
 -(void)setNavigationBarHidden:(BOOL)data;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UINavigationController
+
 @end
 
 NS_ASSUME_NONNULL_END

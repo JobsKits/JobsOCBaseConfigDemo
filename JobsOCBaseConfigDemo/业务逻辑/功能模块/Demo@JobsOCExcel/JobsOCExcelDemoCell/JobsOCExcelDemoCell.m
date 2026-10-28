@@ -15,6 +15,7 @@ Prop_strong()JobsOCExcelView *excelView;
 @end
 
 @implementation JobsOCExcelDemoCell
+
 -(instancetype)initWithStyle:(UITableViewCellStyle)style
              reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style

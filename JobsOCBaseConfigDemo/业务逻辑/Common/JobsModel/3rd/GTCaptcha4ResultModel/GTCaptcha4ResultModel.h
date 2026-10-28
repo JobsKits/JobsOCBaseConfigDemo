@@ -21,6 +21,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GTCaptcha4ResultModel : NSObject
+
 /// 成功
 Prop_copy()NSString *pass_token;
 Prop_copy()NSString *gen_time;

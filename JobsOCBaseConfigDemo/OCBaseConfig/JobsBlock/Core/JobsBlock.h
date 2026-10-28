@@ -20,6 +20,26 @@
 #import "ReturnByUnCertainParameters.h"
 #import "VoidByUnCertainParameters.h"
 
+@class JobsOCDeviceGuardConfiguration;
+/// JobsOCDeviceGuardConfiguration
+// 仅前向声明业务配置类型，JobsBlock不反向依赖设备安全Pod。
+typedef JobsOCDeviceGuardConfiguration * _Nonnull(^JobsRetJobsOCDeviceGuardConfigurationByBOOLBlock)(BOOL data);
+typedef JobsOCDeviceGuardConfiguration * _Nonnull(^JobsRetJobsOCDeviceGuardConfigurationByNSUIntegerBlock)(NSUInteger data);
+
+@class JobsOCDeviceGuardReport, JobsOCDeviceGuardLaunchDecision;
+
+/// JobsOCDeviceGuardLaunchDecision
+// 宿主启动策略只使用前向声明，不让JobsBlock反向依赖应用层。
+typedef JobsOCDeviceGuardLaunchDecision * _Nonnull(^JobsRetJobsOCDeviceGuardLaunchDecisionByVoidBlock)(void);
+/// BOOL
+typedef BOOL(^JobsRetBOOLByJobsOCDeviceGuardReportBlock)(JobsOCDeviceGuardReport * _Nonnull report);
+/// UIViewController
+typedef UIViewController * _Nonnull(^JobsRetUIViewControllerByJobsOCDeviceGuardReportBlock)(JobsOCDeviceGuardReport * _Nonnull report);
+/// JobsOCDeviceGuardReport
+typedef JobsOCDeviceGuardReport * _Nonnull(^JobsRetJobsOCDeviceGuardReportByVoidBlock)(void);
+/// BOOL
+typedef BOOL(^JobsRetBOOLByJobsRetJobsOCDeviceGuardReportByVoidBlock)(JobsRetJobsOCDeviceGuardReportByVoidBlock _Nonnull provider);
+
 typedef id _Nullable(^JobsRetIDByRetIDVoidBlocks)(JobsRetIDByVoidBlock _Nullable block);
 typedef __kindof MJRefreshComponent *_Nullable(^JobsRetMJRefreshComponentByBOOLBlock)(BOOL data);
 typedef __kindof NSTextContainer *_Nullable(^JobsRetTextContainerByCGFloatBlock)(CGFloat data);

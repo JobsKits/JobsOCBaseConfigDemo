@@ -95,6 +95,7 @@ UITableViewDelegate
 -(JobsRetJobsIMVCByBOOLBlock _Nonnull)byHiddenNavigationBar;
 -(JobsRetJobsIMVCByJobsIMChatInfoModelBlock _Nonnull)byChatInfoModel;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsIMVC
+
 @end
 
 NS_ASSUME_NONNULL_END

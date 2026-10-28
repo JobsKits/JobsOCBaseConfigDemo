@@ -8,6 +8,7 @@
 #import "JobsWelcomeVC.h"
 
 @interface JobsWelcomeVC ()
+
 // UI
 Prop_strong()UIPageControl *pageControl;
 Prop_strong()NSMutableArray<UIImageView *> *pageImageViews;
@@ -17,6 +18,7 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
 @end
 
 @implementation JobsWelcomeVC
+
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     if (!_scrollView) return;

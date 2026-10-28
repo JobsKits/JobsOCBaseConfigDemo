@@ -60,6 +60,7 @@ Prop_strong(readonly)UIButton *button;
 -(instancetype)initWithPanel:(JobsDebugPanelManager *)panel hostWindow:(UIWindow *)window;
 
 @end
+
 NS_ASSUME_NONNULL_END
 #endif
 

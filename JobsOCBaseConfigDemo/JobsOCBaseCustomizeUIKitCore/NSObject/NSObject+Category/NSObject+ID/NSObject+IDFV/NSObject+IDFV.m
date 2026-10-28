@@ -8,6 +8,7 @@
 #import "NSObject+IDFV.h"
 
 @implementation NSObject (IDFV)
+
 /**
 
      全名：identifierForVendor

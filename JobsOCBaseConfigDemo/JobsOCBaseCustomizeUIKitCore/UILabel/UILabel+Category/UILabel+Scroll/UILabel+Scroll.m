@@ -8,6 +8,7 @@
 #import "UILabel+Scroll.h"
 
 @implementation UILabel (Scroll)
+
 #pragma mark ——
 /// 不管是否文字超过UILabel的frame.width都是滚动的
 -(RACDisposable *)startRACTimerWithDuration:(NSTimeInterval)duration

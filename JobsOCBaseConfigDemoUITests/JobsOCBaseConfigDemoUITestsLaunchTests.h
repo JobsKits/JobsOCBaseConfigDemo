@@ -23,10 +23,12 @@
 #endif
 
 @interface JobsOCBaseConfigDemoUITestsLaunchTests : XCTestCase
+
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCBaseConfigDemoUITestsLaunchTests
 -(JobsRetJobsOCBaseConfigDemoUITestsLaunchTestsByBOOLBlock _Nonnull)byContinueAfterFailure;
 -(void)setContinueAfterFailure:(BOOL)data;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCBaseConfigDemoUITestsLaunchTests
+
 @end
 
 #endif /* JOBS_HEADER_GUARD_JOBSOCBASECONFIGDEMOUITESTSLAUNCHTESTS_A9C35C620F */

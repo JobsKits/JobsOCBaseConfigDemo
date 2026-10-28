@@ -108,9 +108,11 @@ Prop_assign()NSInteger concurrentCount;
 -(JobsRetJobsFuseBubbleRunnerByUIViewBlock _Nonnull)byHostView;
 -(JobsRetJobsFuseBubbleRunnerByUIViewBlock _Nonnull)bySourceView;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END _JobsFuseBubbleRunner
+
 @end
 
 @implementation _JobsFuseDisplayLinkTarget
+
 -(JobsRetIDByUIViewBlock _Nonnull)byView{
     @jobs_weakify(self)
     return ^id(UIView *view){
@@ -155,6 +157,7 @@ Prop_assign()NSInteger concurrentCount;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END _JobsFuseBubbleRunner
 
 @implementation _JobsFuseBubbleRunner
+
 -(JobsRetIDByIDBlock _Nonnull)byConfig{
     @jobs_weakify(self)
     return ^id(JobsFuseBubbleConfig *config){
@@ -323,9 +326,11 @@ Prop_assign()NSInteger concurrentCount;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END _JobsFuseBubbleRunner
+
 @end
 
 @implementation UIView (JobsFuseAnimation)
+
 -(instancetype)byFuseBubbleStartInView:(UIView *)hostView
                                 config:(JobsFuseBubbleConfig *)config
                         bubbleProvider:(JobsFuseBubbleProvider)bubbleProvider
@@ -596,6 +601,7 @@ Prop_assign()NSInteger concurrentCount;
 @end
 
 @implementation UIView (JobsFuseAnimationPrivate)
+
 -(jobsByCADisplayLinkBlock _Nonnull)jobs_fuseDisplayLinkTick{
     @jobs_weakify(self)
     return ^(CADisplayLink * displayLink){

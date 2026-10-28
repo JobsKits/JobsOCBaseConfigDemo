@@ -14,6 +14,7 @@ Prop_strong()UILabel *bubbleLabel;
 @end
 
 @implementation JobsLiveMsgCell
+
 +(JobsRetStrByVoidBlock _Nonnull)reuseIdentifier{
     return ^NSString *_Nullable{
         return NSStringFromClass(self);

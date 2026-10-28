@@ -43,6 +43,7 @@ Prop_strong()__kindof UIView *view;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN MasonryModel
 -(JobsRetMasonryModelByMASAxisTypeBlock _Nonnull)byAxisType;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END MasonryModel
+
 @end
 
 NS_ASSUME_NONNULL_END

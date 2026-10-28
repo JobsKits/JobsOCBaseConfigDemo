@@ -76,6 +76,7 @@ typedef void(^JobsIconfontLoadCompletion)(JobsIconfontLoadResult *result);
 -(JobsRetJobsIconfontLoadTokenByBOOLBlock _Nonnull)byCancelled;
 -(JobsRetJobsIconfontLoadTokenBydispatch_block_tBlock _Nonnull)byCancellation;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsIconfontLoadToken
+
 @end
 
 @interface JobsIconfontManager : NSObject

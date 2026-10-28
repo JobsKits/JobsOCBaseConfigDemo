@@ -8,6 +8,7 @@
 #import "CAAnimation+Extra.h"
 
 @implementation CAAnimation (Extra)
+
 -(JobsRetCAAnimationByCAMediaTimingFunctionBlock _Nonnull)timingFunctionBy{
     @jobs_weakify(self)
     return ^__kindof CAAnimation *_Nullable(CAMediaTimingFunction *_Nullable data){

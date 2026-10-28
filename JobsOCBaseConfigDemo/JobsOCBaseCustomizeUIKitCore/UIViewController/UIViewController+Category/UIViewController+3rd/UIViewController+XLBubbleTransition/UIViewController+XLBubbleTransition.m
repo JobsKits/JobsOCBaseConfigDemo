@@ -8,6 +8,7 @@
 #import "UIViewController+XLBubbleTransition.h"
 
 @implementation UIViewController (XLBubbleTransition)
+
 #pragma mark —— Navigation的Push和Pop转场动画设置
 -(id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
                                  animationControllerForOperation:(UINavigationControllerOperation)operation

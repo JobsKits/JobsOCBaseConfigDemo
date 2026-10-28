@@ -12,6 +12,7 @@
 @end
 
 @implementation JobsPullListTBVCell
+
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     return ^(UITableView * _Nonnull tableView) {
         JobsPullListTBVCell *cell = JobsRegisterDequeueTableViewDefaultCell(JobsPullListTBVCell);

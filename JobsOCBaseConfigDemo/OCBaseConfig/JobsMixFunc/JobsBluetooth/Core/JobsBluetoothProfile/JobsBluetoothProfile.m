@@ -17,6 +17,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsBluetoothProfile
 
 @implementation JobsBluetoothProfile
+
 -(instancetype)init{
     if (self = [super init]) {
         _identifier = @"default";
@@ -92,4 +93,5 @@
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsBluetoothProfile
+
 @end

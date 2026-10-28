@@ -8,6 +8,7 @@
 #import "PDFView+DSL.h"
 
 @implementation PDFView (JobsChain)
+
 +(JobsRetPDFViewByVoidBlock _Nonnull)byPDFView{
     return ^__kindof PDFView *_Nullable(void){
         return [[self alloc] init];

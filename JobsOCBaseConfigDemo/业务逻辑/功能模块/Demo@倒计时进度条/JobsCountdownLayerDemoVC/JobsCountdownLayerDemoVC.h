@@ -74,6 +74,7 @@ NS_ASSUME_NONNULL_BEGIN
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsCountdownLayerDemoVC
 -(JobsRetJobsCountdownLayerDemoVCByCGFloatBlock _Nonnull)byTotalSeconds;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsCountdownLayerDemoVC
+
 @end
 
 NS_ASSUME_NONNULL_END

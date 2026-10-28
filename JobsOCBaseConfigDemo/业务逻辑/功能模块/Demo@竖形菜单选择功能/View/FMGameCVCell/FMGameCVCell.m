@@ -21,6 +21,7 @@ Prop_assign(class)SourceType sourceType;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END FMGameCVCell
 
 @implementation FMGameCVCell
+
 -(void)layoutSubviews{
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FMGameCVCell.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
     if (action) action();
@@ -222,4 +223,5 @@ static SourceType _sourceType;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END FMGameCVCell
+
 @end

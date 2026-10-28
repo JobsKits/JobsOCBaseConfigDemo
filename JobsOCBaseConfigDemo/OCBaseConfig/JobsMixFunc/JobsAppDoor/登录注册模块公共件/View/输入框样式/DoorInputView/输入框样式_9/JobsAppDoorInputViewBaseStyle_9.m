@@ -10,6 +10,7 @@
 #import "JobsAppDoorInputViewHeader.h"
 
 @interface JobsAppDoorInputViewBaseStyle_9 ()
+
 /// UI
 Prop_strong()UIButton <TimerProtocol>*countDownBtn;
 /// Data
@@ -26,6 +27,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_9
 
 @implementation JobsAppDoorInputViewBaseStyle_9
+
 @synthesize thisViewSize = _thisViewSize;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{
@@ -216,4 +218,5 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_9
+
 @end

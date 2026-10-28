@@ -8,6 +8,7 @@
 #import "UIViewController+EmptyData.h"
 
 @implementation UIViewController (EmptyData)
+
 -(jobsByVoidBlock _Nonnull)ifEmptyData{
     @jobs_weakify(self)
     return ^{

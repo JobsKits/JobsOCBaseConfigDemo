@@ -55,4 +55,5 @@
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsMsgDataModel
+
 @end

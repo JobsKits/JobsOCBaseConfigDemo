@@ -47,6 +47,7 @@ static CGFloat JobsAppDoorRegisterHomeBtnTopOffset(void) {
 /// 可以发现：（animateWithDuration + Masonry，动画参数设置无效）
 /// 用户名 和 密码 ，登录注册两个界面共用，只不过frame不一样
 @interface JobsAppDoorContentView (){
+
     JobsAppDoorInputViewBaseStyle_7 *inputView_7;
 }
 /// UI
@@ -84,6 +85,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorContentView
 
 @implementation JobsAppDoorContentView
+
 -(JobsRetJobsAppDoorContentViewByInputViewsBlock _Nonnull)byLoginDoorInputViewBaseStyleMutArr{
     @jobs_weakify(self)
     return ^__kindof JobsAppDoorContentView *_Nullable(NSMutableArray<JobsAppDoorInputViewBaseStyle *> *_Nullable data){
@@ -1319,4 +1321,5 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAppDoorContentView
+
 @end

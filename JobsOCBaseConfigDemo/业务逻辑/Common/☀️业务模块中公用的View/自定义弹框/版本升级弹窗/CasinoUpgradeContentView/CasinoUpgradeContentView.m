@@ -8,6 +8,7 @@
 #import "CasinoUpgradeContentView.h"
 
 @interface CasinoUpgradeContentView ()
+
 /// UI
 Prop_strong()UILabel *titleLab;
 Prop_strong()UIButton *cancelBtn;
@@ -24,6 +25,7 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END CasinoUpgradeContentView
 
 @implementation CasinoUpgradeContentView
+
 -(instancetype)init{
     if (self = [super init]) {
     };return self;
@@ -149,4 +151,5 @@ Prop_strong()JobsGetiOSNewestVersionModel *iOSNewestVersionModel;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END CasinoUpgradeContentView
+
 @end

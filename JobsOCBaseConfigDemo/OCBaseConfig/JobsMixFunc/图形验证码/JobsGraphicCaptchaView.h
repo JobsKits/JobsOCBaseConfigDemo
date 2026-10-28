@@ -53,6 +53,7 @@ Prop_copy(nullable)void (^refreshBlock)(NSString *captchaText);
 -(JobsRetJobsGraphicCaptchaViewByNSUIntegerBlock _Nonnull)byNoisePointCount;
 -(JobsRetJobsGraphicCaptchaViewByUIColorBlock _Nonnull)byCaptchaBackgroundColor;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsGraphicCaptchaView
+
 @end
 
 NS_ASSUME_NONNULL_END

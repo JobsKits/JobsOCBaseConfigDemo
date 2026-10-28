@@ -266,6 +266,7 @@ Prop_assign()CGSize layoutSubviewsRectCornerSize;
 -(JobsRetUIViewByUIScrollViewBlock _Nonnull)byMjRefreshTargetView;
 -(void)setMjRefreshTargetView:(UIScrollView * _Nullable)data;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UIView
+
 @end
 
 NS_ASSUME_NONNULL_END

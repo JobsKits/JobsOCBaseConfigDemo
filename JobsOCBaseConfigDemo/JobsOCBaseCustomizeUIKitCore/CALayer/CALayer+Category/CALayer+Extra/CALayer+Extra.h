@@ -18,6 +18,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CALayer (Extra)
+
 /// 适用于通过字符串来创建对象动画的场景
 -(JobsRetCALayerByCAPropertyAnimationBlock _Nonnull)addAnimationBy;
 -(JobsRetCALayerByCAPropertyAnimationBlock _Nonnull)removeAnimationBy;

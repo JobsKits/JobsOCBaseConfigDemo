@@ -9,6 +9,7 @@
 #import "NSObject+TFPopup.h"
 
 @interface JXCategoryViewWithHeaderViewSubVC (){
+
     BaiShaETProjVIPSubCVCell_01 *cell01;
     BaiShaETProjVIPSubCVCell_02 *cell02;
     BaiShaETProjVIPSubCVCell_03 *cell03;
@@ -24,6 +25,7 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UICollectionViewCell *>*>*
 @end
 
 @implementation JXCategoryViewWithHeaderViewSubVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);

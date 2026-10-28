@@ -14,6 +14,7 @@ Prop_strong()CAShapeLayer *overlayMaskLayer;
 @end
 
 @implementation TransparentRegionVC
+
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
     if (_scrollView) {

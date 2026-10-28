@@ -8,6 +8,7 @@
 #import "JobsAppDoorInputViewBaseStyle_4.h"
 
 @interface JobsAppDoorInputViewBaseStyle_4 ()
+
 /// UI
 Prop_strong()JobsOCGraphicCaptchaView *captchaView;
 Prop_strong()UIImageView *leftIMGV;
@@ -24,6 +25,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_4
 
 @implementation JobsAppDoorInputViewBaseStyle_4
+
 @synthesize thisViewSize = _thisViewSize;
 @synthesize graphicCaptchaConfig = _graphicCaptchaConfig;
 
@@ -266,4 +268,5 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_4
+
 @end

@@ -17,6 +17,7 @@ Prop_strong() UILongPressGestureRecognizer *longPressGesture;
 @end
 
 @implementation JobsOCVideoRecorderRecordButton
+
 -(JobsRetJobsOCVideoRecorderRecordButtonByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^__kindof JobsOCVideoRecorderRecordButton *_Nullable(id<JobsOCVideoRecorderRecordButtonDelegate> _Nullable data){

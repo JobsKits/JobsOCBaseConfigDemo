@@ -66,6 +66,7 @@ Prop_copy()NSString *pageTitle;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JXCategoryPopupSubVC
 -(JobsRetJXCategoryPopupSubVCByStrBlock _Nonnull)byCurrentTitleWritingLottieName;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JXCategoryPopupSubVC
+
 @end
 
 NS_ASSUME_NONNULL_END

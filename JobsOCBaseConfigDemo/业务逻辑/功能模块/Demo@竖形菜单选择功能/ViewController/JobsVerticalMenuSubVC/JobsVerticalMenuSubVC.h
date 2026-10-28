@@ -42,6 +42,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsVerticalMenuSubVC : BaseViewController
+
 /// 对应左侧栏目下标
 Prop_assign()NSUInteger contentIndex;
 
@@ -49,6 +50,7 @@ Prop_assign()NSUInteger contentIndex;
 -(JobsRetJobsVerticalMenuSubVCByBOOLBlock _Nonnull)byDidReloadContentAfterLayout;
 -(JobsRetJobsVerticalMenuSubVCByNSUIntegerBlock _Nonnull)byContentIndex;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsVerticalMenuSubVC
+
 @end
 
 NS_ASSUME_NONNULL_END

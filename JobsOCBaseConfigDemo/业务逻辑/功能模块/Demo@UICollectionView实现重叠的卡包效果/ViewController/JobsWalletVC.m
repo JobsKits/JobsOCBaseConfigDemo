@@ -35,6 +35,7 @@ Prop_assign()JobsWalletCardExpandStyle walletStyle;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsWalletVC
 
 @implementation JobsWalletVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -442,4 +443,5 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsWalletVC
+
 @end

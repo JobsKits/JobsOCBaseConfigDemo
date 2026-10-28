@@ -42,6 +42,7 @@ Prop_assign()BOOL isRead;// 已读
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsMsgDataModel
 -(JobsRetJobsMsgDataModelByBOOLBlock _Nonnull)byRead;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsMsgDataModel
+
 @end
 
 NS_ASSUME_NONNULL_END

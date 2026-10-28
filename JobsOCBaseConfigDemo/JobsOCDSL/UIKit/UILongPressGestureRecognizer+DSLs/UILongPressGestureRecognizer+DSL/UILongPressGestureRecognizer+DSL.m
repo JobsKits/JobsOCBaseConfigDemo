@@ -8,6 +8,7 @@
 #import "UILongPressGestureRecognizer+DSL.h"
 
 @implementation UILongPressGestureRecognizer (JobsChain)
+
 -(JobsRetLongPressGestureRecognizerByNSUIntegerBlock _Nonnull)byNumberOfTapsRequired{
     @jobs_weakify(self)
     return ^__kindof UILongPressGestureRecognizer *_Nullable(NSUInteger data){

@@ -8,6 +8,7 @@
 #import "JobsAppDoorInputViewBaseStyle.h"
 
 @implementation JobsAppDoorInputViewTFModel
+
 -(JobsRetJobsAppDoorInputViewTFModelByNSStringBlock _Nonnull)byPlaceHolder{
     @jobs_weakify(self)
     return ^__kindof JobsAppDoorInputViewTFModel *_Nullable(NSString *_Nullable data){
@@ -45,6 +46,7 @@
 @end
 
 @implementation JobsAppDoorInputViewBaseStyle
+
 -(JobsAppDoorInputViewTFModel *)textFieldInputModel{
     if (!_textFieldInputModel) {
         _textFieldInputModel = JobsAppDoorInputViewTFModel.new

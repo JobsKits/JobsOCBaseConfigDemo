@@ -65,6 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetJobsOCRefresherDemoVCByNSIntegerBlock _Nonnull)byHorizontalColumnCount;
 -(JobsRetJobsOCRefresherDemoVCByNSIntegerBlock _Nonnull)byVerticalRowCount;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCRefresherDemoVC
+
 @end
 
 NS_ASSUME_NONNULL_END

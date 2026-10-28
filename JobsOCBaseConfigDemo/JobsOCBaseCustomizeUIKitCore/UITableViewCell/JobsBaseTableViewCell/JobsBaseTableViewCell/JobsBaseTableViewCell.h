@@ -37,6 +37,7 @@ AppToolsProtocol
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsBaseTableViewCell
 -(JobsRetJobsBaseTableViewCellByBOOLBlock _Nonnull)bySetTBVCellOffset;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsBaseTableViewCell
+
 @end
 
 NS_ASSUME_NONNULL_END

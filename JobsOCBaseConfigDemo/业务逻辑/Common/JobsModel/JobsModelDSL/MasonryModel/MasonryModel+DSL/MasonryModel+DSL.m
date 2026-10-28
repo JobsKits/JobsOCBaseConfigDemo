@@ -8,6 +8,7 @@
 #import "MasonryModel+DSL.h"
 
 @implementation MasonryModel (DSL)
+
 -(JobsRetMasonryModelByCGFloatBlock _Nonnull)byFixedSpacing{
     @jobs_weakify(self)
     return ^__kindof MasonryModel *_Nullable(CGFloat data) {

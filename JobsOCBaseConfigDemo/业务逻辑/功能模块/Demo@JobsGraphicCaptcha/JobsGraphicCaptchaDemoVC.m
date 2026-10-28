@@ -34,6 +34,7 @@ Prop_strong()UILabel *resultLab;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsGraphicCaptchaDemoVC
 
 @implementation JobsGraphicCaptchaDemoVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);
@@ -618,4 +619,5 @@ Prop_strong()UILabel *resultLab;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsGraphicCaptchaDemoVC
+
 @end

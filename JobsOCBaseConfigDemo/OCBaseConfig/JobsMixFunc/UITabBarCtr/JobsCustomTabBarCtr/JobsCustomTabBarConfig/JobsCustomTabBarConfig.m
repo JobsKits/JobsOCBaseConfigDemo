@@ -24,6 +24,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsCustomTabBarConfig
 
 @implementation JobsCustomTabBarConfig
+
 BaseButtonProtocol_synthesize
 BaseProtocol_synthesize
 static JobsCustomTabBarConfig *JobsCustomTabBarConfigInstance = nil;
@@ -138,4 +139,5 @@ static dispatch_once_t JobsCustomTabBarConfigOnceToken;
     };
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END JobsCustomTabBarConfig
+
 @end

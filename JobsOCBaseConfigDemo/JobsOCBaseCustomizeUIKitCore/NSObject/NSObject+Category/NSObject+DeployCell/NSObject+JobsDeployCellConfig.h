@@ -45,6 +45,7 @@ NS_ASSUME_NONNULL_BEGIN
 #endif
 
 @interface NSObject (JobsDeployCellConfig)
+
 #pragma mark —— UICollectionViewCell 和 UITableViewCell 的部署策略
 -(UICollectionViewCell *_Nullable)jobsCollectionViewCellPlanAtIndexPath:(NSIndexPath *_Nonnull)indexPath
                                                          collectionView:(UICollectionView *_Nonnull)collectionView
