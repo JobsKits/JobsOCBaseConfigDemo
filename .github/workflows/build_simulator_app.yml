@@ -89,7 +89,14 @@ jobs:
 
       - name: Install CocoaPods dependencies
         timeout-minutes: 30
+        env:
+          JOBS_SPECS_SOURCE: cdn
         run: |
+          # 仅当前安装进程使用 HTTP/1.1，避免 Git 下载的 HTTP/2 断流。
+          git_config_count="${GIT_CONFIG_COUNT:-0}"
+          export "GIT_CONFIG_KEY_${git_config_count}=http.version"
+          export "GIT_CONFIG_VALUE_${git_config_count}=HTTP/1.1"
+          export GIT_CONFIG_COUNT="$((git_config_count + 1))"
           JOBS_POD_INSTALL_PURE=1 JOBS_POD_INSTALL_SKIP_VENDOR_PATCHES=1 pod install --no-repo-update || JOBS_POD_INSTALL_PURE=1 JOBS_POD_INSTALL_SKIP_VENDOR_PATCHES=1 pod install --repo-update
           ruby .github/tests/SimulatorPods/dependency_regression.rb --installed-root "${GITHUB_WORKSPACE}"
 
