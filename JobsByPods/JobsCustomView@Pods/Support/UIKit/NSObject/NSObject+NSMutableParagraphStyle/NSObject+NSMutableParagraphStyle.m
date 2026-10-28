@@ -8,6 +8,7 @@
 #import "NSObject+NSMutableParagraphStyle.h"
 
 @implementation NSObject (NSMutableParagraphStyle)
+
 /// 居左对齐
 -(JobsRetNSMutableParagraphStyleByVoidBlock _Nonnull)jobsParagraphStyleLeft{
     @jobs_weakify(self)

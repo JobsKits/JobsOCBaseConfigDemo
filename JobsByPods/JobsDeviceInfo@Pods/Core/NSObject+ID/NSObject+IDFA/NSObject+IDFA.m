@@ -8,6 +8,7 @@
 #import "NSObject+IDFA.h"
 
 @implementation NSObject (IDFA)
+
 /**
  全名：advertisingIdentifier
  

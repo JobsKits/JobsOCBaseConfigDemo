@@ -20,4 +20,5 @@
     XCTAssertNil(owner);
     XCTAssertNil(reader());
 }
+
 @end

@@ -8,6 +8,8 @@
 #import <JobsAPIs/JobsBaseApi.h>
 
 @interface JobsAPIRequestConstraintFixture : JobsBaseApi
+
 @property(nonatomic, copy) NSString *fixturePath;
 @property(nonatomic, assign) BOOL usesRawRequest;
+
 @end

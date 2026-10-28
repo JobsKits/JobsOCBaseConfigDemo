@@ -34,6 +34,7 @@ Prop_strong()LOTAnimationView *animationView;
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END LOTAnimationView
 
 @implementation LOTAnimationMJRefreshFooter
+
 - (void)prepare{
     (((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(LOTAnimationMJRefreshFooter.class, @selector(jobsPrepare)))(self, @selector(jobsPrepare)))();
 }

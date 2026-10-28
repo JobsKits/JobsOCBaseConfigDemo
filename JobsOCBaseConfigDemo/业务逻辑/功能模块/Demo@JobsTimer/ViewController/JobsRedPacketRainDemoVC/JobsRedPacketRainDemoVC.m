@@ -23,6 +23,7 @@ Prop_strong()UIButton *toggleBtn;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsRedPacketRainDemoVC
 
 @implementation JobsRedPacketRainDemoVC
+
 -(void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     self.rainView.stopWithClear(YES);

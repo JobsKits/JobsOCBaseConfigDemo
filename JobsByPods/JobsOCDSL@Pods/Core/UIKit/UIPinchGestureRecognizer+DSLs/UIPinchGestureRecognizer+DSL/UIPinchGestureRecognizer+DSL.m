@@ -8,6 +8,7 @@
 #import "UIPinchGestureRecognizer+DSL.h"
 
 @implementation UIPinchGestureRecognizer (JobsChain)
+
 -(JobsRetPinchGestureRecognizerByCGFloatBlock _Nonnull)byScale{
     @jobs_weakify(self)
     return ^__kindof UIPinchGestureRecognizer *_Nullable(CGFloat data){

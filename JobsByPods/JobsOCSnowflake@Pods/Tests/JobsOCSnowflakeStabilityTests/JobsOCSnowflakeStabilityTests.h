@@ -15,4 +15,5 @@
 #endif
 
 @interface JobsOCSnowflakeStabilityTests : XCTestCase
+
 @end

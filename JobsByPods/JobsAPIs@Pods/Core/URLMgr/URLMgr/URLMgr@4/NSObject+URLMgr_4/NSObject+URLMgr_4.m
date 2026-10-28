@@ -10,6 +10,7 @@
 #import <JobsAPIs/NSObject+Extra.h>
 /// 来自 http://18.162.73.145:18099/doc.html#/default
 @implementation NSObject (URLMgr_4)
+
 #pragma mark —— 信息配置
 /// 跑马灯信息查询【建议前端每20s-30s可以刷新请求一次】@GET
 -(URLManagerModel *_Nullable)get_operation_announce_config_queryAnnByMember{

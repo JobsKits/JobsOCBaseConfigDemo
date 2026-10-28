@@ -15,4 +15,5 @@
 #endif
 
 @interface JobsRandomUtilsStabilityTests : XCTestCase
+
 @end

@@ -39,6 +39,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (NSMutableParagraphStyle)
+
 /// 居左对齐
 -(JobsRetNSMutableParagraphStyleByVoidBlock _Nonnull)jobsParagraphStyleLeft;
 /// 居中对齐

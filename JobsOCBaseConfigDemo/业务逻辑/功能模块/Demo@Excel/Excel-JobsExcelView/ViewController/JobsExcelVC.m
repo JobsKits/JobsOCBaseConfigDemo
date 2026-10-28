@@ -8,6 +8,7 @@
 #import "JobsExcelVC.h"
 
 @interface JobsExcelVC ()
+
 /// UI
 Prop_strong()JobsExcelView *excelView;
 /// Data
@@ -15,6 +16,7 @@ Prop_strong()JobsExcelView *excelView;
 @end
 
 @implementation JobsExcelVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);

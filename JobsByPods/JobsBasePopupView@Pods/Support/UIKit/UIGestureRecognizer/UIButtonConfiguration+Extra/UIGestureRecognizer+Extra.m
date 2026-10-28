@@ -8,6 +8,7 @@
 #import "UIGestureRecognizer+Extra.h"
 
 @implementation UIGestureRecognizer (Extra)
+
 -(JobsRetUIGestureRecognizerByjobsByVoidBlockBlock _Nonnull)gestureActionBy{
     @jobs_weakify(self)
     return ^__kindof UIGestureRecognizer *(jobsByVoidBlock _Nonnull block){

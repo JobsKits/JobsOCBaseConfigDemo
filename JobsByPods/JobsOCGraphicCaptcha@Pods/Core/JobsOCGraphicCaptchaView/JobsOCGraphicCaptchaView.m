@@ -23,12 +23,14 @@ static UIColor *JobsOCGraphicCaptchaRandomColor(CGFloat alpha) {
 }
 
 @interface JobsOCGraphicCaptchaView (){
+
     JobsOCGraphicCaptchaConfig *_config;
 }
 
 @end
 
 @implementation JobsOCGraphicCaptchaView
+
 -(JobsRetJobsOCGraphicCaptchaViewByConfigBlock _Nonnull)byConfig{
     @jobs_weakify(self)
     return ^__kindof JobsOCGraphicCaptchaView *_Nullable(JobsOCGraphicCaptchaConfig *_Nullable data){

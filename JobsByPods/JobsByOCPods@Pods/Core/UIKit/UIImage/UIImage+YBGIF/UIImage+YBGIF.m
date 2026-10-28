@@ -8,6 +8,7 @@
 #import "UIImage+YBGIF.h"
 
 @implementation UIImage (YBGIF)
+
 /// 根据NSData* 创建gif图片
 +(JobsRetImageByDataBlock _Nonnull)animatedGIFWithData{
     @jobs_weakify(self)

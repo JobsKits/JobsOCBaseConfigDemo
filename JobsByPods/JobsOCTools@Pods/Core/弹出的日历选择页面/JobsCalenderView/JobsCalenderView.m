@@ -8,6 +8,7 @@
 #import "JobsCalenderView.h"
 
 @interface JobsCalenderView ()
+
 /// UI
 Prop_strong()FSCalendar *calendar;
 /// Data
@@ -15,6 +16,7 @@ Prop_strong()FSCalendar *calendar;
 @end
 
 @implementation JobsCalenderView
+
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {

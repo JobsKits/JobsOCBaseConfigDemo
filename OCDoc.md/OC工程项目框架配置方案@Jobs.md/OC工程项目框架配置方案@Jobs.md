@@ -85,6 +85,8 @@
   - App 与 Widget 当前部署目标均为 iOS 16.6；工程使用 CocoaPods 静态 framework 链接。
   - Jobs 能力以下沉本地 Pod 为主；宿主负责启动编排、业务装配、Demo 入口和宿主资源。
 
+设备安全检测由 `JobsOCDeviceGuard` 承接，当前落位为 `JobsByPods/JobsOCDeviceGuard@Pods`，通过 `Podfile.deps` 引入本地 Pod。公开入口聚合头 `JobsOCDeviceGuard.h` 导出配置、检测器和只读报告；配置支持 `bySandboxWriteProbeEnabled`、`byMinimumDetectedCategories`，专有配置 Block 类型由 `JobsBlock` 前向声明，避免依赖倒置。检测器每次重新执行，异步完成回到主线程；Demo 单独展示证据并在敏感动作前复检，不接管安装过程或自动退出 App。特征路径通过 `access(F_OK)` 查询，镜像按当前进程已加载库文件名精确匹配，写探测默认关闭。零命中但检查失败返回 `indeterminate`；模拟器、Mac Catalyst 与 Mac 上运行的 iOS App 返回 `unsupported`。`shouldRestrict` 是仅 `noIndicators` 建议放行的保守数据值；宿主真实启动门禁由 `JobsOCDeviceGuardLaunchGate` 执行。`AppDelegate` 的首个启动步骤调用 `prepare()`，同步只读检测一次，默认仅 `report.isJailbroken` 命中时提前返回 `YES`，跳过后续显式业务初始化；Scene 在正常根页面与开屏创建前显示其独立全屏原生拦截页。`configurePolicy:blockedViewControllerFactory:` 预留策略和页面工厂，首次判定后冻结，`decision` 保存报告和 `blocked`。现有生命周期、活动恢复及异步开屏遵守该启动判定；其它结果按当前策略继续启动，登录、支付和每次请求未逐项接拦截器。
+
 OC 侧核心调用思想是：`JobsMake` 创建对象，`JobsOCDSL` / `JobsModelDSL` 配置属性，`UIView+DSL` / `Masonry+DSL` 完成父视图装配和约束，依赖真实 `frame` 的效果放到约束刷新之后。
 
 ## <span id="jobs-toc-heading-2" data-jobs-toc="v2">一、基础原则 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
@@ -556,7 +558,7 @@ sequenceDiagram
 - 根列表统一承接搜索、设置、排序 / 折叠、Demo 路由、图标映射和悬浮入口；新增 Demo 要同步对账这些消费者。
 - 根切换仍按 Scene 生命周期处理；主题不参与 Window 遍历，只重放已登记的背景、文字与显式图片资源。
 - Jobs 自维护页面优先继承 `BaseViewController` 等当前页面基座；导航统一走基座默认导航流程、`byGKNav*` DSL 与 `jobs_ensureDemoThemeButton` 所在公共层。
-- Demo 公共导航层统一刷新返回按钮的 template 图标、主文字色和次级背景色，并把 GK / 系统导航的普通标题、富文本 titleView、双行主副标题分别收口到主题主 / 次文字色。
+- Demo 公共导航层统一刷新返回按钮的 template 图标、主文字色和透明背景；左右导航按钮在 iOS 26+ 隐藏系统共享底板，切换主题后继续保持透明，并把 GK / 系统导航的普通标题、富文本 titleView、双行主副标题分别收口到主题主 / 次文字色。
 - 公共层注入的主题入口按钮始终使用透明背景，不显示额外色块。
 - 页面原有业务右按钮先建立，再由公共导航层补主题入口；不能用主题按钮覆盖业务动作。
 - `UIAlertController` 是系统弹框，不参与 Demo 导航栏和主题按钮注入；直接 `presentViewController:` 即可。
@@ -566,7 +568,8 @@ sequenceDiagram
 ### <span id="jobs-toc-heading-28" data-jobs-toc="v2">8.3、全局主题与页面生命周期 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `JobsThemeCenter` 位于 `JobsOCDefs`，读取主工程 `JobsThemeResources.json`、持久化状态、维护弱引用绑定并发布 `JobsThemeDidChangeNotification`。
-- `JobsLabelColor`、`JobsSecondaryLabelColor`、`JobsSystemBackgroundColor` 等背景 / 文字语义宏携带主题 Key；UIKit setter 自动登记，切换时不写 `overrideUserInterfaceStyle`，不遍历 Scene、Window 或控制器树。
+- `JobsLabelColor`、`JobsSecondaryLabelColor`、`JobsSystemBackgroundColor` 等背景 / 文字语义宏携带主题 Key；UIKit setter 自动登记，切换时不修改全局外观，不遍历 Scene、Window 或控制器树。
+- `UITableViewCell.byAccessoryType(...)` 与普通 / 编辑附件入口为系统 disclosure 箭头绑定 Cell 局部外观，跟随 App 当前主题；移除箭头或改用自定义附件后解除绑定并恢复原外观，保留调用方显式指定的外观，不修改 Window 或控制器树。
 - 绑定刷新先强持有当前弱键快照再执行回调；回调可同步解绑或释放对象，不直接修改正在遍历的 `NSMapTable`。
 - 数据包留在 App 资源目录；OC 老工程使用同一实现但集成于主工程，不新增 Pod。图片只有显式使用 `JobsThemeImage(...)` 时参与主题。
 - 自定义绘制、`CGColor`、`CALayer`、CoreText 和第三方容器使用 `bindObject:slot:apply:` 显式登记背景 / 文字资源。
@@ -682,11 +685,11 @@ JobsDebugPanelManager.sharedPanel
 #endif
 ```
 
-- 配置链在主线程调用，`start()` 放在末尾；默认首行是环境切换，自定义有效动作按数组先后显示，图片可选。
+- 配置链在主线程调用，`start()` 放在末尾；启动时注册摇动与生命周期监听，悬浮入口默认隐藏，摇动手机后显示；默认首行是环境切换，自定义有效动作按数组先后显示，图片可选。
 - 环境备注、URL 与稳定 identifier 一起配置。只接受有 host 的 HTTP / HTTPS URL，相同 identifier 保留首项；当前选择的 identifier 存在 `NSUserDefaults`，启动按“有效旧值 → 默认值 → 首个有效值”恢复。
 - 恢复与选择都通过 `byEnvironmentChanged` 和 `JobsDebugEnvironmentDidChangeNotification` 通知宿主；网络单例、鉴权与请求重放由宿主自行处理。
 - 浮层按 Scene session identifier 管理前台业务 Window，旧式无 Scene 生命周期保留 Window 回退；业务根窗口变化时重新绑定。浮层不抢 keyWindow，只有按钮区域拦截触摸。
-- 点按从所属业务 Window 的当前页面 push；没有导航容器时，用带关闭入口的导航容器模态展示。长按隐藏当前进程全部 Scene 的入口，退后台再回来仍隐藏，重新启动才恢复；环境选择继续保留。
+- 点按从所属业务 Window 的当前页面 push；没有导航容器时，用带关闭入口的导航容器模态展示。长按隐藏全部 Scene 的悬浮入口，不弹出 deinit / dealloc 提示，再次摇动恢复；退后台再回来不自动解除隐藏，重启仍等待摇动。重复摇动复用浮层，环境选择继续保留。
 - `JobsDebugPanelDemoVC` 请求当前 `baseURL + /get`，超时 `3` 秒；失败、超时或无法解析时继续展示本地结果并可重试，后续成功响应自动覆盖。真机的 `127.0.0.1` 指设备本身，访问开发机须配置设备可达地址。
 - 默认未加入全 App 弱网开关。开发设备可使用 [**Apple Network Link Conditioner**](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/On_Demand_Resources_Guide/TestingPerformance.html) 的 `Settings > Developer` profile；应用内局部延迟模拟无法代替全网络带宽与丢包控制，[后台 Session 也不支持自定义 URLProtocol](https://developer.apple.com/documentation/foundation/urlsessionconfiguration/protocolclasses)。
 

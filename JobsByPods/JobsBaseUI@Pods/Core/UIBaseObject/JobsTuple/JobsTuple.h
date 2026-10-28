@@ -25,6 +25,7 @@
 NS_ASSUME_NONNULL_BEGIN
 /// 用Objective-C仿写Swift中的元祖
 @interface JobsTuple : NSObject
+
 /// 禁止使用系统的 alloc.init 和 new方法来进行创建对象
 +(instancetype)new NS_UNAVAILABLE;
 -(instancetype)init NS_UNAVAILABLE;

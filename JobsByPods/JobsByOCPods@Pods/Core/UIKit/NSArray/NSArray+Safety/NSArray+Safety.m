@@ -8,6 +8,7 @@
 #import "NSArray+Safety.h"
 
 @implementation NSArray (Safety)
+
 /// "__NSArrayI" 表示不可变数组类型
 /// "__NSArrayM" 表示可变数组类型
 +(void)initialize{

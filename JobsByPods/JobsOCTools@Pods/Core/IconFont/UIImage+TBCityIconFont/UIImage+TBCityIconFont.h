@@ -24,4 +24,5 @@
 +(JobsRetUIImageByTBCityIconInfoBlock _Nonnull)iconWithInfo;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_UIIMAGE_TBCITYICONFONT_859BDB4C02 */

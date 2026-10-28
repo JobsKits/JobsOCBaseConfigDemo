@@ -8,6 +8,7 @@
 #import "JobsAudioPlayerInitializationFixture.h"
 
 @implementation JobsAudioPlayerInitializationFixture
+
 -(BOOL)activatePlaybackSession:(AVAudioSession **)session error:(NSError **)error{
     *session = (AVAudioSession *)self.fixtureSession;
     return YES;
@@ -16,4 +17,5 @@
     if (error) *error = [NSError errorWithDomain:@"JobsAudioFixture" code:100 userInfo:nil];
     return nil;
 }
+
 @end

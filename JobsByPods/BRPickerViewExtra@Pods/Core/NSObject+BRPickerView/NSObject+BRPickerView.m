@@ -11,6 +11,7 @@
 #import <BRPickerViewExtra/NSMutableArray+Extra.h>
 
 @implementation NSObject (BRPickerView)
+
 #pragma mark —— 一些公有方法
 - (JobsRetBRPickerStyleByVoidBlock _Nonnull)makeCustomStyle {
     @jobs_weakify(self)

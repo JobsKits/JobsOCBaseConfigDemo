@@ -8,6 +8,7 @@
 #import "MJRefreshBackGifFooter+Extra.h"
 
 @implementation MJRefreshBackGifFooter (Extra)
+
 /// 普通闲置状态
 -(JobsRetMJRefreshViewByArrayBlock _Nonnull)refreshStateIdleByImages{
     @jobs_weakify(self)

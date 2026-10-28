@@ -41,5 +41,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetDateByStrBlock _Nonnull)byDateFromString;
 
 @end
+
 NS_ASSUME_NONNULL_END
 #endif

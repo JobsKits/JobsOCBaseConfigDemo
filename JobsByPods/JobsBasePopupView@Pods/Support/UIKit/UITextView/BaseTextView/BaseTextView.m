@@ -15,6 +15,7 @@
 @end
 
 @implementation JobsBasePopupTextView
+
 /// BaseProtocol
 @synthesize becomeFirstResponder = _becomeFirstResponder;
 -(void)dealloc{

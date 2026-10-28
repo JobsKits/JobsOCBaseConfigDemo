@@ -8,6 +8,7 @@
 #import "UIView+EmptyData.h"
 
 @implementation UIView (EmptyData)
+
 -(jobsByVoidBlock _Nonnull)cleanSubview{
     @jobs_weakify(self)
     return ^(){

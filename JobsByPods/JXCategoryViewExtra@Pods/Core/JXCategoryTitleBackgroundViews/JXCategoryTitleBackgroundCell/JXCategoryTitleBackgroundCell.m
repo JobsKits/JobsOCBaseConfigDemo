@@ -10,6 +10,7 @@
 #import <JXCategoryViewExtra/JXCategoryTitleBackgroundCellModel.h>
 
 @interface JXCategoryTitleBackgroundCell()
+
 Prop_strong()CALayer *bgLayer;
 
 @end
@@ -21,6 +22,7 @@ Prop_strong()CALayer *bgLayer;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JXCategoryTitleBackgroundCell
 
 @implementation JXCategoryTitleBackgroundCell
+
 - (jobsByVoidBlock _Nonnull)jobsInitializeViews {
     @jobs_weakify(self)
     return ^{

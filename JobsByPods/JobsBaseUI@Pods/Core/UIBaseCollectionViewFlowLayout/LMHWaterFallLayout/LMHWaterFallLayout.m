@@ -17,6 +17,7 @@ static const CGFloat LMHDefaultRowMargin = 10;
 static const UIEdgeInsets LMHDefaultEdgeInsets = {10,10,10,10};
 
 @interface LMHWaterFallLayout()
+
 /// 存放所有的布局属性
 Prop_strong()NSMutableArray <UICollectionViewLayoutAttributes *>*attrsArr;
 /// 存放所有列的当前高度
@@ -33,6 +34,7 @@ Prop_assign()CGFloat contentHeight;
 @end
 
 @implementation LMHWaterFallLayout
+
 -(JobsRetLMHWaterFallLayoutByCGFloatBlock _Nonnull)byContentHeight{
     @jobs_weakify(self)
     return ^__kindof LMHWaterFallLayout *_Nullable(CGFloat contentHeight){

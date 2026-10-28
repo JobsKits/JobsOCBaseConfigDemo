@@ -8,6 +8,7 @@
 #import "NSCoder+Extra.h"
 
 @implementation NSCoder (Extra)
+
 /// 解档：字符串类型数据
 -(JobsRetIDByStrBlock _Nonnull)decodeStringBy{
     @jobs_weakify(self)

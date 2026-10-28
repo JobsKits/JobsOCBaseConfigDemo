@@ -19,6 +19,7 @@
  JPEG格式通常用于照片和图像，因为它可以提供较小的文件大小，而且人眼对于JPEG压缩引起的细节损失不太敏感。
  **/
 @implementation UIImage (Base32)
+
 #pragma mark —— 【Sys】NSData ==> UIImage
 ///【类方法】NSData 转 UIImage
 +(JobsRetImageByDataBlock _Nonnull)getImageWithData{

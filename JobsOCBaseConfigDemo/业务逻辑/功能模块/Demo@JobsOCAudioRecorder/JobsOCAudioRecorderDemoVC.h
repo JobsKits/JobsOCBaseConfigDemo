@@ -30,6 +30,7 @@
 #endif
 
 @interface JobsOCAudioRecorderDemoVC : BaseViewController <UITableViewDataSource,UITableViewDelegate,JobsOCAudioRecorderEngineDelegate>
+
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCAudioRecorderDemoVC
 -(JobsRetJobsOCAudioRecorderDemoVCByBOOLBlock _Nonnull)byPermissionGranted;
 -(JobsRetJobsOCAudioRecorderDemoVCByNSArrayJobsOCAudioRecordingBlock _Nonnull)byRecordings;

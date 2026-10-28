@@ -8,6 +8,7 @@
 #import "CasinoCustomerServiceView.h"
 
 @interface CasinoCustomerServiceView ()
+
 /// UI
 Prop_strong()UILabel *titleLab;// 标题
 Prop_strong()BaseButton *closeBtn;
@@ -29,6 +30,7 @@ Prop_strong()CasinoCustomerContactModel *customerContactModel;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END CasinoCustomerServiceView
 
 @implementation CasinoCustomerServiceView
+
 static CasinoCustomerServiceView *static_customerServiceView = nil;
 +(instancetype)sharedManager{
     JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(CasinoCustomerServiceView.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));

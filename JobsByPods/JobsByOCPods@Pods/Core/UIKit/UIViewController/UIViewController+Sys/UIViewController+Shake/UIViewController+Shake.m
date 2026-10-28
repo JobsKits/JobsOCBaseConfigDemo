@@ -8,6 +8,7 @@
 #import "UIViewController+Shake.h"
 
 @implementation UIViewController (Shake)
+
 #pragma mark —— 系统方法
 -(jobsByVoidBlock _Nonnull)invokeWhenViewDidLoadUsingSysFunc{
     @jobs_weakify(self)

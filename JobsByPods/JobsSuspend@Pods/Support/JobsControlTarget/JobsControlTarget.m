@@ -12,6 +12,7 @@
 @end
 
 @implementation JobsControlTarget
+
 #define JobsControlTargetDSL(_type_, _name_, _property_, _dataType_) \
 -(JobsRetJobsControlTargetBy##_type_##Block _Nonnull)by##_name_{ \
     @jobs_weakify(self) \

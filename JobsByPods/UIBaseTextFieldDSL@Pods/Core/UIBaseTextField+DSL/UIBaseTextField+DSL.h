@@ -55,14 +55,19 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CJTextField (JobsUIBaseTextFieldDSL)
+
 -(JobsRetCJTextFieldByDeleteDelegateBlock _Nonnull)byCJDelegate;
+
 @end
 
 @interface HQTextField (JobsUIBaseTextFieldDSL)
+
 -(JobsRetHQTextFieldByVoidBlock _Nonnull)byShowWarn;
+
 @end
 
 @interface ZYTextField (JobsUIBaseTextFieldDSL)
+
 -(JobsRetZYTextFieldByCGFloatBlock _Nonnull)byZYTextFieldCornerRadius;
 -(JobsRetZYTextFieldByCGFloatBlock _Nonnull)byZYTextFieldBorderWidth;
 -(JobsRetZYTextFieldByCorBlock _Nonnull)byZYTextFieldBorderColor;
@@ -85,19 +90,24 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetZYTextFieldByCGFloatBlock _Nonnull)byFieldEditorOffset;
 -(JobsRetZYTextFieldByCGFloatBlock _Nonnull)byLeftViewOffsetX;
 -(JobsRetZYTextFieldByCGFloatBlock _Nonnull)byRightViewOffsetX;
+
 @end
 
 @interface JobsMagicTextField (JobsUIBaseTextFieldDSL)
+
 -(JobsRetMagicTextFieldByBOOLBlock _Nonnull)byPlaceholdAnimationable;
 -(JobsRetMagicTextFieldByCorBlock _Nonnull)byAnimationColor;
 -(JobsRetMagicTextFieldByFontBlock _Nonnull)byAnimationFont;
 -(JobsRetMagicTextFieldByCGFloatBlock _Nonnull)byMoveDistance;
 -(JobsRetMagicTextFieldByTimeIntervalBlock _Nonnull)byAnimationTime;
+
 @end
 
 @interface JobsTextField (JobsUIBaseTextFieldDSL)
+
 -(JobsRetJobsTextFieldByUITextFieldBlock _Nonnull)byRealTextField;
 -(JobsRetJobsTextFieldByTextFieldConfigBlock _Nonnull)byRealTextFieldConfig;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -54,6 +54,7 @@
 NS_ASSUME_NONNULL_BEGIN
 /// UIView & UIButton 文字自适应
 @interface UIView (AutoSelfAdaptionSize)
+
 #pragma mark —— UILabel
 /// 确定Label的字体大小，使其宽度自适应
 -(JobsRetViewByVoidBlock _Nonnull)bySizeToFit;
@@ -79,6 +80,7 @@ NS_ASSUME_NONNULL_BEGIN
                       maxWidth:(CGFloat)maxWidth
                      textSpace:(CGFloat)textSpace
                      lineSpace:(CGFloat)lineSpace;
+
 @end
 
 NS_ASSUME_NONNULL_END

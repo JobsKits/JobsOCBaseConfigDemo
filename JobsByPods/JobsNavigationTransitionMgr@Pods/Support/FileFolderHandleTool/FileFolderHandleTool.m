@@ -8,6 +8,7 @@
 #import "FileFolderHandleTool.h"
 
 @implementation FileFolderHandleTool
+
 /// 判断文件路径是否存在:
 +(JobsRetBOOLByStrBlock _Nonnull)isExistsAtPath{
     return ^BOOL((NSString * _Nullable path)){

@@ -8,6 +8,7 @@
 #import "UIColor+Extra.h"
 
 @implementation UIColor (Extra)
+
 /// 十六进制字符串 => UIColor *
 +(JobsRetCorByStrBlock _Nonnull)jobsCor{
     return ^UIColor * _Nullable(NSString *_Nonnull hexCorString) {

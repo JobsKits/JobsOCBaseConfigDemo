@@ -8,6 +8,7 @@
 #import "UIView+Gradient.h"
 
 @implementation UIView (Gradient)
+
 +(void)setView:(UIView *)view
          layer:(CALayer *)layer
   gradientLayer:(UIColor *)startColor

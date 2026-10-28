@@ -8,6 +8,7 @@
 #import "NSObject+UAT.h"
 
 @implementation NSObject (UAT)
+
 #pragma mark —— 登录
 /// 手机号码：09970000001
 /// 验证码：888

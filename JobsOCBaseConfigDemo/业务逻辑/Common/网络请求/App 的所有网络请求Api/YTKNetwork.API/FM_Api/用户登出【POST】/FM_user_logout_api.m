@@ -8,6 +8,7 @@
 #import "FM_user_logout_api.h"
 
 @implementation FM_user_logout_api
+
 /// 请求的完整URL：用户登出【POST】
 -(NSString *)requestUrl{
     JobsRetStrByVoidBlock action = ((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FM_user_logout_api.class, @selector(jobsRequestUrl)))(self, @selector(jobsRequestUrl));

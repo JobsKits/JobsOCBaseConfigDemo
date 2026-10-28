@@ -12,6 +12,7 @@
 @end
 
 @implementation TestIrregularViewTestVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);

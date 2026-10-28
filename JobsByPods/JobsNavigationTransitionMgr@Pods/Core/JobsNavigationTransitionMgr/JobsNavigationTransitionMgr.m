@@ -22,6 +22,7 @@ Prop_strong()UIPanGestureRecognizer *panGesture;
 @end
 
 @implementation JobsNavigationTransitionMgr
+
 #define JobsNavigationTransitionMgrDSL(_type_, _name_, _property_, _dataType_) \
 -(JobsRetNavigationTransitionMgrBy##_type_##Block _Nonnull)by##_name_{ \
     @jobs_weakify(self) \

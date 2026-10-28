@@ -31,6 +31,7 @@ Prop_strong()JobsSideDrawer *drawer;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsSideDrawerDemoVC
 
 @implementation JobsSideDrawerDemoVC
+
 -(void)viewDidLoad{
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsSideDrawerDemoVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
     if (action) action();

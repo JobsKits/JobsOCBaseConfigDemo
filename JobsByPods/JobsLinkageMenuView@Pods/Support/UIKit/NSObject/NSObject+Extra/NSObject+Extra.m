@@ -8,6 +8,7 @@
 #import "NSObject+Extra.h"
 
 @implementation NSObject (JobsLinkageMenuViewExtra)
+
 /// 获取本地普通图像
 -(nullable UIImage *)img{
     if([self isKindOfClass:NSString.class]){

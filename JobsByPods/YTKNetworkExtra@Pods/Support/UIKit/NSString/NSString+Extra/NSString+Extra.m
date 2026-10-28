@@ -8,6 +8,7 @@
 #import "NSString+Extra.h"
 
 @implementation NSString (YTKNetworkExtraExtra)
+
 /// 对系统方法 initWithData.NSUTF8StringEncoding 的二次封装
 +(JobsRetStrByDataBlock _Nonnull)initByUTF8Data{
     return ^__kindof NSString *_Nullable(NSData *_Nullable data){

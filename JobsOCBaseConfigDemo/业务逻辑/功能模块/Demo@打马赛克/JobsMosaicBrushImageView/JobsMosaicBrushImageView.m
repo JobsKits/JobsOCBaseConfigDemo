@@ -29,6 +29,7 @@ Prop_assign()BOOL hasLastPaintPoint;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsMosaicBrushImageView
 
 @implementation JobsMosaicBrushImageView
+
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.byUserInteractionEnabled(YES);

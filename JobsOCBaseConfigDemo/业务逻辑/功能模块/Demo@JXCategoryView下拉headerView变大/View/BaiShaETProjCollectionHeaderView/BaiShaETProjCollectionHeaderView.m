@@ -8,6 +8,7 @@
 #import "BaiShaETProjCollectionHeaderView.h"
 
 @interface BaiShaETProjCollectionHeaderView ()
+
 /// UI
 Prop_strong()UIButton *userHeaderBtn;
 Prop_strong()UIProgressView *progressView;
@@ -29,6 +30,7 @@ Prop_strong()NSMutableArray <NSMutableArray <JobsRichTextConfig *>*>*richTextCon
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END BaiShaETProjCollectionHeaderView
 
 @implementation BaiShaETProjCollectionHeaderView
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 /// UIViewModelProtocol

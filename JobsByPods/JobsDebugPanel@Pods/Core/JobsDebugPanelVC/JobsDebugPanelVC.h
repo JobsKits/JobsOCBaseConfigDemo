@@ -65,5 +65,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(instancetype)initWithPanel:(JobsDebugPanelManager *)panel;
 
 @end
+
 NS_ASSUME_NONNULL_END
 #endif

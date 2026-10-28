@@ -15,6 +15,7 @@
 @end
 
 @implementation UICollectionHeaderFooterView
+
 -(JobsRetUICollectionHeaderFooterViewByFrameBlock _Nonnull)byImageViewFrame{
     @jobs_weakify(self)
     return ^__kindof UICollectionHeaderFooterView *_Nullable(CGRect imageViewFrame){

@@ -8,6 +8,7 @@
 #import "UIControl+XY.h"
 
 @implementation UIControl (XY)
+
 JobsKey(_uxy_acceptEventInterval)
 @dynamic uxy_acceptEventInterval;
 /// 时间间隔

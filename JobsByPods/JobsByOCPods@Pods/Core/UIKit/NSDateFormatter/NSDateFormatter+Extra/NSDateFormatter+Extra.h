@@ -25,6 +25,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSDateFormatter (JobsByOCPodsExtra)
+
 /// 对系统方法 stringFromDate 的二次封装
 -(JobsRetStrByDateBlock _Nonnull)stringByDate;
 /// 对系统方法 dateFromString 的二次封装

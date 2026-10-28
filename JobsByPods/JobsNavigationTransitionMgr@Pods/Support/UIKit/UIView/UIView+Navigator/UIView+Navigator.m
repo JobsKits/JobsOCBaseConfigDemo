@@ -8,6 +8,7 @@
 #import "UIView+Navigator.h"
 
 @implementation UIView (Navigator)
+
 #pragma mark —— 汇总方法
 /// 推页面
 -(jobsByViewBlock _Nonnull)pushTo{

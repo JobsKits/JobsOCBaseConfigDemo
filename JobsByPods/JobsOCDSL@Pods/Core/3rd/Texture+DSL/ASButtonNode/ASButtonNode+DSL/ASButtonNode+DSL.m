@@ -11,6 +11,7 @@ JobsKey(kJobsButtonTapBlockKey)
 JobsKey(kJobsButtonLongPressBlockKey)
 JobsKey(kJobsButtonLongPressGRKey)
 @implementation ASButtonNode (DSL)
+
 -(JobsRetButtonNodeByTitleConfigBlock _Nonnull)byTitle{
     @jobs_weakify(self)
     return ^__kindof ASButtonNode *_Nonnull(NSString *_Nonnull title,

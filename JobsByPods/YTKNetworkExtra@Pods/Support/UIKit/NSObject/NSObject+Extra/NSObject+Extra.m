@@ -10,6 +10,7 @@
 #import <YTKNetworkExtra/NSURLRequest+Extra.h>
 
 @implementation NSObject (YTKNetworkExtraExtra)
+
 /// 万能解析
 +(JobsRetIDByIDBlock _Nonnull)byData{
     @jobs_weakify(self)

@@ -32,6 +32,7 @@ static inline void MJRefreshExtraFeedbackIfNeeded(MJRefreshConfigModel *config) 
 }
 
 @implementation MJRefreshStateHeader (Extra)
+
 -(JobsRetIDByBOOLBlock _Nonnull)byAutomaticallyChangeAlpha{
     @jobs_weakify(self)
     return ^id(BOOL automaticallyChangeAlpha){

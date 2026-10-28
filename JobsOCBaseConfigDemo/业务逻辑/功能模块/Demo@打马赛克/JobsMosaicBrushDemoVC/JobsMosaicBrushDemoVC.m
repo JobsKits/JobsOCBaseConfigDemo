@@ -33,6 +33,7 @@ Prop_assign()NSUInteger renderVersion;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsMosaicBrushDemoVC
 
 @implementation JobsMosaicBrushDemoVC
+
 -(JobsRetStrByVoidBlock _Nonnull)jobsPageTitle{
     @jobs_weakify(self)
     return ^NSString *{

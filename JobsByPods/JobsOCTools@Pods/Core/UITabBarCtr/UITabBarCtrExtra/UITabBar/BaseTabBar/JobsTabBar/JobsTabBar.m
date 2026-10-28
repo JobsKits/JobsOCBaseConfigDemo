@@ -36,6 +36,7 @@ Prop_strong()NSMutableArray <__kindof LOTAnimationView *>*lOTAnimationViews;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsTabBar
 
 @implementation JobsTabBar
+
 -(JobsRetJobsTabBarByBarStyleBlock _Nonnull)byBarStyle{
     @jobs_weakify(self)
     return ^__kindof JobsTabBar *_Nullable(UIBarStyle style){

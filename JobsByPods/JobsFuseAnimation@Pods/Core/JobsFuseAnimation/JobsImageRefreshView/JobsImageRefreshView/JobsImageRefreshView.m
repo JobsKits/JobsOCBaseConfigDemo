@@ -25,6 +25,7 @@ Prop_assign()BOOL wantsAnimating;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsImageRefreshView
 
 @implementation JobsImageRefreshView
+
 -(instancetype)initWithImage:(UIImage *)image {
     return [self initWithImages:image ? @[image] : @[] frameInterval:0.08];
 }

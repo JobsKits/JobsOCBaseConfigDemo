@@ -77,6 +77,7 @@ static JobsNetworkBytes JobsCurrentNetworkBytes(void) {
 }
 
 @interface JobsNetworkTrafficMonitor : NSObject <BaseProtocol,TimerProtocol>
+
 /// 可销毁单例；独立展示组件可各自创建实例，避免覆盖彼此的 onUpdate。
 +(JobsRetIDByVoidBlock _Nonnull)shared;
 +(jobsByVoidBlock _Nonnull)destroyShared;

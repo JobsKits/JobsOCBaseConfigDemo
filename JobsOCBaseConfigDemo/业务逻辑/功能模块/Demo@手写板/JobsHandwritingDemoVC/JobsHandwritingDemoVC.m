@@ -38,6 +38,7 @@ Prop_assign()BOOL isLeaveAlertShowing;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsHandwritingDemoVC
 
 @implementation JobsHandwritingDemoVC
+
 -(void)loadView{
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsHandwritingDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
     if (action) action();

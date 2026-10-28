@@ -12,6 +12,7 @@
 #import <JobsDropDownListView/UITableView+Extra.h>
 
 @interface JobsDropDownListView (){
+
     CGFloat CellHeight;
 }
 /// UI
@@ -30,6 +31,7 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsDropDownListView
 
 @implementation JobsDropDownListView
+
 -(JobsRetJobsDropDownListViewByDirectionBlock _Nonnull)byDirection{
     @jobs_weakify(self)
     return ^__kindof JobsDropDownListView *_Nullable(JobsDropDownListViewDirection data){

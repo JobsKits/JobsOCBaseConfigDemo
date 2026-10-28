@@ -8,6 +8,7 @@
 #import "GKGestureHandleConfigure+DSL.h"
 
 @implementation GKGestureHandleConfigure (DSL)
+
 +(JobsRetGKGestureHandleConfigureByVoidBlock _Nonnull)bySetupDefault{
     return ^__kindof GKGestureHandleConfigure *_Nonnull{
         GKGestureHandleConfigure *configure = GKGestureHandleConfigure.sharedInstance;

@@ -8,6 +8,7 @@
 #import "NSString+CAAnimation.h"
 
 @implementation NSString (CAAnimation)
+
 /// 创建CABasicAnimation
 -(JobsRetCABasicAnimationByVoidBlock _Nonnull)basicAnimation{
     @jobs_weakify(self)

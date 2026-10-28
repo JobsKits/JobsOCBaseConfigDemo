@@ -8,6 +8,7 @@
 #import "JobsCommentModel.h"
 
 @implementation JobsChildCommentModel
+
 #pragma mark —— YYModel
 + (NSDictionary *)modelCustomPropertyMapper{
     return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsChildCommentModel.class, @selector(jobsModelCustomPropertyMapper)))(self, @selector(jobsModelCustomPropertyMapper)))();
@@ -27,6 +28,7 @@
 @end
 
 @implementation JobsFirstCommentModel
+
 #pragma mark —— YYModel
 + (NSDictionary *)modelCustomPropertyMapper{
     return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsFirstCommentModel.class, @selector(jobsModelCustomPropertyMapper)))(self, @selector(jobsModelCustomPropertyMapper)))();
@@ -68,6 +70,7 @@
 @end
 
 @implementation JobsCommentModel
+
 #pragma mark —— YYModel
 + (NSDictionary *)modelCustomPropertyMapper{
     return (((JobsRetDicByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsCommentModel.class, @selector(jobsModelCustomPropertyMapper)))(self, @selector(jobsModelCustomPropertyMapper)))();
@@ -115,6 +118,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsFirstCommentCustomCofigModel
 
 @implementation JobsFirstCommentCustomCofigModel
+
 #pragma mark —— 自定义属性
 -(NSInteger)preMax{
     if (_preMax == 0) {

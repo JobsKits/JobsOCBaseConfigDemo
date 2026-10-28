@@ -48,6 +48,7 @@
 - 系统类 DSL 以“当前类本层级”为边界，只封装当前类自己声明的属性、无参数方法和单参数方法；父类能力留在父类 DSL，子类特有能力留在子类 DSL。
 - OC 侧 DSL 统一依赖 `JobsBlock` 提供 Block typedef，避免每个 Pod 自己散落定义。
 - `JobsOCDefs` 的主题语义颜色可继续通过 `byBgColor(...)`、`byTextCor(...)`、`byTitleCor(...)` 等既有 DSL 使用；底层 setter 自动登记主题 Key，调用方无需追加页面级刷新逻辑。
+- `UITableViewCell.byAccessoryType(...)` 与普通 / 编辑附件入口为系统 disclosure 箭头绑定 Cell 局部外观，跟随 App 当前主题；移除箭头或改用自定义附件后解除绑定并恢复原外观，保留调用方显式指定的外观，不修改 Window 或控制器树。
 - 原本散在其它本地 Pod 里的纯 DSL 分类逐步迁移到这里，调用方通过 `JobsOCDSL` 暴露。
 - 对照 Swift 侧 `JobsSwiftDSL` 的 [**SnapKit**](https://github.com/SnapKit/SnapKit) 链式封装，OC 侧通过 [**Masonry**](https://github.com/SnapKit/Masonry) 补齐 `byAddTo`、`byMakeConstraints`、`byUpdateConstraints`、`byRemake`。
 - 对照 Swift 侧 `BMPlayer+DSL`、`GKNavigationBarSwift+DSL`、`YTKNetwork+DSL`，OC 侧分别补齐当前工程实际使用的 `ZFPlayer`、`GKNavigationBar`、`YTKNetwork` 链式入口；其中 `GKNavigationBar` 的手势配置在 OC 版里属于 `GKGestureHandleConfigure`。

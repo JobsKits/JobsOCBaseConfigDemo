@@ -8,6 +8,7 @@
 #import "FM_getDepositDiscountActivityRecord_api.h"
 
 @implementation FM_getDepositDiscountActivityRecord_api
+
 /// 请求的完整URL：存款优惠活动信息【POST】
 -(NSString *)requestUrl{
     JobsRetStrByVoidBlock action = ((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FM_getDepositDiscountActivityRecord_api.class, @selector(jobsRequestUrl)))(self, @selector(jobsRequestUrl));

@@ -41,6 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
  JPEG格式通常用于照片和图像，因为它可以提供较小的文件大小，而且人眼对于JPEG压缩引起的细节损失不太敏感。
  **/
 @interface UIImage (Base64)
+
 #pragma mark —— UIImage ==> Base64
 ///【类方法】UIImage对象 转换为 以Base64编码的字符串
 +(JobsRetStrByImageBlock _Nonnull)base64StringByImage;

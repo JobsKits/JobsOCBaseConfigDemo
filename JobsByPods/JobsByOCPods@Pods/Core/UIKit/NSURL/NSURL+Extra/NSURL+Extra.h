@@ -44,6 +44,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSURL (Extra)
+
 /// 对系统方法 fileURLWithPath 的二次封装
 +(JobsRetURLByStrBlock _Nonnull)fileURLWithPath;
 ///  能否正常打开Url

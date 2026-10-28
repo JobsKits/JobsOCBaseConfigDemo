@@ -8,6 +8,7 @@
 #import "JobsGestureModel.h"
 
 @implementation JobsGestureModel
+
 GestureProtocol_synthesize
 @synthesize target = _target;
 @synthesize weak_target = _weak_target;

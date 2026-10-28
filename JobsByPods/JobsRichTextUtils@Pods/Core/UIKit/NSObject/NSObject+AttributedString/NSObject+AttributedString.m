@@ -10,6 +10,7 @@
 #import <JobsRichTextUtils/NSString+Extra.h>
 
 @implementation NSObject (AttributedString)
+
 +(JobsRetNSDictionaryNSAttributedStringKeyIDByVoidBlock _Nonnull)linkTextAttributes{
     return ^__kindof NSDictionary <NSAttributedStringKey,id>*{
         return @{

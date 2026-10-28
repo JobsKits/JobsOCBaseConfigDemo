@@ -8,6 +8,7 @@
 #import "CABasicAnimation+DSL.h"
 
 @implementation CABasicAnimation (JobsChain)
+
 -(JobsRetCABasicAnimationByIDBlock _Nonnull)byFromValue{
     @jobs_weakify(self)
     return ^__kindof CABasicAnimation *_Nullable(id _Nullable data){

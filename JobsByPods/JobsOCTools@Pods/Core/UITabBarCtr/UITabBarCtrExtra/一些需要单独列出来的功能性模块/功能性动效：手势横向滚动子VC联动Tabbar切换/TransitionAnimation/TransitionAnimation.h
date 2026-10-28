@@ -35,4 +35,5 @@
 Prop(readwrite)UIRectEdge targetEdge;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_TRANSITIONANIMATION_B5EA48FEED */

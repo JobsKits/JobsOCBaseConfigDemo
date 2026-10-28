@@ -48,4 +48,5 @@
     XCTAssertNotNil(error);
     XCTAssertNil(aesEncryptString(@"message", @"short"));
 }
+
 @end

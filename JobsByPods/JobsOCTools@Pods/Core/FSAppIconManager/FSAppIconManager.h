@@ -28,6 +28,7 @@
 #endif
 
 @interface FSAppIconManager : NSObject
+
 /**
 
      Returns the name of the icon currently in use.
@@ -52,6 +53,7 @@
                 completionHandler:(nullable void (^)(NSError *_Nullable error))completionHandler NS_EXTENSION_UNAVAILABLE("Extensions may not have alternate icons");
 
 @end
+
 /**
 
      - (IBAction)changeAppIcon:(id)sender {

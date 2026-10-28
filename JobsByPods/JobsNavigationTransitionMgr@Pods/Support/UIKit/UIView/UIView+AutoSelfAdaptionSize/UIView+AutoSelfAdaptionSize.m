@@ -8,6 +8,7 @@
 #import "UIView+AutoSelfAdaptionSize.h"
 
 @implementation UIView (AutoSelfAdaptionSize)
+
 /// 确定Label的字体大小，使其宽度自适应
 -(JobsRetViewByVoidBlock _Nonnull)bySizeToFit{
     @jobs_weakify(self)

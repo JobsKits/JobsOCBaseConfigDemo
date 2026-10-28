@@ -8,14 +8,17 @@
 #import "JXCategoryTimelineView.h"
 
 @interface JXCategoryTimelineView ()
+
 -(JobsRetIDByIDBlock _Nonnull)byTitleFont;
 -(JobsRetIDByIDBlock _Nonnull)byTitleSelectedFont;
 -(JobsRetIDByIDBlock _Nonnull)byTitleColor;
 -(JobsRetIDByIDBlock _Nonnull)byTitleSelectedColor;
 -(JobsRetIDByIDBlock _Nonnull)byDataSource;
+
 @end
 
 @implementation JXCategoryTimelineView
+
 -(JobsRetIDByIDBlock _Nonnull)byTitleFont{
     @jobs_weakify(self)
     return ^id(UIFont *font){

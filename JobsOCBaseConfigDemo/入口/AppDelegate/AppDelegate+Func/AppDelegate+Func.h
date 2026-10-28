@@ -15,6 +15,7 @@
 #endif
 
 #import "AppDelegate.h"
+#import "JobsOCDeviceGuardLaunchGate.h"
 //#import "SceneDelegate.h"
 #import "NSObject+UserInfo.h"
 @import CocoaLumberjack;
@@ -123,6 +124,7 @@ NS_ASSUME_NONNULL_BEGIN
 <
 UNUserNotificationCenterDelegate
 >
+
 #pragma mark —— 启动调用功能
 +(jobsByVoidBlock _Nonnull)launchFunc1;
 -(jobsByVoidBlock _Nonnull)launchFunc2;

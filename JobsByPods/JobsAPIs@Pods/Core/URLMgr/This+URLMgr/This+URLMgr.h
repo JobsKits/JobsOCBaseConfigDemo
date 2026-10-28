@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 域名列表
 /// https://conf.betzz.cc/pages/viewpage.action?pageId=918653
 @interface This (URLMgr)
+
 #pragma mark —— BaseURL
 +(NSString *)BaseUrl;
 +(JobsRetStrByVoidBlock _Nonnull)jobsBaseUrl;

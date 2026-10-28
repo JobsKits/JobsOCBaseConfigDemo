@@ -16,6 +16,7 @@
 @end
 
 @implementation ZYTextField
+
 @synthesize placeholderColor = _placeholderColor;
 @synthesize placeholderFont = _placeholderFont;
 @synthesize textCor = _textCor;

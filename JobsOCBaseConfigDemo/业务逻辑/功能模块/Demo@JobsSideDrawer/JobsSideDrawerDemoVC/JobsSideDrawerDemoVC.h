@@ -32,6 +32,7 @@
 #endif
 
 @interface JobsSideDrawerDemoVC : BaseViewController
+
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsSideDrawerDemoVC
 -(JobsRetJobsSideDrawerDemoVCByUIViewBlock _Nonnull)byDrawerContentView;
 -(JobsRetJobsSideDrawerDemoVCByUIViewBlock _Nonnull)byDrawerHostView;

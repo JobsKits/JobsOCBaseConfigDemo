@@ -49,6 +49,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsTabBarCtrl : BaseViewController <UIScrollViewDelegate>
+
 /// 是否允许内容区域左右滑动
 Prop_assign()BOOL swipeEnabled;
 /// 只允许横向翻页（默认 YES）

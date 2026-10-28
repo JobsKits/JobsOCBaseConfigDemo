@@ -8,8 +8,10 @@
 #import "JobsAudioSessionFixture.h"
 
 @implementation JobsAudioSessionFixture
+
 -(BOOL)setActive:(BOOL)active withOptions:(AVAudioSessionSetActiveOptions)options error:(NSError **)error{
     if (!active) self.deactivations += 1;
     return YES;
 }
+
 @end

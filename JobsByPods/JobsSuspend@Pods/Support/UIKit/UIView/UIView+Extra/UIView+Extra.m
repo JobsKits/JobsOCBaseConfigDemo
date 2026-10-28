@@ -8,6 +8,7 @@
 #import "UIView+Extra.h"
 
 @implementation UIView (Extra)
+
 -(JobsRetViewByFloatBlock _Nonnull)cornerCutToCircleWithCornerRadius{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(float cornerRadiusValue) {

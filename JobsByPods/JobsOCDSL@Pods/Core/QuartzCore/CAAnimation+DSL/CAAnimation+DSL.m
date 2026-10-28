@@ -8,6 +8,7 @@
 #import "CAAnimation+DSL.h"
 
 @implementation CAAnimation (JobsChain)
+
 +(JobsRetCAAnimationByVoidBlock _Nonnull)byAnimation{
     return ^__kindof CAAnimation *_Nullable(void){
         return [self animation];

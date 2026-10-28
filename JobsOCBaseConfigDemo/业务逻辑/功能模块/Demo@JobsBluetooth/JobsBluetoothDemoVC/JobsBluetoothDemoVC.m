@@ -16,6 +16,7 @@ Prop_copy()NSArray <NSString *>*features;
 @end
 
 @implementation JobsBluetoothDemoVC
+
 @synthesize tableView = _tableView;
 
 -(void)loadView{

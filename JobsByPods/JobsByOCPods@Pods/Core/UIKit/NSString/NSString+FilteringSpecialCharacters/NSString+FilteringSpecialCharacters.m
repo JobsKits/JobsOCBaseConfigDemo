@@ -8,6 +8,7 @@
 #import "NSString+FilteringSpecialCharacters.h"
 
 @implementation NSString (FilteringSpecialCharacters)
+
 /// 外界灵活选择的特殊符号拼接成一个包含所有被选中特殊符号的字符串
 -(JobsRetStrByArrBlock _Nonnull)specialSymbolsActionBy{
     return ^NSString *(NSMutableArray <NSString *>*_Nullable arr){

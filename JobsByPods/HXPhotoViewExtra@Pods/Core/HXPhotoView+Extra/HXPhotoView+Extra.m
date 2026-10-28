@@ -8,6 +8,7 @@
 #import "HXPhotoView+Extra.h"
 
 @implementation HXPhotoView (Extra)
+
 +(JobsRetHXPhotoViewByPhotoMgrBlock _Nonnull)initBy{
     return ^HXPhotoView *_Nullable(HXPhotoManager *_Nullable manager){
         return [HXPhotoView photoManager:manager];

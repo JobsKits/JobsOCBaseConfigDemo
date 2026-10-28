@@ -8,6 +8,7 @@
 #import "JobsPostVC.h"
 
 @interface JobsPostVC (){
+
     CGFloat JobsPostDelViewHeight;
 }
 /// UI
@@ -47,6 +48,7 @@ Prop_strong()UITextModel *postTextModel;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsPostVC
 
 @implementation JobsPostVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

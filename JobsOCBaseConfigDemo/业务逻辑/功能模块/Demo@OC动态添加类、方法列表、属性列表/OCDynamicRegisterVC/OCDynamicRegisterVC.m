@@ -50,6 +50,7 @@ static void JobsDynamicRegisterDemoTest(id self, SEL _cmd) {
 }
 
 @interface OCDynamicRegisterVC (){
+
     Class newClass;
 }
 
@@ -71,6 +72,7 @@ Prop_strong()NSMutableArray <NSString *>*runtimeLogMutArr;
 Prop_strong()id runtimeObject;
 
 @end
+
 /**
  资料来源：
  https://cloud.tencent.com/developer/article/1799505
@@ -85,6 +87,7 @@ Prop_strong()id runtimeObject;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END OCDynamicRegisterVC
 
 @implementation OCDynamicRegisterVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);

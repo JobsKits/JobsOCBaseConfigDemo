@@ -8,6 +8,7 @@
 #import "CALayer+DSL.h"
 
 @implementation CALayer (JobsChain)
+
 -(JobsRetCALayerByCFTimeIntervalBlock _Nonnull)byBeginTime{
     @jobs_weakify(self)
     return ^__kindof CALayer *(CFTimeInterval beginTime){

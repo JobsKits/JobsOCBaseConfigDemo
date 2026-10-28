@@ -45,6 +45,7 @@ Prop_assign()CGRect lastAnimationBounds;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsTodayNewsRefreshView
 
 @implementation JobsTodayNewsRefreshView
+
 -(instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         _config = JobsTodayNewsRefreshConfig.config();

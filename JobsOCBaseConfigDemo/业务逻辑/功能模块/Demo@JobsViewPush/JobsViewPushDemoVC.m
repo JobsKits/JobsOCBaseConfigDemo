@@ -27,6 +27,7 @@ Prop_strong()BaseButton *pushButton;
 @end
 
 @implementation JobsViewPushDemoVC
+
 -(void)loadView{
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsViewPushDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
     if (action) action();
@@ -194,6 +195,7 @@ Prop_strong()BaseButton *pushButton;
 @end
 
 @implementation JobsViewPushDemoPanel
+
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.byBgColor(UIColor.systemIndigoColor);

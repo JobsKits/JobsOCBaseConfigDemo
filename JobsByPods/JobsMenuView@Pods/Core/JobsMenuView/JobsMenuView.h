@@ -50,6 +50,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsMenuView : BaseView
+
 /// Data
 Prop_strong()NSMutableArray <NSString *>*titleMutArr;
 Prop_strong()NSMutableArray <__kindof UIView *>*subViewMutArr;

@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// 为了防止溢出，基本上时间戳传给后台或者后台返回给我们的都是字符串类型的。
 /// 时间戳定义：从1970年1月1日开始计时到现在所经过的时间
 @interface JobsTimeModel : NSObject
+
 #pragma mark —— 当前时间：来源iOS系统Api
 Prop_assign()CGFloat currentDateOffsetSec;// 距离当前时间的秒数 【正数为未来、负数为过去】
 Prop_strong()NSDate *currentOffsetDate;// 与currentDateOffsetSec发生作用，表示据当前时间的一个偏差时间的时间

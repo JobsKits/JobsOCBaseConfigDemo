@@ -8,6 +8,7 @@
 #import "MJRefreshGifHeader+Extra.h"
 
 @implementation MJRefreshGifHeader (Extra)
+
 /// 普通闲置状态
 -(JobsRetMJRefreshViewByArrayBlock _Nonnull)refreshStateIdleByImages{
     @jobs_weakify(self)

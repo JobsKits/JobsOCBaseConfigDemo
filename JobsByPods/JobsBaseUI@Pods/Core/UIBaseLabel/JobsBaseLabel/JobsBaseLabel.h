@@ -63,6 +63,7 @@
 NS_ASSUME_NONNULL_BEGIN
 /// UILabel实现背景图片
 @interface JobsBaseLabel : BaseLabel
+
 #pragma mark —— 一些公有方法
 -(JobsRetImageViewByVoidBlock _Nonnull)getBgImageView;
 -(JobsRetLabelByVoidBlock _Nonnull)getLabel;

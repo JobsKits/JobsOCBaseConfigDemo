@@ -33,6 +33,7 @@ JOBS_ZB_REQUEST_DSL(byUserInfo, userInfo, id _Nullable, JobsRetZBURLRequestByIDB
 @end
 
 @implementation JobsNetworkingAPI (DemoTestApi)
+
 NSString *appInterfaceTesting;
 +(void)appInterfaceTesting:(id)parameters
               successBlock:(jobsByIDBlock _Nullable)successBlock

@@ -24,6 +24,7 @@ Prop_strong()UIView *selectionView;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCCalendarDayCell
 
 @implementation JobsOCCalendarDayCell
+
 -(JobsRetJobsOCCalendarDayCellByDateBlock _Nonnull)byDate{
     @jobs_weakify(self)
     return ^JobsOCCalendarDayCell *(NSDate *date){

@@ -13,6 +13,7 @@ UICollectionViewDelegate
 ,UICollectionViewDataSource
 ,UICollectionViewDelegateFlowLayout
 >
+
 /// UI
 Prop_strong()UICollectionView *collectionView;
 Prop_strong()ThreeClassCell *tempCell;
@@ -29,6 +30,7 @@ Prop_assign()NSUInteger thisIndex;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsVerticalMenuSubView
 
 @implementation JobsVerticalMenuSubView
+
 @synthesize collectionView = _collectionView;
 
 -(instancetype)init{

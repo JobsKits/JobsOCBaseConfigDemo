@@ -20,6 +20,7 @@ Prop_strong()NSManagedObjectContext *context;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END CoreDataVC
 
 @implementation CoreDataVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

@@ -11,21 +11,27 @@
 static char JobsIconfontViewLifetimeWitnessKey;
 
 @interface JobsIconfontViewLifetimeWitness : NSObject
+
 @property(nonatomic,copy)dispatch_block_t onDeallocation;
+
 @end
 
 @implementation JobsIconfontViewLifetimeWitness
+
 -(void)dealloc {
     if (_onDeallocation) {
         _onDeallocation();
     }
 }
+
 @end
 
 @interface JobsIconfontLifecycleTests () <SDImageLoader>
+
 @property(nonatomic,strong)NSMutableArray *acceptanceLoaderCompletions;
 @property(nonatomic,strong)NSMutableArray<NSBlockOperation *> *acceptanceLoaderOperations;
 @property(nonatomic,strong)XCTestExpectation *acceptanceLoaderStarted;
+
 @end
 
 @implementation JobsIconfontLifecycleTests
@@ -208,4 +214,5 @@ static char JobsIconfontViewLifetimeWitnessKey;
         self.acceptanceLoaderOperations = nil;
     }
 }
+
 @end

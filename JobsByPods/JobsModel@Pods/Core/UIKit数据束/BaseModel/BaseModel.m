@@ -10,6 +10,7 @@
 #import <JobsModel/NSString+Extra.h>
 
 @implementation BaseModel
+
 /**
 
      1、归档，即为将内存中的对象（一断电就没），写到硬盘数据（断电后还在）

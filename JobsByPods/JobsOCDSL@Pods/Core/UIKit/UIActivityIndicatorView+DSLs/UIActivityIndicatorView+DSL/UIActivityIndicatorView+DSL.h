@@ -34,5 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetActivityIndicatorViewByVoidBlock _Nonnull)byStopAnimating;
 
 @end
+
 NS_ASSUME_NONNULL_END
 #endif

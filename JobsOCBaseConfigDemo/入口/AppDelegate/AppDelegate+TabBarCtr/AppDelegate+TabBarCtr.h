@@ -72,6 +72,7 @@ FOUNDATION_EXPORT void JobsOCApplyAppRootViewController(void);
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AppDelegate (TabBarCtr)
+
 #pragma mark —— 配置一些普通的控制器
 Prop_strong(class)JobsTabBarVC *tabBarVC;
 Prop_strong(class)JobsCustomTabBarVC *jobsCustomTabBarVC;

@@ -10,6 +10,7 @@
 #define angelToRandian(x) ((x)/180.0 * M_PI)
 
 @implementation LongPressToDeleteImageView
+
 - (instancetype)init{
     if (self = [super init]) {
         self.byUserInteractionEnabled(YES);

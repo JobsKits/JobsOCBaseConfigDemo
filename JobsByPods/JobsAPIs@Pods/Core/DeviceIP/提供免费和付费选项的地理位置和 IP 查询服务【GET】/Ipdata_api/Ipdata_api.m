@@ -8,6 +8,7 @@
 #import "Ipdata_api.h"
 
 @implementation Ipdata_api
+
 /// 请求的完整URL：提供详细的IP信息@GET
 /// https://api.ipdata.co/?api-key=YOUR_API_KEY
 -(NSString *)requestUrl{

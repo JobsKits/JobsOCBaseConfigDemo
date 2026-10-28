@@ -8,6 +8,7 @@
 #import "UIBezierPath+Extra.h"
 
 @implementation UIBezierPath (JobsByOCPodsExtra)
+
 /// 将指定的文本（text）转换成一个 UIBezierPath 对象，可以用于自定义文本的绘制效果
 +(UIBezierPath *)bezierPathWithText:(NSString *)text
                                font:(UIFont *)font

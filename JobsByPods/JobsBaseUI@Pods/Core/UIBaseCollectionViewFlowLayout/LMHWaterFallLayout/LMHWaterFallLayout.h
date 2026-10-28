@@ -50,4 +50,5 @@
 Prop_weak()id<LMHWaterFallLayoutDeleaget> delegate;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_LMHWATERFALLLAYOUT_BF180D4EE5 */

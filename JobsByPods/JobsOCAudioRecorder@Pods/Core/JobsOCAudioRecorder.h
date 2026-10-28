@@ -35,6 +35,7 @@ typedef NS_ENUM(NSUInteger, JobsOCAudioRecordingMode) {
 };
 
 @interface JobsOCAudioRecording : NSObject
+
 @property(nonatomic,strong)NSURL *url;
 @property(nonatomic,assign)JobsOCAudioRecordingMode mode;
 @property(nonatomic,strong)NSDate *createdAt;
@@ -45,22 +46,29 @@ typedef NS_ENUM(NSUInteger, JobsOCAudioRecordingMode) {
 -(JobsRetJobsOCAudioRecordingByDateBlock _Nonnull)byCreatedAt;
 -(JobsRetJobsOCAudioRecordingByTimeIntervalBlock _Nonnull)byDuration;
 -(JobsRetJobsOCAudioRecordingByLongLongBlock _Nonnull)byFileSize;
+
 @end
 
 @interface AVAudioRecorder (JobsOCAudioRecorderDSL)
+
 -(JobsRetAVAudioRecorderByIDBlock _Nonnull)byDelegate;
+
 @end
 
 @interface AVAudioPlayer (JobsOCAudioRecorderDSL)
+
 -(JobsRetAVAudioPlayerByIDBlock _Nonnull)byDelegate;
+
 @end
 
 @interface JobsOCAudioRecordingStore : NSObject
+
 @property(nonatomic,strong,readonly)NSURL *directoryURL;
 +(JobsRetIDByVoidBlock _Nonnull)shared;
 -(JobsRetNSURLByJobsOCAudioRecordingModeBlock _Nonnull)makeURLWithMode;
 -(JobsRetNSArrayJobsOCAudioRecordingByVoidBlock _Nonnull)recordings;
 -(BOOL)deleteRecording:(JobsOCAudioRecording *)recording error:(NSError **)error;
+
 @end
 
 @class JobsOCAudioRecorderEngine;
@@ -69,9 +77,11 @@ typedef NS_ENUM(NSUInteger, JobsOCAudioRecordingMode) {
 -(void)audioRecorderEngineDidStart:(JobsOCAudioRecorderEngine *)engine;
 -(jobsByJobsOCAudioRecorderEngineBlock _Nonnull)jobsAudioRecorderEngineDidStart;
 -(void)audioRecorderEngine:(JobsOCAudioRecorderEngine *)engine didFinishAtURL:(nullable NSURL *)url error:(nullable NSError *)error;
+
 @end
 
 @interface JobsOCAudioRecorderEngine : NSObject
+
 @property(nonatomic,weak,nullable)id<JobsOCAudioRecorderEngineDelegate> delegate;
 @property(nonatomic,assign,readonly)JobsOCAudioRecordingMode mode;
 @property(nonatomic,assign,readonly,getter=isRecording)BOOL recording;
@@ -91,6 +101,7 @@ typedef NS_ENUM(NSUInteger, JobsOCAudioRecordingMode) {
 @end
 
 @interface JobsOCAudioPlayerEngine : NSObject
+
 @property(nonatomic,strong,readonly,nullable)NSURL *playingURL;
 +(JobsRetIDByVoidBlock _Nonnull)shared;
 -(BOOL)toggleURL:(NSURL *)url error:(NSError **)error;
@@ -101,6 +112,7 @@ typedef NS_ENUM(NSUInteger, JobsOCAudioRecordingMode) {
 @end
 
 @interface JobsOCAudioRecordButton : UIButton
+
 @property(nonatomic,assign)NSTimeInterval duration;
 @property(nonatomic,assign)NSTimeInterval minimumValidDuration;
 @property(nonatomic,copy,nullable)BOOL(^onBegin)(void);

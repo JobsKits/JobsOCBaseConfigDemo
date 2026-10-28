@@ -8,6 +8,7 @@
 #import "UIView+Extra.h"
 
 @implementation UIView (Extra)
+
 /// 数据（字符串）定宽
 -(JobsRetCGFloatByIDBlock _Nonnull)widthByData{
     @jobs_weakify(self)

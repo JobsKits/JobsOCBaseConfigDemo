@@ -8,6 +8,7 @@
 #import "UIImage+SYS.h"
 
 @implementation UIImage (SYS)
+
 /*
     这里MKImageNamed方法中不能调用imageNamed方法,
     因为imageNamed实质已经是MKImageNamed方法了,

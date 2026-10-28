@@ -8,6 +8,7 @@
 #import "JobsGestureLockStorage.h"
 
 @implementation JobsGestureLockStorage
+
 +(JobsRetStrByStrBlock _Nonnull)gesturePasswordForKey{
     return ^NSString *(NSString * key){
         return [[NSUserDefaults standardUserDefaults] stringForKey:key];

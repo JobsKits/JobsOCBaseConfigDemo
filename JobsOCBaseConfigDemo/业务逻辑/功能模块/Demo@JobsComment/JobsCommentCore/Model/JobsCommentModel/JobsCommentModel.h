@@ -44,6 +44,7 @@ Prop_assign()NSInteger isVip;
 Prop_assign()NSInteger toIsVip;
 
 @end
+
 /// 对应字段 list
 @interface JobsFirstCommentModel : BaseModel
 
@@ -63,6 +64,7 @@ Prop_assign()NSInteger isPraise;
 Prop_assign()BOOL isVip;
 
 @end
+
 /// 对应字段 data
 @interface JobsCommentModel : BaseModel
 

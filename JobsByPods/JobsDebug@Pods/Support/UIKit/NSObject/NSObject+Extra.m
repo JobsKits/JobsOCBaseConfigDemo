@@ -8,6 +8,7 @@
 #import "NSObject+Extra.h"
 
 @implementation NSObject (Extra)
+
 /// Documents目录（这个目录通常用于存储应用程序中的用户数据或需要持久保存的数据。用户可以通过 iTunes 文件共享或 iCloud 访问该目录中的内容）下，用户主目录下，返回完整路径
 -(JobsRetNSArrayNSStringByVoidBlock _Nonnull)documentsPaths{
     @jobs_weakify(self)
@@ -30,6 +31,7 @@
 }
 
 @end
+
 /// 同一个类的方法交换
 void JobsDebugMethodSwizzle(Class _Nonnull c,
                             SEL _Nonnull _orig,

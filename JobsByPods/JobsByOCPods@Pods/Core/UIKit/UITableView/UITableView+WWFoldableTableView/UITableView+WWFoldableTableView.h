@@ -24,6 +24,7 @@
 #endif
 
 @interface UITableView (WWFoldableTableView)
+
 /// 设为YES，让tableView具备折叠功能
 Prop_assign()BOOL ww_foldable;
 /// 链式设置 UITableView 折叠能力
@@ -41,6 +42,7 @@ Prop_assign()BOOL ww_foldable;
 +(void)ww_swizzClassMethod:(SEL)methodOrig withMethod:(SEL)methodNew;
 
 @end
+
 /**
  *  使用方法：
  *  _tableView.byFoldable(YES);//设置可折叠

@@ -8,6 +8,7 @@
 #import "JobsOCSplashGIFDecoder.h"
 
 @implementation JobsOCSplashGIFDecoder
+
 +(nullable UIImage *)imageWithData:(NSData *)data {
     return ((((JobsRetImageByDataBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsOCSplashGIFDecoder.class, @selector(imageWithData)))(self, @selector(imageWithData))))(data);
 }

@@ -9,9 +9,11 @@
 #import "../JobsSplashTransferTaskFixture/JobsSplashTransferTaskFixture.h"
 
 @interface JobsOCSplashMediaCache (JobsStabilityTesting)
+
 -(NSURL *)persistDownloadedFile:(NSURL *)file forRemoteURL:(NSURL *)remote error:(NSError **)error;
 -(void)handleVideoDownloadForRemoteURL:(NSURL *)remote fileURL:(NSURL *)file error:(NSError *)error;
 -(jobsByURLBlock _Nonnull)trimCacheKeepingURL;
+
 @end
 
 @implementation JobsOCSplashStabilityTests

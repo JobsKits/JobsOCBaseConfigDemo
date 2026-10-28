@@ -8,6 +8,7 @@
 #import "YTKBatchRequest+DSL.h"
 
 @implementation YTKBatchRequest (DSL)
+
 -(NSArray<YTKRequest *> *)jobs_requests{
     return self.requestArray;
 }

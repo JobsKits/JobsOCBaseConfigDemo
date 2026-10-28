@@ -31,6 +31,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (YTKNetworkExtraExtra)
+
 /// 万能解析
 +(JobsRetIDByIDBlock _Nonnull)byData;
 /// 打印请求体

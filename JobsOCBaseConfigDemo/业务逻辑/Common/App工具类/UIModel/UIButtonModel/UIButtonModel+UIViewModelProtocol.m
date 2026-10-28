@@ -8,6 +8,7 @@
 #import "UIButtonModel+UIViewModelProtocol.h"
 
 @implementation UIButtonModel (UIViewModelProtocol)
+
 #pragma mark —— Prop_copy(nullable)NSString *normalImageURLString;
 JobsKey(_normalImageURLString)
 -(NSString *)normalImageURLString {

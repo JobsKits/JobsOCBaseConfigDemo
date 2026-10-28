@@ -8,6 +8,7 @@
 #import "NSData+Extra.h"
 
 @implementation NSData (Extra)
+
 -(NSString *)stringByUTF8Encoding{
     return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSData.class, @selector(jobsStringByUTF8Encoding)))(self, @selector(jobsStringByUTF8Encoding)))();
 }

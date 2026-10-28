@@ -8,6 +8,7 @@
 #import "JobsExcelLeftListView.h"
 
 @interface JobsExcelLeftListView()
+
 /// Data
 Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
 
@@ -20,6 +21,7 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsExcelLeftListView
 
 @implementation JobsExcelLeftListView
+
 /// RACProtocol
 @synthesize racDisposable = _racDisposable;
 - (void)dealloc {

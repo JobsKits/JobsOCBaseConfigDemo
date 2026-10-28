@@ -23,6 +23,7 @@
 #endif
 
 @interface UIButton (ImageTitleSpacing)
+
 /**
  *  每次设置完新值都需要再重新走一遍，进行刷新
  *  设置button的titleLabel和imageView的布局样式，及间距
@@ -36,6 +37,7 @@
                                          imagePadding:(CGFloat)imagePadding;
 
 @end
+
 /***
  
  有点问题，暂停同步

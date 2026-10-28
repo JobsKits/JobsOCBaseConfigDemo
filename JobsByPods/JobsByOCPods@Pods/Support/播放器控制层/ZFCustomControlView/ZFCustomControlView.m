@@ -27,6 +27,7 @@
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END ZFSpeedLoadingView
 
 @implementation ZFSliderView (JobsCustomControlDSL)
+
 -(JobsRetZFSliderViewByFloatBlock _Nonnull)byValue{
     @jobs_weakify(self)
     return ^__kindof ZFSliderView *_Nullable(float data){
@@ -119,6 +120,7 @@ JobsZFCustomSliderColorDSL(BufferTrackTintColor, bufferTrackTintColor)
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END ZFPlayerController
 
 @implementation ZFPlayerController (JobsCustomControlDSL)
+
 -(JobsRetZFPlayerControllerByBOOLBlock _Nonnull)byStatusBarHidden{
     @jobs_weakify(self)
     return ^__kindof ZFPlayerController *_Nullable(BOOL data){
@@ -159,6 +161,7 @@ JobsZFCustomSliderColorDSL(BufferTrackTintColor, bufferTrackTintColor)
 @end
 
 @implementation NSObject (JobsZFPlayerMediaPlaybackDSL)
+
 -(JobsRetZFPlayerMediaPlaybackByScalingModeBlock _Nonnull)byScalingMode{
     @jobs_weakify(self)
     return ^id<ZFPlayerMediaPlayback> _Nullable(ZFPlayerScalingMode data){
@@ -185,12 +188,14 @@ JobsZFCustomSliderColorDSL(BufferTrackTintColor, bufferTrackTintColor)
         return (id<ZFPlayerMediaPlayback>)self;
     };
 }
+
 @end
 
 #import <JobsMakes/JobsMakes.h>
 #import <JobsOCDSL/JobsOCDSL.h>
 
 @interface ZFCustomControlView ()
+
 /// 底部工具栏
 Prop_strong()UIView *bottomToolView;
 /// 顶部工具栏
@@ -230,6 +235,7 @@ Prop_strong()UIImageView *coverImageView;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END ZFCustomControlView
 
 @implementation ZFCustomControlView
+
 @synthesize player = _player;
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {

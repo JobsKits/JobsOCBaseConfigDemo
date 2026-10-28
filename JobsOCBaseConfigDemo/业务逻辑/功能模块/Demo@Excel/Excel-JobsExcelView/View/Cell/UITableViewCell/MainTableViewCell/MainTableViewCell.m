@@ -8,6 +8,7 @@
 #import "MainTableViewCell.h"
 
 @interface MainTableViewCell()
+
 /// Data
 Prop_strong()JobsExcelConfigureViewModel *excelConfigureData;
 Prop_strong()NSMutableArray <UIButtonModel *>*datas;
@@ -15,6 +16,7 @@ Prop_strong()NSMutableArray <UIButtonModel *>*datas;
 @end
 
 @implementation MainTableViewCell
+
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     @jobs_weakify(self)
     return ^(UITableView * _Nonnull tableView) {

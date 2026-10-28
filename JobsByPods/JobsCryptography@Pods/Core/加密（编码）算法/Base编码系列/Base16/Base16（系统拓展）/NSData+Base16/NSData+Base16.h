@@ -37,6 +37,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSData (Base16)
+
 #pragma mark —— NSData ==> Base16
 ///【类方法】将NSData对象 转换为 以Base16（也称为十六进制）编码的字符串
 +(JobsRetStrByDataBlock _Nonnull)base16StringByData;

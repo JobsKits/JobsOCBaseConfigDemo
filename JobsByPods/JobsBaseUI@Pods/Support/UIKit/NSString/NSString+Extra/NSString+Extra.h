@@ -70,6 +70,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (JobsBaseUIExtra)
+
 /// 获取一行字符串的高度
 /// 这个方法仅计算文本本身的高度，不包括行间距等因素
 -(JobsRetCGFloatByFontBlock _Nonnull)widthBy;

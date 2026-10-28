@@ -12,6 +12,7 @@
 @end
 
 @implementation JobsMembersSubsBaseVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);

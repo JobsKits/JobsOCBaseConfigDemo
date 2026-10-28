@@ -8,6 +8,7 @@
 #import "ZFPlayerController+DSL.h"
 
 @implementation ZFPlayerController (DSL)
+
 -(JobsRetZFPlayerByViewBlock _Nonnull)byContainerView{
     @jobs_weakify(self)
     return ^__kindof ZFPlayerController *_Nullable(__kindof UIView *_Nullable data){
@@ -424,6 +425,7 @@
 @end
 
 @implementation ZFOrientationObserver (DSL)
+
 -(JobsRetZFOrientationObserverByZFFullScreenModeBlock _Nonnull)byFullScreenMode{
     @jobs_weakify(self)
     return ^__kindof ZFOrientationObserver * _Nullable(ZFFullScreenMode data){
@@ -432,4 +434,5 @@
         return self;
     };
 }
+
 @end

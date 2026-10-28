@@ -15,6 +15,7 @@
 @end
 
 @implementation JobsMonitorVC
+
 @synthesize jobsBackBlock = _jobsBackBlock;
 -(void)didReceiveMemoryWarning{
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsMonitorVC.class, @selector(jobsDidReceiveMemoryWarning)))(self, @selector(jobsDidReceiveMemoryWarning));

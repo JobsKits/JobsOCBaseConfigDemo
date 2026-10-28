@@ -8,6 +8,7 @@
 #import "NSString+Eomji.h"
 
 @implementation NSString (Eomji)
+
 #pragma mark —— Eomji相关
 /// 编码emoji
 -(JobsRetStrByVoidBlock _Nonnull)emojiEncode{

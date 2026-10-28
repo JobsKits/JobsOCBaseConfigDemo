@@ -8,6 +8,7 @@
 #import "BackAnimation.h"
 
 @implementation BackAnimation
+
 - (NSTimeInterval)transitionDuration:(nullable id <UIViewControllerContextTransitioning>)transitionContext{
     JobsRetNSTimeIntervalByIDUIViewControllerContextTransitioningBlock action = ((JobsRetNSTimeIntervalByIDUIViewControllerContextTransitioningBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BackAnimation.class, @selector(jobsTransitionDuration)))(self, @selector(jobsTransitionDuration));
     return action ? action(transitionContext) : (NSTimeInterval){0};

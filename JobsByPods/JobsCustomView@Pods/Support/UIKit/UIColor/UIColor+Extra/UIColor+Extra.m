@@ -8,6 +8,7 @@
 #import "UIColor+Extra.h"
 
 @implementation UIColor (Extra)
+
 /// 生成渐变颜色
 +(UIColor *_Nullable)gradientCorDataMutArr:(NSMutableArray <UIColor *>*_Nullable)CorDataMutArr
                                 startPoint:(CGPoint)startPoint

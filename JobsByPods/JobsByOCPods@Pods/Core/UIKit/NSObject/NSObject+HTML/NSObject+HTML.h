@@ -34,6 +34,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (HTML)<WKScriptMessageHandler,WKNavigationDelegate>
+
 /// HTML 必要标签
 - (JobsRetNSMutableArrayNSStringByVoidBlock _Nonnull)requiredHTMLTags;
 /// HTML 标签

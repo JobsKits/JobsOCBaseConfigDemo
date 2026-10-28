@@ -8,6 +8,7 @@
 #import "NSMutableAttributedString+Extra.h"
 
 @implementation NSMutableAttributedString (Extra)
+
 /// 对系统方法 initWithAttributedString 的二次封装
 +(JobsRetMutableAttributedStringByAttributedStringBlock _Nonnull)initByAttributedString{
     return ^__kindof NSAttributedString *_Nullable(NSAttributedString *_Nonnull data){

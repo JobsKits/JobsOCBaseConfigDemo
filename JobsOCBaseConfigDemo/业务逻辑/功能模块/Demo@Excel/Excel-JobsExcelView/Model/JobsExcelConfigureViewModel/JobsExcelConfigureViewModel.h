@@ -51,6 +51,7 @@
 #endif
 
 @interface JobsExcelConfigureViewModel : NSObject
+
 #pragma mark —— 表格设置
 /// 公共设置
 Prop_assign()CGFloat XZExcelW;/// 整张Excel表的宽度

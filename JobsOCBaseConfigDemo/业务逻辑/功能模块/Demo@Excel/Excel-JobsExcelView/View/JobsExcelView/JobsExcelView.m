@@ -8,6 +8,7 @@
 #import "JobsExcelView.h"
 
 @interface JobsExcelView()
+
 /// UI
 Prop_strong()BaseButton *titleBtn;
 Prop_strong()JobsExcelLeftListView *leftListView;
@@ -20,6 +21,7 @@ Prop_strong()JobsExcelConfigureViewModel *excelConfigureDatas;
 @end
 
 @implementation JobsExcelView{
+
     CGFloat itemW;
 }
 

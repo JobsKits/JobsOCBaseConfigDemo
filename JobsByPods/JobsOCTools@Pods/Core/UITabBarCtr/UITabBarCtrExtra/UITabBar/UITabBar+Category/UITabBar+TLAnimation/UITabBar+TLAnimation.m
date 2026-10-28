@@ -9,6 +9,7 @@
 #import <JobsOCDSL/UITabBar+DSL.h>
 
 @implementation UITabBar (TLAnimation)
+
 +(void)load {
     @synchronized(self){
         MethodSwizzle(UITabBar.class,

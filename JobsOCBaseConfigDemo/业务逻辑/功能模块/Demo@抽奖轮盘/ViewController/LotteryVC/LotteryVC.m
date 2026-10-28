@@ -8,6 +8,7 @@
 #import "LotteryVC.h"
 
 @interface LotteryVC ()
+
 /// Data
 Prop_strong()NSMutableArray <__kindof UITableViewCell *>*tbvSectionRowCellMutArr;
 Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
@@ -15,6 +16,7 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 @end
 
 @implementation LotteryVC
+
 - (void)dealloc{
     JobsNotificationCenter.remove(self);
     JobsLog(@"%@",JobsLocalFunc);

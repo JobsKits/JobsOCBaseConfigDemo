@@ -8,6 +8,7 @@
 #import "UISwitch+DSL.h"
 
 @implementation UISwitch (DSL)
+
 -(BOOL)jobs_isOn{
     return self.isOn;
 }

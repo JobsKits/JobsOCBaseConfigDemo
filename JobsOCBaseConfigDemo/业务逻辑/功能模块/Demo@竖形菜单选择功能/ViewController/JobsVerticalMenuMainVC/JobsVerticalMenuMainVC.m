@@ -20,6 +20,7 @@ static UIColor *JobsVerticalMenuMainCardBorderCor(void) {
 }
 
 @interface JobsVerticalMenuMainVC ()
+
 /// Data
 Prop_strong()NSMutableArray <NSMutableArray <__kindof UITableViewCell *>*>*tbvSectionRowCellMutArr;
 Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutArr;
@@ -27,6 +28,7 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
 @end
 
 @implementation JobsVerticalMenuMainVC
+
 - (void)dealloc{
     JobsNotificationCenter.remove(self);
     JobsLog(@"%@",JobsLocalFunc);

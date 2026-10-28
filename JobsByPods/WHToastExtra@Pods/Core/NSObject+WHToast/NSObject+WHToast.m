@@ -10,6 +10,7 @@
 #import <WHToastExtra/NSObject+Image.h>
 
 @implementation NSObject (WHToast)
+
 #pragma mark —— 仅文字，展示在屏幕中间
 +(jobsByStrBlock _Nonnull)jobsToastMsg{
     return ^(NSString *_Nullable msg) {

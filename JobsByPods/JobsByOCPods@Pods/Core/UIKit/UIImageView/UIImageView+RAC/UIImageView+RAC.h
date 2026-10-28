@@ -31,6 +31,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImageView (RAC)
+
 /// RAC 监听UIImageView.image属性的变化：当输入值的时候，进行网络请求发送图片文件
 -(void)uploadImageBlock:(jobsByImageBlock _Nullable)uploadImageBlock
           nilImageBlock:(jobsByVoidBlock _Nullable)nilImageBlock;

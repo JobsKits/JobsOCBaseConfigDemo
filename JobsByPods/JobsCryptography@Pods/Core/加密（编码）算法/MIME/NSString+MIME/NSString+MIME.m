@@ -8,6 +8,7 @@
 #import "NSString+MIME.h"
 
 @implementation NSString (MIME)
+
 #pragma mark —— MIME编码的数据 <==> NSString对象
 ///【类方法】以MIME编码的字符串数据 转换成 普通NSString对象
 +(JobsRetStrByStrBlock _Nonnull)stringByMIMEData{

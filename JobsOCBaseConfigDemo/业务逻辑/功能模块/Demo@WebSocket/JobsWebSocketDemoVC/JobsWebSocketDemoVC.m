@@ -24,6 +24,7 @@ Prop_strong()JobsOCWebSocketClient *client;
 @end
 
 @implementation JobsWebSocketDemoVC
+
 -(void)dealloc{
     _client.disconnect();
 }

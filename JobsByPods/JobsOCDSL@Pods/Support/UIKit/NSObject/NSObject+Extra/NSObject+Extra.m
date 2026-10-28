@@ -11,6 +11,7 @@
 #import <JobsOCRuntimeKits/JobsWeakAssociation.h>
 
 @implementation NSObject (Extra)
+
 @dynamic weak_target;
 
 -(id)weak_target{

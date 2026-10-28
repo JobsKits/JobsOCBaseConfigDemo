@@ -6,6 +6,7 @@
 //
 
 #import "SceneDelegate.h"
+#import "JobsOCDeviceGuardLaunchGate.h"
 #import "AppDelegate.h"
 #import "AppDelegate+Func.h"
 #import "AppDelegate+TabBarCtr.h"

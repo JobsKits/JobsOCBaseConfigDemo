@@ -8,6 +8,7 @@
 #import "BRTextModel+DSL.h"
 
 @implementation BRTextModel (DSL)
+
 -(JobsRetBRTextModelByStrBlock _Nonnull)byCode{
     @jobs_weakify(self)
     return ^__kindof BRTextModel *_Nullable(NSString * _Nullable data) {

@@ -12,6 +12,7 @@
 @end
 
 @implementation JobsMakeLocalNotification
+
 -(jobsByJobsLocalNotificationModelBlock _Nonnull)triggerLocalNotification{
     @jobs_weakify(self)
     return ^(JobsLocalNotificationModel * localNotificationModel){

@@ -8,6 +8,7 @@
 #import "YTKChainRequest+Extra.h"
 
 @implementation YTKChainRequest (Extra)
+
 /// 开始网络请求
 -(jobsByVoidBlock _Nonnull)go{
     @jobs_weakify(self)

@@ -28,6 +28,7 @@ Prop_strong()UIButton *modeBtn;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCSkeletonViewDemoVC
 
 @implementation JobsOCSkeletonViewDemoVC
+
 -(void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

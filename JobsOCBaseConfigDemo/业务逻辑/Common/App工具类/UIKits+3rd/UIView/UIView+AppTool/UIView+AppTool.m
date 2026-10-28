@@ -8,6 +8,7 @@
 #import "UIView+AppTool.h"
 
 @implementation UIView (AppTool)
+
 /// 仅在横屏情况下交换Size宽高的值
 -(JobsRetFrameByVoidBlock _Nonnull)fitSize{
     @jobs_weakify(self)

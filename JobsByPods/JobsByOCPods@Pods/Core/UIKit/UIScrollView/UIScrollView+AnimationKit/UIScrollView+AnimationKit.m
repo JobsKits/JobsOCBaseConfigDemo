@@ -8,6 +8,7 @@
 #import "UIScrollView+AnimationKit.h"
 
 @implementation UIScrollView (AnimationKit)
+
 #pragma mark —— 一些私有方法
 -(void)sortingType:(SortingType)sortingType
              cells:(NSArray *)cells

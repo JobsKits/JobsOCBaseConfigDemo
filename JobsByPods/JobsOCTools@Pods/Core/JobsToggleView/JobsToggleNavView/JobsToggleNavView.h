@@ -48,6 +48,7 @@
 #endif
 
 @interface JobsToggleNavView : BaseView<JobsToggleNavViewProtocol>
+
 /// UI
 Prop_copy(nullable)NSMutableArray <__kindof UIButton *>*buttonsArray;
 /// 选择某一个标签

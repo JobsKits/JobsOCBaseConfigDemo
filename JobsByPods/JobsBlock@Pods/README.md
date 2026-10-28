@@ -68,6 +68,7 @@
 ## <span id="jobs-toc-heading-3" data-jobs-toc="v2">二、适用场景 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - 作为 Jobs 项目内的独立能力 Pod，向 App 或其它 Pod 提供 `JobsBlock` 相关能力。
+- `JobsOCDeviceGuardConfiguration` 的 BOOL / NSUInteger 链式配置 Block 统一在 `JobsBlock.h` 声明，只前向声明配置类，不反向依赖设备安全 Pod。
 - 当 `JobsBlock` 的 `Core`、`Support`、资源、依赖或公开头文件发生变化时，同步更新本 README，避免后续排查只看源码不看边界。
 - 参与本地 Pods 拆分时，先确认能力归属，再决定放入当前 Pod、迁移到 `Support`，还是下沉为更基础的公共 Pod。
 

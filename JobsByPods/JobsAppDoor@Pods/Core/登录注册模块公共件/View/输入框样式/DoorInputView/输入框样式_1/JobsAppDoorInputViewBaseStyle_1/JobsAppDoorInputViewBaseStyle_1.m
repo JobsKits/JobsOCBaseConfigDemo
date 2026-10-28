@@ -12,6 +12,7 @@ static CGFloat JobsAppDoorVerificationCodeBtnWidth(void){
 }
 
 @interface JobsAppDoorInputViewBaseStyle_1 ()
+
 /// UI
 Prop_strong()JobsCountdownBtn *countDownBtn;
 Prop_strong()UIImageView *leftIMGV;
@@ -31,6 +32,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_1
 
 @implementation JobsAppDoorInputViewBaseStyle_1
+
 @synthesize thisViewSize = _thisViewSize;
 - (instancetype)init{
     if (self = [super init]) {

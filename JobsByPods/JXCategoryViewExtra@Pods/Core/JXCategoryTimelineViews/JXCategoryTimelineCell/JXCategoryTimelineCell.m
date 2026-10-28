@@ -14,6 +14,7 @@ Prop_strong()UILabel *timeLabel;
 @end
 
 @implementation JXCategoryTimelineCell
+
 -(jobsByVoidBlock _Nonnull)jobsInitializeViews{
     @jobs_weakify(self)
     return ^{

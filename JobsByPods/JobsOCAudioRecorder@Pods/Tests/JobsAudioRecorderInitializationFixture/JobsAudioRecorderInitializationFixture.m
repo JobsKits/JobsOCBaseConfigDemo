@@ -8,6 +8,7 @@
 #import "JobsAudioRecorderInitializationFixture.h"
 
 @implementation JobsAudioRecorderInitializationFixture
+
 -(BOOL)activateRecordingSession:(AVAudioSession **)session error:(NSError **)error{
     *session = (AVAudioSession *)self.fixtureSession;
     return YES;
@@ -27,4 +28,5 @@
     if (error) *error = [NSError errorWithDomain:@"JobsAudioFixture" code:99 userInfo:nil];
     return nil;
 }
+
 @end

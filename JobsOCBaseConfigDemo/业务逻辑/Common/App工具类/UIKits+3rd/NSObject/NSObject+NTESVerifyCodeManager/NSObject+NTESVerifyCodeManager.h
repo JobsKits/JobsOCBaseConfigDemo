@@ -41,6 +41,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @interface NTESVerifyCodeManager (JobsVerifyCodeDSL)
+
 -(JobsRetNTESVerifyCodeManagerByIDBlock _Nonnull)byDelegate;
 -(JobsRetNTESVerifyCodeManagerByCGFloatBlock _Nonnull)byAlpha;
 -(JobsRetNTESVerifyCodeManagerByCorBlock _Nonnull)byColor;
@@ -51,9 +52,11 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetNTESVerifyCodeManagerByBOOLBlock _Nonnull)byOpenFallBack;
 -(JobsRetNTESVerifyCodeManagerByNSUIntegerBlock _Nonnull)byFallBackCount;
 -(JobsRetNTESVerifyCodeManagerByBOOLBlock _Nonnull)byCloseButtonHidden;
+
 @end
 
 @interface NTESVerifyCodeStyleConfig (JobsVerifyCodeDSL)
+
 -(JobsRetNTESVerifyCodeStyleConfigByTextAlignBlock _Nonnull)byCapBarTextAlign;
 -(JobsRetNTESVerifyCodeStyleConfigByStrBlock _Nonnull)byCapBarTextColor;
 -(JobsRetNTESVerifyCodeStyleConfigByNSUIntegerBlock _Nonnull)byCapBarTextSize;
@@ -64,6 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetNTESVerifyCodeStyleConfigByStrBlock _Nonnull)byBackgroundMoving;
 -(JobsRetNTESVerifyCodeStyleConfigByNSUIntegerBlock _Nonnull)byExecuteBorderRadius;
 -(JobsRetNTESVerifyCodeStyleConfigByStrBlock _Nonnull)byExecuteBackground;
+
 @end
 
 ///【NTESVerifyCodeManager】 二次封装 https://github.com/yidun/NTESVerifyCode

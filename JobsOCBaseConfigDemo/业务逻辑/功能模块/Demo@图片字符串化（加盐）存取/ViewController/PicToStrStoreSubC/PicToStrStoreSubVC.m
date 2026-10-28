@@ -8,6 +8,7 @@
 #import "PicToStrStoreSubVC.h"
 
 @interface PicToStrStoreSubVC (){
+
     UIImage *_picBefore;
     UIImage *_picAfter;
     NSString *_resultStr;// 最原始的图片编码字符串
@@ -30,6 +31,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END PicToStrStoreSubVC
 
 @implementation PicToStrStoreSubVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

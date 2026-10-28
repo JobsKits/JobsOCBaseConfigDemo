@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @class BRPickerStyle;
 
 @interface BRStringPickerViewModel : NSObject
+
 /// 来自新版 BRTextPickerView
 /** 文本选择器显示类型 */
 Prop_assign()BRTextPickerMode pickerMode;

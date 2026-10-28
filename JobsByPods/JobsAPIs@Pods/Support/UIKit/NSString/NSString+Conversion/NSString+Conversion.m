@@ -8,6 +8,7 @@
 #import "NSString+Conversion.h"
 
 @implementation NSString (Conversion)
+
 #pragma mark —— 转化
 /// 对系统方法 initWithData.NSUTF8StringEncoding 的二次封装
 /// 对系统方法 initWithData.NSASCIIStringEncoding 的二次封装

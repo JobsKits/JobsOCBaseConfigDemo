@@ -8,6 +8,7 @@
 #import "UIColor+Extra.h"
 
 @implementation UIColor (Extra)
+
 +(JobsRetCorByStrBlock _Nonnull)jobsCor{
     return ^UIColor *_Nullable(NSString *_Nullable data){
         return [UIColor colorWithHexString:data alpha:1.0];

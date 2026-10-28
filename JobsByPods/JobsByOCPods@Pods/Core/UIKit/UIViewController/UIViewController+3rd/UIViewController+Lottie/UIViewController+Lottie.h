@@ -38,6 +38,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (Lottie)
+
 /// 加盖一个Lottie播放器在本控制器view之上
 /// @param lottieImage LottieName
 -(jobsByStrBlock _Nonnull)addLottieImage;

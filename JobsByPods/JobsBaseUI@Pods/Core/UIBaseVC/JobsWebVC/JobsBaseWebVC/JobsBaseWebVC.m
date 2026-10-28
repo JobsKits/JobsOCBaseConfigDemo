@@ -18,6 +18,7 @@
 @end
 
 @implementation JobsBaseWebVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);

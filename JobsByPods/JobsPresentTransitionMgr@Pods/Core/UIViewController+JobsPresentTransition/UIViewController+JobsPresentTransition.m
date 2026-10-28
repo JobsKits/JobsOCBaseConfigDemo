@@ -8,6 +8,7 @@
 #import "UIViewController+JobsPresentTransition.h"
 
 @implementation UIViewController (JobsPresentTransition)
+
 -(JobsRetJobsPresentTransitionMgrByUIViewControllerBlock _Nonnull)jobs_presentViewController{
     @jobs_weakify(self)
     return ^JobsPresentTransitionMgr *(UIViewController * presentedViewController){

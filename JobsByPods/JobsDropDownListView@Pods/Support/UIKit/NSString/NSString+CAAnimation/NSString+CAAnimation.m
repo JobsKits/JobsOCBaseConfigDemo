@@ -8,6 +8,8 @@
 #import "NSString+CAAnimation.h"
 
 @implementation NSString (CAAnimation)
+
 /// 创建CABasicAnimation
 /// 创建CAKeyframeAnimation（关键帧动画）
+
 @end

@@ -16,6 +16,7 @@ Prop_strong()CAGradientLayer *cagradientLayer;
 @end
 
 @implementation GDFadeView
+
 -(instancetype)init{
     if (self = [super init]) {
     };return self;

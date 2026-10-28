@@ -8,6 +8,7 @@
 #import "CustomBtnImageLeadingVC.h"
 
 @implementation CustomBtnImageLeadingVC
+
 -(JobsRetStrByVoidBlock _Nonnull)demoTitle{
     @jobs_weakify(self)
     return ^NSString *{

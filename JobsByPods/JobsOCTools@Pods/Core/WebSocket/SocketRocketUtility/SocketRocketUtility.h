@@ -47,11 +47,14 @@
 #endif
 
 @interface SRWebSocket (JobsSocketRocketUtilityDSL)
+
 -(JobsRetSRWebSocketByDelegateBlock _Nonnull)byDelegate;
 -(JobsRetSRWebSocketByVoidBlock _Nonnull)byOpen;
+
 @end
 
 @interface SocketRocketUtility : NSObject<SRWebSocketDelegate,BaseProtocol>
+
 /// 获取连接状态
 Prop_assign(readonly)SRReadyState socketReadyState;
 
@@ -66,4 +69,5 @@ Prop_assign(readonly)SRReadyState socketReadyState;
 -(JobsRetSocketRocketUtilityBySRWebSocketBlock _Nonnull)bySocket;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_SOCKETROCKETUTILITY_9BFDFF3F9E */

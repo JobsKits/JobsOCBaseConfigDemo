@@ -37,6 +37,7 @@ static UIImage *JobsQRCodeUIImage(CIImage *ciImage, CGFloat widthSize) {
 }
 
 @implementation NSString (CIFilter)
+
 /// 根据字符串生成二维码图像
 -(JobsRetImageByVoidBlock _Nonnull)createQRcode{
     @jobs_weakify(self)

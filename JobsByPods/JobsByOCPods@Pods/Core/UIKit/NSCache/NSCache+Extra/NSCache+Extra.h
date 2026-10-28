@@ -20,6 +20,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSCache (Extra)
+
 /// 计算单个目录缓存文件大小
 +(JobsRetCGFloatByNSStringBlock _Nonnull)calcFolderSizeAtPath;
 /// 计算全部缓存文件大小

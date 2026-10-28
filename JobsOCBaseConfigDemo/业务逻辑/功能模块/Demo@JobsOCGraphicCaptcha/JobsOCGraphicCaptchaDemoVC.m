@@ -36,6 +36,7 @@ Prop_strong()UILabel *resultLab;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCGraphicCaptchaDemoVC
 
 @implementation JobsOCGraphicCaptchaDemoVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

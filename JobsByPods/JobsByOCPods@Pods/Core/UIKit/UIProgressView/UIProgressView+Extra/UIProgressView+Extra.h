@@ -19,6 +19,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIProgressView (Extra)
+
 /// 进度条动画展现到当前值
 /// 资料来源：https://www.jianshu.com/p/14a93c6dd929
 /// @param duration 持续时间

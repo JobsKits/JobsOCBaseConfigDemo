@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// velocity：当前速度（可以是角速度）
 /// decelerationRate：例如 UIScrollViewDecelerationRateNormal
 @interface ScrollDecelerator : NSObject
+
 /// 当前速度（比如角速度）
 Prop_assign()CGFloat velocity;
 -(JobsRetScrollDeceleratorByCGFloatBlock _Nonnull)byVelocity;

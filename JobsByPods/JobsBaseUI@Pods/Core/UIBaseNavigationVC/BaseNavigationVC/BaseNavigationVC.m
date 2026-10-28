@@ -17,6 +17,7 @@ Prop_strong()NSShadow *shadow;
 @end
 
 @implementation BaseNavigationVC
+
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
 }

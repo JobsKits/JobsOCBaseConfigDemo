@@ -68,4 +68,5 @@
         XCTAssertEqual([generation copy], generation);
     }
 }
+
 @end

@@ -8,6 +8,7 @@
 #import "UITextField+Extra.h"
 
 @implementation UITextField (Extra)
+
 #pragma mark —— 一些功能方法
 /// RAC 回调封装
 -(RACDisposable *)jobsTextFieldEventFilterBlock:(JobsRetBOOLByIDBlock _Nonnull)filterBlock

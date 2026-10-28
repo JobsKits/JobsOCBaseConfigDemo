@@ -37,6 +37,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImage (HexadecimalData)
+
 #pragma mark —— UIImage对象 ==> 16进制字符串
 ///【类方法】UIImage对象 转换为 16进制字符串
 +(JobsRetStrByImageBlock _Nonnull)hexStringByImage;

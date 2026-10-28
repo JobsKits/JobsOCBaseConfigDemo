@@ -25,6 +25,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END AppDelegate
 
 @implementation AppDelegate
+
 static AppDelegate *AppDelegateInstance = nil;
 static dispatch_once_t AppDelegateOnceToken;
 -(JobsRetAppDelegateByWindowBlock _Nonnull)jobsSetWindow{

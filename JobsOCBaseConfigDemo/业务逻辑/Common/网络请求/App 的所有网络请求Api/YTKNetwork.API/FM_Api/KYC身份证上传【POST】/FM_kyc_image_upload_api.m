@@ -8,6 +8,7 @@
 #import "FM_kyc_image_upload_api.h"
 
 @implementation FM_kyc_image_upload_api
+
 /// KYC身份证上传@POST
 -(NSString *)requestUrl{
     JobsRetStrByVoidBlock action = ((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FM_kyc_image_upload_api.class, @selector(jobsRequestUrl)))(self, @selector(jobsRequestUrl));

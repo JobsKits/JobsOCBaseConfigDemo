@@ -8,6 +8,7 @@
 #import "JobsToggleBaseView.h"
 
 @interface JobsToggleBaseView ()
+
 /// UI
 Prop_strong()JobsToggleNavView *taggedNavView;
 Prop_strong()UIScrollView *bgScroll;
@@ -25,6 +26,7 @@ Prop_strong()NSMutableArray <UIButtonModel *>*taggedNavDatas;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsToggleBaseView
 
 @implementation JobsToggleBaseView
+
 /// JobsToggleNavViewProtocol
 JobsToggleNavViewProtocolSynthesize
 #pragma mark —— SysMethod

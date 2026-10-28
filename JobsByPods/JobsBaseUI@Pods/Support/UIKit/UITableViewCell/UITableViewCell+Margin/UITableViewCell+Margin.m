@@ -8,6 +8,7 @@
 #import "UITableViewCell+Margin.h"
 
 @implementation UITableViewCell (Margin)
+
 UILocationProtocol_dynamic
 -(JobsRetTableViewCellByCGFloatBlock _Nonnull)byOffsetXForEach{
     @jobs_weakify(self)

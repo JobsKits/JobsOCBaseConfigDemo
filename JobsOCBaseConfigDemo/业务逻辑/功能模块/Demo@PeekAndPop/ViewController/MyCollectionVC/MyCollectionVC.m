@@ -8,12 +8,14 @@
 #import "MyCollectionVC.h"
 
 @interface MyCollectionVC ()
+
 /// Data
 Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 
 @end
 
 @implementation MyCollectionVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

@@ -12,6 +12,7 @@
 #import <JobsBitsMonitor/JobsBitsMonitor.h>
 
 @interface JobsBitsMonitorStabilityTests : XCTestCase
+
 @end
 
 #endif /* JOBS_TEST_JOBSBITSMONITORSTABILITYTESTS_H */

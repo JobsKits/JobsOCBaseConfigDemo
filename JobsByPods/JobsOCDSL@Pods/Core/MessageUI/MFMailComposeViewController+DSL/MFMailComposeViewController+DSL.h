@@ -34,5 +34,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetMailComposeVCByArrBlock _Nonnull)bySetBccRecipients;
 
 @end
+
 NS_ASSUME_NONNULL_END
 #endif

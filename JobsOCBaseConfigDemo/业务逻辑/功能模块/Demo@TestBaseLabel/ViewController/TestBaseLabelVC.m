@@ -8,6 +8,7 @@
 #import "TestBaseLabelVC.h"
 
 @interface TestBaseLabelVC ()
+
 /// UI
 Prop_strong()JobsBaseLabel *titleLab;
 Prop_strong()BaseLabel *baseLabel;
@@ -15,6 +16,7 @@ Prop_strong()BaseLabel *baseLabel;
 @end
 
 @implementation TestBaseLabelVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);

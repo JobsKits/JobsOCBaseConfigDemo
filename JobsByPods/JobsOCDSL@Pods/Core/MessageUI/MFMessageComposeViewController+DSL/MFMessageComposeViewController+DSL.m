@@ -8,6 +8,7 @@
 #import "MFMessageComposeViewController+DSL.h"
 
 @implementation MFMessageComposeViewController (JobsChain)
+
 +(JobsRetBOOLByVoidBlock _Nonnull)byCanSendText{
     return ^BOOL(void){
         return [self canSendText];

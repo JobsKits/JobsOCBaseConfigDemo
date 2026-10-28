@@ -32,6 +32,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSData (Base32)
+
 #pragma mark —— NSData ==> Base32
 ///【类方法】将NSData对象 转换为 以Base32编码的字符串
 +(JobsRetStrByDataBlock _Nonnull)base32String;

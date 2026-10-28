@@ -43,5 +43,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetUIGestureRecognizerByRACSubjectBlock _Nonnull)byRac_subject;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END UIGestureRecognizer
 @end
+
 NS_ASSUME_NONNULL_END
 #endif

@@ -36,4 +36,5 @@
     XCTAssertNil(action());
 }
 #endif
+
 @end

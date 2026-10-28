@@ -8,6 +8,7 @@
 #import "NSObject+UserInfo.h"
 
 @implementation NSObject (UserInfo)
+
 /**
 
  【鉴别目前是否登录】

@@ -51,6 +51,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FileFolderHandleTool : NSObject
+
 /*
  1.Documents:只有用户生成的文件、其他数据及其他程序不能重新创建的文件，应该保存在/Documents目录下面，并将通过iCloud自动备份。
  2.Library:可以重新下载或者重新生成的数据应该保存在/Library /caches目录下面。举个例子，比如杂志、新闻、地图应用使用的数据库缓存文件和可下载内容应该保存到这个文件夹。

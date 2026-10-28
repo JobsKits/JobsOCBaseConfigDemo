@@ -95,4 +95,5 @@ static int JobsSnowflakeCompareIDs(const void *left, const void *right) {
     }
     free(identifiers);
 }
+
 @end

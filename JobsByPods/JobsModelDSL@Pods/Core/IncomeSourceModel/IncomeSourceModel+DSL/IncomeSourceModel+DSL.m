@@ -8,6 +8,7 @@
 #import "IncomeSourceModel+DSL.h"
 
 @implementation IncomeSourceModel (DSL)
+
 -(JobsRetIncomeSourceModelByStrBlock _Nonnull)byID{
     @jobs_weakify(self)
     return ^__kindof IncomeSourceModel *_Nullable(NSString * _Nullable data) {

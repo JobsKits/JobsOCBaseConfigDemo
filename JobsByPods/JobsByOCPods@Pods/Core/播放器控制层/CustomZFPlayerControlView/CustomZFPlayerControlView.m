@@ -20,6 +20,7 @@ Prop_copy()jobsByTwoIDBlock customZFPlayerControlViewBlock;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END CustomZFPlayerControlView
 
 @implementation CustomZFPlayerControlView
+
 -(jobsByZFPlayerGestureControlBlock _Nonnull)gestureSingleTapped{
     @jobs_weakify(self)
     return ^(ZFPlayerGestureControl * gestureControl){

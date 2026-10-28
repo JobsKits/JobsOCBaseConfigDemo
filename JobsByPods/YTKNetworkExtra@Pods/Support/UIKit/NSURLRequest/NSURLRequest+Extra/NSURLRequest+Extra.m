@@ -10,6 +10,7 @@
 #import <YTKNetworkExtra/NSObject+YTKNetwork.h>
 
 @implementation NSURLRequest (Extra)
+
 +(JobsRetURLRequestByURLBlock _Nonnull)initBy{
     return ^__kindof NSURLRequest *_Nullable(NSURL *_Nullable url){
         return [NSURLRequest requestWithURL:url];

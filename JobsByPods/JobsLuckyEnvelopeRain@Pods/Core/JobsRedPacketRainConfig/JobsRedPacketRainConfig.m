@@ -21,6 +21,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsRedPacketRainConfig
 
 @implementation JobsRedPacketRainConfig
+
 +(JobsRetIDByVoidBlock _Nonnull)defaultConfig{
     return ^id{
         return JobsRedPacketRainConfig.new;

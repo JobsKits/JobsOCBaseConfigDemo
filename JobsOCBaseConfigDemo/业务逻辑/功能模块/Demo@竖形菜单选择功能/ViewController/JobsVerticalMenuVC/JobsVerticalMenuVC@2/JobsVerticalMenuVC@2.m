@@ -8,6 +8,7 @@
 #import "JobsVerticalMenuVC@2.h"
 
 @interface JobsVerticalMenuVC_2 ()
+
 /// UI
 Prop_strong()BaseButton *editBtn;
 Prop_strong()ThreeClassCell *tempCell;
@@ -40,6 +41,7 @@ Prop_assign()BOOL searchMode;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsVerticalMenuVC_2
 
 @implementation JobsVerticalMenuVC_2
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);

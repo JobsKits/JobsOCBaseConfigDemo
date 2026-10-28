@@ -14,6 +14,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END AVAssetImageGenerator
 
 @implementation AVAssetImageGenerator (Extra)
+
 +(JobsRetAVAssetImageGeneratorByAVURLAssetBlock _Nonnull)initBy{
     @jobs_weakify(self)
     return ^__kindof AVAssetImageGenerator *_Nonnull(__kindof AVURLAsset *_Nullable data){

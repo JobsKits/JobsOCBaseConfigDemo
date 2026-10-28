@@ -27,6 +27,7 @@ Prop_assign()NSUInteger refreshGeneration;
 @end
 
 @implementation JobsDouyinRefreshDemoVC
+
 -(void)dealloc {
     _refreshView.byStop();
     JobsLog(@"%@",JobsLocalFunc);

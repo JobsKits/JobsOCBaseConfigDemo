@@ -85,7 +85,9 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface ZFOrientationObserver (DSL)
+
 -(JobsRetZFOrientationObserverByZFFullScreenModeBlock _Nonnull)byFullScreenMode;
+
 @end
 
 NS_ASSUME_NONNULL_END

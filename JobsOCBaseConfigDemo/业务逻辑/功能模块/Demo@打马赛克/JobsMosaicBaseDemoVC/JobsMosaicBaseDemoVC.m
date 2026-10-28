@@ -28,6 +28,7 @@ didFinishSavingWithError:(NSError *)error
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsMosaicBaseDemoVC
 
 @implementation JobsMosaicBaseDemoVC
+
 @synthesize imageView = _imageView;
 @synthesize statusLabel = _statusLabel;
 @synthesize saveButton = _saveButton;

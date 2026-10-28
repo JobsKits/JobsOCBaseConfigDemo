@@ -8,6 +8,7 @@
 #import "MGSwipeTableCell+Extra.h"
 
 @implementation MGSwipeTableCell (Extra)
+
 -(JobsRetMGSwipeTableCellByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^__kindof MGSwipeTableCell *_Nonnull(id<MGSwipeTableCellDelegate> _Nullable delegate) {

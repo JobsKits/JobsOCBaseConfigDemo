@@ -8,6 +8,7 @@
 #import "ASCollectionNode+DSL.h"
 
 @implementation ASCollectionNode (DSL)
+
 -(JobsRetCollectionNodeByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^ASCollectionNode* (id<ASCollectionDelegate> delegate){

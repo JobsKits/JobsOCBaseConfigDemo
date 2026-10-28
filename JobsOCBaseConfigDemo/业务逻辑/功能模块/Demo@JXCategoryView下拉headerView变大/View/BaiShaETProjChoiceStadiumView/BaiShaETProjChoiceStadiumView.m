@@ -14,6 +14,7 @@ Prop_strong()UIColor *cor;
 @end
 
 @implementation BaiShaETProjChoiceStadiumTBVHeaderView
+
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(self.cor);
@@ -79,6 +80,7 @@ Prop_strong()UIColor *cor;
 @end
 
 @interface BaiShaETProjChoiceStadiumView ()
+
 /// UI
 Prop_strong()UITableView *tableView;
 Prop_strong()BaiShaETProjChoiceStadiumTBVHeaderView *tbvHeaderView;
@@ -89,6 +91,7 @@ Prop_strong()NSMutableArray <JobsBaseTableViewCell *>*tbvCellMutArr;
 @end
 
 @implementation BaiShaETProjChoiceStadiumView
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 #pragma mark —— BaseProtocol

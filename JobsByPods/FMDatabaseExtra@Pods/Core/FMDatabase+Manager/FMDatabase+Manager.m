@@ -10,6 +10,7 @@
 static char JobsFMTransactionErrorKey;
 
 @implementation FMDatabase (Manager)
+
 /// 依据路径创建数据库
 -(JobsRetFMDatabaseByNSStringBlock _Nonnull)createDataBaseWithPath{
     @jobs_weakify(self)

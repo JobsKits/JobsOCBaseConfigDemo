@@ -8,6 +8,7 @@
 #import "UIView+Extra.h"
 
 @implementation UIView (JobsByOCPodsExtra)
+
 #pragma mark —— init
 +(JobsRetViewByFrameBlock _Nonnull)initByFrame{
     return ^__kindof UIView *_Nullable(CGRect data){

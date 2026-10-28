@@ -8,6 +8,7 @@
 #import "UIAlertController+Extra.h"
 
 @implementation UIAlertController (Extra)
+
 -(JobsRetAlertCtrlByActionBlock _Nonnull)add{
     @jobs_weakify(self)
     return ^UIAlertController *_Nullable(UIAlertAction *_Nonnull action) {

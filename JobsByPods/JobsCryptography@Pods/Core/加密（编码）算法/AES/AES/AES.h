@@ -35,4 +35,5 @@
 +(NSString *_Nullable)decryptCompatible:(NSString *)ciphertext password:(NSString *)password error:(NSError **)error;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_AES_6FD8B3B286 */

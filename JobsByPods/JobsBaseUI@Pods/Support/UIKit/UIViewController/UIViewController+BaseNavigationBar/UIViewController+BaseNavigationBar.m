@@ -115,31 +115,44 @@ static void JobsOCApplyNavigationTitleViewTheme(UIView *_Nullable titleView,
     }];
 }
 
+static void JobsOCHideNavigationItemBackground(UIBarButtonItem *item) {
+#if defined(__IPHONE_26_0)
+    if (@available(iOS 26.0, *)) {
+        item.byHidesSharedBackground(YES);
+    }
+#endif
+}
+
 static void JobsOCApplyNavigationBackButtonTheme(UIButton *button,
-                                                 UIColor *foregroundColor,
-                                                 UIColor *backgroundColor) {
-    UIImage *normalImage = button.imageByState(UIControlStateNormal);
+                                                 UIColor *foregroundColor) {
+    UIImage *normalImage = nil;
+    if (@available(iOS 15.0, *)) {
+        normalImage = button.configuration.image;
+    }
+    normalImage = normalImage ?: button.imageByState(UIControlStateNormal);
     if (normalImage) {
-        button.jobsResetBtnImage([normalImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]);
+        /// 配置式按钮从 configuration 取图，并按当前主题重绘实际像素。
+        UIImage *themedImage = [normalImage imageWithTintColor:foregroundColor
+                                               renderingMode:UIImageRenderingModeAlwaysOriginal];
+        button.jobsResetBtnImage(themedImage);
     }
     button
         .jobsResetBtnTitleCor(foregroundColor)
         .selectedStateTitleColorBy(foregroundColor)
         .highlightedStateTitleColorBy(foregroundColor)
         .titleColorForStateBy(foregroundColor, UIControlStateSelected | UIControlStateHighlighted)
-        .jobsResetBtnBgCor(backgroundColor)
-        .jobsResetBtnCornerRadiusValue(JobsWidth(16))
-        .byTintColor(foregroundColor);
+        .jobsResetBtnBgCor(JobsClearColor)
+        .jobsResetBtnBgImage(nil)
+        .byTintColor(foregroundColor)
+        .byBgColor(JobsClearColor);
 }
 
 static void JobsOCApplyNavigationBackItemsTheme(NSArray<UIBarButtonItem *> *items,
-                                                UIColor *foregroundColor,
-                                                UIColor *backgroundColor) {
+                                                UIColor *foregroundColor) {
     for (UIBarButtonItem *item in items) {
+        JobsOCHideNavigationItemBackground(item);
         for (UIButton *button in JobsOCDemoBusinessButtonsInView(item.customView)) {
-            JobsOCApplyNavigationBackButtonTheme(button,
-                                                 foregroundColor,
-                                                 backgroundColor);
+            JobsOCApplyNavigationBackButtonTheme(button, foregroundColor);
         }
     }
 }
@@ -147,7 +160,6 @@ static void JobsOCApplyNavigationBackItemsTheme(NSArray<UIBarButtonItem *> *item
 static void JobsOCApplyDemoNavigationTheme(UIViewController *viewController,
                                            JobsThemeCenter *center) {
     UIColor *backgroundColor = center.resolvedColorForKey(JobsThemeColorKeyBackgroundPrimary);
-    UIColor *secondaryBackgroundColor = center.resolvedColorForKey(JobsThemeColorKeyBackgroundSecondary);
     UIColor *mainTitleColor = center.resolvedColorForKey(JobsThemeColorKeyTextPrimary);
     UIColor *subTitleColor = center.resolvedColorForKey(JobsThemeColorKeyTextSecondary);
     viewController
@@ -166,12 +178,8 @@ static void JobsOCApplyDemoNavigationTheme(UIViewController *viewController,
         (viewController.gk_navLeftBarButtonItem ? @[viewController.gk_navLeftBarButtonItem] : @[]);
     NSArray<UIBarButtonItem *> *systemLeftItems = viewController.navigationItem.leftBarButtonItems ?:
         (viewController.navigationItem.leftBarButtonItem ? @[viewController.navigationItem.leftBarButtonItem] : @[]);
-    JobsOCApplyNavigationBackItemsTheme(gkLeftItems,
-                                       mainTitleColor,
-                                       secondaryBackgroundColor);
-    JobsOCApplyNavigationBackItemsTheme(systemLeftItems,
-                                       mainTitleColor,
-                                       secondaryBackgroundColor);
+    JobsOCApplyNavigationBackItemsTheme(gkLeftItems, mainTitleColor);
+    JobsOCApplyNavigationBackItemsTheme(systemLeftItems, mainTitleColor);
     UINavigationBar *navigationBar = viewController.navigationController.navigationBar;
     if (navigationBar) {
         NSMutableDictionary *titleTextAttributes = navigationBar.titleTextAttributes.mutableCopy ?:
@@ -208,6 +216,7 @@ static void JobsOCApplyDemoNavigationTheme(UIViewController *viewController,
 @end
 
 @implementation UIViewController (BaseNavigationBar)
+
 #pragma mark —— Prop_assign()BOOL isHiddenNavigationBar
 JobsKey(_isHiddenNavigationBar)
 @dynamic isHiddenNavigationBar;
@@ -302,6 +311,7 @@ JobsKey(_jobs_demoThemeBarButtonItem)
         UIBarButtonItem *item = Jobs_getAssociatedObject(_jobs_demoThemeBarButtonItem);
         if (!item) {
             item = [UIBarButtonItem.alloc initWithCustomView:self.jobs_demoThemeButton()];
+            JobsOCHideNavigationItemBackground(item);
             Jobs_setAssociatedRETAIN_NONATOMIC(_jobs_demoThemeBarButtonItem, item)
         };return item;
     };

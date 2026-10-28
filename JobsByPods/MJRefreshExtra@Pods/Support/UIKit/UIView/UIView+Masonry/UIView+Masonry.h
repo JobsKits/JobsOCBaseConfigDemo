@@ -59,6 +59,7 @@ Prop_copy(nullable)jobsByMASConstraintMakerBlock masonryBlock;
                itemViews:(NSArray<__kindof UIView *> *)views
                   margin:(CGFloat)margin
                  spacing:(CGFloat)spacing;
+
 @end
 
 NS_ASSUME_NONNULL_END

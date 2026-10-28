@@ -8,6 +8,7 @@
 #import "NSDictionary+Extra.h"
 
 @implementation NSDictionary (Extra)
+
 /// 对系统方法 initWithContentsOfFile 的二次封装
 +(JobsRetDicByStringBlock _Nonnull)initByContentsOfFile{
     return ^__kindof NSDictionary *_Nullable(__kindof NSString *_Nullable filePath){

@@ -98,6 +98,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (SYSAlertController)
+
 /// 屏幕正中央的Alert
 /// @param config 配置文件
 /// @param alertVCBlock 返回这个UIAlertController *

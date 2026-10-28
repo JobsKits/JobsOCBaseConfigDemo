@@ -8,6 +8,7 @@
 #import "NSObject+AFNReachability.h"
 
 @implementation NSObject (AFNReachability)
+
 /// 监听网络状态的改变
 +(jobsByjobsByNSIntegerBlockBlock _Nonnull)AFNReachability{
     return ^(jobsByNSIntegerBlock statusBlock){

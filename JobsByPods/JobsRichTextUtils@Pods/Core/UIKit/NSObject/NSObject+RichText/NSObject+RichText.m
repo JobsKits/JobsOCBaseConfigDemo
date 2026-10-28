@@ -12,6 +12,7 @@
 #import <JobsRichTextUtils/NSString+Extra.h>
 
 @implementation NSObject (RichText)
+
 /// 调用示例：对外输出 NSMutableArray <JobsRichTextConfig *>*
 -(JobsRetNSMutableArrayJobsRichTextConfigByVoidBlock _Nonnull)makeRichTextConfigMutArr{
     @jobs_weakify(self)

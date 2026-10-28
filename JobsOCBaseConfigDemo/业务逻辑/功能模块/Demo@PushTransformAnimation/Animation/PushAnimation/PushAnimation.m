@@ -8,6 +8,7 @@
 #import "PushAnimation.h"
 
 @implementation PushAnimation
+
 - (NSTimeInterval)transitionDuration:(nullable id <UIViewControllerContextTransitioning>)transitionContext{
     JobsRetNSTimeIntervalByIDUIViewControllerContextTransitioningBlock action = ((JobsRetNSTimeIntervalByIDUIViewControllerContextTransitioningBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(PushAnimation.class, @selector(jobsTransitionDuration)))(self, @selector(jobsTransitionDuration));
     return action ? action(transitionContext) : (NSTimeInterval){0};

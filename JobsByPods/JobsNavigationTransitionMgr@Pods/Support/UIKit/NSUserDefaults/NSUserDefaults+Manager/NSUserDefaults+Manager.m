@@ -8,6 +8,7 @@
 #import "NSUserDefaults+Manager.h"
 
 @implementation NSUserDefaults (Manager)
+
 /// CRUD（create, read, update, delete）
 /// 存数据（包括父类直到NSObject的所有属性）
 +(jobsByUserDefaultModelBlock _Nonnull)updateWithModel{

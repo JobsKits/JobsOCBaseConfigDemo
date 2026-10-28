@@ -40,6 +40,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (JobsLanMgrExtra)
+
 /// App 国际化相关系统宏二次封装 + 设置缺省值
 +(JobsRetStrByStrBlock _Nonnull)localStringWithKey;
 +(NSString *_Nullable)localizedString:(nonnull NSString *)key

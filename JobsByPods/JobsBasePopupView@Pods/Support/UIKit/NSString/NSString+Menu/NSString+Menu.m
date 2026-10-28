@@ -8,6 +8,7 @@
 #import "NSString+Menu.h"
 
 @implementation NSString (Menu)
+
 -(JobsRetMenuItemBySELBlock _Nonnull)initMenuItemBy{
     @jobs_weakify(self)
     return ^__kindof UIMenuItem *_Nullable(SEL _Nullable data){

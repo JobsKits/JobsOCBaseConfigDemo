@@ -8,6 +8,7 @@
 #import "JobsUploadingProgressView.h"
 
 @interface JobsUploadingProgressView()
+
 /// UI
 Prop_strong()UIBezierPath *bezier;
 Prop_strong()UILabel *refreshLabel;
@@ -27,6 +28,7 @@ Prop_strong()CAKeyframeAnimation *anim;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsUploadingProgressView
 
 @implementation JobsUploadingProgressView
+
 static JobsUploadingProgressView *static_uploadingProgressView = nil;
 +(instancetype)sharedManager{
     JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsUploadingProgressView.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));

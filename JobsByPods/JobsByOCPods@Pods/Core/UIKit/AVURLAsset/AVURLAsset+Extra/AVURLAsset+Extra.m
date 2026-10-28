@@ -8,6 +8,7 @@
 #import "AVURLAsset+Extra.h"
 
 @implementation AVURLAsset (Extra)
+
 /// 获取视频第一帧
 -(JobsRetImageByVoidBlock _Nonnull)videoPreViewImage{
     @jobs_weakify(self)

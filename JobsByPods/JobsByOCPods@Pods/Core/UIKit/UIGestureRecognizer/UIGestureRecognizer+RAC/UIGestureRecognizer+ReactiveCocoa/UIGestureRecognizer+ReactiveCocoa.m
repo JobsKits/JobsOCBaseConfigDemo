@@ -9,6 +9,7 @@
 #import <JobsOCDSL/UIGestureRecognizer+DSL.h>
 
 @implementation UIGestureRecognizer (ReactiveCocoa)
+
 +(JobsRetIDByVoidBlock _Nonnull)rac_recognizer{
     return ^id{
         UIGestureRecognizer *recognizer = self.new;

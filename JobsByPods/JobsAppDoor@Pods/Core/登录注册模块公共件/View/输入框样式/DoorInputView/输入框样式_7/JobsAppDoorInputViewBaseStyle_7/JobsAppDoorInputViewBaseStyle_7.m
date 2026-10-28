@@ -8,6 +8,7 @@
 #import "JobsAppDoorInputViewBaseStyle_7.h"
 
 @interface JobsAppDoorInputViewBaseStyle_7 ()
+
 /// UI
 Prop_strong()UIImageView *leftIMGV;
 Prop_strong()UIButton *chooseBtn;
@@ -24,6 +25,7 @@ Prop_strong()UIViewModel *chooseBtnViewModel;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_7
 
 @implementation JobsAppDoorInputViewBaseStyle_7
+
 - (instancetype)init{
     if (self = [super init]) {
 //        self.backgroundColor = JobsRedColor;

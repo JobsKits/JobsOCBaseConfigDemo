@@ -16,6 +16,7 @@
 @end
 
 @implementation JobsOCSplashLocalization
+
 +(NSString *)skipTitleWithLanguageCode:(NSString *)languageCode
                       remainingSeconds:(NSNumber *)remainingSeconds {
     NSBundle *bundle = self.localizedBundleWithLanguageCode(languageCode);

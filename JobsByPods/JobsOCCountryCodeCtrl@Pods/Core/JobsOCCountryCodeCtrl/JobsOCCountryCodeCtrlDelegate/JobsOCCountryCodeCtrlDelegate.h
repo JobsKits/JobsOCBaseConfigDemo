@@ -18,4 +18,5 @@
 -(void)returnCountryName:(NSString *)countryName code:(NSString *)code;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_JOBSOC_COUNTRYCODECTRLDELEGATE_74D92F0F1A */

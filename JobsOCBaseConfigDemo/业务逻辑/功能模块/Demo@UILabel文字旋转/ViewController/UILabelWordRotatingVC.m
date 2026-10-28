@@ -15,6 +15,7 @@ Prop_strong()UILabel *hintLab;
 @end
 
 @implementation UILabelWordRotatingVC
+
 -(void)loadView{
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(UILabelWordRotatingVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
     if (action) action();

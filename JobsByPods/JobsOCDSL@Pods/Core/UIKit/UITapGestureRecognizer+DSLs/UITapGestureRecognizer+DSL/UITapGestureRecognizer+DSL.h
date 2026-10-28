@@ -29,5 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetTapGestureRecognizerByNSUIntegerBlock _Nonnull)byNumberOfTouchesRequired;
 
 @end
+
 NS_ASSUME_NONNULL_END
 #endif

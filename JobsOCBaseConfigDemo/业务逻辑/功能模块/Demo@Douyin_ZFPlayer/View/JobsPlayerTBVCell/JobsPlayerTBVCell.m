@@ -8,6 +8,7 @@
 #import "JobsPlayerTBVCell.h"
 
 @interface JobsPlayerTBVCell ()
+
 /// UI
 Prop_strong(nullable)ZFPlayerController *player;
 Prop_strong(nullable)CustomZFPlayerControlView *customPlayerControlView;
@@ -25,6 +26,7 @@ Prop_strong()NSMutableArray <NSURL *>*assetURLs;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsPlayerTBVCell
 
 @implementation JobsPlayerTBVCell
+
 @synthesize index = _index;
 -(void)dealloc {
     self.stopPlayer();

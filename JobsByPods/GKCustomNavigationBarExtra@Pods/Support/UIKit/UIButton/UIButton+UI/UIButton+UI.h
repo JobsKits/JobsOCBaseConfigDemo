@@ -274,6 +274,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCorByVoidBlock _Nonnull)titleColorForNormalState;
 
 @end
+
 #pragma clang diagnostic pop
 NS_ASSUME_NONNULL_END
 /**

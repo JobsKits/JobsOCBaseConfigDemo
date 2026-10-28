@@ -14,6 +14,7 @@ Prop_copy()NSMutableDictionary *dataInfo;
 @end
 
 @implementation DataManager
+
 /// 数据管理对象单例
 +(instancetype)sharedManager{
     JobsRetDataManagerByVoidBlock action = ((JobsRetDataManagerByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(DataManager.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));

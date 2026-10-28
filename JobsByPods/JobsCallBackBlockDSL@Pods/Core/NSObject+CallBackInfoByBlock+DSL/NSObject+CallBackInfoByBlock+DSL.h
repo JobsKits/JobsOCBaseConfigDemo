@@ -31,6 +31,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (CallBackInfoByBlockDSL)
+
 #pragma mark —— 无返回值回调
 -(JobsRetNSObjectByJobsByVoidBlock _Nonnull)byVoidBlock;
 -(JobsRetNSObjectByJobsByGestureRecognizerBlock _Nonnull)byGestureRecognizerBlock;
@@ -90,6 +91,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetNSObjectByJobsRetByUnsignedLongBlock _Nonnull)byRetUnsignedLongBlock;
 -(JobsRetNSObjectByJobsRetByUnsignedLongLongBlock _Nonnull)byRetUnsignedLongLongBlock;
 -(JobsRetNSObjectByJobsRetIDByTwoIDBlock _Nonnull)byRetIDBySelectorBlock;
+
 @end
 
 NS_ASSUME_NONNULL_END

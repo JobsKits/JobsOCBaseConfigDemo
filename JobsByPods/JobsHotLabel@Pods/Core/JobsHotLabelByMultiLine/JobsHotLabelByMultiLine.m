@@ -8,6 +8,7 @@
 #import "JobsHotLabelByMultiLine.h"
 
 @interface JobsHotLabelByMultiLine ()
+
 /// Data
 Prop_strong()NSMutableArray <__kindof UICollectionViewCell *>*cvcellMutArr;
 Prop_strong()JobsHotLabelWithMultiLineModel *dataModel;
@@ -21,6 +22,7 @@ Prop_strong()JobsHotLabelWithMultiLineModel *dataModel;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsHotLabelByMultiLine
 
 @implementation JobsHotLabelByMultiLine
+
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{

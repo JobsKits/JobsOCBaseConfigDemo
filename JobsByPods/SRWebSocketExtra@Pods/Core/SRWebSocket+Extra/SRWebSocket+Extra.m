@@ -14,6 +14,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END SRWebSocket
 
 @implementation SRWebSocket (Extra)
+
 +(JobsRetSRWebSocketByNSURLRequestBlock _Nonnull)initByURLRequest{
     return ^SRWebSocket *_Nonnull(NSURLRequest *_Nullable webSocket){
         return [SRWebSocket.alloc initWithURLRequest:webSocket];

@@ -8,6 +8,7 @@
 #import "IncomeSourceModel.h"
 
 @implementation IncomeSourceModel
+
 +(NSDictionary *)mj_replacedKeyFromPropertyName {
     return [super mj_replacedKeyFromPropertyName].mutableCopy;
 }

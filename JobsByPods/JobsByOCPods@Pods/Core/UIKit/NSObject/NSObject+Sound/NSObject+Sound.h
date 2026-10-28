@@ -30,6 +30,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (Sound)
+
 /// 播放自定义本地声音
 /// fileName 文件名 包含后缀
 -(jobsByStrBlock _Nonnull)playSoundWithFileName;

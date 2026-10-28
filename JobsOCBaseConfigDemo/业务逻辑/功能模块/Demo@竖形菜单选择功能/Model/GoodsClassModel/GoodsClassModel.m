@@ -8,6 +8,7 @@
 #import "GoodsClassModel.h"
 
 @implementation GoodsClassModel
+
 #define JOBS_GOODS_CLASS_STRING_DSL(_selector_, _property_) \
 -(JobsRetGoodsClassModelByStrBlock _Nonnull)_selector_{ \
     @jobs_weakify(self) \

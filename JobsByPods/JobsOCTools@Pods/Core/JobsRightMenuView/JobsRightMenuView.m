@@ -8,6 +8,7 @@
 #import "JobsRightMenuView.h"
 
 @interface JobsRightMenuView ()
+
 /// UI
 Prop_strong()BaseButton *suspendBtn;
 Prop_strong()UIImageView *stackImageView;
@@ -24,6 +25,7 @@ Prop_copy()NSArray <__kindof UIButton*>*datas;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsRightMenuView
 
 @implementation JobsRightMenuView
+
 -(JobsRetJobsRightMenuViewByBOOLBlock _Nonnull)byAllowDrag{
     @jobs_weakify(self)
     return ^__kindof JobsRightMenuView *_Nullable(BOOL value){

@@ -14,6 +14,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyleModel
 
 @implementation JobsAppDoorInputViewBaseStyleModel (DSL)
+
 -(JobsRetJobsAppDoorInputViewBaseStyleModelByImageBlock _Nonnull)byLeftViewIMG{
     @jobs_weakify(self)
     return ^__kindof JobsAppDoorInputViewBaseStyleModel *_Nullable(UIImage * _Nullable data) {

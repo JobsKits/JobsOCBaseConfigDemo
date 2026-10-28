@@ -8,6 +8,7 @@
 #import "JobsIMListView.h"
 
 @interface JobsIMListView ()
+
 /// UI
 Prop_strong()UIColor *bgColour;
 /// Data
@@ -16,6 +17,7 @@ Prop_strong()NSMutableArray <JobsIMListDataModel *>*jobsIMListMutArr;
 @end
 
 @implementation JobsIMListView
+
 -(instancetype)init{
     if (self = [super init]) {
     };return self;

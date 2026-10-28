@@ -8,6 +8,7 @@
 #import "UIView+Chain.h"
 
 @implementation UIView (Chain)
+
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

@@ -40,6 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 NSCoding,// 编码
 NSSecureCoding// 解码
 >
+
 #pragma mark —— MJExtension
 +(__kindof NSDictionary *)mj_replacedKeyFromPropertyName;
 #pragma mark —— YYModel

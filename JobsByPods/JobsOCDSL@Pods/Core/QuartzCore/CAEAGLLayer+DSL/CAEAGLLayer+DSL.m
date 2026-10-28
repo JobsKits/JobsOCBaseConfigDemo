@@ -8,6 +8,7 @@
 #import "CAEAGLLayer+DSL.h"
 
 @implementation CAEAGLLayer (JobsChain)
+
 #pragma mark —— Inherited CALayer DSL
 #pragma mark —— Geometry
 #pragma mark —— Hierarchy

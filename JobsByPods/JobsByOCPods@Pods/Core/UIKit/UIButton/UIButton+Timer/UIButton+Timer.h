@@ -92,6 +92,7 @@ typedef NS_ENUM(NSUInteger, CequenceForShowTitleRuningStrType) {
 #endif /* CEQUENCE_FOR_SHOW_TITLE_RUNING_STR_TYPE_DEFINED */
 
 @interface UIButton (Timer)<BaseProtocol,BaseButtonProtocol,TimerProtocol>
+
 /// ❤️如果配置了富文本，则优先显示富文本属性
 #pragma mark —— 一些通用的设置
 Prop_assign()ShowTimeType showTimeType;

@@ -8,6 +8,7 @@
 #import "UIView+Extra.h"
 
 @implementation UIView (Extra)
+
 +(JobsRetViewByFrameBlock _Nonnull)initByFrame{
     return ^__kindof UIView *_Nullable(CGRect data){
         return [UIView.alloc initWithFrame:data];

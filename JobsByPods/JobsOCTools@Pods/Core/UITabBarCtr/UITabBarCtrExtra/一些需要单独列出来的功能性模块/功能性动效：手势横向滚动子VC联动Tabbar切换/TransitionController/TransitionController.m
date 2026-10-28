@@ -23,6 +23,7 @@ Prop_assign(readwrite)CGPoint initialTranslationInContainerView;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END TransitionController
 
 @implementation TransitionController
+
 - (void)dealloc{
     [self.gestureRecognizer removeTarget:self
                                   action:@selector(gestureRecognizeDidUpdate:)];

@@ -8,6 +8,7 @@
 #import "UISwipeGestureRecognizer+DSL.h"
 
 @implementation UISwipeGestureRecognizer (JobsChain)
+
 -(JobsRetSwipeGestureRecognizerByNSUIntegerBlock _Nonnull)byNumberOfTouchesRequired{
     @jobs_weakify(self)
     return ^__kindof UISwipeGestureRecognizer *_Nullable(NSUInteger data){

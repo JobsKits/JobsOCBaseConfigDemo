@@ -16,9 +16,11 @@
 #endif
 
 @interface JobsOCVideoRecorderVC (JobsStabilityTesting)
+
 -(jobsByVoidBlock)startRecord;
 -(jobsByCMFormatDescriptionRefBlock)updateVideoFormatDescription;
 -(jobsByVoidBlock)clearFormatDescriptions;
+
 @end
 
 @interface JobsOCVideoRecorderStabilityTests : XCTestCase

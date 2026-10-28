@@ -34,6 +34,7 @@
  }
  */
 @implementation NSObject (UserNotifications)
+
 /// 用户通知请求授权
 -(JobsRetUNUserNotificationCenterByVoidBlock _Nonnull)notificationCenter{
     @jobs_weakify(self)

@@ -8,6 +8,7 @@
 #import "UIProgressView+DSL.h"
 
 @implementation UIProgressView (DSL)
+
 #pragma mark —— Style
 -(JobsRetProgressViewByStyleBlock _Nonnull)byProgressViewStyle{
     @jobs_weakify(self)

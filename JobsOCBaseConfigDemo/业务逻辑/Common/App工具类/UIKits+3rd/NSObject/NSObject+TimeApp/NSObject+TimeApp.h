@@ -40,6 +40,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (TimeApp)
+
 /// 判断是否当日第一次启动App
 -(JobsRetBOOLByVoidBlock _Nonnull)isFirstLaunchApp;
 

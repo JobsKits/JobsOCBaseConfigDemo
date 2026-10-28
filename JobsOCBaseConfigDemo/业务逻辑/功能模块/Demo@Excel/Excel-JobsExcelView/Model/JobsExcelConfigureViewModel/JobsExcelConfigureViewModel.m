@@ -25,6 +25,7 @@ Prop_assign()NSInteger colNumber;// 列数
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsExcelConfigureViewModel
 
 @implementation JobsExcelConfigureViewModel
+
 - (instancetype)init{
     if (self = [super init]) {
         self.verticalScrollSignal = RACSubject.subject;

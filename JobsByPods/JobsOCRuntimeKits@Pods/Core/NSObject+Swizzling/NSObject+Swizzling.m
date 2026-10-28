@@ -8,6 +8,7 @@
 #import "NSObject+Swizzling.h"
 
 @implementation NSObject (Swizzling)
+
 -(void)swizzlingInstanceMethod:(SEL _Nonnull)originalSelector
               swizzledSelector:(SEL _Nonnull)swizzledSelector {
     Class class = self.class;
@@ -40,6 +41,7 @@
 }
 
 @end
+
 /// 不同类的方法交换
 void TYFFSwizzleMethod(Class _Nonnull originalCls,
                        SEL _Nonnull originalSelector,

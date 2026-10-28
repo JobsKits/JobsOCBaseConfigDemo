@@ -71,6 +71,7 @@ Prop_strong()ZFSliderView *sliderView;
 @end
 
 @implementation ZFDouYinControlView
+
 @synthesize player = _player;
 - (instancetype)init {
     if (self = [super init]) {

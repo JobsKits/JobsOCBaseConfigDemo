@@ -8,6 +8,7 @@
 #import "CAReplicatorLayer+DSL.h"
 
 @implementation CAReplicatorLayer (JobsChain)
+
 #pragma mark —— Inherited CALayer DSL
 #pragma mark —— Geometry
 #pragma mark —— Hierarchy

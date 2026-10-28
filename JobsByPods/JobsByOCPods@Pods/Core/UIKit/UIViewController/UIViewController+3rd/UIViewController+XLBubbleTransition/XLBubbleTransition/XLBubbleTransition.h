@@ -33,6 +33,7 @@ typedef NS_ENUM(NSInteger,XLBubbleTransitionType) {
 UIViewControllerAnimatedTransitioning
 ,CAAnimationDelegate
 >
+
 /// 转场方式：进入/返回
 Prop_assign()XLBubbleTransitionType transitionType;
 
@@ -48,4 +49,5 @@ Prop_assign()CGRect anchorRect;
 -(JobsRetXLBubbleTransitionByIDUIViewControllerContextTransitioningBlock _Nonnull)byTransitionContext;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END XLBubbleTransition
 @end
+
 #endif /* JOBS_HEADER_GUARD_XLBUBBLETRANSITION_F733844DE5 */

@@ -16,6 +16,7 @@
  *  时间戳定义：从1970年1月1日开始计时到现在所经过的时间
  */
 @implementation JobsTimeModel
+
 #pragma mark —— 当前时间：来源iOS系统Api
 /// 距离当前时间的秒数 【正数为未来、负数为过去】
 -(CGFloat)currentDateOffsetSec{

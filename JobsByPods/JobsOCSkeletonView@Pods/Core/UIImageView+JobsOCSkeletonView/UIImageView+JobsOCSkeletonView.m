@@ -8,6 +8,7 @@
 #import "UIImageView+JobsOCSkeletonView.h"
 
 @implementation UIImageView (JobsOCSkeletonView)
+
 -(jobsByVoidBlock _Nonnull)jobs_beginShimmerLoading{
     @jobs_weakify(self)
     return ^{

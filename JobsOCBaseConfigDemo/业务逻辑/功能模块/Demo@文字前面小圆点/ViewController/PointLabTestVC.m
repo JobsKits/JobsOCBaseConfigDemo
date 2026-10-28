@@ -8,6 +8,7 @@
 #import "PointLabTestVC.h"
 
 @interface PointLabTestVC ()
+
 /// UI
 Prop_strong()UIView *contentView;
 Prop_strong()UILabel *label2;
@@ -20,6 +21,7 @@ Prop_copy()NSString *dot;
 @end
 
 @implementation PointLabTestVC
+
 - (void)dealloc{
     JobsNotificationCenter.remove(self);
     JobsLog(@"%@",JobsLocalFunc);

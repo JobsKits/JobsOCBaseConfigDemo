@@ -29,6 +29,7 @@ JOBS_SP_ALERT_CONTROLLER_DSL(byMessageFont, messageFont, UIFont *_Nullable, Jobs
 @end
 
 @implementation SPAlertAction (JobsSPAlertControllerDSL)
+
 -(JobsRetSPAlertActionByNSIntegerBlock _Nonnull)byIndex{
     @jobs_weakify(self)
     return ^__kindof SPAlertAction *_Nullable(NSInteger data){
@@ -60,6 +61,7 @@ JOBS_SP_ALERT_CONTROLLER_DSL(byMessageFont, messageFont, UIFont *_Nullable, Jobs
 @end
 
 @implementation NSObject (SPAlertController)
+
 /// 自定义的Alert
 /// @param config 配置文件
 /// @param alertVCBlock alertVCBlock

@@ -21,6 +21,7 @@
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END UIPopoverPresentationController
 
 @implementation NSObject (SYSAlertController)
+
 /// 屏幕正中央的Alert
 /// @param config 配置文件
 /// @param alertVCBlock 返回这个UIAlertController *

@@ -8,6 +8,7 @@
 #import "UIImage+TBCityIconFont.h"
 
 @implementation UIImage (TBCityIconFont)
+
 +(JobsRetUIImageByTBCityIconInfoBlock _Nonnull)iconWithInfo{
     return ^UIImage *(TBCityIconInfo * info){
         CGFloat size = info.size;

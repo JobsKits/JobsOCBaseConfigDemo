@@ -27,6 +27,7 @@ Prop_assign()BOOL sphereItemsPrepared;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsSphereDemoVC
 
 @implementation JobsSphereDemoVC
+
 -(void)loadView{
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsSphereDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
     if (action) action();

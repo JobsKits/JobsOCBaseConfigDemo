@@ -12,6 +12,7 @@
 @end
 
 @implementation BaiShaETProjVIPSubCVCell_01
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 - (instancetype)initWithFrame:(CGRect)frame{

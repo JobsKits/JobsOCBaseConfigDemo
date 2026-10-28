@@ -8,6 +8,7 @@
 #import "UIButton+Extra.h"
 
 @implementation UIButton (Extra)
+
 -(JobsRetBtnByNSUIntegerBlock _Nonnull)makeBtnTitleByShowingType{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(UILabelShowingType labelShowingType) {

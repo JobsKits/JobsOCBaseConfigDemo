@@ -8,6 +8,7 @@
 #import "UIEditMenuInteraction+Extra.h"
 
 @implementation UIEditMenuInteraction (Extra)
+
 +(JobsRetUIEditMenuInteractionByIDBlock _Nonnull)initBy{
     return ^UIEditMenuInteraction *_Nullable(id<UIEditMenuInteractionDelegate>_Nullable data){
         return [UIEditMenuInteraction.alloc initWithDelegate:data];

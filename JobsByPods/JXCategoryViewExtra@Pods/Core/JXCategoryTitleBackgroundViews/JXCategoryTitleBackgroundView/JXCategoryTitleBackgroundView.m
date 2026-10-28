@@ -29,6 +29,7 @@ Prop_strong()NSMutableArray <JXCategoryTitleBackgroundCellModel *>*tempMutArray;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JXCategoryTitleBackgroundView
 
 @implementation JXCategoryTitleBackgroundView
+
 -(JobsRetIDByIDBlock _Nonnull)byDataSource{
     @jobs_weakify(self)
     return ^id(NSArray *dataSource){

@@ -115,6 +115,7 @@ static UIViewModel *JobsAdaptiveNavigationTitleModel(id _Nullable requestParams)
 }
 
 @implementation UIViewController (BaseVC)
+
 -(JobsRetVCByStrBlock _Nonnull)byTitle{
     @jobs_weakify(self)
     return ^__kindof UIViewController *_Nullable(NSString *_Nullable title){
@@ -256,10 +257,17 @@ static UIViewModel *JobsAdaptiveNavigationTitleModel(id _Nullable requestParams)
         }
         backButton
             .jobsResetBtnTitleCor(backButtonColor)
-            .jobsResetBtnBgCor(JobsSecondarySystemBackgroundColor)
-            .jobsResetBtnCornerRadiusValue(JobsWidth(16))
-            .byTintColor(backButtonColor);
-        self.byGKNavLeftBarButtonItem(UIBarButtonItem.initBy(backButton));
+            .jobsResetBtnBgCor(JobsClearColor)
+            .jobsResetBtnBgImage(nil)
+            .byTintColor(backButtonColor)
+            .byBgColor(JobsClearColor);
+        UIBarButtonItem *item = UIBarButtonItem.initBy(backButton);
+#if defined(__IPHONE_26_0)
+        if (@available(iOS 26.0, *)) {
+            item.byHidesSharedBackground(YES);
+        }
+#endif
+        self.byGKNavLeftBarButtonItem(item);
     };
 }
 /// 配置GKNavigationBar的标题（按钮）

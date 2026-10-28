@@ -8,4 +8,5 @@
 #import "NSString+Toast.h"
 
 @implementation NSString (Toast)
+
 @end

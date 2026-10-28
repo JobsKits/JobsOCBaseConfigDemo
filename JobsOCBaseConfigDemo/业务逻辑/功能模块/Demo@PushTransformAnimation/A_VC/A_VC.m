@@ -15,6 +15,7 @@
 @end
 
 @implementation A_VC
+
 -(JobsRetAVCByIndexPathBlock _Nonnull)byIndexPath{
     @jobs_weakify(self)
     return ^__kindof A_VC *_Nullable(NSIndexPath *_Nullable indexPath){

@@ -38,6 +38,7 @@
 /// 钥匙串（Keychain） 支持存储的类型不仅限于字符串，可以存储任意类型的二进制数据（NSData）
 /// 因此只要你的数据可以序列化为 NSData，理论上就可以存储在钥匙串中。
 @interface JobsKeychainHelper : NSObject
+
 /**
  我们可以获取到UUID，然后把UUID保存到KeyChain里面。
  这样以后即使APP删了再装回来，也可以从KeyChain中读取回来。使用group还可以可以保证同一个开发商的所有程序针对同一台设备能够获取到相同的不变的UDID。
@@ -83,4 +84,5 @@
                                error:(NSError *_Nullable *_Nullable)error;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_JOBSKEYCHAINHELPER_31B5174A44 */

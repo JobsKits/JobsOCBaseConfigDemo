@@ -33,6 +33,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (Base32)
+
 #pragma mark —— Base32 <==> NSString
 ///【类方法】以Base32编码的字符串 转换为 普通的字符串
 +(JobsRetStrByStrBlock _Nonnull)stringByBase32String;

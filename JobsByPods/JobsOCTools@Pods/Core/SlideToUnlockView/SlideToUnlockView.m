@@ -33,6 +33,7 @@ Prop_strong()MASConstraint *thumbLeadingConstraint;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END SlideToUnlockView
 
 @implementation SlideToUnlockView
+
 -(JobsRetSlideToUnlockViewByCGFloatBlock _Nonnull)byProgress{
     @jobs_weakify(self)
     return ^__kindof SlideToUnlockView *_Nullable(CGFloat progress){

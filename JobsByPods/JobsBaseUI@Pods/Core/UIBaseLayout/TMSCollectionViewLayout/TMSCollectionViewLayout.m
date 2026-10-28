@@ -32,6 +32,7 @@ Prop_assign()BOOL isExpand;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END TMSCollectionViewLayout
 
 @implementation TMSCollectionViewLayout
+
 #pragma mark —— 覆写 UICollectionViewLayout 父类方法
 -(instancetype)init{
     if ((self = [super init])) {

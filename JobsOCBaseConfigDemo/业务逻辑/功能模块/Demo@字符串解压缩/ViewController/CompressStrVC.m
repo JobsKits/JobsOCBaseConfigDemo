@@ -35,6 +35,7 @@ Prop_copy()NSString *compressedBase64Str;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END CompressStrVC
 
 @implementation CompressStrVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

@@ -54,6 +54,7 @@
                                          imagePadding:(CGFloat)imagePadding;
 
 @end
+
 /***
  
  有点问题，暂停同步

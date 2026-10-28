@@ -8,6 +8,7 @@
 #import "JobsAppDoorInputViewBaseStyle_10.h"
 
 @interface JobsAppDoorInputViewBaseStyle_10 ()
+
 /// UI
 Prop_strong()UILabel *titleLab;
 /// Data
@@ -24,6 +25,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_10
 
 @implementation JobsAppDoorInputViewBaseStyle_10
+
 @synthesize thisViewSize = _thisViewSize;
 #pragma mark —— BaseViewProtocol
 - (instancetype)initWithSize:(CGSize)thisViewSize{

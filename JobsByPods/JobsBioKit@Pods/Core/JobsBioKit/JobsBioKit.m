@@ -15,6 +15,7 @@
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END LAContext
 
 @implementation JobsBioKit
+
 + (JobsRetIDByVoidBlock _Nonnull)shared {
     return ^id{
         static JobsBioKit *instance = nil;

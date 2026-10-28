@@ -23,6 +23,7 @@ Prop_strong()JobsWalletCollectionViewLayout *walletLayout;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsWalletCardView
 
 @implementation JobsWalletCardView
+
 @synthesize collectionView = _collectionView;
 
 -(instancetype)initWithFrame:(CGRect)frame{

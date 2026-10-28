@@ -25,4 +25,5 @@
 @interface XZMLayout : UICollectionViewFlowLayout
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_XZMLAYOUT_04FBB775D1 */

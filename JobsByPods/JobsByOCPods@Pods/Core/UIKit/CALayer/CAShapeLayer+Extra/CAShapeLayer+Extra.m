@@ -8,6 +8,7 @@
 #import "CAShapeLayer+Extra.h"
 
 @implementation CAShapeLayer (Extra)
+
 #pragma mark —— 迎合链式语法而做的封装
 -(JobsRetCAShapeLayerByCGFloatBlock _Nonnull)lineWidthBy{
     @jobs_weakify(self)

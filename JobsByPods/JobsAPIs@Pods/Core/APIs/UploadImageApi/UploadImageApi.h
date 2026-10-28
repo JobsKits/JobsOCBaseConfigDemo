@@ -49,4 +49,5 @@
 -(JobsRetStrByVoidBlock _Nonnull)responseImageId;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_UPLOADIMAGEAPI_063B9FA8F4 */

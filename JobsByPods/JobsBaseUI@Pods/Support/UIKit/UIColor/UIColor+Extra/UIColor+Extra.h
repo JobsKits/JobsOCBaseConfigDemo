@@ -59,6 +59,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIColor (JobsBaseUIExtra)
+
 #pragma mark —— 类方法
 /// 十六进制字符串 => UIColor *
 +(JobsRetCorByStrBlock _Nonnull)jobsCor;

@@ -10,6 +10,7 @@
 #import <JobsAppDoor/AuthCodeLab.h>
 
 @interface JobsAppDoorInputViewBaseStyle_6 ()
+
 /// UI
 Prop_strong()AuthCodeLab *authCodeLab;
 /// Data
@@ -24,6 +25,7 @@ Prop_strong()JobsAppDoorInputViewBaseStyleModel *doorInputViewBaseStyleModel;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorInputViewBaseStyle_6
 
 @implementation JobsAppDoorInputViewBaseStyle_6
+
 - (instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsClearColor);

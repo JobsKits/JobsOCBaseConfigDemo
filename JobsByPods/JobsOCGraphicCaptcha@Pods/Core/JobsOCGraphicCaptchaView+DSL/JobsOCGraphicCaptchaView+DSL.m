@@ -8,6 +8,7 @@
 #import "JobsOCGraphicCaptchaView+DSL.h"
 
 @implementation JobsOCGraphicCaptchaView (DSL)
+
 -(JobsRetOCGraphicCaptchaViewByFontBlock _Nonnull)byFont{
     @jobs_weakify(self)
     return ^__kindof JobsOCGraphicCaptchaView *_Nullable(UIFont *_Nullable font){

@@ -72,6 +72,7 @@
 #endif /* DestroyView */
 
 @interface UIView (Extra) <BaseViewProtocol,BaseCellProtocol>
+
 #pragma mark —— init
 +(JobsRetViewByFrameBlock _Nonnull)initByFrame;
 -(JobsRetBarButtonItemByVoidBlock _Nonnull)barBtnItem;
@@ -210,6 +211,7 @@ Prop_assign()CGFloat jobsVisible;
           layerShadowRadius:(CGFloat)layerShadowRadius;
 
 @end
+
 /**
      // 最外层的UI-描边
      _textField_phone.layerByBorderCor(@"#FFC700".jobsCor()).layerByBorderWidth(1);

@@ -15,6 +15,7 @@
 @end
 
 @implementation BaseButton
+
 -(JobsRetBaseButtonByIDBlock _Nonnull)byData{
     @jobs_weakify(self)
     return ^__kindof BaseButton *_Nullable(id _Nullable data){

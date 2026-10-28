@@ -12,6 +12,7 @@ JobsKey(JobsSpinPausedAngleKey)
 JobsKey(JobsSpinRevolutionsPerSecondKey)
 
 @implementation UIView (Animation)
+
 #pragma mark —— 一些功能方法
 -(JobsRetViewByBOOLBlock _Nonnull)抖动动画{
     @jobs_weakify(self)

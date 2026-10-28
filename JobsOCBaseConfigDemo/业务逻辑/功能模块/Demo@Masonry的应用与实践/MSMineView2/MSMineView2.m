@@ -8,6 +8,7 @@
 #import "MSMineView2.h"
 
 @interface MSMineView2 ()
+
 /// UI
 Prop_strong()BaseButton *btn1;
 Prop_strong()BaseButton *btn2;
@@ -15,6 +16,7 @@ Prop_strong()BaseButton *btn2;
 @end
 
 @implementation MSMineView2
+
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{

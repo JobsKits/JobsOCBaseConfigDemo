@@ -8,6 +8,7 @@
 #import "JobsPostDelView.h"
 
 @interface JobsPostDelView ()
+
 /// UI
 Prop_strong()UILabel *titleLab;
 /// Data
@@ -21,6 +22,7 @@ Prop_strong()UILabel *titleLab;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsPostDelView
 
 @implementation JobsPostDelView
+
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{

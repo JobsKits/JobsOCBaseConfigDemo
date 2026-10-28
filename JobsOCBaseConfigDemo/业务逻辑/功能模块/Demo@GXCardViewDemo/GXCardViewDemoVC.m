@@ -22,6 +22,7 @@ static NSBundle *GXCardViewDemoResourceBundle(void) {
 }
 
 @interface GXCardViewDemoVC ()
+
 /// UI
 //@property(nonatomic,weak)IBOutlet GXCardView *cardView;
 Prop_strong()GXCardView *cardView;
@@ -157,6 +158,7 @@ Prop_assign()NSInteger cellCount;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END GXCardViewDemoVC
 
 @implementation GXCardViewDemoVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

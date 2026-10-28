@@ -47,6 +47,7 @@ NS_ASSUME_NONNULL_BEGIN
   didRequestOpenURL:(NSURL *)URL;
 -(void)markdownView:(JobsOCMarkdownView *)markdownView
    didFailWithError:(NSError *)error;
+
 @end
 
 @interface JobsOCMarkdownView : UIView

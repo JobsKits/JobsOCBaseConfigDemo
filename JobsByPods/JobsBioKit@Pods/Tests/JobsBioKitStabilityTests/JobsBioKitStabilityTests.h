@@ -16,7 +16,9 @@
 #endif
 
 @interface JobsBioKit (JobsStabilityTesting)
+
 +(JobsRetJobsBioKitResultByNSErrorBlock)resultForError;
+
 @end
 
 @interface JobsBioKitStabilityTests : XCTestCase

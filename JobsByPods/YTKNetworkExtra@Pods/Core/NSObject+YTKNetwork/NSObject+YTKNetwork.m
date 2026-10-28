@@ -12,6 +12,7 @@
 #import <YTKNetworkExtra/NSObject+Extra.h>
 
 @implementation NSObject (YTKNetwork)
+
 #pragma mark —— 一些公有设置
 /// successData传nil：对总数据源进行标准格式解析后对外返回 JobsResponseModel
 /// successData传JobsSolveData(AModel)：对总数据源进行标准格式解析以后，再进行一层关于AModel的解析后对外返回

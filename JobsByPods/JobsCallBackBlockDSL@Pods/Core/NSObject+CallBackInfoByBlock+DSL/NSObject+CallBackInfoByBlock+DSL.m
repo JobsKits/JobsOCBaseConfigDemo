@@ -8,6 +8,7 @@
 #import "NSObject+CallBackInfoByBlock+DSL.h"
 
 @implementation NSObject (CallBackInfoByBlockDSL)
+
 #pragma mark —— 无返回值回调
 -(JobsRetNSObjectByJobsByVoidBlock _Nonnull)byVoidBlock{
     @jobs_weakify(self)

@@ -32,6 +32,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImage (MIME)
+
 #pragma mark —— MIME编码的数据 <==> UIImage对象
 ///【类方法】以MIME编码的数据 转换成 UIImage对象
 +(JobsRetImageByStrBlock _Nonnull)imageByMIMEString;

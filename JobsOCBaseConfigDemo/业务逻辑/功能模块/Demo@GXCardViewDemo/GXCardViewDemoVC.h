@@ -54,6 +54,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface GXCardView (JobsDemoDSL)
+
 -(JobsRetGXCardViewByIDBlock _Nonnull)byDataSource;
 -(JobsRetGXCardViewByIDBlock _Nonnull)byDelegate;
 -(JobsRetGXCardViewByNSIntegerBlock _Nonnull)byVisibleCount;
@@ -66,6 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetGXCardViewByBOOLBlock _Nonnull)reloadDataAnimated;
 -(JobsRetGXCardViewByBOOLBlock _Nonnull)reloadMoreDataAnimated;
 -(JobsRetGXCardViewByNSIntegerBlock _Nonnull)removeTopCardViewFromSwipe;
+
 @end
 
 @interface GXCardViewDemoVC : BaseViewController

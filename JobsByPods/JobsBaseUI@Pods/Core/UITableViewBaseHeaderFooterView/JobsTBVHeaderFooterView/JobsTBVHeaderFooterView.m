@@ -14,6 +14,7 @@
 #import <JobsBaseUI/UIView+Extra.h>
 
 @interface JobsTBVHeaderFooterView ()
+
 /// UI
 Prop_strong()UILabel *titleLab;
 Prop_strong()BaseButton *subTitleBtn;
@@ -21,6 +22,7 @@ Prop_strong()BaseButton *subTitleBtn;
 @end
 
 @implementation JobsTBVHeaderFooterView
+
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
     };return self;

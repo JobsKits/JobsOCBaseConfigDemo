@@ -29,6 +29,7 @@
 #endif
 
 @interface NSData (Base64)
+
 #pragma mark —— NSData ==> Base64
 ///【类方法】NSData 转换成 以Base64编码的字符串
 +(JobsRetStrByDataBlock _Nonnull)base64StringFromData;
@@ -41,4 +42,5 @@
 -(JobsRetDataByStrBlock _Nonnull)dataByBase64String;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_NSDATA_BASE64_78B736316C */

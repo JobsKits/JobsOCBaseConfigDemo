@@ -45,6 +45,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSURLRequest (Extra)
+
 +(JobsRetURLRequestByURLBlock _Nonnull)initBy;
 /// 打印NSURLRequest有效内容，并转化为NSMutableURLRequest对外输出
 -(JobsRetMutableURLRequestByVoidBlock _Nonnull)print;

@@ -8,6 +8,7 @@
 #import "NSObject+Notification.h"
 
 @implementation NSObject (Notification)
+
 /// 在主线程上带参发通知
 -(jobsByKey_ValueBlock _Nonnull)JobsPost{
     return ^(NSString *_Nonnull key,id _Nullable value){

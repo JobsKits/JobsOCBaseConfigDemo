@@ -33,6 +33,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (Extra)
+
 /// OC字符串拼接
 -(JobsRetStrByStrBlock _Nonnull)add;
 

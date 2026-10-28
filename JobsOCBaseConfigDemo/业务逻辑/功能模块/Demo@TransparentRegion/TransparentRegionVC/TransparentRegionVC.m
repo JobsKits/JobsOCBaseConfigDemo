@@ -12,6 +12,7 @@
 @end
 
 @implementation TransparentRegionVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);

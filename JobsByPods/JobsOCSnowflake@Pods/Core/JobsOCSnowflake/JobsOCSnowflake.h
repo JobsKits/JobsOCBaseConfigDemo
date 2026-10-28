@@ -46,4 +46,5 @@
 -(JobsRetJobsOCSnowflakeByuint64_tBlock _Nonnull)byLastGeneralMillisecond;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCSnowflake
 @end
+
 #endif /* JOBS_HEADER_GUARD_JOBSOCSNOWFLAKE_41ABEDCD2D */

@@ -29,6 +29,7 @@ Prop_strong()NSArray <NSDictionary <NSString *, NSString *>*>*iconOptions;
 @end
 
 @implementation AppIconSwitchingVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

@@ -29,5 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetSwipeGestureRecognizerByDirectionBlock _Nonnull)byDirection;
 
 @end
+
 NS_ASSUME_NONNULL_END
 #endif

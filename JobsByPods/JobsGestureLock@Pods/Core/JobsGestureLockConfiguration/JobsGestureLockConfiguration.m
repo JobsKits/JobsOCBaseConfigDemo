@@ -8,6 +8,7 @@
 #import "JobsGestureLockConfiguration.h"
 
 @implementation JobsGestureLockConfiguration
+
 + (JobsRetJobsGestureLockConfigurationByVoidBlock _Nonnull)defaultConfiguration {
     return ^JobsGestureLockConfiguration *{
         return JobsGestureLockConfiguration.new

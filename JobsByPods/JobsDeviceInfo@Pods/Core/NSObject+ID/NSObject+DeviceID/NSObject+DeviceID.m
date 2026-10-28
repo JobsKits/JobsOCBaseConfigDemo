@@ -51,6 +51,7 @@ static void JobsDeviceIDKeychainRemove(NSString *service) {
 }
 
 @implementation NSObject (DeviceID)
+
 /**
  我们可以获取到UUID，然后把UUID保存到KeyChain里面。
  这样以后即使APP删了再装回来，也可以从KeyChain中读取回来。使用group还可以可以保证同一个开发商的所有程序针对同一台设备能够获取到相同的不变的UDID。

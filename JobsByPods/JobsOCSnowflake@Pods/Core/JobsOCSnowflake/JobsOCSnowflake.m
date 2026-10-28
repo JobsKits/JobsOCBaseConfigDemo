@@ -44,6 +44,7 @@ Prop_assign()uint32_t issuedSequence;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCSnowflake
 
 @implementation JobsOCSnowflake
+
 /// 初始化方法
 /// - Parameters:
 ///   - publishMillisecond: 表示雪花算法开始生成 ID 的时间戳（以毫秒为单位）。这是生成 ID 时使用的基准时间。此参数设置生成雪花 ID 的起始时间点。例如，如果你希望雪花 ID 从某个特定的日期和时间开始生成，你需要提供该时刻的时间戳。

@@ -8,6 +8,7 @@
 #import "NSObject+image.h"
 
 @implementation NSObject (image)
+
 /// 获取本地GIF图像
 -(nullable UIImage *)gif_img{
     if([self isKindOfClass:NSString.class]){

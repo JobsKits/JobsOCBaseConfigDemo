@@ -12,6 +12,7 @@
 #import <JobsSuspend/NSObject+image.h>
 
 @implementation UIViewController (SuspendBtn)
+
 #pragma mark —— Prop_strong()JobsSuspendBtn *suspendBtn;
 JobsKey(_suspendBtn)
 @dynamic suspendBtn;

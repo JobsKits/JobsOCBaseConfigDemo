@@ -8,6 +8,7 @@
 #import "UIView+ViewController.h"
 
 @implementation UIView (ViewController)
+
 -(JobsRetVCByVoidBlock _Nonnull)currentController{
     @jobs_weakify(self)
     return ^UIViewController *_Nullable{

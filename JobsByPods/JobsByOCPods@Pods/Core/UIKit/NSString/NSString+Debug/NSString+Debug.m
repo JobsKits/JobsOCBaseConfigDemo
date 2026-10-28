@@ -8,6 +8,7 @@
 #import "NSString+Debug.h"
 
 @implementation NSString (Debug)
+
 /// 该文字是否是Debug定义的文字
 -(JobsRetBOOLByVoidBlock _Nonnull)isDebugText{
     @jobs_weakify(self)

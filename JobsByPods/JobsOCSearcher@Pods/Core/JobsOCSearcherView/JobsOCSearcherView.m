@@ -51,6 +51,7 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCSearcherView
 
 @implementation JobsOCSearcherView
+
 -(JobsRetJobsOCSearcherViewByConfigBlock _Nonnull)byConfig{
     @jobs_weakify(self)
     return ^__kindof JobsOCSearcherView *_Nullable(JobsOCSearcherConfig *_Nullable config){

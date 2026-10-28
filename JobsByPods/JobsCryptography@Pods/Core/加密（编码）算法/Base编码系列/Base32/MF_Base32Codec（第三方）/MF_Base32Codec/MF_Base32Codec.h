@@ -31,6 +31,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MF_Base32Codec : NSObject
+
 /// 将Base32编码的字符串转换为NSData对象
 +(JobsRetDataByStrBlock _Nonnull)dataFromBase32String;
 /// 将NSData对象转换为Base32编码的字符串

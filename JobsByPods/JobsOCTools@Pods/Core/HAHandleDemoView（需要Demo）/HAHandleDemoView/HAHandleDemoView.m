@@ -28,6 +28,7 @@ Prop_strong()NSTimer *shrinkTimer;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END HAHandleDemoView
 
 @implementation HAHandleDemoView{
+
     CGFloat currentScale;
     CGFloat currentMaxSide;
 }

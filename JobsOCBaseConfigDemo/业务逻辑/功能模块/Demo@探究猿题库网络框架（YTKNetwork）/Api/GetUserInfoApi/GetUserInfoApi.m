@@ -8,6 +8,7 @@
 #import "GetUserInfoApi.h"
 
 @implementation GetUserInfoApi
+
 /// 请求的完整URL：
 -(NSString *)requestUrl{
     JobsRetStrByVoidBlock action = ((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(GetUserInfoApi.class, @selector(jobsRequestUrl)))(self, @selector(jobsRequestUrl));

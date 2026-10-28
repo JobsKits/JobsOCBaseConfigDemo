@@ -15,6 +15,7 @@
 JobsNavBarConfig *static_navBarConfig = nil;
 static dispatch_once_t static_navBarConfigOnceToken;
 @implementation JobsNavBarConfig
+
 /// AppToolsProtocol
 AppToolsProtocol_synthesize
 /// UITextModelProtocol

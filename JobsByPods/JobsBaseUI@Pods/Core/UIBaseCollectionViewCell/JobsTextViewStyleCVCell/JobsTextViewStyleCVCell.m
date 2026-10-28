@@ -19,6 +19,7 @@
 @end
 
 @implementation JobsTextViewStyleCVCell
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 /// UIViewModelProtocol

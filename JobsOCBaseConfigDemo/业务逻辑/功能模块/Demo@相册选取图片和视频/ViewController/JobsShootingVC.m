@@ -8,6 +8,7 @@
 #import "JobsShootingVC.h"
 
 @interface JobsShootingVC ()
+
 /// UI
 Prop_strong()UIButton *cameraBtn;
 Prop_strong()UIButton *photoAlbumBtn;
@@ -23,6 +24,7 @@ Prop_strong()NSMutableArray <UIImage *>*photosImageMutArr;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsShootingVC
 
 @implementation JobsShootingVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

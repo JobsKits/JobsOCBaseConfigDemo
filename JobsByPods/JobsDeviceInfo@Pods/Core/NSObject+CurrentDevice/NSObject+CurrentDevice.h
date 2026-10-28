@@ -26,6 +26,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (CurrentDevice)
+
 /// App发布的版本号
 -(JobsRetStrByVoidBlock _Nonnull)appVersion;
 /// BUILD 版本号

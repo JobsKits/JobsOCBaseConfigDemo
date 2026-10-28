@@ -8,6 +8,7 @@
 #import "NSCache+Extra.h"
 
 @implementation NSCache (Extra)
+
 /// 计算单个目录缓存文件大小
 +(JobsRetCGFloatByNSStringBlock _Nonnull)calcFolderSizeAtPath{
     return ^CGFloat(NSString * path){

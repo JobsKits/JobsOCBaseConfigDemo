@@ -8,6 +8,7 @@
 #import "TableViewOneCell.h"
 
 @interface TableViewOneCell()
+
 /// UI
 Prop_strong()UIBezierPath *linePath;
 Prop_strong()CAShapeLayer *lineLayer;
@@ -19,6 +20,7 @@ Prop_assign()CGSize size;
 @end
 
 @implementation TableViewOneCell
+
 +(JobsRetTableViewCellByTableViewBlock _Nonnull)cellStyleValue1ByTableView{
     @jobs_weakify(self)
     return ^(UITableView * _Nonnull tableView) {

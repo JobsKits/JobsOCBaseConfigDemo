@@ -8,6 +8,7 @@
 #import "NSString+NSUserDefaults.h"
 
 @implementation NSString (NSUserDefaults)
+
 #pragma mark —— 存值
 /// 保存 BOOL 值
 -(jobsByBOOLBlock _Nonnull)userDefaultsByBOOL{

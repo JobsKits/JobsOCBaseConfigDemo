@@ -8,6 +8,7 @@
 #import "NSObject+Extra.h"
 
 @implementation NSObject (Extra)
+
 /// 震动特效反馈
 +(jobsByViewBlock _Nonnull)feedbackGenerator{
     @jobs_weakify(self)

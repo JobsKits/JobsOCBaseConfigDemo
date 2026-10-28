@@ -9,4 +9,5 @@
 #import <JobsOCTools/JobsOCTools.h>
 
 @interface JobsImageCodeViewStabilityTests : XCTestCase
+
 @end

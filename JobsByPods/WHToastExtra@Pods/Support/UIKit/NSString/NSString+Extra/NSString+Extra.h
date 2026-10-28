@@ -39,6 +39,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (Extra)
+
 /// 字符串是否包含URL【返回YES包含】
 -(JobsRetBOOLByVoidBlock _Nonnull)isContainsUrl;
 /// OC字符串拼接

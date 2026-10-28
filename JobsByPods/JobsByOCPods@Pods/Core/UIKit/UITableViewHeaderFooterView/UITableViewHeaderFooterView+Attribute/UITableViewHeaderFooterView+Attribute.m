@@ -9,6 +9,7 @@
 /// 资料来源：https://github.com/Zydhjx/HeaderDemo
 /// 在基类覆写- (void)setFrame:(CGRect)frame方法。比如基类：BaseTableViewHeaderFooterView
 @implementation UITableViewHeaderFooterView (Attribute)
+
 #pragma mark —— Prop_weak()UITableView *tbv;
 JobsKey(_tbv)
 @dynamic tbv;

@@ -25,6 +25,7 @@ Prop_strong(nullable)JobsCustomTabBarConfig *sceneConfiguration;
 @end
 
 @implementation JobsCustomTabBar
+
 -(instancetype)initWithConfiguration:(JobsCustomTabBarConfig *)configuration{
     if (self = [super initWithFrame:CGRectZero]) {
         _sceneConfiguration = configuration;

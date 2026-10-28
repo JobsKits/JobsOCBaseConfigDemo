@@ -8,6 +8,7 @@
 #import "FMDoorModel+DSL.h"
 
 @implementation FMDoorModel (DSL)
+
 -(JobsRetFMDoorModelByStrBlock _Nonnull)byAccessToken{
     @jobs_weakify(self)
     return ^__kindof FMDoorModel *_Nullable(NSString * _Nullable data) {

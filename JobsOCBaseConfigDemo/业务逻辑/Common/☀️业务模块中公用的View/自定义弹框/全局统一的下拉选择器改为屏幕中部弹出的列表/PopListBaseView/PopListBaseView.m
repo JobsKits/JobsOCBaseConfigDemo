@@ -8,6 +8,7 @@
 #import "PopListBaseView.h"
 
 @interface PopListBaseView ()
+
 /// Data
 Prop_strong()NSMutableArray <__kindof UITableViewCell *>*tbvCellMutArr;
 Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
@@ -22,6 +23,7 @@ Prop_strong()NSMutableArray <__kindof NSString *>*datas;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END PopListBaseView
 
 @implementation PopListBaseView
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 #pragma mark —— BaseProtocol

@@ -22,6 +22,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END ZFAVPlayerManager
 
 @implementation ZFAVPlayerManager (DSL)
+
 -(JobsRetZFAVPlayerManagerByTimeIntervalBlock _Nonnull)byTimeRefreshInterval{
     @jobs_weakify(self)
     return ^__kindof ZFAVPlayerManager *_Nullable(NSTimeInterval data){

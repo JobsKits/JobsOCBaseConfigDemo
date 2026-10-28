@@ -8,6 +8,7 @@
 #import "JobsOCExcelColumn.h"
 
 @implementation JobsOCExcelColumn
+
 -(JobsRetJobsOCExcelColumnByCellBlock _Nonnull)byHeader{
     @jobs_weakify(self)
     return ^JobsOCExcelColumn *(JobsOCExcelCell *header){

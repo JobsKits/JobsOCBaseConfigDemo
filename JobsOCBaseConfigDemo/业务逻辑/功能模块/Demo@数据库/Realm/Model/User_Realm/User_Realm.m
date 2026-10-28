@@ -8,6 +8,7 @@
 #import "User_Realm.h"
 
 @implementation User_Realm
+
 -(JobsRetUser_RealmByStrBlock _Nonnull)byName{
     @jobs_weakify(self)
     return ^__kindof User_Realm *_Nullable(NSString *_Nullable data){

@@ -32,6 +32,7 @@ static UIViewController *JobsOCSplashOverlayHostViewController(UIViewController 
 }
 
 @implementation JobsOCSplashPresenter
+
 +(__kindof JobsOCSplashVC *)showOver:(__kindof UIViewController *)hostViewController configuration:(JobsOCSplashConfiguration *)configuration {
     UIViewController *overlayHostViewController = JobsOCSplashOverlayHostViewController(hostViewController);
     NSMutableOrderedSet<UIGestureRecognizer *> *hostGestureRecognizerSet = NSMutableOrderedSet.orderedSet;

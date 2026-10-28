@@ -8,11 +8,14 @@
 #import "AppDelegate+Func.h"
 
 @interface TABAnimated (JobsAppDelegateDSL)
+
 -(JobsRetTABAnimatedByBOOLBlock _Nonnull)byOpenLog;
 -(JobsRetTABAnimatedByUIColorBlock _Nonnull)byAnimatedBackgroundColor;
+
 @end
 
 @implementation TABAnimated (JobsAppDelegateDSL)
+
 -(JobsRetTABAnimatedByBOOLBlock _Nonnull)byOpenLog{
     @jobs_weakify(self)
     return ^__kindof TABAnimated * _Nullable(BOOL data){
@@ -30,6 +33,7 @@
         return self;
     };
 }
+
 @end
 
 static NSString *const JobsOCSplashEnabledUserDefaultsKey = @"com.BSports.JobsOCSplashEnabledUserDefaultsKey";
@@ -83,6 +87,7 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END YTKNetworkConfig
 
 @implementation AppDelegate (Func)
+
 #pragma mark —— 启动调用功能
 +(jobsByVoidBlock _Nonnull)launchFunc1{
     @jobs_weakify(self)
@@ -164,10 +169,13 @@ static JobsOCSplashConfiguration *JobsOCSplashConfigurationForNextLaunch(void) {
 #pragma mark —— 开屏广告
 -(jobsByWindowBlock _Nonnull)makeJobsLaunchAdConfig{
     return ^(UIWindow *window) {
-        if (!window || !JobsOCSplashEnabled()) {
+        if (JobsOCDeviceGuardLaunchGate.decision.blocked || !window || !JobsOCSplashEnabled()) {
             return;
         }
         dispatch_async(dispatch_get_main_queue(), ^{
+            if (JobsOCDeviceGuardLaunchGate.decision.blocked) {
+                return;
+            }
             UIViewController *hostViewController = window.rootViewController;
             if (!hostViewController || !window.windowScene ||
                 window.windowScene.activationState == UISceneActivationStateUnattached) {

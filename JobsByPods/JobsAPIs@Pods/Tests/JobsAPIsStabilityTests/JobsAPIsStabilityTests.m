@@ -12,12 +12,16 @@
 
 // 仅声明锁定 YTK 3.0.6 已有测试入口；不替换其请求构建或结果处理实现。
 @interface YTKNetworkAgent (JobsAPIsProtocolStabilityAccess)
+
 -(AFHTTPSessionManager *)manager;
 -(void)resetURLSessionManagerWithConfiguration:(NSURLSessionConfiguration *)configuration;
+
 @end
 
 @interface JobsAPIsStabilityTests ()
+
 @property(nonatomic, strong) AFHTTPSessionManager *previousManager;
+
 @end
 
 @implementation JobsAPIsStabilityTests

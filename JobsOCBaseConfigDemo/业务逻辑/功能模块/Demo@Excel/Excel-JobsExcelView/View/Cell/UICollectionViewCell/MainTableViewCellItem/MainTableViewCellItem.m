@@ -8,6 +8,7 @@
 #import "MainTableViewCellItem.h"
 
 @interface MainTableViewCellItem()
+
 /// Data
 Prop_strong()JobsExcelConfigureViewModel *excelConfigureData;
 Prop_assign()CGSize size;
@@ -15,6 +16,7 @@ Prop_assign()CGSize size;
 @end
 
 @implementation MainTableViewCellItem
+
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     MainTableViewCellItem *cell = JobsRegisterDequeueCollectionViewCell(MainTableViewCellItem);

@@ -18,6 +18,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsNavigationDemoVC
 
 @implementation JobsNavigationDemoVC
+
 -(void)dealloc{
     NSLog(@"");
 }

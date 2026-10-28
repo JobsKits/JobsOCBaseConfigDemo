@@ -25,6 +25,7 @@
 #endif
 
 @interface JobsOCBaseConfigDemoTests : XCTestCase
+
 @end
 
 #endif /* JOBS_HEADER_GUARD_JOBSOCBASECONFIGDEMOTESTS_E8A113D253 */

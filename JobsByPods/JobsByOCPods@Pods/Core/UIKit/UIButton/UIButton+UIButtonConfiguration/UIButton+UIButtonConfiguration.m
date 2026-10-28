@@ -10,6 +10,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability"
 @implementation UIButton (UIButtonConfiguration)
+
 -(jobsByVoidBlock _Nonnull)updateConfigBy{
     @jobs_weakify(self)
     return ^(){
@@ -470,4 +471,5 @@
 }
 
 @end
+
 #pragma clang diagnostic pop

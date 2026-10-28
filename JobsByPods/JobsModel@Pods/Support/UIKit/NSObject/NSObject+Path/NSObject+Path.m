@@ -8,6 +8,7 @@
 #import "NSObject+Path.h"
 
 @implementation NSObject (Path)
+
 /// 获取bundle路径
 -(NSString *)bundlePath{
     return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobsBundlePath)))(self, @selector(jobsBundlePath)))();

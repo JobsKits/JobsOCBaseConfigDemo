@@ -32,6 +32,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIButtonModel : BaseModel <UIViewModelProtocol,BaseButtonProtocol,AppToolsProtocol>
+
 #pragma mark —— 对方位 <UILocationProtocol>
 #pragma mark —— 对 UIButton + UI <BaseButtonProtocol>
 Prop_assign()CGFloat leftViewWidth;

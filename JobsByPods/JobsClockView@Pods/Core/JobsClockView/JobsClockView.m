@@ -8,6 +8,7 @@
 #import "JobsClockView.h"
 
 @interface JobsClockView ()
+
 /// 外圈表盘
 Prop_strong() CAShapeLayer *dialLayer;
 /// 12 个整点刻度
@@ -41,6 +42,7 @@ Prop_strong() JobsTimer *timer;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsClockView
 
 @implementation JobsClockView
+
 -(JobsRetIDByIDBlock _Nonnull)byTimer{
     @jobs_weakify(self)
     return ^id(JobsTimer *timer){

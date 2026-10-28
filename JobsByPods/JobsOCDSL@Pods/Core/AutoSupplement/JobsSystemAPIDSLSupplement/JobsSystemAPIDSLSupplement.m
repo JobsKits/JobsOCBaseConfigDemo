@@ -8,6 +8,7 @@
 #import "JobsSystemAPIDSLSupplement.h"
 
 @implementation CAMetalLayer (JobsSystemAPIDSLSupplement)
+
 #if defined(__IPHONE_16_0)
 -(JobsRetCAMetalLayerByBOOLBlock _Nonnull)byWantsExtendedDynamicRangeContent{
     @jobs_weakify(self)
@@ -56,6 +57,7 @@
 @end
 
 @implementation NSDateComponents (JobsSystemAPIDSLSupplement)
+
 -(JobsRetDateComponentsByCalendarBlock _Nonnull)byCalendar{
     @jobs_weakify(self)
     return ^__kindof NSDateComponents *_Nullable(NSCalendar *_Nullable data){
@@ -88,9 +90,11 @@ JobsNSDateComponentsDSL(Hour, hour)
 JobsNSDateComponentsDSL(Minute, minute)
 JobsNSDateComponentsDSL(Second, second)
 #undef JobsNSDateComponentsDSL
+
 @end
 
 @implementation UNMutableNotificationContent (JobsSystemAPIDSLSupplement)
+
 #define JobsUNMutableNotificationContentDSL(_name_, _blockType_, _dataType_, _property_) \
 -(_blockType_ _Nonnull)by##_name_{ \
     @jobs_weakify(self) \
@@ -109,9 +113,11 @@ JobsUNMutableNotificationContentDSL(Attachments, JobsRetUNMutableNotificationCon
 JobsUNMutableNotificationContentDSL(LaunchImageName, JobsRetUNMutableNotificationContentByStrBlock, NSString *_Nullable, launchImageName)
 JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotificationContentByStrBlock, NSString *_Nullable, categoryIdentifier)
 #undef JobsUNMutableNotificationContentDSL
+
 @end
 
 @implementation NSTextAttachment (JobsSystemAPIDSLSupplement)
+
 -(JobsRetTextAttachmentByImageBlock _Nonnull)byImage{
     @jobs_weakify(self)
     return ^__kindof NSTextAttachment *_Nullable(UIImage *_Nullable data){
@@ -128,6 +134,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
         return self;
     };
 }
+
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN AVPlayerLayer
@@ -137,6 +144,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END AVPlayerLayer
 
 @implementation AVPlayerLayer (JobsSystemAPIDSLSupplement)
+
 -(JobsRetAVPlayerLayerByPlayerBlock _Nonnull)byPlayer{
     @jobs_weakify(self)
     return ^__kindof AVPlayerLayer *_Nullable(AVPlayer *_Nullable data){
@@ -167,6 +175,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UINavigationItem
 
 @implementation UINavigationItem (JobsSystemAPIDSLSupplement)
+
 -(JobsRetNavigationItemByBarButtonItemsBlock _Nonnull)byRightBarButtonItems{
     @jobs_weakify(self)
     return ^__kindof UINavigationItem *_Nullable(NSArray<UIBarButtonItem *> *_Nullable data){
@@ -224,6 +233,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 
 
 @implementation UIViewController (JobsSystemAPIDSLSupplement)
+
 -(JobsRetVCByBOOLBlock _Nonnull)byHidesBottomBarWhenPushed{
     @jobs_weakify(self)
     return ^__kindof UIViewController *_Nullable(BOOL data){
@@ -271,6 +281,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END NSURLComponents
 
 @implementation NSURLComponents (JobsSystemAPIDSLSupplement)
+
 -(JobsRetURLComponentsByStrBlock _Nonnull)byScheme{
     @jobs_weakify(self)
     return ^__kindof NSURLComponents *_Nullable(NSString *_Nullable data){
@@ -321,6 +332,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 
 
 @implementation UIScreen (JobsSystemAPIDSLSupplement)
+
 -(JobsRetScreenByCGFloatBlock _Nonnull)byBrightness{
     @jobs_weakify(self)
     return ^__kindof UIScreen *_Nullable(CGFloat data){
@@ -329,6 +341,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
         return self;
     };
 }
+
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN UIApplication
@@ -339,6 +352,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UIApplication
 
 @implementation UIApplication (JobsSystemAPIDSLSupplement)
+
 -(JobsRetApplicationByBOOLBlock _Nonnull)byIdleTimerDisabled{
     @jobs_weakify(self)
     return ^__kindof UIApplication *_Nullable(BOOL data){
@@ -370,6 +384,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 
 
 @implementation CATransition (JobsSystemAPIDSLSupplement)
+
 -(JobsRetCATransitionByTimeIntervalBlock _Nonnull)byDuration{
     @jobs_weakify(self)
     return ^__kindof CATransition *_Nullable(NSTimeInterval data){
@@ -410,10 +425,12 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
         return self;
     };
 }
+
 @end
 
 
 @implementation UIAlertAction (JobsSystemAPIDSLSupplement)
+
 -(JobsRetUIAlertActionByBOOLBlock _Nonnull)byEnabled{
     @jobs_weakify(self)
     return ^UIAlertAction *(BOOL enabled){
@@ -422,6 +439,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
         return self;
     };
 }
+
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN NSShadow
@@ -431,6 +449,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END NSShadow
 
 @implementation NSShadow (JobsSystemAPIDSLSupplement)
+
 -(JobsRetNSShadowByIDBlock _Nonnull)byShadowColor{
     @jobs_weakify(self)
     return ^NSShadow *(id shadowColor){
@@ -467,6 +486,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UICollectionViewLayoutAttributes
 
 @implementation UICollectionViewLayoutAttributes (JobsSystemAPIDSLSupplement)
+
 -(JobsRetCollectionViewLayoutAttributesByCGRectBlock _Nonnull)byFrame{
     @jobs_weakify(self)
     return ^__kindof UICollectionViewLayoutAttributes *(CGRect frame){
@@ -497,6 +517,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 @end
 
 @implementation UIPasteboard (JobsSystemAPIDSLSupplement)
+
 -(JobsRetUIPasteboardByStrBlock _Nonnull)byString{
     @jobs_weakify(self)
     return ^UIPasteboard *(NSString *string){
@@ -505,9 +526,11 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
         return self;
     };
 }
+
 @end
 
 @implementation UIWindow (JobsSystemAPIDSLSupplement)
+
 -(JobsRetUIWindowByViewControllerBlock _Nonnull)byRootViewController{
     @jobs_weakify(self)
     return ^__kindof UIWindow *_Nullable(__kindof UIViewController *_Nullable data){
@@ -551,6 +574,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 @end
 
 @implementation MFMailComposeViewController (JobsSystemAPIDSLSupplement)
+
 #if defined(__IPHONE_11_0)
 -(JobsRetMailComposeVCByStrBlock _Nonnull)bySetPreferredSendingEmailAddress{
     @jobs_weakify(self)
@@ -566,6 +590,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 @end
 
 @implementation MFMessageComposeViewController (JobsSystemAPIDSLSupplement)
+
 -(JobsRetMessageComposeVCByStrBlock _Nonnull)bySubject{
     @jobs_weakify(self)
     return ^__kindof MFMessageComposeViewController *_Nullable(NSString *_Nullable data){
@@ -578,6 +603,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 @end
 
 @implementation NSDateFormatter (JobsSystemAPIDSLSupplement)
+
 -(JobsRetDateFormatterByBOOLBlock _Nonnull)byGeneratesCalendarDates{
     @jobs_weakify(self)
     return ^__kindof NSDateFormatter *_Nullable(BOOL data){
@@ -779,6 +805,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 @end
 
 @implementation PDFView (JobsSystemAPIDSLSupplement)
+
 -(JobsRetPDFViewByBOOLBlock _Nonnull)byDisplaysAsBook{
     @jobs_weakify(self)
     return ^__kindof PDFView *_Nullable(BOOL data){
@@ -1049,6 +1076,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 @end
 
 @implementation UIImageView (JobsSystemAPIDSLSupplement)
+
 -(JobsRetImageViewBySymbolConfigurationBlock _Nonnull)byPreferredSymbolConfiguration{
     @jobs_weakify(self)
     return ^__kindof UIImageView *_Nonnull(UIImageSymbolConfiguration *_Nullable data){
@@ -1164,6 +1192,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 @end
 
 @implementation UIPageControl (JobsSystemAPIDSLSupplement)
+
 -(JobsRetPageControlByNSIntegerBlock _Nonnull)byNumberOfPages{
     @jobs_weakify(self)
     return ^__kindof UIPageControl *_Nullable(NSInteger data){
@@ -1280,6 +1309,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 @end
 
 @implementation UITableView (JobsSystemAPIDSLSupplement)
+
 -(JobsRetTableViewByVoidBlock _Nonnull)byBeginUpdates{
     @jobs_weakify(self)
     return ^__kindof UITableView *_Nullable(void){
@@ -1400,6 +1430,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 @end
 
 @implementation UITextField (JobsSystemAPIDSLSupplement)
+
 -(JobsRetTextFieldByCorBlock _Nonnull)byTextColor{
     @jobs_weakify(self)
     return ^__kindof UITextField *_Nullable(UIColor *_Nullable data){
@@ -1515,6 +1546,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 @end
 
 @implementation UITextView (JobsSystemAPIDSLSupplement)
+
 -(JobsRetTextViewByCorBlock _Nonnull)byTextColor{
     @jobs_weakify(self)
     return ^__kindof UITextView *_Nullable(UIColor *_Nullable data){
@@ -1611,6 +1643,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 @end
 
 @implementation UIPanGestureRecognizer (JobsSystemAPIDSLSupplement)
+
 -(JobsRetPanGestureRecognizerByUIScrollTypeMaskBlock _Nonnull)byAllowedScrollTypesMask{
     @jobs_weakify(self)
     return ^UIPanGestureRecognizer *_Nullable(UIScrollTypeMask data){
@@ -1624,6 +1657,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 @end
 
 @implementation UITapGestureRecognizer (JobsSystemAPIDSLSupplement)
+
 -(JobsRetTapGestureRecognizerByUIEventButtonMaskBlock _Nonnull)byButtonMaskRequired{
     @jobs_weakify(self)
     return ^UITapGestureRecognizer *_Nullable(UIEventButtonMask data){
@@ -1637,6 +1671,7 @@ JobsUNMutableNotificationContentDSL(CategoryIdentifier, JobsRetUNMutableNotifica
 @end
 
 @implementation UIView (JobsSystemAPIDSLSupplement)
+
 -(JobsRetViewByStringBlock _Nonnull)byRestorationIdentifier{
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(NSString *_Nullable data){

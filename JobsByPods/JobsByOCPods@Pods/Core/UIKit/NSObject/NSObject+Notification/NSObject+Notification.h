@@ -57,6 +57,7 @@
 NS_ASSUME_NONNULL_BEGIN
 /// 一些需要全局化的通知
 @interface NSObject (Notification)<BaseProtocol>
+
 /// 在主线程上带参发通知
 -(jobsByKey_ValueBlock _Nonnull)JobsPost;
 /// 在主线程上带参发通知

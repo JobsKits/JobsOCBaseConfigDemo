@@ -15,6 +15,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UIGestureRecognizer
 
 @implementation UIGestureRecognizer (JobsChain)
+
 +(JobsRetGestureByVoidBlock _Nonnull)byGestureRecognizer{
     return ^__kindof UIGestureRecognizer *_Nullable(void){
         return [[self alloc] init];

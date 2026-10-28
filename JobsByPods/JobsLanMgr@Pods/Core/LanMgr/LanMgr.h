@@ -27,6 +27,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LanMgr : NSObject
+
 /// 获取和设置当前语言
 Prop_assign(class)AppLanguage language;
 /// 语言包路径

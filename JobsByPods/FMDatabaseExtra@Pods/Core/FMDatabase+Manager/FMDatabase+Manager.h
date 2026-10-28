@@ -38,6 +38,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FMDatabase (Manager)
+
 /// 依据路径创建数据库
 -(JobsRetFMDatabaseByNSStringBlock _Nonnull)createDataBaseWithPath;
 /// 实际对数据库有变动的操作

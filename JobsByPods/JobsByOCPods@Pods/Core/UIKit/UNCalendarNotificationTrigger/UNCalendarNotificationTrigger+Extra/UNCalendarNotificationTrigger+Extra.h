@@ -26,6 +26,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UNCalendarNotificationTrigger (Extra)
+
 /// 创建一个不重复触发的日历通知触发器
 +(JobsRetCalendarNotificationTriggerByComponentsBlock _Nonnull)initByNORepeats;
 /// 创建一个重复触发的日历通知触发器

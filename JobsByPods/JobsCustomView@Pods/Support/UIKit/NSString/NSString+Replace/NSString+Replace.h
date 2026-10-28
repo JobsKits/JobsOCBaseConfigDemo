@@ -65,6 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface NSString (Replace)
+
 #pragma mark —— 字符串加工
 /// 输入单词的首字母大写（适用于拼接set方法）
 -(JobsRetStrByVoidBlock _Nonnull)capitalizeFirstLetter;

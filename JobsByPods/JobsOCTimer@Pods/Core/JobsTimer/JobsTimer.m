@@ -26,6 +26,7 @@
 -(void)setFireDate:(NSDate * _Nullable)data;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END NSTimer
 @end
+
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END NSTimer
 
 @implementation CADisplayLink (JobsOCTimerDSL)
@@ -49,6 +50,7 @@
 /// - GCD suspend/cancel 平衡，避免崩溃
 /// - one-shot（repeats = NO）：首次 tick 后自动 stop + finish（非 GCD stop 回主线程路由）
 @interface JobsTimer ()<TimerProtocol>
+
 /// YES  = 已经 suspend 了
 /// NO   = 正在运行 / 已经 resume
 Prop_assign()BOOL gcdTimerSuspended;
@@ -1299,6 +1301,7 @@ JobsKey(_onFinish)
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END NSTimer
 
 @implementation NSTimer (JobsLocalPropertyDSLAutogen_99824473ef)
+
 -(JobsRetNSTimerByNSTimeIntervalBlock _Nonnull)byTolerance{
     @jobs_weakify(self)
     return ^__kindof NSTimer * _Nullable(NSTimeInterval data){
@@ -1318,4 +1321,5 @@ JobsKey(_onFinish)
 }
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END NSTimer
 @end
+
 // JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END NSTimer

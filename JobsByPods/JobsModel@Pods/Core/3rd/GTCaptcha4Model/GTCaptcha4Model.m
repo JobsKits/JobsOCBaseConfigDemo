@@ -8,6 +8,7 @@
 #import "GTCaptcha4Model.h"
 
 @implementation GTCaptcha4Model
+
 +(NSDictionary *)mj_objectClassInArray {
     return @{
         @"result" : GTCaptcha4ResultModel.class

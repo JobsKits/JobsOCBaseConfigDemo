@@ -28,5 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetRotationGestureRecognizerByCGFloatBlock _Nonnull)byRotation;
 
 @end
+
 NS_ASSUME_NONNULL_END
 #endif

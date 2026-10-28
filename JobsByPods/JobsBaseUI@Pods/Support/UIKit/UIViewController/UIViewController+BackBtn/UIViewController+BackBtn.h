@@ -34,6 +34,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (BackBtn)<BaseViewControllerProtocol>
+
 /// GKNavigationBar 返回按钮点击方法
 ///【子类需要覆写 】创建返回键的点击事件
 -(jobsByBtnBlock _Nonnull)backBtnClickEvent;

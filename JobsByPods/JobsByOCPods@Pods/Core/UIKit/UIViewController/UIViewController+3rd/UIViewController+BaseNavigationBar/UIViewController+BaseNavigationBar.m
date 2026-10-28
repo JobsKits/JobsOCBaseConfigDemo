@@ -8,6 +8,7 @@
 #import "UIViewController+BaseNavigationBar.h"
 
 @implementation UIViewController (BaseNavigationBar)
+
 -(JobsRetVCByIDBlock _Nonnull)goBack{
     @jobs_weakify(self)
     return ^__kindof UIViewController *_Nullable(id data){

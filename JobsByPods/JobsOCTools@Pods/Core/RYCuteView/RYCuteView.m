@@ -10,6 +10,7 @@
 /// 默认最小高度
 static const CGFloat kDefaultMinHeight = 64.f;
 @interface RYCuteView ()
+
 /// 手势移动时相对高度
 Prop_assign() CGFloat mHeight;
 /// r5 点 x 坐标
@@ -38,6 +39,7 @@ Prop_strong() JobsTimer *displayTimer;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END RYCuteView
 
 @implementation RYCuteView
+
 #pragma mark —— Life Cycle
 - (void)dealloc {
     JobsLog(@"%s", __FUNCTION__);

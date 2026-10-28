@@ -161,4 +161,5 @@ static id JobsPatchAcceptanceRead(id receiver) {
         XCTAssertFalse(manager.containsPatchByIdentifier([NSString stringWithFormat:@"jobs.patch.acceptance.concurrent.%lu", (unsigned long)index]));
     }
 }
+
 @end

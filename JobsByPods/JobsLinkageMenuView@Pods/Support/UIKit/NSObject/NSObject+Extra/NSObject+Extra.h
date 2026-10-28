@@ -36,6 +36,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (JobsLinkageMenuViewExtra)
+
 /// 获取本地普通图像
 Prop_strong(readonly,nullable)UIImage *img;    // -(nullable UIImage *)img;
 -(JobsRetImageByStrBlock _Nonnull)imageByDataURL;

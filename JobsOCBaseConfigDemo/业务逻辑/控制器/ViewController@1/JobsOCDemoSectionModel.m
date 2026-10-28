@@ -8,6 +8,7 @@
 #import "JobsOCDemoSectionModel.h"
 
 @implementation JobsOCDemoSectionModel
+
 +(JobsRetJobsOCDemoSectionModelByStrBlock _Nonnull)sectionWithTitle{
     return ^JobsOCDemoSectionModel *(NSString * title){
         return JobsOCDemoSectionModel.new.byTitle(title);

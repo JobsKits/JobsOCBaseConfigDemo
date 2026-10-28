@@ -8,6 +8,7 @@
 #import "NSData+MIME.h"
 
 @implementation NSData (MIME)
+
 #pragma mark —— MIME编码的数据 <==> NSData对象
 ///【类方法】以MIME编码的数据 转换成 NSData对象
 +(JobsRetDataByStrBlock _Nonnull)dataByMIMEString{

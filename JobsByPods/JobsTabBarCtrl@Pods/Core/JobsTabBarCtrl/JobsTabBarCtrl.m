@@ -28,6 +28,7 @@ Prop_assign(readwrite)BOOL builtOnce;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsTabBarCtrl
 
 @implementation JobsTabBarCtrl
+
 -(instancetype)init {
     if (self = [super init]) {
         _swipeEnabled = YES;
@@ -501,6 +502,7 @@ Prop_assign(readwrite)BOOL builtOnce;
 
 #pragma mark —— DSL
 @implementation JobsTabBarCtrl (Chainable)
+
 -(JobsRetTabBarCtrlByBOOLBlock _Nonnull)bySwipeEnabled{
     @jobs_weakify(self)
     return ^__kindof JobsTabBarCtrl *_Nullable(BOOL flag){

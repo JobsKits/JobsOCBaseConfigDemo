@@ -38,6 +38,7 @@ Prop_assign()CGFloat currentProgress;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END PHCycleView
 
 @implementation PHCycleView
+
 static CGFloat const PHCycleViewMinProgress = 0.0f;
 static CGFloat const PHCycleViewMaxProgress = 100.0f;
 static CGFloat const PHCycleViewStrokeStart = M_PI / 12.0;

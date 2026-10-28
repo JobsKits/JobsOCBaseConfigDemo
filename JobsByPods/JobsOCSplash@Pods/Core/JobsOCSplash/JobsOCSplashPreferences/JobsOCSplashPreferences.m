@@ -11,6 +11,7 @@ static NSString * const JobsOCSplashEnabledKey = @"JobsOCSplash.isEnabledForNext
 static NSString * const JobsOCSplashContentTypeKey = @"com.jobs.splash.contentTypeForNextLaunch";
 
 @implementation JobsOCSplashPreferences
+
 +(JobsRetBOOLByVoidBlock _Nonnull)isEnabledForNextLaunch {
     return ^BOOL{
         if (![NSUserDefaults.standardUserDefaults objectForKey:JobsOCSplashEnabledKey]) return YES;

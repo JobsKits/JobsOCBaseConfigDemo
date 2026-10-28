@@ -86,4 +86,5 @@
     XCTAssertNil([JobsKeychainHelper getPasswordByService:self.service account:self.service error:&error]);
     XCTAssertEqualObjects([JobsKeychainHelper getPasswordByService:self.service account:@"new-target" error:&error], @"legacy");
 }
+
 @end

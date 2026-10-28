@@ -8,6 +8,7 @@
 #import "JobsWelcomeVC.h"
 
 @interface JobsWelcomeVC ()
+
 // UI
 Prop_strong()UIPageControl *pageControl;
 // Data
@@ -16,6 +17,7 @@ Prop_strong()NSMutableArray <NSString *>*dataMutArr;
 @end
 
 @implementation JobsWelcomeVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);

@@ -32,6 +32,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (Eomji)
+
 #pragma mark —— Eomji相关
 /// 编码emoji
 -(JobsRetStrByVoidBlock _Nonnull)emojiEncode;

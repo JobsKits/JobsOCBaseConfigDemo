@@ -12,6 +12,7 @@
 @end
 
 @implementation RSAUtil
+
 /*
  static NSString *base64_encode(NSString *str){
     NSData* data = [str dataUsingEncoding:NSUTF8StringEncoding];

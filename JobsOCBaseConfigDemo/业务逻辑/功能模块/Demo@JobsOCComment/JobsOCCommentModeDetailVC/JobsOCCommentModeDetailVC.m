@@ -40,6 +40,7 @@ Prop_assign()NSInteger demoLoadMoreCount;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCCommentModeDetailVC
 
 @implementation JobsOCCommentModeDetailVC
+
 @synthesize popUpHeight = _popUpHeight;
 
 -(void)loadView{

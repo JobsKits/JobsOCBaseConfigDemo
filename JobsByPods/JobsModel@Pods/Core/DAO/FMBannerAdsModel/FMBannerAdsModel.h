@@ -32,6 +32,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FMBannerAdsModel : BaseModel<UIViewModelProtocol>
+
 /// 广告
 Prop_copy()NSString *accountName; // 会员账号列表或代理账号列表：只有account_type等于1,3 有值
 Prop_assign()FMAccType accountType; // 账号类型：0-所有会员 1-指定会员 2-全代理线 3-指定代理线

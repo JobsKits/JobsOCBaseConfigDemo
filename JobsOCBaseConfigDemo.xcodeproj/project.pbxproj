@@ -10,19 +10,26 @@
 		0914C5907BA49F2FC8811CC4 /* JobsOCBaseConfigDemoUITestsLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E7E591D6C4D0C6BBBD252B2 /* JobsOCBaseConfigDemoUITestsLaunchTests.m */; };
 		0AA9AC4FAAA163C970BF379A /* JobsMicroLearning.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3906B5AD2A86A07174D69D09 /* JobsMicroLearning.bundle */; };
 		0FF80B6967CB9483D0CA66B5 /* WKWebView+JobsMicroFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F6C20FA1447394B709F8A04 /* WKWebView+JobsMicroFactory.m */; };
+		1C7517AA7D633DFEE902AD7C /* JobsOCDeviceGuardLaunchDecision.m in Sources */ = {isa = PBXBuildFile; fileRef = 469622D047A9D30CBDE25F89 /* JobsOCDeviceGuardLaunchDecision.m */; };
 		2FD4FFD5CD18C4C96554D932 /* JobsMicroPlatformDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E85110B57723F6DE7A48D269 /* JobsMicroPlatformDemoVC.m */; };
 		30238BC1D50902CA6D066A27 /* Pods_JobsOCBaseConfigDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BE608D790F4B9DDF11D6090 /* Pods_JobsOCBaseConfigDemo.framework */; };
 		30DC0DD8F6CF2504329FF8CF /* JobsMicroAppDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9D7F0199688591CFA4966FFE /* JobsMicroAppDemoVC.m */; };
+		3FBDC6CC3831551F702CDCA5 /* JobsDeviceInfoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0F2D2A23B00A0A9A5776FA /* JobsDeviceInfoItem.m */; };
 		4C78FA541517BFA2B799F0F1 /* JobsMicroPlatformProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C466F387671A17C50C476C16 /* JobsMicroPlatformProvider.m */; };
 		6D5B570E3687C1813EF3FBBC /* JobsMicroSandboxStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 486CF0B2C58840A1F0A06ED1 /* JobsMicroSandboxStore.m */; };
 		7B3B3BA8799FB4FB555CAA59 /* JobsMicroSessionDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1AA1E24405A9FE78E83149BE /* JobsMicroSessionDemoVC.m */; };
+		879AC7003D1E8DD12246B880 /* JobsDeviceDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = 41220B607F41ED6D74A216B5 /* JobsDeviceDescription.m */; };
 		9FBB3DC344981B1C208274A7 /* JobsMicroLearningBaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C4849E9E48B53615FF848EDE /* JobsMicroLearningBaseVC.m */; };
 		B50123FA3F34E9AAF4A37099 /* JobsMicroPWADemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = C79056C886AC24C7997D4023 /* JobsMicroPWADemoVC.m */; };
 		BC1C719151A2A5E6269A5C16 /* JobsOCBaseConfigDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C920BD66667884C72A4E65C3 /* JobsOCBaseConfigDemoTests.m */; };
+		BF2AAC20C323CFFD5E0EFA22 /* JobsUserInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16C75AE1E22B0AB170D00B70 /* JobsUserInfoVC.m */; };
+		C51209B0AA9889EE202ED406 /* JobsOCDeviceGuardBlockedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C4E09890A3EB99D6AA2BAD /* JobsOCDeviceGuardBlockedVC.m */; };
 		CC78C87D141CF5C423B38C27 /* JobsMicroSandboxDemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AC6D68573470B6B4F48A6859 /* JobsMicroSandboxDemoVC.m */; };
+		E2B2ED5FAA7A0B9F9E54E6C0 /* JobsOCDeviceGuardLaunchGate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAD5A1EA196596485066CE9 /* JobsOCDeviceGuardLaunchGate.m */; };
 		E710BB477D363530F94F4237 /* JobsMicroWeakScriptHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 05AE028D4CF7BFE2CE41AFB0 /* JobsMicroWeakScriptHandler.m */; };
 		ED67DD17E96F487CDFFD4C46 /* JobsOCBaseConfigDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1367FE9E27F6821172EED101 /* JobsOCBaseConfigDemoUITests.m */; };
 		F20000012F22000100C0DE01 /* JobsOCWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = F20000042F22000100C0DE01 /* JobsOCWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		FD5160958FC5B3F4F6F55BCF /* JobsOCDeviceGuardLaunchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C07B4BF400BC7367305831F /* JobsOCDeviceGuardLaunchTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,18 +71,27 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0304BA1703BE77F92ED98F50 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		05AE028D4CF7BFE2CE41AFB0 /* JobsMicroWeakScriptHandler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsMicroWeakScriptHandler.m; sourceTree = "<group>"; };
 		0E7E591D6C4D0C6BBBD252B2 /* JobsOCBaseConfigDemoUITestsLaunchTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemoUITestsLaunchTests.m; sourceTree = "<group>"; };
 		1367FE9E27F6821172EED101 /* JobsOCBaseConfigDemoUITests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemoUITests.m; sourceTree = "<group>"; };
+		16C75AE1E22B0AB170D00B70 /* JobsUserInfoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsUserInfoVC.m; sourceTree = "<group>"; };
 		1AA1E24405A9FE78E83149BE /* JobsMicroSessionDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsMicroSessionDemoVC.m; sourceTree = "<group>"; };
 		1B696CDA146DBA4C9845E442 /* JobsMicroWeakScriptHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsMicroWeakScriptHandler.h; sourceTree = "<group>"; };
+		2035305E4A607EB79A70DA8D /* JobsDeviceInfoItem.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsDeviceInfoItem.h; sourceTree = "<group>"; };
 		29DE10B70EBD21FFF5EAA45B /* JobsMicroSandboxStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsMicroSandboxStore.h; sourceTree = "<group>"; };
+		2A0F2D2A23B00A0A9A5776FA /* JobsDeviceInfoItem.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsDeviceInfoItem.m; sourceTree = "<group>"; };
+		2FAD5A1EA196596485066CE9 /* JobsOCDeviceGuardLaunchGate.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCDeviceGuardLaunchGate.m; sourceTree = "<group>"; };
 		3906B5AD2A86A07174D69D09 /* JobsMicroLearning.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = JobsMicroLearning.bundle; path = Resource/JobsMicroLearning.bundle; sourceTree = "<group>"; };
+		41220B607F41ED6D74A216B5 /* JobsDeviceDescription.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsDeviceDescription.m; sourceTree = "<group>"; };
 		44DC6A848D569C29C2CB5EF0 /* JobsOCBaseConfigDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JobsOCBaseConfigDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		45561155E42DA93B850E03C1 /* run_regression.rb */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = run_regression.rb; sourceTree = "<group>"; };
+		469622D047A9D30CBDE25F89 /* JobsOCDeviceGuardLaunchDecision.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCDeviceGuardLaunchDecision.m; sourceTree = "<group>"; };
 		486CF0B2C58840A1F0A06ED1 /* JobsMicroSandboxStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsMicroSandboxStore.m; sourceTree = "<group>"; };
 		4A94D956954F8CD6B5606A2D /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.debug.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		4F6C20FA1447394B709F8A04 /* WKWebView+JobsMicroFactory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "WKWebView+JobsMicroFactory.m"; sourceTree = "<group>"; };
+		5C07B4BF400BC7367305831F /* JobsOCDeviceGuardLaunchTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCDeviceGuardLaunchTests.m; sourceTree = "<group>"; };
+		61C6BE588758B0004D2433E0 /* JobsOCDeviceGuardLaunchGate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCDeviceGuardLaunchGate.h; sourceTree = "<group>"; };
 		68A0E69F27DACF5D83847C0A /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		6A3D75C49E28B512466A23E4 /* 【MacOS】🌐CocoaPods源自动选择.command */ = {isa = PBXFileReference; includeInIndex = 1; path = "【MacOS】🌐CocoaPods源自动选择.command"; sourceTree = "<group>"; };
 		7C0E452ACE57715495DB7004 /* Pods-JobsOCBaseConfigDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JobsOCBaseConfigDemo.release.xcconfig"; path = "Target Support Files/Pods-JobsOCBaseConfigDemo/Pods-JobsOCBaseConfigDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -86,21 +102,28 @@
 		919BABB0D5D1941F6DE6B852 /* 【MacOS@Xcode】🫘打开终端运行Pod Install.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "【MacOS@Xcode】🫘打开终端运行Pod Install.command"; sourceTree = "<group>"; };
 		93E2A01E9486C0D38D8D2CA2 /* JobsOCBaseConfigDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JobsOCBaseConfigDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D7F0199688591CFA4966FFE /* JobsMicroAppDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsMicroAppDemoVC.m; sourceTree = "<group>"; };
+		A61D145255E527F1A2698FFC /* JobsOCDeviceGuardBlockedVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCDeviceGuardBlockedVC.h; sourceTree = "<group>"; };
 		A8DA4C4E86861E17E919BA16 /* JobsMicroPlatformProvider.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsMicroPlatformProvider.h; sourceTree = "<group>"; };
 		AC6D68573470B6B4F48A6859 /* JobsMicroSandboxDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsMicroSandboxDemoVC.m; sourceTree = "<group>"; };
+		B4D7EC085B6C874DD1AE8490 /* JobsOCDeviceGuardLaunchDecision.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCDeviceGuardLaunchDecision.h; sourceTree = "<group>"; };
+		B617CCB57A3B1E5F529A495B /* JobsDeviceDescription.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsDeviceDescription.h; sourceTree = "<group>"; };
 		B89D0E4143A84838782D4A4E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BC249555E7BC8CD51781B6D8 /* jobs_cocoapods_source.rb */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = jobs_cocoapods_source.rb; sourceTree = "<group>"; };
+		C15DDD24F5BD8B517A11E28F /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		C466F387671A17C50C476C16 /* JobsMicroPlatformProvider.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsMicroPlatformProvider.m; sourceTree = "<group>"; };
 		C4849E9E48B53615FF848EDE /* JobsMicroLearningBaseVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsMicroLearningBaseVC.m; sourceTree = "<group>"; };
 		C50913B32F85D89000F261DA /* JobsOCBaseConfigDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JobsOCBaseConfigDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C79056C886AC24C7997D4023 /* JobsMicroPWADemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsMicroPWADemoVC.m; sourceTree = "<group>"; };
 		C920BD66667884C72A4E65C3 /* JobsOCBaseConfigDemoTests.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCBaseConfigDemoTests.m; sourceTree = "<group>"; };
 		CBBE53611D4669CB547BA048 /* JobsMicroPWADemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsMicroPWADemoVC.h; sourceTree = "<group>"; };
+		D9B78BB968B1FB12E3043D43 /* JobsOCDeviceGuardLaunchTests.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsOCDeviceGuardLaunchTests.h; sourceTree = "<group>"; };
 		E85110B57723F6DE7A48D269 /* JobsMicroPlatformDemoVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsMicroPlatformDemoVC.m; sourceTree = "<group>"; };
+		E9C4E09890A3EB99D6AA2BAD /* JobsOCDeviceGuardBlockedVC.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = JobsOCDeviceGuardBlockedVC.m; sourceTree = "<group>"; };
 		EAEADC150FA46CA0EFDE0042 /* JobsMicroSessionDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsMicroSessionDemoVC.h; sourceTree = "<group>"; };
 		F0B29F4C627712920E161441 /* WKWebView+JobsMicroFactory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "WKWebView+JobsMicroFactory.h"; sourceTree = "<group>"; };
 		F20000042F22000100C0DE01 /* JobsOCWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = JobsOCWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F628BDF76E273438136283F4 /* JobsMicroAppDemoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsMicroAppDemoVC.h; sourceTree = "<group>"; };
+		FF4C4596963F54E3B272BDC7 /* JobsUserInfoVC.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JobsUserInfoVC.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -129,6 +152,14 @@
 				"业务逻辑/功能模块/Demo@MicroAppLearning/JobsMicroPWADemoVC.m",
 				"业务逻辑/功能模块/Demo@MicroAppLearning/JobsMicroAppDemoVC.m",
 				"业务逻辑/功能模块/Demo@MicroAppLearning/Resource/JobsMicroLearning.bundle",
+				"业务逻辑/功能模块/JobsDeviceDescription/JobsDeviceInfoItem/JobsDeviceInfoItem.m",
+				"业务逻辑/功能模块/JobsDeviceDescription/JobsDeviceDescription/JobsDeviceDescription.m",
+				"业务逻辑/功能模块/JobsDeviceDescription/JobsUserInfoVC/JobsUserInfoVC.m",
+				"业务逻辑/功能模块/JobsDeviceDescription/README.md",
+				"入口/JobsDeviceGuardLaunch/JobsOCDeviceGuardBlockedVC/JobsOCDeviceGuardBlockedVC.m",
+				"入口/JobsDeviceGuardLaunch/JobsOCDeviceGuardLaunchGate/JobsOCDeviceGuardLaunchGate.m",
+				"入口/JobsDeviceGuardLaunch/JobsOCDeviceGuardLaunchDecision/JobsOCDeviceGuardLaunchDecision.m",
+				"入口/JobsDeviceGuardLaunch/README.md",
 			);
 			target = C50913B22F85D89000F261DA /* JobsOCBaseConfigDemo */;
 		};
@@ -211,6 +242,36 @@
 			path = ScriptsByPods;
 			sourceTree = "<group>";
 		};
+		480A9AEA62E61333344F5774 /* JobsOCDeviceGuardBlockedVC */ = {
+			isa = PBXGroup;
+			children = (
+				A61D145255E527F1A2698FFC /* JobsOCDeviceGuardBlockedVC.h */,
+				E9C4E09890A3EB99D6AA2BAD /* JobsOCDeviceGuardBlockedVC.m */,
+			);
+			name = JobsOCDeviceGuardBlockedVC;
+			path = JobsOCDeviceGuardBlockedVC;
+			sourceTree = "<group>";
+		};
+		72E66C96C1FEC4C5CC3C7615 /* JobsDeviceDescription */ = {
+			isa = PBXGroup;
+			children = (
+				B617CCB57A3B1E5F529A495B /* JobsDeviceDescription.h */,
+				41220B607F41ED6D74A216B5 /* JobsDeviceDescription.m */,
+			);
+			name = JobsDeviceDescription;
+			path = JobsDeviceDescription;
+			sourceTree = "<group>";
+		};
+		76CEBE2DBA98CD864056A968 /* JobsOCDeviceGuardLaunchTests */ = {
+			isa = PBXGroup;
+			children = (
+				D9B78BB968B1FB12E3043D43 /* JobsOCDeviceGuardLaunchTests.h */,
+				5C07B4BF400BC7367305831F /* JobsOCDeviceGuardLaunchTests.m */,
+			);
+			name = JobsOCDeviceGuardLaunchTests;
+			path = JobsOCDeviceGuardLaunchTests;
+			sourceTree = "<group>";
+		};
 		7B52EAE0C362A1A823596023 /* 【MacOS@Xcode】🫘打开终端运行Pod Install.command */ = {
 			isa = PBXGroup;
 			children = (
@@ -218,6 +279,16 @@
 				B89D0E4143A84838782D4A4E /* README.md */,
 			);
 			path = "【MacOS@Xcode】🫘打开终端运行Pod Install.command";
+			sourceTree = "<group>";
+		};
+		82FD5C2BA066891643860884 /* JobsDeviceInfoItem */ = {
+			isa = PBXGroup;
+			children = (
+				2035305E4A607EB79A70DA8D /* JobsDeviceInfoItem.h */,
+				2A0F2D2A23B00A0A9A5776FA /* JobsDeviceInfoItem.m */,
+			);
+			name = JobsDeviceInfoItem;
+			path = JobsDeviceInfoItem;
 			sourceTree = "<group>";
 		};
 		89C5F56ADC44A64EAA9EDCF3 /* JobsMicroAppLearning */ = {
@@ -249,12 +320,54 @@
 			path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@MicroAppLearning";
 			sourceTree = SOURCE_ROOT;
 		};
+		8CFFC380C036B09E1AD42329 /* JobsUserInfoVC */ = {
+			isa = PBXGroup;
+			children = (
+				FF4C4596963F54E3B272BDC7 /* JobsUserInfoVC.h */,
+				16C75AE1E22B0AB170D00B70 /* JobsUserInfoVC.m */,
+			);
+			name = JobsUserInfoVC;
+			path = JobsUserInfoVC;
+			sourceTree = "<group>";
+		};
 		93091DF3A4BAECE6B7AEAD38 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				8BE608D790F4B9DDF11D6090 /* Pods_JobsOCBaseConfigDemo.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		997C6198D8DDFB8E60508E00 /* JobsDeviceDescription */ = {
+			isa = PBXGroup;
+			children = (
+				82FD5C2BA066891643860884 /* JobsDeviceInfoItem */,
+				72E66C96C1FEC4C5CC3C7615 /* JobsDeviceDescription */,
+				8CFFC380C036B09E1AD42329 /* JobsUserInfoVC */,
+				0304BA1703BE77F92ED98F50 /* README.md */,
+			);
+			name = JobsDeviceDescription;
+			path = "JobsOCBaseConfigDemo/业务逻辑/功能模块/JobsDeviceDescription";
+			sourceTree = "<group>";
+		};
+		AAB27EB1579C171084456F41 /* JobsOCDeviceGuardLaunchDecision */ = {
+			isa = PBXGroup;
+			children = (
+				B4D7EC085B6C874DD1AE8490 /* JobsOCDeviceGuardLaunchDecision.h */,
+				469622D047A9D30CBDE25F89 /* JobsOCDeviceGuardLaunchDecision.m */,
+			);
+			name = JobsOCDeviceGuardLaunchDecision;
+			path = JobsOCDeviceGuardLaunchDecision;
+			sourceTree = "<group>";
+		};
+		AE226B234BF36BF72856E154 /* JobsOCDeviceGuardLaunchGate */ = {
+			isa = PBXGroup;
+			children = (
+				61C6BE588758B0004D2433E0 /* JobsOCDeviceGuardLaunchGate.h */,
+				2FAD5A1EA196596485066CE9 /* JobsOCDeviceGuardLaunchGate.m */,
+			);
+			name = JobsOCDeviceGuardLaunchGate;
+			path = JobsOCDeviceGuardLaunchGate;
 			sourceTree = "<group>";
 		};
 		BC633F53CA87B082B6A341B7 /* JobsOCBaseConfigDemoUITests */ = {
@@ -278,6 +391,8 @@
 				DCF1DEF79146AB572BF5E570 /* JobsOCBaseConfigDemoTests */,
 				BC633F53CA87B082B6A341B7 /* JobsOCBaseConfigDemoUITests */,
 				89C5F56ADC44A64EAA9EDCF3 /* JobsMicroAppLearning */,
+				997C6198D8DDFB8E60508E00 /* JobsDeviceDescription */,
+				DF5824C704AE48BF370A206D /* JobsDeviceGuardLaunch */,
 			);
 			sourceTree = "<group>";
 		};
@@ -308,8 +423,21 @@
 			isa = PBXGroup;
 			children = (
 				C920BD66667884C72A4E65C3 /* JobsOCBaseConfigDemoTests.m */,
+				76CEBE2DBA98CD864056A968 /* JobsOCDeviceGuardLaunchTests */,
 			);
 			path = JobsOCBaseConfigDemoTests;
+			sourceTree = "<group>";
+		};
+		DF5824C704AE48BF370A206D /* JobsDeviceGuardLaunch */ = {
+			isa = PBXGroup;
+			children = (
+				AAB27EB1579C171084456F41 /* JobsOCDeviceGuardLaunchDecision */,
+				AE226B234BF36BF72856E154 /* JobsOCDeviceGuardLaunchGate */,
+				480A9AEA62E61333344F5774 /* JobsOCDeviceGuardBlockedVC */,
+				C15DDD24F5BD8B517A11E28F /* README.md */,
+			);
+			name = JobsDeviceGuardLaunch;
+			path = "JobsOCBaseConfigDemo/入口/JobsDeviceGuardLaunch";
 			sourceTree = "<group>";
 		};
 		EA4E9321151D073227FB210E /* Pods */ = {
@@ -595,6 +723,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC1C719151A2A5E6269A5C16 /* JobsOCBaseConfigDemoTests.m in Sources */,
+				FD5160958FC5B3F4F6F55BCF /* JobsOCDeviceGuardLaunchTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,6 +741,12 @@
 				7B3B3BA8799FB4FB555CAA59 /* JobsMicroSessionDemoVC.m in Sources */,
 				E710BB477D363530F94F4237 /* JobsMicroWeakScriptHandler.m in Sources */,
 				0FF80B6967CB9483D0CA66B5 /* WKWebView+JobsMicroFactory.m in Sources */,
+				3FBDC6CC3831551F702CDCA5 /* JobsDeviceInfoItem.m in Sources */,
+				879AC7003D1E8DD12246B880 /* JobsDeviceDescription.m in Sources */,
+				BF2AAC20C323CFFD5E0EFA22 /* JobsUserInfoVC.m in Sources */,
+				1C7517AA7D633DFEE902AD7C /* JobsOCDeviceGuardLaunchDecision.m in Sources */,
+				E2B2ED5FAA7A0B9F9E54E6C0 /* JobsOCDeviceGuardLaunchGate.m in Sources */,
+				C51209B0AA9889EE202ED406 /* JobsOCDeviceGuardBlockedVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -667,6 +802,7 @@
 		};
 		28CE8C85E509901AEE11E34D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4A94D956954F8CD6B5606A2D /* Pods-JobsOCBaseConfigDemo.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -675,8 +811,15 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/JobsOCBaseConfigDemo/**",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "";
+				"OTHER_LDFLAGS[sdk=iphoneos*]" = "";
+				"OTHER_LDFLAGS[sdk=iphonesimulator*]" = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jobs.JobsOCBaseConfigDemoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -706,6 +849,7 @@
 		};
 		C2E25CB94CCEF58C361E60F0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C0E452ACE57715495DB7004 /* Pods-JobsOCBaseConfigDemo.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -714,8 +858,15 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/JobsOCBaseConfigDemo/**",
+				);
 				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "";
+				"OTHER_LDFLAGS[sdk=iphoneos*]" = "";
+				"OTHER_LDFLAGS[sdk=iphonesimulator*]" = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jobs.JobsOCBaseConfigDemoTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;

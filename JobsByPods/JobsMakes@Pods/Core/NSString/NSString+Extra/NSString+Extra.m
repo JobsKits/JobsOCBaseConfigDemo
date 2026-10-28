@@ -10,6 +10,7 @@
 #import <JobsMakes/UIColor+Extra.h>
 
 @implementation NSString (JobsMakesExtra)
+
 -(UIColor *)cor{
     return (((JobsRetCorByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsCor)))(self, @selector(jobsCor)))();
 }

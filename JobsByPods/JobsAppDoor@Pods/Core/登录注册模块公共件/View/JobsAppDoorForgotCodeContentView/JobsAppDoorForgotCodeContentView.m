@@ -8,6 +8,7 @@
 #import "JobsAppDoorForgotCodeContentView.h"
 
 @interface JobsAppDoorForgotCodeContentView ()
+
 /// UI
 Prop_strong()UILabel *titleLab;                             // 标题
 Prop_strong()BaseButton *backToLoginBtn;                    // 返回登录
@@ -24,6 +25,7 @@ Prop_strong()BaseButton *contactCustomerServiceBtn;         // 联系客服按�
 @end
 
 @implementation JobsAppDoorForgotCodeContentView
+
 #pragma mark —— Lifecycle
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);

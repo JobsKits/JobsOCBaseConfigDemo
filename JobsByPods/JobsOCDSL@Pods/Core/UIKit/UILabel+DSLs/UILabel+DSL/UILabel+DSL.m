@@ -123,6 +123,7 @@ Prop_copy()NSString *originalText;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCDSLAnimatedNumberStore
 
 @implementation JobsOCDSLAnimatedNumberStore
+
 -(JobsRetIDByIDBlock _Nonnull)byStart{
     @jobs_weakify(self)
     return ^id _Nullable(NSNumber *_Nullable data){
@@ -217,6 +218,7 @@ static NSString *JobsOCDSLAnimatedNumberText(double value, NSInteger decimals){
 @end
 
 @implementation UILabel (DSL)
+
 -(JobsRetNSMutableAttributedStringByVoidBlock _Nonnull)makeAttributedStringBySelfText{
     @jobs_weakify(self)
     return ^__kindof NSMutableAttributedString *{
@@ -697,6 +699,7 @@ JobsKey(_transformLayerDirectionType)
 @end
 
 @implementation UILabel (JobsOCDSLAnimatedNumber)
+
 -(JobsRetJobsOCDSLAnimatedNumberStoreByVoidBlock _Nonnull)jobs_ocdslAnimatedNumberStore{
     @jobs_weakify(self)
     return ^JobsOCDSLAnimatedNumberStore *{

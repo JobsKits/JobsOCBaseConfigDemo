@@ -14,6 +14,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UITabBar
 
 @implementation UITabBar (DSL)
+
 +(jobsByTabBarAppearanceBlock _Nonnull)jobsApplyStandardAppearance{
     return ^(UITabBarAppearance *_Nonnull appearance){
         [UITabBar.appearance setStandardAppearance:appearance];

@@ -45,6 +45,7 @@ Prop_assign() CMTime lastPresentationTime;
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END AVAssetWriterInput
 
 @implementation JobsOCVideoRecorderAssetWriter
+
 -(instancetype)initWithConfig:(JobsOCVideoRecorderConfig *)config{
     if (self = [super init]) {
         _config = config ?: JobsOCVideoRecorderConfig.defaultConfig();

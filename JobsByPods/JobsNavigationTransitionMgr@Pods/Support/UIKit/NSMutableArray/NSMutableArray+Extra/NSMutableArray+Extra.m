@@ -8,6 +8,7 @@
 #import "NSMutableArray+Extra.h"
 
 @implementation NSMutableArray (Extra)
+
 +(JobsRetArrByArrBlock _Nonnull)initBy{
     return ^__kindof NSArray *_Nullable(__kindof NSArray *_Nullable data){
         return [NSMutableArray arrayWithArray:data];

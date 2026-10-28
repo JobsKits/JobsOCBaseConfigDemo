@@ -8,6 +8,7 @@
 #import "BaiShaETProjBankAccMgmtCVCell.h"
 
 @interface BaiShaETProjBankAccMgmtCVCell ()
+
 /// UI
 Prop_strong()UIView *logoContainerView;
 Prop_strong()UIImageView *logoView;
@@ -17,6 +18,7 @@ Prop_strong()UILabel *detailLab;
 @end
 
 @implementation BaiShaETProjBankAccMgmtCVCell
+
 - (instancetype)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
         self

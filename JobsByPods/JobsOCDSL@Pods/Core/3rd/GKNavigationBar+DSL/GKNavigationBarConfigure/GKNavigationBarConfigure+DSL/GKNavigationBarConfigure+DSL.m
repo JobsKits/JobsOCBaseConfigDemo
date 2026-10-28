@@ -8,6 +8,7 @@
 #import "GKNavigationBarConfigure+DSL.h"
 
 @implementation GKNavigationBarConfigure (DSL)
+
 +(JobsRetGKNavigationBarConfigureByVoidBlock _Nonnull)bySetupDefault{
     return ^__kindof GKNavigationBarConfigure *_Nonnull{
         GKNavigationBarConfigure *configure = GKNavigationBarConfigure.sharedInstance;

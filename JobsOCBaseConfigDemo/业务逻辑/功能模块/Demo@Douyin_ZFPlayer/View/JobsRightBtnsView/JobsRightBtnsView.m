@@ -8,6 +8,7 @@
 #import "JobsRightBtnsView.h"
 
 @interface JobsRightBtnsView ()
+
 /// UI
 Prop_strong()BaseButton *loveBtn;/// 点赞
 Prop_strong()BaseButton *commentBtn;/// 评论
@@ -20,6 +21,7 @@ Prop_assign()BOOL isSelected;
 @end
 
 @implementation JobsRightBtnsView
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 #pragma mark —— BaseProtocol

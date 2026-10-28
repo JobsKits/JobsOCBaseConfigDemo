@@ -8,6 +8,7 @@
 #import "UIColor+Extra.h"
 
 @implementation UIColor (Extra)
+
 #pragma mark —— 类方法
 /// 十六进制字符串 => UIColor *
 +(JobsRetCorByStrBlock _Nonnull)jobsCor{

@@ -8,6 +8,7 @@
 #import "NSObject+YTKRequest.h"
 
 @implementation NSObject (YTKRequest)
+
 #pragma mark —— YTKChainRequestDelegate
 -(void)chainRequestFinished:(YTKChainRequest *)chainRequest{
     YTKBaseRequest *resultRequest = chainRequest.requestArray.lastObject;

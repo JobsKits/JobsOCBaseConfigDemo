@@ -31,6 +31,7 @@ Prop_assign()CGFloat defaultEnd;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAnimatedNumberLabelDemoVC
 
 @implementation JobsAnimatedNumberLabelDemoVC
+
 -(void)dealloc{
     if (_valueLabel) _valueLabel.byStopAnimatedTextNumber();
     JobsLog(@"%@",JobsLocalFunc);

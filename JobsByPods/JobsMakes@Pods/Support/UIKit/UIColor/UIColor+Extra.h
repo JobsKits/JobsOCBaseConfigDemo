@@ -22,6 +22,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIColor (Extra)
+
 /// 十六进制字符串 => UIColor *
 +(JobsRetCorByStrBlock _Nonnull)jobsCor;
 

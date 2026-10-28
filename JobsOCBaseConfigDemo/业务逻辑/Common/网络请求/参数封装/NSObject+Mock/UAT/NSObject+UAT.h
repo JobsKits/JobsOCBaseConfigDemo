@@ -28,6 +28,7 @@
 NS_ASSUME_NONNULL_BEGIN
 /// UAT环境
 @interface NSObject (UAT)
+
 #pragma mark —— 登录
 /// 手机号码：09970000001
 /// 验证码：888

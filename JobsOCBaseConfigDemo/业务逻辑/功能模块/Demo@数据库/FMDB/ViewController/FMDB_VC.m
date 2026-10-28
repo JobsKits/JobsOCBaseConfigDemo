@@ -8,12 +8,14 @@
 #import "FMDB_VC.h"
 
 @interface FMDB_VC ()<UITableViewDelegate,UITableViewDataSource>
+
 /// Data
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 
 @end
 
 @implementation FMDB_VC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

@@ -8,6 +8,7 @@
 #import "JobsOCSkeletonConfig.h"
 
 @implementation JobsOCSkeletonConfig
+
 +(JobsRetJobsOCSkeletonConfigByVoidBlock _Nonnull)defaultConfig{
     return ^JobsOCSkeletonConfig *{
         return self.shimmerConfig();

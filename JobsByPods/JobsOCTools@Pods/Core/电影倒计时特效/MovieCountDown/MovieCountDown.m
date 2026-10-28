@@ -8,6 +8,7 @@
 #import "MovieCountDown.h"
 
 @interface MovieCountDown ()
+
 /// UI
 Prop_strong()UILabel *countDown;
 Prop_strong()UIView *aphView;
@@ -15,6 +16,7 @@ Prop_strong()UIView *aphView;
 @end
 
 @implementation MovieCountDown
+
 -(instancetype)init{
     if (self = [super init]) {
     };return self;

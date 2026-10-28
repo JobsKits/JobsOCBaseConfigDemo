@@ -38,6 +38,7 @@ Prop_assign()BOOL runtimeReady;
                      secondURL:(NSURL *)secondURL;
 
 @end
+
 @interface JobsOCMarkdownWeakMessageHandler : NSObject <WKScriptMessageHandler>
 
 Prop_weak(nullable)id<WKScriptMessageHandler> target;

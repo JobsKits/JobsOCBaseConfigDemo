@@ -77,6 +77,7 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCRefreshSlot
 
 @implementation JobsOCRefreshSlot
+
 -(JobsRetIDByIDBlock _Nonnull)byScrollView{
     @jobs_weakify(self)
     return ^id(UIScrollView *scrollView){
@@ -433,6 +434,7 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCRefreshProxy
 
 @implementation JobsOCRefreshProxy
+
 - (instancetype)initWithScrollView:(UIScrollView *)scrollView {
     if (self = super.init) {
         _scrollView = scrollView;
@@ -623,6 +625,7 @@ Prop_strong(nullable) JobsOCRefreshSlot *right;
 @end
 
 @implementation UIScrollView (JobsOCRefresher)
+
 - (JobsRetJobsOCRefreshProxyByVoidBlock _Nonnull)jobs_refreshProxy {
     @jobs_weakify(self)
     return ^JobsOCRefreshProxy *{

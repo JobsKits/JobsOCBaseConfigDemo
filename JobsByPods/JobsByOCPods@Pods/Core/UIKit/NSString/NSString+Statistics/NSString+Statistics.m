@@ -8,6 +8,7 @@
 #import "NSString+Statistics.h"
 
 @implementation NSString (Statistics)
+
 #pragma mark —— 字符串的 统计 & 计算
 /// 统计字符串中中英文的字数
 -(JobsRetByNSIntegerBlock _Nonnull)statisticsAlphabetNumberByType{

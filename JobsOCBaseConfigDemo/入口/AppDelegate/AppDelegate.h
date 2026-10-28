@@ -48,6 +48,7 @@ UIApplicationDelegate,
 UNUserNotificationCenterDelegate,
 BaseProtocol
 >
+
 /// UI
 Prop_strong()UIWindow *window; // 仅仅为了iOS 13 版本向下兼容而存在
 /// Data

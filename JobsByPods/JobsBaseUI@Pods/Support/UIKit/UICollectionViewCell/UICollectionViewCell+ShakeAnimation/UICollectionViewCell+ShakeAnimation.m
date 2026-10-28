@@ -8,6 +8,7 @@
 #import "UICollectionViewCell+ShakeAnimation.h"
 
 @implementation UICollectionViewCell (ShakeAnimation)
+
 /// 实现cell抖动方法
 -(jobsByVoidBlock _Nonnull)beginShake{
     @jobs_weakify(self)

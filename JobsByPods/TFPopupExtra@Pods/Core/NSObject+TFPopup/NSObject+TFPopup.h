@@ -60,6 +60,7 @@
 #endif /* ShowTipsByModel */
 
 @interface TFPopupParam (JobsDSL)
+
 -(JobsRetTFPopupParamByCGFloatBlock _Nonnull)byDuration;
 -(JobsRetTFPopupParamByCGFloatBlock _Nonnull)byShowAnimationDelay;
 -(JobsRetTFPopupParamByCGFloatBlock _Nonnull)byHideAnimationDelay;
@@ -69,6 +70,7 @@
 -(JobsRetTFPopupParamByCGFloatBlock _Nonnull)byAutoDissmissDuration;
 -(JobsRetTFPopupParamByBOOLBlock _Nonnull)byDisuseBackgroundTouchHide;
 -(JobsRetTFPopupParamByCorBlock _Nonnull)byBackgroundColor;
+
 @end
 
 #pragma mark —— 创建数据源
@@ -109,6 +111,7 @@ NS_INLINE TFPopupParam *_Nonnull makeSlidePopupParameterByViewSize(CGSize viewSi
 NS_ASSUME_NONNULL_BEGIN
 /// 弹出一个弹窗
 @interface NSObject (TFPopup)
+
 /// Data
 Prop_strong(nullable)TFPopupParam *popupParameter;
 Prop_strong(nullable)TFPopupParam *tipsParameter;

@@ -9,6 +9,7 @@
 
 JobsKey(JobsTableViewEmptyDataReloadingKey)
 @implementation UITableView (EmptyData)
+
 +(void)load{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

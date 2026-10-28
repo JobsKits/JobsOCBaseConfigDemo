@@ -12,6 +12,7 @@
 @end
 
 @implementation FlowChartSingleElementView
+
 -(void)drawRect:(CGRect)rect{
     jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FlowChartSingleElementView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
     if (action) action(rect);
@@ -84,6 +85,7 @@ Prop_strong()NSMutableArray <FlowChartSingleElementView *>*singleElementMutArr;
 @end
 
 @implementation FindCodeFlowChartView
+
 static dispatch_once_t dispatchOnce;
 -(instancetype)init{
     if (self = [super init]) {

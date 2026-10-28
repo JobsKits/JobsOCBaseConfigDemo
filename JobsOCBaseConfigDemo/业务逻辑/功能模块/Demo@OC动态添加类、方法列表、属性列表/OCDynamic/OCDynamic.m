@@ -8,6 +8,7 @@
 #import "OCDynamic.h"
 
 @implementation OCDynamic
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);

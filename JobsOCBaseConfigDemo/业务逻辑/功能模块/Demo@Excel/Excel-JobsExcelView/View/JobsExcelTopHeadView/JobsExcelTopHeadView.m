@@ -20,6 +20,7 @@ Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsExcelTopHeadView
 
 @implementation JobsExcelTopHeadView
+
 /// RACProtocol
 @synthesize racDisposable = _racDisposable;// 用于取消订阅
 - (void)dealloc {

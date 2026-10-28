@@ -8,6 +8,7 @@
 #import "UIViewController+MJRefresh.h"
 
 @implementation UIViewController (MJRefresh)
+
 /*
  * 相关继承关系图谱 4个header + 9个Footer ;已经实现的👌
     MJRefreshGifHeader  👌 ->MJRefreshStateHeader->MJRefreshHeader->MJRefreshComponent->UIView

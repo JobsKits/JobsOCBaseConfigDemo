@@ -39,6 +39,7 @@
 
 @protocol MianTableViewCellDelegate <NSObject>
 -(jobsByScrollViewBlock _Nonnull)mianTableViewCellScrollerDid;
+
 @end
 
 typedef MainTableViewCell *_Nonnull(^JobsRetMainTableViewCellByDelegateBlock)(NSObject<MianTableViewCellDelegate> * _Nullable delegate);
@@ -56,6 +57,7 @@ UICollectionViewDelegate,
 UICollectionViewDataSource,
 UICollectionViewDelegateFlowLayout
 >
+
 /// Data
 Prop_weak()NSObject <MianTableViewCellDelegate> *delegate;
 

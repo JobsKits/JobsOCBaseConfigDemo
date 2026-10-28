@@ -32,10 +32,12 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JPImageresizerAppearance (JobsDSL)
+
 -(JobsRetJPImageresizerAppearanceByCorBlock _Nonnull)byStrokeColor;
 -(JobsRetJPImageresizerAppearanceByBlurEffectBlock _Nonnull)byBgEffect;
 -(JobsRetJPImageresizerAppearanceByCorBlock _Nonnull)byBgColor;
 -(JobsRetJPImageresizerAppearanceByCGFloatBlock _Nonnull)byMaskAlpha;
+
 @end
 
 @interface UIViewController (JPImageresizerView)

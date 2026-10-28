@@ -63,6 +63,7 @@
 NS_ASSUME_NONNULL_BEGIN
 /// 触发退出登录模块之前，弹窗提示二次确认，确认以后再删除本地用户数据
 @interface NSObject (PopViewToLogOut)
+
 /// UI
 Prop_strong()JobsBasePopupView *logOutPopupView;
 /// Data

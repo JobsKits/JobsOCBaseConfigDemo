@@ -28,6 +28,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (AppTool)
+
 /// 仅在横屏情况下交换Size宽高的值
 -(JobsRetFrameByVoidBlock _Nonnull)fitSize;
 /// 仅在横屏情况下交换坐标XY的值

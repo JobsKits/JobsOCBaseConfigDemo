@@ -20,6 +20,7 @@ Prop_copy()jobsByIDBlock baseNavigationBarBlock;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END BaseNavigationBar
 
 @implementation BaseNavigationBar
+
 - (instancetype)init{
     if (self = [super init]) {
         self.byTranslucent(YES);

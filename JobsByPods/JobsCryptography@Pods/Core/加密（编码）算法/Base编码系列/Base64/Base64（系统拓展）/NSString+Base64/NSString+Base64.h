@@ -29,6 +29,7 @@
 #endif
 
 @interface NSString (Base64)
+
 #pragma mark —— Base64 <==> NSString
 ///【类方法】NSString对象 转换成  以Base64 编码的字符串
 +(JobsRetStrByStrBlock _Nonnull)base64String;
@@ -50,4 +51,5 @@
 -(JobsRetDataByVoidBlock _Nonnull)dataByBase64String;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_NSSTRING_BASE64_DC361D6A06 */

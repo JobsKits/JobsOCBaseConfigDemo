@@ -45,6 +45,7 @@ Prop_strong()UILabel *footnoteLabel;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END WidgetVC
 
 @implementation WidgetVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

@@ -8,6 +8,7 @@
 #import "IrregularBtn.h"
 
 @interface IrregularBtn()
+
 /// UI
 Prop_strong()UIBezierPath *path;
 Prop_strong()CAShapeLayer *shapLayer;
@@ -16,6 +17,7 @@ Prop_strong()CAShapeLayer *shapLayer;
 
 static dispatch_once_t irregularBtnDispatchOnce;
 @implementation IrregularBtn
+
 #pragma mark —— SysMethod
 -(instancetype)init{
     if (self = [super init]) {

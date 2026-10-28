@@ -32,6 +32,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface BRTextPickerView (Extra)
+
 /// 链式初始化：BRTextPickerView.initBy(BRTextPickerComponentSingle)
 +(BRPickerViewExtraRetTextPickerViewByPickerModeBlock)initBy;
 -(JobsRetBRTextPickerViewByPickerModeBlock _Nonnull)byPickerMode;

@@ -8,6 +8,7 @@
 #import "JobsIMChatInfoModel.h"
 
 @implementation JobsIMChatInfoModel
+
 #define JobsIMChatStrDSL(method, setter) \
 -(JobsRetJobsIMChatInfoModelByStrBlock _Nonnull)method{ \
     @jobs_weakify(self) \

@@ -11,6 +11,7 @@
 #pragma clang diagnostic ignored "-Wprotocol"
 
 @implementation NSObject (Data)
+
 #pragma mark —— 关于数据（MJExtension）解析
 /// 对待输入参数是含字典的数组
 +(JobsRetArrByArrBlock _Nonnull)byDataArr{

@@ -8,6 +8,7 @@
 #import "JobsHotLabelWithMultiLineModel.h"
 
 @implementation JobsHotLabelWithMultiLineModel
+
 -(JobsHeaderFooterViewModel *)headerViewModel{
     if (!_headerViewModel) {
         _headerViewModel = jobsMakeHeaderFooterViewModel(^(JobsHeaderFooterViewModel * _Nullable data) {

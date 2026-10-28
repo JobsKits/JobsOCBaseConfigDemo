@@ -8,6 +8,7 @@
 #import "JobsLocker.h"
 
 @interface JobsLocker () {
+
     pthread_mutex_t _pthreadMutex;
     os_unfair_lock _unfairLock;
     dispatch_semaphore_t _semaphore;
@@ -20,6 +21,7 @@ Prop_assign(readwrite)JobsLockerType type;
 @end
 
 @implementation JobsLocker
+
 #pragma mark —— Life Cycle
 
 - (instancetype)initWithType:(JobsLockerType)type {

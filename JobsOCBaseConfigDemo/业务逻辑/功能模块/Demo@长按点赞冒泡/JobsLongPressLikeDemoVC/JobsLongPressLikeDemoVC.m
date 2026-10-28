@@ -16,6 +16,7 @@ Prop_strong()UIImpactFeedbackGenerator *hapticFeedback;
 @end
 
 @implementation JobsLongPressLikeDemoVC
+
 -(void)dealloc {
     _likeBtn.byFuseBubbleStop();
     JobsLog(@"%@",JobsLocalFunc);

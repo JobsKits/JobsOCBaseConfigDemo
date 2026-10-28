@@ -8,6 +8,7 @@
 #import "UISegmentedControl+DSL.h"
 
 @implementation UISegmentedControl (DSL)
+
 -(JobsRetNSIntegerByVoidBlock _Nonnull)jobs_selectedSegmentIndex{
     @jobs_weakify(self)
     return ^NSInteger{

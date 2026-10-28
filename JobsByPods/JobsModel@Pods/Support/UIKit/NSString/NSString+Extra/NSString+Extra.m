@@ -8,6 +8,7 @@
 #import "NSString+Extra.h"
 
 @implementation NSString (JobsModelExtra)
+
 /// 完整的文件名提取普通文件名和文件后缀名
 /// 字符串是否包含URL【返回YES包含】
 -(JobsRetBOOLByVoidBlock _Nonnull)isContainsUrl{

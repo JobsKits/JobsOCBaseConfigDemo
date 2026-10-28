@@ -8,6 +8,7 @@
 #import "UIViewModel+DSL.h"
 
 @implementation UIViewModel (DSL)
+
 -(JobsRetUIViewModelByCGFloatBlock _Nonnull)byCornerRadiusValue{
     @jobs_weakify(self)
     return ^__kindof UIViewModel *_Nullable(CGFloat data) {

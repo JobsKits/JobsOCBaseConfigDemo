@@ -10,9 +10,16 @@
 //#import "AppDelegate+UISceneSessionLifeCycle.h"
 
 @implementation AppDelegate (UIApplicationDelegate)
+
 #pragma mark —— UIApplicationDelegate
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    JobsOCDeviceGuardLaunchDecision *decision = JobsOCDeviceGuardLaunchGate.prepare();
+    if (decision.blocked) {
+        NSLog(@"[DeviceGuardLaunch] 已阻断业务初始化，等待Scene展示拦截页");
+        return YES;
+    }
+    NSLog(@"[DeviceGuardLaunch] 已放行启动，verdict=%@", JobsOCDeviceGuardVerdictName(decision.report.verdict));
     (((JobsOCCrashLogCenter *)JobsOCCrashLogCenter.jobsSharedManager())).startMonitoring();
     JXScaleSetup(375.0, 812.0);
 //    JobsAppTool.currentInterfaceOrientation = UIInterfaceOrientationLandscapeLeft | UIInterfaceOrientationLandscapeRight;
@@ -28,6 +35,9 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 /// 一进入App就横屏 【此方法会执行多次】
 - (UIInterfaceOrientationMask)application:(UIApplication *)application
   supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+    if (JobsOCDeviceGuardLaunchGate.decision.blocked) {
+        return UIInterfaceOrientationMaskPortrait;
+    }
     return JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape ? JobsAppTool.currentInterfaceOrientationMask : UIInterfaceOrientationMaskPortrait;
 }
 /// 系统版本低于iOS13.0的设备
@@ -35,7 +45,9 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     @jobs_weakify(self)
     return ^(UIApplication * application){
         @jobs_strongify(self)
-        if (!self) return;
+        if (!self || JobsOCDeviceGuardLaunchGate.decision.blocked) {
+            return;
+        }
         ((JobsOCCrashLogCenter *)JobsOCCrashLogCenter.jobsSharedManager()).markSafeExitPoint();
         JobsLog(@"---applicationDidEnterBackground----");// 进入后台
         JobsPostNotification(退到后台停止播放ZFPlayer, nil);
@@ -46,7 +58,9 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     @jobs_weakify(self)
     return ^(UIApplication * application){
         @jobs_strongify(self)
-        if (!self) return;
+        if (!self || JobsOCDeviceGuardLaunchGate.decision.blocked) {
+            return;
+        }
         ((JobsOCCrashLogCenter *)JobsOCCrashLogCenter.jobsSharedManager()).markAppLaunched();
         JobsLog(@"---applicationDidBecomeActive----");// 进入前台
     };
@@ -59,17 +73,25 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     @jobs_weakify(self)
     return ^(UIApplication * application){
         @jobs_strongify(self)
-        if (!self) return;
+        if (!self || JobsOCDeviceGuardLaunchGate.decision.blocked) {
+            return;
+        }
         ((JobsOCCrashLogCenter *)JobsOCCrashLogCenter.jobsSharedManager()).markSafeExitPoint();
     };
 }
 
 - (void)application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    if (JobsOCDeviceGuardLaunchGate.decision.blocked) {
+        return;
+    }
 }
 
 - (void)application:(UIApplication *)application
 didFailToRegisterForRemoteNotificationsWithError:(nonnull NSError *)error {
+    if (JobsOCDeviceGuardLaunchGate.decision.blocked) {
+        return;
+    }
     JobsLog(@"Fail to register for remote notifications. error:%@",error);
 }
 

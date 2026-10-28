@@ -8,6 +8,7 @@
 #import "XLSphereView.h"
 
 @interface XLSphereView(){
+
     NSMutableArray *tags;
     NSMutableArray *coordinate;
     XLPoint normalDirection;
@@ -20,6 +21,7 @@
 @end
 
 @implementation XLSphereView
+
 -(instancetype)init{
     if (self = [super init]) {
         UIPanGestureRecognizer *gesture = [[UIPanGestureRecognizer alloc] initWithTarget:self

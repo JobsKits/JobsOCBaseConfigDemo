@@ -8,6 +8,7 @@
 #import "UIImageView+GIF.h"
 
 @implementation UIImageView (GIF)
+
 + (UIImageView *)imageViewWithGIFFile:(NSString *)file
                                 frame:(CGRect)frame{
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:frame];

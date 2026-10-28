@@ -8,6 +8,7 @@
 #import "NSString+Extra.h"
 
 @implementation NSString (Extra)
+
 /// 字符串是否包含URL【返回YES包含】
 -(JobsRetBOOLByVoidBlock _Nonnull)isContainsUrl{
     @jobs_weakify(self)

@@ -15,6 +15,7 @@ Prop_strong()CABasicAnimation *animation;
 @end
 
 @implementation CountdownView
+
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.byTime(3);

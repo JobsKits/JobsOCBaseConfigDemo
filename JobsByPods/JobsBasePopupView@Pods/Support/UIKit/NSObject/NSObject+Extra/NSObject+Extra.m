@@ -8,6 +8,7 @@
 #import "NSObject+Extra.h"
 
 @implementation NSObject (Extra)
+
 /// NSBundle
 +(NSBundle *)mainBundle{
     return (((JobsRetNSBundleByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(NSObject.class, @selector(jobsMainBundle)))(self, @selector(jobsMainBundle)))();

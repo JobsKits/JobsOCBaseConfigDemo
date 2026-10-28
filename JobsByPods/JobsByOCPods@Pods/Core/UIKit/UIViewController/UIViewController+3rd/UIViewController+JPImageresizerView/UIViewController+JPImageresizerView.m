@@ -8,6 +8,7 @@
 #import "UIViewController+JPImageresizerView.h"
 
 @implementation JPImageresizerAppearance (JobsDSL)
+
 #define JobsJPImageresizerAppearanceDSL(_name_, _blockType_, _dataType_, _property_) \
 -(_blockType_ _Nonnull)by##_name_{ \
     @jobs_weakify(self) \
@@ -22,6 +23,7 @@ JobsJPImageresizerAppearanceDSL(BgEffect, JobsRetJPImageresizerAppearanceByBlurE
 JobsJPImageresizerAppearanceDSL(BgColor, JobsRetJPImageresizerAppearanceByCorBlock, UIColor *_Nullable, bgColor)
 JobsJPImageresizerAppearanceDSL(MaskAlpha, JobsRetJPImageresizerAppearanceByCGFloatBlock, CGFloat, maskAlpha)
 #undef JobsJPImageresizerAppearanceDSL
+
 @end
 
 static void JobsApplyJPImageresizerBlurAppearance(JPImageresizerConfigure *configure,
@@ -35,6 +37,7 @@ static void JobsApplyJPImageresizerBlurAppearance(JPImageresizerConfigure *confi
 }
 
 @implementation UIViewController (JPImageresizerView)
+
 #pragma mark —— Prop_strong()JPImageresizerConfigure *configure;
 JobsKey(_configure)
 @dynamic configure;

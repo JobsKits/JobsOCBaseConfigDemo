@@ -32,4 +32,5 @@
 -(JobsRetTransitionControllerByIDUIViewControllerContextTransitioningBlock _Nonnull)byTransitionContext;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END TransitionController
 @end
+
 #endif /* JOBS_HEADER_GUARD_TRANSITIONCONTROLLER_E2B09297EB */

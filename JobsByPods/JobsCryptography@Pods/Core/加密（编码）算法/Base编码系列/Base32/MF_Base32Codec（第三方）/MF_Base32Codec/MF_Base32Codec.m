@@ -12,6 +12,7 @@
 @end
 
 @implementation MF_Base32Codec
+
 /// 将Base32编码的字符串转换为NSData对象
 +(JobsRetDataByStrBlock _Nonnull)dataFromBase32String{
     return ^NSData *_Nullable(__kindof NSString *_Nullable encoding){

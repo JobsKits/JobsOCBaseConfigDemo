@@ -19,6 +19,7 @@ Prop_copy(nullable) void (^completion)(JobsOCOpenResult result);
 @end
 
 @implementation _JobsOCOpenMailProxy
+
 -(JobsRetIDByJobsOCOpenResultBlockBlock _Nonnull)byCompletion{
     @jobs_weakify(self)
     return ^id(jobsByJobsOCOpenResultBlock _Nullable completion){
@@ -53,6 +54,7 @@ Prop_copy(nullable) void (^completion)(JobsOCOpenResult result);
 @end
 
 @implementation NSString (JobsOCOpen)
+
 -(JobsRetJobsOCOpenResultByVoidBlock _Nonnull)jobs_open{
     @jobs_weakify(self)
     return ^JobsOCOpenResult{

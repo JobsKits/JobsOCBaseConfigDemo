@@ -23,6 +23,7 @@
 #endif
 
 @interface JobsOCBaseConfigDemoUITests : XCTestCase
+
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCBaseConfigDemoUITests
 -(JobsRetJobsOCBaseConfigDemoUITestsByBOOLBlock _Nonnull)byContinueAfterFailure;
 -(void)setContinueAfterFailure:(BOOL)data;

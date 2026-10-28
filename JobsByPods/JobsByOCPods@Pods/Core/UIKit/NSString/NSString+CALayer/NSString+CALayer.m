@@ -8,6 +8,7 @@
 #import "NSString+CALayer.h"
 
 @implementation NSString (CALayer)
+
 /// OC字符串的文本改变方向
 /// @param aView 文本的控件
 /// @param aRect 控件的尺寸

@@ -8,6 +8,7 @@
 #import "FMBannerAdsModel+DSL.h"
 
 @implementation FMBannerAdsModel (DSL)
+
 -(JobsRetFMBannerAdsModelByStrBlock _Nonnull)byAccountName{
     @jobs_weakify(self)
     return ^__kindof FMBannerAdsModel *_Nullable(NSString * _Nullable data) {

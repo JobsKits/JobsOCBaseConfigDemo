@@ -14,6 +14,7 @@
 @end
 
 @implementation DynamicInvoke
+
 -(instancetype)init{
     if (self = [super init]) {
         self.invoke1();

@@ -19,6 +19,7 @@ Prop_strong() WKWebView *jobsOCOpenWebView;
 @end
 
 @implementation JobsOCOpenWebViewController
+
 -(JobsRetJobsOCOpenWebVCByURLBlock _Nonnull)byURL{
     @jobs_weakify(self)
     return ^__kindof JobsOCOpenWebViewController *_Nullable(NSURL *_Nullable URL){

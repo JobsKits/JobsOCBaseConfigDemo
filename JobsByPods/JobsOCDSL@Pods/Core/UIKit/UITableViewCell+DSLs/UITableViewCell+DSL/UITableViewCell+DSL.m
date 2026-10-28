@@ -7,6 +7,64 @@
 
 #import "UITableViewCell+DSL.h"
 
+static const void *JobsCellDisclosureOriginalStyleKey = &JobsCellDisclosureOriginalStyleKey;
+static const void *JobsCellDisclosureAppliedStyleKey = &JobsCellDisclosureAppliedStyleKey;
+static NSString *const JobsCellDisclosureThemeSlot = @"UITableViewCell.disclosureAppearance";
+
+static void JobsTableViewCellUpdateDisclosureTheme(UITableViewCell *cell) {
+    if (!cell) {
+        return;
+    }
+    if (@available(iOS 13.0, tvOS 13.0, *)) {
+        BOOL normalDisclosure = !cell.accessoryView &&
+            (cell.accessoryType == UITableViewCellAccessoryDisclosureIndicator ||
+             cell.accessoryType == UITableViewCellAccessoryDetailDisclosureButton);
+        BOOL editingDisclosure = !cell.editingAccessoryView &&
+            (cell.editingAccessoryType == UITableViewCellAccessoryDisclosureIndicator ||
+             cell.editingAccessoryType == UITableViewCellAccessoryDetailDisclosureButton);
+        NSNumber *originalStyle = objc_getAssociatedObject(cell, JobsCellDisclosureOriginalStyleKey);
+        if (!normalDisclosure && !editingDisclosure) {
+            [JobsThemeCenter.shared unbindObject:cell slot:JobsCellDisclosureThemeSlot];
+            NSNumber *appliedStyle = objc_getAssociatedObject(cell, JobsCellDisclosureAppliedStyleKey);
+            if (originalStyle && appliedStyle && cell.overrideUserInterfaceStyle == appliedStyle.integerValue) {
+                cell.overrideUserInterfaceStyle = originalStyle.integerValue;
+            }
+            objc_setAssociatedObject(cell, JobsCellDisclosureOriginalStyleKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(cell, JobsCellDisclosureAppliedStyleKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            return;
+        }
+        if (!originalStyle) {
+            if (cell.overrideUserInterfaceStyle != UIUserInterfaceStyleUnspecified) {
+                return;
+            }
+            objc_setAssociatedObject(cell,
+                                     JobsCellDisclosureOriginalStyleKey,
+                                     @(cell.overrideUserInterfaceStyle),
+                                     OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
+        /// 原生箭头按 UIKit 外观绘制，局部跟随 App 主题并保留调用方显式外观。
+        [JobsThemeCenter.shared bindObject:cell
+                                     slot:JobsCellDisclosureThemeSlot
+                                    apply:^(__kindof NSObject *object, JobsThemeCenter *center) {
+            UITableViewCell *boundCell = (UITableViewCell *)object;
+            NSNumber *appliedStyle = objc_getAssociatedObject(boundCell, JobsCellDisclosureAppliedStyleKey);
+            if (appliedStyle && boundCell.overrideUserInterfaceStyle != appliedStyle.integerValue) {
+                [center unbindObject:boundCell slot:JobsCellDisclosureThemeSlot];
+                objc_setAssociatedObject(boundCell, JobsCellDisclosureOriginalStyleKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                objc_setAssociatedObject(boundCell, JobsCellDisclosureAppliedStyleKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+                return;
+            }
+            UIUserInterfaceStyle style = center.isDarkMode ? UIUserInterfaceStyleDark : UIUserInterfaceStyleLight;
+            objc_setAssociatedObject(boundCell,
+                                     JobsCellDisclosureAppliedStyleKey,
+                                     @(style),
+                                     OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            boundCell.overrideUserInterfaceStyle = style;
+        }];
+    }
+}
+
+
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN UITableViewCell
 @interface UITableViewCell (JobsPropertyDSLSetterAutogen_6c0189895e)
 -(void)setArrows_size:(CGSize)data;
@@ -15,6 +73,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UITableViewCell
 
 @implementation UITableViewCell (DSL)
+
 -(JobsRetTableViewCellByLabelBlock _Nonnull)byTextLabel{
     @jobs_weakify(self)
     return ^__kindof UITableViewCell *_Nullable(jobsByLabelBlock _Nullable block){
@@ -204,6 +263,7 @@
     return ^__kindof UITableViewCell *_Nullable(UITableViewCellAccessoryType data){
         @jobs_strongify(self)
         self.accessoryType = data;
+        JobsTableViewCellUpdateDisclosureTheme(self);
         return self;
     };
 }
@@ -213,6 +273,7 @@
     return ^__kindof UITableViewCell *_Nullable(__kindof UIView *_Nullable data){
         @jobs_strongify(self)
         self.accessoryView = data;
+        JobsTableViewCellUpdateDisclosureTheme(self);
         return self;
     };
 }
@@ -222,6 +283,7 @@
     return ^__kindof UITableViewCell *_Nullable(UITableViewCellAccessoryType data){
         @jobs_strongify(self)
         self.editingAccessoryType = data;
+        JobsTableViewCellUpdateDisclosureTheme(self);
         return self;
     };
 }
@@ -231,6 +293,7 @@
     return ^__kindof UITableViewCell *_Nullable(__kindof UIView *_Nullable data){
         @jobs_strongify(self)
         self.editingAccessoryView = data;
+        JobsTableViewCellUpdateDisclosureTheme(self);
         return self;
     };
 }

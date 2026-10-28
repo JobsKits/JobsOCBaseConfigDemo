@@ -8,6 +8,7 @@
 #import "JobsMsgDetailVC.h"
 
 @interface JobsMsgDetailVC ()
+
 /// UI
 Prop_strong()UIView *headerCardView;
 Prop_strong()UIView *contentCardView;
@@ -28,6 +29,7 @@ Prop_strong()JobsMsgDataModel *msgDataModel;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsMsgDetailVC
 
 @implementation JobsMsgDetailVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);

@@ -8,6 +8,7 @@
 #import "NSString+Extra.h"
 
 @implementation NSString (Extra)
+
 -(jobsByVoidBlock _Nonnull)toast{
     @jobs_weakify(self)
     return ^(){

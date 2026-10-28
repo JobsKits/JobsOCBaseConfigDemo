@@ -8,6 +8,7 @@
 #import "NSString+ID.h"
 
 @implementation NSString (ID)
+
 -(JobsRetCollectionViewLayoutAttributesByNSIndexPathBlock _Nonnull)initCollectionViewLayoutAttributesForSupplementaryViewBy{
     @jobs_weakify(self)
     return ^__kindof UICollectionViewLayoutAttributes *_Nullable(__kindof NSIndexPath *_Nullable indexPath){

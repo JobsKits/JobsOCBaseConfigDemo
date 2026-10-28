@@ -10,8 +10,10 @@
 
 // 声明生产 delegate 入口；只替换外设 IO，不实现第二套命令调度逻辑。
 @interface JobsBluetoothManager (JobsBluetoothNativeDelegateStabilityAccess)
+
 -(void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error;
 -(void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error;
+
 @end
 
 @implementation JobsBluetoothStabilityTests

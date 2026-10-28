@@ -15,6 +15,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsAppDoorInputViewTFModel
 
 @implementation JobsAppDoorInputViewTFModel
+
 -(NSString *)PlaceHolder{
     if (!_PlaceHolder) {
         _PlaceHolder = @"".jobsTr();
@@ -53,6 +54,7 @@
 @end
 
 @implementation JobsAppDoorInputViewBaseStyle
+
 -(JobsAppDoorInputViewTFModel *)textFieldInputModel{
     if (!_textFieldInputModel) {
         _textFieldInputModel = JobsAppDoorInputViewTFModel.new;

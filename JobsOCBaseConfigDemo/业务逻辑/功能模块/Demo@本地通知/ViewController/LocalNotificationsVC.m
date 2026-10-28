@@ -8,6 +8,7 @@
 #import "LocalNotificationsVC.h"
 
 @interface LocalNotificationsVC ()
+
 /// UI
 Prop_strong()BaseButton *btn;
 /// Data
@@ -15,6 +16,7 @@ Prop_strong()BaseButton *btn;
 @end
 
 @implementation LocalNotificationsVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

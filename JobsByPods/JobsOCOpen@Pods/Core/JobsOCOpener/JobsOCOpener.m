@@ -9,6 +9,7 @@
 #import "JobsOCOpenWebViewController.h"
 
 @implementation JobsOCOpener
+
 +(JobsRetIDByVoidBlock _Nonnull)shared{
     return ^id{
         static JobsOCOpener *open = nil;

@@ -94,7 +94,7 @@ Prop_assign()BOOL dragging;
             return;
         }
         BOOL showing = self.panel.isShowingFrom(self.hostWindow.rootViewController);
-        self->_button.byAccessibilityLabel(showing ? @"关闭调试工具，返回原页面，可拖动，长按隐藏至下次启动" : @"打开调试工具，可拖动，长按隐藏至下次启动");
+        self->_button.byAccessibilityLabel(showing ? @"关闭调试工具，返回原页面，可拖动，长按隐藏，摇动手机再次显示" : @"打开调试工具，可拖动，长按隐藏，摇动手机再次显示");
     };
 }
 
@@ -195,7 +195,7 @@ Prop_assign()BOOL dragging;
         _button = BaseButton.jobsInit()
             .jobsResetBtnBgImage(image)
             .jobsResetBtnCornerRadiusValue(28)
-            .byAccessibilityLabel(@"打开调试工具，可拖动，长按隐藏至下次启动")
+            .byAccessibilityLabel(@"打开调试工具，可拖动，长按隐藏，摇动手机再次显示")
             .onClickBy(^(UIButton *sender) {
                 @jobs_strongify(self)
                 if (!self.dragging && self.panel && self.hostWindow.rootViewController) {
@@ -244,4 +244,5 @@ Prop_assign()BOOL dragging;
 }
 
 @end
+
 #endif

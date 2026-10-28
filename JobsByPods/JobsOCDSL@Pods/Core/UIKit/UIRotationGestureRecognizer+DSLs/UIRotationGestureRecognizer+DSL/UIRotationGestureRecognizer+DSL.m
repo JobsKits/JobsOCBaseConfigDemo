@@ -8,6 +8,7 @@
 #import "UIRotationGestureRecognizer+DSL.h"
 
 @implementation UIRotationGestureRecognizer (JobsChain)
+
 -(JobsRetRotationGestureRecognizerByCGFloatBlock _Nonnull)byRotation{
     @jobs_weakify(self)
     return ^__kindof UIRotationGestureRecognizer *_Nullable(CGFloat data){

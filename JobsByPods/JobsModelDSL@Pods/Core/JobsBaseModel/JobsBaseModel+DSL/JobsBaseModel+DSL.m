@@ -8,6 +8,7 @@
 #import "JobsBaseModel+DSL.h"
 
 @implementation JobsBaseModel (DSL)
+
 -(JobsRetJobsBaseModelByCGFloatBlock _Nonnull)byCornerRadiusValue{
     @jobs_weakify(self)
     return ^__kindof JobsBaseModel *_Nullable(CGFloat data) {
@@ -3134,6 +3135,7 @@
 @end
 
 @implementation JobsKeyValueModel (DSL)
+
 -(JobsRetJobsKeyValueModelByIDBlock _Nonnull)byKey{
     @jobs_weakify(self)
     return ^__kindof JobsKeyValueModel *_Nullable(id _Nullable data){

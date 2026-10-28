@@ -8,6 +8,7 @@
 #import "NSObject+image.h"
 
 @implementation NSObject (image)
+
 -(nullable UIImage *)img{
     if (![self isKindOfClass:NSString.class]) return nil;
     NSString *name = ((NSString *)self).byTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet);

@@ -25,6 +25,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PHAssetCollectionChangeRequest (Extra)
+
 /// 对系统方法 changeRequestForAssetCollection 的二次封装
 +(JobsRetPHAssetCollectionChangeRequestByPHAssetCollectionBlock _Nonnull)initBy;
 /// 对系统方法 creationRequestForAssetCollectionWithTitle 的二次封装

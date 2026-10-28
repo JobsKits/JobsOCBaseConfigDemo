@@ -8,12 +8,14 @@
 #import "LandscapeSwitchVC.h"
 
 @interface LandscapeSwitchVC ()
+
 /// Data
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 
 @end
 
 @implementation LandscapeSwitchVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

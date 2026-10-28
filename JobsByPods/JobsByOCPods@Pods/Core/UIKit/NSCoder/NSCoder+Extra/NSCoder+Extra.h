@@ -25,6 +25,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSCoder (Extra)
+
 /// 解档：字符串类型数据
 -(JobsRetIDByStrBlock _Nonnull)decodeStringBy;
 /// 解档：UIImage类型数据

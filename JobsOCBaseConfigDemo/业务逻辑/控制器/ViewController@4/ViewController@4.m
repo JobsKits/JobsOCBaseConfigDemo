@@ -25,6 +25,7 @@ Prop_strong()LOTAnimationView *signatureSloganLottieView;
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END LOTAnimationView
 
 @implementation ViewController_4
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
     JobsRemoveNotification(self);

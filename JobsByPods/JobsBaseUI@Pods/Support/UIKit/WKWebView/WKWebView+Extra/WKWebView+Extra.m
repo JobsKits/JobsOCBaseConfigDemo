@@ -8,6 +8,7 @@
 #import "WKWebView+Extra.h"
 
 @implementation WKWebView (Extra)
+
 +(JobsRetWKWebViewByConfigurationBlock _Nonnull)initBy{
     return ^__kindof WKWebView *_Nullable(WKWebViewConfiguration *_Nullable config){
         return [WKWebView.alloc initWithFrame:CGRectZero configuration:config];

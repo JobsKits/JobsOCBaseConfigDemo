@@ -8,6 +8,7 @@
 #import "CasinoUpgradePopupView.h"
 
 @interface CasinoUpgradePopupView ()
+
 /// UI
 Prop_strong()CasinoUpgradeContentView *upgradeContentView;
 /// Data
@@ -15,6 +16,7 @@ Prop_strong()CasinoUpgradeContentView *upgradeContentView;
 @end
 
 @implementation CasinoUpgradePopupView
+
 -(instancetype)init{
     if (self = [super init]) {
     };return self;

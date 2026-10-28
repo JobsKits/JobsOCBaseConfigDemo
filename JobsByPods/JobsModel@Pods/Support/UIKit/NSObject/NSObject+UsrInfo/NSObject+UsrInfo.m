@@ -11,6 +11,7 @@
 #import <JobsModel/NSMutableSet+Extra.h>
 
 @implementation NSObject (UsrInfo)
+
 #pragma mark —— 全局的用户数据(存、取、清)[全局唯一一份用户档案]
 /// 登出清空用户数据 【用户信息】/【JobsUserModel】
 -(jobsByVoidBlock _Nonnull)logOut{

@@ -48,6 +48,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIView (Masonry)
+
 #pragma mark —— 一些Masonry算法
 /// 制作一个带有n*m小矩形内容的大矩形（二次封装）
 -(jobsByViewArrayRowsColumnsBlock _Nonnull)gridLayoutBy;
@@ -57,6 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
                itemViews:(NSArray<__kindof UIView *> *)views
                   margin:(CGFloat)margin
                  spacing:(CGFloat)spacing;
+
 @end
 
 NS_ASSUME_NONNULL_END

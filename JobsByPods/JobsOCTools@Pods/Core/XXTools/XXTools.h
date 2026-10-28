@@ -37,6 +37,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface XXTools : NSObject
+
 /// 创建一个左上角的显示标记的markLabel
 /// - Parameters:
 ///   - text: 要展示的文字

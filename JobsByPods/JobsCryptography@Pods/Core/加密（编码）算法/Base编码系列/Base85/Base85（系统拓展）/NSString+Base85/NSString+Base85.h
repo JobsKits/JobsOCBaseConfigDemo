@@ -38,6 +38,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (Base85)
+
 #pragma mark —— Base85 <==> NSString
 ///【类方法】普通的NSString对象 转换成 以Base85编码的字符串
 +(JobsRetStrByStrBlock _Nonnull)base85String;

@@ -8,6 +8,7 @@
 #import "UIView+AutoSelfAdaptionSize.h"
 
 @implementation UIView (AutoSelfAdaptionSize)
+
 #pragma mark —— UILabel
 /// 确定Label的字体大小，使其宽度自适应
 /// 确定Label的宽度，使字体大小自适应

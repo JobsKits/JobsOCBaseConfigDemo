@@ -33,6 +33,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface FM_GetKYCInfo_api : JobsBaseApi
+
 /// 在链式请求中，下一个请求的参数来源于上一个请求的结果
 -(JobsRetStrByVoidBlock _Nonnull)kyc;
 

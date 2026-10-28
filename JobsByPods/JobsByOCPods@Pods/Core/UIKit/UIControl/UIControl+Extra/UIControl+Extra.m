@@ -55,6 +55,7 @@ _jobs_bind(UIControl *ctl, UIControlEvents singleEvent,
 }
 
 @implementation UIControl (Extra)
+
 /// 基础：为一个或多个事件绑定回调（同一事件再次绑定会覆盖旧回调）
 -(instancetype)jobs_on:(UIControlEvents)events
                  block:(jobsByCtrlBlock _Nonnull)block{

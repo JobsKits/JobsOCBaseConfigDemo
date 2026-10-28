@@ -8,12 +8,14 @@
 #import "CustomTableViewCellVC.h"
 
 @interface CustomTableViewCellVC ()
+
 /// Data
 Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
 
 @end
 
 @implementation CustomTableViewCellVC
+
 - (void)dealloc{
     JobsLog(@"%@",JobsLocalFunc);
 //    JobsRemoveNotification(self);

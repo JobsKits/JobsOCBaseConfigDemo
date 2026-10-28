@@ -14,6 +14,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCVideoRecorderConfig
 
 @implementation JobsOCVideoRecorderConfig
+
 +(JobsRetIDByVoidBlock _Nonnull)defaultConfig{
     return ^id{
         return JobsOCVideoRecorderConfig.new;

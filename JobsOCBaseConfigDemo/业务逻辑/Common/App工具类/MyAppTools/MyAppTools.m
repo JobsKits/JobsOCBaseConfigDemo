@@ -14,6 +14,7 @@ Prop_strong()UIWindow *appDelegateWindow;
 @end
 
 @implementation MyAppTools
+
 #pragma mark —— 初始化方法
 static MyAppTools *MyAppToolsInstance = nil;
 static dispatch_once_t MyAppToolsOnceToken;

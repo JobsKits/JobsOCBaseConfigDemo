@@ -19,6 +19,7 @@
 @end
 
 @implementation BaseLabel
+
 -(JobsRetBaseLabelByCGFloatBlock _Nonnull)byJobsOffsetX{
     @jobs_weakify(self)
     return ^__kindof BaseLabel *_Nullable(CGFloat data){

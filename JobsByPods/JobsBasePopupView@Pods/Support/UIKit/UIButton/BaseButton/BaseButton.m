@@ -14,6 +14,7 @@
 @end
 
 @implementation BaseButton
+
 /// BaseProtocol
 BaseProtocol_synthesize
 /// RACProtocol

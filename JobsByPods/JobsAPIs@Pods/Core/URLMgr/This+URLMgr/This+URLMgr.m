@@ -20,6 +20,7 @@ void JobsSetDebugBaseURL(NSString * _Nullable baseURL) {
 }
 
 @implementation This (URLMgr)
+
 #pragma mark —— BaseURL
 +(NSString *)BaseUrl{
     return (((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(This.class, @selector(jobsBaseUrl)))(self, @selector(jobsBaseUrl)))();

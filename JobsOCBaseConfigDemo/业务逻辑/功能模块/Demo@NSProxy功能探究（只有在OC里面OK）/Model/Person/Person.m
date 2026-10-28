@@ -8,6 +8,7 @@
 #import "Person.h"
 
 @implementation Person
+
 -(void)setJobsName:(NSString *)name{
     jobsByStrBlock action = ((jobsByStrBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(Person.class, @selector(jobsSetJobsName)))(self, @selector(jobsSetJobsName));
     if (action) action(name);

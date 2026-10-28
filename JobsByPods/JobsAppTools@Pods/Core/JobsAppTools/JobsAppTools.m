@@ -16,6 +16,7 @@ Prop_strong()UIWindow *sceneDelegateWindow;
 @end
 
 @implementation JobsAppTools
+
 #pragma mark —— 初始化方法
 static JobsAppTools *JobsAppToolsInstance = nil;
 +(instancetype)sharedManager{

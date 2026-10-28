@@ -8,6 +8,7 @@
 #import "JobsFileModel+DSL.h"
 
 @implementation JobsFileModel (DSL)
+
 -(JobsRetJobsFileModelByNSIntegerBlock _Nonnull)byID{
     @jobs_weakify(self)
     return ^__kindof JobsFileModel *_Nullable(NSInteger data) {

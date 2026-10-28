@@ -12,6 +12,7 @@
 #import <JobsDropDownListView/UITableView+RegisterClass.h>
 
 @interface JobsDropDownListTBVCell ()
+
 /// UI
 Prop_strong()UIImageView *iconImgV;
 Prop_strong()UILabel *titleLab;
@@ -21,6 +22,7 @@ Prop_strong()UIImageView *arrowImgV;
 @end
 
 @implementation JobsDropDownListTBVCell
+
 /// UITableViewCellProtocol
 UITableViewCellProtocol_Synthesize
 #pragma mark —— UITableViewCellProtocol

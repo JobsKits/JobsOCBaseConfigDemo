@@ -15,6 +15,7 @@
 #import <JobsCustomView/UIView+Extra.h>
 
 @interface JobsCustomView ()
+
 /// UI
 Prop_strong()UIImageView *indicatorIMGV;
 Prop_strong()UILabel *tipsLab;
@@ -37,6 +38,7 @@ Prop_assign()CGSize btnSize;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsCustomView
 
 @implementation JobsCustomView
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 #pragma mark —— BaseProtocol

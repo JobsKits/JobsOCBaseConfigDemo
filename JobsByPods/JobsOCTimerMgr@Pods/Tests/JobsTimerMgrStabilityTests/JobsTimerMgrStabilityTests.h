@@ -9,4 +9,5 @@
 #import <JobsOCTimerMgr/JobsOCTimerMgr.h>
 
 @interface JobsTimerMgrStabilityTests : XCTestCase
+
 @end

@@ -37,6 +37,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UILabel (Scrolling)
+
 /// 用统一枚举配置 UILabel 的四种定尺寸文字展示策略。
 -(JobsRetIDByJobsLabelTextDisplayModeBlock _Nonnull)byTextDisplayMode;
 -(instancetype)byTextDisplayMode:(JobsLabelTextDisplayMode)mode

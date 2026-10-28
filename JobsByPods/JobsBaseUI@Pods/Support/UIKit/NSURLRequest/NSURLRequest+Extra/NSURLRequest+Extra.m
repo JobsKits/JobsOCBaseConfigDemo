@@ -8,6 +8,7 @@
 #import "NSURLRequest+Extra.h"
 
 @implementation NSURLRequest (JobsBaseUIExtra)
+
 +(JobsRetURLRequestByURLBlock _Nonnull)initBy{
     return ^__kindof NSURLRequest *_Nullable(NSURL *_Nullable url){
         return [NSURLRequest requestWithURL:url];

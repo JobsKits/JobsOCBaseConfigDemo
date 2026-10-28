@@ -9,6 +9,7 @@
 #import "JobsLocker+Once.h"
 
 @implementation DemoObject
+
 - (instancetype)init {
     self = [super init];
     if (self) {

@@ -8,6 +8,7 @@
 #import "TBCityIconFont.h"
 
 @implementation TBCityIconFont
+
 static NSString *_fontName;
 
 +(jobsByURLBlock _Nonnull)registerFontWithURL{

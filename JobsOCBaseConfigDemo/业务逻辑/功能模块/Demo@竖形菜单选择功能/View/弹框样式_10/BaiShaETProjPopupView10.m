@@ -8,6 +8,7 @@
 #import "BaiShaETProjPopupView10.h"
 
 @interface BaiShaETProjPopupView10 ()
+
 /// UI
 Prop_strong()UILabel *titleLab;
 Prop_strong()BaseButton *closeBtn;
@@ -29,6 +30,7 @@ Prop_assign()NSInteger selectedIndex;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END BaiShaETProjPopupView10
 
 @implementation BaiShaETProjPopupView10
+
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{

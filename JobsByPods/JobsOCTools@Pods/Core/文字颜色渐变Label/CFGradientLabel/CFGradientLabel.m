@@ -12,6 +12,7 @@
 @end
 
 @implementation CFGradientLabel
+
 - (void)drawRect:(CGRect)rect {
     jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CFGradientLabel.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
     if (action) action(rect);

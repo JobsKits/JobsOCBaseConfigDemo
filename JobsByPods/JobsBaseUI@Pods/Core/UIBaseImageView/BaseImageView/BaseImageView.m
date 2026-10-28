@@ -14,6 +14,7 @@
 @end
 
 @implementation BaseImageView
+
 #pragma mark —— BaseProtocol
 BaseProtocol_synthesize
 #pragma mark —— RACProtocol

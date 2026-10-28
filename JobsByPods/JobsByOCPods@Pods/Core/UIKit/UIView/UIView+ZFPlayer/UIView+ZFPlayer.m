@@ -8,6 +8,7 @@
 #import "UIView+ZFPlayer.h"
 
 @implementation UIView (ZFPlayer)
+
 #pragma mark —— 一些公有方法
 -(jobsByVoidBlock _Nonnull)enterBackgroundStopPlayer{
     @jobs_weakify(self)

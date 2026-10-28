@@ -65,6 +65,8 @@
 #endif
 
 @interface JobsDebugPanelDemoVC : BaseViewController<UITableViewDataSource,UITableViewDelegate>
+
 @end
+
 #endif
 

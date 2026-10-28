@@ -19,6 +19,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability"
 @implementation UIButton (UI)
+
 -(JobsRetBtnByFontBlock _Nonnull)bySubTitleFont{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(UIFont *_Nullable font){
@@ -713,4 +714,5 @@ JobsKey(_subTitleFont)
 }
 
 @end
+
 #pragma clang diagnostic pop

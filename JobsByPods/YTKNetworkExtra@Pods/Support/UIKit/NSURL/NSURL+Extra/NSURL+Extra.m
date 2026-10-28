@@ -8,6 +8,7 @@
 #import "NSURL+Extra.h"
 
 @implementation NSURL (Extra)
+
 /// NSURL => NSURLRequest
 -(NSMutableURLRequest *)URLRequest{
     return (((JobsRetMutableURLRequestByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSURL.class, @selector(jobsURLRequest)))(self, @selector(jobsURLRequest)))();

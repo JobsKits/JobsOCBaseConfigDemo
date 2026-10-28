@@ -48,6 +48,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface LuckyWheelView : UIView
+
 /// “指针”方向（默认正上方）
 Prop_assign()JobsDirectionType pointerDirection;
 /// 完整 Segment 模型（推荐使用）

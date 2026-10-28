@@ -35,6 +35,7 @@ Prop_strong()UILabel *replySummaryLabel;
 @end
 
 @implementation JobsOCCommentCell
+
 +(JobsRetStrByVoidBlock _Nonnull)reuseIdentifier{
     return ^NSString *_Nullable{
         return NSStringFromClass(self);

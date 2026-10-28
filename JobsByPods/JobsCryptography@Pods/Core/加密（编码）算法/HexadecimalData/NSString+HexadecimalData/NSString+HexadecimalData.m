@@ -8,6 +8,7 @@
 #import "NSString+HexadecimalData.h"
 
 @implementation NSString (HexadecimalData)
+
 #pragma mark —— HexadecimalData <==> NSString
 ///【类方法】16进制字符串 转换成 普通的NSString对象
 +(JobsRetStrByStrBlock _Nonnull)stringByHexString{

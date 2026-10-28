@@ -8,6 +8,7 @@
 #import "NSString+Reachability.h"
 
 @implementation NSString (Reachability)
+
 -(JobsRetReachabilityByVoidBlock _Nonnull)makeReachability{
     @jobs_weakify(self)
     return ^Reachability *_Nonnull{

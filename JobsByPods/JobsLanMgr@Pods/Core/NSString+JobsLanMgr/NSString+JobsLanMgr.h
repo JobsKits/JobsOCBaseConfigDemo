@@ -28,6 +28,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (JobsLanMgr)
+
 /// 仅供不可修改的第三方源码保持 ABI；Jobs 自有代码统一使用 jobsTr()。
 -(NSString *_Nullable)tr;
 /// JobsBlock 形态的国际化入口

@@ -198,6 +198,7 @@ def byJobsDo
   pod 'JobsHotLabel',                   :path => './JobsByPods/JobsHotLabel@Pods'
   pod 'JobsViewPush',                   :path => './JobsByPods/JobsViewPush@Pods'
   pod 'JobsOCSplash',                   :path => './JobsByPods/JobsOCSplash@Pods', :testspecs => ['Stability']
+  pod 'JobsOCDeviceGuard',              :path => './JobsByPods/JobsOCDeviceGuard@Pods', :testspecs => ['Stability']
   pod 'JobsOCComment',                  :path => './JobsByPods/JobsOCComment@Pods'
   pod 'JobsGetWindow',                  :path => './JobsByPods/JobsGetWindow@Pods', :testspecs => ['Stability']
   pod 'JobsTabBarCtrl',                 :path => './JobsByPods/JobsTabBarCtrl@Pods'

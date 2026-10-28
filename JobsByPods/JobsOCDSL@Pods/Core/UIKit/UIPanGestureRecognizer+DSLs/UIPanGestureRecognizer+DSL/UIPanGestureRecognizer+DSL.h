@@ -29,5 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetPanGestureRecognizerByNSUIntegerBlock _Nonnull)byMaximumNumberOfTouches;
 
 @end
+
 NS_ASSUME_NONNULL_END
 #endif

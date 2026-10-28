@@ -14,6 +14,7 @@ Prop_strong()UILabel *titleLab;
 @end
 
 @implementation JobsUserHeaderDataViewForHeaderInSection
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 -(instancetype)init{

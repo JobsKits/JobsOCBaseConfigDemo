@@ -22,6 +22,7 @@ Prop_assign()CGRect initialContentViewRect;// 登录框 初始frame值
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END BaseContentView
 
 @implementation BaseContentView
+
 -(instancetype)init{
     if (self = [super init]) {
     };return self;

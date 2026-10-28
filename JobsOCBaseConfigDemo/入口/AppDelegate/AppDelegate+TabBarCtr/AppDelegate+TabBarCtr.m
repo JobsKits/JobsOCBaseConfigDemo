@@ -106,6 +106,7 @@ NSUInteger DefaultIndex = 2; // 默认从第3个开始初始显示
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability"
 @implementation AppDelegate (TabBarCtr)
+
 #pragma mark —— 配置一些普通的控制器
 @dynamic tabBarVC;
 static JobsTabBarVC *_tabBarVC = nil;
@@ -666,4 +667,5 @@ static NSMutableArray <__kindof UINavigationController *>*_navCtrMutArr = nil;
 }
 
 @end
+
 #pragma clang diagnostic pop

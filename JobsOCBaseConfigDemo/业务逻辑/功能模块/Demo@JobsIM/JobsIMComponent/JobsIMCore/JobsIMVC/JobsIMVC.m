@@ -8,6 +8,7 @@
 #import "JobsIMVC.h"
 
 @interface JobsIMVC ()
+
 /// UI
 Prop_strong()JobsIMInputview *inputview;
 Prop_strong()UIColor *bgColour;
@@ -27,6 +28,7 @@ Prop_assign()BOOL hasStartedInitialRefresh;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsIMVC
 
 @implementation JobsIMVC
+
 - (void)dealloc {
     ((JobsOCKeyboardMgr *)JobsOCKeyboardMgr.shared()).clearConfigByOwner(self);
     JobsLog(@"%@",JobsLocalFunc);

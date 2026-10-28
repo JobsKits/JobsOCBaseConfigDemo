@@ -8,6 +8,7 @@
 #import "CAEmitterCell+DSL.h"
 
 @implementation CAEmitterCell (JobsChain)
+
 #pragma mark —— Factory / KVC
 +(JobsRetCAEmitterCellByVoidBlock _Nonnull)byEmitterCell{
     return ^__kindof CAEmitterCell *_Nullable(void){

@@ -8,6 +8,7 @@
 #import "NSData+Base85.h"
 
 @implementation NSData (Base85)
+
 #pragma mark —— NSData ==> Base85
 ///【类方法】将NSData对象 转换为 以Base85编码的字符串
 +(JobsRetStrByDataBlock _Nonnull)dataToBase85String{

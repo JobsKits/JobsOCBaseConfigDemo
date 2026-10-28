@@ -42,6 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
     https://www.jianshu.com/p/69313970d0e7
  */
 @interface NSObject (ChangeAppicon)
+
 /// 测试App更改图标
 -(jobsByVoidBlock _Nonnull)testChangeAppicon;
 /// App更改图标核心代码

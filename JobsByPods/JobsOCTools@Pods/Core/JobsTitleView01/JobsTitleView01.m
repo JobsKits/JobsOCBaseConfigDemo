@@ -8,6 +8,7 @@
 #import "JobsTitleView01.h"
 
 @interface JobsTitleView01 ()
+
 /// UI
 Prop_strong()UILabel *leftLab;
 Prop_strong()UILabel *rightLab;
@@ -17,6 +18,7 @@ Prop_strong()UILabel *titleLab;
 @end
 
 @implementation JobsTitleView01
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 #pragma mark —— BaseProtocol

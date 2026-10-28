@@ -8,6 +8,7 @@
 #import "NSObject+GKPhotoBrowser.h"
 
 @implementation GKPhotoBrowserConfigure (JobsDSL)
+
 #define JobsGKPhotoBrowserConfigureDSL(_type_, _name_, _property_, _dataType_) \
 -(JobsRetGKPhotoBrowserConfigureBy##_type_##Block _Nonnull)by##_name_{ \
     @jobs_weakify(self) \
@@ -23,9 +24,11 @@ JobsGKPhotoBrowserConfigureDSL(BOOL, IsSingleTapDisabled, isSingleTapDisabled, B
 JobsGKPhotoBrowserConfigureDSL(BOOL, IsHideSourceView, isHideSourceView, BOOL)
 JobsGKPhotoBrowserConfigureDSL(BOOL, IsFollowSystemRotation, isFollowSystemRotation, BOOL)
 #undef JobsGKPhotoBrowserConfigureDSL
+
 @end
 
 @implementation GKPhotoBrowser (JobsDSL)
+
 -(JobsRetGKPhotoBrowserByConfigureBlock _Nonnull)byConfigure{
     @jobs_weakify(self)
     return ^__kindof GKPhotoBrowser *_Nullable(jobsByGKPhotoBrowserConfigureBlock _Nullable data){
@@ -50,9 +53,11 @@ JobsGKPhotoBrowserConfigureDSL(BOOL, IsFollowSystemRotation, isFollowSystemRotat
         return self;
     };
 }
+
 @end
 
 @implementation GKPhoto (JobsDSL)
+
 -(JobsRetGKPhotoByImageBlock _Nonnull)byImage{
     @jobs_weakify(self)
     return ^__kindof GKPhoto *_Nullable(UIImage *_Nullable data){
@@ -77,9 +82,11 @@ JobsGKPhotoBrowserConfigureDSL(BOOL, IsFollowSystemRotation, isFollowSystemRotat
         return self;
     };
 }
+
 @end
 
 @implementation NSObject (GKPhotoBrowser)
+
 #pragma mark —— 一些私有方法
 NS_INLINE __kindof GKPhoto *_Nonnull jobsMakeGKPhoto(jobsByGKPhotoBlock _Nonnull block){
     GKPhoto *data = GKPhoto.alloc.init;

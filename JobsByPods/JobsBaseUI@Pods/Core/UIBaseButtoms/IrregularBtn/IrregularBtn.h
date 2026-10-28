@@ -33,4 +33,5 @@
 Prop_strong()NSMutableArray <NSValue *>*pointMutArr;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_IRREGULARBTN_DEF4E6EC9F */

@@ -8,7 +8,9 @@
 #import "../JobsAudioSessionFixture/JobsAudioSessionFixture.h"
 
 @interface JobsAudioRecorderInitializationFixture : JobsOCAudioRecorderEngine
+
 @property(nonatomic, strong)JobsAudioSessionFixture *fixtureSession;
 @property(nonatomic, strong)NSURL *fixtureURL;
 @property(nonatomic, assign)BOOL partialFileCreated;
+
 @end

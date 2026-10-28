@@ -35,6 +35,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (image)
+
 /// 获取本地普通图像
 Prop_strong(readonly,nullable)UIImage *img;    // -(nullable UIImage *)img;
 /// 获取本地GIF图像

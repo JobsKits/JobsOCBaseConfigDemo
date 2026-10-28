@@ -23,6 +23,7 @@ Prop_strong()NSMutableArray <NSString *> *selectArr;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END XDTextBtnView
 
 @implementation XDTextBtnView
+
 #define kAllBtnMaxWidth (self.bounds.size.width - self.marginX * 2)
 
 static NSInteger const kXDTextBtnViewBtnTagPlus = 90000000;

@@ -8,11 +8,14 @@
 #import "UIButton+DSL.h"
 
 @interface UIButton (JobsUIButtonPropertyDSLSetter)
+
 -(void)setSizer:(CGSize)data;
 -(void)setZf_centerY:(CGFloat)data;
+
 @end
 
 @implementation UIButton (DSL)
+
 -(JobsRetBtnByButtonConfigurationBlock _Nonnull)byConfiguration{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(UIButtonConfiguration *_Nullable data){

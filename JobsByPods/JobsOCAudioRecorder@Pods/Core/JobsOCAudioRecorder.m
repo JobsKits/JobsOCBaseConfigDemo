@@ -28,9 +28,11 @@ JOBS_AUDIO_RECORDING_DSL(byDuration, JobsRetJobsOCAudioRecordingByTimeIntervalBl
 JOBS_AUDIO_RECORDING_DSL(byFileSize, JobsRetJobsOCAudioRecordingByLongLongBlock, fileSize)
 
 #undef JOBS_AUDIO_RECORDING_DSL
+
 @end
 
 @implementation AVAudioRecorder (JobsOCAudioRecorderDSL)
+
 -(JobsRetAVAudioRecorderByIDBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^__kindof AVAudioRecorder *_Nullable(id _Nullable data){
@@ -39,9 +41,11 @@ JOBS_AUDIO_RECORDING_DSL(byFileSize, JobsRetJobsOCAudioRecordingByLongLongBlock,
         return self;
     };
 }
+
 @end
 
 @implementation AVAudioPlayer (JobsOCAudioRecorderDSL)
+
 -(JobsRetAVAudioPlayerByIDBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^__kindof AVAudioPlayer *_Nullable(id _Nullable data){
@@ -50,10 +54,13 @@ JOBS_AUDIO_RECORDING_DSL(byFileSize, JobsRetJobsOCAudioRecordingByLongLongBlock,
         return self;
     };
 }
+
 @end
 
 @interface JobsOCAudioRecordingStore ()
+
 @property(nonatomic,strong,readwrite)NSURL *directoryURL;
+
 @end
 
 @implementation JobsOCAudioRecordingStore
@@ -112,9 +119,11 @@ JOBS_AUDIO_RECORDING_DSL(byFileSize, JobsRetJobsOCAudioRecordingByLongLongBlock,
 -(BOOL)deleteRecording:(JobsOCAudioRecording *)recording error:(NSError **)error{
     return [NSFileManager.defaultManager removeItemAtURL:recording.url error:error];
 }
+
 @end
 
 @interface JobsOCAudioRecorderEngine ()<AVAudioRecorderDelegate>
+
 @property(nonatomic,strong)AVAudioRecorder *recorder;
 @property(nonatomic,strong)NSURL *currentURL;
 @property(nonatomic,assign,readwrite)JobsOCAudioRecordingMode mode;
@@ -123,6 +132,7 @@ JOBS_AUDIO_RECORDING_DSL(byFileSize, JobsRetJobsOCAudioRecordingByLongLongBlock,
 -(BOOL)activateRecordingSession:(AVAudioSession **)session error:(NSError **)error;
 -(nullable AVAudioRecorder *)recorderWithURL:(NSURL *)URL settings:(NSDictionary *)settings error:(NSError **)error;
 -(JobsRetNSURLByJobsOCAudioRecordingModeBlock _Nonnull)recordingURLForMode;
+
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCAudioRecorderEngine
@@ -135,6 +145,7 @@ JOBS_AUDIO_RECORDING_DSL(byFileSize, JobsRetJobsOCAudioRecordingByLongLongBlock,
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCAudioRecorderEngine
 
 @implementation JobsOCAudioRecorderEngine
+
 -(instancetype)init{
     if (self = [super init]) {
         [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(recordingInterrupted:)
@@ -357,11 +368,13 @@ JOBS_AUDIO_RECORDING_DSL(byFileSize, JobsRetJobsOCAudioRecordingByLongLongBlock,
 @end
 
 @interface JobsOCAudioPlayerEngine ()<AVAudioPlayerDelegate>
+
 @property(nonatomic,strong)AVAudioPlayer *player;
 @property(nonatomic,strong,readwrite)NSURL *playingURL;
 -(JobsRetIDByIDBlock _Nonnull)byPlayer;
 -(BOOL)activatePlaybackSession:(AVAudioSession **)session error:(NSError **)error;
 -(nullable AVAudioPlayer *)playerWithURL:(NSURL *)URL error:(NSError **)error;
+
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCAudioPlayerEngine
@@ -371,6 +384,7 @@ JOBS_AUDIO_RECORDING_DSL(byFileSize, JobsRetJobsOCAudioRecordingByLongLongBlock,
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCAudioPlayerEngine
 
 @implementation JobsOCAudioPlayerEngine
+
 +(JobsRetIDByVoidBlock _Nonnull)shared{
     return ^id{
         static JobsOCAudioPlayerEngine *engine;
@@ -454,6 +468,7 @@ JOBS_AUDIO_RECORDING_DSL(byFileSize, JobsRetJobsOCAudioRecordingByLongLongBlock,
 @end
 
 @interface JobsOCAudioRecordButton ()
+
 @property(nonatomic,strong)CAShapeLayer *trackLayer;
 @property(nonatomic,strong)CAShapeLayer *progressLayer;
 @property(nonatomic,strong)CAShapeLayer *innerLayer;
@@ -461,6 +476,7 @@ JOBS_AUDIO_RECORDING_DSL(byFileSize, JobsRetJobsOCAudioRecordingByLongLongBlock,
 @property(nonatomic,assign)BOOL active;
 @property(nonatomic,assign)CFTimeInterval recordingStartedAt;
 -(JobsRetIDByIDBlock _Nonnull)byBackgroundColor;
+
 @end
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsOCAudioRecordButton

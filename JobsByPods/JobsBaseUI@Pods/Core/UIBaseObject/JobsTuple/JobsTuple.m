@@ -14,6 +14,7 @@ Prop_strong()NSMutableArray *valueMutArr;
 @end
 
 @implementation JobsTuple
+
 /// 禁止使用系统的alloc.init方法来进行创建对象
 /// 强制用户使用-(instancetype)initWithValues:(id)firstValue, ... 来进行创建对象
 -(instancetype)init{

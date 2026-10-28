@@ -9,6 +9,7 @@
 #import <JobsOCDSL/UIButton+DSL.h>
 
 @interface JobsHotLabelBySingleLine (){
+
     CGSize btnSize;
     CGFloat width;
 }
@@ -27,6 +28,7 @@ Prop_strong()NSMutableArray <NSNumber *>*btnHeightMutArr;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsHotLabelBySingleLine
 
 @implementation JobsHotLabelBySingleLine
+
 -(JobsRetJobsHotLabelBySingleLineByUILabelShowingTypeBlock _Nonnull)byLabelShowingType{
     @jobs_weakify(self)
     return ^__kindof JobsHotLabelBySingleLine *_Nullable(UILabelShowingType data){

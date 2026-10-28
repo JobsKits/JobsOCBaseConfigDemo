@@ -8,6 +8,7 @@
 #import "PhilippinesIDTypeModel+DSL.h"
 
 @implementation PhilippinesIDTypeModel (DSL)
+
 -(JobsRetPhilippinesIDTypeModelByNSIntegerBlock _Nonnull)byID{
     @jobs_weakify(self)
     return ^__kindof PhilippinesIDTypeModel *_Nullable(NSInteger data) {

@@ -12,6 +12,7 @@
 @end
 
 @implementation JobsBtnStyleTBVCell
+
 /// UIViewModelProtocol
 UIViewModelProtocol_synthesize_part1
 UIViewModelProtocol_synthesize_part2

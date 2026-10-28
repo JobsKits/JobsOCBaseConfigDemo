@@ -19,6 +19,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (JobsMakesSys)
+
 /// 对系统方法 stringByTrimmingCharactersInSet 的二次封装
 -(JobsRetStrByCharacterSetBlock _Nonnull)byTrimmingCharactersInSet;
 

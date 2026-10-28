@@ -26,5 +26,6 @@ NS_ASSUME_NONNULL_BEGIN
 +(JobsRetNotificationSoundByStrBlock _Nonnull)byRingtoneSoundNamed API_AVAILABLE(ios(15.0));
 
 @end
+
 NS_ASSUME_NONNULL_END
 #endif

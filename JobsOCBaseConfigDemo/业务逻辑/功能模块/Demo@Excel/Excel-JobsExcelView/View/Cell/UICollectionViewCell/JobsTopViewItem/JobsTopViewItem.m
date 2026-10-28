@@ -8,6 +8,7 @@
 #import "JobsTopViewItem.h"
 
 @interface JobsTopViewItem()
+
 /// UI
 Prop_strong()UIBezierPath *linePath;
 Prop_strong()CAShapeLayer *lineLayer;
@@ -18,6 +19,7 @@ Prop_assign()CGSize size;
 @end
 
 @implementation JobsTopViewItem
+
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{
     JobsTopViewItem *cell = JobsRegisterDequeueCollectionViewCell(JobsTopViewItem);

@@ -15,6 +15,7 @@
 @end
 
 @implementation UITableView (WWFoldableTableView)
+
 #pragma mark —— init
 + (void)load{
     SuppressWundeclaredSelectorWarning(
@@ -134,6 +135,7 @@ JobsKey(_ww_foldState)
 @end
 
 @implementation NSObject (WWExtension)
+
 +(void)ww_swizzInstanceMethod:(SEL)methodOrig withMethod:(SEL)methodNew{
     Method orig = class_getInstanceMethod(self, methodOrig);
     Method new = class_getInstanceMethod(self, methodNew);

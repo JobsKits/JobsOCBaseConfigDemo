@@ -53,6 +53,7 @@ BaseCellProtocol,
 UIViewModelProtocol,
 UITableViewCellProtocol
 >
+
 #pragma mark —— 一些公有的功能方法
 /// 值打印
 -(jobsByVoidBlock _Nonnull)printValue;

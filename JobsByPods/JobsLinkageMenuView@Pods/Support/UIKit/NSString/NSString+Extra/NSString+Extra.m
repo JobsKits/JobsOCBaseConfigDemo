@@ -8,6 +8,7 @@
 #import "NSString+Extra.h"
 
 @implementation NSString (JobsLinkageMenuViewExtra)
+
 /// OC字符串拼接
 /// 字符串是否包含URL【返回YES包含】
 /// 对系统方法 - (nullable instancetype)initWithContentsOfFile:(NSString *)path encoding:(NSStringEncoding)enc error:(NSError **)error; 的二次封装

@@ -8,6 +8,7 @@
 #import "SocketRocketUtility.h"
 
 @implementation SRWebSocket (JobsSocketRocketUtilityDSL)
+
 -(JobsRetSRWebSocketByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^__kindof SRWebSocket *_Nullable(id<SRWebSocketDelegate> _Nullable data){
@@ -25,9 +26,11 @@
         return self;
     };
 }
+
 @end
 
 @interface SocketRocketUtility(){
+
     NSTimeInterval reConnectTime;
 }
 
@@ -42,6 +45,7 @@ Prop_copy()NSString *urlString;
 @end
 
 @implementation SocketRocketUtility
+
 BaseProtocol_synthesize
 RACProtocol_synthesize
 - (void)dealloc {

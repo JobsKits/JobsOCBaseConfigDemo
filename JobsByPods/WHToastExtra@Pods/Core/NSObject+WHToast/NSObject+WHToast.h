@@ -43,6 +43,7 @@
 NS_ASSUME_NONNULL_BEGIN
 /// 提示
 @interface NSObject (WHToast)
+
 #pragma mark —— 仅文字，展示在屏幕中间
 +(jobsByStrBlock _Nonnull)jobsToastMsg;
 -(jobsByStrBlock _Nonnull)jobsToastMsg;

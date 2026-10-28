@@ -8,6 +8,7 @@
 #import "NSObject+RAC.h"
 
 @implementation NSObject (RAC)
+
 #pragma mark —— @property(nonatomic,strong,nonnull)RACSubject *racSubject;
 JobsKey(_racSubject)
 @dynamic racSubject;

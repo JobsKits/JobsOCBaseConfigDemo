@@ -27,6 +27,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIButton (UIControlState)
+
 #pragma mark —— UIButton.image
 -(JobsRetImageByNSUIntegerBlock _Nonnull)imageByState;
 -(JobsRetImageByVoidBlock _Nonnull)imageByNormalState;
@@ -126,6 +127,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark —— UIButton.preferredSymbolConfiguration
 -(JobsRetSymbolConfigurationByControlStateBlock _Nonnull)preferredSymbolConfigurationByState API_AVAILABLE(ios(13.0));
 -(JobsRetBtnBySymbolConfigurationAndControlStateBlock _Nonnull)preferredSymbolConfigurationForStateBy API_AVAILABLE(ios(13.0));
+
 @end
 
 NS_ASSUME_NONNULL_END

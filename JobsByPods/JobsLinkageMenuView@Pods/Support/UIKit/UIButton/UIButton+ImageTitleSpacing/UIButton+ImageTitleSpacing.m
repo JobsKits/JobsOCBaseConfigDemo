@@ -8,6 +8,7 @@
 #import "UIButton+ImageTitleSpacing.h"
 
 @implementation UIButton (ImageTitleSpacing)
+
 -(__kindof UIButton *)layoutButtonWithEdgeInsetsStyle:(NSDirectionalRectEdge)style
                                          imagePadding:(CGFloat)imagePadding{
     if (self.deviceSystemVersion().floatValue >= 15.0) {

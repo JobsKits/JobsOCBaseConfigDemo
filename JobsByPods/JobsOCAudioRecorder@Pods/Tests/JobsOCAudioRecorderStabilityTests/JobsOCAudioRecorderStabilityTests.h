@@ -16,7 +16,9 @@
 #endif
 
 @interface JobsOCAudioRecorderEngine (JobsStabilityTesting)
+
 -(void)audioRecorderDidFinishRecording:(AVAudioRecorder *)recorder successfully:(BOOL)success;
+
 @end
 
 @interface JobsOCAudioRecorderStabilityTests : XCTestCase

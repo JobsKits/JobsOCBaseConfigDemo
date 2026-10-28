@@ -17,6 +17,7 @@
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END LiveChat
 
 @implementation NSObject (LiveChat)
+
 #pragma mark —— 一些公有方法
 -(jobsByVoidBlock _Nonnull)configLiveChat{
     @jobs_weakify(self)

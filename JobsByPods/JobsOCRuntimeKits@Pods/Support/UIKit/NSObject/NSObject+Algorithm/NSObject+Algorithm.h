@@ -60,6 +60,7 @@
 NS_ASSUME_NONNULL_BEGIN
 /// 算法相关
 @interface NSObject (Algorithm)
+
 /// 将数据做成3列，第一个元素的下标是1，判断任意一个下标数，处于哪一列
 -(JobsRetIntByIntBlock _Nonnull)column3By;
 /// 给定一个数据源（数组）和 每行需要展示的元素个数，计算行数

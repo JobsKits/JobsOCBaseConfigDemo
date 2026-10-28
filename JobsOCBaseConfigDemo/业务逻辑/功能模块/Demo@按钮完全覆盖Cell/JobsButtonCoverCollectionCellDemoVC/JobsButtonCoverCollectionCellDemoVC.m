@@ -19,6 +19,7 @@ Prop_strong()NSArray<UIViewModel *> *demoArr;
 @end
 
 @implementation JobsButtonCoverCollectionCellDemoVC
+
 -(void)loadView{
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsButtonCoverCollectionCellDemoVC.class, @selector(jobsLoadView)))(self, @selector(jobsLoadView));
     if (action) action();

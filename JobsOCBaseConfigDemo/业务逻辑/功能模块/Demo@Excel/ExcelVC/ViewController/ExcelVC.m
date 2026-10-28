@@ -8,6 +8,7 @@
 #import "ExcelVC.h"
 
 @interface ExcelVC ()
+
 /// Data
 Prop_strong()NSMutableArray <NSMutableArray <__kindof UITableViewCell *>*>*tbvSectionRowCellMutArr;
 Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutArr;
@@ -15,6 +16,7 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UIViewModel *>*>*dataMutAr
 @end
 
 @implementation ExcelVC
+
 - (void)dealloc{
     JobsNotificationCenter.remove(self);
     JobsLog(@"%@",JobsLocalFunc);

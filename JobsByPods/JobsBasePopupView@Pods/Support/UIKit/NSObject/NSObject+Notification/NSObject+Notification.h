@@ -34,6 +34,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (Notification)
+
 /// 接收通知
 -(void)addNotificationName:(NSString *_Nonnull)notificationName
                      block:(jobsByTwoIDBlock _Nullable)block;

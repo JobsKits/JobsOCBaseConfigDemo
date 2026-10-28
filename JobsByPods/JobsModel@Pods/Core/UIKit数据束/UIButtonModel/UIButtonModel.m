@@ -10,6 +10,7 @@
 #import <JobsModel/NSString+Extra.h>
 
 @implementation UIButtonModel
+
 /// UIViewModelProtocol
 UIViewModelProtocol_synthesize_part1
 UIViewModelProtocol_synthesize_part2

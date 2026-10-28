@@ -8,6 +8,7 @@
 #import "JobsOCVideoRecorderResult.h"
 
 @implementation JobsOCVideoRecorderResult
+
 #define JobsOCVideoRecorderResultDSL(_name_, _blockType_, _dataType_, _property_) \
 -(_blockType_ _Nonnull)by##_name_{ \
     @jobs_weakify(self) \

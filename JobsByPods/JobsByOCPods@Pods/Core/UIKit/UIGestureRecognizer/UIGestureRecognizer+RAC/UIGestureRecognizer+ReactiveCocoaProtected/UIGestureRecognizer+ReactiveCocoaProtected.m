@@ -8,6 +8,7 @@
 #import "UIGestureRecognizer+ReactiveCocoaProtected.h"
 
 @implementation UIGestureRecognizer (ReactiveCocoaProtected)
+
 #pragma mark —— Prop_strong()RACGestureRecognizerActionHandler *rac_gestureHandler;
 JobsKey(_rac_gestureHandler)
 @dynamic rac_gestureHandler;

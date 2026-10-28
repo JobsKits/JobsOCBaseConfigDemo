@@ -10,6 +10,8 @@
 
 #if DEBUG
 @interface JobsDebugPanelCell : UITableViewCell
+
 @end
+
 #endif
 

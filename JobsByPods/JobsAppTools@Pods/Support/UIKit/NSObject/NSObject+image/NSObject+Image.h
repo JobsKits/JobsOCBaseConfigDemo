@@ -35,6 +35,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (Image)
+
 /// 获取本地普通图像
 Prop_strong(readonly,nullable)UIImage *img;    // -(nullable UIImage *)img;
 -(JobsRetImageByStrBlock _Nonnull)imageByDataURL;

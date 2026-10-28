@@ -58,6 +58,7 @@ UICollectionViewDataSource
 ,UICollectionViewDelegate
 ,UICollectionViewDelegateFlowLayout
 >
+
 #pragma mark —— 一些公有方法
 -(jobsByBOOLBlock _Nonnull)shakeCell;
 

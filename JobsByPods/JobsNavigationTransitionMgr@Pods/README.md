@@ -104,7 +104,7 @@ JobsNavigationTransitionMgr@Pods/
 - `Support/UIKit/UIViewController/UIViewController+BaseVC` 在跳转前把 `UIViewModel.textModel` 的 Demo 标题同步到目标控制器；短标题保持 GK 单行标题，超出可用宽度时优先按语义分隔符拆成主标题 / 副标题，其次选择靠近中点的语言词边界，最后才按完整字符居中拆分。
 - `Support/UIKit/UIViewController/UIViewController+GKCustomNavigationBar` 提供 `gk_navTitleViewBy(UIViewModel *)`：`textModel` 对应主标题，`subTextModel` 对应副标题；页面已有自定义 `titleView` 时统一跳转链路不会覆盖。
 - `UINavigationController+SafeTransition` 为非根控制器强制补齐 GK 导航栏、标题与 `backBtnCategory` Jobs 返回按钮；已有系统富文本标题及右侧业务按钮迁移到 GK 导航栏，仅 `JobsNavigationDemoVC` 作为系统导航栏专项 Demo 保持原样。
-- 默认返回图标使用 template 渲染，着色源为 `UIViewModel.backBtnTitleModel.textCor`，其默认值是 `JobsLabelColor`，可随明暗主题自动变色。
+- 默认返回图标使用 template 渲染，着色源为 `UIViewModel.backBtnTitleModel.textCor`，其默认值是 `JobsLabelColor`，可随明暗主题自动变色；返回按钮初始背景透明，iOS 26+ 的导航项隐藏系统共享底板，主题刷新后仍保持透明背景。
 
 ## <span id="jobs-toc-heading-6" data-jobs-toc="v2">五、公开能力与依赖 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 

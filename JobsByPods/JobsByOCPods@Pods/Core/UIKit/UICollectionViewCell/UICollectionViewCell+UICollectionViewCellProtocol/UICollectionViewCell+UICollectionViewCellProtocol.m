@@ -8,6 +8,7 @@
 #import "UICollectionViewCell+UICollectionViewCellProtocol.h"
 
 @implementation UICollectionViewCell (UICollectionViewCellProtocol)
+
 #pragma mark —— UICollectionViewCellProtocol
 +(instancetype)cellWithCollectionView:(nonnull UICollectionView *)collectionView
                          forIndexPath:(nonnull NSIndexPath *)indexPath{

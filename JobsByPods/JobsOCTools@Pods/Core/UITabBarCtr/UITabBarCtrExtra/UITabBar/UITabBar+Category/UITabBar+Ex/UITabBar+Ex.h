@@ -51,6 +51,7 @@
 #endif
 
 @interface UITabBar (Ex)
+
 /// 移除系统的 UITabBarButton
 -(jobsByVoidBlock _Nonnull)deleteUITabBarButton;
 -(LOTAnimationView *_Nullable)addLottieImage:(NSUInteger)index lottieName:(NSString *_Nullable)lottieName;
@@ -58,4 +59,5 @@
 -(jobsByVoidBlock _Nonnull)stopAnimationAllLottieView;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_UITABBAR_EX_E2F70A4057 */

@@ -14,6 +14,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UIScrollView
 
 @implementation UIScrollView (DSL)
+
 #pragma mark —— UIScrollViewProtocol
 -(JobsRetScrollViewByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)

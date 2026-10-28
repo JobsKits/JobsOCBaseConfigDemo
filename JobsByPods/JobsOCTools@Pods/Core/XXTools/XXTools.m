@@ -15,6 +15,7 @@ Prop_strong()UILabel *lab2;
 @end
 
 @implementation XXTools
+
 /// 创建一个左上角的显示标记的markLabel
 /// - Parameters:
 ///   - text: 要展示的文字

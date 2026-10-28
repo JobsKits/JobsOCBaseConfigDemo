@@ -32,6 +32,7 @@
 NS_ASSUME_NONNULL_BEGIN
 /// 来自 http://18.162.73.145:18093/doc.html#/default
 @interface NSObject (URLMgr_1)
+
 #pragma mark —— 主播管理接口
 /// 获取主播详细信息@GET
 -(JobsRetURLManagerModelByStrBlock _Nonnull)get_presenter_getInfo_ByID;

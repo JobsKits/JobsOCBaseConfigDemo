@@ -8,6 +8,7 @@
 #import "FSAppIconManager.h"
 
 @implementation FSAppIconManager
+
 +(JobsRetStrByVoidBlock _Nonnull)getCurrentAppIconName{
     return ^NSString *_Nullable{
         if (@available(iOS 10.3, *)) {

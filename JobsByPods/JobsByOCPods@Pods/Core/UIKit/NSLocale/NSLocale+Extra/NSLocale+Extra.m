@@ -8,6 +8,7 @@
 #import "NSLocale+Extra.h"
 
 @implementation NSLocale (Extra)
+
 +(JobsRetLocaleByStrBlock _Nonnull)initByID{
     return ^NSLocale *_Nullable(__kindof NSString *_Nullable ID){
         return [NSLocale localeWithLocaleIdentifier:ID];

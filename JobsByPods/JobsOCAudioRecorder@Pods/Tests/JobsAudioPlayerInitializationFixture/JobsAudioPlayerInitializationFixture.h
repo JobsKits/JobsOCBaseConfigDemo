@@ -8,5 +8,7 @@
 #import "../JobsAudioSessionFixture/JobsAudioSessionFixture.h"
 
 @interface JobsAudioPlayerInitializationFixture : JobsOCAudioPlayerEngine
+
 @property(nonatomic, strong)JobsAudioSessionFixture *fixtureSession;
+
 @end

@@ -35,6 +35,7 @@ Prop_assign()JobsSettingGestureFlowState flowState;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsSettingGestureVC
 
 @implementation JobsSettingGestureVC
+
 - (instancetype)init{
     return [self initWithMode:JobsGestureLockModeCreate
                    storageKey:JobsSettingGestureStorageKey];

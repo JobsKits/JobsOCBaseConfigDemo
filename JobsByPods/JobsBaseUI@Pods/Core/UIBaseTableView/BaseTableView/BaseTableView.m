@@ -12,6 +12,7 @@
 @end
 
 @implementation BaseTableView
+
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
     };return self;

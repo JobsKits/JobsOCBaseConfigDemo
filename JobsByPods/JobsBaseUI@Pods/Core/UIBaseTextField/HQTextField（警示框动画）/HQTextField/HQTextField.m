@@ -17,6 +17,7 @@ Prop_strong()CABasicAnimation *opacityAnimation;
 @end
 
 @implementation HQTextField
+
 #pragma mark —— 警示框
 - (jobsByVoidBlock _Nonnull)showWarn {
     @jobs_weakify(self)

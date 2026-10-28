@@ -16,6 +16,7 @@ Prop_strong()UIView *resizedSubview;
 @end
 
 @implementation CXBVC
+
 - (void)viewDidLoad {
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(CXBVC.class, @selector(jobsViewDidLoad)))(self, @selector(jobsViewDidLoad));
     if (action) action();

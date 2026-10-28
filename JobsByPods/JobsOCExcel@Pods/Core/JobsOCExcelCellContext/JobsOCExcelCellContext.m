@@ -8,6 +8,7 @@
 #import "JobsOCExcelCellContext.h"
 
 @implementation JobsOCExcelCellContext
+
 -(JobsRetJobsOCExcelCellContextByNSIntegerBlock _Nonnull)byRow{
     @jobs_weakify(self)
     return ^JobsOCExcelCellContext *(NSInteger row){

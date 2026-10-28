@@ -21,6 +21,7 @@ Prop_assign()CGFloat secondLevelCommentOffset;/// 二级标题相对于一级标
 @end
 
 @implementation JobsCommentConfig
+
 #pragma mark —— BaseProtocol
 /// 单例化和销毁
 +(void)destroySingleton{

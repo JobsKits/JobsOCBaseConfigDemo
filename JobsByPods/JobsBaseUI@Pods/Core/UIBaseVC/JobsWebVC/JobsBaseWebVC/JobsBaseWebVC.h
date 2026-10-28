@@ -56,6 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 WKNavigationDelegate
 ,WKScriptMessageHandler
 >
+
 /// makeNormaleWebView
 /// self.webView.loadRequest(self.urlString.URLRequest);
 +(JobsRetVCByWebViewBlock _Nonnull)initByWebView;

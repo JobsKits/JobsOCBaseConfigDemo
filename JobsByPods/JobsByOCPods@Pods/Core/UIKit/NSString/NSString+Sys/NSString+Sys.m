@@ -8,6 +8,7 @@
 #import "NSString+Sys.h"
 
 @implementation NSString (JobsByOCPodsSys)
+
 -(UIColor *)cor{
     return (((JobsRetCorByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsCor)))(self, @selector(jobsCor)))();
 }

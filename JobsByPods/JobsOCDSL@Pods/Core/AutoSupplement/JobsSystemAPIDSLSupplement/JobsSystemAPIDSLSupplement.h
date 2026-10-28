@@ -37,6 +37,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface CAMetalLayer (JobsSystemAPIDSLSupplement)
+
 #if defined(__IPHONE_16_0)
 -(JobsRetCAMetalLayerByBOOLBlock _Nonnull)byWantsExtendedDynamicRangeContent;
 #endif
@@ -49,19 +50,25 @@ NS_ASSUME_NONNULL_BEGIN
 #if defined(__IPHONE_16_0)
 -(JobsRetCAMetalLayerByNSDictionaryBlock _Nonnull)byDeveloperHUDProperties;
 #endif
+
 @end
 
 @interface MFMailComposeViewController (JobsSystemAPIDSLSupplement)
+
 #if defined(__IPHONE_11_0)
 -(JobsRetMailComposeVCByStrBlock _Nonnull)bySetPreferredSendingEmailAddress;
 #endif
+
 @end
 
 @interface MFMessageComposeViewController (JobsSystemAPIDSLSupplement)
+
 -(JobsRetMessageComposeVCByStrBlock _Nonnull)bySubject;
+
 @end
 
 @interface NSDateFormatter (JobsSystemAPIDSLSupplement)
+
 -(JobsRetDateFormatterByBOOLBlock _Nonnull)byGeneratesCalendarDates;
 -(JobsRetDateFormatterByDateBlock _Nonnull)byTwoDigitStartDate;
 -(JobsRetDateFormatterByDateBlock _Nonnull)byDefaultDate;
@@ -84,9 +91,11 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetDateFormatterByDateBlock _Nonnull)byGregorianStartDate;
 -(JobsRetDateFormatterByBOOLBlock _Nonnull)byDoesRelativeDateFormatting;
 -(JobsRetDateFormatterByNSIntegerBlock _Nonnull)byFormattingContext;
+
 @end
 
 @interface PDFView (JobsSystemAPIDSLSupplement)
+
 -(JobsRetPDFViewByBOOLBlock _Nonnull)byDisplaysAsBook;
 -(JobsRetPDFViewByBOOLBlock _Nonnull)byDisplaysRTL;
 -(JobsRetPDFViewByCGFloatBlock _Nonnull)byMinScaleFactor;
@@ -100,9 +109,11 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetPDFViewByPDFSelectionBlock _Nonnull)byGoToSelection;
 -(JobsRetPDFViewByPDFSelectionBlock _Nonnull)bySetCurrentSelection;
 -(JobsRetPDFViewByArrBlock _Nonnull)byHighlightedSelections;
+
 @end
 
 @interface UICollectionView (JobsSystemAPIDSLSupplement)
+
 -(JobsRetCollectionViewByVoidBlock _Nonnull)byReloadData;
 -(JobsRetCollectionViewByVoidBlock _Nonnull)byFinishInteractiveTransition API_AVAILABLE(ios(7.0)) API_UNAVAILABLE(tvos);
 -(JobsRetCollectionViewByVoidBlock _Nonnull)byCancelInteractiveTransition API_AVAILABLE(ios(7.0)) API_UNAVAILABLE(tvos);
@@ -116,14 +127,18 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetCollectionViewByArrBlock _Nonnull)byDeleteItemsAtIndexPaths;
 -(JobsRetCollectionViewByArrBlock _Nonnull)byReconfigureItemsAtIndexPaths API_AVAILABLE(ios(15.0), tvos(15.0)) API_UNAVAILABLE(watchos);
 -(JobsRetCollectionViewByCGPointBlock _Nonnull)byUpdateInteractiveMovementTargetPosition API_AVAILABLE(ios(9.0)) API_UNAVAILABLE(tvos);
+
 @end
 
 @interface UIScrollView (JobsSystemAPIDSLSupplement)
+
 -(JobsRetScrollViewByVoidBlock _Nonnull)byFlashScrollIndicators;
 -(JobsRetScrollViewByVoidBlock _Nonnull)byStopScrollingAndZooming API_AVAILABLE(ios(18.0)) API_UNAVAILABLE(tvos, watchos);
+
 @end
 
 @interface UIImageView (JobsSystemAPIDSLSupplement)
+
 -(JobsRetImageViewBySymbolConfigurationBlock _Nonnull)byPreferredSymbolConfiguration API_AVAILABLE(ios(13.0), tvos(13.0)) API_UNAVAILABLE(watchos);
 -(JobsRetImageViewByImageDynamicRangeBlock _Nonnull)byPreferredImageDynamicRange API_AVAILABLE(ios(17.0), tvos(17.0)) API_UNAVAILABLE(watchos);
 -(JobsRetImageViewByVoidBlock _Nonnull)byStartAnimating;
@@ -132,15 +147,19 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetImageViewBySymbolEffectBlock _Nonnull)byAddSymbolEffect API_AVAILABLE(ios(17.0), tvos(17.0), visionos(1.0)) API_UNAVAILABLE(watchos);
 -(JobsRetImageViewBySymbolEffectBlock _Nonnull)byRemoveSymbolEffectOfType API_AVAILABLE(ios(17.0), tvos(17.0), visionos(1.0)) API_UNAVAILABLE(watchos);
 -(JobsRetImageViewBySymbolEffectOptionsBlock _Nonnull)byRemoveAllSymbolEffectsWithOptions API_AVAILABLE(ios(17.0), tvos(17.0), visionos(1.0)) API_UNAVAILABLE(watchos);
+
 @end
 
 @interface UIImagePickerController (JobsSystemAPIDSLSupplement)
+
 -(JobsRetImagePickerControllerBySourceTypeBlock _Nonnull)bySourceType;
 -(JobsRetImagePickerControllerByIDBlock _Nonnull)byDelegate;
 -(JobsRetImagePickerControllerByBOOLBlock _Nonnull)byAllowsEditing;
+
 @end
 
 @interface UIPageControl (JobsSystemAPIDSLSupplement)
+
 -(JobsRetPageControlByNSIntegerBlock _Nonnull)byNumberOfPages;
 -(JobsRetPageControlByNSIntegerBlock _Nonnull)byCurrentPage;
 -(JobsRetPageControlByBOOLBlock _Nonnull)byHidesForSinglePage;
@@ -153,17 +172,21 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetPageControlByImageAndNSIntegerBlock _Nonnull)byIndicatorImageForPage API_AVAILABLE(ios(14.0), tvos(14.0));
 -(JobsRetPageControlByBackgroundStyleBlock _Nonnull)byBackgroundStyle API_AVAILABLE(ios(14.0), tvos(14.0));
 -(JobsRetPageControlByDirectionBlock _Nonnull)byDirection API_AVAILABLE(ios(16.0), tvos(16.0));
+
 @end
 
 @interface UITableView (JobsSystemAPIDSLSupplement)
+
 -(JobsRetTableViewByVoidBlock _Nonnull)byBeginUpdates;
 -(JobsRetTableViewByVoidBlock _Nonnull)byEndUpdates;
 -(JobsRetTableViewByVoidBlock _Nonnull)byReloadData;
 -(JobsRetTableViewByVoidBlock _Nonnull)byReloadSectionIndexTitles;
 -(JobsRetTableViewByArrBlock _Nonnull)byReconfigureRowsAtIndexPaths API_AVAILABLE(ios(15.0), tvos(15.0)) API_UNAVAILABLE(watchos);
+
 @end
 
 @interface UILabel (JobsSystemAPIDSLSupplement)
+
 -(JobsRetUILabelByUIColorBlock _Nonnull)byTextColor;
 -(JobsRetUILabelByNSAttributedStringBlock _Nonnull)byAttributedText;
 -(JobsRetUILabelByUIColorBlock _Nonnull)byShadowColor;
@@ -172,9 +195,11 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetUILabelByBOOLBlock _Nonnull)byAdjustsLetterSpacingToFitWidth API_UNAVAILABLE(tvos) API_UNAVAILABLE(visionos, watchos);
 #if defined(__IPHONE_10_0)
 #endif
+
 @end
 
 @interface UITextField (JobsSystemAPIDSLSupplement)
+
 -(JobsRetTextFieldByCorBlock _Nonnull)byTextColor;
 -(JobsRetTextFieldByNSIntegerBlock _Nonnull)byAutocapitalizationType;
 -(JobsRetTextFieldByNSIntegerBlock _Nonnull)byAutocorrectionType;
@@ -198,9 +223,11 @@ NS_ASSUME_NONNULL_BEGIN
 #if defined(__IPHONE_10_0)
 -(JobsRetTextFieldByBOOLBlock _Nonnull)byAdjustsFontForContentSizeCategory;
 #endif
+
 @end
 
 @interface UITextView (JobsSystemAPIDSLSupplement)
+
 -(JobsRetTextViewByCorBlock _Nonnull)byTextColor;
 -(JobsRetTextViewByAttributedStringBlock _Nonnull)byAttributedString;
 #if defined(__IPHONE_11_0)
@@ -218,17 +245,23 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetTextViewByBOOLBlock _Nonnull)byFindInteractionEnabled API_AVAILABLE(ios(16.0)) API_UNAVAILABLE(watchos, tvos);
 -(JobsRetTextViewByBorderStyleBlock _Nonnull)byBorderStyle API_AVAILABLE(ios(17.0), visionos(1.0)) API_UNAVAILABLE(watchos);
 -(JobsRetTextViewByIDBlock _Nonnull)byInteractionState API_AVAILABLE(ios(17.0), visionos(1.0)) API_UNAVAILABLE(watchos);
+
 @end
 
 @interface UIPanGestureRecognizer (JobsSystemAPIDSLSupplement)
+
 -(JobsRetPanGestureRecognizerByUIScrollTypeMaskBlock _Nonnull)byAllowedScrollTypesMask API_AVAILABLE(ios(13.4)) API_UNAVAILABLE(tvos, watchos);
+
 @end
 
 @interface UITapGestureRecognizer (JobsSystemAPIDSLSupplement)
+
 -(JobsRetTapGestureRecognizerByUIEventButtonMaskBlock _Nonnull)byButtonMaskRequired API_AVAILABLE(ios(13.4)) API_UNAVAILABLE(tvos, watchos);
+
 @end
 
 @interface UIView (JobsSystemAPIDSLSupplement)
+
 -(JobsRetViewByStringBlock _Nonnull)byRestorationIdentifier;
 -(JobsRetViewByFrameBlock _Nonnull)byContentStretch;
 #if defined(__IPHONE_11_0)
@@ -251,20 +284,26 @@ NS_ASSUME_NONNULL_BEGIN
 #endif
 -(JobsRetBOOLByBOOLBlock _Nonnull)byEndEditing;
 -(JobsRetViewByNSIntegerReturnViewBlock _Nonnull)byViewWithTag;
+
 @end
 
 @interface UIWindow (JobsSystemAPIDSLSupplement)
+
 -(JobsRetUIWindowByViewControllerBlock _Nonnull)byRootViewController;
 -(JobsRetUIWindowByWindowSceneBlock _Nonnull)byWindowScene API_AVAILABLE(ios(13.0));
 -(JobsRetUIWindowByFrameBlock _Nonnull)byWindowFrame;
 -(JobsRetUIWindowByVoidBlock _Nonnull)byMakeKeyAndVisible;
+
 @end
 
 @interface UIAlertAction (JobsSystemAPIDSLSupplement)
+
 -(JobsRetUIAlertActionByBOOLBlock _Nonnull)byEnabled;
+
 @end
 
 @interface NSShadow (JobsSystemAPIDSLSupplement)
+
 -(JobsRetNSShadowByIDBlock _Nonnull)byShadowColor;
 -(JobsRetNSShadowByCGSizeBlock _Nonnull)byShadowOffset;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN NSShadow
@@ -273,6 +312,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface UICollectionViewLayoutAttributes (JobsSystemAPIDSLSupplement)
+
 -(JobsRetCollectionViewLayoutAttributesByCGRectBlock _Nonnull)byFrame;
 -(JobsRetCollectionViewLayoutAttributesByCGAffineTransformBlock _Nonnull)byTransform;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN UICollectionViewLayoutAttributes
@@ -281,10 +321,13 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface UIPasteboard (JobsSystemAPIDSLSupplement)
+
 -(JobsRetUIPasteboardByStrBlock _Nonnull)byString;
+
 @end
 
 @interface UINavigationItem (JobsSystemAPIDSLSupplement)
+
 -(JobsRetNavigationItemByBarButtonItemsBlock _Nonnull)byRightBarButtonItems;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN UINavigationItem
 -(JobsRetUINavigationItemByUIBarButtonItemBlock _Nonnull)byLeftBarButtonItem;
@@ -300,13 +343,16 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface UIViewController (JobsSystemAPIDSLSupplement)
+
 -(JobsRetVCByBOOLBlock _Nonnull)byHidesBottomBarWhenPushed;
 -(JobsRetUIViewControllerByUIModalPresentationStyleBlock _Nonnull)byModalPresentationStyle;
 -(JobsRetUIViewControllerByIDUIViewControllerTransitioningDelegateBlock _Nonnull)byTransitioningDelegate;
 -(JobsRetUIViewControllerByUITabBarItemBlock _Nonnull)byTabBarItem;
+
 @end
 
 @interface NSURLComponents (JobsSystemAPIDSLSupplement)
+
 -(JobsRetURLComponentsByStrBlock _Nonnull)byScheme;
 -(JobsRetURLComponentsByStrBlock _Nonnull)byPath;
 -(JobsRetURLComponentsByQueryItemsBlock _Nonnull)byQueryItems;
@@ -317,10 +363,13 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface UIScreen (JobsSystemAPIDSLSupplement)
+
 -(JobsRetScreenByCGFloatBlock _Nonnull)byBrightness;
+
 @end
 
 @interface UIApplication (JobsSystemAPIDSLSupplement)
+
 -(JobsRetApplicationByBOOLBlock _Nonnull)byIdleTimerDisabled;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN UIApplication
 -(JobsRetApplicationByBOOLBlock _Nonnull)byApplicationSupportsShakeToEdit;
@@ -331,14 +380,17 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface CATransition (JobsSystemAPIDSLSupplement)
+
 -(JobsRetCATransitionByTimeIntervalBlock _Nonnull)byDuration;
 -(JobsRetCATransitionByStrBlock _Nonnull)byType;
 -(JobsRetCATransitionByStrBlock _Nonnull)bySubtype;
 -(JobsRetCATransitionByTimingFunctionBlock _Nonnull)byTimingFunction;
 -(JobsRetCATransitionByBOOLBlock _Nonnull)byRemovedOnCompletion;
+
 @end
 
 @interface NSDateComponents (JobsSystemAPIDSLSupplement)
+
 -(JobsRetDateComponentsByCalendarBlock _Nonnull)byCalendar;
 -(JobsRetDateComponentsByTimeZoneBlock _Nonnull)byTimeZone;
 -(JobsRetDateComponentsByIntegerBlock _Nonnull)byYear;
@@ -347,9 +399,11 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetDateComponentsByIntegerBlock _Nonnull)byHour;
 -(JobsRetDateComponentsByIntegerBlock _Nonnull)byMinute;
 -(JobsRetDateComponentsByIntegerBlock _Nonnull)bySecond;
+
 @end
 
 @interface UNMutableNotificationContent (JobsSystemAPIDSLSupplement)
+
 -(JobsRetUNMutableNotificationContentByStrBlock _Nonnull)byTitle;
 -(JobsRetUNMutableNotificationContentByStrBlock _Nonnull)bySubtitle;
 -(JobsRetUNMutableNotificationContentByNumBlock _Nonnull)byBadge;
@@ -358,14 +412,18 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetUNMutableNotificationContentByAttachmentsBlock _Nonnull)byAttachments;
 -(JobsRetUNMutableNotificationContentByStrBlock _Nonnull)byLaunchImageName;
 -(JobsRetUNMutableNotificationContentByStrBlock _Nonnull)byCategoryIdentifier;
+
 @end
 
 @interface NSTextAttachment (JobsSystemAPIDSLSupplement)
+
 -(JobsRetTextAttachmentByImageBlock _Nonnull)byImage;
 -(JobsRetTextAttachmentByCGRectBlock _Nonnull)byBounds;
+
 @end
 
 @interface AVPlayerLayer (JobsSystemAPIDSLSupplement)
+
 -(JobsRetAVPlayerLayerByPlayerBlock _Nonnull)byPlayer;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN AVPlayerLayer
 -(JobsRetAVPlayerLayerByAVLayerVideoGravityBlock _Nonnull)byVideoGravity;
@@ -373,23 +431,31 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface UIGraphicsImageRendererFormat (JobsSystemAPIDSLSupplement)
+
 -(JobsRetGraphicsImageRendererFormatByBOOLBlock _Nonnull)byOpaque;
+
 @end
 
 @interface WKWebView (JobsSystemAPIDSLSupplement)
+
 -(JobsRetWKWebViewByIDBlock _Nonnull)byUIDelegate;
 -(JobsRetWKWebViewByIDBlock _Nonnull)byNavigationDelegate;
 -(JobsRetWKWebViewByBOOLBlock _Nonnull)byAllowsBackForwardNavigationGestures;
+
 @end
 
 @interface WKWebViewConfiguration (JobsSystemAPIDSLSupplement)
+
 -(JobsRetWKWebViewConfigurationByUserContentControllerBlock _Nonnull)byUserContentController;
 -(JobsRetWKWebViewConfigurationByPreferencesBlock _Nonnull)byDefaultWebpagePreferences;
 -(JobsRetWKWebViewConfigurationByBOOLBlock _Nonnull)byAllowsInlineMediaPlayback;
+
 @end
 
 @interface WKWebpagePreferences (JobsSystemAPIDSLSupplement)
+
 -(JobsRetWKWebpagePreferencesByBOOLBlock _Nonnull)byAllowsContentJavaScript;
+
 @end
 
 NS_ASSUME_NONNULL_END

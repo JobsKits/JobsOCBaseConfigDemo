@@ -8,6 +8,7 @@
 #import "JXCategoryPopupVC.h"
 
 @interface JXCategoryPopupVC ()
+
 /// UI
 Prop_strong()JXCategoryTitleView *categoryView;
 Prop_strong()JXCategoryIndicatorLineView *lineView;/// 跟随的指示器

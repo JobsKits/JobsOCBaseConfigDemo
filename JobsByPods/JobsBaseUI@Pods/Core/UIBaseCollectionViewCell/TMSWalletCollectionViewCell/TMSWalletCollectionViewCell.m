@@ -11,12 +11,14 @@
 #import <JobsBaseUI/UIView+Extra.h>
 
 @interface TMSWalletCollectionViewCell ()
+
 /// UI
 Prop_strong()UILabel *titleLabel;
 
 @end
 
 @implementation TMSWalletCollectionViewCell
+
 - (instancetype)initWithFrame:(CGRect)frame {
     if (self == [super initWithFrame:frame]) {
         self.byBgColor(JobsSecondarySystemBackgroundColor);

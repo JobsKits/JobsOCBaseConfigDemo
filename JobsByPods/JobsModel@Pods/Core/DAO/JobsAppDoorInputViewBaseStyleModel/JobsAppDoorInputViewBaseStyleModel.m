@@ -12,6 +12,7 @@
 @end
 
 @implementation JobsAppDoorInputViewBaseStyleModel
+
 UIViewModelProtocol_synthesize
 - (instancetype)init{
     if (self = [super init]) {

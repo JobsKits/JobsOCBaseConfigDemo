@@ -11,6 +11,7 @@
 #import <JobsModel/NSObject+Extra.h>
 
 @implementation FMDoorModel
+
 #pragma mark —— NSCoding
 /// 解档
 //- (nullable instancetype)initWithCoder:(NSCoder *)decoder {

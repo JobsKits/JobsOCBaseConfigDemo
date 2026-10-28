@@ -8,6 +8,7 @@
 #import "UITextFieldModel.h"
 
 @implementation UITextFieldModel
+
 UITextFieldProtocol_synthesize
 
 @end

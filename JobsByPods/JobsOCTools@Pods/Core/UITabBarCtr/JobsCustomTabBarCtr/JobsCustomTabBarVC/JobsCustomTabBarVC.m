@@ -64,6 +64,7 @@ Prop_assign()BOOL didInstallInitialConfiguration;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsCustomTabBarVC
 
 @implementation JobsCustomTabBarVC
+
 -(instancetype)initWithConfiguration:(JobsCustomTabBarConfig *)configuration{
     if (self = [super init]) {
         _sceneConfiguration = configuration;

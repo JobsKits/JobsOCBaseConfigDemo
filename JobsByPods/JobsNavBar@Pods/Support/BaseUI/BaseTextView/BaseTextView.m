@@ -12,6 +12,7 @@
 @end
 
 @implementation BaseTextView
+
 /// BaseProtocol
 @synthesize becomeFirstResponder = _becomeFirstResponder;
 -(void)dealloc{

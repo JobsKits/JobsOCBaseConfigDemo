@@ -20,6 +20,7 @@ Prop_strong()UIImageView *imageView;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END GifLoopPlayView
 
 @implementation GifLoopPlayView
+
 static dispatch_once_t dispatchOnce;
 -(instancetype)init{
     if (self = [super init]) {

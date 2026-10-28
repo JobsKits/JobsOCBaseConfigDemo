@@ -26,6 +26,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSURL (Extra)
+
 /// NSURL => NSURLRequest
 -(NSMutableURLRequest *)URLRequest;
 -(JobsRetMutableURLRequestByVoidBlock _Nonnull)jobsURLRequest;

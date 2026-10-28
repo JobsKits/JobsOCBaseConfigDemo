@@ -8,6 +8,7 @@
 #import "NSObject+Extra.h"
 
 @implementation NSObject (JobsLanMgrExtra)
+
 /// App 国际化相关系统宏二次封装 + 设置缺省值
 +(JobsRetStrByStrBlock _Nonnull)localStringWithKey{
     return ^NSString *_Nullable(NSString * key){

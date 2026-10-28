@@ -31,6 +31,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface AESCrypt : NSObject
+
 ///
 +(NSString *)encrypt:(NSString *)message password:(NSString *)password;
 ///

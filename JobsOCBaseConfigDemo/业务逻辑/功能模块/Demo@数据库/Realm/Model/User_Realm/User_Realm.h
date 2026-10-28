@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetUser_RealmByNSIntegerBlock _Nonnull)byAge;
 
 @end
+
 // 需要为 Realm 模型类定义一个 RLMArray 类型的属性时，使用宏定义来简化声明
 RLM_COLLECTION_TYPE(User)
 

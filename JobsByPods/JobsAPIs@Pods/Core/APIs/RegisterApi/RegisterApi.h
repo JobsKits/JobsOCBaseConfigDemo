@@ -44,4 +44,5 @@
 -(JobsRetStrByVoidBlock _Nonnull)userId; // 在链式请求中，下一个请求的参数来源于上一个请求的结果
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_REGISTERAPI_B562C8CC27 */

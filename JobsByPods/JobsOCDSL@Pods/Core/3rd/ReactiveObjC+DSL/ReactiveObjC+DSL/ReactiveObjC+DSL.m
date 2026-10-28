@@ -9,6 +9,7 @@
 
 #pragma mark —— NSObject.racDisposable
 @implementation NSObject (JobsRACDisposableChain)
+
 -(JobsRetIDByRACDisposableBlock _Nonnull)byRacDisposable{
     @jobs_weakify(self)
     return ^id _Nullable(__kindof RACDisposable *_Nullable disposable){
@@ -25,6 +26,7 @@
 
 #pragma mark —— RACDisposable
 @implementation RACDisposable (JobsChain)
+
 +(JobsRetRACDisposableByVoidCallbackBlock _Nonnull)byDisposable{
     return ^__kindof RACDisposable *_Nullable(jobsByVoidBlock _Nullable block){
         return [self disposableWithBlock:block ?: ^{}];
@@ -61,6 +63,7 @@
 
 #pragma mark —— RACScopedDisposable
 @implementation RACScopedDisposable (JobsChain)
+
 +(JobsRetRACScopedDisposableByRACDisposableBlock _Nonnull)byScopedDisposable{
     return ^__kindof RACScopedDisposable *_Nullable(__kindof RACDisposable *_Nullable disposable){
         return disposable ? [self scopedDisposableWithDisposable:disposable] : nil;
@@ -71,6 +74,7 @@
 
 #pragma mark —— RACCompoundDisposable
 @implementation RACCompoundDisposable (JobsChain)
+
 +(JobsRetRACCompoundDisposableByVoidBlock _Nonnull)byCompoundDisposable{
     return ^__kindof RACCompoundDisposable *_Nullable(void){
         return [self compoundDisposable];
@@ -107,6 +111,7 @@
 
 #pragma mark —— RACCommand
 @implementation RACCommand (JobsChain)
+
 +(JobsRetRACCommandByRACSignalValueBlock _Nonnull)bySignalBlock{
     return ^__kindof RACCommand *_Nullable(JobsRetRACSignalByIDBlock _Nullable block){
         if (!block) return nil;
@@ -170,6 +175,7 @@
 
 #pragma mark —— RACSignal
 @implementation RACSignal (JobsChain)
+
 +(JobsRetRACSignalByIDBlock _Nonnull)byReturn{
     return ^__kindof RACSignal *_Nullable(id _Nullable data){
         return [self return:data];
@@ -622,6 +628,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
 
 #pragma mark —— RACSubject / RACReplaySubject
 @implementation RACSubject (JobsChain)
+
 +(JobsRetRACSubjectByVoidBlock _Nonnull)bySubject{
     return ^__kindof RACSubject *_Nullable(void){
         return [self subject];
@@ -661,6 +668,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
 @end
 
 @implementation RACReplaySubject (JobsChain)
+
 +(JobsRetRACReplaySubjectByNSUIntegerBlock _Nonnull)byReplaySubjectWithCapacity{
     return ^__kindof RACReplaySubject *_Nullable(NSUInteger capacity){
         return [self replaySubjectWithCapacity:capacity];
@@ -671,6 +679,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
 
 #pragma mark —— RACMulticastConnection
 @implementation RACMulticastConnection (JobsChain)
+
 -(JobsRetRACSignalByVoidBlock _Nonnull)bySignal{
     @jobs_weakify(self)
     return ^__kindof RACSignal *_Nullable(void){
@@ -699,6 +708,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
 
 #pragma mark —— RACScheduler
 @implementation RACScheduler (JobsChain)
+
 +(JobsRetRACSchedulerByVoidBlock _Nonnull)byImmediateScheduler{
     return ^__kindof RACScheduler *_Nullable(void){ return [self immediateScheduler]; };
 }
@@ -744,6 +754,7 @@ JOBS_RAC_SIGNAL_SIGNAL_ARG(bySample, sample)
 
 #pragma mark —— RACSequence
 @implementation RACSequence (JobsChain)
+
 +(JobsRetRACSequenceByIDBlock _Nonnull)byReturn{
     return ^__kindof RACSequence *_Nullable(id _Nullable data){ return [self return:data]; };
 }
@@ -942,6 +953,7 @@ JOBS_RAC_SEQUENCE_PREDICATE_ARG(bySkipWhileBlock, skipWhileBlock)
 
 #pragma mark —— RACTuple
 @implementation RACTuple (JobsChain)
+
 +(JobsRetRACTupleByArrBlock _Nonnull)byTupleWithObjectsFromArray{
     return ^__kindof RACTuple *_Nullable(__kindof NSArray *_Nullable data){
         return data ? [self tupleWithObjectsFromArray:data] : nil;

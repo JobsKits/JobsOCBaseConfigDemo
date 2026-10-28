@@ -8,6 +8,7 @@
 #import "UIBaseTextField+DSL.h"
 
 @implementation CJTextField (JobsUIBaseTextFieldDSL)
+
 -(JobsRetCJTextFieldByDeleteDelegateBlock _Nonnull)byCJDelegate{
     @jobs_weakify(self)
     return ^__kindof CJTextField *_Nullable(id<CJTextFieldDeleteDelegate> _Nullable delegate){
@@ -20,6 +21,7 @@
 @end
 
 @implementation HQTextField (JobsUIBaseTextFieldDSL)
+
 -(JobsRetHQTextFieldByVoidBlock _Nonnull)byShowWarn{
     @jobs_weakify(self)
     return ^__kindof HQTextField *_Nullable(void){
@@ -33,6 +35,7 @@
 @end
 
 @implementation ZYTextField (JobsUIBaseTextFieldDSL)
+
 -(JobsRetZYTextFieldByCGFloatBlock _Nonnull)byZYTextFieldCornerRadius{
     @jobs_weakify(self)
     return ^__kindof ZYTextField *_Nullable(CGFloat data){
@@ -225,6 +228,7 @@
 @end
 
 @implementation JobsMagicTextField (JobsUIBaseTextFieldDSL)
+
 -(JobsRetMagicTextFieldByBOOLBlock _Nonnull)byPlaceholdAnimationable{
     @jobs_weakify(self)
     return ^__kindof JobsMagicTextField *_Nullable(BOOL data){
@@ -273,6 +277,7 @@
 @end
 
 @implementation JobsTextField (JobsUIBaseTextFieldDSL)
+
 -(JobsRetJobsTextFieldByUITextFieldBlock _Nonnull)byRealTextField{
     @jobs_weakify(self)
     return ^__kindof JobsTextField *_Nonnull(__kindof UITextField *_Nullable textField){

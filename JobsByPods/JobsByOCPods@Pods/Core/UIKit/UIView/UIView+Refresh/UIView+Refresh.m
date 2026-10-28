@@ -8,6 +8,7 @@
 #import "UIView+Refresh.h"
 
 @implementation UIView (JobsByOCPodsRefresh)
+
 #pragma mark —— 一些公有方法
 /// 配置刷新文案
 -(jobsByRefreshConfigModelBlock _Nonnull)handleWord{

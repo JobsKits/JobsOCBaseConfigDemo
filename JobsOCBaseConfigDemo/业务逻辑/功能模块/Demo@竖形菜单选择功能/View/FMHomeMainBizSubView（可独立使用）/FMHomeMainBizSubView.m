@@ -8,6 +8,7 @@
 #import "FMHomeMainBizSubView.h"
 
 @interface FMHomeMainBizSubView ()
+
 /// UI
 Prop_strong()ThreeClassCell *tempCell;
 /// Data
@@ -30,6 +31,7 @@ Prop_assign()NSUInteger thisIndex;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END FMHomeMainBizSubView
 
 @implementation FMHomeMainBizSubView
+
 -(void)dealloc{
     JobsLog(@"");
 }

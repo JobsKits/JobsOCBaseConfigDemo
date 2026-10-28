@@ -8,6 +8,7 @@
 #import "TestLabelDemoModel.h"
 
 @implementation TestLabelDemoModel
+
 #define JOBS_TEST_LABEL_STRING_DSL(_selector_, _property_) \
 -(JobsRetTestLabelDemoModelByStrBlock _Nonnull)_selector_{ \
     @jobs_weakify(self) \

@@ -8,6 +8,7 @@
 #import "JobsOCExcelStabilityTests.h"
 
 @interface JobsOCExcelView (JobsUIRegressionAccess)
+
 -(jobsByLabelBlock)jobsHandleCellTap;
 
 @end

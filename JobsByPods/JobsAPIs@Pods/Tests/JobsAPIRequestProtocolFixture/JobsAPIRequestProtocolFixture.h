@@ -9,7 +9,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @interface JobsAPIRequestProtocolFixture : NSURLProtocol
+
 +(void)setRequestObserver:(void (^_Nullable)(NSURLRequest *request, NSData *body))observer;
 +(void)setStopObserver:(void (^_Nullable)(NSURLRequest *request))observer;
+
 @end
+
 NS_ASSUME_NONNULL_END

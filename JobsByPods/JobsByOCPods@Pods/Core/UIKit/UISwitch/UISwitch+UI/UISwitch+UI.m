@@ -8,6 +8,7 @@
 #import "UISwitch+UI.h"
 
 @implementation UISwitch (UI)
+
 -(JobsRetRACDisposableByRACNextBlock _Nonnull)jobsSwitchClickEventBlock{
     @jobs_weakify(self)
     return ^RACDisposable *(jobsByIDBlock subscribeNextBlock){

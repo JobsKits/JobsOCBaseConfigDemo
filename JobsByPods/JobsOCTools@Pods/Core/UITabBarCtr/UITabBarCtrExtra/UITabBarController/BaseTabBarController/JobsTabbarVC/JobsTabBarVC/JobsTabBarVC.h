@@ -99,6 +99,7 @@ UITabBarControllerDelegate,
 UIGestureRecognizerDelegate,
 BaseProtocol
 >
+
 /// UI
 Prop_strong(readonly)JobsTabBar * _Nonnull myTabBar; // myTabBar.humpOffsetY 凸起的高度自定义，默认值30  offsetHeight
 /// Data

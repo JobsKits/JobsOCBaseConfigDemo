@@ -8,6 +8,7 @@
 #import "NSObject+ChangeAppicon.h"
 
 @implementation NSObject (ChangeAppicon)
+
 /// 测试App更改图标
 -(jobsByVoidBlock _Nonnull)testChangeAppicon{
     @jobs_weakify(self)

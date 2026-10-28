@@ -18,6 +18,7 @@ Prop_strong()UILabel *placeholderAnimationLbl;
 @end
 
 @implementation JobsMagicTextField
+
 -(JobsRetMagicTextFieldByBOOLBlock _Nonnull)byPlaceholdAnimationable{
     @jobs_weakify(self)
     return ^__kindof JobsMagicTextField *_Nullable(BOOL placeholdAnimationable){

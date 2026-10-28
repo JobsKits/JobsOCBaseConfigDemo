@@ -35,6 +35,7 @@ typedef LZTabBarConfig *_Nullable(^tabBarBlock)(LZTabBarConfig * _Nonnull config
 #endif
 
 @interface LZTabBarController : UITabBarController<LZTabBarDelegate>
+
 /// 是否可用自动旋转屏幕
 Prop_assign()BOOL isAutoRotation;
 /// 创建tabBarController

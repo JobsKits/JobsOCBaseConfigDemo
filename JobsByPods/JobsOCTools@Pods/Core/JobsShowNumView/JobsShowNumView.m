@@ -8,6 +8,7 @@
 #import "JobsShowNumView.h"
 
 @interface JobsShowNumView ()
+
 /// UI
 /// Data
 Prop_strong()NSMutableArray <__kindof UIButton *>*btnMutArr;
@@ -15,6 +16,7 @@ Prop_strong()NSMutableArray <__kindof UIButton *>*btnMutArr;
 @end
 
 @implementation JobsShowNumView
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 @synthesize thisViewSize = _thisViewSize;

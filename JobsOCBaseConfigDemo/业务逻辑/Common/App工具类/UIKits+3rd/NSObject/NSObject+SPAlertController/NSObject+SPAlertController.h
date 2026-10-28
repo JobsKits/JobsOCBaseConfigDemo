@@ -57,20 +57,25 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @interface SPAlertController (JobsSPAlertControllerDSL)
+
 -(JobsRetSPAlertControllerByCorBlock _Nonnull)byTitleColor;
 -(JobsRetSPAlertControllerByCorBlock _Nonnull)byMessageColor;
 -(JobsRetSPAlertControllerByFontBlock _Nonnull)byTitleFont;
 -(JobsRetSPAlertControllerByFontBlock _Nonnull)byMessageFont;
+
 @end
 
 @interface SPAlertAction (JobsSPAlertControllerDSL)
+
 -(JobsRetSPAlertActionByNSIntegerBlock _Nonnull)byIndex;
 -(JobsRetSPAlertActionByCorBlock _Nonnull)byTitleColor;
 -(JobsRetSPAlertActionByFontBlock _Nonnull)byTitleFont;
+
 @end
 
 /// pod 'SPAlertController'# https://github.com/SPStore/SPAlertController 深度定制AlertController
 @interface NSObject (SPAlertController)
+
 /// 自定义的Alert
 /// @param config 配置文件
 /// @param alertVCBlock alertVCBlock

@@ -8,6 +8,7 @@
 #import "NSObject+TimeApp.h"
 
 @implementation NSObject (TimeApp)
+
 /// 判断是否当日第一次启动App
 -(JobsRetBOOLByVoidBlock _Nonnull)isFirstLaunchApp{
     @jobs_weakify(self)

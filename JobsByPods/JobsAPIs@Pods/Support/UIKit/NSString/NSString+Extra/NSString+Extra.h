@@ -33,6 +33,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (JobsAPIsExtra)
+
 /// 对系统方法 initWithData.NSUTF8StringEncoding 的二次封装
 +(JobsRetStrByDataBlock _Nonnull)initByUTF8Data;
 /// OC字符串拼接

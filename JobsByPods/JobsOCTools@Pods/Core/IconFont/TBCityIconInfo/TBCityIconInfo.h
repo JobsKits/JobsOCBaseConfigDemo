@@ -36,4 +36,5 @@ Prop_strong()UIColor *color;
 +(instancetype)iconInfoWithText:(NSString *)text size:(NSInteger)size color:(UIColor *)color;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_TBCITYICONINFO_DC73AF58E2 */

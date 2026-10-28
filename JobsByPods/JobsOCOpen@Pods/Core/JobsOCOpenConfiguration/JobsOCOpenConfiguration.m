@@ -10,6 +10,7 @@
 #import <JobsOCOpen/NSString+Sys.h>
 
 @implementation JobsOCOpenConfiguration
+
 +(JobsRetIDByVoidBlock _Nonnull)config{
     return ^id{
         return [[self alloc] init];

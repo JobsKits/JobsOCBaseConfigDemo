@@ -8,6 +8,7 @@
 #import "UITBVCellFoldVC.h"
 
 @interface UITBVCellFoldVC ()
+
 /// UI
 Prop_strong()MSCommentView *commentView;
 
@@ -16,6 +17,7 @@ Prop_strong()MSCommentView *commentView;
 static NSString *const JobsUITBVCellFoldTitle = @"UITableViewCell 折叠效果";
 
 @implementation UITBVCellFoldVC
+
 -(void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

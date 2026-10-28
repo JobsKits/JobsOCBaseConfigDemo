@@ -21,6 +21,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (Extra)
+
 /// NSBundle
 +(NSBundle *)mainBundle;
 +(JobsRetNSBundleByVoidBlock _Nonnull)jobsMainBundle;

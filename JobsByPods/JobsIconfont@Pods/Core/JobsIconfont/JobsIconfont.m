@@ -21,11 +21,14 @@ static const void *JobsIconfontLoadTokenKey = &JobsIconfontLoadTokenKey;
 static const void *JobsIconfontRequestIdentityKey = &JobsIconfontRequestIdentityKey;
 
 @interface UIGraphicsImageRendererFormat (JobsIconfontDSL)
+
 -(JobsRetIDByCGFloatBlock _Nonnull)byScale;
 -(JobsRetIDByBOOLBlock _Nonnull)byOpaque;
+
 @end
 
 @implementation UIGraphicsImageRendererFormat (JobsIconfontDSL)
+
 -(JobsRetIDByCGFloatBlock _Nonnull)byScale{
     @jobs_weakify(self)
     return ^id _Nullable(CGFloat data){
@@ -45,13 +48,17 @@ static const void *JobsIconfontRequestIdentityKey = &JobsIconfontRequestIdentity
         return self;
     };
 }
+
 @end
 
 @interface UIImageView (JobsIconfontDSL)
+
 -(JobsRetIDByImageBlock _Nonnull)byImage;
+
 @end
 
 @implementation UIImageView (JobsIconfontDSL)
+
 -(JobsRetIDByImageBlock _Nonnull)byImage{
     @jobs_weakify(self)
     return ^id _Nullable(UIImage *_Nullable data){
@@ -61,6 +68,7 @@ static const void *JobsIconfontRequestIdentityKey = &JobsIconfontRequestIdentity
         return self;
     };
 }
+
 @end
 
 @interface JobsIconfontBundleToken : NSObject
@@ -148,6 +156,7 @@ static const void *JobsIconfontRequestIdentityKey = &JobsIconfontRequestIdentity
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsIconfontLoadToken
 
 @implementation JobsIconfontLoadToken
+
 -(instancetype)initWithCancellation:(dispatch_block_t)cancellation{
     if (self = [super init]) {
         self.cancellation = cancellation;
@@ -230,6 +239,7 @@ static const void *JobsIconfontRequestIdentityKey = &JobsIconfontRequestIdentity
 @end
 
 @implementation JobsIconfontManager
+
 +(JobsIconfontManager *)shared{
     static JobsIconfontManager *manager;
     static dispatch_once_t onceToken;
@@ -571,6 +581,7 @@ static const void *JobsIconfontRequestIdentityKey = &JobsIconfontRequestIdentity
 @end
 
 @implementation UIImageView (JobsIconfont)
+
 -(instancetype)byJobsIconfontAsset:(JobsIconfontRemoteAsset)asset
                         targetSize:(CGSize)targetSize
                       forceRefresh:(BOOL)forceRefresh
@@ -596,6 +607,7 @@ static const void *JobsIconfontRequestIdentityKey = &JobsIconfontRequestIdentity
 @end
 
 @implementation UILabel (JobsIconfont)
+
 -(instancetype)byJobsIconfontGlyph:(JobsIconfontGlyph)glyph
                               size:(CGFloat)size
                              color:(UIColor *)color{
@@ -618,6 +630,7 @@ static const void *JobsIconfontRequestIdentityKey = &JobsIconfontRequestIdentity
 @end
 
 @implementation UIButton (JobsIconfont)
+
 -(instancetype)byJobsIconfontGlyph:(JobsIconfontGlyph)glyph
                          imageSize:(CGSize)imageSize
                              color:(UIColor *)color

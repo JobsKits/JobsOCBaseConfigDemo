@@ -13,6 +13,7 @@
 static char JobsYTKResponseSourceKey;
 
 @implementation YTKBaseRequest (Extra)
+
 -(JobsRetNSMutableURLRequestByjobsByMutableURLRequestBlockBlock _Nonnull)jobsMakeRequestByBlock{
     @jobs_weakify(self)
     return ^NSMutableURLRequest *(jobsByMutableURLRequestBlock _Nullable block){

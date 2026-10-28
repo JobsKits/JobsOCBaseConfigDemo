@@ -62,6 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_strong()NSMutableArray <__kindof UIViewController *>*presentedVCMutArr;
 
 @end
+
 /// 防止过多的presented模态推出ViewController
 @interface UIViewController (SafeTransition)
 

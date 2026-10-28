@@ -10,6 +10,7 @@
 #import <JobsDeviceInfo/NSString+Replace.h>
 
 @implementation NSObject (UUID)
+
 -(JobsRetStrByVoidBlock _Nonnull)UUID{
     @jobs_weakify(self)
     return ^NSString *_Nullable{

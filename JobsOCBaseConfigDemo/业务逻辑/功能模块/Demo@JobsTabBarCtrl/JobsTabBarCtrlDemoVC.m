@@ -15,6 +15,7 @@ Prop_strong()NSMutableArray <__kindof UIButton*>*buttons;
 @end
 
 @implementation JobsTabBarCtrlDemoVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

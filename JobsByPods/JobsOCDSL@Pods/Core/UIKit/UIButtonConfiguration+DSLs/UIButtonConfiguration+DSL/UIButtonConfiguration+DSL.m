@@ -10,6 +10,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability"
 @implementation UIButtonConfiguration (DSL)
+
 #pragma mark —— 背景 / 样式
 -(JobsRetBtnConfigByBackgroundBlock _Nonnull)byBackground{
     @jobs_weakify(self)
@@ -295,4 +296,5 @@
 }
 
 @end
+
 #pragma clang diagnostic pop

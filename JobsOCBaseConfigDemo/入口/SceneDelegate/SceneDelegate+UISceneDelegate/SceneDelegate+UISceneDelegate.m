@@ -8,6 +8,7 @@
 #import "SceneDelegate+UISceneDelegate.h"
 
 @implementation SceneDelegate (UISceneDelegate)
+
 #pragma mark —— UIWindowSceneDelegate
 - (void)scene:(UIScene *)scene
 willConnectToSession:(UISceneSession *)session
@@ -17,6 +18,14 @@ willConnectToSession:(UISceneSession *)session
     }
     UIWindowScene *windowScene = (UIWindowScene *)scene;
     self.jobsSetWindowScene(windowScene);
+    if (JobsOCDeviceGuardLaunchGate.decision.blocked) {
+        self.jobsSetWindow(UIWindow.initByScene(windowScene)).window
+            .byWindowFrame(windowScene.coordinateSpace.bounds)
+            .byRootViewController(JobsOCDeviceGuardLaunchGate.makeBlockedViewController())
+            .byMakeKeyAndVisible();
+        NSLog(@"[DeviceGuardLaunch] Scene已展示拦截页 session=%@", session.persistentIdentifier);
+        return;
+    }
     NSUserActivity *restorationActivity =
         [JobsOCSceneCoordinator demoActivityFromConnectionOptions:connectionOptions
                                                           session:session];
@@ -41,7 +50,14 @@ willConnectToSession:(UISceneSession *)session
     @jobs_weakify(self)
     return ^(UIScene * scene){
         @jobs_strongify(self)
-        if (!self) return;
+        if (!self) {
+            return;
+        }
+        if (JobsOCDeviceGuardLaunchGate.decision.blocked) {
+            self.jobsSetWindow(nil);
+            self.jobsSetWindowScene(nil);
+            return;
+        }
         [JobsOCSceneCoordinator recordEvent:@"didDisconnect：Scene 与会话暂时断开"
                                  forSession:scene.session];
         self.jobsSetWindow(nil);
@@ -56,7 +72,9 @@ willConnectToSession:(UISceneSession *)session
     @jobs_weakify(self)
     return ^(UIScene * scene){
         @jobs_strongify(self)
-        if (!self) return;
+        if (!self || JobsOCDeviceGuardLaunchGate.decision.blocked) {
+            return;
+        }
         [JobsOCSceneCoordinator recordEvent:@"didBecomeActive：开始接收用户事件"
                                  forSession:scene.session];
         ((JobsOCCrashLogCenter *)JobsOCCrashLogCenter.jobsSharedManager()).markAppLaunched();
@@ -71,7 +89,9 @@ willConnectToSession:(UISceneSession *)session
     @jobs_weakify(self)
     return ^(UIScene * scene){
         @jobs_strongify(self)
-        if (!self) return;
+        if (!self || JobsOCDeviceGuardLaunchGate.decision.blocked) {
+            return;
+        }
         [JobsOCSceneCoordinator recordEvent:@"willResignActive：即将暂停交互"
                                  forSession:scene.session];
     };
@@ -84,7 +104,9 @@ willConnectToSession:(UISceneSession *)session
     @jobs_weakify(self)
     return ^(UIScene * scene){
         @jobs_strongify(self)
-        if (!self) return;
+        if (!self || JobsOCDeviceGuardLaunchGate.decision.blocked) {
+            return;
+        }
         [JobsOCSceneCoordinator recordEvent:@"willEnterForeground：即将进入前台"
                                  forSession:scene.session];
         ((JobsOCCrashLogCenter *)JobsOCCrashLogCenter.jobsSharedManager()).markAppLaunched();
@@ -98,7 +120,9 @@ willConnectToSession:(UISceneSession *)session
     @jobs_weakify(self)
     return ^(UIScene * scene){
         @jobs_strongify(self)
-        if (!self) return;
+        if (!self || JobsOCDeviceGuardLaunchGate.decision.blocked) {
+            return;
+        }
         [JobsOCSceneCoordinator recordEvent:@"didEnterBackground：进入后台安全点"
                                  forSession:scene.session];
         ((AppDelegate *)UIApplication.sharedApplication.delegate).saveContext();
@@ -123,7 +147,9 @@ willConnectToSession:(UISceneSession *)session
     @jobs_weakify(self)
     return ^NSUserActivity *(UIScene * scene){
         @jobs_strongify(self)
-        if (!self) return nil;
+        if (!self || JobsOCDeviceGuardLaunchGate.decision.blocked) {
+            return nil;
+        }
         JobsOCSceneDelegateDemoVC *demoVC = self.jobs_sceneDemoViewController();
         if (demoVC) return demoVC.sceneRestorationActivity();
         return JobsOCSceneCoordinator.isDemoActivity(scene.userActivity) ?
@@ -134,6 +160,9 @@ willConnectToSession:(UISceneSession *)session
 
 - (void)scene:(UIScene *)scene
 restoreInteractionStateWithUserActivity:(NSUserActivity *)stateRestorationActivity {
+    if (JobsOCDeviceGuardLaunchGate.decision.blocked) {
+        return;
+    }
     if (!JobsOCSceneCoordinator.isDemoActivity(stateRestorationActivity)) return;
     JobsOCSceneDelegateDemoVC *demoVC = self.jobs_sceneDemoViewController();
     if (demoVC) {
@@ -144,6 +173,9 @@ restoreInteractionStateWithUserActivity:(NSUserActivity *)stateRestorationActivi
 }
 
 - (void)scene:(UIScene *)scene continueUserActivity:(NSUserActivity *)userActivity {
+    if (JobsOCDeviceGuardLaunchGate.decision.blocked) {
+        return;
+    }
     if (scene != self.windowScene || !JobsOCSceneCoordinator.isDemoActivity(userActivity)) {
         return;
     }
@@ -162,7 +194,9 @@ restoreInteractionStateWithUserActivity:(NSUserActivity *)stateRestorationActivi
     @jobs_weakify(self)
     return ^JobsOCSceneDelegateDemoVC *{
         @jobs_strongify(self)
-        if (!self) return nil;
+        if (!self || JobsOCDeviceGuardLaunchGate.decision.blocked) {
+            return nil;
+        }
         UIViewController *viewController = self.window.rootViewController;
         BOOL keepsFinding = YES;
         while (viewController && keepsFinding) {
@@ -186,6 +220,12 @@ restoreInteractionStateWithUserActivity:(NSUserActivity *)stateRestorationActivi
 didUpdateCoordinateSpace:(id<UICoordinateSpace>)previousCoordinateSpace
 interfaceOrientation:(UIInterfaceOrientation)previousInterfaceOrientation
    traitCollection:(UITraitCollection *)previousTraitCollection {
+    if (JobsOCDeviceGuardLaunchGate.decision.blocked) {
+        if (windowScene == self.window.windowScene) {
+            self.window.byFrame(windowScene.coordinateSpace.bounds);
+        }
+        return;
+    }
     if (windowScene == self.window.windowScene) {
         self.window.byFrame(windowScene.coordinateSpace.bounds);
         self.window.rootViewController.view.byFrame(self.window.bounds);

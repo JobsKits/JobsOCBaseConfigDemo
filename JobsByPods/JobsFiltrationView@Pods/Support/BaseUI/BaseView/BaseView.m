@@ -15,6 +15,7 @@
 @end
 
 @implementation BaseView
+
 /// BaseProtocol
 BaseProtocol_synthesize
 /// RACProtocol

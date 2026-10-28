@@ -8,6 +8,7 @@
 #import "NSObject+NTESVerifyCodeManager.h"
 
 @implementation NTESVerifyCodeManager (JobsVerifyCodeDSL)
+
 -(JobsRetNTESVerifyCodeManagerByIDBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^__kindof NTESVerifyCodeManager *_Nullable(id _Nullable data){
@@ -51,6 +52,7 @@ JOBS_NTES_MANAGER_SCALAR_DSL(BOOL, JobsRetNTESVerifyCodeManagerByBOOLBlock, byCl
 @end
 
 @implementation NTESVerifyCodeStyleConfig (JobsVerifyCodeDSL)
+
 #define JOBS_NTES_STYLE_DSL(_type_, _block_type_, _selector_, _property_) \
 -(_block_type_ _Nonnull)_selector_{ \
     @jobs_weakify(self) \
@@ -73,9 +75,11 @@ JOBS_NTES_STYLE_DSL(NSUInteger, JobsRetNTESVerifyCodeStyleConfigByNSUIntegerBloc
 JOBS_NTES_STYLE_DSL(NSString *, JobsRetNTESVerifyCodeStyleConfigByStrBlock, byExecuteBackground, executeBackground)
 
 #undef JOBS_NTES_STYLE_DSL
+
 @end
 
 @implementation NSObject (NTESVerifyCodeManager)
+
 #pragma mark —— BaseProtocol
 // 显示验证码
 -(jobsByVoidBlock _Nonnull)show_verifyCode_NTES{

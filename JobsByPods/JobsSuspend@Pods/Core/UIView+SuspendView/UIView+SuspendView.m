@@ -14,6 +14,7 @@
 @end
 
 @implementation JobsSuspendGestureDelegate
+
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
 shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
     BOOL hasPan = [gestureRecognizer isKindOfClass:UIPanGestureRecognizer.class] ||
@@ -37,6 +38,7 @@ static CGPoint JobsSuspendClampedOrigin(CGPoint origin, CGSize size, CGRect boun
 }
 
 @implementation UIView (SuspendView)
+
 #pragma mark —— @property(nonatomic,weak)UIViewController *vc;
 JobsKey(_vc)
 @dynamic vc;

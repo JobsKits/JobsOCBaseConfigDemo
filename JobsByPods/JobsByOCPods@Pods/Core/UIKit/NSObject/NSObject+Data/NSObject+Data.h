@@ -72,6 +72,7 @@ UITableViewDelegate
          withDocumentsChildDir:(NSString *_Nullable)documentsChildDir
                   fileFullname:(NSString *_Nonnull)fileFullname
                          error:(NSError *__autoreleasing *)error;
+
 @end
 
 NS_ASSUME_NONNULL_END

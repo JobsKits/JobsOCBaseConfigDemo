@@ -8,6 +8,7 @@
 #import "PicToStrStoreVC.h"
 
 @interface PicToStrStoreVC ()
+
 /// Data
 Prop_strong()NSMutableArray <__kindof UITableViewCell *>*tbvCellMutArr;
 Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
@@ -15,6 +16,7 @@ Prop_strong()NSMutableArray <__kindof UIViewModel *>*dataMutArr;
 @end
 
 @implementation PicToStrStoreVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

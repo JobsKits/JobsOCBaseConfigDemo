@@ -16,5 +16,6 @@ Prop_weak(readonly)UIWindow *hostWindow;
 -(instancetype)initWithHostWindow:(UIWindow *)window panel:(JobsDebugPanelManager *)panel;
 
 @end
+
 NS_ASSUME_NONNULL_END
 #endif

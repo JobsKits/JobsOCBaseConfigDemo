@@ -8,6 +8,7 @@
 #import "UIView+JHGestureBlock.h"
 
 @implementation UIView (JHGestureBlock)
+
 JobsKey(JHGestureBlockKey)
 - (__kindof UIGestureRecognizer *)addGestureRecognizer:(JHGestureType)type block:(JHGestureBlock)block{
     if (block) {

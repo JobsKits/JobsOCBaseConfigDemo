@@ -8,6 +8,7 @@
 #import "UITabBarItem+TLAnimation.h"
 
 @implementation UITabBarItem (TLAnimation)
+
 JobsKey(_animation)
 @dynamic animation;
 

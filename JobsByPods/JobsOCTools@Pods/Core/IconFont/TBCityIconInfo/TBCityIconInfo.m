@@ -8,6 +8,7 @@
 #import "TBCityIconInfo.h"
 
 @implementation TBCityIconInfo
+
 -(JobsRetTBCityIconInfoByStrBlock _Nonnull)byText{
     @jobs_weakify(self)
     return ^__kindof TBCityIconInfo *_Nullable(NSString *_Nullable string){

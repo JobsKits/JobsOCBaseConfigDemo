@@ -16,6 +16,7 @@
 @end
 
 @implementation JobsBaseCollectionViewCell
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 /// UIMarkProtocol

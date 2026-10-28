@@ -14,6 +14,7 @@
 @end
 
 @implementation UIView (JobsNavBar)
+
 PROP_STRONG_OBJECT_TYPE(JobsNavBarConfig, jobs_navBarConfig, Jobs_navBarConfig)
 
 JobsKey(_jobs_navBar)

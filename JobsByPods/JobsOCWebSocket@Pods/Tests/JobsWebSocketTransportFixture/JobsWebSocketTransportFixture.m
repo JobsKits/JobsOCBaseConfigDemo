@@ -8,7 +8,9 @@
 #import "JobsWebSocketTransportFixture.h"
 
 @interface JobsWebSocketTransportFixture ()
+
 @property(nonatomic, weak)id delegate;
+
 @end
 
 @implementation JobsWebSocketTransportFixture

@@ -562,6 +562,7 @@ AppToolsProtocol
                downBlock:(jobsByNSNotificationKeyboardModelBlock _Nullable)downBlock;
 
 @end
+
 /**
  
  /// 设置控制器的转场方向

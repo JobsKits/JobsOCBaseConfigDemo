@@ -24,6 +24,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsCustomTabBarConfig
 
 @implementation JobsCustomTabBarConfig
+
 BaseButtonProtocol_synthesize
 BaseProtocol_synthesize
 static JobsCustomTabBarConfig *JobsCustomTabBarConfigInstance = nil;

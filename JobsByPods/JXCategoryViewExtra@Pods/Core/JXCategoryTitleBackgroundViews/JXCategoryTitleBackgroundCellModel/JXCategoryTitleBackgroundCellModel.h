@@ -49,4 +49,5 @@ Prop_assign()CGFloat backgroundHeight;
 -(JobsRetJXCategoryTitleBackgroundCellModelByUIColorBlock _Nonnull)bySelectedBorderColor;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JXCategoryTitleBackgroundCellModel
 @end
+
 #endif /* JOBS_HEADER_GUARD_JXCATEGORYTITLEBACKGROUNDCELLMODEL_6A7712F42B */

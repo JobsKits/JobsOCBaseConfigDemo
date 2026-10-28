@@ -8,6 +8,7 @@
 #import "UIViewController+BackBtn.h"
 
 @implementation UIViewController (BackBtn)
+
 /// GKNavigationBar 返回按钮点击方法
 ///【子类需要覆写 】创建返回键的点击事件
 -(jobsByBtnBlock _Nonnull)backBtnClickEvent{
@@ -33,8 +34,7 @@ JobsKey(_backBtnCategory)
             .jobsResetBtnTitleCor(backButtonColor)
             .jobsResetBtnTitleFont(self.viewModel.backBtnTitleModel.font)
             .jobsResetBtnTitle(self.viewModel.backBtnTitleModel.text)
-            .jobsResetBtnBgCor(JobsSecondarySystemBackgroundColor)
-            .jobsResetBtnCornerRadiusValue(JobsWidth(16))
+            .jobsResetBtnBgCor(JobsClearColor)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
                 if (self.objBlock) self.objBlock(x);
@@ -42,7 +42,9 @@ JobsKey(_backBtnCategory)
             }).onLongPressGestureBy(^(id data){
                 JobsLog(@"");
             });
-        BackBtnCategory.byTintColor(backButtonColor);
+        BackBtnCategory
+            .byTintColor(backButtonColor)
+            .byBgColor(JobsClearColor);
         Jobs_setAssociatedRETAIN_NONATOMIC(_backBtnCategory, BackBtnCategory)
     };return BackBtnCategory;
 }
@@ -57,6 +59,11 @@ JobsKey(_backBtnCategoryItem)
     UIBarButtonItem *BackBtnCategoryItem = Jobs_getAssociatedObject(_backBtnCategoryItem);
     if (!BackBtnCategoryItem) {
         BackBtnCategoryItem = UIBarButtonItem.initBy(self.backBtnCategory);
+#if defined(__IPHONE_26_0)
+        if (@available(iOS 26.0, *)) {
+            BackBtnCategoryItem.byHidesSharedBackground(YES);
+        }
+#endif
         Jobs_setAssociatedRETAIN_NONATOMIC(_backBtnCategoryItem, BackBtnCategoryItem)
     };return BackBtnCategoryItem;
 }

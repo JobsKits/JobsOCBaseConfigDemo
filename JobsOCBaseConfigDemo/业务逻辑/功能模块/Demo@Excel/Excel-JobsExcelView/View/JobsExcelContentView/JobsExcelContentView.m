@@ -8,6 +8,7 @@
 #import "JobsExcelContentView.h"
 
 @interface JobsExcelContentView()
+
 /// Data
 Prop_strong(nonnull)JobsExcelConfigureViewModel *excelConfigureData;
 Prop_assign()CGPoint contentOffenset;
@@ -22,6 +23,7 @@ Prop_assign()CGPoint contentOffenset;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsExcelContentView
 
 @implementation JobsExcelContentView
+
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         self.tableView.byShow(self);

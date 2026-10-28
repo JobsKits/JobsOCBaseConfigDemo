@@ -36,6 +36,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (URL)
+
 /// 返回网址相关的NSURL *
 -(NSURL *)jobsUrl;
 -(JobsRetURLByVoidBlock _Nonnull)jobsURL;

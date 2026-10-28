@@ -16,6 +16,7 @@ static NSString *JobsCollectionViewSupplementaryRegistrationKey(NSString *elemen
 }
 
 @implementation UICollectionView (RegistrationTracking)
+
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

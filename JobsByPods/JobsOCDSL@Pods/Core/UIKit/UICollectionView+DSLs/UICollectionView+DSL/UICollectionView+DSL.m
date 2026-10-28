@@ -24,6 +24,7 @@ Prop_copy(nullable)jobsCollectionViewDidSelectItemAtBlock didSelectItemAtBlock;
 @end
 
 @implementation JobsCollectionViewBlocksProxy
+
 -(JobsRetIDByIDBlock _Nonnull)byTarget{
     @jobs_weakify(self)
     return ^id _Nullable(id _Nullable data){
@@ -91,6 +92,7 @@ Prop_weak(nullable)NSObject<UICollectionViewDataSource> *secondary;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsCollectionViewDataSourceMux
 
 @implementation JobsCollectionViewDataSourceMux
+
 -(BOOL)respondsToSelector:(SEL)aSelector{
     JobsRetBOOLBySELBlock action = ((JobsRetBOOLBySELBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCollectionViewDataSourceMux.class, @selector(jobsRespondsToSelector)))(self, @selector(jobsRespondsToSelector));
     return action ? action(aSelector) : NO;
@@ -181,6 +183,7 @@ Prop_weak(nullable)NSObject<UICollectionViewDelegate> *secondary;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsCollectionViewDelegateMux
 
 @implementation JobsCollectionViewDelegateMux
+
 -(BOOL)respondsToSelector:(SEL)aSelector{
     JobsRetBOOLBySELBlock action = ((JobsRetBOOLBySELBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsCollectionViewDelegateMux.class, @selector(jobsRespondsToSelector)))(self, @selector(jobsRespondsToSelector));
     return action ? action(aSelector) : NO;
@@ -299,6 +302,7 @@ static inline void jobs_installCollectionViewDelegateMux(UICollectionView *colle
 }
 
 @implementation UICollectionView (DSL)
+
 /// 核心属性
 -(JobsRetCollectionViewByLayoutBlock _Nonnull)byCollectionViewLayout{
     @jobs_weakify(self)

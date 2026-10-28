@@ -14,6 +14,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END NSObject
 
 @implementation NSObject (Class)
+
 #pragma mark —— 返回并打印成员变量列表
 -(JobsRetArrByVoidBlock _Nonnull)printIvarList{
     @jobs_weakify(self)

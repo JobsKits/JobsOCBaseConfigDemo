@@ -37,6 +37,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (Base16)
+
 #pragma mark —— Base16 <==> NSString
 ///【类方法】将Base16字符串 转换回 原始的NSString对象
 +(JobsRetStrByStrBlock _Nonnull)stringByBase16String;

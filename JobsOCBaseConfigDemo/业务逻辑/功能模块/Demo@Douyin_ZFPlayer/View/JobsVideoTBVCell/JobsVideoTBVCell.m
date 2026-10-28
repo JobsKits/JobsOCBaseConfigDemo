@@ -8,6 +8,7 @@
 #import "JobsVideoTBVCell.h"
 
 @interface JobsVideoTBVCell ()
+
 /// UI
 Prop_strong()UIImageView *coverImageView;
 Prop_strong()JobsRightBtnsView *rbView;

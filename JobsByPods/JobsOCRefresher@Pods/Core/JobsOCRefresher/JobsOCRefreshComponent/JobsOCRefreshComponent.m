@@ -44,6 +44,7 @@ Prop_assign()CGFloat lastProgress;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCRefreshComponent
 
 @implementation JobsOCRefreshComponent
+
 -(JobsRetIDByNSIntegerBlock _Nonnull)byState{
     @jobs_weakify(self)
     return ^id(NSInteger state){

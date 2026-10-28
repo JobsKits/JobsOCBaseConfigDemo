@@ -8,6 +8,7 @@
 #import "JobsLocationModel+DSL.h"
 
 @implementation JobsLocationModel (DSL)
+
 -(JobsRetJobsLocationModelByCGFloatBlock _Nonnull)byJobsX{
     @jobs_weakify(self)
     return ^__kindof JobsLocationModel *_Nullable(CGFloat data) {

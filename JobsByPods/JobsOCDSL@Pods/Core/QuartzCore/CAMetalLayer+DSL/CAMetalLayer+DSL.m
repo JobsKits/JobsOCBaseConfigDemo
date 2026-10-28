@@ -8,6 +8,7 @@
 #import "CAMetalLayer+DSL.h"
 
 @implementation CAMetalLayer (JobsChain)
+
 #pragma mark —— Inherited CALayer DSL
 #pragma mark —— Geometry
 #pragma mark —— Hierarchy

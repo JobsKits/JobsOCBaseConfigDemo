@@ -8,6 +8,7 @@
 #import "NSDateFormatter+Extra.h"
 
 @implementation NSDateFormatter (Extra)
+
 /// 对系统方法 stringFromDate 的二次封装
 -(JobsRetStrByDateBlock _Nonnull)stringByDate{
     @jobs_weakify(self)

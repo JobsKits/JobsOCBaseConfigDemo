@@ -14,6 +14,7 @@
 @end
 
 @implementation JobsOCGraphicCaptchaGenerator
+
 +(JobsRetNSArrayNSStringByVoidBlock _Nonnull)numberCharacters{
     return ^NSArray<NSString *> *{
         static NSArray<NSString *> *characters = nil;

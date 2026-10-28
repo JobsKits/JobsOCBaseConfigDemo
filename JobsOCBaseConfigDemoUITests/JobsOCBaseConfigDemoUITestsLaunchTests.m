@@ -17,6 +17,7 @@
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END XCTAttachment
 
 @implementation JobsOCBaseConfigDemoUITestsLaunchTests
+
 +(BOOL)runsForEachTargetApplicationUIConfiguration {
     JobsRetBOOLByVoidBlock action = ((JobsRetBOOLByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(JobsOCBaseConfigDemoUITestsLaunchTests.class, @selector(jobsRunsForEachTargetApplicationUIConfiguration)))(self, @selector(jobsRunsForEachTargetApplicationUIConfiguration));
     return action ? action() : NO;

@@ -77,4 +77,5 @@
     XCTAssertNil(JobsGetAssociatedWeakObject(second, &key));
     XCTAssertEqual(object_getClass(second), NSObject.class);
 }
+
 @end

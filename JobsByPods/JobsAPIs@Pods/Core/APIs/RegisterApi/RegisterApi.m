@@ -8,6 +8,7 @@
 #import "RegisterApi.h"
 
 @implementation RegisterApi
+
 /// 请求的完整URL：
 -(NSString *_Nonnull)requestUrl {
     JobsRetStrByVoidBlock action = ((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(RegisterApi.class, @selector(jobsRequestUrl)))(self, @selector(jobsRequestUrl));

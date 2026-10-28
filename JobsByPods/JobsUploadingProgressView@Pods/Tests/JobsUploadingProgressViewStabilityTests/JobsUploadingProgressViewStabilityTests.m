@@ -9,7 +9,9 @@
 
 // 声明现有实现中的关闭 Block，仅供回归调用，不扩展生产公开 API。
 @interface JobsUploadingProgressView (JobsStabilityDismiss)
+
 -(jobsByVoidBlock _Nonnull)jobsDismiss;
+
 @end
 
 @implementation JobsUploadingProgressViewStabilityTests

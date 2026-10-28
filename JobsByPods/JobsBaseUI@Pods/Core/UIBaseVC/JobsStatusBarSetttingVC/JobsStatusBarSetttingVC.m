@@ -15,6 +15,7 @@
 @end
 
 @implementation JobsStatusBarSetttingVC
+
 #pragma mark —— BaseViewControllerProtocol
 BaseViewControllerProtocol_synthesize
 -(void)didReceiveMemoryWarning{

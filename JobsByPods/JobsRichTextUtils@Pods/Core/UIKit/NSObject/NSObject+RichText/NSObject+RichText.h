@@ -62,6 +62,7 @@ NS_INLINE NSTextAttachment *_Nonnull jobsMakeTextAttachment(jobsByTextAttachment
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (RichText)
+
 /// 整合输出富文本，作用于lable.attributedText
 /// @param richTextDataConfigMutArr 富文本的配置集合,对该纯文本字符串的释义
 /// @param paragraphStyle 段落样式

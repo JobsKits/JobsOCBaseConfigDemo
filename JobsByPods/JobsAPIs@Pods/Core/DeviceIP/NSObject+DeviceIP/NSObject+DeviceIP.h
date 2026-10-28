@@ -70,6 +70,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (DeviceIP)
+
 /// 获取ip地址
 -(JobsRetStrByVoidBlock _Nonnull)getIPaddress;
 /// 获取设备当前本地IP地址

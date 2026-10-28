@@ -36,6 +36,7 @@ Prop_assign()BOOL userDragging;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsProgressBar
 
 @implementation JobsProgressBar
+
 #pragma mark —— Lifecycle
 
 - (instancetype)initWithFrame:(CGRect)frame {

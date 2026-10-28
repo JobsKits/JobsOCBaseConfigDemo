@@ -42,4 +42,5 @@
 + (NSData *)decryptData:(NSData *)data privateKey:(NSString *)privKey;
 
 @end
+
 #endif /* JOBS_HEADER_GUARD_RSAUTIL_E9655262D3 */

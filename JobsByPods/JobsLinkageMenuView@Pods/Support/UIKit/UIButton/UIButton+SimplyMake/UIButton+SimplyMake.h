@@ -59,6 +59,7 @@
 NS_ASSUME_NONNULL_BEGIN
 /// 对按钮创建方法的二次封装
 @interface UIButton (SimplyMake)<BaseProtocol>
+
 Prop_copy(nullable)jobsByBtnBlock clickBlock;
 Prop_copy(nullable)jobsByBtnBlock longPressGestureBlock;
 #pragma mark —— 对老Api进行二次封装

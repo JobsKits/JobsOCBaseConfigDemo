@@ -28,4 +28,5 @@
     object.objBlock(@"payload");
     XCTAssertEqualObjects(received, @"payload");
 }
+
 @end

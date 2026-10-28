@@ -8,6 +8,7 @@
 #import "NSObject+Notification.h"
 
 @implementation NSObject (Notification)
+
 /// 接收通知
 -(void)addNotificationName:(NSString *_Nonnull)notificationName
                      block:(jobsByTwoIDBlock _Nullable)block{

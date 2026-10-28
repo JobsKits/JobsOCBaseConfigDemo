@@ -27,6 +27,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSArray (Extra)
+
 /// 数组里面是否包含某个元素
 -(JobsRetBOOLByIDBlock _Nonnull)containsObject;
 

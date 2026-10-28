@@ -8,6 +8,7 @@
 #import "NSObject+GTCaptcha4.h"
 
 @implementation GTCaptcha4Model (GTCaptcha4SessionDSL)
+
 -(JobsRetGTCaptcha4ModelByGTCaptcha4SessionPointerBlock _Nonnull)byCaptchaSession{
     @jobs_weakify(self)
     return ^__kindof GTCaptcha4Model *_Nullable(GTCaptcha4Session *_Nullable data){
@@ -35,6 +36,7 @@
 @end
 
 @implementation NSObject (GTCaptcha4)
+
 #pragma mark —— BaseProtocol
 /// 显示验证码
 -(jobsByVoidBlock _Nonnull)show_verifyCode_GTCaptcha4{

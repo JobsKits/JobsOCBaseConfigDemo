@@ -49,6 +49,7 @@ typedef NS_ENUM(NSInteger, StatisticsAlphabetNumberType) {
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (Statistics)
+
 #pragma mark —— 字符串的 统计 & 计算
 /**
 

@@ -67,6 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
 UIScrollViewDelegate,
 JobsToggleNavViewProtocol
 >
+
 /// UI
 Prop_strong(readonly)JobsToggleNavView *taggedNavView;
 Prop_strong(readonly)UIScrollView *bgScroll;

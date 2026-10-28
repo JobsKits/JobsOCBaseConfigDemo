@@ -26,6 +26,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsAlertModel : BaseModel
+
 /// UIAlertController
 Prop_copy()NSString *alertControllerTitle;
 Prop_copy()NSString *message;

@@ -8,6 +8,7 @@
 #import "JobsCommentCoreVC.h"
 
 @interface JobsCommentCoreVC ()
+
 /// UI
 Prop_strong()JobsCommentTitleHeaderView *titleHeaderView;
 /// Data
@@ -40,6 +41,7 @@ Prop_assign()CGFloat jobsDefaultPopUpHeight;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsCommentCoreVC
 
 @implementation JobsCommentCoreVC
+
 - (void)dealloc {
     JobsLog(@"%@",JobsLocalFunc);
 }

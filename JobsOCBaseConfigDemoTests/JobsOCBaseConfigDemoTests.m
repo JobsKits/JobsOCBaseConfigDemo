@@ -9,6 +9,7 @@
 #import <objc/message.h>
 
 @implementation JobsOCBaseConfigDemoTests
+
 -(void)setUp {
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCBaseConfigDemoTests.class, @selector(jobsSetUp)))(self, @selector(jobsSetUp));
     if (action) action();

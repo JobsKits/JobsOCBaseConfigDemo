@@ -19,6 +19,7 @@ Prop_strong() UIPanGestureRecognizer *panGesture;
 @end
 
 @implementation JobsOCVideoRecorderPreviewView
+
 -(JobsRetJobsOCVideoRecorderPreviewViewByAVPlayerBlock _Nonnull)byPlayer{
     @jobs_weakify(self)
     return ^__kindof JobsOCVideoRecorderPreviewView *_Nullable(AVPlayer *_Nullable player){

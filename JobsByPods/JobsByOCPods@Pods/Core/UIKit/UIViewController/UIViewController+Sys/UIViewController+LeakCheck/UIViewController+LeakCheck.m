@@ -8,6 +8,7 @@
 #import "UIViewController+LeakCheck.h"
 
 @implementation UIViewController (LeakCheck)
+
 +(void)load{
 #ifdef DEBUG
     self.exchangeMethod();

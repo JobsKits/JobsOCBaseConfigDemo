@@ -8,9 +8,11 @@
 #import "JobsOCWebSocketStabilityTests.h"
 
 @interface JobsOCWebSocketClient (JobsStabilityTesting)
+
 -(jobsByVoidBlock _Nonnull)startHeartbeat;
 -(jobsByVoidBlock _Nonnull)stopHeartbeat;
 -(void)webSocket:(SRWebSocket *)socket didReceivePong:(NSData *)data;
+
 @end
 
 @implementation JobsOCWebSocketStabilityTests

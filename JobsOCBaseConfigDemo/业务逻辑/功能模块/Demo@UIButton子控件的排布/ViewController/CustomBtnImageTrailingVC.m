@@ -8,6 +8,7 @@
 #import "CustomBtnImageTrailingVC.h"
 
 @implementation CustomBtnImageTrailingVC
+
 -(JobsRetStrByVoidBlock _Nonnull)demoTitle{
     @jobs_weakify(self)
     return ^NSString *{

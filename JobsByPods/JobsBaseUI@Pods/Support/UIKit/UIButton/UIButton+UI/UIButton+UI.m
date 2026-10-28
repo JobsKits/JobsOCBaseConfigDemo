@@ -12,6 +12,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunguarded-availability"
 @implementation UIButton (UI)
+
 -(JobsRetBtnByCGFloatBlock _Nonnull)byImageViewFrameResetX{
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(CGFloat data){
@@ -731,4 +732,5 @@ JobsKey(_subTitleFont)
 }
 
 @end
+
 #pragma clang diagnostic pop

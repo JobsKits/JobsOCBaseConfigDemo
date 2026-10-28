@@ -14,6 +14,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UIControl
 
 @implementation UIControl (XY)
+
 JobsKey(_uxy_acceptEventInterval)
 @dynamic uxy_acceptEventInterval;
 /// 时间间隔

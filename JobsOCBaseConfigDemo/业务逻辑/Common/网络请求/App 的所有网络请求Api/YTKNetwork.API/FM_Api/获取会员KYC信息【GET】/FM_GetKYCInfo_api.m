@@ -8,6 +8,7 @@
 #import "FM_GetKYCInfo_api.h"
 
 @implementation FM_GetKYCInfo_api
+
 /// 请求的完整URL：获取会员KYC信息【GET】
 -(NSString *)requestUrl{
     JobsRetStrByVoidBlock action = ((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(FM_GetKYCInfo_api.class, @selector(jobsRequestUrl)))(self, @selector(jobsRequestUrl));

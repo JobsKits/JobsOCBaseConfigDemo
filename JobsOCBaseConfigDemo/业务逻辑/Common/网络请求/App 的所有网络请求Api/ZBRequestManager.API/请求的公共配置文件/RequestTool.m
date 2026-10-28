@@ -14,6 +14,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END RequestTool
 
 @implementation RequestTool
+
 /** 写在前面
  *  1、所有请求都需要在headers里面添加处理过的userAgent
     2、进app的时候，服务器会根据设备返回一个token，再请求其他接口的时候，需要将这个token做为Authorization键值对，加在请求的headers里面

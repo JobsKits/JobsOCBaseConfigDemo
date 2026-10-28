@@ -10,6 +10,7 @@
 JobsKey(JobsUIViewLayoutSubviewsRectCornerKey)
 JobsKey(JobsUIViewLayoutSubviewsRectCornerSizeKey)
 @implementation UIView (DSL)
+
 #pragma mark —— Animation / Transition 终止动作
 +(jobsByUIViewAnimationBlock _Nonnull)jobsAnimate{
     return ^(NSTimeInterval duration, jobsByVoidBlock _Nonnull animations){

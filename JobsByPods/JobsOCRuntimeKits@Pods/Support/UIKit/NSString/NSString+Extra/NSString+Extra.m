@@ -8,6 +8,7 @@
 #import "NSString+Extra.h"
 
 @implementation NSString (Extra)
+
 -(JobsRetBOOLByIDBlock _Nonnull)containsString{
     @jobs_weakify(self)
     return ^BOOL(NSString *data){

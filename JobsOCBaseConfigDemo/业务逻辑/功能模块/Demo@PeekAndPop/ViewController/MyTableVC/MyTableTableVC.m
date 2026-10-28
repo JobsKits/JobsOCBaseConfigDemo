@@ -8,6 +8,7 @@
 #import "MyTableTableVC.h"
 
 @interface MyTableTableVC ()
+
 /// UI
 Prop_strong()BaiShaETProjChoiceStadiumTBVHeaderView *tbvHeaderView;
 /// Data
@@ -17,6 +18,7 @@ Prop_strong()NSMutableArray <JobsBaseTableViewCell *>*tbvCellMutArr;
 @end
 
 @implementation MyTableTableVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

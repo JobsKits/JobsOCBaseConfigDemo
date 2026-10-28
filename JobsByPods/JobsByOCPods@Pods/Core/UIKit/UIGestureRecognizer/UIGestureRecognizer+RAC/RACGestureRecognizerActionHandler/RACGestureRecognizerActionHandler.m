@@ -8,6 +8,7 @@
 #import "RACGestureRecognizerActionHandler.h"
 
 @implementation RACGestureRecognizerActionHandler
+
 -(jobsByGestureRecognizerBlock _Nonnull)rac_handleGesture{
     return ^(__kindof UIGestureRecognizer *_Nullable recognizer){
         [recognizer.rac_subject sendNext:recognizer];

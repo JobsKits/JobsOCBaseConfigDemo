@@ -95,6 +95,7 @@ NS_ASSUME_NONNULL_BEGIN
 AppToolsProtocol
 ,UITextViewDelegate
 >
+
 /// UI
 Prop_strong(nullable)__kindof UIActivityIndicatorView *loadingIndicator;
 Prop_strong()BaseButton *联系客服;

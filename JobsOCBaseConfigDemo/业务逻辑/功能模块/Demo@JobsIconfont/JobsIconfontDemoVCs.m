@@ -11,6 +11,7 @@ static NSString *const JobsIconfontDemoCellID = @"JobsIconfontDemoCell";
 static NSString *const JobsIconfontReuseCellID = @"JobsIconfontReuseCell";
 
 @implementation JobsIconfontDemoBaseVC
+
 -(JobsRetStrByVoidBlock _Nonnull)demoTitle{
     @jobs_weakify(self)
     return ^NSString *{
@@ -71,6 +72,7 @@ Prop_strong()NSArray <NSDictionary *> *rows;
 @end
 
 @implementation JobsIconfontDemoListVC
+
 -(JobsRetStrByVoidBlock _Nonnull)demoTitle{
     @jobs_weakify(self)
     return ^NSString *{
@@ -210,6 +212,7 @@ Prop_strong()NSArray <JobsIconfontRemoteAsset>*assets;
 @end
 
 @implementation JobsIconfontRemoteImageDemoVC
+
 -(JobsRetStrByVoidBlock _Nonnull)demoTitle{
     @jobs_weakify(self)
     return ^NSString *{
@@ -420,6 +423,7 @@ Prop_strong()UILabel *stateLabel;
 @end
 
 @implementation JobsIconfontReuseCell
+
 -(instancetype)initWithStyle:(UITableViewCellStyle)style
              reuseIdentifier:(NSString *)reuseIdentifier{
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
@@ -526,6 +530,7 @@ Prop_strong()NSArray <JobsIconfontRemoteAsset>*assets;
 @end
 
 @implementation JobsIconfontReuseListDemoVC
+
 -(JobsRetStrByVoidBlock _Nonnull)demoTitle{
     @jobs_weakify(self)
     return ^NSString *{
@@ -617,6 +622,7 @@ Prop_assign()BOOL automaticSecondLoadPending;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsIconfontCacheDemoVC
 
 @implementation JobsIconfontCacheDemoVC
+
 -(JobsRetStrByVoidBlock _Nonnull)demoTitle{
     @jobs_weakify(self)
     return ^NSString *{
@@ -767,6 +773,7 @@ Prop_strong()UITableView *glyphTableView;
 @end
 
 @implementation JobsIconfontGlyphDemoVC
+
 -(JobsRetStrByVoidBlock _Nonnull)demoTitle{
     @jobs_weakify(self)
     return ^NSString *{
@@ -850,6 +857,7 @@ Prop_strong()UILabel *fallbackLabel;
 @end
 
 @implementation JobsIconfontTextFontDemoVC
+
 -(JobsRetStrByVoidBlock _Nonnull)demoTitle{
     @jobs_weakify(self)
     return ^NSString *{

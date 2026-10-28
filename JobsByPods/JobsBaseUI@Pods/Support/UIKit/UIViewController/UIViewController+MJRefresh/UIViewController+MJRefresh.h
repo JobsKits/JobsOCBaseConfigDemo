@@ -54,6 +54,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UIViewController (MJRefresh)
+
 #pragma mark —— 配置信息
 Prop_strong()MJRefreshConfigModel *refreshConfigHeader;/// 头部的配置信息
 Prop_strong()MJRefreshConfigModel *refreshConfigFooter;/// 尾部的配置信息

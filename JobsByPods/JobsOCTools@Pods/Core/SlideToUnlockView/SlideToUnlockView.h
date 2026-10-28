@@ -55,6 +55,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SlideToUnlockView : UIView
+
 /// 滑到最右侧时回调（只在成功滑到头时调用）
 Prop_copy(nullable)jobsByVoidBlock onUnlock;
 /// DSL：点语法配置解锁回调

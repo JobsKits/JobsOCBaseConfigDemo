@@ -15,6 +15,7 @@
 #import <JobsTimeUtils/NSTimeZone+Extra.h>
 
 @implementation NSObject (Time)
+
 /// 获取当前时间
 -(NSDate *)currentDate{
     return (((JobsRetDateByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSObject.class, @selector(jobsCurrentDate)))(self, @selector(jobsCurrentDate)))();

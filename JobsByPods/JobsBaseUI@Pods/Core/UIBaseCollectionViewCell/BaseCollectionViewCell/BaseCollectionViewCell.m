@@ -15,6 +15,7 @@
 @end
 
 @implementation BaseCollectionViewCell
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 #pragma mark —— 复写父类相关方法和属性

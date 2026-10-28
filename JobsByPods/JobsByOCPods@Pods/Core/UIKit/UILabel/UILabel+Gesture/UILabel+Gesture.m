@@ -8,6 +8,7 @@
 #import "UILabel+Gesture.h"
 
 @implementation UILabel (Gesture)
+
 -(jobsByVoidBlock _Nonnull)makeLabelGesture{
     @jobs_weakify(self)
     return ^{

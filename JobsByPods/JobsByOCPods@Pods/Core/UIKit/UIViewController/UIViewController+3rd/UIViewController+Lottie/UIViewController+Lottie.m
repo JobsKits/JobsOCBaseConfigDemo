@@ -17,6 +17,7 @@
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END LOTAnimationView
 
 @implementation UIViewController (Lottie)
+
 /// 加盖一个Lottie播放器在本控制器view之上
 /// @param lottieImage LottieName
 -(jobsByStrBlock _Nonnull)addLottieImage{

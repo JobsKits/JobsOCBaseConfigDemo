@@ -48,5 +48,6 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetPDFViewByPDFPageBlock _Nonnull)byAnnotationsChangedOnPage API_AVAILABLE(ios(11.0));
 
 @end
+
 NS_ASSUME_NONNULL_END
 #endif

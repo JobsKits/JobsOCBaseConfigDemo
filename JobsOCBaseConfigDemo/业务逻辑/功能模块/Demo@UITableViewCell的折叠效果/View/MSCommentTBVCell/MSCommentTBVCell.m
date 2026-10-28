@@ -8,6 +8,7 @@
 #import "MSCommentTBVCell.h"
 
 @interface MSCommentTBVCell ()
+
 /// UI
 Prop_strong()UILabel *titleLab;
 /// Data
@@ -16,6 +17,7 @@ Prop_strong()MSCommentDetailModel *commentDetailModel;
 @end
 
 @implementation MSCommentTBVCell
+
 /// UITableViewCellProtocol
 UITableViewCellProtocol_Synthesize_part2
 /// UIViewModelProtocol

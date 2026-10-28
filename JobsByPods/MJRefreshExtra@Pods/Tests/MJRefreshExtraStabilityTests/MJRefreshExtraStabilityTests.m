@@ -9,32 +9,43 @@
 #import "../../Support/UIKit/UIButton/UIButton+TextView/UIButton+TextView.h"
 
 @interface UIButton (JobsMJRefreshOptionalTextViewTesting)
+
 -(Class _Nullable)jobs_mjRefreshTextViewClass;
+
 @end
 
 @interface JobsMJRefreshProvidedTextViewFixture : UITextView
+
 @end
 
 @implementation JobsMJRefreshProvidedTextViewFixture
+
 @end
 
 @interface JobsMJRefreshNilTextViewFixture : UITextView
+
 @end
 
 @implementation JobsMJRefreshNilTextViewFixture
+
 -(instancetype)init{
     return nil;
 }
+
 @end
 
 @interface JobsMJRefreshTextViewButtonFixture : UIButton
+
 @property(nonatomic,assign,nullable)Class providedTextViewClass;
+
 @end
 
 @implementation JobsMJRefreshTextViewButtonFixture
+
 -(Class _Nullable)jobs_mjRefreshTextViewClass{
     return self.providedTextViewClass;
 }
+
 @end
 
 @implementation MJRefreshExtraStabilityTests

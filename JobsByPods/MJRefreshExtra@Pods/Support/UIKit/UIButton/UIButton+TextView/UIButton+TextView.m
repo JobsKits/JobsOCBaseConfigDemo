@@ -8,11 +8,14 @@
 #import "UIButton+TextView.h"
 
 @interface UIButton (JobsMJRefreshOptionalTextView)
+
 -(Class _Nullable)jobs_mjRefreshTextViewClass;
 -(BaseTextView *_Nullable)jobs_mjRefreshCreateTextView;
+
 @end
 
 @implementation UIButton (TextView)
+
 #pragma mark —— 一些私有方法
 -(Class _Nullable)jobs_mjRefreshTextViewClass{
     return NSClassFromString(@"BaseTextView");

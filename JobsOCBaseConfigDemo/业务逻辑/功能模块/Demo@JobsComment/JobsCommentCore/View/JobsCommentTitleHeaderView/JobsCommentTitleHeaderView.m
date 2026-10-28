@@ -8,6 +8,7 @@
 #import "JobsCommentTitleHeaderView.h"
 
 @interface JobsCommentTitleHeaderView ()
+
 /// UI
 Prop_strong()UIView *indicatorView;
 Prop_strong()UILabel *titleLab;
@@ -16,6 +17,7 @@ Prop_strong()UIButton *cancelBtn;
 @end
 
 @implementation JobsCommentTitleHeaderView
+
 -(instancetype)init{
     if (self = [super init]) {
     };return self;

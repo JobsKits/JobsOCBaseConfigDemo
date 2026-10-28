@@ -31,6 +31,7 @@ Prop_assign(readonly)CGFloat scaleY;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsScale
 
 @implementation JobsScale
+
 - (JobsRetCGFloatByVoidBlock _Nonnull)screenWidth {
     @jobs_weakify(self)
     return ^CGFloat{

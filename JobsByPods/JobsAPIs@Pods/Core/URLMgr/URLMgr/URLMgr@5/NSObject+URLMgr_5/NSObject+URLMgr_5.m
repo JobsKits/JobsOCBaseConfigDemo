@@ -10,6 +10,7 @@
 #import <JobsAPIs/NSObject+Extra.h>
 /// 来自 http://18.162.73.145:18193/doc.html#/default/
 @implementation NSObject (URLMgr_5)
+
 #pragma mark —— adjust-order-controller
 /// 资金调整@POST
 -(URLManagerModel *_Nullable)post_fund_adjust_adjustOrder{

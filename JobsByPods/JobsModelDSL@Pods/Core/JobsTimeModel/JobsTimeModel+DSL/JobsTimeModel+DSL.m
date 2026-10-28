@@ -8,6 +8,7 @@
 #import "JobsTimeModel+DSL.h"
 
 @implementation JobsTimeModel (DSL)
+
 -(JobsRetJobsTimeModelByCGFloatBlock _Nonnull)byCurrentDateOffsetSec{
     @jobs_weakify(self)
     return ^__kindof JobsTimeModel *_Nullable(CGFloat data) {

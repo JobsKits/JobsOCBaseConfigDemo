@@ -27,6 +27,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCExcelStyle
 
 @implementation JobsOCExcelStyle
+
 -(JobsRetIDByCGFloatBlock _Nonnull)byRowHeight{
     @jobs_weakify(self)
     return ^id(CGFloat rowHeight){

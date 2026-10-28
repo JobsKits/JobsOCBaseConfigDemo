@@ -8,4 +8,5 @@
 #import <JobsAPIs/UploadImageApi.h>
 
 @interface JobsAPIUploadConstraintFixture : UploadImageApi
+
 @end

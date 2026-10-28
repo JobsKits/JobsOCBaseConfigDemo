@@ -8,6 +8,7 @@
 #import "NSString+URL.h"
 
 @implementation NSString (URL)
+
 /// 返回网址相关的NSURL *
 -(NSURL *)jobsUrl{
     return (((JobsRetURLByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSString.class, @selector(jobsURL)))(self, @selector(jobsURL)))();

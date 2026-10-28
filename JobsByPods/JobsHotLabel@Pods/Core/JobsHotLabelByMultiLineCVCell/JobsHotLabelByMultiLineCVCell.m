@@ -14,6 +14,7 @@ Prop_strong()UILabel *textLab;
 @end
 
 @implementation JobsHotLabelByMultiLineCVCell
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 - (instancetype)initWithFrame:(CGRect)frame{

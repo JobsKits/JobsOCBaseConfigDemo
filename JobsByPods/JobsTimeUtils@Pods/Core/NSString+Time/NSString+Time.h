@@ -52,6 +52,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSString (JobsTimeUtilsTime)
+
 /// 当前时间戳较之当前时间是否已过期【过期返回YES】
 -(JobsRetBOOLByVoidBlock _Nonnull)isExpired;
 /// （字符串）时间戳 转换为可读时间（系统默认时区）

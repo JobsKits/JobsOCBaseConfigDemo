@@ -22,6 +22,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END BaseButton
 
 @implementation BaseButton
+
 /// BaseProtocol
 BaseProtocol_synthesize
 /// RACProtocol

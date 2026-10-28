@@ -8,6 +8,7 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 
 @interface JobsBluetoothWriteFixture : NSObject
+
 @property(nonatomic, strong) NSMutableArray<NSData *> *sentChunks;
 @property(nonatomic, assign) NSUInteger maximumWriteLength;
 @property(nonatomic, copy) void (^onWrite)(NSData *data, CBCharacteristic *characteristic, CBCharacteristicWriteType type);
@@ -15,4 +16,5 @@
 -(NSUInteger)maximumWriteValueLengthForType:(CBCharacteristicWriteType)type;
 -(BOOL)canSendWriteWithoutResponse;
 -(void)writeValue:(NSData *)data forCharacteristic:(CBCharacteristic *)characteristic type:(CBCharacteristicWriteType)type;
+
 @end

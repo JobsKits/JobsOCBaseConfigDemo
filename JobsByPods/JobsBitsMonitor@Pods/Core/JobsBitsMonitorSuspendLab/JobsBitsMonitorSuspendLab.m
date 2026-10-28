@@ -8,6 +8,7 @@
 #import "JobsBitsMonitorSuspendLab.h"
 
 @interface JobsBitsMonitorSuspendLab ()
+
 /// Data
 Prop_strong()NSMutableArray <NSString *>*operationEnvironMutArr;
 Prop_strong()JobsNetworkTrafficMonitor *trafficMonitor;
@@ -15,6 +16,7 @@ Prop_strong()JobsNetworkTrafficMonitor *trafficMonitor;
 @end
 
 @implementation JobsBitsMonitorSuspendLab
+
 -(void)dealloc{
     if (_trafficMonitor) {
         _trafficMonitor.byStop();

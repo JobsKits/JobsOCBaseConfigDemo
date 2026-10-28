@@ -57,6 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
    didSelectCell:(JobsOCExcelCellContext *)context;
 -(void)excelView:(JobsOCExcelView *)excelView
 didScrollHorizontallyToOffset:(CGFloat)offset;
+
 @end
 
 @interface JobsOCExcelView : UIView

@@ -8,6 +8,7 @@
 #import "NSData+Base64.h"
 
 @implementation NSData (Base64)
+
 #pragma mark —— NSData ==> Base64
 ///【类方法】NSData 转换成 以Base64编码的字符串
 +(JobsRetStrByDataBlock _Nonnull)base64StringFromData{

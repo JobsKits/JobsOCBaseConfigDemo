@@ -26,6 +26,7 @@ Prop_assign()CGPoint initialTouchPoint;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsScrollYView
 
 @implementation JobsScrollYView
+
 UILocationProtocol_synthesize
 #pragma mark —— BaseProtocol
 /// 单例化和销毁

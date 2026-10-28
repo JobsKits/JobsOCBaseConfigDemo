@@ -14,6 +14,7 @@
 @end
 
 @implementation BaseRequest
+
 YTKCustomBaseRequestProtocol_synthesize
 /// 直接调用，后面不能拼byURLParameters
 +(JobsRetYTKRequestByDictionaryBlock _Nonnull)initByBodyParameters{

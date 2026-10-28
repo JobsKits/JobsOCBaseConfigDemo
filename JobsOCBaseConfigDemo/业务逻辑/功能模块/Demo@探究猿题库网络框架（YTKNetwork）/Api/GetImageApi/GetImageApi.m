@@ -8,6 +8,7 @@
 #import "GetImageApi.h"
 
 @implementation GetImageApi
+
 /// 请求的完整URL：
 -(NSString *)requestUrl{
     JobsRetStrByVoidBlock action = ((JobsRetStrByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(GetImageApi.class, @selector(jobsRequestUrl)))(self, @selector(jobsRequestUrl));

@@ -17,6 +17,7 @@ Prop_strong(nullable)RACDisposable *jobsCountdownClickDisposable;
 @end
 
 @implementation JobsCountdownBtn
+
 +(JobsRetIDByVoidBlock _Nonnull)verificationCodeButton {
     return ^id{
         return self.new;

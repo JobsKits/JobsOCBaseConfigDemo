@@ -8,6 +8,7 @@
 #import "UIScrollView+UIScrollViewProtocol.h"
 
 @implementation UIScrollView (UIScrollViewProtocol)
+
 /// 在 UIScrollViewDelegate协议方法 -(void)scrollViewDidScroll:(UIScrollView *)scrollView里进行调用
 -(JobsRetScrollDirectionByVoidBlock _Nonnull)scrolldirectionWhenScrollViewDidScroll{
     @jobs_weakify(self)

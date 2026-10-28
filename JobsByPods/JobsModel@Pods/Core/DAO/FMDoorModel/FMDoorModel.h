@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 NSCoding,// 编码
 NSSecureCoding// 解码
 >
+
 #pragma mark —— 共用参数
 Prop_copy()NSString *accessToken;
 Prop_copy()NSString *mobile;// 手机号

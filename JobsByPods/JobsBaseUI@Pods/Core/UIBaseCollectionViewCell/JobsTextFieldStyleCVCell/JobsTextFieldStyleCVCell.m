@@ -18,6 +18,7 @@
 @end
 
 @implementation JobsTextFieldStyleCVCell
+
 /// AppToolsProtocol
 @synthesize viewModel = _viewModel;
 - (instancetype)initWithFrame:(CGRect)frame{

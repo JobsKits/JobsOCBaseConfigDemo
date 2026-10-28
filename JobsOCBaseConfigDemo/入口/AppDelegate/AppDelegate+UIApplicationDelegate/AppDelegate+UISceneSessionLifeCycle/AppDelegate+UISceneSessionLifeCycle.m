@@ -15,6 +15,7 @@
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END UISceneConfiguration
 
 @implementation AppDelegate (UISceneSessionLifeCycle)
+
 #pragma mark —— UIScene Support
 - (UISceneConfiguration *)application:(UIApplication *)application
 configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession
@@ -28,6 +29,9 @@ configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession
 
 - (void)application:(UIApplication *)application
 didDiscardSceneSessions:(NSSet<UISceneSession *> *)sceneSessions {
+    if (JobsOCDeviceGuardLaunchGate.decision.blocked) {
+        return;
+    }
     JobsOCSceneCoordinator.discardSessions(sceneSessions);
 }
 

@@ -8,6 +8,7 @@
 #import "NSArray+Extra.h"
 
 @implementation NSArray (Extra)
+
 /// 数组取值（无法关联数组的泛型）
 -(JobsRetIDByUIntegerBlock _Nonnull)objectAt{
     @jobs_weakify(self)

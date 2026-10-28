@@ -8,6 +8,7 @@
 #import "NSString+Extra.h"
 
 @implementation NSString (Extra)
+
 /// 完整的文件名提取普通文件名和文件后缀名
 - (JobsRetFileNameModelByStrBlock _Nonnull)byFileFullName{
     return ^FileNameModel *_Nonnull(NSString *_Nullable fileFullName) {
@@ -25,4 +26,5 @@
 }
 /// 字符串是否包含URL【返回YES包含】
 /// OC字符串拼接
+
 @end

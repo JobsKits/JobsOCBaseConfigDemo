@@ -8,6 +8,7 @@
 #import "NSMutableArray+Extra.h"
 
 @implementation NSMutableArray (JobsBaseUIExtra)
+
 /// 阻止向可变数组添加空元素
 -(JobsRetMutableArrayByIDBlock _Nonnull)add{
     @jobs_weakify(self)

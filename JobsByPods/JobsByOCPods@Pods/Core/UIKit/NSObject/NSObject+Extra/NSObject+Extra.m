@@ -16,6 +16,7 @@
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END PHAssetCreationRequest
 
 @implementation NSObject (JobsByOCPodsExtra)
+
 /// UITextFieldProtocol
 UITextFieldProtocol_dynamic
 #pragma mark —— 系统类单例的二次封装

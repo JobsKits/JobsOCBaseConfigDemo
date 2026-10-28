@@ -14,6 +14,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END MasonryModel
 
 @implementation MasonryModel (DSL)
+
 -(JobsRetMasonryModelByCGFloatBlock _Nonnull)byFixedSpacing{
     @jobs_weakify(self)
     return ^__kindof MasonryModel *_Nullable(CGFloat data) {

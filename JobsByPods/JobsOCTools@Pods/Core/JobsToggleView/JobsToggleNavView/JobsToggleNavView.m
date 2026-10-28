@@ -8,6 +8,7 @@
 #import "JobsToggleNavView.h"
 
 @interface JobsToggleNavView ()
+
 /// UI
 Prop_strong()__kindof UIView *sliderView;
 /// Data
@@ -24,6 +25,7 @@ Prop_strong()NSMutableArray <UIButtonModel *>*buttonModels;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsToggleNavView
 
 @implementation JobsToggleNavView
+
 -(JobsRetJobsToggleNavViewByButtonModelsBlock _Nonnull)byButtonModels{
     @jobs_weakify(self)
     return ^__kindof JobsToggleNavView *_Nullable(NSMutableArray<__kindof UIButtonModel *> *_Nullable models){

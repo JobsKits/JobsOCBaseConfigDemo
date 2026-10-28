@@ -16,6 +16,7 @@
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UINavigationController
 
 @implementation UINavigationController (DSL)
+
 -(JobsRetNavCtrByDelegateBlock _Nonnull)byDelegate{
     @jobs_weakify(self)
     return ^__kindof UINavigationController *_Nullable(id<UINavigationControllerDelegate> _Nullable delegate){

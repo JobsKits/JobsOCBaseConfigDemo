@@ -20,6 +20,7 @@ Prop_strong() CIContext *context;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsOCVideoRecorderCIFilterProcessor
 
 @implementation JobsOCVideoRecorderCIFilterProcessor
+
 +(JobsRetNSArrayNSNumberByVoidBlock _Nonnull)allFilterTypes{
     return ^NSArray<NSNumber *> *{
         return @[

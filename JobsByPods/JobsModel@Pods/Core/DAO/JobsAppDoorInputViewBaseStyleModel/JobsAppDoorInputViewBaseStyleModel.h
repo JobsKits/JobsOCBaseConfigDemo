@@ -31,6 +31,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 @interface JobsAppDoorInputViewBaseStyleModel : UIViewModel
+
 #pragma mark —— 关于左右的标识图
 Prop_strong(nullable)UIImage *leftViewIMG;
 Prop_strong(nullable)UIImage *selectedSecurityBtnIMG;

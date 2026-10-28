@@ -8,6 +8,7 @@
 #import "JobsAppDoorGraphicCaptchaConfig.h"
 
 @implementation JobsAppDoorGraphicCaptchaConfig
+
 -(JobsRetJobsAppDoorGraphicCaptchaConfigByNSUIntegerBlock _Nonnull)byLength{
     @jobs_weakify(self)
     return ^__kindof JobsAppDoorGraphicCaptchaConfig *_Nullable(NSUInteger data){

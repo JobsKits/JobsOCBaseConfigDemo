@@ -32,6 +32,7 @@ Prop_assign()BOOL didApplyShowingType;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END TestLabelDetailVC
 
 @implementation TestLabelDetailVC
+
 @synthesize demoModel = _demoModel;
 @synthesize scrollView = _scrollView;
 @synthesize contentView = _contentView;

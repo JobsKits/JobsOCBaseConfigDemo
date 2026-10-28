@@ -73,8 +73,10 @@ static IMP JobsNativeGestureCallbackGetter(SEL selector) {
 }
 
 @interface JobsUIKitRegistrationTests ()
+
 @property(nonatomic,copy)NSString *acceptanceCellIdentifier;
 @property(nonatomic,strong)UICollectionReusableView *acceptanceSupplementary;
+
 @end
 
 @implementation JobsUIKitRegistrationTests
@@ -784,4 +786,5 @@ static IMP JobsNativeGestureCallbackGetter(SEL selector) {
         dispatch_sync(dispatch_get_main_queue(), action);
     }
 }
+
 @end

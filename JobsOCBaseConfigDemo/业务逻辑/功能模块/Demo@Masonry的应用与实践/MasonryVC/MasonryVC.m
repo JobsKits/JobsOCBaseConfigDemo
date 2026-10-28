@@ -8,6 +8,7 @@
 #import "MasonryVC.h"
 
 @interface MasonryVC ()
+
 /// UI
 Prop_strong()MSMineView2 *view2;
 Prop_strong()UIView *demo2ContainerView;
@@ -17,6 +18,7 @@ Prop_strong()NSMutableArray <UIView *>*demo2ItemViewMutArr;
 @end
 
 @implementation MasonryVC
+
 - (void)dealloc{
     JobsRemoveNotification(self);
     JobsLog(@"%@",JobsLocalFunc);

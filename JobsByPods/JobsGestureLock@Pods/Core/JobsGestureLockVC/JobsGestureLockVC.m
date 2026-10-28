@@ -37,6 +37,7 @@ Prop_assign()NSInteger remainingRetryCount;
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END JobsGestureLockVC
 
 @implementation JobsGestureLockVC
+
 - (instancetype)init {
     return [self initWithMode:JobsGestureLockModeValidate
                    storageKey:@"JobsGestureLockDefaultKey"
