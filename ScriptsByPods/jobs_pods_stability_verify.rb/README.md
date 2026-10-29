@@ -73,6 +73,8 @@ CI 在安装前按当前 Simulator SDK 主版本选择可用 arm64 iPhone 并启
 
 CI 测试阶段显式启用 `--separate-test-builds`。每个 Stability scheme 先以 `build-for-testing` 准备同一配置、模拟器、输出目录及签名策略的测试 bundle 和宿主，使用 `--build-timeout`（默认 1800 秒）；成功后再以 `test-without-building` 执行原用例，使用 `--test-timeout`（默认 600 秒）。准备记录为 `kind=test_build`，测试仍为 `kind=test`；准备日志保留完整构建输出和 `-showBuildTimingSummary`，测试继续保存独立 `.xcresult`。准备失败或超时就停止后续测试与 harness，不能用准备成功代替实际测试通过。分离模式与默认 `test` 模式的成功缓存不混用，测试证据关联当次成功准备记录。
 
+CI 主 App 阶段单独使用 `--phase app --build-timeout 3600`，Debug / Release 每配置最多 60 分钟，外层步骤 125 分钟，为 Release 优化编译保留预算。Pod 批量构建、测试准备与测试执行沿用各自期限；本地默认构建期限仍为 1800 秒，超时仍失败并保留日志。
+
 ```shell
 ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
   --phase tests \

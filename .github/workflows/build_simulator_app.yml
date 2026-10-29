@@ -160,10 +160,10 @@ jobs:
             "${RUNNER_TEMP}/JobsOCStability/Products/Debug-iphonesimulator/AppHost-JobsBaseUI-Unit-Tests.app/AppHost-JobsBaseUI-Unit-Tests"
 
       - name: Build Simulator app
-        timeout-minutes: 65
+        timeout-minutes: 125
         run: |
           ruby ScriptsByPods/jobs_pods_stability_verify.rb/jobs_pods_stability_verify.rb \
-            --phase app --build-timeout 1800 \
+            --phase app --build-timeout 3600 \
             --architecture arm64 --output "${RUNNER_TEMP}/JobsOCStability"
 
       - name: Package Simulator app

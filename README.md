@@ -663,11 +663,11 @@ Pod 编译前后通过[只读诊断脚本](https://github.com/JobsKits/JobsOCBas
 
 `main` 主 App 的 Debug / Release 均启用 `GCC_PRECOMPILE_PREFIX_HEADER=YES`，让现有大型前缀头先生成 PCH，再供各源码文件复用，避免每个翻译单元重复解析同一套 Jobs / SDK 声明并重复输出头文件警告。配置保留原前缀头、依赖和编译覆盖；本地已验证两配置实际产生 Objective-C / C `ProcessPCH`，并完成代表性主工程 `CompileC`。这是局部编译验证，完整链接、产物打包及最新提交的云端 workflow 仍以真实运行结果为准。
 
-`byPods` 主 App 的 Debug / Release 同样启用 `GCC_PRECOMPILE_PREFIX_HEADER=YES`，复用现有前缀头，不修改 Pod target 或头文件正文。主 App 阶段显式保留每配置 1800 秒的构建期限，外层步骤设为 65 分钟，覆盖两个配置及指纹、静态审计和进程回收开销；避免用单个配置的 30 分钟期限截断整个双配置阶段。两配置的实际编译与打包仍须通过完整 CI 验收。
+`byPods` 主 App 的 Debug / Release 同样启用 `GCC_PRECOMPILE_PREFIX_HEADER=YES`，复用现有前缀头，不修改 Pod target 或头文件正文。CI 主 App 阶段为每配置显式设置 3600 秒构建期限，外层步骤设为 125 分钟，容纳 Release 优化编译及两个配置的指纹、静态审计和进程回收开销；本地默认构建期限仍为 1800 秒。两配置的实际编译与打包仍须通过完整 CI 验收。
 
 打包固定选择 `${products_dir}/${SCHEME}.app`，并校验 `Info.plist`、非测试 Runner 的 Bundle ID、主可执行名称及文件存在，避免按目录枚举顺序误选其它 `.app`。主 App 缺失或身份不匹配时直接失败。
 
-构建阶段保留实时日志和诊断产物，阶段超时早于整个任务超时，以便失败后仍有时间上传日志；`main` 的依赖安装 / 编译分别限时 20 / 120 分钟，整个任务限时 150 分钟。`byPods` 的模拟器准备 / 依赖安装 / 配置守卫 / 各 Pod 编译 / 组件回归 / 宿主权限验收 / 主 App 编译分别限时 10 / 30 / 10 / 120 / 120 / 10 / 65 分钟，整个任务限时 320 分钟。成功后生成可下载的 `.app.zip`，排查失败时先下载对应运行的构建日志与 `.xcresult`；产物只代表该次运行实际完成的阶段，历史成功不能替代最新提交的构建结果。
+构建阶段保留实时日志和诊断产物，阶段超时早于整个任务超时，以便失败后仍有时间上传日志；`main` 的依赖安装 / 编译分别限时 20 / 120 分钟，整个任务限时 150 分钟。`byPods` 的模拟器准备 / 依赖安装 / 配置守卫 / 各 Pod 编译 / 组件回归 / 宿主权限验收 / 主 App 编译分别限时 10 / 30 / 10 / 120 / 120 / 10 / 125 分钟，整个任务限时 320 分钟。成功后生成可下载的 `.app.zip`，排查失败时先下载对应运行的构建日志与 `.xcresult`；产物只代表该次运行实际完成的阶段，历史成功不能替代最新提交的构建结果。
 
 ### 2.10、<span id="resizable-window-adaptation">iPhone Duo 与运行中窗口尺寸变化</span> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
