@@ -129,7 +129,7 @@ JobsOCVideoRecorderVC *vc = [JobsOCVideoRecorderVC.alloc initWithConfig:config];
 - 录制页会在进入时隐藏宿主系统导航栏 / GK 导航栏，改用安全区内的自绘返回、标题和右侧操作区；离开页面时恢复宿主导航栏。
 - 自定义相册需要相册读写权限，不能只依赖 add-only 权限。
 - 视频方向按开始录制时的设备方向固化到当前文件，中途旋转不做 track 重建。
-- 预览方向在 iOS 27+ 通过当前相机与预览层的 `AVCaptureDeviceRotationCoordinator` 换算旋转角度，并先确认连接支持该角度；更旧系统保留 `videoOrientation` 的指定逻辑方向语义，避免改成随重力旋转。前后摄像头镜像规则不变。
+- 预览方向在使用 iOS 27+ SDK 编译且运行于 iOS 27+ 时，通过当前相机与预览层的 `AVCaptureDeviceRotationCoordinator` 换算旋转角度，并先确认连接支持该角度；编译时以 `__IPHONE_OS_VERSION_MAX_ALLOWED` 排除旧 SDK 未声明的新接口。旧 SDK 构建或更旧系统保留 `videoOrientation` 的指定逻辑方向语义，避免改成随重力旋转。前后摄像头镜像规则不变。
 - 少于 `minDuration` 的录制不会预览，也不会保存，只提示用户。
 - 录制页和预览页按钮事件使用 `onClickBy` Block 链式入口，不在调用方新增 `byAddTarget`。
 - `pod install --no-repo-update` 后需要确认 `Development Pods > JobsOCVideoRecorder` 能展开真实 `Core` 目录。
