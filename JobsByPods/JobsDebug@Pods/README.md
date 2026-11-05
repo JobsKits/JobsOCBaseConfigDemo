@@ -96,6 +96,7 @@ JobsDebug@Pods/
 
 - `Core` 当前包含 2 个文件，其中源码 / 头文件 2 个；按 Jobs 规范，它是 `JobsDebug` 对外公开 API 和核心实现的边界。
 - `Support` 当前包含 6 个文件，其中源码 / 头文件 6 个；它只服务当前 Pod 内部实现，不建议被 App 层或其它 Pod 直接引用。
+- `DebugLogDescription.h` 不再导入内部 `NSObject+Extra.h`；方法交换声明由 `DebugLogDescription.m` 通过 Pod 内相对路径引用，公开 API 不暴露此 Support 依赖。
 - `Core` 里需要暴露给外部的头文件应进入 `public_header_files`；实现细节、兼容代码、内部分类优先放在 `Support`。
 - 不要用互相依赖或扩大 `HEADER_SEARCH_PATHS` 掩盖边界问题，必要时把公共能力下沉到更底层 Pod。
 

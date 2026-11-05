@@ -6,6 +6,7 @@
 //
 
 #import "DebugLogDescription.h"
+#import "../../Support/UIKit/NSObject/NSObject+Extra/NSObject+Extra.h"
 
 #if DEBUG
 

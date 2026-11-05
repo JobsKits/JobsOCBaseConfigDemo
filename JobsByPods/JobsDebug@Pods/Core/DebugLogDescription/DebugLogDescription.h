@@ -13,7 +13,6 @@
 #import <stdio.h>
 #import <fcntl.h>
 #import <unistd.h>
-#import <JobsDebug/NSObject+Extra.h>
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>

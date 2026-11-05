@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "reviewed_at": "2026-10-05",
+  "reviewed_at": "2026-11-05",
   "expected_pods": [
     "AFSecurityPolicyExtra",
     "BRPickerViewExtra",
@@ -78,6 +78,7 @@
     "JobsOCSkeletonView",
     "JobsOCSnowflake",
     "JobsOCSplash",
+    "JobsOCStabilitySupport",
     "JobsOCTimer",
     "JobsOCTimerMgr",
     "JobsOCTools",
@@ -489,6 +490,11 @@
       "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
       "reason": "本轮逐Pod真实求值与构建采用的现有helper指纹；19个版本均显式记录，任何新增/行为变化必须复审。"
     },
+    "JobsByPods/JobsOCStabilitySupport@Pods/JobsPodspecKit.rb": {
+      "sha256": "aecf2084157ec3e363e84f364deb102c3a308e23200c7453ee62c86af5d73f28",
+      "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
+      "reason": "已审阅测试宿主空白 Scene 支持 Pod；helper 与已审 JobsOCDefs 仅模块名不同，归一化内容逐字节一致，后续行为变化仍须复审。"
+    },
     "JobsByPods/JobsOCTimer@Pods/JobsPodspecKit.rb": {
       "sha256": "34a34e287994495fb878bff7d7becd3f2af1cd9c53caecb180de833636acf975",
       "normalized_sha256": "9ba2e89eb0beec06b770b319d027c0548861d851852e5efa5a2e2c51f80fc1d8",
@@ -795,10 +801,6 @@
     },
     "H02:78bb187b814e5583449b": {
       "key": "JobsByPods/JobsBaseUI@Pods/Core/UITableViewBaseHeaderFooterView/JobsTBVHeaderFooterView/JobsTBVHeaderFooterView.h|JobsByPods/JobsBaseUI@Pods/Support/UIKit/UIView/UIView+Extra/UIView+Extra.h",
-      "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
-    },
-    "H02:e9f91fa559e176a22e26": {
-      "key": "JobsByPods/JobsDebug@Pods/Core/DebugLogDescription/DebugLogDescription.h|JobsByPods/JobsDebug@Pods/Support/UIKit/NSObject/NSObject+Extra.h",
       "reason": "已确认现有公开Core头引用本Pod私有Support头，保留集成工程既有编译兼容；该精确引用对仍是后续公开API边界治理债务，不宣称独立外部consumer的模块可见性已解决。新增引用对继续失败。"
     },
     "H02:2fb69ed283e90e683780": {
