@@ -6,6 +6,7 @@
 //
 
 #import "JobsOCSearcherBar.h"
+#import "../../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 @interface JobsOCSearcherBar ()
 
@@ -146,21 +147,20 @@ Prop_assign()BOOL registeredDisplayScaleTraits;
         @jobs_strongify(self)
         if (!self) return nil;
         CGSize size = CGSizeMake(16, 16);
-        UIGraphicsBeginImageContextWithOptions(size, NO, MAX(self.traitCollection.displayScale, 1));
-        [color setStroke];
-        UIBezierPath *circlePath = UIBezierPath.byBezierPathWithOvalInRect(CGRectMake(2.2, 2.2, 8.8, 8.8));
-        circlePath
-            .byLineWidth(1.6)
-            .byStroke();
-        UIBezierPath *handlePath = jobsMakeBezierPath(nil);
-        handlePath
-            .byLineWidth(1.8)
-            .byLineCapStyle(kCGLineCapRound)
-            .byMoveToPoint(CGPointMake(9.4, 9.4))
-            .byAddLineToPoint(CGPointMake(13.4, 13.4))
-            .byStroke();
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage *image = JobsRenderImage(size, NO, MAX(self.traitCollection.displayScale, 1), ^(CGContextRef jobsDrawingContext) {
+            [color setStroke];
+            UIBezierPath *circlePath = UIBezierPath.byBezierPathWithOvalInRect(CGRectMake(2.2, 2.2, 8.8, 8.8));
+            circlePath
+                .byLineWidth(1.6)
+                .byStroke();
+            UIBezierPath *handlePath = jobsMakeBezierPath(nil);
+            handlePath
+                .byLineWidth(1.8)
+                .byLineCapStyle(kCGLineCapRound)
+                .byMoveToPoint(CGPointMake(9.4, 9.4))
+                .byAddLineToPoint(CGPointMake(13.4, 13.4))
+                .byStroke();
+        });
         return image;
     };
 }
@@ -238,6 +238,7 @@ Prop_assign()BOOL registeredDisplayScaleTraits;
                 self.notifySearchTextBy(@"");
                 [self.textField resignFirstResponder];
             }).onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
                 JobsLog(@"");
             })
             .addOn(self)
@@ -251,7 +252,9 @@ Prop_assign()BOOL registeredDisplayScaleTraits;
         _cancelBtn
             .byAlpha(0)
             .byUserInteractionEnabled(NO);
-    };return _cancelBtn;
+    }
+    JobsOCCoveragePrepareLongPressButton(_cancelBtn, @"jobs.coverage.longPress.JobsOCSearcherBar.cancelBtn");
+    return _cancelBtn;
 }
 
 @synthesize textField = _textField;
@@ -305,7 +308,11 @@ Prop_assign()BOOL registeredDisplayScaleTraits;
             JobsLog(@"输入的字符为 = %@",x);
             self.notifySearchTextBy(x);
         }];
-    };return _textField;
+    }
+    if (JobsOCCoverageGestureProbeEnabled()) {
+        _textField.accessibilityIdentifier = @"jobs.coverage.searcher.input";
+    }
+    return _textField;
 }
 
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsOCSearcherBar

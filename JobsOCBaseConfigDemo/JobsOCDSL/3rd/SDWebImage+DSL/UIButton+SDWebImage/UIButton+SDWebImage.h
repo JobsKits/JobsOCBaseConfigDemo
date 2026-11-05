@@ -15,7 +15,6 @@
 #endif
 #import "UIButtonConfiguration+DSL.h"
 #import "UIBackgroundConfiguration+DSL.h"
-
 #import "JobsModelDSL.h"
 #import "JobsBlock.h"
 #import "JobsDefines.h"

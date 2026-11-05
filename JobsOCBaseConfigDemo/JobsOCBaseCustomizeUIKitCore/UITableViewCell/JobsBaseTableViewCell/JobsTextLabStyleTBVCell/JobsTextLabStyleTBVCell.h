@@ -23,7 +23,6 @@
 #import "JobsBlock.h"
 #endif
 #import "JobsBaseTableViewCell.h"
-
 #import "JobsMakes.h"
 #import "JobsOCDSL.h"
 #import "JobsModelDSL.h"

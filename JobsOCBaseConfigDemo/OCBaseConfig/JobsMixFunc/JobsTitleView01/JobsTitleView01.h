@@ -16,7 +16,6 @@
 #define JOBS_HEADER_GUARD_JOBSTITLEVIEW01_84409526A3
 
 #import <UIKit/UIKit.h>
-
 #import "JobsByOCPods.h"
 #import "JobsBaseUI.h"
 #import "JobsMakes.h"

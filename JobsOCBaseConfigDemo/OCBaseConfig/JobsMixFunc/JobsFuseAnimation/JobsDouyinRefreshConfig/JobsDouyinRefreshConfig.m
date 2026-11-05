@@ -6,7 +6,6 @@
 //
 
 #import <math.h>
-
 #import "JobsDouyinRefreshConfig.h"
 
 @implementation JobsDouyinRefreshConfig

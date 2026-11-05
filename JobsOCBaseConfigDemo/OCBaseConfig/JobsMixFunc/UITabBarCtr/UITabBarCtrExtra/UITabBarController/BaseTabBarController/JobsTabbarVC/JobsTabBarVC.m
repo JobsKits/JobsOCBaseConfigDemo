@@ -6,7 +6,6 @@
 //
 
 #import "JobsTabBarVC.h"
-
 #import "UIViewController+Lottie.h"
 
 static NSArray<__kindof JobsTabBarItemConfig *> *JobsTabBarVCItemConfigs(void) {
@@ -309,7 +308,11 @@ static dispatch_once_t onceToken;
     return ^BOOL{
         @jobs_strongify(self)
         if (!self) return (BOOL){0};
-        return self.selectedViewController.shouldAutorotate;
+        if (@available(iOS 16.0, *)) {
+            UIInterfaceOrientationMask mask = self.selectedViewController.supportedInterfaceOrientations;
+            return mask != 0 && (mask & (mask - 1)) != 0;
+        }
+        SuppressWdeprecatedDeclarationsWarning(return self.selectedViewController.shouldAutorotate;);
     };
 }
 #pragma clang diagnostic pop

@@ -1169,12 +1169,12 @@ UITextFieldProtocol_dynamic
 -(JobsRetBOOLByVoidBlock _Nonnull)didUserPressLockButton{
     return ^BOOL() {
         /// 获取屏幕亮度
-        CGFloat oldBrightness = UIScreen.mainScreen.brightness;
+        CGFloat oldBrightness = jobsGetMainScreen().brightness;
         /// 以较小的数量改变屏幕亮度
-        UIScreen.mainScreen.byBrightness(oldBrightness + (oldBrightness <= 0.01 ? (0.01) : (-0.01)));
-        CGFloat newBrightness = UIScreen.mainScreen.brightness;
+        jobsGetMainScreen().byBrightness(oldBrightness + (oldBrightness <= 0.01 ? (0.01) : (-0.01)));
+        CGFloat newBrightness = jobsGetMainScreen().brightness;
         /// 恢复屏幕亮度
-        UIScreen.mainScreen.byBrightness(oldBrightness);
+        jobsGetMainScreen().byBrightness(oldBrightness);
         /// 判断屏幕亮度是否能够被改变
         return oldBrightness != newBrightness;
     };
@@ -1625,18 +1625,25 @@ UITextFieldProtocol_dynamic
     @jobs_weakify(self)
     return ^UIInterfaceOrientation{
         @jobs_strongify(self)
-        if (!self) return (UIInterfaceOrientation){0};
+        if (!self) {
+            return UIInterfaceOrientationUnknown;
+        }
         UIInterfaceOrientation __block currentOrientation = UIInterfaceOrientationUnknown;
         if (@available(iOS 13.0, *)) {
             self.getViewByBlock(^id _Nullable(ComponentType componentType,
                                                UIView * _Nullable data) {
-                /// 获取当前窗口场景的界面方向
-                currentOrientation = data.window.windowScene.interfaceOrientation;
+                UIWindowScene *scene = data.window.windowScene;
+                if (@available(iOS 16.0, *)) {
+                    currentOrientation = scene.effectiveGeometry.interfaceOrientation;
+                } else {
+                    SuppressWdeprecatedDeclarationsWarning(currentOrientation = scene.interfaceOrientation;);
+                }
                 return nil;
             });
         } else {
             SuppressWdeprecatedDeclarationsWarning(currentOrientation = UIApplication.sharedApplication.statusBarOrientation;);
-        };return currentOrientation;
+        }
+        return currentOrientation;
     };
 }
 /// UIInterfaceOrientation 检测屏幕方向

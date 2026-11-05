@@ -6,7 +6,6 @@
 //
 
 #import "JobsLinkageMenuView.h"
-
 #import "UIButton+UI.h"
 
 

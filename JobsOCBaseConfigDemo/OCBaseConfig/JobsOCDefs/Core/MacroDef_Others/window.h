@@ -112,10 +112,7 @@ NS_INLINE UIWindow *_Nullable jobsGetMainWindow(void) {
         return nil;
     }
     if (@available(iOS 13.0, *)) {
-        UIWindow *window = jobsGetMainWindowAfter13();
-        if (window || UIApplication.sharedApplication.connectedScenes.count) {
-            return window;
-        }
+        return jobsGetMainWindowAfter13();
     }
     return jobsGetMainWindowBefore13();
 }
@@ -130,6 +127,59 @@ NS_INLINE UIWindowScene *_Nullable jobsGetkeyWindowScene(void) {
         return jobsGetMainWindowAfter13().windowScene;
     }
     return nil;
+}
+
+/// 无视图上下文时只挑前台场景；新系统尚未连接场景时等待后续布局。
+NS_INLINE UIWindowScene *_Nullable jobsGetForegroundWindowScene(void) {
+    if (!NSThread.isMainThread) {
+        return nil;
+    }
+    if (@available(iOS 13.0, *)) {
+        NSArray<UIScene *> *scenes = [UIApplication.sharedApplication.connectedScenes.allObjects
+            sortedArrayUsingComparator:^NSComparisonResult(UIScene *left, UIScene *right) {
+                return [left.session.persistentIdentifier compare:right.session.persistentIdentifier];
+            }];
+        for (NSNumber *state in @[@(UISceneActivationStateForegroundActive), @(UISceneActivationStateForegroundInactive)]) {
+            for (UIScene *scene in scenes) {
+                if ([scene isKindOfClass:UIWindowScene.class] && scene.activationState == state.integerValue) {
+                    return (UIWindowScene *)scene;
+                }
+            }
+        }
+    }
+    return nil;
+}
+
+NS_INLINE UIScreen *_Nullable jobsGetMainScreen(void) {
+    if (!NSThread.isMainThread) {
+        return nil;
+    }
+    if (@available(iOS 13.0, *)) {
+        UIWindowScene *scene = jobsGetForegroundWindowScene();
+        if (scene) {
+            return scene.screen;
+        }
+    }
+    if (@available(iOS 26.0, *)) {
+        return nil;
+    }
+    SuppressWdeprecatedDeclarationsWarning(return UIScreen.mainScreen;);
+}
+
+NS_INLINE CGRect jobsScreenBoundsForView(UIView *_Nullable view) {
+    if (view) {
+        if (@available(iOS 13.0, *)) {
+            UIScreen *screen = view.window.windowScene.screen;
+            return screen ? screen.bounds : view.bounds;
+        }
+        return view.window ? view.window.screen.bounds : view.bounds;
+    }
+    return jobsGetMainScreen().bounds;
+}
+
+NS_INLINE CGFloat jobsScreenScaleForView(UIView *_Nullable view) {
+    CGFloat scale = view ? view.traitCollection.displayScale : jobsGetMainScreen().scale;
+    return scale > 1 ? scale : 1;
 }
 
 /// 兼容历史布局判断；以实际窗口 safe area 为准，横屏同时考虑底部。

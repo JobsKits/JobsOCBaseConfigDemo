@@ -26,7 +26,6 @@
 #import "UIView+Extra.h"
 #import "UITextView+Extend.h"
 #import "JobsOCDSL.h"
-
 #import "JobsLanMgr.h"
 #import "JobsMakes.h"
 #import "JobsBlock.h"

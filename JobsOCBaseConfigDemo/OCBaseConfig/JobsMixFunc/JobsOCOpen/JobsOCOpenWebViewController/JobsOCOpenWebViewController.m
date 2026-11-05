@@ -6,7 +6,6 @@
 //
 
 #import "JobsOCOpenWebViewController.h"
-
 #import "NSString+Sys.h"
 
 @interface JobsOCOpenWebViewController ()

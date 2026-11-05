@@ -32,7 +32,7 @@
 ## <span id="jobs-toc-heading-2" data-jobs-toc="v2">二、接入 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 源码位于 `OCBaseConfig/JobsMixFunc/JobsOCMarkdown`，并由 `JobsMixFunc.h` 对外
-暴露。老工程不新增 `JobsOCMarkdown` Pod 依赖。
+暴露。老工程不新增 `JobsOCMarkdown` Pod 依赖。公开类在 `Core/类名/`，资源定位辅助类在 `Support/Native/JobsOCMarkdownResourceLocator/`，每组源码以完整基名目录管理。
 
 宿主 App 的构建阶段调用 `Support/JobsMarkdownPackager.rb`，把当前仓库的
 Markdown 和被引用的本地资源写入 App 内的 `JobsMarkdownDocuments.bundle`。

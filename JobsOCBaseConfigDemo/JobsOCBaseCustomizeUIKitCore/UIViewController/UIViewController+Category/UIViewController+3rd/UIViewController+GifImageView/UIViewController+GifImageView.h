@@ -25,7 +25,6 @@
 #import <UIKit/UIKit.h>
 #import "NSString+Path.h"
 #import "JobsString.h"
-
 #import "JobsMakes.h"
 #import "JobsBlock.h"
 #import "JobsDefines.h"

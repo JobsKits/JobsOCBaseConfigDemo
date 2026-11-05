@@ -1,0 +1,3 @@
+/Reports/
+# 保留 Runner 必需的共享 Scheme，兼容宿主工程忽略 *.xcscheme 的规则。
+!/Runner/JobsCrashCrawler.xcodeproj/xcshareddata/xcschemes/JobsCrashCrawler.xcscheme

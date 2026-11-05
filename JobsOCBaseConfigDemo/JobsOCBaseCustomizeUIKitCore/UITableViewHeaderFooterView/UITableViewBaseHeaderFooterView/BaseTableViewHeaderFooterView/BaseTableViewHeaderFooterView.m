@@ -6,7 +6,6 @@
 //
 
 #import "BaseTableViewHeaderFooterView.h"
-
 #import "UITableView+Extra.h"
 #import "UITableViewHeaderFooterView+BaseTableViewHeaderFooterViewProtocol.h"
 #import "UIView+Extra.h"

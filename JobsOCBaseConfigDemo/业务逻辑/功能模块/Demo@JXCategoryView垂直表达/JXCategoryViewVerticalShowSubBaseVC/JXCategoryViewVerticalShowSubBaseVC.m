@@ -86,6 +86,11 @@ Prop_copy()NSString *currentTitleWritingLottieName;
         @jobs_strongify(self)
         if (!self) return;
         [super viewDidAppear:animated];
+#if DEBUG
+        if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"] && self.view.window) {
+            self.view.accessibilityValue = [@"verticalCategory:" stringByAppendingString:self.pageTitle ?: @""];
+        }
+#endif
         self.playPageTitleWritingAnimation();
     };
 }

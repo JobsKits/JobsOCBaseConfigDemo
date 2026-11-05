@@ -60,6 +60,17 @@ JobsKey(_data)
 -(void)setData:(id)data{
     Jobs_setAssociatedRETAIN_NONATOMIC(_data, data)
 }
+-(JobsRetNSObjectByIDBlock _Nonnull)byRequestParams{
+    @jobs_weakify(self)
+    return ^__kindof NSObject *_Nullable(id _Nullable data){
+        @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
+        self.requestParams = data;
+        return self;
+    };
+}
 #pragma mark —— UIViewModelOthersProtocol.requestParams // 绑定的数据源，数据类型id
 JobsKey(_requestParams)
 @dynamic requestParams;

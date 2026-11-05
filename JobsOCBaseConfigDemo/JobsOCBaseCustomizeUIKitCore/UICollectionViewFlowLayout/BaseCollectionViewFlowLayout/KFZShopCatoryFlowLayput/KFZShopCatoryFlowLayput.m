@@ -6,7 +6,6 @@
 //
 
 #import "KFZShopCatoryFlowLayput.h"
-
 #import "UIView+Extra.h"
 
 /// 自定义section背景view 注意继承于UICollectionReusableView

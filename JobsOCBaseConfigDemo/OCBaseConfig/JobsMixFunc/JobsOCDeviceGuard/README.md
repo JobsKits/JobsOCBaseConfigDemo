@@ -28,7 +28,7 @@
 
 ### 1.1、<span id="startup-gate">宿主启动门禁与预留接口</span> <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a>
 
-启动协调器为 [JobsOCDeviceGuardLaunchGate](../../../入口/JobsDeviceGuardLaunch/JobsOCDeviceGuardLaunchGate/JobsOCDeviceGuardLaunchGate.h)。`AppDelegate` 的 `didFinishLaunchingWithOptions` 首个启动步骤同步只读检测：
+启动协调器为 [JobsOCDeviceGuardLaunchGate](../../../业务逻辑/功能模块/Demo@JobsDeviceGuardLaunch/JobsOCDeviceGuardLaunchGate/JobsOCDeviceGuardLaunchGate.h)。`AppDelegate` 的 `didFinishLaunchingWithOptions` 首个启动步骤同步只读检测：
 
 ```objc
 if (JobsOCDeviceGuardLaunchGate.prepare().blocked) {

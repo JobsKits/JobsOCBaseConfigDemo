@@ -6,6 +6,7 @@
 //
 
 #import "JXCategoryPopupVC.h"
+#import "../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 @interface JXCategoryPopupVC ()
 
@@ -394,6 +395,7 @@ ratio:(CGFloat)ratio {
                     self.byPopUpFiltrationView(nil);
                 }
             }).onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
                 JobsLog(@"");
             })
             .makeBtnTitleByShowingType(UILabelShowingType_03)
@@ -403,7 +405,9 @@ ratio:(CGFloat)ratio {
                 make.top.bottom.equalTo(self.categoryView);
                 make.width.mas_equalTo(JobsWidth(58));
             });
-    };return _filterBtn;
+    }
+    JobsOCCoveragePrepareLongPressButton(_filterBtn, @"jobs.coverage.longPress.JXCategoryPopupVC.filterBtn");
+    return _filterBtn;
 }
 
 -(BaseButton *)customBtn{
@@ -441,6 +445,7 @@ ratio:(CGFloat)ratio {
                     self.byPopUpCustomView(nil);
                 }
             }).onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
                 JobsLog(@"");
             })
             .selectedStateTitleColorBy(HEXCOLOR(0xAE8330))
@@ -452,7 +457,9 @@ ratio:(CGFloat)ratio {
                 make.left.equalTo(self.categoryView.mas_right);
                 make.width.mas_equalTo(JobsWidth(64));
             });
-    };return _customBtn;
+    }
+    JobsOCCoveragePrepareLongPressButton(_customBtn, @"jobs.coverage.longPress.JXCategoryPopupVC.customBtn");
+    return _customBtn;
 }
 
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JXCategoryPopupVC

@@ -6,7 +6,6 @@
 //
 
 #import "BaseModel.h"
-
 #import "NSString+Extra.h"
 
 @implementation BaseModel

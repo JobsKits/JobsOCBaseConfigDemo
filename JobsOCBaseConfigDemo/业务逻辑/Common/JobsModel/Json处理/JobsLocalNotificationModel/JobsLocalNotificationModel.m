@@ -6,7 +6,6 @@
 //
 
 #import "JobsLocalNotificationModel.h"
-
 #import "JobsLanMgr.h"
 
 @implementation JobsLocalNotificationModel

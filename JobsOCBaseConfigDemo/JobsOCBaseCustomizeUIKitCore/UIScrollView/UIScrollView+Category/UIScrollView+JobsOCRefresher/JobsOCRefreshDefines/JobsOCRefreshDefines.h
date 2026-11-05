@@ -52,14 +52,6 @@ typedef NS_ENUM(NSUInteger, JobsOCRefreshState) {
     JobsOCRefreshStateRemoved
 };
 
-typedef NS_ENUM(NSUInteger, JobsOCRefreshAnimationType) {
-    JobsOCRefreshAnimationTypeSystem,
-    JobsOCRefreshAnimationTypeLottie,
-    JobsOCRefreshAnimationTypeGIF,
-    JobsOCRefreshAnimationTypeFrameImages,
-    JobsOCRefreshAnimationTypeNetworkImage
-};
-
 FOUNDATION_EXPORT JobsOCRefreshAxis JobsOCRefreshAxisForPosition(JobsOCRefreshPosition position);
 FOUNDATION_EXPORT JobsOCRefreshRole JobsOCRefreshRoleForPosition(JobsOCRefreshHorizontalMode mode,
                                                                  JobsOCRefreshPosition position);

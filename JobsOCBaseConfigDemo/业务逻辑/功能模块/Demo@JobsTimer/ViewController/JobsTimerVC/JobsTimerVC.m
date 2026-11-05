@@ -6,6 +6,7 @@
 //
 
 #import "JobsTimerVC.h"
+#import "../../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 @interface JobsTimerVC ()
 
@@ -326,11 +327,14 @@ Prop_assign()BOOL countUpTimerHasStarted;
                         }
                         self.updateTimerControlButtons();
                     }).onLongPressGestureBy(^(id data){
+                        JobsOCCoverageLongPressDelivered(data);
                         JobsLog(@"");
                     })
                     .jobsResetBtnLayerBorderCor(JobsClearColor)
                     .jobsResetBtnLayerBorderWidth(0);
                 btn.byTag(idx);
+                JobsOCCoveragePrepareLongPressButton(btn,
+                    [NSString stringWithFormat:@"jobs.coverage.longPress.JobsTimerVC.%lu", (unsigned long)idx]);
                 btn.addOn(self.view);
                 data.add(btn);
             }

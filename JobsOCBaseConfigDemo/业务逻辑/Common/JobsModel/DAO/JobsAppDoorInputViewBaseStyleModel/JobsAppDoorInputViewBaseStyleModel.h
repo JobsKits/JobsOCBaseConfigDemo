@@ -17,7 +17,6 @@
 
 #import <UIKit/UIKit.h>
 #import "UIViewModel.h"
-
 #import "JobsBlock.h"
 #import "JobsDefines.h"
 

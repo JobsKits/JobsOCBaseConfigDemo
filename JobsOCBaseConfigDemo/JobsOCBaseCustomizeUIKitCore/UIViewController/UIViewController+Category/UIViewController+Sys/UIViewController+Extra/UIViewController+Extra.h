@@ -22,7 +22,6 @@
 #define JOBS_HEADER_GUARD_UIVIEWCONTROLLER_EXTRA_82D052E8CF
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBaseProtocolHeader.h"
 #import "FDFullscreenPopGesture.h"
 #import "JobsBlock.h"

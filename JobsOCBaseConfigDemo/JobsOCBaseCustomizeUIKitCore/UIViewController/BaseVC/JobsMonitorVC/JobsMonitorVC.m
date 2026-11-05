@@ -6,7 +6,6 @@
 //
 
 #import "JobsMonitorVC.h"
-
 #import "NSObject+Extra.h"
 #import "NSObject+Notification.h"
 

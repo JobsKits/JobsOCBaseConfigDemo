@@ -16,7 +16,6 @@
 #define JOBS_HEADER_GUARD_JOBSSHAKEBTN_FA305CA67E
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsOCRuntimeKits.h"
 #import "JobsLoadingImageHeader.h"

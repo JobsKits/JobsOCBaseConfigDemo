@@ -9,6 +9,10 @@
 #import "JobsTimer.h"
 #import "JobsTimerMgr.h"
 
+// 用途：验证计时器自动/手动暂停、替换保护和作用域管理，以及手势设置页能否正常加载。
+// 运行：选用包含 JobsOCBaseConfigDemoTests 的测试 Scheme 执行 XCTest；当前共享 Scheme 尚未登记测试。
+// 边界：仅在单元测试 Target 中执行，正常启动主 App 不会运行这些断言。
+
 @implementation JobsOCBaseConfigDemoTests
 
 -(void)testTimerResumesOnlyAfterAutomaticPause {

@@ -121,9 +121,9 @@ JobsKey(OrderedDictionaryKeys)
 }
 /// 获取给定index的对象
 - (id)objectAtIndex:(NSUInteger)index {
-    return ((((JobsRetIDByUIntegerBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSMutableDictionary.class, @selector(objectAtIndex)))(self, @selector(objectAtIndex))))(index);
+    return ((((JobsRetIDByUIntegerBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(NSMutableDictionary.class, @selector(jobsObjectAtIndex)))(self, @selector(jobsObjectAtIndex))))(index);
 }
--(JobsRetIDByUIntegerBlock _Nonnull)objectAtIndex{
+-(JobsRetIDByUIntegerBlock _Nonnull)jobsObjectAtIndex{
     @jobs_weakify(self)
     return ^id(NSUInteger index){
         @jobs_strongify(self)
@@ -133,6 +133,11 @@ JobsKey(OrderedDictionaryKeys)
         };return [self objectForKey:self.keys[index]];
     };
 }
+
+-(JobsRetIDByUIntegerBlock _Nonnull)objectAtIndex{
+    return self.jobsObjectAtIndex;
+}
+
 /// 插入键值对至给定index
 -(void)insertObject:(id)anObject
              forKey:(id<NSCopying>)aKey

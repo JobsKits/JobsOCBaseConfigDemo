@@ -7,6 +7,7 @@
 
 #import "JXCategoryViewWithHeaderViewVC.h"
 #import "NSObject+TFPopup.h"
+#import "../../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 @interface JXCategoryViewWithHeaderViewSubVC (){
 
@@ -140,6 +141,7 @@ Prop_strong()NSMutableArray <NSMutableArray <__kindof UICollectionViewCell *>*>*
         @jobs_strongify(self)
         if (!self) return;
         [super viewDidAppear:animated];
+        JobsOCCoverageInstallTouchSurface(self.view, @"jobs.coverage.touch.JXCategoryViewWithHeaderViewSubVC");
     };
 }
 
@@ -382,7 +384,11 @@ minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
             .JobsRichViewByModel2(nil)
             .JobsBlock1(^(id  _Nullable data) {;
             });
-    };return _choiceStadiumView;
+    }
+    if (JobsOCCoverageGestureProbeEnabled()) {
+        _choiceStadiumView.accessibilityIdentifier = @"jobs.coverage.popup.choiceStadium";
+    }
+    return _choiceStadiumView;
 }
 /// BaseViewProtocol
 @synthesize collectionView = _collectionView;

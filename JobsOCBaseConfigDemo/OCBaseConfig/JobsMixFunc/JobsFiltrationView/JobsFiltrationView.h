@@ -22,7 +22,6 @@
 #define JOBS_HEADER_GUARD_JOBSFILTRATIONVIEW_8B148716AB
 
 #import <UIKit/UIKit.h>
-
 #import "JobsLanMgr.h"
 #import "JobsHotLabel.h"
 #import "JobsBaseUI.h"

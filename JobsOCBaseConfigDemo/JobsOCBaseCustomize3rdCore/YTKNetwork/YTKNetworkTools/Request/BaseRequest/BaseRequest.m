@@ -6,7 +6,6 @@
 //
 
 #import "BaseRequest.h"
-
 #import "NSMutableDictionary+Extra.h"
 
 @interface BaseRequest ()

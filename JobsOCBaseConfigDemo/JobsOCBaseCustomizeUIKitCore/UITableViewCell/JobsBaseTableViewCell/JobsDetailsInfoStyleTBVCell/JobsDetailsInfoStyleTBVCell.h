@@ -18,9 +18,7 @@
 #import <UIKit/UIKit.h>
 #import "UIView+Extra.h"
 #import "JobsBaseTableViewCell.h"
-
 #import "JobsOCDSL.h"
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsMakes.h"
 #import "JobsModelDSL.h"

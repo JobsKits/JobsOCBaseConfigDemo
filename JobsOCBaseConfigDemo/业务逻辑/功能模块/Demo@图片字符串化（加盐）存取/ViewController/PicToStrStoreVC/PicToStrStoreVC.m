@@ -207,6 +207,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
 - (__kindof UITableViewCell *)tableView:(UITableView *)tableView
                   cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+#if DEBUG
+    self.tbvCellMutArr[indexPath.row].accessibilityIdentifier = [NSString stringWithFormat:@"jobs.coverage.open.PicToStrStoreSubVC.%ld", (long)indexPath.row];
+#endif
     return (JobsBaseTableViewCell *)self.tbvCellMutArr[indexPath.row]
         .jobsRichElementsTableViewCellBy(self.dataMutArr[indexPath.row]);
 }

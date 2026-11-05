@@ -28,7 +28,6 @@
 #import "UIView+Extra.h"
 #import "UITextItem+Extra.h"
 #import "BaseTextView.h"
-
 #import "JobsModelDSL.h"
 #import "JobsOCDSL.h"
 #import "JobsBlock.h"

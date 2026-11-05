@@ -6,7 +6,6 @@
 //
 
 #import "BaseView.h"
-
 #import "NSObject+Extra.h"
 #import "UIView+Extra.h"
 

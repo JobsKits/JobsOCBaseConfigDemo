@@ -85,6 +85,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                  cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = JobsRegisterDequeueTableViewSubtitleCell(UITableViewCell);
     UIViewModel *viewModel = self.demoArr[indexPath.row];
+#if DEBUG
+    cell.accessibilityIdentifier = [@"jobs.coverage.open." stringByAppendingString:NSStringFromClass(viewModel.cls)];
+#endif
     return cell
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
             label.byText(viewModel.textModel.attributedTitle.string ?: viewModel.textModel.text)

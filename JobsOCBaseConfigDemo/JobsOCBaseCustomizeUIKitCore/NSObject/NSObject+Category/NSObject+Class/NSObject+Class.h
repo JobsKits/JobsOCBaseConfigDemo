@@ -17,7 +17,6 @@
 
 #import <Foundation/Foundation.h>
 #import "JobsClassInline.h"
-
 #import "JobsBlock.h"
 #import "JobsDefines.h"
 

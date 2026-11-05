@@ -14,17 +14,16 @@
 +(UIImage *)addImage:(UIImage *)image1
            withImage:(UIImage *)image2
    image2Coefficient:(CGFloat)image2Coefficient{//image2Coefficient 建议为2
-    UIGraphicsBeginImageContext(image1.size);
-    [image1 drawInRect:CGRectMake(0,
-                                  0,
-                                  image1.size.width,
-                                  image1.size.height)];
-    [image2 drawInRect:CGRectMake((image1.size.width - image2.size.width * image2Coefficient) / 2,
-                                  (image1.size.height - image2.size.height * image2Coefficient) / 2,
-                                  image2.size.width * image2Coefficient,
-                                  image2.size.height * image2Coefficient)];
-    UIImage *resultingImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+    UIImage *resultingImage = JobsRenderImage(image1.size, NO, 1, ^(CGContextRef jobsDrawingContext) {
+        [image1 drawInRect:CGRectMake(0,
+                                      0,
+                                      image1.size.width,
+                                      image1.size.height)];
+        [image2 drawInRect:CGRectMake((image1.size.width - image2.size.width * image2Coefficient) / 2,
+                                      (image1.size.height - image2.size.height * image2Coefficient) / 2,
+                                      image2.size.width * image2Coefficient,
+                                      image2.size.height * image2Coefficient)];
+    });
     return resultingImage;
 }
 

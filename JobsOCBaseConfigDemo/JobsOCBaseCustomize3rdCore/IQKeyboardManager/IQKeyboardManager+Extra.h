@@ -16,7 +16,6 @@
 #define JOBS_HEADER_GUARD_IQKEYBOARDMANAGER_EXTRA_1802BF839B
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBlock.h"
 #import "JobsDefines.h"
 

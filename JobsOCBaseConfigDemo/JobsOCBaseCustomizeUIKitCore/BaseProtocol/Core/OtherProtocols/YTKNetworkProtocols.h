@@ -17,7 +17,6 @@
 
 #import <Foundation/Foundation.h>
 #import "YTKCustomBaseRequestProtocol.h"
-
 #import "JobsDefines.h"
 #import "JobsBlock.h"
 

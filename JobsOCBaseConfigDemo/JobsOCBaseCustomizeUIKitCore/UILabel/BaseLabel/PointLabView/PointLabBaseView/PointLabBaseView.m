@@ -6,7 +6,6 @@
 //
 
 #import "PointLabBaseView.h"
-
 #import "NSString+Sys.h"
 #import "UIView+Extra.h"
 #import "UIView+Refresh.h"

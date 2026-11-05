@@ -16,6 +16,10 @@
 #import "JobsDefines.h"
 #endif
 
+// 用途：声明计时器状态与手势设置页的 XCTest 回归用例，具体断言在同名实现文件。
+// 运行：选用包含 JobsOCBaseConfigDemoTests 的测试 Scheme；当前共享 Scheme 尚未登记测试。
+// 边界：供单元测试 Target 使用，不属于主 App 的业务接口。
+
 @interface JobsOCBaseConfigDemoTests : XCTestCase
 
 @end

@@ -7,7 +7,6 @@
 
 #import "UIView+Gesture.h"
 #import "JobsWeakAssociation.h"
-
 #import "JobsString.h"
 #import "UIView+Extra.h"
 #import "NSObject+Extra.h"

@@ -6,7 +6,7 @@
 //
 
 #import "JobsAppDoorContentView.h"
-
+#import "../../测试支持/JobsAppDoorCoverageProbe/JobsAppDoorCoverageProbe.h"
 #import "JobsAppDoorInputViewBaseStyle_1.h"
 #import "JobsAppDoorInputViewBaseStyle_3.h"
 #import "JobsAppDoorInputViewBaseStyle_4.h"
@@ -378,6 +378,11 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
                     .byCornerRadius(cornerRadius)
                     .byMasksToBounds(YES);
             });
+#if DEBUG
+        if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+            self.sendBtn.accessibilityValue = enabled ? @"ready" : @"blocked";
+        }
+#endif
     };
 }
 
@@ -565,6 +570,10 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
             [self.loginDoorInputViewBaseStyleMutArr addObject:inputView];
             inputView.jobsRichViewByModel(self.loginDoorInputViewBaseStyleModelMutArr[i]);
             self.jobs_prepareStaticPlaceholderForInputView(inputView);
+#if DEBUG
+            self.jobs_textFieldByInputView(inputView).accessibilityIdentifier = [NSString stringWithFormat:@"jobs.coverage.auth.style1.login.input.%d", i];
+            JobsAppDoorCoverageBindInput(inputView, self.jobs_textFieldByInputView(inputView).accessibilityIdentifier);
+#endif
             NSUInteger inputIndex = i;
             @jobs_weakify(self)
             //【用户名 & 密码 输入回调，共享注册与登录两个界面】
@@ -624,7 +633,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
         if (!self) return;
         self.titleLab
             .byText(Title7)
-            .byFont(UIFontWeightRegularSize(JobsWidth(20)))
+            .byFont(UIFontWeightSemiboldSize(JobsWidth(22)))
             .byTextCor(Cor3)
             .bySizeToFit()//sizeToFit也会刷新UI造成UI错位，所以需要提前写
             .byTop(JobsWidth(20))
@@ -642,7 +651,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
             .normalStateTitleColorBy(Cor5)
             .disabledStateTitleColorBy(Cor5.colorWithAlphaComponentBy(0.45f))
             .normalStateTitleBy(Title7)
-            .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(JobsWidth(15)))
+            .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(JobsWidth(18)))
             .jobsResetBtnBgCor(Cor4.colorWithAlphaComponentBy(0.92f))
             .jobsResetBtnCornerRadiusValue(ThingsHeight / 2)
             .bySize(CGSizeMake(self.width - self.toRegisterBtn.width - JobsWidth(40), ThingsHeight));
@@ -665,7 +674,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
         self.abandonLoginBtn
             .jobsResetBtnTitle(Title4)
             .jobsResetBtnTitleCor(Cor4)
-            .jobsResetBtnTitleFont(JobsAppDoorActionFont())
+            .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(JobsWidth(18)))
             .byHeight(JobsWidth(20))
             .byTop(self.sendBtn.bottom + JobsWidth(12))
             .byCenterX(self.sendBtn.centerX)
@@ -886,6 +895,10 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
                 });
             }else{}
             if (!doorInputViewBaseStyle) continue;
+#if DEBUG
+            self.jobs_textFieldByInputView(doorInputViewBaseStyle).accessibilityIdentifier = [NSString stringWithFormat:@"jobs.coverage.auth.style1.register.input.%ld", i];
+            JobsAppDoorCoverageBindInput(doorInputViewBaseStyle, self.jobs_textFieldByInputView(doorInputViewBaseStyle).accessibilityIdentifier);
+#endif
             JobsAppDoorInputViewBaseStyle *lastObj = (JobsAppDoorInputViewBaseStyle *)self.registerDoorInputViewBaseStyleMutArr[i - 1];
             doorInputViewBaseStyle
                 .byTop(lastObj.bottom + JobsAppDoorRegisterInputViewOffset())
@@ -957,7 +970,7 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
             .byTitleLabel(^(UILabel *label) {
                 label
                     .byNumberOfLines(0)
-                    .byFont(JobsAppDoorActionFont());
+                    .byFont(UIFontWeightSemiboldSize(JobsWidth(18)));
             })
             .onClickBy(^(UIButton *x) {
                 @jobs_strongify(self)
@@ -971,7 +984,11 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
                                 0,
                                 RegisterBtnWidth,
                                 self.height));
-    };return _toRegisterBtn;
+    }
+#if DEBUG
+    _toRegisterBtn.accessibilityIdentifier = @"jobs.coverage.auth.style1.toggleRegister";
+#endif
+    return _toRegisterBtn;
 }
 
 -(UILabel *)titleLab{
@@ -993,7 +1010,11 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
                 if (self.objBlock) self.objBlock(x);
             })
             .addOn(self);
-    };return _abandonLoginBtn;
+    }
+#if DEBUG
+    _abandonLoginBtn.accessibilityIdentifier = @"jobs.coverage.auth.style1.home";
+#endif
+    return _abandonLoginBtn;
 }
 /// 登录 或者 注册按钮
 -(UIButton *)sendBtn{
@@ -1004,7 +1025,14 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
                 @jobs_strongify(self)
                 [self endEditing:YES];
                 x.byRequestParams(self.appDoorModel);
-                if (self.objBlock) self.objBlock(x);
+                if (self.objBlock) {
+                    self.objBlock(x);
+#if DEBUG
+                    if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+                        x.accessibilityValue = @"submitted";
+                    }
+#endif
+                }
             })
             .addOn(self)
             .byViewBlock(^(__kindof UIView *view) {
@@ -1015,7 +1043,11 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
                         layer.byMasksToBounds(YES);
                     });
             });
-    };return _sendBtn;
+    }
+#if DEBUG
+    _sendBtn.accessibilityIdentifier = @"jobs.coverage.auth.style1.submit";
+#endif
+    return _sendBtn;
 }
 /// 记住登录成功的账号和密码
 -(UIButton *)storeCodeBtn{
@@ -1071,7 +1103,11 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
                     .byContentHorizontalAlignment(UIControlContentHorizontalAlignmentLeft)
                     .byUserInteractionEnabled(YES);
             });
-    };return _storeCodeBtn;
+    }
+#if DEBUG
+    _storeCodeBtn.accessibilityIdentifier = @"jobs.coverage.auth.style1.remember";
+#endif
+    return _storeCodeBtn;
 }
 
 -(UIButton *)findCodeBtn{
@@ -1118,7 +1154,11 @@ Prop_strong(nullable)RACDisposable *verificationCodeBtnEnableDisposable;
                     .jobsResetImagePlacement_Padding(NSDirectionalRectEdgeLeading,JobsWidth(4))
                     .byContentHorizontalAlignment(UIControlContentHorizontalAlignmentRight);
             });
-    };return _findCodeBtn;
+    }
+#if DEBUG
+    _findCodeBtn.accessibilityIdentifier = @"jobs.coverage.auth.style1.forgot";
+#endif
+    return _findCodeBtn;
 }
 
 -(NSMutableArray<JobsAppDoorInputViewBaseStyleModel *> *)loginDoorInputViewBaseStyleModelMutArr{

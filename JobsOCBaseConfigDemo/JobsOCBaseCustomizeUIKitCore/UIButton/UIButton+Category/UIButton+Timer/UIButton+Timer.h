@@ -12,7 +12,6 @@
 #import "UIButton+UI.h"
 #import "UIButton+UIButtonConfiguration.h"
 #import "UIView+Extra.h"
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsRichTextUtils.h"
 #import "JobsTimeUtils.h"

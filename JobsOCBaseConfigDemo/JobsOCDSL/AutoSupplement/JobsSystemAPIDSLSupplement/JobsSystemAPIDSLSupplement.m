@@ -104,6 +104,30 @@ JobsNSDateComponentsDSL(Second, second)
 
 @implementation UINavigationItem (JobsSystemAPIDSLSupplement)
 
+-(JobsRetUINavigationItemByNSStringBlock _Nonnull)byTitle{
+    @jobs_weakify(self)
+    return ^__kindof UINavigationItem *_Nullable(NSString *_Nullable data){
+        @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
+        self.title = data;
+        return self;
+    };
+}
+
+-(JobsRetNavigationItemByBarButtonItemsBlock _Nonnull)byLeftBarButtonItems{
+    @jobs_weakify(self)
+    return ^__kindof UINavigationItem *_Nullable(NSArray<UIBarButtonItem *> *_Nullable data){
+        @jobs_strongify(self)
+        if (!self) {
+            return nil;
+        }
+        self.leftBarButtonItems = data;
+        return self;
+    };
+}
+
 -(JobsRetNavigationItemByBarButtonItemsBlock _Nonnull)byRightBarButtonItems{
     @jobs_weakify(self)
     return ^__kindof UINavigationItem *_Nullable(NSArray<UIBarButtonItem *> *_Nullable data){
@@ -296,7 +320,6 @@ JobsNSDateComponentsDSL(Second, second)
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN UIApplication
 @interface UIApplication (JobsPropertyDSLSetterAutogen_70a2fbb5a1)
--(void)setApplicationIconBadgeNumber:(NSInteger)data;
 -(void)setApplicationSupportsShakeToEdit:(BOOL)data;
 @end
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END UIApplication
@@ -325,7 +348,19 @@ JobsNSDateComponentsDSL(Second, second)
     @jobs_weakify(self)
     return ^__kindof UIApplication * _Nullable(NSInteger data){
         @jobs_strongify(self)
-        [self setApplicationIconBadgeNumber:data];
+        if (!self) {
+            return self;
+        }
+        if (@available(iOS 16.0, *)) {
+            [UNUserNotificationCenter.currentNotificationCenter setBadgeCount:data
+                                                      withCompletionHandler:^(NSError * _Nullable error) {
+                if (error) {
+                    NSLog(@"[JobsOCDSL] 设置应用角标失败：%@", error);
+                }
+            }];
+        } else {
+            SuppressWdeprecatedDeclarationsWarning(self.applicationIconBadgeNumber = data;);
+        }
         return self;
     };
 }
@@ -1187,7 +1222,12 @@ JobsNSDateComponentsDSL(Second, second)
     @jobs_weakify(self)
     return ^__kindof UIPageControl *_Nullable(BOOL data){
         @jobs_strongify(self)
-        self.defersCurrentPageDisplay = data;
+        if (@available(iOS 14.0, *)) {
+            // 新交互模式已移除延迟显示行为，保留立即刷新能力。
+            [self setNeedsDisplay];
+        } else {
+            SuppressWdeprecatedDeclarationsWarning(self.defersCurrentPageDisplay = data;);
+        }
         return self;
     };
 }
@@ -1196,7 +1236,11 @@ JobsNSDateComponentsDSL(Second, second)
     @jobs_weakify(self)
     return ^__kindof UIPageControl *_Nullable(void){
         @jobs_strongify(self)
-        [self updateCurrentPageDisplay];
+        if (@available(iOS 14.0, *)) {
+            [self setNeedsDisplay];
+        } else {
+            SuppressWdeprecatedDeclarationsWarning([self updateCurrentPageDisplay];);
+        }
         return self;
     };
 }
@@ -1370,7 +1414,11 @@ JobsNSDateComponentsDSL(Second, second)
     @jobs_weakify(self)
     return ^__kindof UILabel *_Nullable(BOOL data){
         @jobs_strongify(self)
-        SuppressWdeprecatedDeclarationsWarning(self.adjustsLetterSpacingToFitWidth = data;);
+        if (@available(iOS 9.0, *)) {
+            self.allowsDefaultTighteningForTruncation = data;
+        } else {
+            SuppressWdeprecatedDeclarationsWarning(self.adjustsLetterSpacingToFitWidth = data;);
+        }
         return self;
     };
 }
@@ -1638,7 +1686,11 @@ JobsNSDateComponentsDSL(Second, second)
     @jobs_weakify(self)
     return ^__kindof UIView *_Nullable(CGRect data){
         @jobs_strongify(self)
-        self.contentStretch = data;
+        if (@available(iOS 6.0, *)) {
+            self.layer.contentsCenter = data;
+        } else {
+            SuppressWdeprecatedDeclarationsWarning(self.contentStretch = data;);
+        }
         return self;
     };
 }

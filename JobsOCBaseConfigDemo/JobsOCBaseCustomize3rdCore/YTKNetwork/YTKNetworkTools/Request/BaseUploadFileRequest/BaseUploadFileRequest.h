@@ -23,7 +23,6 @@
 
 #import <Foundation/Foundation.h>
 #import "BaseRequest.h"
-
 #import "JobsStringUtilsHeader.h"
 #import "JobsModelDSL.h"
 #import "JobsBlock.h"
@@ -34,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BaseUploadFileRequest : BaseRequest
 
 -(JobsRetRequestByFileModelBlock _Nonnull)initBy;
+-(JobsRetYTKRequestSerializerTypeByVoidBlock _Nonnull)jobsRequestSerializerType;
 
 @end
 

@@ -2,10 +2,14 @@
 //  JobsOCBaseConfigDemoUITests.m
 //  JobsOCBaseConfigDemo
 //
-//  Created by Jobs on 2025/7/3.
+//  Created by Jobs on 2025年7月3日，星期四.
 //
 
 #import "JobsOCBaseConfigDemoUITests.h"
+
+// 用途：通过 XCUIApplication 启动被测 App，并测量启动耗时。
+// 运行：选用包含 JobsOCBaseConfigDemoUITests 的测试 Scheme 执行 XCTest；当前共享 Scheme 尚未登记测试。
+// 边界：由独立 UI 测试进程驱动 App，不随主 App 正常启动执行。
 
 @implementation JobsOCBaseConfigDemoUITests
 

@@ -16,7 +16,6 @@
 #define RACModel_h
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsBlock.h"
 #import "JobsDefines.h"

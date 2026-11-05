@@ -7,6 +7,24 @@
 
 #import "SceneDelegate+UISceneDelegate.h"
 
+static CGRect JobsSceneCoordinateBounds(UIWindowScene *windowScene) {
+    if (@available(iOS 26.0, *)) {
+        return windowScene.effectiveGeometry.coordinateSpace.bounds;
+    }
+    SuppressWdeprecatedDeclarationsWarning(return windowScene.coordinateSpace.bounds;);
+}
+
+static void JobsUpdateSceneWindowGeometry(UIWindow *window,
+                                         UIWindowScene *windowScene) {
+    if (windowScene != window.windowScene) {
+        return;
+    }
+    window.byFrame(JobsSceneCoordinateBounds(windowScene));
+    if (!JobsOCDeviceGuardLaunchGate.decision.blocked) {
+        window.rootViewController.view.byFrame(window.bounds);
+    }
+}
+
 @implementation SceneDelegate (UISceneDelegate)
 
 #pragma mark —— UIWindowSceneDelegate
@@ -20,7 +38,7 @@ willConnectToSession:(UISceneSession *)session
     self.jobsSetWindowScene(windowScene);
     if (JobsOCDeviceGuardLaunchGate.decision.blocked) {
         self.jobsSetWindow(UIWindow.initByScene(windowScene)).window
-            .byWindowFrame(windowScene.coordinateSpace.bounds)
+            .byWindowFrame(JobsSceneCoordinateBounds(windowScene))
             .byRootViewController(JobsOCDeviceGuardLaunchGate.makeBlockedViewController())
             .byMakeKeyAndVisible();
         NSLog(@"[DeviceGuardLaunch] Scene已展示拦截页 session=%@", session.persistentIdentifier);
@@ -30,7 +48,7 @@ willConnectToSession:(UISceneSession *)session
         [JobsOCSceneCoordinator demoActivityFromConnectionOptions:connectionOptions
                                                           session:session];
     self.jobsSetWindow(UIWindow.initByScene(windowScene)).window
-        .byWindowFrame(windowScene.coordinateSpace.bounds)
+        .byWindowFrame(JobsSceneCoordinateBounds(windowScene))
         .byRootViewController(restorationActivity ?
             [JobsOCSceneDelegateDemoVC.alloc
                 initWithRestorationActivity:restorationActivity].navCtrl() :
@@ -214,16 +232,15 @@ restoreInteractionStateWithUserActivity:(NSUserActivity *)stateRestorationActivi
 didUpdateCoordinateSpace:(id<UICoordinateSpace>)previousCoordinateSpace
 interfaceOrientation:(UIInterfaceOrientation)previousInterfaceOrientation
    traitCollection:(UITraitCollection *)previousTraitCollection {
-    if (JobsOCDeviceGuardLaunchGate.decision.blocked) {
-        if (windowScene == self.window.windowScene) {
-            self.window.byFrame(windowScene.coordinateSpace.bounds);
-        }
+    if (@available(iOS 26.0, *)) {
         return;
     }
-    if (windowScene == self.window.windowScene) {
-        self.window.byFrame(windowScene.coordinateSpace.bounds);
-        self.window.rootViewController.view.byFrame(self.window.bounds);
-    }
+    JobsUpdateSceneWindowGeometry(self.window, windowScene);
+}
+
+- (void)windowScene:(UIWindowScene *)windowScene
+didUpdateEffectiveGeometry:(UIWindowSceneGeometry *)previousEffectiveGeometry API_AVAILABLE(ios(26.0)) {
+    JobsUpdateSceneWindowGeometry(self.window, windowScene);
 }
 
 @end

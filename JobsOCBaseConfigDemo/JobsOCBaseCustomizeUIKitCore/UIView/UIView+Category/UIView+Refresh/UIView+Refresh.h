@@ -39,7 +39,6 @@
 #import <UIKit/UIKit.h>
 #import "JobsOCDSL.h"
 #import "NSObject+Extra.h"
-
 #import "MJRefreshExtra.h"
 #import "JobsOCRuntimeKits.h"
 #import "JobsBlock.h"

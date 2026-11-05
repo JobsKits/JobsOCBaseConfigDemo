@@ -7,6 +7,16 @@
 
 #import "JobsOCVideoRecorderCaptureManager.h"
 
+typedef AVCaptureDeviceRotationCoordinator *_Nonnull(^JobsRetRotationCoordinatorByDevicePreviewLayerBlock)(AVCaptureDevice *_Nonnull device,
+                                                                                                         AVCaptureVideoPreviewLayer *_Nullable previewLayer) API_AVAILABLE(ios(17.0));
+
+API_AVAILABLE(ios(17.0))
+@interface AVCaptureDeviceRotationCoordinator (JobsVideoRecorderMake)
+
++(JobsRetRotationCoordinatorByDevicePreviewLayerBlock _Nonnull)initByDevicePreviewLayer;
+
+@end
+
 @interface JobsOCVideoRecorderCaptureManager ()<
 AVCaptureVideoDataOutputSampleBufferDelegate,
 AVCaptureAudioDataOutputSampleBufferDelegate
@@ -40,7 +50,6 @@ Prop_assign() BOOL mirrorFrontPreview;
 -(JobsRetAVCaptureConnectionByAVCaptureVideoOrientationBlock _Nonnull)byVideoOrientation;
 -(JobsRetAVCaptureConnectionByBOOLBlock _Nonnull)byVideoMirrored;
 -(void)setVideoMirrored:(BOOL)data;
--(void)setVideoOrientation:(AVCaptureVideoOrientation)data;
 @end
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END AVCaptureConnection
 
@@ -156,8 +165,22 @@ Prop_assign() BOOL mirrorFrontPreview;
         if (!self) return;
         AVCaptureConnection *connection = self.previewLayer.connection;
         if (!connection) return;
-        if (connection.isVideoOrientationSupported) {
-            connection.byVideoOrientation(self.captureVideoOrientationByDeviceOrientation(deviceOrientation));
+        AVCaptureVideoOrientation orientation = self.captureVideoOrientationByDeviceOrientation(deviceOrientation);
+        if (@available(iOS 27.0, *)) {
+            AVCaptureDevice *device = self.videoInput.device;
+            if (device) {
+                AVCaptureDeviceRotationCoordinator *coordinator = AVCaptureDeviceRotationCoordinator.initByDevicePreviewLayer(device,
+                                                                                                                              self.previewLayer);
+                CGFloat angle = [coordinator videoRotationAngleRelativeToDeviceOrientation:orientation];
+                if ([connection isVideoRotationAngleSupported:angle]) {
+                    connection.videoRotationAngle = angle;
+                }
+            }
+        } else {
+            // 27 才提供按指定方向且适配传感器的角度；旧系统保留相同的逻辑方向语义。
+            SuppressWdeprecatedDeclarationsWarning(if (connection.isVideoOrientationSupported) {
+                connection.byVideoOrientation(orientation);
+            });
         }
         if (connection.isVideoMirroringSupported) {
             connection.byVideoMirrored(self.mirrorFrontPreview && self.currentPosition == AVCaptureDevicePositionFront);
@@ -431,7 +454,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     @jobs_weakify(self)
     return ^__kindof AVCaptureConnection * _Nullable(AVCaptureVideoOrientation data){
         @jobs_strongify(self)
-        [self setVideoOrientation:data];
+        SuppressWdeprecatedDeclarationsWarning(self.videoOrientation = data;);
         return self;
     };
 }
@@ -446,6 +469,18 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 }
 @end
 // JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END AVCaptureConnection
+
+@implementation AVCaptureDeviceRotationCoordinator (JobsVideoRecorderMake)
+
++(JobsRetRotationCoordinatorByDevicePreviewLayerBlock _Nonnull)initByDevicePreviewLayer{
+    return ^AVCaptureDeviceRotationCoordinator *_Nonnull(AVCaptureDevice *_Nonnull device,
+                                                         AVCaptureVideoPreviewLayer *_Nullable previewLayer){
+        return [[self alloc] initWithDevice:device
+                              previewLayer:previewLayer];
+    };
+}
+
+@end
 
 // JOBS_LOCAL_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN AVCaptureVideoDataOutput
 @implementation AVCaptureVideoDataOutput (JobsLocalPropertyDSLAutogen_e4066b3f52)

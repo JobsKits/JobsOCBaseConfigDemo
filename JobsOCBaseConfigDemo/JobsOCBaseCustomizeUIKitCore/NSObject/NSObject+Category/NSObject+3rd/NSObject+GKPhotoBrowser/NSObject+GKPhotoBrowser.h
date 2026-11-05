@@ -19,7 +19,6 @@
 
 #import <UIKit/UIKit.h>
 #import "NSObject+Extra.h"
-
 #import "JobsLanMgr.h"
 #import "JobsBlock.h"
 #import "JobsDefines.h"

@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 Prop_copy(readonly, nullable)NSMutableArray *keys;
 //获取给定index的对象
 -(id)objectAtIndex:(NSUInteger)index;
+-(JobsRetIDByUIntegerBlock _Nonnull)jobsObjectAtIndex;
+/// 兼容历史 Block 调用，统一转发到 jobsObjectAtIndex。
 -(JobsRetIDByUIntegerBlock _Nonnull)objectAtIndex;
 //插入键值对至给定index
 -(void)insertObject:(id)anObject

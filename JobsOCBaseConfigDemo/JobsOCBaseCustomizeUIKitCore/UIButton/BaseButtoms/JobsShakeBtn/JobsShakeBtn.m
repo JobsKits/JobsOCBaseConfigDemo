@@ -6,7 +6,6 @@
 //
 
 #import "JobsShakeBtn.h"
-
 #import "JobsMakes.h"
 #import "UIView+Measure.h"
 #import "UIView+Extra.h"

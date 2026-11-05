@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+Model.h"
-
 #import "NSObject+UsrInfo.h"
 
 @implementation NSObject (Model)

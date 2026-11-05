@@ -19,7 +19,6 @@
 #import "BaseView.h"
 #import "UIView+Extra.h"
 #import "JobsOCDSL.h"
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsModelDSL.h"
 #import "JobsMakes.h"

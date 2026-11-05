@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+RichText.h"
-
 #import "NSMutableArray+Extra.h"
 #import "UIColor+Extra.h"
 #import "NSString+Extra.h"

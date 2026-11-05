@@ -6,6 +6,7 @@
 //
 
 #import "JobsCommentCoreVC.h"
+#import "../../../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 @interface JobsCommentCoreVC ()
 
@@ -364,20 +365,29 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         JobsInfoTBVCell *cell = JobsInfoTBVCell.cellStyleValue1ByTableView(tableView);
         cell.jobsRichElementsTableViewCellBy(childCommentModel)
             .JobsBlock1(^(id _Nullable data) {
-        });return cell;
+        });
+            JobsOCCoverageRetagLongPressReceiver(cell, @"jobs.coverage.longPress.JobsInfoTBVCell.likeBtn",
+                [NSString stringWithFormat:@"%ld.%ld", (long)indexPath.section, (long)indexPath.row]);
+            return cell;
     }else{
         if (indexPath.row <= customCofigModel.firstShowNum) {
             // 二级评论展示...
             JobsInfoTBVCell *cell = JobsInfoTBVCell.cellStyleValue1ByTableView(tableView);
             cell.jobsRichElementsTableViewCellBy(childCommentModel)
                 .JobsBlock1(^(id _Nullable data) {
-            });return cell;
+            });
+            JobsOCCoverageRetagLongPressReceiver(cell, @"jobs.coverage.longPress.JobsInfoTBVCell.likeBtn",
+                [NSString stringWithFormat:@"%ld.%ld", (long)indexPath.section, (long)indexPath.row]);
+            return cell;
         }else{
             // 加载更多...
             JobsLoadMoreTBVCell *cell = JobsLoadMoreTBVCell.cellStyleValue1ByTableView(tableView);
             cell.jobsRichElementsTableViewCellBy(nil)
                 .JobsBlock1(^(id _Nullable data) {
-            });return cell;
+            });
+            JobsOCCoverageRetagLongPressReceiver(cell, @"jobs.coverage.longPress.JobsInfoTBVCell.likeBtn",
+                [NSString stringWithFormat:@"%ld.%ld", (long)indexPath.section, (long)indexPath.row]);
+            return cell;
         }
     }
 }
@@ -406,12 +416,18 @@ heightForHeaderInSection:(NSInteger)section{///  👌
 - (nullable __kindof UIView *)tableView:(UITableView *)tableView
         viewForHeaderInSection:(NSInteger)section{
     @jobs_weakify(self)
-    return JobsCommentPopUpView_viewForHeaderInSection
+    UIView *header = JobsCommentPopUpView_viewForHeaderInSection
         .JobsRichViewByModel(self.mjModel.listDataArr[section])/// 一级评论数据 展示在viewForHeaderInSection
         .JobsBlock1(^(id _Nullable data) {/// 一级标题点击事件
             @jobs_strongify(self)
             [self 一级标题点击事件];
     });
+    if (JobsOCCoverageGestureProbeEnabled()) {
+        header.accessibilityIdentifier = [NSString stringWithFormat:@"jobs.coverage.comment.header.%ld", (long)section];
+        JobsOCCoverageRetagLongPressReceiver(header, @"jobs.coverage.longPress.JobsCommentPopUpView_viewForHeaderInSection.userInfoBtn", [NSString stringWithFormat:@"%ld", (long)section]);
+        JobsOCCoverageRetagLongPressReceiver(header, @"jobs.coverage.longPress.JobsCommentPopUpView_viewForHeaderInSection.likeBtn", [NSString stringWithFormat:@"%ld", (long)section]);
+    }
+    return header;
 }
 #pragma mark —— lazyLoad
 -(JobsCommentTitleHeaderView *)titleHeaderView{
@@ -496,7 +512,11 @@ heightForHeaderInSection:(NSInteger)section{///  👌
             tableView.mj_footer.byBgColor(JobsClearColor.colorWithAlphaComponentBy(0));
             self.view.byMjRefreshTargetView(tableView);
         });
-    };return _tableView;
+    }
+    if (JobsOCCoverageGestureProbeEnabled()) {
+        _tableView.accessibilityIdentifier = @"jobs.coverage.comment.table";
+    }
+    return _tableView;
 }
 
 // JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN JobsCommentCoreVC

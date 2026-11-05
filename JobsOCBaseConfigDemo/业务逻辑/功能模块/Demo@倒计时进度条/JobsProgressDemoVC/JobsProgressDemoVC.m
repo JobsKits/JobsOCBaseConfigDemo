@@ -386,7 +386,11 @@ Prop_assign()BOOL autoRunning;
                         @jobs_strongify(self)
                         self.stateLab.byText(@"拖动结束。".jobsTr());
                     });
-    };return _progressBar;
+    }
+#if DEBUG
+    _progressBar.accessibilityIdentifier = @"jobs.coverage.surface.JobsProgressDemoVC.progressBar";
+#endif
+    return _progressBar;
 }
 
 - (UISlider *)slider {

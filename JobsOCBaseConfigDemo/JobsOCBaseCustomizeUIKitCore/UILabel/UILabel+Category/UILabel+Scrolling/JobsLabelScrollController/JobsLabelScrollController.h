@@ -14,7 +14,6 @@
 #endif
 #import <UIKit/UIKit.h>
 #import "JobsCoreTextScrollLayer.h"
-
 #import "JobsLabelScrollConfiguration.h"
 #import "JobsOCDSL.h"
 

@@ -89,6 +89,7 @@ JobsBlock@Pods/
 ### <span id="jobs-toc-heading-7" data-jobs-toc="v2">5.1、公开头文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
 - `Core/**/*.h`
+- `JobsRetUINavigationItemByNSStringBlock` 描述接收可空标题、返回原 `UINavigationItem` 的链式签名，由主工程 `JobsSystemAPIDSLSupplement` 的导航项分类使用；`NSObject+Data.byRequestParams(...)` 复用 `JobsRetNSObjectByIDBlock` 绑定请求参数并返回原对象。
 
 - `Core/确定参数的Block/ReturnByCertainParametersBlock.h` 集中维护带返回值的确定参数 Block，`UITextView`、`UIBezierPath / CALayer / UIView` 方法型 DSL 相关返回类型统一从这里暴露。
 - 开屏宿主手势恢复的 `JobsRetJobsOCSplashVCByjobsByVoidBlockBlock` 同样在该共享头声明；`byHostGestureRestoration` 保存恢复回调并返回当前开屏控制器。旧工程使用既有集成源码，不为这条声明新增 Pod 依赖。

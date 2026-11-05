@@ -16,7 +16,6 @@
 #define JOBS_HEADER_GUARD_UISLIDER_EXTRA_B9293AA0D1
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
 #import "JobsDefines.h"
 

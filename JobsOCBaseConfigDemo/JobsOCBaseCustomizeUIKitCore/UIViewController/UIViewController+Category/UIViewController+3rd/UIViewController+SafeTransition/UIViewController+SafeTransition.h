@@ -20,7 +20,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import "JobsRecordPresentedViewController.h"
 #import "NSString+Toast.h"
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsLanMgr.h"
 #import "JobsOCRuntimeKits.h"

@@ -18,7 +18,6 @@
 #import <UIKit/UIKit.h>
 #import <Photos/Photos.h> // 提供系统相册访问能力，可读取和管理照片、视频等媒体资源。
 #import <AVFoundation/AVFoundation.h>
-
 #import "JobsByOCPods.h"
 #import "JobsModelDSL.h"
 #import "JobsMakes.h"

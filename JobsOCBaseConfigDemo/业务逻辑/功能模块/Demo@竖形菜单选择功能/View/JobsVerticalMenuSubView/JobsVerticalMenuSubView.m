@@ -6,6 +6,7 @@
 //
 
 #import "JobsVerticalMenuSubView.h"
+#import "../../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 @interface JobsVerticalMenuSubView ()
 <
@@ -168,6 +169,9 @@ Prop_assign()NSUInteger thisIndex;
 -(__kindof UICollectionViewCell *)collectionView:(__kindof UICollectionView *)collectionView
                           cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ThreeClassCell *cell = [ThreeClassCell cellWithCollectionView:collectionView forIndexPath:indexPath];
+    if (JobsOCCoverageGestureProbeEnabled()) {
+        cell.tag = indexPath.section;
+    }
     GoodsClassModel *model = self.rightDataArray.objectAt(indexPath.section);
     cell.getCollectionHeight((NSMutableArray <NSObject *>*)model.childrenList);
     cell.jobsRichElementsCollectionViewCellBy((NSMutableArray <NSObject *>*)model.childrenList)

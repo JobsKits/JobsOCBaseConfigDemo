@@ -6,7 +6,6 @@
 //
 
 #import "BaseViewController.h"
-
 #import "UIView+Refresh.h"
 #import "UIView+Measure.h"
 
@@ -16,9 +15,13 @@ static BOOL JobsIsSystemNavigationBarDemo(UIViewController *viewController) {
 
 @interface BaseViewController ()
 
--(JobsRetBOOLByVoidBlock _Nonnull)jobs_requiresDefaultNavigationBar;
 -(JobsRetStrByVoidBlock _Nonnull)jobs_defaultNavigationTitle;
 -(jobsByVoidBlock _Nonnull)jobs_ensureDefaultNavigationBar;
+#if DEBUG
+-(void)jobs_probeCoverageDestination:(UIViewController *)destination
+              navigationController:(UINavigationController *)navigationController
+                 attemptsRemaining:(NSUInteger)attemptsRemaining;
+#endif
 
 @end
 
@@ -130,6 +133,23 @@ BaseViewControllerProtocol_synthesize
         if (!self) return;
             [super viewDidAppear:animated];
             self.byViewDidAppear(YES);
+#if DEBUG
+            NSArray<NSString *> *coverageArguments = NSProcessInfo.processInfo.arguments;
+            NSUInteger coverageFlag = [coverageArguments indexOfObject:@"--jobs-coverage-route"];
+            if (coverageFlag != NSNotFound && self.view.window) {
+                NSString *actualClass = NSStringFromClass(self.class);
+                BOOL requestedThisPage = coverageFlag + 1 < coverageArguments.count &&
+                    [coverageArguments[coverageFlag + 1] isEqualToString:actualClass];
+                BOOL visibleInNavigation = !self.navigationController ||
+                    self.navigationController.visibleViewController == self;
+                // 真实 didAppear 才就绪；返回本页时保留已确认的直接路由标记。
+                if (requestedThisPage && visibleInNavigation && !self.presentedViewController) {
+                    self.view.accessibilityIdentifier = [@"jobs.coverage.ready." stringByAppendingString:actualClass];
+                } else if (![self.view.accessibilityIdentifier hasPrefix:@"jobs.coverage.ready."]) {
+                    self.view.accessibilityIdentifier = [@"jobs.coverage.page." stringByAppendingString:actualClass];
+                }
+            }
+#endif
             self.jobs_ensureDefaultNavigationBar();
         #ifdef DEBUG
             /// 网络异步数据刷新UI会在viewDidAppear以后执行viewWillLayoutSubviews、viewDidLayoutSubviews
@@ -165,8 +185,46 @@ BaseViewControllerProtocol_synthesize
         if (!self) return;
         [super viewDidDisappear:animated];
         self.byViewDidDisappear(YES);
+#if DEBUG
+        if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+            UIViewController *destination = self.navigationController.topViewController;
+            if (destination && destination != self) {
+                [self jobs_probeCoverageDestination:destination
+                              navigationController:self.navigationController
+                                 attemptsRemaining:100];
+            }
+        }
+#endif
     };
 }
+
+#if DEBUG
+-(void)jobs_probeCoverageDestination:(UIViewController *)destination
+              navigationController:(UINavigationController *)navigationController
+                 attemptsRemaining:(NSUInteger)attemptsRemaining{
+    // Jobs 的集成层只观察这次转场的真实实例，不接管第三方控制器或导航代理。
+    if (navigationController.topViewController != destination) {
+        return;
+    }
+    if (navigationController.visibleViewController == destination &&
+        destination.isViewLoaded && destination.view.window &&
+        !navigationController.transitionCoordinator && !destination.transitionCoordinator) {
+        if (![destination.view.accessibilityIdentifier hasPrefix:@"jobs.coverage.ready."]) {
+            destination.view.accessibilityIdentifier = [@"jobs.coverage.page." stringByAppendingString:NSStringFromClass(destination.class)];
+        }
+        return;
+    }
+    if (!attemptsRemaining) {
+        return;
+    }
+    __weak __typeof__(self) weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakSelf jobs_probeCoverageDestination:destination
+                         navigationController:navigationController
+                            attemptsRemaining:attemptsRemaining - 1];
+    });
+}
+#endif
 
 -(void)viewWillLayoutSubviews{
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseViewController.class, @selector(jobsViewWillLayoutSubviews)))(self, @selector(jobsViewWillLayoutSubviews));
@@ -199,11 +257,17 @@ BaseViewControllerProtocol_synthesize
     };
 }
 #pragma mark —— 一些私有方法
--(JobsRetBOOLByVoidBlock _Nonnull)jobs_requiresDefaultNavigationBar{
+-(BOOL)jobs_requiresDefaultNavigationBar{
+    JobsRetBOOLByVoidBlock action = ((JobsRetBOOLByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaseViewController.class, @selector(jobsJobs_requiresDefaultNavigationBar)))(self, @selector(jobsJobs_requiresDefaultNavigationBar));
+    return action ? action() : NO;
+}
+
+
+-(JobsRetBOOLByVoidBlock _Nonnull)jobsJobs_requiresDefaultNavigationBar{
     @jobs_weakify(self)
     return ^BOOL{
         @jobs_strongify(self)
-        if (!self) return (BOOL){0};
+        if (!self) return NO;
         UINavigationController *navigationController = self.navigationController;
         BOOL isNavigationChild = navigationController.topViewController == self &&
             navigationController.viewControllers.firstObject != self;
@@ -231,7 +295,7 @@ BaseViewControllerProtocol_synthesize
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        if (![self jobs_requiresDefaultNavigationBar]()) return;
+        if (![self jobs_requiresDefaultNavigationBar]) return;
         if (JobsIsSystemNavigationBarDemo(self)) {
             [self.navigationController setNavigationBarHidden:NO animated:NO];
             self.navigationController.navigationBar.byHidden(NO);

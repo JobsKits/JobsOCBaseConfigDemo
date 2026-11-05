@@ -64,11 +64,8 @@ typedef __kindof JobsOCGraphicCaptchaConfig *_Nullable(^JobsRetJobsOCGraphicCapt
 typedef __kindof JobsOCRefreshConfig *_Nullable(^JobsRetJobsOCRefreshConfigByCGFloatBlock)(CGFloat data);
 typedef __kindof JobsOCRefreshConfig *_Nullable(^JobsRetJobsOCRefreshConfigByBOOLBlock)(BOOL data);
 typedef __kindof JobsOCRefreshConfig *_Nullable(^JobsRetJobsOCRefreshConfigByHorizontalModeBlock)(JobsOCRefreshHorizontalMode data);
-typedef __kindof JobsOCRefreshConfig *_Nullable(^JobsRetJobsOCRefreshConfigByAnimationTypeBlock)(JobsOCRefreshAnimationType data);
-typedef __kindof JobsOCRefreshConfig *_Nullable(^JobsRetJobsOCRefreshConfigByTimeIntervalBlock)(NSTimeInterval data);
 typedef __kindof JobsOCRefreshConfig *_Nullable(^JobsRetJobsOCRefreshConfigByIDBlock)(id _Nullable data);
 typedef __kindof JobsOCRefreshConfig *_Nullable(^JobsRetJobsOCRefreshConfigByStrBlock)(NSString *_Nullable data);
-typedef __kindof JobsOCRefreshConfig *_Nullable(^JobsRetJobsOCRefreshConfigByArrBlock)(NSArray *_Nullable data);
 typedef __kindof JobsOCPatchModel *_Nullable(^JobsRetJobsOCPatchModelByStrBlock)(NSString *_Nullable data);
 typedef __kindof JobsOCPatchModel *_Nullable(^JobsRetJobsOCPatchModelByIDBlock)(id _Nullable data);
 typedef __kindof JobsOCPatchModel *_Nullable(^JobsRetJobsOCPatchModelBySELBlock)(SEL _Nullable data);

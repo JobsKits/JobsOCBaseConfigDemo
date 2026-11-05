@@ -37,7 +37,6 @@
 #import "UIButtonConfiguration+Extra.h"
 #import "UIGestureRecognizer+Extra.h"
 #import "NSObject+NSMutableParagraphStyle.h"
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsOCDSL.h"
 #import "JobsDeviceInfo.h"

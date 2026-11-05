@@ -6,7 +6,6 @@
 //
 
 #import "JobsMagicTextField.h"
-
 #import "UIView+Extra.h"
 #import "UIView+Measure.h"
 #import "NSObject+Notification.h"

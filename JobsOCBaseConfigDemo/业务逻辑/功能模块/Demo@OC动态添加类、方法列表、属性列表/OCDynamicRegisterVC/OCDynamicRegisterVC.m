@@ -6,6 +6,7 @@
 //
 
 #import "OCDynamicRegisterVC.h"
+#import "../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 static NSString * const JobsDynamicRegisterDemoClassName = @"JobsRuntimeDynamicPerson";
 static NSString * const JobsDynamicRegisterDemoIvarName = @"_jobsName";
@@ -146,6 +147,7 @@ Prop_strong()id runtimeObject;
         self.contentScrollView.addOn(self.view);
         self.buildRuntimeDemoView();
         self.work();
+        JobsOCCoverageInstallTouchSurface(self.view, @"jobs.coverage.touch.OCDynamicRegisterVC");
     };
 }
 
@@ -167,6 +169,9 @@ Prop_strong()id runtimeObject;
 -(void)touchesBegan:(NSSet<UITouch *> *)touches
           withEvent:(UIEvent *)event{
     (((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(OCDynamicRegisterVC.class, @selector(triggerMessageForwardDemo)))(self, @selector(triggerMessageForwardDemo)))();
+    if (JobsOCCoverageGestureProbeEnabled()) {
+        self.view.accessibilityValue = @"touchesBegan:completed";
+    }
 }
 #pragma mark —— Demo UI
 -(jobsByVoidBlock _Nonnull)buildRuntimeDemoView{

@@ -48,6 +48,8 @@ Prop_assign()CGRect lastAnimationBounds;
 @end
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_END CAAnimationGroup
 
+JobsKey(JobsJobsDouyinRefreshViewModernTraitsRegistrationKey)
+
 @implementation JobsDouyinRefreshView
 
 -(instancetype)initWithFrame:(CGRect)frame {
@@ -130,6 +132,9 @@ Prop_assign()CGRect lastAnimationBounds;
 }
 
 -(void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection {
+    if (@available(iOS 17.0, tvOS 17.0, *)) {
+        return;
+    }
     jobsByUITraitCollectionBlock action = ((jobsByUITraitCollectionBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsDouyinRefreshView.class, @selector(jobsTraitCollectionDidChange)))(self, @selector(jobsTraitCollectionDidChange));
     if (action) action(previousTraitCollection);
 }
@@ -139,7 +144,11 @@ Prop_assign()CGRect lastAnimationBounds;
     return ^(UITraitCollection * previousTraitCollection){
         @jobs_strongify(self)
         if (!self) return;
-        [super traitCollectionDidChange:previousTraitCollection];
+        if (@available(iOS 17.0, tvOS 17.0, *)) {
+            // 现代注册回调只执行业务刷新，旧系统保留父类通知。
+        } else {
+            SuppressWdeprecatedDeclarationsWarning([super traitCollectionDidChange:previousTraitCollection];);
+        }
         self.jobs_layoutDots();
     };
 }
@@ -271,7 +280,30 @@ Prop_assign()CGRect lastAnimationBounds;
     @jobs_weakify(self)
     return ^{
         @jobs_strongify(self)
-        if (!self) return;
+        if (!self) {
+            return;
+        }
+        if (@available(iOS 17.0, tvOS 17.0, *)) {
+            if (!Jobs_getAssociatedObjectByTarget(self, JobsJobsDouyinRefreshViewModernTraitsRegistrationKey)) {
+                Jobs_setAssociatedRETAIN_NONATOMICByTarget(self, JobsJobsDouyinRefreshViewModernTraitsRegistrationKey, @YES)
+                NSArray<UITrait> *traits = [UITraitCollection.systemTraitsAffectingColorAppearance arrayByAddingObjectsFromArray:@[
+                    UITraitDisplayScale.class,
+                    UITraitPreferredContentSizeCategory.class,
+                    UITraitHorizontalSizeClass.class,
+                    UITraitVerticalSizeClass.class,
+                    UITraitLayoutDirection.class
+                ]];
+                [self registerForTraitChanges:traits
+                                 withHandler:^(__kindof id<UITraitEnvironment> environment,
+                                               UITraitCollection *previousTraitCollection) {
+                    JobsDouyinRefreshView *target = (JobsDouyinRefreshView *)environment;
+                    jobsByUITraitCollectionBlock action = ((jobsByUITraitCollectionBlock (*)(__typeof__(target), SEL))JobsBlockInstanceMethodIMP(JobsDouyinRefreshView.class, @selector(jobsTraitCollectionDidChange)))(target, @selector(jobsTraitCollectionDidChange));
+                    if (action) {
+                        action(previousTraitCollection);
+                    }
+                }];
+            }
+        }
         self.byUserInteractionEnabled(NO);
         self.byAccessibilityElement(YES);
         self.byAccessibilityLabel(@"刷新中");

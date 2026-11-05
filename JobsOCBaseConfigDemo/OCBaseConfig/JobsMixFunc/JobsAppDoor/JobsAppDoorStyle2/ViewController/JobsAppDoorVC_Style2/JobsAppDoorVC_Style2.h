@@ -5,6 +5,7 @@
 //  Created by Jobs on 2026年5月13日，星期三.
 //
 
+#import <MediaPlayer/MediaPlayer.h>
 #import "JobsAppDoorConfig.h"
 #import "JobsAppDoorLogoContentView.h"
 #import "../../View/ContentView/JobsAppDoorLoginContentView/JobsAppDoorLoginContentView.h"      // 登录
@@ -162,6 +163,12 @@
 #import "JobsFuseAnimation.h"
 #else
 #import "JobsFuseAnimation.h"
+#endif
+
+#if __has_include(<JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>)
+#import <JobsOCCountryCodeCtrl/JobsOCCountryCodeCtrlHeader.h>
+#else
+#import "JobsOCCountryCodeCtrlHeader.h"
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

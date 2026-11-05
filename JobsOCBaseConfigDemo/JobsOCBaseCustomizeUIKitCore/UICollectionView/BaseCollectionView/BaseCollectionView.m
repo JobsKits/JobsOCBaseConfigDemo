@@ -6,7 +6,6 @@
 //
 
 #import "BaseCollectionView.h"
-
 #import "UIView+Extra.h"
 
 @interface BaseCollectionView ()

@@ -6,7 +6,6 @@
 //
 
 #import "BaseNavigationVC.h"
-
 #import "NSObject+Extra.h"
 #import "UIViewController+BaseNavigationBar.h"
 

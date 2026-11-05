@@ -131,6 +131,11 @@ Prop_assign()BOOL didReloadContentAfterLayout;
         @jobs_strongify(self)
         if (!self) return;
         [super viewDidAppear:animated];
+#if DEBUG
+        if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"] && self.view.window) {
+            self.view.accessibilityValue = [@"verticalMenu:" stringByAppendingString:[NSString stringWithFormat:@"%ld", (long)self.contentIndex] ?: @""];
+        }
+#endif
     };
 }
 

@@ -6,7 +6,6 @@
 //
 
 #import "JobsBaseApi.h"
-
 #import "NSObject+Extra.h"
 
 // JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN JobsBaseApi

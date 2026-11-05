@@ -16,7 +16,6 @@
 #define SPAlertControllerConfig_h
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBlock.h"
 #import "JobsDefines.h"
 

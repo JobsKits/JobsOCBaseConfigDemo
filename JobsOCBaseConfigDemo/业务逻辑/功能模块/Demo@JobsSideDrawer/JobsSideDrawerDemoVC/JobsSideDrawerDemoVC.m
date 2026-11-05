@@ -6,7 +6,6 @@
 //
 
 #import "JobsSideDrawerDemoVC.h"
-
 #import "JobsViewPush.h"
 #import "JobsLanMgr.h"
 
@@ -51,6 +50,22 @@ Prop_strong()JobsSideDrawer *drawer;
         self.makeNavByAlpha(1);
         self.view.byBgColor(JobsSystemBackgroundColor);
         [self.view addSubview:self.optionStackView];
+#if DEBUG
+        if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+            NSArray<NSString *> *names = @[@"min", @"max"];
+            for (NSUInteger index = 0; index < names.count; index++) {
+                UIButton *button = jobsMakeButton(^(__kindof UIButton * _Nullable button) {
+                    button.byTag(index);
+                    button.jobsResetBtnTitle(index == 0 ? @"组件比例 20%" : @"组件比例 90%")
+                        .jobsResetBtnTitleCor(JobsSystemBlueColor)
+                        .byFrame(CGRectMake(16 + index * 150, CGRectGetHeight(self.view.bounds) - 80, 145, 32));
+                });
+                button.accessibilityIdentifier = [@"jobs.coverage.component.drawer.ratio." stringByAppendingString:names[index]];
+                [button addTarget:self action:@selector(jobs_coverageDrawerRatio:) forControlEvents:UIControlEventTouchUpInside];
+                [self.view addSubview:button];
+            }
+        }
+#endif
     };
 }
 -(jobsByVoidBlock _Nonnull)preview{
@@ -58,7 +73,7 @@ Prop_strong()JobsSideDrawer *drawer;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        self.byDrawerHostView(UIApplication.sharedApplication.keyWindow);
+        self.byDrawerHostView(self.view.window);
         self.byDrawerContentView(self.drawerHostView.subviews.lastObject);
         if (!self.drawerHostView || !self.drawerContentView) return;
         JobsSideDrawerDirection values[] = {JobsSideDrawerDirectionTop, JobsSideDrawerDirectionBottom, JobsSideDrawerDirectionLeft, JobsSideDrawerDirectionRight};
@@ -69,9 +84,30 @@ Prop_strong()JobsSideDrawer *drawer;
                                                    drawerView:self.drawerMenuView
                                                   contentView:self.drawerContentView
                                                 configuration:self.drawerConfig];
+#if DEBUG
+        if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+            __weak __typeof__(self) weakSelf = self;
+            self.drawer.stateChanged = ^(BOOL open) {
+                __strong __typeof__(weakSelf) strongSelf = weakSelf;
+                if (!strongSelf) {
+                    return;
+                }
+                JobsSideDrawerConfiguration *configuration = strongSelf.drawer.configuration;
+                strongSelf.view.accessibilityValue = [NSString stringWithFormat:@"drawer:%@:%ld:%ld:%.2f", open ? @"open" : @"closed", (long)configuration.direction, (long)configuration.contentMode, configuration.presentedRatio];
+            };
+        }
+#endif
         self.drawer.openAnimated(YES);
     };
 }
+
+#if DEBUG
+-(void)jobs_coverageDrawerRatio:(UIButton *)sender{
+    if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+        self.ratio.byValue(sender.tag == 0 ? self.ratio.minimumValue : self.ratio.maximumValue);
+    }
+}
+#endif
 
 #pragma mark —— LazyLoad
 -(UISegmentedControl *)direction{
@@ -94,7 +130,11 @@ Prop_strong()JobsSideDrawer *drawer;
         _ratio.byMinimumValue(0.2);
         _ratio.byMaximumValue(0.9);
         _ratio.byValue(0.5);
-    };return _ratio;
+    }
+#if DEBUG
+    _ratio.accessibilityIdentifier = @"jobs.coverage.drawer.ratio";
+#endif
+    return _ratio;
 }
 
 -(UIButton *)previewBtn{
@@ -119,7 +159,11 @@ Prop_strong()JobsSideDrawer *drawer;
                     make.height.mas_equalTo(JobsWidth(64));
                 });
         });
-    };return _previewBtn;
+    }
+#if DEBUG
+    _previewBtn.accessibilityIdentifier = @"jobs.coverage.drawer.preview";
+#endif
+    return _previewBtn;
 }
 
 -(UIStackView *)optionStackView{
@@ -136,7 +180,11 @@ Prop_strong()JobsSideDrawer *drawer;
     if (!_drawerMenuView) {
         _drawerMenuView = jobsMakeView(^(UIView *object){})
             .byBgColor(UIColor.systemBlueColor);
-    };return _drawerMenuView;
+    }
+#if DEBUG
+    _drawerMenuView.accessibilityIdentifier = @"jobs.coverage.drawer.menu";
+#endif
+    return _drawerMenuView;
 }
 
 -(JobsSideDrawerConfiguration *)drawerConfig{

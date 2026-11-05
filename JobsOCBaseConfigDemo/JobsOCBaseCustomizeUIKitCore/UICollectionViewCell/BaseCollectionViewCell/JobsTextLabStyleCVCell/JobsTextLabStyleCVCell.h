@@ -18,7 +18,6 @@
 #import <UIKit/UIKit.h>
 #import "UIView+Extra.h"
 #import "JobsBaseCollectionViewCell.h"
-
 #import "JobsModelDSL.h"
 #import "JobsMakes.h"
 #import "JobsDefines.h"

@@ -19,7 +19,6 @@
 #import "CALayer+Extra.h"
 #import "UITableView+Extra.h"
 #import "UIView+BackgroundImage.h"
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsMakes.h"
 #import "JobsOCDSL.h"

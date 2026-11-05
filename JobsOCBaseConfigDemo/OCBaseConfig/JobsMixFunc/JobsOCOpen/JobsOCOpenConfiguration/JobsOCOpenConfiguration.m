@@ -6,7 +6,6 @@
 //
 
 #import "JobsOCOpenConfiguration.h"
-
 #import "NSString+Sys.h"
 
 @implementation JobsOCOpenConfiguration

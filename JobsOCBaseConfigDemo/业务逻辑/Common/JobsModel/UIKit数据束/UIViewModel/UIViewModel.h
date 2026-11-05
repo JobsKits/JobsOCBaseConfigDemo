@@ -17,7 +17,6 @@
 
 #import <Foundation/Foundation.h>
 #import "BaseModel.h"
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsLanMgr.h"
 #import "JobsBlock.h"

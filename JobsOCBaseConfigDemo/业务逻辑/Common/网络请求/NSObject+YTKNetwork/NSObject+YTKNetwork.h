@@ -12,7 +12,6 @@
 #import "NSMutableDictionary+Extra.h"
 #import "NSObject+Data.h"
 #import "NSObject+Extra.h"
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsModelDSL.h"
 #import "JobsTimeUtils.h"

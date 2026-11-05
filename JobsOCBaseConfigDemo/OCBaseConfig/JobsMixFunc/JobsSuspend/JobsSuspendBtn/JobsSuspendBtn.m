@@ -6,7 +6,6 @@
 //
 
 #import "JobsSuspendBtn.h"
-
 #import "UIControl+Extra.h"
 #import "UIView+Extra.h"
 

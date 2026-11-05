@@ -6,7 +6,6 @@
 //
 
 #import "SceneDelegate.h"
-
 #import "SceneDelegate+UISceneDelegate.h"
 
 API_AVAILABLE(ios(13.0))

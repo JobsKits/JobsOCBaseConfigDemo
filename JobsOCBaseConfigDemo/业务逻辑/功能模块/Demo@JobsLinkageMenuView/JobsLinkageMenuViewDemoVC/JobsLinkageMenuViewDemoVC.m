@@ -299,11 +299,10 @@ Prop_strong()NSArray<NSString *> *menuTitles;
         @jobs_strongify(self)
         if (!self) return nil;
         CGSize size = CGSizeMake(1, 1);
-        UIGraphicsBeginImageContextWithOptions(size, NO, 0);
-        [color setFill];
-        UIRectFill(CGRectMake(0, 0, size.width, size.height));
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage *image = JobsRenderImage(size, NO, 0, ^(CGContextRef jobsDrawingContext) {
+            [color setFill];
+            UIRectFill(CGRectMake(0, 0, size.width, size.height));
+        });
         return image ?: jobsMakeImage(^(UIImage *object){});
     };
 }

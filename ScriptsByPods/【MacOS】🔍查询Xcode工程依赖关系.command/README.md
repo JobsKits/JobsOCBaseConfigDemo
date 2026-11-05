@@ -138,6 +138,16 @@ flowchart TD
 - 如果需要 PNG 图，脚本会检查 [**Homebrew**](https://brew.sh/) 和 `graphviz`。
 - 已安装 [**Homebrew**](https://brew.sh/) 时，脚本不会默认升级，只有你输入任意字符后回车才会执行更新和自检。
 - Homebrew 缺失时先询问是否安装；同意后精确输入 `YES` 选择系统标准目录，其它输入选择当前用户目录。官方安装器自行处理实际授权；仅在当前脚本激活环境，不写 shell profile。
+- 仅在你确认实际安装或更新后，才为本次 Homebrew 操作执行只读网络预检；回车跳过、只读检查或显式离线模式不进行该预检。
+- 已有显式代理环境变量（包括空字符串）或生效的 [**Git**](https://git-scm.com/) 代理配置时保留原选择；否则动态读取已启用的系统 HTTPS / HTTP / SOCKS 代理，优先测试系统代理，失败再测试原网络链路。保留 `NO_PROXY` / `no_proxy` 和系统代理例外，不执行 PAC。
+- 维护既有 Homebrew 时，预检优先使用 `HOMEBREW_BREW_GIT_REMOTE`，否则读取现有 Brew 仓库的 `origin`，没有现有配置时使用官方 GitHub；API 来源使用 `HOMEBREW_API_DOMAIN` 或官方 `formulae.brew.sh`。操作前显示脱敏来源及所选链路。
+- Homebrew 引导安装单独预检实际入口：系统目录路线包含 `raw.githubusercontent.com` 官方安装器、上述 Brew Git 源及 API；用户目录路线包含 `api.github.com` 最新稳定发布接口及实际使用的 `github.com/Homebrew/brew.git`。安装完成后的维护重新按已安装 Homebrew 的实际来源选路，不沿用引导阶段的缓存。
+- Git 代理使用完整 Git 来源 URL 匹配，保留按仓库路径配置的代理或显式空代理；HTTP 安装器和 API 请求不套用 Git 专属代理配置。
+- 系统代理候选最多三个；每个来源的预检请求默认连接限时 `2s`、单次请求总限时 `4s`。可用 `JOBS_BREW_NETWORK_CONNECT_TIMEOUT`（整数 `1`～`30` 秒）及 `JOBS_BREW_NETWORK_PROBE_TIMEOUT`（整数 `1`～`60` 秒）调整，无效值回默认；该时限不限制真实维护命令。
+- 选路仅向本次维护命令及子进程注入环境，退出即结束；不修改系统代理、Shell 启动文件、Git 配置或证书验证设置。
+- 系统代理例外按逗号拆分；常见域规则及 IPv4 末尾通配（例如 `127.*`）转换后，仅在维护子进程内与原 `NO_PROXY` / `no_proxy` 合并，保留用户原旁路。无法精确转换的通配逐一匹配本次来源主机，命中时保守沿用原链路，未命中则允许测试系统代理；不将 `*zhihu.com` 近似替换为 `.zhihu.com`。启用简单主机旁路且本次来源为简单主机时，同样沿用原链路。
+- 预检只覆盖本次 Brew 源和 API 主机；后续其它下载地址及完整系统代理 / PAC 规则不在预检保证内。
+- 预检均失败时不开始维护，返回失败并提示检查网络后重新运行。每条安装 / 更新命令只执行一次，不在失败后自动重放全局升级或清理；短预检成功不能保证后续 Git 传输、下载和构建一定成功，也不是实际命令的总时限。
 
 ## <span id="jobs-toc-heading-11" data-jobs-toc="v2">七、风险说明 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
@@ -152,6 +162,7 @@ flowchart TD
 - 显式离线模式不会安装或升级 [**Homebrew**](https://brew.sh/) / `graphviz`，缺少 `dot` 时直接跳过 PNG；Podfile 默认不强制进入离线模式。
 - 如果 `dot` 不存在，只影响 PNG 生成；`Markdown` 报告和互动 HTML 仍会生成。
 - 已有 `dot` 但转换失败，或报告生成器失败时，会明确告警并返回辅助任务失败状态；不能把已开始生成当作全部产物成功。
+- Homebrew 维护结果与 `dot` 可用性分别报告：维护失败保留非零辅助退出码；已有健康 `dot` 仍可用于生成 PNG，产物成功不代表工具维护成功。
 
 ## <span id="jobs-toc-heading-12" data-jobs-toc="v2">八、日志文件 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
@@ -163,7 +174,9 @@ flowchart TD
 
 ## <span id="jobs-toc-heading-13" data-jobs-toc="v2">九、验证记录 <a href="#前言" style="font-size:17px; color:green;"><b>🔼</b></a> <a href="#🔚" style="font-size:17px; color:green;"><b>🔽</b></a></span><!-- jobs-toc:heading-end -->
 
-- 当前打包环境未安装 `zsh`，所以没有执行下面这条 MacOS 本机静态检查：
+- 隔离回归：`ruby ./Tests/network_regression.rb/network_regression.rb` 验证选路、完整 Git 来源与引导安装来源、失败传播及子进程边界；`ruby ./Tests/interaction_test.rb/interaction_test.rb` 验证既有交互。使用假命令和临时目录，不执行真实联网、工具安装、`pod install` 或构建。
+
+- MacOS 本机静态检查：
 
   ```shell
   zsh -n '【MacOS】🔍查询Xcode工程依赖关系.command'

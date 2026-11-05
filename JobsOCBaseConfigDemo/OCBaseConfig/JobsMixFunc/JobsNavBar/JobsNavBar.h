@@ -23,7 +23,6 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsNavBarConfig.h"
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsBlock.h"
 #import "JobsDefines.h"

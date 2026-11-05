@@ -34,7 +34,6 @@
 #import "JXCategoryTimelineCellModel.h"
 #import "JXCategoryTimelineCell.h"
 #import "JXCategoryTimelineView.h"
-
 #import "JobsBlock.h"
 #import "JobsDefines.h"
 

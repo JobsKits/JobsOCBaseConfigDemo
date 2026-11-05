@@ -10,15 +10,20 @@
 #if DEBUG
 @implementation JobsDebugOverlayWindow
 
--(instancetype)initWithHostWindow:(UIWindow *)window panel:(JobsDebugPanelManager *)panel {
+-(nullable instancetype)initWithHostWindow:(UIWindow *)window panel:(JobsDebugPanelManager *)panel {
+    if (!window) {
+        return nil;
+    }
     if (@available(iOS 13.0, *)) {
         if (window.windowScene) {
             self = [super initWithWindowScene:window.windowScene];
+        } else if (@available(iOS 26.0, *)) {
+            return nil;
         } else {
-            self = [super initWithFrame:window.bounds];
+            SuppressWdeprecatedDeclarationsWarning(self = [super initWithFrame:window.bounds];);
         }
     } else {
-        self = [super initWithFrame:window.bounds];
+        SuppressWdeprecatedDeclarationsWarning(self = [super initWithFrame:window.bounds];);
     }
     if (self) {
         _hostWindow = window;

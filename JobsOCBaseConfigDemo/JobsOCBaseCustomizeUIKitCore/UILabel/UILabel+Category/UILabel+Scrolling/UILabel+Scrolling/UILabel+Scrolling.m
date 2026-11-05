@@ -6,7 +6,6 @@
 //
 
 #import "UILabel+Scrolling.h"
-
 #import "JobsLabelScrollController.h"
 
 JobsKey(JobsUILabelScrollingControllerKey)

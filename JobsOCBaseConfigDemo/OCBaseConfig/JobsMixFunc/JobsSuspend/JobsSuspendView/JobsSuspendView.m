@@ -6,7 +6,6 @@
 //
 
 #import "JobsSuspendView.h"
-
 #import "NSObject+Extra.h"
 #import "NSString+Extra.h"
 #import "UIView+Extra.h"

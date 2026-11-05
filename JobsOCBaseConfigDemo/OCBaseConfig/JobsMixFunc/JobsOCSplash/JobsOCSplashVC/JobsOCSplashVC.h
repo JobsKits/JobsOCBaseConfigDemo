@@ -31,6 +31,7 @@ Prop_strong(readonly) JobsOCSplashConfiguration *configuration;
 -(instancetype)initWithNibName:(NSString *_Nullable)nibNameOrNil bundle:(NSBundle *_Nullable)nibBundleOrNil NS_UNAVAILABLE;
 -(instancetype)initWithCoder:(NSCoder *)coder NS_UNAVAILABLE;
 -(jobsByVoidBlock _Nonnull)finish;
+-(JobsRetJobsOCSplashVCByjobsByVoidBlockBlock _Nonnull)byHostGestureRestoration;
 
 -(JobsRetBOOLByVoidBlock _Nonnull)jobsCanBecomeFirstResponder;
 

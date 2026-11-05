@@ -6,7 +6,6 @@
 //
 
 #import "BaseCollectionReusableView.h"
-
 #import "UIView+Extra.h"
 
 @interface BaseCollectionReusableView ()

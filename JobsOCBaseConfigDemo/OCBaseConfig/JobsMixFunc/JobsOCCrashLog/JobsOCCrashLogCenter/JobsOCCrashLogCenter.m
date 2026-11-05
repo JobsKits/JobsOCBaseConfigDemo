@@ -615,7 +615,7 @@ Prop_assign()BOOL hasStartedSession;
                 [windows addObjectsFromArray:((UIWindowScene *)scene).windows];
             }
         }else{
-            [windows addObjectsFromArray:UIApplication.sharedApplication.windows];
+            SuppressWdeprecatedDeclarationsWarning([windows addObjectsFromArray:UIApplication.sharedApplication.windows];);
         }
         UIWindow *window = nil;
         for (UIWindow *candidate in windows) {

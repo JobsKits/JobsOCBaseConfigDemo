@@ -22,7 +22,6 @@
 #define JOBS_HEADER_GUARD_NSOBJECT_WHTOAST_A8B4616A59
 
 #import <Foundation/Foundation.h>
-
 #import "JobsLanMgr.h"
 #import "JobsBlock.h"
 #import "JobsDefines.h"

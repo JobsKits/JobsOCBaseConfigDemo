@@ -14,9 +14,7 @@
 #import "DynamicViewTestVC.h"
 #import "TestIrregularViewTestVC.h"
 #import "JobsZFPlayerDemoListVC.h"
-
 #import "JobsAppDoor.h"
-
 #import "JobsAppDoorDemoListVC.h"
 #import "JobsCommentVC.h"
 #import "JobsOCCommentDemoVC.h"

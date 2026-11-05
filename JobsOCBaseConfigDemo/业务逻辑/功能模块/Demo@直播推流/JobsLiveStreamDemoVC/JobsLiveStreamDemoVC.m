@@ -287,11 +287,23 @@ Prop_assign()AVCaptureDevicePosition currentPosition;
     @jobs_weakify(self)
     return ^AVCaptureDevice *(AVCaptureDevicePosition position){
         @jobs_strongify(self)
-        if (!self) return nil;
-        NSArray <AVCaptureDevice *>*devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+        if (!self) {
+            return nil;
+        }
+        NSArray <AVCaptureDevice *>*devices;
+        if (@available(iOS 10.0, *)) {
+            devices = jobsMakeCaptureDeviceDiscoverySession(@[AVCaptureDeviceTypeBuiltInWideAngleCamera],
+                                                           AVMediaTypeVideo,
+                                                           position).devices;
+        } else {
+            SuppressWdeprecatedDeclarationsWarning(devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];);
+        }
         for (AVCaptureDevice *device in devices) {
-            if (device.position == position) return device;
-        };return [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+            if (device.position == position) {
+                return device;
+            }
+        }
+        return [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     };
 }
 #pragma mark —— Action

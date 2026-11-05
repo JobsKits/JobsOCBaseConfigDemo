@@ -1187,7 +1187,6 @@ typedef NS_ENUM(NSUInteger, JobsMarqueePageControlPosition);
 typedef NS_ENUM(NSUInteger, JobsOCAudioRecordingMode);
 typedef NS_ENUM(NSUInteger, JobsOCOpenResult);
 typedef NS_ENUM(NSUInteger, JobsOCRefreshHorizontalMode);
-typedef NS_ENUM(NSUInteger, JobsOCRefreshAnimationType);
 typedef NS_ENUM(NSUInteger, JobsOCRefreshPosition);
 typedef NS_ENUM(NSUInteger, JobsOCRefreshRole);
 typedef NS_ENUM(NSUInteger, JobsOCRefreshState);

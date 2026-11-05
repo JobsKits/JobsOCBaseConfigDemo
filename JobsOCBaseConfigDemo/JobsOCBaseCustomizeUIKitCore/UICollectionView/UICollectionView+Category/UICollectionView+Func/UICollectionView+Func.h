@@ -17,7 +17,6 @@
 
 #import <UIKit/UIKit.h>
 #import "UICollectionViewCell+BaseViewProtocol.h"
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsDefines.h"
 #import "JobsOCDSL.h"

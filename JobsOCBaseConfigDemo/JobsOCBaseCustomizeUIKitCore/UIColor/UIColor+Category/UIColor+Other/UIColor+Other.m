@@ -77,7 +77,7 @@
                               endPoint:endPoint
                                 opaque:opaque
                         targetViewRect:targetViewRect
-                       traitCollection:[UITraitCollection traitCollectionWithDisplayScale:UIScreen.mainScreen.scale]];
+                       traitCollection:[UITraitCollection traitCollectionWithDisplayScale:jobsScreenScaleForView(nil)]];
 }
 
 +(UIColor *)gradientCorDataMutArr:(NSMutableArray <UIColor *>*_Nullable)CorDataMutArr
@@ -109,31 +109,28 @@
                                      withObject:(id)CorDataMutArr[t].CGColor];
         }
     }
-    UIGraphicsBeginImageContextWithOptions(targetViewRect.size,
-                                           opaque,
-                                           MAX(traitCollection.displayScale, 1));
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    //绘制渐变层
-    CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
-    CGGradientRef gradientRef = CGGradientCreateWithColors(colorSpaceRef,
-                                                           (__bridge CFArrayRef)CorDataMutArr,
-                                                           NULL);
-    CGPoint EndPoint = endPoint;
-    if (CGPointEqualToPoint(endPoint, CGPointZero)) {
-        EndPoint = CGPointMake(CGRectGetMaxX(targetViewRect),
-                               CGRectGetMaxY(targetViewRect));
-    }
-    CGContextDrawLinearGradient(context,
-                                gradientRef,
-                                startPoint,
-                                EndPoint,
-                                kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
-    /// 取到渐变图片
-    UIImage *gradientImage = UIGraphicsGetImageFromCurrentImageContext();
-    /// 释放资源
-    CGColorSpaceRelease(colorSpaceRef);
-    CGGradientRelease(gradientRef);
-    UIGraphicsEndImageContext();
+    UIImage *gradientImage = JobsRenderImage(targetViewRect.size, opaque, MAX(traitCollection.displayScale, 1), ^(CGContextRef jobsDrawingContext) {
+        CGContextRef context = jobsDrawingContext;
+        //绘制渐变层
+        CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
+        CGGradientRef gradientRef = CGGradientCreateWithColors(colorSpaceRef,
+                                                               (__bridge CFArrayRef)CorDataMutArr,
+                                                               NULL);
+        CGPoint EndPoint = endPoint;
+        if (CGPointEqualToPoint(endPoint, CGPointZero)) {
+            EndPoint = CGPointMake(CGRectGetMaxX(targetViewRect),
+                                   CGRectGetMaxY(targetViewRect));
+        }
+        CGContextDrawLinearGradient(context,
+                                    gradientRef,
+                                    startPoint,
+                                    EndPoint,
+                                    kCGGradientDrawsBeforeStartLocation | kCGGradientDrawsAfterEndLocation);
+        /// 取到渐变图片
+        /// 释放资源
+        CGColorSpaceRelease(colorSpaceRef);
+        CGGradientRelease(gradientRef);
+    });
     return [UIColor colorWithPatternImage:gradientImage];
 }
 #pragma mark —— 实例方法

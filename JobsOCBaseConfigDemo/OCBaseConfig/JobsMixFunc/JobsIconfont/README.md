@@ -20,7 +20,7 @@
 
 ```text
 JobsIconfont
-├── Core/                         # 公开门面、语义类型、加载与 UIKit 分类
+├── Core/JobsIconfont/             # 同名 .h / .m 管理公开门面、加载与 UIKit 分类
 ├── Resource/JobsIconfontAssets.bundle
 │   ├── JobsIconfontSample.ttf
 │   ├── AlimamaShuzhiti-Regular.ttf

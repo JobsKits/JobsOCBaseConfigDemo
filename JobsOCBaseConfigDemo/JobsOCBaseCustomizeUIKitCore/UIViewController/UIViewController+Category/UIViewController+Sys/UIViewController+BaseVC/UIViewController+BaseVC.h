@@ -25,7 +25,6 @@
 #import "UIView+Extra.h"
 #import "UIView+Navigator.h"
 #import "UIViewController+BackBtn.h"
-
 #import "JobsBaseProtocolHeader.h"
 #import "GKCustomNavigationBarExtra.h"
 #import "JobsBaseUI.h"

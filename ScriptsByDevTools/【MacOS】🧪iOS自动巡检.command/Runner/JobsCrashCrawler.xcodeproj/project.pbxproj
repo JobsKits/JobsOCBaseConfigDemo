@@ -1,0 +1,49 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+		100000000000000000000001 /* JobsCrashCrawlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000002 /* JobsCrashCrawlerTests.swift */; };
+		100000000000000000000002 /* JobsCrashCrawlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobsCrashCrawlerTests.swift; sourceTree = "<group>"; };
+		100000000000000000000003 /* JobsCrashCrawler.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JobsCrashCrawler.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		100000000000000000000004 /* Sources */ = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (100000000000000000000001 /* JobsCrashCrawlerTests.swift in Sources */,); runOnlyForDeploymentPostprocessing = 0; };
+		100000000000000000000005 /* Frameworks */ = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		100000000000000000000006 /* Resources */ = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		100000000000000000000007 = {isa = PBXGroup; children = (100000000000000000000008 /* 自动化测试 */, 100000000000000000000009 /* Products */,); sourceTree = "<group>"; };
+		100000000000000000000008 /* 自动化测试 */ = {isa = PBXGroup; children = (100000000000000000000002 /* JobsCrashCrawlerTests.swift */,); name = "自动化测试"; sourceTree = "<group>"; };
+		100000000000000000000009 /* Products */ = {isa = PBXGroup; children = (100000000000000000000003 /* JobsCrashCrawler.xctest */,); name = Products; sourceTree = "<group>"; };
+		100000000000000000000010 /* JobsCrashCrawler */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 100000000000000000000020;
+			buildPhases = (100000000000000000000004 /* Sources */, 100000000000000000000005 /* Frameworks */, 100000000000000000000006 /* Resources */,);
+			buildRules = ();
+			dependencies = ();
+			name = JobsCrashCrawler;
+			productName = JobsCrashCrawler;
+			productReference = 100000000000000000000003 /* JobsCrashCrawler.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		100000000000000000000011 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {BuildIndependentTargetsInParallel = YES; LastSwiftUpdateCheck = 1600; LastUpgradeCheck = 1600; TargetAttributes = {100000000000000000000010 = {CreatedOnToolsVersion = 16.0; }; }; };
+			buildConfigurationList = 100000000000000000000021;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (en, Base,);
+			mainGroup = 100000000000000000000007;
+			productRefGroup = 100000000000000000000009;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (100000000000000000000010 /* JobsCrashCrawler */,);
+		};
+		100000000000000000000030 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {CLANG_ENABLE_MODULES = YES; CODE_SIGN_STYLE = Automatic; DEBUG_INFORMATION_FORMAT = dwarf; ENABLE_TESTABILITY = YES; GENERATE_INFOPLIST_FILE = YES; IPHONEOS_DEPLOYMENT_TARGET = 17.0; ONLY_ACTIVE_ARCH = YES; SDKROOT = iphoneos; SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG; SWIFT_OPTIMIZATION_LEVEL = "-Onone"; SWIFT_VERSION = 5.0; }; name = Debug; };
+		100000000000000000000031 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {CLANG_ENABLE_MODULES = YES; CODE_SIGN_STYLE = Automatic; DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym"; GENERATE_INFOPLIST_FILE = YES; IPHONEOS_DEPLOYMENT_TARGET = 17.0; SDKROOT = iphoneos; SWIFT_COMPILATION_MODE = wholemodule; SWIFT_OPTIMIZATION_LEVEL = "-O"; SWIFT_VERSION = 5.0; }; name = Release; };
+		100000000000000000000032 /* Debug */ = {isa = XCBuildConfiguration; buildSettings = {ENABLE_USER_SCRIPT_SANDBOXING = YES; GENERATE_INFOPLIST_FILE = YES; PRODUCT_BUNDLE_IDENTIFIER = com.jobs.JobsCrashCrawler; PRODUCT_NAME = "$(TARGET_NAME)"; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; TARGETED_DEVICE_FAMILY = "1,2"; USES_XCTRUNNER = YES; }; name = Debug; };
+		100000000000000000000033 /* Release */ = {isa = XCBuildConfiguration; buildSettings = {ENABLE_USER_SCRIPT_SANDBOXING = YES; GENERATE_INFOPLIST_FILE = YES; PRODUCT_BUNDLE_IDENTIFIER = com.jobs.JobsCrashCrawler; PRODUCT_NAME = "$(TARGET_NAME)"; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; TARGETED_DEVICE_FAMILY = "1,2"; USES_XCTRUNNER = YES; }; name = Release; };
+		100000000000000000000020 = {isa = XCConfigurationList; buildConfigurations = (100000000000000000000032 /* Debug */, 100000000000000000000033 /* Release */,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Debug; };
+		100000000000000000000021 = {isa = XCConfigurationList; buildConfigurations = (100000000000000000000030 /* Debug */, 100000000000000000000031 /* Release */,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Debug; };
+	};
+	rootObject = 100000000000000000000011 /* Project object */;
+}

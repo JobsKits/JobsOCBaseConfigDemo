@@ -6,6 +6,7 @@
 //
 
 #import "JobsAppDoorRegisterContentView.h"
+#import "../../../../测试支持/JobsAppDoorCoverageProbe/JobsAppDoorCoverageProbe.h"
 
 @class JobsAppDoorDoorInputViewBaseStyle;
 
@@ -257,6 +258,10 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
                 graphicCaptchaInputView.byGraphicCaptchaConfig(self.configuration.registerConfig.graphicCaptchaConfig.resolvedCaptchaConfig());
             }
             inputViewBaseStyle.jobsRichViewByModel(self.registerDoorInputViewBaseStyleModelMutArr[i]);//进数据
+#if DEBUG
+            self.jobs_textFieldByInputView(inputViewBaseStyle).accessibilityIdentifier = [NSString stringWithFormat:@"jobs.coverage.auth.style2.register.input.%d", i];
+            JobsAppDoorCoverageBindInput(inputViewBaseStyle, self.jobs_textFieldByInputView(inputViewBaseStyle).accessibilityIdentifier);
+#endif
             inputViewBaseStyle.addOn(self);
         }
         self.jobs_bindSendBtnEnableSignalByInputViews(self.registerDoorInputViewBaseStyleMutArr);
@@ -343,6 +348,11 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
                     .byCornerRadius(ThingsHeight / 2)
                     .byMasksToBounds(YES);
             });
+#if DEBUG
+        if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+            self.sendBtn.accessibilityValue = enabled ? @"ready" : @"blocked";
+        }
+#endif
     };
 }
 
@@ -410,7 +420,7 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
             .jobsResetImagePadding(JobsWidth(8))
             .jobsResetBtnImage(JobsAppDoorImageNamed(@"AppDoorBackLogin") ? : JobsAppDoorImageNamed(@"Lock"))
             .jobsResetBtnTitleCor(Cor1)
-            .jobsResetBtnTitleFont(UIFontWeightMediumSize(12))
+            .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(18))
             .jobsResetBtnTitle(Title1)
             .byTitleLabel(^(UILabel *label) {
                 label
@@ -424,11 +434,16 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
                 if (self.objBlock) self.objBlock(x);
                 self.byEndEditing(YES);
             }).onLongPressGestureBy(^(id data){
+                JobsAppDoorCoverageLongPress(data);
                 JobsLog(@"");
             })
             .addOn(self);
         self.byLayoutIfNeeded();
-    };return _backToLoginBtn;
+    }
+#if DEBUG
+    _backToLoginBtn.accessibilityIdentifier = @"jobs.coverage.auth.style2.register.login";
+#endif
+    return _backToLoginBtn;
 }
 
 -(UILabel *)titleLab{
@@ -439,7 +454,7 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
             label
                 .byText(Title6)
                 .byTextCor(JobsWhiteColor)
-                .byFont(UIFontWeightSemiboldSize(18))
+                .byFont(UIFontWeightSemiboldSize(22))
                 .bySizeToFit()
                 .addOn(self)
                 .byCenterX((self.width + self.backToLoginBtn.width) / 2)
@@ -454,19 +469,31 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
         _sendBtn = (BaseButton *)BaseButton.jobsInit()
             .bgColorBy(JobsSystemPinkColor.colorWithAlphaComponentBy(0.7))
             .jobsResetBtnTitleCor(JobsWhiteColor)
-            .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(15))
+            .jobsResetBtnTitleFont(UIFontWeightSemiboldSize(18))
             .jobsResetBtnTitle(Title6)
             .jobsResetBtnCornerRadiusValue(ThingsHeight / 2)
             .onClickBy(^(UIButton *x){
                 @jobs_strongify(self)
-                if (self.objBlock) self.objBlock(x);
+                if (self.objBlock) {
+                    self.objBlock(x);
+#if DEBUG
+                    if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+                        x.accessibilityValue = @"submitted";
+                    }
+#endif
+                }
                 [self endEditing:YES];
             }).onLongPressGestureBy(^(id data){
+                JobsAppDoorCoverageLongPress(data);
                 JobsLog(@"");
             })
             .buttonAutoWidthByFont()
             .addOn(self);
-    };return _sendBtn;
+    }
+#if DEBUG
+    _sendBtn.accessibilityIdentifier = @"jobs.coverage.auth.style2.register.submit";
+#endif
+    return _sendBtn;
 }
 
 -(BaseButton *)abandonRegisterBtn{
@@ -482,10 +509,15 @@ Prop_strong(nullable)RACCompoundDisposable *sendBtnEnableDisposable;
                 [self endEditing:YES];
                 if (self.objBlock) self.objBlock(x);
             }).onLongPressGestureBy(^(id data){
+                JobsAppDoorCoverageLongPress(data);
                 JobsLog(@"");
             })
             .addOn(self);
-    };return _abandonRegisterBtn;
+    }
+#if DEBUG
+    _abandonRegisterBtn.accessibilityIdentifier = @"jobs.coverage.auth.style2.register.home";
+#endif
+    return _abandonRegisterBtn;
 }
 
 -(NSMutableArray<JobsAppDoorInputViewBaseStyleModel *> *)registerDoorInputViewBaseStyleModelMutArr{

@@ -16,7 +16,6 @@
 
 #import <Foundation/Foundation.h>
 #import "BaseModel.h"
-
 #import "JobsBlock.h"
 #import "JobsDefines.h"
 

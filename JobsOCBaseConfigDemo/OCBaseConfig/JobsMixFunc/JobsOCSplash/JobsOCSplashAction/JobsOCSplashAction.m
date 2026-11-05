@@ -6,7 +6,6 @@
 //
 
 #import "JobsOCSplashAction.h"
-
 #import "JobsOCSplashVC.h"
 
 @interface JobsOCSplashAction ()

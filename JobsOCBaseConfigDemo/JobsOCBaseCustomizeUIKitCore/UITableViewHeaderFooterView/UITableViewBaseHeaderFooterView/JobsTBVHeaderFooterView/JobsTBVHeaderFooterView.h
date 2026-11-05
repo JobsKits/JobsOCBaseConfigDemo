@@ -18,7 +18,6 @@
 #import <UIKit/UIKit.h>
 #import "BaseTableViewHeaderFooterView.h"
 #import "UIView+Extra.h"
-
 #import "JobsMakes.h"
 #import "JobsBlock.h"
 #import "JobsDefines.h"

@@ -17,6 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIButton (DSL)
 
+/// 复制 Jobs 兼容设置，保留源的原回调与颜色变换，目标几何和阴影快照独立。
+-(JobsRetBtnByIDBlock _Nonnull)byCopyCompatibilityFromButton API_UNAVAILABLE(tvos, visionos, watchos);
+
 /// 设置 configuration。
 -(JobsRetBtnByButtonConfigurationBlock _Nonnull)byConfiguration API_AVAILABLE(ios(15.0), tvos(15.0)) API_UNAVAILABLE(watchos);
 /// 请求刷新 configuration。

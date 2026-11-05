@@ -329,6 +329,15 @@ Prop_assign()BOOL isLeaveAlertShowing;
         @jobs_weakify(self)
         _canvasView = JobsHandwritingCanvasView.new.byContentDidChange(^{
             weak_self.byHasUnsavedChanges(YES);
+#if DEBUG
+            if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+                NSUInteger pointCount = 0;
+                for (NSArray *stroke in weak_self.canvasView.normalizedStrokes()) {
+                    pointCount += stroke.count;
+                }
+                weak_self.canvasView.accessibilityValue = [NSString stringWithFormat:@"strokePoints:%lu", (unsigned long)pointCount];
+            }
+#endif
         });
         _canvasView
             .byBgColor(JobsWhiteColor)
@@ -345,7 +354,11 @@ Prop_assign()BOOL isLeaveAlertShowing;
                 make.left.right.equalTo(self.view).inset(JobsWidth(20));
                 make.bottom.equalTo(self.clearButton.mas_top).offset(-JobsWidth(12));
             });
-    };return _canvasView;
+    }
+#if DEBUG
+    _canvasView.accessibilityIdentifier = @"jobs.coverage.surface.JobsHandwritingDemoVC.canvasView";
+#endif
+    return _canvasView;
 }
 
 -(UIButton *)clearButton{

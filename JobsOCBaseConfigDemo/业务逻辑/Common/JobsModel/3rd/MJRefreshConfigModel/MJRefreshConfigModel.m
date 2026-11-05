@@ -6,7 +6,6 @@
 //
 
 #import "MJRefreshConfigModel.h"
-
 #import "NSString+Extra.h"
 #import "NSMutableArray+Extra.h"
 #import "JobsLanMgr.h"

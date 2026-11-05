@@ -21,7 +21,6 @@
 #import "NSSet+Extra.h"
 #import "NSMutableArray+Extra.h"
 #import "UIView+Extra.h"
-
 #import "JobsClass.h"
 #import "JobsMakes.h"
 #import "JobsBlock.h"

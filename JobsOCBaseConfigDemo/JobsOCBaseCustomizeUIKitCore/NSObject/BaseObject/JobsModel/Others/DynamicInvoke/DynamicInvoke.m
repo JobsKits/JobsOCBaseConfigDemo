@@ -6,7 +6,6 @@
 //
 
 #import "DynamicInvoke.h"
-
 #import "NSMutableArray+Extra.h"
 
 @interface DynamicInvoke ()

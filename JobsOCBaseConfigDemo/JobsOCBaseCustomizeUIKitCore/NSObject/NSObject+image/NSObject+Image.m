@@ -19,7 +19,8 @@
         if (SELF.isContainsUrl()) { return nil; }
         // 2) dataURL: data:image/png;base64,xxxx
         if ([raw hasPrefix:@"data:image/"]) {
-            UIImage *img = self.imageByDataURL(raw);
+            UIImage *img = [self imageByDataURL:raw
+                              traitCollection:[UITraitCollection traitCollectionWithDisplayScale:jobsScreenScaleForView(nil)]];
             if (!img && isValue(self)) {
                 JobsLog(@"dataURL 解码失败：%@", self);
             };return img;
@@ -48,7 +49,7 @@
     return ^UIImage *_Nullable(__kindof NSString *_Nullable dataURL){
         @jobs_strongify(self)
         return [self imageByDataURL:dataURL
-                   traitCollection:[UITraitCollection traitCollectionWithDisplayScale:UIScreen.mainScreen.scale]];
+                   traitCollection:[UITraitCollection traitCollectionWithDisplayScale:jobsScreenScaleForView(nil)]];
     };
 }
 

@@ -23,6 +23,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface JobsBaseApi : BaseRequest
 
 -(JobsRetURLRequestByVoidBlock _Nonnull)jobsBuildCustomUrlRequest;
+-(JobsRetJobsBaseApiByNSStringBlock _Nonnull)byAnimatingText;
+-(JobsRetJobsBaseApiByUIViewBlock _Nonnull)byAnimatingView;
 
 @end
 

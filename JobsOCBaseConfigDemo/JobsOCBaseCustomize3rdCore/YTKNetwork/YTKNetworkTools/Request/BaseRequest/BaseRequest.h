@@ -23,7 +23,6 @@
 
 #import <Foundation/Foundation.h>
 #import "YTKBaseRequest+Extra.h"
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsMakes.h"
 #import "JobsBlock.h"
@@ -42,6 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(JobsRetYTKBaseRequestByIDBlock _Nonnull)byURLParameters;
 -(JobsRetYTKBaseRequestByVoidBlock _Nonnull)handleErr;
 
+-(JobsRetMutableDicByVoidBlock _Nonnull)jobsCustomHTTPHeader;
+-(JobsRetMutableDicByVoidBlock _Nonnull)jobsParameters;
 -(JobsRetMutableDicByVoidBlock _Nonnull)jobsRequestHeaderFieldValueDictionary;
 
 @end

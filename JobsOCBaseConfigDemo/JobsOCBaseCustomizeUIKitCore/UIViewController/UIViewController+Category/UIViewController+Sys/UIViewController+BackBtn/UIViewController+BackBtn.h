@@ -30,7 +30,6 @@
 #import "NSObject+image.h"
 #import "NSObject+Extra.h"
 #import "UIBarButtonItem+Extra.h"
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsLoadingImageHeader.h"
 #import "JobsBaseUI.h"

@@ -16,7 +16,6 @@
 #define JOBS_HEADER_GUARD_RACPROTOCOL_040C436337
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBlock.h"
 #import "JobsDefines.h"
 

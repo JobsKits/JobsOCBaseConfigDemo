@@ -16,7 +16,6 @@
 #define JOBS_HEADER_GUARD_JOBSHOTLABELBYMULTILINECVCELL_F45C663B90
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsByOCPods.h"
 #import "JobsBaseUI.h"

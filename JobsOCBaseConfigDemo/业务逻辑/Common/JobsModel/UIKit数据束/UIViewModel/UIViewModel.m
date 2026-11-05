@@ -6,7 +6,6 @@
 //
 
 #import "UIViewModel.h"
-
 #import "UITextModel.h"
 #import "UIButtonModel.h"
 #import "JobsLocationModel.h"

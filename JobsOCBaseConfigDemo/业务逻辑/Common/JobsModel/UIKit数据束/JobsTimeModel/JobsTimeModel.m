@@ -6,7 +6,6 @@
 //
 
 #import "JobsTimeModel.h"
-
 #import "NSDate+Extra.h"
 #import "NSString+Extra.h"
 #import "NSObject+Extra.h"

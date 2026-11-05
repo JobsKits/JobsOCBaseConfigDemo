@@ -7,12 +7,14 @@
 
 #ifndef MacroDef_AppDeviceScreenSize_h
 #define MacroDef_AppDeviceScreenSize_h
+
+#import "window.h"
 /// 定义屏幕模式
 #ifndef CurrentModeSize
-#define CurrentModeSize UIScreen.mainScreen.currentMode.size
+#define CurrentModeSize jobsGetMainScreen().currentMode.size
 #endif /* CurrentModeSize */
 #ifndef CurrentModeRespondSelector
-#define CurrentModeRespondSelector (UIScreen.mainScreen.currentMode != nil)
+#define CurrentModeRespondSelector (jobsGetMainScreen().currentMode != nil)
 #endif /* CurrentModeRespondSelector */
 #pragma mark —— 判断iPhone
 /// 判断 【iPhone 6】、【iPhone 6s】、【iPhone 7】、【iPhone 8】

@@ -6,7 +6,6 @@
 //
 
 #import "JobsTextView.h"
-
 #import "NSObject+Notification.h"
 #import "NSString+Sys.h"
 #import "NSString+Toast.h"

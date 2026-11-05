@@ -6,6 +6,7 @@
 //
 
 #import "JobsCommentTitleHeaderView.h"
+#import "../../../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 @interface JobsCommentTitleHeaderView ()
 
@@ -106,6 +107,7 @@ Prop_strong()UIButton *cancelBtn;
                 if (self.objBlock) self.objBlock(x);
             })
             .onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
                 JobsLog(@"");
             })
             .addOn(self)
@@ -114,7 +116,9 @@ Prop_strong()UIButton *cancelBtn;
                 make.right.equalTo(self).offset(-JobsWidth(10));
                 make.size.mas_equalTo(CGSizeMake(JobsWidth(34), JobsWidth(34)));
             });
-    };return _cancelBtn;
+    }
+    JobsOCCoveragePrepareLongPressButton(_cancelBtn, @"jobs.coverage.longPress.JobsCommentTitleHeaderView.cancelBtn");
+    return _cancelBtn;
 }
 
 @end

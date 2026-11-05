@@ -24,7 +24,6 @@
 #endif
 #import "JobsNavBar.h"
 #import "UIView+Extra.h"
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsAppToolsHeader.h"
 #import "JobsOCDSL.h"

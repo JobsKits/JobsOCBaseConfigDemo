@@ -26,9 +26,7 @@
 #import "JobsBaseTableViewCell.h"
 #import "BaseTextView.h"
 #import "JobsTextView.h"
-
 #import "JobsOCDSL.h"
-
 #import "JobsRichTextUtils.h"
 #import "JobsLanMgr.h"
 #import "JobsDefines.h"

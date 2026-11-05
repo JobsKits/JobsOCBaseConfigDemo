@@ -6,7 +6,6 @@
 //
 
 #import "BaseLabel.h"
-
 #import "UIView+Extra.h"
 #import "NSString+Check.h"
 #import "NSString+Menu.h"
@@ -116,7 +115,7 @@ UILocationProtocol_synthesize
                 });
             });
             [menu update];
-            if (@available(iOS 10.3, *)) {
+            if (@available(iOS 13.0, *)) {
                 [menu showMenuFromView:self rect:self.bounds];
             } else {
                 #pragma clang diagnostic push
@@ -154,6 +153,9 @@ UILocationProtocol_synthesize
 #pragma clang diagnostic ignored "-Wundeclared-selector"
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     if ([super canPerformAction:action withSender:sender]) return YES;
+    if (@available(iOS 16.0, *)) {
+        return NO;
+    }
     if([sender isKindOfClass:UIMenuController.class]){
         return [NSStringFromSelector(action) containsString:@"copyText"];
     };return NO;

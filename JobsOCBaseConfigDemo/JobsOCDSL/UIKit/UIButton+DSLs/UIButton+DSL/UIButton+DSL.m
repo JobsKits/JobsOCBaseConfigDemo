@@ -7,7 +7,236 @@
 
 #import "UIButton+DSL.h"
 
+JobsKey(JobsUIButtonCompatibilityKey)
+
+static void JobsApplyButtonCompatibility(UIButton *button) API_AVAILABLE(ios(15.0));
+
+static NSMutableDictionary *JobsButtonCompatibility(UIButton *button) API_AVAILABLE(ios(15.0)) {
+    if (!button) {
+        return nil;
+    }
+    NSMutableDictionary *state = Jobs_getAssociatedObjectByTarget(button, JobsUIButtonCompatibilityKey);
+    if (!state) {
+        state = NSMutableDictionary.dictionary;
+        Jobs_setAssociatedRETAIN_NONATOMICByTarget(button, JobsUIButtonCompatibilityKey, state)
+        if (button.configurationUpdateHandler) {
+            state[@"previousHandler"] = [button.configurationUpdateHandler copy];
+        }
+        if (button.configuration.imageColorTransformer) {
+            state[@"imageTransformer"] = [button.configuration.imageColorTransformer copy];
+        }
+        state[@"imageTransform"] = [NSValue valueWithCGAffineTransform:button.imageView ? button.imageView.transform : CGAffineTransformIdentity];
+        state[@"titleTransform"] = [NSValue valueWithCGAffineTransform:button.titleLabel ? button.titleLabel.transform : CGAffineTransformIdentity];
+        button.configurationUpdateHandler = ^(UIButton *sender) {
+            NSMutableDictionary *current = Jobs_getAssociatedObjectByTarget(sender, JobsUIButtonCompatibilityKey);
+            UIButtonConfigurationUpdateHandler previous = current[@"previousHandler"];
+            if (previous) {
+                previous(sender);
+            }
+            JobsApplyButtonCompatibility(sender);
+        };
+    }
+    return state;
+}
+
+static void JobsApplyButtonCompatibility(UIButton *button) API_AVAILABLE(ios(15.0)) {
+    NSMutableDictionary *state = Jobs_getAssociatedObjectByTarget(button, JobsUIButtonCompatibilityKey);
+    if (!state || [state[@"applying"] boolValue]) {
+        return;
+    }
+    state[@"applying"] = @YES;
+    UIButtonConfiguration *configuration = button.configuration.copy;
+    if (!configuration) {
+        configuration = UIButtonConfiguration.plainButtonConfiguration;
+        configuration.contentInsets = NSDirectionalEdgeInsetsZero;
+        configuration.title = button.currentTitle;
+        configuration.attributedTitle = button.currentAttributedTitle;
+        configuration.image = button.currentImage;
+        configuration.baseForegroundColor = button.currentTitleColor;
+        UIFont *font = button.titleLabel.font;
+        configuration.titleTextAttributesTransformer = ^NSDictionary<NSAttributedStringKey, id> *(NSDictionary<NSAttributedStringKey, id> *attributes) {
+            NSMutableDictionary *result = attributes.mutableCopy;
+            if (font) {
+                result[NSFontAttributeName] = font;
+            }
+            return result;
+        };
+    }
+    NSValue *content = state[@"contentInsets"];
+    if (content) {
+        UIEdgeInsets insets = content.UIEdgeInsetsValue;
+        BOOL rtl = button.effectiveUserInterfaceLayoutDirection == UIUserInterfaceLayoutDirectionRightToLeft;
+        configuration.contentInsets = NSDirectionalEdgeInsetsMake(insets.top,
+                                                                   rtl ? insets.right : insets.left,
+                                                                   insets.bottom,
+                                                                   rtl ? insets.left : insets.right);
+    }
+    NSValue *shadowOffset = state[@"titleShadowOffset"];
+    if (shadowOffset) {
+        CGSize offset = shadowOffset.CGSizeValue;
+        if (button.highlighted && [state[@"reversesShadow"] boolValue]) {
+            offset.width = -offset.width;
+            offset.height = -offset.height;
+        }
+        NSShadow *shadow = NSShadow.new;
+        shadow.shadowOffset = offset;
+        shadow.shadowColor = [button titleShadowColorForState:button.state] ?: button.titleLabel.shadowColor;
+        NSAttributedString *title = configuration.attributedTitle ?: button.currentAttributedTitle;
+        NSMutableAttributedString *attributed = title.mutableCopy ?: [NSMutableAttributedString.alloc initWithString:configuration.title ?: button.currentTitle ?: @""];
+        [attributed addAttribute:NSShadowAttributeName value:shadow range:NSMakeRange(0, attributed.length)];
+        configuration.attributedTitle = attributed;
+    }
+    UIConfigurationColorTransformer original = state[@"imageTransformer"];
+    NSNumber *adjustsHighlight = state[@"adjustsHighlight"];
+    NSNumber *adjustsDisabled = state[@"adjustsDisabled"];
+    BOOL suppressAdjustment = !button.enabled
+        ? (adjustsDisabled && !adjustsDisabled.boolValue)
+        : (button.highlighted && adjustsHighlight && !adjustsHighlight.boolValue);
+    if (suppressAdjustment) {
+        UIColor *base = configuration.baseForegroundColor ?: button.tintColor;
+        UIColor *rendered = original ? original(base) : base;
+        configuration.imageColorTransformer = ^UIColor *(UIColor *color) {
+            return rendered;
+        };
+    } else if (adjustsHighlight || adjustsDisabled) {
+        configuration.imageColorTransformer = original;
+    }
+    button.configuration = configuration;
+    NSValue *titleInsets = state[@"titleInsets"];
+    if (titleInsets) {
+        UIEdgeInsets insets = titleInsets.UIEdgeInsetsValue;
+        CGAffineTransform base = [state[@"titleTransform"] CGAffineTransformValue];
+        button.titleLabel.transform = CGAffineTransformTranslate(base,
+                                                               (insets.left - insets.right) / 2,
+                                                               (insets.top - insets.bottom) / 2);
+    }
+    NSValue *imageInsets = state[@"imageInsets"];
+    if (imageInsets) {
+        UIEdgeInsets insets = imageInsets.UIEdgeInsetsValue;
+        UIImage *image = button.currentImage ?: configuration.image;
+        CGSize size = image.size;
+        CGFloat xScale = size.width > 0 ? MAX(0, (size.width - insets.left - insets.right) / size.width) : 1;
+        CGFloat yScale = size.height > 0 ? MAX(0, (size.height - insets.top - insets.bottom) / size.height) : 1;
+        CGAffineTransform base = [state[@"imageTransform"] CGAffineTransformValue];
+        CGAffineTransform translated = CGAffineTransformTranslate(base,
+                                                                 (insets.left - insets.right) / 2,
+                                                                 (insets.top - insets.bottom) / 2);
+        button.imageView.transform = CGAffineTransformScale(translated, xScale, yScale);
+    }
+    NSNumber *showsTouch = state[@"showsTouch"];
+    if (showsTouch) {
+        BOOL glowing = showsTouch.boolValue && button.enabled && button.highlighted;
+        if (glowing) {
+            if (![state[@"touchActive"] boolValue]) {
+                state[@"shadowOpacity"] = @(button.layer.shadowOpacity);
+                state[@"shadowRadius"] = @(button.layer.shadowRadius);
+                state[@"shadowOffset"] = [NSValue valueWithCGSize:button.layer.shadowOffset];
+                if (button.layer.shadowColor) {
+                    state[@"shadowColor"] = [UIColor colorWithCGColor:button.layer.shadowColor];
+                }
+                state[@"touchActive"] = @YES;
+            }
+            button.layer.shadowOpacity = 0.6;
+            button.layer.shadowRadius = 10;
+            button.layer.shadowOffset = CGSizeZero;
+            button.layer.shadowColor = UIColor.whiteColor.CGColor;
+        } else if ([state[@"touchActive"] boolValue]) {
+            button.layer.shadowOpacity = [state[@"shadowOpacity"] floatValue];
+            button.layer.shadowRadius = [state[@"shadowRadius"] doubleValue];
+            button.layer.shadowOffset = [state[@"shadowOffset"] CGSizeValue];
+            button.layer.shadowColor = [state[@"shadowColor"] CGColor];
+            [state removeObjectsForKeys:@[@"shadowOpacity", @"shadowRadius", @"shadowOffset", @"shadowColor", @"touchActive"]];
+        }
+    }
+    state[@"applying"] = @NO;
+}
+
 @implementation UIButton (DSL)
+
+-(JobsRetBtnByIDBlock _Nonnull)byCopyCompatibilityFromButton{
+    @jobs_weakify(self)
+    return ^__kindof UIButton *_Nullable(id data){
+        @jobs_strongify(self)
+        if (!self || ![data isKindOfClass:UIButton.class] || data == self) {
+            return self;
+        }
+        UIButton *source = (UIButton *)data;
+        if (@available(iOS 15.0, *)) {
+            NSMutableDictionary *sourceState = Jobs_getAssociatedObjectByTarget(source, JobsUIButtonCompatibilityKey);
+            NSMutableDictionary *targetState = Jobs_getAssociatedObjectByTarget(self, JobsUIButtonCompatibilityKey);
+            if (!sourceState && !targetState) {
+                self.configurationUpdateHandler = source.configurationUpdateHandler;
+                return self;
+            }
+            UIButtonConfigurationUpdateHandler handler;
+            if (sourceState) {
+                handler = sourceState[@"previousHandler"];
+            } else {
+                handler = source.configurationUpdateHandler;
+            }
+            if (targetState) {
+                if (handler) {
+                    targetState[@"previousHandler"] = [handler copy];
+                } else {
+                    [targetState removeObjectForKey:@"previousHandler"];
+                }
+            }
+            if ([targetState[@"touchActive"] boolValue]) {
+                targetState[@"showsTouch"] = @NO;
+                JobsApplyButtonCompatibility(self);
+            }
+            if (!targetState) {
+                // 源的兼容回调会再次查询目标状态，不能把它当成目标的原回调。
+                self.configurationUpdateHandler = sourceState[@"previousHandler"];
+                targetState = JobsButtonCompatibility(self);
+            }
+            if (targetState[@"titleTransform"]) {
+                self.titleLabel.transform = [targetState[@"titleTransform"] CGAffineTransformValue];
+            }
+            if (targetState[@"imageTransform"]) {
+                self.imageView.transform = [targetState[@"imageTransform"] CGAffineTransformValue];
+            }
+            NSArray<NSString *> *keys = @[@"contentInsets", @"titleInsets", @"imageInsets", @"titleShadowOffset",
+                                         @"reversesShadow", @"adjustsHighlight", @"adjustsDisabled", @"showsTouch"];
+            for (NSString *key in keys) {
+                if (sourceState[key]) {
+                    targetState[key] = sourceState[key];
+                } else {
+                    [targetState removeObjectForKey:key];
+                }
+            }
+            UIConfigurationColorTransformer transformer;
+            if (sourceState) {
+                transformer = sourceState[@"imageTransformer"];
+            } else {
+                transformer = source.configuration.imageColorTransformer;
+            }
+            if (handler) {
+                targetState[@"previousHandler"] = [handler copy];
+            } else {
+                [targetState removeObjectForKey:@"previousHandler"];
+            }
+            if (transformer) {
+                targetState[@"imageTransformer"] = [transformer copy];
+            } else {
+                [targetState removeObjectForKey:@"imageTransformer"];
+            }
+            JobsApplyButtonCompatibility(self);
+        } else {
+            SuppressWdeprecatedDeclarationsWarning(
+                self.contentEdgeInsets = source.contentEdgeInsets;
+                self.titleEdgeInsets = source.titleEdgeInsets;
+                self.imageEdgeInsets = source.imageEdgeInsets;
+                self.titleShadowOffset = source.titleShadowOffset;
+                self.reversesTitleShadowWhenHighlighted = source.reversesTitleShadowWhenHighlighted;
+                self.adjustsImageWhenHighlighted = source.adjustsImageWhenHighlighted;
+                self.adjustsImageWhenDisabled = source.adjustsImageWhenDisabled;
+                self.showsTouchWhenHighlighted = source.showsTouchWhenHighlighted;
+            );
+        }
+        return self;
+    };
+}
 
 -(JobsRetBtnByButtonConfigurationBlock _Nonnull)byConfiguration{
     @jobs_weakify(self)
@@ -15,6 +244,15 @@
         @jobs_strongify(self)
         if (@available(iOS 15.0, tvOS 15.0, *)) {
             self.configuration = data;
+            NSMutableDictionary *state = Jobs_getAssociatedObjectByTarget(self, JobsUIButtonCompatibilityKey);
+            if (state) {
+                if (data.imageColorTransformer) {
+                    state[@"imageTransformer"] = [data.imageColorTransformer copy];
+                } else {
+                    [state removeObjectForKey:@"imageTransformer"];
+                }
+                JobsApplyButtonCompatibility(self);
+            }
         };return self;
     };
 }
@@ -44,7 +282,17 @@
     return ^__kindof UIButton *_Nullable(UIButtonConfigurationUpdateHandler _Nullable data){
         @jobs_strongify(self)
         if (@available(iOS 15.0, tvOS 15.0, *)) {
-            self.configurationUpdateHandler = data;
+            NSMutableDictionary *state = Jobs_getAssociatedObjectByTarget(self, JobsUIButtonCompatibilityKey);
+            if (state) {
+                if (data) {
+                    state[@"previousHandler"] = [data copy];
+                } else {
+                    [state removeObjectForKey:@"previousHandler"];
+                }
+                [self setNeedsUpdateConfiguration];
+            } else {
+                self.configurationUpdateHandler = data;
+            }
         };return self;
     };
 }
@@ -268,7 +516,12 @@
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(CGSize data){
         @jobs_strongify(self)
-        SuppressWdeprecatedDeclarationsWarning(self.titleShadowOffset = data;);
+        if (@available(iOS 15.0, tvOS 15.0, *)) {
+            JobsButtonCompatibility(self)[@"titleShadowOffset"] = [NSValue valueWithCGSize:data];
+            JobsApplyButtonCompatibility(self);
+        } else {
+            self.titleLabel.shadowOffset = data;
+        }
         return self;
     };
 }
@@ -296,20 +549,12 @@
     return ^__kindof UIButton *_Nullable(UIEdgeInsets data){
         @jobs_strongify(self)
         if (@available(iOS 15.0, tvOS 15.0, *)) {
-            if (self.configuration) {
-                UIButtonConfiguration *configuration = self.configuration;
-                configuration.contentInsets = NSDirectionalEdgeInsetsMake(data.top,
-                                                                           data.left,
-                                                                           data.bottom,
-                                                                           data.right);
-                self.byConfiguration(configuration);
-                [self setNeedsUpdateConfiguration];
-            }else{
-                SuppressWdeprecatedDeclarationsWarning(self.contentEdgeInsets = data;);
-            }
-        }else{
+            JobsButtonCompatibility(self)[@"contentInsets"] = [NSValue valueWithUIEdgeInsets:data];
+            JobsApplyButtonCompatibility(self);
+        } else {
             SuppressWdeprecatedDeclarationsWarning(self.contentEdgeInsets = data;);
-        };return self;
+        }
+        return self;
     };
 }
 
@@ -317,7 +562,12 @@
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(UIEdgeInsets data){
         @jobs_strongify(self)
-        SuppressWdeprecatedDeclarationsWarning(self.titleEdgeInsets = data;);
+        if (@available(iOS 15.0, tvOS 15.0, *)) {
+            JobsButtonCompatibility(self)[@"titleInsets"] = [NSValue valueWithUIEdgeInsets:data];
+            JobsApplyButtonCompatibility(self);
+        } else {
+            SuppressWdeprecatedDeclarationsWarning(self.titleEdgeInsets = data;);
+        }
         return self;
     };
 }
@@ -326,7 +576,12 @@
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(UIEdgeInsets data){
         @jobs_strongify(self)
-        SuppressWdeprecatedDeclarationsWarning(self.imageEdgeInsets = data;);
+        if (@available(iOS 15.0, tvOS 15.0, *)) {
+            JobsButtonCompatibility(self)[@"imageInsets"] = [NSValue valueWithUIEdgeInsets:data];
+            JobsApplyButtonCompatibility(self);
+        } else {
+            SuppressWdeprecatedDeclarationsWarning(self.imageEdgeInsets = data;);
+        }
         return self;
     };
 }
@@ -335,7 +590,16 @@
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(BOOL data){
         @jobs_strongify(self)
-        SuppressWdeprecatedDeclarationsWarning(self.reversesTitleShadowWhenHighlighted = data;);
+        if (@available(iOS 15.0, tvOS 15.0, *)) {
+            NSMutableDictionary *state = JobsButtonCompatibility(self);
+            state[@"reversesShadow"] = @(data);
+            if (!state[@"titleShadowOffset"]) {
+                state[@"titleShadowOffset"] = [NSValue valueWithCGSize:self.titleLabel.shadowOffset];
+            }
+            JobsApplyButtonCompatibility(self);
+        } else {
+            SuppressWdeprecatedDeclarationsWarning(self.reversesTitleShadowWhenHighlighted = data;);
+        }
         return self;
     };
 }
@@ -344,7 +608,12 @@
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(BOOL data){
         @jobs_strongify(self)
-        SuppressWdeprecatedDeclarationsWarning(self.adjustsImageWhenHighlighted = data;);
+        if (@available(iOS 15.0, tvOS 15.0, *)) {
+            JobsButtonCompatibility(self)[@"adjustsHighlight"] = @(data);
+            JobsApplyButtonCompatibility(self);
+        } else {
+            SuppressWdeprecatedDeclarationsWarning(self.adjustsImageWhenHighlighted = data;);
+        }
         return self;
     };
 }
@@ -353,7 +622,12 @@
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(BOOL data){
         @jobs_strongify(self)
-        SuppressWdeprecatedDeclarationsWarning(self.adjustsImageWhenDisabled = data;);
+        if (@available(iOS 15.0, tvOS 15.0, *)) {
+            JobsButtonCompatibility(self)[@"adjustsDisabled"] = @(data);
+            JobsApplyButtonCompatibility(self);
+        } else {
+            SuppressWdeprecatedDeclarationsWarning(self.adjustsImageWhenDisabled = data;);
+        }
         return self;
     };
 }
@@ -362,7 +636,12 @@
     @jobs_weakify(self)
     return ^__kindof UIButton *_Nullable(BOOL data){
         @jobs_strongify(self)
-        SuppressWdeprecatedDeclarationsWarning(self.showsTouchWhenHighlighted = data;);
+        if (@available(iOS 15.0, tvOS 15.0, *)) {
+            JobsButtonCompatibility(self)[@"showsTouch"] = @(data);
+            JobsApplyButtonCompatibility(self);
+        } else {
+            SuppressWdeprecatedDeclarationsWarning(self.showsTouchWhenHighlighted = data;);
+        }
         return self;
     };
 }

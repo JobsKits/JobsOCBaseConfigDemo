@@ -9,7 +9,7 @@ jobs_pod_install_guard_path = File.join(
   __dir__,
   'ScriptsByPods',
   '【MacOS】📦Pod Install离线保护.command',
-  'jobs_pod_install_offline_guard.rb'
+  'jobs_pod_install_offline_guard.rb', 'jobs_pod_install_offline_guard.rb'
 )
 require jobs_pod_install_guard_path
 JobsPodInstallOfflineGuard.guard!(__dir__)
@@ -19,7 +19,7 @@ platform :ios, '16.6'
 
 # 同步准备当前安装进程的网络链路，让选源和后续源码下载继承同一配置。
 jobs_pod_network_dir = File.join(__dir__, 'ScriptsByPods', '【MacOS】🌐CocoaPods网络适配.command')
-jobs_pod_network_path = File.join(jobs_pod_network_dir, 'jobs_cocoapods_network.rb')
+jobs_pod_network_path = File.join(jobs_pod_network_dir, 'jobs_cocoapods_network.rb', 'jobs_cocoapods_network.rb')
 begin
   if File.file?(jobs_pod_network_path)
     require jobs_pod_network_path
@@ -35,7 +35,7 @@ end
 jobs_pod_dependency_command = File.basename($PROGRAM_NAME) == 'pod' &&
   %w[install update].include?(ARGV.find { |argument| !argument.start_with?('-') })
 if jobs_pod_dependency_command
-  jobs_pod_download_fallback_path = File.join(jobs_pod_network_dir, 'jobs_cocoapods_download_fallback.rb')
+  jobs_pod_download_fallback_path = File.join(jobs_pod_network_dir, 'jobs_cocoapods_download_fallback.rb', 'jobs_cocoapods_download_fallback.rb')
   begin
     if File.file?(jobs_pod_download_fallback_path)
       require jobs_pod_download_fallback_path
@@ -53,7 +53,7 @@ jobs_specs_source_path = File.join(
   __dir__,
   'ScriptsByPods',
   '【MacOS】🌐CocoaPods源自动选择.command',
-  'jobs_cocoapods_source.rb'
+  'jobs_cocoapods_source.rb', 'jobs_cocoapods_source.rb'
 )
 begin
   if File.file?(jobs_specs_source_path)

@@ -7,6 +7,7 @@
 
 #import "JobsVerticalMenuVC@2.h"
 #import "NSObject+TFPopup.h"
+#import "../../../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 @interface JobsVerticalMenuVC_2 ()
 
@@ -415,6 +416,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 -(__kindof UICollectionViewCell *)collectionView:(__kindof UICollectionView *)collectionView
                           cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     ThreeClassCell *cell = [ThreeClassCell cellWithCollectionView:collectionView forIndexPath:indexPath];
+    if (JobsOCCoverageGestureProbeEnabled()) {
+        cell.tag = indexPath.section;
+    }
     self.byRightViewCurrentSelectModel(self.rightDataArray.objectAt(indexPath.section));
     cell.getCollectionHeight((NSMutableArray <NSObject *>*)self.rightViewCurrentSelectModel.childrenList);
     cell.jobsRichElementsCollectionViewCellBy((NSMutableArray <NSObject *>*)self.rightViewCurrentSelectModel.childrenList)
@@ -653,6 +657,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
                 self.switchSearchModeByActive(!self.searchMode);
             })
             .onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
                 JobsLog(@"");
             })
             .addOn(self.gk_navigationBar)
@@ -663,7 +668,9 @@ referenceSizeForFooterInSection:(NSInteger)section{
                 make.centerY.equalTo(self.gk_navigationBar);
             })
             .cornerCutToCircleWithCornerRadius(JobsWidth(18));
-    };return _searchToggleBtn;
+    }
+    JobsOCCoveragePrepareLongPressButton(_searchToggleBtn, @"jobs.coverage.longPress.JobsVerticalMenuVC_2.searchToggleBtn");
+    return _searchToggleBtn;
 }
 
 -(BaseButton *)editBtn{
@@ -688,6 +695,7 @@ referenceSizeForFooterInSection:(NSInteger)section{
                                   popupParam:self.popupParameter];
             })
             .onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
                 JobsLog(@"");
             })
             .addOn(self.view)
@@ -697,7 +705,9 @@ referenceSizeForFooterInSection:(NSInteger)section{
                 make.top.equalTo(self.tableView.mas_bottom);
                 make.size.mas_equalTo(CGSizeMake(TableViewWidth, EditBtnHeight));
             });
-    };return _editBtn;
+    }
+    JobsOCCoveragePrepareLongPressButton(_editBtn, @"jobs.coverage.longPress.JobsVerticalMenuVC_2.editBtn");
+    return _editBtn;
 }
 
 -(NSMutableArray<UIButtonModel *> *)cellDataMutArr{

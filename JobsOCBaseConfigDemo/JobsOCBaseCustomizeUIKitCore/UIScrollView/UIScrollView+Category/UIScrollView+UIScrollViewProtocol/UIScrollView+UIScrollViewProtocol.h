@@ -24,7 +24,6 @@
 #endif
 #import <UIKit/UIKit.h>
 #import "NSObject+Extra.h"
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsDefines.h"
 

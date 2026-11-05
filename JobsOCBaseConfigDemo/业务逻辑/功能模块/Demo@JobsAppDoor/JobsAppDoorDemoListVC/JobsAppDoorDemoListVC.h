@@ -6,7 +6,6 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "JobsAppDoor.h"
 
 #if __has_include(<JobsBaseUI/JobsBaseUI.h>)

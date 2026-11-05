@@ -6,10 +6,29 @@
 //
 
 #import "ViewController@1.h"
-
+#import "../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 #import "JobsOCDemoListSettingsVC.h"
+#if DEBUG
+#import "JobsOCDeviceGuardBlockedVC.h"
+#endif
 #import "UIViewController+BaseNavigationBar.h"
 #import "JobsViewPush.h"
+
+static NSUserDefaults *JobsOCCoverageRootDefaults(void) {
+#if DEBUG
+    if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+        static NSUserDefaults *defaults;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            NSString *suite = [(NSBundle.mainBundle.bundleIdentifier ?: @"com.jobs.demo") stringByAppendingString:@".jobs.coverage.root"];
+            defaults = [NSUserDefaults.alloc initWithSuiteName:suite];
+            [defaults removePersistentDomainForName:suite];
+        });
+        return defaults;
+    }
+#endif
+    return NSUserDefaults.standardUserDefaults;
+}
 
 BOOL ISLogin;
 static NSString *const JobsOCDemoListReturnToTopAndRefreshUserDefaultsKey = @"com.BSports.JobsOCDemoListReturnToTopAndRefreshUserDefaultsKey";
@@ -214,6 +233,14 @@ Prop_assign()JobsOCDemoListCellTextDisplayStrategy appliedCellTextDisplayStrateg
 -(jobsByNSMutableArrayJobsOCDemoSectionModelBlock _Nonnull)moveOtherDemoSectionToEndInArr;
 -(void)moveExpandedDemoSectionStateFromRow:(NSUInteger)sourceRow
                                      toRow:(NSUInteger)destinationRow;
+#if DEBUG
+-(BOOL)jobs_applyCoverageLaunchRouteIfRequested;
+-(void)jobs_prepareCoverageDebugFloatingEntry:(NSUInteger)attemptsRemaining;
+-(void)jobs_markCoverageRouteReady:(NSString *)routeID
+                   expectedClass:(Class)expectedClass
+               attemptsRemaining:(NSUInteger)attemptsRemaining;
+#endif
+
 -(JobsRetViewModelByVoidBlock _Nonnull)jobs_countryCodeDemoViewModel;
 -(JobsRetBOOLByUIViewModelBlock _Nonnull)jobs_isCountryCodeDemoViewModel;
 -(jobsByViewModelBlock _Nonnull)jobs_pushCountryCodeCtrlWithViewModel;
@@ -526,11 +553,12 @@ Prop_assign()JobsOCDemoListCellTextDisplayStrategy appliedCellTextDisplayStrateg
         if (!self) return;
             [super viewDidAppear:animated];
 #if DEBUG
+            BOOL coverageRouteRequested = [self jobs_applyCoverageLaunchRouteIfRequested];
             static BOOL JobsMicroAppDemoLaunchHandled = NO;
-            NSString *learningRoute = [NSUserDefaults.standardUserDefaults stringForKey:@"JobsMicroAppDemo"];
+            NSString *learningRoute = [JobsOCCoverageRootDefaults() stringForKey:@"JobsMicroAppDemo"];
             NSDictionary *learningRoutes = @{@"microapp":JobsMicroAppDemoVC.class, @"session":JobsMicroSessionDemoVC.class, @"mpaas":JobsMicroPlatformDemoVC.class, @"sandbox":JobsMicroSandboxDemoVC.class, @"pwa":JobsMicroPWADemoVC.class};
             Class learningClass = learningRoutes[learningRoute ?: @""];
-            if (!JobsMicroAppDemoLaunchHandled && learningClass) {
+            if (!coverageRouteRequested && !JobsMicroAppDemoLaunchHandled && learningClass) {
                 JobsMicroAppDemoLaunchHandled = YES;
                 [self.navigationController pushViewController:[learningClass new] animated:NO];
             }
@@ -544,6 +572,134 @@ Prop_assign()JobsOCDemoListCellTextDisplayStrategy appliedCellTextDisplayStrateg
         //    self.menuView.alpha = JobsAppTool.jobsDeviceOrientation == DeviceOrientationLandscape;
     };
 }
+
+#if DEBUG
+#pragma mark —— 确定性页面巡检入口
+-(BOOL)jobs_applyCoverageLaunchRouteIfRequested{
+    NSArray<NSString *> *arguments = NSProcessInfo.processInfo.arguments;
+    NSUInteger flagIndex = [arguments indexOfObject:@"--jobs-coverage-route"];
+    if (flagIndex == NSNotFound) {
+        return NO;
+    }
+    static BOOL launchRouteHandled = NO;
+    if (launchRouteHandled) {
+        return YES;
+    }
+    launchRouteHandled = YES;
+    if (flagIndex + 1 >= arguments.count) {
+        return YES;
+    }
+    NSString *routeID = arguments[flagIndex + 1];
+    if ([routeID isEqualToString:NSStringFromClass(self.class)]) {
+        self.view.accessibilityIdentifier = [@"jobs.coverage.ready." stringByAppendingString:routeID];
+        NSMutableArray<NSString *> *initialOrder = NSMutableArray.array;
+        for (JobsOCDemoSectionModel *section in self.demoSectionMutArr) {
+            if (section.title.length) {
+                [initialOrder addObject:section.title];
+            }
+        }
+        // 初值与保存后的值采用相同格式，拖动未换序不能仅凭首次保存误通过。
+        self.view.accessibilityValue = [@"sectionOrder:" stringByAppendingString:[initialOrder componentsJoinedByString:@"|"]];
+        return YES;
+    }
+    if ([routeID isEqualToString:@"JobsDebugPanelFloatingEntry"]) {
+        [self jobs_prepareCoverageDebugFloatingEntry:100];
+        return YES;
+    }
+    if ([routeID isEqualToString:@"JobsOCDeviceGuardBlockedVC"]) {
+        // 只覆盖条件页的真实呈现，不改启动门禁或设备检测结论。
+        JobsOCDeviceGuardReport *report = [[JobsOCDeviceGuardReport alloc]
+            initWithChecks:@[]
+            configuration:JobsOCDeviceGuardConfiguration.defaultConfiguration()
+            unsupportedReason:@"巡检 UI 展示 fixture，不代表设备检测结果"];
+        JobsOCDeviceGuardBlockedVC *page = [[JobsOCDeviceGuardBlockedVC alloc] initWithReport:report];
+        [self.navigationController pushViewController:page animated:NO];
+        [self jobs_markCoverageRouteReady:routeID expectedClass:JobsOCDeviceGuardBlockedVC.class attemptsRemaining:100];
+        return YES;
+    }
+    UIViewModel *routeViewModel = nil;
+    for (UIViewModel *viewModel in self.dataMutArr) {
+        if (viewModel.cls && [NSStringFromClass(viewModel.cls) isEqualToString:routeID]) {
+            routeViewModel = viewModel;
+            break;
+        }
+    }
+    if (!routeViewModel) {
+        return YES;
+    }
+    // 复用人工入口的参数与特殊 factory；非法路由不产生就绪标记。
+    self.pushDemoViewModel(routeViewModel);
+    [self jobs_markCoverageRouteReady:routeID
+                       expectedClass:routeViewModel.cls
+                   attemptsRemaining:100];
+    return YES;
+}
+
+-(void)jobs_prepareCoverageDebugFloatingEntry:(NSUInteger)attemptsRemaining {
+    UINavigationController *navigation = self.navigationController;
+    if (navigation.topViewController == self && navigation.visibleViewController == self &&
+        self.isViewLoaded && self.view.window && !self.presentedViewController &&
+        !navigation.transitionCoordinator && !self.transitionCoordinator &&
+        [JobsDebugPanelManager.sharedPanel jobs_prepareCoverageFloatingEntryForWindow:self.view.window]) {
+        self.view.accessibilityIdentifier = @"jobs.coverage.ready.JobsDebugPanelFloatingEntry";
+        return;
+    }
+    if (!attemptsRemaining) {
+        return;
+    }
+    __weak __typeof__(self) weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakSelf jobs_prepareCoverageDebugFloatingEntry:attemptsRemaining - 1];
+    });
+}
+
+-(void)jobs_markCoverageRouteReady:(NSString *)routeID
+                   expectedClass:(Class)expectedClass
+               attemptsRemaining:(NSUInteger)attemptsRemaining{
+    UINavigationController *navigationController = self.navigationController;
+    UIViewController *target = navigationController.topViewController;
+    if (target && target != self && [target isMemberOfClass:expectedClass] &&
+        navigationController.visibleViewController == target &&
+        target.isViewLoaded && target.view.window &&
+        !navigationController.transitionCoordinator && !target.transitionCoordinator) {
+        target.view.accessibilityIdentifier = [@"jobs.coverage.ready." stringByAppendingString:routeID];
+        if ([routeID isEqualToString:@"LocalNotificationsVC"]) {
+            // 此遗留页头文件归属外援；只在自有集成点观察它已安装的公开回调。
+            NSMutableArray<UIView *> *queue = [NSMutableArray arrayWithObject:target.view];
+            NSMutableArray<UIButton *> *matches = NSMutableArray.array;
+            for (NSUInteger index = 0; index < queue.count; index++) {
+                UIView *view = queue[index];
+                if ([view isKindOfClass:UIButton.class] &&
+                    [((UIButton *)view).currentTitle isEqualToString:@"点我".jobsTr()]) {
+                    [matches addObject:(UIButton *)view];
+                }
+                [queue addObjectsFromArray:view.subviews];
+            }
+            if (matches.count == 1) {
+                UIButton *button = matches.firstObject;
+                jobsByBtnBlock originalLongPress = button.longPressGestureBlock;
+                if (originalLongPress) {
+                    JobsOCCoveragePrepareLongPressButton(button, @"jobs.coverage.longPress.LocalNotificationsVC.btn");
+                    button.longPressGestureBlock = ^(UIButton *sender) {
+                        originalLongPress(sender);
+                        JobsOCCoverageLongPressDelivered(sender);
+                    };
+                }
+            }
+        }
+        return;
+    }
+    if (!attemptsRemaining) {
+        return;
+    }
+    __weak __typeof__(self) weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakSelf jobs_markCoverageRouteReady:routeID
+                              expectedClass:expectedClass
+                          attemptsRemaining:attemptsRemaining - 1];
+    });
+}
+#endif
 
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
@@ -613,7 +769,7 @@ Prop_assign()JobsOCDemoListCellTextDisplayStrategy appliedCellTextDisplayStrateg
     return ^BOOL{
         @jobs_strongify(self)
         if (!self) return (BOOL){0};
-        id value = [NSUserDefaults.standardUserDefaults objectForKey:JobsOCDemoSuspendTimeButtonVisibleUserDefaultsKey];
+        id value = [JobsOCCoverageRootDefaults() objectForKey:JobsOCDemoSuspendTimeButtonVisibleUserDefaultsKey];
         return value ? [value boolValue] : YES;
     };
 }
@@ -623,9 +779,9 @@ Prop_assign()JobsOCDemoListCellTextDisplayStrategy appliedCellTextDisplayStrateg
     return ^(BOOL showsSuspendTimeButton){
         @jobs_strongify(self)
         if (!self) return;
-        [NSUserDefaults.standardUserDefaults setBool:showsSuspendTimeButton
+        [JobsOCCoverageRootDefaults() setBool:showsSuspendTimeButton
                                               forKey:JobsOCDemoSuspendTimeButtonVisibleUserDefaultsKey];
-        [NSUserDefaults.standardUserDefaults synchronize];
+        [JobsOCCoverageRootDefaults() synchronize];
     };
 }
 
@@ -898,6 +1054,12 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:JobsOCDemoSideMenuCellReuseIdentifier
                                                                 forIndexPath:indexPath];
         NSString *symbolName = indexPath.row < self.demoSideMenuSymbolNames().count ? self.demoSideMenuSymbolNames()[indexPath.row] : @"square.grid.2x2";
+#if DEBUG
+        NSArray<NSString *> *coverageMenuKeys = @[@"userInfo", @"crashLog", @"favorites", @"settings", @"about"];
+        if (indexPath.row < coverageMenuKeys.count) {
+            cell.accessibilityIdentifier = [@"jobs.coverage.open.side." stringByAppendingString:coverageMenuKeys[indexPath.row]];
+        }
+#endif
         return cell
             .byTextLabel(^(__kindof UILabel * _Nullable label) {
                 label
@@ -926,6 +1088,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView == _functionMenuTableView) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:JobsOCFunctionMenuCellReuseIdentifier
                                                                 forIndexPath:indexPath];
+#if DEBUG
+        cell.accessibilityIdentifier = [NSString stringWithFormat:@"jobs.coverage.open.function.%ld", (long)indexPath.row];
+#endif
         UIColor *backgroundColor = self.demoListFunctionMenuBackgroundColor();
         return cell
             .byTextLabel(^(__kindof UILabel * _Nullable label) {
@@ -1207,7 +1372,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             JobsSideDrawerConfiguration *configuration = JobsSideDrawerConfiguration.new
                 .byDirection(JobsSideDrawerDirectionLeft)
                 .byPresentedRatio(0.5)
-                .byContentMode([NSUserDefaults.standardUserDefaults boolForKey:@"JobsOCDemoSideDrawerFixed"] ? JobsSideDrawerContentModeFixed : JobsSideDrawerContentModeFollowing);
+                .byContentMode([JobsOCCoverageRootDefaults() boolForKey:@"JobsOCDemoSideDrawerFixed"] ? JobsSideDrawerContentModeFixed : JobsSideDrawerContentModeFollowing);
             self.jobsSetDemoSideDrawer([[JobsSideDrawer alloc] initWithHostView:hostView drawerView:menuView contentView:mainView configuration:configuration]);
             @jobs_weakify(self)
             self.demoSideDrawer.stateChanged = ^(__unused BOOL open) {
@@ -1235,7 +1400,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     if (!show && !_demoSideMenuView) return;
     self.prepareDemoSideMenuIfNeeded();
     if (!self.demoSideDrawer) return;
-    self.demoSideDrawer.configuration.byContentMode([NSUserDefaults.standardUserDefaults boolForKey:@"JobsOCDemoSideDrawerFixed"] ? JobsSideDrawerContentModeFixed : JobsSideDrawerContentModeFollowing);
+    self.demoSideDrawer.configuration.byContentMode([JobsOCCoverageRootDefaults() boolForKey:@"JobsOCDemoSideDrawerFixed"] ? JobsSideDrawerContentModeFixed : JobsSideDrawerContentModeFollowing);
     self.jobsSetDemoSideMenuOpen(show);
     self.userHeadBtn.bySelected(show);
     if (show) {
@@ -1342,7 +1507,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             .bySuspendOriginInSafeArea(CGPointMake(15, 120))
             .byHapticOnDock(YES);
         self.refreshSuspendTimeButtonTitle();
-    };return _suspendTimeBtn;
+    }
+#if DEBUG
+    _suspendTimeBtn.accessibilityIdentifier = @"jobs.coverage.root.time";
+#endif
+    return _suspendTimeBtn;
 }
 
 -(UIButton *)suspendSpinBtn{
@@ -1370,6 +1539,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             })
             .onLongPressGestureBy(^(__unused UIButton *x) {
                 toastBy(@"长按了悬浮按钮".jobsTr());
+#if DEBUG
+                if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+                    x.accessibilityValue = @"longPressDelivered";
+                }
+#endif
             })
             .byButtonBlock(^(__kindof UIButton * _Nullable button) {
                 button.layer.byMasksToBounds(YES);
@@ -1382,7 +1556,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             .bySuspendOriginInSafeArea(CGPointMake(CGRectGetWidth(self.view.bounds) - 60,
                                                    CGRectGetHeight(self.view.bounds) - 100))
             .byHapticOnDock(YES);
-    };return _suspendSpinBtn;
+    }
+#if DEBUG
+    _suspendSpinBtn.accessibilityIdentifier = @"jobs.coverage.root.spin";
+#endif
+    return _suspendSpinBtn;
 }
 
 -(UIButton *)suspendFuseBtn{
@@ -1440,6 +1618,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                     /// 处理 UIGestureRecognizerStateFailed 分支
                     case UIGestureRecognizerStateFailed:{
                         x.byFusePressStop(YES);
+#if DEBUG
+                        if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+                            x.accessibilityValue = [NSString stringWithFormat:@"fuseState:%ld", (long)gesture.state];
+                        }
+#endif
                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.20 * NSEC_PER_SEC)),
                                        dispatch_get_main_queue(), ^{
                             self.jobsSetSuspendFuseLongPressConsumed(NO);
@@ -1464,7 +1647,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             .bySuspendOriginInSafeArea(CGPointMake(15,
                                                    CGRectGetHeight(self.view.bounds) - 100))
             .byHapticOnDock(YES);
-    };return _suspendFuseBtn;
+    }
+#if DEBUG
+    _suspendFuseBtn.accessibilityIdentifier = @"jobs.coverage.root.fuse";
+#endif
+    return _suspendFuseBtn;
 }
 
 -(UIView *)demoSideMenuView{
@@ -1584,7 +1771,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 })
                 .bySize(CGSizeMake(32, 32));
         });
-    };return _userHeadBtn;
+    }
+#if DEBUG
+    _userHeadBtn.accessibilityIdentifier = @"jobs.coverage.open.sideMenu";
+#endif
+    return _userHeadBtn;
 }
 
 -(UIButton *)functionMenuBtn{
@@ -1617,7 +1808,11 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
                 })
                 .bySize(CGSizeMake(32, 32));
         });
-    };return _functionMenuBtn;
+    }
+#if DEBUG
+    _functionMenuBtn.accessibilityIdentifier = @"jobs.coverage.open.functionMenu";
+#endif
+    return _functionMenuBtn;
 }
 
 -(JobsRetBOOLByVoidBlock _Nonnull)demoListReturnToTopAndRefreshEnabled{
@@ -1625,7 +1820,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     return ^BOOL{
         @jobs_strongify(self)
         if (!self) return (BOOL){0};
-        id value = [NSUserDefaults.standardUserDefaults objectForKey:JobsOCDemoListReturnToTopAndRefreshUserDefaultsKey];
+        id value = [JobsOCCoverageRootDefaults() objectForKey:JobsOCDemoListReturnToTopAndRefreshUserDefaultsKey];
         return value ? [value boolValue] : YES;
     };
 }
@@ -1635,9 +1830,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     return ^(BOOL enabled){
         @jobs_strongify(self)
         if (!self) return;
-        [NSUserDefaults.standardUserDefaults setBool:enabled
+        [JobsOCCoverageRootDefaults() setBool:enabled
                                               forKey:JobsOCDemoListReturnToTopAndRefreshUserDefaultsKey];
-        [NSUserDefaults.standardUserDefaults synchronize];
+        [JobsOCCoverageRootDefaults() synchronize];
     };
 }
 
@@ -2175,6 +2370,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             make.top.equalTo(self.gk_navigationBar.mas_bottom);
         });
     }
+#if DEBUG
+    _tableView.accessibilityIdentifier = @"jobs.coverage.root.table";
+#endif
     return _tableView;
 }
 
@@ -2194,7 +2392,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
 -(NSMutableArray<NSString *> *)demoSearchHistoryMutArr{
     if (!_demoSearchHistoryMutArr) {
         _demoSearchHistoryMutArr = NSMutableArray.array;
-        NSArray *historyArr = [NSUserDefaults.standardUserDefaults arrayForKey:JobsOCDemoSearchHistoryUserDefaultsKey];
+        NSArray *historyArr = [JobsOCCoverageRootDefaults() arrayForKey:JobsOCDemoSearchHistoryUserDefaultsKey];
         if ([historyArr isKindOfClass:NSArray.class]) {
             for (id obj in historyArr) {
                 NSString *text = self.normalizedDemoSearchTextBy([obj isKindOfClass:NSString.class] ? obj : @"");
@@ -2443,7 +2641,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     return ^NSArray <NSString *>*{
         @jobs_strongify(self)
         if (!self) return nil;
-        NSArray *keyArr = [NSUserDefaults.standardUserDefaults arrayForKey:JobsOCDemoPinnedDemoUserDefaultsKey];
+        NSArray *keyArr = [JobsOCCoverageRootDefaults() arrayForKey:JobsOCDemoPinnedDemoUserDefaultsKey];
         if (![keyArr isKindOfClass:NSArray.class]) return @[];
         NSMutableArray <NSString *>*result = NSMutableArray.array;
         for (id obj in keyArr) {
@@ -2491,12 +2689,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
             }
         }
         if (keyMutArr.count) {
-            [NSUserDefaults.standardUserDefaults setObject:keyMutArr.copy
+            [JobsOCCoverageRootDefaults() setObject:keyMutArr.copy
                                                     forKey:JobsOCDemoPinnedDemoUserDefaultsKey];
         }else{
-            [NSUserDefaults.standardUserDefaults removeObjectForKey:JobsOCDemoPinnedDemoUserDefaultsKey];
+            [JobsOCCoverageRootDefaults() removeObjectForKey:JobsOCDemoPinnedDemoUserDefaultsKey];
         }
-        [NSUserDefaults.standardUserDefaults synchronize];
+        [JobsOCCoverageRootDefaults() synchronize];
     };
 }
 
@@ -2898,7 +3096,7 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
     return ^NSArray<NSString *> *{
         @jobs_strongify(self)
         if (!self) return nil;
-        NSArray *orderArr = [NSUserDefaults.standardUserDefaults arrayForKey:JobsOCDemoListSectionOrderUserDefaultsKey];
+        NSArray *orderArr = [JobsOCCoverageRootDefaults() arrayForKey:JobsOCDemoListSectionOrderUserDefaultsKey];
         if (![orderArr isKindOfClass:NSArray.class]) return @[];
         NSMutableArray <NSString *>*result = NSMutableArray.array;
         for (id obj in orderArr) {
@@ -2948,9 +3146,14 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         for (JobsOCDemoSectionModel *sectionModel in self.demoSectionMutArr) {
             if (sectionModel.title.length) [orderMutArr addObject:sectionModel.title];
         }
-        [NSUserDefaults.standardUserDefaults setObject:orderMutArr.copy
+        [JobsOCCoverageRootDefaults() setObject:orderMutArr.copy
                                                forKey:JobsOCDemoListSectionOrderUserDefaultsKey];
-        [NSUserDefaults.standardUserDefaults synchronize];
+#if DEBUG
+        if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+            self.view.accessibilityValue = [@"sectionOrder:" stringByAppendingString:[orderMutArr componentsJoinedByString:@"|"]];
+        }
+#endif
+        [JobsOCCoverageRootDefaults() synchronize];
     };
 }
 
@@ -3167,9 +3370,9 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         while (self.demoSearchHistoryMutArr.count > 20) {
             [self.demoSearchHistoryMutArr removeLastObject];
         }
-        [NSUserDefaults.standardUserDefaults setObject:self.demoSearchHistoryMutArr.copy
+        [JobsOCCoverageRootDefaults() setObject:self.demoSearchHistoryMutArr.copy
                                                 forKey:JobsOCDemoSearchHistoryUserDefaultsKey];
-        [NSUserDefaults.standardUserDefaults synchronize];
+        [JobsOCCoverageRootDefaults() synchronize];
         [self.tableView reloadData];
     };
 }
@@ -3182,12 +3385,12 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         if (index >= self.demoSearchHistoryMutArr.count) return;
         [self.demoSearchHistoryMutArr removeObjectAtIndex:index];
         if (self.demoSearchHistoryMutArr.count) {
-            [NSUserDefaults.standardUserDefaults setObject:self.demoSearchHistoryMutArr.copy
+            [JobsOCCoverageRootDefaults() setObject:self.demoSearchHistoryMutArr.copy
                                                     forKey:JobsOCDemoSearchHistoryUserDefaultsKey];
         }else{
-            [NSUserDefaults.standardUserDefaults removeObjectForKey:JobsOCDemoSearchHistoryUserDefaultsKey];
+            [JobsOCCoverageRootDefaults() removeObjectForKey:JobsOCDemoSearchHistoryUserDefaultsKey];
         }
-        [NSUserDefaults.standardUserDefaults synchronize];
+        [JobsOCCoverageRootDefaults() synchronize];
         [self.tableView reloadData];
     };
 }
@@ -3198,8 +3401,8 @@ forRowAtIndexPath:(NSIndexPath *)indexPath{
         @jobs_strongify(self)
         if (!self) return;
         [self.demoSearchHistoryMutArr removeAllObjects];
-        [NSUserDefaults.standardUserDefaults removeObjectForKey:JobsOCDemoSearchHistoryUserDefaultsKey];
-        [NSUserDefaults.standardUserDefaults synchronize];
+        [JobsOCCoverageRootDefaults() removeObjectForKey:JobsOCDemoSearchHistoryUserDefaultsKey];
+        [JobsOCCoverageRootDefaults() synchronize];
         [self.tableView reloadData];
     };
 }

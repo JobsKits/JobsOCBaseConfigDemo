@@ -6,7 +6,6 @@
 //
 
 #import "JobsOCCommentDemoVC.h"
-
 #import "JobsOCCommentModeDetailVC.h"
 #import "JobsPresentationCtrl.h"
 
@@ -95,6 +94,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                                     reuseIdentifier:JobsOCCommentDemoCellReuseIdentifier];
     }
     JobsOCCommentMode mode = self.modeArr[indexPath.row].integerValue;
+#if DEBUG
+    cell.accessibilityIdentifier = [NSString stringWithFormat:@"jobs.coverage.open.JobsOCCommentModeDetailVC.%ld", (long)mode];
+#endif
     cell.textLabel
         .byText(JobsOCCommentConfig.titleByMode(mode).jobsTr())
         .byTextCor(JobsLabelColor)

@@ -6,7 +6,6 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBlock.h"
 
 #if __has_include(<JobsOCDefs/JobsDefines.h>)

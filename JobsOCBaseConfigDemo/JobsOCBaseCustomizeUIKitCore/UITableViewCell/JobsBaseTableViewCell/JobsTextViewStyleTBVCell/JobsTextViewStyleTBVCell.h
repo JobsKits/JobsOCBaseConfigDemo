@@ -24,7 +24,6 @@
 #endif
 #import "UIView+Extra.h"
 #import "JobsBaseTableViewCell.h"
-
 #import "JobsLanMgr.h"
 #import "JobsMakes.h"
 #import "JobsOCDSL.h"

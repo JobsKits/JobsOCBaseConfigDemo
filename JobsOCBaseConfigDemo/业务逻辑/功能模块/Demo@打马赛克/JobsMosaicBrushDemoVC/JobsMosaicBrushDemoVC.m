@@ -82,6 +82,11 @@ Prop_assign()NSUInteger renderVersion;
                                                                  valid:&valid];
     if (!valid) return;
     [self.brushPointValueMutArr addObject:[NSValue valueWithCGPoint:imagePoint]];
+#if DEBUG
+    if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+        imageView.accessibilityValue = [NSString stringWithFormat:@"paintPoints:%lu", (unsigned long)self.brushPointValueMutArr.count];
+    }
+#endif
     self.renderBrushImage();
 }
 #pragma mark —— Action

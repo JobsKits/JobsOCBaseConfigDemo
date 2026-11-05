@@ -74,8 +74,30 @@ Prop_assign()BOOL sphereItemsPrepared;
         self.makeNavByAlpha(1);
         self.sphereView.byAlpha(1);
         self.statusLabel.byAlpha(1);
+#if DEBUG
+        if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+            [self.sphereView timerStop];
+            for (UIGestureRecognizer *gesture in self.sphereView.gestureRecognizers) {
+                if ([gesture isKindOfClass:UIPanGestureRecognizer.class]) {
+                    [gesture addTarget:self action:@selector(jobs_coverageSpherePan:)];
+                }
+            }
+        }
+#endif
     };
 }
+
+#if DEBUG
+-(void)jobs_coverageSpherePan:(UIPanGestureRecognizer *)gesture{
+    if (gesture.state == UIGestureRecognizerStateEnded) {
+        [self.sphereView timerStop];
+        CGPoint translation = [gesture translationInView:self.sphereView];
+        if (fabs(translation.x) + fabs(translation.y) > 2) {
+            self.sphereView.accessibilityValue = @"panEnded";
+        }
+    }
+}
+#endif
 
 -(void)viewDidLayoutSubviews{
     jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsSphereDemoVC.class, @selector(jobsViewDidLayoutSubviews)))(self, @selector(jobsViewDidLayoutSubviews));
@@ -161,7 +183,11 @@ Prop_assign()BOOL sphereItemsPrepared;
             make.top.equalTo(self.gk_navigationBar.mas_bottom).offset(JobsWidth(24));
             make.height.equalTo(_sphereView.mas_width);
         }];
-    };return _sphereView;
+    }
+#if DEBUG
+    _sphereView.accessibilityIdentifier = @"jobs.coverage.surface.JobsSphereDemoVC.sphereView";
+#endif
+    return _sphereView;
 }
 
 -(UILabel *)statusLabel{

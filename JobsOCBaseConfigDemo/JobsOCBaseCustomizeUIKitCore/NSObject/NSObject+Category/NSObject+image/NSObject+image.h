@@ -35,5 +35,13 @@ Prop_strong(readonly,nullable)UIImage *sys_img;// -(nullable UIImage *)sys_img;
 
 @end
 
+/// 实现由同模块的 NSObject (Image) 提供，避免大小写同名头的映射歧义。
+@interface NSObject (JobsDataURLTraitsDeclaration)
+
+-(nullable UIImage *)imageByDataURL:(nullable NSString *)dataURL
+                  traitCollection:(UITraitCollection *)traitCollection;
+
+@end
+
 NS_ASSUME_NONNULL_END
 #endif /* JOBS_HEADER_GUARD_NSOBJECT_IMAGE_AFF8740488 */

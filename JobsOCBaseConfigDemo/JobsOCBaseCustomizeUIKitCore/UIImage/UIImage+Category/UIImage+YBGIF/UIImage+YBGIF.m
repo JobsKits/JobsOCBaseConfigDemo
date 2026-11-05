@@ -14,7 +14,7 @@
 +(JobsRetImageByDataBlock _Nonnull)animatedGIFWithData{
     return ^UIImage *(NSData * _Nullable data){
         return [self animatedGIFWithData:data
-                      traitCollection:[UITraitCollection traitCollectionWithDisplayScale:UIScreen.mainScreen.scale]];
+                      traitCollection:[UITraitCollection traitCollectionWithDisplayScale:jobsScreenScaleForView(nil)]];
     };
 }
 
@@ -84,7 +84,7 @@
 +(JobsRetImageByStrBlock _Nonnull)animatedGIFByName{
     return ^UIImage *(__kindof NSString *_Nullable name){
         return [self animatedGIFByName:name
-                      traitCollection:[UITraitCollection traitCollectionWithDisplayScale:UIScreen.mainScreen.scale]];
+                      traitCollection:[UITraitCollection traitCollectionWithDisplayScale:jobsScreenScaleForView(nil)]];
     };
 }
 
@@ -137,14 +137,13 @@
         NSMutableArray <UIImage *>*scaledImages = jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
             @jobs_strongify(self)
             for (UIImage *image in self.images) {
-                UIGraphicsBeginImageContextWithOptions(size, NO, 0.0);
-                 [image drawInRect:CGRectMake(thumbnailPoint.x,
-                                              thumbnailPoint.y,
-                                              scaledSize.width,
-                                              scaledSize.height)];
-                UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-                data.add(newImage);
-                UIGraphicsEndImageContext();
+                UIImage *newImage = JobsRenderImage(size, NO, 0.0, ^(CGContextRef jobsDrawingContext) {
+                     [image drawInRect:CGRectMake(thumbnailPoint.x,
+                                                  thumbnailPoint.y,
+                                                  scaledSize.width,
+                                                  scaledSize.height)];
+                    data.add(newImage);
+                });
             }
         });return [UIImage animatedImageWithImages:scaledImages duration:self.duration];
     };

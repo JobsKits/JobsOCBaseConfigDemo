@@ -244,11 +244,11 @@ static void JobsDebugPanelInstallShakeObserver(void) {
         NSMutableDictionary<NSString *,UIWindow *> *hosts = jobsMakeMutDic(nil);
         BOOL usesScenes = NO;
         if (@available(iOS 13.0, *)) {
+            usesScenes = YES;
             for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
                 if (![scene isKindOfClass:UIWindowScene.class]) {
                     continue;
                 }
-                usesScenes = YES;
                 if (scene.activationState != UISceneActivationStateForegroundActive) {
                     continue;
                 }
@@ -264,7 +264,9 @@ static void JobsDebugPanelInstallShakeObserver(void) {
             }
         }
         if (!usesScenes && UIApplication.sharedApplication.applicationState == UIApplicationStateActive) {
-            for (UIWindow *window in UIApplication.sharedApplication.windows) {
+            NSArray<UIWindow *> *legacyWindows;
+            SuppressWdeprecatedDeclarationsWarning(legacyWindows = UIApplication.sharedApplication.windows;);
+            for (UIWindow *window in legacyWindows) {
                 if (![window isKindOfClass:JobsDebugOverlayWindow.class] && !window.hidden && window.rootViewController && window.windowLevel == UIWindowLevelNormal) {
                     hosts[@"legacy"] = window;
                     if (window.isKeyWindow) {
@@ -294,6 +296,36 @@ static void JobsDebugPanelInstallShakeObserver(void) {
             }
         }
     };
+}
+
+// 巡检只准备原浮球触摸控件；不合成 motionShake，也不改变普通启动默认隐藏。
+-(BOOL)jobs_prepareCoverageFloatingEntryForWindow:(UIWindow *)hostWindow {
+    NSArray<NSString *> *arguments = NSProcessInfo.processInfo.arguments;
+    NSUInteger flag = [arguments indexOfObject:@"--jobs-coverage-route"];
+    if (flag == NSNotFound || flag + 1 >= arguments.count ||
+        ![arguments[flag + 1] isEqualToString:@"JobsDebugPanelFloatingEntry"] ||
+        !NSThread.isMainThread || !self.started || !hostWindow || hostWindow.hidden ||
+        UIApplication.sharedApplication.applicationState != UIApplicationStateActive) {
+        return NO;
+    }
+    self.showFloatingEntry();
+    for (JobsDebugOverlayWindow *overlay in self.overlayWindows.allValues) {
+        if (overlay.hostWindow != hostWindow || overlay.hidden) {
+            continue;
+        }
+        JobsDebugOverlayVC *controller = (JobsDebugOverlayVC *)overlay.rootViewController;
+        if (![controller isKindOfClass:JobsDebugOverlayVC.class] ||
+            !controller.isViewLoaded || controller.view.window != overlay) {
+            continue;
+        }
+        UIButton *button = controller.button;
+        CGRect frame = [button convertRect:button.bounds toView:overlay];
+        if (button.window == overlay && !button.hidden && button.userInteractionEnabled &&
+            !CGRectIsEmpty(frame) && CGRectIntersectsRect(frame, overlay.bounds)) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 -(JobsRetDebugPanelByVoidBlock _Nonnull)showFloatingEntry {

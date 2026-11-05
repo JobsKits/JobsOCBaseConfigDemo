@@ -6,6 +6,7 @@
 //
 
 #import "JobsButtonCoverCollectionCellDemoVC.h"
+#import "../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 @interface JobsButtonCoverCollectionCellDemoVC ()
 
@@ -71,9 +72,27 @@ Prop_strong()NSArray<UIViewModel *> *demoArr;
                           cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     JobsBtnStyleCVCell *cell = [JobsBtnStyleCVCell cellWithCollectionView:collectionView
                                                              forIndexPath:indexPath];
-    return cell
+    cell
         .jobsRichElementsCollectionViewCellBy(self.demoArr[indexPath.item])
         .byContentViewBgCor(JobsClearColor);
+    if (JobsOCCoverageGestureProbeEnabled()) {
+        UIButton *receiver = JobsOCCoverageUniqueButtonInView(cell.contentView);
+        if (receiver) {
+            NSString *identifier = [NSString stringWithFormat:@"jobs.coverage.cover.collection.%ld", (long)indexPath.item];
+            JobsOCCoveragePrepareLongPressButton(receiver, identifier);
+            cell.accessibilityIdentifier = [identifier stringByAppendingString:@".cell"];
+            jobsByBtnBlock originalLongPress = receiver.longPressGestureBlock;
+            if (originalLongPress) {
+                receiver.longPressGestureBlock = ^(UIButton *sender) {
+                    originalLongPress(sender);
+                    JobsOCCoverageLongPressDelivered(sender);
+                };
+            } else {
+                receiver.accessibilityValue = @"longPress:noOriginalHandler";
+            }
+        }
+    }
+    return cell;
 }
 #pragma mark —— UICollectionViewDelegate
 -(void)collectionView:(UICollectionView *)collectionView

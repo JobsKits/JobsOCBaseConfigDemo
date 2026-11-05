@@ -6,6 +6,7 @@
 //
 
 #import "JobsVerticalMenuVC@0.h"
+#import "../../../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 @interface JobsVerticalMenuVC_0 ()
 
@@ -405,6 +406,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 self.switchSearchModeByActive(!self.searchMode);
             })
             .onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
                 JobsLog(@"");
             })
             .addOn(self.gk_navigationBar)
@@ -415,7 +417,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 make.centerY.equalTo(self.gk_navigationBar);
             })
             .cornerCutToCircleWithCornerRadius(JobsWidth(18));
-    };return _searchToggleBtn;
+    }
+    JobsOCCoveragePrepareLongPressButton(_searchToggleBtn, @"jobs.coverage.longPress.JobsVerticalMenuVC_0.searchToggleBtn");
+    return _searchToggleBtn;
 }
 
 - (BaseButton *)editBtn{
@@ -435,6 +439,7 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 toastBy(@"编辑".jobsTr());
             })
             .onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
                 JobsLog(@"");
             })
             .addOn(self.view)
@@ -444,7 +449,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                 make.top.equalTo(self.tableView.mas_bottom);
                 make.size.mas_equalTo(CGSizeMake(TableViewWidth, EditBtnHeight));
             });
-    };return _editBtn;
+    }
+    JobsOCCoveragePrepareLongPressButton(_editBtn, @"jobs.coverage.longPress.JobsVerticalMenuVC_0.editBtn");
+    return _editBtn;
 }
 
 - (NSMutableArray<__kindof UIViewModel *> *)titleMutArr {

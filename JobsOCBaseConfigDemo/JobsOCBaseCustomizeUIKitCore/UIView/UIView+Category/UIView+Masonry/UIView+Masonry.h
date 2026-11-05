@@ -21,7 +21,6 @@
 #import <UIKit/UIKit.h>
 #import "NSMutableArray+Extra.h"
 #import "UIView+Refresh.h"
-
 #import "JobsMakes.h"
 #import "JobsBlock.h"
 #import "JobsDefines.h"

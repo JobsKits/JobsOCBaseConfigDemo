@@ -6,7 +6,6 @@
 //
 
 #import "JobsTextFieldStyleCVCell.h"
-
 #import "CALayer+Extra.h"
 #import "NSString+Sys.h"
 #import "NSObject+Extra.h"

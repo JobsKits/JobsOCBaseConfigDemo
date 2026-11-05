@@ -6,7 +6,6 @@
 //
 
 #import "JobsImageStyleTBVCell.h"
-
 #import "UITableView+RegisterClass.h"
 #import "UIView+Extra.h"
 

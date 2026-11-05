@@ -6,7 +6,6 @@
 //
 
 #import "BaseImageView.h"
-
 #import "UIView+Extra.h"
 
 @interface BaseImageView ()

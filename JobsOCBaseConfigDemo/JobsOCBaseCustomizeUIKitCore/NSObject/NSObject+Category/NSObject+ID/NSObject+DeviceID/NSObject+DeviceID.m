@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+DeviceID.h"
-
 #import "NSObject+Extra.h"
 
 static NSMutableDictionary *JobsDeviceIDKeychainQuery(NSString *service) {

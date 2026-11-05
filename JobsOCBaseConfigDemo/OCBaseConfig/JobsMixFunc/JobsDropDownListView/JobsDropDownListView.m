@@ -6,7 +6,6 @@
 //
 
 #import "JobsDropDownListView.h"
-
 #import "UIScrollView+AnimationKit.h"
 #import "UIScrollView+UIScrollViewProtocol.h"
 #import "UITableView+Extra.h"

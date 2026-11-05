@@ -19,7 +19,6 @@
 #import "JobsBaseCollectionViewCell.h"
 #import "BaseTextView.h"
 #import "JobsTextView.h"
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsRichTextUtils.h"
 #import "JobsLanMgr.h"

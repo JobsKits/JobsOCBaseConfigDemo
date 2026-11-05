@@ -18,7 +18,6 @@
 #import <Foundation/Foundation.h>
 #import "UIGestureRecognizer+ReactiveCocoa.h"
 #import "UIGestureRecognizer+ReactiveCocoaProtected.h"
-
 #import "JobsBlock.h"
 #import "JobsDefines.h"
 

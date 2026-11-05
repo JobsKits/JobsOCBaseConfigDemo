@@ -23,7 +23,6 @@
 
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
-
 #import "JobsBaseProtocolHeader.h"
 #include "BaseProtocol.h"
 #import "JobsBlock.h"
@@ -52,6 +51,8 @@ UITableViewDelegate
 +(JobsRetIDByIDBlock _Nonnull)byData;
 /// 为当前对象绑定关联数据，并返回当前对象继续链式调用
 -(JobsRetIDByIDBlock _Nonnull)byData;
+/// 绑定请求参数并返回当前对象；适用于视图、输入框及其它 NSObject 子类
+-(JobsRetNSObjectByIDBlock _Nonnull)byRequestParams;
 #pragma mark —— 关于数据存储
 ///【对FileFolderHandleTool的二次封装】 存数据，储存成功返回地址
 /// @param data 被储存的数据

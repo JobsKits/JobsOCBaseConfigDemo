@@ -17,7 +17,6 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsBaseCollectionViewCell.h"
-
 #import "JobsModelDSL.h"
 #import "JobsOCDSL.h"
 #import "JobsBlock.h"

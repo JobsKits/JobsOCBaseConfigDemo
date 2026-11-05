@@ -16,7 +16,6 @@
 #define JOBS_HEADER_GUARD_UIBARBUTTONITEM_EXTRA_C5C9457DC3
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
 #import "JobsDefines.h"
 

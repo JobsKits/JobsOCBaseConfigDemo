@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+UUID.h"
-
 #import "NSString+Replace.h"
 
 @implementation NSObject (UUID)

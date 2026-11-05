@@ -6,6 +6,7 @@
 //
 
 #import "UITableViewCellEditorVC.h"
+#import "../../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 static NSInteger const JobsMsgCellCardViewTag = 2026070601;
 static NSInteger const JobsMsgCellTypeLabelTag = 2026070602;
@@ -566,6 +567,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
         .byIndexPath(indexPath)
         .jobsRichElementsTableViewCellBy(model);
     [self configMsgCell:cell model:model];
+#if DEBUG
+    cell.accessibilityIdentifier = [NSString stringWithFormat:@"jobs.coverage.open.JobsMsgDetailVC.%ld", (long)indexPath.row];
+#endif
     return cell;
 }
 #pragma mark —— lazyLoad
@@ -587,6 +591,7 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                 [self.tableView setEditing:x.selected animated:YES];
                 x.selected ? self.getMsgEditBoardView().appearByView(self.view) : self.getMsgEditBoardView().disappearByView(self.view);
             }).onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
                 JobsLog(@"");
             })
             .bgColorBy(RGBA_COLOR(255, 255, 255, 0.92));
@@ -597,7 +602,9 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
             .byShadowOpacity(1)
             .byShadowOffset(CGSizeMake(0, JobsWidth(3)))
             .byShadowRadius(JobsWidth(8));
-    };return _editBtn;
+    }
+    JobsOCCoveragePrepareLongPressButton(_editBtn, @"jobs.coverage.longPress.UITableViewCellEditorVC.editBtn");
+    return _editBtn;
 }
 /// BaseViewProtocol
 @synthesize tableView = _tableView;

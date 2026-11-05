@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+AttributedString.h"
-
 #import "NSString+Extra.h"
 
 @implementation NSObject (AttributedString)

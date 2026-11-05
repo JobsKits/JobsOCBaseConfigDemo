@@ -24,7 +24,6 @@
 #import <UIKit/UIKit.h>
 #import "JobsBaseApi.h"
 #import "This+URLMgr.h"
-
 #import "ThisHeader.h"
 #import "JobsBlock.h"
 #import "JobsDefines.h"

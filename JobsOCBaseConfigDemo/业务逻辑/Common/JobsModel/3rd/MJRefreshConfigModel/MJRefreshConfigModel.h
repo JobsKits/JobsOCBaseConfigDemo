@@ -16,7 +16,6 @@
 #define MJRefreshConfigModel_h
 
 #import <Foundation/Foundation.h>
-
 #import "JobsLoadingImageHeader.h"
 #import "JobsMakes.h"
 #import "JobsLanMgr.h"

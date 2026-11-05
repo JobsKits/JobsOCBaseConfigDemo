@@ -26,8 +26,7 @@ JobsOCRefreshConfigDSL(byShowsInfo, showsInfo, JobsRetJobsOCRefreshConfigByBOOLB
 JobsOCRefreshConfigDSL(byShowsText, showsText, JobsRetJobsOCRefreshConfigByBOOLBlock, BOOL)
 JobsOCRefreshConfigDSL(byEnablesHaptics, enablesHaptics, JobsRetJobsOCRefreshConfigByBOOLBlock, BOOL)
 JobsOCRefreshConfigDSL(byHorizontalMode, horizontalMode, JobsRetJobsOCRefreshConfigByHorizontalModeBlock, JobsOCRefreshHorizontalMode)
-JobsOCRefreshConfigDSL(byAnimationType, animationType, JobsRetJobsOCRefreshConfigByAnimationTypeBlock, JobsOCRefreshAnimationType)
-JobsOCRefreshConfigDSL(byFrameImageInterval, frameImageInterval, JobsRetJobsOCRefreshConfigByTimeIntervalBlock, NSTimeInterval)
+JobsOCRefreshConfigDSL(byAnimator, animator, JobsRetJobsOCRefreshConfigByIDBlock, id<JobsRefreshAnimatorProtocol> _Nullable)
 JobsOCRefreshConfigDSL(byIdleText, idleText, JobsRetJobsOCRefreshConfigByStrBlock, NSString *_Nullable)
 JobsOCRefreshConfigDSL(byPullingText, pullingText, JobsRetJobsOCRefreshConfigByStrBlock, NSString *_Nullable)
 JobsOCRefreshConfigDSL(byReadyRefreshText, readyRefreshText, JobsRetJobsOCRefreshConfigByStrBlock, NSString *_Nullable)
@@ -38,12 +37,7 @@ JobsOCRefreshConfigDSL(byFailedText, failedText, JobsRetJobsOCRefreshConfigByStr
 JobsOCRefreshConfigDSL(byDisabledText, disabledText, JobsRetJobsOCRefreshConfigByStrBlock, NSString *_Nullable)
 JobsOCRefreshConfigDSL(byNoMoreDataText, noMoreDataText, JobsRetJobsOCRefreshConfigByStrBlock, NSString *_Nullable)
 JobsOCRefreshConfigDSL(byLastRefreshPrefix, lastRefreshPrefix, JobsRetJobsOCRefreshConfigByStrBlock, NSString *_Nullable)
-JobsOCRefreshConfigDSL(byLottieName, lottieName, JobsRetJobsOCRefreshConfigByStrBlock, NSString *_Nullable)
-JobsOCRefreshConfigDSL(byGifName, gifName, JobsRetJobsOCRefreshConfigByStrBlock, NSString *_Nullable)
-JobsOCRefreshConfigDSL(byNetworkImageURLString, networkImageURLString, JobsRetJobsOCRefreshConfigByStrBlock, NSString *_Nullable)
 JobsOCRefreshConfigDSL(bySoundName, soundName, JobsRetJobsOCRefreshConfigByStrBlock, NSString *_Nullable)
-JobsOCRefreshConfigDSL(byFrameImageNames, frameImageNames, JobsRetJobsOCRefreshConfigByArrBlock, NSArray *_Nullable)
-JobsOCRefreshConfigDSL(byAnimator, animator, JobsRetJobsOCRefreshConfigByIDBlock, id<JobsRefreshAnimatorProtocol> _Nullable)
 
 + (JobsRetIDByVoidBlock _Nonnull)baseConfig {
     return ^id{
@@ -55,8 +49,7 @@ JobsOCRefreshConfigDSL(byAnimator, animator, JobsRetJobsOCRefreshConfigByIDBlock
                 .byShowsText(YES)
                 .byEnablesHaptics(YES)
                 .byHorizontalMode(JobsOCRefreshHorizontalModeRefreshRightLoadLeft)
-                .byAnimationType(JobsOCRefreshAnimationTypeSystem)
-                .byFrameImageInterval(0.08)
+                .byAnimator(JobsSystemRefreshView.refreshView())
                 .byReadyRefreshText(@"松开立即刷新".jobsTr())
                 .byReadyLoadMoreText(@"松开立即加载更多".jobsTr())
                 .byRefreshingText(@"正在刷新...".jobsTr())

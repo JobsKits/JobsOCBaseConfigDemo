@@ -6,7 +6,6 @@
 //
 
 #import "JobsGestureLockIndicator.h"
-
 #import "JobsGestureLockConfiguration.h"
 
 @interface JobsGestureLockIndicator ()

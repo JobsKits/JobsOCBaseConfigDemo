@@ -16,7 +16,6 @@
 #define JOBS_HEADER_GUARD_REACTIVEOBJC_DSL_6D7A2B07E9
 
 #import <objc/message.h>
-
 #import "JobsBlock.h"
 #import "JobsDefines.h"
 

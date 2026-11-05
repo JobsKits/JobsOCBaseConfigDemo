@@ -6,6 +6,7 @@
 //
 
 #import "JobsButtonCoverTableCellDemoVC.h"
+#import "../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 @interface JobsButtonCoverTableCellDemoVC ()
 
@@ -81,6 +82,23 @@ heightForRowAtIndexPath:(NSIndexPath *)indexPath{
                                              JobsWidth(16)))
         .bySelectionStyle(UITableViewCellSelectionStyleDefault)
         .JobsRichViewByModel2(self.demoArr[indexPath.row]);
+    if (JobsOCCoverageGestureProbeEnabled()) {
+        UIButton *receiver = JobsOCCoverageUniqueButtonInView(cell.contentView);
+        if (receiver) {
+            NSString *identifier = [NSString stringWithFormat:@"jobs.coverage.cover.table.%ld", (long)indexPath.row];
+            JobsOCCoveragePrepareLongPressButton(receiver, identifier);
+            cell.accessibilityIdentifier = [identifier stringByAppendingString:@".cell"];
+            jobsByBtnBlock originalLongPress = receiver.longPressGestureBlock;
+            if (originalLongPress) {
+                receiver.longPressGestureBlock = ^(UIButton *sender) {
+                    originalLongPress(sender);
+                    JobsOCCoverageLongPressDelivered(sender);
+                };
+            } else {
+                receiver.accessibilityValue = @"longPress:noOriginalHandler";
+            }
+        }
+    }
     return cell;
 }
 

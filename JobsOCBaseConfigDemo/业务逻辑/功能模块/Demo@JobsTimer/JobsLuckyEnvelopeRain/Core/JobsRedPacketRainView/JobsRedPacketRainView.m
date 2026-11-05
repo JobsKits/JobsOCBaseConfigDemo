@@ -354,30 +354,29 @@ Prop_assign(readwrite)NSUInteger tappedCount;
         @jobs_strongify(self)
         if (!self) return nil;
         CGSize size = CGSizeMake(44, 54);
-        UIGraphicsBeginImageContextWithOptions(size, NO, 0);
-        CGContextRef ctx = UIGraphicsGetCurrentContext();
-        UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(1, 1, size.width - 2, size.height - 2)
-                                                        cornerRadius:8];
-        [UIColor colorWithRed:0.90 green:0.05 blue:0.08 alpha:1].setFill;
-        [path fill];
-        [UIColor colorWithRed:1.00 green:0.82 blue:0.18 alpha:1].setStroke;
-        path.byLineWidth(2);
-        [path stroke];
-        CGContextSetFillColorWithColor(ctx, [UIColor colorWithRed:1.00 green:0.82 blue:0.18 alpha:1].CGColor);
-        CGContextFillEllipseInRect(ctx, CGRectMake(10, 8, 24, 24));
-        NSDictionary *attr = @{
-            NSFontAttributeName: [UIFont boldSystemFontOfSize:18],
-            NSForegroundColorAttributeName: UIColor.redColor
-        };
-        NSString *text = @"¥";
-        CGSize textSize = [text sizeWithAttributes:attr];
-        [text drawInRect:CGRectMake((size.width - textSize.width) / 2.0,
-                                    8 + (24 - textSize.height) / 2.0,
-                                    textSize.width,
-                                    textSize.height)
-          withAttributes:attr];
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage *image = JobsRenderImage(size, NO, 0, ^(CGContextRef jobsDrawingContext) {
+            CGContextRef ctx = jobsDrawingContext;
+            UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(1, 1, size.width - 2, size.height - 2)
+                                                            cornerRadius:8];
+            [UIColor colorWithRed:0.90 green:0.05 blue:0.08 alpha:1].setFill;
+            [path fill];
+            [UIColor colorWithRed:1.00 green:0.82 blue:0.18 alpha:1].setStroke;
+            path.byLineWidth(2);
+            [path stroke];
+            CGContextSetFillColorWithColor(ctx, [UIColor colorWithRed:1.00 green:0.82 blue:0.18 alpha:1].CGColor);
+            CGContextFillEllipseInRect(ctx, CGRectMake(10, 8, 24, 24));
+            NSDictionary *attr = @{
+                NSFontAttributeName: [UIFont boldSystemFontOfSize:18],
+                NSForegroundColorAttributeName: UIColor.redColor
+            };
+            NSString *text = @"¥";
+            CGSize textSize = [text sizeWithAttributes:attr];
+            [text drawInRect:CGRectMake((size.width - textSize.width) / 2.0,
+                                        8 + (24 - textSize.height) / 2.0,
+                                        textSize.width,
+                                        textSize.height)
+              withAttributes:attr];
+        });
         return image;
     };
 }

@@ -18,7 +18,6 @@
 #import <UIKit/UIKit.h>
 #import "BaseView.h"
 #import "UIView+Extra.h"
-
 #import "JobsLoadingImageHeader.h"
 #import "JobsMakes.h"
 #import "JobsBlock.h"

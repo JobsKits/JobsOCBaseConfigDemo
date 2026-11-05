@@ -1,0 +1,18 @@
+//
+//  PDFDocument+Extra.m
+//  JobsByOCPods
+//
+//  Created by Jobs on 2025年5月2日，星期五.
+//
+
+#import "PDFDocument+Extra.h"
+
+@implementation PDFDocument (Extra)
+
++(JobsRetPDFDocumentByURLBlock _Nonnull)byURL{
+    return ^ __kindof PDFDocument *_Nullable(NSURL *_Nullable pdfURL){
+        return [PDFDocument.alloc initWithURL:pdfURL];
+    };
+}
+
+@end

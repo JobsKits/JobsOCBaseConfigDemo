@@ -85,7 +85,11 @@
   - App 与 Widget 当前部署目标均为 iOS 16.6；外部依赖仍由 CocoaPods 静态 framework 集成。
   - Jobs 能力直接集成在主工程；宿主同时承担基础层、启动编排、业务装配、Demo 入口和宿主资源。
 
+Demo 源码位于 `JobsOCBaseConfigDemo/业务逻辑/功能模块/Demo@功能名`；自维护 `.h` / `.m` / `.mm` 按完整基名成组放入同名目录，引用与 target 编译归属随真实路径维护。公开 API 和对应实现的核验范围、已修差异与保留候选见[代码平行性审计](../OC新旧代码平行性审计.md/OC新旧代码平行性审计.md)。
+
 设备安全检测由 `JobsOCDeviceGuard` 承接，当前落位为 `JobsOCBaseConfigDemo/OCBaseConfig/JobsMixFunc/JobsOCDeviceGuard`，直接加入主 target，不增加该 Pod 依赖。公开入口聚合头 `JobsOCDeviceGuard.h` 导出配置、检测器和只读报告；配置支持 `bySandboxWriteProbeEnabled`、`byMinimumDetectedCategories`，专有配置 Block 类型由 `JobsBlock` 前向声明，避免依赖倒置。检测器每次重新执行，异步完成回到主线程；Demo 单独展示证据并在敏感动作前复检，不接管安装过程或自动退出 App。特征路径通过 `access(F_OK)` 查询，镜像按当前进程已加载库文件名精确匹配，写探测默认关闭。零命中但检查失败返回 `indeterminate`；模拟器、Mac Catalyst 与 Mac 上运行的 iOS App 返回 `unsupported`。`shouldRestrict` 是仅 `noIndicators` 建议放行的保守数据值；宿主真实启动门禁由 `JobsOCDeviceGuardLaunchGate` 执行。`AppDelegate` 的首个启动步骤调用 `prepare()`，同步只读检测一次，默认仅 `report.isJailbroken` 命中时提前返回 `YES`，跳过后续显式业务初始化；Scene 在正常根页面与开屏创建前显示其独立全屏原生拦截页。`configurePolicy:blockedViewControllerFactory:` 预留策略和页面工厂，首次判定后冻结，`decision` 保存报告和 `blocked`。现有生命周期、活动恢复及异步开屏遵守该启动判定；其它结果按当前策略继续启动，登录、支付和每次请求未逐项接拦截器。
+
+刷新能力由主工程 `UIScrollView+JobsOCRefresher` 承接，配置仅接收 `JobsRefreshAnimatorProtocol` 动画对象；默认与空动画替换均使用 `JobsSystemRefreshView`，具体素材解码、计时和表现由 `JobsFuseAnimation` 负责。配置、状态与原位替换入口见 [JobsOCRefresher 说明](../../JobsOCBaseConfigDemo/JobsOCBaseCustomizeUIKitCore/UIScrollView/UIScrollView+Category/UIScrollView+JobsOCRefresher/README.md)。
 
 OC 侧核心调用思想是：`JobsMake` 创建对象，`JobsOCDSL` / `JobsModelDSL` 配置属性，`UIView+DSL` / `Masonry+DSL` 完成父视图装配和约束，依赖真实 `frame` 的效果放到约束刷新之后。
 
@@ -512,8 +516,9 @@ flowchart TD
 ```
 
 - `OCBaseConfig/JobsOCDefs` / `JobsBlock`：基础宏、类型和 Block 语义。
-- `JobsMakes`：对象工厂，只负责创建对象和暴露配置 Block。
+- `JobsMakes`：对象工厂，只负责创建对象和暴露配置 Block。`JobsMakes.h` 的 `jobsMakeVolumeView(jobsByViewBlock _Nullable block)` 返回 `__kindof MPVolumeView *`，复用 UIView 配置入口创建原生媒体音量控件，默认隐藏路由按钮，不访问系统私有滑条。
 - `JobsOCDSL` / `JobsModelDSL`：系统对象与 Jobs Model 的链式配置。
+- 主工程 `NSObject+Data.byRequestParams` 使用 `JobsBlock` 的 `JobsRetNSObjectByIDBlock`，为视图、输入框等对象绑定请求参数并返回 `__kindof NSObject *` 原对象；`UINavigationItem.byTitle` 使用 `JobsRetUINavigationItemByNSStringBlock` 设置可空标题，左右按钮组复用 `JobsRetNavigationItemByBarButtonItemsBlock`，均返回原导航项。公开声明与运行时实现按真实类型共同对账，不新增 Pod 依赖。
 - `JobsByOCPods` 聚合能力：UIKit 工厂、按钮配置管线、事件、装配和通用扩展。
 - `JobsOCBaseCustomizeUIKitCore`：BaseVC、导航容器、全局导航和主题等页面基座。
 - `OCBaseConfig/JobsMixFunc`：直接集成的独立功能；只组合本功能真实需要的基础能力。
@@ -575,6 +580,7 @@ sequenceDiagram
 - 公共层注入的主题入口按钮始终使用透明背景，不显示额外色块。
 - 页面原有业务右按钮先建立，再由公共导航层补主题入口；不能用主题按钮覆盖业务动作。
 - `UIAlertController` 是系统弹框，不参与 Demo 导航栏和主题按钮注入；直接 `presentViewController:` 即可。
+- `JobsAppDoor` 两套样式的国旗与区号以 `U+00A0` 连接并单行展示；登录 / 注册切换侧栏、提交按钮以 `18pt`、标题以 `22pt` 为基准，Style1 沿用 `JobsWidth` 缩放。音量面板点外部收起且不取消原控件触摸；真机用 [**MPVolumeView**](https://developer.apple.com/documentation/mediaplayer/mpvolumeview) 调系统媒体音量并观察 `AVAudioSession.outputVolume` 刷新百分比，模拟器仅用播放器局部滑条。模拟器不支持通过该系统控件调系统音量，侧边键行为及听感需在当前环境实测，不能替代真机硬件键验收。
 - `JobsOCGraphicCaptchaCharacterUnitSimplifiedChinese` 与 `JobsOCGraphicCaptchaCharacterUnitTraditionalChinese` 分别表示简体、繁体汉字，兼容值 `JobsOCGraphicCaptchaCharacterUnitChinese` 表示两者合集。
 - 图形验证码把英文大写、英文小写、阿拉伯数字、简体汉字、繁体汉字作为五类独立字符池；可用 `twoMixedConfig`、`threeMixedConfig`、`fourMixedConfig`、`fullMixedConfig`，对应 Demo 展示两两、三三、四四和全部组合。
 

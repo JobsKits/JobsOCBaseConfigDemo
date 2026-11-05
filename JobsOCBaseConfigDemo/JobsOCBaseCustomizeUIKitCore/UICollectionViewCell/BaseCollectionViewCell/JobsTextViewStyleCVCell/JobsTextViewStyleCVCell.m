@@ -6,7 +6,6 @@
 //
 
 #import "JobsTextViewStyleCVCell.h"
-
 #import "CALayer+Extra.h"
 #import "UICollectionView+JobsRegisterClass.h"
 #import "SZTextView+Extra.h"

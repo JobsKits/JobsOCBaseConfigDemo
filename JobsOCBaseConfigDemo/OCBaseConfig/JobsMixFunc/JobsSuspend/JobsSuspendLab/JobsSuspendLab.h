@@ -17,7 +17,6 @@
 
 #import <UIKit/UIKit.h>
 #import "UIView+SuspendView.h"
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsLanMgr.h"
 #import "JobsBlock.h"

@@ -16,7 +16,6 @@
 #define JOBS_HEADER_GUARD_YTKBATCHREQUEST_EXTRA_750B1BC454
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBlock.h"
 #import "JobsDefines.h"
 

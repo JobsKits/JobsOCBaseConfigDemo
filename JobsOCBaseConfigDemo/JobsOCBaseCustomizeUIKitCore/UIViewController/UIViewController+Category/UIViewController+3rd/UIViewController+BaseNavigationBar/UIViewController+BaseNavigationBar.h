@@ -25,7 +25,6 @@
 #import <UIKit/UIKit.h>
 #import "UIViewController+BaseVC.h"
 #import "NSMutableArray+Extra.h"
-
 #import "JobsMakes.h"
 #import "JobsBaseUI.h"
 #import "JobsLoadingImageHeader.h"

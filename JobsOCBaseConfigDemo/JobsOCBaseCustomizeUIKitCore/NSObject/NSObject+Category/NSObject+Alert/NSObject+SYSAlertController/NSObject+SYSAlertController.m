@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+SYSAlertController.h"
-
 #import "NSString+Extra.h"
 
 // JOBS_LOCAL_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN UIPopoverPresentationController

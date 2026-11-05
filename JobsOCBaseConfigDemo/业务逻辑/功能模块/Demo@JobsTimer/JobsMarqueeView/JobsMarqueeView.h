@@ -8,6 +8,6 @@
 #ifndef JOBS_HEADER_GUARD_JOBSMARQUEEVIEW_20260707
 #define JOBS_HEADER_GUARD_JOBSMARQUEEVIEW_20260707
 
-#import "Core/JobsMarqueeView/JobsMarqueeViewCore.h"
+#import "Core/JobsMarqueeView/JobsMarqueeViewCore/JobsMarqueeViewCore.h"
 
 #endif /* JOBS_HEADER_GUARD_JOBSMARQUEEVIEW_20260707 */

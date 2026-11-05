@@ -7,7 +7,6 @@
 
 #import "JobsOCSearcherView.h"
 #import "UIGestureRecognizer+DSL.h"
-
 #import "JobsOCSearcherRecordCell.h"
 
 
@@ -236,12 +235,7 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
     };
 }
 
--(void)clearHistory{
-    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsOCSearcherView.class, @selector(jobsClearHistory)))(self, @selector(jobsClearHistory));
-    if (action) action();
-}
-
--(jobsByVoidBlock _Nonnull)jobsClearHistory{
+-(jobsByVoidBlock _Nonnull)clearHistory{
     @jobs_weakify(self)
     return ^{
         @jobs_strongify(self)
@@ -257,12 +251,12 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
     return ^{
         @jobs_strongify(self)
         if (!self) return;
-        self.textField.byPlaceholder(self.config.placeholder.length ? self.config.placeholder : @"");
+        self.textField.byPlaceholder(self.config.placeholder.length ? self.config.placeholder : @"请输入搜索内容");
         [self.searchButton setTitle:self.config.searchButtonTitle.length ? self.config.searchButtonTitle : @"搜索"
                            forState:UIControlStateNormal];
         self.updateSearchButtonVisible(self.textField.isFirstResponder);
         self.updateSearchButtonEnabledByText(self.textField.text);
-        self.recommendTitleLabel.byText(self.config.recommendTitle.length ? self.config.recommendTitle : @"");
+        self.recommendTitleLabel.byText(self.config.recommendTitle.length ? self.config.recommendTitle : @"🔍搜索推荐");
         self.rebuildRecommendTagButtons();
         [self setNeedsLayout];
         [self.tableView reloadData];
@@ -426,28 +420,27 @@ Prop_copy(readwrite)NSArray <NSString *>*historySearches;
         @jobs_strongify(self)
         if (!self) return nil;
         CGSize size = CGSizeMake(16, 16);
-        UIGraphicsBeginImageContextWithOptions(size, NO, 0);
-        UIBezierPath *lidPath = UIBezierPath.bezierPath;
-        lidPath.byLineWidth(1.4);
-        [color setStroke];
-        [lidPath moveToPoint:CGPointMake(4, 4.8)];
-        [lidPath addLineToPoint:CGPointMake(12, 4.8)];
-        [lidPath moveToPoint:CGPointMake(6.2, 3.2)];
-        [lidPath addLineToPoint:CGPointMake(9.8, 3.2)];
-        [lidPath stroke];
-        UIBezierPath *bodyPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(5, 6, 6, 7.8)
-                                                             cornerRadius:1.1];
-        bodyPath.byLineWidth(1.4);
-        [bodyPath stroke];
-        UIBezierPath *linePath = UIBezierPath.bezierPath;
-        linePath.byLineWidth(1);
-        [linePath moveToPoint:CGPointMake(7, 7.5)];
-        [linePath addLineToPoint:CGPointMake(7, 12)];
-        [linePath moveToPoint:CGPointMake(9, 7.5)];
-        [linePath addLineToPoint:CGPointMake(9, 12)];
-        [linePath stroke];
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage *image = JobsRenderImage(size, NO, 0, ^(CGContextRef jobsDrawingContext) {
+            UIBezierPath *lidPath = UIBezierPath.bezierPath;
+            lidPath.byLineWidth(1.4);
+            [color setStroke];
+            [lidPath moveToPoint:CGPointMake(4, 4.8)];
+            [lidPath addLineToPoint:CGPointMake(12, 4.8)];
+            [lidPath moveToPoint:CGPointMake(6.2, 3.2)];
+            [lidPath addLineToPoint:CGPointMake(9.8, 3.2)];
+            [lidPath stroke];
+            UIBezierPath *bodyPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(5, 6, 6, 7.8)
+                                                                 cornerRadius:1.1];
+            bodyPath.byLineWidth(1.4);
+            [bodyPath stroke];
+            UIBezierPath *linePath = UIBezierPath.bezierPath;
+            linePath.byLineWidth(1);
+            [linePath moveToPoint:CGPointMake(7, 7.5)];
+            [linePath addLineToPoint:CGPointMake(7, 12)];
+            [linePath moveToPoint:CGPointMake(9, 7.5)];
+            [linePath addLineToPoint:CGPointMake(9, 12)];
+            [linePath stroke];
+        });
         return image;
     };
 }
@@ -624,13 +617,14 @@ heightForHeaderInSection:(NSInteger)section{
 
 -(UIView *)tableView:(UITableView *)tableView
 viewForHeaderInSection:(NSInteger)section{
+    @jobs_weakify(self)
     if (![self tableView:tableView numberOfRowsInSection:section]) return nil;
     UIView *header = jobsMakeView(^(UIView *object){});
     header.byBgColor(self.backgroundColor);
     UILabel *label = jobsMakeLabel(^(UILabel *object){});
     label.byFont([UIFont systemFontOfSize:16 weight:UIFontWeightSemibold]);
     label.byTextColor([UIColor colorWithRed:0.12 green:0.16 blue:0.21 alpha:1]);
-    label.byText(self.config.historyTitle.length ? self.config.historyTitle : @"");
+    label.byText(self.config.historyTitle.length ? self.config.historyTitle : @"⏰搜索历史");
     [header addSubview:label];
     [label mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(header).offset(16);
@@ -639,10 +633,18 @@ viewForHeaderInSection:(NSInteger)section{
     }];
     if (section == JobsOCSearcherSectionHistory) {
         UIColor *buttonColor = [UIColor colorWithRed:0.63 green:0.67 blue:0.73 alpha:1];
-        UIButton *clearButton = UIButton.new;
+        UIButton *clearButton = jobsMakeButton(^(__kindof UIButton *_Nullable button) {
+            button.onClickBy(^(__kindof UIButton *_Nullable button) {
+                @jobs_strongify(self)
+                if (!self) {
+                    return;
+                }
+                self.clearHistory();
+            });
+        });
         clearButton.titleLabel.byFont([UIFont systemFontOfSize:13 weight:UIFontWeightRegular]);
         clearButton.byContentHorizontalAlignment(UIControlContentHorizontalAlignmentRight);
-        [clearButton setTitle:@"清空"
+        [clearButton setTitle:@"清空".jobsTr()
                      forState:UIControlStateNormal];
         [clearButton setTitleColor:buttonColor
                           forState:UIControlStateNormal];
@@ -650,9 +652,6 @@ viewForHeaderInSection:(NSInteger)section{
                      forState:UIControlStateNormal];
         clearButton.byImageEdgeInsets(UIEdgeInsetsMake(0, 0, 0, 4));
         clearButton.byTitleEdgeInsets(UIEdgeInsetsMake(0, 4, 0, 0));
-        [clearButton addTarget:self
-                        action:@selector(clearHistory)
-              forControlEvents:UIControlEventTouchUpInside];
         [header addSubview:clearButton];
         [clearButton mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(header).offset(-16);
@@ -819,11 +818,10 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         @jobs_strongify(self)
         if (!self) return nil;
         CGRect rect = CGRectMake(0, 0, 1, 1);
-        UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
-        [color setFill];
-        UIRectFill(rect);
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage *image = JobsRenderImage(rect.size, NO, 0, ^(CGContextRef jobsDrawingContext) {
+            [color setFill];
+            UIRectFill(rect);
+        });
         return image;
     };
 }
@@ -848,19 +846,18 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         @jobs_strongify(self)
         if (!self) return nil;
         CGSize size = CGSizeMake(16, 16);
-        UIGraphicsBeginImageContextWithOptions(size, NO, 0);
-        [color setStroke];
-        UIBezierPath *circlePath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(2.2, 2.2, 8.8, 8.8)];
-        circlePath.byLineWidth(1.6);
-        [circlePath stroke];
-        UIBezierPath *handlePath = UIBezierPath.bezierPath;
-        handlePath.byLineWidth(1.8);
-        handlePath.byLineCapStyle(kCGLineCapRound);
-        [handlePath moveToPoint:CGPointMake(9.4, 9.4)];
-        [handlePath addLineToPoint:CGPointMake(13.4, 13.4)];
-        [handlePath stroke];
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage *image = JobsRenderImage(size, NO, 0, ^(CGContextRef jobsDrawingContext) {
+            [color setStroke];
+            UIBezierPath *circlePath = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(2.2, 2.2, 8.8, 8.8)];
+            circlePath.byLineWidth(1.6);
+            [circlePath stroke];
+            UIBezierPath *handlePath = UIBezierPath.bezierPath;
+            handlePath.byLineWidth(1.8);
+            handlePath.byLineCapStyle(kCGLineCapRound);
+            [handlePath moveToPoint:CGPointMake(9.4, 9.4)];
+            [handlePath addLineToPoint:CGPointMake(13.4, 13.4)];
+            [handlePath stroke];
+        });
         return image;
     };
 }

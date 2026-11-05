@@ -1,0 +1,584 @@
+//
+//  BaiShaETProjPopupView10.m
+//  JobsOCBaseConfigDemo
+//
+//  Created by Jobs on 2026年5月13日，星期三.
+//
+
+#import "BaiShaETProjPopupView10.h"
+#import "../../../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
+
+@interface BaiShaETProjPopupView10 ()
+
+/// UI
+Prop_strong()UILabel *titleLab;
+Prop_strong()BaseButton *closeBtn;
+Prop_strong()UIColor *cor;
+Prop_strong()BaseButton *cancelBtn;
+Prop_strong()BaseButton *sureBtn;
+Prop_strong()UIView *bgView;
+/// Data
+Prop_strong()NSMutableArray <UIViewModel *>*dataMutArr;
+Prop_assign()NSInteger selectedIndex;
+Prop_assign()CGSize gradientSize;
+Prop_assign()CGFloat gradientScale;
+Prop_assign()BOOL registeredGradientTraits;
+
+@end
+
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_BEGIN BaiShaETProjPopupView10
+@interface BaiShaETProjPopupView10 (JobsPropertyDSLSetterAutogen_e1b869a0b0)
+-(void)setDataMutArr:(NSMutableArray <UIViewModel *>* _Nullable)data;
+-(void)setSelectedIndex:(NSInteger)data;
+@end
+// JOBS_PROPERTY_DSL_SETTER_DECLARATION_AUTOGEN_END BaiShaETProjPopupView10
+
+@implementation BaiShaETProjPopupView10
+
+#pragma mark —— BaseProtocol
+/// 单例化和销毁
++(void)destroySingleton{
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(BaiShaETProjPopupView10.class, @selector(jobsDestroySingleton)))(self, @selector(jobsDestroySingleton));
+    if (action) action();
+}
+
++(jobsByVoidBlock _Nonnull)jobsDestroySingleton{
+    return ^{
+        static_popupView10OnceToken = 0;
+        static_popupView10 = nil;
+    };
+}
+
+static BaiShaETProjPopupView10 *static_popupView10 = nil;
+static dispatch_once_t static_popupView10OnceToken;
++(instancetype)sharedManager{
+    JobsRetIDByVoidBlock action = ((JobsRetIDByVoidBlock (*)(__typeof__(self), SEL))JobsBlockClassMethodIMP(BaiShaETProjPopupView10.class, @selector(jobsSharedManager)))(self, @selector(jobsSharedManager));
+    return action ? action() : nil;
+}
+
++(JobsRetIDByVoidBlock _Nonnull)jobsSharedManager{
+    return ^id{
+        dispatch_once(&static_popupView10OnceToken, ^{
+            static_popupView10 = BaiShaETProjPopupView10.new;
+        });return static_popupView10;
+    };
+}
+
+-(instancetype)init{
+    if (self = [super init]) {
+        self.byBgColor(JobsClearColor);
+    };return self;
+}
+
+-(void)layoutSubviews{
+    jobsByVoidBlock action = ((jobsByVoidBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjPopupView10.class, @selector(jobsLayoutSubviews)))(self, @selector(jobsLayoutSubviews));
+    if (action) action();
+}
+
+-(jobsByVoidBlock _Nonnull)jobsLayoutSubviews{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+        [super layoutSubviews];
+        if (!_registeredGradientTraits) {
+            _registeredGradientTraits = YES;
+            if (@available(iOS 17.0, *)) {
+                [self registerForTraitChanges:@[UITraitDisplayScale.class] withHandler:^(BaiShaETProjPopupView10 *view, UITraitCollection *previousTraits) {
+                    [view setNeedsLayout];
+                }];
+            }
+        }
+        if (_titleLab && (_gradientScale != self.traitCollection.displayScale ||
+                          !CGSizeEqualToSize(_gradientSize, _titleLab.bounds.size))) {
+            _cor = nil;
+            _titleLab.byBgColor(self.cor);
+        }
+    };
+}
+
+-(void)drawRect:(CGRect)rect{
+    jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjPopupView10.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
+    if (action) action(rect);
+}
+
+-(jobsByFrameBlock _Nonnull)jobsDrawRect{
+    @jobs_weakify(self)
+    return ^(CGRect rect){
+        @jobs_strongify(self)
+        if (!self) return;
+        [super drawRect:rect];
+    };
+}
+#pragma mark —— BaseViewProtocol
+/// 具体由子类进行复写【数据定UI】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
+-(jobsByIDBlock _Nonnull)jobsRichViewByModel{
+    @jobs_weakify(self)
+    return ^(UIViewModel *_Nullable model) {
+        @jobs_strongify(self)
+        self.byDataMutArr(model.data);
+        self.bySelectedIndex(model.index);
+        MakeDataNull
+        self.titleLab.byAlpha(1);
+        self.closeBtn.byAlpha(1);
+        self.bgView.byAlpha(1);
+        self.cancelBtn.byAlpha(1);
+        self.sureBtn.byAlpha(1);
+        [self.collectionView reloadData];
+    };
+}
+/// 具体由子类进行复写【数据尺寸】【如果所传参数为基本数据类型，那么包装成对象NSNumber进行转化承接】
++(JobsRetCGSizeByIDBlock _Nonnull)viewSizeByModel{
+    return ^CGSize(id _Nullable data){
+        return CGSizeMake(JobsMainScreen_WIDTH(), JobsWidth(322));
+    };
+}
+#pragma mark —— 一些公有方法
+-(jobsByBOOLBlock _Nonnull)shakeCell{
+    @jobs_weakify(self)
+    return ^(BOOL start) {
+        @jobs_strongify(self)
+        for (UICollectionViewCell *cell in self.collectionView.visibleCells) {
+            cell.抖动动画(start);
+        }
+    };
+}
+#pragma mark —— UICollectionViewDataSource
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    JobsRetNSIntegerByUICollectionViewBlock action = ((JobsRetNSIntegerByUICollectionViewBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjPopupView10.class, @selector(jobsNumberOfSectionsInCollectionView)))(self, @selector(jobsNumberOfSectionsInCollectionView));
+    return action ? action(collectionView) : (NSInteger){0};
+}
+
+-(JobsRetNSIntegerByUICollectionViewBlock _Nonnull)jobsNumberOfSectionsInCollectionView{
+    @jobs_weakify(self)
+    return ^NSInteger(UICollectionView * collectionView){
+        @jobs_strongify(self)
+        if (!self) return (NSInteger){0};
+        return 1;
+    };
+}
+
+- (nonnull __kindof UICollectionViewCell *)collectionView:(nonnull UICollectionView *)collectionView
+                                   cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath {
+    JobsBtnStyleCVCell *cell = [JobsBtnStyleCVCell cellWithCollectionView:collectionView
+                                                             forIndexPath:indexPath];
+    cell.jobsRichElementsCollectionViewCellBy(self.dataMutArr[indexPath.item]);
+    if (indexPath.item == self.selectedIndex - 1) {
+        cell.button.byBgColor(HEXCOLOR(0xFFEABA));
+        cell.button.jobsResetBtnTitleCor(HEXCOLOR(0xAE8330));
+    }else{
+        cell.button.byBgColor(JobsSecondarySystemBackgroundColor);
+        cell.button.jobsResetBtnTitleCor(JobsSecondaryLabelColor);
+    }
+    cell.setLayerBy(jobsMakeLocationModel(^(__kindof JobsLocationModel *_Nullable data) {
+        data.byLayerCor(@"#6E5600".jobsCor())
+            .byJobsWidth(JobsWidth(1))
+            .byCornerRadiusValue(JobsBtnStyleCVCell.cellSizeByModel(nil).height / 2);
+    }));return cell;
+}
+
+- (NSInteger)collectionView:(nonnull __kindof UICollectionView *)collectionView
+numberOfItemsInSection:(NSInteger)section {
+    return self.dataMutArr.count;
+}
+
+- (UICollectionReusableView *)collectionView:(__kindof UICollectionView *)collectionView
+           viewForSupplementaryElementOfKind:(NSString *)kind
+                                 atIndexPath:(NSIndexPath *)indexPath {
+    if (kind.isEqualToString(UICollectionElementKindSectionHeader)) {
+        JobsHeaderFooterView *headerView = [collectionView UICollectionElementKindSectionHeaderClass:JobsHeaderFooterView.class
+                                                                                        forIndexPath:indexPath];
+        headerView.jobsRichViewByModel(jobsMakeViewModel(^(__kindof UIViewModel * _Nullable viewModel) {
+            viewModel
+                .byTextModelBlock(^(__kindof UITextModel * _Nullable textModel) {
+                    textModel.byText(@"拖動按鈕迸行位置調整".jobsTr());
+                })
+                .bySubTextModelBlock(^(__kindof UITextModel * _Nullable subTextModel) {
+                    subTextModel.byText(@"".jobsTr());
+                });
+        }));
+        headerView.byBgColor(HEXCOLOR(0xFFFCF7));
+        headerView.getTitleBtn().byRemake(^(MASConstraintMaker *make) {
+            make.center.equalTo(headerView);
+            make.top.equalTo(self.titleLab.mas_bottom);
+            make.height.mas_equalTo(JobsWidth(20));
+        });return headerView;
+    }else ReturnBaseCollectionReusableHeaderView;
+}
+#pragma mark —— UICollectionViewDelegate
+/// 允许选中时，高亮
+-(BOOL)collectionView:(__kindof UICollectionView *)collectionView
+shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+    JobsLog(@"%s", __FUNCTION__);
+    return YES;
+}
+/// 高亮完成后回调
+-(void)collectionView:(__kindof UICollectionView *)collectionView
+didHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+    JobsLog(@"%s", __FUNCTION__);
+}
+/// 由高亮转成非高亮完成时的回调
+-(void)collectionView:(__kindof UICollectionView *)collectionView
+didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+    JobsLog(@"%s", __FUNCTION__);
+}
+/// 设置是否允许选中
+-(BOOL)collectionView:(__kindof UICollectionView *)collectionView
+shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    JobsLog(@"%s", __FUNCTION__);
+    return YES;
+}
+/// 设置是否允许取消选中
+-(BOOL)collectionView:(__kindof UICollectionView *)collectionView
+shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    JobsLog(@"%s", __FUNCTION__);
+    return YES;
+}
+/// 选中操作
+- (void)collectionView:(__kindof UICollectionView *)collectionView
+didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    JobsLog(@"%s", __FUNCTION__);
+    /**
+     滚动到指定位置
+     _collectionView.contentOffset = CGPointMake(0,-100);
+     [_collectionView setContentOffset:CGPointMake(0, -200) animated:YES];// 只有在viewDidAppear周期 或者 手动触发才有效
+     */
+}
+/// 取消选中操作
+-(void)collectionView:(__kindof UICollectionView *)collectionView
+didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    JobsLog(@"%s", __FUNCTION__);
+}
+#pragma mark —— UICollectionViewDelegateFlowLayout
+/// header 大小
+- (CGSize)collectionView:(__kindof UICollectionView *)collectionView
+layout:(UICollectionViewLayout *)collectionViewLayout
+referenceSizeForHeaderInSection:(NSInteger)section {
+    return CGSizeMake(CGRectGetWidth(collectionView.bounds), JobsWidth(16 + 12 + 8));
+}
+
+- (CGSize)collectionView:(__kindof UICollectionView *)collectionView
+layout:(UICollectionViewLayout *)collectionViewLayout
+sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(JobsWidth(106), JobsWidth(30));
+}
+/// 定义的是元素垂直之间的间距
+- (CGFloat)collectionView:(__kindof UICollectionView *)collectionView
+                   layout:(__kindof UICollectionViewLayout *)collectionViewLayout
+    minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return JobsWidth(10);
+}
+/// 定义的是UICollectionViewScrollDirectionVertical下，元素水平之间的间距。
+/// UICollectionViewScrollDirectionHorizontal下，垂直和水平正好相反
+/// Api自动计算一行的Cell个数，只有当间距小于此定义的最小值时才会换行，最小执行单元是Section（每个section里面的样式是统一的）
+- (CGFloat)collectionView:(__kindof UICollectionView *)collectionView
+                   layout:(__kindof UICollectionViewLayout *)collectionViewLayout
+    minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
+    return JobsWidth(6);
+}
+/// 内间距
+-(UIEdgeInsets)collectionView:(__kindof UICollectionView *)collectionView
+                       layout:(UICollectionViewLayout *)collectionViewLayout
+       insetForSectionAtIndex:(NSInteger)section {
+    return jobsMakeSameEdgeInset(JobsWidth(16));
+}
+#pragma mark —— iOS9的新特性实现UICollectionViewCell拖拽
+/// 开始移动的时候调用此方法，可以获取相应的datasource方法设置特殊的indexpath 能否移动,如果能移动返回的是YES ,不能移动返回的是NO
+-(BOOL)beginInteractiveMovementForItemAtIndexPath:(NSIndexPath *)indexPath{
+    return ((((JobsRetBOOLByNSIndexPathBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjPopupView10.class, @selector(beginInteractiveMovementForItemAtIndexPath)))(self, @selector(beginInteractiveMovementForItemAtIndexPath))))(indexPath);
+}
+-(JobsRetBOOLByNSIndexPathBlock _Nonnull)beginInteractiveMovementForItemAtIndexPath{
+    @jobs_weakify(self)
+    return ^BOOL(NSIndexPath * indexPath){
+        @jobs_strongify(self)
+        if (!self) return (BOOL){0};
+        return YES;
+    };
+}
+/// 更新移动过程的位置
+-(void)updateInteractiveMovementTargetPosition:(CGPoint)targetPosition{
+    ((((jobsByPointBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(BaiShaETProjPopupView10.class, @selector(updateInteractiveMovementTargetPosition)))(self, @selector(updateInteractiveMovementTargetPosition))))(targetPosition);
+}
+-(jobsByPointBlock _Nonnull)updateInteractiveMovementTargetPosition{
+    @jobs_weakify(self)
+    return ^(CGPoint targetPosition){
+        @jobs_strongify(self)
+        if (!self) return;
+    };
+}
+/// 结束移动的时候调用此方法，collectionView 会响应相应的datasource方法，collectionView:moveItemAtIndexPath:toIndexPath: 我们可以在这个方法中将移动的数据源，与目标数据源交互位置。
+-(jobsByVoidBlock _Nonnull)endInteractiveMovement{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+    };
+}
+/// 取消移动的时候调用，会返回最原始的位置
+-(jobsByVoidBlock _Nonnull)cancelInteractiveMovement{
+    @jobs_weakify(self)
+    return ^{
+        @jobs_strongify(self)
+        if (!self) return;
+    };
+}
+/// 在开始移动的时候会调用这个方法，如果有特殊的单元格不想被移动可以return NO， 如果没有限制就返回YES
+-(BOOL)collectionView:(__kindof UICollectionView *)collectionView canMoveItemAtIndexPath:(NSIndexPath *)indexPath{
+    return YES;
+}
+/// 移动结束的时候会调用此datasource，想要拖拽完成之后数据正确必须实现此方法，使用新的路径更新数据源，如果不实现此方法，刚刚移动cell中的数据不会重新排列
+-(void)collectionView:(__kindof UICollectionView *)collectionView
+  moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath
+          toIndexPath:(NSIndexPath *)destinationIndexPath{
+    /**
+     * sourceIndexPath 原始数据 indexpath
+     * destinationIndexPath 移动到目标数据的 indexPath
+     */
+    UIViewModel *viewModel = self.dataMutArr[sourceIndexPath.item];
+    [self.dataMutArr removeObject:viewModel];
+    [self.dataMutArr insertObject:viewModel atIndex:destinationIndexPath.item];
+#ifdef DEBUG
+    NSMutableArray <UIViewModel *>*mutArr = NSMutableArray.array;
+    for (UIViewModel *viewModel in self.dataMutArr) {
+        mutArr.add(viewModel.textModel.text);
+    }
+    JobsLog(@"%@",mutArr);
+#endif
+}
+#pragma mark —— lazyLoad
+/// BaseViewProtocol
+@synthesize collectionView = _collectionView;
+-(UICollectionView *)collectionView{
+    if (!_collectionView) {
+        @jobs_weakify(self)
+        /// 创建 UICollectionView
+        _collectionView = UICollectionView.initByLayout(self.verticalLayout)
+            .registerCollectionViewClass()
+            .dataLink(self)
+            .byShowsVerticalScrollIndicator(NO)
+            .byScrollEnabled(NO)
+            .byUserInteractionEnabled(YES);
+        _collectionView
+            .byBgColor(JobsSecondarySystemBackgroundColor)
+            .addOn(self.bgView)
+            .byAdd(^(MASConstraintMaker *make) {
+                @jobs_strongify(self)
+                make.centerX.equalTo(self);
+                make.top.equalTo(self.bgView);
+                make.width.mas_equalTo(BaiShaETProjPopupView10.viewSizeByModel(nil).width);
+                make.height.mas_equalTo(200);/// 需要动态添加
+            })
+            /// 配置长按拖拽手势
+            .byNumberOfTouchesRequired(1)
+            .byNumberOfTapsRequired(0) // ⚠️长按手势这里建议为 0
+            .byMinimumPressDuration(0.1)
+            .byAllowableMovement(1)
+            .addLongPressGR(^(__kindof UILongPressGestureRecognizer *_Nullable gesture) {
+                @jobs_strongify(self)
+                if (!self) return;
+                self.shakeCell(YES);
+                /// 获取此次点击的坐标，根据坐标获取 cell 对应的 indexPath
+                UICollectionView *collectionView = (UICollectionView *)gesture.view;
+                CGPoint point = [gesture locationInView:collectionView];
+                NSIndexPath *indexPath = [collectionView indexPathForItemAtPoint:point];
+                /// 根据长按手势的状态进行处理
+                switch (gesture.state) {
+                    /// 处理 UIGestureRecognizerStateBegan 分支
+                    case UIGestureRecognizerStateBegan:{
+                        if (indexPath) {
+                            /// 开始移动
+                            [collectionView beginInteractiveMovementForItemAtIndexPath:indexPath];
+                        }
+                    } break;// 当没有点击到 cell 的时候不进行处理
+                    /// 处理 UIGestureRecognizerStateChanged 分支
+                    case UIGestureRecognizerStateChanged:
+                        /// 移动过程中更新位置坐标
+                        [collectionView updateInteractiveMovementTargetPosition:point];
+                        break;
+                    /// 处理 UIGestureRecognizerStateEnded 分支
+                    case UIGestureRecognizerStateEnded:
+                        /// 停止移动调用此方法
+                        [collectionView endInteractiveMovement];
+                        break;
+                    /// 未匹配已知分支时执行兜底处理
+                    default:
+                        /// 取消移动
+                        [collectionView cancelInteractiveMovement];
+                        break;
+                }
+            })
+            .addTapGR(^(__kindof UITapGestureRecognizer *_Nullable gesture) {
+                JobsLog(@"");
+                @jobs_strongify(self)
+                if (!self) return;
+                self.shakeCell(NO);
+            });
+    } return _collectionView;
+}
+
+-(UILabel *)titleLab{
+    if (!_titleLab) {
+        @jobs_weakify(self)
+        _titleLab = jobsMakeLabel(^(__kindof UILabel * _Nullable label) {
+            @jobs_strongify(self)
+            label
+                .byText(@"全部分類".jobsTr())
+                .byTextAlignment(NSTextAlignmentCenter)
+                .byTextCor(JobsBlueColor)
+                .byUserInteractionEnabled(YES)
+                .byBgColor(self.cor)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.top.equalTo(self);
+                    make.centerX.equalTo(self);
+                    make.size.mas_equalTo(CGSizeMake(BaiShaETProjPopupView10.viewSizeByModel(nil).width, JobsWidth(44)));
+                })
+                .byLayoutSubviewsRectCorner(UIRectCornerTopLeft | UIRectCornerTopRight)
+                .byLayoutSubviewsRectCornerSize(CGSizeMake(JobsWidth(8), JobsWidth(8)))
+                .refresh();
+        });
+    };return _titleLab;
+}
+
+-(BaseButton *)closeBtn{
+    if (!_closeBtn) {
+        @jobs_weakify(self)
+        _closeBtn = BaseButton.jobsInit()
+            .jobsResetBtnBgImage(@"关闭".img)
+            .onClickBy(^(UIButton *x){
+                @jobs_strongify(self)
+                x.bySelected(!x.selected);
+                self.cancelBtnActionForPopView(x);
+                self.shakeCell(NO);
+            }).onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
+                JobsLog(@"");
+            })
+            .addOn(self.titleLab)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(9.75f), JobsWidth(9.75f)));
+                make.centerY.equalTo(self.titleLab);
+                make.right.equalTo(self.titleLab.mas_right).offset(JobsWidth(-25.12));
+            });
+    }
+    JobsOCCoveragePrepareLongPressButton(_closeBtn, @"jobs.coverage.longPress.BaiShaETProjPopupView10.closeBtn");
+    return _closeBtn;
+}
+
+-(BaseButton *)cancelBtn{
+    if (!_cancelBtn) {
+        @jobs_weakify(self)
+        _cancelBtn = BaseButton
+            .initByStyle3(@"恢复默认".jobsTr(),
+                          UIFontWeightRegularSize(18)
+                          ,HEXCOLOR(0xB0B0B0)
+                          ,@"弹窗取消按钮".img)
+            .onClickBy(^(UIButton *x){
+                @jobs_strongify(self)
+                x.bySelected(!x.selected);
+                self.cancelBtnActionForPopView(x);
+                self.shakeCell(NO);
+            })
+            .onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
+                JobsLog(@"");
+            })
+            .addOn(self.bgView)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.bottom.equalTo(self.mas_bottom).offset(JobsWidth(-26));
+                make.left.equalTo(self).offset(JobsWidth(24));
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(120), JobsWidth(40)));
+            });
+    }
+    JobsOCCoveragePrepareLongPressButton(_cancelBtn, @"jobs.coverage.longPress.BaiShaETProjPopupView10.cancelBtn");
+    return _cancelBtn;
+}
+
+-(BaseButton *)sureBtn{
+    if (!_sureBtn) {
+        @jobs_weakify(self)
+        _sureBtn = BaseButton
+            .initByStyle3(@"完成".jobsTr()
+                          ,UIFontWeightRegularSize(18)
+                          ,JobsBlackColor
+                          ,@"弹窗提交按钮".img)
+            .onClickBy(^(UIButton *x){
+                @jobs_strongify(self)
+                x.bySelected(!x.selected);
+                self.cancelBtnActionForPopView(self.dataMutArr);
+                self.shakeCell(NO);
+            })
+            .onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
+                JobsLog(@"");
+            })
+            .addOn(self.bgView)
+            .byAdd(^(MASConstraintMaker *make) {
+                make.bottom.equalTo(self.mas_bottom).offset(JobsWidth(-26));
+                make.right.equalTo(self).offset(JobsWidth(-24));
+                make.size.mas_equalTo(CGSizeMake(JobsWidth(120), JobsWidth(40)));
+            });
+    }
+    JobsOCCoveragePrepareLongPressButton(_sureBtn, @"jobs.coverage.longPress.BaiShaETProjPopupView10.sureBtn");
+    return _sureBtn;
+}
+
+-(UIView *)bgView{
+    if (!_bgView) {
+        @jobs_weakify(self)
+        _bgView = jobsMakeView(^(__kindof UIView * _Nullable view) {
+            @jobs_strongify(self)
+            view
+                .byBgColor(JobsSecondarySystemBackgroundColor)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.size.mas_equalTo(CGSizeMake(BaiShaETProjPopupView10.viewSizeByModel(nil).width, BaiShaETProjPopupView10.viewSizeByModel(nil).height - JobsWidth(44)));
+                    make.centerX.equalTo(self);
+                    make.top.equalTo(self.titleLab.mas_bottom);
+                });
+        });
+    };return _bgView;
+}
+
+-(UIColor *)cor{
+    if (!_cor) {
+        CGSize size = _titleLab ? _titleLab.bounds.size : CGSizeZero;
+        if (size.width <= 0 || size.height <= 0) {
+            size = CGSizeMake(CGRectGetWidth(self.bounds), JobsWidth(44));
+        }
+        if (size.width <= 0 || size.height <= 0) return JobsClearColor;
+        _cor = [UIColor gradientCorDataMutArr:jobsMakeMutArr(^(__kindof NSMutableArray * _Nullable data) {
+            data.add(HEXCOLOR(0xFFEABA))
+                .add(HEXCOLOR(0xF2CD7A));
+        })
+                                   startPoint:CGPointZero
+                                     endPoint:CGPointZero
+                                       opaque:NO
+                               targetViewRect:(CGRect){CGPointZero, size}
+                              traitCollection:self.traitCollection];
+        _gradientSize = size;
+        _gradientScale = self.traitCollection.displayScale;
+    };return _cor;
+}
+
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_BEGIN BaiShaETProjPopupView10
+-(JobsRetBaiShaETProjPopupView10ByNSIntegerBlock _Nonnull)bySelectedIndex{
+    @jobs_weakify(self)
+    return ^__kindof BaiShaETProjPopupView10 * _Nullable(NSInteger data){
+        @jobs_strongify(self)
+        [self setSelectedIndex:data];
+        return self;
+    };
+}
+
+-(JobsRetBaiShaETProjPopupView10ByNSMutableArrayUIViewModelBlock _Nonnull)byDataMutArr{
+    @jobs_weakify(self)
+    return ^__kindof BaiShaETProjPopupView10 * _Nullable(NSMutableArray <UIViewModel *>* _Nullable data){
+        @jobs_strongify(self)
+        [self setDataMutArr:data];
+        return self;
+    };
+}
+// JOBS_PROPERTY_DSL_IMPLEMENTATION_AUTOGEN_END BaiShaETProjPopupView10
+
+@end

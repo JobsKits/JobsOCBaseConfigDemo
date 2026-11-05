@@ -25,7 +25,6 @@
 #import "UIView+Extra.h"
 #import "BaseLabel.h"
 #import "JobsOCDSL.h"
-
 #import "JobsModelDSL.h"
 #import "JobsMakes.h"
 #import "JobsLanMgr.h"

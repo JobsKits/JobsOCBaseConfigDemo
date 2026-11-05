@@ -16,7 +16,6 @@
 #define JOBS_HEADER_GUARD_YTKCHAINREQUEST_EXTRA_9150A4C912
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBlock.h"
 #import "JobsDefines.h"
 

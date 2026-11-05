@@ -72,6 +72,9 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
         .jobsRichElementsTableViewCellBy(self.jobsIMListMutArr[indexPath.row])
         .JobsBlock1(^(id _Nullable data) {;
         });
+#if DEBUG
+    cell.accessibilityIdentifier = [NSString stringWithFormat:@"jobs.coverage.open.JobsIMVC.%ld", (long)indexPath.row];
+#endif
     return cell.byAllowsMultipleSwipe(YES);
 }
 #pragma mark —— MGSwipeTableCellDelegate
@@ -164,7 +167,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                     .byUsernameStr(@"马化腾")
                     .byContentStr(@"晚上西藏饭店3楼喜马拉雅厅不见不散，到了电话")
                     .byTimeStr(@"22:54")
-                    .byUserHeaderIMG(UIImage.animatedGIFByName(@"动态头像_1 尺寸126"))
+                    .byUserHeaderIMG([UIImage animatedGIFByName:@"动态头像_1 尺寸126" traitCollection:self.traitCollection])
                     .byTransportKind(JobsIMTransportKindLANBonjourNetwork)
                     .byPeerOnlineState(JobsIMPeerOnlineStateOnlineForeground);
             })).add(jobsMakeIMListDataModel(^(__kindof JobsIMListDataModel * _Nullable model) {
@@ -173,7 +176,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                     .byUsernameStr(@"马云")
                     .byContentStr(@"刘总请再给我一次机会")
                     .byTimeStr(@"05:34")
-                    .byUserHeaderIMG(UIImage.animatedGIFByName(@"动态头像_2 尺寸126"))
+                    .byUserHeaderIMG([UIImage animatedGIFByName:@"动态头像_2 尺寸126" traitCollection:self.traitCollection])
                     .byTransportKind(JobsIMTransportKindNearbyMultipeer)
                     .byPeerOnlineState(JobsIMPeerOnlineStateOnlineForeground);
             })).add(jobsMakeIMListDataModel(^(__kindof JobsIMListDataModel * _Nullable model) {
@@ -182,7 +185,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                     .byUsernameStr(@"李嘉诚")
                     .byContentStr(@"小刘我很看好你，什么时候有空过来坐坐")
                     .byTimeStr(@"02:14")
-                    .byUserHeaderIMG(UIImage.animatedGIFByName(@"动态头像_1 尺寸126"))
+                    .byUserHeaderIMG([UIImage animatedGIFByName:@"动态头像_1 尺寸126" traitCollection:self.traitCollection])
                     .byTransportKind(JobsIMTransportKindLANBonjourNetwork)
                     .byPeerOnlineState(JobsIMPeerOnlineStateBackgroundMaybeOffline);
             })).add(jobsMakeIMListDataModel(^(__kindof JobsIMListDataModel * _Nullable model) {
@@ -191,7 +194,7 @@ accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath{
                     .byUsernameStr(@"蔚来卡地亚花园城营销小王")
                     .byContentStr(@"刘总给你留了一套独栋，什么时候有空过来办手续")
                     .byTimeStr(@"20:34")
-                    .byUserHeaderIMG(UIImage.animatedGIFByName(@"动态头像_2 尺寸126"))
+                    .byUserHeaderIMG([UIImage animatedGIFByName:@"动态头像_2 尺寸126" traitCollection:self.traitCollection])
                     .byTransportKind(JobsIMTransportKindNearbyMultipeer)
                     .byPeerOnlineState(JobsIMPeerOnlineStateOffline);
             }));

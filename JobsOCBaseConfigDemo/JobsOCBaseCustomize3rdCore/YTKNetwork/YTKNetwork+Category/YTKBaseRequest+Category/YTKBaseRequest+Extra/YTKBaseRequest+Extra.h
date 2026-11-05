@@ -17,7 +17,6 @@
 
 #import <objc/runtime.h>
 #import <Foundation/Foundation.h>
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsModelDSL.h"
 #import "JobsBlock.h"

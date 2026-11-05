@@ -21,7 +21,6 @@
 #import "NSMutableArray+Extra.h"
 #import "NSString+Extra.h"
 #import "NSString+Sys.h"
-
 #import "JobsMakes.h"
 #import "JobsModelDSL.h"
 #import "JobsOCDSL.h"

@@ -16,7 +16,6 @@
 #define JOBS_HEADER_GUARD_JOBSNAVBARCONFIG_E8E74A79B4
 
 #import <Foundation/Foundation.h>
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsAppToolsHeader.h"
 #import "JobsLanMgr.h"

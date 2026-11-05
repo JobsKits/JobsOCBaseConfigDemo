@@ -16,6 +16,7 @@
 #define JOBS_HEADER_GUARD_JOBSOCSEARCHVIEW_D42C6F7846
 
 #import <UIKit/UIKit.h>
+#import "UIButton+SimplyMake.h"
 
 #if __has_include(<JobsBlock/JobsBlock.h>)
 #import <JobsBlock/JobsBlock.h>
@@ -55,8 +56,7 @@ Prop_copy(readonly)NSArray <NSString *>*historySearches;
 -(jobsByVoidBlock _Nonnull)reloadHistorySearches;
 -(jobsByStrBlock _Nonnull)saveHistoryByText;
 -(jobsByStrBlock _Nonnull)deleteHistoryByText;
--(void)clearHistory;
--(jobsByVoidBlock _Nonnull)jobsClearHistory;
+-(jobsByVoidBlock _Nonnull)clearHistory;
 
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCSearcherView
 -(JobsRetJobsOCSearcherViewByMASConstraintBlock _Nonnull)byRecommendSectionHeightConstraint;

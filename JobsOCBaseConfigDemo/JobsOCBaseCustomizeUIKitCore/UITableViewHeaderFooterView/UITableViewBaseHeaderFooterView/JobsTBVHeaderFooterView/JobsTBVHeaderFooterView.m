@@ -6,7 +6,6 @@
 //
 
 #import "JobsTBVHeaderFooterView.h"
-
 #import "BaseButton.h"
 #import "UIButton+SimplyMake.h"
 #import "UIButton+Extra.h"

@@ -5,24 +5,12 @@
 //  Created by Jobs on 2026年6月25日，星期四.
 //
 
-#import <objc/message.h>
-
-#if __has_include(<JobsBlock/JobsBlock.h>)
-#import <JobsBlock/JobsBlock.h>
-#else
-#import "JobsBlock.h"
-#endif
-#import <ImageIO/ImageIO.h>
 #import "JobsOCRefreshConfig.h"
 
-#if __has_include(<lottie-ios/Lottie.h>)
-#import <lottie-ios/Lottie.h>
-#elif __has_include("Lottie.h")
-#import "Lottie.h"
-#endif
-
-#if __has_include(<JobsOCTimer/JobsTimer.h>)
-#import "JobsTimer.h"
+#if __has_include(<JobsBlock/JobsBlock.h>)
+#import "JobsBlock.h"
+#else
+#import "JobsBlock.h"
 #endif
 
 #if __has_include(<JobsMakes/JobsMakes.h>)
@@ -43,12 +31,6 @@
 #import "JobsDefines.h"
 #endif
 
-#if __has_include(<SDWebImage/SDWebImage.h>)
-#import <SDWebImage/SDWebImage.h>
-#else
-#import "SDWebImage.h"
-#endif
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JobsOCRefreshComponent : UIView
@@ -57,7 +39,7 @@ Prop_assign() JobsOCRefreshPosition position;
 Prop_assign() JobsOCRefreshRole role;
 Prop_strong() JobsOCRefreshConfig *config;
 Prop_assign(readonly) JobsOCRefreshState state;
-Prop_strong(readonly,nullable) id<JobsRefreshAnimatorProtocol> animator;
+Prop_strong(readonly) id<JobsRefreshAnimatorProtocol> animator;
 
 - (instancetype)initWithPosition:(JobsOCRefreshPosition)position
                             role:(JobsOCRefreshRole)role
@@ -72,12 +54,7 @@ Prop_strong(readonly,nullable) id<JobsRefreshAnimatorProtocol> animator;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN JobsOCRefreshComponent
 -(JobsRetJobsOCRefreshComponentByCGFloatBlock _Nonnull)byLastProgress;
 -(JobsRetJobsOCRefreshComponentByIDJobsRefreshAnimatorProtocolBlock _Nonnull)byAnimator;
--(JobsRetJobsOCRefreshComponentByJobsTimerBlock _Nonnull)byFrameTimer;
--(JobsRetJobsOCRefreshComponentByLOTAnimationViewBlock _Nonnull)byLottieView;
--(JobsRetJobsOCRefreshComponentByNSArrayUIImageBlock _Nonnull)byFrameImages;
 -(JobsRetJobsOCRefreshComponentByNSDateBlock _Nonnull)byLastRefreshedAt;
--(JobsRetJobsOCRefreshComponentByNSStringBlock _Nonnull)byCurrentLottieName;
--(JobsRetJobsOCRefreshComponentByNSUIntegerBlock _Nonnull)byFrameImageIndex;
 -(JobsRetJobsOCRefreshComponentByUIViewBlock _Nonnull)byAnimatorView;
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_END JobsOCRefreshComponent
 

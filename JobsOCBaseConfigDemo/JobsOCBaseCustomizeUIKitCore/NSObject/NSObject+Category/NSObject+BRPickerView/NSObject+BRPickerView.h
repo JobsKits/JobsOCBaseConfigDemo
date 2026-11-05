@@ -26,7 +26,6 @@
 #import <UIKit/UIKit.h>
 #import "BRPickerStyle+DSL.h"
 #import "BRTextPickerView+Extra.h"
-
 #import "JobsLanMgr.h"
 #import "JobsModelDSL.h"
 #import "JobsMakes.h"

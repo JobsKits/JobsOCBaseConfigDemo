@@ -23,7 +23,6 @@
 #import "MJRefreshBackGifFooter+Extra.h"
 #import "LOTAnimationMJRefreshHeader.h"
 #import "LOTAnimationMJRefreshFooter.h"
-
 #import "JobsBaseProtocolHeader.h"
 
 #endif /* MJRefreshExtra_h */

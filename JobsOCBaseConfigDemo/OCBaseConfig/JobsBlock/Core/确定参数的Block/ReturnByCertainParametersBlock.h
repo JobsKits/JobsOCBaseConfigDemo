@@ -129,6 +129,7 @@ typedef id _Nullable(^JobsRetIDByFrameBlock)(CGRect frame);
 typedef id _Nullable(^JobsRetIDByCGPointBlock)(CGPoint point);
 typedef id _Nullable(^JobsRetIDByCGFloatBlock)(CGFloat data);
 typedef id _Nullable(^JobsRetIDByIDBlock)(id _Nullable data);
+typedef __kindof NSObject *_Nullable(^JobsRetNSObjectByIDBlock)(id _Nullable data);
 typedef id _Nullable(^JobsRetIDByStrBlock)(__kindof NSString *_Nullable data);
 typedef id _Nonnull(^JobsRetIDBySaltStrBlock)(__kindof NSString *_Nullable salt);
 typedef id<CAAction> _Nullable(^JobsRetCAActionByStringBlock)(NSString *_Nullable key);
@@ -913,6 +914,7 @@ typedef __kindof UIViewController *_Nullable(^JobsRetVCByUIEdgeInsetsBlock)(UIEd
 typedef __kindof UIViewController *_Nullable(^JobsRetVCByIDBlock)(id _Nullable data);
 typedef __kindof UIViewController *_Nullable(^JobsRetVCByBarButtonItemsBlock)(NSArray<UIBarButtonItem *> *_Nullable data);
 typedef __kindof UINavigationItem *_Nullable(^JobsRetNavigationItemByBarButtonItemsBlock)(NSArray<UIBarButtonItem *> *_Nullable data);
+typedef __kindof UINavigationItem *_Nullable(^JobsRetUINavigationItemByNSStringBlock)(NSString *_Nullable data);
 typedef __kindof UIViewController *_Nullable(^JobsRetVCByViewBlock)(__kindof UIView *_Nonnull view);
 typedef __kindof UIViewController *_Nullable(^JobsRetVCByNSLayoutAttributeBlock)(NSLayoutAttribute data);
 typedef __kindof UIViewController *_Nullable(^JobsRetVCByVCBlock)(__kindof UIViewController *_Nonnull vc);
@@ -1869,12 +1871,7 @@ typedef __kindof JobsOCMarkdownView * _Nullable(^JobsRetJobsOCMarkdownViewByBOOL
 typedef __kindof JobsOCMarkdownView * _Nullable(^JobsRetJobsOCMarkdownViewByJobsOCMarkdownConfigurationBlock)(JobsOCMarkdownConfiguration * _Nullable data);
 typedef __kindof JobsOCRefreshComponent * _Nullable(^JobsRetJobsOCRefreshComponentByCGFloatBlock)(CGFloat data);
 typedef __kindof JobsOCRefreshComponent * _Nullable(^JobsRetJobsOCRefreshComponentByIDJobsRefreshAnimatorProtocolBlock)(id<JobsRefreshAnimatorProtocol> _Nullable data);
-typedef __kindof JobsOCRefreshComponent * _Nullable(^JobsRetJobsOCRefreshComponentByJobsTimerBlock)(JobsTimer * _Nullable data);
-typedef __kindof JobsOCRefreshComponent * _Nullable(^JobsRetJobsOCRefreshComponentByLOTAnimationViewBlock)(LOTAnimationView * _Nullable data);
-typedef __kindof JobsOCRefreshComponent * _Nullable(^JobsRetJobsOCRefreshComponentByNSArrayUIImageBlock)(NSArray<UIImage *> * _Nullable data);
 typedef __kindof JobsOCRefreshComponent * _Nullable(^JobsRetJobsOCRefreshComponentByNSDateBlock)(NSDate * _Nullable data);
-typedef __kindof JobsOCRefreshComponent * _Nullable(^JobsRetJobsOCRefreshComponentByNSStringBlock)(NSString * _Nullable data);
-typedef __kindof JobsOCRefreshComponent * _Nullable(^JobsRetJobsOCRefreshComponentByNSUIntegerBlock)(NSUInteger data);
 typedef __kindof JobsOCRefreshComponent * _Nullable(^JobsRetJobsOCRefreshComponentByUIViewBlock)(UIView * _Nullable data);
 typedef __kindof JobsOCRefreshProxy * _Nullable(^JobsRetJobsOCRefreshProxyByBOOLBlock)(BOOL data);
 typedef __kindof JobsOCRefreshSlot * _Nullable(^JobsRetJobsOCRefreshSlotByBOOLBlock)(BOOL data);

@@ -16,7 +16,6 @@
 #define JOBS_HEADER_GUARD_UIIMAGEVIEW_RAC_B870A94458
 
 #import <UIKit/UIKit.h>
-
 #import "JobsBlock.h"
 #import "JobsDefines.h"
 

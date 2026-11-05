@@ -6,6 +6,7 @@
 //
 
 #import "JXCategoryViewWithHeaderViewVC.h"
+#import "../../../../Common/App工具类/测试支持/JobsOCCoverageGestureProbe/JobsOCCoverageGestureProbe.h"
 
 @interface JXCategoryViewWithHeaderViewVC ()
 
@@ -342,9 +343,12 @@ mainTableViewDidScroll:(UIScrollView *)scrollView{
                 if (self.objBlock) self.objBlock(x);
                 toastBy(@"VIP規則".jobsTr());
             }).onLongPressGestureBy(^(id data){
+                JobsOCCoverageLongPressDelivered(data);
                 JobsLog(@"");
             });
-    };return _ruleBtn;
+    }
+    JobsOCCoveragePrepareLongPressButton(_ruleBtn, @"jobs.coverage.longPress.JXCategoryViewWithHeaderViewVC.ruleBtn");
+    return _ruleBtn;
 }
 
 -(NSMutableArray<NSString *>*)titleMutArr{

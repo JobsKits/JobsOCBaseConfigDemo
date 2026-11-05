@@ -17,7 +17,6 @@
 
 #import <UIKit/UIKit.h>
 #import "JobsTabBarSettingVC.h"
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsBasePopupViewHeader.h"
 #import "JobsMakes.h"
@@ -31,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BaseViewController : JobsTabBarSettingVC <BaseViewControllerProtocol>
 
 -(JobsRetBaseViewControllerByNSUIntegerBlock _Nonnull)byJobsTag;
+-(BOOL)jobs_requiresDefaultNavigationBar;
+-(JobsRetBOOLByVoidBlock _Nonnull)jobsJobs_requiresDefaultNavigationBar;
 
 // JOBS_PROPERTY_DSL_DECLARATION_AUTOGEN_BEGIN BaseViewController
 -(JobsRetBaseViewControllerByBOOLBlock _Nonnull)byLoadView;

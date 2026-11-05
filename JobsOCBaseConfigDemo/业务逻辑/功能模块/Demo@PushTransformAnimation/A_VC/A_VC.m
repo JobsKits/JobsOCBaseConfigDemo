@@ -6,7 +6,6 @@
 //
 
 #import "A_VC.h"
-
 #import "B_VC.h"
 #import "PushAnimation.h"
 #import "MyFansTBVCell.h"

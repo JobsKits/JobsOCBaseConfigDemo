@@ -6,7 +6,6 @@
 //
 
 #import "NSObject+UsrInfo.h"
-
 #import "JobsUserModel.h"
 #import "NSMutableSet+Extra.h"
 

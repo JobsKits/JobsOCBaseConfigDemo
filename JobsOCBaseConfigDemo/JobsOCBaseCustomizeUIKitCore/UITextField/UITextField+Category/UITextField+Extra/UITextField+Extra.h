@@ -22,7 +22,6 @@
 #import "JobsString.h"
 #import "NSString+Check.h"
 #import "JobsOCDSL.h"
-
 #import "JobsLanMgr.h"
 #import "JobsBlock.h"
 #import "JobsDefines.h"

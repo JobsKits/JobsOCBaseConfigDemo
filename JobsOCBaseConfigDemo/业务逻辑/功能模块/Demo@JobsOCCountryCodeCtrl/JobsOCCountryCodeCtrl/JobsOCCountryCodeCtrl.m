@@ -401,7 +401,14 @@ numberOfRowsInSection:(NSInteger)section {
                     .byTextCor(JobsSecondaryLabelColor);
             })
             .bySelectionStyle(UITableViewCellSelectionStyleNone);
-    };return cell
+    }
+#if DEBUG
+    if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+        NSString *code = [self showCodeStringIndex:indexPath jieQue:NO];
+        cell.accessibilityIdentifier = [code isEqualToString:@"33"] ? @"jobs.coverage.country.row.33" : nil;
+    }
+#endif
+    return cell
         .byTextLabel(^(__kindof UILabel * _Nullable label) {
             NSString *countryName = [self showCodeStringIndex:indexPath jieQue:YES];
             label.byAttributedText([self.class jobs_countryNameAttributedTextByCountryName:countryName
@@ -471,7 +478,13 @@ didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
                     make.top.equalTo(self.view).offset(isiPhoneX_series() ? 84 : 64);
                 });
         });
-    };return _tableView;
+    }
+#if DEBUG
+    if ([NSProcessInfo.processInfo.arguments containsObject:@"--jobs-coverage-route"]) {
+        _tableView.accessibilityIdentifier = @"jobs.coverage.country.list";
+    }
+#endif
+    return _tableView;
 }
 
 -(NSDictionary *)sortedNameDict{

@@ -80,7 +80,6 @@
 #import "UICollectionViewFlowLayout+Extra.h"
 #import "UIAlertAction+Extra.h"
 #import "UIAlertController+Extra.h"
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsTimeUtils.h"
 #import "WHToastExtra.h"

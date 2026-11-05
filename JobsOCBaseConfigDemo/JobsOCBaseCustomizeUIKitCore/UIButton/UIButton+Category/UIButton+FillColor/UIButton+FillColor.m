@@ -29,12 +29,11 @@ JobsKey(kUIButtonTitleNameKey)
     return ^UIImage *(UIColor * color){
         if (!color) { return nil; }
         CGRect rect = CGRectMake(0, 0, 1, 1);
-        UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0.0);
-        CGContextRef ctx = UIGraphicsGetCurrentContext();
-        CGContextSetFillColorWithColor(ctx, color.CGColor);
-        CGContextFillRect(ctx, rect);
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage *image = JobsRenderImage(rect.size, NO, 0.0, ^(CGContextRef jobsDrawingContext) {
+            CGContextRef ctx = jobsDrawingContext;
+            CGContextSetFillColorWithColor(ctx, color.CGColor);
+            CGContextFillRect(ctx, rect);
+        });
         // 可拉伸，避免某些情况下的边缘采样问题
         return [image resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeStretch];
     };

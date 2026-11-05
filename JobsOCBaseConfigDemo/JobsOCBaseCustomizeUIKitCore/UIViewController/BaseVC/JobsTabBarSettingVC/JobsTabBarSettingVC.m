@@ -6,7 +6,6 @@
 //
 
 #import "JobsTabBarSettingVC.h"
-
 #import "NSObject+AppTools.h"
 
 @interface JobsTabBarSettingVC ()

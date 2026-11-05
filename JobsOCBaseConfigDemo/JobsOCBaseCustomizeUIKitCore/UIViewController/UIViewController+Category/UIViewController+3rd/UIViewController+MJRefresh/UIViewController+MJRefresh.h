@@ -24,7 +24,6 @@
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
 #import "NSObject+Extra.h"
-
 #import "JobsBaseUI.h"
 #import "JobsModelDSL.h"
 #import "MJRefreshExtra.h"

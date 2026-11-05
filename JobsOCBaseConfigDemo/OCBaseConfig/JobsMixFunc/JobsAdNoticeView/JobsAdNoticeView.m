@@ -1,8 +1,8 @@
 //
 //  JobsAdNoticeView.m
-//  JobsOCBaseConfigDemo
+//  JobsAdNoticeView
 //
-//  Created by Jobs on 2020/11/15.
+//  Created by Jobs on 2020年11月15日，星期日.
 //
 
 #import "JobsAdNoticeView.h"
@@ -18,19 +18,24 @@ Prop_strong()UILabel *adNoticeLab;
 -(instancetype)init{
     if (self = [super init]) {
         self.byBgColor(JobsCyanColor);
-    };return self;
+    }
+    return self;
 }
 
 -(void)drawRect:(CGRect)rect{
     jobsByFrameBlock action = ((jobsByFrameBlock (*)(__typeof__(self), SEL))JobsBlockInstanceMethodIMP(JobsAdNoticeView.class, @selector(jobsDrawRect)))(self, @selector(jobsDrawRect));
-    if (action) action(rect);
+    if (action) {
+        action(rect);
+    }
 }
 
 -(jobsByFrameBlock _Nonnull)jobsDrawRect{
     @jobs_weakify(self)
     return ^(CGRect rect){
         @jobs_strongify(self)
-        if (!self) return;
+        if (!self) {
+            return;
+        }
         [super drawRect:rect];
     };
 }
@@ -48,7 +53,7 @@ Prop_strong()UILabel *adNoticeLab;
         return CGSizeMake(JobsMainScreen_WIDTH(), 30);
     };
 }
-#pragma mark —— lazyLoad
+#pragma mark —— LazyLoad
 -(UILabel *)adNoticeLab{
     if (!_adNoticeLab) {
         @jobs_weakify(self)
@@ -59,12 +64,14 @@ Prop_strong()UILabel *adNoticeLab;
                 .byTextColor(JobsRedColor)
                 .byTextAlignment(NSTextAlignmentCenter)
                 .byFont(UIFontWeightRegularSize(JobsWidth(12)))
-                .byBackgroundColor(JobsClearColor);
-            [self.addSubview(label) mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.edges.equalTo(self);
-            }];
+                .byBackgroundColor(JobsClearColor)
+                .addOn(self)
+                .byAdd(^(MASConstraintMaker *make) {
+                    make.edges.equalTo(self);
+                });
         });
-    };return _adNoticeLab;
+    }
+    return _adNoticeLab;
 }
 
 @end

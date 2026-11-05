@@ -18,7 +18,6 @@
 #import <UIKit/UIKit.h>
 #import "UIView+Refresh.h"
 #import "UITableViewCell+UITableViewCellProtocol.h"
-
 #import "JobsBaseProtocolHeader.h"
 #import "JobsOCDSL.h"
 #import "JobsMakes.h"
