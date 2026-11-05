@@ -38,6 +38,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
+      - name: Verify explicit source membership
+        timeout-minutes: 2
+        run: |
+          ruby .github/tests/ProjectMembership/regression.rb/regression.rb
+          ruby .github/tests/ProjectMembership/validate_membership.rb/validate_membership.rb
+
       - name: Select Xcode 27.1 SDK
         run: |
           diagnostics_path="${RUNNER_TEMP}/BuildDiagnostics"

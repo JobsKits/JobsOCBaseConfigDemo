@@ -72,4 +72,7 @@
 "/ScriptsByPods/【MacOS】🔍查询Xcode工程依赖关系.command/Tests/network_regression.rb/README.md" filter=jobs-markdown-toc
 "/ScriptsByDevTools/【MacOS】🧪iOS自动巡检.command/Coverage/README.md" filter=jobs-markdown-toc
 "/ScriptsByDevTools/【MacOS】🧪iOS自动巡检.command/Coverage/CoverageTool.swift/README.md" filter=jobs-markdown-toc
+"/.github/tests/ProjectMembership/README.md" filter=jobs-markdown-toc
+"/.github/tests/ProjectMembership/validate_membership.rb/README.md" filter=jobs-markdown-toc
+"/.github/tests/ProjectMembership/regression.rb/README.md" filter=jobs-markdown-toc
 # jobs-markdown-toc:end

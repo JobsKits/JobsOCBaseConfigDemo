@@ -166,6 +166,8 @@ Prop_assign() BOOL mirrorFrontPreview;
         AVCaptureConnection *connection = self.previewLayer.connection;
         if (!connection) return;
         AVCaptureVideoOrientation orientation = self.captureVideoOrientationByDeviceOrientation(deviceOrientation);
+        // 运行时判断不能补齐旧 SDK 未声明的接口，编译时也要排除。
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 270000
         if (@available(iOS 27.0, *)) {
             AVCaptureDevice *device = self.videoInput.device;
             if (device) {
@@ -176,7 +178,9 @@ Prop_assign() BOOL mirrorFrontPreview;
                     connection.videoRotationAngle = angle;
                 }
             }
-        } else {
+        } else
+#endif
+        {
             // 27 才提供按指定方向且适配传感器的角度；旧系统保留相同的逻辑方向语义。
             SuppressWdeprecatedDeclarationsWarning(if (connection.isVideoOrientationSupported) {
                 connection.byVideoOrientation(orientation);

@@ -910,7 +910,7 @@
 				JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsNetWorkTools/JobsNetWorkTools.m,
 				JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsOnceExecutor/JobsOnceExecutor.m,
 				JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsSEL_IMP/JobsSEL_IMP.m,
-				JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsTimer/JobsTimer.m,
+				JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsTImer/JobsTimer.m,
 				JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsTimerManager/JobsTimerManager.m,
 				JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/JobsTuple/JobsTuple.m,
 				JobsOCBaseCustomizeUIKitCore/NSObject/BaseObject/This/This.m,
@@ -975,7 +975,7 @@
 				"JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+UserInfo/NSObject+UserInfo.m",
 				"JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+UserNotifications/NSObject+UserNotifications.m",
 				"JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Category/NSObject+UsrInfo/NSObject+UsrInfo.m",
-				"JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+Image/NSObject+Image.m",
+				"JobsOCBaseCustomizeUIKitCore/NSObject/NSObject+image/NSObject+Image.m",
 				"JobsOCBaseCustomizeUIKitCore/NSObject/This+Category/This+URLManager_Base.m",
 				"JobsOCBaseCustomizeUIKitCore/NSPointerArray/NSPointerArray+Extra/NSPointerArray+Extra.m",
 				"JobsOCBaseCustomizeUIKitCore/NSRegularExpression/NSRegularExpression+Extra.m",
@@ -1646,7 +1646,7 @@
 				OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/UITabBar/BaseTabBar/JobsTabBar/JobsTabBar.m,
 				"OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+Ex/UITabBar+Ex.m",
 				"OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/UITabBar/UITabBar+Category/UITabBar+TLAnimation/UITabBar+TLAnimation.m",
-				OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/UITabBarController/BaseTabBarController/JobsTabBarVC/JobsTabBarVC.m,
+				OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/UITabBarController/BaseTabBarController/JobsTabbarVC/JobsTabBarVC.m,
 				OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/UITabBarItem/BaseTabBarItem/JobsTabBarItem/JobsTabBarItem.m,
 				"OCBaseConfig/JobsMixFunc/UITabBarCtr/UITabBarCtrExtra/UITabBarItem/UITabBarItem+Category/UITabBarItem+TLAnimation/UITabBarItem+TLAnimation.m",
 				OCBaseConfig/JobsOCDefs/Core/JobsDefines/JobsDefineConstString/JobsDefineConstString.m,
@@ -1787,6 +1787,12 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		8C97E35649AEE21DE467332A /* CI Tests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			name = "CI Tests";
+			path = .github/tests;
+			sourceTree = SOURCE_ROOT;
+		};
 		C51D9D1E30124DF400ACBEEE /* JobsOCWidgetExtension */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -2124,6 +2130,7 @@
 			children = (
 				C55C797F2E16749000B56985 /* JobsOCBaseConfigDemoTests */,
 				C55C79892E16749000B56985 /* JobsOCBaseConfigDemoUITests */,
+				8C97E35649AEE21DE467332A /* CI Tests */,
 				2618FD04E8F2B2C9CC7A1224 /* 脚本回归 */,
 				0ECEE73415DDB022E90F4823 /* 测试宿主支持 */,
 			);

@@ -691,6 +691,10 @@ Pod 编译前后通过[只读诊断脚本](https://github.com/JobsKits/JobsOCBas
 
 `main` 主 App 的 Debug / Release 均启用 `GCC_PRECOMPILE_PREFIX_HEADER=YES`，让现有大型前缀头先生成 PCH，再供各源码文件复用，避免每个翻译单元重复解析同一套 Jobs / SDK 声明并重复输出头文件警告。配置保留原前缀头、依赖和编译覆盖；本地已验证两配置实际产生 Objective-C / C `ProcessPCH`，并完成代表性主工程 `CompileC`。这是局部编译验证，完整链接、产物打包及最新提交的云端 workflow 仍以真实运行结果为准。
 
+`main` 在安装依赖前运行[源码成员校验](./.github/tests/ProjectMembership/README.md)，将同步组逐项启用的源码路径与 `git ls-files -z` 精确对账，包括目录大小写；本机文件存在不能代替 Git 清单匹配。`JobsTImer`、`JobsTabbarVC`、`NSObject+image` 的工程路径保留 Git 已跟踪的真实拼写，避免新克隆时漏编 `JobsTimer`、`JobsTabBarVC` 或图片分类。检查失败立即停止，原有第三方与资源成员范围保持不变。
+
+`JobsOCVideoRecorder` 的预览方向同时判断编译 SDK 和运行系统：SDK 至少为 iOS 27 时才编译 `videoRotationAngleRelativeToDeviceOrientation:`，并在 iOS 27 及以上运行时使用它；旧 SDK 或旧系统沿用原有 `videoOrientation` 逻辑，保留前置镜像处理。无需提高最低部署版本或切换 CI 工具链。
+
 `byPods` 主 App 的 Debug / Release 同样启用 `GCC_PRECOMPILE_PREFIX_HEADER=YES`，复用现有前缀头，不修改 Pod target 或头文件正文。主 App 阶段显式保留每配置 1800 秒的构建期限，外层步骤设为 65 分钟，覆盖两个配置及指纹、静态审计和进程回收开销；避免用单个配置的 30 分钟期限截断整个双配置阶段。两配置的实际编译与打包仍须通过完整 CI 验收。
 
 打包固定选择 `${products_dir}/${SCHEME}.app`，并校验 `Info.plist`、非测试 Runner 的 Bundle ID、主可执行名称及文件存在，避免按目录枚举顺序误选其它 `.app`。主 App 缺失或身份不匹配时直接失败。

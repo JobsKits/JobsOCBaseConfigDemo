@@ -72,6 +72,9 @@
     "ScriptsByPods/【MacOS】codegraph_init.command/Tests/network_regression.rb/README.md",
     "ScriptsByPods/【MacOS】🔍查询Xcode工程依赖关系.command/Tests/network_regression.rb/README.md",
     "ScriptsByDevTools/【MacOS】🧪iOS自动巡检.command/Coverage/README.md",
-    "ScriptsByDevTools/【MacOS】🧪iOS自动巡检.command/Coverage/CoverageTool.swift/README.md"
+    "ScriptsByDevTools/【MacOS】🧪iOS自动巡检.command/Coverage/CoverageTool.swift/README.md",
+    ".github/tests/ProjectMembership/README.md",
+    ".github/tests/ProjectMembership/validate_membership.rb/README.md",
+    ".github/tests/ProjectMembership/regression.rb/README.md"
   ]
 }
